@@ -1,116 +1,281 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5A234404F;
-	Tue,  7 Jul 2026 14:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB5C383994;
+	Tue,  7 Jul 2026 14:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783433504; cv=none; b=crvAigkBRVyNP8F8liQ3aSk+4Ot8jrBLB7iyM/Z68oOaq0RrkmH4DitGgTRMG0iJLVr7a2o21o8mWh54vxwjMZioPZIdeoZcO2j+OSw6kCUEmF6tcGPkQ8LlLBeyDJELOesPHD6wPum853rdv/frlK7weySCowWyhLuNucS/Hh0=
+	t=1783433513; cv=none; b=IYsnpzt0JxQ18fnfIbTsiB1NgtE3wQWL2XBYZL1E90Z7zpjw9MrFzqBrIAcgk4kJsC6vbu7g8G2NnNtMMVDAEEN5XkRLu0eciUzkkeiSPKK1Zzb97MEVAL5FLnWXcawXGalGJEV9qzIdS3t8Nmi35niZlOl30+/KR7dHTJt9NmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783433504; c=relaxed/simple;
-	bh=tLKpu6iMm9AbICbbBjq+D5Jx5mXRs6tTz1gGq3C0PBA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LbFLj5DgHAvqvNc+EmLb+l/5ObdJVKjMzK2unxUBXAeMShbskQJ8M2xwWH8HdKUl/emAoJHHw0XWU4CWBrnY/bqJOHPgjGz+R87XzFN0QoVeCWTuoNKNWA5Tsot5I+b/8hYvP9+jDhSUgwiByXs5gEkv6Wy2xWmRT9j0W2uiIc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KIIAVhQL; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KIIAVhQL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76F61F00A3E;
-	Tue,  7 Jul 2026 14:11:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783433500;
-	bh=maxRYiGuvp3sk94iMBSr3HRC125ilQL8m9e/yyGjfeA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KIIAVhQLOJ7397SssCcXiHVSdL6tx/XNqk3SbED8xhv7Fc1VjuLrnhouLp3XXV63p
-	 KErkYVtjVOR5dY+3HhKDViWREHeWvXIh6tzxRnb3cKY0J4+z+dM8BcW4Te0Q+kGPbM
-	 S4jCtA1gd6wXNACIDHuHPQIQtRfM7sCvevsBu2fYaxZVTm0jZhQyJUaULnKZbCLNh2
-	 k3XmeitDRWlG5smdkZWxv5aX4aNip/ba1V3E3XBwg74uDWjumVRZY3AWbW8omlaNws
-	 8TByuiPPRwCLpECyxqz4Q5Fr/Lop1UqIiFMLk3Cl0hTqO9tlfWl40SZWW7z+T7HUOK
-	 G/DM2QIyc0L6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v12 4/7] net: stmmac: qcom-ethqos: set serdes
- mode before powerup
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-sunxi@lists.linux.dev, imx@lists.linux.dev, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260706-qcom-sa8255p-emac-v12-4-e3ab1ecf2901@oss.qualcomm.com>
-References: <20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com>
- <20260706-qcom-sa8255p-emac-v12-4-e3ab1ecf2901@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 14:11:38 +0000
-Message-Id: <20260707141138.D76F61F00A3E@smtp.kernel.org>
+	s=arc-20240116; t=1783433513; c=relaxed/simple;
+	bh=Qw+DDNMPifPgLVRQbdGaymOOKrgVAVwhIDLS55Of8sY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ObJq7zldPWc2lcxRXmmrD093WaVcf/5H61qVCCf9QUIoXCXu7txPTb1ieyRJdibagxAaJjQZyzUQ/04/HQVGZQZad8qV1QseCAfCFEnS/FBrdv2IE+Bskh/vUhyJbURdXmZJI7uCFS8h1ZV7XtziV3uU5lrDOVtCl3+j/wTVOFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id D11A3370033C;
+	Tue,  7 Jul 2026 14:11:12 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id CF2B0AE5EC7; Tue,  7 Jul 2026 14:11:06 +0000 (UTC)
+X-Spam-Level: 
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 6816EAE5EBF;
+	Tue,  7 Jul 2026 14:10:55 +0000 (UTC)
+Date: Tue, 7 Jul 2026 16:10:52 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Alexey Brodkin <abrodkin@synopsys.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Eddie James <eajames@linux.ibm.com>,
+	Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+	Houlong Wei <houlong.wei@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ge Gordon <gordon.ge@bst.ai>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Shengjiu Wang <shengjiu.wang@gmail.com>,
+	Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Peter Chen <peter.chen@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+	Fabio Estevam <festevam@gmail.com>,
+	Nicolin Chen <nicoleotsuka@gmail.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
+	kernel@collabora.com, linux-tegra@vger.kernel.org,
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	imx@lists.linux.dev, sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH 08/42] drm: logicvc: Use
+ devm_of_reserved_mem_device_init()
+Message-ID: <ak0I7AbfFITG1nyi@shepard>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+ <20260703193855.110619-9-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ThTwSIZV2a2cCNSQ"
+Content-Disposition: inline
+In-Reply-To: <20260703193855.110619-9-mukesh.ojha@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Calling phy_set_mode_ext() with statically cached ethqos->phy_mode=
- ignores dynamic phylink interface changes, leading to incorrect PHY perfor=
-mance state.
---
+--ThTwSIZV2a2cCNSQ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 1aa35b54e2c1e3097800bf61ac8665f69589631f
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Hi Mukesh,
 
-net: stmmac: qcom-ethqos: set serdes mode before powerup
+On Sat 04 Jul 26, 01:08, Mukesh Ojha wrote:
+> Switch to devm_of_reserved_mem_device_init() so the reserved memory
+> region is released automatically on probe failure or device unbind.
+> Replace all error paths that jumped to error_reserved_mem: with
+> error_early: since the manual cleanup label is no longer needed, and
+> remove the explicit of_reserved_mem_device_release() call in the remove
+> function.
+>=20
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-Call phy_set_mode_ext() before phy_power_on() in
-qcom_ethqos_serdes_powerup(). This is done ahead of adding support for the
-firmware-managed EMAC on Qualcomm sa8255p.
+Looks good to me, thanks!
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -601,10 +601,19 @@ static int qcom_ethqos_serdes_powerup(struct net_de=
-vice *ndev, void *priv)
->  	if (ret)
->  		return ret;
+Reviewed-by: Paul Kocialkowski <paulk@sys-base.io>
+Acked-by: Paul Kocialkowski <paulk@sys-base.io>
+
+All the best,
+
+Paul
+
+> ---
+>  drivers/gpu/drm/logicvc/logicvc_drm.c | 21 ++++++++-------------
+>  1 file changed, 8 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/logicvc/logicvc_drm.c b/drivers/gpu/drm/logi=
+cvc/logicvc_drm.c
+> index bbebf4fc7f51..d6dbe52ff0a9 100644
+> --- a/drivers/gpu/drm/logicvc/logicvc_drm.c
+> +++ b/drivers/gpu/drm/logicvc/logicvc_drm.c
+> @@ -306,7 +306,7 @@ static int logicvc_drm_probe(struct platform_device *=
+pdev)
+>  	int irq;
+>  	int ret;
 > =20
-> +	ret =3D phy_set_mode_ext(ethqos->serdes_phy, PHY_MODE_ETHERNET,
-> +			       ethqos->phy_mode);
-
-[Severity: High]
-Does this ignore dynamic phylink interface changes by always using the
-statically cached ethqos->phy_mode?
-
-At probe, ethqos->phy_mode is statically assigned from the device tree.
-On interface up, stmmac_open() calls qcom_ethqos_serdes_powerup(), which
-calls phy_set_mode_ext() and then phy_power_on().
-
-Later, when phylink resolves the link and dynamically switches the interfac=
-e,
-it calls ethqos_mac_finish_serdes() which calls phy_set_mode_ext() with the
-new dynamically negotiated interface mode. However, because the PHY is alre=
-ady
-powered on, the SCMI PHY driver caches the new performance state but never
-applies it to the hardware.
-
-If the user subsequently toggles the interface (ip link set eth0 down/up),
-qcom_ethqos_serdes_powerup() is called again. Will this pass the stale, sta=
-tic
-ethqos->phy_mode instead of the current phylink mode, thereby reverting the=
- PHY
-to the wrong configuration and applying the wrong performance state?
-
-> +	if (ret)
-> +		goto err_out;
-> +
->  	ret =3D phy_power_on(ethqos->serdes_phy);
->  	if (ret)
-> -		phy_exit(ethqos->serdes_phy);
-> +		goto err_out;
+> -	ret =3D of_reserved_mem_device_init(dev);
+> +	ret =3D devm_of_reserved_mem_device_init(dev);
+>  	if (ret && ret !=3D -ENODEV) {
+>  		dev_err(dev, "Failed to init memory region\n");
+>  		goto error_early;
+> @@ -327,14 +327,14 @@ static int logicvc_drm_probe(struct platform_device=
+ *pdev)
+>  		ret =3D of_address_to_resource(of_node, 0, &res);
+>  		if (ret) {
+>  			dev_err(dev, "Failed to get resource from address\n");
+> -			goto error_reserved_mem;
+> +			goto error_early;
+>  		}
 > =20
-> +	return 0;
-> +
-> +err_out:
-> +	phy_exit(ethqos->serdes_phy);
+>  		base =3D devm_ioremap_resource(dev, &res);
+>  		if (IS_ERR(base)) {
+>  			dev_err(dev, "Failed to map I/O base\n");
+>  			ret =3D PTR_ERR(base);
+> -			goto error_reserved_mem;
+> +			goto error_early;
+>  		}
+> =20
+>  		logicvc_drm_regmap_config.max_register =3D resource_size(&res) -
+> @@ -345,21 +345,21 @@ static int logicvc_drm_probe(struct platform_device=
+ *pdev)
+>  		if (IS_ERR(regmap)) {
+>  			dev_err(dev, "Failed to create regmap for I/O\n");
+>  			ret =3D PTR_ERR(regmap);
+> -			goto error_reserved_mem;
+> +			goto error_early;
+>  		}
+>  	}
+> =20
+>  	irq =3D platform_get_irq(pdev, 0);
+>  	if (irq < 0) {
+>  		ret =3D -ENODEV;
+> -		goto error_reserved_mem;
+> +		goto error_early;
+>  	}
+> =20
+>  	logicvc =3D devm_drm_dev_alloc(dev, &logicvc_drm_driver,
+>  				     struct logicvc_drm, drm_dev);
+>  	if (IS_ERR(logicvc)) {
+>  		ret =3D PTR_ERR(logicvc);
+> -		goto error_reserved_mem;
+> +		goto error_early;
+>  	}
+> =20
+>  	platform_set_drvdata(pdev, logicvc);
+> @@ -371,7 +371,7 @@ static int logicvc_drm_probe(struct platform_device *=
+pdev)
+>  	caps =3D logicvc_drm_caps_match(logicvc);
+>  	if (!caps) {
+>  		ret =3D -EINVAL;
+> -		goto error_reserved_mem;
+> +		goto error_early;
+>  	}
+> =20
+>  	logicvc->caps =3D caps;
+> @@ -382,7 +382,7 @@ static int logicvc_drm_probe(struct platform_device *=
+pdev)
+>  	ret =3D logicvc_clocks_prepare(logicvc);
+>  	if (ret) {
+>  		drm_err(drm_dev, "Failed to prepare clocks\n");
+> -		goto error_reserved_mem;
+> +		goto error_early;
+>  	}
+> =20
+>  	ret =3D devm_request_irq(dev, irq, logicvc_drm_irq_handler, 0,
+> @@ -450,9 +450,6 @@ static int logicvc_drm_probe(struct platform_device *=
+pdev)
+>  error_clocks:
+>  	logicvc_clocks_unprepare(logicvc);
+> =20
+> -error_reserved_mem:
+> -	of_reserved_mem_device_release(dev);
+> -
+>  error_early:
 >  	return ret;
 >  }
+> @@ -469,8 +466,6 @@ static void logicvc_drm_remove(struct platform_device=
+ *pdev)
+>  	logicvc_mode_fini(logicvc);
+> =20
+>  	logicvc_clocks_unprepare(logicvc);
+> -
+> -	of_reserved_mem_device_release(dev);
+>  }
+> =20
+>  static void logicvc_drm_shutdown(struct platform_device *pdev)
+> --=20
+> 2.53.0
+>=20
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-qcom-sa825=
-5p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com?part=3D4
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--ThTwSIZV2a2cCNSQ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmpNCOwACgkQhP3B6o/u
+lQyaPQ//f4pAYoEPe2VkBx5ziaC0VkGALJ8pMaCBZzEG6pnd2z1UBPK8Y2xJLlQP
+5bkyAxCQjpN0fwzwtB+kdA0jp2iokJqDThaLYoql9R0Qvj2DyOy7x+SwRqbRzdyJ
+npZtxXLCuF9oXL4YlUHBVPkgL9WsGf2cMpqkXAI/iPd0K+9zBfxT48xlRnuslCQF
+gwlVwkghlca2EFVG0f4q4HVkGRcFkAM9pYpKZD4B4iS89SwzHmJo44SZWV0CsWfe
+ysY5SERP+XL8EbiVlQxCWyqo9Yb//Ikc/EuIWFPMzPW7hp4ZTzjzYaRtVdWEM3Or
+GQ8uFNoXZfWHzfBpHk1Ewfdr7JBtXM0vPIh650GS2SCdGaCS0Ud2UUv7QZdSluel
+uGrsM82ZQ6ts4V8ct1O/dWG7TwYnc8BaFADG90JdKck+zb3fRnQ07aTNrF/bRDU1
+gcnN0yfM/zPIZAc7GA+4Stzok5c+bj2Sb849b5S5g6LNETsScU+WPK5pvEjjWq9E
+zsLawR41dclgUWujmQqflY1sbvVA3YsAADIxWAAsT1WDULfQ/c70/2rMIvNATzBN
+VxbCWSZtk77xMlu6aje7HIbEQa9PGm52xeqNOqfwv/t5kGZxU1fqyAULXAfSYQ2R
+jkjMhoWPkeb15z5Be0yQY0auFkEuIORZboIqn49NxQW0LVu7byA=
+=tX4X
+-----END PGP SIGNATURE-----
+
+--ThTwSIZV2a2cCNSQ--
