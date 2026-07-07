@@ -1,56 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D82352005;
-	Tue,  7 Jul 2026 03:21:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88DC3546F7;
+	Tue,  7 Jul 2026 03:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783394515; cv=none; b=VrSYTJ7k1eWtO4B5FJ+/gOIPdkvBm0BSAwxjDBUGP2nzNuZNE97weDn2C7yQVv48SgL6DqNiaELj9xCm643u/I4mVsaaN56AlZ5jPt6eQxJf2F1DsQkZTnM9O/WeFzWXKZ+oxMZ5kwqg+exRGhkPLV1K90MoffR82Ejck0rtbFk=
+	t=1783394516; cv=none; b=Pz1CRiyowAkEwj8l1Em0fiqKMiIFrc17rA6V7g5yuS/X2aCER7BVTaYih2S1YKwbxYC2XldFr2AtVpabjVYsgCGOL1Wceby9zKCYmf8bSCN77Y5qOtoEpncmnE5eVYrJ7Jiz0ovesfIhHoysC44wgZtR0nV0ulqtgpFfx+kjAS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783394515; c=relaxed/simple;
-	bh=i0zTWYp4eomofffZxLfQys8DIT3WICFBOm2KljJFKC8=;
+	s=arc-20240116; t=1783394516; c=relaxed/simple;
+	bh=kh4IibeM4fF1k0dFcf6mYXDxT+Z6Ghu5JoYeDgn/yoY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HtdffNILHGL3gfWOV+W5YfSTfKl6B49KC0WoHZmaedzfa8lCUcIFLFQ+qxa+PpKnONUso6i4Qyd4dQGY8jVOkJMbcqZmH5juUp0nXMTGmtMZ9RztLEFbcLOKPVP45E9n4ZhkW3rZt69d4Ze5WwjO9blokSPSzLkhaFgrXp7778k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PxbPt4rw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=K/5BZ7Lt3haZiwVIMl9b7JV5I3ETQzK6mn7NhXJroFN4aeU0J2hyXvaa8pqGHsHnWq96zpA+7BUk92WO0cCri9ykk08nHzimcV9zJ5+OFSZ6XtPqoZ/btbzqSc8tcwaawVs3XziAltPiAqDszC1/xxKIFVIp4AyF+lkU+fA2RTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=na1b5nWy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PxbPt4rw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E7661F00A3E;
-	Tue,  7 Jul 2026 03:21:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="na1b5nWy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867761F00ACF;
+	Tue,  7 Jul 2026 03:21:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783394511;
-	bh=7JCcMo7dAqtxx7WarVnyQrs/nKqtwRpOuvjPyWW92Qw=;
+	s=k20260515; t=1783394515;
+	bh=NAxBnsOhCNMohiZgxhYyA4/g1a6bYnN0z8VGa2lwoaY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PxbPt4rwo1jbIIbBtD8uJ9eVcDVxpi+Ctk8NdtkvakJK3kHKSJHoKHCM+Ddeucndh
-	 /u4T4dqWzIa5sw53EnWs9DhPniI6SEr6CCKM1PW1P+5kkNkPk5efFgK9yay2cbp72l
-	 aK9DBwjFNhKskRo4Ov2jMH6Lu0NBmg38IYequ3S7P4Nx/e/ilCdNDnipct9CyVy+Cr
-	 4Ra3DxwLWs3KFsyLqRiFAHt5Z8Dzkt9f+4g+gE1rUxm1d36i9XGbBEDscKLfqIIjoA
-	 1+PkP2bwn8PCjVBp3exw2bJJgwcRIpRGuGimA/0WbSHbAeE45SNOUI8AfIdrelVwYZ
-	 l+cfxZeaeR4/Q==
+	b=na1b5nWylh+Y/YWMECNJk7FdvTkBOlMNo4bZAPwmvhkf5xb8Zs6XZ2ZhltP3nf4ja
+	 CpUHNvutWD9U2A804/ad9lag9Aho8QrBZGp4H1+kCcy2ftPiK0DuNK8AGT7MXgNLxv
+	 M9pFvVrzBV2LPcH/mDo0w1A3xyTvyIgF6EtBv68IGPulC70Tf3YqkghGcfxwqqINZN
+	 2JBepXwHVyiU3qqpFghlF3Ieaa7EjIszvuMLM9FSFkSw66bLWZJJyMqZFM1c071cLY
+	 +GOQxNaUwsWLxR0rfifjU8jtj68UM6HqYVDlR2+Ar2RWtD0XZAlr765K6BLBQ8MFdp
+	 +exwwSVmaVrgg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Andy Gross <agross@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	Luo Jie <jie.luo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Harshal Dev <harshal.dev@oss.qualcomm.com>,
+	Arun Neelakantam <aneelaka@qti.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	dmaengine@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	quic_kkumarcs@quicinc.com,
-	quic_linchen@quicinc.com,
-	quic_leiwei@quicinc.com,
-	quic_pavir@quicinc.com,
-	quic_suruchia@quicinc.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/5] Add CMN PLL clock controller support for IPQ5332
-Date: Mon,  6 Jul 2026 22:21:26 -0500
-Message-ID: <178339449900.1938770.10101763662447473602.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/3] Add support for qcrypto in kaanapali
+Date: Mon,  6 Jul 2026 22:21:29 -0500
+Message-ID: <178339449909.1938770.8933738266142836969.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260106-qcom_ipq5332_cmnpll-v2-0-f9f7e4efbd79@oss.qualcomm.com>
-References: <20260106-qcom_ipq5332_cmnpll-v2-0-f9f7e4efbd79@oss.qualcomm.com>
+In-Reply-To: <20260514-knp_qce-v2-0-890e3372eef8@oss.qualcomm.com>
+References: <20260514-knp_qce-v2-0-890e3372eef8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,24 +58,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 06 Jan 2026 21:35:09 -0800, Luo Jie wrote:
-> This patch series adds support for the CMN PLL block on the IPQ5332 SoC.
-> The CMN PLL implementation in IPQ5332 is largely similar to that of
-> IPQ9574, which is already supported by the driver. The primary difference
-> is that the fixed output clocks to PPE from the CMN PLL operate at 200 MHz.
-> 
-> Additionally, IPQ5332 provides a single 50 MHz clock to both UNIPHY (PCS)
-> instances, which in turn supply either 25 MHz or 50 MHz to the connected
-> Ethernet PHY or switch.
+On Thu, 14 May 2026 00:22:19 +0530, Kuldeep Singh wrote:
+> Add qcrypto and cryptobam DT nodes for enabling qcrypto on kaanapali.
+> Validations:
+> - make ARCH=arm64 DT_CHECKER_FLAGS=-m DT_SCHEMA_FILES=Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml dt_binding_check
+> - make ARCH=arm64 qcom/kaanapali-mtp.dtb CHECK_DTBS=1 DT_SCHEMA_FILES=Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+> - cryptobam and crypto driver probe
+> - kcapi test
 > 
 > [...]
 
 Applied, thanks!
 
-[4/5] arm64: dts: ipq5332: Add CMN PLL node for networking hardware
-      commit: eba1bea1123924f8bf187ad175d1667036f34e80
-[5/5] arm64: dts: qcom: Represent xo_board as fixed-factor clock on IPQ5332
-      commit: 985650336dcfe8fa640196a49956c5983dfe2696
+[3/3] arm64: dts: qcom: kaanapali: Add qcrypto node support
+      commit: 0a4015962f8115bdca3c0c4d0420f2ff85409194
 
 Best regards,
 -- 
