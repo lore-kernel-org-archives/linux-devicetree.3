@@ -1,93 +1,70 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA2C430CE1
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 15:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DF3431484;
+	Tue,  7 Jul 2026 16:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783439898; cv=none; b=d76HfJg2e4iG3kJECi6WcWzqyDdBoYrYLCaTxO+Ak8XyUnnkk6AN+U02Ms+ybmVtCRnWc06NoMtQMsIYtYjU1PdnegiHgj7blCEy8XImn4o0OVn/keAT41MQTvr2ka042jeyX41K/kYxUVhJNGad75IQjw8ConnYU+Bps2GpY9o=
+	t=1783440052; cv=none; b=s7xTACwfb3oSvnUes3cPJxlVS5mZguYZ1TlfWatvanixXthcCsEznk4X5XmN5D72e58ztC996M+ps9PIocfQ1IAPXFH/O9OcycFVM10ks9UNwbptIiHo316LpzFo800Y1S+cxDOZ3tr/OhcWRJoQtlOFFE0e2XNyRWHvALR/fUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783439898; c=relaxed/simple;
-	bh=UhQZWbF7A5fDYYoSGX+1ndN7L9yikRUgWQep5Lo0rpg=;
+	s=arc-20240116; t=1783440052; c=relaxed/simple;
+	bh=ChJRypsr3Dcq8r3UD1/SH4cIoxbNZOBcguf/Rdix3Oo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NrX/QqKa7Wh4IF+UAfAZeIVLdcLToU1gTqNoe+UmqqXu6ZgFXreLrVrXSRoOg0YwbpPBg2QTbV5bd6CJWj/XYNzQSA/XaCaDrd8ygMtBms2T8hYQw5YwiwsVZ8zmZMEZPcUoyJpkuw2xPWWkhwQKOyblpGtVlRik/piTIcAbHNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NwddeU40; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=lU31dlBR; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UfkStqIC6B0EIx+MqEvtHsvXnt5ofUpSl044Jo47Fr0DYAOi9xrTNf0+KauxiB/zpuH55TMzzbA/NuhZKMDtu/+aaLvMYIvvhPxzUJhslgfqRYDS64UaxriJS6aCCpUntL0fkyhiJY6HrxVcsSYviPENmxTTZCFo3YOTApVh1Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TBIT2Kmz; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NwddeU40";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="lU31dlBR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783439896;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l9R//O3la49RHIHi2ZJ0nnvSIXlJpfsPVkfnZbOQtU0=;
-	b=NwddeU40X+iNFuE+B0TVpdaya5V2IBPlA+JC/KhAfCQ7VgFfQvsMed3Ma8P9nyt+/LV26E
-	IvDT/2lVwJDm1BkoUgI/LVjFnRbXfSN8wPPB49jcGBuaOM/1QZaGcunBMfCPQ5fpQsHTwp
-	r0YlIcsRWmZHDOfb7ofqNNuoEmNUFmo=
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-343-6XFsPlbfPkqkQnrWlJ5i_g-1; Tue, 07 Jul 2026 11:58:13 -0400
-X-MC-Unique: 6XFsPlbfPkqkQnrWlJ5i_g-1
-X-Mimecast-MFC-AGG-ID: 6XFsPlbfPkqkQnrWlJ5i_g_1783439892
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7e94dffa918so1944870a34.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 08:58:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1783439892; x=1784044692; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=l9R//O3la49RHIHi2ZJ0nnvSIXlJpfsPVkfnZbOQtU0=;
-        b=lU31dlBRMs7yRe75TejZMKo1K2Lv07Dkx+VMdpGIHrzErQP14yGChYILswsFHjZJHK
-         SNXKSL+xY0K9zn/DjsyIaU9lblMGQEX5YVPO4VS/gRnXP6tyhetw7uko3RymeUcfr9Z8
-         3QiplFpSdgtKIXST6naSHFz+iUy2Wg/m8B0lYsSfWCpNVmQR7Jx2BbnIkt6PBjx6+uS5
-         VOQ1/1P0xHLVISkXNQB06XbSNvWCdBTjussNC0ak6Csjx68/k5oepALSOXLU3CehLqW6
-         MBjx6NQ6W6eL49QMqJDG/iKK8Liin9+C0087OIS7E8G4o29VDqYN5IPxdUEXNOfbn0w5
-         IDSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783439892; x=1784044692;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l9R//O3la49RHIHi2ZJ0nnvSIXlJpfsPVkfnZbOQtU0=;
-        b=P7jmLV9QVz95CaInjhMkvHsGpIaS1tyOs2rB6nGgfcsmYeEemaHpkkUrcQ4T6VUL+k
-         WuS1qNVaaVY+W8hW+YXuOKysrOIlMoL5qKCydG/nHhASKm+LR7zmAC8Blg/yEGpN22qA
-         5Bg7Prq9yDW12rOnZPT2AbBRGlu/DjqdALqJPrYJ4FVgXhqZedJSWDYiaaNCE+ueKxmM
-         INv9J4vuzgAQZC+KrdkXucMKUvN/Gxlq6MuaPF8kI8Qi85gaYfPiZIYApx5lwO0ng3yq
-         D+BdHzIfqSvKwtkXGhz+RdMP0XfOj5IecpNoqHhCTbysAfsR44yK+lK42QCCk6gPDeT0
-         zgWg==
-X-Forwarded-Encrypted: i=1; AFNElJ83KSWCduYYqGG5MaIe4k+SkhB4AJ9DzhSRncYQ7vVf7re939oXwnAMDJZPYaD9gACg1bq1rKv9/DxW@vger.kernel.org
-X-Gm-Message-State: AOJu0YywpEIV0NupP5+btg106lCR0UoW3qpXLZ4k0EP6p2yHCf8Rsfuy
-	4pBGwm89m1jDDAcoZDapIqhJTNyWw2tjm0pjcQLo5IRvQGP3xXRH8z3vy3vr6E7FmUpU9ejPBOn
-	Zh1CCN0rhvJWZkCuLVU+GgiMhLSl+5cyyPXW5MxldqmNB3COM7ea1ZG863RsM/rzKHmRQ6MA=
-X-Gm-Gg: AfdE7clcyCskTK6iar3TY7d6/gidekpGR7cfN1bAfRdtSDNeRBGy48j740qFv3NEaMf
-	EwQTPEca8+iaAwmcMQM3lWc3oEM5ag4MaMRmWnLg0wyUlYrlTqj3KIlFZC+gao9thLHhazoy8YL
-	Rc9eP00CmwBFezmEb5Nvn5obJodg+rHKdCN5pItszAx3KltLglKN/z2aJ/Y54ALA7eW9+Q5POLr
-	1PfLkyFj+PYMZIuesNBLCpqY6A7gYhIVwaSj/Bhl1QlR3b7rVYFKW8FUh6DrR3CRWQNXe5Y/K8K
-	6gQSWT4P9macTMmBpTxnJ/em+Y8dNn/YqX5UmsSC0/I4+b9vFMq2qRB+gbXzliKbZSQ7jfxhmr9
-	hLWkVyNCn
-X-Received: by 2002:a05:6820:8598:10b0:6a3:66dd:c9fa with SMTP id 006d021491bc7-6a366ddd174mr318576eaf.55.1783439892266;
-        Tue, 07 Jul 2026 08:58:12 -0700 (PDT)
-X-Received: by 2002:a05:6820:8598:10b0:6a3:66dd:c9fa with SMTP id 006d021491bc7-6a366ddd174mr318568eaf.55.1783439891720;
-        Tue, 07 Jul 2026 08:58:11 -0700 (PDT)
-Received: from redhat.com ([2600:382:850a:55b4:731e:b0d4:e0cc:410])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a3103ad433sm11458289eaf.12.2026.07.07.08.58.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 08:58:11 -0700 (PDT)
-Date: Tue, 7 Jul 2026 11:58:08 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH v6 2/3] clk: cs2600: Add Fractional-N clock driver
-Message-ID: <ak0iEAJsZJOkvkX1@redhat.com>
-References: <20260630155549.824059-1-rf@opensource.cirrus.com>
- <20260630155549.824059-3-rf@opensource.cirrus.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TBIT2Kmz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783440050; x=1814976050;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ChJRypsr3Dcq8r3UD1/SH4cIoxbNZOBcguf/Rdix3Oo=;
+  b=TBIT2KmzESWNM0oZ5zKnfOcnCwX7PyF5icosspqXv6HvDT7kZN9kn8jK
+   DGCMq37vocr45Mc6ZDyn4y8ASce7l2UQzlPNIwTJvEIURVGyid9dKEDBO
+   XIWVIs/l+zDUg/asqAl32Ew3zLT5rdZXPzYqIVpTqqTWe0NGiKKD5mvk4
+   LzZUXA6U5N58Gn03mbtsArTWe8D5e88wFqXVd5UkhCBQona/Cfn/bdKV9
+   Zx0kWANirioZryRIhRhfoUvhbmBeDuC3K131KD7t7SJBB3Cs3WJn6M0gm
+   cUtyrIz8AgFoNfKW7RTsHyJg+QV+TlUjzDpeoKZy8VH4U3c313FhgCj1m
+   w==;
+X-CSE-ConnectionGUID: La/cKO59RBW1n6//2HGoyg==
+X-CSE-MsgGUID: ZI+DyjD2TDKH5IS3z7uy6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="95606865"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="95606865"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 09:00:49 -0700
+X-CSE-ConnectionGUID: 6wMFz189QgOFRSpef6Dblw==
+X-CSE-MsgGUID: oPwpGielSgeqE+pcYxtbmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="250674850"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.36])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 09:00:45 -0700
+Date: Tue, 7 Jul 2026 19:00:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v7 08/17] iio: core: add hierarchical channel
+ relationships
+Message-ID: <ak0iq2KGgGnjTgfr@ashevche-desk.local>
+References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
+ <20260707-ad9910-iio-driver-v7-8-a4ec30f63700@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -96,208 +73,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260630155549.824059-3-rf@opensource.cirrus.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
+In-Reply-To: <20260707-ad9910-iio-driver-v7-8-a4ec30f63700@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Richard,
+On Tue, Jul 07, 2026 at 03:04:29PM +0100, Rodrigo Alencar via B4 Relay wrote:
 
-Thanks for the patch.
+> Add parent-child relationship between iio channels by creating a parent
+> pointer field in iio_chan_spec struct and exposing a sysfs attribute that
+> returns the parent channel prefix.
 
-On Tue, Jun 30, 2026 at 04:55:48PM +0100, Richard Fitzgerald wrote:
-> From: Paul Handrigan <paulha@opensource.cirrus.com>
-> 
-> Add driver for the Cirrus Logic CS2600 fractional-N clock synthesizer
-> and multiplier.
-> 
-> The CS2600 is a system-clocking device using a hybrid fractional-N analog
-> PLL and a digital frequency-locked loop (FLL). The CS2600 enables frequency
-> synthesis and clock generation from a stable timing reference clock. The
-> device can generate low-jitter clocks between 6 MHz and 75 MHz from a noisy
-> clock reference between 50 Hz and 30 MHz, or from a stable clock reference
-> between 8 MHz and 75 MHz.
-> 
-> The timing reference clock (REF_CLK_IN) can be an external clock source
-> or the internal oscillator. This clock drives the PLL and is always
-> required to generate output clocks, even if it is not used as the frequency
-> reference.
-> 
-> The frequency reference source can be either REF_CLK_IN or an external
-> clock on CLK_IN.
-> 
-> The PLL_OUT clock frequency is a ratio of the chosen frequency reference.
-> The ratio is a fixed-point number of either 12.20 or 20.12 precision. The
-> lower-precision high-multiplication 20.12 ratios are only available when
-> CLK_IN is the frequency reference.
-> 
-> In smart mode the CS2600 will synthesize the output based on REF_CLK_IN
-> until a clock is present on CLK_IN; it then performs a glitchless switch
-> to CLK_IN as the frequency reference. A variant of smart mode
-> automatically enables the PLL output only when CLK_IN becomes available.
-> 
-> Three output pins are derived from PLL_OUT:
-> 
->   CLK_OUT:   Gated output from PLL_OUT.
->   BCLK_OUT:  Divided from PLL_OUT.
->   FSYNC_OUT: Divided from PLL_OUT.
-> 
-> The BCLK_OUT and FSYNC_OUT have different sets of available divide ratios
-> intended to provide the typical frequency relation between bit clock and
-> frame clock on I2S/TDM audio interfaces. They can also be inverted with
-> respect to CLK_OUT to support various formats of serial audio data.
-> FSYNC_OUT has the additional feature that it can be either a 50:50 duty
-> cycle or a pulse of a programmable number of BCLK cycles.
-> 
-> This configuration is modeled in the driver as:
-> 
->                  +------------+
->   REF_CLK_IN ----| Hybrid PLL | PLL_OUT    +--------+
->                  |   + FLL    |-----+------|  GATE  |--------- CLK_OUT
->       CLK_IN ----|            |     |      +--------+
->                  +------------+     |
->                                     |      +---------+
->                                     +------| DIVIDER |-------- BCLK_OUT
->                                     |      +---------+
->                                     |
->                                     |      +---------+
->                                     +------| DIVIDER |-------- FSYNC_OUT
->                                            +---------+
-> 
-> OF properties define the hardware-level configuration to match the
-> hardware that the CS2600 is driving.
-> 
-> The CS2600_ERR_xxx register bits are not used in the driver but are
-> defined in the header file as a convenience for anyone debugging a
-> system.
-> 
-> Signed-off-by: Paul Handrigan <paulha@opensource.cirrus.com>
-> Co-developed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> ---
-> 
-> Changes in V6:
-> 
-> - Merged the functions to calculate synth mode and mult mode ratios. The
->   math is the same, only the fixed-point precision is different. The new
->   cs2600_calc_ratio() function calculates at 20:20 fixed point and then
->   converts to 20:12 if the value is too large for 12:20.
->   This also simplifies the calling code because it doesn't need all the
->   checks of which ratio function it should be calling.
-> - Re-worked the rounding of calculated rates so that they didn't drift
->   away from the best rate when the clock core passed the rounded rate from
->   determine_rate() back into set_rate().
-> - Changed various parts of the recalc_rate()/determine_rate()/set_rate()
->   functions that relied on the state of the other clock registers to make
->   decisions. There's no guarantee whether those other clocks have been
->   configured yet so the decision making could be invalid.
-> - Removed the use of different ratio slots depending on the mode. The
->   The CS2600 doesn't care which slots are used for synth and mult ratio.
->   Using fixed slots simplifies the code.
-> - Split the large cs2600_pll_out_prepare() into helper functions.
-> - Request ref_clk when starting the PLL. It is the system clock of the
->   CS2600 so it is always required to clock the chip even if it isn't the
->   frequency reference parent. In previous versions ref_clk was only
->   enabled by being the parent, which meant the CS2600 wasn't clocked when
->   using mult mode with clk_in as the frequency reference parent.
-> - Fix cs2600_pll_out_set_parent() to properly reconfigure the PLL when
->   changing parents. The parent selection isn't a simple mux, it changes
->   PLL mode and selected ratio registers. Previously the mode bit was
->   written but the mode ratio registers weren't updated to match.
-> - Factor out the BCLK and FSYNC divider lookup into a single function. The
->   lookup code is the same apart from the divide value that each register
->   field value represents. The divide values are provided as an array.
-> - Don't attempt to set a best_parent_rate when setting BCLK/FSYNC rate.
->   The parent (CLK_OUT) rate is not arbitrary, it must match the requirements
->   of the device being clocked, and only the consumer driver will know
->   what is correct.
-> - Set CLK_SET_PARENT_GATE on the PLL. Its configuration cannot be updated
->   atomically, so it must be stopped to reconfigure it.
-> - Split several functions into separate functions for calculating a value
->   and get/set the register.
-> - Use FIELD_PREP() and FIELD_GET() instead of multiple custom macros.
-> - Fix inverted register unfreeze and freeze that meant the bits affected
->   by FREEZE_EN were not actually updated.
-> - Use a DEFINE_GUARD to implement the register field unfreeze.
-> - Rename cs2600_ref_clk_bound_rate() to cs2600_ref_clk_set_divider() to
->   indicate it's actually setting the rate, not just finding a rounded value.
-> - Remove inappropriate use of in_range() that required some confusing
->   math to pass the correct value into in_range(). It's clearer to do
->   normal min/max comparison.
-> - Use DIV_ROUND_UP_ULL() to convert PPM to a frequency delta instead of
->   open-coding it.
-> - Initialize all the clocks using a single common loop.
-> - Use clk_init_data.parent_hws to set FSYNC, BCLK and CLK_OUT parent as
->   PLL_OUT, instead of looking up PLL_OUT by name and setting FSYNC, BCLK
->   and CLK_OUT parent to that name.
-> - Smart mode selection is now two boolean properties instead of an enum
->   property. One property select smart mode, the other property enables
->   suppression of PLL_OUT until there is clock on CLK_IN.
-> - Added properties to invert FSYNC and BCLK relative to CLK_OUT.
-> - Added property to set the duty cycle of FSYNC (required when clocking
->   TDM audio formats).
-> - Use match_string() instead of a string of strcmp() to lookup
->   cirrus,aux1-output-source value.
-> - Use of the internal oscillator is now explictly flagged by the presence
->   of the cirrus,internal-oscillator property. Previously the driver
->   inferred it from the absence of a ref_clk in clock-names.
-> - More error checking.
-> 
-> Changes before V6:
-> Sorry, the previously upstreamed versions don't have a changelist for
-> me to copy into here.
-> 
->  MAINTAINERS                     |    1 +
->  drivers/clk/Kconfig             |    1 +
->  drivers/clk/Makefile            |    1 +
->  drivers/clk/cirrus/Kconfig      |   10 +
->  drivers/clk/cirrus/Makefile     |    3 +
->  drivers/clk/cirrus/clk-cs2600.c | 1274 +++++++++++++++++++++++++++++++
->  drivers/clk/cirrus/clk-cs2600.h |  163 ++++
->  7 files changed, 1453 insertions(+)
->  create mode 100644 drivers/clk/cirrus/Kconfig
->  create mode 100644 drivers/clk/cirrus/Makefile
->  create mode 100644 drivers/clk/cirrus/clk-cs2600.c
->  create mode 100644 drivers/clk/cirrus/clk-cs2600.h
-> 
+...
 
-[snip]
-
-> diff --git a/drivers/clk/cirrus/clk-cs2600.c b/drivers/clk/cirrus/clk-cs2600.c
-> new file mode 100644
-> index 000000000000..73937ac868fc
-> --- /dev/null
-> +++ b/drivers/clk/cirrus/clk-cs2600.c
-
-[snip]
-
-> +
-> +DEFINE_GUARD(cs2600_unfreeze, struct cs2600 *,
-> +	     cs2600_clear_freeze(_T), cs2600_set_freeze(_T))
-
-Can you go through the Sashiko output for this series?
-
-https://sashiko.dev/#/message/20260630161121.020FB1F000E9%40smtp.kernel.org
-
-The clear/set inverted looks questionable to me. If this is expected,
-then a comment clarifying why should be added.
-
-[snip]
-
-> +static int cs2600_clk_register(struct cs2600 *cs2600)
+> +static ssize_t iio_read_channel_parent(struct device *dev,
+> +				       struct device_attribute *attr,
+> +				       char *buf)
 > +{
-> +	static const char *parent_names[2];
+> +	const struct iio_chan_spec *chan = to_iio_dev_attr(attr)->c->parent;
+> +	ssize_t len;
+> +
+> +	len = __iio_chan_prefix_emit(dev, chan, IIO_SEPARATE, buf, PAGE_SIZE);
+> +	if (len < 0)
+> +		return len;
+> +
+> +	buf[len] = '\n';
+> +
+> +	return len + 1;
 
-I wouldn't worry too about about Sashiko asking about multiple driver
-instances for this section, unless you think it will eventually be used
-in that way.
+	buf[len++] = '\n';
 
-> +	const struct clk_hw *out_clocks_parent;
-> +	struct clk_init_data init[ARRAY_SIZE(cs2600->hw)] = { };
-> +	int ret, i, n, input_num = 0;
-> +	const char *names[ARRAY_SIZE(cs2600_clks)];
+	return len;
 
-Reverse Christmas tree order.
+? To me this variant is more robust as we don't forget about \n in the len
+count.
 
-I can do a more thorough review once you go through the Sashiko results.
+> +}
 
-Brian
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
