@@ -1,144 +1,201 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509CB392836
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122D235B645;
+	Tue,  7 Jul 2026 19:01:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783450865; cv=none; b=L8y8LSktvVlrml5NwSAlt9jQoWzbRwLaRyniI8TTdWumf5q7Pvpc3jskL9BgiCFs8kXVfOVIGGrHdQQvOQJiFXjTN5IpjRIpfjm360m2U5uxNoKXeozePx9CTykaBQKMi/soESXCI8354HoxPnWQbDxFsVe/ck0owHU73+CcwCk=
+	t=1783450888; cv=none; b=Mom4xixParU0PFtLxbe+z0pI4WX9DxG612uoZFeOfDjkaQQZ93GDiy+yO3TsVA6MDkXz+sg+W0EtPwux9qaVAEBisOplYijZ+W/n2JNCavytt0qzOLhcaEo9qozkHYx/hxjpxqGWpHz3Qw6ZxA6fYY+YEovYq0dSRX8UMwKozTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783450865; c=relaxed/simple;
-	bh=IwcMHfwnLLFVSsitBehmP/d9zkapDiPSC74fJVhWDKU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MduiWqaF1eNfeYc2/6sgaKXPq9dynpQJ1Yx2Jnh15MA76KE/RxrZGdeE4RsjsJwLoODsrW49XS88HCeHHo5FWCmFQJ2LkGlJWVSC/iUshQ8FRa9jGvQpm3vLzK3ugzVNUwRsk1V5cQXZ8LccZxEhwcRpYUai5Q60s75nljZ85WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VW6kuO7v; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783450888; c=relaxed/simple;
+	bh=RPN6hBmI7GfpxGDKjkafyVPzgB6vdNSXykdkgSjO1CA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bTzmO1vmfXDC6nspX95uH4bYYiZdRcCac2swnh+/oxni6QWlnM2aKMK9TvKWHP3k0vXl3VFWjVAeRb+UbNb8iC0NeQd5SaSlvGPOeWrbpfUcNJjNzANrDluYJXZTxq3cJQuA6oj1jz41+5BCgM1RKfH814t344SNechQGVN8H7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J7ZSWWjd; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VW6kuO7v"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493c52cde9eso44382725e9.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:01:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783450863; x=1784055663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9U+Mm7+UlibCZMW00t912Atja0ya4M2ty/S6lVSlezQ=;
-        b=VW6kuO7vIsosZGAPrZvJUoT+aOdwmwXLQF4BP9aXD+/MNZapccZic9rAIk3JzjzgJu
-         HYs+2Y69Ps+YM81PTyVPEb8dLiOsTouN+NJL8P8dFzgJPbQZENYIX24NKPmKT8Sf9Gyq
-         jFP/Xj/t/JjKZ0v/XdC4lwbZSS7gXfxPS3G3uWKUrf44yezxOsPwYWWjbzTThtprmgUw
-         h9GzS4TqR7UyYIeMdZRIZpwDr/oKRTpas9mi6/UaJpaSp7Uh+VSfDmg+xCwBtI1PaF98
-         oJXcmf/EM7VSDtZb6XAuaT5DvoFdgzycit1O7wNRpAwqVyILoLddczUnzkiZt/XUu+Nr
-         PMkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783450863; x=1784055663;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9U+Mm7+UlibCZMW00t912Atja0ya4M2ty/S6lVSlezQ=;
-        b=mblJiQxjk8LqUNIp6cNtY8ZRCkw+IH7tSHeDksiwRJ41wgoazDw57yfUCGYy60ZxFo
-         AyEDqxeYWBrTg7mfw4ywehGIWYUJjhlSUwkfQmIFbDr0MyDvZqVCVmeJvKoqs6jqufJ/
-         +TjGceczgg5/nNlYXHHGjfOIAFBlMEgMFbIBfYVZCyjHeh1spFZn3v+NvJy2NUawGYYF
-         jqZ/nJm8efBVwYv6ZQlEtNndQCy58/JIwbWbDH5nRUhM3BmsSVwMGUnVsVTqT+DTh03r
-         LsZcmYBEytJus6q9EgJ9Jdyk1jZ+GqhJoOe21b2qTIdzgchQs7DBBdcsy6WJ0mZxzaBP
-         XrMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpS+tV7kehiFtYOVrXxCCfuyoQvhVJT2x/XJH3nNUYZaw1c/zLO3MhD12FrQoscMA+KKGp1wWzIpvAt@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnJblCuZnRdpd1VtEnMtzyWKdxchxTx0lKQVeAPhEAEbX/sE9V
-	QRgHJl4JUGgCbyVJBfTt2fzm7V5bUrjjRfEvhaXnSkXQhkCR67ohtp1r
-X-Gm-Gg: AfdE7clGmORlZ0TVys48SZpjAbcvulM0yNWVMSiSTtoE3xr8m8U6FHpbVIJFv7dXSzp
-	qgj/d5cxusbWMEVzEU40ZcJZmziiXwY5EvbZ4qGNMF6jnfQxtW6+459hP/bLnrNrZsPFOd6HLlO
-	on6fPRN/qtPzrrRWWh9mN2lxWyS8uCe0hAxgElb53D1/HE4mVtQeoPfbug9o31JmVkD0y4yFSp5
-	jZy74sKxWY6cjRKo/Kge/LZ1NMc5rf4VOVwG70j8j2MQ4mab2UlGcAu7QPsczD1RQxqLjl05Kh4
-	a0vUBHz0vXiDzeqn/Klil8LvIreA9lMfbuQ9L5O72C1WyTWGMO6aRPseCyciqQUQvBVDXlk2APE
-	AIEkF1dKkYN+pdQrzCK5bvKNx7zStowuEoMcNfLXhELmCeMjBO7sSq4qn6WQXZGbTij6xK2AmFt
-	zbq/+4UQfDtgdad0iKlX9QwrKp
-X-Received: by 2002:a05:600c:8b6c:b0:492:4a50:41fe with SMTP id 5b1f17b1804b1-493df092ac5mr73198175e9.22.1783450862462;
-        Tue, 07 Jul 2026 12:01:02 -0700 (PDT)
-Received: from [192.168.1.10] ([95.43.220.235])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0f5bc78sm90260455e9.14.2026.07.07.12.01.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 12:01:01 -0700 (PDT)
-Message-ID: <81a7e0f6-8731-4bae-b06c-932f5c57d4dc@gmail.com>
-Date: Tue, 7 Jul 2026 22:01:00 +0300
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J7ZSWWjd"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667FTGYq4059291;
+	Tue, 7 Jul 2026 19:01:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=afGkw2/+01w
+	rN17vRauQs5QoG6cWfpx3pjK3scVU2yY=; b=J7ZSWWjdENN/DdAEQcA11zLF3e3
+	VPvGtrDzaHDUY+zBUYWSoEP9u6kXxztokIJOeJsBI76E788ytZwshqJPXBSktBkL
+	wYkXuYg2O2VinL84JTlSxcHW3h/T1BWGMOeFaQyo8Rnyx7bM7hcUghTHEl/J3I+3
+	b07NgRwxSGXqDTAEbq2r1oKPMx80DS7XkGcyrQLo0H2tvyiLdVekyG1T2bx7oFGN
+	dZbo56+Gf43Tp8GC6W95JNPPQqPoFU0N4nv9vPfWygw0Ii9hS3GrpU57FnKrInff
+	jmwSdaQ8Io1jjeTQR34ztYpnvJvBn2tbTukT4Kn/acrrzUJryO95p+UfaRQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8sm8kq2u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 07 Jul 2026 19:01:14 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 667J1As6019114;
+	Tue, 7 Jul 2026 19:01:11 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f6u8k6b4y-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 07 Jul 2026 19:01:11 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 667J1Bfn019147;
+	Tue, 7 Jul 2026 19:01:11 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 667J1BsA019138
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 07 Jul 2026 19:01:11 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id C1ED7643; Wed,  8 Jul 2026 00:31:08 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: [PATCH v3 7/7] ASoC: qcom: sc8280xp: add TDM hw_params support
+Date: Wed,  8 Jul 2026 00:31:06 +0530
+Message-Id: <20260707190106.2876465-8-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260707190106.2876465-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260707190106.2876465-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dt-bindings: phy: motorola,cpcap-usb: add chrg_det
- interrupt
-To: Conor.Dooley@microchip.com, conor@kernel.org
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi,
- andreas@kemnade.info, khilman@baylibre.com, rogerq@kernel.org,
- tony@atomide.com, linusw@kernel.org, brgl@kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-gpio@vger.kernel.org
-References: <20260705101105.1798069-1-ivo.g.dimitrov.75@gmail.com>
- <20260705101105.1798069-2-ivo.g.dimitrov.75@gmail.com>
- <20260706-visitor-calorie-b805ac5af970@spud>
- <2b192691-54d8-4449-a18c-b87266c6c73c@gmail.com>
- <dad556ba-5965-42a0-b78a-2d417b2f6837@microchip.com>
-Content-Language: en-GB
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-In-Reply-To: <dad556ba-5965-42a0-b78a-2d417b2f6837@microchip.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDE4NiBTYWx0ZWRfX6xJFM/9WbuBh
+ 6NNnTwZ3QX1JkH/7q+o68rEYYgGvZLiGjdsu5nqQ+Ecb3IrYWSf6dPVmtSeMFKecNHc15JzyuWL
+ xG+IQOFWyKoCyXLp8yq75MVKtzY+2N3APcESEvid2o6NvIl+duhh0DiwKK8WYUy+K69NtfLTdrt
+ NcKiEE1FkrP3kehXtzLBiCzKrkaEhvNPbyBX0pxT7T+uCrOaqzUJZ6A7krMfI/BqSj1WPJqEJ0k
+ WPexAfOLqLIFAa/x035X6xcxfB8F0/KcqvfcPtONmvOPQyf+VoNNh4A+MAFDbMzY15LdsT93wRZ
+ aPxjsr4uCQSfiH+1A3nrqrAcEQGgPlSzK0NfYxLjfCaBXxgy3W2L3C/sDumklgqC//y8yFBZOIw
+ JaGq3JzIhO4GwH8YZji2suoRuiyEAuuT0288ke4B36JyfLe0VytZYdCV7EdGKOCawz+aRiORQmN
+ p8UnOo84yM/ad4LznyA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDE4NiBTYWx0ZWRfX2vFQH4hrY5XK
+ lshbmvSqdI+Zn2IcndNIXNm7L/wCdfofWOIFKUa7TpRqc9ScWcQcazdFK05tbWBpFw9RyZcvqIS
+ sZ71goXejfEuhqAKzhQ9PRYbk9pCEaY=
+X-Proofpoint-GUID: P3T_gWiHEq4mkoADXrnna0eoM4e3XBrP
+X-Authority-Analysis: v=2.4 cv=UvdT8ewB c=1 sm=1 tr=0 ts=6a4d4cfa cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=QTpijNGdYiuWC2p250EA:9
+X-Proofpoint-ORIG-GUID: P3T_gWiHEq4mkoADXrnna0eoM4e3XBrP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_04,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607070186
 
+Add TDM backend handling to the sc8280xp machine driver.
 
+Use the common QCOM DAI-node TDM helper to parse the standard
+DAI TDM slot properties from backend CPU and codec endpoints. Reuse the
+parsed configuration when programming DAIs so hw_params does not need a
+second DT traversal.
 
-On 7.07.26 г. 12:58 ч., Conor.Dooley@microchip.com wrote:
-> On 06/07/2026 22:25, Ivaylo Dimitrov wrote:
->>
->> Hi,
->>
->> On 6.07.26 г. 20:14 ч., Conor Dooley wrote:
->>> On Sun, Jul 05, 2026 at 01:11:02PM +0300, Ivaylo Dimitrov wrote:
->>>> The CPCAP USB PHY driver uses the CPCAP charger detection interrupt
->>>> for DCP detection.
->>>
->>> This is not currently true, the driver does not look for this interrupt
->>> at the time of this patch.
->>>
->>
->> Right, this is bad wording caused by the fact that initially the driver
->> patch came before the binding patch.
->>
->>>> Update the binding and example DTS to use the corresponding
->>>> "chrg_det" interrupt name.
->>>
->>> Sounds to me like this new interrupt is optional, since until now it has
->>> not been needed? The patch however makes it mandatory. I think your
->>> driver patch also makes it mandatory, which will break older
->>> devicetrees.
->>>
->>
->> Oh, it is indeed not needed for proper DCP/SDP detection, after some
->> experiments I was able to teach the driver to do proper detection by
->> using current interrupts only.
->>
->>> What makes this ABI break okay?
->>>
->>
->> Will send new series with schema/DT patches dropped.
-> 
-> I think the devicetree patches are fine, provided you add
-> a minItems of N-1 so that the new interrupt is optional.
-> Dropping them would mean that the documentation for this device
-> remains incomplete since that interrupt does exist.
-> 
+Derive the LPASS backend bit clock from the runtime TDM parameters and
+request it through the backend child-clock path using LPAIF_MI2S_BCLK.
 
-Ok, will add that change in the next version, however, I will still
-change the driver patch to not use chrg_det interrupt.
+Program codec sysclk in hw_params so codec PLL setup happens before the
+stream is triggered.
 
-Thanks and Regards,
-Ivo
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ sound/soc/qcom/sc8280xp.c | 60 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-> Cheers,
-> Conor.
-> 
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index b13f39dc5..46418806c 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -84,6 +84,64 @@ static inline int sc8280xp_get_bclk_freq(struct snd_pcm_hw_params *params)
+ 			    snd_pcm_format_width(params_format(params)));
+ }
+ 
++static int sc8280xp_tdm_hw_params(struct snd_pcm_substream *substream,
++				  struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_dai *codec_dai;
++	struct qcom_snd_tdm_slot_cfg cpu_cfg;
++	struct qcom_snd_tdm_slot_cfg codec_cfg;
++	unsigned int bclk_freq;
++	int ret;
++	int i;
++
++	ret = qcom_snd_get_dai_tdm_slots(rtd, &cpu_cfg, &codec_cfg);
++	if (ret)
++		return ret == -EINVAL ? 0 : ret;
++
++	if (!cpu_cfg.slots)
++		return 0;
++
++	ret = snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
++	if (ret)
++		return ret;
++
++	ret = qcom_snd_apply_dai_tdm_slots_cfg(rtd, &cpu_cfg, &codec_cfg);
++	if (ret)
++		return ret;
++
++	bclk_freq = snd_soc_tdm_params_to_bclk(params, cpu_cfg.slot_width,
++					       cpu_cfg.slots, 1);
++	if (!bclk_freq)
++		return -EINVAL;
++
++	if (data->snd_soc_common_priv->mi2s_bclk_enable) {
++		ret = snd_soc_dai_set_sysclk(cpu_dai, LPAIF_MI2S_BCLK, bclk_freq,
++					     SND_SOC_CLOCK_IN);
++		if (ret) {
++			dev_err(rtd->dev, "%s: failed to set cpu sysclk: %d\n",
++				__func__, ret);
++			return ret;
++		}
++	}
++
++	if (data->snd_soc_common_priv->codec_sysclk_set) {
++		for_each_rtd_codec_dais(rtd, i, codec_dai) {
++			ret = snd_soc_dai_set_sysclk(codec_dai, 0, bclk_freq,
++						     SND_SOC_CLOCK_IN);
++			if (ret) {
++				dev_err(rtd->dev, "%s: failed to set codec sysclk on %s: %d\n",
++					__func__, codec_dai->name, ret);
++				return ret;
++			}
++		}
++	}
++
++	return 0;
++}
++
+ static int sc8280xp_snd_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
+@@ -206,6 +264,8 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
+ 				return ret;
+ 		}
+ 		break;
++	case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
++		return sc8280xp_tdm_hw_params(substream, params);
+ 	default:
+ 		break;
+ 	}
+-- 
+2.34.1
+
