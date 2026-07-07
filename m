@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFC2396D13
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 09:30:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD19346A1C
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 09:31:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783416648; cv=none; b=KoQNu5uxZT84hboPsKibXrwk8k6hdzEM+BIHNAumNsw/DBcesd1TYHNl6edAVAhLQ1da/L9CjgmEc9k8D2yZs1BwfpqMtmIk+clbYV4qd+anWmq+BU6SaP9sHVF8DPyLcCbJY7Kspzjk0j7yvo08rxKVLMk92Y233Xi7RXkAKug=
+	t=1783416696; cv=none; b=MlbvR2717WkzfFDjT60JqcKNLrnSBPIQtUJS+A/7bnH4wYGhB4y3/OkpdBybUFEmFxfef4zCJJpjCA6ttBaRDSTcgv0Hw/lH96/aeICMPJPc00VyXR7PIZ8pqXvw2PN+7sZ07PtFenlgx5yXwDOM4Y3FQHzr45bwxogshPwQbUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783416648; c=relaxed/simple;
-	bh=L2nmjS0SF5YYPFm8XgO4VT1vb2Fgocz9yMK2Wzc1Xko=;
+	s=arc-20240116; t=1783416696; c=relaxed/simple;
+	bh=SsenicBCqsscWdYsH+QO86o4qrDqBJV6KhpJ86jLA70=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U59EEY7bJJ4fmMbZlzfE6QIG41EX3dAyC8DU7EOMm0+lBCRPS07glutTGESMCF59OQ3fQfZln3qKXNGQXyuRFGmgY3j8IMsAcMCjB9+UbmBEho+qiMSBtE02rdvhcGEh8vw0Yc1uxJhbEeibYH8BJ7Tel7X3rcKePfPvOUKCTKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ap0qOUP8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hJ43a+T060Tgug2ipxUzKy/EFnOr9DNweQLTE5iPNsFIYRdMOL2PKQPwIRB6jSGSrsz5m2yEiN91nxi14nyqQjeaz6GgqRsEUDm0oE2ZXqGhwezG2G+uiqg/jzaoTbWe+jUlZy7STaEUVEQTtr/3wpQ3zEvUMV9EYFfxB/uxf7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boQ5MOHH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ap0qOUP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7C01F000E9;
-	Tue,  7 Jul 2026 09:30:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boQ5MOHH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2FE1F000E9;
+	Tue,  7 Jul 2026 09:31:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783416646;
-	bh=4Kfi51voxQw1ZDguISJQwG8XRzPa4V/3dMBBpfq9UJ8=;
+	s=k20260515; t=1783416695;
+	bh=k99ykkmjZ6OP74dXrQBamHfeRFRuxYvW7MblABiIRvA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ap0qOUP8BqY2RqG7oV3PCB/LM1BLtA0z+yw7o7CTP8ev2xhhg3IZA52lt22H4+mGp
-	 QAqV0cWplaRNnNEdbNA8zFcK+i1F/uR8zR/Ww1BGXyolNcKiX9aRMbMeH1Lg63ktuQ
-	 9yD5fqvwuwdnXc3yOHI5gmwe+bZRE4SOtfi5dIUUZJZ2lRj9lVskRaUeGsASGQhgkD
-	 vbDs9iAqZhOJeQuaY9+oco39aNfyFS6+tJN0mtzsfo5VY47oALmo3ycdn4HvpwFKur
-	 18ITA1ZgLfZqHCQK48QwmhWez78N3c7TxzxSRRgZgpF7ab6Asmg4Nxp3WubIHSu6Rr
-	 aj1I/NY0ZOVKg==
+	b=boQ5MOHH5BQVBWusU9Ov/daa1xuBiisJ/Jr38IQx1sXc+24GXdnJg6LRP1iCrUW5s
+	 nLs2AjL85j+pbXy+x1XpKqZGwIDDmNe4QCK3hfbfXMpZGPKP4AUQOZkfvUOHZS7LzT
+	 yWfdnJtUTDP90wAcN/yI0S2BaYVzVP4Vb/3ofCG8ioYiOcFMc30TIpNT34rlwdKJQW
+	 nUrXyAZfPCc1W/cPUcWlXNclC0Fy1cTElXWy+V1CuLG7A304K1HM2h31cbfS+Gq1AT
+	 X8xEX1efE2f7kXBn6BJ2e4VfzBYgIgXS5gWOYL5QUXa7D/xmVSITuyUwJvmDTMtBPW
+	 FbO7PbunlYNfw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/5] arm64: dts: qcom: sm8750: fix traceNoC probe
- issue
+Subject: Re: [PATCH v4 1/7] irqchip/qcom-pdc: restructure version support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260707-fix-tracenoc-probe-issue-v5-4-bf733ed9ebd0@oss.qualcomm.com>
-References: <20260707-fix-tracenoc-probe-issue-v5-0-bf733ed9ebd0@oss.qualcomm.com>
- <20260707-fix-tracenoc-probe-issue-v5-4-bf733ed9ebd0@oss.qualcomm.com>
+To: "Maulik Shah" <maulik.shah@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260707-hamoa_pdc_v3-v4-1-dfd1f4a3ae89@oss.qualcomm.com>
+References: <20260707-hamoa_pdc_v3-v4-0-dfd1f4a3ae89@oss.qualcomm.com>
+ <20260707-hamoa_pdc_v3-v4-1-dfd1f4a3ae89@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 09:30:45 +0000
-Message-Id: <20260707093046.3D7C01F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 09:31:34 +0000
+Message-Id: <20260707093134.CE2FE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,70 +46,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Switching the traceNoC device from the AMBA bus to the platform bu=
-s actively exposes a PM runtime / devres clock unbalance bug that triggers =
-kernel WARNINGs on device unbind.
+- [High] The global `pdc_version` is left uninitialized, completely breakin=
+g interrupt enablement on PDC v3.2 devices due to executing the wrong code =
+path.
 --
 
---- Patch [4]: [PATCH v5 4/5] arm64: dts: qcom: sm8750: fix traceNoC probe =
-issue ---
-commit 614093568676102a83b2efb2ba08c1718071ad73
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+--- Patch [1]: [PATCH v4 1/7] irqchip/qcom-pdc: restructure version support=
+ ---
+commit 9e72443d7a81acfbf2e3c820dae28eecbd9b0db1
+Author: Maulik Shah <maulik.shah@oss.qualcomm.com>
 
-arm64: dts: qcom: sm8750: fix traceNoC probe issue
+irqchip/qcom-pdc: restructure version support
 
-This patch drops the "arm,primecell" compatible string from the traceNoC
-node to prevent indefinite probe deferral. By using only the standalone
-"qcom,coresight-tnoc" compatible, the device binds via the platform
-bus instead of the AMBA bus, bypassing the primecell ID check.
+This commit restructures the PDC driver by introducing a pdc_desc struct to
+manage the base addresses, registers, and version information per device.
+This prepares the driver to handle different hardware register layouts
+and secondary controller modes more cleanly.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
-com/sm8750.dtsi
-> index fafed417c66fc..1e25be41aef5c 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> @@ -4687,7 +4687,7 @@ tpdm_rdpm_cmb2_out: endpoint {
->  		};
-> =20
->  		tn@109ab000 {
-> -			compatible =3D "qcom,coresight-tnoc", "arm,primecell";
-> +			compatible =3D "qcom,coresight-tnoc";
+> diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
+> index 2014dbb0bc43a..a77d1d3340629 100644
+> --- a/drivers/irqchip/qcom-pdc.c
+> +++ b/drivers/irqchip/qcom-pdc.c
+[ ... ]
+> @@ -383,6 +462,30 @@ static int qcom_pdc_probe(struct platform_device *pd=
+ev, struct device_node *pare
+[ ... ]
+> +	pdc =3D devm_kzalloc(dev, sizeof(*pdc), GFP_KERNEL);
+> +	if (!pdc)
+> +		return -ENOMEM;
+[ ... ]
+> +	pdc->version =3D pdc_reg_read(PDC_VERSION_REG, 0);
+[ ... ]
+> @@ -401,48 +505,29 @@ static int qcom_pdc_probe(struct platform_device *p=
+dev, struct device_node *pare
+[ ... ]
+> -	pdc_version =3D pdc_reg_read(PDC_VERSION_REG, 0);
+> -
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does changing this to a
-platform device expose a clock management unbalance during driver unbind?
+Since the global pdc_version is no longer initialized here, won't it default
+to 0?
 
-When bound as a platform device, tnoc_platform_probe() acquires the clock
-via devm_clk_get_optional_enabled() in coresight_get_enable_clocks(). This
-queues a devres action to automatically disable the clock upon unbind.
+If __pdc_enable_intr() still relies on the global pdc_version variable to
+branch:
 
-If the device enters runtime suspend, tnoc_runtime_suspend() manually
-disables this same clock:
+	if (pdc_version < PDC_VERSION_3_2)
+		pdc_enable_intr_bank(pin_out, on);
+	else
+		pdc_enable_intr_cfg(pin_out, on);
 
-drivers/hwtracing/coresight/coresight-tnoc.c:tnoc_runtime_suspend() {
-    ...
-    clk_disable_unprepare(drvdata->pclk);
-    ...
-}
+will PDC v3.2 hardware incorrectly take the legacy bank configuration path?
 
-Unlike the AMBA bus framework which automatically wakes devices during
-removal, tnoc_platform_remove() does not call pm_runtime_get_sync() before
-disabling runtime PM.
-
-If the driver is unbound while suspended, the device stays suspended and the
-clock remains disabled. Once tnoc_platform_remove() returns, the devres
-unwind process executes the cleanup action, calling clk_disable_unprepare()
-a second time.
-
-Will this sequence trigger kernel warnings in clk_core_disable() and
-clk_core_unprepare() due to the counts already being zero?
-
->  			reg =3D <0x0 0x109ab000 0x0 0x4200>;
-> =20
->  			clocks =3D <&aoss_qmp>;
+Because pdc->regs->irq_en_reg is intentionally 0 for v3.2 devices, this
+looks like it might read and write to offset 0 (the PDC base) instead of
+the IRQ_CFG register, potentially corrupting unrelated registers and failing
+to enable interrupts.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-fix-tracen=
-oc-probe-issue-v5-0-bf733ed9ebd0@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-hamoa_pdc_=
+v3-v4-0-dfd1f4a3ae89@oss.qualcomm.com?part=3D1
