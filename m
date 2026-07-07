@@ -1,116 +1,241 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012049.outbound.protection.outlook.com [52.101.43.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D327320CD9;
-	Tue,  7 Jul 2026 08:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783413019; cv=none; b=CDFsMgW4VrRUkZlSICG1EEEkDCTKll9sxK4FfJ2Bz0T4hrSnSl2MGyRh6uMsPbYyNvgDaMKzB1f5ZSB6T82c1psCUgq+I8LhQBDutTWKR34iYLWLoGZXHEyQNidQjwPC7QXOnzl/ZzWVGcfqpKHkreKUaQTF1m6sF2yIJreJJpM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783413019; c=relaxed/simple;
-	bh=0JsEOF8bmLSrS4nj0xSMqyWG9RHyn4k19piU0uKu4+4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=LS+npmdtRgdklukDXjeDstsOatOVrS7ScbqWwOh301DGT9o3NFmzricSYCn1TKLBv+pZAP6ADY8pRr9oOj8eHYr1jw8/l9tGQTII+4OGqfV5o1ZZJwoTOj4ZTBpD/bE8/apiUHFWueNEY2SQQjtONh8U5lPGrTTOZx8kX2UiLjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Ekr3oz76; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7B73290D1;
+	Tue,  7 Jul 2026 08:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783413146; cv=fail; b=nkCtkQF3YiZ8uLxRkzEo3RR1sTj85ysa45lIj5yTXAUrHgkNySKtGt5OawQL88szVWRTjTq3XPaYEhkNmW2swoU80NsAaje5A2ZlcMRjKvw7+QQh1HLj9scZiQQhUcM2sCt7Ri16JObJ2Dd4RoPJqNpuIbbB+KXgL6Lc2rA3kYg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783413146; c=relaxed/simple;
+	bh=LeQbBNHl76yizinL+LiSXP3l+HNTlbJA3hGQO3XnshE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=V8ccTuv3COveVojfKmq45I3ZmgtsOi7nY0og5qfaq0MtRePPlCA6mj0tXMWobKO/0LyPlzbTc7AwQwhxasH/4WPIu0EmTCD1u7m/rBBDD3jCVa4XdPkDYDkfF2jo4noAFksUYALU4ZDyXj2r9+1xYrsyP48wImtKiGCjS5ouUOc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3xDueQMB; arc=fail smtp.client-ip=52.101.43.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Ekr3oz76"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6678TQIf81038825, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1783412967; bh=0JsEOF8bmLSrS4nj0xSMqyWG9RHyn4k19piU0uKu4+4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Ekr3oz76yIfYiCYTNeRUTnHQjFgt6x/RQKMQeC3R3liJVkMk76UVKBF+LypnqDUB/
-	 v5Ku0gdH+jSLqVWODS8P3SS0/cW5EfBJHhbc0+Kf8Ons5LmeJm5RVJseOPKoV0vKzR
-	 +31GQF2uTqmec135U6IdwJaizCxqVuk+jt5/Mm1tGoYMRQytd29LGHEL/0p/OQsr9c
-	 pAeb4yDrjDqokqJMIfww/I6ewgozomGbAmMlx7ZWQ3w0iKv3ekODoJv/AqA9umBWBZ
-	 5P9y2RARMocdeaixG8mUG99LhD97B4wggOS/Y/Klz2kmcY2H/BC6gInyRMAKxGyonV
-	 XSq8MTKEQ7fZQ==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6678TQIf81038825
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 7 Jul 2026 16:29:27 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 7 Jul 2026 16:29:25 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Tue, 7 Jul 2026 16:29:25 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, "andriy.shevchenko@intel.com"
-	<andriy.shevchenko@intel.com>
-CC: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
-	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>, "Bartosz
- Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>, "linusw@kernel.org"
-	<linusw@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>,
-	"mwalle@kernel.org" <mwalle@kernel.org>,
-	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>
-Subject: RE: (subset) [PATCH v4 0/4] gpio: realtek: Add support for Realtek
- DHC RTD1625
-Thread-Topic: (subset) [PATCH v4 0/4] gpio: realtek: Add support for Realtek
- DHC RTD1625
-Thread-Index: AQHdAijOhwVVCHLFCkaSAZ80GLo1NbZP+P+AgBG4dLD//4dbAIAACTuAgAAHBQCAAIdPIA==
-Date: Tue, 7 Jul 2026 08:29:25 +0000
-Message-ID: <1b84432e6d5f40ceb1597a75f2ecc652@realtek.com>
-References: <20260622092335.1166876-1-eleanor.lin@realtek.com>
- <178246069898.6685.11577448681947659397.b4-ty@oss.qualcomm.com>
- <a00c475a6ce0469682305c4b4269b181@realtek.com>
- <CAMRc=Md-iOQ5qb5uPZcKJkpS8fmYscw8TRXqe7rRrJS7acE32w@mail.gmail.com>
- <akyxXxtj8nyCs-yf@ashevche-desk.local>
- <CAMRc=MfD2j3xt1dXojFbyn=Df_9epMgEmLvSdCAfS7BSS6HD6w@mail.gmail.com>
-In-Reply-To: <CAMRc=MfD2j3xt1dXojFbyn=Df_9epMgEmLvSdCAfS7BSS6HD6w@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3xDueQMB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dzk5ST/YFWyFesF629fiq1/LXcqx79Nt8Y0vjII1MmAHnsjpGB6SAox1MdxnqTi50coRReHoic0MkfeEkmyUjP7XR7ixzXtk/U8O9WYFIq8D/9KKYjUqpPm5h/u8csnt7uh+JWkW2HFNveavPXBG95LWMkrubgmS5JWR/N0yzhUQu+U/qo905nPagHu6W3I7apPCNi+JzcWQNPImg3Bjul+zNHGUOZ+nEtiYtdfVjgXIDQoUav1mLdRRkDti7zu6npHoaPsgsPYZmqQC487Z/ROK73xvWtb32Z/SzdjkSlKbYVuPKs7ZdulQ2M+MC8NQH+knPGgbNkCBbVE37qpGwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7gd4xgFPS6w7BTzrSeXHpNhFIY11yTT0Qr54aOpU7Go=;
+ b=CTd3jBtl5ou+WMaKixcc7Jhw+cmFbPY1Qvhfj/Giia8XBswMy7L/irjorJmTjZqIG4ojfVyoPD3Rh5BQczjRsbMQDC3NWIWEkCa2NyhyMLw0eLELIhxR6egmuhjSCD6Cu0p5U2VIn68iM2UDtzw6ZnLTKTiWZ6dzLGvj+QUVsTxb1Y20DJwiZD1bZucadOi+uxk7lTjpSaOdFaBgkr07vzH3cxvdPDgfaBAc81O5qR+p3cPKS5SULFNlyThsrhOK4InWR4B9dwuu30HqIM/WR49yjBlVKXuC8WDDrSVRr7Cy487l+Q6RMwmSBhi2Qh+8265jRaHq2lH5OwSUxCPDqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7gd4xgFPS6w7BTzrSeXHpNhFIY11yTT0Qr54aOpU7Go=;
+ b=3xDueQMBovL/F+cEw2ChxY+Y3I6f2iXyN4tutgUJytdHpqlDOvNlo299z/1PnxYiuyN9z2c9pbQSKGWHLd7jta+fTc0IFTWQC2arUSwtHg0qxcnquOgW5KSyWkUnJZFpK1QXNn41iqdmTWtPjayE/1W9Xft9bD9b+/PyabbwNOc=
+Received: from MN2PR05CA0047.namprd05.prod.outlook.com (2603:10b6:208:236::16)
+ by MW4PR12MB7288.namprd12.prod.outlook.com (2603:10b6:303:223::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 7 Jul 2026
+ 08:32:20 +0000
+Received: from BL6PEPF0001AB4D.namprd04.prod.outlook.com
+ (2603:10b6:208:236:cafe::78) by MN2PR05CA0047.outlook.office365.com
+ (2603:10b6:208:236::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.9 via Frontend Transport; Tue, 7
+ Jul 2026 08:32:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4D.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 08:32:19 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
+ 2026 03:32:14 -0500
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41 via Frontend
+ Transport; Tue, 7 Jul 2026 03:32:14 -0500
+From: Michal Simek <michal.simek@amd.com>
+To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
+	<michal.simek@amd.com>, <git@amd.com>
+CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, "open list:OPEN FIRMWARE
+ AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated
+ list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH v2] dt-bindings: xilinx: Remove EDK/Ethernet references
+Date: Tue, 7 Jul 2026 10:32:09 +0200
+Message-ID: <40767504662d6461553db77465230e25348c69bc.1783413127.git.michal.simek@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5356; i=michal.simek@amd.com; h=from:subject:message-id; bh=LeQbBNHl76yizinL+LiSXP3l+HNTlbJA3hGQO3XnshE=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWT57Oy+LHkrtmXm9GO7/p9bsLl07R8LmUie5PyOTS8lB GsiP9780lHKwiDGwSArpsgynUnHYc23a0vFlkfmw8xhZQIZwsDFKQAT+T2F4Z/RUvfKuwwVm6L+ cgce+vHYvvOWbOuklJXHtjKc15IOZ1vL8L+Ec5nLCl4D2YO8D4QPfFVLfB9hysXtfF+Ge+E3Het fqxgA
+X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4D:EE_|MW4PR12MB7288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41ae5a1e-2816-4902-b661-08dedc024222
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|3023799007|6133799003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	SQylDOko0rvCkBxGKstVMARKbSQkcY8x2FsKX4VSksdp+X3gqAdSuLJYZmpLFa1aVjWhWw4I0xIXYCrBbIi6oHMvKh8ti5Ie85Fd0zqwv7/3DvJdp7U6h2ykOWhZf3n1REmrxIKlKUhjOZ3/3lT/8QehzQHOIr8anLTeYakOLOdo+S5FnD58VF5UXK97yTal0ARRjCXaVchKfeqxXCNVabciKYaz2Jyrd6w5ahmrxw2ylv8FFbCBNcwWRVirIGFdF7GH5sNfzb7RCqcK9OO9NmHWahDswfjH9rh3tkuv1AMc8J+7FwW0z5JbzqHIA8ygN/JzUhz9DvXBHUv8UjOZyb45ubDgjlPPRKqzPAYu5kKR4tYfmVRuKuTUwpebwo364iN4gX3KlDYPDJ/pFsd9B8sCluLCkSLIWeSzFvMF7JmfSjlX1wfZfXvt2amHzB28OV8qMyTP/v1AIfD8T7rYgitzkn/nDuQaqhD/fyvRiewg48PUahsy7l8X48WmoL6NQVNCgvkVJE016LSbpIbakwnZul2ExxVAjZ30U4712NSU57vu4jcIEBFpNZA9feRgPj75B98BvrWA3gYGIKv9A+PtzZVRH+D/UAL9d8IzLuXgTU6BlCZnoH5VKbtKZAvkDhF5/Lck5uz5TvT1nE/v1bHLem9/a0CGwn/fjY70HxD0q8CAhptJvgVe5alUtIajnEV2otwdM7HsXolyPUtm/Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(3023799007)(6133799003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	rIDSFzyUupXUVYKzPqjL5P0uHEs6ugxfaO7/yPcQhWaqMO70GtT3wr+EgP241mg6Fl4UBImGzRDdY3KhbUQYXVqQQ2m4opileL1dOhf+XSGiDAdp+zUS4mBSc/bJzmxmu9tSQj/+ufJY+3b6ttfaCL9bjXqjhWzSKEA0VsV3f5D9IYAqjMNGueYfOWEmaCAzBWIaGJV4oa7PFP6DahqGkyDNmb8Dn3qU9ym5CxPu9IugEiXgQrSHYA1p33gTioaZ+3rfr3V1SLjwwM9oTc0bX+P0Qznjxblynrr/bxxNo16cgu5blOrraX3lvaRyoiCbriyaWNW0ayyI9tNxyaFv8AUMWyYpjuYO+SJGFo222PGR1r96DFqvcHTMuiHmco5yhjGQ2N3gpsIhtP+FUOXpPSk71L9l7RTPcBCvE0j2GiQ5e9n7gMmOW0akSRIYuZsQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 08:32:19.0454
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41ae5a1e-2816-4902-b661-08dedc024222
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB4D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7288
 
-PiBPbiBUdWUsIDcgSnVsIDIwMjYgMDk6NTc6MTkgKzAyMDAsICJhbmRyaXkuc2hldmNoZW5rb0Bp
-bnRlbC5jb20iDQo+IDxhbmRyaXkuc2hldmNoZW5rb0BpbnRlbC5jb20+IHNhaWQ6DQo+ID4gT24g
-VHVlLCBKdWwgMDcsIDIwMjYgYXQgMTI6MjQ6MTZBTSAtMDcwMCwgQmFydG9zeiBHb2xhc3pld3Nr
-aSB3cm90ZToNCj4gPj4gT24gVHVlLCA3IEp1bCAyMDI2IDA4OjU1OjI2ICswMjAwLCAiWXUtQ2h1
-biBMaW4gW+ael+elkOWQm10iDQo+ID4+IDxlbGVhbm9yLmxpbkByZWFsdGVrLmNvbT4gc2FpZDoN
-Cj4gPj4gPj4gT24gTW9uLCAyMiBKdW4gMjAyNiAxNzoyMzozMSArMDgwMCwgWXUtQ2h1biBMaW4g
-d3JvdGU6DQo+ID4NCj4gPiBbLi4uXQ0KPiA+DQo+ID4+ID4+IEFwcGxpZWQsIHRoYW5rcyENCj4g
-Pj4gPj4NCj4gPj4gPj4gWzEvNF0gZHQtYmluZGluZ3M6IGdwaW86IHJlYWx0ZWs6IEFkZCByZWFs
-dGVrLHJ0ZDE2MjUtZ3Bpbw0KPiA+PiA+Pg0KPiA+PiA+PiBodHRwczovL2dpdC5rZXJuZWwub3Jn
-L2JyZ2wvYy84ZjMyODA4ZTE1MzBiMjIyOWUwNzY5NWZiMzljNTRmZWU5MTANCj4gPj4gPj4gYmQ0
-YSBbMi80XSBncGlvOiBSZXBsYWNlICJkZWZhdWx0IHkiIHdpdGggImRlZmF1bHQgQVJDSF9SRUFM
-VEVLIg0KPiA+PiA+PiBpbiBLY29uZmlnDQo+ID4+ID4+DQo+ID4+ID4+IGh0dHBzOi8vZ2l0Lmtl
-cm5lbC5vcmcvYnJnbC9jL2I1ZDIzZmNkYjEyOTcyYzUyMmU5NmY5MGFiNDhiZThhMGQ5Nw0KPiA+
-PiA+PiAxYjBlIFszLzRdIGdwaW86IHJlYWx0ZWs6IEFkZCBkcml2ZXIgZm9yIFJlYWx0ZWsgREhD
-IFJURDE2MjUgU29DDQo+ID4+ID4+DQo+ID4+ID4+IGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvYnJn
-bC9jL2E1N2UyN2M0M2IwMzE1ZWU4NmM2ODk2NTEwZDY5YmU1MjU3ZQ0KPiA+PiA+PiAwOTNlDQo+
-ID4+ID4NCj4gPj4gPiBUaGFuayB5b3UgZm9yIGFwcGx5aW5nIHRoZSBwYXRjaGVzIQ0KPiA+PiA+
-DQo+ID4+ID4gSSdtIGN1cnJlbnRseSB3b3JraW5nIG9uIHY2IG9mIHRoZSBwYXRjaCBzZXJpZXMg
-dGhhdCBpbmNvcnBvcmF0ZXMNCj4gPj4gPiBBbmR5J3MgZ3Bpby1yZWdtYXAgcGF0Y2hlcywgYW5k
-IGl0IHNob3VsZCBidWlsZCBvbiB0b3Agb2YNCj4gPj4gPiBncGlvL2Zvci1uZXh0LiBIb3dldmVy
-LCBJIGhhdmUgYSBjb25mbGljdCB3aXRoIHRoZSBkcml2ZXIgcGF0Y2ggdGhhdCB3YXMNCj4gYWxy
-ZWFkeSBhcHBsaWVkLg0KPiA+PiA+DQo+ID4+ID4gQ291bGQgeW91IHBsZWFzZSByZXZlcnQgdGhh
-dCBjb21taXQgZnJvbSBncGlvL2Zvci1uZXh0Pw0KPiA+Pg0KPiA+PiBDYW4geW91IGp1c3QgcG9z
-dCB0aGUgc2VyaWVzIGFzIGEgZm9sbG93LXVwPyBJIHRyeSB0byBhdm9pZCByZWJhc2VzDQo+ID4+
-IHVubGVzcyBhYnNvbHV0ZWx5IG5lY2Vzc2FyeS4NCj4gPg0KPiA+IFdvdWxkIGJlIGp1c3QgbGVh
-ZGluZyByZXZlcnRzIGluIHRoZSBzZXJpZXMgYXBwcm9wcmlhdGU/IE90aGVyd2lzZSBpdA0KPiA+
-IHdpbGwgZ2l2ZSBhIGxvdCBvZiBhZGRpdGlvbmFsIHdvcmsgZm9yIHBlYW51dHMuDQo+ID4NCj4g
-DQo+IFllcywgdGhhdCdzIGFscmlnaHQuIEl0IHdpbGwgbWFrZSB0aGUgcmV2aWV3IGVhc2llci4g
-V2UgY2FuIHRoZW4gc3F1YXNoIHRoZQ0KPiByZXZlcnRzIHdpdGggdGhlIG5ldyBwYXRjaGVzIHdo
-ZW4gYXBwbHlpbmcuDQo+IA0KDQpVbmRlcnN0b29kLCB0aGFua3MhDQpJJ2xsIGFkZCB0aGUgcmV2
-ZXJ0IGFzIHRoZSBmaXJzdCBwYXRjaCBpbiB0aGUgc2VyaWVzLg0KDQpCZXN0IFJlZ2FyZHMsDQpZ
-dS1DaHVuDQoNCj4gQmFydA0K
+The latest EDK version was 14.7 released in 2013 that's why remove
+description for it. Also remove generic description for Ethernet which
+doesn't bring any value.
+
+Signed-off-by: Michal Simek <michal.simek@amd.com>
+---
+
+Changes in v2:
+- Update description for additional bindings - reported by Sashiko
+
+ Documentation/devicetree/bindings/xilinx.txt | 98 +-------------------
+ 1 file changed, 1 insertion(+), 97 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/xilinx.txt b/Documentation/devicetree/bindings/xilinx.txt
+index 0ee9de99b3ae..a1a2cde7b7d8 100644
+--- a/Documentation/devicetree/bindings/xilinx.txt
++++ b/Documentation/devicetree/bindings/xilinx.txt
+@@ -1,93 +1,4 @@
+-   d) Xilinx IP cores
+-
+-   The Xilinx EDK toolchain ships with a set of IP cores (devices) for use
+-   in Xilinx Spartan and Virtex FPGAs.  The devices cover the whole range
+-   of standard device types (network, serial, etc.) and miscellaneous
+-   devices (gpio, LCD, spi, etc).  Also, since these devices are
+-   implemented within the fpga fabric every instance of the device can be
+-   synthesised with different options that change the behaviour.
+-
+-   Each IP-core has a set of parameters which the FPGA designer can use to
+-   control how the core is synthesized.  Historically, the EDK tool would
+-   extract the device parameters relevant to device drivers and copy them
+-   into an 'xparameters.h' in the form of #define symbols.  This tells the
+-   device drivers how the IP cores are configured, but it requires the kernel
+-   to be recompiled every time the FPGA bitstream is resynthesized.
+-
+-   The new approach is to export the parameters into the device tree and
+-   generate a new device tree each time the FPGA bitstream changes.  The
+-   parameters which used to be exported as #defines will now become
+-   properties of the device node.  In general, device nodes for IP-cores
+-   will take the following form:
+-
+-	(name): (generic-name)@(base-address) {
+-		compatible = "xlnx,(ip-core-name)-(HW_VER)"
+-			     [, (list of compatible devices), ...];
+-		reg = <(baseaddr) (size)>;
+-		interrupt-parent = <&interrupt-controller-phandle>;
+-		interrupts = < ... >;
+-		xlnx,(parameter1) = "(string-value)";
+-		xlnx,(parameter2) = <(int-value)>;
+-	};
+-
+-	(generic-name):   an open firmware-style name that describes the
+-			generic class of device.  Preferably, this is one word, such
+-			as 'serial' or 'ethernet'.
+-	(ip-core-name):	the name of the ip block (given after the BEGIN
+-			directive in system.mhs).  Should be in lowercase
+-			and all underscores '_' converted to dashes '-'.
+-	(name):		is derived from the "PARAMETER INSTANCE" value.
+-	(parameter#):	C_* parameters from system.mhs.  The C_ prefix is
+-			dropped from the parameter name, the name is converted
+-			to lowercase and all underscore '_' characters are
+-			converted to dashes '-'.
+-	(baseaddr):	the baseaddr parameter value (often named C_BASEADDR).
+-	(HW_VER):	from the HW_VER parameter.
+-	(size):		the address range size (often C_HIGHADDR - C_BASEADDR + 1).
+-
+-   Typically, the compatible list will include the exact IP core version
+-   followed by an older IP core version which implements the same
+-   interface or any other device with the same interface.
+-
+-   'reg' and 'interrupts' are all optional properties.
+-
+-   For example, the following block from system.mhs:
+-
+-	BEGIN opb_uartlite
+-		PARAMETER INSTANCE = opb_uartlite_0
+-		PARAMETER HW_VER = 1.00.b
+-		PARAMETER C_BAUDRATE = 115200
+-		PARAMETER C_DATA_BITS = 8
+-		PARAMETER C_ODD_PARITY = 0
+-		PARAMETER C_USE_PARITY = 0
+-		PARAMETER C_CLK_FREQ = 50000000
+-		PARAMETER C_BASEADDR = 0xEC100000
+-		PARAMETER C_HIGHADDR = 0xEC10FFFF
+-		BUS_INTERFACE SOPB = opb_7
+-		PORT OPB_Clk = CLK_50MHz
+-		PORT Interrupt = opb_uartlite_0_Interrupt
+-		PORT RX = opb_uartlite_0_RX
+-		PORT TX = opb_uartlite_0_TX
+-		PORT OPB_Rst = sys_bus_reset_0
+-	END
+-
+-   becomes the following device tree node:
+-
+-	opb_uartlite_0: serial@ec100000 {
+-		device_type = "serial";
+-		compatible = "xlnx,opb-uartlite-1.00.b";
+-		reg = <ec100000 10000>;
+-		interrupt-parent = <&opb_intc_0>;
+-		interrupts = <1 0>; // got this from the opb_intc parameters
+-		current-speed = <d#115200>;	// standard serial device prop
+-		clock-frequency = <d#50000000>;	// standard serial device prop
+-		xlnx,data-bits = <8>;
+-		xlnx,odd-parity = <0>;
+-		xlnx,use-parity = <0>;
+-	};
+-
+-   That covers the general approach to binding xilinx IP cores into the
+-   device tree.  The following are bindings for specific devices:
++   Bindings for specific devices:
+ 
+       i) Xilinx ML300 Framebuffer
+ 
+@@ -102,13 +13,6 @@
+                                            Default is <d#1024 d#480>.
+        - rotate-display (empty) : rotate display 180 degrees.
+ 
+-      iii) Xilinx EMAC and Xilinx TEMAC
+-
+-      Xilinx Ethernet devices.  In addition to general xilinx properties
+-      listed above, nodes for these devices should include a phy-handle
+-      property, and may include other common network device properties
+-      like local-mac-address.
+-
+       v) Xilinx hwicap
+ 
+ 		Xilinx hwicap devices provide access to the configuration logic
+---
+base-commit: f608bce703fc31a2cdf67abe1de882d5bbc45142
+branch: zynqmp/dt
+
+-- 
+2.43.0
+
