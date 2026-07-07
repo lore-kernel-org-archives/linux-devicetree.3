@@ -1,81 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B10C41F7C6;
-	Tue,  7 Jul 2026 15:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DD1175A60;
+	Tue,  7 Jul 2026 15:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783438619; cv=none; b=q6dgiBWgSgSQU5ud3zO9J+sSu2T9+8JYApuj+CGZRFWKRh5oYIm//Ju5GaPH9DdY8C73vrRgJfgOUfy2mQyq8RqBd+DxvLLU1QVhqCHRAru4Od6DnHqkBmBr9y1IwHFFlsmp7IrW1xzwDVFtNXGAUb2rCbfeQ9xw/7pC/6sXXj0=
+	t=1783438972; cv=none; b=Iv154/HChbnx8Fh6z2+Xj+vNYmipsF1z3S+vENZEPZr8kXcJ0scL0UXa6Q1N9EJ4jNCYHRYWUlX8IIKkEGjbJWc2P539prNlrKTmQVy6TrvF+P/BIJJ27M7Drp3HctKKUp+7v0Ek6RrBQt3lrq1YKFE24vM+vQnVJEXq++itJoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783438619; c=relaxed/simple;
-	bh=j/3Eg1ogVsf3EmghcOQfm3oTgU47ZEQlOMVHS9D3Rbw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cDywjkpacydYLOLlRYcpBeF4NyfESPX+p0HLrFeqFOCVA5Anpjfme5tIqEkF03OjlVm0mlr+KlM4t4+hJc4NmGB17idiEDNtmB+RIEnEH0DCcCdcPQuZLnOHhFCAqkQfoM0n9mRrjj6Gc0dUckck1W/Yxw2viZ44/YXIF2tYnPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCn30mtF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783438972; c=relaxed/simple;
+	bh=q69Efgu8X5NGbOCMTzwUNrYXN34SM6vI0sNv573sxkM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KFGWMHTURB2yc30/k9sNJOcHoqvQ3M5/+/ztbRMPn+654Ooh162aqWaH3PvUbpyVDWZj//9YB8l6W9yhVkzycdBvCE8rl+9r1fdJpqYmUvl+Xa1l0U0BIcUlIf1jzPVpf0tUMAmjtkITTDIUuvHZWbvDAxocQusFbHy2Ki95SIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qEr99uQG; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCn30mtF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E2A1F000E9;
-	Tue,  7 Jul 2026 15:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783438613;
-	bh=D3Hdmnxss7OooEgBEaSE5nTSXMIcAOWWTRBg34hgO0Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hCn30mtFhYuHNFmflRAj8e0RXUg7hftdiZ1o8Mm1go/UH+dJdJBodkFnxKdloC0OE
-	 So9Ac5qObrNlv4fVnj9kON4kDnG7uQ8LIe847OC8QYp3WF6dTE+pI9XrUh7zCsofkS
-	 REhK6j3D1uzmtnaK2F5/pkLzHhWOY42CP1Dd4Yy2UJV+0l73W1iR64BfaPa6Wbi8Ub
-	 DjE0pDbW5TFf5zShp2nTWaq+UJ2h9mJYXZXZc1KVAXypDLCzwYfWnIJTCyKe1uFt48
-	 5OvXbfaZE09kbe4ahUhkLAgy9F+xmn6bMs0CfLL+xx/5KTVH1fiQYU/el2jtg8hy65
-	 CgbU7o/kNV2Qg==
-Date: Tue, 7 Jul 2026 17:36:43 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] PCI: dwc: Determine whether iMSI is used before
- calling .init
-Message-ID: <p4it4hcg24narbtjtoqdk6zg7wpfs5hc2mm77acyoi6hwfkh5u@5bqlwhylosmo>
-References: <20260701203918.63189-1-marek.vasut+renesas@mailbox.org>
- <20260701203918.63189-2-marek.vasut+renesas@mailbox.org>
- <4qyn4fljtb3cbzcmfpkdomkm7vqnwn2rfbtqng4iwmtvfd4bpj@t6kkw53erl7f>
- <8a921ce9-e339-445a-af05-d20f9f2df01e@mailbox.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qEr99uQG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783438969;
+	bh=q69Efgu8X5NGbOCMTzwUNrYXN34SM6vI0sNv573sxkM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qEr99uQGkcf3jMnENadozcdWbn/QYxn9I9gMh+n4RN2pEgM6gPMBFTSWJCTX1lPjD
+	 pHbLSezVjJ9i/7HuFrKbcVitlpR3K2NtMxrl5y4AlhQGeAPSGxbw/9rcwjxU8ml4dA
+	 PgqFfvz5iyIZBv/ouPOLZfcNu6MSZjrsJs3h4L6hfWItfLT4ziJhWFdrbQBNf/mhaL
+	 0FJ8Xy9gJQsHCovUT0vUD9y6R+ncnOI5YyVkVzpDn7FwYkVpvN1xfN5Ejq6QLjSIeo
+	 GXtYd1RV366To/3hy52H1GAsgGrxsHJdNoKmqCYcEJy3dqPEHZjylBRb50pYWimPfd
+	 49UBEPYIi5J6w==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7BBFC17E013E;
+	Tue, 07 Jul 2026 17:42:48 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	justin.yeh@mediatek.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	kernel@collabora.com
+Subject: [PATCH v3 00/12] PHY: MediaTek DP PHY refactor and MT8196 eDP
+Date: Tue,  7 Jul 2026 17:42:33 +0200
+Message-ID: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <8a921ce9-e339-445a-af05-d20f9f2df01e@mailbox.org>
 
-On Mon, Jul 06, 2026 at 07:48:24PM +0200, Marek Vasut wrote:
-> On 7/6/26 6:43 PM, Manivannan Sadhasivam wrote:
-> > On Wed, Jul 01, 2026 at 10:37:44PM +0200, Marek Vasut wrote:
-> > > The R-Car Gen4 PCIe controller integration configures MSI registers
-> > > in the controller driver .init callback, because those registers
-> > > have to be configured while PERST signal is asserted, and the PERST
-> > > signal is asserted across the controller driver .init callback.
-> > > 
-> > > The registers have to be configured differently in case the iMSI is
-> > > or is not used. Assign pp->use_imsi_rx before the controller driver
-> > > .init callback is called, so the controller driver .init callback
-> > > implementation can use the pp->use_imsi_rx value.
-> > > 
-> > > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > 
-> > LGTM!
-> Thank you. Can I get AB/RB before sending V4 ?
+Changes in v3:
+ - Added missing bitfield.h, pm_runtime.h includes (Sashiko)
+ - Set calibration data before registering PHY (Sashiko)
+ - Enable PM Runtime before creating PHY device (Sashiko)
+ - Continue poweroff if some write fails, but still return failure
+   as that would be a partial poweroff anyway (Sashiko)
+ - Added zero driving params to fix default calibration data setting (Sashiko)
+ - Added NULL check on device_Get_match_data (Sashiko)
 
-Why? Since this series goes through PCI tree and all PCI patches are controller
-patches, I'm going to merge the series. So no need of the A-b/R-b tags.
+Changes in v2:
+ - Fixed register offsets for ANA phy in MT8196
+ - Set/clear FORCE_VOLT_SWING_EN bit when configuring and resetting
+   the voltage swing registers
+ - Fixed endianness issue in call to nvmem_read_u16 (Sashiko)
+ - Added early exit during lanes disablement if none are enabled to
+   avoid out-of-bounds bitwise shift (Sashiko)
+ - Removed useless call to pm_runtime_get_sync() in probe(), which
+   also fixes issues pointed out by Sashiko
+ - Fixed wrong dig vs ana register array usage in power_on/off (Sashiko)
 
-- Mani
+
+This series performs major refactoring on the MediaTek DisplayPort PHY
+driver, makes it probe with devicetree instead of getting registered
+by the mtk_dp DRM driver, adds power_on/off() callbacks, and honors
+the phy configure opts' set_lanes and set_voltages for, respectively,
+varying the number of lanes and setting the voltage pre-emphasis and
+swing on the PHY, for each lane.
+
+This driver now also properly gets the PHY (EYE) Calibration Data from
+NVMEM (eFuse array) if provided, instead of getting it (improperly)
+injected by the mtk_dp driver.
+
+Additionally, all of the driving parameters calculations and most of
+the other register definitions were refactored to greatly enhance the
+human readability of this code.
+
+As a last step, this also transfers the register offsets for both the
+digital and analog phy registers in arrays assigned to soc specific
+data, in an effort to both introduce support for new minor revisions
+of the MediaTek DisplayPort PHY and to have a clearer view of the
+register related differences between those (for example, it is easily
+understandable that the analog part remained exactly the same between
+MT8195 and MT8196, but the digital part gets a slight update).
+
+Speaking of which, as a last step, this also adds support for the
+MT8196 SoC (and its derivatives), which uses this PHY only for its
+Embedded DisplayPort (eDP) IP (spoiler: the DP one seems to be way
+too different and requiring an entirely new PHY driver).
+
+In this state, this driver can also easily support the MT8189 SoC
+with a few lines of code: even though I do have clean code to add
+support for this one, I was not (*yet*) able to test it on upstream
+based kernels, and for this reason I decided to leave that one out
+for now (but it's coming later for sure).
+
+NOTE!
+Despite all the apparently breaking changes in the refactoring, full
+compatibility with older MTK_DP driver and with old devicetrees was
+retained and carefully tested on multiple platforms!
+
+P.S.: I am aware of the BUILD_DRIVING_PARAM_0( 0, 2, 4, 7) checkpatch
+warning and I didn't fix it in bigger favor of human readability.
+
+AngeloGioacchino Del Regno (12):
+  dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
+  phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
+  phy: phy-mtk-dp: Allow probing with devicetree match
+  phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
+  phy: phy-mtk-dp: Implement power_on and power_off PHY callbacks
+  phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
+  phy: phy-mtk-dp: Support setting volt swing and preemphasis values
+  phy: phy-mtk-dp: Add support for digital and analog calibration
+  phy: phy-mtk-dp: Rewrite and document default driving param macros
+  phy: phy-mtk-dp: Add bitrate register val definitions to SoC data
+  phy: phy-mtk-dp: Add PHYD Lane EN register mask to SoC data
+  phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+
+ .../bindings/phy/mediatek,mt8195-dp-phy.yaml  |  77 ++
+ drivers/phy/mediatek/phy-mtk-dp.c             | 882 ++++++++++++++++--
+ 2 files changed, 862 insertions(+), 97 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
 
 -- 
-மணிவண்ணன் சதாசிவம்
+2.54.0
+
