@@ -1,314 +1,188 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3013C465;
-	Tue,  7 Jul 2026 20:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F21C2E738F
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 20:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783457175; cv=none; b=h7YAIu4Ex7LThp+MqDq6R0K+4VIocVquttSzbd223/FX0TinKRmqQyHTCQKvahU1fHVyLEYgbGYAbyhUDQEi+ZBAQglPtJJqZuAisGYAkQCNRNp1xGjkCc4RSmT7JovSff/6egeVU5hWmUCstbQoaAOKxW/qO4cr6v7xgxW5YsA=
+	t=1783457427; cv=none; b=LlqSeBB3ZCjZLwap2qvb9RXSFJeuxGnQay4uYp9DakBKxVp6HusdbIvmg9R0Uy5noLbn3XVP2lEiqVLJXVPrxohuS2JgGiXQE8IzjUCWo1MN8HbxQ5KkYFU4N3lNcdhi6COYDA1Kq0izoRRVHsUqLA5G1d7LLHUwy7vDAftZrEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783457175; c=relaxed/simple;
-	bh=sTqMhYE+xLCp28bXAFAQdjGE/gfFj/qOo86cYqaWGWE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fXqoKoFPHuFW+TakdezOt3ryDVOkXGnsiKPZ6maRzhojoQBvzYaC4cKatlyForN0LbYetQ5DMpdMxiLy3PGbuAeyJZmg+HrRtk6EAbLPJFrN5HZh+P0S1Cc1/aLE8VcIT2tZraBCPkGHvKgPw8VbFcStlLx7cmqHY0/DuMJNww8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Kv/4dQd1; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MtpujWlS; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1783457427; c=relaxed/simple;
+	bh=2+FrNKiZHlaOosauZT36r8EtxQenC5613cF0lHnS6Kw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i639ofT7h+YNXToIp1pX/hoVz+K+WnR7YRv+VbKIOcSApPoUhRzCa7Pui3PZVd/E+IIs9c4JbvyOV829/96NmcVd+xMJMuleGgZQa5jDkQGXbnd3RLX4s/GWSkewEJjhBBZbCVEmle0/2SQLaXDUZD0Fk3KUs1i/1CU8XMyOo3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VgKt6zAq; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Kv/4dQd1";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MtpujWlS"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gvtN02F1Nz8v8b;
-	Tue, 07 Jul 2026 22:38:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783456688;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P+KHULNUGO23fKouFSgH85v42r+d7/wZHkSXeBZEIno=;
-	b=Kv/4dQd1kRa42MH6ABoVp5Gta9fBtNQ9sonVEZl4HjeOrBOLzVXQ+CTgNZ2ErPn2JEIOVO
-	X4NsZF6XG3DVdQ8coTN7zqCdTizNujWbWf7OJgw4qgGKBRUev6gUcwAjhptLx1DmazjBei
-	91ACjR4MaKScBtVWY49LJd8WDD8INIPY20WtZc8wK4FN+8+oIZwkAPNV3MYlS7oriliwyR
-	QG0mQVc835nyh9m1YGFtTrIdGJwtJYqpLlKyQRFJh7SpDzHfYcAGt4drIogTq9TWGNnTcn
-	Tx+uk4ND3AHBFVE9GpB9YCMxC/sVZEJHIoO8aaq+GJssAExulpiGUIiHCRtlMA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=MtpujWlS;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783456686;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P+KHULNUGO23fKouFSgH85v42r+d7/wZHkSXeBZEIno=;
-	b=MtpujWlSni6HxH3bWQh6hxG/aOjSfBZJf6MoZ+KNdrpJ6cSLEyhzdlxlgwxB9KyeTLc6il
-	9sic+Tl1/YSW9qyAmwULkIJD06A0Rvu8UuSyYD10UGXhcPrqyZZut1k2fMnjlLKnaZVgTn
-	QLssvOEB9VGJDTKzkbH3DcGvEeb6aNZqO0N8hYFy7+V/iiHT7Pjm8gFjxfDD9vPQlM9Iyh
-	RfY31GN2erNmlXk8cK3PUokCS0sCpJYuQ1pqbSkz8hk3BjwYr/bI63XBDSBiAZHQzg82iu
-	KqGz1U+BLpaWrP3iyhALY5MlvqC3KdK00/yoPEorzcWVOiih2eKVwxOpJrhFcQ==
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v4 2/5] PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
-Date: Tue,  7 Jul 2026 22:35:40 +0200
-Message-ID: <20260707203743.88299-3-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260707203743.88299-1-marek.vasut+renesas@mailbox.org>
-References: <20260707203743.88299-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VgKt6zAq"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so30737905e9.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 13:50:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783457424; x=1784062224; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zP44B3mdldx6dm5k0ofo9c87bKSYGg9SPFsLdDVShqc=;
+        b=VgKt6zAqcUYAyicH9PR5iPXmJun63qdGpqLdReSf4ha0jyjz6vT6wxq9B2if4jD0i3
+         uc5jEzBeZ7Qa9FIz7n9xa04H3uMpXCrIlmAObivTMyD9vnLQWvV/AZMf+cK5OS5fX9Uo
+         KEc6IiNiEbPz+ep8HC3exKwoajgjZJ8HAgZNhUUMgVZfKm0eCzoLFAtLu/beU/0kV8YR
+         vvD6fMy0r7sT/p+Bzr+s+D9A+WdqEvrKCEQt4TUYKqLuJiK2ZWysoKI+oaRG+0YV3Gno
+         5W60MYUzM6+n6s0ckB+7LgYp8jjUWibCmZ+srHq4PXhVnAejKuvlaXoVuP8orWrzKeBf
+         RiHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783457424; x=1784062224;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zP44B3mdldx6dm5k0ofo9c87bKSYGg9SPFsLdDVShqc=;
+        b=Sjles4CH6IucTjMet/4RI1HdgnGspWzHeUH2dGTLHVpty5BW0+QIX2yMEoOkqQ41Vo
+         7UQLH4go1b0azRTYTIcM3niBy/SWkpSZQP0KlhQ2VYApGnPFVuIoCXaJNjYSqG+nu+5A
+         5cXTE9QgdhCHd/ANd1tU5PSDnnHy+dvw+cVEwIGOJrmgFSdi4hpZOmUc61YhRQL3MmpQ
+         HIJuOT2BCXHWRutCn0eTxiWJBR5h7TcmfDMCV6DdD306rxHB2Zt9xcCKDQCC2FR6ibrW
+         0exkTZjE5dSkbB69CtOYTJxUT/+5uumKI2gQGzcN1W7Iy8FesO1xZhng/zR/mDkjaPmM
+         /oqQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpYoX+wRXQ6+cEblMEu4NsiSYuupWJwNFYnaGd4yrKsisG4/wm2S/tRrDkzhq6JDikFWAhGJsOC0X61@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLG29xPdHK3Nys/rQku7E3IQRV5iFoE4nuyEJur839hboAL3zl
+	83XkflCZuOHgv5xVtXpIaqkpmadGDwFzJoHx6cAK+89FOkZ9f4QE9/tP
+X-Gm-Gg: AfdE7cmo8jgeGX8vqHZ9jeK7mlMmlM/QmZCP/d3UZXJYB7oJ4Kl1ProLsdnMnK49HXF
+	GIQEgSTLzLGPBJUUZfKEIh3B+4KTGYbZyuuEnQl1Wwquqgck/mBuHKnSrwywfkpFpK9s1TzpVcI
+	bWWMyWW4uTPZE/dKMicUP/Bw7ZerdriuE7itwqcQkeMhqb4PMGShrTBvo5z1AE9if49nnLx1+2P
+	AB6K8nOQGSYgH4LrbIFVfn5MsRfPVskjF3v/AWi5c9zZOOO77Ts8Mus+GcDNle9W3qLS3cDV/Wj
+	OqEy33wurzY82HCxnVhvYsjl40hvUpztSYO8rX08TT8TpJugHFBoNUnVbTRqZNsSYj63GMwjQ6I
+	YxMuQ9GU3RXQ3yYCW0sF675beTtdSAvjXVKTKrr33p5SejWbjYuwoA10DILZxoA3bxkdWrPiXXS
+	flDOGvXPkaAlc9ej0EafU+8ivTZWatqqSa9oJLtLZoHTtwkv2ztizF0iOvW0P5ieEsPX+FtDJnp
+	7Q246vLCqkd6vc=
+X-Received: by 2002:a05:600c:1908:b0:492:5855:1548 with SMTP id 5b1f17b1804b1-493df095562mr76302525e9.27.1783457423164;
+        Tue, 07 Jul 2026 13:50:23 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f102:9901:f85d:9fdd:690a:6e0f? ([2001:9e8:f102:9901:f85d:9fdd:690a:6e0f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f5ca1fsm89127555e9.15.2026.07.07.13.50.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 13:50:22 -0700 (PDT)
+Message-ID: <2afc9c9a-eacc-46ca-b965-4cabee8f7094@gmail.com>
+Date: Tue, 7 Jul 2026 22:50:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek/Broadcom PSE MCU
+Content-Language: en-US
+To: Conor Dooley <conor@kernel.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Golle <daniel@makrotopia.org>, =?UTF-8?Q?Bj=C3=B8rn_Mork?=
+ <bjorn@mork.no>
+References: <20260706112425.3149226-1-jelonek.jonas@gmail.com>
+ <20260706112425.3149226-2-jelonek.jonas@gmail.com>
+ <20260706-player-handwash-0a3fe95cf5ec@spud>
+ <c19e563a-8931-4f31-b05a-ff8def4a5161@gmail.com>
+ <20260707-dove-fretful-e3c8e237f1eb@spud>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260707-dove-fretful-e3c8e237f1eb@spud>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 325d9fb9c0dbff73c3a
-X-MBO-RS-META: wxct99y3u7k5nqxtqbj4samnz8ui7drt
-X-Rspamd-Queue-Id: 4gvtN02F1Nz8v8b
 
-In case MSI are enabled, but DWC built-in iMSI-RX is not in use, the
-MSI are handled via GIC ITS. Configure all controller MSI registers
-fully.
+Hi Conor,
 
-Set or clear MSI capability register MSICAP0 MSI enable MSIE bit and
-PCIe Interrupt Status 0 Enable register PCIEINTSTS0EN MSI interrupt
-enable MSI_CTRL_INT bit according to MSI enable state, set both bits
-if MSI are enabled, clear both bits if MSI are disabled.
+On 07.07.26 19:25, Conor Dooley wrote:
+> On Mon, Jul 06, 2026 at 10:30:00PM +0200, Jonas Jelonek wrote:
+>> [...]
+>> The protocol and firmware on the MCU, most likely the whole "solution",
+>> is from Realtek. The setup is always the same on most Realtek-based
+>> switches (saying most because a few counterexamples use completely
+>> different setups, not even Broadcom or Realtek PSE silicon). The host
+>> interface is always the same (except for I2C vs. SMBus vs. UART, which
+>> is likely just a config in the MCU firmware). Therefore "realtek," is the
+>> right prefix for all of these.
+>>
+>> Broadcom is not really involved here except for their PSE silicon being
+>> used. Maybe Realtek modeled their MCU host protocol after the one that
+>> Broadcom PSE silicon uses as host interface, but this is rather guessing.
+>>
+>> Maybe a historical view might help. Older RTL83xx-based switches with
+>> PoE shipped with this setup using Broadcom PSE silicon. From what I know,
+>> at this point Realtek didn't design their own PSE silicon. They used the
+>> Broadcom silicon, put a MCU as a manager in front of it with their firmware
+>> and a host protocol based on what Broadcom PSE itself uses. At some
+>> point Realtek started to design their own PSE silicon which then was
+>> used in newer switches instead of Broadcom PSE.
+> Right, in that case it does make sense to use a realtek prefix, since
+> the software and mcu solution is all theirs.
+>
+>> [...]
+>> Only one at a time is used, but not combined in any way. All switches
+>> I've seen so far always have a single management MCU for PoE, not
+>> multiple. Thus, only a single variant is used. Which variant is used
+>> likely depends on the board vendor which then tells Realtek "I want your
+>> PoE solution, I can attach it via (I2C/SMBus/UART)". At least for UART vs.
+>> I2C/SMBus there are sometimes valid reasons to use UART over the other.
+>>
+>> There is only a single switch (from Linksys) where the MCU expects raw
+>> I2C messages. SMBus transaction fail actually. But I don't see the reason
+>> why Linksys did it that way. The reason can't be that the MCU is attached
+>> on a bit-banged I2C because another switch uses SMBus transaction on
+>> a bit-banged I2C.
+> Reading this, it feels like you "should" have compatibles that uniquely
+> identify the protocol used. 
 
-If MSI are disabled, or MSI are enabled and iMSI-RX is used, then
-deconfigure AXIINTCADDR and AXIINTCCONT to 0, which disables any
-pass through of MSI TLPs onto the AXI bus and then further into
-GIC ITS translation registers.
+Ok, I hope I put this together correctly. A concrete proposal:
 
-If MSI are enabled and iMSI-RX is not used, the configure AXIINTCADDR
-with target address of GIC ITS translation registers, and configure
-AXIINTCCONT to enable MSI TLP pass through onto AXI bus and into the
-GIC ITS. This specific configuration allows handling of MSI via the
-GIC ITS instead of integrated iMSI-RX.
+"realtek,pse-mcu-gen1"                        (Protocol Gen 1, UART)
+"realtek,pse-mcu-gen1-smbus"            (Protocol Gen 1, SMBus)
+"realtek,pse-mcu-gen2"                        (Protocol Gen 2, UART)
+"realtek,pse-mcu-gen2-i2c"                  (Protocol Gen 2, raw I2C)
+"realtek,pse-mcu-gen2-smbus"            (Protocol Gen 2, SMBus)
 
-Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-NOTE: This would not be possible without prior work from Shimoda-san
----
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
-V2: Pull GITS_TRANSLATER address from DT, which also fixes missing +0x40
-    offset of the GITS_TRANSLATER register
-V3: Add Co-developed-by to credit Shimoda-san
-V4: Fix INTC_MASK to be GENMASK(11, 3) instead of GENMASK(11, 2)
----
- drivers/pci/controller/dwc/pcie-rcar-gen4.c | 118 +++++++++++++++++++-
- 1 file changed, 113 insertions(+), 5 deletions(-)
+This uniquely identifies the protocol used: first generation and second
+generation. As Rob mentioned before [1], this also pulls in the raw I2C
+vs. SMBus framing in contrast to having it in a property. The framing
+suffix appears only on I2C attachments because it doesn't apply to
+UART transport, and this is given by the parent serial@ node.
 
-diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index 8b03c42f8c84c..5f7211b91ee5b 100644
---- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-+++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -13,8 +13,11 @@
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
-+#include <linux/irqchip/arm-gic-v3.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
- #include <linux/pci.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-@@ -31,6 +34,10 @@
- #define DEVICE_TYPE_RC		BIT(4)
- #define BIFUR_MOD_SET_ON	BIT(0)
- 
-+/* MSI Capability */
-+#define MSICAP0			0x0050
-+#define MSICAP0_MSIE		BIT(16)
-+
- /* PCIe Interrupt Status 0 */
- #define PCIEINTSTS0		0x0084
- 
-@@ -55,6 +62,14 @@
- #define APP_HOLD_PHY_RST	BIT(16)
- #define APP_LTSSM_ENABLE	BIT(0)
- 
-+/* INTC address */
-+#define AXIINTCADDR		0x0a00
-+
-+/* INTC control & mask */
-+#define AXIINTCCONT		0x0a04
-+#define INTC_EN			BIT(31)
-+#define INTC_MASK		GENMASK(11, 3)
-+
- /* PCIe Power Management Control */
- #define PCIEPWRMNGCTRL		0x0070
- #define APP_CLK_REQ_N		BIT(11)
-@@ -305,13 +320,103 @@ static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
- 	return rcar;
- }
- 
-+static int rcar_gen4_pcie_host_msi_addr(struct dw_pcie_rp *pp, u32 *msi_addr)
-+{
-+	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
-+	struct device_node *msi_node = NULL;
-+	struct device *dev = dw->dev;
-+	struct resource res;
-+	u64 addr;
-+	int ret;
-+
-+	/*
-+	 * Either the "msi-parent" or the "msi-map" phandle needs to exist
-+	 * to obtain the MSI node.
-+	 */
-+	of_msi_xlate(dev, &msi_node, 0);
-+	if (!msi_node)
-+		return -ENODEV;
-+
-+	/* Check if "msi-parent" or the "msi-map" points to ARM GICv3 ITS. */
-+	if (!of_device_is_compatible(msi_node, "arm,gic-v3-its"))
-+		return dev_err_probe(dev, -ENODEV, "Compatible MSI controller not found\n");
-+
-+	/* Derive GITS_TRANSLATER address from GICv3 */
-+	ret = of_address_to_resource(msi_node, 0, &res);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "MSI controller resources not obtained\n");
-+
-+	addr = res.start + GITS_TRANSLATER;
-+	if (addr >= SZ_4G)
-+		return dev_err_probe(dev, -EINVAL, "MSI controller address above 32bit range\n");
-+
-+	*msi_addr = addr;
-+	return 0;
-+}
-+
-+static int rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
-+	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
-+	u32 val;
-+	int ret;
-+
-+	/* Make sure MSICAP0 MSIE is configured. */
-+	val = dw_pcie_readl_dbi(dw, MSICAP0);
-+	if (pci_msi_enabled())
-+		val |= MSICAP0_MSIE;
-+	else
-+		val &= ~MSICAP0_MSIE;
-+	dw_pcie_writel_dbi(dw, MSICAP0, val);
-+
-+	if (!pci_msi_enabled() || pp->use_imsi_rx) {
-+		/* Clear AXIINTC mapping. */
-+		writel(0, rcar->base + AXIINTCADDR);
-+		writel(0, rcar->base + AXIINTCCONT);
-+	} else {
-+		ret = rcar_gen4_pcie_host_msi_addr(pp, &val);
-+		if (ret)
-+			goto err;
-+
-+		/* Point AXIINTC to GIC ITS and enable. */
-+		writel(val, rcar->base + AXIINTCADDR);
-+		writel(INTC_EN | INTC_MASK, rcar->base + AXIINTCCONT);
-+	}
-+
-+	/* Configure MSI interrupt signal */
-+	val = readl(rcar->base + PCIEINTSTS0EN);
-+	if (pci_msi_enabled())
-+		val |= MSI_CTRL_INT;
-+	else
-+		val &= ~MSI_CTRL_INT;
-+	writel(val, rcar->base + PCIEINTSTS0EN);
-+
-+	return 0;
-+
-+err:
-+	/* Deconfigure MSICAP0 MSIE. */
-+	val = dw_pcie_readl_dbi(dw, MSICAP0);
-+	val &= ~MSICAP0_MSIE;
-+	dw_pcie_writel_dbi(dw, MSICAP0, val);
-+
-+	/* Clear AXIINTC mapping. */
-+	writel(0, rcar->base + AXIINTCADDR);
-+	writel(0, rcar->base + AXIINTCCONT);
-+
-+	/* Deconfigure MSI interrupt signal */
-+	val = readl(rcar->base + PCIEINTSTS0EN);
-+	val &= ~MSI_CTRL_INT;
-+	writel(val, rcar->base + PCIEINTSTS0EN);
-+
-+	return ret;
-+}
-+
- /* Host mode */
- static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
- {
- 	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
- 	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
- 	int ret;
--	u32 val;
- 
- 	gpiod_set_value_cansleep(dw->pe_rst, 1);
- 
-@@ -328,16 +433,19 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
- 	dw_pcie_writel_dbi2(dw, PCI_BASE_ADDRESS_0, 0x0);
- 	dw_pcie_writel_dbi2(dw, PCI_BASE_ADDRESS_1, 0x0);
- 
--	/* Enable MSI interrupt signal */
--	val = readl(rcar->base + PCIEINTSTS0EN);
--	val |= MSI_CTRL_INT;
--	writel(val, rcar->base + PCIEINTSTS0EN);
-+	ret = rcar_gen4_pcie_host_msi_init(pp);
-+	if (ret)
-+		goto err;
- 
- 	msleep(PCIE_T_PVPERL_MS);	/* pe_rst requires 100msec delay */
- 
- 	gpiod_set_value_cansleep(dw->pe_rst, 0);
- 
- 	return 0;
-+
-+err:
-+	rcar_gen4_pcie_common_deinit(rcar);
-+	return ret;
- }
- 
- static void rcar_gen4_pcie_host_deinit(struct dw_pcie_rp *pp)
--- 
-2.53.0
+Though I'm still open for suggestions regarding the protocol
+identification if "-gen1"/"-gen2" is not acceptable.
 
+> Looking at the devices below, it seems like it
+> would be possible to use compatibles based on the switches themselves, e.g.
+> zyxel,xs1930-pse etc. If there are other devices that use the same
+> protocol, they could fall back to the ones below.
+>
+> It'd be good to have the net developers weigh in though, as to whether
+> using compatibles based on the switches is suitable.
+
+I'd lean against, but happy to defer to you and the net maintainers. The
+node describes the MCU with its Realtek firmware — the firmware/protocol
+defines the device. Everything that differs between instances on the
+controller level would be captured by the compatibles proposed above, so
+a board compatible would encode nothing there the gen+framing string
+doesn't.
+
+Observed variation lives on another level. For instance, some boards have
+heterogeneous per-port caps (e.g. 16 ports at 60W, 8 ports at 30W). This
+is clearly something that should be expressed per-pse-pi, not in a
+switch-specific compatible.
+
+It would also be an exception to the other PSE-PD bindings. They describe
+controllers used across many switches too, yet none encode the
+switch/enclosure. Board-specific compatibles might still be added later in
+case a device really has a variation or quirk that genuinely needs its own
+compatible.
+
+> [...]
+
+Best regards,
+Jonas
+
+
+[1] https://lore.kernel.org/netdev/20260615212959.GA1679454-robh@kernel.org/
