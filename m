@@ -1,148 +1,114 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C952370AD6
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 14:51:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2BC322C6D
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 14:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783435909; cv=none; b=Tom8iRTZUweDcLtMdNHAaP1sF4WAMxLs8P7PBnpzBzWdzH4qMO+7vBOfPUys7V0vGVIzjaebYpOc/AuuLxHAJnFsiWuxNK79mkpiCLtMBO5xWD1MBN6FJzVgr4gEPONclqG1HKFH2LKpkSSFUtL8cgepy+1YJsIPepn/pzKHBMU=
+	t=1783435990; cv=none; b=KrX4kvNbHXCftDz+Q0GLCcO+1dFdQF5YuiNRBkucBLJdGKdfCqjGdhQI/4kpVmBsWaPC7VHLr3y8S8Ui/BGqknG8eRLGmNrad7tgzgPcGsbDF0gO+AB0u/ED9qQA2oQ+pBauoZgYGqAba4GhwSkmdxJ9nGiabLJL15lwHnMPgE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783435909; c=relaxed/simple;
-	bh=vAslAFwxtnX76SeSatSOQIeLFuAwnMan3jvx1EwTzLc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BdFfEkIv6P7oXJsq47vLtrxg9FL73xRQXHHeOUISDTGxmBVxzgWKAruQBLBr+hkzjOiUhkhqgBRwLFTKB3LfgtyZSm7rdb9QZiVZITobuSKWVizxmOeC0Ea3RXZAydDG5C3ijloAkFpsPqqLi+3OmASBL/x/C733rIDAP/lGhlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P2rV6ohz; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783435990; c=relaxed/simple;
+	bh=T4X2NAGrCeFoVRRirHbi6SM6KOt+HZaf6oZEoWmaKrE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HUNocYQmD+aYIGild6KLio4G6enUH5c61hrYdxZFxjyyB8AdsE9HJdWp/jFHaD+ZWfkiygsXbPR8D9imG6d0wsvc6mOIpgmUx/0IVE28uUBo35/c+GLFsK3LxVeH1WxuBsFHiVo8yI/71e6mDmWGUzpmnSq2iLXrHJ7tXFWY4XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FuJlaxFr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P2rV6ohz"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4938d5f86f3so4646675e9.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 07:51:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783435902; x=1784040702; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4CDPmQD+4GY6QyFnHeYogutzK0+DQlm88rhGwro4EDM=;
-        b=P2rV6ohzQNC1uhuBAt2+ZI3mEtMgwG3cCxoz9sr4W5BGDzSeQK52EI2H0BfBX2CMgr
-         2AoU+v5GbhmaIegyo+6uOkIco/URwstR3tbxMcGmcmf4Z+d/2O+Oyoh6ttELPT3HeJyq
-         c7H9iRlVcn/TfhuOgVFa4onjEFvSykuHDBRV5QXSv9PXeT1ImuFFRYjq6P0vpl5CEh+B
-         x2f+19+9qbxRR4EFrCQqDgmSeVXaaeBQEB7Oa89PcpkRS2AOXmM9vVoOF7Y0s6kQcXYD
-         Ac8/6Vf2i2ywhYTJjqMjoF3fDoIXr7Esh6UdaFUB30ybPIe6rgQPJb7Bc4My3WBbinck
-         UDbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783435902; x=1784040702;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=4CDPmQD+4GY6QyFnHeYogutzK0+DQlm88rhGwro4EDM=;
-        b=OQ6bC8TMmk/qHKjuptUsKkqikTZ32UnHAItnT3i5rUh2oZWcmo8JXhOGOSpafGmyqB
-         IGSrujGcXTlZgKM9n/NJ+8AUd79/QSijCy4pM96CrKwDeNx2D+87+T32ewZ/JuHxrj5G
-         NFhOx7baLzZETpngHNke/sqZE7vffXuZedwSCoTvVnBYxRMM5pIdfIHkt69x+yIJXzSL
-         WzW8H+nHUkjVTQROAYfhIQ2ufRzdD5SpYdQCXZHaSqsJonszhviYvIe/gyCLJXKRkkpu
-         tiXfjOpVG/Wm3kG633Kozf4G9SHMH+mExqnBFnLdm6Kig0KB8wqHeXTq8+XCYYo5l5aj
-         Pn6g==
-X-Forwarded-Encrypted: i=1; AHgh+RoSAWRd3xfEleB/PGxnVMF6oHBAazy9Yi6mqqHdx4cQBPi3Luj7Zp1VIQBIj3EQ7VpbsvU+2fnzcEr/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7GEPmI2IHhZNpjgmGoJ7bmkbtxLkbw142sUs0rLCJE1jn9E+U
-	0/kGU26ax4x0zW6uzFVp/Oxh5xTyC0uW9ZhRWnSSNduO2re6pzx8T/qw
-X-Gm-Gg: AfdE7ckfwdoWuU+Qpa0pO6fRXkA4fnvT417jZJevzh6Av5WaLgkH6crPEVy5o5hj6vX
-	RSuBAIr/PIA4T74fpTkvtjaN4JQgHGZ2hR93mv3PTamK19NZPsHmV+nNWVWJN7MnWIbOaFbiEGZ
-	PrsBv4flFca4IQJDZa5plHLw+6csJNvRM3m+orIZQxzRYI7hyf8G7O+cclu5odbx680mi80lVl2
-	KLKo/aNN4kwu0IfTJdkAmDfETKyyCMIe+wEjkavl98U1WDS97N+EPa10yvo+krdIIUMd9MwA3ok
-	fXM/KIMgkK/S7qHcI1r/1KZy4pFpnOAJfKo/s1RwmLn9cilY8WRJoNZlK2CHKm/QihIfTmCBonw
-	nZVDEw3yBRB1Q5kMC40amuNBzn1LCuvQwyqAn4z1B0dCuzTWGx17aB7iYsAr1tsXRqgghj7Jga/
-	2Cv2oQNCr4dwzMN8mBsOeUw51nsxw9yNrNhOcqqQ==
-X-Received: by 2002:a05:600c:c16f:b0:492:6f5c:fd8c with SMTP id 5b1f17b1804b1-493e101910bmr34953405e9.15.1783435899787;
-        Tue, 07 Jul 2026 07:51:39 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:a4ac:4e7f:194a:852e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0ec6e64sm105192695e9.0.2026.07.07.07.51.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 07:51:39 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 2/3] arm64: dts: renesas: r9a08g046: Add USB2.0 function device nodes
-Date: Tue,  7 Jul 2026 15:51:31 +0100
-Message-ID: <20260707145135.247565-3-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260707145135.247565-1-biju.das.jz@bp.renesas.com>
-References: <20260707145135.247565-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FuJlaxFr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F841F000E9;
+	Tue,  7 Jul 2026 14:53:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783435989;
+	bh=51GfxdPhD+h5Ljm1RStZ/V7dC/PLrmC6dLPBzRaX0vA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FuJlaxFrv1FLxe3DMshC4MyoLiuh3SxspG4Ei8142bX4mKVyct4xv78HZ3qcddQG4
+	 nGMqaNz2937/WfnqRWkf8lPoi3XfQQH8oHW6+L7sHXoGuyJS13ogFDKJxrrgBcThuT
+	 kAgMCPDuN0QNNLCjtPmznCSy/KuufwIorKYiQm7PGg8nACc0bMleV+vqSIucJYty3D
+	 6md+ZpIX5PrWyDgu5JjiJgg1EOqehTURTtAVi2r96wDTWjBSViocDyRZw/AVA7m6V/
+	 daED/tzAU1tSdqBZL9kFKbFiYe6PKddonDMh+NdR+Kr+IFrSZ3C54IgPrmMMtGpLj6
+	 RoxkTZ2bHSu8A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 07/17] iio: test: add kunit tests for channel prefix
+ naming generation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260707-ad9910-iio-driver-v7-7-a4ec30f63700@analog.com>
+References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
+ <20260707-ad9910-iio-driver-v7-7-a4ec30f63700@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 14:53:08 +0000
+Message-Id: <20260707145308.E8F841F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Building with CONFIG_IIO=3Dy and CONFIG_KUNIT=3Dm leads to an undef=
+ined reference linker error for KUnit symbols.
+--
 
-Add USB2.0 function device nodes to the RZ/G3L (r9a08g046) SoC DTSI.
+--- Patch [7]: [PATCH v7 07/17] iio: test: add kunit tests for channel pref=
+ix naming generation ---
+commit 4ac1b309df3245543c36117b12d35f78434a6e33
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 38 ++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+iio: test: add kunit tests for channel prefix naming generation
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index 926a81cec37e..4016eec80847 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -1303,6 +1303,44 @@ usb2_phy1: usb-phy@11e90200 {
- 			status = "disabled";
- 		};
- 
-+		hsusb0: usb@11e30000 {
-+			compatible = "renesas,usbhs-r9a08g046",
-+				     "renesas,rzg2l-usbhs";
-+			reg = <0 0x11e30000 0 0x10000>;
-+			interrupts = <GIC_SPI 123 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD R9A08G046_USB_PCLK>,
-+				 <&cpg CPG_MOD R9A08G046_USB_U2P0_EXR_CPUCLK>;
-+			resets = <&phyrst 0>,
-+				 <&cpg R9A08G046_USB_U2P0_EXL_SYSRST>;
-+			renesas,buswait = <7>;
-+			phys = <&usb2_phy0 3>;
-+			phy-names = "usb";
-+			power-domains = <&cpg>;
-+			status = "disabled";
-+		};
-+
-+		hsusb1: usb@11eb0000 {
-+			compatible = "renesas,usbhs-r9a08g046",
-+				     "renesas,rzg2l-usbhs";
-+			reg = <0 0x11eb0000 0 0x10000>;
-+			interrupts = <GIC_SPI 127 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD R9A08G046_USB_PCLK>,
-+				 <&cpg CPG_MOD R9A08G046_USB_U2P1_EXR_CPUCLK>;
-+			resets = <&phyrst 1>,
-+				 <&cpg R9A08G046_USB_U2P1_EXL_SYSRST>;
-+			renesas,buswait = <7>;
-+			phys = <&usb2_phy1 3>;
-+			phy-names = "usb";
-+			power-domains = <&cpg>;
-+			status = "disabled";
-+		};
-+
- 		pcie: pcie@11e40000 {
- 			reg = <0 0x11e40000 0 0x10000>;
- 			ranges = <0x02000000 0 0x30000000 0 0x30000000 0 0x08000000>;
--- 
-2.43.0
+Add a KUnit test suite covering __iio_chan_prefix_emit(), the helper
+that builds IIO sysfs attribute name prefixes from an iio_chan_spec.
 
+> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
+ore.c
+> index ecc69adf61de8..78a3c27d17a1b 100644
+> --- a/drivers/iio/industrialio-core.c
+> +++ b/drivers/iio/industrialio-core.c
+[ ... ]
+> @@ -2232,6 +2232,10 @@ EXPORT_SYMBOL_GPL(iio_device_get_current_mode);
+>  subsys_initcall(iio_init);
+>  module_exit(iio_exit);
+> =20
+> +#if IS_ENABLED(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST)
+> +#include "test/iio-test-channel-prefix.c"
+> +#endif
+
+[Severity: Low]
+If CONFIG_IIO=3Dy and CONFIG_KUNIT=3Dm, this code compiles the test directl=
+y into
+the built-in industrialio-core.o object. Will this lead to an undefined
+reference linker error when the built-in code attempts to reference KUnit
+symbols exported by the loadable kunit.ko module?
+
+> +
+>  MODULE_AUTHOR("Jonathan Cameron <jic23@kernel.org>");
+>  MODULE_DESCRIPTION("Industrial I/O core");
+>  MODULE_LICENSE("GPL");
+> diff --git a/drivers/iio/test/Kconfig b/drivers/iio/test/Kconfig
+> index 4fc17dd0dcd77..c355b0abd5808 100644
+> --- a/drivers/iio/test/Kconfig
+> +++ b/drivers/iio/test/Kconfig
+> @@ -4,6 +4,20 @@
+>  #
+> =20
+>  # Keep in alphabetical order
+> +config IIO_CHANNEL_PREFIX_KUNIT_TEST
+> +	bool "Test IIO channel prefix" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT && IIO
+
+[Severity: Low]
+Because IIO_CHANNEL_PREFIX_KUNIT_TEST is a bool, Kconfig allows it to be
+enabled (y) even when its dependency evaluates to m (which happens when
+KUNIT=3Dm and IIO=3Dy). Should this dependency be tightened to prevent the =
+test
+from being built-in while KUnit is a module?
+
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	  Build unit tests for __iio_chan_prefix_emit(), the helper that
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-ad9910-iio=
+-driver-v7-0-a4ec30f63700@analog.com?part=3D7
