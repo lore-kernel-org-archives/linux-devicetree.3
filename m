@@ -1,149 +1,126 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5539E30AD05;
-	Tue,  7 Jul 2026 08:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D42E325494;
+	Tue,  7 Jul 2026 08:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783413214; cv=none; b=R4zQ1Gcj43ULl1lpTu8Tt4hiACqkX4SLYafpI1pXvSClzHOYOdSPtNj7op/2pFQ0xVp8ws2c9fmo5iR5+cSUW5obmoktXCfsyXIuwVnkVTQK6sNmwrrlew9CtA2xyUZLJf23lD4arPV6qIdyVxA4NkG4UqJgvP1nXh5Y+AEaABk=
+	t=1783413506; cv=none; b=E5R8nyYy3El7UFS0K825r4Dr0V1V4iTSORAfRuKphjZ7iK04LcXrvcD9BbiHeU4dbyNwpJD+bLWhznW02pMO1aW63w3sEjSWsbdJ4/mpaOtBda6/XdKs+HQjb6pSNj+7/H1Ss3xj63Bk4eIhVgLFiA7nQ1qjtWE5Mq9vtaPOLtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783413214; c=relaxed/simple;
-	bh=jZB3PTbU6bAXQpzDktc+u0oKB62z1DJkwV1K+bvO9Ng=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tM3+w2bK2ZfV+Co2Ckn1n1pBkKC2GBUKj+blPrsPFPsr6gS/Egy/Meybp9pI7nkk3G/gBX61jo+MxcwgpSaCxSBrD5cRu0j8ikeOAXIfCHUwe+KdLfbeOwNrIjPZZS/JDa9OtTHDXN7WJK6kpiqzHeeojJoKoAvB5gi9DL2SB98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o/71RZVA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1783413506; c=relaxed/simple;
+	bh=2ZJ12e4EYzQTcxKJEFrg3D9KH/d5MHuRwcj19Wdx0A0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XKJBLBJ+aH5RjPSeklXaJ+aufFwLI6TDiGUpTxIPPnVyXBu/xZrJk+WAzL1Afu1kC7Z+E9nEXHQmSkRdeQ/ZUBcVOJTvEMC8kphtV2kwyGs01vaAavdUbI2qeX29o+AJ3abLw5yHlj5vchyHlyMD8jHxPIWHtrA6ndB0xpK/228=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEqBJQvj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o/71RZVA"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6678Dta93139321;
-	Tue, 7 Jul 2026 08:33:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+m6BB7PlbAu+OnAqQAjXlnJSI4bnQu+pj4JBp8ta6ks=; b=o/71RZVAy244eaJY
-	MDJ6k/WvL2NAiRQzdrav3Jtg0T9XLcXC4rvxljv4rGnovlBs+g6+xeex0FbRLMUN
-	fes1BDRxJRdsA6R5q69CXuKRvtHdgLvh+LtGEzU20xFWxfHuxx+VfLUBTf0wolrC
-	wyoJGUOG6/D10WGumOFLiDI9Q/4iSoM0rs7KA6ySCS/V/NOLTXwvb4WgWqdGWLSm
-	gK7L55SG5eUhvUqFQGOv+rM3AP2nJLybL3dtM3U/j/4rTLeyn+gt3qDvUFArJJdD
-	wvGL99b/SHsVyqmJQecxGvJRsaVRnbUFDXTxPVxuYZu7lOw3GrKpSBW9yTk/z9LP
-	6NuiTw==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8t159133-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 Jul 2026 08:33:23 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6678XKhq026985;
-	Tue, 7 Jul 2026 08:33:20 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f6u8k01bj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 Jul 2026 08:33:20 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6678UmnO023346;
-	Tue, 7 Jul 2026 08:33:20 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6678XKXn026978
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 Jul 2026 08:33:20 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 907FDB31; Tue,  7 Jul 2026 14:03:19 +0530 (+0530)
-Date: Tue, 7 Jul 2026 14:03:19 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: Fix pm4125 vbus regulator
- compatible and constraints
-Message-ID: <20260707083319.rwtnt4l6so3kdduo@hu-kotarake-hyd.qualcomm.com>
-References: <20260706-add_pm4125-vbus-reg-v3-0-999d78a87b81@oss.qualcomm.com>
- <71tt4ete2nCnQuCLAao68H3X1IjhICYvh8a9Y14WT2pr_opABqQnPif_6w1Mmdw4cDCUUB7i6t4ApGyUdHPdRA==@protonmail.internalid>
- <20260706-add_pm4125-vbus-reg-v3-4-999d78a87b81@oss.qualcomm.com>
- <14be441d-7223-46b1-9292-fa73ae326ac6@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEqBJQvj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8B81F00A3A;
+	Tue,  7 Jul 2026 08:38:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783413505;
+	bh=2ZJ12e4EYzQTcxKJEFrg3D9KH/d5MHuRwcj19Wdx0A0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QEqBJQvjcrs9V6h9oj8UoRp7MtWjXrtytBfr7VFL6SiLSUXEkHz6J73UV1IgUjBFQ
+	 wHitDrCegoib/8dU8UIp6fPGkWzkII3xNCtmg/MRvWRUkslYmJoxdOrNqsxckcVbk0
+	 rDL/c79VtbkfYlG3wSD7YuYIrcPbh0ZXJSmL5EeKZsEAvFnf3K7uRhQ6FoXyKPeZRo
+	 9V4xQdWskuW3mJT3uZufhMxx/kSgxlmJqyfHWGjmqrIOAuQxgBicPwLKV9f58x7BK4
+	 GA1Ras7iW8pj5U7Wg65SZyVwV47mFzf4aUUoK9keyYOk8XNlkKpvyick0xRDFRvuz+
+	 sDJn9hmuxBFFw==
+Message-ID: <896a5d8e-e054-46e4-bb38-c943c916b857@kernel.org>
+Date: Tue, 7 Jul 2026 10:38:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <14be441d-7223-46b1-9292-fa73ae326ac6@kernel.org>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: EQeVRFtknzlqOo_pUCNDHch2qlN_QqIq
-X-Authority-Analysis: v=2.4 cv=HstG3UTS c=1 sm=1 tr=0 ts=6a4cb9d4 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=Apo_wohB1TfuvuZ_3JcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: EQeVRFtknzlqOo_pUCNDHch2qlN_QqIq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA4MiBTYWx0ZWRfX1vVSRD1Oe217
- BH1AY/WE4wYfOwXajLrHrGSrh/8C0Xtw91YdpG5YqAHMEnUDI/7lIRgpGU0gTZjCC9Lm7Dn4n8G
- 0ary4eDvVkp0eTkmei6/IQa2cHKclrY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA4MiBTYWx0ZWRfXxuaBmFQC3RBG
- E5jr2xrneIYxlObKt18/xhIgpmY0W0X38k+YDxeHthhpd7x96kIadkRdR9uzAAN/c+QbceVME7+
- DlDgMUmLm5sMV+OEltuYdZtKHxGIAM6tJSK8PosWOWNxGAo913U4ZbC2ZOYLhw9HvwtG2QRBt5d
- FAWswV7LkxkMj2BH6xtMVnDKKCbkXXQpXQaJG0bm3NfmJNUwfqZ7qkr322CNA8C94hFtuN+OERL
- 6ZN4Yq76WzYJuH+ta2vEvBNh05GL/oYsXb6Bf9GcmGgOmpWgkWIBlrQALARlCGHyllpdjXAIzil
- hwERCdUtkiKq1HHriHHZ7HwUct77zJGhOXNHz7BVmDdeNrRbSP+DVq66GhdX0unYb/ojzylBB1i
- bXfWkqvtw9FM4CloUgdzc0yv72aVHlL+ZzhaRlx+uGptAR1V7HbFFYZpzTTQ5AjiEpng/+UbLZr
- IdSpEfXKdPn1muLrlpQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_02,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070082
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: Fix pm4125 vbus regulator
+ compatible and constraints
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com
+References: <20260706-add_pm4125-vbus-reg-v3-0-999d78a87b81@oss.qualcomm.com>
+ <71tt4ete2nCnQuCLAao68H3X1IjhICYvh8a9Y14WT2pr_opABqQnPif_6w1Mmdw4cDCUUB7i6t4ApGyUdHPdRA==@protonmail.internalid>
+ <20260706-add_pm4125-vbus-reg-v3-4-999d78a87b81@oss.qualcomm.com>
+ <14be441d-7223-46b1-9292-fa73ae326ac6@kernel.org>
+ <20260707083319.rwtnt4l6so3kdduo@hu-kotarake-hyd.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260707083319.rwtnt4l6so3kdduo@hu-kotarake-hyd.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 06, 2026 at 02:49:33PM +0100, Bryan O'Donoghue wrote:
-> On 06/07/2026 13:31, Rakesh Kota wrote:
-> > Remove pm8150b fallback compatible from pm4125_vbus and fix regulator
-> > constraints in qrb2210 DTS files to use microvolt instead of
-> > microamp.
-> > 
-> > Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> You should break this patch up at the "and"
-> 
-> One to remove the fallabck, one to fixup your regulator stuff.
->
-I understand the preference for splitting at the "and", however
-splitting this patch is not straightforward in this case. The PM4125
-compatible and its regulator constraints are tightly coupled in the same
-.yaml schema file — if we split them, dtbs_check will fail on the
-intermediate state.
+On 07/07/2026 10:33, Rakesh Kota wrote:
+> On Mon, Jul 06, 2026 at 02:49:33PM +0100, Bryan O'Donoghue wrote:
+>> On 06/07/2026 13:31, Rakesh Kota wrote:
+>>> Remove pm8150b fallback compatible from pm4125_vbus and fix regulator
+>>> constraints in qrb2210 DTS files to use microvolt instead of
+>>> microamp.
+>>>
+>>> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+>> You should break this patch up at the "and"
+>>
+>> One to remove the fallabck, one to fixup your regulator stuff.
+>>
+> I understand the preference for splitting at the "and", however
+> splitting this patch is not straightforward in this case. The PM4125
 
-I've confirmed this locally. Removing the pm8150b fallback compatible in
-isolation causes the following schema validation failures:
+Yes. This is one logical change - fix the node to properly match
+hardware and bindings. The compatible is tied to properties
+(constraints). Splitting the patch would mean you want to keep old
+compatible with new constraints which would be wrong.
 
-/local/mnt/workspace/kernel_versions/kernel-checkers/linux-next/temp-out/arch/arm64/boot/dts/qcom/qrb2210-rb1-vision-mezzanine.dtb:
-usb-vbus-regulator@1100 (qcom,pm4125-vbus-reg): 'regulator-min-microamp' is a required property
-	 from schema $id: http://devicetree.org/schemas/regulator/qcom,usb-vbus-regulator.yaml#
-/local/mnt/workspace/kernel_versions/kernel-checkers/linux-next/temp-out/arch/arm64/boot/dts/qcom/qrb2210-rb1-vision-mezzanine.dtb:
-usb-vbus-regulator@1100 (qcom,pm4125-vbus-reg): 'regulator-max-microamp' is a required property
-	from schema $id: http://devicetree.org/schemas/regulator/qcom,usb-vbus-regulator.yaml#
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-This is because the qcom,pm4125-vbus-reg compatible requires
-regulator-min-microamp and regulator-max-microamp to be present per the
-schema, and both changes are needed together for a bisectable,
-build-clean series.
-
-Could you please advise if you'd like me to proceed with the combined
-patch, or if there's a preferred way to structure this that avoids the
-intermediate dtbs_check breakage?
-
-regards
-Rakesh Kota
+Best regards,
+Krzysztof
