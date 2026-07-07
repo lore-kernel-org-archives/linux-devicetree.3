@@ -1,120 +1,293 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D575510785;
-	Tue,  7 Jul 2026 21:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDE336DA0D
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 21:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783459410; cv=none; b=XnBEIJ00MQ/v1KJMEMi96x3YB61pqGruB/L8S9Cgc7vGVa6hEGUD7nApjC0qUuZrl83rGLoYLU9awUdV1DFpsc73s3fTFFnsFDdqupjFipXI89lQB3mVvmo+AvDzX/01LJpmNDYXtwqHf3tZ2KyZHZrmHH3ROkXAK+LgPNw/KHM=
+	t=1783459752; cv=none; b=jSd2N6+/IAzbQI/94eKrkuYRt7FTDnKlFx9yiLkh/hqUhAqeW151KT15EroIUMpiohBQRCH+xbNcB3Ky9I6HZXIfU2YfKMR97uJVzcpkcIVNm6FgGCICDNGDHwZhFrErF5MJdBHQBcJEYjs7zkdsAsLQXUPBfvhl9cXZ2YBqnB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783459410; c=relaxed/simple;
-	bh=a60nyy7OcdhDk+yCD/1xpNCrxv7vLGToZcu4lIgipe0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nyk7ooiFeHL5QC4T59n99tI+jTsOwTd9ZwR2slyw/Kd8IG4AcHEGu6eOH4UJ3Ch/EUVfy84cXIJZcKVpqmTDxitsrQOvgkcs9PLOwGaVIYXehxtNCPUcHUjhsvmHn5OaoIw4OHHplQdPCEhdbAAMG3ye+9HWlMJ3zZZEOrwKZVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HxpU97Dc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783459752; c=relaxed/simple;
+	bh=7KrKIvJFv/7r32JxKg5F4GCujmVid0mIntY6Ow7tX6A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h+HvhJjBCpQT7bYdcqaLseAiHSNj/zacBrpOMxwhaGPDJ/9+IPNa9lZarI1etapilERZrVDJEIsVA9x3LUYzW3vTwrcyxqIOiz64JtDB1co9sej4ev8/LUv9dJPBTnyvQNhoiVhniIJuju6Rpbqvd+UQXdgYd9VTuhY/eoaoMYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aJu5yI5J; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HxpU97Dc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179281F00ADB;
-	Tue,  7 Jul 2026 21:23:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783459409;
-	bh=uaxpBgLFNTEZNxmTdCEah2eRnczt2Pt+VguMTHq//fs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HxpU97DcodCAc8vMGRtD11CII4VrgmZKVk7VWNGv9p2jBEhL80fP9Qk7r5h03ayxd
-	 kFO07ezzNW1DcssYSjj/B/pFQXLOyHywiEzdX0x4c9hmr4BekoGyDD7vW0bv07CRex
-	 3OESQEZpKdUNnV37bXqATXO0doTIUIzO5hCW1GX1M+jQtE9DoLqs/uyBhvX8yOqERO
-	 9dyLfa89YWmHK7mAjdtBq3N0HvtCj1bBSYOclZzE3AggbJEeoN5AlL1sxf1T0o9EuS
-	 QYOkkED96ko63CiQAZMl3BEwV+MhIuT1+/7q6whxPD181Eb8kQ4oJI0zwGIwU1fNPE
-	 ICjyVtgjNB8Vw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/1] regulator: dt-bindings: Convert ltc3589.txt to yaml
- format
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260707211612.2757349-1-Frank.Li@oss.nxp.com>
-References: <20260707211612.2757349-1-Frank.Li@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 21:23:28 +0000
-Message-Id: <20260707212329.179281F00ADB@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aJu5yI5J"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38096590070so2557a91.3
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 14:29:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783459751; x=1784064551; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=A6xN/HMFEGntFn1hQIosLAbrSvkr9CttasVt2xbou+A=;
+        b=aJu5yI5JB1eTvNP3tVsymHXN+ZP9EjSPsD2T3uXTTkFU8V2P1lAUTPH2D+aoZ3TXvM
+         ioTfDul9JWgg4pKcKxyRmKAx9d0ZRgRt0uzMmpJ19rc1PaaI51Wlwf8WY5KL6p9Hg/O3
+         oE1uDl1rXzJc4lmb/ETAhEAioduNoxtp0CxHEE4Lzz3885bJ0baBVsoyUQ70irSnNjKb
+         i1vBYueScTxazg+aa7TbNw6oG7kAR8gL7/E1CoYwYFaEfchrFbENGvg1LJ9/HwBvJRnE
+         AP6USsx6dIicUlCToGXpw24q7fHTc6dQkTzh5YsjmsumxvSOLZcvgvfdLXRSfJycPpZg
+         P6Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783459751; x=1784064551;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=A6xN/HMFEGntFn1hQIosLAbrSvkr9CttasVt2xbou+A=;
+        b=B2SP1ApRMnVfApQmckyLkFizx2MLVN+mZCCWZgCAZg7nXEIQ0X00CO9hI14piwv3ZX
+         7YqRY8orZ1gIfUgMXhV02IZnT3XlOIZBL8SKOQIyci4OczowmL86zIKUzUSf4GfzwhbF
+         ditLWJFwNVrLZFKlVglJPyMcOKv2HkknDbNhM53/6mmsnp7TaLYqVzX2sOcB0nNN48jV
+         9vLv6TYwXGJvC66O2A6it8SQfljjA+a3XZZxUgbeVMtRHQtoY5uIBeJVuORSaE5LZ8su
+         UIAq7JXruQSUR6/EGXFemmdqwm/fUj8LMYVwOP0TaPCjdgnzBs1qqzOTpbSQ6Axgqg3g
+         WFaQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rps8Epu7K3KKk41r4PGzNSnedRxyxqJJoeKO9Sgit2NYR5x+l9ZwYD5k51/r0Evla6XTcUAdxBm3eSA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/v2XMd57Kyfi9dbBLZTSFDNy9I8tdhN/fvW1CzWXnb3pUozS2
+	SIfxQ9zpDtElqXcqnOtwBrZW0q4xIR4g4k9OoWUoD9n6JjujXBB3uTEI
+X-Gm-Gg: AfdE7clBkcUMltCdwxShMvadU9mE3EUVL3IWOGrjOGo8jo41nkjuOow4TfvYgSYVq/N
+	6cJTU5mwp1IhP4ne+zNbuj9cYdYLr7t65qZLVUNxirUxaMreCtBxOn3bN1pbp/2rGJT3HHL+ECP
+	cUthbqVtU+XuLvksvVojW+UpEqHGSVWF83qi736QVyEG7jap+Xm3UGtyBKEWwuaIXHxs5e+URMn
+	zfih4I8ZWHBsBSuTbJcpq+S8yo5h47NtzIna8Wy0oID3ZdRovzrsxU9ShoB/0Ofr6vgWScpK63K
+	p9Z7LlZGMLta9YQwQKHOjdQtHNfevdhTGA0YNmUcHyHHwG7rhrSIZwhoMzYbtmeJsR/POxw9NZT
+	8UQuoRJnBY/LdQiE9jSZeFdRjnPo15SGKbh68idlcAnkq0FUMcNURv5oucwtyEAcc7+kNYQ+U1m
+	pxl9aDU/J0pXUV/nc50DO2rg==
+X-Received: by 2002:a17:90b:3e4f:b0:381:2788:a437 with SMTP id 98e67ed59e1d1-382802bcc65mr11766155a91.1.1783459750645;
+        Tue, 07 Jul 2026 14:29:10 -0700 (PDT)
+Received: from [192.168.1.2] ([2401:4900:881c:7ad8:e5f1:b20c:5138:fdef])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ac0557sm14885868eec.26.2026.07.07.14.29.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 14:29:10 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Wed, 08 Jul 2026 02:59:01 +0530
+Subject: [PATCH] dt-bindings: dma: ti,dma-crossbar: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260708-ti-dma-crossbar-v1-1-f62796428f13@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcwML3ZJM3ZTcRN3kovzi4qTEIt3EVAsTQ8Nk0xRLCyMloK6CotS0zAq
+ widGxtbUAGy5c9mEAAAA=
+X-Change-ID: 20260708-ti-dma-crossbar-ae8411c5d982
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783459745; l=6488;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=7KrKIvJFv/7r32JxKg5F4GCujmVid0mIntY6Ow7tX6A=;
+ b=3lzpmHo3NOSOuZey/YoSurUZTn2lLfPihC3mo8YyBdOXC7G39QfBlWdxcvGRFCOAGtXPDbUi5
+ 0ElFsigHzHdA1nFfcWibU4ftC7Xm5VZ7fFQljiAORPj0WYkSSLYwBZ1
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The schema uses `additionalProperties: false` at the root but fa=
-ils to document the `interrupts` property, causing valid device trees that =
-use the PMIC interrupt to fail validation.
-- [Low] The `lltc,fb-voltage-divider` property is missing from the `require=
-d` list for the `sw1`, `sw2`, `sw3`, `bb-out`, `ldo1`, and `ldo2` regulator=
- nodes in the YAML schema.
---
+Convert Texas Instruments DMA Crossbar from text to DT schema
 
---- Patch [1]: [PATCH 1/1] regulator: dt-bindings: Convert ltc3589.txt to y=
-aml format ---
-commit d75bd969ae4548dedbfaa0e3da2470b322b67662
-Author: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../bindings/dma/ti,dra7-dma-crossbar.yaml         | 105 +++++++++++++++++++++
+ .../devicetree/bindings/dma/ti-dma-crossbar.txt    |  68 -------------
+ 2 files changed, 105 insertions(+), 68 deletions(-)
 
-regulator: dt-bindings: Convert ltc3589.txt to yaml format
-   =20
-Convert ltc3589.txt to yaml format.
+diff --git a/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml b/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml
+new file mode 100644
+index 000000000000..287260396098
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dma/ti,dra7-dma-crossbar.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments DMA Crossbar (DMA request router)
++
++maintainers:
++  - Bhargav Joshi <j.bhargav.u@gmail.com>
++  - Peter Ujfalusi <peter.ujfalusi@gmail.com>
++
++properties:
++  compatible:
++    enum:
++      - ti,dra7-dma-crossbar
++      - ti,am335x-edma-crossbar
++
++  reg:
++    maxItems: 1
++
++  "#dma-cells":
++    minimum: 1
++    maximum: 3
++
++  dma-requests:
++    minimum: 1
++    maximum: 256
++
++  dma-masters:
++    maxItems: 1
++
++  ti,dma-safe-map:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Safe routing value for unused request lines
++
++  ti,reserved-dma-request-ranges:
++    $ref: /schemas/types.yaml#/definitions/uint32-matrix
++    description:
++      DMA request ranges which should not be used when mapping xbar input to
++      DMA request, they are either allocated to be used by for example the DSP
++      or they are used as memcpy channels in eDMA.
++
++required:
++  - compatible
++  - reg
++  - "#dma-cells"
++  - dma-requests
++  - dma-masters
++
++allOf:
++  - $ref: dma-router.yaml#
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,am335x-edma-crossbar
++    then:
++      properties:
++        "#dma-cells":
++          const: 3
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    /* DMA controller */
++    sdma: dma-controller@4a056000 {
++        compatible = "ti,omap4430-sdma";
++        reg = <0x4a056000 0x1000>;
++        interrupts =  <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>,
++                      <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
++                      <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
++                      <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
++        #dma-cells = <1>;
++        dma-channels = <32>;
++        dma-requests = <127>;
++    };
++
++    /* DMA crossbar */
++    sdma_xbar: dma-router@4a002b78 {
++        compatible = "ti,dra7-dma-crossbar";
++        reg = <0x4a002b78 0xfc>;
++        #dma-cells = <1>;
++        dma-requests = <205>;
++        ti,dma-safe-map = <0>;
++        /* Protect the sDMA request ranges: 10-14 and 100-126 */
++        ti,reserved-dma-request-ranges = <10 5>, <100 27>;
++        dma-masters = <&sdma>;
++    };
++
++    /* DMA client */
++    serial@4806a000 {
++        compatible = "ti,omap4-uart";
++        reg = <0x4806a000 0x100>;
++        interrupts-extended = <&gic GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
++        ti,hwmods = "uart1";
++        clock-frequency = <48000000>;
++        /* Requesting crossbar input 49 and 50 */
++        dmas = <&sdma_xbar 49>, <&sdma_xbar 50>;
++        dma-names = "tx", "rx";
++    };
+diff --git a/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt b/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt
+deleted file mode 100644
+index 1f9831540c97..000000000000
+--- a/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt
++++ /dev/null
+@@ -1,68 +0,0 @@
+-Texas Instruments DMA Crossbar (DMA request router)
+-
+-Required properties:
+-- compatible:	"ti,dra7-dma-crossbar" for DRA7xx DMA crossbar
+-		"ti,am335x-edma-crossbar" for AM335x and AM437x
+-- reg:		Memory map for accessing module
+-- #dma-cells:	Should be set to match with the DMA controller's dma-cells
+-		for ti,dra7-dma-crossbar and <3> for ti,am335x-edma-crossbar.
+-- dma-requests:	Number of DMA requests the crossbar can receive
+-- dma-masters:	phandle pointing to the DMA controller
+-
+-The DMA controller node need to have the following poroperties:
+-- dma-requests:	Number of DMA requests the controller can handle
+-
+-Optional properties:
+-- ti,dma-safe-map: Safe routing value for unused request lines
+-- ti,reserved-dma-request-ranges: DMA request ranges which should not be used
+-		when mapping xbar input to DMA request, they are either
+-		allocated to be used by for example the DSP or they are used as
+-		memcpy channels in eDMA.
+-
+-Notes:
+-When requesting channel via ti,dra7-dma-crossbar, the DMA client must request
+-the DMA event number as crossbar ID (input to the DMA crossbar).
+-
+-For ti,am335x-edma-crossbar: the meaning of parameters of dmas for clients:
+-dmas = <&edma_xbar 12 0 1>; where <12> is the DMA request number, <0> is the TC
+-the event should be assigned and <1> is the mux selection for in the crossbar.
+-When mux 0 is used the DMA channel can be requested directly from edma node.
+-
+-Example:
+-
+-/* DMA controller */
+-sdma: dma-controller@4a056000 {
+-	compatible = "ti,omap4430-sdma";
+-	reg = <0x4a056000 0x1000>;
+-	interrupts =	<GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>,
+-			<GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
+-			<GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
+-			<GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
+-	#dma-cells = <1>;
+-	dma-channels = <32>;
+-	dma-requests = <127>;
+-};
+-
+-/* DMA crossbar */
+-sdma_xbar: dma-router@4a002b78 {
+-	compatible = "ti,dra7-dma-crossbar";
+-	reg = <0x4a002b78 0xfc>;
+-	#dma-cells = <1>;
+-	dma-requests = <205>;
+-	ti,dma-safe-map = <0>;
+-	/* Protect the sDMA request ranges: 10-14 and 100-126 */
+-	ti,reserved-dma-request-ranges = <10 5>, <100 27>;
+-	dma-masters = <&sdma>;
+-};
+-
+-/* DMA client */
+-uart1: serial@4806a000 {
+-	compatible = "ti,omap4-uart";
+-	reg = <0x4806a000 0x100>;
+-	interrupts-extended = <&gic GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
+-	ti,hwmods = "uart1";
+-	clock-frequency = <48000000>;
+-	/* Requesting crossbar input 49 and 50 */
+-	dmas = <&sdma_xbar 49>, <&sdma_xbar 50>;
+-	dma-names = "tx", "rx";
+-};
 
-> diff --git a/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yam=
-l b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
-> new file mode 100644
-> index 0000000000000..3bf44fbe321bc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+---
+base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
+change-id: 20260708-ti-dma-crossbar-ae8411c5d982
 
-[ ... ]
+Best regards,
+-- 
+Bhargav
 
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - lltc,ltc3589
-> +      - lltc,ltc3589-1
-> +      - lltc,ltc3589-2
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  regulators:
-> +    type: object
-
-[Severity: Medium]
-Should interrupts be defined in this properties block?
-
-The schema uses additionalProperties: false at the root level, but the driv=
-er
-supports interrupts for thermal and undervoltage warnings. Will valid device
-trees that specify the interrupts property fail validation without it being
-explicitly allowed here?
-
-> +    additionalProperties: false
-> +
-> +    patternProperties:
-> +      "^(sw1|sw2|sw3|bb-out|ldo1|ldo2)$":
-> +        type: object
-> +        unevaluatedProperties: false
-> +        $ref: regulator.yaml#
-> +
-> +        properties:
-> +          lltc,fb-voltage-divider:
-
-[Severity: Low]
-Does lltc,fb-voltage-divider need to be added to a required list for these
-regulators?
-
-The old text binding specified this as a required property for sw1, sw2, sw=
-3,
-bb-out, ldo1, and ldo2. Without a required list in this patternProperties
-block, won't device trees that omit lltc,fb-voltage-divider incorrectly pass
-schema validation?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707211612.2757=
-349-1-Frank.Li@oss.nxp.com?part=3D1
