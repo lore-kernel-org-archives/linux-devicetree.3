@@ -1,114 +1,93 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E613A3D668F;
-	Tue,  7 Jul 2026 18:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24D143C7DE
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 18:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783448646; cv=none; b=DbajfAQvtYjgqXJbaJuxuRnZrfx//KsDCqzsEiex+GksLGNU5L9s2Bw3tTTdaxFKf8XFcEs4h/Nt/N7uUvOMMRl3KwwJn9WdPdI22sDPisxo8IbMG47QkK6g/S0UDSLqPt4N9lm6jOXSRNX7ykSxrg7/Wfvb+yGxV4Lr6hiVLgY=
+	t=1783448679; cv=none; b=Ly09/XahZP7rVooWqfkBCCTg1OTg0iOZeKZW987UKjNrG24SoIVC8G75lGx4pnRu7AtBSjDCn5Hl1bGXkcJaBF/mZ48lgdVAFJ9Av+GkTW2QzUnowZiqq7UW8b00jXW0MiPYIFT1pfTpXVwUakTjVC03DpbwOkzhmuXDJlDv8ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783448646; c=relaxed/simple;
-	bh=xQz/1de1fhdSsAQcRz1bIbjMT8tJONoMz2GIjS8HZQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lLyF+dkShqGbS+KSIz0BWCfBCDAVOPUvOs19rBGoSK2iHspe1mKdKknL6EDHjesMjzY24MJqKedpkB5Fq0FwQc0838izauCCjH+nkKnTfelrumsRZt9m9sppKQDKiGnitrEYyt/O+6vXZbBvBtDuT+Mk30zn+FlJIDUr8irgIdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=CGltUv6A; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783448679; c=relaxed/simple;
+	bh=PQzBjNLMTdV0ZLdQHiUbm2yt96vGvbxUcnLx+/e+Df4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qLowiqtFJveCJer6Ajd+gn11r5Vd5RDNZkvJWMeTiK+6qJcqafLV+fBVkzBhMxP8v4ponK7KeuPrdR/+ZXs8rAl5mv/AM8UPcgQ1tMUE6AmCRwOQ7ThR3EJ3fQyz9nV1FtRHQu1d7ovY7mmg92gpLTzWm0LhwqjMLjBf5CdIHfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAzTEjPi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="CGltUv6A"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=9JLJ0FpKM3qj52tf+7FbBXdfMaILfM/b7TzkNMXuLMs=; b=CGltUv6A8vNWyR6tnpsfe2ZOCQ
-	JsAUW8Wrl8Jf6IDsfJvhIElhExWMpJ/Z/8WxZq5M/BwokI+6YCXoLZnwQzy0tJIEMX5AVoFVcAWml
-	suUNS8GcSbCu+pd/KrNtbYBThifK89bbiGtIoSiKifux/D54RU999mk60Dh9Ujgv+gH6ZJQ7+STlE
-	4jXjFZT3GSEnJwLEtDjDrNGMdZBBjJpb/4NI6T3V4nz9WK16fMb0Ys3Dm/LnwElUMW09UZWl+teC6
-	U8S7EjJOwr0pjZHRAxncYs6FBeirD8AV7F6ABn6pXAEP1XuvC8EQ0pkRnjqgHn42p8hOBxaWNcVxE
-	SCcwBPiw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Hrushiraj Gandhi <hrushirajg23@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v7 0/2] arm64: dts: rockchip: add Vicharak Axon board support
-Date: Tue, 07 Jul 2026 20:23:47 +0200
-Message-ID: <14045151.uLZWGnKmhe@phil>
-In-Reply-To: <20260707160354.GB3176120-robh@kernel.org>
-References:
- <20260608060940.52549-1-hrushirajg23@gmail.com>
- <178301901903.3838694.3276523670393868229.b4-ty@sntech.de>
- <20260707160354.GB3176120-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAzTEjPi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E5C1F000E9;
+	Tue,  7 Jul 2026 18:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783448678;
+	bh=uf2+YXtPE7pU+q12DEVXaMNeFEp2m9G5ZPDzmIk48oo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LAzTEjPi+qIKJgEMrFMilAioEdU+lKjR3+r3An50UD0/67V1mhg9qxuYtLQXs963e
+	 7JPSwPEIjIvC6Sonku3+hLHzEP83jLPhhlV+6V756O/ZkdzjwYP05LcUmgyicL0EOQ
+	 sBfe5TQVljOK5vbzdzHUGXERo2wZ1uTSjuD8Lx5EhOhqp8Q4Rb0fj4RB7YEOVsv4n4
+	 SZjshTc60/aQMj6Wie2vGAHaF2p98LWaLkyp+73A3LRmM0D+T6rpqzpDYSI22L7AxS
+	 7QOTwnSiY4M1z2CBhiCbq1ueEdtW3ItkbP/zsijYyy65a+Hv2rH6CMlll1FpFdKB6Y
+	 7VK5hUKhDoxXA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] clk: qcom: Add support for videocc driver on
+ Qualcomm Maili SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jagadeesh Kona" <jagadeesh.kona@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260707-maili_videocc-v1-2-ef0828c0bf6e@oss.qualcomm.com>
+References: <20260707-maili_videocc-v1-0-ef0828c0bf6e@oss.qualcomm.com>
+ <20260707-maili_videocc-v1-2-ef0828c0bf6e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 18:24:37 +0000
+Message-Id: <20260707182438.01E5C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Am Dienstag, 7. Juli 2026, 18:03:54 Mitteleurop=C3=A4ische Sommerzeit schri=
-eb Rob Herring:
-> On Thu, Jul 02, 2026 at 09:04:55PM +0200, Heiko Stuebner wrote:
-> >=20
-> > On Mon, 08 Jun 2026 11:39:38 +0530, Hrushiraj Gandhi wrote:
-> > > This series adds initial device tree support for the Vicharak Axon
-> > > single-board computer, which is based on the Rockchip RK3588 SoC.
-> > >=20
-> > > The Vicharak Axon is a feature-rich SBC targeting developer and embed=
-ded
-> > > use cases. It ships with:
-> > >=20
-> > >   - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
-> > >   - RK806 PMIC providing all SoC power domains
-> > >   - eMMC 5.1 (on-board) and microSD slot
-> > >   - Gigabit Ethernet via RGMII (RTL8211F)
-> > >   - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
-> > >   - PCIe 3.0 x4 and two PCIe 2.0 slots
-> > >   - SATA 3.0
-> > >   - USB 2.0 host ports (EHCI/OHCI)
-> > >   - NXP PCA9554 I/O expander for status LEDs
-> > >   - Haoyu HYM8563 RTC
-> > >=20
-> > > [...]
-> >=20
-> > Applied, thanks!
-> >=20
-> > [1/2] dt-bindings: arm: rockchip: add Vicharak Axon board
-> >       commit: e0008b108aaf8c5aa22930b2ceadf8f894562acb
-> > [2/2] arm64: dts: rockchip: add Vicharak Axon board
-> >       commit: e08c3389c78dbefd31a57df8807cf57ef6f3c9b1
->=20
-> Both have issues and should be dropped.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] CLK_MAILI_VIDEOCC incorrectly selects CLK_HAWI_GCC instead of a Mai=
+li-specific GCC or its underlying dependencies.
+--
 
-I've dropped both the Axon as well as the Vaaman2 board from the
-same vendor now.
+--- Patch [2]: [PATCH 2/2] clk: qcom: Add support for videocc driver on Qua=
+lcomm Maili SoC ---
+commit d724606f8f1c3ef24540393df8039a38c743824d
+Author: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 
-The whole thing is confusing.
+clk: qcom: Add support for videocc driver on Qualcomm Maili SoC
 
-I should've caught the pinctrl issue, and do remember running a dtbscheck
-on at least one Vcharak board - but that must have been the Vaaman2 board
-because there the pmic fullfills the binding (and general setup of other
-rk3588 boards).
+This commit adds support for the Qualcomm Maili video clock controller
+driver, allowing video clients to request videocc clocks.
 
-The vendor-prefix is missing indeed. I found earlier versions of the
-version-avalanche had it, up until v6 [0] . Though I haven't figured out
-yet why it was lost.
+> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+> index 6fd4aac1b6cf1..0409a2e604b0c 100644
+> --- a/drivers/clk/qcom/Kconfig
+> +++ b/drivers/clk/qcom/Kconfig
 
-Hence I dropped both boards.
+[ ... ]
 
+> @@ -156,6 +156,16 @@ config CLK_KAANAPALI_VIDEOCC
+>  	  Say Y if you want to support video devices and functionality such as
+>  	  video encode/decode.
+> =20
+> +config CLK_MAILI_VIDEOCC
+> +	tristate "Maili Video Clock Controller"
+> +	depends on ARM64 || COMPILE_TEST
+> +	select CLK_HAWI_GCC
 
-Hrushiraj: please start anew with both boards.
+[Severity: Low]
+Is this select intentional, or could this be a copy-paste error? It
+appears CLK_MAILI_VIDEOCC is selecting the Hawi Global Clock Controller
+instead of a Maili-specific GCC or its underlying dependencies.
 
-But include all the tags you received in previous versions.
+> +	default m if ARCH_QCOM
+> +	help
+> +	  Support for the video clock controller on Maili devices.
+> +	  Say Y if you want to support video devices and functionality such as
+> +	  video encode/decode.
 
-
-Heiko
-
-
-[0] https://lore.kernel.org/linux-rockchip/20260601162143.170030-2-hrushira=
-jg23@gmail.com/
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-maili_vide=
+occ-v1-0-ef0828c0bf6e@oss.qualcomm.com?part=3D2
