@@ -1,91 +1,91 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBA5435AB6
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415E0436BF1
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:37:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783442240; cv=none; b=NbxsiqDZFBGcrQ4/lR9OnbY01Dd8tgWJcMjaHM268YDI4Pp0RPsPTJt/8P9RpmmRb2sGv5SB8GUvunXXOekg73bgv0wm9v1I9d/8preVW9zF3mc/WKXhwx5zrAW4iWxURIr+LRw/aUtAPyA3uxyQYMOjFHuvp4dyqxABA923abA=
+	t=1783442241; cv=none; b=edgrCLO77HXsidynJuYhSqEjzHvlC961aDSDWx5XJ3xFSoWg8yUGctvg4oParN7y6RmbUsiKc/oXGG4i+fjqMuvmEPnV3PeqBRetAz8yUXLBJTKzf4LUsT8VHa+bObKk/TJTYWeNQiXx5Ni/H+9OyPy1dOcwqHiMsWrYFJaivfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783442240; c=relaxed/simple;
-	bh=1pRcnJjp6HnPGF7Zr4pGgrauHhSfDRBnsJl/xn+e7ng=;
+	s=arc-20240116; t=1783442241; c=relaxed/simple;
+	bh=Nbtqzz+dZVUyf1v2UGy7V3O9+oz0T37ydqh5TecULoQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WfE/WjXM6K2tSE/i5Fp3zjV55cyWiLRgS2AlPmPQdKpvlojfYIYkaip3LWGZmU3khUqMhMi1Dt5xR+Vn/wzJJ3iI/NbnimXorV54VckV1sXoSpvixdfH1HrhLKa/YWkAcUotU8JAV8KZHBc2Td+PbtqhFXW119Sh+daboBVJAlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eD+qpjy6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hqYHdV3i; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=FvxiTZCJyZQaZSDyUntERRKTR9QX6vVAQCJafXYGn5T0kK1yvXTjIhmEzXHmu9PZ0wr0sSjZBSHTchl35vmlWaxyZRSxaTkZBG8bYMMN1BMxKqoho8jAjmxwjBoVZDZHKMAoVc6bCqel+2yEBUSGNQDCwgQrNoZwE50Eh5uRkOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lZDzziXs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C7QYIscm; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eD+qpjy6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hqYHdV3i"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667FTMBD011712
-	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 16:37:17 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lZDzziXs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C7QYIscm"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667FT7x34045085
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 16:37:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Dc3v8wlwZwc
-	bDVCWkXzPT5udgXKUwWddG2yEhAPwIYI=; b=eD+qpjy6ngi0Mb0DF9mQpgSFZnP
-	9t4L0UoM1K1IP3Dxb5STAvpFf4eK67djAGdJeoplZO8oeePkAuI7hBizA8arWemQ
-	8Lk0qIhRFyjMd2JeBAnCjTZp/yh5rGvCoKYKR66L2v2RYCYZg73RbBuHen0lbNAj
-	2uxak/hF6+qELGmtz1B156C99gRcyUjmxLuvWKAczjGCXKZ6iD3QkK+l6hebxJzD
-	hsLDortYKlwB5eb2GIwYjOPFmYdIKh9ltMLKl8b4p/uJqdLM4jnRlEeb8Q8XXcWZ
-	YZE7evWpwnrOu435zYqW+CzfeCu3O3BoZ8ydVAD7CDvQ0h4WuzEKK0/5OJQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8vdjaemj-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=bGb/NbfNTIp
+	CUdOEEOTcmP0Hr63dnzZeDHFZIS6E++8=; b=lZDzziXs7w0EKzIfFmHaHQhC9eN
+	QQR2zotJbEKNzEzcnDwTHekXN/AWgix1c+OQnPtmL3Hhego5LgqKXb7NXoRGGn3n
+	ZPQmiQGJ2MAOSl7VFVhxlai/lqZOzBdhXo/EP0JmZ69rs7Ug/xOyU0NE8nEUZXan
+	tf+EfyduWvJ/0I9NZykKufBkc2cps0Uc7kz1G6kC9M+dvVK9LhzBdD5NKvZoFOcX
+	hfSwKu/31GWJlXVhyHTBRqPAXBbP0udXcoQcMS+ys3ZwL248TqKOkFEjAog2Gspg
+	eVsMPcb72C6mI2eOUHeHxShfkneCa6yWHlSH93GGb7z3Sjv0eq1FKIkci0g==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8w2ua9aj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 16:37:17 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c33f48ee4so49163811cf.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 09:37:17 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 16:37:18 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c2af04aeeso11048851cf.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 09:37:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=oss.qualcomm.com; s=google; t=1783442237; x=1784047037; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Dc3v8wlwZwcbDVCWkXzPT5udgXKUwWddG2yEhAPwIYI=;
-        b=hqYHdV3ikYVhU5tp/s5rNKlHODoSe7933cy4r4spKKlkIgzskLXvdUZzvLepjFQReN
-         FL0KCWed3+RrvBCSCVrP00g4FdEGy2GEfh4muEuV3fbM/yoviBWBqY+aSI5rxzZcm6wf
-         BzvHtb6yVb71XBkC5RCuac+wyTReootz8Ie4pnyAQ3y6wSO9eF3pS9PDnFNAkUWVA0/q
-         bwE7iJkwW6HZAv9wkN/ejdbKZa7zh1MW+JEOIAfxYIju3VEuQmr9DMQtSvZKOdhtgkuh
-         ehWq55cZlRqP/X3FTCWyEyYksAV2TF+dAcad6UmS+r5ucr/AGWnXedLnR7lV5rGTfUDt
-         vwuw==
+         :message-id:reply-to:content-type;
+        bh=bGb/NbfNTIpCUdOEEOTcmP0Hr63dnzZeDHFZIS6E++8=;
+        b=C7QYIscmFfTKJRcpobwos2XEExFDqiKgzPo3nxeLVx0wRG1xveHUWg9sT9Hb86267d
+         cyj7aNNZCTNmmuTUNVY4wVw3lrj6xPhS2eZrU0+8i9d0ZWtoKwsdBcXTIUzoQTIhOSHr
+         ZVWzybGC453rU1EujdvkTpbLhemTF14n1dsKWobxGkuCt4u1pL8qf7MigVzUAGhCHgUA
+         WPeBxfsAVSOEIDed+gBINEV+gR8W1/v1JukEmCs0e3WWyf77fNyZb4XRBMdjd0x5nyzY
+         zk9Mrsad93aJSrP7W8+yBvEwpvnae0WgFUfiHoCKbvctob3xrf9Af5fHp738wCu3ZL12
+         UpVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1783442237; x=1784047037;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Dc3v8wlwZwcbDVCWkXzPT5udgXKUwWddG2yEhAPwIYI=;
-        b=JJbwxrMwCfO8mtuhN/lJ4gf2VPjcD541pehi5xSf2vwCUUD2jS/ll5A0T3lqDPJsfI
-         WNwYBBqKO7wsN42MnxTuEY5E39FwDBJls16wg2EsdoX6j25cQYzYmkd3CCLLffqtgfIk
-         acqrfKIejsVsDVajSg1WoueFLzFmuTPLw6KLmoZeCRG1vFnoZiGH85150S77jf15muP2
-         +EIRyvkdR4Pp0iLt8HyC/iNMSU12dYDzP3JEsoMa/LVbyasswRjeLqkIxCt0hvq+xohR
-         A2nk3bQVsUSgS/wandNvzPA1niklWKRvVddcKoyNej6VPCFZnj9N8yi5Mh+HGCh4zg0a
-         XB2w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5tmrlwvCLSyGnzZjXoCT6dmSD7Cu8juLWk2bmKuREsWi92dKfNjx7o3jHJQIHGHLCBaOJs3j1MU7s@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSnerlQScZry+6U6/VP6gJvOPXLduYGWn/KcJkF5C9PPo8yeJv
-	/6qmxYgff4VR+bg2KWtus/PCifmfVY5LCxwZ0Evurrn5S9TM++UZ88BXkDeaTbO61ICZ4/wZOLG
-	zOaqmWWB0icqOAkoT0wuL8VH23pXZMuxHdpbT4vzpb8moDk3E5mgY17tzLATl2ahK
-X-Gm-Gg: AfdE7clAec64eX0q2jmO76t998ZB8vC6kArdsDaYiVuV01zcZN9gx2/BNiTQ/vKton4
-	yIaxXcMzGZCHuNhZMaLkRcQocNSDCm+vparjHztj5s3VCxCjrw5QzonWxE+MJR6o+wnqZDYbDXa
-	MlF47tQ/1WuYzbdH6jLu7px6EGl3o0z+bx2CDuHJMZmAo0BdJ9+fUX2vW4UXaDhi4MMhehvz5nK
-	p74sPjmiA2oLUS62HgorMbVUApLP+An6kJ28LbmU75Uik05PhkYDatMytO6t1spTHCi2V8t8hX+
-	I+RULzona4kKk1EQyI7R7c72byiKoYheV1b9vH+Z7UGmyB9UDwd7WUUrkJNdl6gOg/lML1ZM8Xz
-	H4K0DhqPzsofH7XqpJp0a0fdN
-X-Received: by 2002:ac8:6109:0:b0:51a:8c97:9389 with SMTP id d75a77b69052e-51c748f1f75mr68613421cf.64.1783442236079;
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bGb/NbfNTIpCUdOEEOTcmP0Hr63dnzZeDHFZIS6E++8=;
+        b=KC24fjNLfOKog+fpJX49yCwTOehJmRxHmq5k+00gqVWcJ6YNUKxcO0jpzo7YvtcRWd
+         w3nRFr1cokOM0udECrpgigeIcCPf06yi2j0uiygJqKPzcIIs4RmKcO5mKEv/5Nr0m+FF
+         mZd6b1dcyMoEAdypCCgGsUDGiugR3d+veupb6CKLr5xFNZ3IS+LqSJdjBaSoiS8VHVs0
+         iaizhpwOtMdy7KB0BUwWCpSYdBw84J5ZOpTiM8ksE/fwnRKQnMJ4sCQYs5OZnC2GaRKL
+         t+S83ZiPn8u8Q2KUwlOYn0cdgpAOhpdhBMs9y7n+f15IRvu//nfXcvR1i4bd+44hS49k
+         malQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpng9nsvw6FXCO8/ng74ZFZUFtjwCxg7EmyAif8E/AI1/Ic0imwCvQ5HQKlxhkPIBkxb8LILG8o0VAC@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBfNyy4kMZfwjRzba8Kg4q3R8ZdXozRbjVejL2JoTOz9+aB6Zz
+	fUQqT7AZTaB0TyE0QMmEdA6XXCbmJN1IR5y59/BLqSbDz1cKjiaUYeD20jyLgnWJSKhl5DCDFbM
+	Dr/iA5Kk0sKpJZD2mODTxO3MRb7XMRvCKNBNXuU6v1wt61HlmWj1gLnJhhHfsIT+/
+X-Gm-Gg: AfdE7cn4llsWC/lURKySQsY6OWWZ8co8uwlFHOynLAJhI7S8N52tpVreBkDQDTVErVs
+	tDM7IiFaj1DdgKeYAdADOs+rPcRrP5RBFaMlW9iQWt1OgBCXELc/t0iBh35wPTq2QxEEblEfn9k
+	yAMvE81lrU1CwrPTvfpJ0GJYbESlcyvjcnWJCPCHbSXrty/osyfhGhgBxV6WoG82bAu7++q29KD
+	Dmns+EaCzgIs76JpboQLVxtiMpXDSThwrdA7xy0Uer7fn/AlqgMFaIyjj42lP3CSxAKXUEIQ8n3
+	brcSV6JvhMTBAHFDA5wZGdIZNclVTDw4mpojQkjgQanD9QbJ4iryafHzUX0AbV5Iua3IqDsqYpq
+	hqhF5wpDA+kjbt8aJb/ehz6F3
+X-Received: by 2002:a05:622a:2296:b0:516:82e2:7788 with SMTP id d75a77b69052e-51c7a46db9bmr35265241cf.1.1783442237385;
+        Tue, 07 Jul 2026 09:37:17 -0700 (PDT)
+X-Received: by 2002:a05:622a:2296:b0:516:82e2:7788 with SMTP id d75a77b69052e-51c7a46db9bmr35264701cf.1.1783442236823;
         Tue, 07 Jul 2026 09:37:16 -0700 (PDT)
-X-Received: by 2002:ac8:6109:0:b0:51a:8c97:9389 with SMTP id d75a77b69052e-51c748f1f75mr68613081cf.64.1783442235658;
-        Tue, 07 Jul 2026 09:37:15 -0700 (PDT)
 Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f2186bsm34627699f8f.36.2026.07.07.09.37.14
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f2186bsm34627699f8f.36.2026.07.07.09.37.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 09:37:14 -0700 (PDT)
+        Tue, 07 Jul 2026 09:37:16 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 To: andersson@kernel.org, konradybcio@kernel.org
 Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
         linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, loic.poulain@oss.qualcomm.com,
         Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH 2/3] arm64: dts: qcom: monaco-arduino-monza: Add label to sound node
-Date: Tue,  7 Jul 2026 17:37:02 +0100
-Message-ID: <20260707163703.233405-3-srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH 3/3] arm64: dts: qcom: monaco-arduino-monza: Add overlay for Waveshare WM8960 Audio HAT
+Date: Tue,  7 Jul 2026 17:37:03 +0100
+Message-ID: <20260707163703.233405-4-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260707163703.233405-1-srinivas.kandagatla@oss.qualcomm.com>
 References: <20260707163703.233405-1-srinivas.kandagatla@oss.qualcomm.com>
@@ -96,54 +96,166 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=R7cz39RX c=1 sm=1 tr=0 ts=6a4d2b3d cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDE2MiBTYWx0ZWRfX23eC/t8/j2ix
+ yqCo9DxiIFdHzB4HFJ4cdTLZWhJ0fMoHCdCkS2pPywULZdOtrfoL6eWvenqNhPPlmCa/A59A1qy
+ 4K1zO7T+OHQLsaa9FaW/V/CGW0pnr78=
+X-Proofpoint-GUID: HFUnl8z0Xf4uI-OJSLIuwXDyRBDdwq-g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDE2MiBTYWx0ZWRfX/gchIWuOJxYv
+ +el3E5UCKAtz1ohXUgdkXi8TzXbIGLrdh757AqlEOVmGnwACiZU8xXrfX+DVJY6N59yfeeEqAhb
+ s7mIxcuhlQwXYlFU5xTprkHel0jLmPKOj6ndRQoMsEH9wdxLZEJ3yR7kZnWnNXmgcDpt1enAbDX
+ KZ2oo2QmWwGOs8al6zAD9SEgIg6lZ1reu44byp+QxfzPMSvHzRwn+/Z7CHbzcQE9JfoL6ReaEoG
+ XvTZdYI85doJ/OxRBoQtcl4St2rtXnMnThSbRyp/tFOGMEwbyKa76+OZJU2/w3BVVuthM3AONPC
+ TC+N8U5KR9QczaYMUflJfvfmcY+2EzyqMpel+YzzvMrQxVICjvLJW6p5m03aWJQ1J+2a3xKJXNL
+ LPH4La86T4Egm2zuP9/X0DUVTdQEoivNOBzusdeMiu2SLMLeNDS0+8j62bMC0rT7gZuGbcd+v5x
+ QReID01WpqQixivXM8A==
+X-Proofpoint-ORIG-GUID: HFUnl8z0Xf4uI-OJSLIuwXDyRBDdwq-g
+X-Authority-Analysis: v=2.4 cv=bPQm5v+Z c=1 sm=1 tr=0 ts=6a4d2b3e cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=T1UfASneSRU468WR1wEA:9 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: HAoYJWP3M0ROgYnplWzI0_mGXDRk7_7H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDE2MiBTYWx0ZWRfX+CnVLqQwrjfW
- Es5bMi9UITC9VhRS24f83OstgrM1sLo9vyEakSu808iu3llqD+8am22a3SRTNBOtbUiCfRDcECY
- IMoOlImC9fZdyplaO+y5lJNmcLqy8nzk+XVB4aOjZsLD88IDpA9mV8+xhh34/jRvAvmErbpwVw1
- Dfq1wcoQXqKOuKi2ZYRtD5lSeIzS/hw+J97JmXQf2VtVsZikAE/MFByIy/LNgLlmGKkXVSM1Gnq
- b8MLnEZotmLw2MkcZCU7prDm2LXDQwwv4N/rVjoZG4ui5q3NCwU5OFt45f4DRYNF8Bj17JhyH2R
- b1IIcc4G2Xo0LVHKuS1t/iZfZ7v1mzTSRGLHpe0HdtMo9M9PRE/i90W7Bd7Adm4p+d6jA1hHBwa
- fEAGp+Yv5CpX5HV0OqxzFdV8gyzL0i4XLmDozIcix9sQFUVzHgzeh9qkgAY+U0La2ZuG4l7BMal
- ZTb8tGb+AyuRuefzQOg==
-X-Proofpoint-ORIG-GUID: HAoYJWP3M0ROgYnplWzI0_mGXDRk7_7H
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDE2MiBTYWx0ZWRfX2zIdZO6lEt6Y
- PnLO6Quc8BwMJdrRkV+HKgsW/wtUzdrbzjDUdXPjekChs/dFOGCBqpDv1Bgnu/yKp+XAxpohwGs
- XU8arDXgviP5HTyjvAM24uKut+nSrIE=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=PXIoQbnlezZRnfWnQ40A:9 a=kacYvNCVWA4VmyqE58fU:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-07_04,2026-07-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070162
 
-Add a label to the sound node to allow DT overlays to reference and
-extend it.
+Add a DT overlay for the Waveshare WM8960 Audio HAT connected to the
+40-pin JHAT connector. The overlay adds the WM8960 fixed MCLK clock,
+the WM8960 codec on I2C0, and the corresponding I2S1 playback and
+capture DAI links to the sound card.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/Makefile             |   4 +
+ ...uino-monza-waveshare-wm8960-audio-hat.dtso | 100 ++++++++++++++++++
+ 2 files changed, 104 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-wm8960-audio-hat.dtso
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-index 4b1975dff885..1f27d92d9ec1 100644
---- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-+++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-@@ -55,7 +55,7 @@ hdmi_connector_in: endpoint {
- 		};
- 	};
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 5a1c56cf98f6..27cce61893ad 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -59,6 +59,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
++
++monaco-arduino-monza-waveshare-wm8960-audio-hat-dtbs	:= monaco-arduino-monza.dtb monaco-arduino-monza-waveshare-wm8960-audio-hat.dtbo
++dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza-waveshare-wm8960-audio-hat.dtb
++
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk.dtb
  
--	sound {
-+	sound: sound {
- 		compatible = "qcom,qcs8275-sndcard";
- 		model = "arduino-monza";
- 		audio-routing = "IN12",  "Headset Mic12",
+ monaco-evk-camera-imx577-dtbs	:= monaco-evk.dtb monaco-evk-camera-imx577.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-wm8960-audio-hat.dtso b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-wm8960-audio-hat.dtso
+new file mode 100644
+index 000000000000..cf7b6a220bab
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-wm8960-audio-hat.dtso
+@@ -0,0 +1,100 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Device tree overlay for the Waveshare WM8960 Audio HAT connected to the
++ * Arduino Monza 40-pin JHAT connector.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
++
++&{/} {
++	/* on board fixed crystal */
++	wm8960_mclk: wm8960-mclk {
++		compatible = "fixed-clock";
++		clock-frequency = <12288000>;
++		#clock-cells = <0>;
++	};
++};
++
++&i2c0 {
++	clock-frequency = <400000>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	wm8960: audio-codec@1a {
++		compatible = "wlf,wm8960";
++		reg = <0x1a>;
++		clocks = <&wm8960_mclk>;
++		clock-names = "mclk";
++		AVDD-supply = <&vdc_3v3>;
++		SPKVDD1-supply = <&vdc_5v>;
++		SPKVDD2-supply = <&vdc_5v>;
++		#sound-dai-cells = <0>;
++	};
++};
++
++&lpass_tlmm {
++	lpi_i2s1_active: lpi-i2s1-active-state {
++		clk-pins {
++			pins = "gpio6";
++			function = "i2s1_clk";
++			drive-strength = <8>;
++			bias-disable;
++		};
++
++		ws-pins {
++			pins = "gpio7";
++			function = "i2s1_ws";
++			drive-strength = <8>;
++			bias-disable;
++		};
++
++		data-pins {
++			pins = "gpio8", "gpio9";
++			function = "i2s1_data";
++			drive-strength = <8>;
++			bias-disable;
++		};
++	};
++};
++
++&sound {
++	pinctrl-0 = <&quad_mi2s_active>, <&quad_mclk_active>, <&lpi_i2s4_active>,
++		    <&lpi_i2s1_active>;
++
++	i2s1-playback-dai-link {
++		link-name = "JHAT Analog Playback";
++
++		codec {
++			sound-dai = <&wm8960>;
++		};
++
++		cpu {
++			sound-dai = <&q6apmbedai LPI_MI2S_RX_1>;
++		};
++
++		platform {
++			sound-dai = <&q6apm>;
++		};
++	};
++
++	i2s1-capture-dai-link {
++		link-name = "JHAT Analog Capture";
++
++		codec {
++			sound-dai = <&wm8960>;
++		};
++
++		cpu {
++			sound-dai = <&q6apmbedai LPI_MI2S_TX_1>;
++		};
++
++		platform {
++			sound-dai = <&q6apm>;
++		};
++	};
++};
 -- 
 2.53.0
 
