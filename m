@@ -1,184 +1,256 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010033.outbound.protection.outlook.com [52.101.84.33])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A473B3BF4;
-	Tue,  7 Jul 2026 07:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783407783; cv=fail; b=qHYliiZ/Zz5dLpmT7WPvwZQ1KADCyJKoJpyXFUN6dqmp8z0ogyILJT8yR+v5O9/qyUcO4yOMhpCXubDtcjHhFFxhmWaH6ww1bExmoyjQU7ZaRy0ENbOu7FKIp3FYsj741y1ORs4SW9LY9DCkE/TuVcBqWEdxcTvbvhAkabiGrDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783407783; c=relaxed/simple;
-	bh=HCGAunHwyfmytlqiFJ81IlupCYk2ZyrhSpwkAxYfaCo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pxtBtpLoF8tGu+YG62sQVVuhlaIeDXAqJHiA5A6SnKP76YeZl1F22kDTocuP935wTEPKzph5U2ZdRNCJsMfjZihVy3CHN+Gdzfh1yJ/eczzexR7ruLAz8gDym3NpFxAN+H5XPCStRgXcZfwPJoEtEHy6C0/IDzR/+QxEydW/+7M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=u44vtgCN; arc=fail smtp.client-ip=52.101.84.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59B738C415
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 07:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783408289; cv=none; b=hKxmcPbLP/ScR23RmRpo2fNfjvY9nL48SwJBNDZ/svBTCPJmLK0d4Gssukqs2ldjDaaOcxW/viwqkz/hAVsRLUcL68P92mpm6DzqADx3h4NPLuuFfmimnxPD5CVR9Y07pi/FtnGkWhkZ6StEtVg8b95vWjD7gVmYC+HfZxXMUPo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783408289; c=relaxed/simple;
+	bh=eL48R+jt9Vy0uloALyKWUiD2ANlpBgAy/ZRCcJtjHbM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oxsM33B8OSZSbiAOJLJ/eMROKA/0wwz5UPCUusCHiMs/ikT7UZ9OT8ZkHSQl2V+Y9Xy54Vc1+9mX+J5xZXn4ZZg3UBugBQ1azpPNfE2qb07DWtPB7WJBfEA0F8F/yFCM0tIEuWQjBxU+LlEKbkOldd1YFUAxQ5wxWEs8ej6lJ0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PXjg+KA/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DuZjFYYR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="u44vtgCN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iEzrCmtt/DDxaAuwnoFW0L4PmvubaF7g2CD4XkB6VzJ23OQDLHgb/rdUv0nKXy8OorFTmqGpnd/aDfPLomXxdMVjtEfHhtpuwLfuPnwFO/GerKC/MPGaAOGQFHOBsL4ceW7vhVkmywbUUSpEv8SmOWvOxq9V6YI/+rYyu6Kcnr/2dQJsP+Iwg8R7S5gEzzeUUm3poBDIFa9EOAQtnPMcSgYR2LpTX5QdsD+hd4qLVo08/FWVvBcQOYQQg3GvRtTCZ9AherucrHOcRhVfg8qgUGC1OdaSchrqwBSp0l7pkpqMdlStEn6kO2o8H9HF8jTSMmCzJsVElJ+A/XIiCUvuYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xFamyYujXXNaG73fiCcVJAQYm17gM7f99rmgHR+fbI4=;
- b=kUWLVnrtRBLnoY9SPfW0Z8LPTP2PKHEoyh/mKDFsRTDs+tD3CZHmxqFY2IuQOXMa5+L6YN+ZlnlkBJ2m7rPuKewcuITdW5XA1+Kda5tTZZAkOLMW4LKDM2Q7qLlWD3szk6dvVsoti4aUjiGQoXMzOXb5vRKUnGYhUyJf/9GkZ2y+ES8Hm/SIvhu51qSwTlqRMgjC4mKBvahf1+4AtEJlrIR5q7LQGq8syLj7Zpjdwajl1WiycVjqDw5VldptN3YAcqMuQw9DtTYiKNO+pFKHnz/OkXANW/k/8G05e0OFV31DOAkT9mz/JgEhHJb4HFjpI5rfMIxIa0NECtBH3QZI4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xFamyYujXXNaG73fiCcVJAQYm17gM7f99rmgHR+fbI4=;
- b=u44vtgCNhtmVbl4wkAWoqLmFSmhIapdvAPtKyQyO/ZQzLCmnT/jOHmLn1PBfuGO9Ct7q+8b0G2tqnhZLmcKepCF/rvF4hQ7HZBdM/fTwU5MbpP5Xd0spKjpMB4aSOrXvq12oOGSalTn7f6IJ/ifNX0qyfohJHKeDEL/xzf++iNKUOdpzpnfWHFSWhOhceCGZuTMbMR7I4QtNUTu6uUsWtV3FepnKM3Ht1mlqeRXm9R9OVNsGGbBWNniy+mZ/kjYq5DyQdNt82DHQaWyRnUO48G+fw8ZBdL+Unh+2eVDkJ8nGPjldZFJln+IVYz4Ze14gprjKsm3nMwVV0TpUL9qJkA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by PA6PR03MB10450.eurprd03.prod.outlook.com (2603:10a6:102:3d4::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Tue, 7 Jul
- 2026 07:02:52 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0181.012; Tue, 7 Jul 2026
- 07:02:52 +0000
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marek Vasut <marex@denx.de>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 2/2] drm/bridge: ti-sn65dsi83: Add reverse lvds lanes property
-Date: Tue,  7 Jul 2026 09:02:43 +0200
-Message-ID: <20260707070244.230546-3-wojciech.dubowik@mt.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260707070244.230546-1-wojciech.dubowik@mt.com>
-References: <20260707070244.230546-1-wojciech.dubowik@mt.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR1PEPF000077A7.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:918::435) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PXjg+KA/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DuZjFYYR"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66748mXE2585297
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 07:11:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=LOFlYgHVuwfuahkGIwISfQ
+	vVzq3AYWaHFg0t59mafAI=; b=PXjg+KA/jnicVnyK7d1S6b7/L/2OW16HlSzoYa
+	IxIzsy/NS/2TXIJ6B6TjJVENCubfolWNonFkYDkUpI4e3XKykDjAfOdPxtb5GNX6
+	WgjrUMz8xivsNEJ+aY/0QYpsNi9fJcgLNqdlh1YlpGHxyfa1fv/ZbHQAMRy0bJQu
+	CNelH91a0NmZAe47e4gK+Vok1w8WQQbFwEHoq7endTz+NucX2Z5slvSWY9Tb4E+4
+	sT8qYBKvVVoBJcj2j6dQruOXvyNZFyOCVuSQFXw9mId6ojgsjQMFxSk48PjP1PJA
+	k3g4LrSSkd9gosinPuZC2hfopfCWSEzDkS5isI4nihO7uw8g==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8t158nsk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 07:11:26 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-37e24235ce1so5900840a91.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 00:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783408286; x=1784013086; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LOFlYgHVuwfuahkGIwISfQvVzq3AYWaHFg0t59mafAI=;
+        b=DuZjFYYRC143C3GRGBp40rxWsvIpZFZgvFzS0SwMGgfB5uFW5/7f866DZUYm/LmrnF
+         kWfxnF2aU4ijOIuLdC5aZL6GzhPIRwqKr156HD1n10RpEw4slN5mKPcBqmnf3RhzDXLF
+         XV/UAs73z0g940bJH2i0hbj/0fDi57KrKweKnyHEwzDNMT+5vUP5IWMeCSROgxpznGAV
+         OkJRfmGTnTOJfVgCE60XCy+IOSEf1F9nMoXfPLLwD28WKHhNhI/wmBfGc3bxDu1uhjdN
+         jOvBD5Be+etY6IQ72j+PnTgineYuJtdVz4Js6ZC0ijtEx0u8Yfn4sbGOqUR0MrvAi81t
+         tLaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783408286; x=1784013086;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LOFlYgHVuwfuahkGIwISfQvVzq3AYWaHFg0t59mafAI=;
+        b=ChXmeC0hjgOiRQAx9zFyVj8ToJ9PP1mI4QodYqdSFP150VRrcuQL/mSTNBN4FS9WLH
+         pL9tbTA+W18lTdjcNY0/4f5LyltxqGetuEUJ2L6e+UCl+MWHyxX+SB9yMfTafWevhDax
+         uJ+YJs8TzYFPmr9RRsrgr3Xw9D0DgYuhZH+6K7co4cbc7n7LINL88j0jOH4JOxVCBn1g
+         tgjujszb5fp156w1V1QFOx6K0JVQzQouUrz/L4x7MHvmyGsAhrE5U9UOMStrjLJZoBXR
+         V0Z3qDJiWxecEO8yq0Z+/u3UgG/bFBLRr/b90lQQ4U4uZuPAMfOOh91nCn5gFKaEIlfJ
+         xnMw==
+X-Forwarded-Encrypted: i=1; AHgh+RpboQqxumyrtXfXlEl9JDSX39eBXITSO8ig1Vb8pwFrn0pHX0XVYrO4f9/lBPAYBoX8o498nuVyM8yr@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxr4HLSRDUl70HHGKv7daL4Wx2LJop7NsSYfp2+NIXHsMMvxCpz
+	QmP9Xbv4gcfXynXiSRUX1+H8Xvl2YPpfxQnVkXdz9x+kQaPYG4BNk5f6dx954wjSq7KI5XPQ9/3
+	j54CffmYmiOOv9Ny5xt9N1Ictx91LD/m7hc5piVLMr0uIg2PEMTGgbJEXqVS6C5lP
+X-Gm-Gg: AfdE7cmmTrbX2FtgYNz+gSA34tDB+CG3ZoofdXOv7nfOkS9GsQxm4r0Fd3CGbGrm//r
+	bzuIhk6mvdm+npWYW50185RZaCLirTJF5K/t4UL1mtVzeuficUOLx62Dv74Es6QWJ879UGUqvl0
+	reX9N1TUEySC4Vxi+kFYOe6sf6AUT26nJsN/ghbiq5I+FIJO4lD9t3oEJb6fq/QGHR37mW/zqbF
+	1OlDvh85BWQxrBdqFGUOKP7szSx7DdceNnIobXWOwn65fytw/DRJUkn60yHYiwTSwFBSlBbKI0C
+	YnWP52pcx1npMaws2u/biMS0pT+7o0iGWEIxdcqDNc1gIb68R4vT/Az+cRxc9VZrUYWaaH2/aZM
+	NrUJrfKa5GiKncNvIthkEQH0nAkOqmDOqdDVJO9jenult
+X-Received: by 2002:a17:90b:510f:b0:380:7688:fbe9 with SMTP id 98e67ed59e1d1-38756dd971dmr4124280a91.8.1783408285705;
+        Tue, 07 Jul 2026 00:11:25 -0700 (PDT)
+X-Received: by 2002:a17:90b:510f:b0:380:7688:fbe9 with SMTP id 98e67ed59e1d1-38756dd971dmr4124242a91.8.1783408285228;
+        Tue, 07 Jul 2026 00:11:25 -0700 (PDT)
+Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-387d13fd7bfsm587326a91.6.2026.07.07.00.11.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 00:11:24 -0700 (PDT)
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Subject: [PATCH v9 0/2] Enable sdhc inline crypto engine for kodiak and
+ monaco
+Date: Tue, 07 Jul 2026 12:41:11 +0530
+Message-Id: <20260707-ice_emmc_support-v9-0-701c86f3c25b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|PA6PR03MB10450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a44f724-4a15-460c-5500-08dedbf5c395
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|19092799006|366016|376014|7416014|23010399003|1800799024|38350700014|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	AvfvV699qt9UalC/NLaDBFzXY7Pb7GezkzDVfO/G6uMX8t1k7h9JfWqqpXwqCmcEwSmati/Q0o6BJsf0zX9LhoHHppczGZVnRRjaOtCCrMhvj1ynU/1bQYtTfcfz50BRpvmb0Vsi8XEZ5QKeZrze6VlHWJU5H2/LWs4YflTMTXPiG4IlWysQuk7pGIkrddWgrJhicQ+LjaSHJbu52HFKozi2Qsm87KWAOW5hX3r7n9w8WXlPmnytbO7TIa7KHbFcUk2bGyAxqBiDXzXw1ZRwuiFfZc91lKoNzzzvq+rRI6jLWiGHLxLiU1n3bR3k2YV86uEzcGeMAwmsxxzqkv7uim165KowXylwA35oGBLo0W20LJaIdKX+qcL///mPsoCOvZiicn0emWr58n8uTXWGoKPxbuGkKega2KMswyKA0A6ztV/vhpNT0m/dinaIirmNpkCVVUecY20sqCG+iqqjlP1/IyF6vY4DwW40IK+YfZq3nU5OJMvBKDJbbgp5yyM1FZfc5n6qvOTblwEvP37h9mkXmbfhyRJ2tP5/iEKhcPf0PKeACd8CzYEX2ovaWECjsRsk8xvzJ790kz2DAuZwX1cDN5jz/ogbeJUxDK8Jh8OPqCFhGiqjMMUhciGetNq67MidmLQGsrtAhozUlTJ4TN3HLRDoYa04iY6BIW6XFBqYjBRFDwUY5Nn7pdO7uJyDq6G1tlCHpq9YpLyQSS7v/PTvc6174Mzbn7ktes3hWLI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(19092799006)(366016)(376014)(7416014)(23010399003)(1800799024)(38350700014)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Qa2u3g11C1pUdoZPtAUv1E1H4fb/18RSrpJwJDNJHg86uRzWn7Z/D1jN6XKr?=
- =?us-ascii?Q?paTMlAArLR7WSJv/Xw5Khe5zfVYEYYKq4sLCUvNUE2AfXfz561y/uXaBdOEA?=
- =?us-ascii?Q?T7WG7vF3JQsMQhQCCy/eCW4Fgl30YvQ1JHMz8gZusWaZH0VioQvi+LTcWWjf?=
- =?us-ascii?Q?yignjY1X6I8jupkqdXkrpFqilRQxN3fyzrkpsxwpnkGVi7lTA4LaAonRudIn?=
- =?us-ascii?Q?N1itz5klLOPf2swQEeRUOFZvi/+C5JtXL5pe3Jev5fvaD/m4Nbu+pmx8eqmM?=
- =?us-ascii?Q?jWKS5IdsCyqX/Q7aZTc+biUNiCP+Gz8kuSHmCPRADbESYCL9/AAUM0rx2a7Z?=
- =?us-ascii?Q?jH8nW9lG1VtQ6QikZCAMcxFt6z3Xgs2CduPxQvhp16Lyzf4nvHhgCcbx9rb7?=
- =?us-ascii?Q?6j0XGkNSNQQwafCLeqSdjK3z8zYB9VvtryRGPAAAv7I96Cs36RafYPmC795i?=
- =?us-ascii?Q?za+h95VD/OgdHHRDAIJug55oSxRP4O7ijspOweJ9wVmy0St9u3eZ2dWoTlsw?=
- =?us-ascii?Q?7DLbr8/Nr8MQJUhPwh/uxbnm+xZ4ui20+mrZP2uSrIY/Y8bX7yQxkkdLs1oM?=
- =?us-ascii?Q?ENTQoeu3TLrTw/gB2V2hTybSBi/sWNAO7AF17zSAH3E2sDefiAeNYSg91XCN?=
- =?us-ascii?Q?y+uGoJhombPDZ1Lg2bpReJUmDTz9haxeYDcjn9O+4h3eZ1saZpyIfCwYrzqx?=
- =?us-ascii?Q?LGpUzzQKlxKyNLluHHk1ek/nPXHU3A9qScQuL63Bh8GkHKf/4t0xxjxsdbMP?=
- =?us-ascii?Q?5EJ18NFTmbR7KByg38t4AW8haoGuypun1wv0yEz4ToYNxM6WNJSS4O/KqZW9?=
- =?us-ascii?Q?OKLeMP/3gSm7fY/kLmZt/KlZTL/vePd6a4SJO1AwaNjnCSoDDOr1asfMrNKH?=
- =?us-ascii?Q?zfM2+6H9F7jB8cuuoMTOmq2YesWqDAf4fxa/KjjnYMmlKZyzYGM95/lIE8Aw?=
- =?us-ascii?Q?dkIqVJWWxdEQTV0XykQyRs4r4+beJKlwVz/xjB/wQbiCGLxQAtKiDF2Bzl1w?=
- =?us-ascii?Q?bLFkMJqi51zx78Nc90CqPkEteH5acFwf6qSz+9bdI2zx2ExQ43a/M5bFdWoO?=
- =?us-ascii?Q?A//k7VwXzDBP5SbwP8UH6N0LkyO5gXknvqGfNs6LL65MTj8r+k7EdcSn2A2S?=
- =?us-ascii?Q?P5bANxh450cvHfU3T19d7bQdBRzFWuxTbE2yvuWbzRe6WZdneaqSfYgPpVkk?=
- =?us-ascii?Q?SfA40lrvD4GQtzzSOe1oVl8x3qxv8xskYUUBZwZ4nTbLCc1oZKWstRJAVEWg?=
- =?us-ascii?Q?nfkBL8UbtVsIPP9ySowtQ5sHjWU9POd2dHZhf5+FLoH6gwj5sDaWmln7SHhX?=
- =?us-ascii?Q?FZtw+PkNbQcyn/M2HsUfiSvIOOaa5R+r7vPQqCUll0njnc5tVMkVQanNQI7S?=
- =?us-ascii?Q?3rwWmLM08NzqzMkohWjf8gS+WWD4ztJ9jbbHA9IsaHdt8u+58SjSito2Yy84?=
- =?us-ascii?Q?q+Y9VKliyxpvM8/bmmr2SxU+eRqwSrotHNeDDy9By+XHCBACF6IggEyV8N+v?=
- =?us-ascii?Q?khQ2gKMDi10Wau1RFOeX1eMIMRusSC3fS/JztOM1KZ0UKsrmhVXZT1/43Fj8?=
- =?us-ascii?Q?RrmrpqOmnihEXzM8lLGlJ9T/s+r57Jdtly0Jw6yDUYty4iy2MEkSK97i2ICk?=
- =?us-ascii?Q?xTbAykypFS4XprxZ2Azbm2B3whGLA+UV0yoFZCIksWgoCKl0R6dB7j3tnm0f?=
- =?us-ascii?Q?1ITDqwHVe2ueGrbaQ39Q0viiqMI0MXSOCeWZKVOsqZpA94vV37z1cT/rIKXM?=
- =?us-ascii?Q?NOMqP8HCTw=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a44f724-4a15-460c-5500-08dedbf5c395
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 07:02:52.8842
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IdolaRyQYPyRSyk9fj+jj0d/WlOj17xMxdhRjDZBmRr4Scvf6n2xj/sJBklVdLGDwqV41jkFBoD5cc11BILZnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR03MB10450
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI+mTGoC/02MwQqDMBAFf0VybkIMiWhP/Q8pEtO1RprE7mopi
+ P/e2F56eTDwZjZGgB6InYuNIbw8+RQzNKeCudHGO3B/y8yUVJWsVMO9gw5CcB2t85xw4b3Srta
+ uN9JolrUZYfDvb7K9/pjWfgK3HJ3jMWAKfBkR7F9a1lKXlZHC6NJIxUseAdBOglL0l0Qknqt9u
+ BSCyMP2/QMcNr1cuwAAAA==
+X-Change-ID: 20260629-ice_emmc_support-b24c84cb5054
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-GUID: dB-SOMl2_OPBAmpmsRbOxbdZ7cwZsd8v
+X-Authority-Analysis: v=2.4 cv=HstG3UTS c=1 sm=1 tr=0 ts=6a4ca69e cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=xtQGQhj0aSk4Y_6bxbsA:9
+ a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: dB-SOMl2_OPBAmpmsRbOxbdZ7cwZsd8v
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA2NyBTYWx0ZWRfX2ds5Mh+Gg0FN
+ GZoZsHZRUFjk1FRMHtLjL+DUssKrshgWQvXSojWDD8cuit9DLOLwJccX+2FnVrQ4lKRuYYEKXVJ
+ uphhn/W5fP/komPCyR2ylJMOIzGPAIM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA2NyBTYWx0ZWRfX6h+ZmfwhMQ2r
+ jWaJYm7EgRb0sd1QMSirTaFpN2iif4h3ZG1SG7NoJjcypc+EQ8vpAQvfwLJZ2SdqcfmGSYvC6CU
+ P6+7L9UWzsVE5BLnwfYm6vyXnoFToQCihMcg6PKzHzA/ArnoRSNb1tWxh7H7imP0a3ExcZgKPWQ
+ hmvkblmyD41lFII2bvcQU/EfT1bKVc6OmIZqdv4CLtG0PfSw6sMLBFWYwMfTdHjSoLZoEadFnn0
+ e5eaY+cw/ABUOWMadXk8bYk00nJ9AThXJlOZ0bLfTBfr2ur56Z8VNVRzKTXzvjSk8he1FP9Az8/
+ nlZ4N7CI4cXy8svhjABaSUYfeiRlfDVZ8u+ABeHOzI68oWl6GHfev3trFtK9QaLvngUzqW7P1Mu
+ E5cuJqVLzi6Mr+GkdeZkCMFw0uQT1mJ5oamqHT3gexBqCm4jsNVRzCZn2GucOrkYsdK3mAc4ShT
+ lsNGjrUj/ZZ1K6TQY0Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_01,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070067
 
-From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+The series is combination of below 2 series sent in past. Since, both
+need to be picked together, combine them and send as one series.
+- https://lore.kernel.org/lkml/20260608041650.541502-1-neeraj.soni@oss.qualcomm.com/
+- https://lore.kernel.org/linux-arm-msm/20260409-ice_emmc_clock_addition-v2-0-90bbcc057361@oss.qualcomm.com/
 
-Add parsing of lvds reverse lanes device tree property. When
-set, the endpoint lvds data lanes are configured in <4 3 2 1>
-order instead of default <1 2 3 4>. This is needed for layouts
-where lanes have been swapped.
+Document and wire the SDHCI to ICE relationship on Qualcomm platforms
+where ICE is modelled as a dedicated DT node.
 
-Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+This series:
+- adds the qcom,ice phandle to the SDHCI binding and enforces the
+  qcom,ice vs embedded-reg modelling rule,
+- enables ICE for kodiak and monaco by wiring SDHC to the dedicated ICE
+  node,
+- adds interface clock and power-domain requirements for the ICE node in
+  affected DTS files.
+
+How this series was tested:
+- make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- \
+  DT_SCHEMA_FILES=Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml \
+  dt_binding_check
+- make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CHECK_DTBS=y \
+  qcom/monaco-arduino-monza.dtb qcom/monaco-evk.dtb \
+  qcom/qcm6490-fairphone-fp5.dtb qcom/qcm6490-idp.dtb \
+  qcom/qcm6490-particle-tachyon.dtb qcom/qcm6490-shift-otter.dtb \
+  qcom/qcs6490-radxa-dragon-q6a.dtb qcom/qcs6490-rb3gen2.dtb \
+  qcom/qcs6490-thundercomm-minipc-g1iot.dtb \
+  qcom/qcs6490-thundercomm-rubikpi3.dtb qcom/qcs8300-ride.dtb \
+  qcom/sc7280-crd-r3.dtb qcom/sc7280-herobrine-crd-pro.dtb \
+  qcom/sc7280-herobrine-crd.dtb qcom/sc7280-herobrine-evoker-lte.dtb \
+  qcom/sc7280-herobrine-evoker.dtb qcom/sc7280-herobrine-herobrine-r1.dtb \
+  qcom/sc7280-herobrine-villager-r0.dtb \
+  qcom/sc7280-herobrine-villager-r1-lte.dtb \
+  qcom/sc7280-herobrine-villager-r1.dtb \
+  qcom/sc7280-herobrine-zombie-lte.dtb \
+  qcom/sc7280-herobrine-zombie-nvme-lte.dtb \
+  qcom/sc7280-herobrine-zombie-nvme.dtb qcom/sc7280-herobrine-zombie.dtb \
+  qcom/sc7280-idp.dtb qcom/sc7280-idp2.dtb \
+  qcom/sm7325-motorola-dubai.dtb qcom/sm7325-nothing-spacewar.dtb
+
+Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Changes in v9:
+- Rebased on linux-next tag next-20260706 (base commit 8e9685d3c41c).
+- Drop dt-bindings as already picked in -next by Ulf.
+- Enable ice node default for sdhc and ufs and validate DT schema(with
+  dt-bindings applied locally).
+- Link to v8: https://patch.msgid.link/20260629-ice_emmc_support-v8-0-1a26e1717b85@oss.qualcomm.com
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..2ab2764065c4 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -163,6 +163,7 @@ struct sn65dsi83 {
- 	struct regulator		*vcc;
- 	bool				lvds_dual_link;
- 	bool				lvds_dual_link_even_odd_swap;
-+	bool				lvds_reverse_lanes_conf[2];
- 	int				lvds_vod_swing_conf[2];
- 	int				lvds_term_conf[2];
- 	int				irq;
-@@ -644,6 +645,10 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 	regmap_write(ctx->regmap, REG_LVDS_LANE,
- 		     (ctx->lvds_dual_link_even_odd_swap ?
- 		      REG_LVDS_LANE_EVEN_ODD_SWAP : 0) |
-+		     (ctx->lvds_reverse_lanes_conf[CHANNEL_A] ?
-+		      REG_LVDS_LANE_CHA_REVERSE_LVDS : 0) |
-+		     (ctx->lvds_reverse_lanes_conf[CHANNEL_B] ?
-+		      REG_LVDS_LANE_CHB_REVERSE_LVDS : 0) |
- 		     (ctx->lvds_term_conf[CHANNEL_A] ?
- 			  REG_LVDS_LANE_CHA_LVDS_TERM : 0) |
- 		     (ctx->lvds_term_conf[CHANNEL_B] ?
-@@ -854,6 +859,9 @@ static int sn65dsi83_parse_lvds_endpoint(struct sn65dsi83 *ctx, int channel)
- 		goto exit;
- 	}
- 
-+	ctx->lvds_reverse_lanes_conf[channel] =
-+		of_property_read_bool(endpoint, "ti,lvds-reverse-lanes");
-+
- 	ret_data = of_property_read_u32_array(endpoint, "ti,lvds-vod-swing-data-microvolt",
- 					lvds_vod_swing_data, ARRAY_SIZE(lvds_vod_swing_data));
- 	if (ret_data != 0 && ret_data != -EINVAL) {
--- 
-2.47.3
+Changes in v8:
+- Added iface clock, clock-names, power-domain and disabled status in
+  kodiak and monaco ICE nodes.
+- Enabled ICE in board DTS files where SDHC is enabled while keeping SoC
+  ICE nodes disabled by default.
+- Updated trailers to reflect co-development and sender sign-off order.
+- Revalidated with dt_binding_check and CHECK_DTBS for all impacted DTS.
+- Link to v7: https://lore.kernel.org/all/20260608041650.541502-1-neeraj.soni@oss.qualcomm.com/
+
+Changes in v7:
+- Rebased on latest linux-next (sdhci-msm.yaml renamed to qcom,sdhci-msm.yaml).
+- Added links for previous versions.
+- Link to v6: https://lore.kernel.org/all/20260310113557.348502-1-neeraj.soni@oss.qualcomm.com/
+
+Changes in v6:
+- Wrapped commit message for patch (1/3) as per Linux coding guidelines.
+- Signed off the patch (3/3).
+- Link to v5: https://lore.kernel.org/all/20260306093332.4193993-1-neeraj.soni@oss.qualcomm.com/
+
+Changes in v5:
+- Updated the constraint for SDHCI 'v4' vs rest to reflect the 'qcom,ice'
+  constraint.
+- Link to v4: https://lore.kernel.org/all/20260217052526.2335759-1-neeraj.soni@oss.qualcomm.com/
+
+Changes in v4:
+- Added a new patch (3/3) for device tree changes for Monaco SoC.
+- Updated commit subject of cover letter to reflect "monaco".
+- Removed the text description of constraints from "description:" for "qcom,ice" and
+  wrapped the code.
+- Corrected the schema code to reflect the constraint of "qcom,ice" usage properly.
+- Link to v3: https://lore.kernel.org/all/20260206112053.3287756-1-neeraj.soni@oss.qualcomm.com/
+
+Changes in v3:
+- Described the purpose for phandle in "description:" for "qcom,ice".
+- Re-added the "if: required:" description for "qcom,ice" with proper
+  encoding.
+- Corrected the uppercase for base address and reg address space for ICE DT node.
+- Link to v2: https://lore.kernel.org/all/20260114094848.3790487-1-neeraj.soni@oss.qualcomm.com/
+
+Changes in v2:
+- Removed the "if: required:" description for "qcom,ice" dt-binding
+  as the ICE node is optional.
+- Corrected the ICE dt node entry according to the dt-binding description.
+- Added test details.
+- Link to v1: https://lore.kernel.org/all/20251124111914.3187803-1-neeraj.soni@oss.qualcomm.com/
+
+Changes in v1:
+- Updated the dt-binding for ICE node.
+- Added the dt node for ICE for kodiak.
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Neeraj Soni (2):
+      arm64: dts: qcom: kodiak: enable inline crypto engine for SDHC
+      arm64: dts: qcom: monaco: enable inline crypto engine for SDHC
+
+ arch/arm64/boot/dts/qcom/kodiak.dtsi | 13 +++++++++++++
+ arch/arm64/boot/dts/qcom/monaco.dtsi | 13 +++++++++++++
+ 2 files changed, 26 insertions(+)
+---
+base-commit: 8e9685d3c41c35dd1b37df70d854137abcb2fbac
+change-id: 20260629-ice_emmc_support-b24c84cb5054
+
+Best regards,
+--  
+Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 
