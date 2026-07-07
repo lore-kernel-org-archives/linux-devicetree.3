@@ -1,227 +1,144 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010023.outbound.protection.outlook.com [52.101.229.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1802F2C0296;
-	Tue,  7 Jul 2026 08:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783411460; cv=fail; b=il6WyIpUvdBDixeGsj6itxFD6dMQOWF7dPSyYPHDnn11AonDAGZ5cl/ghufQShQ5y6eEqynkI7jEwVckMCsQGa25qs9AviFKLEb1WZ8LferFuR7ganfQcWZkWb4vYB/r2KctKnskrs9vlWMJeCDdn35VDwAoHentBvI1lZdmwc4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783411460; c=relaxed/simple;
-	bh=V+eBXlt1eNPNRz/qNEOCzTbdZ1+C2nuY5lQe60ZYYfE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZgY3Ao5WLkUZvFwZ+aF2n0RHxwLJR5x7m/U++nMIAyHr58NearTVBoSO5LgX1mpgRIqVMHlG1w30huKCApBXb6S+vOCxSxoFmJi5jKnJd6mfJqGYDZbFP0kByyTnJN5Z5P1JTOKGAFIbREv+4eOsse74OBEhd1mT5vwqV4961i4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=FUPc+5dQ; arc=fail smtp.client-ip=52.101.229.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4C1288C2F;
+	Tue,  7 Jul 2026 08:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783411486; cv=none; b=VW0CvX03rmNQgbFmrJjt76INjpfMgN8W1Kl6CSz7VwTATHLJOZsIyibkVUcjLnKUbQgk932qtylFFbHUkMEtHDzpyqJz1yk/Gg3dMH9jg1WWO23IHNW4cn7hbgn+e3l3XXCmWChnY1ABUEVF1R+b/FfVrj9+/WdQXOeFD2m5wkQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783411486; c=relaxed/simple;
+	bh=jdOZQi+6zrOTjPioRb7a6zQ5KI+s2D/RTA6ZzXK8uO4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CdZAKTo26IgafNknOKNPPCE1nlpdyG/rLVoe4rtUyj+e3pfazWxawsMrq9jSelOdt6CgPkfwONVOYf/dKHVOeePOvQsh4xkM1jaRercwokCT4L/OLSmJtiVSASjLG6t6BhmZpXzbUl4M1yGfhZ87jiS3U65o560cRBHSgx7wVTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KpL4TK2M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="FUPc+5dQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I9TwDzKNFzXXsXJPnKOdrqVeayv4s74SfVWLv9omus1Wkv6AMO8XOLjPG4t1Z+iabmln85mzLPjp3zNRmuuXQVdtDfjRGrtaIRkVi7l50SY1+gtsmcMluuq9wmt/6mmovgy06Kcsi0uq8WJiZE7Tn+gOEHk/3V6GcaPFya3D5dnjscg9tQ8M2GP+iAIvOGRSaBvJ8uq8qoGnhvtwzIgKEUcV4irNufvKXihN003h4lUXa+X7dxvaaz7QnBTYYJkhUVZkk/SSg4ZWIMYSYiSlKvPihHB2I0m0njNuCLtRLVU2deNQUMXgXlNfmIEHKvc33Pt+CmbNNRbHIxKbDmcXmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iMIg1YdMVK454ZbjqPnSP+X/z8FApiIrTVwTdVc3N6E=;
- b=wraVkh6NiPZkT++v42Qa9W8ZvmwEFEmtfFq1rie1LI6ndWTbyLLte1BbNuTi5qJieDk8l9B3k+yKtBQ4ZavzbWagh45HKfeOwSMvTSFSswYfhIPJ/idk23vS542kCqxO1tKp5Bfihv+vIMDWjS5ETzihJ4xcx1t2iCmfREOUjXnWlYiu8AN5zTPd5gsjQcGfvajGio9lUdJjpG1E2HxiMSIp56xpGdwhaL1r096nQnMNSOLf9/UIXMTskLIhzyuHLqAj0MgWEYltRc/o4oGs0ZitlqyUhxjncjOMJWbukMfy1IL76HX5QOwb773rPI/+dSqxnIkQyIqMJWoUU8Z02g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iMIg1YdMVK454ZbjqPnSP+X/z8FApiIrTVwTdVc3N6E=;
- b=FUPc+5dQeubNlGHnIelVsrogUcmYQt77mYUPRmy18B2b6L3NvA3mJLfYkqR0Yr22tPHkT1ukQ13zRKDnQyGMfIe1PwOfRd1fuwrL8naVYlVj9iuELwZjLc17nT5Vx+/bL574Vn49+wqsdINDhVWo05mxcUIYokC/sLMjrBpzyjU=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYRPR01MB13340.jpnprd01.prod.outlook.com (2603:1096:405:1c9::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Tue, 7 Jul
- 2026 08:04:15 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0181.009; Tue, 7 Jul 2026
- 08:04:15 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: wsa+renesas <wsa+renesas@sang-engineering.com>, biju.das.au
-	<biju.das.au@gmail.com>
-CC: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
- Uytterhoeven <geert+renesas@glider.be>, magnus.damm <magnus.damm@gmail.com>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, Conor Dooley
-	<conor.dooley@microchip.com>
-Subject: RE: [PATCH v17 01/17] dt-bindings: mmc: renesas,sdhi: Document RZ/G3L
- (r9a08g046) SoC
-Thread-Topic: [PATCH v17 01/17] dt-bindings: mmc: renesas,sdhi: Document
- RZ/G3L (r9a08g046) SoC
-Thread-Index: AQHc8yZGZL+xVT0kJkKzynWtJHSRPLZCwOEAgAAClbCAHyA78A==
-Date: Tue, 7 Jul 2026 08:04:14 +0000
-Message-ID:
- <TY3PR01MB11346E7DDF07F2CEFE411ECCA86F02@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
- <20260603065731.93243-2-biju.das.jz@bp.renesas.com>
- <ajKQ5OzGvWg3kBYa@shikoro>
- <TY3PR01MB11346EA69F7C78DE7D07F3D6386E42@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To:
- <TY3PR01MB11346EA69F7C78DE7D07F3D6386E42@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB13340:EE_
-x-ms-office365-filtering-correlation-id: a25910dd-dd48-453f-c6bc-08dedbfe5659
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|38070700021|22082099003|18002099003|4143699003|11063799006|56012099006;
-x-microsoft-antispam-message-info:
- /RqmnvFygDJ35iPRsizdLfDJtWg09RxJEQKu56MwQbh40gkccv+UlYSg4rcQRc6jyUEx0VuQW0f229XSw1EePMxcuRsjx6DA1fi55fUn7ZB8blETv9joOSvgUrEB1/0ioBt1BQ1H06GjjoIECHiQ8KjQJBFx33ksHX8oHhZHb7l2mzrjr8ws+WvV0ZTN8xLz5V3Mdu7VueJJ9WPTHIGweSTErgGWv4SwTaqG3064zX8QNEz15tFEjl3lDT8zFj/PGwiIqVkksbaHEdYRNWYGlrYmj7BXvUvhF62HrshwATLXF0lJx6KVvo8L5cLTpXtBC2GjH9nvVJmsBVlLWpec/MZb62FV32VDlsZYIGWJNN8aymaJxYKg0Ui7yVLOznpcUAR+0AlUO7FJ+fkaCozUn5l0wIUhIYTlXlkYrNQGHzUUIh5WHUDKMWosv686xmrDhzhimXc/ahJka/ifF8XrjRzFDa3AIWte6IYM+aWSvDgE1t4fYlbifu2XykQN4J11++JdcL5J7Y56gRQXwKOA5+0Mw6IM/hK4AKambhArECfqmA6SdnPaT7y1de1bAoJSAtgka0Uvkmgt4wWnhYUt9EfeGMfl2QH3p/HpGyIQ8oLecL+MQnlH5AlfHi/YDTBTzVVHyWyic1FW4c/b7CglgfQLpyIRPduzO7e8EjHAfruzjA3UwWnzhGAuo5BTpjQDaqYKNWhNJjKD+PnPNdPQpg==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(38070700021)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ToqCw3Dg8zB2xSEvKtBNeirznTvCoZfm8hosRSg3NGW/LfYH7NG9w8IjsKLu?=
- =?us-ascii?Q?Z+wwcPms3Gl46/PdIsTvnQt6NDE/u7CsF6FZvH1AcQ/apnB/P6P9hP7/jX9x?=
- =?us-ascii?Q?Iu4YdablJ/KsuJyH2U3wAQqIZT4dGmjmXUt3xJWFu+fX9oUocriBzpnKmjmQ?=
- =?us-ascii?Q?aJLWzMRB+v/JKw8Gcdk1F41gZRcIs6O1LAGuNFnT9gxSObVt+oxc2nQy4pYq?=
- =?us-ascii?Q?QL6NG5FjKi/4qI3HYx5ZfWnroGWRo/SNKvXQtEA9hUXU6Pz+lMBz4IZla1Le?=
- =?us-ascii?Q?ZEj9v3EVfjMhZbYm4O8bHKnJO4HT1ayFXOg9267ZUvpY4lgxb/QmP0X9sikG?=
- =?us-ascii?Q?vUr6TDXm4c9L240yzHbJXlT1rzcH5Hw3FdqySmTyPVsCMoAEFBHmJvxgXRSh?=
- =?us-ascii?Q?A4c9YeQ3o0xyAoF+WkzbcbdA+IWrR4FbO530iI1JphYGeq+X/Qftr+Y0OCZi?=
- =?us-ascii?Q?DPK5gl3ijvLdE6vZW8CN8xaNLpCAuH6pM3Fw4fsj63vnhhhbLdXQlwZs0F7k?=
- =?us-ascii?Q?RED7iKrlmu45NJyuRjTw78CMryh5m8Fhsh1VD/Hx8KR4DfH601PtNRCi8Mxu?=
- =?us-ascii?Q?D8upqZpgdWxjL0poWOtpl+UQqWGtTYgqbmIrBTPsCFc6v1t+s3o+GtTDJqHF?=
- =?us-ascii?Q?AhVbozolUjv3OhnMbk7TEjWKpQKQoVPbm5xqtD78TCKg8UCpU8RcohBBI/y6?=
- =?us-ascii?Q?g3eOcbDK51ZedPDRZpz6Y3H9h3z8k/KteGjnNIAzbMf8hiH9OpeoOo0qewR9?=
- =?us-ascii?Q?SccInZCVAbp+5L0yl9sXKVMYIoHjbz8ui3sTBaBwPdd6scG4c6hpYgukE4Ja?=
- =?us-ascii?Q?VgnZzjqVqfW7GpyZNGJiGGUpDVZl5pu3vEACfJjabUzOPFgsTw/cT9O4ZrWZ?=
- =?us-ascii?Q?xkb7jhCE325f4siJ0TbMmAUHIIBzkndzxCMJxhojrhn/MF2r9z5GLM2Mca4U?=
- =?us-ascii?Q?fQrfdAsKIlb8PrdiFgnlEzYtpq6U7fiotH84F5b7yoLu6tFCe5bC9SqZ/FPh?=
- =?us-ascii?Q?e8RHcdcxlVeMqk2E5OxdtiyltKRVz9ytgaCeTJ1HPWiCjqErChPZhKX7pbAQ?=
- =?us-ascii?Q?wDaxhXG5SEXySJfLB6CQDdHqajz7ipc0geQ3OyOt67iFVDOuSjz354Bt3THO?=
- =?us-ascii?Q?lNpsExow/xE8i6htWPJuVWgiHpqxpikxVlo3wTUbCv9+m6Wze/zWs06DRlmn?=
- =?us-ascii?Q?2xIcUBRhUQF7VbnDKoGC6b0Vs8Xe4QYEmpFK4IndGDUaI51tbbyhEz+GsEUe?=
- =?us-ascii?Q?gguiMc2UJCHfA4FtpHIZ5OYslx5HXlVV7ikLa7JVYiAR1QaHtmgIPUMM9G+n?=
- =?us-ascii?Q?Ou9lRpRjo8jmaTImAd+maB0byhtkk27KfaUF/IwDTxqSnAI8Xe8mk5rnFphi?=
- =?us-ascii?Q?su8lEhdgJCTKOX//4vTF5PYr3qiUuSt89zGy5+1Pdof9QYD2axFGAu23SJsw?=
- =?us-ascii?Q?bCkbeH2fV2N6dM3QLUL/c0C3RhsbRIbfsISU8ss7MR28Sjlw7fE+ZSzGtFk7?=
- =?us-ascii?Q?ILoEqHfOMRw7NVCrhRYFvwxe8tarpL8SzUZNrkG+exX5yvdBNCobsP3zme04?=
- =?us-ascii?Q?lk135akLfmiz4bz5zNtt1Tmt4y5TPNNGoO3XQ/lefxIF/A9HySS1Nvx9ilyz?=
- =?us-ascii?Q?w6MT+wdla0xE3KwRptQayICUbVxkes7il4Bd0p2IYU2A9KgR6vICW3u4ka59?=
- =?us-ascii?Q?dNxBf6N/dHHunvxqVPHm6NzQrUtjY/EMwwf972MP09kr+e3fERMs6wJGFt36?=
- =?us-ascii?Q?zsWPTteSTA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KpL4TK2M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F48F1F000E9;
+	Tue,  7 Jul 2026 08:04:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783411484;
+	bh=gOdqmS81n40ZkG6phjYTE4bDxwYJDaDhfvl9cGCGWQw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KpL4TK2MRwrpnACfPYI1PUHAFmeV7IrpxmRidjD+1g0TjVt12XPVmpHnnYMtsq39d
+	 jGBxbk7P3wpGeKfd+FnHLROQRgSK0CWlWrz6kkDxCENYbZHVvL/yXaIHjtr/8IkGkt
+	 UNBkp6vyDUPI8DL87LyTWX1PMkaPX6nHIMhLUtaCEPJNNW/cKNrlRxby3h7yawNh4H
+	 /SYdU1VuKMLK/BMo5DwboQBLKC7nO6/qrMpKs2DhFFqP+7EwG0sFzrKEBGovASTSab
+	 fc1rf5kXfDpi38zflNb6LHzwy78Vs9f8U9SmkPB2+VUP+S/2PpQp9eQthyk+iURWfb
+	 O/UUsSeArJjBw==
+Message-ID: <e4a6d372-20cc-43f2-9299-14099af41181@kernel.org>
+Date: Tue, 7 Jul 2026 10:04:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a25910dd-dd48-453f-c6bc-08dedbfe5659
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2026 08:04:14.9532
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OyhVRa4qSrN7wiySi0bJ6jZxM1Ppr/SRqj/zPuLN17jJU086h+cgYPNGdnlWHcmVPhNSX5g3+MznhC8R5cWdNxzjRQKB21Q0mpQq/lha84s=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB13340
+User-Agent: Mozilla Thunderbird
+Subject: Re: [External] Re: [PATCH 2/2] arm64: tegra: Add Lenovo ThinkEdge
+ SE70 device tree
+To: Jiqi JQ9 Li <lijq9@lenovo.com>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "mperttunen@nvidia.com" <mperttunen@nvidia.com>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ "mpearson-lenovo@squebb.ca" <mpearson-lenovo@squebb.ca>
+References: <20260630091743.657388-1-lijq9@lenovo.com>
+ <20260630091743.657388-3-lijq9@lenovo.com>
+ <d7bc7c0a-9f36-4440-b6d0-2e23667659c4@kernel.org>
+ <JH0PR03MB8637692033F3AC7486EB397B83F72@JH0PR03MB8637.apcprd03.prod.outlook.com>
+ <09d16eec-dc61-4576-b9c0-3471802a584f@kernel.org>
+ <JH0PR03MB863781340E5314E374FB486C83F02@JH0PR03MB8637.apcprd03.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <JH0PR03MB863781340E5314E374FB486C83F02@JH0PR03MB8637.apcprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Wolfram,
+On 07/07/2026 09:13, Jiqi JQ9 Li wrote:
+>>>>
+>>>> Why do you need bootargs? stdout property does not work?
+>>>>
+>>>> Best regards,
+>>>> Krzysztof
+>>>
+>>> Regarding bootargs – I checked tegra194-p3668.dtsi (which
+>>> is included by tegra194-p3668-0001.dtsi) and it already
+>>> defines the chosen node. Following the NVIDIA reference
+>>> (e.g., tegra194-p2888.dtsi), I'll define it in the main DTS:
+>>>
+>>> chosen {
+>>>     bootargs = "console=ttyTCU0,115200";
+>>>     stdout-path = "serial0:115200n8";
+>>
+>> No, you only need stdout-path. Drop the bootargs.
+>>
+>>> };
+>>>
+>>> This ensures compatibility while aligning with the existing
+>>> Tegra device tree convention.
+>>
+>> There is no such thing as compatibility with convention.
+>>
+>> Every modern upstream DTS uses stdout-path, not bootargs.
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Hi Krzysztof,
+> 
+> Just a gentle ping on this series. The v3 patches were applied to the
+> CI baseline last week and have been waiting for review.
+> 
 
-> -----Original Message-----
-> From: Biju Das
-> Sent: 17 June 2026 13:43
-> Subject: RE: [PATCH v17 01/17] dt-bindings: mmc: renesas,sdhi: Document R=
-Z/G3L (r9a08g046) SoC
->=20
-> Hi Wolfram,
->=20
-> Thanks for the feedback.
->=20
-> > -----Original Message-----
-> > From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> > Sent: 17 June 2026 13:20
-> > Subject: Re: [PATCH v17 01/17] dt-bindings: mmc: renesas,sdhi:
-> > Document RZ/G3L (r9a08g046) SoC
-> >
-> > Hi Biju,
-> >
-> > On Wed, Jun 03, 2026 at 07:57:01AM +0100, Biju wrote:
-> > > From: Biju Das <biju.das.jz@bp.renesas.com>
-> > >
-> > > Document the RZ/G3L (r9a08g046) SDHI controller. The RZ/G3L SDHI
-> > > controller is similar to RZ/G2L but has five clocks (core, clkh, cd,
-> > > aclk, aclkm) and three resets (rst, axim, axis), so update the
-> > > clocks/clock-names maximum to 5 and resets/reset-names maximum to 3.
-> > > It has an internal divider for all modes except HS400, and a
-> > > 2048-bit divider compared to 512 on others.
-> > >
-> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> >
-> > I know you work on v18 already, but some high level remarks already.
->=20
-> OK.
->=20
-> >
-> > > +              - description: ACLK/IACLKS, SDHI channel bus clock.
-> > > +              - description: IACLKM, SDHI channel bus clock m.
-> >
-> > What does 's' and 'm' stand for? Is it mentioned in the docs? Would be =
-nice to have here as well, if
-> so.
->=20
-> >
-> > > +          resets:
-> > > +            items:
-> > > +              - description: rst, Core reset.
-> > > +              - description: axim, SDHI axi bus reset m.
-> > > +              - description: axis, SDHI axi bus reset s.
-> >
-> > Ditto.
->=20
-> The reset signal mentioned in the hardware manual are SDHIx_IXRST, SDHIx_=
-IXRSTAXIM and SDHIx_IXRSTAXIS
-> (where x=3D0,1,2)
->=20
-> I will check this as well with hardware/documentation team and update you=
-.
+You received comments here, implement them please.
 
-I got feedback from hardware team
-
-These clocks and reset signals are intended for the AXI Master and AXI Slav=
-e
-interfaces.
-
-Do you agree free the below description? please let me know.
-
-              - description: ACLK/IACLKM, SDHI channel bus clock/ AXI maste=
-r bus clock.
-              - description: IACLKS, SDHI channel AXI slave bus clock.
-          clock-names:
-            items:
-              - const: core
-              - const: clkh
-              - const: cd
-              - const: aclkm
-              - const: aclks
-          resets:
-            items:
-              - description: rst, Core reset.
-              - description: axim, SDHI AXI master bus reset.
-              - description: axis, SDHI AXI slave bus reset.
-
-Cheers,
-Biju
-
-
+Best regards,
+Krzysztof
