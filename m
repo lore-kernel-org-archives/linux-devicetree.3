@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782D24314A4;
-	Tue,  7 Jul 2026 15:42:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B07431489;
+	Tue,  7 Jul 2026 15:42:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783438978; cv=none; b=QHXHlpkQa5C7yGJfXAcSXxlth13e3DxEPGMdpXp9Da9aFJqpB48PcIiN4bWMaw5aZd9H1vqLVYzvVuWGU02mrY+yeDAHx5GKp8T4WgR5irBzTi+M7jnUscGKJcdgZWxdhko2fHb955IfOLgBCT+AKLSVDHBg7M07EA9J7QsJTzs=
+	t=1783438979; cv=none; b=aT2DdFVwjBtuuP75KtihT2grq54KiHanEIA8fbIGmkw0z0DvYbqfji0NW3qQ25npzSOAiZ//P+9fwnmyDT093OHdc6am+kaP34T4yaDATL/SPEgzXsrWdKwW7KsZfJA5vZeVQFEbrDy9Gg96eIyT0PwJZkpt+RXj4iEDwpQsClI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783438978; c=relaxed/simple;
-	bh=JM/48W88p073Zim9xY8jYQ61aqxveCjR1wWV4NkHB7I=;
+	s=arc-20240116; t=1783438979; c=relaxed/simple;
+	bh=LJ6ZVFc0UffNbOs77FSWmD06wTHMRBp9lVFLgxT0GYA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hJ9pO4b89UupbFRh7XvQszNtS14skLo/S5Z86kGJPyKILwX1Nh0sUfhSJJ9IveXEj6Pw8TD6yIQGuZDmhQ+Qd04llj3n+6g67J99OBo2CujkSniHGwDa9ujFJGefm7oq6MTSiOLf3392/W0ARHGeK5tX7Jh79/gjq1wiCJVgT/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WKGSWEIM; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=p4xTqKl4CcY+sNgPGzAPpgTzJ2Ze+WccmXVDqkUvewZyU9/eVyXbu08EYqk+MC7C+lJn3tnyXmKzEhfXRVOQvZ2RHrp/af9QH88H6pvrsApgMUozdxUSIwcLZ0xZrjD3zTjLQ/BydRyAqGnKOX4xN3IpJRSp6cz9ZRP4sjNzp2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ypi/l0if; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WKGSWEIM"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ypi/l0if"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783438974;
-	bh=JM/48W88p073Zim9xY8jYQ61aqxveCjR1wWV4NkHB7I=;
+	s=mail; t=1783438976;
+	bh=LJ6ZVFc0UffNbOs77FSWmD06wTHMRBp9lVFLgxT0GYA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WKGSWEIMbL27otAZWaErsz7u8iogp/+YqKWF6jCAdS+UJPJCVaZi2BOieLDEFfYAL
-	 z08W+cW+sP2u1fhncznLmE0m76YBnC2pIMTZFEOZOJvjJ2d/TfhamrX0K4kBAd8sFz
-	 HFwNYhd/A5SOsRWKrAq4/bzttAeAVjojnmq1LFJ6BEXc8XsAXoLjzxAIiAuZQRFyf6
-	 lC8Qq8UQB6C+nnWSMyLrPRx7kj/MtrJF0cjL600qwiVqpuF4t/n9LsZZGQd1Iu+e6p
-	 OzTV/lobCw9R5SpNrvRMAfH2FwO8ClC1O/mA1Q76CyHirP/tgAlzn/WSaXPjBMdhhl
-	 +cdL0T9y3jMzw==
+	b=Ypi/l0ifpG2qVtkjUCdTE0b/8GyXFkylZCal6WUVN51dR1Kc6cz5TqSI6QRzx/O+h
+	 xDIAoVpu6RlDeZgErmvW6SEb9wD3d83ngRRbtDqrsCF47Kmk2SKPL8e2bl+OF9mGF6
+	 YxTFAlylzsXetBRMfQ0Up9+USN93exGlN3bcv9bSjJG2n9XzEtDv3C43N1o5Bl+a0L
+	 rpifhdkwJB+aPcrLtoRu/f5CoZUUhQkZJuWPg57l7JZE518DzKurlI/i/XjPNTpkyw
+	 zr1jqEkPkv4W1UzhcwGagEDLUY0fVC7FmMcq8Quc0aDF1joQ2uvfSMHyleoHpodQsN
+	 xzdqTg50zdC7w==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3E12717E013E;
-	Tue, 07 Jul 2026 17:42:54 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DE48617E0DE6;
+	Tue, 07 Jul 2026 17:42:55 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
 Cc: vkoul@kernel.org,
@@ -52,9 +52,9 @@ Cc: vkoul@kernel.org,
 	linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	kernel@collabora.com
-Subject: [PATCH v3 07/12] phy: phy-mtk-dp: Support setting volt swing and preemphasis values
-Date: Tue,  7 Jul 2026 17:42:40 +0200
-Message-ID: <20260707154245.198361-8-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 09/12] phy: phy-mtk-dp: Rewrite and document default driving param macros
+Date: Tue,  7 Jul 2026 17:42:42 +0200
+Message-ID: <20260707154245.198361-10-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
 References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
@@ -66,106 +66,112 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for honoring the set_voltages request to set the
-voltage swing and preemphasis values in the .configure() callback.
-
-For proper hardware cleanup, reset both in the .reset() callback.
+Use FIELD_PREP_CONST and add nicer definitions/macros to build the
+default driving parameters for the PHY and, while at it, also add
+comments explaining what they are supposed to set in the PHY.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/phy/mediatek/phy-mtk-dp.c | 44 ++++++++++++++++++++++++++++++-
- 1 file changed, 43 insertions(+), 1 deletion(-)
+ drivers/phy/mediatek/phy-mtk-dp.c | 86 +++++++++++++++----------------
+ 1 file changed, 41 insertions(+), 45 deletions(-)
 
 diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index 2c8bc0b37486..c87e9fa710a4 100644
+index f59a415b401c..df193c712c77 100644
 --- a/drivers/phy/mediatek/phy-mtk-dp.c
 +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -54,6 +54,11 @@
- /* DP_PHYD_TX_CTL_0 */
- #define PHYD_TX_LN_EN			GENMASK(7, 4)
- 
-+/* DP_PHYD_DRIVING_FORCE */
-+#define PHYD_DP_TX_FORCE_VOLT_SWING_EN	BIT(0)
-+#define PHYD_DP_TX_FORCE_VOLT_SWING_VAL	GENMASK(2, 1)
-+#define PHYD_DP_TX_FORCE_PRE_EMPH_VAL	GENMASK(4, 3)
+@@ -91,51 +91,47 @@
+  * [2,5,8]: Swing 2 Pre1 and Swing 3 Pre0
+  */
+ #define PHYD_DIG_NUM_DRV_PARA_REGS	9
+-#define XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT	BIT(4)
+-#define XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT	(BIT(10) | BIT(12))
+-#define XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT	GENMASK(20, 19)
+-#define XTP_LN_TX_LCTXC0_SW0_PRE3_DEFAULT	GENMASK(29, 29)
+-#define MT8195_DRIVING_PARAM_3_DEFAULT	(XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW0_PRE3_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXC0_SW1_PRE0_DEFAULT	GENMASK(4, 3)
+-#define XTP_LN_TX_LCTXC0_SW1_PRE1_DEFAULT	GENMASK(12, 9)
+-#define XTP_LN_TX_LCTXC0_SW1_PRE2_DEFAULT	(BIT(18) | BIT(21))
+-#define XTP_LN_TX_LCTXC0_SW2_PRE0_DEFAULT	GENMASK(29, 29)
+-#define MT8195_DRIVING_PARAM_4_DEFAULT	(XTP_LN_TX_LCTXC0_SW1_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW1_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW1_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW2_PRE0_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXC0_SW2_PRE1_DEFAULT	(BIT(3) | BIT(5))
+-#define XTP_LN_TX_LCTXC0_SW3_PRE0_DEFAULT	GENMASK(13, 12)
+-#define MT8195_DRIVING_PARAM_5_DEFAULT	(XTP_LN_TX_LCTXC0_SW2_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW3_PRE0_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE0_DEFAULT	0
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE1_DEFAULT	GENMASK(10, 10)
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE2_DEFAULT	GENMASK(19, 19)
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE3_DEFAULT	GENMASK(28, 28)
+-#define MT8195_DRIVING_PARAM_6_DEFAULT	(XTP_LN_TX_LCTXCP1_SW0_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW0_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW0_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW0_PRE3_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXCP1_SW1_PRE0_DEFAULT	0
+-#define XTP_LN_TX_LCTXCP1_SW1_PRE1_DEFAULT	GENMASK(10, 9)
+-#define XTP_LN_TX_LCTXCP1_SW1_PRE2_DEFAULT	GENMASK(19, 18)
+-#define XTP_LN_TX_LCTXCP1_SW2_PRE0_DEFAULT	0
+-#define MT8195_DRIVING_PARAM_7_DEFAULT	(XTP_LN_TX_LCTXCP1_SW1_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW1_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW1_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW2_PRE0_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT	GENMASK(3, 3)
+-#define XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT	0
+-#define MT8195_DRIVING_PARAM_8_DEFAULT	(XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
++#define XTP_LN_TX_LCTXC_SW0_PRE0	GENMASK(5, 0)
++#define XTP_LN_TX_LCTXC_SW0_PRE1	GENMASK(13, 8)
++#define XTP_LN_TX_LCTXC_SW0_PRE2	GENMASK(21, 16)
++#define XTP_LN_TX_LCTXC_SW0_PRE3	GENMASK(29, 24)
 +
- #define XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT	BIT(4)
- #define XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT	(BIT(10) | BIT(12))
- #define XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT	GENMASK(20, 19)
-@@ -107,6 +112,7 @@ enum mtk_dp_phya_ana_glb_regidx {
- };
- 
- enum mtk_dp_phyd_dig_lane_regidx {
-+	DP_PHYD_LAN_DRIVING_FORCE,
- 	DP_PHYD_LAN_DRIVING_PARAM_0,
- 	DP_PHYD_LAN_MAX
- };
-@@ -127,6 +133,7 @@ static const u8 mt8195_phy_ana_glb_regs[DP_PHYA_GLOBAL_MAX] = {
- };
- 
- static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
-+	[DP_PHYD_LAN_DRIVING_FORCE] = 0x18,
- 	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
- };
- 
-@@ -244,6 +251,30 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
- 				   PHYD_TX_LN_EN, val);
- 	}
- 
-+	if (opts->dp.set_voltages) {
-+		const u32 reg_drv_force = pdata->regs_dig_lane[DP_PHYD_LAN_DRIVING_FORCE];
++#define XTP_LN_TX_LCTXC_SW1_PRE0	GENMASK(5, 0)
++#define XTP_LN_TX_LCTXC_SW1_PRE1	GENMASK(13, 8)
++#define XTP_LN_TX_LCTXC_SW1_PRE2	GENMASK(21, 16)
++#define XTP_LN_TX_LCTXC_SW2_PRE0	GENMASK(29, 24)
 +
-+		if (opts->dp.lanes > 4) {
-+			dev_err(&phy->dev, "Wrong lanes config %u\n", opts->dp.lanes);
-+			return -EINVAL;
-+		}
++#define XTP_LN_TX_LCTXC_SW2_PRE1	GENMASK(5, 0)
++#define XTP_LN_TX_LCTXC_SW3_PRE0	GENMASK(13, 8)
 +
-+		for (i = 0; i < opts->dp.lanes; i++) {
-+			const u32 off_dig_lane = pdata->off_dig_lane[i];
-+			u32 val;
++#define BUILD_DRIVING_PARAM_0(sw0_pre0, sw0_pre1, sw0_pre2, sw0_pre3) (	\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE0, sw0_pre0) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE1, sw0_pre1) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE2, sw0_pre2) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE3, sw0_pre3)		\
++)
 +
-+			val = FIELD_PREP(PHYD_DP_TX_FORCE_VOLT_SWING_VAL, opts->dp.voltage[i]);
-+			val |= FIELD_PREP(PHYD_DP_TX_FORCE_PRE_EMPH_VAL, opts->dp.pre[i]);
-+			val |= PHYD_DP_TX_FORCE_VOLT_SWING_EN;
++#define BUILD_DRIVING_PARAM_12(sw1_pre0, sw1_pre1, sw1_pre2, sw2_pre0) (\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW1_PRE0, sw1_pre0) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW1_PRE1, sw1_pre1) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW1_PRE2, sw1_pre2) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW2_PRE0, sw2_pre0)		\
++)
 +
-+			regmap_update_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
-+					   PHYD_DP_TX_FORCE_VOLT_SWING_EN |
-+					   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
-+					   PHYD_DP_TX_FORCE_PRE_EMPH_VAL,
-+					   val);
-+		}
-+	}
++#define BUILD_DRIVING_PARAM_23(sw2_pre1, sw3_pre0) (			\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW2_PRE1, sw2_pre1) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW3_PRE0, sw3_pre0)		\
++)
 +
- 	regmap_update_bits(dp_phy->regmap,
- 			   pdata->off_dig_glb + pdata->regs_dig_glb[DP_PHYD_PLL_CTL_1],
- 			   TPLL_SSC_EN, opts->dp.ssc ? TPLL_SSC_EN : 0);
-@@ -352,7 +383,8 @@ static int mtk_dp_phy_reset(struct phy *phy)
- 	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
- 	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
- 	const u32 reg_rst = pdata->regs_dig_glb[DP_PHYD_SW_RST];
--	int ret;
-+	const u32 reg_drv_force = pdata->regs_dig_lane[DP_PHYD_LAN_DRIVING_FORCE];
-+	int i, ret;
++/* MT8195: Logic State Change Point (LC TX C) */
++#define MT8195_DRIVING_PARAM_3_DEFAULT	BUILD_DRIVING_PARAM_0( 16, 20, 24, 32)
++#define MT8195_DRIVING_PARAM_4_DEFAULT	BUILD_DRIVING_PARAM_12(24, 30, 36, 32)
++#define MT8195_DRIVING_PARAM_5_DEFAULT	BUILD_DRIVING_PARAM_23(40, 48)
++
++/* MT8195: Positive Edge (LC TX CP) */
++#define MT8195_DRIVING_PARAM_6_DEFAULT	BUILD_DRIVING_PARAM_0( 0, 4, 8, 16)
++#define MT8195_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 6, 12, 0)
++#define MT8195_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(8, 0)
  
- 	/* Clearing bits sets reset state */
- 	regmap_clear_bits(dp_phy->regmap, pdata->off_dig_glb + reg_rst, DP_GLB_SW_RST_PHYD);
-@@ -368,6 +400,16 @@ static int mtk_dp_phy_reset(struct phy *phy)
- 	if (ret)
- 		dev_err(dp_phy->dev, "Could not disable lanes during reset!\n");
- 
-+	/* Reset Voltage Swing and Preemphasis values */
-+	for (i = 0; i < MTK_DP_PHY_MAX_LANES; i++) {
-+		const u32 off_dig_lane = pdata->off_dig_lane[i];
-+
-+		regmap_clear_bits(dp_phy->regmap, off_dig_lane + reg_drv_force,
-+				   PHYD_DP_TX_FORCE_VOLT_SWING_EN |
-+				   PHYD_DP_TX_FORCE_VOLT_SWING_VAL |
-+				   PHYD_DP_TX_FORCE_PRE_EMPH_VAL);
-+	}
-+
- 	return 0;
- }
- 
+ enum mtk_dp_phya_ana_glb_regidx {
+ 	DP_PHYA_GLB_BIAS_GEN_0,
 -- 
 2.54.0
 
