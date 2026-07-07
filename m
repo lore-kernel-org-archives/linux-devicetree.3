@@ -1,115 +1,68 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8533B1EFB
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783453481; cv=pass; b=I76/bOG/74hbUP7V8eQJo7xHRe+WUBIdc+RUDfpWyXFULaKhZsf7BNdKCibP5ULtzCcaVQQrxGSrLV0GVUsSaHGnbMUFUlSvs6J5obGBRHiHNt6yWcHX/gzf16Ar2xhIq6T2pwbde9nvtxD29P8T6vE52xjUon3OFLlqpMFoYvU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D2E379991
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783453481; cv=none; b=dFw1+B/eeeJ/+Y5HZNaBfps8q/aq11ZaIcSpp2qj4tG4zTMNCSxiF0/FefJTTReVRxVvwXmL5Z7SLk3EY/GzKzdmJP1zXH6Eau7NO1rd1sqhgNrTCaDi6CUkx2K22RhRJdjYdy1wbRe0dQxt8XHq9ZvSSkE+8S67oHw+8a1QfUw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783453481; c=relaxed/simple;
-	bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZYzfRWrYEu9AzCBWrKUwB/Y9lPlJKXxHAgNhquL9yCSTSpJZGMFMnG6gm7eNdz1NGAs0XlFNao28OXHOv+yVpYYvkzUCw/La83ZjgulwC+E+H5UTNPLfAC7KNqxPXr8r9EqKrdlROBAK/qrtEX2xzu2WGFU8vWMtoyv/PvR6HRA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=WE+3jIY4; arc=pass smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	bh=YcUREMtSTxOJGh+f8EW4X2z3nrxwlKCdhlZHoDf7hEE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RNbBRMK6JQoUuA6Hu9b/fWuCLLNq3o6csQ0J5rKgs1A+UoAM8lysvW2Ov+sM7bV/sMeXyT51sggNvjI9iXsOW91JrsE7xf51o2DOQcfbMaxi9KwCExi3Y4Bli1S4o2swYOeUZFV68fscVT4xpm9zv+w9bUaBzF31xr/YnCuOshs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=mFoFOaGn; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="WE+3jIY4"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cca24023edso36253495ad.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:44:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783453479; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b7gejrWwU1d+Lx5cuceBaFAk6yU4J7VZgj8aC+DDk4cJn5AIu47sGPOgCN+msn0J73
-         rbZfpJ73HKsbcWgC/54EYCsXprCx2RXUsh+eJtH7GzhkQtTPxggjfkuXUVskWceRyLt4
-         qsOblt9gxmElATO06SrmS9II1xwhLC5/jo7lRrGEnuCwdotNkvhePQuuyLhouXqSAhBG
-         5trrQ33pBRcyM5HIkgpqtkHKUUMi+nwDJDb83VaHB9UvVaArfD0zf+17teE3Nnuf+VnH
-         8ckUB8imDI8jLD/+iNQNuDmXwUfI9l9EdyDZkOAJ2KjLs0GHEadB8T8UsAge9N5bdIDZ
-         mq3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
-        fh=6q8K4ThL1ACRQZEZNxdq20YAu5Sivj/LDw16vxG0cDY=;
-        b=eYFQUyC6OKomGFCC1aGd3iNxxAKTU0ePc7grkWkVenFtZlJfs1az/gjM2SzOZLHZvL
-         wSQ+m3B2nHL3PZZItxMdquqPXvWFPVpLFGCaPOT8Fe1JPcaElTUxOFoQNkaRb+xG23JL
-         q7WtE02/+ihV8lVuEDBLFWC+AgOIZ2b8eH1wVjExFxSYq6/O5zr7x6K26Wo8MJbMHj7q
-         nezHLejw7D7bhzGFRwEKZLq/1sIIEw1zGaLgKd4cNx+UhO+jlVLrLgKdq9JFFNgHYQH4
-         deK/qhHgqZgXH3Q1zVYK4ABZWIGgzFDC2VdVQ+BuTu0cubual/wNGnXUTtJ3lgPswFdA
-         L8bg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1783453479; x=1784058279; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
-        b=WE+3jIY45ci/rBMurJZg2VwgMrWEbxYXopp5BltcxQEDx7iv/3KqBhQ2lt+uWEVL4d
-         f7kxbXq0icZoDmFobfF407EC0zL00Q4vBUuTM6Qup5q8EPZg48y9qWZ7aG59ZEgkrPM0
-         vT4vNuUbDOw5KPTKjpWp3uRtfsN7A60o21VtnxmrFv49zxTSHJcZdRa/4s2KJm+L0dtv
-         SyWe7mu2Dh10HbgRdTFxaGgNYqpxFyFLzzbw99OYwO3GuC0bt3yWXYqDxxfKsdOu8Fy3
-         75prGzK+xRqO/YOwHRSel34rT4ynFi5fEhp0H5WTv5BBap0hz+KR2TipZB548MDd3+MK
-         Cg7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783453479; x=1784058279;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
-        b=J0V2HmbFYB39CdRi7ImZesSNdt9xYdRA9PcFBNqr/Mr4LVscmbxWFuSnpH8J6ueDHs
-         KpYQE7LbBO17/uLlzIVgSJsahR/npTTsQDBrqn/sH9/lcQz1k0VyNjyDG2chsduCo40A
-         /7VAYEnzkrYvNDuIacqD1UAs2dhBxsWTSEjNrB+hVB4tYM9H/eJGyHkPbA6t27OERW+J
-         wXz+La3dH8hdvu8PmQgsHIzRn0VBLG2A0LVGvmtC4Y9R9oEHS26lq7PBZogK9EhYTbqk
-         uzPqPd3NGGkqaAuSnuqfpmKZaJ5xqWO7ci9jKe9mrZiVqUYfT1L2aODyWdUbZjZVBzeK
-         McSQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrlr3c9qAOQzXqIoseNLMOvgZnwPWIgkxxxWxfMMyQQI/Oby821oMByNIerE2SD6AfMmGEFDL5D+MrW@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMoPRWz8r8f3klunu91u+wqNDrL0QPe9MybibzVGejbM7NdN6H
-	Eh3bPq1cN1D2udjVK7rS9yXBdZiR8t4KgttWgfj/yh/Q5rT6EXdZXkWRezHoKmSjI0Oi61sHcBm
-	JeVwLlKHWW5qF2lpyXuxCBgGDRPnL818=
-X-Gm-Gg: AfdE7cnU07R3/zEFdbN/t9UGCo/DUqJFmbtXwWCDJO4FnnHcYoo1iS3sm3iRVgwZyc5
-	rwHCK1NyzczyCl6kgBM++ti0AAVsTzp02Y66wTrM3H5LMfHR0gyNMts6Q6KeH68uLcmW/axJEy0
-	gD8kWdNVggNkTuuHOff+NfO5AXFH60gd20fDChUYNspzm9pRPbViDMMfLef8hUNWN7XIzG/65Aw
-	aX5cTNLO9kOSNeTZmhZ4VtjCc34z3yaPqFXZVmaTah2LHrVubm6J1lPDU6F08kwNbEDlLqDbfY+
-	Urv1pX2si4o+IkOrQpYtW76mqA==
-X-Received: by 2002:a17:902:f645:b0:2ca:9d5a:8b6c with SMTP id
- d9443c01a7336-2ccbe3fcc82mr64122445ad.5.1783453479150; Tue, 07 Jul 2026
- 12:44:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="mFoFOaGn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=RYaQcEoqy6orUWR6icG3w0FgGfd8AtiAsN6o/qvFNtM=; b=mFoFOaGnTTTKr5DIXj4QqSrTo3
+	5d7IsOC3+I3K0O4+ETuoi+iGZrINflKIaahW8ZDHai5YftYZUnTl5M4x3oND9D2C+8kIRrG+ROLTF
+	V3C3Ovluv7GZZvq+7q4tPke5eLHy5S2SFU1qNbilqEgWW56X4slj1puTVWuZhnzv/Y8L6WBE4Do3o
+	wjgpFGkLs8EZJFnr2dPqmQmzDZBOXlIXwlH8xCdib2Wetrx1mROyK3l0nxZS5o3unQC0Ycpbldpbm
+	PwegqzmxZKhkZHHExOlqHVYo1tMJIMDfBoH0icC3Hzysj5LIuOg3sPcR9FAbk02tdnpHSVp1E81xm
+	+n18ps2w==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Brian Mayer <bleemayer@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] arm64: dts: rockchip: add HYM8563 RTC to Radxa CM5 IO board
+Date: Tue,  7 Jul 2026 21:44:29 +0200
+Message-ID: <178345345842.664858.9814271532472718755.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260705181920.8633-1-bleemayer@gmail.com>
+References: <20260705181920.8633-1-bleemayer@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702-add-mcu-fan-khadas-vim4-v8-0-244feee91a36@aliel.fr> <20260702-add-mcu-fan-khadas-vim4-v8-8-244feee91a36@aliel.fr>
-In-Reply-To: <20260702-add-mcu-fan-khadas-vim4-v8-8-244feee91a36@aliel.fr>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 7 Jul 2026 21:44:28 +0200
-X-Gm-Features: AVVi8CdKrhqOEXxfOyDGizCGSCM2_7htBspGi7RIbYxEuj_pMgbN59CYzvH2GP4
-Message-ID: <CAFBinCCkpgta_QfqDzye2cD46_Wad=2FO=oBcw9_zkxzQp3OAA@mail.gmail.com>
-Subject: Re: [PATCH v8 8/8] arm64: dts: amlogic: t7: khadas-vim4: Add i2c MCU
- fan node
-To: linux-kernel-dev@aliel.fr
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Beniamino Galvani <b.galvani@gmail.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 2, 2026 at 11:57=E2=80=AFAM Ronald Claveau via B4 Relay
-<devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
->
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
->
-> Enable and configure i2c MCU node to get fan working on Khadas VIM4.
->
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+
+On Sun, 05 Jul 2026 15:19:19 -0300, Brian Mayer wrote:
+> this v2 only contains name changes I didn't test. I added the missing
+> agent tag and am sending the patch inline. Thanks.
+> 
+> The Radxa CM5 IO carrier has a Haoyu HYM8563 real-time clock on I2C6 at
+> address 0x51, with its interrupt line on GPIO0_B0 and a CR1220 backup
+> battery holder. Without a device tree node, no /dev/rtc* appears even
+> when CONFIG_RTC_DRV_HYM8563 is enabled.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] arm64: dts: rockchip: add HYM8563 RTC to Radxa CM5 IO board
+      commit: 1945f419277503ebacd87cc221e370c8b6b94a7d
+
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
