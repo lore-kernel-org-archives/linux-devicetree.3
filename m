@@ -1,293 +1,176 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDE336DA0D
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 21:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82BC431E4F
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 21:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783459752; cv=none; b=jSd2N6+/IAzbQI/94eKrkuYRt7FTDnKlFx9yiLkh/hqUhAqeW151KT15EroIUMpiohBQRCH+xbNcB3Ky9I6HZXIfU2YfKMR97uJVzcpkcIVNm6FgGCICDNGDHwZhFrErF5MJdBHQBcJEYjs7zkdsAsLQXUPBfvhl9cXZ2YBqnB0=
+	t=1783460100; cv=none; b=qRLvoJle3LtJp87Z+5EZRkKU0LdrAUJ5niBdE3OFAb0HoZst4RcZR0E1T19FQ2zazVqNmxmLcQmGnMNdDktjlir5Z5nzSRNAwpTv4HkB7iZCm4d5BJPi3UApx3XSbvY57tNqo0L4T+gNswWrcVwETRJDTgmc55aD83IkRVWaY1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783459752; c=relaxed/simple;
-	bh=7KrKIvJFv/7r32JxKg5F4GCujmVid0mIntY6Ow7tX6A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h+HvhJjBCpQT7bYdcqaLseAiHSNj/zacBrpOMxwhaGPDJ/9+IPNa9lZarI1etapilERZrVDJEIsVA9x3LUYzW3vTwrcyxqIOiz64JtDB1co9sej4ev8/LUv9dJPBTnyvQNhoiVhniIJuju6Rpbqvd+UQXdgYd9VTuhY/eoaoMYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aJu5yI5J; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783460100; c=relaxed/simple;
+	bh=ZjKh1oN1nGmR5ugA3OXeqssjH570ZxG4FL0M11pzOow=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tSquvX5c/GLUahZ3n7QImCWiY9MlHUXzCcvpfD+SMXbsTVpMSOutjKuEQlPTSx7SS/tzK9jYYA5xrhcnNIIZ+UkkAGpd0PgZ0ScXUdfEUu6fNC3hWubn8mZzGRZLwaYtgsvhqojoKYllL1DnV5BsYHAprZ3UMM9pYlLLF4+/7zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AbAM1hxs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AWyoi6Mq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aJu5yI5J"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38096590070so2557a91.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 14:29:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AbAM1hxs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AWyoi6Mq"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667J5RSa370216
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 21:34:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HoPpeySyBGCXr8qgcL/4WFOt35OT+ffPSIy8GS4Q7Yo=; b=AbAM1hxs4rCOkvU1
+	9BLdK28B+hNJcVE5CAe/9kU0Rno0WakVZxuF/pgVfFB89+WU/YaGcD+2QPjXWD8B
+	A0c6BVUc+qGdxyjfaae4CCa7ZEK77FpTLPAT3NzQVmysBBrGLahKFasdWsqn0QPW
+	vdXTDhbd9WgCClayznnm5Hg0W/jJc51GdMFa1s5Jslk7GMLgy0v9/Nx6i5rchrIX
+	hZNrW6Lyzzll/x5RRA0JTIWxZnfU3VKP3qZgxuycbUmQn14kvZj+arR/5OsGY1QQ
+	Ya+dYnCj6amnrg9FYpqILyKDHS4Bthho4lvPlVaO947gbPC0w0kQmy0wuyLgYPAU
+	4rEESQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8vun3h3s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 21:34:56 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1d7886cdso96943091cf.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 14:34:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783459751; x=1784064551; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=A6xN/HMFEGntFn1hQIosLAbrSvkr9CttasVt2xbou+A=;
-        b=aJu5yI5JB1eTvNP3tVsymHXN+ZP9EjSPsD2T3uXTTkFU8V2P1lAUTPH2D+aoZ3TXvM
-         ioTfDul9JWgg4pKcKxyRmKAx9d0ZRgRt0uzMmpJ19rc1PaaI51Wlwf8WY5KL6p9Hg/O3
-         oE1uDl1rXzJc4lmb/ETAhEAioduNoxtp0CxHEE4Lzz3885bJ0baBVsoyUQ70irSnNjKb
-         i1vBYueScTxazg+aa7TbNw6oG7kAR8gL7/E1CoYwYFaEfchrFbENGvg1LJ9/HwBvJRnE
-         AP6USsx6dIicUlCToGXpw24q7fHTc6dQkTzh5YsjmsumxvSOLZcvgvfdLXRSfJycPpZg
-         P6Yg==
+        d=oss.qualcomm.com; s=google; t=1783460096; x=1784064896; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HoPpeySyBGCXr8qgcL/4WFOt35OT+ffPSIy8GS4Q7Yo=;
+        b=AWyoi6Mq6oyWVorrYKqE9qRTxWuC52BJYfXHk45o3ulL7cylJGy3paaeJEoItiAwcu
+         5XxmX8UajK4SRMftVTP2dAQoq9zwi0iHrr7GCG1zuNilfjAp5/V8mnve4AQKnO+F6MgV
+         edzwvL8nlNWycMlu5pixLBm8lxE5AXqgeJ3xpMV/fBzt8XSr9m8+3t9Bf+lHOwwKG+4J
+         MlRapTjUL2su25QK5hZpKRUdgQYT+FtzqIbZHVbBdgPFHguZF35OnpYkT1yXI+x8J055
+         EAeMF+iLsbkRN2RGczjFAJgBRFl6Lr9bJx01W90Z0/7HthCwZ0sT87nP8xv/318zUkXx
+         Et9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783459751; x=1784064551;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=A6xN/HMFEGntFn1hQIosLAbrSvkr9CttasVt2xbou+A=;
-        b=B2SP1ApRMnVfApQmckyLkFizx2MLVN+mZCCWZgCAZg7nXEIQ0X00CO9hI14piwv3ZX
-         7YqRY8orZ1gIfUgMXhV02IZnT3XlOIZBL8SKOQIyci4OczowmL86zIKUzUSf4GfzwhbF
-         ditLWJFwNVrLZFKlVglJPyMcOKv2HkknDbNhM53/6mmsnp7TaLYqVzX2sOcB0nNN48jV
-         9vLv6TYwXGJvC66O2A6it8SQfljjA+a3XZZxUgbeVMtRHQtoY5uIBeJVuORSaE5LZ8su
-         UIAq7JXruQSUR6/EGXFemmdqwm/fUj8LMYVwOP0TaPCjdgnzBs1qqzOTpbSQ6Axgqg3g
-         WFaQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rps8Epu7K3KKk41r4PGzNSnedRxyxqJJoeKO9Sgit2NYR5x+l9ZwYD5k51/r0Evla6XTcUAdxBm3eSA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/v2XMd57Kyfi9dbBLZTSFDNy9I8tdhN/fvW1CzWXnb3pUozS2
-	SIfxQ9zpDtElqXcqnOtwBrZW0q4xIR4g4k9OoWUoD9n6JjujXBB3uTEI
-X-Gm-Gg: AfdE7clBkcUMltCdwxShMvadU9mE3EUVL3IWOGrjOGo8jo41nkjuOow4TfvYgSYVq/N
-	6cJTU5mwp1IhP4ne+zNbuj9cYdYLr7t65qZLVUNxirUxaMreCtBxOn3bN1pbp/2rGJT3HHL+ECP
-	cUthbqVtU+XuLvksvVojW+UpEqHGSVWF83qi736QVyEG7jap+Xm3UGtyBKEWwuaIXHxs5e+URMn
-	zfih4I8ZWHBsBSuTbJcpq+S8yo5h47NtzIna8Wy0oID3ZdRovzrsxU9ShoB/0Ofr6vgWScpK63K
-	p9Z7LlZGMLta9YQwQKHOjdQtHNfevdhTGA0YNmUcHyHHwG7rhrSIZwhoMzYbtmeJsR/POxw9NZT
-	8UQuoRJnBY/LdQiE9jSZeFdRjnPo15SGKbh68idlcAnkq0FUMcNURv5oucwtyEAcc7+kNYQ+U1m
-	pxl9aDU/J0pXUV/nc50DO2rg==
-X-Received: by 2002:a17:90b:3e4f:b0:381:2788:a437 with SMTP id 98e67ed59e1d1-382802bcc65mr11766155a91.1.1783459750645;
-        Tue, 07 Jul 2026 14:29:10 -0700 (PDT)
-Received: from [192.168.1.2] ([2401:4900:881c:7ad8:e5f1:b20c:5138:fdef])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ac0557sm14885868eec.26.2026.07.07.14.29.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 14:29:10 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 08 Jul 2026 02:59:01 +0530
-Subject: [PATCH] dt-bindings: dma: ti,dma-crossbar: Convert to DT schema
+        d=1e100.net; s=20251104; t=1783460096; x=1784064896;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HoPpeySyBGCXr8qgcL/4WFOt35OT+ffPSIy8GS4Q7Yo=;
+        b=YezrsQoOw6iab6GU8g6MLFMQIUQbwrE4P+GPuHPyzsUNHHmax/UUM19601JGU3iDTM
+         Z1TuJG2YC+l4ywGhKHURwLeAnL9lgO1n2+y7CjdUOkwiloee4Pk+rg9DrU39xlkHYHQ4
+         LFxG/R+HNOMJ1YcjvAjkpqBHRy2ikX7rrSpcIglAGPh/jLiYG88PQd4F8fulCtfwHpE1
+         +xEV+bFaAYbwsLGMQZNAtrEuc5kZM0TuDjzo5C4BwRcNtfcE/ZuxyRo3NnDKnXD7dpKD
+         84ZDj9taS+Kq4BtlNSiOUJqA4G5fX1TKG3ypi0Fz2GRWQlUxjZ7mH0wpe8M5A/J/T/AC
+         qz7A==
+X-Gm-Message-State: AOJu0YzsLiXO/8tIVSxa1ApWzoNtse+DLP22iS2eQ4LfjvyQSiCpcMej
+	xM+kdCUElFbmItP3hAlD5KR200eUksHdpOOURhkCK7H+Xcpym3QKtKqtvMUSVTtAHQkS3SWaGEI
+	3mCgBJvgTSiyCKnfmpehyxTwh7I9GCp0RXVY1ZAVXGcgkS/pUUNmvWwykFBXkwigESTqJrclU0O
+	M=
+X-Gm-Gg: AfdE7ckaPgEulyoqXBBAy0nQqV2z/89VzOFdFd7U6/zvHH5lLmoM9Cp5ZkU6MBiamCO
+	4yyKLMp90EzOd0kn16lNq27Tlep4NqpUGQ1mHJIAsjqQH0Oqk39hUj4/jiSDrKw2NTFuwVer6dW
+	o1z7AKPIJ37QqBq+EZYppIriIb6TgJajS0GmsXk/rMJEkPyQfadQ9CxuGumm/e8TjCelYOX+cNC
+	f4rMAri8oyJHR1WGkyQr5i0sDl/Ggp1oCdoi3iRaP+v3errAttOrN1AVfsCMzXTgukRar9Rjftm
+	txf9R5VwQQbJ6ssG1KbwSwhmXlZK4n3ImfYktQB8ptNyJhFwTpRZJxlZ6AHFzY/XvFwoLsjZYU4
+	e5oNn5WlCiQoryraIsTrxH/Zs9d/Bn2HFY4HYw+OaUi+L3BkrnZcR3kJbEoYkyJ+w42F3pFpfVg
+	==
+X-Received: by 2002:ac8:5a91:0:b0:51c:404:af7a with SMTP id d75a77b69052e-51c747ecbf0mr77057031cf.31.1783460095818;
+        Tue, 07 Jul 2026 14:34:55 -0700 (PDT)
+X-Received: by 2002:ac8:5a91:0:b0:51c:404:af7a with SMTP id d75a77b69052e-51c747ecbf0mr77056751cf.31.1783460095274;
+        Tue, 07 Jul 2026 14:34:55 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:9094:f7db:443e:b97f? ([2a05:6e02:1041:c10:9094:f7db:443e:b97f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d843csm36002250f8f.14.2026.07.07.14.34.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 14:34:54 -0700 (PDT)
+Message-ID: <22c4909c-9d2e-4b49-bca2-f218e701138c@oss.qualcomm.com>
+Date: Tue, 7 Jul 2026 23:34:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] dt-bindings: embedded-controller: Add Lenovo
+ ThinkPad T14s thermal sensor provider support
+To: robh@kernel.org, conor+dt@kernel.org,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
+References: <20260707192228.14647-1-daniel.lezcano@oss.qualcomm.com>
+ <20260707192228.14647-2-daniel.lezcano@oss.qualcomm.com>
+ <20260707193005.3CEA11F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20260707193005.3CEA11F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-ti-dma-crossbar-v1-1-f62796428f13@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDcwML3ZJM3ZTcRN3kovzi4qTEIt3EVAsTQ8Nk0xRLCyMloK6CotS0zAq
- widGxtbUAGy5c9mEAAAA=
-X-Change-ID: 20260708-ti-dma-crossbar-ae8411c5d982
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Peter Ujfalusi <peter.ujfalusi@gmail.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783459745; l=6488;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=7KrKIvJFv/7r32JxKg5F4GCujmVid0mIntY6Ow7tX6A=;
- b=3lzpmHo3NOSOuZey/YoSurUZTn2lLfPihC3mo8YyBdOXC7G39QfBlWdxcvGRFCOAGtXPDbUi5
- 0ElFsigHzHdA1nFfcWibU4ftC7Xm5VZ7fFQljiAORPj0WYkSSLYwBZ1
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDIxMSBTYWx0ZWRfX3UkTQXiK+C2Q
+ Yt5ip7RojyIdcdTUV4MZfGPfn46S4LFDvH01V68SpTMwUnQNljvLl1BxSAofm7ElZ4eUuhZQHtr
+ 74lvSg+wA45cnvKutxNtLZEVzMvNmf0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDIxMSBTYWx0ZWRfX1+xkS86j5Yef
+ JcI438ssXo8wr9NFP1BVIKZICHD46ZdQi5veFq0PF98Rj9rzH0II7CzfSvn2akXb++Xa6WlvslJ
+ IEDwSaqzvpil1qu7OMLSVMXeY9CS71zmqDu32piKlL/79G2u4oLnv56QSjnl99nBnkRO6Cq6coy
+ YQ2GdPAflK+sl9tZBvuvvzxFnjiEzB6gcrpjSx2gyslqvS2SDbjw1Fge72tl1LX2IqeZgt5Igv3
+ gYskQ2rAb1iP0o4Wm/e1/qkhR/gdynVE5WOBS0tZUbjEvipuc3wR6x0soR5rnVpSN4H6QdRgW8q
+ DMKyIdMSex/mLlaHYD0Dhk7UEZpNc/K6YlqPJ2TjlC0pnSrnYMHM59MmWdm9Jsucrs7uSRiy+LV
+ Y139n84bIx1WivV8qn//77vTlm0LLZHi+qzoQafY5PNnE16aIUzalPSfiQ30W1diJodtK7MVS+p
+ jbun4i8gGijZII4F9vg==
+X-Proofpoint-GUID: TId18Vt3kSSW_4OBNUmcNT9yWtfM-j8U
+X-Authority-Analysis: v=2.4 cv=N+IZ0W9B c=1 sm=1 tr=0 ts=6a4d7100 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=oF4XxwQXYdrVB_WkrCkA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: TId18Vt3kSSW_4OBNUmcNT9yWtfM-j8U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_05,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 clxscore=1015 adultscore=0
+ bulkscore=0 suspectscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070211
 
-Convert Texas Instruments DMA Crossbar from text to DT schema
+On 7/7/26 21:30, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The newly added '#thermal-sensor-cells' property is missing from the 'required' list.
+> --
+> 
+> --- Patch [1]: [PATCH v6 1/3] dt-bindings: embedded-controller: Add Lenovo ThinkPad T14s thermal sensor provider support ---
+> commit 48ae118884c307667e25a720a62e87b8e32443c5
+> Author: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> 
+> dt-bindings: embedded-controller: Add Lenovo ThinkPad T14s thermal sensor provider support
+> 
+> This commit documents the Lenovo ThinkPad T14s Embedded Controller as a
+> thermal sensor provider by adding the #thermal-sensor-cells property. This
+> allows the EC temperature sensors to be referenced from thermal zones.
+> 
+>> diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
+>> --- a/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
+>> +++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad-t14s-ec.yaml
+>> @@ -26,6 +26,9 @@ properties:
+>>   
+>>     wakeup-source: true
+>>   
+>> +  "#thermal-sensor-cells":
+>> +    const: 1
+>> +
+>>   required:
+>>     - compatible
+>>     - reg
+> 
+> [Severity: Medium]
+> Should #thermal-sensor-cells be added to this required list?
+> 
+> When hardware gains new provider capabilities, omitting the corresponding
+> standard properties from the required list allows incomplete device tree
+> nodes to pass schema validation. Dependent thermal zones could fail at
+> runtime if they attempt to reference the embedded controller and the property
+> is missing.
+> 
+> [ ... ]
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../bindings/dma/ti,dra7-dma-crossbar.yaml         | 105 +++++++++++++++++++++
- .../devicetree/bindings/dma/ti-dma-crossbar.txt    |  68 -------------
- 2 files changed, 105 insertions(+), 68 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml b/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml
-new file mode 100644
-index 000000000000..287260396098
---- /dev/null
-+++ b/Documentation/devicetree/bindings/dma/ti,dra7-dma-crossbar.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/dma/ti,dra7-dma-crossbar.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments DMA Crossbar (DMA request router)
-+
-+maintainers:
-+  - Bhargav Joshi <j.bhargav.u@gmail.com>
-+  - Peter Ujfalusi <peter.ujfalusi@gmail.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,dra7-dma-crossbar
-+      - ti,am335x-edma-crossbar
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#dma-cells":
-+    minimum: 1
-+    maximum: 3
-+
-+  dma-requests:
-+    minimum: 1
-+    maximum: 256
-+
-+  dma-masters:
-+    maxItems: 1
-+
-+  ti,dma-safe-map:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Safe routing value for unused request lines
-+
-+  ti,reserved-dma-request-ranges:
-+    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-+    description:
-+      DMA request ranges which should not be used when mapping xbar input to
-+      DMA request, they are either allocated to be used by for example the DSP
-+      or they are used as memcpy channels in eDMA.
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#dma-cells"
-+  - dma-requests
-+  - dma-masters
-+
-+allOf:
-+  - $ref: dma-router.yaml#
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,am335x-edma-crossbar
-+    then:
-+      properties:
-+        "#dma-cells":
-+          const: 3
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    /* DMA controller */
-+    sdma: dma-controller@4a056000 {
-+        compatible = "ti,omap4430-sdma";
-+        reg = <0x4a056000 0x1000>;
-+        interrupts =  <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>,
-+                      <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
-+                      <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
-+                      <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
-+        #dma-cells = <1>;
-+        dma-channels = <32>;
-+        dma-requests = <127>;
-+    };
-+
-+    /* DMA crossbar */
-+    sdma_xbar: dma-router@4a002b78 {
-+        compatible = "ti,dra7-dma-crossbar";
-+        reg = <0x4a002b78 0xfc>;
-+        #dma-cells = <1>;
-+        dma-requests = <205>;
-+        ti,dma-safe-map = <0>;
-+        /* Protect the sDMA request ranges: 10-14 and 100-126 */
-+        ti,reserved-dma-request-ranges = <10 5>, <100 27>;
-+        dma-masters = <&sdma>;
-+    };
-+
-+    /* DMA client */
-+    serial@4806a000 {
-+        compatible = "ti,omap4-uart";
-+        reg = <0x4806a000 0x100>;
-+        interrupts-extended = <&gic GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
-+        ti,hwmods = "uart1";
-+        clock-frequency = <48000000>;
-+        /* Requesting crossbar input 49 and 50 */
-+        dmas = <&sdma_xbar 49>, <&sdma_xbar 50>;
-+        dma-names = "tx", "rx";
-+    };
-diff --git a/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt b/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt
-deleted file mode 100644
-index 1f9831540c97..000000000000
---- a/Documentation/devicetree/bindings/dma/ti-dma-crossbar.txt
-+++ /dev/null
-@@ -1,68 +0,0 @@
--Texas Instruments DMA Crossbar (DMA request router)
--
--Required properties:
--- compatible:	"ti,dra7-dma-crossbar" for DRA7xx DMA crossbar
--		"ti,am335x-edma-crossbar" for AM335x and AM437x
--- reg:		Memory map for accessing module
--- #dma-cells:	Should be set to match with the DMA controller's dma-cells
--		for ti,dra7-dma-crossbar and <3> for ti,am335x-edma-crossbar.
--- dma-requests:	Number of DMA requests the crossbar can receive
--- dma-masters:	phandle pointing to the DMA controller
--
--The DMA controller node need to have the following poroperties:
--- dma-requests:	Number of DMA requests the controller can handle
--
--Optional properties:
--- ti,dma-safe-map: Safe routing value for unused request lines
--- ti,reserved-dma-request-ranges: DMA request ranges which should not be used
--		when mapping xbar input to DMA request, they are either
--		allocated to be used by for example the DSP or they are used as
--		memcpy channels in eDMA.
--
--Notes:
--When requesting channel via ti,dra7-dma-crossbar, the DMA client must request
--the DMA event number as crossbar ID (input to the DMA crossbar).
--
--For ti,am335x-edma-crossbar: the meaning of parameters of dmas for clients:
--dmas = <&edma_xbar 12 0 1>; where <12> is the DMA request number, <0> is the TC
--the event should be assigned and <1> is the mux selection for in the crossbar.
--When mux 0 is used the DMA channel can be requested directly from edma node.
--
--Example:
--
--/* DMA controller */
--sdma: dma-controller@4a056000 {
--	compatible = "ti,omap4430-sdma";
--	reg = <0x4a056000 0x1000>;
--	interrupts =	<GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>,
--			<GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
--			<GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
--			<GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
--	#dma-cells = <1>;
--	dma-channels = <32>;
--	dma-requests = <127>;
--};
--
--/* DMA crossbar */
--sdma_xbar: dma-router@4a002b78 {
--	compatible = "ti,dra7-dma-crossbar";
--	reg = <0x4a002b78 0xfc>;
--	#dma-cells = <1>;
--	dma-requests = <205>;
--	ti,dma-safe-map = <0>;
--	/* Protect the sDMA request ranges: 10-14 and 100-126 */
--	ti,reserved-dma-request-ranges = <10 5>, <100 27>;
--	dma-masters = <&sdma>;
--};
--
--/* DMA client */
--uart1: serial@4806a000 {
--	compatible = "ti,omap4-uart";
--	reg = <0x4806a000 0x100>;
--	interrupts-extended = <&gic GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
--	ti,hwmods = "uart1";
--	clock-frequency = <48000000>;
--	/* Requesting crossbar input 49 and 50 */
--	dmas = <&sdma_xbar 49>, <&sdma_xbar 50>;
--	dma-names = "tx", "rx";
--};
-
----
-base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
-change-id: 20260708-ti-dma-crossbar-ae8411c5d982
-
-Best regards,
--- 
-Bhargav
+If I'm not wrong it is a false positive
 
