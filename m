@@ -1,92 +1,323 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-45.ptr.blmpb.com (va-2-45.ptr.blmpb.com [209.127.231.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF791C84AB
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 07:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0311F1304
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 07:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783410302; cv=none; b=QoPV4jsBykS4yG9qAFKr5nCVzjQ5+E6IEhge/h/ouX7yaPUV08pnyPaqBVa2qT8t+Q0+7JZWaaf9sAac3DgqXXSz9WMU/wdjZ/OyQ15qrOM2IpbjmT6NMAkZ2UytSfGrIVy6w5jC04Qo72fA9UxCpIVdSxvmtrIYkxxOPciJtqo=
+	t=1783410324; cv=none; b=V6vMxQ+whwuFKxOK3MuEetHOCPh5kOdVJr8azqza04N5ncm/pTHf18MkX5bTVBMbVHTc+KVvkP1aJotLLWsNzHPMtl/mBe2kjfLbKdSXvKRYlGlgWrbwOVaHzuQHATEqGWnweaAK1iPfgs/CZSrtPt8/FOju19BcluSQ2kE/Ip0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783410302; c=relaxed/simple;
-	bh=8d048qK1ayKFpV5VGkXyZeRdTW+F9fS2vz873FDLuvk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=b+eUoPlISU42c+fJ962hxaSAD/fafGJD04PAM6LI4l1kDKlTQEDJcr0OqpwhbwYX9XtwfQF7jD+DT5wcW3IkdnI/70j1adHj5cAQdwKFzWKJ8Cc7QDyZ4oU9rGIZYjANVJ/lqa0WsnhhHtl+h791rgZJRqPmhmRfcD6HYdHxd60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rm2ESdpV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783410324; c=relaxed/simple;
+	bh=Bhfo04qUdFx3YG/ieMRMaehsX4sYLz59RACNPM+OfAc=;
+	h=Cc:Message-Id:Mime-Version:To:Date:References:Subject:From:
+	 In-Reply-To:Content-Type; b=r8u3otTSEz2JYjETos0/qtT517j7howCgbZxL21Xy5xRZxzvp1RQ+M+DB8BLr4+Qcn/PRsb9q9wk9cWgZ/RRatsCOC9HRIuSwDiNKgeYQ/E2G63thMEab5q6IwaHuvQmtrMeBV3uvI7IIonnLy2eiybV5DblnXybnzj4y3sd4MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=DiBENkEB; arc=none smtp.client-ip=209.127.231.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rm2ESdpV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF1B1F000E9;
-	Tue,  7 Jul 2026 07:45:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783410301;
-	bh=52uMWC1TjayrRxxRf8MpwU6MSpaiscD2RYo0k9Jco84=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rm2ESdpVHIeES8966A7x6ZwLq6DarURbhyg5zFc0br5U/XpB9quMh0RGHLrQOyD1P
-	 od8WIwiaQM1mXPxJ7n9Rfqm09R2waL6NcMt29s78+vruXf5dC1f/G6lGoO27IC3wIg
-	 WtdE0i6kS0z3NmMexl9TrNuUxMinQ/pXF7b9opooUZIxuKmjrLk7ggcqT5e7gofif2
-	 Sa5KkiKkLzRhiQ9GvdAcvc6qS51gyKHiFx28nn9x+jULQGOldT1FIz+WgIE202MGzZ
-	 HOZSHvNHOu8m6UmD8lDivj3muZAaOjPZi4+vmfKJir/yAGJjkgCL7vcU0g62SSAsVm
-	 iVoX8i/b66tHg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: sn65dsi83: Add reverse lanes
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wojciech Dubowik" <wojciech.dubowik@mt.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260707070244.230546-2-wojciech.dubowik@mt.com>
-References: <20260707070244.230546-1-wojciech.dubowik@mt.com>
- <20260707070244.230546-2-wojciech.dubowik@mt.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:45:00 +0000
-Message-Id: <20260707074500.CAF1B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="DiBENkEB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1783410315; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=khtBI9vvcocUFT3RIs3nuQxcI7AYB07xM0J6QTM+nSs=;
+ b=DiBENkEB/nHVMY3VhsTt9ws6lB0tygp1A7/l0vmFLlOb5yTKqRN7qGPqEPl6Kae/wtlkEK
+ 1Ofwds7w++gtlsb3dE7yHhLzeEh+myv67P75N1gDB+A/KOquSFS8+P3zXGolOcuwtrrYp0
+ JMjj9Y9RtPhwXi9cGOUmlxceAxujpq0nQVy7K5SZXBGm+cURHcVte5M++6xN81ZLLl2nr9
+ ajduU6g6ZC76qYYDtSSuNxgC+V4jBTilSMiNDbo6j1s/WMa2wwh8AuRTDAsvpYt3mNCwdb
+ etKGkVxBBzUuzg91+eh8h3VKeGQ/hO6dD+oFssVsjyCr3xrIrnepU8eyIlSNOw==
+Cc: "Jiri Olsa" <jolsa@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, 
+	"Mark Rutland" <mark.rutland@arm.com>, "Rob Herring" <robh@kernel.org>, 
+	"Anup Patel" <anup@brainfault.org>, "Namhyung Kim" <namhyung@kernel.org>, 
+	"Arnaldo Carvalho de Melo" <acme@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Ian Rogers" <irogers@google.com>, "Will Deacon" <will@kernel.org>, 
+	"James Clark" <james.clark@linaro.org>, <yang.yicong@picoheart.com>, 
+	<linux-arm-kernel@lists.infradead.org>, 
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<devicetree@vger.kernel.org>, <linux-perf-users@vger.kernel.org>, 
+	"Conor Dooley" <conor@kernel.org>
+Message-Id: <90c1a299-617d-4b6d-8aa7-b776cb7c0c46@picoheart.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: "Atish Patra" <atish.patra@linux.dev>
+Date: Tue, 7 Jul 2026 15:45:10 +0800
+References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com> <20260701-counter_delegation-v8-12-7909f863a645@meta.com>
+Subject: Re: [PATCH v8 12/22] RISC-V: perf: Modify the counter discovery mechanism
+X-Lms-Return-Path: <lba+26a4cae89+6e5315+vger.kernel.org+yang.yicong@picoheart.com>
+Received: from [100.86.219.172] ([58.250.106.115]) by smtp.feishu.cn with ESMTPS; Tue, 07 Jul 2026 15:45:12 +0800
+Content-Transfer-Encoding: 7bit
+From: "Yicong Yang" <yang.yicong@picoheart.com>
+X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
+In-Reply-To: <20260701-counter_delegation-v8-12-7909f863a645@meta.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Language: en-US
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch introduces a custom vendor-specific boolean property `ti,=
-lvds-reverse-lanes` to indicate LVDS lane reversal. This is a device tree a=
-nti-pattern because the referenced standard `video-interfaces.yaml` already=
- provides the `data-lanes` property for this exact purpose (e.g., `data-lan=
-es =3D <4 3 2 1>;`).
---
+On 7/1/26 4:47 PM, Atish Patra wrote:
+> From: Atish Patra <atishp@rivosinc.com>
+> 
+> If both counter delegation and SBI PMU is present, the counter
+> delegation will be used for hardware pmu counters while the SBI PMU
+> will be used for firmware counters. Thus, the driver has to probe
+> the counters info via SBI PMU to distinguish the firmware counters.
+> 
+> The hybrid scheme also requires improvements of the informational
+> logging messages to indicate the user about underlying interface
+> used for each use case.
+> 
+> Signed-off-by: Atish Patra <atishp@rivosinc.com>
+> ---
+>  drivers/perf/riscv_pmu_sbi.c | 139 ++++++++++++++++++++++++++++++++-----------
+>  1 file changed, 104 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index 74d934238821..c20f1e33c65d 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+> @@ -67,6 +67,20 @@ static bool sbi_v3_available;
+>  static DEFINE_STATIC_KEY_FALSE(sbi_pmu_snapshot_available);
+>  #define sbi_pmu_snapshot_available() \
+>  	static_branch_unlikely(&sbi_pmu_snapshot_available)
+> +static DEFINE_STATIC_KEY_FALSE(riscv_pmu_sbi_available);
+> +static DEFINE_STATIC_KEY_FALSE(riscv_pmu_cdeleg_available);
+> +
+> +/* Avoid unnecessary code patching in the one time booting path*/
+> +#define riscv_pmu_cdeleg_available_boot() \
+> +	static_key_enabled(&riscv_pmu_cdeleg_available)
+> +#define riscv_pmu_sbi_available_boot() \
+> +	static_key_enabled(&riscv_pmu_sbi_available)
+> +
+> +/* Perform a runtime code patching with static key */
+> +#define riscv_pmu_cdeleg_available() \
+> +	static_branch_unlikely(&riscv_pmu_cdeleg_available)
+> +#define riscv_pmu_sbi_available() \
+> +		static_branch_likely(&riscv_pmu_sbi_available)
+>  
+>  static struct attribute *riscv_arch_formats_attr[] = {
+>  	&format_attr_event.attr,
+> @@ -89,7 +103,8 @@ static int sysctl_perf_user_access __read_mostly = SYSCTL_USER_ACCESS;
+>  
+>  /*
+>   * This structure is SBI specific but counter delegation also require counter
+> - * width, csr mapping. Reuse it for now.
+> + * width, csr mapping. Reuse it for now we can have firmware counters for
+> + * platfroms with counter delegation support.
+>   * RISC-V doesn't have heterogeneous harts yet. This need to be part of
+>   * per_cpu in case of harts with different pmu counters
+>   */
+> @@ -101,6 +116,8 @@ static unsigned int riscv_pmu_irq;
+>  
+>  /* Cache the available counters in a bitmask */
+>  static unsigned long cmask;
+> +/* Cache the available firmware counters in another bitmask */
+> +static unsigned long firmware_cmask;
+>  
+>  static int sbi_pmu_event_find_cache(u64 config);
+>  struct sbi_pmu_event_data {
+> @@ -868,34 +885,38 @@ static int rvpmu_sbi_find_num_ctrs(void)
+>  		return sbi_err_map_linux_errno(ret.error);
+>  }
+>  
+> -static int rvpmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+> +static u32 rvpmu_deleg_find_ctrs(void)
+> +{
+> +	/* TODO */
+> +	return 0;
+> +}
+> +
+> +static int rvpmu_sbi_get_ctrinfo(u32 nsbi_ctr, u32 *num_fw_ctr, u32 *num_hw_ctr)
+>  {
+>  	struct sbiret ret;
+> -	int i, num_hw_ctr = 0, num_fw_ctr = 0;
+> +	int i;
+>  	union sbi_pmu_ctr_info cinfo;
+>  
+> -	pmu_ctr_list = kzalloc_objs(*pmu_ctr_list, nctr);
+> -	if (!pmu_ctr_list)
+> -		return -ENOMEM;
+> -
+> -	for (i = 0; i < nctr; i++) {
+> +	for (i = 0; i < nsbi_ctr; i++) {
+>  		ret = sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_GET_INFO, i, 0, 0, 0, 0, 0);
+>  		if (ret.error)
+>  			/* The logical counter ids are not expected to be contiguous */
+>  			continue;
+>  
+> -		*mask |= BIT(i);
+> -
+>  		cinfo.value = ret.value;
+> -		if (cinfo.type == SBI_PMU_CTR_TYPE_FW)
+> -			num_fw_ctr++;
+> -		else
+> -			num_hw_ctr++;
+> -		pmu_ctr_list[i].value = cinfo.value;
+> +		if (cinfo.type == SBI_PMU_CTR_TYPE_FW) {
+> +			/* Track firmware counters in a different mask */
+> +			firmware_cmask |= BIT(i);
+> +			pmu_ctr_list[i].value = cinfo.value;
 
---- Patch [1]: [PATCH 1/2] dt-bindings: display: sn65dsi83: Add reverse lan=
-es property ---
-commit c30eea01a74188461b7e527f71d282d68b885ec2
-Author: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+could this override the counter info initialized by rvpmu_deleg_find_ctrs()? 
+the initialization from counter delegation performs prior to sbi, should we
+check first here?
 
-dt-bindings: display: sn65dsi83: Add reverse lanes property
+> +			*num_fw_ctr = *num_fw_ctr + 1;
+> +		} else if (cinfo.type == SBI_PMU_CTR_TYPE_HW &&
+> +			   !riscv_pmu_cdeleg_available_boot()) {
+> +			*num_hw_ctr = *num_hw_ctr + 1;
+> +			cmask |= BIT(i);
+> +			pmu_ctr_list[i].value = cinfo.value;
+> +		}
+>  	}
+>  
+> -	pr_info("%d firmware and %d hardware counters\n", num_fw_ctr, num_hw_ctr);
+> -
+>  	return 0;
+>  }
+>  
+> @@ -906,7 +927,7 @@ static inline void rvpmu_sbi_stop_all(struct riscv_pmu *pmu)
+>  	 * which may include counters that are not enabled yet.
+>  	 */
+>  	sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_STOP,
+> -		  0, pmu->cmask, SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
+> +		  0, pmu->cmask | firmware_cmask, SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
+>  }
+>  
+>  static inline void rvpmu_sbi_stop_hw_ctrs(struct riscv_pmu *pmu)
+> @@ -1159,16 +1180,48 @@ static void rvpmu_ctr_stop(struct perf_event *event, unsigned long flag)
+>  	/* TODO: Counter delegation implementation */
+>  }
+>  
+> -static int rvpmu_find_num_ctrs(void)
+> +static int rvpmu_find_ctrs(void)
+>  {
+> -	return rvpmu_sbi_find_num_ctrs();
+> -	/* TODO: Counter delegation implementation */
+> -}
+> +	int num_sbi_counters = 0;
+> +	u32 num_deleg_counters = 0;
+> +	u32 num_hw_ctr = 0, num_fw_ctr = 0, num_ctr = 0;
+> +	/*
+> +	 * We don't know how many firmware counters are available. Just allocate
+> +	 * for maximum counters the driver can support. The default is 64 anyways.
+> +	 */
+> +	pmu_ctr_list = kcalloc(RISCV_MAX_COUNTERS, sizeof(*pmu_ctr_list),
+> +			       GFP_KERNEL);
+> +	if (!pmu_ctr_list)
+> +		return -ENOMEM;
+>  
+> -static int rvpmu_get_ctrinfo(int nctr, unsigned long *mask)
+> -{
+> -	return rvpmu_sbi_get_ctrinfo(nctr, mask);
+> -	/* TODO: Counter delegation implementation */
+> +	if (riscv_pmu_cdeleg_available_boot())
+> +		num_deleg_counters = rvpmu_deleg_find_ctrs();
+> +
+> +	/* This is required for firmware counters even if the above is true */
 
-This patch adds a boolean property to reverse the LVDS data lanes order for
-endpoints.
+does counter delegation depend on SBI PMU? may need further explanation here,
+not sure if it's a rule from the spec or if it's the driver's policy.
 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi8=
-3.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> --- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-[ ... ]
-> @@ -115,6 +115,10 @@ $defs:
->              enum: [100, 200]
->              default: 200
-> =20
-> +          ti,lvds-reverse-lanes:
-> +            description: Reverse the order of LVDS lanes.
-> +            type: boolean
+> +	if (riscv_pmu_sbi_available_boot()) {
+> +		num_sbi_counters = rvpmu_sbi_find_num_ctrs();
+> +		if (num_sbi_counters < 0) {
+> +			kfree(pmu_ctr_list);
+> +			pmu_ctr_list = NULL;
+> +			return num_sbi_counters;
+> +		}
+> +		if (num_sbi_counters > RISCV_MAX_COUNTERS)
+> +			num_sbi_counters = RISCV_MAX_COUNTERS;
+> +	}
+> +
+> +	/* cache all the information about counters now */
+> +	if (riscv_pmu_sbi_available_boot())
+> +		rvpmu_sbi_get_ctrinfo(num_sbi_counters, &num_fw_ctr, &num_hw_ctr);
+> +
+> +	if (riscv_pmu_cdeleg_available_boot()) {
+> +		pr_info("%u firmware and %u hardware counters\n", num_fw_ctr, num_deleg_counters);
+> +		num_ctr = num_fw_ctr + num_deleg_counters;
+> +	} else {
+> +		pr_info("%u firmware and %u hardware counters\n", num_fw_ctr, num_hw_ctr);
+> +		num_ctr = num_sbi_counters;
+> +	}
+> +
+> +	return num_ctr;
+>  }
+>  
+>  static int rvpmu_event_map(struct perf_event *event, u64 *econfig)
+> @@ -1478,12 +1531,21 @@ static int rvpmu_device_probe(struct platform_device *pdev)
+>  	int num_counters;
+>  	bool irq_requested = false;
+>  
+> -	pr_info("SBI PMU extension is available\n");
+> +	if (riscv_pmu_cdeleg_available_boot()) {
+> +		pr_info("hpmcounters will use the counter delegation ISA extension\n");
+> +		if (riscv_pmu_sbi_available_boot())
+> +			pr_info("Firmware counters will use SBI PMU extension\n");
+> +		else
+> +			pr_info("Firmware counters will not be available as SBI PMU extension is not present\n");
+> +	} else if (riscv_pmu_sbi_available_boot()) {
+> +		pr_info("Both hpmcounters and firmware counters will use SBI PMU extension\n");
+> +	}
+> +
+>  	pmu = riscv_pmu_alloc();
+>  	if (!pmu)
+>  		return -ENOMEM;
+>  
+> -	num_counters = rvpmu_find_num_ctrs();
+> +	num_counters = rvpmu_find_ctrs();
+>  	if (num_counters < 0) {
+>  		pr_err("SBI PMU extension doesn't provide any counters\n");
+>  		goto out_free;
+> @@ -1495,9 +1557,6 @@ static int rvpmu_device_probe(struct platform_device *pdev)
+>  		pr_info("SBI returned more than maximum number of counters. Limiting the number of counters to %d\n", num_counters);
+>  	}
+>  
+> -	/* cache all the information about counters now */
+> -	if (rvpmu_get_ctrinfo(num_counters, &cmask))
+> -		goto out_free;
+>  
+>  	ret = rvpmu_setup_irqs(pmu, pdev);
+>  	if (ret < 0) {
+> @@ -1599,13 +1658,23 @@ static int __init rvpmu_devinit(void)
+>  	int ret;
+>  	struct platform_device *pdev;
+>  
+> -	if (sbi_spec_version < sbi_mk_version(0, 3) ||
+> -	    !sbi_probe_extension(SBI_EXT_PMU)) {
+> -		return 0;
+> -	}
+> +	if (sbi_spec_version >= sbi_mk_version(0, 3) &&
+> +	    sbi_probe_extension(SBI_EXT_PMU))
+> +		static_branch_enable(&riscv_pmu_sbi_available);
+>  
+>  	if (sbi_spec_version >= sbi_mk_version(2, 0))
+>  		sbi_v2_available = true;
+> +	/*
+> +	 * We need all three extensions to be present to access the counters
+> +	 * in S-mode via Supervisor Counter delegation.
+> +	 */
+> +	if (riscv_isa_extension_available(NULL, SSCCFG) &&
+> +	    riscv_isa_extension_available(NULL, SMCDELEG) &&
+> +	    riscv_isa_extension_available(NULL, SSCSRIND))
+> +		static_branch_enable(&riscv_pmu_cdeleg_available);
 
-[Severity: Low]
-Is it necessary to introduce a custom vendor-specific boolean property
-for this?
+Ssccfg is the necessary extension needed here, is it possible to handle the
+dependencies in cpufeatures.c so we can only check the Ssccfg here? (I see
+we've already made Ssccfg to depend on Smcdeleg there)
 
-Since video-interfaces.yaml already provides the standard data-lanes proper=
-ty
-which can be used to describe the exact lane routing, does this hardware
-require a distinct property instead of using the standard data-lanes
-approach with data-lanes =3D <4 3 2 1>?
+> +
+> +	if (!(riscv_pmu_sbi_available_boot() || riscv_pmu_cdeleg_available_boot()))
+> +		return 0;
+>  
+>  	if (sbi_spec_version >= sbi_mk_version(3, 0))
+>  		sbi_v3_available = true;
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707070244.2305=
-46-1-wojciech.dubowik@mt.com?part=3D1
+this should stay with the SBI PMU probe block above.
+
+Thanks.
