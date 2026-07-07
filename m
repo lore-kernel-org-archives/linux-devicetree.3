@@ -1,87 +1,40 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648443F9A05
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 11:20:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C713E9C1F;
+	Tue,  7 Jul 2026 11:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783423232; cv=none; b=SwXibi/VGrS7UVR1FspCUnUYh0UYcivZnveayV2ZcUG0ywlx9vJo7bWuw1mD7LbIPUSSJrGxgNRP2FpW903Jz13q7npagKqvBkMkzKNGow1ugymph3P4OTDsJeVmgDOWzmgKTzc8vTdRDZW1LrTWD3k1BoZ2ENlf4nni7nJlJYw=
+	t=1783423444; cv=none; b=R//CH5GFRN4l73BntC7XyRDlB9oosCBI5d+oWXRG/cxoPTLFXWxCPpGnGHGH9QF3fOhnPvmbbOfb+lHCndae2UmFuuKbya3Cz+VlZlE3NKb6fcI75JNbAsIZTua/b8GaKW2gZtyGJBolP2JopvJUo6aUmWw8pPgEg8cJaVFf2vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783423232; c=relaxed/simple;
-	bh=9JF5HwykZ2AmRNb+eHzU8Lff4gCdca3zI5sJWYFn3Gs=;
+	s=arc-20240116; t=1783423444; c=relaxed/simple;
+	bh=MNq3g0GFVF/h1p5eOlO9D0oZO//Tjm7KBHuMFBBripA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZQywE4pDoZho5t0XTuFWn1CTmTBdnR9FGBsGca+QwixpEq6ALM5WQYhO2jXGdu+PPJb2mBoNLTMREcRpz2P+0uK781+vPYQKPMvwExrxNWAVFey6+ZUwyRFDNX7ybroSmWKVGCtWearopLkWKI+HDZA1ZC5ZlbNQsPlR+7H/gyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cIUj0nlc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W4X9ISlB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=uQyUisPGnoh0HAi5J2PnMLzhPIVmqbEfkoIOt61/Xb7TaTqs8NpgePHDLhjlcOvX3RyBwsIvF3VbTx6P4bWiPw8SJ8ttkrS/j7CpkOvMkRyDTmw87gKuUn3qedq3Jdv2JiV63rloQJBVUcRMNc14+Q6BVhpydwpyfPtYqea4D5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=a04izbRn; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cIUj0nlc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W4X9ISlB"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6678Dm6X3138668
-	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 11:20:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ozhkHGrtbGn2tsUAvP7G2WOvGFBIMdlw1yv9mdDL8IE=; b=cIUj0nlcnv6d9nH1
-	AguUkjqucMzGKOaEs8Q0Q9lHHBacaIqkTlDmmt6pPK6ue/fvmmkmm4TLOFV6nz2h
-	hbEzRBb/d7tCncrtdMm4I4fZWVDyt1aukWRNjk/4Ap9YCW2jLPP3+z4Og78Vd5cz
-	gAFbPoEJ/axOaeJtehRCbGytjm40KEIesbV/4rlXOduJpuXYM+cH1tKv7qPUXrSM
-	MCK6ywHH3iOVuid+eHx5ZofJfDbPgQfta8ZQxHPlS256S4n0Hwwv5ZPC+lWPHmSX
-	iNldsNKFroo/HK/iCRIhwVG6BeyA4Mu9eGCaA9lP9na44QM3l3f2CIA3wjVMH/2/
-	CZZvkQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8t159psh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 11:20:30 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c1d30035dso34272511cf.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 04:20:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783423230; x=1784028030; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ozhkHGrtbGn2tsUAvP7G2WOvGFBIMdlw1yv9mdDL8IE=;
-        b=W4X9ISlBW3HIFAaRyZGvhRKy9eJKiK6sAHhVvzjwE9jHai7G8HCszn6ggX8U38y8zK
-         FvaHOEM6iwvHS0UL5Z8REm8hLxVF9rec+1s3s5ZBD1MA286qwE8MgVQ81/tbc3GulzIL
-         2EMEr4WtzGl1Je+TrWc9wLMxmaqHkDHRvM+6qhVypuatYo608q/plSLzas8t75Wfw+Kx
-         I9zVoE9C7SFJdebooAtCZNKA78mq+K48M+Q4+DxOLleAYl/46o61ILwz1bmDqPctZPaN
-         wafH+w1aSX16Z45vzgedk8l/cSIsTyDOw7ipDYtIwH/JAfUb9XsF1i/04dSfmAtXQWQV
-         bVNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783423230; x=1784028030;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ozhkHGrtbGn2tsUAvP7G2WOvGFBIMdlw1yv9mdDL8IE=;
-        b=esPV6JrxUyakYbMgaLCmeyk/JJAW8CU36zYvcjxbpZW5YQxQ1EfWxsbuppe9xXikdY
-         ccPJq/684EGzlwsvswqLxiYkw10qHJLHwxavlA2wVOKKOOlTnbsd84R6C2CJf4JoHqge
-         cVhdFlAWqra1Q6CZydPIySAlFQYyOdTsQ5Vb4G54n9RGTgWXPJI/wb3HuMD3XnTcm8Vf
-         KtVzytUvCNNUZDZ/gRURE63XZH1sycJvetnXiHuU2jbLkC526Cz6MJG7NAiG6yhhYqXY
-         LzsmoK2uttbEqcRQkjZx22tC8GM+75p702MdNfXv6ZoC2tcqn2XVMJlPxSb8xfLXyJbo
-         ZI7Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rqui0+fU7eFKAE8uN2wZdHAZ7jGVvYYQUmuFUifYhyScTuykl398pDjidj5PsWHe4OYCEIAhl1CO3Ej@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBng3051KvUzz05Tfww7kSMw1OxEyDt5Ofr8MBk0tBFeyM/OpB
-	6cKBGrgjuT9cOZnhtyNn5ErcvBNVe6CdG3pmNXmEs0ZYxawpxISTV5GSg1RmAu2n6SA5p1UDJFn
-	FfTcOV453MRXU+2Hod2OwB6WaJHdND92mzagE2FnbBAaLPkDtuyisR/HCNdf5woAa
-X-Gm-Gg: AfdE7cl5Jk97Giwf5LqquvZu6A+kq+T6zODYK/Zlp1KrwAS5B5Y1rK3lIzB6Hl8zuXy
-	HlF4FvE1aF5aLu9pSr7iq67xKIsbAYaBuiCEFqtHNITixw5QvpqLk/RjPG3+6JwBcKi7WztlugZ
-	xWkBJIXkEtRwd1CVAGugvY/ytGgzml7nyf55FGLpkVcduWNYGGRON8k29qxlAypshQoRha1ZlOC
-	OU58KlTuofJuQ89C0wgZTs+ytYWpUXPt1ly9d3JK0+OYSC1+grIqk1NDTXA6zqBUfDkatOvrUnE
-	4ie0Nm7w4I0FkfIoTvaPL671xviL1grUE7s6PwYHztzi6PzQfkiJZU02ef4Ftgh2zXA+HapXfT9
-	DaB9BDLqC4cskhrH1N9xwQxAeWZBbyTjQ8SkspQnmYPcv+loZImIxRzHxaDe+UzXuPEQzFbKsKL
-	6bcSJIG4o=
-X-Received: by 2002:a05:622a:130a:b0:51b:ec34:292 with SMTP id d75a77b69052e-51c748c4b5fmr49468131cf.53.1783423229488;
-        Tue, 07 Jul 2026 04:20:29 -0700 (PDT)
-X-Received: by 2002:a05:622a:130a:b0:51b:ec34:292 with SMTP id d75a77b69052e-51c748c4b5fmr49467731cf.53.1783423228842;
-        Tue, 07 Jul 2026 04:20:28 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ada023cesm109077066b.44.2026.07.07.04.20.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 04:20:28 -0700 (PDT)
-Message-ID: <0426b129-5d03-467c-a61f-055e7dcf5654@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 14:20:25 +0300
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="a04izbRn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783423441;
+	bh=MNq3g0GFVF/h1p5eOlO9D0oZO//Tjm7KBHuMFBBripA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=a04izbRncf2krS+ydY9IR1ojtF7rMi1XhRyL3Ln0TWJNeR+DcmnBnMtZG9J89H8xx
+	 2KrUVOeBGOGItQiQkbAmzRVQlbV9YSmaEHd8jV4Hbmr6R3UxwW8JZRZ2t5iQG69H98
+	 ZFZFXSS6/qNSPEPalaJxztRc6y2vtA9HKxmRtXPeMEieukHkLaFt9iZ3eZvTN7JREt
+	 CHaf5SXRfB0jhNIEvFU+DlhJJneyX4HK5ml5P5Bvbja3yl118+lnwqx1X6380Ab1qC
+	 mYmtxYdVbTpbnhGVIaPDQkjYrZvVpXbMMGv6BfZSKRWJDmScfPCHHOFAJes3cwvhco
+	 FbpVCAiypBGaA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B8EEF17E0521;
+	Tue, 07 Jul 2026 13:24:00 +0200 (CEST)
+Message-ID: <94c10212-9c27-4875-8a88-78bfb67fb382@collabora.com>
+Date: Tue, 7 Jul 2026 13:24:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,175 +42,176 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
-To: Bryan O'Donoghue <bod.linux@nxsw.ie>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        linux-media@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <68e59764-5a10-4abc-849c-14ea2d9ef76e@linaro.org>
- <d74d7839-d126-427a-b151-ca895a27a83e@linaro.org>
- <bqRcqVTcU8Jl1ClRlFeaaigWdG8pICB20xCQDPVqOB5QHXdtjWu1UYXWqhvyAuj30sim2P91BHvVLHLYgdD7vw==@protonmail.internalid>
- <7e36238b-96ac-4269-a6e5-0a6763e437e7@oss.qualcomm.com>
- <6b5e573a-c13d-418c-af5b-759deb40bfab@nxsw.ie>
+Subject: Re: [PATCH] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260707104427.3409290-1-wenst@chromium.org>
+ <176dd24c-c3cf-4ab9-8497-594ed65d10ec@collabora.com>
+ <CAGXv+5F86JU9+LPSy8PtuCPrdhBnvcA=PX1d++Yh3u7mK_Jxmw@mail.gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <6b5e573a-c13d-418c-af5b-759deb40bfab@nxsw.ie>
+In-Reply-To: <CAGXv+5F86JU9+LPSy8PtuCPrdhBnvcA=PX1d++Yh3u7mK_Jxmw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: Ajh00FVMQRGGZR-_l-gcTTT33TijXcw_
-X-Authority-Analysis: v=2.4 cv=HstG3UTS c=1 sm=1 tr=0 ts=6a4ce0fe cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=J2XvcvT0q4wf4MKS_j8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: Ajh00FVMQRGGZR-_l-gcTTT33TijXcw_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEwOSBTYWx0ZWRfX2bttN45JTFnM
- a0p1RKzAsnVrMWMCpoxKjT89DidzmtALqqfVndWiP0Yqsdy97y6go4XBxvfnGnusNe37NSHHZkN
- p6MGmkex17/5vJEgCbA8d+XpjfePOEc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEwOSBTYWx0ZWRfX/bBZnoz6xP55
- QHUrZitdGoyB0gEWwPtQ/iShoLVAUO4+RpuVRpavG46gNo7Nf2XzzT3ruDiXXDPBjVEeMluHcnM
- SErCvBUpTVTNs7r2N7WmqbPiJg7W6mgU8OKKVOcsFBOpytukPH9nnBaAFguDKAA6FnCaaUS/OWW
- IIPQOy2ic4fsc17AznYEYMtd4pfSzZKoR0k2c0NodrNMtkfPdrqGyXtNLw2h2gNh61AJ/ZKkf0I
- JvaMancgxWS4o1Wz5uUCxnPTWl1Lu4qt7+RzSnLR62lcYY+FFWPHtFm7Pqj5H7Bp+b/GMWC+Iwa
- jNME20DgVMsuSFZDYd86B+yT104JdeUpVWQKWnGaLAvUmD1SHlEKD36/U+M8p3sj2cR/nFLKkdo
- /ELG9gJaotK5MVmf7RkJYj7tD9R33WGSrBWJ5o+D83myQcegK3aJH2g1F8vMUGlpI0j0b01PlSV
- iEMxvHuSZoeT3oeuKsA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_02,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070109
 
-
-On 7/7/2026 2:13 PM, Bryan O'Donoghue wrote:
-> On 07/07/2026 11:55, Gjorgji Rosikopulos (Consultant) wrote:
->> Hi Vladimir, Bryan,
+On 7/7/26 13:08, Chen-Yu Tsai wrote:
+> On Tue, Jul 7, 2026 at 7:05 PM AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@collabora.com> wrote:
 >>
->> On 7/6/2026 3:00 PM, Vladimir Zapolskiy wrote:
->>> On 7/6/26 13:12, Bryan O'Donoghue wrote:
->>>> On 06/07/2026 08:11, Atanas Filipov wrote:
->>>>> Note: The handling of shared camera subsystem resources (power 
->>>>> domains,
->>>>> interconnects) for child IP blocks is still an open design question.
->>>>
->>>> Why ?
->>>>
->>>> A device needs to vote on its own interconnect and power-domains on 
->>>> any
->>>> bus. A sub-device of another device may wish to ramp a clock for
->>>> whatever reason.
+>> On 7/7/26 12:44, Chen-Yu Tsai wrote:
+>>> The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR4X
+>>> DRAM.
 >>>
->>> Certainly a CAMSS device will vote on all needed to it resources, 
->>> some of
->>> which are shared and got their description under CAMSS device tree 
->>> node.
+>>> Add a device node for it and hook up all the supplies.
 >>>
->>>> There is no "master" device in this block of devices - save perhaps 
->>>> for
->>>> the CSID mux / wrappers on some of these parts.
->>>>
->>>> We have shared resources like camera noc, system noc and external
->>>> clocks.
->>>>
->>>> Please include power-domains and interconnects.
->>>>
+>>> This change requires a firmware fix for the SPMI bus to read back
+>>> correctly. The required firmware version is 15842.175.0. This is
+>>> included in ChromeOS releases R150-16700.22.0 (available in Beta
+>>> channel as of writing or stable channel in mid-July) or
+>>> R151-16721.0.0 and later.
 >>>
->>> Why? The common power domain and interconnects have already been
->>> described as resources of the parent CAMSS device, there is no need
->>> to duplicate descriptions in every child device tree node of CAMSS.
+>>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+>>
+>> This is a big problem then.
+>>
+>> I take it as if the firmware fix is not in place, probing the CPU power supplies
+>> will fail, with all the consequences.
+> 
+> That's right.
+> 
+>> This means that with this, we're breaking all Geralt machines with older firmware,
+>> which is not acceptable...
+>>
+>> ...so this needs a different solution, or strong reasons to make me understand that
+>> I'm wrong, if I'm wrong.
+> 
+> We can drop the CPU supplies (they don't matter since cpufreq is hardware
+> driven) and just add the regulators. How does that sound? If the firmware
+> isn't updated, the PMIC will fail to probe, but since nothing is using it,
+> the system will continue to work (with some annoying error messages).
+> 
+
+That'd be wrong, but less wrong than not having anything described...
+
+...I wonder if, at this point, you could set the SPMI node to status = "fail" and
+have the *new* firmware override that to "ok".
+
+That's the only reasonable way to go forward, IMO.
+
+Of course, avoid having the firmware adding the CPU supplies, because that would
+be rather sketchy then. Just "if spmi status fail found, change to ok".
+
+Cheers,
+Angelo
+
+> 
+> ChenYu
+> 
+>> Cheers,
+>> Angelo
+>>
+>>> ---
+>>>    .../boot/dts/mediatek/mt8188-geralt.dtsi      | 66 +++++++++++++++++++
+>>>    1 file changed, 66 insertions(+)
 >>>
->> The initial patch and work for JPEG was as independent driver. I agree
->> from hw perspective it is
+>>> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+>>> index f382f90c48f5..fea52c377d88 100644
+>>> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+>>> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+>>> @@ -4,6 +4,8 @@
+>>>     */
+>>>    /dts-v1/;
+>>>    #include <dt-bindings/gpio/gpio.h>
+>>> +#include <dt-bindings/spmi/spmi.h>
+>>> +
+>>>    #include "mt8188.dtsi"
+>>>    #include "mt6359.dtsi"
+>>>
+>>> @@ -241,6 +243,14 @@ &cpu5 {
+>>>        cpu-supply = <&mt6359_vcore_buck_reg>;
+>>>    };
+>>>
+>>> +&cpu6 {
+>>> +     cpu-supply = <&mt6319_buck1>;
+>>> +};
+>>> +
+>>> +&cpu7 {
+>>> +     cpu-supply = <&mt6319_buck1>;
+>>> +};
+>>> +
+>>>    /*
+>>>     * Geralt is the reference design and doesn't have target TDP.
+>>>     * Ciri is (currently) the only device following Geralt, and its
+>>> @@ -1156,6 +1166,14 @@ pins-bus {
+>>>                };
+>>>        };
+>>>
+>>> +     spmi_pins: spmi-pins {
+>>> +             pins-bus {
+>>> +                     pinmux = <PINMUX_GPIO175__FUNC_B0_SPMI_M_SCL>,
+>>> +                              <PINMUX_GPIO176__FUNC_B0_SPMI_M_SDA>;
+>>> +                     bias-disable;
+>>> +             };
+>>> +     };
+>>> +
+>>>        uart0_pins: uart0-pins {
+>>>                pins-bus {
+>>>                        pinmux = <PINMUX_GPIO31__FUNC_O_UTXD0>,
+>>> @@ -1267,6 +1285,54 @@ &spi2 {
+>>>        status = "okay";
+>>>    };
+>>>
+>>> +&spmi {
+>>> +     pinctrl-names = "default";
+>>> +     pinctrl-0 = <&spmi_pins>;
+>>> +     #address-cells = <2>;
+>>> +     #size-cells = <0>;
+>>> +     status = "okay";
+>>> +
+>>> +     pmic@6 {
+>>> +             compatible = "mediatek,mt6319-regulator", "mediatek,mt6315-regulator";
+>>> +             reg = <0x6 SPMI_USID>;
+>>> +             pvdd1-supply = <&pp4200_s5>;
+>>> +             pvdd2-supply = <&pp4200_s5>;
+>>> +             pvdd3-supply = <&pp4200_s5>;
+>>> +             pvdd4-supply = <&pp4200_s5>;
+>>> +
+>>> +             regulators {
+>>> +                     mt6319_buck1: vbuck1 {
+>>> +                                     regulator-name = "ppvar_dvdd_proc_bc";
+>>> +                                     regulator-min-microvolt = <520000>;
+>>> +                                     regulator-max-microvolt = <1155000>;
+>>> +                                     regulator-enable-ramp-delay = <256>;
+>>> +                                     regulator-allowed-modes = <0 1 2>;
+>>> +                                     regulator-always-on;
+>>> +                     };
+>>> +
+>>> +                     /* vbuck2 is ganged with vbuck1 */
+>>> +
+>>> +                     mt6319_buck3: vbuck3 {
+>>> +                                     regulator-name = "pp1125_emi_vdd2";
+>>> +                                     regulator-min-microvolt = <1060000>;
+>>> +                                     regulator-max-microvolt = <1170000>;
+>>> +                                     regulator-enable-ramp-delay = <256>;
+>>> +                                     regulator-allowed-modes = <0 1 2>;
+>>> +                                     regulator-always-on;
+>>> +                     };
+>>> +
+>>> +                     mt6319_buck4: vbuck4 {
+>>> +                                     regulator-name = "pp0600_emi_vddq";
+>>> +                                     regulator-min-microvolt = <570000>;
+>>> +                                     regulator-max-microvolt = <650000>;
+>>> +                                     regulator-enable-ramp-delay = <256>;
+>>> +                                     regulator-allowed-modes = <0 1 2>;
+>>> +                                     regulator-always-on;
+>>> +                     };
+>>> +             };
+>>> +     };
+>>> +};
+>>> +
+>>>    &uart0 {
+>>>        pinctrl-names = "default";
+>>>        pinctrl-0 = <&uart0_pins>;
 >>
->> part of CAMSS subsystem and maybe from design perspective proper way is
->> to be child node not of the CAMSS.
->>
->> However the resources shared by both can be abstracted in other
->> frameworks, example ICC voting allows to have shared
->>
->> clocks which can have policy to keep the higher rate and satisfy both of
->> the HW's.
->>
->> So maybe it need to be decided:
->>
->> Do we want really additional logic for handling CAMSS resource of the
->> CAMMS sub-devices by the CAMSS driver and create separate CAMSS API,s
->
-> No, agreed.
->
->> or we can use existing fw's for that. ICC, clock, OPP which all allow
->> sharing of the resources. Also there are cases where CAMSS and
->>
->> is not needed but JPEG encoder is: Example RTSP streaming or UVC
->> streaming which require jpeg encoder.
->
-> Yes.
->
->>
->> Anyways my opinion:
->>
->> 1. CAMSS is not prepared and not ready to handle child devices, only the
->> populate child nodes is not enough. I think it is little bit mess,
->>
->> some of the HW;s CSID, IFE etc are instantiated directly from CAMSS and
->> jpeg and Ope are described as child nodes.
->
-> That's not the strategy.
->
-> The strategy is gradual transition from monolith to bus.
->
-> https://lore.kernel.org/all/d5407ab1-1af7-4678-ae67-5cf30ce8fa4b@kernel.org/ 
->
-Sorry i have missed that. I understand now the direction which has been 
-agreed on.
->
->
->> 2. Jpeg on its own currently does not have any dependency with CAMSS
->> driver code. It can use shared resources without issue and leave
->>
->> the ICC, clock and other frameworks to do the job.
->
-> Yes as a fully self-described sub-node so that we can do 
-> compat="camss-bus" with the minimal amount of additional churn on top.
->
-> Make JPEG a distinct standlone node now, and you preclude the bus - 
-> you have to make the argument to Krzysztof, Rob and Conor that "the 
-> old binding was wrong but let me away with a change to it now"
->
-> Not an argument I will be making ;)
->
-> We should put the JPEG, OPE, ICP as sub-nodes of compat=camss so that 
-> we can make
->
-> camera-bus {
->     compat=camss
->     power-domains=<whatever is common>
->     csid {
->         compat=csid;
->     }
->     jpeg {
->         compat=jpeg;
->     }
-> }
->
-> a reality.
->
-> Put jpeg at the same level as camera-bus and you basically preclude 
-> that model.
-
-Ok understood, lets wait for more review comments, and move to this 
-model for the next patchset. Thanks for the clarification :-)
-
-~Gjorgji
-
