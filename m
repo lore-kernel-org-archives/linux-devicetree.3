@@ -1,103 +1,176 @@
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5C541DEF7
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DE3422543;
+	Tue,  7 Jul 2026 13:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783432434; cv=none; b=Tf1VGuaM6u7nfZb4qc6Ly34bXHq/n3ezt2lSlukjy/C9f6wgC/oB55ZGEmZ7PNofzeuliKgYLigmCHK74jJnOHoJP0PTiLZyNwqdT7F9rPkNPRYXNSiCtHeJJkGjMehoZ3CkeaRHe/2WQSrfolNSLKbUb5UBa6T7Qqc2BtUFO2M=
+	t=1783432723; cv=none; b=Q3n75dwKTUpGJQJ46bCTVohveoQ54Sqq7QIm6726GsFcVA5bO7MZUgAKo0t123W34q9SsR3RstqkE85Thby1zu9PekYz+qfso+autKg8t3wDh+RSlSTqRniKPVlZfw/NPT+JRK+lveQI37WB/flDP5dMLydd+WA3w8hDORimXy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783432434; c=relaxed/simple;
-	bh=udmceW3RUM6Z4NairZqEwML5hnOEjadjcWJnUNeYGNM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s9ynKIh3ORbkOU4Tjgj+24LInI+aeHLZHrRJIfDIyAi/jPCSKFd+QDBD1NSVIv2Py4aZRnssnVhQEAE5Rx+Bds0p4Zgqk/w57U+wjMNWk4NAkrpCRbrTF7DX9nxE2Y922e4Ojw/hkCEn9/Pmesrbtfn7Zh/lNm7LoRVhZJZZH3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-9618b8bdc51so1265859241.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:53:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783432432; x=1784037232;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1iENYh9jXtsnzxDKPGUvdWRKZFRIqtHgeYcjURDhBgQ=;
-        b=n7Ylb0act5ZABWEVjWE6oevZfaN8bKE9LuROODRa6rH2W84mE6/DdOLl2KkVnTFzlg
-         fXhL5m025H2O1hwhmk5LEpnmmK3WPE1cvZMzpi6Nei0MQ5bQtBWXEw8tAXPUpyvqXOP0
-         +XVDJevmqv2OECH9/RZHXSdIDBVWJdx+w+lW05U8xfLys0vfiGqtY0Q7TcJCXKc3ZjBi
-         RBQSHRCxV4Gt+ArKCX0U70gKWZS8Hp+oeuFhnFMKxUvuz6hcOKmfQ3Rh6K6tu0u1YowZ
-         cWHacH4ygX20qsQvoaQ9tGdBtRgpHJL02d3z9Kl97V+j/4RTjpangoOTMDw1hSYwAzyh
-         6CRw==
-X-Forwarded-Encrypted: i=1; AHgh+RqDilxd28s2VKtotIGs7YM44A42/wqVaDv0KMUv5WCabiyBhPbjfrJhzKC6U38W/5XpCJee83lZsay0@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/iwYARFNF1KnNsybJeHJPx0qZYlwNIRVfjWGH9NcsWvAfnnkS
-	dSJ2qoFcE1Cj5Pxp/C4T1/Shuz+V9FTpPdj7f0MbkJ3or+ToWg6rIsy0X77KtcpE
-X-Gm-Gg: AfdE7cm7or1Ui2xtuhWAE/MM4ZSiTfmrKau4AZpM9Ifmb7Xs3aiQdtDwVVJ9O4rLtXm
-	N7Fy5V40rKVsWq5I5nJHyzyJV/PclCQgB7B+YrXruzi7T4QSLofEUIowq/5aLJRg0i0fCzoK9xf
-	g/r4e+ljjAhqRY0q31UTu+PxncyGig44hrTLBiolEh+ZdLyI5qDUCvTkfXCcD2asmGgL/euKejf
-	Nc3yTDS/WsH2rqu1xnO53Kxz4aPsWj+1KgxZ3NZcdFSxbxGYwVQZl0cStY3rojiJSH/nO4K/5oy
-	VPzUxyzLAB7mHs9sGkKzTHbFdZFsfitQluwI+7OOsGRTYYocUCeBrtMUmO679E1wzwSqBv8u7zg
-	B7ZyHliWINUbOgF5ETeA8z+DQMLfHjfQPO2+wcnZgtrNTE/2JlWmr5KRZRNfDfKTOrUS9upB+1L
-	E5L95jVobXNbxXU6NLBG6U18SHSuNXFXQSqFI+LpjTtmWRnChjs5YzS0eRkOO1
-X-Received: by 2002:a05:6102:534b:b0:726:cf2d:6076 with SMTP id ada2fe7eead31-744b7e68ee4mr2796205137.29.1783432431986;
-        Tue, 07 Jul 2026 06:53:51 -0700 (PDT)
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com. [209.85.217.46])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96983899f28sm6893956241.3.2026.07.07.06.53.50
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 06:53:51 -0700 (PDT)
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-73770fd1b65so877700137.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:53:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoXAy8Qk5kpKRzg7XiNLOyVsCaIsnPTiSDL86Drq+SVXHUBOZ1Yc/XNoKoCghrw16pZEdDQMFeP6jiO@vger.kernel.org
-X-Received: by 2002:a05:6102:5127:b0:633:2389:3a82 with SMTP id
- ada2fe7eead31-744b7e691b5mr2984877137.28.1783432430667; Tue, 07 Jul 2026
- 06:53:50 -0700 (PDT)
+	s=arc-20240116; t=1783432723; c=relaxed/simple;
+	bh=wG1CI6m/OcslDzCF/fiO2NDeZxfQ0urmKXaqy2O+Q5Q=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AX1BT91jAWatIwYaqTtnzG6h7V83qKFoHygdqmpdgmxV4Spx01gY58KeyE6qSwM4gXlS5yEciqGbAbVVoAlvEoL9L4rgpolDH2AFHRunzE/6Cpb8E63MvwdF+NMdiFy8K9DFGffpouAcGVQu7hwh1RkVMeaJtOKbkEvWTNYFp/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVcT43nV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVcT43nV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B861F000E9;
+	Tue,  7 Jul 2026 13:58:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783432722;
+	bh=CJcM49RM2FlBZTuuqbu3ibPxbKkT8R770pCrHBILAwQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XVcT43nVa9ADCQj7yGrCAhL2dagLOQb2tTPXVoiGP6OCfLnIXHqI4t75wsxUuaYFV
+	 LQwxhgAymxZZLG1yjbzE8tpvbtLJxkaoetuqFb5ak/JGdiuLhZrPFGVz45TFHLEqC2
+	 esJWvK9f4YXU+3FKiIeaWCh5jS0AsbdRVG8mhFakl9Q/EeS3eriaQCawOFbZttOhE3
+	 U+3YcIit+kC6CvdwWj2gArxUnwHyolTyVX9vDZtbH96HzbPQ5/JnOTvzFmQ7tseRix
+	 oYqJnBwCfZkv0kP0Vqix1eS3U1aUOR2ZJs/g3PnzE/sTeem+kJVnXj1MnzPYEcL1yT
+	 s6+mhJLUq2BeQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wh6Js-00000002R7k-1z9a;
+	Tue, 07 Jul 2026 13:58:40 +0000
+Date: Tue, 07 Jul 2026 14:58:39 +0100
+Message-ID: <865x2qq4ts.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,	Krzysztof =?UTF-8?B?V2ls?=
+ =?UTF-8?B?Y3p5xYRza2k=?= <kwilczynski@kernel.org>,	Manivannan Sadhasivam
+ <mani@kernel.org>,	Rob Herring <robh@kernel.org>,	Bjorn Helgaas
+ <bhelgaas@google.com>,	Sven Peter <sven@kernel.org>,	Janne Grunau
+ <j@jannau.net>,	Neal Gompa <neal@gompa.dev>,	Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,	Conor Dooley <conor+dt@kernel.org>,
+	linux-pci@vger.kernel.org,	linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev,	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] PCI: apple: Integrate pwrctrl API
+In-Reply-To: <8a80a170-a508-4a9e-8090-27cfcedb1cd4@cyberchaos.dev>
+References: <20260707-apple-pcie-pwren-v1-0-5a281b182fe2@cyberchaos.dev>
+	<20260707-apple-pcie-pwren-v1-1-5a281b182fe2@cyberchaos.dev>
+	<86a4s3p2vy.wl-maz@kernel.org>
+	<8a80a170-a508-4a9e-8090-27cfcedb1cd4@cyberchaos.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
- <20260704151521.211335-2-marek.vasut+renesas@mailbox.org> <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
- <edc7505e-1103-42d7-b88d-013ca10753b3@mailbox.org> <CAMRc=MegYyuqMVkG4_E_TF4hzoy1PVx=omXgZUPvnARd-Eh+7Q@mail.gmail.com>
-In-Reply-To: <CAMRc=MegYyuqMVkG4_E_TF4hzoy1PVx=omXgZUPvnARd-Eh+7Q@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 7 Jul 2026 15:53:39 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWnTatYWWxXS9p=_fQVSEH0fH4KzYMKKiNCN+ocSTmoww@mail.gmail.com>
-X-Gm-Features: AVVi8CfRhBid3_aQOmlg9c3jWMm5fQMFfkLhy-yd2xfIq0EhzoNaQKJfylI-H7k
-Message-ID: <CAMuHMdWnTatYWWxXS9p=_fQVSEH0fH4KzYMKKiNCN+ocSTmoww@mail.gmail.com>
-Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Marek Vasut <marek.vasut@mailbox.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: yureka@cyberchaos.dev, lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, bhelgaas@google.com, sven@kernel.org, j@jannau.net, neal@gompa.dev, krzk+dt@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Bartosz,
+On Tue, 07 Jul 2026 13:04:21 +0100,
+Yureka Lilian <yureka@cyberchaos.dev> wrote:
+> 
+> On 7/7/26 11:25, Marc Zyngier wrote:
+> > On Mon, 06 Jul 2026 23:38:27 +0100,
+> > Yureka Lilian <yureka@cyberchaos.dev> wrote:
+> >> Integrate the PCI pwrctrl framework into the Apple PCIe host driver to
+> >> provide standardized power management for PCI devices.
+> >> 
+> >> Notably, this allows enabling powering on the WiFi, SD card reader on
+> >> various Macs by means of the pwrctrl framework before probing the ports.
+> >> 
+> >> Previously, a custom solution for powering on the WiFi and SD card
+> >> reader was proposed[1], but we can now use the new pci-pwrctrl-generic
+> >> driver for this purpose.
+> >> 
+> >> Link[1]: https://lore.kernel.org/lkml/20220502093832.32778-4-marcan@marcan.st/
+> >> 
+> > nit: this paragraph and the accompanying link don't belong in the
+> > commit message and should be moved below the --- mark or even better,
+> > to the cover letter.
+> ack, will leave it out of the commit message of the individual commit in v2
+> >> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> >> ---
+> >>   drivers/pci/controller/Kconfig      |  1 +
+> >>   drivers/pci/controller/pcie-apple.c | 16 ++++++++++++++++
+> >>   2 files changed, 17 insertions(+)
+> >> 
+> >> diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
+> >> index 2247709ef6d6..af64630d28fa 100644
+> >> --- a/drivers/pci/controller/Kconfig
+> >> +++ b/drivers/pci/controller/Kconfig
+> >> @@ -46,6 +46,7 @@ config PCIE_APPLE
+> >>   	depends on OF
+> >>   	depends on PCI_MSI
+> >>   	select PCI_HOST_COMMON
+> >> +	select PCI_PWRCTRL_GENERIC
+> >>   	select IRQ_MSI_LIB
+> >>   	help
+> >>   	  Say Y here if you want to enable PCIe controller support on Apple
+> >> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+> >> index c2cffc0659f4..db038a9d4831 100644
+> >> --- a/drivers/pci/controller/pcie-apple.c
+> >> +++ b/drivers/pci/controller/pcie-apple.c
+> >> @@ -30,6 +30,7 @@
+> >>   #include <linux/msi.h>
+> >>   #include <linux/of_irq.h>
+> >>   #include <linux/pci-ecam.h>
+> >> +#include <linux/pci-pwrctrl.h>
+> >>     #include "pci-host-common.h"
+> >>   @@ -825,6 +826,21 @@ static int apple_pcie_init(struct
+> >> pci_config_window *cfg)
+> >>   	if (WARN_ON(!pcie))
+> >>   		return -ENOENT;
+> >>   +	ret = pci_pwrctrl_create_devices(pcie->dev);
+> >> +	if (ret) {
+> >> +		dev_err(pcie->dev, "Failed to create pwrctrl devices: %pe\n", ret);
+> >> +		return ret;
+> >> +	}
+> >> +
+> >> +	ret = pci_pwrctrl_power_on_devices(pcie->dev);
+> >> +	if (ret) {
+> >> +		if (ret != -EPROBE_DEFER) {
+> >> +			dev_err(pcie->dev, "Failed to power on devices: %pe\n", ret);
+> >> +			pci_pwrctrl_destroy_devices(pcie->dev);
+> >> +		}
+> >> +		return ret;
+> >> +	}
+> >> +
+> > Why is this done globally while the whole driver works on a per-port
+> > basis, and that the proposed DT updates are also per port?
+> 
+> pci_pwrctrl_power_on_devices takes a struct device as parameter, but
+> pcie-apple does not allocate device structs for the individual ports.
+> This could be changed of course. But since pci_pwrctrl_* operate on
+> the subnodes recursively, it works just fine this way.
 
-On Tue, 7 Jul 2026 at 15:48, Bartosz Golaszewski <brgl@kernel.org> wrote:
-> On Mon, 6 Jul 2026 15:06:01 +0200, Marek Vasut <marek.vasut@mailbox.org> said:
-> > On 7/6/26 11:19 AM, Bartosz Golaszewski wrote:
-> >>> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
-> >>> +{
-> >
-> > I am hoping to get some input on this remap function.
->
-> You mean its potential impact on performance or the implementation? In any
-> case, as Geert said: a table of function pointers could help to improve it.
-> I don't mind it in its current form if it works for you.
+Works fine is one thing. Being consistent with the way the rest of the
+driver works is another. pci_pwrctrl_create_device() and
+pci_pwrctrl_power_on_device() appear to do exactly what would be
+required for a single port. They just needs to be exported made
+global/exported.
 
-A table of register offsets.
+> Additionally, we would like to be sure all the endpoints can be powered
+> before we start initializing the individual ports. Otherwise we could
+> end up in a situation where some ports are initialized but others are
+> not when we realize some driver needed to power on the endpoints for
+> port n is not yet bound.
 
-Gr{oetje,eeting}s,
+How can a driver be bound to a device connected to a port if we
+haven't been through the initial link-up dance, which is what
+apple_pcie_setup_port() does? The power supplies are per-port for a
+reason.
 
-                        Geert
+> There is no appropriate pci_pwrctrl API for checking for the
+> availability without changing the state, so this is an additional
+> reason to do it early.
+
+Availability of what? To be clear, I'm not suggesting delaying
+switching of the power. I'm merely suggesting managing it on a per
+port basis.
+
+Thanks,
+
+	M.
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Without deviation from the norm, progress is not possible.
