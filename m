@@ -1,109 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8D93DA7D9
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:48:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA718175A89
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:48:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783432112; cv=none; b=fMdd+Ni0Tj3rw8Zwtg/mANJcF1z8MR/BrKPHd3c3VcJ3My5pdw+2hKlMQAAGd/mgIcT0Y13Lm6J6kgVhCSkUaN7k1dDzsZeMDDkFXrRqCU3xdqpv+3RcwfFBsyUFqNpKE/o3T5s5S+jQbVo8cUM4jYJB/EezLCMx08NT/yZbTv4=
+	t=1783432124; cv=none; b=UIJ2upYElCfyEwcSyt2dGXcot1gyzDmv8OseCiWYSlhcGFZ4WZEFnW1Vucos7PmERP476oC/D3W60dA8dtedUl0mT43qNOrfoJfrpRNkJTeWt7w22CXp24LSj7/kg952PzVssmb6+64zz9cVGpxIDKdlivzZJOTJkxRvJgSqCSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783432112; c=relaxed/simple;
-	bh=8mH68+Scu2g390ak659CtQP/MS0wylYm7eYKwzsPxyw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ha/WmPso9zUdHw9v115dlE8ulSWeeShEGMwWd9LBwY9CrMuweyl8T2HR2vZcXtNWFMkP09ljKzYp6UDEXlYt7oLkhq7yBR+6AwZH7ZmXK5ytIxRfIDhR5OjKcPVKwFZS45d17v6AhnSPN/DNhedD7mNeq/GIIOz3LehBBQquzxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDCy3XBX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783432124; c=relaxed/simple;
+	bh=1Yo7u0z6k8U7Mbjer68rrWV0r8Sh5LFdbkY5Y5c3Jrw=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DTsLN//o70QXQ3lBGRY1avAo2AdiIxi0Vd5YwRxn2Bm3d/NBjsNyzCYDxrHj6il+GHodtXYr512ZlbtDqJiTlXT7pbFFRcAwVlY63fgH3PKO/Ujr56UFEVxRca3QFcHl8moRPWEcp5FwIYn9g/3AXNXG+Sko3BbIj25ciDVOi2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPCuvKS9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDCy3XBX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28FE1F000E9;
-	Tue,  7 Jul 2026 13:48:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPCuvKS9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21731F00A3D
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783432111;
-	bh=IvGvzpS/TlSPrBtb0HxYD3WPoCEADyvcfyaSzAQK3Ec=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NDCy3XBX6pAY69EA3RMWgfifoG9Uqij0s+XUPEPL41aPHbcFfciFU4fCqQsjXd2qs
-	 zV+d0NxW4mcc8mwkJlcbDfG1jeSLe71Xq3dbXqgPLIE+OYiQdW1K8mpguaOyMuhEtp
-	 aVoVlz1S7VPFoPGAt78zpKt5+mmjC1NxoDIw7T3I4pGlDqLwgxv4XGwDVijcmNz+6U
-	 ECEsZD+kLKlEook+Xwoku1lJf8+hcgMLizNt5db1BHoPssz55G65V/E0E7D6RbfY/W
-	 3VtdWc/j3YNueUVwG5lE3mZZmcdtgWs59qupxbw07M1nkM1QwlZWAMsaqGtFt5HUVZ
-	 bY+1O8uwgUQog==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: arm: qcom-soc: Include Eliza,
- Kaanapali and others in SoC names
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260707-dt-bindings-qcom-soc-naming-v2-1-1b7d695be2e1@oss.qualcomm.com>
-References: <20260707-dt-bindings-qcom-soc-naming-v2-0-1b7d695be2e1@oss.qualcomm.com>
- <20260707-dt-bindings-qcom-soc-naming-v2-1-1b7d695be2e1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 13:48:30 +0000
-Message-Id: <20260707134830.F28FE1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783432123;
+	bh=1Yo7u0z6k8U7Mbjer68rrWV0r8Sh5LFdbkY5Y5c3Jrw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=NPCuvKS9DmuWd/fR9VVpq+WbeO/Ot0DDaoQl5jIEz89qXFKsFkKmIprS7NaXGXWRL
+	 t2yAZ4U0j3Rb3zkIpWXmPbjuB5YQWaCwh4r2JFuvNrOPvgDKgxA9q03vH/of9UZUiE
+	 FYhVQpFW0/6midrCXMGP8ncBcwzNZdh4RvHMeiKLhreqNzmYRR+JJflSjmiKKBeAeT
+	 kQ1dOTgzJurwcAmph1jgWj/Dp9Xwb3bVlWhSjdk7uO6oaAfpcm2ywr/vzQrwT66jDt
+	 0nV3XL83iB/0IEniCmUdCjGqf9drDcLVdIX48UfQ+igaqtm+HCCfG6eWPHAYDqs0rD
+	 sP7LyceuqpP3g==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39b3931e259so35082371fa.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:48:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqrTHscMxq186yb+MN1mr824zRaGIVeDq3oCuQSBZ0MJ6aPXOSAhqpL4FEnkA0bu54HmwWsq/5suT56@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxd77VHSM6Fl/9l5PUE2AqT1/yGNkxnPXWYsLCid2LzRuH/eybD
+	+6j+pawmm7H2W0UmyXiewvhnJ+aAAaKS0L9isTcXitiepXIJOEbFaOoDtdh9Mjjhpm+Ha3NQXHs
+	EdaUtXPV7aqajOUWV2Pe1RJ0s94/vEGHUwoeo21uhMw==
+X-Received: by 2002:a05:651c:e15:b0:39b:d76:5cb3 with SMTP id
+ 38308e7fff4ca-39c60015570mr11010031fa.29.1783432122399; Tue, 07 Jul 2026
+ 06:48:42 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 7 Jul 2026 06:48:40 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 7 Jul 2026 06:48:40 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <edc7505e-1103-42d7-b88d-013ca10753b3@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
+ <20260704151521.211335-2-marek.vasut+renesas@mailbox.org> <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
+ <edc7505e-1103-42d7-b88d-013ca10753b3@mailbox.org>
+Date: Tue, 7 Jul 2026 06:48:40 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MegYyuqMVkG4_E_TF4hzoy1PVx=omXgZUPvnARd-Eh+7Q@mail.gmail.com>
+X-Gm-Features: AVVi8CfTXb7a9CnF1kG_J33U_VZ0A1Fo3nvdJCm7SCTOOAtgiE9VDcYDyKYQeEg
+Message-ID: <CAMRc=MegYyuqMVkG4_E_TF4hzoy1PVx=omXgZUPvnARd-Eh+7Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Schema validation regression for legacy SoC component node names
---
+On Mon, 6 Jul 2026 15:06:01 +0200, Marek Vasut <marek.vasut@mailbox.org> said:
+> On 7/6/26 11:19 AM, Bartosz Golaszewski wrote:
+>
+> Hello Bartosz,
+>
+>>> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
+>>> +{
+>
+> I am hoping to get some input on this remap function.
+>
 
---- Patch [1]: [PATCH v2 1/4] dt-bindings: arm: qcom-soc: Include Eliza, Ka=
-anapali and others in SoC names ---
-commit 345707be3cd74ebefeb7a14bc7aebf31883f9f6b
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+You mean its potential impact on performance or the implementation? In any
+case, as Geert said: a table of function pointers could help to improve it.
+I don't mind it in its current form if it works for you.
 
-dt-bindings: arm: qcom-soc: Include Eliza, Kaanapali and others in SoC names
-
-This commit updates the devicetree schema to allow proper compatible naming
-styles with explicitly listed new Qualcomm SoC codenames (Eliza, Kaanapali,
-Hawi, Mahua, Maili, Nord, and Shikra).
-
-> diff --git a/Documentation/devicetree/bindings/arm/qcom-soc.yaml b/Docume=
-ntation/devicetree/bindings/arm/qcom-soc.yaml
-> index 27261039d56f6..fecf9dc05b67e 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom-soc.yaml
-> @@ -25,7 +25,7 @@ select:
->      compatible:
->        oneOf:
->          - pattern: "^qcom,.*(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sar|sc|sd=
-[amx]|sm|x1[ep])[0-9]+.*$"
-> -        - pattern: "^qcom,.*(glymur|milos).*$"
-> +        - pattern: "^qcom,.*(eliza|kaanapali|glymur|hawi|mahua|maili|mil=
-os|nord|shikra).*$"
->    required:
->      - compatible
-> =20
-> @@ -36,7 +36,7 @@ properties:
->        - pattern: "^qcom,(apq|ipq|mdm|msm|qcm|qcs|q[dr]u|sa|sc|sd[amx]|sm=
-|x1[ep])[0-9]+(pro)?-.*$"
->        - pattern: "^qcom,sar[0-9]+[a-z]?-.*$"
->        - pattern: "^qcom,(sa|sc)8[0-9]+[a-z][a-z]?-.*$"
-> -      - pattern: "^qcom,(glymur|milos)-.*$"
-> +      - pattern: "^qcom,(eliza|kaanapali|glymur|hawi|mahua|maili|milos|n=
-ord|shikra)-.*$"
-> =20
->        # Legacy namings - variations of existing patterns/compatibles are=
- OK,
->        # but do not add completely new entries to these:
-
-[Severity: Medium]
-Will this cause a schema validation regression for legacy SoC component
-node names?
-
-Since the select.properties.compatible.oneOf block matches any compatible
-containing the new codenames, legacy-style nodes like "qcom,scm-eliza" or
-"qcom,apss-wdt-shikra" will be pulled into this schema for validation.
-
-Because these new codenames were not also added to the explicitly allowed
-legacy naming patterns in properties.compatible.oneOf (such as the
-"qcom,scm-" or "qcom,[ak]pss-wdt-" patterns), dtbs_check will reject these
-otherwise valid nodes. Should the legacy naming patterns be updated to
-include the new codenames as well?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-dt-binding=
-s-qcom-soc-naming-v2-0-1b7d695be2e1@oss.qualcomm.com?part=3D1
+Bart
