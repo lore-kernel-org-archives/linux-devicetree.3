@@ -1,119 +1,182 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9728C41D4C0
-	for <devicetree@vger.kernel.org>; Mon,  6 Jul 2026 23:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC06422301;
+	Tue,  7 Jul 2026 00:23:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783380570; cv=none; b=Qp47dcFXg0unRHSmBPiGZVMWdchpc35FYvO2g9B7/BQHUjf45+pK8/qnBf5JjJ9nSm36KacQM5KO8YL9tw3AgKCfildUXiJ4AjexPhRaNzLnO/V8MhdJLCrWjsObM7D0uBGE4738ZH0BVAN4tvZF12sdhSlkAcFD/5vpQuHDVzI=
+	t=1783383805; cv=none; b=IcLyBBA5cY2qM4TTqMWLlhCfIXkbJnPhL4XqUCEBIIzEbLMYY/v1VK1sJdD0g1RP7VNVwEDNobJEMkVBW2IxomftqDL9BHTQ0UxU6+Dbet7ANS3I1lQ9nUcg54zcI4Lb0WERj3KKQGnHWd9qN4qTqkElf1nozJqtqYAtXgisXeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783380570; c=relaxed/simple;
-	bh=xXx9ghtDXdcnOVa0JS+aJabtBtx0SXhjqKDY7OeXIJQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=DOsJm0JWW7eDhWbjvPq1yTuIihHkbywt4os796Q4HzWNJeFGyOv3lKfmlv02W4J5jKwAABLqoFLlRk4/X5g21wubP6XWy23JLpsiM15LyxrwWWrhNJ4tKHRv+yyrHQJHfsZF/x5etBALnoMagHRuagozaZrbbAcbu1HVq6Ygc+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=fmxVTZkv; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	s=arc-20240116; t=1783383805; c=relaxed/simple;
+	bh=KESq28kjthSmS4J5zfWb3lJIRiCvXUIXKjxITab28ao=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IV6+GS5OsCjcwbwAHc7LkpZQ9dQnZmuUBHmuahRd8yAa5q47eILAPzGj/eRBmo+72vtASdaFeGOYXDMglDg2hF2+dkgruszJdbzRypY5XU//2pMKXFLiZEZpJMJUBZn9yWi2bgWjUV4ZohKm64CrYBUZmRPv7mW3pg5sYzDzov0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zmqoq15h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="fmxVTZkv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: From: Subject: Cc: To: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1783380568;
- bh=yxU8CHzvkTqWab+IeF9EPpfT2XdfzFSqHKpwnRwHBpU=;
- b=fmxVTZkv5pIBlof1LGfRi+DdXPkiO/3SI+YeBaCNT7vPuJTex8pm2P8HihVyXF+ostjHtzdEa
- 3Hcqj0VzMh4V6Oyc24R+TsJh5ijdWLHl7daHMMJEMu+keZFnqp1LB8b8QGpxizbnYh7Z5TFMOf9
- 7x63TSpoP0jn7yAEWlw2Lgir9c1AqXv2dw5E5r+hBx4mdxE2SQFHZ0poZiURLrorSNi7YJ0Iu8y
- wOyhURWIPxU0VdmMt6S+2cF4hPAWU5K7e+HjV89ARCAem4v9bz2g2L4f0wGNaq1zeXwniCOh9lS
- P1c0A+Y6ithPlCJgHEFj8ik3mHJlsIIhZk26AoWoz9gQ==
-X-Forward-Email-ID: 6a4c3a4e49befa328926c594
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.9.7
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zmqoq15h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1DB51F000E9;
+	Tue,  7 Jul 2026 00:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783383803;
+	bh=1HDrKCWsJjNzEJihGkMggdF4BVdh8kzeKEp2eMd1tO0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Zmqoq15hcmgBH1RRCU8oPELos4iqYxq/iFRTLwXvMUPapkLAfpnnUI+akAYezrvvG
+	 jwnn9tlizYYeXdnaFStjVcRr76hOrq71mzPUi1/MgEtqk26dxAywHnLvW69QstxVkK
+	 3PEAY1mZedsTQr45U8LLLwOOymLZBvjhCNu+OMN0iNiWPnrQ6kTYEXfmTahK73WCAu
+	 QDmrh+BwPOly3LIVHfPrh2aJvRfmvW4Z4GCaLP3BBcJ0uvojnd8Doz+VUZX7ynvF4B
+	 Fe02jS78JmYv3IiA71DTf1QPQIq1mvEVqiRsOmmJDpB8FaRZx6SRcok9S169/WiQO6
+	 JUtS5WkEB7TWg==
+Date: Mon, 6 Jul 2026 19:23:20 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] thermal/qcom/lmh: support SDM670 and its CPU
+ clusters
+Message-ID: <akxG4bzq7qAprz0M@baldur>
+References: <20260330165237.101045-1-mailingradian@gmail.com>
+ <20260330165237.101045-2-mailingradian@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Mon, 06 Jul 2026 19:29:15 -0400
-Message-Id: <DJRVN972B27A.XI5EE88SRI89@ubuntu.com>
-To: "Sasha Finkelstein" <k@chaosmail.tech>, "Sven Peter" <sven@kernel.org>,
- "Janne Grunau" <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>
-Cc: <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Conor
- Dooley" <conor.dooley@microchip.com>, "Hector Martin" <marcan@marcan.st>
-Subject: Re: [PATCH v3 0/3] soc: apple: Add "PMGR misc" power controls
- driver
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-X-Mailer: aerc 0.21.0
-References: <20260705-pmgr-misc-v3-0-51b75fed6f73@chaosmail.tech>
-In-Reply-To: <20260705-pmgr-misc-v3-0-51b75fed6f73@chaosmail.tech>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260330165237.101045-2-mailingradian@gmail.com>
 
-On Sun Jul 5, 2026 at 4:16 AM EDT, Sasha Finkelstein wrote:
-> Certain Apple SoCs have additional power state controls that are using
-> a separate "misc" mmio interface. Currently this includes the fabric
-> and memory controllers on pro/max/ultra SoCs.
->
-> This series adds a driver to put those in a low power state when the
-> machine enters sleep. The power savings are SoC-dependent and are
-> around 1W.
->
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> ---
-> Changes in v3:
-> - Remove ability to probe only one control, it is not used anyway
-> - Allow building as module
-> - Style fixes
-> - Link to v2: https://patch.msgid.link/20260703-pmgr-misc-v2-0-4b26ba10c5=
-a4@chaosmail.tech
->
-> Changes in v2:
-> - Error handling fixes
-> - Reword binding description
-> - Link to v1: https://patch.msgid.link/20260702-pmgr-misc-v1-0-4f075a3a95=
-c1@chaosmail.tech
->
-> ---
-> Hector Martin (1):
->       soc: apple: Add driver for Apple PMGR misc controls
->
-> Sasha Finkelstein (2):
->       dt-bindings: soc: apple: Add Apple PMGR misc controls
->       arm64: dts: apple: Add pmgr-misc nodes to t60xx
->
->  Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml |=
-  45 +++++++++++++++++++++++++++
->  MAINTAINERS                                                            |=
-   1 +
->  arch/arm64/boot/dts/apple/t600x-die0.dtsi                              |=
-   7 +++++
->  arch/arm64/boot/dts/apple/t602x-die0.dtsi                              |=
-   7 +++++
->  drivers/soc/apple/Kconfig                                              |=
-  10 ++++++
->  drivers/soc/apple/Makefile                                             |=
-   2 ++
->  drivers/soc/apple/apple-pmgr-misc.c                                    |=
- 181 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
-++++++++++++++++++++++++++++++++++++
->  7 files changed, 253 insertions(+)
-> ---
-> base-commit: e5d9690657844a2645a518cdf838206f6daf513e
-> change-id: 20260702-pmgr-misc-ae1cbd5bc2c7
->
-> Best regards,
-> -- =20
-> Sasha Finkelstein <k@chaosmail.tech>
+On Mon, Mar 30, 2026 at 12:52:36PM -0400, Richard Acayan wrote:
+> The LMh driver was made for Qualcomm SoCs with clusters of 4 CPUs, but
+> some SoCs divide the CPUs into different sizes of clusters. In SDM670,
+> the first 6 CPUs are in the little cluster and the next 2 are in the big
+> cluster. Define the clusters in the match data and define the different
+> cluster configuration for SDM670.
+> 
+> Currently, this tolerates linking to any CPU in a given cluster.
+> 
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
 
-Seems fine.
+Reviewed-by: Bjorn Andersson <andersson@kernel.org>
 
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+Regards,
+Bjorn
+
+> ---
+>  drivers/thermal/qcom/lmh.c | 54 ++++++++++++++++++++++++--------------
+>  1 file changed, 34 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/thermal/qcom/lmh.c b/drivers/thermal/qcom/lmh.c
+> index 3d072b7a4a6d..81ab2f0be9c8 100644
+> --- a/drivers/thermal/qcom/lmh.c
+> +++ b/drivers/thermal/qcom/lmh.c
+> @@ -30,14 +30,17 @@
+>  
+>  #define LMH_REG_DCVS_INTR_CLR		0x8
+>  
+> -#define LMH_ENABLE_ALGOS		1
+> -
+>  struct lmh_hw_data {
+>  	void __iomem *base;
+>  	struct irq_domain *domain;
+>  	int irq;
+>  };
+>  
+> +struct lmh_soc_data {
+> +	bool enable_algos;
+> +	unsigned int clus1_start_idx;
+> +};
+> +
+>  static irqreturn_t lmh_handle_irq(int hw_irq, void *data)
+>  {
+>  	struct lmh_hw_data *lmh_data = data;
+> @@ -100,8 +103,8 @@ static int lmh_probe(struct platform_device *pdev)
+>  	struct device_node *np = dev->of_node;
+>  	struct device_node *cpu_node;
+>  	struct lmh_hw_data *lmh_data;
+> +	const struct lmh_soc_data *match_data;
+>  	int temp_low, temp_high, temp_arm, cpu_id, ret;
+> -	unsigned int enable_alg;
+>  	u32 node_id;
+>  
+>  	if (!qcom_scm_is_available())
+> @@ -121,6 +124,11 @@ static int lmh_probe(struct platform_device *pdev)
+>  	cpu_id = of_cpu_node_to_id(cpu_node);
+>  	of_node_put(cpu_node);
+>  
+> +	if (cpu_id < 0) {
+> +		dev_err(dev, "Wrong CPU id associated with LMh node\n");
+> +		return -EINVAL;
+> +	}
+> +
+>  	ret = of_property_read_u32(np, "qcom,lmh-temp-high-millicelsius", &temp_high);
+>  	if (ret) {
+>  		dev_err(dev, "missing qcom,lmh-temp-high-millicelsius property\n");
+> @@ -139,26 +147,16 @@ static int lmh_probe(struct platform_device *pdev)
+>  		return ret;
+>  	}
+>  
+> -	/*
+> -	 * Only sdm845 has lmh hardware currently enabled from hlos. If this is needed
+> -	 * for other platforms, revisit this to check if the <cpu-id, node-id> should be part
+> -	 * of a dt match table.
+> -	 */
+> -	if (cpu_id == 0) {
+> +	match_data = of_device_get_match_data(dev);
+> +	if (cpu_id < match_data->clus1_start_idx)
+>  		node_id = LMH_CLUSTER0_NODE_ID;
+> -	} else if (cpu_id == 4) {
+> +	else
+>  		node_id = LMH_CLUSTER1_NODE_ID;
+> -	} else {
+> -		dev_err(dev, "Wrong CPU id associated with LMh node\n");
+> -		return -EINVAL;
+> -	}
+>  
+>  	if (!qcom_scm_lmh_dcvsh_available())
+>  		return -EINVAL;
+>  
+> -	enable_alg = (uintptr_t)of_device_get_match_data(dev);
+> -
+> -	if (enable_alg) {
+> +	if (match_data->enable_algos) {
+>  		ret = qcom_scm_lmh_dcvsh(LMH_SUB_FN_CRNT, LMH_ALGO_MODE_ENABLE, 1,
+>  					 LMH_NODE_DCVS, node_id, 0);
+>  		if (ret)
+> @@ -231,10 +229,26 @@ static int lmh_probe(struct platform_device *pdev)
+>  	return 0;
+>  }
+>  
+> +static const struct lmh_soc_data sdm670_lmh_data = {
+> +	.enable_algos = true,
+> +	.clus1_start_idx = 6,
+> +};
+> +
+> +static const struct lmh_soc_data sdm845_lmh_data = {
+> +	.enable_algos = true,
+> +	.clus1_start_idx = 4,
+> +};
+> +
+> +static const struct lmh_soc_data sm8150_lmh_data = {
+> +	.enable_algos = false,
+> +	.clus1_start_idx = 4,
+> +};
+> +
+>  static const struct of_device_id lmh_table[] = {
+> -	{ .compatible = "qcom,sc8180x-lmh", },
+> -	{ .compatible = "qcom,sdm845-lmh", .data = (void *)LMH_ENABLE_ALGOS},
+> -	{ .compatible = "qcom,sm8150-lmh", },
+> +	{ .compatible = "qcom,sc8180x-lmh", .data = &sm8150_lmh_data },
+> +	{ .compatible = "qcom,sdm670-lmh", .data = &sdm670_lmh_data },
+> +	{ .compatible = "qcom,sdm845-lmh", .data = &sdm845_lmh_data },
+> +	{ .compatible = "qcom,sm8150-lmh", .data = &sm8150_lmh_data },
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, lmh_table);
+> -- 
+> 2.53.0
+> 
