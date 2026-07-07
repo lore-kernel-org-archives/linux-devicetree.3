@@ -1,135 +1,159 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE9441D4E0
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281CF3EDAA2
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:29:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783430925; cv=none; b=q26ePW2L4f91eRvMKNd05a4pq1ysZ3mA1fg5uNEqcxnBsCCsSCLoosr7qSBEUIyqg0hTdweEby3pGjrqPcWQRxPDk6nwOe4TE8D7hYdw+HfMBpN9UwpXrRKy2U7NtkFVkiT6q3Tk34DkHCEYHod5Yods0jgffSas8N5LSpOpJ98=
+	t=1783430964; cv=none; b=UAndJtt+CoZyFud7v8oyv0AcM1xBzl5/3JFcF2hD+H8Flkh3UI5BvPWJmcGBBSw49509zeqYxT2GBPEQ1oN/l0wStdb5VCTy0+zwxebjrU2A4VpmBwVnTcC6XQpG8q9t9mP7VQcGgheYZyZLgLfSoyvXQHf0Q1E2SHXqW/kF1eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783430925; c=relaxed/simple;
-	bh=0FKoq7hLu09a+YTggc0+5XIYhkmzWH4CZtlIsc5csL8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IVdyCJdIgWvw6x2Ojd+b5frAiE5pcaZlAOHMUvnjPuxjBXo6RBcDOTa6jGv9zEId5gtOtbQDZejQjiyJwGtWimsPN0b23uhi1/HG8EX5zEYeuAqa6bco3eMFO1KNB6hTyfhghpk3vf4Zc/f69gYEjCttzxCGAbwsyLaGqdVRbtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=iAw9uiXn; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783430964; c=relaxed/simple;
+	bh=dSWgcEVqn96YNXIDhps5X6Ob0cQ6Yr4ZQ8+nRr7zu7g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U25CsyRtP/948Z0ybsAJdTJUPGBk4tWCFzze+QPOoK0QmDo9B8Jb9tY+dtiZ8JHv3iMgpMCfW/SzAfdSOH8PpmLikmFYegPdtSJLkB++LrYaknPP8WkhQ0ig2gpNA4MnLhBO9uG7aUVK8Lug/TuaJq3Y4TAotfjp4pDMxbTPfJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ygja7vV6; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="iAw9uiXn"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47640541585so2589645f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:28:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ygja7vV6"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4758bd3731bso562832f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:29:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783430921; x=1784035721; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OAsqyO6GgeZampdy6KW0w+EGUHWEd+iflFYg/ri9H9A=;
-        b=iAw9uiXno3qjaauDbqNlDjnzNRoMoH6mRB7NT3VpwkhJjkh0oF2eAeF9WuyHtFa1On
-         rjUtLyX2Jeo8zvST3eI1O3/m54SROlpsm+63pwId8qSlQilfgtdIrpx06b0QmOKGlyi3
-         jR5Ybkyk1KAFRps7rqAzLpfYrx7kJlONBcEW/o9W2apYwj4UrgSsvev6z68Vwnagmd8N
-         YeCzOMnugRax6f/ImtYkZ8JglKb9ZGawQnCfumPLZfzidm03WqJ7Jy4tkgqSyUtpCRvt
-         nNowkc4UrL24dFohBjJUsygVpcZQIpS/X/x1WiNhY8hwhUz6tEJv9J93lBOOXt+wldTd
-         Hgxw==
+        d=gmail.com; s=20251104; t=1783430961; x=1784035761; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=i4adAtmWIIeDRmlqxSvfydtiZtPinCJztXXi755Yp48=;
+        b=Ygja7vV6t4IUrpOdDmQ62Ut5J/HjQexCf2+UpUHrKUu5VBpidcnFDwkEciwN0L5MNs
+         Bbcck38ZgrouAjzm7yOmzDqv5xcnvg8jjf875xoCIF9x6wm/9aOrBpfMPVi2AwL3CKg6
+         QZo1OT3y/USShbm3mMLBGhPqMF2iWcl1+rd/l68dhjVxf7oxQB6vIVzLT2zOEbFwYvqg
+         S1+qGw0NZDWGVh4hFQVPCIjcELnuoTybV5k7kznS6Q91kCGLxf7IISdeyQx1onJq1gkD
+         YtjiaxZc6yMkv1CDxbT+JCAd+tIKPLCMIdeTPL9bkjQkRspQRVMFy8FicNIKPIpHEtXL
+         PSZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783430921; x=1784035721;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OAsqyO6GgeZampdy6KW0w+EGUHWEd+iflFYg/ri9H9A=;
-        b=L3TEMmZTfjfnIO6p46bn9SmsGJzQLzzJ+8FgD7GRWWk+mgLDBdO1pttzUHsyKRauIX
-         0So25/OrEU+pp45OK/Teo4QYlvt27aNPV3AxhoyG+DSx2x7NWEEPP5UedWIkdwRAsENj
-         UdR5JKqjvLaYXt8a6T2oDNNDyfOAUyHC+CWb6Hrqsy+QzXvWhVH3zsCtoQrIXYiRJtEx
-         uBDpLdaeJzKpnFjbkvFUQUpP0kco4LpRFYpgdN/axrGisJ8QKEJ1f7fYk28h9Lvt3mCT
-         TCk9WUS9ePurMLd0/XjZlGOKKzHYR9fjj+rg0zpZHASz8cgXfw7LlKwd8Q5Bjc99MZST
-         3OJw==
-X-Forwarded-Encrypted: i=1; AHgh+RpwySC79YaoaiuhXre48t80XQHRhDYg2LTeHO1yyS/sZQkJh7C1a/5umzpamM2QzX8c2jG5JW7Yu3m2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKfDNMZo6Ue5KFCyM1W2WAfs6hOoFMg/UHw4zvk5u4jtcMruIC
-	sy58057iljA0wQgDC5sU84b5lApGoS7URbrJbNoew1upVYaLIDDjJaWywBFrR8cg1h/Q7KgcGtt
-	YQzc/
-X-Gm-Gg: AfdE7cmDAw6pZhJwIDaTQxaZlWH2+zNIo7uiEHmlhm8pKRua0296TItG9P/HJvUc8Ua
-	qrzryxk+Ki3dJ+fzHOY1B1ZtmrN/Ka8xekUR35mBD8rVpEcoWgoKMutpTgMClNaNdF9elMus0hj
-	/3Ya84kIWs9OON9+6kYW2XIHkJSwd/E9l98Bg3I8pk6a5Y/bODg8AOjN9li/wfmApxAdRUCibvm
-	2Waaz9CckECZcK8R+KgQr/q+hvwXYcdXJXY3uqKT8RqyrmU+PBeU9BSIggRMWkrQmnPgl1FXXl3
-	7vmiFtlz9suk173Q/f8TdfrJPP3A2OG1hUqa3CocT011Asa27cru+2QXA37Zw8slGCeUqe87Wz1
-	pFDIvuVlDR5qutn0fmy2keh4Axfjb6sg5HtXtX5EZSQgVtot15E7YXKpQdKA3YeCiK19JH+K4AW
-	YEobdk8F8jzk0=
-X-Received: by 2002:adf:fd12:0:b0:465:81cb:bb20 with SMTP id ffacd0b85a97d-47de666b180mr4267840f8f.9.1783430920880;
-        Tue, 07 Jul 2026 06:28:40 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:df5f:95d0:b28f:9180])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47a9de1d905sm34336003f8f.2.2026.07.07.06.28.39
+        d=1e100.net; s=20251104; t=1783430961; x=1784035761;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=i4adAtmWIIeDRmlqxSvfydtiZtPinCJztXXi755Yp48=;
+        b=iSXgyumj7uPEMfA1ZrVD/x58qbIBfQpTM7C4P818HgymVVI6WR3RgdsEoS13PscTej
+         ZI7iWygFdGU4vBP+PXYvdnAyVs+xEgED1Y5j4l0r2Czt5jMj6RXpbVxS8MEllBvlkbhv
+         b0hS07NyXfN1em/m+4BeYLfGCXft/cev6lu4f4mytAAUUsWDvM0Mznwl49E/pEEzz6Px
+         jP2MpFDGvzTFBidC2qzOrwTlwhSEVJTbDQCNyf21s8keZ+KJKPhH9XhJCQ8wvcXCDmYW
+         a2swFsqxGtILdPllbVSXnupN7tXP6l3nc+qVFNhA/1/vPPz+lkJI0URtq0+K+9yV5P5P
+         joTg==
+X-Forwarded-Encrypted: i=1; AHgh+RqN7Ntr6PCRWAc5So1GOB5WoQQBsi0J3giSkALk8I9ucIUmBFAxR0BGwtAivpVUJWHGijTlujoOnSj2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyl3OZ+ibYZKPI13NaP5cMXDXerzTeSHANY9W+f1lFVT9LRgknC
+	QubYZhEOpviUeWEYzRMEw8zNzTieSu1BxQZX4NFz0UPOM64a0M7/h9r9
+X-Gm-Gg: AfdE7cn5UVFfoq5aYYiJB1r4URFwMAADPqdpnJau4IKEDpoyeZ9O5xoXaJZpt0LSq87
+	NNknuRJz3w7Qz2SkUN+Crykb04TodZWdse0H+Hx0SRFTpqH27eIDqR3RCg4NJVZPIWSKXULyWyZ
+	TNotw33hRX4NeHksqt1My1XTgNc+EuKvBWb6lA7soyqQruGBk2jio4K3G5Z1oDTwKXdlgRDHcrf
+	YgdWAr+oVGyMpT6pBm0hJqG1ZRNE/bk/DCKoRr6/hf8W9LOaYX+JOlvXkcHvdYlJtSvG9pMjet5
+	1XyurhTEemfiycCaT4trobX6aI/c6WOuylc5kEDqcCo+aGq9hpPLxw4cyMS1Ulz2L5re00eitMS
+	RzQHOzjmHWYJlgJkIVgBModCV4hGLgtmQ6boSWGJFVgvN7m14Esai5KGIfXeATApEX6JCcULJMR
+	3Sy+MeBzY4x1JratAHNJqVA0sA/j/Xc8bJAkIq4OZbjcPiCzePyl/zDCy6j7g7qaZCjy2emxnfe
+	XzIXnerXGbuKHONrrQAB7FS5y/g+aOjRw==
+X-Received: by 2002:a05:6000:41ea:b0:475:f0c2:75b3 with SMTP id ffacd0b85a97d-47de9a415e6mr3180060f8f.30.1783430961279;
+        Tue, 07 Jul 2026 06:29:21 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d843csm33030923f8f.14.2026.07.07.06.29.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 06:28:40 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Tue, 07 Jul 2026 15:28:28 +0200
-Subject: [PATCH] dt-bindings: i2c: mv64xxx: Add Allwinner A733 compatible
- string
+        Tue, 07 Jul 2026 06:29:20 -0700 (PDT)
+Date: Tue, 7 Jul 2026 15:29:18 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org,
+	imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v2 05/15] arm64: dts: freescale: imx8mn-var-som: Add
+ support for WM8904 audio codec
+Message-ID: <akz_Lr1bRSEE5rhC@Lord-Beerus.station>
+References: <cover.1783330236.git.stefano.r@variscite.com>
+ <4487a350b0e4667816c3fe62e9fd6df2696c18cf.1783330236.git.stefano.r@variscite.com>
+ <20260706100948.DDA391F000E9@smtp.kernel.org>
+ <akvC8UV5N6Tpk0_h@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-allwinner-a733-i2c-compatible-v1-1-566340542bdd@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAPv+TGoC/yXMSw6CMBAA0KuQWTtJaQ1Fr2JcDOMAY2ohLX4Sw
- t2punybt0KWpJLhXK2Q5KVZp1hQHyrgkeIgqLdisMY2xhuPFMJbY5SE5J1DtYw8PWZatAuCzen
- I1NrWsKuhHHOSXj+//3L9Oz+7u/DyTWHbdr/7yUGBAAAA
-X-Change-ID: 20260707-allwinner-a733-i2c-compatible-694ca8280c31
-To: Chen-Yu Tsai <wens@kernel.org>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1312; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=0FKoq7hLu09a+YTggc0+5XIYhkmzWH4CZtlIsc5csL8=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqTP78ynmZm8LqBW8z2bfeTlGcrUz56U7zrD+ep
- NJhRorGfMKJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCakz+/AAKCRDm/A8cN/La
- hZb4D/0byM/y8b/cPdKD0MLfM2h6d8McFQ40cZbuxDxxX7lZ79txQQYqeUTgbgZJM5FHb2Sc50s
- h8jpKrr0V2CE8qJTxrNwfWRoM8w7MuYQ/POFb3KzQ9ZW0QJ29mo/5lrCBMlXUKNLA6KOsWfRyOa
- mNzW5obn21doyQOdtJfJSx5qOcYn788A4ylvIZ1jxIYYff1BGJiPqu0tYon+Sx7IlWRQmzeNypH
- FxP38sA3tZJIvpERBMY8Si6UtXwaYCgYMzTrihfGf6+fFMknmc5lFUHRHUi+CHIA1OiRS9do+tg
- x2xi18qO5N2Yx0bEpfOYXk+QAtyGtGaZ9RPGbslFjKw9vRifQ+DmgGsoLcfgdtOiLM6yTkDkNm/
- nvOrUn3vpL5iASh1F/QedxtiNKarjN3brs+bhN4J7wzdqOGppz9mv3pZFJRy/IJvmsuFpLxBCF+
- CdDi57OvoDigysxIim6zGLBgXqcO5Zs4R6I10WXkr5y4HXHt5c97BHAtSlQAt2zaTNhuZ4d887i
- QtiAm7/dspDY0zdd6rIUQs23Y582IPKJNjw9wiw/4hE45ujN0ASKq2oxMjUTwevoldtLkbHxfSy
- l/bBijigq4H0yPV8C8RraJYJlPmHWBjuDSar82C+6+MvrtCJrpm1U0NNupYelgwpGFd3W1+UPgz
- qQDw3R9B2zrBuRw==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akvC8UV5N6Tpk0_h@SMW015318>
 
-The I2C controller IP used in the Allwinner A733 SoC is
-compatible with the ones used in the other recent Allwinner SoCs.
+Hi Frank,
 
-Add the A733 specific compatible string to the list of existing names
-falling back to the allwinner,sun8i-v536-i2c string.
+On Mon, Jul 06, 2026 at 10:00:01AM -0500, Frank Li wrote:
+> On Mon, Jul 06, 2026 at 10:09:47AM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Medium] The `simple-audio-card,routing` property maps `Microphone Jack` to `IN1L` and `IN1R` but omits the connection to the `MICBIAS` supply, which will leave standard electret microphones unpowered.
+> > --
+> >
+> > commit 78e4da0f71f2e53ae4312cbe5ceecb0f6f2345db
+> > Author: Stefano Radaelli <stefano.r@variscite.com>
+> >
+> > arm64: dts: freescale: imx8mn-var-som: Add support for WM8904 audio codec
+> >
+> > This commit adds support for the WM8904 audio codec on the VAR-SOM-MX8MN board.
+> > It configures the device on the I2C bus, enables the SAI peripheral, and adds a
+> > simple-audio-card sound node to expose the sound card to the system.
+> >
+> > > diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
+> > > index 09146ab763858..e2e04ad2fbb65 100644
+> > > --- a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
+> > > +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
+> >
+> > [ ... ]
+> >
+> > > @@ -42,6 +50,34 @@ reg_phy_vddio: regulator-phy-vddio {
+> > >  		regulator-min-microvolt = <1800000>;
+> > >  		regulator-max-microvolt = <1800000>;
+> > >  	};
+> > > +
+> > > +	sound {
+> > > +		compatible = "simple-audio-card";
+> > > +		simple-audio-card,bitclock-master = <&codec_dai>;
+> > > +		simple-audio-card,format = "i2s";
+> > > +		simple-audio-card,frame-master = <&codec_dai>;
+> > > +		simple-audio-card,mclk-fs = <256>;
+> > > +		simple-audio-card,name = "wm8904-audio";
+> > > +		simple-audio-card,routing =
+> > > +			"Headphone Jack", "HPOUTL",
+> > > +			"Headphone Jack", "HPOUTR",
+> > > +			"IN2L", "Line In Jack",
+> > > +			"IN2R", "Line In Jack",
+> > > +			"IN1L", "Microphone Jack",
+> > > +			"IN1R", "Microphone Jack";
+> > [Severity: Medium]
+> > Will standard electret microphones remain unpowered with this routing?
+> >
+> > The routing maps "Microphone Jack" to "IN1L" and "IN1R", but omits a link to
+> > the "MICBIAS" supply (e.g., "Microphone Jack", "MICBIAS"). Because "MICBIAS"
+> > is defined as a DAPM supply widget in the codec driver, DAPM will not enable
+> > it unless it has an explicit routing link connecting it to the active audio
+> > path. This could leave the microphone without its required bias voltage when
+> > recording.
+> 
+> Is this true?
+> 
+> Frank
+> 
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
-This was tested on the Raxda A7A while enabling the AXP318 PMIC on S-TWI0
----
- Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Thanks for pointing this out.
 
-diff --git a/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml b/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml
-index c4efcef59133..2a9e723a724f 100644
---- a/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml
-@@ -34,6 +34,7 @@ properties:
-               - allwinner,sun50i-h616-i2c
-               - allwinner,sun50i-r329-i2c
-               - allwinner,sun55i-a523-i2c
-+              - allwinner,sun60i-a733-i2c
-           - const: allwinner,sun8i-v536-i2c
-           - const: allwinner,sun6i-a31-i2c
-       - const: marvell,mv64xxx-i2c
+This audio routing is not new for this board. It follows the same WM8904
+routing that we have been using on our other platforms for quite some
+time, and we are not aware of any reported issues related to the
+analogue microphone path.
 
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260707-allwinner-a733-i2c-compatible-694ca8280c31
+If adding an explicit route to MICBIAS is indeed required by the
+codec driver, then this would not be specific to this board but would
+potentially apply to all of our WM8904-based platforms.
 
-Best regards,
---  
-Jerome
+I'd prefer not to introduce this functional change as part of this DTS
+alignment series without validating it across all affected platforms.
+If needed, we can investigate the MICBIAS routing separately and
+submit a dedicated fix covering all WM8904-based boards.
 
+Thanks,
+Stefano
