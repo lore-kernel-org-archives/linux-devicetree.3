@@ -1,111 +1,120 @@
-Received: from mail.nic.cz (mail.nic.cz [217.31.204.67])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7D8331ED4
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 21:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.31.204.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D575510785;
+	Tue,  7 Jul 2026 21:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783459096; cv=none; b=sLaaNeLppPsi8inzrzoOtptGLi6BBUebf6fbZe3v2V/JNZF/8uEmKF2aYOtekwhd/zBB+eZcmz7kUeNXZdbMNuwCKRktBEF3r6cpKUlW5I1niTcIdjrXeyhw5kUNuAmr1DqSXsTzs+UnJsfcDsSOEWYuMjV1ROsKXspbnoOeuZc=
+	t=1783459410; cv=none; b=XnBEIJ00MQ/v1KJMEMi96x3YB61pqGruB/L8S9Cgc7vGVa6hEGUD7nApjC0qUuZrl83rGLoYLU9awUdV1DFpsc73s3fTFFnsFDdqupjFipXI89lQB3mVvmo+AvDzX/01LJpmNDYXtwqHf3tZ2KyZHZrmHH3ROkXAK+LgPNw/KHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783459096; c=relaxed/simple;
-	bh=yxrolRGXwJlUdx6oC/k5Rv6p45cyOZtvvdNQ1o234bY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TL5uIfEBlXqchJPLm12Rrdh0wVRdRqUU/f7oBuQoyQHzSPwve7ZbzlN6fathoFC9sea+5xk+nuFt/2LX7VPfvbuuLK/2j2LcRtqm7NSPP+eCuY7UUT5oiZfYVvHVuuwQH/3RfMQhQYslJIoopjOrEYFGLQTqnUWOXv2loqXEt2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nic.cz; spf=pass smtp.mailfrom=nic.cz; dkim=pass (1024-bit key) header.d=nic.cz header.i=@nic.cz header.b=eUqwuUDy; arc=none smtp.client-ip=217.31.204.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nic.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nic.cz
+	s=arc-20240116; t=1783459410; c=relaxed/simple;
+	bh=a60nyy7OcdhDk+yCD/1xpNCrxv7vLGToZcu4lIgipe0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nyk7ooiFeHL5QC4T59n99tI+jTsOwTd9ZwR2slyw/Kd8IG4AcHEGu6eOH4UJ3Ch/EUVfy84cXIJZcKVpqmTDxitsrQOvgkcs9PLOwGaVIYXehxtNCPUcHUjhsvmHn5OaoIw4OHHplQdPCEhdbAAMG3ye+9HWlMJ3zZZEOrwKZVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HxpU97Dc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=nic.cz header.i=@nic.cz header.b="eUqwuUDy"
-Received: from sil.horo (n1-65-243.nat.suchdol.net [89.22.65.243])
-	by mail.nic.cz (Postfix) with ESMTPSA id 85DD41C061A;
-	Tue,  7 Jul 2026 23:08:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nic.cz; s=default;
-	t=1783458512;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+9xNDgwRjoYynAhldZbYuclfEP/ZyuKBV2opsp2eP7s=;
-	b=eUqwuUDyhoIdF5E54+lKVoeiRidwSl/ZSwD/nrlWr5gToBFyqD08PVFAzp3sXVyGHvVDvs
-	hGvzLjrBfO6cCe+ixkmkWIVj0tfysgZaw7aqyIuzoPqBsWhzAfWQZW0VtGKCUHHrWMF3RB
-	gsuwcsF4Bhzr9L9ZShiyG0QA0ke1OLk=
-Authentication-Results: mail.nic.cz;
-	auth=pass smtp.auth=tomas.macholda@nic.cz smtp.mailfrom=tomas.macholda@nic.cz
-From: =?UTF-8?q?Tom=C3=A1=C5=A1=20Macholda?= <tomas.macholda@nic.cz>
-To: Gregory Clement <gregory.clement@bootlin.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	=?UTF-8?q?Tom=C3=A1=C5=A1=20Macholda?= <tomas.macholda@nic.cz>
-Subject: [PATCH mvebu-dt64] arm64: dts: turris-mox: fix usb3 phys
-Date: Tue,  7 Jul 2026 23:08:29 +0200
-Message-ID: <20260707210830.3708-1-tomas.macholda@nic.cz>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HxpU97Dc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179281F00ADB;
+	Tue,  7 Jul 2026 21:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783459409;
+	bh=uaxpBgLFNTEZNxmTdCEah2eRnczt2Pt+VguMTHq//fs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HxpU97DcodCAc8vMGRtD11CII4VrgmZKVk7VWNGv9p2jBEhL80fP9Qk7r5h03ayxd
+	 kFO07ezzNW1DcssYSjj/B/pFQXLOyHywiEzdX0x4c9hmr4BekoGyDD7vW0bv07CRex
+	 3OESQEZpKdUNnV37bXqATXO0doTIUIzO5hCW1GX1M+jQtE9DoLqs/uyBhvX8yOqERO
+	 9dyLfa89YWmHK7mAjdtBq3N0HvtCj1bBSYOclZzE3AggbJEeoN5AlL1sxf1T0o9EuS
+	 QYOkkED96ko63CiQAZMl3BEwV+MhIuT1+/7q6whxPD181Eb8kQ4oJI0zwGIwU1fNPE
+	 ICjyVtgjNB8Vw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/1] regulator: dt-bindings: Convert ltc3589.txt to yaml
+ format
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Frank.Li@oss.nxp.com
+Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
+In-Reply-To: <20260707211612.2757349-1-Frank.Li@oss.nxp.com>
+References: <20260707211612.2757349-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 21:23:28 +0000
+Message-Id: <20260707212329.179281F00ADB@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.17 / 16.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MIXED_CHARSET(0.77)[subject];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[bootlin.com,lunn.ch,gmail.com];
-	RCVD_COUNT_ZERO(0.00)[0];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	ASN(0.00)[asn:57069, ipnet:89.22.64.0/19, country:CZ];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ALIAS_RESOLVED(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	LOCAL_OUTBOUND(0.00)[];
-	DKIM_SIGNED(0.00)[nic.cz:s=default];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Server: mail
-X-Rspamd-Queue-Id: 85DD41C061A
-X-Spamd-Bar: +++
 
-After commit 00e6d608fe80b0f6 ("arm64: dts: marvell: armada-37xx: swap
-PHYs' order in USB3 controller node") swapped USB3 PHY order, USB
-initialization breaks on Turris MOX.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The schema uses `additionalProperties: false` at the root but fa=
+ils to document the `interrupts` property, causing valid device trees that =
+use the PMIC interrupt to fail validation.
+- [Low] The `lltc,fb-voltage-divider` property is missing from the `require=
+d` list for the `sw1`, `sw2`, `sw3`, `bb-out`, `ldo1`, and `ldo2` regulator=
+ nodes in the YAML schema.
+--
 
-This regression was exposed by commit 91ddf6f722084383 ("phy: marvell:
-mvebu-a3700-utmi: fix incorrect USB2_PHY_CTRL register access") which
-made USB2 devices not work at all.
+--- Patch [1]: [PATCH 1/1] regulator: dt-bindings: Convert ltc3589.txt to y=
+aml format ---
+commit d75bd969ae4548dedbfaa0e3da2470b322b67662
+Author: Frank Li <Frank.Li@nxp.com>
 
-Fix the issue by explicitly adding all USB3 PHYs and PHY names to
-Turris MOX device-tree.
+regulator: dt-bindings: Convert ltc3589.txt to yaml format
+   =20
+Convert ltc3589.txt to yaml format.
 
-Fixes: 7109d817db2e ("arm64: dts: marvell: add DTS for Turris Mox")
-Signed-off-by: Tomáš Macholda <tomas.macholda@nic.cz>
----
- arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> diff --git a/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yam=
+l b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+> new file mode 100644
+> index 0000000000000..3bf44fbe321bc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
 
-diff --git a/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts b/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
-index f4d73c8b1a6d..bd00e7df87c6 100644
---- a/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
-+++ b/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
-@@ -290,7 +290,8 @@ connector {
- 
- &usb3 {
- 	status = "okay";
--	phys = <&comphy2 0>;
-+	phys = <&usb2_utmi_otg_phy>, <&comphy2 0>;
-+	phy-names = "usb2-phy", "usb3-phy";
- };
- 
- &mdio {
--- 
-2.54.0
+[ ... ]
 
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - lltc,ltc3589
+> +      - lltc,ltc3589-1
+> +      - lltc,ltc3589-2
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  regulators:
+> +    type: object
+
+[Severity: Medium]
+Should interrupts be defined in this properties block?
+
+The schema uses additionalProperties: false at the root level, but the driv=
+er
+supports interrupts for thermal and undervoltage warnings. Will valid device
+trees that specify the interrupts property fail validation without it being
+explicitly allowed here?
+
+> +    additionalProperties: false
+> +
+> +    patternProperties:
+> +      "^(sw1|sw2|sw3|bb-out|ldo1|ldo2)$":
+> +        type: object
+> +        unevaluatedProperties: false
+> +        $ref: regulator.yaml#
+> +
+> +        properties:
+> +          lltc,fb-voltage-divider:
+
+[Severity: Low]
+Does lltc,fb-voltage-divider need to be added to a required list for these
+regulators?
+
+The old text binding specified this as a required property for sw1, sw2, sw=
+3,
+bb-out, ldo1, and ldo2. Without a required list in this patternProperties
+block, won't device trees that omit lltc,fb-voltage-divider incorrectly pass
+schema validation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707211612.2757=
+349-1-Frank.Li@oss.nxp.com?part=3D1
