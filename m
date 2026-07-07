@@ -1,134 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F117332906;
-	Tue,  7 Jul 2026 08:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F781349CD1
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 08:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783414017; cv=none; b=ZFZJ4EAc/mCRd6Yfw6EQwGGai7pQ2lXg47kHExgQ5b2OTtdjn1qkMXhqo0g4w2Csw/b6AGYspbFg2Hv6YFuX4EmgiTtPb9CBySkvqdl8jSbyFW2ZgojCog5ZDYN9HaHJzrpuHv6vI4qghQ9pUFhfjx8HgHOhYpHgTiMwB8Is1hA=
+	t=1783414030; cv=none; b=DyrnzTj9ROB4wzTLa3CoZXA6fX5EQTsEB2vNb8IqryyTGhbzxXArj3j14O+p65ByGPAedOwgLHnQkJHo021rRTQ1vDN8rj0MkncJdsAKHfSXYYZJ6VN6j/RMhvV3525blBobBqMQZOWdFtKOWMCEewoWEp7BsaW7bh57f5hwYGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783414017; c=relaxed/simple;
-	bh=228aUnoMVVrnNGBKK/TOVHsEsR0ak9z+UVu2BN4AsGU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bLtjc+d1ltTvSqiURdeda3IgklqbgXbBTNu72wD47zm9tRanDHdOoJkA5wKV/N7MK9S58mFcRiF+on6aCY5sd1Y52erAkOicj2spEV7+jyTWVPQxxrMl3kv5qY6riRCAa+pSTW9nPlFzpNbN2DVu/z9bJerddTnZ6nl+FXirwIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q34GhtcG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783414030; c=relaxed/simple;
+	bh=fKKXULirbAGvNP45qqj38/NkZKNHfc9wpoo35PVZMRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QxVhbBgs88Iq0FkicOP1rt54dSJaQ6MzEO854gTgsfxTX6WSmXmdq+Da4LQtNumZF737+8SAa4sDT1F5zuzRDpN0E8+czOX/BBAfwBaiAInwig/af/BXDebdrzZE0lpx1T09IjgROOOJ8IpA77k87b6jKUAvDEzqMkoU3Pf6MgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KOlAa2jy; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q34GhtcG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCD701F000E9;
-	Tue,  7 Jul 2026 08:46:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783414015;
-	bh=bUxqzJp0aVr/7EIdEb8wQgLJ1KH0IEqs74J0kNd0hvs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q34GhtcGoe4z/54p5UBfiNVjEf2/byb1VnFIebzUkmu3qxhYUDMKE46TQwHFNKxhN
-	 cKajMD/KZtsjTD3U7EwR321t0OXQUhj552k/FLs6AKxtl6V5mE8mrmTOnjz+SJRugV
-	 aHODYcmhoXooIPyZRiDgJbodnHUilWd7X2Q5tAVICxSPo5lBKezSxxvyi0hy2UdDQP
-	 ycOuCZk7/qKkdfdn/oHjjEk0dpYPdcB9vOuM+reXQC/sJ3hWqG+AxrnCUe8CYDvB8f
-	 g79HChgWaoMf5JVv6Fdfs+Tp+gAkrWWogJh5nYycNLtMWrKh9WnWHuCegboWGrB/Mc
-	 hGv2dnoqtmXMw==
-Message-ID: <20fa0bb5-1bdd-4ea2-9266-710dbde9d4c1@kernel.org>
-Date: Tue, 7 Jul 2026 10:46:49 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KOlAa2jy"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so2385472f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 01:47:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783414027; x=1784018827; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=fKKXULirbAGvNP45qqj38/NkZKNHfc9wpoo35PVZMRg=;
+        b=KOlAa2jyR3iYayMm1cYiX0sprV2rCThZeiWJ5XD9kAe+NX4BlMBY3B47y4YGTslDxK
+         elb3BBfWYzZf75FeNvqrYqoDhkPNNXxPV0nYzYEEKVkc3AWDeVVX/KJg1QsUqA66WMtm
+         4VQtVb9QsKbwzG371CyfZRVQAVdcTQiOjE0ESZIFyjBTxt4gwahnS6WT3lw1xOUcUyuG
+         STQJ/W8pNb+svTZHAfoqin2ENfWoeI19FsXe4Ds2BuL4thaUet5NBBA/h4VQP4Tp+kPm
+         +Sq1WbY+I00fYYHD3R+27taHn4xwWzM2BsOe7KMK8ysVJ4TUVPkpjxlxzyd9vnUkdkT+
+         LMaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783414027; x=1784018827;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fKKXULirbAGvNP45qqj38/NkZKNHfc9wpoo35PVZMRg=;
+        b=rmgv3tTLzN64H/Cw+Va1ljxsz1Pm6AuOgx1KPHh9ps9DbuZnaKH9+bFW7M8Nj5UTxN
+         EcUt8Ts0xvaKyLsVlv0kfRlnf1E5kM3yCX7UssUGoNYnZr1XCyixQGO15q4ytMIQvowT
+         Anvv6d9tWz/QrKnXFiP+Nqfri8l2oOgtxrgkk0XRljpRAlgNEQDZ/WSmAmSy2nAD68z5
+         LlkmWOwaB2gTLtBk0WIUoCFX3/5zyq5z0wDaVdv+cSffh0bpXRrQQ6ug0em/5odqj9W/
+         3jzUXYQK8p4XnlNulzU/U1W9ZGZ6taZOA+ydCEd0JdoMCMGdmGgwgcY/BJYki65TxEPK
+         fytA==
+X-Forwarded-Encrypted: i=1; AHgh+RpD0OnPZ6RyxsMYsxg9n4cCkvyaOnDVdcDmddokyab6wdp9VOnrtQU+85V5K/f9KOrWAbAh2KhMufdb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0lJ9RX8zjLhfa5VqC8TVF6gb13X7Ho29/LWfEaywuOkXVAU/d
+	g3S3RMZeJCqKEICiJQwAtYAxcnYN/URF3Pih5RHUK1xSQBeRFWND1A6QKZDea//yWSc=
+X-Gm-Gg: AfdE7clb1/2X1Zsfx0AkEqaYlk9xYfyDeSQAVTkZRbE6Mm5mKQGognpW1xxfCu5xgwr
+	yrx8VttSfr7xspmztYu+gDrTgH3TCaRwDS5tfIe+BTTqn+ux3+x6woqbSC5UMdW1ex1tcVTBMsm
+	TZ0xQKHTN4tHW4TLHUt36ZUDWhzX+4rbIT6z3yJdpFib64gMKVXfV+FKG3q3MY6ba8IM7yGW/Tw
+	2SGSIQBRsg0oB+ieDe/mRX/h+FKGtoSfaZraGwE3+Lzi4gw3gAKtSNVnaSm/RtX1WJUFluxcHff
+	GK9XEMXLPrZJ+vh97jL08nznTfTt4zdnB2BaRx/YGaUfjy6asLItLFz9dTGTsdZYgxGoYM8WesD
+	gYRtSiEJO37uUMmhqdrDdEwuszrIyRdWVJoUduCyUD6BEa+AVnW9M98hGVbh/1/wPOYOJDf8K+J
+	d3y1ryqqj/NR+xB6B/hNdgwFJcsTvIG2hLO2xWIhk8/FiGp725bVng8XHN29EZV1A9tuvdfx/N/
+	DpX
+X-Received: by 2002:a05:6000:c4a:b0:47d:e549:38d3 with SMTP id ffacd0b85a97d-47de669bb8amr3387505f8f.8.1783414027417;
+        Tue, 07 Jul 2026 01:47:07 -0700 (PDT)
+Received: from localhost (p200300f65f47db0437b4d928ee3eb6f8.dip0.t-ipconnect.de. [2003:f6:5f47:db04:37b4:d928:ee3e:b6f8])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47a9de1d91bsm36478392f8f.4.2026.07.07.01.47.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 01:47:06 -0700 (PDT)
+Date: Tue, 7 Jul 2026 10:47:05 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 5/5] iio: osf: add UART IIO driver
+Message-ID: <aky8sauMNjNI6XQH@monoceros>
+References: <20260707014525.1015-1-kimjinseob88@gmail.com>
+ <20260707014525.1015-6-kimjinseob88@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "dt-bindings: i2c: Describe SA8255p"
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Praveen Talari <praveen.talari@oss.qualcomm.com>,
- linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260707080229.3795971-1-shengchao.guo@oss.qualcomm.com>
- <5926f59b-e0c6-46fe-a839-620a2648c335@kernel.org>
- <aky8NoA3r7WsjLXw@QCOM-aGQu4IUr3Y>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <aky8NoA3r7WsjLXw@QCOM-aGQu4IUr3Y>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vz7siebehkiwd6xd"
+Content-Disposition: inline
+In-Reply-To: <20260707014525.1015-6-kimjinseob88@gmail.com>
 
-On 07/07/2026 10:43, Shawn Guo wrote:
-> On Tue, Jul 07, 2026 at 10:08:09AM +0200, Krzysztof Kozlowski wrote:
->> On 07/07/2026 10:02, Shawn Guo wrote:
->>> This reverts commit fd359c0272bb4078f3a7ef34c1d53ee0deb59900.
->>>
->>> Compatible "qcom,sa8255p-geni-i2c" had already been defined by
->>> soc/qcom/qcom,sa8255p-geni-se-qup.yaml. Revert the change to avoid the
->>> same compatible being defined by two bindings.
->>
->> This makes no sense and to prove it: are you going to revert all such
->> bindings, like 100 of them?
-> 
-> Nord compatible "qcom,sa8797p-geni-i2c" was added to
-> soc/qcom/qcom,sa8255p-geni-se-qup.yaml, as that's where Lemans compatible
-> "qcom,sa8255p-geni-i2c" is defined. CHECK_DTBS has been working fine by
-> matching geni-se-qup yaml.
-> 
->   make CHECK_DTBS=y qcom/sa8797p-ride.dtb
-> 
-> Now with this geni-i2c yaml comes in play, CHECK_DTBS finds it instead
-> and starts complaining about Nord compatible missing there.
-> 
->   DTC [C] arch/arm64/boot/dts/qcom/sa8797p-ride.dtb
-> arch/arm64/boot/dts/qcom/sa8797p-ride.dtb: i2c@880000 (qcom,sa8797p-geni-i2c): compatible:0: 'qcom,sa8255p-geni-i2c' was expected
->         from schema $id: http://devicetree.org/schemas/i2c/qcom,sa8255p-geni-i2c.yaml
-> arch/arm64/boot/dts/qcom/sa8797p-ride.dtb: i2c@880000 (qcom,sa8797p-geni-i2c): compatible: ['qcom,sa8797p-geni-i2c', 'qcom,sa8255p-geni-i2c'] is too long
->         from schema $id: http://devicetree.org/schemas/i2c/qcom,sa8255p-geni-i2c.yaml
-> 
-> What's your suggestion to fix the problem, add Nord compatible to
-> geni-se-qup yaml as well?
 
-I don't understand what is the problem, but you also did not answer to
-my question. If you answered my question, you would answer above, but in
-case question was unclear so let me rephrase it: why do you revert only
-this duplicated compatible but not 100 others?
+--vz7siebehkiwd6xd
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v7 5/5] iio: osf: add UART IIO driver
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+Hello,
+
+On Tue, Jul 07, 2026 at 10:45:25AM +0900, Jinseob Kim wrote:
+> +#include <linux/mod_devicetable.h>
+
+Please don't add new users for this header file. Only use those
+<linux/device-id/*.h> that you actually need (if any).
+
+Thanks
+Uwe
+
+--vz7siebehkiwd6xd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpMvQUACgkQj4D7WH0S
+/k7rqAf+LbPo8+ykNY9xw0Yo7uX5zvw8zIpQRAOsaVut0iF6O3dTqNr8kHXqRPwD
+fIuXr4ITi19Y815vB5p8z+VBIu3NCRfYdka1CZfe5SQvYX6P8pPcC+11zzFbjQCm
+7DagYx73yH1ipHcH8J+sltqsIndT49ZTfr69BLh7XAEVgyWuMWP5hh3sthtDAeLh
+9NQ2wAYVLOwTQ5rkC4mLjXkvhsOQ0C9ajZbmlN/541D4atNkkCY3pWnrRE6+Mwg2
+YhK/i3ECVtC5qGJ1ABcznW3g8zGBtRbZDVJxOrc5W6Xcig35ffBPz2Ljdo2gyE6K
+hTIO+Cq4Hrbsi/zMMKf3NwxHCnuK2w==
+=V1H8
+-----END PGP SIGNATURE-----
+
+--vz7siebehkiwd6xd--
