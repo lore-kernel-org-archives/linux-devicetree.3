@@ -1,138 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A563DDAFA;
-	Tue,  7 Jul 2026 16:15:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C4836655C
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783440927; cv=none; b=jMR9OhCJ/12mpVseWrX6u3GUNhSMiXPjM6HT7uYuMWGnd0T0JT7D7KG5SfVXYg846G7b9rslgtOeTGN3bPWAy3YKw9zYVimeoEIJhAXr6VPgyXwkk9XeiOxZtj2EsFucy8Rrw0yDTr8yH0sGtMBPOawbcX+0iLkGwm6mX3WdwUM=
+	t=1783440976; cv=none; b=nq1sxKsR8/pwhobrvslUPxjaE4IaTqk7L7BhnX8ln30eB7eVHTjNuVUm9j4yRoMQi1QJoyXvIVEgLk0Ym65p/3By08uqBy2U5ZIS9e4c6pAfn1WcUup3cKTwuY3h0V1qjAtfUH/OdsC3C+vf8YoRP78jcrKk/y2WhojXUuuPZgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783440927; c=relaxed/simple;
-	bh=Pc06K2SlUk5TraOO1/tPbU4hMOOHHM4Jhv+0aavFKpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rydYRO0/u7wYlVc9T3B8GUsg6c12MHUmKMbVp7y37VuHoVcD4vEY3snimGaj/aU8On5/FJ3PdRdBp+2mnoyBJoo4TgMBMF+7BRXGJnECpxfz//agBtsP2PiEbLVCRlMCqYCsPIyz2zm3WmzoA9ng6vsiK9lfxQP4+cQUqChQXT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxeLlqQg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783440976; c=relaxed/simple;
+	bh=sRFCfTGmGnQmw3s/XbQnRRoAgtplceGQRyjoGk6BNcQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lIhYO8ExMKbgcDORwGC2ocw+T7pgiPcqLAApFSQSwxXdcaQ4/4zsu1Is13kNa83NEo/NgBwNG4phZdjABGwv8SpS4fN0rWdrJRfOd5j6puKs943mmlQ/jmV83r9J3e/2vkSmTWkNJhLi2oCJqdM8pGI50Hr8gJs//F97fyH9OiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApVGy5kR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxeLlqQg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B0D1F000E9;
-	Tue,  7 Jul 2026 16:15:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApVGy5kR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F441F000E9;
+	Tue,  7 Jul 2026 16:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783440926;
-	bh=F88R+S6rc7ozRNA3csjjQyY6uBLsx6oJBsOm6HnxlVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mxeLlqQgkUFmpcfOoqyQSFbZyVtpHEFjAMv8Nm8L+DzAf7ALh5doUFKHJjjVay6BR
-	 M4/Jt4bLqGyK+6fpOiy2DIayCTAmloBFpa0p2CJccTOPcY0exHeKYeNyQaMrXG93M4
-	 3P30RhjZGXrcE3ajE+HtEbsAczQqCu6cxVx/S41tKdZN67m5eAN8PoKhB5S59Wa9GR
-	 e426MmpdRW13uxgfp88ucE/UOH3j71g0Jn3UqdZuEYCtdH1s7PgFlA1V4NVrXxlP25
-	 TD89gMVwe9Sg1OfNWvggUjVryIZ1pSKp/i7XlsUBIxNZ+b2Pc8PR3xuBF4MeabSCzu
-	 pU076qe6GVx7A==
-Date: Tue, 7 Jul 2026 17:15:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>,
-	Marc Kleine-Budde <mkl@pengutronix.de>, robh@kernel.org,
-	conor+dt@kernel.org, Oleksij Rempel <o.rempel@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com,
-	Oliver Hartkopp <socketcan@hartkopp.net>
-Subject: Re: [PATCH 2/8] dt-bindings: can: renesas,rcar-canfd: Document
- RZ/G3S SoC
-Message-ID: <20260707-hypnotist-portly-46b580fb922f@spud>
-References: <20260707102418.1646159-1-claudiu.beznea+renesas@tuxon.dev>
- <20260707102418.1646159-3-claudiu.beznea+renesas@tuxon.dev>
- <20260707103040.021DE1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783440975;
+	bh=UBcdNec82r83N0kIl7XOWMJZBgL/krlJy3adYuhpOvQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ApVGy5kRuDgFDDpcNqVOu1cVo2FcWDbR7oqepLlf6MA0UdnGu63CXRURWAFb+vJcb
+	 ClFmOyEpyxzLo6B5v3Q8NujBLxFGlwXrfifP/bCQgK8aE3yrLJL5XKc3i2x2VjARS4
+	 CQBMZ03lQX0YDqo5UVyHqQj/Sdjy6stDJvUq8ocE7oc+SuQsObORe2nEyzp87Tq/D4
+	 qgnSIzwhhHqESoJdSVX3vjJLDkcCFjk/wbqq4t9FVT3H08JBC9VuCqlUiqo2o5tsZu
+	 gtlp83c82BXQCcyvKwuW0ACwq8g1sD4iQN4beQPMSWKcMzJM1f7jzXfCTAQpHQnaSz
+	 9ByBHzVBv1PwQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 16/17] iio: ABI: add docs for ad9910 sysfs and
+ debugfs entries
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260707-ad9910-iio-driver-v7-16-a4ec30f63700@analog.com>
+References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
+ <20260707-ad9910-iio-driver-v7-16-a4ec30f63700@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 16:16:14 +0000
+Message-Id: <20260707161615.07F441F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eeSkgMZVqTITsw8c"
-Content-Disposition: inline
-In-Reply-To: <20260707103040.021DE1F000E9@smtp.kernel.org>
 
---eeSkgMZVqTITsw8c
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing 'Date:' field in newly added ABI documentation entries.
+--
 
-On Tue, Jul 07, 2026 at 10:30:39AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] The schema fails to forbid the `renesas,no-can-fd` and `renesa=
-s,fd-only` properties for the RZ/G3S (`renesas,r9a08g045-canfd`) SoC, allow=
-ing unsupported hardware configurations to pass schema validation.
-> --
->=20
-> --- Patch [2]: [PATCH 2/8] dt-bindings: can: renesas,rcar-canfd: Document=
- RZ/G3S SoC ---
-> commit fc07d92ff1acfa102fb8f08fa8b6ff1a0537c592
-> Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->=20
-> dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC
->=20
-> This commit documents the CAN FD controller found on the Renesas RZ/G3S S=
-oC.
-> It updates the bindings since the RZ/G3S provides only two channels, supp=
-orts
-> only CAN FD operation, and does not require assigned-clocks properties.
->=20
-> > diff --git a/Documentation/devicetree/bindings/net/can/renesas,rcar-can=
-fd.yaml b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
-> > index b9d9dd7a79676..f8b4d3dd54afc 100644
-> > --- a/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
-> > +++ b/Documentation/devicetree/bindings/net/can/renesas,rcar-canfd.yaml
->=20
-> [ ... ]
->=20
-> > @@ -350,6 +352,17 @@ allOf:
-> >        properties:
-> >          reset-names: false
-> > =20
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          not:
-> > +            contains:
-> > +              const: renesas,r9a08g045-canfd
-> > +    then:
-> > +      required:
-> > +        - assigned-clocks
-> > +        - assigned-clock-rates
-> > +
->=20
-> [Severity: Medium]
-> Since the commit message states that the RZ/G3S supports only CAN FD oper=
-ation,
-> should the schema also explicitly forbid the renesas,no-can-fd and
-> renesas,fd-only properties for the renesas,r9a08g045-canfd compatible?
->=20
-> Without an if-then block restricting these properties to false, the schema
-> will incorrectly validate device trees that specify these unsupported mod=
-es.
+--- Patch [16]: [PATCH v7 16/17] iio: ABI: add docs for ad9910 sysfs and de=
+bugfs entries ---
+commit 8529d81632ec7eacf5535d07efbbe35354e0d5d9
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-This looks like a reasonable request.
-pw-bot: changes-requested
+iio: ABI: add docs for ad9910 sysfs and debugfs entries
 
->=20
-> >  unevaluatedProperties: false
-> > =20
-> >  examples:
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260707102418.16461=
-59-1-claudiu.beznea+renesas@tuxon.dev?part=3D2
+Add custom ABI documentation files for the DDS AD9910 with sysfs and
+debugfs entries. The sysfs entries control Digital Ramp Generator and OSK
+engine parameters, while debugfs attributes are read-only and evaluate
+into source channel labels.
 
---eeSkgMZVqTITsw8c
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/Documentation/ABI/testing/debugfs-iio-ad9910 b/Documentation=
+/ABI/testing/debugfs-iio-ad9910
+> new file mode 100644
+> index 0000000000000..b4a125bc10078
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/debugfs-iio-ad9910
+> @@ -0,0 +1,60 @@
+> +What:		/sys/kernel/debug/iio/iio:deviceX/frequency_source
+> +KernelVersion:	7.3
+> +Contact:	linux-iio@vger.kernel.org
 
------BEGIN PGP SIGNATURE-----
+[Severity: Low]
+Does this new ABI entry miss the mandatory Date field? The kernel ABI
+documentation guidelines in Documentation/ABI/README typically require a
+Date field to be present alongside What, KernelVersion, and Contact.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak0mGQAKCRB4tDGHoIJi
-0smlAP9UYunv9LVF33FRMLSiU4bEBUtL6EvRW2JTroFv3tLtCAEA6h+w8g1PiuZU
-ghWJyI2ucpzNdWcEz6s7IlGuVON7SQU=
-=119l
------END PGP SIGNATURE-----
+> +Description:
+> +		Read-only. Reports the channel label that corresponds to which of the
 
---eeSkgMZVqTITsw8c--
+[ ... ]
+
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910 b/D=
+ocumentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
+> new file mode 100644
+> index 0000000000000..4e25f538af4ad
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
+> @@ -0,0 +1,31 @@
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_altcurrentY_dwell_en
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_dwell_en
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_dwell_en
+> +KernelVersion:	7.3
+> +Contact:	linux-iio@vger.kernel.org
+
+[Severity: Low]
+Should these sysfs ABI entries also include a Date field to fully comply
+with the standard ABI documentation format?
+
+> +Description:
+> +		For a channel that produces parametric sweeps, this attribute controls
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-ad9910-iio=
+-driver-v7-0-a4ec30f63700@analog.com?part=3D16
