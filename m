@@ -1,472 +1,222 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2305631E856;
-	Tue,  7 Jul 2026 10:02:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5113B42F1
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 10:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783418574; cv=none; b=bBuW5nWaUeZ6sLCGhP189WV1CU14UepOfS7hdC9utLZzsyhhCbH7q28N2f8drbGUND/XHXgriv+U5D9PAJoWN/1Dec05aohHNOUMAfn/6TV+CfPgIBoxkx4VUAmCZ1hYm50o97Yht0RQnlAIlZRmDXNqQ+bF+bL/dbBJ8qgnjSc=
+	t=1783419097; cv=none; b=QHKI/tdStq7oSDq/Ld8X0IkWQEU2lxQ6IeDRq38+XTJPDBJAA9KiqmwrlJQSDbGqvx5UcTionF8ZB0sVspfHmnEVWjj+sPHsNurvyqfdFFV9Oxxd21II72ToQkOtYg73AW9lKUVZ3e+xAep4Cc2ZqjKaYlJFMtSg65Pmr5Be53Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783418574; c=relaxed/simple;
-	bh=h8peh9A8lUn5Dfm+YfX5HjvM5oGHthYqIoEQR7jL4j0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:In-Reply-To:
-	 Content-Type:References; b=gmhhRawr5tyjzzaH9uVNRmqSTXfRz1kZSyScgwUt/iec2h0QYEBEPjx3SaVP6S6KSS3hwdmRBP5XtkNyOsadI7r4PUckXeRhwdDwxWKGL87R6gqGyv+ygY+Ti0OIU9xAxclu6l82ZG6ZLrcruUaGC73Ly9/WbdJOGnyDlhwJhmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RHCrShFX; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1783419097; c=relaxed/simple;
+	bh=6JL0HqvAqJn5maYjK3rA8vUw308VmjsNmU3ovua3Tc4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Rx4gMeBFICJPp3LkgJ1PuXmGppjPJFIkZ4IqW3Uo94GNGtDUj9kjs8Qc6ott2TtEFLW4/IVVwCp2k9iNEN8Vvn8PaOxky6iAch+XoJrM9MgcrAw196n6aLXOl2LumyB4y4eY0L/AlBkSfdHX7kpZOiB9+tWliWt2GSLkiA4PMZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KtLPpa06; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HDQ20tkg; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RHCrShFX"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260707100248euoutp02c128470cd60985157ba2f1951ac410ba~-_b0ZdUlR0057200572euoutp02G;
-	Tue,  7 Jul 2026 10:02:48 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260707100248euoutp02c128470cd60985157ba2f1951ac410ba~-_b0ZdUlR0057200572euoutp02G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1783418568;
-	bh=OASSxXJmGaDT/uwBYzqLU/UJt7dS4PW4F+eiwSUGvN0=;
-	h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
-	b=RHCrShFX9Zi8e6102GUrdmlOX/rENJ+/+JuCky5tdn57zI6kqM/nq4spocntdRJKD
-	 cxPgadB2teIqAQFmTL+UKcTizeCAL0ubzPJa+xDu1F3MyMDbRsL1NOEyOPlSjJZo4G
-	 44B/fzM2C25EXEtbRRF8gVk2FDX0DehKHmBzMIF0=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260707100247eucas1p1439bac88cad923ef2478e1b2f63f9adc~-_b0IsPTq2255222552eucas1p19;
-	Tue,  7 Jul 2026 10:02:47 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260707100245eusmtip202869722a30826a0db562dfb7a375b13~-_bx0DY2s0196401964eusmtip2h;
-	Tue,  7 Jul 2026 10:02:45 +0000 (GMT)
-Message-ID: <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
-Date: Tue, 7 Jul 2026 12:02:44 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KtLPpa06";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HDQ20tkg"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6678DwmZ3070356
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 10:11:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SuuTWbnslk2/iT7IgwctDLxx0OexGzzGiaPtPGBGzo0=; b=KtLPpa06A5oo1t+L
+	eIxFsHCf32opPqLCXZ3MLd5TpCSXBESUAPmbNluLiTU4CMxqbcJGrN6bAEKcGdmn
+	GjOAcKt9lw7SNU5ZOUXAoal7+6epI/zKB3oMle6sdVJa1tb8AEsHoDy0wd1QNFYK
+	35vwY5MD+AOIjHaP7LCrWoOVqtuFPrZ2R/kFUnjn2iA7vWmju94VCIjfm/Ago+dc
+	M92fqp3S1SLaiUKma26iXOkhdQIP5TYZDqWDy9fzgiQ1qE15QnbBu4xcRxRHZw4S
+	axlMOExk19kn68ctfOjN7OSa782NNQ/ipjAeies8cuYGur9Knk8CMT4iNYU2RepB
+	0NMZjg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8sm8heyt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 10:11:33 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51bf9df2eabso3777431cf.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 03:11:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783419093; x=1784023893; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SuuTWbnslk2/iT7IgwctDLxx0OexGzzGiaPtPGBGzo0=;
+        b=HDQ20tkgAyGKVTLI2l5VIE5KvmiQAL9IhwI2MTdi3/DyXGZGbFixggsgUdhK8cQ8JM
+         oQpyGOUZWxcYCKLb9apqaKg6OD95uizquBq1AmrHZK8Pju0IjXMDIdbo2OREDm5MSWMJ
+         3JjBmKwiem+ANrfL8sXMmP58v5cXYTWXPkI5IJN9SIFFyGYdJWkDG8pi0MDlS7rhWIX8
+         suGxZRLjW6jQH0cWQTXFQfTAoGUMvyvy6jhgGSNbLlOAOgDyNffn4VL2Z2bOViof2dpm
+         LfBrFXHiaT7p/VjisW8U7ZwppiiMFPs2VCsMvJrgFEbNMN/n6+Egv1xpGAgnJP7GSInY
+         0LeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783419093; x=1784023893;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SuuTWbnslk2/iT7IgwctDLxx0OexGzzGiaPtPGBGzo0=;
+        b=tBgA1cgAHpackU6PES8hsTBcIaRbtuJpqcHP6zsMAhAvfCdiwrKS2kEyLysF/Duujk
+         LAvnUPvGBBLdIGcO1/9Pv3yP2pSnelO3cSDnvAhStTdkHoqlhRicijSlAzSat4UxgZfR
+         IaaI5/NLUrQTp3HJ8WzXXjPkfzAOIhZ4kJDNTmRMibnbp2sE/ns4nXU67OBgKO/EKpsO
+         KyKYQaYcYtkxcljxHgMbiCqcdMEWB0DjJWbAbiqPGBpPFbIRwrwSm8x3f3EgmkNGFu0J
+         EB6mi30xqGoqtXIAPOIDfphoTnV3hoRV+n7JcEpg8X/65wpQnvMtMzM8XxVoSH0LSVYa
+         MtJw==
+X-Forwarded-Encrypted: i=1; AHgh+RriPPp4mWTi7RYhoYqogBN4ZVsrjOR3gBUz8mcbvGBh2VjNxbDKH7ArmTZHSZ7crID+zeT3ozDAWHC+@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZ6/2IM5Sl/EO/dNUGPxJQqx0o9EoWnxORYfg9+5HXq8BFsxu+
+	g4t3sR1wpB6+0w8M+sJPVBipYKDDBLA2P2XfVL8WiYNQAEq86+7Uu1OmX/P8Psp5+5xOhps3Z9e
+	P+nFeVPY19Em2FOkDW81fprMWuE1NsW3t4E/47OcqIjONRinpZBG+WqHO4ueFE9g2
+X-Gm-Gg: AfdE7cnm+Ho1ppGR3L2GLdXYCdnN8BrtSHMuZtIyTmkRWVkCZgeE7ZDgGS90u/4rv6O
+	faEATlz2/QJaIVAz+2wU0L8lX7aYqjXgXV+VnlElmzw4pJxoQ2T7ERCpqNu+8wzgtZ0UtwcEkOG
+	FIoHg3SQz9HS55MX4NbanwhbC6KuBkFGkrr6i848H8pBckxeB9E2Tf62jMYJeIYf4wyVFHT7dNK
+	krBcBEyRmSzAZmZyjVkqWNZfP1WeOjqUTcyqPnSqzobeMvOkRIG7iI5IpSWxu4w4lRgWWKeOAY8
+	DaIYsqtUC2Ka/h74hqbvUqrmEEeeF/2ut0AZOLXS4+iBygHk9c9OU2J7QwiaVZi2ggAvxETsbhq
+	f6iPyiEL8d7OwHHazfnPVzyS5WMqTeHT66w8=
+X-Received: by 2002:a05:622a:347:b0:51c:2101:f0 with SMTP id d75a77b69052e-51c4bda6c05mr134669041cf.2.1783419092392;
+        Tue, 07 Jul 2026 03:11:32 -0700 (PDT)
+X-Received: by 2002:a05:622a:347:b0:51c:2101:f0 with SMTP id d75a77b69052e-51c4bda6c05mr134668681cf.2.1783419091715;
+        Tue, 07 Jul 2026 03:11:31 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad84bc3dsm101215766b.21.2026.07.07.03.11.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 03:11:30 -0700 (PDT)
+Message-ID: <d0768c15-453f-4d3f-8110-886a5c697b02@oss.qualcomm.com>
+Date: Tue, 7 Jul 2026 12:11:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Mikko
-	Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
-	Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
-	<gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
-	Gorbik <gor@linux.ibm.com>, Christian Borntraeger
-	<borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Andrew
-	Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
-	Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Robin
-	Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey
-	<Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, "T.J. Mercier"
-	<tjmercier@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, Steven Rostedt <rostedt@goodmis.org>, Masami
-	Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
-	<mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        linux-media@vger.kernel.org
+Cc: loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+        konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <68e59764-5a10-4abc-849c-14ea2d9ef76e@linaro.org>
+ <d74d7839-d126-427a-b151-ca895a27a83e@linaro.org>
+ <437d1eb0-4495-406a-9501-b0515cfa3151@linaro.org>
+ <e04cb9dc-76dd-4fa8-92f4-be002bf7ee8b@linaro.org>
+ <8116c54e-4050-4e9d-b236-59d74846bd57@linaro.org>
+ <8a09875d-af5f-438b-b947-bc2b61219b70@oss.qualcomm.com>
+ <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
 Content-Language: en-US
-In-Reply-To: <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260707100247eucas1p1439bac88cad923ef2478e1b2f63f9adc
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
-X-EPHeader: CA
-X-CMS-RootMailID: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
-	<CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
-	<20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA5OCBTYWx0ZWRfX6blnmaf/1hsA
+ TA+w1ZHD1VjtuOnt5yACMjCnaE/97NgNKtVU1VxJw7N4p5ljB/TJt6coV2KXlQHQRBEGlItX4wi
+ GBnRhH62P+TLDfRegkRipsFr5o8fLRCqslfx1biM72f0iiAqI+AATU/JPQ44YM+NQqQaYvLXHk1
+ AkLApBjztjaboqzcPSVB8DNzWJVKSKcnfctR+2iFEp2xPW0tuzv1GLJy1k1oKDWctOwSuawpHkn
+ m0RNPGfynAUncQmUoVVwN7fY3kM0kG4SJzNlhP0vVtaoac01oaQuamxp7upJUUVGqIM7rWTiSwN
+ KePhZM0GnbER/P64zDpFjsAo3V79cw/GYtiI1pRWL/5lBokQqwnWWCeBT5VchP0ugldZowcAPub
+ xNEguFxo5CI/nvwyC+zyMCPASiv+rN5TR5Ukzdv/h33ytmpwiBnX+RvlS9PIxUfZk1o0qt37oxf
+ 5uhyertHWvU6p0XnEXg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA5OCBTYWx0ZWRfX3Ycll49RgNEp
+ PXGs4YxTos2UNLJN4S1J6zUp7TIO8eF5hh+ZyjF5Kg1ruyycGf7wC/14jMJMqIEJPGfCCP24J/s
+ 6l9mHNi9+ROTbnjaLyqj0Xjn60gXoJs=
+X-Proofpoint-GUID: NC8fMexAmO-T7xj0_nS49aJ5NIyNQgDD
+X-Authority-Analysis: v=2.4 cv=UvdT8ewB c=1 sm=1 tr=0 ts=6a4cd0d5 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=lEcDftd587Omc_cSSeQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: NC8fMexAmO-T7xj0_nS49aJ5NIyNQgDD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_02,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607070098
 
-On 01.07.2026 18:08, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
->
-> There is no technical reason why there should be a limited number of CMA
-> regions, so extract some code into helpers and use them to create extra
-> functions (cma_create() and cma_free()) that allow creating and freeing,
-> respectively, CMA regions dynamically at runtime.
+On 7/7/26 12:00 PM, Bryan O'Donoghue wrote:
+> On 07/07/2026 10:24, Konrad Dybcio wrote:
+>> On 7/6/26 3:37 PM, Bryan O'Donoghue wrote:
+>>> On 06/07/2026 14:02, Vladimir Zapolskiy wrote:
+> 
+>>>>>
+>>>>> The idea is to make all of these peers, eventually. Not particular block
+>>>>> owns the TITAN_TOP_GDSC - the entire CAMSS block is a collapsible block.
+>>>>>
+>>>>
+>>>> The statement provides the same information as before, e.g. it's found here:
+>>>>
+>>>> https://lore.kernel.org/linux-media/fbc018f5- c025-4747-85f2-53b45b0f0496@nxsw.ie/
+>>>>
+>>>>       There's no functional linkage between CAMSS/IFE and JPEG - they are
+>>>>       peers within the CAMSS power-island.
+>>>>
+>>>> Thus "the CAMSS power-island" exists, and it got its hardware description
+>>>> as the CAMSS top device tree node, and TITAN_TOP_GDSC power domain is
+>>>> a natural resource of all devices on "CAMSS power-island",
+>>>
+>>> Vlad honestly, TITAN_TOP_GDSC is provided to the CAMSS island - all of the nodes within it depend on that and it is _external_ to the block.
+>>>
+>>> There is a CSID MUX on some SOC other than that I'll restate it again, I'm not sure why you won't accept it.
+>>>
+>>> There is no dependency between JPEG and IFE, one is _not_ subordinate to the other and trying to find ways to invalidate that statement runs counter to the facts.
+>>
+>> They are all subordinate to CAMSS_TOP - Vlad indeed said they are
+>> peers (i.e. there's no co-dependence between them specifically, but
+>> their parent is shared).
+>>
+>> You can't use any of these IP blocks if you don't first power up
+>> TOP because of the physical layout.
+> 
+> Yes and I'm asking for TOP to be listed in each of the subordinate nodes for reasons given below.
+> 
+> But unlike MDSS - OPE for example doesn't require IFE or CSID to do its job.
 
+MDSS also contains a number of unrelated peers - e.g. DP and DSI
+controllers.
 
-Well, the technical reason for not creating cma regions dynamically at
-runtime is that on some architectures (like 32bit ARM) the early fixup
-for the region is needed to make it functional for DMA.
+> Over time we can move the bindings to a model where the only thing in CAMSS is a top-level bus like declaration but _right_now_ what you would do is create an artificial dependency on say CSIPHY for JPEG.
 
+I don't see where such a dependency is created.
 
-I would add a comment about that in the cma_create() and ensure that its
-future callers explicitly depend on !ARM_32BIT.
-
-
-> The static array of CMA areas cannot be replaced by dynamically created
-> areas because for many of them, allocation must not fail and some cases
-> may need to initialize them before the slab allocator is even available.
-> To account for this, keep these "early" areas in a separate list and
-> track the dynamic areas in a separate list.
->
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
-> Changes in v3:
-> - rebase on top of recent linux-next, update kernel/dma/contiguous.c
-> - use kzalloc_obj() instead of kzalloc() with sizeof()
->
-> Changes in v2:
-> - rename fixed number of CMA areas to reflect their main use
-> - account for pages in dynamically allocated regions
-> ---
-> arch/arm/mm/dma-mapping.c | 2 +-
-> arch/s390/mm/init.c | 2 +-
-> include/linux/cma.h | 8 +-
-> kernel/dma/contiguous.c | 2 +-
-> mm/cma.c | 187 +++++++++++++++++++++++++++++++++++++---------
-> mm/cma.h | 5 +-
-> 6 files changed, 165 insertions(+), 41 deletions(-)
->
-> diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
-> index f9bc53b60f99..934952ab2102 100644
-> --- a/arch/arm/mm/dma-mapping.c
-> +++ b/arch/arm/mm/dma-mapping.c
-> @@ -254,7 +254,7 @@ struct dma_contig_early_reserve {
-> unsigned long size;
+>> This is exactly identical to the MDSS case.
+>> I was hoping this was clear after N other similar threads.
+> When we split IFE, CSID etc up into their own individual nodes it would be possible to model as for argument sake
+> 
+> compat = "camss-bus";
+> power-domains = <TITAN_TOP_GDSC>;
+> 
+> jpeg@x {
+>     power-domains = <JPEG_GDSC>, <MMCX>, <MXC>;
 > };
-> -static struct dma_contig_early_reserve dma_mmu_remap[MAX_CMA_AREAS] __initdata;
-> +static struct dma_contig_early_reserve dma_mmu_remap[MAX_EARLY_CMA_AREAS] __initdata;
-> static int dma_mmu_remap_num __initdata;
-> diff --git a/arch/s390/mm/init.c b/arch/s390/mm/init.c
-> index f07168a0d3dd..f8f78f1434ea 100644
-> --- a/arch/s390/mm/init.c
-> +++ b/arch/s390/mm/init.c
-> @@ -241,7 +241,7 @@ static int s390_cma_mem_notifier(struct notifier_block *nb,
-> mem_data.start = arg->start_pfn << PAGE_SHIFT;
-> mem_data.end = mem_data.start + (arg->nr_pages << PAGE_SHIFT);
-> if (action == MEM_GOING_OFFLINE)
-> - rc = cma_for_each_area(s390_cma_check_range, &mem_data);
-> + rc = cma_for_each_early_area(s390_cma_check_range, &mem_data);
-> return notifier_from_errno(rc);
-> }
-> diff --git a/include/linux/cma.h b/include/linux/cma.h
-> index 8555d38a97b1..fb7a4923c3ba 100644
-> --- a/include/linux/cma.h
-> +++ b/include/linux/cma.h
-> @@ -7,7 +7,7 @@
-> #include <linux/numa.h>
-> #ifdef CONFIG_CMA_AREAS
-> -#define MAX_CMA_AREAS CONFIG_CMA_AREAS
-> +#define MAX_EARLY_CMA_AREAS CONFIG_CMA_AREAS
-> #endif
-> #define CMA_MAX_NAME 64
-> @@ -57,8 +57,14 @@ struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
-> bool cma_release_frozen(struct cma *cma, const struct page *pages,
-> unsigned long count);
-> +extern int cma_for_each_early_area(int (*it)(struct cma *cma, void *data), void *data);
-> extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data);
-> extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
-> extern void cma_reserve_pages_on_error(struct cma *cma);
-> +
-> +extern struct cma *cma_create(phys_addr_t base, phys_addr_t size,
-> + unsigned int order_per_bit, const char *name);
-> +extern void cma_free(struct cma *cma);
-> +
-> #endif
-> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-> index f754079a287d..7975551f69b3 100644
-> --- a/kernel/dma/contiguous.c
-> +++ b/kernel/dma/contiguous.c
-> @@ -52,7 +52,7 @@
-> #define CMA_SIZE_MBYTES 0
-> #endif
-> -static struct cma *dma_contiguous_areas[MAX_CMA_AREAS];
-> +static struct cma *dma_contiguous_areas[MAX_EARLY_CMA_AREAS];
-> static unsigned int dma_contiguous_areas_num;
-> static int dma_contiguous_insert_area(struct cma *cma)
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a13ce4999b39..f989e2e98594 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -34,7 +34,12 @@
-> #include "internal.h"
-> #include "cma.h"
-> -struct cma cma_areas[MAX_CMA_AREAS];
-> +static DEFINE_MUTEX(cma_lock);
-> +
-> +struct cma cma_early_areas[MAX_EARLY_CMA_AREAS];
-> +unsigned int cma_early_area_count;
-> +
-> +static LIST_HEAD(cma_areas);
-> unsigned int cma_area_count;
-> phys_addr_t cma_get_base(const struct cma *cma)
-> @@ -198,7 +203,6 @@ static void __init cma_activate_area(struct cma *cma)
-> free_reserved_page(pfn_to_page(pfn));
-> }
-> }
-> - totalcma_pages -= cma->count;
-> cma->available_count = cma->count = 0;
-> pr_err("CMA area %s could not be activated\n", cma->name);
-> }
-> @@ -207,8 +211,8 @@ static int __init cma_init_reserved_areas(void)
-> {
-> int i;
-> - for (i = 0; i < cma_area_count; i++)
-> - cma_activate_area(&cma_areas[i]);
-> + for (i = 0; i < cma_early_area_count; i++)
-> + cma_activate_area(&cma_early_areas[i]);
-> return 0;
-> }
-> @@ -219,41 +223,77 @@ void __init cma_reserve_pages_on_error(struct cma *cma)
-> set_bit(CMA_RESERVE_PAGES_ON_ERROR, &cma->flags);
-> }
-> +static void __init cma_init_area(struct cma *cma, const char *name,
-> + phys_addr_t size, unsigned int order_per_bit)
-> +{
-> + if (name)
-> + strscpy(cma->name, name);
-> + else
-> + snprintf(cma->name, CMA_MAX_NAME, "cma%d\n", cma_area_count);
-> +
-> + cma->available_count = cma->count = size >> PAGE_SHIFT;
-> + cma->order_per_bit = order_per_bit;
-> +
-> + INIT_LIST_HEAD(&cma->node);
-> +}
-> +
-> static int __init cma_new_area(const char *name, phys_addr_t size,
-> unsigned int order_per_bit,
-> struct cma **res_cma)
-> {
-> struct cma *cma;
-> - if (cma_area_count == ARRAY_SIZE(cma_areas)) {
-> + if (cma_early_area_count == ARRAY_SIZE(cma_early_areas)) {
-> pr_err("Not enough slots for CMA reserved regions!\n");
-> return -ENOSPC;
-> }
-> + mutex_lock(&cma_lock);
-> +
-> /*
-> * Each reserved area must be initialised later, when more kernel
-> * subsystems (like slab allocator) are available.
-> */
-> - cma = &cma_areas[cma_area_count];
-> - cma_area_count++;
-> + cma = &cma_early_areas[cma_early_area_count];
-> + cma_early_area_count++;
-> - if (name)
-> - strscpy(cma->name, name);
-> - else
-> - snprintf(cma->name, CMA_MAX_NAME, "cma%d\n", cma_area_count);
-> + cma_init_area(cma, name, size, order_per_bit);
-> - cma->available_count = cma->count = size >> PAGE_SHIFT;
-> - cma->order_per_bit = order_per_bit;
-> - *res_cma = cma;
-> totalcma_pages += cma->count;
-> + *res_cma = cma;
-> +
-> + mutex_unlock(&cma_lock);
-> return 0;
-> }
-> static void __init cma_drop_area(struct cma *cma)
-> {
-> + mutex_lock(&cma_lock);
-> totalcma_pages -= cma->count;
-> - cma_area_count--;
-> + cma_early_area_count--;
-> + mutex_unlock(&cma_lock);
-> +}
-> +
-> +static int __init cma_check_memory(phys_addr_t base, phys_addr_t size)
-> +{
-> + if (!size || !memblock_is_region_reserved(base, size))
-> + return -EINVAL;
-> +
-> + /*
-> + * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement which
-> + * needs pageblock_order to be initialized. Let's enforce it.
-> + */
-> + if (!pageblock_order) {
-> + pr_err("pageblock_order not yet initialized. Called during early boot?\n");
-> + return -EINVAL;
-> + }
-> +
-> + /* ensure minimal alignment required by mm core */
-> + if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
-> + return -EINVAL;
-> +
-> + return 0;
-> }
-> /**
-> @@ -276,22 +316,9 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
-> struct cma *cma;
-> int ret;
-> - /* Sanity checks */
-> - if (!size || !memblock_is_region_reserved(base, size))
-> - return -EINVAL;
-> -
-> - /*
-> - * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement which
-> - * needs pageblock_order to be initialized. Let's enforce it.
-> - */
-> - if (!pageblock_order) {
-> - pr_err("pageblock_order not yet initialized. Called during early boot?\n");
-> - return -EINVAL;
-> - }
-> -
-> - /* ensure minimal alignment required by mm core */
-> - if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
-> - return -EINVAL;
-> + ret = cma_check_memory(base, size);
-> + if (ret < 0)
-> + return ret;
-> ret = cma_new_area(name, size, order_per_bit, &cma);
-> if (ret != 0)
-> @@ -444,7 +471,7 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
-> pr_debug("%s(size %pa, base %pa, limit %pa alignment %pa)\n",
-> __func__, &size, &base, &limit, &alignment);
-> - if (cma_area_count == ARRAY_SIZE(cma_areas)) {
-> + if (cma_early_area_count == ARRAY_SIZE(cma_early_areas)) {
-> pr_err("Not enough slots for CMA reserved regions!\n");
-> return -ENOSPC;
-> }
-> @@ -1051,12 +1078,12 @@ bool cma_release_frozen(struct cma *cma, const struct page *pages,
-> return true;
-> }
-> -int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
-> +int cma_for_each_early_area(int (*it)(struct cma *cma, void *data), void *data)
-> {
-> int i;
-> - for (i = 0; i < cma_area_count; i++) {
-> - int ret = it(&cma_areas[i], data);
-> + for (i = 0; i < cma_early_area_count; i++) {
-> + int ret = it(&cma_early_areas[i], data);
-> if (ret)
-> return ret;
-> @@ -1065,6 +1092,25 @@ int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
-> return 0;
-> }
-> +int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
-> +{
-> + struct cma *cma;
-> +
-> + mutex_lock(&cma_lock);
-> +
-> + list_for_each_entry(cma, &cma_areas, node) {
-> + int ret = it(cma, data);
-> +
-> + if (ret) {
-> + mutex_unlock(&cma_lock);
-> + return ret;
-> + }
-> + }
-> +
-> + mutex_unlock(&cma_lock);
-> + return 0;
-> +}
-> +
-> bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end)
-> {
-> int r;
-> @@ -1147,3 +1193,74 @@ void __init *cma_reserve_early(struct cma *cma, unsigned long size)
-> return ret;
-> }
-> +
-> +struct cma *__init cma_create(phys_addr_t base, phys_addr_t size,
-> + unsigned int order_per_bit, const char *name)
-> +{
-> + struct cma *cma;
-> + int ret;
-> +
-> + ret = cma_check_memory(base, size);
-> + if (ret < 0)
-> + return ERR_PTR(ret);
-> +
-> + cma = kzalloc_obj(*cma, GFP_KERNEL);
-> + if (!cma)
-> + return ERR_PTR(-ENOMEM);
-> +
-> + cma_init_area(cma, name, size, order_per_bit);
-> + cma->ranges[0].base_pfn = PFN_DOWN(base);
-> + cma->ranges[0].early_pfn = PFN_DOWN(base);
-> + cma->ranges[0].count = cma->count;
-> + cma->nranges = 1;
-> +
-> + cma_activate_area(cma);
-> +
-> + mutex_lock(&cma_lock);
-> + list_add_tail(&cma->node, &cma_areas);
-> + totalcma_pages += cma->count;
-> + cma_area_count++;
-> + mutex_unlock(&cma_lock);
-> +
-> + return cma;
-> +}
-> +
-> +void cma_free(struct cma *cma)
-> +{
-> + unsigned int i;
-> +
-> + /*
-> + * Safety check to prevent a CMA with active allocations from being
-> + * released.
-> + */
-> + for (i = 0; i < cma->nranges; i++) {
-> + unsigned long nbits = cma_bitmap_maxno(cma, &cma->ranges[i]);
-> +
-> + if (!bitmap_empty(cma->ranges[i].bitmap, nbits)) {
-> + WARN(1, "%s: range %u not empty\n", cma->name, i);
-> + return;
-> + }
-> + }
-> +
-> + /* free reserved pages and the bitmap */
-> + for (i = 0; i < cma->nranges; i++) {
-> + struct cma_memrange *cmr = &cma->ranges[i];
-> + unsigned long end_pfn, pfn;
-> +
-> + end_pfn = cmr->base_pfn + cmr->count;
-> + for (pfn = cmr->base_pfn; pfn < end_pfn; pfn++)
-> + free_reserved_page(pfn_to_page(pfn));
-> +
-> + bitmap_free(cmr->bitmap);
-> + }
-> +
-> + mutex_destroy(&cma->alloc_mutex);
-> +
-> + mutex_lock(&cma_lock);
-> + totalcma_pages -= cma->count;
-> + list_del(&cma->node);
-> + cma_area_count--;
-> + mutex_unlock(&cma_lock);
-> +
-> + kfree(cma);
-> +}
-> diff --git a/mm/cma.h b/mm/cma.h
-> index c70180c36559..ae4db9819e38 100644
-> --- a/mm/cma.h
-> +++ b/mm/cma.h
-> @@ -41,6 +41,7 @@ struct cma {
-> unsigned long available_count;
-> unsigned int order_per_bit; /* Order of pages represented by one bit */
-> spinlock_t lock;
-> + struct list_head node;
-> struct mutex alloc_mutex;
-> #ifdef CONFIG_CMA_DEBUGFS
-> struct hlist_head mem_head;
-> @@ -71,8 +72,8 @@ enum cma_flags {
-> CMA_ACTIVATED,
+> 
+> What I'm saying here is do this
+> 
+> compat = "camss";
+> regs = ife, csid; // exisiting bindings for the last ~ 11 years
+> power-domains = <TITAN_TOP_GDSC>;
+> 
+> jpeg@x {
+>     power-domains = <TITAN_TOP_GDSC>, <JPEG_GDSC>, <MMCX>, <MXC>;
 > };
-> -extern struct cma cma_areas[MAX_CMA_AREAS];
-> -extern unsigned int cma_area_count;
-> +extern struct cma cma_early_areas[MAX_EARLY_CMA_AREAS];
-> +extern unsigned int cma_early_area_count;
-> static inline unsigned long cma_bitmap_maxno(struct cma *cma,
-> struct cma_memrange *cmr)
->
-Best regards
+> 
+> Otherwise you create entirely artificial dependencies between IFE, CSIPHY and JPEG, OPE et al.
+> 
+> And BTW if/when we get to the camss-bus stage of things having TITAN_TOP_GDSC listed in OPE and JPEG is a very small price to pay.
 
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Patch 1 (+ devm_of_platform_populate(dev);) makes camss-bus a reality
+today
 
+
+> We've already agreed to gradually transition the bindings instead of go for a big-band integration several times.
+
+JPEG isn't a block that's described today so I see no blockers here
+
+Konrad
