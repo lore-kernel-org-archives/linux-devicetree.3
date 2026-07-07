@@ -1,144 +1,131 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D3E3101B6;
-	Tue,  7 Jul 2026 12:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE2C37F011
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783425867; cv=none; b=tJIyXzNZyk+s6Ymed0xBVn3pemISzf/RYkIyXShwF7qOjs3nHp0e7KuE3hIgzhTJjUs1PVQrCtlabs8CMl72mHs2Leu4afykW1WExkt9VSufTHX14AabML+oW/yG4ClOww+Ii3PP6vUY5wss8uawRewgftvrSh6uzHS6wQJOkOs=
+	t=1783425876; cv=none; b=O0dvoWrVLd9a/CRYWAZbazwsSaNSufxmz5cu+V9Bj+YaP4I2K+XToVkW2+VpGJSA+hUCk0bSbopchUSIKJvWwT3k2z565M5FcGSGZ8BTEZXUWT1TN8A8QhXdswWmR8X3p2+6EveNoPaJsIFol6F+DDE0aYfNmZAG1pAMlzMU2Ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783425867; c=relaxed/simple;
-	bh=d0oZZL/m7v35L3SGPEvZbdEktqoolpFwQcWajtU70ro=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gNoyUy74LMaz7VzSgJNDuvg6a6kdE+GGKVnCuli7AJU0HvYmt92lTRltehEkUpTMIoPZHY0LDnwetzHXN3ncnKviB0ZYpbR+XHqy6AVRgAhcJzqDjX1Ham5Ysg/ioxUunCLhwzLnK6ja5nW5UF4FrdRn+tdsTJ9cbuWkNDz63jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=CKowxmzE; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1783425876; c=relaxed/simple;
+	bh=DaLt45dD36CtyeUnS/H+i4wtdj3chmaWARKMd3zB8Yc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lqXsRKHWQGPeseVyABesEAlNFPiOiRuxYsFY8hsno54a291eeoH11s4EdEAz51UbK7JsWRA08iVmxGlpZ2pZ3//zv3zWZb9zUSa/OAqWf9DT355Trjf61ra3Mo+lwZzuVqDrUEaci7pTc5J/n1hsdJzqPxeiGV5Vq8AcxEi3kVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+w4iI/B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="CKowxmzE"
-Message-ID: <8a80a170-a508-4a9e-8090-27cfcedb1cd4@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1783425863;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V1wR4i3S+qlUwOJNrTeVvJuUHl23Tu3l5qGQqGSCCrM=;
-	b=CKowxmzEvsFi8bPEpRBxQBVEESRS+TLUCPFAFp2Q4CQOSUnmA2luvb+oOSG1ITQLz9Wn8C
-	7IIXPpr5ArZNaxWGpffrKpCC3+CbZqbKCk7zB4JsIpGPqulFijoHPaPnGHwcuHdY5RjVt1
-	YLmBUWejdchZmVwbrsNEyVaGPfcmAWA=
-Date: Tue, 7 Jul 2026 14:04:21 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+w4iI/B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3FA1F00A3E;
+	Tue,  7 Jul 2026 12:04:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783425874;
+	bh=o22aB8PdIjpGvGjS95cevRWIwAlR7JR/Vg4IyEVYwBo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I+w4iI/B/Nf503NEdcwLLZojvslO9SCSeVH8NKLpdgdis1CkBCyfRc1pvOpm5rFhd
+	 yQwrcUAL3F8EEJSycq8J5tY+D/Y60z63m1rtnf/e7NQqvALghqJwuDI9ztqbvb3mfJ
+	 ZuFPhMk2IHiGfZ3Cp2vnIGr/hu9FqatLn6LiUvhpMylOOz63j0QmHRLy7tMR5SaRRl
+	 Utr7Bke4j7CEkln5SGcqvA+HbswNn5Z+BZ01YBhQLm4yAGdiApGA3YxSibnb8gNnJi
+	 Oy+ui2BhnpmgUzQBTkAMJSc0W+K0eqi80WwjZb0wqjRW6rr9kkNdfmaFefjycF0w6b
+	 wr43TH3Zd8JWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] mtd: rawnand: qcom: Make "aon" clock optional
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stephan Gerhold" <stephan.gerhold@linaro.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260707-qcom-nandc-mdm9607-v2-2-d906f7e8b814@linaro.org>
+References: <20260707-qcom-nandc-mdm9607-v2-0-d906f7e8b814@linaro.org>
+ <20260707-qcom-nandc-mdm9607-v2-2-d906f7e8b814@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 12:04:33 +0000
+Message-Id: <20260707120434.4B3FA1F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH 1/2] PCI: apple: Integrate pwrctrl API
-To: Marc Zyngier <maz@kernel.org>, Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
-References: <20260707-apple-pcie-pwren-v1-0-5a281b182fe2@cyberchaos.dev>
- <20260707-apple-pcie-pwren-v1-1-5a281b182fe2@cyberchaos.dev>
- <86a4s3p2vy.wl-maz@kernel.org>
-Content-Language: en-US
-From: Yureka Lilian <yureka@cyberchaos.dev>
-In-Reply-To: <86a4s3p2vy.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/7/26 11:25, Marc Zyngier wrote:
-> On Mon, 06 Jul 2026 23:38:27 +0100,
-> Yureka Lilian <yureka@cyberchaos.dev> wrote:
->> Integrate the PCI pwrctrl framework into the Apple PCIe host driver to
->> provide standardized power management for PCI devices.
->>
->> Notably, this allows enabling powering on the WiFi, SD card reader on
->> various Macs by means of the pwrctrl framework before probing the ports.
->>
->> Previously, a custom solution for powering on the WiFi and SD card
->> reader was proposed[1], but we can now use the new pci-pwrctrl-generic
->> driver for this purpose.
->>
->> Link[1]: https://lore.kernel.org/lkml/20220502093832.32778-4-marcan@marcan.st/
->>
-> nit: this paragraph and the accompanying link don't belong in the
-> commit message and should be moved below the --- mark or even better,
-> to the cover letter.
-ack, will leave it out of the commit message of the individual commit in v2
->> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
->> ---
->>   drivers/pci/controller/Kconfig      |  1 +
->>   drivers/pci/controller/pcie-apple.c | 16 ++++++++++++++++
->>   2 files changed, 17 insertions(+)
->>
->> diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
->> index 2247709ef6d6..af64630d28fa 100644
->> --- a/drivers/pci/controller/Kconfig
->> +++ b/drivers/pci/controller/Kconfig
->> @@ -46,6 +46,7 @@ config PCIE_APPLE
->>   	depends on OF
->>   	depends on PCI_MSI
->>   	select PCI_HOST_COMMON
->> +	select PCI_PWRCTRL_GENERIC
->>   	select IRQ_MSI_LIB
->>   	help
->>   	  Say Y here if you want to enable PCIe controller support on Apple
->> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
->> index c2cffc0659f4..db038a9d4831 100644
->> --- a/drivers/pci/controller/pcie-apple.c
->> +++ b/drivers/pci/controller/pcie-apple.c
->> @@ -30,6 +30,7 @@
->>   #include <linux/msi.h>
->>   #include <linux/of_irq.h>
->>   #include <linux/pci-ecam.h>
->> +#include <linux/pci-pwrctrl.h>
->>   
->>   #include "pci-host-common.h"
->>   
->> @@ -825,6 +826,21 @@ static int apple_pcie_init(struct pci_config_window *cfg)
->>   	if (WARN_ON(!pcie))
->>   		return -ENOENT;
->>   
->> +	ret = pci_pwrctrl_create_devices(pcie->dev);
->> +	if (ret) {
->> +		dev_err(pcie->dev, "Failed to create pwrctrl devices: %pe\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	ret = pci_pwrctrl_power_on_devices(pcie->dev);
->> +	if (ret) {
->> +		if (ret != -EPROBE_DEFER) {
->> +			dev_err(pcie->dev, "Failed to power on devices: %pe\n", ret);
->> +			pci_pwrctrl_destroy_devices(pcie->dev);
->> +		}
->> +		return ret;
->> +	}
->> +
-> Why is this done globally while the whole driver works on a per-port
-> basis, and that the proposed DT updates are also per port?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-pci_pwrctrl_power_on_devices takes a struct device as parameter, but
-pcie-apple does not allocate device structs for the individual ports.
-This could be changed of course. But since pci_pwrctrl_* operate on
-the subnodes recursively, it works just fine this way.
-Additionally, we would like to be sure all the endpoints can be powered
-before we start initializing the individual ports. Otherwise we could
-end up in a situation where some ports are initialized but others are
-not when we realize some driver needed to power on the endpoints for
-port n is not yet bound. There is no appropriate pci_pwrctrl API for
-checking for the availability without changing the state, so this is
-an additional reason to do it early.
+Pre-existing issues:
+- [High] Use-After-Free when boot partition parsing fails
+- [High] Unbalanced teardown leads to Use-After-Free when a subsequent chil=
+d node fails probe
+--
 
->
-> Thanks,
->
-> 	M.
->
+--- Patch [2]: [PATCH v2 2/4] mtd: rawnand: qcom: Make "aon" clock optional=
+ ---
+commit 7ddf091d1f9f9e091fb62bfa7346955975fe9533
+Author: Stephan Gerhold <stephan.gerhold@linaro.org>
+
+mtd: rawnand: qcom: Make "aon" clock optional
+   =20
+This commit makes the second "aon" clock optional to avoid an error when
+it is missing on certain SoCs like MDM9607 and SDX55.
+
+> diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qco=
+m_nandc.c
+> index 4b80ce084d9ac..0251dd591d40a 100644
+> --- a/drivers/mtd/nand/raw/qcom_nandc.c
+> +++ b/drivers/mtd/nand/raw/qcom_nandc.c
+> @@ -2280,7 +2280,7 @@ static int qcom_nandc_probe(struct platform_device =
+*pdev)
+>  	if (IS_ERR(nandc->core_clk))
+>  		return PTR_ERR(nandc->core_clk);
+> =20
+> -	nandc->aon_clk =3D devm_clk_get(dev, "aon");
+> +	nandc->aon_clk =3D devm_clk_get_optional(dev, "aon");
+>  	if (IS_ERR(nandc->aon_clk))
+>  		return PTR_ERR(nandc->aon_clk);
+> =20
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the probe
+path I noticed a potential use-after-free when boot partition parsing fails.
+
+In qcom_nand_host_init_and_register(), if mtd_device_parse_register()
+succeeds but the subsequent qcom_nand_host_parse_boot_partitions() fails:
+
+qcom_nand_host_init_and_register()
+   mtd_device_parse_register()
+   qcom_nand_host_parse_boot_partitions()
+   goto err;
+
+err:
+   nand_cleanup(chip);
+   return ret;
+
+Since mtd_device_unregister() is not called in the error path, and the call=
+er
+qcom_probe_nand_devices() frees the host memory via devm_kfree(), does this
+leave stale pointers in the MTD subsystem?
+
+[Severity: High]
+This is also a pre-existing issue, but there appears to be an unbalanced
+teardown leading to a use-after-free if a subsequent child node fails
+during probe.
+
+In qcom_probe_nand_devices(), the driver iterates through child nodes:
+
+qcom_probe_nand_devices() {
+    for_each_available_child_of_node(...) {
+        ...
+        ret =3D qcom_nand_host_init_and_register();
+        if (ret)
+            continue;
+    }
+    return ret;
+}
+
+If an earlier child is successfully initialized and registered, but a later
+child fails, the function eventually returns a non-zero error code. This
+causes the main qcom_nandc_probe() to fail, and devres automatically frees
+the memory for all children.
+
+Since there is no error handling path to unregister previously successful
+children, could this result in the MTD subsystem retaining pointers to the
+implicitly freed memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-qcom-nandc=
+-mdm9607-v2-0-d906f7e8b814@linaro.org?part=3D2
