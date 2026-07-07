@@ -1,82 +1,82 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A312340A95F
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C7541229E
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:39:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783427982; cv=none; b=Upe7hIBj4yuBSo0JLeP8v3/T4l0BZ5UPSDNNQcd0QWaxD8hIGzR/bFrnw1UV/LymaOMUQoNbEDMohE0hD1LJlw2Ww8qcDEooQMZ1JOqd39H13UKXrbIP7XsNY461/nupTqSxdTLNt/ZkXvx/s8UMaPDmOgcV5EogpNx7mGdEcDs=
+	t=1783427986; cv=none; b=ev3pjastOp0xomqtlBay10eOpPeiO/7mX/WXFUUBNYROf1WTWbUA8zdg0CCg1GBI+CKeSsiFI67XtVDCNgE718wPnSyLzF21CKwkAsyCcU6Z1FS/RbTGkkhwdO5qnWOcirfCYyTB+01mt9yWmsuuSHbWk0gktesQ9NvUJANshAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783427982; c=relaxed/simple;
-	bh=CEqI9J6BhaQQ8mngcH6GL0TUqtBR7bw19sOyVBZoqvE=;
+	s=arc-20240116; t=1783427986; c=relaxed/simple;
+	bh=neBtQNse/ecsziDxpxfBl0a32ezo9CFgc0jRzYaJAY0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pf25zu+n2KJ9piL0NYFO2JxJ2NrGAnh0HaAHR2sExgwYi0fhEY18ePMMsfcZ26ru8HTKhDZDzfL/gAvCqQNacI1rbn4gC8Y7v9ivwD6tzKeAagB9EBq4ijaNx7WvqJhXI9HjZZARg+SJlMLru0SC9OwUiMP1M/XaaWGGczTr9K0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QT82vN35; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iiLYTKMA; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=TNDDcHPFztBDaJEa3XCIIj7GnK0J5GbE/JTNdY8GykQse/O0BfjEghF1n8ef0EzK+SG5zysJtVED0QAYygLmkuq/l7UJBMcSGOHbffeqan//SGQFs/aA5Pv/+/hawxgxQkOXqbqRXWU8N7etLFkZfMKj/FQsA1gTItqDRET4l2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F/27N1KZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XN2rAm9D; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QT82vN35";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iiLYTKMA"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8pvI3749154
-	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 12:39:36 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F/27N1KZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XN2rAm9D"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8fUt3606110
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 12:39:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=w4lWwtWhVwu
-	pJUS7cQ9UcJo560AXUn35jHW/gfdBOb8=; b=QT82vN3581NQKVK4wKp5B52iZHd
-	CAJTL1tVI91hcny8MRlhih4p4XctYvLvc+IAUr3knlQYfiSlmzKtLHsHO3DCC2kV
-	dK8828RpwGogQNtKxsvwVjIyJjg6pU1ea+JF2lWfLhmSKHVCh7FvaHl+zFBI04W1
-	Vs1DYKgED8pq1tA8RrY+VcP7hXYDyEKOsNDj8S/1RD1y48FLRy5Ty9TVaMluO6+p
-	hcR1HLVyaI5ekzAXnike8q0gj8kFXouqyPYAdR2QRrFkZkbEYQuJEEsDvKTWLUUg
-	lqUi8VgnneUGsf8kZs2H1K0omw5ftRhzFAvYrAsEC+ptoK+VpBixanVWvqQ==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8vdj9dh0-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=a9hprayaUcC
+	Zzvmd2wG6Bvw5gMa2j/pZQUw6jFuYCt0=; b=F/27N1KZft/4kbNTGEQCWzZdVvx
+	d0BSVpnVthtd2XuYJui7pm5T4GHS8S705WGEaKMRJ8tg4XmP15TDaVv56aZtGOV3
+	OFuTz3y9xhaUIcxOhY3leBPYVB7wWsZMSfVr55Qzl80miYTnNRidY36nnirwDMVO
+	408/3EVdgv2tS/nhRX5Bg5RWaE5ioWD/XS0zvi7hTmlxg7b+i+OgdV1vq54/yz+i
+	t9BeG5KcQRD5WMpn5uAxt/xupsFaAWju85ZIZLJ7Hodf4ksPRjuP9EN2LmUfxFPj
+	vu53bBGvyMgxbs8/uGg7lDjSyiIR6dl4a3DPhWWiom5yp41pIWMdDv/7L6w==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8sm8j056-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:39:36 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8ee593a5a2fso9723126d6.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:39:36 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:39:43 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8efc093d7e5so48307586d6.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:39:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783427976; x=1784032776; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783427983; x=1784032783; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=w4lWwtWhVwupJUS7cQ9UcJo560AXUn35jHW/gfdBOb8=;
-        b=iiLYTKMA8DpXrpDClfUoVXiC5XoOi4b+aw1zzoUua+ho+stxtSmwAJjbT5b39FKeQx
-         9qdh37zCCgicA/lsqjOAYh2Bk71zRHL0oFsSuVf3yeq3Lc4mQC09eLqzoqcIICPsdFgM
-         ixIJCca8Kf4ZMiAGhOIe1s5gz8/6D8Xzp1vFdtTOgXlNwsptG+rrZdi3mJOuHLXfEWwo
-         z4DBc7cCtaTmzxyfpNoqjItRIQakmUzKqjBhDnpDHHYQfVsHFeNVKBoLRWnzXnJ3G+IX
-         eEMY4K8K8eNNkrfkycem/mj95+C6s+QHvqcHtykrVFH0nXDwufih6tIJWYmixhFWAkaf
-         NrdQ==
+        bh=a9hprayaUcCZzvmd2wG6Bvw5gMa2j/pZQUw6jFuYCt0=;
+        b=XN2rAm9DuONtLTMfK54KgByjJ6lOe4w7CuT4DQfMd0rjmfPcmrb/1Rj8QazHcoFIVt
+         GQmZE52fvukiI0EEST8MZmkXsL+hqTYKmF6g2FTCUedSrhpeNOtfzQhJO0/EKoAv7XUc
+         RN2Vqqh4xaiaCL3FAMEUFxMRpmax0pRbRczqLKGE/ts4NQFIDSJ2P055WV5XwM+Ql4NE
+         b6hOJK0lBYXinlzDXQ/1JywypYvElGmuXIfJw1oDs/lrufAZFMGPRyDpJqW6URB+MvlA
+         hLMTDAYQjokVuNXd3Yi9F8pIFKw115J+PE4dK1jp9s1JoaE+o/RhPKOy0e5/ZIK1G4zj
+         zxJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783427976; x=1784032776;
+        d=1e100.net; s=20251104; t=1783427983; x=1784032783;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=w4lWwtWhVwupJUS7cQ9UcJo560AXUn35jHW/gfdBOb8=;
-        b=X4TlSPyvJHPkxnBZTOKzi5IsY0TJ0icw0EX+iU8EwX3Av9gKcqCtZVtDZw0NVg4RlF
-         RsljZF0Py6ZPKkLtkVdIaLBp/2tr1uS4Fe9C6FEaCZrlOaJl3gVPhwgM1mT9Cw6Xwo1h
-         ABL0noLdRtwjMAEpBWEjlXzvlFjvUPq/6lOPojaDbAICE78wVjDfsukEY2sbVAz7tdfs
-         TRr1a+PJKCXxLiBAAqGY6qvdeH3aakNlhDIVSXF1yyvF9816q3pQcS9/MnHVb5v0XsG1
-         HrYjCj67ft1RIQPkDzmAWedrrFTVHFmLRkHo1DynrWonPAAORFuWVsDBUCG3LZ5MBWWD
-         CROA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0ri648e8QESr6phRWoOy/UvU85QIeb42nfSEKS2vPSkJnEllgsBwVvN8XfFYkTkKZU8e7K28hPsdY@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPBhg6eYATFq8m8z0TjerUh1p6XNStBiT7ZEZ1/U4Ct9lxOZ6G
-	N/CXoxj+HD/n2xmPv8f96Cyk622ZulU/Z+O5cLQPTCpOqwvoTpcCU8BPeT914ffoX6oG9vpwqWt
-	YfUvBXc2DkV8DvreVh3zBE55WWdC7va3Z5W1PS1C4pwVU8/QdDJKBHjUPTv4ppPtF
-X-Gm-Gg: AfdE7ckBThxYn7tGi/WiChUAFGEYcZDnlZ0cFlry7Ks2l3pUwh+L8AwKFqyRqFTCyQa
-	MmFM7RVFfsekpBqZXZ3cYQIfs/hUYG6wP7f6XLCN3iKM0eyEe4tLe1ShULx+3v51vgOLLE+X+29
-	jIrgRp2tbdHhxiEk49XfDPoxZvhNij9BrYppNPEHwgQWz4+SnzsAnUOdQLNG2WQQ4I7JBQDlVlY
-	bdiEjsJO3BxBYTz1jpAwG/P2jO756H9CDtYT2ha0FcfOjFjJGAIxiIfUeOiK9El5PJnQu7vrf9t
-	AWAyyZUcj+sII+BmrSxp+O5TinNs2JZtzowKiik6cqZMJn0pScBPJ0peGPBZNVd/VSc5enyDkvy
-	6G4kHoUYj6iK4b0Tiqmzm4e4X9ZMzb56JZa1D2wAQJJicw03wB3EJzngMo6nt8yLfYgdobSk=
-X-Received: by 2002:a05:6214:5702:b0:8ee:fb19:a9ac with SMTP id 6a1803df08f44-8fd3997d810mr27177186d6.12.1783427974706;
-        Tue, 07 Jul 2026 05:39:34 -0700 (PDT)
-X-Received: by 2002:a05:6214:5702:b0:8ee:fb19:a9ac with SMTP id 6a1803df08f44-8fd3997d810mr27176096d6.12.1783427973280;
-        Tue, 07 Jul 2026 05:39:33 -0700 (PDT)
+        bh=a9hprayaUcCZzvmd2wG6Bvw5gMa2j/pZQUw6jFuYCt0=;
+        b=H5vLBZ/LnroKFlkKnAbaGLjWGVCnhzYml59AsYEmp+zE8oBgSG7JlXzw/Pl6wEMxOC
+         5zYLgOY2+AEOpw4fAkzQGUapUd8BZDi7JboUcvn0e+zBue7aQU6NL3g33Fy94z3NAyXF
+         kvPF+E7x5URgNk6W4m3/5GwCaUyJZLgVFw6VVstpE9L19W25cr0gp8JD31vQY49PFqPj
+         dOhL9JYoTmnSmkVCsFzIL2VS742Ut8C94Ce5HhgxhzHL33RxHJeAweerhL9e0iJZeeBY
+         ESczUXDqwWs5P+wczmTbqRfW1eLZweQmrt2zgkMygT9IvIBnmJYTTylWrPj4oHX82Dwi
+         LsBA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5CZ/8eUVFDic6S50KWaLLtKwfqtG82P7+GcGbtOJAEPClpE0HOtpOiuO9HiZiz+XDZO9qMu/LSq25@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCfMUBQvzXDR/RtrqOcd8U3Ez/5fX6ffNtr4KrRzgcjNIs6TNC
+	lHGNpIfO/f+6inlT/3D0C00aUUgHkoyDsgp4v4AIVNRgg35zBqFE+gMsdbwXKefXfjPIpsCU08S
+	E3Txq9EwmNqtsTuJbmfzctrDXhVi7XCzb5dx6og6K1UZ1N8C7HyTnvb65gPzGOAOUOneaiv1G
+X-Gm-Gg: AfdE7ckRM4T0UZ4Fm9d075lpO+DOf+vbrHhRgoMrFtxeT0A9EaQL3qD4KiHk0jJY5UW
+	ON4MDzHDPJKUFGP1gDwft+nogT/pWMQ24clpjBD4ildmp0r/211YvJdfyE+Ipx9Uwkyau5Dca4G
+	fqG0DfeZxWJU+gwt0KjRL18A8BkNaJHGEraYNcFjAiF58YDpKCCoWzqUfIL28S9GrchCOhlGxVQ
+	Ge48PfHRE6APFT8bEvCuzJdzrw6CSn0h3OE1uuVanguXsnBcFXEo20cN8i7c4YLr5j6vMtXjL83
+	LBSSrPKbb0RcXvTmMHwCpBrC4CU6XyALLwUexe6XbFptKL7Y4C6YXavwPRjyeRp7h2SdOkw81NN
+	n0KhS41EIKcO7FY9pWwgu4OQtQK4DUIfm1DwlP5TltrKPY8W7E41XGtOIauONqz6b/DbmCVo=
+X-Received: by 2002:a05:6214:519d:b0:8f6:7335:4f9 with SMTP id 6a1803df08f44-8fcb54d299dmr62408396d6.39.1783427982454;
+        Tue, 07 Jul 2026 05:39:42 -0700 (PDT)
+X-Received: by 2002:a05:6214:519d:b0:8f6:7335:4f9 with SMTP id 6a1803df08f44-8fcb54d299dmr62407876d6.39.1783427981879;
+        Tue, 07 Jul 2026 05:39:41 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f46ea3ff80sm159724616d6.15.2026.07.07.05.39.29
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f46ea3ff80sm159724616d6.15.2026.07.07.05.39.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 05:39:33 -0700 (PDT)
+        Tue, 07 Jul 2026 05:39:41 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -87,9 +87,9 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v4 2/4] arm64: dts: qcom: Add device tree for Nord SA8797P SoC
-Date: Tue,  7 Jul 2026 20:39:00 +0800
-Message-ID: <20260707123902.3868016-3-shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v4 4/4] arm64: dts: qcom: Add device tree for SA8797P Ride board
+Date: Tue,  7 Jul 2026 20:39:02 +0800
+Message-ID: <20260707123902.3868016-5-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260707123902.3868016-1-shengchao.guo@oss.qualcomm.com>
 References: <20260707123902.3868016-1-shengchao.guo@oss.qualcomm.com>
@@ -100,2923 +100,309 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=R7cz39RX c=1 sm=1 tr=0 ts=6a4cf388 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEyMyBTYWx0ZWRfX3FgINpwP02NX
+ w9Qth90zP9HAP3/BGhRRUHy6OBI8Birz1qAs3p05QD1m6Nrl17am31wHGfZ053HcNlZo3bp9kpq
+ HXdIBDP9UPh78GSLXKRKu0xrKBRRuQF7k4lXBftzLf6cYNnmxT7sPjWiX6Sw1Cc9UCj14uSbxZa
+ 5Gra/XEVtfLGwVaKMHlOOg2U/G91MWXkrWLz2SxI6HPCpAEvxkoRiM9j+D4cN64k9clJQag07H3
+ +bq3Qngq9qDMXp0XndgbMQyj0ODOjhBmcc2TnpovWEjNxr69976vRzLEkQmcngF1Sf9WZ9uIUwP
+ T3lAtabxYhXC4M3d3o2Njt1Vzb63ASlcS9ccnZCI9pqdVLpqGomt3x6P5akHJiqPV6k75c/sREL
+ xW5ltHQZN/ELQDEmjcClvXWVJJOg6XQz7x4yXHDY+wGw7O8/8JxmFmNzX+vuWywT2FKpSoXDUjg
+ mlLzO6C9cLCxBoxOscA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEyMyBTYWx0ZWRfX/tH9nJkEnNR8
+ SKic9ex0qgliwjlvk8gSmqIqWB1MCirJeJsqz93U5JPuDrTKZx7FfzURUWK4T17AW7JwAmpHh4H
+ tit28tHLEZpbz9PFvB/fENolPcRh0ik=
+X-Proofpoint-GUID: _eI8QzxojOCXPMeQaHKlr2mF39vNDov8
+X-Authority-Analysis: v=2.4 cv=UvdT8ewB c=1 sm=1 tr=0 ts=6a4cf38f cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=uQd1CpjfprTzC7XeMz8A:9 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-GUID: UxlNDuWvxQDggyRZyPv9WsvvpJfFRYY6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEyMyBTYWx0ZWRfX4ezmHqnERgWO
- sptB3IeMpIJpuOUOo8+6bFztFw/67bwgPNy7aiVGSSWP+mFrOcBh6J+mfeIB456cCoQonPoR6Ac
- TAL1lfc0Yxce5Potmnn3VtNPNGk6rSMhS4zPIF5Goe/w9IBO1v5dKTLSKCcmOQHiuQ0MWcnB66g
- nf1cd5ibDnxjb8i2GVoFeEtNZHaj0P7Quy88Kd3e5zrya4aCs70MLCw7Lb8BptetCMPj/3B//rH
- KAYd+zE9GhMyXPDIdSDJzm9S/fvPDjNZsiZCj2vKJNCYPSZ8H+Ucp0chhMzIw0dVUFdeIOLHiim
- CQhj3jURlfPUJbEDgIwIcdkZ/ik7SOo6MA8NNmFS7g7ROURSdAYTt0oILhMVqagAnQiw7qkrSJb
- 9q8EgtJN9Hy2FYYBgaG2a6/DhSktGIBU8tOqYGfyiLqO4JoYNWTKL4v4hc3CKAtuRq4FIsR18Ym
- GVoNzF/3FTCaZwHS3Fg==
-X-Proofpoint-ORIG-GUID: UxlNDuWvxQDggyRZyPv9WsvvpJfFRYY6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEyMyBTYWx0ZWRfX3bftMTNLYaQd
- M9s+iFK/a8DUEpkiLlADuamqbXvaBoxKWzHcU0rBgNU4LdTV+x0+yCEUHdOsobMmZn+K8YZCVli
- 5byDQCG+9VWL2dRIYg+lDEIoSdP0Nm0=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=mTzsPlHQ6iguFW8dCWoA:9 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: _eI8QzxojOCXPMeQaHKlr2mF39vNDov8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-07_03,2026-07-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070123
+ clxscore=1015 phishscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607070123
 
 From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-Add SoC-level device tree include for SA8797P, an automotive variant
-of the Nord SoC family. The dtsi covers:
+Add initial device tree for the Qualcomm SA8797P Ride reference board.
 
- - 64 SCMI shared memory regions reserved at 0xd7600000-0xd763f000
-   for SMC-based firmware communication channels
- - Three QUPV3 GENI SE QUP blocks (qupv3_0/1/2) with I2C/SPI/UART
-   controllers using SCMI power and performance domains via scmi11
- - UFS host controller with SCMI power domain via scmi3
-
-Also introduce scmi-common.dtsi providing the firmware-level SCMI
-channel nodes shared across SoCs with GearVM firmware that utilize
-SCMI for resource management.
+ - Configure UART15 as the primary console and UART4 as the secondary
+   serial port
+ - Enable UFS storage support
+ - Define thermal zones for PMIC dies, UFS, and two SDRAM sensors,
+   all sourced from SCMI sensor protocol on channel 23
 
 Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi |  937 ++++++++++
- arch/arm64/boot/dts/qcom/scmi-common.dtsi  | 1918 ++++++++++++++++++++
- 2 files changed, 2855 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi
- create mode 100644 arch/arm64/boot/dts/qcom/scmi-common.dtsi
+ arch/arm64/boot/dts/qcom/Makefile         |   1 +
+ arch/arm64/boot/dts/qcom/sa8797p-ride.dts | 240 ++++++++++++++++++++++
+ 2 files changed, 241 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sa8797p-ride.dts
 
-diff --git a/arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi b/arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index fb1a99a3e01c..8e6ef4116146 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -217,6 +217,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qru1000-idp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sa8155p-adp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sa8295p-adp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sa8540p-ride.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sa8797p-ride.dtb
+ sc7180-acer-aspire1-el2-dtbs	:= sc7180-acer-aspire1.dtb sc7180-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-acer-aspire1.dtb sc7180-acer-aspire1-el2.dtb
+ sc7180-ecs-liva-qc710-el2-dtbs	:= sc7180-ecs-liva-qc710.dtb sc7180-el2.dtbo
+diff --git a/arch/arm64/boot/dts/qcom/sa8797p-ride.dts b/arch/arm64/boot/dts/qcom/sa8797p-ride.dts
 new file mode 100644
-index 000000000000..343de7512928
+index 000000000000..d1c28698a970
 --- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi
-@@ -0,0 +1,937 @@
++++ b/arch/arm64/boot/dts/qcom/sa8797p-ride.dts
+@@ -0,0 +1,240 @@
 +// SPDX-License-Identifier: BSD-3-Clause
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#include "nord.dtsi"
-+#include "scmi-common.dtsi"
++/dts-v1/;
 +
-+&i2c0 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 0>,
-+			<&scmi11_dvfs 0>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++#include "nord-sa8797p.dtsi"
 +
-+&i2c1 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 1>,
-+			<&scmi11_dvfs 1>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++/ {
++	model = "Qualcomm Technologies, Inc. SA8797P Ride";
++	compatible = "qcom,sa8797p-ride", "qcom,sa8797p", "qcom,nord";
 +
-+&i2c2 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 2>,
-+			<&scmi11_dvfs 2>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c3 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 3>,
-+			<&scmi11_dvfs 3>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c4 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 4>,
-+			<&scmi11_dvfs 4>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c5 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 5>,
-+			<&scmi11_dvfs 5>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c7 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 7>,
-+			<&scmi11_dvfs 7>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c8 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 8>,
-+			<&scmi11_dvfs 8>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c9 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 9>,
-+			<&scmi11_dvfs 9>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c10 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 10>,
-+			<&scmi11_dvfs 10>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c11 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 11>,
-+			<&scmi11_dvfs 11>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c12 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 12>,
-+			<&scmi11_dvfs 12>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c13 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 13>,
-+			<&scmi11_dvfs 13>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c14 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 14>,
-+			<&scmi11_dvfs 14>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c15 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 15>,
-+			<&scmi11_dvfs 15>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c16 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 16>,
-+			<&scmi11_dvfs 16>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c17 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 17>,
-+			<&scmi11_dvfs 17>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c18 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 18>,
-+			<&scmi11_dvfs 18>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c19 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 19>,
-+			<&scmi11_dvfs 19>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&i2c20 {
-+	compatible = "qcom,sa8797p-geni-i2c",
-+		     "qcom,sa8255p-geni-i2c";
-+	power-domains = <&scmi11_pd 20>,
-+			<&scmi11_dvfs 20>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&qupv3_0 {
-+	compatible = "qcom,sa8797p-geni-se-qup",
-+		     "qcom,sa8255p-geni-se-qup";
-+};
-+
-+&qupv3_1 {
-+	compatible = "qcom,sa8797p-geni-se-qup",
-+		     "qcom,sa8255p-geni-se-qup";
-+};
-+
-+&qupv3_2 {
-+	compatible = "qcom,sa8797p-geni-se-qup",
-+		     "qcom,sa8255p-geni-se-qup";
-+};
-+
-+&reserved_memory {
-+	shmem0: scmi-shmem@d7600000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7600000 0x0 0x1000>;
-+		no-map;
++	aliases {
++		serial0 = &uart15;
++		serial1 = &uart4;
 +	};
 +
-+	shmem1: scmi-shmem@d7601000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7601000 0x0 0x1000>;
-+		no-map;
++	chosen {
++		stdout-path = "serial0:115200n8";
 +	};
 +
-+	shmem2: scmi-shmem@d7602000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7602000 0x0 0x1000>;
-+		no-map;
-+	};
++	clocks {
++		xo_board_clk: xo-board-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <38400000>;
++			#clock-cells = <0>;
++		};
 +
-+	shmem3: scmi-shmem@d7603000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7603000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem4: scmi-shmem@d7604000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7604000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem5: scmi-shmem@d7605000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7605000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem6: scmi-shmem@d7606000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7606000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem7: scmi-shmem@d7607000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7607000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem8: scmi-shmem@d7608000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7608000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem9: scmi-shmem@d7609000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7609000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem10: scmi-shmem@d760a000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd760a000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem11: scmi-shmem@d760b000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd760b000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem12: scmi-shmem@d760c000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd760c000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem13: scmi-shmem@d760d000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd760d000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem14: scmi-shmem@d760e000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd760e000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem15: scmi-shmem@d760f000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd760f000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem16: scmi-shmem@d7610000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7610000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem17: scmi-shmem@d7611000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7611000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem18: scmi-shmem@d7612000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7612000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem19: scmi-shmem@d7613000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7613000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem20: scmi-shmem@d7614000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7614000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem21: scmi-shmem@d7615000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7615000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem22: scmi-shmem@d7616000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7616000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem23: scmi-shmem@d7617000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7617000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem24: scmi-shmem@d7618000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7618000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem25: scmi-shmem@d7619000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7619000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem26: scmi-shmem@d761a000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd761a000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem27: scmi-shmem@d761b000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd761b000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem28: scmi-shmem@d761c000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd761c000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem29: scmi-shmem@d761d000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd761d000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem30: scmi-shmem@d761e000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd761e000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem31: scmi-shmem@d761f000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd761f000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem32: scmi-shmem@d7620000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7620000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem33: scmi-shmem@d7621000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7621000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem34: scmi-shmem@d7622000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7622000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem35: scmi-shmem@d7623000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7623000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem36: scmi-shmem@d7624000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7624000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem37: scmi-shmem@d7625000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7625000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem38: scmi-shmem@d7626000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7626000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem39: scmi-shmem@d7627000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7627000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem40: scmi-shmem@d7628000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7628000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem41: scmi-shmem@d7629000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7629000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem42: scmi-shmem@d762a000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd762a000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem43: scmi-shmem@d762b000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd762b000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem44: scmi-shmem@d762c000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd762c000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem45: scmi-shmem@d762d000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd762d000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem46: scmi-shmem@d762e000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd762e000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem47: scmi-shmem@d762f000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd762f000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem48: scmi-shmem@d7630000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7630000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem49: scmi-shmem@d7631000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7631000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem50: scmi-shmem@d7632000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7632000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem51: scmi-shmem@d7633000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7633000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem52: scmi-shmem@d7634000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7634000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem53: scmi-shmem@d7635000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7635000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem54: scmi-shmem@d7636000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7636000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem55: scmi-shmem@d7637000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7637000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem56: scmi-shmem@d7638000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7638000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem57: scmi-shmem@d7639000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd7639000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem58: scmi-shmem@d763a000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd763a000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem59: scmi-shmem@d763b000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd763b000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem60: scmi-shmem@d763c000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd763c000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem61: scmi-shmem@d763d000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd763d000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem62: scmi-shmem@d763e000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd763e000 0x0 0x1000>;
-+		no-map;
-+	};
-+
-+	shmem63: scmi-shmem@d763f000 {
-+		compatible = "arm,scmi-shmem";
-+		reg = <0x0 0xd763f000 0x0 0x1000>;
-+		no-map;
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
 +	};
 +};
 +
-+&spi0 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 0>,
-+			<&scmi11_dvfs 0>;
-+	power-domain-names = "power",
-+			     "perf";
++&scmi3 {
++	status = "okay";
 +};
 +
-+&spi1 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 1>,
-+			<&scmi11_dvfs 1>;
-+	power-domain-names = "power",
-+			     "perf";
++&scmi11 {
++	status = "okay";
 +};
 +
-+&spi2 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 2>,
-+			<&scmi11_dvfs 2>;
-+	power-domain-names = "power",
-+			     "perf";
++&scmi15 {
++	status = "okay";
 +};
 +
-+&spi3 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 3>,
-+			<&scmi11_dvfs 3>;
-+	power-domain-names = "power",
-+			     "perf";
++&scmi23 {
++	status = "okay";
 +};
 +
-+&spi4 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 4>,
-+			<&scmi11_dvfs 4>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++&thermal_zones {
++	pmic_kobra_thermal: pmic-a-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 3>;
 +
-+&spi5 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 5>,
-+			<&scmi11_dvfs 5>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&spi7 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 7>,
-+			<&scmi11_dvfs 7>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_0_thermal: pmic-e-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 4>;
 +
-+&spi8 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 8>,
-+			<&scmi11_dvfs 8>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&spi11 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 11>,
-+			<&scmi11_dvfs 11>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_1_thermal: pmic-f-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 5>;
 +
-+&spi12 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 12>,
-+			<&scmi11_dvfs 12>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&spi13 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 13>,
-+			<&scmi11_dvfs 13>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_2_thermal: pmic-g-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 6>;
 +
-+&spi14 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 14>,
-+			<&scmi11_dvfs 14>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&spi15 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 15>,
-+			<&scmi11_dvfs 15>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_3_thermal: pmic-h-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 7>;
 +
-+&spi16 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 16>,
-+			<&scmi11_dvfs 16>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&spi17 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 17>,
-+			<&scmi11_dvfs 17>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_4_thermal: pmic-i-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 8>;
 +
-+&spi18 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 18>,
-+			<&scmi11_dvfs 18>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&spi19 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 19>,
-+			<&scmi11_dvfs 19>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_5_thermal: pmic-j-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 9>;
 +
-+&spi20 {
-+	compatible = "qcom,sa8797p-geni-spi",
-+		     "qcom,sa8255p-geni-spi";
-+	power-domains = <&scmi11_pd 20>,
-+			<&scmi11_dvfs 20>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&uart0 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 0>,
-+			<&scmi11_dvfs 0>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_6_thermal: pmic-k-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 10>;
 +
-+&uart1 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 1>,
-+			<&scmi11_dvfs 1>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
 +
-+&uart2 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 2>,
-+			<&scmi11_dvfs 2>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
++	pmic_kai_7_thermal: pmic-l-die-thermal {
++		polling-delay-passive = <100>;
++		thermal-sensors = <&scmi23_sensor 11>;
 +
-+&uart3 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 3>,
-+			<&scmi11_dvfs 3>;
-+	power-domain-names = "power",
-+			     "perf";
++		trips {
++			trip0 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++		};
++	};
++
++	pmic_kai_ufs_thermal: ufs-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 0>;
++
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
++		};
++	};
++
++	pmic_kai_sdram0_thermal: sdram0-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 1>;
++
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
++		};
++	};
++
++	pmic_kai_sdram1_thermal: sdram1-thermal {
++		polling-delay-passive = <0>;
++		thermal-sensors = <&scmi23_sensor 2>;
++
++		trips {
++			trip0 {
++				temperature = <105000>;
++				hysteresis = <5000>;
++				type = "passive";
++			};
++
++			trip1 {
++				temperature = <115000>;
++				hysteresis = <5000>;
++				type = "critical";
++			};
++		};
++	};
 +};
 +
 +&uart4 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 4>,
-+			<&scmi11_dvfs 4>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart5 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 5>,
-+			<&scmi11_dvfs 5>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart7 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 7>,
-+			<&scmi11_dvfs 7>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart8 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 8>,
-+			<&scmi11_dvfs 8>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart9 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 9>,
-+			<&scmi11_dvfs 9>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart10 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 10>,
-+			<&scmi11_dvfs 10>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart11 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 11>,
-+			<&scmi11_dvfs 11>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart12 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 12>,
-+			<&scmi11_dvfs 12>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart13 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 13>,
-+			<&scmi11_dvfs 13>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart14 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 14>,
-+			<&scmi11_dvfs 14>;
-+	power-domain-names = "power",
-+			     "perf";
++	status = "okay";
 +};
 +
 +&uart15 {
-+	compatible = "qcom,sa8797p-geni-debug-uart",
-+		     "qcom,sa8255p-geni-debug-uart";
-+	power-domains = <&scmi11_pd 15>,
-+			<&scmi11_dvfs 15>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart16 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 16>,
-+			<&scmi11_dvfs 16>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart17 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 17>,
-+			<&scmi11_dvfs 17>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart18 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 18>,
-+			<&scmi11_dvfs 18>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart19 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 19>,
-+			<&scmi11_dvfs 19>;
-+	power-domain-names = "power",
-+			     "perf";
-+};
-+
-+&uart20 {
-+	compatible = "qcom,sa8797p-geni-uart",
-+		     "qcom,sa8255p-geni-uart";
-+	power-domains = <&scmi11_pd 20>,
-+			<&scmi11_dvfs 20>;
-+	power-domain-names = "power",
-+			     "perf";
++	status = "okay";
 +};
 +
 +&ufs_mem_hc {
-+	compatible = "qcom,sa8797p-ufshc",
-+		     "qcom,sa8255p-ufshc";
-+	reg = <0x0 0x01d44000 0x0 0x3000>;
-+	power-domains = <&scmi3_pd 0>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/scmi-common.dtsi b/arch/arm64/boot/dts/qcom/scmi-common.dtsi
-new file mode 100644
-index 000000000000..0c7ffe9e415c
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/scmi-common.dtsi
-@@ -0,0 +1,1918 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+&firmware {
-+	scmi0: scmi-0 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem0>;
-+		interrupts = <GIC_SPI 963 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi0_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi0_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi0_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi1: scmi-1 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem1>;
-+		interrupts = <GIC_SPI 964 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi1_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi1_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi1_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi2: scmi-2 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem2>;
-+		interrupts = <GIC_SPI 965 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi2_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi2_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi2_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi3: scmi-3 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem3>;
-+		interrupts = <GIC_SPI 966 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi3_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi3_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi3_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi4: scmi-4 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem4>;
-+		interrupts = <GIC_SPI 967 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi4_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi4_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi4_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi5: scmi-5 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem5>;
-+		interrupts = <GIC_SPI 968 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi5_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi5_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi5_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi6: scmi-6 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem6>;
-+		interrupts = <GIC_SPI 969 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi6_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi6_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi6_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi7: scmi-7 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem7>;
-+		interrupts = <GIC_SPI 970 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi7_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi7_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi7_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi8: scmi-8 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem8>;
-+		interrupts = <GIC_SPI 971 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi8_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi8_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi8_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi9: scmi-9 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem9>;
-+		interrupts = <GIC_SPI 972 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi9_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi9_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi9_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi10: scmi-10 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem10>;
-+		interrupts = <GIC_SPI 973 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi10_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi10_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi10_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi11: scmi-11 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem11>;
-+		interrupts = <GIC_SPI 974 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi11_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi11_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi11_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi12: scmi-12 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem12>;
-+		interrupts = <GIC_SPI 975 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi12_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi12_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi12_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi13: scmi-13 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem13>;
-+		interrupts = <GIC_SPI 976 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi13_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi13_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi13_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi14: scmi-14 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem14>;
-+		interrupts = <GIC_SPI 977 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi14_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi14_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi14_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi15: scmi-15 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem15>;
-+		interrupts = <GIC_SPI 978 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi15_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi15_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi15_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi16: scmi-16 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem16>;
-+		interrupts = <GIC_SPI 979 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi16_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi16_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi16_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi17: scmi-17 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem17>;
-+		interrupts = <GIC_SPI 980 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi17_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi17_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi17_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi18: scmi-18 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem18>;
-+		interrupts = <GIC_SPI 981 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi18_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi18_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi18_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi19: scmi-19 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem19>;
-+		interrupts = <GIC_SPI 982 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi19_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi19_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi19_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi20: scmi-20 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem20>;
-+		interrupts = <GIC_SPI 983 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi20_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi20_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi20_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi21: scmi-21 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem21>;
-+		interrupts = <GIC_SPI 984 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi21_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi21_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi21_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi22: scmi-22 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem22>;
-+		interrupts = <GIC_SPI 985 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi22_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi22_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi22_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi23: scmi-23 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem23>;
-+		interrupts = <GIC_SPI 986 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi23_sensor: protocol@15 {
-+			reg = <0x15>;
-+			#thermal-sensor-cells = <1>;
-+		};
-+	};
-+
-+	scmi24: scmi-24 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem24>;
-+		interrupts = <GIC_SPI 987 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi24_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi24_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi24_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi25: scmi-25 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem25>;
-+		interrupts = <GIC_ESPI 0 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi25_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi25_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi25_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi26: scmi-26 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem26>;
-+		interrupts = <GIC_ESPI 1 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi26_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi26_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi26_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi27: scmi-27 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem27>;
-+		interrupts = <GIC_ESPI 2 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi27_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi27_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi27_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi28: scmi-28 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem28>;
-+		interrupts = <GIC_ESPI 3 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi28_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi28_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi28_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi29: scmi-29 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem29>;
-+		interrupts = <GIC_ESPI 4 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi29_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi29_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi29_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi30: scmi-30 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem30>;
-+		interrupts = <GIC_ESPI 5 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi30_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi30_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi30_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi31: scmi-31 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem31>;
-+		interrupts = <GIC_ESPI 6 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi31_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi31_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi31_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi32: scmi-32 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem32>;
-+		interrupts = <GIC_ESPI 7 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi32_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi32_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi32_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi33: scmi-33 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem33>;
-+		interrupts = <GIC_ESPI 8 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi33_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi33_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi33_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi34: scmi-34 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem34>;
-+		interrupts = <GIC_ESPI 9 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi34_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi34_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi34_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi35: scmi-35 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem35>;
-+		interrupts = <GIC_ESPI 10 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi35_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi35_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi35_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi36: scmi-36 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem36>;
-+		interrupts = <GIC_ESPI 11 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi36_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi36_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi36_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi37: scmi-37 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem37>;
-+		interrupts = <GIC_ESPI 12 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi37_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi37_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi37_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi38: scmi-38 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem38>;
-+		interrupts = <GIC_ESPI 13 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi38_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi38_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi38_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi39: scmi-39 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem39>;
-+		interrupts = <GIC_ESPI 14 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi39_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi39_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi39_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi40: scmi-40 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem40>;
-+		interrupts = <GIC_ESPI 15 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi40_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi40_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi40_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi41: scmi-41 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem41>;
-+		interrupts = <GIC_ESPI 16 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi41_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi41_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi41_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi42: scmi-42 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem42>;
-+		interrupts = <GIC_ESPI 17 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi42_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi42_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi42_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi43: scmi-43 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem43>;
-+		interrupts = <GIC_ESPI 18 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi43_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi43_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi43_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi44: scmi-44 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem44>;
-+		interrupts = <GIC_ESPI 19 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi44_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi44_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi44_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi45: scmi-45 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem45>;
-+		interrupts = <GIC_ESPI 20 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi45_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi45_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi45_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi46: scmi-46 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem46>;
-+		interrupts = <GIC_ESPI 21 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi46_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi46_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi46_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi47: scmi-47 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem47>;
-+		interrupts = <GIC_ESPI 22 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi47_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi47_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi47_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi48: scmi-48 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem48>;
-+		interrupts = <GIC_ESPI 23 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi48_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi48_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi48_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi49: scmi-49 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem49>;
-+		interrupts = <GIC_ESPI 24 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi49_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi49_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi49_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi50: scmi-50 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem50>;
-+		interrupts = <GIC_ESPI 25 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi50_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi50_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi50_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi51: scmi-51 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem51>;
-+		interrupts = <GIC_ESPI 26 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi51_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi51_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi51_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi52: scmi-52 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem52>;
-+		interrupts = <GIC_ESPI 27 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi52_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi52_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi52_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi53: scmi-53 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem53>;
-+		interrupts = <GIC_ESPI 28 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi53_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi53_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi53_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi54: scmi-54 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem54>;
-+		interrupts = <GIC_ESPI 29 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi54_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi54_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi54_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi55: scmi-55 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem55>;
-+		interrupts = <GIC_ESPI 30 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi55_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi55_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi55_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi56: scmi-56 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem56>;
-+		interrupts = <GIC_ESPI 31 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi56_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi56_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi56_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi57: scmi-57 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem57>;
-+		interrupts = <GIC_ESPI 32 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi57_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi57_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi57_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi58: scmi-58 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem58>;
-+		interrupts = <GIC_ESPI 33 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi58_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi58_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi58_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi59: scmi-59 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem59>;
-+		interrupts = <GIC_ESPI 34 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi59_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi59_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi59_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi60: scmi-60 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem60>;
-+		interrupts = <GIC_ESPI 35 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi60_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi60_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi60_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi61: scmi-61 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem61>;
-+		interrupts = <GIC_ESPI 36 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi61_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi61_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi61_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi62: scmi-62 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem62>;
-+		interrupts = <GIC_ESPI 37 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi62_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi62_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi62_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
-+
-+	scmi63: scmi-63 {
-+		compatible = "qcom,scmi-smc";
-+		arm,smc-id = <0xc6008012>;
-+		shmem = <&shmem63>;
-+		interrupts = <GIC_ESPI 38 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "a2p";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		arm,max-msg = <10>;
-+		arm,max-msg-size = <256>;
-+		arm,max-rx-timeout-ms = <3000>;
-+
-+		status = "disabled";
-+
-+		scmi63_pd: protocol@11 {
-+			reg = <0x11>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi63_dvfs: protocol@13 {
-+			reg = <0x13>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		scmi63_rst: protocol@16 {
-+			reg = <0x16>;
-+			#reset-cells = <1>;
-+		};
-+	};
++	status = "okay";
 +};
 -- 
 2.43.0
