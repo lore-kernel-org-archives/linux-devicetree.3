@@ -1,210 +1,154 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D1D434E33;
-	Tue,  7 Jul 2026 14:19:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C320642CAEC;
+	Tue,  7 Jul 2026 14:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783433994; cv=none; b=n6GC62UFIqYU73bvM6C2NXtkD78u8VY9/CuxIMpwSp9n3AiSy5ciLftDdAtrZI1J28e1uKSzqMDfB9/eAPf9TPZEDYNu6yJG9VbmocqoxUlbwckCiV1yiwStxS9uRFC/9w/HoIxpF3mkfUPYs1Fiv52XZIpWwa8yNKKwP8evT/0=
+	t=1783434062; cv=none; b=KQXeo1fsDNWu6prd9f43mFSJDidGB8/zRULItzfiBXOnOvJe3xwu5k93am9hpmI6ZVnYKCOELN9Qe51xW/qzOdxi7yJ8MZgX4IbpoxGy8DPPIEhPjliwhJt7FgIhHx3Xi9oDJPGfNYfvLBBPnLbzG1ia7rG2OApjCv+FS6UqvcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783433994; c=relaxed/simple;
-	bh=eEMuTOF44PUBx6MlzjnKfxwVyJPuxTBMZ92VOVk+KkA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EYpI1NfNudjnGTiXuWuC/qtCxoI9BHo2oHAdW2RyHF0JpP7qPODxfKB+cqkqjrxZeG9eb55KdWget2f6yX1sHr0SGwLSW2hItfUWzFBvON+tvhy5iLQ5QJn6SRZ+g3gJyrHo34wLaa3e4dS6ijsU1ulq4PMZ/uuxX08YfCbfhp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=KcoMWmF4; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783434062; c=relaxed/simple;
+	bh=5gXb7Svmbzm19E+aV5DRmQMlrpXRccSgrIB48SHfJZM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FrAXmuKX/N6KTfu3wrY9XDrVdutfvGz7misojWHd6Masx7O30e6+IwejJGXZY3c3sXruP+c+7bkuhkM1McIZnU7AbzyX12HK5PmhMS1yGlTrdRZB1Datgwu8oVScLw2r68vykZgdddgMtxEKEuxw0NDrINbWXzpWf+gBvYbAY8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=H6g70Lza; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sDbXcEhi; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="KcoMWmF4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783433991;
-	bh=eEMuTOF44PUBx6MlzjnKfxwVyJPuxTBMZ92VOVk+KkA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KcoMWmF4xmGl87DEVTHvrrPw3gZQHpOIEPrL7oglPFtomr3cYRqB0VzKjgNsJPdQP
-	 FmwICiAjFITk3GNtcbcAP57CIMlBNVGG7zHpaYFzkdBMMTLXSdmCd3kzJxWMwsuGWa
-	 qAHkNwRt2iGt9oDBt33ytA0NEavwScH39y5Fk3gPHC5F0GJZoTQsjovegt3Zu/KoqW
-	 8qGAmKzd0z8OSBRgM0f6tRonu41Yp3+N8kvJDrbO3xsbkGWh+QGGFZ+eEPN2ohJLxD
-	 5rF2wJbedKaR3FGkJOvhktIwarhD7Nre+NNlFg/U7t/EIsG93n15z2USZeZr3uzLk1
-	 SlPfJI8KldZqA==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 03B9517E0FD0;
-	Tue, 07 Jul 2026 16:19:50 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunfeng.yun@mediatek.com
-Cc: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	chunkuang.hu@kernel.org,
-	p.zabel@pengutronix.de,
-	justin.yeh@mediatek.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	kernel@collabora.com
-Subject: [PATCH v2 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
-Date: Tue,  7 Jul 2026 16:19:31 +0200
-Message-ID: <20260707141931.191172-13-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260707141931.191172-1-angelogioacchino.delregno@collabora.com>
-References: <20260707141931.191172-1-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="H6g70Lza";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sDbXcEhi"
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1783434059;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oKX7vhK3Qg0KTc+n/IWnFbUYvJzoTnDiZZHzdRCOUWw=;
+	b=H6g70LzajeblzgHasww6tB3AzSxbYNpOR1kL2lS5VHM2atZA8dgclML/5+Vwj3DFGqjUuy
+	YL2s6VkjM5mMnJAtCLDjeqyiZV6V0wpURPOQgyKz4fYGFG6p3HdQZKRWdsKDmzb+yG2PN2
+	C7c9WXmkeeHzeYJdJxLzDS/J6GXHHooBnmH2bsFUhekuU6YZE9/ExQ4w9n2HZ7Md2OaJ4K
+	m95uA6LBkB7FQoPGY5egOIfObq3rG+AQt45t1P6XV5ry2ZnnFLeXOxiimoDLTOL/dtYE6+
+	61Z+4s3I4Yz3I6rg3GbiJ3rsx60x676nGB7kpM77V9EDt7awomFXWwAO92awhg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1783434059;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oKX7vhK3Qg0KTc+n/IWnFbUYvJzoTnDiZZHzdRCOUWw=;
+	b=sDbXcEhiNEClu0Y5steAhuBifVzFosIbVu3VIu6Kw0dCF1ECywWPlxt9sFHrYeK3zEJSxQ
+	XmWD3f8GqYdwKzDg==
+Date: Tue, 07 Jul 2026 16:20:54 +0200
+Subject: [PATCH v3 1/4] firmware: raspberrypi: reorder
+ rpi_firmware_property_tag enum
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260707-rpi-tryboot-v3-1-fda82fe7ed76@linutronix.de>
+References: <20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de>
+In-Reply-To: <20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>, 
+ Stefan Wahren <wahrenst@gmx.net>
+Cc: linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783434058; l=4658;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=5gXb7Svmbzm19E+aV5DRmQMlrpXRccSgrIB48SHfJZM=;
+ b=IJs7pcxmDkr4bpoHVtoUeKakWVMFqdvqbHJqDlo0ZPOOU2DWdKHt64o3Qno/eC0DWYiVN7YP+
+ FNgtbCsLYmJBnISQyfpkaHnCoiVx/OGLQi8fwnWHbE5ANW/7694qYqe
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-The MT8196 SoC features an updated PHY IP compared to the older
-ones, and there is one that is specific to Embedded DisplayPort.
+The enum was once ordered by tag values. The later added tags were added
+in a different order. Reorder the tags again.
 
-Add support for the eDP PHY found in the MediaTek MT8196 SoC and
-all of its variants.
+No functional change intended.
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- drivers/phy/mediatek/phy-mtk-dp.c | 66 ++++++++++++++++++++++++++++++-
- 1 file changed, 65 insertions(+), 1 deletion(-)
+ include/soc/bcm2835/raspberrypi-firmware.h | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index 64bdfda5394f..06337a546c21 100644
---- a/drivers/phy/mediatek/phy-mtk-dp.c
-+++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -5,7 +5,7 @@
-  * Copyright (c) 2022, BayLibre Inc.
-  * Copyright (c) 2022, MediaTek Inc.
-  *
-- * Major refactoring
-+ * Major refactoring and new SoCs support
-  * Copyright (c) 2026, Collabora Ltd.
-  *                     AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-  */
-@@ -41,6 +41,7 @@
- #define TPLL_SSC_EN			BIT(3)
+diff --git a/include/soc/bcm2835/raspberrypi-firmware.h b/include/soc/bcm2835/raspberrypi-firmware.h
+index e1f87fbfe5542..66cc5a426c3c5 100644
+--- a/include/soc/bcm2835/raspberrypi-firmware.h
++++ b/include/soc/bcm2835/raspberrypi-firmware.h
+@@ -72,26 +72,26 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_GET_EDID_BLOCK =                         0x00030020,
+ 	RPI_FIRMWARE_GET_CUSTOMER_OTP =                       0x00030021,
+ 	RPI_FIRMWARE_GET_DOMAIN_STATE =                       0x00030030,
++	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
++	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
++	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_GET_THROTTLED =                          0x00030046,
+ 	RPI_FIRMWARE_GET_CLOCK_MEASURED =                     0x00030047,
+ 	RPI_FIRMWARE_NOTIFY_REBOOT =                          0x00030048,
++	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
++	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
++	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
++	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
+ 	RPI_FIRMWARE_SET_CLOCK_STATE =                        0x00038001,
+ 	RPI_FIRMWARE_SET_CLOCK_RATE =                         0x00038002,
+ 	RPI_FIRMWARE_SET_VOLTAGE =                            0x00038003,
+ 	RPI_FIRMWARE_SET_TURBO =                              0x00038009,
+ 	RPI_FIRMWARE_SET_CUSTOMER_OTP =                       0x00038021,
+ 	RPI_FIRMWARE_SET_DOMAIN_STATE =                       0x00038030,
+-	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
+ 	RPI_FIRMWARE_SET_GPIO_STATE =                         0x00038041,
+ 	RPI_FIRMWARE_SET_SDHOST_CLOCK =                       0x00038042,
+-	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
+ 	RPI_FIRMWARE_SET_GPIO_CONFIG =                        0x00038043,
+-	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_SET_PERIPH_REG =                         0x00038045,
+-	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
+-	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
+-	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
+-	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
  
- /* DP_PHYD_BIT_RATE */
-+#define PHYD_DIG_RG_BIT_RATE_V2		GENMASK(3, 0)
- #define PHYD_DIG_RG_BIT_RATE		GENMASK(1, 0)
+ 	/* Dispmanx TAGS */
+ 	RPI_FIRMWARE_FRAMEBUFFER_ALLOCATE =                   0x00040001,
+@@ -107,7 +107,6 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_PALETTE =                0x0004000b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_TOUCHBUF =               0x0004000f,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_GPIOVIRTBUF =            0x00040010,
+-	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PHYSICAL_WIDTH_HEIGHT = 0x00044003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VIRTUAL_WIDTH_HEIGHT =  0x00044004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_DEPTH =                 0x00044005,
+@@ -117,6 +116,7 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_OVERSCAN =              0x0004400a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PALETTE =               0x0004400b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VSYNC =                 0x0004400e,
++	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PHYSICAL_WIDTH_HEIGHT =  0x00048003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_WIDTH_HEIGHT =   0x00048004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_DEPTH =                  0x00048005,
+@@ -125,10 +125,10 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_OFFSET =         0x00048009,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_OVERSCAN =               0x0004800a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PALETTE =                0x0004800b,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VSYNC =                  0x0004800e,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_BACKLIGHT =              0x0004800f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
  
- /* DP_PHYD_SW_RST */
-@@ -57,6 +58,7 @@
+ 	RPI_FIRMWARE_VCHIQ_INIT =                             0x00048010,
  
- /* DP_PHYD_TX_CTL_0 */
- #define PHYD_TX_LN_EN			GENMASK(7, 4)
-+#define PHYD_TX_LN_EN_V2		GENMASK(3, 0)
- 
- /* DP_PHYD_DRIVING_FORCE */
- #define PHYD_DP_TX_FORCE_VOLT_SWING_EN	BIT(0)
-@@ -123,6 +125,16 @@
- #define MT8195_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 6, 12, 0)
- #define MT8195_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(8, 0)
- 
-+/* MT8196/MT6991: Logic State Change Point (LC TX C) */
-+#define MT8196_DRIVING_PARAM_3_DEFAULT	BUILD_DRIVING_PARAM_0( 10, 12, 14, 17)
-+#define MT8196_DRIVING_PARAM_4_DEFAULT	BUILD_DRIVING_PARAM_12(14, 17, 18, 18)
-+#define MT8196_DRIVING_PARAM_5_DEFAULT	BUILD_DRIVING_PARAM_23(21, 24)
-+
-+/* MT8196/MT6991: Positive Edge (LC TX CP) */
-+#define MT8196_DRIVING_PARAM_6_DEFAULT	BUILD_DRIVING_PARAM_0( 0, 2, 4, 7)
-+#define MT8196_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 3, 6, 0)
-+#define MT8196_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(3, 0)
-+
- enum mtk_dp_phya_ana_glb_regidx {
- 	DP_PHYA_GLB_BIAS_GEN_0,
- 	DP_PHYA_GLB_BIAS_GEN_1,
-@@ -178,6 +190,11 @@ static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
- 	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
- };
- 
-+static const u8 mt8196_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
-+	[DP_PHYD_LAN_DRIVING_FORCE] = 0x30,
-+	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x34,
-+};
-+
- static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
- 	[DP_PHYD_PLL_CTL_0] = 0x10,
- 	[DP_PHYD_PLL_CTL_1] = 0x14,
-@@ -187,6 +204,15 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
- 	[DP_PHYD_TX_CTL_0] = 0x44,
- };
- 
-+static const u8 mt8196_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
-+	[DP_PHYD_PLL_CTL_0] = 0x10,
-+	[DP_PHYD_PLL_CTL_1] = 0x14,
-+	[DP_PHYD_SW_RST] = 0x38,
-+	[DP_PHYD_BIT_RATE] = 0x3c,
-+	[DP_PHYD_AUX_RX_CTL] = 0x40,
-+	[DP_PHYD_TX_CTL_0] = 0x74,
-+};
-+
- static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
- 	[DP_PHYD_BIT_RATE_RBR] = 0,
- 	[DP_PHYD_BIT_RATE_HBR] = 1,
-@@ -194,6 +220,13 @@ static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
- 	[DP_PHYD_BIT_RATE_HBR3] = 3
- };
- 
-+static const u8 mt8196_edp_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
-+	[DP_PHYD_BIT_RATE_RBR] = 1,
-+	[DP_PHYD_BIT_RATE_HBR] = 4,
-+	[DP_PHYD_BIT_RATE_HBR2] = 7,
-+	[DP_PHYD_BIT_RATE_HBR3] = 9
-+};
-+
- /**
-  * struct mtk_dp_phya_imp_sel - Per-Lane Impedance Selection
-  * @pmos: Impedance selection for P-Channel MOSFET
-@@ -786,8 +819,39 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
- 	},
- };
- 
-+static const struct mtk_dp_phy_pdata mt8196_edp_phy_data = {
-+	.off_ana_glb = 0x400,
-+	.off_ana_lane = (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
-+	.off_dig_glb = 0x1400,
-+	.off_dig_lane = (const u16[]) { 0x1000, 0x1100, 0x1200, 0x1300 },
-+	.regs_ana_glb = mt8195_phy_ana_glb_regs,
-+	.regs_ana_lane = mt8195_phy_ana_lane_regs,
-+	.regs_dig_glb = mt8196_phy_dig_glb_regs,
-+	.regs_dig_lane = mt8196_phy_dig_lane_regs,
-+	.mask_dig_tx_ln = PHYD_TX_LN_EN_V2,
-+	.val_dig_bitrate = mt8196_edp_phy_dig_bitrate_val,
-+	.ana_bias_r = 15,
-+	.ana_cktx_imp = 8,
-+	.ana_lanes_imp = {
-+		.pmos = 8,
-+		.nmos = 8,
-+	},
-+	.driving_params = (const u32[]) {
-+		[0] = 0,
-+		[1] = 0,
-+		[2] = 0,
-+		[3] = MT8196_DRIVING_PARAM_3_DEFAULT,
-+		[4] = MT8196_DRIVING_PARAM_4_DEFAULT,
-+		[5] = MT8196_DRIVING_PARAM_5_DEFAULT,
-+		[6] = MT8196_DRIVING_PARAM_6_DEFAULT,
-+		[7] = MT8196_DRIVING_PARAM_7_DEFAULT,
-+		[8] = MT8196_DRIVING_PARAM_8_DEFAULT
-+	},
-+};
-+
- static const struct of_device_id mtk_dp_phy_of_match[] = {
- 	{ .compatible = "mediatek,mt8195-dp-phy", .data = &mt8195_dp_phy_data },
-+	{ .compatible = "mediatek,mt8196-edp-phy", .data = &mt8196_edp_phy_data },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mtk_dp_phy_of_match);
+
 -- 
-2.54.0
+2.47.3
 
