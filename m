@@ -1,121 +1,134 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6603491E1
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 08:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7B8348C5E;
+	Tue,  7 Jul 2026 08:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783414136; cv=none; b=HkA0Y6AYiDbP5dwCEYqZ+KEFcceP7v2TmZsqchjc1M/rU2bkWPb9FAGNa6xwM+ZffiBqqeBSHOc5fiSD7HDTxvHvOfOOxTa84bncSY6/vfSJVmYs80pp8FiTLlPkaHQIaz+2HD2Hg/p3uce1rBY2O3fpN/jvcAj127/GmAxQpX4=
+	t=1783414143; cv=none; b=rmeuM4hMSnWUulcPO1z9OwEQHjqmkbWEx4rbUcxCrBkthUVJXKeN8lSyebzFqko50sftK5fae4GfUHz7dGMPOhdWIKzyoEczxxDq8quK6nxv30t2BLypkTTo4+c7DAYDJ4eqFo990NDQWa0jd0BFiTEsrlNPTgj9ad8/Zn5tqWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783414136; c=relaxed/simple;
-	bh=ZnQilIaD79Onwbpdt4qaqS+3l12GDRzxu1mzuEFLoBk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MJKsVZSTtvXVTE1exdgkWiVcvicAB/XQUHOQVNurXSAp+btkv+dcuB0EKJpL/V0SoofEzm0k9msyhA0rdslAeJzd4gXBt2gkwd154IpVbXrz85a6ZfKZqqXZfCz4WsYK2T1bk8tYf14kW4a1HVmhmB/I5o1oXQDRvRyL6AGSrPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Yjzr90Gb; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783414143; c=relaxed/simple;
+	bh=iBAPdB9yQl3PTDBqfoavkR3ABrrjmdtqN9bMGi5686o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VQQVthjhhAGS/0a7XV7oVPo4WbcVoEnMLd7+guVuCmVZXbDDO2KZRW4Hlw7IK5bdS3B1Pog3MMDgBZAwaqVLQbuB+F3hWoZ0Qpq3PLe/j2hyFSOhcmXm7LcXCd1lEo8g5uERvcImOiYcFBllyYUA8/z102daiAiCCS2VdSEE2VM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxP1yZmr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Yjzr90Gb"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-476a130c138so4067945f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 01:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783414133; x=1784018933; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZnQilIaD79Onwbpdt4qaqS+3l12GDRzxu1mzuEFLoBk=;
-        b=Yjzr90GbzxrPyuNaXh+j2YwI5Un0YT9v2orcwGo4aDLAniuQBzp0zETKg05ygk2CHk
-         xA2rdDiG8+mMZfQeSTpG4wU/3/GvMJdppb4p6teJY5XUfPAu0H8HFPSVx8rai4/6f6yn
-         yDtMvlYL9v7Ko71mL8eHdDeMKLuWBmE0OkRbsXidVfc4PZ8KH9PCXytMS6v/HR5I+xfX
-         BiJMEbuVDlHNhEVH2uUn9BgOj0uoH8tT0740AziAmXcENu1TmLmygXS5bSWNX7e3IBiO
-         NB8GLjBDSpP+fluwnovV99HexIKCqyqNvPCDJvXO6MvxltscJU4IZl6SytYKD5sgPFFg
-         nbZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783414133; x=1784018933;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZnQilIaD79Onwbpdt4qaqS+3l12GDRzxu1mzuEFLoBk=;
-        b=puY19R+BonA49LzxWaofbmm/7oSvEQn/+SLIMTG1ts/Sxmj5FV4zAZ37QHllWkOGPi
-         yc6offorPnnQPs9z57zke8cC+wfzYUvbtLM+FnLjJj2Cp4KaiIaJ6G+qc7gm5LmVz0Jc
-         0PFzINz+rb1OT9+y4ceie/QzEIcWuxUB46/5MSdsstX4sKuXt2dYrdq/5k5GmrB1kLgl
-         d0iDHFmICvSHcsTER/Sud+F1r1s8crtQI5iMDfAThe6g/PG2+dkrK+OQ8jkl1Alpou10
-         TKi7rYxjHA1NN41Ndx1RdIuBGUCuvv1Wm1q706cYYhjaKwxkFG2M7AVSfNRcOGjtGFhD
-         IZxA==
-X-Forwarded-Encrypted: i=1; AHgh+RpLdy6GxLEYQye1ONeJNOslHo9qJnX/rwL2FPe3Fvcrn+NPr0D0KQwvXCKeY+SYWPz3UnQZLiDn2T1P@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZLdCT+z0oLR34PqWdPqC6nPzwbFEyteVYc/T36HbB5A+rEMjF
-	cp/tXs+SJQepJ5oBHM33sj9s4ZvtqBLpbVBFMnTEOz5TYNckbgN0EpAtrGqN7gyXag0=
-X-Gm-Gg: AfdE7cmtpo9vQnW/KnCr7CYZzjh8lC83qvE+BeG637BQSdPgpM3YJp7vHEN94s0xaqc
-	+tQ7Vy0ki2CRAumIJNa8KWQ6MXn6XmLyBEf6k1IVn/BqSkOBD8oRzMv0nZUaD5Aujc74xzI0LUN
-	pHU+fBSliLbz1wuwXk1JmrWgT670MnAAr48/92wt/Bw0agv79/H47ZFZ5VH6gfIiK38hMAT0kUc
-	WOtE/sAFdN3UD+rG9M8WeVqN01rIXDQeiBcBBDRNJb79Bu+3Oo1orh9LV7u7HOZIqxZILL+NQl2
-	TAhat2QjD6ahS+MyWJBt3X6+bSdKKC7DS9AJDNszOQvDaLNlVWrQUYDvHoJOqM2Q2yXGxOe88B6
-	943ZovaAW6oLrD8HaISLD7Pu19egdbdg+PsgBruewqu/ziLZwDHvatZhV3eoU/MVgJCmHjUT5rf
-	+dYn1yUFCH3fpYqO+DcvjEHbqMvqAULORDVRaVaH5pRW5RO1LjrudE5i5w/KI52MX4/Xup4Nepe
-	Zif
-X-Received: by 2002:a05:6000:2407:b0:473:1ccc:15cc with SMTP id ffacd0b85a97d-47de664a423mr4602888f8f.0.1783414132916;
-        Tue, 07 Jul 2026 01:48:52 -0700 (PDT)
-Received: from localhost (p200300f65f47db0437b4d928ee3eb6f8.dip0.t-ipconnect.de. [2003:f6:5f47:db04:37b4:d928:ee3e:b6f8])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47a9de1d910sm31134462f8f.6.2026.07.07.01.48.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 01:48:52 -0700 (PDT)
-Date: Tue, 7 Jul 2026 10:48:51 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@intel.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 5/5] iio: osf: add UART IIO driver
-Message-ID: <aky9ZMNbsvMOzRBb@monoceros>
-References: <20260707014525.1015-1-kimjinseob88@gmail.com>
- <20260707014525.1015-6-kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxP1yZmr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B31FD1F000E9;
+	Tue,  7 Jul 2026 08:48:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783414142;
+	bh=9Q5SqAg35FUuXGqe6JqAsxkqwI+Ls/eX7rCyPlL+vis=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CxP1yZmrzPIzFTEEMAq2dXkkGYrBgRIhIHA8L/fT0ITvQkKJ2gE7PUuGyHYSlduWG
+	 2fpbmq7aD3apgTALOdUwQXkeKOHiO0cCet212PZK54Vg07I5qhDlBFCg8PQeIltEiZ
+	 oeDFMv2/vEUhVzIYJZBzQzLVMRnHoygIbAkRR09il+6CGE/yQyEDUe/01Tnfp0/yfw
+	 ZO8/GJBp2SS4iAqu1PI427cJkt282Ml6Y+8zykxI6LzgNgdvsnVRWk64wa+Llqba70
+	 fOmpx3b6GSqGb+hWENp+//Fz8EW7ExRQdtQinmlI7/F5XxBeFmZ+0VAvDJuS827VN+
+	 QxPAIhwubxKPw==
+Message-ID: <f7ab5d7f-31f4-4e5d-a05f-7c0e4ad5afd5@kernel.org>
+Date: Tue, 7 Jul 2026 10:48:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cc6pi6fldaghp7ck"
-Content-Disposition: inline
-In-Reply-To: <20260707014525.1015-6-kimjinseob88@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 RESEND 3/5] arm64: dts: qcom: Add device tree for Nord
+ SA8797P SoC
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+ Harshal Dev <harshal.dev@oss.qualcomm.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260526051300.1669201-1-shengchao.guo@oss.qualcomm.com>
+ <20260526051300.1669201-4-shengchao.guo@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260526051300.1669201-4-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 26/05/2026 07:12, Shawn Guo wrote:
+> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> 
+> Add SoC-level device tree include for SA8797P, an automotive variant
+> of the Nord SoC family. The dtsi covers:
+> 
+>  - 64 SCMI shared memory regions reserved at 0xd7600000-0xd763f000
+>    for SMC-based firmware communication channels
+>  - Three QUPV3 GENI SE QUP blocks (qupv3_0/1/2) with UART controllers
+>    using SCMI power and performance domains via scmi11
+>  - UFS host controller with SCMI power domain via scmi3
+> 
+> Also introduce scmi-common.dtsi providing the firmware-level SCMI
+> channel nodes shared across SCMI based SoCs.
+> 
+> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi |  937 ++++++++++
+>  arch/arm64/boot/dts/qcom/scmi-common.dtsi  | 1918 ++++++++++++++++++++
+>  2 files changed, 2855 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/nord-sa8797p.dtsi
+>  create mode 100644 arch/arm64/boot/dts/qcom/scmi-common.dtsi
+> 
 
 
---cc6pi6fldaghp7ck
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v7 5/5] iio: osf: add UART IIO driver
-MIME-Version: 1.0
+This has incomplete ABI documentation and nothing in changelog or cover
+letter explains/documents the missing bits.
 
-Hello,
+Sorry, this cannot go and I am surprised why you do not follow standard
+process we described multiple times.
 
-On Tue, Jul 07, 2026 at 10:45:25AM +0900, Jinseob Kim wrote:
-> +#include <linux/mod_devicetable.h>
-
-Please don't add new users for this header file. Only use those
-<linux/device-id/*.h> that you actually need (if any).
-
-Thanks
-Uwe
-
-
---cc6pi6fldaghp7ck
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpMvXAACgkQj4D7WH0S
-/k6kYwf/QrsvVB+FpqOTdJQKQDyBUgE8X47AQ2lzuY6x2BS7Ix+fTBZoIZP2vHOw
-VQsrn6N7UpvUQPxL+wvolGEcWyw4N6ADBNzMfMohNfJEiHRbLUC2O2GpHzQ3mQuK
-YbplvW7QAx3edKqE8sTV3GzCxmlLyXoxyXyIBoWvxpQsKg/hqy8Vy98P9Zl61ZKR
-bnRIi1XyBNsIn0f/ZVYDB/nntHLtinS4OhNe0PMiK4vRY7OGyJE/REkLHRITQUml
-/rCrt2WKiocboCDZq2Ca0fZtMlQwJWAhNwtElfaFRW0tyTfOSswQ6Xu6VPq7faXo
-k0WNen8fn54frelJ7YLGLK+JRBKecw==
-=viEt
------END PGP SIGNATURE-----
-
---cc6pi6fldaghp7ck--
+Best regards,
+Krzysztof
