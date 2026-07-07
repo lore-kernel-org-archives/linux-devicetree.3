@@ -1,128 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6D914AD20;
-	Tue,  7 Jul 2026 14:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F24313E29;
+	Tue,  7 Jul 2026 14:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783432991; cv=none; b=IINvcHTvNXCRghHBWQeeleSbTJKGT+d4sb0QD/To5aUbr1sw2R0NWGU41em747gP1HLJPUvDqBzU3tW9c62VjBw7DIUuonksLkXBOfs+HsUBT8DyPF9rvTXFer1VygzIY+UuuZeUlQGuXOjWlamd3eXF1eEr2YQyy++VelP221I=
+	t=1783433067; cv=none; b=hJbhNJ4oK48qSNQLEYznvebtVKd+ILBhDLojCt3LELS8iQLgoRSLJPC6MrgdW+zjqwmJ4Ca/0lReWYNCjmib6dUj0SNAyQApKZjadpPY88Xeo/++NaLK8hPpjK3NBtrSDoYQVWxJD+Ac11OSslb1YfbVlju+CTk653Ez+rEQ6fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783432991; c=relaxed/simple;
-	bh=UYUwlt4Jabu/8zYlteJDkGsbP01fb4O5lxR+umiQp5g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fwyyg1qnpyaPzlOV4amk+VoNjvbc8qjbTTNDKaOUUstQIOdA/XnUzXUoSFq9AFuEjTgRMCa6SONBtYRe8hPkNKaqjR2snyjsoFosTyjLcrXYBTZkJ5FhZW521UCFXH/+ZaALxaz9SrenCdINaFJyZWJrC7aEMgJ4KDFDts+LHeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=leBRzQvz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783433067; c=relaxed/simple;
+	bh=VVduthgyM0ls5bM2bLDjpqwtpzsb3QYUHtpF9OYaiZs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NVCf4ro+K43zJYltnE4ziPnGPIs1Nf6yDjjrnpZUkw47o113uXgmAdOQkNwrgHp/pILBvAHjweFNr5dUdjan3lSYLeSVsmmGZPysgjYI1r/sWQskrFmOH2OUQ9V4S7OTZLeVwZ3ACbrc7NU0KzZO7xoU0PW76cf1yWGU9XJPRGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A7bzhUah; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="leBRzQvz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3401F00A3A;
-	Tue,  7 Jul 2026 14:03:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783432989;
-	bh=IsOTPpAGawXTx0/hblgW6d56FeV6LYwd7gaFDZ0jJcw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=leBRzQvz24cBF1pIuLZ6s5zx2cB6Dh33BhNazm5/JFtGDq6EglNkRSekpN3nTp3So
-	 qwHWhOrmOsrC7hgixg7JL2/PxjpSw4XdEOJasXB0Si5sZKzz7+46I+ooKjVsYkGHr9
-	 nOuw7YZQxcyF0FYAeZlVKGOr9vSiP5RZEHS3BFcVmYQJ++i0G6fECxGtsFaCJQIm7R
-	 U7nSKW/50pyScndTGTQtuxenOLSrKVhCKFrC3qWKNr+6p04IwUuavP7z8A6XTn4oKx
-	 PiBm+6YqsHnnHgae5KlYp7BUiGeDz8M+1gnEILJniKR5Ih3P2hXCP1G06XVK0TAP1Q
-	 EuMxi05GSc0uQ==
-Message-ID: <f3d60a06-7a11-48b3-a28b-8ce8f421e7ea@kernel.org>
-Date: Tue, 7 Jul 2026 16:03:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A7bzhUah"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7892EC2BCB8;
+	Tue,  7 Jul 2026 14:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783433067;
+	bh=VVduthgyM0ls5bM2bLDjpqwtpzsb3QYUHtpF9OYaiZs=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=A7bzhUahOPz0laqExxJJloa/dCKpVhwOlo4UqpanIQ8nOw/7uS+dppxMSrvmbAc1x
+	 Y86dfg27VUuFJExZmRlIv5Yoj5H+14x4KyGN1noAr+GExXMwzQlo7wYCiNgXrKmnhI
+	 7S+k6MD/sHVypGN4VBnQ05McKUl2MwP7Ij6sHJChHbV6r2nMaZA78V3q/5LhGji3vF
+	 jG8jql23V7GWpdQdr41fri+no2PBBSi9Q328JdCQrr9esfV6gqLWK9UR3cXc/ZWTLh
+	 79F/Lxn/Obd7tb73GKum8CEpzRXO6WCKJcAMSoNohhJZnScZiNzrhCvqBQHaCRlmPh
+	 Ij54c4oOInw8g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53226C43458;
+	Tue,  7 Jul 2026 14:04:27 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Subject: [PATCH v7 00/17] AD9910 Direct Digital Synthesizer
+Date: Tue, 07 Jul 2026 15:04:21 +0100
+Message-Id: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: Fix pm4125 vbus regulator
- compatible and constraints
-To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, jishnu.prakash@oss.qualcomm.com,
- kamal.wadhwa@oss.qualcomm.com
-References: <20260706-add_pm4125-vbus-reg-v3-0-999d78a87b81@oss.qualcomm.com>
- <20260706-add_pm4125-vbus-reg-v3-4-999d78a87b81@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260706-add_pm4125-vbus-reg-v3-4-999d78a87b81@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGYHTWoC/23Q3WrEIBAF4FdZvK7FGX8Se9X3WHqhcdwV2lhMk
+ S1L3r1mKaQlXh7Bbw7nzhYqiRb2crqzQjUtKc8tDE8nNl3dfCGeQssMBRqBMHIXrAXBU8o8lFS
+ pcOtlQFATaois/fssFNPtYZ7fWr6m5SuX78eJCtvrr4aio1XggkuPRjmnRgfi1c3uPV+ep/zBN
+ q7iTshuoYqNoMFGKz1NEeBAyJ1QMPQI2Qi03soB0CGOB0LthBbdFqoRAY2PAQWRDAdC/yH6LfS
+ 2BWhrp3GUoNyBMDth+luYRgwWUMfoScn/c67r+gNv4RiRAgIAAA==
+X-Change-ID: 20260218-ad9910-iio-driver-9b3d214c251f
+To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783433065; l=7884;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=VVduthgyM0ls5bM2bLDjpqwtpzsb3QYUHtpF9OYaiZs=;
+ b=8EistSINOpKLMgs2rNuyOXAOeECwKPLhFJOvW3sHtajgED8gDlIvXCRvIt3m3uuXouDGC62Rg
+ xZ/iaM8nFnkCoUqeAEquRqyh6UHE+ysKqZFsL/XLkVd+EKEF/uAfveW
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
 
-On 06/07/2026 14:31, Rakesh Kota wrote:
-> Remove pm8150b fallback compatible from pm4125_vbus and fix regulator
-> constraints in qrb2210 DTS files to use microvolt instead of
-> microamp.
-> 
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/pm4125.dtsi               | 2 +-
->  arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 4 ++--
->  arch/arm64/boot/dts/qcom/qrb2210-rb1.dts           | 4 ++--
->  3 files changed, 5 insertions(+), 5 deletions(-)
-> 
+This patch series adds support for the Analog Devices AD9910 DDS.
 
-Bjorn,
-Please pick it up. The regulator patch introduced new warnings on
-previously warning-free Arduino and this should fix it up:
+This is a follow-up of the V3/V4/V5 discussion. For V1, we reached into
+this channel composition agreement where physical channels may have
+sub-channels. That adds the flexibility necessary for this design.
+During V2, some feedback indicated that the ABI is too device-specific,
+so DRG/RAM destination and operating modes are configured through
+alternate paths and profile channels are created. In V3/V4/V5, there was
+further discussion on the ABI and on mode priority debug.
 
-qrb2210-arduino-imola.dtb: pmic@0 (qcom,pm2250):
-usb-vbus-regulator@1100: 'regulator-min-microvolt' is a required property
-qrb2210-arduino-imola.dtb: pmic@0 (qcom,pm2250):
-usb-vbus-regulator@1100: 'regulator-max-microvolt' is a required property
-com/qrb2210-arduino-imola.dtb: pmic@0 (qcom,pm2250):
-usb-vbus-regulator@1100:compatible: 'oneOf' conditional failed, one must
-be fixed
+The AD9910 DDS core can be driven through several independent mechanisms:
+single tone profiles, a digital ramp generator, an internal RAM playback
+engine, a parallel data port, and output shift keying. Each of these
+represents a distinct signal path into the DDS accumulator, so the driver
+models them as separate IIO output channels (IIO_ALTCURRENT, IIO_PHASE
+and IIO_FREQUENCY). This per-channel separation allows userspace to
+configure each mode independently through its own set of sysfs attributes,
+and to enable/disable modes individually via IIO_CHAN_INFO_ENABLE, relying
+on the hardware's own mode selection architecture.
 
-https://krzk.eu/#/builders/102/builds/145/steps/17/logs/stdio
+The AD9910 register map is not suited for the regmap framework: register
+widths vary across the map (16, 32, and 64 bits). The driver instead
+implements direct SPI access helpers with a software register cache, using
+type-specific read/write/update functions (ad9910_reg{16,32,64}_{read,
+write,update}) that handle endianness conversion and cache coherency.
+
+Registers are cached for several reasons. The control/function registers
+(CFR1, CFR2) are frequently queried to determine the current operating
+mode (e.g., checking RAM_ENABLE before every profile register access),
+and caching avoids repeated SPI read transactions for what are
+essentially state checks. The cache also enables efficient
+read-modify-write updates on multi-byte registers: the update functions
+merge new field values with the cached register content without issuing
+a SPI read, and skip the write entirely when the value is unchanged.
+Finally, the profile registers serve dual purposes depending on whether
+RAM mode is active -- they hold single tone parameters (FTW, POW, ASF)
+in normal operation but are repurposed for RAM playback configuration
+(start/end address, step rate, operating mode) when RAM is enabled. A
+shadow register array (reg_profile[]) preserves the inactive mode's
+settings across transitions, so no state is lost when switching between
+single tone and RAM operation.
+
+RAM data is loaded through firmware upload infrastructure. Userspace
+writes the waveform data as a raw binary buffer (up to 4096 bytes for
+the full 1024x32-bit RAM), and the driver reverses the byte array and
+transfers it to the device in a single SPI transaction. Per-profile
+start/end addresses and playback parameters (operating mode, step rate,
+no-dwell control) are also configured through firmware update, using
+metadata in the header.
+
+Streaming data to the DDS core through the parallel data port at the
+PD_CLK rate is not covered by this series. That functionality would
+be added in a separate patch series, building on top of the IIO backend
+infrastructure to provide a proper buffered data path.
+
+Kind regards,
+
+Rodrigo Alencar
+
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+Changes in v7:
+- Use seq_buf instead of scnprintf() in __iio_chan_prefix_emit().
+- Add tests for __iio_chan_prefix_emit().
+- #clock-cells as required in the dt-binding.
+- Add drctl as pwm in the dt-binding.
+- Check refclk freq range when pll is disabled.
+- Address other minor feedback (e.g. sashiko's ones) 
+- Link to v6: https://lore.kernel.org/r/20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com
+
+Changes in v6:
+- Introduce IIO_FREQUENCY channel type.
+- Replace altvoltage channels for altcurrent.
+- DRG and Parallel Port destination handled with different channel types.
+- Parent attribute shows channel prefix rather than label.
+- Link to v5: https://lore.kernel.org/r/20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com
+
+Changes in v5:
+- Drop RFC tag to the patch series.
+- Address sashiko's comments.
+- Add parent-child relationship between iio channels.
+- List vs Table changes in documentation.
+- Add crc and version check to RAM mode firmware update.
+- Link to v4: https://lore.kernel.org/r/20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com
+
+Changes in v4:
+- Digital Ramp step exposed as a rate of change.
+- Dwell modes of Digital Ramp are controlled with dwell_en attribute. 
+- Disable of active profile behaves as a software powerdown.
+- Expose debugfs attributes to show mode priority.
+- Add 64-bit debugfs reg access support into iio core.
+- Link to v3: https://lore.kernel.org/r/20260417-ad9910-iio-driver-v3-0-29b93712a228@analog.com
+
+Changes in v3:
+- RAM custom configs (address range, destination, modes) loaded during firmware write.
+- DRG destination defined when attrs are written.
+- DRG modes broken down into enable attrs for ramp up/down channels.
+- Add separate profile channels, switching done through enable attr
+- Link to v2: https://lore.kernel.org/r/20260318-ad9910-iio-driver-v2-0-e79f93becf11@analog.com
+
+Changes in v2:
+- Device-tree bindings changes.
+- RAM loading to use firmware update interface.
+- Rearrange of channels into a hierarchy.
+- Link to v1: https://lore.kernel.org/r/20260220-ad9910-iio-driver-v1-0-3b264aa48a10@analog.com
+
+---
+Rodrigo Alencar (17):
+      iio: ABI: add attributes for altcurrent channels
+      iio: ABI: scale and offset for frequency/phase channels
+      iio: ABI: add parent entry for iio channels
+      iio: add IIO_FREQUENCY channel type
+      iio: core: support 64-bit register through debugfs
+      iio: core: create local __iio_chan_prefix_emit() for reuse
+      iio: test: add kunit tests for channel prefix naming generation
+      iio: core: add hierarchical channel relationships
+      dt-bindings: iio: frequency: add ad9910
+      iio: frequency: ad9910: initial driver implementation
+      iio: frequency: ad9910: add basic parallel port support
+      iio: frequency: ad9910: add digital ramp generator support
+      iio: frequency: ad9910: add RAM mode support
+      iio: frequency: ad9910: add output shift keying support
+      iio: frequency: ad9910: show channel priority in debugfs
+      iio: ABI: add docs for ad9910 sysfs and debugfs entries
+      docs: iio: add documentation for ad9910 driver
+
+ Documentation/ABI/testing/debugfs-iio-ad9910       |   60 +
+ Documentation/ABI/testing/sysfs-bus-iio            |   46 +
+ .../ABI/testing/sysfs-bus-iio-frequency-ad9910     |   31 +
+ .../bindings/iio/frequency/adi,ad9910.yaml         |  209 ++
+ Documentation/iio/ad9910.rst                       |  792 +++++++
+ Documentation/iio/index.rst                        |    1 +
+ MAINTAINERS                                        |   19 +
+ drivers/iio/frequency/Kconfig                      |   21 +
+ drivers/iio/frequency/Makefile                     |    1 +
+ drivers/iio/frequency/ad9910.c                     | 2356 ++++++++++++++++++++
+ drivers/iio/industrialio-core.c                    |  247 +-
+ drivers/iio/test/Kconfig                           |   14 +
+ drivers/iio/test/iio-test-channel-prefix.c         |  246 ++
+ include/linux/iio/iio-opaque.h                     |    2 +-
+ include/linux/iio/iio.h                            |   12 +
+ include/uapi/linux/iio/types.h                     |    1 +
+ tools/iio/iio_event_monitor.c                      |    2 +
+ 17 files changed, 3949 insertions(+), 111 deletions(-)
+---
+base-commit: 093239070573637ad2b4cb56abc9c4c7ee109294
+change-id: 20260218-ad9910-iio-driver-9b3d214c251f
 
 Best regards,
-Krzysztof
+-- 
+Rodrigo Alencar <rodrigo.alencar@analog.com>
+
+
