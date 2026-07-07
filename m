@@ -1,230 +1,151 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2897241226E
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A663F99ED
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783428866; cv=none; b=KOrwLguZIiBfoNlEiXbqdoQeVhYPRLiVirZfn/TzLdI2h8brrhkfgxgkxvcvA9Ni6VqfYQgRVtVJlO5aEL4mPeWcQz7rfEBo2xtahbhhmfWz2dLNB/0+H1HLx3hzLxMxLEwtTvFADli2wtp4u+RbJV7l9YShDD0SswR7CUC2WXQ=
+	t=1783428891; cv=none; b=TAPCyHsecaAMj2MXRtgxjSn9p9M9Dcqoe8yLucvRkBifNJQniUkvAsfmG4elOcFJjt07IrzTDh18c02Ae2iJgfhchSl49A//4sdBFt3Mu7KbD7NPQuhy3VrWV3tJA2nQuR0J7zBB6zGmx6ldlP9vQ0BzeJ2ch6tjmJLCb1WWLQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783428866; c=relaxed/simple;
-	bh=vIrR6RiNfaEMyvLmoZz63np42ffEcnhsXG50Az0tj0c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bDxbNi/nZLvGfFtBn0tFa11Zfl3ur5zk5hZtc49FbI1GZEOw2GgZ5ruP5vZX7V/ZDed8zWfu/lCYw5bqifB7xiADpaGZlVFOnAtXZoHCAgwlLYFLwN0Dg/P+HGsgmRuUo2NvvJBIe+U7leW06jCTJnkHnxMyCvIIDsJkhZAq+7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=fn7+EIdM; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
+	s=arc-20240116; t=1783428891; c=relaxed/simple;
+	bh=eQxcA6aoqpvNPpJUfx++PcXWoeVnTH4CGe7mGu8mAQM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fyw2xgkTZF6PuGJSGErLDPYXJiUTFdewUIeg77XTqlF7YSC2hESRtieT1VXO4WBnKDe3YpYgspICrwikKMfkiqnYlkK74BzVtJtbckeEqAYz4odN6jQTNDWfM6cXyNqZW7OKBB5h7OI0f76GgKR/jHO05FIdShFUPxFNy3rRHnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9IqtOOm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="fn7+EIdM"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9eefcf9175so3558870a12.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:54:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vayavyalabs.com; s=google; t=1783428864; x=1784033664; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y2+9wI7QJ/pqWECxFNZ2yWeT95DuedF5MMaqTIHojtM=;
-        b=fn7+EIdMYiI/XEOZK413dsVl5o+Fd2Rbhc9CBgNwO9pvgTvZvAyIPcxYYmEBv32u7P
-         DTI1N1Bx5BQB/BGEjCQMjAaX4CD290OAX76m/qqnFSTYiHxawQJiVCgXIE5IitvXT69R
-         JpXoqOpdhCWs7B6YoC3M0lngpMKwDmfivTTXs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783428864; x=1784033664;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y2+9wI7QJ/pqWECxFNZ2yWeT95DuedF5MMaqTIHojtM=;
-        b=QIArq8TCd/WYkafjeC0mXL1wVPiK7fTUYjSwQOT5abNPt3Fx/Dmd32VjXHI49ZP0BN
-         bDyqIRgsgKCNbd65RtjM1lf5LMN8XJX30BJzRRFNdkvuDifk5w1iWEncIs2e327ZRthO
-         gOTImvkjfFCstCHx0XrkohCV3YBX3FQxy77Ngw2PwKgSntWFY8AYzTZ2HO7SsuzihhDg
-         Afc9qFtyd/8Xs3QYudFgOEOPapj3oKgdONHfqcPnOSAopq16Svd4X0bArp0MXMhLQ0jB
-         Rv7uiEsqSo+U8oEgGuY5WN3hINCGPpGT27bD7+/yrxK2JPDTVcTyMJOhfMAaivhhgU+Z
-         xxgA==
-X-Forwarded-Encrypted: i=1; AHgh+RroyE/i+A6KQF7JPtXmPS1oNYS6IvzqEycYdEPycN6FHGxlOdXS4GUZ/rcNrawK6/EaLsxl3o4qgu69@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJfD1VU8hJh/id6TIwRAX9SizdWH24WQK/Rp0rBqG3AWKx5v86
-	/exBX7sWvo1hA8gD560vCIqmcoCwMckjv4cuTGoVrCI91b5PrTGi3OgULOXkTBPErHQ=
-X-Gm-Gg: AfdE7cnPQN7DRRo9/wF34Gbo/1iy+KaO3QzF0AkMSBEcwlU2kAWPDVX5tmbrdbuzCYd
-	nRdQwJDDdTDUDs+n1ThiRHsCvs/0QRe23LUMLofQ1bxXaW97c/N89RW3Nyd7WsTOz0byyr/lmky
-	/b0mshdeH8UvATvrYnHN/ESXr99MP/1EWuvsvtarMjEVj/hx6fd/t+IqrAs39imFrTGj+2q5Wgu
-	wVIUIcWvUEQ0OtSC68IklEkM4xy7fPrd/4xa0X1cssEHKjNYWleoKYMM4E87EqVphnf1FzmNdWH
-	okxO19AmjLZoOQQVQbK6/trfa2xOlhtSIkwIxuINT74lR6VOuhDMmMY4T73hhBNliQtdlf69oJj
-	bH4Udc3OLpIbqW5oHQF1AgGeRIi0L7upITHGVCVHTx9rTcbDmgFtxYScnhKCPezUD8eC9ZSOYzL
-	JWXzJ2dAEiK2ef6q2/rgLU+d+saqhth9Ilmk5A812l++jAOqSygRRLvuVB7l/g+2jmUEbI9v7dw
-	w0zQDe5/E8fuZTyoMy/EnLBJD3lslb/wLdnfL2oYTUfGywlPcxqmL8DBxnaCjFfb4Q=
-X-Received: by 2002:a05:6a20:72a3:b0:3bf:e449:332a with SMTP id adf61e73a8af0-3c08ec76882mr6365583637.3.1783428864494;
-        Tue, 07 Jul 2026 05:54:24 -0700 (PDT)
-Received: from localhost.localdomain ([103.108.57.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659fa13bsm7945671c88.15.2026.07.07.05.54.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 05:54:24 -0700 (PDT)
-From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-To: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	herbert@gondor.apana.org.au,
-	robh@kernel.org
-Cc: krzk@kernel.org,
-	conor+dt@kernel.org,
-	Ruud.Derwig@synopsys.com,
-	rbannerm@synopsys.com,
-	manjunath.hadli@vayavyalabs.com,
-	adityak@vayavyalabs.com,
-	navami.telsang@vayavyalabs.com,
-	bhoomikak@vayavyalabs.com,
-	Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Subject: [PATCH v16 4/4] crypto: spacc - Add SPAcc Kconfig and Makefile
-Date: Tue,  7 Jul 2026 18:23:11 +0530
-Message-Id: <20260707125311.2398031-5-pavitrakumarm@vayavyalabs.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260707125311.2398031-1-pavitrakumarm@vayavyalabs.com>
-References: <20260707125311.2398031-1-pavitrakumarm@vayavyalabs.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9IqtOOm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F12591F000E9;
+	Tue,  7 Jul 2026 12:54:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783428890;
+	bh=SUUdMJSL0rK7As7vNIw0M58+s47xv8ow2DUN2o8N+hk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P9IqtOOmrt/N5W1q9FSBdPPr9vxAS1cvc/SQYoAmA6NbhW0jV7U60/i60Z7lFtYuP
+	 NkOm1XZlaW3vq1CuJ37GCOcokd/M/E8bGy7B3V792NhGgOwHzLnKdLcQAGXGsVKXFH
+	 EqMrwBT9LeBO1PTwnmFN360Z8OrNbGcY6eTiejDnFtoZ3u/6Uqe9+kZpyBb+4uuQ4P
+	 SoRGibIx/si8ot71GWbSIz13uFTATtayaI9p6xswuJSK5ZSuMMZgdWBVbdUduhFdoJ
+	 YfoH4X6lIKPUF+NCO9ymtMuNLI7lsf2Y/+UbIxdjTUR6wOaeYy5VZHYMo62wk2jujc
+	 fYidod4ZlMStQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/4] arm64: dts: qcom: Add device tree for Nord SoC
+ series
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260707123902.3868016-2-shengchao.guo@oss.qualcomm.com>
+References: <20260707123902.3868016-1-shengchao.guo@oss.qualcomm.com>
+ <20260707123902.3868016-2-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 12:54:49 +0000
+Message-Id: <20260707125449.F12591F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add Makefile and Kconfig for SPAcc driver.
-
-Acked-by: Ross Bannerman <rbannerm@synopsys.com>
-Signed-off-by: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
----
- drivers/crypto/Kconfig            |  1 +
- drivers/crypto/Makefile           |  1 +
- drivers/crypto/dwc-spacc/Kconfig  | 83 +++++++++++++++++++++++++++++++
- drivers/crypto/dwc-spacc/Makefile |  8 +++
- 4 files changed, 93 insertions(+)
- create mode 100644 drivers/crypto/dwc-spacc/Kconfig
- create mode 100644 drivers/crypto/dwc-spacc/Makefile
-
-diff --git a/drivers/crypto/Kconfig b/drivers/crypto/Kconfig
-index 03a8f7a1f75e8..6d2aed809a4f6 100644
---- a/drivers/crypto/Kconfig
-+++ b/drivers/crypto/Kconfig
-@@ -730,6 +730,7 @@ config CRYPTO_DEV_BCM_SPU
- 	  ahash, and aead algorithms with the kernel cryptographic API.
-
- source "drivers/crypto/stm32/Kconfig"
-+source "drivers/crypto/dwc-spacc/Kconfig"
-
- config CRYPTO_DEV_SAFEXCEL
- 	tristate "Inside Secure's SafeXcel cryptographic engine driver"
-diff --git a/drivers/crypto/Makefile b/drivers/crypto/Makefile
-index 2c33b83f3cfa6..b80f211598bbc 100644
---- a/drivers/crypto/Makefile
-+++ b/drivers/crypto/Makefile
-@@ -40,6 +40,7 @@ obj-$(CONFIG_CRYPTO_DEV_BCM_SPU) += bcm/
- obj-y += inside-secure/
- obj-$(CONFIG_CRYPTO_DEV_ARTPEC6) += axis/
- obj-y += xilinx/
-+obj-y += dwc-spacc/
- obj-y += hisilicon/
- obj-$(CONFIG_CRYPTO_DEV_AMLOGIC_GXL) += amlogic/
- obj-y += intel/
-diff --git a/drivers/crypto/dwc-spacc/Kconfig b/drivers/crypto/dwc-spacc/Kconfig
-new file mode 100644
-index 0000000000000..a9172606d77aa
---- /dev/null
-+++ b/drivers/crypto/dwc-spacc/Kconfig
-@@ -0,0 +1,83 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+config CRYPTO_DEV_SPACC
-+	tristate "Support for dwc_spacc Security Protocol Accelerator"
-+	depends on HAS_DMA
-+	select CRYPTO_ENGINE
-+	default n
-+
-+	help
-+	  This enables support for SPAcc Hardware Accelerator.
-+
-+if CRYPTO_DEV_SPACC
-+
-+config CRYPTO_DEV_SPACC_HASH
-+	bool "Enable HASH functionality"
-+	default y
-+	select CRYPTO_HASH
-+	select CRYPTO_SHA1
-+	select CRYPTO_MD5
-+	select CRYPTO_SHA256
-+	select CRYPTO_SHA512
-+	select CRYPTO_HMAC
-+	select CRYPTO_SM3
-+	select CRYPTO_CMAC
-+	select CRYPTO_XCBC
-+	select CRYPTO_AES
-+	select CRYPTO_SM4_GENERIC
-+
-+	help
-+	  Say y to enable Hash functionality of SPAcc.
-+
-+config CRYPTO_DEV_SPACC_AUTODETECT
-+	bool "Enable Autodetect functionality"
-+	default y
-+	help
-+	  Say y to enable Autodetect functionality of SPAcc.
-+
-+config CRYPTO_DEV_SPACC_DEBUG_TRACE_IO
-+	bool "Enable Trace MMIO reads/writes stats"
-+	default n
-+	help
-+	  Say y to enable Trace MMIO reads/writes stats.
-+	  To Debug and trace IO register read/write oprations.
-+
-+config CRYPTO_DEV_SPACC_DEBUG_TRACE_DDT
-+	bool "Enable Trace DDT entries stats"
-+	default n
-+	help
-+	  Say y to enable Enable DDT entry stats.
-+	  To Debug and trace DDT opration
-+
-+config CRYPTO_DEV_SPACC_SECURE_MODE
-+	bool "Enable Spacc secure mode stats"
-+	default n
-+	help
-+	  Say y to enable SPAcc secure modes stats.
-+
-+config CRYPTO_DEV_SPACC_PRIORITY
-+	int "VSPACC priority value"
-+	range 0 15
-+	default 1
-+	help
-+	  Default arbitration priority weight for this Virtual SPAcc instance.
-+	  Hardware resets this to 1. Higher values means higher priority.
-+
-+config CRYPTO_DEV_SPACC_INTERNAL_COUNTER
-+	int "SPAcc internal counter value"
-+	range 100000 1048575
-+	default 100000
-+	help
-+	  This value configures a hardware watchdog counter in the SPAcc engine.
-+	  The counter starts ticking when a completed cryptographic job is
-+	  sitting in the STATUS FIFO. If the job remains unprocessed for the
-+	  configured duration, an interrupt is triggered to ensure it is serviced.
-+
-+config CRYPTO_DEV_SPACC_CONFIG_DEBUG
-+	bool "Enable SPAcc debug logs"
-+	default n
-+	help
-+          Say y to enable additional debug prints and diagnostics in the
-+	  SPAcc driver. Disable this for production builds.
-+
-+endif # CRYPTO_DEV_SPACC
-diff --git a/drivers/crypto/dwc-spacc/Makefile b/drivers/crypto/dwc-spacc/Makefile
-new file mode 100644
-index 0000000000000..45d0166dfc8f7
---- /dev/null
-+++ b/drivers/crypto/dwc-spacc/Makefile
-@@ -0,0 +1,8 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_CRYPTO_DEV_SPACC) += snps-spacc.o
-+snps-spacc-objs = spacc_hal.o spacc_core.o \
-+spacc_manager.o spacc_interrupt.o spacc_device.o
-+
-+ifeq ($(CONFIG_CRYPTO_DEV_SPACC_HASH),y)
-+snps-spacc-objs += spacc_ahash.o
-+endif
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] All thermal zones incorrectly configure their highest trip point a=
+s 'passive' instead of 'critical'.
+- [High] The QUPv3 wrapper nodes (`qupv3_0`, `qupv3_1`, `qupv3_2`) and thei=
+r child serial engines are missing the mandatory `clocks` and `clock-names`=
+ properties.
+- [Medium] The QUPv3 wrapper nodes lack the `dma-coherent;` property despit=
+e operating behind DMA-coherent SMMUs.
 --
-2.25.1
 
+--- Patch [1]: [PATCH v4 1/4] arm64: dts: qcom: Add device tree for Nord So=
+C series ---
+commit 5f24b1554bc5bc9f0d13a6a874f148ee166082f5
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: arm64: dts: qcom: Add device tree for Nord SoC series
+
+This commit adds the base device tree include for the Qualcomm Nord SoC
+series. It describes core hardware components like CPUs, interrupt
+controllers, GPIO, thermal sensors, memory mappings, and QUP blocks.
+
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+[ ... ]
+> +	soc: soc@0 {
+> +		compatible =3D "simple-bus";
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		dma-ranges =3D <0 0 0 0 0x10 0>;
+> +		ranges =3D <0 0 0 0 0x10 0>;
+> +
+> +		qupv3_2: geniqup@8c0000 {
+> +			compatible =3D "qcom,geni-se-qup";
+> +			reg =3D <0x0 0x008c0000 0x0 0x2000>;
+> +			#address-cells =3D <2>;
+> +			#size-cells =3D <2>;
+> +			iommus =3D <&apps_smmu_0 0x15a3 0x0>;
+> +			ranges;
+
+[Severity: High]
+Are these QUPv3 wrapper nodes (and their child serial engines) missing
+the mandatory clocks and clock-names properties?
+
+The qcom,geni-se-qup compatible string instructs the driver to request
+two clocks (m-ahb and s-ahb). Because these properties are omitted, the
+probe function will fail immediately with -ENOENT when validating the
+clock count, leaving the QUP wrappers and all their child serial engines
+unusable.
+
+[Severity: Medium]
+Should this node also include the dma-coherent property?
+
+The apps_smmu_0, apps_smmu_1, and apps_smmu_2 IOMMUs are explicitly
+marked as dma-coherent. However, because the parent soc node does not
+declare dma-coherent, the QUP wrappers must explicitly define it so that
+child serial engines inherit the coherency property.
+
+Omitting it causes the DMA API to fall back to non-coherent mappings,
+leading to unnecessary CPU cache maintenance operations on every DMA
+transfer.
+
+> +
+> +			i2c14: i2c@880000 {
+[ ... ]
+> +	thermal_zones: thermal-zones {
+> +		ddr-0-0-thermal {
+> +			polling-delay-passive =3D <0>;
+> +			polling-delay =3D <0>;
+> +			thermal-sensors =3D <&tsens0 0>;
+> +
+> +			trips {
+> +				trip-point0 {
+> +					temperature =3D <105000>;
+> +					hysteresis =3D <10000>;
+> +					type =3D "passive";
+> +				};
+> +
+> +				trip-point1 {
+> +					temperature =3D <115000>;
+> +					hysteresis =3D <10000>;
+> +					type =3D "passive";
+> +				};
+
+[Severity: High]
+Is the highest trip point intentionally configured as passive instead
+of critical here and across the other thermal zones?
+
+When the hardware reaches high temperature thresholds like 115C or 125C,
+having the type set to passive means the Linux thermal core will only
+attempt passive cooling (throttling) and will not initiate an emergency
+shutdown.
+
+Without a critical trip point, temperatures could continue to rise until
+the hardware's protection circuit forcibly cuts power, which can lead to
+data corruption or permanent hardware damage.
+
+> +			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707123902.3868=
+016-1-shengchao.guo@oss.qualcomm.com?part=3D1
