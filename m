@@ -1,47 +1,48 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7153D3B6BF7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085A33B71BE;
 	Tue,  7 Jul 2026 19:44:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783453488; cv=none; b=nYI8Z6AdexBqldoUeVd9Qtp38QOYCROVlh+0aPtvG8ag7V51+odF/XdQLPwBkAu6Vl5Lm222m0qcPQRfOJPJhAgKRqU9+zUSHYKHOGXVsW63sDZtEKMcF3YxSKfzZrqwI7A2UKeQCQoiOkpcT4wv29el16Nx9KJOD+v4pl5+u6M=
+	t=1783453489; cv=none; b=BIpShylHjOph8b3CkLTkg7PpnDIPAkGxgvWxiMYJ6WpDBhVZJiya2Iz3x685SrE55S3Kxi/sPl3THV2tbNzQ1/0aCCpwjBFbpU5esV9itgMnWTQ0da+PxWcO+mq6yordNbHXfze8KpjFQg8qK1bdF8TvtW6dI/yqDuudH+aNfJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783453488; c=relaxed/simple;
-	bh=OjM1dIpzhhegsiKikn5et/JVUcGRuXRAzMRdH+7j2Wc=;
+	s=arc-20240116; t=1783453489; c=relaxed/simple;
+	bh=w68QtZ4yOpk8U2rpdz0LpLoO0QDEIMkMVU3WmdCU0to=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fC79nYz6eK/BtnmM+zlCHOfg/6ATJB2oVTgMb6j7KGoyMfjTCWfFEIpYvadLzteWWhrvTJzQE2WiBuNcTwUWxSPoRnmHe/esxiBKpW1c/qgV1dJ+IGzbvfww9EarEFL1GMXmbiHYbC3hNCdivCg3iGzpjhQKKChHpGVY4oZEkfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Rj8hJ71k; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=t3HZ3HmVCTQVJjUwMv5MjmoxzGadOz9Pvc5fm+LqE7Gv9XC/ZvTCy4nJWQLfa7EklX51IgS/KUA0XTNqJ2f98d3fjzRgjTtE26nJ3Xqnc894t9H0CXA/+w4dCInkuHgWSeOIKB8LDPXgc9e0BqmJVMD2y8nBcarteF9C2ZOsCD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=QlaTUEzW; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Rj8hJ71k"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="QlaTUEzW"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=9f9Cvj2KSde9fRau9nU9jeL+1j23YWkk4574iWOOJXo=; b=Rj8hJ71k4borJmrIC2KxsgFdTq
-	+VkuMIyJ6mIo+3jqjiZNA9vj5VGc5v2xlHI7v0oVYGk/TWj9fGWhUGNy3UKtTJjaGC/yedWsazSuf
-	1tGfQtAO7TT62+yz+ZrmAlhUUIy4iIEQZAN9rzIZi00Zvp5SD652+4/PbLI14CCzaeWVkEoEZmKey
-	mGeogaKNdETJ5MEyzvhplzHnDsxIVQe1nsApHqVWNccYqsjMTtLdAlPA8SsxwF5ye9ZfJ6xuM64zH
-	JA+mMrCO82B13/5Z7VuZ/l4JZ29th/06P0dbjAc5cyBrZBk0HEMRJpTcI6USmfumsHpXKkQ0fyatr
-	8XSfkNJg==;
+	bh=9ij1iSA9fklslnNcgneWEKunccclcxZxRrXNrqVXuxo=; b=QlaTUEzWqoph4tNYXOWo/S/OP4
+	huKUpcksH82KeEOGVOr5gtkikchYjdGQSuuoJgJqm768E/zH390u5xJF7rQrhC2Eeocmp1ZNOy+gB
+	um5IukqbyaskBRC2xcnxE1jC2fcIdqApAeiR9wgWXtIKoU+Iibl1/ddQEtC7U6z6Tv9TobFAYU9Ao
+	UAXJYiAs6gPWabnOQctuHkXOn2GmxWgwDWLvWUMUW3xvcAYd5BoV5x4rO8BKka5EpgBHildVcXm4d
+	ChG2A0QJbNNWEhZAH7T63hqesyzkDuQHiaUGP2SBVVz7LKIpkYZvPTXLH4fFXmmP+hsDOElD7vsl6
+	H3o+Gbrw==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Elaine Zhang <zhangqing@rock-chips.com>,
+	David Petry <petry103@gmail.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Vsevolod Kozlov <zaba@mm.st>
+Cc: Heiko Stuebner <heiko@sntech.de>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Heiko Stuebner <heiko@sntech.de>
-Subject: Re: [PATCH 1/2] dt-bindings: rockchip: pmu: Narrow definition of reboot-mode
-Date: Tue,  7 Jul 2026 21:44:32 +0200
-Message-ID: <178345345848.664858.15922395581813500396.b4-ty@sntech.de>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: fan speed control for FriendlyELEC CM3588 NAS
+Date: Tue,  7 Jul 2026 21:44:34 +0200
+Message-ID: <178345345844.664858.3572226528191999006.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260701105849.197086-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260701105849.197086-3-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <akkAvJap-MtbKp8B@Vsevolods-MacBook-Pro.local>
+References: <akkAvJap-MtbKp8B@Vsevolods-MacBook-Pro.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,27 +53,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 01 Jul 2026 12:58:50 +0200, Krzysztof Kozlowski wrote:
-> The 'reboot-mode' child of PMU node must be a syscon-reboot-mode one, so
-> add missing $ref to enforce the validation and disallow other
-> reboot-mode handlers.
-> Defining 'type: object' is on the other hand not necessary when other
-> schema is referenced.
+On Sat, 04 Jul 2026 15:46:52 +0300, Vsevolod Kozlov wrote:
+> The FriendlyELEC CM3588 NAS kit is often supplied with a case and a fan.
+> Enable control of the speed of the fan using the trip points and cooling
+> maps from rk3588-nanopc-t6.dtsi as a reference.
 > 
-> This can be further restricted to match hardware/firmware:
-> syscon-reboot-mode schema allows arbitrary "mode-.* properties but only
-> a subset actually makes sense and is valid.  Provide negative look-ahead
-> pattern to disallow any modes not supported by the device, which
-> tightens the binding.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: rockchip: pmu: Narrow definition of reboot-mode
-      commit: c63037c69a5173dd87efde82bfa4c339adefd72e
-[2/2] dt-bindings: rockchip: grf: Narrow allowed reboot modes
-      commit: 39eace59ac826465fae0788d0a6b304ec94f9944
+[1/1] arm64: dts: rockchip: fan speed control for FriendlyELEC CM3588 NAS
+      commit: 2035369f672fed6ec8430e8876de38b2f5d3f7c1
 
 Best regards,
 -- 
