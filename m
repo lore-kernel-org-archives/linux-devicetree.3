@@ -1,83 +1,230 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AE83F4DC1;
-	Tue,  7 Jul 2026 12:43:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02DE3F88BA
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783428191; cv=none; b=N+VvJMJR0gesR8q3wAJh8oTEn+WKvieBn1LAFVOWTOGTKvaO2wru3mFa9D8e9O51/DqYRACqG8QmHyo8T9VCeJyKXCG034dzGZDpZg+lB3zaYusftKQloqnO8GEPGL8ofnA+MmJv3tWVw1lND90FTa7o0ieMi7t0h1VrR5VKjVk=
+	t=1783428224; cv=none; b=YTK33x+GfBcMNjFjUKDzePMc25yvXUsl74QMH8YwC5HcuoUnuG70FkLgYI4fL5vejdSr73kxH5n9fXANHtmjNdwBLpkIpoJrXi6G321ZNWfk5fAjMPkO/6bHhpQ0iWc8vFqeue82RikqwebLknykIRRdGrWtef4+zezhMPmynzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783428191; c=relaxed/simple;
-	bh=spjdZUxyFc6sRcTtWGbYVwY5Vvl7/q1NRDmjtMtiiZs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OOWkLR5ERAhX4JlxapFGyTXt7S9RrWU0khoOzWzvu9g0ZLReacvU3LKNb1hYa9JCLH5sNZhRiwCF67/6I9WnoZBMHZpY2T0KDvrYdegrHC5O6no4w4pHAcW0BKsDj27zb7KlFDGWpq5IWmOCbH8ItqsN8jPXwpqQL0ze/sYxEx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=xNDKmKLF; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1783428224; c=relaxed/simple;
+	bh=HIa3+rAgrRArNIkEV4Iec1cWuujGzQMb42jU5Ro8y1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Io70JKDYGOwa+J0Mo50JbKHvr1RhyCZYuAPAVroun2C1LdyxEI9N+5gSpHuAMxuhg70587fWYg5IMGugYHGOdUBxV+PJXrd7UgJWmEumscfC6mfNxaum4yoroAzSDpRk1/NHhgsdmEDKUYXf3IDsvCBUNdjdlHVwHzCqQWbonu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GLAd3zKf; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="xNDKmKLF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=WGnoM0RyzV43Ghs+593I0p51zAgB7jugq7icsoB0chY=; b=xNDKmKLFkXiDfSxJf42Y4VuQ/H
-	iY+XPbQPA+WTT2gt1DBe+ndWSah2pwzWw/48J+/MjYBlMrvn+qamvRT2EPSZPHWNUM6y1uELHYTKC
-	tr4NlHmGMudpIDbYttbTlcC1757lpNT5KOlwf6See3A1E56VGaR0ZRimxDoMGhUjfrlQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wh58a-00BA3I-EW; Tue, 07 Jul 2026 14:42:56 +0200
-Date: Tue, 7 Jul 2026 14:42:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Biao Huang <biao.huang@mediatek.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
-	kernel@collabora.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next 1/6] dt-bindings: net: mediatek-dwmac: add
- support for MT8189 SoC
-Message-ID: <b810b9cd-8f5e-4c9d-8496-908aae55dac1@lunn.ch>
-References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
- <20260707-dwmac-mediatek-mt8189-v1-1-17f345eaaca3@collabora.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GLAd3zKf"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-698bf053053so6100282a12.3
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:43:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1783428221; x=1784033021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tloVg2Aaw8Y3KQHI7A7bfES+Qd3tOWSZufAREWX/SmA=;
+        b=GLAd3zKf03yGZvFPtbtossWPJl6G+JyQZ3DejXMb+tJsYh94gfUTVGe0QgzppMPh2c
+         228bsNHWUPnNziegW9OfRk5n2kKbDLUtYgkQD1jo41LpOhRsxC4od8Qag+rj6+dYKjSS
+         zLDlrnUoNl6R4wDIrSTgafKR0itUYGvgsPwgNjclY637Cic3ka07Ezyk/UGiNzVXmD8N
+         hc1DiG914FEOSR8fZmbYgttXLkdMuo14zpW7dlc3dHxJdhFJy0ngOeITioz2LvLMLoEd
+         zLolZEQcqJuGymbKDfxwtuoxKDtDcTRBEqe4e/kelF2XZoUBZvwrrB8/3N20yusp5xgg
+         wJuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783428221; x=1784033021;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tloVg2Aaw8Y3KQHI7A7bfES+Qd3tOWSZufAREWX/SmA=;
+        b=gfQPbhcjLqnaODjlmMMPiIkgN+IflnvkPqeg3VgjW4oXjf43rPB8xe9ZG2y79/Eivo
+         /oxTdzRK7M3F1K+bb3K/Q8pqXZhthF/clwK8ecLpguOVnmTO7Oqfuo3rjp46xUSxhTQ9
+         rn2FLqRTk93o6GEQsrHtEMB9BJMS3YyDPFBSyE17ACqIuA+EsweFRxpqD/0MD8Hazt5M
+         e4BZqNSGJbNBdGcd1K8uDBkhPo7tQeC5lK2pSWpzgvxjNhLD21Eyz5t9kfmI3JuhiX9y
+         p2QtpOGTU9YBWyhD6cil4FoFwXDjohxpn5XaqA9beKybzlYgbpFPaIZco6kBwDSb4uUI
+         UEqg==
+X-Forwarded-Encrypted: i=1; AHgh+Rru+K2B67dWxeBsq4L2HddQSu7ouCnR6SQDb78wdYOj9RONr0J7eCYkIsh46WgHxxkOlxMcECMepHh7@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzc35FNEEcoaqSz000/xwPOoqgXAvQ+3E3grJDp9FSb91FtSrKt
+	pc/LLc74N8eWkwe5DUs1pPX3gXxR1HGJM8uCpuU8fX7oSQsuMG/2bvxYe9f0+Utd8Zw=
+X-Gm-Gg: AfdE7cl4fV2Qqor+AAh6xA6V3Os7ZiwM3py/HByni1wd+IohpyJnHCPPbT9sHXySZf/
+	Grs9gk6FQLQ/USsb3ZN9MQ+Ksae+z+GIkPLohX31XNMvjfCTUUDu5GppCPb5FBVY9b3BWxM5UKh
+	LYzQu4XZIJ3bZuIHtkufIpj4u4s6WqrVBt7K4MrPwcJMbFXG0MZbf1Nu4pPtEt9ojOsL7mXyRYp
+	ABPkTA1yttJqzOgVJAz4Um5WvillxzMKtaQJfZmIgylGCGtLJAKjHODCtfHtFEmhA2xls0Os4/Y
+	FO50AyMACUr+7baQs8S1PWmlWUELbgsi0Js96lrr3gznAVY80dwrJYaEfMTq659IL9gEh6UKj6K
+	EzDdf63mnBztb7v+j+55XTsLmJaE+rc6qtKZrwICpOFtcp72dZFu8uPULi6RYUe2VPVPZ1k2DP1
+	b/TbPHUJRxOZkth3mqVqOS2CC9Z7bJfKFQjH+edwbw2K9iq5s3wYCkO0iMaYAB
+X-Received: by 2002:a17:907:706:b0:c12:9eb4:48bc with SMTP id a640c23a62f3a-c15a68e577fmr284656466b.51.1783428221058;
+        Tue, 07 Jul 2026 05:43:41 -0700 (PDT)
+Received: from [192.168.2.177] (48.85-85-171.dynamic.clientes.euskaltel.es. [85.85.171.48])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad82311fsm131994866b.8.2026.07.07.05.43.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 05:43:40 -0700 (PDT)
+Message-ID: <f5e3ea50-5f52-4a4a-aa8d-827b14f87faf@suse.com>
+Date: Tue, 7 Jul 2026 14:43:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260707-dwmac-mediatek-mt8189-v1-1-17f345eaaca3@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM
+ controller
+To: Andrea della Porta <andrea.porta@suse.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Naushir Patuck <naush@raspberrypi.com>,
+ Stanimir Varbanov <svarbanov@suse.de>, Sean Young <sean@mess.org>,
+ Julian Braha <julianbraha@gmail.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <cover.1783097764.git.andrea.porta@suse.com>
+ <67d51a7210f0d7410dbe34e3d93813db1fecd622.1783097764.git.andrea.porta@suse.com>
+Content-Language: en-US, ca-ES, es-ES
+From: Matthias Brugger <mbrugger@suse.com>
+Autocrypt: addr=mbrugger@suse.com; keydata=
+ xsFNBFP1zgUBEAC21D6hk7//0kOmsUrE3eZ55kjc9DmFPKIz6l4NggqwQjBNRHIMh04BbCMY
+ fL3eT7ZsYV5nur7zctmJ+vbszoOASXUpfq8M+S5hU2w7sBaVk5rpH9yW8CUWz2+ZpQXPJcFa
+ OhLZuSKB1F5JcvLbETRjNzNU7B3TdS2+zkgQQdEyt7Ij2HXGLJ2w+yG2GuR9/iyCJRf10Okq
+ gTh//XESJZ8S6KlOWbLXRE+yfkKDXQx2Jr1XuVvM3zPqH5FMg8reRVFsQ+vI0b+OlyekT/Xe
+ 0Hwvqkev95GG6x7yseJwI+2ydDH6M5O7fPKFW5mzAdDE2g/K9B4e2tYK6/rA7Fq4cqiAw1+u
+ EgO44+eFgv082xtBez5WNkGn18vtw0LW3ESmKh19u6kEGoi0WZwslCNaGFrS4M7OH+aOJeqK
+ fx5dIv2CEbxc6xnHY7dwkcHikTA4QdbdFeUSuj4YhIZ+0QlDVtS1QEXyvZbZky7ur9rHkZvP
+ ZqlUsLJ2nOqsmahMTIQ8Mgx9SLEShWqD4kOF4zNfPJsgEMB49KbS2o9jxbGB+JKupjNddfxZ
+ HlH1KF8QwCMZEYaTNogrVazuEJzx6JdRpR3sFda/0x5qjTadwIW6Cl9tkqe2h391dOGX1eOA
+ 1ntn9O/39KqSrWNGvm+1raHK+Ev1yPtn0Wxn+0oy1tl67TxUjQARAQABzSRNYXR0aGlhcyBC
+ cnVnZ2VyIDxtYnJ1Z2dlckBzdXNlLmNvbT7CwXgEEwECACIFAlV6iM0CGwMGCwkIBwMCBhUI
+ AgkKCwQWAgMBAh4BAheAAAoJENkUC7JWEwLx6isQAIMGBgJnFWovDS7ClZtjz1LgoY8skcMU
+ ghUZY4Z/rwwPqmMPbY8KYDdOFA+kMTEiAHOR+IyOVe2+HlMrXv/qYH4pRoxQKm8H9FbdZXgL
+ bG8IPlBu80ZSOwWjVH+tG62KHW4RzssVrgXEFR1ZPTdbfN+9Gtf7kKxcGxWnurRJFzBEZi4s
+ RfTSulQKqTxJ/sewOb/0kfGOJYPAt/QN5SUaWa6ILa5QFg8bLAj6bZ81CDStswDt/zJmAWp0
+ 08NOnhrZaTQdRU7mTMddUph5YVNXEXd3ThOl8PetTyoSCt04PPTDDmyeMgB5C3INLo1AXhEp
+ NTdu+okvD56MqCxgMfexXiqYOkEWs/wv4LWC8V8EI3Z+DQ0YuoymI5MFPsW39aPmmBhSiacx
+ diC+7cQVQRwBR6Oz/k9oLc+0/15mc+XlbvyYfscGWs6CEeidDQyNKE/yX75KjLUSvOXYV4d4
+ UdaNrSoEcK/5XlW5IJNM9yae6ZOL8vZrs5u1+/w7pAlCDAAokz/As0vZ7xWiePrI+kTzuOt5
+ psfJOdEoMKQWWFGd/9olX5ZAyh9iXk9TQprGUOaX6sFjDrsTRycmmD9i4PdQTawObEEiAfzx
+ 1m2MwiDs2nppsRr7qwAjyRhCq2TOAh0EDRNgYaSlbIXX/zp38FpK/9DMbtH14vVvG6FXog75
+ HBoOzsFNBF3VOUgBEACbvyZOfLjgfB0hg0rhlAfpTmnFwm1TjkssGZKvgMr/t6v1yGm8nmmD
+ MIa4jblx41MSDkUKFhyB80wqrAIB6SRX0h6DOLpQrjjxbV46nxB5ANLqwektI57yenr/O+ZS
+ +GIuiSTu1kGEbP5ezmpCYk9dxqDsAyJ+4Rx/zxlKkKGZQHdZ+UlXYOnEXexKifkTDaLne6Zc
+ up1EgkTDVmzam4MloyrA/fAjIx2t90gfVkEEkMhZX/nc/naYq1hDQqGN778CiWkqX3qimLqj
+ 1UsZ6qSl6qsozZxvVuOjlmafiVeXo28lEf9lPrzMG04pS3CFKU4HZsTwgOidBkI5ijbDSimI
+ CDJ+luKPy6IjuyIETptbHZ9CmyaLgmtkGaENPqf+5iV4ZbQNFxmYTZSN56Q9ZS6Y3XeNpVm6
+ FOFXrlKeFTTlyFlPy9TWcBMDCKsxV5eB5kYvDGGxx26Tec1vlVKxX3kQz8o62KWsfr1kvpeu
+ fDzx/rFpoY91XJSKAFNZz99xa7DX6eQYkM2qN9K8HuJ7XXhHTxDbxpi3wsIlFdgzVa5iWhNw
+ iFFJdSiEaAeaHu6yXjr39FrkIVoyFPfIJVyK4d1mHe77H47WxFw6FoVbcGTEoTL6e3HDwntn
+ OGAU6CLYcaQ4aAz1HTcDrLBzSw/BuCSAXscIuKuyE/ZT+rFbLcLwOQARAQABwsF2BBgBCAAg
+ FiEE5rmSGMDywyUcLDoX2RQLslYTAvEFAl3VOUgCGwwACgkQ2RQLslYTAvG11w/+Mcn28jxp
+ 0WLUdChZQoJBtl1nlkkdrIUojNT2RkT8UfPPMwNlgWBwJOzaSZRXIaWhK1elnRa10IwwHfWM
+ GhB7nH0u0gIcSKnSKs1ebzRazI8IQdTfDH3VCQ6YMl+2bpPz4XeWqGVzcLAkamg9jsBWV6/N
+ c0l8BNlHT5iH02E43lbDgCOxme2pArETyuuJ4tF36F7ntl1Eq1FE0Ypk5LjB602Gh2N+eOGv
+ hnbkECywPmr7Hi5o7yh8bFOM52tKdGG+HM8KCY/sEpFRkDTA28XGNugjDyttOI4UZvURuvO6
+ quuvdYW4rgLVgAXgLJdQEvpnUu2j/+LjjOJBQr12ICB8T/waFc/QmUzBFQGVc20SsmAi1H9c
+ C4XB87oE4jjc/X1jASy7JCr6u5tbZa+tZjYGPZ1cMApTFLhO4tR/a/9v1Fy3fqWPNs3F4Ra3
+ 5irgg5jpAecT7DjFUCR/CNP5W6nywKn7MUm/19VSmj9uN484vg8w/XL49iung+Y+ZHCiSUGn
+ LV6nybxdRG/jp8ZQdQQixPA9azZDzuTu+NjKtzIA5qtfZfmm8xC+kAwAMZ/ZnfCsKwN0bbnD
+ YfO3B5Q131ASmu0kbwY03Mw4PhxDzZNrt4a89Y95dq5YkMtVH2Me1ZP063cFCCYCkvEAK/C8
+ PVrr2NoUqi/bxI8fFQJD1jVj8K0=
+In-Reply-To: <67d51a7210f0d7410dbe34e3d93813db1fecd622.1783097764.git.andrea.porta@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - mediatek,mt8189-gmac
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: MAC Main clock
-> +            - description: PTP clock
-> +            - description: RMII reference clock provided by MAC
 
-Since this is a MAC, it sounds like it is consuming its own clock?
 
-	Andrew
+On 03/07/2026 19:05, Andrea della Porta wrote:
+> From: Naushir Patuck <naush@raspberrypi.com>
+> 
+> Add the devicetree binding documentation for the PWM
+> controller found in the Raspberry Pi RP1 chipset.
+> 
+> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Reviewed-by: Matthias Brugger <mbrugger@suse.com>
+
+> ---
+>   .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 66 +++++++++++++++++++
+>   1 file changed, 66 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+> new file mode 100644
+> index 0000000000000..970d0f3b33bbb
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+> @@ -0,0 +1,66 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pwm/raspberrypi,rp1-pwm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Raspberry Pi RP1 PWM controller
+> +
+> +maintainers:
+> +  - Naushir Patuck <naush@raspberrypi.com>
+> +  - Andrea della Porta <andrea.porta@suse.com>
+> +  - Stanimir Varbanov <svarbanov@suse.de>
+> +
+> +allOf:
+> +  - $ref: pwm.yaml#
+> +
+> +description: |
+> +  The PWM peripheral is a flexible waveform generator with a
+> +  variety of operational modes. It has the following features:
+> +   - four independent output channels
+> +   - 32-bit counter widths
+> +   - Seven output generation modes
+> +   - Optional per-channel output inversion
+> +   - Optional duty-cycle data FIFO with DMA support
+> +   - Optional sigma-delta noise shaping engine
+> +  Serves as a fan speed provider to other nodes for a PWM-connected
+> +  fan using shared registers (syscon).
+> +
+> +properties:
+> +  compatible:
+> +    const: raspberrypi,rp1-pwm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  "#pwm-cells":
+> +    const: 3
+> +
+> +  dmas:
+> +    maxItems: 1
+> +    description: |
+> +      Phandle to the DMA controller and the channel specifier for
+> +      the duty-cycle FIFO.
+> +
+> +  dma-names:
+> +    items:
+> +      - const: tx
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    pwm@98000 {
+> +      compatible = "raspberrypi,rp1-pwm";
+> +      reg = <0x98000 0x100>;
+> +      clocks = <&rp1_clocks 17>;
+> +      #pwm-cells = <3>;
+> +    };
+
