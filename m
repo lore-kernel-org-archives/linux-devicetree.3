@@ -1,87 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C641A780
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934AA41A798
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783431021; cv=none; b=qHoF6tKVSjgWWpgTaCL0BQhp+egVy2SAVmt/QTe1J39TFuLllrst7kQ2Bv6yV2Yh3ovj/RXlIZO9CAkUmcBcdSwJ59uqOxu8pl7E9BC7m5ugdaicPK9z24kYsYkyxcHHy8vmc0Lt1QtIDyKe4ih+VSu2irUa4uZ8cSU1IAZKI00=
+	t=1783431055; cv=none; b=lQdeOFh5YPTnP82bqwOdBvosyUwK2VGV1RhyPuqavFmiHF8oyhee41jWfy2O0Kh3tFtz+e0GrzVZLCOW7hv2zrOshytlfWOCDDeUVSNl2il0GuvUyzett1wibo1c7C9p87tbx+cqqZuk2vUfm2P0hePFHE8+2u/4g9RBlZ5D8c8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783431021; c=relaxed/simple;
-	bh=stBD+/sH7V5qjHYx7BWshE2WoVnRJsFQkt4ni5EA50k=;
+	s=arc-20240116; t=1783431055; c=relaxed/simple;
+	bh=el5leOsXCJlNZR7YPIXRPA1IYLaE3ipjFZKIGwggOqg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sbok5uOWytntjn1L15h3v5h7Yz3DewNPMpaf/zTzQPL12S0uAWMervCJIQVyZdOq5CIfbF31RVurEooPWzK+q4UK4gz3QEywubMa5Ym5mlca7DLRKI0od+CRcRuGXKzYSmL7A4j+9idFzau9r1a8sQTUFAxZAGCCYVfsxWtkry4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YNpbvyt4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Fs+fHH5J; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=MZgxgrh+XfHCquAZyiK/XZq6EdzMnUoKmODyuPrcq5GDXBUTvaLhGHFQUhFirj8Tc9wMQj6Ypmhhs28q4CfNWh64CqtpSk3zr4rC156WndMTNfbbu75TJw790hlvkrRp6N5hak3WD1ppbF4JJiRiLqjHCpMVAze0kYh/cV/5wPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GfcXhchj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=akQSbGwI; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YNpbvyt4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Fs+fHH5J"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8cSW3755347
-	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 13:30:20 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GfcXhchj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="akQSbGwI"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8s383676438
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 13:30:53 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9FkWytPKEFzcW2rOJ03A4Ztr+w4t/jCKqLErazbBHHY=; b=YNpbvyt4gFzUPtHE
-	istfF5KOIEMLzuE85OJ2Ge7xATz3Vv/XfMe1y5+sGwHC4ziKsHJlFSWQiTlad8Ll
-	93VuN0dFQhbsgND2WyzTZe46Y7wyNKxDU62oH/89BmuGqqE2mgKRW0ODGlS2o4gr
-	4/SQkthmw/RI7JZt/mwaR5DznmOnLZq2y/r4iObwgBZVZA/M4kHJpPAqES7DqyJo
-	ztGfTo8kINJBBPY5bJmV5MuvlcuoZ8Hkc5spqUPtoPd5PJyN+Pcvclkg/GKvKZwH
-	TpFTDzm7OeBolfDverDDgb5vni3G4F9HSnnvJAGn/VCLNAy65lpYtZezJvsbnOof
-	642bqg==
+	oE0NnWoCFLssW5xbg0/SxvH9BdegYqSbZiRxR835SuI=; b=GfcXhchjMTrfztg6
+	swTqY3IBC36649bwX3nk/1vaDs6SInN64gRZzQLIVJlrB4rhCyVOlMLSnDmrTpLQ
+	y0wBBo4kpvkR6L4evuJzatEx6TM9DaSAhDf3h9GYeZXDIkEWD/pjbmxGa1Bc5U6/
+	uMNLHOd3g7MeKSZOu5093En4G9Y0OFe9izLrzY35XM4ZM0X24cZ/fiLzCRDrj+1W
+	GeSJZcdmkNKfvXCbTF8HrLtRHleoWtCY7bVBQhFJG3ezdICOr34CQmimcAsbyuAU
+	P/oSwmDzYqWiH2MzzgwlnS8wxMVaIuQXoiEZpctWb4BTI0/xXIVM3J8Kh+SD98t0
+	hgzQyA==
 Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8wep1b29-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8t15a6jb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 13:30:19 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ca5d2474c7so98099235ad.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:30:19 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 13:30:53 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc88e22f92so54078535ad.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:30:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783431019; x=1784035819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9FkWytPKEFzcW2rOJ03A4Ztr+w4t/jCKqLErazbBHHY=;
-        b=Fs+fHH5Ji7JaEqhk3QuzSN7X2j7pp71DGB/z6hlSEuMNkoEiQBDxYyePqajTGgO7gP
-         mop7noUnvVKMp6yk7dOsgSp1IToSI7CibiQketE2or/uMbRVpkx6qR3Lw5QdtIw1STxn
-         ERDGGRd4Q4rdughJZkp0NEjGnMSVBG2hHbmf3MfxmSb8wVYitF0Sd8lue9gXfAb7EoGG
-         1Sd4tzzj5DuHHHLyifnEY3KqM3ePYRNK4M+jfHrv798W6OXBwnrbtpit9oDIR6AM2PeM
-         5X/US4me/ZnfI9vfojuU4PSazPrOAKbyx9vkVDovglf+2PFL9AWpgsOlOulcBspORnDo
-         XMag==
+        d=oss.qualcomm.com; s=google; t=1783431053; x=1784035853; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=oE0NnWoCFLssW5xbg0/SxvH9BdegYqSbZiRxR835SuI=;
+        b=akQSbGwIwgapRG+90nCxXFaO66E2hq53i0VRIfH6aKC97BFY5rAFC036by0X6SkwCc
+         pQIu2L4vP53eXqhMLR/gaJw2OfLDHJEKDn1itNajPqR6FaJahUtXMxyIZ1pkS5XNRLM9
+         CeUXRbKupofISx32cox58qizoh0pToQmw56+pUMPablFA0dUQtRnzOG+4YRyry4Y30kW
+         iod5hXLVb1pPmUtdGe9h1+2FDrOHQ9fh5ZztgPIWdb+zSYkSw6OExl6HI3cgDTQzGoRJ
+         jMOIU6Afm0L8m79SLAHSS0qtJ/RDsgYIM/QY9uqveanXRYgTSD1HEglypNbSJupH2sYp
+         YBhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783431019; x=1784035819;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9FkWytPKEFzcW2rOJ03A4Ztr+w4t/jCKqLErazbBHHY=;
-        b=eK1eVntGg8adgT2hdDajbZ+wzLgMvMzFi/2Zwg0f6APGBubabVtAdVmTMBXI8O4nFf
-         e/0whIJ7h+V6hgof/qdiVYdJRw0jSU1gedjkIua1eQj97CTzeyTvG4/owFsRF1v/ZJxO
-         f7l/eoktXtB96g1y2aRQ/tehxd834jvtnlg6aMXiQSwkcaL5V+AQIMH0DUARPhx2MpDf
-         FfDQSUXbENIlWu4y3fdpvMuk0UUBW1YPXe1qGCO1R1tMP2tdOsSXNeX3gToXy7+XtOC6
-         Vx3lJw7gaHsdMPGTKRaSiVOZa/2Vypr+0u9PWFUzy8e7XUIgqDipRSdaUXlLMsJHEMkU
-         pEcg==
-X-Forwarded-Encrypted: i=1; AHgh+RoyGJJ/PG0umdqvtL7A4ewYci3l53U6bTvOIFXGNNaB9LXZ3QdCOLfbN10MtEGQPNsLngS5VVBhjjXQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzT+crOHdLniXEoxykjKKUln+S5U2+Ejcf63IG24JnNLMOKUG+h
-	4FklkLqq6XUORZYV7ldJI67m2L9JN7RB9NssmZRJvGK37XL8bnXHi7ALDDL4n1iLzRxHijOi4N5
-	/FfSNKUst3OYZgc7ip4ujI5sXi/fMLso2/C8Sym+os0s8qoRMT79v5SgPQcE4s3VpP45vR2Id
-X-Gm-Gg: AfdE7clTx7L+Cnchu7CEELlT1BoOium4uCK1Y/74EZc1XuccnHseTqOSLjltXsMietJ
-	5pS7V+GM/E+UhqFKvMP1Du/pPiHYXwDq2slDT5/IwT5aXABCAd2QBO0DgpOlOq9wD8M98ok087f
-	yyNRvlEKc0jVn97UocDrHQkbp6tdKx9VbjYTcGjAApgtjizFqjytzzNJ6ralXr4RB39FcDcY0A1
-	3yIASlUVV8vO8iJfZfkjnrpY8yaehniEYiuvb3cEBTNqSNbYvdKAYu7nEliLNdtpsiD3WJMOHCY
-	PgKMOs8uBcXAy2hfiBsaTzsyjB7eKsDgcpjbQXQg7TFiRP1Yo3Rae3nO3XPzioeTQGX7JuiTbvr
-	l+WxQN6B2RdukLWdcvjn6ufAvN3xB832somJMY2ncDP8=
-X-Received: by 2002:a17:902:ef06:b0:2c0:af09:f3c7 with SMTP id d9443c01a7336-2ccbf0518aamr53343865ad.30.1783431018940;
-        Tue, 07 Jul 2026 06:30:18 -0700 (PDT)
-X-Received: by 2002:a17:902:ef06:b0:2c0:af09:f3c7 with SMTP id d9443c01a7336-2ccbf0518aamr53343365ad.30.1783431018416;
-        Tue, 07 Jul 2026 06:30:18 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783431053; x=1784035853;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oE0NnWoCFLssW5xbg0/SxvH9BdegYqSbZiRxR835SuI=;
+        b=Kz6gZkN/oTuIin+FDWwEqbc3duC+gsSq5/5qed7PFJmP/OKX9cjpEfNon5ajGJ6cjL
+         vB/BoNJaYxaXq359FXlqdmisrLsL1v5wMEPsm300h8se1srd9hbNpF91F4ZL5uyToyF9
+         bGa3oQM66dSWV8v/691SkSyY9FsMl5rUZMON4rj3qX01621zPlqeU4DMBW6EYxZUdtPi
+         QFDcV6gB2pE6LHmVHSmwzx7Og9Jc2zfzBA56ivSy+x4QOYvYwfpjgTImcNzhGirmq5nm
+         +6TJBnbmKzoe49eV77NZBvBNTtulzUt/6aJ7G0wSMah4GBeSCRS+Tj2obiYUTBkzSH2J
+         KUqQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpghuogN2ZvmlgKLU5P5byo+fCc/A7OnnsHjBoDDZSrfOXJ1Dy15vwOCmj4pu0NtgQrOLEJM25boMnW@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwTC6n/kuN0O0iv1p9Q09g4WlUA4SyYQhqt0Lve9KkDsYQdliA
+	YF5r/cXn/Gpjl/+fiDRB/T0U4atNp2XkeoDsOzoi/Ep2OSrOG+ECD/T/Tldkey9KZ4XFA1hRsMW
+	T6QPFz9szLdSGM7ZlvsizZfP+ipZj2ZmqYBX4fNEa4YSgEF7Vj/WGtwe2UoHI3SLo
+X-Gm-Gg: AfdE7cmXyyzFqQumOW3HU1saKrRNw7TTdvst3lpUUi3iO9MGcMknhZyeSI1bfVKHtQW
+	wv+zSq+vyNJAjvRBNSyxXiubua0j+7AlFtNo+yZ+XltDmciBtmEJ89wSnlr6dOI4kooQ7SXXLSB
+	CloSw2pgSmgRVCGIDeo/Bay4WZPvuFrRrldOJvOQ/NIgaRwo43qM0qubKqPj0SSclpvnDDkeou7
+	B4KxrKO/9eTT4qdJwggUYkn3aTgFVIgIYPVlQPWhQ4EIJn7ZKQPQIx0UMshO89E9/qBPfDEKp+A
+	pQt5FR2NJX2mZf8G8yGwtHXte25QZeMiSNcCLMwm0n8tSTFkWhSfKlj9S01AVU4zUkXa0yHtlkW
+	EZTULgyFf9N+DrHN6jCgnWFHt+koMKfQ/zU73cL20skM=
+X-Received: by 2002:a17:902:f544:b0:2cc:d807:369c with SMTP id d9443c01a7336-2ccd8073e0cmr11847055ad.45.1783431052538;
+        Tue, 07 Jul 2026 06:30:52 -0700 (PDT)
+X-Received: by 2002:a17:902:f544:b0:2cc:d807:369c with SMTP id d9443c01a7336-2ccd8073e0cmr11846505ad.45.1783431051916;
+        Tue, 07 Jul 2026 06:30:51 -0700 (PDT)
 Received: from [10.217.217.28] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb86bsm12315575ad.11.2026.07.07.06.30.16
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3d968sm12072725ad.60.2026.07.07.06.30.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 06:30:18 -0700 (PDT)
-Message-ID: <d8f56740-5274-496f-b77d-8d3790789ebb@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 19:00:14 +0530
+        Tue, 07 Jul 2026 06:30:51 -0700 (PDT)
+Message-ID: <5face958-656b-4287-adf6-6dbeeaddf4c8@oss.qualcomm.com>
+Date: Tue, 7 Jul 2026 19:00:48 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,96 +88,119 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] arm64: dts: qcom: Add header file for ADC5 Gen3
- channel macros
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: monaco-pmics: Add ADC support
+ for PMM8620AU
 To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260614-adc5_gen3_dt-v2-1-32ec576c5865@oss.qualcomm.com>
- <20260614081244.C2AD81F000E9@smtp.kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+References: <20260614-adc5_gen3_dt-v2-3-32ec576c5865@oss.qualcomm.com>
+ <20260614081546.585941F000E9@smtp.kernel.org>
 Content-Language: en-US
 From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-In-Reply-To: <20260614081244.C2AD81F000E9@smtp.kernel.org>
+In-Reply-To: <20260614081546.585941F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: hQ8pLpr6rpHQXvzYPr0AoRwxTSHUWt8d
-X-Proofpoint-ORIG-GUID: hQ8pLpr6rpHQXvzYPr0AoRwxTSHUWt8d
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEzMiBTYWx0ZWRfXxHDzA47Hkz7u
- 2N11/XM5xxCXCNOCLDv4uxH0jm3x66L06DirCVN8NKm5S1TqAyjaYI3jmIUv7klY/6sXaGgnnL0
- IvMwxcFFjEx+2SqE8RawQMerL21UpAhOFYMn7Aa3b6tpOHXg5E188cBRmMCZN39UtSkysublrA4
- Q8ZcCWtl2zi2+vBo4e2+oyi76/R6wDWwcj4K/Q0SEAfN1Me8tMyfbM1Zwl9QLdAJ9XjNr/QiUMF
- NtTxeH7YyvtDz7EooT4B27NjDtyVqtjyPJ4JKgjk3LmRnMCBaeKlivE9hSR4AqsOMFr56wlswgv
- YZx/cIZdRevrc5oIzwBaQ9fkRz7fKtejgO+a5YLF028Sfl5s7hT12kG2sT6ytQHz5XcnTY227WL
- jb+p9G6M0W1y8zE7k0mRj1r9vHOuXIAhQE8fiSCOzrX1jCIr9ahR8yPw3TRZSeq7m+1U/RPEcc8
- cnI7nF2cl4VUX0O9L5Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEzMiBTYWx0ZWRfX2kjHtNiOJIoP
- DvI4SC/C04zT3q9Q+miyUMUbGTB379q6eTOhXJ8KYvzsN8tnki8o7OhON/+uoK3u++QktPWwgvn
- zvDSwOsg/DfeAIVtuAA1nCwYpR9Sz7w=
-X-Authority-Analysis: v=2.4 cv=atSCzyZV c=1 sm=1 tr=0 ts=6a4cff6b cx=c_pps
+X-Proofpoint-GUID: yPihlPwiWu_CU_Dfn1oNirdBxiewjdRE
+X-Authority-Analysis: v=2.4 cv=HstG3UTS c=1 sm=1 tr=0 ts=6a4cff8d cx=c_pps
  a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kEwMdB4yzSm1prmz-DoA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=yq9WwLAiYoGSkMfMoKMA:9 a=QEXdDO2ut3YA:10
  a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: yPihlPwiWu_CU_Dfn1oNirdBxiewjdRE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEzMiBTYWx0ZWRfX8q85EMWHZzdU
+ E/tc4Zb7hia5y9g5u1YafBMZHV+G+VMo5YEJQUvnaLZNHjtoH5Jg4lTCeE4iYbgncEEzw5AskQ3
+ /mBSAuI/uOc3p9zl2O/aM07rkUfkRWs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEzMiBTYWx0ZWRfXzcBc4MiLsgNz
+ Bh0T05ogYDm82lE2x6C8o/ah9AuPyhzrH99dF/H5V5GvN0DszQp7K3RcFvaPpXJiKbhdSJY7BoE
+ NSYbBTkuXJGVHBPVlqEcmYiCeZLyWoZ3qGbRen6bzysNAZ29in0pgvYbk41nNoVwhyrWLCYhKSv
+ sozubkOSqyeeS/VzCDsQa8wEM00wRGq5QjjakNyEsIr9guEBSxyYhLGDN52IamOQpqIlnB8Ozl2
+ o3D5zjiKBwjM/Ha84JLFp5GnwZ+ZZnX+4/Af1/mkK6KtIdYdFoIHwvpFyN8owctp6Aj9Euqg4Wb
+ jfhcGf7M/MRHb2/iFVGpCDeUMHhD7+QF0kWvawhYPms8J2oTWcCieaNaJOe3UdYdfK4Cm9Uz/K7
+ sufk8No/cXCWkR/K1MwDvILT0G5qCpCWsr3w5y57h189T9jO4JSt29vlxP+Cy/c0oTJREXpTTx9
+ zBJbnv+EuvBktGB9Vtg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-07_03,2026-07-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 priorityscore=1501 spamscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ phishscore=0 impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070132
 
-On 6/14/2026 1:42 PM, sashiko-bot@kernel.org wrote:
+On 6/14/2026 1:45 PM, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Devicetree binding headers for shared hardware components must be placed in `include/dt-bindings/`, not architecture-specific directories.
+> 
+> Pre-existing issues:
+> - [High] The ADC interrupt handler `adc5_gen3_isr()` may dereference a NULL pointer `adc->handler` if an interrupt fires before the thermal auxiliary driver has registered its event notifier.
 > --
 > 
-> commit 7bed566fe71218ad2ab3cd2babe147ee1d601536
-> Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+> commit 2afa9a558734cf9fc6ad1120da9026df8390137c
+> Author: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
 > 
-> arm64: dts: qcom: Add header file for ADC5 Gen3 channel macros
+> arm64: dts: qcom: monaco-pmics: Add ADC support for PMM8620AU
+>     
+> This commit adds ADC nodes for PMM8620AU PMIC instances on the Monaco
+> platform. It exposes the DIE_TEMP and VPH_PWR channels.
 > 
-> This commit adds macro definitions for ADC5 Gen3 virtual channels to be
-> used in devicetrees and ADC channel reg properties.
+>> diff --git a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi b/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
+>> index e990d7367719b..232bcb942b54c 100644
+>> --- a/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/monaco-pmics.dtsi
+> [ ... ]
+>> @@ -20,6 +21,27 @@ pmm8620au_0_rtc: rtc@6100 {
+>>  			interrupts = <0x0 0x62 0x1 IRQ_TYPE_EDGE_RISING>;
+>>  		};
+>>  
+>> +		pmm8620au_0_adc: adc@8000 {
+>> +			compatible = "qcom,spmi-adc5-gen3";
+>> +			reg = <0x8000>;
+>> +			#address-cells = <1>;
+>> +			#size-cells = <0>;
+>> +			interrupts = <0x0 0x80 0x1 IRQ_TYPE_EDGE_RISING>;
 > 
->> diff --git a/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h b/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h
->> new file mode 100644
->> index 0000000000000..aa8e54d7e786a
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h
->> @@ -0,0 +1,88 @@
->> +/* SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause */
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#ifndef __DTS_ARM64_QCOM_ADC5_GEN3_H__
->> +#define __DTS_ARM64_QCOM_ADC5_GEN3_H__
->> +
->> +/* ADC channels for PMIC5 Gen3 */
->> +
->> +#define VIRT_CHAN(sid, chan)			((sid) << 8 | (chan))
+> [Severity: High]
+> This is a pre-existing issue, but by enabling the qcom,spmi-adc5-gen3
+> interrupts here, does this expose a NULL pointer dereference in the
+> ADC driver's interrupt handler?
 > 
-> [Severity: Low]
-> Should this header be placed in include/dt-bindings/ instead of an
-> architecture-specific directory?
+> In drivers/iio/adc/qcom-spmi-adc5-gen3.c:adc5_gen3_isr(), the handler
+> checks the device driver state rather than the function pointer:
 > 
-> Devicetree binding headers defining ABI constants for reg values typically
-> reside in include/dt-bindings/ like include/dt-bindings/iio/adc/. Placing
-> the header in arch/arm64/boot/dts/qcom/ prevents cross-architecture sharing
-> and can break dt_binding_check validation, as the schema tooling expects to
-> include these headers from the standard dt-bindings location.
+> 		adev = adc->tm_aux;
+> 		if (!adev || !adev->dev.driver) {
+> 			dev_err(dev, "adc_tm auxiliary device not initialized\n");
+> 			return IRQ_HANDLED;
+> 		}
+> 
+> 		adc->handler(adev);
 > 
 
-Based on this discussion earlier: https://lore.kernel.org/all/d10e2eea-4b86-4e1a-b7a0-54c55907a605@oss.qualcomm.com/,
-these ADC channel definitions should be placed in the dts folder instead of
-dt-bindings folder as they are hardware constants meant to be directly
-written into registers and not ABI constants.
+At present, the auxiliary ADC_TM driver is not present in the code.
+
+The above code block lies within this if check:
+
+    if (tm_status[0] || tm_status[1])
+
+This requires some channels to be configured for TM measurements
+and a threshold violation to have happened, which is not possible
+if the driver is absent.
+
+Even if the interrupt is somehow triggered for TM violation, since
+the driver does not exist, adev->dev.driver will always be NULL,
+so execution will enter the error condition and return without reaching
+adc->handler.
+
+In the latest patch series for adding the auxiliary ADC_TM driver,
+https://lore.kernel.org/all/20260705-gen3_adc_tm-v3-0-ac62f387dbce@oss.qualcomm.com/,
+the above logic is removed from adc5_gen3_isr(), so this issue
+won't happen.
 
 Thanks,
 Jishnu
 
-
-> [ ... ]
+> If an interrupt fires after the driver core sets adev->dev.driver but
+> before the thermal driver calls adc5_gen3_register_tm_event_notifier()
+> to set adc->handler, will this result in a kernel panic by dereferencing
+> a NULL adc->handler?
 > 
 
