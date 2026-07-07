@@ -1,108 +1,115 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2A4348883;
-	Tue,  7 Jul 2026 08:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242BC305676;
+	Tue,  7 Jul 2026 08:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783414559; cv=none; b=PmJrhF+GqFEWoYYA+QsQq+RdLQkmR8D2RRn2nLdvfuZspczSB5ypy7RUqL0vGyihs2pNf7qsrD69iNctM91VQVt7Oc8KBfQjQNjr8FgEfj33+INae0Ew9eC38KGHHY2Epr1kjl3otxKpCgcltarsViyLprGGzVkZvsTU8jg+Uw8=
+	t=1783414667; cv=none; b=PmpaucY5C4JgY5FwCuvbZNqb+RM2FfoZZPnwsWzBmkf7qz3f09p3i567JX8trsDb2bP07etYjQhbw1MK2NSyrPOU7WqX0MZSfJmHjSP0F92Gr3xrQICOgrN8D1o23l+D/6xlGqtQOKMwpEduPuv4+jNpI1xb3CIxGHUMs9Eq7k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783414559; c=relaxed/simple;
-	bh=irrqjVYMySIxSLr7HHpy+Pe9GgqnEXTe4g4o3xS17mU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uZxqVdSFOKhiLdD92ZutTeCELWPyATQU/guHXxnH4N+wgxqfA+6zNPT/d9ClXQraSx+fd++o+qT3QP9CI6u/rnKFqHxJ+CJixfEuwmT2ktsFJ9ZklvwJODxVtvMHQFIHjmmwy5RT6sIdsjkYWYs3pnyFYB1st0tRFbXXOKckJQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=KTHutmk6; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1783414667; c=relaxed/simple;
+	bh=nzWr+zPfWKM/sOnn7+GpGc3qIRS5XOpHk71PIjjVj9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I+UrQK7vPOPecKi7zCGngS+qMcxN6rjTamU/K38iue5qIb8WSh+hXhz7lFxZ71NN+Vdc37ikLZTdePjRBZ0UbUjtbiiwiDLm8xasNe6iUAEV1gUlwYJYvHkgs8ZCkz0r4L14TguxTWaf/v/VYybAaCzH+WEiKdcC9xWbgOc9ih8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Dx9Cl83u; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="KTHutmk6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=HxqEWZp1qs8ndMuXkIPLb77vUFNki4MesCWvabNqrRw=; b=KTHutmk6OI9gPbLyrJ+/KgMksH
-	ZjC7y5H/kUrSdpuRTUrSL2fgQ5Bm+4BoH7VB6HbsKDNI7gQBHPItXcn+QtQV4tXi3GbJtb8AgT6Hm
-	I4dgVQYqPWZ7EuYz4M+C5GVX2iszeZU90zPERRRoOvDY3E5SV0cBLoBhwwBB1i9zgh5RZ7EC8dnWW
-	GwuPorcjm+yi09qAhoCJ44wFDf3u4W+6949BhQSJ6OQx1WRy7sRgIjreCHISY/3YX3Vp3ycdLYnRq
-	uLJ2qjs9+p0woj93L7cVoHPsWGdyly1c6KVi1CpE0f7deUsTW5lK2LiEw5T93PYxp/b/IDoiwpU0a
-	ef8JufbQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wh1as-000Gjs-2w;
-	Tue, 07 Jul 2026 10:55:55 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wh1as-0007hK-0C;
-	Tue, 07 Jul 2026 10:55:54 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Subject: [PATCH 1/2] arm64: dts: imx91-tqma9131-mba91xxca: USB phy adjustments
-Date: Tue,  7 Jul 2026 10:55:42 +0200
-Message-ID: <20260707085551.1683462-2-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260707085551.1683462-1-alexander.stein@ew.tq-group.com>
-References: <20260707085551.1683462-1-alexander.stein@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Dx9Cl83u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783414665; x=1814950665;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=nzWr+zPfWKM/sOnn7+GpGc3qIRS5XOpHk71PIjjVj9Y=;
+  b=Dx9Cl83uoCqiYTlMQWzxG89XS5nVL2+WPBcmFgd6ZITv/2LGjEkRoxs5
+   1p1eqot25v9KnJ6MH8B9Zx84nCxjFAZdob3Z6XbIVkPBySLTSfeEA7FIz
+   o5wlJwiJFLWMYYcAIkHXoMX1eXL9/UdDUYfFbzVLbxcZvE3aYtejF9G20
+   SwQgwpBnXsRlipV9mXIsPpQXPj9bxPoZYl52p4WBRyRPUOjjcA6WNb1X0
+   814D/ey3rsh0djFYUYlt1INKqnfv/StpYLmTK3Jqoe1fVLKeswNP2qjmE
+   kH63GDrn84a4m0Mw54pbvaNQmdPTPuY4MtKc0KcT9zEw2qxCleWLFNjaM
+   A==;
+X-CSE-ConnectionGUID: EB3oVp68RI2SqAtoMIghGA==
+X-CSE-MsgGUID: VPSA/1CcSXy23bifKxi91Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11839"; a="95435783"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="95435783"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 01:57:44 -0700
+X-CSE-ConnectionGUID: Pzzn2J57SJuLnF6vhw63MQ==
+X-CSE-MsgGUID: a6exJdc3TFWbxjgJ3eud3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="249512925"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.178])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 01:57:41 -0700
+Date: Tue, 7 Jul 2026 11:57:38 +0300
+From: "andriy.shevchenko@intel.com" <andriy.shevchenko@intel.com>
+To: Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	Stanley =?utf-8?B?Q2hhbmdb5piM6IKy5b63XQ==?= <stanley_chang@realtek.com>,
+	James Tai =?utf-8?B?W+aItOW/l+WzsF0=?= <james.tai@realtek.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"linusw@kernel.org" <linusw@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"afaerber@suse.com" <afaerber@suse.com>,
+	"mwalle@kernel.org" <mwalle@kernel.org>,
+	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>
+Subject: Re: (subset) [PATCH v4 0/4] gpio: realtek: Add support for Realtek
+ DHC RTD1625
+Message-ID: <aky_guyAt5Ybtg6k@ashevche-desk.local>
+References: <20260622092335.1166876-1-eleanor.lin@realtek.com>
+ <178246069898.6685.11577448681947659397.b4-ty@oss.qualcomm.com>
+ <a00c475a6ce0469682305c4b4269b181@realtek.com>
+ <CAMRc=Md-iOQ5qb5uPZcKJkpS8fmYscw8TRXqe7rRrJS7acE32w@mail.gmail.com>
+ <akyxXxtj8nyCs-yf@ashevche-desk.local>
+ <CAMRc=MfD2j3xt1dXojFbyn=Df_9epMgEmLvSdCAfS7BSS6HD6w@mail.gmail.com>
+ <1b84432e6d5f40ceb1597a75f2ecc652@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28053/Tue Jul  7 08:24:37 2026)
+In-Reply-To: <1b84432e6d5f40ceb1597a75f2ecc652@realtek.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+On Tue, Jul 07, 2026 at 08:29:25AM +0000, Yu-Chun Lin [林祐君] wrote:
+> > On Tue, 7 Jul 2026 09:57:19 +0200, "andriy.shevchenko@intel.com"
+> > <andriy.shevchenko@intel.com> said:
+> > > On Tue, Jul 07, 2026 at 12:24:16AM -0700, Bartosz Golaszewski wrote:
+> > >> On Tue, 7 Jul 2026 08:55:26 +0200, "Yu-Chun Lin [林祐君]"
+> > >> <eleanor.lin@realtek.com> said:
+> > >> >> On Mon, 22 Jun 2026 17:23:31 +0800, Yu-Chun Lin wrote:
 
-Add samsung,picophy-pre-emp-curr-control and
-samsung,picophy-dc-vol-level-adjust using the same values as other
-TQ-Systems GmbH mainboards.
+[...]
 
-Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+> > > Would be just leading reverts in the series appropriate? Otherwise it
+> > > will give a lot of additional work for peanuts.
+> > 
+> > Yes, that's alright. It will make the review easier. We can then squash the
+> > reverts with the new patches when applying.
+> 
+> Understood, thanks!
+> I'll add the revert as the first patch in the series.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts b/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts
-index 5c430e6fca651..60d11a4573e3f 100644
---- a/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts
-+++ b/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts
-@@ -518,6 +518,8 @@ &usbotg1 {
- 	adp-disable;
- 	usb-role-switch;
- 	disable-over-current;
-+	samsung,picophy-pre-emp-curr-control = <3>;
-+	samsung,picophy-dc-vol-level-adjust = <7>;
- 	status = "okay";
- 
- 	port {
-@@ -532,6 +534,8 @@ &usbotg2 {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
- 	disable-over-current;
-+	samsung,picophy-pre-emp-curr-control = <3>;
-+	samsung,picophy-dc-vol-level-adjust = <7>;
- 	status = "okay";
- 
- 	hub_2_0: hub@1 {
+Do as many reverts as patches, so it will be 1:1 reverts. This will reduce room
+for mistake.
+
 -- 
-2.54.0
+With Best Regards,
+Andy Shevchenko
+
 
