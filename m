@@ -1,195 +1,115 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16413F44D6
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 10:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48E337C109;
+	Tue,  7 Jul 2026 10:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783421544; cv=none; b=C2WrX7cwAaJP3N4OVMXD33PO12kHUAbNhLKoLMtBWyL89BpFwwMUjkiAK4WSZWvLKYvl1qK7VsjqtVZToyBGIk1orJStQZw8GblXs35MZ+z277vBMciAERBz5SAg87P2QoxjsfagH2MZjntjgIkBKRNL8+w+98rkG6CLA70/5+o=
+	t=1783421627; cv=none; b=R3KWMIRhpZR1Qpc9tx3i59tVcOUulxrP4Iitr42WOIwkpIqECeqNyaYONEU0bbhKyWNFlqi1Wke0oBpQSluxnZ962o9qbMInFBhKQ83Sf1lF25/+MaQ73iIG7PnOgYvT8Gnype0/6DjL/wraLELSlV4sj6mo1P/bMzrbr+XHoIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783421544; c=relaxed/simple;
-	bh=U1qvcFxLKrwEquFjkv7uGnL3tOB3rFVzjZa3qamyz38=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UWSfePKXvxtmpXcG2xwJ/KHppGzVYs/CqfqcaVYaCB39yT03CElKaJYLHAtFj5cV0LbbC05gJCglNi4woOA9E0E5vWpvcLBYlkKMEOZoOhoZm+EYQAJYw07PWMR/Tuk3eCXt+jfZt8/VMptO+rYTedO4jgVgNe2x1qDBSCngeTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D2S6VbhY; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783421627; c=relaxed/simple;
+	bh=9J8UYNBGF/VxF6Ff0H7J/FxVFWIzrwVd2lppfmoEWaY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tirnnOSQnScuy6QQ157uvZGeTZB/fkI4ova3ANfuXtchzk5eBltrW8tkiQiE6NgTUHmD6YM7zdbexviQQ5NXo2jQV0o7TPE49kBubwvjgfmuOVRopDpF1j5O3LhI+586k0xYPgqtgJW2cLXgqYP+Cjyb+HNzNOPJ/wEFPJn5wxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LNQOUKBq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D2S6VbhY"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493c7902f47so24694925e9.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 03:52:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783421540; x=1784026340; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xD/I4R2QXs7s+95dAxGC6Ggop7ankDcEDMFD0oYB+2Q=;
-        b=D2S6VbhYrlD2hqzn8sgapX710ygbTyX9A2BBWrt76Tx7hhh5DriMr8+490ICdkiCFw
-         kH1zKsmQIKmcCUXiNLk12MG1iOpm14y2fU2IweNe8VJx1t46MIXKdYVC/7gcvGVnWcrW
-         swl5DlcYq5R7HYmzehkMvTwdJ9PKINaP8mK8zVIPJkPZIhZrWop5QdklUSAxH1Sij+Su
-         w+f3muko16oxQMzZ9spFWxlN2kg7mcBLb8tXSfauqoGE0s/5rE5iGNdWedxlUvR7GfAa
-         0BoFpEaTePSRwCvz/IaIg3kiDRaxeFmiwVGv3FP3LnucQs/v3YcwGXDNIhO6N38NkEWh
-         bRWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783421540; x=1784026340;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xD/I4R2QXs7s+95dAxGC6Ggop7ankDcEDMFD0oYB+2Q=;
-        b=B6gZwnJaWxUELvEifPmxvzMB6R5rr36msf1InIMzHHHLvSKuMjIvbfDSwYEWZORu2r
-         80qFWtDnwPDOST7YJLw067kQ/467rXUTDDeL5lhxwcYiGzlnkCSnW5CamjtrmpIixPUy
-         yp9fgh/5XrECoWDuSiOVwCGgihNHhb0FZG2h7c7QU2ZGTogzgaLrTDDr62eTJAoGualo
-         xXWMw14ZNP0lGASW+5pT8ysZ9buXAdtauW1nJHS3h21RozjI3+rtvxJCXUxTCJSgvSmI
-         IyB9kMTA8DOqfAFcq2sWSJbFnH3Hxv+mU2/2J7itv3mSNZeQWA2SRu54IOAMIaeEi8R3
-         Z1xA==
-X-Forwarded-Encrypted: i=1; AHgh+RrjKhgiaQOrhKUczkjvCWfyUcCgONYK3WV+hvAZ6YOcVqCN8PDtqH45QhXRGrZ7VpHVUIwcOx/uAAUO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxs3sieGWm1eVAooyS371k9Acxmgk2tPedSsLlZH3usP4liyf9M
-	n+ov751FOKMhQony11vOivC0c8UnjPvIRVmFnMMDgFiHPH6jXWKr52w2
-X-Gm-Gg: AfdE7ckwGD/IxKeVcp2RA2DOMmOIpq+V+O8MAuSWslCuke4+kwNx2kOV6EjwPnSa1eA
-	9wafMTG1jSBiWbe4JuqkV/scbJ2Mer54vKQCHuL0rPPD+Yx4nrWn2edEd9vkMn6FMVA/1NQtXK+
-	153oEcGf/6Sbw5Agw+n0umrDiTCqY9UU5cukyn0pyQcv9zJGdugNvhXmykuT7N6Ul3hj0Hi/VwC
-	EVTUWaNJgAnggS6ozt4k8ACr6QPWXBwI+pOF1rydIRNRa4+S9QXvr4sWoDJmqx3s7jlSiF0AGiJ
-	HE/S+5/Kz9iXyCwg8rKeMycUGbSjSrxrgj1G7gHXJoLP6lrtU7qRlCMv4pGw4DIADXDA/JZWlAc
-	nvUzIs6RM97LVMykJ7K9s5PPJE/YXF9mIwWRwzb0RM7GlI55D0ZkSCKmB4PHqg15YswpvhU3Sep
-	AVfaZu8i9xUdOBTrU=
-X-Received: by 2002:a05:600c:c168:b0:493:d282:8298 with SMTP id 5b1f17b1804b1-493df052084mr54038025e9.16.1783421539970;
-        Tue, 07 Jul 2026 03:52:19 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493df7010aasm40499085e9.0.2026.07.07.03.52.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 03:52:19 -0700 (PDT)
-Date: Tue, 7 Jul 2026 11:53:24 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 12/16] iio: frequency: ad9910: add RAM mode support
-Message-ID: <akzaWsIIA-uF_Crs@nsa>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-12-79125ffbe430@analog.com>
- <20260703040544.08a8ea5e@jic23-huawei>
- <ake_YWfvVC9RQ3wu@nsa>
- <1493eed5-5bb8-4a2c-8f2d-8b4bc5dde157@baylibre.com>
- <akt3i_YxG-jF3IdJ@nsa>
- <2d84950f-c56a-48f5-ab7c-c7b7ccb3b28d@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LNQOUKBq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA5DD1F000E9;
+	Tue,  7 Jul 2026 10:53:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783421625;
+	bh=odUeIgLWqjof69zpVeV99PEY6uCX61l3cDe1zfwmvzQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LNQOUKBq6EOR44opAtf39HGruMQEQzSYSDOBA53Ixkd5PFAvRU4ao02kRo9v0Q+x0
+	 aWgLWI2GqpIYpDHhDT2HPPewt0yZ6Y++VTLAJbVlEXw02nTi+DZWskRxCxIjXTtiOb
+	 hHN9WZMKW5o26RnkDciGv8L9FZdTI8Y4N5nNh8kZ7kpdLLLrWzuTTq4DrrzhjU+lbI
+	 bxZW1EXKq8tp8/Q3eZbYeaOUvoJG9FxUc8MrbE4yqyajR/hQWg80RZ4FRY7Af4Tr+C
+	 ixo38xN9t4A4sWFHP2b/2BqwU/FiAA3evgudO1LN3FYz5x7/Ot2XLm9elykHs3qD98
+	 xOxsJBK3wUIrA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/8] can: rcar_canfd: Do not set registers selecting the
+ CAN mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Claudiu Beznea" <claudiu.beznea+renesas@tuxon.dev>
+Cc: devicetree@vger.kernel.org, "Oliver Hartkopp" <socketcan@hartkopp.net>, "Oleksij
+ Rempel" <o.rempel@pengutronix.de>, linux-can@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, "Marc
+ Kleine-Budde" <mkl@pengutronix.de>, "Vincent Mailhol" <mailhol@kernel.org>
+In-Reply-To: <20260707102418.1646159-6-claudiu.beznea+renesas@tuxon.dev>
+References: <20260707102418.1646159-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260707102418.1646159-6-claudiu.beznea+renesas@tuxon.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 10:53:44 +0000
+Message-Id: <20260707105344.EA5DD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2d84950f-c56a-48f5-ab7c-c7b7ccb3b28d@baylibre.com>
 
-On Mon, Jul 06, 2026 at 09:10:21AM -0500, David Lechner wrote:
-> On 7/6/26 4:47 AM, Nuno Sá wrote:
-> > On Sat, Jul 04, 2026 at 11:50:35AM -0500, David Lechner wrote:
-> >> On 7/3/26 9:09 AM, Nuno Sá wrote:
-> >>> On Fri, Jul 03, 2026 at 04:05:44AM +0100, Jonathan Cameron wrote:
-> >>>> On Thu, 18 Jun 2026 14:27:28 +0100
-> >>>> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> >>>>
-> >>>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> >>>>>
-> 
-> ..
-> 
-> >>>>> +static inline void ad9910_debugfs_init(struct ad9910_state *st,
-> >>>>> +				       struct iio_dev *indio_dev)
-> >>>>> +{
-> >>>>> +	struct dentry *d = iio_get_debugfs_dentry(indio_dev);
-> >>>>> +	char buf[64];
-> >>>>> +
-> >>>>> +	/*
-> >>>>> +	 * symlinks are created here so iio userspace tools can refer to them
-> >>>>> +	 * as debug attributes.
-> >>>>
-> >>>> Maybe worth a reference to appropriate ABI doc here (even if it is introduced
-> >>>> in a later patch)
-> >>>
-> >>> I'm not so sure about these links. I mean, I definitely agree we should
-> >>> make it easy for userspace tools like libiio to be able to handle
-> >>> these kind of attributes but using debugfs is questionable to me. Pretty
-> >>> much because this is not a debug thing. It is a real setting for the
-> >>> driver so ideally we would be able to control it (using the existent
-> >>> tools) without enforcing one to mount debugfs (I know that most of the
-> >>> times it's always mounted but still feels wrong to tie "real
-> >>> functionality" to debugfs). 
-> >>>
-> >>> Having said the above, some suggestions:
-> >>>
-> >>> 1. Make the iio_dev the parent so that the attr name is just "ram" and
-> >>> it will be a subdir /sys/bus/iio/iio:deviceN/ram/.
-> >>> 2. Propose a new helper for the firmware_loader code so we can get
-> >>> struct device from struct fw_upload then we can easily create a sysfs
-> >>> symlink.
-> >>> 3. Name the attr as dev_name(iio_dev):attr so that it becomes
-> >>> iio:deviceN:attr_name.
-> >>>
-> >>> Now that I think about it, 2. does not make much sense when compared to
-> >>> 1. And If I'm not missing anything both 1. and 3. can be sanely parsable
-> >>> from userspace (being 3. maybe a bit more reliable). And yes, both require
-> >>> user space tools (in this case libiio) to support a new type of
-> >>> attribute (firmware) but that is another problem.
-> >>
-> >> I would say that udev should be used to find the firmware device from
-> >> userspace rather than creating symlinks. And you probably don't even
-> >> need udev if you already have the `iio-device:<ID>` value. The path
-> > 
-> > Just one note. If you mean <ID> as the attr name the above will fail for
-> > multiple instances of the same device. That's is why a proposed
-> > dev_name(iio_dev) which I think it should reliable be iio:deviceN. 
-> 
-> My <ID> is the same as your N. It looks like I just had a typo of
-> an extra : in there.
-> 
-> > 
-> > I guess N might change so anyone hardcoding it might have surprises. But
-> 
-> That is why I mentioned udev.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The patch adds the `mode_select_na` flag to support the RZ/G3S S=
+oC, but fails to provide the RZ/G3S hardware info structure with the flag s=
+et, rendering the logic as dead code.
+--
 
-I see! I would still advocate for apps to properly do the matching
-between the current device id and the firmware path :)
+--- Patch [5]: [PATCH 5/8] can: rcar_canfd: Do not set registers selecting =
+the CAN mode ---
+commit c89aa117ce922f6dfb13d5f51bb4146e8af1be2c
+Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-But the above is obvious something we can't control.
+can: rcar_canfd: Do not set registers selecting the CAN mode
 
-- Nuno Sá
+This patch adds the mode_select_na flag to struct rcar_canfd_hw_info to avo=
+id
+writing to unavailable CAN mode bits on the Renesas RZ/G3S SoC. The flag is
+initialized to 0 for existing hardware structures, and a conditional check
+is added in the controller reset path to skip mode selection if the flag is
+set.
 
-> 
-> > properly done and we have a sane way to match the above with anything on
-> > /sys/class/firmware/iio:deviceN:<attr>/
-> > 
-> >> is always going to be `/sys/class/firmware/iio-device:<ID>:ram/`. It
-> >> seems like the same amount of work for usespace to computer the path
-> >> either way, so might as well keep it simple and leave out the symlink
-> >> stuff.
-> > 
-> > Yes, at least for libiio, `iio:deviceN` is already what we call the
-> > device ID so we can match fw attrs against it and everything after the
-> > last ':' is treated as the attr_name. 
-> > 
-> > We just need to keep in mind that if a second user of this stuff pops
-> > up, we should add a new helper to enforce the ABI.
-> > 
-> > - Nuno Sá
-> >>
-> >>>
-> >>> - Nuno Sá
-> >>>>
-> >>>>> +	 */
-> >>>>> +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/loading", st->ram_fwu_name);
-> >>>>> +	debugfs_create_symlink("ram_loading", d, buf);
-> >>>>> +
-> >>>>> +	snprintf(buf, sizeof(buf), "/sys/class/firmware/%s/data", st->ram_fwu_name);
-> >>>>> +	debugfs_create_symlink("ram_data", d, buf);
-> >>>>> +}
-> >>>>> +
+Link: https://lore.kernel.org/all/1d9719e3-10ff-4cd8-b729-55fea93c37ce@wana=
+doo.fr
+
+> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rca=
+r_canfd.c
+> index 6ec2d7a031238..7f01afe60a4c2 100644
+> --- a/drivers/net/can/rcar/rcar_canfd.c
+> +++ b/drivers/net/can/rcar/rcar_canfd.c
+> @@ -445,6 +445,7 @@ struct rcar_canfd_hw_info {
+>  	unsigned shared_can_regs:1;	/* Has shared classical can registers */
+>  	unsigned external_clk:1;	/* Has external clock */
+>  	unsigned fcan_pclk:1;		/* Has fcan sourced from pclk. */
+> +	unsigned mode_select_na:1;	/* Has no bits for selecting the mode. */
+>  };
+> =20
+>  /* Channel priv data */
+
+[Severity: Medium]
+Was the RZ/G3S hardware info structure missing from this patch series?
+
+The commit message mentions adding this flag to cover the RZ/G3S SoC, but
+all existing structures are updated to set this flag to 0, and no new
+structure is added that sets it to 1.
+
+[ ... ]
+
+> @@ -846,6 +852,9 @@ static int rcar_canfd_reset_controller(struct rcar_ca=
+nfd_global *gpriv)
+>  		}
+> =20
+>  		/* Set the controller into appropriate mode */
+> +		if (gpriv->info->mode_select_na)
+> +			continue;
+> +
+>  		if (gpriv->info->ch_interface_mode) {
+>  			/* Do not set CLOE and FDOE simultaneously */
+>  			if (!gpriv->fdmode) {
+
+[Severity: Medium]
+Since mode_select_na is never set to 1 anywhere in the driver, doesn't this
+conditional evaluate to false for all devices, resulting in dead code?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707102418.1646=
+159-1-claudiu.beznea+renesas@tuxon.dev?part=3D5
