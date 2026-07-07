@@ -1,95 +1,94 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D68E3AFAFF
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:37:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0A43A7D6E
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783453062; cv=pass; b=XsKlec2emsGgk+FPJtINhWZRKm21p0eCQCAmJ95PeYVicGcp6VmXtD9f+l0A86OPAnWU3U1Tnp880X2QOdfSRiRMZwsHJxxwinVksAXfhm6Im9f9wtFjf28mSt2khb3why2QrpEGRMzKV7mb+fqH5izuQzFZieJwXGHp0W3udYo=
+	t=1783453101; cv=pass; b=lsTifk0xcFHo20w1P/mnEmq2aY2qSmPbgFkziJeXXoxMrBemBJKpDpqwBYOMIHt3NYPYpuSf2sBpC33iUMWGdH72G/KXCTMMXwOrEXPdHbFxLAOt5w89Ac2avh6Soe8MRlkVDqwE47HQTQeqSIwTlmrbaZrBTvDMjR3ToZYgETU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783453062; c=relaxed/simple;
-	bh=Aa/d/vFi0BE7yXkavGTYUSUbBMeNwI3YLV6urIqr40g=;
+	s=arc-20240116; t=1783453101; c=relaxed/simple;
+	bh=lBRpzxPz7KT5GWPoD8g2gj9X1WfqI1g484XKzOSeIjY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OCsVqBFqtOV81AaDK6YMkmhVcF4uf7qx2KjYJN8uIzokGl3Ui5cbN769l1y4qXqarq1GZ4vsKYSvZlw2wrMZGNKaWex0BuR6Cf6n+64l/ZdGhL1TdfyiBn3KyxylHk+LQQ1EQS4G/62z+zJSqG0M6ugJKOeDkY4VDOjBvwIXm+Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=YpFl+8RA; arc=pass smtp.client-ip=209.85.214.176
+	 To:Cc:Content-Type; b=GS9gS6r+FQCmHBjqnm2uVqGDiwZuCgtBlcDHcJZDyZ6r6UN8ztP1S5LlqhposshnfJVcSz9wbCY+DuWyQ5NvjoMz8vN8vucOYWlAQ8nFETcOsGL7XvL7ri/fFJML1fEYOgTaB8lxMS+e8Dl4bmKADobbqXJeJ0HnE/nCs8XdJIE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=e/hneSZ/; arc=pass smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="YpFl+8RA"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cabc0a1ab6so51660295ad.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:37:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783453058; cv=none;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="e/hneSZ/"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2366387a91.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:38:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783453100; cv=none;
         d=google.com; s=arc-20260327;
-        b=lBnh2UPbLfyEzOEVv+7PyB+Gm60Qh9qg3qKE2lG6ucnEVGeSvRZA8U3j0u+Grrq1ev
-         NgycEWtMF+I9GtvUk7R8URA1PKtJo/0BtLXJ83hz8tnhS6/AXnQaNxckQlObq2ud6gnq
-         X9LquY4bzKGZn/o0ttBKQ1DYYcejcGDuqwN6kqBV4x+0Pix0h6wh5O/jihFxbM4Ypjxf
-         ddB1rss4ymSWxU0rC3lsanEynIfadQ7MfeFY2/qPV/HHcydiaYxdLZsYiSE3fqqz10Dv
-         uIHG95yWERMPR3W9cmk0Qxq1fQfpxb4eKRLRToRDN9G82SpPjeUZJTGqSv321dBbQGx0
-         r5jg==
+        b=nDxeaBR7PGmZupWLnohx/1kzgR9qgKfLEezvZ7nb/CLteTn8G2L4q6s/eZDaSTHIQd
+         xsY2C/56Z47aK73GGhqMkES16vdMoPRDZrGNkwYJliKaBNn0idHJAU5OhFAlxCmXleFd
+         C+dpR0PTRYQtYkrtdpnFInsTp2Ki31uYcYg5cl6xEu8IVr/2sQxAdrLQDDE/l85yMY4w
+         Em0hWko7y9IJF2UTa5u3oXokk7iDyvnF1WaFVLKWtbN9FJFflGaU/aeSyXRAnnHaMNtU
+         OcEd1oR86FpIexwCxXhC0FGSpbe7j0MINRxB+rHR+jHH9/XxG0VLedhYBlmZWMgdf8v3
+         bfsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Aa/d/vFi0BE7yXkavGTYUSUbBMeNwI3YLV6urIqr40g=;
-        fh=4J5Ce+jdT5T3avImO38txVMnVvJ4YVZ1GnwpeomO2To=;
-        b=AdkUByhfcjj0pdIDiPOnickvJcOpgpLszD3Qyu5J/xQE/pmQOrdVWj/VYLW+qh3qbt
-         4jsXY/tzjhycwkQvej4+b3l96ZsiZFzbGhddjKyb8YiJge7KP8Q42x8QURFSNAyLuqNi
-         QmYo/1LDk3Q8iybh0nCxBYC8wLRLV/sfvPfEJxw/NGyo2GTKD866vpu233rIBBTwlVjV
-         vCc3abmY6bHLvo/hzYVhJ7IyBBK8yHlql5d41NWrW3ZcEcIoQVtuBwLlT1OYycLf8fT1
-         +p3zs1KIxvE8I42ovivjH9teKqYS7sKE4ggTFQTBDhZDvcCD9aUzJ9XQF9NpbsvDkxQk
-         U4lw==;
+        bh=lBRpzxPz7KT5GWPoD8g2gj9X1WfqI1g484XKzOSeIjY=;
+        fh=nw5YXUrhpeAyacr5CcmET8aqe7PlLxXvRv9OPwY3akA=;
+        b=H3vI1B4l1S6guz1oTIzNwGXLIMSRNRGIIuVGhXBKUMVbY1BkUFpnBffuuwE/crGTbi
+         tH0jqwCckily91urecqPec9C7fzrlTcqUdTF92dgR1FV96r3aiVMbIArK3ZxHpJa+CyI
+         lEd1o0Ok4d3qqcBbFtewj/So7qeuVko5CSq3HPje31gaJxJtyO/1uf8u3iH79P69iH2r
+         3acRYCbrkHxAUQjx7Hr8vxKrdWav2HjO/yUgsejNyTXAtZ4TsJZRJ2Lm32ny1qz26kxg
+         fN+5tpuNBL7j5h/kBml8bS/HhtmK9DOMC0mRd/AlOd/n0ORZHo4+4oPGLgQ+wtkZeKGK
+         Nr2w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1783453058; x=1784057858; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Aa/d/vFi0BE7yXkavGTYUSUbBMeNwI3YLV6urIqr40g=;
-        b=YpFl+8RAWaVibMEGf9ThJyTbTq3Rnt6SGjBO4+iykP8+TBZGOwtQSWbVQxccSGimy2
-         TWLluh6IGqnL/+l8aiwPst5PzW451+IlbuN3uZ+37kY87fkFL2GTIZq2OFqSItlbUJS1
-         yQphJToEmGL4WuW9XtPthyjeOOrO/JJaBCUHcLEIQt79jFTX765/e9kQFBugShQ38Ge/
-         ZINBfHY6HcbdDPrVKVf/FNS6FYwR2g9pQidSMF9sxOthUztkLOd0ipt5+U+G5QVmvHFs
-         KL+TCvH8ucyp65wLPXWMUlrPZxRTDj3+P7Fj2/Qo1ey0LyS1I4965HDKZF9mhXEshcxd
-         hZLg==
+        d=googlemail.com; s=20251104; t=1783453100; x=1784057900; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lBRpzxPz7KT5GWPoD8g2gj9X1WfqI1g484XKzOSeIjY=;
+        b=e/hneSZ/AYCUjPSbJ8vBtT+YnNghYmpRbC/wwN6MGWYK7WNoE0l6k4Di7uTDxf/Wgc
+         HJ6pwzZ6algvRrPpE/l0qbIJXuIfXvgoam0J4lLhuSqk4i4Uzfp3QlG1j4Y1RP8wro42
+         uMBJoUCT3pA2v9th2VCLy+BJ+uz5jIb2oeTKsyQPtPPGR3Y98MeCVIY/Q4FcaAVTEih4
+         gtf9VUut40tjW3kxyz0HQ6r1ku+w41ReCkBlnLcPQBMulmznnT57WzcsvHTLskUCQF8Z
+         VVIeEZc3ZE8Va4i/zCnoET7afzReOBT7cXozU/XobKnp0ahVqis8e/NY4Ul7XD6YrHHB
+         YAbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783453058; x=1784057858;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Aa/d/vFi0BE7yXkavGTYUSUbBMeNwI3YLV6urIqr40g=;
-        b=EsLVyQGQQqOYVyRgMbXMlvImb60JgX9+FDqWU52RnCZ3ZPw8clQFF0pgQ41xANsCGG
-         6WQQUkQV4C6IuidLbxFfQIvGrlLXxB02rb8BuD4eYeCIr8jvq0zeB1TJ+mwO3tHoxENX
-         e2jsPE25SBneKQIEumbq+JNACWk+C1UHM+UlM3dQFqFeXn7ePHAdZHP8o+3cxojQBJV7
-         IGTYCRjUDbFy/qMmu5Vqs+I29WVcFCfmXfa79jNdF3KOzQUCAy18WqqarqchiIKtabzA
-         9AR7gWO1pOhd/wD06QQA7sSfKy64cwgxkPCg+7nvDIUAWOOsWud5S7zHcypPLilpVhuu
-         YwbQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqnknwbfqoXEU14FlkCh32yZWnyFibw9gMwgyX1P0ZeYtWMbmd+Er60veD+6IqDp3Z9CeEnNcjJzj3r@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx851g7spoTDQKI/XH/Cg4tsrKv78wP8a4pWOrCyNzUM751iIpG
-	iYZURLrsgNS/cAg0EbLeGLnVfPh+EKBJv+Jub2zSaAr3qd6U9PIp7MIcG816Xz1UhhxjJ64FhYa
-	3krq9N+XAFan4gSpzq0z158ut5zcewUo=
-X-Gm-Gg: AfdE7cndsZXunAoeeYaS+XlYoiP8cJtYLUWSzhlH6Ra4ToW2WaS+oLhOBJf83Opq6g6
-	A4beOL1qTxzMCbOCx0s7ey34hBLxDLQMQ0uES5fcnko187SVtRbVvf5gNgj9n5tWK5l0WuZ06Fv
-	N6XTbHsLVKSMwF8YxAkPWOc3/E9ovEHuI8LghLuewRAfv7z5vrFM7cG1dj9prGwsZ01AiR49gDV
-	wceYdtlKTTTnoYS+rHmBPbpCoSlFfN87oGy50vxLz4/k2FbD6yxMz6tUS1V2WDZRBKOr9GyPWYx
-	kHDSlgRG+oVC2y+R86w9T+QGcYyUobMLpc8s
-X-Received: by 2002:a17:903:244a:b0:2cc:9a86:9c42 with SMTP id
- d9443c01a7336-2ccbf1b95demr64908935ad.45.1783453058116; Tue, 07 Jul 2026
- 12:37:38 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783453100; x=1784057900;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=lBRpzxPz7KT5GWPoD8g2gj9X1WfqI1g484XKzOSeIjY=;
+        b=Q1jhadPM14GW7SwE78wAQhEOH5x/Cay992o3kWDvYH9hEAbkTwei5Sl1Ob7/6Bvm5W
+         hRd5u/1aoGxiNnTlN0rYuwnFgfozpUXjhCMiHoX5+rYtc9+2pe2s53mGL/677mptBcFm
+         jOHOU8IZEAjyUNVOpbzV/nLGRRhloP2z29M3NQyLd0efS3QtRXWpHTDB/MkJ7iJIejCX
+         fX4qbPALXzUU8han5YJKGciN3fBoEYK8t6dHsI61mFOPO2LZzvVRu9emz2GL27zhD268
+         p2W5Bv2ZV+3VgFZG42eajbeA3foS7AikiNeEoZa5WGE3/E1d6Vd3bFjpYRZeYnBDJLJx
+         Z7Pg==
+X-Forwarded-Encrypted: i=1; AHgh+RpEhOvNkNE5EA3fIQkYANqsT22PXFnvVxzAX3ZysrAcqCquaiqg6S4LHUrBe4If5MlVmj2ElD5xcy3T@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqyQLiSFMP9DbRGxE/kG1U1NcyG0RCQ99vWqwL53oh3GZUSbr6
+	2G43DIjSAnB4I7mQlSa1woE2qPGTOPhB8vmnWsAWtp6wennDdTwUZG9VzaOFVrRLfc34EZzcRSt
+	81V26HNfsWyyhRVgPf37BrRoIS5U/pOM=
+X-Gm-Gg: AfdE7cmoPdWWDTf6wIBzVFndkQiBWMQzGInQXtDk5ZOPmi8aTpoJu1YpOX7X1mUWpVs
+	o1grx1ZWOtX4luXQVnYOHcquA29NhULhQ3H8pcUiUs0NecBIOoPPY+x9ym48QW5MDU5Yypnc0wS
+	Lp1yd/70uheNuXtvhixulev1REI0GgI+G8Cbu52hSj7/zqxhBcmckbJ4VwNth1x2vOIieniKgHi
+	Ky53WcxooXCrIXHCptwfZA2w4u4B09S3S21U9Xc5BIE6jljzCvapKPyQySXDesw+GAN/TaifAvc
+	LeuWHONSAb7W455TjvpOfM15JWcUbwucowBH
+X-Received: by 2002:a17:90b:2dcb:b0:383:5a16:bd70 with SMTP id
+ 98e67ed59e1d1-387582624f0mr6371414a91.16.1783453099684; Tue, 07 Jul 2026
+ 12:38:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260624135650.727077-1-jerrysteve1101@gmail.com> <20260624135650.727077-3-jerrysteve1101@gmail.com>
-In-Reply-To: <20260624135650.727077-3-jerrysteve1101@gmail.com>
+References: <20260624135650.727077-1-jerrysteve1101@gmail.com> <20260624135650.727077-4-jerrysteve1101@gmail.com>
+In-Reply-To: <20260624135650.727077-4-jerrysteve1101@gmail.com>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 7 Jul 2026 21:37:27 +0200
-X-Gm-Features: AVVi8CfQK0siXaeTDeQArGj0PmVREFVpRuWfBiz3ACt-27jHdJsP7_vY7xQZbzo
-Message-ID: <CAFBinCDjAo5WTmap1si1=BapdaGzdbP-FDyR4Evx5_EvWSvSig@mail.gmail.com>
-Subject: Re: [PATCH v4 2/4] arm64: dts: amlogic: meson-axg: Add missing
- nand_rb0 pin to nand_all_pins
+Date: Tue, 7 Jul 2026 21:38:08 +0200
+X-Gm-Features: AVVi8CegJ64Z2gd1io1fmLKunzl-GtPXQOMtd5GAEdMnAz5kN92Sdzb9oNcj0BA
+Message-ID: <CAFBinCCB1dRkqq3DsFn4nL0RZ9-pRud5rDUxTz_2NokGaynLxQ@mail.gmail.com>
+Subject: Re: [PATCH v4 3/4] arm64: dts: amlogic: meson-axg: Disable pcie_phy
+ node by default
 To: Jun Yan <jerrysteve1101@gmail.com>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
 	Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -103,12 +102,15 @@ Content-Transfer-Encoding: quoted-printable
 On Wed, Jun 24, 2026 at 3:57=E2=80=AFPM Jun Yan <jerrysteve1101@gmail.com> =
 wrote:
 >
-> The nand_all_pins pinctrl node was missing the nand_rb0 (ready/busy)
-> pin description, which is required for NAND controller operation.
+> Set the pcie_phy node to "disabled" as it is not used on some boards
+> and should be enabled per-board when necessary.
 >
-> Add it to the pinmux list.
+> This change suppresses the deferred probe warning:
 >
-> Fixes: be18d53c32b2 ("arm64: dts: amlogic: meson-axg: pinctrl node for NA=
-ND")
+> platform ff644000.phy: deferred probe pending: (reason unknown)
+>
+> The meson-axg dtsi now disables pcie_phy by default, so enable it
+> for the s400 board to support PCIe functionality.
+>
 > Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
