@@ -1,64 +1,64 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CF03FF1AC
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C01D3FF885
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783427167; cv=none; b=p8N1nbPFFVQz7iHIYpG8v1cWWP/HZb8nwr5LqWOp8kVsflLkC+KhbRO9b48StI3yBRxtsot6iuTjOZRupiXvUvq97rOm50ou58nx5eU66U6jtLK7qDr2G6E0g+o30sBXgOf8beG4MvMwZMAbN6gN3MDkkiNI7i42u/wZ7xQB458=
+	t=1783427179; cv=none; b=O7OlMgjW0ERKTX/YK0S1ZnH5Dj4Y7ajUxVNT32wYLxSWQtXOzcEs+cEkIkEzYoTDjdK5vDtBGaVFzKGUvHGJFlur+D4MBfM9JROGLjggJtSZFUKnIYAW1lLjOH/y4jeCTGdvB0Zo9QA3bYf1Nibx5o63q127TlSHtKcr30iNFho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783427167; c=relaxed/simple;
-	bh=FH8tcHR+Kf/Q4WoeEbtw1NyA3aDEhztHlh0tNOOUXJk=;
+	s=arc-20240116; t=1783427179; c=relaxed/simple;
+	bh=wOWl85XNfyyAiNHyYGNyYvPa6uOndgi090HkKRbqgzc=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ikPfmWccpeLclO/slsRH2U+TgooNEMJJ1sBc/yeR6x8af03JLAciPRDN5hWzQVln8GY3pAfmi6Ntgcsak377fZCNqD0Ag7OX989hDjUBbHhGG+/dvGdO9ckJ1OyMLOhKOLORJ8b4K/TVqcEsejXe4prpCbbKyST/eXIKGjXwohw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o7FdmV2i; arc=none smtp.client-ip=209.85.214.177
+	 MIME-Version; b=HAvNjBLMftnD5Gzaa7topohxHyu/5p0p+o4i2wp8pGKAD99IHHPDYoWPce9kVx018cVLHFpXQLHmNe2hQOMYGUGPKYaRuAPVp9fuQklE32rpK7IK4aNDZler0bO3FKQwTAaLWMlUI1MCKfGrAZsTIhCdn3f/U1oY2djrFUvVKVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S5gscQU4; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o7FdmV2i"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2c7c61b5292so58862885ad.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:26:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S5gscQU4"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2c6b67d5fa1so41415335ad.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:26:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783427165; x=1784031965; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783427177; x=1784031977; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IgLtos+kVckpvEahUESh1dXWtYuNLZ70j+TeV2rQ4j8=;
-        b=o7FdmV2iz1KaHdVLavYCaIRIISC/kCF8tM22letnR4qRyL4Zw7/ApG3Zz0EeTngp/0
-         NfNcqYYher43e35vSpifNA5sgX8b8OHo5aWJS3VlBA594YUqE7JqlD3/M1zIc0glYzWH
-         6wQLsEPgzE9Wzvzdf39Dn+VEjGhk2YlRZkTSG8gVzFyZHCAGx4erkjksjNXaZrEECOIS
-         04E3gRICbwRNSzKVCs5Ukj0Azyo/IpIZf8j1Di32uma0iW4K+dsOBvEV2zhIgwk71Qqp
-         fK5B5M6//dwwMqUlf1GoV/Jo3WcrOkmM7TFeaEflB6TUtKBTW09ZNpZPrES2xi/4hEmj
-         inGQ==
+         :reply-to;
+        bh=P0nHXbxtabQuV8Otb/IZQlaOiQs2taizWzEfRHotKPI=;
+        b=S5gscQU4IHkhDjJj7wIKWdYWqqQDTRPRNDxkBE6vwUBEPMyjDmxsX5L+qIPVm+qAfY
+         TxOPwHsTz7Z6dsMuP7CrlUIKuCfRoG82hvAlWCNtC4WntU2nyST8d5LlPbzjKuERp+eB
+         jTJBfWs01y7njCeT2hwYLADeJ0tEvowp38O9EIPCoCpj/6h6husEEsUFdaN/Gm/Ez7Vr
+         QBMncyKz0kT9Ae/R3QtQJKvHT6jw0AkQ7ZmNwmn4pcaxTx0rLiwE59khoeBByRSaMLFO
+         i28wALwW5OHgYW8MCiM8z6z4iir36MNKTbMxkV+1VPmZf5olXWj2UBrazcGBEzC7keko
+         MQtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783427165; x=1784031965;
+        d=1e100.net; s=20251104; t=1783427177; x=1784031977;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=IgLtos+kVckpvEahUESh1dXWtYuNLZ70j+TeV2rQ4j8=;
-        b=VLJJR5cW3TlmMdl619k8qcojendVJ8lJX7u+zuDYmcdTeKZCAb/SHwg31SLWowJOX/
-         uI+Tpc2kQ1j/w5/BI9t9hVWIwVxXsIyaQKz4ZN2lfQ+orecxsuoZ7w9VqaZpxcH0OQj6
-         0UQWXNP5X4JEh3sq7d6Yr9u0iWZKak1IqEtfKIfqJxnb2XZeUmbbud6nRV0CFQThAFxp
-         FHs5u5zvC7b3dgbm+GMXV/U9BfZvI6Hm99hR163u/JnqBN1hU6fYBII68rLo5JT2IS5Z
-         1jaMOEi61IBgRnr/AMVOIESetQnFh/Uxe4oRAh7RDyvYyx1K63xEZ7S7yB3hmbtvWodH
-         VTmg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrc5hvqI3NpzM9NInf0prCkxd2SYKjj9wWZun0W4VqtLXTU/uFu6qYPs3FRg7a7FZ+y7zeCyUKOJYCd@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywxwd/7/uaBwnCgs+HvwUk+p5G6jpv/JmJrdxcqCJ3GPLhUoBLf
-	3xirHXNIFWq2HiJS7P2cnjYa3jEj9kqykm6DFN+a1L1+toagXDiTadhd
-X-Gm-Gg: AfdE7ckk0GeaOKQ9HGObHhyTdty4dC7/CMaDBbsSR1NwaBY5gQC7SRja60tKbVpHE45
-	E3HhOyEUfO+mk/E00konG329OJHKZ8fWGHPXEAjulJX7gqromXRvl0eZL/aaycrzs1RTfTFrIzL
-	KTs2cDRlorEM9PNv3iqZRfbytTpI+dejoB9oESnEnkf3ov1wgKFxtqO0ztO/bbr6G99abNK9lKj
-	NbeKeKe6fPuugG0QMnZicc1u0KNdv9cYBIPAOXkFYxdGG1rrolzM9b9oElSo7EHseoSzzSe2Sck
-	vCQ8CKjbQaHuntGA9YfyknjyLAN+tjiiAtTUnHl5dEHgGT7s+4YF42FU7yytq1el9Eq/yjVU3lW
-	ghGVEhgTPlMawOHbf44NnBvZ8CnsfMzKZRF3yTC/9H5SbOtFC1kqr7W/80hsE/jT93ZxLXaHxEs
-	p9zIMQTkhmVgBdanpd/iZP8j5GuV+96NsBJ1TRJzwiY4pGuX1uL6ED+nD5UHWqpTav0ZxH/ZBHt
-	A==
-X-Received: by 2002:a17:903:1c2:b0:2ca:b8fd:1a8f with SMTP id d9443c01a7336-2ccbf184d59mr49746515ad.39.1783427165522;
-        Tue, 07 Jul 2026 05:26:05 -0700 (PDT)
+         :cc:subject:date:message-id:reply-to;
+        bh=P0nHXbxtabQuV8Otb/IZQlaOiQs2taizWzEfRHotKPI=;
+        b=p51Ukzlu4JjkTy9LST7kWdnLHythUR58MalIjcE3kX0bxBtuYbvgBKs7sR0nhqf4yx
+         +2AY1PWn+zz1b1LTcM48se2Nulzpq7/7DLo31Sanq+iPeXTmwiz1RNg8seNk0ibRAPaF
+         +vwvdtgW1Vjgm9OajIDgp6GTY+9XVbq+GpVMykYyebNCtQxx4vZDmB2R8Ss6mUvWRHpv
+         yiRxbQ5Z3lYyoYCNhvpFemrOaERgVyo1pbGsWwE6Fal7PKaSOmSKV8YjlVz9QsVESil6
+         Qn2Piv1G5hwuhuEHpbkaEKHpMc0gCXJww8kTT0UP6SXpWk7mVMYtsmqjQMTV+ZKKdQlU
+         Rs8Q==
+X-Forwarded-Encrypted: i=1; AHgh+RptGR9RAqBUq/acEdDLVJlZAgqhhqIWEtbB27HIgqY53eTs+PamuLEX+oZu/44sAMUbsQMh8iXr2Ogx@vger.kernel.org
+X-Gm-Message-State: AOJu0YyR8qtcWVBQvDvpMjD0tOeqm2Xr3uEgrHm6ryyxK/x69E2v0Xkz
+	njkSHWRD7zxHeVkJErDNUGc1AsA0SEpj0niSe3i/zWmPhRdHOhdF4P4C
+X-Gm-Gg: AfdE7ck7x3x8Z/hB5OOqYrUyDsMuMsr4MOuXPkM1MA9DK3SeH7qWoOQ9azmGD7lRF6l
+	KNcxbkekX6mpli/tPcXmWzG2di/ao/5jCalvOtS0CDGegKgrknTjZ+BK+M1i+FJT9UXSP7O4Q8o
+	PSAA4q+Q+4M2YwKtmy1cfxfZYaOXbAsZxzCMboy/kun0fXhBI6pZMWS7kwO+y0iAyw2PRAEa4P+
+	5UyTpSyrKouVMOY6+xQGKLmUP4ZnLVkNdSgeFV7paLaHW5fsMYGhI+wZmN3qFq8NjhIc6a47QGT
+	PY+wHEtS/g88tHqKvZBTQrBx7PdbfiVk60eW3uN/UCcmXGWZOEwxGtuadn2J3AOg1TQswDJpcBQ
+	4S+TyTdiDxm4drPiI6Mnk6W0T8T8tIDcPxSxZKdeG0egP/MtbKhY2nMI5kpmxOvzMgmeeYK6Cr+
+	LiANwOsMQMCl+nRrUq3Z7RzVJDUfC3jg18G1jHazWnSwVpgVnPinDTBQpfaHdsC/JLTjYeXTiLl
+	Q==
+X-Received: by 2002:a17:902:f645:b0:2ca:9d5a:8b6c with SMTP id d9443c01a7336-2ccbe3fcc82mr51027675ad.5.1783427176596;
+        Tue, 07 Jul 2026 05:26:16 -0700 (PDT)
 Received: from fred-System-Product-Name (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9c21429sm11078765ad.37.2026.07.07.05.26.00
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9c21429sm11078765ad.37.2026.07.07.05.26.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 05:26:05 -0700 (PDT)
+        Tue, 07 Jul 2026 05:26:16 -0700 (PDT)
 From: Fred Chen <fredchen.openbmc@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -69,28 +69,27 @@ To: Rob Herring <robh@kernel.org>,
 	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Wensheng Wang <wenswang@yeah.net>,
 	Frank Li <Frank.Li@nxp.com>,
-	Cosmo Chou <chou.cosmo@gmail.com>,
 	Brian Chiang <chiang.brian@inventec.com>,
-	Antoni Pokusinski <apokusinski01@gmail.com>,
+	Cosmo Chou <chou.cosmo@gmail.com>,
 	Dixit Parmar <dixitparmar19@gmail.com>,
 	Eddie James <eajames@linux.ibm.com>,
+	Antoni Pokusinski <apokusinski01@gmail.com>,
 	Thorsten Blum <thorsten.blum@linux.dev>,
 	Ashish Yadav <ashish.yadav@infineon.com>,
 	Alexis Czezar Torreno <alexisczezar.torreno@analog.com>,
 	Syed Arif <arif.syed@hpe.com>,
 	ChiShih Tsai <tomtsai764@gmail.com>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Kim Seer Paller <kimseer.paller@analog.com>,
 	Abdurrahman Hussain <abdurrahman@nexthop.ai>,
-	Vasileios Amoiridis <vasileios.amoiridis@cern.ch>,
+	Kim Seer Paller <kimseer.paller@analog.com>,
 	Colin Huang <u8813345@gmail.com>,
+	Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-hwmon@vger.kernel.org,
 	linux-doc@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: trivial-devices: Add adi max20912 and max20916
-Date: Tue,  7 Jul 2026 20:26:37 +0800
-Message-ID: <20260707122701.751878-2-fredchen.openbmc@gmail.com>
+Subject: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices MAX20912 and MAX20916
+Date: Tue,  7 Jul 2026 20:26:38 +0800
+Message-ID: <20260707122701.751878-3-fredchen.openbmc@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260707122701.751878-1-fredchen.openbmc@gmail.com>
 References: <20260707122701.751878-1-fredchen.openbmc@gmail.com>
@@ -102,29 +101,321 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add device tree bindings for Analog Devices MAX20912 and MAX20916
-Dual-Output Voltage Regulator.
+Add support for the Analog Devices MAX20912 and MAX20916 dual-output
+multiphase voltage regulators with PMBus interfaces.
 
 Signed-off-by: Fred Chen <fredchen.openbmc@gmail.com>
 ---
- Documentation/devicetree/bindings/trivial-devices.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ Documentation/hwmon/index.rst    |   1 +
+ Documentation/hwmon/max20912.rst | 156 +++++++++++++++++++++++++++++++
+ MAINTAINERS                      |   7 ++
+ drivers/hwmon/pmbus/Kconfig      |   9 ++
+ drivers/hwmon/pmbus/Makefile     |   1 +
+ drivers/hwmon/pmbus/max20912.c   |  70 ++++++++++++++
+ 6 files changed, 244 insertions(+)
+ create mode 100644 Documentation/hwmon/max20912.rst
+ create mode 100644 drivers/hwmon/pmbus/max20912.c
 
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index 435c4baab436..5e7fb4edb82a 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -57,6 +57,10 @@ properties:
-           - adi,adt7468
-             # Analog Devices LT7182S Dual Channel 6A, 20V PolyPhase Step-Down Silent Switcher
-           - adi,lt7182s
-+            # Analog Devices MAX20912 Dual-Output Voltage Regulator
-+          - adi,max20912
-+            # Analog Devices MAX20916 Dual-Output Voltage Regulator
-+          - adi,max20916
-             # AMS iAQ-Core VOC Sensor
-           - ams,iaq-core
-             # Aosong temperature & humidity sensors with I2C interface
+diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+index 29130df44d12..4fadb7e961b2 100644
+--- a/Documentation/hwmon/index.rst
++++ b/Documentation/hwmon/index.rst
+@@ -166,6 +166,7 @@ Hardware Monitoring Kernel Drivers
+    max20751
+    max20830
+    max20860a
++   max20912
+    max31722
+    max31730
+    max31760
+diff --git a/Documentation/hwmon/max20912.rst b/Documentation/hwmon/max20912.rst
+new file mode 100644
+index 000000000000..da1430751e93
+--- /dev/null
++++ b/Documentation/hwmon/max20912.rst
+@@ -0,0 +1,156 @@
++.. SPDX-License-Identifier: GPL-2.0-or-later
++
++Kernel driver max20912
++======================
++
++Supported chips:
++
++  * Analog Devices MAX20912
++
++    Prefix: 'max20912'
++
++    Datasheet: Not publicly available
++
++  * Analog Devices MAX20916
++
++    Prefix: 'max20916'
++
++    Datasheet: Not publicly available
++
++Author:
++
++	Fred Chen <fredchen.openbmc@gmail.com>
++
++Description
++-----------
++
++This driver implements support for the Analog Devices MAX20912 and MAX20916
++high-density, flexible, and scalable dual-output multiphase voltage regulators.
++
++The MAX20912 supports up to 12 phases in total, configurable from 12+0 to
++6+6 phases between Rail A and Rail B.
++
++The MAX20916 supports up to 16 phases in total, configurable from 16+0 to
++8+8 phases between Rail A and Rail B.
++
++Device compliant with:
++
++- PMBus rev 1.3 interface.
++
++Both devices expose two independently regulated output voltage rails,
++Rail A and Rail B, using the VR12 VID interface. Each rail reports input
++current, output current, temperature, input power, and output power.
++Input voltage is reported on Rail A only.
++
++The driver exports the following attributes via the 'sysfs' files
++for input voltage:
++
++**in1_input**
++
++**in1_label**
++
++**in1_alarm**
++
++The driver provides the following attributes for output voltage:
++
++**in2_input**
++
++**in2_label**
++
++**in2_alarm**
++
++**in3_input**
++
++**in3_label**
++
++**in3_alarm**
++
++The driver provides the following attributes for input current:
++
++**curr1_input**
++
++**curr1_label**
++
++**curr1_max**
++
++**curr1_max_alarm**
++
++**curr2_input**
++
++**curr2_label**
++
++**curr2_max**
++
++**curr2_max_alarm**
++
++The driver provides the following attributes for output current:
++
++**curr3_input**
++
++**curr3_label**
++
++**curr3_max**
++
++**curr3_max_alarm**
++
++**curr3_crit**
++
++**curr3_crit_alarm**
++
++**curr4_input**
++
++**curr4_label**
++
++**curr4_max**
++
++**curr4_max_alarm**
++
++**curr4_crit**
++
++**curr4_crit_alarm**
++
++The driver provides the following attributes for temperature:
++
++**temp1_input**
++
++**temp1_max**
++
++**temp1_max_alarm**
++
++**temp1_crit**
++
++**temp1_crit_alarm**
++
++**temp2_input**
++
++**temp2_max**
++
++**temp2_max_alarm**
++
++**temp2_crit**
++
++**temp2_crit_alarm**
++
++The driver provides the following attributes for input power:
++
++**power1_input**
++
++**power1_label**
++
++**power1_alarm**
++
++**power2_input**
++
++**power2_label**
++
++**power2_alarm**
++
++The driver provides the following attributes for output power:
++
++**power3_input**
++
++**power3_label**
++
++**power4_input**
++
++**power4_label**
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4a8b0fd665ce..a301af7ff6fd 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15851,6 +15851,13 @@ F:	Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.yaml
+ F:	Documentation/hwmon/max20860a.rst
+ F:	drivers/hwmon/pmbus/max20860a.c
+ 
++MAX20912 HARDWARE MONITOR DRIVER
++M:	Fred Chen <fredchen.openbmc@gmail.com>
++L:	linux-hwmon@vger.kernel.org
++S:	Maintained
++F:	Documentation/hwmon/max20912.rst
++F:	drivers/hwmon/pmbus/max20912.c
++
+ MAX2175 SDR TUNER DRIVER
+ M:	Ramesh Shanmugasundaram <rashanmu@gmail.com>
+ L:	linux-media@vger.kernel.org
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index c8cda160b5f8..442c3538bf7c 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -421,6 +421,15 @@ config SENSORS_MAX20860A_REGULATOR
+ 	  This enables the MAX20860A to be used as a regulator device,
+ 	  providing voltage control through the regulator framework.
+ 
++config SENSORS_MAX20912
++	tristate "Analog Devices MAX20912 and MAX20916"
++	help
++	  If you say yes here you get hardware monitoring support for Analog
++	  Devices MAX20912 and MAX20916 dual-output voltage regulators.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called max20912.
++
+ config SENSORS_MAX31785
+ 	tristate "Maxim MAX31785 and compatibles"
+ 	help
+diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+index ffc05f493213..2fa74f0caf18 100644
+--- a/drivers/hwmon/pmbus/Makefile
++++ b/drivers/hwmon/pmbus/Makefile
+@@ -40,6 +40,7 @@ obj-$(CONFIG_SENSORS_MAX20730)	+= max20730.o
+ obj-$(CONFIG_SENSORS_MAX20751)	+= max20751.o
+ obj-$(CONFIG_SENSORS_MAX20830)	+= max20830.o
+ obj-$(CONFIG_SENSORS_MAX20860A)	+= max20860a.o
++obj-$(CONFIG_SENSORS_MAX20912)	+= max20912.o
+ obj-$(CONFIG_SENSORS_MAX31785)	+= max31785.o
+ obj-$(CONFIG_SENSORS_MAX34440)	+= max34440.o
+ obj-$(CONFIG_SENSORS_MAX8688)	+= max8688.o
+diff --git a/drivers/hwmon/pmbus/max20912.c b/drivers/hwmon/pmbus/max20912.c
+new file mode 100644
+index 000000000000..3d028a619678
+--- /dev/null
++++ b/drivers/hwmon/pmbus/max20912.c
+@@ -0,0 +1,70 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Hardware monitoring driver for Analog Devices MAX20912 and MAX20916
++ * Dual-Output Voltage Regulator
++ *
++ * Copyright (c) 2026 Quanta Computer Inc.
++ */
++
++#include <linux/module.h>
++#include <linux/i2c.h>
++#include <linux/of.h>
++#include "pmbus.h"
++
++static struct pmbus_driver_info max20912_info = {
++	.pages = 2,
++	.format[PSC_VOLTAGE_IN] = linear,
++	.format[PSC_VOLTAGE_OUT] = vid,
++	.vrm_version[0] = vr12,
++	.vrm_version[1] = vr12,
++	.format[PSC_TEMPERATURE] = linear,
++	.format[PSC_CURRENT_IN] = linear,
++	.format[PSC_CURRENT_OUT] = linear,
++	.format[PSC_POWER] = linear,
++	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_STATUS_INPUT |
++		PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
++		PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
++		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
++		PMBUS_HAVE_PIN | PMBUS_HAVE_POUT,
++	.func[1] = PMBUS_HAVE_IIN | PMBUS_HAVE_STATUS_INPUT |
++		PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
++		PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
++		PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP |
++		PMBUS_HAVE_PIN | PMBUS_HAVE_POUT,
++};
++
++static int max20912_probe(struct i2c_client *client)
++{
++	return pmbus_do_probe(client, &max20912_info);
++}
++
++static const struct of_device_id max20912_of_match[] = {
++	{ .compatible = "adi,max20912" },
++	{ .compatible = "adi,max20916" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, max20912_of_match);
++
++static const struct i2c_device_id max20912_id[] = {
++	{"max20912"},
++	{"max20916"},
++	{}
++};
++
++MODULE_DEVICE_TABLE(i2c, max20912_id);
++
++static struct i2c_driver max20912_driver = {
++	.driver = {
++		.name = "max20912",
++		.of_match_table = max20912_of_match,
++	},
++	.probe = max20912_probe,
++	.id_table = max20912_id,
++};
++
++module_i2c_driver(max20912_driver);
++
++MODULE_AUTHOR("Fred Chen <fredchen.openbmc@gmail.com>");
++MODULE_DESCRIPTION("PMBus driver for Analog Devices MAX20912 and MAX20916");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("PMBUS");
 -- 
 2.52.0
 
