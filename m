@@ -1,98 +1,89 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FA53F23C9;
-	Tue,  7 Jul 2026 14:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBCC426D32
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 14:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783434064; cv=none; b=OP5HahciUscIXxSTkDlSWPY9GvvaUNlwehz+129M89CWnBcUr95ertFT6t25R7wnl6g0K0Tyrl/DgaOgQWoU003Vg7oLN9oVHWiR4t3/iYl2V41Yuq3aysiHzzav1yhjXpl46pUGE42ZjD1GTCRUVmDp21izcVRTCNXfdqGQ56A=
+	t=1783434271; cv=none; b=MbLnqne0LA87xl/ym+mlzLGI3scRUMMpRPbju3FDVi4lDVVz/jC0BAK3dbUD/5vujsYinWkVJQ7enb18HdKDVJqubDcI/aDlEUXuiShJshpuXAPPr/Ua89bWGHtScMWGar/cplvO+tHj4DSD7/6uP0BxlHJs5oNhSQHoBVjrnZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783434064; c=relaxed/simple;
-	bh=mtAzetqs605P30BAlqjqWHlKtFDY7Xar7nSqW4P19ok=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aEsietHVgIP+IATDaorP/8k/uLY1eRhrRsp9fHW4hJVKB8VBdaLcbqR08rD3xzBMxhBgSt9tnDsa6ogAiIQizMW0mo3AIfw5g01WMbzKmKbOr9qEXeKzhJhv/5UUKtJr/TywZQde5LpjrD/QYDEGDamR3jwj1S5LVexHd3+06Ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zV/IjEL6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ua7Csrak; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1783434271; c=relaxed/simple;
+	bh=6YFhjv7vLYAoBXzQkvmxe77fD3wp3Nf8viS7SYuohOU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gJA+Sj19vwcaUbq1VGjjCnBwQTesEJI3omfB3FHii8LPeffTQe7FOmt49giMlc1MLY4sQCeM9beGgYijyTh8HRb6ncI8kf9TelcXxhZ9iHCtVfM5SEAO+oEWwrwSLSRgMUraHZrM81EtnWHg4acllSFmvW39OQwKT8kuXSYF8Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCgWZAal; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zV/IjEL6";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ua7Csrak"
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1783434060;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=64FPqO/LfunvshSq+IFyW+9AM3tTCc0dWxi+1v1KXro=;
-	b=zV/IjEL63JdzCMFb9NQgMvDAospShJ3kBUR1xdp43/+A+9SeMZX8dXDroiqSkNhxLDUkL9
-	Ms/HqDxkC8CuhYptld8T+2VcTfX6nDpZTF6znxUXyeSGYa4hEd1QgDnvXunehkUnvcPc0T
-	V+rIJTeO1XFtvmKT09zzjOeAEDVTxoyM0BhohzYLdFc+AlTitAI6PxMIMZS5JAPd4RV3t1
-	94eNAsvQ7qkn3HoETa6oICHnmLoCAWCI2XIbX6dfONxjxiZKRSfeBN0qg15aMlS1lqGnEw
-	aopIfY4z8zaaDOnnjfAQIgQab9QZWzb+5cgjkPZp9sKflg0WQhfTvXwROnhNXA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1783434060;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=64FPqO/LfunvshSq+IFyW+9AM3tTCc0dWxi+1v1KXro=;
-	b=ua7CsrakE/l0P8R5+fq2EGA73nrTasdmtJ5m+PNYGk8ogfBdY2hzJlWXFEZrl+bl6/5WIy
-	dnXQMtEM1fpyVsBg==
-Date: Tue, 07 Jul 2026 16:20:57 +0200
-Subject: [PATCH v3 4/4] arm64: dts: broadcom: bcm2712: Add reboot modes to
- firmware node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCgWZAal"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C8B1F000E9;
+	Tue,  7 Jul 2026 14:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783434267;
+	bh=rRIp9AR0wU+e7TOtRmjPUmCS2deZ8M8R0/yeMVdBN7E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TCgWZAaltGRG95IatswSmhnPi+qudUu5pWsGQiT2/U8j2tWWJIQKw+0q7QFDH1kfc
+	 LGi4iH3u44BJvWDqGXQhM2/SZ3vDj982j03j1TIn/RliJlH6tPiqW09RpCXvtdNL8Z
+	 btlB0gPXzpeWO3HRN0QK7j3azUMogdIiTxJHyAyvpPQa/zeKdiM5xr6N5ysEWp1XLS
+	 ebNOoksvserBxWbUHVctTNyWB4O65D41J/o3vaSksXN0yOKA1RSGqWedIpqCzRJq+O
+	 Erl8OfL1pmnbXrGh+1fLNsquzubj/OLW3cgS30CdyEUHRKM+AvMTSh/kbp9NeNRlbJ
+	 4I6ldZZchzy4Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 04/17] iio: add IIO_FREQUENCY channel type
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260707-ad9910-iio-driver-v7-4-a4ec30f63700@analog.com>
+References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
+ <20260707-ad9910-iio-driver-v7-4-a4ec30f63700@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 14:24:26 +0000
+Message-Id: <20260707142427.62C8B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-rpi-tryboot-v3-4-fda82fe7ed76@linutronix.de>
-References: <20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de>
-In-Reply-To: <20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>, 
- Stefan Wahren <wahrenst@gmx.net>
-Cc: linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783434058; l=866;
- i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=mtAzetqs605P30BAlqjqWHlKtFDY7Xar7nSqW4P19ok=;
- b=bbbkAs4YjisByfq9t/LzUh0RrLc4TiPjXEBcapBzLOrUS0PhXRs4/WDDsrGg89hmQhFcKzru5
- Z+Gjt+Z4o7VAbq0V99UYt7J+886hQq5n1nzbkIlNt47EHz72Jid5uUZ
-X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
- pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-The Raspberry Pi firmware driver allows the tryboot reboot mode. Add
-this mode and normal boot mode to the node.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The newly added IIO_FREQUENCY channel type lacks sysfs ABI document=
+ation for its standard base attributes (e.g., `in_frequencyY_raw` or `out_f=
+requencyY_raw`).
+--
 
-Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
----
- arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+--- Patch [4]: [PATCH v7 04/17] iio: add IIO_FREQUENCY channel type ---
+commit 7195506587746d2a02e7173a31fe7aaf67096665
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-index b7a6bc34ae1ab..67095c7ff770d 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-@@ -49,6 +49,8 @@ firmware: rpi-firmware {
- 			compatible = "raspberrypi,bcm2835-firmware", "simple-mfd";
- 
- 			mboxes = <&mailbox>;
-+			mode-normal = <0>;
-+			mode-tryboot = <1>;
- 
- 			firmware_clocks: clocks {
- 				compatible = "raspberrypi,firmware-clocks";
+iio: add IIO_FREQUENCY channel type
 
--- 
-2.47.3
+This commit adds the IIO_FREQUENCY channel type to the IIO framework to
+support Direct Digital Synthesizer (DDS) devices. It updates the channel
+type name specifications and event monitoring tools accordingly.
 
+> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
+ore.c
+> index bdf3d4c063317..a45277bc5d994 100644
+> --- a/drivers/iio/industrialio-core.c
+> +++ b/drivers/iio/industrialio-core.c
+> @@ -99,6 +99,7 @@ static const char * const iio_chan_type_name_spec[] =3D=
+ {
+>  	[IIO_ATTENTION] =3D "attention",
+>  	[IIO_ALTCURRENT] =3D "altcurrent",
+>  	[IIO_COVERAGE] =3D "coverage",
+> +	[IIO_FREQUENCY] =3D "frequency",
+>  };
+
+[Severity: Low]
+Does Documentation/ABI/testing/sysfs-bus-iio need to be updated to document
+this new channel type?
+
+The IIO_FREQUENCY channel type appears to lack sysfs ABI documentation for =
+its
+standard base attributes (e.g., in_frequencyY_raw or out_frequencyY_raw),
+which leaves the expected base units (e.g., Hz) and precise sysfs naming
+conventions undefined.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-ad9910-iio=
+-driver-v7-0-a4ec30f63700@analog.com?part=3D4
