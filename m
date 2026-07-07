@@ -1,179 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4B235E936
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 17:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438E927732
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 17:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783444864; cv=none; b=HEJQET2hsKx0+zTyqBVHBmBtHM0zIwJb1MLJC5n2eSt8/QcwmDDfLazcnMQlXY/4zHbuyHoNADGMp1j4KlpUi5a0notT4zufborjYAwubVWKw9gcuYbXCcgiXkn4mdgGAjw4ONgRCfNwgB7SHnfqL++djwVAL7IXM39SnrsSZl4=
+	t=1783444900; cv=none; b=SeN/qO0shNzI6O6Cf/Z8zh/7irgPML/I0soTOzdAskSdKHnRB6U4LGVx6uaQypWKW6o3clhmRs/6PfhvN34L4QxZIAEeAsjRdix/RwDFIMzlJrCuXypsOXVUUPAQDcXyH3VltEvAYc4zM5asl5OHZyMx+B1kMrENH0Dbp5Qw41s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783444864; c=relaxed/simple;
-	bh=9JYGl3Qqt6VexK7e/yj88wnMpgjFCUPHEAmPxHGMSYY=;
+	s=arc-20240116; t=1783444900; c=relaxed/simple;
+	bh=dV3R3j3kCs6j1jstcHcj6nofz8txjRDtWwXpgUHY6QI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CYghFnCF/YNt4QdrhiV1y/GcVntHSGlx0SpZ/7OnWrWG2B2u2+8Sdq9Fh5dj6CVnHkTDRbG43C2Ojx8J9bgHCgOBFKrb9gcPn4giyGrcLeAJRoI089eyO6QEmsL4Q5TqzFPxF8KkobLcnBcS5+x48iIq/ftF1PvRqitov61yv28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMj55TLb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CRzH0KBbG9emLxgUsjv591xQGw0rT2R1690BR4Te5ykzRUSmqVtEJ2+X2Klk3ILug8ebHJ30KsLFB3kXzO+JmLrFl7VKhcd9em7iR3xguTLGy9ti16o3T3iroKpDz5AfwkMWRe3Nxgf/VSd78vCbzbzG5j4Sdx9GIw/aOtx3j5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVIbeygz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMj55TLb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3081F000E9;
-	Tue,  7 Jul 2026 17:21:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVIbeygz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE0271F000E9;
+	Tue,  7 Jul 2026 17:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783444863;
-	bh=F9F2KQ5VHiUq7KP4p8KjN9y7rly30UP3xk95424d+TM=;
+	s=k20260515; t=1783444898;
+	bh=R2rzh3C2OfBhsrHFnXBc5eUm3wPT0vlEVB7NLugbL4E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WMj55TLbYM59sv92LkkyR8U2evMZDuhzWprTwpAcuK8v60m3Mwpu9lAVuk+frzMsk
-	 ihy1UXXPWtX/WXO9mKhtsPGGAsVrYwaE42RbaGxZwo6q2Tpe+DmnzQvVZcT1qPoDAq
-	 xNqzyGXkkqLf8YRa6twz8Zn4QuY1a7NMLdi08ce/1e3w9jAnoZXhbpVyCsCa0mmngy
-	 mRp6AAf2JTlFGJGiMwg7aYkb3QatAiFTiTtudbCSmaqzidiuZog9oePuhU3z1HF+k1
-	 FzKVnVp8azIQYxwarSSZmWPHJZbuuiLqgSFr8hNM+7yRGiFEkV+iU9XVgXLz4VT4IB
-	 8bIUapv0+63YQ==
+	b=XVIbeygz9Rc3/g6GgOsJrruyzpn0oZG5dwsTtpT0FMWTFBFAkQ2X3p93fsnD/0qNx
+	 DPknDOTtLZ4iQz3/oZeK96T3TSvtwID56STT+4ymythArLl2pnW2vVWbK7b/yfqOEw
+	 KiApnqOd/VyfrVJ4h8DkrJo+C+H5+YnBFwWsoJlsiqES07fVA95i1+cJeDzUr1AFQ9
+	 FgYaHqE/LLCZwqLGLvEU7QLh/z0tPQnORQkgSPfrknGmq+7EutPWje4WMEaCFUHfdP
+	 787F+1mv9DVzIY+zLbIQww73l+x2Ie+P1vk7Iuot0qLyUkLnR/YGNIPGIqgULpUVzi
+	 IJbpoRDe8ssEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 13/20] media: imx355: Convert to new CCI register
- access helpers
+Subject: Re: [PATCH v2 12/20] media: imx355: Use pm_runtime
+ autosuspend_delay
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260707-media-imx355-v2-13-1683ec07b897@raspberrypi.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260707-media-imx355-v2-12-1683ec07b897@raspberrypi.com>
 References: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
- <20260707-media-imx355-v2-13-1683ec07b897@raspberrypi.com>
+ <20260707-media-imx355-v2-12-1683ec07b897@raspberrypi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 17:21:01 +0000
-Message-Id: <20260707172102.BC3081F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 17:21:38 +0000
+Message-Id: <20260707172138.AE0271F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Unintended permutation of initialization values for registers 0x03=
-05, 0x0306, and 0x0307 in `imx355_global_regs`.
-- [Medium] `IMX355_REG_TEST_PATTERN` is incorrectly defined as an 8-bit reg=
-ister, causing truncated writes and breaking test pattern configuration.
-- [Low] The error code from `devm_cci_regmap_init_i2c()` is incorrectly dis=
-carded and replaced with a hardcoded `-ENODEV`.
-
-Pre-existing issues:
-- [High] Incorrect check of `pm_runtime_get_if_in_use()` in `imx355_set_ctr=
-l` allows unpowered hardware access and PM counter underflow when runtime P=
-M is disabled.
+- [Medium] Missing pm_runtime_dont_use_autosuspend() leaves device PM confi=
+guration in an inconsistent state on teardown.
 --
 
---- Patch [13]: [PATCH v2 13/20] media: imx355: Convert to new CCI register=
- access helpers ---
-commit 85e1b3f8ecdbe34d874840dcfedd44c3422e9cf3
+--- Patch [12]: [PATCH v2 12/20] media: imx355: Use pm_runtime autosuspend_=
+delay ---
+commit 2fa89d9640a2f437c76ce04712298549178132d2
 Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-media: imx355: Convert to new CCI register access helpers
+media: imx355: Use pm_runtime autosuspend_delay
 
-This patch updates the imx355 driver to use the common v4l2 CCI register
-access helpers. It replaces the private i2c transfer logic with cci_read
-and cci_write calls, and updates the register definition tables.
+Avoid powering the sensor up and down unnecessarily by using pm_runtime's
+autosuspend_delay feature.
 
 > diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> index c7a24c69c0df8..c710dda5795b6 100644
+> index 0f5fbe21d7fb2..c7a24c69c0df8 100644
 > --- a/drivers/media/i2c/imx355.c
 > +++ b/drivers/media/i2c/imx355.c
 [ ... ]
->  /* Digital gain control */
-> -#define IMX355_REG_DPGA_USE_GLOBAL_GAIN	0x3070
-> -#define IMX355_REG_DIG_GAIN_GLOBAL	0x020e
-> +#define IMX355_REG_DPGA_USE_GLOBAL_GAIN	CCI_REG8(0x3070)
-> +#define IMX355_REG_DIG_GAIN_GLOBAL	CCI_REG16(0x020e)
->  #define IMX355_DGTL_GAIN_MIN		256
->  #define IMX355_DGTL_GAIN_MAX		4095
->  #define IMX355_DGTL_GAIN_STEP		1
->  #define IMX355_DGTL_GAIN_DEFAULT	256
+> @@ -1430,6 +1430,8 @@ static int imx355_probe(struct i2c_client *client)
+>  	pm_runtime_set_active(imx355->dev);
+>  	pm_runtime_enable(imx355->dev);
+>  	pm_runtime_idle(imx355->dev);
+> +	pm_runtime_set_autosuspend_delay(imx355->dev, 1000);
+> +	pm_runtime_use_autosuspend(imx355->dev);
 > =20
->  /* Test Pattern Control */
-> -#define IMX355_REG_TEST_PATTERN		0x0600
-> +#define IMX355_REG_TEST_PATTERN		CCI_REG8(0x0600)
+>  	ret =3D v4l2_async_register_subdev_sensor(&imx355->sd);
+>  	if (ret < 0)
 
 [Severity: Medium]
-Does this change the width of the test pattern write?
+Should there be matching calls to pm_runtime_dont_use_autosuspend() during
+teardown?
 
-The original code used imx355_write_reg() with a length of 2 for
-IMX355_REG_TEST_PATTERN, performing a 16-bit write. With this macro
-defined as an 8-bit register, cci_write() will truncate the payload into
-a 1-byte write, dropping the lower byte that actually contains the
-control value. Should this be defined as CCI_REG16(0x0600)?
+Since pm_runtime_use_autosuspend() sets the use_autosuspend flag, leaving it
+set on driver unbind or probe failure leaves the device PM configuration in=
+ an
+inconsistent state.
 
-[ ... ]
-> -static const struct imx355_reg imx355_global_regs[] =3D {
-[ ... ]
-> -	{ 0x0301, 0x05 },
-> -	{ 0x0303, 0x01 },
-> -	{ 0x0305, 0x02 },
-> -	{ 0x0306, 0x00 },
-> -	{ 0x0307, 0x78 },
-> -	{ 0x030d, 0x02 },
-> -	{ 0x0310, 0x00 },
-[ ... ]
-> +static const struct cci_reg_sequence imx355_global_regs[] =3D {
-[ ... ]
-> +	{ CCI_REG8(0x0301), 0x05 },
-> +	{ CCI_REG8(0x0303), 0x01 },
-> +	{ CCI_REG8(0x0305), 0x00 },
-> +	{ CCI_REG8(0x0306), 0x78 },
-> +	{ CCI_REG8(0x0307), 0x02 },
-> +	{ CCI_REG8(0x030d), 0x02 },
-> +	{ CCI_REG8(0x0310), 0x00 },
+For example, if probe fails after this point, the error path disables runti=
+me
+PM without undoing the autosuspend usage:
 
-[Severity: High]
-Were the values for these three registers accidentally swapped during the
-conversion?
+imx355_probe() {
+    ...
+error_media_entity_runtime_pm:
+    pm_runtime_disable(imx355->dev);
+    pm_runtime_set_suspended(imx355->dev);
+    ...
+}
 
-The original sequence was:
-{ 0x0305, 0x02 }
-{ 0x0306, 0x00 }
-{ 0x0307, 0x78 }
+The same pattern appears in the driver removal path:
 
-The new sequence assigns 0x00 to 0x0305, 0x78 to 0x0306, and 0x02 to 0x0307.
-Could this incorrect initialization sequence break the sensor's hardware
-timing configuration?
+imx355_remove() {
+    ...
+    pm_runtime_disable(imx355->dev);
 
-[ ... ]
-> @@ -726,31 +647,31 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+    if (!pm_runtime_status_suspended(imx355->dev)) {
+    ...
+}
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the runtime PM check in
-this function handle negative error codes correctly?
-
-In imx355_set_ctrl(), the code checks:
-
-        if (!pm_runtime_get_if_in_use(imx355->dev))
-                return 0;
-
-pm_runtime_get_if_in_use() returns -EINVAL when runtime PM is disabled.
-Since -EINVAL is non-zero, the check evaluates to false, and the code
-falls through to hardware accesses while the device might be unpowered.
-Could this also lead to an underflow when pm_runtime_put() is called at
-the end of the function?
-
-[ ... ]
-> @@ -1344,6 +1228,12 @@ static int imx355_probe(struct i2c_client *client)
-> =20
->  	mutex_init(&imx355->mutex);
-> =20
-> +	imx355->regmap =3D devm_cci_regmap_init_i2c(client, 16);
-> +	if (IS_ERR(imx355->regmap)) {
-> +		dev_err(imx355->dev, "Unable to initialize I2C\n");
-> +		return -ENODEV;
-> +	}
-> +
->  	imx355->clk =3D devm_v4l2_sensor_clk_get(imx355->dev, NULL);
->  	if (IS_ERR(imx355->clk))
-
-[Severity: Low]
-Should this propagate the actual error code instead of returning -ENODEV?
-
-When devm_cci_regmap_init_i2c() fails (e.g., due to memory allocation
-failure returning -ENOMEM), returning a hardcoded -ENODEV masks the true
-cause of the failure. Would it be better to return PTR_ERR(imx355->regmap)?
+Could this cause state leakage that affects subsequent driver bindings?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-media-imx3=
-55-v2-0-1683ec07b897@raspberrypi.com?part=3D13
+55-v2-0-1683ec07b897@raspberrypi.com?part=3D12
