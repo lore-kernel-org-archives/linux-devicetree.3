@@ -1,203 +1,208 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022105.outbound.protection.outlook.com [40.107.75.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD3B22301;
-	Tue,  7 Jul 2026 01:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.105
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783388209; cv=fail; b=DmQSGmWDNO22WLtwpqPOrNq80k83ex7fFKrhLC/OK9v5Qc5cuXNorkf0kFCVf3U5zKlWSGjdcfMHP/yC3Fsa4t6uuWARcevD0o/JBrILIR7dzfpRPvut6PqLtb9z3cLsRvYZkDiiFJpEA3tuM5zRHmJAtWOC5b32uMyPwZXKrP0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783388209; c=relaxed/simple;
-	bh=91Je8gFr6JB5PfNsNijcj8PMTQF0z+oCEFcEsEaHduc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IphIjPLLIAUIkMZiaybcsWieVip9KVp2b8BRuQsFlplh9c3ov5vxFFp8V65CZTgXMPJEp1bEn3JpY1CTL4Y8kPeU5SZQ8Tay0uYSEI6K/2UPgLPIktUjiBX0SMk9kNz1rh6a436Hw3c92RY/r917fBsbvcXz+giMx0N1ZJufKoI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=enilA8zYZzVL1Y1E8qXyS7/jZFIXtdnJgPiYOmK83r9gOPTKJqwAyI7CyKQs+aKJ1M+HROiyeuGbdPHmRVnJhy8f9qATTUWW/dR+MGYmZboIEBamyfvWeCtG4iGsKDHMY2kTdJvNX5nHkKeH7TKowAy9NEs1b0yc3CF/5K1y/QsnJDJ3tJKH2NOWanUBrhBBdaKZhZN/Ldv5hNETIzEw1qS3ZklECAswkfAwdyvZsZb6Z0hIrUVzYZFStGf3lUW33Dk6c2R8Dsy3z4d2cRMJHVFhIL64JDowVSpYTgqbLqB1q7KSMChujI+tLRZo//qeztXYZaGviP1AgewKeZG6ZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zVAt++BBwa9Lp7CQU3w81aHy4kuxWu8xS5VkSssx/8s=;
- b=SfMp+HnA/nq59x5AwpIC0k7qpcQi7ldLr+1t2moMNCA4VpXIRK3jyw4SzceIhwaMHBE62OTqFCusu/qV9Hq8mUU68M1RknexNMQwMUDWX/+KLaLBBZyVNSNGSGqQm3zZgCj9USN3uKolqS4FnPJiwobgFokr8JLFK3TBIPxfdipT4A8d5ADV0EfacqXDymSeClaJP+h3oiNPCUqGtmh3/j8fLFwEOVTATcnMN4cKKHaV2K0LTEk6qNqFqsL9MlYAmlqdDk0UAPnSHh+/XIkw/3D+bp8Tt4mg8bzdqVe0S5tO/Hr939ErpSqiU5v4MfF4esSzg4pG1LLn6dbXRZrL2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PUVP216CA0003.KORP216.PROD.OUTLOOK.COM (2603:1096:301:16f::7)
- by SEZPR06MB5992.apcprd06.prod.outlook.com (2603:1096:101:f2::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 01:36:42 +0000
-Received: from TY2PEPF0000AB85.apcprd03.prod.outlook.com
- (2603:1096:301:16f:cafe::97) by PUVP216CA0003.outlook.office365.com
- (2603:1096:301:16f::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Tue, 7
- Jul 2026 01:36:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB85.mail.protection.outlook.com (10.167.253.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Tue, 7 Jul 2026 01:36:41 +0000
-Received: from gary-System-Product-Name (unknown [172.16.64.196])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 15ED34351F23;
-	Tue,  7 Jul 2026 09:36:40 +0800 (CST)
-Date: Tue, 7 Jul 2026 09:34:46 +0800
-From: Gary Yang <gary.yang@cixtech.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Alexey Brodkin <abrodkin@synopsys.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Eddie James <eajames@linux.ibm.com>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-	Houlong Wei <houlong.wei@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Peter Chen <peter.chen@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
-	kernel@collabora.com, linux-tegra@vger.kernel.org,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH 31/42] ASoC: cix-ipbloq: Use
- devm_of_reserved_mem_device_init()
-Message-ID: <akxXtlUYtT3T-huE@gary-System-Product-Name>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C63830B51E
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 01:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783388337; cv=none; b=dp0piEX+wDHUZ3KaQ8fKz+l+/vInd4IlRnFRki6RnyFHm+H4ST6i20CNaqSkXdcyhNlvqpo65Kso9wqoBAvtM+Ff1sYQUkNwzMsZoOm9V2GcbuM30V9A9yWcq81qcLGuHtJU+FfbDt42QEpyYO/FACir75PwiQ0q3BmMk4j7OM0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783388337; c=relaxed/simple;
+	bh=GWqzWiq+j0RxHQzZhZDV6By8omBIwJBlTOY3h8xOhoo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Sl4Lzy4WilgKpRrAQJcJkHYS6iAivjAsDjxyyx8bsYrO+3Dowce1Cer+E9VWQ04YWRj8UN9fR8k6aI8QCkoMJyycGoPQDfaZs8TmORakzkdfvIE0U2lSnEFHNRvQIvJD5rsE8OSEzvRut6YW+Omjki5MUrys+p+0BG1w9OkLgls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qy87WceC; arc=none smtp.client-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qy87WceC"
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-59d07df448bso3342284e0c.0
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 18:38:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783388334; x=1783993134; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1LriMcSNJ5pcK00Rw56VbtN5AdDBaoG9VSgFiEqdgUk=;
+        b=Qy87WceCbs+O9UDgYBNHcByygLc88G1jalNXMOOoS9SZIFvtoSbIbK2HagIJ65ikVu
+         LL8QML5aZIDzIgrIFE5rQ2/xuAMKD71N8u7i9fYGT2LIl6MmUGJCYmbsSy3LtPMA7jln
+         2VsJy0xCaw3JgBkFDQIAenBrINm+GbjwW8GXjyAnU1LJnZLSIudFwgpb0Nr12iMdjum0
+         ukReE0spUVc/zK9gCVFUaBT//u5EpJvk0zB2UdoWYJCYPPjODpqrhL1ZFbWd0dczsFN4
+         39natcpHLPPV60dIZTgUHn5O12K6Ox7/wTVAXfZNxweKCNmnoUcoC6Awp2WJjcHn0dkS
+         vmhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783388334; x=1783993134;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=1LriMcSNJ5pcK00Rw56VbtN5AdDBaoG9VSgFiEqdgUk=;
+        b=iIkI8F80WrA+2Tz3eNo7kENijl+drBvPU7tZ0joeLn86swlS541PG1oqUsbluJmRgc
+         zgSPCqZqJIbGNAuuczAxHKCQkI2nAtb+6xAzXNDU9mSN++ZbHhAkPDaWJSkWzEKSpGDv
+         B8mh7B/bosYFFK7U6OZfeqUFdQIvFRuAMlWvny5ZohqyDykQAClzOgUF9s6mUg0SaAlK
+         JGJZq1mBu7JqcUZY3JWKtuL0nYMPd/ljCHXEZPtp3prlGRh+E8ckjxSi3gh2ramfT+DP
+         CtalKFdWkamaMv2wqaDDIF1Zmn9NwkJ+rzDw/byIYhSs9yWVNgITBrSQ4N56rYIcEucy
+         pisA==
+X-Forwarded-Encrypted: i=1; AHgh+RqiMHFOhQKhzkJTV/FvdYmzv+W2pRdk4dFMJRqmwEAo8dngVy+Dxj5tCQjqLBgg71YgdpH4IlcWOu28@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbQz2OEshNFnktFCL6Z8f2tNIk3IU8WAPJylWoibubpglRs7o4
+	LhhTfh9T8Z08mlpGXRH7JalIJEarHAqZSJSjNmuvoyuD1IWAbYq9DU6gOxvevQ==
+X-Gm-Gg: AfdE7clhjmVRdt8TU+bQmaHeANtKgi2dGKPZyyHKlz4/bWKRPPiN8OKkmZto3/ElWAx
+	iVM6KQN+MBFLyImztoS1bkREN66T59oIi7+SOk4g2cl3Gs6ktaQ+vwfCdPu3+CbKdvPguUbJCWL
+	Y0mT4paU1bBNjAmGvAuG224yTp0kW03u3DOY+e39M7DuN3sJ8ELUi7okdaZcL18sqbH4IszwlLN
+	Pu8gloikURoWqXV9CCdNAyZj0xKcfb+3c/xYFgUQflxrEGDNzHSJ1FTHQxbX5ZM4E7J/DhRcmP1
+	ey90hPy65blatdQ6orLAeCIxacvzi2K4GWCxY7Fd9r132OJJZikImXzRDWL52XhzL+4krpvyzgR
+	BMu7cbMn5Os6yRdna6rR1n9oqMPxNB0UL98YZPFkxRk2oPgwdWfyk0ye22jy6afkh8Yd/TNrh71
+	g0lUQ=
+X-Received: by 2002:a05:6122:3d4b:b0:5bb:d233:70bd with SMTP id 71dfb90a1353d-5be8974163emr1912443e0c.2.1783388334524;
+        Mon, 06 Jul 2026 18:38:54 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5be02934c13sm5894170e0c.3.2026.07.06.18.38.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 18:38:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB85:EE_|SEZPR06MB5992:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58b0bcd8-fc53-439a-90a3-08dedbc83256
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|82310400026|1800799024|36860700016|376014|4143699003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	PbsmJJUC3r+PSMHFYv1/5KAHLPksanDfP7Pr+9GjfsZBINxm7MQ/6oaciRBlKjgm8PiiDmCKpLrQa3R0g79rj/OxhD1HdasUwlMwOHrf0JU8wHBBXuG3hdrKLpnv3P2vBaYKWkRyc7YH5GxFLqRfvvRthoAbKoabp1FOx4VB5JAj7OOr80zr2tzMjzlR47UUAXdphACxz6nv6LEjFZjw5nkP/Lfsoqsy57C1SI/3g+k5VsMhfKjzOnAQN3EyPypuAs7HBnj/AgliW+5HrJP1s74vhFuGt9CA1adcAJymarP4P5Nu6rX/AGOmLp1FnrjZvD2gczG1qUGKllxinGTkHAq4cqKLnqUQi8kaQUtaGx1KVfb86Qb1Z9CU5EFISIvQPEeR4m6sVRd3OljqlwtBXwmq8NH0FKD6SzKRqX4kD7GACn0dK6g6lsKQaR0sduqxWfqLbbg995xOWjawLEAXZ5XeivDMAZdOzhoR1hZr9DyJLv97YF00hvFCX5vTY7XkkngNF6u6oJDxRFbKaxRldx2PRzrbyC1rKEQxL5IX49C9fw7ENvTpNXgi0JPL/z+qTwPIgc77MJq1fRsrgmnB0IzA4DF+dUOpoKdg8bFdE74+HkbQgvupu+ng7tbGCb//sb+zUbDWK84eo+dJfWy2FVgLDQ3OEd3TdRSJu+GPRJAWAcu149u8rXkMyUlF6D54k0cbFWV3qZoNda129jn/Gg==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(4143699003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	YQP9tmTZsZsst2XVhSMEt6ze26TOYYsaRySCTBU4b2JeGgsxxgjlxfxR5rqo9srtq52gxFXeRrAQpizWmq4rnR131aJL0yADN5UOJK5lOhRoyD34mXpqnTYllYtoO8lT3DKhABUr/r2VCTrknBLHcdjkvQxRqySLGfkJL2ujdOo/T6nQjmBRjqZerpuQXpvNUbQjY+9vRg32YosHnAcL16AMcUeJKjcxDswM9WRodsARyKalf+gPqZeGfVvQ8KBlfqwwBXHZU+z4FORlOWYRleGy1UUtXHCYuF2zFO2AEVXiVpYxVmrrfudDWbEcZaDDnNgniI5tZ2x+7qCWJ2wsDNzhdk4pdS+t1rXnoA677qfpLmy+0wLuODVSDADMZKXY1btJl1j4/a4CCslM/GsYj2UZ3ZJuQONRDXT5z0louJEFMWXX8aZh++Us93/xLCDu
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 01:36:41.4300
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58b0bcd8-fc53-439a-90a3-08dedbc83256
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB85.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5992
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 06 Jul 2026 20:38:45 -0500
+Message-Id: <DJRYEEGVFY2A.2115GKK5BG36M@gmail.com>
+Cc: "Kurt Borja" <kuurtb@gmail.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 5/7] iio: adc: ti-ads1262: Add conversion delay
+ support
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "Jonathan Cameron" <jic23@kernel.org>, "David Lechner"
+ <dlechner@baylibre.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260628-ads126x-v2-0-4b1b231325ba@gmail.com>
+ <20260628-ads126x-v2-5-4b1b231325ba@gmail.com>
+ <20260630015027.3afdfc3a@jic23-huawei>
+ <DJMK3NCDCHL8.1EHG93D5O7ROZ@gmail.com>
+ <d8fbab77-6cb4-435d-aac9-0d72cd4a59bc@baylibre.com>
+ <20260701012026.29f18bf4@jic23-huawei>
+ <8dd4bb6b-a83d-4584-8893-b56b8aaed973@baylibre.com>
+ <20260706182317.64cb0a4c@jic23-huawei>
+In-Reply-To: <20260706182317.64cb0a4c@jic23-huawei>
 
-On 2026-07-04 01:08, Mukesh Ojha wrote:
+On Mon Jul 6, 2026 at 12:23 PM -05, Jonathan Cameron wrote:
+> On Mon, 6 Jul 2026 11:19:40 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
+>
+>> On 6/30/26 7:20 PM, Jonathan Cameron wrote:
+>> > On Tue, 30 Jun 2026 13:44:49 -0500
+>> > David Lechner <dlechner@baylibre.com> wrote:
+>> >  =20
+>> >> On 6/30/26 12:23 PM, Kurt Borja wrote: =20
+>> >>> On Mon Jun 29, 2026 at 7:50 PM -05, Jonathan Cameron wrote:   =20
+>> >>>> On Sun, 28 Jun 2026 00:36:06 -0500
+>> >>>> Kurt Borja <kuurtb@gmail.com> wrote:
+>> >>>>   =20
+>> >>>>> Expose the programmable conversion start delay as a per-channel
+>> >>>>> IIO_CHAN_INFO_CONVDELAY attribute.   =20
+>> >>>> Coversion delay was always a somewhere weird bit of ABI.
+>> >>>> What are the delays relative to in this case?
+>> >>>> Is this a device that does simultaneous sampling?  Pictures
+>> >>>> suggest otherwise, and convdelay is currently only defined
+>> >>>> in that case.  We might be able to extend it but it needs
+>> >>>> some thought.   =20
+>> >>>
+>> >>> The chip has a configurable internal conversion delay to allow for
+>> >>> external settling effects. See datasheet section 9.4.3 if you'd like=
+ a
+>> >>> bit more details.   =20
+>> >>
+>> >> Since this depends on external components, it sounds like it belongs
+>> >> in the devicetree. I have the same feature in the chip I am working
+>> >> on and was just looking at this and plan to add it to the ti,ads112c1=
+4
+>> >> devicetree patch.
+>> >>
+>> >> This delay only applies to a "new conversion", i.e. when certain conf=
+ig
+>> >> registers change, and not every conversion, so isn't like the convdel=
+ay
+>> >> attribute. =20
+>> >=20
+>> > See settling-time-us in adc.yaml.  I'd forgotten we had that ;) =20
+>>=20
+>> I got some more feedback on this and this may indeed be something we
+>> want to tune at runtime after all.
+>>=20
+>> I'm not really sure where it fits in though. On AD112C14 that I am worki=
+ng
+>> on, the DELAY register value adds a delay (for settling time) in additio=
+n
+>> to some other intrinsic delays. I'm pretty sure ADS1262 is similar.
 
-> [Some people who received this message don't often get email from mukesh.ojha@oss.qualcomm.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> EXTERNAL EMAIL
-> 
-> Use the devres-managed devm_of_reserved_mem_device_init() to ensure
-> the reserved memory region is released on device removal, fixing a
-> missing cleanup in the original code.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  sound/hda/controllers/cix-ipbloq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/hda/controllers/cix-ipbloq.c b/sound/hda/controllers/cix-ipbloq.c
-> index c1084a915c13..815932e5c58b 100644
-> --- a/sound/hda/controllers/cix-ipbloq.c
-> +++ b/sound/hda/controllers/cix-ipbloq.c
-> @@ -257,7 +257,7 @@ static int cix_ipbloq_hda_probe(struct platform_device *pdev)
-> 
->         dma_set_mask_and_coherent(hda->dev, DMA_BIT_MASK(32));
-> 
-> -       err = of_reserved_mem_device_init(hda->dev);
-> +       err = devm_of_reserved_mem_device_init(hda->dev);
->         if (err < 0 && err != -ENODEV) {
->                 dev_err(hda->dev,
->                         "failed to init reserved mem for DMA, err = %d\n", err);
+It is! there is a fixed 52 usecs delay after starting conversions.
 
-Reviewed-by: Gary Yang <gary.yang@cixtech.com>
+>>=20
+>> So one question is do we want a usespace control to be the total delay
+>> or just the additional delay?
+>>=20
+>
+> Total I think.
+>
+>> And when the delay takes effect depends on other things. Normally the
+>> delay only happens before the first sample after any other parameters
+>> change. If we read the same channel again with the same config, then
+>> there won't be any added delay. But if input chopping is enabled, then
+>> this delay happens on every conversion.
+>
+> Hmm. That is awkward.  I guess the best we could do is either to document
+> it as 'may be skipped if channel setup is unchanged either via explicit
+> channel or parameter change, or via chopping'.  I kind of think of choppi=
+ng
+> as advanced channel sequencing - inX-inY being switched to inY-inX with a=
+ scale
+> *=3D -1.
 
-> --
-> 2.53.0
-> 
+Thinking about it this way, shouldn't there be userspace control for the
+chopping stuff too? Something like in_voltageY_chop_type, similar to the
+filter type.
+
+>
+>>=20
+>> I'm a bit on the fence of if we should extend the definition of convdela=
+y
+>> for this or if we should propose a new settling time attribute. I'll hav=
+e
+>> to think about it some more.
+> Smells different enough that we shouldn't smash the two together.
+>>=20
+>> Maybe something like in_voltageY_calibsettlingtime?
+>
+> calib might be reasonable if it was a tweak to a fixed settling time
+> and like other calib stuff would not necessarily have any scaling.
+>
+> If it's the whole thing and in seconds then in_voltageY_settlingtime=20
+> should be enough I think.
+
++1 for this. in_voltageY_settlingdelay might work too, as both our
+datasheets call it "delay".
+
+>
+> Jonathan
+>
+>>=20
+>> >  =20
+>> >> =20
+>> >>>
+>> >>> But you're right, I should at least also edit the ABI description of
+>> >>> this attribute. We can postpone this discussion for a future series.
+>> >>>    =20
+>> >>>>
+>> >>>> Jonathan   =20
+>> >>>    =20
+>> >> =20
+>> >  =20
+>>=20
+
+--=20
+Thanks,
+ ~ Kurt
