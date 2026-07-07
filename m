@@ -1,173 +1,124 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011056.outbound.protection.outlook.com [52.101.62.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF37739A07C;
-	Tue,  7 Jul 2026 06:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783404801; cv=fail; b=K+VRyzkq2U+3mMFNWkCeekIDb4Wm6aw0czI314Dq8xEgvnzMXWRXYbwDOFJWQtq0Gfkb1DhwCfWPzbBl8z/s6tBbAK4dIQZfTnci4VX7ktdtOLjOHNsXUwY5lLHPIjvoekyY/2oOb8l2qCnaI1YiO8AXdXgkR7zGUqhlhZ4xyrw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783404801; c=relaxed/simple;
-	bh=zNS8lsZ9n+L6P5YcqE2cZiMOzjcWIfpgUS1My1ZiI4U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nViUOi7CDhTaPt63bp3WJSi3rRCcZgmOS79eTRdp/XNpZ+2RDEjDQfQhJw5pK2q40rj6rJ+kLe1ZMhMK7c+z2vNfseJVfhUie4SYErLlDI/DwEDtwDZ2krls6JsvhWXT/r6cxT8eTi9y47VhgvmQaiGUyv1eV+yQISP3j8KjYsE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=cKN2YUYh; arc=fail smtp.client-ip=52.101.62.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D9D1A5B9E
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 06:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783405321; cv=none; b=RXB3wquZXJuX+m2SPOCEz9vADrp8RvIxw+tRwnoYupWmLRkh6ZWhDnenQeDiTRDUdzJsl7h77oob4JybwAGlxNLEqinUc8Vsud0iQiXx9gOULbqFjt6ZYk+dg+rDec3yxZkWuhH8WByK93X5Y7Aqkfv6AXF8EPTlUxnqDLqyY4s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783405321; c=relaxed/simple;
+	bh=+zRxKAAtDXdJZzDFXj+Y7Hb+f91YTR3Jn60pgjm5PWY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=f71+3ebuO4jQsFEOszgm4JC37A33Vlb3xwp7BX7wHJuF6a0KnWk0JMH7XpDDygy5qcE0VNEltDKD7s8lA0PaASu2m1uUmYJgjBa+YYGR02XxfG6GAedQJUGy3nqtOtK4evyB7hGKtscfxRKLIzZ8LL4zlVIE5BS1/z6qQXeAXK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ga/4eXvE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="cKN2YUYh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FfmKjx1cBESd5OpsVgcRRZraqC46z3UKvmF9hGKMfbBy9LPOtlxVJf5LbCmYDKnHuPXPvoG6t16/0XkPDM18HDWhhGdkrk74MU6xqNkNAehHPQLMPg8ETqMVwn4tYssLEfZqtzdoFNPBr+ilk/EzdxiPKxXXar2PqJM4Kr51ls4U6Qu/QvGvEfSgzAGxXqSAAY86eScBgWrBXMfz2E7lBvqq1MJaX5xKqDLEP8nlxarOwyjxaMPHVMg/UvCZ009GBwJzEnAzmRsti8EIfKc44KDqCpoNuK2CZm+lbGVcru9u7DAIMD/eA2kDFn8pqPThw1zvzzzXPOG66YZ3JPnTkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E+fq76Iai5HrJ1Y5CXL9YqHwUhtsXRPvK3GwRn7wZJw=;
- b=uRl7v2iEfXFtuDB0u5J3qZYuummoljfRNoyY5nkOtl8SCPpv/VThZJMh8I79Z9z9RYmecLSxP9+HVlOY//Sr6hZursFVZ13aNB2TH3XHQjTsQSzc7jl6PSHrMEAh4K8EhWCJODEU2E8gS4Eg/TKLke4it9B39whYKl2HjwUwMO9Uk5lGpaPbREHX+DoS/dbiVKrn9MBiy/zlBUTG9x/mU15hSamTRkKOBtgtkk1k3kmDfR6ZmglcXz8WUAjOefigYz9SEj8ZOf5W7xHR6yZb+f66wE65qpNH/dwZ6n/LLWfkdFv4M9/BaiDdvW2Mp4Rx1hgrmyWUdpaylHqAgkoBAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E+fq76Iai5HrJ1Y5CXL9YqHwUhtsXRPvK3GwRn7wZJw=;
- b=cKN2YUYhqhlxoqiXzhWuOujxR8G/0K1rPKkohD0zXZLaQlPeGKq6SJ8e7UjGMnXSQf/kiAqeNeor3VX4v23Z7035OMl4Ily9nNLLkMUrU4MFm2UQJljpivjGmjhTfcQWgKlwnJHVDMv4tFseo0DMjqmvF/XXxDspV7D2Y+F7nedupNl5Dui1QaOJhDXpF1uRtkEnBmdd63ocQNd7DefK1y6gq7xHdx8e0XXPDqE2FGkRnoPR9QKwQi3PRQUkUn5CzdsPsB1i1BBknoOsvo3FLWcoX0+MJ8MAq63MRP7QfYlYmbBN6007b/DoQ2+Vn2IqeV3g+ziiz0sXtqniEDWnfw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by SJ0PR03MB6598.namprd03.prod.outlook.com (2603:10b6:a03:38a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 06:13:09 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0181.009; Tue, 7 Jul 2026
- 06:13:09 +0000
-From: muhammad.nazim.amirul.nazle.asmade@altera.com
-To: dinguyen@kernel.org,
-	maxime.chevallier@bootlin.com
-Cc: rmk+kernel@armlinux.org.uk,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robh@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/4] dt-bindings: net: altr,socfpga-stmmac: Add altr,socfpga-stmmac-agilex5-tsn compatible
-Date: Mon,  6 Jul 2026 23:13:04 -0700
-Message-ID: <20260707061305.27580-4-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260707061305.27580-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20260707061305.27580-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0162.namprd05.prod.outlook.com
- (2603:10b6:a03:339::17) To SJ0PR03MB6964.namprd03.prod.outlook.com
- (2603:10b6:a03:432::18)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ga/4eXvE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38CA1F000E9;
+	Tue,  7 Jul 2026 06:21:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783405320;
+	bh=lV1sYOcTLLHex0MoYVkw90vIj0KFBxn3dZQk0CeZd14=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ga/4eXvERWbwYIkfOKfTM3/HgJYfTJPpYA3wPr2ZeCI0rOZ5VfSyQz2OxaP3r8zpo
+	 /zAHco/ykPkD6ixGn/R1VTg2Ip9QjA5jLNMldLrpkTla4feLGOVQ6Nh7VoCGWqBJxk
+	 YWJHYb8hv0ZRhgaXOaWSELBJTMD3IyXbVsRGLmPBuj8EiErsailXUeN5YX+QpWMxUt
+	 jgHY8ze3I/62ZAl1KsJq9dnIcxSHEFF3fq8zvBnGwlt7/c6L+QJ8gnE9K6y41G8sNJ
+	 8+GmFIJLZa4vAF2VkIIgECr4BhBhPn5NTqI/SrQKtEVvAP6A6WDkaHHSFvnmNremdU
+	 zVQSku6LzzuzQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: ipq5210: Add nodes for multiple
+ peripherals
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260707-08-dts-v1-1-fce82e14cd1d@oss.qualcomm.com>
+References: <20260707-08-dts-v1-0-fce82e14cd1d@oss.qualcomm.com>
+ <20260707-08-dts-v1-1-fce82e14cd1d@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 06:21:59 +0000
+Message-Id: <20260707062159.F38CA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|SJ0PR03MB6598:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59d1e211-c0ce-4d1f-c44b-08dedbeed0eb
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|7416014|1800799024|23010399003|56012099006|11063799006|18002099003|22082099003|55112099003;
-X-Microsoft-Antispam-Message-Info:
-	thJT1wqczeagNHHjU3iR1aouIsSsx5sQdhqf5+OmwuyOHVFF6yvT5MtKTplDy9clbA7iqZBjCIeWR/VFFihHZGj6QQ6aC/BT/peMswhscG0AXvLfRUy6geTmj8CE78jAg+GZXNpR847XJmGnVKBA2LCiCSCB9NK9Z6LGlFocabDVelGXLzp16K8wVT8qniSfX+rByc+cNCUtNr789HCTRGDcQWZ+aATKZSvTJccWWDyKhtKZ0uWTmoRFZ92IczUpmLEfx55LsL1nmTBM14+E1ZUTf8WM+DpjfAO6AW6cnLP7xmbvvjsdu3DN1/Qfk3ot4Tlp9wGD77Ai1Lq0cAwBNVbZPoAQ6NFIuwlNfN9J90PYH8XJqOGx/zrirCD4CZtMsO3E7FDTRsj5dl84bgTcH539qIs0/2yOKWNDHMK8HeZ9hBV094BZ/7FO4S3S/4C9PSauuCiCpP+Jik6XXLPIyJ0WfgWt67xihVpxVf+augcW32ghD/SIy6j1S/PqhEjwAVDmNhxULXAbdYlbrABautepd3VNuXhweVeMFrg5Cun84JUszmlNplo4+OFwqvhQYVkmukxmXuOhVaBFkAFBaTufgOV7yu05a8T5Oc8zpo2gkegeQctRjEWl28TJ3EQU2FZKUqnPrUdlE4y7yBZx2D0NYiBsZDRYGUwr2c5trwE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(56012099006)(11063799006)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?J4M3uN0hUziAfkg9VZSb3cICXyIxGvTcyTThhSiUW5bGzp3HH8bxiVg4+UW5?=
- =?us-ascii?Q?Iheb+XDbm01lJ+GPgW/BCHNCx5Fgh9w8mMXuNkVn08K/KiJZFM86IuHHOxKH?=
- =?us-ascii?Q?KH3ONdwCm3WR/ZimnVyEdt9T73RZ5cRP3ZAYTD8YFDkSUpprf8bbZ7PUTv0p?=
- =?us-ascii?Q?3MrMzlFbw6GiPSGP8ySX88bQTq6iCyXhUY4uYPOjbcVK+qPXxA2XtANeReMV?=
- =?us-ascii?Q?BiEGc6InZ0M4OtAazbtSy/W82zQEpcCVTNKty07qbfzhwH9qmxagOYLSdzWm?=
- =?us-ascii?Q?yj+QeVlVfT/oF1qWX249tDCePKgDqwv7I3u3SbJOPTGVSWRYRk/0PBxJT796?=
- =?us-ascii?Q?ftAr2RsObJ55xIT5IscXLdOhMvdYh4Z8+s/NIQElnvsFQuY9Nm2VIxBLhx40?=
- =?us-ascii?Q?leg4dL9bfOWf6ct+/8HxArtFMnk4FhxBPowdP0wj4kBtMLImwc7U/JGZCqX5?=
- =?us-ascii?Q?1j6GmtMcm+g0Rnc5fgs7fJDE6bmtKYsdQYYnHgAu1Aon8plMqhx1Z6od7uUZ?=
- =?us-ascii?Q?IJxGxA2E5cO0+OeZ7N2HLwyKdRKnK806tohIBCjKgwCeHO224Cy476ISL11w?=
- =?us-ascii?Q?6jvXoC6b+qxxwrYvQCnugVp1cMwyxBCENx+XHExtDeDQ+xUTE5IsRUpA/F41?=
- =?us-ascii?Q?fgydCQMOKpIJe9iKRS7yAZYS3fWJJPZI2mO7MnUAG8J95F/YK7ON701Wgsmv?=
- =?us-ascii?Q?Flz168oCnpKLzIYyb5rUggAqDRKOpYLOITorW01xYErxdrVZ0pqe0yPJPlXt?=
- =?us-ascii?Q?WEwU5QGeCMaHHOnhP4uSkoLmg4B/jtqiG8U3zoJI1I/wvSVKY/pZ/Fxio+vN?=
- =?us-ascii?Q?+tGlOheHUDEUIVOu9vCnw9Zc5POSAWsHqo0c35VC1JiyW1oySRBLGHI9iqdi?=
- =?us-ascii?Q?Ppfx682KOQP9hOLBjX6dKrbxlusCdMGPOvWxBYgVFLDojI3e9jQjhygVsw3I?=
- =?us-ascii?Q?sOtKrybTjg8fzK2OMOtH4bjXs8a/D4O2AY91NfEZOpV4tRkzhkaWzMzdLH2B?=
- =?us-ascii?Q?H0Huq5ti3KgWocAHAu245jJaDcc5Q8/sCQWgDImOl8+XfW3yStp4QhScUyFv?=
- =?us-ascii?Q?BDnuoVeNnWoPTsW1T6f/kmsc8qy7Cr9H5IOmQJfWaUsh//ntwU0Y2+JKb0uz?=
- =?us-ascii?Q?IC1s6WOW2Z0ujMmnEvw4VKLnu0YBXm5GbFBKdcHUBB6ayagQxaqXf25E/q4T?=
- =?us-ascii?Q?HgJWgvK0JrRMIF2uUEp9dsK/gB/4jBmRY+mJEhrWkyjdK72+IjkqNAKuM7zd?=
- =?us-ascii?Q?eX/93LctMKdJFb2bz48v6YbksDziSB61OE+QPZw4skwN0OsGfb14wZ8zV9od?=
- =?us-ascii?Q?53txB84iWd2EgHO59SvG4rc+6HeJasemvG3pVO25X/LdyeRInhcKViWSS1Op?=
- =?us-ascii?Q?60bQNa91c/k52CXpaeMe0ktiHvePSRf0SEqKiNSKPwQk8pAOLHvPMrmmyO8x?=
- =?us-ascii?Q?lKJLICYKLu0VXwylmo1v+3X6oVvXMC1fBYqq056AkfhkdqPhCdQEKPvVdKEA?=
- =?us-ascii?Q?okHrj1QHZAVEW/Ff8OXq3zvfk8BPmXXeD87/ZZ8j04CTLtVdq5gADTlr4wj8?=
- =?us-ascii?Q?7HXa8/0F6vl4xB2hDCSAegrpIbVosyHEoKbV3lwz6xPDn1+0hVxHycNQIVBf?=
- =?us-ascii?Q?CnuLuCITZNQXqAGNjt2uVsSGf4aUVRz+/xOhqiFCYEGQBvIATo3/e2eJPAEy?=
- =?us-ascii?Q?sZO77Tnp0B2gqfLq6MXlknkHD7lW342g5jKj1IYwLHRrBwOVNo3X/E4AwEke?=
- =?us-ascii?Q?CqE2phQ6z0MQ6CAjqfENRbx6XrypZ9LfnC+ap69vLLjtPF/8QDGIjhgQdsqq?=
-X-MS-Exchange-AntiSpam-MessageData-1: 54FHJXscU38aNA==
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59d1e211-c0ce-4d1f-c44b-08dedbeed0eb
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 06:13:08.8321
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gmwDZlBhMmSRolNluyv9Ld5R6VGKtbD3CX+s74xYJMyalJYO4XJSk9AUCjN86nxUbAaPQiLzuiZTcpPklEKMLZw7hcS5+dKX8iRaN2ZXqiWdAH0lwuSkClN1DU+FKE37fbWWmZldOdYM+AxGkxWVKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6598
 
-From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The `gcc` node lacks the mandatory `#interconnect-cells` propert=
+y.
+- [Low] Missing interconnect binding header leading to build failure.
+- [Low] Non-generic device node name `usb3@8a00000`.
+--
 
-The Agilex5 SoCDK TSN Config2 board uses a GMII-to-RGMII converter
-implemented as FPGA soft IP between gmac1 and its PHY. This converter
-provides the RGMII TX/RX clock delays. Document a new compatible string
-for this MAC variant so the driver can detect it and configure the
-interface accordingly.
+--- Patch [1]: [PATCH 1/2] arm64: dts: qcom: ipq5210: Add nodes for multipl=
+e peripherals ---
+commit 56c06e7d589960ad61fe5ba2fab0b467dc066d7b
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
-Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
----
- .../devicetree/bindings/net/altr,socfpga-stmmac.yaml         | 5 +++++
- 1 file changed, 5 insertions(+)
+arm64: dts: qcom: ipq5210: Add nodes for multiple peripherals
 
-diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-index 63084f762373..81f030986fa3 100644
---- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-+++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-@@ -24,6 +24,7 @@ select:
-           - altr,socfpga-stmmac
-           - altr,socfpga-stmmac-a10-s10
-           - altr,socfpga-stmmac-agilex5
-+          - altr,socfpga-stmmac-agilex5-tsn
- 
-   required:
-     - compatible
-@@ -46,6 +47,10 @@ properties:
-       - items:
-           - const: altr,socfpga-stmmac-agilex5
-           - const: snps,dwxgmac-2.10
-+      - items:
-+          - const: altr,socfpga-stmmac-agilex5-tsn
-+          - const: altr,socfpga-stmmac-agilex5
-+          - const: snps,dwxgmac-2.10
- 
-   clocks:
-     minItems: 1
--- 
-2.43.7
+This commit describes common IPQ5210 SoC peripherals in the base DTSI.
+It adds nodes for USB, PCIe, QPIC NAND/BAM, QFPROM, TSENS and thermal
+zones, along with the CPU OPP table and CPU cooling cells.
 
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq5210.dtsi
+> index 2cdc10529c489..6c97417e82db6 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> @@ -4,7 +4,9 @@
+>   */
+> =20
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/clock/qcom,apss-ipq.h>
+>  #include <dt-bindings/clock/qcom,ipq5210-gcc.h>
+> +#include <dt-bindings/interconnect/qcom,ipq5210.h>
+
+[Severity: Low]
+Does this header exist in the tree? The inclusion of
+<dt-bindings/interconnect/qcom,ipq5210.h> seems to cause a build failure
+because the file is missing.
+
+[ ... ]
+
+> @@ -146,8 +358,8 @@ gcc: clock-controller@1800000 {
+>  			reg =3D <0x0 0x01800000 0x0 0x40000>;
+>  			clocks =3D <&xo_board>,
+>  				 <&sleep_clk>,
+> -				 <0>,
+> -				 <0>,
+> +				 <&pcie0_phy>,
+> +				 <&pcie1_phy>,
+>  				 <0>,
+>  				 <0>;
+>  			#clock-cells =3D <1>;
+
+[Severity: Medium]
+Since the pcie0 and pcie1 nodes specify interconnects pointing to the
+gcc node, shouldn't the gcc node have an #interconnect-cells property?
+
+For example, the pcie1 node added later in the patch uses:
+
+			interconnects =3D <&gcc MASTER_CNOC_PCIE1 &gcc SLAVE_CNOC_PCIE1>,
+					<&gcc MASTER_SNOC_PCIE1 &gcc SLAVE_SNOC_PCIE1>;
+
+Without #interconnect-cells in the gcc node, Device Tree parsing might fail
+at runtime.
+
+[ ... ]
+
+> +		usb3: usb3@8a00000 {
+> +			compatible =3D "qcom,ipq5210-dwc3", "qcom,snps-dwc3";
+> +			reg =3D <0x0 0x08a00000 0x0 0x200000>;
+
+[Severity: Low]
+Is it possible to use a more generic node name here, like usb@8a00000 inste=
+ad
+of usb3@8a00000, to align with Devicetree Specification naming conventions?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-08-dts-v1-=
+0-fce82e14cd1d@oss.qualcomm.com?part=3D1
