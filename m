@@ -1,165 +1,293 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971353EDE53
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 20:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2039F3F1AB2
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 20:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783456909; cv=none; b=ejoQuqhabXmWmWbznXx5XwEAuvBkiy26BREz05n5QeivAlb5XNujdn1c0/75eUM/v57rLpDhRQmJa3WPxDigoT+9yJctO+y808ngcQIpMo39XITikX2FxC5+p7dwl04dAT+/r4XYBy3X5H131ylt9hWcvgLhYK6lWr6erhezOW4=
+	t=1783457037; cv=none; b=MWafa2VGGegi8P6IPum4PGE1in71f0TLMusV3phcDX1G5dfE0dYA8sncoldDDPdtJE/TeHiIwslfoqnY4hNnAv1JireR02ILwBhM/1biiaHXnDxGXASPQYY3h85vIV3pf52L5Di6Oa4suAUy/k1ViBpl+bkd7j0dHW91gwUqbzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783456909; c=relaxed/simple;
-	bh=oat1GvbIX3mIF4dAriHPdkOESs774O5N7WYidfkBbd8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EZoM5TO1SLIkBBCpcrq5JI5yuuwOZ7JpJ2qiix8TQIbo9CdYbVKuS7U2SXdSCnczGSMvwgWnsUT2Fx5rMmU7WtgFI3DLphmtPZnhG/Jou3C/hZBzR8tutIqlG4MPy1VIMQbMVYuPG06luSFhK6LQX9nAXmvPMoLtE5sNsl0Xsoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GGmh/Uhm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gCzYcJHi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783457037; c=relaxed/simple;
+	bh=qS0KUDgarP8PkHQj+bjZKVtl2KEWMwQxPutHaWKPGmU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gPjjTWAEnxIOF71yLmak/bom8znOTJ9MUxz04tXhsC0Mh6O+oRMaPM2j9XPK67ZwQ6D9eeUi4mYY0A0epSgPPLJdKkX7lGnMxXbP6po6LJ1i3IFmBMArnfXCs5x3TiPXrsfBW3GPhV5ybbwQrPh3IQA1g+gA+38Cs2s77LCpePM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=syxjFXzQ; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GGmh/Uhm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gCzYcJHi"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667Jerwv371584
-	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 20:41:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gCvkekoa4er4Tteeuol06EdVNkgFR18slO6Bu6KspqA=; b=GGmh/Uhm4xBaURoq
-	hLEToFJLBw4he5yg2ex+RY23ERdEdBaOnI1ygr4Ic5BdZgS52J9MZ1wLLFt+awO8
-	pXS2HxQeVrlVG8FG54ved26jVsyyu3IAJ6D0tKVuDOTCtiuIMkO7YsJkkJICxtwq
-	uqaR0w5aJuc++hRa+B9ZofQZJviKIPiW38CGO8WxWgjhpjTbq4kCf54fKgz6St/i
-	ZqD3iSG33tk+mc3ghjahHwFu87H1ho3o6vwm74G1ME8IY3yUYlvSpzGliocKaQwX
-	wLk/7M/0TCwT8t4W9Mj31Mc2BeH0vC2KvFaknsk1fwtxEuBbz8+B+RAm0DDgJRM9
-	X3nrVQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f97u105sw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 20:41:47 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c20762d21so56971621cf.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 13:41:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="syxjFXzQ"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-381f03d7be0so286523a91.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 13:43:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783456907; x=1784061707; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gCvkekoa4er4Tteeuol06EdVNkgFR18slO6Bu6KspqA=;
-        b=gCzYcJHiNb2c8Zs1+UbnxcBh2hGa8vdB7/MZ/B9ufjNLEmgRyCBGrLRmSsyK71pLwi
-         MVG40p0/oZDUhzkBQ5El/uJMwfB/NNlW5AiZmn5xaLnCvVO0Spxrt4DlGUC0ERJO1MQ6
-         r1wWp3Fwv34ZnYTSuRvP99ozadrzcQdT3OHyGfsGLqkA1GkU29WMF3cEqscZ0gKlbWqN
-         +e3T3p+9T2fTdsCS9O1y4Pbsj3voFmxsIqwRcwPCjgf1Y5ln5i80I3FjosyODNdMSdMp
-         NkLCBEO9xX4Z3Wy3IfnqAArsFZvKwaf+RK+MBPnBjIbB6/O03K2cjw4Fqp4GvSuRvG8K
-         CK1g==
+        d=gmail.com; s=20251104; t=1783457035; x=1784061835; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9Sc1ScYcrcYXTFBfBdaZMPgXyG9Uw3ZDjAvPJZPUKLA=;
+        b=syxjFXzQY8G1FpwZnlfY6z4IyX1jPGSIsidTA0xn7JolTWChLrAncCOxMOPZblFYsk
+         2E9dgkbfgejqxdG/dRRYzcJRviq47kA7j3I7tDSHWuYCvR1bpNBbi4s+Qr9k5+WGTbXG
+         1XLXQggfcypVUilkd89hclA6vftYcslqoCHykxrienX4Cqci9ilLmT6A6grIt9IBKBq/
+         0QNTzpXU0BDyajl6OiOSr5llATKvKjgQdqXYmVtYg5+m0p+NfKpLFPlKgnZ3DXxy1sER
+         USNDsuOU793nyIm98+QM95lzqoXTly0BmPrJ3YvW+iTfQlSa+/Xrt4Ztl+ADlaK64eJr
+         2+HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783456907; x=1784061707;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gCvkekoa4er4Tteeuol06EdVNkgFR18slO6Bu6KspqA=;
-        b=aeHYQ6D3ETW/llK+HfGvobkP03kdGXs+hCLKzGUQxTAcKP/HF7oyCco5JMaFmbGaoo
-         GnapHhFwfSvrjl5Iem33iv5XMYZvFosWZ5zpKXJGhg+vuYERE9dfwbBiEpjmZmogyDGk
-         ZmioECIPbDM4+zGAoPGBMTGg2CUpzz1oxHPjE8Vk8xP2KT15a4onoGX3gf5mPPWbtOmM
-         CUB9KWezHZmRt3sKqdceuXytIokBXdUkjKBuZ0fi5+bgu2EhslhJ1MEwZyZ2lfzpnk0w
-         7pL54sb/qvheno2L63UlLDoX1CN7H1ApKx1SJgoyp5NgbL9LSPt2FJ5TJ+9Wn8g1rCRU
-         ZDvg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1GPchTFYnNYyIWRkPA6hV1msXoVPPhgKYKerFA5IK4mQk+25IgnJL5Ihi+88rlK6MNK+6OoUrlZX6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGY+jVgHOA5N1zac3tf/X4xBezt8eZgdXpBPYZg39bTvBB5U2G
-	Ph/VB0Xb8HMz0I6zjejQjEz3NcuaZflN/zhfxWooNTlDX0V96pPFXbXJYV9iq2J2JerMYKEhRIx
-	zeHlQBzdgJPqzFvVK32w53GiFaR8ewEZmna9iy23By5My+6JzhSfyrL5UEko6h0pj
-X-Gm-Gg: AfdE7clot74AJRwHfynsErYMUCY8VtFP2wtFCE5T1ixUkocMAYwhYjhOhOP/eQbWRwL
-	3dfemg28gtQ2rvJhPjeloOEXzVfn+NuHtZLr/RVMz+Mih2CocLmOcBLWt4VEWu5V4seaN8cFLWH
-	8tgCpJ3b6IWw1o2dsc/titH21zT0jMhwVADxwTs0efs2c6+Epl7cO87r38y5jrJzxpfA3McHViy
-	n8rYZ8CuDlHVuu8uaiLRJ9HWJEkSylBW/ekmTGWkg4o9+LGsjrlJFoX/H3MqTqky7wCbcin5owT
-	4aTII0NHJn+T7T10Dn+ikj4pUiZURlZbTL6IVUHqp+IUcMKcLeO6fnBUuKKyJsVTleZ5PG/S0cg
-	BHolD+Zq+nzrywzSXbU3emeUmgrfo6Ii3+V8j5g==
-X-Received: by 2002:ac8:690e:0:b0:517:6d82:9aec with SMTP id d75a77b69052e-51c74676b89mr74825001cf.0.1783456906851;
-        Tue, 07 Jul 2026 13:41:46 -0700 (PDT)
-X-Received: by 2002:ac8:690e:0:b0:517:6d82:9aec with SMTP id d75a77b69052e-51c74676b89mr74824661cf.0.1783456906256;
-        Tue, 07 Jul 2026 13:41:46 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa039ad21sm36001629f8f.20.2026.07.07.13.41.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 13:41:45 -0700 (PDT)
-Message-ID: <64af4615-4581-43dd-a1b1-8324c63d5853@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 21:41:43 +0100
+        d=1e100.net; s=20251104; t=1783457035; x=1784061835;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=9Sc1ScYcrcYXTFBfBdaZMPgXyG9Uw3ZDjAvPJZPUKLA=;
+        b=eMDUTPvXLTvHCNc5b2IogzBgZwUSMXRrFc9/+UcJOf1r/QZbgB0fFLWzEGLnL7vPCe
+         izNJR69ktATBwx0jcGYE9K3ZuNNOZwJ7IZIWKiYhmVFYt/pS5EhYkGKMNp22B63U0kv7
+         Fys06fPGkoWYoPT75FBsyvdZKfj3Nzxa/qBUtWAVz6PQSaO969/E+SCrnEF7OqKbf82J
+         CSFsr94wC8WVw/Rb+aY5jO2AsJtnwethYGBqvxh0E8HWNg0yWwXmT31/KTUYv/6TMxJQ
+         V/JLZ73Et1xnZMQbiMzfJeX2mW4C9GQHWwkcGHvvqJfwf+bz9Syfl0yeHuLJrTb/c3o2
+         X0iw==
+X-Forwarded-Encrypted: i=1; AHgh+RoHXLgdKAilU4kTeNj/Jm7hwE51OXwN/WXfbQ73Sa4IWY8Kjb8mxX2B4J6qWRQd8qwa9xYEBlflwjAB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjYPK9zKaja/+sVeicQwKiA0dniAc8LYkaRf/Xxk81Lar+JjDW
+	wJy3Pl8Eqe5uqTo/3Xh4zsUsnTAmZu92b/uUQMDz2bnppQazTjjbvc/n
+X-Gm-Gg: AfdE7cmLaIlUFxW1TlS76iqmwNJp4bkaaEsb6NuCG3XI3RlSEGG+8QbGleYud5zE6A9
+	R84EycxY3sjBcO31O8ZoLA99THz7/AY9SNVXCzkTK4EpoeLEcnGxddxKHcNaBB1y4WHaolrTDe3
+	igWuicc/XQyIpug+TmIVarN1pLBLweXFvuiA431tx2tSPvY2JJ+9Q92qO0smkjZTvy4NJ6oqmSh
+	i76+Aqaenr7daguCzQ1tFezkBf43uBiKag1tP40XhuB+8KEZQmrc0V22JPmzkO6KccaIfOW/lWi
+	Lataz2hoJMORT7P5FqF5ZRbT2RH2EZXaAVPkOzUOmxQbpx9KQ0tEszDikQL7qLM0N22jWkRf7fi
+	/8Qt73oBKtO6KqTAm77GSk4jW9HnNP3M0WbiTqjJ1npaWOWIxONLvXhikXVgbydMrdY7GvmLNMo
+	zfmYqUe0tq3J2RhDAzpXbmmA==
+X-Received: by 2002:a05:6a21:4cc1:b0:3bf:8ea5:b3a0 with SMTP id adf61e73a8af0-3c03c60d626mr10503808637.4.1783457035230;
+        Tue, 07 Jul 2026 13:43:55 -0700 (PDT)
+Received: from [192.168.1.2] ([2401:4900:881c:7ad8:e5f1:b20c:5138:fdef])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ae6cd9sm12405117eec.31.2026.07.07.13.43.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 13:43:54 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Wed, 08 Jul 2026 02:13:45 +0530
+Subject: [PATCH] dt-bindings: iommu: ti,omap-iommu: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: monaco-arduino-monza: Add overlay
- for Waveshare WM8960 Audio HAT
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        loic.poulain@oss.qualcomm.com
-References: <20260707163703.233405-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260707163703.233405-4-srinivas.kandagatla@oss.qualcomm.com>
- <zfmtqi3k3miv3ncgla5x3gjktj5j25zkyqqxmyq5i44ynzfnhb@7mruev4sw5vm>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <zfmtqi3k3miv3ncgla5x3gjktj5j25zkyqqxmyq5i44ynzfnhb@7mruev4sw5vm>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: xdIOHoCQbvxOO4hovmM4VEvBd-JBhZde
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDIwMSBTYWx0ZWRfXwmfq0Jb280qW
- mDGJZSmhSnukXHQQCZNqVAsv9KGc4CQ2R7mtdjyiPE+IU5unbWYnZrrxkRaGMO7HPmDWj8agAI/
- FA58tasSqzI2cJRPN2OXgBsRTdZg8hc=
-X-Authority-Analysis: v=2.4 cv=F9JnsKhN c=1 sm=1 tr=0 ts=6a4d648b cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=dzfq2vkET6RgKwHabl4A:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: xdIOHoCQbvxOO4hovmM4VEvBd-JBhZde
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDIwMSBTYWx0ZWRfX8EdOMpr9mjlr
- Ucv8H3qNoOt6Pls2D5l9WE+IA0+Vtmpp/i7By6cxdvpPmacnOBVb0xaVG3rzdimu7aYrbmoLyVV
- MdwLJOjoat8n8hQThIB0DkImKfFHDu5H1j7K3GsyTgQm4Pr6uNPtjtwHLdD9D6l8ItDFdvATR/r
- +AH32w2ziX3SXXsiLfMHY9jGUht5XVuHOjeC4ZUaZxfl90b2AR/rRiDZnirXO0443hK4HiFZZYa
- FfJofZk8kjADoSVOjB9y0ZwkegzRn2lNXrrInjjZkJ2bUILN0dOYr8+3ho5T7vITd2/7DNx2N7J
- sTNhBJNJxspcXw3dDoCBE8zw79FjRLOAUgEmNJnOWvz0bMwg/eWg5zAk+69hnUDMwM6f8PwXOr5
- 8XCjj152ZXooGys4HJ3lHn5X9D3ajgwj168a/oRNO83JqES1lovLswUgEk+W0SvYeIUdH3Oaknh
- bcHOxOLuJrzbC5xJAwQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_05,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070201
+Message-Id: <20260708-ti-omap-iommu-v1-1-48cfc53aaa46@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQjqDFq0gXMU7qFGJCEkUI3
+ t3YLt/i/wKJo3CCoSkQeZckfq14Phowi14/jDJXAynqVK9emAW90wHFO7dhy0S2b62ZNEFtQmQ
+ rx+83vv9O2/Rlk+8JnOcF2bhBpHEAAAA=
+X-Change-ID: 20260708-ti-omap-iommu-3e22f73fcba2
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783457030; l=6521;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=qS0KUDgarP8PkHQj+bjZKVtl2KEWMwQxPutHaWKPGmU=;
+ b=qQuMPAe+/8FtgRxJoa0wpJacMAU0xOV+ouP9K8qIenEmsfJrmnYvGWkpQaOI5uar1wVsd3efw
+ IvGtQRkepKQCfGYcYQdsn3omZSqpJlwy3jFYcP5tKQ2MGashLTZu2PU
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On 7/7/26 7:15 PM, Dmitry Baryshkov wrote:
-> On Tue, Jul 07, 2026 at 05:37:03PM +0100, Srinivas Kandagatla wrote:
->> Add a DT overlay for the Waveshare WM8960 Audio HAT connected to the
->> 40-pin JHAT connector. The overlay adds the WM8960 fixed MCLK clock,
->> the WM8960 codec on I2C0, and the corresponding I2S1 playback and
->> capture DAI links to the sound card.
-> 
-> The contents of the overlay is more or less visible from the patch.
-> Please provide some useful documentation, e.g. how to test the codec.
-> Does one need extra UCM file for it? 
+Convert Texas Instruments OMAP2+ IOMMU from text to DT schema. Make the
+'ti,hwmods' property optional and mark it deprecated as it is no longer
+used, it is kept to support legacy dtbs.
 
-Yes, currently this has been tested manually with mixer commands from
-console, the plan make this work with ucm dynamically based on the
-existence of the dai-link that comes as part of overlay.
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/iommu/ti,omap-iommu.txt    |  59 -----------
+ .../devicetree/bindings/iommu/ti,omap-iommu.yaml   | 112 +++++++++++++++++++++
+ 2 files changed, 112 insertions(+), 59 deletions(-)
 
-Here is wip ucm changes required for this,
+diff --git a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt
+deleted file mode 100644
+index 4bd10dd881b8..000000000000
+--- a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt
++++ /dev/null
+@@ -1,59 +0,0 @@
+-OMAP2+ IOMMU
+-
+-Required properties:
+-- compatible : Should be one of,
+-		"ti,omap2-iommu" for OMAP2/OMAP3 IOMMU instances
+-		"ti,omap4-iommu" for OMAP4/OMAP5 IOMMU instances
+-		"ti,dra7-dsp-iommu" for DRA7xx DSP IOMMU instances
+-		"ti,dra7-iommu" for DRA7xx IOMMU instances
+-- ti,hwmods  : Name of the hwmod associated with the IOMMU instance
+-- reg        : Address space for the configuration registers
+-- interrupts : Interrupt specifier for the IOMMU instance
+-- #iommu-cells : Should be 0. OMAP IOMMUs are all "single-master" devices,
+-                 and needs no additional data in the pargs specifier. Please
+-                 also refer to the generic bindings document for more info
+-                 on this property,
+-                     Documentation/devicetree/bindings/iommu/iommu.txt
+-
+-Optional properties:
+-- ti,#tlb-entries : Number of entries in the translation look-aside buffer.
+-                    Should be either 8 or 32 (default: 32)
+-- ti,iommu-bus-err-back : Indicates the IOMMU instance supports throwing
+-		          back a bus error response on MMU faults.
+-- ti,syscon-mmuconfig : Should be a pair of the phandle to the DSP_SYSTEM
+-                        syscon node that contains the additional control
+-                        register for enabling the MMU, and the MMU instance
+-                        number (0-indexed) within the sub-system. This property
+-                        is required for DSP IOMMU instances on DRA7xx SoCs. The
+-                        instance number should be 0 for DSP MDMA MMUs and 1 for
+-                        DSP EDMA MMUs.
+-
+-Example:
+-	/* OMAP3 ISP MMU */
+-	mmu_isp: mmu@480bd400 {
+-		#iommu-cells = <0>;
+-		compatible = "ti,omap2-iommu";
+-		reg = <0x480bd400 0x80>;
+-		interrupts = <24>;
+-		ti,hwmods = "mmu_isp";
+-		ti,#tlb-entries = <8>;
+-	};
+-
+-	/* DRA74x DSP2 MMUs */
+-	mmu0_dsp2: mmu@41501000 {
+-		compatible = "ti,dra7-dsp-iommu";
+-		reg = <0x41501000 0x100>;
+-		interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
+-		ti,hwmods = "mmu0_dsp2";
+-		#iommu-cells = <0>;
+-		ti,syscon-mmuconfig = <&dsp2_system 0x0>;
+-	};
+-
+-	mmu1_dsp2: mmu@41502000 {
+-		compatible = "ti,dra7-dsp-iommu";
+-		reg = <0x41502000 0x100>;
+-		interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
+-		ti,hwmods = "mmu1_dsp2";
+-		#iommu-cells = <0>;
+-		ti,syscon-mmuconfig = <&dsp2_system 0x1>;
+-	};
+diff --git a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml
+new file mode 100644
+index 000000000000..c23156b9b312
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml
+@@ -0,0 +1,112 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iommu/ti,omap-iommu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OMAP2+ IOMMU
++
++maintainers:
++  - Bhargav Joshi <j.bhargav.u@gmail.com>
++
++properties:
++  compatible:
++    enum:
++      - ti,omap2-iommu
++      - ti,omap4-iommu
++      - ti,dra7-dsp-iommu
++      - ti,dra7-iommu
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  '#iommu-cells':
++    const: 0
++
++  ti,#tlb-entries:
++    description: Number of entries in the translation look-aside buffer.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [8, 32]
++
++  ti,iommu-bus-err-back:
++    description:
++      Indicates the IOMMU instance supports throwing back a bus error response
++      on MMU faults.
++    type: boolean
++
++  ti,syscon-mmuconfig:
++    description:
++      Pair of the phandle to the DSP_SYSTEM syscon node that
++      contains the additional control register for enabling the MMU, and the
++      MMU instance number (0-indexed) within the sub-system. The instance number
++      should be 0 for DSP MDMA MMUs and 1 for DSP EDMA MMUs.
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      items:
++        - description: phandle to the DSP_SYSTEM syscon node
++        - description: MMU instance number
++          enum: [0, 1]
++
++  ti,hwmods:
++    description: Name of the hwmod associated with the IOMMU instance
++    $ref: /schemas/types.yaml#/definitions/string
++    deprecated: true
++
++required:
++  - compatible
++  - reg
++  - '#iommu-cells'
++  - interrupts
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,dra7-dsp-iommu
++    then:
++      required:
++        - ti,syscon-mmuconfig
++    else:
++      properties:
++        ti,syscon-mmuconfig: false
++
++additionalProperties: false
++
++examples:
++  - |
++    mmu@480bd400 {
++        #iommu-cells = <0>;
++        compatible = "ti,omap2-iommu";
++        reg = <0x480bd400 0x80>;
++        interrupts = <24>;
++        ti,hwmods = "mmu_isp";
++        ti,#tlb-entries = <8>;
++    };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mmu@41501000 {
++        compatible = "ti,dra7-dsp-iommu";
++        reg = <0x41501000 0x100>;
++        interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
++        ti,hwmods = "mmu0_dsp2";
++        #iommu-cells = <0>;
++        ti,syscon-mmuconfig = <&dsp2_system 0x0>;
++    };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mmu@41502000 {
++        compatible = "ti,dra7-dsp-iommu";
++        reg = <0x41502000 0x100>;
++        interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
++        ti,hwmods = "mmu1_dsp2";
++        #iommu-cells = <0>;
++        ti,syscon-mmuconfig = <&dsp2_system 0x1>;
++    };
 
-https://github.com/Srinivas-Kandagatla/alsa-ucm-conf/tree/ventuno-q-jhat
+---
+base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
+change-id: 20260708-ti-omap-iommu-3e22f73fcba2
 
---srini
-> 
->>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/Makefile             |   4 +
->>  ...uino-monza-waveshare-wm8960-audio-hat.dtso | 100 ++++++++++++++++++
->>  2 files changed, 104 insertions(+)
->>  create mode 100644 arch/arm64/boot/dts/qcom/monaco-arduino-monza-waveshare-wm8960-audio-hat.dtso
-> 
-> 
+Best regards,
+-- 
+Bhargav
 
