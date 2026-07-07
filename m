@@ -1,124 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC988430CE1
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 15:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C6C3403F1
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 15:56:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783439765; cv=none; b=AvVFpiqhz96rJeIfoeUT9R8SFOCx0pwZI37CCC5wnXOh07x+rBmESjyVV9zcJdzG8H14fmPZEkLdGBnkThGfTcv2b3cohy/u+sybGJY/cv2Pkp5crhWTXx3n0DEFyDITO7Oy8lYIb61GiCU8KRFdZ8jyysKxi7V52ZRZs+i0fMM=
+	t=1783439785; cv=none; b=rxdT+7GJJU3pxea8TM+kx2tSZwqrwhWChsTHzMUOdmNJeWrIZaEmrAS1s3FrhchE3a92oAanH3sTnYxIJGYDZ7EEu+/rOnuRcjSrSilqSNUjZxDlwiTMT0nnnQuUKggWgmZhA/iFnzWu2BzjgfcMMimCOkE1h9Ku1avJnoULrx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783439765; c=relaxed/simple;
-	bh=qSzv8jH9j8nQ7HSLLTeJpPBXJDM5auvvcSeZ/2BG/ZI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F4iW8eZti0tg7cac/He95ByRNFI0cerBWvFhZ14lUSICC24/0Ojzjw+6nsnaj8IPNgCcsBfyJiDSFtEVd3imF/tcKbzM8+vv1ybDCOWgqaY1N+/xuD05YPiSw2U53VxZ3nvFR4Olub3qHSCf03YX+iCF0/sUxyZiE2Gw9dV9wNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oo/rJf0u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783439785; c=relaxed/simple;
+	bh=I1dPOYFavdoBMp6urjFN3pXRFk488GNJoWzNHRSdR9s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fRvnucBaX+Tn2xubB/f+qFtBFUmiV8wrYKO0r6KMIQw6TEnoNvcRJQnM8C0D6pCeI16liQZ4FaYVbfc4nlLP0mjSoJkWGvqUs3NjfN+YCobjECMrsgqV/77K0FS/jKYZT7kpVo7eh7qOECpgTwOQdCeifZNYwf5csKpgwNuIhV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibq+mNhd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oo/rJf0u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991251F00A3A
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 15:56:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibq+mNhd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68ED1F000E9;
+	Tue,  7 Jul 2026 15:56:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783439763;
-	bh=XpJw9io3fjRgOtK6zLaiSswWKuLmK0PDRcOfWIbbXcQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oo/rJf0uf6OMgy41BoztRw2fjxk2SuE82lnxffdIEestTRKZDqKTqwPvvxqDcu6nn
-	 BNWNwcUK0TJGGMPej+yLme/eKMYAhFJbH293jMupnNdwJhQ65PKQLLiebaRQcozJ/D
-	 wwWH+FZzSf4VUBxeIhXEfPPQskDp3NmgkcXAGfFxzeHWBbZ+x4JzUCyR2L9HyjI3HT
-	 zyidrUTrKjwXGVRGt+VOtC2XE8XPsKDAS/OA/B5yqrVwYK/peikLEMRtNwfn0chAoa
-	 aNYdljRvMJM5RFYO3cj+b19Rk7YVMOpWd8Qg3TYGDmMI3SlVmkGGTvLT0Zjlrg/A1g
-	 eNFGZ09T8am8A==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c12758e75afso548373566b.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 08:56:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq6OsHE6U2km2uQGCGCVV3IbkhjgGMKRwCKUCzLI5kX79ABa5kzSh07NNEOMwqUrKwQw19EkZrYV0Uy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpepDOjzWFpZswGK1NrADGd+B8Hg0pvv6GovWyVQeDJ7saaH0d
-	aKRXhRN/urdzySPyJXgHYE1O1/YPJ0VDjfHqiptVvk7BqFUzHDiyjpnp6ob35Qoadn8nUNfCqQt
-	EGMvhehER7F15gwvo/+Ggz0XquE+YHA==
-X-Received: by 2002:a17:907:3e28:b0:c12:e178:9e96 with SMTP id
- a640c23a62f3a-c15a6797765mr356272766b.14.1783439762253; Tue, 07 Jul 2026
- 08:56:02 -0700 (PDT)
+	s=k20260515; t=1783439784;
+	bh=BR+iQpZJepEmz0MopDypdDGqAeRtQkbVo5FSmYXDYTw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ibq+mNhdF/OXAgu5Ou+Mm2q8Wgm5ue+pmOuErVVJcCjnib+lNS+R+K+c43Vpr1UO5
+	 pZN1S2YVFWxrbPHjed6P1ZLnLNayIpTahyWzkDoyRZjsAtNOrYiGxvYhX0TmkUQNnk
+	 t4WBT+Er/phINwAZsgdxxIGUcR89nVrJwxxvxEYqEkrAnWT8eZ43eYS2VpRmGVjww7
+	 G7rJvCws3rrOO8TDetOeKJLrs3y7CIG1MaeTdMipAAP13w5XG8rSgjv7fZ3az4OhNr
+	 rA2565nPjCA8dS1XXQUFJQZGW4qNZIoTQ05kXhCIFaWSmjyzOoG/kNOem+vTldwPRi
+	 6qiwYTTb+dTaw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 06/12] phy: phy-mtk-dp: Support set_lanes in
+ configure and properly cleanup
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260707154245.198361-7-angelogioacchino.delregno@collabora.com>
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-7-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 15:56:23 +0000
+Message-Id: <20260707155623.E68ED1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1780499520.git.michal.simek@amd.com> <23d848e29176706548612c4a0751481d46176f11.1780499520.git.michal.simek@amd.com>
-In-Reply-To: <23d848e29176706548612c4a0751481d46176f11.1780499520.git.michal.simek@amd.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 7 Jul 2026 10:55:50 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLWwcRjzQs4DHV265w-ROzeW_OPVS0uP0Ew8p+-dYu+EA@mail.gmail.com>
-X-Gm-Features: AVVi8CeWMVmr9b-fYHQTlYbUaXSASdllAjeebeVjmBQkRgnkHGGocV2Uv5Xxhd0
-Message-ID: <CAL_JsqLWwcRjzQs4DHV265w-ROzeW_OPVS0uP0Ew8p+-dYu+EA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/5] dt-bindings: clock: Move xlnx,zynqmp-clk to its
- own schema
-To: Michal Simek <michal.simek@amd.com>
-Cc: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, kishore Manne <nava.kishore.manne@amd.com>, 
-	"moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
-	"open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 3, 2026 at 10:12=E2=80=AFAM Michal Simek <michal.simek@amd.com>=
- wrote:
->
-> The ZynqMP clock controller binding shares only #clock-cells with the
-> Versal bindings. Move it to a dedicated xlnx,zynqmp-clk.yaml schema.
-> Also remove "(Optional clock)" from clock description because it is visib=
-le
-> from schema itself.
->
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Michal Simek <michal.simek@amd.com>
-> ---
->
-> Changes in v3:
-> - Cover change in zynqmp-firmware.yaml
-> - Move clock-cells to be the last in the example
-> - Remove comment around (Optional clock) which is obvious from schema
->   itself
->
-> Changes in v2:
-> - New patch in series
-> - Split zynqmp-clk from versal-clk
->
->  .../bindings/clock/xlnx,versal-clk.yaml       | 50 +-------------
->  .../bindings/clock/xlnx,zynqmp-clk.yaml       | 68 +++++++++++++++++++
->  .../firmware/xilinx/xlnx,zynqmp-firmware.yaml |  7 +-
->  3 files changed, 76 insertions(+), 49 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/clock/xlnx,zynqmp-c=
-lk.yaml
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Inconsistent use of device pointers for error logging in `mtk_dp_ph=
+y_power_off` and `mtk_dp_phy_reset`.
+--
 
-This is now causing warnings in linux-next:
+--- Patch [6]: [PATCH v3 06/12] phy: phy-mtk-dp: Support set_lanes in confi=
+gure and properly cleanup ---
+commit cab309557ac4fcb462c5b8978a8cd660acab1ec1
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,ve=
-rsal-clk.example.dtb:
-zynqmp-firmware (xlnx,zynqmp-firmware):
-clock-controller:clock-names:0: 'pss_ref_clk' was expected
-        from schema $id:
-http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,ve=
-rsal-clk.example.dtb:
-zynqmp-firmware (xlnx,zynqmp-firmware):
-clock-controller:clock-names:1: 'video_clk' was expected
-        from schema $id:
-http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,ve=
-rsal-clk.example.dtb:
-zynqmp-firmware (xlnx,zynqmp-firmware): clock-controller:clock-names:
-['ref', 'pl_alt_ref'] is too short
-        from schema $id:
-http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,ve=
-rsal-clk.example.dtb:
-zynqmp-firmware (xlnx,zynqmp-firmware): clock-controller:clocks:
-[[4294967295], [4294967295]] is too short
-        from schema $id:
-http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-/builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,ve=
-rsal-clk.example.dtb:
-zynqmp-firmware (xlnx,zynqmp-firmware): clock-controller:compatible:0:
-'xlnx,zynqmp-clk' was expected
-        from schema $id:
-http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
+phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
+
+This commit adds support for enabling a specifically requested number of
+lanes in the .configure() callback. It also updates the power off and reset
+callbacks to disable all lanes for proper hardware cleanup.
+
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+[ ... ]
+> @@ -263,31 +281,68 @@ static int mtk_dp_phy_power_on(struct phy *phy)
+[ ... ]
+>  static int mtk_dp_phy_power_off(struct phy *phy)
+>  {
+>  	struct mtk_dp_phy *dp_phy =3D phy_get_drvdata(phy);
+>  	const struct mtk_dp_phy_pdata *pdata =3D dp_phy->pdata;
+>  	const u8 *regs_dig =3D pdata->regs_dig_glb;
+>  	const u8 *regs_ana =3D pdata->regs_ana_glb;
+> -	int ret_cktx, ret_aux;
+> +	int ret_cktx, ret_aux, ret;
+> =20
+>  	ret_cktx =3D regmap_set_bits(dp_phy->regmap,
+>  				   pdata->off_ana_glb + regs_ana[DP_PHYA_GLB_FORCE_CTRL_1],
+>  				   CKM_CKTX0_EN_FORCE_MODE);
+> +	if (ret_cktx)
+> +		dev_err(&phy->dev, "Could not disable CKTX0: %d\n", ret_cktx);
+[ ... ]
+> +	ret =3D mtk_dp_phy_disable_all_lanes(dp_phy);
+> +	if (ret) {
+> +		dev_err(dp_phy->dev, "Could not disable lanes for poweroff!\n");
+
+[Severity: Low]
+Should this use &phy->dev instead of dp_phy->dev for error logging?
+
+The adjacent error handlers for CKTX and AUX in this same function log=20
+errors using &phy->dev. Mixing device pointers might lead to inconsistent=20
+device names in the kernel log.
+
+> +		return ret;
+>  	}
+[ ... ]
+> @@ -307,6 +363,11 @@ static int mtk_dp_phy_reset(struct phy *phy)
+[ ... ]
+>  	/* Setting bits means go out of reset */
+>  	regmap_set_bits(dp_phy->regmap, pdata->off_dig_glb + reg_rst, DP_GLB_SW=
+_RST_PHYD);
+> =20
+> +	/* Disable all lanes and continue reset even if this fails, but notify =
+*/
+> +	ret =3D mtk_dp_phy_disable_all_lanes(dp_phy);
+> +	if (ret)
+> +		dev_err(dp_phy->dev, "Could not disable lanes during reset!\n");
+
+[Severity: Low]
+Similarly here, would it be better to use &phy->dev for consistency with=20
+the rest of the API implementation?
+
+> +
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707154245.1983=
+61-1-angelogioacchino.delregno@collabora.com?part=3D6
