@@ -1,136 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AB6331EC7
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 22:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7A03451C6
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 22:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783464619; cv=none; b=kep9ngy4bnDzobd5V9hdRprtLm2jP477oLfXShevHVdmqCoyOBWxn6V62B6gzICuIq4cSNsAhY+5KV69q4XCeaXi7HARzltdIOEP6dOF67yEXbbiY8IZl3MsjrjqZvIU43IxrNAmXkZNBRFWesTlywWlBWDjQAMXubkwVPundF4=
+	t=1783464635; cv=none; b=joRVS5ay/LdMTHu3EQwNn1wvJoCl9thcPV33BY7drBvB1JWEnUqLUX4bAg9zd2a6GOe2F0IidlOGduasnJzOzU47vxu4hox1bVj2EmEYIUYndmNTrMcwDZW97MkOfQxUoYNReXuISFIajt6pbOevmqDzjrOnrfCe6N3AslFil7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783464619; c=relaxed/simple;
-	bh=ac5FBlsSJfyvglWqx/eaCxHzVCFaFC2DpJcbUnXET0I=;
+	s=arc-20240116; t=1783464635; c=relaxed/simple;
+	bh=kENAZxGNgk7SJbSMfHIV0pZnZqdpfXjsm7sdNIKsaKw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jy1CgO4vB/TpDhc9dsuHWNZ9L9gelk2qHuJMgZ0CnKlsNq+yDs36aQvgq9We7NHTjSGrCMRbaBklwCo8wCHqbiuzTciYUl8c5Wpxwe205pdkXhtSTs07VO0fBRIPYR+w+rSokSVcm0fjkRHFC2qfNfniBUpVfabqCWIJThKTSBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L/1Vmj8y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EKggDl6latiDH+WmO/vbgzxhy9Qvnt0WNvg7DPPsSVi/IZOQOuNaE1Yb8R87ajA7LubG3LkierU7Q7XfVeNMY7ZhMjkgxpt585ylzL7E6DGNge52TREkTj+gYZK12nY6yNKPSBEKcjJeAdQ63THr6onGfZK+T1mRIl+bj76Qcko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SNfmp+P6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L/1Vmj8y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95D11F000E9;
-	Tue,  7 Jul 2026 22:50:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SNfmp+P6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5741F000E9;
+	Tue,  7 Jul 2026 22:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783464618;
-	bh=1YGg1ZhxPSg5atzOqUnhvVVKPjnaio+rOCI58xQdfLQ=;
+	s=k20260515; t=1783464633;
+	bh=weAhUDjT0/bjVLL+5t/KQPpvr52n2ffoyMow7i+WqII=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L/1Vmj8yrR2tpPWgLOc4kMUzC9KVI+bi5iYartbpsPLlxk81rstoHrF2AWerzoA3Z
-	 uHQA+wtBEuquQnQtyEo9MJrWUUwfjAgy+XImTAanUurpCeiE61G9wOVuecKyh/zPbK
-	 Yox88eybqDYBsn+R3wHiBDv7OMhaNTy77TeqXVVjRcyQgJVN+f+0p77CsBIQtGSsu2
-	 vF37gi/MyLCOASX1dS2yFoYqfOlp0jhjPKSNStdm2m3oSr+dFmTRHdZ1JmUYmjcp2A
-	 5LX6I4mJhEV6MGI2eP8TnhWL/8eivPSJzClsxRLkhCn/cpg+cjVx5yDrQfMT/xJt8K
-	 ROD6S670xqN8Q==
+	b=SNfmp+P6DYouz68AfiFT4G++65u56qazDkFe78xGNnFPKNBIjKpTfl05g45OxPsjh
+	 vx5w1mPrmOEX6M6TTHY7ohEY5Ztup+iRJALzU7uDkElagybTmWBLJxFaRLz2iKxQNy
+	 LvqAIrpbJQKVgTE8Y78isjzbffTQTuDpeJBtzVtdP2sFXiFtrGRC7G5tn9NUyh1QYO
+	 esOl26zGcF5kfCPeMlD7WWBb/HJ6wrhAsp8sqiYovufHLKq7cGRnVfRv4/hJoA5WWB
+	 zIYBSw/S0H9xf7RyhE1tw91kEXtcDdMZj4b6mFPoo/XChK/jYK2/yvcniXi0ZZx7fS
+	 6MxO0lu7cFUVg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 12/18] media: iris: add minimal GET_PROPERTY
- implementation
+Subject: Re: [PATCH v6 15/18] media: iris: Introduce buffer size
+ calculations for AR50LT
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-iris-ar50lt-v6-12-374f0a46c23b@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260708-iris-ar50lt-v6-15-374f0a46c23b@oss.qualcomm.com>
 References: <20260708-iris-ar50lt-v6-0-374f0a46c23b@oss.qualcomm.com>
- <20260708-iris-ar50lt-v6-12-374f0a46c23b@oss.qualcomm.com>
+ <20260708-iris-ar50lt-v6-15-374f0a46c23b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 22:50:17 +0000
-Message-Id: <20260707225017.A95D11F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 22:50:33 +0000
+Message-Id: <20260707225033.9E5741F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Concurrent V4L2 ioctls can wipe out unconsumed completion tokens v=
-ia `reinit_completion()`, causing threads to timeout or wake up on the wron=
-g firmware response.
+- [High] VP9 AR50LT line buffer calculation is missing size_vpxd_lb_fe_top_=
+ctrl, size_vpxd_lb_recon_dma_metadata_wr, and size_vp9d_qp.
+- [High] Missing SIZE_SEI_USERDATA allocation in hfi_buffer_persist_h264d_a=
+r50lt.
 --
 
---- Patch [12]: [PATCH v6 12/18] media: iris: add minimal GET_PROPERTY impl=
-ementation ---
-commit ef2e1b5777ca6613617c7857a2dbbf08d615a9fa
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+--- Patch [15]: [PATCH v6 15/18] media: iris: Introduce buffer size calcula=
+tions for AR50LT ---
+commit 21a2756943f587f0146e1fc640977667f461e12f
+Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
 
-media: iris: add minimal GET_PROPERTY implementation
+media: iris: Introduce buffer size calculations for AR50LT
 
-AR50Lt with the Gen1 firmware requires host to read
-HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS property, otherwise it doesn't
-update internal data and fails the HFI_CMD_SESSION_LOAD_RESOURCES
-command. Implement minimal support for querying the properties from the
-firmware.
+This commit introduces AR50LT buffer size calculations for both the encoder
+and decoder. It reuses the buffer size calculations which are common, while
+adding the AR50LT specific ones separately.
 
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers=
+/media/platform/qcom/iris/iris_vpu_buffer.c
+> index 511502d4ea6c3..00dbb091c54ef 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
 [ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c b/d=
-rivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> index 7674b47ad6c49..99e82e5510abe 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> @@ -1117,10 +1117,31 @@ static int iris_hfi_gen1_session_set_config_param=
-s(struct iris_inst *inst, u32 p
->  	return 0;
+> @@ -230,6 +328,11 @@ static u32 hfi_buffer_persist_h264d(void)
+>  		    DMA_ALIGNMENT);
 >  }
 > =20
-> +static int iris_hfi_gen1_session_get_property(struct iris_inst *inst, u3=
-2 packet_type)
+> +static u32 hfi_buffer_persist_h264d_ar50lt(void)
 > +{
-> +	struct hfi_session_get_property_pkt pkt;
-> +	int ret;
+> +	return ALIGN((SIZE_SLIST_BUF_H264 * NUM_SLIST_BUF_H264), DMA_ALIGNMENT);
+> +}
 > +
-> +	pkt.shdr.hdr.size =3D sizeof(pkt);
-> +	pkt.shdr.hdr.pkt_type =3D HFI_CMD_SESSION_GET_PROPERTY;
-> +	pkt.shdr.session_id =3D inst->session_id;
-> +	pkt.num_properties =3D 1;
-> +	pkt.data =3D packet_type;
-> +
-> +	reinit_completion(&inst->completion);
 
 [Severity: High]
-This is a pre-existing issue, but does calling reinit_completion() here
-risk wiping out an unconsumed completion token from a concurrent V4L2
-ioctl?
+Does this code omit the NUM_HW_PIC_BUF * SIZE_SEI_USERDATA allocation?
 
-When thread A sends a command and enters iris_wait_for_session_response(),
-it drops the instance lock during the wait:
+The original hfi_buffer_persist_h264d() includes this allocation for SEI
+metadata, and the HEVC equivalent for AR50LT retains it as well.
 
-drivers/media/platform/qcom/iris/iris_utils.c:iris_wait_for_session_respons=
-e() {
-    ...
-	mutex_unlock(&inst->lock);
-	ret =3D wait_for_completion_timeout(done, msecs_to_jiffies(HW_RESPONSE_TIM=
-EOUT_VALUE));
-	mutex_lock(&inst->lock);
-    ...
-}
+Could omitting this cause the firmware to write out of bounds when parsing
+H.264 bitstreams with SEI messages?
 
-If thread B handles a concurrent ioctl and sends its own command, it will
-acquire the freed lock and call reinit_completion() on the same shared
-inst->completion token.
-
-If the firmware response for thread A's command arrives just before thread
-B calls reinit_completion(), thread B will reset the completion state and
-leave thread A waiting, eventually causing it to spuriously time out and
-transition the instance state to IRIS_INST_ERROR.
-
-Could this lead to incorrectly pairing firmware responses with commands or
-a permanent denial of service for the V4L2 instance?
-
-> +
-> +	ret =3D iris_hfi_queue_cmd_write(inst->core, &pkt, pkt.shdr.hdr.size);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return iris_wait_for_session_response(inst, false);
+[ ... ]
+> @@ -492,6 +689,17 @@ u32 hfi_iris3_vp9d_lb_size(u32 frame_width, u32 fram=
+e_height, u32 num_vpp_pipes)
+>  		ALIGN(size_vp9d_qp(frame_width, frame_height), DMA_ALIGNMENT);
+>  }
+> =20
+> +static inline
+> +u32 hfi_buffer_line_vp9d_ar50lt(u32 frame_width, u32 frame_height, u32 _=
+yuv_bufcount_min)
+> +{
+> +	return ALIGN(size_vpxd_lb_fe_left_ctrl(frame_width, frame_height), DMA_=
+ALIGNMENT) +
+> +		ALIGN(size_vpxd_lb_se_left_ctrl_ar50lt(frame_width, frame_height), DMA=
+_ALIGNMENT) +
+> +		ALIGN(size_vp9d_lb_vsp_top(frame_width, frame_height), DMA_ALIGNMENT) +
+> +		ALIGN(size_vpxd_lb_se_top_ctrl(frame_width, frame_height), DMA_ALIGNME=
+NT) +
+> +		ALIGN(size_vp9d_lb_pe_top_data(frame_width, frame_height), DMA_ALIGNME=
+NT) +
+> +		ALIGN(size_vp9d_lb_fe_top_data(frame_width, frame_height), DMA_ALIGNME=
+NT);
 > +}
+> +
+
+[Severity: High]
+Is this calculation missing size_vpxd_lb_fe_top_ctrl(),
+size_vpxd_lb_recon_dma_metadata_wr(), and size_vp9d_qp()?
+
+These sizes were included in the previous generation's VP9 line buffer
+calculation in hfi_iris3_vp9d_lb_size(). The AR50LT versions for H.264
+and HEVC also retain their direct equivalents.
+
+Could omitting them result in an undersized DMA allocation, leading to memo=
+ry
+corruption when the firmware writes past the end of the line buffer?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-iris-ar50l=
-t-v6-0-374f0a46c23b@oss.qualcomm.com?part=3D12
+t-v6-0-374f0a46c23b@oss.qualcomm.com?part=3D15
