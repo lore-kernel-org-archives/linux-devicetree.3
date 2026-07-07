@@ -1,58 +1,58 @@
-Received: from mail-m19731101.qiye.163.com (mail-m19731101.qiye.163.com [220.197.31.101])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CB938E8BE;
-	Tue,  7 Jul 2026 09:50:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EFF39A801;
+	Tue,  7 Jul 2026 09:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783417826; cv=none; b=ViT5eT/orgTDv+QHyHjQCgv9Nvgrz3LSzc8aSBdfBXThg0Ypjwv5fPff+YtmI52BYcHpZv6xDuFmIjC7/EY9mFSvKsOhf4ZLqwJw7xt7OfTggnGIiF38szztwBA43w5qak7eCrvMPvoozL/8Pb2j3kWDFyRIk8n18PfXV8U4SSg=
+	t=1783417864; cv=none; b=S4zelqdUek9xm4kjUmoZwqdcqHLfzivtHdpzIlzaddRc56Gtn+sBjwBM2z+ae2bHKGDzTbkxLJt/SxHNbHRQnpjYUPcHA/k4Fj0s7SyXvDq+UD5vlEo1O5zA2Hq/LLo/CniRx8Jzvl3RPW5BdhCmMJIkQ2fqeknigmrozJLvkqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783417826; c=relaxed/simple;
-	bh=fZY2VfwpUrOebJigA2IRc7ysHmsW/LOXngQD4fE5axk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bYFLXgQPLjO1V78iLVLmnT4R7wK68ps81UHCX67ozTcShXmIWwoYSjEtqPH2Kq8UPOwDr/42ntFu6eZKlSpRuSkGhV8ewVNk9RI2qWsMxDcmxqAc9scIAfLoLqkq6LfnhMSJR5eFwuuG0zszQKDnOD8nNlBDBaztBe1C2FV/d58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=JwntmWVE; arc=none smtp.client-ip=220.197.31.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1783417864; c=relaxed/simple;
+	bh=kvvc/nSPndfkTUbKLIow2biHzRLPGY2+JRbsIcwSkQE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BxmjyUxhfh8XPBfY1o+68yUaul7pdvWW1HlzWkPuBL9LV5slkanUauv2Wst2IiltPErSoIh/Nb4hlsy/6lrRSjVn+r4NABJaQGG5RxFWKFsVEt67QbXsB9waAAhpskzuzRZ1GoeIzcxG+jUoJ7FevaK0g2uKQbltBQJ/RFIbFPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Dm7aVc3u; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="JwntmWVE"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 452ef5835;
-	Tue, 7 Jul 2026 12:07:21 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Dm7aVc3u"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=3Hg/UtyOFE2XM0kVP7XbzUzpvw8tF4yZt/+RLGcUafU=; b=Dm7aVc3us4GiTs9GzwS8SuMAGV
+	7X9v84iFU58/HIQ0LeBgJ+BAhZeXanwQW7dNchk7SMPRlgiAsIVrFH+Vf3N2qahdVByDOWK59xEMS
+	WfPaxchi2V7yDV1PiIuZWG1xiGt/tVI8sl6R023YIFSl+mxc2TME8pL2+SvLD/ePuGsOwhoP7LCrJ
+	OuQXa6rKMj0kXgvoBq3M7uXcv4aJt2kSf5CKN0uLLZDkRYorcqtDGXa8SKMYDWS0LB4fevemRwuUr
+	q5Mun1xikNq3WyRID4hZwe17BCNmoq00x0IdzhrdnaDbY4lMzRoCz5FGA026oYwhq0RCmpc2zAeOk
+	zC6TPfxw==;
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wh2SC-000PUk-2d;
+	Tue, 07 Jul 2026 11:51:01 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wh2SC-000Ck1-0b;
+	Tue, 07 Jul 2026 11:51:00 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.Li@nxp.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sandy Huang <hjc@rock-chips.com>,
-	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	dri-devel@lists.freedesktop.org,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: linux@ew.tq-group.com,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v6 4/5] drm/bridge: analogix_dp: Add validation for samsung,lane-count property
-Date: Tue,  7 Jul 2026 12:06:12 +0800
-Message-Id: <20260707040613.1992841-5-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260707040613.1992841-1-damon.ding@rock-chips.com>
-References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+	Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Subject: [PATCH v2 0/8] TQMLX2160A-MBLS2160A DT fixes/updates
+Date: Tue,  7 Jul 2026 11:50:47 +0200
+Message-ID: <20260707095057.1745867-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,49 +60,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9f3ac252f803a8kunme8126cdf5bc93
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZShgdVkpNGB1CTR9PGk4eGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=JwntmWVEzE0km0fKlwwuBXTmVIBySdS3xIweWHDatGW3zFxSisx9q3RR9d0aAUe+rIQ6X86CzuuI5XqIqGNUhK4ajBncMUH7Hpqc9Ye9ZogsdLUQp674NmB0yNBBRImiiEJx5buqKGkraIyyJ058paMbUdtJOnFz/uP+gNkMXaQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=mLPv+VMsVdg/2ajzDFl3mJXUyg4DWZyAqc2dUZvsmmw=;
-	h=date:mime-version:subject:message-id:from;
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28053/Tue Jul  7 08:24:37 2026)
 
-Add validity check for samsung,lane-count to ensure DT-provided
-lane count values are specification-compliant.
+Hi,
 
-Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+this series adds small fixes and improvements for TQMLX2160A DTs.
+The DT overlays address specific hardware behaviour when serdes is
+configured differently.
 
----
+Best regards,
+Alexander
 
-Changes in v5:
-- Apply DRM DP helper API to check the validity of DP lane count.
+Changes in v2:
+* Updated recipient list
+* Added patch 8 to the series
 
-Changes in v6:
-- Rebase after the new commit for restoring mandatory properties
-  samsung,link-rate and samsung,lane-count.
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Alexander Stein (2):
+  arm64: dts: fsl-lx2160a-tqmlx2160a: Remove deprecated properties
+  arm64: dts: fsl-lx2160a: Add vcc-supply for SPI-NOR flashes
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 5240efcd3861..039e076d2b8a 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1270,7 +1270,8 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- 			return dev_err_probe(dp->dev, -EINVAL,
- 					     "Failed to get samsung,link-rate\n");
- 		video_info->max_link_rate = val;
--		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
-+		if (of_property_read_u32(dp_node, "samsung,lane-count", &val) ||
-+		    !drm_dp_lane_count_is_valid(val))
- 			return dev_err_probe(dp->dev, -EINVAL,
- 					     "Failed to get samsung,lane-count\n");
- 		video_info->max_lane_count = val;
+Nora Schiffer (6):
+  arm64: dts: fsl-lx2160a-tqmlx2160a: fix LED polarity
+  arm64: dts: fsl-lx2160a-tqmlx2160a-mblx2160a: use DPMAC 17 and 18 for
+    SGMII in SERDES2 configs 7 and 11
+  arm64: dts: fsl-lx2160a-tqmlx2160a: add aliases for all 18 DPMAC
+    instances
+  arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: add various GPIO hogs
+  arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: enable pcs_mdio17 and
+    pcs_mdio18 in appropriate overlays
+  arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: specify Ethernet PHY
+    reset GPIOs
+
+ .../fsl-lx2160a-tqmlx2160a-mblx2160a.dts      | 306 +++++++++++++++++-
+ ...l-lx2160a-tqmlx2160a-mblx2160a_x_11_x.dtso |  20 ++
+ ...sl-lx2160a-tqmlx2160a-mblx2160a_x_7_x.dtso |  20 ++
+ .../dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi |  33 +-
+ 4 files changed, 367 insertions(+), 12 deletions(-)
+
 -- 
-2.34.1
+2.54.0
 
