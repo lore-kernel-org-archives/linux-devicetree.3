@@ -1,173 +1,156 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211692F12DA;
-	Tue,  7 Jul 2026 08:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11854301719;
+	Tue,  7 Jul 2026 08:01:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783411315; cv=none; b=nzgmkFyE1hzH0AGhrW+LJo3iGRWJUjsEXxL66pWvEoFJh8nNzftA8hB3VwY4a+YtLVk/qPbJb+180Oe0yY0XHDOhQRL9VM0PDHxNERwQkJtHsNhXVD5oQ5SDkLsrCOzblBTQ4vDWVmbmV0Fyl51FbDhfJlZQ7dCc3svgE8mcQ4g=
+	t=1783411318; cv=none; b=KA4uH/J63OybBcORe9MRUoATIwmKXQM5MoJahv/TpJIIV1+ug2/sOAYyzifPGuEwIYEwSQ0t7F3sZKA5tSDDSz0WsM7AG5AC7tfXRn1kTrWNP0HFnnZzCqsOi/BEWAYWLQb5hD0M/LdDs5VKVNZG4kt/H+lu4enRqcv3L/XrT4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783411315; c=relaxed/simple;
-	bh=1XSlkopDD8hgacc2fQinF3x7ZXQZ7mJqQB/vEJrEaWA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QwbkfTsUkFrqY8N0xSAhAi8UBo7pCjQTpOOKzP5lQF3KLyemNiRIYjZS/o8ObCznq27MUrEde+DkLZxYN9BPGOk8dJb6CqfhO+Zf5bHOS6VA+WmDzgqTJqJdVGms8u0JYBjM2/2aoGjLw4Fzuh9OwWjksY83h2KUEtNcIe1qmcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ywLK/iNs; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783411318; c=relaxed/simple;
+	bh=Jy6VEj+exfpQ5Jr3ONfz1THEC2FaVazd21uV8fIYlGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c/SFFy9hGa9QFMZrEtnSQuYmnVx7Ukzo/O8VcDxZWE2y/xOQW1o4GKMP6M2eKmgXPRoFSGlsCCpqld8NunnVVJUtgAfSJUAVKMSYhCsyTk+B9jgxLb0gB1wjV5aKdR9johVYTdsHAn8KFHMsw46miWebMyE33ioahGmsX3zJ/50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=m3GFBy4Q; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ywLK/iNs"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D50BE1A0EA9;
-	Tue,  7 Jul 2026 08:01:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A836F601A3;
-	Tue,  7 Jul 2026 08:01:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 33BBD11BC0E80;
-	Tue,  7 Jul 2026 10:01:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783411311; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=cGECx7XBlb4XEZT9olLrpyfAunE/XtJfgEve/LPx17Q=;
-	b=ywLK/iNsvkdbDu0574cpHq+8dDJaAFyTI17Q8/OXfgIcrZsXn8Upa8RB8BvzH+w3FeTUJU
-	xtnRbq6u3O1G6NnWEvPt2An+z9x2kzXGzRO9y52gVJgpOqI3mX1hLHqHBD2Jg9Oit3oxlx
-	lcxep2h6BQEYGx0wBEp6EUTe3o8lHaGgmUEREpybHxjJBwGHa+JaV4UdbEadOel5laV6Bv
-	yHH4NSo831IMCi4Q9AIjOhcqSLyCPHgIj8gb5/O/Dvw8tGbtdI1ATMTWmsqBfQqZUo8zds
-	swAInCShLeNF+fjielNCllrfw8GX6iy87FoPBSrJJ1TLIyp5y2gZG8SxEn/mVA==
-From: "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>
-Date: Tue, 07 Jul 2026 10:01:28 +0200
-Subject: [PATCH v7 2/5] dt-bindings: mfd: Add AAEON embedded controller
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="m3GFBy4Q"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 279051CD9;
+	Tue,  7 Jul 2026 10:00:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1783411256;
+	bh=Jy6VEj+exfpQ5Jr3ONfz1THEC2FaVazd21uV8fIYlGo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=m3GFBy4QJxuQ4EFtg/AbdowEo1m9E5rwNHHj0J6TK7C8/mMrdzPGbtc67JECqzg7A
+	 erI+kVaXuJD1ucSBoOy9a7Mx0Mj2ClsuYpiqXAUOKh7D8fGFOoHroBUfbcaY9rWavR
+	 k9jWa1gwekRMhMCvod2wUjPi2kGUEZmB615L987I=
+Date: Tue, 7 Jul 2026 11:01:43 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
+ hardcoding EDID
+Message-ID: <20260707080143.GA211515@killaraus.ideasonboard.com>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
+ <20260706-capable-beaver-of-excellence-a3cf10@houat>
+ <20260706094522.GA42740@killaraus.ideasonboard.com>
+ <20260706-fancy-perch-of-satiation-0c220e@houat>
+ <20260706160243.GB106045@killaraus.ideasonboard.com>
+ <20260707-meaty-chocolate-lemming-fa9ead@houat>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260707-dev-b4-aaeon-mcu-driver-v7-2-ca6c59abd672@bootlin.com>
-References: <20260707-dev-b4-aaeon-mcu-driver-v7-0-ca6c59abd672@bootlin.com>
-In-Reply-To: <20260707-dev-b4-aaeon-mcu-driver-v7-0-ca6c59abd672@bootlin.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- =?utf-8?q?J=C3=A9r=C3=A9mie_Dautheribes?= <jeremie.dautheribes@bootlin.com>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- "Thomas Perrot (Schneider Electric)" <thomas.perrot@bootlin.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260707-meaty-chocolate-lemming-fa9ead@houat>
 
-Add device tree binding documentation for the AAEON embedded controller
-(MCU). This microcontroller is found on AAEON embedded boards, it is
-connected via I2C and provides GPIO control and a watchdog timer.
+On Tue, Jul 07, 2026 at 09:46:52AM +0200, Maxime Ripard wrote:
+> On Mon, Jul 06, 2026 at 07:02:43PM +0300, Laurent Pinchart wrote:
+> > On Mon, Jul 06, 2026 at 05:40:30PM +0200, Maxime Ripard wrote:
+> > > On Mon, Jul 06, 2026 at 12:45:22PM +0300, Laurent Pinchart wrote:
+> > > > On Mon, Jul 06, 2026 at 10:52:32AM +0200, Maxime Ripard wrote:
+> > > > > On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart wrote:
+> > > > > > Since DDC version 2, introduced in 1996, VGA monitors have exposed EDID
+> > > > > > data over an I2C bus. The bus is also used to detect the presence of a
+> > > > > > connected monitor by trying to read the EDID data.
+> > > > > > 
+> > > > > > Some devices where the VGA display is integrated in the device and
+> > > > > > always connected do not connect the DDC pins. Some development boards,
+> > > > > > such as the Renesas M3N Salvator-XS, also do not connect the DDC pins.
+> > > > > > 
+> > > > > > To support those, add the ability to provide hardcoded EDID data in the
+> > > > > > device tree. This is mutually exclusive with specifying a DDC bus, and
+> > > > > > can only be done when the VGA display is guaranteed to be always
+> > > > > > connected.
+> > > > > > 
+> > > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > > > > 
+> > > > > This feels redundant with the EDID firmware loading mechanism we have in
+> > > > > KMS already. It should at least be mentioned why we would need to set it
+> > > > > in the device tree at all.
+> > > > 
+> > > > Very good question.
+> > > > 
+> > > > I assume you're talking about CONFIG_DRM_LOAD_EDID_FIRMWARE, as the
+> > > > debugfs override_edid feature isn't meant for production. If there are
+> > > > other relevant mechanisms I'm not aware of, please let me know.
+> > > 
+> > > No, that's indeed what I meant.
+> > > 
+> > > > In the use case at hand, the VGA display is an integral part of the
+> > > > device, the same way an LVDS or DSI panel would be. Using
+> > > > CONFIG_DRM_LOAD_EDID_FIRMWARE, the manufacturer would need to set the
+> > > > drm.edid_firmware command line parameter, and provide EDID as a file in
+> > > > /lib/firmware/ (possibly in an initramfs). Beside the complexity, and
+> > > > the fact it won't be very friendly to people who run a different
+> > > > userspace on the device, I think EDID counts in this case as system
+> > > > description, the same way we support specifying panel timings in device
+> > > > tree.
+> > > 
+> > > It's *some* hardware description, but you have no idea whether it's
+> > > actually the hardware you're running from. What would be in that EDID
+> > > anyway?
+> > 
+> > It would be the EDID corresponding to the connected display :-) I see it
+> > as identical to how a user of the simple panel driver is responsible for
+> > listing the timings corresponding to the hardware in the device tree.
+> 
+> What's the expected user-experience for someone with that board
+> unplugging a display and plugging another then? Update the device tree,
+> rebuild it, rebuild the firmware and / or resign it and reboot?
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
----
- .../bindings/mfd/aaeon,srg-imx8p-mcu.yaml          | 67 ++++++++++++++++++++++
- MAINTAINERS                                        |  6 ++
- 2 files changed, 73 insertions(+)
+The whole point is that they can't easily unplug the display. This patch
+series is meant to support devices where the display is an integral part
+of the device. The user experience is expected to be the same as for a
+user who will take a phone, remove the display panel, and plug a
+different one. It's certainly possible, and they would have to update
+the DT indeed.
 
-diff --git a/Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml b/Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml
-new file mode 100644
-index 000000000000..034fb7b42551
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/aaeon,srg-imx8p-mcu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AAEON Embedded Controller
-+
-+maintainers:
-+  - Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>
-+  - Thomas Perrot <thomas.perrot@bootlin.com>
-+
-+description:
-+  AAEON embeds a microcontroller on Standard RISC Gateway with ARM i.MX8M Plus
-+  Quad-Core boards providing GPIO control and watchdog timer.
-+
-+  This MCU is connected via I2C bus.
-+
-+  Its GPIO controller provides 7 GPOs and 12 GPIOs.
-+
-+  Its watchdog has a fixed maximum hardware heartbeat of 25 seconds and supports
-+  a timeout of 240 seconds through automatic pinging.
-+  The timeout is not programmable and cannot be changed via device tree properties.
-+
-+properties:
-+  compatible:
-+    const: aaeon,srg-imx8p-mcu
-+
-+  reg:
-+    maxItems: 1
-+
-+  gpio-controller: true
-+
-+  "#gpio-cells":
-+    const: 2
-+
-+  gpio-line-names:
-+    minItems: 1
-+    maxItems: 19
-+
-+required:
-+  - compatible
-+  - reg
-+  - gpio-controller
-+  - "#gpio-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      embedded-controller@62 {
-+        compatible = "aaeon,srg-imx8p-mcu";
-+        reg = <0x62>;
-+
-+        gpio-controller;
-+        #gpio-cells = <2>;
-+        gpio-line-names = "gpo-1", "gpo-2", "gpo-3", "gpo-4",
-+                          "gpo-5", "gpo-6", "gpo-7",
-+                          "gpio-1", "gpio-2", "gpio-3", "gpio-4",
-+                          "gpio-5", "gpio-6", "gpio-7", "gpio-8",
-+                          "gpio-9", "gpio-10", "gpio-11", "gpio-12";
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c9e416ba74c6..ea9d55f76f35 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -186,6 +186,12 @@ W:	http://www.adaptec.com/
- F:	Documentation/scsi/aacraid.rst
- F:	drivers/scsi/aacraid/
- 
-+AAEON SRG-IMX8P CONTROLLER MFD DRIVER
-+M:	Thomas Perrot <thomas.perrot@bootlin.com>
-+R:	Jérémie Dautheribes <jeremie.dautheribes@bootlin.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/mfd/aaeon,srg-imx8p-mcu.yaml
-+
- AAEON UPBOARD FPGA MFD DRIVER
- M:	Thomas Richard <thomas.richard@bootlin.com>
- S:	Maintained
+> That doesn't sound very practical, and even impossible in some cases.
+> 
+> > > There's another alternative we've used several times already, in
+> > > simple-bridge for example: just register any VESA mode up to a given
+> > > resolution:
+> > > https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/bridge/simple-bridge.c#L66
+> > 
+> > I don't see how that would help. The goal is to provide the kernel with
+> > the data corresponding to the display integrated in the device.
+> 
+> How is that not helping? Your problem is that you have a display you
+> can't get the supported resolutions from. What I'm suggesting allows you
+> to create all the possible resolutions for that display, allowing the
+> user to use the display, which is what we did for multiple drivers with
+> the same problem.
+
+How would the possible resolutions be provided to the kernel ? Isn't it
+the whole point of EDID ?
+
+> You seem to be set on providing the EDID to the kernel, but it's a
+> terrible idea to begin with, so I'd rather discuss alternatives.
+
+Could you elaborate on why it is a terrible idea ?
 
 -- 
-2.55.0
+Regards,
 
+Laurent Pinchart
