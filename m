@@ -1,210 +1,155 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BF842A171;
-	Tue,  7 Jul 2026 14:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC0E343883;
+	Tue,  7 Jul 2026 14:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783433200; cv=none; b=d8AcAJLf0WL6Gk/8uPDAjKCdA6Ax53ayVD2A1x/85KOBRsr5KIEhSrTcFeliIn2c/AWCRbTiPMszSFTmff5/+nL01AFQHY4ukA1jOSZMQ2jt5wf8gJDwmCXdc7oJG235WXWA/rBE0UyIGXb224hpdCToHWjSGgCPFKvikyeWx34=
+	t=1783433499; cv=none; b=biJ76lqgjQbFX8n9ufdA05tFwrCP38r3i1tgFs20riMOHZUZkG82SkZfMqc5+KxfDOsiTxUXx5O1IvBOmtgDWIvSqPFkHUA9wIWD6IkyAPAat4J8et+lbUmmaYkZGSK1jnePfjGBGhPV5tgVDbJO0gaYa0k2tmFsMr0CguMMp5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783433200; c=relaxed/simple;
-	bh=cDkkd24TuEhRoo77Q3IfPX4+7jMgAhu1podNsQgsZr4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hmrxCc78Fs6pc0cJqNCuW0UxNSQ0Tl4JKaSrPDfJxOOLtBqA9hSG073KiwBAkKloMxLlAFJv1g/ZUk73i8YWyfkeBf3Y6/AhNqh9uUm0Gahtz2GMezBRickUbNWATDUsolzu3piujGy6SNFUVov8bwmop+oucBOqElA7InOtJ7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 0779A3700300;
-	Tue,  7 Jul 2026 14:05:41 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id D50AEAE5EC0; Tue,  7 Jul 2026 14:05:33 +0000 (UTC)
-X-Spam-Level: 
-Received: from shepard (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id B6432AE5EB6;
-	Tue,  7 Jul 2026 14:05:21 +0000 (UTC)
-Date: Tue, 7 Jul 2026 16:05:19 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Alexey Brodkin <abrodkin@synopsys.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Eddie James <eajames@linux.ibm.com>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-	Houlong Wei <houlong.wei@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Peter Chen <peter.chen@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
-	kernel@collabora.com, linux-tegra@vger.kernel.org,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH 30/42] staging: media: cedrus: Use
- devm_of_reserved_mem_device_init()
-Message-ID: <ak0HnzMzGT_WZ9u1@shepard>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-31-mukesh.ojha@oss.qualcomm.com>
+	s=arc-20240116; t=1783433499; c=relaxed/simple;
+	bh=11E3cLXszqK54bdjggG6ZFRBIxhg+IbdhCdkzPrOauM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mjqvVV/5FB5ZCYVll2QMOD6Z6cj6Pi6hDZFqvFSZGdT9rO3yZrVD0Yc35DAUmkhBlbnbd1LCyJP4LmoioJr+1HxaQvnL4mZQTIfPCSJ9xpWbWZNdODKuPG2+tKOms8Eh66JISr2wVfFSHxtIoxfiDOyMzS7TxcBFJTGlB3YUbD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4LH6Y79; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4LH6Y79"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAE031F00A3A;
+	Tue,  7 Jul 2026 14:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783433497;
+	bh=bPmEwesHC2AS1HkjPhZDQwSfdjHZQo0VGS0dYxaRFDM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a4LH6Y79I6wzscYgLyuUhZcE9ZYVaPMk8Wt1y6pXLaPtI+Ki+IdqYnfzUdaul+QYX
+	 K08eRdaSblR8oSa8DMpy5s6c+yM7jdDXVQO863trhbuffRq892mqHh1jwmvCJC2I5H
+	 e4B2dNEZ9FWnuwSmxPrHf2gopcFpcGRNAPaw4jtSBNO+AuCyzyymzOOZYEe7ZauyEm
+	 tWdIydxOTmsRn4h3smJGrEx0WdzY6CfMjIP/+H6NZsDx9RXKuqco7cK43ONbbHFYRu
+	 /LGRqy9O7wb/AOAYImtooFC+P/B06itTPqyJ3G6VVSaSuuwc8CvrLG+J3po0ULyYMD
+	 4RBp19Mao+NSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v12 2/7] phy: qcom: add the SGMII SerDes PHY
+ driver for SCMI systems
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev, neil.armstrong@linaro.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260706-qcom-sa8255p-emac-v12-2-e3ab1ecf2901@oss.qualcomm.com>
+References: <20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com>
+ <20260706-qcom-sa8255p-emac-v12-2-e3ab1ecf2901@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 14:11:36 +0000
+Message-Id: <20260707141136.AAE031F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="L/gXhcj/KYS6Adou"
-Content-Disposition: inline
-In-Reply-To: <20260703193855.110619-31-mukesh.ojha@oss.qualcomm.com>
 
---L/gXhcj/KYS6Adou
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `set_mode` callback fails to dynamically apply the new perform=
+ance state to the PM domain when the PHY is already active.
+- [High] Incorrect ordering of `dev_pm_genpd_set_performance_state()` aroun=
+d runtime PM functions causes hardware under-voltage.
+--
 
-Hi Mukesh,
+commit d60c07674fdf361d41a55e9d09fbdf040bae5797
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-On Sat 04 Jul 26, 01:08, Mukesh Ojha wrote:
-> Use the devres-managed devm_of_reserved_mem_device_init() instead of
-> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
-> pair, letting the device resource manager handle cleanup automatically.
+phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
 
-Thanks for your work!
+This commit implements support for the firmware-managed SGMII/SerDes PHY
+present on Qualcomm platforms. It introduces a separate driver for the SCMI
+system variant as it shares almost no code with the HLOS-managed version.
 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  drivers/staging/media/sunxi/cedrus/cedrus_hw.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c b/drivers/sta=
-ging/media/sunxi/cedrus/cedrus_hw.c
-> index 444fb53878d1..7b5aa94064a1 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
-> @@ -266,7 +266,7 @@ int cedrus_hw_probe(struct cedrus_dev *dev)
->  		return ret;
->  	}
-> =20
-> -	ret =3D of_reserved_mem_device_init(dev->dev);
-> +	ret =3D devm_of_reserved_mem_device_init(dev->dev);
->  	if (ret && ret !=3D -ENODEV) {
->  		dev_err(dev->dev, "Failed to reserve memory\n");
-> =20
-> @@ -341,8 +341,6 @@ int cedrus_hw_probe(struct cedrus_dev *dev)
->  err_sram:
->  	sunxi_sram_release(dev->dev);
->  err_mem:
+> diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c b/drivers/phy=
+/qualcomm/phy-qcom-sgmii-eth-scmi.c
+> new file mode 100644
+> index 0000000000000..8ee62189556fe
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c
+[ ... ]
+> +static int qcom_dwmac_sgmii_phy_scmi_power_on(struct phy *phy)
+> +{
+> +	struct qcom_dwmac_sgmii_phy_scmi *priv =3D phy_get_drvdata(phy);
+> +	struct device *dev =3D phy->dev.parent;
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D dev_pm_genpd_set_performance_state(dev, priv->perf_state);
 
-Could you also remove this label and switch the goto user to a regular
-return ret?
+[Severity: High]
+Should dev_pm_genpd_set_performance_state() be called before
+pm_runtime_resume_and_get()?
 
-Thanks!
+If pm_runtime_resume_and_get() runs first, it appears the genpd runtime
+resume handler will power on the domain at its previous performance state (=
+0)
+before the driver raises it. Could this starve the hardware during power-on?
 
-All the best,
+> +	if (ret) {
+> +		pm_runtime_put(dev);
+> +		return ret;
+> +	}
+> +
+> +	usleep_range(5000, 10000);
+> +
+> +	return 0;
+> +}
+> +
+> +static int qcom_dwmac_sgmii_phy_scmi_power_off(struct phy *phy)
+> +{
+> +	struct device *dev =3D phy->dev.parent;
+> +
+> +	dev_pm_genpd_set_performance_state(dev, 0);
+> +	pm_runtime_put(dev);
 
-Paul
+[Severity: High]
+Does dropping the performance state before putting the device cause a volta=
+ge
+drop while the hardware is still active?
 
-> -	of_reserved_mem_device_release(dev->dev);
-> -
->  	return ret;
->  }
-> =20
-> @@ -353,6 +351,4 @@ void cedrus_hw_remove(struct cedrus_dev *dev)
->  		cedrus_hw_suspend(dev->dev);
-> =20
->  	sunxi_sram_release(dev->dev);
-> -
-> -	of_reserved_mem_device_release(dev->dev);
->  }
-> --=20
-> 2.53.0
->=20
+Since pm_runtime_put() is asynchronous, the hardware might still be actively
+powered when dev_pm_genpd_set_performance_state(dev, 0) drops the state. Co=
+uld
+this ordering violate hardware voltage requirements?
+
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int qcom_dwmac_sgmii_phy_scmi_set_mode(struct phy *phy, enum phy_=
+mode mode,
+> +					      int submode)
+> +{
+> +	struct qcom_dwmac_sgmii_phy_scmi *priv =3D phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	ret =3D qcom_dwmac_sgmii_phy_scmi_validate(phy, mode, submode, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	priv->perf_state =3D (submode =3D=3D PHY_INTERFACE_MODE_2500BASEX) ?
+> +			   SPEED_2500 : SPEED_1000;
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Does this code need to apply the new performance state to the active PM dom=
+ain
+if the PHY is already powered on?
+
+When the MAC driver dynamically changes the link speed while the interface =
+is
+up, updating only priv->perf_state without calling
+dev_pm_genpd_set_performance_state() might leave the hardware operating at =
+an
+incorrect voltage state.
 
 --=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---L/gXhcj/KYS6Adou
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmpNB58ACgkQhP3B6o/u
-lQyTjg//fLyoug7RFssI1dop/066e79975deN6blykU3a96LxKKn7ru6j0LCnfu4
-VTSFjvO7qjkf2yQeXqxnQWvrXBT/JiPMb/nPvBW0MGDi1M1+4kT7238LR5fuNLU0
-eBAuY181rHDg+ftoXP7Rzj0XZlZ/dck0119WsWFEUk9gP0Q8BlgTs7QTUu3k2E+E
-VUftOitNophkc0JUvgUi5wKODfIgzgp/nj9ZnCsjF9QSDjcr3Wjn2qwvdS4hG43H
-m8QkFdiim8NX6PKzgqcjLNOUEXjjphI6+onlAT3qREs2ThXycXu0m5/+r+5IP6AT
-OeVpkJQ9zrx91+tL94Yi4iXPERdq1zcnpUsiE1YhOnlB/KfCAXX3WeS6ZjLfF5aW
-7/5j2Bd/rTlqCSH25ek2EQKZj476WJUgYplyAGFpLb/3iXyV89VpkdIk2VEc7ynK
-V99TGimHONG+iiDOl/z3pn+MX5RzXeMWhmevSrfiTJzsG5Kb+mOKr86er3oTehf0
-g8NOS3ITmO5IGHbfJSUx236uPw58QMEWKmKyZ/Sx7nDhhhskPBSgCJSvSPn0cbz9
-cXejK2y8wLRj1RaSjCGUdM9ZoZPlNDoyqDrWZDxI2tzgXFYDbcuFEHM19GIDPTTY
-2iujg05WmAKMP0jVtjzc7NoSbdBmeZG2atzsSP6M76kSPNdEJvI=
-=0n6x
------END PGP SIGNATURE-----
-
---L/gXhcj/KYS6Adou--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260706-qcom-sa825=
+5p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com?part=3D2
