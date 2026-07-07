@@ -1,165 +1,154 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C0B3DA5D9
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 10:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783419171; cv=none; b=kEmqtDpiJ6KG1pOKb7fwkVwKmlcs8+TVCvwsEeN0i+hDjL3FHf7PZOQEku+Dk/eGqgebYkPSohMhpb1keL33s60/07PoVpXFHpnZUU6WaV7ulm8O9IsSIKU9uFm5tvZSh4TS1y/xJZTT8LiJVvlqGm9JML79rfOa8Ryxaa08Drs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783419171; c=relaxed/simple;
-	bh=ESxyEB/tDsAO+oi+pSDFTqjZIxjuG8H3dDWNdmAQcac=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oNgJBDv9cWNTnjkzVJtTgoTjF2l0K0YgL7v8wxp9FUJG4cgSc9ZD9pVHdavIcuHx25truAWFteAeax1Z2LRyYFlc3XIAWRoS75hU7Ayjp/KdHWoAnfv+vMZK0BJZ66qUsbCilMRYKA//GNLASM4iaEGQLkvy7Ec8QXJQ7ugR2ZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VpA58R8J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YF1tcoYR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B313D525F
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 10:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783419172; cv=pass; b=nRJewZDTkIvYUjGzckUNDBMPJhIq1Lraa4q0K6cPIq3XERoEzGfMfPix8VUiMgcIG1KW81wG7xqS57cuTmwSMfY6Oo6UZ9kr0DqyXbxJk9ThgIIXbcF1rcooTeL5S8oetJux6iEgc5Pmij5N6RyQXQxCJYiayXj3GqydvXfX+wE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783419172; c=relaxed/simple;
+	bh=yKkjXnrOPWU2D0Gg1ecvBXfbBuh+4eTJIY1MHdX/fQ0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jXvKgXk/asX9Cez/cY+9Zwx9nLi99bkVSlfyjmCMcHlPSXfCpYvOzNCBWKYVgZliVe2peaTYiPGCs39Efo2rFNYzTBzKf0fPSBw5LAHoQQRW7J7nybl6BdRjGSbHpwSKwItHnDCnVF21IJ1V1wS2IcRZggfIDlvdk6jTBkdcDhU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=UMjhoc8+; arc=pass smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VpA58R8J";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YF1tcoYR"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6678DeJ33243142
-	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 10:12:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ByMXdijkHl9hu7GM8jt2AMzJWtpO0+9CnetiEbvOVzc=; b=VpA58R8JiSlVbUdY
-	S6MHesUXfkwIBo3HzMez6adaN2gWzDQNMFVx+ZUl6tnES3W6Tj7pt6rjlanvjnT2
-	o/GnGIDyN1LLdP8ZAQjUn5H9g+jqKQbT/8WiEiA5LlB8OHGlELSDOY7sXwVeBuxM
-	4EIFlwi4NOfosfmkcncRQYCNxqXSP+S3tGmodsagdfWod+a+tOVUPuh34/QB30AE
-	Svx22pQiSPcvtll2QpJgf6rGYIdQGtYXyJ1ve+H4FGtlD5ZTHp/zXAGmt8JO4v3a
-	sa++8xf7Ka1c5Cwq8TOl+nzZsUl2njze64TKgSiVxSwg5mWPewNTIrc0pgltRBFb
-	Q3pCtw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8w11rp36-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 10:12:49 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfa45b280so11061041cf.3
+	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="UMjhoc8+"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8478a25f268so3042489b3a.2
         for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 03:12:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783419169; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TLo8uTBKHYcC3ku91VfMYAmVzDwVVnIOt54x9J5vwncz42HeUAeX2XYn++6NEkzU4G
+         gSMFWwfEVbZwE4q552gXBTWUM52fWzvCTYqmSAPbcDODa7VOU5D6uBbU7uhe9y6Bl0ZS
+         Qbf0XG13zn5Dlyc3OwlGekeYhGP1ZLwf0SKzsQ+NhasZLGgV0+MaNUkqYC/JQ3jw7OnC
+         4bzqCZ+MzmIAuKPDUdGJ1gbvGZVbqPPoo/3sPKt0GYLyaS9FyTueAt09i3vhLtCDiZuV
+         8I5dLe3Hkw2fszZHDsTCBdiCauFcFwm4mP8WsPXSAdg4yOp1df2N8rWxAw8iAmJ7YBUq
+         q2VQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mv6MwfHraXLOpOPByrf7lVV2PXLTdbCYScwhyOPZLII=;
+        fh=Nfm059u4O2VXCvwg8YSDQNgQ7xcPKOVRxwNX3vSdMqA=;
+        b=ZXJp65wWnXGcIR2211bEsKJ+DAy8Q43Qvf0U92kCvx1jeD4iEAUJdp8ygwqnJnMmVL
+         c7FkaZMeyAdNTrntAv+CXbt7cBvSz2HOi/XHSZ3IENetGhcsylZNMmuZYA+/WtKc0GJL
+         spGDo69M3K1UK6ekHnVysZEdrH/Hs8FGJ0BTXgNF+AxWfraP2ApC29vkK0tXNOq6sen2
+         x0lidFifbTin/o56QU2SIi+PFwHMdA1hwZ/18DDyhrufzSTuDgsxyy///St7+MUfFoe6
+         z7DwMQONaftaBkTZiiUWZD0cXnbdcC23j5mV7ZviZh5ZYVv6481TlmZ/N9ntm5q+sO/y
+         L6Qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783419169; x=1784023969; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=thingy.jp; s=google; t=1783419169; x=1784023969; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ByMXdijkHl9hu7GM8jt2AMzJWtpO0+9CnetiEbvOVzc=;
-        b=YF1tcoYRDmSD7y5p5GR9Zjb5ama3KShagHmOjhAL2KX1slw3sOx5Ny6Swo78rrdRNQ
-         DBhU9WrxYM30PvDIOPQ6fhXq2UnomA79ybIVelILpwkOvdFEw5OJL3ldKQ0jDUIIbdfW
-         ACc0xtx4pDVVFDGb04fRrhxvpY/uYPgGvnD1R+MqtF8aYf19YdtfNaJTKZO9kdbE53S8
-         tk3qCVgWTTFZAf2F8ch1lsm3Z97DH3LaPMRuvU1VnUjRF3ZaQTcNv1Cgkugqbw/9T6Io
-         jUaRmCSMVqoXjxnPm89GqQpkYvIKajW2iUuKl6CcwVtssFYCir1m6RYXxngky5KlTXID
-         uZYg==
+        bh=mv6MwfHraXLOpOPByrf7lVV2PXLTdbCYScwhyOPZLII=;
+        b=UMjhoc8+YZUJHMaSKbmo5keedHiIi3xT/B3p6yLAWr15yV8kVl4KY66/N1+XvAeSTQ
+         0JgZmoDVrle4wJrGqXznL2UwM53SlJ/bbh045pTNxQcKY+70dMwo6pOzoS0oWNwTjTOc
+         u2RzZW0RoeSFokGjqmVa6A7U1Weo+XLFnJPj0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1783419169; x=1784023969;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ByMXdijkHl9hu7GM8jt2AMzJWtpO0+9CnetiEbvOVzc=;
-        b=kP56a8iEJey4FTw/L/c4JaskV4mVdXEchVM0+OawqiGAxDFZS0AVHjGGE+L5GfwPWl
-         NPkZH7ROsml9o8JmmY9dGblaWDGUmilgcoosQihmYXG0USNSEGsQB2GQdlA0yaf9dpd2
-         ukUHLb3goVLUXhn1TBkk2aSRKbg4/0cFlOysQsZ8qWmISIBKrH47P1gjuAR3KsTF+Ya1
-         D8zbRYCoks2wYsWCPtWbGeK4uvazw6dqdfSNZ+No4gjiQfMBjGs1SEnNnb5unI7aM1Eh
-         fJ5BKNWOgG0JITEPzIbME0L2WLMPh3D53cJ3NrDDd9T8Y522vzfSo0DLRM21Tno7B0VA
-         LiAw==
-X-Forwarded-Encrypted: i=1; AHgh+RrY1e1Dic5eKCWX1ldKW4J/7mbId653uYbSDUmprdR4CEBBIaQNdPH3NdMQWaBxftkzMhyr2MtJJjmN@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZeNQHVO94bRYMbPlUSgCxGdX2lKFRntNg+oOeLTCWLu+ud1UY
-	Ny664Le1ZG6bVRzOSMiFT1nWxBudS5gf5rgoRTHrSaNmSsBfOvWY9jcN387auaamAwJqR2MANWR
-	7F2Q15OPsyfg8U7xIjKdXTYGl4ZdSpDpwMg2BxZfvIXsub7J0Nh6tR2vkPq4oAbQtziiiCA46
-X-Gm-Gg: AfdE7cl9abYCtQauiN+E1Aj7GUQthod07XUXKz5z/Z3JaOmI8qMjfDIIeAIV39bzGHH
-	MffBnnbyg643/NojMACstgKIfjaO/skD+v/wWarx7pTz2O8RSGyK8gP/FX3ztiYycW2jWSOS4Ad
-	Db5pE6GapoQuGLVf71HsiHKAPrfPCCkfaPtiuSKWlN3m6oqyNUnkM7svj70qM5a2B+wvoJQFR3C
-	auXyNl57ZaHTtVJtf4Kx6QyIauY3F6Q+gee7nOOL349m+h8tjeSSfXh4jImvl5bxtwg+z7PED4L
-	lE65lP0hxUgOT8Ol4wVq0WJSvMSCcfxnKiTyKWG9wRKAEbM6dvWFJDkeUtusDOs67eksoyRuQVm
-	VDMu5CyW338asJICylNl9uVWdp5+N9/PSAKY=
-X-Received: by 2002:ac8:5a0f:0:b0:517:57c1:bbdc with SMTP id d75a77b69052e-51c79ed34b8mr20269501cf.6.1783419168913;
-        Tue, 07 Jul 2026 03:12:48 -0700 (PDT)
-X-Received: by 2002:ac8:5a0f:0:b0:517:57c1:bbdc with SMTP id d75a77b69052e-51c79ed34b8mr20269231cf.6.1783419168432;
-        Tue, 07 Jul 2026 03:12:48 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ada057bfsm98437966b.43.2026.07.07.03.12.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 03:12:47 -0700 (PDT)
-Message-ID: <36f4507c-2524-4a9a-b38a-7d061d13cd4d@oss.qualcomm.com>
-Date: Tue, 7 Jul 2026 12:12:43 +0200
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mv6MwfHraXLOpOPByrf7lVV2PXLTdbCYScwhyOPZLII=;
+        b=XPTUrseHTu5k7MW6ZCq7/RRqX33I+hAPxwakPk6DTa6ZfnGq4/JhybL0EuKx4YELaA
+         vVREKe1E2uaObgRAlgc3S+/mXZ3avggK8J0jOWm9cZzZnC66hIVDfO7ov6xEZPyDOKo9
+         4OyMIdgpwf8Qlqyy9BrtAwGMM0f7In/ffKoCSXXhtnBxKqDjcALdPHG+h5FiRWy5RYAC
+         mGYOLJr6zbnpPnpjx1XPr+kfvT4zgOENWF+VzNVYTn5xH66z5kKcwJow7AK/iJwyJ9Lr
+         9KCFcooYo59o8nrYrJB80Ttvn/iKRCHIUMpO1MvFODtY1Zt5BjTgPfmX//tT4kSJlf5d
+         rDIg==
+X-Forwarded-Encrypted: i=1; AHgh+RqQft29fhwxEvoa5Hn+JpL04Y5S5n24EBfMCZZLval+N+sjIxfcSoY5j6XoAsiQuBqgtaDE87pD3o+n@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2VCNrTJhAqYU3pmYn9xmQNKmraIMSfshR6371WAiwbv42acV1
+	N3XOEYw4EQzj1xWWMVqlvlQBCH42qPH3bZe7Rht0y9m+BmokAgNgp0zQiAXdXORjR3bQneyw8JU
+	5UKVT7490mIiGO3Ci2Wq525VBYEkcPdhTHpXQL06zvQ==
+X-Gm-Gg: AfdE7ckTOLFtL/jCDtqC2q5I0L5XYLmy4LLx2sbRX1vQ/k+xkFebYI0xo9SbBAok/Q6
+	Fsb28+Mw/y+QrkBizY4Y+vVoeW0EoHsnQJDl3FDVAxA/bIyLdyFsk3nKv/cyAmUn57fikxLmr2U
+	Ft4EqFMTQHV00QTsXSXjfSbBzS/bJp5RRpdtXCV5Yqd6USbPjh4cp5YlYsxX1t+BzqWJOsRVW8d
+	66PTLYoil1IZDnfkqOi0JzQxqAzgFvsZS4He/0zG9SKos6iYQ0EIMSynHgo+cSksoddMYweGRBR
+	P7p3qzHjN4jjxumU/Ll3OxxtKhAVmCs=
+X-Received: by 2002:a05:6a21:3a45:b0:3b4:6026:6c5d with SMTP id
+ adf61e73a8af0-3c08ec75571mr5952541637.5.1783419168806; Tue, 07 Jul 2026
+ 03:12:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/7] arm64: dts: qcom: Add GPU support for Kaanapali
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260707-kaana-gpu-dt-v3-0-8dac9a60dd5c@oss.qualcomm.com>
- <20260707-kaana-gpu-dt-v3-4-8dac9a60dd5c@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260707-kaana-gpu-dt-v3-4-8dac9a60dd5c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=DMe/JSNb c=1 sm=1 tr=0 ts=6a4cd121 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=z65YV3W3F_EkYOo9s_QA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: D8TCVY0XCqilJQYUSm5LuhIWbzSp9H0e
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA5OCBTYWx0ZWRfX8PyOtrMcQVve
- JsMw2AT8wLLHX4ZK7FzpBEDtir/AyNNMoiEyL6JOc8MyabFbnMg4S2KCXtWYKZ5fsKNiXJHD9il
- 7/gk7FIctVHR8JmcD5dJshbVg4WlYeY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA5OCBTYWx0ZWRfX4CTtvjbYDVFk
- 9YD7iilFilsKLTjg7R1z+YFNEu84oESmdVb8FAYmlwlMMb3y/9yhmRpB5JThLFgoXcXmYY3DH1C
- d9SDRXjsonuS0y6ehZfw/LYrO5Q3sV8x9CxruQopCrxjnvFWs8sGM7PEaFSVKCVgS8SyduKOHnD
- iGGxExNvFICLikNVXgkp4gwlrxyITRVmG17GHQW3ARAEGxaOZQZdXfvR0JuC/99wCwNll0WYxTc
- VbenoUSpJIZEtCOKpJd0LI+8fRmOF2+IRO8Sx3D7zzCGcYcZ5NDI1873jJ17dSoEuFPAEU5awJl
- WTmbGw/xjXGVHlEHZFtohHE2PLkzsQl5Krjo0Mw1AQC8X3jgQgMqNawcUWhecNBMCmsA3oFvlqh
- YsDDGMdfHnE7mkBjQ39SC5EJkxxMkoVKpBXO2UPC65bjX1ClpchQlGsUIORsvEaLQpkblYcamd0
- dbBIEDx1t21hudyfDDQ==
-X-Proofpoint-ORIG-GUID: D8TCVY0XCqilJQYUSm5LuhIWbzSp9H0e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_02,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
- spamscore=0 priorityscore=1501 bulkscore=0 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070098
+References: <20260706180404.648545-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260706180404.648545-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: Daniel Palmer <daniel@thingy.jp>
+Date: Tue, 7 Jul 2026 19:12:34 +0900
+X-Gm-Features: AVVi8Cf_5970hyt1ZG5xAv0cNZTBqqHYxE2V7YDsUBypVXjTuHCC-S79emDaMzY
+Message-ID: <CAFr9PXnosZdL+DA2K9_jOj2QvrgmTL++44UorwZ--BuKOFNsGQ@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: sigmastar: Correct indentation
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Romain Perier <romain.perier@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 7/6/26 11:40 PM, Akhil P Oommen wrote:
-> Adreno 840 present in Kaanapali SoC is the second generation GPU in
-> A8x family. It is based on the new slice architecture with 3 slices,
-> higher GMEM/caches etc.
-> 
-> There is some re-arrangement in the reglist to properly cover maximum
-> register region. Other than this, the DT description is mostly similar
-> to the existing chipsets except the OPP tables.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Hi,
+
+On Tue, 7 Jul 2026 at 03:04, Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+>
+> Correct indentation to one tab.  No functional impact (same DTB).
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
+>  .../boot/dts/sigmastar/mstar-infinity2m.dtsi  | 20 +++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/sigmastar/mstar-infinity2m.dtsi b/arch/arm/boot/dts/sigmastar/mstar-infinity2m.dtsi
+> index 1b485efd7156..437329fb912a 100644
+> --- a/arch/arm/boot/dts/sigmastar/mstar-infinity2m.dtsi
+> +++ b/arch/arm/boot/dts/sigmastar/mstar-infinity2m.dtsi
+> @@ -7,17 +7,17 @@
+>  #include "mstar-infinity.dtsi"
+>
+>  &cpu0_opp_table {
+> -               opp-1000000000 {
+> -                       opp-hz = /bits/ 64 <1000000000>;
+> -                       opp-microvolt = <1000000>;
+> -                       clock-latency-ns = <300000>;
+> -               };
+> +       opp-1000000000 {
+> +               opp-hz = /bits/ 64 <1000000000>;
+> +               opp-microvolt = <1000000>;
+> +               clock-latency-ns = <300000>;
+> +       };
+>
+> -               opp-1200000000 {
+> -                       opp-hz = /bits/ 64 <1200000000>;
+> -                       opp-microvolt = <1000000>;
+> -                       clock-latency-ns = <300000>;
+> -               };
+> +       opp-1200000000 {
+> +               opp-hz = /bits/ 64 <1200000000>;
+> +               opp-microvolt = <1000000>;
+> +               clock-latency-ns = <300000>;
+> +       };
+>  };
+>
+>  &cpus {
+> --
+> 2.53.0
+>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thanks for this. Looks fine so:
 
-Konrad
+Acked-by: Daniel Palmer <daniel@thingy.jp>
+
+I intend to fix up and resend the patches to fix the other outstanding
+warnings in this stuff but I need to find time to get around to it.
+If this patch could be added to arm-soc or similar without me sending
+a pull request for one patch that'd be great.
+
+Thanks,
+
+Daniel
