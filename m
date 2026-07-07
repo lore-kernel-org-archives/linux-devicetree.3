@@ -1,103 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD5236655C
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:16:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF0B33291F;
+	Tue,  7 Jul 2026 16:16:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783440982; cv=none; b=tS+1TFcz+L+8o4w7R5SkObqW83I6PZj4EPlTyVks5kO9efLsarnuYy5sYJ2UnjFJ1iDFEbdGC6Aa1CP9GIq4ZuyCuN8OQ1DwZZK6mC9t/XX4t6yFB0Lr9CP00OkvvJCV6HCHlOd5x6Td+o7M4Ax+Tll65ambaUvkf4hubgFcgNo=
+	t=1783441011; cv=none; b=E1aRAOyw8nwr9pgcj1OvNHRCYuWkMrph1rsRgo0qrl9P/r2dLBk1lBo3edcH5V0eOikI33YFEzTqQEVFXNpRDbafbBOEVhwB0OTXxLEzVcLiZMDOVRmv49X8zEC/0rLXg/+uzWyx2ogQ7EEWpV9Fg740RR53/7d3WwWt8gjkZ8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783440982; c=relaxed/simple;
-	bh=PB6CeJCCAbphxzQzju+kDtwCmGWlByPIFR5OUHf3U/A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iLWRHkSinEPMzlhLIexr0p3Q9+GKXRFicKWUVlP1LfKGlA/LIh54pPx3oxYW7NVlBZRUozoFjaHIJ2XFq7lW1UiIrnEhAoPwXkcrNz47lu1AEv5gNqGbBk6x2sJJyb4joNKV5mgvMxNRvYTygFq8O3R44kqC91eu96QmuCvbVQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDK8lqg4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783441011; c=relaxed/simple;
+	bh=eJkZScH+2tUpPvrz10Rhvl4xlNR1MRvbgEd4Iyhc5xE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s7bnFToITRAk7uaPu81fT9UjOtkBeoLcPw4qT3IGBDpdE0pDoZRfmBXdSDoB9JVkGNXe7omHk+3KMzxiHwcKbd1dP+TNjXd7aBVYLZkp3D4BklxrlJnSsE/oUxB6fypOq2blXRkz92hJObDurpd++CO/X5tDHZOPsKmmGUAqbds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YwHp8YDU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDK8lqg4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8AC1F000E9;
-	Tue,  7 Jul 2026 16:16:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YwHp8YDU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212CE1F000E9;
+	Tue,  7 Jul 2026 16:16:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783440981;
-	bh=Mg7Z8Rn4ql3XRuKRcOckcQxgJ2l2T0lrqiEgjNBCJAI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FDK8lqg4ET4LWQ5fQB6bSdMRt5JeOtPiLYIUSild0Z4Cw9S52XtHnXjoMrsy7e8ZD
-	 cP+CqvH0y/MSokVqDCYaz6PJhMAPMjtqGKYdEC5kb+aUkYmof0hocaz5Vcw2cezubq
-	 nse72K4x+0Jf1nw+9cejtReqV8yzKZbP6dx9XIQcNfKVjyOMNIwtjozDNR0lCUuMyI
-	 /vu+SaGlDopDlTVyW6XvQ4jK+X/4dgjAaFekeutS6dew98M8T7kCmWv2rCRxA7vicc
-	 Y63IHI0Gcaywe9Iex9VR6dTWbQlXq2zd8kF4NTvmv5pK1Q4smqDihYKBOlB505YcPX
-	 fmsjJnTYF7xGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/7] arm64: dts: mediatek: mt8173: Add and use UART
- AP_DMA controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260707154841.198870-3-angelogioacchino.delregno@collabora.com>
-References: <20260707154841.198870-1-angelogioacchino.delregno@collabora.com>
- <20260707154841.198870-3-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 16:16:20 +0000
-Message-Id: <20260707161620.CB8AC1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783441009;
+	bh=BRTWTtCF/TnwArUxZSwcgJyax6Qi1uu00oQiI0rI0uc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YwHp8YDUX9RDnLOs9agp75luftXSWn5gLU2QXfbsH+X7GpQ4Akn0Whoa/lIll7mng
+	 rberCHmBpbbxHdA9O6ymUFiO3sjiIJ8VgT0L1xCVJaL+40L7QtfTD8yOxRvssSrMW7
+	 f80sfKLKngKZIGr2LM8yc6+E72ncSVvMcAP0mriNv0GB8Zk1O/XqmDyDA1glIUR1Uy
+	 GDC+3vKq9mynsZR1NbiVDqsTIgtVOkYIz5Q50e2iyBUiPMnaS2/ydZ6A5YkzlrowdU
+	 2pJTjxji3/LVIjffS2qm9k3st5RwrpD06LPyu7mV27X4SrMORN8qTU8bg2LlJAm64y
+	 qnGpwyMWz+k2A==
+Date: Tue, 7 Jul 2026 17:16:44 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: mkl@pengutronix.de, mailhol@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, geert+renesas@glider.be,
+	magnus.damm@gmail.com, mturquette@baylibre.com, sboyd@kernel.org,
+	bmasney@redhat.com, biju.das.jz@bp.renesas.com,
+	tu.nguyen.xg@renesas.com, fabrizio.castro.jz@renesas.com,
+	claudiu.beznea@tuxon.dev, linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH 2/8] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3S SoC
+Message-ID: <20260707-suffice-panorama-7083120803cc@spud>
+References: <20260707102418.1646159-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260707102418.1646159-3-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9vvr7ueiVvdUxT5x"
+Content-Disposition: inline
+In-Reply-To: <20260707102418.1646159-3-claudiu.beznea+renesas@tuxon.dev>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The newly added `apdma` node uses a `reg` base address that overla=
-ps exactly with the DMA channel already assigned to `i2c4` (`0x11000300`), =
-leading to guaranteed probe failures for one of the devices.
---
+--9vvr7ueiVvdUxT5x
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [2]: [PATCH v2 2/7] arm64: dts: mediatek: mt8173: Add and use UAR=
-T AP_DMA controller ---
-commit 02e7bfa1531235c71580128c63236a6715a1e297
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+On Tue, Jul 07, 2026 at 01:24:12PM +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>=20
+> The CAN FD controller found on the Renesas RZ/G3S SoC is largely compatib=
+le
+> with the variant present on the RZ/G3E SoC. The main differences are:
+> - the RZ/G3S provides only two CAN FD channels
+> - the RZ/G3S supports only CAN FD operation; the Channel n CAN FD
+>   Configuration Register does not implement the bits used to select
+>   classical CAN-only mode (bit 30) or CAN FD-only mode (bit 28);
+>   consequently, bit 31 (CAN FD Frame Distinction Enable) of the same
+>   register is also not implemented
+> - some bits in several registers (mainly reserved or status bits) are
+>   read-write on the RZ/G3S but read-only on the RZ/G3E; their behavior is
+>   otherwise identical: the bits read back as 0 on both SoCs and software
+>   is allowed to write only 0 to them on the RZ/G3S
+> - the RZ/G3S provides 128 acceptance filters, compared to 64 on the
+>   RZ/G3E
+> - the RZ/G3S can use PCLK clock as the CAN FD clock source through an
+>   internal clock divider, while also supporting an external CAN FD clock
+>   source
+>=20
+> Since:
+> - the SoC clock generator provides to the CAN IP only the peripheral and
+>   the RAM clocks
+> - when sourced from the peripheral clock, the CAN-FD clock is obtained
+>   inside the IP itself by dividing the peripheral clock
+> - the assigned-clocks and assigned-clock-rates properties are specific to
+>   the CAN-FD clock
+> the assigned-clocks and assigned-clock-rates properties were dropped from
+> the required properties list of the Renesas RZ/G3S SoC.
+>=20
+> Add documentation for the Renesas RZ/G3S SoC.
+>=20
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-arm64: dts: mediatek: mt8173: Add and use UART AP_DMA controller
+No idea if patchwork will pick up the response to Sashiko, but the thing
+it raises about the fd properties seems valid.
+pw-bot: changes-requested
 
-This commit adds the UART AP_DMA controller to the MT8173 device tree and
-assigns its DMA channels to the four UART controllers. This is intended to
-increase data TX/RX efficiency for the UARTs.
 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8173.dtsi
-> index 78c2ccd5be132..7297225f61c99 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-> @@ -673,6 +673,25 @@ gic: interrupt-controller@10221000 {
->  				(GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
->  		};
-> =20
-> +		apdma: dma-controller@11000300 {
-> +			compatible =3D "mediatek,mt8173-uart-dma", "mediatek,mt6577-uart-dma";
-> +			reg =3D <0 0x11000300 0 0x80>, <0 0x11000380 0 0x80>,
+--9vvr7ueiVvdUxT5x
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: High]
-Does this node's first reg region conflict with the DMA region already
-assigned to the i2c4 controller?
+-----BEGIN PGP SIGNATURE-----
 
-Looking at the existing i2c4 node later in the same file:
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak0mbAAKCRB4tDGHoIJi
+0rtdAQCT+LGnXwr1M/rIKrgiH02r2W9lRu1Yof4RbsBDQnSnTQEAjPWj+nHIbYt/
+ry4uBSNCnAZDQFSiCGgSrRzEw/pN4Ak=
+=4Yrq
+-----END PGP SIGNATURE-----
 
-		i2c4: i2c@11011000 {
-			compatible =3D "mediatek,mt8173-i2c";
-			reg =3D <0 0x11011000 0 0x70>,
-			      <0 0x11000300 0 0x80>;
-
-Since both devices claim 0x11000300 and apdma is not marked as disabled,
-would request_mem_region() return -EBUSY and fail to probe one of the
-devices? This could break i2c4-attached devices like trackpads on
-mt8173-elm boards.
-
-> +			      <0 0x11000400 0 0x80>, <0 0x11000480 0 0x80>,
-> +			      <0 0x11000500 0 0x80>, <0 0x11000580 0 0x80>,
-> +			      <0 0x11000600 0 0x80>, <0 0x11000680 0 0x80>;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707154841.1988=
-70-1-angelogioacchino.delregno@collabora.com?part=3D2
+--9vvr7ueiVvdUxT5x--
