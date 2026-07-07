@@ -1,217 +1,81 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BFA2E1F0E;
-	Tue,  7 Jul 2026 15:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B10C41F7C6;
+	Tue,  7 Jul 2026 15:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783438432; cv=none; b=ubOrtt4asmIEoJ7r97P3LsFxb+cEMaNvUvJkKr+aH7R/MTulfupELV2avF3TYGbdwmz4fyvniuqUy6ziFV6V4Ir+HR7rSoHI3I0sdNget+gO9CPUuCKP4ggnS4WlNAFtgxGOWYSRsBwhnEwACMChdGdB99rFhlkuhhp7aqYmX/o=
+	t=1783438619; cv=none; b=q6dgiBWgSgSQU5ud3zO9J+sSu2T9+8JYApuj+CGZRFWKRh5oYIm//Ju5GaPH9DdY8C73vrRgJfgOUfy2mQyq8RqBd+DxvLLU1QVhqCHRAru4Od6DnHqkBmBr9y1IwHFFlsmp7IrW1xzwDVFtNXGAUb2rCbfeQ9xw/7pC/6sXXj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783438432; c=relaxed/simple;
-	bh=OqHbrvd0am5hYqxR6pBiWhgji4NKkISAJhdpnLRkw8o=;
+	s=arc-20240116; t=1783438619; c=relaxed/simple;
+	bh=j/3Eg1ogVsf3EmghcOQfm3oTgU47ZEQlOMVHS9D3Rbw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TQTQjfUlmLGVNfV9ZZoBpXq3MhPd3m4w8F5k0rbIpV1O1LO+iXCS1iULTNBIqMdqq7pGGfdbt74k9aEoAjDzQNUcDdCXV6Il7swrofY/YD8LuczRzgTE0ZSSZx2Grpm2y+//2qr92Os4YeBRYXzVMLqPMQpCdFzpux3wq9QaQes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M5GV+xhb; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=cDywjkpacydYLOLlRYcpBeF4NyfESPX+p0HLrFeqFOCVA5Anpjfme5tIqEkF03OjlVm0mlr+KlM4t4+hJc4NmGB17idiEDNtmB+RIEnEH0DCcCdcPQuZLnOHhFCAqkQfoM0n9mRrjj6Gc0dUckck1W/Yxw2viZ44/YXIF2tYnPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCn30mtF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M5GV+xhb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783438429; x=1814974429;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OqHbrvd0am5hYqxR6pBiWhgji4NKkISAJhdpnLRkw8o=;
-  b=M5GV+xhb4gUqEiiQkKFrRg0oww1p0h2Rm6WvzjaFfBK1ehNqm/50DmHf
-   cypj79paL5VLNlN8QFSFK3Ry2E+vzuSg/L5BYaxKgn/6/Vy53paH0PKGU
-   mncf9BsEBovitbwz5/1IdQsnU/9Vjy+OkK2D8zOeNUg+sxcb154lxFa/U
-   v8Upuen2SbOlOadz7PM5w4w71gRgCpiYuWHgBewEoA5k9dxg04HAStkOM
-   GSQt1a1HuuGlvldcnPfYjxPf8IGrpn7f2F8I5KH/bmJLaU/jVghlICy7c
-   mGmoRvVKbhC1HdeQD0a/dd4szllRndgU4NluPF8bhCZRhw406mdhklBq0
-   g==;
-X-CSE-ConnectionGUID: x2rxLr4cRGyjO0Rk+BzFWA==
-X-CSE-MsgGUID: WbLyxpvvR66r0Kg4n5EZbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="106887457"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="106887457"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 08:33:47 -0700
-X-CSE-ConnectionGUID: /FmlpsCaTNqsHjjXI/a5MA==
-X-CSE-MsgGUID: 25TDvVtJSfmNiH9Tn9acqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="251357994"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.36])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 08:33:43 -0700
-Date: Tue, 7 Jul 2026 18:33:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/5] iio: osf: add authenticated stream parser
-Message-ID: <ak0cVeEUhNP1wTkQ@ashevche-desk.local>
-References: <20260707014525.1015-1-kimjinseob88@gmail.com>
- <20260707014525.1015-5-kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCn30mtF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E2A1F000E9;
+	Tue,  7 Jul 2026 15:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783438613;
+	bh=D3Hdmnxss7OooEgBEaSE5nTSXMIcAOWWTRBg34hgO0Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hCn30mtFhYuHNFmflRAj8e0RXUg7hftdiZ1o8Mm1go/UH+dJdJBodkFnxKdloC0OE
+	 So9Ac5qObrNlv4fVnj9kON4kDnG7uQ8LIe847OC8QYp3WF6dTE+pI9XrUh7zCsofkS
+	 REhK6j3D1uzmtnaK2F5/pkLzHhWOY42CP1Dd4Yy2UJV+0l73W1iR64BfaPa6Wbi8Ub
+	 DjE0pDbW5TFf5zShp2nTWaq+UJ2h9mJYXZXZc1KVAXypDLCzwYfWnIJTCyKe1uFt48
+	 5OvXbfaZE09kbe4ahUhkLAgy9F+xmn6bMs0CfLL+xx/5KTVH1fiQYU/el2jtg8hy65
+	 CgbU7o/kNV2Qg==
+Date: Tue, 7 Jul 2026 17:36:43 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] PCI: dwc: Determine whether iMSI is used before
+ calling .init
+Message-ID: <p4it4hcg24narbtjtoqdk6zg7wpfs5hc2mm77acyoi6hwfkh5u@5bqlwhylosmo>
+References: <20260701203918.63189-1-marek.vasut+renesas@mailbox.org>
+ <20260701203918.63189-2-marek.vasut+renesas@mailbox.org>
+ <4qyn4fljtb3cbzcmfpkdomkm7vqnwn2rfbtqng4iwmtvfd4bpj@t6kkw53erl7f>
+ <8a921ce9-e339-445a-af05-d20f9f2df01e@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260707014525.1015-5-kimjinseob88@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8a921ce9-e339-445a-af05-d20f9f2df01e@mailbox.org>
 
-On Tue, Jul 07, 2026 at 10:45:24AM +0900, Jinseob Kim wrote:
-> Add a UART byte-stream parser for Open Sensor Fusion frames.
-> 
-> The parser searches for the OSF0 wire magic, keeps partial frames
-> buffered, checks header length and payload bounds, and passes complete
-> candidate frames to the core decoder.
-> 
-> Rejected candidate frames drop only the current head byte before
-> resynchronizing, so a corrupted unauthenticated payload length cannot
-> make the parser skip later valid frames.
+On Mon, Jul 06, 2026 at 07:48:24PM +0200, Marek Vasut wrote:
+> On 7/6/26 6:43 PM, Manivannan Sadhasivam wrote:
+> > On Wed, Jul 01, 2026 at 10:37:44PM +0200, Marek Vasut wrote:
+> > > The R-Car Gen4 PCIe controller integration configures MSI registers
+> > > in the controller driver .init callback, because those registers
+> > > have to be configured while PERST signal is asserted, and the PERST
+> > > signal is asserted across the controller driver .init callback.
+> > > 
+> > > The registers have to be configured differently in case the iMSI is
+> > > or is not used. Assign pp->use_imsi_rx before the controller driver
+> > > .init callback is called, so the controller driver .init callback
+> > > implementation can use the pp->use_imsi_rx value.
+> > > 
+> > > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > 
+> > LGTM!
+> Thank you. Can I get AB/RB before sending V4 ?
 
-...
+Why? Since this series goes through PCI tree and all PCI patches are controller
+patches, I'm going to merge the series. So no need of the A-b/R-b tags.
 
-> +static bool osf_stream_frame_prefix_match(const u8 *buf, size_t len)
-> +{
-> +	for (size_t i = 0; i < len; i++) {
-> +		if (buf[i] != (u8)(OSF_FRAME_MAGIC >> (i * 8)))
-> +			return false;
-> +	}
-> +
-> +	return true;
-
-Why so complicated? le32_to_cpup() + just integer comparison should work, no?
-Alternatively get_unaligned_le32() if the buffer is unaligned.
-
-> +}
-
-...
-
-> +static size_t osf_stream_discard_to_magic(struct osf_stream *stream)
-> +{
-> +	size_t old_len = stream->len;
-> +	size_t match_len;
-> +
-> +	for (size_t i = 0; i < stream->len; i++) {
-> +		match_len = stream->len - i;
-> +		if (match_len > OSF_STREAM_MAGIC_LEN)
-> +			match_len = OSF_STREAM_MAGIC_LEN;
-
-Seems like reinvention of min() from minmax.h.
-
-> +		if (osf_stream_frame_prefix_match(stream->buf + i, match_len)) {
-> +			if (i)
-> +				osf_stream_discard(stream, i);
-> +			return i;
-> +		}
-> +	}
-> +
-> +	stream->len = 0;
-> +	return old_len;
-> +}
-
-...
-
-> +void osf_stream_init(struct osf_stream *stream, struct osf_device *osf)
-> +{
-> +	if (!stream)
-> +		return;
-> +
-> +	stream->osf = osf;
-> +	stream->len = 0;
-> +	memset(&stream->stats, 0, sizeof(stream->stats));
-> +}
-> +
-> +void osf_stream_reset(struct osf_stream *stream)
-> +{
-> +	if (stream) {
-
-I believe I have commented on this already. Please, go and double check all comments.
-
-> +		stream->len = 0;
-> +		memset(&stream->stats, 0, sizeof(stream->stats));
-> +	}
-
-My comment was to use the same pattern as in _init() above.
-
-> +}
-
-...
-
-> +int osf_stream_receive_bytes(struct osf_stream *stream, const u8 *buf,
-> +			     size_t len)
-
-Not sure, but likely also commented on this, id est to wrap on logical split:
-
-int osf_stream_receive_bytes(struct osf_stream *stream,
-			     const u8 *buf, size_t len)
-
-OR simply do in a single line (it's only 82 characters with increased
-readability):
-
-int osf_stream_receive_bytes(struct osf_stream *stream, const u8 *buf, size_t len)
-
-> +{
-> +	size_t copy_len;
-> +	size_t space;
-> +	int first_err = 0;
-> +	int ret;
-> +
-> +	if (!stream || !stream->osf || (!buf && len))
-> +		return -EINVAL;
-> +
-> +	if (!len) {
-> +		ret = osf_stream_process(stream);
-> +		if (ret && !first_err)
-> +			first_err = ret;
-> +		return first_err;
-
-Why all this dances? first_err is 0, we all know this.
-
-> +	}
-> +
-> +	while (len) {
-> +		space = OSF_STREAM_MAX_FRAME_LEN - stream->len;
-> +		if (!space) {
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_discard(stream, 1);
-> +			if (!first_err)
-> +				first_err = -EMSGSIZE;
-> +			continue;
-> +		}
-> +
-> +		copy_len = len < space ? len : space;
-> +		memcpy(stream->buf + stream->len, buf, copy_len);
-> +		stream->len += copy_len;
-> +		buf += copy_len;
-> +		len -= copy_len;
-> +
-> +		ret = osf_stream_process(stream);
-> +		if (ret && !first_err)
-> +			first_err = ret;
-
-This error checking and handling is unusual. It requires a good comment
-explaining what's going on.
-
-> +	}
-> +
-> +	return first_err;
-> +}
+- Mani
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+மணிவண்ணன் சதாசிவம்
