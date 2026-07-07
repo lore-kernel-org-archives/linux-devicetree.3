@@ -1,44 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC3D2FF641;
-	Tue,  7 Jul 2026 01:27:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C77309F08;
+	Tue,  7 Jul 2026 01:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783387670; cv=none; b=NyGSwACsC0rMjvPj1rK7Y9qs4HzEgNidCXGr7yatHzBIImxkivbVcCh8isAmcSe5yxzw045Trw0TRNAGQLkyuIEGc+fWAZM3HH9RX1YfGMlNKSkyQGPkBBtC5MAH71hqWkGJqWCFVj0BpHiVQDOKCTNn0QVB7FRrio26cdI8iwY=
+	t=1783387670; cv=none; b=Ai3gVKNCG0rk8lkKDmOznbTcgW7rWlBTFa161a2i2ecokwJI4XsFikS6bGYtwyGMtp4YM+TsWANjLMTDFKFcd6wxIMudJiBgrVbClpbpVMcgaIPLdAyVbgv9E6/hj80KEXr8EEhHkipxnQ+i9yJFPynfKxMEvmij/Vg5e820vLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783387670; c=relaxed/simple;
-	bh=i7pElux8kMgJ691AzOk6XcVWOuP/VBpzB8kkf8WgiRA=;
+	bh=/9Zrv5H2UbhenF5onQ5RdlhvRTMB+k4wCkZdB6tgFWM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ak6rOywTGaeFJERP7PrUQHf+u+Miy3YceFb9Z6XYvoyxLWf+q94YRZHOJ5hrc4r+y4Nogy82TJlkoLFHUygZdF0xLWfEAH5uBujS7aQA6eBjMX/UZhJZUvovvwi4dhyXxiTu/ZwluCdnd6KFSCNW3Nnbx3AQm1EBlZdTcIeBT9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L6K7iOU+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KkpYXcyiGbku3W6dox+L97McyGZ9EHaeBYyHPPVOMAjzZOeSjTA9OEBqWv6gyRgsyEYrU4M9Oqy8EZwRHVuNKtbOggYr+h3aqRWk1c6fI++DGKekd13C0wtSpVNzZkhnhrrrUJNAzBAvsLTuk5G+0s+et37PHVoZmZP+4b9dH1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYZ+VL5S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L6K7iOU+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCDEB1F00A3E;
-	Tue,  7 Jul 2026 01:27:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYZ+VL5S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFF051F00ACA;
+	Tue,  7 Jul 2026 01:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783387668;
-	bh=Q4LVM9h/WtQjbuOWh/h5v02glcUtAFjbVlXhuGiDsYY=;
+	s=k20260515; t=1783387666;
+	bh=W9450x55yLfhh9ZbmQpNsTTte+SzmiJ8K3OcgsG4oTw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L6K7iOU+nxFhZWS78U1E9IMJBCpkx3+u6e5dfYJbFC5S+skZYbtvvHU7hr8IKXhnj
-	 BLS8CK/nNm2CHxf7edRs85PMVXoS2+QBLXZZEWFfZB8RD2K4ij9XBVfio7/6mqXwLd
-	 UpOJm7F4lXyswVNCPfkSvszYvXDcCK1QzdK03NZrsX5ID1Ypc4gytwZ/hEs8ja+m9Y
-	 ZmOMFM50ios7YmlePFGWzB5gGULgUSiMbyg9R7CLmHfsLKun4YYKP9CdUx+AWQNcIn
-	 pn0hr0ij+7IQNW85ywN1WNxIJQf6sxhM1qB0w+oaVGjSQBsW8H/8b8omZADbtFeVry
-	 B+FydU96MkSWQ==
+	b=oYZ+VL5SzKD/WoksOt5swcutRXEBQSHcfI6FGvDRHEt3HS6zBLA/Th1oQh3rQPm5/
+	 zZF+LG+/HIe6ly6zkefeCmfWB+Vk9akfRLXktzmupIrPjAROi7x8JA38RuSnBnBwlI
+	 5sQUyeYKa/RTJEBKzov8QlAaT2IXMxVT/NZ0OFS1a7v6IlvqwvBoVvpnNfzEkiqgn6
+	 XVrS4+5i5P8HBTkc94rwoFg1T/JWftLe6ao8htEGvzALJbeVwIwSEoroTnISoyBIbh
+	 IZKHljGMLsMTL52Z5TvB77D6WBU1gachYKEYhwRY0u/yXJ19UaIoX+sW7bSMgQfv89
+	 /uz/PVYl4GRtw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konrad.dybcio@oss.qualcomm.com,
-	konradybcio@kernel.org,
-	Xin Xu <xxsemail@qq.com>
-Cc: linux-arm-msm@vger.kernel.org,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Val Packett <val@packett.cool>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v3 1/3] arm64: dts: qcom: sm8250-xiaomi-elish: Add pm8008 PMIC
-Date: Mon,  6 Jul 2026 20:27:30 -0500
-Message-ID: <178338764541.1558388.5000950428871202565.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 1/2] dt-bindings: arm: qcom: Add SM7325 Motorola Edge 30 (dubai)
+Date: Mon,  6 Jul 2026 20:27:28 -0500
+Message-ID: <178338764568.1558388.8423038598017179703.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <tencent_D4AB219A942591742C3A6DA4DFB0EBA49505@qq.com>
-References: <tencent_D4AB219A942591742C3A6DA4DFB0EBA49505@qq.com>
+In-Reply-To: <20260506212319.682749-1-val@packett.cool>
+References: <20260506212319.682749-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,16 +56,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 25 Jun 2026 19:50:48 +0800, Xin Xu wrote:
-> Add the pm8008 PMIC node on i2c15 with seven LDOs,
-> using GPIO84 as interrupt and GPIO76 as reset.
+On Wed, 06 May 2026 18:16:52 -0300, Val Packett wrote:
+> Motorola Edge 30 (motorola,dubai) is a smartphone based on the
+> SM7325 SoC.
 > 
 > 
 
 Applied, thanks!
 
-[3/3] arm64: dts: qcom: sm8250-xiaomi-elish: Add ov8856 front camera
-      commit: e221d444dc0bb4b0f244038b7655419498643667
+[2/2] arm64: dts: qcom: Add Motorola Edge 30 (dubai) DTS
+      commit: 12975c0f09c58ccf305b1383131790ea3cf6cedb
 
 Best regards,
 -- 
