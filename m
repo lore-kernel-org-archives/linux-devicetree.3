@@ -1,119 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E577396B8C;
-	Tue,  7 Jul 2026 09:30:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFC2396D13
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 09:30:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783416642; cv=none; b=D8/OZJEF6V6sheI33Ea508iub8w+9QoYPQOdboyUgOw5r8CbBStPdmKXX1EDpRz3/3uV1XcoWn2xN30ukJqZrAHMHJmBT0eH7ltfwwE7IRd+xyJxVE43pSY9UhKJy3QLfpkk/NMQVAA5CvQc+u1eKDEaNp/xsZXMfMtMFSr41d0=
+	t=1783416648; cv=none; b=KoQNu5uxZT84hboPsKibXrwk8k6hdzEM+BIHNAumNsw/DBcesd1TYHNl6edAVAhLQ1da/L9CjgmEc9k8D2yZs1BwfpqMtmIk+clbYV4qd+anWmq+BU6SaP9sHVF8DPyLcCbJY7Kspzjk0j7yvo08rxKVLMk92Y233Xi7RXkAKug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783416642; c=relaxed/simple;
-	bh=gnyCF6xrq+ZMkoe4S6b2ryuCCIFsFk8mZod19T2TPsE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aYZCcErzh6CjqU2HoFOGFhcA9yeh7k8e4nENQYMvh2FKXcaDFfP7o2WZoIPw3kVA2BhtY7WaCd6YTZ9csJLYpWWY/cUVctwEz56H4x/1Rn25yQHWyqqmMSQzWUo08SKKbnxEorK0Yie5GYP2u32GRsyXIbI/bd5fR99G/5T2vGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OpVt8HpE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783416648; c=relaxed/simple;
+	bh=L2nmjS0SF5YYPFm8XgO4VT1vb2Fgocz9yMK2Wzc1Xko=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=U59EEY7bJJ4fmMbZlzfE6QIG41EX3dAyC8DU7EOMm0+lBCRPS07glutTGESMCF59OQ3fQfZln3qKXNGQXyuRFGmgY3j8IMsAcMCjB9+UbmBEho+qiMSBtE02rdvhcGEh8vw0Yc1uxJhbEeibYH8BJ7Tel7X3rcKePfPvOUKCTKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ap0qOUP8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OpVt8HpE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7649F1F000E9;
-	Tue,  7 Jul 2026 09:30:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ap0qOUP8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7C01F000E9;
+	Tue,  7 Jul 2026 09:30:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783416641;
-	bh=RSjJP9Xn3W3JC72daW3NJLmPjL88/Mb4XtSCbDgPT1A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OpVt8HpE2cNtIC00ew4DMdos/+h4GAKkKm0FnL+k2JQQmiHwInCHEWkCLpbP7YSrG
-	 IBjMMIhDtqJRZvghIAC3v7Ey5bbTGcBUdLZMknEZ8AbFIHPSHxoOaYhYuKLjgW0pff
-	 KDzH2KuGko/Mc1yCQbbIj4pgm9adG6M+MGaFV2YB/miiEkgnTnsKYzm9ivajtfKUci
-	 4vP9MKEFSfo3EjOUNPvqgml/G7vjlw++64O5EpL4UQtZvHfg8V3/Np21Pg9g9gTmoW
-	 cnerKAvgbv8gG9k/f6yiKqbjXlMnkVs/mimS1jal1HP4Px1S3MC+og/DfxCOOMlcCy
-	 v3S9pnIarJzuA==
-Message-ID: <c387f99f-d24c-4fbd-a706-a1015ef42748@kernel.org>
-Date: Tue, 7 Jul 2026 10:30:37 +0100
+	s=k20260515; t=1783416646;
+	bh=4Kfi51voxQw1ZDguISJQwG8XRzPa4V/3dMBBpfq9UJ8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ap0qOUP8BqY2RqG7oV3PCB/LM1BLtA0z+yw7o7CTP8ev2xhhg3IZA52lt22H4+mGp
+	 QAqV0cWplaRNnNEdbNA8zFcK+i1F/uR8zR/Ww1BGXyolNcKiX9aRMbMeH1Lg63ktuQ
+	 9yD5fqvwuwdnXc3yOHI5gmwe+bZRE4SOtfi5dIUUZJZ2lRj9lVskRaUeGsASGQhgkD
+	 vbDs9iAqZhOJeQuaY9+oco39aNfyFS6+tJN0mtzsfo5VY47oALmo3ycdn4HvpwFKur
+	 18ITA1ZgLfZqHCQK48QwmhWez78N3c7TxzxSRRgZgpF7ab6Asmg4Nxp3WubIHSu6Rr
+	 aj1I/NY0ZOVKg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/5] arm64: dts: qcom: sm8750: fix traceNoC probe
+ issue
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260707-fix-tracenoc-probe-issue-v5-4-bf733ed9ebd0@oss.qualcomm.com>
+References: <20260707-fix-tracenoc-probe-issue-v5-0-bf733ed9ebd0@oss.qualcomm.com>
+ <20260707-fix-tracenoc-probe-issue-v5-4-bf733ed9ebd0@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 09:30:45 +0000
+Message-Id: <20260707093046.3D7C01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: Fix pm4125 vbus regulator
- compatible and constraints
-To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- jishnu.prakash@oss.qualcomm.com, kamal.wadhwa@oss.qualcomm.com,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260706-add_pm4125-vbus-reg-v3-0-999d78a87b81@oss.qualcomm.com>
- <71tt4ete2nCnQuCLAao68H3X1IjhICYvh8a9Y14WT2pr_opABqQnPif_6w1Mmdw4cDCUUB7i6t4ApGyUdHPdRA==@protonmail.internalid>
- <20260706-add_pm4125-vbus-reg-v3-4-999d78a87b81@oss.qualcomm.com>
- <14be441d-7223-46b1-9292-fa73ae326ac6@kernel.org>
- <Sj6EhkXkdXP_nMLmRNYlyUHDbKYMyMkI5eZeaEZ6D3ZN0H5-1dkZ8CZWvRdfkFr_66NCahGPWTe4eSOqll67iA==@protonmail.internalid>
- <20260707083319.rwtnt4l6so3kdduo@hu-kotarake-hyd.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260707083319.rwtnt4l6so3kdduo@hu-kotarake-hyd.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 07/07/2026 09:33, Rakesh Kota wrote:
-> /local/mnt/workspace/kernel_versions/kernel-checkers/linux-next/temp-out/arch/arm64/boot/dts/qcom/qrb2210-rb1-vision-mezzanine.dtb:
-> usb-vbus-regulator@1100 (qcom,pm4125-vbus-reg): 'regulator-min-microamp' is a required property
-> 	 from schema $id:http://devicetree.org/schemas/regulator/qcom,usb-vbus-regulator.yaml#
-> /local/mnt/workspace/kernel_versions/kernel-checkers/linux-next/temp-out/arch/arm64/boot/dts/qcom/qrb2210-rb1-vision-mezzanine.dtb:
-> usb-vbus-regulator@1100 (qcom,pm4125-vbus-reg): 'regulator-max-microamp' is a required property
-> 	from schema $id:http://devicetree.org/schemas/regulator/qcom,usb-vbus-regulator.yaml#
-> 
-> This is because the qcom,pm4125-vbus-reg compatible requires
-> regulator-min-microamp and regulator-max-microamp to be present per the
-> schema, and both changes are needed together for a bisectable,
-> build-clean series.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Fine so, thanks for checking.
+Pre-existing issues:
+- [High] Switching the traceNoC device from the AMBA bus to the platform bu=
+s actively exposes a PM runtime / devres clock unbalance bug that triggers =
+kernel WARNINGs on device unbind.
+--
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+--- Patch [4]: [PATCH v5 4/5] arm64: dts: qcom: sm8750: fix traceNoC probe =
+issue ---
+commit 614093568676102a83b2efb2ba08c1718071ad73
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
+
+arm64: dts: qcom: sm8750: fix traceNoC probe issue
+
+This patch drops the "arm,primecell" compatible string from the traceNoC
+node to prevent indefinite probe deferral. By using only the standalone
+"qcom,coresight-tnoc" compatible, the device binds via the platform
+bus instead of the AMBA bus, bypassing the primecell ID check.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
+com/sm8750.dtsi
+> index fafed417c66fc..1e25be41aef5c 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> @@ -4687,7 +4687,7 @@ tpdm_rdpm_cmb2_out: endpoint {
+>  		};
+> =20
+>  		tn@109ab000 {
+> -			compatible =3D "qcom,coresight-tnoc", "arm,primecell";
+> +			compatible =3D "qcom,coresight-tnoc";
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does changing this to a
+platform device expose a clock management unbalance during driver unbind?
+
+When bound as a platform device, tnoc_platform_probe() acquires the clock
+via devm_clk_get_optional_enabled() in coresight_get_enable_clocks(). This
+queues a devres action to automatically disable the clock upon unbind.
+
+If the device enters runtime suspend, tnoc_runtime_suspend() manually
+disables this same clock:
+
+drivers/hwtracing/coresight/coresight-tnoc.c:tnoc_runtime_suspend() {
+    ...
+    clk_disable_unprepare(drvdata->pclk);
+    ...
+}
+
+Unlike the AMBA bus framework which automatically wakes devices during
+removal, tnoc_platform_remove() does not call pm_runtime_get_sync() before
+disabling runtime PM.
+
+If the driver is unbound while suspended, the device stays suspended and the
+clock remains disabled. Once tnoc_platform_remove() returns, the devres
+unwind process executes the cleanup action, calling clk_disable_unprepare()
+a second time.
+
+Will this sequence trigger kernel warnings in clk_core_disable() and
+clk_core_unprepare() due to the counts already being zero?
+
+>  			reg =3D <0x0 0x109ab000 0x0 0x4200>;
+> =20
+>  			clocks =3D <&aoss_qmp>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-fix-tracen=
+oc-probe-issue-v5-0-bf733ed9ebd0@oss.qualcomm.com?part=3D4
