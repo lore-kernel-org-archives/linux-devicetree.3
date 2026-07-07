@@ -1,96 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528DD372045
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 07:55:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C47830E0E9;
+	Tue,  7 Jul 2026 07:56:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783410956; cv=none; b=dERREt407BX1vaP1fga0P7RWIwMbt77VnD8vnx0BM/4KiJkWTd0p+4zzS4iLifNsHknCrAeNUzsNTg5NhjJk7In2lIPVzVLoPyMRAYg4OXfcIuKtSK0qDUwfxra+84TrDjwix3u1DFs4z4GFSFkbr4QXrv+v4IuDdHyEKU0ii74=
+	t=1783411006; cv=none; b=UPmUSwsGjWa27JNyk4xcZHMNWuZ9H5UfTypGG1TiUtGMGN4WhDOXm7vQOPc7ZfUMk7y4dvvBJaHWpS2g6VxTnIPO2Gy7xPTSJ68JkPPoXTCwyZSifs1jscm697tQExsuHsWQKTCs0ucUqoOzechHrH/1AxI4Ze5wfj4L97th3kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783410956; c=relaxed/simple;
-	bh=cf2ilN7eLatU+SF8wBU9/5ekZQIujExaJD0tPFadOVA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MhyZBteVFD/9rgn5e3WcLqnj1lFPvNtNZrADp5T7NvdUhzHqnS5JcaapkC9aZ2C+jmjQwKDwnmTaZ4yFydkfS/RBVNBPtgJl7AHk5fizUcqYxf9gpb9l1n0/CzcxKZugGaYLZPlsr1OVjGuiq+y24yYaH62XsbaB3ZL9DjeMprw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LnCEf3jh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783411006; c=relaxed/simple;
+	bh=t45HS3VqzLs2gZdMxEqbLZ8AZAO09G1Hi91tXQsUgyk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=evtztG6fFqd7AoxPrivwl5H3rzynKIyCF7t71ARm7XXs/xoyg1fFGJaeNw9wn8swDoW6CqUOkVIFdLWs+D13hZHi/1DRL39SpT1B3Mx/Sog7FhL1QpoXRR//1t0MHVbwxkeNFWZA0rEyeErvJ2sKbRZSGzxXyE5h0FE+r5zdFCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9bjJadL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LnCEf3jh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8E41F000E9;
-	Tue,  7 Jul 2026 07:55:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9bjJadL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245F11F000E9;
+	Tue,  7 Jul 2026 07:56:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783410955;
-	bh=gDAbgYizi7UaAVjp/HG1Kw4ncBOHvNrlzxzupxaDBpc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LnCEf3jhRnmd5x/5+dwVo1hXZN8MvcijBcIPP9lmWHU2wUTqj6KNPy6MFGuVuzcLW
-	 9uIu8AZJl/ZH1Y5xMozBrV8WACFjgdSXThSav7EfBzKzVs3lBI9be6ubTDq4YspSRp
-	 noC+JR9t0sTfFapdk3gxZxQ47EW9CwJrVlC799acGZgFcX4KRzgvNA+YMzdVaUYDuS
-	 4pvM5RlUTpTa3xHcKrWjvSPsMeXb9J8UW4qo8bi+jooHkx0ZeGSDnVpSNWlbLXnz0s
-	 1Hwh7e42HErCgCul6QVSOG+tjJsvUVHwx/gIveEiUoWLoQm5Zuz/WU7KL5g9/x0Cjg
-	 4dD1PovhJgo1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 1/2] arm64: dts: qcom: kodiak: enable inline crypto
- engine for SDHC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kuldeep Singh" <kuldeep.singh@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260707-ice_emmc_support-v9-1-701c86f3c25b@oss.qualcomm.com>
-References: <20260707-ice_emmc_support-v9-0-701c86f3c25b@oss.qualcomm.com>
- <20260707-ice_emmc_support-v9-1-701c86f3c25b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 07:55:54 +0000
-Message-Id: <20260707075554.BB8E41F000E9@smtp.kernel.org>
+	s=k20260515; t=1783411005;
+	bh=qaJDMFyR+9jLQSxF03msoSIkTshFmDA4EhMhCDFnmjE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A9bjJadLxG7fn5qzOI2Qt9OPM+U3hP3p5LM/75sg6b45yzGpoyX8tnEdXaOuB4HRh
+	 /bwASg9dpZ5oFrf+ISXo4aN3d3Z9jl070OUQMmTjx10FdBHbb6nueTTppRJelqTRBN
+	 A7PJopGnCYOuFPjxQQTgbWlSzbytw0HVdLLLN6N3DGcs+kO6TK0uM75Z4E3o0zTH8O
+	 hznV7A8UruoBehq1CXMx92z33Q3Lr5YDSwaK9KLxSZLwZayKvIYX32AkQ26YuCBKU4
+	 U44d6P9KWlHlzB4i6z8s/MiB75PZPiu7Jr8RPAZAS8hCVHGJ8+AGs7NLVZm7Gvm+mS
+	 3+GlhJSgmoziQ==
+Date: Tue, 7 Jul 2026 07:56:42 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Aurelien Jarno <aurelien@aurel32.net>
+Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>,
+	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v2 5/5] riscv: dts: spacemit: improve RTL8211F PHY
+ configuration on K3 Pico-ITX board
+Message-ID: <20260707075642-GKG35811@kernel.org>
+References: <20260623204431.498700-1-aurelien@aurel32.net>
+ <20260623204431.498700-6-aurelien@aurel32.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260623204431.498700-6-aurelien@aurel32.net>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `qcom,ice` property is added to the SDHC controller node (`sdhc=
-_1`) but is completely missing from the `qcom,sdhci-msm.yaml` device tree b=
-inding schema.
---
+Hi Aurelien,
 
---- Patch [1]: [PATCH v9 1/2] arm64: dts: qcom: kodiak: enable inline crypt=
-o engine for SDHC ---
-commit d2f9d6d523de87c6105a372982b5405f3d09ebde
-Author: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+On 22:43 Tue 23 Jun     , Aurelien Jarno wrote:
+> Vendor kernel enabled ALDPS (Advanced Link Down Power Saving) on the
+> RTL8211F PHY to save power when link down.
+for ALDPS, tested here do noticed it will configure RTL8211F PHY's
+ RTL8211F_PHYCR1 register via rtl8211f_config_aldps()
 
-arm64: dts: qcom: kodiak: enable inline crypto engine for SDHC
+And plug out then in the cable, the network(eth0) will come back and still
+works fine, although I have no power consumption meter to test, but I think
+ it deserves:
 
-This commit adds a dedicated inline crypto engine (ICE) node for kodiak and
-references it from the SDHC controller via the qcom,ice property. It also
-sets up the necessary power domains and clocks.
+Tested-by: Yixun Lan <dlan@kernel.org>
 
-> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
-com/kodiak.dtsi
-> index 90e50c245c0cb..3692be65cc21b 100644
-> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-[ ... ]
-> @@ -1050,6 +1050,8 @@ sdhc_1: mmc@7c4000 {
->  			qcom,dll-config =3D <0x0007642c>;
->  			qcom,ddr-config =3D <0x80040868>;
-> =20
-> +			qcom,ice =3D <&sdhc_ice>;
+> 
+> Vendor kernel also disabled the 125MHz clkout clock signal, and indeed
+> the schematics confirms that it only goes to a test point (TP14), so
+> let's do the same.
+> 
+> Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+> ---
+>  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> index bf64b6c6f867f..e12d798b48a49 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> @@ -234,6 +234,8 @@ phy0: phy@1 {
+>  			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
+>  			reset-assert-us = <10000>;
+>  			reset-deassert-us = <10000>;
+> +			realtek,aldps-enable;
+> +			realtek,clkout-disable;
+>  		};
+>  	};
+>  };
+> -- 
+> 2.53.0
+> 
 
-[Severity: Low]
-Does this new property trigger a dtbs_check validation error?
-
-The Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml schema uses
-unevaluatedProperties: false. Because the qcom,ice property is not
-currently documented in that schema, adding it to the SDHC controller node
-here causes make dtbs_check to report a validation failure.
-
-Should the binding schema be updated to include qcom,ice alongside this
-device tree change?
-
-> +
->  			mmc-ddr-1_8v;
->  			mmc-hs200-1_8v;
->  			mmc-hs400-1_8v;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-ice_emmc_s=
-upport-v9-0-701c86f3c25b@oss.qualcomm.com?part=3D1
+-- 
+Yixun Lan (dlan)
