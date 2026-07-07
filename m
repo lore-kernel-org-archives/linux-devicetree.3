@@ -1,159 +1,184 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281CF3EDAA2
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C641A780
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 13:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783430964; cv=none; b=UAndJtt+CoZyFud7v8oyv0AcM1xBzl5/3JFcF2hD+H8Flkh3UI5BvPWJmcGBBSw49509zeqYxT2GBPEQ1oN/l0wStdb5VCTy0+zwxebjrU2A4VpmBwVnTcC6XQpG8q9t9mP7VQcGgheYZyZLgLfSoyvXQHf0Q1E2SHXqW/kF1eY=
+	t=1783431021; cv=none; b=qHoF6tKVSjgWWpgTaCL0BQhp+egVy2SAVmt/QTe1J39TFuLllrst7kQ2Bv6yV2Yh3ovj/RXlIZO9CAkUmcBcdSwJ59uqOxu8pl7E9BC7m5ugdaicPK9z24kYsYkyxcHHy8vmc0Lt1QtIDyKe4ih+VSu2irUa4uZ8cSU1IAZKI00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783430964; c=relaxed/simple;
-	bh=dSWgcEVqn96YNXIDhps5X6Ob0cQ6Yr4ZQ8+nRr7zu7g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U25CsyRtP/948Z0ybsAJdTJUPGBk4tWCFzze+QPOoK0QmDo9B8Jb9tY+dtiZ8JHv3iMgpMCfW/SzAfdSOH8PpmLikmFYegPdtSJLkB++LrYaknPP8WkhQ0ig2gpNA4MnLhBO9uG7aUVK8Lug/TuaJq3Y4TAotfjp4pDMxbTPfJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ygja7vV6; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783431021; c=relaxed/simple;
+	bh=stBD+/sH7V5qjHYx7BWshE2WoVnRJsFQkt4ni5EA50k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sbok5uOWytntjn1L15h3v5h7Yz3DewNPMpaf/zTzQPL12S0uAWMervCJIQVyZdOq5CIfbF31RVurEooPWzK+q4UK4gz3QEywubMa5Ym5mlca7DLRKI0od+CRcRuGXKzYSmL7A4j+9idFzau9r1a8sQTUFAxZAGCCYVfsxWtkry4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YNpbvyt4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Fs+fHH5J; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ygja7vV6"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4758bd3731bso562832f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:29:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YNpbvyt4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Fs+fHH5J"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8cSW3755347
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 13:30:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9FkWytPKEFzcW2rOJ03A4Ztr+w4t/jCKqLErazbBHHY=; b=YNpbvyt4gFzUPtHE
+	istfF5KOIEMLzuE85OJ2Ge7xATz3Vv/XfMe1y5+sGwHC4ziKsHJlFSWQiTlad8Ll
+	93VuN0dFQhbsgND2WyzTZe46Y7wyNKxDU62oH/89BmuGqqE2mgKRW0ODGlS2o4gr
+	4/SQkthmw/RI7JZt/mwaR5DznmOnLZq2y/r4iObwgBZVZA/M4kHJpPAqES7DqyJo
+	ztGfTo8kINJBBPY5bJmV5MuvlcuoZ8Hkc5spqUPtoPd5PJyN+Pcvclkg/GKvKZwH
+	TpFTDzm7OeBolfDverDDgb5vni3G4F9HSnnvJAGn/VCLNAy65lpYtZezJvsbnOof
+	642bqg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8wep1b29-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 13:30:19 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ca5d2474c7so98099235ad.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 06:30:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783430961; x=1784035761; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=i4adAtmWIIeDRmlqxSvfydtiZtPinCJztXXi755Yp48=;
-        b=Ygja7vV6t4IUrpOdDmQ62Ut5J/HjQexCf2+UpUHrKUu5VBpidcnFDwkEciwN0L5MNs
-         Bbcck38ZgrouAjzm7yOmzDqv5xcnvg8jjf875xoCIF9x6wm/9aOrBpfMPVi2AwL3CKg6
-         QZo1OT3y/USShbm3mMLBGhPqMF2iWcl1+rd/l68dhjVxf7oxQB6vIVzLT2zOEbFwYvqg
-         S1+qGw0NZDWGVh4hFQVPCIjcELnuoTybV5k7kznS6Q91kCGLxf7IISdeyQx1onJq1gkD
-         YtjiaxZc6yMkv1CDxbT+JCAd+tIKPLCMIdeTPL9bkjQkRspQRVMFy8FicNIKPIpHEtXL
-         PSZw==
+        d=oss.qualcomm.com; s=google; t=1783431019; x=1784035819; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9FkWytPKEFzcW2rOJ03A4Ztr+w4t/jCKqLErazbBHHY=;
+        b=Fs+fHH5Ji7JaEqhk3QuzSN7X2j7pp71DGB/z6hlSEuMNkoEiQBDxYyePqajTGgO7gP
+         mop7noUnvVKMp6yk7dOsgSp1IToSI7CibiQketE2or/uMbRVpkx6qR3Lw5QdtIw1STxn
+         ERDGGRd4Q4rdughJZkp0NEjGnMSVBG2hHbmf3MfxmSb8wVYitF0Sd8lue9gXfAb7EoGG
+         1Sd4tzzj5DuHHHLyifnEY3KqM3ePYRNK4M+jfHrv798W6OXBwnrbtpit9oDIR6AM2PeM
+         5X/US4me/ZnfI9vfojuU4PSazPrOAKbyx9vkVDovglf+2PFL9AWpgsOlOulcBspORnDo
+         XMag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783430961; x=1784035761;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=i4adAtmWIIeDRmlqxSvfydtiZtPinCJztXXi755Yp48=;
-        b=iSXgyumj7uPEMfA1ZrVD/x58qbIBfQpTM7C4P818HgymVVI6WR3RgdsEoS13PscTej
-         ZI7iWygFdGU4vBP+PXYvdnAyVs+xEgED1Y5j4l0r2Czt5jMj6RXpbVxS8MEllBvlkbhv
-         b0hS07NyXfN1em/m+4BeYLfGCXft/cev6lu4f4mytAAUUsWDvM0Mznwl49E/pEEzz6Px
-         jP2MpFDGvzTFBidC2qzOrwTlwhSEVJTbDQCNyf21s8keZ+KJKPhH9XhJCQ8wvcXCDmYW
-         a2swFsqxGtILdPllbVSXnupN7tXP6l3nc+qVFNhA/1/vPPz+lkJI0URtq0+K+9yV5P5P
-         joTg==
-X-Forwarded-Encrypted: i=1; AHgh+RqN7Ntr6PCRWAc5So1GOB5WoQQBsi0J3giSkALk8I9ucIUmBFAxR0BGwtAivpVUJWHGijTlujoOnSj2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyl3OZ+ibYZKPI13NaP5cMXDXerzTeSHANY9W+f1lFVT9LRgknC
-	QubYZhEOpviUeWEYzRMEw8zNzTieSu1BxQZX4NFz0UPOM64a0M7/h9r9
-X-Gm-Gg: AfdE7cn5UVFfoq5aYYiJB1r4URFwMAADPqdpnJau4IKEDpoyeZ9O5xoXaJZpt0LSq87
-	NNknuRJz3w7Qz2SkUN+Crykb04TodZWdse0H+Hx0SRFTpqH27eIDqR3RCg4NJVZPIWSKXULyWyZ
-	TNotw33hRX4NeHksqt1My1XTgNc+EuKvBWb6lA7soyqQruGBk2jio4K3G5Z1oDTwKXdlgRDHcrf
-	YgdWAr+oVGyMpT6pBm0hJqG1ZRNE/bk/DCKoRr6/hf8W9LOaYX+JOlvXkcHvdYlJtSvG9pMjet5
-	1XyurhTEemfiycCaT4trobX6aI/c6WOuylc5kEDqcCo+aGq9hpPLxw4cyMS1Ulz2L5re00eitMS
-	RzQHOzjmHWYJlgJkIVgBModCV4hGLgtmQ6boSWGJFVgvN7m14Esai5KGIfXeATApEX6JCcULJMR
-	3Sy+MeBzY4x1JratAHNJqVA0sA/j/Xc8bJAkIq4OZbjcPiCzePyl/zDCy6j7g7qaZCjy2emxnfe
-	XzIXnerXGbuKHONrrQAB7FS5y/g+aOjRw==
-X-Received: by 2002:a05:6000:41ea:b0:475:f0c2:75b3 with SMTP id ffacd0b85a97d-47de9a415e6mr3180060f8f.30.1783430961279;
-        Tue, 07 Jul 2026 06:29:21 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d843csm33030923f8f.14.2026.07.07.06.29.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 06:29:20 -0700 (PDT)
-Date: Tue, 7 Jul 2026 15:29:18 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org,
-	imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org,
-	conor+dt@kernel.org
-Subject: Re: [PATCH v2 05/15] arm64: dts: freescale: imx8mn-var-som: Add
- support for WM8904 audio codec
-Message-ID: <akz_Lr1bRSEE5rhC@Lord-Beerus.station>
-References: <cover.1783330236.git.stefano.r@variscite.com>
- <4487a350b0e4667816c3fe62e9fd6df2696c18cf.1783330236.git.stefano.r@variscite.com>
- <20260706100948.DDA391F000E9@smtp.kernel.org>
- <akvC8UV5N6Tpk0_h@SMW015318>
+        d=1e100.net; s=20251104; t=1783431019; x=1784035819;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9FkWytPKEFzcW2rOJ03A4Ztr+w4t/jCKqLErazbBHHY=;
+        b=eK1eVntGg8adgT2hdDajbZ+wzLgMvMzFi/2Zwg0f6APGBubabVtAdVmTMBXI8O4nFf
+         e/0whIJ7h+V6hgof/qdiVYdJRw0jSU1gedjkIua1eQj97CTzeyTvG4/owFsRF1v/ZJxO
+         f7l/eoktXtB96g1y2aRQ/tehxd834jvtnlg6aMXiQSwkcaL5V+AQIMH0DUARPhx2MpDf
+         FfDQSUXbENIlWu4y3fdpvMuk0UUBW1YPXe1qGCO1R1tMP2tdOsSXNeX3gToXy7+XtOC6
+         Vx3lJw7gaHsdMPGTKRaSiVOZa/2Vypr+0u9PWFUzy8e7XUIgqDipRSdaUXlLMsJHEMkU
+         pEcg==
+X-Forwarded-Encrypted: i=1; AHgh+RoyGJJ/PG0umdqvtL7A4ewYci3l53U6bTvOIFXGNNaB9LXZ3QdCOLfbN10MtEGQPNsLngS5VVBhjjXQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzT+crOHdLniXEoxykjKKUln+S5U2+Ejcf63IG24JnNLMOKUG+h
+	4FklkLqq6XUORZYV7ldJI67m2L9JN7RB9NssmZRJvGK37XL8bnXHi7ALDDL4n1iLzRxHijOi4N5
+	/FfSNKUst3OYZgc7ip4ujI5sXi/fMLso2/C8Sym+os0s8qoRMT79v5SgPQcE4s3VpP45vR2Id
+X-Gm-Gg: AfdE7clTx7L+Cnchu7CEELlT1BoOium4uCK1Y/74EZc1XuccnHseTqOSLjltXsMietJ
+	5pS7V+GM/E+UhqFKvMP1Du/pPiHYXwDq2slDT5/IwT5aXABCAd2QBO0DgpOlOq9wD8M98ok087f
+	yyNRvlEKc0jVn97UocDrHQkbp6tdKx9VbjYTcGjAApgtjizFqjytzzNJ6ralXr4RB39FcDcY0A1
+	3yIASlUVV8vO8iJfZfkjnrpY8yaehniEYiuvb3cEBTNqSNbYvdKAYu7nEliLNdtpsiD3WJMOHCY
+	PgKMOs8uBcXAy2hfiBsaTzsyjB7eKsDgcpjbQXQg7TFiRP1Yo3Rae3nO3XPzioeTQGX7JuiTbvr
+	l+WxQN6B2RdukLWdcvjn6ufAvN3xB832somJMY2ncDP8=
+X-Received: by 2002:a17:902:ef06:b0:2c0:af09:f3c7 with SMTP id d9443c01a7336-2ccbf0518aamr53343865ad.30.1783431018940;
+        Tue, 07 Jul 2026 06:30:18 -0700 (PDT)
+X-Received: by 2002:a17:902:ef06:b0:2c0:af09:f3c7 with SMTP id d9443c01a7336-2ccbf0518aamr53343365ad.30.1783431018416;
+        Tue, 07 Jul 2026 06:30:18 -0700 (PDT)
+Received: from [10.217.217.28] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb86bsm12315575ad.11.2026.07.07.06.30.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 06:30:18 -0700 (PDT)
+Message-ID: <d8f56740-5274-496f-b77d-8d3790789ebb@oss.qualcomm.com>
+Date: Tue, 7 Jul 2026 19:00:14 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akvC8UV5N6Tpk0_h@SMW015318>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] arm64: dts: qcom: Add header file for ADC5 Gen3
+ channel macros
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260614-adc5_gen3_dt-v2-1-32ec576c5865@oss.qualcomm.com>
+ <20260614081244.C2AD81F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+In-Reply-To: <20260614081244.C2AD81F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: hQ8pLpr6rpHQXvzYPr0AoRwxTSHUWt8d
+X-Proofpoint-ORIG-GUID: hQ8pLpr6rpHQXvzYPr0AoRwxTSHUWt8d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEzMiBTYWx0ZWRfXxHDzA47Hkz7u
+ 2N11/XM5xxCXCNOCLDv4uxH0jm3x66L06DirCVN8NKm5S1TqAyjaYI3jmIUv7klY/6sXaGgnnL0
+ IvMwxcFFjEx+2SqE8RawQMerL21UpAhOFYMn7Aa3b6tpOHXg5E188cBRmMCZN39UtSkysublrA4
+ Q8ZcCWtl2zi2+vBo4e2+oyi76/R6wDWwcj4K/Q0SEAfN1Me8tMyfbM1Zwl9QLdAJ9XjNr/QiUMF
+ NtTxeH7YyvtDz7EooT4B27NjDtyVqtjyPJ4JKgjk3LmRnMCBaeKlivE9hSR4AqsOMFr56wlswgv
+ YZx/cIZdRevrc5oIzwBaQ9fkRz7fKtejgO+a5YLF028Sfl5s7hT12kG2sT6ytQHz5XcnTY227WL
+ jb+p9G6M0W1y8zE7k0mRj1r9vHOuXIAhQE8fiSCOzrX1jCIr9ahR8yPw3TRZSeq7m+1U/RPEcc8
+ cnI7nF2cl4VUX0O9L5Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEzMiBTYWx0ZWRfX2kjHtNiOJIoP
+ DvI4SC/C04zT3q9Q+miyUMUbGTB379q6eTOhXJ8KYvzsN8tnki8o7OhON/+uoK3u++QktPWwgvn
+ zvDSwOsg/DfeAIVtuAA1nCwYpR9Sz7w=
+X-Authority-Analysis: v=2.4 cv=atSCzyZV c=1 sm=1 tr=0 ts=6a4cff6b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kEwMdB4yzSm1prmz-DoA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_03,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070132
 
-Hi Frank,
-
-On Mon, Jul 06, 2026 at 10:00:01AM -0500, Frank Li wrote:
-> On Mon, Jul 06, 2026 at 10:09:47AM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Medium] The `simple-audio-card,routing` property maps `Microphone Jack` to `IN1L` and `IN1R` but omits the connection to the `MICBIAS` supply, which will leave standard electret microphones unpowered.
-> > --
-> >
-> > commit 78e4da0f71f2e53ae4312cbe5ceecb0f6f2345db
-> > Author: Stefano Radaelli <stefano.r@variscite.com>
-> >
-> > arm64: dts: freescale: imx8mn-var-som: Add support for WM8904 audio codec
-> >
-> > This commit adds support for the WM8904 audio codec on the VAR-SOM-MX8MN board.
-> > It configures the device on the I2C bus, enables the SAI peripheral, and adds a
-> > simple-audio-card sound node to expose the sound card to the system.
-> >
-> > > diff --git a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
-> > > index 09146ab763858..e2e04ad2fbb65 100644
-> > > --- a/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
-> > > +++ b/arch/arm64/boot/dts/freescale/imx8mn-var-som.dtsi
-> >
-> > [ ... ]
-> >
-> > > @@ -42,6 +50,34 @@ reg_phy_vddio: regulator-phy-vddio {
-> > >  		regulator-min-microvolt = <1800000>;
-> > >  		regulator-max-microvolt = <1800000>;
-> > >  	};
-> > > +
-> > > +	sound {
-> > > +		compatible = "simple-audio-card";
-> > > +		simple-audio-card,bitclock-master = <&codec_dai>;
-> > > +		simple-audio-card,format = "i2s";
-> > > +		simple-audio-card,frame-master = <&codec_dai>;
-> > > +		simple-audio-card,mclk-fs = <256>;
-> > > +		simple-audio-card,name = "wm8904-audio";
-> > > +		simple-audio-card,routing =
-> > > +			"Headphone Jack", "HPOUTL",
-> > > +			"Headphone Jack", "HPOUTR",
-> > > +			"IN2L", "Line In Jack",
-> > > +			"IN2R", "Line In Jack",
-> > > +			"IN1L", "Microphone Jack",
-> > > +			"IN1R", "Microphone Jack";
-> > [Severity: Medium]
-> > Will standard electret microphones remain unpowered with this routing?
-> >
-> > The routing maps "Microphone Jack" to "IN1L" and "IN1R", but omits a link to
-> > the "MICBIAS" supply (e.g., "Microphone Jack", "MICBIAS"). Because "MICBIAS"
-> > is defined as a DAPM supply widget in the codec driver, DAPM will not enable
-> > it unless it has an explicit routing link connecting it to the active audio
-> > path. This could leave the microphone without its required bias voltage when
-> > recording.
+On 6/14/2026 1:42 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Devicetree binding headers for shared hardware components must be placed in `include/dt-bindings/`, not architecture-specific directories.
+> --
 > 
-> Is this true?
+> commit 7bed566fe71218ad2ab3cd2babe147ee1d601536
+> Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 > 
-> Frank
+> arm64: dts: qcom: Add header file for ADC5 Gen3 channel macros
+> 
+> This commit adds macro definitions for ADC5 Gen3 virtual channels to be
+> used in devicetrees and ADC channel reg properties.
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h b/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h
+>> new file mode 100644
+>> index 0000000000000..aa8e54d7e786a
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/qcom-adc5-gen3.h
+>> @@ -0,0 +1,88 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause */
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +#ifndef __DTS_ARM64_QCOM_ADC5_GEN3_H__
+>> +#define __DTS_ARM64_QCOM_ADC5_GEN3_H__
+>> +
+>> +/* ADC channels for PMIC5 Gen3 */
+>> +
+>> +#define VIRT_CHAN(sid, chan)			((sid) << 8 | (chan))
+> 
+> [Severity: Low]
+> Should this header be placed in include/dt-bindings/ instead of an
+> architecture-specific directory?
+> 
+> Devicetree binding headers defining ABI constants for reg values typically
+> reside in include/dt-bindings/ like include/dt-bindings/iio/adc/. Placing
+> the header in arch/arm64/boot/dts/qcom/ prevents cross-architecture sharing
+> and can break dt_binding_check validation, as the schema tooling expects to
+> include these headers from the standard dt-bindings location.
 > 
 
-Thanks for pointing this out.
-
-This audio routing is not new for this board. It follows the same WM8904
-routing that we have been using on our other platforms for quite some
-time, and we are not aware of any reported issues related to the
-analogue microphone path.
-
-If adding an explicit route to MICBIAS is indeed required by the
-codec driver, then this would not be specific to this board but would
-potentially apply to all of our WM8904-based platforms.
-
-I'd prefer not to introduce this functional change as part of this DTS
-alignment series without validating it across all affected platforms.
-If needed, we can investigate the MICBIAS routing separately and
-submit a dedicated fix covering all WM8904-based boards.
+Based on this discussion earlier: https://lore.kernel.org/all/d10e2eea-4b86-4e1a-b7a0-54c55907a605@oss.qualcomm.com/,
+these ADC channel definitions should be placed in the dts folder instead of
+dt-bindings folder as they are hardware constants meant to be directly
+written into registers and not ABI constants.
 
 Thanks,
-Stefano
+Jishnu
+
+
+> [ ... ]
+> 
+
