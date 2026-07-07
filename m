@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B426343149C;
-	Tue,  7 Jul 2026 15:48:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC41431E51;
+	Tue,  7 Jul 2026 15:48:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783439330; cv=none; b=Oe5HobW7L4gFU4fvLM6Q2AkfMeXOufCylzzhW0j652WzOclWWkxMgoXbL71bbORWNRUFBjOG0Xo1pLQoCWJlcDs7BsbNxwCjvxMaSllLsWJAX3Dvw918hAbH54rcAgJdZGDKOeJ7pMTk4bnGvKjZGJ2BQfN8AjinRwbaanURO9A=
+	t=1783439330; cv=none; b=WX8feGcFq+44779Z5cZFcTnexq6RQmUj5jOpxoV98jIfxaxtiskzUysrxMtId5/2kHw12VC2k5t9x+LeReO6gswIl+pTFF47FWUhSXSYP2dw++/znx6vSPE754LGJvjFEF/Gmzj9A7FNq7SvVDc5WkzxOZkq9F/uaPzPKxLNR7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783439330; c=relaxed/simple;
-	bh=e25H5Na1/muGraQAVFfOJYCZXZYjdwCnio/1tbgHD50=;
+	bh=zfW9Gw4ldyX65DZJ4SArMl9kyhrWZBia8Y0jq2fer/A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T7ijkIZwJyZMRTC7zkbaOXVPq4eq1tiR9yEXyLwHKx8rS11YqwclVIksHUx6BCVRxLQuv1tRYZHAHZlK4WrQZzDbGcRg3s22d1iCT7/NYixMKjsCAqIYGqJRFnAzMFcLIwqcvynu94dCIJfWc76SNICliTwew/9HfwJRfLyHytA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Xkt0+L5T; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=AGFjUzWztBDI1N/VlVZPZoC0Qdqd/1oNvZn1i7Fz7ooorf7RtFu/P/WE9NFejE2vtsJGhJqO3C6Q9Wzw/epEFMcdgISYZ/Oj5fWm+r7jOWPxMCQyOl0MlmuFZs5N7U1gDtNp+0+ttUd8ltcGgCGh9jBDcbAxUbzavb3+QQZho9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=aq8vQbn7; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Xkt0+L5T"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="aq8vQbn7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1783439327;
-	bh=e25H5Na1/muGraQAVFfOJYCZXZYjdwCnio/1tbgHD50=;
+	bh=zfW9Gw4ldyX65DZJ4SArMl9kyhrWZBia8Y0jq2fer/A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Xkt0+L5TYJmtPyA+k8eVQvKG6uuwcV/1k9Aoq2iC3Cs68pBsifKGMTmCsLGe+e9nn
-	 kf/sYRxuFZH/Ulrfa6CYQcuabrGAt94rw/YttxNpUVfO4HavAiV75luEg46nRgQfWx
-	 IvmqC8m2kPOWi8evooz59H582kyIHpsJXFIODmUD+SY1CXMSb6NnztZBe2WzdPu8pU
-	 kfkCCLWP4klv6aJPD1GG7JIevZEMuu7Cg2hWMgNtwlc/c36XeArRVZSNsqR/ihbUKO
-	 zVmICCPw+Nn2XGH6zgEbOEEKUE9HH/7D1P0O16PiJYpntYqUnjGfGPaO7kaDS+CYUk
-	 l2Db6mcM1/TIA==
+	b=aq8vQbn7Z/cCcO0mY86AYoZBRzEdxTgcGOCr0lhqLhjXW0eGgGNS5XjASw4D0lgMd
+	 CEBUn62ApTH46b267dXiPAy4CSAW/Y1LVkh8G0ceuW/pVFagj/erIQGkFg4MmGFvFC
+	 scBm7an26AJslmdZMYPFFgVWZVpO2IanNl+CyiCn0yVq+WLJ0JFjgchsNNq4fWXvK9
+	 2Tz8rUJL1p9VAoUIV1h0I0//k6uLZn+LxPrTrs5aPWgBsNkE7HUToImFRAKjHO3YCa
+	 q7oCMVnX97AeCxMAZIPS/QZBwp+QLWvFL9UTL2j6GxA4DQ7y2CcQq4X29tEYxD0vCn
+	 oXL9e5asZKI7A==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D94CB17E0E95;
-	Tue, 07 Jul 2026 17:48:46 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7475117E0EA6;
+	Tue, 07 Jul 2026 17:48:47 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: linux-mediatek@lists.infradead.org
 Cc: robh@kernel.org,
@@ -45,9 +45,9 @@ Cc: robh@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	kernel@collabora.com,
 	justin.yeh@mediatek.com
-Subject: [PATCH v2 6/7] arm64: dts: mediatek: mt8192: Add and use UART AP_DMA controller
-Date: Tue,  7 Jul 2026 17:48:40 +0200
-Message-ID: <20260707154841.198870-7-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 7/7] arm64: dts: mediatek: mt8195: Add and use UART AP_DMA controller
+Date: Tue,  7 Jul 2026 17:48:41 +0200
+Message-ID: <20260707154841.198870-8-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260707154841.198870-1-angelogioacchino.delregno@collabora.com>
 References: <20260707154841.198870-1-angelogioacchino.delregno@collabora.com>
@@ -65,51 +65,99 @@ UART controllers in the SoC.
 
 In order to increase the efficiency of data TX/RX over the UART
 controllers, add the UART DMA controller and assign the right
-channels to its two uart controllers.
+channels to each uart controller.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- arch/arm64/boot/dts/mediatek/mt8192.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ arch/arm64/boot/dts/mediatek/mt8195.dtsi | 37 ++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192.dtsi b/arch/arm64/boot/dts/mediatek/mt8192.dtsi
-index 9f8f115edd4c..898953acdb61 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8192.dtsi
-@@ -741,6 +741,19 @@ spmi: spmi@10027000 {
- 			assigned-clock-parents = <&topckgen CLK_TOP_OSC_D10>;
+diff --git a/arch/arm64/boot/dts/mediatek/mt8195.dtsi b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+index c72e34c57629..3306fd8c4e44 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8195.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8195.dtsi
+@@ -877,6 +877,31 @@ systimer: timer@10017000 {
+ 			clocks = <&clk13m>;
  		};
  
-+		apdma: dma-controller@10217a80 {
-+			compatible = "mediatek,mt8192-uart-dma", "mediatek,mt6835-uart-dma";
-+			reg = <0 0x10217a80 0 0x80>, <0 0x10217b00 0 0x80>,
-+			      <0 0x10217b80 0 0x80>, <0 0x10217c00 0 0x80>;
-+			interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH 0>;
-+			clocks = <&infracfg CLK_INFRA_AP_DMA>;
++		apdma: dma-controller@10220880 {
++			compatible = "mediatek,mt8195-uart-dma", "mediatek,mt6835-uart-dma";
++			reg = <0 0x10220880 0 0x80>, <0 0x10220900 0 0x80>,
++			      <0 0x10220980 0 0x80>, <0 0x10220a00 0 0x80>,
++			      <0 0x10220a80 0 0x80>, <0 0x10220b00 0 0x80>,
++			      <0 0x10220b80 0 0x80>, <0 0x10220c00 0 0x80>,
++			      <0 0x10220c80 0 0x80>, <0 0x10220d00 0 0x80>,
++			      <0 0x10220d80 0 0x80>, <0 0x10220e00 0 0x80>;
++			interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 175 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 176 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 177 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 178 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 179 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 182 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 183 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 184 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH 0>;
++			clocks = <&infracfg_ao CLK_INFRA_AO_APDMA_B>;
 +			#dma-cells = <1>;
-+			dma-requests = <4>;
++			dma-requests = <12>;
 +		};
 +
- 		gce: mailbox@10228000 {
- 			compatible = "mediatek,mt8192-gce";
- 			reg = <0 0x10228000 0 0x4000>;
-@@ -765,6 +778,8 @@ uart0: serial@11002000 {
- 			interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH 0>;
- 			clocks = <&clk26m>, <&infracfg CLK_INFRA_UART0>;
+ 		pwrap: pwrap@10024000 {
+ 			compatible = "mediatek,mt8195-pwrap", "syscon";
+ 			reg = <0 0x10024000 0 0x1000>;
+@@ -1040,6 +1065,8 @@ uart0: serial@11001100 {
+ 			interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			clocks = <&clk26m>, <&infracfg_ao CLK_INFRA_AO_UART0>;
  			clock-names = "baud", "bus";
 +			dmas = <&apdma 0>, <&apdma 1>;
 +			dma-names = "tx", "rx";
  			status = "disabled";
  		};
  
-@@ -775,6 +790,8 @@ uart1: serial@11003000 {
- 			interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH 0>;
- 			clocks = <&clk26m>, <&infracfg CLK_INFRA_UART1>;
+@@ -1050,6 +1077,8 @@ uart1: serial@11001200 {
+ 			interrupts = <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			clocks = <&clk26m>, <&infracfg_ao CLK_INFRA_AO_UART1>;
  			clock-names = "baud", "bus";
 +			dmas = <&apdma 2>, <&apdma 3>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+@@ -1060,6 +1089,8 @@ uart2: serial@11001300 {
+ 			interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			clocks = <&clk26m>, <&infracfg_ao CLK_INFRA_AO_UART2>;
+ 			clock-names = "baud", "bus";
++			dmas = <&apdma 4>, <&apdma 5>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+@@ -1070,6 +1101,8 @@ uart3: serial@11001400 {
+ 			interrupts = <GIC_SPI 723 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			clocks = <&clk26m>, <&infracfg_ao CLK_INFRA_AO_UART3>;
+ 			clock-names = "baud", "bus";
++			dmas = <&apdma 6>, <&apdma 7>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+@@ -1080,6 +1113,8 @@ uart4: serial@11001500 {
+ 			interrupts = <GIC_SPI 724 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			clocks = <&clk26m>, <&infracfg_ao CLK_INFRA_AO_UART4>;
+ 			clock-names = "baud", "bus";
++			dmas = <&apdma 8>, <&apdma 9>;
++			dma-names = "tx", "rx";
+ 			status = "disabled";
+ 		};
+ 
+@@ -1090,6 +1125,8 @@ uart5: serial@11001600 {
+ 			interrupts = <GIC_SPI 725 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			clocks = <&clk26m>, <&infracfg_ao CLK_INFRA_AO_UART5>;
+ 			clock-names = "baud", "bus";
++			dmas = <&apdma 10>, <&apdma 11>;
 +			dma-names = "tx", "rx";
  			status = "disabled";
  		};
