@@ -1,158 +1,115 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E103ACA41
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783453479; cv=none; b=Bar86Ld3c03px1p1oub8RZy795NPQiQ3LXfD586aEqDtT9mHY/94BHiJiTDmPo+QQSs0kq2gO/TqVJPCM/PTgWwVL0y3XCgb0aW7Ew+uBOfjGJQ6n+UKngDZiI7gJfSyDmoAGE5yGkrGNQcNeeImUCq14HmFLpdWh+BqFMowEtE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783453479; c=relaxed/simple;
-	bh=MjkFSwyNhKgAhyFItFeRe/l/Dn2xgXUjFalUpUSo1R8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F7Q+gEPxdzeGwEtxUVBAADKNWWhqdVX8FvQk/XQv0rMFlPW0MalsQILuO0wYeWr6mqApEQ1Q2+JnEsR+PU0NajJE62pLqoPyUWAQ5qYn18POQ/BDMDwqecxzm+al9PxmC/FhUYAUkMutXcVo7Z+7h1ygnux0DA/Xg51XPjk+2lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=C/VAnwiU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jVVaUybt; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8533B1EFB
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783453481; cv=pass; b=I76/bOG/74hbUP7V8eQJo7xHRe+WUBIdc+RUDfpWyXFULaKhZsf7BNdKCibP5ULtzCcaVQQrxGSrLV0GVUsSaHGnbMUFUlSvs6J5obGBRHiHNt6yWcHX/gzf16Ar2xhIq6T2pwbde9nvtxD29P8T6vE52xjUon3OFLlqpMFoYvU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783453481; c=relaxed/simple;
+	bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZYzfRWrYEu9AzCBWrKUwB/Y9lPlJKXxHAgNhquL9yCSTSpJZGMFMnG6gm7eNdz1NGAs0XlFNao28OXHOv+yVpYYvkzUCw/La83ZjgulwC+E+H5UTNPLfAC7KNqxPXr8r9EqKrdlROBAK/qrtEX2xzu2WGFU8vWMtoyv/PvR6HRA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=WE+3jIY4; arc=pass smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="C/VAnwiU";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jVVaUybt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783453477;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IVFAgGtoBt3yMgSGiPb3d96SZc0L9n2DCPFDDVyk6cc=;
-	b=C/VAnwiU/g1NLJjLPTeQqRUqo37HRf0NKPSKlznscyjUHNbziltdMO0ZOmzjcwUH5CgE1y
-	CAofvkubIM50DC17iU6i6RaCPoW4ohLLOvzf06zQ4D/lYQo29vP+xdua5njHiBgZ+BV26i
-	EigLcnbTsW3kxL+RY3d65YJb6Wo1AT8=
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
- [209.85.210.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-101-OsWKiROAPCa1suTlOu-G-w-1; Tue, 07 Jul 2026 15:44:35 -0400
-X-MC-Unique: OsWKiROAPCa1suTlOu-G-w-1
-X-Mimecast-MFC-AGG-ID: OsWKiROAPCa1suTlOu-G-w_1783453475
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7eb7c0ec591so5621652a34.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:44:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="WE+3jIY4"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cca24023edso36253495ad.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:44:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783453479; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b7gejrWwU1d+Lx5cuceBaFAk6yU4J7VZgj8aC+DDk4cJn5AIu47sGPOgCN+msn0J73
+         rbZfpJ73HKsbcWgC/54EYCsXprCx2RXUsh+eJtH7GzhkQtTPxggjfkuXUVskWceRyLt4
+         qsOblt9gxmElATO06SrmS9II1xwhLC5/jo7lRrGEnuCwdotNkvhePQuuyLhouXqSAhBG
+         5trrQ33pBRcyM5HIkgpqtkHKUUMi+nwDJDb83VaHB9UvVaArfD0zf+17teE3Nnuf+VnH
+         8ckUB8imDI8jLD/+iNQNuDmXwUfI9l9EdyDZkOAJ2KjLs0GHEadB8T8UsAge9N5bdIDZ
+         mq3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
+        fh=6q8K4ThL1ACRQZEZNxdq20YAu5Sivj/LDw16vxG0cDY=;
+        b=eYFQUyC6OKomGFCC1aGd3iNxxAKTU0ePc7grkWkVenFtZlJfs1az/gjM2SzOZLHZvL
+         wSQ+m3B2nHL3PZZItxMdquqPXvWFPVpLFGCaPOT8Fe1JPcaElTUxOFoQNkaRb+xG23JL
+         q7WtE02/+ihV8lVuEDBLFWC+AgOIZ2b8eH1wVjExFxSYq6/O5zr7x6K26Wo8MJbMHj7q
+         nezHLejw7D7bhzGFRwEKZLq/1sIIEw1zGaLgKd4cNx+UhO+jlVLrLgKdq9JFFNgHYQH4
+         deK/qhHgqZgXH3Q1zVYK4ABZWIGgzFDC2VdVQ+BuTu0cubual/wNGnXUTtJ3lgPswFdA
+         L8bg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1783453475; x=1784058275; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+        d=googlemail.com; s=20251104; t=1783453479; x=1784058279; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IVFAgGtoBt3yMgSGiPb3d96SZc0L9n2DCPFDDVyk6cc=;
-        b=jVVaUybt5wRYBd9vdiyKMAcn9LV47N4E7HCCulO+EVtlHJxjymXo0ErOZHd04sOQZJ
-         8rC82kCFHfbGttKMYTWOYAJPCthGg/LRAcjQc5WJLCUNypEvUX6YtzK7ezGboZwWgR8X
-         1BuFeuLnVhdOOEFlcDbo62qErUswGrEyxJfXfN97abK7AMMPRiopshYYxSPSjWZN9haV
-         ph3k8cTkqByPp9pVw0IRPGNeu93jY3bMFiNNDufLTWlzzfo76DgECcQ+q7TY+sCKB+Fy
-         XmFarjSH71dSNJWBoYSgnt5iQgwcaSDO3wCI+HQR/5EU/Rt91j3DaQ1sITk9wN7qI+K8
-         VmdQ==
+        bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
+        b=WE+3jIY45ci/rBMurJZg2VwgMrWEbxYXopp5BltcxQEDx7iv/3KqBhQ2lt+uWEVL4d
+         f7kxbXq0icZoDmFobfF407EC0zL00Q4vBUuTM6Qup5q8EPZg48y9qWZ7aG59ZEgkrPM0
+         vT4vNuUbDOw5KPTKjpWp3uRtfsN7A60o21VtnxmrFv49zxTSHJcZdRa/4s2KJm+L0dtv
+         SyWe7mu2Dh10HbgRdTFxaGgNYqpxFyFLzzbw99OYwO3GuC0bt3yWXYqDxxfKsdOu8Fy3
+         75prGzK+xRqO/YOwHRSel34rT4ynFi5fEhp0H5WTv5BBap0hz+KR2TipZB548MDd3+MK
+         Cg7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783453475; x=1784058275;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1783453479; x=1784058279;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=IVFAgGtoBt3yMgSGiPb3d96SZc0L9n2DCPFDDVyk6cc=;
-        b=Kyb7dDsRvOUayrBXZ23Ymm5l4xHMdVP+3z2inNWHd+u4k0kTifuDnfsifyjWuzN/by
-         IFNBxGtOvZqpsggt+vuRfwA75P7D0zdhFBCBcmoLkS2OdQPueTXLDIg6DcjfVdNAiUiT
-         Izjrv+al8y3Wtv/GBYKyxjiAWjXJcuKwlTjA1iQdZRm6Fw38l/pD+1TJl5y3Mne/dHWK
-         c9IQbrcCgsfBfQvdP3RhqholGFFG42xayXA6KnziK8dcvObpgfi75lDM5RhpoHOziuH6
-         Md4qCsqGnPBfTF4XrydMqR9XFoGax79fk9c7B82s/QWwHt65qmuERRLU+cM0ncEXqVgI
-         Hiug==
-X-Forwarded-Encrypted: i=1; AFNElJ+/iTEUoe0Z1/Tp2KKlgOf2XKR6ZV5zs0oYcBkx3Qxv8DOJVS8iwmREH02WuxuaTeGnSEj1ht88K+Mi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzz0ANNdsp3pkg0B8LjBHv/7xHKyyg//Me/dfKHjAND6TVORlTI
-	0jUgq3QAwqC6izUbUXOSyy/y4G0ULtSrFJ2Ewp4SMuSfWJkcqWH//d3ng+xk81XU0/rF33f1OVW
-	GmPwApIqWW8Aqse0TRYfycPY/kWRb8Lgpo62oUsA1gnGZtT3yV18a5pGRuMZVfQA=
-X-Gm-Gg: AfdE7cnYrk32dWpduqNU6LArZy7YXbN2qby8a3xj7O7Vy9VLV1ekfp4JBphEKU1abe1
-	SHWC//JGUjWe9+JNQvjU/P2R2vBTcOIkSkaWKNvynTQvTfCpZRH6dQ1DqLztPJuJMnlq5BsGSt7
-	hbjkg6vfrtYS1nQw5S/OT8PPb8nK0vccUsAoAHZqMmDhXJCtQl3Bb4VIr+Pjy6F1/OaIP67wc29
-	F0WGIcmd5fLutWnQmK+Ym2awBlp80WVU+gOpx3vy9Zx73lqgOlFgR39ZJbrOfZjeUKxXvk47ikm
-	uNTfrQk+qSW9MBXFRwFvd1l0KCT0jJIjwb3/LsevvXiMn902PSWzXkS2RYTvtVT9u7Xnsq4Oy2T
-	DnEbCOCq5
-X-Received: by 2002:a05:6820:1b05:b0:6a1:42bd:d005 with SMTP id 006d021491bc7-6a35556aa59mr4024197eaf.48.1783453474869;
-        Tue, 07 Jul 2026 12:44:34 -0700 (PDT)
-X-Received: by 2002:a05:6820:1b05:b0:6a1:42bd:d005 with SMTP id 006d021491bc7-6a35556aa59mr4024176eaf.48.1783453474395;
-        Tue, 07 Jul 2026 12:44:34 -0700 (PDT)
-Received: from redhat.com ([2600:382:8102:284f:288:4331:f63e:598f])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a36a8cb24dsm208450eaf.14.2026.07.07.12.44.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 12:44:33 -0700 (PDT)
-Date: Tue, 7 Jul 2026 15:44:30 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Jia Wang <wangjia@ultrarisc.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: clock: ultrarisc: Add DP1000 Clock
- Controller
-Message-ID: <ak1XHlCwsrj7FjFB@redhat.com>
-References: <20260617-ultrarisc-clock-v2-0-9cb16083e15e@ultrarisc.com>
- <20260617-ultrarisc-clock-v2-1-9cb16083e15e@ultrarisc.com>
+        bh=HtfrFM7rpGnX8vGtZgY4JOSL1xoMsykPlMzTpKQpNPs=;
+        b=J0V2HmbFYB39CdRi7ImZesSNdt9xYdRA9PcFBNqr/Mr4LVscmbxWFuSnpH8J6ueDHs
+         KpYQE7LbBO17/uLlzIVgSJsahR/npTTsQDBrqn/sH9/lcQz1k0VyNjyDG2chsduCo40A
+         /7VAYEnzkrYvNDuIacqD1UAs2dhBxsWTSEjNrB+hVB4tYM9H/eJGyHkPbA6t27OERW+J
+         wXz+La3dH8hdvu8PmQgsHIzRn0VBLG2A0LVGvmtC4Y9R9oEHS26lq7PBZogK9EhYTbqk
+         uzPqPd3NGGkqaAuSnuqfpmKZaJ5xqWO7ci9jKe9mrZiVqUYfT1L2aODyWdUbZjZVBzeK
+         McSQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrlr3c9qAOQzXqIoseNLMOvgZnwPWIgkxxxWxfMMyQQI/Oby821oMByNIerE2SD6AfMmGEFDL5D+MrW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMoPRWz8r8f3klunu91u+wqNDrL0QPe9MybibzVGejbM7NdN6H
+	Eh3bPq1cN1D2udjVK7rS9yXBdZiR8t4KgttWgfj/yh/Q5rT6EXdZXkWRezHoKmSjI0Oi61sHcBm
+	JeVwLlKHWW5qF2lpyXuxCBgGDRPnL818=
+X-Gm-Gg: AfdE7cnU07R3/zEFdbN/t9UGCo/DUqJFmbtXwWCDJO4FnnHcYoo1iS3sm3iRVgwZyc5
+	rwHCK1NyzczyCl6kgBM++ti0AAVsTzp02Y66wTrM3H5LMfHR0gyNMts6Q6KeH68uLcmW/axJEy0
+	gD8kWdNVggNkTuuHOff+NfO5AXFH60gd20fDChUYNspzm9pRPbViDMMfLef8hUNWN7XIzG/65Aw
+	aX5cTNLO9kOSNeTZmhZ4VtjCc34z3yaPqFXZVmaTah2LHrVubm6J1lPDU6F08kwNbEDlLqDbfY+
+	Urv1pX2si4o+IkOrQpYtW76mqA==
+X-Received: by 2002:a17:902:f645:b0:2ca:9d5a:8b6c with SMTP id
+ d9443c01a7336-2ccbe3fcc82mr64122445ad.5.1783453479150; Tue, 07 Jul 2026
+ 12:44:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617-ultrarisc-clock-v2-1-9cb16083e15e@ultrarisc.com>
-User-Agent: Mutt/2.3.2 (2026-04-26)
+References: <20260702-add-mcu-fan-khadas-vim4-v8-0-244feee91a36@aliel.fr> <20260702-add-mcu-fan-khadas-vim4-v8-8-244feee91a36@aliel.fr>
+In-Reply-To: <20260702-add-mcu-fan-khadas-vim4-v8-8-244feee91a36@aliel.fr>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 7 Jul 2026 21:44:28 +0200
+X-Gm-Features: AVVi8CdKrhqOEXxfOyDGizCGSCM2_7htBspGi7RIbYxEuj_pMgbN59CYzvH2GP4
+Message-ID: <CAFBinCCkpgta_QfqDzye2cD46_Wad=2FO=oBcw9_zkxzQp3OAA@mail.gmail.com>
+Subject: Re: [PATCH v8 8/8] arm64: dts: amlogic: t7: khadas-vim4: Add i2c MCU
+ fan node
+To: linux-kernel-dev@aliel.fr
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Beniamino Galvani <b.galvani@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof / Conor,
-
-On Wed, Jun 17, 2026 at 02:02:54PM +0800, Jia Wang wrote:
-> diff --git a/include/dt-bindings/clock/ultrarisc,dp1000-clk.h b/include/dt-bindings/clock/ultrarisc,dp1000-clk.h
-> new file mode 100644
-> index 000000000000..751125f99965
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/ultrarisc,dp1000-clk.h
-> @@ -0,0 +1,27 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +#ifndef _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H
-> +#define _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H
-> +
-> +#define DP1000_CLK_SYSPLL		0
-> +#define DP1000_CLK_SYSPLL_DIV2		1
-> +#define DP1000_CLK_SUBSYS		2
-> +#define DP1000_CLK_GMAC			3
-> +#define DP1000_CLK_UART_ROOT		4
-> +#define DP1000_CLK_I2C_ROOT		5
-> +#define DP1000_CLK_SPI_ROOT		6
-> +#define DP1000_CLK_PCIE_DBI		7
-> +#define DP1000_CLK_PCIEX4_CORE		8
-> +#define DP1000_CLK_PCIEX16_CORE		9
-> +#define DP1000_CLK_PCIE_AUX		10
-> +#define DP1000_CLK_UART0		11
-> +#define DP1000_CLK_UART1		12
-> +#define DP1000_CLK_UART2		13
-> +#define DP1000_CLK_UART3		14
-> +#define DP1000_CLK_I2C0			15
-> +#define DP1000_CLK_I2C1			16
-> +#define DP1000_CLK_I2C2			17
-> +#define DP1000_CLK_I2C3			18
-> +#define DP1000_CLK_SPI0			19
-> +#define DP1000_CLK_SPI1			20
-
-A common scenario for the driver side is that it needs to know how many
-clocks are present. For example, the driver in this series has the
-following in drivers/clk/ultrarisc/clk-dp1000.c:
-
-    #define DP1000_CLK_NUM                       21
-
-Which seems a bit fragile to me having it in a separate file.
-
-I've seen where some dt-bindings will have the define right below the
-last clock, so DP1000_CLK_SPI1 in this particular case.
-
-There are a few clock dt-bindings that have it this way. For example,
-see include/dt-bindings/clock/nuvoton,npcm7xx-clock.h. Personally, I
-prefer it this way, however I can see where the argument could be made
-that this doesn't belong in the dt-bindings.
-
-Do you have guidance for what you'd like to see?
-
-Brian
-
+On Thu, Jul 2, 2026 at 11:57=E2=80=AFAM Ronald Claveau via B4 Relay
+<devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
+>
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>
+> Enable and configure i2c MCU node to get fan working on Khadas VIM4.
+>
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
