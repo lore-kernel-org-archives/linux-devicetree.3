@@ -1,60 +1,58 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from mail-m19731101.qiye.163.com (mail-m19731101.qiye.163.com [220.197.31.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA123BB9F1;
-	Tue,  7 Jul 2026 09:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CB938E8BE;
+	Tue,  7 Jul 2026 09:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783417292; cv=none; b=MrGA1xYecA6XcUk4rIFdVFxSttmxB4PwdbY2jvD0PnO8D7G0ve36RI6Ugz0jxOvzGX3O84A+asmD8YXY+xtMfOcLeqGpHqe+s6jBo/lZIko+FvPwYDc1P+gOikLftLVhr3le3TxRSZc+1MNdDpSHn/k+N7yU4fuQrxEKVDz1XC8=
+	t=1783417826; cv=none; b=ViT5eT/orgTDv+QHyHjQCgv9Nvgrz3LSzc8aSBdfBXThg0Ypjwv5fPff+YtmI52BYcHpZv6xDuFmIjC7/EY9mFSvKsOhf4ZLqwJw7xt7OfTggnGIiF38szztwBA43w5qak7eCrvMPvoozL/8Pb2j3kWDFyRIk8n18PfXV8U4SSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783417292; c=relaxed/simple;
-	bh=h0po1Os8ZunCzE+ZaUnP35rATp045/rLREFpUqiStww=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WTicr6EQxC9Y0lW81RijscS2jZHihqZZEToDokcDNQoa5ZEs5sy02+hMIsfC/jll0FUvlQFpHRUCFrXxMxk2b2xW20IpklSw3CyjCE29fz6qpjZEedBsu4mirQZCaxAbbvQjoVAM2FqIESEb8r1d+6rHYjlRrjmqg7H6d8sotUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=mPJhhhlI; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1783417826; c=relaxed/simple;
+	bh=fZY2VfwpUrOebJigA2IRc7ysHmsW/LOXngQD4fE5axk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bYFLXgQPLjO1V78iLVLmnT4R7wK68ps81UHCX67ozTcShXmIWwoYSjEtqPH2Kq8UPOwDr/42ntFu6eZKlSpRuSkGhV8ewVNk9RI2qWsMxDcmxqAc9scIAfLoLqkq6LfnhMSJR5eFwuuG0zszQKDnOD8nNlBDBaztBe1C2FV/d58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=JwntmWVE; arc=none smtp.client-ip=220.197.31.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="mPJhhhlI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=v9NXiIWq97CSEahGJjuUvI29ZGrwLPU2keRY+33LcSI=; b=mPJhhhlI56T75SYEhfYWfwOqEq
-	kJoGB6le84rtACnnIWrrYt6AjvnoXy3upKM7sn3Qsf3UDVv/fNc1VS6GgTQ6aVR+Xfei3Ub7PW186
-	YrP9rEDl7Jw76r9ZP6k8rQl2gaR6dYSZkmRY/8ePA7zyfIoDvajISiadFJZQGT44rh3CIjKqYhSkJ
-	mC7t7+Vn/3KHJOPORzwlVcO59kjt7unu5a7AkfHC81Q0WoMSaLsX1QCtMxiVrAjrOxkcpRNXN1HzS
-	cxlvS8ho0dgWyyFlqYf4TN4ZjD9924uuWKgJEYI4cXC1qU5UTzMs6BB8Jtfr5Q2Slm/XQzOPOCIVe
-	MX5cXaGw==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wh2Iy-000OVg-27;
-	Tue, 07 Jul 2026 11:41:28 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wh2Iy-0007v7-21;
-	Tue, 07 Jul 2026 11:41:28 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="JwntmWVE"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 452ef5835;
+	Tue, 7 Jul 2026 12:07:21 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Sandy Huang <hjc@rock-chips.com>,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] arm64: dts: imx8mp: add missing #sound-dai-cells to xcvr
-Date: Tue,  7 Jul 2026 11:41:25 +0200
-Message-ID: <20260707094126.1738410-1-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.54.0
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v6 4/5] drm/bridge: analogix_dp: Add validation for samsung,lane-count property
+Date: Tue,  7 Jul 2026 12:06:12 +0800
+Message-Id: <20260707040613.1992841-5-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260707040613.1992841-1-damon.ding@rock-chips.com>
+References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,28 +60,49 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28053/Tue Jul  7 08:24:37 2026)
+X-HM-Tid: 0a9f3ac252f803a8kunme8126cdf5bc93
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZShgdVkpNGB1CTR9PGk4eGlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=JwntmWVEzE0km0fKlwwuBXTmVIBySdS3xIweWHDatGW3zFxSisx9q3RR9d0aAUe+rIQ6X86CzuuI5XqIqGNUhK4ajBncMUH7Hpqc9Ye9ZogsdLUQp674NmB0yNBBRImiiEJx5buqKGkraIyyJ058paMbUdtJOnFz/uP+gNkMXaQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=mLPv+VMsVdg/2ajzDFl3mJXUyg4DWZyAqc2dUZvsmmw=;
+	h=date:mime-version:subject:message-id:from;
 
-This device is used for 'sound-dai' and needs #sound-dai-cells. dtbs_check
-raises a warning regarding sound_dai_property.
+Add validity check for samsung,lane-count to ensure DT-provided
+lane count values are specification-compliant.
 
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+
 ---
- arch/arm64/boot/dts/freescale/imx8mp.dtsi | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-index 5ce2825182fdb..9cf9f6f08654d 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-@@ -1599,6 +1599,7 @@ xcvr: xcvr@30cc0000 {
- 					      <0x30cc0e00 0x080>;
- 					reg-names = "ram", "regs", "rxfifo",
- 						    "txfifo";
-+					#sound-dai-cells = <0>;
- 					interrupts = /* XCVR IRQ 0 */
- 						     <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>,
- 						     /* XCVR IRQ 1 */
+Changes in v5:
+- Apply DRM DP helper API to check the validity of DP lane count.
+
+Changes in v6:
+- Rebase after the new commit for restoring mandatory properties
+  samsung,link-rate and samsung,lane-count.
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 5240efcd3861..039e076d2b8a 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1270,7 +1270,8 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 			return dev_err_probe(dp->dev, -EINVAL,
+ 					     "Failed to get samsung,link-rate\n");
+ 		video_info->max_link_rate = val;
+-		if (of_property_read_u32(dp_node, "samsung,lane-count", &val))
++		if (of_property_read_u32(dp_node, "samsung,lane-count", &val) ||
++		    !drm_dp_lane_count_is_valid(val))
+ 			return dev_err_probe(dp->dev, -EINVAL,
+ 					     "Failed to get samsung,lane-count\n");
+ 		video_info->max_lane_count = val;
 -- 
-2.54.0
+2.34.1
 
