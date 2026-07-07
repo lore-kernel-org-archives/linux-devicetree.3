@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8954F3F2117;
-	Tue,  7 Jul 2026 15:42:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FDB41F7CD;
+	Tue,  7 Jul 2026 15:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783438973; cv=none; b=J87wuZJmKPCcSskpzWv3SbZ34paNVhDWP3ZOupTHhDaadxbVsmEygPwDLsLZjBuUD+yFmcyre2qroo1C5tTKYYCDozhUCTVQoP7U7TxFrJR07ESxldVfXOY19Vyq+e1qIBtOVFpQDpy7dVB1sfSPHF1xYVPu+KPwl/2VxYl6rfc=
+	t=1783438974; cv=none; b=g8d4CZKR/b8d8fh55Xm/fbXA3sNBXQh6BmklHi6/YY8qN1zX8SlvAlkc0kW6mqasu7mlYnPIT+QhUPAFssmluaxt1a8a9nB5L460Bt4rv/QFXTdw8IHyAYc+8ixbDhdsT8dZYSBAiCq2weCZp7/8pEfS4+gGtSTJbWMKL1QG5Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783438973; c=relaxed/simple;
-	bh=k6XT5BUrmi2vRyrWLuPBG3qTAMzWO1VAIKtW7zlEmrI=;
+	s=arc-20240116; t=1783438974; c=relaxed/simple;
+	bh=WveJIKcSDFtln6moBUm4mMfeMv6Y8I/JiesYCykNM8g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kwf4BfwjgT4qWHtSdtU743GyQFGEUnH4mCdajijUkHkIxjnnsa3V8gDUOteLegSwrdT67AZMZ9yzAZSYVd4csUieW+nQKazHpHO76Xp3u8rLqUcNZAPVuEB47LQQkXdhH3UmFK/gak4RPtEG2shfJ3wP8iZENrFsr1AQ8sNYF8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=EHHy5OTt; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=B7PbGg0/5FGana4YfwR8mtEVKh5GVLZYjMd2zyJD3ZxlAntlDPc1JcbJjaioheyCWm3wcrrRAiOZapMeOUo3OtkdOfh2vP7+DZJgkYSQzyZ3McZkWFMHLkQsdPH5iU0oxzEDcWCxY5bjWWuwLuElrimCePZxSiXE7ZY3OuABJ1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=p2oVJ2qk; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="EHHy5OTt"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="p2oVJ2qk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1783438970;
-	bh=k6XT5BUrmi2vRyrWLuPBG3qTAMzWO1VAIKtW7zlEmrI=;
+	bh=WveJIKcSDFtln6moBUm4mMfeMv6Y8I/JiesYCykNM8g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=EHHy5OTtHNelaqxSIaQVp6dfjeVEvxQQb7yU/7NFwAsQ3ECwbxb5p/pva35JmVxuP
-	 zIN6ZhTQW6JI7zBDzcTJrDwdf5zUZ/KiMvSFAHZevgEpPKbG3wgiKa5s86XE1FO7mD
-	 4qYMiTCSTqQARcdm1VvbzK4CYsmF5H7fSSzkieX2L6r48E0wh6HPcjvZgKC38hHye+
-	 aDtU8EIPtcMAxe8G04H9V3kZn9oTxrsGh3ybx8BdeDjMmPHyRAM4H4+gYNQKemzwpT
-	 8G90JvkTwGH3QKC3OUcY/LjQHCjPKYu7iJRcoy0J3hqd+rajTlg0lPfbbUJwmiKlvD
-	 u8niHYRIZR0TA==
+	b=p2oVJ2qklGmKZNK/3dc4Zi0jaX6UNrC89+N5mwax6PXQuUoOeTrrN9RBCfT0L2df2
+	 zaCYYzP8ajacguO649Von6x91Q9Vw2pb302e3MNC5Rvg5Nd3uWNYo7jm5C89zq2FmM
+	 7Pxyxq4XUJuBNm+SCY5cwElurHajbdRqqBqrGSjhkaY7zZktwMmlwPiYKy9IFr88fG
+	 Y6+5nY1wbbuW6WZFpn3I/AZylE8rV40raUZmZ88+Tvjf5qpQwQtT1CdW7IytVbEPog
+	 9WQ+zlJQZoW342tDLa+KAM0FyOe0YXgIsJhoXCgwX62w66i6KlDQcyKWdl419w9qsi
+	 /W5pd3imjFASQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 52B1C17E0CDE;
-	Tue, 07 Jul 2026 17:42:49 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 26FC117E0DE6;
+	Tue, 07 Jul 2026 17:42:50 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunfeng.yun@mediatek.com
 Cc: vkoul@kernel.org,
@@ -52,9 +52,9 @@ Cc: vkoul@kernel.org,
 	linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	kernel@collabora.com
-Subject: [PATCH v3 01/12] dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
-Date: Tue,  7 Jul 2026 17:42:34 +0200
-Message-ID: <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 02/12] phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
+Date: Tue,  7 Jul 2026 17:42:35 +0200
+Message-ID: <20260707154245.198361-3-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
 References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
@@ -66,104 +66,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This adds bindings for the DisplayPort and Embedded DisplayPort
-PHYs found in the MediaTek MT8195 SoC (and variants of) and for
-the Embedded DisplayPort found in the MT8196 SoC (and variants).
-
-This PHY supports varying impedance calibrations for the various
-signals to reach an optimal EYE signal pattern for any specific
-board(s), especially useful for very high bitrates such as HBR3
-and higher, depending on board design.
+In preparation to perform further cleanups and to extend the
+driver to support more SoCs, rename the `regs` member to `regmap`
+to improve readability, as this is a common name across many
+kernel drivers for a struct regmap.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../bindings/phy/mediatek,mt8195-dp-phy.yaml  | 77 +++++++++++++++++++
- 1 file changed, 77 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+ drivers/phy/mediatek/phy-mtk-dp.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
-new file mode 100644
-index 000000000000..1c2dc4f03cd6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
-@@ -0,0 +1,77 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/mediatek,mt8195-dp-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek SoC DisplayPort Transmitter PHY
-+
-+maintainers:
-+  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - mediatek,mt8195-dp-phy
-+      - mediatek,mt8196-edp-phy
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#phy-cells":
-+    const: 0
-+
-+  nvmem-cells:
-+    description: PHY calibrations from eFuse for optimal EYE signal pattern
-+    items:
-+      - description: PHY-Global Reference Bias trim
-+      - description: PHY-Global AUX Transmitter clock impedance adjustment
-+      - description: Lane 0 Transmitter impedance selection (P-MOSFET)
-+      - description: Lane 0 Transmitter impedance selection (N-MOSFET)
-+      - description: Lane 1 Transmitter impedance selection (P-MOSFET)
-+      - description: Lane 1 Transmitter impedance selection (N-MOSFET)
-+      - description: Lane 2 Transmitter impedance selection (P-MOSFET)
-+      - description: Lane 2 Transmitter impedance selection (N-MOSFET)
-+      - description: Lane 3 Transmitter impedance selection (P-MOSFET)
-+      - description: Lane 3 Transmitter impedance selection (N-MOSFET)
-+
-+  nvmem-cell-names:
-+    items:
-+      - const: rbias-trim
-+      - const: impedance-txclk
-+      - const: impedance-lane0p
-+      - const: impedance-lane0n
-+      - const: impedance-lane1p
-+      - const: impedance-lane1n
-+      - const: impedance-lane2p
-+      - const: impedance-lane2n
-+      - const: impedance-lane3p
-+      - const: impedance-lane3n
-+
-+  power-domains:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    phy@1c500000 {
-+        compatible = "mediatek,mt8195-dp-phy";
-+        reg = <0x1c500000 0x2000>;
-+        #phy-cells = <0>;
-+        nvmem-cells = <&edp_glb_bias_trim>, <&edp_clktx_impsel>,
-+                      <&edp_imp_ln0_pmos>, <&edp_imp_ln0_nmos>,
-+                      <&edp_imp_ln1_pmos>, <&edp_imp_ln1_nmos>,
-+                      <&edp_imp_ln2_pmos>, <&edp_imp_ln2_nmos>,
-+                      <&edp_imp_ln3_pmos>, <&edp_imp_ln3_nmos>;
-+        nvmem-cell-names = "rbias-trim", "impedance-txclk",
-+                           "impedance-lane0p", "impedance-lane0n",
-+                           "impedance-lane1p", "impedance-lane1n",
-+                           "impedance-lane2p", "impedance-lane2n",
-+                           "impedance-lane3p", "impedance-lane3n";
-+    };
+diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
+index d7024a144335..bf7b3a95e72d 100644
+--- a/drivers/phy/mediatek/phy-mtk-dp.c
++++ b/drivers/phy/mediatek/phy-mtk-dp.c
+@@ -79,7 +79,7 @@
+ 				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
+ 
+ struct mtk_dp_phy {
+-	struct regmap *regs;
++	struct regmap *regmap;
+ };
+ 
+ static int mtk_dp_phy_init(struct phy *phy)
+@@ -94,13 +94,13 @@ static int mtk_dp_phy_init(struct phy *phy)
+ 		DRIVING_PARAM_8_DEFAULT
+ 	};
+ 
+-	regmap_bulk_write(dp_phy->regs, MTK_DP_LANE0_DRIVING_PARAM_3,
++	regmap_bulk_write(dp_phy->regmap, MTK_DP_LANE0_DRIVING_PARAM_3,
+ 			  driving_params, ARRAY_SIZE(driving_params));
+-	regmap_bulk_write(dp_phy->regs, MTK_DP_LANE1_DRIVING_PARAM_3,
++	regmap_bulk_write(dp_phy->regmap, MTK_DP_LANE1_DRIVING_PARAM_3,
+ 			  driving_params, ARRAY_SIZE(driving_params));
+-	regmap_bulk_write(dp_phy->regs, MTK_DP_LANE2_DRIVING_PARAM_3,
++	regmap_bulk_write(dp_phy->regmap, MTK_DP_LANE2_DRIVING_PARAM_3,
+ 			  driving_params, ARRAY_SIZE(driving_params));
+-	regmap_bulk_write(dp_phy->regs, MTK_DP_LANE3_DRIVING_PARAM_3,
++	regmap_bulk_write(dp_phy->regmap, MTK_DP_LANE3_DRIVING_PARAM_3,
+ 			  driving_params, ARRAY_SIZE(driving_params));
+ 
+ 	return 0;
+@@ -131,10 +131,10 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
+ 			val = BIT_RATE_HBR3;
+ 			break;
+ 		}
+-		regmap_write(dp_phy->regs, MTK_DP_PHY_DIG_BIT_RATE, val);
++		regmap_write(dp_phy->regmap, MTK_DP_PHY_DIG_BIT_RATE, val);
+ 	}
+ 
+-	regmap_update_bits(dp_phy->regs, MTK_DP_PHY_DIG_PLL_CTL_1,
++	regmap_update_bits(dp_phy->regmap, MTK_DP_PHY_DIG_PLL_CTL_1,
+ 			   TPLL_SSC_EN, opts->dp.ssc ? TPLL_SSC_EN : 0);
+ 
+ 	return 0;
+@@ -144,10 +144,10 @@ static int mtk_dp_phy_reset(struct phy *phy)
+ {
+ 	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
+ 
+-	regmap_update_bits(dp_phy->regs, MTK_DP_PHY_DIG_SW_RST,
++	regmap_update_bits(dp_phy->regmap, MTK_DP_PHY_DIG_SW_RST,
+ 			   DP_GLB_SW_RST_PHYD, 0);
+ 	usleep_range(50, 200);
+-	regmap_update_bits(dp_phy->regs, MTK_DP_PHY_DIG_SW_RST,
++	regmap_update_bits(dp_phy->regmap, MTK_DP_PHY_DIG_SW_RST,
+ 			   DP_GLB_SW_RST_PHYD, 1);
+ 
+ 	return 0;
+@@ -176,7 +176,7 @@ static int mtk_dp_phy_probe(struct platform_device *pdev)
+ 	if (!dp_phy)
+ 		return -ENOMEM;
+ 
+-	dp_phy->regs = regs;
++	dp_phy->regmap = regs;
+ 	phy = devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
+ 	if (IS_ERR(phy))
+ 		return dev_err_probe(dev, PTR_ERR(phy),
 -- 
 2.54.0
 
