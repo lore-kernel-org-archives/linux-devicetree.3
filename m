@@ -1,66 +1,87 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321E640D560
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B759C40A92C
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:44:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783428244; cv=none; b=CJWhm8JPqUkyyXtiqNc/isDPzk0eT39zat3OVCwrbAb1W97NSJmZQCgAKGPZaDL2sst8EYYZa9E6f2pPIPIlh8D25aRbjMgQ51wFFwlJnTBTZvkrch1SbZIwhBrmwfmptf5MGEl3hVZo0DDDbtN4Bew16tfOiz7qV4yebO4pqKw=
+	t=1783428300; cv=none; b=G6VjO+QeWR777Q3DEbNAX9vDEXTwMcB/yhA5A6aoy2CaolgqE06bmozpsq4HfbyKzBnGVUVyZLdpAhS/OYL1m4WHbFrcVTTd1BkTKadXYThK+sbDszXWLLuR9bxQlzZrjGs4J1woFuOGdq1W4GmaJHPYQNEG6+csokYPUVBqwFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783428244; c=relaxed/simple;
-	bh=CDnqZHdocFig8h3Tanxr3bQlY6m1Sfvqwn7GqTyyedY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=fWdPtUnjwNVe2switHEhGwROQTjqpBt1EFeojBruKa7dGLBun6cQNnbc0I3xrPOb+lwMOgKh0Wfd9HJlP5Upqgz4fnVqxbmip+SEimUQnQKOYMo9kAGu7U1jKaKERu58QLUpwObz6YdroX+N8uTl1Xh2erGGVJd4tGBhMcrKMao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JRSkNDU/; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1783428300; c=relaxed/simple;
+	bh=N3r1vlxocOsnMg4V9tZ7lxxdf2qdmVHvLKewCnnGWls=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=btG9kV0NTUruCrbzXB8owE6ilWPaINfvHyIToYG9aPkwswSXD5d8CEB3SzeQyXjf/a3UGbl9GItM3Jh+V+k3lHDE/Wud8239t9OjKWC4hxTmPaUMiGBRohz2VH+qtsRElhh4PAllv9YDhYbDu4/dWgltniGQK+O7jNIYUCwrgfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hcg+VJfV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DTfF6cN7; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JRSkNDU/"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-699fbcd23ccso5428193a12.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:44:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hcg+VJfV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DTfF6cN7"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667C8q853749180
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 12:44:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Jg0+oAQk4LyIeyzIsoDDXs+dbCZNcdg74MGiSubIQb8=; b=Hcg+VJfVpkV8lEXz
+	pRhbVpUE8euP4tGUSgH7y0uwY0o8T98qcBAwNUqlSmHeAcCGIqzto7y7CgDKT6CQ
+	u0zKisU3b2IX+nBkeD6smRdHndkGbS7l4JuEx6FyNQBiriDdguugdQAPsds03Hk/
+	bKehufyn6v5iOXE4p+GAxj99cS2RwOJddWnp7J3JuoL+q9xxUfWs1eoYS8T/7vus
+	aRNaYEMBH563hlaARQJFKTomGo7x93l/z3FteHVgkIwahDTsGAiN8P/v4Sz9/7fj
+	DsD7e3WhCEcovpkm2v3oP+rTaCZM6XuF07TZj2enPZ0muY/F2C1bcqSWK9JpTuaI
+	aBWHuA==
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8vdj9e4r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:44:57 +0000 (GMT)
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6a0f261aeb6so5645748eaf.3
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:44:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783428242; x=1784033042; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vVwOc/plNKfiMmUT69quLhKzOtBT2oBK3V8CnUtJXVU=;
-        b=JRSkNDU/znoUHhBnA37hdXSD4ER9kM/anVTE9QbYTCtYlm8m/gAhJgl+qJ6yltKdje
-         H2c0y+Gr7noFqFIRlYqYrcCBIOLR7Z9rLjcidfgPK2mw/EWWIknF+7P2Jzyn82q21pqA
-         3yDop0ZR6fmlkCbmO4CMndSF+V7HjflFH/m2bv+ZgfVwBKN/C7n4ojsGSo4Hp/y4loY1
-         0F7Y7RLTFE/eQZr6kGrYAkGh2boPwyXRi1ytf70e7Q0JFplBhojRNm4nhtZdvLmjzKXv
-         12uQ6tU4/1sNQgCADAMbaeLIg1/HOoQ6bZtY0nc3LrlM+PMSVM9rWpZ3SEP/+xN8xURu
-         KSPA==
+        d=oss.qualcomm.com; s=google; t=1783428297; x=1784033097; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jg0+oAQk4LyIeyzIsoDDXs+dbCZNcdg74MGiSubIQb8=;
+        b=DTfF6cN7RJGqzGwZzyNQJwcn9MMh/7bHAnj+Uje3dEdaL1bYbDSEo5yCa68pMqKTDS
+         nPjIQfTqqawlzW/nw6yaRw3E5TU1Vmziuzdhp8WpKZ5xLzAVnpXaqTtgKYbWe76MGqNl
+         rbVAKOy80BpP4Fp4ti0D1rv2dw2DEV3IrMMJYnpVx23IQlaaZiaI+IINPBo8mxAOpfhZ
+         ac5SAg/4ZHNnkoC7uxGnvx3srSVja6eQux5VLn4UHelisWNSTUG8d5ZgAr8CHipJMhEY
+         mzY+d2F946/WqPt3TBVvUJhMLlv6krYSWD47hRCqiYhZzxvzhhyzL6LM6ylixijU9sF5
+         +ocg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783428242; x=1784033042;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vVwOc/plNKfiMmUT69quLhKzOtBT2oBK3V8CnUtJXVU=;
-        b=QV3NENonUKaC4KnKCUaEoqtKPlp53/jp1m8s2YdNL5AblnLL3glKo4dYmbAYSTlzCc
-         srml58T8nqndPgQ/vKOx9eZgwfWfDvWuM6QyW6y8OASVM5pG6yxiscFiLo7CYgk1I8pO
-         +jA2XautvWqCcsGZiFe3H8I1ijg146owCuPejiim7pdWAN9teHKfyDqQiwKJZY4sZygI
-         Q3pg9kFQqIgu1URoJcTZGr4k9zpk94GWRG3jW3yYYZOsXkttZsMi8EAg9BNUr9WSInde
-         y26JYT2PkH+HBESzebKBBUDVOUSqO43KkxkTplHA6cYIuNm06Sd1PirMAwFMVhbthLwa
-         kTNg==
-X-Forwarded-Encrypted: i=1; AHgh+RpwpLmI0AiOUZTf3fvqD5W37TUDZSuuFTk1PNFMwZl5S6+7POo0BNMzX1AUrGl0F4HjwrbRrygpkUhb@vger.kernel.org
-X-Gm-Message-State: AOJu0YykwdLcl56lPIk/D8TUtLH5BeRK+2xrJ2lZy7XlaDA3PN3OUT9X
-	vzpSRdgyO1zwoOYBrILJNB9LvDaIkyZBlLIRRDLAVVKSGi+Jn+XL5gaZ0fA5He7Kqkg=
-X-Gm-Gg: AfdE7cnChfQB/R4bPVUtPUG4xW90t1FBFdzpfUC9FAnY5zwL+qVcQTcL0h7iNZy+Y4q
-	CsV3JX1cqseUP0l8pzfhRnKiIYWcDtZmtCPMctVWK7uDifNL7TJZmOrl42nQB8B0Z0eHJ5dKAwE
-	7JkD+TImBuIa8xdtCZj0gZG/0giUdX3u4rgRCpGmpVCLYoQUZKbFbsfdpebKo2zMIHudb+M2yNx
-	7Wu3gL9ZhKMjrkUOifAL5Ybjmsc1jDs/ygdjf0N9BOMsGXTJ1ajOmnq3+AUtFiGUkz6xyauu6ts
-	rYXS9q+vKJ2XKGXC6OGupKPptdvHEe9uy0dhkrBJBAj0KN4KlVuxwNY07CthjDyvWOjY4r9xyQN
-	B2tagK/kujkpmQmVT6daXyOx27/NJI+vyvNpZeTq0evRI7PPbFS5112TIogtS/6PUauS+AEb5UC
-	ulwWuDJBdGJZ0eJDqV/yUD7UQ7aV5IFFU4aAQp4FjKS4XrgQGAJ3ESwFXPTfZY
-X-Received: by 2002:a05:6402:40cf:b0:69a:a4bb:bfc0 with SMTP id 4fb4d7f45d1cf-69aa4bbc2e2mr209995a12.11.1783428241439;
-        Tue, 07 Jul 2026 05:44:01 -0700 (PDT)
-Received: from [192.168.2.177] (48.85-85-171.dynamic.clientes.euskaltel.es. [85.85.171.48])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19ce4ad4sm5751522a12.12.2026.07.07.05.43.59
+        d=1e100.net; s=20251104; t=1783428297; x=1784033097;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jg0+oAQk4LyIeyzIsoDDXs+dbCZNcdg74MGiSubIQb8=;
+        b=dkSV+UOlKhTnElWx/I3clFlx4Rn2uIgu2iVziLYAapcqrUZjKIfWh3u9GZUuS305oP
+         O/18WDUQ9JN3i6gw0md+Xfa8GIFuCm0nLbWlhtrm4PT/nihqUS7rl3l8OhSbu5ft48um
+         Lcg4pAwdqf2gjNSU2J3F+LbOxinppQtR4w4kVcHivelpOgmAy+GsOpZMq6XHSoOEO6V9
+         rDmTK8Ggc/hzYQmmLmA9rNtrn4dypZQbLzuSJNqmmovwxyFg9V1pj/VtU9y/B6SQOT0g
+         ZFirstHBpxvekxN3FfcGz4va96NCXPC/jdcht2udevoklGmmverNtlnBdmE3MZn5Bwby
+         V1+w==
+X-Forwarded-Encrypted: i=1; AFNElJ+2M9PYZO4r8wRMWj3JQ0w4wpneofgK/wdKw5CJCEm4TjAOcc3SzxnA3GgyXeZZtoxkdiLTLy9Yt62a@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwenyoDa3ghaurHShRIqjSqgZTY2HAZ5GuWa4TjVjrnfs3T1Gy
+	QPmzq7vrFb3dFp1E+7p1WsR6qplG+Tm5157BxlgmGio6mahByob6fDfyZ4Q63w7DEBcwTjxvtQk
+	9A/SPx2jhHfiNhponrkDjTvxbCfx1Liz5i2iZs45bXCzu6RJ0HK98Ndum/QIWKr8l
+X-Gm-Gg: AfdE7clupeGtAlSmTlntSEzfFpAyM1qkbncVnMiucDFTDS61mZftnSLBD18DvCMv3WJ
+	fJA1+5gCUIFVtjdzLnyPGLdqAIA/SxhMu4GcdJU3wt3AKh3YOxXzOtBF89U/m5iLitLCyUv91at
+	H3tHjU44dpz6qz/7X/nJXZicRcqr6/dc19oj+hvSelIITJLLjcQKG+dm/l6L3rJQLxgmsTIIaBQ
+	GshLVdenyVVP1ICdrJj8qTjZdOQBK1DGkKM6a1RkngdmxvneMQhBC/vtVoLAS2PBQ0cYJrZ5eTV
+	6E1UpSxVErcoyVbQ7zuEp91fEZNSXcmJP2J3lPLCA+b20xR5xzQfqBek8/iTFf2Fi/mp2+l8Xjt
+	1O4uLEruarsvHTumMNNWwTZRDeWJl6oqIdBreX1n8dwfG
+X-Received: by 2002:a05:6820:4b09:b0:6a1:5ca0:d52d with SMTP id 006d021491bc7-6a35536af6cmr3143975eaf.17.1783428296929;
+        Tue, 07 Jul 2026 05:44:56 -0700 (PDT)
+X-Received: by 2002:a05:6820:4b09:b0:6a1:5ca0:d52d with SMTP id 006d021491bc7-6a35536af6cmr3143964eaf.17.1783428296510;
+        Tue, 07 Jul 2026 05:44:56 -0700 (PDT)
+Received: from [10.219.49.166] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cfb13e15esm14448014fac.3.2026.07.07.05.44.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 05:44:01 -0700 (PDT)
-Message-ID: <53f3621f-3888-45f3-b319-95efa36fb0f2@suse.com>
-Date: Tue, 7 Jul 2026 14:43:59 +0200
+        Tue, 07 Jul 2026 05:44:55 -0700 (PDT)
+Message-ID: <afc1fb30-1b9f-4124-b939-30600921de0b@oss.qualcomm.com>
+Date: Tue, 7 Jul 2026 18:14:49 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,139 +89,121 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
-To: Andrea della Porta <andrea.porta@suse.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Naushir Patuck <naush@raspberrypi.com>,
- Stanimir Varbanov <svarbanov@suse.de>, Sean Young <sean@mess.org>,
- Julian Braha <julianbraha@gmail.com>
-References: <cover.1783097764.git.andrea.porta@suse.com>
- <300b6fb4ba2c9399297b4bd85cbb3bc14f08f6b7.1783097764.git.andrea.porta@suse.com>
-Content-Language: en-US, ca-ES, es-ES
-From: Matthias Brugger <mbrugger@suse.com>
-Autocrypt: addr=mbrugger@suse.com; keydata=
- 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
- PVrr2NoUqi/bxI8fFQJD1jVj8K0=
-In-Reply-To: <300b6fb4ba2c9399297b4bd85cbb3bc14f08f6b7.1783097764.git.andrea.porta@suse.com>
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: add Qualcomm WSA885X codec driver
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260701135913.1641328-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260701135913.1641328-3-prasad.kumpatla@oss.qualcomm.com>
+ <317be447-316f-4120-9008-2a1593328c68@sirena.org.uk>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <317be447-316f-4120-9008-2a1593328c68@sirena.org.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=R7cz39RX c=1 sm=1 tr=0 ts=6a4cf4c9 cx=c_pps
+ a=V4L7fE8DliODT/OoDI2WOg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=zFzosQrJfojMdPK_vqAA:9 a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22
+X-Proofpoint-GUID: cz1M-IRECV2TYeuTUh2_bdZtmeRP9Rh7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDEyMyBTYWx0ZWRfX2oOBxkmDXmjT
+ rVg60uwHA1XBFO0fIkRhAd1Z/it6pFoszu2XIJ8O398f/OcaE6hf6nMvUMPtU5NJuh77BnvIcaG
+ J6G2vg83qtU/oda68BV9WzePMZeT6x85r/Fjd9tqGpdmBnI7SjfAn6K92TbCEmWN4rw5pzJ5vn1
+ xt/qQ+WKcwCzC8qwf+5mubrRzt3yH1fGac0p5MOE8Kd+xg/4uqJ4Qf6d4+FQWTXUgP3LVnspPl0
+ WYOSj3AL3nHxW3w+FH+3X/tUIAu1K+PsgT+/jSjDthMx3T+ir4Y5+BAGVkEaqzVyAynGIBmK5GY
+ 4ipziXkvkvnphIwxbMWbWpJ+dw75Bi2jqVM2tSetpE1lWPBwsnJb+UWKM6vHmEcBMOet2X2UsBZ
+ O3038sN1oKnrVBk4CzJ35cDTY/+vUt+2s7+DoqohEb9/qRVVNSEdn7MlLfbdMzykjUTezr+9xP+
+ 7sK/8K1Zs20RkLVuIkA==
+X-Proofpoint-ORIG-GUID: cz1M-IRECV2TYeuTUh2_bdZtmeRP9Rh7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDEyMyBTYWx0ZWRfXwAABX9qmnTJO
+ 4x7RrCJmSrMPgP0gdpz1f6dzQPHcH61S7RuiKwnAZUgcqApi7wCGfmaqSDdYmDNCF/iwH3yOnF4
+ F9jTjyRYMP5Z9a1ZPnOkXkzpMPzVbB0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_03,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070123
 
 
+On 7/3/2026 8:37 PM, Mark Brown wrote:
+> On Wed, Jul 01, 2026 at 07:29:13PM +0530, Prasad Kumpatla wrote:
+>> Add an ASoC codec driver for the Qualcomm WSA885X stereo smart speaker
+>> amplifier controlled over I2C.
 
-On 03/07/2026 19:05, Andrea della Porta wrote:
-> From: Stanimir Varbanov <svarbanov@suse.de>
-> 
-> The RP1 chipset used on the Raspberry Pi 5 features an integrated
-> PWM controller to drive the cooling fan.
-> 
-> Add the corresponding DT node for this PWM controller.
-> 
-> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-> Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
-> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+Hi Mark,
 
-Reviewed-by: Matthias Brugger <mbrugger@suse.com>
+Thanks for reviewing patch and feedback.
 
-> ---
->   arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 12 ++++++++++++
->   arch/arm64/boot/dts/broadcom/rp1-common.dtsi     |  9 +++++++++
->   2 files changed, 21 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> index 0fc57e72632ed..748be8f1ee9e2 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> @@ -64,6 +64,12 @@ phy1: ethernet-phy@1 {
->   };
->   
->   &rp1_gpio {
-> +	fan_pwm_default_state: fan-pwm-default-state {
-> +		function = "pwm1";
-> +		pins = "gpio45";
-> +		bias-pull-down;
-> +	};
-> +
->   	usb_vbus_default_state: usb-vbus-default-state {
->   		function = "vbus1";
->   		groups = "vbus1";
-> @@ -94,6 +100,12 @@ &rp1_i2c6 {
->   	pinctrl-names = "default";
->   };
->   
-> +&rp1_pwm1 {
-> +	pinctrl-0 = <&fan_pwm_default_state>;
-> +	pinctrl-names = "default";
-> +	status = "okay";
-> +};
-> +
->   &rp1_usb0 {
->   	pinctrl-0 = <&usb_vbus_default_state>;
->   	pinctrl-names = "default";
-> diff --git a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-> index 16f5359395835..df4c2d09c8d34 100644
-> --- a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-> +++ b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-> @@ -99,7 +99,16 @@ rp1_i2c6: i2c@40088000 {
->   		clocks = <&rp1_clocks RP1_CLK_SYS>;
->   		i2c-scl-rising-time-ns = <65>;
->   		i2c-scl-falling-time-ns = <100>;
-> +		status = "disabled";
-> +	};
->   
-> +	rp1_pwm1: pwm@4009c000 {
-> +		compatible = "raspberrypi,rp1-pwm";
-> +		reg = <0x00 0x4009c000  0x0 0x100>;
-> +		clocks = <&rp1_clocks RP1_CLK_PWM1>;
-> +		assigned-clocks = <&rp1_clocks RP1_CLK_PWM1>;
-> +		assigned-clock-rates = <50000000>;
-> +		#pwm-cells = <3>;
->   		status = "disabled";
->   	};
->   
+>> +static struct snd_soc_dai_driver wsa885x_dai[] = {
+>> +	{
+>> +		.name = "wsa885x_dai_drv",
+>> +		.playback = {
+>> +			.stream_name = "WSA885X TDM Playback",
+>> +			.channels_min = 1,
+>> +			.channels_max = 2,
+>> +				.rates = SNDRV_PCM_RATE_8000_192000 |
+>> +					 SNDRV_PCM_RATE_352800 |
+>> +					 SNDRV_PCM_RATE_384000,
+>> +			.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
+>> +					   SNDRV_PCM_FMTBIT_S32_LE,
+>> +		},
+>> +		.ops = &wsa885x_dai_ops,
+>> +	},
+>> +};
+> Does the device actually support all the rates advertised, 11.025kHz for
+> example?
+Thanks for pointing this out. I have only validated a subset of the 
+advertised sample rates and
+have not specifically verified all rates within the range (e.g. 11.025 
+kHz).
+I'll restrict the supported rates to those that have been explicitly 
+tested and validated.
+>
+>> +static int wsa885x_rx_slot_mask_put(struct snd_kcontrol *kcontrol,
+>> +				    struct snd_ctl_elem_value *ucontrol)
+>> +{
+>> +	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+>> +	struct wsa885x_priv *wsa885x = snd_soc_component_get_drvdata(component);
+>> +	u32 mask = ucontrol->value.integer.value[0];
+>> +
+>> +	if (!wsa885x_is_valid_rx_slot_mask(mask))
+>> +		return -EINVAL;
+>> +
+>> +	if (wsa885x->rx_slot_mask == mask)
+>> +		return 0;
+>> +
+>> +	wsa885x->rx_slot_mask = mask;
+>> +
+>> +	return 1;
+>> +}
+> This looks like you're trying to put TDM configuration in the control
+> API, it should be done via set_tdm_slot() - the driver does have one,
+> but it only configures mono vs stereo with no control over slot
+> placement.
+The slot mask is use-case dependent and needs to be switched dynamically 
+at runtime
+(e.g. stereo speaker playback versus mono voice-call scenarios). The 
+mixer control was
+introduced to allow userspace to select the appropriate slot assignment 
+when the active
+use case changes. Given that `set_tdm_slot()` is generally used for DAI 
+slot configuration,
+could you please advise if there is any preferred ASoC approach for 
+supporting runtime slot-mask
+changes driven by use-case transitions?
+
+Thanks,
+
+Prasad
 
