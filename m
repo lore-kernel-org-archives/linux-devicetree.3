@@ -1,40 +1,33 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D30C38F251;
-	Tue,  7 Jul 2026 09:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D23239524E;
+	Tue,  7 Jul 2026 09:11:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783415511; cv=none; b=q/8NrW8j6qJGoa3azFyQMLbLveK7paf9f0uu9sHZzzLbHs7jGzJ0N0hHpJq3WpXQVFmXBFmrzzdGbzsZ0T5wgK+EU1/Y9ooCAGMjEf7nugw7piePPn84rJUQkjrIGhWVsxIKkwv8N31DrPz8oaoVg8GpgI4KBE6OgxAMdyGFTFQ=
+	t=1783415514; cv=none; b=TK0zhA87FXq0nmTbM5uTuwFg0iJqp9IMfUBuXiZDMwvsB6VtYxI00EXZjWfIVdDAnukCnZU92AdjMe0mhnY7Pxc0BKuXXY4OJm8/0COHxPPRxh1VXgXJn+MHiiPpcNTsKJY9eJGIGHiTfiMKfJDYVzAn4JQrjaJvxMv62Og1Jgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783415511; c=relaxed/simple;
-	bh=5f6GIDZMQrqFo+6gJIgZVFJCjUOoumzFzJERSA/umEg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dx+KN5BAmgFvD4VIY6dg186qpArRVa72E7MOKGfB1dM+5pkF77aFgMjKDG9zJ3hJMyujX/UJdV6A+3PGVxVR89ifBKNxeIf3W2XaCop1cemIFHUMSn42jSmX9tSmk33KnTY6N/m+UYjWzhAGfMbpIUJquiTLr4/m3/cPQ6a/qO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gzY7nslo; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783415514; c=relaxed/simple;
+	bh=fQawMGfG2e1ipDXC3g28qUWz02GSsnnValvbIZOBepU=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=FQL/aVozteX8hK9v/pjj2VK0gWDpcQpbUK3eGjW89XNT7rzE4crdE1rOduiI55b2l+U43AOnq5Z4Ruu9BA5Yaz64QksEheg5jssiHC8gMzLLnB0Wbw7JzqHNTTW0ra8Ustbp5TLn27YFvcHxHeKDtqUtdbMkjAYBloObQmB987M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLzcMKr8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gzY7nslo"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 05C2B1A0EB6;
-	Tue,  7 Jul 2026 09:11:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CC71C601A3;
-	Tue,  7 Jul 2026 09:11:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D6EE511BC1165;
-	Tue,  7 Jul 2026 11:11:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783415506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=4aiFVPWk7NAYVKW9uB8OzYhAIo5EOwzD2w2pJLKQ5fQ=;
-	b=gzY7nslondsKNUqkWe+5CudiAGehplbtGDU7t1nUKgS4SwOgk1WCNvrrKIg1Iec1drudT5
-	6itqVQiujEd+9aD+6JbqeILOWmYIXK4o49E8D4+ZrCU1cus1GhCSWFBOWnqbc6j0Q/XEMN
-	OvKNAPxNmFDOxkNhyFvvkO7kuhuRrahqmS5phjEl5iZU3KlWmDQm3sHovgRkBwCLEoluce
-	5NpRtB0Rz0EUGkDMDBmbfa9SJP5Lgrv6pB7r8udDvEpjyKoLcW38wABzCVRRQtzGpnzIwW
-	ePpOSMpVM+rhze0G3AvSCz1de3DqOc4zmSp3173TTCLro0iB6kqnS9zgTJW3mg==
-Message-ID: <2a421449-01eb-4066-8c19-d554ff8e4f6e@bootlin.com>
-Date: Tue, 7 Jul 2026 11:11:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLzcMKr8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D982E1F000E9;
+	Tue,  7 Jul 2026 09:11:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783415513;
+	bh=q1HEp5q+a0BAhlP2ijxq7ZbI+pBqUgtsL799cM1hL3Q=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=GLzcMKr8GsCoIqjJZEkHmCN7OxPVU6HwW7ULgI2TiGhCLmfb6VRMcmJzqroCsllXc
+	 EkYzBMz6ANQq2kZa34FYtJSTh+x7IigSX4lP3+aZeKgyVXl2c4YFb5y8HbZeAJ+A3G
+	 tibjm8lUYLc75fagZuRnoi9PRuc/UKKSqyKgQVd3kPgo5lu5SNshYnL3KcDrBRVSu5
+	 +Vgo+OaBqftTXeSwTO5eQgGpBnmaxx+5SF+hwjjyUv1ap/wSaXXGoMh3/vHJnhkINF
+	 9tmx2zQMyuHMQhrl5Bs86pauLxjPB2n78oNot4EsGaVvWawZ+aeXXQVZvoQldqLMkE
+	 9UNdfFQZgDdcw==
+Message-ID: <54637718-a637-4e69-a4f8-bd8f843cd21f@kernel.org>
+Date: Tue, 7 Jul 2026 11:11:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,68 +35,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 5/6] net: stmmac: mediatek: add support for TX
- deallocation adjustment feature
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Biao Huang <biao.huang@mediatek.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: rmk+kernel@armlinux.org.uk, kernel@collabora.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
- <20260707-dwmac-mediatek-mt8189-v1-5-17f345eaaca3@collabora.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH 4/5] arm64: dts: qcom: qcs8300-ride: Fix BT RFA supply
+ name
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Luca Weiss <luca@lucaweiss.eu>, Gabriela David <ultracoolguy@disroot.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260610-topic-june26_dts_fixes-v1-0-2e0c953a6c08@oss.qualcomm.com>
+ <20260610-topic-june26_dts_fixes-v1-4-2e0c953a6c08@oss.qualcomm.com>
+ <6089039c-c275-4e23-b980-296f741357d0@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260707-dwmac-mediatek-mt8189-v1-5-17f345eaaca3@collabora.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <6089039c-c275-4e23-b980-296f741357d0@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
-
-On 7/7/26 10:21, Louis-Alexis Eyraud wrote:
-> The MT8189 SoC has in the Ethernet control 0 register from the
-> peripheral configuration (pericfg) additional bits to adjust the TX
-> deallocation.
+On 10/06/2026 14:03, Krzysztof Kozlowski wrote:
+> On 10/06/2026 13:43, Konrad Dybcio wrote:
+>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>
+>> Fix up the supply name to align with bindings.
 > 
-> In preparation of MT8189 SoC support, add its definition, use in the
-> set_delay_v2 callback, and a support flag in the platform data.
-
-Can you elaborate a bit on this ? I don't quite get what you mean by
-"tx deallocation", this seems to have to do with RGMII timings from
-the register access pattern, but the local boolean flag for the feature
-is named "use_stage_fine", I'm failing to connect all the dots here
-with the different terminology in use :(
-
+> ... with qcom,wcn6855-bt bindings, because vddrfa1p8-supply is only in
+> ATH11K part.
 > 
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 25 ++++++++++++++++------
->  1 file changed, 19 insertions(+), 6 deletions(-)
+> or something similar, because your change is non-obvious and requires a
+> bit of grepping.
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index bcc0baef3f71..6b0a42b5839f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> @@ -37,7 +37,8 @@
->  #define ETH_FINE_DLY_RXC	BIT(0)
->  
->  /* Peri Configuration register for mt8189 */
-> -#define MT8189_CTRL0_TXC_OUT_OP		BIT(20)
-> +#define MT8189_CTRL0_TXC_OUT_OP			BIT(20)
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
 
-Extra whitespace inserted here :)
+Can this be applied? or resent?
 
-Thanks,
+Talos (patch 5/5 here) was recently added and it already does not pass
+dtbs_check. Honestly, if contributors cannot send new code which passes
+validation (tools), then how can we lower the amount of warnings in total?
 
-Maxime
+Best regards,
+Krzysztof
