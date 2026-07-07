@@ -1,67 +1,66 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1BA43F4BD
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 17:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE9D43F4DA
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 17:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783443988; cv=none; b=db2K8Raf4X6+RkYkJzusFSZg7NQuXjV8GkRk3Sxs0UcLjA6O+/ztbB/JEVJp+tVMuUEqgBGekoUrQkcErvPEq0/Mb01BtOeBYEXpQbSKNG5VpRemaZM+9hPuA6JxMLe93SXcMeg967yiGup6lLTnB5GN/GlLcqwzBO4Uq4F35Qk=
+	t=1783443989; cv=none; b=ZbrgxAP8JpCQDyS5OYieroJ3GOUu0GYPrl1U38bpBTL3cCxzRksVY6MHOh5mMjYgbDLhDQ58z1uPOSr4svEFurNJ4daK2dYrKgzV29R+ny54xQUWM1Y0rJEYmusXiVQig7XwxYOSN0dzKkzIlgfgEihtaOylV5hTtLXk7Pl1Flg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783443988; c=relaxed/simple;
-	bh=MphCc5O3/LceZSCcaULO3ViWZlkqj+5A+mASnW+CrnA=;
+	s=arc-20240116; t=1783443989; c=relaxed/simple;
+	bh=hWwgN1rgVsfG+IOsHmaNkfe5uTyIFqLWbVzU5xF9EH0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K2SfdS3Y0s11xfks77J0tFxYudC45hyRPKRH1SMJhFXu5Eec9lk7EJGxrD/gowL8VaDKvt4f6bL29aay1oCjp8kuVo8lIfyrWW+Ijo9/fvREPaNy9OLm7HgqYTzUn7Yr4Dj/Erp7lSV6sIlthYPrypQ7E8UPw1sF83+pm/+drvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=opkgxo+w; arc=none smtp.client-ip=209.85.128.42
+	 In-Reply-To:To:Cc; b=svoFlUZMYbgSTWn4k8ah4j92E2URq5QP91g0tnR2lAZZJYBNlu0dPwRWinTGuPaTtfHl6FU13NtzOecqjCvjXuQ0xniU4Y3mp3EGcWp8kpzshwyQauCfgJqzoJ9a4vHVhyCiiIaG92JFT+Hua2/3BobECZZx8wfcaq0joYnhq7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=KdZjC0LE; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="opkgxo+w"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493b61b52b6so33056755e9.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 10:06:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="KdZjC0LE"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so31067765e9.0
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 10:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=raspberrypi.com; s=google; t=1783443985; x=1784048785; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NFU7xbH89hAQ1nHgu2V69I3OWBsT6XrnrmxwCNc4vF8=;
-        b=opkgxo+wO7+39GNnMIkm3h70GOdwHhHaAAAQJF8hYhk9gzXsDL+sg43wV0KUMdTmQ1
-         ASOS5hnV9QrZWiIMzWEndLaCy1hHvH1nDQ1L+ld9PVQLgXrz+9OeoXO3QC6hu+tNrfrs
-         hHXMMxSce8ErSf68mLhDbQr/fk6Ar8LuPa69bOJCwuzIt79BYBwvfywKgHernc2ON+4d
-         0hU0T6BU4+Tkfo43umf/y5zxgjibmEION1h6y1oCSp5U8TATHc1OaA3a/8KNfaZCE5Ou
-         aobZ2gL1OR1jUubVrDcJ9aIFH6pvoOMgi/Uf33pphxhSUSShPHoOZtdMLpLOxaj9ZS9O
-         xJ/w==
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bccJ1ASu8G06+vHF+5rGf8wvqN3zM9iJAYG4lPkCziY=;
+        b=KdZjC0LEKB8k3h+kGOIZCFRqoLh4OLIu9XiO9FGRTOizWdHd3ppCLGuJ7Mxvwxv9ex
+         QrvXX2gVE5V7xsYGhYjLo0swvJ9T6dd4zHEbUyaAHhL1Af5oyBJou5a4Fuo26UkoMuM2
+         jLtk0/JTpz8RdG1FipLQe8zTIvF8Zsv84mIetLDuECC8qcZoE8Z1U1VlnsW47Q6Q9UEN
+         qaLn8/T0U+tDWLRyQQ/6MgRErqkLiIhJakrTsFy9pTTpD6lnGzuf2Z11Ht6moV5NkGye
+         PZp6BXwD4lGvRdLmaYpsEldMGvbFtnQQWdjRe0DXV7TJu4lCo2FJFfoSh68nangAdxmK
+         yZyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1783443985; x=1784048785;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NFU7xbH89hAQ1nHgu2V69I3OWBsT6XrnrmxwCNc4vF8=;
-        b=kao1P2xDsSt6bFKTIIe/UYeWdBzrGZHj47O/QOLD9xlSwTQyrJavNaeCQXM+OoiWFH
-         e2WRsLl+t6V95YZs2kEOxips94bF9r4Hs96M9uRe8c+QqFwB4KK5Z2WWNCJwtZuzKT3f
-         yqPahybpV+8ojCDTGq1NUfKXHP+v0hcS9OLbmx6caZsTLCOa+wN58ISlM4ZSKXwV08OS
-         J4Z3IZhx0OnsYxCGgJ+/MvzoiBvCAylch6cuPG3mvZ/vx7lDpVry293KfhI/FQXPe3Jr
-         I96Tj0+LG5Wi33tHeGngPnH0MYEC/as4nHJuRxXRVCsTMCsNtz0P53IsDDvOFgQIGjL2
-         DH8w==
-X-Forwarded-Encrypted: i=1; AHgh+Row+jCTDgBTfmfhTgIJwD9v/IsilmF5pL1oi2hG+30Ny/LvZZfIxzmVD9dDmTr1XEHKP4EdsHn0ePEY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1l/yDT4g98nyYLT70ATXvPWy2sOC9uizEYtCnBwQWEu5pI5Nb
-	NlpcHQyzaBbwjM1lSnRSSIcEXbMt0ZsW2T0/eFf4H5APVSv/D8HU4wSPPWMY9huYOWE=
-X-Gm-Gg: AfdE7ckdS3PBzxZRo2IkrdgSiRXYK2J6uYUWRWwxtWpocRQY0VKsUJpCj9w9xGRg4w+
-	dAaPG2slhxNyEXu4neN8mThpwLm/AZEDObKf9RyNNl4ys/v8482vuhoasJXvZQQ+bZycB2PDgdy
-	irJTGMbPVTQJSJkLQyhDI/lrbOA3Jc9M1PBp1VS+Yn4oRrGGKsXjd+nrkPObB35/m1BkYyprbH4
-	ND0086g/BYqAcQGLdnqt4/ysChvl1bLw9LRBKTquVWfrAl++NQMwtHW4Qns/d1IkdztbpbNbVD4
-	OlPm4mB08IX+o172BclzBaSt6e83cv3HcNzJzuIDTZX6ES2njPGn1YbX9t9cqFW4llxkBCi9ff+
-	C94PhXtHyd/NeiaPo2OVv4nLbUika974KLPYx2Sqo8Vsz/golquhjyUWXAKA4Nxrh/h7Uc80wpx
-	Sgl4f/t6v5yxMWjR4jJTx6+0Z2ukDkkCbG324TDGqWoYA95puaV91e3r2SnXRIqREI
-X-Received: by 2002:a05:600c:528c:b0:493:bc4a:c6b5 with SMTP id 5b1f17b1804b1-493df090fe1mr74373065e9.39.1783443984671;
-        Tue, 07 Jul 2026 10:06:24 -0700 (PDT)
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bccJ1ASu8G06+vHF+5rGf8wvqN3zM9iJAYG4lPkCziY=;
+        b=ce1ko48SE/UvSFShwlWpq0q+AA2z4xRQ9lcyaFnn4InVqGCSMltsOOAVx7PzJDaSd8
+         OUpqVm+2qF5tnb5sLc7IFuQZ15DOm2m/lLevODp6ZEZxRnJrJN3bxK8mcuydVfY58CgU
+         8ahf0MPSKTqPDaMtjkrrLuB1LvwyJbhJLFUFW5OFM+S1zQ7z1Cm9T7tt5GjuTY8i44mT
+         P5FwuYHQNVdgxf2j4GQbz0G5/7n7f/imzYxmEUM5p9rl+436pOdMdy8sgOkb2qRxMNmX
+         VlWrN/graR5DRVuv2QruniDDec+zzpIlw7Zb7D9OG90WPUYOMqLmtrK7Tgbu/jzE4RzV
+         TL+w==
+X-Forwarded-Encrypted: i=1; AHgh+RrrntU5sWdafbqUUiUuSLMiTrh8c3Yy8V0Dz7ZDAa7GaZfXf7ZmadWkX+gEODV9+XAHBJKX00fV2bvq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTCDf4tRuqFluQRpwZwl2I0kRaZ0ZhD7TPWRX6z0G/N3Xv0XNO
+	TKKoi+QK56gGQOea4bftY5jaBhPv4eE1pCvwIqoFgNP7rCIqc4YVT1Z+izWG8dH9H5E=
+X-Gm-Gg: AfdE7cmsYDkSvEP5i6qvdceW95SNkkUAWZvGItnVfWWSx5mz8TUikXCDdEL2YgCzff7
+	whO3mdgBhgIZRaWPSlXtyfmvqQvSvCeAJe/7SArKF+Fqcn5ShsbJVVXQO093Rctf2HyUdbvvPyU
+	fs/QdZQenk/0K1XqlAun2z+TMP/SiTY6TaVYp9F3rpeIeoYwlRSqcR35gZTon3PJorBUFUWGbEI
+	9I2ovGGXHmv8Vy3gCiSaHXvcUHgOLs7NCb/CsJ8MaCbXaA0m13v6dHgdkee7vSjSDTdTQ6ZNqci
+	Yt5aNNj4rIWsmiVcPKzg8ZZt0l4Eb+uJsBc/MFj3h7yq3HhfT4RGcmcVvnB8cfL4fUa8ORwOLnD
+	pfE9qGBO0gsM+AiAfAY/z44S5wP4/KzrZyFVAUQV7KqIq1dwKRRUQLXlQAjNLs9/uMrdbcpgCvD
+	+7IX+xfsabyeu0qSiGf5dUW3sNki7S4RuTMda+kYh75Enzrnomgy9k9SClkBdCRZj+
+X-Received: by 2002:a05:600c:46c8:b0:493:c3cb:409e with SMTP id 5b1f17b1804b1-493df0405a2mr70145955e9.15.1783443985579;
+        Tue, 07 Jul 2026 10:06:25 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
         by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa0f21543sm33644487f8f.35.2026.07.07.10.06.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 10:06:24 -0700 (PDT)
+        Tue, 07 Jul 2026 10:06:25 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 07 Jul 2026 18:04:43 +0100
-Subject: [PATCH v2 11/20] media: imx355: Add support for get_selection
+Date: Tue, 07 Jul 2026 18:04:44 +0100
+Subject: [PATCH v2 12/20] media: imx355: Use pm_runtime autosuspend_delay
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-media-imx355-v2-11-1683ec07b897@raspberrypi.com>
+Message-Id: <20260707-media-imx355-v2-12-1683ec07b897@raspberrypi.com>
 References: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
 In-Reply-To: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
 To: Tianshu Qiu <tian.shu.qiu@intel.com>, 
@@ -85,105 +84,46 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-Provide all the cropping information via get_selection.
+Avoid powering the sensor up and down unnecessarily by using
+pm_runtime's autosuspend_delay feature.
 
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/imx355.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ drivers/media/i2c/imx355.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 354092295b7c..0f5fbe21d7fb 100644
+index 0f5fbe21d7fb..c7a24c69c0df 100644
 --- a/drivers/media/i2c/imx355.c
 +++ b/drivers/media/i2c/imx355.c
-@@ -86,6 +86,11 @@
- /* number of data lanes */
- #define IMX355_DATA_LANES		4
+@@ -1067,7 +1067,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ 			goto err_rpm_put;
+ 	} else {
+ 		imx355_stop_streaming(imx355);
+-		pm_runtime_put(imx355->dev);
++		pm_runtime_put_autosuspend(imx355->dev);
+ 	}
  
-+#define IMX355_PIXEL_ARRAY_TOP		0
-+#define IMX355_PIXEL_ARRAY_LEFT		0
-+#define IMX355_PIXEL_ARRAY_WIDTH	3280
-+#define IMX355_PIXEL_ARRAY_HEIGHT	2464
-+
- struct imx355_reg {
- 	u16 address;
- 	u8 val;
-@@ -676,6 +681,7 @@ static int imx355_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- 	struct imx355 *imx355 = to_imx355(sd);
- 	struct v4l2_mbus_framefmt *try_fmt =
- 		v4l2_subdev_state_get_format(fh->state, 0);
-+	struct v4l2_rect *crop = v4l2_subdev_state_get_crop(fh->state, 0);
+ 	/* vflip and hflip cannot change during streaming */
+@@ -1079,7 +1079,7 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ 	return ret;
  
- 	mutex_lock(&imx355->mutex);
- 
-@@ -685,6 +691,8 @@ static int imx355_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- 	try_fmt->code = imx355_get_format_code(imx355);
- 	try_fmt->field = V4L2_FIELD_NONE;
- 
-+	*crop = imx355->cur_mode->crop;
-+
+ err_rpm_put:
+-	pm_runtime_put(imx355->dev);
++	pm_runtime_put_autosuspend(imx355->dev);
+ err_unlock:
  	mutex_unlock(&imx355->mutex);
  
- 	return 0;
-@@ -891,6 +899,50 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 	return 0;
- }
+@@ -1430,6 +1430,8 @@ static int imx355_probe(struct i2c_client *client)
+ 	pm_runtime_set_active(imx355->dev);
+ 	pm_runtime_enable(imx355->dev);
+ 	pm_runtime_idle(imx355->dev);
++	pm_runtime_set_autosuspend_delay(imx355->dev, 1000);
++	pm_runtime_use_autosuspend(imx355->dev);
  
-+static void
-+__imx355_get_pad_crop(struct imx355 *imx355,
-+		      struct v4l2_subdev_state *sd_state, unsigned int pad,
-+		      enum v4l2_subdev_format_whence which, struct v4l2_rect *r)
-+{
-+	switch (which) {
-+	case V4L2_SUBDEV_FORMAT_TRY:
-+		*r = *v4l2_subdev_state_get_crop(sd_state, pad);
-+		break;
-+	case V4L2_SUBDEV_FORMAT_ACTIVE:
-+		*r = imx355->cur_mode->crop;
-+		break;
-+	}
-+}
-+
-+static int imx355_get_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *sd_state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP: {
-+		struct imx355 *imx355 = to_imx355(sd);
-+
-+		mutex_lock(&imx355->mutex);
-+		__imx355_get_pad_crop(imx355, sd_state, sel->pad, sel->which,
-+				      &sel->r);
-+		mutex_unlock(&imx355->mutex);
-+
-+		return 0;
-+	}
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.top = IMX355_PIXEL_ARRAY_TOP;
-+		sel->r.left = IMX355_PIXEL_ARRAY_LEFT;
-+		sel->r.width = IMX355_PIXEL_ARRAY_WIDTH;
-+		sel->r.height = IMX355_PIXEL_ARRAY_HEIGHT;
-+
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- /* Start streaming */
- static int imx355_start_streaming(struct imx355 *imx355)
- {
-@@ -1066,6 +1118,7 @@ static const struct v4l2_subdev_pad_ops imx355_pad_ops = {
- 	.get_fmt = imx355_get_pad_format,
- 	.set_fmt = imx355_set_pad_format,
- 	.enum_frame_size = imx355_enum_frame_size,
-+	.get_selection = imx355_get_selection,
- };
- 
- static const struct v4l2_subdev_ops imx355_subdev_ops = {
+ 	ret = v4l2_async_register_subdev_sensor(&imx355->sd);
+ 	if (ret < 0)
 
 -- 
 2.34.1
