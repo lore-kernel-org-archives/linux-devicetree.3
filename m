@@ -1,133 +1,110 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD103FBB46
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 11:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77313FD123
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 12:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783425390; cv=none; b=IglZBVmVj/SOyebgtNdx40gO4oym6/wHeNsTg/n62IyZEqGxJJr898SDhSuzTUl+W+pjsQbnZWYMslak+HnYT0ca0q8+ZujPmWzTQ6WjcEZeRfcVvVkLxrqJwCEkySZz86K/m0TFQeC89dHCImPZm+ywKMOR3xvzAw1ItI6MG80=
+	t=1783425606; cv=none; b=bkdL6Q07Qyi5LZpeimKeQQehffDh6jOjNUQmMXPR5TM0TMvC72xe4Gtr4HNBv38Qwu33bTIN0lo3jScb+1aoFNGm0r1XZKdphEKzCOPuZ2vReAX/wfOaY+NFjvarZ4NkRyM+/c8miRch5/Ht/heZAxziMwLs658A4hZGqQIZBUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783425390; c=relaxed/simple;
-	bh=hWj31lhwWSMl4fvrQtR4dMPh5W5sOHQNKqKaZhYIY9g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WBhqN3F8zV7fLC9xQJqxdHf5Zdyv+EWmU0LceEFJpygxmEywTPVVZyOAqSqxopyojObJ4O0mudrrX1ZjbPgMNwVntc2xjRUtB5cnieopaBS8OJCYuRyJcO8BCZ5FsmFKIgjdP0/NbL72Dh6eARK9Auz0SoVqF2bnoo1Bf6puoi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HEo7nSqP; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783425606; c=relaxed/simple;
+	bh=qlDJ746JGiTFJNRIapHXqXoAzifdALXvediQx13XyIs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bq4CU3kDYzCVkF1cC3B30ZPLg9iiK9+3aU7GVG//AG4s91ZKS0wtDuhvXqz6i9sNRxOd7pLAOD4Hk4gpgEUP1A3TkY7D8hYu1gL4XZmmSYxl0PkEZKmlnMqjA200szwPvDYYV4X8BU0iZ/o3WdYdUrzK0dLi6cYeiBEHE0GAthE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OxAaE1xC; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HEo7nSqP"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-476a130c138so4250367f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 04:56:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OxAaE1xC"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493b77b150aso37363225e9.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 05:00:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783425386; x=1784030186; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f2S6rAWtiJyKZBEDfHqasxM//kokkelrrLcftHh2iTo=;
-        b=HEo7nSqPK2HL1hAvc9Y73q0/umGhdtz9GPRgv1NzLQ055jlBjTyr/vXDZzUhbG4VZV
-         xP5N+95CUcXo+HHsMnIITB1/LxSNy+aEBxLKMwxU7++RZW2O+Z/QnkJxBY+yIc3Tp5IL
-         CxA9I1vfcdNpMogEhrOhJrHVBi8o4L1yT37jqab0s/vFe+My4wUZnIU4ToQyITWN5ghu
-         eFQSkzpzyqUhZ4rRsEn57a4Jj6C2OaYKMUOMgGiWOikSt+BN4stNIPTQYa0++T1pWi1x
-         pftHzVVE3tkem9oHJlVPVow8OXO3O1SxykDPR5jb5UUIGTO08pWTqiYScYlQ3+OUYmu7
-         V40Q==
+        d=gmail.com; s=20251104; t=1783425603; x=1784030403; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qlDJ746JGiTFJNRIapHXqXoAzifdALXvediQx13XyIs=;
+        b=OxAaE1xC9empgB7Oh8znVpWuy/t/AqYZnOvpr6qkGq1FCl4Own//li1VQ3aUQ0qVIY
+         +KfWwAzw7vxBiE3uaJk/rVVnxnqCSYabZel2F9YtMP5vnAYeC2N6L5LWRA4aPEyxbxsE
+         iSHE8O5k1k2fdruGxV5+rYz4zN+HoLoA95mBJBztgdeAcPUrzO4qxSzDlA7TqRQCKxzl
+         aYjEa3r5ab4wefrofDX/2kOZZS9pfIu+EzHsfTlMWpxX5Ehl2lPN08cOwlLXo/E6QFGc
+         07vypalpD44TtQCXv+wrV0YqQ+EKR6v3hRffVt0gmCRcwcUlsb6yh9Ujqu9jclkSjtM8
+         JCdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783425386; x=1784030186;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f2S6rAWtiJyKZBEDfHqasxM//kokkelrrLcftHh2iTo=;
-        b=nTuEC/87Z3XA1/3T4GTbqIfPkP+5cDkOs8rdKc14N25qZGMH6EOBfGHyZaB4ixK8BL
-         HsN6QKOvC2VVwIF9jyvi265Rtnr3itm92Gk1iSV92Z0r6d6r6iI+s62UiH+mBGQAD+l6
-         oh2ZCSdqTErsWHUfhYYMZIbhNv8h8E8QoKGqhd2saRwyRLr3kWSRgprxV6KJd4sJfr/B
-         YZsHoxdmtQAQ3djnloxDw9r2UvJKD99lxjRP5mFoiUIkYEXpQuBgYpakptGAYrfqW705
-         cXal2ksNnJgwmUl18ReXVUfRoGVtg+Y9z5+mZWtUM3gbP2YxSS61hbNSMSTUrZhKSpsg
-         L47w==
-X-Forwarded-Encrypted: i=1; AHgh+RpfvIVEymc+3BugnunmCLKTRscok045xdB3LEd7ajBw3iVnDWYAMY9zgf173D96g9tfN+U4vN8mmrrZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz07jltor7//el62ZZiqhqs1oszzBZJ6+XRQNphh5D9V7wsirMu
-	YBjp826bkyxrP2RjDXZ7wIK/Ghfq/zJladYZpc1DwAOZ+Kc7fvYCokWfNv05cdTTpFT1kNNxRkx
-	ajnY2kTQ=
-X-Gm-Gg: AfdE7ckHxM0wke/S9sx+BQT8SNryqvqnlCZ7N1on+rjwQu5wSqP1nKXPfHl5tXJdcOq
-	HWIZ3uJ50oE5m7NLo78+/vuFZFgb69tliZZCT3rbmxUT4OGRnYyoer/ChR9xsygkjUaURSy+z9K
-	/Mc2XhPrjCQG6Lh9ZPV7NU11VJpbfYXtJTCW8FYk8I7GAIcO3fS+gaMf2yaMrByyXWs/H+ulHEe
-	74fBU6lfVDrA4zBDf6XNJIPlRVQ918DN+qEAOC16AMqIIbi87CLqCYS4L0m4GsXdPeNldQZwfTt
-	v2uxPumjgPo5y54NMJX9kEGaOCqPoU1Tp9oXt+/yJ/qmB6r9HvLCygffrkuyzTIJsMAkYE/CD83
-	BLE5yQlZooPK6/RoJ7kTDSv6lys9bnPlAOnkmdGfHRGtKWkaDckrbFAo9ri6anQ3NulKjh879s/
-	9fhJHsdsJXKWU8t0qa+4NHoRZkLw==
-X-Received: by 2002:a05:600c:82c3:b0:492:3e69:a86f with SMTP id 5b1f17b1804b1-493df1c9602mr49298465e9.1.1783425385675;
-        Tue, 07 Jul 2026 04:56:25 -0700 (PDT)
-Received: from [127.0.0.2] ([2a02:2454:ff24:7210:adab:817c:53a0:8f31])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f5ca1fsm55401235e9.15.2026.07.07.04.56.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 04:56:25 -0700 (PDT)
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-Date: Tue, 07 Jul 2026 13:56:04 +0200
-Subject: [PATCH v2 4/4] mtd: rawnand: qcom: Add MDM9607 compatible
+        d=1e100.net; s=20251104; t=1783425603; x=1784030403;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qlDJ746JGiTFJNRIapHXqXoAzifdALXvediQx13XyIs=;
+        b=d3hzYuZgArCu2NE5jN1kyPYor2JvA9braxCWigjKMoIY+H9PheDHOOleY33jThwf+t
+         ZNd0vN+3zmEubToxzzPdPfWi/uMR97jWUeCxt5/JLEjD4dbMeaTszoPWTHstOBK3iH6+
+         e/lFcm1NvL/mbxtHXUPzb3GAnvDd3FTsSucCvsyr6+aGDScTHE03M46zMNe1OrJumX+b
+         JLuwjYOazm7woXJKk8l8ZFBOEHXY/lOPTTZp6sH0x/1uUsGYXzw+DCdpcVVoHfAWp36z
+         sSSw4uVtBBHqdvSjUcjsXmMJrK8ZDfaoRMGZ+Y7Qp/J4A9tsSLIPxuv5TO0K7HVn7MWK
+         Hv6w==
+X-Forwarded-Encrypted: i=1; AHgh+RoUs2unaOcCrlOWpDjB3uTjWDEUPiEpjxk8yTPfV7B8at6xcxgBnltGBzXJ/YzBrDPPSwl21qyXfbH2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyMB2l1G8eriONzv0RawneHPurXnSy6Ru6joBIC1KBJ2xgKaaL
+	ltyZqubDaCyu4X7g1Q97Z06WlyLSBk8LWbMD+usqgXya/O7EX80HtzOo
+X-Gm-Gg: AfdE7cn+lVFGWeJvD8zrVENBBAlWmRQJ+ISePgwGSAOA9j4Nmj7sT+SVMx6WeERlqqr
+	5jco/x5+LF+x6xjI760AmmK7x37L87X3cUONqTAf1r3trJjoyoD1pCuXF4gdfglFTVC4uieANtU
+	/Wr6czXGA3IiqSLXhGxjKqYfr1Dfr4Wr+dnHkEvh4oh9GOQnmklGDC7LVhy2sh5IuEl4cnQoFvI
+	/43CYwQ39Y75UyYqd4Go4aJh52YmXoMbzeKcb7SHQdx/oUjs6zAZTbTSz8ocGUC6mFsCCEVqcDQ
+	9LH49biZF9AweNOkSuRyLceGy2I/9dwNuz7YWX9ioIMqPcVE8UdeI+/jqadxGm2FCPx/KJha5T7
+	EBR5bc+MnS2MEfI3ORCEpddX6JvL7kLG5EJdd2Fw5ysIOy2XwPCqqHMf13intp/k2euF2YNBU61
+	jdqvhEKzyOvX7KPyRo9ex5ScGUxpQwlTvP07eJGBovINR5h+WTS42cST/1ivSAcNiv/A==
+X-Received: by 2002:a05:600c:3b01:b0:493:a570:df7d with SMTP id 5b1f17b1804b1-493df080ce5mr49199465e9.20.1783425602811;
+        Tue, 07 Jul 2026 05:00:02 -0700 (PDT)
+Received: from [192.168.255.3] (85-11-142-46.pool.kielnet.net. [46.142.11.85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f439fesm54216335e9.8.2026.07.07.05.00.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 05:00:02 -0700 (PDT)
+Message-ID: <e5e61dab-5ff1-4a7c-9b74-d3ed61e6c81a@gmail.com>
+Date: Tue, 7 Jul 2026 14:00:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-qcom-nandc-mdm9607-v2-4-d906f7e8b814@linaro.org>
-References: <20260707-qcom-nandc-mdm9607-v2-0-d906f7e8b814@linaro.org>
-In-Reply-To: <20260707-qcom-nandc-mdm9607-v2-0-d906f7e8b814@linaro.org>
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-mtd@lists.infradead.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v5 2/4] net: pse-pd: add Realtek/Broadcom PSE MCU
+ core
+Content-Language: en-US
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Golle <daniel@makrotopia.org>, =?UTF-8?Q?Bj=C3=B8rn_Mork?=
+ <bjorn@mork.no>
+References: <20260706112425.3149226-1-jelonek.jonas@gmail.com>
+ <20260706112425.3149226-3-jelonek.jonas@gmail.com>
+ <akvhq1YcUFP6eizf@monoceros>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <akvhq1YcUFP6eizf@monoceros>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-MDM9607 has QPIC v1.5 that supports the OP_PAGE_READ_ONFI_READ command, but
-is missing the rest of the hardware changes in QPIC v2. Add the new
-qcom,mdm9607-nand compatible and set it to use has_onfi_read_op without
-also setting qpic_version2.
+Hi Uwe,
 
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Stephan Gerhold <stephan.gerhold@linaro.org>
----
- drivers/mtd/nand/raw/qcom_nandc.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+On 06.07.26 19:12, Uwe Kleine-König wrote:
+> Hello,
+>
+> On Mon, Jul 06, 2026 at 11:24:22AM +0000, Jonas Jelonek wrote:
+>> +#include <linux/mod_devicetable.h>
+> Please only include those <linux/device-id/*.h> that you actively need.
+> I'm working on getting rid of <linux/mod_devicetable.h>, so please don't
+> introduce new users.
 
-diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
-index 9217e8de5512..d7642db2e2df 100644
---- a/drivers/mtd/nand/raw/qcom_nandc.c
-+++ b/drivers/mtd/nand/raw/qcom_nandc.c
-@@ -2381,6 +2381,15 @@ static const struct qcom_nandc_props ipq8074_nandc_props = {
- 	.bam_offset = 0x30000,
- };
- 
-+static const struct qcom_nandc_props mdm9607_nandc_props = {
-+	.ecc_modes = (ECC_BCH_4BIT | ECC_BCH_8BIT),
-+	.supports_bam = true,
-+	.nandc_part_of_qpic = true,
-+	.has_onfi_read_op = true,
-+	.dev_cmd_reg_start = 0x7000,
-+	.bam_offset = 0x30000,
-+};
-+
- static const struct qcom_nandc_props sdx55_nandc_props = {
- 	.ecc_modes = (ECC_BCH_4BIT | ECC_BCH_8BIT),
- 	.supports_bam = true,
-@@ -2412,6 +2421,10 @@ static const struct of_device_id qcom_nandc_of_match[] = {
- 		.compatible = "qcom,ipq8074-nand",
- 		.data = &ipq8074_nandc_props,
- 	},
-+	{
-+		.compatible = "qcom,mdm9607-nand",
-+		.data = &mdm9607_nandc_props,
-+	},
- 	{
- 		.compatible = "qcom,sdx55-nand",
- 		.data = &sdx55_nandc_props,
+I'll fix this in the next version. Thanks for the hint.
 
--- 
-2.54.0
+> Best regards
+> Uwe
 
+Best regards,
+Jonas
