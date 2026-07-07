@@ -1,220 +1,182 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011031.outbound.protection.outlook.com [40.107.130.31])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A7B3B47D0;
-	Tue,  7 Jul 2026 10:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783420598; cv=fail; b=tYpdjUOdIxcdOt4XYfuOTiY+ZFguElUps2iALxl9JLmWGHDzYzGJknsDZVgTL0x5PgRMvpwhgnvzziJN8WCSjiP+GjtQw5gAgx3XdEK8J3nMRwhHkm0JNs7CboRoRtdxQ7G4zSMM2p7b6TwUiw6g1C7T/ECXU4jWbB747pOGPU0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783420598; c=relaxed/simple;
-	bh=1liwYdZi+lGiO2DE45qlWF1RGMjbmaRaPM5bGQcqSMk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=G6QJOv56mX+QTK2D6HPYCz2cVNVTDRyZH4RZMZpPmsNoWCFfUKo4aexl3Yjx5gUX5kEXtgv9YPc/D6tf9T+qrCvSCMIYz/vqGPfAjNWIVZEGMY6HgIqLr+ZKSZvcdmAh5MncAhfmOydeR0Mo5aHWzMKYVSH7he9bK8Lcj1afqEs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZooWuhZr; arc=fail smtp.client-ip=40.107.130.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BF93DA7F8;
+	Tue,  7 Jul 2026 10:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783420885; cv=none; b=eyi33v76FxLckTf2oJuAIXGd7qjoh9yWkRJ0QLi8N6qlrI4xPEgTrRG0UULTQFqJwUzwAFWmT7mFikthGtcU5GzDFv4HsuK+XxMDDoDMHvvEYr5N5zFi32VALyiSS+VYiVr2RcqGxhArAWZAVeGSQBOhz6BsWNsTZVwZbZCEiiM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783420885; c=relaxed/simple;
+	bh=3O6Ysib/EBFDCN2Vf57xgj0WB8+cWDuMialRUyEyo7k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ps22h5Uv789eiXmLITuSjnIcPWKs4/4o27iZU4Xq5k30KfUGz5nPXLOzmRywF5KJYx9Vj9uIGHSi2yZ8+6d0MrKz+C+plBnc/TTvx7SroO0tmtasrCAzI2CG2T8CAa34op60zuLJWfx1/u+9w13Qj/X1oLKLSZDLA3fv82RQGvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvCduiWw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZooWuhZr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZZLRmdvM/b8+NfQoMVnRiExWKsHg83T4ua9XZdPx1PFmZ4uCuOqU6H4PqhccpgvxtYzPrzizYX+Ug3hHkcVabc1v5tZapBfnm8o7tVVSn7I9zVaKgvsPIOqJBTpvJlgAC7+vQCbqX0F5xSSVI91ix5sYQYldMazyHI5tCDBlU4p5FHUIxvy3fse+WvuSC2iEMNuFEQ6gSlkGzj0GsjMudKYbeId5uGv9jVjXFZXW5ytBiWlEzhfoBwB3ZCchh4PsomqCPtZn0sKkhyDAoUYqeQh0epQDlNpAAc+SuQVr+8w9x6H4tlHwBogCEpJwsZqdck5INEGGWU4Y9RAko6UPzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uK0xKUpK7gbH9CCIGziXQDlUGdPZfbQD+vcFxJq4DpY=;
- b=C0joCbyQ+b8Z6GiN7yH7T27cIolJuu3znGy/LvUBeNzS386+02EEi6ga0L4m5N6QdiAK9rFkbnClYXXhVRMdnXTQUn5tiDbFGQN4hxva1Gr7vgCrgBiarby7KqZ8/7OSGfq8/cwkgx9I94pERwCTnV7WyFjBAY/3QcY9clD/2co28ra/wI3ZDruuPRmuaIuj1Kt0bBCa16Ehb0aCNOKv3wx3QZ/sAbWaR+YJ/VXOJB47Cmt8zC//jXh6Z4bGeyxZrLazojDm/40XOFoLjljNmi3SKMFo6oyIw97grE7rXmHRV/lwv2855D53QD6Yj6rtsaOF4HmNISYFkI495c+V2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uK0xKUpK7gbH9CCIGziXQDlUGdPZfbQD+vcFxJq4DpY=;
- b=ZooWuhZrW0nHbTvOm0TLrwSInuqDIEcNlomffX0hDyxLvGUAlnO1EpcNcDmyGMuqBs/rokqQq8a5BOGVFq8e69kDGc+vJwrXVm0nxTAqovciH5UuyHnWOF8vmXFX9Z3JAkTcYT0wTgZqxcxtopr7+iUb9sHk0XqzT946YBLaNp3SuMU8cpK+y8wy6Fgs0pxjHFKeL17NqbKckr2zfMcUKaDa4OWaoUHeltpQDyg7uUaRi7r5jsX52/ZiMN0+vK7dGjvVvgiFF9Bdc7/Lzthcf3x379L9du9x8Myb8smfzCN4NSqqH0faX9NsEFd/VKgivEHMT40WZbyO6GUVL1j81A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
- by DU7PR04MB11138.eurprd04.prod.outlook.com (2603:10a6:10:5b1::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Tue, 7 Jul
- 2026 10:36:25 +0000
-Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
- ([fe80::bdf4:c9d1:4e3f:68c6%4]) with mapi id 15.21.0181.010; Tue, 7 Jul 2026
- 10:36:25 +0000
-Message-ID: <1296950c-07a2-477c-a1de-598ca8be9a81@oss.nxp.com>
-Date: Tue, 7 Jul 2026 13:36:17 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/8] can: flexcan: Add NXP S32N79 SoC support
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
- Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, NXP S32 Linux Team <s32@nxp.com>,
- Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>,
- Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>
-References: <20260609142954.1807421-1-ciprianmarian.costea@oss.nxp.com>
-Content-Language: en-US
-From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-In-Reply-To: <20260609142954.1807421-1-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P195CA0028.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d6::13) To AM0PR04MB5858.eurprd04.prod.outlook.com
- (2603:10a6:208:132::23)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvCduiWw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36741F00A3A;
+	Tue,  7 Jul 2026 10:41:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783420883;
+	bh=KlgZ7P7IZ1tcZogmnB5NAiKND0y62Qae+ZrMg1gqv00=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CvCduiWwq1y4A4HzQHMAcWHhMnt4TuGRs/+IANYYWeuPh0SFBxYdkZY0iZRMEm5hJ
+	 glDJVmyAGiKRPE911qxVo8M5sM5ssuwAO1WI+Q5XP3TgWgHFcTulS+OORrmrRZeI58
+	 4DwB+pf4hWfDPBJLKIPeEO0RNJzo8Qbi0FBfxynSiLRB++fbXsbYJMiGwfOpmB/WnE
+	 6LwKM94nkbSi0nLCUzoBJpIvqDAzOMvdbBJM6N6hplZIXNx5lZtR40TXIKpo0DRv2R
+	 +LcUZC5/jJ34NNJK8eUmaofcQ6sZpVIMgErfH9Rlb2qACsjBbRc6SsQ9nBF8u25FBb
+	 W5UGVhEYqhAMA==
+Message-ID: <d5407ab1-1af7-4678-ae67-5cf30ce8fa4b@kernel.org>
+Date: Tue, 7 Jul 2026 11:41:19 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|DU7PR04MB11138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56d0782b-8600-4cc7-e2af-08dedc13985c
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|1800799024|366016|23010399003|7416014|376014|11063799006|56012099006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
- itlxNF/GbdsrzWBx36HxQG87FGTm3uNHP3tPzrawhz6/zcv/rPwFcUQGO/moDyNsSzTv6eEPrHxwZg28rM9nxFYG8vkNcoo8MZUuHvIKLB/qGXWCRhdKljVMenYTUqepPThimwC49vZ+bJHvO4vJLFwan0N1BI+hMjcOTz+f/X+y1hylUgJ959HIui1AJc2tJkGFKuGTphHJixcaPAQGPD5NCIl/xQ95GFs8yDbDOOo78UGXkX0llSj9E7wVjswSAeN9vLNrie9JSNGkAZd0AoNjc5HDB92YiApsm3IQkhSSiLd7209+XuYWRdaHhllIFyYZiJamflJQ0aDuy4V9QIOdlkrDYTcJcMfnoef/atVUrGBFFJpggeTenPgLSYKNLTIaE67h4wJRvK28zrsWyVQKYzZtW3u++orf9VrkWANxePvXGL7Iny5AvpYQcGHf7JIeUntIY58Iv4ujCSlMIxq+QXrxB51ozRLHJtpHA7mJ3tmH5hU7kF9+7pLfJzcAgV/RXTGBeDcY6v5mr7v4LIvtL5lar+nfk2pLhyVVa/Ckeve/N71o0zu3qGBpa+MUbfR/hwHmN51mBl+QanQinNsPbt5eGPPbddSRoMSSsjsjZyKy4Mt04SPZNXBsnv6o2/TNaPudqxs93LHYNlxmqe7hyFdzWIvHg6e+dieMu1A=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(366016)(23010399003)(7416014)(376014)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?S0orcGQwcVNuZFVZZnMyZlg0d0ZTY2dxbkxEYmc1YTZUdEFDckFZYkNnZGUw?=
- =?utf-8?B?SWlicm9QTStBcHludFBnQUo5RU90Z0wzK1J4K2RKWFp1SUE5TkxqL0laREJ2?=
- =?utf-8?B?cUxvdzY4TFlESkZaTjR1djUwSHJLT2oxQ3hWUTRnNnlUL1dud1MzTVhVZUN4?=
- =?utf-8?B?Z0Zzb0pTN0pYUVZjVEhQMlMxT2F4dUpPY1c4MzVBRG5GWnZRdWpNZ0hITkZo?=
- =?utf-8?B?d3R1NU9iMmpYRTZvZVNacHlVMVZiazI0MHBvZHpocms0Z3J0M0lEYitEUGk4?=
- =?utf-8?B?a0prNmE0c3pva0NLL1pKaDlkV0VBK1dlZ3g3WWJSWlNxUVAyUjVROU9jRUVh?=
- =?utf-8?B?L1V0VUt3c2hoQnB2Vjl2UHYyWWdMVkxpeGRtV2JqU1lld2JhU2ozYnk5clkr?=
- =?utf-8?B?ODFZRE0zdVFJN2VkU3hiUy9SVW9lTWhUU0hyRW5kWU1OWkFJZDZ1SFgrSWJR?=
- =?utf-8?B?SmFxQW1ra1o2NDJIUklaUlZFbFphVGFyazZOcEtyOStFcUt4ZVVtNEVXWFZK?=
- =?utf-8?B?MGkvcEhGcjNKam9mdUxISURuV2Y3WHVmbzVlYmZMeURIaElUWG0zL0U2bVp1?=
- =?utf-8?B?dE1XZUtXOW5ScVdTcmFCUFJFTWhkMlBjeHVaQkxQOG14M3pUYXQrVHNjY0pG?=
- =?utf-8?B?cXlOU21PRVRvTWhDZlBlb3BCeHNLbU5QYXZhT0FjR0U1a212anNWcWFDWUpW?=
- =?utf-8?B?eFIrQllLRktyT1NXdGhFRUJrZ1UrZktKd0hGRzJtekRQNm1QSTQvWnNBcGRN?=
- =?utf-8?B?eEt4RjJ3QW1HSUdqdDZKNEtPdUtGVktPd0JNYUd2WHNhR2U1cGMrcnJLTE5n?=
- =?utf-8?B?dXBKWTZWOHpieURsVVdOdklmWUQ3Tk1JaFdLUThpY0d0cU5vcHRxL0xmc1Q3?=
- =?utf-8?B?eDFCajk1YnlMeTBHTldQV09vS20wODBmZXNzZEg2WDhuekozZHZIUWJYTGJX?=
- =?utf-8?B?UWpoRkNGODZZaUVZcHZwQ1JURzhaSFRVRkJiSFJxajFwOU5iSS80N3hBNzF4?=
- =?utf-8?B?ekFocU9oNXBKU0FmdXBWZHZlNGZWYlkzT2dVL3l3L3EveW0rWExLb21wZ0RW?=
- =?utf-8?B?emxvZHlIYU1BODUvUjg0bjc2MzM3V0FnT0hjLzQydktpZ3lBeXFtaFZ0YTYw?=
- =?utf-8?B?ZUJMUVNrZmFBc3pYalFwWFMrR1pnbURCQ0VxcXdjYlUvQ0JjWU1UYm1RUlhm?=
- =?utf-8?B?MjVQVlU0bWdlTngxQTJDcnlVa1FYUEdHYUQ0ZnYxU0ZIUHg3TmV2c1hpTzhq?=
- =?utf-8?B?c0d5bkM4WXVsY2ErV3FJTTVmQWlZYnpqUjkrdWJ4cHhRalQ2Z0RtY1BoY0V5?=
- =?utf-8?B?enladzZWaUNKYVN2REl2QU10MUcrTWUxOFYrTG4vK0J4Q3ZjSzBBTDRWWkpT?=
- =?utf-8?B?UTdNd296bUY5cjk2djZMRFJQeDY3bFdhQmxlSGxvZEZnUnhhRFBycjZKNDVG?=
- =?utf-8?B?VG5pU2c1cTd4eTNRWC93akVoaC93WW9JQW02MlpteFZZNk13eDY1Yk5udXgv?=
- =?utf-8?B?MkpWcm4xd3FaRklnak9BWW84MTFjQ2FaelZteFdNY2ZOblAzb2RoUVozZTFx?=
- =?utf-8?B?bVN5OXBoTzVzUnphMFNTYmNRYXNVRE5rbHVzejFCUTBYSXVlRTI0eWpHWE1C?=
- =?utf-8?B?eWZ6QUlMMlgybTR3ZFg2OFNXUkVsY0V3cFV0TTVCWnZmZnlEQW9aNWdUS3M5?=
- =?utf-8?B?a3VmYkg3MC9kQmJuOFF6Y0JvYlM0bXdrWUlCemYxdnZPYW5JaVdqNTdBaTdZ?=
- =?utf-8?B?bUZkNUVyaDFxRUxLckhVZXF1Y3B5QTRDMS9hVU95QUQ2UDBqcUUyd09pNGFV?=
- =?utf-8?B?Q0JQS2E4SWo1Q3JEbmsvaFpGcU9qT21HTFJZMnVsMzJOT2FpM1B4V2RTSm90?=
- =?utf-8?B?d29COG03THYrai9TNWNGa3FnMFcyN1dHRWdKcmVnSTFzajRWWVZHRER4RWVk?=
- =?utf-8?B?THJUbVp6Y1cyNjZSOVZuakc2RGNFZGtUYURDUllENnE0d2U2YWZiNW90S3Nu?=
- =?utf-8?B?QWxBdHdhbVVqbGRDazVvc1lIazd6b0ZIRG5nLytYTmVoUVVPZU5scll1TU1t?=
- =?utf-8?B?NmhMNjhFY1ZHWjZDa2ZMUUxkc0NSOHQxSTNyaWhodXE5Y1hNSmIrRGsxWVpv?=
- =?utf-8?B?dVA5K1g4MUYrdWRSUlFGWkpHcjNmUjFvblpuMlB6WEJOUzFzbmpKb2lQQmtn?=
- =?utf-8?B?MmFFZjc1QXVvb1A2OVhMbVlFcE9lMllSS1ZrdVZDSXlFbkUyODY2U0k4N0ln?=
- =?utf-8?B?cjJCdW1UamtWYkxkMzF2ZERjQ3FLT2RTdmFDY051WGF3OHR4TFhZNklRODJR?=
- =?utf-8?B?NTMxTy9XRTR3dUVrd01lWHFHTFBCRVNDYVZZM2gra3hWNUlsajJ0blVRVVVY?=
- =?utf-8?Q?LJTwih/Kxp8171DU=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56d0782b-8600-4cc7-e2af-08dedc13985c
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 10:36:25.4639
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xQ9IfcoyomFApwTFdyC07O1ZEDrbVs3Ut8NGMb+k5rjUp9lL8AI+SiLls3kokzyalEhdl1jz7dQTqUxQZJfcOqbe/XAYm49GMFR5pca4HiY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11138
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>, linux-media@vger.kernel.org
+Cc: loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <68e59764-5a10-4abc-849c-14ea2d9ef76e@linaro.org>
+ <d74d7839-d126-427a-b151-ca895a27a83e@linaro.org>
+ <437d1eb0-4495-406a-9501-b0515cfa3151@linaro.org>
+ <e04cb9dc-76dd-4fa8-92f4-be002bf7ee8b@linaro.org>
+ <8116c54e-4050-4e9d-b236-59d74846bd57@linaro.org>
+ <8a09875d-af5f-438b-b947-bc2b61219b70@oss.qualcomm.com>
+ <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
+ <d0768c15-453f-4d3f-8110-886a5c697b02@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <d0768c15-453f-4d3f-8110-886a5c697b02@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 6/9/2026 5:29 PM, Ciprian Costea wrote:
+On 07/07/2026 11:11, Konrad Dybcio wrote:
+> On 7/7/26 12:00 PM, Bryan O'Donoghue wrote:
+>> On 07/07/2026 10:24, Konrad Dybcio wrote:
+>>> On 7/6/26 3:37 PM, Bryan O'Donoghue wrote:
+>>>> On 06/07/2026 14:02, Vladimir Zapolskiy wrote:
+>>
+>>>>>>
+>>>>>> The idea is to make all of these peers, eventually. Not particular block
+>>>>>> owns the TITAN_TOP_GDSC - the entire CAMSS block is a collapsible block.
+>>>>>>
+>>>>>
+>>>>> The statement provides the same information as before, e.g. it's found here:
+>>>>>
+>>>>> https://lore.kernel.org/linux-media/fbc018f5- c025-4747-85f2-53b45b0f0496@nxsw.ie/
+>>>>>
+>>>>>        There's no functional linkage between CAMSS/IFE and JPEG - they are
+>>>>>        peers within the CAMSS power-island.
+>>>>>
+>>>>> Thus "the CAMSS power-island" exists, and it got its hardware description
+>>>>> as the CAMSS top device tree node, and TITAN_TOP_GDSC power domain is
+>>>>> a natural resource of all devices on "CAMSS power-island",
+>>>>
+>>>> Vlad honestly, TITAN_TOP_GDSC is provided to the CAMSS island - all of the nodes within it depend on that and it is _external_ to the block.
+>>>>
+>>>> There is a CSID MUX on some SOC other than that I'll restate it again, I'm not sure why you won't accept it.
+>>>>
+>>>> There is no dependency between JPEG and IFE, one is _not_ subordinate to the other and trying to find ways to invalidate that statement runs counter to the facts.
+>>>
+>>> They are all subordinate to CAMSS_TOP - Vlad indeed said they are
+>>> peers (i.e. there's no co-dependence between them specifically, but
+>>> their parent is shared).
+>>>
+>>> You can't use any of these IP blocks if you don't first power up
+>>> TOP because of the physical layout.
+>>
+>> Yes and I'm asking for TOP to be listed in each of the subordinate nodes for reasons given below.
+>>
+>> But unlike MDSS - OPE for example doesn't require IFE or CSID to do its job.
+> 
+> MDSS also contains a number of unrelated peers - e.g. DP and DSI
+> controllers.
 
-Hello,
+OK, I can see how this thread is confusing.
 
-Just sending another ping for this series since it has been hanging for 
-a while.
+The idea is to start to declare sub-nodes "on the road" to making camss 
+into a bus. The legacy binding we have is really for the IFE domain - 
+that is CSIPHY, CSID, IFE.
 
-Best Regards,
-Ciprian
+Right now the camss binding describes those things - so linking say OPE 
+or JPEG back to the thing that describes those isn't right.
 
-> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> 
-> This patch series adds FlexCAN support for the NXP S32N79 SoC.
-> 
-> The S32N79 is an automotive-grade processor from NXP with multiple
-> FlexCAN instances. The FlexCAN IP integration on S32N79 differs from
-> other SoCs in the interrupt routing - it uses two separate interrupt
-> lines:
->    - one interrupt for mailboxes 0-127
->    - one interrupt for bus error detection and device state changes
-> 
-> The CAN controllers are connected through an irqsteer interrupt
-> controller in the RCU (Resource Control Unit) domain.
-> 
-> This series:
->    1. Splits flexcan_irq() into dedicated handlers for multi-IRQ platforms
->    2. Adds dt-bindings documentation for S32N79 FlexCAN
->    3. Introduces FLEXCAN_QUIRK_IRQ_BERR to handle the two-interrupt
->       configuration
->    4. Adds S32N79 device data and compatible string to the driver
->    5. Adds FlexCAN device tree nodes for S32N79 SoC
->    6. Enables FlexCAN devices on the S32N79-RDB board
-> 
-> Tested on S32N79-RDB board with CAN and CAN FD communication.
-> 
-> v5 -> v4
-> - Simplified splitting rx/tx masks per mailbox IRQ line
-> 
-> v4 -> v3
-> - flexcan_chip_interrupts_enable(): disable/enable all IRQ lines
->    (not just dev->irq) during IMASK register writes
-> - Split rx/tx masks per mailbox IRQ line (struct flexcan_mb_irq) so
->    each handler on S32G2 only processes its own MB range
-> - Added received Acked-by tag on DT bindings patch
-> 
-> v3 -> v2
-> - Split flexcan_irq() into dedicated handlers (flexcan_irq_mb,
->    flexcan_irq_boff, flexcan_irq_berr) to fix duplicate event
->    processing when multiple IRQ lines run concurrently (new patch).
-> - Added flexcan_irq_esr() handler composing state + berr for S32N79
-> - Ordered quirks used by s32n devtype data by value.
-> 
-> v2 -> v1
-> - Renamed FLEXCAN_QUIRK_NR_IRQ_2 to FLEXCAN_QUIRK_IRQ_BERR to better
-> describe the actual hardware feature
-> - Appended new quirk at the end
-> - Switched from platform_get_irq to platform_get_irq_byname usage
-> - Updated interrupt description in dt-bindings
-> 
-> Ciprian Marian Costea (8):
->    can: flexcan: use dedicated IRQ handlers for multi-IRQ platforms
->    can: flexcan: disable all IRQ lines in
->      flexcan_chip_interrupts_enable()
->    can: flexcan: split rx/tx masks per mailbox IRQ line
->    dt-bindings: can: fsl,flexcan: add NXP S32N79 SoC support
->    can: flexcan: add FLEXCAN_QUIRK_IRQ_BERR quirk
->    can: flexcan: add NXP S32N79 SoC support
->    arm64: dts: s32n79: add FlexCAN nodes
->    arm64: dts: s32n79: enable FlexCAN devices
-> 
->   .../bindings/net/can/fsl,flexcan.yaml         |  30 ++-
->   arch/arm64/boot/dts/freescale/s32n79-rdb.dts  |  12 +
->   arch/arm64/boot/dts/freescale/s32n79.dtsi     |  50 ++++
->   drivers/net/can/flexcan/flexcan-core.c        | 227 +++++++++++++++---
->   drivers/net/can/flexcan/flexcan.h             |   2 +
->   5 files changed, 292 insertions(+), 29 deletions(-)
-> 
+OTOH we _want_ to make the top-level binding into a bus, we've discussed 
+that several times.
 
+To transition from monolith IFE-domain only, to camss-bus, we should 
+have the sub-nodes fully describe themselves as "camss-bus" doesn't 
+exist yet.
+
+Once we have compat="camss-bus" then fine, make that linkage, I fully 
+support that.
+
+That roadmap BTW is why I'm asking Antanas and Loic to make JPEG and OPE 
+sub-nodes of camss - but make them complete sub-nodes - power-domains, 
+clocks, nocs, including the TOP_GDSC.
+
+It means we can work on splitting apart the existing camss node in 
+isolation to make CSID, IFE as peer sub-nodes.
+
+We definitely shouldn't be making those sub-nodes dependent on 
+compat="camss" but they definitely will be dependent once we finish 
+making compat="camss-bus".
+
+When that is done I fully agree TOP_GDSC belongs in the bus node, like MDSS.
+
+I hope that makes sense.
+
+---
+bod
