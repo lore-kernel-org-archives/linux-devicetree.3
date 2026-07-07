@@ -1,189 +1,521 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F683EB0EE;
-	Tue,  7 Jul 2026 11:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D953F8886
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 11:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783423649; cv=none; b=edjuz/RnWkK7dYwXl1YHMyXesI+v/YAPmdV1S9PFw6zmNj2FezxrrM1zJiCoxn1p5HPdtu43QOj71Iq7UvBfOaovItgyHN8DvOPPZEEY2PYOMJbi+gsYpH1BUurjwOfLUTyXFsjHz1ha8ABd9Y1N0e4F41apyxvotDfVQzfaerM=
+	t=1783423921; cv=none; b=pl2PK9q/3I3Nt8WGiajk8RhBJvAZO/J3gq6vZQUzrRKbVgELNJxsk5GQ0SsLaAK2tJ/YAHxSFxp59RZNvgKaAMFlYcwbkqiYebJarAG7AdB0ZkjLQAIy2Mtz86fYg2kaWWL+BR7aixUG4mNLkxWsKjToPmN3MMjnnZV5y+eogrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783423649; c=relaxed/simple;
-	bh=4l1iXQHyZX4KWBSzqmvIdP4JZC7MUT5WaO5EHB7P7oI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=odCD50QOfJsElVdlyemxUXaXpUUvR3omfhj7BVvQN4LQl49lsJqm6MggjLEDoGjbV4C2YZj4EmDsC2927bXLCVpiEITLJfN+sLI2kzRUlOLFQOQ5IMt2sTnttA4PLT4RSLDyU9J9ajGZ8r4yH4ghEzAK1k5NYuwqXYDDf71/pFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcnzsePl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783423921; c=relaxed/simple;
+	bh=m/onrcO2JktgwIb8sRDnfeQXFjAPv93f8lW4aCB6WM8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h5hfQG9cpeczbKJahilnbe2EmlK4NKZe3ElIv4UiNfW/JX7F9JqjpPf+yeSANtxR2c/TWP9zDygnU+Ax/n8JHtWjBCwM+Mtuv6qy5WRVaDbPLKgReuj9BVZl1M2X0FAiIzcOmJ7b4lvllAn3iuxMuknOjc4m/aktJQUhWz0ig2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IWQbv/gb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M3RbKHk/; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcnzsePl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C559E1F00A3A;
-	Tue,  7 Jul 2026 11:27:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783423646;
-	bh=aYNExvVjE68Bssuz6Q0Uk1wNO8ENlyByAV7s1CeJs/c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GcnzsePlke2sHPVKXFrpmfWgDPaoaXvAGDCsvjpqbfsyvtLlho3fWpXDj/uKbDk36
-	 29MbpRdO6rfO94xIsXtWVBLVNSFu0PRpK+8Q3N5xgWJ0OkZvieybMvgBUqMhb2gQ4l
-	 Ahv8XDpa/3PWbSrFZzHelbxOI04a8OSapHaj/zeLfsMzVDa3n5HsTdyC0YbOpI139d
-	 fBoWckCalPRK9vcu5ifrE9IuraW6MqY6Q5ge3UN3DrPMz67mVJTxLFQXEVChjUNePg
-	 j6GuAFSVjQX9tNj/p8+7XZT6WNDH+X3gTCGkYbSR/BFOoYlGChu7c6d+b+RUXalLPP
-	 aFzzC3Jb5OcTA==
-Date: Tue, 7 Jul 2026 12:27:13 +0100
-From: Will Deacon <will@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
-	linux-trace-kernel@vger.kernel.org,
-	Thierry Reding <treding@nvidia.com>, Chun Ng <chunn@nvidia.com>
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-Message-ID: <akzikTrmhMsvkNVY@willie-the-truck>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
- <akYs91INHMXMTI-t@willie-the-truck>
- <akZkuwktaXFTrASP@orome>
- <akaSJ5D98w2cHqb6@orome>
- <akftuw9NyRy36fXA@willie-the-truck>
- <akuvyu1Pq0ZVMZV0@orome>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IWQbv/gb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M3RbKHk/"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667A75A13471473
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 11:31:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=GIxhDTqzrhHQT3ofktLEnc
+	eII+Wnr1xn2q83uEuwRtE=; b=IWQbv/gbe78Wz7AduDnCgz9EJg0jxv1Ixeacpl
+	ccHI11MfEqZlg2tp03NK0Q+w12xB06QMUeMh5fH0j4dbxyUZO3MuhdxDrsQ/wkHy
+	d9BbXVm8y8TTqJPcwM2+VHt/kBixFH2XrCK+sQlS2/5h1Hlk9SCC2bDYcZz/6LNj
+	EE8Hewh+YRv4u/2gfgsN3wT+45m87KnqkbgQNaa/uZ772TP3JltoGH7Tncv5yvVf
+	O11Hxw0VVWBI/ECQ64BcB5kbB8kbU5SfDNGZCJs8+ojsHomiQdCpGeaDZjD9N23y
+	o2VlxqtvQmX7cDdQ3YssbrIwoyGy/znh1louck6Xkc8bKJZg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f8ye0gag3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 11:31:58 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-37e5ef8299fso4284739a91.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 04:31:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783423918; x=1784028718; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GIxhDTqzrhHQT3ofktLEnceII+Wnr1xn2q83uEuwRtE=;
+        b=M3RbKHk/dsp/84vblanCYcZD+gtjENVZZ7twhfOHHLjvhPNvpGputpI4fYegq/zhxM
+         yI0Wf/F52qqotW6t40YXPxf2+EgFIm7RG4Fc0YAAWt41Nex1ZFImBnBhlcw5dyqsxggB
+         TZWkxkV6f2+MdDhUTXzdfH1tr5vcvLcCrgIto2u8SbSv9gwpRHzh59yTTpZ2x/+lTXdZ
+         LqoTDS2VKeJYHQhgrI7+UjIk7BD+EMBJnQZ/TwRcpDQpXaw37SjFJ0s3OiEUNsKvThg2
+         +64OeqElbSd0j/U6r6QCri0/eVmdS8PYIG/u3Y6dolwT5aOH0EXlkV480TYjJe1u1uco
+         5emw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783423918; x=1784028718;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GIxhDTqzrhHQT3ofktLEnceII+Wnr1xn2q83uEuwRtE=;
+        b=YOL99gl8q1OMsWIEhX7GvGK5F0w9MfgIAkEkh9pX+9PR3I9/3eJfGAUkwzOfIiaODd
+         r0Y+lecvxHgRRcw/as1lafCzv+CTzDPTmRfFxjdgOKI5R8LjeDAlbn6TLIn2gCBDBBRN
+         sATdZ2ffp41lEN0CLubR4Z4zhQFQBED9N76sykd4NZ/9vXTHywaoezVJugiTiO27+ZPH
+         bce9iIwSf1qkUbgAxWRTBHGlqIUxqh1vSpF0vlTomk9wD/UpgrvpivCmjJbA4GU9vYYQ
+         mFch06TxUtmIwf4am8R+Olh16de+2Z7Sz/d5rE5dpCRTzl5FhZzJR0Lwvr3FRGDSPf31
+         KGww==
+X-Forwarded-Encrypted: i=1; AHgh+RpJBAatxYlefzcs7c9khFUXe/vgx+MDDqSCGwdmIAUQIqjlLC/Zm1+3ptJKe6RQaqRTyqSsvZaoZMku@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOyoMpLmU7rZo4zY3PNVlNfSNQ6a+8SDqhattAzBsadFnmgpsO
+	0YgpMb+qfMzg5w2fau0wUM33JFCx2q4JxsLPAIO4iE+xW6x79NNqq3xhLMRXSlbDfsjtdl4EInN
+	MMV3X07QZSDRnWUpDN3H+CDedidD9u+hoDumrGVyWs7f3TGEZRk/cD2azbLAFe3G/
+X-Gm-Gg: AfdE7cl96WiReLz6+80x+6VfiIxNyEW9sFN1E1lfxMSlDGGGIjV2Tay9aVRYMh3sPZN
+	E26mcHXJ/1gyPYTBZnn0MnawwT5rSrBomZkqSZ58/aL5TGU6bBkJvnGonghZllioG8iWLGHlmdA
+	N/8kxq3+sd1iUBsU3zDRhb9vpnzqlUTOWXdJSCUPo4RC2vJ0O19YK01DncYTm31Ruma3vVBIKM9
+	UafhLCf5C8LGHjgok9wkYA781cHHb/7DdnUyPdfxIIITx8ysMRYRYp2VRzoAPJJiDnTX9+WzMEN
+	YJ+x7uoLfpzav33oNkVO7XHxp9G8dvNkNrUkXs6L88k2SvDLqr0veOQYYL7G/PzDSj0VaqddpYS
+	oY7C2olkubN0DLepoK56yrcHTVjPikwVe+/aqehlSyzAmMg==
+X-Received: by 2002:a17:90a:e703:b0:387:e0db:bc2f with SMTP id 98e67ed59e1d1-387e0dbbd95mr2321732a91.37.1783423917552;
+        Tue, 07 Jul 2026 04:31:57 -0700 (PDT)
+X-Received: by 2002:a17:90a:e703:b0:387:e0db:bc2f with SMTP id 98e67ed59e1d1-387e0dbbd95mr2321683a91.37.1783423916916;
+        Tue, 07 Jul 2026 04:31:56 -0700 (PDT)
+Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311748394acsm8035430eec.8.2026.07.07.04.31.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 04:31:56 -0700 (PDT)
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Date: Tue, 07 Jul 2026 17:01:43 +0530
+Subject: [PATCH v12] PCI: Add support for PCIe WAKE# interrupt
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <akuvyu1Pq0ZVMZV0@orome>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260707-wakeirq_support-v12-1-b4453f5bcc97@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAJ7jTGoC/3XQbWvDIBAA4L9S/DzLnfF1n/Y/xhhqdJWtTaptt
+ lHy32cKJYMkHAh34HMvN1JCTqGQ592N5DCkkrpTTZA97Yg/2NNHoKmtBcKACUTg9Nt+hpTP7+X
+ a912+0Ci4585a1F6Q+qvPIaafO/n6VvNDKpcu/947DGKqPiy1sAZBgXLJA6rIPAP/0pWyP1/tl
+ ++Ox319yEQO8h/DVhhZGQlRaIyGMxAbjHowEhjqJaMqAy2X2ugGGKgNRs9Mg82S0dNS2oJV08D
+ abjBmZjisMKYy6F3wsXFCt1vTIMxOPc/SwboU9Qg2Gm+C01tHRpwhyfgKhLQGg+iiDS4IswKN4
+ /gHkke/hGQCAAA=
+X-Change-ID: 20251104-wakeirq_support-f54c4baa18c5
+To: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Pavel Machek <pavel@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bartosz Golaszewski <brgl@bgdev.pl>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Linus Walleij <linusw@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org, linux-gpio@vger.kernel.org,
+        quic_vbadigan@quicinc.com, sherry.sun@nxp.com,
+        driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783423909; l=14634;
+ i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
+ bh=m/onrcO2JktgwIb8sRDnfeQXFjAPv93f8lW4aCB6WM8=;
+ b=UNzRBDOKL2wQlCuf08MUirEYxl5WPXme8PjUe/P5v5nuFnrpF6GrKFCnbD/ozCYA0/8iuvlzL
+ dgzk0KwpU00CJ1pFk2/gxIIZbeQwX0pxOBkbwt1Vp+8Hwf9v76xLaWV
+X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
+ pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
+X-Proofpoint-ORIG-GUID: rpZU6vRQFlUbQx5hj5iwRreU6P4W999T
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDExMCBTYWx0ZWRfX4fzMmTj2GHva
+ O2JCHUzxl14QUuAHh0NDdk0orB1Wr4z9jvBp2sK8bQUT7tyYOoMlyXC6FBTz5T/tivQ/qyvf3c0
+ 2tMQNsYxEOtjm1aLYbnxdLoWxc5KloE=
+X-Authority-Analysis: v=2.4 cv=SZfHsPRu c=1 sm=1 tr=0 ts=6a4ce3ae cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NEAV23lmAAAA:8 a=Ikd4Dj_1AAAA:8
+ a=s8YR1HE3AAAA:8 a=bC-a23v3AAAA:8 a=KKAkSRfTAAAA:8 a=1XWaLZrsAAAA:8
+ a=ovJVH9vcvDALE3_RPqAA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=jGH_LyMDp9YhSvY-UuyI:22 a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: rpZU6vRQFlUbQx5hj5iwRreU6P4W999T
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDExMCBTYWx0ZWRfX3G3xi8gAja7Z
+ JA0pxrKhopNLmeTMG++JOFSXsgseoGa6Uer+bwndaVvReuZwIGJAdSLmoGX6KC2+xlfVPpfedgY
+ vZzKaIgB8g6kpIBJzolyG1gROzmbjw/FHKmK74LxdOV52P5mcUxgy/+UH/tpt/dIli+ca9s3Rwg
+ C1mjCu7jKz1y1G16WcRtooYKRjtsTqyBzhHH1As3PmHoUjSpjyZU0HG7BH7wT2YFWFdkITg3YHW
+ OelgGqdwwPB7GnQD35yhQHcUMdthuwoYchjN91i4nCstdV+tNkx73grfgiC5L3TqQg91iLXqdV1
+ f6EUsoNo/7I4Znm3XkVKFFmnXArbwyl+1wVpRGGZ6VkNLgI5PCBbu+HcRCro08n/x/dF16YYt6b
+ vqBG3ph8R8DfZ2caK/w6sv/p7kzF+uCFUeZMSARqqejYkXF0rG/RSEjEDYIS5R7sN9g/pmiJJnJ
+ +ITpteE6BDLzXZCIJnA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_02,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607070110
 
-On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
-> On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
-> > On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
-> > > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
-> > > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
-> > > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrote:
-> > > > > > From: Chun Ng <chunn@nvidia.com>
-> > > > > > 
-> > > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE protection bits
-> > > > > > on a kernel-linear-map range.
-> > > > > 
-> > > > > That sounds like a really terrible idea. Why is this necessary and how
-> > > > > does it interact with things like load_unaligned_zeropad()?
-> > > > 
-> > > > This is necessary because once the memory controller has walled off the
-> > > > new memory region the CPU must not access it under any circumstances or
-> > > > it'll cause the CPU to lock up (I think technically it'll hit an SError
-> > > > but in practice that just means it'll freeze, as far as I can tell).
-> > > > 
-> > > > Probably doesn't interact well at all with load_unaligned_zeropad().
-> > > > 
-> > > > > I think you should unmap the memory from the linear map and memremap()
-> > > > > it instead.
-> > > > 
-> > > > Given that the memory can never be accessed by the CPU after the memory
-> > > > controller locks it down, I don't think we'll even need memremap(). The
-> > > > only thing we really need is the sg_table we hand out via the DMA BUFs
-> > > > so that they can be used by device drivers to program their DMA engines
-> > > > internally.
-> > > > 
-> > > > Looking through some of the architecture code around this, shouldn't we
-> > > > simply be using set_memory_encrypted() and set_memory_decrypted() for
-> > > > this? While they might've been created for slightly other use-cases,
-> > > > they seem to be doing exactly what we want (i.e. remove the page range
-> > > > from the linear mapping and flushing it, or restoring the valid bit and
-> > > > standard permissions, respectively).
-> > > 
-> > > Ah... I guess we can't do it because we're not in a realm world and so
-> > > the early checks in __set_memory_enc_dec() would return early and turn
-> > > it into a no-op.
-> > > 
-> > > How about if I extract a common helper and provide set_memory_p() and
-> > > set_memory_np() in terms of those. Those are available on x86 and
-> > > PowerPC as well, so fairly standard. I suppose at that point we're
-> > > closer to set_memory_valid().
-> > 
-> > Why not just call set_direct_map_invalid_noflush() +
-> > flush_tlb_kernel_range() for each page? We already have APIs for this.
-> 
-> Having a "standard" helper with a fixed and documented purposed seemed
-> like a preferable approach for this particular case. We also may want to
-> make the driver that uses this buildable as a module, in which case we'd
-> need to export these rather low-level APIs. And then there's also the
-> fact that we typically call this on a rather large region of memory
-> (usually something like 512 MiB), so doing it page-by-page is rather
-> suboptimal.
-> 
-> > The big challenge I see with any linear map manipulation, however, is
-> > that it will rely on can_set_direct_map() which likely means you need to
-> > give up some performance and/or security to make this work. Does memory
-> > become inaccesible dynamically at runtime? If not, the best bet would
-> > be to describe it as a carveout in the DT and mark it as "no-map" so
-> > we avoid mapping it in the first place.
-> 
-> VPR exists in two modes: static and resizable. For static VPR we do
-> exactly that: describe it as carveout in DT with no-map and deal with it
-> accordingly in the driver. Resizable VPR is for device that have small
-> amounts of RAM. Content-protected video playback will in the worst case
-> consume around 1.8 GiB of RAM, so we want to be able to reuse for other
-> purposes when VPR is unused on those devices. In that case, the memory
-> is also described as a reserved-memory region in DT, but it is marked as
-> reusable so that it can be managed by CMA.
-> 
-> The resize operation is fairly slow to begin with because we need to
-> stall the GPU and put it into reset before the operation, then take it
-> out of reset and resume it afterwards.
-> 
-> What kind of performance impact do you expect?
+According to the PCI Express specification (PCIe r7.0, Section 5.3.3.2),
+two link wakeup mechanisms are defined: Beacon and WAKE#. Beacon is a
+hardware-only mechanism and is invisible to software (PCIe r7.0,
+Section 4.2.7.8.1). This change adds support for the WAKE# mechanism
+in the PCI core.
 
-You'll need to measure it, but we've seen reports of double-digit
-percentage regressions in performance and power. As I said, the problem
-is that you need to split the linear map to 4k page at runtime to unmap
-the dynamic carveout, but that isn't something that can be done on most
-CPUs. Therefore you end up having to use page-granular mappings for the
-entire thing, similarly to how 'rodata_full' drives can_set_direct_map()
-and the perf/power hit affects everything.
+According to the PCIe specification, multiple WAKE# signals can exist in
+a system or each component in the hierarchy could share a single WAKE#
+signal. In configurations involving a PCIe switch, each downstream port
+(DSP) of the switch may be connected to a separate WAKE# line, allowing
+each endpoint to signal WAKE# independently. From figure 5.4 in sec
+5.3.3.2, WAKE# can also be terminated at the switch itself. Such topologies
+are typically not described in Device Tree, therefore it is out of scope
+for this series.
 
-It's hard to know what to suggest... I wonder if any of the memory
-hotplug logic could help here?
+To support this, the WAKE# should be described in the device tree node of
+the endpoint/bridge. If all endpoints share a single WAKE# line, then each
+endpoint node shall describe the same WAKE# signal or a single WAKE# in
+the Root Port node.
 
-Will
+In pci_device_add(), PCI framework will search for the WAKE# in device
+node. Once found, register for the wake IRQ through
+dev_pm_set_dedicated_wake_irq() associates a wakeup IRQ with a device
+and requests it, but the PM core keeps the IRQ disabled by default. The
+IRQ is enabled by the PM core, only when the device is permitted to wake
+the system, i.e. during system suspend and after runtime suspend, and
+only when device wakeup is enabled.
+
+If the same WAKE# GPIO is described in multiple device tree nodes, only the
+first device that successfully registers the wake IRQ will succeed, while
+subsequent registrations may fail. This limitation does not affect
+functional correctness, since WAKE# is only used to bring the link to D0,
+and endpoint-specific wakeup handling is resolved later through
+PME detection (PME_EN is set in suspend path by PCI core by default).
+
+When the wake IRQ fires, the wakeirq handler invokes pm_runtime_resume() to
+bring the device back to an active power state, such as transitioning from
+D3cold to D0. Once the device is active and the link is usable, the
+endpoint may generate a PME, which is then handled by the PCI core through
+PME polling or the PCIe PME service driver to complete the wakeup of the
+endpoint.
+
+WAKE# is added in dts schema and merged based on below links.
+
+Link: https://lore.kernel.org/all/20250515090517.3506772-1-krishna.chundru@oss.qualcomm.com/
+Link: https://github.com/devicetree-org/dt-schema/pull/170
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Acked-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+---
+PCIe WAKE# interrupt is needed for bringing back PCIe device state from
+D3cold to D0.
+
+This is pending from long time, there was two attempts done previously to
+add WAKE# support[1], [2]. Those series tried to add support for legacy
+interrupts along with WAKE#. Legacy interrupts are already available in
+the latest kernel and we can ignore them. For the wake IRQ the series is
+trying to use interrupts property define in the device tree.
+
+WAKE# is added in dts schema and merged based on this patch.
+https://lore.kernel.org/all/20250515090517.3506772-1-krishna.chundru@oss.qualcomm.com/
+
+[1]: https://lore.kernel.org/all/b2b91240-95fe-145d-502c-d52225497a34@nvidia.com/T/
+[2]: https://lore.kernel.org/all/20171226023646.17722-1-jeffy.chen@rock-chips.com/
+---
+Changes in v12:
+- move platform_pci_configure_wake() before device_add() (sashiko).
+- set irq type based on the wake-gpios property (Sashiko).
+- Link to v11: https://patch.msgid.link/20260624-wakeirq_support-v11-1-120fbfaebe59@oss.qualcomm.com
+
+Changes in v11:
+- Add device_init_wakeup() as client driver is not expected to enable
+  bridge dev wakeup capability.
+- Link to v10: https://patch.msgid.link/20260511-wakeirq_support-v10-0-c10af9c9eb8c@oss.qualcomm.com
+
+Changes in v10:
+- As sashiko pointed, shared irq has plenty of race conditions.
+- So we are moving away from the shared IRQ patch and registering with
+  dedicated wake irq only, as part of wake irq the link will come to D0
+  as the parent controller driver will be runtime resume first and then
+  pme service will kick in wake up correct endpoint driver.
+- Removed device_init_wakeup() since it enabling wakeup explicitly,
+  which is not intended as this should be set by endpoint driver only.
+- Link to v9: https://lore.kernel.org/r/20260403-wakeirq_support-v9-0-1cbecf3b58d7@oss.qualcomm.com
+
+Changes in v9:
+- Call device_init_wakeup() only if
+  dev_pm_set_dedicated_shared_wake_irq() succeeds (Mani).
+- Change the IRQ_TYPE from IRQ_TYPE_EDGE_FALLING to IRQ_TYPE_LEVEL_LOW (Mani).
+- Link to v8: https://lore.kernel.org/r/20260313-wakeirq_support-v8-0-48a0a702518a@oss.qualcomm.com
+
+Changes in v8:
+- Moved the stub functions under CONFIG_OF_IRQ(mani).
+- Added the description of how dev_pm_set_dedicated_shared_wake_irq()
+  works.
+- Link to v7: https://lore.kernel.org/r/20260218-wakeirq_support-v7-0-0d4689830207@oss.qualcomm.com
+
+Changes in v7:
+- Updated the commit text (Mani).
+- Couple of nits like using pci_err instead of dev_err,
+  use platform_pci_configure_wake(), platform_pci_remove_wake() instead
+  of calling directly calling pci_configure_of_wake_gpio() & pci_remove_of_wake_gpio() etc (Mani).
+- Add a new fwnode_gpiod_get() API that wraps fwnode_gpiod_get_index(..0..), similar to
+  devm_fwnode_gpiod_get() (Mani).
+- Link to v6: https://lore.kernel.org/r/20251127-wakeirq_support-v6-0-60f581f94205@oss.qualcomm.com
+
+Changes in v6:
+- Change the name to dev_pm_set_dedicated_shared_wake_irq() and make the
+  changes pointed by (Rafael). 
+- Link to v5: https://lore.kernel.org/r/20251107-wakeirq_support-v5-0-464e17f2c20c@oss.qualcomm.com
+
+Changes in v5:
+- Enable WAKE# irq only when there is wake -gpios defined in its device
+  tree node (Bjorn).
+- For legacy bindings for direct atach check in root port if we haven't
+  find the wake in the endpoint node.
+- Instead of hooking wake in driver bound case, do it in the framework
+  irrespective of the driver state (Bjorn).
+- Link to v4: https://lore.kernel.org/r/20250801-wake_irq_support-v4-0-6b6639013a1a@oss.qualcomm.com
+
+Changes in v4:
+- Move wake from portdrv to core framework to endpoint (Bjorn).
+- Added support for multiple WAKE# case (Bjorn). But traverse from
+  endpoint upstream port to root port till you get WAKE#. And use
+  IRQF_SHARED flag for requesting interrupts.
+- Link to v3: https://lore.kernel.org/r/20250605-wake_irq_support-v3-0-7ba56dc909a5@oss.qualcomm.com
+
+Changes in v3:
+- Update the commit messages, function names etc as suggested by Mani.
+- return wake_irq if returns error (Neil).
+- Link to v2: https://lore.kernel.org/r/20250419-wake_irq_support-v2-0-06baed9a87a1@oss.qualcomm.com
+
+Changes in v2:
+- Move the wake irq teardown after pcie_port_device_remove
+  and move of_pci_setup_wake_irq before pcie_link_rcec (Lukas)
+- teardown wake irq in shutdown also.
+- Link to v1: https://lore.kernel.org/r/20250401-wake_irq_support-v1-0-d2e22f4a0efd@oss.qualcomm.com
+
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: Rob Herring <robh@kernel.org>
+To: Saravana Kannan <saravanak@kernel.org>
+Cc: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+---
+ drivers/pci/of.c       | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/pci/pci.c      | 11 +++++++
+ drivers/pci/pci.h      |  2 ++
+ drivers/pci/probe.c    |  2 ++
+ drivers/pci/remove.c   |  1 +
+ include/linux/of_pci.h |  6 ++++
+ include/linux/pci.h    |  2 ++
+ 7 files changed, 102 insertions(+)
+
+diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+index 8b18c4ba845c..5df6b11cdf9f 100644
+--- a/drivers/pci/of.c
++++ b/drivers/pci/of.c
+@@ -7,6 +7,7 @@
+ #define pr_fmt(fmt)	"PCI: OF: " fmt
+ 
+ #include <linux/cleanup.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/irqdomain.h>
+ #include <linux/kernel.h>
+ #include <linux/pci.h>
+@@ -15,6 +16,7 @@
+ #include <linux/of_address.h>
+ #include <linux/of_pci.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_wakeirq.h>
+ #include "pci.h"
+ 
+ #ifdef CONFIG_PCI
+@@ -586,6 +588,82 @@ int of_irq_parse_and_map_pci(const struct pci_dev *dev, u8 slot, u8 pin)
+ 	return irq_create_of_mapping(&oirq);
+ }
+ EXPORT_SYMBOL_GPL(of_irq_parse_and_map_pci);
++
++static void pci_configure_wake_irq(struct pci_dev *pdev, struct gpio_desc *wake)
++{
++	int ret, wake_irq, irq_type;
++
++	wake_irq = gpiod_to_irq(wake);
++	if (wake_irq < 0) {
++		pci_err(pdev, "Failed to get wake irq: %d\n", wake_irq);
++		return;
++	}
++
++	/*
++	 * dev_pm_set_dedicated_wake_irq() associates a wakeup IRQ with the
++	 * device and requests it, but the PM core keeps it disabled by default.
++	 * The IRQ is enabled only when the device is allowed to wake the system
++	 * (during system suspend and after runtime suspend), and only if device
++	 * wakeup is enabled.
++	 *
++	 * When the wake IRQ fires, the wakeirq handler invokes pm_runtime_resume()
++	 * to bring the device back to an active power state (e.g. from D3cold to D0).
++	 * Once the device is active and the link is usable, the endpoint may signal
++	 * a PME, which is then handled by the PCI core (either via PME polling or the
++	 * PCIe PME service driver) to wakeup particular endpoint.
++	 */
++	ret = dev_pm_set_dedicated_wake_irq(&pdev->dev, wake_irq);
++	if (ret < 0) {
++		pci_err(pdev, "Failed to set WAKE# IRQ: %d\n", ret);
++		return;
++	}
++
++	irq_type = gpiod_is_active_low(wake) ? IRQ_TYPE_LEVEL_LOW :
++						IRQ_TYPE_LEVEL_HIGH;
++	ret = irq_set_irq_type(wake_irq, irq_type);
++	if (ret < 0) {
++		dev_pm_clear_wake_irq(&pdev->dev);
++		pci_err(pdev, "Failed to set irq_type: %d\n", ret);
++		return;
++	}
++
++	device_init_wakeup(&pdev->dev, true);
++}
++
++void pci_configure_of_wake_gpio(struct pci_dev *dev)
++{
++	struct device_node *dn = pci_device_to_OF_node(dev);
++	struct gpio_desc *gpio;
++
++	if (!dn && !dev->wake)
++		return;
++	/*
++	 * fwnode_gpiod_get() may fail with -EBUSY (e.g. shared WAKE#), but the
++	 * actual WAKE# trigger from the device would still work and the host
++	 * controller driver will enable power to the topology.
++	 *
++	 * -EPROBE_DEFER cannot be propagated here since pci_device_add() has no
++	 *  retry mechanism.
++	 */
++	gpio = fwnode_gpiod_get(of_fwnode_handle(dn), "wake", GPIOD_IN, NULL);
++	if (!IS_ERR(gpio)) {
++		dev->wake = gpio;
++		pci_configure_wake_irq(dev, gpio);
++	}
++}
++
++void pci_remove_of_wake_gpio(struct pci_dev *dev)
++{
++	struct device_node *dn = pci_device_to_OF_node(dev);
++
++	if (!dn)
++		return;
++
++	device_init_wakeup(&dev->dev, false);
++	dev_pm_clear_wake_irq(&dev->dev);
++	gpiod_put(dev->wake);
++	dev->wake = NULL;
++}
+ #endif	/* CONFIG_OF_IRQ */
+ 
+ static int pci_parse_request_of_pci_ranges(struct device *dev,
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 77b17b13ee61..14ec6c064cf1 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -17,6 +17,7 @@
+ #include <linux/lockdep.h>
+ #include <linux/msi.h>
+ #include <linux/of.h>
++#include <linux/of_pci.h>
+ #include <linux/pci.h>
+ #include <linux/pm.h>
+ #include <linux/slab.h>
+@@ -1114,6 +1115,16 @@ static inline bool platform_pci_bridge_d3(struct pci_dev *dev)
+ 	return acpi_pci_bridge_d3(dev);
+ }
+ 
++void platform_pci_configure_wake(struct pci_dev *dev)
++{
++	pci_configure_of_wake_gpio(dev);
++}
++
++void platform_pci_remove_wake(struct pci_dev *dev)
++{
++	pci_remove_of_wake_gpio(dev);
++}
++
+ /**
+  * pci_update_current_state - Read power state of given device and cache it
+  * @dev: PCI device to handle.
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index 4469e1a77f3c..17d392dfda51 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -285,6 +285,8 @@ void pci_msix_init(struct pci_dev *dev);
+ bool pci_bridge_d3_possible(struct pci_dev *dev);
+ void pci_bridge_d3_update(struct pci_dev *dev);
+ int pci_bridge_wait_for_secondary_bus(struct pci_dev *dev, char *reset_type);
++void platform_pci_configure_wake(struct pci_dev *dev);
++void platform_pci_remove_wake(struct pci_dev *dev);
+ 
+ static inline bool pci_bus_rrs_vendor_id(u32 l)
+ {
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index dd0abbc63e18..27008e2ea5af 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -2749,6 +2749,8 @@ void pci_device_add(struct pci_dev *dev, struct pci_bus *bus)
+ 
+ 	pci_init_capabilities(dev);
+ 
++	platform_pci_configure_wake(dev);
++
+ 	/*
+ 	 * Add the device to our list of discovered devices
+ 	 * and the bus list for fixup functions, etc.
+diff --git a/drivers/pci/remove.c b/drivers/pci/remove.c
+index d8bffa21498a..e711ac1d4e38 100644
+--- a/drivers/pci/remove.c
++++ b/drivers/pci/remove.c
+@@ -34,6 +34,7 @@ static void pci_destroy_dev(struct pci_dev *dev)
+ 	if (pci_dev_test_and_set_removed(dev))
+ 		return;
+ 
++	platform_pci_remove_wake(dev);
+ 	pci_doe_sysfs_teardown(dev);
+ 	pci_npem_remove(dev);
+ 
+diff --git a/include/linux/of_pci.h b/include/linux/of_pci.h
+index 29658c0ee71f..649fe8eafcfa 100644
+--- a/include/linux/of_pci.h
++++ b/include/linux/of_pci.h
+@@ -30,12 +30,18 @@ static inline void of_pci_check_probe_only(void) { }
+ 
+ #if IS_ENABLED(CONFIG_OF_IRQ)
+ int of_irq_parse_and_map_pci(const struct pci_dev *dev, u8 slot, u8 pin);
++void pci_configure_of_wake_gpio(struct pci_dev *dev);
++void pci_remove_of_wake_gpio(struct pci_dev *dev);
+ #else
+ static inline int
+ of_irq_parse_and_map_pci(const struct pci_dev *dev, u8 slot, u8 pin)
+ {
+ 	return 0;
+ }
++
++static inline void pci_configure_of_wake_gpio(struct pci_dev *dev) { }
++
++static inline void pci_remove_of_wake_gpio(struct pci_dev *dev) { }
+ #endif
+ 
+ #endif
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 64b308b6e61c..09134d0a559f 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -587,6 +587,8 @@ struct pci_dev {
+ 	/* These methods index pci_reset_fn_methods[] */
+ 	u8 reset_methods[PCI_NUM_RESET_METHODS]; /* In priority order */
+ 
++	struct gpio_desc *wake; /* Holds WAKE# gpio */
++
+ #ifdef CONFIG_PCIE_TPH
+ 	u16		tph_cap;	/* TPH capability offset */
+ 	u8		tph_mode;	/* TPH mode */
+
+---
+base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
+change-id: 20251104-wakeirq_support-f54c4baa18c5
+
+Best regards,
+--  
+Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+
