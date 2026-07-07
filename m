@@ -1,119 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BCF366045
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783452844; cv=none; b=jC0aGK1qJi1lQ273uHa6f8DhduxG6rNUO6g3/MmcDMHxDHR2g6FtBeHaugNIC0zXdDLwRXQO5KQta9MnDRtLMwZTzMDd5OJrXVgEcJHY+CxLknMSbaPIJdX67Oyw0VoipxHcEu2tjPGa2Bfk+mT3qCcW2RCFphogQhyRundT88o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783452844; c=relaxed/simple;
-	bh=uP5ScxF6qCGm32Hv2mJis+/1qn/+1fpTOtvLBPtu5To=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=noUxCo6FnaVC8R52KzWN7Z6Lx5EjfUfg8Z2jrPcz5EugVRwG4wb9E/jc2CLaWaINJq85Vjl/5+I3rHNlJXv/0eWgBTxN32GqoSP0gFKI41sGU3JdXlILKbpBKXBbzn7LRNLBP/ZyRHTpFSeLRoN7sWzlKNl4J8Ei0qSlQfQLlec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dFOSs8HF; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF4D346A1D
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 19:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783453029; cv=pass; b=RxSgUNMMrtqb0PnNIjTxlKRbd3X8Py6zl9mVayEQH5PjdVyfg2js8DA3JyOJtKrstM4oeZvu7Jge3XPNcQ7yGkgXwiu0L7MSgGf2sWhH4UvRNK91XG6Dswm3lIPVWxX8m7rciCgTnw6Z7UzlOIoDXV4A5sESA3mYS1w07ECLof4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783453029; c=relaxed/simple;
+	bh=QzuQavQKc4mdVC+7oXwG28ZoqFmPWm0/w5LBLFtSdog=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Dpj+qaoR1aiR7F25FcYLwi5WnVs9d/EIs3gcnTtZ6yeJbFZ4jItSc1atr2B9Qtlar7N/WfZ/QruxbQfkFDVHs0XpF7gb2Pb/XjMym+03MU4HaxpfGhb8F0wb+uaE1HbwkDvy5Dl/xvfcnAXC8w+Lmm9qLO+pBQI3Jn9DH/RhEX4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=JgiAq2AL; arc=pass smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dFOSs8HF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9423A1F00A3A;
-	Tue,  7 Jul 2026 19:34:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783452842;
-	bh=k/JxGSJxKb398IG82QHvNKA+B0/tSaVzOeZSmm5FfOM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dFOSs8HFjsyqufJzOrimsleje/KXQ9ndGE0w8/6RStpHwqV16jNdniBXF234g/scv
-	 2+RYqAgQRdZPTwDI9QIfZ/E3GET066Dg7LgdH9U13IbLsi0ZJQxXwjf3BO//dayfql
-	 RaxVXJFCTEuBFyt/ZOmQhyN+VEXw7bfN+jypJSXn6Fu62EXCxVtk/9dLfTZFHRwB6+
-	 t+Ooe+XahbuopVTme8YZ2OaKOMPWfzFnb0S440NCgdptALiMiBm2/2e4QS2rRNpjcM
-	 zpIG8X8xUakGbmlkBA9/zBN2a04TI97vNERsZVir5sauvCb1/gUGWZMRY6t5E0tiea
-	 muiolONs8SnCA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 19/20] media: imx355: Switch to using the subdev
- state
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260707-media-imx355-v2-19-1683ec07b897@raspberrypi.com>
-References: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
- <20260707-media-imx355-v2-19-1683ec07b897@raspberrypi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 19:34:00 +0000
-Message-Id: <20260707193402.9423A1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="JgiAq2AL"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c9b1edf2bdso58209915ad.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 12:37:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783453027; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hp6Zu+XrlpMQCb+iQjnCZoOWO3zbrUKSLcbtqx74X04CkVqOZQOatv0v6u/aDfh1DZ
+         /pCF1cFiQlX2Qu3ls/PUVO6wGaflalucfPanwIpMUxSaQNMIAUapRHgorxGVvOXvc8Gw
+         dL+dKfGFR5uarugOFKUSMCqP177A77VFGeAWWwu2SL6a48x2uB5WjM+kA+lBbaodMQgo
+         o3cL2aUaHMUwpjbrRyUeVrQI8rWvUpnEHlVEfWqaxSomTSuMox7cVAgxGsMccCCtPuyM
+         8Kizbt8CqimCXgGEfLPnjbHuw9eaAtxRUHvG+AGi6ITnHXH5oxNNtXZ8In6D2huGpalu
+         LU5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QzuQavQKc4mdVC+7oXwG28ZoqFmPWm0/w5LBLFtSdog=;
+        fh=cs4Xmz0c9rAA3AivpW5zCrSL5r/LuvNHufYVDWNVvdI=;
+        b=LZniuV2EhXfLIWkCPe0kT8wsnIHdWeQGo2JiqnqcZuS0N6Cp10IVoy+TGiVCeqTZpw
+         7d5YmkSmZPrKXH9n9Mdj3luCM+PiBHEKQqW9Pv4CVMfPI+tvSC1PTkgY1ea0zYcNzgQz
+         52i0jRUEQ1CGgelAfTywUjdmveAgQ8rKH4V4Q0/1azhYADaxI1MHWe/pQdb1wqyF/3+r
+         Jl3xjV3NcluWgX4D/BTs67gpylbig9jia2KgwuMpX1pC7oYqJtTPtmcx2MPWz9ZvNWw1
+         453rRcgW0tvwQ8xiPj+7ymhzAFjT/oXvUvOZpgSPsVe5ZF7Wic1ZmAJMrPlOkOHJPRjY
+         tEWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1783453027; x=1784057827; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QzuQavQKc4mdVC+7oXwG28ZoqFmPWm0/w5LBLFtSdog=;
+        b=JgiAq2ALNFDnhk7sH9O00TC5TUULfXJ7V+jOCpXn7mFCrPdWiEJ43EvKsH0XvVIUAm
+         V20OXTN9/0RB8xP+Wnj/oq7Z2aGX33FjumLE9sE8dZJQsbGzwWC7aN35jS2bsgs+dENP
+         /D5To24/RCAlTMH01Cc8sKKVNXVSJbq8yANbR6a5dv0sdcRD3RFnMgvKZCI8KvoQFjuE
+         9ow+x3lZDcGm9uwFVIqMmQEmjYz5lY7h0ynLLFjCyg73Ovmo/cTqml/e+8gQROBZuwvM
+         wtSKt8QGT+4fAwKedoz4TRbYCXmV9tXXnDXuKQHj99ihqavEXL0fPTUEf2aJRR0OvmjJ
+         /y0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783453027; x=1784057827;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QzuQavQKc4mdVC+7oXwG28ZoqFmPWm0/w5LBLFtSdog=;
+        b=dhQK+mUuolSJfr+tCwBq0Mhzzr5g4uoz5XAA3cMzlNJkz8I2uPPtXZuJc/wSpeRvQs
+         K1vSz3prvmJ4V/Rb9ysddBMaAK0OEK1PkPbKSpMx+EaoaA3vuzALPFBFUNP/1zTeOycM
+         rE5wzz4w7V0ig9keUQbRoEKFq8ISwDNOjdrkGAuS4xlKQa7nXCL4rva5/BMJuhOAZSNY
+         6CbmNtSmsefVj0PvzAUt4ueTJVAqu/SS9rdFv7Anbg//DtgKrnCjNMtGbZt984V+cRXA
+         kz86jqdDAbl0mdUcsdsh7Y9UmQhcT9B9sChw96Gh511kWhf3zHyPIcHovh2EAzRjBYvE
+         04Yg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrb+z7RBGbFu9qlMMOTsyo3YiZFLHZUwpq5JjQ0Dlp+u/oRBtRkxOtDNRD+gfXDU8geSEGcIclasCWY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0ZKMd3X5BnxX1XOb+P+ZXM905C+r/5LZSE4nFbQftu9tqssqI
+	tZQEbVLhFD2zFbSRsksPjApbNqg5eQlVHtt2yXVoADi//fCEcXz4y9CAgBujGkCZXU6LARGHfY4
+	KUsjZuwggklvpA5ZPB3Vr0HpKs8xsIY4=
+X-Gm-Gg: AfdE7cnur4vg7mY8LkxOnCuoECJ2XzD6qO4syqp9T9TMiDnfwrUpz08TJ6Zd8LwjTrd
+	DOGYkVQZEMwH20fhdiFyun88BYdRT6egg+rBGAFnvpJCMzfC5eOcHEZQFK3Pn1T7zHY/Iow4VWo
+	qL0ZB+fsZwE99AgsyG1gCZg9ARE31q9R9VS9rMKKBrVMXC36OwKJa1JygxkmhpUuvRinT9+zK6t
+	fuMjKPBorI9w9cwnzd0fEuWLDsa7zQnQ0e7ykD101Ii96K46nnlB03qj4rb3jAXmEEKyfU2djE7
+	DDYfC8VGAyZDvRbqAo48HXsh0Q==
+X-Received: by 2002:a17:902:d2c8:b0:2cc:90aa:878b with SMTP id
+ d9443c01a7336-2ccbe728946mr63686975ad.10.1783453027559; Tue, 07 Jul 2026
+ 12:37:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260624135650.727077-1-jerrysteve1101@gmail.com> <20260624135650.727077-2-jerrysteve1101@gmail.com>
+In-Reply-To: <20260624135650.727077-2-jerrysteve1101@gmail.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Tue, 7 Jul 2026 21:36:56 +0200
+X-Gm-Features: AVVi8Cf-yuy-zDtbpT62GueylgVb7F5kepgWe3Xe-FkNm7a-D4HMWegM9GI0Nag
+Message-ID: <CAFBinCAz7nDsXc80LQH+f2yC=o79E3nBhzL6OAUwYk2r3n_n1A@mail.gmail.com>
+Subject: Re: [PATCH v4 1/4] arm64: dts: amlogic: meson-axg: Disable nfc node
+ by default
+To: Jun Yan <jerrysteve1101@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Arseniy Krasnov <avkrasnov@salutedevices.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing state lock acquisition in imx355_set_stream() leading to l=
-ockdep BUGs and data races.
---
-
---- Patch [19]: [PATCH v2 19/20] media: imx355: Switch to using the subdev =
-state ---
-commit bbaa67e1db37273f6e97e0631f0e7e19179737fd
-Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
-media: imx355: Switch to using the subdev state
-
-The commit transitions the imx355 driver to use the v4l2 subdev state for
-handling crop and format instead of maintaining its own state variables, and
-removes the driver-specific mutex.
-
-> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> index 10b9cf56e8c56..bb620ebb074f7 100644
-> --- a/drivers/media/i2c/imx355.c
-> +++ b/drivers/media/i2c/imx355.c
-[ ... ]
-> @@ -958,12 +893,10 @@ static int imx355_set_stream(struct v4l2_subdev *sd=
-, int enable)
->  	struct imx355 *imx355 =3D to_imx355(sd);
->  	int ret =3D 0;
-> =20
-> -	mutex_lock(&imx355->mutex);
-> -
->  	if (enable) {
->  		ret =3D pm_runtime_resume_and_get(imx355->dev);
->  		if (ret < 0)
-> -			goto err_unlock;
-> +			return ret;
-> =20
->  		/*
->  		 * Apply default & customized values
-
-[Severity: High]
-Does this leave imx355_set_stream() entirely lockless?
-
-This function calls imx355_start_streaming(), which calls
-v4l2_subdev_get_locked_active_state() to get the subdev state. That function
-asserts that the state lock is held.
-
-Without holding the state lock here, won't lockdep unconditionally trigger
-BUG splats when calling v4l2_subdev_get_locked_active_state() and later
-when calling __v4l2_ctrl_grab() in this function?
-
-Also, without the lock, couldn't these reads race against concurrent
-VIDIOC_SUBDEV_S_FMT and VIDIOC_S_CTRL ioctls?
-
-> @@ -981,14 +914,10 @@ static int imx355_set_stream(struct v4l2_subdev *sd=
-, int enable)
->  	__v4l2_ctrl_grab(imx355->vflip, enable);
->  	__v4l2_ctrl_grab(imx355->hflip, enable);
-> =20
-> -	mutex_unlock(&imx355->mutex);
-> -
->  	return ret;
-> =20
->  err_rpm_put:
->  	pm_runtime_put_autosuspend(imx355->dev);
-> -err_unlock:
-> -	mutex_unlock(&imx355->mutex);
-> =20
->  	return ret;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-media-imx3=
-55-v2-0-1683ec07b897@raspberrypi.com?part=3D19
+On Wed, Jun 24, 2026 at 3:57=E2=80=AFPM Jun Yan <jerrysteve1101@gmail.com> =
+wrote:
+>
+> nand_rb0 and emmc_ds share one pad. Before enabling nand_rb0 for nfc,
+> disable nfc nodes by default to resolve pinctrl resource contention.
+>
+> No mainline AXG boards enable nfc currently thus no extra DTS adjustments
+> are needed.
+>
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
