@@ -1,152 +1,169 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5C62848A1
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 07:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940EE272E56;
+	Tue,  7 Jul 2026 07:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783410400; cv=none; b=RTPrcGsocG9dnT9GVGN30LjDRdCagZPDpLBaRpc/kRN5EWz2IHZb68kUIQ/1TmfLTW9eeTExMtDLpKEtL1I5y2C62k68mxzfu59F8rzFTaJFZqCiTadu9mAccjRBuk4fPVgstkSehySEYg3RMEb/dOapR+h18wvjAATeFmc6zWk=
+	t=1783410415; cv=none; b=cYE6YJL/0ji5tJfND/DCwFpgIEodOjxEKmil/ns5e+h2jzEIT2Hr+24+a9xT14vgmtBU4lfNuRc2u9OWErmvx3ltRFTp+JH+7ul53HLNNVM/PP3Xt+5nyI0Ta5Mq2O22V47bcsQeODaG8ftWGtL7Q9AzZsKhyqJw27wrAg/l1xI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783410400; c=relaxed/simple;
-	bh=5MRwzE6CPzDoCIUG8aXQY89HkNiTh8SY3HnOOwqdHWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Em2EjzvlxL5ecYsdAFx45A1bkaz1zVzp6VUOSDkZuC5JlYTMa80n69WefFxlwDHoyNKpfaCzW8pvIcxJKlREtiNZEt5S8M6qeDXqCh7iZkFvKkekhcDN8ThH2qO+p7yQfa6Vqo2nENyqq+RcRMM5BEZTyOFF9U8sl84U29bGDTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Hj73lNwE; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1783410415; c=relaxed/simple;
+	bh=OnpghKNBXuM5a1+lYcxPvTs2yNmaNmSBYDdKDW5xo7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SGGjAfVPdO7j1Cur1kMFzt5g5651Bc0gntuCOCpuaMpBZNMHxRMthxej8sqy+OwueHjrLHa6Fhz8bPPJcBWP98Dbe1XGV8NThBaDbtGiLoHtEKJuQaDfrVJkZ5FyyeJD3DZXyP1Xu4M6jMHTwUI8pUoMaM5qvEgNDYsamlZ03K8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4uAEI0d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Hj73lNwE"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cae134bdc8so21453445ad.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 00:46:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783410398; x=1784015198; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MgosZlEeOfsiJYUStxqPTIl9QXRN0/twuXiI0yYS1Jw=;
-        b=Hj73lNwE8ReXQcjbfNGG87/kLp+mv9cou4UF7iOz5W3K9kNjtZ8ynzT8lrLvp5gAhV
-         zJQRLhKWU19Ds+i44+gbKvmRjOhDriULy3023ObBbFeeIJhkB5Y7gTq0tS6YEhz6tPtD
-         UbfPBiDdiOFOlXfBIA/3Vi8DkTtORrVil3Qys=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783410398; x=1784015198;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MgosZlEeOfsiJYUStxqPTIl9QXRN0/twuXiI0yYS1Jw=;
-        b=j0CzF9pu/ED/ElzwoRTPrD85CIb6NqJuSBo6/3DrrshKXqc4pKMGrC+UDIxb/bypK8
-         4+RZiyJJg92/+cIDlAoj1Ija3QjqD8kUzKkPbkhiPjBCKXXgcLIyqbuIEz+2K1uy53Oi
-         9EOlYZ2Ow3LpxTvLsqwDsLo91qh7cjeh7bBTFhYeK/D3Bm79iWHHh9cgnC71JbB5UVDB
-         Iz2Bw0k/tRxIBGVR9WCnzozkvV9OPB+KzOuPSmV53lycXGcbLucH4wu/UffjmffTBjmO
-         pBw63dKDacFeXpFOy9nzkJB8jemkKqOL+zd2UUHIdJMlegCaMgibHND+g9rJANRO8Lj7
-         i/Nw==
-X-Forwarded-Encrypted: i=1; AHgh+Rop/gv5YwLcEHMnCtMUATk8Pb7z3dM0Z/sSQUy0oRYMgg+Ycf5D9YOAMnCkcALShrYrYO/jztSQqRqw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWpnUsbLKWzxa+j3t8Um1KV3rt5ud8WAdX2iAdjKMxMCcvRNro
-	JOfssoa5H6sU9Snac4DwAaPBbt23hr+RLnYYxGH+PTEtbCIGlcShcN/AZYWfZrCmSg==
-X-Gm-Gg: AfdE7ck3iT6p0565z9BEq8ml6mv/zYR9CqXLhrTbhZyVmtq8XArG778n7o0LyP3Ktkp
-	y2zkcQHCk2JL+GE1BaA0pSH9sig+eSt6F0Ax86my/W5JTN+eT8Ltia3UBQIkeqa8dr7efBB03Wo
-	yfbpYNg9mCmvoIy9sJTXFvZ5Ch3x/AXuqBrEYjMCkq6g+aqjGFq8ZlqVPOvymWoDC9eRiA35JhV
-	cS2mrBf9laSiV8tt39bPuA8kcpImvJgXeGaWM6KzFXiBks/0ZdOMfwZPk61XjDHGoluurHlb179
-	PexD60VGlx5z7y5GHbpz5PRlgrLW0zcKo8UN1TYdJODuh5RxY+rdW/tt+3LRX04wZ3rYr6jAt2C
-	VIdNJS0nsJS/TBj/rrio9iT4C1RuS/J7mDc2QQTs+3UzBrk5rmX3ENQw9dnSTPpM0yrrsCrMtNQ
-	hefsxqT8JdFEoe9z1kgt5n/c4tOqqRAq7c+M5u/Hoy1Yz7yeqdfPbNI/ucen42rRtG8hZWlBwRa
-	gr4mdIz
-X-Received: by 2002:a17:902:978d:b0:2ca:1594:451e with SMTP id d9443c01a7336-2ccbf056ecemr30615285ad.31.1783410398181;
-        Tue, 07 Jul 2026 00:46:38 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:7f11:6a5d:2014:d98d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d1e914sm6975605ad.50.2026.07.07.00.46.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 00:46:37 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Whitcroft <apw@canonical.com>,
-	Joe Perches <joe@perches.com>,
-	Dwaipayan Ray <dwaipayanray1@gmail.com>,
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>,
-	Yingying Tang <yingying.tang@oss.qualcomm.com>
-Subject: [PATCH RESEND v2] checkpatch: Don't emit warnings for ID-base USB & PCI DT compatibles
-Date: Tue,  7 Jul 2026 15:46:27 +0800
-Message-ID: <20260707074629.3132930-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.rc2.803.g1fd1e6609c-goog
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4uAEI0d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B587A1F000E9;
+	Tue,  7 Jul 2026 07:46:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783410414;
+	bh=OnpghKNBXuM5a1+lYcxPvTs2yNmaNmSBYDdKDW5xo7w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a4uAEI0dABLPn0hUPJJWyQNJ70Oa4414tjdc5SMVZIe2nR9Wlr9Vl00mhtpqix3ae
+	 l+vcafSCV6eu5bnZRGfa4Fa6gIaeiXZAdGbH7dXJdWAuWyRvfxhTfpc9rRwfm+a2cj
+	 tmDnEOSIwZHYxZUl6mtVa9txxPvQN06d4rCyHhikkwnWunlHLz2aEvO0YkB5M+JIOJ
+	 /zoi2xjyatyfxO/JhOg6H3pCh3sBfwzKcZSWyLeVBtcboLCpmvrB5J8wq0PREjvq+n
+	 BCW4gUg5ANzpve+xZAV5vRebff71OpPOQoIm8j9RROaeUFY3EcF/0ijDOguR2/YwiW
+	 9nzRYogRcDnNg==
+Date: Tue, 7 Jul 2026 09:46:52 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	Thuan Nguyen <thuan.nguyen-hong@banvien.com.vn>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
+ hardcoding EDID
+Message-ID: <20260707-meaty-chocolate-lemming-fa9ead@houat>
+References: <20260705213542.28987-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260705213542.28987-2-laurent.pinchart+renesas@ideasonboard.com>
+ <20260706-capable-beaver-of-excellence-a3cf10@houat>
+ <20260706094522.GA42740@killaraus.ideasonboard.com>
+ <20260706-fancy-perch-of-satiation-0c220e@houat>
+ <20260706160243.GB106045@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="uxuzu5uiypml7j3g"
+Content-Disposition: inline
+In-Reply-To: <20260706160243.GB106045@killaraus.ideasonboard.com>
 
-The USB and PCI device bindings define some compatible patterns based
-on device IDs that use the comma to separate vendor and product IDs.
 
-These prefix patterns include:
+--uxuzu5uiypml7j3g
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/4] dt-bindings: display: vga-connector: Allow
+ hardcoding EDID
+MIME-Version: 1.0
 
-  - ^usb(if)?[0-9a-f]{1,4},
-  - ^pci[0-9a-f]{2,4},
-  - ^pciclass,
+On Mon, Jul 06, 2026 at 07:02:43PM +0300, Laurent Pinchart wrote:
+> On Mon, Jul 06, 2026 at 05:40:30PM +0200, Maxime Ripard wrote:
+> > On Mon, Jul 06, 2026 at 12:45:22PM +0300, Laurent Pinchart wrote:
+> > > On Mon, Jul 06, 2026 at 10:52:32AM +0200, Maxime Ripard wrote:
+> > > > On Mon, Jul 06, 2026 at 12:35:39AM +0300, Laurent Pinchart wrote:
+> > > > > Since DDC version 2, introduced in 1996, VGA monitors have expose=
+d EDID
+> > > > > data over an I2C bus. The bus is also used to detect the presence=
+ of a
+> > > > > connected monitor by trying to read the EDID data.
+> > > > >=20
+> > > > > Some devices where the VGA display is integrated in the device and
+> > > > > always connected do not connect the DDC pins. Some development bo=
+ards,
+> > > > > such as the Renesas M3N Salvator-XS, also do not connect the DDC =
+pins.
+> > > > >=20
+> > > > > To support those, add the ability to provide hardcoded EDID data =
+in the
+> > > > > device tree. This is mutually exclusive with specifying a DDC bus=
+, and
+> > > > > can only be done when the VGA display is guaranteed to be always
+> > > > > connected.
+> > > > >=20
+> > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideason=
+board.com>
+> > > >=20
+> > > > This feels redundant with the EDID firmware loading mechanism we ha=
+ve in
+> > > > KMS already. It should at least be mentioned why we would need to s=
+et it
+> > > > in the device tree at all.
+> > >=20
+> > > Very good question.
+> > >=20
+> > > I assume you're talking about CONFIG_DRM_LOAD_EDID_FIRMWARE, as the
+> > > debugfs override_edid feature isn't meant for production. If there are
+> > > other relevant mechanisms I'm not aware of, please let me know.
+> >=20
+> > No, that's indeed what I meant.
+> >=20
+> > > In the use case at hand, the VGA display is an integral part of the
+> > > device, the same way an LVDS or DSI panel would be. Using
+> > > CONFIG_DRM_LOAD_EDID_FIRMWARE, the manufacturer would need to set the
+> > > drm.edid_firmware command line parameter, and provide EDID as a file =
+in
+> > > /lib/firmware/ (possibly in an initramfs). Beside the complexity, and
+> > > the fact it won't be very friendly to people who run a different
+> > > userspace on the device, I think EDID counts in this case as system
+> > > description, the same way we support specifying panel timings in devi=
+ce
+> > > tree.
+> >=20
+> > It's *some* hardware description, but you have no idea whether it's
+> > actually the hardware you're running from. What would be in that EDID
+> > anyway?
+>=20
+> It would be the EDID corresponding to the connected display :-) I see it
+> as identical to how a user of the simple panel driver is responsible for
+> listing the timings corresponding to the hardware in the device tree.
 
-These are not real vendor prefixes. Don't emit warnings for them.
-Instead just skip over the DT compatible check altogether, and leave
-the real check to the DT validator. This avoids false positive warnings
-about undocumented DT vendor prefixes and compatibles.
+What's the expected user-experience for someone with that board
+unplugging a display and plugging another then? Update the device tree,
+rebuild it, rebuild the firmware and / or resign it and reboot?
 
-Note that the script mostly only checks the first compatible string of
-each node, as it processes the source file line-by-line, and the check
-only matches on the line with 'compatible = "..."'. Otherwise there
-would be more warnings from arch/mips/boot/dts/loongson/ls7a-pch.dtsi
-since that file also includes compatibles like "pciclass0c0310" and
-"pciclass0c03" which are not accepted either. "pci0014,7a24.0" is not
-valid either, but this patch leaves the real check to the DT validator.
+That doesn't sound very practical, and even impossible in some cases.
 
-Reviewed-by: Brian Norris <briannorris@chromium.org>
-Tested-by: Brian Norris <briannorris@chromium.org>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Resending since no one picked it up last cycle.
+> > There's another alternative we've used several times already, in
+> > simple-bridge for example: just register any VESA mode up to a given
+> > resolution:
+> > https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/bridge/s=
+imple-bridge.c#L66
+>=20
+> I don't see how that would help. The goal is to provide the kernel with
+> the data corresponding to the display integrated in the device.
 
-Changes since v1:
-- Moved check earlier and match against full compatible string to avoid
-  false positives for undocumented compatibles as well
-- Added comma to patterns as they are now matched against the full
-  compatible string
-- Fixed patterns in commit message to just cover the prefix portion
+How is that not helping? Your problem is that you have a display you
+can't get the supported resolutions from. What I'm suggesting allows you
+to create all the possible resolutions for that display, allowing the
+user to use the display, which is what we did for multiple drivers with
+the same problem.
 
-This is a simplified version of what Brian Norris previously posted [1],
-but more comprehensive and more perl-y than what Yingying Tang posted
-[2], which only covered the second pattern.
+You seem to be set on providing the EDID to the kernel, but it's a
+terrible idea to begin with, so I'd rather discuss alternatives.
 
-This is based on next-20260706.
+Maxime
 
-Also, odd observation: the other regex patterns in this script escape
-the comma ',', but AFAIK this is not needed.
+--uxuzu5uiypml7j3g
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[1] https://lore.kernel.org/all/20190223022440.146915-1-briannorris@chromium.org/
-[2] https://lore.kernel.org/all/20251210073812.1380803-1-yingying.tang@oss.qualcomm.com/
----
- scripts/checkpatch.pl | 6 ++++++
- 1 file changed, 6 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index 2b7a42bbdd94..7a846a3ea127 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -3781,6 +3781,12 @@ sub process {
- 			my $vp_file = $dt_path . "vendor-prefixes.yaml";
- 
- 			foreach my $compat (@compats) {
-+				# Skip ID-based PCI and USB compatible patterns.
-+				# DT validation will check them properly.
-+				next if $compat =~ /^pciclass,/;
-+				next if $compat =~ /^pci[a-f0-9]{2,4},/;
-+				next if $compat =~ /^usb(if)?[a-f0-9]{1,4},/;
-+
- 				my $compat2 = $compat;
- 				$compat2 =~ s/\,[a-zA-Z0-9]*\-/\,<\.\*>\-/;
- 				my $compat3 = $compat;
--- 
-2.55.0.rc2.803.g1fd1e6609c-goog
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCakyu2gAKCRAnX84Zoj2+
+dttmAYDwAyDzsHH4BdK18Zg1snhvtmCOWF5mfpdzQr5B60t05sOH4JHRHhYDO62c
+O0R+3mwBgLQ2v3BV/JvI3f56cwkgVA2l6vP/yfbZFMo+03DPC8zxTjP8fRZZmkqV
+6IPIr/VIMQ==
+=pNHu
+-----END PGP SIGNATURE-----
 
+--uxuzu5uiypml7j3g--
