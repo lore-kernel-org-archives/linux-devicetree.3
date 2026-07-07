@@ -1,40 +1,66 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CEE3E556D
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:29:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4296A33291F
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:34:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783441787; cv=none; b=GWdrZkPn7ClJmy1qy7jIAvfQmvTwl6aMJJm8Tw8v9nb+DMda6fzXz3UBDxihEqrOYTkUdcNYSlFI9vH6MJLxi/PGHDkLgn/VhqM1TPQ2KaGr/QKLyP5CC9yt1ibtkwm7lqSsBKda/QkZ3+flS0dEPnLPoYCUZrS/rgU888WXrVc=
+	t=1783442079; cv=none; b=RNRCplLRRI0E8U/brRZMiPDEhR2K1FsLmUMYp8bzSKIMZipYZaGKMpyoO9ejABFdjW6FJgVokqXabiie/7m1IznAy8MZ5Sbx3cco2EZdL9tcpymdDVb+mhTivwDVUQ0qHx64hJx/GP+kIq0mp+9FVHUcfat+OIRYceYCTGm0XlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783441787; c=relaxed/simple;
-	bh=lXR+uBa4T4h7kmIlSIy3J99lNAJBI1qMHaeA+DIy39w=;
+	s=arc-20240116; t=1783442079; c=relaxed/simple;
+	bh=HZOQZ5+gEBXB9FFiQskUNf/8oWIAtCajF2Z9MT8W9Dc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qmpWYdKUBUkiUjqpJHYHdYmzkZcvJRAAuNGLLGkm2eZPJOHdl9DyNUkufJl2vebxU3qwmO13Rso3vjVKI5YEKNm/e6tnrLEDGv07GBNr/1ZbQdsCfLqtHDc1U+OiFvt/V+0Jp+MO5lwWIwRD1cnU6V7HFea2MoIvcWySUFDavAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FBEG/H7x; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=UHS1DDP9VQIA3sBkGQhBgOmxq/cLeVlRoZuoI0ETyfhzg54A4+FR+D8eb7gV/TBkqzMlvfGzip2lCt8mTtlpilzgsXygrdM5yowwI71R07wZYyGV6mtkCyhTvw323HmAN2/soJwYa+X9wPNXObp/ocqJ5SzRK+t7hsAPMV6Swi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu; spf=none smtp.mailfrom=monstr.eu; dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b=odla9vgw; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=monstr.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=monstr.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FBEG/H7x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783441784;
-	bh=lXR+uBa4T4h7kmIlSIy3J99lNAJBI1qMHaeA+DIy39w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FBEG/H7xKexOsLwIjoQOfeRxw90mu2YHRS/9ypDKddgLwkjtajT0lpEL5qPgKLTUH
-	 iKc+Y2XwV3QXywOZh07i+etD03MMFz4u3NQNyEVV3GHKBGTs+E40TNtrlrTfVPILrB
-	 5RWNblRndxxFShkO6rCFSLq4qKdzbpDvmAj+F8y0ZTHQgiXlhXu+edI6QUsqeXkTBO
-	 C3UgLGpbxl5vli09fnnBFQRMRYwCa61j8+0Ms4nc12rlBHx0hsj+vR+k0LLv1SCST5
-	 PlBmWEarUMlED+IpyHXU0vyS+VItokWlEkVURq3KJXFsEv/AHK8xjBbmKKZUyAW8JD
-	 PNQdaPBtbheHQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C64E17E013E;
-	Tue, 07 Jul 2026 18:29:44 +0200 (CEST)
-Message-ID: <48e80ac6-193f-4d57-99a3-21794648f1fa@collabora.com>
-Date: Tue, 7 Jul 2026 18:29:43 +0200
+	dkim=pass (2048-bit key) header.d=monstr-eu.20251104.gappssmtp.com header.i=@monstr-eu.20251104.gappssmtp.com header.b="odla9vgw"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-698aa7ba3e6so7623684a12.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 09:34:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=monstr-eu.20251104.gappssmtp.com; s=20251104; t=1783442074; x=1784046874; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=m4yMg62YAe6Tk0Zq+iKrI/zpLYixVD/ZixnriSqWY5c=;
+        b=odla9vgw6qcBhvarpe3TXwKagXjWpw28LyNO93mud5SjOGeb6fiTBkHlwtiqa/4q+v
+         K7+Z/UxsznOao9Qq/UAxeurn0DseNG/Aj5mei911j1NIDaNBKqrB8DsKWTDjRqMloC1V
+         wtkOtuUxmvVq59gbvH0+mTpHhrz+9pH9iRe6RFKEsg/XuRi/gW3mlr2fqrb9YUzbU4un
+         PPS27aXNx424aDJoIbR6Rpz3cD/1iueeZG20MbUkKjQpGa84K5nZU27Oae/PuEejh9a7
+         DtF0Uj5MH2xkx1MN+DBuYYk3DgIrE1wVNC422nOwueGC5eNsEf8p1Xpllr6x3AbN/snD
+         0d9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783442074; x=1784046874;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=m4yMg62YAe6Tk0Zq+iKrI/zpLYixVD/ZixnriSqWY5c=;
+        b=UCu2R2i8CxxPsirECtCbSsrpjz+3ELS3z6ITOoQgFoyGtRESE+Qgngf0eI0JYQUIkj
+         ZSkV7I88GUQxVgCb33aIz0Hs1DqtLnetHGnhEwwzz/+1SLp1315j+ogTmxzFAGGOkLUW
+         TAgXuvfZ649G51WLSdiWbvU7YyYzCuPzU1wkqIb/tle9MJbySrku2oSBOVa8seb8QG1h
+         SkZ1jF4LqF6gtiGwFTY/qmbkO+VgZW5QINnKkiWtWJL7Nbsw8EzwGRrjZIcFti8EEWXO
+         WtarcVM4pkKbO7PLCo2zObrLq3/0YeGZ+Zys7iCVjF4KBZlKsJbC0lcxMJOcLIdhM4Od
+         UBPw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2KlgWC0ZVaEkmjmgf0ZBJTse1o5hCRckYbEyDgQoFj1VoxWjoBuvFk4zyDPUJC1DPMyoiMgRhHnT9@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEa5RB2FB7UFBGn1CI1WwCmb0UbB54ovPoMa1uJurNTvyWwb4S
+	t1fzfeSfbzsgTp01adRBQ1lQcjI+IxPd2zc+PN0to8PZDQ2OhLem4Dlxq8KzPoyKIw==
+X-Gm-Gg: AfdE7cl5qVWj5I1aZVEeD0kA04xSYtC2Kxbhlxw7xF7mT0XRFNcSrk1LjYXXuQXjREW
+	h1jvdsnzhMBKX/GLlwuMxOqCpJJptnFx1+Zs2I1ex9lvRy7S5f5+dAvmQyL5D86f2nRnpCmeWw4
+	3Zqhh2GO92u5Ir7F0IPcb1qfvTZwL8bOVSMoxaLE5mMfOV6m+UCx6asR2vtJPk9poEzVlBDwGCP
+	pr1tbEcMj6milP8cTdemeU9jEvDXqU4v6F+cU1L9lv5/bps87tQRNvr8Zg6PFTUVtiI0dx6sOmW
+	zrTR7dTLUr5pHvTcm8oIyPqSKK2+M0XDV5w5Wzm1DJ4+YW/89xZin8DZeKfOL3G/LRZvKM4c5UQ
+	NjWhhqeOnKb6GYE6z5A7rZOxj2+y4KEY+Ez952a1o8r50S0XM2RDo6YscHv0iS/4bAQkUnwNELM
+	kM1zPFsLOdMNCD0Ohc2uNWlHNKbCEeEgIixUgp9NRAfOvk+Q==
+X-Received: by 2002:aa7:d58b:0:b0:697:d4ee:ab97 with SMTP id 4fb4d7f45d1cf-69a8566812cmr2367431a12.12.1783442074173;
+        Tue, 07 Jul 2026 09:34:34 -0700 (PDT)
+Received: from [10.254.183.223] ([149.199.62.131])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19d78a08sm6832401a12.18.2026.07.07.09.34.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jul 2026 09:34:32 -0700 (PDT)
+Message-ID: <da06120d-0850-4e79-9e07-efe481c057ff@monstr.eu>
+Date: Tue, 7 Jul 2026 18:34:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,118 +68,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] pmdomain: mediatek: Add support for MT8196 HFRP
- DirectCTL domains
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-References: <20260707155535.199383-1-angelogioacchino.delregno@collabora.com>
- <20260707155535.199383-5-angelogioacchino.delregno@collabora.com>
- <20260707162058.C21991F00AC4@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH v3 3/5] dt-bindings: clock: Move xlnx,zynqmp-clk to its
+ own schema
+To: Rob Herring <robh@kernel.org>, Michal Simek <michal.simek@amd.com>
+Cc: linux-kernel@vger.kernel.org, git@amd.com,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, kishore Manne <nava.kishore.manne@amd.com>,
+ "moderated list:ARM/ZYNQ ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>
+References: <cover.1780499520.git.michal.simek@amd.com>
+ <23d848e29176706548612c4a0751481d46176f11.1780499520.git.michal.simek@amd.com>
+ <CAL_JsqLWwcRjzQs4DHV265w-ROzeW_OPVS0uP0Ew8p+-dYu+EA@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260707162058.C21991F00AC4@smtp.kernel.org>
+From: Michal Simek <monstr@monstr.eu>
+In-Reply-To: <CAL_JsqLWwcRjzQs4DHV265w-ROzeW_OPVS0uP0Ew8p+-dYu+EA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/7/26 18:20, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> 
-> New issues:
-> - [Medium] Resource leak on error cleanup due to dummy `sta_mask` in simple power sequence domains causing `scpsys_domain_is_on()` to incorrectly return false.
-> 
-> Pre-existing issues:
-> - [High] Kernel panic during probe error cleanup due to unconditional dereference of `pd->data` for `HW_VOTER` domains in `scpsys_domain_is_on()`.
-> --
-> 
-> --- Patch [4]: [PATCH v2 4/4] pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains ---
-> commit 6f2aa6326ce2b3105bc55383da9b0e0d8b25e2d6
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains
-> 
-> Add support for the power domains provided by the HFRPSYS Power Controller of
-> the MT8196 SoC. Those control power to the eDP and DP Transmitter IPs.
-> 
->> diff --git a/drivers/pmdomain/mediatek/mt8196-pm-domains.h b/drivers/pmdomain/mediatek/mt8196-pm-domains.h
->> index 2e4b287206596..d704c9fa93374 100644
->> --- a/drivers/pmdomain/mediatek/mt8196-pm-domains.h
->> +++ b/drivers/pmdomain/mediatek/mt8196-pm-domains.h
->> @@ -602,6 +602,27 @@ static const struct scpsys_hwv_domain_data hfrpsys_hwv_domain_data_mt8196[] = {
->>   	},
->>   };
->>   
->> +static const struct scpsys_domain_data hfrpsys_domain_data_mt8196[] = {
->> +	[MT8196_POWER_DOMAIN_EDPTX] = {
->> +		.name = "edp-tx",
->> +		.sta_mask = MT8196_PWR_ACK,
-> 
-> [Severity: Medium]
-> Can this lead to a resource leak during error cleanup?
-> 
-> The MT8196_POWER_DOMAIN_EDPTX and DPTX domains use simple power sequence,
-> bypassing standard PWR_ACK polling. To pass validation during initialization,
-> they are assigned MT8196_PWR_ACK as a sta_mask.
-> 
-> If this bit is a dummy and not automatically driven high by hardware for these
-> specific domains (since it is never polled during power_on),
-> scpsys_domain_is_on() will perpetually read 0 and return false.
 
-Why Sashiko assumes that this is a dummy is bogus. Why should it ever be a dummy
-and why would I add it if it was useless?!
 
+On 7/7/26 17:55, Rob Herring wrote:
+> On Wed, Jun 3, 2026 at 10:12 AM Michal Simek <michal.simek@amd.com> wrote:
+>>
+>> The ZynqMP clock controller binding shares only #clock-cells with the
+>> Versal bindings. Move it to a dedicated xlnx,zynqmp-clk.yaml schema.
+>> Also remove "(Optional clock)" from clock description because it is visible
+>> from schema itself.
+>>
+>> Suggested-by: Rob Herring <robh@kernel.org>
+>> Signed-off-by: Michal Simek <michal.simek@amd.com>
+>> ---
+>>
+>> Changes in v3:
+>> - Cover change in zynqmp-firmware.yaml
+>> - Move clock-cells to be the last in the example
+>> - Remove comment around (Optional clock) which is obvious from schema
+>>    itself
+>>
+>> Changes in v2:
+>> - New patch in series
+>> - Split zynqmp-clk from versal-clk
+>>
+>>   .../bindings/clock/xlnx,versal-clk.yaml       | 50 +-------------
+>>   .../bindings/clock/xlnx,zynqmp-clk.yaml       | 68 +++++++++++++++++++
+>>   .../firmware/xilinx/xlnx,zynqmp-firmware.yaml |  7 +-
+>>   3 files changed, 76 insertions(+), 49 deletions(-)
+>>   create mode 100644 Documentation/devicetree/bindings/clock/xlnx,zynqmp-clk.yaml
 > 
-> If a failure triggers probe error cleanup, scpsys_remove_one_domain() would
-> skip scpsys_power_off() for these domains because it incorrectly believes they
-> are already off. Does this leave the domain permanently powered on in a
-> corrupted state and leak prepared clocks and regulators?
+> This is now causing warnings in linux-next:
 > 
->> +		.sta2nd_mask = MT8196_PWR_ACK_2ND,
->> +		.ctl_offs = 0x74,
->> +		.pwr_sta_offs = 0x74,
->> +		.pwr_sta2nd_offs = 0x74,
->> +		.caps = MTK_SCPD_SIMPLE_PWRSEQ,
->> +	},
-> 
-> [ ... ]
-> 
->> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomain/mediatek/mtk-pm-domains.c
->> index feba436279c54..55e7478804236 100644
->> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
->> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
->> @@ -1258,6 +1258,10 @@ static const struct of_device_id scpsys_of_match[] = {
->>   		.compatible = "mediatek,mt8196-power-controller",
->>   		.data = &mt8196_scpsys_data,
->>   	},
->> +	{
->> +		.compatible = "mediatek,mt8196-hfrp-power-controller",
->> +		.data = &mt8196_hfrpsys_data,
->> +	},
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but could this lead to a kernel
-> panic during probe error cleanup?
-> 
-> If a hardware voter domain is probed successfully, it is added to the probed
-> list. If a subsequently probed domain fails, scpsys_domain_cleanup()
-> initiates rollback, calling scpsys_remove_one_domain() on the hardware
-> voter domain.
-> 
-> scpsys_remove_one_domain() unconditionally calls scpsys_domain_is_on(), which
-> attempts to read pd->data->sta_mask:
-> 
-> scpsys_remove_one_domain()
->      scpsys_domain_is_on()
->          u32 mask = pd->data->sta_mask;
-> 
-> For hardware voter domains, pd->data is explicitly set to NULL, which appears
-> to result in a guaranteed NULL pointer dereference. Could this bring the
-> system down during boot on unsupported or failing hardware configurations?
-> 
+> /builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,versal-clk.example.dtb:
+> zynqmp-firmware (xlnx,zynqmp-firmware):
+> clock-controller:clock-names:0: 'pss_ref_clk' was expected
+>          from schema $id:
+> http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
+> /builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,versal-clk.example.dtb:
+> zynqmp-firmware (xlnx,zynqmp-firmware):
+> clock-controller:clock-names:1: 'video_clk' was expected
+>          from schema $id:
+> http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
+> /builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,versal-clk.example.dtb:
+> zynqmp-firmware (xlnx,zynqmp-firmware): clock-controller:clock-names:
+> ['ref', 'pl_alt_ref'] is too short
+>          from schema $id:
+> http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
+> /builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,versal-clk.example.dtb:
+> zynqmp-firmware (xlnx,zynqmp-firmware): clock-controller:clocks:
+> [[4294967295], [4294967295]] is too short
+>          from schema $id:
+> http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
+> /builds/robherring/linux-dt/Documentation/devicetree/bindings/clock/xlnx,versal-clk.example.dtb:
+> zynqmp-firmware (xlnx,zynqmp-firmware): clock-controller:compatible:0:
+> 'xlnx,zynqmp-clk' was expected
+>          from schema $id:
+> http://devicetree.org/schemas/firmware/xilinx/xlnx,zynqmp-firmware.yaml
 
-I'll send a Fixes patch for that.
+I will look at it. Thanks for reporting it.
+Michal
 
->>   	{
->>   		.compatible = "mediatek,mt8196-hwv-hfrp-power-controller",
->>   		.data = &mt8196_hfrpsys_hwv_data,
-> 
+
+-- 
+Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
+w: www.monstr.eu p: +42-0-721842854
+Maintainer of Linux kernel - Xilinx Microblaze
+Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP/Versal ARM64 SoCs
+U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP/Versal/Versal NET SoCs
+TF-A maintainer - Xilinx ZynqMP/Versal/Versal NET SoCs
 
