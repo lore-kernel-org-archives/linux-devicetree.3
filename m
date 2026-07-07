@@ -1,142 +1,73 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE393B14D3
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 06:52:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD083CF1FF;
+	Tue,  7 Jul 2026 06:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783407164; cv=none; b=euhJSNni8cG+WUra7lRShoovWyU6MrX2t/utLJoj2ezsOo07p9UxtKCWKQKqoYktWgPIGAlhOA3gi4O6vbsekuQ2ed6rXhx8u4Mtb0dXb3K985cjscnJa7YZLOTqoTR1xxMymZ8pPZ0G6BdUweODLLQnTDBt3qpk03lPPn9sMRw=
+	t=1783407228; cv=none; b=RN92fNXFqBy7+f2r3m1eWFb24gsoh2u7BtbkE31I4py6WDG0BH1JFKsKAlboOLWwa+Mxr7u6Ahmt5lSLfhTXrg2j9lXrLfqSWN84wjoD2mlNw+PBmSNg8eC2vlki97z5r+GkdVc6W9772RVAX3GfNeu8WzbqTFe0dQt2GuLCslU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783407164; c=relaxed/simple;
-	bh=gD/q7SKmBrC0OtQIWUnnzJ0urKpnYBI77eKOVOV42ZU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M6pAxuuaw56G9sjmII2Bd48wnLwOdrRNs5UTqTyRCPVIP2ukfg7RW3NBKBMm1pYHcSGcVAGvI+ZAZly6bAvf6vH7f9vYo501xSKO+MgK/IzuYwU29+hAEZSwh1+tjYn4SBFat7HfwnWDID8gIr8e1ITDEdetgcq+JdJBiWvJpbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-59ebf30a91dso1159246e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 23:52:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783407155; x=1784011955;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=H1oWLi+zgA/mmqPta9lQQ7n/K/VL51Ngsb+MHJRTZdo=;
-        b=psUQPMMaIZK3ku+xfMx439JobtI3kXzBccOeidW4R3gAV+0i/sztNeklHdGMGyYv67
-         V7UcRfC7z/lNA+z7zdRzNpUTdsvvPRyW33Ax0h5VZuoM6U6ZT+6GQnEWNOd150OEy4DI
-         9G34ahRNboWbi1tLq3JvX6R9IOHbQ4uBvBDeH3gZ0XtfD8R/arIcFfNcE0ytVfaMQWfq
-         soHKs5xtcwMg44a55wKJSRRthu4EYmPHRYbQqg0mbbsgO2Sx6q2jhNwrTD/STEvdipgX
-         LREE1e6BNuigwfBlKzagGtiUZXm+Y+N6ilakxugXcHyWn8CdtGJDvaqLOgwEWw3KOuRj
-         i+eg==
-X-Forwarded-Encrypted: i=1; AHgh+RotiA/hVzbyH6pHA/TOf3sSTBmZQVzWEkcgZ7O1paj37Nka7k9H3R1BmeLTWKEk6L+F1GQnxDN1TGq6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjOMXKkDiEMKfodEUVKirbPPn50inSqOnjsH8xrhE1aY3DN/HV
-	TLhEoBbzR6E2VeQMQi3rAJBxYWEPje+IHvzBs4Dea2ueoMlLy3EWkjQcrVz6EPmV
-X-Gm-Gg: AfdE7cnE3zjxnVlfoDp3Rto58WmJIVZTItXB57gdMRmrCeRBK9iPqSllPzZWYp+wCxi
-	0ZawZuoirm6hPM6Gduxv5T/Iie6NZ2+9Vn+pZzwr/PFztU50j9pM9yNnIXOFxzXEQEuamWKhOn0
-	B6o1/j9fxyh863Q08vj7pGnmVSPzPat4+0cieuIs6/8HptbySzjGrJYvGYmZgxe0H6JYCTiDRzM
-	KUqgPjxtznPI5pAeMwZj6cU9hAn6AU8ug8Ffys1rD9fAxo+EguFJvLJK+2Cnen2zcJ68lbrMxha
-	h5VdGKv8bI7WeKO6lLDj9/HyOA6wbOetbK7I7IY9D8byiKK7fsGAyRD8WuxSiOylqV6yGVNTKDJ
-	HwehlDyCatqdGKYD0LKZxavbNWQa7Ws3+Rh5mcFjlM16WTPH6k+l0HTi0ymTr04TvcEZHExpClg
-	txWNlGVfsircjiWOJ8/gai/KOh3V2/HYhMPO36bk+94rqmFn4uAQOiEAUwOnWz
-X-Received: by 2002:a05:6122:1684:b0:5bd:6a65:2822 with SMTP id 71dfb90a1353d-5be908b913fmr2180445e0c.11.1783407154959;
-        Mon, 06 Jul 2026 23:52:34 -0700 (PDT)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9698375705dsm6498009241.0.2026.07.06.23.52.34
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 06 Jul 2026 23:52:34 -0700 (PDT)
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-73be40e5c4cso1010925137.0
-        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 23:52:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpADtyWwe8ajZHJmfYKmJAW4S32+Fm7sQ06WC7O1Q5fsBdEvIty+ia0zvCnqBvPuzp60g8EH9Boee8m@vger.kernel.org
-X-Received: by 2002:a05:6102:1606:b0:740:2717:a2d5 with SMTP id
- ada2fe7eead31-744b79c1bddmr1806938137.6.1783407153869; Mon, 06 Jul 2026
- 23:52:33 -0700 (PDT)
+	s=arc-20240116; t=1783407228; c=relaxed/simple;
+	bh=l/gi+BZo6ThnO/G247ifExseAfWUqdKg/mGRm1zQ3DE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N4rt2394OIToeIhP39U5M58vSqJ9balPKNM8CWXpqNx0h7yXajZoTMeu3U0MDKUJa43LNNqVSPZ6J/WagFRsDitYm208MZuHNDWYNC2++M8wmVC7ZxoY18S2bF7KzGOwxsgwxywvezrhcRyppURfdK3xrc5BIkEkGh9Xej3dyqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQuv3+yn; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQuv3+yn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7EE1F00A3A;
+	Tue,  7 Jul 2026 06:53:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783407223;
+	bh=v0mT1gYQutRbQjr/KeeBWDlUXYQvp5XqEtNxRNxpekI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BQuv3+yny3139qCwzgvCBjU5d1NWhDE3G7OLGFL+dceVhuD4j0RX3oThwQzUmNd21
+	 BUZdb8187uOzXqJh/MKgrOw/HfY/SmbI6oVh8B2yoMEG8pxaq+eb21DK9MFA/w68iC
+	 pmHLPDjtdIQAO67bYZ30nOkdZt+krW5PL2QIp4ziv7+NXZLfo9+sr2K48xTjNuRqcr
+	 pHuVM4XXOT82oBNvv9JVJzCGuLc9FzNTlBZXfPcHvQ337qsBD/yZ8EKhBzQwcG+2db
+	 Slbj3McbZtH9BbtVeVX5bV7yUShEoTLtTowJKVe2bxHflL0FtIuxgdSGISMeedkirj
+	 6HjsLM3s6ATNw==
+Date: Tue, 7 Jul 2026 08:53:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Linus Walleij <linusw@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, 
+	"moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev, 
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 1/1] dt-bindings: mfd: st,stmpe: fix typo st,stmpe601
+ (should be st,stmpe610)
+Message-ID: <20260707-little-organic-horse-a0be9c@quoll>
+References: <20260706192932.1573584-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
- <20260704151521.211335-2-marek.vasut+renesas@mailbox.org> <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
- <edc7505e-1103-42d7-b88d-013ca10753b3@mailbox.org>
-In-Reply-To: <edc7505e-1103-42d7-b88d-013ca10753b3@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 7 Jul 2026 08:52:22 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXQQWmn612R3y6qSXOZ7YMwZcfrBTrQZ9GzGekhFhtWSw@mail.gmail.com>
-X-Gm-Features: AVVi8CefYSfbwNIrN8ylhp-z_YSTf7aaF8Cz88JDJCE3fX10J7HfmxqA13tE8IY
-Message-ID: <CAMuHMdXQQWmn612R3y6qSXOZ7YMwZcfrBTrQZ9GzGekhFhtWSw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260706192932.1573584-1-Frank.Li@oss.nxp.com>
 
-Hi Marek,
+On Mon, Jul 06, 2026 at 03:29:32PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> The compatible string "st,stmpe601" is a typo and does not correspond to
+> any existing STMPE device in either the driver or DTS files. The correct
+> compatible string is "st,stmpe610".
+> 
+> Fix the typo to ensure proper schema matching and eliminate the
+> following CHECK_DTBS warning:
+>   imx53-m53evk.dtb: /soc/bus@60000000/i2c@63fc4000/touchscreen@41: failed to match any schema with compatible: ['st,stmpe610']
+> 
+> Fixes: e10038ce1ba9 ("dt-bindings: mfd: Convert STMPE to YAML schema")
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-Thanks for your patch!
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On Mon, 6 Jul 2026 at 21:44, Marek Vasut <marek.vasut@mailbox.org> wrote:
-> On 7/6/26 11:19 AM, Bartosz Golaszewski wrote:
-> >> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
-> >> +{
->
-> I am hoping to get some input on this remap function.
+Best regards,
+Krzysztof
 
-I haven't looked at your patch in detail yet, but the remap function
-was the first thing that struck my eyes.  This might impact performance
-of bit-banging and of the sloppy logic analyzer.
-Have you looked at the code generated by the compiler?
-Perhaps it would be better to use a table, like sci_port_params.regs[]
-in the sh-sci driver, and riic_of_data.regs in the riic driver?
-
-> >> +    /* R-Car Gen4 and older do not need any offset remap. */
-> >> +    if (!p->info.has_layout_gen5)
-> >> +            return 0;
-> >> +
-> >> +    /*
-> >> +     * R-Car Gen5 register layout is slightly different and the offsets
-> >> +     * that have to be added to or subtracted from each register offset
-> >> +     * can be divided into five groups, listed below.
-> >> +     */
-> >> +    switch (*offs) {
-> >> +    case IOINTSEL...OUTDT:
-> >> +            return 0;
-> >> +    case INDT:
-> >> +            *offs += 0x10;
-> >> +            return 0;
-> >> +    case INTDT...EDGLEVEL:
-> >> +            fallthrough;
-> >> +    case BOTHEDGE:
-> >> +            *offs += 0x70;
-> >> +            return 0;
-> >> +    case OUTDTSEL:
-> >> +            *offs -= 0x34;
-> >> +            return 0;
-> >> +    case INEN:
-> >> +            *offs -= 0x38;
-> >> +            return 0;
-> >> +    default:
-> >> +            /*
-> >> +             * This here must never be reached, if this is reached, that
-> >> +             * means there is a catastrophic failure in the driver. Skip
-> >> +             * any IO read/write to prevent further damage.
-> >> +             */
-> >> +            WARN_ON(1);
-> >> +            return -EINVAL;
-> >> +    }
-> >> +}
-> >> +
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
