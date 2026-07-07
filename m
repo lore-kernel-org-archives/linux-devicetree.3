@@ -1,95 +1,231 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CC22E764D
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 08:13:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4482F8EA5;
+	Tue,  7 Jul 2026 08:13:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783411988; cv=none; b=Wax8KvC9+7Sob/ykCuiduMARdJmTFYaU4oZBLaEwArkvE/XUCgs/U6OD81Z2O/VtpFOrgijhxB8xmUW35G31dRsSFfve9RPyIdbFENiLTDEbQyycyFmBNBYc6ClWIY1BVMyKAeDQBllzWorNd2zI46pKkeVKqzQBJVJSqoAxirE=
+	t=1783412031; cv=none; b=TEgyGOltP8tUel/LCTrL5kysGfBFjZddwwgC68VDcFjqpQWHlx86bWPOMiCXEM1M+cLSW8TGFpMqcIF7k6y9LehomiqmXTkuqsODMXof5GrSwn4jXzXl/AA1liND47wBpJ0A//TGGqrvUZRQvu0plDccmbh6fvWHFubpnHYLTuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783411988; c=relaxed/simple;
-	bh=GgsvgCVdE6iEDPDAuxu3CmgHOcd6pzZ3DL0qZEWKFyM=;
+	s=arc-20240116; t=1783412031; c=relaxed/simple;
+	bh=/cSjh5Mmt2Ddn6Je1fhdPk/i14wbF/BipllmwdUhVDM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VocJfz9Jzr8DNPN3VGlzfvNzPo8HT1cTKoOuSdiYmdmz9Wj7j1HyD//GssEDuEeEbbMp+edQLSpmW2Ep8T3gan5KyJLGA0YmKbp9PCpbGcYEqQX27k6vQjcvovX1W3Oc28YI2tq5ltsev6mQYDWvhu9HOP7azvoO3+BuHmXD85s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oAGHURDL; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YGDGoWRnv2C7klbAmHEg4s+U4J335eZY1SgsD4fACLWNOncqWgA9De1bpRbSpNWsuc/vvVZYoijb/3h8y/UUnkTIyc3Dad53VR0ywxXhupbgDb5Kss0/ZZYqMfbvxh2o79Ydf1iclMbvZI03ueYvxc839Gt+XETU3uP6PzGb1V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0b4tSaI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oAGHURDL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA0D31F000E9;
-	Tue,  7 Jul 2026 08:13:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0b4tSaI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271001F000E9;
+	Tue,  7 Jul 2026 08:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783411987;
-	bh=GgsvgCVdE6iEDPDAuxu3CmgHOcd6pzZ3DL0qZEWKFyM=;
+	s=k20260515; t=1783412029;
+	bh=iWBt/efHATlisAipluecYDFPYluBPbkyRhiI3vgP0LE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oAGHURDLInn1N2jOH6ApIggaPG/D8bfsrGUnNVsvOf74sFTEhvjc7zueEMTbIV2kU
-	 ZbmSRCQ2e2Hi2Cq3HgTkenrMI4nhrYllBd1RmbFJ6z/Ydz3BVziXKCidmN7Z6shqh1
-	 llNcI/kazlWBElbUDGqUZGR/ffx4WNsrJ7ja/VZjOKHMTvY1LHWN2xlOAj4M9oatqn
-	 w1fKPaMquuOhqLyOreYo3wxc2c8bc7Mp4W19NMMtu9x+eeapXuuRGUkUzmCRqMMPVE
-	 JhHAYmNewD6e4QfCaqvJV2PKgByb1GYQDw2GZUtGmM3DQgYZF2f+RI0MX54l/kPDlW
-	 YsK1VNa7IQqYg==
+	b=W0b4tSaI217Fgm1Sx9qjlx8BqmSLitdLPyK0pJh+JCTV2UNw76EmxbaEe98xChtlW
+	 ZatEASkyh5o0rvJdo3CziG8SEVT/J84LaZOdw77E6U3tEVBRqB0ke33/XlYLdr6AgH
+	 8lesTBriWecqRTehpMKiUFohLrKqx7ZZehgcY1EVWduqV6CstyrIZommu15lFRmOuO
+	 gyMzpAUj56RrpAjT/m4V0wIiq8AWnlbmqXSGXwYaSI2I+qbT2bYMMSMu7GmX0euMUC
+	 npwXpe+Nx2K5RmDIj0iTi1JV5Yx7O3R9/MkLSs5PADlgyx6LK1TBNrT9RQO0Kuznhp
+	 aEnlHq+AlBrkg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] Revert "dt-bindings: i2c: Describe SA8255p"
+Subject: Re: [PATCH v7 3/5] mfd: aaeon: Add SRG-IMX8P MCU driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260707080229.3795971-1-shengchao.guo@oss.qualcomm.com>
-References: <20260707080229.3795971-1-shengchao.guo@oss.qualcomm.com>
+To: =?utf-8?b?VGhvbWFzIFBlcnJvdCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <thomas.perrot@bootlin.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260707-dev-b4-aaeon-mcu-driver-v7-3-ca6c59abd672@bootlin.com>
+References: <20260707-dev-b4-aaeon-mcu-driver-v7-0-ca6c59abd672@bootlin.com>
+ <20260707-dev-b4-aaeon-mcu-driver-v7-3-ca6c59abd672@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 08:13:06 +0000
-Message-Id: <20260707081306.DA0D31F000E9@smtp.kernel.org>
+Date: Tue, 07 Jul 2026 08:13:48 +0000
+Message-Id: <20260707081349.271001F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] Reverting the `qcom,sa8255p-geni-i2c.yaml` binding completely re=
-moves strict validation for the SA8255p GENI I2C nodes, allowing invalid de=
-vice trees to silently pass validation.
+- [High] The driver improperly applies the `I2C_M_DMA_SAFE` flag to the cal=
+ler-provided `val_buf`, bypassing I2C bounce buffering and risking direct D=
+MA into the stack or unaligned memory.
+- [High] The I2C bus lock is temporarily released between the command write=
+ and response read, allowing other clients to interleave traffic and break =
+the MCU's transaction atomicity.
+- [Medium] Missing `.use_single_read =3D true` in the regmap configuration =
+allows unsupported multi-byte reads, violating the MCU's communication prot=
+ocol.
+- [Low] Driver-specific header file is incorrectly placed in the global `in=
+clude/linux/mfd/` directory, violating subsystem guidelines.
 --
 
---- Patch [1]: [PATCH] Revert "dt-bindings: i2c: Describe SA8255p" ---
-commit 372cd0ac425472b6963cd0afcbe473297a95844e
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+--- Patch [3]: [PATCH v7 3/5] mfd: aaeon: Add SRG-IMX8P MCU driver ---
+commit ce41fd5bdffca68e9033f19059ca7fbc7576a6fe
+Author: Thomas Perrot (Schneider Electric) <thomas.perrot@bootlin.com>
+Date:   Tue Jul 7 08:01:29 2026 +0000
 
-Revert "dt-bindings: i2c: Describe SA8255p"
+    mfd: aaeon: Add SRG-IMX8P MCU driver
 
-This commit reverts the addition of the SA8255p GENI I2C binding, stating
-that the compatible string is already defined in the geni-se-qup schema.
+This commit adds an MFD driver for the Aaeon SRG-IMX8P embedded controller.
+It provides the core I2C interface to communicate with the MCU and registers
+child devices for GPIO and watchdog functionality. The driver implements a
+custom regmap bus over I2C to match the MCU's fixed 3-byte command format.
 
-> diff --git a/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.=
-yaml b/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
-> deleted file mode 100644
-> index a61e40b5cbc16..0000000000000
-> --- a/Documentation/devicetree/bindings/i2c/qcom,sa8255p-geni-i2c.yaml
-> +++ /dev/null
-> @@ -1,64 +0,0 @@
-> -# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> -%YAML 1.2
-> ----
-> -$id: http://devicetree.org/schemas/i2c/qcom,sa8255p-geni-i2c.yaml#
-> -$schema: http://devicetree.org/meta-schemas/core.yaml#
-> -
-> -title: Qualcomm SA8255p QUP GENI I2C Controller
+> diff --git a/drivers/mfd/aaeon-mcu.c b/drivers/mfd/aaeon-mcu.c
+> new file mode 100644
+> index 0000000000000..54ac30fd5bed5
+> --- /dev/null
+> +++ b/drivers/mfd/aaeon-mcu.c
+[ ... ]
+> @@ -46,36 +46,36 @@ static int aaeon_mcu_regmap_write(void *context, cons=
+t void *data, size_t count)
+> 	struct aaeon_mcu *mcu =3D context;
+> 	struct i2c_client *client =3D mcu->client;
+> 	struct i2c_msg write_msg;
+> 	/* The MCU always sends a response byte after each command; discard it. =
+*/
+> 	struct i2c_msg response_msg;
+> 	int ret;
+>=20
+> 	memcpy(mcu->cmd, data, count);
+>=20
+> 	write_msg.addr  =3D client->addr;
+> 	write_msg.flags =3D I2C_M_DMA_SAFE;
+> 	write_msg.buf   =3D mcu->cmd;
+> 	write_msg.len   =3D count;
+>=20
+> 	response_msg.addr  =3D client->addr;
+> 	response_msg.flags =3D I2C_M_RD | I2C_M_DMA_SAFE;
+> 	response_msg.buf   =3D mcu->response;
+> 	response_msg.len   =3D 1;
+>=20
+> 	ret =3D i2c_transfer(client->adapter, &write_msg, 1);
+> 	if (ret < 0)
+> 		return ret;
+> 	if (ret !=3D 1)
+> 		return -EIO;
+>=20
+> 	ret =3D i2c_transfer(client->adapter, &response_msg, 1);
+
+[Severity: High]
+Because two separate i2c_transfer() calls are used to generate the required
+STOP condition, the I2C bus lock is temporarily released in between them.
+
+Can another driver on the same I2C bus interleave a transaction between the
+command write and the response read, disrupting the MCU state machine?
+
+Should this code use i2c_lock_bus() around both transfers to ensure
+atomicity?
+
+> 	if (ret < 0)
+> 		return ret;
+> 	if (ret !=3D 1)
+> 		return -EIO;
+>=20
+> 	return 0;
+> }
+>=20
+> static int aaeon_mcu_regmap_read(void *context, const void *reg_buf,
+> 				 size_t reg_size, void *val_buf, size_t val_size)
+> {
+> 	struct aaeon_mcu *mcu =3D context;
+> 	struct i2c_client *client =3D mcu->client;
+> 	struct i2c_msg write_msg;
+> 	struct i2c_msg read_msg;
+> 	int ret;
+>=20
+> 	/*
+> 	 * reg_buf holds the 2-byte big-endian register address [opcode, arg].
+> 	 * Append a trailing 0x00 to form the full 3-byte MCU command.
+> 	 */
+> 	mcu->cmd[0] =3D ((u8 *)reg_buf)[0];
+> 	mcu->cmd[1] =3D ((u8 *)reg_buf)[1];
+> 	mcu->cmd[2] =3D 0x00;
+>=20
+> 	write_msg.addr  =3D client->addr;
+> 	write_msg.flags =3D I2C_M_DMA_SAFE;
+> 	write_msg.buf   =3D mcu->cmd;
+> 	write_msg.len   =3D AAEON_MCU_CMD_LEN;
+>=20
+> 	read_msg.addr  =3D client->addr;
+> 	read_msg.flags =3D I2C_M_RD | I2C_M_DMA_SAFE;
+> 	read_msg.buf   =3D val_buf;
+> 	read_msg.len   =3D val_size;
+
+[Severity: High]
+Does applying the I2C_M_DMA_SAFE flag to the caller-provided val_buf risk
+direct DMA into unaligned memory or the stack?
+
+If a child driver or the regmap core calls regmap_bulk_read() with a
+stack-allocated buffer on a vmapped stack, bypassing the I2C bounce
+buffers could lead to a kernel panic or memory corruption.
+
+Would it be better to copy the read data through the DMA-safe mcu->response
+buffer instead of passing val_buf directly?
+
+>=20
+> 	ret =3D i2c_transfer(client->adapter, &write_msg, 1);
+> 	if (ret < 0)
+> 		return ret;
+> 	if (ret !=3D 1)
+> 		return -EIO;
+>=20
+> 	ret =3D i2c_transfer(client->adapter, &read_msg, 1);
+
+[Severity: High]
+Similar to aaeon_mcu_regmap_write(), using two separate i2c_transfer() calls
+here temporarily releases the I2C bus lock.=20
+
+Can this lead to the same interleaving and state machine disruption issues
+described above?
+
+> 	if (ret < 0)
+> 		return ret;
+> 	if (ret !=3D 1)
+> 		return -EIO;
+>=20
+> 	return 0;
+> }
+[ ... ]
+> static const struct regmap_config aaeon_mcu_regmap_config =3D {
+> 	.reg_bits          =3D 16,
+> 	.val_bits          =3D 8,
+> 	.reg_format_endian =3D REGMAP_ENDIAN_BIG,
+> 	.max_register      =3D AAEON_MCU_MAX_REGISTER,
+> 	.volatile_reg      =3D aaeon_mcu_volatile_reg,
+> 	.cache_type        =3D REGCACHE_MAPLE,
+> 	.use_single_write  =3D true,
+> };
 
 [Severity: Medium]
-Does removing this dedicated schema drop strict validation for the SA8255p
-GENI I2C nodes?
+Is .use_single_read =3D true missing from this configuration?
 
-While the compatible string is listed in soc/qcom/qcom,sa8255p-geni-se-qup.=
-yaml,
-it appears that the wrapper schema defines additionalProperties: true for
-the i2c@[0-9a-f]+$ child nodes.
+Without it, if a child driver attempts a bulk read, regmap will pass a
+multi-byte val_size to the read callback.
 
-The wrapper schema also lacks references to standard I2C constraints such as
-/schemas/i2c/i2c-controller.yaml# and does not enforce required properties
-like reg, interrupts, and power-domains.
+Since the MCU protocol expects exactly one response byte per 3-byte command,
+could a multi-byte read request lead to I2C transfer errors or invalid data?
 
-Without this file, will device trees utilizing qcom,sa8255p-geni-i2c with
-missing or invalid properties silently pass dt_binding_check?
+[ ... ]
+> diff --git a/include/linux/mfd/aaeon-mcu.h b/include/linux/mfd/aaeon-mcu.h
+> new file mode 100644
+> index 0000000000000..3a1aeec85d60b
+> --- /dev/null
+> +++ b/include/linux/mfd/aaeon-mcu.h
+> @@ -0,0 +1,40 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Aaeon MCU driver definitions
+> + *
+> + * Copyright (C) 2026 Bootlin
+
+[Severity: Low]
+Should this driver-specific header be kept local to drivers/mfd/ instead of
+being placed in the global include/linux/mfd/ directory?
+
+The MFD subsystem guidelines state that headers used only by the parent and
+its immediate children should not be placed in the global include path.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707080229.3795=
-971-1-shengchao.guo@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-dev-b4-aae=
+on-mcu-driver-v7-0-ca6c59abd672@bootlin.com?part=3D3
