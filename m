@@ -1,120 +1,84 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDACA374A0F
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 15:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AE93783B1;
+	Tue,  7 Jul 2026 15:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783436692; cv=none; b=MEkfG1VwDqPxy4reJl2mADVY/2TPyrhENihrFbA6dWSHd8MTXlpMkJXMHRs0xf6lS6aamVYYxIX+YIekImtakt7Fm80ia3zcxqIwViOHgbOb6da/j+VunOrBLwRxXC/PlxNG2LnBjTDp1z7/SFNyTnDaeusi3yixhY0Cw5ZaU9M=
+	t=1783436944; cv=none; b=aWrxB8/J444VbFaYxeBQzNgwtlrzywbo0knHGDB/v2Usa1H1Eos5n+E/UW94s3JwDNdDRYJgWOe1o5pyCemaVEWsyPoJVZT7Uf8pI085RaQLIH1klg+2MWlCJO1EY6arIMcVholrfaG0XD/x8yxmi7BHCouHSKrRAFWaIVcmNvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783436692; c=relaxed/simple;
-	bh=JW6561mML8m0Es0w6oBxup+aCmHVJh9Hrl4KT/dgDAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B7GnrDqGNVZ+K8QLEwvpsaQHsUaHMIFzEpZeoQtFQ8gs6XhYYffR+S5wGpgoLLZn3L+asCwvu7Ip46hE7+m7MlDJGMAZ0k5W45lNCmHrd4oddZBSi5LKJYCRSF53UdGvJlH3GAfPUX4+/sHZr+qBpgfRHU1TaQtTOFho0NhDwUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpIgJeaw; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783436944; c=relaxed/simple;
+	bh=UAen4zXRCc0vvVeqLV9W4K9s42S9Ywe7vEOmWCZd724=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jsf0ojmeljsxOpdSfD/9F/j/gxt7T0sV5QxMKiE29bTkw3Q6XUt7klDSi2Dzra5AdUNVd7kWkNFKI5Z+/3V2kJ+/wy/sxmCfrTitkqilIplp6aS6T/uzKE2mjoIRqisFhb+V5mwUmBoz6W9aK0Z8MB1AMxm+jPp3OrEITNENVU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZJhRfpwz; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpIgJeaw"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47de008b020so455017f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 08:04:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783436689; x=1784041489; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yjaKNQDIB8x3lV2bAr2D5lvHBXFHHvfoE6oAh2cW/Bg=;
-        b=jpIgJeawSvqhMQ3AZXAGdsTz77Zm0UArKxI/tM3/K2buybJaaz3Qsq/yOB39/WJhEP
-         3uJWdKfdg+hC/Mr+W18dKHpRcyz/+4AMu31ePiNEAvjRPOjGolY1yia8P6A0NjA9ltPU
-         u6i8DRn7jhj2rrgV4Vj8UKfwXBc0kX6gAqqsSAVGX2yLfnupKjTLnY0lVxjmXYApc4kv
-         IrO8kYjFDHDgOMVTPpKwUs074kWhTrsaXQnCiH0XtNrYjK7Y9fOD1yKbEffhR4wSm4GL
-         mpeV3JNqg1CswPjQt0UgBmC2PB3+Z5ehGtKI56gyfK0fJKiyRZSuhMaBgbCT9LW2mvEh
-         9jKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783436689; x=1784041489;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yjaKNQDIB8x3lV2bAr2D5lvHBXFHHvfoE6oAh2cW/Bg=;
-        b=BVH04SbSU22GvLi+c5KjkY1JKXfOAhDn0qUg4Y/6xZPQevLMlsmBeea6dHqt69Kns7
-         RWoMP69J3kVLWr2WeZanW1PkR9Y/Q2R5iCumf/sRBwMoVIJ9j2mhCfDI5gCEgKoNqutM
-         qBmjLjmY7cUL/gxDNgTr4TuMYMiPeHAvx+bBE2INJ6spwg7H1bLOEo7mitmLxJSEXsKO
-         2nz/7DV9xvskJZosGxTLNZM3RLmyNKAQFDFPDuEgRhCz2hifLFHWnqOiVuLA7obr3EZL
-         HhzCUwqoRJbXwx7fY0Qkpp2bNm28eG8fUW5sCT6Aqhf0k96A/SVmJpplgkvvj3CqfRMA
-         BX6g==
-X-Forwarded-Encrypted: i=1; AHgh+RpbLX+7sG8A36/MVrA2laJD5zloEQ0x5j9DKC52ppvPU8cQAJLtKj4Rq1P/Zfai2HQpV+F//cOyrqDm@vger.kernel.org
-X-Gm-Message-State: AOJu0YwuA/ol8LZeSrwNjJBDEELgd8sUvfCXO+DGa0+4zbsA4LYP1NeP
-	FiZTmwgOHVhOrazec5+msgY2rn/TiDhn58n3nm3UiaVlPZ2FA9lRfRc=
-X-Gm-Gg: AfdE7cnlmtRAFXN1vV71K65wwaJfIxNLlb7bOVGu1elhkJxLWmRYhWBDbhGoTWPLdyF
-	+AkuOsoRxrtC5zQY62Ms6+3pCUxxY5K8DVc6i8f/FSaljo1lQOJ840jU44BOjJcCxJJS2hibv6A
-	u7IwNm9S0/SJj3mXuuTbCCnlmRUrDBlf2R0Q0s3YxuZgd4f2VJCY49zPfayY1FC4MS3ObAhLy8f
-	ouJS/B6Zil6PGYpM8oaoJ+jIu3cylg1ksYu1oMGE4dCCiky5Dhg52xpDUROcVsT4ODH8DbMs6X/
-	yitYlUyB+ycYHHU8Ovu8eOWrxE1xbDvJCUq0rs++cz+v3ue3uyWDniI4u5ndojyK7PHKNCF/5Si
-	WuO+f6q3wzIdLB11Vc76Z1VW6ExAPc9Wdn4PdnQb0kFz9NUu7v9tWr7+OinV7bAl9HH838MyLbs
-	tnIp+I4C2ahlryoOxWh0kM7lEjU6KPfV1CqG02bCFpJwsAA/oo1Jlb7VwTN+V4H6Tg2/B/9A==
-X-Received: by 2002:a05:6000:2584:b0:473:6590:c42a with SMTP id ffacd0b85a97d-47de97ea689mr3990217f8f.9.1783436688978;
-        Tue, 07 Jul 2026 08:04:48 -0700 (PDT)
-Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a? ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f21328sm35142014f8f.32.2026.07.07.08.04.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 08:04:48 -0700 (PDT)
-Message-ID: <6acf86dc-0df0-492a-b3dc-224a666214b9@gmail.com>
-Date: Tue, 7 Jul 2026 17:04:46 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZJhRfpwz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783436943; x=1814972943;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UAen4zXRCc0vvVeqLV9W4K9s42S9Ywe7vEOmWCZd724=;
+  b=ZJhRfpwzAmkQTrzjxSQEdEM+IsIEwaNa+atVwAIstKszi6kSyTf88LSS
+   Baa8OY0X1x2tXUY+tYknH4MxCN2yFYfgsh/8u/cUUwqGOXCdOccclFyLx
+   G7gNQ9ZDoyid91xm4nYzfu1OoWSBSXBJv0uJFxKdN8+tzhXApu8npuliq
+   4bTtKGbkVefwZo1Qv/tU73iS5F6Q1wi2qkOXsUQazYeOyDbw0Whnn6/xP
+   uaXv+uQdH+qOEQTrDMQdmxmMTfVpR18iz5Ol+JjF2C+GOYHtqkOpmNAwE
+   2Je7zifuuuq+HtdATogWj664oeReTpSHNo5dEpdCoeQJnBC+pDTz6ZsHs
+   g==;
+X-CSE-ConnectionGUID: uA+6Y1HlT2eQjkr3H/23OA==
+X-CSE-MsgGUID: 5/OiKCguS1WVfEwBB+u6lQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="84177905"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="84177905"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 08:09:03 -0700
+X-CSE-ConnectionGUID: c9x+0rHQQ1OdRcmVhiuBCw==
+X-CSE-MsgGUID: dAiq4uXySkm7cCOoYhuB+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="255939507"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.36])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Jul 2026 08:09:00 -0700
+Date: Tue, 7 Jul 2026 18:08:57 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Md Shofiqul Islam <shofiqtest@gmail.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com
+Subject: Re: [PATCH v9 0/2] iio: health: add MAX86150 ECG and PPG biosensor
+ driver
+Message-ID: <ak0WiaBDEOdJ-nBz@ashevche-desk.local>
+References: <20260707112714.2261727-1-shofiqtest@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 01/13] iommu: arm-smmu-qcom: Configure lpac device
- with split address space
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-1-01d50c3e0c99@gmail.com>
- <5vfdbrk4bu77e7wgutp4h3ilbpjhcxxnwemqiufmtiwoffp4sl@oaonwwouw4qm>
-Content-Language: en-US
-From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-In-Reply-To: <5vfdbrk4bu77e7wgutp4h3ilbpjhcxxnwemqiufmtiwoffp4sl@oaonwwouw4qm>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260707112714.2261727-1-shofiqtest@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 7/6/26 5:00 PM, Dmitry Baryshkov wrote:
-> On Sun, Jul 05, 2026 at 09:13:35PM +0200, Anna Maniscalco wrote:
->> We want the context bank used by LPAC to use split address space just
->> like GFX.
-> Why?
+On Tue, Jul 07, 2026 at 02:27:12PM +0300, Md Shofiqul Islam wrote:
+> Add DT bindings and an IIO driver for the Analog Devices MAX86150
+> integrated biosensor, which combines two PPG optical channels (Red/IR
+> LED) and one ECG biopotential channel in a single I2C device.
 
-I'll update the commit message in the next revision.
+You have the same issue again!
+Please, slow down and take care of your email and other configurations to make
+sure that email you sent are chained into the thread.
 
-The reason is the same as GFX, we want split kernel and user address 
-spaces so we can use per context page tables for userspace submissions.
+Using `git format-patch --thread ...` helps. But you should really investigate
+what's going on on your side.
 
->
->> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
->> ---
->>   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 11 ++++++++---
->>   1 file changed, 8 insertions(+), 3 deletions(-)
->>
-
-Best regards,
 -- 
-Anna Maniscalco <anna.maniscalco2000@gmail.com>
+With Best Regards,
+Andy Shevchenko
+
 
