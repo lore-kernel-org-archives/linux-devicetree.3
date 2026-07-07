@@ -1,85 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DFD3E5A01
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:17:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A06434E2C;
+	Tue,  7 Jul 2026 16:19:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783441066; cv=none; b=s9yMc24sm5iWMnnhjmhtBF2eu1tFvaKt8Pt01bgli+0BRhdWXp07AtYpP5gMsZdpXt5Ur+zjI7RWoWPKEWrHlGULEVL6i02+9SG4MglRYbYY3Lah3c+V6/2EzsuffIpnPb/NKirzW3DtSU2yVTyZ0+sBxs2FI2yqHUaoCh12XMo=
+	t=1783441164; cv=none; b=KBxiK0ZErtuDJygPbTAAui+A6EaZDIeUKhNj3TTHI+AgPltz7mRydGTEH9MDM+cpZvQeDEtW8WiEfXHQSpVy9rJPMntpupUkfEL3UDuX960fQCrO+sYXP5DoocVmvXJQV1/YWU5CfCSNxqCZqf/27l+mwShveuxUMSzDTM2Vj74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783441066; c=relaxed/simple;
-	bh=hArr/PSt1vtN/x7OS7H8FAjSt8jJwbzMeoHDddix3qs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J2xV7fbhynCwhWHlQuS61rNvlVb1zqHUhA1KhYeE7t5yAHO9oF58ExaKqAtGZaY4aWGB06MDUsU7P6U/Wtf0z7RKdHygsMy6IPjr63QpDH/WjCZsTfqTTwBOykmzOZ5s6/Qj+yV3gfZJzdOEvMXad1EXtDbKb0LxhUL9LsnxKkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMlb++6G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783441164; c=relaxed/simple;
+	bh=r/WV+1AM9CAJd99NwXYSLV+fuIJbi7qrwMD2d2330Os=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ShhbAqrl7EnTuS9GZPnzO7aLvWW22/G9w1Cs/qrwLNmNhCsuN5V4cEAkmMOaZZ3c+kIJNovb6pOd8wK+NJBU7+ZQvNPXzSSwhUZWSSAu6L08AIMFcKV6XAEjAF3sMvj+06qplmWXR/azosRBiylFZB+vtB0PpxLcKnftO8YaMxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WErHPRd4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMlb++6G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0286B1F000E9;
-	Tue,  7 Jul 2026 16:17:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WErHPRd4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE7E1F01558;
+	Tue,  7 Jul 2026 16:19:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783441065;
-	bh=fTWNHNWIWtsQEt+NQhvnyHYw91RCga+lUYtBcuk1QZc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IMlb++6GvGJ9yTQUAawAgQki09rK7W+aW7sUxFDJOVA1hI8OFyJc/kY9PFvT3dckk
-	 0gffoot4/5njUrJsuRYIXQkeYKpBTR7s8PvvcrlSrUNINqnc16gP4pNszVGjS3CVOo
-	 gUUZonJ72sR4Fj+cFtk8x5USXCxoKNEQGecElJTQzcCASZl8QL2Bo+JW7NlxYb8QL+
-	 /aV3eMcSpDHxeai8YyJ0zZr2HQqoO4sZ/eT0BlfH3HpookHzYymmRASnEDX7Amvpct
-	 mjc5eoPrchlR783q02rlrMx4pj1kZiPkSmHf2a62QVZkgV1hWgK8wU/Q2Wz1HUMz7q
-	 oxQk3AQ+kMvqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 17/17] docs: iio: add documentation for ad9910 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260707-ad9910-iio-driver-v7-17-a4ec30f63700@analog.com>
-References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
- <20260707-ad9910-iio-driver-v7-17-a4ec30f63700@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 16:17:44 +0000
-Message-Id: <20260707161745.0286B1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783441163;
+	bh=Pe5c0lRRYuehiikG2q/D86iz7XJppM5GvK+gT5FGJ6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WErHPRd4NVutyTsOu/YGaANkh7LNzzdntLiXzo4T+7OKglJ+aCD3wRS3BuKVSnP3f
+	 9o0OTrY1YBAjFgEpF23wthcqVYvc74eK58wqf7AF1nF0SZj/LpSZ4B7sWP6bdpNW5C
+	 R1ZA+pesnMVHABwcsGr6AwUT5JzuT9LPGoA7Mf9M7rjr4qF3I6yO2wHCuHsJMM4a4y
+	 wGF2no8lKK5gw7usIk+Cfw5pe3raWpMHjSSCj1b/9gfCvWZUy8Pxo/ZCIy15qVB9g9
+	 iquse/r9vyR6Oal5vdmMws7m0pRCRzP+igAMzFu+jA6ycjCJgPDcv79MlE0NkpKPsE
+	 14RHIuw0HncuQ==
+Date: Tue, 7 Jul 2026 17:19:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] dt-bindings: leds: nxp,pca963x: add multicolor
+ LED support
+Message-ID: <20260707-spoken-anemia-68fb54a6ab34@spud>
+References: <20260706-monza-leds-v3-0-37ea8c988363@oss.qualcomm.com>
+ <20260706-monza-leds-v3-2-37ea8c988363@oss.qualcomm.com>
+ <20260706-account-harsh-093c6354bca5@spud>
+ <CAFEp6-2k1O80iY9f8WeoHHRZPMdKGcOTYuEsDvpZmZZXTz3xbw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6c5OipnhGJoLhAAx"
+Content-Disposition: inline
+In-Reply-To: <CAFEp6-2k1O80iY9f8WeoHHRZPMdKGcOTYuEsDvpZmZZXTz3xbw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing newline at the end of the newly added documentation file.
---
+--6c5OipnhGJoLhAAx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [17]: [PATCH v7 17/17] docs: iio: add documentation for ad9910 dr=
-iver ---
-commit 96ab956a41cf5e3619f02b259c8c1dedbd083c07
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Tue, Jul 07, 2026 at 11:03:44AM +0200, Loic Poulain wrote:
+> > > +        "^multi-led@[0-9a-f]+$":
+> > > +          patternProperties:
+> > > +            "^led@[0-9a-f]+$":
+> > > +              properties:
+> > > +                reg:
+> > > +                  maximum: 15
+> >
+> > Is this 15 the maximum for all devices?
+>=20
+> 15 is the hardware max for pca9635, and serves as the default for any
+> future/unlisted compatible via the else branch. Per your comment
+> above, I'll move it into the non-conditional block so it's enforced
+> unconditionally instead of only through else.
+>=20
+> > If so, why does your regex permit values greater than 15?
+>=20
+> The unit-address regex only validates that the name is well-formed
+> hex, and not the numeric bound. DT convention requires the unit
+> address to equal the node's reg value in hex, so in practice this is
+> limited to 15.
+> This is again a copy of what the yaml already describes for other
+> device's constraints. However, I can tighten the regex itself instead
+> if you'd prefer that approach, but that would make the yaml a bit
+> inconsistent.
 
-docs: iio: add documentation for ad9910 driver
+I don't see any value in the regexes permitting things that are not
+possible with the hardware. The + should probably be trimmed from the
+existing regexes IMO.
 
-This commit adds documentation for the AD9910 DDS IIO driver. It describes
-the channel hierarchy, operating modes, attributes, and provides sysfs ABI
-usage examples.
+--6c5OipnhGJoLhAAx
+Content-Type: application/pgp-signature; name=signature.asc
 
-> diff --git a/Documentation/iio/ad9910.rst b/Documentation/iio/ad9910.rst
-> new file mode 100644
-> index 0000000000000..ab5223c70c01a
-> --- /dev/null
-> +++ b/Documentation/iio/ad9910.rst
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak0nBgAKCRB4tDGHoIJi
+0oGuAPwIlUU6nZvmDo3hOAwp6hWklBGrOjVFR3rsxGvoK3GMvwD+P6VMD80XnmH9
+dgvz6wHIaSdmzAIz9sNj2yqz4sdzMAE=
+=j/LD
+-----END PGP SIGNATURE-----
 
-> +Power down the device:
-> +
-> +.. code-block:: bash
-> +
-> +  echo 1 > /sys/bus/iio/devices/iio\:device0/out_altcurrent100_powerdown
-> \ No newline at end of file
-
-[Severity: Low]
-This isn't a bug, but could we add a terminating newline to the end of this
-new documentation file? Missing EOF newlines typically trigger checkpatch
-warnings and violate standard file formatting conventions.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-ad9910-iio=
--driver-v7-0-a4ec30f63700@analog.com?part=3D17
+--6c5OipnhGJoLhAAx--
