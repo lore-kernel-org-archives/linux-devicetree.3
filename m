@@ -1,95 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBD723183F;
-	Tue,  7 Jul 2026 04:53:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CB83451D9
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 04:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783400023; cv=none; b=UIR7zqqIyz9D5HWlCzh63kPsw+qjNKZpoL2FcPpfdooBvQOU/Fglq3FtxRDCYvWZebyP4yz3alt1VwUeVX+9D52pnjL+VX5TBk8Ezt/XOToxgztsr8glkJsR7R2uA6HnzBC8OMkRUpHLFVmYsMEsugHDBVFoNUpBxEo2PnWAcmQ=
+	t=1783400183; cv=none; b=mJcAtOAx9dGVdfOV9tnmhTLgjat83IlIOSju/BVB4FjOMOZMUaZiuprUKAyx7j+BpNE5/A3mKgAa+qkd1uK+ZhBxMcC0QUDUsgMfJnu8uyhdH6mDvOcTZUabr2lTaKCtJlbuqdx7OHl5t8XkxSsvMBlfYTpAXjU/d1VLlbK/88s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783400023; c=relaxed/simple;
-	bh=rX5iaofbXbOpSh+lRtn4L63OqxQeL6DGzfQYwC6cr6s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HoDEjk5V+gCF0omGmc8H/rxhR+8wG8yE48MUNucYMR1asQhn8tDpb9LZezfLc0HpTl+cCLwsDOe+dx9NCsPCgpzijyI7K4HQxPaJiVBpW7un1XK+FnWid3FfKngxf1VKkcDQETYlHoljrbjj2T97GyZuzFEbNtfi+dPX/I1MVKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMZ9IxUk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783400183; c=relaxed/simple;
+	bh=AJ53eWkj8JoeZLOZEeHTwTI/FEoqLL+HtmJAUY5Ecfk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t0MwzEcpHZxkJV0xg5gVVqlVWIYvl0XJF2uwiYNaKQczd7tK7wb2yrvRn+oMIFJ5GISjZ5TrrydfGpowztlyvhaIcrCiYvbViQQaRC9lsGneYckCfnlrZkrpqcc9o0L01fX1xietCRYx3UJ3n2Jnkba7DFFlTOF1XhTdNU+sIpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qewgf9s4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a+QOqDHW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMZ9IxUk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2660F1F000E9;
-	Tue,  7 Jul 2026 04:53:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783400022;
-	bh=6nzkmfJ6Uv5FSEajJK/nz5K8722h+71LROCSrSNOHd0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IMZ9IxUkiFg23ctSK8a7yxkZG6exNx5yK0jQCw4PXitWmmu/xoNyyW+3vTyGvSwyy
-	 YrYfcEuNDPLS7XEKoUUaSnPnLC7iwC2UsZeHjJGqdBCPeUzaH8Qj7G4Bf/y6rT11sT
-	 W/kh4z654JE1eHhLzBQkahN62FQp61mIAlXvY504c35vCCxJjDZ2aUM57hRWc8PFTT
-	 hP1yBcomR3DhQMjm55dMkhI1X/H6VBVvtkpuSc1AINdGgEoPqLqn645h850oOl/a3r
-	 eg4h93UCUyXzESADe+GMJWNZmwRwr0O35LzFn4AaKkV67X4LGu7PkQH5xIEAh/XBpm
-	 bRc30qJppXPqw==
-Date: Tue, 7 Jul 2026 06:53:32 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH 1/2] dt-bindings: pci: qcom,hawi-pcie: Add Maili PCIe
- compatible
-Message-ID: <43b5xhqvnapamfv4aomid647kaxrudgjcbnnca23t3vxitv67t@njdlthj2oisa>
-References: <20260703-vdev_maili_dt_bindings-v1-0-c9df0916cd5e@oss.qualcomm.com>
- <20260703-vdev_maili_dt_bindings-v1-1-c9df0916cd5e@oss.qualcomm.com>
- <20260706-pastoral-okapi-of-reading-e5bdb3@quoll>
- <yntj62kr7tixc7capwdr6xhv2zpisfrjg62bwftgiuujf4fzt5@cjdrkglo4dv5>
- <9967f1a0-a9e3-4d62-b5df-7f625610a89d@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qewgf9s4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a+QOqDHW"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66748s9G2629796
+	for <devicetree@vger.kernel.org>; Tue, 7 Jul 2026 04:56:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vFkX7LQlNsLH1cm6XsRmdX4en8xgjchX4ne5F1lnKis=; b=Qewgf9s4jd2wuv4N
+	TzmobBV5k1e9udwUBzL6rJlrUGLTMewp7aXAmkzkzTVpgyOipzqBIMJLASrAjfQo
+	/uwUR3nRvZ3PeSJvn7Sd+dxEjOVrF61G+xD0AzjogMPFdnihrDFjBxB7Vi9HN0pb
+	enHSZ1UyZmX17BAF0HR6z0uoKZxCgMO8oyxxqvLhcZH58r5mw9MlB/6qGlpS2QbQ
+	ENg2nohR0P38cbBBg5yX1qmeszF/EMjHkNZ3mZa6NVbVL6c8Qz5HaiTGjd3G/QtF
+	hV38EHpd7QHWwM4mo/LR0uTfnTH6IYiUNEzpFX7KpcjlTaF4dtrj+F21V7LQOswc
+	4jlrcA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88h54j0p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 04:56:21 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-847ad67cc51so3918125b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 06 Jul 2026 21:56:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783400180; x=1784004980; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vFkX7LQlNsLH1cm6XsRmdX4en8xgjchX4ne5F1lnKis=;
+        b=a+QOqDHW1dZbuzH1ihv0oNU5X+ccX+CG7oVEmF9nj1sZUxAkjhi/R2XXh4+4O2k0Me
+         biQh528+RAHED36vzWyPqzrw3VklqQ1Qxfh2wS/WBzIaYo8NUtiaSAzUBws0+bqvdaDa
+         gJxlGzv7Y0BEmFq2xfIAPRzUE3K/y14E2pMBRiTVL1XTCgcOiFUcUe0TRp9eMoR8NuQK
+         iLMVLmB0K5V4boIiWKdDgP/RQTO1p1O4HUU3UcXUCuETkJyGAiAg67m991Fvi5fXFOtj
+         Ok9ConYDHzYjqkB5mu6lCi79siHEAT8P3ZUVUnJhrt7pRsBcrV5SAJx6EI4nx62IFOuh
+         CwLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783400180; x=1784004980;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vFkX7LQlNsLH1cm6XsRmdX4en8xgjchX4ne5F1lnKis=;
+        b=E4SpLn98ojZi0U0+jZVyzcnYUGozCbfPC37h91xVIdF9G/QDvtwjKplXPH4zVZ5i/0
+         eMSqOOWjVOfZ71Gc7BxYsyltaC1+Pf2fpdNnt3l6/0cpjIoGhI0zFC5nQB2nZDK02w/c
+         i7od3FnMiY1hs623AOVNlCXJMmAMNq3wNp4QlNQ6ww9L86ASz7oRB49Q8ao558OEbUWY
+         HLUYVO2L5FltCDr08qB1F9jK9IEwVReX4wmYxZSEmnj42MJQIAAjL1z4MLCfcNpPJPhz
+         GG4qXaHkU3qHXHyn4gURJAVK50oBpa1hEJ0HQtWHgtJCADKBL5RcdYbgPrcUIZh0f+1E
+         kaQQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoAUTnY8hJZvOxak+agP1uOGx/NT9Zvmrj3JWoJDPAtrrknNVmBUq9GfWdeZpOcJv+ScMKTNpgLEXFg@vger.kernel.org
+X-Gm-Message-State: AOJu0YxA/rJBUjm2BjPz+XgNngVjY7K8AVU2tO6SBDKWZ3fYoWjvliEz
+	2QiHukcFJVTZyyEbZ4oAF6vZ9uQZGZ1w0xoJ+HiUokoTJ6GmVXbV1BghY9r/hoD+pw8TvfBUiFX
+	bigfdO1Zh1iOV31MPAsBdar6vQ6wEDxtwvdR6nj9KkbimQuB/WCN2Mbt+NCgDKUqQ
+X-Gm-Gg: AfdE7cnIwf5nqOYwqbJ/Bw5foEb40AlpIyZ2D5ynGo1UqI+2M5xm/NKZUPo6bWN2cpv
+	fKuXHCgZBAFff/VFOyJkFZ4Ojy9LYDF5uZyTpXQaoABDpSapJG/WvNP/7RO0oax4hXNdYp9bFH+
+	5e50nPKYtAdKbkKRf6Qdxq41VtGI71kko1tyI4vsSlFfVJM6qgUFPncAiXirt+0D4XN4DLA81n1
+	xiwJF1NnOi+9v51aSNGwLASFUevwMrLtWsZ53zbgBl4zuoINbr93/Y9Shs/FJnL0TFl2AlFCsFu
+	s6b6agX75wRUFvweVf3sFC7xxepox1x4Y6+tXR2rYw4mflhk7jStZuG+ePJkaVE2XeMsmqqefeF
+	kuO4zzBVh8Auz3QG/1vg4V0y+/uHYKJ4hr2QzYtk=
+X-Received: by 2002:a05:6a00:8d5:b0:845:eb88:3d74 with SMTP id d2e1a72fcca58-84826df139cmr3337860b3a.29.1783400180278;
+        Mon, 06 Jul 2026 21:56:20 -0700 (PDT)
+X-Received: by 2002:a05:6a00:8d5:b0:845:eb88:3d74 with SMTP id d2e1a72fcca58-84826df139cmr3337828b3a.29.1783400179800;
+        Mon, 06 Jul 2026 21:56:19 -0700 (PDT)
+Received: from [10.217.216.242] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8482b333d4fsm614686b3a.54.2026.07.06.21.56.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 06 Jul 2026 21:56:19 -0700 (PDT)
+Message-ID: <7333fb05-2a9d-44cb-a548-c8d2c26c1a3a@oss.qualcomm.com>
+Date: Tue, 7 Jul 2026 10:26:11 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9967f1a0-a9e3-4d62-b5df-7f625610a89d@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] clk: qcom: Add Nord display clock controller support
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260623-nords_mm_v1-v1-0-860c84539804@oss.qualcomm.com>
+ <20260623-nords_mm_v1-v1-4-860c84539804@oss.qualcomm.com>
+ <4c8d6b13-6cab-4731-b3af-bb83de9d159f@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <4c8d6b13-6cab-4731-b3af-bb83de9d159f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: pMe93nAk2TKfEMD09OqojJLdpNXBk9xs
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA3MDA0MyBTYWx0ZWRfX0qw1kSFUYERX
+ jIfogEjKrD4oUjTCbIEexep2CSaN+NdalyUfZXGPEgrlsnwn8uD9OzlYZlcBMXtLUXWN22IFdh0
+ WVbBo/9FCB7lEMZ8Q+tAwp5NslJWlvU=
+X-Authority-Analysis: v=2.4 cv=EPU2FVZC c=1 sm=1 tr=0 ts=6a4c86f5 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=_JUvI7eCtL_LupWHxwgA:9 a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA3MDA0MyBTYWx0ZWRfXwjXKY8TO3w21
+ 0iFkj+5n4UHNZRAdDur4yTS7K7ZQnr7EpPmilkECKnayk8be6zJ3gGxDAF5tjDpmV/XcXuF2boT
+ EaCJm3sFjionFiCq4Fg/W9sv5BxEly9CGUmpt6OHwQVNcUu5S4GEy3ogqTybTpM8XpTsPuydL7k
+ cHIdEq7mFjUrZFLFaDbZG7UoLN9rJ6GkGkSki9utougSRfXp7HwtAkhTj4Orm/jkLbLjvEiUAYy
+ X14xCNVlAo8eMgYt9SHDHP9TmiuzZW7gzoRGVhKcp8Hz98ai4WqghNj9dUdmETXemJvVvDqjIUl
+ PFRlnv0/5ZvET7DSqcVi2WpkerdKkLnyD1SGwrqA7SRkr+DM6E/WG6Ba2TphObqJf6CQmGWXEkN
+ TzvMMni6tnVU4P5Th227Zu/bfiqYi1Uci2bnzulRw0Y0xB1c6GXOq4tGM6sskEp54b7B6WJ5kf0
+ j359/dc7YDy2CJdZ2MQ==
+X-Proofpoint-ORIG-GUID: pMe93nAk2TKfEMD09OqojJLdpNXBk9xs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_01,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 malwarescore=0
+ spamscore=0 adultscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607070043
 
-On Mon, Jul 06, 2026 at 07:35:52PM +0200, Krzysztof Kozlowski wrote:
-> On 06/07/2026 18:36, Manivannan Sadhasivam wrote:
-> > On Mon, Jul 06, 2026 at 08:46:41AM +0200, Krzysztof Kozlowski wrote:
-> >> On Fri, Jul 03, 2026 at 05:38:40PM +0530, Vivek Pernamitta wrote:
-> >>> Add qcom,maili-pcie as a compatible string that falls back to
-> >>> qcom,hawi-pcie, as the Maili SoC reuses the Hawi PCIe controller IP.
-> >>>
-> >>> The Maili SoC is a derivative of Hawi and shares the same PCIe
-> >>> controller architecture, allowing reuse of the existing Hawi PCIe
-> >>> DT bindings.
-> >>>
-> >>> Signed-off-by: Vivek Pernamitta <vivek.pernamitta@oss.qualcomm.com>
-> >>> ---
-> >>> Dependencies:
-> >>> - PCI: qcom: Add PCIe support for upcoming Hawi SoC
-> >>>   https://lore.kernel.org/all/20260625-hawi-pcie-v4-0-1a578603cd86@oss.qualcomm.com/
-> >>
-> >> Squash the patches then.
-> >>
-> > 
-> > But these are two independent SoC additions, isn't it?
-> 
-> It's adding a single compatible, no? If a patch adding a single
-> compatible cannot be done without multi-patchset dependencies making
-> testing by tooling impossible, then probably that work should not be
-> sent separately or even as separate patch. And I am not saying anything
-> new because half a year ago (around Kaanapali and Glymur) I voiced
-> strong opinion about that.
-> 
-> But really, you do not need to add two compatibles in two separate patches.
-> 
 
-Ok then. I'll squash this patch with Hawi patch which already got applied.
 
-- Mani
+On 6/25/2026 5:36 PM, Konrad Dybcio wrote:
+>> +	DT_BI_TCXO_AO,
+> This one can probably be removed, both files
+
+
+I was reusing the bindings of SM8550 and thus kept it to align.
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Thanks,
+Taniya Das
+
