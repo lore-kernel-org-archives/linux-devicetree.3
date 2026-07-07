@@ -1,189 +1,117 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4703612E3;
-	Tue,  7 Jul 2026 03:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=210.61.82.184
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783393765; cv=fail; b=rJB/Qv43mXT98+wD8Ahm8N1xymLV/iiIDtQ35R7MQ7Qyh0J8S+O8uNYT3eeQTA5Hwty+AEwUuzSJ2+NFkbAfXHhKfD1aVvJ48RRxEo5xVox5MgeeUMBs2j1+gm1QjQKd3m0TjP+3CzGQ1NbQSYTPxxYPeRgCCyHpzvpoqybfELo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783393765; c=relaxed/simple;
-	bh=ZlT5XJB9JtVsXmxIOKbP62UuX3T8ObZtTMNyUkr7yMg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=vAca8vyANH4wBvw4t6C3+QwtiSOfxGG7zDGzELWCyWZFiHuJbfdVhN9u4Wydq/Gldt7PaXgG/NmvxuO6M7zI3zR6lPBDI3nwT9Dfc/rOi0JsJ8pHnTPUp5YqYlJ08Munxv/Fk7wt+q01RETCSFAKPBqrdsoK6S++hPobiUWdASQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Z3LoGPAO; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=hXBeA32x; arc=fail smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A3C27E07E;
+	Tue,  7 Jul 2026 03:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.118
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783394375; cv=none; b=AFIDlUAFOKPH6d4fX1g9cEd+n4xbC9p3u8VyWitT1XUSO5KK3VXc3NuhmjG5SeirqZUxt0nTzEgsUVBsaG/DWunZxWG8GDlyl8zhy0fRfo/bwnzKaqXmiHG4fAyiMI2eteKxHChFsG1HKuiFGhMXRKb3y94QE66OMSHcVF0LXoo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783394375; c=relaxed/simple;
+	bh=RJk2ew42x1OaFHgC10H3ItLiRiqgdw10zjzfWvDhk4w=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rQ63T6f+UiIrGcVk1+NqprC3RO/bEWa9TImhbiAWCMAHWhy+W02a4S4YCODyowbgY9gplroFkhUjIRp8/jKgGXQgIqIDseeCJjNLmtgO+tLfBAz/NiOnCLCH7OIElfDLKbKYyjoixwad3D+HHT5cbWPBMvlA4f+HFOHQtPQS+qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=DcqEiGqw; arc=none smtp.client-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Z3LoGPAO";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="hXBeA32x"
-X-UUID: 3a306a1279b111f18dc8c9802ae25ab1-20260707
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=ZlT5XJB9JtVsXmxIOKbP62UuX3T8ObZtTMNyUkr7yMg=;
-	b=Z3LoGPAOhTgfjnSYCxq29raD+AC1M4VHC8i+Xs8O0WAwC5x+DAgKQ8yDbyY1qwXdRh7yab82se1S4qX0VDrwGEIeCUOabS37UmYEcxrHLaefow9le0RqVh3Qqsz4CZef0jckUUNPlFOMog0RDH0kSuHNBRHgIkm1Uq9ztB34q2M=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.17,REQID:6104eadc-3fe7-48c3-968b-f007a7f5e38d,IP:0,U
-	RL:0,TC:0,Content:1,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:1
-X-CID-META: VersionHash:d497b38,CLOUDID:8235ecd6-4504-45e1-b7e4-0b9331be048a,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|836|865|888|898,TC:-5,
-	Content:4|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-
-	1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3a306a1279b111f18dc8c9802ae25ab1-20260707
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1409013056; Tue, 07 Jul 2026 11:09:11 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 7 Jul 2026 11:09:10 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 7 Jul 2026 11:09:10 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dFZoO+Htwpbp6xX2t/rbOS/hI0VXw8oKE9xIfg0+xl7PRKCGFSin1Ubj1wRMeRTV2IVSPH43tZUzvk2Sck7xtYApiFnsjtZZ3o17KyvfAGWplTRv6IKfd9DzZE0+ps6dtV615F+aLv+B9aKUNq7s9/aWZyCQzDjgoPUZF0HHw1uC7JIQRxWf/6Z56QuB8OxxKw5zCZ+MGmkz/eR3XJfcVxKQHJEx/q3T9BMYWG7jqPqr3d/Xy7tr6KSjvfSPCSfUsOFyE3tUBTv5dnpyl/H3j0Zzjy+vjWiObISXVjw3sL68QDYPw1T6Wglhy76RuCDNesmKc+6p7VUw8Sg2r0lc6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZlT5XJB9JtVsXmxIOKbP62UuX3T8ObZtTMNyUkr7yMg=;
- b=EOi4scDTbt+lusGU29CZcgho3XZoJwhWTQj8RrCCzp0sbA/hUL99zi17iKldlKJNg+T1NZuVEW09cdSnRLLnGHto9I9YynCAZKlXh1Xacm5kttn7YQse6R0RtRPxECaDlj/IZho+lpCB5x2MTfZIIMiacsaaqOQSl8W11svr63ajjpiVh07ztI2g+ejy8ngruKOlyqMGU/2A96HZyUCzJvgz9gmf6ZSKBQLKJEjkUHu8aQZb89M6RX6IqoE7VTfddRheUuzLICHNcTweUjxcVv6aUG4NBI6wR0T5KSeVQBfOzmDRtYG41gPbWuGTPZqkC/otoxWnK9LMVHOUBUAXAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZlT5XJB9JtVsXmxIOKbP62UuX3T8ObZtTMNyUkr7yMg=;
- b=hXBeA32xnDHO4Z9l2KZdQbM9hgUudJRXFtZqhjU70B3fj64Es2m5BJHavi9Ftj6hdV/HFB0KwwQKYXxhFI9dygJs0qaohAcaizpdzX3BHVn7ldwZFVBpmpIdp3pCQBmQxsG+Ehig7d8SVbifoNq7z/oPXt08dsxxKP5t7Uawcfs=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by TYZPR03MB7437.apcprd03.prod.outlook.com (2603:1096:400:418::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 7 Jul 2026
- 03:09:06 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.21.0181.010; Tue, 7 Jul 2026
- 03:09:06 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "robh@kernel.org" <robh@kernel.org>, "tzimmermann@suse.de"
-	<tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"mripard@kernel.org" <mripard@kernel.org>, "kernel@collabora.com"
-	<kernel@collabora.com>, "linux-mediatek@lists.infradead.org"
-	<linux-mediatek@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"
-	<maarten.lankhorst@linux.intel.com>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "p.zabel@pengutronix.de"
-	<p.zabel@pengutronix.de>, "airlied@gmail.com" <airlied@gmail.com>,
-	=?utf-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
-	"matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	=?utf-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-Subject: Re: [PATCH 07/42] drm/mediatek: ddp_comp: Move internal component
- register in function
-Thread-Topic: [PATCH 07/42] drm/mediatek: ddp_comp: Move internal component
- register in function
-Thread-Index: AQHdCVQx1q2BMeeCtU2ZOBtgvaK3OLZhaUgA
-Date: Tue, 7 Jul 2026 03:09:06 +0000
-Message-ID: <8c5076fb17970a6c31f706f78079d90ce5b8da57.camel@mediatek.com>
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
-	 <20260701122057.19648-8-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260701122057.19648-8-angelogioacchino.delregno@collabora.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TYZPR03MB7437:EE_
-x-ms-office365-filtering-correlation-id: ec400ae3-f20e-41a6-5608-08dedbd51b3e
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|42112799006|366016|38070700021|56012099006|11063799006|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info: Rw3SX+9bx0f7+FkR8JudzhuzhJGHBuIVGAV/yv92h6MEcKlpz7UGW3QGf5GRBJaeHYJo0j42CV0EJCoGXJbEFZcoQakwTIe/ijv2ZokXCrJh3HSlcVCP/2oIGvJGdjChcFYpH4+BvCvMiBT7VLRuodVgXINdJGbstfoPvLVSJAWD4YoQOuQ3QPG9pqm/mEZDyty6GW2Huv1YKmA+xB0uQ8q9cJt9GO1ZbppYathZd/mmkgf5RW6H8wgzxsnDkjAbldlIZlR+Uh8WU3XJX+0sRyiBtAo/QLqf5KkrLEf24/zdaNMC+r0QcOPQGUNhomtjq/etOvdMR0waxgM06yykDtCdATFlPG3q43wlqDvzCqGhh0Qyb/C75WK0fxTcR6gTRTWUU4fzysdU3qwRGqXAf2V4Iv3W+38OVYHM49i+TJHafRcHkGVYwexhwDHNsE/4KLboImVOkKT0c2U5Z0r+BzbV76bLaHQ7rnQ4ZQMxs1s7Q9Wbrrx3yI93UYWEWaJ9f5FDDNS76xW52keayHbIoy3PoC/S3CTq/zMXcrA91l5xhMinYXZDwrqg7G3vs2t6k4kA4kU15u0JS+7Ki7W+3kEnMInRHG6M/nnv4j5/KYkCDYD1NvhZk27wrRlqWVk/SCHfr9HtWmTIW3EaIYH5BKS50/RgDKfydlr4KyLsT2K0/2RmDbqTr4CwI3sgPnBxEhaJVSvsRIS3FeFxGRebQthG2G4Aub/DvOZ17sA+Et8=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(42112799006)(366016)(38070700021)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?d1kyeFp5b2hEYWVmK2tiL3NwUXVPelorTDNKWVNHQ0NZMk1ndjQxaW11b2Fk?=
- =?utf-8?B?NzIyYjc5THhycHMrdlgra21hZkRwRlZybnFjSmsrWFZNcjd1VkJSeUdoMnpa?=
- =?utf-8?B?U0V2RGoraTU2QXN1ckFoeERHdTVNb0RwZElNV1ZPbFYvNzl0UG5WQ1BvNytz?=
- =?utf-8?B?cWwyVFd1VXJRUW1nWk04bVdyZURsbkJPSWM0SlNMejhvRGJ5b2k3c1NhVElp?=
- =?utf-8?B?bnMvV2szYzdOZDg5bVo4eWc1MGlHMHF1ZmR3eGR6SThuRFBXbEllMytWUlU3?=
- =?utf-8?B?RWRRVTFSaFArWForOHRQTG1mTFlBVk1TOUhFSFV0SExzRjlFZytVRVFHd091?=
- =?utf-8?B?UWMzcUhDVnZDekxEV2FnVnFCOTlqaVQyZ0Vjckxzb1RRR0JkU2R0L0FxLzN1?=
- =?utf-8?B?bEszWlk1bmc0NWx2U215ak1tVTNoaFJWbEtGQkVrSVdRdTQxWSs0djB2VXpY?=
- =?utf-8?B?dzB3dDBkN1gvak11RnpNdXFyc09hVE5pRVovbFZlYitBRUhwL3FrWVdMaGdl?=
- =?utf-8?B?amp5YVFOak1SQ1JwcUhqNTBsazJadXcxU21aY3pLR0FSNmhxTFhCSmZGbEVK?=
- =?utf-8?B?UGdTNHZRQ2JYcFhzOFJpNGdvNnIwdHpmbWRhbnh6SEVYU2pXUndWUndzQW9i?=
- =?utf-8?B?M2wyRzJpdy9BNFFIWmpMOW9uNy9IYUFhTWcwZW96a1E0cS9yNWUvMnhhTVli?=
- =?utf-8?B?c2hobFhwS0xCbkVRczd3d2RyTnpIQlBMR2xrRG1DVkNvQklZd1JwUkM3ZDNR?=
- =?utf-8?B?dU9XaGZxV2NmQnFFcloyMjNrUkF5NDhwR0JxOVhQeC83S3BaRUtiSElSeDI2?=
- =?utf-8?B?VGhLbzVDSXBrTGxHZnZHVmJwQVpGbXc5UnRvUkZjbW9RYUcrc1AzbmwyVy9h?=
- =?utf-8?B?d0RmN2NmT3psb21IeG11MTJ0cFQ2NThURXdXZ3ZhcjMwamZGMGUwc1FDUkZH?=
- =?utf-8?B?U1NNWUNxemVJdllBUC9vWVo0MUgvc0w5Wm95UUNVNm1qVHVOdU9XQUdZU2gr?=
- =?utf-8?B?MEM1UXZtcEgzeXpaRkd6OE9wbUJCbGNZaXdVT3VIakNhQkpuYjFuQ3FOWG5v?=
- =?utf-8?B?T1ZxYXA2bEJuRzN6M3QzOWNhMUlTOU5EWGxmYVNKZGtLdHAxbDR4TmVDeHZQ?=
- =?utf-8?B?V2o0dG8yN1NFSk9UTUxKSmxVUmxxVjFYTjZHUGdiZGNEZDhDaGo1Rkx3dkpj?=
- =?utf-8?B?QnhHWTZsaTRLRjU5aGliWnQxR3d6OFY4OG9qb1VRNUR4U2lCcXJhWjBpK0JV?=
- =?utf-8?B?cTk4VFV4a09wQlJhNTNXYi83ZFRZZU9JZUtOVjlLWS91NmlUaEZELzRlbkNl?=
- =?utf-8?B?bGkwWnNmZU51QXBwbldLU0lJSFYzSk4zb2pRdDN0SlFvM1FQZGY3VHJZNmRO?=
- =?utf-8?B?K3ROMHlZaHNWTnN6b1UvQzJrd1FFOXBobCs2bGNzQXVmdmNFMWEyWGlVMWY4?=
- =?utf-8?B?YkNHUkFaMExDcjRsNW5PeStPZEVobE9lZnJQVXFwbGpHVzdtdi84dVVValVh?=
- =?utf-8?B?T2YwekNYMUNkNGc0UDZFUURXYVFKWnRteHNNU0xyV1Y0ZWxIaVI1aW1ZZVRN?=
- =?utf-8?B?Y0Yxd2xpb1ZJdUExZ3dBOFZJNGs2VFVrZzdjeXVuQ2Z6amt3aWU4bDBXeVdi?=
- =?utf-8?B?OVZlakFONTN4elR3Rk9uTncvTXpyTjNIcTBIcXBlMWxNZVl4ZHV3ZnF2OUU3?=
- =?utf-8?B?UGtiUWJvSVpvekxQa1QrY3QxamdJSHJteHdkaGVFYVpiZi9Qb0EzZzVYU0Jw?=
- =?utf-8?B?dWlWSWtNd3FEY0I1UDFiQkVqVE14Q200TTdmT3o2OUpDcUw2ZysyWHp2TFk3?=
- =?utf-8?B?Q2JMVlJmR1ZiS09RZjRaTjlDQjN3SDNvWURwaUxRREo3UktkeElvZ0RnZzc3?=
- =?utf-8?B?TE96TkxYQ0VXUm1GbHBETDExSEFBbW90N3ZOWmpvME1lL1p2dWgrb081VzFt?=
- =?utf-8?B?dDF6TVBzcEpnc3JYOXJWQ1Z0MitxTk10clRYeTJhclY3Y3FOUnM0V1hTQ1lu?=
- =?utf-8?B?NG5peHdvK2dYU2p6WUtOb1BJWkpvdXZzLzRWYkloQkFMdG43MzdSeW5xSXZW?=
- =?utf-8?B?VVpMMnZBQkc1NDhDRkloV0VSZ1FIWGU3ZHFYYXZlRWtSZHJtajIxbW1NSDd3?=
- =?utf-8?B?SnRHeE01RkdvcG01eFhLR21WZUFJbGEyZi9BNFdPTEhTamJEanRINWIyVzZ4?=
- =?utf-8?B?TkdhcU0wSzNlV0N1WTZWZVdweUYxQUZsOGdZZjBNY09sVEhWRURRZDdsQTNI?=
- =?utf-8?B?cjhTdGFaVkRFdjZOcWJNL2NHQkZtSUxqbVFGR1RXek5kVitwY3oyeU9mYnJC?=
- =?utf-8?B?RTN2Q2E0U004Rm5STWtJTVIzd1cyRGJQUitURXo4Sk9GWXVPL09LQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E966083BE0768F4C836E2D07B389CDB7@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="DcqEiGqw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1783394367; x=1783653567;
+	bh=w1WW+Rf6WB8PFdRwptz/r6ZcYQos2RZ0HVWaAzzGe6E=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=DcqEiGqwnDffW849Ke0oHoSASXiFHyxSPGSBoDRPf3AoHMJX3sFX6Pias03dc2HK1
+	 1JlCZOYHH2vYfe2M59WIyY7bocfkr83QQ10VOqckrDq+sN534l+fh7tr3IZ/HuLNaC
+	 r0xCZ8vIEkccxDCvWDYWig3aItBqrpImSWDoxG3spZHpfCbCBtiiAAQO1kb8On4V5o
+	 GW86fXwNbPYZ1ocx26EhShmIqqlYQ4Kt+joWExfvdXcrH/8/F6AfqsT3GXUvUFSrpd
+	 /zfoEyblg26Vmeuw7oTXFpSb9kGtmWwBf9lWRU1U9RlX0++cJ8E6NxM4f/R5GWmPVb
+	 kcifZz5w0+Ycg==
+Date: Tue, 07 Jul 2026 03:19:22 +0000
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 2/8] arm64: dts: qcom: sm8450: Remove unneeded reserved memory nodes
+Message-ID: <c11f9ddd-8533-426c-8a88-0ed461f6a30e@proton.me>
+In-Reply-To: <4g6y4q2udludhwmoqc34afwj5svra4a4j5bmpqza7h3av2oov7@6k5r7a4meruk>
+References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me> <20260622-sm8450-qol-v1-2-37e2ee8df9da@proton.me> <e1e492ab-884e-442b-8410-cc100c54fd5f@oss.qualcomm.com> <6123a923-21dd-4f69-9ac5-02165963027c@oss.qualcomm.com> <b3541802-3035-40ee-8327-a65bd5d2dfee@proton.me> <4g6y4q2udludhwmoqc34afwj5svra4a4j5bmpqza7h3av2oov7@6k5r7a4meruk>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: f44e9ea796ae9a36b6ac3c3fb88470b5693b7329
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: X+/JOn8OQ1zhnxDZXExC+zz6z/gOErRPbAaRaOCADuvfDoJIg5gzezH/MQcGFBIzFa/nr2zJgy/gH81U/6GogS43+39E4YS/bs3QFRgN4SUCT0/yxARcifFANDl5CKOKF15+6WT8xGy9xpc7kBoiNrKrBi1o+JR481jD6/KEgfv3FLxkkviMYNndFGNVtUP78LEvVqZ8tb96uZfzMIsUd3pBVWs4khHbkRk2MyTdO6HlucmjKxzkRAjwEvxtJoWHhli28ztN5N6OQa/8VGYvwe4d58TVgkeJ2Ws9Lu696+s1LWXl3SCV5tg3m+eQzkyN0jz7vH6OPWeDaTEFTy4tcg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec400ae3-f20e-41a6-5608-08dedbd51b3e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jul 2026 03:09:06.4157
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mXiODR6iAm/zfBHiC3L2xuEyVzwrOAgoTJfdlAhU1IePcj/nnk8IpohzDmyy6Kywyx6+sgzgr3E4LsA/hggqsw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB7437
-X-MTK: N
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-T24gV2VkLCAyMDI2LTA3LTAxIGF0IDE0OjIwICswMjAwLCBBbmdlbG9HaW9hY2NoaW5vIERlbCBS
-ZWdubyB3cm90ZToNCj4gSW4gcHJlcGFyYXRpb24gZm9yIGFkZGluZyBhbiBoZWxwZXIgc2Vydmlu
-ZyB0aGUgcHVycG9zZSBvZiBmaW5hbGx5DQo+IHJlbW92aW5nIGR1cGxpY2F0ZWQgY29kZSB0byBj
-aGVjayBmb3IgaW50ZXJuYWwvc2ltcGxlIGNvbXBvbmVudHMsDQo+IGFuZCBmb3IgaW1wcm92aW5n
-IGh1bWFuIHJlYWRhYmlsaXR5IGluIHRoZSB1cCBjb21pbmcgcmVmYWN0b3JpbmcsDQo+IG1vdmUg
-dGhlIGludGVybmFsL3NpbXBsZSBjb21wb25lbnQgcmVnaXN0cmF0aW9uIGxvZ2ljIHRvIGl0cyBv
-d24NCj4gbXRrX2RkcF9jb21wX2luaXRfaW50ZXJuYWxfY29tcCgpIGZ1bmN0aW9uLg0KPiANCj4g
-VGhpcyBicmluZ3Mgbm8gZnVuY3Rpb25hbCBjaGFuZ2VzLg0KDQpSZXZpZXdlZC1ieTogQ0sgSHUg
-PGNrLmh1QG1lZGlhdGVrLmNvbT4NCg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQW5nZWxvR2lvYWNj
-aGlubyBEZWwgUmVnbm8gPGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9AY29sbGFib3JhLmNvbT4N
-Cj4gLS0tDQo+ICANCg0K
+On 7/6/26 2:24 PM, Dmitry Baryshkov wrote:
+> Please verify that you can actually access those areas (boot with
+> memtest=3D1)
+
+Thanks for the suggestion!
+
+I actually did boot an SM8475 based device I'm mainlining (motorola-bronco)
+with this parameter.
+Deleted regions in DT are as follows:
+
+/delete-node/ &mte_mem;
+/delete-node/ &oem_vm_mem; (seems to not exist in SM8475?)
+/delete-node/ &qheebsp_reserved_mem;
+/delete-node/ &trust_ui_vm_mem;
+/delete-node/ &trust_ui_vm_qrtr;
+/delete-node/ &trust_ui_vm_swiotlb;
+/delete-node/ &trust_ui_vm_vblk0_ring;
+/delete-node/ &trusted_apps_ext_mem;
+/delete-node/ &trusted_apps_mem;
+
+Here are the results:
+
+[    0.000000] early_memtest: # of tests: 1
+[    0.000000]   0x00000000808f4000 - 0x0000000080900000 pattern 0000000000=
+000000
+[    0.000000]   0x0000000085200000 - 0x0000000085700000 pattern 0000000000=
+000000
+[    0.000000]   0x0000000087f00000 - 0x0000000088000000 pattern 0000000000=
+000000
+[    0.000000]   0x000000008b91c000 - 0x000000008ba00000 pattern 0000000000=
+000000
+[    0.000000]   0x000000009ff80000 - 0x00000000a6e00000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000a6e40000 - 0x00000000a6f00000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000a7000000 - 0x00000000a8000000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000ab350000 - 0x00000000b70cd000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000b70ebdd1 - 0x00000000b72ce000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000b7fff000 - 0x00000000b8000000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000b89e3400 - 0x00000000e0600000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000e0b00000 - 0x00000000e8800000 pattern 0000000000=
+000000
+[    0.000000]   0x00000000f1400000 - 0x0000000100000000 pattern 0000000000=
+000000
+[    0.000000]   0x0000000800000000 - 0x000000083af00000 pattern 0000000000=
+000000
+[    0.000000]   0x000000083b500000 - 0x000000083d300000 pattern 0000000000=
+000000
+[    0.000000]   0x0000000840000000 - 0x000000097f089d40 pattern 0000000000=
+000000
+[    0.000000]   0x000000097f089d6f - 0x000000097f089d70 pattern 0000000000=
+000000
+[    0.000000]   0x000000097f153ff8 - 0x000000097f154000 pattern 0000000000=
+000000
+
+The device didn't crash at boot, and everything works as expected.
+For the record, the manufacturer has made changes in downstream device
+trees that state TVM is not used, so it's expected that the device works
+without QHEE and TVM regions.
+
+Regards,
+Esteban
+
