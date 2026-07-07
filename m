@@ -1,67 +1,69 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C189743D518
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 17:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865D24302E9
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 17:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783443987; cv=none; b=beisGWAADdq4eAA2lBSDL3HAufDFAcnlTk/A0Wpig+uN9GJGBiPYOgkLlQE1XsvDMWNY81jsm6khx+zfQLPat/fEcm5AsdqOnuCPnH3XodcEtOM0ljftHW5OaDD/fgMG3Jzb/5x1yUUhWJI43cNCwD/j5vhmN5VJnZrK2yy2VqA=
+	t=1783443988; cv=none; b=gd2MAQRxTdG3+IG3hHa4nBBK/E3emtGIvSvzD9gFhpq3g2XdlAH7b+jIVqLkwOOwlWsx4TlekfwDYzgBUsVqZyOgyKylIQyWgyzxY0rq5h7tYQ0ZV3CZRJV000VXE0MQpsHRp3loUqW4pI5liAPtHLaQakoCY9n0WVCJ058aGJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783443987; c=relaxed/simple;
-	bh=R2ZYgPq+z9kQOw9KXl0c5XFfjclw4AYkbMjGsY2Asjs=;
+	s=arc-20240116; t=1783443988; c=relaxed/simple;
+	bh=Q2zlOjF5DllCgqp+36hxPYhrD7Xf3mJjT3KUBG9FLhE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U4XPSvwemX9wO2j64nWwcNnorVZwpLwNFXsXd2uUhkkUbAJVOaNc/NjTqTH0As5FuRpXUUYVe68QCtOeX/nlcVvK9lIii+I7mS/QWQnEMjeAHT5Vhyjix90hrMKNBWlflDMPEEPjDUNLlp0AQh0MLrgB7AdzAQIjltlnSNIWNkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=IeaOzMNq; arc=none smtp.client-ip=209.85.128.46
+	 In-Reply-To:To:Cc; b=Viez84wLOxg6ZfFxdqvkH36whlPnRp/CDf++E9dwZXG+23wMV+Ly8gi+hyPt/j0XICLfzH8XM+HnalMlvEZZUSyVCWWTFbvC9H4xA029cMKL50ePY3CwKeBMLi3GJWB/2GznygbNw153KEoEjIvQGx4Q3/yEGTsOX4NOsC0lSOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=UBFYzlhT; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="IeaOzMNq"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so24487625e9.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 10:06:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="UBFYzlhT"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493bb510ce4so32856575e9.1
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 10:06:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1783443983; x=1784048783; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1783443984; x=1784048784; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ueiE0h6EH4y87IMMPnR7H3cpNk1yU2lRb2045uoET4I=;
-        b=IeaOzMNqBHgcP9FKar94shR9RtumeTYEBfSEU00J/bQ8K7MrwnJTIIzPexPMrjIT9h
-         zO7UxrUMM039O0z9Lk+WH7WKjVPOwCA56tSf8XgnrxMqo7g3KSB1kPwHSC9rFhkcQelH
-         8X9a+vmXXaymZJkBrF9vpfXVjA8Op+rbEtTVv3y+7S2eJIwu6FEm9kgqOGj8tH00Sl6C
-         rRcsI1H9YWzcGGgms7yygFjhL3Ot+Ef4b3eVyfClhKWw79y1k8pBcDyXdOuGeaOJIg22
-         FRv7f+d2FdBYR9qbRY0ade5AVOfaRUq9LkChmXORShrxKGAEOJue6pPMsmp55yD1Z1Th
-         z2fg==
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CcGejnOxiMbE4KgMrI0yUaOLUc005/RfMPdtDQNRvyo=;
+        b=UBFYzlhTXhhl65apQQlrqm9l8RVM7Of1OX407igQVqyLkueN6R6Ukyl/OwI1y8hBOy
+         Z3DHa8Wes/qt1dpyRdAzqy5Bk6MDrfH2ibfI2dDc9NU8FL7MmrS0uPvSdt5E5XG9/NCX
+         2aLtzAXFrJ0qZvFpyEa6rKptqeaczDEkqbeyP6wOI8nl+ZEwx985IJ+fD08DdTB1a59e
+         mdYohxaAZ0sb0glKrF5tSQZ7FJ0Vr4ydfKmUr2fJmYCBwV6+Fk1CChiBAmKhFCG380r5
+         JnCzJi4UcIqvYaFz0aEJBoFq9hhdsdz9m5ktm2eDNf5zkbViIk5PINDM2l8Ye5jsdZTU
+         famw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783443983; x=1784048783;
+        d=1e100.net; s=20251104; t=1783443984; x=1784048784;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ueiE0h6EH4y87IMMPnR7H3cpNk1yU2lRb2045uoET4I=;
-        b=fx7+rjYkfJbPIJbzHhYG/LlKLV2fZwZiIjd/AlPSPU/mdHKifY7R3H7Thz6T6f/2Va
-         yVUBtVlfbE0OMY3MdDV8tQqIMXQ7trl6hhD4uNekA7SOwhuv7Rw5rElRmf9iMWFXAFyk
-         kLfYRDm/nVR6h1fR+ylhy+mCp1Id6Dk2dq3C4kMl3ohD4bD4Ai8SOuxQaLMzfXFaYaXZ
-         /CBqrlA+mtVC345w4/Uy8d3tt6lP1ehXfHRJ/5C9eTdOXAE6B9qf7ZdkjGAiEc8ckr7C
-         hm928SAcycoo8YetsGEEuZHApd+MtHbqDF16oYPj5ARpPv2MIuw48DxGnb1gQ7d2FF+R
-         1WKw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqz7YuT7O39MCltZ8LOQo4XcVpbXf0ki10QEAacUVGSqTXVaUqPZ40Lmdk2XETHRBU9jRTb1MYZEYTv@vger.kernel.org
-X-Gm-Message-State: AOJu0YzomMlh3xTPKPEawDrhoBwCO8Rkl3in+TML1rurIljMNJBei9Tz
-	5AGuADLPwdHGniyv4iJXW/5BzvToOkjeUgJrLfFichitCpQszNQNyT/EfCo+zfE0Ue4=
-X-Gm-Gg: AfdE7cl8coCmCB2b957v7Rq2Vl0HMma+7GjK6inz8M0g7E9FFkn6tx1qWY7ebfyS31p
-	f5An6ER375cmbqrY/rpc0zoH1G/886KMdX4Ge/R68ngKFAPw4d+X2K289sB5NQJjm6H9/P+JJni
-	C6Sh99LcaIKP0BSPXk61girsSGxCAdcTrh/4Ng70WwlVz/TILzOKA1F5NEpImDZYCdGkJ8jBKaa
-	qJZvN/lA7d7BwAyx5e69dfmm9pGW0F4iWxOvxyZ7h5LLGDNcG/I19NogM5T1CJnmZBD3omva7aX
-	D9fy4U6ep8nI/8aFBzFoYX9vq/WP9+RvEitLzrRWRL9y/gdmcFRKsp0PpT2h6J9zZLU20znSFgG
-	2BrjAl0wpygtSoe5xphaFCPhkJH2dJ1vtV/A2PVV5lcjMxWIPL477tSYZbzWSHdZQoih0Kn4EDo
-	L9cZZW2/S9j+hG9wfBdL5GhKs2yppWqUCmEUrSCcz3jG949JkUvIujlov8IsEg6uJC
-X-Received: by 2002:a05:600c:34c9:b0:493:e49e:f58 with SMTP id 5b1f17b1804b1-493e49e0f82mr15109475e9.4.1783443982938;
-        Tue, 07 Jul 2026 10:06:22 -0700 (PDT)
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CcGejnOxiMbE4KgMrI0yUaOLUc005/RfMPdtDQNRvyo=;
+        b=UFFgv748ZR8keKmiMtyYAPUsnHS/c7etjFuZiEKRMMupahJOSKZMq3c4Dn3fSufNOh
+         2DM+qwfPV09SHsKxR+Kpj3FYajiQK/IcFYEUxPLl80vjSbHGeyCy4d1keWvH3KFWB+Xf
+         vLJYrE/h1f/DDCBT8DIBFAkaZcO9JuA/d7VUG5xAjy/WPfMgR2E6hUmdbbPoATYfNqQF
+         OxzY+RQ5S/kNvghrvytu2uY9binJEbOZhWQWVm2COtNbqkFrs6+oxZ9gc1pfQIC7UTwH
+         r/KEj3FhSgZ/sE7l1axt29KoQdJc7IXE6I3wcLiAEdPFuYKQtoWfzMg/2Vp1RP7JAqJz
+         6FCQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpHuYRTGzvXRWQnOTOuPIaAPbIv/QNKopn7BuVNH7MIpEjmumOgnDjg26wLIHPmWy1dbbPoRCkc+V5+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwcAtotgcRCOjO5MecYRyYPEdMlCbM2JHjzWw6uLTsLiIgZwD8z
+	610gX5gxuL82i1KEfB4J9mT5VmR5Xgpu13dHYGI9r9T5wKsVfSqgWEGj1M2RkEixY0Y=
+X-Gm-Gg: AfdE7cnAeihSKU51ZHOk5/9A2EQ3qKdQ4kv9Jk3I8JtyQltpoxBCXg/1IzIQjWHBAoB
+	4HlnRh6hyQ6xyiZ3+xaOW8yrHo03Q+snnSy+bmJEUL8UiGki2Q+iNH43SgVlY3wW+QLE93lyiAi
+	LSShtyBpJdBeMGWMU08dwke9DmiE+AiOBAKG1AtcnsPY4zZW8bRiUXK3uYe0Qhuy45FnUyM3Gp7
+	EyDZJOggsVkIE8NERY1lN3urqOL94dCT7DKppKMptTiJceCQ9Nf+pFomZgRD5a0zxaKVNsFL+oJ
+	E0hY+CH/Y7RBu27ot1S69zoxFnyrGg6EXFg6G+RGb3emG2LV0XQOrR42sHs4CtZU3lCuasZMUWU
+	VfCCYJnQQwnegHSXTBeMkJgHxf2JEW6Er3hahDDERuFuq48i9kUWMTK4rESHSYFm+niMCdtExJe
+	jJ2qjdVbs4flNxJWNLrdgPi1uI/VnR18xYCRXWD7kAye5sdUOGvL+Pgox/2hqC2rLCkcoMOVMob
+	JU=
+X-Received: by 2002:a05:600c:608f:b0:493:bc88:ddcf with SMTP id 5b1f17b1804b1-493df71acffmr57624485e9.23.1783443983854;
+        Tue, 07 Jul 2026 10:06:23 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa0f21543sm33644487f8f.35.2026.07.07.10.06.21
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa0f21543sm33644487f8f.35.2026.07.07.10.06.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 10:06:22 -0700 (PDT)
+        Tue, 07 Jul 2026 10:06:23 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 07 Jul 2026 18:04:41 +0100
-Subject: [PATCH v2 09/20] media: imx355: pixel_rate never changes, so don't
- recompute
+Date: Tue, 07 Jul 2026 18:04:42 +0100
+Subject: [PATCH v2 10/20] media: imx355: Remove redundant fll_min, and
+ implement fixed offset
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260707-media-imx355-v2-9-1683ec07b897@raspberrypi.com>
+Message-Id: <20260707-media-imx355-v2-10-1683ec07b897@raspberrypi.com>
 References: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
 In-Reply-To: <20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com>
 To: Tianshu Qiu <tian.shu.qiu@intel.com>, 
@@ -85,58 +87,192 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-The pixel rate is always the same, so there is no need to try and
-recompute it in imx355_set_pad_format, and then no need to have the
-pointer to it stored.
+fll_min (Frame Length Lines) is set to the same value as fll_def
+for all modes, which makes it redundant.
+
+The actual value is also erroneous as the sensor works in all
+the defined modes with FLL set at the mode height + 20 lines,
+so set the vblank control minimum to 20 rather than varying it.
+This also improves the maximum frame rate achievable.
 
 Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/imx355.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+ drivers/media/i2c/imx355.c | 26 ++++----------------------
+ 1 file changed, 4 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 20cf6afee43e..9d977bac23b6 100644
+index 9d977bac23b6..354092295b7c 100644
 --- a/drivers/media/i2c/imx355.c
 +++ b/drivers/media/i2c/imx355.c
-@@ -151,7 +151,6 @@ struct imx355 {
- 	struct v4l2_ctrl_handler ctrl_handler;
- 	/* V4L2 Controls */
- 	struct v4l2_ctrl *link_freq;
--	struct v4l2_ctrl *pixel_rate;
- 	struct v4l2_ctrl *vblank;
- 	struct v4l2_ctrl *hblank;
- 	struct v4l2_ctrl *exposure;
-@@ -866,7 +865,6 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
+@@ -32,6 +32,7 @@
+ /* V_TIMING internal */
+ #define IMX355_REG_FLL			0x0340
+ #define IMX355_FLL_MAX			0xffff
++#define IMX355_VBLANK_MIN		20
+ 
+ #define IMX355_REG_LLP			0x0342
+ #define IMX355_LLP_MAX			0xffff
+@@ -105,7 +106,6 @@ struct imx355_mode {
+ 
+ 	/* V-timing */
+ 	u32 fll_def;
+-	u32 fll_min;
+ 
+ 	/* H-timing */
+ 	u32 llp;
+@@ -358,7 +358,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 0,
+ 		},
+ 		.fll_def = 2615,
+-		.fll_min = 2615,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3280x2464_regs),
+@@ -375,7 +374,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 8,
+ 		},
+ 		.fll_def = 2615,
+-		.fll_min = 2615,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3268x2448_regs),
+@@ -392,7 +390,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 8,
+ 		},
+ 		.fll_def = 2615,
+-		.fll_min = 2615,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3264x2448_regs),
+@@ -409,7 +406,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 684,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1940x1096_regs),
+@@ -426,7 +422,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 684,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1936x1096_regs),
+@@ -443,7 +438,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 692,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1924x1080_regs),
+@@ -460,7 +454,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 692,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1920x1080_regs),
+@@ -477,7 +470,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 0,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 1836,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1640x1232_regs),
+@@ -494,7 +486,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 304,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 1836,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1640x922_regs),
+@@ -511,7 +502,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 496,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 1836,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1300x736_regs),
+@@ -528,7 +518,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 496,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 1836,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1296x736_regs),
+@@ -545,7 +534,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 512,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 1836,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1284x720_regs),
+@@ -562,7 +550,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 512,
+ 		},
+ 		.fll_def = 1306,
+-		.fll_min = 1306,
+ 		.llp = 1836,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1280x720_regs),
+@@ -579,7 +566,6 @@ static const struct imx355_mode supported_modes[] = {
+ 			.top = 0,
+ 		},
+ 		.fll_def = 652,
+-		.fll_min = 652,
+ 		.llp = 3672,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_820x616_regs),
+@@ -863,7 +849,6 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
+ 	const struct imx355_mode *mode;
+ 	struct v4l2_mbus_framefmt *framefmt;
  	s32 vblank_def;
- 	s32 vblank_min;
+-	s32 vblank_min;
  	s64 h_blank;
--	u64 pixel_rate;
  	u32 height;
  
- 	mutex_lock(&imx355->mutex);
-@@ -887,9 +885,6 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 		*framefmt = fmt->format;
- 	} else {
- 		imx355->cur_mode = mode;
--		pixel_rate = IMX355_LINK_FREQ_DEFAULT * 2 * 4;
--		do_div(pixel_rate, 10);
--		__v4l2_ctrl_s_ctrl_int64(imx355->pixel_rate, pixel_rate);
+@@ -888,10 +873,9 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
  		/* Update limits and set FPS to default */
  		height = imx355->cur_mode->height;
  		vblank_def = imx355->cur_mode->fll_def - height;
-@@ -1180,9 +1175,8 @@ static int imx355_init_controls(struct imx355 *imx355)
- 	pixel_rate = IMX355_LINK_FREQ_DEFAULT * 2 * 4;
- 	do_div(pixel_rate, 10);
- 	/* By default, PIXEL_RATE is read only */
--	imx355->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &imx355_ctrl_ops,
--					       V4L2_CID_PIXEL_RATE, pixel_rate,
--					       pixel_rate, 1, pixel_rate);
-+	v4l2_ctrl_new_std(ctrl_hdlr, &imx355_ctrl_ops, V4L2_CID_PIXEL_RATE,
-+			  pixel_rate, pixel_rate, 1, pixel_rate);
- 
+-		vblank_min = imx355->cur_mode->fll_min - height;
+ 		height = IMX355_FLL_MAX - height;
+-		__v4l2_ctrl_modify_range(imx355->vblank, vblank_min, height, 1,
+-					 vblank_def);
++		__v4l2_ctrl_modify_range(imx355->vblank, IMX355_VBLANK_MIN,
++					 height, 1, vblank_def);
+ 		__v4l2_ctrl_s_ctrl(imx355->vblank, vblank_def);
+ 		h_blank = mode->llp - imx355->cur_mode->width;
+ 		/*
+@@ -1151,7 +1135,6 @@ static int imx355_init_controls(struct imx355 *imx355)
+ 	struct v4l2_ctrl_handler *ctrl_hdlr;
+ 	s64 exposure_max;
+ 	s64 vblank_def;
+-	s64 vblank_min;
+ 	s64 hblank;
+ 	u64 pixel_rate;
+ 	const struct imx355_mode *mode;
+@@ -1181,9 +1164,8 @@ static int imx355_init_controls(struct imx355 *imx355)
  	/* Initialize vblank/hblank/exposure parameters based on current mode */
  	mode = imx355->cur_mode;
+ 	vblank_def = mode->fll_def - mode->height;
+-	vblank_min = mode->fll_min - mode->height;
+ 	imx355->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx355_ctrl_ops,
+-					   V4L2_CID_VBLANK, vblank_min,
++					   V4L2_CID_VBLANK, IMX355_VBLANK_MIN,
+ 					   IMX355_FLL_MAX - mode->height,
+ 					   1, vblank_def);
+ 
 
 -- 
 2.34.1
