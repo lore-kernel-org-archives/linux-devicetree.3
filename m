@@ -1,157 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F22E3ABD8E;
-	Tue,  7 Jul 2026 06:58:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15BC3AB5BB;
+	Tue,  7 Jul 2026 06:59:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783407534; cv=none; b=kH5EAc8BEO909+endG/nGg3P74jnuh2ODzZJTn5Pp1xdlqHBdr6yHpg2wuZNJr2+811MAVUvs+E6IdR3Y5UvGed2fcfNlbGmqkK1pMkzVopZt/PQAldJvQWEK2TkCHifYORU3UfyOKJ3UqOUwSdAtiFxXMA8AcGTRs5A75wOc0Y=
+	t=1783407598; cv=none; b=ffU/XXrKasG9MGA2JIRYCkrO74GWFk2Hpu0H3XioszeBKjdBn8DYYZIdO8jkv8VEJXxGk9NcwpPPtGNKd87pWfePCGx07EJHCyZDxm2BVtDOx/f88jPNldhNtdhB4lnAEMkHsEtm5n+WqNvTs3EJruCllp+s6JuqmE4vSPQJTPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783407534; c=relaxed/simple;
-	bh=CpseX0V3P8kSiymIYvNGY8y3IfLMDM/Cm4OCfrQ3V2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CV0MNINCFQfEnMRRq9c1hK7doDRgIpfCYFfQVqlmRKtYQpzFSX6TOFDkFgFzRaJPnqT6VM/tYkpitAo+PLOR8xqOQCNa4CAURgB4Fh2tqZPZl08YA/QLbWQevZqzTlJrrkBcCSM21QLhDMmMVhSFf60sUsUpM3W9CbbbBvi6KFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VX2MP6MI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783407598; c=relaxed/simple;
+	bh=uMHHbvJAGDZBA3IaCwkr7iCzbEAMYpWj1HxqUjDDCjA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lDHijpIcf72XtnXKhjR1IPqmnnVi0bVdz+QJbuhZENN3x/jkrjHbOx0kkpXI6mg5XkCzfnkQ2GyKdxMRG1t8ro6dly0QCLJGT9/kXS7EkrrKasd17uKNw4MLacxLYHVeL9HOVJjbTYQltEgOfKtFVY8psbPeIX0nvBF6IvmGpwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZrfHRQU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VX2MP6MI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8021F000E9;
-	Tue,  7 Jul 2026 06:58:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZrfHRQU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124121F000E9;
+	Tue,  7 Jul 2026 06:59:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783407533;
-	bh=oECIqmbpPuUnxJXuxcvDW0bVvqzjgpMBsSKXYPT0Sb4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VX2MP6MItrVnTTtaRG7rzMhBWmfb0oUEM1Hv35dAe27iXY0QdLGeB5kzbK4Ixb6JY
-	 /iQnv154TY6FOc9LMMeCakmx3OJ7g+BsAt+/u0vAaOwBJOMnFtz6YohUzGRFVVM92I
-	 ILStdV89OycXyQu4hxEy86RhGKT4eLJdEfZpxqwtU/ba1nh6ZDZpeE4Dssb+/gdJuH
-	 2sHqhlR7oLuoK1s7rRtrians/q7H8mdW4JrUKDJTDFQtShIm0k9LgZHO2ihud3cazw
-	 9+VB2F3L06zkkFJLSt/NrQ0JsegSNzYe6kDfqhxK+FI05PXI0ONKkvKXE00Cz7fIOS
-	 Co6LRIxrO/axw==
-Date: Tue, 7 Jul 2026 08:58:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Swark Yang <syang@axiado.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: axiado: Add initial support for
- AX3005 SoC and eval board
-Message-ID: <20260707-quixotic-cobalt-guillemot-6b1aee@quoll>
-References: <20260705-upstream-axiado-ax3005-upstream-v2-0-2dfbd1448f81@axiado.com>
- <20260705-upstream-axiado-ax3005-upstream-v2-2-2dfbd1448f81@axiado.com>
+	s=k20260515; t=1783407596;
+	bh=BneG9+UKQIlZyzv/lIZGSrOlsQXMCcRZrLEy1oMVc9w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KZrfHRQUOanKNIlwLUyBljRMCPIWEnnOhtWcBC67/1C4sMFs6yc+DmUB/9RXkiF20
+	 KRcpaRbpZfVax1EV1oGoazMHZyG+mmO6ca4XATBPR7SsgNCKcgQNBtagDUcjaGTNfn
+	 lJD+w5ff8mHdAQ6QwfsiPJQXZXQAiUddZawFS+Y1ZVwAPp5oGXKNmpLFqnDB6kJtkf
+	 tKOp20JTIDlJfmZx0RIQ6Q5NmtyJPsoh8+wdgPkXtQ4GdmhvEvP3W+odjf5uSQxHoA
+	 xgkFKf9evt651Xcvo5LKkG3M349s2CvOtU0Hw5yzWmrP24k4sFL3FYpE8PAkB0ES5T
+	 WiwwkCrW/4Mzg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/1] arm64: dts: add tqma9596la-mba95xxca
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260707062506.949806-1-alexander.stein@ew.tq-group.com>
+References: <20260707062506.949806-1-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 06:59:55 +0000
+Message-Id: <20260707065956.124121F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260705-upstream-axiado-ax3005-upstream-v2-2-2dfbd1448f81@axiado.com>
 
-On Sun, Jul 05, 2026 at 11:39:06PM -0700, Swark Yang wrote:
-> +		cpu3: cpu@3 {
-> +			compatible = "arm,cortex-a53";
-> +			device_type = "cpu";
-> +			reg = <0x0 0x3>;
-> +			enable-method = "spin-table";
-> +			cpu-release-addr = <0x0 0x80002fa0>;
-> +			d-cache-size = <0x8000>;
-> +			d-cache-line-size = <64>;
-> +			d-cache-sets = <128>;
-> +			i-cache-size = <0x8000>;
-> +			i-cache-line-size = <64>;
-> +			i-cache-sets = <256>;
-> +			next-level-cache = <&l2>;
-> +		};
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Conflicting GPIO assignments for M.2 Key-E SDIO Reset between the =
+`wifi-connector` device node and a leftover `gpio-hog`.
+- [High] The fan supply regulator `reg_pwm_fan` is never enabled, leaving t=
+he fan unpowered.
+--
+
+--- Patch [1]: [PATCH v7 1/1] arm64: dts: add tqma9596la-mba95xxca ---
+commit c06cc8eb19eb4a69fc0547caa6773b503beae3a7
+Author: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+
+arm64: dts: add tqma9596la-mba95xxca
+   =20
+This patch adds support for the TQMa95xxLA modules on the MBa95xxCA carrier
+board. It introduces a common device tree include for the module and a spec=
+ific
+device tree for the carrier board.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts=
+ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
+> new file mode 100644
+> index 0000000000000..db2fd6991d112
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
+[ ... ]
+> +	wifi-connector {
+> +		compatible =3D "pcie-m2-e-connector";
+> +		vpcie3v3-supply =3D <&reg_v3v3_mb>;
+> +		vpcie1v8-supply =3D <&reg_v1v8_mb>;
+> +		i2c-parent =3D <&lpi2c2>;
+> +		w-disable1-gpios =3D <&expander2 9 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios =3D <&expander2 10 GPIO_ACTIVE_LOW>;
+> +		/* UART_WAKE is connected to SM */
+> +		/* SDIO_WAKE is connected to SM */
+> +		sdio-reset-gpios =3D <&expander3 2 GPIO_ACTIVE_LOW>;
+> +	};
+
+[Severity: High]
+Does this sdio-reset-gpios assignment conflict with the gpio-hog on the same
+line?
+
+The wifi-connector node requests expander3 line 2 here, but later in the fi=
+le,
+m2-keye-sdio-rst-hog hogs the exact same GPIO line. Won't this conflict cau=
+se
+the wifi-connector driver to fail probing with -EBUSY?
+
+[ ... ]
+> +	fan_controller: fan-controller@2f {
+> +		compatible =3D "microchip,emc2301", "microchip,emc2305";
+> +		reg =3D <0x2f>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		#pwm-cells =3D <3>;
+> +		status =3D "okay";
 > +
-> +		l2: l2-cache0 {
-
-l2-cache
-
-> +			compatible = "cache";
-> +			cache-unified;
-> +			cache-size = <0x100000>;
-> +			cache-line-size = <64>;
-> +			cache-sets = <1024>;
-> +			cache-level = <2>;
+> +		fan: fan@0 {
+> +			reg =3D <0x0>;
+> +			pwms =3D <&fan_controller 40000 PWM_POLARITY_INVERTED 1>;
+> +			#cooling-cells =3D <2>;
+> +			fan-supply =3D <&reg_pwm_fan>;
 > +		};
 > +	};
+
+[Severity: High]
+Will the reg_pwm_fan regulator ever be enabled?
+
+The emc2305 driver does not parse or request the fan-supply property from
+child nodes. Since reg_pwm_fan is not marked regulator-always-on earlier in
+this file, does this leave the fan unpowered?
+
+[ ... ]
+> +	/* D41 OUT 1V8 */
+> +	expander3: gpio@76 {
+> +		compatible =3D "ti,tca9539";
+> +		reg =3D <0x76>;
+> +		vcc-supply =3D <&reg_v1v8_mb>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
 > +
-> +	timer {
-
-Odd node sorting.
-
-> +		compatible = "arm,armv8-timer";
-> +		interrupt-parent = <&gic500>;
-> +		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
-> +	};
+> +		gpio-line-names =3D
+> +			/* 00 */ "ENET1_RESET#", "ENET2_RESET#",
+> +			/* 02 */ "M2_KEYE_SDIO_RST#", "M2_KEYE_DEV_WLAN_WAKE#",
+> +			/* 04 */ "M2_KEYE_DEV_BT_WAKE", "M2_KEYB_W_DISABLE2#",
+> +			/* 06 */ "M2_KEYB_RST#", "M2_KEYB_FULL_CARD_PWR_OFF#",
+> +			/* 08 */ "M2_KEYB_DPR", "CAM0_PWR#",
+> +			/* 10 */ "CAM1_PWR#", "CAM0_RST#",
+> +			/* 12 */ "CAM1_RST#", "CAM0_TRIGGER",
+> +			/* 14 */ "CAM1_TRIGGER", "FAN_PWR_EN";
 > +
-
-...
-
-> +			compatible = "axiado,ax3000-gpio", "cdns,gpio-r1p02";
-> +			reg = <0x0 0x33080000 0x0 0x100>;
-> +			clocks = <&pclk>;
-> +			gpio-controller;
-> +			#gpio-cells = <2>;
-> +			interrupt-parent = <&gic500>;
-> +			interrupts = <GIC_SPI 184 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <2>;
-> +			status = "disabled";
+> +		m2-keye-sdio-rst-hog {
+> +			gpio-hog;
+> +			gpios =3D <2 GPIO_ACTIVE_LOW>;
+> +			output-low;
+> +			line-name =3D "M2_KEYE_SDIO_RST#";
 > +		};
-> +
-> +		gpio2: gpio-controller@33100000 {
-> +			compatible = "axiado,ax3000-gpio", "cdns,gpio-r1p02";
-> +			reg = <0x0 0x33100000 0x0 0x100>;
-> +			clocks = <&pclk>;
-> +			gpio-controller;
-> +			#gpio-cells = <2>;
-> +			interrupt-parent = <&gic500>;
-> +			interrupts = <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <2>;
-> +			status = "disabled";
-> +		};
-> +
-> +		gpio3: gpio-controller@33180000 {
-> +			compatible = "axiado,ax3000-gpio", "cdns,gpio-r1p02";
-> +			reg = <0x0 0x33180000 0x0 0x100>;
-> +			clocks = <&pclk>;
-> +			gpio-controller;
-> +			#gpio-cells = <2>;
-> +			interrupt-parent = <&gic500>;
-> +			interrupts = <GIC_SPI 186 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <2>;
-> +			status = "disabled";
-> +		};
-> +
-> +		gpio4: gpio-controller@33200000 {
-> +			compatible = "axiado,ax3000-gpio", "cdns,gpio-r1p02";
 
-Here...
+[Severity: High]
+This appears to be the leftover hog that conflicts with the wifi-connector
+node above. Should this hog be removed to allow the driver to request the
+GPIO?
 
-> +		spi6: spi@333a0000 {
-> +			compatible = "snps,dwc-ssi-1.01a";
-> +			reg = <0x0 0x333a0000 0x0 0x10000>;
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			interrupt-parent = <&gic500>;
-> +			interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&spiclk>;
-> +			num-cs = <1>;
-> +			reg-io-width = <4>;
-> +			status = "disabled";
-> +		};
-> +
-> +		uart0: serial@33020000 {
-> +			compatible = "axiado,ax3000-uart", "cdns,uart-r1p12";
-
-and here: wrong compatible, this is ax3005 SoC, no?
-
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707062506.9498=
+06-1-alexander.stein@ew.tq-group.com?part=3D1
