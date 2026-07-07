@@ -1,90 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABB22C11DF
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 08:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898F4285CBC;
+	Tue,  7 Jul 2026 08:08:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783411537; cv=none; b=TjZRTG8sKsuhDB2+N91D2rSDdJYkG7PwJRhYGLuvMG3SeLrXRIkdWFWVRiLwOoqQs3DN9s1IPvgGbPBb4pqCSufR1V4scWD4VbfIu0SsG5YTexxWRQmWc4Sk03H3jPzbSD0MBx4v+JefFqw2uF7QpGNzTi1YAItBW8RwBCKU8dI=
+	t=1783411696; cv=none; b=fkTYY3l7iEikHFJoxAr8mVujorfSNlUAh0vbzK1sQb+zJgcDpSotphYDCm7PbL/xru3QZC+VnHtMgfKw0GdY5JH3K2/MKJlPmm5puRkx2p0Spio3f0cI6bF3HFUtoa6oynmPK3a5JD8j4BnItRfbsLkC4uINXhgp3ktINZFoUxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783411537; c=relaxed/simple;
-	bh=rXnljgh7J5+zETQcyrY1EoOt6eZgWvN69Fp0Uyl/ftE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YS3B4Mrd7dW3vr+c0Kj6FlO8intu8WCmPAh+bWFogx6bmpiquROVvmK2WyDrnf2hGxDVlX3kYT+PeZ6IIJMdJXx/0rERHm8RLD2u6pnHnHZdc/YvnP3JL54+WZNgkSckrsxSLkXZu8FY11zBj1xIxN2Q+/XAPYpMU+8XZbYGYkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alMAbuf5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783411696; c=relaxed/simple;
+	bh=DJPhSJT1Prw3jQQBTgy8ZYTTfno/I1m6SyzfBghErMo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CtaAbrfc2mZJ2JuA6kgxJJcDzBR4LbRYZp3llYLudHa5mBzvl/iNk/ygLNzrGkdmebRkuqhZXZlTcnaOmD0O34dL5RpP3+qjfTSGnsanO78wX6NvtF8BjB6RYl2V1bqXp88noX48j6XlNcbz/TLochiUHK7TG1IQS4RV04ggchQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gW5rdxnR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alMAbuf5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCCC21F000E9;
-	Tue,  7 Jul 2026 08:05:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gW5rdxnR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FD9E1F000E9;
+	Tue,  7 Jul 2026 08:08:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783411536;
-	bh=I5hEfPQZHDJ9xkPu80XSXEvk8GAd28C+Pf3lnAgvgDU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=alMAbuf5hYPT5hp83ZtsUy19j75R6vVe53/lgDuTnjBBwiEzkW9dWQ9tJiVR/vckG
-	 wnyrGAEMGzMinUD4Bk4GTbtuvQ5+YCbAnRzBOA7dfA55XntojzTIstCqTGp2BYEToS
-	 fdzrdDdjyMSt3WgDwBL4jhZoRanXQ94+JDKNA+XKutsH+xt8MZhB+axe7Sb87hBsnW
-	 RVOMMRePipPIAFXqaAFoV6OK0iVhwzIQ5aW+ht9eKbgdzEA7yHJJ6auGP+fT/bqQ9c
-	 ix8yoB8AlJUNzxCCjbi0vWvfJELvcwgBCqrnnBnEK5r/H0CllTeevE0A6BzgwBY6HS
-	 fEZEpSjVunWFg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] arm64: dts: qcom: monaco: enable inline crypto
- engine for SDHC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kuldeep Singh" <kuldeep.singh@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260707-ice_emmc_support-v9-2-701c86f3c25b@oss.qualcomm.com>
-References: <20260707-ice_emmc_support-v9-0-701c86f3c25b@oss.qualcomm.com>
- <20260707-ice_emmc_support-v9-2-701c86f3c25b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 07 Jul 2026 08:05:35 +0000
-Message-Id: <20260707080535.DCCC21F000E9@smtp.kernel.org>
+	s=k20260515; t=1783411695;
+	bh=vetEdDdHhp3TrfHAuygyG+1s4zcpH2JIRqMspJLgm9U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gW5rdxnRpVaG3l67sjx6nCdLUsWOSLEshByhkcZIwoCDOKH3LXeiTxypbYqBiVrvD
+	 4XLPnyfeSHZSQ7kTuMESca9/2UPtAqRg7zINmH5IOSm44GNcF4jKwVF/tZoQuYmrte
+	 3XLsPWM16lzBHkS1HB/CSSbD7fPKE4XX8X7/Bmf23+rNxRP9zJxJ+0ne7V+DQHrUdL
+	 dXXgMUnlWBTJKFPpIaHnI5p0KqI5GOFs3BhzOYtkQTo/ltSM+/dKIdF2pYnkMNNu4r
+	 2qd02TgSYDyI4D0HGpHob7NG+Pl4YbbSLjbhNrCFKalJ2pKNnLMKkb+GKIJkR7KE7y
+	 Wn2o49hjFOaNg==
+Message-ID: <5926f59b-e0c6-46fe-a839-620a2648c335@kernel.org>
+Date: Tue, 7 Jul 2026 10:08:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "dt-bindings: i2c: Describe SA8255p"
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Andi Shyti <andi.shyti@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260707080229.3795971-1-shengchao.guo@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260707080229.3795971-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `qcom,ice` property is used in the SDHC node, but it is not doc=
-umented in the `qcom,sdhci-msm.yaml` binding schema.
---
+On 07/07/2026 10:02, Shawn Guo wrote:
+> This reverts commit fd359c0272bb4078f3a7ef34c1d53ee0deb59900.
+> 
+> Compatible "qcom,sa8255p-geni-i2c" had already been defined by
+> soc/qcom/qcom,sa8255p-geni-se-qup.yaml. Revert the change to avoid the
+> same compatible being defined by two bindings.
 
---- Patch [2]: [PATCH v9 2/2] arm64: dts: qcom: monaco: enable inline crypt=
-o engine for SDHC ---
-commit f78e20bb65841709496ac90470aafd18132c8970
-Author: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+This makes no sense and to prove it: are you going to revert all such
+bindings, like 100 of them?
 
-arm64: dts: qcom: monaco: enable inline crypto engine for SDHC
-
-This patch adds a dedicated Inline Crypto Engine (ICE) node for the
-monaco platform. It references the new node from the SDHC controller
-using the qcom,ice property and defines power-domains and clocks.
-
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
-com/monaco.dtsi
-> index 400c754379783..ffb13d61ee36d 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> @@ -4864,6 +4864,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
->  			supports-cqe;
->  			dma-coherent;
-> =20
-> +			qcom,ice =3D <&sdhc_ice>;
-
-[Severity: Low]
-Will this undocumented qcom,ice property cause dtbs_check warnings?
-
-Looking at the qcom,sdhci-msm.yaml binding schema, the qcom,ice property
-doesn't appear to be defined. Since the schema enforces
-unevaluatedProperties: false, adding this property here might trigger
-validation warnings during the build.
-
-Should this property be added to the devicetree bindings first?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-ice_emmc_s=
-upport-v9-0-701c86f3c25b@oss.qualcomm.com?part=3D2
+Best regards,
+Krzysztof
