@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F40480948;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708D947F2F2;
 	Tue,  7 Jul 2026 22:34:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783463681; cv=none; b=G+KQngrv9fKWX9l/CEIPTeuoi/n27P4/gK0PW9aknvTBCw7fgAWkHnaxmpV83/c0jjcEZ6vS1XAQ4KVhtnVVZperquOWNwCYke43Q8Alt6J19sg60wd3mMhpBYTasSOG5x5Vxcr9JgFyxMUYO86yvkBRlx3AocAERUUxCvii8wM=
+	t=1783463681; cv=none; b=muaPQFnMkZnNT3jtQhflh/ux3UtAw9D1zPh30ngY1xRJ7UAPz6mOhhzU/IIme/IkFJJjE6+XWfjtAYzLkBZdXC66s/TgXjJ26KMHtq11sCHsEfsLJs/PJOevqBr6rMMIH5vwAWlyrOj45TxgEUT74mjMO1eQJiej5v/JSmHHDtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783463681; c=relaxed/simple;
-	bh=Yz0IAG08utUZPLrC4mnxm0rLGc2+pUvrY0kInzM/eN4=;
+	bh=kd76Iszgwz+ouj9TEuU0D6wpHDqOlc8+fnPUqiVVTYA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FMEbZ+eIBDn+n94sdMtWxKlZsO7QMkmr9etFIEF+XEcu/b5Z0XQx/hd91XGguXM6Oo0UyF7NGYqilQFqztBlM+0sK3OqN7yAXrXNzU9SJSe1aNKlJKAHKW41q17B7YP6MYoMoZecf/C6RSDoooZ3/aA+o0YgtqnRpXs2YwctNj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OTwj6fj2; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=B8gFnBQsIvGf1VYonnIY6L2+O+AxRqVkn9LS0znPnDohVmHMkWGg5Cicdcbwln6dGlOCsrKoVQ4I8JxoaduT3glXsQ+0AqOlrSie12tPRngZccc3nGkiQj0E4+BJ0A4DM/EbVns3DgAehK+O3Am7Cw2b7JgYDIkwkx8DqHDdB5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T3JPZsUr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OTwj6fj2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 55AE3C2BCF6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T3JPZsUr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 44E68C2BCB8;
 	Tue,  7 Jul 2026 22:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1783463681;
-	bh=Yz0IAG08utUZPLrC4mnxm0rLGc2+pUvrY0kInzM/eN4=;
+	bh=kd76Iszgwz+ouj9TEuU0D6wpHDqOlc8+fnPUqiVVTYA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=OTwj6fj2cIN6Q0t9WEErs1NoQLu/scPpbSbCQtEJioRPi2JgBRhLnltU8VDCsCNhr
-	 XyjVajphdvf3tbzgVoPa0Z4FRlzV1G/6dnSBOV43d4A0zFYz9pbzULlvNJRZM50OYS
-	 liovYcfzQW9MjOGaU8HtTWuWvBGNakKRCm6WUejaMvAHV62YV9/osbsuxuivA2ogl5
-	 SICXnApDRugGWQAheXfSh1pd6kxX7ZQi4QVvwakUCWXOrGouWAkQVdj+lkAZgx4Pkv
-	 +1NuKo/V7VXEcMIQ+/AbmU90IkjfMGS647a5LjpcibMOhLu3jCL+TB11/vI+B3VQhq
-	 w0NHNyqriRu4w==
+	b=T3JPZsUrhVXNFqCp7ynHIxWEMFAFypOOkf7Q4emoUG93/NRrmxG8XaGHsm/qGDVLj
+	 HUIOcmiMMjMb3IFWOqU6IhtaMtYi2LKNZJYC2YZYwO7eX80PAiitEeX9QEArMVPopB
+	 n7n2c5+3Hh5s7yOYbYzrcx+Ne9FnafzGQV8sI7UtFkp9mazzGUdXgEdzqk5PLlbiFT
+	 DSOv1HnsZE45wkSP621h2qAtHsTEWw4dgPH8iS0DRdNNO96hs5MScBQSYOOwNCbKrn
+	 cgJ8sixTg8IwfKuKZ+L+RMknKyd1SucaVxoOq7RJ74bVzEV/ClaIn6frTkXLyB/LPj
+	 IHnEPkm/cqB3w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 424D1C44501;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 30E38C43602;
 	Tue,  7 Jul 2026 22:34:41 +0000 (UTC)
 From: Ciprian Regus via B4 Relay <devnull+ciprian.regus.analog.com@kernel.org>
-Date: Wed, 08 Jul 2026 01:33:39 +0300
-Subject: [PATCH net-next v5 11/13] net: phy: microchip-t1s: use generic C45
- MMD access helpers
+Date: Wed, 08 Jul 2026 01:33:38 +0300
+Subject: [PATCH net-next v5 10/13] net: phy: add generic helpers for direct
+ C45 MMD access
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-adin1140-driver-v5-11-4aca7b51a58b@analog.com>
+Message-Id: <20260708-adin1140-driver-v5-10-4aca7b51a58b@analog.com>
 References: <20260708-adin1140-driver-v5-0-4aca7b51a58b@analog.com>
 In-Reply-To: <20260708-adin1140-driver-v5-0-4aca7b51a58b@analog.com>
 To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
@@ -58,11 +58,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, devicetree@vger.kernel.org, 
  Ciprian Regus <ciprian.regus@analog.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783463678; l=2671;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783463678; l=2740;
  i=ciprian.regus@analog.com; s=20260330; h=from:subject:message-id;
- bh=V6BAjsB9qE+jAB5rXzWdOBH/VI+WfF0IXOexdxcgu/g=;
- b=9PpHM4UZp88uAFZjhSL9hgINHIxkIvhXzsP9Zk91fAQ9yqAHzFrKQI7dGtIDm7vBkBWL7HCil
- Gv6abF7jkGyAU4CFKf5LXUz7wZoBI6hq6vhF179pfehTIqfz4pqyvYU
+ bh=EHzSGgaRZqyD058Nt1gOhvpafqZGPgMplM/rsPkXGh4=;
+ b=w180mchxhudHbUfkSe7XmEaKPIbC3HPrS3a0/UiIURqMRisbzOxsUNkOpjBfumyEdXpnHVVUG
+ 0nrPRot5hR0CFMGFvzAZ9K4VNjnaUqGa+tflkKe7Cw9UY45PhbmUh5l
 X-Developer-Key: i=ciprian.regus@analog.com; a=ed25519;
  pk=8WoNhI0kQcQUl8YqJO5ZevROYk9HP8lOIeIgIYgjfbc=
 X-Endpoint-Received: by B4 Relay for ciprian.regus@analog.com/20260330 with
@@ -72,11 +72,14 @@ Reply-To: ciprian.regus@analog.com
 
 From: Ciprian Regus <ciprian.regus@analog.com>
 
-Replace the driver specific lan865x_phy_read_mmd() and
-lan865x_phy_write_mmd() with the shared genphy_read_mmd_c45() and
-genphy_write_mmd_c45() helpers.
+Some PHYs support direct C45 register access but not C22 indirect MMD
+access (registers 0xD and 0xE). When discovered via C22, phylib routes
+MMD access through the indirect path, which won't work on these
+devices.
 
-No functional change.
+Add genphy_read_mmd_c45() and genphy_write_mmd_c45() as read_mmd/
+write_mmd callbacks that bypass the C22 indirect path and use the bus
+C45 accessors directly.
 
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
@@ -90,59 +93,60 @@ v3 changelog:
 v2 changelog:
  - New patch
 ---
- drivers/net/phy/microchip_t1s.c | 32 ++------------------------------
- 1 file changed, 2 insertions(+), 30 deletions(-)
+ drivers/net/phy/phy_device.c | 25 +++++++++++++++++++++++++
+ include/linux/phy.h          |  3 +++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/drivers/net/phy/microchip_t1s.c b/drivers/net/phy/microchip_t1s.c
-index e601d56b2507..73c23d311d72 100644
---- a/drivers/net/phy/microchip_t1s.c
-+++ b/drivers/net/phy/microchip_t1s.c
-@@ -506,34 +506,6 @@ static int lan86xx_read_status(struct phy_device *phydev)
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 0615228459ef..94b2e85e00a3 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -2770,6 +2770,31 @@ int genphy_read_abilities(struct phy_device *phydev)
+ }
+ EXPORT_SYMBOL(genphy_read_abilities);
+ 
++/* Some PHYs support direct C45 register access but not C22 indirect
++ * MMD access (registers 13 and 14). When discovered via C22, phylib
++ * routes MMD access through the indirect path, which won't work on
++ * these devices. These helpers bypass indirect access and use the bus
++ * C45 accessors directly.
++ */
++int genphy_read_mmd_c45(struct phy_device *phydev, int devnum, u16 regnum)
++{
++	struct mii_bus *bus = phydev->mdio.bus;
++	int addr = phydev->mdio.addr;
++
++	return __mdiobus_c45_read(bus, addr, devnum, regnum);
++}
++EXPORT_SYMBOL(genphy_read_mmd_c45);
++
++int genphy_write_mmd_c45(struct phy_device *phydev, int devnum, u16 regnum,
++			 u16 val)
++{
++	struct mii_bus *bus = phydev->mdio.bus;
++	int addr = phydev->mdio.addr;
++
++	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
++}
++EXPORT_SYMBOL(genphy_write_mmd_c45);
++
+ /* This is used for the phy device which doesn't support the MMD extended
+  * register access, but it does have side effect when we are trying to access
+  * the MMD register via indirect method.
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 199a7aaa341b..432d44188dbc 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2297,6 +2297,9 @@ static inline int genphy_no_config_intr(struct phy_device *phydev)
+ {
  	return 0;
  }
- 
--/* OPEN Alliance 10BASE-T1x compliance MAC-PHYs will have both C22 and
-- * C45 registers space. If the PHY is discovered via C22 bus protocol it assumes
-- * it uses C22 protocol and always uses C22 registers indirect access to access
-- * C45 registers. This is because, we don't have a clean separation between
-- * C22/C45 register space and C22/C45 MDIO bus protocols. Resulting, PHY C45
-- * registers direct access can't be used which can save multiple SPI bus access.
-- * To support this feature, set .read_mmd/.write_mmd in the PHY driver to call
-- * .read_c45/.write_c45 in the OPEN Alliance framework
-- * drivers/net/ethernet/oa_tc6.c
-- */
--static int lan865x_phy_read_mmd(struct phy_device *phydev, int devnum,
--				u16 regnum)
--{
--	struct mii_bus *bus = phydev->mdio.bus;
--	int addr = phydev->mdio.addr;
--
--	return __mdiobus_c45_read(bus, addr, devnum, regnum);
--}
--
--static int lan865x_phy_write_mmd(struct phy_device *phydev, int devnum,
--				 u16 regnum, u16 val)
--{
--	struct mii_bus *bus = phydev->mdio.bus;
--	int addr = phydev->mdio.addr;
--
--	return __mdiobus_c45_write(bus, addr, devnum, regnum, val);
--}
--
- static struct phy_driver microchip_t1s_driver[] = {
- 	{
- 		PHY_ID_MATCH_EXACT(PHY_ID_LAN867X_REVB1),
-@@ -584,8 +556,8 @@ static struct phy_driver microchip_t1s_driver[] = {
- 		.features           = PHY_BASIC_T1S_P2MP_FEATURES,
- 		.config_init        = lan865x_revb_config_init,
- 		.read_status        = lan86xx_read_status,
--		.read_mmd           = lan865x_phy_read_mmd,
--		.write_mmd          = lan865x_phy_write_mmd,
-+		.read_mmd           = genphy_read_mmd_c45,
-+		.write_mmd          = genphy_write_mmd_c45,
- 		.get_plca_cfg	    = genphy_c45_plca_get_cfg,
- 		.set_plca_cfg	    = lan86xx_plca_set_cfg,
- 		.get_plca_status    = genphy_c45_plca_get_status,
++int genphy_read_mmd_c45(struct phy_device *phydev, int devnum, u16 regnum);
++int genphy_write_mmd_c45(struct phy_device *phydev, int devnum, u16 regnum,
++			 u16 val);
+ int genphy_read_mmd_unsupported(struct phy_device *phdev, int devad,
+ 				u16 regnum);
+ int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
 
 -- 
 2.43.0
