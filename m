@@ -1,216 +1,180 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF30233291F
-	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A797B33291F
+	for <devicetree@vger.kernel.org>; Tue,  7 Jul 2026 16:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783440469; cv=none; b=XXmnNAHk5i5mRlN8cWzh1uR1AKKzZKDjmH2Vj39O3rMyjvGAkV/cX2w3n3wMGDbVwuX6RFeyhj4wQOkDD4RGigeut/z22EEoqxbGxD2HQmjfmkQskePIe1ezlUfQPpR/9jl4dPffX5pvgqh7sfB7gVc851GadGupvihXHn6KqBQ=
+	t=1783440525; cv=none; b=bxfo6BVQ3qH7dScajVvt43sV4J/em/v519ULH6B8v30RNZXl2FawhuQqJwrOe53H8/MWEcphb7wuMAiSb/gL6s040cy1zq93KuF9Iv5b6udBoZ3wQsSsajaCh9k3sUnu4kehhutttzkitoglalBYGbhNyqo8xuPNLZXte3pnT1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783440469; c=relaxed/simple;
-	bh=rswlpAED6vR9rN0AkFmT6GGYwiGSI3RJQYeK/PxCBJo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QZojKIVoAa0CcMzKRf0dM6RGpOq0oOmJKXbUddctw2sXZpInzymw7YxPTEGqT1n/U3OeU4mXHqjxs9xSZkANHx8YWinIBO8fZp60H46YnhuiNGUnSx8f6koZ9ByC6oJIlPSP2hA/eoBQIHlH3+RV59b/6YYIhXxiO3HqlnQDNUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Q+MPiMDl; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783440525; c=relaxed/simple;
+	bh=ws2+ohvrTmOigQi/iiBGcj7E4O9EyMxVtV0c/hJzzS4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=c7RSNobAgXMKqJ6UFE1waqvXbdnJaM1WQ/XOMM5uETyCLdxZfSYE/tv0whlJeUIqzEz+KFJiYqDhOlYimdYGg1cOAAYe8SwmphWPQ1VepxAHJGS7ZlRgmDiO4HO0LCaoxmqWmAkdHX8gT+YRYl1Xb6M6iveHashoB++gczE0X/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXrH+MGu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Q+MPiMDl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783440466;
-	bh=rswlpAED6vR9rN0AkFmT6GGYwiGSI3RJQYeK/PxCBJo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Q+MPiMDlLZHfWrfTuFiFDNuRsxSdKxsnk26mkphmGLuD95L7jp79zzd2dWgPb37nx
-	 906xMpVVDcp2vfmF2N1VrKTg2e9fQ61Za1FKTv+H+th+2HmGWZRFTFTMSjavOKO384
-	 y8VMi/Hv7uhoNH/yMVHJbyAecqptJT3OWGCEFP/TnzaqFsU1pEIy4uzqdNu63wwH/h
-	 DeehDP2uoS2Qj2RzllmjsIe7enoAUhVmgAwZLikhQIgy4N7IvZGd6GvS+q3y17fgLP
-	 uBIhaHHwmCdYQpaP07zPafmPLGt1SjqISR9Y1kPhoKTfwGHIhqswEiyUMkkvShFwdD
-	 znfuqaWjaXIww==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C0D6317E0076;
-	Tue, 07 Jul 2026 18:07:45 +0200 (CEST)
-Message-ID: <f5382d15-f4d4-4276-93d5-f9bbb9071f01@collabora.com>
-Date: Tue, 7 Jul 2026 18:07:45 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXrH+MGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBCF81F000E9;
+	Tue,  7 Jul 2026 16:08:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783440524;
+	bh=cOpEKPHlMJv4NamB+C4PklteS5eqqfez5OQkBmbYBsw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AXrH+MGutokjDEFmsQMh9PeanDGRWP0dkDjJ6G07ADOjuCUW2bPpg/6tWyMmZDaKn
+	 kZ9qSxMUPYKlZjWGfheg7zV7119RFJfClzXiPcEBqaektOv+/CJAkSorEZ+XKBHB2x
+	 LH5QvdCNy2tBE3Ey1yLHOuLhuMoakWyg1w91rByK52l3e0JAj2v8lps9ouXLq82O6G
+	 vNIhOWs3lBUcyC+rbjL5oaI7JPFnCMC8rS9P8BNWzK3c3G8O44+M9SXM2r2WZ0DQvm
+	 3sJG2OWHg5EcI9nu+2Zryo3fkVCqUeT+8Ob1WLqnHNMA3iWbK+EBZrjirtfsVm6jU6
+	 EL41nDXaaJ0Mg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] pmdomain: mediatek: Add support for Direct CTL
+ simple power sequence
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260707155535.199383-4-angelogioacchino.delregno@collabora.com>
+References: <20260707155535.199383-1-angelogioacchino.delregno@collabora.com>
+ <20260707155535.199383-4-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 07 Jul 2026 16:08:43 +0000
+Message-Id: <20260707160843.EBCF81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/12] phy: phy-mtk-dp: Migrate register offsets to SoC
- specific pdata
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, olteanv@gmail.com, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org,
- vkoul@kernel.org, linux-phy@lists.infradead.org
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-5-angelogioacchino.delregno@collabora.com>
- <20260707155630.4F32C1F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260707155630.4F32C1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/7/26 17:56, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Register accesses are performed in `mtk_dp_phy_configure()` while the device's PM runtime state is suspended, risking system hangs.
-> - [Medium] Missing validation of `device_get_match_data()` return value can lead to a NULL pointer dereference.
-> - [Low] Invalid compound literal initialization for the 'off_dig_lane' array member causes a compilation error.
-> 
-> Pre-existing issues:
-> - [High] The legacy probe path unconditionally dereferences `dev->platform_data` before validating that it is not NULL.
-> --
-> 
-> --- Patch [4]: [PATCH v3 04/12] phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata ---
-> commit c49d221e57bf6a9816b6ce4e691a20564bc66896
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
-> 
-> In preparation for adding support for newer SoCs and for adding
-> more capabilities to this driver in an efficient manner, migrate
-> all of the hardcoded register offsets to SoC specific pdata and
-> assign that for both DT and platform probing.
-> 
->> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
->> index d241004e28286..20974650d9409 100644
->> --- a/drivers/phy/mediatek/phy-mtk-dp.c
->> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
->> @@ -111,9 +173,12 @@ static int mtk_dp_phy_init(struct phy *phy)
->>   static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
->>   {
->>   	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
->> +	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
->>   	u32 val;
->>   
->>   	if (opts->dp.set_rate) {
->> +		const u32 reg_bit_rate = pdata->regs_dig_glb[DP_PHYD_BIT_RATE];
->> +
-> 
-> [ ... ]
-> 
->> -		regmap_write(dp_phy->regmap, MTK_DP_PHY_DIG_BIT_RATE, val);
->> +		regmap_write(dp_phy->regmap, pdata->off_dig_glb + reg_bit_rate, val);
->>   	}
->>   
->> -	regmap_update_bits(dp_phy->regmap, MTK_DP_PHY_DIG_PLL_CTL_1,
->> +	regmap_update_bits(dp_phy->regmap,
->> +			   pdata->off_dig_glb + pdata->regs_dig_glb[DP_PHYD_PLL_CTL_1],
->>   			   TPLL_SSC_EN, opts->dp.ssc ? TPLL_SSC_EN : 0);
-> 
-> [Severity: High]
-> Since phy_configure() is not wrapped by phy_pm_runtime_get_sync() in the
-> PHY core, and the consumer driver may not call phy_power_on() before this
-> point, the PHY PM runtime usage counter might remain 0 during
-> mtk_dp_phy_configure().
-> 
-> If the PHY power domain is turned off, will these unclocked regmap_write()
-> and regmap_update_bits() calls cause the system to hang?
-> 
-> Should there be PM runtime protection around these register accesses?
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-This PHY needs to be powered on with its full power_on sequence before being able
-to be accessed, and anyway the user is taking care of this.
-phy_power_on() will take care of calling phy_pm_runtime_get_sync() so there's
-absolutely no problem with that.
+New issues:
+- [Low] Ignoring the return value of `clk_bulk_prepare_enable` in the error=
+ recovery path of `scpsys_power_off` violates its `__must_check` attribute.
 
->>   
->>   	return 0;
->>   }
-> 
-> [ ... ]
-> 
->> @@ -170,12 +241,19 @@ static void mtk_dp_phy_legacy_remove_lookup(void *data)
->>   	phy_remove_lookup(phy, "dp", dev_name(dp_phy->dev));
->>   }
->>   
->> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data;
->> +
->>   static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct mtk_dp_phy *dp_phy)
->>   {
->>   	struct device *dev = &pdev->dev;
->>   	struct phy *phy;
->>   	int ret;
->>   
->> +	/*
->> +	 * If legacy platform driver probe, assume this is MT8195 or compatible
->> +	 * with a devicetree that was not migrated to the new, proper bindings.
->> +	 */
->> +	dp_phy->pdata = &mt8195_dp_phy_data;
->>   	dp_phy->regmap = *(struct regmap **)dev->platform_data;
-> 
-> [Severity: High]
-> This is a pre-existing issue, but dev->platform_data is unconditionally
-> dereferenced here before it is checked for NULL.
-> 
-> If this legacy probe path is triggered without platform_data provided (for
-> example, via the sysfs new_device interface), won't this cause an immediate
-> NULL pointer dereference?
-> 
+Pre-existing issues:
+- [High] If `scpsys_bus_protect_enable()` fails in `scpsys_power_off()`, it=
+ returns early without re-enabling `subsys_clks`, bypassing the newly added=
+ clock recovery block and breaking the clock refcount.
+- [High] Error paths in `scpsys_power_off()` leave the hardware in a corrup=
+ted state (SRAM disabled, bus protection active, and buck isolated) because=
+ they fail to revert these states before returning an error.
+- [High] Error paths in `scpsys_power_on()` disable clocks and regulators w=
+ithout reverting the power-on hardware sequence, leaving the domain hardwar=
+e partially ON while genpd considers it OFF.
+--
 
-The only other alternative is to remove the legacy probe and break compatibility
-with older devicetrees, so, no, that's that.
+--- Patch [3]: [PATCH v2 3/4] pmdomain: mediatek: Add support for Direct CT=
+L simple power sequence ---
+commit a25fe6d3db6b42f564ecc5977f0a00e29a0cfd96
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
->>   	if (!dp_phy->regmap)
->>   		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
-> 
-> [ ... ]
-> 
->> @@ -235,6 +313,8 @@ static int mtk_dp_phy_probe(struct platform_device *pdev)
->>   	if (ret)
->>   		return ret;
->>   
->> +	dp_phy->pdata = device_get_match_data(dev);
->> +
-> 
-> [Severity: Medium]
-> If a user binds the mediatek-dp-phy driver via sysfs to a platform device
-> that doesn't match the driver's compatible strings, device_get_match_data()
-> will return NULL.
-> 
-> Does this need a NULL check before storing it in dp_phy->pdata?
-> 
-> Without validation, subsequent PHY operations like mtk_dp_phy_init() will
-> dereference the NULL pointer and crash.
+pmdomain: mediatek: Add support for Direct CTL simple power sequence
 
-Does this really happen, anyway?!?!?!?!? :-)
+This commit adds a simplified power sequence for certain new MediaTek SoCs=
+=20
+(like MT8196 and MT6991). The new sequence avoids using RTFF hardware and=20
+certain control bits, handling power domain enablement automatically after=
+=20
+exiting reset.
 
-> 
->>   	phy = devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
->>   	if (IS_ERR(phy))
->>   		return dev_err_probe(dev, PTR_ERR(phy),
-> 
-> [ ... ]
-> 
->> @@ -249,8 +329,15 @@ static int mtk_dp_phy_probe(struct platform_device *pdev)
->>   	return 0;
->>   }
->>   
->> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
->> +	.off_dig_glb = 0x1000,
->> +	.off_dig_lane = (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
-> 
-> [Severity: Low]
-> Is this compound literal initialization valid for an array struct member?
-> 
+> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomai=
+n/mediatek/mtk-pm-domains.c
+> index db543d4b1813c..feba436279c54 100644
+> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
+> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
+[ ... ]
+> @@ -682,7 +733,8 @@ static int scpsys_power_on(struct generic_pm_domain *=
+genpd)
+>  err_enable_bus_protect:
+>  	scpsys_bus_protect_enable(pd, 0);
+>  err_disable_sram:
+> -	scpsys_sram_disable(pd);
+> +	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ))
+> +		scpsys_sram_disable(pd);
+>  err_disable_subsys_clks:
+>  	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_STRICT_BUS_PROTECTION))
+>  		clk_bulk_disable_unprepare(pd->num_subsys_clks,
 
-It's valid. I see no warnings nor errors during build.
+[Severity: High]
+This is a pre-existing issue, but if a step fails during scpsys_power_on()
+after the initial MTCMOS power-on sequence, the function jumps to these=20
+error labels. It disables the clocks and regulators, but does this leave=20
+the domain's MTCMOS physically ON since it doesn't call a corresponding=20
+power-off sequence to revert it? Could this hardware inconsistency cause=20
+issues while the framework considers the domain OFF?
 
-> Compiling this with GCC or Clang may throw an invalid initializer error
-> because C99 requires array members to be initialized directly with
-> brace-enclosed lists rather than compound literal expressions.
-> 
->> +	.regs_dig_glb = mt8195_phy_dig_glb_regs,
->> +	.regs_dig_lane = mt8195_phy_dig_lane_regs,
->> +};
-> 
+> @@ -698,16 +750,17 @@ static int scpsys_power_off(struct generic_pm_domai=
+n *genpd)
+>  {
+>  	struct scpsys_domain *pd =3D container_of(genpd, struct scpsys_domain, =
+genpd);
+>  	struct scpsys *scpsys =3D pd->scpsys;
+> -	bool tmp;
+>  	int ret;
+> =20
+>  	ret =3D scpsys_bus_protect_enable(pd, 0);
+>  	if (ret < 0)
+>  		return ret;
+> =20
+> -	ret =3D scpsys_sram_disable(pd);
+> -	if (ret < 0)
+> -		return ret;
+> +	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ)) {
+> +		ret =3D scpsys_sram_disable(pd);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
 
+[Severity: High]
+This is a pre-existing issue, but if scpsys_sram_disable() or=20
+scpsys_bus_protect_enable() fail here and return early, the framework will=
+=20
+still treat the domain as ON. Does this early return leave the hardware=20
+physically isolated, potentially causing active consumer devices to hit an=
+=20
+active bus protector or unpowered SRAM?
+
+[ ... ]
+> @@ -720,15 +773,17 @@ static int scpsys_power_off(struct generic_pm_domai=
+n *genpd)
+>  		return ret;
+> =20
+>  	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
+> -		scpsys_modem_pwrseq_off(pd);
+> +		ret =3D scpsys_modem_pwrseq_off(pd);
+> +	else if (MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ))
+> +		ret =3D scpsys_simple_pwrseq_off(pd);
+>  	else
+> -		scpsys_ctl_pwrseq_off(pd);
+> +		ret =3D scpsys_ctl_pwrseq_off(pd);
+> =20
+> -	/* wait until PWR_ACK =3D 0 */
+> -	ret =3D readx_poll_timeout(scpsys_domain_is_on, pd, tmp, !tmp, MTK_POLL=
+_DELAY_US,
+> -				 MTK_POLL_TIMEOUT);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+> +		/* Re-enable clocks so that next power off doesn't break the refcount =
+*/
+> +		clk_bulk_prepare_enable(pd->num_subsys_clks, pd->subsys_clks);
+
+[Severity: High]
+This is a pre-existing issue, but if scpsys_bus_protect_enable() fails=20
+earlier in scpsys_power_off() when called with BUS_PROT_IGNORE_SUBCLK, it=20
+returns early. Does that early return completely bypass this newly added=20
+clock recovery block, leaving the subsystem clocks disabled while the=20
+domain is logically considered ON?
+
+[Severity: Low]
+Does this error recovery block ignore the return value of=20
+clk_bulk_prepare_enable()? Since the function is declared with=20
+__must_check in the clk API, could this cause a -Wunused-result compiler=20
+warning and break builds using -Werror?
+
+>  		return ret;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707155535.1993=
+83-1-angelogioacchino.delregno@collabora.com?part=3D3
