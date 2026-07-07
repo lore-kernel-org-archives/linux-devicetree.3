@@ -1,44 +1,44 @@
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A288527A907;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED96B3D8121;
 	Tue,  7 Jul 2026 09:51:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783417865; cv=none; b=kOJhU1ENsLFJ3Y2FPe6fYYuXMABErfnJcIgwJwCdeD/lzggZjPJIIH8W8xco7FG8S1y11IWqYsat8KXeeuvatoyc+LaqM+fPZ8XiJwkoS9t181CkyS1USVXkjLedtcWb3xQEE+DNVPZzvcnoephEVwSSlcjAxL4BF0fo2vVy5mo=
+	t=1783417865; cv=none; b=VqnfTeIW2PR5RUdA4SR12nUc75pyEmCZrTGulkbYVswgIBPM2ucGTITNQRvrwz+m+daS8G4gS9+zr5c6oJqHzV1dDsTpCkuJ5LBRRxhlg0E2PvPfWvElaYl4iqZAtpWB7aWxzAJfE/3S0xqImdcpQw97/GoVcPdgIwqYmmo4u70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783417865; c=relaxed/simple;
-	bh=zdZpwNXjeqiy14EFWh1i60TZ/Ge7HNOsQNwnLrxbEF0=;
+	bh=uvUSE3ELvuuP1bg636/bu0X6rDBec9822tl9+PXT7dE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=toR+L4S8UeBtnVUJvUd9u/oT1VZFMRhODIkYzLny17v2gRbCzOE7faP/GIyF5DREKpP/FxLcdRxaVWANQVcDdDUNqIKVpvKrYkFFLeOpBJ6qO9MIDhTp3ZfYPa2tf0G+bmcTv9EFw7z5STNMNPIwnGaOiDQJYCf6OzQTtN1q1WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=g5wwWCFx; arc=none smtp.client-ip=188.40.3.216
+	 MIME-Version; b=JnlN0Cha7ooO7XeQYu6Z/kJ1xQva9UJFL1qUlJDtSfn5UVatMcWQVPwYKpDdJ8hxzlq893gsDJA6iNOn2i1KrwRsUA/nK5yye3XLPfKqLcStc2vEPOm+1yM755zq+Q/qJKTx4kZ4ZyopERUx1By73WZwRHm2qkMMO5BNwBrkK5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=jhIqfXOn; arc=none smtp.client-ip=188.40.3.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="g5wwWCFx"
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="jhIqfXOn"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
 	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=mG6v8IjVpW52/CdQQXS0ybS6BSbhnajxLfKW5a9p17E=; b=g5wwWCFx06Kl7esy7X3ys80ndy
-	Q9qiGiDH7rZRQi8IbBC/qWzNDIYEV6cUa8bZ2zsKoRPSHxg4zeO+MtqTB3ezYeLL9auBLoHdgndQx
-	mUmMiQKSI9Ur0qwrIxklGwo6pJFJoXp6VHxxiufBhAoQy5C+5WMWoKQcwFNfhvcBHvKDjzbJPrCi5
-	iAV28whcTfKiak+eEPDyoG0zmqvKdUuUSACiPv637eSumtfYjEEkH5qv3/LMXNuUMX/OKwXO2vgm0
-	uh3ZLMjGQhMdnf5LiHYYRoH4PSxLi8HIR7ITRgfvGAGWy+DDdaiuEba5KLcDkqLGpehIh++yDcYPD
-	8y2fxjFw==;
+	bh=Lh9yzmm47jQRqeSTpuwljg2cNNdryTAreJDOVz1dgpE=; b=jhIqfXOnaxLo8rFdr1uyiuIPWP
+	M/Aw+jMcJo2hN5ky8rMpkhSjninAGbEt1PPm5ow7qCRpcQAxf6mI+PmTl92YT2lsphjspybU10Afx
+	t+EmI3e3Qo+LwGfN9T0dL/lL8RWNaZ2ftvB0RJvVZSEFWRaSuxDIBu/fBYvilDYYbOB5rKgaPu+5B
+	k00OxRE+lNjOMGBpbKR7wYynqlzt869atn3n9mJwePvDD27ZMX7aU2B+srrSGVKlqtnqxbyL+afkB
+	n2OlKZG1kpLVMeFIX0RlXQfRBhWgA+cCJLPx6SrVfpah73VA8gZ7n+il9szWLoTep0pRG4zn8pm1v
+	ZKeVIwow==;
 Received: from sslproxy05.your-server.de ([78.46.172.2])
 	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96.2)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wh2SD-000PVw-2y;
+	id 1wh2SE-000PWU-0u;
 	Tue, 07 Jul 2026 11:51:02 +0200
 Received: from localhost ([127.0.0.1])
 	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wh2SD-000Ck1-0u;
-	Tue, 07 Jul 2026 11:51:01 +0200
+	id 1wh2SD-000Ck1-25;
+	Tue, 07 Jul 2026 11:51:02 +0200
 From: Alexander Stein <alexander.stein@ew.tq-group.com>
 To: Frank Li <Frank.Li@nxp.com>,
 	Rob Herring <robh@kernel.org>,
@@ -50,9 +50,9 @@ Cc: Nora Schiffer <nora.schiffer@ew.tq-group.com>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/8] arm64: dts: fsl-lx2160a-tqmlx2160a: add aliases for all 18 DPMAC instances
-Date: Tue,  7 Jul 2026 11:50:50 +0200
-Message-ID: <20260707095057.1745867-4-alexander.stein@ew.tq-group.com>
+Subject: [PATCH v2 4/8] arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: add various GPIO hogs
+Date: Tue,  7 Jul 2026 11:50:51 +0200
+Message-ID: <20260707095057.1745867-5-alexander.stein@ew.tq-group.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260707095057.1745867-1-alexander.stein@ew.tq-group.com>
 References: <20260707095057.1745867-1-alexander.stein@ew.tq-group.com>
@@ -67,50 +67,309 @@ X-Virus-Scanned: Clear (ClamAV 1.4.3/28053/Tue Jul  7 08:24:37 2026)
 
 From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 
-Each TQMX2160A comes with a block of 18 MAC addresses. Define aliases
-to allow firmware to statically assign these addresses to the Ethernet
-interfaces.
+Add GPIO hogs for various signals:
 
-In addition, udev can use these aliases for predicable interface names.
+- Reset signals not assiciated with a device described in the Device
+  Tree (SATA, PCIe, ...)
+- Inputs that must never be driven to avoid hardware damage
 
 Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 ---
- .../dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ .../fsl-lx2160a-tqmlx2160a-mblx2160a.dts      | 259 ++++++++++++++++++
+ 1 file changed, 259 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi
-index 89a4765737b4f..5ca950ff908e7 100644
---- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi
-@@ -8,6 +8,27 @@
- #include "fsl-lx2160a.dtsi"
- 
- / {
-+	aliases {
-+		ethernet0 = &dpmac1;
-+		ethernet1 = &dpmac2;
-+		ethernet2 = &dpmac3;
-+		ethernet3 = &dpmac4;
-+		ethernet4 = &dpmac5;
-+		ethernet5 = &dpmac6;
-+		ethernet6 = &dpmac7;
-+		ethernet7 = &dpmac8;
-+		ethernet8 = &dpmac9;
-+		ethernet9 = &dpmac10;
-+		ethernet10 = &dpmac11;
-+		ethernet11 = &dpmac12;
-+		ethernet12 = &dpmac13;
-+		ethernet13 = &dpmac14;
-+		ethernet14 = &dpmac15;
-+		ethernet15 = &dpmac16;
-+		ethernet16 = &dpmac17;
-+		ethernet17 = &dpmac18;
-+	};
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a-mblx2160a.dts b/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a-mblx2160a.dts
+index a79290401551e..431e4ed2a8b86 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a-mblx2160a.dts
++++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a-mblx2160a.dts
+@@ -187,6 +187,118 @@ gpioex3: gpio@20 {
+ 		#gpio-cells = <2>;
+ 		gpio-controller;
+ 		vcc-supply = <&reg_vcc3v3>;
 +
- 	reg_vcc3v3: regulator-vcc3v3 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "VCC3V3";
++		line0-hog {
++			gpio-hog;
++			gpios = <0 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "NOR_SWAP#";
++		};
++
++		line1-hog {
++			gpio-hog;
++			gpios = <1 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "BOOT_SRC2";
++		};
++
++		line2-hog {
++			gpio-hog;
++			gpios = <2 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "BOOT_SRC1";
++		};
++
++		line3-hog {
++			gpio-hog;
++			gpios = <3 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "BOOT_SRC0";
++		};
++
++		line4-hog {
++			gpio-hog;
++			gpios = <4 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "EMMC_SEL1";
++		};
++
++		line5-hog {
++			gpio-hog;
++			gpios = <5 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "EMMC_SEL0";
++		};
++
++		line6-hog {
++			gpio-hog;
++			gpios = <6 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "SD2_4_MUX_SEL";
++		};
++
++		line7-hog {
++			gpio-hog;
++			gpios = <7 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "SD2_3_MUX_SEL";
++		};
++
++		line8-hog {
++			gpio-hog;
++			gpios = <8 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "SD2_2_MUX_SEL";
++		};
++
++		line9-hog {
++			gpio-hog;
++			gpios = <9 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "SD1_MUX_SEL";
++		};
++
++		line10-hog {
++			gpio-hog;
++			gpios = <10 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "ENABLE_FAN";
++		};
++
++		line11-hog {
++			gpio-hog;
++			gpios = <11 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "SD3_MUX_SEL";
++		};
++
++		line12-hog {
++			gpio-hog;
++			gpios = <12 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "SD2_7_MUX_SEL";
++		};
++
++		line13-hog {
++			gpio-hog;
++			gpios = <13 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "SD2_6_MUX_SEL";
++		};
++
++		line14-hog {
++			gpio-hog;
++			gpios = <14 GPIO_ACTIVE_HIGH>;
++			input;
++			/* Reserved */
++		};
++
++		line15-hog {
++			gpio-hog;
++			gpios = <15 GPIO_ACTIVE_HIGH>;
++			input;
++			line-name = "EC2_SEL";
++		};
+ 	};
+ };
+ 
+@@ -223,6 +335,83 @@ gpioex0: gpio@20 {
+ 				#gpio-cells = <2>;
+ 				gpio-controller;
+ 				vcc-supply = <&reg_vcc3v3>;
++
++				line2-hog {
++					gpio-hog;
++					gpios = <2 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "QSFP_MODPRS#";
++				};
++
++				line3-hog {
++					gpio-hog;
++					gpios = <3 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "QSFP_INT#";
++				};
++
++				line5-hog {
++					gpio-hog;
++					gpios = <5 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "IRQ_RETIMER_1#";
++				};
++
++				line6-hog {
++					gpio-hog;
++					gpios = <6 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "IRQ_RETIMER_2#";
++				};
++
++				line7-hog {
++					gpio-hog;
++					gpios = <7 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "MPCIE_1_WAKE#";
++				};
++
++				line8-hog {
++					gpio-hog;
++					gpios = <8 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "MPCIE_1_DISABLE#";
++				};
++
++				line9-hog {
++					gpio-hog;
++					gpios = <9 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "MPCIE_1_RESET#";
++				};
++
++				line10-hog {
++					gpio-hog;
++					gpios = <10 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "MPCIE_2_WAKE#";
++				};
++
++				line11-hog {
++					gpio-hog;
++					gpios = <11 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "MPCIE_2_DISABLE#";
++				};
++
++				line12-hog {
++					gpio-hog;
++					gpios = <12 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "MPCIE_2_RESET#";
++				};
++
++				line15-hog {
++					gpio-hog;
++					gpios = <15 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "SIM_CARD_DETECT";
++				};
+ 			};
+ 
+ 			gpioex1: gpio@21 {
+@@ -231,6 +420,20 @@ gpioex1: gpio@21 {
+ 				#gpio-cells = <2>;
+ 				gpio-controller;
+ 				vcc-supply = <&reg_vcc3v3>;
++
++				line13-hog {
++					gpio-hog;
++					gpios = <13 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "RST_M2_SATA_1#";
++				};
++
++				line14-hog {
++					gpio-hog;
++					gpios = <14 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "RST_M2_SATA_2#";
++				};
+ 			};
+ 
+ 			gpioex2: gpio@22 {
+@@ -239,6 +442,62 @@ gpioex2: gpio@22 {
+ 				#gpio-cells = <2>;
+ 				gpio-controller;
+ 				vcc-supply = <&reg_vcc3v3>;
++
++				line8-hog {
++					gpio-hog;
++					gpios = <8 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "XFI1_RET_LOSS";
++				};
++
++				line9-hog {
++					gpio-hog;
++					gpios = <9 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "XFI2_RET_LOSS";
++				};
++
++				line10-hog {
++					gpio-hog;
++					gpios = <10 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "PCIE_1_PERST#";
++				};
++
++				line11-hog {
++					gpio-hog;
++					gpios = <11 GPIO_ACTIVE_HIGH>;
++					output-high;
++					line-name = "PCIE_2_PERST#";
++				};
++
++				line12-hog {
++					gpio-hog;
++					gpios = <12 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "PCIE_WAKE#";
++				};
++
++				line13-hog {
++					gpio-hog;
++					gpios = <13 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "X8_PRSNT1#";
++				};
++
++				line14-hog {
++					gpio-hog;
++					gpios = <14 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "X4_1_PRSNT1#";
++				};
++
++				line15-hog {
++					gpio-hog;
++					gpios = <15 GPIO_ACTIVE_HIGH>;
++					input;
++					line-name = "X4_2_PRSNT1#";
++				};
+ 			};
+ 		};
+ 
 -- 
 2.54.0
 
