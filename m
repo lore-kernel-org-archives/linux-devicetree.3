@@ -1,50 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A06434E2C;
-	Tue,  7 Jul 2026 16:19:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEBB2F8EAA;
+	Tue,  7 Jul 2026 16:20:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783441164; cv=none; b=KBxiK0ZErtuDJygPbTAAui+A6EaZDIeUKhNj3TTHI+AgPltz7mRydGTEH9MDM+cpZvQeDEtW8WiEfXHQSpVy9rJPMntpupUkfEL3UDuX960fQCrO+sYXP5DoocVmvXJQV1/YWU5CfCSNxqCZqf/27l+mwShveuxUMSzDTM2Vj74=
+	t=1783441211; cv=none; b=DadcVSFoBf3g818z0P57i6xb3r3EfuLwYmXnS6PWMTw/ZYPj/JypGGE3zoB7IIwxt4MUbw+XjbNzxS/kENnbmAhQLjxTLQgjqLO3GVFbIrl8nUeFjg2R1iG4wWzfOBQH0KzzNGFnBwAktVINzADk2Zo1Ldw2h1HoCFtRQNpdWUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783441164; c=relaxed/simple;
-	bh=r/WV+1AM9CAJd99NwXYSLV+fuIJbi7qrwMD2d2330Os=;
+	s=arc-20240116; t=1783441211; c=relaxed/simple;
+	bh=voMpL70AuboIi4CDiB3QSpXFK/WpnZyUWS7zISJ+zLc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ShhbAqrl7EnTuS9GZPnzO7aLvWW22/G9w1Cs/qrwLNmNhCsuN5V4cEAkmMOaZZ3c+kIJNovb6pOd8wK+NJBU7+ZQvNPXzSSwhUZWSSAu6L08AIMFcKV6XAEjAF3sMvj+06qplmWXR/azosRBiylFZB+vtB0PpxLcKnftO8YaMxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WErHPRd4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HasMUjBdLrMuDMUNusW4BpCHw8EBTLau0EPbJcCQHSQrpF+6Ff0c+VC38OfwMEcqWEbmrTHl9bvDbuk3ih0iI/SdNOPVxU3qMZC5DIkE07tKI3eysXOonbD+3f66F8u9HAscYu12biHorR4KHd9KRMflwUmZVTuIkT3M1BEvUkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqDc6/VO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WErHPRd4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE7E1F01558;
-	Tue,  7 Jul 2026 16:19:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqDc6/VO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18F61F000E9;
+	Tue,  7 Jul 2026 16:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783441163;
-	bh=Pe5c0lRRYuehiikG2q/D86iz7XJppM5GvK+gT5FGJ6Q=;
+	s=k20260515; t=1783441209;
+	bh=voMpL70AuboIi4CDiB3QSpXFK/WpnZyUWS7zISJ+zLc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WErHPRd4NVutyTsOu/YGaANkh7LNzzdntLiXzo4T+7OKglJ+aCD3wRS3BuKVSnP3f
-	 9o0OTrY1YBAjFgEpF23wthcqVYvc74eK58wqf7AF1nF0SZj/LpSZ4B7sWP6bdpNW5C
-	 R1ZA+pesnMVHABwcsGr6AwUT5JzuT9LPGoA7Mf9M7rjr4qF3I6yO2wHCuHsJMM4a4y
-	 wGF2no8lKK5gw7usIk+Cfw5pe3raWpMHjSSCj1b/9gfCvWZUy8Pxo/ZCIy15qVB9g9
-	 iquse/r9vyR6Oal5vdmMws7m0pRCRzP+igAMzFu+jA6ycjCJgPDcv79MlE0NkpKPsE
-	 14RHIuw0HncuQ==
-Date: Tue, 7 Jul 2026 17:19:18 +0100
+	b=AqDc6/VOt/2ze79Qs7Acc0lDf9Txhy7EyKA6PtI6u6+VTnL+5fKkYaxt9bjdgpazb
+	 SjDl5WH3rD6LhPNJSIwVFi5j4KmPlRsfacEBHUBISTSS8SW3IxJD0eomqxWiO5uVsc
+	 Qxx+YIz19N3LzdQ7ewz/X3j0BCtHlZmupAqrNc6h0Unc/WkZTSfxTVK3rI54/6g21E
+	 O6IXMR8eefujIayMlR3k5U2BRdOYQgx3rqoWrwR17syGAa7b6qv1x16Ce7b0Q5i79S
+	 3FQZ53fMMXuZGeeLyDVVRBHtu6fFiE0NP2DsERPvsLHd8M5284IhXXFQn7bEJda+ud
+	 busQRtlXGsWGQ==
+Date: Tue, 7 Jul 2026 17:20:05 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: Michal Simek <michal.simek@amd.com>
+Cc: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com,
 	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] dt-bindings: leds: nxp,pca963x: add multicolor
- LED support
-Message-ID: <20260707-spoken-anemia-68fb54a6ab34@spud>
-References: <20260706-monza-leds-v3-0-37ea8c988363@oss.qualcomm.com>
- <20260706-monza-leds-v3-2-37ea8c988363@oss.qualcomm.com>
- <20260706-account-harsh-093c6354bca5@spud>
- <CAFEp6-2k1O80iY9f8WeoHHRZPMdKGcOTYuEsDvpZmZZXTz3xbw@mail.gmail.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH v2] dt-bindings: xilinx: Remove EDK/Ethernet references
+Message-ID: <20260707-gigahertz-vibes-548284d27e01@spud>
+References: <40767504662d6461553db77465230e25348c69bc.1783413127.git.michal.simek@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,54 +45,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6c5OipnhGJoLhAAx"
+	protocol="application/pgp-signature"; boundary="w5+ShyIjTjEUl7tU"
 Content-Disposition: inline
-In-Reply-To: <CAFEp6-2k1O80iY9f8WeoHHRZPMdKGcOTYuEsDvpZmZZXTz3xbw@mail.gmail.com>
+In-Reply-To: <40767504662d6461553db77465230e25348c69bc.1783413127.git.michal.simek@amd.com>
 
---6c5OipnhGJoLhAAx
+--w5+ShyIjTjEUl7tU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 07, 2026 at 11:03:44AM +0200, Loic Poulain wrote:
-> > > +        "^multi-led@[0-9a-f]+$":
-> > > +          patternProperties:
-> > > +            "^led@[0-9a-f]+$":
-> > > +              properties:
-> > > +                reg:
-> > > +                  maximum: 15
-> >
-> > Is this 15 the maximum for all devices?
->=20
-> 15 is the hardware max for pca9635, and serves as the default for any
-> future/unlisted compatible via the else branch. Per your comment
-> above, I'll move it into the non-conditional block so it's enforced
-> unconditionally instead of only through else.
->=20
-> > If so, why does your regex permit values greater than 15?
->=20
-> The unit-address regex only validates that the name is well-formed
-> hex, and not the numeric bound. DT convention requires the unit
-> address to equal the node's reg value in hex, so in practice this is
-> limited to 15.
-> This is again a copy of what the yaml already describes for other
-> device's constraints. However, I can tighten the regex itself instead
-> if you'd prefer that approach, but that would make the yaml a bit
-> inconsistent.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-I don't see any value in the regexes permitting things that are not
-possible with the hardware. The + should probably be trimmed from the
-existing regexes IMO.
-
---6c5OipnhGJoLhAAx
+--w5+ShyIjTjEUl7tU
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak0nBgAKCRB4tDGHoIJi
-0oGuAPwIlUU6nZvmDo3hOAwp6hWklBGrOjVFR3rsxGvoK3GMvwD+P6VMD80XnmH9
-dgvz6wHIaSdmzAIz9sNj2yqz4sdzMAE=
-=j/LD
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak0nNQAKCRB4tDGHoIJi
+0qlIAP0WR5H9xqegLtBx4iXO81pPXIa+01xUhkE/b4wUXwW7jwEAph2IdwZzID7W
+c8FPL+6bXOjtPZMIa1ZXcVonNy8wuQE=
+=s0DY
 -----END PGP SIGNATURE-----
 
---6c5OipnhGJoLhAAx--
+--w5+ShyIjTjEUl7tU--
