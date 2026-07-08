@@ -1,110 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C2A37B41A
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 08:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B483FCB0A;
+	Wed,  8 Jul 2026 08:24:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783498920; cv=none; b=R8m0EqIU3J6pnA4Qq30eDFqgJ8FJeB+b3axyXwMIKiEtYuBlb4j7N2Zsk8uLgZp8QkdFrBqcFmfI0cGcPEtM1gXHf7u1Y5I9nJzS4bAtn4RTYweonJSFg1LAwl2EfkvRV2iGxPb26d6wOUlDE0vXiiF2Txhti2y9iDJJ6tqVllM=
+	t=1783499055; cv=none; b=DPrUbzWAFG68bdP7bmm7zAZOLIGX1lw2T7ykbE+9cdta3YJihLDwUppkgwfpXbnMrsLZRk0y0WI4yTklNBUlsWCxyxYqxG9jKkx5N7nzazL1i5F5Mzdgj4RfXkzht7NrVfWYqWZ5cVvJID1iuSgO4SA9gLZgp9ueJc+MIwGfOGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783498920; c=relaxed/simple;
-	bh=U5FJU9f1qLhPj4AWyB6KLYsKp4/bAtR4p1eBa42ycqc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WzDjsHD3g6QcX0cL8jUEI/JqAU0EmNip3CR3OIAjQerpRimx2UG88y0iAEYqQPl1d5qpZCXvAfhFxwTOJTpz/3FOYJ5DCXNMlbEihJUBYPOrawe8yBplWftmmi3RJ7QPojB9Ry/HRwSXTXmRFrsTDbIV2PoA0bxlkZKbyHRUiq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dia+i83B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783499055; c=relaxed/simple;
+	bh=IX94bXMbbRmaCb4/ACgbttjebsI/vycb4edIzQhXcAY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GX5wosphjbxrDxhMdjcrhTnm6RT/i8i7rPvMyjqDOnkqclcxKCNoyV20/yRs0ygddobdWdLEwJ3kjH7L1ZGMjAtyV8anWeXLty7sF0M46KeLjO6WqdgX4qomSuJRKBHfOVzEzDMv7YAPDbacC3S04K3Yhxhb1uaZyysDR/b1t2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OyDKbu1x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dia+i83B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F14FE1F00A3A;
-	Wed,  8 Jul 2026 08:21:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OyDKbu1x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C3B1F000E9;
+	Wed,  8 Jul 2026 08:24:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783498915;
-	bh=inL3nHuucFpzo7s/E1QKBOqhv5cGMc9f7GCEEyfTUoI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dia+i83BsX1m1YRN7jgF5QPVuXCpavD8o89RcKtUtc9rr/oGSxfkwlfECt8XU56We
-	 NN6AzcFleoWhtI+g7Q90r9Jw6VnKs5InKYIQf/YJ6LxX4Y+jATze+E3ez7+Hgt3gO8
-	 hdO16WjDnCp5OXpwRheQfYJwahbMx/Fu2934Co0MZJc1rfa5DEKlzpznLxaJdE8Qu8
-	 dxgliesgzuCa5b91I6suW844+97/qg/MV72SBBEHvbohs1Zj/oXqwefYwqQPEz2BhN
-	 znRIGTGemPmXOisZvOXgB4O047ge3zg18mbdJl53BOnGGnrdz1Fhgt0D05dk5k7SFf
-	 E1SEb2lxxJ3Mw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 5/6] net: stmmac: mediatek: add support for TX
- deallocation adjustment feature
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260707-dwmac-mediatek-mt8189-v1-5-17f345eaaca3@collabora.com>
-References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
- <20260707-dwmac-mediatek-mt8189-v1-5-17f345eaaca3@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 08:21:54 +0000
-Message-Id: <20260708082154.F14FE1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1783499051;
+	bh=oSaZCJYBE7oj/TxkN3HTMPHlDGDkR4nh/cfAgBXZdks=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OyDKbu1x5TFbMMPPFO/5Z4ALeaWhDLAeaZpgFxdh9fzejmYg3KyucEwzX9NlFYfos
+	 EXo/IFcVb8mZ4bKTBur+bTPOsOuzAtoOueP88RyOwRUlzKuX8p0nIDaS0QnXBrtRQs
+	 qUqd73KMpymyYKhdwl8HgsWZHYtAUTx9CdbtQFxqnScOFk9M0YkTO+MUpKNYyUAh0M
+	 tNI5JKBGy1f+SJbDzlE0JwGylrCI9lvYVikHn5q/F2uKoOJt/GM18S7koVeXNJm2hr
+	 0PEKTIc2xf1eNQlYomTW5VwHDOK804SNCnkBShign96+NtvwrSxFmS/653iNAVIbX8
+	 uftHwyrxzg9YQ==
+Message-ID: <c2e5e168-bc94-4b17-87e6-8974bb83be3e@kernel.org>
+Date: Wed, 8 Jul 2026 10:24:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/3] platform: arm64: lenovo-thinkpad-t14s-ec: Add
+ hwmon support for temperatures
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: sre@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
+ linux@roeck-us.net, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ neil.armstrong@linaro.org, gaurav.kohli@oss.qualcomm.com,
+ manaf.pallikunhi@oss.qualcomm.com, priyansh.jain@oss.qualcomm.com
+References: <20260707192228.14647-1-daniel.lezcano@oss.qualcomm.com>
+ <20260707192228.14647-3-daniel.lezcano@oss.qualcomm.com>
+ <20260708-wakeful-cyan-caribou-35fd09@quoll>
+ <bba69f4b-9a09-4e9e-98c7-3833924131eb@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <bba69f4b-9a09-4e9e-98c7-3833924131eb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The fine stage delay field MT8189_CTRL0_DLY_GTXC_STAGE_FINE is d=
-efined as a multi-bit mask but is incorrectly used as a value, unconditiona=
-lly setting all 6 bits to 1. Additionally, reciprocal delay functions are n=
-ot updated to account for fine stages.
---
+On 08/07/2026 09:31, Daniel Lezcano wrote:
+> On 7/8/26 08:30, Krzysztof Kozlowski wrote:
+>> On Tue, Jul 07, 2026 at 09:22:27PM +0200, Daniel Lezcano wrote:
+>>> +static const struct hwmon_ops t14s_ec_hwmon_ops = {
+>>> +	.is_visible = t14s_ec_hwmon_is_visible,
+>>> +	.read = t14s_ec_hwmon_read,
+>>> +	.read_string = t14s_ec_hwmon_read_string,
+>>> +};
+>>> +
+>>> +static const struct hwmon_channel_info *t14s_ec_hwmon_info[] = {
+>>> +	HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
+>>> +	HWMON_CHANNEL_INFO(temp,
+>>> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+>>> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+>>> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+>>> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+>>> +			   HWMON_T_INPUT | HWMON_T_LABEL,
+>>> +			   HWMON_T_INPUT | HWMON_T_LABEL),
+>>> +	NULL
+>>> +};
+>>> +
+>>> +static const struct hwmon_chip_info t14s_ec_chip_info = {
+>>> +	.ops = &t14s_ec_hwmon_ops,
+>>> +	.info = t14s_ec_hwmon_info,
+>>> +};
+>>> +
+>>> +static int t14s_ec_hwmon_probe(struct t14s_ec *ec)
+>>> +{
+>>> +	struct device *dev;
+>>> +	struct t14s_ec_hwmon_sys_thermx sys_thermx[] = {
+>>> +		{ .label = "soc",	.reg = T14S_EC_SYS_THERM0 },
+>>> +		{ .label = "keyboard",	.reg = T14S_EC_SYS_THERM1 },
+>>> +		{ .label = "base",	.reg = T14S_EC_SYS_THERM2 },
+>>> +		{ .label = "charging",	.reg = T14S_EC_SYS_THERM3 },
+>>> +		{ .label = "qtm",	.reg = T14S_EC_SYS_THERM6 },
+>>> +		{ .label = "ssd",	.reg = T14S_EC_SYS_THERM7 },
+>>> +	};
+>>> +
+>>> +	ec->ec_hwmon.sys_thermx = devm_kmemdup_array(ec->dev, sys_thermx,
+>>> +						     ARRAY_SIZE(sys_thermx),
+>>> +						     sizeof(sys_thermx[0]), GFP_KERNEL);
+>>> +	if (!ec->ec_hwmon.sys_thermx)
+>>> +		return -ENOMEM;
+>>> +
+>>> +	dev = devm_hwmon_device_register_with_info(ec->dev, "t14s_ec", ec,
+>>> +						   &t14s_ec_chip_info, NULL);
+>>
+>> Last time I commented this looks like actual ABI break. You did not respond to
+>> that, so I assume my finding was right, thus:
+>> 1. binding is not correct (although driver should be fixed, not binding)
+>> 2. the code still breaks users
+> 
+> Sorry I misunderstood it was a question expecting an answer but an 
+> affirmation.
+> 
+> By ABI break do you mean:
 
---- Patch [5]: [PATCH net-next 5/6] net: stmmac: mediatek: add support for =
-TX deallocation adjustment feature ---
-commit 848888a93a986153c930951bd429a61b8a876923
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Existing ABI contract is changed in an incompatible way, which has
+observable effects as below:
+> 
+>   * new driver with old DT will fail ?
 
-net: stmmac: mediatek: add support for TX deallocation adjustment feature
+^^^ this one.
 
-The MT8189 SoC has in the Ethernet control 0 register from the
-peripheral configuration (pericfg) additional bits to adjust the TX
-deallocation.
 
-In preparation of MT8189 SoC support, add its definition, use in the
-set_delay_v2 callback, and a support flag in the platform data.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drive=
-rs/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index bcc0baef3f718..6b0a42b5839f2 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> @@ -37,7 +37,8 @@
->  #define ETH_FINE_DLY_RXC	BIT(0)
-> =20
->  /* Peri Configuration register for mt8189 */
-> -#define MT8189_CTRL0_TXC_OUT_OP		BIT(20)
-> +#define MT8189_CTRL0_TXC_OUT_OP			BIT(20)
-> +#define MT8189_CTRL0_DLY_GTXC_STAGE_FINE	GENMASK(11, 6)
-
-[ ... ]
-
-> @@ -402,6 +407,9 @@ static int set_delay_v2(struct mediatek_dwmac_plat_da=
-ta *plat)
->  		gtxc_delay_val |=3D FIELD_PREP(MT8195_DLY_GTXC_STAGES, mac_delay->tx_d=
-elay);
->  		gtxc_delay_val |=3D FIELD_PREP(MT8195_DLY_GTXC_INV, mac_delay->tx_inv);
-> =20
-> +		if (plat->variant->use_stage_fine)
-> +			gtxc_delay_val |=3D MT8189_CTRL0_DLY_GTXC_STAGE_FINE;
-
-[Severity: Medium]
-Does this unintentionally set all 6 bits of the fine stage delay to 1?
-
-MT8189_CTRL0_DLY_GTXC_STAGE_FINE is defined as GENMASK(11, 6), making it a
-multi-bit mask. Other delay configurations in this function use FIELD_PREP()
-with a specific value, like FIELD_PREP(MT8195_DLY_GTXC_STAGES,
-mac_delay->tx_delay).
-
-If this is intended to hold a programmable fine delay value, should it be
-using FIELD_PREP() instead of ORing the mask directly into gtxc_delay_val?
-
-Additionally, does delay_stage2ps_v2() need to be updated to account for
-these fine stages when reconstructing the picosecond delay?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-dwmac-medi=
-atek-mt8189-v1-0-17f345eaaca3@collabora.com?part=3D5
+Best regards,
+Krzysztof
