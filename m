@@ -1,137 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BA341CB44
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 15:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783525789; cv=none; b=AThUxGEfcXj/YHocYnIsG5TGDiA/wAj6s3gmQ9Ah7VPkj6Sb3QORV7UBPjC4PuLhAZhn2bw078QPOXa1zcFXy/5ziY/p1iZBiC6aLr98IgEN9PfkzvrgGmIwt24Ck6/e8ZTMlxmvZRCWi0ySylmPQ5/PAFpao0jWIPM+V7cgP9I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783525789; c=relaxed/simple;
-	bh=UctYU+eSNQOriGZycicZRhSN/EZQljtP0N0MMfmw3FU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KSxPN4N9nPSZ2V/J+9ay3M5YnUM/VBcSFrfGebvIynhhB7A+3TTfcKTIovAGCZhB6YTGSqy1b0ZJuw5O2WxHlHbPfvJHSgdtDxHUtS3HHN3DfkTWFUDwpRfeTjDLCz7FM4QVq0+kLy8sbHSubjQgyWdhiA20+9tw40C79SPgTps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYxtRu73; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966C03F12C8
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 15:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783525997; cv=pass; b=YVyXYixGhuZw1uBfGPX5pNj5K3WigXGW48en1Fsl8aNLaHHx3V9va1FHIpUw3BE+d3NZG3aGrsIbMtPnKq1scDctoF7mkuiz/HBBP0nOepUojgigQtdervDbz09e2MN0O0xyQGiTCaO1tPC3xcBJBMqp2f14eix/rc2Jbxbdv5A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783525997; c=relaxed/simple;
+	bh=4fZLufBRbYv0ZeoDpC9ZF+sMAM/7XhJjxJD/9UyzC3k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b1jtk9RunyIvM1RT/W3SrkLOvn86QC/qbMl3bqbfB1l+WxPFHGMueFHYykpCQkYOWjJvBUEclBbs77lHF4dIe70qViNAQy2Bl2zmKLeyPIBTNY9mK9fik2ajL7un22+K3rcLE6xIZcp4kbxwZcJ4qtQ3wcOFgPeKbnKqdv9KYUU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=povksdEE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NDt9Givq; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYxtRu73"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33C5E1F000E9;
-	Wed,  8 Jul 2026 15:49:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783525787;
-	bh=An0uBYooxk0Q6HSiI847hmB85Y5Z0hcMtOso+X0XT9w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AYxtRu734j3e8UFgfQ4NRTBwn3wqaeltqCkFH7v+KsSWtVQcbvqci2fbmAbqSmcR4
-	 vgpBalZ8gaIFQRwnc6DdPeRbWWt76AfE8jp/auOK3Cb0yHxPLySgov1HzCug8E54Pw
-	 Dg8SaythPz7+vhhKTta2p+F+OXt0v2D9UEc2s6LEkUpTJuDY6EQOLh/fPo2IwRCZyq
-	 irjm84hKPPNXKc5Hyoz/NswFHKyTU21HeCGUiDy7BMM7Od1qCoL4BjxVvl+1VkCsga
-	 NCLyGDmIfV2J68ltKJqU2E2KGdbRkAvsP4aSBlxEFSeYuWVoaRROrAgQoazxmRmhmc
-	 HhOaHqk2A+zlw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/7] serial: 8250_aspeed_vuart: add
- aspeed,ast2600-vuart compatible string
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <3598f3d668717082adbffa5179b4afbe39b2a946.1783524645.git.gregoire.layet@9elements.com>
-References: <cover.1783524645.git.gregoire.layet@9elements.com>
- <3598f3d668717082adbffa5179b4afbe39b2a946.1783524645.git.gregoire.layet@9elements.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 15:49:46 +0000
-Message-Id: <20260708154947.33C5E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="povksdEE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NDt9Givq"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668C39sb2605295
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 15:53:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=; b=povksdEEU32r3U2F
+	208oi4s1n1bP0yeqPcIppmU/CFq/z0p08+vUOGb1+bJfQopePrfbWPCi5pKmapfu
+	xY5ZMZL+fhM+mHK636+iv6T2bySKiKVPwxvAafADP1rm0E9YF71ZlCObddX9+b7h
+	eJ2ZLa89O4/eY1XXhqiLtPo3zpQQUrhecZ1u9YWOyFZncUKFGmH4wNDPyVYOcFWx
+	C4TRD1jkgEth0B8iasVRKmeX2uUWUJw3TedN9oHHXd/jfF9gRTq6QBCYw9Rvfbya
+	yN2GRoHefAatw7UHrkAFHJQ5+aqvsBJYfxPgWtc66NTUjrf/uYyO0qdv7XZbyuUl
+	8jB6Eg==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9be5bj5w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 15:53:15 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8eec6acbe21so21742126d6.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 08:53:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783525995; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QfwF2IbhCKztwnj6mjxDEGTdJ6W4mKeJWRykVAhFHv03tU+E6BAhM15Z+VZ62aYxMm
+         uCdFXyyeBC2dSzZC0/NwXkrnD0D6ph9ZPPrYkSO+PXVQrTI5PGMKOk2Ptxhwfd+9UPFu
+         xw83FkWMV6bh8rPv76X4tUlcxUQGABv/cvfeXh3Ljc8GZ4h5IajzkG1x2h1IxM1K+0/M
+         XVTnWM9uBxGbSPZp37k+2D4mhTO4Xg0CJ6f/1bMObBddZa1jnQBAGJVJW59TrEMaTTJu
+         FwX3xeiNs19a5vGIwXnFQbJPgcPEuppmvJaKfMXvX6Kip+3q/vNqQosOGkXuQuOx2IA8
+         7pBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=;
+        fh=OsTDmPPBnZZdYdBILeAH0goqNjutvrOPacWOkTaekzQ=;
+        b=T5YmE8GjNz7ZlViMcXi0AtHsnZqluEiygyQFl4L1IWCTFazUq6m3m9drpECJJ463FM
+         qsBx+0epwXOG/dGcb3QZQruAMCxmzY5jY56s3S18H5xaZeRzid+AfAwKK8Gta+oyBFr9
+         7wWyxtrV1fo+M5QSU9G2CFK0EXbmA6s4QoB7ws5qK/0X8w5ROdHMPVSBVVXjiN1meW1B
+         bjKnxieZ2EG6kS2r7bm+fFl/ceTJ9T/ERdd8sndnq4+nRtCf80ddiMmzNOGiomYME1PW
+         TwITJNBGjRO1XWST7HyuZA5RPtD0YK9aZglnb71Uvctts7GkrAM3HxLBBBKYfbmjLKmr
+         t0Cw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783525995; x=1784130795; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=;
+        b=NDt9Givqru9KH49LUNTBx7QzaIDYfb3qEeX9kaDF10u9+HJpj62ndtvjczDL0P8gL4
+         A+PGxJOgZkhyA5ISv8eurCsOgHbhHn6NG9DPrkUkSe8UKwDrL76WFSQCVyd/3A7Ds3Ht
+         En0LC6IMiA/qm1dmNYkiqVUU/yqSuuU1XC006tOOnwukzx+pKGTk5LRH8w4H1NNdwNHq
+         SR6nA8ql38aQx8HvFmNt7X+4MMuzDIOscnr8YHmjzImCTdJNc7hWSSHIYpxI0W7Faco6
+         /F5dtU8EPbnNQeqotNXhUONIIIkkucpb53jS9xSSd9ozETg36QBS4EBHZNGaKVEQsfFP
+         IDZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783525995; x=1784130795;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=;
+        b=k3JtpsjZv3Dx3TCZ/fJmH2l6Qtv6m7QHyNGVVktC1cVt0vB5sB6JFOgOO988XOO+Xp
+         wOZlYMWD1dxea1KMQNzCMYw2tgP/ycAof2snYKk1kjqqYzbhAMCADMxCjVacASd6YCGT
+         LSLvdxJtMhyqDcrN6JaSnKMb9eq0jhKOzyI0v/a/cxzGuLeT8HjrYfjcd8Bax6NBMRCh
+         XYpF18CxCy0OuhyJQbo8sEnir4T/37qWbR8FajsY3tZCfSe31EFRaBvp+bh4ESh/x0Gy
+         Sb2rZ63H44c+wutWh7L/uwMNZrOi7yZio+mq45DlW1uHnmkHGEKX3chATgDeWypSX1wG
+         pF0g==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+gU77ZlsXFZbeqrsMq/bkP2cQ9XBt1DxxI2OALTFi6TuTH32UpWIum/pDZ+hyH2vVefpc85oVaXqf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyeo+fOSJHZL5fFaFsMbqXIQtvdeBNyBoLWnUVvPbCzVkymoX9r
+	KS7pa02Fa9dar4NK77lUXNzGwID15tN80ut33QhMQmTcp5oVge1DMf0mq7yIntl/eyEuJVeyi5Q
+	6FciKh/vKLgHi+13eyayM9Dl9i0BR5JlEwXoFq5XkwEwrqnkTJYeCVM3CRkF0uw1BEcpI7zgwec
+	Mmd8LsYCDbluu/nfNF5cLSKSjth5OimBi+PWLRLQg=
+X-Gm-Gg: AfdE7cnMRrZ/n96lvAd8Y0lh9MBm6+2yb4Gw+XEdJbJb2ha0D/jftZwQOiF+NAZTI7P
+	R4gzT0RqMA7WbSzKWAg1f0vKA8xGgLDQJoHCQe3kiuK8ghyM9lZtRR170ArZggo71Shp9oISxRJ
+	Iy23JtmYVKJZPQkiJ6o47oWtZTkvUERLITKmxO8af/9MJNxKW2FfDE1sOqitAkKxgDJtMy
+X-Received: by 2002:a05:6214:5508:b0:8f1:323a:fc54 with SMTP id 6a1803df08f44-8fec361ce5fmr26792366d6.42.1783525994290;
+        Wed, 08 Jul 2026 08:53:14 -0700 (PDT)
+X-Received: by 2002:a05:6214:5508:b0:8f1:323a:fc54 with SMTP id
+ 6a1803df08f44-8fec361ce5fmr26792106d6.42.1783525993919; Wed, 08 Jul 2026
+ 08:53:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org> <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
+In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Wed, 8 Jul 2026 17:53:01 +0200
+X-Gm-Features: AVVi8Cfl9mmuZ0-N0YzXyQTku0PxVhLh9qj1SZFF_tsUR-VGJVPz8z3CnsVKBnw
+Message-ID: <CAPx+jO-ow2vo2wMxERLGse88wLoaR=HLdOWk6Qwv97ZdbE4R5Q@mail.gmail.com>
+Subject: Re: [PATCH 10/11] regulator: db8500: Add power domain regulators
+To: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Mark Brown <broonie@kernel.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=GJc41ONK c=1 sm=1 tr=0 ts=6a4e726b cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=l53Gh-upYCO10StVhpkA:9
+ a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE1NiBTYWx0ZWRfX1SIPdrvNPpSR
+ 1URSo+khWjtQlAJf+FByW3c4ifw2GZt5Wi+KJiMEi+ZeU745c/CcOO2aO8gLQWRV1VWIhmobLBg
+ b9iqUTJHkyywjXnWWSxVHxPIhbC5L4c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE1NiBTYWx0ZWRfX87EXUJdZLB+Q
+ w/TQH9dldcQoIjJSNpsJsdAlyzgVljLcdUuogq9LNTnnMWxLCmcHvip64V8E+zp2BsD8KE6qSpm
+ SvKB22FpFjnWbYaC2/vFTWGYocO7istm40DRTCb8kJgzoCqA11WJxRv4cCn9tkiZRfOMp7o5+WP
+ 8clw2SXFa7ub2kOvkmp4G/KvEuTF53iWo7bWAVEB8poV0GBz2FgGMF59hcnFkU8iG5SET34sF1y
+ DE9f+vqRixk8frt+rbw0d3ZlPR5l6sCKJirxKPNauJle27hs4QT5Xm2DNNWqlkuD3hx8Te3SWxj
+ /tQFRccBc/7nc1JLMdZZp3gQueVqFUm21+EdvpLA3xANoXPmcpcrPG+Nq4//hZrwkI8csW2/Fsd
+ u7+qNOngwabOl5UOFV762mOPQKpumqFMvX7TsaE7jvkhMpoFDvK75fsIYSbvktEXwi9UHdC21s8
+ RvDsmPZbom+en6XfMvw==
+X-Proofpoint-ORIG-GUID: G0MF6UxO-mw5AB-czk3qD9yywzKjyuWw
+X-Proofpoint-GUID: G0MF6UxO-mw5AB-czk3qD9yywzKjyuWw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ adultscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080156
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Thu, Jun 18, 2026 at 7:01=E2=80=AFAM Linus Walleij <linusw@kernel.org> w=
+rote:
+>
+> Add a DB8500 regulator driver for the VAPE and VSMPS2 compatibility nodes=
+.
+>
+> Back the regulator enable state with the corresponding power domains.
+>
+> This is done for off-chip consumers: the corresponding voltage rails are
+> routed out so they are used for powering different peripherals using
+> these voltages as supplies.
+>
+> Assisted-by: Codex:gpt-5-5
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+>  arch/arm/boot/dts/st/ste-dbx5x0.dtsi |   2 +
+>  drivers/regulator/Kconfig            |  11 ++
+>  drivers/regulator/Makefile           |   1 +
+>  drivers/regulator/db8500-regulator.c | 221 +++++++++++++++++++++++++++++=
+++++++
+>  4 files changed, 235 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/=
+ste-dbx5x0.dtsi
+> index a6fef302c994..fd6a075e4c93 100644
+> --- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+> +++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+> @@ -673,6 +673,7 @@ db8500-prcmu-regulators {
+>                                 // DB8500_REGULATOR_VAPE
+>                                 db8500_vape_reg: db8500_vape {
+>                                         regulator-always-on;
+> +                                       power-domains =3D <&pm_domains DO=
+MAIN_VAPE>;
 
-Pre-existing issues:
-- [High] Error paths in `aspeed_vuart_probe()` after serial port registrati=
-on fail to unregister the port, leading to a Use-After-Free vulnerability.
-- [High] Incorrect teardown ordering in `aspeed_vuart_remove()` allows the =
-unthrottle timer to be re-armed after it is deleted, leading to a Use-After=
--Free vulnerability.
---
+Hmm, isn't this the other way around? The power-domains node should
+have a regulator supply?
 
---- Patch [3]: [PATCH v4 3/7] serial: 8250_aspeed_vuart: add aspeed,ast2600=
--vuart compatible string ---
-commit be545f82b6eac2794c78d897d8e0ac9945c563d1
-Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
+We may even consider to skip to model the regulator altogether and
+make the power domain operate directly on the prcmu instead.
 
-serial: 8250_aspeed_vuart: add aspeed,ast2600-vuart compatible string
-   =20
-Make the driver compatible with the ast2600-vuart.
-Enable specific configuration for the AST2600.
+>                                 };
+>
+>                                 // DB8500_REGULATOR_VARM
+> @@ -693,6 +694,7 @@ db8500_vsmps1_reg: db8500_vsmps1 {
+>
+>                                 // DB8500_REGULATOR_VSMPS2
+>                                 db8500_vsmps2_reg: db8500_vsmps2 {
+> +                                       power-domains =3D <&pm_domains DO=
+MAIN_VSMPS2>;
 
-> diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/se=
-rial/8250/8250_aspeed_vuart.c
-> index 26fc0464f1cc2..6afa2f4057e1b 100644
-> --- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
-> +++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
-> @@ -560,6 +560,7 @@ static void aspeed_vuart_remove(struct platform_devic=
-e *pdev)
->  static const struct of_device_id aspeed_vuart_table[] =3D {
->  	{ .compatible =3D "aspeed,ast2400-vuart" },
->  	{ .compatible =3D "aspeed,ast2500-vuart" },
-> +	{ .compatible =3D "aspeed,ast2600-vuart" },
->  	{ },
->  };
+Ditto.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but the error paths in
-aspeed_vuart_probe() after serial port registration fail to unregister
-the port.
+>                                 };
+>
+>                                 // DB8500_REGULATOR_VSMPS3
+> diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
+> index acc698c17bd2..8db63d8d3fa4 100644
+> --- a/drivers/regulator/Kconfig
+> +++ b/drivers/regulator/Kconfig
+> @@ -397,6 +397,17 @@ config REGULATOR_DA9210
+>           converter 12A DC-DC Buck controlled through an I2C
+>           interface.
+>
 
-If an initialization step fails after serial8250_register_8250_port() (e.g.
-if aspeed_vuart_set_lpc_address() returns -EINVAL), the code jumps here:
+[...]
 
-drivers/tty/serial/8250/8250_aspeed_vuart.c:aspeed_vuart_probe() {
-    ...
-err_sysfs_remove:
-	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
-	return rc;
-}
-
-This error path omits serial8250_unregister_port(vuart->line) and
-timer_delete_sync(&vuart->unthrottle_timer), leaking the registered port.
-
-Since the vuart struct is then freed by devres, if a user opens the leaked
-serial port, aspeed_vuart_startup() will dereference the freed vuart struct.
-
-Should the error path unregister the port and delete the timer?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there is an incorrect teardo=
-wn
-ordering in aspeed_vuart_remove() that allows the unthrottle timer to be
-re-armed after it is deleted.
-
-drivers/tty/serial/8250/8250_aspeed_vuart.c:aspeed_vuart_remove() {
-	struct aspeed_vuart *vuart =3D platform_get_drvdata(pdev);
-
-	timer_delete_sync(&vuart->unthrottle_timer);
-	aspeed_vuart_set_enabled(vuart, false);
-	serial8250_unregister_port(vuart->line);
-	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
-}
-
-Because timer_delete_sync() is invoked before serial8250_unregister_port(),
-the UART and its IRQ are still fully active. An incoming interrupt can trig=
-ger
-aspeed_vuart_handle_irq(), and if the tty buffer is full, re-arm the timer
-via mod_timer().=20
-
-When the driver removal completes, the vuart struct is freed by devres. When
-the re-armed timer fires, aspeed_vuart_unthrottle_exp() will dereference the
-freed vuart struct.
-
-Could the timer be deleted after unregistering the serial port to prevent
-it from being re-armed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783524645.gi=
-t.gregoire.layet@9elements.com?part=3D3
+Kind regards
+Uffe
