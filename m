@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB5042F70A;
-	Wed,  8 Jul 2026 11:07:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1D730C163;
+	Wed,  8 Jul 2026 11:09:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783508839; cv=none; b=qHuCFd91OTxUnQ8afMeCAvpfUjSVmVBeWso2qReeCj6mdNNCR0swdP10npWUhwmaXxT0MmWRg1WTIqP6Nvu/Lk+3g+4yXDhbkvepClPPQc/vF/mlc7YVrhWBctZ14bG5aGe/WcLRwNxbuQ3UbiDcs0g+VhgzYF6deGcUTEE9aZc=
+	t=1783508964; cv=none; b=WylkASakK+1GlKpy5cK+51kHb0EHs+XlJ1ooTfrhhKGKqsEFF4MEw1e9tO1b8pTST9nxa5ybvRkMc6x6Eipg+TkUsmSnzdnJo9xqv4SLXZs5Z5hAUw/mtKQdrfVX2osjIcAOEGLjMYp9yB9rmxPgx7GDgg87GuZuI2Nx+lKME0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783508839; c=relaxed/simple;
-	bh=ijsbcDSklk8MT/RamTdFEthfJr8ldrgaIDgJjnNABoM=;
+	s=arc-20240116; t=1783508964; c=relaxed/simple;
+	bh=TOi6wy7nNW7m2FOPg7UBrYpWBi41h9CeKBS2wQXzJt0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=up8qAaWzTgV7oMOFk0/7KB+xVJBgbeUwPh/XKFmyKnKbbPbFDm9P412Yfq0rCMBnLGpX0gu6jDsmhHM4Uy6v4Ah+yKrGgMowm6KtuB7bWWPzrG9ON5/2KdIwurj+IFuWvIZ9ySblsGXTyT92UKR4KfEPYfmwUzEoaLhKFSGbiL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jG9WblOa; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=tmxIT+fp6mYVg7aeCPNvETcAe6Yuytgl5W/jGDr+tohbF77fqrjFdn/HxizmQRhR71k5AJiSGJS8W+qz42F0NVQoRhRISXLXBTyHfpM+4akTGYboEmosCBfIXqd2zVvwM3i3ZEueHp5ZIhF4gZXWUCwz+FOjEESOVh7zqcjDYCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cc7SSrlw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jG9WblOa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5ED1F000E9;
-	Wed,  8 Jul 2026 11:07:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cc7SSrlw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490A91F000E9;
+	Wed,  8 Jul 2026 11:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783508836;
-	bh=nj0nRTi0K+MpJtnACrQ9e356yxRn3gV/Airqax8uaaE=;
+	s=k20260515; t=1783508959;
+	bh=XuXjuuzDyi8cgbQulYQmKbsVE4hX7Aw0qIQT8ma46NA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jG9WblOaicEFXp+FgwqOqhOjsZF3M95k/7QVVc2S/+rUPopbiEHQ1My8yN8f+kULb
-	 E3r/QAQxB+C7v+5xlXkyGHEEu+w/M7iC/xl+0189YHaOuLse49e2oBcqskfM+Hh5eA
-	 i6QBVLf/m0NYAgPezzjxhmOB67qPWOidExnAJx9Nxjgiaf1ZvgLVvtpZkqCUmFXeHB
-	 TKBzY9lUCJu71BjxYgRwv8tE0cYNSYyvJBexX5HmY8fVIMdWBCABXTiTCgmQriTrmC
-	 Df3SU6AsUF8Hbx6s/U0NlCuTJRF2L8cYgtDiNFcUDzaNyFX7gWSe8S6dluf8Q9oWxw
-	 o/YPozxquem4Q==
-Message-ID: <628fe4d5-1467-4de6-8d74-f937e025229d@kernel.org>
-Date: Wed, 8 Jul 2026 13:07:11 +0200
+	b=cc7SSrlwx2z3/Y3y8F1os6XLVglgwGjaTk7SJo5ycmz6DEDkAQpuFti8FnbE5dNe6
+	 IVy6Klwyj4C2t+px51R7oHfxIKaa8uXjHQbFLcfYHsngwCs1f5tU0n0l+PsRChKegv
+	 tg7tX+/rITGDrerTok+liXVhTYeruZ/eusjy72ec/AGBiyvaAKGx3MRDDy9aqkV+P4
+	 klFL54vR8jwktJceMwE1SCd1pVOZEWoavi3MJLc/Nz3Q4MVjiGjbdl3BrvZQwiVOML
+	 04zyYhXAEtaNckWBCFFp6crYfniVnl8LZqiFWEFPOixMTdv24ajcFQXL+ZNIZ0pTg0
+	 JSuuBEAkcB1JQ==
+Message-ID: <cf5903d7-9ece-49f0-92a8-9f0dd2c27b01@kernel.org>
+Date: Wed, 8 Jul 2026 13:09:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,11 +35,11 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: memory: Add TI FSS_FSAS binding
+Subject: Re: [PATCH v2 2/2] memory: ti-k3-fsas: Add TI FSS_FSAS driver
 To: Santhosh Kumar K <s-k6@ti.com>, robh@kernel.org, conor+dt@kernel.org
 Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 References: <20260629072055.896322-1-s-k6@ti.com>
- <20260629072055.896322-2-s-k6@ti.com>
+ <20260629072055.896322-3-s-k6@ti.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -85,73 +85,114 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260629072055.896322-2-s-k6@ti.com>
+In-Reply-To: <20260629072055.896322-3-s-k6@ti.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 29/06/2026 09:20, Santhosh Kumar K wrote:
-> Add DT binding for the TI Flash Subsystem Application Subsystem
-> (FSS_FSAS_GENREGS) wrapper present in TI K3 SoCs. This block controls
-> XIP read prefetch for the OSPI controller.
-
-A nit, subject: drop second/last, redundant "bindins". The "dt-bindings"
-prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
+> Add a platform driver for the TI Flash SubSystem Application Subsystem
+> (FSS_FSAS_GENREGS) in K3 SoCs. This driver takes care of disabling the
+> OSPI XIP prefetch which causes DMA transfer data corruption.
+> 
+> Set SYSCONFIG.DISXIP to disable XIP read prefetch, preventing DMA data
+> corruption when the OSPI DMA source address is not 4K-aligned.
 > 
 > Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
 > ---
->  .../memory-controllers/ti,am62a-fsas.yaml     | 39 +++++++++++++++++++
->  1 file changed, 39 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/memory-controllers/ti,am62a-fsas.yaml
+>  drivers/memory/Kconfig      | 10 +++++
+>  drivers/memory/Makefile     |  1 +
+>  drivers/memory/ti-k3-fsas.c | 74 +++++++++++++++++++++++++++++++++++++
+>  3 files changed, 85 insertions(+)
+>  create mode 100644 drivers/memory/ti-k3-fsas.c
 > 
-> diff --git a/Documentation/devicetree/bindings/memory-controllers/ti,am62a-fsas.yaml b/Documentation/devicetree/bindings/memory-controllers/ti,am62a-fsas.yaml
+> diff --git a/drivers/memory/Kconfig b/drivers/memory/Kconfig
+> index e5527020ff33..954e47810e8d 100644
+> --- a/drivers/memory/Kconfig
+> +++ b/drivers/memory/Kconfig
+> @@ -125,6 +125,16 @@ config TI_EMIF_SRAM
+>  	  sequence so this driver provides several relocatable PM functions
+>  	  for the SoC PM code to use.
+>  
+> +config TI_K3_FSS_FSAS
+> +	tristate "TI K3 Flash Subsystem Application Subsystem (FSAS) support"
+> +	depends on ARCH_K3 || COMPILE_TEST
+> +	help
+> +	  Driver for the TI K3 Flash Subsystem Application Subsystem
+> +	  (FSS_FSAS_GENREGS) wrapper found on K3 related SoCs.
+> +
+> +	  This driver takes care of disabling the OSPI XIP prefetch which
+> +	  causes DMA transfer data corruption.
+> +
+>  config FPGA_DFL_EMIF
+>  	tristate "FPGA DFL EMIF Driver"
+>  	depends on FPGA_DFL && HAS_IOMEM
+> diff --git a/drivers/memory/Makefile b/drivers/memory/Makefile
+> index 3ee883c8759a..8dc4860f615d 100644
+> --- a/drivers/memory/Makefile
+> +++ b/drivers/memory/Makefile
+> @@ -28,6 +28,7 @@ obj-$(CONFIG_STM32_OMM)		+= stm32_omm.o
+>  obj-$(CONFIG_SAMSUNG_MC)	+= samsung/
+>  obj-$(CONFIG_TEGRA_MC)		+= tegra/
+>  obj-$(CONFIG_TI_EMIF_SRAM)	+= ti-emif-sram.o
+> +obj-$(CONFIG_TI_K3_FSS_FSAS)	+= ti-k3-fsas.o
+>  obj-$(CONFIG_FPGA_DFL_EMIF)	+= dfl-emif.o
+>  
+>  ti-emif-sram-objs		:= ti-emif-pm.o ti-emif-sram-pm.o
+> diff --git a/drivers/memory/ti-k3-fsas.c b/drivers/memory/ti-k3-fsas.c
 > new file mode 100644
-> index 000000000000..5a5cac92082b
+> index 000000000000..a5f42afc694c
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/memory-controllers/ti,am62a-fsas.yaml
-> @@ -0,0 +1,39 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2025 Texas Instruments Incorporated
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/memory-controllers/ti,am62a-fsas.yaml#
+> +++ b/drivers/memory/ti-k3-fsas.c
+> @@ -0,0 +1,74 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * TI K3 Flash Subsystem Application Subsystem (FSS_FSAS) driver
+> + *
+> + * Copyright (C) 2025 Texas Instruments Incorporated - https://www.ti.com
+> + */
+> +
+> +#include <linux/io.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm.h>
+> +
+> +#define FSAS_GENREGS_SYSCONFIG 0x04
+> +#define FSAS_SYSCONFIG_DISXIP BIT(7)
+> +
+> +struct k3_fsas {
+> +	void __iomem *base;
+> +};
+> +
+> +static void k3_fsas_disable_xip_prefetch(struct k3_fsas *fsas)
+> +{
+> +	u32 val;
+> +
+> +	val = readl(fsas->base + FSAS_GENREGS_SYSCONFIG);
+> +	val |= FSAS_SYSCONFIG_DISXIP;
+> +	writel(val, fsas->base + FSAS_GENREGS_SYSCONFIG);
+> +}
+> +
+> +static int k3_fsas_probe(struct platform_device *pdev)
+> +{
+> +	struct k3_fsas *fsas;
+> +
+> +	fsas = devm_kzalloc(&pdev->dev, sizeof(*fsas), GFP_KERNEL);
+> +	if (!fsas)
+> +		return -ENOMEM;
+> +
+> +	fsas->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(fsas->base))
+> +		return PTR_ERR(fsas->base);
+> +
+> +	platform_set_drvdata(pdev, fsas);
+> +
+> +	k3_fsas_disable_xip_prefetch(fsas);
 
-Why is this in memory? I have doubts this is a separate device.
+So a driver for FSAS device just writes to one register. That's why I
+claim binding is either incomplete or not really a separate device.
 
-
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments K3 Flash SubSystem Application Subsystem (FSS_FSAS)
-> +
-> +maintainers:
-> +  - Santhosh Kumar K <s-k6@ti.com>
-> +
-> +description:
-> +  The FSS_FSAS_GENREGS block is a TI wrapper inside the Flash SubSystem (FSS).
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,am62a-fsas
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    bus {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-
-Just go with default address cells, drop node.
-
+Plus how does this work when you probe QSPI before this FSAS?
 
 Best regards,
 Krzysztof
