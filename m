@@ -1,200 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927334C041B
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 18:13:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EB637996B
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 18:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783534437; cv=none; b=OM//LXkHcguXvWIPB0cmBYl1divkkeX76ci2RM/enDLRe59IWJhNFo+/NeJvvxbAtxpXRXRjlALi5WcEteisRFLhxR7HVp8oTxz0yzdoCDlK7PRB/RA7gfvtWhI+R3dRumOzGajCd9khmuDjT+8XOUn6Zb8KbF2ELIRcZylYajA=
+	t=1783535125; cv=none; b=FTmoXqaO/fAErTsmIM4aBz/vXAexyLivJSAuyLjSROio8tSYt0H1F5fidDzktZqBuz3M7r5pRynRV6AsdGXKW0G07gkj9kG6UyfQBrImkQ6EX/FCINoxr54N5/iL8tvaCZ1X5Qt088jnok2Hs4+W6LvKTbF3QXt1V5DKGfpxSMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783534437; c=relaxed/simple;
-	bh=gOs/Vf4FY7FAeIjOKfX+ocxryp0eWV4kWD+WGnRT68M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JIinnNiacdJI/6+KwAgUzmNnr2kmPBQ6idWUqIk2moxT0xi0MtSDyKhuGpSDW5v3jDF2qgDTQm51KaDa38Wf3qS7NeuSkahVkMDnsap2hDReuS0ODBuGicTJq9d1xhntQu9+0uRdsoZeyso/2TNxeBG1ZDK5VOoivZV4qR57buQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MWM/zHWC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783535125; c=relaxed/simple;
+	bh=xEfWcNodSiJaimKcnO8lld02aNd9L/RRemVH+bXC/Qs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pcm1DnaJbLXReheOaa4KkhHQX38j8srKWJibZvJvW+DdD5jEdWuUqw3oPfVUIbDF/GT/fZC1okhl02q0u3b04GF95ZtU7eoZGUVN9L6ocxRlctgPMWIAltTlfdcrkD22QV2O0x5aRVFlO5VZjctzmtRayLAIVwZLhq6xcK03cU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S0J2K3OD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HWMhLB3G; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MWM/zHWC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF011F000E9;
-	Wed,  8 Jul 2026 18:13:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783534434;
-	bh=JNl0rDNmWFM4Tos3gEULCI9jiyiYD1qv3d+p9g9YbNM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MWM/zHWCyyz4c7nA7sy+Ag5bOITgGuhZtRw8LctRKKdXMnI9iQP1adwgQsdd0LgWh
-	 9i3QQUFCAmU6liVJzBDfGfeTU16dBKGfEH2sudjhqTHbxtzEOHq1lm3R6AQNhVlK2v
-	 dy8HYC898u1WPAKz6XLQjsBJAp9/orCPCk+v5KksfsRfiedVLYqBMJQ1GNJFlbe8HA
-	 htJ3PFd871+NLIefeUQBe2Se48FbepE5Bmgsc7maXz2XNWvEVjuEH80mnWRjLkXQK4
-	 SpKDtotyp3XiJXpZDPFUAuJ93hEiQjaSyag5r/wnQLTWNKDkxbUi5f8RW42M9oYOMy
-	 vdnylo+KZtQCQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] crypto: rockchip: Add RK356x/RK3588
- cryptographic offloader driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dawid Olesinski" <dawidro@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260708175837.1718437-3-dawidro@gmail.com>
-References: <20260708175837.1718437-1-dawidro@gmail.com>
- <20260708175837.1718437-3-dawidro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 18:13:53 +0000
-Message-Id: <20260708181353.AEF011F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S0J2K3OD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HWMhLB3G"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668GL9Ke3125820
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 18:25:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=DlOq9cyGVjo1GSBmam8JHq
+	IncEW7Ur5TJOCioZSLmxk=; b=S0J2K3ODUevZxf5v5BEoGFyQz+DKj/rkQbuwUF
+	KNRDtROjiI1QhxDIAaiFI3uH0rFdi+eKjZN1x+P+G7LocbzkcW0j+Ut3U4hvFjXp
+	1wUd551D5kA4hghQX/D9/2m3T4L/YO1BmdakF8gMWgf0jdqlj0r+/89ZZJYqqyAK
+	spfo9WzvZ3XBA55Ox99QqBBCtGsRbWkOxW6qE20A8OfLzUshJPl3XjwxMUDg/syI
+	7UySzfmvn1FZFB9NtyuJZlDiF3+hhraP30R+iIvdWZAGUmC+W95NgIWWIBZv5NJl
+	MakU9FAOh0m+MoRjF8Wuq8YNCwN69IqCEBBSzfxPFccsAheQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9q5s9gva-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 18:25:23 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cc88e22f92so23355745ad.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 11:25:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783535123; x=1784139923; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DlOq9cyGVjo1GSBmam8JHqIncEW7Ur5TJOCioZSLmxk=;
+        b=HWMhLB3GFwv3gwJV6vW8loRtFqfhRkfaTj0z2jkRKPge2hBNf1xz8Ckb4eWzafv4p5
+         l19V5pPPUNSUdnhUXxgEpqZ5BBdfp5Y+6lUDdTyxOxrefNay43gMKurPDyTdzU/hGPsW
+         5CDQ2+gQlV0Agdlo2WLBFMZlNN4aWcoIcljMzMWeQpH0FRs2bIp0Yl6HLlWrEXdH0kLy
+         agQe5qG3fyeVgpMzOQr+BUYa+FvSjW5G40AkaDiKeMcaHz1uQ0fBcwgN6LOv+rEDpoSU
+         HY9LRi4W9/LDsxA6Y5iXUwS4Am5vzFUEAK3X+/TKLiztazYB8rzMxo7pGw67ZwQatxvc
+         Fcog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783535123; x=1784139923;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DlOq9cyGVjo1GSBmam8JHqIncEW7Ur5TJOCioZSLmxk=;
+        b=n5lp9aHHkCy0/M42JTG3fdRRAFrBOkJOF0TGUsvNSlhO4Bl6AKuJULZvGGLTTniMZj
+         6gLdBScPJIPCNti5QVM5yeRW4+BQt1H0H54h3HpgonikyzS2XMXs66OSidA1wSB1AECN
+         D2fjysozKeMk9Z6RNeraF2bUyog0eoti48QDxxGkckA54sY8OCeBhUpXx/9g3qNxwd8m
+         HnynpSdPTFRXhTzm7adhPUtep5F/KJ4H6iC/1hNjbLAXMWXsdj/QVPHSHTmMy5dRGPDN
+         fu/2g1snWtTet27ZXRAlgbzRFHVterWSMAtbPuxB1/J2TzjZOXpaejX30LxoQqzuK02p
+         ikdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrS4l1OQgVcUHSZ7qjUnxHb9kH9EfK3JsN4/EE5M9GnKdhlCEYR1S7FMN/2F+fSiASmbT2PxBY2Az8s@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzajp0xtIfOwU38dxeRE4DZ4ZGdZiUCt/V+Aaf4l5p4WGw5dAQE
+	9EsA/i/PFyVevgp1dbUEMfde95Zw64CRz68qxoFOpSwfrlQC+UOUYkyVXlIBJWjeSyVCA3eUfx+
+	MfSpmPzJKHM3zy0vt0K5UkqB5Mzlduf6AP++lM2VjFFUCe/lzBV7ooS8VSxnjS/Om
+X-Gm-Gg: AfdE7cnuD+xZzfzCZ+UmnJFj0COTP5GQw4ko97UZFvAOm+9tf0b8g2DMXwNdoIZK3tx
+	pYx8G+WA+4AuHlBzBp6eB2MJops/knhxYOi1L4G+aKKei2g3NzfNiaFH33zlaywfYAUmfi5gwH+
+	IKAzLkm39mh+Kq18Din1PbT1oQDdbS7zz01Wy8Ou/3k4lvW6o6odnbxHSTae+c7I1qQ75xA3aHr
+	ltJ7qiMMqlVi9cyt6zWmMxtOJ5ocUZqhFtGkr6tdu0z2rxokjYg/9Yqc9dCNE4Pmzs6cW/UANVR
+	dGQrqq4y5Hw2r9gOVZaDsRvh3K0wg02OZgnCe/nIZUfcQazNhzB3qGyWvYTR9qYjgCKO0smQv/w
+	TmCLPwgDOSkOix1BZQLgk/zE3tnmLFwV31BU/TQUYuw==
+X-Received: by 2002:a05:6a20:a10e:b0:398:7df5:2dae with SMTP id adf61e73a8af0-3c0bcf49b71mr4360027637.9.1783535122736;
+        Wed, 08 Jul 2026 11:25:22 -0700 (PDT)
+X-Received: by 2002:a05:6a20:a10e:b0:398:7df5:2dae with SMTP id adf61e73a8af0-3c0bcf49b71mr4359995637.9.1783535122275;
+        Wed, 08 Jul 2026 11:25:22 -0700 (PDT)
+Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca5af7d5946sm2671098a12.7.2026.07.08.11.25.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 11:25:21 -0700 (PDT)
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Subject: [PATCH v2 0/4] clk: qcom: Add Audio Core clock controller support
+ on Qualcomm Shikra SoC
+Date: Wed, 08 Jul 2026 23:55:04 +0530
+Message-Id: <20260708-shikra-audiocorecc-v2-0-b320d822cdd0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAGWTmoC/32Qy2rDMBREf8VoXQVZT8ur/kfJQo+rWCSOEsk2L
+ cH/XtlpaFfdXJgLc2aYByqQIxTUNw+UYYklpmsV9K1BbjDXE+Doq0aUUEkkEbgM8ZwNNrOPyaU
+ MzuFOQIBAFOOKo2q8ZQjxc4d+HJ86w32u7On5/EXXpA3MqX6BTxWYb2O97nIumBLNwYcQmCX9I
+ tDfXj9m0bYvs5+wV8JrxQWXXPaL3AzWFMAujWOc+sa14CxlOhjGhRRUG0apEEzo4FRnpQarfcc
+ V2poPsUwpf+3rLO1e/b8hlhYTrACkFYF6Tbv3VMrhPpvLln6oBx3Xdf0G1Iiz23UBAAA=
+X-Change-ID: 20260605-shikra-audiocorecc-85efef073474
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE4MCBTYWx0ZWRfX106k6FGEZPvN
+ Hc3VcM26IX/7IOC+1zPMivdEGxyYS3lKiarQT7HiokuzvdNwDhVB/9eN7OKjiIA80DO87yiI/gi
+ c6kHYcSZN8+AS1hNnA6bvPoY5df8xzGUjlwv/3KcNNqRTqEFj9h4VqIsetuYbyD7LPRoeR4pIqV
+ 5MDspRAG2/y90ZuxuBZ+kweKkDhBrWaYqGZebCx4XgDh/g88Tmg+QzcCiDqTyIzicafIe34n2GB
+ sSxoyFtTkIcnONGc/2tmUkj3WgJ7L33x/Kh7rIzad/bJnNWpYB1vyzTZFPsqWcGfc9Zw5RYLJIq
+ rN1wy/Nzgqn9FuWvxS8Gn13eMYWWIdP+G1MGDXCkazXy1ZYF6j5Mnf+JyJpNbo89pEayULxbpBE
+ ASmKcFcEPg3+45qeo7nhTHfP3jnpma6zpgq6ucfVP32Q98gQ6VeuMX+pO3rAq3hrAP9PcCBEZ95
+ DUzL0PhJNZNOOErppLw==
+X-Proofpoint-ORIG-GUID: xe1zDrl1CQ52ySj3k65SSkn_MIWzqMwo
+X-Authority-Analysis: v=2.4 cv=NfTWEWD4 c=1 sm=1 tr=0 ts=6a4e9613 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tvEzqpDY3YWCjbqCEX0A:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE4MCBTYWx0ZWRfX992roXhJH2/5
+ 5HMU+55bZjXdrNNu24f33KWdtbJ2iOG90aU7kXOHSLp25OnhgS5GrEHySapqVkMN0UhA8GPjTww
+ YnqLA7xqfCRfsB+v+H3iZDPFUF5V++A=
+X-Proofpoint-GUID: xe1zDrl1CQ52ySj3k65SSkn_MIWzqMwo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_03,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607080180
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Missing SYSTEM_SLEEP_PM_OPS causes device state corruption across =
-system suspend/resume.
-- [High] The interrupt handler accesses hardware registers without checking=
- if the device is active, leading to potential bus faults.
-- [High] Driver structures managed by devres are destroyed when `remove()` =
-returns, leading to Use-After-Free by active TFMs and background `crypto_en=
-gine` kworkers.
-- [High] DMA memory is unmapped before stopping the hardware when a request=
- times out, leading to memory corruption or IOMMU faults.
---
+This series adds support for the Audio Core Clock Controller (AUDIOCORECC)
+and Audio Core CSR resets on Qualcomm Shikra SoC. The Audio Core Clocks and
+Resets support differs across Shikra variants based on Audio subsystem
+enablement as follows:
 
---- Patch [2]: [PATCH v2 2/4] crypto: rockchip: Add RK356x/RK3588 cryptogra=
-phic offloader driver ---
-commit 81281ac8d9ab85c86e6148fdf22fdc86a62ad727
-Author: Dawid Olesinski <dawidro@gmail.com>
+- CQM variant: The QAIF driver runs on HLOS, hence both clocks and resets
+are required to be supported on HLOS.
+- CQS variant: The QAIF driver runs on the Modem, and required clocks are
+handled on Modem, so from HLOS only resets are needed.
+- IQS variant: no soundwire codes, hence no clocks/resets are needed.
 
-crypto: rockchip: Add RK356x/RK3588 cryptographic offloader driver
+Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+---
+Changes in v2:
+- Separated AudioCoreCC and AudioCoreCSR nodes as both resides in two
+  different register spaces. [Konrad]
+- Updated bindings and driver patches to handle the separate node
+  compatibles.
+- Updated resets in driver patch to handle HW_CTL bit.
+- Link to v1: https://lore.kernel.org/r/20260605-shikra-audiocorecc-v1-0-7ee6b5f2d928@oss.qualcomm.com
 
-This commit adds a driver for the second-generation Rockchip cryptographic
-hardware accelerator found on RK3568 and RK3588 SoCs. It integrates with
-the crypto engine framework and implements automatic software fallbacks for
-requests that cannot be processed in hardware. The driver also utilizes
-runtime PM with an autosuspend delay to manage device clocks and power.
+---
+Imran Shaik (4):
+      clk: qcom: common: Register reset controller only when resets are present
+      dt-bindings: clock: qcom: Add Qualcomm Shikra AudioCoreCC and AudioCoreCSR
+      clk: qcom: Add Audio Core clock controller support on Qualcomm Shikra SoC
+      arm64: dts: qcom: shikra: Add support for AudioCoreCC and AudioCoreCSR nodes
 
-> diff --git a/drivers/crypto/rockchip/rk2_crypto.c b/drivers/crypto/rockch=
-ip/rk2_crypto.c
-> --- /dev/null
-> +++ b/drivers/crypto/rockchip/rk2_crypto.c
-[ ... ]
-> static const struct dev_pm_ops rk2_crypto_pm_ops =3D {
-> 	RUNTIME_PM_OPS(rk2_crypto_pm_suspend, rk2_crypto_pm_resume, NULL)
-> };
+ .../bindings/clock/qcom,shikra-audiocorecc.yaml    |  90 +++
+ arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts        |   8 +
+ arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts        |   4 +
+ arch/arm64/boot/dts/qcom/shikra.dtsi               |  18 +
+ drivers/clk/qcom/Kconfig                           |  10 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/audiocorecc-shikra.c              | 809 +++++++++++++++++++++
+ drivers/clk/qcom/common.c                          |  24 +-
+ .../dt-bindings/clock/qcom,shikra-audiocorecc.h    |  49 ++
+ 9 files changed, 1002 insertions(+), 11 deletions(-)
+---
+base-commit: c1ecb239fa3456529a32255359fc78b69eb9d847
+change-id: 20260605-shikra-audiocorecc-85efef073474
+prerequisite-change-id: 20260429-shikra-gcc-rpmcc-clks-2094edfff3b0:v5
+prerequisite-patch-id: 59bb0a7828e41f546f734f127d81da83c0adcda9
+prerequisite-patch-id: 197da6bcb15cadc47869dba88c8020987b25c335
+prerequisite-patch-id: 8ec9c1eb03f052ae232ed54117abed38672c23f6
+prerequisite-patch-id: 350db4f4bcdfc0fad9ed57cd5b1723f85ad44f5d
+prerequisite-change-id: 20260511-shikra-dt-d75d97454646:v6
+prerequisite-patch-id: 3a689e8dda5fd2755b689d94d095806b3f2e6eed
+prerequisite-patch-id: ac83151a889855498d36288ddd36216d451340c8
+prerequisite-patch-id: 2357cac636e019eaf14d6a493a1c72bca56fe405
+prerequisite-patch-id: 2885f299e711582da312ca9d13983d296a3dd5dc
+prerequisite-patch-id: 91af5f3c01e766a53ce8de69aa21847a2d6bbbf8
 
-[Severity: High]
-Does the rk2_crypto_pm_ops structure correctly handle system sleep (e.g.,
-S3 suspend)?
+Best regards,
+-- 
+Imran Shaik <imran.shaik@oss.qualcomm.com>
 
-By only using RUNTIME_PM_OPS and omitting SYSTEM_SLEEP_PM_OPS, the PM core
-may not suspend the hardware if the device is in the 2-second autosuspend
-window (RPM_ACTIVE) when the system goes to sleep.
-
-On system resume, could pm_runtime_resume_and_get() incorrectly succeed
-without calling the driver's resume callback, causing the driver to program
-unclocked hardware?
-
-[ ... ]
-> static irqreturn_t rk2_crypto_irq_handle(int irq, void *dev_id)
-> {
-> 	struct rk2_crypto_dev *rkc =3D platform_get_drvdata(dev_id);
-> 	u32 v;
->=20
-> 	v =3D readl(rkc->reg + RK2_CRYPTO_DMA_INT_ST);
-
-[Severity: High]
-Should this interrupt handler verify the device's runtime PM state before
-accessing hardware registers?
-
-Because the IRQ is managed by devm_request_irq(), it remains active until
-after rk2_crypto_remove() returns, even though the device is powered down
-via pm_runtime_put_sync() earlier in the teardown.
-
-If a spurious interrupt arrives during this window, could this readl()
-trigger a synchronous external abort (bus fault) by accessing unclocked
-hardware?
-
-Would using pm_runtime_get_if_active() here prevent accessing powered-down
-hardware?
-
-[ ... ]
-> static int rk2_crypto_probe(struct platform_device *pdev)
-> {
-> 	struct device *dev =3D &pdev->dev;
-> 	struct rk2_crypto_dev *rkc;
-> 	int err =3D 0;
-[ ... ]
-> 	/*
-> 	 * Duplicate the algorithms locally for this specific device.
-> 	 * There is exactly one crypto block per SoC (crypto@fe370000 / crypto@f=
-e380000)
-> 	 * so -EEXIST cannot trigger on real hardware.
-> 	 */
-> 	rkc->num_algs =3D ARRAY_SIZE(rk2_crypto_algs_template);
-> 	rkc->algs =3D devm_kmemdup(dev, rk2_crypto_algs_template,
-> 				 sizeof(rk2_crypto_algs_template), GFP_KERNEL);
-
-[Severity: High]
-Does allocating the algorithm templates with devm_kmemdup() tie their
-lifetime strictly to the device's binding lifecycle rather than the crypto
-API's reference counting?
-
-If an admin unbinds the driver while a process holds a crypto socket,
-crypto_unregister_alg() unlinks the algorithm but does not block.
-
-Could this result in a use-after-free when the active TFM eventually
-accesses the freed template memory?
-
-[ ... ]
-> static void rk2_crypto_remove(struct platform_device *pdev)
-> {
-> 	struct rk2_crypto_dev *rkc =3D platform_get_drvdata(pdev);
->=20
-> 	crypto_engine_stop(rkc->engine);
-> 	rk2_crypto_unregister(rkc);
-> #ifdef CONFIG_CRYPTO_DEV_ROCKCHIP2_DEBUG
-> 	debugfs_remove_recursive(rkc->dbgfs_dir);
-> #endif
-> 	crypto_engine_exit(rkc->engine);
-
-[Severity: High]
-If the hardware is hung and crypto_engine_stop() times out, it returns
--EBUSY and leaves the engine's kworker running.
-
-When rk2_crypto_remove() subsequently returns, devres will automatically
-free the rk2_crypto_dev structure.
-
-Can the still-running kworker access the freed crypto engine memory in this
-scenario?
-
-> diff --git a/drivers/crypto/rockchip/rk2_crypto_skcipher.c b/drivers/cryp=
-to/rockchip/rk2_crypto_skcipher.c
-> --- /dev/null
-> +++ b/drivers/crypto/rockchip/rk2_crypto_skcipher.c
-[ ... ]
-> int rk2_cipher_run(struct crypto_engine *engine, void *async_req)
-> {
-[ ... ]
-> 		timeout =3D wait_for_completion_timeout(&rkc->complete,
-> 						      msecs_to_jiffies(2000));
-> 		if (sgs =3D=3D sgd) {
-> 			dma_unmap_sg(rkc->dev, sgs, 1, DMA_BIDIRECTIONAL);
-> 		} else {
-> 			dma_unmap_sg(rkc->dev, sgs, 1, DMA_TO_DEVICE);
-> 			dma_unmap_sg(rkc->dev, sgd, 1, DMA_FROM_DEVICE);
-> 		}
->=20
-> 		if (!timeout) {
-> 			dev_err(rkc->dev, "DMA timeout\n");
-> 			err =3D -ETIMEDOUT;
-> 			reset_control_assert(rkc->rst);
-
-[Severity: High]
-When a request times out, does unmapping the scatterlist entries before
-calling reset_control_assert() introduce a race condition?
-
-If the hardware is merely delayed and completes the transaction during this
-brief window, could it write to unmapped memory or recycle bounce buffers,
-triggering an IOMMU fault?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708175837.1718=
-437-1-dawidro@gmail.com?part=3D2
