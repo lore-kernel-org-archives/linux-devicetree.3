@@ -1,49 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D83D435EC7;
-	Wed,  8 Jul 2026 14:57:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F8E49218C;
+	Wed,  8 Jul 2026 14:57:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522675; cv=none; b=nGemE/+xgwaUQYpztAHlByXetvA3q1sAZhAsQIX/8PbsizTcOuUB+sh0z4n9ALfIcTVfSpaSB/0Z7UQZPj2mjEtgzNQ+SP9rZDcymwzxtEavuKWOZtLMGn5LpwkhYSNkR4WM706CWz6ACsyerT+B3iyxFQRj5oC74Jp/bAjvYM0=
+	t=1783522676; cv=none; b=iQLJHrqTIJvFVl4pCzOA5Y/zc4BOTnlof47MaHjNmhg2ojNGY80MX2+FJ1rBtDZPevd86/hoh6DQsB3Gjhls8gurHkoh+wOe47cRE54Uxtf3/IIsn26ewt+dLqN4fo0/Nwa7TCdoNU3Ma9vDGX6cARc7mjowksaTecYgiq0PBgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522675; c=relaxed/simple;
-	bh=uuMSw6Dk4iYoG20x2JY3IpRhdtK5oRn6nHPTzzAdjRM=;
+	s=arc-20240116; t=1783522676; c=relaxed/simple;
+	bh=WEzZkvJXxM3nGSJKeR6SCi1fHH11JDLpL+1IYT2YMUw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=d43vKOg6oTie8C+kxQ8Ho+lBVn8wZhfCbt+DXgVLR29XXOIjXUhjlSBqna6PFdupVaE6T6fq5NmsJ7MCTvX3DgWdUSLxwYNY/srm5CqgUTU/PNskktUWI0ZRr18Z4LYVroNgTZeQgNIH1boAFgQiSTy18xYqDDEk7YDo09amYzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMriGhP8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Yh27/jRd2pBFLNXvnuFPcaRwCorLAWR1bAJRW4mLSpcUYsg5IKJNyK5sBXrQy0gbTrXdIh9sb2lyIu3PPOkAUoJhGU7SZ2vGdHZ03i/jz6ci6oqHy1TD2BhJt14YwMVitSLCLIsiYSKgLb0JXXF9mC7CX3VZbImVK05YMjJFOxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enguU/9n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMriGhP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FD91F00A3D;
-	Wed,  8 Jul 2026 14:57:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enguU/9n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12EC41F000E9;
+	Wed,  8 Jul 2026 14:57:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522674;
-	bh=vyfyghuXYCD3LhgDfkXl0FNzl+5sEqekPde3hzUTV1w=;
+	s=k20260515; t=1783522675;
+	bh=N3xqkpimVRy54peMWlpoAGI4ntIhVMRt/V2o1OmxrJk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XMriGhP8oDWf5DLwqlbyhz7vY2SzRaxFJa9zhXsVxYWySGErP7O+Zwpv/4QJP0nbC
-	 dTI+nPylrtwI6VyzLrC+PxxVMnJP/59TUlmbc0QTXnr9+91blHN2bLBF9IBOIPrJ2B
-	 vN3JAMuqhf4OHwqTbu7XALdYxPpXzn8pWAy1+WMRBMNzgKMn14NiHcsoW1Tje5M7AV
-	 adT7e1G7bpCRZ0E152jpl1J7wRBv7iZdg6gO16PhsffVXm2sgA1OhkIbhKF+2kUBaU
-	 0lTj8wLrYNOYmXWRxmq/1rrTohzMbmcCivINxS+w8MqQpBkiYbEf9szb7WHf69uCkd
-	 AO4MznzyWstcw==
+	b=enguU/9n4LE49KOnVy90+hoh2CuKC9U2b8h7QAUxw9erj6a7AuiWjKnIxiRSsplmy
+	 l9PtCFY5se+JNMY8tcbk0sGnrZQuif7QDqq3eJfNJa4zY8yd9v7ZHH54HmtBksnsmf
+	 jyQ0PRyZ8fOb/Dfap0xeHyAuk3oXjzA7FFxXQ1f4mN2BcTbtucCqNtrI9zhU10vwL2
+	 5hpKmuhOImf7oiIIiRh6ot4eDuMqcMqps48FY8pAcuEntxJH3vZkWolKlGhcnrEUk5
+	 ycktgOihBISq7V32iBso9+WjJ4e/oD2LbwBM9nllyzntqJ3OjKSVGw9IkOp6wc2JWg
+	 Da/wE5Up3SXGA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-	Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	Aaron Kling <webgeek1234@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm8250: Add memory-region for audio PD
-Date: Wed,  8 Jul 2026 09:56:55 -0500
-Message-ID: <178352261636.2235436.10420459601272958947.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Teguh Sobirin <teguh@sobir.in>
+Subject: Re: [PATCH] arm64: dts: qcom: sm8750: Add UART15
+Date: Wed,  8 Jul 2026 09:56:57 -0500
+Message-ID: <178352261627.2235436.5422094904444622236.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260619-sm8250-audio-v1-1-8a76e033e209@oss.qualcomm.com>
-References: <20260619-sm8250-audio-v1-1-8a76e033e209@oss.qualcomm.com>
+In-Reply-To: <20260605-sm8750-uart15-v1-1-93e660722e61@gmail.com>
+References: <20260605-sm8750-uart15-v1-1-93e660722e61@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,17 +52,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 19 Jun 2026 15:20:08 +0530, Vinayak Katoch wrote:
-> Reserve memory region for audio PD dynamic loading and remote heap
-> requirements. Add the required VMID list for memory ownership
-> transfers.
+On Fri, 05 Jun 2026 17:49:39 -0500, Aaron Kling wrote:
+> Add uart15 node for the UART bus present on the sm8750 SoC.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sm8250: Add memory-region for audio PD
-      commit: 531ce288b6dd43c1ce90e0b501c209783f0e0ab2
+[1/1] arm64: dts: qcom: sm8750: Add UART15
+      commit: 50c0854e2703b4e446f83680d7eb0dc0bd5bb34d
 
 Best regards,
 -- 
