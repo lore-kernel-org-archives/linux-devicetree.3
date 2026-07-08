@@ -1,151 +1,238 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1D73D75DF
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 07:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8223E9C21
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 07:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783495321; cv=none; b=YziyMP7tLRPBgqDDRUJJwyn5kIRrjw9+0i2Qu6Uw7ihD4HEHvQ8fYNwHI6hqIRii18c4pUeN7Q3OMqqHX8AAcbeBMoF8ibxLyPe/0SST4kw4vbJaUwFCk4ZWjn0MNAH3rVSRk2qwY1UNm0704Xd82INKQCMP141QNUUwdipK3G4=
+	t=1783495327; cv=none; b=rSiUoG+koGSi/q6SM+7hVsecRd7AscLztOpMxK6T8qtRr1RJ7jCYdY7MDhdrBfANF3UDDIQDI2JpMCJiBPeKxemRbkrBm1Ukq6sw23YpuFit1ErfAo1auj2y5eLs4NnasXu9vaQpF7pp1mosNQtK5ZDTQ+DmFKI8mnzxnXsQ8FY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783495321; c=relaxed/simple;
-	bh=Sf77mjRzrtMDrvy2jF/R5L8Ny16BETQvhDbzbx5Httw=;
+	s=arc-20240116; t=1783495327; c=relaxed/simple;
+	bh=8Y4BBNHlwyf05pOWDqeL+jvP/ZJQ7NzRcBztDPlED/Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZbHlQtIfwBGSYzHKBORJb0gEIaEBeoxtY6iDUyNNVnOZd3EzpkwXmUgjFLC5IyCjtXzx8YOV+eDRU0YsYXPj8L5NF9ehQP5EBPBY0DLdvG0rl0L0JQoDHkDbrs01WB19spre5xgvFtpPQx4Faj/pGulBTdhTFagJBM1zpE+Pd7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C0ElIOMl; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BQkuJkHC2hMZV1Cg1iQoI7VrJj2qxJqYwr9Mn5Qphxeu6vAvJBsDk0MqWq/1AxIcMwSqay/9RUjOFHJdf2zTp+PzH3YCP3CQGvcDrYglBMihnvjic9cn2qOvLB2EN8dhYAlNFdMbjO274uP459+OOnH8X5af7RUu5L7uFn7Fs58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOVIsTSU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0ElIOMl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5EFC1F000E9;
-	Wed,  8 Jul 2026 07:21:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOVIsTSU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21811F00A3A;
+	Wed,  8 Jul 2026 07:21:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783495301;
-	bh=UPtBIzsoB3zweDU9jFycXI7glMu793OsokDd4fpIIbY=;
+	bh=b7cRjoEPRNQ6TwZEsCC540MViqqACVcFBKuJLBp7bSg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C0ElIOMlnc9UyXDAQSyhYKvXLjgdLenM2qCf4/97eEyS47pD66KBcURyA0qoIchfx
-	 gbkKSp8t0+UDVPqk6yIQJTFZZrNhZo3A8whiM+TTtzRxxPPk9UptFOE0VSMerGUu2f
-	 8C0ERvcNHTejpYb7od/0Qgdj9W70/SW9o0u/x0QcXrd4wlS7woC21zXISo7LFH/S/z
-	 5Y8XUQ0wZRDpbw/q8DDzFonASTdCW0VkCAjzzD0a65xj4VmHp+T1Fxu4321BBXu2Ft
-	 5O4A4BnDJXJysKubSNZVFX5hBt7txQaNx5z7NfyRx/T02IiPX8wDrS/ocqo9R40ijL
-	 39m5QtKyU9eCA==
+	b=QOVIsTSUUJ9cYTAYW0VetvWw4ylXHrCPruWpyy9vZIjJGqzQy68wwTDUBG5MYuRUv
+	 GIYOZlbmQkcnxI144Zkoq7F27kmt2ulKZPk1ughsaXGKGqXt1SrFTgdf+TqTG9E6OT
+	 a32Ld0aUiSzdappCwaoU08+NY+HqW2eNR2nAcQP3/lO8jbsoWB5sIZkAVluuZnzx7D
+	 VJtGPmR5TxNqT8rkQIN+15t4A0D1HtnzYj8ZuuzQEi9bOD5gAItwjRd7jne3rEA6Yv
+	 4Un3AdhV3XIT7SjYUEX72I/i11YLNRSB1FQ8SJoWOW73HIERp8vtsmOiNPt27gJ6aL
+	 ZSHDuJ9cIuL5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/26] init/version: Annotate static information into
- meminspect
+Subject: Re: [PATCH v3 01/26] kernel: Introduce meminspect
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-meminspect-v3-v3-2-7aa5a0a74d5c@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-meminspect-v3-v3-1-7aa5a0a74d5c@oss.qualcomm.com>
 References: <20260708-meminspect-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com>
- <20260708-meminspect-v3-v3-2-7aa5a0a74d5c@oss.qualcomm.com>
+ <20260708-meminspect-v3-v3-1-7aa5a0a74d5c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 07:21:40 +0000
-Message-Id: <20260708072140.C5EFC1F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 07:21:41 +0000
+Message-Id: <20260708072141.B21811F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The linux_banner meminspect entry is duplicated in the .inspect_=
-table section, leading to brittle size resolution based strictly on linker =
-command-line order.
-
-Pre-existing issues:
-- [High] Adding static kernel symbols to the meminspect table triggers a ke=
-rnel warning during boot because the framework incorrectly uses virt_to_phy=
-s() on non-linear addresses.
+- [High] Integer truncation in memory allocation size causes an undersized =
+CMA block, leading to a heap buffer overflow during ELF header initializati=
+on.
+- [High] Invalid use of `virt_to_phys()` on statically allocated kernel sym=
+bols causes boot panics or returns bogus physical addresses.
+- [High] Missing bounds checking on the `id` field leads to out-of-bounds a=
+ccesses on the `inspect_entries` array.
+- [Medium] ELF core dump file layout will be corrupted because physical tra=
+versal order diverges from chronological ELF header offsets.
+- [Medium] Missing padding for unaligned region sizes causes cumulative off=
+set mismatches in the dumped core file.
+- [Medium] `meminspect_prepare_table` issues duplicate `MEMINSPECT_NOTIFIER=
+_ADD` notifications for dynamic entries registered before the late initcall.
+- [Low] `meminspect_notifier_list` is defined as an `ATOMIC_NOTIFIER_HEAD`,=
+ pointlessly forcing driver callbacks into an atomic context.
 --
 
---- Patch [2]: [PATCH v3 02/26] init/version: Annotate static information i=
-nto meminspect ---
-commit fe87675e956aedb4b693667a58386a5bc91ca7cd
+--- Patch [1]: [PATCH v3 01/26] kernel: Introduce meminspect ---
+commit 62611e2ce3f1357bd155ab67d8e06e76e5461779
 Author: Eugen Hristev <ehristev@kernel.org>
 
-init/version: Annotate static information into meminspect
+kernel: Introduce meminspect
+   =20
+This commit introduces a mechanism to register memory areas into an inspect=
+ion
+table for later use by drivers. The inspection table can be requested and
+analyzed for purposes such as memory dumping or debugging.
 
-Annotate vital static information into inspection table:
- - init_uts_ns
- - linux_banner
+> diff --git a/kernel/meminspect/meminspect.c b/kernel/meminspect/meminspec=
+t.c
+> new file mode 100644
+> index 0000000000000..d9d38f484f1f4
+> --- /dev/null
+> +++ b/kernel/meminspect/meminspect.c
+> @@ -0,0 +1,474 @@
+[ ... ]
+> +static DEFINE_MUTEX(meminspect_lock);
+> +static struct inspect_entry inspect_entries[MEMINSPECT_ID_MAX];
+> +
+> +static ATOMIC_NOTIFIER_HEAD(meminspect_notifier_list);
 
-Information on these variables is stored in a dedicated meminspect
-section.
-
-> diff --git a/init/version-timestamp.c b/init/version-timestamp.c
-> index 375726e05f690..37bdcdd443f9b 100644
-> --- a/init/version-timestamp.c
-> +++ b/init/version-timestamp.c
+[Severity: Low]
+Since the notifier events are dispatched while holding a sleepable mutex
+(meminspect_lock), does using an ATOMIC_NOTIFIER_HEAD unnecessarily force a=
+ll
+consumer callbacks into a non-sleepable atomic context?
 
 [ ... ]
-
-> @@ -24,3 +25,5 @@ struct uts_namespace init_uts_ns =3D {
->  const char linux_banner[] =3D
->  	"Linux version " UTS_RELEASE " (" LINUX_COMPILE_BY "@"
->  	LINUX_COMPILE_HOST ") (" LINUX_COMPILER ") " UTS_VERSION "\n";
+> +static void update_elfheader(const struct inspect_entry *e)
+> +{
+> +	struct elf_phdr *phdr;
 > +
-> +MEMINSPECT_SIMPLE_ENTRY(linux_banner);
+> +	phdr =3D elf_phdr_entry_addr(ehdr, ehdr->e_phnum++);
+> +
+> +	phdr->p_type =3D PT_LOAD;
+> +	phdr->p_offset =3D elf_offset;
 
 [Severity: Medium]
-Does this result in duplicate entries for linux_banner in the inspect_table
-section?
+If dynamic regions are registered out of chronological order, will
+meminspect_traverse() yielding entries in strict numerical ID order cause t=
+he
+physical data layout dumped by firmware to mismatch the chronologically
+assigned p_offset values in the ELF headers?
 
-Because init/version-timestamp.c is compiled independently as a standalone
-object and also included directly by init/version.c, this macro expands twi=
-ce
-during the build.
+> +	phdr->p_vaddr =3D (elf_addr_t)e->va;
+> +	if (e->pa)
+> +		phdr->p_paddr =3D (elf_addr_t)e->pa;
+> +	else
+> +		phdr->p_paddr =3D (elf_addr_t)virt_to_phys(e->va);
+> +
+> +	phdr->p_filesz =3D ALIGN(e->size, 4);
+> +	phdr->p_memsz =3D ALIGN(e->size, 4);
+> +	phdr->p_flags =3D PF_R | PF_W;
+> +	elf_offset +=3D ALIGN(e->size, 4);
 
-This generates two entries: one with a dummy size from the early compile
-phase where UTS_VERSION is a stub, and one with the actual size. While
-scripts/link-vmlinux.sh currently appends version-timestamp.o last to ensure
-the real size overwrites the dummy size during initialization, this approach
-relies strictly on linker command-line order.
+[Severity: Medium]
+If an unaligned region is registered, update_elfheader() advances the global
+elf_offset and header sizes with 4-byte padding, but the base table retains
+the unaligned size.
 
-Could this break under Link Time Optimization or section sorting optimizati=
-ons,
-causing the dummy size to be used and truncating the banner in the inspecti=
-on
-tool?
+When firmware iterates the table to dump the memory exactly by e->size, won=
+'t
+this missing padding cause a cumulative drift between the actual file offse=
+ts
+and the p_offset recorded in the ELF headers?
 
-> diff --git a/init/version.c b/init/version.c
-> index 94c96f6fbfe6a..eeb1392365627 100644
-> --- a/init/version.c
-> +++ b/init/version.c
-
+> +}
 [ ... ]
-
-> @@ -51,4 +52,6 @@ const char linux_banner[] __weak;
-> =20
->  #include "version-timestamp.c"
-> =20
-> +MEMINSPECT_SIMPLE_ENTRY(init_uts_ns);
+> +static int init_elfheader(void)
+> +{
+[ ... ]
+> +	buf_sz =3D elfh_size + note_len - ALIGN(vmcoreinfo_size, 4);
+> +
+> +	/* Never freed */
+> +	p =3D dma_alloc_from_contiguous(NULL, buf_sz >> PAGE_SHIFT,
+> +				      get_order(buf_sz), true);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but adding static kernel symbols
-here triggers a kernel warning during boot because the meminspect framework
-incorrectly uses virt_to_phys() on non-linear addresses.
+Does the expression buf_sz >> PAGE_SHIFT truncate the fractional page
+remainder for unaligned sizes?
 
-When meminspect_prepare_table() iterates over the table unconditionally at =
-boot:
+If buf_sz requires multiple pages but the shift truncates the count, could
+this allocate an undersized CMA block and lead to a heap buffer overflow wh=
+en
+mapping the memory?
 
-kernel/meminspect/meminspect.c:meminspect_prepare_table()
-    if (!inspect_entries[e->id].pa && inspect_entries[e->id].va)
-        inspect_entries[e->id].pa =3D virt_to_phys(inspect_entries[e->id].v=
-a);
+> +	if (!p)
+> +		return -ENOMEM;
+[ ... ]
+> +void meminspect_unregister_id(enum meminspect_uid id)
+> +{
+> +	struct inspect_entry *e;
+> +
+> +	WARN_ON(!mutex_is_locked(&meminspect_lock));
+> +
+> +	e =3D &inspect_entries[id];
 
-It passes the virtual addresses of static symbols like linux_banner and
-init_uts_ns to virt_to_phys(). This records an invalid physical address in =
-the
-meminspect table, and on architectures where static kernel symbols reside in
-non-linear virtual memory (like vmalloc space on arm64 or x86_64 with KASLR=
-),
-this triggers a kernel WARN.
+[Severity: High]
+Does this function lack bounds checking on the id argument?
 
-Should the framework be updated to use __pa_symbol() for these entries inst=
-ead
-to safely handle non-linear kernel image addresses?
+If a caller passes an ID greater than or equal to MEMINSPECT_ID_MAX, could
+this result in an out-of-bounds access and corruption of adjacent kernel
+memory?
+
+> +	if (!e->id)
+> +		return;
+[ ... ]
+> +static int __init meminspect_prepare_table(void)
+> +{
+> +	const struct inspect_entry *e;
+> +	enum meminspect_uid i;
+> +	int ret;
+> +
+> +	meminspect_table_lock();
+> +	/*
+> +	 * First, copy all entries from the compiler built table
+> +	 * In case some entries are registered multiple times,
+> +	 * the last chronological entry will be stored.
+> +	 * Previously registered entries will be dropped.
+> +	 */
+> +	for_each_meminspect_entry(e) {
+> +		inspect_entries[e->id] =3D *e;
+
+[Severity: High]
+Does this lack bounds checking on e->id?
+
+If a statically compiled entry provides an invalid ID, could this result in
+an out-of-bounds write?
+
+> +		if (!inspect_entries[e->id].pa && inspect_entries[e->id].va)
+> +			inspect_entries[e->id].pa =3D virt_to_phys(inspect_entries[e->id].va);
+
+[Severity: High]
+Is it safe to use virt_to_phys() on statically allocated kernel symbols par=
+sed
+from the linker section here?
+
+Since these symbols reside in the kernel image map (which is outside the
+linear map on architectures like arm64), could this cause a panic on boot or
+return incorrect physical addresses?
+
+> +	}
+> +#ifdef CONFIG_CRASH_DUMP
+> +	ret =3D meminspect_prepare_crashdump();
+> +	if (ret)
+> +		pr_warn("meminspect: failed to prepare crashdump ELF header: %d\n", re=
+t);
+> +#endif
+> +	/* if we have early notifiers registered, call them now */
+> +	for (i =3D MEMINSPECT_ID_ELF; i < MEMINSPECT_ID_MAX; i++)
+> +		if (inspect_entries[i].id)
+> +			atomic_notifier_call_chain(&meminspect_notifier_list,
+> +						   MEMINSPECT_NOTIFIER_ADD,
+> +						   &inspect_entries[i]);
+
+[Severity: Medium]
+If a dynamic region is registered via meminspect_register_pa() before this
+late_initcall runs, will this loop blindly issue a duplicate
+MEMINSPECT_NOTIFIER_ADD notification for that region?
+
+> +	meminspect_table_unlock();
+> +
+> +	pr_debug("Memory inspection table initialized\n");
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-meminspect=
--v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com?part=3D2
+-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com?part=3D1
