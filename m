@@ -1,245 +1,182 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013014.outbound.protection.outlook.com [40.93.196.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EF03AD509
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 01:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783474792; cv=none; b=AITQAzEDtKkFuHOTqJME9nK8mISgcEOgJ+zGwTzmOeR3deIfSErm5oIljcZ73eTY0HzQyaqPxxC01XPJIHJDVnsOUgAB3CCTU1d5kf/hElAjV7Q76k4wDQeescHT1KwiTgZr8yw7tDn7y8QN8RZ4qdNnh2rqHe9Z5R2Q2SCOgGE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783474792; c=relaxed/simple;
-	bh=yCncyE3KlpVre3IkDw/pkbr47CSxW+I8kefLdPBj2hI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jSYvLKNqcaWRacetWrubTp+QAPV4YzWkqiWmaSdgXvsJTy7DfdjlYJ6846dMooL6CH1WgKqUTSnhRO11w8qeByxKKuyVOxdrRfgbuVC3b5K7shWpJMBhM4NvcVb+kfmYzFqfoYXePJnmGRe1GfF7EflwHguhAIuP+k1RxS0nqjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ShLeWp18; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bYCXU/mT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941F13B2FCE;
+	Wed,  8 Jul 2026 01:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783475938; cv=fail; b=Sd7Nz2WPHDxMKO6FrGX7KlEZEEf6xT0NeES21XTMP2i0O1R30Cf1vXFrS1jCIQ1+ORYrxqtCPtOft5ZfcJJ1q2e6rc5YSPkhfS49l6kP5DPhRRLs/YxUPye97t7tB+OVZVBlLneIF4qzztVLLoMO0isbIo23sulk59CTm3C/mLs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783475938; c=relaxed/simple;
+	bh=7vhLItdQ7M3H0qNzyoPeEsK6H5XOn9F4ObT4EswdMYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GM42NhZqlrihl7yA0wnoEhrCW+Vh2YDAgw0HAtkBeG+ISRBMEiyfaaPBKQcQpXxrRdJhZULnbZKskXv+z90oYsbZK2WSGF0lvSUdg8k+dQiWoTgix8kx70Yf9Ye8RrZlcpkXS+iBED7hjM6GXaOoL9R98xDtuC5ZE4Q28LfB56c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=IbSbeQ0o; arc=fail smtp.client-ip=40.93.196.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ShLeWp18";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bYCXU/mT"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 667Mcx6F879423
-	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 01:39:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dg9S1ReWnO628QueH5exSmyzBX+YB3dCIncjF9Fit/g=; b=ShLeWp1829Zxz3pA
-	rMJbwZSnB2Xcv3uwTMUpd1+DyUEnB55gn/RL6XWzE8sy/behNltJqmhsGvECKcx4
-	uAxHXwvYP1VbU2VZP1+AGtkEBKI9b7RqgjbkjZtcoOOV2NRXPeSohZDRsnm0EszK
-	WTvCIApwc8Fug0aA0dxrkxMr9ofoSrbLPwKqKCbJC9fr2MJDDtAJmwtQBYRuDKCn
-	54YCcvaokUjdU9eIbC896aHZNSf/4KnXYRjRD9qjFPrJAdnoPaSUWj6Us4A7KHMu
-	4HD1IEMn470zVEqPsBsVVnsQdb+wLSYMobEkBoW/pd5lKNcYLSF1r9GWv3VUMmT1
-	Z+l3kA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f99hgrr1c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 01:39:50 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38101e6fc6cso385850a91.0
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 18:39:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783474789; x=1784079589; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dg9S1ReWnO628QueH5exSmyzBX+YB3dCIncjF9Fit/g=;
-        b=bYCXU/mToj0wPvRUigk8IlKr9inIZNhdW3OvCRJ03+5uoOQpS3oT87iRxexIHGRmHJ
-         bRaEaaVzK8kf1Fl0EicdDDVJIZ3UlBo6euqiEJUArPjpnUiTOnpqNKI0OVMtFd6SzUcn
-         n19bKYhJfBoXGizl4iboFLxDRC/bKq73wciZgsYct2Cl4eoIfPB+1A29a+Kb1b/zA0Tc
-         jeyKtoez6mNEy/kFgD/AfkCQCoX1PdgkL4XtfUjLC1xxotmAxTkP9J/MhYbrpj8o/8Hd
-         /+bJP3M4/qkKtybiZwl8Xr888DA5iswrkNmbkasEl9d7jPF1PmoZWdJ13+iClYEIFp7w
-         5LEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783474789; x=1784079589;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dg9S1ReWnO628QueH5exSmyzBX+YB3dCIncjF9Fit/g=;
-        b=quCYzM4fq0mueovPU7buN0grXvr8Q3ACjaUnGpk9jsAKlOLeXEpKI6RWwvp/D96GqQ
-         gbEvy4y91gC4l1EfKXKbS8mTwYYyF4MeTpm9Ox5H8C2LRInkmHcfNnxqlN2CB025FwqP
-         0+RbqqYk8vPZ7Pp7SiOoXdyLFHQAjCDaNsb98trwpP0ZNzc5oGPXBuvFbmAXN0b3wfwE
-         mKZCPoSgvB/uEA56AUgjfTeqtprYkUMM2NvuNbuAGU2vnJh0nRqgmXIrOcMt5BE8mpqr
-         zvFCshi9RtGQayHXyNy1YBKMqYCJGaJHdyFVfBd6cfLMzAFmSaAfKuxqTP4hX9Va/6Uu
-         2cDw==
-X-Forwarded-Encrypted: i=1; AHgh+RoPJU/toiGkYFZxTFLDrEhUsFJWWhB8JtoqgWIK1VY1yNg1WtZrafctsW+Xop3UJWbZlyxEdbPJ3ryW@vger.kernel.org
-X-Gm-Message-State: AOJu0YyF3QSWOHsahBOR3LZ9b3dUA+T/bcAG49bmqn2X57Xkf7YDWdpV
-	21mRM0rFitH7lai3MlACB3iTBWE5RzWhPHqRsk/EPaAs3bs3nSXxduGL2N3pWNpC6N1MV3E6TQl
-	ADqsVa6TD1bE6skV7O8ykz9qap4rR+VJKQlZ6mGHiUfeQ+BoSkDlGuH3+d/Bbj7jK
-X-Gm-Gg: AfdE7cnqqBfisE1C/emuXzqALUYEJKULUole7w/W4c4PbaTlk4awzTJRFZyE++hx6lc
-	i4tNB+v4HtgeBHJgH1YXZpLBRC9P6o5U19SdR7pz5uz1h/XAyf0q+SoMjPi9xjtWsAh+Xk16omj
-	cJA2AYVNlmsi17rc7yfG3pEAYnKqFpYbVT+KHijVCCp3K8mnSxpiHP7dYcYZUCszzF1duYPxnJ7
-	hD56qHq/UoG5mohpQ+GGEDVZwwuuxFt1SsdFPDGxlib7gVZ/YXLD/NglrnEfohOuLrVFRKihRSj
-	6Gm+TgBKDtQaMW55sEGS4dGDhy6PSV201/B42UY5QAO3dMmHUmGFZ5LeLwGob3w04iLfh83zTMt
-	JX5AZs0rwb76YZHWJBBHXYJR0Wbqtk8lzQwSnx8g/WfRZVfnXaj0/PSOc3rB+Rh+VhuzGWgfIuG
-	S+
-X-Received: by 2002:a17:90b:2641:b0:387:e0db:3fab with SMTP id 98e67ed59e1d1-389424990fbmr352062a91.36.1783474789001;
-        Tue, 07 Jul 2026 18:39:49 -0700 (PDT)
-X-Received: by 2002:a17:90b:2641:b0:387:e0db:3fab with SMTP id 98e67ed59e1d1-389424990fbmr352017a91.36.1783474788369;
-        Tue, 07 Jul 2026 18:39:48 -0700 (PDT)
-Received: from [10.133.33.179] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-387d17ed52bsm1853284a91.11.2026.07.07.18.39.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 07 Jul 2026 18:39:47 -0700 (PDT)
-Message-ID: <3547c76e-0b6a-41e3-9ce1-e7ff652b199d@oss.qualcomm.com>
-Date: Wed, 8 Jul 2026 09:39:42 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="IbSbeQ0o"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qjp8XzXQjuZwUxe8DjznYkud9spV56yuhxpSNcjqFrelOcmQm7XFOWohbxWVRlpV/7xdhETXHckCtr9GPWq0y4+7H/aDfLe4vIZQmWa4Q/P3RUsYSHBjJ+LDpTRdWdGgnWeHeJsdSfIuIbq+LNuvIZi3JbPmLlFIFo6M+x9JPPQa+lGcXpTcoS7XzE+xIjp1OehpS4HfjBi5j9D6ZJUvI1njPYcD/3AEHYBGhrtmVCPn43h7ZKU4GFdNr3kFD06FAFyoCiwH6a8212ja0bbY8wc93PWbzIIJ1tAPsR+VIT6Iy+AEmPksQYa+pjHCjvy0wTzPLcMLHHslOBklsWinpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CQlm4vmU3COFFMkrmwifDfThCMQOsM11VduN56ipgVw=;
+ b=MwCW5zVNd/1omI4wkAjrqmAAJ/yjVHdmm+00ySfqbZYp/1XnRae4LTAFiOJ0kngw3/ywecIz12cgRpIzcnKfGIl582ydISjQVFiIUstWMFqvwX9Ca6cOPksduWQXMHf1bF+0Fn5K7WJGzef5M/vPKsaPoRHTQtgrpH7vyWFyfv5Fzgu0uVay5FTiDvoY48e91Yc2JSYsa45Ys23aYNd0N+nUucfOTBwn8+G/hgtmaIDqe+moen3YNwtXGaf/XFhddgjkuPPzHQgHE9P8zR2WiVTOfZ1MADfvoqIzEd4lRk1xTKeCagbCe2NHcwjuBuJd8OEeyuJ2oPrFyop9clPi3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CQlm4vmU3COFFMkrmwifDfThCMQOsM11VduN56ipgVw=;
+ b=IbSbeQ0omNzQV9dTwFblmPnKDoS65S7UQ9qnHEA53u9reysWkWR6E6p3Zx+DIaZBSA/4KCJ9H4HlFoPPGsLNylHDQi0mZkZtaX3JcixVBmmxNmYNHcUeeTsUwD3AuLSlKa2/BMBi7PB5yrvaooDr2MvoZIukQ1ZUEEQeb1C3Rg6n2yLCXopa9MiKtOFttoNyUuvhnDTec9lp6h4wOOdMpI0gO2NXOuKPAHuSteIZTrLC7Cp4wDr48J6F5V5IZSu28j0PRFm9kO6NL0+IHCM7VHrCu389UD0qUiXNh7ilGN+SfEL3JEnJoszpZVReQhKy00xEWd03DQmbyVp38HGDaw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by CH0PR12MB8488.namprd12.prod.outlook.com (2603:10b6:610:18d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
+ 2026 01:58:48 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
+ 01:58:48 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: linux-tegra@vger.kernel.org, Jiqi Li <lijq9@lenovo.com>
+Cc: devicetree@vger.kernel.org, robh+dt@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, krzk@kernel.org, jonathanh@nvidia.com,
+ thierry.reding@gmail.com, mpearson-lenovo@squebb.ca,
+ Jiqi Li <lijq9@lenovo.com>
+Subject: Re: [PATCH v3 0/2] Add Lenovo ThinkEdge SE70 carrier board support
+Date: Wed, 08 Jul 2026 10:58:42 +0900
+Message-ID: <TwdYRdQxROulqyHmM20o9w@nvidia.com>
+In-Reply-To: <20260701090639.669524-1-lijq9@lenovo.com>
+References: <20260701090639.669524-1-lijq9@lenovo.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0071.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31a::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] Enable CTCU and ETR devices for multiple QCOM
- platforms
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Mike Leach
- <mike.leach@linaro.org>,
-        James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260204-enable-ctcu-and-etr-v3-0-0bb95c590ae1@oss.qualcomm.com>
- <545b4ebb-2c7e-480d-80bb-5e08dd3c52a7@arm.com>
- <f2f23d0a-dc24-4a06-948d-56df913994ba@oss.qualcomm.com>
- <6b7294a1-8c13-42aa-9f64-5b5c9af0b41f@arm.com>
-Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <6b7294a1-8c13-42aa-9f64-5b5c9af0b41f@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 0JxFd_tARAGvhkbJvLdTmxUVWpII_WMn
-X-Authority-Analysis: v=2.4 cv=CviPtH4D c=1 sm=1 tr=0 ts=6a4daa66 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=Z8Xz-ZLPEYxu-CxkxF4A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: 0JxFd_tARAGvhkbJvLdTmxUVWpII_WMn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDAxNCBTYWx0ZWRfX3BAExQD4p0zw
- G8qqBoN5yfuuW5+ug5Arjzu6bU8k+BjCYGBsBawjIukqRZInqXjKkILOKe/jh8Fgp55Vy4f85PZ
- m6sQ+rpa8ap9v4gtQHANm98S3eiYQYw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDAxNCBTYWx0ZWRfXyC88z4iQfTVo
- MF8Mi2TtrUJWW1ejyef6gWl/GbRz/Yv9YOp4uDRjRsOVcod+jujPH6mmgzimlo8i/YXrD1pKZvM
- FIum3v7aP302nbo4yBTNEgIFzD3RhjOxhearNa8o2lJK3MNfoYFsIo4HNy8WGWuCCjoBXvlGVfG
- G3e67VtjPxPjSuG1C4+oHoa4pLpzLNEEQP4IduxaXDnsSyXkZChBinozpXj7fjMZU74Eqqk5TMD
- dk7ZMxfXRwxS5J+E/lLN6AZkx7l7RjUU08z2S5xYUCDpnmMbZ1UIFspKHCrvxCRX5XGqIuBS45v
- HBbsyR1o2n8y/lh+QNRcYWeFgiScT+AKlnHH1Eny2sLOFJQBCmX6TycPlQnlbV3PMNPdgwYeolY
- tl0jftnWbgA3vTCAOghRwkBAvQ09bKytrIGRsu2DvTjcnSqEkj9TrFVknEPx2raQ9NKa9J193Mu
- /zouDxsmH/ukSg0dGWg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080014
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH0PR12MB8488:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7efc530-494a-48c7-e22b-08dedc947379
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|1800799024|366016|23010399003|376014|22082099003|18002099003|6133799003|5023799004|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	pNbWU+dEaAW0nUJr0WyRC9oWWt+lIa1280Tcb42Wm8SDrIHXIcGGHmGWMwPj/aO9Vn4GSc/DC57P6ySt8YRMj/gxV4wr/qpIyekzCZ7AI1sPhOBKstlzqdf88Yrlxg9FTp31I+hNjIFBgD4Jis44PjV3dWdpRB2NGRGjz73DFP8XMaB0YgXWbMB79oD7TIHJvQrB/ONRcKzE5+5LRI80WfdQk6j5IeKs8S6veD6ccGw9Tw3XhLINnuFih8n9b48vNShag1g24oaqIGUnr0atBNJmwSUN5f5xFsFfiIyJw6ruQORYJtCC63tTI5pCqMT5XpO57ECk1xAg2Olt+GduOS40L7lEyYg51Azu2GpyrTgYuYGoabw43g5i/FohaQiUQ/P0ETBeHukOfVNGDqIUPFbLJgz+DCAmtdO7qUjJeXSvNaYrf5zpJILqrnz2QC1GhpgYgyb3PLHoXs39VCdfxf7EkVIABGY8RuaYsfSChSBBKm4SArAzpvh7nSG/SrcNhqEsGc+K14ggBlJzN7BMxaNdBe29pgWSBJJsE8DMJK5KiZpvIESY8kab6udHk3gE1rE/f6xGEoX7/N1GSjL0rSe+lqAa9ungZr+9vVx9Jr81ziuzCML+FwYw74V+Ui9787twqlkv8goMB0LCVBym7EV706nlEOeNkXNliLwqmg4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(6133799003)(5023799004)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YWxlZlV2RGd6NU8xMWdMak1jUHphK2h1anEyOWtXZS9MVTlWOHc0bS9yamZS?=
+ =?utf-8?B?cUJ6L0VhWFErc0g2ZlhQV2dJZEdGbkNibmptSWYxMXA5R2JSaUpvelFCYkNS?=
+ =?utf-8?B?OTc4NjM5L1hQOFZOK25zeVVVbzBKYUNwbDlQSGlYSnZ6ck1pT20yV2VpSTNt?=
+ =?utf-8?B?b0VDZ3gyUk53Q2hYMGRWR2hoWFN4L3RrWkZwZGIxZUJjUFNtcHBZaWZVSXpK?=
+ =?utf-8?B?TG5JZDBPeDlRT2paNjF3VW9lN29zZ2RSay9jb2FDVkFWOWhGVEdCVmFtdjMy?=
+ =?utf-8?B?ck9MaVpYY3BWQTNLQ1hmdURJQ09BckowL2sxRmJackMvQVc3K3VmQVkrYzBR?=
+ =?utf-8?B?aWsxWXBGcEw1SCsyN1VheWIvczFRL3RUWVJpYUZZV01hTC9mV014M0Y1WWdu?=
+ =?utf-8?B?NUVJOTAyYnZpTTdoLy8xdUpPUUNERlNCK2FVM1dDS0N5WmxWUko5RnVVNTgz?=
+ =?utf-8?B?TVdpcXZPRXJwaVF1aXBNNjAyNlVxa2lJMkxxakJ5bHQ5ai9kSk9oa2h5UHBo?=
+ =?utf-8?B?Uk9yY2MyZHB3cnMwdHdvM1NsNVJPZEdwMksvQ0RuYUpCK0JwbkZTbjBhdjhU?=
+ =?utf-8?B?aHh5UWJCQkxKdHcwdng4NEpURXY1b3Vyd0FKVHRrUktSRUh4V2tPRmhvcDcw?=
+ =?utf-8?B?VTJQazJoWGFna0FhOTlSbzQzYnhSc1VzTUEwUUl5U2lmVGJGemJmZjlObFJx?=
+ =?utf-8?B?dkVxUEpQcUJyUzVoTEExUnV5bUlHYXowMDVDaEVMUWhmM2dXYndJNzZWakFm?=
+ =?utf-8?B?WWc5WWRUSjB5RzFCaTBBaDhkU01vMEF3YWMrVzEwc2syblB1dkJRN1R3UGdr?=
+ =?utf-8?B?ZngzVlAzQTYxcFBmZmFZRVZtMWZXcldSMzZGSm9rZzJZZ2dDcDVuMzJMNHZn?=
+ =?utf-8?B?TDVjM1ZUVzN0MFJiejlFUm5mM3U1YlpoNmYvUWVHandsaFllL0FyZDlTeWsw?=
+ =?utf-8?B?R3YwSG9KdHRYaHZMU0JkcXJHSWY4ZGZHTUg4ajdkcEoxdC9VckJoWVhmdlQy?=
+ =?utf-8?B?anc5R250QWgrSTZ5SHhORXZjMHVXa0NRMWVhYUNHWmZWWGtDUk84Y3l5aW53?=
+ =?utf-8?B?V3A4S0wwdjJRYVlFcFRLL0oxd2J3V3psNE1CZHFsTUFxTk9HSXU1UjJmOTNS?=
+ =?utf-8?B?VFZPaTdaRDk5MEdqM01VS04rcThscDRoYmg2MlpRVnMvckxEWTBvcFQ5RTl1?=
+ =?utf-8?B?YzFUKzVxcXVOanNDckNKRzljV3VRaE1sTUhqNEZVbW04UWM2amtnSVBtNFRF?=
+ =?utf-8?B?MTFlWWpQNDJjeGlicDJhaVNsOCt0NWdZRkNWZlhidm52K245Rk44RGg0SzFo?=
+ =?utf-8?B?S1loSldJblZPUk01SGlhT29sZ2VpcEVSeXVpb0dwQzZBYW1kWmdVL0p1UGtq?=
+ =?utf-8?B?eGlwTlN1RlIvMHk4Qnd0UTJDQ1JORHFyTzZIVUJBbktUUGdUN1E5T1Jvanow?=
+ =?utf-8?B?MDFTSDhxTTAzZ2tFVkZkcmg2M2Zxc1ZxMUFvTGFwMzQ5eTZEN2Z3bXhRazRF?=
+ =?utf-8?B?MEorTXRUYTR5eEp2b1YvQXQ4NzdFRjFKL3RxT0NwNEc1QkxKNExLTEV3LzJ1?=
+ =?utf-8?B?M1d0WXJISDA2Znlsa2JpOGRWczIvVVhTL1R5bHFVMWpOMVI5Y0lvZEMvdzRx?=
+ =?utf-8?B?SG5iQXdRTFdQbmpLcldLbXN2SmdaeU5LNXpva2p6aUFEU2tFTDR0VVRwOFBv?=
+ =?utf-8?B?TzhCL3hqaGdNM2cvQWJaTDhocDdiOFg5TnZodzM0ZURnc0kxVVVnbDI2SFVk?=
+ =?utf-8?B?SS9oOWxJOFhOZlkwcCtualBwY2d1WFpqTTRIZEkxMHZVNE9nQnFBNGNHcVlw?=
+ =?utf-8?B?ZjNmQnFqYWpaN05MVmRzRXVreE00Z0d3b2Ixa0RBL3hRKzh5Nm84eDkzZWZN?=
+ =?utf-8?B?NnJhQm9oQ0RoT0F3VTRhWmR1dlBDS3FUOTFkYlNMVXNnSjk2dGdYRVNPRE12?=
+ =?utf-8?B?V1hyaFR3eUNLM1c5UDh4UUFhL0NaL1IzcXZ2d3M5Z2g2QU81aHJoYUZKZk90?=
+ =?utf-8?B?SXluRUxzNXh1WDJsNHhnQWsreFgzelZEZGRycURSK2xsUFIzUVE3V245eUJW?=
+ =?utf-8?B?d1VVdUxSb29WVkZyMUkzKzRDejgweDF1b2lNNXNNbzA5aWQvcnFhdzVyeEQr?=
+ =?utf-8?B?YlQwL3R2NG1NLzJxWEd3Q09icGUwdmw1SFBZVXFPWWZaZkNSOHB6aVdWZjY5?=
+ =?utf-8?B?ZEJkcmpvdXJzbUtlaWh5L3VpUTd6K3FQTlhVS01YalBFL2hsc3BocXNpanRQ?=
+ =?utf-8?B?Q0s0OG1kRnVLK3pnVXA3cUpGWG1URDNhZ0QweFY4NTFSekYzZTdtSU9GTVZ3?=
+ =?utf-8?B?K1J0c0MwM2JJeWhzWkMrMGpaU3A3T1RleXo1Z3hIRjBRaUVvV05XMUtqbzdP?=
+ =?utf-8?Q?8fsbijdyRrTVco7dmcBWS08dmd+sN/rwX7mzBLoKQfZz2?=
+X-MS-Exchange-AntiSpam-MessageData-1: 95P1FPWJWPzLtQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7efc530-494a-48c7-e22b-08dedc947379
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 01:58:48.5326
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sxvb+6dxuVbpIc5kmyZBN5e7Amf7vXNGdx1GlUanZuHX9gRp5udVGdPrzTvJX2OH4SPhlsWF6i344yPg2IWi3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8488
+
+On Wednesday, July 1, 2026 6:06=E2=80=AFPM Jiqi Li wrote:
+> This patch set introduces device tree binding and standalone DTS file
+> for Lenovo ThinkEdge SE70, a fanless industrial edge gateway powered by
+> the NVIDIA Jetson Xavier NX module (P3668-0001) on a custom carrier board=
+.
+>=20
+> Patch 1 updates tegra.yaml bindings to add the three-stage compatible
+> string matching board + SOM + SoC, following the existing Tegra
+> carrier board convention.
+>=20
+> Patch 2 adds the complete carrier board device tree, including:
+> - 40-pin expansion header pinmux configuration
+> - External Micro SD card slot with dedicated 3.3V regulator
+> - I2C bus for 40-pin header
+>=20
+> All static device tree checks pass: dtbs compile and dt_binding_check
+> complete without errors.
+>=20
+> Jiqi Li (2):
+>   dt-bindings: arm: tegra: Add lenovo,thinkedge-se70 compatible string
+>   arm64: tegra: Add Lenovo ThinkEdge SE70 device tree
+>=20
+>  .../devicetree/bindings/arm/tegra.yaml        |   5 +
+>  arch/arm64/boot/dts/nvidia/Makefile           |   1 +
+>  .../nvidia/tegra194-lenovo-thinkedge-se70.dts | 113 ++++++++++++++++++
+>  3 files changed, 119 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-=
+se70.dts
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
+
+Your patch email formatting is off. The individual patch subjects should
+include the series version. That's what you should get out of the box
+with git send-email.
+
+Also, please don't restart series numbering. The above two make it hard
+to track the series.
+
+My strong recommendation is to use the 'b4' tool to manage and submit
+your patches. It will by default result in emails that are easier for
+maintainers to work with.
+
+Thank you
+Mikko
 
 
-
-On 5/29/2026 7:10 PM, Suzuki K Poulose wrote:
-> On 29/05/2026 11:26, Jie Gan wrote:
->>
->>
->> On 2/27/2026 6:10 PM, Suzuki K Poulose wrote:
->>> Hello,
->>>
->>>
->>> On 04/02/2026 02:22, Jie Gan wrote:
->>>> The DT‑binding patch adds platform‑specific compatibles for the
->>>> CTCU device, and the following Qualcomm platforms are included:
->>>> Kaanapali
->>>> Pakala(sm8750)
->>>> Hamoa(x1e80100)
->>>> Glymur
->>>
->>> Given this is predominantly DTS changes, and there is very low chances
->>> of a conflict with the binding yaml change, I would recommend this to go
->>> via soc or the qcom platform tree.
->>>
->>> For the series:
->>>
->>> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>
->> Hi Suzuki,
->>
->> May I ask is there a chance this patch series could go through the 
->> CoreSight tree?
-> 
-> Like I said, it is mostly Qcom platform changes. So, I would leave it to
-> the appropriate channel
-> 
-> Suzuki
-> 
-
-Hi Bjorn/Konrad,
-
-Gentle reminder.
-
-Could you please help to review the patch series?
-
-Thanks,
-Jie
-
-> 
->>
->> Thanks a lot.
->> Jie
->>
->>>
->>>
->>>>
->>>> Since the base Coresight DT patches for the Kaanapali and Glymur
->>>> platforms have not yet been applied, I created DT patches only
->>>> for the Pakala and Hamoa platforms. I will submit the Kaanapali
->>>> and Glymur patches once their corresponding base Coresight DT patches
->>>> are merged.
->>>>
->>>> The Hamoa‑related patches were posted in a separate email, and I
->>>> have included them in the current patch series.
->>>>
->>>> Link to the previous Hamoa patch series:
->>>> https://lore.kernel.org/all/20251106-enable-etr-and-ctcu-for-hamoa- 
->>>> v2-0-cdb3a18753aa@oss.qualcomm.com/
->>>>
->>>> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
->>>> ---
->>>> Changes in v3:
->>>> - change back to the numeric compatible from hamoa to x1e80100.
->>>> - Link to v2: https://lore.kernel.org/r/20260203-enable-ctcu-and- 
->>>> etr- v2-0-aacc7bd7eccb@oss.qualcomm.com
->>>>
->>>> Changes in v2:
->>>> - change back to the numeric compatible from pakala to sm8750.
->>>> - Link to v1: https://lore.kernel.org/r/20260203-enable-ctcu-and- 
->>>> etr- v1-0-a5371a2ec2b8@oss.qualcomm.com
->>>>
->>>> ---
->>>> Jie Gan (3):
->>>>        dt-binding: document QCOM platforms for CTCU device
->>>>        arm64: dts: qcom: hamoa: enable ETR and CTCU devices
->>>>        arm64: dts: qcom: sm8750: enable ETR and CTCU devices
->>>>
->>>>   .../bindings/arm/qcom,coresight-ctcu.yaml          |   4 +
->>>>   arch/arm64/boot/dts/qcom/hamoa.dtsi                | 160 +++++++++ 
->>>> + + +++++++-
->>>>   arch/arm64/boot/dts/qcom/sm8750.dtsi               | 177 +++++++++ 
->>>> + + ++++++++++
->>>>   3 files changed, 340 insertions(+), 1 deletion(-)
->>>> ---
->>>> base-commit: 193579fe01389bc21aff0051d13f24e8ea95b47d
->>>> change-id: 20260203-enable-ctcu-and-etr-31f9e9d1088d
->>>>
->>>> Best regards,
->>>
->>
-> 
 
