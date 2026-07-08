@@ -1,79 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6036B42CAE4;
-	Wed,  8 Jul 2026 10:45:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4F5432BC1
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:47:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783507536; cv=none; b=E3EUbLJB2zGgm/SGSsUSRY1rk91hchiI83pdmRzAn+DOM8Wg0KdgtXwpXwmqcxvG/XWZ49LpMOX4184nadd1pA0ZvC1qnSsc27cgkLqCsjCQdk+t5qCTUGnWIILthBfcGHkgVc6ZjWDTzeAkX659lszk5v4hmtmkPFve4Q2ynb8=
+	t=1783507653; cv=none; b=CsT3SDVD3X0BFlcUhWJGOvhdei7ZBat2HS1qXzI1ykwIXnmqP+z0cc9jbd/0B5tpQ/2MPxzjxcsxQZIb7ofjKze8UGJ7YKZeBQm7hi6fhZJk2/hdHoVQMkff+Y66jK84WL4/mzUYnYB/uyABbPPs+8ELciX8zxY4E9DLclLmK5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783507536; c=relaxed/simple;
-	bh=pux0VXMKGxe/GygS3tapFrP8EPQF3hB8WrKJiuxFx0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Eefrh0K01DzUI9lL/fh7+ZWSHoH/XjO+xzHw5i2RX+dDAOSLqNCATC6mhO/bGmxkjjyWmJlQ2S6Dkzsjp7h0bBU2tKiEbe+EreQ0IZLHFCCrUcpuvYYhLBB0agBdPHWZ7yI0fWgYM3ChYyhxKRP2TvZIpD6zSsGnGKbYThK4OUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dUv/aaBr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783507653; c=relaxed/simple;
+	bh=4iNtBA1yoPbIWCj1+adLSCrW4GrtSotgr0ZVQntyHCg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YzNhXOe0TT7oaOZYM93rjTWlO0KGHiQ5CgGFGbHMcGwposRKDFBSZSjMx3GdlszDjg/Rd740vrPJkXLvnLSQ2iGlNZ9PRaoVOKcdgvLwW16uoHv/RjOB3k72ZKsyjnhJwcxy7WJhB0IwKdxpj0BhFAK+IBo+s/8/bPHwRVirfRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PTu8tArQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dUv/aaBr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87EC91F000E9;
-	Wed,  8 Jul 2026 10:45:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PTu8tArQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052F21F00A3A;
+	Wed,  8 Jul 2026 10:47:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783507527;
-	bh=pylafSGUukz/4i8OoUfzyabnXGXIxcGDOPGtUmbKyoY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dUv/aaBr1uN7VfTdA/Mpn68vwcEgIyJQRX0FWY1Hnd1YVyT/5DgM++bpPB/Fkv3JB
-	 PEPlD4SXsVhNA0i6/lGqsmoKFDanh5h9znke27buXLwcdmROjizFnqV1wqYVN1ZICD
-	 BwxY5YI3FN/c9nHAhaUyB+OzEKjHfnBIDz87A/vsILfDMgCpsw0CaleU2f+90+lD/q
-	 2iCWJA2L3hzpwsA/yAy0arwno6Q/qK+B70tp468gmrnv42UXwAQn5naVXsVQCNbvJ1
-	 IKLBbq4f4/gyZSDLTRNxOe9+ez0EUCg29p2aEcca3r3V48rKnteNVExLD2xui3c41F
-	 olINebbehNM9w==
-Date: Wed, 8 Jul 2026 12:45:23 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Simon Glass <sjg@chromium.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, Fabio Estevam <festevam@nabladev.com>, 
-	linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jonathan Cameron <jic23@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Rob Herring <robh@kernel.org>, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 09/12] dt-bindings: iio: adc: rockchip-saradc: Add RV1106
- compatible
-Message-ID: <20260708-intrepid-piquant-teal-26615d@quoll>
-References: <20260706195818.3906949-1-sjg@chromium.org>
- <20260706195818.3906949-10-sjg@chromium.org>
+	s=k20260515; t=1783507646;
+	bh=oxa6gLHnv1NbQhOz1KWkyoru91c7Fa5iF8flnalK32w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PTu8tArQFfKCEe4cEkqOCm4NUcXK6WqcCvDEkW3jyb8pM78EaG/vCFFbdZh3qFSSG
+	 Kwm1lwdZh7Elzss7j+OuWIQyw6E88zcK1nhJwLk4LFO00LO2yzo3y697beDK1YEvtu
+	 SoZC25JRwznWmMaej/aOG0iIkKlJExlIOd5px92ku713LsG0yZj8V5HuQhB7CJ8Nb3
+	 PQgl9sHN/9TC6CoOyr+0w9YX6Kbzi+uJxIVCstf6/A+fvLkeZ8EPO5RPY2Yepb9JST
+	 97qiJ/4TgXUAecE2JdnlUTiOquByg6SKVvfRYgpdzRD1NtkRHNlkgrlyT+1XAyxIGo
+	 fYVdxrptqo9jg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/6] arm64: dts: renesas: r8a78000: Add MDLC nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Geert Uytterhoeven" <geert+renesas@glider.be>
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <dca2c4940ba38b897f04b6fb67591de9835900e1.1783505142.git.geert+renesas@glider.be>
+References: <cover.1783505142.git.geert+renesas@glider.be>
+ <dca2c4940ba38b897f04b6fb67591de9835900e1.1783505142.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 10:47:25 +0000
+Message-Id: <20260708104726.052F21F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260706195818.3906949-10-sjg@chromium.org>
 
-On Mon, Jul 06, 2026 at 01:58:05PM -0600, Simon Glass wrote:
-> Add the compatible for the SARADC of the Rockchip RV1106, which is
-> compatible with the RK3588 variant.
-> 
-> Signed-off-by: Simon Glass <sjg@chromium.org>
-> ---
-> 
->  Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-> index 6769d679c907..c3bb03dc4853 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/rockchip-saradc.yaml
-> @@ -24,6 +24,9 @@ properties:
->        - items:
->            - const: rockchip,rk3576-saradc
->            - const: rockchip,rk3588-saradc
-> +      - items:
-> +          - const: rockchip,rv1106-saradc
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Hardware mapping mismatch between MDLC driver and DT causes prob=
+e failure for hscif0.
+--
 
-Why can't this be an enum with 3576?
+--- Patch [6]: [PATCH v2 6/6] arm64: dts: renesas: r8a78000: Add MDLC nodes=
+ ---
+commit f3c8aa0f294cd575595329194a9adf5e14b5f350
+Author: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Best regards,
-Krzysztof
+arm64: dts: renesas: r8a78000: Add MDLC nodes
 
+This patch adds device nodes for the Module Control (MDLC) blocks on the
+R-Car X5H (R8A78000) SoC. It also links all (H)SCIF serial ports to an MDLC
+for power domains and resets to complete their hardware description.
+
+> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/=
+dts/renesas/r8a78000.dtsi
+> index e22e307ce31fb..6ca1b1e95aef2 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+[ ... ]
+> @@ -886,6 +895,8 @@ hscif0: serial@c0710000 {
+>  				 <&cpg R8A78000_CPG_SGASYNCD4_PERW_BUS>,
+>  				 <&scif_clk>;
+>  			clock-names =3D "fck", "brg_int", "scif_clk";
+> +			power-domains =3D <&mdlc_perw R8A78000_MDLC_PD_APL 0x41>;
+
+[Severity: Medium]
+Is this the correct ID for hscif0?
+
+The r8a78000-mdlc driver introduced earlier in this series restricts power
+domain attachment to module IDs in its allowlist.
+
+The driver specifically defines ID 0x54 as HSCIF0.
+
+Since 0x41 is not mapped to hscif0 in the driver's allowlist, will
+r8a78000_mdlc_attach_dev() return -ENOENT and permanently prevent hscif0 fr=
+om
+successfully probing?
+
+> +			resets =3D <&mdlc_perw 0x41>;
+>  			status =3D "disabled";
+>  		};
+[ ... ]
+> @@ -922,6 +937,8 @@ hscif3: serial@c071c000 {
+>  				 <&cpg R8A78000_CPG_SGASYNCD4_PERW_BUS>,
+>  				 <&scif_clk>;
+>  			clock-names =3D "fck", "brg_int", "scif_clk";
+> +			power-domains =3D <&mdlc_perw R8A78000_MDLC_PD_APL 0x54>;
+
+[Severity: Medium]
+Will this conflict with the MDLC driver?
+
+The driver explicitly maps ID 0x54 to HSCIF0, but here it is being assigned=
+ to
+hscif3.
+
+> +			resets =3D <&mdlc_perw 0x54>;
+>  			status =3D "disabled";
+>  		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783505142.gi=
+t.geert+renesas@glider.be?part=3D6
