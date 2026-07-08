@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C174C957E;
-	Wed,  8 Jul 2026 14:57:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F074CA291;
+	Wed,  8 Jul 2026 14:57:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522640; cv=none; b=UgBOUa5ru+QbU8ECuwc37mc/t9ZHNKxarbdXzTUCyYfxXa1zCM2JZjufM6Zc7zJ3xgHb9CWq/YYssYdL+tjgqC3Wo1pcUpr20rynBzS5Bah2Il8jmP9TXhB6Vphx3A5GKjbUkCugXwbmMT6mbADgNVA8R0mFbCXnAgvJrUIRE7U=
+	t=1783522641; cv=none; b=N4SQxZhsww6AMhlHxBKmN3rsf3msgOrKkoeCVNPb9lg1t+fy1Sb1n308TVhMbbI+r/icrh3IZQ2AxnIpYZBwjHRch1C75/tghMgNWJif2hHijN7sTyu/XJL3HB9dp3Jfy4dlEJxqjo6y7b8nwhg/z2YSxi962HMmB/fLX+mFM+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522640; c=relaxed/simple;
-	bh=/yhqUWVrWo6o42m8OKjkHk9oxXxqB6oLWj+aLPNLqOI=;
+	s=arc-20240116; t=1783522641; c=relaxed/simple;
+	bh=P2nGxlVvqV1tglEbpW59lb/xoLB1QAtVhmAi5sjDiDI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=byGnBG2ru9Hsi9SmOcHKOxAWRXjcVtS35nEVvo8vzAzZuoAGDwqZ92xfjhznZBmvQQcVxNv6EvkGGjHdBgXuRh+b2WptyJoLcMvOUvEmP3+a8WVz7iqoEquVCTS/MIp42uY/ZaLUqVnvNP5qUeGYh4jyiYAmOZBwI5Vjzd+iKz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cl+BmRHC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mVUjl4gUXtDZONK3RfDIJrjvQNvsHQMOgJw7uUyajfg8IJ3TZD8sqQ8lAISynWuX3/n3TU8xopDNjsXzptmby+pooKoq9jVCXKJOevy7HJADOLag6WtrtVP+g4eunjMw+Rf6ciYp7jQoXN9tHG6kGtVO/lSsC4ym9xlAiYstqH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NU05BPPn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cl+BmRHC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21401F00A3A;
-	Wed,  8 Jul 2026 14:57:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NU05BPPn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E8161F00A3F;
+	Wed,  8 Jul 2026 14:57:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522639;
-	bh=F3Mu3/C5sMzl9AzcLpJV6sCgtG4I4Try0Vq3cQJlKHg=;
+	s=k20260515; t=1783522640;
+	bh=Bvew9G7cKihyryOFA80qinIJ0DplQA0KK/Qa91/2otw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cl+BmRHCLYBKRvTpkTJ2ts1aCXai+iKulAvgUBKyfMNjanDTbunqudcCY9U4T2low
-	 FBhvBDYNNVAFX/OAkSI+Iy8GpbWTUA8/Q4LZhHEDhHYal7BLA2H1C0ZnpnxCdyDdB3
-	 ZxsDwj2xc5Gmrubeh+XITLEwqwxPSi6sapgbhfngRw2HVNEHdJWiceGWaNmNpdqJm8
-	 Z+FhjkPOaRxQtHfuyzcpHqcQos6llTZfVWVbmGGO5GykhU1JONlkMIhU1gaStpAX8M
-	 5s7YcidMGfCysXq6l1eW5wL7GrCUj1Q2sKc57jFxyvclNSkGBp2ZXzyw3fQl0B0rMr
-	 TMP+c7eL+x+pQ==
+	b=NU05BPPn1kbvMQea8rs7zX//GTDSqjisYDXKaVKSmlnmJz8TkUbu7erUccWAp416d
+	 nI2gRG9xOPjBKq5UJfbl5BiFaaQR368TBvrZRw/HNdHn2LOwnuX+AXVtLNB/MZFXfu
+	 K/R/osV4nHmZgQzE6pbJVCb9Lzwmbafv/RpbOdQK3voVpxNjnDATe2anksWIcGRWVy
+	 6wouYaMztR0xXprjuI8wlmKACL9rKm2TJEOn2jHPzmrZpKWmU/ZKGz5Wcvfg96P+nt
+	 TuwysXGKF5OwwUfYgWm+Wpw7Ju/RLTAdsRIz+VuxsyNpREt/OCmzSodrWCz9Rgo0wI
+	 sjm4SuSomV+bw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+	Haritha S K <haritha.k@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] Add CCI and CAMSS support for Kaanapali
-Date: Wed,  8 Jul 2026 09:56:20 -0500
-Message-ID: <178352261637.2235436.16367939885864866010.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	manaf.pallikunhi@oss.qualcomm.com,
+	gaurav.kohli@oss.qualcomm.com
+Subject: Re: [PATCH v2] arm64: dts: qcom: talos: Add passive polling-delay for gpu-thermal zone
+Date: Wed,  8 Jul 2026 09:56:21 -0500
+Message-ID: <178352261634.2235436.2722725215570101866.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260508-knp-camera-v1-0-a18e289163fd@oss.qualcomm.com>
-References: <20260508-knp-camera-v1-0-a18e289163fd@oss.qualcomm.com>
+In-Reply-To: <20260505-qcs615_gpu_cooling-v2-1-1ba42260b29d@oss.qualcomm.com>
+References: <20260505-qcs615_gpu_cooling-v2-1-1ba42260b29d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,29 +53,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 08 May 2026 01:36:44 -0700, Hangxiang Ma wrote:
-> This series adds CCI and CAMSS support for Qualcomm Kaanapali SoC.
+On Tue, 05 May 2026 16:56:17 +0530, Haritha S K wrote:
+> Introduce a passive polling delay to ensure more than one
+> "passive" thermal point is considered when throttling the GPU
+> thermal zone.
 > 
-> This series has been tested using the following commands with a downstream
-> driver for S5KJN5 sensor.
-> - media-ctl --reset
-> - media-ctl -V '"msm_csiphy2":0[fmt:SGBRG10/4096x3072]'
-> - media-ctl -V '"msm_csid0":0[fmt:SGBRG10/4096x3072]'
-> - media-ctl -V '"msm_vfe0_rdi0":0[fmt:SGBRG10/4096x3072]'
-> - media-ctl -l '"msm_csiphy2":1->"msm_csid0":0[1]'
-> - media-ctl -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
-> - yavta  --capture=20 -I -n 5 -f SGBRG10P -s 4096x3072 -F  /dev/video0
 > 
-> [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: kaanapali: Add camss node
-      commit: 7cc8ca0387f572a4d69941fe380e7a262342491d
-[2/3] arm64: dts: qcom: kaanapali: Add CCI definitions
-      commit: c25b80614c31a30b1b0f44fc5ae260aff90fa4aa
-[3/3] arm64: dts: qcom: kaanapali: Add camera MCLK pinctrl
-      commit: b6f8ecb80c1f894bcd0c612bf0ed4c5fee52d287
+[1/1] arm64: dts: qcom: talos: Add passive polling-delay for gpu-thermal zone
+      commit: 765234f19964cc2ba704b76d117491ca5c7e0899
 
 Best regards,
 -- 
