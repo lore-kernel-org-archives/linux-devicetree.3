@@ -1,236 +1,114 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31387369D42
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2535175A7E
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783471486; cv=none; b=jidrBSTJOGmuEfc/Y5J7IY9FhvVXuAbDCC21TAuEDEzPffAXsFKWhqSPd8PL3EVSbQa2/SeNUMWZYMaKrCSZSp0bbHZ2LLjvKzx5tQut/8qRSktR6f42bMpBr9PJMJpMfLallPlkY+66DNfKfu4roVAiyH19a0fWBfSYbRE71OQ=
+	t=1783472020; cv=none; b=UEY/ET30qrPQuIYkbMWYn5Hj1i3IoGs1us/T/Xd8pxV04KYnwXqaRg5G5R7LJ4EjEDqM6L7tfmQ2DTo6hDgeH45MtdHImIVWvg73JwiewzenJicmlPDAn3KA4ibmIxFvbmGsshMNEHQ7wnQAF2b19q/4hP4rD/MOT3Ar/OPjz0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783471486; c=relaxed/simple;
-	bh=+ME4uIwfh7U2ZsvpPKYM6p+xs5eimsD0mEkQXeCVi/I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Pw+ULBxy0APlyuerP1NrUNuKe+nGzbIdS5e6KdGiktJ7sVXMe/ep7PrfZkXMVcxe+OqKlEL7CvFebFECly1VNkKtrGKwJpI1EYeF0GTx07Ai1f81Czpl+SUwNxUwg0P3LLN2LMpo36Rglb77pd+28gP20nH8sV2GWwQ94yjPkn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Qn7a7hRG; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783472020; c=relaxed/simple;
+	bh=m40uEJpMN9x+Vxvb0d+C+QT6CIonRN3IKfNAYvmo1Ik=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fGS2n4lOchJi4/nC70WJF1litC2dEqs84y/FKWLD1PVbMtnN+ZFeCZ3tmn6s9u9rLX5Ev84mO7BYsAta82/smqi3CH2IkHa97B1CjwKgCHnEE5DTxqh5H+QqAh/cAif3yCy4AEuecD4ZthzrbmObNqZID9caFFDQ9SiPPz/N5Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1LskKuk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Qn7a7hRG"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493bb510ce4so471595e9.1
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 17:44:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783471475; x=1784076275; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=veP+5F/JehNLDz0mSqLFb4LSBoU3B+S6w7lib5M/5j0=;
-        b=Qn7a7hRGDwOP4LlSJ0PGF+DHOrV63Ea+UEZlc0gkK7jcNea1Fb2yYZxgOFqgV1rn8d
-         0GdfxlcyIFmV3f0ohXx3X1jvFiy9R2P28eg75NjmwlCjGfwDDlZo+XaHHdqVsEACUPE/
-         qVK7XdHdgczLEAXcf5d00lb3WBtPmyOhgCOKDOFLy/6ZBFgp55kpophPpNhe+BhUqDkv
-         3mpmDewB2CNdJHJEtfvkveb9yR+uf9AOsHbMRMUrEbDp+3yxSwHwMeDQJjnzgvcFDtt1
-         nnu7HbAuoCt2dmsNr0gKFDOIZSyBqWobr6j6TiMVH/1likf6lu5PO7N46ZCZyy/MPidO
-         3mBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783471475; x=1784076275;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=veP+5F/JehNLDz0mSqLFb4LSBoU3B+S6w7lib5M/5j0=;
-        b=NdiOdIJbWWE6r1aDqkx+MXs9e3D5Cd459FeUkw71H4hTRYhsl6Ylf6PugVDNSYad2i
-         rD91W0d0Vp3vDBPsbDkiebr4IU8b0qIT1VzPA8zYgeOXfsjNd0gNr7XNjzoXbIjTx+KP
-         CiFuI+F7HVY38z4I9ihQAQmVAwdjAtZNRw1Uf1nbNHUdXp+U4Jp7yqsHscARTgFOdRP7
-         UxDKXjE7RDduEOJRKfGzbZSqTJHr0xs5MaNc1tOY0rcLo6FQFTRrGjW1HjfCkMuqCM6F
-         kUR3H+rgRS8vSQUDCI6Czx4d/FkGc9Qi96boQvc0P3bQ1ftT5v7Y1KF8oCDHtP/Jtmnn
-         GASw==
-X-Forwarded-Encrypted: i=1; AHgh+Roi5q3ajOS9t/NZ+mNKNJhcM7Huhs9gbFKVfKka2MzeeTToghzsRZeaTZaOQoTDnk4pnfgLUayYVqob@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyxmajvou0lacrId4jL6WEEjpYtDHxmDLUFuQ3/kY/MWRPeC/bi
-	jqkHlsfn+eJlEvgx72SX35vXSmqScHBosouA5dOKamlyU1MrEQLguL92Mh2g9kGfQ+Q=
-X-Gm-Gg: AfdE7ckLNew+2aOncJlUuhBZOOlRuPLlQQzVCAKkN5nidgFMKab147YJCKZ1Q9lDoCY
-	cR9zpVvH9JCwlPJ/mkAGGlZfzbIBvMbAoX1YLXWH/sqyc4Oj/5gVftfbSGULZeyjhb34+KWA0em
-	/SIh8DHLZQGqDDF8uDKb61QZ3fK0kl6y0onJ+d8uDamnOuME3BXuBF7u7PGHmDZMlK6uRQGwbXG
-	T0Rmp0AlgEjrs/PfMvSJQ02rN7gywBQ/g0Tg+BvI9prlBMjNytZnwkizeg7Mo6erZwF/tjaX6qO
-	BtoXFlxrEh33VZagM3jnEINQigKX9yI+i6uYWgIU6Fchf8NsjPu/6VsY7hIrrZQCndwTGAQ3lhR
-	w20DNvf9g7Q7A7LiwBbyb9MOzc+qQVhcZ6SKPnDSMCtpoUyBnQy5eHiCAnYhNVFdnsFofWDPZiQ
-	4ECPwV/1qrww6HblObEQQ3uY595Dhd2u9p8w==
-X-Received: by 2002:a05:600c:34ce:b0:492:4911:8a with SMTP id 5b1f17b1804b1-493e68bfa4emr1560835e9.12.1783471475147;
-        Tue, 07 Jul 2026 17:44:35 -0700 (PDT)
-Received: from [192.168.0.35] ([109.77.92.41])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0fc1348sm99727985e9.14.2026.07.07.17.44.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 17:44:34 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Wed, 08 Jul 2026 01:44:17 +0100
-Subject: [PATCH v4 10/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x:
- Add ov02c10 RGB sensor on CSIPHY4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1LskKuk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11DAA1F000E9;
+	Wed,  8 Jul 2026 00:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783472019;
+	bh=ZdnTVxZytiKNWyii21O+epR9CSVkO7FyiWQlA7tIVUQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=j1LskKuk5VlBBAOqnTy9jH5tK/efZ1Kq6Sqhgtm+pywCe9fA3M1A0Ck6V9lia4r79
+	 IQnnVjIbDvItlelsj0+o2VKh4H9+cOAq6B2qJjCzLtOBxPSOvdwKmlh8v3CI3GFGSS
+	 VW6l5qmfG3IYSV1xk9pabSNm0rcZbyULlxwjsPeI77RU+s8lWuCWDSsCMXypTRH7rs
+	 YzKYm8FTZsq1DJMbEfQRQiJEjjVQrovLbaZr51P9x0aSiNKTCcNBFd/hN6haHD50c7
+	 SvoPDCJO2GhcZTV6d5tz1bsiUZO8GzuI7ye4qeLdmskAnV9ObxOmtze1I8+t6Xzidh
+	 o9alqPryl6oAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 04/11] arm64: dts: qcom: x1e80100-crd: Add pm8010 CRD
+ pmic,id=m regulators
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260708-x1e-camss-csi2-phy-dtsi-v4-4-572348ad1b2a@linaro.org>
+References: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
+ <20260708-x1e-camss-csi2-phy-dtsi-v4-4-572348ad1b2a@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 00:53:38 +0000
+Message-Id: <20260708005339.11DAA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-x1e-camss-csi2-phy-dtsi-v4-10-572348ad1b2a@linaro.org>
-References: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
-In-Reply-To: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2898;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=+ME4uIwfh7U2ZsvpPKYM6p+xs5eimsD0mEkQXeCVi/I=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqTZ1ebs19ebdN4Fw8+ba1fCey8OGla8+D3wHUz
- Of4kSDKH2yJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCak2dXgAKCRAicTuzoY3I
- Ovt5D/9r9QOowQEHNxF2nmIsRLjR/afhkMXT3QuRuwn/kqs8ExUht/aw9JPy3MuuFXtgLfNTXQY
- 6cRy40YRmaZNiz60CjaRPRDT293y65rSZ1tj9GkHG3VvTS/O7yGtqvAQD+TUw72aVNt/xqoiCgk
- zQ7Zh7R/lKPESAda6KNqodq42LyVFataY4+bfdb0QChh/jHgKhM9GyoQ1x3O27aYWLs0tHXDTuS
- BoNo3CSyJ2y3KkN0EmruFcS4Hirs2cvq0UcRvycasuCMDG3Z7PSbTOVMND5gKMnuxApnkunAhqt
- 8yQQYixmnB6TGcPG2QornGkl05E2cpLChpwGw56ORwwucnd/kwsUvsI0eMLj7df6RhCCaUflD/Q
- 0PclSUu/KDVgDFW8GIJtlBJAMMAkw83hMXPWAl32iIp/+yUTVNWRIPfKeKmoJ0RdRbY/Pv9OJ5W
- 7R/eb7aGHUwFNMvhfpoU3Rj+5nlnReLMdF4GD4JLuZqICa7p3la3sfyqzfd7r4L42u2y9LvBw2j
- JvdhAs3GZQqXubUDnLSP8wJxVlAOSNL+EPkSv23rdwJ5bdkgJvEcHo4eA5ojMCaNsTwoTp5zW4k
- tdONyZv78vA2MtLI3E1horTMh7oYJfHa3JtDdf2kHOqFODpjVC15t4CaUx0ytuZPNjACtFedBFq
- MkpwiSSElX3LJpw==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add in the RGB sensor on CSIPHY4.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts  | 99 ++++++++++++++++++++++
- 1 file changed, 99 insertions(+)
+Pre-existing issues:
+- [High] The `pm8010_vreg_data` array in the RPMh regulator driver lacks a =
+terminating empty `{}` sentinel.
+--
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-index bcf3e2f610e66..3945f4a79952e 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-@@ -7,6 +7,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/gpio-keys.h>
-+#include <dt-bindings/phy/phy.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "hamoa.dtsi"
-@@ -863,6 +864,88 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/x1e80100/LENOVO/83ED/qcdxkmsuc8380.mbn";
- };
- 
-+&camss {
-+	status = "okay";
-+
-+	ports {
-+		/*
-+		 * port0 => csiphy0
-+		 * port1 => csiphy1
-+		 * port2 => csiphy2
-+		 * port3 => csiphy4
-+		 */
-+		port@3 {
-+			camss_csiphy4_inep: endpoint@0 {
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&csiphy4_out_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@36 {
-+		compatible = "ovti,ov02c10";
-+		reg = <0x36>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam_rgb_default>;
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <0>; /* front facing */
-+
-+		avdd-supply = <&vreg_l7b_2p8>;
-+		dvdd-supply = <&vreg_l1m_1p2>;
-+		dovdd-supply = <&vreg_l3m_1p8>;
-+
-+		port {
-+			ov02c10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&csiphy4_in_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p8-supply = <&vreg_l2c_0p8>;
-+	vdda-1p2-supply = <&vreg_l1c_1p2>;
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			csiphy4_in_ep: endpoint {
-+				data-lanes = <0 1>;
-+				clock-lanes = <7>;
-+				remote-endpoint = <&ov02c10_ep>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			csiphy4_out_ep: endpoint {
-+				remote-endpoint = <&camss_csiphy4_inep>;
-+			};
-+		};
-+	};
-+};
-+
- &i2c0 {
- 	clock-frequency = <400000>;
- 
-@@ -1410,6 +1493,22 @@ &tlmm {
- 			       <44 4>, /* SPI (TPM) */
- 			       <238 1>; /* UFS Reset */
- 
-+	cam_rgb_default: cam-rgb-default-state {
-+		mclk-pins {
-+			pins = "gpio100";
-+			function = "cam_aon";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+
-+		reset-n-pins {
-+			pins = "gpio237";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
- 	edp_reg_en: edp-reg-en-state {
- 		pins = "gpio70";
- 		function = "gpio";
+--- Patch [4]: [PATCH v4 04/11] arm64: dts: qcom: x1e80100-crd: Add pm8010 =
+CRD pmic,id=3Dm regulators ---
+commit 047315d3629a65ebc6a0299afcf53675ba20171b
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
--- 
-2.54.0
+arm64: dts: qcom: x1e80100-crd: Add pm8010 CRD pmic,id=3Dm regulators
 
+This patch adds rpmh regulator definitions for the pm8010 CRD pmic. This
+regulator set provides vreg_l3m_1p8, the regulator for the ov08x40 RGB
+sensor on the CRD.
+
+> diff --git a/arch/arm64/boot/dts/qcom/x1-crd.dtsi b/arch/arm64/boot/dts/q=
+com/x1-crd.dtsi
+> index a9c5c523575ee..7b9a40a7b9a95 100644
+> --- a/arch/arm64/boot/dts/qcom/x1-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
+> @@ -897,6 +897,36 @@ vreg_l3j_0p8: ldo3 {
+>  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+>  		};
+>  	};
+> +
+> +	regulators-8 {
+> +		compatible =3D "qcom,pm8010-rpmh-regulators";
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a potential problem
+in the rpmh regulator driver when looking at the pm8010 regulators.
+
+The pm8010_vreg_data array in drivers/regulator/qcom-rpmh-regulator.c lacks=
+ a
+terminating empty {} sentinel:
+
+drivers/regulator/qcom-rpmh-regulator.c:
+static const struct rpmh_vreg_init_data pm8010_vreg_data[] =3D {
+	RPMH_VREG("ldo1",  LDO,  1, &pmic5_nldo502,   "vdd-l1-l2"),
+	RPMH_VREG("ldo2",  LDO,  2, &pmic5_nldo502,   "vdd-l1-l2"),
+	RPMH_VREG("ldo3",  LDO,  3, &pmic5_pldo502ln, "vdd-l3-l4"),
+	RPMH_VREG("ldo4",  LDO,  4, &pmic5_pldo502ln, "vdd-l3-l4"),
+	RPMH_VREG("ldo5",  LDO,  5, &pmic5_pldo502,   "vdd-l5"),
+	RPMH_VREG("ldo6",  LDO,  6, &pmic5_pldo502ln, "vdd-l6"),
+	RPMH_VREG("ldo7",  LDO,  7, &pmic5_pldo502,   "vdd-l7"),
+};
+
+Because rpmh_regulator_init_vreg() iterates over this array using
+rpmh_data->name as the loop condition, if a device tree specifies a regulat=
+or
+name not present in this array, the loop will read past the end of the arra=
+y.
+
+Could this out-of-bounds read cause the PMIC to misconfigure a regulator if=
+ a
+name happens to match adjacent memory, or lead to a kernel panic if it
+reaches unmapped memory before encountering a NULL pointer?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-x1e-camss-=
+csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org?part=3D4
