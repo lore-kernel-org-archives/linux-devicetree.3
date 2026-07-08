@@ -1,111 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2FF4657C4
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1974657DD;
+	Wed,  8 Jul 2026 12:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783515579; cv=none; b=saHHKza7mI4kKTS/I5OWVJ9sAv5+jRV+BwRB67A5pGJTcU16TqiPvCpiL4G6/fNyK+pBwZ0wfJVP/oFaqs4gyVW75Tos0/djR522MQf4TTqpDTH/7YyJ+cSVg3JZFp8sfB3Mxy53F5g3lgTo3fq/5rpb190iL56stulgplXsP6c=
+	t=1783515597; cv=none; b=LmWLTec1Hzr0qKZepHxNlWG+HsiZe0dvd1EraEgdi/4fkL/1pxcKFLBPgxnm/5eJ/cVjTRY2Pdo4KB1psrTDc0DBZl6vYQSqkIKWXjrSJzCbq71GjwOWoTuu7AW87jfOmIdfGTewTsQSH2kE6O6OWJKehcURyiicDupxOuZAlK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783515579; c=relaxed/simple;
-	bh=cvqYhYnXXEQoboO0Ocq29k/BhX5X44SyjDDeciQY8lI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oP4Lc5IB7YNSAjjnDBv8P7sD/yVEOZpyM3+YQSB1M+5IGLpXoid4FTq/XVqNIx1PRy8q3rsIMTy0hkaSAbBkULcfqiPmwq2ts03slHFJNLz3XAhECOh7GGFuLcrBmd3seKEun2yEaPAIcfH9W8o+BtOorKH1IxSHhst724svaUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2RnwX+p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783515597; c=relaxed/simple;
+	bh=V7aK68/26qBGEJjFgpBRUzW4ex72yHCq+Vx2aTGwmY0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JnGPBq3OcKdOyrk310u43pTH5fvTiDyVqSc6eia3zHbfQ7jnyllsdePSiXbDZv9xBc7B2EUMm014XSKwFiAp787K+xaIAoLjYuviWqKf7SCOvZJuca9rMA5FViHTQoZu0fbotkh7U6SKRzDC4xjAcTtSL2uZ78TRC6K7giMhfxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VOAH5+5D; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2RnwX+p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC651F000E9;
-	Wed,  8 Jul 2026 12:59:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783515578;
-	bh=v53hsJE6JBpbf12RNy18nOj0XAfLdlhflf4sWeCndiY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j2RnwX+pOKrwhzYHnzt0plaoLGQE7KZn8KjsdsCIpRxA2pT+OWtmBf0O1HYEhFHKf
-	 Ly0b/2pXMFsPp7W/hhz/x8SqHZtJ5g6qh7qla3qmbRwETKHA9ARpcPy6Dud3KQh44g
-	 Q3XHuGk1rWCs6kcA7PcEol763jtErYZpY68fiNgFxKjyI7aG1b3bBG1mdeziGShCCe
-	 1NWDGEn1XRDA73Ng7GishZPVHvTor587SUhVALJUh0iXevnx6zeo/pkkPMTNRqteHd
-	 ERzkcY1grbv8utD9pp5Vh56s3BkWMvL0pG5tLD7VgXcrjLD4GIcurC9y4B5GZXFuJv
-	 kM5D4ioEEG1Ew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/4] arm64: dts: nuvoton: npcm845: Reorder timer0 and
- PECI nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomer Maimon" <tmaimon77@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260708125352.1915040-3-tmaimon77@gmail.com>
-References: <20260708125352.1915040-1-tmaimon77@gmail.com>
- <20260708125352.1915040-3-tmaimon77@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 12:59:37 +0000
-Message-Id: <20260708125937.EEC651F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VOAH5+5D"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 121164E40CF7;
+	Wed,  8 Jul 2026 12:59:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D759060337;
+	Wed,  8 Jul 2026 12:59:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C0E2411BC0DDB;
+	Wed,  8 Jul 2026 14:59:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783515593; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=KqbPk7W/xg9la/kQEemsDvBwfwa0jXXj/79ki0DXFUk=;
+	b=VOAH5+5DHS2rc2xNoQRdbNJZoXcP50tsx2tg6u9Vn+1G8/gWEAO0EhcRuPez+p7StIu5MH
+	5fcxKSvilbQdrohHObOos7NpPJBK8lX44UxS3cvlop87Sm0cSG8YYmO44ycvaW0orfuhZy
+	NQghTqrl59BpuSjzHFOXtUQPv5YMjTLAtDyDT40cNKtXO8QcPdl1X4jtZiUWsz2zCJ2Rgl
+	CeWCSdKD9pGBpJYBBUA9rQQp2tPdQ5D0x5EhdaZLqtQeTsFPLSGQ0Qy5JlSbbYP7ixkq6i
+	602YLUhIXs7OP5tq88tgmqV5VIyFmyTd7GLXGVYeyb6fWcndHksvT6yg0Lgjzw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
+ <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Thomas
+ Gleixner <tglx@kernel.org>,  Olivia Mackall <olivia@selenic.com>,  Herbert
+ Xu <herbert@gondor.apana.org.au>,  Jayesh Choudhary <j-choudhary@ti.com>,
+  "David S. Miller" <davem@davemloft.net>,  Christian Marangi
+ <ansuelsmth@gmail.com>,  Antoine Tenart <atenart@kernel.org>,  Magnus Damm
+ <magnus.damm@gmail.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+  Pascal EBERHARD <pascal.eberhard@se.com>,  Wolfram Sang
+ <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 12/16] irqchip/eip201-aic: Add support for Safexcel
+ EIP-201 AIC
+In-Reply-To: <CAMuHMdWr5OT0iAbZMgDAizO9KnhmyUN3hsqFnp+JYRao4aKu_A@mail.gmail.com>
+	(Geert Uytterhoeven's message of "Wed, 8 Apr 2026 10:05:18 +0200")
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+	<20260327-schneider-v7-0-rc1-crypto-v1-12-5e6ff7853994@bootlin.com>
+	<CAMuHMdWr5OT0iAbZMgDAizO9KnhmyUN3hsqFnp+JYRao4aKu_A@mail.gmail.com>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Wed, 08 Jul 2026 14:59:48 +0200
+Message-ID: <87ldbliqm3.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch duplicates the `timer0` node instead of moving it, result=
-ing in a duplicate node and label definition that will cause a Device Tree =
-Compiler (DTC) error.
---
+Hello Geert,
 
---- Patch [2]: [PATCH v7 2/4] arm64: dts: nuvoton: npcm845: Reorder timer0 =
-and PECI nodes ---
-commit 1450734310ae6f4872b7fb3d37cc7db1efd0ebca
-Author: Tomer Maimon <tmaimon77@gmail.com>
+Sorry for the late replay.
 
-arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
+>> --- a/drivers/irqchip/Kconfig
+>> +++ b/drivers/irqchip/Kconfig
+>> @@ -826,4 +826,12 @@ config SUNPLUS_SP7021_INTC
+>>           chained controller, routing all interrupt source in P-Chip to
+>>           the primary controller on C-Chip.
+>>
+>> +config SAFEXCEL_EIP201_AIC
+>> +        tristate "Safexcel EIP201 AIC"
+>
+> Is there any platform dependency that could be added here?
 
-Move the timer0 and PECI nodes so the APB children are ordered by
-ascending unit address.
+In practice no, because this is an IP block that has been integrated in
+many SoCs (I don't have the list). However if you care about reducing
+the list of possible options I can make it depend on the RZN1
+architecture, where I need it, but I don't see this as an relevant
+move. What do you prefer?
 
-> diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/ar=
-ch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> --- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> +++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> @@ -59,15 +59,6 @@ apb {
->  			ranges =3D <0x0 0x0 0xf0000000 0x00300000>,
->  				<0xfff00000 0x0 0xfff00000 0x00016000>;
-> =20
-> -			peci: peci-controller@100000 {
-> -				compatible =3D "nuvoton,npcm845-peci";
-> -				reg =3D <0x100000 0x1000>;
-> -				interrupts =3D <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-> -				clocks =3D <&clk NPCM8XX_CLK_APB3>;
-> -				cmd-timeout-ms =3D <1000>;
-> -				status =3D "disabled";
-> -			};
-> -
->  			timer0: timer@8000 {
->  				compatible =3D "nuvoton,npcm845-timer";
->  				interrupts =3D <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-
-[ ... ]
-
-> @@ -138,6 +129,13 @@ serial6: serial@6000 {
->  				status =3D "disabled";
->  			};
-> =20
-> +			timer0: timer@8000 {
-> +				compatible =3D "nuvoton,npcm845-timer";
-> +				interrupts =3D <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-> +				reg =3D <0x8000 0x1C>;
-> +				clocks =3D <&refclk>;
-> +			};
-> +
-
-[Severity: Low]
-Will this result in a duplicate node and label definition during dtbs
-compilation?
-
-It appears this patch adds timer0 to its new sorted location but misses
-removing the original timer0 node from the top of the apb bus. This typical=
-ly
-causes a duplicate label error from the Device Tree Compiler.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708125352.1915=
-040-1-tmaimon77@gmail.com?part=3D2
+Thanks,
+Miqu=C3=A8l
