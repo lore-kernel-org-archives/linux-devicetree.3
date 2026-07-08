@@ -1,181 +1,228 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204BA44D020
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783514295; cv=none; b=Gz3H7Qd6UFKKQwFTXKZAuV9L/efQKU746mDT081yUza3lapD9Q5t9z6A3K8nK7gtceOpcc9NxVz7SvHO5m9nmxcCki04P3RBTE8FGLk1nxKJbvQo8/zZj4nAqJkxFUnkp8N2HHBKxo/PFnVr0uNHyIR0n75nzVpMNTUu9AXDkoY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783514295; c=relaxed/simple;
-	bh=+JRPwrOZ+ypwkQ7iD5bSYPKHGljtOUaxDrIScQnpVQY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TdOXqzt4KSuFnIqYui+GS3S+HFXzfxmeAzFUKYB0buX8y/GaR6sH4XBDvBFd1I4NJuZbWg5BPpc5PHfjaC1uYa2oggrbykfOyeeKaJmRkU01QHBs2y+piODb22lyjtcRvwSjoGlnJ2Dl/NRZjynE5Ez4b4dTra6UPOxUHMk2XyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=c69r4ZX6; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8A044212E
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783514387; cv=pass; b=aw26LLpo17MoXKaRNYs8ZgHHJuKpwHE8LAaaXzL7hs6k32MpUP3+6N6TtRYnWdqt9QvvyjKOzQ7zHqwRz5EVrmtVmdg1vV9iRW6ifiHV1T2FRBFX56iguV8TRngNxeihV6hZQji9Huwtj118ZJNRBtoykWwK2/pwr27smRq7HWY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783514387; c=relaxed/simple;
+	bh=n/sGbbutQ73G342dpin2WL8qTmPSXEGKF9D4zc1iiXc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Us6mdyyZNcgwcVRb8DEPUwV2s+kezHBv3llcT611Pw53uI13KbnTlaZbfpiPVNTqH8iBPAzCGJXSK4NsuNaQvU1KDUwhuqMhD3EY39B88kw4xQWESBTfZyMsuiysNm6d0qYWp4GE0D6hYg5pMfAxdhu4lcEfrBdhPfEdOVkUjy4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WMutdXuM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ja3UGPQB; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="c69r4ZX6"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493e4cccd8dso2604465e9.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:38:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WMutdXuM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ja3UGPQB"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668C3hdS2580093
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 12:39:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DVLrRsxBfsth/sld+RHhwkOWkl2LyTR8biIgWTqq5w0=; b=WMutdXuMbVkKPC/j
+	6HN9SqXaZSnN4OtWCnX8k4AsDfDfx9zvXEslzfZbDuBENNg8QNebTMaBz/dFqB1m
+	OHhP5nD5UhVqtDryA283LgRfFPUFnRtp8tQiVuTITPeP1QamoPF1xuIHG+oA39Ri
+	Pir7o6URI7gqHvWJFOv0H/qBblZNpDNvzkji4i4HEm1oG3o7qQ7kBMRpK5Djvwg5
+	/oDq79tqVMuUDBGiJQB6sC+hgxrAoLAikyi3xWNseZ2+8+8ZmbItTvMf7H6A2AK2
+	16niAirL4jz45iWfDJ20W51WL3f8c4c6//WmPFK7pvxGJF2Y3C9p/fkgnc0cMs0r
+	Qe56ZQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9b5gaqjg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 12:39:44 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8efad04d884so18745366d6.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:39:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783514384; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Am1CHvMtT8LMg35hxF/vKzKENzeCDdpQkNe1P35A3IL+cBLjv4By81cLQ/e8dABgdK
+         Bz1ef0H5/zuovY7s7YlBmilpd0S5PpfNYRWFeBuaZNiy0WhTmNn6eUY+y+XQl2RFXX6M
+         bDcbRuvXFn77p/cAGqMQ/lkaJGwPp5flyGg7g9zmOG8/QqTa4MT9MrZSz9+7q/INpN9S
+         3xXrpiiVuPYrMvskKR4l5fQsEBbOl7WcEkanNKZgc14rHrs0OyXBgA1W5XLJjstQ5z2x
+         2S9oocOsZd3d772dlmIZUqPPiliKy3tnwiqKOEfsY77DD7NMFm0ZdgyR1TbaS7WUHyLc
+         qKYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DVLrRsxBfsth/sld+RHhwkOWkl2LyTR8biIgWTqq5w0=;
+        fh=VBJoFkB6QrJ8mHjOQS0FW/wFGO5O+CEuvQgqHIKI9S0=;
+        b=UlLnYokdKs206ZELaUhmgRFLeIrACJlvAUIUYu7V4Hr4UHn81uRwMlX0Z2XL9AQBKK
+         RJhNgJ2tkIoiE35IsMQ0uw/u2pfwl+zGjewSPlR7Gds0OfU5Qwsnf72jadTEvdeFikwI
+         lxyRSYCbv2REMaiyb3gt9wmtghxfXmXnI77BUKrYt0f8NLu3FHQ6Y0coZJXU79Ho4XEc
+         etlwT+Zth1wmrVSR9zfGVxI/hHF+hzpCZvQflxAPwArmOJRn75woae8ztRGlQQsKSaBr
+         YWZczo7FR73KsmBRmgkqUniMLtiWlrBvNeIkXUfLAAJG8kSm4VGIod+YRsw8WSXCbwqi
+         O3wQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783514290; x=1784119090; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rFFEb1yJr4W/OXQaHP4cwompeqYq2+VX2v909Wsi6ek=;
-        b=c69r4ZX6TXcMbont5OsxB9wtWwMzbaxViO8iCNAp+S4ODLF2UIFTtSIZ779mybKXwz
-         5HsVBhS0n0jHiEO1cbRBRCnDCQgoTv3ii7AG4zwomYSmZtnIgYo/qTjLk/n+haWReQaC
-         o94M91qvvditNZTKKmEAqswp5NDf+VazLqvQio3ee4eMomsq6KxjQrBKX8QfZudREoDc
-         783ztMV+4iXy283TGlF1YmjL+gAKgmNzbAX+5F2e/Ooc2aDlyQ45fEhmOLWo4XNy/YXH
-         bkpNg7OZj7ui5sEFTBiQq5haoinuYNr9lZEQEEEaYxX7V3er+l/7+PP0FyLkoFndGFg4
-         ibGA==
+        d=oss.qualcomm.com; s=google; t=1783514384; x=1784119184; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DVLrRsxBfsth/sld+RHhwkOWkl2LyTR8biIgWTqq5w0=;
+        b=ja3UGPQB+LrSaE7IbXO7DRf+BBWAP0NenUr1rAbjQq1XdTWDtApLGJzjb01Bf3s6+7
+         wjQABJfMnsB6GnMeLkoguC6MAojP2tVwDhAvnaeAncgZxsugijWzxXJnYQol0J9EfAvX
+         fWUrKqWIy7pSFr9CiM7jv9GHRCJJ2qiEijb7Dv5Vx9OhnDqWeDP0xzg6nySyW1kuR9MV
+         V7+6re3Xskw1jhABPwZ9jxuWQvDPuPdylhLOt6tT083pnxfITjAUhbp4ScrXEvsOF/xE
+         7J/JOATgQB04h0oys+ybCGl+JJLsW7srPshDTP1TvBllz2EH+IfMUZSqojKRU1wI7+HO
+         t6LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783514290; x=1784119090;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=rFFEb1yJr4W/OXQaHP4cwompeqYq2+VX2v909Wsi6ek=;
-        b=eID2DYbQs1cuXicNK1x7RRDh1hfBij3XVMAn4iXaWuV+j2Kj2lJe3l7vIjsHNaZ8MN
-         4WR1lBP3hH1t10zttz9tOAB85jU2TvpEPfqN4+KoNluCnXoX+xtOBcJFfQLRc+En9SZD
-         jRUN5/8ffz83hu3jBnhs/vfsesnhjJ8AAm5pBKH+ykUHuXYS8bHVzTkh1C49+sUSw+Ve
-         htLKRFQ5Y1+A2HtqIcbzd3f7RnVCf36BUEsC+Kj/pLLfjZXgXcSDYgH3PKjEEuaLw2aw
-         mPLHEDVmvH0/ZzAt9eWSfcO8EHujHAqkkuDLD14JBc8KLhX6I1NFMs3D+Xr7F9JI0yY0
-         WK/w==
-X-Forwarded-Encrypted: i=1; AHgh+RoVDimV/S4mlNwvQIkK3xan0mbZXEODBtgDEpEds3QpbtJ7D+lhVOgo7eEWcDRH81Wkuca94peQE0x2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxnrcd2TydIZZJ91xxbtbyEutHgvkRMZUG8RDPE+6cq2ZaxjKc4
-	+oJu/9Vtablx99TZekcl6QU7Of8/2V1o6DbrwtTNeI59ZfYB2U7CZBWWVZm4K0ctliI=
-X-Gm-Gg: AfdE7cmcugSC+Q0E/CgSdzyXVTlXM4t17CQIRQy+YLBfohJWjVxg1N6az2RVpX3f/h6
-	fZksxORxeYMjGVGdfKmIRtXLBnnNVcTCnE0faXCLjQVMP+9qaQeKhiD+CExurrZkFM0L3ApA8jc
-	E0zyVaaYfv71KuuJD1BbSJk5jpXoM1bJf37jUCg8f2OGS5W8jYG9Bf6B+oO/rwMLU3MJ2+NtKqQ
-	nVVH5LOAASHw9BfzrbM2eLdqGYRm+YhFCyr2c++bmRtitrYitSoIyQhebI1VYhV0c3s5dpcVz6h
-	Dx7mx7qjnFoZ8CFYns8EdPemVBBsqRyAUn4ZMC4fIxubmYN89nfuyljCswogDgvDZYOl8q5m8Nx
-	r4PMUxrODSf3GBUqzMT2vhJgykNdtvWe8Z0vbw+X/23d4abcxPhtvVnBk9HD6Se/UNnwHpu0em1
-	lWJKSXQ33sFhs=
-X-Received: by 2002:a05:600c:a00f:b0:493:bc4b:b8c with SMTP id 5b1f17b1804b1-493e69e9902mr24247945e9.38.1783514290519;
-        Wed, 08 Jul 2026 05:38:10 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:6a8f:4433:b91b:5334])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493e0f4fc0bsm125307795e9.10.2026.07.08.05.38.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 05:38:09 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>,  Alexandre Belloni
- <alexandre.belloni@bootlin.com>,  Rob Herring <robh@kernel.org>,
-  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
- Holland <samuel@sholland.org>,  Michael Turquette
- <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,  Maxime
- Ripard <mripard@kernel.org>,  linux-rtc@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-arm-kernel@lists.infradead.org,
-  linux-sunxi@lists.linux.dev,  linux-kernel@vger.kernel.org,
-  linux-clk@vger.kernel.org
-Subject: Re: [PATCH v4 9/9] clk: sunxi-ng: sun6i-rtc: add a733 support
-In-Reply-To: <CAGb2v67AXz=TPzNFnRMS9-vweL+6g5T57dwwYCdorwdi8HWcjA@mail.gmail.com>
-	(Chen-Yu Tsai's message of "Tue, 7 Jul 2026 00:47:30 +0800")
-References: <20260706-a733-rtc-v4-0-f330728db3d3@baylibre.com>
-	<20260706-a733-rtc-v4-9-f330728db3d3@baylibre.com>
-	<CAGb2v67AXz=TPzNFnRMS9-vweL+6g5T57dwwYCdorwdi8HWcjA@mail.gmail.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Wed, 08 Jul 2026 14:38:08 +0200
-Message-ID: <1jpl0xhd1r.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20251104; t=1783514384; x=1784119184;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DVLrRsxBfsth/sld+RHhwkOWkl2LyTR8biIgWTqq5w0=;
+        b=eHII8u0ltbPyt6axlWM5MpHQCywJu5NMIdqqkQ8UwBPQ+sVt1eJ1pn9IYWm3w5lHPs
+         RFe83EuOr5V/FcXrSh9LrFCZjzlmwBm1dar67xEwcRskCYN6VScmVXv9WJf5i2dUHGyo
+         6DvhaIXmMVGdfeX9R7INLuO8q1x6aw3g4MnaRGTVfxqNBi/zuNR89ZSnkcIFskSw2OfI
+         CYhjFxnBxN9o0eHe0jyjVEXJcIkYVgwHI6D9EQ7ZW9YMg8X457dtjm4DLBsXDU1a+NJ5
+         Sbbct4qOlJprIZjIhD4f9Ju/UN/v7Q47siDl4JVkho5ZyDroxL6ayNdkhOW532sJI0dn
+         k3NA==
+X-Forwarded-Encrypted: i=1; AHgh+RrBKQ2IrnDVFQGIK/4ynDrVhHvCHl3XrNkbsDks+e4LnHoux25cv8J4Edg1avzLCtk+1/Rn1idYU/qF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBG+qjtCzqX1hDNUNKbxtnXbFzoyTnS4qdHdIN1Za7Gl4S3u6e
+	lPfjCvOEnXxCBZix7eT9WsOBRZydIxe4zxCynOCpMViexn7Br2Qma5uMZQLxWX0fXyxlGTZCvok
+	MzaGaEyFxRrJ+zKDN85JDHg/Bbv5i0rs2KcyRmg3K9j+04pkFZ/89S6KmWn8BpA6RADKBRzQQsa
+	qmg32oHtqyGxE6Wo0dinY8U9m9G1ewMS1lF/WhGGk=
+X-Gm-Gg: AfdE7cl+HyEzvmmYH6ZI2V7r0j88SbHUfkvWuSKGY3oWNeoxpF4Btue5c/k8yqmfJ0s
+	qUiu8V4wn/NfS4RWqe4GCwqCyrSSN6MKygwHN7bOy+cvnV6x2MrS4lLnCUZOfCh751i57N3XVzk
+	uEpY/8OEdx8tfVbGMesH9VaMaLJlmYf9+i6DtELtuTVtHNsibUJKoC70Z1E+wb60VxOqFM9NnbF
+	RMBNTznSGGpMwc000DMCdXZDepk8DOVFDKcTsD7KTCLN4rFFSNXXC/2FUf9z4jqQ1vidasHxQhH
+	mO/cMhUoBw==
+X-Received: by 2002:ad4:5f8a:0:b0:8fd:6dc5:946 with SMTP id 6a1803df08f44-8fec35246c7mr20100966d6.59.1783514384038;
+        Wed, 08 Jul 2026 05:39:44 -0700 (PDT)
+X-Received: by 2002:ad4:5f8a:0:b0:8fd:6dc5:946 with SMTP id
+ 6a1803df08f44-8fec35246c7mr20100466d6.59.1783514383642; Wed, 08 Jul 2026
+ 05:39:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+ <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-2-f8588da41f16@linaro.org>
+In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-2-f8588da41f16@linaro.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 8 Jul 2026 14:39:31 +0200
+X-Gm-Features: AVVi8CchIqRSdmxO0bXp2YqtKRf6VLcwQniYXaK_pILrgpsztuik_wMDiAIIoR0
+Message-ID: <CAFEp6-3-OZKpn-2WV8hKC5dsid9X-usjmiYLdYHeaDKqHGRonA@mail.gmail.com>
+Subject: Re: [PATCH v12 2/6] dt-bindings: media: qcom,x1e80100-camss: Describe
+ iommu entries
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        "Bryan O'Donoghue" <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDEyMiBTYWx0ZWRfX6vyEi6uXTjs8
+ qrUsDR+hxRKhnKdKWKl8KwhRBDFGr5g2pGa4M4N6wL1TKXmWm0bA0kBims+9hazwB2L4xDhKQ8F
+ yastwkeFpip4gmcREV321O4rQn9ghec=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDEyMiBTYWx0ZWRfXwVBLemjw8aKn
+ UVFLgJjzjEhZ/Ry34ML69FtBtDoMn5aOPdrtaNwjdxSlD6sDqjbntfStJlaOmKefHZrP+Zxa0U6
+ D4464oeCHYVgSrxRTEHmfsL9nEi89Q9bbqNQ0GB1fM4HAtWcin7SMgF0chjhMwUG2iIRVAX/pI2
+ 5Uy/bgfAZDA8LXnoeA0pS30S8JQK1rIU9AxOTdRvpOTmx+EnKfxamEAeo5hF7AfegmBaeVPV0aE
+ 71MGOuH0xR5A7U76bt5uZvJZ56P4yr1FkvGw+buDzq5YuL++At4GMzBdaDFcDfajJQzK6FOXMAj
+ AOVXU3yogYnRaJ6U0az8ohGKd1G00c9bZ4UlOrdB2OQMKHunafy3gJQe5v2ElzgxwYevtQdnUvQ
+ njZhhgLIHnwljNpmMyUWlifYEwn5duG0VUY2OHVcuBo0AExQXa6ON+oYyDqHizI+Tgh5ysG9tBd
+ vej2BWg1N6Sb2x8Gdfg==
+X-Proofpoint-ORIG-GUID: uZ93a8MajCkLdHhpnhkVKMzDQamORbIJ
+X-Authority-Analysis: v=2.4 cv=JLULdcKb c=1 sm=1 tr=0 ts=6a4e4510 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=_SFytyMYinpwrXg1NNAA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: uZ93a8MajCkLdHhpnhkVKMzDQamORbIJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080122
 
-On mar. 07 juil. 2026 at 00:47, Chen-Yu Tsai <wens@kernel.org> wrote:
-
->> +
->> +static struct ccu_div osc24M_32k_div_a733_clk = {
->> +       .enable = BIT(1),
->> +       .div    = _SUNXI_CCU_DIV_TABLE(14, 2, osc24M_32k_div_a733_table),
->> +       .common = {
->> +               .reg            = DCXO_CTRL_REG,
->> +               .hw.init        = CLK_HW_INIT_PARENTS_DATA("osc24M-32k-div",
->> +                                                          osc24M,
->> +                                                          &ccu_rodiv_ops,
->> +                                                          0),
->> +       },
->> +};
->> +
->> +static SUNXI_CCU_GATE(osc24M_32k_clk, "osc24M-32k", "osc24M-32k-div",
+On Wed, Jul 8, 2026 at 2:07=E2=80=AFAM Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
 >
-> I'm not a big fan of using global clock parent names, especially when we
-> can have proper struct clk_hw pointer references. However in this case
-> it seems unavoidable without making a huge mess.
+> The original iommus list included entries for ICP and BPS/IPE S1
+> contexts. Only the five S1 HLOS stream IDs are required by the CAMSS
+> ISP hardware: IFE/IFE_LITE read and write, SFE read and write, and
+> CDM IFE. The remaining entries serve other hardware blocks which will
+> be described in their own nodes as support is added.
 >
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Indeed there is no way around it to support different SoC path with
-static data.
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
->> +                     LOSC_OUT_GATING_REG, BIT(16), 0);
->>
->>  static const struct clk_hw *rtc_32k_parents[] = {
->>         &osc32k_clk.common.hw,
->> @@ -267,6 +296,15 @@ static struct ccu_mux osc32k_fanout_clk = {
->>         },
->>  };
-
-[...]
-
->>  };
->>  MODULE_DEVICE_TABLE(of, sun6i_rtc_ccu_match);
->> @@ -375,6 +435,13 @@ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
->>         osc32k_fanout_init_data.parent_data = data->osc32k_fanout_parents;
->>         osc32k_fanout_init_data.num_parents = data->osc32k_fanout_nparents;
->>
->> +       if (data->have_dcxo_status)
->> +               sun6i_rtc_ccu_hw_clks.hws[CLK_OSC24M_32K_DIV] =
->> +                       &osc24M_32k_div_a733_clk.common.hw;
->> +
->> +       if (!data->have_phy_ref_gates)
->> +               sun6i_rtc_ccu_hw_clks.num = CLK_OSC24M_32K_DIV + 1;
+> ---
+>  .../bindings/media/qcom,x1e80100-camss.yaml        | 26 ++++++++++++++++=
+------
+>  1 file changed, 19 insertions(+), 7 deletions(-)
 >
-> Maybe keep the old CLK_NUMBER macro and call the new one CLK_NUMBER_A733?
-> The point is to not directly use a random macro + 1 here.
-
-Are you sure you about this ? You are going to end up with this
-CLK_NUMBER_A733 in the table which is going to be odd (unless I put an
-explanation next it) then this CLK_NUMBER without any suffix put next to
-clock gate things
-
-The choice I made initially was meant to keep thing as clear as possible
-* CLK_NUMBER remains the number of clock in the table
-* CLK_OSC24M_32K_DIV + 1 (while not very nice) clearly show which is the
-  last clock in that case. It is not random IMO.
-
-If you still prefer the suggestion above, I'll submit v5 with it but it
-look odd to me.
-
+> diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.=
+yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> index c17b9757b2c86..c4454355f07ea 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> @@ -112,7 +112,22 @@ properties:
+>        - const: sf_icp_mnoc
 >
-> Otherwise,
+>    iommus:
+> -    maxItems: 8
+> +    oneOf:
+> +      - items:
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected read
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected write
+> +          - description: S1 HLOS SFE non-protected read
+> +          - description: S1 HLOS SFE non-protected write
+> +          - description: S1 HLOS CDM IFE non-protected
+> +          - description: Legacy slot 0 - do not use
+> +          - description: Legacy slot 1 - do not use
+> +          - description: Legacy slot 2 - do not use
+> +      - items:
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected read
+> +          - description: S1 HLOS IFE and IFE_LITE non-protected write
+> +          - description: S1 HLOS SFE non-protected read
+> +          - description: S1 HLOS SFE non-protected write
+> +          - description: S1 HLOS CDM IFE non-protected
 >
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+>    power-domains:
+>      items:
+> @@ -361,13 +376,10 @@ examples:
+>                                   "sf_icp_mnoc";
 >
->> +
->>         return devm_sunxi_ccu_probe(dev, reg, &sun6i_rtc_ccu_desc);
->>  }
->>
->> diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
->> index ab7b92b47f59..4f4f4cb00f1d 100644
->> --- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
->> +++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.h
->> @@ -11,6 +11,6 @@
->>  #define CLK_RTC_32K            6
->>  #define CLK_OSC24M_32K_DIV     7
->>
->> -#define CLK_NUMBER             (CLK_OSC24M_32K_DIV + 1)
->> +#define CLK_NUMBER             (CLK_HOSC_SERDES1 + 1)
->>
->>  #endif /* _CCU_SUN6I_RTC_H */
->>
->> --
->> 2.47.3
->>
-
--- 
-Jerome
+>              iommus =3D <&apps_smmu 0x800 0x60>,
+> +                     <&apps_smmu 0x820 0x60>,
+> +                     <&apps_smmu 0x840 0x60>,
+>                       <&apps_smmu 0x860 0x60>,
+> -                     <&apps_smmu 0x1800 0x60>,
+> -                     <&apps_smmu 0x1860 0x60>,
+> -                     <&apps_smmu 0x18e0 0x00>,
+> -                     <&apps_smmu 0x1980 0x20>,
+> -                     <&apps_smmu 0x1900 0x00>,
+> -                     <&apps_smmu 0x19a0 0x20>;
+> +                     <&apps_smmu 0x18a0 0x0>;
+>
+>              power-domains =3D <&camcc CAM_CC_IFE_0_GDSC>,
+>                              <&camcc CAM_CC_IFE_1_GDSC>,
+>
+> --
+> 2.54.0
+>
