@@ -1,120 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB94D44D035
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:37:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBFD44D01D;
+	Wed,  8 Jul 2026 12:37:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783514245; cv=none; b=nTBwipob44a3CoFKGQibMX25WhEK+7Swh3iswDV5mAh0fJLsdwaq+PVcGz7t8PDsJex98F+7Gw2NK13gOTlgF6j2Ij8c7v0CE68XQYREb99wF1AfdVU0ii3w8d2kbuwUVL9bX1WBxJB8wLoIXM5AnCsIi8a3MedIChJHR3H1c5I=
+	t=1783514260; cv=none; b=sIB7cW3EMf+McuMn3pccrOrrytyMwgabLbugHoRAidQM31heI3nVinDhbte86zvkHTeqWrYcflQ3PeXXZ3+H+jltSyTtoCzyqMve6J8kXNiLmV6s2EEjCF8D5EupfThUfWxETt1xptN/TjaQqJC9+y89Yq4/xfbhgM+vZDmjmVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783514245; c=relaxed/simple;
-	bh=w+1RRA6rZbxqjZtNS2I/gsJHBl7rL1mZShKbkKcneDY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OoLz8/0QqKuiwj62tYKVBQBm5UB/HeXtV0fZ5NXl4XeTo2Jrm2NKB5PoKeespjzzDBbwZ5nfbtJgI67m4UnPBZRbmdhc1uA6nXw/Z3FrcKAT9KfEBkFE2KZEo4j1TmyoSn6joUNRBnx74l41g6nb3dSUQOrMX5r5Vo48Rcd73TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JovDNmPC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783514260; c=relaxed/simple;
+	bh=D4V20yvTx7Bt9X5jiU4Rk/UjjvQ8zoTI5A4kW9wqm8g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lGRphevSu/gtMzBfScxINQ9TiLba47VMGWE4tsbKGj23MGxTqcRaOewJRnMH8P3bfnQ3O8lzX2GylZUdwskYj/4zn5oRGsWQfOoFPbTyYr3PHJhjrwuR99c1uuzL4kc6pS4aPovnACVuIWz9g6U2y7Bo6rcZl6yE2+qdHnTZ+mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKGqwLn2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JovDNmPC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690891F0155A
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:37:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKGqwLn2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289401F000E9;
+	Wed,  8 Jul 2026 12:37:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783514241;
-	bh=XfiUur0Kr+Q7bgq22hLGxjyCrq0Ps76VqvbE0kLZpd8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=JovDNmPCILxzkAt5IJ8bCG6EGPEzCEzgsbfvDVrCxfAsgF5ITdgeDg3cQPesuZhV8
-	 OG7us8+7r98dRe5uKeCwm+kDh7fpZf36Q54iZ0imTfM2tbj5K+3n/9hwIeGHPhcYvk
-	 gSMW7HBx9xt5FowZnVl3XgGuUnj4FSkpc8mJHGTbauIVQsqpQaZ2vqMXwngwiur/Um
-	 XXFISWlPHHuRy63pY9q83hCR9p7vDEnMjBBHkuULd0kKz28pOBHb+4kzOKiNHRqq75
-	 emdARE+aCfZdoyQTtAN0J7QJP7oSyS5PvU1Sc5kft8w4qU0UkVHaK25In3q3rq7BpH
-	 elBaCzTEXRe2A==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aeb91c003eso612750e87.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:37:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro+uCi2eNmzTRilcTS9faB1QYNCOiMQLiNMZ21qjnlWxB7W9C/Vyftz/9iSiN3413WWXPmCkn6XCxx4@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxusB1ox6KNssw8XwDsLLUqy9/t6LkovKKuQVkPwkACmAZyZSJ
-	JkrtF0TLbzPIKB/37XrZPA1coICK8UHCBpE3QBEZATcuMqTkU4QcgKQSnIog4R8FiOBQn1XVUR9
-	7hAo/UPDauUug4w8PxTa/npgM0csAZIJSW+Eqt9Ndjw==
-X-Received: by 2002:a05:6512:4507:b0:5ae:c099:a92 with SMTP id
- 2adb3069b0e04-5b011485ac2mr617455e87.42.1783514240069; Wed, 08 Jul 2026
- 05:37:20 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Jul 2026 05:37:19 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 8 Jul 2026 05:37:19 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260706-ipq5018-bluetooth-v4-4-350262a30959@outlook.com>
+	s=k20260515; t=1783514258;
+	bh=8fUFQDzaUf36uu7CDdNF60MWQnD0G9Nnv1PIm09s/RI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JKGqwLn2f/56m8y6eAKhEWCzCiLcujvPhOW8iqtGW/ro+U+zcpe3AtaBSqJp9H/aU
+	 T24PuOjJBjRVdIuXQo9QQ7+MXUChvLqSni4oQpKrGAs0kEhbKaLXGZHIQ3CT1EQepJ
+	 Dhv+z0mZxU5YG2K7cMIrClE5dMWYzEospHINkLs8X+ku10cvBxL80NQBE1MfKjIw77
+	 0KKRDiuGssYKAOoMfSqHMwVO3mcpiwYHd01U1iQrN/PDjZELtE4B/6sX63Vjm6vfT4
+	 V8dKfxr5J4fQfD+KepmlrHFTZJG7MVfLBE88/QX5caGAjQV3U/mc+cbvxv2QXqvwse
+	 lpa2shIiPbB/g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: leds: backlight: Convert TPS65217 to DT
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Eduard Bostina" <egbostina@gmail.com>
+Cc: lee@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, linux-leds@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260708123317.1768641-1-egbostina@gmail.com>
+References: <20260708123317.1768641-1-egbostina@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 12:37:37 +0000
+Message-Id: <20260708123738.289401F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260706-ipq5018-bluetooth-v4-0-350262a30959@outlook.com> <20260706-ipq5018-bluetooth-v4-4-350262a30959@outlook.com>
-Date: Wed, 8 Jul 2026 05:37:19 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mf3TpJ6hM=LbX6GwztY-rGG66AeGGJ1pxLmWUSSK91Dtw@mail.gmail.com>
-X-Gm-Features: AVVi8Ceywm3bByhomGUKsMGJ8qVgtzooCIpxOCT7q59JZC1PEs1w66ncIlsgnbM
-Message-ID: <CAMRc=Mf3TpJ6hM=LbX6GwztY-rGG66AeGGJ1pxLmWUSSK91Dtw@mail.gmail.com>
-Subject: Re: [PATCH v4 4/6] Bluetooth: Introduce Qualcomm IPQ5018 IPC based
- HCI driver
-To: george.moussalem@outlook.com
-Cc: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 6 Jul 2026 19:26:20 +0200, George Moussalem via B4 Relay
-<devnull+george.moussalem.outlook.com@kernel.org> said:
-> From: George Moussalem <george.moussalem@outlook.com>
->
-> Add support for the Bluetooth controller found in the IPQ5018 SoC.
-> This driver implements firmware loading and the transport layer between
-> the HCI core and the Bluetooth controller.
->
-> The firmware is loaded by the host into the dedicated reserved memory
-> carveout and authenticated by TrustZone. A Secure Channel Manager (SCM)
-> call safely brings the peripheral core out of reset.
->
-> A shared memory ring buffer topology handles runtime data frame
-> transport between the host APSS and the controller.
->
-> An outgoing APCS IPC bit and an incoming GIC interrupt handle host/guest
-> signaling.
->
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-> ---
+> Convert the Texas Instruments TPS65217 PMIC bindings to DT schema.
+>=20
+> During the conversion, the following updates were made:
+> - Make the 'backlight' node optional to resolve dtbs_check warnings.
+>   Some boards declare a bare TPS65217 node without implementing the
+>   backlight configuration.
+> - Document the 'isink-en' property in the backlight subnode to resolve
+>   dtbs_check warnings. This property is used (am335x-guardian.dts)
+>   to manage the backlight current sinks. It was missing from the old
+>   txt binding.
+> - 'additionalProperties: true' is at the top level because the
+>   TPS65217 node is documented across multiple independent schemas
+>   matching the same compatible string.
+>=20
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 
-...
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-> +
-> +		/* Check if firmware is split across multiple segment files */
-> +		if (phdr->p_offset > fw->size ||
-> +		    phdr->p_filesz > fw->size - phdr->p_offset) {
-> +			seg_name = kasprintf(GFP_KERNEL, "%.*sb%02d",
-> +					     (int)stem_len, desc->firmware, i);
-> +			if (!seg_name) {
-> +				ret = -ENOMEM;
-> +				goto release_fw;
-> +			}
-> +
-> +			ret = request_firmware(&seg_fw, seg_name,
-> +					       desc->dev);
-> +			if (ret)
-> +				dev_err(desc->dev,
-> +					"Could not find split segment binary: %s\n",
-> +					seg_name);
-> +
-> +			/*
-> +			 * Use the virtual instead of the physical address as
-> +			 * the offset
-> +			 */
-> +			memcpy_toio(desc->mem_region + phdr->p_vaddr, seg_fw->data,
-> +				    phdr->p_filesz);
-> +
-> +			release_firmware(seg_fw);
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708123317.1768=
+641-1-egbostina@gmail.com?part=3D1
 
-I think sashiko is correct pointing out this would be left uninitialized.
-
-Bart
