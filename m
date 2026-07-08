@@ -1,201 +1,360 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309E92E7631
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34553F7A84;
+	Wed,  8 Jul 2026 21:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.88.110.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783546507; cv=none; b=S3EbZryD6k3L0vrXIfzgO/1matRaa4iQcDGQv4VO0Y+I1ximgx5BP/DkSsvhEZB/z3amFuX1vihmce4DT4DkPoUCHO3s3pYw/dv0KbIi6ogFalwYx2Lp+tUj7WdNBkJ+HVyEom6ADvm5QgLL+MjfjHBU/EUkvn6+Unq1BsX2ymQ=
+	t=1783546513; cv=none; b=Ict4tYikZOp4uGsxqbVoYseEu7KZr/UyMR76fRLlKwI+UNrJPqG+Uq92ddPUsOVBBFKRSlX6JprAeVsgmzlUQK/TOlQIxAF1jTFMN2Y2/00/4uoEqX6HyTylhcY39g4dyUG7K/fkWu5VXDfjIQtjh01SRLlGKep8gLEQGT4TBd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783546507; c=relaxed/simple;
-	bh=LfmuX+WN09XuZkXevbvH07EHQVuWqmXIU1hJwpJ8Oh8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SLyedpucQit3vrcjHHidU6DYeQdIuHQx6/qcX5TtU0HIFY9OKWHER1BFXOa1ABKCMBf44fQh2FpSllsPRK5qpQ8LT7x2OLgnhZrpBEOF0mlTU1iigndWnNOPrailY4mJaNKXyG8X5Dwyf57u1HCKDpHyMSrbH+ES77a7Ks4dYRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XuYOPvHN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783546513; c=relaxed/simple;
+	bh=orhZSB5pL3j1TBSqaxJD/CWlzNlDPhKuqDRHRMPNG1U=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=dbM7BWaTVahZVPVArOzIoowYdeuwRc+n+DDusbU8ZCuSqCnQQr1qnqsCR5jxUlDHMd4eRVtj3z6f8ZPCGz81PB/JzzfP4RLiRx4P9RkgjaSD8eOd2COS4CLmV0/OdxVdv5F/X8KLWsTLtc8o9fP81dFqm+Xhu4CipP8dYYwDwjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=none smtp.mailfrom=mail.savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=wmR4ax+R; arc=none smtp.client-ip=208.88.110.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mail.savoirfairelinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XuYOPvHN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C574D1F000E9;
-	Wed,  8 Jul 2026 21:35:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783546506;
-	bh=G9EXypEJy40h/+n6oSbEOhxBQsT7I7BUgf6bsn/3RO8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XuYOPvHNBzMtyZedog1tuthmccRlL4JoWRYtjmAJ3/7cWLxNpP1rbYpBQfTym0IOb
-	 CssuGvoAyLdF/NCphOngKQtMNbRVQkZJK7F+iGvo0LDY6EisUOUq65jDJ5kUiU1T4e
-	 /TI0fngsKL4wBjeiRaOIdZcTHE+uiRCii2wVWc3F1zsA5qPbARCc0578cRJBv4LDAL
-	 rom0gh2IBn4kUIqsGLoZReVnlVxpfV4bSz6NXDotQV+SwF0ae0hOlyGGSgnBSIVP86
-	 /HzBQT56IyuQ7eFynd9OFoxIwaQY6CGuiNdGpJrMAH06g8sYVXHShtPX7ZBWDKy2px
-	 Ax08CssYvBhAg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] arm64: dts: ti: Add support for Variscite
- VAR-SOM-AM62
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <36179bc7e043c95838354174963cdb27d5383620.1783545241.git.stefano.r@variscite.com>
-References: <cover.1783545241.git.stefano.r@variscite.com>
- <36179bc7e043c95838354174963cdb27d5383620.1783545241.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 21:35:05 +0000
-Message-Id: <20260708213505.C574D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="wmR4ax+R"
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 4F8073D818F8;
+	Wed,  8 Jul 2026 17:35:05 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id JxXdflRmhwRv; Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 6F2123D81922;
+	Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 6F2123D81922
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1783546502; bh=gHQZKL1PqEB7bNS5SNBEY1p/JaTPb9Zxj2hzob67Ehc=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=wmR4ax+RrMmGc4b3PgytXpMs9GTO1pCtQe4Aw9BXOPccbRlfkaQyRM8ygkCadKW4R
+	 /SftgsEpMSqc2ZiQ7rgGfmgflAvZE+Gtz1Guf0EREUBDlo3lE6PCSNSX2kfZkruk7n
+	 qdJLuud2dxOrTjoaNhhDLjvvmKX/dA6A0Qk8TzU47Gp1Mdf1abvJnMKLr/GrXdOTgc
+	 aFwsjhYpZWYmuTCMTKsy3R9jbsGaWR+KzXuZXQuOztflMUgeYFwkDL3DnDl6b3Ud2x
+	 tBrHoejQW2qNYTdeS6X5MswHKjGZMoMkrwKboCgsgP0EBPfEwpluzHQIWqXnZDc4RM
+	 X2cPlOq2BmgtA==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id qObAtRT7R9Mr; Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
+Received: from localhost (unknown [192.168.51.254])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 1B76F3D81904;
+	Wed,  8 Jul 2026 17:35:02 -0400 (EDT)
+From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+To: Jagan Teki <jagan@edgeble.ai>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
+	Felix Boucher <felix.boucher@savoirfairelinux.com>,
+	Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
+Subject: [PATCH 5/5] drm: panel: jd9365da: Add DCLTek 300250 9.35in display
+Date: Wed,  8 Jul 2026 17:35:00 -0400
+Message-Id: <20260708213500.1867092-6-marc-olivier.champagne@savoirfairelinux.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
+References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] The `reg_vdd_mmc2` (wifi_power) regulator is missing its `gpio` pr=
-operty and incorrectly configures Wi-Fi/BT enable pins as floating inputs.
-- [High] Race condition in Ethernet PHY initialization due to incorrect pin=
-mux placement.
-- [Medium] Blind copy-paste of WM8904 codec hardware configuration from bin=
-dings.
-- [Low] Usage of the incorrect `AM62PX_MCU_IOPAD` macro instead of `AM62X_M=
-CU_IOPAD` in an AM625 device tree.
-- [Low] Copy-paste artifact in the OPP table comment referencing the TI `am=
-625-sk` evaluation board.
---
+The DCLTek dt300250 is a LCD panel using the jd9365da controller.
+Add the panel to the driver.
 
---- Patch [2]: [PATCH v1 2/3] arm64: dts: ti: Add support for Variscite VAR=
--SOM-AM62 ---
-commit f91b9416e264c64f84899f5bbd68c1deb9597b14
-Author: Stefano Radaelli <stefano.r@variscite.com>
+Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
+linux.com>
+---
+ .../gpu/drm/panel/panel-jadard-jd9365da-h3.c  | 246 ++++++++++++++++++
+ 1 file changed, 246 insertions(+)
 
-arm64: dts: ti: Add support for Variscite VAR-SOM-AM62
-
-This commit adds device tree support for the Variscite VAR-SOM-AM62 system
-on module. It enables default SOM-specific peripherals like MMC, Ethernet,
-Audio, and Wi-Fi.
-
-Link: https://variscite.com/system-on-module-som/ti-sitara-am62x/var-som-am=
-62/
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am625-var-som.dtsi b/arch/arm64/bo=
-ot/dts/ti/k3-am625-var-som.dtsi
-> new file mode 100644
-> index 0000000000000..95dd96fe4c66d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am625-var-som.dtsi
-> @@ -0,0 +1,491 @@
-[ ... ]
-> +	opp-table {
-> +		/* Add 1.4GHz OPP for am625-sk board. Requires VDD_CORE to be at 0.85V=
- */
-> +		opp-1400000000 {
-> +			opp-hz =3D /bits/ 64 <1400000000>;
-
-[Severity: Low]
-Is this comment leftover from a copy-paste? It references the am625-sk
-evaluation board rather than the var-som board.
-
-> [ ... ]
-> +	reg_3v3_phy: regulator-3v3-phy {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "On-module +V3.3_PHY";
-> +		gpios =3D <&main_gpio0 45 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-always-on;
-> +	};
-
-[Severity: High]
-Can this cause a race condition during Ethernet PHY initialization?
-
-The PHY regulator reg_3v3_phy is set to always-on and asserts GPIO 45
-in software. However, the physical pinmux for power (GPIO0_45) and reset
-(GPIO0_46) is tied to the Ethernet MAC (cpsw3g) later in the file:
-
-	pinctrl_rgmii1: main-rgmii1-default-pins {
-		bootph-all;
-		pinctrl-single,pins =3D <
-			...
-			AM62X_IOPAD(0x00bc, PIN_INPUT, 7) /* (V24) VOUT0_DATA1.GPIO0_46 */
-			AM62X_IOPAD(0x00b8, PIN_INPUT, 7) /* (U22) VOUT0_DATA0.GPIO0_45 */
-		>;
-	};
-
-When the MAC probes, it applies the pinmux, causing the PHY to receive power
-instantly. Since the PHY lacks a phy-supply link to this regulator, there i=
-s a
-risk of a 0ms power-on delay before the MAC registers the MDIO bus and prob=
-es
-the PHY, violating its power-on and reset timing requirements.
-
-> +
-> +	reg_vdd_mmc2: regulator-vdd-wifi {
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_vdd_mmc2>;
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "wifi_power";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		regulator-always-on;
-> +	};
-
-[Severity: High]
-Does this regulator fail to power on the Wi-Fi/BT module?
-
-This wifi_power fixed regulator applies pinctrl_vdd_mmc2 but lacks a
-gpio =3D <...> property, so it acts as a dummy software regulator without
-actively toggling any pins.
-
-Furthermore, in pinctrl_vdd_mmc2 further down:
-
-	pinctrl_vdd_mmc2: main-vdd-mmc2-default-pins {
-		pinctrl-single,pins =3D <
-			AM62X_IOPAD(0x00d8, PIN_INPUT, 7) /* (V21) VOUT0_DATA8.GPIO0_53 */
-			AM62X_IOPAD(0x00dc, PIN_INPUT, 7) /* (W21) VOUT0_DATA9.GPIO0_54 */
-			AM62X_IOPAD(0x00f0, PIN_INPUT, 7) /* (Y22) VOUT0_DATA14.GPIO0_59 */
-			AM62X_IOPAD(0x00f4, PIN_INPUT, 7) /* (AA21) VOUT0_DATA15.GPIO0_60 */
-		>;
-	};
-
-These four GPIOs are configured as PIN_INPUT (floating). If any of these are
-hardware enable pins (like WL_EN), won't they remain unasserted and leave t=
-he
-module powered off?
-
-> [ ... ]
-> +	wm8904: audio-codec@1a {
-> +		compatible =3D "wlf,wm8904";
-> [ ... ]
-> +		wlf,drc-cfg-regs =3D /bits/ 16 <0x01af 0x3248 0x0000 0x0000>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0010 0x0408>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0028 0x0704>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0018 0x078c>,
-> +				   /bits/ 16 <0x04af 0x324b 0x0010 0x050e>;
-> +		/* GPIO1 =3D DMIC_CLK, don't touch others */
-> +		wlf,gpio-cfg =3D <0x0018>, <0xffff>, <0xffff>, <0xffff>;
-> +	};
-
-[Severity: Medium]
-Are these DRC and GPIO configurations intended for this specific board?
-
-This looks like a verbatim copy-paste from the device tree bindings example=
-. It
-forces GPIO1 to be driven as an output clock (wlf,gpio-cfg =3D <0x0018>). C=
-ould
-this cause electrical contention if GPIO1 is wired differently on the
-VAR-SOM-AM62?
-
-> [ ... ]
-> +&mcu_pmx0 {
-> +	pinctrl_wkup_clkout0: wkup-clkout0-default-pins {
-> +		pinctrl-single,pins =3D <
-> +			AM62PX_MCU_IOPAD(0x0084, PIN_OUTPUT, 0) /* (F13) WKUP_CLKOUT0 */
-> +		>;
-> +	};
-> +};
-
-[Severity: Low]
-Should this use the AM62X_MCU_IOPAD macro instead of AM62PX_MCU_IOPAD?
-
-The device tree is for an AM625, but this uses a macro intended for the AM6=
-2P
-SoC family.
-
+diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/g=
+pu/drm/panel/panel-jadard-jd9365da-h3.c
+index a79dc8f8d5af..970c64d6054d 100644
+--- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
++++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+@@ -2931,6 +2931,248 @@ static const struct jadard_panel_desc waveshare_1=
+0_1_inch_b_desc =3D {
+ 		MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
+ };
+=20
++static int dcltek_dt300250_init_cmds(struct jadard *jadard)
++{
++	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D jadard->dsi };
++
++	jd9365da_switch_page(&dsi_ctx, 0x00);
++	jadard_enable_standard_cmds(&dsi_ctx);
++
++	jd9365da_switch_page(&dsi_ctx, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x2B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x04, 0x2B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0C, 0x74);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x17, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x18, 0xCF);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x19, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1A, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1B, 0xCF);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1C, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x24, 0xFE);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x37, 0x09);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x38, 0x04);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3A, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3C, 0x5C);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3D, 0xFF);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3E, 0xFF);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3F, 0x7F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0xC8);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x42, 0x66);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x43, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x44, 0x0F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0x28);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x55, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x57, 0x8D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x0A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5A, 0x29);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5B, 0x1A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5D, 0x7F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5E, 0x65);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5F, 0x53);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x45);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x3E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x30);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x33);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x3B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x3C);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0x3F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x5D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x49);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6A, 0x4D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6B, 0x3D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6C, 0x37);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6D, 0x28);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6E, 0x15);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6F, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x7F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x71, 0x65);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x72, 0x53);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x73, 0x45);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x74, 0x3E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0x30);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x76, 0x33);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x77, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x78, 0x3B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x79, 0x3C);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7A, 0x3F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7B, 0x5D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7C, 0x49);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7D, 0x4D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7E, 0x3D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7F, 0x44);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x80, 0x28);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x15);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x82, 0x00);
++
++	jd9365da_switch_page(&dsi_ctx, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x41);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x02, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x4B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x04, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x05, 0x5C);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x06, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x07, 0x49);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x08, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x09, 0x5A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0A, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0B, 0x47);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0C, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0D, 0x4F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0E, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0F, 0x45);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x4D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x12, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x13, 0x5E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x14, 0x51);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x15, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x16, 0x40);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x17, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x18, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x19, 0x4A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1A, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1B, 0x5B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1C, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1D, 0x48);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1E, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1F, 0x59);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x20, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x21, 0x46);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x22, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x23, 0x4E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x24, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x25, 0x44);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x26, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x27, 0x4C);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x29, 0x5E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2A, 0x50);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2B, 0x5F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2C, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2D, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2E, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2F, 0x0C);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x30, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x31, 0x04);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x32, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x33, 0x0E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x34, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35, 0x06);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x36, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x37, 0x19);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x38, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0x08);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3A, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3B, 0x1B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3C, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3D, 0x0A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3E, 0x1E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3F, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x42, 0x11);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x43, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x44, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0x0D);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x46, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x47, 0x05);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x48, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x49, 0x0F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4A, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4B, 0x07);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4C, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4D, 0x1A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4E, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4F, 0x09);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x1C);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x52, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x53, 0x0B);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x54, 0x1E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x55, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x56, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x57, 0x1F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0x40);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5B, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5C, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5D, 0x70);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5E, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5F, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x70);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x06);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x4A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x56);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x4F);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0xF7);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x06);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6A, 0x4A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6B, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6C, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6D, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6E, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6F, 0x88);
++
++	jd9365da_switch_page(&dsi_ctx, 0x04);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x0E);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x02, 0xB3);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x09, 0x60);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0e, 0x4A);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x37, 0x58);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2b, 0x0F);
++
++	jd9365da_switch_page(&dsi_ctx, 0x05);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x15, 0x34);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x16, 0x76);
++
++	jd9365da_switch_page(&dsi_ctx, 0x00);
++
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++
++	mipi_dsi_msleep(&dsi_ctx, 20);
++
++	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK)=
+;
++
++	return dsi_ctx.accum_err;
++}
++
++static const struct jadard_panel_desc dcltek_dt300250_desc =3D {
++	.mode_4ln =3D &(const struct drm_display_mode) {
++		.clock		=3D (600 + 48 + 32 + 80) * (1600 + 18 + 6 + 23) * 60 / 1000,
++
++		.hdisplay	=3D 600,
++		.hsync_start	=3D 600 + 48,
++		.hsync_end	=3D 600 + 48 + 32,
++		.htotal		=3D 600 + 48 + 32 + 80,
++
++		.vdisplay	=3D 1600,
++		.vsync_start	=3D 1600 + 18,
++		.vsync_end	=3D 1600 + 18 + 6,
++		.vtotal		=3D 1600 + 18 + 6 + 23,
++
++		.width_mm	=3D 83,
++		.height_mm	=3D 221,
++		.type		=3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++	},
++	.lanes =3D 4,
++	.format =3D MIPI_DSI_FMT_RGB888,
++	.init =3D dcltek_dt300250_init_cmds,
++};
++
+ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
+ {
+ 	struct device *dev =3D &dsi->dev;
+@@ -3039,6 +3281,10 @@ static const struct of_device_id jadard_of_match[]=
+ =3D {
+ 		.compatible =3D "chongzhou,cz101b4001",
+ 		.data =3D &cz101b4001_desc
+ 	},
++	{
++		.compatible =3D "dcltek,dt300250",
++		.data =3D &dcltek_dt300250_desc
++	},
+ 	{
+ 		.compatible =3D "kingdisplay,kd101ne3-40ti",
+ 		.data =3D &kingdisplay_kd101ne3_40ti_desc
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783545241.gi=
-t.stefano.r@variscite.com?part=3D2
+2.34.1
+
