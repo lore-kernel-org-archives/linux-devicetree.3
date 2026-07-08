@@ -1,68 +1,68 @@
 Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0817F39C002
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:49:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80AB37F725
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522153; cv=none; b=Ed2TcVinvSEsGLqcMxQnoO5w8A2RMsd4zz0IjCLf/bhZVW9gm8SlGNgkQvIH+kGTRGrunVjGqd00YSU/U8ueCTCFa51l7YgorrKXhTKKhqFIJMRpf8BbZTUbOK4mzqzheVgTM8+1CuoTrEqfeYTJtWzZ+dnc10/m6K/rqkwEoaE=
+	t=1783522154; cv=none; b=nW4x0dss8yOu9TGPWlECUhkMtM/VEDJKFwEJi/F8thwbSK7W+1SwkSjfun5IYDPmtF6eCHpOGkwW706v5WxQh/0Wy1+uTXtNJhRjSKQrMUUgk4eM8W+wYP2miaw6bNACF3SgHV77Bu+gsDoLFYbquH1M1Y7gM8oz5dnoc8VZ9F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522153; c=relaxed/simple;
-	bh=PkeGhFY6Q42iKyZEdGoFgAB7t8bmf8m/485EG3n+oRY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=eDBntN3gz/XNu1S081UV987FMJKGv9ZfOgVsieF/ETBbokNoIyM+T2tvVlaa7uKgHPJB94SjUjbdWk8XDdbKGBb+ZiAF/B7Vj8TlNXFBktm6Zu9qM8APjJABfSdw5zvaR2sFjpS0zmAle2PxW1vxhDzlQuog2sofnTJK2cmBfzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=o6yL/UpS; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1783522154; c=relaxed/simple;
+	bh=FZflqWVIXRCruuWP6g2ExyXMwReUCGhn7A4b9MiKxTM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dB1Zu/CEu2en/Z4b6E0KQBoluWs0n+cxiUrO0N9iyvw0NmlMTyNoJxFBVbrE7gkZLfTCKj3Im5DlpMH3GETMrkm1+/OnXZ6+ZSa3ZpzG1PNMTa7gi20mZWfpkCjJla58tAcDX4FFSGe7d0NoCOAz3QcCjBpvgynzOO2tLqDECJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=czqY0tQL; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="o6yL/UpS"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493b7612475so6836775e9.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 07:49:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="czqY0tQL"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493c19bad03so7509135e9.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 07:49:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1783522149; x=1784126949; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+9UPnmVuCFG1wL2SpxDmmWCbWX/vi6kSuhm5BA8bibE=;
-        b=o6yL/UpSmSDW2dVhQoz4j/Q4cZCyABd8cE9AmDURtvPlwE2/A8JxsG1Y8QJXs+/r6R
-         kMySTvdp/VZZVyphXtGIkoXIUslKQxptH3I/bvtkbz/Lsuhn2QK4NXDpbcRuM7H+/n5H
-         Vf36/mfwcrsxfzUhBZzFnfBdgDjVaJk4COp//EonzSnip5b6Sg+qh3UQ5nZRsVijgJ+r
-         I0gZsQ7bPVDD4DJfHSXKNbsfLWdRcfYXtJvTjM4g29mSiP7AdBAf4otS/8hbCFqDc2iU
-         YXQsQPfcT2T/eubmJF8QcOOtTGGVBBwb7otmbZndnSvnmOvs98+J6PF3gjdIbDPpRmzo
-         XtvQ==
+        d=raspberrypi.com; s=google; t=1783522150; x=1784126950; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NAB/TZ4h8IUmeg+tgDmUhADP6t4/HyOBMb86upV86GM=;
+        b=czqY0tQLN+TVyk7+ipF0m2et96XejWjE1/rHWDa+sK/rUkuExppYwzLigE626HendF
+         3Nu9igwVeY6f5fz7z66kzLlYcHXmAHx14GgwQhpVhUf/srL87ukQH731UZKr1sEpnVfC
+         OrWRq+ClfRJejK7njCX0N9wlC6cksotMpYdgMtdqCw3487mtLbpN2NoagmtS9lWYBqAr
+         npNLLpSM90/cbFKKnAwG63SMFBnYmRqHhh9PzupGk0eZRfHfAUJS1Eq/ZdYSRqRN35oi
+         3KRWpZCXoAFudq6NH6d2kniivSADfdR0iKgcdv3kCyHAYf7Sxfp8qoc/PTHu6FSetrAs
+         fBIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783522149; x=1784126949;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+9UPnmVuCFG1wL2SpxDmmWCbWX/vi6kSuhm5BA8bibE=;
-        b=jf9gcRiP4R9Y9oinn6xbdiHDO0hq2vCIunklpd8hDaTLeYwEsPm1piBvFpUA9GErV3
-         kq7UeKQhAcv1Y6ElS6yXlszUkpcNpXt0/wmhXoK2SnNLrROXZV0Crz1YXErB9+4DN/ur
-         6UVJOvt0fsNy/GH1PeEDGrJA0/J/a2lEkWdszsOvdcQ9SY7V0V+a1A2wJ8XPNyJt2awa
-         Oeww0kBSa7SmJ0gTUeN1rn/tj4PtMMqsj+D8Wdy5BU0B5trx6GMX76mGL7MoRg28bDx+
-         QF3xbYcyPSA+xkC+LyrCgkKaXVDws5TxaMOLREE23Gp2NyjiWm3kawmrkuea/aOJxqcv
-         5NwA==
-X-Forwarded-Encrypted: i=1; AHgh+RpEZ6/4oFYflRlOPPUfbAQThQaANwvoY2GKmlZZqDngSRmhH5mCwMqk/aQoT8I6EoeTuaMScndATcpP@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIKktTDc+hkDOcFTIgT8aIYi92MGAzrMVOMzgMbRCQnqlcp2bZ
-	RJsbccoD9SicnIEdIXF2Es/KkXtckTk94e35YWav31BqBUCEzY7egsZ6mh0iF7Pw9peTsBD5VbL
-	qP4J/
-X-Gm-Gg: AfdE7cnlsz/aPQwNMt40qlaPy2J3MeuBPepwSIttOQG389D//Qtltfe41dCq+smIklD
-	QoND19olHmgZ3e9ZXUyjyQrzlPI/RTq4A7lo1Am9aRfXiTCd6rxKHBleVRm7pPCHjATFgbYKf4a
-	K20sxRVexKs9tNfbVD6RJ5+Es5A/VOPdQFl1/x52AVdLFZRWOxPKID3cXvBIkN7GFcp0ArpE3Iv
-	dk/c6O3kx4xBehjPUdMlokxu33u7YnHWgryrBNOzFTMGK80Mv5eQIDtUguSxg7jxkiq5N6XEShG
-	K0jS4fvBkOEMzCzDlKP3Yboq6omvx2cuK/iNYIzzhYgDl6oB5AajxhRJG3j6D8HWHVp84qxd9Gc
-	K8BkHA7YDf1QYKRyfIhNBuDOEBGbykyZa9XVcQJyGfpiWdLz14Sy6BVc9Vc5TTJyxbaTGLPsi6j
-	TIOhPK/z07JSDULx3MZP5sGlrrMXKOP2X417Prfuy+uyTgRVbxRRuNBUHSet5UUdlx
-X-Received: by 2002:a05:600c:1c0b:b0:492:4c2e:9613 with SMTP id 5b1f17b1804b1-493e6864191mr34475145e9.18.1783522149227;
-        Wed, 08 Jul 2026 07:49:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783522150; x=1784126950;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NAB/TZ4h8IUmeg+tgDmUhADP6t4/HyOBMb86upV86GM=;
+        b=OfeKfXdBYIIUwHeB1+nvqj1cO1MEtBhQiJaJFHThYFs/BMU/rE3J6pC72BjU8gddEx
+         q2+H8J6T9CIT6lTUc42a+6a084S8k/B1FwoQLcukrbErn5foIX8ys6WLr5smjDxsjH2+
+         djSZf68RMoKysjI21Gh+/5U+G7w/1K9TyHBjzJVEruIHkFRjxQC1qrx6w6m8IHNre0xN
+         fzUeVcu4oZOQZNM+40P7Fcm7cruaEjafKaIMIhRSz/cxJSSUIP/O+2n1TnT2CoHX+G1K
+         HjHrnmpAkIxN7fJzstZXZlrmTZ4X9n3m8Sf4fxOPmc3MjTQiKoW3Rw05KVssN6Snq4vB
+         y2nQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpLAgJbEqK71sqUwdW101rgISeRiCKYWaV9B16zNSiQ6qUPHsHPxQM1TB67qehMoHwUmHjpvTnQez/e@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3VPK7pYOlb0dEEwGTjDJvCAPZch/MioYgfbbuBTIwrGV95TE/
+	JkK0uisMIUu9FC0Xxrl7JMtx8r0NsLNrK0lIvp9e6PSBsgt0WgenFyzJINepI99Zz+I=
+X-Gm-Gg: AfdE7clJJTGn3SYmXrLwKOE8Hcdn+/uId4Z0nocWli0bE/TfMwqMluOY3bDH41CfaFJ
+	JvJdj2+bzDFZmWxI8mSPPA7aMW00oZm3ynYlKWptaLOeAbr4u5GEEhFfjzAXgVYKBextrED8qpn
+	nDCVzS7xconz74FKdSUzPp1RCdUhfQeI1wF3u84sYXOJyri0Nq+hIIni8dg7j9U9psLEsD8AUnl
+	ASoXzv77O5NYTjex+EO4Hgv7bh5st0rnExvhRK8Rw4AiOQcw5NMm6Kn48Yj3uvK4iwOfM6z0hSh
+	twpT6g3CXDl9/LYI/whAYvzrcB0pbvF4kVc8RcYM6DsTTCz7hQt/pUvMl0Y0kFAr3F4jqyHESPw
+	087Ug7kP5KGMjZ3oEn2t54nuyA4fXmZdTeHePXthawWmhBPc1W8yK1e508CyRkFAdx1AljyRIQq
+	ACzXk4rjJEwgxxS15MolNliFb5HHCyetUj4BMTIrazRU/m5Aiea4R8SyYBfVS8VEzU
+X-Received: by 2002:a05:600c:354e:b0:493:b87c:c87d with SMTP id 5b1f17b1804b1-493e683ab6bmr31834115e9.11.1783522150060;
+        Wed, 08 Jul 2026 07:49:10 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0fbd355sm135363315e9.13.2026.07.08.07.49.08
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0fbd355sm135363315e9.13.2026.07.08.07.49.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 07:49:08 -0700 (PDT)
+        Wed, 08 Jul 2026 07:49:09 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: [PATCH v3 00/20] media/imx355: General code cleanups, and adding
- support for 2 lane operation
-Date: Wed, 08 Jul 2026 15:48:36 +0100
-Message-Id: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
+Date: Wed, 08 Jul 2026 15:48:37 +0100
+Subject: [PATCH v3 01/20] media: i2c: imx355: Add support for 24 MHz
+ external clock
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,11 +71,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAERjTmoC/23OTW7CMBAF4KtEXuNq/DN2YNV7VCzseAKzCEntN
- AKh3B03LJBol+9J8827i0KZqYhDcxeZFi48Xmowu0Z053A5keRUs9CgHSA4OVDiIHm4GkQZDPQ
- YySRKQdSTKVPP1437Oj5zpu+fqs7PUsRQSHbjMPB8aDTa3u6dsUTKBW+U8jbpQMbGDiEm7C1Sr
- cWvdeYyj/m2LV3Uhv0/alESpHPgWgQDFvEzhzJFyvk28Uf9vXGLfhEe/BuhK6Fca6gDH9u9/0u
- s6/oAPZoVtD0BAAA=
+Message-Id: <20260708-media-imx355-v3-1-9df386a623d7@raspberrypi.com>
+References: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
+In-Reply-To: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -84,94 +82,264 @@ To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>, 
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-This series came about as we had a customer ask about using imx355,
-so I had a look at what was going on.
+From: David Heidelberg <david@ixit.cz>
 
-There was significant duplication between the various mode register lists,
-unused parameters around, and no support for advertising the crop
-rectangles through get_selection. It also wasn't using V4L2_CCI so
-had all the boilerplate for writing registers.
-The customer also wanted to run the sensor over only 2 CSI2 data lanes
-which required some rework of the clock setup so that the MIPI link
-frequency could be run at 445MHz instead of the 360MHz used for 4 lane
-mode.
+The IMX355 sensor supports multiple external clock frequencies,
+including 19.2 MHz and 24 MHz. The driver currently supports only
+fixed 19.2 MHz input clock.
 
-V2 has some fairly substantial differences to V1 as I obtained a datasheet.
-Whilst some things worked perfectly, the datasheet declared them as
-prohibited. This was largely using dual PLL mode in 2 lane mode, and
-LLP is restricted to specific values. Link frequencies are therefore now
-derived from the PLL configuration, and pixel rate is computed from that.
+Refactor the clock handling to make the PLL configuration dependent
+on the external clock frequency and add support for 24 MHz. Introduce
+a table of clock parameter sets and program the corresponding EXTCLK
+frequency and PLL multipliers to maintain consistent internal VCO
+frequencies across supported inputs.
 
-Being able to refer against the datasheet, I've pulled an updated version
-of David Heidelberg's patch for 24MHz clock support into this series.
+The PLL settings are adjusted so that OP VCO remains at 720 MHz
 
-I've tried to keep it that the earlier patches are largely cleanups or
-minor improvements, and then we get adding 2 lane support, and converting
-to using subdev state as they are larger patches.
+This preserves existing timing characteristics while allowing systems
+using a 24 MHz clock to operate correctly.
 
+No functional change for existing 19.2 MHz users.
+
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
-Changes in v3:
-- Fixed a number of issues picked up by sashiko-bot
-  - Unintentionally dropped writing reg 0x030b, which is at the default value anyway.
-  - Swapped len and val in intermediate patches adding imx355_write_reg before converting
-    to cci_write
-  - Initialise colorspace in _open for try_fmt.
-  - IMX355_REG_TEST_PATTERN is a 16 bit register, but was defined as 8 bit.
-  - Call pm_runtime_dont_use_autosuspend on remove / probe error
-  - Missed subdev_lock in set_stream.
-  - Not addressed the pre-existing issues of double power_off in _probe error path, nor
-    potential for VBLANK update on mode change not calling s_ctrl if the new value happens
-    to be the same and therefore exposure range being incorrect. I'll look at them as
-    separate fixes.
-- Variable definition for format and state in imx355_set_ctrl got pushed into the wrong patch 
-- Collected Krzysztof's R-b tag for the binding patch.
-- Link to v2: https://lore.kernel.org/r/20260707-media-imx355-v2-0-1683ec07b897@raspberrypi.com
+ drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
+ 1 file changed, 45 insertions(+), 32 deletions(-)
 
-Changes in v2:
-- Collected Jacopo's R-b tags and implement his review comments.
-- Add patches to switch to using the subdev state, clean up colorspace
-  (sets RAW), use a define for the exposure offset.
-- Added DT binding update to permit 2 CSI2 data lanes.
-- Link to v1: https://lore.kernel.org/r/20260506-media-imx355-v1-0-660685030455@raspberrypi.com
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 27a5c212a527..ad9a9464175b 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -25,6 +25,10 @@
+ #define IMX355_REG_CHIP_ID		0x0016
+ #define IMX355_CHIP_ID			0x0355
+ 
++/* PLL registers that depend on the external clock frequency */
++#define IMX355_REG_EXTCLK_FREQ		0x0136
++#define IMX355_REG_PLL_OP_MUL		0x030e
++
+ /* V_TIMING internal */
+ #define IMX355_REG_FLL			0x0340
+ #define IMX355_FLL_MAX			0xffff
+@@ -63,7 +67,6 @@
+ 
+ /* default link frequency and external clock */
+ #define IMX355_LINK_FREQ_DEFAULT	360000000LL
+-#define IMX355_EXT_CLK			19200000
+ #define IMX355_LINK_FREQ_INDEX		0
+ 
+ /* number of data lanes */
+@@ -100,6 +103,29 @@ struct imx355_mode {
+ 	struct imx355_reg_list reg_list;
+ };
+ 
++struct imx355_clk_params {
++	u32 ext_clk;
++	u16 extclk_freq; /* External clock (MHz) in 8.8 fixed point) */
++	u16 pll_op_mpy;	/* OP system PLL multiplier */
++};
++
++/*
++ * The clock tree is in single PLL mode, so PREDIV_VT and MPY_IVT do nothing.
++ * All modes use the same PLL setup for OP, with IOPCK being 720MHz.
++ */
++static const struct imx355_clk_params imx355_clk_params[] = {
++	{
++		.ext_clk = 19200000,
++		.extclk_freq = 0x1333,	/* 19.2 MHz */
++		.pll_op_mpy = 75,	/* 19.2 / 2 * 75  = 720 MHz */
++	},
++	{
++		.ext_clk = 24000000,
++		.extclk_freq = 0x1800,	/* 24.0 MHz */
++		.pll_op_mpy = 60,	/* 24.0 / 2 * 60  = 720 MHz */
++	},
++};
++
+ struct imx355_hwcfg {
+ 	unsigned long link_freq_bitmap;
+ };
+@@ -125,6 +151,7 @@ struct imx355 {
+ 	const struct imx355_mode *cur_mode;
+ 
+ 	struct imx355_hwcfg *hwcfg;
++	const struct imx355_clk_params *clk_params;
+ 
+ 	/*
+ 	 * Mutex for serialized access:
+@@ -144,8 +171,6 @@ static const struct regulator_bulk_data imx355_supplies[] = {
+ };
+ 
+ static const struct imx355_reg imx355_global_regs[] = {
+-	{ 0x0136, 0x13 },
+-	{ 0x0137, 0x33 },
+ 	{ 0x304e, 0x03 },
+ 	{ 0x4348, 0x16 },
+ 	{ 0x4350, 0x19 },
+@@ -235,8 +260,6 @@ static const struct imx355_reg mode_3268x2448_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -284,8 +307,6 @@ static const struct imx355_reg mode_3264x2448_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -333,8 +354,6 @@ static const struct imx355_reg mode_3280x2464_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -382,8 +401,6 @@ static const struct imx355_reg mode_1940x1096_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -431,8 +448,6 @@ static const struct imx355_reg mode_1936x1096_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -480,8 +495,6 @@ static const struct imx355_reg mode_1924x1080_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -529,8 +542,6 @@ static const struct imx355_reg mode_1920x1080_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -578,8 +589,6 @@ static const struct imx355_reg mode_1640x1232_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -627,8 +636,6 @@ static const struct imx355_reg mode_1640x922_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -676,8 +683,6 @@ static const struct imx355_reg mode_1300x736_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -725,8 +730,6 @@ static const struct imx355_reg mode_1296x736_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -774,8 +777,6 @@ static const struct imx355_reg mode_1284x720_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -823,8 +824,6 @@ static const struct imx355_reg mode_1280x720_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x00 },
+ 	{ 0x0701, 0x10 },
+@@ -872,8 +871,6 @@ static const struct imx355_reg mode_820x616_regs[] = {
+ 	{ 0x0307, 0x78 },
+ 	{ 0x030b, 0x01 },
+ 	{ 0x030d, 0x02 },
+-	{ 0x030e, 0x00 },
+-	{ 0x030f, 0x4b },
+ 	{ 0x0310, 0x00 },
+ 	{ 0x0700, 0x02 },
+ 	{ 0x0701, 0x78 },
+@@ -1422,6 +1419,16 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 		return ret;
+ 	}
+ 
++	/* Set PLL registers for the external clock frequency */
++	ret = imx355_write_reg(imx355, IMX355_REG_EXTCLK_FREQ, 2,
++			       imx355->clk_params->extclk_freq);
++	if (ret)
++		return ret;
++	ret = imx355_write_reg(imx355, IMX355_REG_PLL_OP_MUL, 2,
++			       imx355->clk_params->pll_op_mpy);
++	if (ret)
++		return ret;
++
+ 	/* set digital gain control to all color mode */
+ 	ret = imx355_write_reg(imx355, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, 1);
+ 	if (ret)
+@@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
+ 				     "failed to get clock\n");
+ 
+ 	freq = clk_get_rate(imx355->clk);
+-	if (freq != IMX355_EXT_CLK)
++	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
++		if (freq == imx355_clk_params[i].ext_clk) {
++			imx355->clk_params = &imx355_clk_params[i];
++			break;
++		}
++	}
++	if (!imx355->clk_params)
+ 		return dev_err_probe(imx355->dev, -EINVAL,
+ 				     "external clock %lu is not supported\n",
+ 				     freq);
 
----
-Dave Stevenson (19):
-      dt-bindings: media: imx355: Allow 2 CSI2 data lane output
-      media: imx355: Remove duplicated registers from the mode tables
-      media: imx355: Remove setting FRM_LENGTH_LINES in the mode regs
-      media: imx355: Programmatically set the crop parameters for each mode
-      media: imx355: Set register LINE_LENGTH_PCK programmatically
-      media: imx355: Set binning mode registers programmatically
-      media: imx355: Remove link_freq_index from each mode as ununsed
-      media: imx355: pixel_rate never changes, so don't recompute
-      media: imx355: Remove redundant fll_min, and implement fixed offset
-      media: imx355: Add support for get_selection
-      media: imx355: Use pm_runtime autosuspend_delay
-      media: imx355: Convert to new CCI register access helpers
-      media: imx355: Set the colorspace in the format
-      media: imx355: Define the exposure offset, and use that define
-      media: imx355: Use NULL ctrl_ops for HBLANK as it is a read-only control
-      media: imx355: Compute link frequency from PLL setup
-      media: imx355: Support 2 lane readout
-      media: imx355: Switch to using the subdev state
-      media: imx355: Remove storing cur_mode in the state
-
-David Heidelberg (1):
-      media: i2c: imx355: Add support for 24 MHz external clock
-
- .../devicetree/bindings/media/i2c/sony,imx355.yaml |   11 +-
- drivers/media/i2c/Kconfig                          |    1 +
- drivers/media/i2c/imx355.c                         | 1518 +++++++-------------
- 3 files changed, 498 insertions(+), 1032 deletions(-)
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260506-media-imx355-a30f5be3deda
-
-Best regards,
 -- 
-Dave Stevenson <dave.stevenson@raspberrypi.com>
+2.34.1
 
