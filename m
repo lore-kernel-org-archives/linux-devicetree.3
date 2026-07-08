@@ -1,307 +1,263 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9933C3448
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 06:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783491461; cv=none; b=oC+R1PQUJGj4HLM2eYnAGjPANuaGreveLcR8Vzbgtrx6CoKWksu/ghF4w/D7So+9Zi7Jh+XNA1WuKflrCf7JWVCML/js7eFB2L1m+Udy5AoawNDoF7nYPRC1zssZTB8mBI05nLdQ/rigSJDSAuC06gzvg2AxX+Q/lwnOysV9eLo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783491461; c=relaxed/simple;
-	bh=kjUp38+rZsebDdPzQoG333l/YriQXg1AGNOnuiL62m0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gE2hnER+h5K7wT16r3DO6EmOtPOC9Ya3En0mGfiNc5Ug2DLJy6em2HpYCq4qGiv5EgHJckFiGmLak9KbtHtqY0ItKKpL5fybCzJtXq3qC4cLPkoTX99tIt4eZ78YlskNl7P8CC2jT/NX+Rk8vCbUSWtyI/3vv8NOAB+lPeJ62fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ldXcBAFc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OgUR90Bu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942313BD647
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 06:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783491736; cv=pass; b=tUNNI9KX0qdTL+x8iC5qVQm+9EtNCLzgQn181PF+JBMGivEeIO1RbHa+QEpas3iJIbvFBQeAYfIp6svxR8lcweTYw/iMPNRKD2KRT8P72L5/cj8eU7pEL1nVug/hDlRXlyVKi5Vy52VSL3gx8YzbYTW9Oo4gVGcrhEu54vkNBOw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783491736; c=relaxed/simple;
+	bh=Q+fJSBCJJKaFA5XtTf5qMvXQ35XMD3uNkGCHwK1jljw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nZOde6HPYZca/EguLqJWiL46RAsSAOaU3nXBlw6Yna5+Cmbf9mddNojTlZgWYxkEu3yjKX0d+bb9DHlBMTJvC4s0J0uRjxC+fA/kies8pR0mSqCkQDkzJwo1Tpsoy8McxkbSiz/Ttq7dgyopZqWuWzNBnn5XsRIlQwiOccgvHO0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SOMpkoxX; arc=pass smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ldXcBAFc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OgUR90Bu"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66842i7Q1625097
-	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 06:17:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	InvKQYryfFOrhTSliTwFdO7Bo44w0fLxACXlIQp7TTk=; b=ldXcBAFc1oy7BVaQ
-	geQkDdR5GzBJVn3t0Nk41ejVG1bHWSqhuqrAGTkDgHs1qPjRfKyXXqh2qrRVIwvC
-	gkQeZs6QFhP9zw/5o2IVLebqtuDF15A+l2zKygmvx0tsWa5czjc9UslGuQKNbkTF
-	8meMx8TZekhY8yk0CzZQEF0Fm1Ohh0ixQ0Zwi91UmJSfc89o8Xtup8c9GFENSZNB
-	xncFEJVU47zPSpNdvrpVhBwWl9Y2QnSyaWC+6y3lB+VtItvIL+1arBj1bhZIwK7L
-	n1igPF5MlyfXkWHS/C1HOK2aCSYnTnfdywIDg729yhmT8HrttxB4HHnBWLRwkN48
-	dXvajQ==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f95fd2yug-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 06:17:38 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c88aab7c1fcso563389a12.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 23:17:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SOMpkoxX"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6679d88abdcso438826d50.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 23:22:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783491732; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j9QLiv6ji2mMokyCwUAmccaq/UEI6DOP1BFM3PdKyKmRVdVB6e24dkhR5zpXkWoLon
+         MHlaLxjVMYUIbFVmV52eu53HIcDBTyy5WKkGPfwxlIe3lHu2fAJAsrktSv4011jg5iEv
+         zSPNnOTilH/Otj4qV4hHNEMD3xo4n+OSgM7m7N0skKX+tG1daquIoAZYwbYZo4mItkU6
+         tvd5LvtdPU2pdUnjhrWzCji5fPINS/qWLXb5z4vrcjF6de8oyH2yYl/dR6IzVGCUgkkb
+         ROWolWLjvZS876o8NgGCcDv58oWFhoXDvd6os+czdwUT+L4AhqzXk6vwZRRs2noUFW0b
+         e4gQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nyXdoI7KZnNpfNaLYiInRne3qbmZfDvP+wR+FbUBMps=;
+        fh=H7qEzLjKrrO0BseHMKaGHgwI2MjC7b/vU9u2lEGv/3Q=;
+        b=Mp9SC5XuQzXu2tSCi/jfhbmn06RaacyCSUFQDhmB5PQT8OOjstg7EZ34MKt6oiO95b
+         uMjLYYq1v32ZIJLfDmodbvVtRSWAE7fS01mnkU6YB+aLzim0dYFmCOhfNhztip0Yl8Oq
+         DLjMEmcsOfvdjrog8BG+C5tw9yvx5y4KWFI+y0E1xDhqgo3Wv/dBkKw6XFR0GBLHjbcX
+         LhRQnM+aSDURObp5pxBLvfgbSXeUv0QFgt4jWLOcvUJoN1K4sBaZS9xRHaK/zEUrSwjZ
+         9MFXPXTYQxU6iGQ5UBQOagkPh46pfrb1N1ku4BpTkyDrswmVVYcagnX4fnM5FdnqjxqB
+         CakQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783491457; x=1784096257; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=InvKQYryfFOrhTSliTwFdO7Bo44w0fLxACXlIQp7TTk=;
-        b=OgUR90BuP/t9MltAnt2PQYUg3Cuas4TBmSyTh+X7Wzuv8hyk4X/ezDhN9UB77h77bh
-         wiKDtq5U2iTzgPSisW7GC8Mo4DjYP9m+sWVbpXgFJVRUSz7BJFdn585ZssliPu7zovSK
-         jpthgJn29lFkQfI/Sp8K176QV9o3QiwQlUcG9xA88+Azt9Q1mWwxPCh8oeNDSoMSDQBZ
-         mYiDis5sGEplsxDCdy2JvUq8K3Lhlfkr0aaZ5bVLMoSoAiM6kTxg41Mmfs5d/OqQwQv7
-         QXU8QPvSxqAPZwl+yyKdp3EO6vn1TiWOQ6VMsWgA0WtPwPtWpn1vheiSlwnCH1ZYhT8+
-         gGXA==
+        d=chromium.org; s=google; t=1783491732; x=1784096532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nyXdoI7KZnNpfNaLYiInRne3qbmZfDvP+wR+FbUBMps=;
+        b=SOMpkoxXAYU0ha8zZXa3DkE9A+bHOU39O9Ki47900Ryaq5LoxhQ65H6WJKg5Z0B+Fn
+         WlUqW3DVU748xZbcVS4TBX7Q8/w7WOV6kmqt60Xjf7vkmJnsmIbQTFIQqDwLDd7w9DsV
+         3012VAd3OX7dNpmKfWf57X1BLlcXYtzqbFZUQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783491457; x=1784096257;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1783491732; x=1784096532;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=InvKQYryfFOrhTSliTwFdO7Bo44w0fLxACXlIQp7TTk=;
-        b=G7WmRjfAzKFHydC9zFv8reuyK7NjSRhw6dLJAlyRCZTWupWGJwgDEWqi+JP6sltiye
-         zZ3E/1y4DLlMd8EnoNX89bVaQT0aoEW8Kz/CReaQv5KaABGRysvl4ylRKBf4o4kWYyaU
-         QWN5nmNAhpfXpQU6w0V7pN2SyR3GyLWn1vLSAREnpiBPDDY6rIxIz5kS2XxGhVh5XsRi
-         dqijT9kkFu3GPy4aRKd2irEdxgQSD3q1izVQGr8XhtOWYEb1z9HgK8hpoH+RHUIGREc6
-         wQNraz/q+ZDvbQPTG21A/mFRyggpjzn8CWgZfY1/mKrxJZn77DLAGIlBURq+jPCTAQij
-         7AGQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoUWytUnQKF8ab3GGPc93KIYgXq9Wgc3yxttb0sEfj0s9abIlgvLQT9wJ9+8xP458mXq7t/Zujl5fWv@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8ks57Pzm5w27sqtheAda2jyo5mPXtmz1G2srtiT+hiA3mNKrA
-	jVX6EprYve+RcvDdxFtBSlxqdsDLlePWrZYrmqB0ESE0eNaaUbWchaQuxUjle8ipaGP4GhEqEru
-	lK/DSPM2Jnrr+jEWEE8KynVzzsbWkpZPkD/RizYXvq3sF9FnpmVpCWTRGKdLmHKLI
-X-Gm-Gg: AfdE7cmvI0y0oQtTvk1xmmZ1DkO8TQ3oOIOJCIgFg6yb+horqVRH5SpOvRuSkALeqDD
-	k36m1cJxkbN3w5ca6X8LxTyY0ofu7Ju6ir3RiRi3dSL9VUKJ2B/cRMygRP18au+L+5GAmnH2sp1
-	2K0LuOCy8XmeLGVe9LYxqbpTf+IyC8EzO8oxStwswmzgP2gUVITGE9+tE6QDj1B2ITox3xdW81f
-	VvtX292RYIau0/mmQzxakdTYoSRiyjOvMMWlvC0xmxmBYMoAweclvPOD3nt/WzlxbzGs4gh3C/B
-	8+c/eAazG8jO4F7k/1Ga+6tCiLd+aBGtSVAEWppOidGbtoqflzwiIP1EaR0kP/DBa2yVLmDlLR/
-	4XD56spDfUyRDEFr0kPIqAjg4ggI1xKpiFqtS+d+/sKPhkw==
-X-Received: by 2002:a05:6a21:a49:b0:3c0:b3f7:e5eb with SMTP id adf61e73a8af0-3c0bce18b33mr1228426637.9.1783491457270;
-        Tue, 07 Jul 2026 23:17:37 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a49:b0:3c0:b3f7:e5eb with SMTP id adf61e73a8af0-3c0bce18b33mr1228375637.9.1783491456796;
-        Tue, 07 Jul 2026 23:17:36 -0700 (PDT)
-Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3117483941csm17028221eec.7.2026.07.07.23.17.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 23:17:36 -0700 (PDT)
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Date: Wed, 08 Jul 2026 11:47:17 +0530
-Subject: [PATCH v2 2/2] arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563
- PCIe switch
+        bh=nyXdoI7KZnNpfNaLYiInRne3qbmZfDvP+wR+FbUBMps=;
+        b=P9oQnuchDmdQtpVOFxm32eKipVHHpdgNbgxhhi3yB9MLnX1fSYusWpsCD0sEI1oPfN
+         uqr+LAuCyLkKxcEolcr4HoLXJz1JT6q3/MYIZbyLZq4Uk35a8UP+P3VxWqO8ogS/8tPM
+         rmAWFoLcaqySengwgpd3cMl26l5dL85KmrPiZmM8pL1TqcbLxdJCeQJnc4QOMgJy8qvR
+         yC0G4lnyJdbWakVQzHU+eApU4emTtvYKvr8J+e+wVcMABThp1cNXpiWamzHCCR/bmRJ5
+         kIopscvKbfNSF3XDPeAaFw/NbENMGlRcO0YV/9+BDmQJVAjJhHlEZ2kbVSoDJWfh3j9W
+         Up9A==
+X-Forwarded-Encrypted: i=1; AHgh+RqYd65iQQxEPqqomp631s3hhzpUvkffaB50P7/v8MIwOg1fHINT4mi52zQNRaTvCmvw6zJuCSoXuXTQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWgK/dNZEAR3lwTYebXKQW9kTPhFmcdaUbSb9arAW+YFpiXoSF
+	O4wHWZKsg1ZRET2no+4xhBBXYGWOWlhG6eWxjlQ13Mn+pso+Y5Evpm7KHDxCRub+0YZ671/j+lZ
+	VSPRSib6ZSahBdF9YJnco32Y1liLlx0DU7wgx/3Y7
+X-Gm-Gg: AfdE7cm2qUVV6hTLZxIyfoq2wnes13cMylpLm52V9KvzDxLE/xR0z6aHlDDY/5klChj
+	Tdsc5pZaZ24qJSBWD+S6F6iCYc3cuts1hiHEjlzJ6Uf+peIQz7Jo0YyNMS0K+bfmnxlpymWFzFa
+	BC9lwGkN1/76d8AbGhrDdiTQsOKwih+/o+CyNoxuPJE46Am/fX+/eLpX5qwHNAHNJZXJCXxDQoX
+	N/RIUkcDG33lOXRUFN6s2LrwlSs+StTyIiinJeoWwnfCfqptP/BlIJqDolVrl8gjd1ilJHvxfpx
+	mjNPadytYq1IqSCe/0lKST+Vvdo=
+X-Received: by 2002:a05:690e:4841:b0:666:2480:2b0a with SMTP id
+ 956f58d0204a3-6679f201176mr697881d50.50.1783491732443; Tue, 07 Jul 2026
+ 23:22:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-eliza_evk-v2-2-c599246ceba1@oss.qualcomm.com>
-References: <20260708-eliza_evk-v2-0-c599246ceba1@oss.qualcomm.com>
-In-Reply-To: <20260708-eliza_evk-v2-0-c599246ceba1@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-pm@vger.kernel.org,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783491443; l=4100;
- i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
- bh=kjUp38+rZsebDdPzQoG333l/YriQXg1AGNOnuiL62m0=;
- b=G61ADCIY1Ze5+lv7CZtLAmL/rg7NSYIdGZe0glTwXeTJ3e1hJuMMhAtvqTpf1CVKN0Eo1m6OV
- ehcDpjAkQ/4DMDFp8tUeYKQWQLvlYdg6gZ+9qkcyv/n9QcDtEUPI085
-X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
- pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA1NiBTYWx0ZWRfX+AeZnssaubqs
- ycucjMozGYBpEoiC4SLF0RkWL+LLXqECPHir/NDKkH//xImB8EtJuEHvFfRAcAHEI7Vljh2dCqB
- sGXy2C0M/Xly76+pL1vua5j1YnTf5F77KNbV3SPcp/znJnwX8qas8Ob5nrHTJEL97uCqpf+sV33
- uZ6vzTJad6AiFWoz4TDvjTIzF47Jcs+3Jb7mUa1tVqL6eM+bH9qCl9nejL9C3S7BDNmGglucnFq
- LvpVuDRz9kOd9siFZQ06rJDetL5PEOlnXX7SPzIP/w1FuXHr/NASIN7WIm6IwU/Zj78G616YmHT
- WD7UFkyiK7L6OLoWc+6zyI2GWf/a95FS9aMlLaaBIO2QxNfMiMf4JhlvmyryMIeOCkEJ+Xdnvin
- ioKcx66oCvX+k8dpZYE+e990Dgqflg6SHM7UMZAgFraYA2RlYDEmn8wtc0JxvJp2qqnPU+TvA25
- 0ksIFc9d6vrGbsWWGaQ==
-X-Authority-Analysis: v=2.4 cv=VZLH+lp9 c=1 sm=1 tr=0 ts=6a4deb82 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=qQkGquXN9PvF_GGjQ98A:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: 6a5iZoGTsnTpZRq6-P2Wh78WXY5D0Y1I
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA1NiBTYWx0ZWRfX5aDi1W14Uz1V
- qqS/b3SBqxAAJf06h9a4CemXqK88CmzUWQDcqLr+QBFkP2i+TPWMaJ5FepA70F34XNzA804jR28
- tisQoXPw2REHq/9ke6ihihSzKJ30mho=
-X-Proofpoint-GUID: 6a5iZoGTsnTpZRq6-P2Wh78WXY5D0Y1I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0 clxscore=1015
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607080056
+References: <20260701-add-mediatek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com>
+ <20260701-add-mediatek-genio-520-720-evk-v2-3-19d5da4ef984@collabora.com>
+In-Reply-To: <20260701-add-mediatek-genio-520-720-evk-v2-3-19d5da4ef984@collabora.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 8 Jul 2026 14:22:01 +0800
+X-Gm-Features: AVVi8CeA6CFM4kR5Bt4fLtWwaGoE3MK5l8ZS1mrdHaGZI7ndDG_5d5ZiXOKEMvU
+Message-ID: <CAGXv+5F9RPzKWTH1heDEUmWgE2k9mnvdj_uLO9MS5aKqN+3cDw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] arm64: dts: mediatek: add Genio 720-EVK board
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Sean Wang <sean.wang@mediatek.com>, kernel@collabora.com, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Eliza EVK board connects PCIe1 (8GT/s x2) to a Toshiba TC9563
-PCIe switch. Enable PCIe1 and its QMP PHY nodes.
+On Thu, Jul 2, 2026 at 12:36=E2=80=AFAM Louis-Alexis Eyraud
+<louisalexis.eyraud@collabora.com> wrote:
+>
+> Add support for MediaTek MT8189 SoC and its variants, and a devicetree
+> for the basic hardware enablement of the Genio 720-EVK board, based on
+> MT8391 SoC.
+>
+> MT8391 SoC is a variant of MT8189 SoC with a difference for the Arm
+> Cortex-A78 CPU core maximum frequency (2.6 Ghz for MT8391, 3 Ghz for
+> MT8189). MT8391 hardware register maps are identical to MT8189.
+>
+> The Genio 720-EVK board has following features:
+>   - MT8391 SoC
+>   - MT6365 PMIC
+>   - MT6319 Buck IC
+>   - MT6375 Charger IC
+>   - 8GB LPDDR5 RAM
+>   - 64GB eMMC 5.1
+>   - 128GB UFS
+>   - 20V DC Jack
+>   - USB Type-C Power Adapter
+>   - Micro SD card slot
+>   - Push Button x 4 (Power, Reset, Download and Home Key)
+>   - LED x 3 (System Power, Reset, DC-IN Power)
+>   - USB Type-C Connector (USB 3.2) x 2
+>   - USB Type-C Connector (USB 2.0) x 1
+>   - 3.5mm Earphone Jack x 1 (with Microphone Input)
+>   - 3.5mm Line Out Audio Jack x 1
+>   - Analog Microphone x 1
+>   - Digital Microphone x 2
+>   - Gigabit Ethernet with RJ45 connector
+>   - DP x 1 (Mode over USB Type-C)
+>   - LVDS port x 1
+>   - eDP port x 1
+>   - UART x2 with serial-to-usb converters and USB Type-C connectors
+>   - UART Port x 2 on Pin Header
+>   - M.2 Slot x 2
+>   - I2C Capacitive Touch Pad
+>   - 4-Lane DSI x 1
+>   - 4-Data Lane CSI x 2
+>   - I2S Pin header
+>   - 40-Pin 2.54mm Pin Header x 1
+>   - CAN Bus x 1 (RS232 Connector)
+>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> ---
+>  arch/arm64/boot/dts/mediatek/Makefile              |   1 +
+>  arch/arm64/boot/dts/mediatek/mt8189.dtsi           | 920 +++++++++++++++=
+++++++
+>  .../boot/dts/mediatek/mt8391-genio-720-evk.dts     |  27 +
+>  .../boot/dts/mediatek/mt8391-genio-common.dtsi     | 673 +++++++++++++++
+>  4 files changed, 1621 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/mediatek/Makefile b/arch/arm64/boot/dts/=
+mediatek/Makefile
+> index a86fb313b1a9..5c75ea1ef09a 100644
+> --- a/arch/arm64/boot/dts/mediatek/Makefile
+> +++ b/arch/arm64/boot/dts/mediatek/Makefile
+> @@ -173,6 +173,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8395-genio-1200-ev=
+k-ufs.dtb
+>  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8390-genio-700-evk.dtb
+>  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8390-grinn-genio-700-sbc.dtb
+>  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8390-tungsten-smarc.dtb
+> +dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8391-genio-720-evk.dtb
+>  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8395-kontron-3-5-sbc-i1200.dtb
+>  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8395-radxa-nio-12l.dtb
+>  dtb-$(CONFIG_ARCH_MEDIATEK) +=3D mt8395-radxa-nio-12l-8-hd-panel.dtbo
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8189.dtsi b/arch/arm64/boot/d=
+ts/mediatek/mt8189.dtsi
+> new file mode 100644
+> index 000000000000..272b1b34c953
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/mediatek/mt8189.dtsi
+> @@ -0,0 +1,920 @@
+> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> +/*
+> + * Copyright (c) 2025 MediaTek Inc.
+> + *
+> + * Copyright (c) 2025 Collabora Ltd.
+> + * Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> + */
+> +
+> +#include <dt-bindings/clock/mediatek,mt8189-clk.h>
+> +#include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/power/mediatek,mt8189-power.h>
+> +#include <dt-bindings/phy/phy.h>
+> +
+> +/ {
 
-TC9563 uses I2C (at address 0x77 on I2C4) for its management interface.
+[...]
 
-Override the base iommu-map with the expanded set covering all the
-switch's downstream ports (0x1400-0x1408 SID range).
+> +       soc {
+> +               compatible =3D "simple-bus";
+> +               #address-cells =3D <2>;
+> +               #size-cells =3D <2>;
+> +               ranges;
+> +               dma-ranges =3D <0x0 0x0 0x0 0x0 0x10 0x0>;
+> +
+> +               performance: performance-controller@108d78 {
+> +                       compatible =3D "mediatek,cpufreq-hw";
+> +                       reg =3D <0 0x00108d78 0 0x120>, <0 0x00108e98 0 0=
+x120>;
+> +                       #performance-domain-cells =3D <1>;
+> +               };
+> +
+> +               gic: interrupt-controller@c000000 {
+> +                       compatible =3D "arm,gic-v3";
+> +                       reg =3D <0 0xc000000 0 0x40000>, /* distributor *=
+/
+> +                             <0 0xc040000 0 0x200000>; /* redistributor =
+*/
+> +                       interrupt-parent =3D <&gic>;
+> +                       interrupts =3D <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH 0>;
+> +                       interrupt-controller;
+> +                       #interrupt-cells =3D <4>;
+> +                       #redistributor-regions =3D <1>;
+> +
+> +                       ppi-partitions {
+> +                               ppi_cluster0: interrupt-partition-0 {
+> +                                       affinity =3D <&cpu0 &cpu1 &cpu2 &=
+cpu3 &cpu4 &cpu5>;
+> +                               };
+> +
+> +                               ppi_cluster1: interrupt-partition-1 {
+> +                                       affinity =3D <&cpu6 &cpu7>;
+> +                               };
+> +                       };
+> +               };
+> +
+> +               apdma: dma-controller@11300b00 {
+> +                       compatible =3D "mediatek,mt8189-uart-dma", "media=
+tek,mt6985-uart-dma";
+> +                       reg =3D <0 0x11300b00 0 0x80>,
+> +                             <0 0x11300b80 0 0x80>,
+> +                             <0 0x11300c00 0 0x80>,
+> +                             <0 0x11300c80 0 0x80>,
+> +                             <0 0x11300d00 0 0x80>,
+> +                             <0 0x11300d80 0 0x80>,
+> +                             <0 0x11300e00 0 0x80>,
+> +                             <0 0x11300e80 0 0x80>;
+> +                       interrupts =3D <GIC_SPI 432 IRQ_TYPE_LEVEL_HIGH 0=
+>,
+> +                                    <GIC_SPI 433 IRQ_TYPE_LEVEL_HIGH 0>,
+> +                                    <GIC_SPI 434 IRQ_TYPE_LEVEL_HIGH 0>,
+> +                                    <GIC_SPI 435 IRQ_TYPE_LEVEL_HIGH 0>,
+> +                                    <GIC_SPI 436 IRQ_TYPE_LEVEL_HIGH 0>,
+> +                                    <GIC_SPI 437 IRQ_TYPE_LEVEL_HIGH 0>,
+> +                                    <GIC_SPI 438 IRQ_TYPE_LEVEL_HIGH 0>,
+> +                                    <GIC_SPI 439 IRQ_TYPE_LEVEL_HIGH 0>;
+> +                       clocks =3D <&peri_ao CLK_PERAO_DMA_B>;
+> +                       clock-names =3D "apdma";
+> +                       dma-requests =3D <8>;
+> +                       #dma-cells =3D <1>;
+> +               };
+> +
+> +               auxadc: adc@11019000 {
 
-The TC9563 RESX# and PERST# are OR-ed internally to assert reset on the
-switch. Use TC9563 RESX# pin via a TLMM GPIO and skip wiring PERST#
-from the PCIe controller.
+The .dtsi file's device nodes should be sorted by base address.
+This file's device node order is inconsistent.
 
-Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 112 ++++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/eliza.dtsi     |   1 +
- 2 files changed, 113 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-index 6d76715ccffb..e099b7c8c371 100644
---- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
-@@ -12,6 +12,26 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	vreg_0p9: regulator-0v9 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_0P9";
-+
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	vreg_1p8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VREG_1P8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
- 	vreg_pcie_m_3p3: regulator-3p3 {
- 		compatible = "regulator-fixed";
- 
-@@ -99,6 +119,98 @@ pcieport0_ep: endpoint {
- 	};
- };
- 
-+&pcie1 {
-+	iommu-map = <0x0 &apps_smmu 0x1400 0x1>,
-+		    <0x100 &apps_smmu 0x1401 0x1>,
-+		    <0x208 &apps_smmu 0x1402 0x1>,
-+		    <0x210 &apps_smmu 0x1403 0x1>,
-+		    <0x218 &apps_smmu 0x1404 0x1>,
-+		    <0x300 &apps_smmu 0x1405 0x1>,
-+		    <0x400 &apps_smmu 0x1406 0x1>,
-+		    <0x500 &apps_smmu 0x1407 0x1>,
-+		    <0x501 &apps_smmu 0x1408 0x1>;
-+
-+	status = "okay";
-+};
-+
-+&pcie1_phy {
-+	vdda-phy-supply = <&vreg_l1k>;
-+	vdda-pll-supply = <&vreg_l3k>;
-+
-+	status = "okay";
-+};
-+
-+&pcie1port0 {
-+	wake-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-+
-+	tc9563: pcie@0,0 {
-+		compatible = "pci1179,0623";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+
-+		device_type = "pci";
-+		ranges;
-+		bus-range = <0x2 0xff>;
-+
-+		vddc-supply = <&vreg_0p9>;
-+		vdd18-supply = <&vreg_1p8>;
-+		vdd09-supply = <&vreg_0p9>;
-+		vddio1-supply = <&vreg_1p8>;
-+		vddio2-supply = <&vreg_1p8>;
-+		vddio18-supply = <&vreg_1p8>;
-+
-+		i2c-parent = <&i2c4 0x77>;
-+
-+		resx-gpios = <&tlmm 54 GPIO_ACTIVE_LOW>;
-+
-+		pcie@1,0 {
-+			reg = <0x20800 0x0 0x0 0x0 0x0>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			device_type = "pci";
-+			ranges;
-+			bus-range = <0x3 0xff>;
-+		};
-+
-+		pcie@2,0 {
-+			reg = <0x21000 0x0 0x0 0x0 0x0>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			device_type = "pci";
-+			ranges;
-+			bus-range = <0x4 0xff>;
-+		};
-+
-+		pcie@3,0 {
-+			reg = <0x21800 0x0 0x0 0x0 0x0>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+			device_type = "pci";
-+			ranges;
-+			bus-range = <0x5 0xff>;
-+
-+			pci@0,0 {
-+				reg = <0x50000 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				device_type = "pci";
-+				ranges;
-+			};
-+
-+			pci@0,1 {
-+				reg = <0x50100 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				device_type = "pci";
-+				ranges;
-+			};
-+		};
-+	};
-+};
-+
- &uart13 {
- 	compatible = "qcom,geni-debug-uart";
- 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index cce65e18f979..363cabc5f55c 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -2102,6 +2102,7 @@ opp-16000000-3 {
- 
- 			};
- 			pcie1port0: pcie@0 {
-+				compatible = "pciclass,0604";
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
-
--- 
-2.34.1
-
+ChenYu
