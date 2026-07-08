@@ -1,126 +1,238 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011036.outbound.protection.outlook.com [52.101.70.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E3336EA84
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 22:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783548453; cv=none; b=oXSzS8sJ+Hgk2sU5KgCws1GvbqZHdfon+ubeeTie/kub7q/LeVHTaujAzplTqi1MP+0QE2gT8nmatyobDL5XaHsgOvzBpPZeWcNbLyZVjwG3Czb/KBsvxOUVggYfdrS8smmN92m1PYmDeeKOk3At1Uo+5DdKbWTl6uh6yQr8I1w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783548453; c=relaxed/simple;
-	bh=pEqLiL3vpU0PX3L1DlOmX3No2FisODlZXMa3lMc0PJ8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=epqmgzfpNUEbQx4hpf8kWTzOJUKQH6nv3XkQwriuvYQUtl3LiuQ7AufRYF1W2o60kBg7/GqNgTyxYHy3kc5t9fUrxvov5mTPLq0Ov952vLjD5Ccs6t87UNNaa/dTSuh3acVH1jJCAwF0ojt6AXSPnMy68X0TI/inz0vAN/h2Tao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGIVFml1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E6E233948;
+	Wed,  8 Jul 2026 22:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783548569; cv=fail; b=ATNTuYCNe3YDypo7sKXcfuHFgAWIGcKZ0AZmwCQXpqXrZJ1qtLbyLA/oWPnOtqq4RNlI1wuM+95Oz5SdUSGKydpjXqY0XG55+GifCB50XD+bPi22tfH04cb+fpX+Ejuonzpwx8vAuzF3Q4N8GYMxuqnk1Hven4VeiH4BNUrVQR0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783548569; c=relaxed/simple;
+	bh=MzZor2lY3E839Y4E4xmpjp/TJykQtCY721a8HlMSQw4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=sXWjIWpF4giZMq1m7eC512oRz0vrcoF9mOowUH0nmBMEHuYcthJPDuRh6d1UsUhGM3CacPT5qheyrAJaQphy+0Dxv7IjCeJZOO0iKEwKflbA6BmRDf7OHooE3NbKjXjsfKF8w+SZh+NQZPPVQlOz6iD325LDk7zE1AHgHl0XEdw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=d82Xug49; arc=fail smtp.client-ip=52.101.70.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGIVFml1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DEF31F00A3A;
-	Wed,  8 Jul 2026 22:07:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783548452;
-	bh=3fpbC/Z0mJGQm7aVImQX8xB7NVoKCka3RpMX/M6VdYA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TGIVFml1zwFWa1SgzsQmBn8eTvtBCf5jvi7gYl5eFxjF1Rf+ciy2xbEizKWWupJ4e
-	 wiA3DTPc8CFsLv/PxarOX1n2T6jlrFjIgcTMMC54W3R8NNgDvSBgdT19/aiUEA7yg0
-	 sEggF1vWO9Qelwz1AGs9R1cElev2q5ikq0tLvk4F62lOBvBO7xlkG2TJiCfOZvEAP1
-	 YWz50at/mqe7oFdxcic/qQ2ylEZjFRjSlaC0OdrqnY2/gtPraw4ybla/Eviv4E90jP
-	 oLCLo2503hXgCNXMXq41NxEeHL0VTgRqsVT+6y+9UJmNCgRMII3rIzzHmD1nFxJ5Kr
-	 ziUge/BaPjrLg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/14] drm/rockchip: vop2: Avoid division by zero
- when computing max_dclk
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-5-a4a982a9f2e7@collabora.com>
-References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
- <20260709-dw-hdmi-qp-yuv-v3-5-a4a982a9f2e7@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 22:07:31 +0000
-Message-Id: <20260708220731.9DEF31F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="d82Xug49"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yvbR+VX+a+mpbz50YRbQuSnJxSUGde/Z1jD7CPnzuNjLY8T/o8/T9tQr6/8xKN8Myq+/U1V1jL01A2apzJ6oy3XubCCVb8DVY0rMv2ECVoVwj0Ei6R+ihituPmtHy1Ycv/CTCC0u3oLX3is6feDZsDKAXsSBBujPJgnoiDIU5bzEi2wIRaETq+S8gkznEZPG6vmRN31heAY0cU1F2JzMNJoSebEO32v2pAD3mKWkFmOCsTc72YxzjimH8IpwDBK4s1jHjHT/a0U760BUK4BRvw1tg2COVjMmceQrVc6i9YEA0XLC6UlCmXjlhN6SW4XfXeCM8q99uh7iSWZFn/jMLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6cIOpYdx8X/PnTHBqfGB60HrS3SqqQW5c2M8cng6bwM=;
+ b=Z3t20ygGZj/O77HzJSKKwaRt8hAqALgkcCvCgOHGxHXCJPUjoY1bsA47K8EqT2+hquaO0JsRhs/1Oo2aKsonupH4+iJvm4K5l0NqfidDWUbYdNTVCHTYRZzDKkxIy3/ObvYlZhAoukArSRgVGjU/cEPLuLeZCO/BAKdl0pB/OIPjtJtu/KNSDGQYAXydjchGDA2YL0x+WWIRnrN6q2PDckaaZr6skkQa4D9OG6kcnx98pV1EPDpVVjCgekGfK9unC5kKqwZpP6s+blQZgOtDSkThK/6gXdmKD5dNAu20UYOu9Cxy5lO1H4q+MvXYZ1PYv2Y8b1fXIG7KyrWsDbO0EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6cIOpYdx8X/PnTHBqfGB60HrS3SqqQW5c2M8cng6bwM=;
+ b=d82Xug49o+c3nAQUv5hIq2j3vcha498EHfg/2Id5KxLTcW6IXJj2Be8cI8vtFISP1vKA5UZ2b6DPZSoZ3OaGRyFILFjam5QQPJlRzWnWdAgLXik42oPfUpG50PWAVQR4xLhoXHTPq7/SeVXEuRFcVwFaJJedXs4aRrS0tHsKYyTLD+1zFY0LOvU6OcY0Xh5GtdcZEkGf/TRQL+6qmF0dPO2SS+m8IiLZbEItqGZmho+vjcuns4erBMr/I7dutOgpLrXn+O3DebrUtTVMbnBLNdEI/dpi70Q21VfdtucAM2OzEY+77UEzhkP+mFZQNLOHsmnGmvGeehPJY8xgTb8LZg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB9880.eurprd04.prod.outlook.com (2603:10a6:150:119::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Wed, 8 Jul
+ 2026 22:09:21 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 8 Jul 2026
+ 22:09:21 +0000
+Date: Wed, 8 Jul 2026 18:09:12 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v12 1/6] dt-bindings: media: qcom,x1e80100-camss: Add
+ optional PHY handle definitions
+Message-ID: <ak7KiHpkQFghDZzj@lizhi-Precision-Tower-5810>
+References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+ <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-1-f8588da41f16@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-1-f8588da41f16@linaro.org>
+X-ClientProxiedBy: SA0PR11CA0171.namprd11.prod.outlook.com
+ (2603:10b6:806:1bb::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB9880:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0785a38d-4b36-4d30-cf2b-08dedd3d8ff6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|7416014|1800799024|366016|23010399003|11063799006|4143699003|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	neePIr/rCURo+4bROzLd7rS58BrcR4kshP4xksrYdZ5/ESWdBsyMBAOZca5ZrM3kS4AUPQDJZSWwehtzQAZ019dYYpnQS0hpuEixpI/UtdQNTJLWcQ3jSdWzLN7UyTJkmNlyZQacHtauTlgvHsoH6vouUyBx5WCMALmfwVep711L9R/blFNs/0hz3j1LPELKDoMG+B2UCM5ovKjBGt/HfYj8bnTcsXzwNMM3bobbmtjYO8VA0OFm9TlznW/KGTAQg28vZkmHZ0HUhJoIjHEuHw3ha3Cb6cMQkurVqC57ieyJKWqTia1MJ++pkL/VnovrrC+nrB0XNr+JKZjvh0HyzxFqi5h7mGZmbMrMsIIPc8mT9C5GIas6e+jsVtTKhQuaN+Rb0AX/hHmW0aT9lGHQbsfwW8E4szPsiawtAo08oTu68WcBYNuzQvSi9LUODUHQNBDM/Yok1Wxz/0eITckzuJjxrmdVx9qRhlR1s3PPn5udDqLnyuXkGo5khyYpcAHvp8At/XmtHHmsFAU6gGcWtMbkuXS3EqVQmRijmXLZuwEbRocTzq4P/VzVF09WJMXD8xlCgnma7fxYKrhi2NikSoJrY7Dved4/y0Y8Nf3l7HAEM1Z/LupzLYObTwbsJao8hKGOM9HcyO0lTmbmZBgJgjs3jXKwBanx6Te7WxV/Hsw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(1800799024)(366016)(23010399003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VTg0noWchAaNuXv1m2THl8sYWf/v1THjxeGBDpFMRLQ1ZcsQ+xogng+xvCQ5?=
+ =?us-ascii?Q?z3FVwHnC2I4rnwoEoRjSBAyuVjH3zRuXEncRUyUwrjahZP2Dz0jX4jkFd/+6?=
+ =?us-ascii?Q?ykFuiMiKu6YOXqplld50prM1tws+rBTVvfJJpz8oiaxiMEPmvh2SAVsWIAa8?=
+ =?us-ascii?Q?eWo3/9QejX4UEiNVUuUcMSLZK7IppqFra2JkztqOisD/pWr8bdeayh76zzwr?=
+ =?us-ascii?Q?Rp1JkiRetOSAL5DqdIY8ll4IECepPl99xIn206Fy/H8Mg5PARXVy3twg3VyB?=
+ =?us-ascii?Q?zNkzKmtv5Cn+9TXUjqoJk5Sv9wrbqVv2xOORJUFMfW1rFq8riVRbOCu1Mijg?=
+ =?us-ascii?Q?Jz6SJ+98b5T6zGt96clt7imDBBCpo6yVuSSgyzHSXoK1q2GsBLDFKG14n2kA?=
+ =?us-ascii?Q?yOGOybZ9GsHEl8XNSOkQ2IRs6XXbfkGi1MSGbQMVqo5EQS1hya+CYHcRDOZ1?=
+ =?us-ascii?Q?LcbSlui0tpvVRbXMiojJ1QHiTyN5IJaXH4ztAFUDhkhDff/BThe484jDdZa1?=
+ =?us-ascii?Q?/8Hb3VO4tXkHMsN733mqyaIGXdt1v65b37Agb++0SLPsu6guwtuSI+M3Rgl3?=
+ =?us-ascii?Q?1FEax7cs9twmPNyFwrunZT0qiiNLWp0Xx52PntwHFgmClN8AdyLia/Yv/nC6?=
+ =?us-ascii?Q?ATSWQE7q8bQtM94BNZghWlNms6twWFDmKKUIslRAtuU8RTx+Qcru5wXRTIKV?=
+ =?us-ascii?Q?zH5j2QNytdb28BsmxnVeoWSWYxAo7k2ae7t+BBdCltqowHtyPGTfeaHQ8hE3?=
+ =?us-ascii?Q?plMON5DYjsy63S92kaS35y3SWdYVhsE4dIrMA9uTU51nJzcj/bKEwxUMc4ke?=
+ =?us-ascii?Q?3OnlDagRwVqRMVkvV1JRgBDVkkRcIWNNUm0p/z8z9dW0yT2X3jih3eyp9Bpk?=
+ =?us-ascii?Q?TVRg7tg+0+zwjIdBiD1fbeOzGxArk/KfItW8PMhTDrY5jKgw249YDPeWtb6R?=
+ =?us-ascii?Q?avX29nLb3C4lAuwMVkEs0yMK2OGhM236/QB+wfd69QgjdFnAFspbans5yIMi?=
+ =?us-ascii?Q?X7jNrUrGsjUpoNdgn8B+XnJRpu+a3QtT1pR9FcgCfHES61rflhZjHMu69aBR?=
+ =?us-ascii?Q?wLm9gxwuu0f2IFkThOAvZgH/hbJSDhaFPwnaDrm9rUL+joulwRTAPORBpGCu?=
+ =?us-ascii?Q?Y2V4L+OwsIesR32cCV4ygG5tmQ94HIXSxCW0ekcIECuYkftPQzmuF57ArmbK?=
+ =?us-ascii?Q?9jkCeT9+tlB1BUBlx0vpdc8wv7bgEhw9b5aYuTijIcVeWq04idmU9CJdZe7A?=
+ =?us-ascii?Q?CEFvefRRmVVoZAt29nGA3uKWScAQpwnXH8fSyUr+cNBmJKTuO1n3JG/77jtH?=
+ =?us-ascii?Q?0dz1G2o5fHRF8PF2oeRBwKQRMdP5YrvQqXvpaaMmY7VvvgICcUraua/AgOh1?=
+ =?us-ascii?Q?Qd4V+KGWosX5k9JTfHR00LvReVC/z1U8FjXgv05k3WAB9PXqhnP1TaTiBxpK?=
+ =?us-ascii?Q?dRAFlj0a+Sl6rmAHXuWy/cTTLZDGw/B+qnRhloVUJ8EEsMlPQqlA6hMkrRHR?=
+ =?us-ascii?Q?Zx9mbS41kLZtHcih6HKuSnD9ZXVKtwYZIU05e/g6PxbSPpCgBodaIriyzDoc?=
+ =?us-ascii?Q?727AkMrl/czVxy4nzwoA1N3o7X2QRdpBG2zsJcMapyZ1kWgOerlCgD7+Zhvs?=
+ =?us-ascii?Q?nkVsutCnRb0NiGL4k3j22wKINdMu80SqoYTCNiCRoPOO7sC0htU+fS9fMnur?=
+ =?us-ascii?Q?8adqTV7W3P3ecac1GDWKxsd8kAtFqxtGGUjoim3gVojd/AjBrMjZLBRZcD/G?=
+ =?us-ascii?Q?GgWlTZSRR53iZT/B54eucUNK9DDx3SuUrfyg4oLuhG6L+L1nzU9C?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0785a38d-4b36-4d30-cf2b-08dedd3d8ff6
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 22:09:21.5672
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zZ8cCqZoavgtfQoP/wn29sbP93DAMpuqoDVRPxFcXnuyQgoc2+Bm9pM5+PPBNAxhJEuyNM725WDyIfoDLcUo3nvdzHCbKhryreuB1UZBUeu0OlW433U5zkKm5ehBd5f0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9880
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] The expression `VOP2_MAX_DCLK_RATE * 8` silently overflows `unsign=
-ed long` on 32-bit architectures, resulting in a drastically lower `max_dcl=
-k` value.
-- [High] The CRTC atomic enable callback invokes multiple sleeping operatio=
-ns while executing in an atomic context.
---
-
---- Patch [5]: [PATCH v3 05/14] drm/rockchip: vop2: Avoid division by zero =
-when computing max_dclk ---
-commit ba0b89bfb2234e515bb1a3e786beceb00c9813f0
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-
-drm/rockchip: vop2: Avoid division by zero when computing max_dclk
-
-The commit modifies vop2_crtc_atomic_enable() to avoid division by zero
-when vcstate->output_bpc is 0 by defaulting bpc to 8. This happens when
-the CRTC drives a non-HDMI output.
-
-Link: https://lore.kernel.org/all/20260623203310.9F8C81F000E9@smtp.kernel.o=
-rg/
-
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index 4bb1985b87267..e9f5d015b6458 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -1931,8 +1931,9 @@ static void vop2_crtc_atomic_enable(struct drm_crtc=
- *crtc,
->  	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
->  	 */
->  	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
-> -		unsigned long max_dclk =3D DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * =
-8,
-> -							       vcstate->output_bpc);
-> +		unsigned int bpc =3D vcstate->output_bpc ?: 8;
-> +		unsigned long max_dclk =3D DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * =
-8, bpc);
-
-[Severity: High]
-This is a pre-existing issue, but does VOP2_MAX_DCLK_RATE * 8 silently=20
-overflow unsigned long on 32-bit architectures?
-
-Since VOP2_MAX_DCLK_RATE is 600000000UL, multiplying by 8 mathematically=20
-yields 4,800,000,000. On 32-bit architectures, this wraps around to=20
-505,032,704 before being passed to DIV_ROUND_CLOSEST_ULL(), which would
-result in max_dclk being ~63 MHz instead of 600 MHz.
-
-Could this prevent higher resolutions like 1080p and 4K from being=20
-configured properly on 32-bit kernels?
-
+On Wed, Jul 08, 2026 at 01:06:55AM +0100, Bryan O'Donoghue wrote:
+> Add optional PHY handle definitions. This will allow for supporting both
+> legacy PHY definitions as well as supporting the optional new handle based
+> approach.
+>
+> Drop the legacy high-level 0p8 and 1p2 supplies as required, each PHY has
+> its own individual rails. The old binding is still valid but with
+> individual nodes we define the rails in the CSIPHY sub-nodes.
+>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../bindings/media/qcom,x1e80100-camss.yaml        | 33 ++++++++++++++++++++--
+>  1 file changed, 31 insertions(+), 2 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> index 2d1662ef522b7..c17b9757b2c86 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> @@ -39,6 +39,14 @@ properties:
+>        - const: vfe_lite0
+>        - const: vfe_lite1
+>
+> +  '#address-cells':
+> +    const: 2
 > +
->  		if (clock <=3D max_dclk) {
->  			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mas=
-k) {
->  				struct rockchip_encoder *rkencoder =3D to_rockchip_encoder(encoder);
+> +  '#size-cells':
+> +    const: 2
+> +
+> +  ranges: true
+> +
+>    clocks:
+>      maxItems: 29
+>
+> @@ -126,6 +134,16 @@ properties:
+>      description:
+>        1.2V supply to a PHY.
+>
+> +  phys:
+> +    maxItems: 4
+> +
+> +  phy-names:
+> +    items:
+> +      - const: csiphy0
+> +      - const: csiphy1
+> +      - const: csiphy2
+> +      - const: csiphy4
+> +
 
-[Severity: High]
-This is a pre-existing issue, but does vop2_crtc_atomic_enable() execute=20
-sleeping operations within an atomic context?
+needn't "phy" for phy-names, just csi0|csi1 ...
 
-Looking earlier in vop2_crtc_atomic_enable():
+>    ports:
+>      $ref: /schemas/graph.yaml#/properties/ports
+>
+> @@ -158,6 +176,14 @@ properties:
+>              required:
+>                - data-lanes
+>
+> +patternProperties:
+> +  "^phy@[0-9a-f]+$":
 
-	vop2_lock(vop2);
+Not sure why phy need be children node? does this phy is used by other
+controller?
 
-	ret =3D clk_prepare_enable(vp->dclk);
-	if (ret < 0) {
-
-The function unconditionally acquires a mutex via vop2_lock() and calls=20
-clk_prepare_enable(), which can sleep. Since CRTC atomic enable callbacks
-execute in an atomic context during non-blocking commits, could this cause
-system instability or deadlocks?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-dw-hdmi-qp=
--yuv-v3-0-a4a982a9f2e7@collabora.com?part=3D5
+Frank
+> +    $ref: /schemas/phy/qcom,x1e80100-csi2-phy.yaml
+> +    unevaluatedProperties: false
+> +
+> +  "^opp-table(-.*)?$":
+> +    type: object
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -171,8 +197,6 @@ required:
+>    - iommus
+>    - power-domains
+>    - power-domain-names
+> -  - vdd-csiphy-0p8-supply
+> -  - vdd-csiphy-1p2-supply
+>    - ports
+>
+>  additionalProperties: false
+> @@ -184,6 +208,7 @@ examples:
+>      #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+>      #include <dt-bindings/interconnect/qcom,icc.h>
+>      #include <dt-bindings/interconnect/qcom,x1e80100-rpmh.h>
+> +    #include <dt-bindings/phy/phy.h>
+>      #include <dt-bindings/power/qcom-rpmpd.h>
+>
+>      soc {
+> @@ -229,6 +254,10 @@ examples:
+>                          "vfe_lite0",
+>                          "vfe_lite1";
+>
+> +            #address-cells = <2>;
+> +            #size-cells = <2>;
+> +            ranges;
+> +
+>              clocks = <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
+>                       <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
+>                       <&camcc CAM_CC_CORE_AHB_CLK>,
+>
+> --
+> 2.54.0
+>
