@@ -1,387 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011041.outbound.protection.outlook.com [52.101.70.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483D2282F00;
-	Wed,  8 Jul 2026 19:20:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783538441; cv=none; b=gDuw1BTS62UzAw07a1YRiiDzExOO4JFPVjYThMLX1dAOcfZt/hTgeVgslf/wxGxg05CNnoZMgpu5KGEfEZBAlS12fmzgQMwMvLrktVi4wz+RlrAao39OccALJMACnTG5korp4etGXcNQsdvstJ29QIXPPVZDLWohsD7Ud8uNJ50=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783538441; c=relaxed/simple;
-	bh=9WxLBVUsNENxqGWKTgePVEabN+I9UDvbV5HuAixjYmw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hwAv7o2CxvnMYQs3Y7IAe2o6XZnUGdwcTxR7ID5eIajZcAqyqcl1YmTKH5WFCEOmF6Lt2Ihbqt8GWfWECycvtmaGaXN64COJZ4Tpf0fAuJYshME+vlxVkSyZ9FGPssCRcC+rHkNyHjxJgrdLYdaJNRfeUnavzaHLfD407O9gFIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3yczfXk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D543A2576;
+	Wed,  8 Jul 2026 19:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783538785; cv=fail; b=KE1mzv7LvxfIiQt2t6Z/celqfyv+xOLW+2/+O8FhAraiCMzk7rDD+D07o5rhW86ehkOZ19vg7eX3bPXa2TxAmwZMcCS4U9guk4N3xaKPPu0DLTMqafTcGMZveNvZG6YQE5kPwjehob4Xh2JYwHKpmCZgJ04GVSmTFeE+8S3zQkY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783538785; c=relaxed/simple;
+	bh=AAUAoSs13NQmCLPeZV2vcfjvTVMBRlqHquyGZ82okI0=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=o7/X3HFUDSF8vggChBliZqupZSnf1OjewhHtdyGpXs0435VXde4NwsP1apsjCo+IfTKCJOIrx0lv+p+HVtLlRRIGrvus1ImCrP1Fy8E8KPW2u1h+Ri/atSRKYfU2DHpZ6ttOfBbQXUzfs2hsuKBtnaCtv6Yt6xBNwaX0D7uKL4k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gZ43YMJ4; arc=fail smtp.client-ip=52.101.70.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3yczfXk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23BC1F00A3A;
-	Wed,  8 Jul 2026 19:20:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783538439;
-	bh=WtZLSIkFmSLvTlm24bk8TSSq390aG97/FwHCvCIM1Cc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W3yczfXkGpl62KWn9y3V22RLLiWax4xmtHQnaMerOvTc6rftWNpSR1EGTEpxtZZHd
-	 QMa26hYMytCpz+5VdkjFaBinuJf844d9FD1EHuXfYtVqeyOBRCy+ThNx7onbPvdMGy
-	 7fMn5ppi+obO87b0RXzbKwduMEcSLV2tYWACCDtTk2Iiw2S0V7OikqsD4Ym/KFx/Mt
-	 x3TfaPVXf/pcbD2U83imYQ+Wp9PnI9L7Cip15ORh7sh+nZN/ExW1uIm9Q7bBrVTLhE
-	 lnFh2n14zYXL20rqaLRq3t4WISZhigAkVfNq9ep5eLC0WqKKON1/B4d/8k0V2/QF7S
-	 Srjm4kYR0DO4Q==
-Date: Wed, 8 Jul 2026 20:20:34 +0100
-From: Lee Jones <lee@kernel.org>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>
-Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
-	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
-	Frank.Li@nxp.com, lgirdwood@gmail.com, vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
-Subject: Re: [PATCH v13 3/7] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
- and on-die regulator
-Message-ID: <20260708192034.GA1727174@google.com>
-References: <20260701065755.2067793-1-lakshay.piplani@nxp.com>
- <20260701065755.2067793-4-lakshay.piplani@nxp.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gZ43YMJ4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kH9ryOhJKENpRZFrJtnonf3LfKJE6JJrEj8xh+5f+RlIbbPZijbjHD/H89nkY2dJhuY4Vx+sX9HLkAuXR624Ks0JsTpV5K1Vnw9OEeh9zV7P+I8O7rKAUH92CkMvZn8jF5vT48udZgDlZMsjCm/rt1+D1GCEnihhiMKCWHTVJL4duW82/tSKwOr9OxcdlbGAj81OKg7ijJD5lAiotADP1QOX/SCPhei5QKr3Y9QHtrWtNfJZuw9t9+gtxfmzDibMpa+AVZajKY4oN12XnSKVma1KY2CMnjar6Y9RBr3aaQdxWM9sr/ntRD7RzWTw/z4JpuRRM4wFKtQcMy+y4mAVzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u0s4kE6hgHeDDBI7oPmQ+3BHJJ+qwFq9vFzxaLBArkk=;
+ b=whV+PgLidvkKmnJkje2/T07H8aeMauPLtVq8/zjjdXNbvKJ4yo2v3SFHu15JwrIBKT25zJmvxQP2SK2qzHhgziTDWOMnGepDDZoVn56s9QfsPA1yDMJffxgZi0a0f5xN8itBlliaADyNC95h+IUdSTaEBQsOR1UMCFTDqHcmLfoAYs4WvxavD76JG9OVjofLZIVTejIoyZYkJFUjAc2wPfUDUQwFne97X9Dp8z1qO84wKu448CAqzrBnmbFvSQM8elJxJPSsgJ7lO4mJ3N6mPG/O/KBdnKm01mT7O1GPwMYzNPj/ZkUgZmds0UAlwCycOsdER2VwHWMdQ24Tsyf2Cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u0s4kE6hgHeDDBI7oPmQ+3BHJJ+qwFq9vFzxaLBArkk=;
+ b=gZ43YMJ4tmggasUGgSR7lOqc1FortjS5O7VB6Jb/+vv+Aut7Jxj48BZPOEMV2tdpa4gdXi8qc1cCheHY1yNn3ji42Hvcq4lIZGAPNjzibrs2fk/7G+VvZpYtiLLw62CY8WGMsRUjv61om5tMPSPMkrcyz80uD46KOAaAcyfZ5nws2o6FNWqLuyEcaf7EGfq7tlS9KHp4QH+JpNJkLTWWZe9vfXjkHSnxPaRdCCU+5at+E/648aB7NX2MY/ci5ocQKkdV1s83e6/2pvoSwzaBtVz2hvjEifLM7QEAV1lfEsMLg7voEWWw40pPSsocYCSY7H1TkwQ5F+0RsUFh/qlHJw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB12342.eurprd04.prod.outlook.com (2603:10a6:150:31a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 8 Jul 2026
+ 19:26:20 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 8 Jul 2026
+ 19:26:19 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH 0/5] ARM: dts: ls1021a: dts CHECK_DTBS warning cleanup
+Date: Wed, 08 Jul 2026 15:26:08 -0400
+Message-Id: <20260708-ls-dts-warning-v1-0-5daa24061c31@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFGkTmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcwML3Zxi3ZSSYt3yxKK8zLx03bREM0MLSzMLE+NEIyWgpoKi1LTMCrC
+ B0bEQfnFpUlZqcgnIFKXaWgBg2irJcgAAAA==
+X-Change-ID: 20260708-ls-dts-warning-fa61896843a2
+To: Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ ioana.ciornei@nxp.com, vladimir.oltean@nxp.com, SZ Lin <sz.lin@moxa.com>, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783538774; l=888;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=AAUAoSs13NQmCLPeZV2vcfjvTVMBRlqHquyGZ82okI0=;
+ b=0VQQ9mcV7872/Ols3gTxHmEm+jUqFaT6dnfUI8nzdpm3rVqlssArGxd8Djw+tNiCnmLFHY6yG
+ o0YMUI4+lAIDH8KBH/OWEsg8t7PKvZLRc6guijXFVeXeTROqfhaTC2A
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: PH8PR22CA0022.namprd22.prod.outlook.com
+ (2603:10b6:510:2d1::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260701065755.2067793-4-lakshay.piplani@nxp.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB12342:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ce08c6a-7304-43aa-9c17-08dedd26c995
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|19092799006|7416014|366016|23010399003|1800799024|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Rbn69Jj3wO/Xq2TRsvI7LwhVyTAMkvngVIgTQO/X58JY5gyUeCYZZyVXIiFbsqECSp8zDjhyizm3xeZ1Wh1LLFIxD/FWREnl+tOCf1THYPdQbA3rKiS3t6f6FUVTle0q/kLKUhmMDIkPvJ5gMuWzWFpO3kAkHq8n0eVW0ocKd4FnOytO3cKObVqTg3CY45EaWDEXaKe1LuNNaMK703lhs5SdE3CBda4dEZTYM/L4+bUu2eZ0pp3ANeIkHTw2SG5oNiedYX05zIypkvpEvgVW4jLfP6SSoPxRypMnJkaxBHcW6Z1iSFObYsaqzv3TljYzNRw2FheCqZ7e1TYa8gbUB7St/ZiCdHC71OUKrwefOg31puN4N7mZoPY12awX95WDFMQC5oRk6+oIQJiXlN1iUSVDWDWXXgQ4WQkK78Zci7U9QmKVmUYL+ksHNXkGsOyHjJ0BKJWT4iesFSpVcF+ZGwMyqM7TA7fqEnezSoA+OhKA+wKL+AvngsqMENHR4s14Mtwfw5JT7pwbApx1nT8qULQSBpGKPwLNQP3KtVReMefOtiaM8yKy23zbkcccq7YJbOcUAzq8BsDAFplbXWTq7PQb6+tXLQXQqFBXwZoIlJZehZxOkkPPphdBU6pw3+78U8HvwglYpZf9cd9FQpyqJnrPdSmNXfh4oGvQOp0yaRc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(7416014)(366016)(23010399003)(1800799024)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K3VxODkrRGdRNEw1NHdRaFFTZGVaTkNWdVhKWHdIZHZXSllxSjFQVmRyckdw?=
+ =?utf-8?B?ZjFFaUVxMFVyY0lSME5FbGkxVVJDVUt6R2hTMC9FL3lQdGZlRG1ZSUw4RnBM?=
+ =?utf-8?B?aHJ2MWhUUk5CTjhPdW9CclE4RWZSeWhaYWt1M0pmMXZWeWRpcm1Lb3NmRzZk?=
+ =?utf-8?B?ZGQyN0Y3RDhNVUJVU2ZJZ3ZmYmtLa2RJRW8rT2NQYkFCK1Yrc2dsSTFmTi9y?=
+ =?utf-8?B?dFlnUjNxdHBTaWNTMFluKzIzZUtBWjJiYzNEbW1yZUxlKzZHNEI1d1IyOFNH?=
+ =?utf-8?B?N093WUpuUnRmenVFR0NhYkl4VDZ5cGlKMm5iUEZnZ2F6M0FUU2ZMeEE4OWgr?=
+ =?utf-8?B?VmZHTDc1MXE4UEJiaG5na0ZoOTd0ZDJ5LzQzZ0lPVmNzMmxKRzE1ZU9jTWwz?=
+ =?utf-8?B?Z0tPZU1yeFFaWWVTNEFrZ2puV1VINXhHVG9PYkZ5L0syQVdtbjZqaS85aXJp?=
+ =?utf-8?B?ZzhtdnZZWGpjRDdWaC9ZNkNCeHFXQ3RuTUxnRG8zMTc5SnhmSlRoNGZYUWlJ?=
+ =?utf-8?B?Y0RKUU5kUXo5WXBJL0M5VHhLaGVHd0lWc0FLZHBsL3RPcVZjYm1wUVJTR3Y1?=
+ =?utf-8?B?TXViSkR3elpMWEltaXcvNlJaZEx4c0tXUzk2YURwTUxOcUw5bmlNN3hMQ0pU?=
+ =?utf-8?B?ZG90Q20raW04emRpMlhuM2MrQklkT1l5RXo5RWNMUVNDLy8yQTNMVjFScUtD?=
+ =?utf-8?B?Z1JTbVJxczc1bnhWK1ZURHZlK2FRQWszWURXY3htRTdQT2ZHdnY3aVRTSzIx?=
+ =?utf-8?B?R282VURRcGJ1dW9JSkJuTkRTVC9QWDFaa3JycjJOTFRJby9LTzErdGVZZjFD?=
+ =?utf-8?B?NUJ1NFk0cFE4QmtpWDV5dldWTzZEWXBYNVBDMjF4aktaMHBJeDlIMFRVdzMv?=
+ =?utf-8?B?ZDhxUmgzQi9qVzZKSXVEamZybS85Q2doZytpNDVzRVYwSi9xek1HT3gzcFB0?=
+ =?utf-8?B?V1Vkck1MM2sxODYwVHk0RkNtbWt3MGtkZUZsR0orbmVMVWVvL0YzbmNuY2Iz?=
+ =?utf-8?B?bzExQUUyc3QyV1VycGpNelBaVXQwVVJILzE1aTFONzRDNXMrUklUNVNRTFlz?=
+ =?utf-8?B?UExzeGZxTmFZMjhXalpFWis1VUFVVXkzQ2ZIbzNzRERQZFZYZWdKcXNhRkhE?=
+ =?utf-8?B?RFB6SDNqUGdyTENiUEtoWWtwemRSejRYSDloV2JiT25zd1RBSi9aVmJuNENk?=
+ =?utf-8?B?YlRPTkNJTXQ1QSswOTZwYk5jQmlUTGtrTzFKZXpCeUxjQVlDV0JuMzROblRz?=
+ =?utf-8?B?Ym5hb1ZGeDlCa0Y3ejlBaTNnUW1YNmZzNmlyTmtYVy94dDQ0TC9IYTdJWFZu?=
+ =?utf-8?B?clk2Vlp2SmE0aW1Ea1pla1ZiQXRGbE5ZbTRMYWZPM0lQaVZzeWNNb0h1TkY4?=
+ =?utf-8?B?N0k4NXM3WUY3K3pzYlcyNkk4WFB2dmovb2lIMWpCMkJJZEJBa0wzQzV5d2xK?=
+ =?utf-8?B?MEpSNFFDankwMDVlbTZsOW5JUGl3Z0oyU3BQSUtDcWxIT05RN0hCK1VHRHlv?=
+ =?utf-8?B?VmtmZGFIRTI5UHFNcnVzLzdFSTZHNnVPNitaTExBWnQ3dGRpY29MNTM4dzRG?=
+ =?utf-8?B?SDNvL0RRRW1FWGE2THE3Q000M3RRQ1JZam0yZytRTHVweUZIR0JBeHprZ203?=
+ =?utf-8?B?aEgzK2o0d3lYOHNNSFJIbHhyQlFjSGJhMDdqd0ppTWJsRG1Fa2MvanZ1NHBa?=
+ =?utf-8?B?Skc1Vmc2TXBNOFpla1JWQmJiczBLQlExVjE0WWJYUk1yOVM3YVhGc1U1L0Fr?=
+ =?utf-8?B?L3B0K0xldStMdytWcEpiUkVGbzBGK0tDMXVwdGQ3d29BeHNNL1lYa0U4aFAw?=
+ =?utf-8?B?YVljcDhkYkZOdURDR1lkK1VEQ1hKeFc3RjJBV0hFQ0pSUW04U051VzUyc0pX?=
+ =?utf-8?B?bjlqd2VNVC9yN0kzZXJjaThEMlNyQXZqSjQzSC94cXNYVVJUWUgrL2VtSnMx?=
+ =?utf-8?B?SSt1TlVmVzIwQVFkR1ZhVXAxaGhsdm9iVlRsRE50T1JhMm10SU91WGhGcVdP?=
+ =?utf-8?B?Y3hVSlY1T0ZvY05sckY3ZjA1V3AvUXBxNExWVlhnVXRJSzRySUZaUWJUVmJy?=
+ =?utf-8?B?OFYvL0pMRTB6RmhESUdQcStpOUtXVTlGdDBqajNJWStjdGNpcWdLdFpwK09v?=
+ =?utf-8?B?SzJZL3Y0Vk8wa28xRUdIbW92RldGbmpzWk95S09rcTdMWnVaeG1QRFJCM01o?=
+ =?utf-8?B?dkwvWHZ0bE1UN0tEWGVLdTg0R1RsSVZ1TmpKSnNCcXpOclZKUVhnbm92STg1?=
+ =?utf-8?B?SzFieS9lYU1VZ0I2cy9qS2FURnlHbXZvdlNWeVlGQXh4K0hEMlpPTWl0T1Jl?=
+ =?utf-8?B?MldWV21LeTJIUVhVMG5xY2VhYWVkd1NvcFFHdGRFeWl3SzFHN080YUVETERR?=
+ =?utf-8?Q?ZwvJowaML9KSRNOQCDfNeHVPc6oQe5qW3WwMj?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ce08c6a-7304-43aa-9c17-08dedd26c995
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 19:26:19.8288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WqzJUuONGRNvmaRoEtQXUa4KcHr+6jv2ECWp8xDG5w/nLPHEhFDsApQh4/+OWaIpBX/pnzP5XZdPfDtKW7Y1lVN7C8ZUI8jV45gWssc2dX2qGdlOcqgs3nNOtz8SXmUZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12342
 
-On Wed, 01 Jul 2026, Lakshay Piplani wrote:
+Collect dts changes to clean up CHECK_DTBS warning.
 
-> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> 
-> Add core MFD support for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
-> family of multiport I3C hub devices. These devices connect to a host via
-> I3C/I2C/SMBus and expose multiple downstream target ports.
-> 
-> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> 
-> ---
-> Changes in v13:
->  - Use i3c_device helpers (i3cdev_to_dev()) instead of direct struct access
->    to maintain API abstraction
->  - Avoid including internal I3C headers and use public device headers instead
->  - Ensure proper device matching by relying on manufacturer ID checks in probe
-> 
-> Changes in v12:
->  - No change, added Reviewed-By tag
-> 
-> Changes in v11:
->  - Use MFD_CELL_NAME() for child device registration
->  - Rename local variables for consistency
->  - Rename driver names to follow subsystem conventions:
->    - Use '-' instead of '_' in driver names
->    - Drop the "_drv" suffix from driver names
-> 
-> Changes in v10:
->  - Drop redundant is_p3h2x4x_in_i3c flag
-> 
-> Changes in v9:
->  - Renamed macros to follow consistent uppercase naming conventions
->  - Made REGMAP selects in the P3H2X4X MFD Kconfig conditional,
->    to avoid I3C/I2C dependency issues
-> 
-> Changes in v8:
->  - No change
-> 
-> Changes in v7:
->  - Use new config I3C_OR_I2C
-> 
-> Changes in v6:
->  - No change
-> 
-> Changes in v5:
->  - Corrected the ordering in the Makefile and Kconfig for MFD_P3H2X4X
->  - Updated dev_err_probe() for regmap_init failure.
->  - Updated module description
-> 
-> Changes in v4:
->  - Split the driver into three separate patches(mfd, regulator and I3C hub)
->  - Added support for NXP P3H2x4x MFD functionality
-> ---
-> ---
->  MAINTAINERS                 |   2 +
->  drivers/mfd/Kconfig         |  13 ++++
->  drivers/mfd/Makefile        |   1 +
->  drivers/mfd/p3h2840.c       | 126 ++++++++++++++++++++++++++++++++++++
->  include/linux/i3c/device.h  |   1 +
->  include/linux/mfd/p3h2840.h |  28 ++++++++
->  6 files changed, 171 insertions(+)
->  create mode 100644 drivers/mfd/p3h2840.c
->  create mode 100644 include/linux/mfd/p3h2840.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ba65ae5a008b..3420701a75c5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19311,6 +19311,8 @@ L:	linux-kernel@vger.kernel.org
->  L:	linux-i3c@lists.infradead.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> +F:	drivers/mfd/p3h2840.c
-> +F:	include/linux/mfd/p3h2840.h
->  
->  NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
->  M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index 7192c9d1d268..405b50c3c77b 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -617,6 +617,19 @@ config MFD_MX25_TSADC
->  	  i.MX25 processors. They consist of a conversion queue for general
->  	  purpose ADC and a queue for Touchscreens.
->  
-> +config MFD_P3H2X4X
-> +	tristate "NXP P3H2X4X I3C Hub Device"
-> +	depends on I3C_OR_I2C
-> +	select MFD_CORE
-> +	select REGMAP_I3C if I3C
-> +	select REGMAP_I2C if I2C
-> +	help
-> +	  Enable Support for NXP P3H244x/P3H284x I3C HUB device using I3C/I2C
-> +	  communication interface.
-> +
-> +	  This driver provides support for I3C hub and regulator, each subdriver
-> +	  can be enabled independently depending on the required functionality.
-> +
->  config MFD_PF1550
->  	tristate "NXP PF1550 PMIC Support"
->  	depends on I2C=y && OF
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index e75e8045c28a..a284b22c7b13 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -122,6 +122,7 @@ obj-$(CONFIG_MFD_MC13XXX)	+= mc13xxx-core.o
->  obj-$(CONFIG_MFD_MC13XXX_SPI)	+= mc13xxx-spi.o
->  obj-$(CONFIG_MFD_MC13XXX_I2C)	+= mc13xxx-i2c.o
->  
-> +obj-$(CONFIG_MFD_P3H2X4X)	+= p3h2840.o
->  obj-$(CONFIG_MFD_PF1550)	+= pf1550.o
->  
->  obj-$(CONFIG_MFD_NCT6694)	+= nct6694.o
-> diff --git a/drivers/mfd/p3h2840.c b/drivers/mfd/p3h2840.c
-> new file mode 100644
-> index 000000000000..89a97f0449c4
-> --- /dev/null
-> +++ b/drivers/mfd/p3h2840.c
-> @@ -0,0 +1,126 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright 2025-2026 NXP
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Frank Li (5):
+      ARM: dts: ls1021a-moxa-uc-8410a: add led suffix to fix CHECK_DTBS warnings
+      ARM: dts: ls1021a-twr: add power-supply for lcd panel
+      ARM: dts: ls1021a-moxa-uc-8410a: use compatible string ethernet-phy-ieee802.3-c22
+      ARM: dts: ls1021a-moxa-uc-8410a: replace spansion,s25fl164k with jedec,spi-nor
+      ARM: dts: ls1021a-moxa-uc-8410a: remove undocument property default-state of gpio-keys
 
-Nit: '\n' here.
+ arch/arm/boot/dts/nxp/ls/ls1021a-moxa-uc-8410a.dts | 29 +++++++++++-----------
+ arch/arm/boot/dts/nxp/ls/ls1021a-twr.dts           |  1 +
+ 2 files changed, 15 insertions(+), 15 deletions(-)
+---
+base-commit: 6c94b38b83a04c43ea49004275f0391404051093
+change-id: 20260708-ls-dts-warning-fa61896843a2
 
-> + * P3H2X4X i3c hub and regulator device.
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
-Those describe the children, not this device.
-
-No Author: ?
-
-> + */
-> +
-> +#include <linux/i2c.h>
-> +#include <linux/i3c/device.h>
-> +#include <linux/mfd/core.h>
-> +#include <linux/mfd/p3h2840.h>
-> +#include <linux/regmap.h>
-> +
-> +static const struct mfd_cell p3h2x4x_devs[] = {
-> +		MFD_CELL_NAME("p3h2x4x-regulator"),
-> +		MFD_CELL_NAME("p3h2x4x-i3c-hub"),
-
-Too many tabs.
-
-> +};
-> +
-> +static const struct regmap_config p3h2x4x_regmap_config = {
-> +	.reg_bits = P3H2X4X_REG_BITS,
-> +	.val_bits = P3H2X4X_VAL_BITS,
-> +	.max_register = 0xFF,
-> +};
-> +
-> +static int p3h2x4x_device_probe_i3c(struct i3c_device *i3cdev)
-
-How many of these are comming down the pipe?
-
-Might be worth expanding drivers/mfd/simple-mfd-i2c.c instead?
-
-> +{
-> +	struct device *dev = i3cdev_to_dev(i3cdev);
-> +	struct i3c_device_info info;
-
-devinfo is more consistent.
-
-> +	struct p3h2x4x_dev *ddata;
-
-Drop the _dev part.
-
-> +	int ret;
-> +
-> +	i3c_device_get_info(i3cdev, &info);
-> +
-> +	if (I3C_PID_MANUF_ID(info.pid) != I3C_MANUF_ID_NXP)
-> +		return -ENODEV;
-> +
-> +	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return -ENOMEM;
-> +
-> +	i3cdev_set_drvdata(i3cdev, ddata);
-> +
-> +	ddata->regmap = devm_regmap_init_i3c(i3cdev, &p3h2x4x_regmap_config);
-> +	if (IS_ERR(ddata->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(ddata->regmap),
-> +				     "Failed to register HUB regmap\n");
-> +
-> +	// The hub child driver retrieves information from i3cdev
-
-C++ comments?
-
-> +	ddata->i3cdev = i3cdev;
-> +
-> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO,
-> +				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
-> +				   NULL, 0, NULL);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add sub devices\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static int p3h2x4x_device_probe_i2c(struct i2c_client *client)
-> +{
-> +	struct p3h2x4x_dev *ddata;
-> +	int ret;
-> +
-> +	ddata = devm_kzalloc(&client->dev, sizeof(*ddata), GFP_KERNEL);
-> +	if (!ddata)
-> +		return -ENOMEM;
-> +
-> +	i2c_set_clientdata(client, ddata);
-> +
-> +	ddata->regmap = devm_regmap_init_i2c(client, &p3h2x4x_regmap_config);
-> +	if (IS_ERR(ddata->regmap))
-> +		return dev_err_probe(&client->dev, PTR_ERR(ddata->regmap),
-> +				     "Failed to register HUB regmap\n");
-> +
-> +	ddata->i3cdev = NULL;
-> +
-> +	ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_AUTO,
-> +				   p3h2x4x_devs, ARRAY_SIZE(p3h2x4x_devs),
-> +				   NULL, 0, NULL);
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret, "Failed to add sub devices\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct i3c_device_id p3h2x4x_i3c_ids[] = {
-> +	I3C_CLASS(I3C_DCR_HUB, NULL),
-> +	{ /* sentinel */ },
-> +};
-> +MODULE_DEVICE_TABLE(i3c, p3h2x4x_i3c_ids);
-> +
-> +static const struct i2c_device_id p3h2x4x_i2c_id_table[] = {
-> +	{ "nxp-i3c-hub" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, p3h2x4x_i2c_id_table);
-> +
-> +static const struct of_device_id p3h2x4x_i2c_of_match[] = {
-> +	{ .compatible = "nxp,p3h2840", },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, p3h2x4x_i2c_of_match);
-> +
-> +static struct i3c_driver p3h2x4x_i3c = {
-> +	.driver = {
-> +		.name = "p3h2x4x-i3c",
-> +	},
-> +	.probe = p3h2x4x_device_probe_i3c,
-> +	.id_table = p3h2x4x_i3c_ids,
-> +};
-> +
-> +static struct i2c_driver p3h2x4x_i2c = {
-> +	.driver = {
-> +		.name = "p3h2x4x-i2c",
-> +		.of_match_table = p3h2x4x_i2c_of_match,
-> +	},
-> +	.probe =  p3h2x4x_device_probe_i2c,
-
-Is there an accidental double space before 'p3h2x4x_device_probe_i2c'?
-
-> +	.id_table = p3h2x4x_i2c_id_table,
-> +};
-> +module_i3c_i2c_driver(p3h2x4x_i3c, &p3h2x4x_i2c);
-> +
-> +MODULE_AUTHOR("Aman Kumar Pandey <aman.kumarpandey@nxp.com>");
-> +MODULE_AUTHOR("Vikash Bansal <vikash.bansal@nxp.com>");
-> +MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
-> +MODULE_DESCRIPTION("NXP P3H2X4X I3C HUB multi function driver");
-> +MODULE_LICENSE("GPL");
-> diff --git a/include/linux/i3c/device.h b/include/linux/i3c/device.h
-> index 971d53349b6f..6188082599dd 100644
-> --- a/include/linux/i3c/device.h
-> +++ b/include/linux/i3c/device.h
-> @@ -85,6 +85,7 @@ struct i3c_xfer {
->   */
->  enum i3c_dcr {
->  	I3C_DCR_GENERIC_DEVICE = 0,
-> +	I3C_DCR_HUB = 194,
-
-What is this value?
-
->  };
->  
->  #define I3C_PID_MANUF_ID(pid)		(((pid) & GENMASK_ULL(47, 33)) >> 33)
-> diff --git a/include/linux/mfd/p3h2840.h b/include/linux/mfd/p3h2840.h
-> new file mode 100644
-> index 000000000000..0f0d5b442bef
-> --- /dev/null
-> +++ b/include/linux/mfd/p3h2840.h
-> @@ -0,0 +1,28 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright 2025-2026 NXP
-> + * This header file contains register definitions and bit masks for the P3H2X4X.
-
-This comment is superfluous .
-
-> + */
-> +
-> +#ifndef _LINUX_MFD_P3H2840_H
-> +#define _LINUX_MFD_P3H2840_H
-> +
-> +#include <linux/types.h>
-> +
-> +/* Device Configuration Registers */
-> +#define P3H2X4X_DEV_REG_PROTECTION_CODE				0x10
-> +#define P3H2X4X_REGISTERS_LOCK_CODE				0x00
-> +#define P3H2X4X_REGISTERS_UNLOCK_CODE				0x69
-> +#define P3H2X4X_CP1_REGISTERS_UNLOCK_CODE			0x6a
-> +
-> +/* Reg config for Regmap */
-> +#define P3H2X4X_REG_BITS					8
-> +#define P3H2X4X_VAL_BITS					8
-
-It's not common to define these values.
-
-> +#define I3C_MANUF_ID_NXP					0x011b
-> +
-> +struct p3h2x4x_dev {
-> +	struct i3c_device *i3cdev;
-> +	struct regmap *regmap;
-> +};
-> +#endif /* _LINUX_MFD_P3H2840_H */
-> -- 
-> 2.25.1
-> 
-
--- 
-Lee Jones
