@@ -1,64 +1,64 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27AE39DBE4
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:36:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC943AFCF2
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783506997; cv=none; b=fPAMrwRFBRxanxOatGmzxA+jgor5uGS/VtteLhgCf8MXd8a4hcGndqBxscC7nAw3TnCJZR3xYslRAjSnT/J0jJOtg+mtKJb/+C5TVw5W1h9p3p+hGur6TRpsk90cxAPFEKVcG+KRdVF/ACU7GgVagT4O+VoUmndQvH2riy4oIx4=
+	t=1783506997; cv=none; b=QwY1m1t+nXZp3lzD2cHCgfb3wLa95L2pvg1HVrASG12dEYFdSDVQd717PnawiJ5i+K0QZXUsxif8+CTZR9F0Z1KgTSNcWvksWoD58lWB3nMJjVq2OKQwRP8Q7PNzmFTf15qutmVesB1qtY7/hrCvEI4L0eHPw9vsvf2A+yIy6Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783506997; c=relaxed/simple;
-	bh=ixq0qe+qa03uaS18g5RatvgiUeVNuBJDT6u3vRdGN1Q=;
+	bh=8KtbuVruq0Q1QGHlLWLaYjY5NM2Kt+opc7Rb2rB4TGw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qlML3y+fSlcaPnUvybdTRhOngdk2uC7wJMj4Ytt+2MFFADabeOT644CW1oslt6AlHl1m2ttroxUGZadwoVlg1VNr4Xs05n18igQWSMbGht/8vBs5DNv54M35+5/HvAwlgK4QvQyT4GOeDQOgYB9pty9ttFUkxhfrmVtFyKQZEjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sRzqLetd; arc=none smtp.client-ip=209.85.214.181
+	 MIME-Version; b=ukCSrU0DpdL7RWqnS5hdbc5Qss0kDtOFZz39DHdaF0D9LIXx23GLnAOy5MKDxKBndBwp/ysEl7c2gbNYePHm2R2k5akK+eNHFW2CWG1BcYLzIFweiLqp8GS/DY2AFH7BgyEQ0RA5oiCaP4QtLeHU2IKoQ/ZIvxlNh8mW4GBwivg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jstTdQdM; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sRzqLetd"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cce6a0c9c3so5814345ad.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 03:36:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jstTdQdM"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2caced6038eso6336055ad.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 03:36:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783506983; x=1784111783; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783506980; x=1784111780; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vOJ1lbawyfv+DPk+HeplAa6YKzv4oMDP/vd2OChHbqk=;
-        b=sRzqLetdLxG5GcGmXFWO0eWffZdpqBxGkxfs7Oycg1ZPQ/QgcDpflszFUDqTzU01az
-         N1c8iG3Rt1z8nxPbBmmz2bOuro/w6DqaJPWVr1+zmkSTVyoJW3QK6otrNsM0C/wA/cQH
-         DjD3h/MoHuWrh2h6pFSKD53izcYF4D1Yi52eLPvSeE7TwhauSOSjJ0JF0oefRpsD7md6
-         dWWBy65PRg66f9cYYHkJ9kr0gU0tveA8nrrde7gLNSUJdULq1riu7l7IavtzgvDzkMfW
-         i5nQnP9XGKNQPIfRj1FVWCAu0+tuPWxwxwzojvUuEMO+42GGiUisKsfzxC84nGqCOi0P
-         eISg==
+         :message-id:reply-to:content-type;
+        bh=phrqd1lecyMf28t/u+W7zekPmM5RqS/waumL1i8YI0k=;
+        b=jstTdQdMOMPa6ZTkjWo0dFR+oQhTT+PFKtpv2zfEoNK8eE3FfqL08FIxrFLE3EEk1R
+         OYg37WsOeZifDmW13TKqhVJUdtqebLHbAWm/YjMAPzRLGCKyG5e7PeL/dNj0ZytVGGDR
+         hOR6hWsi0zQ/9+jc9DmBKLzqjR49ZgxHewMYhPRgkr5BwVfBAgQW2PHxJrvtgFQTSLKl
+         zpMbChW+24if1J0NHOpHeYsI1j1WcC7UKr4i0JL6AgyUxyFK6cjaJeqKFCPlzkmtorPG
+         GFA3PExXjJVQkJxD5reV76dHlfANcR4BiAWIZHm58QDoa/PP3TVK4DxET7aRqJKCCLaU
+         iQeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783506983; x=1784111783;
+        d=1e100.net; s=20251104; t=1783506980; x=1784111780;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=vOJ1lbawyfv+DPk+HeplAa6YKzv4oMDP/vd2OChHbqk=;
-        b=EqJGU2VxTsgjpHANoEDrkm13srHhkJM43hqMN8u/o8quByj4RRjphNeOO+c83IoU3m
-         9ddfog2iGM4OCHOzqrAreLGxX/RJC5JMhJEb8aF5CTM87lqMAJEPf8mWoC7s4vjbUcdr
-         8NkestN3weDl9XA7wvN062WK8D5RVxsRgfiHz3jfccS4M4B9eOLGzgOUN7+qFsKRe1J5
-         gxlCmigiWBjKk6uYNGQ29N/f0e+oqkEQLzOoQV1kqqcbPUQAHg2cAAwpb26mOeJXQ8nK
-         lYoglK4WrTwd8+NMUB92oRpZksJPN6gAcoDAuQMCNTsEh2VWI9KWT/6dDkBGzzX0fNVh
-         o0Zw==
-X-Forwarded-Encrypted: i=1; AHgh+RrZkzxhFe3V6lfNPMguKOQ1yOaeJxP1el9iPJIEFmIoauOGT+7RYwAJZYrRO3DUTL2zxrWR7yOC6W5b@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaMTfM9/qOrYtTeYhxFZnkeOKN2QCKe2K1AJGXOlTE9XygkN6M
-	w8sERbrG9M72DAAY2rECOq85XMS9wgA6Ah5yshZvfptYqVuot5LFhWcK
-X-Gm-Gg: AfdE7cldDpkhZuNsXwqwBR9JThk7Ck6g1pVCtacM/8dQrwIKZ8fPfBBQWod1CBN1vN7
-	UmOX6O9UvfxAGpAnWfSWH3nXksZEKPb7vsFgEcvnTD1D1I6Psi4p7P174f2Xs2hqCzo11JYblct
-	ufHjNFFvh+rYqwYMuCuHwHBAfE8Tw4XdlMaifR/aCPCxhy41mxKw+c7sv5w9DBf3Hn9wIf9Cogy
-	5TT/VF0hOMLIC4Qvc7eIUx/CkqCMG8iZwwTDE/bl5X/pV9qF1/Vj+cN+myc2LXUoa1WEsiMtYRp
-	o83dD7ieef/Y/xp+Jtx43cUneTPzXZAuqasUw7AKHpeHP+6SiFOkiX938P9PIMGDq1TcDujh6p0
-	KJ895kaIGndC+qMFk8DayUdbLeT9/KgWLKniGSutTb+WWE4vda/nF5C5pAeZSZOMzp6i4ZBQSrc
-	X4WIYu0oAOgIbY1spPELu6kn6qVHYekFFP/NvlCb0hdiI2kxU9vAhLjOZfZ+JI0PTCcU6UKTd15
-	sa7mL1acgwH
-X-Received: by 2002:a17:903:41cd:b0:2ca:bb7e:29a7 with SMTP id d9443c01a7336-2ccea58bee1mr21030585ad.41.1783506983211;
-        Wed, 08 Jul 2026 03:36:23 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=phrqd1lecyMf28t/u+W7zekPmM5RqS/waumL1i8YI0k=;
+        b=oF/OM3o5NsXxn7vGsYwYYVnNHRybvQ2s+ReWVd5GaLCeZBwLZktUZ1dAI/E/v0nUZ1
+         XvinJGp049pK5/0LGQ9M2d0JVWDDM4NEX3IlDnG5Bi/Gp8bCb7wc14ZJ8NGY7be3L1/h
+         /pOthGSOk/gEfMqZUXIiACSmXzsJhr0rF3MIQ2RcHoHIBw80BZp2vxXqJaP22d4XnheA
+         qZxdf4JkiudnpgsmSLA67aMjh0jLzUzaf4OwGXChyTRFQgliGtTcrn1ymaYQAgzO6j7R
+         ja3NU+o0mUDg5T2t9F9Fo22/BnYoLjgt19n3pUPBau5qEH7THLRe+F5AL/zj2XSY2LKX
+         UjdA==
+X-Forwarded-Encrypted: i=1; AHgh+RrNvfW8NzUUfFVXpOWp2Ei6V0aZh8GHozr9v28xCH5x2/yRmHWGL0Dgx/MjwH8ytEQfkCsedUujRoRk@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXqhvaJ5UMwxP8ygc5qjlJ/JyxgaxYuEAu2uuixAgKmVYpSKCu
+	FUgXlXkzksdbOAXrCD71mn2KnBQZ0QpuoFXuNZSNE0jryC+patzuh+nQ
+X-Gm-Gg: AfdE7cmLCROdZP+nGysVciaX00wbXX0x7iLdWxl8N8FIGiRkoiyJpt2+hbUSUuv8Mvt
+	yHT9CwbdXi0HIG5oWENCtskP6Gpsz2/JLD46H/Yh0t9Qx/uWTdq4qGb4hDhzWkHgNP2SfqAK6/5
+	NyZ0OHl+/bDDn1rSyPgo3BdxnsC3tSW44bA5PIMhQNhftTunNNyI3jxEVCuu3Ht1Nqfdp35cl+T
+	XE+XxRZ0WzYL1R8a+QHaRDVjf3TIWpr/ibzMph02v08GjYMeEsdgoolDxidxpn84YCRW8w24iRR
+	evfZrKp5UxMMF1ka0O/3VbUNUghMTrwrH2dqm5eN5G0o6+A8PvXP/HS+aDnh4b9msmMzMhp8zuY
+	mB+jb5pVWRFtfNvetEzbfgKfSLXxv1CpMZkffrZWUsVyP2+IPj9XXGPrnZ+EHAfrzLZWGdwQ/gR
+	ohn+UaN+zTGWIeiAvruHD0wf3hw6grl4KDQuB0jbU9cQKeGHlvCTmwHp+pcslTgRfbobqN9TTd5
+	A==
+X-Received: by 2002:a17:902:ce04:b0:2c9:fc4c:8142 with SMTP id d9443c01a7336-2cce9f79c01mr19599535ad.2.1783506979889;
+        Wed, 08 Jul 2026 03:36:19 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb9a3sm25987525ad.13.2026.07.08.03.36.20
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb9a3sm25987525ad.13.2026.07.08.03.36.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 03:36:22 -0700 (PDT)
+        Wed, 08 Jul 2026 03:36:19 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>
@@ -76,9 +76,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v3 3/3] phy: nuvoton: phy-ma35d1-usb2: extend to dual-port with OTG support
-Date: Wed,  8 Jul 2026 18:36:06 +0800
-Message-ID: <20260708103606.1462960-4-a0987203069@gmail.com>
+Subject: [PATCH v3 2/3] arm64: dts: nuvoton: ma35d1: add USB controllers and dual-port PHY node
+Date: Wed,  8 Jul 2026 18:36:05 +0800
+Message-ID: <20260708103606.1462960-3-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260708103606.1462960-1-a0987203069@gmail.com>
 References: <20260708103606.1462960-1-a0987203069@gmail.com>
@@ -90,387 +90,212 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-PHY0 and PHY1 use the same power-on/reset sequence in USBPMISCR, with
-PHY1 control bits shifted 16 positions relative to PHY0.  A separate
-driver for PHY1 would duplicate this logic, so the existing driver is
-extended to manage both ports.
+PHY0 is referenced by both the DWC2 gadget and EHCI0/OHCI0 nodes because
+the USB0 signal lines are physically wired to all three controllers
+simultaneously; the on-chip hardware mux, driven by the USB ID pin,
+selects which controller is active.  The PHY framework handles this shared
+reference correctly.
 
-The original driver polled only DEVCKSTB after releasing PHY0 from
-reset.  When USB0 operates in host mode (USB ID pin floating or tied
-high) only HSTCKSTB and CK12MSTB assert; DEVCKSTB never sets.  Polling
-exclusively for DEVCKSTB in host mode causes a 1 ms timeout on every
-phy_init() call from the EHCI driver.  The init callback is changed to
-accept either host-mode or device-mode clock stability, whichever
-asserts first.
+OHCI companion nodes are required alongside their EHCI counterparts so
+that the EHCI driver can hand off full-speed and low-speed devices that
+cannot operate at high speed; without them those device classes fail to
+enumerate.
 
-The power_on and power_off callbacks are replaced by a single init
-callback that handles PHY reset and clock-stable polling, because
-there is no PHY-specific clock gate on MA35D1; the PHY analog block
-derives its reference from the HXT crystal.
-
-A read-only USB role switch is registered for PHY0 to expose the USB0
-role to userspace via the standard role-switch sysfs interface.  The
-.set callback returns -EOPNOTSUPP because the hardware mux is fully
-automatic with no software override path.
+The board files add pinctrl entries for the HSUSB signals (VBUSVLD,
+PWREN, OVC) because these lines are routed through multiplexed pads and
+must be explicitly configured for USB function.
 
 Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
- drivers/phy/nuvoton/phy-ma35d1-usb2.c | 279 +++++++++++++++++++-------
- 1 file changed, 205 insertions(+), 74 deletions(-)
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 36 ++++++++++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 36 ++++++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 65 +++++++++++++++++++
+ 3 files changed, 137 insertions(+)
 
-diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-index 9a459b700ed4..e2eac4f8c5bf 100644
---- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-+++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-@@ -1,11 +1,16 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * Copyright (C) 2024 Nuvoton Technology Corp.
-+ * Nuvoton MA35D1 USB 2.0 PHY driver
-+ *
-+ * Supports PHY0 (USB0 OTG port, shared between DWC2 gadget and EHCI0/OHCI0)
-+ * and PHY1 (USB1 host-only port, used by EHCI1/OHCI1). The hardware mux on
-+ * PHY0 switches automatically via the USB ID pin.
-+ *
-+ * Copyright (C) 2026 Nuvoton Technology Corp.
-  */
- #include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
--#include <linux/io.h>
- #include <linux/kernel.h>
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
-@@ -13,131 +18,257 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-+#include <linux/usb/role.h>
- 
--/* USB PHY Miscellaneous Control Register */
--#define MA35_SYS_REG_USBPMISCR	0x60
--#define PHY0POR			BIT(0)  /* PHY Power-On Reset Control Bit */
--#define PHY0SUSPEND			BIT(1)  /* PHY Suspend; 0: suspend, 1: operaion */
--#define PHY0COMN			BIT(2)  /* PHY Common Block Power-Down Control */
--#define PHY0DEVCKSTB			BIT(10) /* PHY 60 MHz UTMI clock stable bit */
-+#define MA35_SYS_PWRONOTP		0x04
-+#define PWRONOTP_USBP0ID		BIT(16)
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index 78534d613486..0a068abda6e0 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -97,6 +97,16 @@ pinctrl_uart14: uart14-pins {
+ 			power-source = <1>;
+ 		};
+ 	};
 +
-+#define MA35_SYS_USBPMISCR		0x60
-+#define USBPMISCR_PHY_POR(n)		BIT(0  + (n) * 16)
-+#define USBPMISCR_PHY_SUSPEND(n)	BIT(1  + (n) * 16)
-+#define USBPMISCR_PHY_COMN(n)		BIT(2  + (n) * 16)
-+#define USBPMISCR_PHY_HSTCKSTB(n)	BIT(8  + (n) * 16)
-+#define USBPMISCR_PHY_CK12MSTB(n)	BIT(9  + (n) * 16)
-+#define USBPMISCR_PHY_DEVCKSTB(n)	BIT(10 + (n) * 16)
-+/* Mask for control bits (POR, SUSPEND, COMN) */
-+#define USBPMISCR_PHY_CTL_MASK(n)	(0x7u << ((n) * 16))
-+/* Host-mode ready */
-+#define USBPMISCR_PHY_HOST_READY(n)	(USBPMISCR_PHY_SUSPEND(n)  | \
-+					 USBPMISCR_PHY_HSTCKSTB(n) | \
-+					 USBPMISCR_PHY_CK12MSTB(n))
-+/* Device-mode ready */
-+#define USBPMISCR_PHY_DEV_READY(n)	(USBPMISCR_PHY_SUSPEND(n)  | \
-+					 USBPMISCR_PHY_DEVCKSTB(n))
-+/* RCALCODE: 4-bit resistor trim */
-+#define USBPMISCR_RCAL_SHIFT(n)		(12 + (n) * 16)
-+#define USBPMISCR_RCAL_MASK(n)		GENMASK(USBPMISCR_RCAL_SHIFT(n) + 3, \
-+						USBPMISCR_RCAL_SHIFT(n))
-+
-+#define MA35_SYS_MISCFCR0		0x70
-+/* USB host over-current detect polarity (shared, both ports) */
-+#define MISCFCR0_UHOVRCURH		BIT(12)
-+
-+#define MA35_PHY_NUM			2
-+
-+struct ma35_phy_port {
-+	struct phy *phy;
-+	unsigned int idx;
-+};
- 
- struct ma35_usb_phy {
--	struct clk *clk;
- 	struct device *dev;
- 	struct regmap *sysreg;
-+	struct ma35_phy_port port[MA35_PHY_NUM];
-+	struct usb_role_switch *role_sw;
++	hsusb {
++		pinctrl_hsusb: hsusb-pins {
++			nuvoton,pins = <5 15 1>, /* VBUSVLD */
++				       <11 12 9>, /* PWREN */
++				       <11 13 9>; /* OVC */
++			bias-disable;
++			power-source = <1>;
++		};
++	};
  };
  
--static int ma35_usb_phy_power_on(struct phy *phy)
-+static int ma35_usb_phy_init(struct phy *phy)
- {
--	struct ma35_usb_phy *p_phy = phy_get_drvdata(phy);
-+	struct ma35_phy_port *port = phy_get_drvdata(phy);
-+	struct ma35_usb_phy *p = container_of(port - port->idx,
-+					      struct ma35_usb_phy, port[0]);
-+	unsigned int n = port->idx;
- 	unsigned int val;
- 	int ret;
- 
--	ret = clk_prepare_enable(p_phy->clk);
--	if (ret < 0) {
--		dev_err(p_phy->dev, "Failed to enable PHY clock: %d\n", ret);
--		return ret;
--	}
-+	regmap_read(p->sysreg, MA35_SYS_USBPMISCR, &val);
- 
--	regmap_read(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, &val);
--	if (val & PHY0SUSPEND) {
--		/*
--		 * USB PHY0 is in operation mode already
--		 * make sure USB PHY 60 MHz UTMI Interface Clock ready
--		 */
--		ret = regmap_read_poll_timeout(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, val,
--						val & PHY0DEVCKSTB, 10, 1000);
--		if (ret == 0)
--			return 0;
--	}
-+	if (val & USBPMISCR_PHY_SUSPEND(n))
-+		return 0;
- 
--	/*
--	 * reset USB PHY0.
--	 * wait until USB PHY0 60 MHz UTMI Interface Clock ready
--	 */
--	regmap_update_bits(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, 0x7, (PHY0POR | PHY0SUSPEND));
-+	regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
-+			   USBPMISCR_PHY_CTL_MASK(n),
-+			   USBPMISCR_PHY_POR(n) | USBPMISCR_PHY_SUSPEND(n));
- 	udelay(20);
- 
--	/* make USB PHY0 enter operation mode */
--	regmap_update_bits(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, 0x7, PHY0SUSPEND);
-+	regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
-+			   USBPMISCR_PHY_CTL_MASK(n),
-+			   USBPMISCR_PHY_SUSPEND(n));
- 
--	/* make sure USB PHY 60 MHz UTMI Interface Clock ready */
--	ret = regmap_read_poll_timeout(p_phy->sysreg, MA35_SYS_REG_USBPMISCR, val,
--					val & PHY0DEVCKSTB, 10, 1000);
--	if (ret == -ETIMEDOUT) {
--		dev_err(p_phy->dev, "Check PHY clock, Timeout: %d\n", ret);
--		clk_disable_unprepare(p_phy->clk);
-+	if (n == 0) {
-+		ret = regmap_read_poll_timeout(p->sysreg, MA35_SYS_USBPMISCR,
-+					       val,
-+					       ((val & USBPMISCR_PHY_HOST_READY(0)) ==
-+						USBPMISCR_PHY_HOST_READY(0)) ||
-+					       ((val & USBPMISCR_PHY_DEV_READY(0)) ==
-+						USBPMISCR_PHY_DEV_READY(0)),
-+					       10, 1000);
-+	} else {
-+		ret = regmap_read_poll_timeout(p->sysreg, MA35_SYS_USBPMISCR,
-+					       val,
-+					       (val & USBPMISCR_PHY_HOST_READY(n)) ==
-+					       USBPMISCR_PHY_HOST_READY(n),
-+					       10, 1000);
-+	}
+ &uart0 {
+@@ -151,3 +161,29 @@ eth_phy1: ethernet-phy@1 {
+ 		reg = <1>;
+ 	};
+ };
 +
-+	if (ret) {
-+		dev_err(p->dev, "USB PHY%u clock not stable (USBPMISCR=0x%08x)\n",
-+			n, val);
- 		return ret;
- 	}
- 
- 	return 0;
- }
- 
--static int ma35_usb_phy_power_off(struct phy *phy)
-+static const struct phy_ops ma35_usb_phy_ops = {
-+	.init		= ma35_usb_phy_init,
-+	.owner		= THIS_MODULE,
++&usb_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hsusb>;
++	status = "okay";
 +};
 +
-+static int ma35_role_sw_set(struct usb_role_switch *sw, enum usb_role role)
-+{
-+	return -EOPNOTSUPP;
-+}
++&usb {
++	status = "okay";
++};
 +
-+static enum usb_role ma35_role_sw_get(struct usb_role_switch *sw)
- {
--	struct ma35_usb_phy *p_phy = phy_get_drvdata(phy);
-+	struct ma35_usb_phy *p = usb_role_switch_get_drvdata(sw);
-+	u32 val;
++&ehci0 {
++	status = "okay";
++};
 +
-+	regmap_read(p->sysreg, MA35_SYS_PWRONOTP, &val);
++&ehci1 {
++	status = "okay";
++};
 +
-+	return (val & PWRONOTP_USBP0ID) ? USB_ROLE_HOST : USB_ROLE_DEVICE;
-+}
++&ohci0 {
++	status = "okay";
++};
 +
-+static int ma35_role_switch_init(struct platform_device *pdev,
-+				 struct ma35_usb_phy *p)
-+{
-+	struct usb_role_switch_desc sw_desc = {0};
++&ohci1 {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index a029b660e8dc..7f1e6d2a1fc2 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -100,6 +100,16 @@ pinctrl_uart16: uart16-pins {
+ 			power-source = <1>;
+ 		};
+ 	};
 +
-+	sw_desc.set = ma35_role_sw_set;
-+	sw_desc.get = ma35_role_sw_get;
-+	sw_desc.allow_userspace_control = true;
-+	sw_desc.driver_data = p;
-+	sw_desc.fwnode = dev_fwnode(&pdev->dev);
-+
-+	p->role_sw = usb_role_switch_register(&pdev->dev, &sw_desc);
-+	if (IS_ERR(p->role_sw))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(p->role_sw),
-+				     "failed to register role switch\n");
- 
--	clk_disable_unprepare(p_phy->clk);
- 	return 0;
- }
- 
--static const struct phy_ops ma35_usb_phy_ops = {
--	.power_on = ma35_usb_phy_power_on,
--	.power_off = ma35_usb_phy_power_off,
--	.owner = THIS_MODULE,
--};
-+static void ma35_role_switch_exit(struct ma35_usb_phy *p)
-+{
-+	if (p->role_sw) {
-+		usb_role_switch_unregister(p->role_sw);
-+		p->role_sw = NULL;
-+	}
-+}
-+
-+static struct phy *ma35_usb_phy_xlate(struct device *dev,
-+				      const struct of_phandle_args *args)
-+{
-+	struct ma35_usb_phy *p = dev_get_drvdata(dev);
-+	unsigned int idx;
-+
-+	if (args->args_count == 0)
-+		idx = 0;
-+	else
-+		idx = args->args[0];
-+
-+	if (idx >= MA35_PHY_NUM)
-+		return ERR_PTR(-EINVAL);
-+
-+	return p->port[idx].phy;
-+}
- 
- static int ma35_usb_phy_probe(struct platform_device *pdev)
- {
- 	struct phy_provider *provider;
--	struct ma35_usb_phy *p_phy;
--	struct phy *phy;
-+	struct ma35_usb_phy *p;
-+	struct clk *clk;
-+	int n, ret;
-+	u32 code;
- 
--	p_phy = devm_kzalloc(&pdev->dev, sizeof(*p_phy), GFP_KERNEL);
--	if (!p_phy)
-+	p = devm_kzalloc(&pdev->dev, sizeof(*p), GFP_KERNEL);
-+	if (!p)
- 		return -ENOMEM;
- 
--	p_phy->dev = &pdev->dev;
--	platform_set_drvdata(pdev, p_phy);
-+	p->dev = &pdev->dev;
-+	platform_set_drvdata(pdev, p);
-+
-+	p->sysreg = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-+						     "nuvoton,sys");
-+	if (IS_ERR(p->sysreg))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(p->sysreg),
-+				     "failed to get SYS regmap\n");
-+
-+	clk = devm_clk_get_enabled(&pdev->dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(clk),
-+				     "failed to get clock\n");
- 
--	p_phy->sysreg = syscon_regmap_lookup_by_phandle(pdev->dev.of_node, "nuvoton,sys");
--	if (IS_ERR(p_phy->sysreg))
--		return dev_err_probe(&pdev->dev, PTR_ERR(p_phy->sysreg),
--				     "Failed to get SYS registers\n");
-+	for (n = 0; n < MA35_PHY_NUM; n++) {
-+		if (of_property_read_u32_index(pdev->dev.of_node,
-+					       "nuvoton,rcalcode", n, &code))
-+			continue;
- 
--	p_phy->clk = of_clk_get(pdev->dev.of_node, 0);
--	if (IS_ERR(p_phy->clk))
--		return dev_err_probe(&pdev->dev, PTR_ERR(p_phy->clk),
--				     "failed to find usb_phy clock\n");
-+		if (code > 15)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+					     "rcalcode[%d] %u out of range (0-15)\n",
-+					     n, code);
- 
--	phy = devm_phy_create(&pdev->dev, NULL, &ma35_usb_phy_ops);
--	if (IS_ERR(phy))
--		return dev_err_probe(&pdev->dev, PTR_ERR(phy), "Failed to create PHY\n");
-+		regmap_update_bits(p->sysreg, MA35_SYS_USBPMISCR,
-+				   USBPMISCR_RCAL_MASK(n),
-+				   code << USBPMISCR_RCAL_SHIFT(n));
-+	}
-+
-+	if (of_property_read_bool(pdev->dev.of_node, "nuvoton,oc-active-high"))
-+		regmap_update_bits(p->sysreg, MA35_SYS_MISCFCR0,
-+				   MISCFCR0_UHOVRCURH, MISCFCR0_UHOVRCURH);
-+
-+	for (n = 0; n < MA35_PHY_NUM; n++) {
-+		p->port[n].idx = n;
-+
-+		p->port[n].phy = devm_phy_create(&pdev->dev, pdev->dev.of_node,
-+						 &ma35_usb_phy_ops);
-+		if (IS_ERR(p->port[n].phy))
-+			return dev_err_probe(&pdev->dev, PTR_ERR(p->port[n].phy),
-+					     "failed to create PHY%d\n", n);
- 
--	phy_set_drvdata(phy, p_phy);
-+		phy_set_drvdata(p->port[n].phy, &p->port[n]);
-+	}
-+
-+	ret = ma35_role_switch_init(pdev, p);
-+	if (ret)
-+		return ret;
- 
--	provider = devm_of_phy_provider_register(&pdev->dev, of_phy_simple_xlate);
--	if (IS_ERR(provider))
-+	provider = devm_of_phy_provider_register(&pdev->dev, ma35_usb_phy_xlate);
-+	if (IS_ERR(provider)) {
-+		ma35_role_switch_exit(p);
- 		return dev_err_probe(&pdev->dev, PTR_ERR(provider),
--				     "Failed to register PHY provider\n");
-+				     "failed to register PHY provider\n");
-+	}
-+
- 	return 0;
- }
- 
-+static void ma35_usb_phy_remove(struct platform_device *pdev)
-+{
-+	struct ma35_usb_phy *p = platform_get_drvdata(pdev);
-+
-+	ma35_role_switch_exit(p);
-+}
-+
- static const struct of_device_id ma35_usb_phy_of_match[] = {
--	{ .compatible = "nuvoton,ma35d1-usb2-phy", },
--	{ },
-+	{ .compatible = "nuvoton,ma35d1-usb2-phy" },
-+	{ /* sentinel */ }
++	hsusb {
++		pinctrl_hsusb: hsusb-pins {
++			nuvoton,pins = <5 15 1>, /* VBUSVLD */
++				       <11 12 9>, /* PWREN */
++				       <11 13 9>; /* OVC */
++			bias-disable;
++			power-source = <1>;
++		};
++	};
  };
- MODULE_DEVICE_TABLE(of, ma35_usb_phy_of_match);
  
- static struct platform_driver ma35_usb_phy_driver = {
- 	.probe		= ma35_usb_phy_probe,
--	.driver	= {
--		.name	= "ma35d1-usb2-phy",
--		.of_match_table = ma35_usb_phy_of_match,
-+	.remove		= ma35_usb_phy_remove,
-+	.driver		= {
-+		.name		= "ma35d1-usb2-phy",
-+		.of_match_table	= ma35_usb_phy_of_match,
- 	},
+ &uart0 {
+@@ -153,3 +163,29 @@ eth_phy1: ethernet-phy@1 {
+ 		reg = <1>;
+ 	};
  };
- module_platform_driver(ma35_usb_phy_driver);
++
++&usb_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hsusb>;
++	status = "okay";
++};
++
++&usb {
++	status = "okay";
++};
++
++&ehci0 {
++	status = "okay";
++};
++
++&ehci1 {
++	status = "okay";
++};
++
++&ohci0 {
++	status = "okay";
++};
++
++&ohci1 {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index 7228ad4735b5..5a7a39b1b514 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -88,6 +88,14 @@ sys: system-management@40460000 {
+ 			#reset-cells = <1>;
+ 		};
  
- MODULE_DESCRIPTION("Nuvoton ma35d1 USB2.0 PHY driver");
- MODULE_AUTHOR("Hui-Ping Chen <hpchen0nvt@gmail.com>");
-+MODULE_AUTHOR("Joey Lu <a0987203069@gmail.com>");
- MODULE_LICENSE("GPL");
++		usb_phy: usb-phy {
++			compatible = "nuvoton,ma35d1-usb2-phy";
++			clocks = <&clk HUSBH0_GATE>;
++			nuvoton,sys = <&sys>;
++			#phy-cells = <1>;
++			status = "disabled";
++		};
++
+ 		clk: clock-controller@40460200 {
+ 			compatible = "nuvoton,ma35d1-clk";
+ 			reg = <0x00000000 0x40460200 0x0 0x100>;
+@@ -431,5 +439,62 @@ mdio1: mdio {
+ 				#size-cells = <0>;
+ 			};
+ 		};
++
++		usb: usb@40200000 {
++			compatible = "snps,dwc2";
++			reg = <0x0 0x40200000 0x0 0x1000>;
++			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk USBD_GATE>;
++			clock-names = "otg";
++			phys = <&usb_phy 0>;
++			phy-names = "usb2-phy";
++			dr_mode = "peripheral";
++			g-np-tx-fifo-size = <16>;
++			g-rx-fifo-size = <0x100>;
++			g-tx-fifo-size = <256 256 64 64 64 32 32 32>;
++			status = "disabled";
++		};
++
++		ehci0: usb@40140000 {
++			compatible = "generic-ehci";
++			reg = <0x0 0x40140000 0x0 0x1000>;
++			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk HUSBH0_GATE>;
++			phys = <&usb_phy 0>;
++			phy-names = "usb";
++			companion = <&ohci0>;
++			status = "disabled";
++		};
++
++		ehci1: usb@401c0000 {
++			compatible = "generic-ehci";
++			reg = <0x0 0x401c0000 0x0 0x1000>;
++			interrupts = <GIC_SPI 34 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk HUSBH1_GATE>;
++			phys = <&usb_phy 1>;
++			phy-names = "usb";
++			companion = <&ohci1>;
++			status = "disabled";
++		};
++
++		ohci0: usb@40150000 {
++			compatible = "generic-ohci";
++			reg = <0x0 0x40150000 0x0 0x1000>;
++			interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk HUSBH0_GATE>;
++			phys = <&usb_phy 0>;
++			phy-names = "usb";
++			status = "disabled";
++		};
++
++		ohci1: usb@401d0000 {
++			compatible = "generic-ohci";
++			reg = <0x0 0x401d0000 0x0 0x1000>;
++			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk HUSBH1_GATE>;
++			phys = <&usb_phy 1>;
++			phy-names = "usb";
++			status = "disabled";
++		};
+ 	};
+ };
 -- 
 2.43.0
 
