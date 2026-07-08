@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7748381B1A
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 22:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805BD381B1A
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 22:34:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783550098; cv=none; b=Rsessap10DzkGUVu3tQe6eriQipVszfUQb9z+zkmuanY85xqgpmRX47iAf3fuVNccIwryD1yRKUd6c2O7GAkI+TxGvaBUgjVc0YWYc520vnjfFm31h5U2MxPH9GbDFd1VSHx3qxnqezpLTB0yWFh6a4F/MyPCabW61Y5IIsd1JA=
+	t=1783550100; cv=none; b=hl6nkesXQJMhi5+EFzIr2tQwrY/D8m2RQ3++WPw2EFVsLbZZ0F79F+bnBqHFUkcIHNiofdprZNbuzvxP26nA5ufNZL1diR3QBd5Ddf5MKOUsCiVXWwwxja2Sl9sGJ98OkpbfG4vM8V4mpNBgu0hFSbmbgcb8pRho9Gf6UhWaEQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783550098; c=relaxed/simple;
-	bh=Hy/+TgD2ob57RojBd0ASGw2wvDYs0Kl8MhD2tAIjgb8=;
+	s=arc-20240116; t=1783550100; c=relaxed/simple;
+	bh=CxhR7o7SSUT0NvWD4XVEB1HlYWRt7ee+hQAwr4mAfyI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T0spORWVzWYzSpcvgaUjnvT+LQF28gdzEWkhkcqnBgftnMdIlEbfhl5FIprFC2C+RTl0zhVdQJw04GpfTMWh955eJ+xm+Zem694DFTdvVoVtEVsNxhO5x4b/TbK0rK9M5BxVA3zOz6k3eIIIGmCZCud6hCKZhG5zzHn5eG9dnuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cebueQPR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oUfSbNEL7dlrZgQ8jNqe+kKaMTC2fPdRnVD2gGI2Ma+9y0Ew/39DLzgiEkG5sJplYWbwajI14BuLBp9ed69f7B1w5/Ta8+4b7kxJvol4+q6z2tM5dK43jTWjJy7WgvQbF1fdNjuWgzkkTMXULBiNx4tBnGrI9drpcUP8wRZTSQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZDOBkA43; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cebueQPR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B38A1F00A3D;
-	Wed,  8 Jul 2026 22:34:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZDOBkA43"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFEB01F000E9;
+	Wed,  8 Jul 2026 22:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783550097;
-	bh=EBd9YOh1Ze/PulixUdkPROwxUukMMNu8+BtVJApaO8Q=;
+	s=k20260515; t=1783550099;
+	bh=y8F3s87f7cjC1/N4ZFY9/3Uytz0omY66I8fMIKIvSkA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cebueQPR8FiSnA4u3kZpuiNOZKQf7GsbFpGTik2ScfDhcmW1n2BIZLT+CK2JoLBbk
-	 wJcg2ByyoeJZrw1zw4qbl6wxTM0L080AjK6/1pi95nvTZv1JMod56NV7bh+e2yjFTD
-	 kouHDZxgXffsQW3lww0QS8o7Dutkezy0ob/Pp5AZUmxlZoFowYxRmGEMEjNM1y66zE
-	 kkLKuBn9e7Z0wObA7kSWbIeuc4fk0SEIT3P4uBYLn18tfsc/mvhSkCmiKysbfBU5rZ
-	 V3twC7JA9f1KsPk4SqlZGRGHnTNQoU+wL7ccT/MAmUc3/hpm2W5Kq+WYONbnn0z9w8
-	 b1d/tZdGAR3wg==
+	b=ZDOBkA430CPF5NsKnnsFL+BgTieCltu6+sWVaGgusWzxa+qFCczxWv6kJHnZQkhrj
+	 jNWda+3OoEVw92IxXDsJWodkzmisIUSaVt445sTW6BEqodpF6wA/1GnUNKhU6YbvaN
+	 n/QK9YjpPFv7qP4Jf1w7W0aI7RBW+0TYsU97vSkofeB6+Umtl1cW9JCPY52CrccPwC
+	 1IH5NetCm5ls96PlQLUTJVPZhhHCxSW9Zwu46TQ5Ol7p/iy6P69WZFyWSv4O55lyHj
+	 nuokkETeB2CVKOLaxbpzoBpYIKwUTwgZwKiAzIDC2UGuKgRgztvBKHn++tIQSOjHUl
+	 GIYJdksatDA4w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 08/13] net: ethernet: oa_tc6: Use the
- read_mms/write_mms functions for C45
+Subject: Re: [PATCH net-next v5 12/13] net: phy: Add support for the
+ ADIN1140 PHY
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ciprian Regus" <ciprian.regus@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-adin1140-driver-v5-8-4aca7b51a58b@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-adin1140-driver-v5-12-4aca7b51a58b@analog.com>
 References: <20260708-adin1140-driver-v5-0-4aca7b51a58b@analog.com>
- <20260708-adin1140-driver-v5-8-4aca7b51a58b@analog.com>
+ <20260708-adin1140-driver-v5-12-4aca7b51a58b@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 22:34:57 +0000
-Message-Id: <20260708223457.6B38A1F00A3D@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 22:34:58 +0000
+Message-Id: <20260708223458.DFEB01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,59 +47,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the function `oa=
-_tc6_mdiobus_read` assigns the integer return value of `oa_tc6_read_registe=
-r()` to a boolean variable `ret`, causing negative error codes to be incorr=
-ectly returned as `1`.
+- [Medium] adin1140_loopback incorrectly rejects valid loopback speed reque=
+sts
 --
 
---- Patch [8]: [PATCH net-next v5 08/13] net: ethernet: oa_tc6: Use the rea=
-d_mms/write_mms functions for C45 ---
-commit cf33489c74af705521abd2c30e1068ed10134f47
+--- Patch [12]: [PATCH net-next v5 12/13] net: phy: Add support for the ADI=
+N1140 PHY ---
+commit 55f86668d72d6b8eb4a781fcee866b06847b0a2f
 Author: Ciprian Regus <ciprian.regus@analog.com>
 
-net: ethernet: oa_tc6: Use the read_mms/write_mms functions for C45
+net: phy: Add support for the ADIN1140 PHY
 
-Accessing PHY MMD devices requires control transactions to registers in
-a memory map other than 0. Replace the current formatting of the
-register addresses with the oa_tc6_read_register_mms and
-oa_tc6_write_register_mms functions.
+Add a driver for the ADIN1140's internal 10BASE-T1S PHY. The device
+doesn't implement autonegotiation, so the link is always reported as
+being up.
 
-> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-> index 955148d3cefc4..417c15d1ff423 100644
-> --- a/drivers/net/ethernet/oa_tc6.c
-> +++ b/drivers/net/ethernet/oa_tc6.c
-
-[Severity: High]
-This is a pre-existing issue, but I noticed it while reviewing this area.
-Could assigning the integer return value of oa_tc6_read_register to the
-boolean variable ret in oa_tc6_mdiobus_read truncate negative error codes?
-
-drivers/net/ethernet/oa_tc6.c:oa_tc6_mdiobus_read() {
-    ...
-    bool ret;
-
-    ret =3D oa_tc6_read_register(tc6, OA_TC6_PHY_STD_REG_ADDR_BASE |
-                   (regnum & OA_TC6_PHY_STD_REG_ADDR_MASK),
-                   &regval);
-    if (ret)
-        return ret;
-    ...
-}
-
-If a read operation encounters an error and returns a negative error code
-like -EIO or -ETIMEDOUT, will this boolean conversion cause the function to
-incorrectly return 1 on failure?
-
-Since the MDIO core interprets a positive return value as a successfully
-read 16-bit register value, returning 1 could cause read failures to be
-silently presented to the networking stack as successfully reading the value
-0x0001, breaking error propagation on the MDIO bus.
+> diff --git a/drivers/net/phy/adin1140-phy.c b/drivers/net/phy/adin1140-ph=
+y.c
+> new file mode 100644
+> index 0000000000000..d35da4ad680da
+> --- /dev/null
+> +++ b/drivers/net/phy/adin1140-phy.c
 
 [ ... ]
 
+> +static int adin1140_loopback(struct phy_device *phydev, bool enable, int=
+ speed)
+> +{
+> +	if (enable && speed)
+> +		return -EOPNOTSUPP;
+
+[Severity: Medium]
+Will this correctly handle a valid loopback speed request? If a MAC driver
+explicitly passes the PHY's native speed (SPEED_10) when calling
+phy_loopback(), this check will evaluate to true and return -EOPNOTSUPP.
+
+Could this instead check if the requested speed is unsupported, rather than
+rejecting any non-zero speed?
+
+> +
+> +	return phy_modify_mmd(phydev, MDIO_MMD_PCS, ADIN1140_PCS_CTRL,
+> +			      ADIN1140_PCS_CTRL_LOOPBACK,
+> +			      enable ? ADIN1140_PCS_CTRL_LOOPBACK : 0);
+> +}
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-adin1140-d=
-river-v5-0-4aca7b51a58b@analog.com?part=3D8
+river-v5-0-4aca7b51a58b@analog.com?part=3D12
