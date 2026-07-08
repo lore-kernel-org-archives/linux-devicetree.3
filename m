@@ -1,217 +1,1248 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FAF3D9050
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 07:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE743EE1E2;
+	Wed,  8 Jul 2026 07:38:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783496291; cv=none; b=u6N0Lpvr+mJL0ovCE6Swt7qfclPRHclo1bmFcdhumDBCP9eWbkdo22O6h4Fx3Z/75Ow+cKqwJoRIb6v/ieBDJ4y6hcs+QCooMLRR9E3WtEZYS3RhK0ZIuUA6KfMstKnQeUhffg5zaQR4MxoPPa32dfPB/VpFEMwL5e5SIlm2Bs0=
+	t=1783496331; cv=none; b=LzAkYcYR+qGVK+umwx7s5kyHcrnRvSuOW7fyNagMbP0mP8K3IXpWapiyLAfImqGteLovlAJ699C1Ijwn2vlQfIGKLEytV09lNi2Jjq+Qk0qHsv6vje64JuYt+3QYbkU2R2/ntWu6aiywQrvCbgssi9NIDKsQrZzrD0mhULT72hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783496291; c=relaxed/simple;
-	bh=pgDqUuptdif89H1QIYT3m0ahfN303UZHVcWYSy6bMsg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N9xa6RUSYWlKQXiCtHxQ4IgmBDEa7SCSvjiWAxeJsPJA/GuXkQi8rAx1JgY47rBMBFTlsGCsebxOLpc+i/uOSNUtl9wikes17l2j9JT46C0/NgwruEeJlLKE0Vs8fFbIpW0C5PGEEJ0KvY4qSn+fM1uh2E9H1/oxsAnpnPUiUcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRZ1CAaD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783496331; c=relaxed/simple;
+	bh=qVLiQ4DpHGSVsRvLy/5bilY242ZlPBp49+D3/U64hDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=InbNAdE0owskePSIWJ+txFPl+q9wZrYSaNrPIY0FsZ6X57HgOW1hwJ8zjDgtBtGIKiSGHwU3xHQSetkCRaaPY1Et4ZYlqre7HPe3Tx1z/Vdpis8tpi8Tlb22kpkhJ1iSithPJJudfGS9pJv4wrh4ghjobyiAEDTxWT6aJiUS6/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBewXorF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRZ1CAaD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED0C1F000E9;
-	Wed,  8 Jul 2026 07:37:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBewXorF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEECC1F00A3E;
+	Wed,  8 Jul 2026 07:38:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783496276;
-	bh=nbwXZjW7Og0ewMuBjHd5t9R+UGN33bfoKQ0NQ++Be/k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dRZ1CAaD9UGNHy70E9GHmupHfNOxqEH8py8cqv3KbfHeSUkeNJ0AV92zFWb8FdB4f
-	 todfeSYKPEr8Tfqf6P/avc1wS2sTiPNGcPU4lJAMD9T21IjMLBwdtB7E0qIKwciUVu
-	 F0soFgjyf8dbCc9eyiFZCnbcwyEzHDTo8R8rBHW/XCa/AawYLwzfiJ26sNggjO0b0M
-	 OTcT+MF1FkAI508HU1fsm8hUOBjk5v6ui8KuWWmL4yC133lMjEjb51Bfg701qji/Qz
-	 wWJlWikWmsAn8S3JsZ0TktG13OgCeLR0xX94uDsB6GkRzYO3wx9IG5DmEH+dlkhbJi
-	 qtcGdp/fy6bNw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 26/26] meminspect: Add debug kinfo compatible driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260708070809.2660886-1-mukesh.ojha@oss.qualcomm.com>
+	s=k20260515; t=1783496314;
+	bh=1cJ3nLylGpznYotuoG92536PJXRqyZt1EYrBgOB7jAg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fBewXorFD1xfjMjcM8r1VFgC2zv6vc5auy5WESLx7hgYHT3SOHcNiGjKj6WQDABip
+	 neRQuIxIY5Jvyg3JVRF+lBBSM2XpKM3PDOW0W7kMkh56NW0eBnmev7zbbBeSYxb7Qn
+	 Z5zSsCtu1DKVShN1VSZKbI6+LX/izIDN18/Xv0JlEpIoZhL+R4Kx8fHYP06m6vb+zZ
+	 A6J1LRkTrORSdiyPf2wjr4fEqtK0HxEjIbxje3MM8XrxvVraCPyfx+Uj9P9K0v1VxN
+	 CPEqWH/DaagwsZipRuQGrD7OdXv/z0qxtH/HnJMEoc0ZMR4dv78EheKZ/7qob1UOVV
+	 J5bV0xIC52bnQ==
+Date: Wed, 8 Jul 2026 08:38:13 +0100
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Eugen Hristev <ehristev@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Christoph Lameter <cl@gentwo.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, 
+	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <jackmanb@google.com>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	workflows@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-mm@kvack.org, linux-arm-msm@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 01/26] kernel: Introduce meminspect
+Message-ID: <ak34Q7gIJedcGe5d@lucifer>
 References: <20260708-meminspect-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com>
- <20260708070809.2660886-1-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 07:37:55 +0000
-Message-Id: <20260708073755.DED0C1F000E9@smtp.kernel.org>
+ <20260708-meminspect-v3-v3-1-7aa5a0a74d5c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708-meminspect-v3-v3-1-7aa5a0a74d5c@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Missing `return` statements after `dev_err_probe()` calls cause th=
-e driver to ignore size and base validations, leading to buffer overflows.
-- [High] The driver attempts to use `rmem->priv` as a virtual address point=
-er, but it is never mapped or populated for this compatible string.
-- [High] The driver uses `__pa()` instead of `__pa_symbol()` for statically=
- allocated kernel symbols, which is invalid on architectures where kernel t=
-ext/data is not in the linear map.
-- [Medium] The shared memory checksum is updated non-atomically, exposing a=
-n intermediate, invalid state to concurrent external readers.
-- [Low] Unconditional access to conditionally compiled `struct module` memb=
-ers causes build failures.
---
+This is an unmergeable mess of a patch but I have broader concerns:
 
---- Patch [26]: [PATCH v3 26/26] meminspect: Add debug kinfo compatible dri=
-ver ---
-commit 8eff82a7a3c1597f04d6cc3418d6d9376460f4fc
-Author: Eugen Hristev <ehristev@kernel.org>
+* I'm very concerned that this is just one giant workaround to
+  EXPORT_SYMBOLS() for unexported memory, or really just a way for drivers
+  to stuff arbitrary VAs/PAs in some global region.
 
-meminspect: Add debug kinfo compatible driver
+* I'm also very concerned about memory lifecycle - saying a physical range
+  X-Y is Z doesn't mean it's forever that? And for virtual addresses it's
+  even more problematic - are you going to put vmalloc pointers there that
+  can get unmapped? Or direct map ranges that might end up unmapped for
+  various reasons? What about memory hotplug?...
 
-This commit adds a driver that copies registered memory regions to a shared
-memory zone supplied via OF. It keeps only the addresses in a format that
-is compatible with Kinfo.
+* I hate the idea of exposing information about physical (and virtual!)
+  memory ranges to drivers arbitrarily, drivers are notorious for doing the
+  wrong thing (TM) and this is just asking for people to do 'interesting'
+  things with this stuff.
 
-> diff --git a/kernel/meminspect/kinfo.c b/kernel/meminspect/kinfo.c
+On Wed, Jul 08, 2026 at 11:01:40AM +0530, Mukesh Ojha wrote:
+> From: Eugen Hristev <ehristev@kernel.org>
+>
+> Memory inspection mechanism allows registration of a specific
+> memory area (or object) for later inspection purposes. Ranges are
+> added into an inspection table, which can be requested and
+> analyzed by specific drivers. Drivers would interface with any
+> hardware mechanism that will allow inspection of the data,
+> including but not limited to: dumping for debugging, creating a
+> core dump, analysis, or statistical information. Drivers can
+> register a notifier to know when new objects are registered, or
+> to traverse an existing inspection table. The inspection table is
+> created ahead of time such that it can be later used regardless
+> of the state of the kernel (running, frozen, crashed, or any
+> particular state).
+
+This is the complete opposite of what a commit message should be...
+
+Firstly it's an totally unacceptable, unreadable wall of text.
+
+Secondly you're not at all describing what you're doing in this commit
+here.
+
+As far as I can tell from the code here, you're explicitly only supporting
+ELF registered ranges (perhaps static also?)
+
+I mean this is clearly not the whole thing, despite what the commit msg
+suggests, as you have 25 further commits (!)
+
+The commit message should explain WHAT THE PATCH IS DOING, the trade-offs,
+the motivation, anything that needs to be called out.
+
+It does absolutely none of that and instead you get what seems like
+marketing copy in a giant unbroken, unreadable, paragraph.
+
+>
+> Signed-off-by: Eugen Hristev <eugen.hristev@linaro.org>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+
+This patch is seriously far from being even vaguely upstreamable, and for
+an effective v5 this is concerning.
+
+> ---
+>  Documentation/dev-tools/index.rst      |   1 +
+>  Documentation/dev-tools/meminspect.rst | 144 ++++++++++
+>  MAINTAINERS                            |   9 +
+>  include/asm-generic/vmlinux.lds.h      |  13 +
+>  include/linux/meminspect.h             | 270 +++++++++++++++++++
+>  init/Kconfig                           |   1 +
+>  kernel/Makefile                        |   1 +
+>  kernel/meminspect/Kconfig              |  18 ++
+>  kernel/meminspect/Makefile             |   3 +
+>  kernel/meminspect/meminspect.c         | 474 +++++++++++++++++++++++++++++++++
+>  10 files changed, 934 insertions(+)
+
+This changelog is completely ridiculous for a single patch.
+
+This is kernel 101 stuff... you don't send everything in a single commit
+including documentation + MAINTAINERS changes...!
+
+You have to split things up into logical parts.
+
+>
+> diff --git a/Documentation/dev-tools/index.rst b/Documentation/dev-tools/index.rst
+> index 59cbb77b33ff..ea2989ca1566 100644
+> --- a/Documentation/dev-tools/index.rst
+> +++ b/Documentation/dev-tools/index.rst
+> @@ -40,3 +40,4 @@ Documentation/process/debugging/index.rst
+>     autofdo
+>     propeller
+>     container
+> +   meminspect
+> diff --git a/Documentation/dev-tools/meminspect.rst b/Documentation/dev-tools/meminspect.rst
 > new file mode 100644
-> index 0000000000000..7451c13bc3163
+> index 000000000000..4ca10e33e4fd
 > --- /dev/null
-> +++ b/kernel/meminspect/kinfo.c
+> +++ b/Documentation/dev-tools/meminspect.rst
+> @@ -0,0 +1,144 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +==========
+> +meminspect
+> +==========
+> +
+> +This document provides information about the meminspect feature.
+> +
+> +Overview
+> +========
+> +
+> +meminspect is a mechanism that allows the kernel to register a chunk of
+> +memory into a table, to be used at a later time for a specific
+> +inspection purpose like debugging, memory dumping or statistics.
 
-[ ... ]
+What's a chunk of memory? Physical memory? MMIO ranges? Virtual ranges? Direct
+map? Vmalloc?
 
-> +static void update_kernel_all_info(struct kernel_all_info *all_info)
+Be more specific.
+
+> +
+> +meminspect allows drivers to traverse the inspection table on demand,
+> +or to register a notifier to be called whenever a new entry is being added
+> +or removed.
+
+I absolutely hate the idea of exposing a table of pointers to 'memory' that has
+lifetime information to drivers with arbitrary context.
+
+What about security?
+
+> +
+> +The reasoning for meminspect is also to minimize the required information
+> +in case of a kernel problem. For example a traditional debug method involves
+> +dumping the whole kernel memory and then inspecting it. Meminspect allows the
+> +users to select which memory is of interest, in order to help this specific
+> +use case in production, where memory and connectivity are limited.
+
+Again this is so vague it's uselses...
+
+> +
+> +Although the kernel has multiple internal mechanisms, meminspect fits
+> +a particular model which is not covered by the others.
+
+This is nebulous nonsense you have to explain WHY and what exactly it gives that
+others don't.
+
+You can very well inspect specific areas of memory using
+
+> +
+> +meminspect Internals
+> +====================
+> +
+> +API
+> +---
+> +
+> +Static memory can be registered at compile time, by instructing the compiler
+> +to create a separate section with annotation info.
+> +For each such annotated memory (variables usually), a dedicated struct
+> +is created with the required information.
+> +To achieve this goal, some basic APIs are available:
+> +
+> +* MEMINSPECT_ENTRY(idx, sym, sz)
+> +  is the basic macro that takes an ID, the symbol, and a size.
+> +
+> +To make it easier, some wrappers are also defined
+> +
+> +* MEMINSPECT_SIMPLE_ENTRY(sym)
+> +  uses the dedicated MEMINSPECT_ID_##sym with a size equal to sizeof(sym)
+> +
+> +* MEMINSPECT_NAMED_ENTRY(name, sym)
+> +  is a simple entry that has an id that cannot be derived from the sym,
+> +  so a name has to be provided
+> +
+> +* MEMINSPECT_AREA_ENTRY(sym, sz)
+> +  registers sym, but with the size given as sz, useful for e.g.
+> +  arrays which do not have a fixed size at compile time.
+> +
+> +For dynamically allocated memory, or for other cases, the following APIs
+> +are defined::
+> +
+> +  meminspect_register_id_pa(enum meminspect_uid id, phys_addr_t zone,
+> +                            size_t size, unsigned int type);
+> +
+> +which takes the ID and the physical address.
+
+What about lifetime?...
+
+Exposing arbitrary physical memory to drivers is just a big nope.
+
+> +
+> +Similarly there are variations:
+> +
+> + * meminspect_register_pa() omits the ID
+> + * meminspect_register_id_va() requires the ID but takes a virtual address
+> + * meminspect_register_va() omits the ID and requires a virtual address
+> +
+> +If the ID is not given, the next available dynamic ID is allocated.
+> +
+> +To unregister a dynamic entry, some APIs are defined:
+> + * meminspect_unregister_pa(phys_addr_t zone, size_t size);
+> + * meminspect_unregister_id(enum meminspect_uid id);
+> + * meminspect_unregister_va(va, size);
+> +
+> +All of the above have a lock variant that ensures the lock on the table
+> +is taken.
+> +
+> +
+> +meminspect drivers
+> +------------------
+> +
+> +Drivers are free to traverse the table by using a dedicated function::
+> +
+> + meminspect_traverse(void *priv, meminspect_iter_cb_t cb)
+> +
+> +The callback is called for each entry in the table.
+> +
+> +Drivers can also register a notifier with meminspect_notifier_register()
+> +and unregister with meminspect_notifier_unregister() to be called when a new
+> +entry is added or removed.
+> +
+> +Data structures
+> +---------------
+> +
+> +The regions are stored in a simple fixed size array. It avoids
+> +memory allocation overhead. This is not performance critical nor does
+> +allocating a few hundred entries create a memory consumption problem.
+> +
+> +The static variables registered into meminspect are annotated into
+> +a dedicated .inspect_table memory section. This is then walked by meminspect
+> +at a later time and each variable is then copied to the whole inspect table.
+> +
+> +meminspect Initialization
+> +-------------------------
+> +
+> +At any time, meminspect is ready to accept region registration
+> +from any part of the kernel. The table does not require any initialization.
+
+
+
+> +In case CONFIG_CRASH_DUMP is enabled, meminspect creates an ELF header
+> +corresponding to a core dump image, in which each region is added as a
+> +program header. In this scenario, the first region is this ELF header, and
+> +the second region is the vmcoreinfo ELF note.
+> +By using this mechanism, all the meminspect table, if dumped, can be
+> +concatenated to obtain a core image that is loadable with the `crash` tool.
+> +
+> +meminspect example
+> +==================
+> +
+> +A simple scenario for meminspect is the following:
+> +The kernel registers the linux_banner variable into meminspect with
+> +a simple annotation like::
+> +
+> +  MEMINSPECT_SIMPLE_ENTRY(linux_banner);
+> +
+> +The meminspect late initcall will parse the compile-time table
+> +and copy the entry information into the inspection table.
+> +At a later point, any interested driver can call the traverse function to
+> +find out all entries in the table.
+> +A specific driver will then note into a specific table the address of the
+> +banner and the size of it.
+> +The specific table is then written to a shared memory area that can be
+> +read by upper level firmware.
+
+This feels like you're finding a way to export things that aren't exported...?!
+
+> +When the kernel freezes (hypothetically), the kernel will no longer feed
+> +the watchdog. The watchdog will trigger a higher exception level interrupt
+> +which will be handled by the upper level firmware. This firmware will then
+> +read the shared memory table and find an entry with the start and size of
+> +the banner. It will then copy it for debugging purpose. The upper level
+
+This feels like a giant workaround to provide EXPORT_SYMBOLS()
+
+> +firmware will then be able to provide useful debugging information,
+> +like in this example, the banner.
+> +
+> +As seen here, meminspect facilitates the interaction between the kernel
+> +and a specific firmware.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c3f72058a2f2..fdad8ef377c8 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -16892,6 +16892,15 @@ F:	arch/*/include/asm/sync_core.h
+>  F:	include/uapi/linux/membarrier.h
+>  F:	kernel/sched/membarrier.c
+>
+> +MEMINSPECT
+> +M:	Eugen Hristev <eugen.hristev@linaro.org>
+> +M:	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> +L:	linux-kernel@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/dev-tools/meminspect.rst
+> +F:	include/linux/meminspect.h
+> +F:	kernel/meminspect/*
+> +
+>  MEMBLOCK AND MEMORY MANAGEMENT INITIALIZATION
+>  M:	Mike Rapoport <rppt@kernel.org>
+>  L:	linux-mm@kvack.org
+> diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+> index 5659f4b5a125..3122ddf5517a 100644
+> --- a/include/asm-generic/vmlinux.lds.h
+> +++ b/include/asm-generic/vmlinux.lds.h
+> @@ -506,6 +506,8 @@
+>  	FW_LOADER_BUILT_IN_DATA						\
+>  	TRACEDATA							\
+>  									\
+> +	MEMINSPECT_TABLE						\
+> +									\
+>  	PRINTK_INDEX							\
+>  									\
+>  	/* Kernel symbol table */					\
+> @@ -904,6 +906,17 @@
+>  #define TRACEDATA
+>  #endif
+>
+> +#ifdef CONFIG_MEMINSPECT
+> +#define MEMINSPECT_TABLE						\
+> +	. = ALIGN(8);							\
+> +	.inspect_table : AT(ADDR(.inspect_table) - LOAD_OFFSET) {	\
+> +		BOUNDED_SECTION_POST_LABEL(.inspect_table,		\
+> +					   __inspect_table, , _end)	\
+> +	}
+> +#else
+> +#define MEMINSPECT_TABLE
+> +#endif
+> +
+>  #ifdef CONFIG_PRINTK_INDEX
+>  #define PRINTK_INDEX							\
+>  	.printk_index : AT(ADDR(.printk_index) - LOAD_OFFSET) {		\
+> diff --git a/include/linux/meminspect.h b/include/linux/meminspect.h
+> new file mode 100644
+> index 000000000000..a9eb93c6ea2f
+> --- /dev/null
+> +++ b/include/linux/meminspect.h
+> @@ -0,0 +1,270 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef _MEMINSPECT_H
+> +#define _MEMINSPECT_H
+> +
+> +#include <asm/page.h>
+> +#include <linux/notifier.h>
+> +
+> +enum meminspect_uid {
+> +	MEMINSPECT_ID_NONE = 0,
+> +	MEMINSPECT_ID_ELF,
+> +	MEMINSPECT_ID_VMCOREINFO,
+> +	MEMINSPECT_ID_CONFIG,
+> +	MEMINSPECT_ID__totalram_pages,
+> +	MEMINSPECT_ID___cpu_possible_mask,
+> +	MEMINSPECT_ID___cpu_present_mask,
+> +	MEMINSPECT_ID___cpu_online_mask,
+> +	MEMINSPECT_ID___cpu_active_mask,
+> +	MEMINSPECT_ID_mem_section,
+> +	MEMINSPECT_ID_jiffies_64,
+> +	MEMINSPECT_ID_linux_banner,
+> +	MEMINSPECT_ID_nr_threads,
+> +	MEMINSPECT_ID_total_nr_irqs,
+> +	MEMINSPECT_ID_tainted_mask,
+> +	MEMINSPECT_ID_taint_flags,
+> +	MEMINSPECT_ID_node_states,
+> +	MEMINSPECT_ID___per_cpu_offset,
+> +	MEMINSPECT_ID_nr_swapfiles,
+> +	MEMINSPECT_ID_init_uts_ns,
+> +	MEMINSPECT_ID_printk_rb_static,
+> +	MEMINSPECT_ID_printk_rb_dynamic,
+> +	MEMINSPECT_ID_prb,
+> +	MEMINSPECT_ID_prb_descs,
+> +	MEMINSPECT_ID_prb_infos,
+> +	MEMINSPECT_ID_prb_data,
+> +	MEMINSPECT_ID_clear_seq,
+> +	MEMINSPECT_ID_high_memory,
+> +	MEMINSPECT_ID_init_mm,
+> +	MEMINSPECT_ID__sinittext,
+> +	MEMINSPECT_ID__einittext,
+> +	MEMINSPECT_ID__end,
+> +	MEMINSPECT_ID__text,
+> +	MEMINSPECT_ID__stext,
+> +	MEMINSPECT_ID__etext,
+> +	MEMINSPECT_ID_kallsyms_num_syms,
+> +	MEMINSPECT_ID_kallsyms_offsets,
+> +	MEMINSPECT_ID_kallsyms_names,
+> +	MEMINSPECT_ID_kallsyms_token_table,
+> +	MEMINSPECT_ID_kallsyms_token_index,
+> +	MEMINSPECT_ID_kallsyms_markers,
+> +	MEMINSPECT_ID_kallsyms_seqs_of_names,
+> +	MEMINSPECT_ID_swapper_pg_dir,
+> +	MEMINSPECT_ID_DYNAMIC,
+> +	MEMINSPECT_ID_MAX = 201,
+
+Err why 201?
+
+> +};
+
+This feels like a bunch of stuff you didn't document?
+
+> +
+> +#define MEMINSPECT_TYPE_REGULAR		0
+> +
+> +#define MEMINSPECT_NOTIFIER_ADD		0
+> +#define MEMINSPECT_NOTIFIER_REMOVE	1
+
+Broken indentation...
+
+> +
+> +/**
+> + * struct inspect_entry - memory inspect entry information
+> + * @id: unique id for this entry
+> + * @va: virtual address for the memory (pointer)
+
+Err what?? Virtual address as mapped how? Are you now assuming things are
+mapped?
+
+> + * @pa: physical address for the memory
+> + * @size: size of the memory area of this entry
+> + * @type: type of the entry (class)
+
+'Class'?
+
+> + */
+> +struct inspect_entry {
+> +	enum meminspect_uid	id;
+> +	void			*va;
+> +	phys_addr_t		pa;
+> +	size_t			size;
+> +	unsigned int		type;
+> +};
+> +
+> +/**
+> + * typedef meminspect_iter_cb_t - Iterator callback for meminspect traversal
+> + * @priv: private data passed through from the caller of meminspect_traverse()
+> + * @ie:   pointer to the current inspect_entry; read-only, table lock held
+> + *
+> + * The table lock is held by the caller; the callback must not call any
+> + * meminspect_table_lock() or meminspect_table_unlock() variants.
+> + */
+> +typedef void (*meminspect_iter_cb_t)(void *priv, const struct inspect_entry *ie);
+
+So drivers can now just access some tagged region, with a VA that err I
+guess we just assume is valid when accessed and a PA that err I guess we
+just assume is still being used for what it was tagged for?
+
+This seems insane?
+
+> +
+> +#ifdef CONFIG_MEMINSPECT
+> +/* .inspect_table section table markers*/
+> +extern const struct inspect_entry __inspect_table[];
+> +extern const struct inspect_entry __inspect_table_end[];
+> +
+> +/*
+> + * Annotate a static variable into inspection table.
+> + * Can be called multiple times for the same ID, in which case
+> + * multiple table entries will be created
+> + */
+> +#define MEMINSPECT_ENTRY(idx, sym, sz)						\
+> +	static const struct inspect_entry __UNIQUE_ID(__inspect_entry_##idx)	\
+> +	__used __section(".inspect_table") = {					\
+> +		.id = idx,							\
+> +		.va = (void *)&(sym),						\
+> +		.size = (sz),							\
+> +	}
+> +/*
+> + * A simple entry is just a variable, the size of the entry is the variable size
+> + * The variable can also be a pointer, the pointer itself is being added in this
+> + * case.
+> + */
+> +#define MEMINSPECT_SIMPLE_ENTRY(sym)	\
+> +	MEMINSPECT_ENTRY(MEMINSPECT_ID_##sym, sym, sizeof(sym))
+> +/*
+> + * In the case when `sym` is not a variable, but a member of a struct e.g.,
+> + * and we cannot derive a name from it, a name must be provided.
+> + */
+> +#define MEMINSPECT_NAMED_ENTRY(name, sym)	\
+> +	MEMINSPECT_ENTRY(MEMINSPECT_ID_##name, sym, sizeof(sym))
+> +/*
+> + * Create a more complex entry, by registering an arbitrary memory starting
+> + * at sym. The size is provided as a parameter.
+> + * This is used e.g. when the symbol is a start of an unknown sized array.
+> + */
+> +#define MEMINSPECT_AREA_ENTRY(sym, sz) \
+> +	MEMINSPECT_ENTRY(MEMINSPECT_ID_##sym, sym, sz)
+> +
+> +/* Iterate through .inspect_table section entries */
+> +#define for_each_meminspect_entry(__entry)		\
+> +	for (__entry = __inspect_table;			\
+> +	     __entry < __inspect_table_end;		\
+> +	     __entry++)
+> +
+> +#else
+> +#define MEMINSPECT_ENTRY(...)
+> +#define MEMINSPECT_SIMPLE_ENTRY(...)
+> +#define MEMINSPECT_NAMED_ENTRY(...)
+> +#define MEMINSPECT_AREA_ENTRY(...)
+> +#endif
+> +
+> +#ifdef CONFIG_MEMINSPECT
+> +
+> +/*
+> + * Dynamic helpers to register entries.
+> + * These do not lock the table, so use with caution.
+> + */
+> +void meminspect_register_id_pa(enum meminspect_uid id, phys_addr_t zone,
+> +			       size_t size, unsigned int type);
+> +void meminspect_table_lock(void);
+> +void meminspect_table_unlock(void);
+> +
+> +#define meminspect_register_pa(...) \
+> +	meminspect_register_id_pa(MEMINSPECT_ID_DYNAMIC, __VA_ARGS__, MEMINSPECT_TYPE_REGULAR)
+> +
+> +#define meminspect_register_id_va(id, va, size) \
+> +	meminspect_register_id_pa(id, virt_to_phys(va), size, MEMINSPECT_TYPE_REGULAR)
+> +
+> +#define meminspect_register_va(...) \
+> +	meminspect_register_id_va(MEMINSPECT_ID_DYNAMIC, __VA_ARGS__)
+> +
+> +void meminspect_unregister_pa(phys_addr_t zone, size_t size);
+> +void meminspect_unregister_id(enum meminspect_uid id);
+> +
+> +#define meminspect_unregister_va(va, size) \
+> +	meminspect_unregister_pa(virt_to_phys(va), size)
+> +
+> +void meminspect_traverse(void *priv, meminspect_iter_cb_t cb);
+> +
+> +/*
+> + * Producers, or registrators, are advised to use the locked API below
+> + */
+> +#define meminspect_lock_register_pa(...)			\
+> +	do {							\
+> +		meminspect_table_lock();			\
+> +		meminspect_register_pa(__VA_ARGS__);		\
+> +		meminspect_table_unlock();			\
+> +	} while (0)
+> +
+> +#define meminspect_lock_register_id_va(...)			\
+> +	do {							\
+> +		meminspect_table_lock();			\
+> +		meminspect_register_id_va(__VA_ARGS__);		\
+> +		meminspect_table_unlock();			\
+> +	} while (0)
+> +
+> +#define meminspect_lock_register_va(...)			\
+> +	do {							\
+> +		meminspect_table_lock();			\
+> +		meminspect_register_va(__VA_ARGS__);		\
+> +		meminspect_table_unlock();			\
+> +	} while (0)
+> +
+> +#define meminspect_lock_unregister_pa(...)			\
+> +	do {							\
+> +		meminspect_table_lock();			\
+> +		meminspect_unregister_pa(__VA_ARGS__);		\
+> +		meminspect_table_unlock();			\
+> +	} while (0)
+> +
+> +#define meminspect_lock_unregister_va(...)			\
+> +	do {							\
+> +		meminspect_table_lock();			\
+> +		meminspect_unregister_va(__VA_ARGS__);		\
+> +		meminspect_table_unlock();			\
+> +	} while (0)
+> +
+> +#define meminspect_lock_unregister_id(...)			\
+> +	do {							\
+> +		meminspect_table_lock();			\
+> +		meminspect_unregister_id(__VA_ARGS__);		\
+> +		meminspect_table_unlock();			\
+> +	} while (0)
+> +
+> +#define meminspect_lock_traverse(...)				\
+> +	do {							\
+> +		meminspect_table_lock();			\
+> +		meminspect_traverse(__VA_ARGS__);		\
+> +		meminspect_table_unlock();			\
+> +	} while (0)
+> +
+> +int meminspect_notifier_register(struct notifier_block *n);
+> +int meminspect_notifier_unregister(struct notifier_block *n);
+> +
+> +#else
+> +static inline void meminspect_register_id_pa(enum meminspect_uid id,
+> +					     phys_addr_t zone,
+> +					     size_t size, unsigned int type)
 > +{
-> +	struct kernel_info *info;
-> +	u32 *checksum_info;
-> +	int index;
-> +
-> +	all_info->magic_number =3D DEBUG_KINFO_MAGIC;
-> +	all_info->combined_checksum =3D 0;
-> +
-> +	info =3D &all_info->info;
-> +	checksum_info =3D (u32 *)info;
-> +	for (index =3D 0; index < sizeof(*info) / sizeof(u32); index++)
-> +		all_info->combined_checksum ^=3D checksum_info[index];
-
-[Severity: Medium]
-Could this non-atomic update expose an invalid intermediate state to
-concurrent external readers?
-
-If a crash occurs concurrently with the execution of this loop, the exposed
-checksum in the mapped shared memory might be zero or partially computed.
-Would it be safer to compute the checksum locally and then write it to the
-shared memory once?
-
 > +}
 > +
-> +static void __maybe_unused register_kinfo_region(void *priv,
-> +						 const struct inspect_entry *e)
+> +static inline void meminspect_table_lock(void)
 > +{
-> +	struct debug_kinfo *kinfo =3D priv;
-> +	struct kernel_all_info *all_info =3D kinfo->all_info_addr;
-> +	struct kernel_info *info =3D &all_info->info;
-> +	struct uts_namespace *uts;
-> +	u64 paddr;
+> +}
 > +
+> +static inline void meminspect_table_unlock(void)
+> +{
+> +}
+> +
+> +static inline void meminspect_unregister_pa(phys_addr_t zone, size_t size)
+> +{
+> +}
+> +
+> +static inline void meminspect_unregister_id(enum meminspect_uid id)
+> +{
+> +}
+> +
+> +static inline void meminspect_traverse(void *priv, meminspect_iter_cb_t cb)
+> +{
+> +}
+> +
+> +static inline int meminspect_notifier_register(struct notifier_block *n)
+> +{
+> +	return 0;
+> +}
+> +
+> +static inline int meminspect_notifier_unregister(struct notifier_block *n)
+> +{
+> +	return 0;
+> +}
+> +
+> +#define meminspect_register_pa(...)		do { } while (0)
+> +#define meminspect_register_id_va(...)		do { } while (0)
+> +#define meminspect_register_va(...)		do { } while (0)
+> +#define meminspect_lock_register_pa(...)	do { } while (0)
+> +#define meminspect_lock_register_va(...)	do { } while (0)
+> +#define meminspect_lock_register_id_va(...)	do { } while (0)
+> +#define meminspect_lock_traverse(...)		do { } while (0)
+> +#define meminspect_lock_unregister_va(...)	do { } while (0)
+> +#define meminspect_lock_unregister_pa(...)	do { } while (0)
+> +#define meminspect_lock_unregister_id(...)	do { } while (0)
+> +#endif
+> +
+> +#endif
+> diff --git a/init/Kconfig b/init/Kconfig
+> index fa42fb264c9c..adbe607b7b62 100644
+> --- a/init/Kconfig
+> +++ b/init/Kconfig
+> @@ -2294,6 +2294,7 @@ config TRACEPOINTS
+>  source "kernel/Kconfig.kexec"
+>
+>  source "kernel/liveupdate/Kconfig"
+> +source "kernel/meminspect/Kconfig"
+>
+>  endmenu		# General setup
+>
+> diff --git a/kernel/Makefile b/kernel/Makefile
+> index 1e1a31673577..7c74a4f94a81 100644
+> --- a/kernel/Makefile
+> +++ b/kernel/Makefile
+> @@ -52,6 +52,7 @@ obj-y += locking/
+>  obj-y += power/
+>  obj-y += printk/
+>  obj-y += irq/
+> +obj-y += meminspect/
+>  obj-y += rcu/
+>  obj-y += livepatch/
+>  obj-y += liveupdate/
+> diff --git a/kernel/meminspect/Kconfig b/kernel/meminspect/Kconfig
+> new file mode 100644
+> index 000000000000..18ff511ad4cf
+> --- /dev/null
+> +++ b/kernel/meminspect/Kconfig
+> @@ -0,0 +1,18 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +config MEMINSPECT
+> +	bool "Allow the kernel to register memory regions for inspection purpose"
+> +	depends on !CRASH_DUMP || DMA_CMA
+
+Why does it depend on CONFIG_DMA_CMA?
+
+> +	help
+> +	  Inspection mechanism allows registration of a specific memory
+> +	  area (or object) for later inspection purposes. Ranges are added
+> +	  into an inspection table, which can be requested and analyzed by
+> +	  specific drivers. Drivers would interface any hardware mechanism
+> +	  that will allow inspection of the data, including but not limited
+> +	  to: dumping for debugging, creating a coredump, analysis, or
+> +	  statistical information.  The inspection table is created ahead
+> +	  of time such that it can be later used regardless of the state of
+> +	  the kernel (running, frozen, crashed, or any particular state).
+
+Another wall of text and it's not at all clear what this is suppose to do,
+this needs to be completely reworked.
+
+> +
+> +	  Note that modules using this feature must be rebuilt if this
+> +	  option changes.
+> diff --git a/kernel/meminspect/Makefile b/kernel/meminspect/Makefile
+> new file mode 100644
+> index 000000000000..09fd55e6d9cf
+> --- /dev/null
+> +++ b/kernel/meminspect/Makefile
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +obj-$(CONFIG_MEMINSPECT) += meminspect.o
+> diff --git a/kernel/meminspect/meminspect.c b/kernel/meminspect/meminspect.c
+> new file mode 100644
+> index 000000000000..d9d38f484f1f
+> --- /dev/null
+> +++ b/kernel/meminspect/meminspect.c
+> @@ -0,0 +1,474 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/crash_core.h>
+> +#include <linux/dma-map-ops.h>
+> +#include <linux/errno.h>
+> +#include <linux/meminspect.h>
+> +#include <linux/notifier.h>
+> +#include <linux/vmcore_info.h>
+> +
+> +static DEFINE_MUTEX(meminspect_lock);
+> +static struct inspect_entry inspect_entries[MEMINSPECT_ID_MAX];
+> +
+> +static ATOMIC_NOTIFIER_HEAD(meminspect_notifier_list);
+> +
+> +#ifdef CONFIG_CRASH_DUMP
+> +
+> +#define CORE_STR "CORE"
+> +
+> +static struct elfhdr *ehdr;
+> +static size_t elf_offset;
+> +static bool elf_hdr_ready;
+> +
+> +static void append_kcore_note(char *notes, size_t *i, const char *name,
+> +			      unsigned int type, const void *desc,
+> +			      size_t descsz)
+> +{
+> +	struct elf_note *note = (struct elf_note *)&notes[*i];
+> +
+> +	note->n_namesz = strlen(name) + 1;
+> +	note->n_descsz = descsz;
+> +	note->n_type = type;
+> +	*i += sizeof(*note);
+> +	memcpy(&notes[*i], name, note->n_namesz);
+> +	*i = ALIGN(*i + note->n_namesz, 4);
+> +	memcpy(&notes[*i], desc, descsz);
+> +	*i = ALIGN(*i + descsz, 4);
+> +}
+> +
+> +static void append_kcore_note_nodesc(char *notes, size_t *i, const char *name,
+> +				     unsigned int type, size_t descsz)
+> +{
+> +	struct elf_note *note = (struct elf_note *)&notes[*i];
+> +
+> +	note->n_namesz = strlen(name) + 1;
+> +	note->n_descsz = descsz;
+> +	note->n_type = type;
+> +	*i += sizeof(*note);
+> +	memcpy(&notes[*i], name, note->n_namesz);
+> +	*i = ALIGN(*i + note->n_namesz, 4);
+> +}
+> +
+> +static struct elf_phdr *elf_phdr_entry_addr(struct elfhdr *ehdr, int idx)
+> +{
+> +	struct elf_phdr *ephdr = (struct elf_phdr *)((size_t)ehdr + ehdr->e_phoff);
+> +
+> +	return &ephdr[idx];
+> +}
+> +
+> +static int clear_elfheader(const struct inspect_entry *e)
+> +{
+> +	struct elf_phdr *phdr;
+> +	struct elf_phdr *tmp_phdr;
+> +	unsigned int phidx;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ehdr->e_phnum; i++) {
+> +		phdr = elf_phdr_entry_addr(ehdr, i);
+> +		if (phdr->p_paddr == e->pa &&
+> +		    phdr->p_memsz == ALIGN(e->size, 4))
+> +			break;
+> +	}
+> +
+> +	if (i == ehdr->e_phnum) {
+> +		pr_debug("Cannot find program header entry in elf\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	phidx = i;
+> +
+> +	/* Clear program header */
+> +	tmp_phdr = elf_phdr_entry_addr(ehdr, phidx);
+> +	for (i = phidx; i < ehdr->e_phnum - 1; i++) {
+> +		tmp_phdr = elf_phdr_entry_addr(ehdr, i + 1);
+> +		phdr = elf_phdr_entry_addr(ehdr, i);
+> +		memcpy(phdr, tmp_phdr, sizeof(*phdr));
+> +		phdr->p_offset = phdr->p_offset - ALIGN(e->size, 4);
+> +	}
+> +	memset(tmp_phdr, 0, sizeof(*tmp_phdr));
+> +	ehdr->e_phnum--;
+> +
+> +	elf_offset -= ALIGN(e->size, 4);
+> +
+> +	return 0;
+> +}
+> +
+> +static void update_elfheader(const struct inspect_entry *e)
+> +{
+> +	struct elf_phdr *phdr;
+> +
+> +	phdr = elf_phdr_entry_addr(ehdr, ehdr->e_phnum++);
+> +
+> +	phdr->p_type = PT_LOAD;
+> +	phdr->p_offset = elf_offset;
+> +	phdr->p_vaddr = (elf_addr_t)e->va;
 > +	if (e->pa)
-> +		paddr =3D e->pa;
+> +		phdr->p_paddr = (elf_addr_t)e->pa;
 > +	else
-> +		paddr =3D __pa(e->va);
-
-[Severity: High]
-Is __pa() the correct translation macro to use here for statically allocated
-kernel symbols?
-
-On architectures like x86_64, kernel symbols reside in the kernel image
-mapping outside the direct linear mapping. Calling __pa() on these
-addresses can trigger a virtual bug on kernel panic if CONFIG_DEBUG_VIRTUAL
-is enabled. Should this use __pa_symbol() instead?
-
+> +		phdr->p_paddr = (elf_addr_t)virt_to_phys(e->va);
 > +
-> +	switch (e->id) {
-
-[ ... ]
-
-> +static int debug_kinfo_probe(struct platform_device *pdev)
+> +	phdr->p_filesz = ALIGN(e->size, 4);
+> +	phdr->p_memsz = ALIGN(e->size, 4);
+> +	phdr->p_flags = PF_R | PF_W;
+> +	elf_offset += ALIGN(e->size, 4);
+> +}
+> +
+> +/*
+> + * This function prepares the elf header for the coredump image.
+> + * Initially there is a single program header for the elf NOTE.
+> + * The note contains the usual core dump information, and the vmcoreinfo.
+> + */
+> +static int init_elfheader(void)
 > +{
-> +	struct kernel_all_info *all_info;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct reserved_mem *rmem;
-> +	struct debug_kinfo *kinfo;
-> +	struct kernel_info *info;
+> +	struct elf_phdr *phdr;
+> +	void *notes;
+> +	unsigned int elfh_size, buf_sz;
+> +	unsigned int phdr_off;
+> +	size_t note_len, i = 0;
+> +	struct page *p;
 > +
-> +	rmem =3D of_reserved_mem_lookup(dev->of_node);
-> +	if (!rmem)
-> +		return dev_err_probe(dev, -ENODEV, "no such reserved mem of node name =
-%s\n",
-> +			      dev->of_node->name);
+> +	struct elf_prstatus prstatus = {};
+> +	struct elf_prpsinfo prpsinfo = {
+> +		.pr_sname = 'R',
+> +		.pr_fname = "vmlinux",
+> +	};
 > +
-> +	/* Need to wait for reserved memory to be mapped */
-> +	if (!rmem->priv)
-> +		return -EPROBE_DEFER;
-
-[Severity: High]
-Will rmem->priv ever be populated for this compatible string?
-
-The core framework only populates rmem->priv if there is a
-RESERVEDMEM_OF_DECLARE callback that explicitly maps the memory. Since
-there appears to be no such callback for google,debug-kinfo, this might
-cause the driver to enter an endless probe defer loop.
-
+> +	/*
+> +	 * Header buffer contains:
+> +	 * ELF header, Note entry with PR status, PR ps info, and vmcoreinfo.
+> +	 * Also, MEMINSPECT_ID_MAX program headers.
+> +	 */
+> +	elfh_size = sizeof(*ehdr);
+> +	elfh_size += sizeof(struct elf_prstatus);
+> +	elfh_size += sizeof(struct elf_prpsinfo);
+> +	elfh_size += sizeof(VMCOREINFO_NOTE_NAME);
+> +	elfh_size += ALIGN(vmcoreinfo_size, 4);
+> +	elfh_size += (sizeof(*phdr)) * (MEMINSPECT_ID_MAX);
 > +
-> +	if (!rmem->base || !rmem->size)
-> +		dev_err_probe(dev, -EINVAL, "unexpected reserved memory\n");
+> +	elfh_size = ALIGN(elfh_size, 4);
 > +
-> +	if (rmem->size < sizeof(struct kernel_all_info))
-> +		dev_err_probe(dev, -EINVAL, "reserved memory size too small\n");
-
-[Severity: High]
-Are these dev_err_probe calls missing return statements?
-
-Without returning an error, execution proceeds. If the reserved memory is
-indeed too small, the subsequent memset will write out-of-bounds of the
-reserved memory region.
-
+> +	/* Length of the note is made of :
+> +	 * 3 elf notes structs (prstatus, prpsinfo, vmcoreinfo)
+> +	 * 3 notes names (2 core strings, 1 vmcoreinfo name)
+> +	 * sizeof each note
+> +	 */
+> +	note_len = (3 * sizeof(struct elf_note) +
+> +		    2 * ALIGN(sizeof(CORE_STR), 4) +
+> +		    VMCOREINFO_NOTE_NAME_BYTES +
+> +		    ALIGN(sizeof(struct elf_prstatus), 4) +
+> +		    ALIGN(sizeof(struct elf_prpsinfo), 4) +
+> +		    ALIGN(vmcoreinfo_size, 4));
 > +
-> +	kinfo =3D devm_kzalloc(dev, sizeof(*kinfo), GFP_KERNEL);
-> +	if (!kinfo)
+> +	buf_sz = elfh_size + note_len - ALIGN(vmcoreinfo_size, 4);
+> +
+> +	/* Never freed */
+> +	p = dma_alloc_from_contiguous(NULL, buf_sz >> PAGE_SHIFT,
+> +				      get_order(buf_sz), true);
+> +	if (!p)
 > +		return -ENOMEM;
 > +
-> +	platform_set_drvdata(pdev, kinfo);
+> +	ehdr = dma_common_contiguous_remap(p, buf_sz,
+> +					   pgprot_decrypted(pgprot_dmacoherent(PAGE_KERNEL)),
+> +					   __builtin_return_address(0));
+> +	if (!ehdr) {
+> +		dma_release_from_contiguous(NULL, p, buf_sz >> PAGE_SHIFT);
+> +		return -ENOMEM;
+> +	}
 > +
-> +	kinfo->dev =3D dev;
-> +	kinfo->all_info_addr =3D rmem->priv;
-> +	kinfo->all_info_size =3D rmem->size;
+> +	memset(ehdr, 0, elfh_size);
 > +
-> +	all_info =3D kinfo->all_info_addr;
+> +	/* Assign Program headers offset, it's right after the elf header. */
+> +	phdr = (struct elf_phdr *)(ehdr + 1);
+> +	phdr_off = sizeof(*ehdr);
 > +
-> +	memset(all_info, 0, sizeof(struct kernel_all_info));
-> +	info =3D &all_info->info;
-> +	info->enabled_all =3D IS_ENABLED(CONFIG_KALLSYMS_ALL);
-> +	info->enabled_absolute_percpu =3D IS_ENABLED(CONFIG_KALLSYMS_ABSOLUTE_P=
-ERCPU);
-> +	info->enabled_base_relative =3D IS_ENABLED(CONFIG_KALLSYMS_BASE_RELATIV=
-E);
-> +	info->enabled_cfi_clang =3D IS_ENABLED(CONFIG_CFI_CLANG);
-> +	info->name_len =3D KSYM_NAME_LEN;
-> +	info->bit_per_long =3D BITS_PER_LONG;
-> +	info->module_name_len =3D MODULE_NAME_LEN;
-> +	info->symbol_len =3D KSYM_SYMBOL_LEN;
-> +	info->thread_size =3D THREAD_SIZE;
-> +	info->enabled_modules_tree_lookup =3D IS_ENABLED(CONFIG_MODULES_TREE_LO=
-OKUP);
-> +	info->mod_mem_offset =3D offsetof(struct module, mem);
-> +	info->mod_kallsyms_offset =3D offsetof(struct module, kallsyms);
+> +	memcpy(ehdr->e_ident, ELFMAG, SELFMAG);
+> +	ehdr->e_ident[EI_CLASS] = ELF_CLASS;
+> +	ehdr->e_ident[EI_DATA] = ELF_DATA;
+> +	ehdr->e_ident[EI_VERSION] = EV_CURRENT;
+> +	ehdr->e_ident[EI_OSABI] = ELF_OSABI;
+> +	ehdr->e_type = ET_CORE;
+> +	ehdr->e_machine = ELF_ARCH;
+> +	ehdr->e_version = EV_CURRENT;
+> +	ehdr->e_ehsize = sizeof(*ehdr);
+> +	ehdr->e_phentsize = sizeof(*phdr);
+> +
+> +	elf_offset = elfh_size;
+> +
+> +	notes = (void *)(((char *)ehdr) + elf_offset);
+> +
+> +	/* we have a single program header now */
+> +	ehdr->e_phnum = 1;
+> +
+> +	phdr->p_type = PT_NOTE;
+> +	phdr->p_offset = elf_offset;
+> +	phdr->p_filesz = note_len;
+> +
+> +	/* advance elf offset */
+> +	elf_offset += note_len;
+> +
+> +	strscpy(prpsinfo.pr_psargs, saved_command_line,
+> +		sizeof(prpsinfo.pr_psargs));
+> +
+> +	append_kcore_note(notes, &i, CORE_STR, NT_PRSTATUS, &prstatus,
+> +			  sizeof(prstatus));
+> +	append_kcore_note(notes, &i, CORE_STR, NT_PRPSINFO, &prpsinfo,
+> +			  sizeof(prpsinfo));
+> +	append_kcore_note_nodesc(notes, &i, VMCOREINFO_NOTE_NAME, 0,
+> +				 ALIGN(vmcoreinfo_size, 4));
+> +
+> +	ehdr->e_phoff = phdr_off;
+> +
+> +	/* This is the first coredump region, the ELF header */
+> +	meminspect_register_id_pa(MEMINSPECT_ID_ELF, page_to_phys(p),
+> +				  buf_sz, MEMINSPECT_TYPE_REGULAR);
+> +
+> +	/*
+> +	 * The second region is the vmcoreinfo, which goes right after.
+> +	 * It's being registered through vmcoreinfo.
+> +	 */
+> +
+> +	return 0;
+> +}
+> +#endif
 
-[Severity: Low]
-Will this cause compilation errors if CONFIG_MODULES or CONFIG_KALLSYMS
-are disabled?
-
-The struct module type is incomplete if CONFIG_MODULES is disabled, and
-the kallsyms member only exists if CONFIG_KALLSYMS is enabled.
+Put /* <condition> */ on the end of big #endif blocks please.
 
 > +
-> +	kinfo->nb.notifier_call =3D kinfo_notifier_cb;
+> +/**
+> + * meminspect_unregister_id() - Unregister region from inspection table.
+> + * @id: region's id in the table
+> + *
+> + * Return: None
+> + */
+> +void meminspect_unregister_id(enum meminspect_uid id)
+> +{
+> +	struct inspect_entry *e;
+> +
+> +	WARN_ON(!mutex_is_locked(&meminspect_lock));
+> +
+> +	e = &inspect_entries[id];
+> +	if (!e->id)
+> +		return;
+> +
+> +	atomic_notifier_call_chain(&meminspect_notifier_list,
+> +				   MEMINSPECT_NOTIFIER_REMOVE, e);
+> +#ifdef CONFIG_CRASH_DUMP
+> +	if (elf_hdr_ready)
+> +		clear_elfheader(e);
+> +#endif
+> +	memset(e, 0, sizeof(*e));
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_unregister_id);
+> +
+> +/**
+> + * meminspect_unregister_pa() - Unregister region from inspection table.
+> + * @pa: Physical address of the memory region to remove
+> + * @size: Size of the memory region to remove
+> + *
+> + * Return: None
+> + */
+> +void meminspect_unregister_pa(phys_addr_t pa, size_t size)
+> +{
+> +	struct inspect_entry *e;
+> +	enum meminspect_uid i;
+> +
+> +	WARN_ON(!mutex_is_locked(&meminspect_lock));
+> +
+> +	for (i = MEMINSPECT_ID_ELF; i < MEMINSPECT_ID_MAX; i++) {
+> +		e = &inspect_entries[i];
+> +		if (e->pa != pa)
+> +			continue;
+> +		if (e->size != size)
+> +			continue;
+> +		meminspect_unregister_id(e->id);
+> +		return;
+> +	}
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_unregister_pa);
+> +
+> +/**
+> + * meminspect_register_id_pa() - Register region into inspection table
+> + *		 with given ID and physical address.
+> + * @req_id: Requested unique meminspect_uid that identifies the region
+> + *	This can be MEMINSPECT_ID_DYNAMIC, in which case the function will
+> + *	find an unused ID and register with it.
+> + * @pa: physical address of the memory region
+> + * @size: region size
+> + * @type: region type
+> + *
+> + * Return: None
+> + */
+> +void meminspect_register_id_pa(enum meminspect_uid req_id, phys_addr_t pa,
+> +			       size_t size, unsigned int type)
+> +{
+> +	struct inspect_entry *e;
+> +	enum meminspect_uid uid = req_id;
+> +
+> +	WARN_ON(!mutex_is_locked(&meminspect_lock));
+> +
+> +	if (uid <= MEMINSPECT_ID_NONE || uid >= MEMINSPECT_ID_MAX)
+> +		return;
+> +
+> +	if (uid == MEMINSPECT_ID_DYNAMIC)
+> +		while (uid < MEMINSPECT_ID_MAX) {
+> +			if (!inspect_entries[uid].id)
+> +				break;
+> +			uid++;
+> +		}
+> +
+> +	if (uid == MEMINSPECT_ID_MAX)
+> +		return;
+> +
+> +	e = &inspect_entries[uid];
+> +
+> +	if (e->id)
+> +		meminspect_unregister_id(e->id);
+> +
+> +	e->pa = pa;
+> +	e->va = phys_to_virt(pa);
+> +	e->size = size;
+> +	e->id = uid;
+> +	e->type = type;
+> +#ifdef CONFIG_CRASH_DUMP
+> +	if (elf_hdr_ready)
+> +		update_elfheader(e);
+> +#endif
+> +	atomic_notifier_call_chain(&meminspect_notifier_list,
+> +				   MEMINSPECT_NOTIFIER_ADD, e);
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_register_id_pa);
+> +
+> +/**
+> + * meminspect_table_lock() - Lock the mutex on the inspection table
+> + *
+> + * Return: None
+> + */
+> +void meminspect_table_lock(void)
+> +{
+> +	mutex_lock(&meminspect_lock);
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_table_lock);
+> +
+> +/**
+> + * meminspect_table_unlock() - Unlock the mutex on the inspection table
+> + *
+> + * Return: None
+> + */
+> +void meminspect_table_unlock(void)
+> +{
+> +	mutex_unlock(&meminspect_lock);
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_table_unlock);
+> +
+> +/**
+> + * meminspect_traverse() - Traverse the meminspect table and call the
+> + *		callback function for each valid entry.
+> + * @priv: private data to be passed to the callback
+> + * @cb: meminspect iterator callback that should be called for each entry
+> + *
+> + * Return: None
+> + */
+> +void meminspect_traverse(void *priv, meminspect_iter_cb_t cb)
+> +{
+> +	const struct inspect_entry *e;
+> +	int i;
+> +
+> +	WARN_ON(!mutex_is_locked(&meminspect_lock));
+> +
+> +	for (i = MEMINSPECT_ID_ELF; i < MEMINSPECT_ID_MAX; i++) {
+> +		e = &inspect_entries[i];
+> +		if (e->id)
+> +			cb(priv, e);
+> +	}
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_traverse);
+> +
+> +/**
+> + * meminspect_notifier_register() - Register a notifier to meminspect table
+> + * @n: notifier block to register. This will be called whenever an entry
+> + *		is being added or removed.
+> + *
+> + * Return: errno
+> + */
+> +int meminspect_notifier_register(struct notifier_block *n)
+> +{
+> +	return atomic_notifier_chain_register(&meminspect_notifier_list, n);
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_notifier_register);
+> +
+> +/**
+> + * meminspect_notifier_unregister() - Unregister a previously registered
+> + *		notifier from meminspect table.
+> + * @n: notifier block to unregister.
+> + *
+> + * Return: errno
+> + */
+> +int meminspect_notifier_unregister(struct notifier_block *n)
+> +{
+> +	return atomic_notifier_chain_unregister(&meminspect_notifier_list, n);
+> +}
+> +EXPORT_SYMBOL_GPL(meminspect_notifier_unregister);
+> +
+> +#ifdef CONFIG_CRASH_DUMP
+> +static int __init meminspect_prepare_crashdump(void)
+> +{
+> +	const struct inspect_entry *e;
+> +	int ret;
+> +	enum meminspect_uid i;
+> +
+> +	ret = init_elfheader();
+> +
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/*
+> +	 * Some regions may have been registered very early.
+> +	 * Update the elf header for all existing regions,
+> +	 * except for MEMINSPECT_ID_ELF and MEMINSPECT_ID_VMCOREINFO,
+> +	 * those are included in the ELF header upon its creation.
+> +	 */
+> +	for (i = MEMINSPECT_ID_VMCOREINFO + 1; i < MEMINSPECT_ID_MAX; i++) {
+> +		e = &inspect_entries[i];
+> +		if (e->id)
+> +			update_elfheader(e);
+> +	}
+> +
+> +	elf_hdr_ready = true;
+> +
+> +	return 0;
+> +}
+> +#endif
+> +
+> +static int __init meminspect_prepare_table(void)
+> +{
+> +	const struct inspect_entry *e;
+> +	enum meminspect_uid i;
+> +	int ret;
+> +
+> +	meminspect_table_lock();
+> +	/*
+> +	 * First, copy all entries from the compiler built table
+> +	 * In case some entries are registered multiple times,
+> +	 * the last chronological entry will be stored.
+> +	 * Previously registered entries will be dropped.
+> +	 */
+> +	for_each_meminspect_entry(e) {
+> +		inspect_entries[e->id] = *e;
+> +		if (!inspect_entries[e->id].pa && inspect_entries[e->id].va)
+> +			inspect_entries[e->id].pa = virt_to_phys(inspect_entries[e->id].va);
+> +	}
+> +#ifdef CONFIG_CRASH_DUMP
+> +	ret = meminspect_prepare_crashdump();
+> +	if (ret)
+> +		pr_warn("meminspect: failed to prepare crashdump ELF header: %d\n", ret);
+> +#endif
+> +	/* if we have early notifiers registered, call them now */
+> +	for (i = MEMINSPECT_ID_ELF; i < MEMINSPECT_ID_MAX; i++)
+> +		if (inspect_entries[i].id)
+> +			atomic_notifier_call_chain(&meminspect_notifier_list,
+> +						   MEMINSPECT_NOTIFIER_ADD,
+> +						   &inspect_entries[i]);
+> +	meminspect_table_unlock();
+> +
+> +	pr_debug("Memory inspection table initialized\n");
+> +
+> +	return 0;
+> +}
+> +late_initcall(meminspect_prepare_table);
+>
+> --
+> 2.53.0
+>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-meminspect=
--v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com?part=3D26
+Thanks, Lorenzo
