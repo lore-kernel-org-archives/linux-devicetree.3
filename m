@@ -1,134 +1,190 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE1824677F
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 17:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783532776; cv=pass; b=VFArARfPP/Fo7Xscamd9bquEBdtVI2HiqtvCvirDRJJ7PhT9jAi5GnCxPXBGHlmfxwetUAiabbFSJnOHNMSok/HpR8dBJk3fXbWpnZnXcqNX8I5vXD0pCWuBKsnhUaY6XoM3KfZPrAnr1yfqVKm1no3euAv5nur2/Zkouxr5aGQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783532776; c=relaxed/simple;
-	bh=YqYHuVpbyJ4b9733iq6UlmdT60GLg182zQNOHDGhxQ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tGhRCxEmRZqn/4thS7vN50+3Tg2/iIEGNdeOpCnhsQeBF8LLzxSr3Sy1Didw3bQfLZJKnFlqf6hLIq7BOqHMiNaqfI3KJEVAyiiHFfrN8Uy0aK//ykkorzO8n7Lqekn0MSeHd8cOfKstlu+4gxAksV6ScIrp0BgecBdV1AsdgC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=yBhnCfKv; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7621A3BB109
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 17:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783533539; cv=none; b=l3Gl1jUCnL620c8BMeZ6zK9znv6k0Dq62A1ph5NomL10fVbWBO70LGPxpt3d+wIUckDnAS1cisl9/1YPRa7cR7P2seyyh0MEmxpqNlgUiZORyRkBLn8GpXywedToKsFQk2JIssRofh/mTngOdFXCGZOZO1etxNU+u58RvOJLkJs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783533539; c=relaxed/simple;
+	bh=Dx/U1QTn3apYjRiz0yi9z250wQK129Fy+tAB/HadHMY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qmC8mUtnNpbBGlJXWcpN89AHh3O/BDP0ZnNKX48O4mrzcgCkJ37s4Dkxd6G+9TRF71k3PmMTn1KaGdHF/qqg55QsYW9Z51Fg0XIJHxq5krqIl06krfdCmKPwRZaRNVf/DcgChX1OpvtbVDpZ6Ee20GHZ/v3DTGAwJOmbdi+BsUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zy+f3Yfu; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="yBhnCfKv"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15ca7a7ca9so106128866b.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 10:46:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783532773; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PnEo9kUNw+XyH9MLoxcSV5LGjdDfjgHwc83Db1eVMQuJiGxYzZ3qwtrvVMCmmBXYWt
-         4sUubam11MluYGrN3h9nESYjg6WsZjYt9Q78tKFviV/tmlvoOSYb+CMi4KOoFYtSVCev
-         A5aTkIwqUIK7FNXUScg/t7mlp/hBI848k0VOe1eJ+Th9Cxx9CE15BXF6Q3daDLbbyXZL
-         pe8Fa7aJDQA4XAxNJVYQeWzEhGcGARo5sbGyltCK7EQ5QSN7xB3ZC8ACRdx4lVcn+1DY
-         VRBw7O1owKAbGTk/agZPukNfHOtRaVaWBm2P7dh2CXqiqTliKCwaLO6J1Q0Ol9IpICEd
-         P+xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iqseJKw45hRXs0Xsj9yYbmCdsUhBG43DpFEld216CxA=;
-        fh=Ak37jMcgOuUMLdbvunO8C8QqSqQEai8jqRORbSbi268=;
-        b=h5dltspA0PlSUnDE7gNxLnlJ0/kAnC+e5P29QnBx8DO+ZJvTGSEyQfvg5+bbG7VeYw
-         weKZYm94v8vPyi5AToB+W0kRPp+4CzTupYsXfFBe15sLuYg3Mx0pAAJ0q5Nlk2Yj1wfo
-         tgF26dcVql+DVp1usUBWtYfqQsPmGjEPtPGEiWkxrM7yCs8i6or9muQjBwIZMTp3wFlw
-         /T2qvMxdL5ZZHAhLeTnsUWqu2lzLUIUpwMf9eqNQwU31K/4A2CMesZNimTkAwoujRrpY
-         J3OWzM9nzRyQzDxpwsH2E40h8ismQBOn1hBv5k5Ay/QowW9c6MdSMvZVq3dI/jZV5FNP
-         wWog==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zy+f3Yfu"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-693c51a8a19so37737a12.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 10:58:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1783532773; x=1784137573; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iqseJKw45hRXs0Xsj9yYbmCdsUhBG43DpFEld216CxA=;
-        b=yBhnCfKvpw+DobjLZ9PhJeSCYhXDt0RBrgFCSHWzo+ADuJf8iWVVL5IJNx6Sv4EiS9
-         hFq/byxYRSdpg9TcF9QHWRdlfwKWY/2yl9JpVIHHouZT63GF3sgowihkD9hI1OkokgF2
-         aWWTUhsbwqZj7SaNyVr0MM1cSZO1Jrt1DOwTBI3jDPiQFq/2Xx3vky9L/Gldj3E40RTT
-         H3V4otUTX+EaurHtp4sHw43jvC19m0+FwLfd3GWYEPak2DLct9aaAVIP+Cl4denvuW87
-         u+pKO8DZrK5IKLfeb1urLTsdjS6kYXDbzD18BU3XIcVKT7aMjW9kWD5cb6LTwZS9AVKj
-         HTHA==
+        d=gmail.com; s=20251104; t=1783533536; x=1784138336; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mQO7OwEt2ayLBwYgGRVhBYGfbjzxMLDxfhpK0SkwD/o=;
+        b=Zy+f3Yfu/N/8tVVS/2aEcVR1GVrcbS53CCvzgs1q63rWItqT8wU9J7alx81f6xSTGQ
+         GtGMG+0cawyOmWcG8diitYzhCGQYBmTeglh3kt/DyElNScC/S1bw5oXQzjYp59uVEUYq
+         v73b+F2ijHYp9/KHfM+iTXJp8h3APA/O4VCbr5cTUm3bsBAQksH2FDRUycRvSD2V9CJ/
+         HR633lucUQO8CtFojS48UlEE/Ud4YLF3vGb19tQaUuQ+jjeJIQRYYQk6RcDuLOHujyYr
+         fQ/TxujbhbdWK8whc2VHRFEBd3jLYPsAC/0i8yi0C9Z4pqOwxTlK1lpkUAGSoZ8Fy0mG
+         HJZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783532773; x=1784137573;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iqseJKw45hRXs0Xsj9yYbmCdsUhBG43DpFEld216CxA=;
-        b=XAFLka+2hGYdxciKFKNvdcUOx7E+q0av4Bj1rXKx1MysNyhmPRWCaAhFxyHPS1U9Q0
-         Sn/ZTepHcLu/BWU8d1jcTB+u7AxQne7FLIqXCujNuLz/jpHkxMn9RS1RO05VBwZoHLko
-         Y5mTCdDkruj0FMXlQ0bsk9osD6cwUSThmbrNKm8+/l076cHC+9oXyN5NNDMtbh/VyHyj
-         XlYKKbsb+H8fCABfMlVwdPY3UIHDwQWLcwBqmB2WZNGoBjHRZ0u96roXZ7OmoXnWfksu
-         pFmwpgqvxpqrBZf/5jSr49S3Rf7uWem+nU9gDr2Wd1vdN0EkddGdH0mPy6ta6+UpmzDt
-         zEQg==
-X-Forwarded-Encrypted: i=1; AHgh+Rovk5q08hHMCkdRkhzRrEL+ORNVqCNQZgxkzYKlEP8lTJiANr/PmkZalEbq5Nzh08arRddDBwU4hNb+@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPNFuqeWxtiR141PLmzEpfrpVP8y9ewvAzrbx3cMOOkpiisd6J
-	2JIQggNWbdbnLSxkWBr1TzOHOHWrlc+JAOE+qE1phHs6ixr3b/xVnkFuUfx4j8/Ud6CEP2wXxod
-	xel9/w6N98f0IiU+DHJLTRBX210EGKqnY5apvYhjiYvJ6KCJG57nZ0aU=
-X-Gm-Gg: AfdE7cm/5i9iHhZ88Cfdoqkru7mW23rmTDPSlepoWnnL+n/IoDdd8TWjMb8ZWL4Qwoq
-	WYaGRLkWZddv9CF+VbZTY7/nSpV5oV+MEHj7w2nzIPoFs1C43J6NOc8UHzZyypWJqzaQA/GZkyb
-	M9rxYELVZLPp2D6ym4IU6p8zQ4kMpFvUE52C4QulPkLWY3FN0oZDrCT1dFi/yD14vxy645c4IpX
-	5RVMA1Kf4Y6A/UVi8Rk1WuR9lTbiScEQib73UiOoQ4JPuQu4Re1tphjodIy33LcIsZYAJY6uvju
-	g55fc6rrA98U/NsS2BblIx/SaD8AgSfEU4dSbf2jBBVBAFZrSDE=
-X-Received: by 2002:a05:6938:a08c:20b0:c11:fb01:c642 with SMTP id
- a640c23a62f3a-c15ce005650mr115272066b.17.1783532773640; Wed, 08 Jul 2026
- 10:46:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783533536; x=1784138336;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mQO7OwEt2ayLBwYgGRVhBYGfbjzxMLDxfhpK0SkwD/o=;
+        b=nWDwdImHIKl/iGEOjYJRjCA4O2FUorCcyXT5PAnx/Q11MQV44Jf6LCuGWoymEk0UNX
+         TcAU0Xv0g/p8Amj7YDqptcefkmlg5t8LBxI+trIO6zfKUX3CYtCTyZR+bHqQlOK2SmMc
+         CB2WO1swhsEJD09GlHLNK5M8ElK5tZwCN+Iedkyu4hAW7MuWHbQB7TJvr1mE1m7F26bk
+         8Gfreb3qFpcfoWGjqgnnLBhWQCkoJI3l0Np5ExBG2TpOK2HulcaXQRCPK1J8zNAWgaGu
+         7sUiUBkWN4/GTJkALxJejw7gTFjAnchihYKLcAnt1z/VZAXqOsQwS5O1BNLvxsFDNNXZ
+         S9ZA==
+X-Forwarded-Encrypted: i=1; AHgh+RoH0zf/cBBHZTdGAoVxSaCmSMigAgMN05+ON6VsxCbxxpLQdYYaWL7LB9h8xLroGgjxgI80MUURno1A@vger.kernel.org
+X-Gm-Message-State: AOJu0YwalLoVdBI3iP6+ti2r+q3P4vI2TyNxgsjMCT/4bKCViSWFEDb/
+	Z/Gb/NGlYOT6K9S7NMGYNeWLaLNmottoCMbyflMpCwXTWiR5grik47hN
+X-Gm-Gg: AfdE7cnKdD1Y3tc7usBAypyDN3oSkGlNp/qIBS5w4KWE6m3wgkyXZgM14EWxruHOPrD
+	Nz3BQlWwtklzqGR4bYPl/cfffh8sevntClwi6Hl1DNj8gPQK3PNMZfDfTirTJQCBvLUySKJCRhi
+	ryt23024+J9vRtcc95dgz0Hw9m840QQ82KZ28z0ZPf28257Y76Wv5sCATDAThAb6cx3lp8kPsF5
+	qz8vhs5jn7o6CKkCg5OXSu7uZJiAbOVgqe0tFiBJTpNGIQ3pHLdVZTNZo93jMJ2bMB3cimS8TXz
+	2fAn7cwG2Pt0EnXo8gj5tGgyP8FjYmi9EgCaCKQyXkvrZVEbScWjM40TqImmjHPthxb7+Kzn6il
+	tIO0ewffcLXkp5I6wXJEQvmwsQTV//BYj8NRh4Q0/Hks4P9+Yv3Q14wwCsWW31TvvanebmMctFS
+	oSFidV0g==
+X-Received: by 2002:a17:906:4fce:b0:c12:5e26:da50 with SMTP id a640c23a62f3a-c15ce14c65bmr157380766b.65.1783533535639;
+        Wed, 08 Jul 2026 10:58:55 -0700 (PDT)
+Received: from olympus.. ([2a0a:ef40:ea3:3f01:2e0:4cff:fe68:285])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad9bcc26sm357653666b.34.2026.07.08.10.58.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 10:58:55 -0700 (PDT)
+From: Dawid Olesinski <dawidro@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Corentin Labbe <clabbe@baylibre.com>,
+	linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Dawid Olesinski <dawidro@gmail.com>
+Subject: [PATCH v2 0/4] crypto: rockchip: Add RK356x/RK3588 cryptographic offloader
+Date: Wed,  8 Jul 2026 18:58:21 +0100
+Message-ID: <20260708175837.1718437-1-dawidro@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260708165201.624271-1-robert.marko@sartura.hr> <550f7779-8188-45db-8de3-c25eda948cbb@sirena.org.uk>
-In-Reply-To: <550f7779-8188-45db-8de3-c25eda948cbb@sirena.org.uk>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Wed, 8 Jul 2026 19:46:00 +0200
-X-Gm-Features: AVVi8Cfz0AdebYHyA0wucUiR5Guc3jIkYaeEJZQYyfl7PA2Z50uPMBVIKA0DJLA
-Message-ID: <CA+HBbNE6Y=N2677j5Lzs_edx1bTVjtmrP6jTaT-Mh_5GdFNNvA@mail.gmail.com>
-Subject: Re: [PATCH 1/4] spi: atmel-quadspi: add controller init callback
-To: Mark Brown <broonie@kernel.org>
-Cc: conor@kernel.org, nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev, 
-	robh@kernel.org, krzk+dt@kernel.org, alexandre.belloni@bootlin.com, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, daniel.machon@microchip.com, 
-	luka.perkov@sartura.hr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 8, 2026 at 7:23=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
-e:
->
-> On Wed, Jul 08, 2026 at 06:51:08PM +0200, Robert Marko wrote:
-> > Allow controller variants to provide a custom initialization callback
-> > through their capability data.
->
-> This doesn't apply against current code (specifically the DT patch).
->
-> As mentioned in submitting-patches.rst when submitting a patch series
-> you should supply a cover letter for that patch series which describes
-> the overall content of the series.  This helps people understand what
-> they are looking at and how things fit together.
+This series adds support for the second-generation (V2) Rockchip
+cryptographic hardware accelerator found on RK3568 and RK3588 SoCs.
 
-Hi Mark,
+The IP block provides AES (ECB, CBC, XTS) and hash (SHA-1, SHA-256,
+SHA-384, SHA-512, MD5, SM3) offload via an LLI-based DMA engine.
 
-Thanks for pointing that out. I missed that the SDMCC is not yet
-upstream, which is why this one didn't apply cleanly.
+The series is ordered as required: binding first, then driver, then
+the two DTS nodes that reference the binding.
 
-I'll make sure to include a cover letter when I respin the whole series.
+A prerequisite patch removing SECURECRU reset definitions from the
+non-secure CRU driver is sent separately to the clk/reset tree, as it
+touches a different subsystem. That patch is not a hard dependency for
+the driver to build or load, but it is needed for correctness on RK3588:
+those register offsets map into TrustZone-protected MMIO and must not be
+accessed directly by Linux.
 
-Regards,
-Robert
+This work started from unmerged patches by Corentin Labbe
+<clabbe@baylibre.com> posted at:
+https://patchew.org/linux/20231107155532.3747113-1-clabbe@baylibre.com/
 
+The implementation has been substantially reworked. Notable changes from
+Corentin's original series:
+  - DMA descriptor race condition and DMA mapping leak on timeout fixed
+  - Per-device algorithm copy replaces global device list, removing a
+    locking bottleneck and correctly supporting multiple instances
+  - Runtime PM autosuspend added; clocks and reset gated between requests
+  - Multi-SG hash requests routed to software fallback (hardware padding
+    engine requires total message length upfront and cannot maintain
+    state across LLI boundaries)
+  - Hardware interrupt enable register write corrected to use the
+    HIWORD_UPDATE mask that the hardware requires
+  - Software fallback for all registered algorithms; statesize promotion
+    for export/import compatibility with ARM Crypto Extensions drivers
+  - SCMI reset and clock references in DTS corrected for RK3588
 
+Tested on Orange Pi 5 Pro (RK3588S). All nine algorithm selftests pass.
+AES-CBC throughput measured at ~100 MiB/s with cryptsetup. PM
+autosuspend/resume verified over 1000 consecutive hash requests with no
+errors. 20 modprobe/rmmod cycles produce no DMA coherent memory leaks.
 
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+Patch series for the crypto subsystem:
+  [1/4] dt-bindings: crypto: rockchip: Add RK356x/RK3588 crypto engine
+  binding
+  [2/4] crypto: rockchip: Add RK356x/RK3588 cryptographic offloader driver
+  [3/4] arm64: dts: rockchip: Add crypto node to rk356x-base
+  [4/4] arm64: dts: rockchip: Add crypto node to rk3588-base
+
+Separate patch for clk/reset tree:
+  clk: rockchip: rk3588: Remove SECURECRU reset definitions
+
+Changes in v2:
+ - dt-bindings: wrap example in a bus node with #address/#size-cells = 2
+   and add the SCMI clock/reset dt-binding includes so dt_binding_check
+   passes (Rob Herring / Krzysztof Kozlowski review).
+ - crypto: fix Kconfig to select CRYPTO_SM3 instead of the non-existent
+   CRYPTO_SM3_GENERIC.
+ - crypto: drop IRQF_SHARED (the line is dedicated) and request the IRQ
+   only after clocks are enabled and the completion is initialised;
+   reorder probe accordingly.
+ - crypto: set a 32-bit DMA mask before allocating the descriptor table.
+ - crypto: suspend the device explicitly on removal before disabling
+   runtime PM to avoid leaking clocks.
+ - crypto: call synchronize_irq() on the DMA timeout paths to close a
+   race with delayed interrupts.
+ - crypto: convert fallback statistics to atomic_long_t.
+ - crypto: use cpu_to_le32() for all LLI descriptor fields (big-endian
+   correctness).
+ - crypto: read key/IV with get_unaligned_be32() to fix an alignment
+   fault and a big-endian double-swap.
+ - crypto: fix the CBC/XTS IV backup offset to use the processed length
+   instead of the scatterlist capacity.
+ - arm64: dts: rk356x: move the crypto node into unit-address order.
+
+v1: https://patchwork.kernel.org/project/devicetree/cover/20260530160704.3453555-1-dawidro@gmail.com/
+
+Build/rebase fixes (not from review):
+ - crypto: use sizeof(struct sm3_ctx) for the SM3 statesize, as
+   struct sm3_state was removed by the lib/crypto SM3 conversion.
+ - crypto: add the missing SHA-224 zero-message case.
+
+Dawid Olesinski (4):
+  dt-bindings: crypto: rockchip: Add RK356x/RK3588 crypto engine binding
+  crypto: rockchip: Add RK356x/RK3588 cryptographic offloader driver
+  arm64: dts: rockchip: Add crypto node to rk356x-base
+  arm64: dts: rockchip: Add crypto node to rk3588-base
+
+ .../crypto/rockchip,rk3588-crypto.yaml        |  75 ++
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  12 +
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  12 +
+ drivers/crypto/Kconfig                        |  32 +
+ drivers/crypto/Makefile                       |   1 +
+ drivers/crypto/rockchip/Makefile              |   5 +
+ drivers/crypto/rockchip/rk2_crypto.c          | 746 ++++++++++++++++++
+ drivers/crypto/rockchip/rk2_crypto.h          | 249 ++++++
+ drivers/crypto/rockchip/rk2_crypto_ahash.c    | 565 +++++++++++++
+ drivers/crypto/rockchip/rk2_crypto_skcipher.c | 728 +++++++++++++++++
+ 10 files changed, 2425 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.yaml
+ create mode 100644 drivers/crypto/rockchip/rk2_crypto.c
+ create mode 100644 drivers/crypto/rockchip/rk2_crypto.h
+ create mode 100644 drivers/crypto/rockchip/rk2_crypto_ahash.c
+ create mode 100644 drivers/crypto/rockchip/rk2_crypto_skcipher.c
+
+-- 
+2.47.3
+
