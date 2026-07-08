@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122124C6EEF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBE54C6F0D;
 	Wed,  8 Jul 2026 17:12:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783530757; cv=none; b=pnrMI5IoInUmZ30te7/YE8jWP+N7wCOmeS6cS+jTj6LbOhpEJovdfchZieRQurzsch2aDHE2rZtLTDtoe2/nK330AtdB8b5EeRuCwIbVP6QBuLLOYsndyvoKyppJmAn80JPJeu0yLiImuanamDIXkSQIUiGv6Dk9PllwtKR4Z4s=
+	t=1783530757; cv=none; b=crD1hD6oVtf6MKEY7yJr9gOCcj/noXlNqemadjM8F5Q7PcLAHfGCfPEyPGYx+bVYcYZo1ycr5BqzYqwE7r6tvykuoaJtlLK++Eb0VBsn49sce+MVSfTqeJ47XNlpnE7Y7ofSq6GprabTW1TQB3zor9Ybc7USz5sD1v69lU4A7oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783530757; c=relaxed/simple;
-	bh=uDIYz2uFATbQoBFK5ieshxBAZcZ9+zSmiUoYej2a4x8=;
+	bh=meb6FWfhYC4oYd6lRg8G4/avVFqNscJnmGXrqfTEY08=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PubBz4IokV9HWCTYLARQxhsQ2yo4pQ+I/fUTb710YweThA/0tJsRHdsl3H/toPmxsGZmTjNU917T72RJI3QOEkIWADowwtcU0JJLdWMJNzxm42thKTzbFGliWibfK/CSqAfoYuQr+w8RNpCdRl/is3f9fEFE8EIJEL5Pn3c1oQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BnwlX4Z2; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=rwfHhNKvlPEjQ1L96IjwAcs+iUZ/fHP7ZFk5adfkL61u4Rtiwvvn9t/9ng9fOCHa9DTajAgcvcBTAcdVfNsLe8SNtSONwDxmVqV3GHSOUeuDJVz68uYVmucYgFyMt2O35/SP9+P5+kpJqHnGQwl3oUklTkwPAk8MNccCv01kP3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxIsh2R0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BnwlX4Z2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C54B4C4AF14;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxIsh2R0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EC94EC2BCB9;
 	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783530756;
-	bh=uDIYz2uFATbQoBFK5ieshxBAZcZ9+zSmiUoYej2a4x8=;
+	s=k20201202; t=1783530757;
+	bh=meb6FWfhYC4oYd6lRg8G4/avVFqNscJnmGXrqfTEY08=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BnwlX4Z2MVGM41BghdSEm7AnoEQMdc0/8uDckFmwDXebJ36GC+MWheKNkmtAeDHPT
-	 eu3TEIpQ0t8SXsRYXP1JZy80sWrsJpyEoFiJEyltqOoWT0s9U1UNQ9DEuQy+9irFzu
-	 UtjtHqsMRp0D//WhuG9netRfpjLfeRAw/Fut7Hz/toofkQrRp/Oj+7xV/1fNDgc+9M
-	 IppnYoX4Q8UJIB9bDEc82O5uUf7/Rr2ke34E1TUwLLtYYiOh7ifMODgqm3RITUFkur
-	 7KnwpWxerWQ0/Vv1/xmL/PpAuDcQIpPQKbtwyg0rDCpA7WpqJzpnoRBev4o1fM255q
-	 ZvJNwXNQh+Qvg==
+	b=RxIsh2R0WspOx3A7HKaORNjnZKK3vmRDQU9H0fRQF7QUcUBAhno9yuBQmmO5zNcbe
+	 vIJQ4ypHv/RkALOWDbMXxH6SL8qZE8wbHJWF11DlVBKoAspwa21E9eMcHR+joldS4X
+	 YZ3hgq/UZG4bmM/drTA0KM0CX5U47FBKTpx2cvp/0BNuRQpLrG9dsM8pvVZpynYNLF
+	 owgLN9ymL5C+p5Rrua5rCEFvJEmIicvPN/PYp/EptRHy2wILWsdlVhQoR+L8vARTT/
+	 z++PKx8qPmO4ewypF27Juf8ISHbm0rA0HlycTFPlFWe5/oCvCiSm0pWztuHuqx344w
+	 4LITjwSrNdxpw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2C5FC44501;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA33CC44503;
 	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Wed, 08 Jul 2026 10:12:37 -0700
-Subject: [PATCH net-next v7 07/15] net: ethernet: oa_tc6: Move constant
- definitions to header file
+Date: Wed, 08 Jul 2026 10:12:39 -0700
+Subject: [PATCH net-next v7 09/15] net: ethernet: oa_tc6: Support for
+ vendor specific MMS
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,8 +40,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260708-s2500-mac-phy-support-v7-7-478c877aa1a9@onsemi.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260708-s2500-mac-phy-support-v7-9-478c877aa1a9@onsemi.com>
 References: <20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com>
 In-Reply-To: <20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com>
 To: Andrew Lunn <andrew@lunn.ch>, 
@@ -62,11 +62,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jerry Ray <jerry.ray@microchip.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783530757; l=13137;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783530757; l=3468;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=3gXwntDzFmCiEwU+4UPmat6Gtc9FbFlk+o+D29kHnnY=;
- b=xPSoOUe0eLz62Ho5yFqcg7cV0A2N1g+4FN9k1YbkwJCt++sHSYfQhnLaOPFlvusYKwrX33HFb
- dwm84wkxElvBq2yCjM83JEuBGtr+EzPnDqXVBbvsx54T5Nu8uBkzYwx
+ bh=kAvcvfZI+qrFnwbRDJm3yhKTDEjWkojRoOjPcD5Eqtc=;
+ b=ADU+ViecVwl+30kaFTDyLYZbbEsyve6VmbA6bcRSBK/HM4aE9L4Gk1+PqPcJ+96ztwIihW37/
+ YZv05IYOg0qD9muN8C7lYAxPJvz3HA5j6DOR7Salg8g0rVhyYFqMhr/
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -76,13 +76,12 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-To help other source files within the module share the
-constant definitions, they are moved to a header file.
+OPEN Alliance 10BASE-T1x Serial Interface specification, table 6
+allows vendors to use any memory map select (MMS) value between
+10 and 15. This new API interface enables vendor to map one of
+thes MMS values to MDIO_MMD_VEND1.
 
-The memory map selector(MMS) values that are defined in
-in Table 6 of OPEN Alliance 10BASE-T1x Serial Interface
-specification and currently used are added.
-
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
 ---
@@ -91,372 +90,97 @@ changes in v7
 changes in v6
   - No change
 changes in v5
-  - No change
+  - no change
 changes in v4
-  - Added MMS values 1 and 12, which are used now
+  - no change
 changes in v3
-  - Moved constant definitions from the source to newly created
-    header file for other sources in the directory to share.
-  - Standard specific defines are moved to Linux common header file
-  - First patch
+  - no change
+changes in v2
+  - Moved the handling of vendor specific MMS mapping to separate patch
+  - new patch
 ---
- drivers/net/ethernet/oa_tc6/oa_tc6.c         | 145 +------------------------
- drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h | 157 +++++++++++++++++++++++++++
- include/linux/oa_tc6.h                       |  15 +++
- 3 files changed, 173 insertions(+), 144 deletions(-)
+ drivers/net/ethernet/oa_tc6/oa_tc6.c | 21 ++++++++++++++++++---
+ include/linux/oa_tc6.h               |  1 +
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6.c b/drivers/net/ethernet/oa_tc6/oa_tc6.c
-index 0727d53345a3..bf96e8d1ccb9 100644
+index 939935cb170d..422f3f10b992 100644
 --- a/drivers/net/ethernet/oa_tc6/oa_tc6.c
 +++ b/drivers/net/ethernet/oa_tc6/oa_tc6.c
-@@ -12,150 +12,7 @@
- #include <linux/phy.h>
- #include <linux/oa_tc6.h>
+@@ -207,6 +207,18 @@ int oa_tc6_ioctl(struct oa_tc6 *tc6, struct ifreq *rq, int cmd)
+ }
+ EXPORT_SYMBOL_GPL(oa_tc6_ioctl);
  
--/* OPEN Alliance TC6 registers */
--/* Standard Capabilities Register */
--#define OA_TC6_REG_STDCAP			0x0002
--#define STDCAP_DIRECT_PHY_REG_ACCESS		BIT(8)
--
--/* Reset Control and Status Register */
--#define OA_TC6_REG_RESET			0x0003
--#define RESET_SWRESET				BIT(0)	/* Software Reset */
--
--/* Configuration Register #0 */
--#define OA_TC6_REG_CONFIG0			0x0004
--#define CONFIG0_SYNC				BIT(15)
--#define CONFIG0_ZARFE_ENABLE			BIT(12)
--
--/* Status Register #0 */
--#define OA_TC6_REG_STATUS0			0x0008
--#define STATUS0_RESETC				BIT(6)	/* Reset Complete */
--#define STATUS0_HEADER_ERROR			BIT(5)
--#define STATUS0_LOSS_OF_FRAME_ERROR		BIT(4)
--#define STATUS0_RX_BUFFER_OVERFLOW_ERROR	BIT(3)
--#define STATUS0_TX_PROTOCOL_ERROR		BIT(0)
--
--/* Buffer Status Register */
--#define OA_TC6_REG_BUFFER_STATUS		0x000B
--#define BUFFER_STATUS_TX_CREDITS_AVAILABLE	GENMASK(15, 8)
--#define BUFFER_STATUS_RX_CHUNKS_AVAILABLE	GENMASK(7, 0)
--
--/* Interrupt Mask Register #0 */
--#define OA_TC6_REG_INT_MASK0			0x000C
--#define INT_MASK0_HEADER_ERR_MASK		BIT(5)
--#define INT_MASK0_LOSS_OF_FRAME_ERR_MASK	BIT(4)
--#define INT_MASK0_RX_BUFFER_OVERFLOW_ERR_MASK	BIT(3)
--#define INT_MASK0_TX_PROTOCOL_ERR_MASK		BIT(0)
--#define INT_MASK0_ALL_INTERRUPTS                (GENMASK(5, 0) | \
--						 GENMASK(12, 7))
--
--/* PHY Clause 22 registers base address and mask */
--#define OA_TC6_PHY_STD_REG_ADDR_BASE		0xFF00
--#define OA_TC6_PHY_STD_REG_ADDR_MASK		0x1F
--
--/* Control command header */
--#define OA_TC6_CTRL_HEADER_DATA_NOT_CTRL	BIT(31)
--#define OA_TC6_CTRL_HEADER_WRITE_NOT_READ	BIT(29)
--#define OA_TC6_CTRL_HEADER_MEM_MAP_SELECTOR	GENMASK(27, 24)
--#define OA_TC6_CTRL_HEADER_ADDR			GENMASK(23, 8)
--#define OA_TC6_CTRL_HEADER_LENGTH		GENMASK(7, 1)
--#define OA_TC6_CTRL_HEADER_PARITY		BIT(0)
--
--/* Data header */
--#define OA_TC6_DATA_HEADER_DATA_NOT_CTRL	BIT(31)
--#define OA_TC6_DATA_HEADER_DATA_VALID		BIT(21)
--#define OA_TC6_DATA_HEADER_START_VALID		BIT(20)
--#define OA_TC6_DATA_HEADER_START_WORD_OFFSET	GENMASK(19, 16)
--#define OA_TC6_DATA_HEADER_END_VALID		BIT(14)
--#define OA_TC6_DATA_HEADER_END_BYTE_OFFSET	GENMASK(13, 8)
--#define OA_TC6_DATA_HEADER_PARITY		BIT(0)
--
--/* Data footer */
--#define OA_TC6_DATA_FOOTER_EXTENDED_STS		BIT(31)
--#define OA_TC6_DATA_FOOTER_RXD_HEADER_BAD	BIT(30)
--#define OA_TC6_DATA_FOOTER_CONFIG_SYNC		BIT(29)
--#define OA_TC6_DATA_FOOTER_RX_CHUNKS		GENMASK(28, 24)
--#define OA_TC6_DATA_FOOTER_DATA_VALID		BIT(21)
--#define OA_TC6_DATA_FOOTER_START_VALID		BIT(20)
--#define OA_TC6_DATA_FOOTER_START_WORD_OFFSET	GENMASK(19, 16)
--#define OA_TC6_DATA_FOOTER_END_VALID		BIT(14)
--#define OA_TC6_DATA_FOOTER_END_BYTE_OFFSET	GENMASK(13, 8)
--#define OA_TC6_DATA_FOOTER_TX_CREDITS		GENMASK(5, 1)
--
--/* PHY – Clause 45 registers memory map selector (MMS) as per table 6 in the
-- * OPEN Alliance specification.
-- */
--#define OA_TC6_PHY_C45_PCS_MMS2			2	/* MMD 3 */
--#define OA_TC6_PHY_C45_PMA_PMD_MMS3		3	/* MMD 1 */
--#define OA_TC6_PHY_C45_VS_PLCA_MMS4		4	/* MMD 31 */
--#define OA_TC6_PHY_C45_AUTO_NEG_MMS5		5	/* MMD 7 */
--#define OA_TC6_PHY_C45_POWER_UNIT_MMS6		6	/* MMD 13 */
--
--#define OA_TC6_CTRL_HEADER_SIZE			4
--#define OA_TC6_CTRL_REG_VALUE_SIZE		4
--#define OA_TC6_CTRL_IGNORED_SIZE		4
--#define OA_TC6_CTRL_MAX_REGISTERS		128
--#define OA_TC6_CTRL_SPI_BUF_SIZE		(OA_TC6_CTRL_HEADER_SIZE +\
--						(OA_TC6_CTRL_MAX_REGISTERS *\
--						OA_TC6_CTRL_REG_VALUE_SIZE) +\
--						OA_TC6_CTRL_IGNORED_SIZE)
--#define OA_TC6_CHUNK_PAYLOAD_SIZE		64
--#define OA_TC6_DATA_HEADER_SIZE			4
--#define OA_TC6_CHUNK_SIZE			(OA_TC6_DATA_HEADER_SIZE +\
--						OA_TC6_CHUNK_PAYLOAD_SIZE)
--#define OA_TC6_MAX_TX_CHUNKS			48
--#define OA_TC6_SPI_DATA_BUF_SIZE		(OA_TC6_MAX_TX_CHUNKS *\
--						OA_TC6_CHUNK_SIZE)
--#define STATUS0_RESETC_POLL_DELAY		1000
--#define STATUS0_RESETC_POLL_TIMEOUT		1000000
--
--/* Internal structure for MAC-PHY drivers */
--struct oa_tc6 {
--	struct net_device *netdev;
--	struct phy_device *phydev;
--	struct mii_bus *mdiobus;
--	struct spi_device *spi;
--	struct mutex spi_ctrl_lock; /* Protects spi control transfer */
--	spinlock_t tx_skb_lock; /* Protects tx skb handling */
--	void *spi_ctrl_tx_buf;
--	void *spi_ctrl_rx_buf;
--	void *spi_data_tx_buf;
--	void *spi_data_rx_buf;
--	struct sk_buff *ongoing_tx_skb;
--	struct sk_buff *waiting_tx_skb;
--	struct sk_buff *rx_skb;
--	u16 tx_skb_offset;
--	u16 spi_data_tx_buf_offset;
--	u16 tx_credits;
--	u8 rx_chunks_available;
--	bool rx_buf_overflow;
--	bool int_flag;
--	bool disable_traffic;
--};
--
--enum oa_tc6_header_type {
--	OA_TC6_CTRL_HEADER,
--	OA_TC6_DATA_HEADER,
--};
--
--enum oa_tc6_register_op {
--	OA_TC6_CTRL_REG_READ = 0,
--	OA_TC6_CTRL_REG_WRITE = 1,
--};
--
--enum oa_tc6_data_valid_info {
--	OA_TC6_DATA_INVALID,
--	OA_TC6_DATA_VALID,
--};
--
--enum oa_tc6_data_start_valid_info {
--	OA_TC6_DATA_START_INVALID,
--	OA_TC6_DATA_START_VALID,
--};
--
--enum oa_tc6_data_end_valid_info {
--	OA_TC6_DATA_END_INVALID,
--	OA_TC6_DATA_END_VALID,
--};
-+#include "oa_tc6_std_def.h"
- 
- static int oa_tc6_spi_transfer(struct oa_tc6 *tc6,
- 			       enum oa_tc6_header_type header_type, u16 length)
-diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-new file mode 100644
-index 000000000000..6bacf254a36a
---- /dev/null
-+++ b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-@@ -0,0 +1,157 @@
-+/* SPDX-License-Identifier: GPL-2.0+ */
-+/*
-+ * Register and driver related definitions to support
-+ * OPEN Alliance 10BASE‑T1x MAC‑PHY Serial Interface framework.
-+ *
-+ * Author: Selva Rajagopal <selvamani.rajagopal@onsemi.com>
++/**
++ * oa_tc6_set_vend1_mms - Add vendor specific MDIO_MMD to OA TC6 MMS
++ * mapper value.
++ * @tc6: oa_tc6 struct.
++ * @mms: vendor defined MMS value for VEND1 mdio device.
 + */
++void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms)
++{
++	tc6->vend1_mms = mms;
++}
++EXPORT_SYMBOL_GPL(oa_tc6_set_vend1_mms);
 +
-+#ifndef OA_TC6_STD_DEF_H
-+#define OA_TC6_STD_DEF_H
-+
-+#include <linux/ptp_clock_kernel.h>
-+#include <linux/net_tstamp.h>
-+#include <linux/netdevice.h>
-+#include <linux/spi/spi.h>
-+#include <linux/skbuff.h>
-+#include <linux/sched.h>
-+#include <linux/wait.h>
-+#include <linux/phy.h>
-+
-+/* OPEN Alliance TC6 registers */
-+/* Standard Capabilities Register */
-+#define OA_TC6_REG_STDCAP			0x0002
-+#define STDCAP_DIRECT_PHY_REG_ACCESS		BIT(8)
-+
-+/* Reset Control and Status Register */
-+#define OA_TC6_REG_RESET			0x0003
-+#define RESET_SWRESET				BIT(0)
-+
-+/* Configuration Register #0 */
-+#define OA_TC6_REG_CONFIG0			0x0004
-+#define CONFIG0_SYNC				BIT(15)
-+#define CONFIG0_ZARFE_ENABLE			BIT(12)
-+
-+/* Status Register #0 */
-+#define OA_TC6_REG_STATUS0			0x0008
-+#define STATUS0_RESETC				BIT(6)
-+#define STATUS0_HEADER_ERROR			BIT(5)
-+#define STATUS0_LOSS_OF_FRAME_ERROR		BIT(4)
-+#define STATUS0_RX_BUFFER_OVERFLOW_ERROR	BIT(3)
-+#define STATUS0_TX_PROTOCOL_ERROR		BIT(0)
-+
-+/* Buffer Status Register */
-+#define OA_TC6_REG_BUFFER_STATUS		0x000B
-+#define BUFFER_STATUS_TX_CREDITS_AVAILABLE	GENMASK(15, 8)
-+#define BUFFER_STATUS_RX_CHUNKS_AVAILABLE	GENMASK(7, 0)
-+
-+/* Interrupt Mask Register #0 */
-+#define OA_TC6_REG_INT_MASK0			0x000C
-+#define INT_MASK0_HEADER_ERR_MASK		BIT(5)
-+#define INT_MASK0_LOSS_OF_FRAME_ERR_MASK	BIT(4)
-+#define INT_MASK0_RX_BUFFER_OVERFLOW_ERR_MASK	BIT(3)
-+#define INT_MASK0_TX_PROTOCOL_ERR_MASK		BIT(0)
-+#define INT_MASK0_ALL_INTERRUPTS		(GENMASK(5, 0) | \
-+						 GENMASK(12, 7))
-+
-+/* PHY Clause 22 registers base address and mask */
-+#define OA_TC6_PHY_STD_REG_ADDR_BASE		0xFF00
-+#define OA_TC6_PHY_STD_REG_ADDR_MASK		0x1F
-+
-+/* Control command header */
-+#define OA_TC6_CTRL_HEADER_DATA_NOT_CTRL	BIT(31)
-+#define OA_TC6_CTRL_HEADER_WRITE_NOT_READ	BIT(29)
-+#define OA_TC6_CTRL_HEADER_MEM_MAP_SELECTOR	GENMASK(27, 24)
-+#define OA_TC6_CTRL_HEADER_ADDR			GENMASK(23, 8)
-+#define OA_TC6_CTRL_HEADER_LENGTH		GENMASK(7, 1)
-+#define OA_TC6_CTRL_HEADER_PARITY		BIT(0)
-+
-+/* Data header */
-+#define OA_TC6_DATA_HEADER_DATA_NOT_CTRL	BIT(31)
-+#define OA_TC6_DATA_HEADER_DATA_VALID		BIT(21)
-+#define OA_TC6_DATA_HEADER_START_VALID		BIT(20)
-+#define OA_TC6_DATA_HEADER_START_WORD_OFFSET	GENMASK(19, 16)
-+#define OA_TC6_DATA_HEADER_END_VALID		BIT(14)
-+#define OA_TC6_DATA_HEADER_END_BYTE_OFFSET	GENMASK(13, 8)
-+#define OA_TC6_DATA_HEADER_PARITY		BIT(0)
-+
-+/* Data footer */
-+#define OA_TC6_DATA_FOOTER_EXTENDED_STS		BIT(31)
-+#define OA_TC6_DATA_FOOTER_RXD_HEADER_BAD	BIT(30)
-+#define OA_TC6_DATA_FOOTER_CONFIG_SYNC		BIT(29)
-+#define OA_TC6_DATA_FOOTER_RX_CHUNKS		GENMASK(28, 24)
-+#define OA_TC6_DATA_FOOTER_DATA_VALID		BIT(21)
-+#define OA_TC6_DATA_FOOTER_START_VALID		BIT(20)
-+#define OA_TC6_DATA_FOOTER_START_WORD_OFFSET	GENMASK(19, 16)
-+#define OA_TC6_DATA_FOOTER_END_VALID		BIT(14)
-+#define OA_TC6_DATA_FOOTER_END_BYTE_OFFSET	GENMASK(13, 8)
-+#define OA_TC6_DATA_FOOTER_TX_CREDITS		GENMASK(5, 1)
-+
-+#define OA_TC6_CTRL_HEADER_SIZE			4
-+#define OA_TC6_CTRL_REG_VALUE_SIZE		4
-+#define OA_TC6_CTRL_IGNORED_SIZE		4
-+#define OA_TC6_CTRL_MAX_REGISTERS		128
-+#define OA_TC6_CTRL_SPI_BUF_SIZE		(OA_TC6_CTRL_HEADER_SIZE +\
-+						(OA_TC6_CTRL_MAX_REGISTERS *\
-+						OA_TC6_CTRL_REG_VALUE_SIZE) +\
-+						OA_TC6_CTRL_IGNORED_SIZE)
-+#define OA_TC6_CHUNK_PAYLOAD_SIZE		64
-+#define OA_TC6_DATA_HEADER_SIZE			4
-+#define OA_TC6_CHUNK_SIZE			(OA_TC6_DATA_HEADER_SIZE +\
-+						OA_TC6_CHUNK_PAYLOAD_SIZE)
-+#define OA_TC6_MAX_TX_CHUNKS			48
-+#define OA_TC6_SPI_DATA_BUF_SIZE		(OA_TC6_MAX_TX_CHUNKS *\
-+						OA_TC6_CHUNK_SIZE)
-+#define STATUS0_RESETC_POLL_DELAY		1000
-+#define STATUS0_RESETC_POLL_TIMEOUT		1000000
-+
-+/* Internal structure for MAC-PHY drivers */
-+struct oa_tc6 {
-+	struct net_device *netdev;
-+	struct phy_device *phydev;
-+	struct mii_bus *mdiobus;
-+	struct spi_device *spi;
-+	struct mutex spi_ctrl_lock; /* Protects spi control transfer */
-+	spinlock_t tx_skb_lock; /* Protects tx skb handling */
-+	void *spi_ctrl_tx_buf;
-+	void *spi_ctrl_rx_buf;
-+	void *spi_data_tx_buf;
-+	void *spi_data_rx_buf;
-+	struct sk_buff *ongoing_tx_skb;
-+	struct sk_buff *waiting_tx_skb;
-+	struct sk_buff *rx_skb;
-+	u16 tx_skb_offset;
-+	u16 spi_data_tx_buf_offset;
-+	u16 tx_credits;
-+	u8 rx_chunks_available;
-+	bool rx_buf_overflow;
-+	bool int_flag;
-+	bool disable_traffic;
-+};
-+
-+enum oa_tc6_header_type {
-+	OA_TC6_CTRL_HEADER,
-+	OA_TC6_DATA_HEADER,
-+};
-+
-+enum oa_tc6_register_op {
-+	OA_TC6_CTRL_REG_READ = 0,
-+	OA_TC6_CTRL_REG_WRITE = 1,
-+};
-+
-+enum oa_tc6_data_valid_info {
-+	OA_TC6_DATA_INVALID,
-+	OA_TC6_DATA_VALID,
-+};
-+
-+enum oa_tc6_data_start_valid_info {
-+	OA_TC6_DATA_START_INVALID,
-+	OA_TC6_DATA_START_VALID,
-+};
-+
-+enum oa_tc6_data_end_valid_info {
-+	OA_TC6_DATA_END_INVALID,
-+	OA_TC6_DATA_END_VALID,
-+};
-+#endif /* OA_TC6_STD_DEF_H */
-+
+ static __be32 oa_tc6_prepare_ctrl_header(u32 addr, u8 length,
+ 					 enum oa_tc6_register_op reg_op)
+ {
+@@ -460,7 +472,7 @@ static int oa_tc6_mdiobus_write(struct mii_bus *bus, int addr, int regnum,
+ 				     val);
+ }
+ 
+-static int oa_tc6_get_phy_c45_mms(int devnum)
++static int oa_tc6_get_phy_c45_mms(struct oa_tc6 *tc6, int devnum)
+ {
+ 	switch (devnum) {
+ 	case MDIO_MMD_PCS:
+@@ -473,6 +485,8 @@ static int oa_tc6_get_phy_c45_mms(int devnum)
+ 		return OA_TC6_PHY_C45_AUTO_NEG_MMS5;
+ 	case MDIO_MMD_POWER_UNIT:
+ 		return OA_TC6_PHY_C45_POWER_UNIT_MMS6;
++	case MDIO_MMD_VEND1:
++		return tc6->vend1_mms;
+ 	default:
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -485,7 +499,7 @@ static int oa_tc6_mdiobus_read_c45(struct mii_bus *bus, int addr, int devnum,
+ 	u32 regval;
+ 	int ret;
+ 
+-	ret = oa_tc6_get_phy_c45_mms(devnum);
++	ret = oa_tc6_get_phy_c45_mms(tc6, devnum);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -502,7 +516,7 @@ static int oa_tc6_mdiobus_write_c45(struct mii_bus *bus, int addr, int devnum,
+ 	struct oa_tc6 *tc6 = bus->priv;
+ 	int ret;
+ 
+-	ret = oa_tc6_get_phy_c45_mms(devnum);
++	ret = oa_tc6_get_phy_c45_mms(tc6, devnum);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1333,6 +1347,7 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev)
+ 	SET_NETDEV_DEV(netdev, &spi->dev);
+ 	mutex_init(&tc6->spi_ctrl_lock);
+ 	spin_lock_init(&tc6->tx_skb_lock);
++	tc6->vend1_mms = -EOPNOTSUPP;
+ 	tc6->tx_ts_idx = OA_TC6_TTSCA_REG_ID;
+ 	INIT_LIST_HEAD(&tc6->tx_ts_skb_q);
+ 
 diff --git a/include/linux/oa_tc6.h b/include/linux/oa_tc6.h
-index 15f58e3c56c7..39b80033dfa9 100644
+index e678a12aedf1..58668f169ea2 100644
 --- a/include/linux/oa_tc6.h
 +++ b/include/linux/oa_tc6.h
-@@ -7,9 +7,23 @@
-  * Author: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-  */
- 
-+#ifndef _LINUX_OA_TC6_H
-+#define _LINUX_OA_TC6_H
-+
- #include <linux/etherdevice.h>
- #include <linux/spi/spi.h>
- 
-+/* PHY – Clause 45 registers memory map selector (MMS) as per table 6 in
-+ * the OPEN Alliance specification.
-+ */
-+#define OA_TC6_PHY_C45_MAC_MMS1			1	/* No MMD */
-+#define OA_TC6_PHY_C45_PCS_MMS2			2	/* MMD 3 */
-+#define OA_TC6_PHY_C45_PMA_PMD_MMS3		3	/* MMD 1 */
-+#define OA_TC6_PHY_C45_VS_PLCA_MMS4		4	/* MMD 31 */
-+#define OA_TC6_PHY_C45_AUTO_NEG_MMS5		5	/* MMD 7 */
-+#define OA_TC6_PHY_C45_POWER_UNIT_MMS6		6	/* MMD 13 */
-+#define OA_TC6_PHY_C45_VS_MMS12			12	/* for vendors */
-+
- struct oa_tc6;
- 
- struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev);
-@@ -22,3 +36,4 @@ int oa_tc6_read_registers(struct oa_tc6 *tc6, u32 address, u32 value[],
- 			  u8 length);
- netdev_tx_t oa_tc6_start_xmit(struct oa_tc6 *tc6, struct sk_buff *skb);
- int oa_tc6_zero_align_receive_frame_enable(struct oa_tc6 *tc6);
-+#endif /* _LINUX_OA_TC6_H */
+@@ -47,5 +47,6 @@ void oa_tc6_get_ts_stats(struct oa_tc6 *tc6,
+ 			 struct ethtool_ts_stats *stats);
+ int oa_tc6_hwtstamp_set(struct oa_tc6 *tc6,
+ 			struct kernel_hwtstamp_config *cfg);
++void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms);
+ void oa_tc6_ptp_unregister(struct oa_tc6 *tc6);
+ #endif /* _LINUX_OA_TC6_H */
 
 -- 
 2.43.0
