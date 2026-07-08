@@ -1,141 +1,326 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010004.outbound.protection.outlook.com [52.101.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8DD376A0B;
-	Wed,  8 Jul 2026 06:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783491288; cv=fail; b=O93ybwnCA37Ui22Cf6tRjz8CcG5cwfx+lM/yZI28YU20w4YLPxRxJbKD5AVKCb5Gbm0b9cyM8RcZM2NX48W9Bk9JvDun3EEmA1BQ1scFxyrD+9mXYPOtTNP5foliQPlZebxAzRqIvRgembZOgd5K3iiMFEe1+/VcdPwP/gBiqLM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783491288; c=relaxed/simple;
-	bh=I3bZ88C66V6HFKhaWI5jy3JTUop5eLI3MOR7Pc6VePI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DdIoQyj1sqNzI3y4jV5yVTti3JC0HdiJEvgxqudaz6nFm9cvXjNn+bzzz8IYu7CMSl6i6424iM6slWn+gsSSbcz3gqbPU+tr59J+II8OQUDet/YQ6w0odUMPK/yzkQGD9uLoZxQP5XGpOLW3mwePuToubnbTIo+CN86DI//mSLY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cOd7wxjI; arc=fail smtp.client-ip=52.101.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8A53126BF;
+	Wed,  8 Jul 2026 06:15:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783491357; cv=none; b=CPC7+O59FWg1uotNnb+GlpxY4jdcDrMA+8nInz5lhvE0fFqYdbpU4PTrxvSo64lkqX3Pw35UwQaYNJiLaxptHgQumomfB4lVCF9TKB3EcqOcZN2qVcFEXU5/ZwNeL2xp0kazdeU6BKrTQMLciM5E7CFkSOLShsahSW7l+5OZemw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783491357; c=relaxed/simple;
+	bh=pIUQ4l/zyckh6vUaw6vYAa6JnTL6+y1795NFYKUQuuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VDOsKS11/xkUbRHktRWddEkslxU9Ex2VobVGKFjG6tSDZMxjA0B2TgGEGfctsv0X9VZ4z7M9JHDKYiXmJDl6QgILOf5bYVPo6K7ikju4P+CgQETFNYC7Rnx7OgAxuUE6A72Pdgnqp6mxai7CwMD7GJxNTlNPzCw+nsPWcr3pBbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOQjCEKz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cOd7wxjI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NuoNlP2lnSmN79zravD+PDF0pR9eysu+++JDXlK3+G2e7u5DEwwTAAIna4qEqS1PbcpJjwWhKs9P5wmAHUf9YodjbvSTXhVYRKtaEpNj0oesYICwh3786iPCvoheQUAZhql2K+WEssw9dn/7ylVmZGJ4bv9saUOYj76bTiXeFgOs5mQO9fPYFqYUCbaWrYODV/gYnP3COXj7b1a4geCpMjC8xsV00z8kirlz8/G3OAeqHUkrVuVUbhbasYaJOD2T8I52bmPHJ9Hg1qcPcQqO3cTXM6WNTxe4NUGpEaZ+H7oOynEW03wYwDVnvoPRfb84VybYJm4txiaaKFYhTX7mlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I3bZ88C66V6HFKhaWI5jy3JTUop5eLI3MOR7Pc6VePI=;
- b=H7olsI7Mu3NiUQPcKfzi2Eyx6nFnuaiPP14s56qzBc2kEUcsAIzFx1bdZDo9F1eqfkDne4gQ18tbQhHRSIwO/Lez5ADatHXoBioTQqijDH3ckzoHtVOSjOzQzD4BmxYYYazho+JNfOpnko7a6wA4lajqXAbZdvKLGVK1tBjjv122ptK4HkhvcqOCIhGQx7tZPj95DnpzH/HazIysYD4lWH7nWvVK/yDHieA433UiOiPWaaBjcxbGoBiVhuy6MVu1qxv00CXwFKurxs6ehy/zAcwgdjI08mPv86DQFyKtW0/MzvYI2mjGoWjFbZ3465/kyeLf7mfw9wBHgFf+pR612w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I3bZ88C66V6HFKhaWI5jy3JTUop5eLI3MOR7Pc6VePI=;
- b=cOd7wxjIoJNSTK2pTjufGKF9aGYe4MCmz/Q8r/pS6LoAf652yoFl8d4JrLNG2MHMe3oJZa23zVCIpX9heJ8z2sC+H/Z9wtOfIpz3FlVhgrw+72s80mFUFED2UrtOu2yf1elLNPw1zQdcEXHYL/1GWIKIoye9MC57v0BozSGY+YGhWfxXk4yCKEOc36WhVxffCQTNoBTaSyV8WV/m6mX7GxaRf7nA6+7btEEIHLGU+fFFZSqdVMQ8b12aCMsx60wco0G0Atj0KTKmDYVXOm9XkCRINzKecGfv2q9elWHmRTaygrU0XrlnNy1piB4LIpi7G4gDR3bpja6UiPV50ilymw==
-Received: from BL1PR13CA0191.namprd13.prod.outlook.com (2603:10b6:208:2be::16)
- by CY8PR12MB7564.namprd12.prod.outlook.com (2603:10b6:930:97::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Wed, 8 Jul
- 2026 06:14:40 +0000
-Received: from BN2PEPF000044A8.namprd04.prod.outlook.com
- (2603:10b6:208:2be:cafe::82) by BL1PR13CA0191.outlook.office365.com
- (2603:10b6:208:2be::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.9 via Frontend Transport; Wed, 8
- Jul 2026 06:14:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF000044A8.mail.protection.outlook.com (10.167.243.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Wed, 8 Jul 2026 06:14:39 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 7 Jul
- 2026 23:14:24 -0700
-Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 7 Jul
- 2026 23:14:21 -0700
-From: Jacky Huang <jackyhuang@nvidia.com>
-To: <sashiko-reviews@lists.linux.dev>
-CC: Jacky Huang <jackyhuang@nvidia.com>, <andrew@codeconstruct.com.au>,
-	<joel@jms.id.au>, <robh@kernel.org>, <krzysztof.kozlowski@oss.qualcomm.com>,
-	<conor+dt@kernel.org>, <andrew@lunn.ch>, <devicetree@vger.kernel.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA VR-NVL BMC
-Date: Wed, 8 Jul 2026 15:13:43 +0900
-Message-ID: <20260708061352.2885386-1-jackyhuang@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260706101526.2556226-3-jackyhuang@nvidia.com>
-References: <20260706101526.2556226-1-jackyhuang@nvidia.com> <20260706101526.2556226-3-jackyhuang@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOQjCEKz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6841F000E9;
+	Wed,  8 Jul 2026 06:15:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783491355;
+	bh=0k5II8l8SmqeI+eI4lrAlQGKex7vSPZrEvokGtu5P1U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IOQjCEKzAGl2EPxaOBq8AwDpbcOHv9g1XYjFHTNdnnFBZhqjghnm0EW0gXGu9e/3n
+	 VK0Muko6N+6PO+73JFdb1q/q6M+yGcuVWssdEgUTKxDHzKmn4QxLeSDfDdah2vhynw
+	 tO4+dpTqUjKc7cR0MMxl3AnUKoNDW8IOpNqvrEKD0eLw9/6JElhdY+V+BFGpaRMgxV
+	 HxDsEK6HJWx3tppvrVBJEnfoMw2nJGJ+O7GhOZGXITPMwJQscXf0ivcWjCs9q+CR4S
+	 WeZp+2f4JPDUu/PULFQDR81LC3jbrV/YZ9Dw4p2VKg63zQ0Y4wxvEIxhLktyvpIPQT
+	 BUY23mOdMfWVg==
+Date: Wed, 8 Jul 2026 08:15:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+Message-ID: <20260708-gentle-classy-tiger-af3ab0@quoll>
+References: <20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org>
+ <20260708-x1e-csi2-phy-v9-1-0210b90c04cf@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A8:EE_|CY8PR12MB7564:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8fecfa8-5edf-4bc9-c484-08dedcb831d6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|30052699003|7416014|376014|11063799006|4143699003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	CtiOzK3IWcQlLQgENkx5Osi+eI0qD/DfNWQ74UEgFTcBWTr/FY4eJFQOy9iMNvTg7hCuAEQrV33whNGXfdbrxwHqzjfONDAHalBLmxI4BZercDBfpvO3v3ilJr1VKSMTcJ/KLRliCm1LrwUAdgYT5Gz2qqBD55nGLbdBuLAgSM9gMFdRlRRhNrproejaSizJF2vHHnu9UV/ElZQNs4bVwk+MgrM+tK+5r+PDs1vnVTy8Q6+6lGQPHNuUKitw6qqGbQxd7o6JhBc0o13KslI2EaqlrS4oZbNIWUlUHOZRjcDh8RniBRI/Vxw3R1lSsXMN7FsB2Zsz35C2zITGXeg2DACX5e81/k2UkAW29+RbgwNOjF+SNMdkTgxAyEkQzOpOQ0Xh0AhU/GODW9YVBmjSP1ni+lSf1KLzNoIH7RvHN/b9NA3ll9L7SB3Ocj1okz6kJ9sfROaDggrxHETotDmW3IbHDMziRz58IoNTJeUmE2GxixdIPDcIvGqCVrv92mcVbaK+Km/hr1dc8uuy4q3PSf4ek7R5xkm5Q21Z7xjKnlYp77sqam/iw06RjtfEX1kQNTbe+Mr4/W+jbiFrCRm0xYIsrlLL0R/n68wQZSMmN+OKFp6WzxarZfYECUt43hNe0zgImBVsiWeuoPqd8RV/EgwS+J9lrpV1HTSMZJWYTP2onCSlESqLWLDFxsr03zL4ZP/y1lhLZvAmG/OZryY9vg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(30052699003)(7416014)(376014)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xdZ4R90iNcYQu77M2arQMfjBukuw3DjblNZ3P/rlgXwBQiRYrRLCIBZkfUKdnhqVsRJAbfZx/mIvLQ3rE3UBcjY8hS3Li1raKTYg2NH9M/mvUDkCo5MlYZWYsx05bDQUINYSq/lKIVUt/jG23uwwyC/ZZDTmX/lE9/J4gK2sP/ADNFKEYG/5tBgf0hI/lkvUNjel4bYEdUJiH3hQZbN0hrJ60nP6MEaepkJbx2oNQGdWt0ZalM5lX2LkUMiDqih6YDbs00vk8grBE7ru8a/BwGGJxCYHUv9ubmBlkHg0XyuCIdySAeCLFkiWMWtJFGRrJY8iHz9Ja4O246W3mVdEns0JLiqGZ5tGgmF0dgjge6YGoUFKD/yw+M92NupB4XODmy3FYnkuxxObAanVFDVlBxgKosum99ChpD77a4TezhiU+IvAGJpGoTW+zn+GV71M
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 06:14:39.9617
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8fecfa8-5edf-4bc9-c484-08dedcb831d6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A8.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7564
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260708-x1e-csi2-phy-v9-1-0210b90c04cf@linaro.org>
 
-On Mon, Jul 06, 2026 at 10:24:00AM +0000, sashiko-bot wrote:
-> [Severity: High]
-> Does this incorrectly nest cp2112a inside an interface@1 node?
->
-> The CP2112 is a single-interface USB Class 0 device. According to the USB
-> device tree bindings and the kernel's usb_of_has_combined_node() logic,
-> shouldn't this be defined as a standalone device node directly on device@1,
-> similar to how cp2112c and cp2112g are defined?
->
-> By nesting cp2112a inside interface@1 with reg = <1 1> (specifying interface
-> 1 when the CP2112 only has interface 0), it seems the USB subsystem will
-> fail to match the OF node to the device. Could this cause the
-> gpio-controller and interrupt-controller properties to be ignored?
+On Wed, Jul 08, 2026 at 12:39:02AM +0100, Bryan O'Donoghue wrote:
+> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+> PHY devices.
+> 
+> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
+> 
+> The schema here defines two ports with three endpoints:
+> 
+> port@0: Sensor input.
+>           endpoint@0: primary sensor
+>           endpoint@1: optional second sensor, implies DPHY split-mode
+> 
+> port@1: Controller output.
 
-This was already addressed in the v1 thread. cp2112a and cp2112b are
-NVIDIA composite devices that expose 3 USB interfaces, so
-usb_of_has_combined_node() returns false and interface@1 is used.
+Do not paste contents of the diff into the commit message, it brings no
+benefits.
 
-> [Severity: High]
-> Are the properties for cp2112b also incorrectly nested in an interface@1
-> child node here?
->
-> Similar to cp2112a above, defining this inside an interface node rather than
-> directly on device@1 could prevent the USB core from attaching the OF nodes
-> to the instantiated devices, silently breaking GPIO and interrupt control.
+> 
+> The CSIPHY devices have their own pinouts on the SoC as well as their own
+> individual voltage rails.
+> 
+> The need to model voltage rails on a per-PHY basis leads us to define
+> CSIPHY devices as individual nodes.
 
-Same as above for cp2112b. No change is needed.
+This entire commit msg is difficult to read - every sentence per
+paragraph.
 
-Jacky
+This makes no sense.
+
+We do not write like that.
+
+Please organize the flow in some logical chunks and combine paragraphs.
+
+So it will be easier to read.
+
+> 
+> Two nice outcomes in terms of schema and DT arise from this change.
+> 
+> 1. The ability to define on a per-PHY basis voltage rails.
+> 2. The ability to require those voltage.
+> 
+> We have had a complete bodge upstream for this where a single set of
+> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+> 
+> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+> CAMSS parlance, the CSIPHY devices should be individually modelled.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 202 +++++++++++++++++++++
+>  1 file changed, 202 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> new file mode 100644
+> index 0000000000000..a7fbf6804cd9e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> @@ -0,0 +1,202 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SoC CSI2 PHY
+
+Qualcomm X1E80100 SoC....
+
+> +
+> +maintainers:
+> +  - Bryan O'Donoghue <bod@kernel.org>
+> +
+> +description:
+> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
+> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
+> +  modes.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,x1e80100-csi2-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#phy-cells":
+> +    const: 1
+> +    description:
+> +      The single cell specifies the PHY operating mode.
+> +
+> +  clocks:
+> +    maxItems: 3
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: timer
+> +      - const: ahb
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  operating-points-v2: true
+
+opp-table:
+  type: object
+
+> +
+> +  power-domains:
+> +    items:
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +      - description: MMCX voltage rail
+> +      - description: MXC or MXA voltage rail
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: top
+> +      - const: mmcx
+> +      - const: mx
+> +
+> +  vdda-0p8-supply:
+> +    description: Phandle to a 0.8V regulator supply to a PHY.
+> +
+> +  vdda-1p2-supply:
+> +    description: Phandle to 1.2V regulator supply to a PHY.
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description:
+> +          Sensor input. Always present. A single sensor is described by a
+> +          single endpoint with one to four data lanes. DPHY split mode,
+> +          where two independent sensors share the same PHY, is described
+> +          by two endpoints; endpoint@0 with exactly two-data lanes and
+> +          endpoint@1 with exactly one data-lane.
+> +        unevaluatedProperties: false
+> +
+> +        patternProperties:
+> +          "^endpoint(@[0-9a-f]+)?$":
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +              remote-endpoint: true
+
+Drop this one
+
+Blank line
+
+> +            required:
+> +              - data-lanes
+> +              - remote-endpoint
+> +
+> +        allOf:
+> +          - if:
+> +              required:
+> +                - endpoint@1
+> +            then:
+> +              properties:
+> +                endpoint@0:
+> +                  properties:
+> +                    data-lanes:
+> +                      minItems: 2
+> +                      maxItems: 2
+> +                endpoint@1:
+> +                  properties:
+> +                    data-lanes:
+> +                      maxItems: 1
+> +              required:
+> +                - endpoint@0
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+
+This is odd, don't use endpoint-base below. Why do you need it? That's
+just /schemas/graph.yaml#/properties/port schema, no?
+
+> +        description: Output to the CAMSS CSID controller.
+> +        unevaluatedProperties: false
+> +
+> +        patternProperties:
+> +          "^endpoint(@[0-9a-f]+)?$":
+> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+> +            unevaluatedProperties: false
+> +            properties:
+> +              remote-endpoint: true
+> +            required:
+> +              - remote-endpoint
+
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#phy-cells"
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - operating-points-v2
+> +  - power-domains
+> +  - power-domain-names
+> +  - vdda-0p8-supply
+> +  - vdda-1p2-supply
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +
+> +    phy@ace4000 {
+> +        compatible = "qcom,x1e80100-csi2-phy";
+> +        reg = <0x0ace4000 0x2000>;
+> +        #phy-cells = <1>;
+> +
+> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +                 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +        clock-names = "core",
+> +                      "timer",
+> +                      "ahb";
+> +
+> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +        operating-points-v2 = <&csiphy_opp_table>;
+> +
+> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +                        <&rpmhpd RPMHPD_MMCX>,
+> +                        <&rpmhpd RPMHPD_MX>;
+> +        power-domain-names = "top",
+> +                             "mmcx",
+> +                             "mx";
+> +
+> +        vdda-0p8-supply = <&vreg_l2c_0p8>;
+> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                csiphy0_in: endpoint {
+> +                    data-lanes = <0 1 2 3>;
+> +                    remote-endpoint = <&sensor_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +                csiphy0_out: endpoint {
+> +                    remote-endpoint = <&csid_in>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +    csiphy_opp_table: opp-table {
+
+Drop node, if outside then not really relevant to the example.
+
+Best regards,
+Krzysztof
+
