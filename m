@@ -1,118 +1,406 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24B23A6B81
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:54:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D394D3A6B81;
+	Wed,  8 Jul 2026 21:55:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783547695; cv=none; b=bbbU42JoziUQ6Rp2jkFNSHFnRGVFtwwExoFQSatnYLWO/+rVQ75Ew7o2tG5r6ji+tGokVXXLY4V7/4EnFD/fWJH5VtLLrM51+gmf1eksG7YZvoEfIg3zqAI16LGsXINDdM0GHTX2Kmh1+c9wYSQaa2LpY2H4U2WHQlDO5HSi6oc=
+	t=1783547754; cv=none; b=Uz5n9jS9UyY5T6ZWD6Wwwsf05EYtF17pH8A7C932GML2oSgdmfpIHoZSO8LURCEm8Tv60w7uUha1NU9cYb+i6C+DGHS6p2oOJeWeGXo+hPIBadzj/I8EIaVDJyez9fUq+UNxnZiOzXygE8ynUu1GJiup+fBUKh4KTmOzVAPjcnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783547695; c=relaxed/simple;
-	bh=Ex0+gpCjDRtY5+oMEEU6B/9q/Q09KrwZIKePjAaza18=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k+8c0vYw1gLn85T6R6vPQLRhtYW5N7jqw/NrqSPcdOnJzvf1OcaIcyf+2p1IPo7nA6KDfFydW92ONLvLho5jthweTxfqy7IQWRDafmdesFe5A6gnHGQlLA/fSpZGNXXHGGolZaJiqvQEapBiJerzQsMJPdjMYDxCZEQPhXKNRpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AgCm2ae5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783547754; c=relaxed/simple;
+	bh=mQONm8E+JkVSZWfARwyuTio0dPnEF5IwNfcfzS9UkFw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g+MX9qOe+WS2nDAKsaBPO0y/tj3F+fcYsIQ3jPZhulvn2t/gtmzhS7ag1ebTUTINykJ/MhUuxFkaEPogYGyBx5hefjMz45eOwEJikAloAkP0xW6+NrnExyagF9dNBGrzGdAz7vQPOaYwwjdlJ5xjdKJELx8J7TxwYpjEIUItThI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T4pVv/DP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AgCm2ae5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2879A1F000E9;
-	Wed,  8 Jul 2026 21:54:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T4pVv/DP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81091F000E9;
+	Wed,  8 Jul 2026 21:55:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783547694;
-	bh=6w+R1mf0TlvlvB1TKHCcuq+a4bqdxoEHhEQSGGmNSk8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AgCm2ae5GjSC73o8AIlDs0/hieZBjH8lMFcTxWhgq1cFtQ+ZHB6cIFILxq5k1w0oz
-	 tuTwyiaUMZ+HuLCzH+6WS27rW7nZQnJwMSIA/DXyzQSeSBfFkgA78g6GqClI8yglNU
-	 vfzQZhISIKwCH08+zYHjGmh3PxwjRjeq3aPgb3utQFNOtwGc38taZFY/6IFbOsoMVH
-	 3mRZvUr6aYY5Y6i5faSPiIyS2A6fN5JD1JEaB4mr7gese97ciCOTEA8/HluPHDY6xG
-	 tprSz3m/AXvWl9juq+yOvBYAh29c4Qc72QC0hU/0vTZLxIzAeREwbvsUURkv+MSoEM
-	 jBhq8wpmK7pQQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] dt-bindings: display: panel: add compatible for
- DCLTek 300250 9.35in panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marc-Olivier Champagne" <marc-olivier.champagne@savoirfairelinux.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260708213500.1867092-5-marc-olivier.champagne@savoirfairelinux.com>
-References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
- <20260708213500.1867092-5-marc-olivier.champagne@savoirfairelinux.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 21:54:53 +0000
-Message-Id: <20260708215454.2879A1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783547752;
+	bh=18M0o3bms/FWqXkbeCx1DIT7uNO8cNtKfuRe5v9zuL4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T4pVv/DPQZeN1DflmRgh80MUtzF9ZIXol+CG7beLlbMqWe2yB0eeM23vHt6LrhzUP
+	 Kw2eAK9UensxbWIL3lmtHLMQaM+CgXE6N5jQsCwx4FcvBzJTqXzQglWYFJDAjXV8bD
+	 nnq/ckAfCDP50jZiHUcpG/Mzvupi+1WXoEYmPLEVWgBclB4GLDg/WkxJ7dagh8gIoj
+	 pcI8MdPYvWTJcPKC8NuNJRtynSVzH7MDXmIV2N6Bg9ktXYCJE5co0CMjyEMsrC8U7b
+	 aICTMh5iAcwZn2IJ73teHp1ATvjqvWmY9we+rhZpTgEHReWJEkNEupbSEytVjQ6cfg
+	 uRg1qhZhatayA==
+Message-ID: <3ab676ac-919b-4a80-8dd6-71dd7f6fe06c@kernel.org>
+Date: Wed, 8 Jul 2026 22:55:48 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org>
+ <20260708-x1e-csi2-phy-v9-1-0210b90c04cf@linaro.org>
+ <YSunV_lNJ8xW_y-Aa2psZavniF6mcHJlJipuj1RYWMB8Zb8yLC-gb7eEnk0XMjfwQOneMGsZM5foFKutCNhYqw==@protonmail.internalid>
+ <b7baffda-b97c-4b83-8d9e-e381d0289682@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <b7baffda-b97c-4b83-8d9e-e381d0289682@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The newly added compatible string `dcltek,dt300250` will not be =
-probed by the panel driver due to missing `of_match_table` entry.
-- [Low] Redundant assignment of `jadard->panel.prepare_prev_first =3D true;=
-`.
---
+On 08/07/2026 08:44, Vladimir Zapolskiy wrote:
+> On 7/8/26 02:39, Bryan O'Donoghue wrote:
+>> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
+>> PHY devices.
+>>
+>> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
+>>
+>> The schema here defines two ports with three endpoints:
+>>
+>> port@0: Sensor input.
+>>             endpoint@0: primary sensor
+>>             endpoint@1: optional second sensor, implies DPHY split-mode
+>>
+>> port@1: Controller output.
+>>
+>> The CSIPHY devices have their own pinouts on the SoC as well as their own
+>> individual voltage rails.
+>>
+>> The need to model voltage rails on a per-PHY basis leads us to define
+>> CSIPHY devices as individual nodes.
+>>
+>> Two nice outcomes in terms of schema and DT arise from this change.
+>>
+>> 1. The ability to define on a per-PHY basis voltage rails.
+>> 2. The ability to require those voltage.
+>>
+>> We have had a complete bodge upstream for this where a single set of
+>> voltage rail for all CSIPHYs has been buried inside of CAMSS.
+>>
+>> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
+>> CAMSS parlance, the CSIPHY devices should be individually modelled.
+>>
+>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>> ---
+>>    .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 202 +++++++++++++++++++++
+>>    1 file changed, 202 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>> new file mode 100644
+>> index 0000000000000..a7fbf6804cd9e
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>> @@ -0,0 +1,202 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm SoC CSI2 PHY
+>> +
+>> +maintainers:
+>> +  - Bryan O'Donoghue <bod@kernel.org>
+>> +
+>> +description:
+>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
+>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
+>> +  modes.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: qcom,x1e80100-csi2-phy
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  "#phy-cells":
+>> +    const: 1
+>> +    description:
+>> +      The single cell specifies the PHY operating mode.
+> 
+> Unfortunately my review comment given before was ignored before publishing
+> this version, thus I will repeat.
+> 
+> There is a clash between the proposed phy cells value and 'bus-type' property
+> of the media endpoint, the proposed value of phy cells brings no information,
+> and therefore the whole proposed '#phy-cells' prorperty shall be removed.
+> 
+> There shall be no third link introduced between CAMSS and CAMSS CSIPHYs.
 
---- Patch [4]: [PATCH 4/5] dt-bindings: display: panel: add compatible for =
-DCLTek 300250 9.35in panel ---
-commit eaec789ca9baff9cff690aca5a539d1f1eb81d5f
-Author: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+As explained in the cover letter: I'm following guidance from Rob on that.
 
-dt-bindings: display: panel: add compatible for DCLTek 300250 9.35in panel
+20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org
 
-The DCLTek dt300250 is a panel using the jadard-jd9365da controller.
-Add a new compatible for it.
+Old guidance granted, so let me see if I can get his attention to this 
+matter. Perhaps your suggestion is fine by him if so then fine, if not I 
+will stick to his original nudge, either way its up to him as the 
+original reviewer and senior schema maintainer to call this one.
+>> +
+>> +  clocks:
+>> +    maxItems: 3
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: core
+>> +      - const: timer
+>> +      - const: ahb
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  operating-points-v2: true
+>> +
+>> +  power-domains:
+>> +    items:
+>> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+>> +      - description: MMCX voltage rail
+>> +      - description: MXC or MXA voltage rail
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: top
+>> +      - const: mmcx
+>> +      - const: mx
+> 
+> None of the power domains finds its place in this device tree node, the
+> child device belongs to CAMSS, which already enables these power domains.
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/jadard,jd936=
-5da-h3.yaml b/Documentation/devicetree/bindings/display/panel/jadard,jd9365=
-da-h3.yaml
-> index 4eae802de9fd5..9e20e2faf82fa 100644
-> --- a/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
-yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
-yaml
-> @@ -19,6 +19,7 @@ properties:
->            - anbernic,rg-ds-display-bottom
->            - anbernic,rg-ds-display-top
->            - chongzhou,cz101b4001
-> +          - dcltek,dt300250
+Right, I think the whole subnode debate has run its course. Its a 
+problem for JPEG and a bit of a fake debate, there is no real "bus" here 
+so what is the point of mutating DT to look like a bus ? We are forever 
+lecturing people about "making fake DT stuff for convenience".
 
-[Severity: Medium]
-Will the panel driver successfully bind to this new compatible string?
+Peer nodes with TITAN_TOP_GDSC will perfectly adequately describe this 
+hardware and the JPEG too.
 
-Looking at jadard_of_match in drivers/gpu/drm/panel/panel-jadard-jd9365da-h=
-3.c,
-it seems neither this new compatible string nor a generic fallback is prese=
-nt
-in the match table:
+> 
+>> +
+>> +  vdda-0p8-supply:
+>> +    description: Phandle to a 0.8V regulator supply to a PHY.
+> 
+> The property name shall be vdda-0p9-supply, the description shall be
+> changed accordingly
 
-drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:jadard_of_match[] =3D {
-    {
-        .compatible =3D "anbernic,rg-ds-display-bottom",
-        ...
+Hmm what ? I'll have to look back through my notes, I thought the opposite.
 
-Without a matching entry in the of_match_table, does this regression cause
-the device to fail to probe?
+Let me follow up in v10 after grepping for this again.
 
+> 
+>> +
+>> +  vdda-1p2-supply:
+>> +    description: Phandle to 1.2V regulator supply to a PHY.
+>> +
+>> +  ports:
+>> +    $ref: /schemas/graph.yaml#/properties/ports
+>> +
+>> +    properties:
+>> +      port@0:
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        description:
+>> +          Sensor input. Always present. A single sensor is described by a
+>> +          single endpoint with one to four data lanes. DPHY split mode,
+>> +          where two independent sensors share the same PHY, is described
+>> +          by two endpoints; endpoint@0 with exactly two-data lanes and
+>> +          endpoint@1 with exactly one data-lane.
+>> +        unevaluatedProperties: false
+>> +
+>> +        patternProperties:
+>> +          "^endpoint(@[0-9a-f]+)?$":
+> 
+> This is too wide regexp mask for one or two endpoints only.
 
-[Severity: Low]
-Looking at the driver changes introduced earlier in this series by commit
-1a793dbc7476, is there a redundant assignment to prepare_prev_first?
+Yeah you're right, this is just fluff.
 
-drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:jadard_dsi_probe() {
-    ...
-    jadard->panel.prepare_prev_first =3D true;
-    ...
-    jadard->panel.prepare_prev_first =3D true;
-    ...
-}
+> 
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+>> +            unevaluatedProperties: false
+>> +            properties:
+>> +              data-lanes:
+>> +                minItems: 1
+>> +                maxItems: 4
+>> +              remote-endpoint: true
+>> +            required:
+>> +              - data-lanes
+>> +              - remote-endpoint
+>> +
+>> +        allOf:
+>> +          - if:
+>> +              required:
+>> +                - endpoint@1
+>> +            then:
+>> +              properties:
+>> +                endpoint@0:
+>> +                  properties:
+>> +                    data-lanes:
+>> +                      minItems: 2
+>> +                      maxItems: 2
+>> +                endpoint@1:
+>> +                  properties:
+>> +                    data-lanes:
+>> +                      maxItems: 1
+>> +              required:
+>> +                - endpoint@0
+>> +
+>> +      port@1:
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        description: Output to the CAMSS CSID controller.
+>> +        unevaluatedProperties: false
+>> +
+>> +        patternProperties:
+>> +          "^endpoint(@[0-9a-f]+)?$":
+>> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+>> +            unevaluatedProperties: false
+>> +            properties:
+>> +              remote-endpoint: true
+>> +            required:
+>> +              - remote-endpoint
+>> +
+>> +    required:
+>> +      - port@0
+>> +      - port@1
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - "#phy-cells"
+>> +  - clocks
+>> +  - clock-names
+>> +  - interrupts
+>> +  - operating-points-v2
+>> +  - power-domains
+>> +  - power-domain-names
+>> +  - vdda-0p8-supply
+>> +  - vdda-1p2-supply
+>> +  - ports
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+>> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+>> +
+>> +    phy@ace4000 {
+>> +        compatible = "qcom,x1e80100-csi2-phy";
+>> +        reg = <0x0ace4000 0x2000>;
+>> +        #phy-cells = <1>;
+>> +
+>> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+>> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+>> +                 <&camcc CAM_CC_CORE_AHB_CLK>;
+>> +        clock-names = "core",
+>> +                      "timer",
+>> +                      "ahb";
+>> +
+>> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +        operating-points-v2 = <&csiphy_opp_table>;
+>> +
+>> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+>> +                        <&rpmhpd RPMHPD_MMCX>,
+>> +                        <&rpmhpd RPMHPD_MX>;
+>> +        power-domain-names = "top",
+>> +                             "mmcx",
+>> +                             "mx";
+>> +
+>> +        vdda-0p8-supply = <&vreg_l2c_0p8>;
+>> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
+>> +
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +                csiphy0_in: endpoint {
+>> +                    data-lanes = <0 1 2 3>;
+> 
+> The previously given review comment about numeration of lanes was
+> not implemented.
 
-Could this regression be a duplicated assignment in the same function?
+I understand your comment but as Nihal pointed out - CAMSS has an 
+established pattern for this - and I think his argument is convincing - 
+we should stick to that pattern.
 
->            - kingdisplay,kd101ne3-40ti
->            - melfas,lmfbx101117480
->            - radxa,display-10hd-ad001
+> 
+>> +                    remote-endpoint = <&sensor_out>;
+>> +                };
+>> +            };
+>> +
+>> +            port@1 {
+>> +                reg = <1>;
+>> +                csiphy0_out: endpoint {
+>> +                    remote-endpoint = <&csid_in>;
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>> +
+>> +    csiphy_opp_table: opp-table {
+>> +        compatible = "operating-points-v2";
+>> +
+>> +        opp-300000000 {
+>> +            opp-hz = /bits/ 64 <300000000>;
+>> +            required-opps = <&rpmhpd_opp_low_svs_d1>,
+>> +                            <&rpmhpd_opp_low_svs_d1>;
+>> +        };
+>> +    };
+>>
+> 
+> --
+> Best wishes,
+> Vladimir
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708213500.1867=
-092-1-marc-olivier.champagne@savoirfairelinux.com?part=3D4
