@@ -1,48 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC273F12C9;
-	Wed,  8 Jul 2026 14:57:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547EF42DA43;
+	Wed,  8 Jul 2026 14:57:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522666; cv=none; b=ZwE06bM5b0eCKzmfAD9eYyaX7eWroe+903IVHUczmM245KUiAon5Csvq9FPcr9AjhjVbbkxgdU+e5Xd7aLx7/JrXHEknyTzY+DedqEraB67RECW4LRzJdSbVo/31VtC/SnQA0kv2eF4erX+lKStkSJktlNHGmE/OzVMc5kUVNoI=
+	t=1783522668; cv=none; b=UqviTgkuyr6Cv/SYekX0YInTskdG6dUfqOyhtpCTrEUxWMk8q/+hLc4n3nkh3emVXj03zfQhIaup50jIci/6aeOSWZEybuYXjCfPMDdlhDuuQfh2xJYTjyS3Ok2lNUWm8Pe+w8Oa145bNejKXtoNHV2pCvF2oXdeyvp/OVfvkwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522666; c=relaxed/simple;
-	bh=kU4xSznuFl8uM+V/D740o0dwPvvezhGu5J/RYfPw6EI=;
+	s=arc-20240116; t=1783522668; c=relaxed/simple;
+	bh=5R39CovJ9VJOOuCwDmySNs1kpkYaDqDuDZ4HIS5V/A4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V5QYv5r21rA/KncY15SmxDr1Uy485oFQso1EJ6WhBVDFL4Yb0Zorm6wAxbOH77avnD4oFQ1hWvnhrgA+9smMlWAS7XjNmcfsmwhsz9XlJmyI3FdssozPoSDDSlISf537h6x0iwmK8QiZFxrL6DBavNnTYa1rQgd8eQmtTGc0BEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cloZf7/H; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eRHkNMj/ZOJOz3wBHXVsEvDu1so2MoreGO9RRpFjqK00cGhiDtiwpg7EUMXtMxIEVDQx4d85OiJiJUZWhMX8/Bwb4BL5XxiQNIc0hs/Wv1X7bf0sbNtft0LWyII5T6gYPnMLg5Nl8sDD8VEwiQnOPet2Td4KQfi1mLxEwHLBHcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYrV58/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cloZf7/H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD43C1F00ADB;
-	Wed,  8 Jul 2026 14:57:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYrV58/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC831F000E9;
+	Wed,  8 Jul 2026 14:57:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522665;
-	bh=8ch4yZqPCBcSimke4UhZ/cKB24eMRKtvV+Ug9A6IshU=;
+	s=k20260515; t=1783522667;
+	bh=xZFYNX3SqAzPnn6TOYTyXtXeZIqIPQPKInlUbDu5KJk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cloZf7/H3zxW0nNpvL+VD5qbqwPCIP53w8HydPYGRqe/0zb1Fe3Jk1YZL3XnhCEsx
-	 C3Dl5cmtK55Kt8ZBuF9wk5UUtfZlI0WWuQ0u15iakHk+4n6cwcUi8W1CeefIxhZ5Gr
-	 VC9dWfVlLKZXld72QYQUaaXnzrByXTiirA/ntgNRCfiSSdJfJRtXP9xf5d+4AF8vtg
-	 hLji6D0luCssMWofC12YUArhEPMib14A7kPVN3JWsVOu7eo5dhXF5CL1Dcyart99Nw
-	 TPhUQ0teY6Z08ORW/9Pm4FKVRsdTstBdLn8yKo4RJDu6dtDxsNuD2nQyKe2XnChwhJ
-	 08bYz2fMY4/fg==
+	b=IYrV58/ZJJvu8n/I5Bd+p6RLvEVTlhtZ+IF1Rs3NsVgVglLbv6LDqdL/ajoaRNhw8
+	 J37JjbGXfLMC9vWLtf01Ar7xosNxsfuu1cqO/6PTLYyp7YPoqJ+g+GpGj7++5CcQkY
+	 4tnNppZ3NLW5ZxOB429K5Vn8K1rJGJSYO+rNRrM750NJyB/4wpf0sdk/9BUPDnuEzA
+	 n6Ly75g1smqTrR/yL6PVFuA/ph8hTwclvdDLDNenEK/JA0egPKmVT/WCtsmT1Rw1Q3
+	 FFFbXgyqy6W47hRKg5MjFoBNCyw/C1Sky2WMTCcI2MXEB4Ns8r+yrM3GwzcQvm6SjY
+	 VUeWbiUo9+/fA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Pengyu Luo <mitltlatltl@gmail.com>
+To: konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	monish.chunara@oss.qualcomm.com
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] arm64: dts: qcom: sc8280xp: fix and improve pinctrl
-Date: Wed,  8 Jul 2026 09:56:46 -0500
-Message-ID: <178352261645.2235436.7506953794540668934.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	linux-mmc@vger.kernel.org,
+	nitin.rawat@oss.qualcomm.com,
+	pradeep.pragallapati@oss.qualcomm.com,
+	komal.bajaj@oss.qualcomm.com,
+	jsodhapa@qti.qualcomm.com,
+	Ulf Hansson <ulfh@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: qcs615-ride: fix sdhc_2 vqmmc-supply for UHS-I mode
+Date: Wed,  8 Jul 2026 09:56:48 -0500
+Message-ID: <178352261626.2235436.9462453754580041321.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260629065905.15651-1-mitltlatltl@gmail.com>
-References: <20260629065905.15651-1-mitltlatltl@gmail.com>
+In-Reply-To: <20260522105020.3588377-1-mchunara@oss.qualcomm.com>
+References: <20260522105020.3588377-1-mchunara@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,21 +57,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 29 Jun 2026 14:59:02 +0800, Pengyu Luo wrote:
-> Add camera mclk pinctrl definitions to sc8280xp.dtsi and drop local
-> and duplicated definitions, as this is common for sc8280xp based
-> devices. Since the correct drive-strength is 6, fix it too.
+On Fri, 22 May 2026 16:20:20 +0530, monish.chunara@oss.qualcomm.com wrote:
+> SD card is detected as SDHS instead of UHS-I because sdhc_2 was
+> configured with vreg_s4a as vqmmc-supply, which cannot switch
+> between 1.8V and 3.3V.
 > 
+> Switch vqmmc-supply to vreg_l2a and update its voltage range to
+> 1800000-2960000 uV to enable proper UHS-I signaling.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: sc8280xp-x13s: Fix the drive-strength of mclk pin
-      commit: 06f07e693cc33d5d9695652f679c6321a751020e
-[2/3] arm64: dts: qcom: sc8280xp: Add camera MCLK pinctrl
-      commit: 6e2f2454640b21db48d1f1bc8a068a8862d6cf1f
-[3/3] arm64: dts: qcom: sc8280xp-x13s: Use predefined MCLK pinctrl
-      commit: fbe4faae9869fcb03884c078187f985db693298c
+[1/1] arm64: dts: qcom: qcs615-ride: fix sdhc_2 vqmmc-supply for UHS-I mode
+      commit: 4614628bea862cbad0ec3323200900a1f34e98c5
 
 Best regards,
 -- 
