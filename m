@@ -1,52 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A74941CB27;
-	Wed,  8 Jul 2026 14:57:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC82241CB36;
+	Wed,  8 Jul 2026 14:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522664; cv=none; b=ojevwkSIKLK+pCNuukz6lY10EdoB6sYQRudF5C5i7Q0pdp5DJmvSkO6aBEOLx5Py35kk17Jumx6+lM45xtgHsuJmI18Tr+Turf9dfWLi5Ek4SZP3WjDQ9nF0AlfinYZZkqF8ouL2aZWA0Y+WHZv6z/CShetEykwjUdFTL2f9OCE=
+	t=1783522664; cv=none; b=gI7s1MslmxMiAfmISMtEikf1F7CBpor9SYAc6Lle/HPTmxmHe/viLdi57urzRZtfDGHououV7lRIEif0AM1wEkr3PIKq9gdqeJyg1wWiF3K5jQ5Ygu9WDI1aJRed2RvJ40JxI19N0UXgASeBnPa3UVjOpYl9XnVFH8MjvPzBGzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783522664; c=relaxed/simple;
-	bh=pa/ka3/BPiK6nsw6ZLpWmMXaUueZpiGpR/uMFDEhMsk=;
+	bh=Xc5D881nwJ4AQuagC9EDbsxAlK/b1RP/EITStWnryhs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sQyHw3SOfI8eKRD5nCY/CedoG53D+RW95mM7xDxm6aDOOHVdm495WOtGNZ22yu17ixXiWIR1P5DOgdqvq3WvWNUFEySTIFbRk4G9Wxtwt+KH/igU/LNUzn4tgo2qxbv+CdEw99BdVxu/fQr+CVtHJHSNzP34STFS6cJZ3xwZhas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDE3CxpJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=D4W9to51gTJuXxSosvkFbBdWa+6bSSogOolTxokWqpOGrULUL8g0d1+2u+fBgvtfvF8UM3hw6bJTTTAiuaWhCgwVH3uoMbcy0YRodpb6+knScG0eMgHWgj4zeWV2sdEuSWPDyl+HQtEf9Hw1/7+TQpkW+1Vj4MUk4xOeGHBXlp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XnQ5nA72; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDE3CxpJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2AB51F000E9;
-	Wed,  8 Jul 2026 14:57:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XnQ5nA72"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D001F00A3A;
+	Wed,  8 Jul 2026 14:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522662;
-	bh=v0opnxlO504CL3XbPm6kAQCL9w7jEyZIfhIylJT3G/s=;
+	s=k20260515; t=1783522663;
+	bh=Gev/DnI1vpZo1LFicsV4F+bc0hm5E+mUcswsZcfRyUQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NDE3CxpJK0i0pMTCYfwbzfipGXqgid0+9ilKo1GAJBZ3BDABjG+O9iAHJV7bIBz7K
-	 D8aTwsfnKchyaynsM+Df1xkHy9ll544A9wnl0J3wrwjnyA1mCsHMsophG0ZeZEqCNQ
-	 SUqO3icZ0AHse5sUfyvokO5mwUsEer87i1A0fSq5OlRuOSxMYTb/1TIgx8aq7hZHyh
-	 2qUQV3DTjKcA62V7VZziVqcfg387a+NPwTmwX5kdG+zcHhfkTrZV0kKMGhmP122gO4
-	 +xduXMo3Wnx+h0+rtrOuvgdxqXkBuIVV1TWfpdQtlHXtH3h0ribwyXII9q404O5UOA
-	 NxYCxKxj8tpGQ==
+	b=XnQ5nA72Qn+o8imtPr/RclINBcyacBNWnfBfg39AICYE1skZu0/HpdUZNZYrDGFEE
+	 NJj9ej0Yml9DCjjZIZSFFi7ii9VSE3JQ29sxxwG2oxulrgJ7TZxxyxwOWiwA50fwJA
+	 gHTfoeDODCCbBtdLe+PsQywpb0N4bXDOs6NJ95aH4MvqewyeHoHTeVbU08vDvLe5l7
+	 Pttjv/vmfjqGi7gkoCVPm0YnkI1wGhj78WjYOIO/+2F7/n6DtEIbKeMMao1I2dcjlm
+	 MjmlpmUR93LCQsIpV106QKCY7hP3eiHH4PSLdlavZlN6mRxmiNmJw+Hwn1qRjUbCw1
+	 3zl98KVjKDgjw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Val Packett <val@packett.cool>,
-	Bharadwaj Raju <bharadwaj.raju@machinesoul.in>,
-	Bhushan Shah <bhushan.shah@machinesoul.in>,
-	Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+To: konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Konstantin Shabanov <mail@etehtsea.me>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: qcm6490-fairphone-fp5: Add AW88261 amplifiers
-Date: Wed,  8 Jul 2026 09:56:43 -0500
-Message-ID: <178352261619.2235436.4886841647250591529.b4-ty@kernel.org>
+	valentin.manea@mrs.ro
+Subject: Re: (subset) [PATCH v6 0/4] Introduce HONOR MagicBook Art 14 Snapdragon device tree
+Date: Wed,  8 Jul 2026 09:56:44 -0500
+Message-ID: <178352261648.2235436.17142424668289030368.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260612-fp5-aw88261-v2-1-f7ef7d060170@fairphone.com>
-References: <20260612-fp5-aw88261-v2-1-f7ef7d060170@fairphone.com>
+In-Reply-To: <20260629154812.9066-1-mail@etehtsea.me>
+References: <20260629154812.9066-1-mail@etehtsea.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,16 +52,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 12 Jun 2026 14:52:43 +0200, Luca Weiss wrote:
-> Add nodes for the two AW88261 amplifiers, for the top and bottom
-> speakers of this phone. Hook them up to the sound card.
+On Mon, 29 Jun 2026 22:48:08 +0700, Konstantin Shabanov wrote:
+> Introduce support for the HONOR MagicBook Art 14 Snapdragon laptop.
+> This version is based on the initial work by Kirill A. Korinsky [1]
+> and Valentin Manea [2].
 > 
+> I'm using it with two external displays connected to the HDMI port and
+> DP<->USB-C (over external hub) as a daily driver.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: qcm6490-fairphone-fp5: Add AW88261 amplifiers
-      commit: 83f13e07c5216058ccf53bfe08dd5c57e28e747a
+[1/4] dt-bindings: vendor-prefixes: Add HONOR
+      commit: ad469274acb9f44674e8c5890dc155d02403f661
+[2/4] dt-bindings: arm: qcom: Add HONOR MagicBook Art 14
+      commit: c7d79e2e1400102e7921a60669d5e53da5f1e03d
+[3/4] arm64: dts: qcom: Add HONOR MagicBook Art 14 device tree
+      commit: 745b08ebe1fcb120c66cfb8fd1a89d93e24828e8
 
 Best regards,
 -- 
