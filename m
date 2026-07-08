@@ -1,65 +1,70 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010000.outbound.protection.outlook.com [52.101.46.0])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023122.outbound.protection.outlook.com [52.101.127.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC1D3B42D2;
-	Wed,  8 Jul 2026 02:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F38420896;
+	Wed,  8 Jul 2026 02:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.122
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783477345; cv=fail; b=Z/GSHfV94zafveyXXcQj9wzRfVYY2Tm5ixvL+ffLhF7HXuJDYj95/1mHTcYD+W2wHAwKOhKGuQ6ASZ7fltkMKijXJlHoRMT7rVoac5fqOMT2ndUKl+qRtwj+0AiiN24P2fH63dmLZIilZi6dhMmtld1p+Z6xnRyO48yeHGNU6nQ=
+	t=1783478391; cv=fail; b=KLvw/2b2U3zqbX88LDq2r4aSgeBtu9Y2ObKprbjtdu8rvyrt5IHxRO8+PTGYcGp/siD0pN+LpwAexDLXsw7MXGc7aW9T6zZAuK0GhHFkUhIRNDIYD4S1wBIB6dZIGhdKDekg/D1OYdUZFraVB0OH22S8otrBtyrxuCcPAB92c3o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783477345; c=relaxed/simple;
-	bh=zcATGOF3mfhB5AefkwtDe+TJKp0Eq7ggs8EK3HAvqLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fLrbvHP+UMoFuc9ZxQKaa2GZAyA4jloglE5mXfQptTV1wyr4elZTWwgvznQrIxsShQIER0gwVTxHWrg7TqVk6J4dEOjQEHui7sQm1m6NohcyXPpWk+KT3dPqUH1w5h53et0RKWBrtd33575zcdRz9H8ZTEdywoEXwr6R7xdSbZU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EOVezLhZ; arc=fail smtp.client-ip=52.101.46.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1783478391; c=relaxed/simple;
+	bh=Q53OWrzxGvT+w2fKK1ReTVHv4e8VayF42i10AF8cOnU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=vA2TXe7qK019azQOq64qZEMf21SdxFGTD26LqrqJ0NXRNl0RHYbQR6k6DWLqzlvC3G1w6umSAq753oB5okybFm/BmtGNNkvLvVPEPukqD7GDrV5dJqMa4CkNQuljYT5Qxx9o0XUb59nqFuGGsHurhqsVdG/TGevHB38IyyY5SpY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=fEAO7yGc; arc=fail smtp.client-ip=52.101.127.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EOVezLhZ"
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="fEAO7yGc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cXNV6ZrmFTx1EDs/F76zlvd2N5H8vIyf2+PA5V4HGX4AZpWPoAs0z0eKSZX3OEfT9bGPqtr00l0RUBAYpliwKzyNGdmwGLfVAhsm4HL9bPb8EZlFv4orvfLC/GiPEcKjwY+sKwBBuUWyumb95/LjaK5t+KfYKsQClh7wpf95IAH7oPEpkF5uYjJUh56BtkHShj+RSWFoB7Wwq91hKDrXB1ZqS8B98yj+pIAuGl9iybUhvi3B0mko713A5TbHC65ZnrQI0+yCbBFdfdO/5wve39HExGYYTiB/hQ6EPfBZSMi/VwZyUPgzQ0F73W8E0/+wzuWMzOghgx6tdDtSEMfH9g==
+ b=EqaR7LK7pMJdUgbJ93QY51j/ok5wLWVQajPbjDE1Kx2cD0o7qssIUm0CGU0pn30KYz8VhLXugvOKPLqshRkfOQZxcN/4y2bNDa/zutHfPgKEOODYpku4uSlGfZUDuS4smByuEXJozzpqbAEte4N2V269nUvlGmZHMjhI6qO6Ch54vmT6Kv29z7b445jvv6AI8I7n4fv1NbOWspYlBAfKx6QQCIoOC5WgKvJJOtIJCqjWXUslsmQGHlvQtSwzm8s+2R9rc9G05I1LGtzOR0ICRjRjZcL8Uw/Ct1mPTxaDQy2KR8MGR8nLOkoiuyPsFnWPB8WU0deJsZnSCgHTLSOEqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nHaIKHnABO2htfw9cn8JxlA+hOo5DukejNQs3JpmyTA=;
- b=Ag9qmNhtqLtUEXBBIYJI8haFw8kdXFq5g1ZKVfEabtzTQ8KJ0jn5hMVc3YmMA/M1+2kmeECr65m924nC269gy7+wwrJPlgYeWa09Te47fPhryOELXzV4tcQ/yaD9sHZer4FQ0FTt/LFyffO2OqpssNpnof1ArTms/Ho8by+wk2ANT/WUt/uD7iiZIK3W68KU3P8Arcnw07nHctI9tvaggCXTKUikPCms2CYICeIAyMbqkvL1eofP+Cf1Tl76JRFf4Et2vR8ztw1EOSORHrYzDygFtfLEOzPxsKFJPhTR6hu4KkMBxcnAX7QUq57ES79lO1snNHeutBBsky58ivIiJw==
+ bh=FufjdPLBpsDHClc+lnDtzfI2yraf02W3bWAQ5sARqFI=;
+ b=d4hOkW+MqOF2gEi/4vOZSnu9HAtJjW5VvWzygvvFcRciu1JfgfwhBJ4Z1P3p2PptR8TFPQ8X+uokC98A2sLJh77Ssa4AePLY6LyNTrF71uU3vKrCJS5UgOlONfO+NAY9j33rLlZsUbIX0Ln9rwT3UeuUqqQiba173XWEWoTq1BZ3CeLvFq6KldKYq/s1TGrTD3VQGiK+MW8NCd3zz3ouWhCJo/GUIUklyFIg3Pz3d/npAZRPJ9CIHrONZnEpyMGaojlpdN2oVBRnuLZLPZXchd8Q0MlANx+HbBYh1k83GqT09PgDfy8bdvfir9CYBCy/9jGEXayzv8VlVUES4DQQ/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nHaIKHnABO2htfw9cn8JxlA+hOo5DukejNQs3JpmyTA=;
- b=EOVezLhZ9k/+b0e9VkRzqupAWXwTZSRIZ13gOUwod1gy0MuRQs7/QhYsEDvkk8rLzN3dFfOyI/O4L4xtTNnzv+0DMFWp0bPcBWwpNSaw8sw6lnb9e0IhMJ8yRg6Eawj0rOIfJGgvcl/n9z2s4jWTNUoiJB52oqGQkuEEPy8oQtHOVcJE4ZL0OfAtKQ0yAo6r5bAKbzr8N8FpY0FJIt01LDSwZ043aFw6ZFk7d7WwcmqbTJB/N8EEw+K8+PYVnJwldddDnjhFpv0sPH8aBzTJHb1rhezm8OT/DONaQ2c9Dc65cfZRTrzEqLERRYObJHzFG4sFa2/5QD4HvaEPzJU/kg==
+ bh=FufjdPLBpsDHClc+lnDtzfI2yraf02W3bWAQ5sARqFI=;
+ b=fEAO7yGcXII2omoWTW01mdeVYArZlnQqU4t900bzE4G4r2WrI9U9GhJAv6jZ9y2UZn7BRsuh2EcBxIpGhwhAI/MV5L8huGnvpqQ8pPe05/MOX5i6FaeMJzpwfj3135cgBp3Ok8Hyw+Mxvhgzg3pRwfOe6BceiyuBNkCFUkRs4ueeJB/W3j3eP7FqoSrR7DgBSgJSLuE7G+rS7U+qLMfPySmCgcWtyA5lpuE9WSQ6GUp0yZBZU9dHyOIo674QJJgNv6+KO/D3IMaKhlze/xsLZuDGfW0OrPEzWqZoNKa10FNoj3aUeBoURBoyjtPkZmSdcLPU1VUE6lV4q2E81XMwUA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15) with
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+ by JH0PR03MB7908.apcprd03.prod.outlook.com (2603:1096:990:34::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Wed, 8 Jul
- 2026 02:22:20 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0181.008; Wed, 8 Jul 2026
- 02:22:20 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: linux-tegra@vger.kernel.org, Jiqi Li <lijq9@lenovo.com>
-Cc: devicetree@vger.kernel.org, robh+dt@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, krzk@kernel.org, jonathanh@nvidia.com,
- thierry.reding@gmail.com, mpearson-lenovo@squebb.ca,
- Jiqi Li <lijq9@lenovo.com>
-Subject: Re: [PATCH 2/2] arm64: tegra: Add Lenovo ThinkEdge SE70 device tree
-Date: Wed, 08 Jul 2026 11:22:16 +0900
-Message-ID: <qdp3icvlQKCtNtIxYUjG_A@nvidia.com>
-In-Reply-To: <20260701090639.669524-3-lijq9@lenovo.com>
-References:
- <20260701090639.669524-1-lijq9@lenovo.com>
- <20260701090639.669524-3-lijq9@lenovo.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCP286CA0261.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:455::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Wed, 8 Jul 2026
+ 02:39:47 +0000
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
+ 02:39:46 +0000
+Message-ID: <74fc6cfe-f844-4cbb-bc1e-0ad96af37040@amlogic.com>
+Date: Wed, 8 Jul 2026 10:39:42 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: amlogic: a9: Add IR controller support
+Content-Language: en-US
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com>
+ <20260706-a9-ir-v1-2-4f082ca8aaf1@amlogic.com>
+ <CAFBinCBbRrt6jWj4pczE=-j86Sw2aiAaBpUoTx1x9XErw5NFpQ@mail.gmail.com>
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+In-Reply-To: <CAFBinCBbRrt6jWj4pczE=-j86Sw2aiAaBpUoTx1x9XErw5NFpQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0054.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:8::6)
+ To TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,252 +72,88 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|IA1PR12MB7736:EE_
-X-MS-Office365-Filtering-Correlation-Id: ece2f06d-b11a-4dfd-829f-08dedc97bc92
+X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|JH0PR03MB7908:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7bf7faf-b96d-48fd-4017-08dedc9a2cce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|10070799003|23010399003|1800799024|366016|6133799003|5023799004|4143699003|56012099006|11063799006|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|22082099003|3023799007|6133799003|4143699003|18002099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	923xVW56XYPUSKlm9X/r0oJyoNpjRjGn+4kkj+TrggSWKA0FQl5DJKAQ/D45BoyTXCSSGI4A7a1ggwCKxZQ17w++zPZwe33NGvyv78E1Q/O29P3+hgPuDDpRy73vbSN74oRLWiP05J+L/Nux2ps30TGUMxiSRI+CAXvDiLRjSwRbdPoUehPBu7ADr+WYP4UM3nSl3yvS9jQXc8TqNQEf94fzTb93uE1VdK2or2yUyxskxL9jVkKTWbdmQDNj7wP8RuDwwSWKXuhn8+AnXLATIjR6bf1ZZI7VlvlXDyM6UmJa+FcLsk9LMqe2nGAGejBgacS69QPtHcImmdsnsNE+49pdTNH+K6IE4x7LYMdmgvEezbnu4effYPGxgOyKdclvpkdL//k5WzIl0HQjbdIySW0ByMIIhE/Kq+3K3FsPyL2eMGmnbS5UKO0Zi7z1ZQVFT5qZI0rbqD+H1eYh9OzD09NcNKCvz9K7ZUzIj5EK6xsM6Uc5lyZAr90Q5fzVwqARiXGzElPNtNQnhopanEcqtDwiY8HEWzULVimq060f2sAAF4Pu9OJVMmfjtRQDwDpWZzd9Uj76/fx+3ST0AyzGZB5cP6b4AU18B2wokORp3rIDFRiIcgiki+/hhsdhQinBLOwJ1rCaDNFxBBiROtE9eBUgR9ONHTAaCak0PDuJDrU=
+	SXqrmr6lg7SlqP4u6tOlDP9KVnPIRUvzzgnSwuz4njoI3ARSMRfofENMdhtuwbYyXoTuPoxyQRl0q5F10/gDYO1O8ee4gqHO8m8MykS6rft5IauJKr1vy/P5O9tFEJZv9+Plgp9Wk7VzmwR/LUEa5stTp0cresq74bj5f+EZ3pSSPcN+BDpshayLS8jqXg6Dg5TA0f9uUuYe/603UTRysMipWBU9i3LHilEaoLp2xmFxqKeECAz4guiBN7rogveH3tB5rfQ/G4bpelNNx5fPBFvgO9YfNKzSYIJsTYgXAa4SU1xN8oItffxzVmuuvNWKs83LDK6pDpmT3+1KVGsbVONMCbAMlncYPEfzSYGZ2sKK0b0iBczZnjRq50LeUHJxIlprIf7wCLBwO6GQX1iikx51zSQTgsvcGKfIiY1d4qMA9E2eDif5m54HFPvjIvEhDQtMwFLxuhASOmRUxt5DiZUnNMUuHpKRGTD8hl7Vjfm0udlNn0pEu7d/wLe4Q3Xt8kpzwTgLyYofjL5boYAl3WjYWnjYHxGUAOgx40nVnQ2V+lkf9CylHQg1C4NOqZvnbnPEHzCsglR9Nh2k7J8dL7X6gGSDDIMdqhHIrli554V67IyvKpzOxMz/Hvn7kaslF2yPE1Nxs7+cVDSb9Dc4R05u6YIDIpAAyWsCEgITAME=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(23010399003)(1800799024)(366016)(6133799003)(5023799004)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(22082099003)(3023799007)(6133799003)(4143699003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MStJalMxeTJGelpQWEpsUXdDY1lSRzNkVmk2V3Z4bUpEc2laNlZjRFdHQVhI?=
- =?utf-8?B?SWFOb1ZvOXJuWkVHd3R3UGxCbDIyMExnaXcvKyt1TzQxV2VzS0hqbnIveEJL?=
- =?utf-8?B?ajB3ZzA5bFIyeVc1RG9rZkJhM2ZCRGxZWTFtb2dTMms2dlRZUlJ4TG1PdnVJ?=
- =?utf-8?B?YTVwb2k0RFg2Q2ZCV1lHb01XWTVVUGlZVjZROWxBT2hrc1YvM0tmK2w3aGJ2?=
- =?utf-8?B?TW1EeXpFdEZEQi9hcmlVSkVWUUg0VUVjZ1licURldnhEZTFGeHRuT1BIenk0?=
- =?utf-8?B?bmRmTnJNOFhQOFJDVWUxQ3dkSkpzamx4MHJyMURVREd1WHY4RWxXM0podzZF?=
- =?utf-8?B?OWVNQ1l0azU0dGtVMzBmMzNMNHFEbUpGRVVodFJhVVFVeVVRR3gyRURQaHhm?=
- =?utf-8?B?VWEvRW8rQk5CNnRZbm5vRnA0V08yS3FRYlVzMUNmZFdNZC9xSDh0WThyWDEw?=
- =?utf-8?B?SFA4WXFzTDRyS0ZlQnZ4VXk4T3J0TTBmbm1UUkZrb2dHb2ZvWGMzdmZOTGY1?=
- =?utf-8?B?M2RCUlcyZUhhaExOVkkxMmNEWnRPRi9DenhyU0xoR282WVg1aXlzdFZ0Rmlh?=
- =?utf-8?B?eU9haVVacVJIQzVQMkRxaDg4dUxyVExGWnpJM0c2L1FTS2FvYVhNVlNPNlEw?=
- =?utf-8?B?aVEvdkMySTJNcW5oclhwU0o5bjdPRmVnUkJlR0ZhRVJvcUExNGp2bHJHb0RB?=
- =?utf-8?B?VDlaZDZWR05ET1BxYldNL3k0REt4K3dXTjltQlVUbVd3cEx6VWUvVnpVakpk?=
- =?utf-8?B?SU1nVUR0SFFaWVdDSEVvR0RHaExFS3NZeDFhRjJoRk9vYXEybXdlQlpOenZl?=
- =?utf-8?B?M292UG1QS0VuUkhwNERFMmY0Qyt1Ymd5SWg3MndZQzJKaGRJMkhmZ28zL2ZX?=
- =?utf-8?B?VXBqUm5KdFc0UlhuaUlxdlRRZVBRMEo4aEVXMUlFMWlheWNzTVhxNFowV1B2?=
- =?utf-8?B?anRkOG1MdHNJaytoRElmblFJR1VxRkFHR3hWRE02Sk1TaENRNDBCTm9LNjJB?=
- =?utf-8?B?YVFoYUJHWG9JeTVjdnB6YkRwdG50QVhKTjVKeGlVNnIzL1Fsd0srWXFKZ0ty?=
- =?utf-8?B?Ni9Oa3d6RitTUzR2M3Z2YUViR3RRQ0dWREltZnBEbUg2MlJna3R3Lzc4WEhM?=
- =?utf-8?B?dk5obHFxU1JBQ2lNMzNxTGJKYWp3MUNDdy80d3NVWklUMFBNUk8xRG1aR01s?=
- =?utf-8?B?K29KSTRUSE5leWpjamNVTDN4RU0vMUdvbGhaR2VzOExkdjBPeEpzQzdvbXlK?=
- =?utf-8?B?R2pGSmJ3OGJwWlpNQjFvMG5ZdFpLNnpQL3FxVGphY2p0bzA2dDgwRG0zU29C?=
- =?utf-8?B?cGpKZnNpS2oydTBjTWJweHRMd1Bad2RFeGg1Z0pNeE1BdHlUcmdEOGdweE1z?=
- =?utf-8?B?bXNMTGxraGViTkJBamVtdFVGQnFLRUsyV0ZOUWg0ZGNvWllYampyWkdXU3JH?=
- =?utf-8?B?ajdCVW8vLzNCRjduRHViLzJMVWhXRlpQRnUzam4yVkJhSFdJTnVDM2I4Z2cx?=
- =?utf-8?B?Q0NnczZHaWZMbEN5ZUo0VGpMNi85TFZMZWR6bDBwRzhteDEwRlpTczI5dkho?=
- =?utf-8?B?WHpHZmx3OUdXc1lydkxJcnhnRnJiZ0lUNmMvckZYVFhYOHVpd2dBVlZiYUx2?=
- =?utf-8?B?UWVHMWZUVnlHNEVpd2hLSklQcTNNQTQveSs2U0N6VXhBRjk2dU5DQmNSaVdt?=
- =?utf-8?B?N21jcW1qcEhSUm9pRldnTVBINXM2ZThvY251aTFIb3k1YWZZQ3UwSTJpYStM?=
- =?utf-8?B?eEVITXNWR2pkR3M0TmVBaCtqT2tyRDVhRStFRFRMd3dVdDFleGRkbUM5NlAy?=
- =?utf-8?B?QzRmcDNjUFUzMkRncVdJT2lBNGt3OGZmaW5oaUdRSDlLWlRGZGFiRmo0WlBM?=
- =?utf-8?B?VWYxN21sNmxlOGwwNWdYZ1p4VzlzaEo2NUhIQnFqNnI0WW1wVFR2dzNic3o4?=
- =?utf-8?B?OHJGZXZNdEkwRE5mQTN2Sko3OFVCWXhZTXkvZzhTOHVPQXprNURJMzUxb2NH?=
- =?utf-8?B?QXMrSTFaWGJHTklFckxST3VpdWkzczBybWtxR2p5dFVNR1YxL1YwMjhxMERz?=
- =?utf-8?B?SkxvbGlITklrak1GeWoxa0lhYU8yVWs0MkVPTDc0RmQ4ZUM0VVd1OVhQS1Jl?=
- =?utf-8?B?NzNLcUpqRGpyRUtWL3dKeDNrVUwraXlZUTh6aUJwZWE1cjEvN1M3bE5RMGtw?=
- =?utf-8?B?Tm84SkNhc29GeE9EZmxUbjVybzhwS3JTTTBrcXp5U2FwejRBUXFIMDFaeW1P?=
- =?utf-8?B?cnlQRzZDYkZOUlBSaUZoT1pZS0tyMHpHUFo0QTk4SEZuWlBPZmt3UXczL0tp?=
- =?utf-8?B?Q3VPUnUyQlJ0OU93eWE2WThLai9Ba293S1F5Z0hjanZpQTBXcytxcTNPamdH?=
- =?utf-8?Q?rAyKWEblsMI7JKvufIHDHXThNFiZSlgbfnx49jIcLz75Q?=
-X-MS-Exchange-AntiSpam-MessageData-1: H55sRmzHelrjlQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ece2f06d-b11a-4dfd-829f-08dedc97bc92
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+	=?utf-8?B?anMzd0E2Q3hKZkpuY0VDc2Q4VHR2M2tEUk9qMVpDeU5xWlQwQ2Z5bXBkRitt?=
+ =?utf-8?B?T08wRGRuZkpJVDhiVFRYWlk4RVpjZ09SN2RFOEtEeG5QTk1oWjN1VXA1MDUr?=
+ =?utf-8?B?UXVIenhXcS8vcDdQMk96OUs5MDFYOUxJb0xIRHFSWjhqNlNMSWNUQXBNNGsw?=
+ =?utf-8?B?b3o2MFhnb2w1ak9rZnpqcGNQM2lhQTJxa21zQW91M1pxWFVnUzdoQ3lzQWx1?=
+ =?utf-8?B?dHRmdlpMK0FrZTkzUnJmMWJCQW5SUFdjc1luSWxWWEVsLzROcWNRdUJ0VVhE?=
+ =?utf-8?B?Z1Q3QVBNbnR2MUZzZUVEUnFNN1BDeEpReUYvMnV3VXl3dEo3a2F1STl6RUJU?=
+ =?utf-8?B?aHYrc2crajVQSWswK1RiRmhwVUNZZktQbkZ6eEozTzRiOWpKanhiUmZFbERy?=
+ =?utf-8?B?T1pxVVRyQm02Snh6RG9EemJtMzlXT0tjUk0xanVNV3FxTExobEFvS09DTGgx?=
+ =?utf-8?B?eS9pU1g1bStNcWhmKytEQWNkRnpNOU1zMDcyNzk2WjJEd1dWOEgvUysybEhT?=
+ =?utf-8?B?eHFISHRWb01aWG1ZVXRJQS85bC82NFhhVDVNT2xrRkxocUdwelBpR3p4OTha?=
+ =?utf-8?B?bURqbjBRL2cxZEVGbFV3MzE1WkdHbGNOQ290OVl1bTVLcVRQYjR6VE9NMGVq?=
+ =?utf-8?B?RXJUaE5jL1ZDQlZGVC8rbCtCWm9IWHREUE5TSzhhWUJjVEpBWlVVV3ZWVmdB?=
+ =?utf-8?B?Z3pRVEg3ZUdpVkF1THQzZzg3ZGt3UTBYZUYwL2Z2a3NzZ2dtTXlLVm1ZWDli?=
+ =?utf-8?B?N0JsSTU1NEQyZEptM0VtQ2RNd1NGMHIyUys1NE5rekVnOFFMeWVxbE9Jdkts?=
+ =?utf-8?B?MmFCZ1hwZ1dhN2FndnBSVnBrSTE3VGJLd0lONWVDNHRBWWFsNVpYNzV4VExS?=
+ =?utf-8?B?M0JGeVExSGVGZnhwcWR5SWd5NzR1QkNyUitNbFZSN20xVWpvM0RzMmkycC9C?=
+ =?utf-8?B?YzNPcFZsSEVNQnVockdrOTJHYmxDL0xidjFETUdnWFg1a1gybUFLYmg1T1Z2?=
+ =?utf-8?B?NmVYbXlnZG1VY051WWhIaHhDL3dkTVU1dFA4d1BhRHVYUTBiVTRKVUhERHR0?=
+ =?utf-8?B?aDVlWFNmMU0zVGNZUnBVL0JHTWhDZS9NOWtGRGlWcU5pRDJGRmdKNUJkWXZN?=
+ =?utf-8?B?Uk9VRVg2RE1kK3FLcktSWXgwWnoyQW81c2xuL3NXN1R1VzZLRWdtdkRaWUd4?=
+ =?utf-8?B?ekkrbm1hYlA1a0d4OUVrRTNDNEN6SWtWbmo3S0xJaEQ5dGNiTFVWcG1SVDRH?=
+ =?utf-8?B?NnZiMExLdWw1SXA1bGt1UzdDMlBld2tMTzhtNUV6NjNwUWZsY3QzczFJOXE0?=
+ =?utf-8?B?eTRZdVlwZldoUWhvSlVkWERGaDRxdCtZOEZCcmVWNXlpS2VhOStaaVZra05K?=
+ =?utf-8?B?cXpXRkxhR1E5M28zVHRGWStRRkZXTW5KZHBjOHU3OEl1ZE9PVHFySXNxa2Zu?=
+ =?utf-8?B?REVld3ZlZjIxVk1lKzJQN3g2VFZIOFBNa004VVBKT2FPTjBwbTREVVEvMy9D?=
+ =?utf-8?B?UEdhRlpaM25oc2lBMmF5a0RvVWk5em9rb0I2WG1DQ2RHcjlDR2lFWW1ybXds?=
+ =?utf-8?B?UjlmaStJckZtd29pOE9Pb002Tk53akhrbnJJbVRMUmZsN20vcEpmWEdXU0lO?=
+ =?utf-8?B?ZTltM2dQSjlXaUJYMW94N1V2dTY2YXJmNTJMMkpKRWpnT1dvc2VRSi8wN3Nq?=
+ =?utf-8?B?UElUa0dRNDBBZ0xuR1A4Z2Zzd2J4SFFXaHZudzRqTDB2N1BCTXYrQWFITkYr?=
+ =?utf-8?B?SnNqcEt6Y0FrVU9mcDBsRUZsRC9TTkY4VENzMWJiNTBsUS9lV1lkVDRNUTh0?=
+ =?utf-8?B?cUczalEydmFoNm1FcnNiQm5xaW1QMHlWWlQwQ0lCR0lKeFg0MjRMTVQ0VVl0?=
+ =?utf-8?B?Z2JrQndzeitKcVJvR05RNWZ3NW1Rb0pYZTQ3Zmk2Z0ZuWWVkZU5rYitlN2VM?=
+ =?utf-8?B?dWZLc2h3eHp0UmwvYXZtdFRXR29zcjFZYmcvVDdrbEZHaUttSi9ycDZtMlBr?=
+ =?utf-8?B?cm44eUo5ZUM1UHRxREpjTjRsUnVzV3laOHJOUXdKaUd6ZFFOaVkzOTFvTmJ0?=
+ =?utf-8?B?L1dDWEt2aHRweDM0ZHlIM3QyVkcxQU9tOFNzVm1ORWVoUXkyVzI3dnFLcjM3?=
+ =?utf-8?B?L21jNmhLZmVTV1lkTDhOdFcwUjUzVy96dEhCbUs1ckZsMVkrRVBYL25nM3Mw?=
+ =?utf-8?B?TVFIT0NSdW04amYxT3YxdnpGVklVZURpM0E4Ukl1a1VoNTQvdGdNVHR0UllS?=
+ =?utf-8?B?ckpmblZhVmE5MVhuK0xjcDQ0bVpNa1dSb2tIdGZqZWNTNld5YUdQd3E5Mk1a?=
+ =?utf-8?B?eGtqL01hUkltRzFBaGtVOTBzc2RCUjF0ZGVHVmc0aHdqRkpQd1JmZz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7bf7faf-b96d-48fd-4017-08dedc9a2cce
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 02:22:19.8103
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 02:39:46.9355
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RvQLQXf82lCSjntLYNfFufWiLaP8a5V0MxA1NXq1UkTuqa/yQg9qAZZZSaiyigqHVuTKQmszpowwR8rA94GIqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7736
+X-MS-Exchange-CrossTenant-UserPrincipalName: /ZfxdM5BxJeILg9pRir7rdHzp04iMewIyJxAfnFWijhWSoHaQIjH3zm3QhMfSXq9tmiwp4rnjfuzupN9ywRP5dy2lVAPzBvpyhFaNEleDSo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB7908
 
-On Wednesday, July 1, 2026 6:06=E2=80=AFPM Jiqi Li wrote:
-> Add initial device tree support for the Lenovo ThinkEdge SE70, an
-> industrial edge gateway based on the NVIDIA Jetson Xavier NX module
-> (P3668-0001) with a custom carrier board.
->=20
-> This initial submission includes:
-> - 40-pin expansion header pinmux configuration
-> - External Micro SD card slot with dedicated 3.3V regulator
-> - I2C bus for 40-pin header
->=20
-> Static verification passed: dt_binding_check and dtbs compilation
-> complete without errors.
->=20
-> Signed-off-by: Jiqi Li <lijq9@lenovo.com>
-> ---
-> Changes in v2:
-> - Remove unused input-related headers from baseboard DTSI
->=20
-> Changes in v3:
-> - Merge baseboard content into main DTS, drop separate baseboard DTSI
-> - Use stdout-path instead of bootargs in chosen node
-> ---
->  arch/arm64/boot/dts/nvidia/Makefile           |   1 +
->  .../nvidia/tegra194-lenovo-thinkedge-se70.dts | 113 ++++++++++++++++++
->  2 files changed, 114 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-=
-se70.dts
->=20
-> diff --git a/arch/arm64/boot/dts/nvidia/Makefile b/arch/arm64/boot/dts/nv=
-idia/Makefile
-> index 72c0cb5efa47..736a3f8a923f 100644
-> --- a/arch/arm64/boot/dts/nvidia/Makefile
-> +++ b/arch/arm64/boot/dts/nvidia/Makefile
-> @@ -29,6 +29,7 @@ dtb-$(CONFIG_ARCH_TEGRA_186_SOC) +=3D tegra186-p3509-00=
-00+p3636-0001.dtb
->  dtb-$(CONFIG_ARCH_TEGRA_194_SOC) +=3D tegra194-p2972-0000.dtb
->  dtb-$(CONFIG_ARCH_TEGRA_194_SOC) +=3D tegra194-p3509-0000+p3668-0000.dtb
->  dtb-$(CONFIG_ARCH_TEGRA_194_SOC) +=3D tegra194-p3509-0000+p3668-0001.dtb
-> +dtb-$(CONFIG_ARCH_TEGRA_194_SOC) +=3D tegra194-lenovo-thinkedge-se70.dtb
->  dtb-$(CONFIG_ARCH_TEGRA_234_SOC) +=3D tegra234-sim-vdk.dtb
->  dtb-$(CONFIG_ARCH_TEGRA_234_SOC) +=3D tegra234-p3737-0000+p3701-0000.dtb
->  dtb-$(CONFIG_ARCH_TEGRA_234_SOC) +=3D tegra234-p3737-0000+p3701-0008.dtb
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dt=
-s b/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dts
-> new file mode 100644
-> index 000000000000..530d5bcaeba7
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dts
-> @@ -0,0 +1,113 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/dts-v1/;
-> +
-> +#include "tegra194-p3668-0001.dtsi"
-> +
-> +#include <dt-bindings/gpio/tegra194-gpio.h>
-> +
-> +/ {
-> +	model =3D "Lenovo ThinkEdge SE70";
-> +	compatible =3D "lenovo,thinkedge-se70", "nvidia,p3668-0001", "nvidia,te=
-gra194";
-> +
-> +	chosen {
-> +		stdout-path =3D "serial0:115200n8";
-> +	};
-> +
-> +	vdd_5v0_sys: regulator-vdd-5v0-sys {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDD_5V_SYS";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
+Hi Martin,
+    Thanks for your review.
 
-Nothing currently references this regulator. Should e.g. the SD
-regulator below supply from it, or should it be removed?
-
-> +
-> +	/* Fixed 3.3V power supply regulator for external Micro SD slot */
-> +	vdd_3v3_sd: regulator-sd-3v3 {
-
-Should be called regulator-vdd-3v3-sd.
-
-Also, please move the regulator nodes to the bottom of the file
-matching other device trees (alphabetical order).
-
-Thank you!
-Mikko
-
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDD_3V3_SD";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		gpio =3D <&gpio TEGRA194_MAIN_GPIO(Q, 5) GPIO_ACTIVE_HIGH>;
-> +		regulator-boot-on;
-> +		enable-active-high;
-> +	};
-> +
-> +	bus@0 {
-> +		/* 40-pin expansion header custom pinmux configuration */
-> +		pinmux@2430000 {
-> +			status =3D "okay";
-> +			pinctrl-names =3D "default";
-> +			pinctrl-0 =3D <&pinmux_hdr40>;
-> +
-> +			pinmux_hdr40: pinmux-hdr40 {
-> +				pin7 {
-> +					nvidia,pins =3D "aud_mclk_ps4";
-> +					nvidia,function =3D "aud";
-> +					nvidia,pull =3D <TEGRA_PIN_PULL_NONE>;
-> +					nvidia,tristate =3D <TEGRA_PIN_DISABLE>;
-> +					nvidia,enable-input =3D <TEGRA_PIN_DISABLE>;
-> +				};
-> +				pin11 {
-> +					nvidia,pins =3D "uart1_rts_pr4";
-> +					nvidia,function =3D "uarta";
-> +					nvidia,pull =3D <TEGRA_PIN_PULL_NONE>;
-> +					nvidia,tristate =3D <TEGRA_PIN_DISABLE>;
-> +					nvidia,enable-input =3D <TEGRA_PIN_DISABLE>;
-> +				};
-> +				pin12 {
-> +					nvidia,pins =3D "dap5_sclk_pt5";
-> +					nvidia,function =3D "i2s5";
-> +					nvidia,pull =3D <TEGRA_PIN_PULL_DOWN>;
-> +					nvidia,tristate =3D <TEGRA_PIN_DISABLE>;
-> +					nvidia,enable-input =3D <TEGRA_PIN_ENABLE>;
-> +				};
-> +				pin35 {
-> +					nvidia,pins =3D "dap5_fs_pu0";
-> +					nvidia,function =3D "i2s5";
-> +					nvidia,pull =3D <TEGRA_PIN_PULL_DOWN>;
-> +					nvidia,tristate =3D <TEGRA_PIN_DISABLE>;
-> +					nvidia,enable-input =3D <TEGRA_PIN_ENABLE>;
-> +				};
-> +				pin36 {
-> +					nvidia,pins =3D "uart1_cts_pr5";
-> +					nvidia,function =3D "uarta";
-> +					nvidia,pull =3D <TEGRA_PIN_PULL_UP>;
-> +					nvidia,tristate =3D <TEGRA_PIN_ENABLE>;
-> +					nvidia,enable-input =3D <TEGRA_PIN_ENABLE>;
-> +				};
-> +				pin38 {
-> +					nvidia,pins =3D "dap5_din_pt7";
-> +					nvidia,function =3D "i2s5";
-> +					nvidia,pull =3D <TEGRA_PIN_PULL_DOWN>;
-> +					nvidia,tristate =3D <TEGRA_PIN_ENABLE>;
-> +					nvidia,enable-input =3D <TEGRA_PIN_ENABLE>;
-> +				};
-> +				pin40 {
-> +					nvidia,pins =3D "dap5_dout_pt6";
-> +					nvidia,function =3D "i2s5";
-> +					nvidia,pull =3D <TEGRA_PIN_PULL_DOWN>;
-> +					nvidia,tristate =3D <TEGRA_PIN_DISABLE>;
-> +					nvidia,enable-input =3D <TEGRA_PIN_DISABLE>;
-> +				};
-> +			};
-> +		};
-> +
-> +		/* Configure i2c bus clock to 400kHz for carrier board peripherals */
-> +		i2c@3160000 {
-> +			clock-frequency =3D <400000>;
-> +			status =3D "okay";
-> +		};
-> +
-> +		/* SDMMC3: External Micro SD card slot */
-> +		mmc@3440000 {
-> +			bus-width =3D <4>;
-> +			cd-gpios =3D <&gpio_aon TEGRA194_AON_GPIO(CC, 4) GPIO_ACTIVE_LOW>;
-> +			disable-wp;
-> +			no-1-8-v;
-> +			vmmc-supply =3D <&vdd_3v3_sd>;
-> +			status =3D "okay";
-> +		};
-> +
-> +	};
-> +};
-> --=20
-> 2.43.0
->=20
->=20
-
-
-
-
+On 2026/7/8 03:33, Martin Blumenstingl wrote:
+> Hi Xianwei Zhao,
+> 
+> On Mon, Jul 6, 2026 at 4:43 AM Xianwei Zhao via B4 Relay
+> <devnull+xianwei.zhao.amlogic.com@kernel.org>  wrote:
+> [...]
+>> +                               func-ir-in {
+>> +                                       remote_pins: group-remote-pins {
+> Can we keep the established naming:
+> $ git grep remote_input_ao_pins arch/arm64/boot/dts/amlogic/ | wc -l
+> 37
+> 
+> I'm worried that adding IR blaster/output support at some point will
+> then lead to confusion.
+> 
+Will do. I will rename remote_input_ao_pins.
+> 
+> Best regards,
+> Martin
