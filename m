@@ -1,75 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619383F077F;
-	Wed,  8 Jul 2026 07:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EE03F54C9
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 07:23:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783495435; cv=none; b=N7JJuaO3LqSjGPInN0i55aPPm8asZr7ZYaY/qSVYznFXZbTbFSyO4SyDTaIVppO4WhJs1Zvn4mra2jjJR+LSCSgdFOxtNTxP4jlQVegQ5Imw2Vt/tf36fGylIfD/3BaeJR9wC8y1ofeH9yO0Z3FidmuOQIf9mixQMXQcXd9DJwE=
+	t=1783495437; cv=none; b=ZyixvHx9tVYoc32vfLnPlgIZU2RWMM9+OnwaNiDqESwzLtdpvClqsAbuO53w6deArlzADYhGPxWEIRpEi7lqZBOUIBMPm9I7Q2IZyOH3cQsPpfL0PBh0xMce3f9LfpKHbqfzmDUa3pzOhCUq+bur7Nil1hOqbPZ/tRh6GJQq6Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783495435; c=relaxed/simple;
-	bh=h+XxSiGVSg9hEIBd227KOiUzOcWry9yMrFCd2J1bc78=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=e48mMBv+LNzHCeZ1zU4s8MHM58k/9UeBiWXaFisBWs1mKje8BCkr68LKyf87gzxl9cdTIlEUYEynp+iswikzbo8W7IhSUNTFoBHfA7esEPaV5fpFtHetHAo1vDAlKczs4oR/4o5f6RtW/Hr/pV4QE03oIRsDC6egJrnqDCO7lRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XrP7tFnP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783495437; c=relaxed/simple;
+	bh=MQyVj1/YEyzdXCUs64ppkHreCxsY8/7HeF2R8vP80Ik=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MBG4PW4WWGZVc4J20457qwTZ/93m8S0wijby6vM/vJAsnCLI3p5kL0MYWU9dUKMc8wlNUT935lZmJ/cMk+QsZQifXa0CBJSABrNIEsQSjz3Hm2fwkzbVGQGxd3ywCDjV4bhBhOPZFeXUHdQdZikZ9g4xa6+omoor2Jtk2FeQj50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OtHhwMRY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XrP7tFnP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6121F000E9;
-	Wed,  8 Jul 2026 07:23:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OtHhwMRY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBBB1F00A3D;
+	Wed,  8 Jul 2026 07:23:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783495424;
-	bh=17F/Jr3rKociTFUmjiT8hNoe4yR6eIdvM2BSmhwTG1A=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=XrP7tFnPcV4SbOo3PP0s7VRX7iFL46u8xxpncivYDlLIvx2GyNbLhxqf0Iv31POkb
-	 0gjM89TK3iJBQJeTZm4arCQ/dFQAOoLpHPoluFZDCq55Ql5HOLgkoMA8NTk15w4SB1
-	 p/xTOiDyswU8uSBVuaBVNgsp6wZ1DGCfRRxXmrm5GWBl0LTf87KS+lmq3erZQEUEFa
-	 drx4y6FWzPhwg/d3FAL8PMi9CSpIPk8PEu02/oAY7d5C/37JBL6S4PzGnAbfT3rGUY
-	 8oKZ74Vu7SCNXdeAdobJdo+/dJXGkgYZzMJf7jBbU0kd+TmQFtcJ6SyAVMJFaynxph
-	 K9/7SN+vdBLEg==
-Date: Wed, 8 Jul 2026 01:23:42 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: Guodong Xu <docular.xu@gmail.com>
-cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-    Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Zong Li <zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, 
-    Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
-    Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
-    Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>, 
-    Chen Wang <chen.wang@linux.dev>, linux-doc@vger.kernel.org, 
-    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-    kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-    Paul Walmsley <paul.walmsley@sifive.com>, Conor Dooley <conor@kernel.org>, 
-    Jesse Taube <jtaubepe@redhat.com>, 
-    Charlie Jenkins <thecharlesjenkins@gmail.com>, 
-    Andrew Jones <andrew.jones@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-    spacemit@lists.linux.dev, sophgo@lists.linux.dev, 
-    linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v5 03/17] riscv: hwprobe.rst: Document EXT_ZICFISS and
- EXT_ZICFILP
-In-Reply-To: <20260701-rva23u64-hwprobe-v2-v5-3-2c61f94a695a@gmail.com>
-Message-ID: <e9d78a59-12d8-8969-37bb-583a1a6951c9@kernel.org>
-References: <20260701-rva23u64-hwprobe-v2-v5-0-2c61f94a695a@gmail.com> <20260701-rva23u64-hwprobe-v2-v5-3-2c61f94a695a@gmail.com>
+	s=k20260515; t=1783495429;
+	bh=j9zCWPAJlkmvbnaKxcoZyn8rzwEGgc1ZEZo6ZMjrE5Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OtHhwMRYowxku8t4r+QDnhK1+7AsiQTKfbfuradDNDY5nWRnLUmxfUFSnxhiizdxB
+	 jHUoeftB1goDg4BrcDwQGWvDs93KAMF3C7AusFp4GOZxDmkEHPMN20RsXI43RftFpb
+	 KK2sLrCmyASJCwtrkGaNMLO/OR+bhCSiDQQa70QkZ6o9zbGaxIcOXvW/5Btg0xwSOC
+	 RlRnCSk45clxfLOXYZlBMCZyF0IMqKAT9c89ZdGoBikFT01/0WS1SUYniMV43rQWL0
+	 rI4anQXE0GT3JqGFpIgNXG5WjbUtNbabYtDcgAasBPyggWJ9H0vWt86GJHrUJEqbk5
+	 g9jouWwqpzS3g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 22/26] remoteproc: qcom: Move minidump data
+ structures into its own header
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260708-meminspect-v3-v3-22-7aa5a0a74d5c@oss.qualcomm.com>
+References: <20260708-meminspect-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com>
+ <20260708-meminspect-v3-v3-22-7aa5a0a74d5c@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 07:23:48 +0000
+Message-Id: <20260708072348.EEBBB1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 1 Jul 2026, Guodong Xu wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] The newly added header file `include/linux/soc/qcom/minidump.h` use=
+s types `__le32` and `__le64` but fails to include `<linux/types.h>`.
+- [Low] The highly generic macro `MAX_REGION_NAME_LENGTH` is exposed in a g=
+lobal header without a proper subsystem-specific prefix.
+--
 
-> RISCV_HWPROBE_EXT_ZICFISS and RISCV_HWPROBE_EXT_ZICFILP are defined in
-> the hwprobe uAPI but are not documented in
-> Documentation/arch/riscv/hwprobe.rst.  Add documentation for them.
-> 
-> Link: https://github.com/riscv/riscv-cfi/commit/302a2d45c2435940d9a63571c66bc038adc74133
-> Reviewed-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+--- Patch [22]: [PATCH v3 22/26] remoteproc: qcom: Move minidump data struc=
+tures into its own header ---
+commit 2cd4dc20742b94f6ee105c751e369816b8d27d0f
+Author: Eugen Hristev <ehristev@kernel.org>
 
-Thanks, queued for v7.2-rc.
+remoteproc: qcom: Move minidump data structures into its own header
 
+This commit moves Qualcomm minidump data structures from qcom_common.c to a
+new shared header file. This allows the structures to be reused by other
+drivers.
 
-- Paul
+> diff --git a/include/linux/soc/qcom/minidump.h b/include/linux/soc/qcom/m=
+inidump.h
+> new file mode 100644
+> index 0000000000000..7449a04e6e158
+> --- /dev/null
+> +++ b/include/linux/soc/qcom/minidump.h
+> @@ -0,0 +1,67 @@
+[ ... ]
+> +#ifndef __QCOM_MINIDUMP_H__
+> +#define __QCOM_MINIDUMP_H__
+> +
+
+[Severity: Low]
+Does this new header need to include <linux/types.h>? It uses __le32 and
+__le64 types below in struct minidump_region, which might cause build
+failures if a driver includes this header without previously including the
+types header.
+
+> +#define MAX_REGION_NAME_LENGTH  16
+
+[Severity: Low]
+This isn't a bug, but moving this macro to a global include directory
+exposes a very generic name to the global namespace. Could this cause macro
+redefinition collisions with other subsystems? It might be safer to give it
+a subsystem-specific prefix.
+
+> +#define SBL_MINIDUMP_SMEM_ID	602
+> +#define MINIDUMP_REGION_VALID		('V' << 24 | 'A' << 16 | 'L' << 8 | 'I' <=
+< 0)
+[ ... ]
+> +struct minidump_region {
+> +	char	name[MAX_REGION_NAME_LENGTH];
+> +	__le32	seq_num;
+> +	__le32	valid;
+> +	__le64	address;
+> +	__le64	size;
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-meminspect=
+-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com?part=3D22
