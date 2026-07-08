@@ -1,121 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFBA3E92B5
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 07:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6329925C80E
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 07:21:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783495220; cv=none; b=I+u2WKyb+PcXvpOCzcBTvc1IiV8uJUQV/MmQDuwc1ydOAEvmFHjv/DcM3SJVuI5Y0yQJLcRY8SvltnakZwFfiCf0FlQDwTT3Q5k+WaP2/Ph9ZlCa4iZkaHTsfFJnUeHL/ynQpv7j2pAkmSaxJ+2egqlRX1WV3XOO8dD5ef2S+4Y=
+	t=1783495268; cv=none; b=kQ2JCn4psY+/fFgadGvUAyZ58NcyCVSjhImOK+cnk7eiOLMt8/AhAHwI/v3USBSndKJ4jhTG0/LOiz8Ouf36mAPQGOhrVfCRqdonlFTr/kkws2B5TxvgD5PbrikWTU1ew9iVe+u8a/5/DPSr1QNE3DMEH1kRBZj6oHomAgPZ3pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783495220; c=relaxed/simple;
-	bh=q1A6mkZZzAzdnsQmkoMUGORYm/gUp4F4TqXmRtkD5y0=;
+	s=arc-20240116; t=1783495268; c=relaxed/simple;
+	bh=1rav9dsXalwRUF6zlfWezeKE6XuFgJuU5tWW1TcU7UY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ObS22houbspDmo87g+KEvL6wHak56842mZDR1rckBGlePpV7Oyj5qOlFI7mDyhfMeBmKEm9v9ecpo8rj4uJTBY02dcNBpH3GbH0qRmsTCzFLdkaHjc11fAq6YlSbVRXlVOVVidRGBFKx1Lk6guQeJubjSoP0zIoz1ZB6BKRFq1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KeKieyLK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TCJOLyPzYADBfB9CClfOPtsBGw2HKuLj95xuX4+yzJs/Gw9Dlsi8xzo5QqpsEgTsvS/zveRS0H6lWHit0THJWftcYL+cx5Ou0Kq4Cg4N7lUTU9HlfrYGN/QxcGfRYGLIJv6cEadpmHxs+cT++xqE8zWhBmZml5bhKkjdn0UdmEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nwuKQnY7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KeKieyLK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1ADB1F000E9;
-	Wed,  8 Jul 2026 07:20:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nwuKQnY7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB271F000E9;
+	Wed,  8 Jul 2026 07:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783495200;
-	bh=Qy3ihGOZcvu8FGK8gMR1KWJBlUsZzIVBiU4DR8e9Dio=;
+	s=k20260515; t=1783495253;
+	bh=HQzKref42l9xejoGDAeyF13y5kgZrrRp5pJWj/mCLcM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KeKieyLKLL6JrcGjNhyfix3IFl6Z6jgMMOVYuSUGcFN4x5IHgwts31YhL76e7K2IR
-	 j4mMayYEXf4lIgDphCUBd/oU1HnZbGvINCCugt62hf6wMAd/fA6P8AqNzf0bbFJJkB
-	 0BwaRY1DBnb7trZmeHv+497Kwvpa39Fvol1tICPagLU5RtTvp57LwasDA7w3sihfe4
-	 bxzIqcTBtXDwJFg8CnixdBPaXp3wv0b3td1yKLDrxKgxd3/spSBm4x2r2SmW2uBzzr
-	 G3r/0l4t3cAVaD0xZFNG1xsSK7SpajpVh9raBP4PECZuH2iAhObjEODBPCbn4ew4ur
-	 cB9QLvgk5V1eQ==
+	b=nwuKQnY7wJa8m2tQDK2C0v2jLUUMC5m+wyWgjgRjZl4a4OqAATlLxfhQ0ELSd+x5u
+	 fFyATrI3OQmTX18oPn4gTU7AT0EHsXNBj81xaJANqnLEFxXqSeEqOvY0ffu4b+F8uO
+	 rof/C1b+9ApxDLmeYfbtXSrxgEFbxxEN5P+2gCsVUkHedYMHAme7e4baC1ssL4snw7
+	 uuuG39C8Vple6fX5Qozu1OnZ2BQVV/eHLXvUFdQi7mpP+p7HYJeSpD/3lRNYKtOp1p
+	 ogOuRW4vsewxyy0mXS7oVGvmXkeUu4qIWnsSr5cFdiKL9ncNDa5AsCptQ8OPAgaGHT
+	 PKeAzMdlrHHBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/26] genirq/irqdesc: Annotate static information
+Subject: Re: [PATCH v3 13/26] kernel/configs: Register dynamic information
  into meminspect
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260708-meminspect-v3-v3-5-7aa5a0a74d5c@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260708-meminspect-v3-v3-13-7aa5a0a74d5c@oss.qualcomm.com>
 References: <20260708-meminspect-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com>
- <20260708-meminspect-v3-v3-5-7aa5a0a74d5c@oss.qualcomm.com>
+ <20260708-meminspect-v3-v3-13-7aa5a0a74d5c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 07:20:00 +0000
-Message-Id: <20260708072000.A1ADB1F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 07:20:52 +0000
+Message-Id: <20260708072053.2AB271F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Missing explicit alignment in `MEMINSPECT_ENTRY` causes compil=
-er-injected padding in the `.inspect_table` section, breaking array iterati=
-on and leading to a boot-time out-of-bounds write.
+- [High] Missing Cleanup / Use-After-Free on module unload
+- [High] Invalid Virtual-to-Physical Translation for module/kernel symbols
+- [Medium] Double dispatch of MEMINSPECT_NOTIFIER_ADD for built-in initiali=
+zations
 --
 
---- Patch [5]: [PATCH v3 05/26] genirq/irqdesc: Annotate static information=
- into meminspect ---
-commit 457b76345a308caf0fe6e0e39b0d770189713dab
+--- Patch [13]: [PATCH v3 13/26] kernel/configs: Register dynamic informati=
+on into meminspect ---
+commit 69a88fbb66bd86af76d457f0ad80ecb85abfe14b
 Author: Eugen Hristev <ehristev@kernel.org>
 
-genirq/irqdesc: Annotate static information into meminspect
+kernel/configs: Register dynamic information into meminspect
 
-Annotate vital static information into inspection table:
- - total_nr_irqs
+This commit registers kernel_config_data information into the memory
+inspection table. It captures the start and end markers of the region=20
+to assist debugging tools.
 
-Information on these annotated variables is stored in a dedicated
-meminspect section.
-
-> diff --git a/kernel/irq/irqdesc.c b/kernel/irq/irqdesc.c
-> index 80ef4e27dcf47..4e58e7f5fc6ce 100644
-> --- a/kernel/irq/irqdesc.c
-> +++ b/kernel/irq/irqdesc.c
-
-[ ... ]
-
-> @@ -142,6 +143,7 @@ static void desc_set_defaults(unsigned int irq, struc=
-t irq_desc *desc, int node,
->  }
+> diff --git a/kernel/configs.c b/kernel/configs.c
+> --- a/kernel/configs.c
+> +++ b/kernel/configs.c
+> @@ -64,6 +65,11 @@ static int __init ikconfig_init(void)
 > =20
->  unsigned int total_nr_irqs __read_mostly =3D NR_IRQS;
-> +MEMINSPECT_SIMPLE_ENTRY(total_nr_irqs);
+>  	proc_set_size(entry, &kernel_config_data_end - &kernel_config_data);
+> =20
+> +	/* Register 8 bytes before and after, to catch the marker too */
+> +	meminspect_lock_register_id_va(MEMINSPECT_ID_CONFIG,
+> +				       (void *)&kernel_config_data - 8,
+> +				       &kernel_config_data_end - &kernel_config_data + 16);
 
-[Severity: Critical]
-Does adding this meminspect entry risk a boot-time out-of-bounds write
-due to missing alignment constraints in the underlying macro?
+[Severity: High]
+Since meminspect_lock_register_id_va() translates this address using
+virt_to_phys(), is it safe to pass module or kernel symbol addresses here?
 
-Looking at MEMINSPECT_ENTRY() in include/linux/meminspect.h, instances
-of struct inspect_entry are placed into the .inspect_table linker section
-without an explicit alignment constraint:
+When built as a module, kernel_config_data resides in vmalloc space where
+virt_to_phys() is invalid. Even when built-in, kernel symbols on some
+architectures (like x86_64 or arm64) reside outside the linear mapping and
+typically require __pa_symbol() instead.
 
-include/linux/meminspect.h:MEMINSPECT_ENTRY() {
-    static const struct inspect_entry __UNIQUE_ID(...) \
-    __used __section(".inspect_table") =3D {
-        .id =3D idx,
-        .va =3D (void *)&(sym),
-        .size =3D (sz),
-    }
-}
+[Severity: Medium]
+Will this result in a double dispatch of the MEMINSPECT_NOTIFIER_ADD event
+when the feature is built-in?
 
-On 64-bit systems where sizeof(struct inspect_entry) is 40 bytes, the
-compiler can over-align static variables, inserting padding between
-adjacent entries in the section.
-
-When meminspect_prepare_table() iterates over the section using pointer
-arithmetic, the pointer advances by exactly 40 bytes. If padding is
-present, it will fall out of sync, read garbage values into e->id, and
-cause an unbounded array index write:
+When CONFIG_IKCONFIG=3Dy, this initialization runs during the device_initca=
+ll
+phase, which fires the notifier. Later, meminspect_prepare_table() runs at
+late_initcall and appears to fire the same event again for all populated
+entries:
 
 kernel/meminspect/meminspect.c:meminspect_prepare_table() {
-    for_each_meminspect_entry(e) {
-        inspect_entries[e->id] =3D *e;
-        if (!inspect_entries[e->id].pa && inspect_entries[e->id].va)
-            ...
+    ...
+    for (i =3D MEMINSPECT_ID_ELF; i < MEMINSPECT_ID_MAX; i++)
+        if (inspect_entries[i].id)
+            atomic_notifier_call_chain(&meminspect_notifier_list,
+                                       MEMINSPECT_NOTIFIER_ADD,
+                                       &inspect_entries[i]);
+    ...
 }
 
-Could the macro definition be updated to include an alignment attribute
-like __aligned(__alignof__(struct inspect_entry)) to prevent the compiler
-from inserting this padding?
+Won't consumers of the notifier chain receive two ADD events for the same
+entry?
+
+[Severity: High]
+If this is built as a module, does ikconfig_cleanup() need to unregister
+the dynamically added entry?
+
+kernel/configs.c:ikconfig_cleanup() {
+    remove_proc_entry("config.gz", NULL);
+}
+
+If the module is unloaded and the entry is not unregistered, won't the
+meminspect table retain a dangling pointer to freed module memory, leading
+to a use-after-free during subsequent table traversals?
+
+> +
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-meminspect=
--v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com?part=3D5
+-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com?part=3D13
