@@ -1,196 +1,108 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F9848C405
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E4F274FDF
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522332; cv=none; b=MiomcGt3atCRDfnTEJ0Wh9nJGlEm8+6NWcb+xDYCbi8uVZwFc3xUzdcKSm7n6tVIvcNpAXumZcH4Tz+b595SpajOgrFfTjCfk4Rt38B0c5HJ2xn58VXgToTBS/UmNaDXxlcv2iwec+O4b0gYjFfLXKNAQAxehZSxSCyULJXt9yI=
+	t=1783522495; cv=none; b=hh1OioBH5SIinOZBy7qW1knan2Ynfsk8t3kWd+q0zF0tOjHh+Yi7CMx8cGgaUCMFS4PPDZeQ4/RGUGGwAYO6EYl5W6OYeA69o4mHHsdXXpdkFf0QDZdrJpig4TedM35/F8VryuxgakmUgb7MdXKaaVuZb1wRtXg/WY9q3oG6vU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522332; c=relaxed/simple;
-	bh=RoFMDCUUj62w2tWbiccAzqrlHIyKF0aRDZB8FP8cyts=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZuWjRVncZ6ObleuRyHyS1CQtJaO/+PyCuSL/FvpekaOlMmDnlQIBQx+sXn4zDgDga0Ol/OZY5do53EktdWFJjt2tJ33HDa/Mc6wsVWUHGtef3IBMXQVE1/lAgGEsNgxOJUAn6t8r2iro78V2IrLZ4c7PQH1qjSL9iqNs5tczSO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I/6K8tSV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F6Q3VhtO; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783522495; c=relaxed/simple;
+	bh=kBOjahIJTBpdEWRT+hMOb62jMSWTPna0AkHUuw+iFuI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SBfg1xTORWu7fkJdCaUJK0COYQsPV9I7tLc9AuRHowBCIa4l1Ej67llpA34weqDesUR7h8saRCPzeKyg6DNDLUMpYz9a8Pc0p3Ex0eiGDB3iAtc0AOiqcfclpHpPwbvyP9bXORYxeasTH2IS+Od1iDmi70og7quv3TlP5wdzvVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dElyPSgT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I/6K8tSV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F6Q3VhtO"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668C3AFc2736272
-	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 14:52:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hO6xcDIc0zi6w0QwroXm/ugLcJogfcgAT7RlRKexx38=; b=I/6K8tSV8Tog1rSx
-	QxTgfuz3V4KJuTrPPMd8xzxm2aaI6LUUSzIanf1NQbBAEsalbCXUwg382Rnv3p/a
-	jlD5XnZYGzgz8Uq63XhVbDtel8TCA0glGeJp7uDS2/7jzS24G+OzLfripjdAvyUs
-	FLlAFqO7Fr/02nlVXF7J7d7Yc//8R67dC1D06wli2yKvt05bnScaZi+H8ZaqYGwp
-	W4BNxGV2GnQmaAUIBS9iFVnWhFsGQKOGoAs7QJFDxEy3zArlMLhqu81mxr2WIh49
-	rrlcQ5TANwq1woAas9TIzX7YWOK0hKx1eMAwxXKKzh/eZDTNfg6thRCZ+7owT9yy
-	0rAePg==
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9hnv1wbt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:52:10 +0000 (GMT)
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6a374304efbso528233eaf.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 07:52:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783522330; x=1784127130; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hO6xcDIc0zi6w0QwroXm/ugLcJogfcgAT7RlRKexx38=;
-        b=F6Q3VhtOmkjcmy1GAszQ9vNuarpUoEE/zrOdrS/6lNHRWdj+rsv78HkHppN1+wU/Jj
-         MK2KaGK0pQ5Lf6Vvc5+/V8tKrx46r1+erln+MHTMI8+mS2mXBJoFGhDR6/sPzttc9pCM
-         dkl7RyH+PWUlvYt1UL9T0JTHQVHfBXJb5Dvm89Z1Vwj0f0YQtu2edJkCyaSKiEbTW7cD
-         gTufOEGv53XE68K3qe1L2Wr/W/I3APeR+ATpxXjTZ259L0otL1bhhtG1iH+CSknIFFJm
-         KPZKKrbNR1VQ/J1ndNMA5BqNTWbzyhs9YC+Vu9mwpW6l4tPnihOxXkGfATwUF869jvgk
-         oPbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783522330; x=1784127130;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hO6xcDIc0zi6w0QwroXm/ugLcJogfcgAT7RlRKexx38=;
-        b=mYARjWg6u/BabXDP6iMPRiMgVLKpKrIxSVFKvJ6AktViVG+vQq3Sm/5/yRuqtdYXD+
-         y5OWPcwARFZCbivzV8hb/twlWQ6tXQpkfzRP30WJY4AT3I/l/xaFY4qq+YqThK6t8i1V
-         McCpWANomCCtoFsOy8ZRd3p2IRJDSTJ9CUtoCkyj7zLRLwuOKjwkwV1t+JzIJ6H3Owc2
-         UsYojLu4SdxG8G7EXeaCsJ6AfAy1aVgHWYJRQnMAUomCI9Lzq5CLuj1iFJxcJFKQQnJH
-         BhLfRKw7Zl41BdX3lDQkudkIWYV01c3txWeVoxaXrgsIItqmdwanOEkUzSmfAkf4Kq2W
-         2gpQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+mj7QQhmhHseD430apo27xKnIgxkUFSQyMRG/p8UKOoO0/splOkugMNOKceL1nsC60bQztRDQcGP+c@vger.kernel.org
-X-Gm-Message-State: AOJu0YzO16j2d4tw+I5OZLRELBiVrsJScyaCMJsRpr627c7ldWYivBmh
-	OULT1XMXQpW0m8jo9rRrejL3moZxL/awPGqfREOkbHOOmnj/asCP23MQlG0N2TOPYM3NjgEA2kd
-	339E7HwHtjX3/vjL5zHQNZk+GtURviNL9WfhQuTGcOOg2aXb6R+msMD7xy7mTN1OY
-X-Gm-Gg: AfdE7ck3C/Lnu+I2XIIPfnAJqKWu2xrYxCGr68BSxj0ClYdDgcBtq3XhfsW9+gramMN
-	tunqpfLbJ2I/U+OOFZUCL2f4y7QMAKwr6CPQmtV2UmAg6Yrdjr7ZW8KwfdkGQdCGKL45GMKlEc8
-	p/aIW8Q4X3m9YcC3qs3ZkUmRRfD3eNHOPKdDppHqrjQgRsfOLWX9BCbVxAq/y908tUkj+V1qdZd
-	q/w9mNLVuGUCN1eyROfdv9EcgPh4DWlKCzWlI0gkjHxzolqSd5OcrEZYSGsfmvT8/XymNHgjFtN
-	54Qwks0uqS8Yg9EaxzIkcnHOBjSi7ZWIDdqY7aSGccINhizP7tDqbomvJ6IQODvYmLaDeFXMIvX
-	8QoqKDul2CzKaGJ1px0j861D0j3SUOUyGURgR7tw=
-X-Received: by 2002:a05:6820:20e:b0:6a3:21bb:17b with SMTP id 006d021491bc7-6a36da17682mr1672828eaf.58.1783522329626;
-        Wed, 08 Jul 2026 07:52:09 -0700 (PDT)
-X-Received: by 2002:a05:6820:20e:b0:6a3:21bb:17b with SMTP id 006d021491bc7-6a36da17682mr1672782eaf.58.1783522328951;
-        Wed, 08 Jul 2026 07:52:08 -0700 (PDT)
-Received: from [10.219.56.198] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44cfb13d624sm16831050fac.1.2026.07.08.07.52.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 07:52:08 -0700 (PDT)
-Message-ID: <4e266d45-ee88-42f8-91da-6253927686ae@oss.qualcomm.com>
-Date: Wed, 8 Jul 2026 20:22:00 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dElyPSgT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9AF91F000E9;
+	Wed,  8 Jul 2026 14:54:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783522494;
+	bh=Vr6JW8bM74XdeYYaBKjyN13pudKMM2d3UPOhnULFxN8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dElyPSgThvLGsntSvGUAYT99zOnyRbGZRD4VsnJiuhkyvPHQuDPIKVfZh3nudKQA3
+	 syomEKUgP/ev9Dm0ukSj3cOJyHTUy8q7PFsldj9hZnLvcVrzG3pMbucQV8t4NVUGWk
+	 5HVc+2nxIChD8d9xMIpwuLE3D0JEjIAAzm6DYX5XwegJDfAUvJ1ytOXk39aDwb7zyU
+	 xt+0CsT4eoBxosDmPWXZl9kBibwkQkh+Vvk4tMbL82i/uY80/iXQA9yhAfZDLwJxuC
+	 oJUInHt2WbNqkDqJ4HKhULbsQJ3QHsklkXrmwO0iMhrbygpQqc/I56DxQQ/0aQ9bJw
+	 JvpAwS304OdYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 6/7] dtc: dt-check-style: Print proper line number of
+ indentation detection place
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-dts-style-checker-v4-6-c175e6401150@oss.qualcomm.com>
+References: <20260708-dts-style-checker-v4-0-c175e6401150@oss.qualcomm.com>
+ <20260708-dts-style-checker-v4-6-c175e6401150@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 14:54:52 +0000
+Message-Id: <20260708145452.E9AF91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] dt-bindings: iommu: arm,smmu: Document
- interconnects property
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com>
- <20260706-smmu_interconnect_addition-v3-1-afdca0125a65@oss.qualcomm.com>
- <nrht4irqtvt2vk3lrqvljonarc4kanht2nrwjt7pppsfhozffv@o4xei47l6gcj>
- <e8b247d9-d60d-497f-a831-a9772d27481a@oss.qualcomm.com>
- <phlk6zsxr7szdadsvgoecf7ewcqjkuaj5aeqmfqa4uvvvvnsmj@57u2pofxewuh>
-Content-Language: en-US
-From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-In-Reply-To: <phlk6zsxr7szdadsvgoecf7ewcqjkuaj5aeqmfqa4uvvvvnsmj@57u2pofxewuh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KNNqylFo c=1 sm=1 tr=0 ts=6a4e641a cx=c_pps
- a=wURt19dY5n+H4uQbQt9s7g==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=6nhsP2hVHzjk3Kom7RcA:9 a=QEXdDO2ut3YA:10
- a=-UhsvdU3ccFDOXFxFb4l:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE0NiBTYWx0ZWRfX1nEVCWMp2BSq
- bVxJoOeAB7S/LjGLWMZSe0G1syuj8kNPTRv3eoNE7n1Kl0oJ/WHvVQG3OOJkxO1HDHWbaGxxN22
- DlmylsHyzRfsWPgEAEWm5hHHac6+XQU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE0NiBTYWx0ZWRfX9Xi19aZUX5TP
- CApdw9/BZR1+IVg7UTBcw2H/FWMgYiBLh8abjPUdvHK8ZSvTMVl2Lcn8VxiMWpVIuNP6LjxyoHD
- iwe8jrluVM7ViBdZqEh7BMbJ94NWbE7bntucz2JiGiPSJFRmBWeTZR+JmXCEhMAvVSh6fssUxvG
- 2AD0WBAN3J90YePdDaCWZeQRybSXsj+bBCTLEcHOGtDeX42JA/k/BxBEwL1kDLepZQL2HKoiVnx
- q+jmnNhBkzEBXOwCgV5pGcLU/M4Ub6bvD6YHRThxB5vTptXlpfKNAcZSb9wlQ2Mor6UwLHW7uyo
- lfU2WQBfv9jm1c59gKgwNNxXdssY1B/2l/T1MZ0OFjvvU+f3zySBPs3MruSvSgk/m3DZvE95tSZ
- F+NlY9jKe/mis5bLkOaGt8TPAmXehRRCjNQLDx7LCDRllqPIo8YyCG7Jtv4EZGhSjkDK0WBMJOf
- egyJnuJqM+BIN1Q+kdw==
-X-Proofpoint-ORIG-GUID: SjpHmkwePqNtft1jU_HPgDPUjlfN4CYh
-X-Proofpoint-GUID: SjpHmkwePqNtft1jU_HPgDPUjlfN4CYh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 suspectscore=0 spamscore=0
- malwarescore=0 phishscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080146
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Outdated docstring for detect_indent_unit()
+- [Low] Unused variable `lineno` in `check_indent_consistent()`
+--
 
+--- Patch [6]: [PATCH v4 6/7] dtc: dt-check-style: Print proper line number=
+ of indentation detection place ---
+commit 0faea90fe4385d4895b11cc94353072a1a5f9347
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On 7/7/2026 10:12 PM, Dmitry Baryshkov wrote:
-> On Tue, Jul 07, 2026 at 06:06:59PM +0530, Bibek Kumar Patro wrote:
->>
->>
->> On 7/6/2026 11:09 PM, Dmitry Baryshkov wrote:
->>> On Mon, Jul 06, 2026 at 10:26:34PM +0530, Bibek Kumar Patro wrote:
->>>> Some SoC implementations require a bandwidth vote on an interconnect
->>>> path before the SMMU register space is accessible. Add the optional
->>>
->>> Why is it limited only to those SoCs? Is it also applicable to other
->>> Qualcomm SoCs?
->>>
->>
->> I was hoping to keep this series focused on the core infrastructure
->> changes: the bindings, base ICC bandwidth-voting support, and DT
->> interconnect properties for the platforms currently supported on
->> Qualcomm Linux and have been validated so far.
->>
->> The additional targets have not been tested yet, so I'd prefer
->> to add their support in a separate follow-up series once validation
->> is complete, rather than growing this series further. WDYT?
-> 
-> Then it should be a part of the commit message. All SoCs since SDM12345
-> need to vote on the interconnect (and then, in the cover letter mention
-> that you convert only a few of the SoCs). We possibly can help with
-> testing on other platforms.
-> 
+dtc: dt-check-style: Print proper line number of indentation detection place
 
-Ack, sounds reasonable.
-I'll add the first platform onwards which interconnect voting is 
-required in commit description.
-And update the cover letter to clarify that this series adds
-support for the Qualcomm Linux-supported targets available today, and
-the list will be expanded in follow-up series as additional platforms
-are enabled.
+Script judges the indentation however always suggests it is the first
+line which is wrong, e.g.:
 
-Thanks & regards,
-Bibek
+  sigmastar/mstar-infinity2m.dtsi:1: [indent-unit-dts] indent unit must be =
+1 tab in DTS, got '\t\t'
 
->>>> 'interconnects' property to the binding to allow platform DT nodes
->>>> to describe this path.
->>>>
->>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
->>>> ---
->>>>    .../devicetree/bindings/iommu/arm,smmu.yaml        | 27 ++++++++++++++++++++++
->>>>    1 file changed, 27 insertions(+)
->>>>
-> 
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index 9a5263a30663f..df056e4d0a5b5 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
+> @@ -397,48 +397,48 @@ def detect_indent_unit(ctx):
+>          if not dl.indent_str:
+>              continue
+>          if dl.indent_str =3D=3D '\t':
+> -            return '\t'
+> +            return ('\t', dl.lineno)
 
+[Severity: Low]
+Is there a documentation regression here?
+
+Looking at the top of detect_indent_unit():
+    """Find the indent unit used at depth 1 in this block.
+
+    Returns one of: '  ' (2 spaces), '    ' (4 spaces), '\t' (tab),
+    or None if depth-1 is empty or ambiguous."""
+
+Since it now returns a 2-tuple instead, should the docstring be updated to
+reflect this change?
+
+[ ... ]
+
+>  def check_indent_consistent(ctx):
+>      """All indented lines must be a multiple of the detected unit."""
+> -    unit =3D detect_indent_unit(ctx)
+> +    (unit, lineno) =3D detect_indent_unit(ctx)
+>      if unit is None:
+>          return
+>      if ctx.file_type =3D=3D 'yaml':
+
+[Severity: Low]
+Is there a minor regression here with an unused variable?
+
+It appears lineno is unpacked from the tuple but never used anywhere in
+check_indent_consistent().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dts-style-=
+checker-v4-0-c175e6401150@oss.qualcomm.com?part=3D6
