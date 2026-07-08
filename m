@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D467641CB51;
-	Wed,  8 Jul 2026 14:57:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC273F12C9;
+	Wed,  8 Jul 2026 14:57:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522666; cv=none; b=Fy9i3i5To5GW4yWaB2e+43dZOH83r+zxRYHtSlt2A76ONKjpWpVdzRchEMF4FeG02SumQXwfMeI3htxDVKdJMBCjbAjsTu0RYpQVf9KC8brp3XvhArtIFiCf2asvfDUmSYzWDzMBRI3k/AFqTs3kn0NC3kdhrWhbaFVJ0gPO+Uc=
+	t=1783522666; cv=none; b=ZwE06bM5b0eCKzmfAD9eYyaX7eWroe+903IVHUczmM245KUiAon5Csvq9FPcr9AjhjVbbkxgdU+e5Xd7aLx7/JrXHEknyTzY+DedqEraB67RECW4LRzJdSbVo/31VtC/SnQA0kv2eF4erX+lKStkSJktlNHGmE/OzVMc5kUVNoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783522666; c=relaxed/simple;
-	bh=EbhH+Uz/+5IziXxDDvUpyvdEQvKN/MzeDjRgcTx4OE8=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RPZR0xlPRvP9hCJJF/038XRcwwMIV0Uf9lVNtV6bsDatascV8todM/31Xepbdaza+0bNT7+njGpHTavxN6Zck19hZhiXQgmIPqzgtVzJH67tYlh+vOaiZHWefrFeGrHggDsWfngTj+t+CABV6Ss3vFVwUFDUiQd1uEMedPbH29s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvBOVfdq; arc=none smtp.client-ip=100.103.45.18
+	bh=kU4xSznuFl8uM+V/D740o0dwPvvezhGu5J/RYfPw6EI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=V5QYv5r21rA/KncY15SmxDr1Uy485oFQso1EJ6WhBVDFL4Yb0Zorm6wAxbOH77avnD4oFQ1hWvnhrgA+9smMlWAS7XjNmcfsmwhsz9XlJmyI3FdssozPoSDDSlISf537h6x0iwmK8QiZFxrL6DBavNnTYa1rQgd8eQmtTGc0BEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cloZf7/H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvBOVfdq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DD91F00A3D;
-	Wed,  8 Jul 2026 14:57:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cloZf7/H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD43C1F00ADB;
+	Wed,  8 Jul 2026 14:57:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522664;
-	bh=Mrk5N+xGMgJl2efkFQdwxtBddmsSxaLRpPS0k4o/tYs=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=EvBOVfdq2nXLDa+82zlZVvI9amqVXAN9kMCBDuyUAuDstzcgtQMyaV3EdWm5xkHqu
-	 +IIwc6V5YAkgKXEip98VQ0HOwNt2cHqLi0K0imZtFMGlmUvk3jZB8fM5GwOtw3sPTT
-	 Xdf100c909kcNxlltN5iRn1iFC36TaqY0Urz8SlKTMeWriaRAwMbxVcz0YfmsfeLZW
-	 cd8B6NICti4lghbUowS9PaqxeBumprURawJDCTD2iogqdATtt37LgDw1w1hTBXek6P
-	 hT6tZELWhtMK7o6Z9tbJc/KFagJIvdKGfwjVfaFPbAB4xGDr9fG0yivThr4reQZW/Q
-	 v2tqWRji29SqQ==
+	s=k20260515; t=1783522665;
+	bh=8ch4yZqPCBcSimke4UhZ/cKB24eMRKtvV+Ug9A6IshU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cloZf7/H3zxW0nNpvL+VD5qbqwPCIP53w8HydPYGRqe/0zb1Fe3Jk1YZL3XnhCEsx
+	 C3Dl5cmtK55Kt8ZBuF9wk5UUtfZlI0WWuQ0u15iakHk+4n6cwcUi8W1CeefIxhZ5Gr
+	 VC9dWfVlLKZXld72QYQUaaXnzrByXTiirA/ntgNRCfiSSdJfJRtXP9xf5d+4AF8vtg
+	 hLji6D0luCssMWofC12YUArhEPMib14A7kPVN3JWsVOu7eo5dhXF5CL1Dcyart99Nw
+	 TPhUQ0teY6Z08ORW/9Pm4FKVRsdTstBdLn8yKo4RJDu6dtDxsNuD2nQyKe2XnChwhJ
+	 08bYz2fMY4/fg==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Pengyu Luo <mitltlatltl@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	Richard Acayan <mailingradian@gmail.com>
-Subject: Re: [PATCH] arm64: dts: qcom: sdm670-google: add lpi reserved gpios
-Date: Wed,  8 Jul 2026 09:56:45 -0500
-Message-ID: <178352261610.2235436.12501139853646973897.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] arm64: dts: qcom: sc8280xp: fix and improve pinctrl
+Date: Wed,  8 Jul 2026 09:56:46 -0500
+Message-ID: <178352261645.2235436.7506953794540668934.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260602021722.30760-1-mailingradian@gmail.com>
-References: <20260602021722.30760-1-mailingradian@gmail.com>
+In-Reply-To: <20260629065905.15651-1-mitltlatltl@gmail.com>
+References: <20260629065905.15651-1-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,18 +53,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 01 Jun 2026 22:17:22 -0400, Richard Acayan wrote:
-> Add reserved GPIOs for the Pixel 3a, which blocks access to the sensor
-> GPIOs. The hunk in the original patch was dropped in the commit because
-> it depended on an unapplied patch, which is now commit fe9f4a46895d
-> ("arm64: dts: qcom: sdm670-google: add common device tree include").
+On Mon, 29 Jun 2026 14:59:02 +0800, Pengyu Luo wrote:
+> Add camera mclk pinctrl definitions to sc8280xp.dtsi and drop local
+> and duplicated definitions, as this is common for sc8280xp based
+> devices. Since the correct drive-strength is 6, fix it too.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sdm670-google: add lpi reserved gpios
-      commit: 71dd62dac8e2d03f952587f8985a859fce422815
+[1/3] arm64: dts: qcom: sc8280xp-x13s: Fix the drive-strength of mclk pin
+      commit: 06f07e693cc33d5d9695652f679c6321a751020e
+[2/3] arm64: dts: qcom: sc8280xp: Add camera MCLK pinctrl
+      commit: 6e2f2454640b21db48d1f1bc8a068a8862d6cf1f
+[3/3] arm64: dts: qcom: sc8280xp-x13s: Use predefined MCLK pinctrl
+      commit: fbe4faae9869fcb03884c078187f985db693298c
 
 Best regards,
 -- 
