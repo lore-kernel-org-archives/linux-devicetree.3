@@ -1,302 +1,207 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E462047D955
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DD4370AE0;
+	Wed,  8 Jul 2026 16:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783529547; cv=none; b=A/1DeRiSdfKKQheUQ2NM7gx1GmzUwo5+rhy4mLj/sONRAWEikZq065Ws1MIk6+jqTcMgGmmlod6H989IvxhPvu6Whkvv2n2UTAPLpmjHN16gRbRjqZdUimpZ3Sn1gOBH340H9mSsQ00LU3K9Rn9uOEABbbSqgMbdjx8KaYn6BEg=
+	t=1783529782; cv=none; b=rG8iEX4j9Bsytd75/vEI80crKKRWsHpeIy1kCHteYxLTGOveHJ6m2TobFt5pWWuX4p5LKYvODpXOu+qKVS25zXcFpvnAFyJksXQLODuZBy7nm3Gf4mo+PzqvGkhg9cT4tB70/aT72NzONWMPz0Tt9QroH9q7AKZ1W9ooxBEntLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783529547; c=relaxed/simple;
-	bh=1Wl+9r0+s0TDUjhnfcyyKaDZxB4Fsr0gGq2PjdolWCg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hEcO7imMatopIBHvI8iF0uyeHr3clDJxTfVH6dQEJZ1tzC+HMtr+h1q1eb3GgVMFeMld0Ai8GAbp+r2DIETMRjtIR8m05vkSqHZi8LZZSOSZ48blFhyD3gl6BG3TkaBqaZDq9YpTw0eDz/+h+R/oioan8MAx7TntIhx+q7H8ukc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E90Lz14+; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783529782; c=relaxed/simple;
+	bh=noniq48uyme1ndn7+boWnmBCWZtb2rUs87YKHFxsKVs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gG00MpIk3S9smDgZkp0ctzQSjrxZx5G6iDi6WYR+aj54zzgg0oqUoZkFA7/Gv4h9RJS/Oglj88lOjBiYuyIBKxOyRwgfZh8A7HsiW5Qo+HPuu5tAk2VSTk8K6ZGNK/geTW0ZfA9A3Xvugmy9U0Y7XxcImyQQbO7ujNEdoTMX5Bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lwOZDHhF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E90Lz14+"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c96d7933910so66044a12.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:52:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783529535; x=1784134335; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=U//PbZPS0wgDigTHSbhziRKqlRUyA7Fn8Fac9dDowRc=;
-        b=E90Lz14+1YgTEpbmNeJELtOLuivs6htblOwEKIACSx1T20MCEJlyzKaoKCsa2g/IZj
-         cg4KbrWC3ikRJvr4CnImXIXeiBw+WIS4DvchFbWfUQ4if02vo49MHntfbcXy6rF0tdqL
-         m03NncSEU4lGaAvXA8v0ijiLcDoOe7/nAyFR5BwLMMa3IAaEH5Bg0prrhhRQFspduUCS
-         Ufm+XSd6jjMv3U0EOMIx7HiLkXK31jmtw8jRo4mBFFHgCQfH9oavcpVH3FfsEUCnHsKR
-         h3sqd2yD5nyb91qos+RmloZAPjT77T9OSb8MzdSvuMev+F79O6v+4l3cUkuHGphlyK7Y
-         rEWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783529535; x=1784134335;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=U//PbZPS0wgDigTHSbhziRKqlRUyA7Fn8Fac9dDowRc=;
-        b=pC001Dc3kCcwhkdd6vJo14wS6Cbuov+lfIyVrU58VoCwxogbyUn8jmwpIyh2jqJ4Nb
-         8Fyb71oA7pJcOhC1rIwNgakFk0QD/9xJfAb07G5RU10QVU71Zdx8nhGVIgF+NtfD3/r2
-         X/O23vCWIfQtY+MQ30PC7Km9Xd3eZNRzXlc4DNY7Eg856LwZGcAgoo7PwWaBkSxXp9OB
-         Kf78MvYs6QGYBZgdf258ilgZkszkeaFBU+G+OBmoMmPfvlvrvVaZ7nef0geRFyqS1fVc
-         eXD9WTbqsdy+hEcpBQpjhxoUUb90WCxhgwRY8Xhqal4DWVYzQHaXrXwwEg+3FOC7tHHg
-         5QVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrtDoKX/yPrCuxs9k6rXoursrrgWHQSUc82lgjiG1I+wLO4naq9Sx1vHBOyFIY6ywj9rPGYWTFnlF98@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcqekbJVSKZ26b8bV8A/zEuo2A46IXTQhFLz5KrnF09duVeSu/
-	FkijhTLB4l3kR0Bi+2C4MlP7wxACdFaZA4kMHYCAveaQToSNCUALyfl+
-X-Gm-Gg: AfdE7cmrcXqxh3E2GYzYJTXZ+ASewNAl1av1oQSdAA8v3Cn2v266YqZa4lcCRG0xp3j
-	aU1BwqYwF3krkM6wLvwLmkpmK+b3P6nY39AcqbHPv3Ev+2I/wfZO4aH7FRQpptSN1lx50fvsGgX
-	y2JB1Ps+dwrPaMD6R3C2fpZjG/y6qL4cY1UtU2B0QAF7QySUfLvwmtO0r9sH1l1u6xl5Uu/aJcV
-	qM1SYdFDpQMMmCFU9KEE50Ytnq2O9dbW2Qdbao0S6dojpM9iELzldz75E7KnR+RjAIQILAAPf15
-	n5AVbDAn1A8+L660aRn2cceYXs5en0WG1BPie/7PaE5qfGCxUmsGFXvwJ+JOcP8V8JdIvpFsPo2
-	ewmxtxymC0uBXpZ0HOdszkZ6NnlUklra5u0G3HwrqdMKfBuoAwxd04dA6wDwrk3WNF24RPB2FJK
-	QV1ZDI2D+FW9Z+5kbJ0SxkvA==
-X-Received: by 2002:a17:90b:4c0e:b0:381:1ffc:7d35 with SMTP id 98e67ed59e1d1-38a2122c84amr257831a91.6.1783529535194;
-        Wed, 08 Jul 2026 09:52:15 -0700 (PDT)
-Received: from [192.168.1.2] ([2401:4900:881c:f765:f05c:d31e:8ae0:b06d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311935fd091sm7136661eec.24.2026.07.08.09.52.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 09:52:14 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 08 Jul 2026 22:21:43 +0530
-Subject: [PATCH v2] dt-bindings: iommu: ti,omap-iommu: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwOZDHhF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE1A1F000E9;
+	Wed,  8 Jul 2026 16:56:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783529781;
+	bh=noniq48uyme1ndn7+boWnmBCWZtb2rUs87YKHFxsKVs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lwOZDHhFW70q9GXQoGm2w2/I//SGcLmwE+CZAEmFJeK4PR7q5WUGSY1MD0hpvsYaD
+	 zZsM1sxrCt3GYzei7lCKeJ19o1q9jHviK/aJh2+eqn6ownSMspMUyFcFTp+ir41gqF
+	 PT3zWVEyJadHuECJMV5RzM0GkcnlpviWyEjY26NL1EUTSTHFUxk71DsAqmQpIyxGEu
+	 j3eKnjCR8pQdDAnqisPnQXuoYepruJxa7oxjobGzEA9jVS8hjo2XacdM1GkVqMbVvp
+	 M9Emd+9XddR7on8UNt32ZgCtPny1kH8bmgMYwYHDkywLhucK3c+TkL2+0c6+9JZAii
+	 SvItTOIac9oZw==
+Date: Wed, 8 Jul 2026 17:56:16 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?iso-8859-1?Q?Bj=F8rn?= Mork <bjorn@mork.no>
+Subject: Re: [PATCH net-next v5 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek/Broadcom PSE MCU
+Message-ID: <20260708-lyrically-footrest-10963a12145f@spud>
+References: <20260706112425.3149226-1-jelonek.jonas@gmail.com>
+ <20260706112425.3149226-2-jelonek.jonas@gmail.com>
+ <20260706-player-handwash-0a3fe95cf5ec@spud>
+ <c19e563a-8931-4f31-b05a-ff8def4a5161@gmail.com>
+ <20260707-dove-fretful-e3c8e237f1eb@spud>
+ <2afc9c9a-eacc-46ca-b965-4cabee8f7094@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-ti-omap-iommu-v2-1-612d4a6644ba@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7RgoCMSV9zAshjqFMZaSthAN4
- e4Crl2+5P33FwjshQNckwU8zxLEDRuoUwK6p6FjlMfGoFJVplVaYxR0lkYUZ+2EOStlqtzolhR
- sm9GzkffRuzc/DlP7ZB33yG70EqLzn+NwznbvX3vOMMOi1kZfciIqyltnSV5n7Sw067p+Ae2co
- lO8AAAA
-X-Change-ID: 20260708-ti-omap-iommu-3e22f73fcba2
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: iommu@lists.linux.dev, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783529530; l=6812;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=1Wl+9r0+s0TDUjhnfcyyKaDZxB4Fsr0gGq2PjdolWCg=;
- b=lFU8uyDQABCOFUqV6yGWemDCgw90I2sdy3M0wBvWUKs6x3ud5O5vkGIWo9zbTdMZJFL+pZkgU
- CSg/0AYIcAeArks8DjXtY8ClaZrrSbbANMU+VYqk/zDzTTwx7RzBfjn
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s7oTVYavLC/W9h5Y"
+Content-Disposition: inline
+In-Reply-To: <2afc9c9a-eacc-46ca-b965-4cabee8f7094@gmail.com>
 
-Convert Texas Instruments OMAP2+ IOMMU from text to DT schema. Make the
-'ti,hwmods' property optional and mark it deprecated as it is no longer
-used, it is kept to support legacy dtbs.
+--s7oTVYavLC/W9h5Y
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v2:
-- Added maxItems:1 to ti,syscon-mmuconfig as property expects only one
-  pair of phandle-args
-- Added deafult value 32 for ti,#tlb-entries
-- Link to v1: https://lore.kernel.org/r/20260708-ti-omap-iommu-v1-1-48cfc53aaa46@gmail.com
----
- .../devicetree/bindings/iommu/ti,omap-iommu.txt    |  59 -----------
- .../devicetree/bindings/iommu/ti,omap-iommu.yaml   | 114 +++++++++++++++++++++
- 2 files changed, 114 insertions(+), 59 deletions(-)
+On Tue, Jul 07, 2026 at 10:50:21PM +0200, Jonas Jelonek wrote:
+> Hi Conor,
+>=20
+> On 07.07.26 19:25, Conor Dooley wrote:
+> > On Mon, Jul 06, 2026 at 10:30:00PM +0200, Jonas Jelonek wrote:
+> >> [...]
+> >> The protocol and firmware on the MCU, most likely the whole "solution",
+> >> is from Realtek. The setup is always the same on most Realtek-based
+> >> switches (saying most because a few counterexamples use completely
+> >> different setups, not even Broadcom or Realtek PSE silicon). The host
+> >> interface is always the same (except for I2C vs. SMBus vs. UART, which
+> >> is likely just a config in the MCU firmware). Therefore "realtek," is =
+the
+> >> right prefix for all of these.
+> >>
+> >> Broadcom is not really involved here except for their PSE silicon being
+> >> used. Maybe Realtek modeled their MCU host protocol after the one that
+> >> Broadcom PSE silicon uses as host interface, but this is rather guessi=
+ng.
+> >>
+> >> Maybe a historical view might help. Older RTL83xx-based switches with
+> >> PoE shipped with this setup using Broadcom PSE silicon. From what I kn=
+ow,
+> >> at this point Realtek didn't design their own PSE silicon. They used t=
+he
+> >> Broadcom silicon, put a MCU as a manager in front of it with their fir=
+mware
+> >> and a host protocol based on what Broadcom PSE itself uses. At some
+> >> point Realtek started to design their own PSE silicon which then was
+> >> used in newer switches instead of Broadcom PSE.
+> > Right, in that case it does make sense to use a realtek prefix, since
+> > the software and mcu solution is all theirs.
+> >
+> >> [...]
+> >> Only one at a time is used, but not combined in any way. All switches
+> >> I've seen so far always have a single management MCU for PoE, not
+> >> multiple. Thus, only a single variant is used. Which variant is used
+> >> likely depends on the board vendor which then tells Realtek "I want yo=
+ur
+> >> PoE solution, I can attach it via (I2C/SMBus/UART)". At least for UART=
+ vs.
+> >> I2C/SMBus there are sometimes valid reasons to use UART over the other.
+> >>
+> >> There is only a single switch (from Linksys) where the MCU expects raw
+> >> I2C messages. SMBus transaction fail actually. But I don't see the rea=
+son
+> >> why Linksys did it that way. The reason can't be that the MCU is attac=
+hed
+> >> on a bit-banged I2C because another switch uses SMBus transaction on
+> >> a bit-banged I2C.
+> > Reading this, it feels like you "should" have compatibles that uniquely
+> > identify the protocol used.=20
+>=20
+> Ok, I hope I put this together correctly. A concrete proposal:
+>=20
+> "realtek,pse-mcu-gen1"=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (Protocol Gen 1, UART)
+> "realtek,pse-mcu-gen1-smbus"=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (Pr=
+otocol Gen 1, SMBus)
+> "realtek,pse-mcu-gen2"=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (Protocol Gen 2, UART)
+> "realtek,pse-mcu-gen2-i2c"=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 (Protocol Gen 2, raw I2C)
+> "realtek,pse-mcu-gen2-smbus"=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (Pr=
+otocol Gen 2, SMBus)
+>=20
+> This uniquely identifies the protocol used: first generation and second
+> generation. As Rob mentioned before [1], this also pulls in the raw I2C
+> vs. SMBus framing in contrast to having it in a property. The framing
+> suffix appears only on I2C attachments because it doesn't apply to
+> UART transport, and this is given by the parent serial@ node.
+>=20
+> Though I'm still open for suggestions regarding the protocol
+> identification if "-gen1"/"-gen2" is not acceptable.
 
-diff --git a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt
-deleted file mode 100644
-index 4bd10dd881b8..000000000000
---- a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt
-+++ /dev/null
-@@ -1,59 +0,0 @@
--OMAP2+ IOMMU
--
--Required properties:
--- compatible : Should be one of,
--		"ti,omap2-iommu" for OMAP2/OMAP3 IOMMU instances
--		"ti,omap4-iommu" for OMAP4/OMAP5 IOMMU instances
--		"ti,dra7-dsp-iommu" for DRA7xx DSP IOMMU instances
--		"ti,dra7-iommu" for DRA7xx IOMMU instances
--- ti,hwmods  : Name of the hwmod associated with the IOMMU instance
--- reg        : Address space for the configuration registers
--- interrupts : Interrupt specifier for the IOMMU instance
--- #iommu-cells : Should be 0. OMAP IOMMUs are all "single-master" devices,
--                 and needs no additional data in the pargs specifier. Please
--                 also refer to the generic bindings document for more info
--                 on this property,
--                     Documentation/devicetree/bindings/iommu/iommu.txt
--
--Optional properties:
--- ti,#tlb-entries : Number of entries in the translation look-aside buffer.
--                    Should be either 8 or 32 (default: 32)
--- ti,iommu-bus-err-back : Indicates the IOMMU instance supports throwing
--		          back a bus error response on MMU faults.
--- ti,syscon-mmuconfig : Should be a pair of the phandle to the DSP_SYSTEM
--                        syscon node that contains the additional control
--                        register for enabling the MMU, and the MMU instance
--                        number (0-indexed) within the sub-system. This property
--                        is required for DSP IOMMU instances on DRA7xx SoCs. The
--                        instance number should be 0 for DSP MDMA MMUs and 1 for
--                        DSP EDMA MMUs.
--
--Example:
--	/* OMAP3 ISP MMU */
--	mmu_isp: mmu@480bd400 {
--		#iommu-cells = <0>;
--		compatible = "ti,omap2-iommu";
--		reg = <0x480bd400 0x80>;
--		interrupts = <24>;
--		ti,hwmods = "mmu_isp";
--		ti,#tlb-entries = <8>;
--	};
--
--	/* DRA74x DSP2 MMUs */
--	mmu0_dsp2: mmu@41501000 {
--		compatible = "ti,dra7-dsp-iommu";
--		reg = <0x41501000 0x100>;
--		interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
--		ti,hwmods = "mmu0_dsp2";
--		#iommu-cells = <0>;
--		ti,syscon-mmuconfig = <&dsp2_system 0x0>;
--	};
--
--	mmu1_dsp2: mmu@41502000 {
--		compatible = "ti,dra7-dsp-iommu";
--		reg = <0x41502000 0x100>;
--		interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
--		ti,hwmods = "mmu1_dsp2";
--		#iommu-cells = <0>;
--		ti,syscon-mmuconfig = <&dsp2_system 0x1>;
--	};
-diff --git a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml
-new file mode 100644
-index 000000000000..9588eb60376e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml
-@@ -0,0 +1,114 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iommu/ti,omap-iommu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OMAP2+ IOMMU
-+
-+maintainers:
-+  - Bhargav Joshi <j.bhargav.u@gmail.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,omap2-iommu
-+      - ti,omap4-iommu
-+      - ti,dra7-dsp-iommu
-+      - ti,dra7-iommu
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  '#iommu-cells':
-+    const: 0
-+
-+  ti,#tlb-entries:
-+    description: Number of entries in the translation look-aside buffer.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [8, 32]
-+    default: 32
-+
-+  ti,iommu-bus-err-back:
-+    description:
-+      Indicates the IOMMU instance supports throwing back a bus error response
-+      on MMU faults.
-+    type: boolean
-+
-+  ti,syscon-mmuconfig:
-+    description:
-+      Pair of the phandle to the DSP_SYSTEM syscon node that
-+      contains the additional control register for enabling the MMU, and the
-+      MMU instance number (0-indexed) within the sub-system. The instance number
-+      should be 0 for DSP MDMA MMUs and 1 for DSP EDMA MMUs.
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    maxItems: 1
-+    items:
-+      items:
-+        - description: phandle to the DSP_SYSTEM syscon node
-+        - description: MMU instance number
-+          enum: [0, 1]
-+
-+  ti,hwmods:
-+    description: Name of the hwmod associated with the IOMMU instance
-+    $ref: /schemas/types.yaml#/definitions/string
-+    deprecated: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#iommu-cells'
-+  - interrupts
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,dra7-dsp-iommu
-+    then:
-+      required:
-+        - ti,syscon-mmuconfig
-+    else:
-+      properties:
-+        ti,syscon-mmuconfig: false
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    mmu@480bd400 {
-+        #iommu-cells = <0>;
-+        compatible = "ti,omap2-iommu";
-+        reg = <0x480bd400 0x80>;
-+        interrupts = <24>;
-+        ti,hwmods = "mmu_isp";
-+        ti,#tlb-entries = <8>;
-+    };
-+
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    mmu@41501000 {
-+        compatible = "ti,dra7-dsp-iommu";
-+        reg = <0x41501000 0x100>;
-+        interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
-+        ti,hwmods = "mmu0_dsp2";
-+        #iommu-cells = <0>;
-+        ti,syscon-mmuconfig = <&dsp2_system 0x0>;
-+    };
-+
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    mmu@41502000 {
-+        compatible = "ti,dra7-dsp-iommu";
-+        reg = <0x41502000 0x100>;
-+        interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
-+        ti,hwmods = "mmu1_dsp2";
-+        #iommu-cells = <0>;
-+        ti,syscon-mmuconfig = <&dsp2_system 0x1>;
-+    };
+This seems reasonable enough.
 
----
-base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
-change-id: 20260708-ti-omap-iommu-3e22f73fcba2
+> > Looking at the devices below, it seems like it
+> > would be possible to use compatibles based on the switches themselves, =
+e.g.
+> > zyxel,xs1930-pse etc. If there are other devices that use the same
+> > protocol, they could fall back to the ones below.
+> >
+> > It'd be good to have the net developers weigh in though, as to whether
+> > using compatibles based on the switches is suitable.
+>=20
+> I'd lean against, but happy to defer to you and the net maintainers. The
+> node describes the MCU with its Realtek firmware =E2=80=94 the firmware/p=
+rotocol
+> defines the device. Everything that differs between instances on the
+> controller level would be captured by the compatibles proposed above, so
+> a board compatible would encode nothing there the gen+framing string
+> doesn't.
+>=20
+> Observed variation lives on another level. For instance, some boards have
+> heterogeneous per-port caps (e.g. 16 ports at 60W, 8 ports at 30W). This
+> is clearly something that should be expressed per-pse-pi, not in a
+> switch-specific compatible.
+>=20
+> It would also be an exception to the other PSE-PD bindings. They describe
+> controllers used across many switches too, yet none encode the
 
-Best regards,
--- 
-Bhargav
+The difference is those cases (for what few pse-psd bindings there are)
+the compatibles correspond to individual devices. Here you have
+compatibles you're going to use to cover multiple devices (with device
+corresponding to a combination of mcu/firmware/hardware behind the mcu).
+That lack of a 1:1 mapping is why I'm asking for something different from
+you than you see with the existing pse-pd devices. The switch the device
+is integrated on seems to be the only thing that reasonably makes sense
+to use.
 
+
+> switch/enclosure. Board-specific compatibles might still be added later in
+> case a device really has a variation or quirk that genuinely needs its own
+> compatible.
+
+And in doing so, have to retrofit that compatible to all devicetrees
+that use it. This is one of the reasons that we generally demand
+device-specific compatibles.
+
+You could add switch-specific compatibles that fall back to the ones you
+provide above, with the driver only using the ones above unless
+something crops up in the future?
+
+Cheers,
+Conor.
+
+--s7oTVYavLC/W9h5Y
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak6BLwAKCRB4tDGHoIJi
+0p3oAP9U4yfUL13XX9ITrEINjdXL06ft2DC/2A6DWUPEWttgcQEAjjYHmqp8c3s/
+MjMvX2e0llrBewajTkPxcGh/RK73bgs=
+=hLWj
+-----END PGP SIGNATURE-----
+
+--s7oTVYavLC/W9h5Y--
