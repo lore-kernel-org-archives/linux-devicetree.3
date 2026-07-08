@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6324E3ED3CD;
-	Wed,  8 Jul 2026 22:25:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297C93FE369;
+	Wed,  8 Jul 2026 22:25:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783549502; cv=none; b=N1bMq3aCbZfu6wt74kGdyib6MrHp7dlI4SQtFyLoG2VoZX2cubxoW/OpghViKsEE7zvSsps6vngO1G8mtANQOrIJ0n1IxQIEEheZtIf9vTDUzha8/8s9oVJso1n8UHs2RuKX0ZPGjSuwTXuhpgvPmGWkk56SQOxTBX01+cER7Ck=
+	t=1783549505; cv=none; b=dgB5vBj63MXWGsggcyenOIhTaLVMsQGyyB3i6QYsgS4j2qKPIVxJagETsaFho2AzMR/gn2zDKQQ7x4e4MT6DMxJ19MVK7llKTMTfNpgCNzS97EhEwJcQYbQR7+qVAzgCVOvPw+3yEYaJLQxBYJXDf0OcKTIVGiAEJFHtnfjeu3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783549502; c=relaxed/simple;
-	bh=nxlzeLusRnCAwzljk4jRSyPH1GliWW8fxfaJjLFzuXU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OVz+bX6YNG8xSmEMh5bVz29aU41A3yArzOQ3pp72qXn0lO6BR3LbGWS2lRZa8oc8dlV5p5PkxF/MpUGdx2+xlyteeoCyErBPXJKIxrd47fvl42QWJt9wWHofEew6Q2acHiUfpbLsql4t609RcVVq4PRPLew1YOWsuUy309Yp0Xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8GPc4j6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783549505; c=relaxed/simple;
+	bh=tPLbBGlEVWzuS9+r4+i+9kkqD6pi554QrA2ZiVsGV5k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VxHaDn1nBnEWmqDL3qdnjg+vZLGop7s6Ai1QEO/W0XkndStH8n6ks9YF+FfC5oo436aqGHLKNpMwW/ir4scH0+QuL9ZcgDyFLENbb7yKMHa6FFTrL/SXxkvwVaxGiaaVrNl8y43U2hE1IckkB59NXqTwI8OzN69uDAIuUupMWRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9hs8D6o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8GPc4j6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6A71F000E9;
-	Wed,  8 Jul 2026 22:24:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9hs8D6o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 836E41F00A3A;
+	Wed,  8 Jul 2026 22:25:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783549501;
-	bh=k72FKtErkVWXYuvUzP0hO6M77clth2kx7kycCbq0WD4=;
-	h=From:Subject:Date:To:Cc;
-	b=b8GPc4j6lHcpRrNKWph1ZmKBd4PfZG6VijUiWEVTXPAyeva93kV6pzyoKiff+vhfJ
-	 pK9+o9/M177Bg5x0STwXjI2M3/v/G86AX4nfc/uSM4yfEyZe4pjSmFkVfGt+sBmmBY
-	 +IiU5tniRfjanBZ5RfriXEDPwrNVE5O4yDMKALT8HlXbRuWHACzhVlh7jy0Ss1+A5y
-	 iA3j0CXPZY1oLBa4U7hthbz8dydjmHgn5uMadUMRogEogYad1ElwMC/JkEK7ZSkz67
-	 Lc55U7IZviXNqKCuRvuj6/a+IJRuHclQcwxuIrzQwQVsbyV7rIv95NhEGWZDAY67Cd
-	 EwqO+r96XvzqQ==
+	s=k20260515; t=1783549503;
+	bh=U9POfuivaTVjX9Vy76XJNvHAcLnkxPAcYHR9KgfQVJE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=D9hs8D6oNxhQiffR7mtHaK/HA8Mi1W5vohcKpBZF6+OZ48kbEWI4i1JqCTPQXXtw2
+	 gFlgL0NN1hkOJUHVnPl3w2tsQbiypz0H8lKgCY+y4sfOae6fTmlzzF8HXxoKVsVkPI
+	 GSAURFWWS2aOIsDg2wJL2uZf5KTligk683l0w+rUFk288HGmR2XEfHUKyX7AknPG5S
+	 KxN4Da+iUJAtKf/CK25WE6Txbm+w1qAFOmGjxZLyA+Gi7+1da8rp3fp/EOLF5wzW45
+	 DpOV9F6QcIP0tXsWJZJzw4e4tUeDeXzMWTp4dW4JUNTikHNBa9PfAs8r4SqOqOob7k
+	 STAl24+5nrHzg==
 From: Linus Walleij <linusw@kernel.org>
-Subject: [PATCH 0/3] ARM: Enable IXP4xx to use little endian mode
-Date: Thu, 09 Jul 2026 00:24:54 +0200
-Message-Id: <20260709-ixp4xx-little-endian-v1-0-e9622d0ba9e4@kernel.org>
+Date: Thu, 09 Jul 2026 00:24:55 +0200
+Subject: [PATCH 1/3] ARM: decompressor: always set endianess on xscale
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,10 +37,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqEMAxA4atI1hOI9Q+9yjALtVEjUqXtSEG8u
- 1WX3+K9AxxbYQdNcoDlXZysJiL9JNBPrRkZRUeDIlVSRRVK2PIQcBHvF0Y2WlqDdZ1Rp9VAmSo
- gppvlQcKz/f5eu383c+/vF5znBaafYSR4AAAA
-X-Change-ID: 20260707-ixp4xx-little-endian-9930bd2f0325
+Message-Id: <20260709-ixp4xx-little-endian-v1-1-e9622d0ba9e4@kernel.org>
+References: <20260709-ixp4xx-little-endian-v1-0-e9622d0ba9e4@kernel.org>
+In-Reply-To: <20260709-ixp4xx-little-endian-v1-0-e9622d0ba9e4@kernel.org>
 To: Russell King <linux@armlinux.org.uk>, Imre Kaloz <kaloz@openwrt.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>
@@ -48,81 +47,94 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.15.2
 
-This modifies the boot path for the IXP4xx, the remaining big
-endian ARM system, to enable it to be booted into little
-endian mode.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Motivation: big endian is less and less supported by the kernel
-and for the ARM architecture, IXP4xx is carrying the entire load
-since it is booting into big endian by default. After this there
-is no currently supported ARM system that cannot be booted in
-little endian mode, and the big endian support may be retired,
-if so desired.
+In BE32 configurations, endianess is always set to BE in Control
+Register C1, originally to allow booting BE kernels from a LE bootloader
+on IXP12xx.
 
-How this is done:
+To also allow the opposite and allow booting LE kernels from a BE
+IXP4xx bootloader, moving this code into head-xscale.S along with the
+recommended serialization sequence and flip the B bit into the correct
+position regardless of its original state.
 
-- Enable the XScale to switch to little endian mode from a big
-  endian boot loader just as it can today switch into big endian
-  mode from a little endian boot loader.
+Note that both the endianess switch sequence and the cp15wait I add
+here should be harmless on all supported ARMv4/v4t/v5 CPUs, but the
+existing cache flush code is not actually defined on ARM720 and may
+cause problems in multiplatform kernels that include both Xscale
+and CLPS711x.
 
-- This works fine because when we switch endianness all bus
-  accesses are also endianness-switched (swap32) and everything
-  will keep running as before from memory.
-
-- The object file will boot in big endian mode. This is done
-  by padding the file to an even number of bytes and then
-  endianness-swap (swap32) the entire binary before it is loaded
-  into memory. This means the file will "look as if it is
-  big endian" when it starts executing, and the first few
-  instrucions up until the endianness switch snippet are
-  executed as big endian.
-
-- Workarounds for addressing the last byte in 32bit address of
-  the serial port at 0xc8000000 by pointing at 0xc8000003 were
-  uniformly dropped. If the system shall actually boot in
-  big endian mode again, we need to fix the serial driver
-  instead of using this hack.
-
-I did not add the logic to pad and byteswap the image to get a
-bootable "big endian" object to the kernel build: just the bare
-minimum. The missing pieces are:
-
-  $(Q)size=$$(stat -c%s $(output_dir)/zImage); \
-  pad=$$(( (4 - size % 4) % 4 )); \
-  if [ $$pad -ne 0 ]; then \
-      dd if=/dev/zero bs=1 count=$$pad >> $(output_dir)/zImage 2>/dev/null; \
-  fi
-  $(OBJCOPY) --reverse-bytes=4 -I binary -O binary zImage zImage-swap32
-
-The resulting zImage-swap32 will boot on a big endian system
-and switch itself into little endian mode.
-
-Tested on the IXP4xx Avila platform with a little endian
-OpenWrt root filesystem on flash.
-
-Surprisingly all drivers on the IXP4xx appear to work just fine
-in little endian mode, due to care taken when authoring them.
-
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
-Arnd Bergmann (1):
-      ARM: decompressor: always set endianess on xscale
+ arch/arm/boot/compressed/Makefile      |  8 --------
+ arch/arm/boot/compressed/big-endian.S  | 14 --------------
+ arch/arm/boot/compressed/head-xscale.S | 12 ++++++++++++
+ 3 files changed, 12 insertions(+), 22 deletions(-)
 
-Linus Walleij (2):
-      ARM: ixp4xx: Relax endianness
-      ARM: dts: ixp4xx: Drop the reg-offset hack
+diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
+index e3f550d62857..5993dd1d0ee9 100644
+--- a/arch/arm/boot/compressed/Makefile
++++ b/arch/arm/boot/compressed/Makefile
+@@ -41,14 +41,6 @@ ifeq ($(CONFIG_PXA_SHARPSL_DETECT_MACH_ID),y)
+ OBJS		+= head-sharpsl.o
+ endif
+ 
+-ifeq ($(CONFIG_CPU_ENDIAN_BE32),y)
+-ifeq ($(CONFIG_CPU_CP15),y)
+-OBJS		+= big-endian.o
+-else
+-# The endian should be set by h/w design.
+-endif
+-endif
+-
+ #
+ # We now have a PIC decompressor implementation.  Decompressors running
+ # from RAM should not define ZTEXTADDR.  Decompressors running directly
+diff --git a/arch/arm/boot/compressed/big-endian.S b/arch/arm/boot/compressed/big-endian.S
+deleted file mode 100644
+index 0e092c36da2f..000000000000
+--- a/arch/arm/boot/compressed/big-endian.S
++++ /dev/null
+@@ -1,14 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- *  linux/arch/arm/boot/compressed/big-endian.S
+- *
+- *  Switch CPU into big endian mode.
+- *  Author: Nicolas Pitre
+- */
+-
+-	.section ".start", "ax"
+-
+-	mrc	p15, 0, r0, c1, c0, 0	@ read control reg
+-	orr	r0, r0, #(1 << 7)	@ enable big endian mode
+-	mcr	p15, 0, r0, c1, c0, 0	@ write control reg
+-
+diff --git a/arch/arm/boot/compressed/head-xscale.S b/arch/arm/boot/compressed/head-xscale.S
+index 20fa44d59f82..86705c865be6 100644
+--- a/arch/arm/boot/compressed/head-xscale.S
++++ b/arch/arm/boot/compressed/head-xscale.S
+@@ -14,6 +14,18 @@ __XScale_start:
+ 
+ 		@ Preserve r8/r7 i.e. kernel entry values
+ 
++		@ set correct endianness for ixp4xx regardless of bootloader
++		mrc p15, 0, r0, c1, c0, 0
++#ifdef CONFIG_CPU_BIG_ENDIAN
++		orr	r0, r0, #(1 << 7)       @ enable big endian mode
++#else
++		bic	r0, r0, #0x80
++#endif
++		mcr	p15, 0, r0, c1, c0, 0
++		mrc     p15, 0, r0, c2, c0, 0
++		mov	r0, r0
++		sub	pc, pc, #4		@ flush instruction pipeline
++
+ 		@ Data cache might be active.
+ 		@ Be sure to flush kernel binary out of the cache,
+ 		@ whatever state it is, before it is turned off.
 
- arch/arm/boot/compressed/Makefile             |  8 --------
- arch/arm/boot/compressed/big-endian.S         | 14 --------------
- arch/arm/boot/compressed/head-xscale.S        | 12 ++++++++++++
- arch/arm/boot/dts/intel/ixp/intel-ixp4xx.dtsi | 10 ----------
- arch/arm/mach-ixp4xx/Kconfig                  |  5 ++---
- 5 files changed, 14 insertions(+), 35 deletions(-)
----
-base-commit: aa4ffae4701cc6edf6303bf35c42e24f335d6899
-change-id: 20260707-ixp4xx-little-endian-9930bd2f0325
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
+-- 
+2.55.0
 
