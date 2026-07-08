@@ -1,108 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C72426ECA;
-	Wed,  8 Jul 2026 12:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783515487; cv=none; b=M1noukmZGPUyEtswuFsF4W44ztbBnWy+fUGyzFnKNiff1mMGFVcOvgvdq8ryIQIm8ulsaLaBD2YWgNkak7p71HjPR1z8oD4MIakqQ4mZTXnR9jQGHK/CNmvQH8HM34npQ8cTWc2W0SDTVCMOX79BuQivL93rsR7BCdKmQYR3byA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783515487; c=relaxed/simple;
-	bh=xZEq7B8+xWIwCOqdvFMyium+VktF9lGbVJWQQ5Dq5iE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DorIvAligYl1emrrXPTl10lLpMyWrqQ0yRpjwvh4Z0DNQX2MLT7EP0BTCRkQNvAqNY6Ov+n/TM3R34czWUKNXUVAFsImQ+879AVaibefZ9mn8Cl/cPV/lSg1NSLRqBMdUbohdfN/sxNbMaG/vR+GpFfVH6GjbII/8k7J0Kz7NX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSPG50iK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0F846AF05
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783515494; cv=pass; b=D6vEQMJHnHRZ332Dqr7/qRZV1lB7wHeZyJ7L9J1zgjgRWfDg/1jdmR9LXYumJYFgHgNhKEbmXi9p4nmRTtx8x0EmqWQUMebVUnaTGvamx84s5G4ouaEQ/kA7TLo2iB5RKnb7R5KrUe3+NlcTGfu8/QUJu9SVTWKMDSHD6+YERic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783515494; c=relaxed/simple;
+	bh=g3jhdMOgt2auKeqJZC2qsgnXeW6Etk1FtxDSQv7KpuI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HStEUPqhXiz9xQIZIPmmlCHD//y7Scy5Hken4lYtyCXykJ4A4NRUexH8M7Gfm0FBo1mgYssLazt38lN8bqfxV5wZ7gd1riEdpH/fG/j9mPjaUpVaCgTJrulf73DSpysZaSw9NA8HuMqyhv890wqKpW0Zb9S9a5KQuHSyeWkbFIc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=P3VKXxdd; arc=pass smtp.client-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSPG50iK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416DF1F00A3A;
-	Wed,  8 Jul 2026 12:58:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783515485;
-	bh=cFzDH14I5uj4RnUMzUSXmkAbv3+NyTBpnpViHKwN9fY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KSPG50iKKpjL0tk0chqh5F58Mbcyb9AKZscWGJG+3/H/O8A9MMNk49dxQ2TKI/XTZ
-	 YVHAtH7k3rj/qDRe3RFqS1CT9EUIKcD+hYQ8+bkLpB79EIEVrJ/Fon3tOsMOghOMNs
-	 vDAK5CLbdXxMF4+b2BY+tLnNu9Nua4x0c/gwYEOGNZgw5mqqIvSV3vMzGF92GuO7Nc
-	 Al9jwU4WapKKoJZnXfpt35SsQC/lfha8OQW/te2KGn1KWteZKLsKaMkP9F1WNwqgd3
-	 WVdFsq0i6EIcQWm+rEhV5TrypScu0bQYkq7ry2IvPpMW4RFzaCK7S25TXTDQBFkWkG
-	 q+Hqtl2zRKs3Q==
-Message-ID: <5c1fbcb2-10a8-462f-8744-26bb11efd838@kernel.org>
-Date: Wed, 8 Jul 2026 14:57:59 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="P3VKXxdd"
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-49fa951b2c6so456608b6e.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:58:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783515492; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aO7ojL5iRAHLt3/Sc4MQibg3JGeT+QqCd1Il1PwiHjxa9QnnSoMgQzSMMpOUyzX+qn
+         c8uaRVqkNiMCno356JsbXGcH7ukV/EgRf6UdM7qacXRT4LNOogZSiWJkK7o03N6uD/qT
+         DqlAFVaoL61Qy8QzW/8d5cMYkfRfSSosK4NbCKhzRwT57rGaqDLb0VfVXOREBV5P9+Ex
+         n3jJ/xkHFLlkWZVvTrMvdHA0X8/rGMxGldbKo8CRlTCUdfHlQnHmzC1sihil6ua8wglm
+         4l5sTAAqNiKLuJXj9+c9+7d9aAavaUl141uCr+VQfaPxoXVsHEaFYTPYQ8ougkTwEmTn
+         nBlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g3jhdMOgt2auKeqJZC2qsgnXeW6Etk1FtxDSQv7KpuI=;
+        fh=+Kn94FVzl6rE7mDhn4pFvEHlRshbQ57dQ5o19v04Oyg=;
+        b=YX+jQRc0Nr4ZGyuNQuAIBwaGdqGrQxGB1MAH5i8wH+BjCt/nbCJubgarshkcxh1X+Z
+         XETy8l53rrOcUNtv6OLvqk5cPLhoSTwKC+ZT19nNbF0cUokeauQEJKhYZQJJukfTFp4r
+         wJ8pxJEj9QC767PvovYP4WiGG/IIAyC8m/OQUNbM58xskztpU2XCRqQpYWDxzk/Akd1p
+         2o0rMIWdwVQoc6nCwWTSppZ9AD8MB+OSmR1GQo9tT0zELquGMi0Fc/5sozY0Z8xUuUXx
+         mv2cgdv7eySDNJop/N9jHd7tVCxJ7z91rE1TXWh1jHxbZpdaq5obAPXIhI9b7Q+LHlWe
+         ODPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783515492; x=1784120292; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g3jhdMOgt2auKeqJZC2qsgnXeW6Etk1FtxDSQv7KpuI=;
+        b=P3VKXxdd2rrTlsS3gqc/6LEP4JEZoMfYL81iRZPA9+4uwxIG70hvZc+YilgZFIM1MO
+         nxzMAnUK9/VtQFgWxycFCPYj6E5cEms+13ayeed7ihEQ0137lyBJLdnefjR6xq42dHVu
+         cQKXqBvlFHXx96x4KsCg8e9OGu/sFsvYbuNK2dBMnHOrJI/Vn+pDWYvED7au9k3M8bUj
+         T13Nqemmna4r0O9rJ6Ybsd/0IAvqKypMS50Qyn3DvVwPXQ8bx1fHQZUtyePqzKpbnFCZ
+         StIXAqf8WDCG4UwoxOkRqBJ02PBU8UNdIARwqQf5TMqnFVwD3mGskL0EBz/W+GOAn4B1
+         Ol9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783515492; x=1784120292;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g3jhdMOgt2auKeqJZC2qsgnXeW6Etk1FtxDSQv7KpuI=;
+        b=iAsiCmF/eW7R5aRahojFohUepxCMV4OzwfqdwjUmVFk9U7/GvFF924kneGdwTQ2twT
+         3dbOyahPNqFMkU4Dnv+mLTxloOXMYuU/MMYb1+Aa/39jNE7/sQaC5gUQF76jYB+SjkBo
+         oI+/c7nOdqb+NbfhQ8lx2irfXT1ZyjX9cCFVMlfOT7gAc4s5AHD/GKNKx/veIqHRQ05V
+         FqjEjzTgeqp8R4RC7WaHX5Y1fu3LQVbUrFA/SMu+3b+Ysj7o4xp60rJlMXcq4oXbNcXB
+         QwA2h/yGXRGI/GeRy5CQx0WJSFq0MsUwGY0n0+1+tKD43VbneMFj4w2bFXSkmWIu063m
+         S0CQ==
+X-Gm-Message-State: AOJu0Yxv/gIsqJ374zb/8ZZLdR/4i2psI04/XrgRviT4UFsHT1h+HbnI
+	8aRcnvm/2E4PNmQK8D/tG6eskOPGgfRz6cXBdiBB3uEy5A28O/rZsrL6m1jED8CvRheZ9dfY76x
+	HiZ3n1T1+/G5upk81BzVLDDQfMyYWlGX4F+dDwNgdHg==
+X-Gm-Gg: AfdE7clrgh5+40JZ2rz7C2fDcezmbaTq6xRuSL8gvLPiMqEX0YjQsp+qIsWORXK1MkK
+	qbOTy8LZqW47g3pvMcr1b+7E0l5rtzxXg3uW9Jh4NiHJ6pgmS/VQownMPMZmkySgZqKuq5uTGbM
+	puDMoeRhJZUPE/mGe0pMoeGH7todPvo/SEBM+XowGGJhaAoQq7H9CyXYQuCW+lAbowwt3kHCFR8
+	/9wPz8SyPqKCSzl6WtRVenv9Io4p0bu+1eSVxkYPcfcfXbyqtD/HpK+21yWdGI0jAZ6Tsi2
+X-Received: by 2002:a05:6808:221d:b0:487:61da:70fb with SMTP id
+ 5614622812f47-4a2021033dcmr2098773b6e.10.1783515491810; Wed, 08 Jul 2026
+ 05:58:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: interconnect: qcom-bwmon: Document Eliza
- BWMONs compatible
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>, Georgi Djakov
- <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260708-bindings-llcc-bwmon-eliza-v1-1-3c7dbcbae87a@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260708-bindings-llcc-bwmon-eliza-v1-1-3c7dbcbae87a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260708-ccaione-genio-serial-aliases-v1-0-bf22229e9383@baylibre.com>
+ <20260708-ccaione-genio-serial-aliases-v1-1-bf22229e9383@baylibre.com> <20260708112728.B36141F00A3A@smtp.kernel.org>
+In-Reply-To: <20260708112728.B36141F00A3A@smtp.kernel.org>
+From: Carlo Caione <ccaione@baylibre.com>
+Date: Wed, 8 Jul 2026 14:58:01 +0200
+X-Gm-Features: AUfX_my6OBZKWFOlZuKLzFJWZl41nIBGecHHeWzeLn71mq8QPAB-_oeroes61x8
+Message-ID: <CADh8LscJzRdYOKER6=zS4f_0Sa7YhcU2sTTDswwdGMZe9LNERw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: mediatek: alias all enabled serial ports
+ on Genio boards
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08/07/2026 13:57, Abel Vesa wrote:
-> Document Eliza BWMONs which has a BWMONv4 for CPU-LLCC and a BWMONv5 for
-> DDR-LLCC paths, same as SM8550.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/interconnect/qcom,msm8998-bwmon.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+On Wed, Jul 8, 2026 at 1:27=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+>
+> Pre-existing issues:
+> - [High] Incomplete fix: mt8390-tungsten-smarc.dtsi leaves multiple enabl=
+ed UARTs without aliases, remaining vulnerable to the console probe-deferra=
+l race condition.
+> --
 
+Alright, let me double check if I missed any board. I'll eventually submit =
+a V2.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+--
+Carlo Caione
