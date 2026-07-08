@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E3940D57B
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 09:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE76D3148D9
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 09:32:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783502451; cv=none; b=NjKHYdvWhGEXLruTqJ4itAuDa3Otw8cud7YZ7JJ7NRB+51eJ18wjWphTr2LCMKryUTgrBZVFi+BVChBsS7EqHDNzPDOLHd4YhBDTFtkQzyKMtPYo1tRNimR17qzaW9v47QkNFLdX1mKUQ12uWEZgDtmCRAe9aPIj3PchZYQ8TTA=
+	t=1783503146; cv=none; b=I+nraGCdLECnTuH5gcN7eK4ZG2JHPC1P/B9arvO/K6hq2tGqnDa8/YjsdERunBfHs2fXF7gYLm7JbymlGfSDPhwDTc4zSjeisGjsDlU74xoFwaJm/zL/Chg2d+e6rHejVCzwWhvRZlf24g5tjGoUOqw1U4rccQStEhGoqukddMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783502451; c=relaxed/simple;
-	bh=Qe/rQGLvb8bcAyOxTvi6MXdbAotsqfoswULLVdrBmAE=;
+	s=arc-20240116; t=1783503146; c=relaxed/simple;
+	bh=HpvpQU54Un1Qaf41SoPs991kafvyRNbO+FyHycN/Xcc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uCP6jhFwPQrXvZcTlivHk0Qq5j8zW2qBG3elDCIssFa3wR7gvjQbyD+LaOyYN3a97vP6XbyyfAFFe+Uopb8e+Q4AdhzzEtRZoBG16GCY5vuslDMjQuY/QkyJdLKbAsnrR5y8Tz1bFEKtBAw8vkTXh7JSfNMKONnqgZ4QK/KtbKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DrCqDosB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I/8rI/iN; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=JPocAMO6hF7vmGPYI0k/nyU0Cnw0KsBrXaXFeufly3iU98M+OORlLRVaZuEeGBUF+IoUlWZuFklTo3GRfXL/t2pxgsLQTskl0TeGUQ9J0OVzC4W012LbcIKE8VHoBzZxXvM7onXzE1KLl2wNFLhW06beP5XTNQJ+872hIDhZlhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K2hn9CrK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IftStQ3+; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DrCqDosB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I/8rI/iN"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668895NC2070552
-	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 09:20:49 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K2hn9CrK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IftStQ3+"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66888v4U2205068
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 09:32:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7ODd6nTq05LunQoKoekRARiXEci4TIjKD6sRgNesJow=; b=DrCqDosBnt1tj9GV
-	/issVSE2yY5P108JA7+ddx/AUImgmA1J0Zi0ofAf9aCdFvmcYXvCUZ/NyAJKftF5
-	HsLkUf7ZPqy3OKKnUBf7Uqg4w0lvJ6BVrBqfwYlYTbzBsC6SINr25ObRm/WR1sDG
-	RQIZYxVnEF13PXyikWSKIO6fW1az8D3DP5G4Dp/mw8RIxeAORGTa4+NTl/SnLAi9
-	z+vGvdcrSdKfMELkk3i2KzR5tP51s5FGMNgODDmoriT10u/yAtGpSFRi8YXHjHTe
-	2eqJcl2Far2rArSjrUgY+cyj6xizTEUtN/13Qla2OWsoL25uVPTIceMbTwhvSprV
-	dynRaA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9be59x9f-1
+	50cC+lOjwWBBzURdhgiGe83iDGJQETCnagLzadfseh4=; b=K2hn9CrKuH4OIFYN
+	Pw2po+0uWxDCmtVqJ6dRlKCw00jCXJKDE9Dhl7X4sAO0jXOf7xYAm7RBkNKp5pYJ
+	tltOANfZcoccFJN06FbE8AwEtiEzao3LrV7l5a/Rqn7b4XjgNyqz6zAfse+IZV3C
+	nqWyDygB3bJxdAp5J7xHX3LiXINDa1PKy67WE3cNyFgqXmzVCiFRiOnsFiIHKGHf
+	yIT7QLvISSINSYnKo6o137426tvANHwNoyJOBq7TLMk+iDCaBcmExkuujBPdjwpZ
+	6U8KkPniPm/TKDcMDSFbSscaNOOpsFypFSuJVinoYsieFYq85WdqPKHVYWSXoGJi
+	4VXxDg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9hnv0n2j-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:20:49 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cce14a21faso8463825ad.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 02:20:49 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:32:21 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c0408254aso18382221cf.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 02:32:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783502449; x=1784107249; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783503141; x=1784107941; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7ODd6nTq05LunQoKoekRARiXEci4TIjKD6sRgNesJow=;
-        b=I/8rI/iNYlkQR/tGjtBOOZT7tN3Eq7+FXxHVUJAtNN8Rgu7slVNJ8IgJtAa6gLLChZ
-         5g+fBmkN4j+3ZhTLTA5ztHBnwhXZgreAKHn64FIb62QbQI3XPKODatEuFXbm3NhuzHaM
-         mbbbkCRMO6JizLUsuhoSCkud47gH8RgzMjGohc1aNBk2VSvJNCOmeh1afTyWwyUKc+w7
-         4TvldjnEtCdBK+Mp4OunNA7VFnXlnrdXFVgU1DptVpBfvKrkhU6lD5uOIRSmhsh4yEaC
-         VFxh6CnN9IuuFCc1esRGRjeWJxL2WheGpNzGKoLIYGSp0zsVI9wamGn7wqKN6Z9Z7DiU
-         3KTw==
+        bh=50cC+lOjwWBBzURdhgiGe83iDGJQETCnagLzadfseh4=;
+        b=IftStQ3+yoD+rlRMn598ZDbe8qaNTs2npF2C+yV4tOt1S9ipaHqASOVhj1SF0sHM37
+         QF8xUy5QuxsMqzaw+a9Q/xBC/6qrJYg7E8cNL8njcZstTg8s7iQEadS94V3LXtDFsg22
+         UONN0hTV5xS+nAa2zqYopPeYXO8j+sOSOi12wHcuNoyEu/57fDr99cR6Vbwx0VhsuxM/
+         DGqjvqqAbjCTuG+Ll7JbdEIKfs7n7hSU/zVFiEjw4/kLTwRA19UYWKomxKYN7gLgfhRP
+         GVPpfc+s/sO+7aSUiSEPxmO8xfhfcOJzRQG4Z6U/11I6K05m2TsUQ/h+5sMxnhw4ZtEj
+         xvPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783502449; x=1784107249;
+        d=1e100.net; s=20251104; t=1783503141; x=1784107941;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7ODd6nTq05LunQoKoekRARiXEci4TIjKD6sRgNesJow=;
-        b=pIr86Rd2MOoCnV6Hlv3KGi7sJ4zGtg6jFkFwWkRTtfcppoh7kAeSfbrUwvRlfhUm+j
-         WQL6KOxU4AY6h9hnu/QXgd/BueofxC7apRDR7QFp+64DirFdTTw/1glKMULQPHI8unhz
-         TSMtmen2qCj7agw5WKzdlDzhjXzH4+klbTHqQ7bIe9dnMu1IG2zJ6H4OeKBDqIA6AmDf
-         fsgve0xXvRQrsoRFhuNm1KR5jmtss7JOV0ZcswRAjbEGnr3WS4RMxlZ1/sI95FJJJMQR
-         CBuQHFHSYShfdW//N+3PcOv2OhoOOtc+5hAwJVu0wTBJD5745W2pF6/vMLdYXEx+Htu/
-         mYew==
-X-Forwarded-Encrypted: i=1; AHgh+Rr12hWSnodx1tpx+vvvDR6PywUxw/lTqx+w06K7ubzjx1DcU/fhkI1Pp/1AKfv3oMUfmiGYMEhQ+wQ2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2QcMUEWGNPhds6W5lTOlkiQU8wH23w/3lDhLlrEME1HIP9U2I
-	uhPBohaaNI4Zz7nK4fBh5Jl+PTricFWz5l1mSTDRU/BoaXvSuqlJ0clGRB/YcsEb5agXa2w15dW
-	JyJ/bB5Me/TBl20TB0QWR85HA3Cc2kw7b2bZueTpu9px+1Lyl/JESeccl9+pJusHf
-X-Gm-Gg: AfdE7clHo3menzwTT0/rUQlhqx/QbUBzcLgAiAoaqaB3hOA0+UtIHuwdIR/C7Tg33ql
-	rKCau0WBiYseNLF23/z9I8+ziS2asyn8m86KMgX34uA8wf3jIJwCjU2Ydvo9ZeZ17MYX0Eo1kkx
-	PjqZIFoDLvaY99lHdJfD2lwRZ/uak6I0nNA3Y1Xd25tssllIcW16XwFV+GU+yLJoy9B4XiOBDuV
-	McziqTen77SKSxUlglLM5RjiJyQSoUhrkmVe79xAtjuxQC+JSSqsWfBX2RKZZiuhipf7fMr9cj3
-	IE7NMwmhC3QwmoyeviovE6j3RchkvZgjDl/e9oSOqqyjSNRzV6V/ZTvC1pyaMw6H/mObZeqNJs5
-	eyUrKrwAg8hbkam8g6KAIzYJdOth7cq1/OaWSMVWFPCUGLZKRwpbrQUBMoSqKkO1EJuHmYc5lcc
-	W9SrnQTdZNTdrr+Vd3/An1Cyc=
-X-Received: by 2002:a17:902:d2ce:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2ccca8c82a9mr60853595ad.6.1783502448549;
-        Wed, 08 Jul 2026 02:20:48 -0700 (PDT)
-X-Received: by 2002:a17:902:d2ce:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2ccca8c82a9mr60853265ad.6.1783502448001;
-        Wed, 08 Jul 2026 02:20:48 -0700 (PDT)
-Received: from [10.79.194.163] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf8e9csm24995015ad.24.2026.07.08.02.20.45
+        bh=50cC+lOjwWBBzURdhgiGe83iDGJQETCnagLzadfseh4=;
+        b=Qi8J9VVm+E5yVfaDmPiJf6Ht5gCJL+Wq9VN9cJOI0e3suUwCfKl3yIAzH/l+UkCrG8
+         I6DV3pkPkOTSAbqvzuFmzWO9lPrcPxHhKsciZCK2uCqWo4EI/4GrWl5/MaziiFX3Dn5I
+         yIOOuEaykX6QxRmOoG4Vbc/5k4nJrnSYH1thcQLsbQE6Q3n7mztyXjCVSa85ahxLmgSQ
+         REifF/flwqRPlbUHhWpZsIYBcNFunZ6rU/LFMhKcCPIvGzINvYFHNldz6v2pmn/cXO+i
+         l9FFJt4S2s4gxPsblTeTCQXX6vmqikyV2gDUSGbBVPAAkkx3Mv1VAA/pm4AKswUi300O
+         8f7g==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9awNic65yW4PUhQK023FgnDo2GYmLYfJw8yR0om4ygLTg2Sf0gm6Jfh0A2z6qUPtw8Q0avLBT1XLn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yydw1lRDxudsRq+PtWnuoSr9sCk298ZkyOr0PkcvLNA+qpnz+OR
+	NyvWafD5rC54UTvhN+cvRgCLprNK3KaV8H95nSBBCwxClj/F9gIG+7uBV9gnKnu+eXxYtCzAaS4
+	asm4CNFUBm104QGpClP7x9pWfS8zoIqXfDF0P9Zw9GSvKTxiO60m2rJCJHKCDStkU
+X-Gm-Gg: AfdE7cm7OD/IUN9kvJFXbJO9o6/dsXBfvTBEv5w15HgWTdtCYuX/vlg4aOunRGgBkRF
+	atxXwQDj6kzbuubsv4mgxvAF5AWQNOqKh7NfGmsFAsCZJttPapeX0VNR4NNe7IFYwetp7SW0+U4
+	/JLC4x45afxoWTZdDRDPZxozfKIGwOtQ4gLdK9anqFr3+9tzjQst62NeIFeM/jkfDFAfRS+TV9r
+	yZ02SQ/7QHwT4DFoi5ZNMQGvzuEFzhijH19pzbwVRLmDQbII3Iu31zKGGmiG4UNK8MbVPmaKU+n
+	mr7Z6XVa1HIuzwUk5ETDTu69P6MZ6sffw84klBn7ffDdBexGps10s3RtPg7ql/7LD8SHlCZqRPB
+	vvZR3SJ2EFs5ggDJXGTuZlMWDrB6M8CaFZaV11eNpseX+eAs0elWrx9+vcx/oZnH8X6aNVo6Kfk
+	t6MKCyKf3r
+X-Received: by 2002:a05:622a:5599:b0:51c:291:82eb with SMTP id d75a77b69052e-51c7a4a9933mr65537731cf.14.1783503140786;
+        Wed, 08 Jul 2026 02:32:20 -0700 (PDT)
+X-Received: by 2002:a05:622a:5599:b0:51c:291:82eb with SMTP id d75a77b69052e-51c7a4a9933mr65537311cf.14.1783503140245;
+        Wed, 08 Jul 2026 02:32:20 -0700 (PDT)
+Received: from [192.168.25.64] ([94.155.124.210])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ce1b374asm82248066b.60.2026.07.08.02.32.18
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 02:20:47 -0700 (PDT)
-Message-ID: <b4bd0d99-0537-4a3f-ba5d-7e9fc30f0996@oss.qualcomm.com>
-Date: Wed, 8 Jul 2026 14:50:44 +0530
+        Wed, 08 Jul 2026 02:32:19 -0700 (PDT)
+Message-ID: <dd34b44d-396e-4267-b383-e4f8d20f8ef4@oss.qualcomm.com>
+Date: Wed, 8 Jul 2026 12:32:17 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,204 +90,157 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: purwa-iot-evk: Add Embedded
- controller node
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260703-ec_support_for_purwa_evk-v2-0-c59aac5c6aac@oss.qualcomm.com>
- <20260703-ec_support_for_purwa_evk-v2-2-c59aac5c6aac@oss.qualcomm.com>
- <20260703100722.1FFF41F000E9@smtp.kernel.org>
+Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        linux-media@vger.kernel.org
+Cc: bryan.odonoghue@linaro.org, loic.poulain@oss.qualcomm.com,
+        mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
+ <51a0abf2-2a72-4551-894b-2c2de91ba0c2@linaro.org>
+ <74a5b549-987c-4dac-a1a0-ff81150cd6ab@oss.qualcomm.com>
+ <56f1fd7e-42bc-4034-81dc-302cb7c22951@linaro.org>
 Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <20260703100722.1FFF41F000E9@smtp.kernel.org>
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <56f1fd7e-42bc-4034-81dc-302cb7c22951@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=GJc41ONK c=1 sm=1 tr=0 ts=6a4e1671 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=KNNqylFo c=1 sm=1 tr=0 ts=6a4e1925 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6qqzTE0EYeF0Xcc8wggA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA4OCBTYWx0ZWRfX1QbotEksn+M8
- gavtNy2T16ew3ZjZLmmedAcfe95skR/wbn9Pbx8lPddDgN5WTk7edCjl/lub73O5IZ4dA9kn7Yd
- LDenSZkKqypIOhH5JjPjxIzKXG3bmK0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA4OCBTYWx0ZWRfX7hO99q2egwMn
- jIfqib6mdUTHGF7/pVjrDviLD61QW4pxwOTLSgPiU0nvXr11JieZcCtxgYfY95RM6cZcCEQ034I
- GihsQhIbGTEoppKvDosewibLu94XJ/vbcbhtJ7ShjCVIvDzkkWT/x5r6fxKgskbWB+oT5y3wXpy
- 8N1WSzcFJZzFKEOB9e+zM/N8dtfphJcn+R+e/2iJVms8Y54asZ+pIF0d/wmBRyitKcGSo/zkTwI
- I4mn7Me06ARxi4u4F86iXpcurBuDaugnaGDx+yx/wakiv4gklEfwqF1KqPuZJIOckAgeqU0wJmH
- BVb8AYilNvHN0LRaNqh/vYf3cYF3Hm3tXRYRn3103PoJ1OfAGWxKZgmkiGVQ9FLHvSj8lcn8hkw
- Kx7q3qrvs9en6r1I8DYQKGR2ZcVG4muFL61RPDKvIELLww5qGqOPxEkUXdJ6/g8wrh1fjwqmBj1
- ODtePTt+BawMvHUSoSQ==
-X-Proofpoint-ORIG-GUID: n1kO0amN7Gv96chZzEBVQdSWWxPo8TL1
-X-Proofpoint-GUID: n1kO0amN7Gv96chZzEBVQdSWWxPo8TL1
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=WedJO_QhFF0jeLZjxQ4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA5MSBTYWx0ZWRfX8Ey158QP7gTv
+ PCRsUMLUYz/pycYsUAXHrC070g2Lx0J+wQipjtu04+ZA4qIon0N723M2PcOCbRCLo1pmqXfvrcC
+ HG7Kl2uNjs5dtwGhYXW0ESTeRqaYYJY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA5MSBTYWx0ZWRfX65L9veG1ha92
+ 1A478liiBTZmjnq8TrxhQYbMUBSop0Z0GaJXgg+OT3WtQxF2HSo3FL7YtTgpihZbX9zepK/GGfu
+ 6kjXwxMMUpCP2pBzxRP/C4XaI8lwPY4/Co608g6gTCa2qM2cbCIXgZWDpnKYMMhgx7mQ6V3h1GR
+ vvBm2mo9B2APk1lMG6Q9keHzXsB6V7RUfckmW8v6n9Qc4kdWSXO8sDfSR2n0qXkjPhwuy+/+h4a
+ Kv2OdDNENNU8QwmBukSi874EyCmn5pHHEI1b25pvHqorM46mGO4/e/NeT9l2x/fWH/sVyKlpCF2
+ iRumEQqPgoonuY6aLfSrq1UY/UJLwbrp4vD25PuvVq0o6PX+yrNaFmH4kPBsznb+rtIx1nXt0rL
+ fZd0A5Ooe3qImz5ev/Ugp7kSRQXtwqpm4sGZvPHfVi1eb/3htqsvUkJjkdQ6aYID1uvc8XsM7BB
+ ozJBWkSt3rSwsdINb+w==
+X-Proofpoint-ORIG-GUID: VbcR_eHUksNR52dinrEiQqGG6peJXVEq
+X-Proofpoint-GUID: VbcR_eHUksNR52dinrEiQqGG6peJXVEq
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-08_01,2026-07-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
- adultscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ malwarescore=0 phishscore=0 clxscore=1015 priorityscore=1501 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080088
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080091
 
+Hi Vlad,
 
-
-On 7/3/2026 3:37 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+On 7/8/2026 11:47 AM, Vladimir Zapolskiy wrote:
+> Hi Gjorgji.
 > 
-> New issues:
-> - [High] Configuring the EC interrupt as IRQ_TYPE_EDGE_FALLING causes a stuck IRQ line and lost events.
-> 
-> Pre-existing issues:
-> - [High] The driver registers all cooling devices with cdev_id = 0, breaking multi-fan thermal device tree bindings.
-> - [High] Probe function fails to disable EC SCI events on error paths, leading to corrupted EC state and unhandled interrupts.
-> - [High] qcom_ec_read() ignores partial I2C block reads, causing callers to use uninitialized stack memory as hardware state.
-> --
-> 
-> commit 30f797509dd26f2c0981b525ba3d62d1173ae857
-> Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-> 
-> arm64: dts: qcom: purwa-iot-evk: Add Embedded controller node
-> 
-> This commit adds the embedded controller node for Purwa IOT EVK boards.
-> It configures fan control, temperature sensors, access to EC internal state
-> changes, and suspend notifications to the EC.
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
->> index ad503beec1d3d..491ea7769cd71 100644
->> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
->> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
->> @@ -837,6 +837,16 @@ eusb6_repeater: redriver@4f {
-> [ ... ]
->> +
->> +	embedded-controller@76 {
->> +		compatible = "qcom,purwa-iot-evk-ec", "qcom,hamoa-crd-ec";
->> +		reg = <0x76>;
->> +
->> +		interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
-> 
-> [Severity: High]
-> Does configuring the EC interrupt as IRQ_TYPE_EDGE_FALLING cause a stuck
-> IRQ line and lost events?
-> 
-> The EC asserts an interrupt while multiple events are pending, but the driver's
-> interrupt handler reads exactly one event and returns without looping. 
-> 
-> Because the trigger is configured as edge-falling, the persistent low state
-> of the line does not trigger another interrupt, causing the line to stall
-> permanently.  Should this use level-triggered interrupts instead?
->
-
-I checked the EC firmware, events are delivered as a short active-low
-pulse per event on the interrupt GPIO — the line is idle-high and pulsed
-low once for each queued event. So IRQ_TYPE_EDGE_FALLING is correct,
-each event generates its own falling edge, and the handler is re-entered
-per event with no loss. There's no persistent-low state to stall on, and
-level-low would actually be wrong here since the pulse is very brief. No
-change needed.
-
->> +
->> +		pinctrl-0 = <&ec_int_n_default>;
->> +		pinctrl-names = "default";
->> +	};
->>  };
-> 
-> 
-> While reviewing this patch, I also noticed a few pre-existing issues in
-> drivers/platform/arm64/qcom-hamoa-ec.c that handles this device tree node:
-> 
-> drivers/platform/arm64/qcom-hamoa-ec.c:qcom_ec_probe()
-> [ ... ]
->> 	ret = qcom_ec_sci_evt_control(dev, true);
->> 	if (ret < 0)
->> 		return dev_err_probe(dev, ret, "Failed to enable SCI events\n");
+> On 7/7/26 16:24, Gjorgji Rosikopulos (Consultant) wrote:
+>> Hi Vlad,
 >>
->> 	ret = qcom_ec_thermal_capabilities(dev);
->> 	if (ret < 0)
->> 		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n");
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does the probe function fail to disable
-> EC SCI events on error paths?
-> 
-> If qcom_ec_thermal_capabilities() or the subsequent memory allocation fails,
-> probe returns an error. The previously enabled SCI events are never disabled
-> because no devm action was registered and remove() is not called.
-> 
-> The EC is left actively generating events, but the OS interrupt handler is
-> freed by devres. The EC will assert the IRQ line, which goes unhandled,
-> potentially stalling the EC and causing battery drain.
->
-
-I'll review this and fix it in a separate series.
-> 
-> drivers/platform/arm64/qcom-hamoa-ec.c:qcom_ec_probe()
-> [ ... ]
->> 	for (i = 0; i < ec->thermal_cap.fan_cnt; i++) {
->> 		struct qcom_ec_cooling_dev *ec_cdev = &ec->ec_cdev[i];
->> 		char name[EC_FAN_NAME_SIZE];
+>> On 7/6/2026 10:46 AM, Vladimir Zapolskiy wrote:
+>> <snip>
+>>>>
+>>>> +            interconnects = <&gem_noc MASTER_AMPSS_M0
+>>>> QCOM_ICC_TAG_ACTIVE_ONLY
+>>>> +                             &config_noc SLAVE_CAMERA_CFG
+>>>> QCOM_ICC_TAG_ACTIVE_ONLY>,
+>>>> +                            <&mmss_noc MASTER_CAMNOC_HF
+>>>> QCOM_ICC_TAG_ALWAYS
+>>>> +                             &mc_virt SLAVE_EBI_CH0
+>>>> QCOM_ICC_TAG_ALWAYS>,
+>>>> +                            <&mmss_noc MASTER_CAMNOC_SF
+>>>> QCOM_ICC_TAG_ALWAYS
+>>>> +                             &mc_virt SLAVE_EBI_CH0
+>>>> QCOM_ICC_TAG_ALWAYS>;
+>>>> +            interconnect-names = "cpu-cfg",
+>>>> +                                 "hf-mnoc",
+>>>> +                                 "sf-mnoc";
+>>>
+>>> This is the topic, which may raise a disagreement, but I'll repeat my
+>>> position about the need to remove all "CAMSS bus" specific resources from
+>>> the device node, they are found and should be allocated on parent's side.
 >>
->> 		scnprintf(name, sizeof(name), "qcom_ec_fan_%u", i);
->> 		ec_cdev->fan_id = i + 1;
->> 		ec_cdev->parent_dev = dev;
+>> The interconnect has functionality to handle bw requests from different
+>> clients.
 >>
->> 		ec_cdev->cdev = devm_thermal_of_cooling_device_register(dev, 0, NULL, ec_cdev,
->> 									&qcom_ec_thermal_ops);
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does hardcoding the cdev_id 
-> to 0 break multi-fan thermal device tree bindings?
-> 
-> By looping over fan_cnt and passing 0 for every fan instance rather than
-> the iteration index, the OF thermal core cannot distinguish between multiple
-> cooling devices under the same node.  
-> 
-> This breaks thermal zone mappings and can cause undefined behavior when
-> binding thermal states.
->
-
-addressed by switching to
-devm_thermal_of_child_cooling_device_register() in latest tree, which
-binds each fan to its own child DT node rather than disambiguating by
-cdev_id, so multiple fans are individually addressable.
-
-> 
-> drivers/platform/arm64/qcom-hamoa-ec.c:qcom_ec_read()
-> [ ... ]
->> static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
->> {
->> 	int ret;
+>> Yes the best will be to have camss interconnect, so jpeg and other hw's
+>> to vote
 >>
->> 	ret = i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
->> 	if (ret < 0)
->> 		return ret;
->> 	else if (ret == 0 || ret == 0xff)
->> 		return -EOPNOTSUPP;
+>> on that (actually it is possible in icc framework) but what is the
+>> benefit of moving
 >>
->> 	if (resp[0] >= resp_len)
->> 		return -EINVAL;
->>
->> 	return 0;
->> }
+>> those to camss? Is it not better to create camss icc. I understand
+>> you want them to be on parent side. But how to vote on bw? Most of the
+>> time it
 > 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does qcom_ec_read() ignore
-> partial I2C block reads?
+> Let's concentrate on hardware bindings description, no APIs, votes etc.
+> at this point of discussion.
+I agree but there should be an API for icc voting which Jpeg need to use,
+currently it is fixed to some values, but voting need to become dynamic
+at some point of time, because it depends on runtime parameters, resolution
+format etc.> 
+> There is SM8250 CAMSS device, which serves as a hierarchical parent (or
+> could be considered as a "bus" device) to this new JPEG encoder device
+> and probably to a number of future IPs under CAMSS. All CAMSS sub-devices
+> get hardware descriptions as children device tree nodes of CAMSS parent
+> device tree node naturally.
+I agree the device tree is best to represent real hw topology. > 
+> Copying of the same identical information about clocks, interconnects
+> and power domains from the hierarchical parent device to children devices
+> is not needed, and practically it only lowers signal-to-noise ratio.
+Here also i tend to agree.> 
+> Since information about the actual defect in hardware description is
+> reported, the problem can and should be avoided, the handling of a better
+> hardware description and dealing with any kind of complexity will be done
+> in the CAMSS and/or CAMSS children drivers.
 > 
-> i2c_smbus_read_i2c_block_data() returns the number of bytes read. If a short
-> read occurs, this returns success (0) because it only checks if ret < 0,
-> ret == 0, or ret == 0xff. It does not verify if ret matches the expected
-> resp_len.
-> 
-> Callers are then exposed to using uninitialized stack memory as hardware
-> state for firmware version data, fan counts, or thermistor masks. This can
-> lead to out-of-bounds memory allocations if a bogus fan count is read.
->
+> If you need to get a bit more formal point of view on the matter, I'd
+> prefer to see descriptions of hardware properties organised in a tree
+> topology rather than in the originally proposed star topology. By doing
+> it the system complexity is reduced from N to 1.
 
-I'll review this and fix it in a separate series. it's a pre-existing
-driver issue and doesn't block this DTS patch from merging.
+Maybe I'm missing the whole picture of your proposal, but I want to add my
+point of view on this matter.
 
--- 
-Best Regards,
-Anvesh
+The JPEG encoder HW block has no dependency on the other processing HW
+blocks in the camera subsystem
 
+It shares resources like camnoc, clocks, GDSC, etc.,
+but does not share anything with the other HW processing blocks. For me, 
+the JPEG driver should not have SW architectural dependencies on CAMSS.
+
+The shared resources within the camera subsystem are reference-counted,
+the only exception is clock rates, which are set based on the last set_rate
+call — but I think that could be handled by migrating the clocks to be
+represented as an icc-clk provider, to keep the higher clock and maintain
+the needed policy.
+
+What I think would be best (just a proposal) is to introduce a new camera-icc
+provider that handles all these resources — camera operates on bandwidth
+anyway, and rate calculations should be done in icc, since the  infrastructure
+for that already exists in the icc framework. But I think this has already been
+discussed with Atanas, so maybe there's no need to go over it again.
+
+I'm not sure how to move forward with the JPEG encoder changes.
+
+I see two different proposals:
+1. Independent sub-nodes (Bryan's direction) — I honestly like this one more.
+2. CAMSS handling the resources currently managed by the other frameworks.
+There are good arguments for this too.
+
+Bryan, as maintainer, can you say which direction to post next? :-)
+
+Apart from t
+
+
+Regards,
+~Gjorgji
