@@ -1,151 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD1C3C09ED
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309E92E7631
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:35:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783546489; cv=none; b=UkR7ZsHvGA13ktRY/B4ZnMJsoHDI86K5nycpWo6AQbaiMnlZAP0P1PFfyax60/CAccqNEDf+9iJ0LeEcj60ZNmEczuNglSmIA7t96eDKuLSSVNStnmQDKMMNzTGPuf/Mh6qNQ66KdjPoDFPjgtjBIbc161bQTf2A2N3vYO/eS54=
+	t=1783546507; cv=none; b=S3EbZryD6k3L0vrXIfzgO/1matRaa4iQcDGQv4VO0Y+I1ximgx5BP/DkSsvhEZB/z3amFuX1vihmce4DT4DkPoUCHO3s3pYw/dv0KbIi6ogFalwYx2Lp+tUj7WdNBkJ+HVyEom6ADvm5QgLL+MjfjHBU/EUkvn6+Unq1BsX2ymQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783546489; c=relaxed/simple;
-	bh=QOSXPs572gwC1zNEaba3iUlnyvy4QAECU2owztJON50=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GLHImM4uDqvUgENWsUW5VQgOAPu4JCT3ilUMQJQuxllvDBLGb1gevqbY6BYegHdospL5yvXl9+5ebPgK4LtmE/sVhS5iNOBqfuaDkfvhTk/I3awVfI8Jq+xLog6/nL5o+23dYXnJ+bIX+JoBSpnF7w99wO4+pQawBFE6X7tfR5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLWiMIEJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783546507; c=relaxed/simple;
+	bh=LfmuX+WN09XuZkXevbvH07EHQVuWqmXIU1hJwpJ8Oh8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SLyedpucQit3vrcjHHidU6DYeQdIuHQx6/qcX5TtU0HIFY9OKWHER1BFXOa1ABKCMBf44fQh2FpSllsPRK5qpQ8LT7x2OLgnhZrpBEOF0mlTU1iigndWnNOPrailY4mJaNKXyG8X5Dwyf57u1HCKDpHyMSrbH+ES77a7Ks4dYRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XuYOPvHN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLWiMIEJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1819A1F00A3A
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:34:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XuYOPvHN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C574D1F000E9;
+	Wed,  8 Jul 2026 21:35:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783546488;
-	bh=QOSXPs572gwC1zNEaba3iUlnyvy4QAECU2owztJON50=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oLWiMIEJ0W+2X8o0NSe2rZ6aZ3sA6U0G3Dq+g9ru8SeVgFY7ajC/IFv/EZWpsR5Xk
-	 geK/gPYk+UMZRfpa7k1QenCnUGWTbPm3ZsHpkyFzbIAayQBkS6sjilk9ExJRQu8Fs8
-	 7EUnOZAdU1U0xEUWoDATI9FLYwtAhcc2Ly8+nhDxtj4JA8NlBLjGZxSP1Y6GZSOwvI
-	 c+vM8ee3gvlIvJVR8u83IXaNI3/rRtMq7NuqbKXPpIyvrNqSEkSKhU01Jg0EunLJhk
-	 uLfFyYjwY7928goknVNQYJCKy4nlHiR+Dd4FM77K/mm76Z7uNJh7YJTm+FHDnLrUBz
-	 pC+WHzxSmARzw==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-698c0ff45b5so453570a12.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:34:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RosoWwJ3khvz975jW14z5Cs68BL2xtZatidBXL/kHcdJNte5r6bLAjzx3IWkCV/r61DZPbmtlATThLy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwV/15q1+uv9FBmfLzNa0cghrZ7rogx4TBAUkDBSGqjo/oaMuGj
-	u048PnfqShYL+KHVFLJBvCMUwRFZG6ugoM3cJ2YvvaPM+ZO/31oWPyhBw2QRbC2/k981anUGMM0
-	TO6KZMLDaVfNk3xkYgE7c9UY4jyhhIA==
-X-Received: by 2002:a17:906:2099:b0:c15:c323:36e5 with SMTP id
- a640c23a62f3a-c15e744ffafmr1138866b.10.1783546486746; Wed, 08 Jul 2026
- 14:34:46 -0700 (PDT)
+	s=k20260515; t=1783546506;
+	bh=G9EXypEJy40h/+n6oSbEOhxBQsT7I7BUgf6bsn/3RO8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XuYOPvHNBzMtyZedog1tuthmccRlL4JoWRYtjmAJ3/7cWLxNpP1rbYpBQfTym0IOb
+	 CssuGvoAyLdF/NCphOngKQtMNbRVQkZJK7F+iGvo0LDY6EisUOUq65jDJ5kUiU1T4e
+	 /TI0fngsKL4wBjeiRaOIdZcTHE+uiRCii2wVWc3F1zsA5qPbARCc0578cRJBv4LDAL
+	 rom0gh2IBn4kUIqsGLoZReVnlVxpfV4bSz6NXDotQV+SwF0ae0hOlyGGSgnBSIVP86
+	 /HzBQT56IyuQ7eFynd9OFoxIwaQY6CGuiNdGpJrMAH06g8sYVXHShtPX7ZBWDKy2px
+	 Ax08CssYvBhAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/3] arm64: dts: ti: Add support for Variscite
+ VAR-SOM-AM62
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <36179bc7e043c95838354174963cdb27d5383620.1783545241.git.stefano.r@variscite.com>
+References: <cover.1783545241.git.stefano.r@variscite.com>
+ <36179bc7e043c95838354174963cdb27d5383620.1783545241.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 21:35:05 +0000
+Message-Id: <20260708213505.C574D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com>
- <20260701-mt8189-clocks-system-base-v1-2-2b048feea50a@collabora.com>
- <20260701193311.GA1402559-robh@kernel.org> <d1e37bd4f2a05fed6c7bfdc5d9a0fa90c892d608.camel@collabora.com>
-In-Reply-To: <d1e37bd4f2a05fed6c7bfdc5d9a0fa90c892d608.camel@collabora.com>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 8 Jul 2026 16:34:35 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqK8mmkhp8rM1QVB8cqLmTVqy5toFdt3Y1AFLJ5-wOdhgQ@mail.gmail.com>
-X-Gm-Features: AUfX_mw1Ig80oWjopfC3vG9UTQnueKyNCwAlWOrtHD_SpQ7K2JXbmkzTxRjcs9w
-Message-ID: <CAL_JsqK8mmkhp8rM1QVB8cqLmTVqy5toFdt3Y1AFLJ5-wOdhgQ@mail.gmail.com>
-Subject: Re: [PATCH 02/15] dt-bindings: clock: mediatek: regroup MT8188
- dt-bindings into MT8186
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Chun-Jie Chen <chun-jie.chen@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Edward-JW Yang <edward-jw.yang@mediatek.com>, Richard Cochran <richardcochran@gmail.com>, 
-	kernel@collabora.com, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 8, 2026 at 8:45=E2=80=AFAM Louis-Alexis Eyraud
-<louisalexis.eyraud@collabora.com> wrote:
->
-> Hello Rob,
->
-> On Wed, 2026-07-01 at 14:33 -0500, Rob Herring wrote:
-> > On Wed, Jul 01, 2026 at 03:11:07PM +0200, Louis-Alexis Eyraud wrote:
-> > > Regroup the MT8188 clock and system clock dt-bindings into MT8186
-> > > ones
-> > > to ease maintainability and have common files for several currently
-> > > supported SoC or new future ones, that have the same kind of clock
-> > > controller design.
-> > >
-> > > Note:
-> > > The `#clock-cells` property is a required property for all
-> > > compatibles
-> > > declared in MT8188 clock and system clock dt-bindings but not in
-> > > MT8186
-> > > ones.
-> > > To avoid ABI breakage, conditional blocks to check this requirement
-> > > for MT8188 compatibles are added, rather than enforcing it for
-> > > MT8186
-> > > compatibles.
-> >
-> > If the existing DTs are just wrong, then I would just make #clock-
-> > cells
-> > required. But please update the .dts files so the warnings don't
-> > grow.
-> >
-> I've tested to make the #clock-cells required for the MT8186, MT8192
-> and MT8195 system and functional clock controllers.
-> I did not see new warnings, so no extra dts patches would be needed.
->
-> I'll add new patches (one per SoC) in the next revision of the series
-> for this, as it simplifies the grouping patches (no more if/then to
-> require #clock-cells for the MT8188/MT8189 clock controllers) and the
-> note in commit message could be removed.
->
-> > The grouping I would do here is:
-> >
-> > - clock controller only
-> > - reset controller only
-> > - both clock and reset controller
-> >
-> > That should avoid any if/then schemas.
-> >
->
-> By this grouping, I understand you suggest having separate dt-bindings
-> files, that could look like:
-> - mediatek,mt8186-clock.yaml: clock controllers
-> - <name to be found>: reset controllers
-> - <name to be found>: clock controllers with reset controller
-> - mediatek,mt8186-sys-clock.yaml: system clock controllers.
-> - <name to be found>: system clock controllers with reset controller
->
-> Is that what you meant?
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] The `reg_vdd_mmc2` (wifi_power) regulator is missing its `gpio` pr=
+operty and incorrectly configures Wi-Fi/BT enable pins as floating inputs.
+- [High] Race condition in Ethernet PHY initialization due to incorrect pin=
+mux placement.
+- [Medium] Blind copy-paste of WM8904 codec hardware configuration from bin=
+dings.
+- [Low] Usage of the incorrect `AM62PX_MCU_IOPAD` macro instead of `AM62X_M=
+CU_IOPAD` in an AM625 device tree.
+- [Low] Copy-paste artifact in the OPP table comment referencing the TI `am=
+625-sk` evaluation board.
+--
 
-I think so, but not sure I understand the distinction with clock
-controllers and system clock controllers.
+--- Patch [2]: [PATCH v1 2/3] arm64: dts: ti: Add support for Variscite VAR=
+-SOM-AM62 ---
+commit f91b9416e264c64f84899f5bbd68c1deb9597b14
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-> There is no pure reset controllers for those SoC so no dedicated file
-> would needed at the moment.
-> The system clock controllers all have reset-controllers, even they may
-> currently be not all implemented, so no separate files for system clock
-> controllers would needed as well.
->
-> Also, from what I see the current dt-bindings, the system clocks
-> controllers for the MT8186/MT8188/MT8192/MT8195 SoC have the #reset-
-> cells property but it is not required for them (examples:
-> mediatek,mt8188-infracfg-ao or mediatek,mt8195-infracfg_ao).
->
-> With the patches to make the #clock-cells property required, I already
-> removed the biggest if/else block in mediatek,mt8186-clock.yaml, so
-> only the one regarding #reset-cells property remains.
->
-> So, should I create separate files, following the grouping suggestion,
-> for the v2 of this patch?
+arm64: dts: ti: Add support for Variscite VAR-SOM-AM62
 
-Shrug. There's no hard rule here, it's a judgment call. With one
-if/then block dropped, it's a bit more tolerable to keep it as-is. If
-the if/then schemas are as long as the rest of the schema (minus any
-example), then I would say to split the schemas.
+This commit adds device tree support for the Variscite VAR-SOM-AM62 system
+on module. It enables default SOM-specific peripherals like MMC, Ethernet,
+Audio, and Wi-Fi.
 
-Rob
+Link: https://variscite.com/system-on-module-som/ti-sitara-am62x/var-som-am=
+62/
+
+> diff --git a/arch/arm64/boot/dts/ti/k3-am625-var-som.dtsi b/arch/arm64/bo=
+ot/dts/ti/k3-am625-var-som.dtsi
+> new file mode 100644
+> index 0000000000000..95dd96fe4c66d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ti/k3-am625-var-som.dtsi
+> @@ -0,0 +1,491 @@
+[ ... ]
+> +	opp-table {
+> +		/* Add 1.4GHz OPP for am625-sk board. Requires VDD_CORE to be at 0.85V=
+ */
+> +		opp-1400000000 {
+> +			opp-hz =3D /bits/ 64 <1400000000>;
+
+[Severity: Low]
+Is this comment leftover from a copy-paste? It references the am625-sk
+evaluation board rather than the var-som board.
+
+> [ ... ]
+> +	reg_3v3_phy: regulator-3v3-phy {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "On-module +V3.3_PHY";
+> +		gpios =3D <&main_gpio0 45 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		regulator-always-on;
+> +	};
+
+[Severity: High]
+Can this cause a race condition during Ethernet PHY initialization?
+
+The PHY regulator reg_3v3_phy is set to always-on and asserts GPIO 45
+in software. However, the physical pinmux for power (GPIO0_45) and reset
+(GPIO0_46) is tied to the Ethernet MAC (cpsw3g) later in the file:
+
+	pinctrl_rgmii1: main-rgmii1-default-pins {
+		bootph-all;
+		pinctrl-single,pins =3D <
+			...
+			AM62X_IOPAD(0x00bc, PIN_INPUT, 7) /* (V24) VOUT0_DATA1.GPIO0_46 */
+			AM62X_IOPAD(0x00b8, PIN_INPUT, 7) /* (U22) VOUT0_DATA0.GPIO0_45 */
+		>;
+	};
+
+When the MAC probes, it applies the pinmux, causing the PHY to receive power
+instantly. Since the PHY lacks a phy-supply link to this regulator, there i=
+s a
+risk of a 0ms power-on delay before the MAC registers the MDIO bus and prob=
+es
+the PHY, violating its power-on and reset timing requirements.
+
+> +
+> +	reg_vdd_mmc2: regulator-vdd-wifi {
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_vdd_mmc2>;
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "wifi_power";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		regulator-always-on;
+> +	};
+
+[Severity: High]
+Does this regulator fail to power on the Wi-Fi/BT module?
+
+This wifi_power fixed regulator applies pinctrl_vdd_mmc2 but lacks a
+gpio =3D <...> property, so it acts as a dummy software regulator without
+actively toggling any pins.
+
+Furthermore, in pinctrl_vdd_mmc2 further down:
+
+	pinctrl_vdd_mmc2: main-vdd-mmc2-default-pins {
+		pinctrl-single,pins =3D <
+			AM62X_IOPAD(0x00d8, PIN_INPUT, 7) /* (V21) VOUT0_DATA8.GPIO0_53 */
+			AM62X_IOPAD(0x00dc, PIN_INPUT, 7) /* (W21) VOUT0_DATA9.GPIO0_54 */
+			AM62X_IOPAD(0x00f0, PIN_INPUT, 7) /* (Y22) VOUT0_DATA14.GPIO0_59 */
+			AM62X_IOPAD(0x00f4, PIN_INPUT, 7) /* (AA21) VOUT0_DATA15.GPIO0_60 */
+		>;
+	};
+
+These four GPIOs are configured as PIN_INPUT (floating). If any of these are
+hardware enable pins (like WL_EN), won't they remain unasserted and leave t=
+he
+module powered off?
+
+> [ ... ]
+> +	wm8904: audio-codec@1a {
+> +		compatible =3D "wlf,wm8904";
+> [ ... ]
+> +		wlf,drc-cfg-regs =3D /bits/ 16 <0x01af 0x3248 0x0000 0x0000>,
+> +				   /bits/ 16 <0x04af 0x324b 0x0010 0x0408>,
+> +				   /bits/ 16 <0x04af 0x324b 0x0028 0x0704>,
+> +				   /bits/ 16 <0x04af 0x324b 0x0018 0x078c>,
+> +				   /bits/ 16 <0x04af 0x324b 0x0010 0x050e>;
+> +		/* GPIO1 =3D DMIC_CLK, don't touch others */
+> +		wlf,gpio-cfg =3D <0x0018>, <0xffff>, <0xffff>, <0xffff>;
+> +	};
+
+[Severity: Medium]
+Are these DRC and GPIO configurations intended for this specific board?
+
+This looks like a verbatim copy-paste from the device tree bindings example=
+. It
+forces GPIO1 to be driven as an output clock (wlf,gpio-cfg =3D <0x0018>). C=
+ould
+this cause electrical contention if GPIO1 is wired differently on the
+VAR-SOM-AM62?
+
+> [ ... ]
+> +&mcu_pmx0 {
+> +	pinctrl_wkup_clkout0: wkup-clkout0-default-pins {
+> +		pinctrl-single,pins =3D <
+> +			AM62PX_MCU_IOPAD(0x0084, PIN_OUTPUT, 0) /* (F13) WKUP_CLKOUT0 */
+> +		>;
+> +	};
+> +};
+
+[Severity: Low]
+Should this use the AM62X_MCU_IOPAD macro instead of AM62PX_MCU_IOPAD?
+
+The device tree is for an AM625, but this uses a macro intended for the AM6=
+2P
+SoC family.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783545241.gi=
+t.stefano.r@variscite.com?part=3D2
