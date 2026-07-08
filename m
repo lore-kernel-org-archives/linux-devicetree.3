@@ -1,222 +1,203 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B7A403EBD
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C77843848E
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783512095; cv=none; b=knDTtkYqRpa5Tgb9R6DUdy0dx/nRS/8agBSDXZoM0rYU42GZbCK5r5zJZEtGyLqJMoGMZ5lOpORgKbIbO3wvi7iFAWtc+ZoUuHfrGTVJcGG4xbfiiCQThYP7OrNkz7hWSYAk5Dsvo7JbU7Fb4q4ft0jLhnk2eAhv6Lcm7isJbJA=
+	t=1783512209; cv=none; b=s+v3yt+Oj7qaYJU42bKu2rtxkIZVWhjp2ML3ds0NIQRZoYtO+tWJUMvzW4OZ9PD3XsKI0F3cYLZs1c05OWzwS90y9juOXXL/TLUqKcQ9j+EhPNqXJxDw+y90CRPQgcg3Eu0eETK2chF7PXblvZAur5ha+eIz11j8MpCbmA1fjgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783512095; c=relaxed/simple;
-	bh=/a6IYbpWnGbUzqL0WVdR/2GwZ+Glpr8Tc4xAeYCi4cA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IAfg3rXj52UdHoQKzkwAmuZzsiyhxry/XGq20Zfhi+MX++7FVua1V49YYMmq608hskan2H0HIK/ORFsIEAvI+u1GD+hn9kaBbAiThypTmzbIdf9RSAZQIwEx3l9GCO56igWxRxA8UopgZrfifagl7nRzM5ziBLamxywMRhCkO5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=agbpY/TL; arc=none smtp.client-ip=209.85.208.171
+	s=arc-20240116; t=1783512209; c=relaxed/simple;
+	bh=zgEfTqUNWFWHvbVm5cUro8zAo7pzrcZeUp9ifyzoaio=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pb5nvkfRuNXzd6DCG5EKc/pPZvy77ctytrjpNIxYCuxOwCZyiQ+y6+RKIFoYEAP8bip1QwQhFPCURa9JVxSilm6beTwtygXs77NHsE8j+DoM7MvnTmMGYYAnXWH9Rdvkd30pBhJxaz1sFE5JIVEfjf1Hy1TO5G/IGYvoXi/N38U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=maz4drve; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="agbpY/TL"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39c7720bc9cso197861fa.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:01:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="maz4drve"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493c83474ddso5227005e9.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:03:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783512092; x=1784116892; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4i8K/LEMzhnhSZqG+2fTmIR6QB4CQ+QcJMkt3W3IXEw=;
-        b=agbpY/TLvcUiZWsLEQafWQxClTjApWb9UXv1pjQZSXrCOGBjeu1fJhmSgxz/TWm/Uk
-         Eb1TXzSQKh/zEhBxc2gMBlSNhcoPg4jQ7tghDDM2VlP/JcWGpePq6+VoeKHuhaHIQ4WA
-         eHmZELBfWzoacSUfZHiYkjqvJg3cS29fyS6LbjA4YEG1e/onCNhIknAQ9Sl8Af1KL2jx
-         GjtXciIw1GkWBvfBnFKJ6cAzRpP8SvaSOlorEFc3EdC/bzGdU1UsjVf08F56V5/HnSs8
-         xpmxFkwsFoVzX0X2V6X12iACcqcL67fa3Khl3zkjO8ymh+pfdq5E+Yq9SoFUJ1FT4kKr
-         pv6Q==
+        d=linaro.org; s=google; t=1783512206; x=1784117006; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mxttBuvsW1U/LvQQkaU98BFuAzSlaLEqGLAP338ir2o=;
+        b=maz4drvet9zQUlN7YezVSoZFG9AN4cbxoRlvTYBYl7BtePa1jOQpZzLf96syLzr5Hh
+         ACFWPgI/MqfyVRP+VnWDU4WWh8lo1r6IpAHnB97lEgZSR/vku9WEMSVkw62EIvhvtDFF
+         /y5PPf409+mGWXjXXSGW/IiSO6vE11hunj8tILecZM2Sp6krweL3yN8MfDbFqDCVySNk
+         bHglwVZlMOoaC0x+KBa0KX06XWUG2+TggdZTpUfwJ3dSYqfiMc64ReEZzOfj0wJe9R2Q
+         tloy3J3jralxlh/8vPOMH2kkYUfBxLOzfCFaeaK5X35L0nGavnOGvCpqoh8LvhowRMTI
+         dNdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783512092; x=1784116892;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4i8K/LEMzhnhSZqG+2fTmIR6QB4CQ+QcJMkt3W3IXEw=;
-        b=F7/Ekrms6hWlrGIIZ8vCxoz5e6E+UbarWiKYzzt/s9N499RNZkTJ7AFRrgJG15lUw3
-         atR8ebUxgk1dYCOLwDIAmUmREwwNAvHzI361JZPF3Mb/xtPT5jXgQ9SR/0TONsLrpCtj
-         L43Aj0vK128XccFLOcERxe4mcIFvDC9lL33+n4BZ/QxlMXYmvru26UxLxQ/Pl2Zs/8CG
-         mj4FIjJ7O5uWuEhIqWOW1WVWXsc9BCFUg3S4jx5JLPrIegkJ5wneIU6hneJNGO1Dagw6
-         YaEedoV1eamgCnZ/G/oKuX0aDgG3xHH3FefT+sUknwpOrK8tSE2nRhCjD0KRz4gW2Han
-         JEdg==
-X-Forwarded-Encrypted: i=1; AHgh+Rojy/nLAU190XTzG0wrp9fpEWS10L1WY+tYVrQyDRjXCLm++RyMWGzBdvgOIt9FlIvgTujxKUnD8phz@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOdeEFpNODiZfTTZwxKJAJW06sbzZm1v8bC9pPRjHHx8mMh9pZ
-	SXqE7K2gbf/dADx6HYITAU3KrHSftez/SfZE2oxBSF7QWucobsXFVEqBSXgfqZRyJpU=
-X-Gm-Gg: AfdE7clXgVBvwXYnL2TwDnwM9C7SKunpdAszB0onOxESuAMzDNC/vB+O2PCY9/3z13R
-	yI9O7vpKTucnbLjUyxbtOPKbvTv32PApdKQioeYsxUQ1EcfJh5j6N3HFLl9jcQkZOMtIFowPCuS
-	hI4awS3WxHDkRKL0btD8tWD09o9iBO7gHZMjUyAy8O+sv1/vqQbURFRT9p1Zs2M3fXxLxNcFhdb
-	73nLBCMDp752PfF2bjjEHuD5tL73u2ZRgufOnRt0VOpCjSDeGfGz+T6wK8g+U+reFXpKochEgWa
-	DZaKjDgPdSXHbGINCWXomnm9AlIdX5CuMbmJM1B8x+TsEa0FoCeobKG9j7O9ZCQp98TBJDpW556
-	QER3af5A50lTIcGsyc4BgGPj39rgVMF2wxbKl0eOb+oOzC4p1+l+efCwz0kARrEaDDA9LUimZ8o
-	BdrnOz1HiuQNxnfxJaJZ9WG+Mxlf3KyIMQJELFpRHEmPrtajhk7tOACZ22KGG83mgqMSg=
-X-Received: by 2002:a2e:a5c9:0:b0:39b:90f:b1cb with SMTP id 38308e7fff4ca-39c798269e4mr2943241fa.7.1783512092081;
-        Wed, 08 Jul 2026 05:01:32 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c6f682129sm7596531fa.1.2026.07.08.05.01.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 05:01:31 -0700 (PDT)
-Message-ID: <74608907-dc8a-42c5-b188-0bdb08d6be77@linaro.org>
-Date: Wed, 8 Jul 2026 15:01:30 +0300
+        d=1e100.net; s=20251104; t=1783512206; x=1784117006;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mxttBuvsW1U/LvQQkaU98BFuAzSlaLEqGLAP338ir2o=;
+        b=UPWP6obETEK700Pazv6T8mP+xVq9BdM3LXsuC0ljCTxppPQ0S4Kh5M9nxBzNCjuxJr
+         ud4DXH/JILeKxhLFn7mDG3YcrsG3lYHz8i3zUQbpE0WmSk+MTpiFWp9OpSVgwc5kHbOV
+         RUfq/JI9KkFXwOStslTImL95zDG3JXzKBED+SYb3VPxHP91fEGO1PmNznOHWz2mxR61k
+         HCAL0QXhh8VYx/BeRS1Iv/dslelkc2F5w8Y6zyDteXHzBt9cpRFnMREKu19AhK2+qLnp
+         JbiPMIudui08ufMKg1Zn/rkjMJHwwMKDz1VoafqiSeSXVPF4DS7T29SH+lMMo2hvBpns
+         WtKw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0MwGEWrRlWdvAeFRp5VecgXfUd5MSnXWt98cMKU5BBdQdOYvI+7R9lvurDeTeYzmMOjsEWvTCvtFM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZTa8n113KeUW4goUlLlgs7YPWiBEWItOJLZgKK7g9bQVdXSKJ
+	IGPp8A6DTgBtK+hex0lCUrifVfv8NTT9X3K8kq3OvmRvisvTjfRd9YwrxUOIeGDbbAg=
+X-Gm-Gg: AfdE7ckqriTgpQHDvfR8Nb4u8s4sBwNKIsIKRIuMnFa01PHsAq76gFQLKPtGo3EqRRs
+	madW+YISnQeH/YP01M73d9SLBd6IvGM1uGDxgq/dAqLIx7LJ5xWqhUqJ7sgKvyboK/WWlu0mDPQ
+	mkrw2wL0UTc8eD6pFroDie+sjYUMVfw09UIbNcykQs0zcNCCiU9rMaBfETy/1QAJBck77aHkFmP
+	J+Ow2CyzRJ4rKKCkxfzYX0N5wm1FrTuXdollGtBdVJW2TTeIzB40LnDK5ff8ahzTNmTnTHWD8T4
+	qtcSZsNq89a608gezzANH4SuPPs4mq3yMrVunaaIiME6c0X6c9qFNkH8bf/ZBW+tBTNFh6piyRl
+	geTmbkYCbLj5W3PBAXjnnLoSVb77dBzd/nMnGJny+adHSuQLuIAwFfpVxW2q6PdiB/R9CA+mDeF
+	s1imgH2hs9aMxdt5aQod5bk07t
+X-Received: by 2002:a05:600c:c0d1:20b0:493:a8eb:5145 with SMTP id 5b1f17b1804b1-493e68b813bmr18047535e9.4.1783512205839;
+        Wed, 08 Jul 2026 05:03:25 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff24:7210:28ff:335b:63e2:fdd2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0f5b811sm219199185e9.13.2026.07.08.05.03.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 05:03:25 -0700 (PDT)
+Date: Wed, 8 Jul 2026 14:03:14 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: sre@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
+	linux@roeck-us.net, andersson@kernel.org, konradybcio@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	neil.armstrong@linaro.org, gaurav.kohli@oss.qualcomm.com,
+	manaf.pallikunhi@oss.qualcomm.com, priyansh.jain@oss.qualcomm.com
+Subject: Re: [PATCH v6 0/3] Lenovo ThinkPad T14s EC thermal monitoring and
+ thermal zone integration
+Message-ID: <ak48gsxhVW492C7H@linaro.org>
+References: <20260707192228.14647-1-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- linux-media@vger.kernel.org, bryan.odonoghue@linaro.org,
- loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
- <51a0abf2-2a72-4551-894b-2c2de91ba0c2@linaro.org>
- <74a5b549-987c-4dac-a1a0-ff81150cd6ab@oss.qualcomm.com>
- <56f1fd7e-42bc-4034-81dc-302cb7c22951@linaro.org>
- <dd34b44d-396e-4267-b383-e4f8d20f8ef4@oss.qualcomm.com>
- <fffc51f1-9137-4951-b9b8-9f7f263c7878@linaro.org>
- <wwk4nyczcecnllwivqd2lgnbpzboumtwigk3vmundsvgqtqpy7@duq6zdulc7sc>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <wwk4nyczcecnllwivqd2lgnbpzboumtwigk3vmundsvgqtqpy7@duq6zdulc7sc>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260707192228.14647-1-daniel.lezcano@oss.qualcomm.com>
 
-On 7/8/26 14:35, Dmitry Baryshkov wrote:
-> On Wed, Jul 08, 2026 at 01:28:46PM +0300, Vladimir Zapolskiy wrote:
->> Hi Gjorgji.
->>
->> On 7/8/26 12:32, Gjorgji Rosikopulos (Consultant) wrote:
->>> Hi Vlad,
->>>
->>> On 7/8/2026 11:47 AM, Vladimir Zapolskiy wrote:
->>>> Hi Gjorgji.
->>>>
->>>> On 7/7/26 16:24, Gjorgji Rosikopulos (Consultant) wrote:
->>>>> Hi Vlad,
->>>>>
->>>>> On 7/6/2026 10:46 AM, Vladimir Zapolskiy wrote:
->>>>> <snip>
->>>>>>>
->>>>>>> +            interconnects = <&gem_noc MASTER_AMPSS_M0
->>>>>>> QCOM_ICC_TAG_ACTIVE_ONLY
->>>>>>> +                             &config_noc SLAVE_CAMERA_CFG
->>>>>>> QCOM_ICC_TAG_ACTIVE_ONLY>,
->>>>>>> +                            <&mmss_noc MASTER_CAMNOC_HF
->>>>>>> QCOM_ICC_TAG_ALWAYS
->>>>>>> +                             &mc_virt SLAVE_EBI_CH0
->>>>>>> QCOM_ICC_TAG_ALWAYS>,
->>>>>>> +                            <&mmss_noc MASTER_CAMNOC_SF
->>>>>>> QCOM_ICC_TAG_ALWAYS
->>>>>>> +                             &mc_virt SLAVE_EBI_CH0
->>>>>>> QCOM_ICC_TAG_ALWAYS>;
->>>>>>> +            interconnect-names = "cpu-cfg",
->>>>>>> +                                 "hf-mnoc",
->>>>>>> +                                 "sf-mnoc";
->>>>>>
->>>>>> This is the topic, which may raise a disagreement, but I'll repeat my
->>>>>> position about the need to remove all "CAMSS bus" specific resources from
->>>>>> the device node, they are found and should be allocated on parent's side.
->>>>>
->>>>> The interconnect has functionality to handle bw requests from different
->>>>> clients.
->>>>>
->>>>> Yes the best will be to have camss interconnect, so jpeg and other hw's
->>>>> to vote
->>>>>
->>>>> on that (actually it is possible in icc framework) but what is the
->>>>> benefit of moving
->>>>>
->>>>> those to camss? Is it not better to create camss icc. I understand
->>>>> you want them to be on parent side. But how to vote on bw? Most of the
->>>>> time it
->>>>
->>>> Let's concentrate on hardware bindings description, no APIs, votes etc.
->>>> at this point of discussion.
->>> I agree but there should be an API for icc voting which Jpeg need to use,
->>> currently it is fixed to some values, but voting need to become dynamic
->>> at some point of time, because it depends on runtime parameters, resolution
->>> format etc.>
->>
->> Sure, but I believe it's quite clear that any software implementation
->> should be discussed only when the hardware description is fixed.
->>
->>>> There is SM8250 CAMSS device, which serves as a hierarchical parent (or
->>>> could be considered as a "bus" device) to this new JPEG encoder device
->>>> and probably to a number of future IPs under CAMSS. All CAMSS sub-devices
->>>> get hardware descriptions as children device tree nodes of CAMSS parent
->>>> device tree node naturally.
->>> I agree the device tree is best to represent real hw topology. >
->>
->> Well, it's not just the best, it's the only possible way.
->>
->>>> Copying of the same identical information about clocks, interconnects
->>>> and power domains from the hierarchical parent device to children devices
->>>> is not needed, and practically it only lowers signal-to-noise ratio.
->>> Here also i tend to agree.>
->>>> Since information about the actual defect in hardware description is
->>>> reported, the problem can and should be avoided, the handling of a better
->>>> hardware description and dealing with any kind of complexity will be done
->>>> in the CAMSS and/or CAMSS children drivers.
->>>>
->>>> If you need to get a bit more formal point of view on the matter, I'd
->>>> prefer to see descriptions of hardware properties organised in a tree
->>>> topology rather than in the originally proposed star topology. By doing
->>>> it the system complexity is reduced from N to 1.
->>>
->>> Maybe I'm missing the whole picture of your proposal, but I want to add my
->>> point of view on this matter.
->>>
->>> The JPEG encoder HW block has no dependency on the other processing HW
->>> blocks in the camera subsystem
->>>
->>> It shares resources like camnoc, clocks, GDSC, etc.,
->>> but does not share anything with the other HW processing blocks. For me,
->>> the JPEG driver should not have SW architectural dependencies on CAMSS.
->>
->> To move forward there should be a clear answer to a simple question,
->> does Qualcomm JPEG encoder IP belong to CAMSS group of devices or not?
->>
->> If no, then JPEG encoder device tree node shall be located outside of
->> CAMSS device tree node, all resources needed for JPEG encoder device
->> operation get their descrition in this stand-alone device tree node.
->>
->> If yes, then JPEG encoder device tree node is a child of CAMSS "bus"
->> device tree node, and only resources specific to JPEG encoder device
->> are described in its device tree node, because other resources are
->> already described in the parent device tree node.
+On Tue, Jul 07, 2026 at 09:22:25PM +0200, Daniel Lezcano wrote:
+> This series extends the Lenovo ThinkPad T14s embedded controller driver
+> with environmental monitoring capabilities and integrates the exposed
+> sensors into the Linux thermal framework.
 > 
-> 2c from my side (for both sides of the discussion). Please keep it
-> separate, if the block simply uses the resource which is also used by
-> the parent (e.g. there are no special requirements on the AHB or sleep
-> clocks) or if the device needs to actuall cast a vote on a particular
-> resource (e.g. for this to function at this performance level, the MMCX
-> needs to be at the turbo level OR for this to function at this
-> performance level it will use 123 MHz of the AXI clock). In the latter
-> case the resources must be described as a part of the device.
+> The EC provides access to several platform temperature sensors
+> covering the SoC, keyboard area, bottom cover, charging circuitry, QTM
+> module and SSD. These sensors are currently used by the firmware for
+> thermal management but are not exposed to Linux.
+> 
+> The first patch adds hwmon support for the EC temperature sensors.
+> 
+> The second patch exposes the EC as a thermal sensor provider in the
+> device tree and defines thermal zones for the keyboard skin
+> temperature and the charging circuitry temperature. This allows the
+> generic thermal framework to react to EC-reported temperatures and
+> apply standard Linux thermal mitigation policies.
+> 
+> As the EC protocol is not fully decoded, the passive trip points
+> get/set actions are missing, so it is not possible to program a
+> threshold and receive an interrupt when crossed the way up or
+> down. Consequently, the thermal zone related to the charging circuitry
+> is polled every two seconds until we can set the trip points in the
+> EC.
+> 
+> This series fixes critical thermal issues happening on this platform
+> where a kernel compilation, or heavy workloads, lead to a system
+> reboot.
 > 
 
-Even this "description as a part of the device" might be not quite
-necessary in whole, let me try to explain.
+Thanks for working on this! I have a few comments/questions about this:
 
-No doubts resource usage policies specific to a child device should
-be naturally described in child device tree node, and it's applicable
-to any kind of hardware policies (like opp tables etc.), but a list
-of needed hardware resources still can be obtained (also by a driver)
-from the parent, whenever it is found applicable and unambiguous.
+1. EC vs PMIC temperature sensors
 
-This is to separate planes of hardware dependencies and policies/controls
-needed for hardware usage.
+AFAIK, the T14s (and actually most X1E laptops) have two sets of
+thermistors in each location: One is connected to the PMIC (called
+SYS_THERMx), and the other set is connected to the EC.
 
--- 
-Best wishes,
-Vladimir
+The SYS_THERMx sensors connected to the PMIC have been enabled for the
+T14s already over a year ago [1]. The reason this is not upstream is
+that we now been waiting 3 years for the corresponding ADC/thermal code
+to land upstream [2]. It seems pretty close now, the ADC part has landed
+and there is only the thermal part left [3].
+
+The PMIC thermistor setup is likely going to be similar for most X1E
+laptops, so I think it would be preferable to use that instead of the EC
+sensors to implement additional temperature throttling. It also supports
+interrupts/trip points already, so it doesn't need polling.
+
+The most recent proposed patch actually adds the SYS_THERMx thermal
+zones to all X1E-based devices [4], although I'm not sure if it would be
+better to keep that device-specific...
+
+[1]: https://github.com/stephan-gh/linux/commit/c0ddc9fa96667d6b32d690ce6a3dcfc76aaabad6
+[2]: https://lore.kernel.org/linux-arm-msm/20230708072835.3035398-1-quic_jprakash@quicinc.com/
+[3]: https://lore.kernel.org/linux-arm-msm/20260705-gen3_adc_tm-v3-0-ac62f387dbce@oss.qualcomm.com/
+[4]: https://lore.kernel.org/linux-arm-msm/20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com/
+
+2. EC sensor mapping vs PMIC sensor mapping
+
+In PATCH 2/3 you define:
+
+	{ .label = "soc",	.reg = T14S_EC_SYS_THERM0 },
+	{ .label = "keyboard",	.reg = T14S_EC_SYS_THERM1 },
+	{ .label = "base",	.reg = T14S_EC_SYS_THERM2 },
+	{ .label = "charging",	.reg = T14S_EC_SYS_THERM3 },
+	{ .label = "qtm",	.reg = T14S_EC_SYS_THERM6 },
+	{ .label = "ssd",	.reg = T14S_EC_SYS_THERM7 },
+
+I'm not sure if this is correct. When comparing this with the data read
+from the sensors connected to the PMIC:
+
+| Sensor          | PMIC Channel | EC (hwmon)   | PMIC (thermal)  | Delta    |
+|-----------------|--------------|--------------|-----------------|----------|
+| SOC             | SYS_THERM0   | 79.0�C       | 78.7�C          | +0.3�C   |
+| Keyboard        | SYS_THERM1   | 68.0�C       | 70.1�C          | -2.1�C   |
+| Base / Back     | SYS_THERM2   | 66.0�C       | 64.6�C          | +1.4�C   |
+| Charging        | SYS_THERM3   | 73.0�C       | 73.8�C          | -0.8�C   |
+| West / QTM      | SYS_THERM6   | 64.0�C       | 62.6�C          | +1.4�C   |
+| SSD             | SYS_THERM7   | 31.0�C       | 67.1�C          | -36.1�C  |
+| Modem           | SYS_THERM4   | N/A          | 31.6�C          | N/A      |
+| East            | SYS_THERM5   | N/A          | 70.3�C          | N/A      |
+
+The SSD delta of 36�C is definitely suspicious. I think
+"ssd"/T14S_EC_SYS_THERM7 in your EC driver patch is actually the modem
+sensor (SYS_THERM4).
+
+If you look at a picture of the T14s mainboard
+(https://www.notebookcheck.net/fileadmin/_processed_/d/c/csm_DSC_0003_aadae1ddd2.jpg)
+and zoom in to the unpopulated modem sub-board left to the fan you can
+see the two thermistors RT601 and RT301. The SSD on the other hand sits
+almost directly next to the SoC on the right, so I wouldn't expect it to
+stay > 30�C cooler than its surroundings.
+
+However, there are also two thermistors next to the SSD, see e.g. this
+close-up picture of the mainboard:
+https://download.lenovo.com/Images/Parts/5B21P83385/5B21P83385_A.jpg
+This means that the SSD is probably one of the other mappings. If the
+thermistors are consecutively numbered in the EC firmware, the SSD
+(RT8203) might be actually the third sensor ("base"/T14S_EC_SYS_THERM2).
+I'm not sure how to figure out the proper mapping.
+
+The back of the mainboard is completely covered with tape
+(https://download.lenovo.com/Images/Parts/5B21P83377/5B21P83377_B.jpg)
+so it's impossible to see anything there.
+
+3. Active vs passive throttling
+
+Are you matching the Windows cooling/throttling setup here? If not, have
+you considered how this interacts with the fan control applied by the
+EC? I'm a bit worried that this might lead to unexpected performance
+regressions if we start throttling before the EC runs the fan at full
+speed.
+
+Thanks,
+Stephan
