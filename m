@@ -1,143 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EB136F8EF
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9DD3A6B65
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783545504; cv=none; b=NEp85hsM3gZFIVrW9bgF7ChVDY9P3LsxW4HTaBnbxFPZ3lObDn0nC5DHD+92+7JMvZNusAkU4de6cRVstUXIXQHSp+vSda3gluqU2/xoq08zYuSmc09j98p1Z4I0fYbz+k0apvp81iCACungPZG2SM5fI8VG/rHk0eQSSPTH8Hw=
+	t=1783545519; cv=none; b=B9E7rM61lvBHs3lsfz1UX9s7mRY3uhoejM81r+pFOHSIqj6V8dfMe/kqC1LJpcKnDGR2jVSUX92gWrbKA08/wo2FQ+PKyBOE5ZeYK1+pdlgo33pytdbN87S4pNGKYWJdFOrB+RWn3RMh3GaEIC0wr2HzmzodfAuCO48ARJLSAks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783545504; c=relaxed/simple;
-	bh=/yf86s+VjDN6zg68B/grd6BOMs4viFCbAkNex3o3AKU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NGDhd/j+cH8YdYjp5HWi+iPs2efB0aYcOWV1X7u13QbXHauL17dR0N/E/xFJlaMLLb95gi0bgVBOUZpgOaEHIikw5HJjV2xanrO0LbQi9l3UlD5AiJs0MiT6c5509qapiLVrAfVg2qyMmNvk3168NC0CfrlcPv/+CZG3KuitsEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJGfOVml; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783545519; c=relaxed/simple;
+	bh=EDQPvvbMQ9ScxH9hOlf6W01xdBRPeBBObtt/dSq3uEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hUMUvw7hO7avA5dR9yE2iylEhPikFMriH0nnKOKwSClyLK19fSjdvJsjdWZEQEX1Gn/GPJO0/VisNTP6PutpUYWa3q5hmiaesAq7HEBW3TxH6drRib6WaWVFyMEJRPR/z+dELohI44LjkarKT+mlFcgbyb7tsNxfiAttXi7HDrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QwW1+Src; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJGfOVml"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCBE31F0155B
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:18:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783545502;
-	bh=XHlK26iT5OTlGmvdsQr6aTlcJ71q9tfgFUQl/PoXZWA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PJGfOVmlbverv4ZMgHaYP/tLAJYKYzNMgXX6nBNzjMaexj9wEiFTIJ4o1l1sA2nlP
-	 LL5Tkg3/gihJKhh5hM5fww+Rg3IZwNeXoQ05aYqL++fCeUD1LxnbWtDzI+Ff3m/9wL
-	 7aoITsZChrUt6i7YWHK0fzT1iF6F91ecDxZYq2HCO6gvdwKpx3EWb/zKSmXLLsKpTI
-	 CFeMIuacmaNrOz7B0CRm+uSOqxfnBuSaYxB2EgqzeZ43CB3+arWjDtgfMwMAnXCLi2
-	 2BqBZr3KJNNinzlUJLwkElWzigcAq/C0CwKlnD74SVMdZMHTCWSk/KaTDiqVp4dPso
-	 IuzO9AfarR6cg==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c15b75c9e48so167424866b.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:18:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RruNX6VLBN9iAWHE8w0zbECopjH8DpN3RS5VktiLi2oK45rwB3CNQ9igWxyojOx5pYjX6ruOv5k6Jvu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzVdE8J9kFLBhzxsQXMHGU9Lvdtgp7vNQkAmjNNz/Wi62Fm424
-	gxDUnsOOGj496fP4vUKABBqg+Ef1+v2RytIuTT7spKjfMv15VORDSuts5I+Y4VPU2CKPmsXOI1R
-	t9izbN6hpIAp8AsQXpc2ijxjA8yjxHQ==
-X-Received: by 2002:a17:907:a286:b0:c15:b6bd:cbb8 with SMTP id
- a640c23a62f3a-c15ce121a12mr190425566b.50.1783545501322; Wed, 08 Jul 2026
- 14:18:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QwW1+Src"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493b786d6c0so6315705e9.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:18:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783545515; x=1784150315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sRu2JDPnd+KPGNqW7sFeAghfeumOeGPFi0g23iNWPro=;
+        b=QwW1+SrcBde0aiTP7eMIhTNql2wq2Pts+Xs7LgGyGiB1uLwXvk38NZPXAl49tCDpkF
+         OhKhAWYIplSNi3keDiqJu3smR62eEuTdWACH+vq088D6myGXQWfTAfzs6PeWj0875/V5
+         eZInmMFNf71x8inSLeOAJcEFP1qnV8Vsi8PGk3B+/6gM+he6+CCJBNwvZBLzsHYmwaDd
+         M6DCtp2aXQq2BstCyxbmiH/peRjDgv5Wchu0wTIHpgCcOEGhbDzEIrTRMT0azuddNqiK
+         6PamRwgdGvSe9pf+Wz9Zflxix5al1cKKLSCjq0/MVl65CNWrWZlBAajmu6n+7fhxG6Vc
+         kVaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783545515; x=1784150315;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sRu2JDPnd+KPGNqW7sFeAghfeumOeGPFi0g23iNWPro=;
+        b=hstkwd77HFW4j+HyRzbop5dFn+wdI3SM/Dfg0WuvrF4J9fxw1kjF7yXvbwo8eoRTDn
+         A2tOM737YzdtJKhGAybXxHQXP/9rQ1pN2mu66EUbGCyXf4OMQRLvkNbuR5t+9pax9h2W
+         9a98y9I6GFd+NHnBxVgn0pLJCtr1EpcFxYIxb/LWnbtH8iyzeb3Yi+QFS31z3XvJOSHr
+         +VPxt9JhCKl09EayP9CmImxsLw/kltaB90rNgt8/Tv1m7Lg8dz+/o6ojV/Nhv4dqgJ37
+         KxbohbXJQd7pg5eyE9yr4/0Y1b6n81wX0paL8IT1uzEuaVaWptBVlFKC+HLGmpMFtK/H
+         k+KA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp80iTpMDZjf4JAN2jyvX0wX7ZyDOzcveT9MS3lxSQ8wtETNSF/UoCneC4P1gW7PGAcUA6U3aSsm9wI@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXcVas8RHfW9kqTyf/tgp5FRy9PnG77n0e2TIAp6X6q9+eoXmp
+	aNsWeyvopR6jkS9LgfuM+n5UH1fWaXAcXJ6mpi1yhhxrhXAFZHyiFLF+
+X-Gm-Gg: AfdE7cm2AbaYM4EyHMvBetuYSCCZCAHgagluexuj+l991mKHvm2ahQH8JhJS56kz6In
+	vSHcg4MpO5HsUZGbPcOphB5PBogyOGy7xZewwB/n/5Jv7QC1EG/8Yxz9OJF7OVCm3SZja8LNdkt
+	xWtiv9lwNcKOZ7KsELYtUD0HaGaea2c0NRYOKEh8wnCgpGeUyRWN8n8Y/xFhTSnS9o/CqDoswFr
+	Q2NkpCorpTbp7qgyKWKVDRd6LMP0KoK08iDnw12lZyCGbI2CEA8tYUH4HlGEMvTpF7M3+f6Uef8
+	Mc4ALgvu8058XTC06J+lSP4/XS4UV3AtPi4RJ9Zr0TKMP73JDTEmuTgnq2UXqy9Zz2Xm3VQXcEL
+	qoRfWVNT6fk4RkoMt7l/beAPA5IBpofKv6Z2zYHRs4YIJPw+x2p6uHTVnkYnBZ2KOdZN87rCE1J
+	o2UJ+mvcn6LIMMtShMXwuQOLlooHv4YdYWfJfBHvmkqR/3KRXt4z2bd1p+5YY2Tgl27XHSUiPWx
+	KQzb9lCzj1R3BiBsIDaytpmBWg=
+X-Received: by 2002:a05:600c:1d04:b0:493:df58:90a3 with SMTP id 5b1f17b1804b1-493e68926bfmr42265745e9.25.1783545515083;
+        Wed, 08 Jul 2026 14:18:35 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-248.cust.vodafonedsl.it. [93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e5a58853sm68494175e9.1.2026.07.08.14.18.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 14:18:34 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	matthias.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Subject: [PATCH v1 0/3] Add support for Variscite VAR-SOM-AM62 and Symphony board
+Date: Wed,  8 Jul 2026 23:18:24 +0200
+Message-ID: <cover.1783545241.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-1-d80f7b871bb4@nvidia.com> <178293558945.1610040.13281502080616690110.robh@kernel.org>
- <akZde-8lFvf8rPji@orome>
-In-Reply-To: <akZde-8lFvf8rPji@orome>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 8 Jul 2026 16:18:10 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJCMm-oL35COx=agY+mwRUMMnRvbUgzPr5Hy9uvcPk0Dg@mail.gmail.com>
-X-Gm-Features: AUfX_mz5rhGcrunDpACqiF1Zhx-HBPPyHD0sxMJJ0YCYlPmg5dj7i6HAGao9icM
-Message-ID: <CAL_JsqJCMm-oL35COx=agY+mwRUMMnRvbUgzPr5Hy9uvcPk0Dg@mail.gmail.com>
-Subject: Re: [PATCH v3 01/11] dt-bindings: reserved-memory: Document Tegra VPR
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	dri-devel@lists.freedesktop.org, David Hildenbrand <david@kernel.org>, 
-	Yury Norov <yury.norov@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Robin Murphy <robin.murphy@arm.com>, 
-	Simona Vetter <simona@ffwll.ch>, linux-trace-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	linux-mm@kvack.org, Russell King <linux@armlinux.org.uk>, Will Deacon <will@kernel.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, David Airlie <airlied@gmail.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	linaro-mm-sig@lists.linaro.org, Heiko Carstens <hca@linux.ibm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Thierry Reding <treding@nvidia.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	John Stultz <jstultz@google.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Vlastimil Babka <vbabka@kernel.org>, Brian Starkey <Brian.Starkey@arm.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Michal Hocko <mhocko@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Sowjanya Komatineni <skomatineni@nvidia.com>, Suren Baghdasaryan <surenb@google.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
-	devicetree@vger.kernel.org, "Liam R. Howlett" <liam@infradead.org>, 
-	linux-tegra@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "T.J. Mercier" <tjmercier@google.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, iommu@lists.linux.dev, 
-	Mike Rapoport <rppt@kernel.org>, Sven Schnelle <svens@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 2, 2026 at 7:58=E2=80=AFAM Thierry Reding <thierry.reding@kerne=
-l.org> wrote:
->
-> On Wed, Jul 01, 2026 at 02:53:10PM -0500, Rob Herring (Arm) wrote:
-> >
-> > On Wed, 01 Jul 2026 18:08:12 +0200, Thierry Reding wrote:
-> > > From: Thierry Reding <treding@nvidia.com>
-> > >
-> > > The Video Protection Region (VPR) found on NVIDIA Tegra chips is a
-> > > region of memory that is protected from CPU accesses. It is used to
-> > > decode and play back DRM protected content.
-> > >
-> > > It is a standard reserved memory region that can exist in two forms:
-> > > static VPR where the base address and size are fixed (uses the "reg"
-> > > property to describe the memory) and a resizable VPR where only the
-> > > size is known upfront and the OS can allocate it wherever it can be
-> > > accomodated.
-> > >
-> > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > > ---
-> > > Changes in v2:
-> > > - add examples for fixed and resizable VPR
-> > > ---
-> > >  .../nvidia,tegra-video-protection-region.yaml      | 76 ++++++++++++=
-++++++++++
-> > >  1 file changed, 76 insertions(+)
-> > >
-> >
-> > My bot found errors running 'make dt_binding_check' on your patch:
-> >
-> > yamllint warnings/errors:
-> >
-> > dtschema/dtc warnings/errors:
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings=
-/reserved-memory/nvidia,tegra-video-protection-region.example.dtb: protecte=
-d@2a8000000 (nvidia,tegra-video-protection-region): reg: [[2, 2818572288], =
-[0, 1879048192]] is too long
-> >       from schema $id: http://devicetree.org/schemas/reserved-memory/nv=
-idia,tegra-video-protection-region.yaml
-> > /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings=
-/reserved-memory/nvidia,tegra-video-protection-region.example.dtb: protecte=
-d@2a8000000 (nvidia,tegra-video-protection-region): Unevaluated properties =
-are not allowed ('no-map', 'reg' were unexpected)
-> >       from schema $id: http://devicetree.org/schemas/reserved-memory/nv=
-idia,tegra-video-protection-region.yaml
->
-> Any ideas why that second error shows up? It turns out that it goes away
-> when the first one is fixed (which admittedly is a stupid mistake), but
-> I spent quite a bit of time looking for a fix before realizing that it's
-> only a side-effect of the first.
+The series includes:
+- Device tree bindings documentation
+- SOM device tree with common peripherals
+- Symphony carrier board device tree with board-specific features
 
-If a property fails validation in a referenced schema, then everything
-in that referenced schema is considered not evaluated. So then
-unevaluatedProperties is applied to the properties only in the
-referenced schema. That's why 'no-map' is also unevaluated. Just a
-quirk of how json-schema works...
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
 
-Rob
+Stefano Radaelli (3):
+  dt-bindings: arm: ti: Add bindings for Variscite VAR-SOM-AM62
+  arm64: dts: ti: Add support for Variscite VAR-SOM-AM62
+  arm64: dts: ti: var-som-am62: Add support for Variscite Symphony Board
+
+ .../devicetree/bindings/arm/ti/k3.yaml        |   6 +
+ arch/arm64/boot/dts/ti/Makefile               |   1 +
+ .../boot/dts/ti/k3-am625-var-som-symphony.dts | 545 ++++++++++++++++++
+ arch/arm64/boot/dts/ti/k3-am625-var-som.dtsi  | 491 ++++++++++++++++
+ 4 files changed, 1043 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-var-som-symphony.dts
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-var-som.dtsi
+
+
+base-commit: 5c73cd9f0819c1c44e373e3dabb68318b1de1a12
+-- 
+2.47.3
+
