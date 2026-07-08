@@ -1,154 +1,115 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C4A42EED7
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 11:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9ADE432BF6;
+	Wed,  8 Jul 2026 11:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783510263; cv=none; b=Lz+XCZ++bIyvzS6p5aLop+fAiFIsWdIvb5hbZAiPB+OYKwmi3SCqB80vtZxYpOH4v3vxUv1U1EmWqOUlnHs1n+jzgoalNMqdxioMgRKtdY8Ep5sDgbxhzQU5HWacy+qwVqj8pC+PiXFziQYLxHWRh/iV1OKc0ow77dQUeDlsRsE=
+	t=1783510329; cv=none; b=GKaGoj2WA6E4E7duj33jRc4o9rDiVFDKJOiIQFkJ8qFOHGeZtTCNSLWAnM/8tYEsDKS0AiJIvjdmKBdI8RF2WOIENNJ17Fg3JIAZylOjpG4oz0yj3zZ/sEdnPzFuS19tbWSqVktuDQxUFApSJK0OmX4RuwPwlgqAXIi2jB9xChk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783510263; c=relaxed/simple;
-	bh=UqVYtH1FlnS/aiysBtJjKkotNDawE18yaWKbuoyRfnk=;
+	s=arc-20240116; t=1783510329; c=relaxed/simple;
+	bh=XVx3vKYNLH3qA2psRIM/a2V36roIvIUJSmHhDT/Mfts=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K1iZubyHBchLP0aeY6tNLsnTPs5t9X9qwWNJ/ngXQZdC5qKYzVo1MEOL8oBUqpeMz+SBkH5a227jxeqovy5bcaKT8+uSD8x4n46PYNuoKVUhkjbm9McPvXUT2+0G47nRCI4LZhUcEfBMu38GWHXriCWEFJMEIcj/yMWO1k7T+VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sTW5MjST; arc=none smtp.client-ip=209.85.167.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kk+giJrVcxLCrbxJTy47ClcnPruywNnhePC/Ezy5PaMOIa9slAd1AYAditV5pd63yxnGax3b0gQv2axyDOXSzycaaz8fhbYwmQcv/1QIHF2CKqAawxgwwwNCYZ/MxZGfoiUaVZ4/guV24W5xzIcoPgKiPLoN8vAvFNX7NGrlLJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ho9teVTe; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sTW5MjST"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aebd52488cso603253e87.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 04:31:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783510260; x=1784115060; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=39lBDIePAL1NkZjwy0kg0GS1VSHJ5/FOzCIFnS8mpzM=;
-        b=sTW5MjSTnFr6r/JlPxnI3BE7aoTJeXE8JYAW37w3nGv6YRpTG+WJuytWtQ8RCEYO0z
-         pzlxY+S7YzztULVvPDwJQPuDNWAQrpO02nvcnZAYta5y6QvNdGdQqMInEV+vc7y1vsLH
-         aTIaKz6V03aszfCW+JjnwgOdo/iV3GE13GN/XXtNdJaUKc9Wf4+dw8NS5SZeuloJSi3+
-         pCJ9RgFdzQHLp8OMNX6zEZpR3Ec+SC+coiBStKA6/YDUIjx/xsSaScEQGC1i8ElkDuav
-         9ygcKPoZwJrymEaQoRf+G5nxVE3MdCEldttrNUHKiYS+oD0Xf8quxe2H5uRPMTRSQwHT
-         Qu+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783510260; x=1784115060;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=39lBDIePAL1NkZjwy0kg0GS1VSHJ5/FOzCIFnS8mpzM=;
-        b=lLLglarTbKrx8dRcuXjB8l2mGj8045OwBCJpZFG74PVsAjk8XLGNMu7sJ69sYCwtWF
-         5ktZJ+38o5MvK+oldmZ/J5lLt2I4TA3ig4pL5+M7uVwKUEIT9OQOMNKpHG+Z2wR+iq1D
-         z3yQbvXx5loj9G+r4jTZlffP48TAtkWBsqurw7cshV9mdOMuXhM0Nj4EFf60OXj/zAlo
-         P2nrSNBDM7zS/FzXcqmahl2/RMOEs6od1gcFDft2GqqKn1oCUVxIRAnWhLdRv3nRobAa
-         htG0u4KL+nBOMsKVIadLxLlCcD4rLAv4XVmggb3BD7QkBHhEkhVmyV8806UmTepku41v
-         4HIg==
-X-Forwarded-Encrypted: i=1; AHgh+RovHafoBk4wc1T1V2IHSlP66hTXV4OjThkZPyoIHeo+wuFeTDY2vOF7FQUatEEhYO/bGR4kt8itjPSn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxc80s1/OU9utGG+kz6D920F93vcZ3EgU2j9hlOKU7UAlCpxVhH
-	/hBAkfoYNK2Hjhw4e73Fm5stTyf2/kUwvHYOSFS1CKAk1gDV22VMwp3r
-X-Gm-Gg: AfdE7ckBMovIzxK8bXh+NTRks7tOuspVCisNPcnl2EzFJvkQMj4D45M8I4ZSJKKryFH
-	UKD/1wVHch70304EZwihEmaTqr2s5APQ8uneViTz+uRoeRqh7cMhieQFy3du9TdiFSmJnEBFMXM
-	P7OXqJ4HIBH8AgEvlCYcXp8zhoTYxDdD9HJKYGmfDCDwXuu8MazR6Qx4aOavomtyfETUHoPiwV0
-	/3953pYaNm0rSVh3CAM/DEU5zJ7w2aOSIEXL6tVT5Z0ayclWP4JvYmXJIog8OlkNEwkUrNGlOqG
-	xek+oJVgIKLjmspGJ7qD+siqXTfhWuf45bi6iGoLyk8WiZshT6ND7pJ0joLvJ70aWhKZ/q0O3h9
-	ctXJh/KxMAlSHIfiZsqOfaraCASUtiC6dgrol/IkRvoI5O6IJrdjZHSjvbTm+5GjcDRTed/sVf9
-	8gnHpBR1wnS0b7q8w=
-X-Received: by 2002:a05:6512:1417:b0:5ae:c8d9:dcf6 with SMTP id 2adb3069b0e04-5b011463131mr553458e87.37.1783510259389;
-        Wed, 08 Jul 2026 04:30:59 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13700fasm4437116e87.5.2026.07.08.04.30.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 04:30:58 -0700 (PDT)
-Date: Wed, 8 Jul 2026 12:32:00 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>, 
-	Fred Chen <fredchen.openbmc@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>, Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>, 
-	Brian Chiang <chiang.brian@inventec.com>, Cosmo Chou <chou.cosmo@gmail.com>, 
-	Dixit Parmar <dixitparmar19@gmail.com>, Eddie James <eajames@linux.ibm.com>, 
-	Antoni Pokusinski <apokusinski01@gmail.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
-	Ashish Yadav <ashish.yadav@infineon.com>, Alexis Czezar Torreno <alexisczezar.torreno@analog.com>, 
-	Syed Arif <arif.syed@hpe.com>, ChiShih Tsai <tomtsai764@gmail.com>, 
-	Abdurrahman Hussain <abdurrahman@nexthop.ai>, Kim Seer Paller <kimseer.paller@analog.com>, 
-	Colin Huang <u8813345@gmail.com>, Yuxi Wang <Yuxi.Wang@monolithicpower.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices
- MAX20912 and MAX20916
-Message-ID: <ak41BRQBNdsQrYww@nsa>
-References: <20260707122701.751878-1-fredchen.openbmc@gmail.com>
- <20260707122701.751878-3-fredchen.openbmc@gmail.com>
- <f9e32dd1-7c2c-4055-83fa-94683777e30b@roeck-us.net>
- <ak4QO9uhKOt68dl1@nsa>
- <20260708-true-carp-of-champagne-a0dcca@quoll>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ho9teVTe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783510327; x=1815046327;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=XVx3vKYNLH3qA2psRIM/a2V36roIvIUJSmHhDT/Mfts=;
+  b=ho9teVTeXDmLBQC4Mkygz4e87910ceS3I+pDCaYVXVMBwS/IdNtXffYF
+   iplQ9w8vfODn6V387ph6fEhcF11pMtFiVZrDSZra7CaFf/KUjOoNv42mE
+   Fe2XgMXG0TD/Onkgzbb9hHMUeveVMQZRojHAaC/ItiYoAlLFJ6fYPzHav
+   H47hJ7oNRhZenG8/Dy7aIg7Qzj5MiUiQah0O40q3bR0zZ5/eE2f5CwSVY
+   CakGVTwlyNWt7Y4t2b24bRxYcZSv2q6GE4UheLApLp40+7AnFNwBR5IjN
+   ul1m6W+1H2C+XBX+xAt2FYwyGDPISG9eoB8jkMkSPVAAIoONjorw9wM1L
+   w==;
+X-CSE-ConnectionGUID: QA+MVCsHQ5Ob3r2rn2MFJQ==
+X-CSE-MsgGUID: 2uQ0PeA8RKKgg3bzPrSaag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="83147528"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="83147528"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 04:32:06 -0700
+X-CSE-ConnectionGUID: nLomc+jpSGW0M6+jBnxUjw==
+X-CSE-MsgGUID: a23HxCJOREydOqKG/YQXjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="250280686"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 04:32:04 -0700
+Date: Wed, 8 Jul 2026 14:32:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Lukas Metz <lukas.metz@gmx.net>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
+Message-ID: <ak41MZNHFvVzeq6Z@ashevche-desk.local>
+References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
+ <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260708-true-carp-of-champagne-a0dcca@quoll>
+In-Reply-To: <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Jul 08, 2026 at 12:50:25PM +0200, Krzysztof Kozlowski wrote:
-> On Wed, Jul 08, 2026 at 10:19:56AM +0100, Nuno Sá wrote:
-> > On Tue, Jul 07, 2026 at 06:52:48AM -0700, Guenter Roeck wrote:
-> > > On 7/7/26 05:26, Fred Chen wrote:
-> > > > Add support for the Analog Devices MAX20912 and MAX20916 dual-output
-> > > > multiphase voltage regulators with PMBus interfaces.
-> > > > 
-> > > > Signed-off-by: Fred Chen <fredchen.openbmc@gmail.com>
-> > > 
-> > > Please provide evidence that those chips actually exist.
-> > > Internet search comes up blank. I'll need confirmation
-> > > from someone at Analog.
-> > 
-> > Hi Guenter,
-> > 
-> > Well, in fact I'm in the middle of preparing a series that adds support
-> > for:
-> > 
-> > "max20826"
-> > "max20855b"
-> > "max20908"
-> > "max20912"
-> > "max20916"
-> > 
-> > All the above parts have the datasheet under NDA. But before we had a
-> > one page "datasheet" in analog.com but I guess that is gone! For context
-> > I mainly did the base (core) driver for max20826 and then Alexis added
-> > the other ones.
-> > 
-> > Not sure how to proceed... I can wait and then work on top of what Fred
-> > has but this patch is very minimal when compared with what we have.
-> > Like:
-> > 
-> > * No regulator support;
-> > * No direct mode. The chip has two ways to access registers (paging and
-> > * direct mode).
-> > * No way to count how many phases we have or if RAIL_B (func[1]) is being used at
-> > all.
-> > 
-> > 
-> > Some other things more intriguing is that these chips, as far as I'm
-> > aware (at least for max20826), always have bit 2 set in ON_OFF_CONFIG so
-> > a gpio vout. Also we needed some special handling to read phase current
-> > which I'm not seeing in the driver. So I would like to understand how
-> > the chip was tested?
-> > 
-> > Anyways, if Fred is ok with it I can just finish what I'm doing and send
-> > the patches. It would make sense to have something more complete on
-> > submission but I don't want to just "steal" the work already done.
-> 
-> Binding should be in such case posted complete, so probably not a
-> trivial device.
+On Wed, Jul 08, 2026 at 11:52:44AM +0200, Lukas Metz wrote:
+> The DAC756x, DAC816x, and DAC856x devices are low-power, voltage-output,
+> dual-channel, 12-, 14-, and 16-bit digital-to-analog converters (DACs),
+> respectively. These devices include a 2.5-V, 4-ppm/�C internal
+> reference, giving a full-scale output voltage range of 2.5 V or 5 V.
 
-Yes, in my series bindings are not in trivial as we support the enable
-gpios.
+At the first glance it seems I already commented on the issues in this driver.
+Yes, I see that I commented
 
-- Nuno Sá
+  "Leave trailing commas in the non-terminator entries here and there."
+
+and in several places in this version it has not been addressed.
+Taking into account this I don't want to go through and check what
+else is missing, so please go again to v1 and carefully read *all*
+the comments and either address them, or explain why it's not done.
+
+...
+
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/err.h>
+
+> +#include <linux/errno.h>
+
+Not needed, err.h provides for standard error codes.
+
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/stddef.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
