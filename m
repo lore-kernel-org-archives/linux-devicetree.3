@@ -1,97 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E057B3EFD07;
-	Wed,  8 Jul 2026 21:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C03E3F39D3
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783545062; cv=none; b=P/tZ7nH/hy4+VXpFDT7Vw0szDOagdEAGhQ87efR6vJggOCY7jJVsnxwI9gUwxZEuT+nAgo535NxN2vbWI+A2W+VaIT/GyRzhTf6d9E5w8KVmZDsl/Hd/pYo6JX1Y9txqyU1e2ngjnd8Ff5Ekkt9bWTIYkxEg1FSJNFidIndEFS4=
+	t=1783545117; cv=none; b=DcS63Ko7PX8hyUYmF9Dt17cf0xyu2Fsh8BP0A/8T50GUNrgcUJIOnS4S6ldyf7LnNX3ZnKOXUwhoNLU1KtLw4VMeLdJYmbMjLX8FZ20sTgbq2deo2o80caMWj3fJTh044xCF+NYIoIoYQpBmpcR9XxSCpFXqUqC5WVtWEwnp03Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783545062; c=relaxed/simple;
-	bh=JFWZOyPGpgvPIKoXB9WjWQ8d7pCeLRsaN96svQ8fHNk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d/L3lhlFjj35H3hrUoROeFHHtRguwE9IRRCWy3WqPwlF6IHm1Mq/FbdL9C+b/+5751RASj3LSZFkzWKuQOKDD4tRfYVMshXUbVSeZFc/d/Wk3jDQQp/dSjgkxNbc3L/PMWs62sKnV7kqbhHsa7iINTsd4XnBh1DSNIK+NvJLwC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dekQRjgj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783545117; c=relaxed/simple;
+	bh=rIHDIzV62J2cxny3gvrSjGxCdFunl6AY+u8FpKeBnH4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JQBniQ4f5LE6Ftg43Uatmlom3eUFtXxqi1zyP/iZBloGVwSMZa5Kjb7KXlz/FBSuX186artuOjPGD3/Ju0w1DCZ7xgk6JQ8RL2PgkizQnvhjyBNdN5w2SgrgJAxuBbtpu5khxIH7tPwAA3KFdiTh4yB1DQh6JJM2mxMIZUJM9cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=oYSSrB/1; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dekQRjgj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DEF91F000E9;
-	Wed,  8 Jul 2026 21:10:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783545061;
-	bh=tkJStVQQrBUVTUaskhv5zoU/YZtR/Z//KEgb+Nu4U5Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dekQRjgjNEfXhlQmyfoUDHiLn7BOa1vrUXPYlOF7nZT0gYD6oWWmhiYaf1OQ34y31
-	 qbk2C0vFSHkKFrQSQrGyMQWPiMLPaKBRt7Q/Cdoyk8W3jGRGBtPQN07cQm6DaL94DJ
-	 liYCCyfJECEuEN9RP9GTZpUqVsh1vA7E2jpW+il+Afq+NyvgBUWpXE49gsa6njMmm5
-	 pIBI2zhomAjp6hSuqoOZ2DwGWQG5OW+HXEZUMS38cM2HFh2pYITcTKOdCkkNECtRbu
-	 XDVCXFhBzOP0+TcbgG3tosHfbUe70o7c/6ZnxShy8QP07T6fDX/4V0IvI5rLU5VoEn
-	 Nmh0+1GaRps4Q==
-Date: Wed, 8 Jul 2026 22:10:56 +0100
-From: Lee Jones <lee@kernel.org>
-To: rva333@protonmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Ben Grisdale <bengris32@protonmail.ch>
-Subject: Re: [PATCH v4 3/4] mfd: mt6397-core: add mt6323 AUXADC support
-Message-ID: <20260708211056.GB1727174@google.com>
-References: <20260623-mt6323-adc-v4-0-299680ad3194@protonmail.com>
- <20260623-mt6323-adc-v4-3-299680ad3194@protonmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="oYSSrB/1"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so6139815e9.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:11:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1783545114; x=1784149914; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ACnCYqtn31aNRa5UhofUt9P2pF5DMnEJGyAo4BheWXo=;
+        b=oYSSrB/19HiLbPeKGErUQAixq/UdabJ6QbD5eP3Nk620Zzu8Bnt+Y6TJNhoZfOmFwO
+         RJgE3RL4ITGTFHlMpn6sEIZBeHXtcwaH6lxKQoxYryyKGrKOp6QNWkhgjGGkpUvW0YpS
+         InrmHD258mTKZui/lcfN2jT4lmDRK6zLcZxnm8Ke5I+x7pIBZPqpUFofgSCNAFkF+pfW
+         pMABVInGLJFUFWxGT0kKKmfxeZDppKiw4DmeKwJfx3k41Plo2reSzqBKnFQAUKIEMNuV
+         yAXSu4xe4OY3mr6N/0KJNs8aPY9AEMSCgOJ+FpNLFrBypeXM609KqLsWb65VQWT5U6iY
+         Q4lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783545114; x=1784149914;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ACnCYqtn31aNRa5UhofUt9P2pF5DMnEJGyAo4BheWXo=;
+        b=Ds3/QQ26EiPyaca/+zEJPQ/NODxhHjIkyCDzP0aeiN1ZOTn5G4JMPwJfqgjgHcCb5W
+         /0gJZz3lRBIR/hsDEVJTnBRDeWCkQG3rtpATaWnyAXD+CpM/Or187unPgrkgF7VRHGC3
+         pTdcXF97VqVi13PZ41LSn2mg2yqmUFJcBjh07mB1sEi5L1cIX88aWr0c/p7H3lmzOKMx
+         TqUX7vKcvEblN5QCxjCYoxeYhwGAGIjKe0F8pC8IARY0yljl4bebpwRJX9941PmP/IEL
+         y304Otvp3EdZWxyFNLEoUaYwVB4mUu3DoGUIBc9g2hL5kuM1B++AOlwyIzPu9fkbjeny
+         hpig==
+X-Forwarded-Encrypted: i=1; AHgh+Rod6Agcoh6xubWBvn0iLhND1pziZhNcRFnIHZRcjj12qst1yF6+xrCZaezZSscgZgW0uVdsJ6Je8upC@vger.kernel.org
+X-Gm-Message-State: AOJu0YztmK9/EA7/wZdH4zW8tJ03J6vKL8ZA9oxK49nDBhzqzV9yHuWu
+	Iglk3RHO2nRvpnRQ+O8xpImHefy/GxN9kB4scD5RtSJaae4nL6rY1MjsjQBKrk73v70=
+X-Gm-Gg: AfdE7cmFmh+VvaG0lin/ZvyVWQv47WUnk2Bwu+PiRutiCmZGNAormVkl7QK040QWYtj
+	k9Yold2103VvbXedWoHvKy2mYi/B/2PsgG0A2R82n0aIXGM8kK3tWRwWDXJJ6Q9IrfXGsxZjB/7
+	WJkbD9CxqtdmD8yVAxW4fQ8km82xWp01M/DH21+nbdct8054Hc9KdSsktXtv6JdUQl3GFN3ZLYw
+	W4vWE5zWW44CS6OuAePgqp950wmYqpIm7ZqsX+hGiXB1+QDn3zzYrQK11AYJyiid6KQpBUMZMps
+	Q73RpoAOHQf+Ut7IAYlzw1rfoRCp/fQBW8oFJFB4WYI+pdibuF2Lasre0khnkaZTXlKy69XWkEQ
+	OYCu8PtoCHJu/T/IwTfvQuht8wdBcZpTT8PKmZpC0HJ4w4MbGzAzGnAYWYu0NB2J5E3j9dJ9Zoa
+	cPpMPK7s74qZ7zAfpTrMBX6R4x71Y=
+X-Received: by 2002:a05:600c:c8a:b0:493:b730:8d78 with SMTP id 5b1f17b1804b1-493e68730cdmr43626125e9.31.1783545114335;
+        Wed, 08 Jul 2026 14:11:54 -0700 (PDT)
+Received: from [192.168.0.101] ([109.76.204.255])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d843csm44848779f8f.14.2026.07.08.14.11.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 14:11:53 -0700 (PDT)
+Message-ID: <5aa5487b-67ef-448f-8975-0c46ca1d3451@linaro.org>
+Date: Wed, 8 Jul 2026 22:11:53 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260623-mt6323-adc-v4-3-299680ad3194@protonmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/11] arm64: dts: qcom: Add x1e/Hamoa camera DTSI
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+References: <20260326-x1e-camss-csi2-phy-dtsi-v3-0-1d5a9306116a@linaro.org>
+ <178352261564.2235436.11540452339147753406.b4-ty@kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <178352261564.2235436.11540452339147753406.b4-ty@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 23 Jun 2026, Roman Vivchar via B4 Relay wrote:
-
-> From: Roman Vivchar <rva333@protonmail.com>
+On 08/07/2026 15:56, Bjorn Andersson wrote:
+> Applied, thanks!
 > 
-> The mt6323 PMIC includes an AUXADC. Register the AUXADC in the mt6323
-> devices array to allow the corresponding driver to probe using compatible
-> string.
+> [01/11] arm64: dts: qcom: x1e80100: Add CAMCC block definition
+>          commit: 6a3568f938c9ff2cb493f82dc595b4dc2760f517
+> [02/11] arm64: dts: qcom: x1e80100: Add CCI definitions
+>          (no commit info)
+> [03/11] arm64: dts: qcom: x1e80100: Add CAMSS block definition
+>          (no commit info)
+> [04/11] arm64: dts: qcom: x1e80100-crd: Add pm8010 CRD pmic,id=m regulators
+>          (no commit info)
+> [05/11] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB sensor on CSIPHY4
+>          (no commit info)
+> [06/11] arm64: dts: qcom: x1e80100-t14s: Add pm8010 camera PMIC with voltage levels for IR and RGB camera
+>          (no commit info)
+> [07/11] arm64: dts: qcom: x1e80100-t14s: Add on ov02c10 RGB sensor on CSIPHY4
+>          (no commit info)
+> [08/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add pm8010 camera PMIC with voltage levels for IR and RGB camera
+>          (no commit info)
+> [09/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add l7b_2p8 voltage regulator for RGB camera
+>          (no commit info)
+> [10/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add ov02c10 RGB sensor on CSIPHY4
+>          (no commit info)
+> [11/11] arm64: dts: qcom: x1e80100-dell-inspiron14-7441: Switch on CAMSS RGB sensor
+>          (no commit info)
 > 
-> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> ---
->  drivers/mfd/mt6397-core.c | 3 +++
->  1 file changed, 3 insertions(+)
+> Best regards,
+> -- Bjorn Andersson <andersson@kernel.org>
 
-Doesn't apply.  Please rebase and resent with my:
+Bjorn.
 
-Acked-by: Lee Jones <lee@kernel.org>
+This is v3 from March. We are on v12. I don't think you meant to apply this.
 
-> diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
-> index 3e58d0764c7e..013b0857fb54 100644
-> --- a/drivers/mfd/mt6397-core.c
-> +++ b/drivers/mfd/mt6397-core.c
-> @@ -125,6 +125,9 @@ static const struct resource mt6323_pwrc_resources[] = {
->  
->  static const struct mfd_cell mt6323_devs[] = {
->  	{
-> +		.name = "mt6323-auxadc",
-> +		.of_compatible = "mediatek,mt6323-auxadc",
-> +	}, {
->  		.name = "mt6323-rtc",
->  		.num_resources = ARRAY_SIZE(mt6323_rtc_resources),
->  		.resources = mt6323_rtc_resources,
-> 
-> -- 
-> 2.54.0
-> 
-> 
-
--- 
-Lee Jones
+---
+bod
