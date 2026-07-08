@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8CB399002
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:24:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39E8381AFB
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:27:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783506271; cv=none; b=R3WhOFEAzYWmRbr8FWwhEe42MZ8CE9c5f95an8qddqeGapIPZ16UboFj2nIY+j8YtwLnsLIl3ui2tr8uoYNun3YQzl8e1e0wkOCdHhWA72wOV9hIjOGkci5lG83GKupEYojIfRxvOxctfbyjoxg1zl9QR4ffneETa+D+YVTH0kM=
+	t=1783506451; cv=none; b=rCSfj5cycyqfhfucNFVyGqjSCJnBrheA6I3M0A3Re+ez1lDgsD6FlsNtPrkdhEU2l3tBdDlwFKb47YQHAP7eGNcoG7WrQOp+ejK1Ort6wnnx9qEBL0UR+bZodk5ueTd1mEbaw8Bg+V9/wYNIW7p6SzTr7yi8Sx/0jf3BNHFlwXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783506271; c=relaxed/simple;
-	bh=/XATuqxqUXnPChzwMWClvKW6sZKHDbKi//Jiyki11zQ=;
+	s=arc-20240116; t=1783506451; c=relaxed/simple;
+	bh=m7O56JO8/QVAAqzvd/1pq0/GgLt2Xwsun0/nsxFdtWw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SccHg1kgWaYFIz3Ow7P8V3X6QzTG3d/6hle94eww1LfBOMvTUh3jzgy7XQiBFaVx0/eziwQLShzlKaOWMm+k+7Cw53a2i2iuGZHcZMy9NBUhQMh0K3KFjtU+fqxNwU4+ok72uZ6PhLjNYKRwN5iabhfSyija2BlHDuranwdHziA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=REoXunlh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=M+ocLgo8KBGLg1geo7AIZ6Iu10BfyKe9ecqNCd6iARxR2gEXCND23CPvGs/cADO5/fYWd9aSAy2MEUTFIhitIjPy0owZmo5rV8Ie28xj4tTZaiVuWKRqLg+75PbYkgHkh0vBnXobOtxjPnjffPI5pefHoloIBKvDZHuXJq2ae8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Me/jCaN0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="REoXunlh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76361F000E9;
-	Wed,  8 Jul 2026 10:24:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Me/jCaN0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10AF91F000E9;
+	Wed,  8 Jul 2026 10:27:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783506270;
-	bh=RwiQORZJR/HSB78wOGhBYXCyFU379RBuzE/W5Wrpy4I=;
+	s=k20260515; t=1783506449;
+	bh=FLCNlRaKaIMRdFbFArGT+zmqlyfeYJwVvAYq34rubpk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=REoXunlhRfBfZ5H5+fLGd0Mc1KGbuhGiiHMytilkJF5hszPcDEiowNv44T8rankBe
-	 gSBAUvJh6+H5ypgZ/5g6yftWiFOWWWcrbq5lNbyWPed/0xVkKomM9+YM2kREKKpLvz
-	 Qxf3DV7viN6EHmqNFcJKo/RFBBm4NCcAyxYSvoCmdDKhUROIaDynMYhCgTnRzcTIKm
-	 1roIOjtBdiEh3lISUBbknccvOO9lH+0sbIv+Nz3w2IlvoGG1XmeB7NlMXvPA8FDbrR
-	 4R34ofD7DIWptO50Q+koEpy0Vhl6gV75lUpy1FOKOtRX3cJ6jSXUT7dQ0NAGeKDD0W
-	 ZHDenEJH4jzUA==
+	b=Me/jCaN06UzaYQUasVrL9UyA/Ia9/yd2IHxRZDnioKJ3FCq+xhXsXD4n0LvNNisAM
+	 aG4w9QWVutu7sabMECzTvSej6D5bRBkbXEiJ/c7fzln81CLNWo2Y+NCY5VOU0wmE+1
+	 AAfpRewG9EcypmUb3WmMTyqc3t4aeXi9GXrJ5Sn1Yc5o6a6hmxFQKkuFUtx5i1kZ72
+	 MsNTZsl48quNkjssTQCMIilQwGtg2wt4nbZAabSrM1U14davP5RQvoF1y696xyYxyT
+	 bAtDz/cfZ6CewPF3v2tdVY7LwfQFZMwTKO9EB7N5cXYhdxsCtZUiexm8QeCX9JyiaH
+	 U2s5/nizYQkFQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/6] clk: renesas: Add R-Car X5H CPG driver
+Subject: Re: [PATCH v8 3/7] clk: qcom: Add generic clkref_en support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Geert Uytterhoeven" <geert+renesas@glider.be>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <50f5804f00c55cd60604d00da1bf1f1dc912ba8d.1783505142.git.geert+renesas@glider.be>
-References: <cover.1783505142.git.geert+renesas@glider.be>
- <50f5804f00c55cd60604d00da1bf1f1dc912ba8d.1783505142.git.geert+renesas@glider.be>
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260708-tcsr_qref_0708-v8-3-62c42b5fa269@oss.qualcomm.com>
+References: <20260708-tcsr_qref_0708-v8-0-62c42b5fa269@oss.qualcomm.com>
+ <20260708-tcsr_qref_0708-v8-3-62c42b5fa269@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 10:24:29 +0000
-Message-Id: <20260708102429.D76361F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 10:27:28 +0000
+Message-Id: <20260708102729.10AF91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,64 +46,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Memory and clock registration leak if `devm_kasprintf()` fails d=
-uring fixed clock registration.
+- [Medium] Uninitialized stack memory read in qcom_clk_ref_provider_get due=
+ to missing args_count check.
 --
 
---- Patch [3]: [PATCH v2 3/6] clk: renesas: Add R-Car X5H CPG driver ---
-commit 1d0eaa24ed7151f3cc9ee126c74cd79bec68356e
-Author: Geert Uytterhoeven <geert+renesas@glider.be>
-Date:   Wed Jul 8 10:15:08 2026 +0000
+--- Patch [3]: [PATCH v8 3/7] clk: qcom: Add generic clkref_en support ---
+commit 5fbeeca574eafbc5d86afc2e9ee00af52b02a04f
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-clk: renesas: Add R-Car X5H CPG driver
+clk: qcom: Add generic clkref_en support
 
-This patch adds a minimal Clock Pulse Generator driver for the R-Car X5H
-(R8A78000) SoC. It provides support for the fixed-rate clocks needed by the
-current minimal DTS.
+This commit adds generic support for clkref_en clocks in Qualcomm platforms.
+It introduces a dedicated clk_ref clock type with custom operations that
+manage both the enable bit and associated regulators, and provides a common
+probe and registration API.
 
-> diff --git a/drivers/clk/renesas/r8a78000-cpg.c b/drivers/clk/renesas/r8a=
-78000-cpg.c
+> diff --git a/drivers/clk/qcom/clk-ref.c b/drivers/clk/qcom/clk-ref.c
 > new file mode 100644
+> index 0000000000000..3efdf6749770d
 > --- /dev/null
-> +++ b/drivers/clk/renesas/r8a78000-cpg.c
+> +++ b/drivers/clk/qcom/clk-ref.c
 
 [ ... ]
 
-> +static int register_fixed_clks(struct r8a78000_cpg_priv *priv)
+> +static struct clk_hw *qcom_clk_ref_provider_get(struct of_phandle_args *=
+clkspec, void *data)
 > +{
-> +	struct device *dev =3D priv->dev;
-> +	unsigned long rate;
-> +	struct clk_hw *hw;
-> +	const char *name;
-> +
-> +	for (unsigned int i =3D 0; i < ARRAY_SIZE(fixed_clk_rates); i++) {
-> +		rate =3D fixed_clk_rates[i];
-> +		name =3D devm_kasprintf(dev, GFP_KERNEL, "cpg-%lu", rate);
-> +		if (!name)
-> +			return -ENOMEM;
+> +	struct qcom_clk_ref_provider *provider =3D data;
+> +	unsigned int idx =3D clkspec->args[0];
 
 [Severity: Medium]
-If devm_kasprintf() fails on a later iteration, does this return statement
-leak the clocks that were successfully registered in previous iterations?
+Could this read uninitialized stack memory if a device tree node is
+malformed?
 
-The cleanup loop for clk_hw_unregister_fixed_rate() is only executed if
-clk_hw_register_fixed_rate() fails, and the devres action to unregister
-the clocks is not added until the end of the function.
+If a consumer requests a clock but the provider's device tree node
+incorrectly specifies #clock-cells =3D <0>, the device tree parsing logic
+will set args_count to 0 and leave the args array uninitialized.=20
+
+Would it be safer to verify clkspec->args_count >=3D 1 before reading
+clkspec->args[0]?
 
 > +
-> +		hw =3D clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
-> +		if (IS_ERR(hw)) {
-> +			while (i-- > 0)
-> +				clk_hw_unregister_fixed_rate(priv->fixed_hws[i]);
-> +			return PTR_ERR(hw);
-> +		}
+> +	if (idx >=3D provider->num_refs)
+> +		return ERR_PTR(-EINVAL);
 > +
-> +		priv->fixed_hws[i] =3D hw;
-> +	}
+> +	if (!provider->refs[idx].regmap)
+> +		return ERR_PTR(-ENOENT);
 > +
-> +	return devm_add_action_or_reset(dev, unregister_fixed_clks, priv);
+> +	return &provider->refs[idx].hw;
 > +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783505142.gi=
-t.geert+renesas@glider.be?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-tcsr_qref_=
+0708-v8-0-62c42b5fa269@oss.qualcomm.com?part=3D3
