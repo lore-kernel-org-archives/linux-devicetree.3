@@ -1,85 +1,220 @@
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1CA379C3E
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 19:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BEB3CCFC0
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 19:05:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783537535; cv=none; b=AJdTTcwOJspf6g/E4SYtrjz211K+i+l8qgDx7KEq08ZJh+NEN4WhVukyf7TqcpbGGOxOdLw1F+GX84oB2VFGomX8X2Dwt/04enHdg2FGHjZy2wvP5sEiG48FD0xr+vpTLoQwkmCwik3hQnsDtQYsY+mHl9aMHuWEh6Np697qWX4=
+	t=1783537560; cv=none; b=G64fMfZbjLHy0VQ4x4u5tE1w2WQ7ZpOqgWsI37veR7iKo8N7DHAkwAOxE4AnpjPtCIzc0RP86RqueydIXd3gQwVCh59OWRX169Oiflxf5vpKz7Msned4vhkj7Gwzc6P+IC7fRrFByjbfumvijMG4Ih8uH1A/z9QPnmJcfGc1sW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783537535; c=relaxed/simple;
-	bh=Z8Yz9PKa7uFBWQo8Ur5SwLO33rz2LIemEl2lFmYjXMU=;
+	s=arc-20240116; t=1783537560; c=relaxed/simple;
+	bh=YItqT8T7it2rqu0Ag40WP8xbh00oL0oNgmOzd217gSY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NPxmFMXRRVBx12eEVpnSGdgkzHIe7mATvxDLu48WDomjQZw8IAE7ToJp05UbzPrTA16xJPkDd0Mhz1zKbZC5hJmp0olWesOdcaHabfuJDXjZ3khF+HALY41Te4zFzY2hRGMupSXV1xXcdDl0VMtWKoMrK6EiZwFaYnzfH5hEChk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tPpm5cJQ; arc=none smtp.client-ip=91.218.175.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=pDJUmkq0eqnKhDrD9Bm17wgv1K6WhxS/wweBldDsP4ZYAsy8GmrNAdLkYjyllz3WoYWMnXE406ER78ARtTAUDlSKpd7PXcH/R0waU0NQ8yusEQYCd7z+XxGxqwx/1OvBpELIwt4wfZMi7ThhlYe+q0ginCkK/XKZiA40jHBdP+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C/Z3O8TS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TaVdRaOB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tPpm5cJQ"
-Date: Thu, 9 Jul 2026 01:04:41 +0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783537521;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=56W/VFUwknXNliD4iRNfvqsZnF1lfz6PNsFALT4S+Ss=;
-	b=tPpm5cJQ9fSbbSzx4HMJOU0eijyxCSlk687BAxtBKlGrFXPNYns4ZlHAAaM/nOK4fEuKRo
-	c98R/OR4MpJM4WJkfyJwE3mGMviZyiMGfh8y0G26rr8obr6xNm5A6ErLBcfKQZENYnRpFO
-	iKKkTjQpU4o35PMm9FAdGhbdLGii0oM=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Siratul Islam <siratul.islam@linux.dev>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lukas Metz <lukas.metz@gmx.net>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
-Message-ID: <ak6eihbwmVyd6JBu@fedora>
-References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
- <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
- <e84c4e047e104cca9b88dda791997ceecba1204c.camel@linux.dev>
- <20260708183359.495c4b65@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C/Z3O8TS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TaVdRaOB"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668GLKwb3347619
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 19:05:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=CeHf8ZnOmdDt8+90mSP4wYI2
+	u2NYKjn3Be4iJ272f5Q=; b=C/Z3O8TSU/K6ST7I/5NLvaXUbyaBPKdv0+DgP40l
+	nQUMyIiRO9eb0HkYDoQACetPWHg33l4B4SndJBK78czyFY2O72YHuNe0IwlvvEDO
+	e3Y5cvI4c3FPt59an/wepDFFpz+Z03T8w+4iB0iNKikofEJk+NSkHJqWjAuBGuDu
+	AtCF25xZE9fajt5L8vuDM1kN1dXUr3yeqChMyf4fl6dNiYLugaM5q29YztM8AH9s
+	XpjSoOZW0vNUVP2e+nShpv9KxBXbZv+Ku+p0c6/+UfEDrWTF5ZEDyfUzfYbgBzid
+	ORzfs/9zn+9EvdTrpupSEOicov9omFUig51PTAzYEyTiVA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9sqs8r5b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 19:05:56 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-381ed6616f7so1876757a91.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 12:05:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783537555; x=1784142355; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CeHf8ZnOmdDt8+90mSP4wYI2u2NYKjn3Be4iJ272f5Q=;
+        b=TaVdRaOBpzvB3sQFBAEcWmcDx/oLzP0IrwweH/DQly4YNfb7bLluGOkH4f1e0ugFbx
+         7D8Oz5PvtAfizYXfXJReHdylvgLKwS/72bPb/+nKhmOxA0rw4RZh8GpHfG1QsyhhAfs0
+         LRY4AnHCrtUfwi1tOOk1XN6vt0c7XFjJud2Yn31KcQojtpTOqfewVFEvDjfKdwgm2ln/
+         uxUP0AozutmPGMBpF7a/oIcbPJunJuML5IgueBPTHDv566YUWrCCBWQr38wQslEe43Er
+         pEoLSczQAXe1n8ZDDpdUD6RSR/djvXl8LL/KFsGpbGm12Wrimwt5mzMxT9L9KzzxQ/cf
+         Kxcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783537555; x=1784142355;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CeHf8ZnOmdDt8+90mSP4wYI2u2NYKjn3Be4iJ272f5Q=;
+        b=rdQhUh774pIw0ymE7oavdbMlEJJLwYYwZdrI4Tmfd5f07iiN9pRzmJioAwaCWov+Xx
+         at/fULVTGs51iG4Y0x6fiGNturR9xbQUU/JmH/kfJvqVTEgv1Bdrydx4H0mfYsPbML1c
+         3DBUzdxXd5Xa+Kuur4eW2JwUDHpuNVDVzm3rhFeJnI8QPqna3haGDZqMxSt4aIvN8+7+
+         ytVJE0cdQrM9dFVECWyvTjYJUAF7VgscFp/MlFpPeodO6C9zdicbi8VXI7OqIRX37KiO
+         G0SOsRRq3GAZgzqUv9zGOG6dCZirh97D6SlFfHoEnEbClj8ZSUvtUVNgrxU0PaNJVyE2
+         fFaw==
+X-Forwarded-Encrypted: i=1; AHgh+RoDBUPQ1heTFbVfK1a6jUeJn+GT78lvXX3wShliPoIuaZXjrTKVTwBqu7KgT5vlCxFyDYax/nZN15jz@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHWvzvx6YRYVPTlkmpqaJGei4KCFkqaHyVGxd/ZpRLEKldEWMg
+	m0IHYAwDkUBfuPF00QegeGV8pnAPCT8k5nGt6YOJemVD8mjaq8302sqViPIt/X4SKveb7bQL8Qk
+	JBHcYVtgi63WwcR5oo1xF/N39q+O1TTBbT90fxQZBFRNoei4ZOv31YDNcmy8IH/Jb
+X-Gm-Gg: AfdE7cncV0gtNztk4aDXddSOQhb1F8mrmekkeO/4gnTWaQzaKpc9yaBaMTYR7f1TKVd
+	B8TpaCABuxUh4wYFpe+X8tjW2l5cKs4IwaQ1r2ZJ/KWYoB2GdAQCKu2nZP+enFhL4hGli4F1cV+
+	OvNWcpK+kj5IVp2X47lrktd6GUJv15oh1Q7yHKMH0KKOVg/06GpFjuY140ijdqTcDG2emfKVPrj
+	i0gFM2tlPBj7OYrL1Pbl/tJoYVFQTHITeGQQ1mmipnBr1LRQXfQ2X9KwUpNLx/DGwrdQO3WEYco
+	/ZCNpmsm6JtlVgUv2CFTxLKwhdNSbY2rQcghWAGM26rH/ZZ/jvtGEYmWEA+AACfw5k2IHBuiF5l
+	Idd/oLrV2eU9jusDusLaEoOAKBx97Qc8Xi+/1gg==
+X-Received: by 2002:a17:90b:4d8d:b0:37f:db06:229c with SMTP id 98e67ed59e1d1-38942f7105cmr3621962a91.22.1783537555375;
+        Wed, 08 Jul 2026 12:05:55 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d8d:b0:37f:db06:229c with SMTP id 98e67ed59e1d1-38942f7105cmr3621916a91.22.1783537554731;
+        Wed, 08 Jul 2026 12:05:54 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ae6cd9sm24772373eec.31.2026.07.08.12.05.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 12:05:54 -0700 (PDT)
+Date: Thu, 9 Jul 2026 00:35:35 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+        Eugen Hristev <ehristev@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+        Christoph Lameter <cl@gentwo.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>,
+        Frederic Weisbecker <frederic@kernel.org>,
+        John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>,
+        Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>,
+        David Hildenbrand <david@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Brendan Jackman <jackmanb@google.com>,
+        Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+        Youngjun Park <youngjun.park@lge.com>, Petr Mladek <pmladek@suse.com>,
+        John Ogness <john.ogness@linutronix.de>,
+        Sergey Senozhatsky <senozhatsky@chromium.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>, workflows@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arch@vger.kernel.org, linux-mm@kvack.org,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 11/26] mm/swapfile: Annotate static information into
+ meminspect
+Message-ID: <20260708190535.fhqaddicljho44eq@hu-mojha-hyd.qualcomm.com>
+References: <20260708-meminspect-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com>
+ <20260708-meminspect-v3-v3-11-7aa5a0a74d5c@oss.qualcomm.com>
+ <ak4AgXqMnkn8rVGE@lucifer>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260708183359.495c4b65@jic23-huawei>
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <ak4AgXqMnkn8rVGE@lucifer>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE4NyBTYWx0ZWRfXwcRYiJVFCHPR
+ din59wUvDfsafmXwGwzdyR67xW86aYWsDhWiFhV365+zGj5yqXwAiLcsLdUgsobx+Au0NbXpGNW
+ a0Je0X8EzMa4TJhk6C5+UIn1bAPYw/c=
+X-Proofpoint-GUID: mBkBKFVep2QVdr-GycLOokuQEbj4n_qz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE4NyBTYWx0ZWRfX0JG74z29MeZu
+ lZ31cswGBWsEC4xVOAaxgQJDAIfxABj8EFc8QeuFoQz1Hz2HBURoAKeIEjodamy48ChzfjqMujA
+ /Iy+opMtWA5nMiMhYRgJXeZXeuSMEawyo417lP9Ch+jhuzC15LpW2R7W3SqpN1wRnm8+0r6ZStq
+ MRcDBRem5vQ8Zi6c+wdui4JPE2iRXTu9LddS4Voc0/xVEP5vyuaIeUP/q7Ay7un4zUgArrWQNxI
+ tWimTv8NFSQe4KS67XDSE1Mzmfs3veZ5PQNu8sMhEl7t47Mjqt0U1+uweunLbJNkW7CV+TzXt00
+ +PNp24pTNsJDK9r7DYlho6kgJjNJHyJabDaM1ts/BfzP5gCk98YGOvdNDfb3jrv5mjDmFv/enje
+ UP36nqCYzTmznBMOj9zv1M3F7h4Xh2DQwMrBQ8CrnOW+J+EzuOHkHs77qhHej61Cg0jYAS8gpQK
+ RB6gkM+Veh91acERB/Q==
+X-Authority-Analysis: v=2.4 cv=Sv2gLvO0 c=1 sm=1 tr=0 ts=6a4e9f94 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=cq8IU3OeMPPiwu34qS0A:9
+ a=CjuIK1q_8ugA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: mBkBKFVep2QVdr-GycLOokuQEbj4n_qz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_03,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080187
 
-On 26/07/08 06:33PM, Jonathan Cameron wrote:
+On Wed, Jul 08, 2026 at 08:47:51AM +0100, Lorenzo Stoakes wrote:
+> On Wed, Jul 08, 2026 at 11:01:50AM +0530, Mukesh Ojha wrote:
+> > From: Eugen Hristev <ehristev@kernel.org>
+> >
+> > Annotate vital static information into inspection table:
+> >  - nr_swapfiles
+> >
+> > Information on these variables is stored in a dedicated meminspect
+> > section.
+> >
+> > Signed-off-by: Eugen Hristev <eugen.hristev@linaro.org>
+> > Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> > ---
+> >  mm/swapfile.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/mm/swapfile.c b/mm/swapfile.c
+> > index a602e5820513..d480727e4987 100644
+> > --- a/mm/swapfile.c
+> > +++ b/mm/swapfile.c
+> > @@ -42,6 +42,7 @@
+> >  #include <linux/suspend.h>
+> >  #include <linux/zswap.h>
+> >  #include <linux/plist.h>
+> > +#include <linux/meminspect.h>
+> >
+> >  #include <asm/tlbflush.h>
+> >  #include <linux/leafops.h>
+> > @@ -65,6 +66,7 @@ static void move_cluster(struct swap_info_struct *si,
+> >   */
+> >  static DEFINE_SPINLOCK(swap_lock);
+> >  static unsigned int nr_swapfiles;
+> > +MEMINSPECT_SIMPLE_ENTRY(nr_swapfiles);
 > 
-> > > +
-> > > +#include <linux/array_size.h>
-> > > +#include <linux/bitfield.h>
-> > > +#include <linux/bits.h>
-> > > +#include <linux/err.h>
-> > > +#include <linux/errno.h>
-> > > +#include <linux/gpio/consumer.h>
-> > > +#include <linux/mod_devicetable.h>  
-> > I asked you to add this "mod_devicetable.h" header previously. But I noticed some reviews by Uwe 
-> > to use more specific headers. 
-> > In your case these should be 
-> > 
-> > 
-> > #include <linux/device-id/spi.h>
-> > #include <linux/device-id/of.h>
-> > 
-> Not necessary given they are guaranteed to be include by the bus headers.
-> 
-> Take a look at what Uwe did in his series.  The actual device-id headers
-> are added to very few drivers - mostly the bus ones are enough.
-> 
-> Jonathan
+> Now the EXPORT_SYMBOL_GPL() is an EXPORT_SYMBOL() in effect no?
 
-Thanks for the clarification. I should have investigated more instead of
-following half the story.
+The whole reason we had to tag most of the MM symbols is that
+the crash tool looks for this information while launching itself.
 
---
-Best regards,
-Sirat
+e.g.,
+
+./crash --no_modules --no_panic --no_kmem_cache --zero_excluded ./vmlinux  ./minidump.elf
+
+
+> 
+> >  atomic_long_t nr_swap_pages;
+> >  /*
+> >   * Some modules use swappable objects and may try to swap them out under
+> >
+> > --
+> > 2.53.0
+> >
+
+-- 
+-Mukesh Ojha
