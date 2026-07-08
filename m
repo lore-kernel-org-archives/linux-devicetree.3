@@ -1,146 +1,188 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815834CB5B
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 01:04:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7971A682C;
+	Wed,  8 Jul 2026 01:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783472693; cv=none; b=uzOtPAo4GHsJZb9huaPdFwEwqSl7WmW7B3z30MIiJ0VX72kDiz8np/jX559t5aJmwu/HPeQxdtW0qZ2OB9/PYKHRJwFUpli3q8rnzG02wPw3SwlNLzSDTmQFfuyGu87W1oQ4tYk1fo64o9t5hLUPbtOEtw3bh1PtoDhhgX6hbOU=
+	t=1783473613; cv=none; b=S4/ubc4rbr2fdKjoMkq12+a5HbRnC48/TLJNiVDjLc0Jh8EqscWAOP4SQrDoPxHtbx6vaiCrX8mg1wN3mGNbMRX9bu8QwXx0pfIjOaWTXc4Kuu3htaSdncvKI4gdB3j777MTga08QBQ7l/a4qzzYs8Wb94rBzmdW98JeqiDEuD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783472693; c=relaxed/simple;
-	bh=FzOIhgxKIOUfo3D3BLhRMkIM6whjomTct7WfOEiZF1A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OXg1nTuZ3pO9qkpZvxvzJkBfqao4YUyZCSmRKkH1H/0iRZ693wp6DpBhNuQy2wPEiFvLI6C7nJ69UGnKyJafYcY8Yr/rn+s/5YAkb/y4R/wKUVNaLSTR45cPkwyRS8oPIkuqi7rUGWeA3K0HdPLNAaNG4R4/SnpcD+88ZtDHoTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZR2mCGQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783473613; c=relaxed/simple;
+	bh=XM1bybuEUQXVIOe5wXVKhlGyx+y2XnhpF5/mPGKtW7Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CHSdbFpOpR4WbjVHytvNQubLqr9fvGPp0FWLf5ww3YzfcxR9wrue8ge7SmI/wPsRhtgoq1W71Y84cMPExAovyrE/uFswMnjE0LFv8uOVcUm3U4CUrPZu9oGilyLkH4agtQwJI6mEsJvrmyyvZZpzCksU853S+xZZ+SUgAiWP8Sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiYAH5+v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZR2mCGQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1041F000E9;
-	Wed,  8 Jul 2026 01:04:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiYAH5+v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02C21F000E9;
+	Wed,  8 Jul 2026 01:20:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783472692;
-	bh=M8Adh5f4GwmHZGFfUgeMW2Wh1B7GcQ6DnN653TQd8wA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BZR2mCGQv/BQ+iLf8otjHKsqEYHDr8hieI8p6xqsVetqMlRudoXLY7eoBSBcbt94A
-	 GMxIn9MJ/EwIdrywygBUY/tjFrtrXK2DSAA0eFMRFIu84Km4OLR7+OScirgB42kG7o
-	 Wib6Lg2Yr8Eax7MtQTzabqBRvHF7iE7SfLNuxODzfrleOfMB39U/y0nxiYjV1nUdHT
-	 C0PdJgjHmNKqvecrixrYLc0oNqzgdHj55rYuB6jytxmDFjltmgsMLzemFIjwTITusu
-	 yrHfLpQlZsFpO+E6bsd1YOtKNyGdhL7uaEqM65mcmK+4sLOXDutOtfRZZKQ7QOFJyY
-	 d56nZKoKnGQhg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 05/11] arm64: dts: qcom: x1e80100-crd: Add ov08x40
- RGB sensor on CSIPHY4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-x1e-camss-csi2-phy-dtsi-v4-5-572348ad1b2a@linaro.org>
-References: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
- <20260708-x1e-camss-csi2-phy-dtsi-v4-5-572348ad1b2a@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 01:04:51 +0000
-Message-Id: <20260708010452.0F1041F000E9@smtp.kernel.org>
+	s=k20260515; t=1783473612;
+	bh=VbX6s7G6h8i7p7kkOF9orThc4zMg04n130BwpfOEfQ8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WiYAH5+vJN1uIIPQ32Gd8GFrG+SQzLeIsIGYLXP0hvdObhGuNaO51i14EgRhm3hyE
+	 aSkUkvOycYwhSVxgpCS9IsjankLJvDQAaZ71JPypqMiH0EGRFTgtxr+DXV3TVyRB1j
+	 W0PMUZzKfz51waIQ/idWGMecfthJZrbRugeM17qSu9XtzgwOTZ5apAhqFndNIJ5NTj
+	 YY3hctICeKck9aPR9S0RgCVEpZS3I0YmcOcIMtzAIIiRIuNoRL4lbgJqSId+eQYwsq
+	 3v8H+JyBfSPh1iITak4JQTgtRQcdRg29oKYtHCFv7IHUPLkWkAFs4RajnFdp+3IonT
+	 VIS8YZfb+nuqg==
+Date: Wed, 8 Jul 2026 02:20:06 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy
+ Shevchenko <andriy.shevchenko@intel.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 5/5] iio: osf: add UART IIO driver
+Message-ID: <20260708022006.4276fc99@jic23-huawei>
+In-Reply-To: <20260707014525.1015-6-kimjinseob88@gmail.com>
+References: <20260707014525.1015-1-kimjinseob88@gmail.com>
+	<20260707014525.1015-6-kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The DeviceTree graph uses an invalid downstream-style topology wit=
-h a standalone `&csiphy4` node inserted between the `camss` node and the se=
-nsor.
---
+On Tue,  7 Jul 2026 10:45:25 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
---- Patch [5]: [PATCH v4 05/11] arm64: dts: qcom: x1e80100-crd: Add ov08x40=
- RGB sensor on CSIPHY4 ---
-commit 39d25032ab99dc455f2a85ffdb943ee237d5ed9c
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Add the Open Sensor Fusion serdev transport, driver core, and IIO
+> registration path as one complete driver patch.
+> 
+> The driver enables the required vcc regulator, receives OSF frames over
+> UART, registers IIO devices from capability reports, supports direct raw
+> reads from the latest sample cache, and pushes buffered samples into
+> software kfifo buffers.
+> 
+> Use final Kconfig and Makefile contents from the start, claim IIO buffer
+> mode while pushing samples, and use zeroed scan storage with explicit
+> timestamp alignment so the driver does not depend on IIO core
+> bounce-buffer padding behavior.
+> 
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 
-arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB sensor on CSIPHY4
+A few things inline.
 
-This commit defines the ov08x40 RGB sensor on cci1_i2c1. It configures the
-sensor on the AON CCI pins connected to CSIPHY4 in four lane mode.
+> diff --git a/drivers/iio/opensensorfusion/osf_core.c b/drivers/iio/opensensorfusion/osf_core.c
+> new file mode 100644
+> index 000000000..02d55a201
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_core.c
 
-> diff --git a/arch/arm64/boot/dts/qcom/x1-crd.dtsi b/arch/arm64/boot/dts/q=
-com/x1-crd.dtsi
-> --- a/arch/arm64/boot/dts/qcom/x1-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
-> @@ -933,6 +934,85 @@ &gpu {
->  	status =3D "okay";
->  };
-> =20
-> +&camss {
-> +	status =3D "okay";
 > +
-> +	ports {
-> +		/*
-> +		 * port0 =3D> csiphy0
-> +		 * port1 =3D> csiphy1
-> +		 * port2 =3D> csiphy2
-> +		 * port3 =3D> csiphy4
-> +		 */
-> +		port@3 {
-> +			camss_csiphy4_inep: endpoint@0 {
-> +				data-lanes =3D <0 1 2 3>;
-> +				remote-endpoint =3D <&csiphy4_out_ep>;
+> +int osf_core_receive_frame(struct osf_device *osf, const u8 *buf, size_t len)
 
-[Severity: High]
-Does this topology cause the CAMSS driver's V4L2 async notifier to hang
-indefinitely?
+This is only defined in this patch but is used in patch 4.  Make sure your
+code builds after each patch so as to avoid breaking code bisection.
 
-When booting the kernel, the CAMSS driver parses the endpoints in the camss
-node and uses v4l2_async_nf_add_fwnode_remote() to wait for a V4L2 subdevice
-at the remote end of the graph.
-
-Because this connects the endpoint to the csiphy4 node instead of the senso=
-r,
-and the generic PHY driver does not register its own V4L2 subdevice, the
-notifier will never complete.
-
-> +			};
-> +		};
-> +	};
-> +};
+> +{
+> +	struct osf_frame frame;
+> +	size_t frame_len;
+> +	int ret;
 > +
-
-[ ... ]
-
-> +&csiphy4 {
-> +	vdda-0p8-supply =3D <&vreg_l2c_0p8>;
-> +	vdda-1p2-supply =3D <&vreg_l1c_1p2>;
+> +	ret = osf_protocol_decode_frame(buf, len, &frame, &frame_len);
+> +	if (ret)
+> +		return ret;
 > +
-> +	status =3D "okay";
+> +	if (frame_len != len)
+...
+
+
+> diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensensorfusion/osf_iio.c
+> new file mode 100644
+> index 000000000..91afcf3b8
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_iio.c
+
 > +
-> +	ports {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
+> +#define OSF_SCAN_TYPE_S32						\
+> +	{								\
+> +		.sign = 's',						\
+> +		.realbits = 32,					\
+> +		.storagebits = 32,					\
+> +		.endianness = IIO_CPU,					\
+> +	}
+
+This feels like going too far to deduplicate just this.  Put a copy inline
+in each of the other macros where it is used and drop this one.
+
 > +
-> +		port@0 {
-> +			reg =3D <0>;
-> +			csiphy4_in_ep: endpoint {
-> +				data-lanes =3D <0 1 2 3>;
-> +				clock-lanes =3D <7>;
-> +				remote-endpoint =3D <&ov08x40_out_ep>;
-> +			};
-> +		};
+> +#define OSF_MOD_CHAN(_type, _mod, _idx)				\
+> +	{								\
+> +		.type = (_type),					\
+> +		.modified = 1,					\
+> +		.channel2 = (_mod),					\
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
+> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
+> +		.scan_index = (_idx),					\
+> +		.scan_type = OSF_SCAN_TYPE_S32,			\
+> +	}
+
+
+> +int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
+> +			u16 channel_count)
+> +{
+> +	struct osf_iio_state *state = iio_priv(indio_dev);
+> +	s64 timestamp;
+> +	int ret;
 > +
-> +		port@1 {
-> +			reg =3D <1>;
-> +			csiphy4_out_ep: endpoint {
-> +				remote-endpoint =3D <&camss_csiphy4_inep>;
+> +	if (channel_count != state->spec->channel_count)
+> +		return -EPROTO;
+> +
+> +	if (!iio_device_try_claim_buffer_mode(indio_dev))
+> +		return 0;
 
-[Severity: High]
-Is it intentional to place the PHY as a standalone node in the pipeline?
+Looking at this again, why do we care about holding the device
+in buffered mode for this?  Races should be safe without that
+big hammer. A simple check on iio_buffer_enabled() should ensure
+data is only pushed when it is enabled, or just after it is disabled
+(which should always be safe).
 
-The upstream Linux CAMSS driver manages the PHY internally and does not
-support inserting a standalone PHY node into the pipeline graph.
+> +
+> +	timestamp = iio_get_time_ns(indio_dev);
+> +
+> +	switch (channel_count) {
+> +	case 1: {
+> +		struct osf_iio_scan_1axis scan = { };
+> +
+> +		scan.value = values[0];
+> +		ret = iio_push_to_buffers_with_ts(indio_dev, &scan,
+> +						  sizeof(scan), timestamp);
 
-> +			};
-> +		};
-> +	};
-> +};
+With change above direct returns here
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-x1e-camss-=
-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org?part=3D5
+> +		break;
+> +	}
+> +	case 3: {
+> +		struct osf_iio_scan_3axis scan = { };
+> +
+> +		scan.values[0] = values[0];
+> +		scan.values[1] = values[1];
+> +		scan.values[2] = values[2];
+> +		ret = iio_push_to_buffers_with_ts(indio_dev, &scan,
+
+here 
+
+> +						  sizeof(scan), timestamp);
+> +		break;
+> +	}
+> +	default:
+> +		ret = -EPROTO;
+
+and here should be fine as no need to release it.
+
+> +		break;
+> +	}
+> +
+> +	iio_device_release_buffer_mode(indio_dev);
+> +
+> +	return ret;
+> +}
