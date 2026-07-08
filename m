@@ -1,64 +1,65 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080D347AF4D
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440784343E1
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783529543; cv=none; b=bXqaJCgO+W4CQ9y46mlY4QW1EsQ5M9oKbARrEfS5FuNBxHfVJtqokM8z245er81LmaiWtx2t4hAJ9cjqPAx/HY72/t+y8GGwDBGOKTvIqrI1krZsmjPR9QJX29gZRyJq/h4tbnasTvMGXkGd1RnCACProZI5dRBM7AJzf/RFbKM=
+	t=1783529545; cv=none; b=idXTGxywessfu+j/tAF9YZuY0TAFCrUfWxOWDTYXpnO/j3I7fm9FLQIG057Y+52TV4P/psb/lXy9SYnOvMNkmw8YnEG0JTmt5z2bI5KSFdLDGea85lHYe4tiofuv8/xlmOhSIqQlLubSm7OzO6T90jl4+3fv8BBPLrAirwxO838=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783529543; c=relaxed/simple;
-	bh=wyhKq5giS1/IoMkjpsGRbT+IH8vqF62PQtP170jfxxs=;
+	s=arc-20240116; t=1783529545; c=relaxed/simple;
+	bh=YerxN599C9K5/WkW/n/MaJlm+4DTVduUUon9gz0fQMk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LZRresHHpSqXk71nQuT4mImJzPcupBvXyPkk/bwkIV09RpCWjEYFZgOfpfMb715rPG5Xey1oOicWGpt9Tw/4+pGXNB/BBMyytwni/kDff9PSzLdrnwpGO8O8woDQaLeGOBugMrCp0n5FaynN6TCSAkfcahW+Fw0cN66jFsJuRE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=DeC6R8iB; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=bu86h2cqf9CmCyEGWI8r8dwoRr72xtqG60Z+ATJMqM1tv6lQYeYuo9cYDoMXBvfq5W4GN2ukpP1Niq5VHdabyWTun9cX8ESRCwDROMurZlin/kPrNSPSRU2f3zBA00G+9uuvZZoGzHj8jIIdN7RQk/Lx0OneOwaRbSk8UfXF8iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=heZsnlOv; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="DeC6R8iB"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4758b2a9e2aso648583f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:52:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="heZsnlOv"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493bb510ce4so129395e9.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:52:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1783529534; x=1784134334; darn=vger.kernel.org;
+        d=sartura.hr; s=sartura; t=1783529533; x=1784134333; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=damSg+KRPsx8cUGtM6YEq9+rU5hH+rbnhhK5WWTTkmU=;
-        b=DeC6R8iB32yYNB6XgHVk5JvAliTz00PFgM+80NVoSYbD0fZ/7/4+GdxZE4uUqoN2jI
-         f6wJDYK19L7KgkuqxAFiY7R5j0NBjP5yG7M6+R6j3LARIhVqW1rNz8Udfi6oaj7M2scQ
-         fwMNpSb5HtuTcLp4AGI63yMDSo5qYqHBIEuvu/bo2XO3S6rO6jSHlnHlgWJIsjcQUVUy
-         8BjGuBhTx8figtQF0K9r1JI26QX1FeAzIksc/ltcKCQ0xE91OiKYRS/AkaBU2Ah7FfyO
-         WhCQM06ia93dEw4aKJKyuiR/U4lEr0+k0Wx17cLIo77OKau1Uwu7dbhCuY4tXiIfHrBt
-         q3TA==
+        bh=e9Qpcj/wkj9TypLUNOyfNd+pq1jx929AEvSS7+Vs/LQ=;
+        b=heZsnlOvdFpDX35dOss1cxVIAGAi4E2jqW8uCycLx48/lF535lfPSGAprT+9r8OLd3
+         CbUDa0fq6BcZKwp0MoyduX2KzFuvGUNVCTimWr++OGMahs3G+OWbEbTWuiNUsWZ3oOTo
+         4+B8DmyFpH4pt/JXpILg25gygCVNw6Rd4RjBjSLGjBbSaT4fLS4FcP/LvCz1CbhuZJa3
+         i3N+NbanK68wGoJCed1jD/HDMA60htoifXMCEk6jxLHPj1xrDiXqoe0CL15F/pMdynIn
+         jxhwlEgBSaMeukbpb0uZT2NdVunCzBxWwlGnGJZu0t1Iq+ceQLhSZfIHAnhWVkrM7MWp
+         Ua0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783529534; x=1784134334;
+        d=1e100.net; s=20251104; t=1783529533; x=1784134333;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=damSg+KRPsx8cUGtM6YEq9+rU5hH+rbnhhK5WWTTkmU=;
-        b=eEG2zY3d2ZOPw7cncs2ipR16nmLZWEznEtBR2fCTU5xDSoRNJe0yHzbz5wiNsErLYF
-         3khG21sK19bZ+dsQe3P4btNj5JdFGqPU8zB4ub+Ri068vWEL652yYhsT9QX4W1DJHMwx
-         FMJfpkhyZN+xtmeBJkzdSbQ96hT3HJczI6HrIxDiXtLdu31z+SQlNMegwFDKA7/wY530
-         3VuBaoQDH/HtMKbNZyyZIll8vxaTxBiDQcnZ9uakvpO2kcmyUafzeZweOyejrT+nXxA+
-         HTkzcUNLMV0EQs0CRIy42KfLOsuJuo57oWKgJ3ZotfmnUzMhu3kw/bXKBuCeOtATfPoO
-         SPIA==
-X-Forwarded-Encrypted: i=1; AHgh+RrfxwGABZw2H7sFmXB1WOz1EGwAbAwHFvNZQ7iutXNn7XtiR58XTdmtgni38m88ZyyAXBg94RA76Y0r@vger.kernel.org
-X-Gm-Message-State: AOJu0YypgscCGEFm0e91pbN799xmG9miVC5ahLuIB6RJdg7tdQZIYeD7
-	NElwC0nB/UJlHhVfv/D+G58wbjmvjjUwzRH+XKDhgh1J7z187rnc+cx3EP/NZxEPMc8=
-X-Gm-Gg: AfdE7cmACONH+lz7hauQvPem3o9EpSfn9+jerPhdRDskdAgf24RbafUwFTB9uYOLikY
-	M4FmILtqjMVi8P/aDHgOieBefAaQwOM6CQBOvTfheEKY0A2S6WFtBBb3J57FZD/4L8e91J/qRaq
-	fEZRj7tmaSoy6X6gASvTjMS8G/fsLy8bXGNVvyWj/fU45bxoO4VQRuUzpTNqZGdXE4fGbiZA51u
-	cVXNKx8nCMZoQMigzx67ew5T+ypBM2DlhsYF7T9idQ/IkyphTZIj9R5kilgOfFWKyOE1k9N2IjK
-	QMkipJQjxZbiZ6k+t0RT7WVNnPwPz4ix8jBa4Frlv16Yp2c58cTPByCR4cE+Dyre6Rj/u5pS8pv
-	h2MaIDeUbesI95Noxpv4w0vyJFo9zrH6N3416fYaedD/Gr1GT5lJaKRIhDbMngwBt4tdjCayJm1
-	iP9TsYoZsU9JGILVifjVef37QjrQaDhdjLuz+IWv3Dv7HGin9rpEKEezTTRQhU4FwBokrV/2isL
-	+o87qCzcNLckJ3jg6iisVWQSLr7feOm+wRJMEttba8=
-X-Received: by 2002:a05:6000:1acf:b0:46e:27ed:6d0d with SMTP id ffacd0b85a97d-47df071c1bdmr3937027f8f.8.1783529534551;
-        Wed, 08 Jul 2026 09:52:14 -0700 (PDT)
+        bh=e9Qpcj/wkj9TypLUNOyfNd+pq1jx929AEvSS7+Vs/LQ=;
+        b=LrtGDtJOZ0ISNEUqdlzMHDZ8cW8rjUibKDvZCEPbcp4uSBenhERXRLDkPGLUusEjSC
+         pPRMGg9QkNWek3TeuhEtgf4dg7aIX8kHgA+iiHm5WVP18ols6Co7kPkNKImMLEf6Bsku
+         buoAHvziSKRh6/50iPWvjnBxiCn3pS7fy4dpbm9tk6KMaqmqjDM5j/N1QPFabUPz5Dgn
+         Bi0FSV8xSvYN6sCd+NzkiLQdQpkoLnWi1mYa3zSE1NRgR3k3F7Y0z9PVxEDVoMJiMqxI
+         QbQfEC+9O1h9Sr3fEtS9R+kjosbZ/fPNY7V3pT2b/w3MzDf1XDlXuh5bxGpoNLXCAJRp
+         vb2g==
+X-Forwarded-Encrypted: i=1; AHgh+RrC/fDxVosPz4RxXA+DQ6H473FeKZ3mudlYt62XzS9HYOPjLfGzbnokFUzDftVdYRj/5I+pqHxt4UCl@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOV3/44CApnigDeP8s+GUCQVJqYKYcBbUZtFjauz1ZzlGHGZrU
+	YJov/JU9YY9hfBCBXFGZI1GcHwM8JQohxtx1kDnhn/HGSGPt98opK4YOGEKQHQ/3Ehsrkp0HPGS
+	+dOLv
+X-Gm-Gg: AfdE7clhFEOfsDVaUbPcdRZcbdA1Do3KBYak8hrvioyBUVW38zUI8WhWanSlC3RwXJs
+	M95Fw/X3lxN/HFMjAUvsi/tiEXGgLcB8lb/Inww3XeL0x0EeWEr6YH8Gax3sX/wmvc155RXfnaz
+	jEQqLextsh1UV9GKLnFnuIVOVNbksjLLyx9JtQb6dADztLfGJAOavMiOLjlrU+VVSVEkm9JmNay
+	03Rcr9kcfPxQYXRjjcM+b8lI15bgKxqK9URa8yvQMlVDpIZ0ke3vVLT5JtBkaeCoZF69Z8kgZUE
+	tA2/lBCjnZE4NQUCPE+QiO8C5iTST6gu1S7A+pYjFQJELDrEDuZfgcA+wqGdd1z+Z9vX0X6/RcJ
+	Lh+S33qobv6qtrRBofrSIdWVfSu7Dcc2jRZvUBk02DhqRqEAcS5tmW/IAu8GX10GOufS7bbcd2R
+	hadTCfJNpYs0bwItsuEAB8w8JjJUx0gnzhdgLfanNOWhHvDUq9vdtbdm6STbAOKMu+HDFLBPXJc
+	Y1/IuVAZTLclLrF58DSI0P342AlGUOGW4fi3xjGEOk=
+X-Received: by 2002:a5d:5848:0:b0:478:1a24:912d with SMTP id ffacd0b85a97d-47df07a2e71mr4183000f8f.57.1783529532914;
+        Wed, 08 Jul 2026 09:52:12 -0700 (PDT)
 Received: from threadripper-fedora-workstation (dh207-15-57.xnet.hr. [88.207.15.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f214d2sm42902679f8f.33.2026.07.08.09.52.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f214d2sm42902679f8f.33.2026.07.08.09.52.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 09:52:13 -0700 (PDT)
+        Wed, 08 Jul 2026 09:52:12 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: conor@kernel.org,
 	nicolas.ferre@microchip.com,
@@ -73,9 +74,9 @@ To: conor@kernel.org,
 	daniel.machon@microchip.com
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH 3/4] spi: atmel-quadspi: add LAN969x QSPI support
-Date: Wed,  8 Jul 2026 18:51:10 +0200
-Message-ID: <20260708165201.624271-3-robert.marko@sartura.hr>
+Subject: [PATCH 2/4] spi: atmel-quadspi: use init callback for gclk variants
+Date: Wed,  8 Jul 2026 18:51:09 +0200
+Message-ID: <20260708165201.624271-2-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260708165201.624271-1-robert.marko@sartura.hr>
 References: <20260708165201.624271-1-robert.marko@sartura.hr>
@@ -87,120 +88,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Microchip LAN969x has two QSPI controllers based on SAMA7G5 QSPI.
+Assign the existing SAMA7G5 initialization routine to every generic
+clock variant and dispatch initialization exclusively through the
+capability callback.
 
-It requires pad calibration, supports DMA, and supports 100 MHz operation.
+This keeps hardware capabilities separate from initialization selection
+and lets variants override the sequence explicitly.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
- drivers/spi/Kconfig         |  2 +-
- drivers/spi/atmel-quadspi.c | 66 ++++++++++++++++++++++++++++++++++++-
- 2 files changed, 66 insertions(+), 2 deletions(-)
+ drivers/spi/atmel-quadspi.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-index 8782514bb89b..bb3773f99ad9 100644
---- a/drivers/spi/Kconfig
-+++ b/drivers/spi/Kconfig
-@@ -189,7 +189,7 @@ config SPI_AT91_USART
- 
- config SPI_ATMEL_QUADSPI
- 	tristate "Atmel Quad SPI Controller"
--	depends on ARCH_AT91 || COMPILE_TEST
-+	depends on ARCH_MICROCHIP || COMPILE_TEST
- 	depends on OF && HAS_IOMEM
- 	help
- 	  This enables support for the Quad SPI controller in master mode.
 diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-index d1aec14e3978..f05e2617fa89 100644
+index 62ea84d234d0..d1aec14e3978 100644
 --- a/drivers/spi/atmel-quadspi.c
 +++ b/drivers/spi/atmel-quadspi.c
-@@ -1152,6 +1152,58 @@ static int atmel_qspi_sama7g5_init(struct atmel_qspi *aq)
- 	return ret;
+@@ -1159,10 +1159,7 @@ static int atmel_qspi_sama7g5_setup(struct spi_device *spi)
+ 	/* The controller can communicate with a single peripheral device (target). */
+ 	aq->target_max_speed_hz = spi->max_speed_hz;
+ 
+-	if (aq->caps->init)
+-		return aq->caps->init(aq);
+-
+-	return atmel_qspi_sama7g5_init(aq);
++	return aq->caps->init(aq);
  }
  
-+static int atmel_qspi_lan969x_init(struct atmel_qspi *aq)
-+{
-+	u32 val;
-+	int ret;
-+
-+	atmel_qspi_write(QSPI_CR_DLLOFF, aq, QSPI_CR);
-+	ret = readl_poll_timeout(aq->regs + QSPI_SR2, val,
-+				 !(val & QSPI_SR2_DLOCK), 40,
-+				 ATMEL_QSPI_TIMEOUT);
-+	if (ret)
-+		return ret;
-+
-+	ret = atmel_qspi_set_gclk(aq);
-+	if (ret)
-+		return ret;
-+
-+	/* Start the DLL before resetting the controller. */
-+	atmel_qspi_write(QSPI_CR_DLLON | QSPI_CR_STPCAL, aq, QSPI_CR);
-+	ret = readl_poll_timeout(aq->regs + QSPI_SR2, val,
-+				 (val & QSPI_SR2_DLOCK) &&
-+				 !(val & QSPI_SR2_CALBSY), 40,
-+				 ATMEL_QSPI_TIMEOUT);
-+	if (ret)
-+		return ret;
-+
-+	atmel_qspi_write(QSPI_CR_QSPIDIS, aq, QSPI_CR);
-+	ret = atmel_qspi_reg_sync(aq);
-+	if (ret)
-+		return ret;
-+
-+	atmel_qspi_write(QSPI_CR_SWRST, aq, QSPI_CR);
-+	ret = atmel_qspi_reg_sync(aq);
-+	if (ret)
-+		return ret;
-+
-+	ret = atmel_qspi_set_pad_calibration(aq);
-+	if (ret)
-+		return ret;
-+
-+	aq->mr = 0;
-+	aq->scr = 0;
-+
-+	ret = atmel_qspi_set_serial_memory_mode(aq);
-+	if (ret)
-+		return ret;
-+
-+	atmel_qspi_write(QSPI_CR_QSPIEN, aq, QSPI_CR);
-+	return readl_poll_timeout(aq->regs + QSPI_SR2, val,
-+				  (val & QSPI_SR2_QSPIENS), 40,
-+				  ATMEL_QSPI_TIMEOUT);
-+}
-+
- static int atmel_qspi_sama7g5_setup(struct spi_device *spi)
- {
- 	struct atmel_qspi *aq = spi_controller_get_devdata(spi->controller);
-@@ -1679,6 +1731,15 @@ static const struct atmel_qspi_caps atmel_sama7g5_qspi_caps = {
- 	.has_dllon = true,
- };
+ static int atmel_qspi_setup(struct spi_device *spi)
+@@ -1576,11 +1573,8 @@ static int __maybe_unused atmel_qspi_resume(struct device *dev)
+ 		return ret;
+ 	}
  
-+static const struct atmel_qspi_caps atmel_lan969x_qspi_caps = {
-+	.max_speed_hz = SAM9X7_QSPI_MAX_SPEED_HZ,
-+	.init = atmel_qspi_lan969x_init,
-+	.has_gclk = true,
-+	.has_dma = true,
-+	.has_padcalib = true,
-+	.has_dllon = true,
-+};
-+
- static const struct of_device_id atmel_qspi_dt_ids[] = {
- 	{
- 		.compatible = "atmel,sama5d2-qspi",
-@@ -1708,7 +1769,10 @@ static const struct of_device_id atmel_qspi_dt_ids[] = {
- 		.compatible = "microchip,sama7d65-qspi",
- 		.data = &atmel_sama7d65_qspi_caps,
- 	},
+-	if (aq->caps->init)
+-		return aq->caps->init(aq);
 -
-+	{
-+		.compatible = "microchip,lan9691-qspi",
-+		.data = &atmel_lan969x_qspi_caps,
-+	},
+ 	if (aq->caps->has_gclk)
+-		return atmel_qspi_sama7g5_init(aq);
++		return aq->caps->init(aq);
  
- 	{ /* sentinel */ }
- };
+ 	ret = pm_runtime_force_resume(dev);
+ 	if (ret < 0)
+@@ -1638,6 +1632,7 @@ static const struct atmel_qspi_caps atmel_sam9x60_qspi_caps = {
+ 
+ static const struct atmel_qspi_caps atmel_sam9x7_ospi_caps = {
+ 	.max_speed_hz = SAM9X7_QSPI_MAX_SPEED_HZ,
++	.init = atmel_qspi_sama7g5_init,
+ 	.has_gclk = true,
+ 	.octal = true,
+ 	.has_dma = true,
+@@ -1648,6 +1643,7 @@ static const struct atmel_qspi_caps atmel_sam9x7_ospi_caps = {
+ 
+ static const struct atmel_qspi_caps atmel_sama7d65_ospi_caps = {
+ 	.max_speed_hz = SAMA7G5_QSPI0_MAX_SPEED_HZ,
++	.init = atmel_qspi_sama7g5_init,
+ 	.has_gclk = true,
+ 	.octal = true,
+ 	.has_dma = true,
+@@ -1658,6 +1654,7 @@ static const struct atmel_qspi_caps atmel_sama7d65_ospi_caps = {
+ 
+ static const struct atmel_qspi_caps atmel_sama7d65_qspi_caps = {
+ 	.max_speed_hz = SAMA7G5_QSPI1_SDR_MAX_SPEED_HZ,
++	.init = atmel_qspi_sama7g5_init,
+ 	.has_gclk = true,
+ 	.has_dma = true,
+ 	.has_2xgclk = true,
+@@ -1666,6 +1663,7 @@ static const struct atmel_qspi_caps atmel_sama7d65_qspi_caps = {
+ 
+ static const struct atmel_qspi_caps atmel_sama7g5_ospi_caps = {
+ 	.max_speed_hz = SAMA7G5_QSPI0_MAX_SPEED_HZ,
++	.init = atmel_qspi_sama7g5_init,
+ 	.has_gclk = true,
+ 	.octal = true,
+ 	.has_dma = true,
+@@ -1675,6 +1673,7 @@ static const struct atmel_qspi_caps atmel_sama7g5_ospi_caps = {
+ 
+ static const struct atmel_qspi_caps atmel_sama7g5_qspi_caps = {
+ 	.max_speed_hz = SAMA7G5_QSPI1_SDR_MAX_SPEED_HZ,
++	.init = atmel_qspi_sama7g5_init,
+ 	.has_gclk = true,
+ 	.has_dma = true,
+ 	.has_dllon = true,
 -- 
 2.55.0
 
