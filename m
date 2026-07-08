@@ -1,100 +1,97 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957383EB0F5;
-	Wed,  8 Jul 2026 20:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E057B3EFD07;
+	Wed,  8 Jul 2026 21:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783543547; cv=none; b=ZRTJBdgj6fH2e3lIOENL8I+VU99fdrc5Cd+x99zx7/wEwm6a7kgn9226gf4oSOY+adG7U9Gs83yS0Pabd6RvB6ohfzB9ncdx986UGfAVYffwcvCX7y68bz5mKdlvg0Y1/KuCTs85vLZLlzQpkmXKLG27dU5Msb6XzVmCcNVXsV8=
+	t=1783545062; cv=none; b=P/tZ7nH/hy4+VXpFDT7Vw0szDOagdEAGhQ87efR6vJggOCY7jJVsnxwI9gUwxZEuT+nAgo535NxN2vbWI+A2W+VaIT/GyRzhTf6d9E5w8KVmZDsl/Hd/pYo6JX1Y9txqyU1e2ngjnd8Ff5Ekkt9bWTIYkxEg1FSJNFidIndEFS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783543547; c=relaxed/simple;
-	bh=r03CrNAxQSGGE+UL82DE5YCVO6wyOZws+zrzP8fRGtc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cSaOAgscj5gKE9B/N8KSM6mwjIfffypRLamS8VkOUGAY43TJwjs+xcFS6AnSJ8DeqznARnXid2KCsYL+ERtzHZ6ln79+vFPfDGQnwnESPOWR93WB/pGFURh+Xqz0N7xcFyDFGn4cr076mSURxJ2c/HWQrxbbHP82qKTYnv/O4Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=mFzwsdAj; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1783545062; c=relaxed/simple;
+	bh=JFWZOyPGpgvPIKoXB9WjWQ8d7pCeLRsaN96svQ8fHNk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d/L3lhlFjj35H3hrUoROeFHHtRguwE9IRRCWy3WqPwlF6IHm1Mq/FbdL9C+b/+5751RASj3LSZFkzWKuQOKDD4tRfYVMshXUbVSeZFc/d/Wk3jDQQp/dSjgkxNbc3L/PMWs62sKnV7kqbhHsa7iINTsd4XnBh1DSNIK+NvJLwC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dekQRjgj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="mFzwsdAj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1783543539; x=1783802739;
-	bh=h8QGeMby6TGc5ofTv8tQid2BJw8VG7F7i0kmV7qnzqE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=mFzwsdAjqT3BVwl65ih+vOf4dLr0HggkKpB6fVriRkJVtG7qK/pQEqZu2PioUZsRw
-	 YgfoYnTST6oz5cRP8/CHisKzqBIxX0K4Kznsdn+rkCeRDJFr53mJuxPJc2MY02JnG4
-	 uAbAXXgWV7jpEiBes0Kwi44lu6RmCw2L+lpj+ojKiVCor0Zcxq84vJFj8p2W8J/bYx
-	 d4DafVNjkUxiGPxSmeRyiEtapjIstkf+bIiKgoi3DMjcSp9TH42qeRw0mYGl+uEZBz
-	 M89q2kE1Gl/rQNaAKFvfKRLHIQ3Z/eSR4DDTFoTmB/Tl0M7WJeG4b1APN2PKbT0dqf
-	 a00aXIUYcgzxw==
-Date: Wed, 08 Jul 2026 20:45:32 +0000
-To: Alex Elder <elder@riscstar.com>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alex Elder <elder@kernel.org>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH 0/3] SM8450 IPA support
-Message-ID: <3e70d77e-6bec-4e16-ae88-a4f5161f182e@proton.me>
-In-Reply-To: <8309e9c7-a110-478b-8cd4-c002070d2b4c@riscstar.com>
-References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me> <959db395-ae71-4a50-bd46-ac5add545a52@riscstar.com> <48c624c3-5408-4862-b4ec-9321ad279bf9@proton.me> <8309e9c7-a110-478b-8cd4-c002070d2b4c@riscstar.com>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 64bb24bdd771c804828a3d7e9d0320e06a799b4a
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dekQRjgj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DEF91F000E9;
+	Wed,  8 Jul 2026 21:10:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783545061;
+	bh=tkJStVQQrBUVTUaskhv5zoU/YZtR/Z//KEgb+Nu4U5Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dekQRjgjNEfXhlQmyfoUDHiLn7BOa1vrUXPYlOF7nZT0gYD6oWWmhiYaf1OQ34y31
+	 qbk2C0vFSHkKFrQSQrGyMQWPiMLPaKBRt7Q/Cdoyk8W3jGRGBtPQN07cQm6DaL94DJ
+	 liYCCyfJECEuEN9RP9GTZpUqVsh1vA7E2jpW+il+Afq+NyvgBUWpXE49gsa6njMmm5
+	 pIBI2zhomAjp6hSuqoOZ2DwGWQG5OW+HXEZUMS38cM2HFh2pYITcTKOdCkkNECtRbu
+	 XDVCXFhBzOP0+TcbgG3tosHfbUe70o7c/6ZnxShy8QP07T6fDX/4V0IvI5rLU5VoEn
+	 Nmh0+1GaRps4Q==
+Date: Wed, 8 Jul 2026 22:10:56 +0100
+From: Lee Jones <lee@kernel.org>
+To: rva333@protonmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Ben Grisdale <bengris32@protonmail.ch>
+Subject: Re: [PATCH v4 3/4] mfd: mt6397-core: add mt6323 AUXADC support
+Message-ID: <20260708211056.GB1727174@google.com>
+References: <20260623-mt6323-adc-v4-0-299680ad3194@protonmail.com>
+ <20260623-mt6323-adc-v4-3-299680ad3194@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260623-mt6323-adc-v4-3-299680ad3194@protonmail.com>
 
-On 7/8/26 3:49 PM, Alex Elder wrote:
-> This was interesting to see.  It's something I should probably
-> document better.  Most everything maps to the downstream code,
-> but it's not always completely obvious how, because the upstream
-> driver has evolved substantially.
+On Tue, 23 Jun 2026, Roman Vivchar via B4 Relay wrote:
 
-On a personal note, I'm surprised to see someone not from Qualcomm
-maintaining this driver. It must be hard, so kudos.
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> The mt6323 PMIC includes an AUXADC. Register the AUXADC in the mt6323
+> devices array to allow the corresponding driver to probe using compatible
+> string.
+> 
+> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+>  drivers/mfd/mt6397-core.c | 3 +++
+>  1 file changed, 3 insertions(+)
 
-> This means that the SRAM size (ipa_mem_data->smem_size) should
-> possibly be defined in devicetree (as the IMEM address and size
-> now are).
->=20
-> The SMEM region is used for "IPA filter tables", and access to
-> it is shared between the AP and the modem.  Unlike the other
-> (host) memory regions, the size used is *not* included in the
-> ipa_init_modem_driver_req message that communicates from the
-> AP to the modem where the regions are, and their sizes.
->=20
-> So it's possible that the size used must actually match what
-> is expected by both the AP and modem.  If that is the case,
-> using the smaller size might have problems on whichever
-> platform (SM8450?) expects the larger one.
->=20
-> So I'm not sure whether using the smaller size for both
-> platforms is OK; someone from Qualcomm might be able to
-> answer that question.
+Doesn't apply.  Please rebase and resent with my:
 
-I actually went ahead and reviewed downstream device trees I found on
-GitHub (1) which contain both SM8450 and SM8475 device trees looking for
-the qcom,ipa-q6-smem-size property, which would correspond to the SRAM
-size, and to my surprise, this was set to 0x9000 for both SoCs.
-Most likely the commit I got the SRAM information from (2) never made it
-to production devices.
+Acked-by: Lee Jones <lee@kernel.org>
 
-With this clarified, I think it should be okay to keep things defined as
-they currently are.
+> diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
+> index 3e58d0764c7e..013b0857fb54 100644
+> --- a/drivers/mfd/mt6397-core.c
+> +++ b/drivers/mfd/mt6397-core.c
+> @@ -125,6 +125,9 @@ static const struct resource mt6323_pwrc_resources[] = {
+>  
+>  static const struct mfd_cell mt6323_devs[] = {
+>  	{
+> +		.name = "mt6323-auxadc",
+> +		.of_compatible = "mediatek,mt6323-auxadc",
+> +	}, {
+>  		.name = "mt6323-rtc",
+>  		.num_resources = ARRAY_SIZE(mt6323_rtc_resources),
+>  		.resources = mt6323_rtc_resources,
+> 
+> -- 
+> 2.54.0
+> 
+> 
 
-> I'll try to explain those things separately.
-Regarding this, I have a question: where would this be published?
-
-Thanks for taking the time to properly review my changes.
-I'll address the review when I can.
-
-(1) https://github.com/sm8450-mainline/fdt
-(2) https://github.com/LineageOS/android_kernel_qcom_sm8450-devicetrees/com=
-mit/477aab9e7479ff553c7a162ae74029170a2e8291.patch
-
-Regards,
-Esteban
-
+-- 
+Lee Jones
