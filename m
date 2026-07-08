@@ -1,67 +1,68 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28ADDF6C
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:07:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4638C61FCE
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783469232; cv=none; b=d2M2O0+OCyotm2pfDArUcnzz2YyfYQ7c3kYcKhs71oqYTMMReI16hCKNrohJdxVq3jRIprY493tsYU4jUE/B+W0T089xcn6wcf4ezMiwOOexGYew+hs2ycV5mBHSXX23WOjJ873ueVKwYIu5js3GmJ4vjDWL0LAkCIj9RXl7/yo=
+	t=1783469233; cv=none; b=D2HqZ68EeuT9e3TQhw1cUD4jQmXbWrQ986EnpO/DpkKUG3I9WwK2CLkaM45wVPMZ1IhdjevxlYWeEHXT4031SCggqjVoQt1wX8EDLaxu5gq+TtX8ijULRwFXK3PLP4cTLunJ2lle82wruI8r0Pt4s+8qKptFT99m7oHCl5RBpP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783469232; c=relaxed/simple;
-	bh=vawJBwoRRSQ7Z+CYpJw8nQJq3wDymyLcuoAY2mdir6I=;
+	s=arc-20240116; t=1783469233; c=relaxed/simple;
+	bh=wsekDSqtc2irv3LbjSaet4U9i/PPbu5gsTQ1w3nEQro=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SUlGmSh+vaHLx0LrrBOom0NwsP/JXUWZf+ggX0HrGH/hApm1YjbyO528+F0m115YNNMt0lRwtl20JSijJh49qv47B0I2t9Nhs4XtdzUbcu4N7hqzCwX+o1Do9EO9HL1fVEGlinayoozvfAL+utJophVZV7ZcMMHmg3xTRcwTeT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CJTWhG+8; arc=none smtp.client-ip=209.85.221.48
+	 In-Reply-To:To:Cc; b=LTNWjd98lQYiy1HJO6WPCg6/cZsAjZMrHs6jUWMJ9x1NeTa+eOCKuwBhSyz5inq3bOGVJfrhu/ZYBg6Ne0O92g3NWMBoB83LjBRKP2+/HowW8EPJQ4IpAdb+nSdI5CeZLuYyH1k3nIZOCARhzC/2JZ3vV2qFLLGuf6ykXpRXsUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ol/T55on; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CJTWhG+8"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47d6c634f45so48815f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 17:07:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ol/T55on"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493c83474ddso428115e9.3
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 17:07:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783469228; x=1784074028; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1783469229; x=1784074029; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qElOScGvIRJiFGpwifE05EQl/M8pjbubEmFymuyuFiM=;
-        b=CJTWhG+8WzLoVapJGspU42nrJbF7FFKzEsxkt4kaVE/7nCwpizLwtujZJkw19rlN6T
-         pw1+6/tS9meKu+0zk2hM1ly0UTYVe+d4J9b1YlyGLbQSXYFBlhUJxuZjAiGhNAvV4ZA0
-         Mbc09i8o/n6FpDVmX8FcDBKNjK2W0CE8NxzXmg5bq3FEQDqbVFVCfuI4Vixh7lk/q388
-         Uq+9Bntrjz109tA1odflZWXNRNV5dTSTUwMJP55nP/sjO4Phn5h8S0TkF/bICUs4hwyQ
-         PEHOCwpXTNyB4tRMp2qJvlfS2axUHht1/7Qbtu2Qqu0CsP2zhexybgMnGVGgptNWTpzg
-         2OhQ==
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AoiAUK+QcuEkdSkDvLTFtpL6xxIYZx2oHXvQkPFwr9U=;
+        b=Ol/T55onu02HBpfUK7rdz5mXi80MBW37T+ptUwjVcoIqs/Jne6LcVW0YNp6pdJ+yEI
+         UhBuovF05fxrK3TJcVM/6eaayUYGlWBI5cE1vmvA0Jf995KzrPiEtG8vP/pwoOqclc/C
+         PS2fdxxEDSaKpnhFYhoxDtmJnAqG1O+y3mgmzG33H3Syeq/2BlP3pFIwCdW9Z/wIT/O+
+         2s7xnUqG/3wpiFWe5vo7msb1BlyXa8RgaEZctCq4NDB26P1b93H6Nkif/KjQBjaha85i
+         OSxu6aA8QGnY1n/BvJoBXhN+BZB/lXrzAM1y4Fx3aUUSpwIbrzklwBCdXWWmKAmjAJnV
+         jZPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783469228; x=1784074028;
+        d=1e100.net; s=20251104; t=1783469229; x=1784074029;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qElOScGvIRJiFGpwifE05EQl/M8pjbubEmFymuyuFiM=;
-        b=Nl7HEELqHAX6NSX/WKpsZM1JqEODcaUzV+lsHDLnB9MCooyQHYdgS+m41QImVXXvXL
-         1T6kfoX2kleFa9XRtaOEADK5wefk5x9js/d5Y6XncwDIOH12d6gk24cSEhPc95nDv//7
-         apkZoT7qMvNhVm5ujqPenp8KmjEOEGeUTyq4jJ/vqdnGSKnGaiVUw5TGquw8Jr0015KR
-         dhkNqztzhMB/fMnXA//Usret6fJ/qgi4Dwp3LTv6BrucUTsnrck19cgbwTjdHbdjZ/kB
-         72n2d8Kh9f73WdFFdWpzjJ7sADvW9Uq/jLD3Dzifk7lpNVWin1fKLdlsO3JanRWUAT0G
-         CnmA==
-X-Forwarded-Encrypted: i=1; AHgh+RrL8pfeo0jUqxwEtUg8Ot7In6xRN9mk2UyzY9bUndwywn9GrnMaOu6dWw6+tBC5GVSgl4q27V3kNpV6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQqi1UgrQUs9fVhfw5DXatPPk2b4nmixpwscltdHcoE+ebIJ8v
-	5Gl5AALzWMXDS9O6TCK2h8C2Fzrgtevj3Y06upQhcQbkiiICPCvMJbaA04rlPfw0RKI=
-X-Gm-Gg: AfdE7cknMGpIkadhfGDEHn3Nrsv0SNSmVp9dF+tC0qbCm+IS8pEjnoUUfocQwp5fCJX
-	fzOvoorpYMdP1GUVFc5NkwwDwC9on1FutwQrxMvupLXsMysW14y9zw6iSC48h9//Qkk9ZoI9C2H
-	XVPI7H6aDQbWGpJ0KGnTYJA/e1oknzoZUagRGLwv/U8IVSrDCUumukJDD1Xd45cyVs7qXbtxhig
-	1bPyCOCAV3FWLrVG2meMuEMSQSSTk8Azradir8VKvfYkVWtwb5wLEMkxzv31um6uihkhk5jt7hd
-	ZO5nRIYCp5G413t/CSaIdg2KFRhXZUV7Ea00WSrW6T0ukE/tGb+FM3b58+9Ndp6M3zP+57UR+70
-	ys3v0YVKqhfRf/JJGL9J7WpZkYCtBVcKXpxXS0BsWi+t+FyQOwEKY2FrHkmGK/KkEbYaY17KIJW
-	sB08GurFc7q5sAbLa/XW4JPD4=
-X-Received: by 2002:adf:f0cd:0:b0:475:f0c2:5b04 with SMTP id ffacd0b85a97d-47de66eaee6mr6441632f8f.58.1783469228245;
-        Tue, 07 Jul 2026 17:07:08 -0700 (PDT)
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AoiAUK+QcuEkdSkDvLTFtpL6xxIYZx2oHXvQkPFwr9U=;
+        b=Hlln8UYRGABgoC0BBzFGebXL6ZsLyryIMLX5mDE0cS75Cp4m8599NQkUEHsssGMYfO
+         NM1dlnZmFSJHF51fdLCn2uvnMYGEZrWmFTggj3UmVfEJtxdiuUHJzXglENF460ctZrmm
+         Ztn44/D9d6QkQMjsXO8+W/myzNZRKFLVV1/PeVmGAYJD2KZ/+kjL4495kE+VJyslA8AJ
+         xvFPsXQ9/mF+vGuNFU4ubQl+BjwlThx9aKj2tAHs2BY0j3XRwp7uV83TIo9ci+xeLBZE
+         zQ4+YRw/jDytJqReeqiElNphJ/cBk4mvRGICJgNvlMPBOQfggRHvkKpHBU8Fp8EC+iBH
+         SQKQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqIg+kssA7OVSyq3vllrQp+hp/MYKJrrctoxnxVO7+jc43hb1qGoO5s0JQ8oLejxrfX/F7GUlvPze+h@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLqkdYeKmvMbFFC3IOWVoqUz+c2Vl6/6rXq49X/PvzUh9lV8U/
+	Lj1cZIdwySPZX7tTRPeGRwXqj9XkusGOhV6qFqlEoHx60p/JKRKO1nEQG27Za8DqOWE=
+X-Gm-Gg: AfdE7ckUfbWtjOWJQ4SKbtlgfd9czAuXcz0Ww7fJApcRmYZ2jkZaHsuoaPSG1SXmRLJ
+	ANTjmA/HTOAM3ygAIeq+7+w9+ETY1HOLRw/YuMrETLAsZYo8BYJV1iwtYM8cN1F7j8D01ojWlXl
+	N6uokebgsuZbcaLij4PBuM+2VHOB3tKfG6sjYeet7PqsP4jUfuRAl+1u9boTmwuHfWM0O5zF5Tk
+	P0sf1hXtnjcPre32X50ur1aHUOqEntwjWQpdlFGbkTdhf0CxFXo/d/h536NS+dO5ed096L/DMEt
+	pzZ8aDquLrj3lZlD0oSlUJCgGGGZVT1VHfDpWRJ1Gc9tikHZSAGdpo+XluS0UkPKEMe5AhLtXLd
+	PvDEDCyvK7B1QJD7PyZMKi3RFC7AFaVLS/IPX9LBLo1/ApMCogKB9OOvCCVvmvZz53WmMXHnFCc
+	C3H4g0+hM6+6lY55/A1Q5d4bY=
+X-Received: by 2002:a05:600c:6094:b0:492:28be:6098 with SMTP id 5b1f17b1804b1-493e68bef5dmr593455e9.11.1783469229518;
+        Tue, 07 Jul 2026 17:07:09 -0700 (PDT)
 Received: from [192.168.0.35] ([109.77.92.41])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039af67sm43757092f8f.17.2026.07.07.17.07.06
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039af67sm43757092f8f.17.2026.07.07.17.07.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Jul 2026 17:07:07 -0700 (PDT)
+        Tue, 07 Jul 2026 17:07:09 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Wed, 08 Jul 2026 01:06:55 +0100
-Subject: [PATCH v12 1/6] dt-bindings: media: qcom,x1e80100-camss: Add
- optional PHY handle definitions
+Date: Wed, 08 Jul 2026 01:06:56 +0100
+Subject: [PATCH v12 2/6] dt-bindings: media: qcom,x1e80100-camss: Describe
+ iommu entries
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-1-f8588da41f16@linaro.org>
+Message-Id: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-2-f8588da41f16@linaro.org>
 References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
 In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -87,118 +88,84 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-media@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2635;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2666;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=vawJBwoRRSQ7Z+CYpJw8nQJq3wDymyLcuoAY2mdir6I=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqTZSmptQLankPUIlvPjCHt99mAOCF8KVRiCBlS
- xs6B+fFehmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCak2UpgAKCRAicTuzoY3I
- OvhBEACYOZVhGP98Ru8tDiE1XvIWlJyQeiKOZfYf0usCjdIUzQ15/Onf0jAR/pHojJMVmrsD69c
- nu77Q+VCOgjdUisRqZnaP3XM+r1/Hr7WDdWq3hTgZDB5T491H0FBGRvjPYQUyjLy/ljhJFW7dfR
- 8Tj7t9lZcuWMKuRJqPur94zecwtdCrk8Zq36DI+P0JToW/Zss7IjNRmoT3KJuOLnkd2KDKE7Dbe
- ZD0snVA127QDKNNEeO5iC3IyJr3wkNrZuXyDtXQa7lduW5UpGyyN9TgeT/wJFn/VTpGKhhPT6Ln
- qgwEf5M5ed3fn4broAMmyxdmN7z98dOjPVieNB32CkKCGt1eVJAWvXXVMzXBwvIyRoBpd5XX4zR
- J8n7q096g6YwPnBftiYkgbiizbYrK04juBZf1Dp7AbffIu7E8w5pP96RcfZq8LWj7R9PMLWyLBV
- gcQe5sLdrZUVbO4jm7Uj7znq5HLjzxwb4hJiMgpYH3ObO0azUufrhnvDOJaliK7XVUPZ7ytmzKX
- Gelu2GtY+hjf+s+833DNp8VPr9YLQqjxbaPRcO4ZDpMNcxWszzq+ZbCdcvz1hABBDhPT2v6EhUM
- VZfYr7e1mM44GC0oYT7kAS46Y11qUY6XJ4+Z0CKPyYRVNapcDUbW+/UkT+szQRHfndEvQ1aYxwS
- msygCRdzGrnJtjg==
+ bh=wsekDSqtc2irv3LbjSaet4U9i/PPbu5gsTQ1w3nEQro=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqTZSn3jyqM4YAJUbOEsf5SO79EIIR1f8XWFwcE
+ gy8NFoifLiJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCak2UpwAKCRAicTuzoY3I
+ Oo/2D/0RNoa0BSf7i8yYyNmVniR4mS+IDbtbgOFuXoyHiZx41MK4tm01leIKX6hol8n+nda1ztl
+ MXYXE96F/JlcmqfR2hupOiPCE3909E/oCOrGtcsEOReJXGdCYVRiJT/UrLC1nilVm+QmoCFdDDP
+ do7zmfoW7ohFRzzBLwYlZpmiYBHHwT4alAoPn1dNu9HzrOwFCUc+26G3JxonElo2wJ6uudClChV
+ neIn9iJlwo54gWfzVZPcOdhDCztTERADaoRfPwVQPEhkSBpX3AClqCc+p7asm1E24rCI4G2Uc2U
+ JPZMkxofe88JCrFE9ZD76gVNs48Ijft+KLSP/6Z7XXG8sWeAg2pSH0WcB8WabRKVoHLUGzmzLif
+ E7pDzWxKIvD85raVsyo4CIP8XfGltsLUGoFyMtlCtFuvEZgkDOtsS/XviqI/OMgd9iAw98sXXiZ
+ FLvEEgC+xJzoppfp6Ak7vXsB4tfKy/869lffEIogEwtu1LksK4CG/zyYjVirgp/Y6TYFRFgrb5U
+ Vroj9Bq6SMRjeQLe2hahJ89gc0TWvM0RY402ll63Do9HoZJhe4B95J/aC7hW30+1z4+ye57lgFU
+ hfCFNJQhVuVkjyrtFJqOyWCqu9dDmrhdHsLS8UJj9rhb02wImCAaBEIcckxHIVbEoZRSXBsI0tO
+ K2u2jY6SOUgWknA==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add optional PHY handle definitions. This will allow for supporting both
-legacy PHY definitions as well as supporting the optional new handle based
-approach.
+The original iommus list included entries for ICP and BPS/IPE S1
+contexts. Only the five S1 HLOS stream IDs are required by the CAMSS
+ISP hardware: IFE/IFE_LITE read and write, SFE read and write, and
+CDM IFE. The remaining entries serve other hardware blocks which will
+be described in their own nodes as support is added.
 
-Drop the legacy high-level 0p8 and 1p2 supplies as required, each PHY has
-its own individual rails. The old binding is still valid but with
-individual nodes we define the rails in the CSIPHY sub-nodes.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- .../bindings/media/qcom,x1e80100-camss.yaml        | 33 ++++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+ .../bindings/media/qcom,x1e80100-camss.yaml        | 26 ++++++++++++++++------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-index 2d1662ef522b7..c17b9757b2c86 100644
+index c17b9757b2c86..c4454355f07ea 100644
 --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
 +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-@@ -39,6 +39,14 @@ properties:
-       - const: vfe_lite0
-       - const: vfe_lite1
+@@ -112,7 +112,22 @@ properties:
+       - const: sf_icp_mnoc
  
-+  '#address-cells':
-+    const: 2
-+
-+  '#size-cells':
-+    const: 2
-+
-+  ranges: true
-+
-   clocks:
-     maxItems: 29
+   iommus:
+-    maxItems: 8
++    oneOf:
++      - items:
++          - description: S1 HLOS IFE and IFE_LITE non-protected read
++          - description: S1 HLOS IFE and IFE_LITE non-protected write
++          - description: S1 HLOS SFE non-protected read
++          - description: S1 HLOS SFE non-protected write
++          - description: S1 HLOS CDM IFE non-protected
++          - description: Legacy slot 0 - do not use
++          - description: Legacy slot 1 - do not use
++          - description: Legacy slot 2 - do not use
++      - items:
++          - description: S1 HLOS IFE and IFE_LITE non-protected read
++          - description: S1 HLOS IFE and IFE_LITE non-protected write
++          - description: S1 HLOS SFE non-protected read
++          - description: S1 HLOS SFE non-protected write
++          - description: S1 HLOS CDM IFE non-protected
  
-@@ -126,6 +134,16 @@ properties:
-     description:
-       1.2V supply to a PHY.
+   power-domains:
+     items:
+@@ -361,13 +376,10 @@ examples:
+                                  "sf_icp_mnoc";
  
-+  phys:
-+    maxItems: 4
-+
-+  phy-names:
-+    items:
-+      - const: csiphy0
-+      - const: csiphy1
-+      - const: csiphy2
-+      - const: csiphy4
-+
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
+             iommus = <&apps_smmu 0x800 0x60>,
++                     <&apps_smmu 0x820 0x60>,
++                     <&apps_smmu 0x840 0x60>,
+                      <&apps_smmu 0x860 0x60>,
+-                     <&apps_smmu 0x1800 0x60>,
+-                     <&apps_smmu 0x1860 0x60>,
+-                     <&apps_smmu 0x18e0 0x00>,
+-                     <&apps_smmu 0x1980 0x20>,
+-                     <&apps_smmu 0x1900 0x00>,
+-                     <&apps_smmu 0x19a0 0x20>;
++                     <&apps_smmu 0x18a0 0x0>;
  
-@@ -158,6 +176,14 @@ properties:
-             required:
-               - data-lanes
- 
-+patternProperties:
-+  "^phy@[0-9a-f]+$":
-+    $ref: /schemas/phy/qcom,x1e80100-csi2-phy.yaml
-+    unevaluatedProperties: false
-+
-+  "^opp-table(-.*)?$":
-+    type: object
-+
- required:
-   - compatible
-   - reg
-@@ -171,8 +197,6 @@ required:
-   - iommus
-   - power-domains
-   - power-domain-names
--  - vdd-csiphy-0p8-supply
--  - vdd-csiphy-1p2-supply
-   - ports
- 
- additionalProperties: false
-@@ -184,6 +208,7 @@ examples:
-     #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
-     #include <dt-bindings/interconnect/qcom,icc.h>
-     #include <dt-bindings/interconnect/qcom,x1e80100-rpmh.h>
-+    #include <dt-bindings/phy/phy.h>
-     #include <dt-bindings/power/qcom-rpmpd.h>
- 
-     soc {
-@@ -229,6 +254,10 @@ examples:
-                         "vfe_lite0",
-                         "vfe_lite1";
- 
-+            #address-cells = <2>;
-+            #size-cells = <2>;
-+            ranges;
-+
-             clocks = <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
-                      <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
-                      <&camcc CAM_CC_CORE_AHB_CLK>,
+             power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
+                             <&camcc CAM_CC_IFE_1_GDSC>,
 
 -- 
 2.54.0
