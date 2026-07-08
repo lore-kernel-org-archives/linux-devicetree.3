@@ -1,148 +1,98 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65FF38331E
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 22:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953642F3C19;
+	Wed,  8 Jul 2026 22:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783549819; cv=none; b=TXe8v1XYWREgXrA2VhqAcAaVRfmv9gc8i2jvtXMN/+YCrG28JIYmODk/pzUH9K9cqbbz+ACqChw7FSl9nNeLYq+bVYkO0+XHYTnwtQgJpuleB6w0NmoDp1pqv65UeEWthUrr6iBhIV+NLlC3n29z0lNbbfLeKHqnBGTse2Mw/Gk=
+	t=1783549908; cv=none; b=UGdbB+YTVOaR3R49QLcwI57LiPHTgpTtR+8m7LWjLYrKHRyykWGQPGeW/GKXm7J35j/cciS3NZHMnbW8UP2X9FthxcVRlbOpegv/4e87pq9oaynVMUgc2hJ7YDqnFyZsXg16QZyt8InOh+fw9N0S8HKlcS0MSRKcJ4D1DbLYyzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783549819; c=relaxed/simple;
-	bh=Ucy2b3MPSEnBCBhKVkHMWhghZFra35xFFNj5Qb50XsQ=;
+	s=arc-20240116; t=1783549908; c=relaxed/simple;
+	bh=TwPNIap4o9alfoMGrHjKWF4JR0px4d7fD/wJeY6TlV0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RDWDmI3dvxVNhKYeSzo4ZcZzIbjP8uXznHRA4af4hhEk3paT5PwmP0xKFm9x0DPXHhJWc26O+bJtGAzNYNeBDGNBYM/i3dwE4VEXVX4IWUCMHttWKR+ptQS25Kl3WQlL7qSDpYXFrKE1C/b0Wy2gsNUCki8Som5X21yn6fJxvPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lqi1o7+w; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=laC7jUOszs6z0CUsVMIWlwW1kbn3bjhLdvQdTCuWLJbkSV/ScRgJ7YTB5pZwAyTfYSemW/j75Aj3Br0JWqqjc6unEzwiym+8lp1XGMA8edz80XIcNfAVuF+0GAiFWH8hGstxOl8YakmBUvbc3itNppld0T/g3bYZ9dizpHowDas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=k2eHq3Y1; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lqi1o7+w"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47640541585so663565f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 15:30:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783549816; x=1784154616; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=90IOI9EUyLOw2eSiEVVHF1LKd1Sg9MHQdR1C6WQNJ10=;
-        b=Lqi1o7+wVIWB3ifqgsn6xdp6t1KqFZUP2XjUycj/9SQqPoQyi7tZLKo+a9JxKQ8nE9
-         116s3PnM7+hBDGuQBggD3Wl5NUaISy++kYlfeg7TysKuENF+6gJMh6m6lzX3EDRsdkc1
-         g2NPTSLcja1Y4bA7pJytWr0d0g3AZdDecJl5fHZDSNkwMmLdHWJeSoPs6u8UFtrsz+yW
-         zaspY21tFQdqgD0nZG1vAJRNcYuQodKA+jTPqkLfISKsK2EVgM22nOHD//qvP0wuR20O
-         nE4ymz1SMwv37kJdeWZQ9Fw9ArOvqMfFAVoZgHAbOnPUxwDpBffAUxKO53V2zSKjmiH5
-         o6BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783549816; x=1784154616;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=90IOI9EUyLOw2eSiEVVHF1LKd1Sg9MHQdR1C6WQNJ10=;
-        b=GSsKWf9vyoip2wwoDvuNIq9+dgH/dxzRWA/j4mNVnV2Y99GqqgcYEJGS1UpS1L3UP5
-         dm6plhO6TftHn3qJE+THfukK+OnZvG2ctLBCU/NCl26/azs+ko2D11mfOJNHYvf8tERL
-         9lbIjMqQZhk98ZKEwn3CVjUx01bA2mj2E1v1X8HX1cPBLTkAoSONR6tVaDSgbVy3hpy+
-         TPE2xwEojYcIkigVyvlfHw8PLfQFEGoXpKfZhRnhD+QUkdhIFCo8HORhm9PmQRNnlSf6
-         bypydq815vgfyiiZNcTMZoOoqI3gXq+oAUHEc1tla5nZ9/uZhs6DxsNl5f2t668rWRbP
-         grEg==
-X-Forwarded-Encrypted: i=1; AHgh+RpejHVAxjHt9CNzKIFbtyldF5HktVAU2bwAKadJuAcgoOr0Ux+Bvyun1V8IFA888ToYIix2lxykkVHS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRslSGAeRFQiJp6Mry1JEGcozwRIcqorVyUo1LyDB9OVDbZbiC
-	SY/NZIkNkA36Y0Jlg1DzftkP0wMbgBG0cIoaP/LcK6GRuXh6hAU6BY2evK3+9PA2Gjs=
-X-Gm-Gg: AfdE7cmsjvQiSFmFM6kq+wZPcav8JU6fhTBdTjmC3NYlzCSJ436+FdtG0/1MXuJVzFz
-	ibAaYaFlN4kS/guBYG+6bOQynbzyIxnN6mGyizcXfjq/fWxWch721Syh7RIHyZT2q3vq7MJ+54W
-	Vf8kcg/LShnT2Tubh0Mf+O9asXF95Jj2xyFd2QfoCg/zCCgbHw6AEMpLKGQdyiEmq5VCebdqtuU
-	fGd8YJrx+Xj99FY465HDDBUjJWoo2eGLCObgJBdIoxmcRQqLcAFf3EDUYSeVulEVK3xLLx48jB1
-	fJvhHxY+VJ7K66XlmdrHKdnf2S0NQpQgXssYxiH1PYaTCQrOtOKc5FFMYVzFIwwIeOdS9JBYeLh
-	im+Cxm4rYIrYxHYp4vZatBtw5o4xr8SPFueVJW5zL8gEch1L6UdVlVAj54/fvfafQ+zW5aWgUOb
-	AdUoteMZ09soTkEOcuY2VxfLX3rHOgn84vU1rRCg==
-X-Received: by 2002:a05:6000:2013:b0:46e:624e:3c2f with SMTP id ffacd0b85a97d-47df077b2e6mr4491121f8f.47.1783549816190;
-        Wed, 08 Jul 2026 15:30:16 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.204.255])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960634sm46711271f8f.26.2026.07.08.15.30.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 15:30:14 -0700 (PDT)
-Message-ID: <d579ffd2-b99e-4e8d-b2b7-e7e896b2d71d@linaro.org>
-Date: Wed, 8 Jul 2026 23:30:12 +0100
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="k2eHq3Y1"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gwXrb2NCfzMlHw;
+	Thu, 09 Jul 2026 00:31:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783549903;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=153NGcG1DPWuSXRcq4z9zBLGMIc6zuyh1qAdI4RAZiI=;
+	b=k2eHq3Y1gdAukQn2jHL3lPY6q2pTwZmYCQfEiX/3LfjZH+0YnWX76gdlkczjxYYo95aUJz
+	hdonlaaoddJsyIm2RDY9iqEGDfG8vIn73MoJ6JiCcj4+OWYLImLmM2hMgqyvijNB6osGU1
+	IueO2hsKXV3lNyJbRQSYwig1PQmGB4/bb4MglHtRoyYYmB9bJwAobTCzll46KpA+LWGsbX
+	+XffLbtofMiAckleXsbpoxo/DlAk4PxOo34VE/LTUMF/qI6YeJykz+hItU/NA6SqEEnh1r
+	0ahc95ox2Uw3F6rvCFp55XsE8SiTiwbrNeDuYS0+Sx32pKv/IGOqmXEoa+RRgg==
+Message-ID: <9ecabfec-d428-4c64-b398-4e80baaf3752@mailbox.org>
+Date: Thu, 9 Jul 2026 00:31:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/5] media: qcom: camss: Populate CAMSS child devices
- via DT
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- linux-media@vger.kernel.org
-Cc: vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
- mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <20260706071113.383215-2-atanas.filipov@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
+ <20260704151521.211335-2-marek.vasut+renesas@mailbox.org>
+ <CAMRc=MeyKGv75rTLauZuGxSfgjCPXVE_r=A7uNduRr6kAd43aA@mail.gmail.com>
+ <edc7505e-1103-42d7-b88d-013ca10753b3@mailbox.org>
+ <CAMuHMdXQQWmn612R3y6qSXOZ7YMwZcfrBTrQZ9GzGekhFhtWSw@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260706071113.383215-2-atanas.filipov@oss.qualcomm.com>
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdXQQWmn612R3y6qSXOZ7YMwZcfrBTrQZ9GzGekhFhtWSw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 272722f82881645b40f
+X-MBO-RS-META: 1mwb6twn3dfq1me165a49ir9q7udb4g3
 
-On 06/07/2026 08:11, Atanas Filipov wrote:
-> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On 7/7/26 8:52 AM, Geert Uytterhoeven wrote:
+
+Hello Geert,
+
+>> On 7/6/26 11:19 AM, Bartosz Golaszewski wrote:
+>>>> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
+>>>> +{
+>>
+>> I am hoping to get some input on this remap function.
 > 
-> Use devm_of_platform_populate() so that child nodes declared under the
-> CAMSS device tree node (e.g. OPE) are automatically instantiated as
-> platform devices. This is required now that CAMSS is modelled as a
-> simple-bus and ISP blocks such as OPE are described as child nodes.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> I haven't looked at your patch in detail yet, but the remap function
+> was the first thing that struck my eyes.  This might impact performance
+> of bit-banging and of the sloppy logic analyzer.
 
-Looking at my commit logs I see this isn't my commit message ..
+Regarding the performance impact -- yes, this will impact performance. 
+Both the remap function and register table look up will, but at least 
+the remap function is small and (subset of it) ends up inlined, the 
+indirect look up table is bigger and unlikely to be inlined. That is why 
+I opted for this over a table look up.
 
-Anyway.
+> Have you looked at the code generated by the compiler?
 
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 2123f6388e3d..95e655a8b6aa 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -16,6 +16,7 @@
->   #include <linux/of.h>
->   #include <linux/of_device.h>
->   #include <linux/of_graph.h>
-> +#include <linux/of_platform.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/pm_domain.h>
->   #include <linux/slab.h>
-> @@ -5362,6 +5363,8 @@ static int camss_probe(struct platform_device *pdev)
->   	if (!camss)
->   		return -ENOMEM;
->   
-> +	devm_of_platform_populate(dev);
-> +
->   	camss->res = of_device_get_match_data(dev);
->   
->   	atomic_set(&camss->ref_count, 0);
+I did, but there is a lot of inlining going on.
 
-Just drop this patch entirely and model JPEG as a peer of CAMSS. I'll do 
-the same with the CSIPHY and Loic the OPE.
+> Perhaps it would be better to use a table, like sci_port_params.regs[]
+> in the sh-sci driver, and riic_of_data.regs in the riic driver?
 
-Modelling for subnodes is nice if you have the idea the camera block 
-should be a bus.
+Please see above.
 
-But for what reason ? As you pointed out it should be possible to both 
-compile and run JPEG without the compat=camss node on sm8250.
+[...]
 
-Making the camera block a bus is a nice idea for "reasons" as this 
-thread has shown, its a problem to implement with an upside we struggle 
-to define.
-
-When the facts change, I change my mind.
-
-You were right to argue to have this as a peer node. Lets do that.
-
----
-bod
+-- 
+Best regards,
+Marek Vasut
