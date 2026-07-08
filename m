@@ -1,484 +1,133 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BF74A1387
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D133478869
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522180; cv=none; b=OstFmBBAFbWk9HPhvmf8pvoO2AyC/4lNUU4YncgRj65lxHTH/cJw9j6aARs1JvWGwOYZrcmMMouJEZCuY9X5iiYUxYasjNEHfxkqG4SJ6FF9d/gCM+Ps/RTyoQcuL2zt1OqiHf7KLx8Q0xIKoeaAHTCDSk1rnFcrjHwwD/+Ss94=
+	t=1783522207; cv=none; b=BjAxTbWy5eDUui1kgtPvteTz7L2vYlwvGwVp33mMRkrMBvao5ndYCS4hHSX/RTnOXskRBl1PMJcsp79hq2QeH6TGaa8kpGe0DGCL8ITOr9CWjB+OnCoKjeREsinOwub6hD7aWiXKv7sam6ruuRZSy2ofmLo2A4isnJzej3Sg0tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522180; c=relaxed/simple;
-	bh=Bz7eJTYlg7hqzpgB6a7cBQj2bdP5kz+HsAA3ZbNHcBo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=idYnDvJfEyO5A6zZHC88Lknh8ubKOygPjDDfaT+/ukGgtGL9vWcIy7TAVMgIu2Pey/lgwXcfyV87UWfsMP5er6pl6dIyNQdHwdxXPaI4sPwUc0pUJK9us4ibpbdcDJ0g081Pd89r7NozCpEzLdInsDNRNpLQdv1Ze+sF+Z3G0qQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=S3WrMUSs; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1783522207; c=relaxed/simple;
+	bh=tKikO0bSg47/jitw94DYQrY/Cn1s5w/tqQg0dlL9mRU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dcWORvk2YofN1dysyomGJAywidj2shGmeTV5k/v55ZuUk1hb/OC3jx4Hn29EJ7CupUYt+M/PTaR82BVfOWlKaFkrcsaCIj8raVHZvNatgKKO/yCXK3+fXpauaSU3EWOqkcF5KZvKTDpHrFKfTKajsTKbtB7dWC0rB5kK3CvpmI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XBVfqp86; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="S3WrMUSs"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493b779003fso3707215e9.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 07:49:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1783522164; x=1784126964; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xu15ctzjcOqhJZV80dUKUk3i6OKtSm5BmBQWERl2TsU=;
-        b=S3WrMUSsr6NF7NSraftk3R3Sb2pCyRBCHoFARhJVHZ4heQgY0XNg7e1JXs8ArhLae/
-         CT4W/kfy/IlkJjmjTpWGSQZTsV3+2xNCG7pHm5KbdIZmN7W9cLXk47okdzFpDADgi0Jl
-         sIb9KAGnyeyrcuVkOVAWAtn3XSsQCcoRq6Rc2k5VzGDUxYCsGleZ58MZwvFOdlAUZnRk
-         e6QBkAvVogl+tNV2KECu6aUfVuD+7IqpowYJROgS6/nwxQVHVdNdCkmo0bcsx0z8DYF2
-         1K+vWvF3jJ8UV7C6vaNv05/Pd9fe2r8pw5fXzlN07DLil/J2U25FepqbtoUuXs3dXTj4
-         NNFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783522164; x=1784126964;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xu15ctzjcOqhJZV80dUKUk3i6OKtSm5BmBQWERl2TsU=;
-        b=ROsEGqpaN0bxybNyqBKbix+0HOc9e58xmpY8uaHQofO+x3LUjig0sBEliXI0YHEx0v
-         XwPh8WObGVVquaxKLaouuVEDJBOv3f6Boq3h5v70LijsYmZOwz40URtJriOF/6jnTc6k
-         wCtlxM4DCHWYYbr5vpUmHfXO/Rl3e7YqINVvSE4ZAYol3naWUbCMAdWnBPvcqIwjGnWU
-         E98vmNThSB1kP+KPfHmiM+z6nUB+jsaxQ0rnCkm4DoE0V0y4IAWRUR8mrt0Yg3PQ7quD
-         rtdL5tLD0HGUFpR88hOBGxZb0NYI4pAmak3e63QgW2HgUrwkPbxBrvf77GPWOnIuCF7T
-         fbQw==
-X-Forwarded-Encrypted: i=1; AHgh+RrwWUjDr8oUizxpLOw5KhfMhZPoFpBCanHOKYe8O5lYwgL8Lk2iRt11jZb3VFrvAm9fz0vVGOxKI9Wm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/VOI8+eRE2NfD7kwlpbOWu8rGz4rux9S7GoV4kmy/LxzGvo1N
-	fezlU28oeF9hEAd2bwwfG9H3kInH2oIS0rnLR+I6aNCXEyCMmQ2CnzDKU/ZACLq9sCc=
-X-Gm-Gg: AfdE7ckzCsPYVBBNBqmAoqn7yKFs9+fh+mg+XwgbtdkRB7rI/0VdWa7z0iWgSggYYs8
-	7Wz7KT21UXqfjLesc7kxuUvqjIYZiXkUqjfkdfj1LKRlKT7dPlhbhcMvlCz8aoapErZRAbJLHqI
-	qg/U1GD5VVk8qG/p2xzZxYVkuJyWMgB1hu/91gRLbPoKpjBqLn142tUg5xjIS3MNxoXm6Ttu2al
-	FchTbRxfD8dEsCXGB2XgHN5DhM+LQNr0mLGA2lVU6quKNcMQjjM90i6E+lfCZ0jujmQw7AzG4rN
-	BKAjNieZS1ENYsfhbTmVxi70fyUWI6NA7/9b6dNgV2sAkfiENjRl+9bi66ts2D3nlyUrV28jkSh
-	lGTpz3llbDqNxzVAUlDmw1JvNk/3A02j09eB6Y/yIfOCPkQKIJG7yACJ7nFj2stqwjveUWk50Cm
-	AnQNek+FchN05Rxqb6op5wJD3VmKC/FS/2UWH14kHVwGstzQ0IoLhQnMBvc9OhIgWi
-X-Received: by 2002:a05:600c:4505:b0:493:bfea:2780 with SMTP id 5b1f17b1804b1-493e68b83aemr31299685e9.9.1783522164323;
-        Wed, 08 Jul 2026 07:49:24 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0fbd355sm135363315e9.13.2026.07.08.07.49.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 07:49:23 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 08 Jul 2026 15:48:55 +0100
-Subject: [PATCH v3 19/20] media: imx355: Switch to using the subdev state
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XBVfqp86"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B69A1F000E9;
+	Wed,  8 Jul 2026 14:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783522205;
+	bh=bG3yXgiC4pqNteP1dm3BJT74ixUUew1YH/EhTXISUyw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XBVfqp86G/zbAgwoc/XnfbfxRBIilOZzUz7GqY5T+n4WNoNejABa/45U5QS14PT0i
+	 E3DwJYtUIR8Se0bjB7jK4eFYkcnnkZ/v6NvfB/giNDby35dF3dfdtHWsGofu0J9lfu
+	 /TvnzmIXOIe4TS22IByBfDcHi3li5Dxe/Zh3f2mefmxOzlAT8lQqIv+2Rviahe7x1d
+	 e6alUAcB3XlANQopzl4oeaHTF4zqVLBMMDsiCeHyUDNS1RyPtzxEXrxJC3/qXOUQPC
+	 Uu4xdIBooHSlEFBGTvDWTcVLHoxy0eiBABqWliEx3uLbqd7WwZWjBJWNeW4qKlVjRv
+	 4t83KZN95uJxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/7] dtc: dt-check-style: Allow space-aligning
+ indentation in DTS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260708-dts-style-checker-v4-2-c175e6401150@oss.qualcomm.com>
+References: <20260708-dts-style-checker-v4-0-c175e6401150@oss.qualcomm.com>
+ <20260708-dts-style-checker-v4-2-c175e6401150@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 14:50:04 +0000
+Message-Id: <20260708145005.5B69A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-media-imx355-v3-19-9df386a623d7@raspberrypi.com>
-References: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
-In-Reply-To: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Richard Acayan <mailingradian@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
 
-The subdev state is now preferred rather than handling crop
-and format within the driver state, so switch the driver to
-using it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `check_mixed_indent_chars` rule silently bypasses property c=
+ontinuation lines, rendering its newly added space-limit validation ineffec=
+tive for list properties and undermining the patch's stated goal.
+--
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
----
- drivers/media/i2c/imx355.c | 180 +++++++++++++--------------------------------
- 1 file changed, 50 insertions(+), 130 deletions(-)
+--- Patch [2]: [PATCH v4 2/7] dtc: dt-check-style: Allow space-aligning ind=
+entation in DTS ---
+commit 7913e7da3c58b0a74f8737f725c2117139d9183f
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 2be665b5b453..ee012efe25bf 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -179,13 +179,6 @@ struct imx355 {
- 	struct imx355_hwcfg *hwcfg;
- 	const struct imx355_clk_params *clk_params;
- 
--	/*
--	 * Mutex for serialized access:
--	 * Protect sensor set pad format and start/stop streaming safely.
--	 * Protect access to sensor v4l2 controls.
--	 */
--	struct mutex mutex;
--
- 	struct gpio_desc *reset_gpio;
- 	struct regulator_bulk_data *supplies;
- };
-@@ -593,46 +586,23 @@ static u32 imx355_get_format_code(struct imx355 *imx355)
- 		{ MEDIA_BUS_FMT_SGBRG10_1X10, MEDIA_BUS_FMT_SBGGR10_1X10, },
- 	};
- 
--	lockdep_assert_held(&imx355->mutex);
- 	code = codes[imx355->vflip->val][imx355->hflip->val];
- 
- 	return code;
- }
- 
--/* Open sub-device */
--static int imx355_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
--{
--	struct imx355 *imx355 = to_imx355(sd);
--	struct v4l2_mbus_framefmt *try_fmt =
--		v4l2_subdev_state_get_format(fh->state, 0);
--	struct v4l2_rect *crop = v4l2_subdev_state_get_crop(fh->state, 0);
--
--	mutex_lock(&imx355->mutex);
--
--	/* Initialize try_fmt */
--	try_fmt->width = imx355->cur_mode->width;
--	try_fmt->height = imx355->cur_mode->height;
--	try_fmt->code = imx355_get_format_code(imx355);
--	try_fmt->field = V4L2_FIELD_NONE;
--	try_fmt->format.colorspace = V4L2_COLORSPACE_RAW;
--	try_fmt->format.ycbcr_enc = V4L2_YCBCR_ENC_601;
--	try_fmt->format.quantization = V4L2_QUANTIZATION_FULL_RANGE;
--	try_fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
--
--	*crop = imx355->cur_mode->crop;
--
--	mutex_unlock(&imx355->mutex);
--
--	return 0;
--}
--
- static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct imx355 *imx355 = container_of(ctrl->handler,
- 					     struct imx355, ctrl_handler);
-+	const struct v4l2_mbus_framefmt *format = NULL;
-+	struct v4l2_subdev_state *state;
- 	s64 max;
- 	int ret;
- 
-+	state = v4l2_subdev_get_locked_active_state(&imx355->sd);
-+	format = v4l2_subdev_state_get_format(state, 0);
-+
- 	/* Propagate change of current control to all related controls */
- 	switch (ctrl->id) {
- 	case V4L2_CID_VBLANK:
-@@ -705,9 +675,7 @@ static int imx355_enum_mbus_code(struct v4l2_subdev *sd,
- 	if (code->index > 0)
- 		return -EINVAL;
- 
--	mutex_lock(&imx355->mutex);
- 	code->code = imx355_get_format_code(imx355);
--	mutex_unlock(&imx355->mutex);
- 
- 	return 0;
- }
-@@ -721,12 +689,9 @@ static int imx355_enum_frame_size(struct v4l2_subdev *sd,
- 	if (fse->index >= ARRAY_SIZE(supported_modes))
- 		return -EINVAL;
- 
--	mutex_lock(&imx355->mutex);
- 	if (fse->code != imx355_get_format_code(imx355)) {
--		mutex_unlock(&imx355->mutex);
- 		return -EINVAL;
- 	}
--	mutex_unlock(&imx355->mutex);
- 
- 	fse->min_width = supported_modes[fse->index].width;
- 	fse->max_width = fse->min_width;
-@@ -750,36 +715,6 @@ static void imx355_update_pad_format(struct imx355 *imx355,
- 	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
- }
- 
--static int imx355_do_get_pad_format(struct imx355 *imx355,
--				    struct v4l2_subdev_state *sd_state,
--				    struct v4l2_subdev_format *fmt)
--{
--	struct v4l2_mbus_framefmt *framefmt;
--
--	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
--		framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
--		fmt->format = *framefmt;
--	} else {
--		imx355_update_pad_format(imx355, imx355->cur_mode, fmt);
--	}
--
--	return 0;
--}
--
--static int imx355_get_pad_format(struct v4l2_subdev *sd,
--				 struct v4l2_subdev_state *sd_state,
--				 struct v4l2_subdev_format *fmt)
--{
--	struct imx355 *imx355 = to_imx355(sd);
--	int ret;
--
--	mutex_lock(&imx355->mutex);
--	ret = imx355_do_get_pad_format(imx355, sd_state, fmt);
--	mutex_unlock(&imx355->mutex);
--
--	return ret;
--}
--
- static int
- imx355_set_pad_format(struct v4l2_subdev *sd,
- 		      struct v4l2_subdev_state *sd_state,
-@@ -788,12 +723,11 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 	struct imx355 *imx355 = to_imx355(sd);
- 	const struct imx355_mode *mode;
- 	struct v4l2_mbus_framefmt *framefmt;
-+	struct v4l2_rect *crop;
- 	s32 vblank_def;
- 	s64 h_blank;
- 	u32 height;
- 
--	mutex_lock(&imx355->mutex);
--
- 	/*
- 	 * Only one bayer order is supported.
- 	 * It depends on the flip settings.
-@@ -805,16 +739,17 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 				      width, height,
- 				      fmt->format.width, fmt->format.height);
- 	imx355_update_pad_format(imx355, mode, fmt);
--	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
--		framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
--		*framefmt = fmt->format;
--
--		crop = v4l2_subdev_state_get_crop(sd_state, 0);
--		crop->width = mode->crop.width;
--		crop->height = mode->crop.height;
--		crop->left = mode->crop.left;
--		crop->top = mode->crop.top;
--	} else {
-+	framefmt = v4l2_subdev_state_get_format(sd_state, 0);
-+
-+	*framefmt = fmt->format;
-+
-+	crop = v4l2_subdev_state_get_crop(sd_state, 0);
-+	crop->width = mode->crop.width;
-+	crop->height = mode->crop.height;
-+	crop->left = mode->crop.left;
-+	crop->top = mode->crop.top;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
- 		imx355->cur_mode = mode;
- 		/* Update limits and set FPS to default */
- 		height = imx355->cur_mode->height;
-@@ -833,41 +768,17 @@ imx355_set_pad_format(struct v4l2_subdev *sd,
- 					 h_blank, 1, h_blank);
- 	}
- 
--	mutex_unlock(&imx355->mutex);
--
- 	return 0;
- }
- 
--static void
--__imx355_get_pad_crop(struct imx355 *imx355,
--		      struct v4l2_subdev_state *sd_state, unsigned int pad,
--		      enum v4l2_subdev_format_whence which, struct v4l2_rect *r)
--{
--	switch (which) {
--	case V4L2_SUBDEV_FORMAT_TRY:
--		*r = *v4l2_subdev_state_get_crop(sd_state, pad);
--		break;
--	case V4L2_SUBDEV_FORMAT_ACTIVE:
--		*r = imx355->cur_mode->crop;
--		break;
--	}
--}
--
- static int imx355_get_selection(struct v4l2_subdev *sd,
- 				struct v4l2_subdev_state *sd_state,
- 				struct v4l2_subdev_selection *sel)
- {
- 	switch (sel->target) {
--	case V4L2_SEL_TGT_CROP: {
--		struct imx355 *imx355 = to_imx355(sd);
--
--		mutex_lock(&imx355->mutex);
--		__imx355_get_pad_crop(imx355, sd_state, sel->pad, sel->which,
--				      &sel->r);
--		mutex_unlock(&imx355->mutex);
--
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r = *v4l2_subdev_state_get_crop(sd_state, 0);
- 		return 0;
--	}
- 	case V4L2_SEL_TGT_CROP_DEFAULT:
- 	case V4L2_SEL_TGT_CROP_BOUNDS:
- 	case V4L2_SEL_TGT_NATIVE_SIZE:
-@@ -882,6 +793,21 @@ static int imx355_get_selection(struct v4l2_subdev *sd,
- 	return -EINVAL;
- }
- 
-+static int imx355_entity_init_state(struct v4l2_subdev *subdev,
-+				    struct v4l2_subdev_state *sd_state)
-+{
-+	struct v4l2_subdev_format fmt = { };
-+
-+	fmt.which = sd_state ? V4L2_SUBDEV_FORMAT_TRY : V4L2_SUBDEV_FORMAT_ACTIVE;
-+	fmt.format.code = MEDIA_BUS_FMT_SRGGB10_1X10;
-+	fmt.format.width = supported_modes[0].width;
-+	fmt.format.height = supported_modes[0].height;
-+
-+	imx355_set_pad_format(subdev, sd_state, &fmt);
-+
-+	return 0;
-+}
-+
- /* Start streaming */
- static int imx355_start_streaming(struct imx355 *imx355)
- {
-@@ -969,12 +895,10 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- 	struct imx355 *imx355 = to_imx355(sd);
- 	int ret = 0;
- 
--	mutex_lock(&imx355->mutex);
--
- 	if (enable) {
- 		ret = pm_runtime_resume_and_get(imx355->dev);
- 		if (ret < 0)
--			goto err_unlock;
-+			return ret;
- 
- 		/*
- 		 * Apply default & customized values
-@@ -992,14 +916,10 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- 	__v4l2_ctrl_grab(imx355->vflip, enable);
- 	__v4l2_ctrl_grab(imx355->hflip, enable);
- 
--	mutex_unlock(&imx355->mutex);
--
- 	return ret;
- 
- err_rpm_put:
- 	pm_runtime_put_autosuspend(imx355->dev);
--err_unlock:
--	mutex_unlock(&imx355->mutex);
- 
- 	return ret;
- }
-@@ -1033,7 +953,7 @@ static const struct v4l2_subdev_video_ops imx355_video_ops = {
- 
- static const struct v4l2_subdev_pad_ops imx355_pad_ops = {
- 	.enum_mbus_code = imx355_enum_mbus_code,
--	.get_fmt = imx355_get_pad_format,
-+	.get_fmt = v4l2_subdev_get_fmt,
- 	.set_fmt = imx355_set_pad_format,
- 	.enum_frame_size = imx355_enum_frame_size,
- 	.get_selection = imx355_get_selection,
-@@ -1050,7 +970,7 @@ static const struct media_entity_operations imx355_subdev_entity_ops = {
- };
- 
- static const struct v4l2_subdev_internal_ops imx355_internal_ops = {
--	.open = imx355_open,
-+	.init_state = imx355_entity_init_state,
- };
- 
- static int imx355_power_off(struct device *dev)
-@@ -1116,7 +1036,6 @@ static int imx355_init_controls(struct imx355 *imx355)
- 	if (ret)
- 		return ret;
- 
--	ctrl_hdlr->lock = &imx355->mutex;
- 	imx355->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &imx355_ctrl_ops,
- 						   V4L2_CID_LINK_FREQ, 0, 0,
- 						   &imx355->hwcfg->link_freq_menu);
-@@ -1265,8 +1184,6 @@ static int imx355_probe(struct i2c_client *client)
- 
- 	imx355->dev = &client->dev;
- 
--	mutex_init(&imx355->mutex);
--
- 	imx355->regmap = devm_cci_regmap_init_i2c(client, 16);
- 	if (IS_ERR(imx355->regmap))
- 		return dev_err_probe(imx355->dev, PTR_ERR(imx355->regmap),
-@@ -1295,7 +1212,7 @@ static int imx355_probe(struct i2c_client *client)
- 					    &imx355->supplies);
- 	if (ret) {
- 		dev_err_probe(imx355->dev, ret, "could not get regulators");
--		goto error_probe;
-+		return ret;
- 	}
- 
- 	imx355->reset_gpio = devm_gpiod_get_optional(imx355->dev, "reset",
-@@ -1303,7 +1220,7 @@ static int imx355_probe(struct i2c_client *client)
- 	if (IS_ERR(imx355->reset_gpio)) {
- 		ret = dev_err_probe(imx355->dev, PTR_ERR(imx355->reset_gpio),
- 				    "failed to get gpios");
--		goto error_probe;
-+		return ret;
- 	}
- 
- 	/* Initialize subdev */
-@@ -1312,13 +1229,12 @@ static int imx355_probe(struct i2c_client *client)
- 	imx355->hwcfg = imx355_get_hwcfg(imx355);
- 	if (!imx355->hwcfg) {
- 		dev_err(imx355->dev, "failed to get hwcfg");
--		ret = -ENODEV;
--		goto error_probe;
-+		return -ENODEV;
- 	}
- 
- 	ret = imx355_power_on(imx355->dev);
- 	if (ret)
--		goto error_probe;
-+		return ret;
- 
- 	/* Check module identity */
- 	ret = imx355_identify_module(imx355);
-@@ -1351,6 +1267,13 @@ static int imx355_probe(struct i2c_client *client)
- 		goto error_handler_free;
- 	}
- 
-+	imx355->sd.state_lock = imx355->ctrl_handler.lock;
-+	ret = v4l2_subdev_init_finalize(&imx355->sd);
-+	if (ret < 0) {
-+		dev_err_probe(imx355->dev, ret, "subdev init error\n");
-+		goto error_handler_free;
-+	}
-+
- 	/*
- 	 * Device is already turned on by i2c-core with ACPI domain PM.
- 	 * Enable runtime PM and turn off the device.
-@@ -1371,6 +1294,7 @@ static int imx355_probe(struct i2c_client *client)
- 	pm_runtime_disable(imx355->dev);
- 	pm_runtime_set_suspended(imx355->dev);
- 	pm_runtime_dont_use_autosuspend(imx355->dev);
-+	v4l2_subdev_cleanup(&imx355->sd);
- 	media_entity_cleanup(&imx355->sd.entity);
- 
- error_handler_free:
-@@ -1379,9 +1303,6 @@ static int imx355_probe(struct i2c_client *client)
- error_power_off:
- 	imx355_power_off(imx355->dev);
- 
--error_probe:
--	mutex_destroy(&imx355->mutex);
--
- 	return ret;
- }
- 
-@@ -1391,6 +1312,7 @@ static void imx355_remove(struct i2c_client *client)
- 	struct imx355 *imx355 = to_imx355(sd);
- 
- 	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 
-@@ -1402,8 +1324,6 @@ static void imx355_remove(struct i2c_client *client)
- 	}
- 
- 	pm_runtime_dont_use_autosuspend(imx355->dev);
--
--	mutex_destroy(&imx355->mutex);
- }
- 
- static const struct acpi_device_id imx355_acpi_ids[] __maybe_unused = {
+dtc: dt-check-style: Allow space-aligning indentation in DTS
 
--- 
-2.34.1
+This commit relaxes the mixed indent check in dt-check-style to allow=20
+space-aligning indentation in DTS files for comments or continued lines.=20
+It replaces the strict mixed-indent rule with checks for space-followed-by-=
+tab=20
+and excessive space counts (more than 7).
 
+v2: https://lore.kernel.org/r/20260706102421.343639-4-krzysztof.kozlowski@o=
+ss.qualcomm.com/
+v1: https://lore.kernel.org/r/20260706071446.87669-2-krzysztof.kozlowski@os=
+s.qualcomm.com/
+
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index 29b25ecf15c66..5d7765f35ecbc 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
+> @@ -359,14 +359,17 @@ def check_tab_in_yaml_example(ctx):
+> =20
+> =20
+>  def check_mixed_indent_chars(ctx):
+> -    """Indent must be all-spaces or all-tabs, never mixed on one line."""
+> +    """Indent must be all-tabs, except for aligning indentation (comments
+> +    or continued lines)."""
+>      for dl in ctx.lines:
+
+[Severity: Medium]
+Does this loop miss checking property continuation lines?
+
+By iterating only over ctx.lines, it appears to skip evaluating=20
+dl.continuations where property continuations are stored. This prevents the=
+=20
+newly added space-limit validation from executing for list properties, whic=
+h=20
+the rule explicitly claims to check in the docstring.
+
+>          if not dl.indent_str:
+>              continue
+>          if dl.linetype =3D=3D LineType.PREPROCESSOR:
+>              continue
+> -        if ' ' in dl.indent_str and '\t' in dl.indent_str:
+> +        if re.search(r' \t', dl.indent_str):
+>              yield (dl.lineno, 'mixed tabs and spaces in indent')
+> +        if dl.indent_str.count(' ') > 7:
+> +            yield (dl.lineno, 'too many space characters in indent (more=
+ than 7)')
+
+[ ... ]
+
+> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-mixed-indent.dts b/scr=
+ipts/dtc/dt-style-selftest/bad/dts-mixed-indent.dts
+> new file mode 100644
+> index 0000000000000..f0e40cfc910c7
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/bad/dts-mixed-indent.dts
+> @@ -0,0 +1,20 @@
+
+[ ... ]
+
+> +		clocks =3D <1>,
+> +			 <2>,
+> +		         <3>;
+
+[Severity: Medium]
+As a consequence of skipping continuations above, does this line evade the
+"more than 7 spaces" check?
+
+This line contains 9 spaces of indentation before the `<3>;`, but because i=
+t=20
+is a property continuation, the tool does not yield the expected warning.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dts-style-=
+checker-v4-0-c175e6401150@oss.qualcomm.com?part=3D2
