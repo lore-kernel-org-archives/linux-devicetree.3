@@ -1,115 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D5E37B413;
-	Wed,  8 Jul 2026 08:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBEC3FE37C
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 08:21:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783498818; cv=none; b=Jy4MXOm/GfXfATAN43a88gBnLXyOmv6SvLHPTHiuDIjXLMM5v39a4TsBOAKaJWT2zbYrMPtNZDaTj6LSZN4gYRb1e+VRpwYSPrBlwNFRa7zkgSgkNZypDKe7KpPHYpsHjQpgw8k4MeLtI1eJbvwRfsS1mloNR2atNRiGvMb8Vyw=
+	t=1783498919; cv=none; b=aahjPL5kToZwOmznJFB6zR+o2A/DX4/PtLWKDJU/tGczWToTQCG0ZrpgV3uOL1VcSIulHJE9twbQmepe+MI706DzJFGgBmqnOk66Iu0edAcj25Rc/gCE21xmGA7eSCNDsxbz52xZRI/BhA/0tcZerFQ8jWV90ryyfOkWw30eNzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783498818; c=relaxed/simple;
-	bh=KUIWr7/a3fEpywFUG9/E2MvwtIeBEeRy4KxkKm9jajA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TXEs/eRxfaTs3CEUwikuZKUZ3qVAEsojcy2d3lUo35iTpD2XKL01KSIknl7C4pz5HO552VQbj9IcrHVQMVjMLrT3A65N52+UoOSney/oIJqnhxYcDp0ddVTcd0H+2O9yuQ1iGbV6u053igC7Xq2bngIKc/Lg78w/+W66Lucmdcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aiHjG5Fo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783498919; c=relaxed/simple;
+	bh=xx1gGOcISwaW2sO87mrmUJc90D6SEI+QZi+hw4gzU8Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IBtsmK0o5ZGl/tluXWJC4lUPah1XBfC8G7qXajmCu2MhuW7oN7eL3NJbGdr2TcND6VMXEm2eIxrlw/kbR2ts5A1aE23JT6UKp2Uvrx9uKocrtWv7oHMspkyRz2wVojSXqZ1XHHErCiuuFhi1dA+IEa/+AADyF8YZ3Tqvueybu18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJHmPgxc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiHjG5Fo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5931F000E9;
-	Wed,  8 Jul 2026 08:20:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJHmPgxc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9A21F000E9;
+	Wed,  8 Jul 2026 08:21:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783498816;
-	bh=tAM7j5fQB9lPdjO1SSxK15JUZTKVRDEjwTyBLBLdbg0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aiHjG5FoMWjwkqplKSyC6Z0HRMTU0vi8VYoM0h6WQEMyNkW0Pu6OBQs1hn4xHwsJZ
-	 WS2AFd1+l9Lo/dfo3xF2PvvVPu77/LmSweFm/64r0iT04caYhKxCl52rGl/zKuEnKG
-	 2Qi7h2HKLOLGKbaLrT75Rpxjoj+iSFy1IaVV2bP0Nf+2GKDWNllUuxcmvkZKQ+zU3E
-	 2vkf74sW5VJa6qdZY7sMfoct3fmm7u1rnR9UKI/1cQtDDdWAMURHFOsJDvzgE8XsfH
-	 FZdMym29eHeeBNDHgVQnjCKLQWHVH7TRkUalXVugiwUs7hHkRQW0rCvmj+0ixxJABh
-	 3ipFl2YVX7xBg==
-Date: Wed, 8 Jul 2026 10:20:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Qiang Zhao <qiang.zhao@nxp.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH 04/12] dt-bindings: soc: fsl: qe: Add support of IRQ in
- QE GPIO
-Message-ID: <20260708-glorious-electric-octopus-e80abe@quoll>
-References: <20260703-qe-pic-gpios-v1-0-6c3e706e27dc@bootlin.com>
- <20260703-qe-pic-gpios-v1-4-6c3e706e27dc@bootlin.com>
- <20260706-elfish-cornflower-bullfinch-604e0a@quoll>
- <DJRCWXDUGFY8.1AIUFSEBFTG94@bootlin.com>
+	s=k20260515; t=1783498914;
+	bh=UdGNm1slb20QAzR03FXaCHtGeV2hKyDLxFkbtzEtQC4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SJHmPgxc4RMz5IgQ9LmlAJCUiuzfp23DnvQZWSmzZUKftorKXOPZXSoAgnNSFjyD6
+	 AJx9+F7EOdr5cw0aknzIDz7SAcQrUCdH/TgVaGaroiov3rGbAQw3r1B4BpDoCO7+xn
+	 xmbp0EzlLeytOCfe4d+LRPERVMkpZWjpDLIXU+GExAb30IcpcYZjKx9rtWqTgWn9h2
+	 w+LJcBsTWlG7J8TQJM4H1yKSD8/0WABudR9KfY+1kmrCSkB8nNgdhJeYEIvaatOTYk
+	 /A5XfP7NWEXo1B0U76aldB3UT/TkvQBeY3nwsDhJkzMnel9+AZu5wiUY91z2MhFoeH
+	 Me1RImjCKOqsw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next 3/6] net: stmmac: mediatek: rename MT2712 and
+ MT8195 variant methods
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260707-dwmac-mediatek-mt8189-v1-3-17f345eaaca3@collabora.com>
+References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
+ <20260707-dwmac-mediatek-mt8189-v1-3-17f345eaaca3@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 08:21:53 +0000
+Message-Id: <20260708082154.2D9A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DJRCWXDUGFY8.1AIUFSEBFTG94@bootlin.com>
 
-On Mon, Jul 06, 2026 at 10:48:32AM +0200, Paul Louvel wrote:
-> On Mon Jul 6, 2026 at 8:52 AM CEST, Krzysztof Kozlowski wrote:
-> > On Fri, Jul 03, 2026 at 03:30:12PM +0200, Paul Louvel wrote:
-> >> Some QE GPIO pins have an associated interrupt line in the QE PIC to
-> >> signal state changes on the pin.  Add the corresponding
-> >> interrupt-controller / nexus properties to the QE GPIO binding.
-> >> 
-> >> Because the GPIO controller does not perform any interrupt handling
-> >> itself, a nexus node (interrupt-map) is used to map each GPIO line
-> >> supporting IRQ to the parent QE PIC interrupt domain.
-> >> 
-> >> As the QE PIC can be configured to generate an interrupt on either a
-> >> high-to-low transition or any change in signal state, three
-> >> interrupt-map entries are needed per GPIO pin that can yield an
-> >> interrupt (falling, both, and the "none" case which defaults to both in
-> >> QE PIC).  This overhead is necessary because the interrupt-map-pass-thru
-> >> property is not part of the DT specification.
-> >> 
-> >> The interrupt-map property is optional: it is not required for GPIO
-> >> banks that have no interrupt capable GPIO line (e.g. port D on MPC8323),
-> >> or when interrupt functionality is not used.
-> >> 
-> >> Update the example to show a scenario where each bank supports a
-> >> different numbers of IRQs, or no IRQs at all.
-> >> 
-> >> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
-> >> ---
-> >>  .../bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml   | 69 +++++++++++++++++++++-
-> >>  1 file changed, 66 insertions(+), 3 deletions(-)
-> >> 
-> >> diff --git a/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml b/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
-> >> index 1af99339ff40..0c849a5698f4 100644
-> >> --- a/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
-> >> +++ b/Documentation/devicetree/bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml
-> >> @@ -27,6 +27,17 @@ properties:
-> >>    "#gpio-cells":
-> >>      const: 2
-> >>  
-> >> +  "#address-cells":
-> >> +    const: 0
-> >> +
-> >> +  "#interrupt-cells":
-> >> +    const: 2
-> >> +
-> >
-> > If this has interrupt-cells, then it is a nexus, thus why isn't this
-> > also a "interrupt-controller"?
-> 
-> Because these these banks are not interrupt controllers.
-> Interrupts are handled by the QE PIC, and the GPIO controller does not do any
-> interrupt handling itself.
-> In this setup, does it really needs an "interrupt-controller" property?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-So this is interrupt-nexus, but not an interrupt-controller. If that's
-the case of hardware, then it is fine/correct.
+Pre-existing issues:
+- [High] The return value of `mediatek_dwmac_init()` is ignored during driv=
+er probe, allowing the driver to silently bind to unconfigured or unsupport=
+ed hardware.
+- [High] Early error return in `set_delay_v2()` causes state corruption of =
+`mac_delay` values on unsupported PHY modes.
+--
 
-Best regards,
-Krzysztof
+--- Patch [3]: [PATCH net-next 3/6] net: stmmac: mediatek: rename MT2712 an=
+d MT8195 variant methods ---
+commit e972fc035e44817992b0ce16715cf1cbcf9432c0
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
+    net: stmmac: mediatek: rename MT2712 and MT8195 variant methods
+   =20
+    In preparation of newer SoC support, rename MT2712 and MT8195 variant
+    methods and sub functions to more generic names.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drive=
+rs/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 0cabab4fd89a3..28e87990b0a10 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+[ ... ]
+> @@ -317,13 +317,13 @@ static void mt8195_delay_stage2ps(struct mediatek_d=
+wmac_plat_data *plat)
+>  	mac_delay->rx_delay *=3D 290;
+>  }
+> =20
+> -static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+> +static int set_delay_v2(struct mediatek_dwmac_plat_data *plat)
+>  {
+>  	u32 gtxc_delay_val =3D 0, delay_val =3D 0, rmii_delay_val =3D 0;
+>  	struct mac_delay_struct *mac_delay =3D &plat->mac_delay;
+>  	u32 reg_offset =3D plat->variant->peri_eth_ctrl_offset;
+> =20
+> -	mt8195_delay_ps2stage(plat);
+> +	delay_ps2stage_v2(plat);
+> =20
+>  	switch (plat->phy_mode) {
+>  	case PHY_INTERFACE_MODE_MII:
+> @@ -419,14 +419,14 @@ static int mt8195_set_delay(struct mediatek_dwmac_p=
+lat_data *plat)
+>  		     reg_offset + MT8195_PERI_ETH_CTRL2,
+>  		     rmii_delay_val);
+> =20
+> -	mt8195_delay_stage2ps(plat);
+> +	delay_stage2ps_v2(plat);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the early return on
+unsupported PHY modes in set_delay_v2() bypass this call?
+
+If phy_mode is an unsupported mode, the switch statement falls through to t=
+he
+default case which returns -EINVAL. This skips the call to
+delay_stage2ps_v2() that restores the mac_delay values.
+
+Since the values are unconditionally divided at the start of the function:
+
+    delay_ps2stage_v2(plat);
+        mac_delay->tx_delay /=3D 290;
+        mac_delay->rx_delay /=3D 290;
+
+If this happens during suspend/resume cycles, won't the delays be cumulativ=
+ely
+truncated to zero?
+
+> =20
+>  	return 0;
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but is the return value of mediatek_dwmac_ini=
+t()
+intentionally ignored during driver probe?
+
+Looking at mediatek_dwmac_probe() in this file:
+
+    mediatek_dwmac_common_data(pdev, plat_dat, priv_plat);
+    mediatek_dwmac_init(&pdev->dev, priv_plat);
+
+    ret =3D mediatek_dwmac_clks_config(priv_plat, true);
+
+If hardware initialization fails (for example, due to an unsupported PHY
+interface returning -EINVAL), mediatek_dwmac_probe() ignores the return val=
+ue
+and proceeds with registration.
+
+Could this result in the driver binding to unconfigured hardware, leaving a
+phantom interface that fails to pass traffic?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260707-dwmac-medi=
+atek-mt8189-v1-0-17f345eaaca3@collabora.com?part=3D3
