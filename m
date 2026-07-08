@@ -1,126 +1,136 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5960F40245F;
-	Wed,  8 Jul 2026 16:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DAD43713B
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783529325; cv=none; b=dvojIpiqH0sdOm3yCpYY+BbmmqW0CC3iU9muUgJtqUInSxO4BB64wLrUNCzLcFNb8IgJN6swRVdgSCHjfyDMy4unZj0FKXa0CrUAqEMAbAqxF0uBU+Qt/O7mKVissAIGCBKR2kDC8nEmd06DmQQpzeQBKdn+H4VsmBUErSRbY34=
+	t=1783529397; cv=none; b=WhrvQQi1tCJoFBQkjxi4pb89C01TXuyZMjv1AX98AXc/QC5NHkMoyQu1Xsl0M3TDI19F+/ufReSeJPcjMNNcxKWAyREVH7bf9w2I/GyPik+Mhag8A87w54yBq9SEg04uIWMjzLwvTFyKIH/8kOknj1kpMriqQa8u5c2mrkPoF1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783529325; c=relaxed/simple;
-	bh=fofBQvPVcd3NX+xdJivf5D8jfwRM6c2GJjKIcT6JUBk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MyCQadAH7qFUZ8lqUyYc1mQsdHlL2W1c5xTAeVKgdLYjmALN4w7Ujx2jVYK6WG5EtwUdbJpeAa/iCDDRBaMM/FFN0opkhNAVI0ndswt/G7fTJ12MsdV39eVzknN9XvM+J5pN9B99Yo0x3vWd7eTQmTVoCwu6bWTKaXgus+KOtoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=yY1xJQwb; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=HyyEMk/D; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1783529397; c=relaxed/simple;
+	bh=4yIuYm0sF3Y4hVsI3nq7nbqwG3SXp4KTQ/9LpTR1erc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AAfY0k1tLiOGtGBNhZnf2wQT4JJ9nTEgKsfpj77gbMogGEyZEbRDaTw2NUCF2JXpcowi4DRv/n747BTsBCaamFkSobrDAbFQH2CP78hDr6XqkSFrHgXVwlTPb+CLSkUG1iw7l+VJrAAgKF5IlhAgTuCNXwYyc4/1ZaTDcUSYEpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmhTV2Yk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="yY1xJQwb";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HyyEMk/D"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gwPDm6s9TzMlKN;
-	Wed, 08 Jul 2026 18:48:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783529321;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G2F8UTbrQpHAZf8UnpKm16ni9iweS0yaca1Uv+SwEYc=;
-	b=yY1xJQwbYy4eG2NsyWzBCVrlkg0EcBjFvdcuFovEC2IbWp3kU60JKjSAKSzLMciR1EsPdu
-	ejjAFDe+JVF9Sr9+3QhhAur1hoqUsx/BwX/PDpB/e8Nwa0hOuypUuMHhL9Uwujrw7tbXNH
-	/j35Zda5HbVnuqxQP84QRGA1FV25MuMpNgpXQAo9aBYw2ylltxz5DS3qGE2Xk/tripSQUp
-	4rigneeHGxJ162cClnDzNhffDU/3Eo9bSvYV4qi7/wkQ7qcrWGAK6XA2NN2uE2+bIhKC0P
-	Ov74Ct4qnnCl6FDRTICjToZjcoBT48/7DeD44GFkfO2C13KILjQU/E9XLhZq4w==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b="HyyEMk/D";
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <1c072a8f-a854-4b72-be43-7fdb50b14653@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783529319;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G2F8UTbrQpHAZf8UnpKm16ni9iweS0yaca1Uv+SwEYc=;
-	b=HyyEMk/DEMoJgPcxBr0Pq212SsCaf5NsNufZl8aXOfXzinVkcA2D20WAtT1qmT/1tWXXMm
-	UH50YgTdA4l+ihaYZ8AdS5GPRPKEWGAfhLKMXCMjNamAB+octGR79OarG/cz3sMKyDkx1A
-	szPV4dYYdC5rvgx5AsAU0aYRIKTDw8GV5rWRlZOBrOKKCq6a8ETtr4NOv7JDltLeNkzqFP
-	htLjbKZpYH65f3a2eeCxEaLRBnkYPYfr7gjm6vahw3qM7uspJlzPtCdzwIAwcuWPBU7FOI
-	s9p//CTQHqCgonVROF8iPyh9bmOz2wBDEdSqly1oBaTIk4J6CdcFB+d1/rb0jQ==
-Date: Wed, 8 Jul 2026 18:48:31 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmhTV2Yk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806331F000E9;
+	Wed,  8 Jul 2026 16:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783529395;
+	bh=PweMsGz6aPYGsFryeW5fByl4FxC1SJwg7JewtfiPETg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TmhTV2Ykc3EVvJlW2jPi/sdMEVVfYcCvV5NV6dYM2WNf/hJrW8hGql0QDU1NrcMrn
+	 IQd8l0BEU/WHM19rv7TEo/9Dlo45eSLvU64KHpRR1dV34uW7Um3AHnH6u74UggRdiI
+	 ueL4WHVCEH60R2pZm8PJVuMGwWdIcAp8WppoDnWWfOukvH3gDJH2ZjEZu0EdsLtpxW
+	 IUBTa/MD/BDYD4ioE7slZ/k9n33WyzDv9/FT4wwEMB/ZRojXmqSTEvM/YlN9wc0XYb
+	 d73Y0z2v4BMaks7bomTQ2p27QbhHQZzXCR2BzKuHo9DX++onbc+tyqf+514BRqnt6e
+	 sMqr6LN7ZaFgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] arm64: dts: renesas: r9a09g057: Add PCIe nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260708163311.222176-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260708163311.222176-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260708163311.222176-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 16:49:55 +0000
+Message-Id: <20260708164955.806331F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH v2 00/10] R-Car X5H Ironhide CPG/MDLC SCMI remapping
- support
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1783505329.git.geert+renesas@glider.be>
- <3c76a2d4-a8b8-493a-9196-c5cc72958118@mailbox.org>
- <CAMuHMdUVUKYrrms0Vd4i3_nwq2LVjvnvFRWswi8UY3cA67u2-w@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdUVUKYrrms0Vd4i3_nwq2LVjvnvFRWswi8UY3cA67u2-w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 09e4c3dda12fcca6b00
-X-MBO-RS-META: na9n8ju6zp3juk8qegttrip714c8zcby
-X-Rspamd-Queue-Id: 4gwPDm6s9TzMlKN
 
-On 7/8/26 6:04 PM, Geert Uytterhoeven wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The pcie1 node incorrectly re-uses the exact same clocks and reset=
+s properties as pcie0, causing a hardware resource conflict.
+- [Medium] The `renesas,sysc` property passes an argument to a phandle, but=
+ the target `sys` node lacks a `#cells` property.
+--
 
-Hello Geert,
+--- Patch [1]: [PATCH v2 1/2] arm64: dts: renesas: r9a09g057: Add PCIe node=
+s ---
+commit 146b102b21fdb6341d75564293e25310c00c5056
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> On Wed, 8 Jul 2026 at 17:42, Marek Vasut <marek.vasut@mailbox.org> wrote:
->> On 7/8/26 12:16 PM, Geert Uytterhoeven wrote:
->>> Geert Uytterhoeven (10):
->>>     firmware: arm_scmi: Add scmi_get_base_info()
->>>     of: property: fw_devlink: Add support for firmware
->>>     pmdomain: Make genpd_get_from_provider() public
->>>     reset: Add reset_controller_get_provider()
->>>     dt-bindings: clock: renesas,r8a78000-cpg: Add firmware property
->>>     dt-bindings: power: renesas,r8a78000-mdlc: Add firmware property
->>>     clk: renesas: r8a78000: Add SCMI remapping support
->>>     pmdomain: renesas: r8a78000: Add SCMI remapping support
->>>     arm64: dts: renesas: ironhide: Enable SCMI devpd, sys, clock, and
->>>       reset
->>>     arm64: dts: renesas: ironhide: Add CPG/MDLC firmware properties
->>
->> I think 10/10 did not make it either to my inbox or lore.k.o , but the
->> remaining 9 patches look good. Thank you !
-> 
-> Thanks, I did something silly while sending.
-> Lore now has it, b4 still seems to miss it, unless I specify the
-> Message-ID of 10/10.
+arm64: dts: renesas: r9a09g057: Add PCIe nodes
+   =20
+Add PCIe nodes to Renesas RZ/V2H(P) ("R9A09G057") SoC DTSI.
 
-Thank you, it looks just fine.
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a09g057.dtsi
+> index 9581af58024ed..f3199c32423e5 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> @@ -1024,6 +1024,146 @@ rsci9: serial@12803000 {
+[ ... ]
+> +		pcie0: pcie@13400000 {
+> +			compatible =3D "renesas,r9a09g057-pcie";
+[ ... ]
+> +			#size-cells =3D <2>;
+> +			num-lanes =3D <2>;
+> +			renesas,sysc =3D <&sys 0>;
+                        ^^^^
 
--- 
-Best regards,
-Marek Vasut
+[Severity: Medium]
+Does the target sys node have a #sysc-cells property defined?
+
+If the driver relies on standard of_parse_phandle_with_args() to read the
+controller ID (0), the parsing will fail at runtime because the target
+node lacks #sysc-cells. If the driver uses of_parse_phandle(), the
+argument is simply ignored.
+
+> +			status =3D "disabled";
+> +
+> +			pcie_port0: pcie@0,0 {
+[ ... ]
+> +		pcie1: pcie@13410000 {
+> +			compatible =3D "renesas,r9a09g057-pcie";
+[ ... ]
+> +			interrupt-map =3D <0 0 0 1 &pcie1 0 0 0 0>, /* INTA */
+> +					<0 0 0 2 &pcie1 0 0 0 1>, /* INTB */
+> +					<0 0 0 3 &pcie1 0 0 0 2>, /* INTC */
+> +					<0 0 0 4 &pcie1 0 0 0 3>; /* INTD */
+> +			clocks =3D <&cpg CPG_MOD 0xc4>, <&cpg CPG_MOD 0xc5>;
+> +			clock-names =3D "aclk", "pmu";
+> +			resets =3D <&cpg 0xb2>;
+                        ^^^^
+
+[Severity: High]
+Are these the correct clocks and resets for pcie1?
+
+The pcie1 node re-uses the exact same indices (0xc4, 0xc5, and 0xb2) as
+pcie0. The CPG driver (drivers/clk/renesas/r9a09g057-cpg.c) explicitly maps
+these to pcie_0_aclk, pcie_0_clk_pmu, and PCIE_0_ARESETN.
+
+Probing pcie1 will request the exact same exclusive reset and clock lines as
+pcie0. This will cause the pcie1 probe to fail with -EBUSY due to exclusive
+reset acquisition. Alternatively, if the reset is handled as shared, assert=
+ing
+the reset during pcie1 initialization will unexpectedly reset the active
+pcie0 hardware, dropping any attached devices.
+
+> +			reset-names =3D "aresetn";
+> +			power-domains =3D <&cpg>;
+> +			device_type =3D "pci";
+> +			#address-cells =3D <3>;
+> +			#size-cells =3D <2>;
+> +			num-lanes =3D <2>;
+> +			renesas,sysc =3D <&sys 1>;
+                        ^^^^
+
+[Severity: Medium]
+Does the target sys node have a #sysc-cells property defined?
+
+Similar to pcie0, if the target node lacks #sysc-cells, parsing this
+property with of_parse_phandle_with_args() will fail at runtime.
+
+> +			status =3D "disabled";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708163311.2221=
+76-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
