@@ -1,193 +1,154 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B773D349C
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 11:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C4A42EED7
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 11:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783510062; cv=none; b=B4SOJrVb1Iiszv/M3x3EM6WtGcNEyEnoC7F/r4XnPpc34xX4McL+NM4N+2ZEloG3N89Pm5/le96CPXv81JxCUmlYOWWFHZC0tsmq/VmHAyCtYuXL8kwjETJRBQFesrZKxNhWBAEs7fpb/6T2huzV1NmRYTwy8Y1RhxnkgFTuZEY=
+	t=1783510263; cv=none; b=Lz+XCZ++bIyvzS6p5aLop+fAiFIsWdIvb5hbZAiPB+OYKwmi3SCqB80vtZxYpOH4v3vxUv1U1EmWqOUlnHs1n+jzgoalNMqdxioMgRKtdY8Ep5sDgbxhzQU5HWacy+qwVqj8pC+PiXFziQYLxHWRh/iV1OKc0ow77dQUeDlsRsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783510062; c=relaxed/simple;
-	bh=BzMsn1QlG0yY8ysaqlyvr8D0YozX9wNRuLlUJ49ZPtQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X3bP7tROpKBMGtf3svoH0wWcZdd6PJTaOrWzGK/MWAH2SZKa+lMR9W1BF33WTZ6LB0kgZgS0kxcc7VHUZjxDit+YYg0lKXXkh/baUqxjVQ3DL5gWNuxFxmKQyeQ1uqYtaztSWuFfEPV877b1PN0PJu+vLJ2GM2rnqC2xjpsH7lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fj2hmh1F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PncA+wwP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783510263; c=relaxed/simple;
+	bh=UqVYtH1FlnS/aiysBtJjKkotNDawE18yaWKbuoyRfnk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K1iZubyHBchLP0aeY6tNLsnTPs5t9X9qwWNJ/ngXQZdC5qKYzVo1MEOL8oBUqpeMz+SBkH5a227jxeqovy5bcaKT8+uSD8x4n46PYNuoKVUhkjbm9McPvXUT2+0G47nRCI4LZhUcEfBMu38GWHXriCWEFJMEIcj/yMWO1k7T+VQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sTW5MjST; arc=none smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fj2hmh1F";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PncA+wwP"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66889uW42053038
-	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 11:27:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PCURb30G70qdUrMDaaA4as5d9b3CQFXvj20zxSJZ2A4=; b=fj2hmh1FkqydE+32
-	UkiMI9+iy5UigDCkd7I1xOdoHBPGdyaC2vtJqcdOWTBzX15j0+NJaXXru0my0IoT
-	J/8Oo9oHRe1hDB+VdCzw3Z1k95zI6Y0kZQTZH6dQx25mXRrYur9cAVJPSvNNrtle
-	Zzhsn/UrVdAoAT/8jPOWbi8nv22FXkl5PWoU6XRoecIK69MMM637Rj1Orh1JMYSy
-	nYriOM3ZmVs7ZWQV5P0uv4S3K3mq3Oc7cS5W1oPJbztF9DGrOJeUmfmw4ktl8HIm
-	3oTQHwsiGhNP0MNicHNVbso9Y7BTIdrDOdA2RkLo1G8TSuTevaPCtSVWJetkE9Dc
-	7anPBA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9b5gag1v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 11:27:38 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cce406883eso6465905ad.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 04:27:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sTW5MjST"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aebd52488cso603253e87.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 04:31:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783510057; x=1784114857; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PCURb30G70qdUrMDaaA4as5d9b3CQFXvj20zxSJZ2A4=;
-        b=PncA+wwPkYrz2QGnfWEHfs+gSURJ0vmQZaPk+XOw1t4ubarTnwQTi6vn3lxh0VCqnl
-         vrZ723FGWEFXN/WmkyLg50RvSexi05S33izOBiaF+r18FT5AEefM6PNFagp3gvAYdkKx
-         HyMZABupP9c8qJBrsRXAU5Lv3xJxlVei9tem9fRpDM7q7trTwE3yPtjUv+eTVDGUTKk7
-         s5LiSD/cDguQ9G8XNcnFzZtAycS/fd0qwNt36j6042CkBfE9p9I1El9WxX2SF+WzzWmT
-         j3A63B6wcVyaO2oeaV1ZY9fcDCSi73t7QCtbjFHuxcqhHvAVlFQxrxqQ14CeUx6nzc96
-         k8oA==
+        d=gmail.com; s=20251104; t=1783510260; x=1784115060; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=39lBDIePAL1NkZjwy0kg0GS1VSHJ5/FOzCIFnS8mpzM=;
+        b=sTW5MjSTnFr6r/JlPxnI3BE7aoTJeXE8JYAW37w3nGv6YRpTG+WJuytWtQ8RCEYO0z
+         pzlxY+S7YzztULVvPDwJQPuDNWAQrpO02nvcnZAYta5y6QvNdGdQqMInEV+vc7y1vsLH
+         aTIaKz6V03aszfCW+JjnwgOdo/iV3GE13GN/XXtNdJaUKc9Wf4+dw8NS5SZeuloJSi3+
+         pCJ9RgFdzQHLp8OMNX6zEZpR3Ec+SC+coiBStKA6/YDUIjx/xsSaScEQGC1i8ElkDuav
+         9ygcKPoZwJrymEaQoRf+G5nxVE3MdCEldttrNUHKiYS+oD0Xf8quxe2H5uRPMTRSQwHT
+         Qu+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783510057; x=1784114857;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PCURb30G70qdUrMDaaA4as5d9b3CQFXvj20zxSJZ2A4=;
-        b=nQC0ed+be3fmZNbaBACcUus04aOi/4nzxGdklGy4bZWCrl7h0WEnozN9R+eAQvmlO/
-         EX0tLeIQeBySCbVLqtzjJHNgDU+GYFHa0tJQHZPbj54cOqy4gjXrK4CHHPs1QsTwnABt
-         J2EBGbY5n0AtYcoXc6NEAL7F+U6X1G0nc+BPC2BwdFnYak/FmKWTI2COk5qVLdeTbWmy
-         0u28dEdNJEdkq7KIHk+s4w79o7jycSeVyWNbeBpVNtzd6hemniwVi4nf9Xr4AEvEwHFh
-         BEnLoRnIQulD07IxbxyLWRqXDWycz3squbPxc6i295EADVqGR3KFER1hbHh7TfuW2iUy
-         5KOg==
-X-Forwarded-Encrypted: i=1; AHgh+RrzFemiiw3mS1w79lki8O8qZAU7D0cGvl50gNi9+NZ/gVPHxLGITgIw2lanIom9xAkBl+TjhPXqy6j3@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlGrqJrgcbxrchUhjKSKfix5NO0VeToYOie7mMhy5eJO5Ac0ky
-	9DuXK2l0t+vFA+Rd8vyNYrE8JdyH5WeEB4n8E0+xHx+MbIoPO1+TpZAAGPu6v7s6ETeSXovWgLQ
-	ZadbGgQbv0D78lLcDMzuZFkh/3z4BauFBpRxerXVnFqPzCL8q/yXazmGr3aTI0ntd
-X-Gm-Gg: AfdE7clvgM89qCOIX2dqkKwYvV7Qfc1D6nFZcsWa3Kh6ttZ4v0gDPpx+xEc5IERjr26
-	i5eDbrs1xnDw/+n5bu4D3SCiGtUUfx6pqRc8B5mMtxnPWTCV4DeKNpKN0Zj9qxz86ZujjLjHGx9
-	cqOIw66c64Q5g2MlBp5Vv0IDk2sF/Di6S6r0T6QEyXBrvU2SXU4Zr8uQgSE7NpgZq4E49s7tIgJ
-	+BnZ5noouBYaqmAX2uwnqO/gTAUiVOFvngj2zbEhOUf/qTfQBFjxf5czj9OUxgzB2usGSsQNrrY
-	a/rmrAd+rFA7HhkpHKcIB9jnvVvrGV/cfcNQJirVeVSOyZDjATueYAk7E2VN5SRQQxiBKSWP71z
-	Q8X1FN+X2DEdSwdDh66owf9v8veABr2BQZlw6rA==
-X-Received: by 2002:a17:903:1987:b0:2c9:aae1:a61c with SMTP id d9443c01a7336-2ccea3d97b9mr20854765ad.20.1783510057275;
-        Wed, 08 Jul 2026 04:27:37 -0700 (PDT)
-X-Received: by 2002:a17:903:1987:b0:2c9:aae1:a61c with SMTP id d9443c01a7336-2ccea3d97b9mr20854425ad.20.1783510056847;
-        Wed, 08 Jul 2026 04:27:36 -0700 (PDT)
-Received: from [10.218.37.104] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3da55sm26512345ad.71.2026.07.08.04.27.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 04:27:36 -0700 (PDT)
-Message-ID: <059f8b92-6df0-4439-b3ff-1a270b5ee1b7@oss.qualcomm.com>
-Date: Wed, 8 Jul 2026 16:57:31 +0530
+        d=1e100.net; s=20251104; t=1783510260; x=1784115060;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=39lBDIePAL1NkZjwy0kg0GS1VSHJ5/FOzCIFnS8mpzM=;
+        b=lLLglarTbKrx8dRcuXjB8l2mGj8045OwBCJpZFG74PVsAjk8XLGNMu7sJ69sYCwtWF
+         5ktZJ+38o5MvK+oldmZ/J5lLt2I4TA3ig4pL5+M7uVwKUEIT9OQOMNKpHG+Z2wR+iq1D
+         z3yQbvXx5loj9G+r4jTZlffP48TAtkWBsqurw7cshV9mdOMuXhM0Nj4EFf60OXj/zAlo
+         P2nrSNBDM7zS/FzXcqmahl2/RMOEs6od1gcFDft2GqqKn1oCUVxIRAnWhLdRv3nRobAa
+         htG0u4KL+nBOMsKVIadLxLlCcD4rLAv4XVmggb3BD7QkBHhEkhVmyV8806UmTepku41v
+         4HIg==
+X-Forwarded-Encrypted: i=1; AHgh+RovHafoBk4wc1T1V2IHSlP66hTXV4OjThkZPyoIHeo+wuFeTDY2vOF7FQUatEEhYO/bGR4kt8itjPSn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxc80s1/OU9utGG+kz6D920F93vcZ3EgU2j9hlOKU7UAlCpxVhH
+	/hBAkfoYNK2Hjhw4e73Fm5stTyf2/kUwvHYOSFS1CKAk1gDV22VMwp3r
+X-Gm-Gg: AfdE7ckBMovIzxK8bXh+NTRks7tOuspVCisNPcnl2EzFJvkQMj4D45M8I4ZSJKKryFH
+	UKD/1wVHch70304EZwihEmaTqr2s5APQ8uneViTz+uRoeRqh7cMhieQFy3du9TdiFSmJnEBFMXM
+	P7OXqJ4HIBH8AgEvlCYcXp8zhoTYxDdD9HJKYGmfDCDwXuu8MazR6Qx4aOavomtyfETUHoPiwV0
+	/3953pYaNm0rSVh3CAM/DEU5zJ7w2aOSIEXL6tVT5Z0ayclWP4JvYmXJIog8OlkNEwkUrNGlOqG
+	xek+oJVgIKLjmspGJ7qD+siqXTfhWuf45bi6iGoLyk8WiZshT6ND7pJ0joLvJ70aWhKZ/q0O3h9
+	ctXJh/KxMAlSHIfiZsqOfaraCASUtiC6dgrol/IkRvoI5O6IJrdjZHSjvbTm+5GjcDRTed/sVf9
+	8gnHpBR1wnS0b7q8w=
+X-Received: by 2002:a05:6512:1417:b0:5ae:c8d9:dcf6 with SMTP id 2adb3069b0e04-5b011463131mr553458e87.37.1783510259389;
+        Wed, 08 Jul 2026 04:30:59 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13700fasm4437116e87.5.2026.07.08.04.30.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 04:30:58 -0700 (PDT)
+Date: Wed, 8 Jul 2026 12:32:00 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, 
+	Fred Chen <fredchen.openbmc@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>, Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>, 
+	Brian Chiang <chiang.brian@inventec.com>, Cosmo Chou <chou.cosmo@gmail.com>, 
+	Dixit Parmar <dixitparmar19@gmail.com>, Eddie James <eajames@linux.ibm.com>, 
+	Antoni Pokusinski <apokusinski01@gmail.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
+	Ashish Yadav <ashish.yadav@infineon.com>, Alexis Czezar Torreno <alexisczezar.torreno@analog.com>, 
+	Syed Arif <arif.syed@hpe.com>, ChiShih Tsai <tomtsai764@gmail.com>, 
+	Abdurrahman Hussain <abdurrahman@nexthop.ai>, Kim Seer Paller <kimseer.paller@analog.com>, 
+	Colin Huang <u8813345@gmail.com>, Yuxi Wang <Yuxi.Wang@monolithicpower.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices
+ MAX20912 and MAX20916
+Message-ID: <ak41BRQBNdsQrYww@nsa>
+References: <20260707122701.751878-1-fredchen.openbmc@gmail.com>
+ <20260707122701.751878-3-fredchen.openbmc@gmail.com>
+ <f9e32dd1-7c2c-4055-83fa-94683777e30b@roeck-us.net>
+ <ak4QO9uhKOt68dl1@nsa>
+ <20260708-true-carp-of-champagne-a0dcca@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] arm64: dts: qcom: eliza-cqs-evk: Enable sound card
- support with WSA8845 and DMIC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mohammad.rafi.shaik@oss.qualcomm.com,
-        ajay.nandam@oss.qualcomm.com
-References: <20260703083421.2736184-1-ravi.hothi@oss.qualcomm.com>
- <20260703083421.2736184-3-ravi.hothi@oss.qualcomm.com>
- <bbd86b28-b6e7-4483-93a1-bac96c2dba43@oss.qualcomm.com>
-Content-Language: en-US
-From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
-In-Reply-To: <bbd86b28-b6e7-4483-93a1-bac96c2dba43@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDExMCBTYWx0ZWRfX9rvGKLP/Wkvn
- HJp0HBLDq7wODbl7byS1L+szppcIgYgdWlOJwhWtxdVQSTk7E66zfQVVTrp9JyGUgiggjmJfOdC
- Xk//g+azJmjxGfR3ohW0plV20Pgt/Hg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDExMCBTYWx0ZWRfX2dh78uHTFC1o
- DWoe6QkOKUtuDgqj9vyE515NwPIqSb3ZGT5E0vJcf4CCtnFwplngfYt0cPTtzXiX+KFB41Nizw/
- +ewpQyf+dkFrKTWzzVpdbL5DYk05BMA8HLPXilmpM7OadtpuE3QYfgxJIWcbpWfEskEAui+xO4O
- bbzV/qvVjV4RVgvRgC+b5ldqxYH7tF7w0sur1zJPOKHZKtiT+SX9iz2jRmQZUy0Ivn38fHDAQLr
- d3ejaMvvw1Mzu8enA0wQChOWu5KWLSDC/1YHhAPAiCKD15OZWTVZw7FwmlhUnpAkNo7dO3oBluA
- hzxzlYPvREbDCuE9xzakyNS8C/m8e7xR+9jIhEoRSHV0PfijNysde9lSoyjZMmrTZSLxLWfJteh
- 9ZU8t66jv31oOKT+iwI/6jpgT11BHjeQUMXYtkM/wBEObn0sO8+Stopo26EmzyrF7WzRj+LNoHO
- LNktTlbZJVICDFgvWWw==
-X-Proofpoint-ORIG-GUID: X3HKcL9lRaSm2G2ScOdkP50-gtirs8wV
-X-Authority-Analysis: v=2.4 cv=JLULdcKb c=1 sm=1 tr=0 ts=6a4e342a cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=c7AZHyT8zQvrOgSsV18A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: X3HKcL9lRaSm2G2ScOdkP50-gtirs8wV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_01,2026-07-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
- suspectscore=0 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080110
+In-Reply-To: <20260708-true-carp-of-champagne-a0dcca@quoll>
 
-
-
-On 7/7/2026 2:11 PM, Konrad Dybcio wrote:
-> On 7/1/26 7:43 PM, Ravi Hothi wrote:
->> Enable the sound card on the Eliza CQS EVK platform, including the
->> WSA8845 external speaker path and DMIC microphone capture via VA macro.
->>
->> Enable the required LPASS WSA macro, VA macro and SoundWire controller
->> along with the necessary pinctrl configurations for DMIC and WSA
->> SoundWire interfaces.
->>
->> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
->> ---
+On Wed, Jul 08, 2026 at 12:50:25PM +0200, Krzysztof Kozlowski wrote:
+> On Wed, Jul 08, 2026 at 10:19:56AM +0100, Nuno Sá wrote:
+> > On Tue, Jul 07, 2026 at 06:52:48AM -0700, Guenter Roeck wrote:
+> > > On 7/7/26 05:26, Fred Chen wrote:
+> > > > Add support for the Analog Devices MAX20912 and MAX20916 dual-output
+> > > > multiphase voltage regulators with PMBus interfaces.
+> > > > 
+> > > > Signed-off-by: Fred Chen <fredchen.openbmc@gmail.com>
+> > > 
+> > > Please provide evidence that those chips actually exist.
+> > > Internet search comes up blank. I'll need confirmation
+> > > from someone at Analog.
+> > 
+> > Hi Guenter,
+> > 
+> > Well, in fact I'm in the middle of preparing a series that adds support
+> > for:
+> > 
+> > "max20826"
+> > "max20855b"
+> > "max20908"
+> > "max20912"
+> > "max20916"
+> > 
+> > All the above parts have the datasheet under NDA. But before we had a
+> > one page "datasheet" in analog.com but I guess that is gone! For context
+> > I mainly did the base (core) driver for max20826 and then Alexis added
+> > the other ones.
+> > 
+> > Not sure how to proceed... I can wait and then work on top of what Fred
+> > has but this patch is very minimal when compared with what we have.
+> > Like:
+> > 
+> > * No regulator support;
+> > * No direct mode. The chip has two ways to access registers (paging and
+> > * direct mode).
+> > * No way to count how many phases we have or if RAIL_B (func[1]) is being used at
+> > all.
+> > 
+> > 
+> > Some other things more intriguing is that these chips, as far as I'm
+> > aware (at least for max20826), always have bit 2 set in ON_OFF_CONFIG so
+> > a gpio vout. Also we needed some special handling to read phase current
+> > which I'm not seeing in the driver. So I would like to understand how
+> > the chip was tested?
+> > 
+> > Anyways, if Fred is ok with it I can just finish what I'm doing and send
+> > the patches. It would make sense to have something more complete on
+> > submission but I don't want to just "steal" the work already done.
 > 
-> [...]
-> 
->> +&lpass_vamacro {
->> +	status = "okay";
-> 
-> 'status' should be the last property (let's also keep an \n before
-> it) - file-wide
+> Binding should be in such case posted complete, so probably not a
+> trivial device.
 
-ACK, Will update in next version.
+Yes, in my series bindings are not in trivial as we support the enable
+gpios.
 
-Thanks,
-Ravi Hothi
-
-> 
-> [...]
-> 
->> +&pm7550_gpios {
->> +	dmic-eldo-en-hog {
->> +		gpio-hog;
->> +		gpios = <7 GPIO_ACTIVE_HIGH>;
->> +		output-high;
->> +		line-name = "dmic-eldo-en";
->> +	};
-> 
-> Why add a hog if you defined the regulator already?
-> 
-> Konrad
-> 
-
-The gpio-hog is the mechanism that actually drives PM7550 GPIO8 high at 
-boot to enable the ELDO hardware. This GPIO enable is required to enable 
-the ELDO regulator which is powering the MIC BIAS supply.
-The regulator-fixed driver with empty fixed_voltage_ops has no 
-.enable()/.disable() callbacks — it cannot toggle the GPIO. The 
-dmic_eldo regulator node is needed to correctly describe the supply 
-chain to the VA macro driver (vdd-micb-supply) and for power tracking, 
-but it cannot control the GPIO itself. Both are needed for different 
-purposes.
-
-Thanks,
-Ravi Hothi
-
+- Nuno Sá
