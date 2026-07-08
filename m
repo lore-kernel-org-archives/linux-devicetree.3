@@ -1,201 +1,270 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513B142DA26
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18BA42DA37
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783527825; cv=none; b=A6WFnNokjA2+PuH5TMIe07SZLdQoE2ZnXggKw5AzJlHgTXk+/x9k8ezYEi+fIBZxwWW+2uxgcsNsV15/A0fGPQCJqQtCcBc4U8e0SGUwhZjyUBdqUgk6BfClzl2D1vAlnrbRn57MEj4cBANTMNvEKyHmseuR5+QqwbwgZfqclLU=
+	t=1783527912; cv=none; b=F/h/1xI1XPQEDzH479vNC/n4KieeeECyKo5bz/rxbKepSI6IuJqGBEGTq+qZWxsH+agaOVo+P7Pq+opybA+bL2daSf5CgZhZhRPSTkK55u1nhf4tjr9DEDM2E85iPfNJcyA/l7JnO9xPmY0CAR9BfedZ7N5XAO+TyvBoojjnpu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783527825; c=relaxed/simple;
-	bh=8azP0Cijh1nnaagGzwRqUiPDjacYh/Giv4QUGa1YjZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s/O6iEKJ/WWLydqz7ymGsD6Qm0pYpynyiMTK4YZqW6+OTwFe+zvxeFajsB0RzgPRNRu04PYxs5UOKMuFKXPgsotfRzkLHY0bRk1IEc40xaTTysppd/HLbWvXS7rdPyESD/62B7DjOl2TF/qstz/9p6AD8EARHI0j9TYjiz49opw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NeFfCW/5; arc=none smtp.client-ip=209.85.214.169
+	s=arc-20240116; t=1783527912; c=relaxed/simple;
+	bh=Y9gAqWT8nIFFmj8ROh62A1gTksGLsatZQYucfa6/WeA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c1IsnD0mAptaEjG3jNrqhP1t/QLGmOpd8G/yj3ZhMG9dmrDmighhdfMMqVLfyQjIKR2YnTsT84o2qcYDIOTFa25OjH0eZU2bXOAsATYbpf0Ic5UTM1iR+DI6ACD6kH9T0RwqdodeXHBbIjTdIf2QJbDn4fKGPMl3g+ou6ZWsHAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UB3gY70u; arc=none smtp.client-ip=209.85.167.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NeFfCW/5"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cacd69a9c0so11622075ad.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:23:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UB3gY70u"
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5aeb40ebefbso239410e87.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:25:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783527824; x=1784132624; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MJyOd6fr7Ceor1quC3ITK7yhzshrFTskwqPW5tLgVUo=;
-        b=NeFfCW/5jHuCuALUsTeOA5DH52BkVTcpvarJm1mguF5Fk2/qJd6sBo8VmLz+QoxLwv
-         HVyHIWNkV2n/2medWI01pvhuGMQX5XKmhYfTV4LU9KWT3X8yiMl+s+QnXc4ekOw8eJjD
-         hH6ULsuaDGELEyJa3FOFcgBwraVmeTrv7HKjnrv0fovtCtz+AlgUphx0E9EyHP77S2cQ
-         gi/pXeLsHb992f7xLNiBhFlf5rxXksML950voh3rEzbgtcuxbg0Sy6glTdTTi+DGajSJ
-         u3dtUzvMXLMho/zFQhrE8R5DBq9HyAOqbZ9IzvBKAC0rF/b+WH5sPLRNYFiLGNXH39FQ
-         HARg==
+        d=linaro.org; s=google; t=1783527909; x=1784132709; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bI8bxULPVuuKF+NUa/BzsFjIzfQczSe5b/Q97O2fZ7A=;
+        b=UB3gY70uk9ZjUH4FiwDjQsMlA58EQjAGZ6qIRj828FHRVlNFpcr1r9kLNtTibMzKvW
+         ktZsy9sMIUmFFnM/PucPZoR2A4RIXwy7WRe2iNPKKGZNdpEJ2zgWzdmW45IWUVB9z6Xl
+         8z5ssKXJ84udw67U2oB5mB1d1jfg9sZDFGKspNHw59nZLDxVVpDjByaxN6H7dyTrOQ6p
+         +GcOoc+v7+yROvREMcs3h7AQZ+lxD8yTynGTFnkx4Naqsp6B872HPQ1tj5QiEhzzZJol
+         j4x4vZsz7zQ2QVU0E8vHtXG07eap5wehHYLwygxm4vYzqM0lRgUMuT0Qqsg1GkK9ozV5
+         ot2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783527824; x=1784132624;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1783527909; x=1784132709;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MJyOd6fr7Ceor1quC3ITK7yhzshrFTskwqPW5tLgVUo=;
-        b=KHh5zofC7cvPLq8cLQxkt2RGfyXs75HAp8PR+mBEciz5ImxHI1l2ebFMPTW6iGqoPb
-         IVsdvbsuR2TfFa3149yGo+j/YJPhN1L+5mOYB70YKGVceT6tkuxgw3oZuz44Uxys2Gtt
-         2xMuFAXOcmOQ4Ktw4/RgBtwF65AkgAMGe0ive+3d0ei6MCSs+PS3YYhGeeERCczSbljq
-         hNYlIar1CR8vbZYYvhkSwfp4JvZ04scRo9y5CEJPAkasoNsAHvRGH5v3s63KRxAVjkM+
-         wi2n0CvAguUdOgkRiE5O4Nk6M0pMAXgDO7HUyYTXpPF26uQZqU/G5t+fHDTRGK6nHFCI
-         EaiQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqxHyB8Ho8PMo0hXklsT7Z8RO0t+dRD9qtVWLIcknNldCSZehgt2bW6fc6asV7CtWkrXnlCsI7Gy34B@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZ7t1J01P1qz7ZHKCq9pL/+8/eS7Gf5/reSttV81P4K/Inp4zP
-	rGT2e2K1CfNpiei+AJtrRgdWzS8VzM/rLExojKWdikiiBYphSW13Ut9vQE/E2yPV22k=
-X-Gm-Gg: AfdE7cnXFJUgFt0HMER9UBCuPeao9RYaQokD2nGb8MaGsOOi0KxsHV3LnGVYlfML8jY
-	52UZT5NeUgXEgXDJsiLX1g1Jv3ynsT7vME9BVV4HZ7MTFORvkBsSfpBU9gcgsbCVLvFbY2KAykd
-	c0H+IvvJXAQf8i7TAIM02+yuSKKn6qq0sgeLfESF6jEwzfsZXRwUrG7G57XCXC5mZWtfZ/T/rLU
-	BI23Ip5rn1m7uUE1sScIE4bKuqySE1xuYY8Sk8If3r/zFSrBD9fUIG2Q8ORcoVqZDDapatGYlA9
-	nToLVj7yYx/PKrVj5S4YB31SvOAioFk0OnHdsUyLW7izqYZe/plmPjS285LyjneKnmUjkOtyFc6
-	sOmDUBrZLhdZWFWjaeAKBJA+NfnAXN1KWHXHKyv9U3Tewu1jeBeRu7sRNODdp15n7tE6+ZNR5xc
-	p/un9kk4TkFdg8dYg0
-X-Received: by 2002:a17:902:c94e:b0:2ca:4cfd:a6df with SMTP id d9443c01a7336-2ccea45f347mr36685055ad.43.1783527823391;
-        Wed, 08 Jul 2026 09:23:43 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:da71:a4fe:1ac2:9750])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb73asm30310015ad.17.2026.07.08.09.23.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 09:23:42 -0700 (PDT)
-Date: Wed, 8 Jul 2026 10:23:40 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Michal Simek <michal.simek@amd.com>
-Cc: Ben Levinsky <ben.levinsky@amd.com>, andersson@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-Subject: Re: [PATCH v4 2/2] remoteproc: add AMD BRAM-based remote processor
- driver
-Message-ID: <ak55jBBfQMJ71Afj@p14s>
-References: <20260629164003.3940208-1-ben.levinsky@amd.com>
- <20260629164003.3940208-3-ben.levinsky@amd.com>
- <akfl1Uhn9QHRwE6n@p14s>
- <30c8d353-f0ec-4ee2-bbaa-0d21e2b985f1@amd.com>
+        bh=bI8bxULPVuuKF+NUa/BzsFjIzfQczSe5b/Q97O2fZ7A=;
+        b=SVzyG3KO15LQJHY8UZU9eFa+F/YKVo6IT9OaxKj/65mWahqrPOhEisrdwI9QIWImkC
+         ZVdw78R41DO1Nk0DbatmaGqzTlvdz+iPpNgkShhJEqBFPZSBARFFd2BqNg/Ea16TOAFe
+         ewzRNkCAnuzUUaG6TjexdNgkSR38BXkDSbWYkOYogDfSssibX7rwwA7QlNrDkm1E2AM4
+         gAyfgFak4x+Czp1ACeT1edlxiwSqYCyulm3niOBm/M8j22+26slp03jEnYx0mDbn0+ga
+         Nr0ndz5UHhvo8vIELgafYkW7FN1XxxGExJJF+bAZ3wxwsOTNEBauUv/uzlrIpabUEPes
+         HnFw==
+X-Forwarded-Encrypted: i=1; AHgh+RoJ2Gnlfdi0JXimAoX48SAiNxhQSAQMxkeLwunbtOTTu2+joqxgbC8G+T3TAHFfdOnd2HBl3mQJC8BR@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCJ8C30lZey9CYNUqAk4Lc1ihPCvI/eB7ynCWfTfhc/F6zH4nT
+	ziLPA4ZdhRnJV7sqavl7mosbPAmG9wb6FjicdR7+vSZ5tzDVCUWsyzqOYY6Ns2N140I=
+X-Gm-Gg: AfdE7cmjHJF06aMujKDOwuM5k1Kp3pgc0Un1jW6+6GS33L1Mjq2Y4SKa6qulpX/SDZG
+	HWHFuchATJJ5e9k+bgfSn04kHo/SRDZfC7TWiYqLWo9/OOJsN16r1KI2wZT4QTfxS/DCkPpVaxy
+	M066NHiCRhbJYAunO0BuM7YmCWFHEw+FGnUx6zV7bbxqQnDzxmOQJ+lY6TtxNfp5YxjPAp29mHS
+	PqbC+F7pPQm9AfRno9q2dGnsBBjAdTYZv6uVHtjVilS2h8l8Jl8MGyVvXAAVcr+H6FQyBuI3gIh
+	i1recQjbf6t28V3sicXzatKCzeJvZczR2L5nagX2ox3842DkLkijRnvHMmUBXNwTUuIiquX26LI
+	VN28AFvmk81P1P4MQlMwa+N3GL5u3vZr2JGJu6YHJehOzNd/4yy7hBn1w3t0Va6FBbB4GH+blGU
+	kH13ACKUsnclQe2s1/FBbdztOKLr+6zPIL2H84M3zXEwAVBeODIARKYxyT93teey092xY=
+X-Received: by 2002:a05:6512:1292:b0:5ae:cfd3:4753 with SMTP id 2adb3069b0e04-5b01145a409mr457052e87.3.1783527908746;
+        Wed, 08 Jul 2026 09:25:08 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed1377096sm4537514e87.25.2026.07.08.09.25.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 09:25:08 -0700 (PDT)
+Message-ID: <9af2a2b7-1aa2-49b9-bdd1-1ab37cce91ea@linaro.org>
+Date: Wed, 8 Jul 2026 19:25:07 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <30c8d353-f0ec-4ee2-bbaa-0d21e2b985f1@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+To: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, bryan.odonoghue@linaro.org,
+ loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
+ <51a0abf2-2a72-4551-894b-2c2de91ba0c2@linaro.org>
+ <74a5b549-987c-4dac-a1a0-ff81150cd6ab@oss.qualcomm.com>
+ <56f1fd7e-42bc-4034-81dc-302cb7c22951@linaro.org>
+ <dd34b44d-396e-4267-b383-e4f8d20f8ef4@oss.qualcomm.com>
+ <fffc51f1-9137-4951-b9b8-9f7f263c7878@linaro.org>
+ <wwk4nyczcecnllwivqd2lgnbpzboumtwigk3vmundsvgqtqpy7@duq6zdulc7sc>
+ <74608907-dc8a-42c5-b188-0bdb08d6be77@linaro.org>
+ <0e9de1c7-2e39-463f-b4db-f228f37a8a13@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <0e9de1c7-2e39-463f-b4db-f228f37a8a13@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 07, 2026 at 10:59:55AM +0200, Michal Simek wrote:
+On 7/8/26 18:44, Gjorgji Rosikopulos (Consultant) wrote:
+> Hi Vlad, Dmitry
 > 
+> On 7/8/2026 3:01 PM, Vladimir Zapolskiy wrote:
+>> On 7/8/26 14:35, Dmitry Baryshkov wrote:
+>>> On Wed, Jul 08, 2026 at 01:28:46PM +0300, Vladimir Zapolskiy wrote:
+>>>> Hi Gjorgji.
+>>>>
+>>>> On 7/8/26 12:32, Gjorgji Rosikopulos (Consultant) wrote:
+>>>>> Hi Vlad,
+>>>>>
+>>>>> On 7/8/2026 11:47 AM, Vladimir Zapolskiy wrote:
+>>>>>> Hi Gjorgji.
+>>>>>>
+>>>>>> On 7/7/26 16:24, Gjorgji Rosikopulos (Consultant) wrote:
+>>>>>>> Hi Vlad,
+>>>>>>>
+>>>>>>> On 7/6/2026 10:46 AM, Vladimir Zapolskiy wrote:
+>>>>>>> <snip>
+>>>>>>>>>
+>>>>>>>>> +            interconnects = <&gem_noc MASTER_AMPSS_M0
+>>>>>>>>> QCOM_ICC_TAG_ACTIVE_ONLY
+>>>>>>>>> +                             &config_noc SLAVE_CAMERA_CFG
+>>>>>>>>> QCOM_ICC_TAG_ACTIVE_ONLY>,
+>>>>>>>>> +                            <&mmss_noc MASTER_CAMNOC_HF
+>>>>>>>>> QCOM_ICC_TAG_ALWAYS
+>>>>>>>>> +                             &mc_virt SLAVE_EBI_CH0
+>>>>>>>>> QCOM_ICC_TAG_ALWAYS>,
+>>>>>>>>> +                            <&mmss_noc MASTER_CAMNOC_SF
+>>>>>>>>> QCOM_ICC_TAG_ALWAYS
+>>>>>>>>> +                             &mc_virt SLAVE_EBI_CH0
+>>>>>>>>> QCOM_ICC_TAG_ALWAYS>;
+>>>>>>>>> +            interconnect-names = "cpu-cfg",
+>>>>>>>>> +                                 "hf-mnoc",
+>>>>>>>>> +                                 "sf-mnoc";
+>>>>>>>>
+>>>>>>>> This is the topic, which may raise a disagreement, but I'll repeat my
+>>>>>>>> position about the need to remove all "CAMSS bus" specific resources from
+>>>>>>>> the device node, they are found and should be allocated on parent's side.
+>>>>>>>
+>>>>>>> The interconnect has functionality to handle bw requests from different
+>>>>>>> clients.
+>>>>>>>
+>>>>>>> Yes the best will be to have camss interconnect, so jpeg and other hw's
+>>>>>>> to vote
+>>>>>>>
+>>>>>>> on that (actually it is possible in icc framework) but what is the
+>>>>>>> benefit of moving
+>>>>>>>
+>>>>>>> those to camss? Is it not better to create camss icc. I understand
+>>>>>>> you want them to be on parent side. But how to vote on bw? Most of the
+>>>>>>> time it
+>>>>>>
+>>>>>> Let's concentrate on hardware bindings description, no APIs, votes etc.
+>>>>>> at this point of discussion.
+>>>>> I agree but there should be an API for icc voting which Jpeg need to use,
+>>>>> currently it is fixed to some values, but voting need to become dynamic
+>>>>> at some point of time, because it depends on runtime parameters, resolution
+>>>>> format etc.>
+>>>>
+>>>> Sure, but I believe it's quite clear that any software implementation
+>>>> should be discussed only when the hardware description is fixed.
+>>>>
+>>>>>> There is SM8250 CAMSS device, which serves as a hierarchical parent (or
+>>>>>> could be considered as a "bus" device) to this new JPEG encoder device
+>>>>>> and probably to a number of future IPs under CAMSS. All CAMSS sub-devices
+>>>>>> get hardware descriptions as children device tree nodes of CAMSS parent
+>>>>>> device tree node naturally.
+>>>>> I agree the device tree is best to represent real hw topology. >
+>>>>
+>>>> Well, it's not just the best, it's the only possible way.
+>>>>
+>>>>>> Copying of the same identical information about clocks, interconnects
+>>>>>> and power domains from the hierarchical parent device to children devices
+>>>>>> is not needed, and practically it only lowers signal-to-noise ratio.
+>>>>> Here also i tend to agree.>
+>>>>>> Since information about the actual defect in hardware description is
+>>>>>> reported, the problem can and should be avoided, the handling of a better
+>>>>>> hardware description and dealing with any kind of complexity will be done
+>>>>>> in the CAMSS and/or CAMSS children drivers.
+>>>>>>
+>>>>>> If you need to get a bit more formal point of view on the matter, I'd
+>>>>>> prefer to see descriptions of hardware properties organised in a tree
+>>>>>> topology rather than in the originally proposed star topology. By doing
+>>>>>> it the system complexity is reduced from N to 1.
+>>>>>
+>>>>> Maybe I'm missing the whole picture of your proposal, but I want to add my
+>>>>> point of view on this matter.
+>>>>>
+>>>>> The JPEG encoder HW block has no dependency on the other processing HW
+>>>>> blocks in the camera subsystem
+>>>>>
+>>>>> It shares resources like camnoc, clocks, GDSC, etc.,
+>>>>> but does not share anything with the other HW processing blocks. For me,
+>>>>> the JPEG driver should not have SW architectural dependencies on CAMSS.
+>>>>
+>>>> To move forward there should be a clear answer to a simple question,
+>>>> does Qualcomm JPEG encoder IP belong to CAMSS group of devices or not?
+>>>>
+>>>> If no, then JPEG encoder device tree node shall be located outside of
+>>>> CAMSS device tree node, all resources needed for JPEG encoder device
+>>>> operation get their descrition in this stand-alone device tree node.
+>>>>
+>>>> If yes, then JPEG encoder device tree node is a child of CAMSS "bus"
+>>>> device tree node, and only resources specific to JPEG encoder device
+>>>> are described in its device tree node, because other resources are
+>>>> already described in the parent device tree node.
+>>>
+>>> 2c from my side (for both sides of the discussion). Please keep it
+>>> separate, if the block simply uses the resource which is also used by
+>>> the parent (e.g. there are no special requirements on the AHB or sleep
+>>> clocks) or if the device needs to actuall cast a vote on a particular
+>>> resource (e.g. for this to function at this performance level, the MMCX
+>>> needs to be at the turbo level OR for this to function at this
+>>> performance level it will use 123 MHz of the AXI clock). In the latter
+>>> case the resources must be described as a part of the device.
+>>>
+>>
+>> Even this "description as a part of the device" might be not quite
+>> necessary in whole, let me try to explain.
+>>
+>> No doubts resource usage policies specific to a child device should
+>> be naturally described in child device tree node, and it's applicable
+>> to any kind of hardware policies (like opp tables etc.), but a list
+>> of needed hardware resources still can be obtained (also by a driver)
+>> from the parent, whenever it is found applicable and unambiguous.
 > 
-> On 7/3/26 18:39, Mathieu Poirier wrote:
-> > Hi Ben,
-> > 
-> > On Mon, Jun 29, 2026 at 09:40:03AM -0700, Ben Levinsky wrote:
-> > > Add a remoteproc driver for AMD soft-core processor subsystems
-> > > instantiated in programmable logic and using dual-port BRAM for
-> > > firmware storage and execution.
-> > > 
-> > > The driver parses the firmware memory window from the remoteproc device
-> > > node's reg property, interprets that address and size in the
-> > > processor-local address space, and then uses standard devicetree
-> > > address translation through the parent bus ranges property to obtain
-> > > the corresponding Linux-visible system physical address.
-> > > 
-> > > The resulting translated region is registered as the executable
-> > > remoteproc carveout and coredump segment.
-> > > 
-> > > The processor is controlled through an active-low reset GPIO and a
-> > > subsystem clock. The clock is enabled before reset is released, and the
-> > > processor is kept in reset until firmware loading completes.
-> > > 
-> > > The firmware-name property is optional, allowing firmware to be
-> > > assigned later through the remoteproc framework. Firmware images
-> > > without a resource table are also accepted.
-> > > 
-> > > Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
-> > > ---
-> > >   drivers/remoteproc/Kconfig          |  11 ++
-> > >   drivers/remoteproc/Makefile         |   1 +
-> > >   drivers/remoteproc/amd_bram_rproc.c | 213 ++++++++++++++++++++++++++++
-> > >   3 files changed, 225 insertions(+)
-> > >   create mode 100644 drivers/remoteproc/amd_bram_rproc.c
-> > > 
-> > > diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> > > index c521c744e7db..58fa566b609f 100644
-> > > --- a/drivers/remoteproc/Kconfig
-> > > +++ b/drivers/remoteproc/Kconfig
-> > > @@ -23,6 +23,17 @@ config REMOTEPROC_CDEV
-> > >   	  It's safe to say N if you don't want to use this interface.
-> > > +config AMD_BRAM_REMOTEPROC
-> > > +	tristate "AMD BRAM-based remoteproc support"
-> > > +	depends on OF && COMMON_CLK && (GPIOLIB || COMPILE_TEST)
-> > > +	help
-> > > +	  Say y or m here to support a BRAM-based remote processor managed
-> > > +	  through the remoteproc framework.
-> > > +
-> > > +	  The processor is controlled through a reset GPIO and clock.
-> > > +
-> > 
-> > This last sentence doesn't belong here - please remove.
-> > 
-> > Looking at the bindings and this Kconfig I wonder why the emphasis of the naming
-> > convention, i.e "BRAM-based remoteproc" is placed on the kind of memory the
-> > remote processor is connected to rather than the remote processor itself.
-> > 
-> > Wouldn't it be better to have something like "AMD MicroBlaze/V remote
-> > processor"?  What happens when we get another AMD softcore that is completely
-> > different than MicroBlaze/V that is also connected to the same type of memory?
-> > 
-> > I'm good with the implemenation, I just wonder about the name...
+> If that is the intention than that can be done without significant
+> changes in the jpeg driver.
+>
+
+I won't expect any complexity on driver's side, but firstly it would make
+sense to get to the agreement how to describe hardware in a proper way.
+
+So far I haven't seen any technical objections to the approach I promote,
+and since it gives complete and simpler hardware description, it might be
+preferred over anything else, it's still under discussion though.
+
+>> This is to separate planes of hardware dependencies and policies/controls
+>> needed for hardware usage.
 > 
-> We started with very generic amd,bram-proc compatible string and then based
-> on discussion
-> https://lore.kernel.org/all/20260427162703.1644103-2-ben.levinsky@amd.com/
+> Currently JPEG is part of the "camera peripheral block and support" (CPAS) in
+> the "camera subsystem" (CAMSS), CCI is there as well. Then maybe we should move
+> i2c-qcom-cci into CAMSS. Note that CCI can be used without CAMSS, and it can be
+> used for some I2C peripheral devices which are not camera-related.
 
-Thanks for the link, it provides useful context.
+Pracical usage of CCI does not define its exact placement (grouping)
+on the SoC.
 
-> we got recommendation to treat is as soc specific instead of generic.
-> Which give us back to origin point if driver should be more soc specific or not.
+> Also, to reflect the exact HW configuration, maybe we need a CPAS sub-node.
 > 
-> I think no issue with AMD prefix.
+> One point of view: in the hardware configuration there are no dedicated
+> camera subsystem block (CAMSS) registers (based on my knowledge).
+> Those are a group of HW blocks belonging to the camera subsystem which share
+> some resources, including camnoc, clocks, GDSC, etc.
 
-Agreed.
+There is a number of dt bindings which introduce "Camera Subsystem" term,
+see qcom,x1e80100-camss.yaml or qcom,sm8250-camss.yaml etc. Whatever it
+is, and if there is a justification for such device tree binding to exist,
+it sounds it should be rationally and prudently exploited, for instance
+this node already holds phandles to "shared resources", this cannot be
+removed, but fortunately it can be reused.
 
-> 
-> BRAM - that's technology used for access. And I see value in symbol to state
-> it because access to different memory can be done differently too.
+> So, based on Vlad's proposal, the changes in the different drivers will just
+> be about where they take some resources from (parent device) or the current
+> device — so the changes in the drivers will not be significant.
 > 
 
-Agreed.
+I hope so, and my anticipation is that dt bindings will become simpler.
+If one day it becomes obvious that the properties I vote for removal are
+utterly needed, they can be added without breaking dtb to kernel ABI.
 
-> Shouldn't be there any soc string? This is for zynqmp, versal* SOCs that's
-> why hard to choose which one.
-> 
-
-Why not just adding a Zynqmp somewhere in there?  But admittedly, the relation
-between Zynqmp and MicroBlaze/V is unknown to me.
-
-> The driver is written in very generic way that if there is arm, mips, ppc,
-> different risc-v or others access will be the same. Our primary target is
-> obviously MicroBlaze/V and I don't think it is a problem to change
-> description to just reference them even it is technically possible to
-> connect different cpus too.
-> 
-> Is this enough?
-> 
-> -	tristate "AMD BRAM-based remoteproc support"
-> +	tristate "AMD MicroBlaze/V BRAM-based remoteproc support"
-
-Yes, that would be just fine. "AMD Zynqmp BRAM-based remoteproc support" would
-also work.
-
-> 
-> Are you fine with AMD_BRAM_REMOTEPROC symbol name?
-
-AMD_MBV_BRAM_REMOTEPROC or AMD_ZQ_BRAM_REMOTEPROC
-
-I'm good with anything that is slightly more descriptive, just pick the one that
-makes the most sense.  
-
-> 
-> Thanks,
-> Michal
+-- 
+Best wishes,
+Vladimir
