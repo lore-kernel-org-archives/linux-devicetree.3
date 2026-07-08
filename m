@@ -1,666 +1,147 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010050.outbound.protection.outlook.com [52.101.84.50])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F8436F903;
-	Wed,  8 Jul 2026 15:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783525570; cv=fail; b=cL5sQoEUT6DMXGYkxUGEwaNCyEYqvoFvGRLSkRs3Qv5m9k9KWpmrvWDmMkVD0TTzQdMPhfD2Srj/Cq2nRIBt9PBVI1HtcyNVt5y9z1iGMAIaFkubpv3dm7h+6IhBuSyQqc9F2T0srjFC9zpZlZTtdn8RfHXoprTXvJHIRbx6M0A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783525570; c=relaxed/simple;
-	bh=J2MKxzzf9Y1kZQGLl8WEPtYlIOn5p3D5Msjj3oG39DQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HaC+TVaG1VnMlsaBSDG4F1KcWVw4poyPBvUsM65R4UuK33bUxcyCQD0p7nI9QQd8OJQXsG3S+JabkFp1qqtNLeW6n1Gg+xR/yosdz+V9jQtwqo425TYjCAkZV3TK4OeJf3tCrdv2L/+MQYnQuS8YaQG0h4MV4LoftZncPPUhLc4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lo+1d8FK; arc=fail smtp.client-ip=52.101.84.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E84439354
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 15:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783525640; cv=none; b=h8vbbmRJCBNeYMfUNR0yjkfHqKJaISwYyxed+vrHR7CSS19y0oKLeCiBmUmJjpVnDOB9lMuPADb2ZlkfEyZr4HZ9vnD/BDuKF3HcOb69rbIrT+hbH2zZIP/gtiAqmpNy/JOaJuUFIClp5t/ALnRPCtu+XneK1QMHsp6kwUfB8Ic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783525640; c=relaxed/simple;
+	bh=Ay+Ukqa3pzCDaC6oLtgtPlXNXQzu2WpmsfhmZGnE6tM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y0rsqiiaG5ldcSItycA/Q++roGY07KupgXKumf8ntd6yQonGfd+tR015OvyXIvbkQP3NPIaVFiq5h0Zt/QZOCjeC+yfS6XIl/I3pKkLSA7zz3Uqu1Lft7PiRscQ+o8sl8v+kr543KuKSDWOln0JoNLoutrncQtFcjfJp+fsSV7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dWMuxsfp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iMRO/ZX/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lo+1d8FK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=khRoIUe79kDbIRe8estd/AIqR2iN6ByismAaDBvAtRkG68Gt6gwMeU7qh2IbZhxve0lfM8dYMw9FMtXShgoKMtfPPOI+/fYdkcJTwPbSD6ICd+Nj4int9IM/7x0YTRI3kqAolaSm5GmCH/QtqAZ5GSl3wdJ5ySyNdrzZ3MRLkRLaCKUG7kylyZ+Kr+zJsHPPFUIAqJzPVoFdaFE0GAxLLA+k9N1jSGM0Ai7Uf4v/G2I/jKXsurCba/A/w/dCibbNHSsk1YvVKBjMkA4F+yWchW04qP3n8MeUOVG4k1NG4uicW2qxd4LsyMOfk6OOvVdh4CvEk/nMM8Z7svqihT5lZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c800sQR4wMTgnSajSO8IcfOrG0O91BjeHezoA+CitR0=;
- b=hzKEVEOHle0wZF7GG6allbZjUnLJ6JocDju/AJfh1fk0WoRl2ALbUELuZex7nAlTVwYAH2uVzbE7+S1eg8LwPdG231DbNwRWAqydBEWYfXVPGId1e1YNpTzrtwcxuHrRslM4t/8kHLRVZrtoi6ZD1oaWyop8Tu5n2Pu/IJFiku8uuNqPnx+YVhkAH/DqdWjOzfBayJq9jesUYWh0Gs9tHUqFEO/AbkoXfHVf6gdWKkOVFFkAyhpbbxGgp0bRbyqeTditobv8pohQh6f3wcJRgE/R8k9Ozu8h3wIw+d6OTM7h83CgWwgDJqkNWCtcP6fre8O2nslLDQB+dQ1gGU4R/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c800sQR4wMTgnSajSO8IcfOrG0O91BjeHezoA+CitR0=;
- b=lo+1d8FKRutQsJjevtNneC15UNoBNZX+cOb78QAY3S9FHlXJvbToMUyHdd9IItWyRGDlE3XbBFMjfKKkki61/F7pqmLpmKJkMbVStGA0mgpoESy6He5nfDF8P85Ylnm0kepsiiaP1Ty6UFc6r26cJ0HWGiss9FoWJ2EuI2B3iCKR7IK91hyWcXNRLEJYNhmsEpD9aZbzA9wDdyrXLAELZVZaKu26qvqIQVwedOpwVm+k0DHY50NCfquvRqxYxMorQghatYPlSzhVIEniUQCfxO0S0hRvNdnUeUvVdd92A1BnL+FZQGMuHKb8uPiu4KjkX1ez8bj5eNU0UdcOebPxsg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB11001.eurprd04.prod.outlook.com (2603:10a6:800:27d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 8 Jul 2026
- 15:46:01 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 8 Jul 2026
- 15:46:01 +0000
-Date: Wed, 8 Jul 2026 11:45:51 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: =?utf-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>
-Cc: Frank Li <Frank.li@nxp.com>,
-	"linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
-	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linusw@kernel.org" <linusw@kernel.org>,
-	"brgl@kernel.org" <brgl@kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	=?utf-8?B?546L54Kc?= <wei_wang@realsil.com.cn>
-Subject: Re: [PATCH 1/2] dt-bindings: i3c: add binding for Realtek RTS490x
- I3C HUB
-Message-ID: <ak5wr3UopGMyNC0c@lizhi-Precision-Tower-5810>
-References: <57df140e88484ce6acb1c5c2360ebe40@realsil.com.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <57df140e88484ce6acb1c5c2360ebe40@realsil.com.cn>
-X-ClientProxiedBy: PH0P220CA0026.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:d3::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dWMuxsfp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iMRO/ZX/"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668C43sV2752166
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 15:47:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=sx7FMxQAqFR+iHVGYKMVEDh3
+	O+yKM78hrnZrIOQBhoM=; b=dWMuxsfpjQaHeGXIcIx3SxqfZmvh8VPG9GXRb70Z
+	TBNsC3thjdWSizfnvIFg0vIzQFVWwcqmbKL9YGjkyWfMFp87TOumsX75ldtTmjFT
+	6kdUUHKG5fqQcAVwErxNoglDiCpJM3xNmItMGGWTmSVGlc3hL6tCvbFq2CDFLLyN
+	Kvvh2KRa0OwafRfBCvj1vX4ifWUJmGGMtBnpHFD8a0jwFVaSQFueCIqpJTPdrkxS
+	V0tgtPhGW5J8yFYNh17KQkRETDs+wEis2UIQkgLlOL7+AbAjgX6N5xKupnHsHrO1
+	TwjTYCY2mz0ijzRbTJqSwwMFM+uHioQyby620ip9P/BtgA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9cssu8u2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 15:47:17 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-96939fcd33dso191169241.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 08:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783525637; x=1784130437; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sx7FMxQAqFR+iHVGYKMVEDh3O+yKM78hrnZrIOQBhoM=;
+        b=iMRO/ZX/6Ue7VNIw2j2TMbx+MIiVuy6szYgIBUQdkfIwDvbZXtXcUIfwyZnhFbO18i
+         QI0KzLps1ARknRfUCUHrDvJuISZ8bgPLM6K8w7RP8H0DS68rKiC0HTuDCfr0YLLOJWiI
+         igK9pYz6LMgMMQi7WfmT/xQdTMGuiXRCK8pfk68NBnQt8TtZyqy8tKc34cSSx/jSwKtT
+         389doBjEiJ6DD1KZUwWy3sMQrEG//AEJL5q4hGABipDpCFB9UP7BPzgyzwBH8F7/YQJk
+         n8I3brUx6/Q1rNaFSP5uit1EcCDjbB63O2CMxb/Wh+6N7PoPAtu0QBmVamNEsV656nWR
+         TZzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783525637; x=1784130437;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sx7FMxQAqFR+iHVGYKMVEDh3O+yKM78hrnZrIOQBhoM=;
+        b=MITlMR/94axKggTKaydnAlkDBoceXo7PILOl/7ZAKal15xwUJp8AzdBOI1IQq4J+4P
+         W8Zb+cr6nhsWZ4/JIFdr+dY7NY1MoWgBfyiEQTZOtcicLNkYq+YRsrnpUrf465aQ0ler
+         QRYHuY6bRUdeOs8liB1x7455IZpbyv1CDOKL0FtJ4NOgKoMozp57HHUOYI4JxH+GIzA0
+         CtNpX4wW+n5KjNUVfCxtbI+ItAp5UN/ZsSuBZB1if04hHcQXIzBUMvd7kUXEVc+9PSa5
+         oUFToBAuqTRUWYxckHJrtBwy/I1FadxcW4C4kjogtznfhzn/LCNcFRfrx6Rjs8yKvSpl
+         MdbA==
+X-Forwarded-Encrypted: i=1; AHgh+RqazXBdwEL9ODwbLqcSG/NZCsHeeWjtRS49/F3oj5OA2+V/iVGUmKsg2VZCp4DSuVB0L6XotYK1da+9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy96EfsITiVpA5B5mhk/QxOzTRoOd3LR+9u32TZEmPxbizhNFVT
+	wUejmTJ+Gg8HlG2bfmRYpbNLMKRAfHtUtSumE+oHszoyvPqa7N4rgD4yAkXhpWM0g3nuTBqGcdi
+	kQn3iq9FmBqkeCZyyzJLbjT+n2IXz1SiDlOz4Z6JevP6W4XP6Nmv/lm5V47pIboJ6
+X-Gm-Gg: AfdE7clFqKfLh7wAaYpM9OiwXub1U8iB138zEdDX7JoEf1FY/jMwNgz5l9avcvv1TTh
+	Fn0SVFv+OtSZNeIGPQ7S5LTm8wQD69Wg51aIosU06ZixPLZMdP2Eboxu78DmQfz0LwbF9yBNkII
+	EzBLy5YnGup6H12K7nBZz4DA20hDfptDmeUprJU2BE96tCIf6p6rBq/S6kz0DZGk5HU9FRlHoTL
+	FlVg3B+H7k9wzAgwvldR6xG1A+9UNStRZOgwTNvXJjp4sQozygKHktTiJGZzdixzdk/qfcn+chH
+	KU7s5guHh8CF5yU0d2JN5clwWJKX31aLwREjP28Wnn6D0KvCuSPqq0zZN9TaniXu8WozU0D2i3r
+	1bLm+DqdxqPKNjGdbA5zpyEpVBZHDqZZ6cMjXVckJmhjcnZ40PW2AmiGLcHdoyvL7gr4cn3+76E
+	Xpy2I9lupyUCt4L3+iO9pFybWi
+X-Received: by 2002:a05:6102:5984:b0:738:be73:55e0 with SMTP id ada2fe7eead31-744dffae44emr1608169137.12.1783525636532;
+        Wed, 08 Jul 2026 08:47:16 -0700 (PDT)
+X-Received: by 2002:a05:6102:5984:b0:738:be73:55e0 with SMTP id ada2fe7eead31-744dffae44emr1608142137.12.1783525635802;
+        Wed, 08 Jul 2026 08:47:15 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed136f8e7sm4659097e87.15.2026.07.08.08.47.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 08:47:14 -0700 (PDT)
+Date: Wed, 8 Jul 2026 18:47:12 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-arduino-monza: Add GPIO line
+ names
+Message-ID: <wp4u6kmfjekku3ug7andsz3weyyeqeqxulv3btedou37jhyxie@4x6ncfiqqix2>
+References: <20260708-gpio-names-v1-1-9162105b9971@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB11001:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18a9c721-e7db-4cb8-ea26-08dedd080299
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|19092799006|1800799024|366016|13003099007|18002099003|22082099003|3023799007|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	jEp0uH1faykghosd1rA6Et8W02IFshxMpnbkJnQXU7c6/o+iADbOMLiiPEaducU6ACfDmNs7uSrBJ998qLNhD1fHbPYXFL/eJgphdyOm87DluTnQZNqlqtQp3of4i3wNzGMJkA860VTzxkHf2q4q9DipBCtPxjwu4YUVbed/KCNIKM4mjxa0XUUgkqkWexSlG2cSyEOk07XbjqHduOxZDrmv2Hs7NnF77ObQLmt4g25PbXYX0A0PJRnC5f39gnc7tmUBMrQaxe4mln2onueA8/omWcY0DGDhKTmvpHmdzbuc/0M+k0EM6VMue0/TrIuSmSLONLb4Jw+tsJqMe7WyzvtZNhwhPmWFn3YdZ2/0xfabJ8XIQplJDzm8Rnyp76X8fQu+tpE+/2NpshBM5kbm3EUsNw6FEd5JGkbzNcmqMKx2XO7BYdMH8/n1Y1+2orzgODpM61AiAIBlI4gkG8T/Gs6jflhUY9+RU+QKrUPx8tWXx+1sTpK4OsE/dgoolYrFh0X6h8Ur6CpAocO06Wd8rOpqVOwm3m8A8ceXpLMJtbYoAvLZf96oDyqilDd7BPKOrQsNGYT1V6MAxEhf0fXW7SeqPXTsge5bkLosOXiMgDuiNuojVuREPiOwf84nyCla
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(19092799006)(1800799024)(366016)(13003099007)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Ymh4N2NYMHI0VnM1YVRjTU8rNS96NVdlYk9mOVorODJtazFhay9IOFg0V25i?=
- =?utf-8?B?eXd1dDhMeTlTejBTNmgrOTJkRzR1cGdxRVpMMmtSK3ZNM3NYV3NBeGlISnZJ?=
- =?utf-8?B?b1ovclBmZS9SamNFd0dCKzhFKzh2a1VuWFdQdGFGbWpkVExoR1p1OE1GN281?=
- =?utf-8?B?cVlORHZzdkFGUkNLYnBXdUpyemp2MnpxOFE1My9sOVpEelJiOHl6U1o5QnpM?=
- =?utf-8?B?VytZVlVNYUFkSU1wYUwrN1hTOEpEdlRQZ0dKcTBPYnM4QlZabkhIWnd5dTl6?=
- =?utf-8?B?QnVuZXRyaEF6cWJXd0xLSzEzSVUzMWV3WW96ZkZ4eGpZMzUrZ3hXeEtsMkEx?=
- =?utf-8?B?MmtRdnhBU0d3MENTSWpkaDBMdWlkMFgxZ1UwUTdVSktBcXpmdGRyaWNlMS8z?=
- =?utf-8?B?WWIxNk5KdGhPdThIZStyWGpxdUZjbXNYUGNnMEVxdGdYamUzNzFURHpsZTA0?=
- =?utf-8?B?ZVBPSTJadGNqMWxmV3NydFlTWEFQRWc1WitEMkFoMnNDYTlwUlpSdUpMNDh2?=
- =?utf-8?B?OHNvY3dQazVYckJRdzZFNzRNTDNEam5nUUd5bmtZMk05UEdGYUpIR1RLY0RV?=
- =?utf-8?B?KzVjSW5ETGJ1aUI3dVNJTXBXN2dVakNaVGVQeGovUndOZ1ZzT2NQZWVTNlM2?=
- =?utf-8?B?RFh1M1Flc0pDNWg4OGdiYmF1cnhCTzduMVlpK3Y1RjNLZEJjbGx6MWtvRzd6?=
- =?utf-8?B?ZDVFVWFHU2tseFJWNHFLaHJ5UVBEcWtBS0hGa2hwZ3BoaEpqcXFKR3BDZHk5?=
- =?utf-8?B?aVJEWSt1YjdHM1pHODNOc2lQc3c2d3NPVkRlNjdnSE0rWUNIVXF0UEtqSWhO?=
- =?utf-8?B?ZStaTjlQeVlsTVJwdThScG8rQ1pVMHRCT2xxcms3am8yZW9vN3pJYUhxUDhu?=
- =?utf-8?B?eE43L1duY3NoWTlNamVnekdLYXdIYWI1STRSUlViSUgyNXlpbFhYSlZHSGZl?=
- =?utf-8?B?NEpGQ0hTTm4xMzljMGl0b2JPZ1N2UWxjbU50SFp4YmtEZ0NUZzFKSExZS05U?=
- =?utf-8?B?MndreGZ2VUpPaFptdFNNRDU0dDY1a2VSV2lCQnN2dGhjSk5JdjhEL0w3aENu?=
- =?utf-8?B?elRleUpaME9sUVJaWXJqak8xNFZDMVNJRU9nYlZlN0h1QWJnbG5Wak9Rdm4y?=
- =?utf-8?B?RldHWVhpdDRiRzdyMXJ1bXBVNjBzNlBqNDVsU09mSzJkamptZWp2R0Vzdjlh?=
- =?utf-8?B?bDVicWVCWWErMkxHQWkxMFdMYVNCVWpURWtnNklncnNTclRiZ0xRcVhPWWd6?=
- =?utf-8?B?VGtGZ0ZGQUROWHhMckhhME5LOC9iQWgzU3dQNHpDT0lRU0xRSTVNck15Vlp1?=
- =?utf-8?B?UGQxUnhFb3V4MzFMdGFWc1dBbENvaWVLRlVrcTdVakprZWJaNmdZbWMxa0gy?=
- =?utf-8?B?QVlabDFIb08yN0pvQUwxRDBwUHhSRFpqUnpaZkd4cDBqWi93NlJYRnA2OTFV?=
- =?utf-8?B?anl2KzQyVUpIUTZPTnNPYzN0ODdkdzlXT1pnbXFIUHVGZjZpVG1tK3g0d3lF?=
- =?utf-8?B?YVY5SmIwYzNucG4rbTh1cFFkalRaOFNvd0djZkZJVlFaY3lPQU55bEJLcDZn?=
- =?utf-8?B?TEdJNEUvZVdiV2dlS1d2NGZUMCt5M3UvQzZ6c29EeXQxb2RVRGNTdk5yNldM?=
- =?utf-8?B?R0djdnR4Q0c0Q0s1eGxqeXovdVYzWnlNSWt2cm5jSXRSTEY2M0JucythQlRz?=
- =?utf-8?B?dHdqV2NIYXJiVzMvZEdYVDM3eUdhMGJJc2lYa3loSnBTbjgwcm5MMGhkczQ5?=
- =?utf-8?B?NzF0MTdXb3RlSzk4ZC9SREI2Ym9HcmxrV1h5WDc2RThWeVV5NnR6OTJsWXV4?=
- =?utf-8?B?eXBEdUFLQXdFQU9PWjY3SmoxSnVLK2pZUE83SmJRSjNLOXpyNmpVSElYNWZN?=
- =?utf-8?B?UnVqUFNBb3RqbEU2SEREQVNhQWhHVGxtdi8xaklnOGYrU21hS1BId2lGRnFD?=
- =?utf-8?B?akNlaEFBMjRENjlCbmdWTEE3ZnF0a0t2RnN5R1NQbFNwaU5ER3JxWnM0Q2NV?=
- =?utf-8?B?Mk1XYW5YNWt2U3I1dXdMbVJBdmJYR25EbmJ3U3RsalZlcmU0dW0zLzlnL1dE?=
- =?utf-8?B?Vm1oMWxTY01KYXlSQW9mV0hXY1dQN1ZsUGkwRTQyYzR4YjREUUtqdzlkK2Zm?=
- =?utf-8?B?M1RUUTBnaEtXbjVac1VISC9RY2RWUmpEYmxTY0hDVDVyeVdiQ0piU2c4NTU3?=
- =?utf-8?B?QUNkY01xSjJmZjdySTd0d1JvcDVZSmJnQU5RZ2ZETnlqUFZlMDZEYnJTc1dJ?=
- =?utf-8?B?MkJCRmhYc3BTWmQ3WG5FZDNKQjFqTWhaeEdiV2xpWk91emVDSFNiU284d0hK?=
- =?utf-8?B?U3hXV2RpVDFKOXZlTkllaHFOemY4cWJhVmxiTmREUHhabWcxOW1LZ2hsYUJD?=
- =?utf-8?Q?TupNRH5N3CANIxvo9vfxvWk5eyhF8tQY2USs0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18a9c721-e7db-4cb8-ea26-08dedd080299
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 15:46:00.9793
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WO7xOI/dPqepiN78zdknfWVSjJ8LWwCKt4fSoXtt4GtgTBnYUtoiQyWqiq/fU1Jx7DY/wTQQNL7TPsKzOfxbJBJZGQVKxRS4gcqyC9n/dfl/23cbRhma3azGWAGY0Wlj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB11001
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708-gpio-names-v1-1-9162105b9971@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=EtziaycA c=1 sm=1 tr=0 ts=6a4e7105 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=F2uzNt_Jvis__oCUEkcA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE1NSBTYWx0ZWRfXyWCTxaf/PbUn
+ MeRj+byKhRglySV/UQw2ZcQCTeeC8SDrW1QZo7nlJVBHctoLQbkDNufDxBxW+s4Uwxovxef5ecJ
+ iL7n021J3Lgvyv0cKS4lMIdL/N9OWlUtyRSUZ1+j7CLS1y8xVFWpraN/Urr+4SoQ1q59NwWY1hc
+ u1+NUFWGC6Ty7UxjIKWZaZJVxV27vaeYDQ664WzV+mVHSTMlhXzSgUe5Un5SGBIvZp2fe5A/NSF
+ 7fxpnL+vB5Gg+4gu5og8OjoJrgI+Ogk+IINg4iptPbOLHlW4TFU0nm1PZkGOf72B6mbZ0XM0wqf
+ /PpXBES3HocCrqiABQ4g7LQggnyaxjojL8wQfJBbtwrS3i8GmY5hckoRW74TBv2ynd7pY6PsAE8
+ yB/7IzRNwMVXV5BA7tjgWbphqwdkFwCYXiZAUZuP5s1hryInlFIElBqhlmv8SYGbppzO5NF8Kfw
+ cxHyUUCrXSnDiCbrAZw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE1NSBTYWx0ZWRfXwfdVU78XLZcS
+ jyTQ2hNYWkV5MDQS/zA45UV2pEEa4vhHppNl6AAx1lCz5WIfi3cltxkg36eW2vpGuD6pJTBXFqF
+ Bn+X8G/ACHPqTcmu0EWhfC7wxeZEB2U=
+X-Proofpoint-GUID: WWPQW6S9NQ5toTXx1NSidzxTNZVOcKF7
+X-Proofpoint-ORIG-GUID: WWPQW6S9NQ5toTXx1NSidzxTNZVOcKF7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607080155
 
-On Tue, Jul 07, 2026 at 07:28:28AM +0000, 周寅 wrote:
-> Hi Frank,
->
-> You previously suggested that the Realtek I3C hub driver should be based on
-> the common framework introduced by the NXP P3H2x4x hub series. We have been
-> tracking that series, and it has now reached v13:
->
->   https://lore.kernel.org/linux-i3c/20260701065755.2067793-1-lakshay.piplani@nxp.com/T/#t
->
-> From the current version, [PATCH v13 5/7] appears to contain the generic I3C
-> hub framework. It adds the common virtual I3C bus support for hub downstream
-> ports, mainly through drivers/i3c/hub.c and include/linux/i3c/hub.h, and does
-> not appear to depend on the NXP-specific P3H2x4x hardware implementation.
->
-> Would it make sense to split out this generic framework, together with the
-> required I3C core helper changes, so that it can be reviewed and stabilized
-> independently from the P3H2x4x hardware driver?
+On Wed, Jul 08, 2026 at 05:34:21PM +0200, Loic Poulain wrote:
+> Add gpio-line-names to the tlmm node to document the PIN functions on
+> on the VENTUNO Q board. This covers the different headers (JMISC, JHAT,
+> JOMEGA and JCTL), the flat connectors, and the SoC-to-MCU interface.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 28 +++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
 
-So far, I3C hub interface register defination is standard, I suppose P3H2x4x
-driver can work on RTS490x with little bit modify.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
->
-> This would allow the Realtek driver, and potentially other I3C hub drivers,
-> to move earlier to the common upstream framework.
->
-> If this direction sounds reasonable, we can rebase the Realtek driver on top
-> of the generic framework and help test the common hub code as well.
 
-Please base on v13 to continue your work. Some sashiko feedback need be
-addressed, it is quite close to land. If you can help test, it will help
-much.
-
-Frank
-
->
-> Best Regards，
-> Zain Zhou 周寅
-> Realsil Microelectronics CO. LTD.
-> E-mail✉ : zain_zhou@realsil.com.cn
->
->
-> -----邮件原件-----
-> 发件人: Frank Li <Frank.li@nxp.com>
-> 发送时间: 2026年5月5日 4:34
-> 收件人: 周寅 <zain_zhou@realsil.com.cn>
-> 抄送: linux-staging@lists.linux.dev; linux-i3c@lists.infradead.org; devicetree@vger.kernel.org; gregkh@linuxfoundation.org; alexandre.belloni@bootlin.com; robh@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org; linusw@kernel.org; brgl@kernel.org; linux-gpio@vger.kernel.org; linux-kernel@vger.kernel.org
-> 主题: Re: [PATCH 1/2] dt-bindings: i3c: add binding for Realtek RTS490x I3C HUB
->
->
-> External mail : This email originated from outside the organization. Do not reply, click links, or open attachments unless you recognize the sender and know the content is safe.
->
->
->
-> On Thu, Apr 30, 2026 at 08:13:53PM +0800, zain_zhou@realsil.com.cn wrote:
-> > From: zain_zhou <zain_zhou@realsil.com.cn>
-> >
-> > Add DT binding schema for Realtek RTS490x series I3C HUB devices.
-> >
-> > The binding describes configuration properties for:
-> >   - LDO enable/disable and voltage level per port group
-> >   - Pull-up resistance per port group
-> >   - IO driver strength per port
-> >   - Per target-port mode (I3C/SMBus/GPIO/disabled), pull-up,
-> >     IO mode, SMBus clock frequency and polling interval
-> >   - Hub network always-I3C mode
-> >   - Hardware identification via CSEL pin (id) and CP1 pins (id-cp1)
->
-> Please base on
-> https://lore.kernel.org/linux-i3c/20260420105222.1562243-1-lakshay.piplani@nxp.com/T/#t
->
-> which almost done!
->
-> Frank
->
-> >
-> > Signed-off-by: zain_zhou <zain_zhou@realsil.com.cn>
-> > ---
-> >  .../bindings/i3c/realtek,rts490x-i3c-hub.yaml | 410 ++++++++++++++++++
-> >  MAINTAINERS                                   |   6 +
-> >  2 files changed, 416 insertions(+)
-> >  create mode 100644
-> > Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> >
-> > diff --git
-> > a/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> > b/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> > new file mode 100644
-> > index 000000000000..30295eefee89
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.ya
-> > +++ ml
-> > @@ -0,0 +1,410 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) %YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/i3c/realtek,rts490x-i3c-hub.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: I3C HUB
-> > +
-> > +maintainers:
-> > +  - zain_zhou <zain_zhou@realsil.com.cn>
-> > +
-> > +description: |
-> > +  I3C HUB is smart device which provides multiple functionality:
-> > +  * enabling voltage compatibility across I3C Controller and Target
-> > +devices,
-> > +  * bus capacitance isolation
-> > +  * address conflict isolation
-> > +  * I3C port expansion
-> > +  * two controllers in a single I3C bus
-> > +  * I3C and SMBus device compatibility
-> > +  * GPIO expansion
-> > +
-> > +  Having such big number of features, there is a need to have some DT
-> > + knobs to tell the I3C HUB  driver which features shall be enabled
-> > + and how they shall be configured. I3C HUB driver read,  validate DT
-> > + knobs and set corresponding registers with the right way to satisfy user requests from  DT.
-> > +
-> > +  All the DT properties for I3C HUB are located under dedicated (for
-> > + I3C HUB) DT entry. I3C HUB DT  entry structure is aligned with regular I3C device DT entry described in i3c.yaml.
-> > +
-> > +allOf:
-> > +  - $ref: i3c.yaml#
-> > +
-> > +properties:
-> > +  $nodename:
-> > +    pattern: "^hub@0,0$"
-> > +
-> > +  cp0-ldo-en:
-> > +    enum:
-> > +      - disabled
-> > +      - enabled
-> > +    description: |
-> > +      I3C HUB Controller Port 0 LDO disabling/enabling setting. If enabled, voltage produced by
-> > +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> > +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> > +
-> > +      This property is optional. If not provided, LDO will be disabled.
-> > +
-> > +  cp1-ldo-en:
-> > +    enum:
-> > +      - disabled
-> > +      - enabled
-> > +    description: |
-> > +      I3C HUB Controller Port 1 LDO disabling/enabling setting. If enabled, voltage produced by
-> > +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> > +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> > +
-> > +      This property is optional. If not provided, LDO will be disabled.
-> > +
-> > +  tp0145-ldo-en:
-> > +    enum:
-> > +      - disabled
-> > +      - enabled
-> > +    description: |
-> > +      I3C HUB Target Ports 0/1/4/5 LDO disabling/enabling setting. If enabled, voltage produced by
-> > +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> > +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> > +
-> > +      This property is optional. If not provided, LDO will be disabled.
-> > +
-> > +  tp2367-ldo-en:
-> > +    enum:
-> > +      - disabled
-> > +      - enabled
-> > +    description: |
-> > +      I3C HUB Target Ports 2/3/6/7 LDO disabling/enabling setting. If enabled, voltage produced by
-> > +      on-die LDO will be available externally on dedicated pin. This option could be used to supply
-> > +      external pull-up resistors or for any other purpose which does not cross LDO capabilities.
-> > +
-> > +      This property is optional. If not provided, LDO will be disabled.
-> > +
-> > +  cp0-ldo-volt:
-> > +    enum:
-> > +      - 1.0V
-> > +      - 1.1V
-> > +      - 1.2V
-> > +      - 1.8V
-> > +    description: |
-> > +      I3C HUB Controller Port 0 LDO setting to control the Controller Port 1 voltage level. This
-> > +      property is optional.
-> > +
-> > +      If not provided, LDO configuration is not modified in I3C HUB.
-> > +
-> > +  cp1-ldo-volt:
-> > +    enum:
-> > +      - 1.0V
-> > +      - 1.1V
-> > +      - 1.2V
-> > +      - 1.8V
-> > +    description: |
-> > +      I3C HUB Controller Port 1 LDO setting to control the Controller Port 1 voltage level. This
-> > +      property is optional.
-> > +
-> > +      If not provided, LDO configuration is not modified in I3C HUB.
-> > +
-> > +  tp0145-ldo-volt:
-> > +    enum:
-> > +      - disabled
-> > +      - 1.0V
-> > +      - 1.1V
-> > +      - 1.2V
-> > +      - 1.8V
-> > +    description: |
-> > +      I3C HUB Target Ports 0/1/4/5 LDO setting to control the Target Ports 0/1/4/5 voltage level.
-> > +
-> > +      If not provided, LDO configuration is not modified in I3C HUB.
-> > +
-> > +  tp2367-ldo-volt:
-> > +    enum:
-> > +      - disabled
-> > +      - 1.0V
-> > +      - 1.1V
-> > +      - 1.2V
-> > +      - 1.8V
-> > +    description: |
-> > +      I3C HUB Target Ports 2/3/6/7 LDO setting to control the Target Ports 2/3/6/7 voltage level.
-> > +
-> > +      If not provided, LDO configuration is not modified in I3C HUB.
-> > +
-> > +  tp0145-pullup:
-> > +    enum:
-> > +      - disabled
-> > +      - 250R
-> > +      - 500R
-> > +      - 1k
-> > +      - 2k
-> > +    description: |
-> > +      I3C HUB Target Ports 0/1/4/5 pull-up setting to control the Target Ports 0/1/4/5 pull-up
-> > +      resistance level.
-> > +
-> > +      This property is optional. If not provided, pull-up configuration is not modified in I3C HUB.
-> > +
-> > +  tp2367-pullup:
-> > +    enum:
-> > +      - disabled
-> > +      - 250R
-> > +      - 500R
-> > +      - 1k
-> > +      - 2k
-> > +    description: |
-> > +      I3C HUB Target Ports 2/3/6/7 pull-up setting to control the Target Ports 2/3/6/7 pull-up
-> > +      resistance level.
-> > +
-> > +      This property is optional. If not provided, pull-up configuration is not modified in I3C HUB.
-> > +
-> > +  cp0-io-strength:
-> > +    enum:
-> > +      - 20Ohms
-> > +      - 30Ohms
-> > +      - 40Ohms
-> > +      - 50Ohms
-> > +    description: |
-> > +      I3C HUB Controller Port 0 IO strength setting to control the Controller Port 0 output driver
-> > +      strength.
-> > +
-> > +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> > +      HUB.
-> > +
-> > +  cp1-io-strength:
-> > +    enum:
-> > +      - 20Ohms
-> > +      - 30Ohms
-> > +      - 40Ohms
-> > +      - 50Ohms
-> > +    description: |
-> > +      I3C HUB Controller Port 1 IO strength setting to control the Controller Port 1 output driver
-> > +      strength.
-> > +
-> > +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> > +      HUB.
-> > +
-> > +  tp0145-io-strength:
-> > +    enum:
-> > +      - 20Ohms
-> > +      - 30Ohms
-> > +      - 40Ohms
-> > +      - 50Ohms
-> > +    description: |
-> > +      I3C HUB Target Ports 0/1/4/5 IO strength setting to control the Target Ports 0/1/4/5 output
-> > +      driver strength.
-> > +
-> > +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> > +      HUB.
-> > +
-> > +  tp2367-io-strength:
-> > +    enum:
-> > +      - 20Ohms
-> > +      - 30Ohms
-> > +      - 40Ohms
-> > +      - 50Ohms
-> > +    description: |
-> > +      I3C HUB Target Ports 2/3/6/7 IO strength setting to control the Target Ports 2/3/6/7 output
-> > +      driver strength.
-> > +
-> > +      This property is optional. If not provided, IO strength configuration is not modified in I3C
-> > +      HUB.
-> > +
-> > +  id:
-> > +    enum:
-> > +      - 0
-> > +      - 1
-> > +      - 3
-> > +    description: |
-> > +      I3C HUB ID based on CSEL pin. There are three possible values:
-> > +      0 - CP0 is selected as primary Controller Port
-> > +      1 - Primary Controller Port is selected by software by writing the REG#56
-> > +      3 - CP1 is selected as primary Controller Port
-> > +
-> > +      I3C HUB driver reads CSEL pin status (REG#121[5:4]) and tries to find DT node with matching
-> > +      value in 'id' property.
-> > +
-> > +      This property is optional. If not provided, DT node can only be used by the I3C HUB driver if
-> > +      there is no others with matching 'id' or 'id-cp1'. If there is a multiple DT nodes with no
-> > +      'id' property - the first one will be chosen by I3C HUB driver. If there is a multiple DT
-> > +      nodes with matching 'id' property - the first one will be chosen by I3C HUB driver.
-> > +
-> > +      If both 'id' and 'id-cp1' are available, DT node will chosen only when both values match those
-> > +      read from I3C HUB.
-> > +
-> > +  id-cp1:
-> > +    enum:
-> > +      - 0
-> > +      - 1
-> > +      - 2
-> > +      - 3
-> > +    description: |
-> > +      I3C HUB ID based on CP1 SDA and SCL pins state probed during power on.
-> > +
-> > +      I3C HUB driver reads CP1 SDA and SCL pin status and tries to find DT node with matching value
-> > +      in 'id-cp1' property.
-> > +
-> > +      This property is optional. If not provided, DT node can only be used by the I3C HUB
-> > +      driver if there is no others with matching 'id' or 'id-cp1'. If there is a multiple DT nodes
-> > +      with no 'id-cp1' property - the first one will be chosen by I3C HUB driver. If there is a
-> > +      multiple DT nodes with matching 'id-cp1' property - the first one will be chosen by I3C HUB
-> > +      driver.
-> > +
-> > +      If both 'id' and 'id-cp1' are available, DT node will chosen only when both values match those
-> > +      read from I3C HUB.
-> > +
-> > +patternProperties:
-> > +  "@[0-9]$":
-> > +    type: object
-> > +    description: |
-> > +      I3C HUB Target Port child, should be named:
-> > +target-port@<target-port-id>
-> > +
-> > +    properties:
-> > +      mode:
-> > +        enum:
-> > +          - disabled
-> > +          - i3c
-> > +          - smbus
-> > +          - gpio
-> > +        description: |
-> > +          I3C HUB Target Port mode setting to control Target Port functionality.
-> > +
-> > +          This property is optional. If not provided, Target Port mode configuration is not modified
-> > +          in I3C HUB.
-> > +
-> > +      pullup:
-> > +        enum:
-> > +          - disabled
-> > +          - enabled
-> > +        description: |
-> > +          I3C HUB Target Port pull-up setting to disable/enable Target Port pull-up.
-> > +
-> > +          This property is optional. If not provided, Target Port pull-up configuration is not
-> > +          modified in I3C HUB.
-> > +
-> > +      always-enable:
-> > +        type: boolean
-> > +        description: |
-> > +          I3C HUB Target Port settings to control the port enable/disable policy.
-> > +
-> > +          This property is optional. If not provided, Target Port is enabled only on accessing to
-> > +          the devices connected to it and the port is disabled automatically after the accessing
-> > +          is done. If provided, the Target Port is always enabled.
-> > +
-> > +      polling-interval-ms:
-> > +        type: uint32
-> > +        description: |
-> > +          I3C HUB Target Port SMBus polling interval in milliseconds.
-> > +
-> > +          This property is optional. If not provided or set to 0, polling is disabled and the driver
-> > +          uses IBI (In-Band Interrupts). If provided with a positive value, polling is enabled for
-> > +          this Target Port with the given period.Note: this positive value only affects the SMBus
-> > +          target agent polling. The SMBus controller agent polling interval is computed dynamically
-> > +          from clock and data length.
-> > +
-> > +      clock-frequency:
-> > +        type: uint32
-> > +        enum:
-> > +          - 100000
-> > +          - 200000
-> > +          - 400000
-> > +          - 1000000
-> > +        description: |
-> > +          I3C HUB Target Port SMBus clock frequency in Hz.
-> > +
-> > +          This property follows the standard I2C 'clock-frequency' semantics.
-> > +          Applies only when the Target Port mode is set to "smbus".
-> > +          Optional; if not provided, the driver uses 400000 Hz by default.
-> > +
-> > +additionalProperties: true
-> > +
-> > +examples:
-> > +  - |
-> > +    i3c-master@d040000 {
-> > +      #address-cells = <1>;
-> > +      #size-cells = <0>;
-> > +
-> > +      hub@0,0 {
-> > +        cp0-ldo-en = "disabled";
-> > +        cp1-ldo-en = "enabled";
-> > +        cp0-ldo-volt = "1.0V";
-> > +        cp1-ldo-volt = "1.1V";
-> > +        tp0145-ldo-en = "enabled";
-> > +        tp2367-ldo-en = "disabled";
-> > +        tp0145-ldo-volt = "1.2V";
-> > +        tp2367-ldo-volt = "1.8V";
-> > +        tp0145-pullup = "2k";
-> > +        tp2367-pullup = "500R";
-> > +        tp0145-io-strength = "50Ohms";
-> > +        tp2367-io-strength = "30Ohms";
-> > +        cp0-io-strength = "20Ohms";
-> > +        cp1-io-strength = "40Ohms";
-> > +
-> > +        target-port@0 {
-> > +          mode = "i3c";
-> > +          pullup = "enabled";
-> > +          always_enable;
-> > +        };
-> > +        target-port@1 {
-> > +          mode = "smbus";
-> > +          pullup = "enabled";
-> > +          clock-frequency = <1000000>;
-> > +          polling-interval-ms = <10>;
-> > +          backend@10{
-> > +              compatible = "i2c-slave-mqueue";
-> > +              reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-> > +          };
-> > +        };
-> > +        target-port@2 {
-> > +          mode = "gpio";
-> > +          pullup = "disabled";
-> > +        };
-> > +        target-port@3 {
-> > +          mode = "disabled";
-> > +          pullup = "disabled";
-> > +        };
-> > +      };
-> > +    };
-> > +
-> > +  - |
-> > +    i3c-master@d040000 {
-> > +      #address-cells = <1>;
-> > +      #size-cells = <0>;
-> > +
-> > +      hub@70,3C000000100 {
-> > +        reg = <0x70 0x3C0 0x00000100>;
-> > +        assigned-address = <0x70>;
-> > +        dcr = <0xC2>;
-> > +
-> > +        cp0-ldo-en = "disabled";
-> > +        cp1-ldo-en = "enabled";
-> > +        cp0-ldo-volt = "1.0V";
-> > +        cp1-ldo-volt = "1.1V";
-> > +        tp0145-ldo-en = "enabled";
-> > +        tp2367-ldo-en = "disabled";
-> > +        tp0145-ldo-volt = "1.2V";
-> > +        tp2367-ldo-volt = "1.8V";
-> > +        tp0145-pullup = "2k";
-> > +        tp2367-pullup = "500R";
-> > +        tp0145-io-strength = "50Ohms";
-> > +        tp2367-io-strength = "30Ohms";
-> > +        cp0-io-strength = "20Ohms";
-> > +        cp1-io-strength = "40Ohms";
-> > +
-> > +        target-port@0 {
-> > +          mode = "i3c";
-> > +          pullup = "enabled";
-> > +          always-enable;
-> > +        };
-> > +        target-port@1 {
-> > +          mode = "smbus";
-> > +          pullup = "enabled";
-> > +          backend@12{
-> > +              compatible = "i2c-slave-mqueue";
-> > +              reg = <(0x12 | I2C_OWN_SLAVE_ADDRESS)>;
-> > +          };
-> > +        };
-> > +        target-port@2 {
-> > +          mode = "gpio";
-> > +          pullup = "disabled";
-> > +        };
-> > +        target-port@3 {
-> > +          mode = "disabled";
-> > +          pullup = "disabled";
-> > +        };
-> > +      };
-> > +    };
-> > diff --git a/MAINTAINERS b/MAINTAINERS index
-> > 2fb1c75afd16..71ee5071ac0f 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -12214,6 +12214,12 @@ S:   Supported
-> >  F:   Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
-> >  F:   drivers/i3c/master/renesas-i3c.c
-> >
-> > +I3C HUB DRIVER FOR REALTEK RTS490X
-> > +M:   zain_zhou <zain_zhou@realsil.com.cn>
-> > +S:   Maintained
-> > +F:   Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> > +F:   drivers/staging/rts490x/
-> > +
-> >  I3C DRIVER FOR SYNOPSYS DESIGNWARE
-> >  S:   Orphan
-> >  F:   Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> > --
-> > 2.34.1
-> >
+-- 
+With best wishes
+Dmitry
