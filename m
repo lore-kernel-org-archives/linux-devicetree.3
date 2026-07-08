@@ -1,533 +1,345 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37C1478E41
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783529995; cv=none; b=Ca9GJCejQ4jcPMWtST2q1/cN0mDid1r4tQpa224fCCly07f+SOeFe2Y91RWJKw1wQOvuScM6UWXKd9gInGOznWVSJLDRv5eFiA94vgLK4LNIidSPt2FhhNvat8jOSLPwlHLClY49/EmMx8o/4hGRTBN1UPsmxKwQFnhSgFen1a4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783529995; c=relaxed/simple;
-	bh=Drk0K/uRYJeext107bjG2LKQPGz3AB500i+fJBzlQsE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RsRmVOXix8yqsk9M/A8RDcHP5n+x5v2EcUFfAHMyhYX5SafvIeLcT4uuE4QXFTYu96iNIKYFPY213PXcXdF/xk9xcA72WSmxWZQdlwtylMxr11/5VItE6NcuJ8QOrdj+mUMAMWfuvdq9ByvKR9XMCFCrGBi6zIKfgd74sG+NF1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEbat2X+; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1242640926C
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 17:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783530060; cv=pass; b=FBzUS/HgdyseP/9q8Lq9vJlrPVvTuAeV63bfd5qT7dk/cSWdN8C9EPWuExSIJ1cOBLBC0MJzvUnpSfoUiXLeH3wEGJbyfh+Hb3pVKNg8VTqAiF1bIb+xBV+IW0V9m4ALibagu863mS+XHWTCp7wFcff2g/Zp4yQAcBED6MskphU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783530060; c=relaxed/simple;
+	bh=W8eIEWNV4Lg1AgsxOXc2g7AdcwmqqBy/84fiSqtrQbQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KXrhmAxsboZHJToeuX/r5kFZ9VirpxuR1Zm7rlDO6vsG/UWM8xnN/qcVsvyhQcgWR112PqR3F2ea/USOdH7SKpIJ/50PvIg7c4ZJJ/eCpENxQukz4IS8GmgNr2phtKqgt2Rm6OBEgFVPTw/0I/+MjeAGsdtpFAyt562inscqrVg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kvbt3azm; arc=pass smtp.client-ip=209.85.215.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEbat2X+"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so7227505e9.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:59:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kvbt3azm"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c8b49639fbaso2745a12.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 10:00:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783530058; cv=none;
+        d=google.com; s=arc-20260327;
+        b=THkkHRL5ckJlVTdCghBqiEzvHqk93srZ7byp+FnQ133QDFJvl9CayRPVfmQ8zKevzc
+         faBC2BXiSkXuRrkU9zh9d6/DGdPQGSgvIntbEs3+igRxc7p/Ho2MeYsKbFkwoM6UhnsO
+         M2g2sijxNEAvuozr/2k2/44GOaTnsmSegmnzNMqO/TO+gUKoqNVJEz7jr7ZfJlhNkY0u
+         J5rpEqPRgX9qyoL44Yhg8nw2GYonlJMMXYB4RyqAREXgQ+28KFlpGUyDP991xD5SJlUH
+         JFF9amoO6mmMwlnDKbAcdE6klG3vl5TZKFDRztuZL8abCh3uL/JoOIWCqlOF7ZoGP1mB
+         Vn4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wJgq1hdSaEnlg7KPyw8iDLSOCyB+KQFBg4rjGDDZ4Uc=;
+        fh=39t3Q/ZSVFWpYTGr+4XqjkUIzwmDZf6RJqlpqVIkq+0=;
+        b=Kk6ja2pnuNF6LQew633fVCkR0yGZHPOwoKxYSghwdvv9K7cC8oN5Q1l9Ga0BPj7yRA
+         6olXvZRma5RuC5Y2Q622mHiZXNaN9QOsZu2vyrkWwK7V8CRMVuYg7TkzQjMghqUDuEif
+         7vatFfE+dgIQ42boLfNcV+TQRGkYQhpXbnk/qr6j98/rUG5BHpYmlInB7Flc+S8tPrLs
+         +WlsgwOu/+P+hKukGUenNdpm1v1EeNKY4jVJMwtx+Vm0ZM8puqvq7D65V2e+Gw5r4rGB
+         JZaXIHJ2+1pX91HhNsFymHDsdibHKV1gV8Xj4Z15bcGoajTReNlXRwGn8KuicxAo6V/F
+         xhew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783529989; x=1784134789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LBkRK4qvw3GAK88j75HJZJSZl22o0gWGNwof6GHgXyo=;
-        b=sEbat2X+1nbawx/NzRTvTh5Y5Zasf7eolG9qC01ssmVi2ed0vNUiXz5g/C5VNMjT5Q
-         4G1FnaGjauuzKYrD5uM3ClQVJpZYnbOxdXWAXpzPfHxi5akZUFfW/OLKB1t4ECJ+lCIy
-         npQ7TvLYZqY0JjKmf0lOYGIPNkdUbsLGr7pqYfjo4nEMoUXTx/+0sOfGJW3Y6/ZRftES
-         vRQ1WFJFBPVnk9zDQMYSMLpeiEidXcjvriKBYMTntXx7njT3Q9tB+cSQ5Ip+vIWUT6XU
-         UCEMFixLbjSkzOfYkmf6fjG4Wa6EZ52yGy+jQmhT/KSq4QPOYeMApKFgil6uOBD+U3BG
-         Ktzw==
+        d=gmail.com; s=20251104; t=1783530058; x=1784134858; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wJgq1hdSaEnlg7KPyw8iDLSOCyB+KQFBg4rjGDDZ4Uc=;
+        b=kvbt3azmZ5aMC9FsfAUtqbXHdavnx1KpX2Evj36WfNCst+T83jQUgzIRzcDthpm7ko
+         Wl+wiFo0vxQoW6g0y4vCPiuxM9Unls/A3ZPq3rY2cSAbbWkFfIAY0AzHJF/PJU6oS/WA
+         Ex091txRMDV4JJG0s5gzr15/+AR9n+EA4B7L4EAlCCa9i74BM2ApX3MkzHRtk3ukbOAC
+         Eu1RtKH6Ao6prcx/aWYAQcIMAFjso0FC5zAnMkkXpx+7klWfkJTbJ1J6vCV+sfvGy3+6
+         0zdXb6rW03Dw7x2XdJoi43id8Zt5clxDFA+CihB9Opry4p4+nIIqhB6pWp1rPe7+yIze
+         CdXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783529989; x=1784134789;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LBkRK4qvw3GAK88j75HJZJSZl22o0gWGNwof6GHgXyo=;
-        b=NsfAJ6P+zQ6/clPvZA4RIUadAYV/lVRbpo5Bx8GwHc2G0ohukHT1TKu/+St4Glzpqa
-         fBQfFGA/at+xzr+vuaJ6Kceosl8kHJgBTkxwqGvt6Wo0rwi2kSz2CIoBm2gSZana9xzB
-         Ms24M5fNx23yHLFqtxpWjHd458iLAjHOgesB/B0gaYwHESkJ5SxP+OkBhWhGtgkIOne/
-         x+Tpo23wF7w4vIwSkIn83GgibtZyd1HsEa5LqRy5RqnXbDU1HAe9zp+811OiKqrgQO+B
-         M1ybTSfClkBYSFQ/mQZhhKk9c0mT/9eMJ8yjuKm0jvTCsPTYOhmK0kJa+cjpYfpnqtqO
-         TFvQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpBY0X79F9rWB7WcY6cNZpJVknH6ytZWaySNKR6zXFCgb8UbQrGiFqO6AJtM1Tpv7/0QrEpLI3rLJuR@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcJnFzJA2X9VPosCR7f9wRJxiqdZRJ6530Tf2XxllxmMKNcnZx
-	+mv6S4mnRotS8gOnjTn04Ucnw7X3gKL+JQmBNDE0l3EjjCodF/B5i7CA
-X-Gm-Gg: AfdE7cn8YB4cxs4hxOqcDfojmJ79s0wfkwXHMPka1zh4TIUpE02tITTaob4SCc/LzU7
-	dgiDTjHUbT9x4bOxc1JwubkWD7aaLXF2qZRlv4cOBG3sHcGpHAnhgFI6DCQg6HFVgh9VLb2q0X9
-	9TpKlWOPS6Nmmi0AHmHPqolzYfQTLpKGZTWLBsHenk25v03wG0MmzKfUqdcv8FtB9ANvAh7rqdq
-	+aCx7jzdfSht2LcYbwazJkqnosoHsPWLD5731KZpKzv1nsfdhIax32icxa95M55YbXL0OBctD74
-	E3CM0FF4tdPFDqa9AzaAAo4uEbpL3AoNuPcMQJgRIT0sCOkLlbJfF27WeE6mnfmvtE9giDJc3SX
-	oBu0xoIwVAxjuAiHb5mrhjg2AT8Gsz+OZ7HCeBOQDoVciNj00n2eWWKq7fbuepjMuwOcDwSX7EE
-	jfC7dnDHuyNLHPIzR++/jBXaU=
-X-Received: by 2002:a05:600c:8a1a:10b0:493:b646:dc2f with SMTP id 5b1f17b1804b1-493e689fd8cmr27584755e9.13.1783529988806;
-        Wed, 08 Jul 2026 09:59:48 -0700 (PDT)
-Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0faed92sm141201035e9.9.2026.07.08.09.59.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 09:59:48 -0700 (PDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: andrew@codeconstruct.com.au,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: openbmc@lists.ozlabs.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	benjaminfair@google.com
-Subject: [PATCH v8 4/4] arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
-Date: Wed,  8 Jul 2026 19:59:29 +0300
-Message-Id: <20260708165929.2233934-5-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260708165929.2233934-1-tmaimon77@gmail.com>
-References: <20260708165929.2233934-1-tmaimon77@gmail.com>
+        d=1e100.net; s=20251104; t=1783530058; x=1784134858;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wJgq1hdSaEnlg7KPyw8iDLSOCyB+KQFBg4rjGDDZ4Uc=;
+        b=R85beG/eEsI/RYzFYJ/D1RA+x476hMqosJ2jMwMZrN729c0OZXx1Idw2snW89zUIZY
+         l2efmB1twuxxJIjPBS2wFvIMQlzkLYf1dkovz0KTUSBP8utJgfeLunjjyg57FAETB8AU
+         Z92j8Uxu4Z7ycqvz6GpRVSA/vRXPPdi/KEggkytgfSDecv+3PF7+6bGPyh1NbRgNARbj
+         gCoB5weGtaAcbpHouVE7NHRIIxF4WEoeRATrRgV4W0sKd3XdT/g+O24Dwa8k0jIqUcyd
+         knsSHjjeA5WMK73Mk1ADbxnqI2k+JrbPlU0SgBB8MqjT/vEH1hgq+dRJZsn8BiHE8qLF
+         VKHw==
+X-Forwarded-Encrypted: i=1; AHgh+RqtUf5iRIHtmY0ghCsFfLFXOaobKjh6O1UkiS8W8y7iF3kwwsEuxctlgyblg8B62uNw6p5sbrL8x58o@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnNfxXJhMbNswHUlU0xnu2qUOLviZ5CblClXb4FE2Zb5+3W8jZ
+	/yAkT3msimpQB88u7ruxC1muIEYTW0kJpLqrienMeUoZcKoe6XAXIAldTeAvAuGgzl0zo3ZW00t
+	1AWicM1WA4sW80O/S9rMnLLJ1GXbdIYjj/nYG
+X-Gm-Gg: AfdE7cksgzexjXjkNBxbQpJ+lkybu7LzFmyFCDSyDBeCdX6g3OENEQWdAFTiIccz1Xv
+	hEoG58+DHZ9yCFMSaO/R3NQ6JPLPU6psQtGeYtYIBqRFTGRIykJcYC/C4R8l/EXsvRr5eGPTPNt
+	YLotSi6hwnXfY7WyopjOYd8sUFVz22OqLZXQ9UOWNdJpc1ILyTQ6fuvROm0aEitPsXjMdRQ9XnF
+	HPPtXGNsplAZGlmz6v8bd7WWx1m9nOgu/C0XBxEowdOMZ5renI8/mSm1fT6JCPPznMxjAWyFA==
+X-Received: by 2002:a53:d018:0:b0:664:6d12:1f3b with SMTP id
+ 956f58d0204a3-6679effc4ddmr2385788d50.3.1783529587276; Wed, 08 Jul 2026
+ 09:53:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260708125352.1915040-1-tmaimon77@gmail.com> <20260708125352.1915040-4-tmaimon77@gmail.com>
+ <20260708131101.C23C91F000E9@smtp.kernel.org>
+In-Reply-To: <20260708131101.C23C91F000E9@smtp.kernel.org>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Wed, 8 Jul 2026 19:52:56 +0300
+X-Gm-Features: AVVi8Cf-_oFSXa-fC1UcIDHKMC-4yKp0muJRAjtuMlVILRwIEOgf0oM1ZZqblkQ
+Message-ID: <CAP6Zq1iY9GEo6YQEk9CcFKW-PiVUxd-hKJyjMGuhH494hh91yQ@mail.gmail.com>
+Subject: Re: [PATCH v7 3/4] arm64: dts: nuvoton: npcm845: Add peripheral nodes
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable peripheral support for the NPCM845 evaluation board by wiring up
-the SoC controller nodes to the board design. Add board aliases,
-GPIO-backed MDIO buses for the external PHYs, a reserved-memory region
-for TIP firmware, and flash partitions for the FIU boot flash. Enable
-the Ethernet MACs, MMC controller, FIU controllers, USB device
-controllers, ADC, RNG, PWM/FAN controller, I2C buses, and PECI
-interface with the board-specific pinctrl and PHY connections they
-require.
+On Wed, 8 Jul 2026 at 16:11, <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 6 potential issu=
+e(s) to consider:
+>
+> New issues:
+> - [Medium] The `fiu0`, `fiu1`, and `fiu3` SPI flash controllers omit the =
+required `memory` mapping region.
+No, it is explained in the dt-binding
+  Alias convention:
+    The '/aliases' node should define:
+      For NPCM7xx:  fiu0=3D&fiu0; fiu1=3D&fiu3; fiu2=3D&fiux;
+      For NPCM8xx:  fiu0=3D&fiu0; fiu1=3D&fiu3; fiu2=3D&fiux; fiu3=3D&fiu1;
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 404 ++++++++++++++++++
- 1 file changed, 404 insertions(+)
+> - [Low] The `pspi` (Peripheral SPI) controller is added but not documente=
+d in the commit message.
+Will be changed in V8
+>
+> Pre-existing issues:
+> - [High] The IRQ name passed to `devm_request_irq` is allocated on the st=
+ack, leading to a dangling pointer in the IRQ subsystem.
+> - [High] The fan ISR calculates the module index using virtual IRQ number=
+s, leading to an out-of-bounds array access and memory corruption.
+> - [High] The USB device controller driver fails to save the allocated `ci=
+_hdrc` pointer, causing a deterministic NULL pointer dereference on device =
+removal.
+> - [High] The EDAC driver frees its main control structure on the probe er=
+ror path while a device-managed interrupt is still registered and active.
+> --
+>
+> --- Patch [3]: [PATCH v7 3/4] arm64: dts: nuvoton: npcm845: Add periphera=
+l nodes ---
+> commit f606ce99eafc7d4c8e2d67d9d5119b1c25593a16
+> Author: Tomer Maimon <tmaimon77@gmail.com>
+> Subject: arm64: dts: nuvoton: npcm845: Add peripheral nodes
+>
+> This commit extends the NPCM845 SoC DTSI by adding peripheral controller =
+nodes
+> needed by the evaluation board and downstream platforms. It adds nodes fo=
+r
+> Ethernet, USB, MMC, FIU, memory controller, RNG, ADC, PWM/FAN, I2C, and t=
+he
+> OP-TEE firmware.
+>
+> > Extend the NPCM845 SoC DTSI with the peripheral controller nodes needed
+> > by the evaluation board and downstream platforms. Add the Ethernet MACs=
+,
+> > USB device controllers and PHY, MMC controller, FIU controllers, memory
+> > controller, RNG, ADC, PWM/FAN controller, and I2C buses. Also add the
+> > OP-TEE firmware node needed to describe these blocks.
+>
+> [Severity: Low]
+> The pspi (Peripheral SPI) controller node is added by this patch, but it
+> isn't mentioned in the commit message. Should it be included in this summ=
+ary?
+>
+> > diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/=
+arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+> > index 0e5feabf2d718..7608dcf5489c4 100644
+> > --- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+> > +++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+> [ ... ]
+> > +             mc: memory-controller@f0824000 {
+> > +                     compatible =3D "nuvoton,npcm845-memory-controller=
+";
+> > +                     reg =3D <0x0 0xf0824000 0x0 0x1000>;
+> > +                     interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+> > +             };
+>
+> [Severity: High]
+> This is a pre-existing issue, but adding this memory controller node expo=
+ses
+> a vulnerability in the EDAC driver (drivers/edac/npcm_edac.c).
+>
+> In drivers/edac/npcm_edac.c:setup_irq(), a devres-managed interrupt is
+> registered and the hardware is unmasked:
+>
+>     ret =3D devm_request_irq(&pdev->dev, irq, edac_ecc_isr, 0,
+>                            dev_name(&pdev->dev), mci);
+>     ...
+>     regmap_write(npcm_regmap, pdata->ctl_int_mask_master,
+>                  pdata->int_mask_master_non_ecc_mask);
+>
+> If edac_mc_add_mc() fails later in edac_probe(), the code jumps to the er=
+ror
+> path and frees the main control structure:
+>
+> free_edac_mc:
+>     edac_mc_free(mci);
+>     return rc;
+>
+> Since the interrupt remains registered and active until devres teardown,
+> could the hardware assert an ECC interrupt during this window, causing
+> edac_ecc_isr() to dereference the freed mci pointer?
+Yes, should be changed
+>
+> [ ... ]
+> > +             udc0: usb@f0830000 {
+> > +                     compatible =3D "nuvoton,npcm845-udc", "nuvoton,np=
+cm750-udc";
+> > +                     reg =3D <0x0 0xf0830000 0x0 0x1000
+> > +                            0x0 0xfffeb000 0x0 0x800>;
+> > +                     interrupts =3D <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
+> > +                     clocks =3D <&clk NPCM8XX_CLK_SU>;
+> > +                     clock-names =3D "clk_usb_bridge";
+> > +
+> > +                     phys =3D <&udc0_phy>;
+> > +                     phy_type =3D "utmi_wide";
+> > +                     dr_mode =3D "peripheral";
+> > +                     status =3D "disabled";
+> > +             };
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but adding these USB controlle=
+r
+> nodes exposes an issue in drivers/usb/chipidea/ci_hdrc_npcm.c.
+>
+> In drivers/usb/chipidea/ci_hdrc_npcm.c:npcm_udc_probe(), plat_ci is
+> successfully returned but never assigned to ci->ci:
+>
+>     plat_ci =3D ci_hdrc_add_device(dev, pdev->resource, pdev->num_resourc=
+es,
+>                                  &ci->pdata);
+>     if (IS_ERR(plat_ci)) { ... }
+>
+> When the device is removed, npcm_udc_remove() passes the uninitialized ci=
+->ci
+> pointer to ci_hdrc_remove_device(), which immediately dereferences it.
+>
+> Could this lead to a NULL pointer dereference during device unbind?
+>
+> [ ... ]
+> > +             fiu0: spi@fb000000 {
+> > +                     compatible =3D "nuvoton,npcm845-fiu";
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +                     reg =3D <0x0 0xfb000000 0x0 0x1000>;
+> > +                     reg-names =3D "control";
+> > +                     clocks =3D  <&clk NPCM8XX_CLK_SPI0>;
+> > +                     status =3D "disabled";
+> > +             };
+> > +
+> > +             fiu1: spi@fb002000 {
+> > +                     compatible =3D "nuvoton,npcm845-fiu";
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +                     reg =3D <0x0 0xfb002000 0x0 0x1000>;
+> > +                     reg-names =3D "control";
+> > +                     clocks =3D  <&clk NPCM8XX_CLK_SPI1>;
+> > +                     pinctrl-names =3D "default";
+> > +                     pinctrl-0 =3D <&spi1_pins>;
+> > +                     status =3D "disabled";
+> > +             };
+> > +
+> > +             fiu3: spi@c0000000 {
+> > +                     compatible =3D "nuvoton,npcm845-fiu";
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +                     reg =3D <0x0 0xc0000000 0x0 0x1000>;
+> > +                     reg-names =3D "control";
+> > +                     clocks =3D  <&clk NPCM8XX_CLK_SPI3>;
+> > +                     pinctrl-names =3D "default";
+> > +                     pinctrl-0 =3D <&spi3_pins>;
+> > +                     status =3D "disabled";
+> > +             };
+>
+> [Severity: Medium]
+> Do these FIU controller nodes need a 'memory' mapping region?
+>
+> Without the 'memory' register range, the SPI driver might fail to use
+> memory-mapped direct reads and drop to UMA (manual) mode, degrading
+> performance. The fiux node below includes it, but fiu0, fiu1, and fiu3
+> do not.
+>
+> [ ... ]
+> > +                     pwm_fan:pwm-fan-controller@103000 {
+> > +                             compatible =3D "nuvoton,npcm845-pwm-fan";
+> > +                             reg =3D <0x103000 0x3000>,
+> > +                                     <0x180000 0x8000>;
+> > +                             reg-names =3D "pwm", "fan";
+> > +                             clocks =3D  <&clk NPCM8XX_CLK_APB3>,
+> > +                                     <&clk NPCM8XX_CLK_APB4>;
+> > +                             clock-names =3D "pwm","fan";
+> > +                             interrupts =3D <GIC_SPI 96 IRQ_TYPE_LEVEL=
+_HIGH>,
+> > +                                             <GIC_SPI 97 IRQ_TYPE_LEVE=
+L_HIGH>,
+> > +                                             <GIC_SPI 98 IRQ_TYPE_LEVE=
+L_HIGH>,
+> > +                                             <GIC_SPI 99 IRQ_TYPE_LEVE=
+L_HIGH>,
+> > +                                             <GIC_SPI 100 IRQ_TYPE_LEV=
+EL_HIGH>,
+> > +                                             <GIC_SPI 101 IRQ_TYPE_LEV=
+EL_HIGH>,
+> > +                                             <GIC_SPI 102 IRQ_TYPE_LEV=
+EL_HIGH>,
+> > +                                             <GIC_SPI 103 IRQ_TYPE_LEV=
+EL_HIGH>;
+> [ ... ]
+> > +                             status =3D "disabled";
+> > +                     };
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but enabling this PWM/FAN
+> controller node triggers a dangling pointer bug in
+> drivers/hwmon/npcm750-pwm-fan.c.
+>
+> In drivers/hwmon/npcm750-pwm-fan.c:npcm7xx_pwm_fan_probe(), the IRQ name =
+is
+> allocated on the stack:
+>
+>     char name[20];
+>     ...
+>     sprintf(name, "NPCM7XX-FAN-MD%d", i);
+>     ret =3D devm_request_irq(dev, data->fan_irq[i], npcm7xx_fan_isr, 0, n=
+ame,
+>                            (void *)data);
+>
+> Since devm_request_irq() stores the name pointer in the IRQ descriptor, t=
+he
+> stack frame destruction upon probe return leaves a dangling pointer.
+>
+> Could this cause a use-after-free or panic when userspace reads
+> /proc/interrupts?
+>
+> [Severity: High]
+> This is also a pre-existing issue, but there is another bug in
+> drivers/hwmon/npcm750-pwm-fan.c that this node exposes.
+>
+> In drivers/hwmon/npcm750-pwm-fan.c:npcm7xx_fan_isr(), the module index is
+> derived by subtracting the first virtual IRQ from the incoming virtual IR=
+Q:
+>
+>     module =3D irq - data->fan_irq[0];
+>     spin_lock_irqsave(&data->fan_lock[module], flags);
+>
+> Because the kernel's irqdomain does not guarantee that virtual IRQs are
+> contiguous or allocated in order, could this subtraction result in an
+> out-of-bounds array access and memory corruption when acquiring the spinl=
+ock?
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708125352.19=
+15040-1-tmaimon77@gmail.com?part=3D3
 
-diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-index 5edf5d133..7717c3a8f 100644
---- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-+++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-@@ -10,6 +10,42 @@ / {
- 
- 	aliases {
- 		serial0 = &serial0;
-+		ethernet1 = &gmac1;
-+		ethernet2 = &gmac2;
-+		ethernet3 = &gmac3;
-+		mdio-gpio0 = &mdio0;
-+		mdio-gpio1 = &mdio1;
-+		fiu0 = &fiu0;
-+		fiu1 = &fiu3;
-+		fiu2 = &fiux;
-+		fiu3 = &fiu1;
-+		i2c0 = &i2c0;
-+		i2c1 = &i2c1;
-+		i2c2 = &i2c2;
-+		i2c3 = &i2c3;
-+		i2c4 = &i2c4;
-+		i2c5 = &i2c5;
-+		i2c6 = &i2c6;
-+		i2c7 = &i2c7;
-+		i2c8 = &i2c8;
-+		i2c9 = &i2c9;
-+		i2c10 = &i2c10;
-+		i2c11 = &i2c11;
-+		i2c12 = &i2c12;
-+		i2c13 = &i2c13;
-+		i2c14 = &i2c14;
-+		i2c15 = &i2c15;
-+		i2c16 = &i2c16;
-+		i2c17 = &i2c17;
-+		i2c18 = &i2c18;
-+		i2c19 = &i2c19;
-+		i2c20 = &i2c20;
-+		i2c21 = &i2c21;
-+		i2c22 = &i2c22;
-+		i2c23 = &i2c23;
-+		i2c24 = &i2c24;
-+		i2c25 = &i2c25;
-+		i2c26 = &i2c26;
- 	};
- 
- 	chosen {
-@@ -26,12 +62,380 @@ refclk: refclk-25mhz {
- 		clock-frequency = <25000000>;
- 		#clock-cells = <0>;
- 	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		tip_reserved: tip@0 {
-+			reg = <0x0 0x0 0x0 0x6200000>;
-+			no-map;
-+		};
-+	};
-+
-+	mdio0: mdio-0 {
-+		compatible = "virtual,mdio-gpio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		gpios = <&gpio1 25 GPIO_ACTIVE_HIGH>,
-+			<&gpio1 26 GPIO_ACTIVE_HIGH>;
-+
-+		phy0: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+
-+	mdio1: mdio-1 {
-+		compatible = "virtual,mdio-gpio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		gpios = <&gpio2 27 GPIO_ACTIVE_HIGH>,
-+			<&gpio2 28 GPIO_ACTIVE_HIGH>;
-+
-+		phy1: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+};
-+
-+&gmac1 {
-+	phy-mode = "rgmii-id";
-+	status = "okay";
-+};
-+
-+&gmac2 {
-+	phy-mode = "rmii";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&r1_pins
-+			&r1oen_pins>;
-+	phy-handle = <&phy0>;
-+	status = "okay";
-+};
-+
-+&gmac3 {
-+	phy-mode = "rmii";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&r2_pins
-+			&r2oen_pins>;
-+	phy-handle = <&phy1>;
-+	status = "okay";
- };
- 
- &serial0 {
- 	status = "okay";
- };
- 
-+&fiu0 {
-+	status = "okay";
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		spi-rx-bus-width = <1>;
-+		reg = <0>;
-+		spi-max-frequency = <5000000>;
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			bmc@0 {
-+				compatible = "fixed-partitions";
-+				label = "bmc";
-+				reg = <0x00000000 0x04000000>;
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				u-boot@0 {
-+					label = "u-boot";
-+					reg = <0x00000000 0x007C0000>;
-+				};
-+				u-boot-env@7c0000 {
-+					label = "u-boot-env";
-+					reg = <0x007C0000 0x00040000>;
-+				};
-+				kernel@800000 {
-+					label = "kernel";
-+					reg = <0x00800000 0x00800000>;
-+				};
-+				rofs@1000000 {
-+					label = "rofs";
-+					reg = <0x01000000 0x02C00000>;
-+				};
-+				rwfs@3c00000 {
-+					label = "rwfs";
-+					reg = <0x03C00000 0x00400000>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&fiu1 {
-+	status = "okay";
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		spi-rx-bus-width = <2>;
-+		spi-tx-bus-width = <2>;
-+		reg = <0>;
-+		spi-max-frequency = <5000000>;
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			partition@0 {
-+				label = "spi1-system1";
-+				reg = <0x0 0x0>;
-+			};
-+		};
-+	};
-+};
-+
-+&fiu3 {
-+	pinctrl-0 = <&spi3_pins>, <&spi3quad_pins>;
-+	status = "okay";
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		spi-rx-bus-width = <1>;
-+		reg = <0>;
-+		spi-max-frequency = <5000000>;
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			partition@0 {
-+				label = "spi3-system1";
-+				reg = <0x0 0x0>;
-+			};
-+		};
-+	};
-+};
-+
-+&fiux {
-+	status = "okay";
-+	nuvoton,spix-mode;
-+};
-+
-+&sdhci {
-+	status = "okay";
-+};
-+
-+&udc0 {
-+	status = "okay";
-+};
-+
-+&udc1 {
-+	status = "okay";
-+};
-+
-+&udc2 {
-+	status = "okay";
-+};
-+
-+&udc3 {
-+	status = "okay";
-+};
-+
-+&udc4 {
-+	status = "okay";
-+};
-+
-+&udc5 {
-+	status = "okay";
-+};
-+
-+&udc6 {
-+	status = "okay";
-+};
-+
-+&udc7 {
-+	status = "okay";
-+};
-+
-+&mc {
-+	status = "okay";
-+};
-+
-+&peci {
-+	status = "okay";
-+};
-+
-+&rng {
-+	status = "okay";
-+};
-+
-+&adc {
-+	#io-channel-cells = <1>;
-+	status = "okay";
-+};
-+
- &watchdog1 {
- 	status = "okay";
- };
-+
-+&pwm_fan {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm0_pins &pwm1_pins
-+		&pwm2_pins &pwm3_pins
-+		&pwm4_pins &pwm5_pins
-+		&pwm6_pins &pwm7_pins
-+		&fanin0_pins &fanin1_pins
-+		&fanin2_pins &fanin3_pins
-+		&fanin4_pins &fanin5_pins
-+		&fanin6_pins &fanin7_pins>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	fan@0 {
-+		reg = <0x00>;
-+		fan-tach-ch = /bits/ 8 <0x0 0x1>;
-+		cooling-levels = <127 255>;
-+	};
-+	fan@1 {
-+		reg = <0x01>;
-+		fan-tach-ch = /bits/ 8 <0x2 0x3>;
-+		cooling-levels = <127 255>;
-+	};
-+	fan@2 {
-+		reg = <0x02>;
-+		fan-tach-ch = /bits/ 8 <0x4 0x5>;
-+		cooling-levels = <127 255>;
-+	};
-+	fan@3 {
-+		reg = <0x03>;
-+		fan-tach-ch = /bits/ 8 <0x6 0x7>;
-+		cooling-levels = <127 255>;
-+	};
-+	fan@4 {
-+		reg = <0x04>;
-+		fan-tach-ch = /bits/ 8 <0x8 0x9>;
-+		cooling-levels = <127 255>;
-+	};
-+	fan@5 {
-+		reg = <0x05>;
-+		fan-tach-ch = /bits/ 8 <0xa 0xb>;
-+		cooling-levels = <127 255>;
-+	};
-+	fan@6 {
-+		reg = <0x06>;
-+		fan-tach-ch = /bits/ 8 <0xc 0xd>;
-+		cooling-levels = <127 255>;
-+	};
-+	fan@7 {
-+		reg = <0x07>;
-+		fan-tach-ch = /bits/ 8 <0xe 0xf>;
-+		cooling-levels = <127 255>;
-+	};
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	eeprom@50 {
-+		compatible = "atmel,24c256";
-+		reg = <0x50>;
-+	};
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	status = "okay";
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+};
-+
-+&i2c15 {
-+	status = "okay";
-+};
-+
-+&i2c16 {
-+	status = "okay";
-+};
-+
-+&i2c17 {
-+	status = "okay";
-+};
-+
-+&i2c18 {
-+	status = "okay";
-+};
-+
-+&i2c19 {
-+	status = "okay";
-+};
-+
-+&i2c20 {
-+	status = "okay";
-+};
-+
-+&i2c21 {
-+	status = "okay";
-+};
-+
-+&i2c22 {
-+	status = "okay";
-+};
-+
-+&i2c23 {
-+	status = "okay";
-+};
-+
-+&i2c24 {
-+	status = "okay";
-+};
-+
-+&i2c25 {
-+	status = "okay";
-+};
-+
-+&i2c26 {
-+	status = "okay";
-+};
--- 
-2.34.1
+Thanks,
 
+Tomer
