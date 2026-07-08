@@ -1,262 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215402609C5
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 13:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC79F28642B
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 13:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783516263; cv=none; b=HBv2GFJJq+J7CqTp5bsNdfcWDFI7cLsXa71Xj3vOGsIiOwxDOjrkYn1e2kkev5KOVwVjlC7eRy1k2Ao99TmzZOgODtkOpGLRrGL7PDvXEOSO3gHJ7yJiz30PLwQHgyOcXgcNT2pQZ4+q4YhWkA4oAa6AhI/emtC/6ZJ1WeOHN4I=
+	t=1783516282; cv=none; b=SzB0Zm3qzhrZrGc7xpjG027v4RDKzN7s5F9y/AkmnnkO0aR0ZLywXU5sLv1VB0SlNu/jIGIMDZnHeZJeamZLDGYOe8A0eYlMcCer1cKXHuofrNZjA8i0wXiTQZszmCuFlGN88ml6itHEc11XefdN04OOvbjh5RQUHy6W1rwMnGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783516263; c=relaxed/simple;
-	bh=K/EdhfKg/bcpyJF4mDxcsSsK3DECpg5fifnzwjLSd54=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d2+NrcWjtvyKnQav6r9tEz2APLgMha66x6irsjW5ARGaAelz0LfLNiMKeacfkZNMwsFKMCeuzsSaaxd3TZzgUN/0KcgWINKY/HiqSfJbvqD37nlQuYnvpJoB1TaBPWqb8kbhkOZOLT45MI1JnCqIRwQKYFA557q2SOK0JPUPTB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mi2CI+WM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783516282; c=relaxed/simple;
+	bh=DDt6TtWG0hhG2DtiJdfpnQsKiVKhcaQ8v89xQeqKKGk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oHSYSSow0UTVgOdqSSNzGDO30mD/k6Uo2vvBANBZIGm+Rm0rDtPIk/ccJavUKRYZqDz+kAWVkHr0eBoUZcz0UmyjHU0wOmIYDJ9Z4QN7YNhUGqTI/JnXT6/X1YMrl0w4j+IX8OexLWQem0FbAeojOmvGlPbR3SRiGnRvCiUAiFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ePiF3qFg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YHtEsS9+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mi2CI+WM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23C91F000E9;
-	Wed,  8 Jul 2026 13:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783516262;
-	bh=FnMo95FOuFvaYmb7Zf3092GEdot1gPB9OqiQ0ik5QbE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mi2CI+WM3vJcgxmwQfgM1RbmZ8ZDsBrzKifTzR5jTxQNSDgGQgankRQOQgYkOyozu
-	 QcUde94wFxyec2T803dgRcinUNEad7UrJ69TxnzGeJW11fJ6VMzzGspdbw82k+Ij6V
-	 RV1k0g5HZySzKql3g9c/oGPOURTDan5cTldZJ4MDEwgEZgu5r08ByyRwra1QnVoAx7
-	 HvW2gm2wGreH9+/aeP5QaCyE+ntZwRkTYXWRSTTxagqp3t9WlTjvKEbIzomwSX06h9
-	 RngR2nxb5R4rHh+ceFJgNakbJcOIGgv82Wf8lBpeZZxhTYLEAWrS84gkDQtfA608J/
-	 JID8Yy4UxacKw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/4] arm64: dts: nuvoton: npcm845: Add peripheral
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomer Maimon" <tmaimon77@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260708125352.1915040-4-tmaimon77@gmail.com>
-References: <20260708125352.1915040-1-tmaimon77@gmail.com>
- <20260708125352.1915040-4-tmaimon77@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 13:11:01 +0000
-Message-Id: <20260708131101.C23C91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ePiF3qFg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YHtEsS9+"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668D7usU2678274
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 13:11:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=h/wmzSE05/8DzDlkm10pYIDL
+	wkWRETXjBMhZD4v55iE=; b=ePiF3qFg1F4kqF818XnVQCwMT3fzwf4QIm1Cc2XY
+	Rr4fnHtwwOZPTifzmLlTTKH3rb7W/ZLok4x/woxxbHO4YcZan/E3P0k3F+fQm9bh
+	gY1/X/cdJxKml6pwguLmFsE/edgNu49rOdjn73Fy2FyZB9nT+6QrN7ZFEimXAJds
+	7xJYEf1zVY0ZVMC2LOMfmNYQr1euTGIq+0OTnxyG9c/xm9sa2s8C7bIbgkdLqtTi
+	GM7/e6dIFKze9/KPOAhh+eZLsqd6p1++gOu+8HkH6IfGbO+B0AiykQmbzUr2gPeY
+	7s3FcXbOS3t+bY4/yDRcQZSUijwfD3KXB9B3HuYjsGGqdg==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9q5s80b9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 13:11:20 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-744e7c36621so82483137.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 06:11:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783516279; x=1784121079; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=h/wmzSE05/8DzDlkm10pYIDLwkWRETXjBMhZD4v55iE=;
+        b=YHtEsS9+SqpL8UpDHpxac95I0GaWNQYmgePDqN5bRHG1Bjg1zlrkQCoQx/eKaE1Cg3
+         eOTlhuW9VxuN+hAtZwFqv1iYfBsQXU8fKFS1uwZrx8abQfhPvo7mXpbBSg0LCMWqP3mD
+         DX4BhzUGr0DMQMj6sh4H8F9vqXkvI20jRExNhjmFQSupndNa/8O6I90HQPpFfWwvjxWW
+         Qgs0MtLpmMr05azZz4Zg1zxRlWlEHGoUQFCoAU0XiJULrSkAYcxNZVo7McJqF3DVhuyq
+         MWHFtzQT+/1xjimetAeProXuooZPfrKkMrnIhiXog4Mwy3MxfbrxQaDaVFM7XlMNj3Lw
+         4OOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783516279; x=1784121079;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h/wmzSE05/8DzDlkm10pYIDLwkWRETXjBMhZD4v55iE=;
+        b=qY3WYzW7Onj/MHFvdfiltEifeZHlahGUeKvFg5VMc58qbz1CQjq1N3oufQk8zRF6W1
+         x8ekISo6U6LvnML9TZT1eNfLRjOHzLN6CGUN2BvYpPyhZGhLvUhlcVZLbE0ehklEqc5O
+         /xgqyEhOjpL9XcnJzdyXhUjQVecRq566MRg3jHDZhSvZeZ1QGQfPqeQmrtyVnxhl5vBa
+         5UvN0+sv6+ifthxhEFrjEu1J1RJa5+59pEo6KUfA+XCL8C/4pAceWdE8avj6+mUhIg/Q
+         nLNaPk/pM/eqSmVs4iRAXgAH2AtNrW+wpPMMbd03s4gZppEmMxQX4C4+/NTs5T7WpOH5
+         pYHQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqmxMMkvmfRwJ5FixI/5zsXzwwhBZdxFGOdeq4fqQSdwI64QOlloCodoQGvTlp4mG+EjxAtHxuNfgY5@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEFtIEbXrBwlYQI0nHM7bmI/wQ1r5lSoEPpKrC2lzAFzvYYT4t
+	jTxBoMD5p6mSd3CsEq4vVT4b0+uCWWIZp5XloJVAotSY/8xxRqjRiaqnj+AlEdk4cgW1semHq//
+	n86W92QQu59kUtdaZhZh8uXyOXeZm73GveeexBA0M0GU1ud8rkMh8LLuAn1/+jOvE
+X-Gm-Gg: AfdE7cl+NGWPcVs2EkPMyD+f2lCVwRHpYe2CU2vfD3A27R7OvOuMzNFC4soeD2+jcIK
+	1k7PUk92EReZu87y9BlMrybdwBULA1Lb64jrwHD44l3JUPWqJ3qSKjK1H03DAhRj14WHOu3MfNM
+	9NhzRWPLo/et/jt+e0Kxwe7blKQnnCmNU8rovZSkyR/tZUacJ1CI5iCqzm5Whe/+FenEJLmt1X6
+	B4VozkNBV7c19GzBEAPUCrwPHDMVpoMEcNFk1eqNHhWnxRSsulMD7H/u+cWgt4SSdHjHQbN+lLS
+	yOaewq0zsL2ioAocmxG788HvMXYg+8la5pq0iwmkNdgXz7WI/YVGpPbnWOaGlYp4+WwpvqixOFS
+	4ml0ILf8m61Z0mGjf4au178+WERBn6AGUjfBhO442uo1YhSwFqN1a0cn7RqpEL4rTFifcz+oUQY
+	JphxzNxd2uz7t4NXi+PTM3ku3k
+X-Received: by 2002:a05:6102:c4d:b0:744:d5f9:ffb1 with SMTP id ada2fe7eead31-744e010f965mr1025643137.16.1783516278923;
+        Wed, 08 Jul 2026 06:11:18 -0700 (PDT)
+X-Received: by 2002:a05:6102:c4d:b0:744:d5f9:ffb1 with SMTP id ada2fe7eead31-744e010f965mr1025601137.16.1783516278020;
+        Wed, 08 Jul 2026 06:11:18 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13c0117sm4528573e87.62.2026.07.08.06.11.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 06:11:16 -0700 (PDT)
+Date: Wed, 8 Jul 2026 16:11:15 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Matthew Leung <matthew.leung@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/4] phy: qcom-qmp: Add v10.60 register offsets
+Message-ID: <fonaxuf2jc2lpzf66vwwudtjjy3fy42aizuju55wpu5tr4xbun@o7yth44bfgdr>
+References: <20260707-hawi-phy-pcie-v4-0-8d9cc6324947@oss.qualcomm.com>
+ <20260707-hawi-phy-pcie-v4-3-8d9cc6324947@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260707-hawi-phy-pcie-v4-3-8d9cc6324947@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDEyNyBTYWx0ZWRfX/IG8KItKwE7d
+ jpKq1un8nMwTrjmLvxWDHuaeZJnXzB9bmw5uwdd7mOkUHLwi1alFNk+dm6vMimvew/6H71nwuRN
+ RpriCxzNEbrByhq7Z27aZ4dn4M0G/7c5VxVDRsl928QTcyglVU6lyfPUn4HL1RBKx4fKxkrjMcw
+ skjeEeF3KynMYqpwa+0gAQe0zMS2tZGIcvTqmFb4vFzoMU1JqOlWTfYgrOr0PcnsPAFEhFH2/5B
+ RQonnnA4g6YqXPi8M8jVPoekfyWHgFoPMCm8LqlZZyOm54t7ZaluJowFgNpuvLd2o8dHRztP+l/
+ +/E211sWMnYseOvw0IWpDDcl7oCXEL1venh+spCvFzayxqxQbZHy41dv+mLSXzvO7ucApXQrToR
+ jDn1p5zR/59wwQdSDTCzJT75/LPGA8RI68hBeVxsLNW6aGIepow2nt/GlAwvO4oaqV4HOxl5wvP
+ L4UtfuvKzgnmjVjM7TA==
+X-Proofpoint-ORIG-GUID: lmz4iKU4kJLQ1ShbMHi2QflUW0uSwBls
+X-Authority-Analysis: v=2.4 cv=NfTWEWD4 c=1 sm=1 tr=0 ts=6a4e4c78 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=_DP_PzDrpJ8qHd2sDw8A:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDEyNyBTYWx0ZWRfX2I8EUt+Zm+JD
+ Z+ccPY85zZyzwXpQkGrwxEUzOK+DQlZrcodTBaP0JYwEzspsu/iSGKW0qOmhNhJKuGzHtgAES+T
+ eGK6lG7YentHAL9jeVzW5Va2IY1zuSw=
+X-Proofpoint-GUID: lmz4iKU4kJLQ1ShbMHi2QflUW0uSwBls
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607080127
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On Tue, Jul 07, 2026 at 08:32:48PM +0000, Matthew Leung wrote:
+> Hawi SoC uses v10.60 register definitions for PCIe Gen4 x1. Add the new
+> register offset headers for all four sub-blocks:
+> 
+>  - QSERDES-COM offsets
+>  - QSERDES TX/RX offsets
+>  - PCS offsets
+>  - PCS PCIe-specific offsets
+> 
+> Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c           |   1 +
+>  .../phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h    |  26 +++++
+>  drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10_60.h     |  23 +++++
+>  .../phy/qualcomm/phy-qcom-qmp-qserdes-com-v10_60.h |  55 +++++++++++
+>  .../qualcomm/phy-qcom-qmp-qserdes-txrx-v10_60.h    | 109 +++++++++++++++++++++
+>  drivers/phy/qualcomm/phy-qcom-qmp.h                |   5 +
+>  6 files changed, 219 insertions(+)
+> 
 
-New issues:
-- [Medium] The `fiu0`, `fiu1`, and `fiu3` SPI flash controllers omit the re=
-quired `memory` mapping region.
-- [Low] The `pspi` (Peripheral SPI) controller is added but not documented =
-in the commit message.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Pre-existing issues:
-- [High] The IRQ name passed to `devm_request_irq` is allocated on the stac=
-k, leading to a dangling pointer in the IRQ subsystem.
-- [High] The fan ISR calculates the module index using virtual IRQ numbers,=
- leading to an out-of-bounds array access and memory corruption.
-- [High] The USB device controller driver fails to save the allocated `ci_h=
-drc` pointer, causing a deterministic NULL pointer dereference on device re=
-moval.
-- [High] The EDAC driver frees its main control structure on the probe erro=
-r path while a device-managed interrupt is still registered and active.
---
 
---- Patch [3]: [PATCH v7 3/4] arm64: dts: nuvoton: npcm845: Add peripheral =
-nodes ---
-commit f606ce99eafc7d4c8e2d67d9d5119b1c25593a16
-Author: Tomer Maimon <tmaimon77@gmail.com>
-Subject: arm64: dts: nuvoton: npcm845: Add peripheral nodes
-
-This commit extends the NPCM845 SoC DTSI by adding peripheral controller no=
-des
-needed by the evaluation board and downstream platforms. It adds nodes for
-Ethernet, USB, MMC, FIU, memory controller, RNG, ADC, PWM/FAN, I2C, and the
-OP-TEE firmware.
-
-> Extend the NPCM845 SoC DTSI with the peripheral controller nodes needed
-> by the evaluation board and downstream platforms. Add the Ethernet MACs,
-> USB device controllers and PHY, MMC controller, FIU controllers, memory
-> controller, RNG, ADC, PWM/FAN controller, and I2C buses. Also add the
-> OP-TEE firmware node needed to describe these blocks.
-
-[Severity: Low]
-The pspi (Peripheral SPI) controller node is added by this patch, but it
-isn't mentioned in the commit message. Should it be included in this summar=
-y?
-
-> diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/ar=
-ch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> index 0e5feabf2d718..7608dcf5489c4 100644
-> --- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> +++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-[ ... ]
-> +		mc: memory-controller@f0824000 {
-> +			compatible =3D "nuvoton,npcm845-memory-controller";
-> +			reg =3D <0x0 0xf0824000 0x0 0x1000>;
-> +			interrupts =3D <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
-> +		};
-
-[Severity: High]
-This is a pre-existing issue, but adding this memory controller node exposes
-a vulnerability in the EDAC driver (drivers/edac/npcm_edac.c).
-
-In drivers/edac/npcm_edac.c:setup_irq(), a devres-managed interrupt is
-registered and the hardware is unmasked:
-
-    ret =3D devm_request_irq(&pdev->dev, irq, edac_ecc_isr, 0,
-                           dev_name(&pdev->dev), mci);
-    ...
-    regmap_write(npcm_regmap, pdata->ctl_int_mask_master,
-                 pdata->int_mask_master_non_ecc_mask);
-
-If edac_mc_add_mc() fails later in edac_probe(), the code jumps to the error
-path and frees the main control structure:
-
-free_edac_mc:
-    edac_mc_free(mci);
-    return rc;
-
-Since the interrupt remains registered and active until devres teardown,
-could the hardware assert an ECC interrupt during this window, causing
-edac_ecc_isr() to dereference the freed mci pointer?
-
-[ ... ]
-> +		udc0: usb@f0830000 {
-> +			compatible =3D "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-> +			reg =3D <0x0 0xf0830000 0x0 0x1000
-> +			       0x0 0xfffeb000 0x0 0x800>;
-> +			interrupts =3D <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&clk NPCM8XX_CLK_SU>;
-> +			clock-names =3D "clk_usb_bridge";
-> +
-> +			phys =3D <&udc0_phy>;
-> +			phy_type =3D "utmi_wide";
-> +			dr_mode =3D "peripheral";
-> +			status =3D "disabled";
-> +		};
-
-[Severity: High]
-This isn't a bug introduced by this patch, but adding these USB controller
-nodes exposes an issue in drivers/usb/chipidea/ci_hdrc_npcm.c.
-
-In drivers/usb/chipidea/ci_hdrc_npcm.c:npcm_udc_probe(), plat_ci is
-successfully returned but never assigned to ci->ci:
-
-    plat_ci =3D ci_hdrc_add_device(dev, pdev->resource, pdev->num_resources,
-                                 &ci->pdata);
-    if (IS_ERR(plat_ci)) { ... }
-
-When the device is removed, npcm_udc_remove() passes the uninitialized ci->=
-ci
-pointer to ci_hdrc_remove_device(), which immediately dereferences it.
-
-Could this lead to a NULL pointer dereference during device unbind?
-
-[ ... ]
-> +		fiu0: spi@fb000000 {
-> +			compatible =3D "nuvoton,npcm845-fiu";
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			reg =3D <0x0 0xfb000000 0x0 0x1000>;
-> +			reg-names =3D "control";
-> +			clocks =3D  <&clk NPCM8XX_CLK_SPI0>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		fiu1: spi@fb002000 {
-> +			compatible =3D "nuvoton,npcm845-fiu";
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			reg =3D <0x0 0xfb002000 0x0 0x1000>;
-> +			reg-names =3D "control";
-> +			clocks =3D  <&clk NPCM8XX_CLK_SPI1>;
-> +			pinctrl-names =3D "default";
-> +			pinctrl-0 =3D <&spi1_pins>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		fiu3: spi@c0000000 {
-> +			compatible =3D "nuvoton,npcm845-fiu";
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			reg =3D <0x0 0xc0000000 0x0 0x1000>;
-> +			reg-names =3D "control";
-> +			clocks =3D  <&clk NPCM8XX_CLK_SPI3>;
-> +			pinctrl-names =3D "default";
-> +			pinctrl-0 =3D <&spi3_pins>;
-> +			status =3D "disabled";
-> +		};
-
-[Severity: Medium]
-Do these FIU controller nodes need a 'memory' mapping region?
-
-Without the 'memory' register range, the SPI driver might fail to use
-memory-mapped direct reads and drop to UMA (manual) mode, degrading
-performance. The fiux node below includes it, but fiu0, fiu1, and fiu3
-do not.
-
-[ ... ]
-> +			pwm_fan:pwm-fan-controller@103000 {
-> +				compatible =3D "nuvoton,npcm845-pwm-fan";
-> +				reg =3D <0x103000 0x3000>,
-> +					<0x180000 0x8000>;
-> +				reg-names =3D "pwm", "fan";
-> +				clocks =3D  <&clk NPCM8XX_CLK_APB3>,
-> +					<&clk NPCM8XX_CLK_APB4>;
-> +				clock-names =3D "pwm","fan";
-> +				interrupts =3D <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
-> +						<GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
-> +						<GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
-> +						<GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
-> +						<GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
-> +						<GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
-> +						<GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
-> +						<GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-[ ... ]
-> +				status =3D "disabled";
-> +			};
-
-[Severity: High]
-This isn't a bug introduced by this patch, but enabling this PWM/FAN
-controller node triggers a dangling pointer bug in
-drivers/hwmon/npcm750-pwm-fan.c.
-
-In drivers/hwmon/npcm750-pwm-fan.c:npcm7xx_pwm_fan_probe(), the IRQ name is
-allocated on the stack:
-
-    char name[20];
-    ...
-    sprintf(name, "NPCM7XX-FAN-MD%d", i);
-    ret =3D devm_request_irq(dev, data->fan_irq[i], npcm7xx_fan_isr, 0, nam=
-e,
-                           (void *)data);
-
-Since devm_request_irq() stores the name pointer in the IRQ descriptor, the
-stack frame destruction upon probe return leaves a dangling pointer.
-
-Could this cause a use-after-free or panic when userspace reads
-/proc/interrupts?
-
-[Severity: High]
-This is also a pre-existing issue, but there is another bug in
-drivers/hwmon/npcm750-pwm-fan.c that this node exposes.
-
-In drivers/hwmon/npcm750-pwm-fan.c:npcm7xx_fan_isr(), the module index is
-derived by subtracting the first virtual IRQ from the incoming virtual IRQ:
-
-    module =3D irq - data->fan_irq[0];
-    spin_lock_irqsave(&data->fan_lock[module], flags);
-
-Because the kernel's irqdomain does not guarantee that virtual IRQs are
-contiguous or allocated in order, could this subtraction result in an
-out-of-bounds array access and memory corruption when acquiring the spinloc=
-k?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708125352.1915=
-040-1-tmaimon77@gmail.com?part=3D3
+-- 
+With best wishes
+Dmitry
