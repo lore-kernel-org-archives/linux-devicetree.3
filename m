@@ -1,127 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8676B3AB283
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6673F58C2;
+	Wed,  8 Jul 2026 21:32:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783546024; cv=none; b=trnJYGpw41Z5ElLuqcpdWqFJsZ3Y2i1CWTrmoLbjhZrv9Rp+IrOYPJSKnRzhKgg+ZFYle1rjWCK2YDY1eaT10e5qankLCh/DlejFS2vdh8omMrYBF9nJftYrNpMQO3quRs4752OWXGfoCq+2+LT476xACybKloWY1c3BtI0rUN4=
+	t=1783546331; cv=none; b=a2t34j2GgbxJu8de6QFPGzr5HIM7iwn6ztPrNBVC1PcncwsealcOzWWe3+fpJnzuF2dYib3mZCTvJQ2VRn+SRwTaBNuh4yvQa0fgLjKTtWh6WFIkGgOL2Jry3zL8EwU/k4VOiK6Y5yo0si+LuUg+tlm//arUigDfYvEadFB/OJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783546024; c=relaxed/simple;
-	bh=R0gb8zx51y5UDbf24blqrEEm5DyWv/hE6m+36Sd4JAk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Acoak2SI/cTg1jqk0Ido8fWUxlzp7n4hlstwoZA7BaAkHDGCmmp0MJk2KZZP8/ttM7vFDrSRToT4OLvf1TP79Vbl3e3Npw2SF1GE6htU/s93+cJLocstJ4sLuoYveOZXR8uEjVxAHpoDQomUmd9tss94fozL+fzz/OSiI2qKGq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVkL90oD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783546331; c=relaxed/simple;
+	bh=v/yur6JxQBlQ7XQJVCJ+0tvVXPAOphXTYjC/pf7GVeE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gXMmNsgSd5GtBudne2ZUpVwQuyrz5Tf80o1VYbyNED3hJ5bW+TBa581HcCD35P7s3ewIQunMD1xu066ap8CjDHwwiaub1MtAKQf3tbV/ukk627eiEevZ7itSvxPUwycQ76JVJtbtYW0v0q9yVJMkzKe1WROU6isZcFxtG9QuOZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S5xFO8X9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVkL90oD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA1D1F00A3A;
-	Wed,  8 Jul 2026 21:27:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S5xFO8X9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485CE1F000E9;
+	Wed,  8 Jul 2026 21:32:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783546023;
-	bh=09KoiWAmqnzrzYreXxLHaVmi4hi9NFr+Letix6nMpo4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nVkL90oDbgksk98rnE3jvhz9MD2bGJe8sMyNPq21h1YCo0jzViVGWjwk56N81HbSJ
-	 MWCg6wZYA7EiIR/OxJup0Z+tfkKWR947lMBsKETWeMxVRbOTlHxXs4vEY76+534m4M
-	 js2pTY1kLe1EYmccs+BhPUdoIVEYcX0e5CBx4teo7QmcSzqvX/XWQrTqJnHa/shmUk
-	 C0lFeUIB7mLjhM/IlFCaDDqSYuG/eSwwLzWQNRurDeEr5VhcParOYwCmtJmdmWEEjm
-	 vA1TFlc8koCfCTVaPxRZWZqrVrAjCh5cloEzcEeHz+/4a+R1T1QCl0oeqh5TeM8yPY
-	 bJF8KA9LPHFbQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/3] arm64: dts: ti: var-som-am62: Add support for
- Variscite Symphony Board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <09a0962ea44181ad2c951c129ced30dd4a57aa21.1783545241.git.stefano.r@variscite.com>
-References: <cover.1783545241.git.stefano.r@variscite.com>
- <09a0962ea44181ad2c951c129ced30dd4a57aa21.1783545241.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 21:27:02 +0000
-Message-Id: <20260708212703.1CA1D1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1783546330;
+	bh=yOS1kfFuRrQQs4Q/BOmYqHiHHqC4EdqaWa5cvJ7jP0M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=S5xFO8X97QBypirWq0CzOPovRIyynWtopFLPfH7I0ZSr2hxoEj8UXe2QI0KkSs+mQ
+	 bjtT4c5KbfuvH8kDRHp4RmhgOl1/z8Q2uiL1UxFJrVxuL37VvCPTQsMz1pmjzrZcNg
+	 J5E7ZlzP2fW4Y9xuzbOIsKWx3suRBx7HVmR0rt6djcDe9D/j5rXnd3RF3vs6NyNOO9
+	 xH5dHxCo8lhHIvBqagP6wbgpvGv8GtxMY/ZTAZkLPWmMs5xMW3ai3aJLwyrvDKD4LT
+	 Rbrod1IFSOLIelGEqOyKbIolziS0xehnPFVGVGcyBRCzise12zkz5v+zECow2JMvo3
+	 i+otA476liv8Q==
+Message-ID: <f307848d-6abd-4e96-9183-36f8599026ce@kernel.org>
+Date: Wed, 8 Jul 2026 22:32:05 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 2/6] dt-bindings: media: qcom,x1e80100-camss: Describe
+ iommu entries
+To: Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+ <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-2-f8588da41f16@linaro.org>
+ <HCPw5KYwtYb7jBFED4lssTvcaMo2bK808SHkTWNR77q0DXGPQklaADJXvuyeBrXh_GsEMKdiaaktkzQ9_xeseg==@protonmail.internalid>
+ <cbc1b1eb-0064-4999-b829-2bec451c682a@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <cbc1b1eb-0064-4999-b829-2bec451c682a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `reg_sdhc1_vmmc` regulator incorrectly assigns a pinctrl node =
-to `vin-supply` and is missing its `pinctrl-0` property.
-- [Medium] `reg_ov5640_buf_en` toggles `GPIO0_21` during early boot, but it=
-s pinmux is incorrectly grouped into the `ov5640` camera node.
---
+On 08/07/2026 16:15, Vikram Sharma wrote:
+> 
+> On 7/8/2026 5:36 AM, Bryan O'Donoghue wrote:
+>>               iommus = <&apps_smmu 0x800 0x60>,
+>> +                     <&apps_smmu 0x820 0x60>,
+>> +                     <&apps_smmu 0x840 0x60>,
+>>                        <&apps_smmu 0x860 0x60>,
+> 
+> I think only "iommus = <&apps_smmu 0x800 0x60>" should be enough as mask which 0x60 is implicitly covering sids like 0x820, 0x840 and 0x860.
+> 
+> Regards,
+> Vikram
+> 
 
---- Patch [3]: [PATCH v1 3/3] arm64: dts: ti: var-som-am62: Add support for=
- Variscite Symphony Board ---
-commit 12f2ccbdac4310e1455bb2f2cb77ba574e516e28
-Author: Stefano Radaelli <stefano.r@variscite.com>
+These all come from the Hamoa iommu defintions in qcom docs.
 
-arm64: dts: ti: var-som-am62: Add support for Variscite Symphony Board
+Can you double check for yourself and let me know.
 
-This commit adds device tree support for the Variscite Symphony carrier
-board with the VAR-SOM-AM62 system on module. It includes configuration
-for SD card, USB, Ethernet, camera, GPIO expander, and other interfaces.
-
-Link: https://www.variscite.it/product/single-board-computers/symphony-boar=
-d/
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am625-var-som-symphony.dts b/arch/=
-arm64/boot/dts/ti/k3-am625-var-som-symphony.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am625-var-som-symphony.dts
-[ ... ]
-> +	reg_sdhc1_vmmc: regulator-sdhc1 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "+V3.3_SD";
-> +		vin-supply =3D <&pinctrl_sd1_vmmc>;
-
-[Severity: High]
-Does this incorrectly assign a pinctrl node to the vin-supply property?
-
-If the regulator subsystem attempts to resolve this as a parent regulator,
-will it fail and return -EPROBE_DEFER, preventing the SDHC1 controller
-from probing?
-
-Additionally, are the pinctrl properties (like pinctrl-0 and pinctrl-names)
-missing from this regulator node entirely? Without them, will the enable
-GPIO (GPIO0_30) fail to have its pin multiplexing configured correctly?
-
-[ ... ]
-> +	reg_ov5640_buf_en: regulator-camera-buf-en {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "ov5640_buf_en";
-> +		gpios =3D <&main_gpio0 21 GPIO_ACTIVE_HIGH>;
-
-[Severity: Medium]
-Because this regulator is marked as regulator-boot-on, it will attempt to
-drive GPIO0_21 during early boot. Does it lack its own pinctrl mapping
-to ensure the pin is configured as a GPIO at that time?
-
-[ ... ]
-> +	ov5640: camera@3c {
-> +		compatible =3D "ovti,ov5640";
-> +		reg =3D <0x3c>;
-> +		clocks =3D <&clk_ov5640_fixed>;
-> +		clock-names =3D "xclk";
-> +		AVDD-supply =3D <&reg_2p8v>;
-> +		DOVDD-supply =3D <&reg_1p8v>;
-> +		DVDD-supply =3D <&reg_1p5v>;
-> +		powerdown-gpios =3D <&main_gpio0 10 GPIO_ACTIVE_HIGH>;
-> +		reset-gpios =3D <&main_gpio0 22 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&pinctrl_ov5640>;
-
-Since pinctrl_ov5640 contains the pinmux configuration for GPIO0_21, but is
-attached to the camera node instead of the regulator, will the pin remain
-in an undefined state during early boot until the camera driver probes
-much later?=20
-
-Should the pinmux for GPIO0_21 be moved to the reg_ov5640_buf_en regulator
-node instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783545241.gi=
-t.stefano.r@variscite.com?part=3D3
+---
+bod
