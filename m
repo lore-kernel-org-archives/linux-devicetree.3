@@ -1,161 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1853ADBA3;
-	Wed,  8 Jul 2026 07:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC9A3E0C4C;
+	Wed,  8 Jul 2026 08:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783497598; cv=none; b=k21I97TieLrPORUK+B+YpG7s+xeJEI1vVo0eSF8frfqboD1RfFTd4nikGIeg1TpB9h0fz9dVxnoXPIh9Y70JOI7yTOZA4fuWp+U6pAcKPJpX93NhzOZ5v1AuzmhgYXeCl3V/VCf+E0iE6M1Mj6yjeZqBZgmG1Nx/Mz76SNgwEvU=
+	t=1783497624; cv=none; b=Q0vTaCBdT5AgQAe93hYL94gqOus/vq53JdB3S4wo+dxVH9ZVOptzWdnaMnA+b3DQfzrvDK0MuY0azUvQdYzYlEm5dFsrJze+ySBfF3yEQjRB4/Cjw5ystpW7ttwWDAcX2kytqAR/afP8PpIN4ec8RshwAlt3PrSmbS+zWx/9Tqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783497598; c=relaxed/simple;
-	bh=VDsM4b/bVlZZcXhMITQ/pfQFYc8FtssAtd+E5BYl3ns=;
+	s=arc-20240116; t=1783497624; c=relaxed/simple;
+	bh=nRGza4Sc0YOcCy4AzAZup761YMetwR27gyX3jxhc7M4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MMjjBr5nVcFb4+bOTzs2wXfy9gjxBbZd9oZVroDI+xwSkaVxJzYxG7PD3Ivnab7c97LcMpGBIdMj95yatAgzsk9BAxo1OCRZp8r31gYQWZ8E/lxex75LJLORpFsb6TUzooYXI0EKnG9PUHGI55W9TKaZwgWLRONAwvcM67Vosm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cogbiAXK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BgZWAihHc5NZIbHOBydQWQZirWGBqiLOymb0f38RZ2EOcTq5hHOwXExu/NlOmoj2wp+gN5Dg5fZEnTqhjafou7euZuIYifTm1Hs7fhBz9xBE2CzPodW4BDRvQ9kasOjym7CMeyQu3XaRiRltnURnPoqKVq6v+1L5VjKyL152HnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iLqV6ggh; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cogbiAXK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22611F000E9;
-	Wed,  8 Jul 2026 07:59:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783497586;
-	bh=8g8Ttn0kjFhoN2K8SOSf7rP1PCWBsxtWcEWwceV1Cm8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cogbiAXKmyAMp8pfFGMw1+XH+2/KFQZ2sirJm0MkZ25BfGjdi7K7UkK2mGaisfiBm
-	 KuN5ega3YTdU78XA4W+ovM0uk40KtUwj1IQJmdwuQOvmh0MLUniAH2UDpAzGHUZg0P
-	 u1fYmNoGSHOAUHdmYneYRgfT/AZFQBTayBEa9v7QKC/NjNK+mp6bmS9UuUV3dYDcI3
-	 TkVvcloCp1L2SU5GfdNRvlOhdCjDCV2Q9JdhGctPFX1cA+y3HBjoNVMbHew/PGh6oC
-	 sTKjkZqL/4xzF5SYpZ1Wl95LijL6ZH0gEp7MczaplLaen9JfL6pHR73TxoEo+KBbpn
-	 Dl5SwOUOzgI6g==
-Date: Wed, 8 Jul 2026 08:59:26 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Eugen Hristev <ehristev@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Anna-Maria Behnsen <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, 
-	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <jackmanb@google.com>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-mm@kvack.org, linux-arm-msm@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 21/26] printk: Register information into meminspect
-Message-ID: <ak4Cr5GEMdo8xWqu@lucifer>
-References: <20260708-meminspect-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com>
- <20260708-meminspect-v3-v3-21-7aa5a0a74d5c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iLqV6ggh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783497617; x=1815033617;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=nRGza4Sc0YOcCy4AzAZup761YMetwR27gyX3jxhc7M4=;
+  b=iLqV6gghxrn3qLuUfJ9iFA0KSimvdrNiewEGuIIAhDoXKOksQtbztVh6
+   zKPB8raDYrLxl5L67qQycdiwonYS4Kn5WLKLrFv0wpMr2X4NNc4YhXTlL
+   pI4ZriX9lVHdL3pWyeS10TJz/XV9epoQyoiV3qiqUL9j6WFm/GG9GptO/
+   QMQOMmGFk+k5O3WSecMl6VCS60Adri0DD8XDPLjnZo0Uy76tgZdRYySGW
+   hNoaWRo8j96IGv+YIXKYePOvIaZB8gkD9SO3obSUMqC/O+7QIVQDVb1Jp
+   1jDLnwyQT68plvyW9YfGsezLXa7KCtLQej2mHT0EpIM+dVGET9ERc4K58
+   w==;
+X-CSE-ConnectionGUID: WD2wmYoGSBGc7STh8Zmmtw==
+X-CSE-MsgGUID: ono5PSxrTtil1H21HUix1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="83931656"
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="83931656"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 01:00:09 -0700
+X-CSE-ConnectionGUID: VcILiA6VQJSQf3hMPwqW1g==
+X-CSE-MsgGUID: +iEUHChsTC2crytZtIPzXQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
+   d="scan'208";a="253726411"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.120])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 00:59:58 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 122D211FB4A;
+	Wed, 08 Jul 2026 10:59:58 +0300 (EEST)
+Date: Wed, 8 Jul 2026 10:59:58 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Ramshouriesh R <rshouriesh@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR
+ sensor driver
+Message-ID: <ak4DfkbDlIvsGY_u@kekkonen.localdomain>
+References: <20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com>
+ <20260702-hm1092-driver-v3-2-85faa7ff4fec@gmail.com>
+ <akkRRCaZMRyoWDt7@kekkonen.localdomain>
+ <CAJTcUFQ3CJQhEv_N7L22FmQSJsGpfMvKO1F5wiEarNca5VmV5g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260708-meminspect-v3-v3-21-7aa5a0a74d5c@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJTcUFQ3CJQhEv_N7L22FmQSJsGpfMvKO1F5wiEarNca5VmV5g@mail.gmail.com>
 
-On Wed, Jul 08, 2026 at 11:02:00AM +0530, Mukesh Ojha wrote:
-> Annotate vital static, dynamic information into meminspect for debugging
->
-> Static:
->  - prb_descs
->  - prb_infos
->  - prb
->  - prb_data
->  - clear_seq
->  - printk_rb_static
->  - printk_rb_dynamic
->
-> Dynamic:
->  - new_descs
->  - new_infos
->  - new_log_buf
->
-> meminspect uses a different API to annotate variables for inspection,
-> and information about these variables is stored in the inspection table.
+Hi Ramshouriesh,
 
-This commit message is a mess again. You're writing what the code does, not why,
-you mention separate API but not which or why.
+On Sun, Jul 05, 2026 at 01:01:13AM +0530, Ramshouriesh R wrote:
+> Hi Sakari,
+> 
+> Small correction: my name is Ramshouriesh. You can address me as Ram.
 
-It's useless basically, and it's weird to list arbitrary fields like this.
+My apologies for that, there apparently were quite a few letters missing. I
+hope that wasn't the case with the review.
 
-Always think 'what would be useful to reviewers and people coming back to this
-patch in debug/development'.
+> 
+> Thanks for the review. I’ll address the comments in the next revision.
+> 
+> However regarding the mode names, there is no proper datasheet for
+> this sensor released publicly.
+> I will add the proper mode names based on what the camera does in each mode.
+> 
+> And regarding the driver supporting single data lane, I will make
+> data-lanes optional and
+> will initialize the endpoint parser with a default of one data lane
+> and configurations
+> explicitly specifying anything other than one lane will be rejected.
+> The binding will retain an optional constraint permitting only <1>, so
+> an explicit invalid
+> value will be caught by schema validation, but data-lanes will be
+> omitted from the example.
 
-If it just says what the code says it's useless. Put what's NOT there.
+Please just drop the data-lanes property altogether: the DT is intended to
+convey the board, generally what's not discoverable or otherwise known, to
+software, and there's nothing to configure here.
 
->
-> Reviewed-by: Petr Mladek <pmladek@suse.com>
-> Co-developed-by: Eugen Hristev <eugen.hristev@linaro.org>
-> Signed-off-by: Eugen Hristev <eugen.hristev@linaro.org>
-> Reviewed-by: John Ogness <john.ogness@linutronix.de>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  kernel/printk/printk.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->
-> diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-> index 2fe9a963c823..f7f32c09b9b8 100644
-> --- a/kernel/printk/printk.c
-> +++ b/kernel/printk/printk.c
-> @@ -49,6 +49,7 @@
->  #include <linux/sched/debug.h>
->  #include <linux/sched/task_stack.h>
->  #include <linux/panic.h>
-> +#include <linux/meminspect.h>
->
->  #include <linux/uaccess.h>
->  #include <asm/sections.h>
-> @@ -518,10 +519,17 @@ static u32 log_buf_len = __LOG_BUF_LEN;
->  #endif
->  _DEFINE_PRINTKRB(printk_rb_static, CONFIG_LOG_BUF_SHIFT - PRB_AVGBITS,
->  		 PRB_AVGBITS, &__log_buf[0]);
-> +MEMINSPECT_NAMED_ENTRY(prb_descs, _printk_rb_static_descs);
-> +MEMINSPECT_NAMED_ENTRY(prb_infos, _printk_rb_static_infos);
-> +MEMINSPECT_NAMED_ENTRY(prb_data, __log_buf);
-> +MEMINSPECT_SIMPLE_ENTRY(printk_rb_static);
->
->  static struct printk_ringbuffer printk_rb_dynamic;
-> +MEMINSPECT_SIMPLE_ENTRY(printk_rb_dynamic);
->
->  struct printk_ringbuffer *prb = &printk_rb_static;
-> +MEMINSPECT_SIMPLE_ENTRY(prb);
-> +MEMINSPECT_SIMPLE_ENTRY(clear_seq);
->
->  /*
->   * We cannot access per-CPU data (e.g. per-CPU flush irq_work) before
-> @@ -1238,6 +1246,10 @@ void __init setup_log_buf(int early)
->
->  	local_irq_restore(flags);
->
-> +	meminspect_lock_register_va(new_log_buf, new_log_buf_len);
-> +	meminspect_lock_register_va(new_descs, new_descs_size);
-> +	meminspect_lock_register_va(new_infos, new_infos_size);
-> +
->  	/*
->  	 * Copy any remaining messages that might have appeared from
->  	 * NMI context after copying but before switching to the
->
-> --
-> 2.53.0
->
+And one more thing. Could you add the selection rectangles and possibly
+other API elements required by libcamera
+<URL:https://docs.libcamera.org/master/sensor_driver_requirements.html>?
 
-Overall exposing live dynamic printk information to drivers seems unwise, but
-not quite as insane as some of the other stuff thus exposed...
+-- 
+Kind regards,
 
-Thanks, Lorenzo
+Sakari Ailus
