@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71303F54C4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72503F54DD;
 	Wed,  8 Jul 2026 07:16:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783494962; cv=none; b=Vtx6Rgd8SCkzqnv0SivpwltmT477aufID9OJGJG/fhTggG4Bg09tB6cJCj5jMmYeJJxhd7qoXA0gC4dGd9S7Vf2kbukyr9I/7gshviuL0RaXqQ1+XehKdwOcK52x28ylE28E7Eht/DQNQ2AT5CXilIxpLrqXPxniY9wLiNqLQ+o=
+	t=1783494962; cv=none; b=a28Y2uNbxZy6QRNh3ch9JLZZiNw+UmIXif0iN31+JajZnUodDmp+mWpqR2IQPRG9ZvxNBl7Ywu96eAHiM0juXRfWOTUSyGDmvSAKPmM5zD/hNu4+euenESuoks1ZqogdHz5KucIlaBLvHnIv5ic1l1pXJl6GCVG/Y2AKefk5tw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783494962; c=relaxed/simple;
-	bh=ByYtCtKpL5zN/yGVXFT5sli8OKOR0P5NbnNTzjELoN0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ROIOSrstwd/IkuPB5F1fN2IZLabuGqpvRfTbSCuqU8OEZ/4fVdu+E9zKacuFFSbxI+PE0DI3nghbnqU7Dw13IFxZ1fYE7jee9z+QKH4hwduvwC62/E9kTKDFRhQ87zu+FNufYrLKOERqO1QiGiv+HkFmsLsA77O+jlwOL1r3dvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p/YeNzAS; arc=none smtp.client-ip=10.30.226.201
+	bh=/ejZ9kEPzd3EuCno7ps+9xBx6LGHpjeL3VowrnL2/78=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uBKJroeev+azTK3qnGYKBVwZJ8R0PLVo3Sutew7za+QCDWbXPjMIo1HiPBFJwutcTKq4ItMJ6L1gLFwG7nuQwDjuuV24EEktkJCMYK3cXGdoh2h0cmuA9/0wjCHr7lhgwjSSFvdMDzzzHRgy7G+XrzY4PiCpqql16yXd+Z+NPKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkA2XLCe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p/YeNzAS"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9D888C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkA2XLCe"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CD0BFC2BCFB;
 	Wed,  8 Jul 2026 07:16:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1783494960;
-	bh=ByYtCtKpL5zN/yGVXFT5sli8OKOR0P5NbnNTzjELoN0=;
-	h=From:Subject:Date:To:Cc:From;
-	b=p/YeNzASzq7aKDoVCUOwMCQGWEmGoLWaJrvVKLx52HyRj4Yu5JiKi9fQOx6DXhZyB
-	 QGJBHD5zp4Ieszp6nXteQrutvrpRs8PygkVn4R6gATRImzBptL6UdsG+1xme48aA57
-	 jn+ENfboaCcgy1NRu1HbrC0fF1TXk0mMbieJGGn1SjiENljtjlOqW8XGnBGuM7nA2S
-	 3UXKW6eC6C+Qrh4kZlDJdPFvqdOBW5yx3ZGtHTqtnlmPr4SDy04yOiLPlaF4y+P13a
-	 ZuIfvme1Y2Z8DKkixa8XQZwl1RSck6AgDGsn++CR+5TkPsfsrhpppk8V5m5oykQmRd
-	 Z0jhlXDw4Dxvw==
+	bh=/ejZ9kEPzd3EuCno7ps+9xBx6LGHpjeL3VowrnL2/78=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=EkA2XLCetEn+0X3MLOpEK0EDgDo4DCBZKaerH//y9NGxL+gOzpZ5yDGvIqJY40geb
+	 QIStN89D9V9eiOsbg8lhNBXoMcB/vmzUi3vH3IKoJp1G1duTUiFEm4lYkvIRNzJoXA
+	 +9cXElE6H+m339LtH8vm0Xp8FdoF43kGu5UVaUkofZ9mSQYO44YcRxOsGB9gtwrS05
+	 6yInfa0rxgwvXSvyXJIVI8s0eioZ5l6jTjpXpAooxRjmJOwNBhIa8lamZdtHJm5IqV
+	 UHUorOMEs5ZInv4vgyu65aw7g90+h+FKDi058XukEXNhIAF3dzM8Gr2nqJSzBrT0EG
+	 gBbUM7aG6pOdg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77E14C43458;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B616BC44503;
 	Wed,  8 Jul 2026 07:16:00 +0000 (UTC)
 From: Sven Peter <sven@kernel.org>
-Subject: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
- sharing EL2 for Apple Silicon
-Date: Wed, 08 Jul 2026 09:15:36 +0200
-Message-Id: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+Date: Wed, 08 Jul 2026 09:15:40 +0200
+Subject: [PATCH RFC 4/6] arm64/efi: Honor EFI_MEMORY_ISA_MASK for
+ Device-nGnRnE vs -nGnRE
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDMyNT3dS0TN2C4uRM3UTLJDPzpDSzNEMTUyWg8oIioFQF2KhopSA3Z6X
- Y2loAT/7/NF8AAAA=
-X-Change-ID: 20260625-efi-psci-a9b67bf6f145
+Message-Id: <20260708-efi-psci-v1-4-9efb3abf0e4c@kernel.org>
+References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+In-Reply-To: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
 To: Mark Rutland <mark.rutland@arm.com>, 
  Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -57,88 +56,80 @@ Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org, 
  asahi@lists.linux.dev, Sven Peter <sven@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3357; i=sven@kernel.org;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1905; i=sven@kernel.org;
  h=from:subject:message-id;
- bh=ByYtCtKpL5zN/yGVXFT5sli8OKOR0P5NbnNTzjELoN0=;
- b=owGbwMvMwCXmIlirolUq95LxtFoSQ5bvT5WlF8I4rk6Sn5nG6cMjrV3d2vA75pVuJfeDjve1K
- 1ZrnrPqKGVhEONikBVTZNm+3970ycM3gks3XXoPM4eVCWQIAxenAExkrSEjw2P1OXzND6zaJ9/+
- pXRxV4RW6oRK9u44du2vsQZlq27XbWb4KzDz0GxmlsYNH4rEWN7utj4oLCNjHflwftn5nWtOMvs
- msQIA
+ bh=/ejZ9kEPzd3EuCno7ps+9xBx6LGHpjeL3VowrnL2/78=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ5bvT20VobN/mkSjXybcUAyb9+Z88s/JF8WfOJrfK1Ge9
+ T/5kZhWRykLgxgXg6yYIsv2/famTx6+EVy66dJ7mDmsTCBDGLg4BWAiR68wMsw/Pqu0ZI/KjOyn
+ DLbql2JYL5V908i9WRd1+mWnzWJHcUlGhqttB8R9OEyec165K7C9z9xZ4uftR93tR4XKbs1h4mX
+ 6wQ4A
 X-Developer-Key: i=sven@kernel.org; a=openpgp;
  fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
 X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
  auth_id=407
 
-Hi,
-
-Usually, idle and sleep state are implemented in firmware running in
-e.g. EL3 with the kernel trapping into that from EL2. Unfortunately,
-there's no EL3 on Apple Silicon machines and we'd rather not run the
-kernel in EL1 since this would result in losing KVM support.
-
-While the shallower states could be implemented inside a custom cpuidle
-driver (like we do downstream, see [1]) the deeper states result in a
-complete loss of state and require bootstraping the cores again which is
-quite involved. So instead we need some way to call back into our
-open-source firmware to be able to handle that. This is even more
-important for M4+ which don't even support the architectural wfi anymore
-and always lose state when that instruction is executed.
-
-Luckily, EFI runtime services provide much of scaffolding we need,
-namely a way to keep some code and data mapped and the ability to jump
-into there from inside the kernel.
-
-This series adds a custom EFI table that points to a PSCI entry point
-(plus some other stuff that has to be available before EFI runtime
-services are set up) and adds support for this new conduit to the psci
-code. We can't directly use the normal EFI runtime path because that one
-takes a sleeping lock and we need to be able to call into PSCI from
-atomic context during e.g. cpu bringup or during idle.
-It also adds support for specifying the specific MAIR attributes for EFI
-runtime mappings as defined in the latest UEFI spec since Apple Silicon
-is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
-
-This all results in a surprisingly small diffstat. I believe this
-approach was originally suggested in some IRC discussion years ago,
-possibly by Ard, but I can't find the old logs anymore.
-Happy to add a Suggested-by tag though if anyone remembers.
-
-The firmware implementation I used for testing can be found at [2] and
-the full kernel tree with this series applied at [3].
-
-Best,
-
-Sven
-
-[1] https://github.com/AsahiLinux/linux/blob/asahi/drivers/cpuidle/cpuidle-apple.c
-[2] https://github.com/AsahiLinux/m1n1/tree/psci-via-efi
-[3] https://git.kernel.org/pub/scm/linux/kernel/git/sven/linux.git/log/?h=efi-psci
+On Apple Silicon, access to MMIO requires Device-nGnRnE while Device-nGnRE
+results in SErrors. UEFI defines the EFI_MEMORY_ISA_MASK for cases like
+that which just contains the MAIR attribute bits. We cannot support any
+other Device- types without changing MAIR so just warn and fall back to
+the previous default, Device-nGnRE, if we encounter anything else.
 
 Signed-off-by: Sven Peter <sven@kernel.org>
 ---
-Sven Peter (6):
-      dt-bindings: arm: psci: Add EFI conduit
-      arm64/efi: Add and parse custom PSCI EFI configuration table
-      efi: Add EFI_MEMORY_ISA_{MASK,VALID}
-      arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
-      firmware/psci: Add EFI runtime conduit
-      arm64: dts: apple: t8103: Add PSCI and CPU idle states
+ arch/arm64/kernel/efi.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
- Documentation/devicetree/bindings/arm/psci.yaml | 12 ++++
- arch/arm64/boot/dts/apple/t8103.dtsi            | 51 ++++++++++++---
- arch/arm64/include/asm/efi.h                    | 56 +++++++++++++++++
- arch/arm64/kernel/efi.c                         | 82 ++++++++++++++++++++++++-
- arch/arm64/kernel/setup.c                       |  2 +-
- drivers/firmware/psci/psci.c                    | 64 +++++++++++++++++++
- include/linux/arm-smccc.h                       |  1 +
- include/linux/efi.h                             |  3 +
- 8 files changed, 261 insertions(+), 10 deletions(-)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260625-efi-psci-a9b67bf6f145
+diff --git a/arch/arm64/kernel/efi.c b/arch/arm64/kernel/efi.c
+index e40885567f9e..50ba8e9112fc 100644
+--- a/arch/arm64/kernel/efi.c
++++ b/arch/arm64/kernel/efi.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2013, 2014 Linaro Ltd.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/efi.h>
+ #include <linux/init.h>
+ #include <linux/kmemleak.h>
+@@ -16,6 +17,7 @@
+ 
+ #include <asm/efi.h>
+ #include <asm/stacktrace.h>
++#include <asm/sysreg.h>
+ #include <asm/vmap_stack.h>
+ 
+ 
+@@ -38,7 +40,27 @@ static __init ptval_t create_mapping_protection(efi_memory_desc_t *md)
+ 	u32 type = md->type;
+ 
+ 	if (type == EFI_MEMORY_MAPPED_IO) {
+-		pgprot_t prot = __pgprot(PROT_DEVICE_nGnRE);
++		pgprot_t prot;
++
++		if (attr & EFI_MEMORY_ISA_VALID) {
++			u8 mair = FIELD_GET(EFI_MEMORY_ISA_MASK, attr);
++
++			switch (mair) {
++			case MAIR_ATTR_DEVICE_nGnRnE:
++				prot = __pgprot(PROT_DEVICE_nGnRnE);
++				break;
++			case MAIR_ATTR_DEVICE_nGnRE:
++				prot = __pgprot(PROT_DEVICE_nGnRE);
++				break;
++			default:
++				prot = __pgprot(PROT_DEVICE_nGnRE);
++				pr_warn("unsupported MAIR attribute %#x for EFI MMIO region at 0x%llx, using Device-nGnRE\n",
++					mair, md->phys_addr);
++				break;
++			}
++		} else {
++			prot = __pgprot(PROT_DEVICE_nGnRE);
++		}
+ 
+ 		if (arm64_is_protected_mmio(md->phys_addr,
+ 					    md->num_pages << EFI_PAGE_SHIFT))
 
-Best regards,
 -- 
-Sven Peter <sven@kernel.org>
+2.55.0
 
 
