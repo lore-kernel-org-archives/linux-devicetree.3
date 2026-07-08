@@ -1,299 +1,278 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B373A8750
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 04:26:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783484769; cv=pass; b=QbTQvvHNCvqcHOb2NiZ71kLqV9F5iwmdFECnwiS8jIYBO8t5GwLoCdTJZaKZw7OMLJIMWYxAnGdPRwTh8P+HpPKG45JwMqkmLbKvAvU5aS+Q0dLOOKDJROKsrYzNSGURIWvyMx0l9iXXKfp1AambOgXv8epwImWZLa6Eie9EcfM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783484769; c=relaxed/simple;
-	bh=D2K6Gs/SGHqAkH7SsYRGxQRhWxfPmqeGz9Tb0hfAwas=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=l9DcUUeugPpKhd2oiwGTKCFfUDuzJ8yhltPWsiwyiZLB9jmdnHBYd4m3XoZVSOrtULOSvO5ReVM4GXXaNzljJ/XsD4JbWWQYwhI4yN38LfD6lQwsUcbGONXmQ8VJBKkuPdmP3ravCg1Rg/dT/ia1qSNPq9T5/+g74qbJYjOtkko=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=asdpohgg; arc=pass smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1431F03DE;
+	Wed,  8 Jul 2026 05:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783487453; cv=none; b=Rs4g1uSRMD1RKbVkbM8zmy0uXKLJbyLUlayOPzQPM6IcIuDJ/68acUKZSpxp5OhXrF0y8iWVSwClal3g9PO4nWbIR6F+6hgvpvj48jLspqKiziq9F40y5MFrvAGmXxrMh4MiKk6UgdsZby996kEfLyAaDuQ2LwdmmZhpwhMLPuI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783487453; c=relaxed/simple;
+	bh=tlPlsJhFLju8OW1UZl7eqN+3lROyCY/hagIXnAHvyV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uKSnrDJV04K2fkp3AsjRxcP3Tvu9kVzy1s0YJ5DH13EqWJNjOtCvIn92wCkjsOWKfJLl+9sAH5ND6lQiL5OYkrVZDyG17/0SwDe6CN1j4kuoFuJfvCWw8iy+eIrL3N7IRi/EkH0m9DadYFqTD/RaRNIZbNWSMBIUj8y8Rov4hSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IXySWFd3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="asdpohgg"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6676fc59e59so262675d50.2
-        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 21:26:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783484766; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rdUzP76B565yauEGDYE5iwbFL4H/1gXNrbghv6xqG3jEPozVCDikzvMqhXSvhPhX9Y
-         93KvGHD8MPrTy4HmFnG885sseDIkrE6XptvtHqY5BkjSMCbI7tEL3xyW2KB3wUGvi+VA
-         JoFzn32jc4O9s9zsdXHRn1PZHXQ4I/ldfsmfZYRK7PK1rc9G8czed1XVV5p74p4WD3ea
-         Ks9AswcJlZK6d4iVslzBWDBueFiiwfap0DLu9gZZl6iSk2BjAdCMd4V+rURp9Hl1pVcI
-         Y2Xz9DKHxkZYRMZ4wH2faA8oLbPalBPMsxiri0VjEnvsobv0ACGY0GE5Wm94vh25FLD4
-         UqTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9TWqEVDO1Px1PCZICb5KMgjoiJimA/1tHVt9yLna+xE=;
-        fh=Il47gtDCHKM81xFeICPIVOj63I6fWYpmyyfoqcH2eN4=;
-        b=j5ykSrNVCGU0Q76SXEb3FgEn7nLnh4C2SFMvF8fi7vfuq9lS8gYe6S0ib4/CgOMwUW
-         fujEtiWqfDElyVI3343YBZgMkkG3lE8zJN6ZL8nNqK1pL0SzpbMmUozHefui4Mc0n8n2
-         3iwxdvHi03VOFu5yOmkDrEg6tmEUnOCw2Hzvt2eAVmANknKIv2/5+oG3Cck3l4Z3U1OW
-         Hko/5mPh+mZd86puS9yUtjqDGuWIcWzyFTGh8aOOlkJ6l4ESLBrMQWpLIdw7WtHainNA
-         GJ5KgprM9tuEoJRRoUToy8CBA0WHR6hv4/br8ZVgGwwLXnBvzmmw6INm5m8G7i+QTscP
-         AvAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783484766; x=1784089566; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9TWqEVDO1Px1PCZICb5KMgjoiJimA/1tHVt9yLna+xE=;
-        b=asdpohggVD+u3+Fk0fZ8+iymSHtA4PsvEu++Ex7+EbeVcdwj8JNHsVJiDTyO2wjzLL
-         Frd6qmlhLdOeIMb+hoZcWqGpQmc+ICfhkoRlUo1NdhyMl5zeoKZdVhmilkTOu0fdQJ8I
-         0aH/32faxfmZJS5uuTaPcl0nHsHRqXMFLU1jc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783484766; x=1784089566;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9TWqEVDO1Px1PCZICb5KMgjoiJimA/1tHVt9yLna+xE=;
-        b=raTwaMcFvRSzZ3dh94AnSUFaSieZMHK2VnjkhoL8nKBH4hNSPlgoUtrWuuAy0Vyifj
-         +ipCZ0LOg2nzTDxJu25rVUm5giHUgl/Vy0WRhYa4ipxg1dlM9U5doH3inZExFLivGNE5
-         DzgeLv+hKps94zm3P+ZMB3F+qyH2jB51Lq5GaUMDBLO+wq5e/eQ3hnNCiXuT1kYU09JT
-         weL5jXbf2XguGQWNgPJEQ2PZyqH+PtRkBQCRuwDF0inSo6Y2OGrcKz4D7xRzw3FmQaX2
-         CBQHxj8To5/X6T7wDY64tFOVrEJRiqr+qJwViQT6PK1rdKAV2i1R6hifZuHP2iRm1Hfc
-         TeDQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rol8emt/q6cUrcb9VihZVAboUVLzTHYoOUAhLoiBkEK16pP+vZJYbfOf9eeZldfY5vdIDlZRgVlFPAC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw6Dmjy7nF1E3qgqcdV1bz+AxNz+RYVf0TxiDbYqnkp8hRyvFPk
-	+VW3axZQ4AxNGcrw7MZyjv82grrt+KO84SKFIR9yjpj4UzOf7ekM/MPS/+ss7YsSRoE+rqUXW6w
-	5Q+yXfRNgTDFF1nEn/balWKjoA0oUPmuXApXq4a/U
-X-Gm-Gg: AfdE7cmUDAQ6M3genmCkhA34v0mdNzxM9MIE8Pt2XneGabfKZz2JyIfYcjnTTxB2iWU
-	v6PIgQz5MSzBu81vGkA/HWFTgwa/nMbYjP1HPKs+r8KKYFffJBm1dUC4E0DMzyzcAgRsgiTJrP4
-	iZ2VRAVwWODx/j9vMYKI9iawGl6l5lOx1xxf9mNElnv8Xtypz6jRhKxLlGomAW5+lA2BNLuk0ev
-	58uQwUZKQzeW6nD0xVKtZK+eypyvaFe+C4SqXCFxLQa1zYfPvlVE1jfLaapKv1QP9hXWt4ymt1p
-	y2FoDLEonGwU9mdXRHBL6r4CHXs=
-X-Received: by 2002:a05:690e:1916:b0:662:dcc4:c6bb with SMTP id
- 956f58d0204a3-6679f0909a2mr589124d50.37.1783484766428; Tue, 07 Jul 2026
- 21:26:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IXySWFd3"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66842lE81625566;
+	Wed, 8 Jul 2026 05:10:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=wUbLVWmnsZJsYRwC8SrzML
+	ZCezHhK1xsSULOh1Fyo+0=; b=IXySWFd3kslgClMfcxgV4OEAkg3usaCRcGP+6W
+	RjlsRIPNts6/48jIwAnaD8/CW3M35/HcxuPjyqtAh1j0QiFD/Q65HWa9+5R/ZkZ6
+	CNjW4uOwZrc/5WVkYL+H/rBm0L2roHN7TTabMX9M7EOxZbIdygyzV/07Mh08FEFn
+	eFDU7BhVGKoiP/Rn3K/mH3QHforwppXPR1KWZOU+tWPF4ApjBGQukM/uyR9z0ay1
+	MyTY7V3nDwsl+KQFlFC4tHzzA66rB2PQGaTWJwSGC1WpkEfJqPOgl5NmL0v0hwq+
+	gUxIqCoj1IH3AeW3awPFyl02wcP0EEgjCYQlWXDEJrovfoxw==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f95fd2qqh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 08 Jul 2026 05:10:44 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6685AdMx015921;
+	Wed, 8 Jul 2026 05:10:39 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f6u8kcrwe-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 08 Jul 2026 05:10:39 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6685AdDE015914;
+	Wed, 8 Jul 2026 05:10:39 GMT
+Received: from hu-devc-hyd-u24-a.qualcomm.com (hu-msavaliy-hyd.qualcomm.com [10.147.246.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6685Adcv015912
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 08 Jul 2026 05:10:39 +0000 (GMT)
+Received: by hu-devc-hyd-u24-a.qualcomm.com (Postfix, from userid 429934)
+	id 45F652181C; Wed,  8 Jul 2026 10:40:38 +0530 (+0530)
+From: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+To: viken.dadhaniya@oss.qualcomm.com, andi.shyti@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, vkoul@kernel.org,
+        Frank.Li@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        dmitry.baryshkov@oss.qualcomm.com, linmq006@gmail.com,
+        quic_jseerapu@quicinc.com, zhengxingda@iscas.ac.cn, kees@kernel.org,
+        agross@kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
+Cc: krzysztof.kozlowski@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com,
+        bjorn.andersson@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
+        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Subject: [PATCH v8 0/4] Enable multi-owner I2C support for QCOM GENI controllers
+Date: Wed,  8 Jul 2026 10:40:06 +0530
+Message-ID: <20260708051023.2872304-1-mukesh.savaliya@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260707104427.3409290-1-wenst@chromium.org> <176dd24c-c3cf-4ab9-8497-594ed65d10ec@collabora.com>
- <CAGXv+5F86JU9+LPSy8PtuCPrdhBnvcA=PX1d++Yh3u7mK_Jxmw@mail.gmail.com> <94c10212-9c27-4875-8a88-78bfb67fb382@collabora.com>
-In-Reply-To: <94c10212-9c27-4875-8a88-78bfb67fb382@collabora.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 8 Jul 2026 12:25:55 +0800
-X-Gm-Features: AVVi8CdMjcjDEO3nU05c3hnTSzfBa4pXETiFq-WswvUgQmZHYpqwsoBeVo-3znY
-Message-ID: <CAGXv+5EsWVbLtUP6b75fvkDVSqUDoAOA1t3hPO4cA9sAA02=WA@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA0NiBTYWx0ZWRfX+qTJsUanE1TG
+ KdoPReZBnBtqQvzvPnU6o6s8Q1MUcocz9UotclKl+nQsOrhspuRO66f2vljEk29Na8ovNN4eKzv
+ CbRfu+qa5KeR9Q9U2cFDFQGLHa7SkzaVDZdJejzujjum6HPK1gVkl72WcbkngRYQFnZdkfdQylQ
+ iF6opw9+vODmOHGrwf4b0oCPfUj0lcTUB7BfWuJnCg1kyrAodnJLFpSV7e6k9zvcr+RDGwh7Urz
+ iTKzlt3CrjqVK856HW7fmsMgl8SLQZz71TWHVCUbIoCrZsYpfowEWYSQ3gGi7VnVY3kkYtjdEg9
+ vcU5ect4edBBhdb6TkSuxJ1yHjUlhxJXkOq8jKAWhttmnEMzxyDVXABcVGNlqjK6SGtldhnuLim
+ 7fsyMpzrw1Vouuj84IjWioiOE7eXaajhHHShvlmLeBQUTYvx42aCQ/o8+CL8L6Q6FwPflxDwsYB
+ 4JNWLfdV0vuvABUjt6w==
+X-Authority-Analysis: v=2.4 cv=VZLH+lp9 c=1 sm=1 tr=0 ts=6a4ddbd4 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=he5lF8nT1moT07yA0wYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: gMz8v5TLtSaaepUoUTVVc8H6mQGYlfG2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA0NiBTYWx0ZWRfX6R+/HxF/7qgk
+ e5pK3nfr1RQ6jGKK+VEn3CR5q4VgEfTjpYm6tfopOCoE5rcUx9O7VlP/InZNE93QHsDaD1NIfBS
+ yLqUhaiRcFG3ZuEm6blKaY9XbMnASqM=
+X-Proofpoint-GUID: gMz8v5TLtSaaepUoUTVVc8H6mQGYlfG2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-07_06,2026-07-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0 clxscore=1011
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607080046
 
-On Tue, Jul 7, 2026 at 7:24=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> On 7/7/26 13:08, Chen-Yu Tsai wrote:
-> > On Tue, Jul 7, 2026 at 7:05=E2=80=AFPM AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@collabora.com> wrote:
-> >>
-> >> On 7/7/26 12:44, Chen-Yu Tsai wrote:
-> >>> The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR=
-4X
-> >>> DRAM.
-> >>>
-> >>> Add a device node for it and hook up all the supplies.
-> >>>
-> >>> This change requires a firmware fix for the SPMI bus to read back
-> >>> correctly. The required firmware version is 15842.175.0. This is
-> >>> included in ChromeOS releases R150-16700.22.0 (available in Beta
-> >>> channel as of writing or stable channel in mid-July) or
-> >>> R151-16721.0.0 and later.
-> >>>
-> >>> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> >>
-> >> This is a big problem then.
-> >>
-> >> I take it as if the firmware fix is not in place, probing the CPU powe=
-r supplies
-> >> will fail, with all the consequences.
-> >
-> > That's right.
-> >
-> >> This means that with this, we're breaking all Geralt machines with old=
-er firmware,
-> >> which is not acceptable...
-> >>
-> >> ...so this needs a different solution, or strong reasons to make me un=
-derstand that
-> >> I'm wrong, if I'm wrong.
-> >
-> > We can drop the CPU supplies (they don't matter since cpufreq is hardwa=
-re
-> > driven) and just add the regulators. How does that sound? If the firmwa=
-re
-> > isn't updated, the PMIC will fail to probe, but since nothing is using =
-it,
-> > the system will continue to work (with some annoying error messages).
-> >
->
-> That'd be wrong, but less wrong than not having anything described...
+The QUP-based GENI I2C controller driver currently assumes exclusive
+ownership of the controller by a single system processor. This prevents
+safe use of a single I2C controller by multiple system processors
+(e.g. APPS and a DSP) running the same or different operating systems.
 
-Yeah. As I said, it doesn't affect usability.
+One practical example is an EEPROM connected to an I2C controller that
+needs to be accessed independently by firmware running on a DSP and by
+Linux running on the application processor, without causing bus-level
+interference during transfers.
 
-> ...I wonder if, at this point, you could set the SPMI node to status =3D =
-"fail" and
-> have the *new* firmware override that to "ok".
->
-> That's the only reasonable way to go forward, IMO.
+This series adds support for operating a QUP GENI I2C Serial Engine in a
+multi-owner configuration. Each system processor uses its own dedicated
+GPI instance (GPII) as the data path between the Serial Engine and the
+GSI DMA engine. As a result, controller sharing is supported only when
+the I2C controller operates in GPI mode; FIFO/CPU DMA modes are not
+supported for this configuration.
 
-I'm afraid it is unlikely to get a firmware release to fix a non-critical
-issue. We were fortunate that there was an actual critical issue being
-fixed that allowed me to merge the small fix for the SPMI controller.
+To serialize access at the hardware level, the GPI DMA engine is used to
+emit lock and unlock Transfer Ring Elements (TREs) around I2C transfers.
+The lock is acquired before the first transfer and released after the
+last transfer, ensuring uninterrupted access to the controller while a
+processor owns it.
 
-I think it would be great if everyone could update their OS and firmware,
-but I understand that some devices never get updates, such as those in
-board farms that never boot into ChromeOS.
+In addition, when a controller is shared, the GENI common layer avoids
+placing the associated GPIOs into the pinctrl "sleep" state during
+runtime suspend. This prevents disruption of transfers that may still
+be in progress on another system processor using the same controller
+pins.
+
+The multi-owner behavior is enabled via a DeviceTree property,
+`qcom,qup-multi-owner`, on the I2C controller node. This property must be
+used only when the hardware configuration requires controller sharing
+and when GPI mode is enabled.
+
+Patch overview:
+  1. Document the `qcom,qup-multi-owner` DeviceTree property for GENI I2C.
+  2. Extend the QCOM GPI DMA driver to support lock and unlock TREs with a
+     simplified single-field API.
+  3. Update the GENI common layer to keep pinctrl active for shared
+     controllers during runtime suspend.
+  4. Enable multi-owner operation in the GENI I2C driver using the new
+     DeviceTree property and GPI lock/unlock support.
+
+Signed-off-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
+
+---
+Link to V7 : https://lore.kernel.org/all/20260423145705.545552-1-mukesh.savaliya@oss.qualcomm.com/
+Changes in V8:
+- Documented that multi-owner controllers must not assume exclusive ownership of GPIOs and
+  therefore sleep pinctrl state must not be selected.
+- Documented that each owner is responsible for maintaining required resource votes for
+  shared-controller operation.
+- Clarified commit message to state that lock/unlock sequencing applies only to
+  GPI DMA mode transfers, as FIFO mode does not use the GPI engine.
+- Fixed GPI lock/unlock handling for single-message transfer, ensure both ACQUIRE
+  and RELEASE are issued when num == 1.
+- Simplified DT property assignment by directly assigning of_property_read_bool()
+  result to se.multi_owner.
+- Improved error message to clearly indicate that multi-owner configuration requires
+  GPI DMA mode.
+- Updated code comments to follow kernel style guidelines and improved wording for clarity.
+- Rebased patch on tip.
+- Added ACked by tag for Patch 1 and reveiwed by tag for Patch 3.
+ 
+Link to V6 : https://lore.kernel.org/all/20260331114742.2896317-1-mukesh.savaliya@oss.qualcomm.com/
+Changes in V7:
+ - Added Acked-by for dt-biding patch 1 given by Rob.
+ - Minor description change for multi_owner variable in patch 3 and added RB tag from Konrad.
+ - Removed description of multi_owner DT property from code as it's part of kernel doc.
+ - Returned with dev_err_probe() in geni_i2c_probe() - Konrad's suggestion.
 
 
-ChenYu
+Link to V5 : https://lore.kernel.org/lkml/20241129144357.2008465-2-mukesh.savaliya@oss.qualcomm.com/
+Changes in V6:
+ - Addressed review feedback from Krzysztof Kozlowski and other reviewers, primarily
+   around clarifying the feature semantics and improving the DeviceTree flag naming.
+ - Renamed the DeviceTree property from qcom,shared-se to qcom,qup-multi-owner to
+   better describe the multi-owner controller use case.
+ - Updated the cover letter to clearly describe the multi-owner I2C design, the
+   GPI-only limitation, and the role of the new qcom,qup-multi-owner flag.
+ - Updated the DeviceTree binding documentation to reflect the new qcom,qup-multi-owner
+   property and refined its description for clarity and correctness.
+ - [Patch 2/4] Simplify the GPI I2C interface by replacing multiple shared SE related
+   state flags with a single internal lock/unlock control managed entirely in the GPI
+   driver - Suggested by Vinod Koul.
+ - [Patch 3/4] Updated the GENI common layer to avoid selecting the pinctrl “sleep”
+   state for multi-owner controllers, preventing disruption of transfers initiated by
+   another system processor during runtime suspend.
+ - [Patch 4/4] Updated the GENI I2C driver to: 
+    - Detect the qcom,qup-multi-owner DeviceTree property.
+	- Mark the underlying serial engine as shared.
+	- Request GPI lock and unlock TRE sequencing around I2C transfers using the
+	  simplified single field API.
+ - Clarified commit messages across all patches to avoid ambiguous terminology
+   (such as “subsystem”), expand abbreviations, and better explain functional
+   requirements rather than optimizations.
+ - Updated copyright headers across all files wherever applicable.
+ - Renamed variable shared_geni_se to multi_owner to match the DT property naming.
+ - Changed dev_err(print_log) during probe() to dev_err_probe().
+ 
 
-> Of course, avoid having the firmware adding the CPU supplies, because tha=
-t would
-> be rather sketchy then. Just "if spmi status fail found, change to ok".
->
-> Cheers,
-> Angelo
->
-> >
-> > ChenYu
-> >
-> >> Cheers,
-> >> Angelo
-> >>
-> >>> ---
-> >>>    .../boot/dts/mediatek/mt8188-geralt.dtsi      | 66 +++++++++++++++=
-++++
-> >>>    1 file changed, 66 insertions(+)
-> >>>
-> >>> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/a=
-rm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> >>> index f382f90c48f5..fea52c377d88 100644
-> >>> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> >>> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> >>> @@ -4,6 +4,8 @@
-> >>>     */
-> >>>    /dts-v1/;
-> >>>    #include <dt-bindings/gpio/gpio.h>
-> >>> +#include <dt-bindings/spmi/spmi.h>
-> >>> +
-> >>>    #include "mt8188.dtsi"
-> >>>    #include "mt6359.dtsi"
-> >>>
-> >>> @@ -241,6 +243,14 @@ &cpu5 {
-> >>>        cpu-supply =3D <&mt6359_vcore_buck_reg>;
-> >>>    };
-> >>>
-> >>> +&cpu6 {
-> >>> +     cpu-supply =3D <&mt6319_buck1>;
-> >>> +};
-> >>> +
-> >>> +&cpu7 {
-> >>> +     cpu-supply =3D <&mt6319_buck1>;
-> >>> +};
-> >>> +
-> >>>    /*
-> >>>     * Geralt is the reference design and doesn't have target TDP.
-> >>>     * Ciri is (currently) the only device following Geralt, and its
-> >>> @@ -1156,6 +1166,14 @@ pins-bus {
-> >>>                };
-> >>>        };
-> >>>
-> >>> +     spmi_pins: spmi-pins {
-> >>> +             pins-bus {
-> >>> +                     pinmux =3D <PINMUX_GPIO175__FUNC_B0_SPMI_M_SCL>=
-,
-> >>> +                              <PINMUX_GPIO176__FUNC_B0_SPMI_M_SDA>;
-> >>> +                     bias-disable;
-> >>> +             };
-> >>> +     };
-> >>> +
-> >>>        uart0_pins: uart0-pins {
-> >>>                pins-bus {
-> >>>                        pinmux =3D <PINMUX_GPIO31__FUNC_O_UTXD0>,
-> >>> @@ -1267,6 +1285,54 @@ &spi2 {
-> >>>        status =3D "okay";
-> >>>    };
-> >>>
-> >>> +&spmi {
-> >>> +     pinctrl-names =3D "default";
-> >>> +     pinctrl-0 =3D <&spmi_pins>;
-> >>> +     #address-cells =3D <2>;
-> >>> +     #size-cells =3D <0>;
-> >>> +     status =3D "okay";
-> >>> +
-> >>> +     pmic@6 {
-> >>> +             compatible =3D "mediatek,mt6319-regulator", "mediatek,m=
-t6315-regulator";
-> >>> +             reg =3D <0x6 SPMI_USID>;
-> >>> +             pvdd1-supply =3D <&pp4200_s5>;
-> >>> +             pvdd2-supply =3D <&pp4200_s5>;
-> >>> +             pvdd3-supply =3D <&pp4200_s5>;
-> >>> +             pvdd4-supply =3D <&pp4200_s5>;
-> >>> +
-> >>> +             regulators {
-> >>> +                     mt6319_buck1: vbuck1 {
-> >>> +                                     regulator-name =3D "ppvar_dvdd_=
-proc_bc";
-> >>> +                                     regulator-min-microvolt =3D <52=
-0000>;
-> >>> +                                     regulator-max-microvolt =3D <11=
-55000>;
-> >>> +                                     regulator-enable-ramp-delay =3D=
- <256>;
-> >>> +                                     regulator-allowed-modes =3D <0 =
-1 2>;
-> >>> +                                     regulator-always-on;
-> >>> +                     };
-> >>> +
-> >>> +                     /* vbuck2 is ganged with vbuck1 */
-> >>> +
-> >>> +                     mt6319_buck3: vbuck3 {
-> >>> +                                     regulator-name =3D "pp1125_emi_=
-vdd2";
-> >>> +                                     regulator-min-microvolt =3D <10=
-60000>;
-> >>> +                                     regulator-max-microvolt =3D <11=
-70000>;
-> >>> +                                     regulator-enable-ramp-delay =3D=
- <256>;
-> >>> +                                     regulator-allowed-modes =3D <0 =
-1 2>;
-> >>> +                                     regulator-always-on;
-> >>> +                     };
-> >>> +
-> >>> +                     mt6319_buck4: vbuck4 {
-> >>> +                                     regulator-name =3D "pp0600_emi_=
-vddq";
-> >>> +                                     regulator-min-microvolt =3D <57=
-0000>;
-> >>> +                                     regulator-max-microvolt =3D <65=
-0000>;
-> >>> +                                     regulator-enable-ramp-delay =3D=
- <256>;
-> >>> +                                     regulator-allowed-modes =3D <0 =
-1 2>;
-> >>> +                                     regulator-always-on;
-> >>> +                     };
-> >>> +             };
-> >>> +     };
-> >>> +};
-> >>> +
-> >>>    &uart0 {
-> >>>        pinctrl-names =3D "default";
-> >>>        pinctrl-0 =3D <&uart0_pins>;
-> >>
+Link to V4 : https://lore.kernel.org/lkml/20241113161413.3821858-1-quic_msavaliy@quicinc.com/
+Changes in V5:
+ - Corrected name as qcom,shared-se instead of qcom,is-shared.
+ - Added description for the SE acronyms into yaml file and commit log.
+ - Renamed TRE_I2C_UNLOCK to TRE_UNLOCK being generic.
+ - Log an error and return if non GPI mode goes into shared usecase.
+
+
+Link to V3: https://lore.kernel.org/lkml/20240927063108.2773304-4-quic_msavaliy@quicinc.com/T/
+Changes in V4:
+ - Fixed Typo to dt-bindings in subject line of PATCH 1.
+ - Replaced SS (subsystem) as multiprocessor as per Bryan's suggestions.
+ - Replied to Krzysztof's comments and replaced SS with Multiprocessor system.
+ - Removed Abbreviations and also bullet point list from  PATCH 1.
+ - Changed feature flag name from qcom,shared-se to qcom,is-shared.
+ - Removed bullet points from example of usecase and explained in paragraph.
+ - Changed title suffix to dmaengine from dma for Patch 2.
+ - Rename TRE_I2C_LOCK to TRE_LOCK in PATCH 2.
+ - Enhanced comments about not modifying the pin states on shared SE for PATCH 3.
+ - Enhanced shared_geni_se struct member explanation as per Bjorn's comment in PATCH 3.
+ - Moved GPIO unconfiguration description from patch 4 to patch 3 as pointed by Bjorn.
+ - Removed debug log which was unrelated to this feature change.
+ - Added usecase exmaple of shared SE in commit log.
+
+
+Link to V2: https://lore.kernel.org/lkml/a88a16ff-3537-4396-b2ea-4ba02b4850e9@quicinc.com/T/
+Changes in V3:
+ - Added missing maintainers which i forgot to add.
+ - Add cover letter with description of SS and EE for dt-bindings patch.
+ - Added acronyms expansion to commit log.
+ - [PATCH v2 3/4] : Removed exported symbol geni_se_clks_off(). 
+   Instead added changes to bypass pinctrl sleep configuration from
+   geni_se_resources_off() function.
+ - Changed title name of [PATCH v2 3/4] to reflect the suggested changes.
+ - [PATCH v2 4/4] kept geni_i2c_runtime_suspend() as is and removed 
+   explicit call to geni_se_clks_off().
+ - Removed is_shared variable from i2c driver and instead used common 
+   shared_geni_se variable from qcom-geni-se.h so that other protocols
+   can also extend for similar feature.
+ - I2C driver log changed from dev_err() to dev_dbg() for timeout.
+ - set gpi_mode = true if shared_geni_se is set for this usecase. Enhanced
+   comments around code and commit log.
+
+
+Link to V1: https://lore.kernel.org/lkml/cb7613d0-586e-4089-a1b6-2405f4dc4883@quicinc.com/T/
+Changes in V2:
+ - Enhanced commit log grammatically for PATCH v1 3/4 as suggested by Bryan.
+ - Updated Cover letter along with acronyms expansion.
+ - Added maintainers list from other subsystems for review, which was missing.
+   Thanks to Krzysztof for pointing out.
+ - Added cover letter with an example of Serial Engine sharing.
+ - Addressed review comments for all the patches.
+---
+
+Mukesh Kumar Savaliya (4):
+  dt-bindings: i2c: qcom,i2c-geni: Document multi-owner controller
+    support
+  dmaengine: qcom: gpi: Add lock/unlock TREs for multi-owner I2C
+    transfers
+  soc: qcom: geni-se: Keep pinctrl active for multi-owner controllers
+  i2c: qcom-geni: Support multi-owner controllers in GPI mode
+
+ .../bindings/i2c/qcom,i2c-geni-qcom.yaml      | 16 +++++++
+ drivers/dma/qcom/gpi.c                        | 44 ++++++++++++++++++-
+ drivers/i2c/busses/i2c-qcom-geni.c            | 24 +++++++++-
+ drivers/soc/qcom/qcom-geni-se.c               | 14 ++++--
+ include/linux/dma/qcom-gpi-dma.h              | 20 ++++++++-
+ include/linux/soc/qcom/geni-se.h              |  2 +
+ 6 files changed, 114 insertions(+), 6 deletions(-)
+
+-- 
+2.43.0
+
