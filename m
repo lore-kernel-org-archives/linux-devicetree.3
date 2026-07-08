@@ -1,163 +1,116 @@
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F9D44E05C
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783515274; cv=pass; b=RSoj83x/Sp0sYlyOTV7Ya0YbVx8RTdeGNhZCcFICkjiQ1L4nJUaOXaDdmBLNnkq+qk9VgnwVRAtAHkdXZhav8Qml9g8PSmJpUHtjZ+7DFvqCEoyWoS6PybdI3sclWMTVtajEL4xApRxvtxLyHY85E/6wNF4MjeSr2Dqe30oKw+s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783515274; c=relaxed/simple;
-	bh=4KH8mGkFSz/seHkadH0L2qYSd3c7ngK9F9pkUSxKmHM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tpwQi0aD39EaGWxCu/PftHbOoLVrYQyn2LoT5wNZo9//rJiYXvcWB5UmXBZSK40uTpR3IbEaG63LGuuPgeNB7X7JwdMcd1oIOZ4kc8YYfYVhVXAncUXA2wTDLwzdU3c6HxO5GWLDLpO83y56Olj9aJSJ7McdSfxmAddIfOCtJ18=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EGeBM7s4; arc=pass smtp.client-ip=209.85.222.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD774611C9;
+	Wed,  8 Jul 2026 12:55:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783515341; cv=none; b=YOBHrvH9Tn7UTrjTXVpe2xHmYA7Qvhv4BnAPF47jNoEFOFMdpanLxcZzlLfEOoHBux8UsOGBsH9/8/4m0kFZzO5uOQdLEpxQMlOVgwQkJmxYv2ooXix7eSvF7ZkcCXq0Rq3tvNOfvOcTYhLRflnJfp7PmQeU4OLpLF2ILlcXrns=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783515341; c=relaxed/simple;
+	bh=GVKu0sKv6JR2SFwPMl2GMGykm0l1ivf7NRCnKBDggFM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=R1xwEy+OS817Hf9mb3f9PqEeCaA6+l3J08WFfjUvWYEmg2vhx58/cxYHmehmyXcaP5JsmFQmd6SZf6p12t7OC7ZUXYi1P0R0hiQi8w2woClZAMfALVhTjQIoReq1UpcEIsZpQ2layb+gM4zPFODi/nkloRH8BpVPb3q4x/2elx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ye24f+Kx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EGeBM7s4"
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-96929eff169so747432241.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:54:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783515273; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ev+neOrsh9KkGmAxNvHvqNFMMYJannPjVvCqfoge2GpDGB83aNZIcNRyTg8hOsI1vA
-         04P7cUcs0f2yIQzGt13J/ecxuIYqbKP6vOZ3p+2rcYevyk8CSKRaWEJJh9kxLrK4aaIw
-         ALSpHOkAGFX+rek3v8TeDwSPTmQhQhbUwuC+VKJCfnkwuaAGHXh8nJ3njVWNd7sMC2oi
-         a20eanCx5y3F0Li38RhRpfPZgkV+mUFKKvS1hda8illCvFL2HvpBlAA/7YALE/WG+WVB
-         lGlx+PaHHnHfxRUKDx/GwVegiCsbBfzwQct7dIffaR1UYFJNEV/gRCQieahZa1WH5tEi
-         R/wA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pF6Z4QJnlrmRAFEbhTsGEDqzggaHUPXZ5ncnx7Kx0I8=;
-        fh=H3K81auz5WuLqIT5XGWR/ilNu2pV6uxXaQTRpnG2Pag=;
-        b=dIVQ6EUnT9w67QC5BWNyNm3IP9j93O4hwxlmz7xs3jzleYZ25Dr+4P8opud4yOReSg
-         2QafO2fdIT1WJy7FtbsvRlG0rkmvmvNP1TvMhL1rJZ3EbeJTaOsPPd/byDej06JwotXE
-         WI5xb6dcRZA6OdArwdlKtkqmL1h/B5FrRO9ktnsRok86FGsn7WZwCygSsp3xWcLCnxjM
-         VsDSLvxnp3N+VdmpTOX7GNvYLtCdzuFgEPxdr4RstBphJNcMtI/Avi3VFyTCCb06lOCS
-         rxPLPHxiKRjvJwrvfHuguxEtObzjuSL1VKwMX4BdJAt09X/ZBpNFJSvgc4mmTzkQ4I8x
-         bTXQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783515273; x=1784120073; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pF6Z4QJnlrmRAFEbhTsGEDqzggaHUPXZ5ncnx7Kx0I8=;
-        b=EGeBM7s41bI8X2qYVZ0X7vcqIKCrSBNdDEh9YMuRrQM1QtC5rc8mSg3zXlDiq1Xvdx
-         j3gPG/ER6LjIXSo0P/18eeM/DQB02W+zdJMWuO78R/mBN7EbvlZM2vA96iFV3glWEnCZ
-         UlePfaQEgkgyHNCjqprEWqS5npPgsV11gowcLlvRk4RgSi6vb/MaFrLVmCW22vY3h/we
-         HL2V43ncGR71x1gMen54r/O9T3R4Q3In9q/epetGH5d5R7Gf54wk59wmbuUpMyy0qOe+
-         Usjt4uuEWz4aS+oKT2TL5s+uYjD1hOxqSM4Cb7nuuJBHf/rbZwcp0KqCLrd1F9tZH2Kd
-         VmQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783515273; x=1784120073;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=pF6Z4QJnlrmRAFEbhTsGEDqzggaHUPXZ5ncnx7Kx0I8=;
-        b=IHYlteNxkyfGQ5nXGqo+DAcnBAWnLJnL5OblooRAzuZ+0sAk7shrUALzrA+P4nIigt
-         cTusRBAv67ngIBdz6R+XvyqoLzj3so33iWaiSP4zv+/yGPcO7+HcHOf9KSgZxjMgDCs5
-         gbH2YUQk2T9IUpAfDwCJlL3ULLoR1e3BkJPvc36MLIJwgHio0rlbcnRWxK5W43vUu95g
-         kRDGQtuvvBfy/l0FuUoBZrPgqa8bFgV+420HLBjkPSSPVrZPAiSBufeD9b2+QbDg1vOI
-         aII+/t7Uw5lUBtDO+RMRUkr2QqKZ6eoDG634A6pwJJAi6Pj6RxA5n44rOSC4xPHdoP/9
-         iJRQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0Czt3NSggAinjmYHrpis4/BYBgXfNT/fo7zhPfJ43MbgZqk3kdHInMXC+oL7uHhLOTZCnSQNs+60c@vger.kernel.org
-X-Gm-Message-State: AOJu0YzADLyEFL7aDGK4h0y23lsqqfAthcuRg6qD9pOv4VmEJW6xciJc
-	53fRUB7tsz4oaismwC5w5NSx2VPQkN/Kg/N8CKC78HilN67kagc2KUf9M9z09xQuwgRGqC49g/C
-	yG+4YlZYV+uakgRQxdDYcOGw7QMb3E3Q=
-X-Gm-Gg: AfdE7cmw1MzQ1v7DdExhUQjCfsmyxhOeIKdiqT0hqmnJjIOs2KR6UFpz5g13Mfrs5Uc
-	KdqsVA3huljC1ufvJ5A/yLyLWSo/mdHiRXMAyxZjEiCGokSDUpdb2nvjnuRVKptaBBDs4CHb0vL
-	Q5NE6p5+YxGeiQZmqhlspw+MUzrekuWOXaSubxHro8HFREs9lC9LHzn+WGMZqWjMZ696sK7uf0t
-	phM7nbMY97NtoV1te4Ac4akDX74jWwodqUxWOui/lszWpsWIgh0lxPTSm1rBLuMqruUO+Zo
-X-Received: by 2002:a05:6102:8484:10b0:738:9c21:1b70 with SMTP id
- ada2fe7eead31-744c248347fmr2627225137.19.1783515272662; Wed, 08 Jul 2026
- 05:54:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ye24f+Kx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC541F000E9;
+	Wed,  8 Jul 2026 12:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783515339;
+	bh=ut3UarkY4E2iVItnOqyLBKMNCQFGt9UFxYJzpkOH7so=;
+	h=From:Subject:Date:To:Cc;
+	b=Ye24f+KxIRIZcYkrxtfHqyagQyY4jPqcI0Av7LPB9khBJ/6nVoGJt2VeIO9Zol2WI
+	 i7C9TJ/smYnJpk8pIPqdPIeLOp3w+W7h3cnlmvNe2uNgWv6wNHAM+9tg100nGUdP9F
+	 q4sv5RkzOpmAdhOKLd9+bN1Z55no+6mxVWv0aBmiUHYPajaDBTQJxmFVR7WF4dNXsr
+	 JPyaOpsLGrArouu32uPl/H+u5fHjIHOXuNkOxOyKPAact9InxTYzH0g4LEik9mrXX+
+	 xPqYsHv9+VMGZM6a/wPcrezGiuJoh9iv0L5AhRvLOYRdfXhXHpYvlgUsEsCYqiPhwF
+	 bg9xr97jXsoqQ==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: [PATCH 0/2] Add support for SA8255P in the qcom-qmp-usb phy driver
+Date: Wed, 08 Jul 2026 14:54:19 +0200
+Message-Id: <20260708-phy-qcom-qmp-usb-8255-v1-0-8d852a9535db@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260707112714.2261727-3-shofiqtest@gmail.com>
- <20260707140545.0000029a@gmail.com> <ak0X8yrg5ujz8r5L@ashevche-desk.local>
-In-Reply-To: <ak0X8yrg5ujz8r5L@ashevche-desk.local>
-From: Md Shofiqul Islam <shofiqtest@gmail.com>
-Date: Wed, 8 Jul 2026 15:54:19 +0300
-X-Gm-Features: AUfX_mzInWCIvscsRQXhs2s8ccCnggzguweifxX9eaebhUCx9qb3sZM9knbA-t0
-Message-ID: <CAOTCDVth36hE1JqAi3vJ3hKuqhs_yyjV0ZZx5mZotiJYzNDATg@mail.gmail.com>
-Subject: Re: [PATCH v9 2/2] iio: health: add MAX86150 ECG and PPG biosensor driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org, jic23@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJbQK0XsW4oMMgYwKUDhAN4
+ e5WWb7F/zsoJ2GFW7FD4k1UpjHjeimA+mZ8MkqbDdbYytTGYew/ONM04DxEXDWgs2WJ3rvKm5r
+ aQB5yGxN38v5/74/TuoYX0/KbwXF8AYOpzwF5AAAA
+X-Change-ID: 20260708-phy-qcom-qmp-usb-8255-9986907cdbc9
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+ Sriram Dash <quic_sriramd@quicinc.com>, 
+ Shazad Hussain <quic_shazhuss@quicinc.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2217;
+ i=mkorpershoek@kernel.org; h=from:subject:message-id;
+ bh=GVKu0sKv6JR2SFwPMl2GMGykm0l1ivf7NRCnKBDggFM=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBqTkiZMdGzmjxZQHq+vroXk75KX+Q9H0U0bgLeG
+ /uB9UlOGlOJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCak5ImQAKCRAZDR20Zk4Z
+ NWjPCADH7ve69Tmvl67MC++sdD5RCijoAoxlCWG5cmtcRtk54UbA6x+6RTXqY5G/nSMKRa1hEDd
+ eHg8rM03dAbwBCKdM9WPmRfuF1gy7mSaTWulmkkZ3J2PTu9x6XGzFZIeD9G/8lHRGbSgycKQRM9
+ AqgKzwKtmB0oM3jHlhq9By2REyaPQyCWrF4eDMZ11dygIg4bzS+Gl58tjvJDAThyC4D1KkUtksD
+ QZSCjHYNrMisE9nqAwQDMcWwMGQT7V5KOqlRmRFqilFWgUBiJaGMr8RFr5XhQK0iJtrplnGDC40
+ lnHDa6umkXlb4in/JuL5xFm549FZl73/VWfYcKOQ8Eomf0UX
+X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
+ fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-Hi Andy,
+The Qualcomm automotive SA8255p SoC relies on firmware to configure
+platform resources, including clocks, interconnects and TLMM.
+The driver requests resources operations over SCMI using power protocols.
 
-I want to address your concern directly and honestly.
+The SCMI power protocol enables or disables resources like clocks,
+interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+such as resume/suspend, to control power on/off.
 
-I did use AI tools during this development, primarily to understand
-kernel conventions and check my code against subsystem patterns. The
-implementation decisions and the responsibility for what I submitted
-are mine. I should have disclosed this from the start, and I did not.
-I apologize for that.
+Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
+whereas power domain "transfer" controls clocks and interconnects.
 
-Regarding types.h: Your feedback was not ignored. As a new contributor
-managing feedback from multiple reviewers across nine versions in
-overlapping threads, I lost track of your comment from v4. When
-Sashiko flagged HIGH severity issues, I panicked and sent new versions
-too quickly without properly reading all outstanding comments. That
-was a mistake in my process and entirely my responsibility.
+Patch 1 adds the binding change for sa8255p. I've considered to create
+a totally separate binding like the I2C one [1].
+Given that the existing binding already had multiple conditionals, I've
+chosen to update qcom,sc8280xp-qmp-usb3-uni-phy.yaml by adding another
+conditional for the power domains.
 
-I am committed to contributing properly to this community. All
-outstanding comments, including types.h, array_size.h, and err.h, are
-addressed in v10. I will not send another version until I've read and
-addressed every open comment from every reviewer.
+Patch 2 adds the driver change, which is based on a public vendor
+patch from qualcomm [2].
+I did the following changes on top of that:
+* Use devm_add_action_or_reset() for dev_pm_domain_detach_list() instead
+  of implementing a driver .remove()
+* Drop the .lanes struct member since it no longer exists.
+* Re-order some functions
 
-Thank you for the direct feedback. I understand why you raised it.
+This has been tested on next-20260706 with a Ride4 SA8775P board that
+has SCMI firmware (which is compatible).
 
-Regards,
-Md Shofiqul Islam
+[1] https://lore.kernel.org/all/20260617-enable-i2c-on-sa8255p-v7-1-ad736dbeab57@oss.qualcomm.com/
+[2] https://git.codelinaro.org/clo/le/meta-qti-auto-kernel/-/blob/LY.AU.0.1.0.r1-16800-gen4meta.0/recipes-kernel/linux/files/usb/0011-PENDING-phy-qcom-qmp-usb-Add-support-for-SA8255P.patch
 
+Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+---
+Mattijs Korpershoek (1):
+      dt-bindings: phy: qcom,sc8280xp-qmp-usb3-uni: Add SA8255P USB PHY
 
-On Tue, Jul 7, 2026 at 6:15=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Tue, Jul 07, 2026 at 02:05:45PM +0200, Joshua Crofts wrote:
-> > On Tue,  7 Jul 2026 14:27:14 +0300
-> > Md Shofiqul Islam <shofiqtest@gmail.com> wrote:
->
-> ...
->
-> > You're missing array_size.h, err.h, types.h
->
-> My comment against types.h was ignored. I think that this contribution is
-> heavily assisted by AI (which has to be mentioned), otherwise I can not
-> explain such an ignorance and mistakes from a human.
->
-> > > +#include <linux/bitfield.h>
-> > > +#include <linux/bitops.h>
-> > > +#include <linux/delay.h>
-> > > +#include <linux/i2c.h>
-> > > +#include <linux/interrupt.h>
-> > > +#include <linux/irq.h>
-> > > +#include <linux/module.h>
-> > > +#include <linux/regmap.h>
-> > > +#include <linux/regulator/consumer.h>
-> > > +#include <linux/timekeeping.h>
-> > > +#include <linux/unaligned.h>
-> >
-> > Blank line here.
-> >
-> > > +#include <linux/iio/buffer.h>
-> > > +#include <linux/iio/iio.h>
-> > > +#include <linux/iio/kfifo_buf.h>
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Sriram Dash (1):
+      phy: qcom: qmp-usb: Add support for SA8255P
+
+ .../phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml        |  92 +++++++++--
+ drivers/phy/qualcomm/phy-qcom-qmp-usb.c            | 175 ++++++++++++++++++---
+ 2 files changed, 238 insertions(+), 29 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260708-phy-qcom-qmp-usb-8255-9986907cdbc9
+
+Best regards,
+--  
+Mattijs Korpershoek <mkorpershoek@kernel.org>
+
