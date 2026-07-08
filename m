@@ -1,211 +1,106 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9993E7BCB
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4153BBFA3;
+	Thu,  9 Jul 2026 12:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783599426; cv=none; b=Q6GCrwEYHwjuTaIklL5LSorh0eOBh8w8w/61XLJwiATyZ3xEcQQDyQwBczACc10S+tCsCMh0RmgL+hq1rFtS/VQm6YjTzSfbr789PAOZtMpy8zVqWafqehbyTp0eYbg6xKX6bxvUN0Xy4tfRTZlgWlU17Hu7lz2PHtE4+ae1XUw=
+	t=1783599519; cv=none; b=ccBlqQpt6AMv9VlOew422h8t9OFhYFVC/AaMMfAUo5CmofAsCNi/HyTz/kOHq2kbNICPmf76QqrmIDVHJ79pKGrGskUhBt5o/ifDJ1Ot/0w10tHjgDgpgMKtOUO2MOM/03FoMErKwZZVaHmWCdzjgx/rUw9fdaJGmClwra8fO6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783599426; c=relaxed/simple;
-	bh=OR9YHbLNwYMQoOxdPeb/MsgoI/x7bUyfQ2QYnIgwfR4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fz3PnxaqlBxSY9C/OloqiOFd9yrIEpxndzn1T2BGecB4fUruWfwb/+wl5IaoFkMvMcatQRerY9kOcOQKEW2RoZ/cAeZpyDBnE/TX9ogKEKHfzYZa/FfdlOWGCDVKmlE1ceQm7uYoZTih/wj5MFXBkAkzJo79TWUQuPYNOE+D21w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=c0Pu35mq; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783599519; c=relaxed/simple;
+	bh=pQZlRLlZK/MKx7NWDn/AoRoYSJbt9cvhsQ1qOt0fZfg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=QUQFGlDQtZcUO85i4sCLlSiO2lpxeldEfvlKjZ3Byj+ixAguAbuW/FJgprqaj05VDpndg5P/GXKZrSNRG/vfjRfvwRUacaA4Sh/11Fc5nHXNqV+mjGkwdpvOjZPtGR+JWDIHO1eLN6lJ0akuTQJPEhQFdNOY1Z7oYArsBFC/bIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1vNAOyi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="c0Pu35mq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783599422;
-	bh=OR9YHbLNwYMQoOxdPeb/MsgoI/x7bUyfQ2QYnIgwfR4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=c0Pu35mqDk9AFzlp/gU0iUqO8fNQrJXsNNdwxgCOPCSzwqmhZoyoNhVPLlZiP13bo
-	 T11/mwXeriXUv09Cr1eusdOLyxS9wyIbFyLTzw8biGL89Ej7fljGY2sK2dk+GEkLuI
-	 RKBZD9SSwPDRcNgCRlo/AYW4YAz+tymVZshHcUislhRlwiH6gQDVTdG3+z0LlfV2om
-	 7zC9hbExStQY5yRqi9r/HKu5s3BXS0gIKI3gou9JcM0Qbi/8g2WXNFD9jd0mMhmH1/
-	 GqW/o0iTK9OBRwrB+WhShtLfHUS8AnhBrx5sIMA44Wc214VNm2j8XnuhkqYcSRQror
-	 H6m1yh4bCvCMw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9DAEF17E062C;
-	Thu, 09 Jul 2026 14:17:02 +0200 (CEST)
-Message-ID: <cf19aa15-9253-40c3-b86b-c803b3deed84@collabora.com>
-Date: Thu, 9 Jul 2026 14:17:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1vNAOyi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1281F000E9;
+	Thu,  9 Jul 2026 12:18:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783599517;
+	bh=eGa3MKNT8jVVIkXt60Akdp3BWrDWFGXd+j+kdolvBVI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=h1vNAOyihGQ74wAAH8UZczr4Lxd9p/B8XQhaetbzesAKyTrXpsOoKGAgvkF+nA9Ji
+	 hIM8z/UFkjp9bkuvmu/lvrMPPtXmrWZlmQgsdDMhF6TKqjTfbRMC+JVBe4XZTLKbd7
+	 pm0s8JWBhOUIumEycH/HkSdt1PBsppb5Y0U+RSB1FQk0Ac2x4cuk0F0n3wmvUToxo/
+	 5RECfD398eP4JgTd1s/smjvtywW9Cy+oRhiv8L2SGMXOtcmmdg7dVx08zh+QTvqfY/
+	 Wkvwd9bD6vbqEIdngP7BDcsvks1L7plDLOYzr3Ji8zflr+qVVExgM+snnuGHIDgeBS
+	 V/k01jwsyVF5g==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ mohammad.rafi.shaik@oss.qualcomm.com, ajay.nandam@oss.qualcomm.com
+In-Reply-To: <20260703073434.2589657-1-ravi.hothi@oss.qualcomm.com>
+References: <20260703073434.2589657-1-ravi.hothi@oss.qualcomm.com>
+Subject: Re: [PATCH v1 0/3] ASoC: qcom: Add Eliza audio support
+Message-Id: <178351055138.26140.17996633236854383161.b4-ty@b4>
+Date: Wed, 08 Jul 2026 12:35:51 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/12] drm/mediatek: mtk_dp: Add support for eDP1.5 IPs
- and MT8196 SoC
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
- <20260709113148.49090-12-angelogioacchino.delregno@collabora.com>
- <20260709121111.23CC71F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260709121111.23CC71F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1652; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=pQZlRLlZK/MKx7NWDn/AoRoYSJbt9cvhsQ1qOt0fZfg=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqT5Gadn2jDwLt7DaTBeb52p/WA/u642WZKog2r
+ YFAl28YwdeJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCak+RmgAKCRAk1otyXVSH
+ 0NtXB/9luHR3/sQVOV8E036NiUbml22HnRvlMdivofO0nslfvXKuxOfMhrZkbIJ9HHQXCaN9KcC
+ /qGoYEfjrbck4IqyRg7BPJ4N1RRDlCI7ZvOXqL/FgdhtVpcL9FqzeL3vxoYqwoqF0mjYSfE8Dvv
+ ipZDxu9kAVycbqbqsIliR4SB5wSA/NXp7Y8EvjBouxquzD3xXuUFGXKNCoPxxtDoWvN35rzGk7E
+ MbUMx4fp9Y7K6Qwk/mE5GFSCe/o08Ogcrhlyc6w7Y/T1kBE/I4YkG9gaOD0fvOVJdOWPCvfg0h6
+ PWdOz1pJfxW72f80jrQizJ/fKftgKMTgJyaH17OywpP/y6cH
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 7/9/26 14:11, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+On Fri, 03 Jul 2026 13:04:31 +0530, Ravi Hothi wrote:
+> ASoC: qcom: Add Eliza audio support
 > 
-> New issues:
-> - [High] Flawed hardware reset sequence and register mask conflict for the new IP (hwip_v1p4) in mtk_dp_encoder_reset().
-> - [High] Uninitialized calibration data is applied to PHY registers on MT8196 if a legacy device tree is used.
+> This series adds audio support for the Qualcomm Eliza SoC. Eliza uses
+> the same LPASS macro codec hardware as SM8550, so the existing SM8550
+> fallback compatible is reused for all four macro codecs (RX, TX, VA,
+> WSA). The sound card is compatible with the SM8450 generation machine
+> driver.
 > 
-> Pre-existing issues:
-> - [High] Sleeping functions called from atomic context in bridge atomic callbacks.
+> [...]
 
-None of those are valid, if you want more context, check below.
+Applied to
 
-> --
-> 
-> --- Patch [11]: [PATCH v4 11/12] drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC ---
-> commit 21e6cb76ec5d736e41c62351d0dcc4f501bc644f
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC
-> 
-> Add support for MediaTek's Embedded DisplayPort (eDP) v1.5 IP as
-> found in the MT8196 SoC and other variants, and enclose some of
-> the new register writes in specific platform data booleans.
-> 
->> --- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
->> +++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-> [ ... ]
->> +#define REG_3FF8_DP_ENC_P0_3			0x1ff8
->> +#define ENC_PHY_STATE_RESET_ALL_MASK			GENMASK(7, 0)
->> +#define PHY_STATE_W_1_DP_ENC_P0_3			BIT(6)
->> +#define DP_ENCODER_DVO_ON_W_1				BIT(5)
->> +#define DP_ENCODER_PSR_XTAL_FREQ_MHZ_MASK		GENMASK(13, 9)
-> 
-> [ ... ]
-> 
->> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-> [ ... ]
->> +static void mtk_dp_encoder_reset(struct mtk_dp *mtk_dp)
->> +{
->>   	/* dp tx encoder reset all sw */
->>   	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
->>   			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0,
->>   			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
->>   
->> +	if (mtk_dp->data->hwip_v1p4) {
->> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004, 0,
->> +				   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
->> +		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
->> +				   ENC_PHY_STATE_RESET_ALL_MASK,
->> +				   ENC_PHY_STATE_RESET_ALL_MASK);
->> +	}
->> +
->>   	/* Wait for sw reset to complete */
->>   	usleep_range(1000, 5000);
->> -	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
->> -			   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
->> +
->> +	if (!mtk_dp->data->hwip_v1p4)
->> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
->> +				   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
->> +}
-> 
-> [Severity: High]
-> Does ENC_PHY_STATE_RESET_ALL_MASK overlap with functional state bits
-> like PHY_STATE_W_1_DP_ENC_P0_3 and DP_ENCODER_DVO_ON_W_1 defined in
-> mtk_dp_reg.h?
-> 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
 
-That's trolling!!! :-P
+Thanks!
 
-Yes, and that's on purpose.
+[1/3] ASoC: dt-bindings: qcom: Add Eliza LPASS macro codecs
+      https://git.kernel.org/broonie/sound/c/bc0d4444f384
+[2/3] ASoC: dt-bindings: qcom,sm8250: Add Eliza sound card
+      https://git.kernel.org/broonie/sound/c/4214220c3144
+[3/3] ASoC: qcom: sc8280xp: Add support for Eliza
+      https://git.kernel.org/broonie/sound/c/0d037985725a
 
-> Also, could the new hwip_v1p4 sequence in mtk_dp_encoder_reset() leave the
-> encoder PHY stuck in reset? The code asserts ENC_PHY_STATE_RESET_ALL_MASK
-> before the wait, but there does not appear to be a step to deassert it after
-> the sleep finishes.
-> 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-It's ok, because it's auto-cleared by HW.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
->> @@ -2860,7 +3079,8 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_dp)
-> [ ... ]
->>   	/* PHY calibration data is in mtk_dp only for legacy devicetree */
->> -	mtk_dp_get_calibration_data(mtk_dp);
->> +	if (mtk_dp->data->efuse_fmt)
->> +		mtk_dp_get_calibration_data(mtk_dp);
->>   
->>   	mtk_dp->phy = devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
-> 
-> [ ... ]
-> 
->> @@ -1359,8 +1550,10 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk_dp,
-> [ ... ]
->>   	/*
->>   	 * For legacy, deprecated strategy, set partial PHY calibration here.
->>   	 * New-style will set all PHY calibrations with phy ops instead.
->>   	 */
->>   	if (mtk_dp->phy_dev)
->>   		mtk_dp_set_calibration_data(mtk_dp);
-> 
-> [Severity: High]
-> If a legacy device tree is used on an MT8196 device, could this configuration
-> apply uninitialized zeros to the PHY hardware?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-If a legacy device tree is used on MT8196, this MediaTek maintainer (me) needs
-a big vacation :-D
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-This is an impossible scenario.
+Thanks,
+Mark
 
-> 
-> In mtk_dp_register_phy(), mtk_dp_get_calibration_data() is skipped because
-> efuse_fmt is NULL for mt8196_edp_data. However, mtk_dp_phy_configure() will
-> still call mtk_dp_set_calibration_data() if the legacy phy_dev was created,
-> potentially writing an unpopulated cal_data array directly to the registers.
-> 
-
-The legacy phy_dev can't be created, unless the DT is very-very-very wrong, and
-if it is, this driver can't get a magic 8 ball.
-
->> +static void mtk_dp_encoder_force_bias_power_on(struct mtk_dp *mtk_dp)
->> +{
-> [ ... ]
->> +	/* Wait for the MCU to get LDO ready in PHYD */
->> +	msleep(50);
-> [ ... ]
->> +}
-> 
-> [ ... ]
-> 
->> @@ -2580,6 +2795,10 @@ static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
-> [ ... ]
->>   	/* SDP path reset sw*/
->>   	mtk_dp_sdp_path_reset(mtk_dp);
->>   
->> +	/* Make sure BIAS is powered on after reset even when disabled */
->> +	if (mtk_dp->data->force_pwr_states)
->> +		mtk_dp_encoder_force_bias_power_on(mtk_dp);
->> +
->>   	/* Ensure the sink is muted */
->>   	msleep(20);
->>   }
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does this introduce an additional sleeping
-> function into an atomic context path?
-> 
-> Since mtk_dp_bridge_atomic_disable() operates in an atomic context during
-> modesetting, calling mtk_dp_encoder_force_bias_power_on() uses msleep(50),
-> which could result in kernel warnings or system instability.
-> 
-
-It's not atomic context....
