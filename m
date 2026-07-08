@@ -1,68 +1,68 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80AB37F725
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0794C3B8BC4
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522154; cv=none; b=nW4x0dss8yOu9TGPWlECUhkMtM/VEDJKFwEJi/F8thwbSK7W+1SwkSjfun5IYDPmtF6eCHpOGkwW706v5WxQh/0Wy1+uTXtNJhRjSKQrMUUgk4eM8W+wYP2miaw6bNACF3SgHV77Bu+gsDoLFYbquH1M1Y7gM8oz5dnoc8VZ9F8=
+	t=1783522156; cv=none; b=MMAHxvQYykwLXmjBD03U+2QB8h1HoH5dbSZ2ZbEZei9Yzg1qoQI5L4hZh4dK173DuJOqW//tYCQGZQi7PaiiEqqzLj3MLbiEOGfav5Nb+5llm/GjOXHdUfp3ZAr6vtx0EJXbOW5Zegrp8eJfFEgxJkiitSfjHqiluNeSelu0doY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522154; c=relaxed/simple;
-	bh=FZflqWVIXRCruuWP6g2ExyXMwReUCGhn7A4b9MiKxTM=;
+	s=arc-20240116; t=1783522156; c=relaxed/simple;
+	bh=RDZWQZuinWfD+cU4EhZ+Qa3Kim+iJSBL7wAOTiV77wI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dB1Zu/CEu2en/Z4b6E0KQBoluWs0n+cxiUrO0N9iyvw0NmlMTyNoJxFBVbrE7gkZLfTCKj3Im5DlpMH3GETMrkm1+/OnXZ6+ZSa3ZpzG1PNMTa7gi20mZWfpkCjJla58tAcDX4FFSGe7d0NoCOAz3QcCjBpvgynzOO2tLqDECJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=czqY0tQL; arc=none smtp.client-ip=209.85.128.46
+	 In-Reply-To:To:Cc; b=P9PwUWIDI14MwPMe13gwXUwxYIdq+Mcxuy+xiZeCQkCnDNglHB60TbBsdorBAmW4IXsBN4SeSL2WnY4p2o6MfTwOjRXwz5Rp9VCCExKU+19Xe554WSjzkW6Y5EdUhy/KyOqwUsZllsazSljh3drPxP/7EjVJr0ZoozmiMFQCZhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=g2ze6OKl; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="czqY0tQL"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493c19bad03so7509135e9.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 07:49:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="g2ze6OKl"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493c2b3dc8bso5200765e9.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 07:49:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1783522150; x=1784126950; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1783522151; x=1784126951; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NAB/TZ4h8IUmeg+tgDmUhADP6t4/HyOBMb86upV86GM=;
-        b=czqY0tQLN+TVyk7+ipF0m2et96XejWjE1/rHWDa+sK/rUkuExppYwzLigE626HendF
-         3Nu9igwVeY6f5fz7z66kzLlYcHXmAHx14GgwQhpVhUf/srL87ukQH731UZKr1sEpnVfC
-         OrWRq+ClfRJejK7njCX0N9wlC6cksotMpYdgMtdqCw3487mtLbpN2NoagmtS9lWYBqAr
-         npNLLpSM90/cbFKKnAwG63SMFBnYmRqHhh9PzupGk0eZRfHfAUJS1Eq/ZdYSRqRN35oi
-         3KRWpZCXoAFudq6NH6d2kniivSADfdR0iKgcdv3kCyHAYf7Sxfp8qoc/PTHu6FSetrAs
-         fBIw==
+        bh=L5o9RlxsE2MKhjLVDUh9pAaiwDabzRmi61sj7zjZ8Dg=;
+        b=g2ze6OKlRmnp1Y98cN3MOkS1eSvAOpqjk7KdREdQcaTURoga6uCLx8D/+cwH4O/JBQ
+         BuUTNpOturf7rtRgzhuHlb+6yInPfb6Og16uV3dJmjUAxF3HG6vPkgsjOWfHRGgxNoWa
+         EACzOrNdtQYmVZuPIi95A1qbZz4a7vB0NxfZeyDWp6B7NAnLjUCKOfPewkCV5cwo9uhZ
+         Aw+CnJcdiFeyzz2+Blx33YzGfoGDj//DV/fQ6nUmfFm0eKKLURWGnnR06kYellrsGbMx
+         6vAdespOq4xqgIQKAN/DWzaJ+T+M0Y/wusbM+UCuZrd+FERFFRMdONjjz8BSI7O/dgVo
+         OAKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783522150; x=1784126950;
+        d=1e100.net; s=20251104; t=1783522151; x=1784126951;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NAB/TZ4h8IUmeg+tgDmUhADP6t4/HyOBMb86upV86GM=;
-        b=OfeKfXdBYIIUwHeB1+nvqj1cO1MEtBhQiJaJFHThYFs/BMU/rE3J6pC72BjU8gddEx
-         q2+H8J6T9CIT6lTUc42a+6a084S8k/B1FwoQLcukrbErn5foIX8ys6WLr5smjDxsjH2+
-         djSZf68RMoKysjI21Gh+/5U+G7w/1K9TyHBjzJVEruIHkFRjxQC1qrx6w6m8IHNre0xN
-         fzUeVcu4oZOQZNM+40P7Fcm7cruaEjafKaIMIhRSz/cxJSSUIP/O+2n1TnT2CoHX+G1K
-         HjHrnmpAkIxN7fJzstZXZlrmTZ4X9n3m8Sf4fxOPmc3MjTQiKoW3Rw05KVssN6Snq4vB
-         y2nQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpLAgJbEqK71sqUwdW101rgISeRiCKYWaV9B16zNSiQ6qUPHsHPxQM1TB67qehMoHwUmHjpvTnQez/e@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3VPK7pYOlb0dEEwGTjDJvCAPZch/MioYgfbbuBTIwrGV95TE/
-	JkK0uisMIUu9FC0Xxrl7JMtx8r0NsLNrK0lIvp9e6PSBsgt0WgenFyzJINepI99Zz+I=
-X-Gm-Gg: AfdE7clJJTGn3SYmXrLwKOE8Hcdn+/uId4Z0nocWli0bE/TfMwqMluOY3bDH41CfaFJ
-	JvJdj2+bzDFZmWxI8mSPPA7aMW00oZm3ynYlKWptaLOeAbr4u5GEEhFfjzAXgVYKBextrED8qpn
-	nDCVzS7xconz74FKdSUzPp1RCdUhfQeI1wF3u84sYXOJyri0Nq+hIIni8dg7j9U9psLEsD8AUnl
-	ASoXzv77O5NYTjex+EO4Hgv7bh5st0rnExvhRK8Rw4AiOQcw5NMm6Kn48Yj3uvK4iwOfM6z0hSh
-	twpT6g3CXDl9/LYI/whAYvzrcB0pbvF4kVc8RcYM6DsTTCz7hQt/pUvMl0Y0kFAr3F4jqyHESPw
-	087Ug7kP5KGMjZ3oEn2t54nuyA4fXmZdTeHePXthawWmhBPc1W8yK1e508CyRkFAdx1AljyRIQq
-	ACzXk4rjJEwgxxS15MolNliFb5HHCyetUj4BMTIrazRU/m5Aiea4R8SyYBfVS8VEzU
-X-Received: by 2002:a05:600c:354e:b0:493:b87c:c87d with SMTP id 5b1f17b1804b1-493e683ab6bmr31834115e9.11.1783522150060;
+        bh=L5o9RlxsE2MKhjLVDUh9pAaiwDabzRmi61sj7zjZ8Dg=;
+        b=ChEaashGJFGdMuezKocryP/Ql3lNyqkmD7AAyz9RFpBgVIW7sTlA+bTUUv+ESMmRWV
+         hWXbwmTwwiIH3Q0eze2TW5fd9CCEpmPjrh3OMOVYsYrg4LnUGVyDncwv2OoX2Vg+t5S3
+         WBoWtZyRNTLgNYNUux/bYCFjKqgJHFVpzcDGnYnoF/M6/inmeqQcm84chP0ZLDadyg/D
+         oYG0jb6FGcHbsQVpMjuqKWR/apM9igo+IIRCDVNKnUrqNdvvPMF5KWRTc63FrUTS4QSd
+         k8N32R4KpA0PEnfl6HhhED7Eg1/mUNy10a/gL2V+p6/HgFFFMfrSWkpE1otevvShyo2F
+         N58w==
+X-Forwarded-Encrypted: i=1; AHgh+RoeFmPz1oUR3is4nOce1Q407SYJ3ldPy4jFP5odfgVwBXMAd/74JTTQb1g6GuaJEKqeTh7Thqwl7IuA@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFNQ+NOpYIQ2JRshsR72tU2oTLWueEq4SdP3cdYohbJEn7sMC1
+	inVSCNpsJbcd9vTnrjIWdcYPHni/4Y1ZWFkhaeapFMLzproHfOI/MjkS1rI1EXgjE8Y=
+X-Gm-Gg: AfdE7cn/GnWE/6Q9U+P3MBwQLwBVsxayrMpnuN41KF7pWe3mupKVMEP2zvFw9M3avvj
+	2pWZTi5wu3SHCXm8lcfWzOji1q8/VZoq70VvWe4pzA69CmuyDqGBo9k0z3yOpHX0lCYrpQrihe5
+	AOknKcX7r2zN7r0fU2dns1hFtMOPY62n8esDcM4UqlwAefOJTNF+ypZ0/C4k40xvOViMPYeuJid
+	mySOLMS+ayuK2Er8v68TylwL/xln/wKi8q8dQh0IO+sfllRcNC1jKE6Kt5ftx9LozLtV1rWN3GZ
+	EYJ0SXtP4a8OhQgG8A5lvRCcGYlMXdcB8/vO5gGwjpJH0E8CxCjccmPfQH4REhcPwlHl1AQLYoc
+	Yltnrh3rd4Yg6BTeLBn3K2kfJ6sSP4f2AIpjyb6PZGaFNGuj+5eU+I8dm6GjMwk9jyYoFBlQGtb
+	JjtbvuVbaMCIm7rDJDKcgLhfLczHLdhuRIANxuDMkIWVujIKSL4mdGaHTYsJyzFGM4
+X-Received: by 2002:a05:600c:3e0f:b0:493:9cb3:53fc with SMTP id 5b1f17b1804b1-493e7e84c21mr20262795e9.11.1783522150858;
         Wed, 08 Jul 2026 07:49:10 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0fbd355sm135363315e9.13.2026.07.08.07.49.09
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493e0fbd355sm135363315e9.13.2026.07.08.07.49.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 07:49:09 -0700 (PDT)
+        Wed, 08 Jul 2026 07:49:10 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 08 Jul 2026 15:48:37 +0100
-Subject: [PATCH v3 01/20] media: i2c: imx355: Add support for 24 MHz
- external clock
+Date: Wed, 08 Jul 2026 15:48:38 +0100
+Subject: [PATCH v3 02/20] dt-bindings: media: imx355: Allow 2 CSI2 data
+ lane output
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-media-imx355-v3-1-9df386a623d7@raspberrypi.com>
+Message-Id: <20260708-media-imx355-v3-2-9df386a623d7@raspberrypi.com>
 References: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
 In-Reply-To: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -82,263 +82,43 @@ To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>, 
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, devicetree@vger.kernel.org, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.1
 
-From: David Heidelberg <david@ixit.cz>
+The sensor supports output over either 2 or 4 CSI2 data
+lanes. The binding only permitted the 4 lane configuration.
 
-The IMX355 sensor supports multiple external clock frequencies,
-including 19.2 MHz and 24 MHz. The driver currently supports only
-fixed 19.2 MHz input clock.
+Add the 2 lane configuration as an option.
 
-Refactor the clock handling to make the PLL configuration dependent
-on the external clock frequency and add support for 24 MHz. Introduce
-a table of clock parameter sets and program the corresponding EXTCLK
-frequency and PLL multipliers to maintain consistent internal VCO
-frequencies across supported inputs.
-
-The PLL settings are adjusted so that OP VCO remains at 720 MHz
-
-This preserves existing timing characteristics while allowing systems
-using a 24 MHz clock to operate correctly.
-
-No functional change for existing 19.2 MHz users.
-
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: David Heidelberg <david@ixit.cz>
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/media/i2c/imx355.c | 77 +++++++++++++++++++++++++++-------------------
- 1 file changed, 45 insertions(+), 32 deletions(-)
+ Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 27a5c212a527..ad9a9464175b 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -25,6 +25,10 @@
- #define IMX355_REG_CHIP_ID		0x0016
- #define IMX355_CHIP_ID			0x0355
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+index 6050d7e7dcfe..d9cdfda699bf 100644
+--- a/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx355.yaml
+@@ -50,8 +50,15 @@ properties:
  
-+/* PLL registers that depend on the external clock frequency */
-+#define IMX355_REG_EXTCLK_FREQ		0x0136
-+#define IMX355_REG_PLL_OP_MUL		0x030e
-+
- /* V_TIMING internal */
- #define IMX355_REG_FLL			0x0340
- #define IMX355_FLL_MAX			0xffff
-@@ -63,7 +67,6 @@
+         properties:
+           data-lanes:
+-            minItems: 4
+-            maxItems: 4
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++              - items:
++                  - const: 1
++                  - const: 2
  
- /* default link frequency and external clock */
- #define IMX355_LINK_FREQ_DEFAULT	360000000LL
--#define IMX355_EXT_CLK			19200000
- #define IMX355_LINK_FREQ_INDEX		0
- 
- /* number of data lanes */
-@@ -100,6 +103,29 @@ struct imx355_mode {
- 	struct imx355_reg_list reg_list;
- };
- 
-+struct imx355_clk_params {
-+	u32 ext_clk;
-+	u16 extclk_freq; /* External clock (MHz) in 8.8 fixed point) */
-+	u16 pll_op_mpy;	/* OP system PLL multiplier */
-+};
-+
-+/*
-+ * The clock tree is in single PLL mode, so PREDIV_VT and MPY_IVT do nothing.
-+ * All modes use the same PLL setup for OP, with IOPCK being 720MHz.
-+ */
-+static const struct imx355_clk_params imx355_clk_params[] = {
-+	{
-+		.ext_clk = 19200000,
-+		.extclk_freq = 0x1333,	/* 19.2 MHz */
-+		.pll_op_mpy = 75,	/* 19.2 / 2 * 75  = 720 MHz */
-+	},
-+	{
-+		.ext_clk = 24000000,
-+		.extclk_freq = 0x1800,	/* 24.0 MHz */
-+		.pll_op_mpy = 60,	/* 24.0 / 2 * 60  = 720 MHz */
-+	},
-+};
-+
- struct imx355_hwcfg {
- 	unsigned long link_freq_bitmap;
- };
-@@ -125,6 +151,7 @@ struct imx355 {
- 	const struct imx355_mode *cur_mode;
- 
- 	struct imx355_hwcfg *hwcfg;
-+	const struct imx355_clk_params *clk_params;
- 
- 	/*
- 	 * Mutex for serialized access:
-@@ -144,8 +171,6 @@ static const struct regulator_bulk_data imx355_supplies[] = {
- };
- 
- static const struct imx355_reg imx355_global_regs[] = {
--	{ 0x0136, 0x13 },
--	{ 0x0137, 0x33 },
- 	{ 0x304e, 0x03 },
- 	{ 0x4348, 0x16 },
- 	{ 0x4350, 0x19 },
-@@ -235,8 +260,6 @@ static const struct imx355_reg mode_3268x2448_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -284,8 +307,6 @@ static const struct imx355_reg mode_3264x2448_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -333,8 +354,6 @@ static const struct imx355_reg mode_3280x2464_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -382,8 +401,6 @@ static const struct imx355_reg mode_1940x1096_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -431,8 +448,6 @@ static const struct imx355_reg mode_1936x1096_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -480,8 +495,6 @@ static const struct imx355_reg mode_1924x1080_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -529,8 +542,6 @@ static const struct imx355_reg mode_1920x1080_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -578,8 +589,6 @@ static const struct imx355_reg mode_1640x1232_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -627,8 +636,6 @@ static const struct imx355_reg mode_1640x922_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -676,8 +683,6 @@ static const struct imx355_reg mode_1300x736_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -725,8 +730,6 @@ static const struct imx355_reg mode_1296x736_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -774,8 +777,6 @@ static const struct imx355_reg mode_1284x720_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -823,8 +824,6 @@ static const struct imx355_reg mode_1280x720_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x00 },
- 	{ 0x0701, 0x10 },
-@@ -872,8 +871,6 @@ static const struct imx355_reg mode_820x616_regs[] = {
- 	{ 0x0307, 0x78 },
- 	{ 0x030b, 0x01 },
- 	{ 0x030d, 0x02 },
--	{ 0x030e, 0x00 },
--	{ 0x030f, 0x4b },
- 	{ 0x0310, 0x00 },
- 	{ 0x0700, 0x02 },
- 	{ 0x0701, 0x78 },
-@@ -1422,6 +1419,16 @@ static int imx355_start_streaming(struct imx355 *imx355)
- 		return ret;
- 	}
- 
-+	/* Set PLL registers for the external clock frequency */
-+	ret = imx355_write_reg(imx355, IMX355_REG_EXTCLK_FREQ, 2,
-+			       imx355->clk_params->extclk_freq);
-+	if (ret)
-+		return ret;
-+	ret = imx355_write_reg(imx355, IMX355_REG_PLL_OP_MUL, 2,
-+			       imx355->clk_params->pll_op_mpy);
-+	if (ret)
-+		return ret;
-+
- 	/* set digital gain control to all color mode */
- 	ret = imx355_write_reg(imx355, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, 1);
- 	if (ret)
-@@ -1749,7 +1756,13 @@ static int imx355_probe(struct i2c_client *client)
- 				     "failed to get clock\n");
- 
- 	freq = clk_get_rate(imx355->clk);
--	if (freq != IMX355_EXT_CLK)
-+	for (unsigned int i = 0; i < ARRAY_SIZE(imx355_clk_params); i++) {
-+		if (freq == imx355_clk_params[i].ext_clk) {
-+			imx355->clk_params = &imx355_clk_params[i];
-+			break;
-+		}
-+	}
-+	if (!imx355->clk_params)
- 		return dev_err_probe(imx355->dev, -EINVAL,
- 				     "external clock %lu is not supported\n",
- 				     freq);
+         required:
+           - link-frequencies
 
 -- 
 2.34.1
