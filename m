@@ -1,164 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B6B28150F
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:54:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24B23A6B81
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:54:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783547642; cv=none; b=L/FGDsaeZdzcM6K0U96wr1YAc2ZCbuBNpuCCfjgBs0k/ZXd62mLLrYk+PzgQf1b1YeW98u9QEo4zcTcBZrLmB6vuxehR++L/YAP1DdlkoNc69gx7/mlTaN/ITdSx+PFxgTFU5+dz9K3pNQKzD8Dy5KIt+6hSuGGdIb6wxPzzDj0=
+	t=1783547695; cv=none; b=bbbU42JoziUQ6Rp2jkFNSHFnRGVFtwwExoFQSatnYLWO/+rVQ75Ew7o2tG5r6ji+tGokVXXLY4V7/4EnFD/fWJH5VtLLrM51+gmf1eksG7YZvoEfIg3zqAI16LGsXINDdM0GHTX2Kmh1+c9wYSQaa2LpY2H4U2WHQlDO5HSi6oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783547642; c=relaxed/simple;
-	bh=BtEo97daQ1NkZ1Q9Ncx/C+ux1mtySgn5qhN/+4QLWWo=;
+	s=arc-20240116; t=1783547695; c=relaxed/simple;
+	bh=Ex0+gpCjDRtY5+oMEEU6B/9q/Q09KrwZIKePjAaza18=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lOhOKJLLCLQuGWFkt45tTjMYGvwqSJLmf43p+60PQjySlH8IAO0/eTOgrrOSaMIhYrH5DnJ656oSTjPV7tVUyHaUH2ZUGNi1BozacKylD4RJjYVvDU8VvuX0VVv663ibGgD0+Q58+tF5Hokw3ue9Dlv9tIqyORzhKwanQ+6UdPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DmSHMXzh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=k+8c0vYw1gLn85T6R6vPQLRhtYW5N7jqw/NrqSPcdOnJzvf1OcaIcyf+2p1IPo7nA6KDfFydW92ONLvLho5jthweTxfqy7IQWRDafmdesFe5A6gnHGQlLA/fSpZGNXXHGGolZaJiqvQEapBiJerzQsMJPdjMYDxCZEQPhXKNRpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AgCm2ae5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DmSHMXzh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB23A1F00A3A;
-	Wed,  8 Jul 2026 21:53:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AgCm2ae5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2879A1F000E9;
+	Wed,  8 Jul 2026 21:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783547641;
-	bh=+DbcHoKhTH0+WI7MX38Y6OlMCbwZgwmtaM7cp/TesrE=;
+	s=k20260515; t=1783547694;
+	bh=6w+R1mf0TlvlvB1TKHCcuq+a4bqdxoEHhEQSGGmNSk8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DmSHMXzh+gxzlrNlTvyPA4N6SMltw05B9OMaaf0kewkzy2/YGvHhFuilNrpxqmsXY
-	 /7uEQGgOkebweOl/BWODY4U0ek4Hndw2y7hKHRbOBb6cEiAmneG4QRd6csJQhCtMfv
-	 Oo02V8b0ju3JFRpGkAdyKbwsIwL9+DyU2T+Dn56TrF+etA1rXKaVcumuYaNsjgSnVb
-	 onB8n6E4FEZ5RpNUlvmrXzR02EQmjVnuqfA+re6G34vskTDMDdO/7+4dezcNqEvBQN
-	 l06B+0doJfRNlJOyE6v/736ajatpMb84H/Kck4yUJ0x/CUJ4iRmrFF0pFqtKLEfkR6
-	 o2S2/lYXujE9g==
+	b=AgCm2ae5GjSC73o8AIlDs0/hieZBjH8lMFcTxWhgq1cFtQ+ZHB6cIFILxq5k1w0oz
+	 tuTwyiaUMZ+HuLCzH+6WS27rW7nZQnJwMSIA/DXyzQSeSBfFkgA78g6GqClI8yglNU
+	 vfzQZhISIKwCH08+zYHjGmh3PxwjRjeq3aPgb3utQFNOtwGc38taZFY/6IFbOsoMVH
+	 3mRZvUr6aYY5Y6i5faSPiIyS2A6fN5JD1JEaB4mr7gese97ciCOTEA8/HluPHDY6xG
+	 tprSz3m/AXvWl9juq+yOvBYAh29c4Qc72QC0hU/0vTZLxIzAeREwbvsUURkv+MSoEM
+	 jBhq8wpmK7pQQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] drm: panel: jd9365da: Add prepare_prev_first flag
- to drm_panel
+Subject: Re: [PATCH 4/5] dt-bindings: display: panel: add compatible for
+ DCLTek 300250 9.35in panel
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marc-Olivier Champagne" <marc-olivier.champagne@savoirfairelinux.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260708213500.1867092-5-marc-olivier.champagne@savoirfairelinux.com>
 References: <20260708213500.1867092-1-marc-olivier.champagne@savoirfairelinux.com>
- <20260708213500.1867092-3-marc-olivier.champagne@savoirfairelinux.com>
+ <20260708213500.1867092-5-marc-olivier.champagne@savoirfairelinux.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 21:53:59 +0000
-Message-Id: <20260708215359.EB23A1F00A3A@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 21:54:53 +0000
+Message-Id: <20260708215454.2879A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Redundant duplicate assignment of `prepare_prev_first` flag.
-
-Pre-existing issues:
-- [High] Missing cleanup in the error paths of `jadard_prepare()` causes a =
-permanent leak of the regulator enable counts.
-- [High] Premature publication of the panel in `jadard_dsi_probe()` allows =
-a race condition leading to a NULL pointer dereference.
+- [Medium] The newly added compatible string `dcltek,dt300250` will not be =
+probed by the panel driver due to missing `of_match_table` entry.
+- [Low] Redundant assignment of `jadard->panel.prepare_prev_first =3D true;=
+`.
 --
 
---- Patch [2]: [PATCH 2/5] drm: panel: jd9365da: Add prepare_prev_first fla=
-g to drm_panel ---
-commit 1a793dbc7476444fc7003da84dbce8a3bff9ad98
+--- Patch [4]: [PATCH 4/5] dt-bindings: display: panel: add compatible for =
+DCLTek 300250 9.35in panel ---
+commit eaec789ca9baff9cff690aca5a539d1f1eb81d5f
 Author: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
 
-drm: panel: jd9365da: Add prepare_prev_first flag to drm_panel
+dt-bindings: display: panel: add compatible for DCLTek 300250 9.35in panel
 
-The DSI host must be enabled for the panel to be initialized in
-prepare(). Set the prepare_prev_first flag to guarantee this.
-This fixes the panel operation on Renesas RZ/G2LC SoC DSI host.
+The DCLTek dt300250 is a panel using the jadard-jd9365da controller.
+Add a new compatible for it.
 
-> diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/g=
-pu/drm/panel/panel-jadard-jd9365da-h3.c
-> index 1ef0c937863a2..a79dc8f8d5af9 100644
-> --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-> @@ -2993,6 +2993,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device =
-*dsi)
->  		return dev_err_probe(&dsi->dev, PTR_ERR(jadard->vccio),
->  				"failed to get vccio regulator\n");
-> =20
-> +	jadard->panel.prepare_prev_first =3D true;
-> +
+> diff --git a/Documentation/devicetree/bindings/display/panel/jadard,jd936=
+5da-h3.yaml b/Documentation/devicetree/bindings/display/panel/jadard,jd9365=
+da-h3.yaml
+> index 4eae802de9fd5..9e20e2faf82fa 100644
+> --- a/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
+yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/jadard,jd9365da-h3.=
+yaml
+> @@ -19,6 +19,7 @@ properties:
+>            - anbernic,rg-ds-display-bottom
+>            - anbernic,rg-ds-display-top
+>            - chongzhou,cz101b4001
+> +          - dcltek,dt300250
+
+[Severity: Medium]
+Will the panel driver successfully bind to this new compatible string?
+
+Looking at jadard_of_match in drivers/gpu/drm/panel/panel-jadard-jd9365da-h=
+3.c,
+it seems neither this new compatible string nor a generic fallback is prese=
+nt
+in the match table:
+
+drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:jadard_of_match[] =3D {
+    {
+        .compatible =3D "anbernic,rg-ds-display-bottom",
+        ...
+
+Without a matching entry in the of_match_table, does this regression cause
+the device to fail to probe?
+
 
 [Severity: Low]
-Does this introduce a redundant assignment?
+Looking at the driver changes introduced earlier in this series by commit
+1a793dbc7476, is there a redundant assignment to prepare_prev_first?
 
-Looking further down in jadard_dsi_probe(), the exact same flag appears to =
-be
-set again just before panel registration:
-
-jadard_dsi_probe() {
-	...
-	jadard->panel.prepare_prev_first =3D true;
-
-	drm_panel_add(&jadard->panel);
-	...
+drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:jadard_dsi_probe() {
+    ...
+    jadard->panel.prepare_prev_first =3D true;
+    ...
+    jadard->panel.prepare_prev_first =3D true;
+    ...
 }
 
-Can we remove one of these duplicate assignments?
+Could this regression be a duplicated assignment in the same function?
 
-[Severity: High]
-This is a pre-existing issue, but does jadard_prepare() leak regulator
-reference counts on error paths?
-
-If regulator_enable(jadard->vccio) succeeds, but a subsequent step fails:
-
-jadard_prepare() {
-	...
-	ret =3D regulator_enable(jadard->vccio);
-	...
-	ret =3D regulator_enable(jadard->vdd);
-	if (ret)
-		return ret;
-
-and later with mipi_dsi_dcs_nop():
-
-	ret =3D mipi_dsi_dcs_nop(jadard->dsi);
-	if (ret)
-		return ret;
-}
-
-The function returns without disabling the previously enabled regulators.
-Because the panel prepare fails, the DRM core won't mark it as prepared, and
-jadard_unprepare() will never be called to clean up.
-   =20
-Can this prevent the system from entering low-power states or re-initializi=
-ng
-the display properly?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a race condition wi=
-th
-premature panel publication in jadard_dsi_probe()?
-
-The panel is added to the global list before its required internal pointers
-are initialized:
-
-jadard_dsi_probe() {
-	...
-	drm_panel_add(&jadard->panel);
-
-	mipi_dsi_set_drvdata(dsi, jadard);
-	jadard->dsi =3D dsi;
-	jadard->desc =3D desc;
-}
-
-If a display controller finds the panel concurrently (e.g., via probe defer=
-ral
-resolution) and calls drm_panel_prepare(), jadard_prepare() could execute
-before jadard_dsi_probe() finishes:
-
-jadard_prepare() {
-	...
-	if (jadard->desc->vcioo_to_lp11_delay_ms)
-	...
-}
-
-Can this dereference a NULL jadard->desc pointer? Should drm_panel_add() be
-moved to the very end of the probe function?
+>            - kingdisplay,kd101ne3-40ti
+>            - melfas,lmfbx101117480
+>            - radxa,display-10hd-ad001
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708213500.1867=
-092-1-marc-olivier.champagne@savoirfairelinux.com?part=3D2
+092-1-marc-olivier.champagne@savoirfairelinux.com?part=3D4
