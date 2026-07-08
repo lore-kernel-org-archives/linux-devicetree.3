@@ -1,164 +1,176 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013051.outbound.protection.outlook.com [40.107.159.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0BE3D6CB4
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 19:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783540157; cv=none; b=FRYS9io+PI37NaqUYxE95pJuokru39aMkSBpWR2D9vGp/nG8+/fGCDfwkGFvoM/cwFS8yeVUG4daBcqNSQl7fbCjx7xLANB8BQGryYCB8PMydW8lwgMuDMjBPvAP8COvDwcoRjMrntRT8svxrv8G+9m6pY2+5GWeGv7s43VEoGY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783540157; c=relaxed/simple;
-	bh=8FitnCOIzymqmh2SJdD2U8RGsIUomwearn9KBz4ki5Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vGgFkldbwfH0ZnWXTz3dU4ZeG44OQCBLh3/U9xyLiDGmkFbd+zmW99CyKOw4Tcbu8f0P1aLNy86YoxwHS8fq6olUE7INn4QwmZRRok+22rNarV3chHTwm4qWZNz6gZ0T+HAEBJwMDMDyCHO+1H0BTaWNOnraQ/I4oa1Qlu2n4vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=R7bg9A51; arc=none smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA7224E4C6;
+	Wed,  8 Jul 2026 19:49:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783540160; cv=fail; b=Cpdve6injTR6rphTck+cOcWyRLZQw13B+cEJ+Ajb3WyNCX6yw1JEha0DQWguHXwfKTJgGA1T3oCQvlT3ztyYJw61/Ayt4aJ+L+Pvrh+UOITCQe55N5JNSkHEOzneRyeAG0X3p0Wz9RJcBf7QMf4BaKlXKtcZA9aeq8n+xE41Bzg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783540160; c=relaxed/simple;
+	bh=Wq6t8O83JqDTHOSN9D/jEpw3GPwurL0eQH+9uI1fScw=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=tQEmq1pUfM2c6NrmfqdnvOHLeOyOcC8qxhFCKM+xeXgA4plA5toEuyD19YadXHUCqe2uOa9e3ioaQ1RGhOXTGY9uI7tE0qTZTTLv4Lh2bWu0lRLfiFSDmnM+OmnpNfCqfK1wNdUpldaizv+tmw0hTNvXgGNqpzDmtUdw0hwK8Dc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=B3Zc2Sf2; arc=fail smtp.client-ip=40.107.159.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="R7bg9A51"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-8ef1dc934d1so2169376d6.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 12:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1783540152; x=1784144952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=COlIbGYEylMlg+08j+MrlBTktSUlvEsQ0xCdXam5qLY=;
-        b=R7bg9A51U2YEVq96hR0rQnFcFnePpmgs57hHYELToqG26iKAaKYzzryl7w/TTKf2CC
-         +lGxw+QEA9jAjDWuJn8o89jmSiM3in+PWfOWE9KLcsBGhWY2ChCF0mDU/sjTsZbur2Zf
-         ogpg+pkh7VIirM2H6zajzbuFunp9cbVfshGIliWJAJhqPYiJLh9kOTUzf2C7BaxOH/ah
-         wFgrmuPXqEJkxBbUjbsthpspMBb6yTB4Q7opegffUhodST78YirtVyvZuDyYD78A2Koi
-         v7fHCLfLDRHflzsnPdLx/b44MM/2+Fq0b1Mp/SxN+A8d2S1dSVc2uLtjsNP260VozBDP
-         mYvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783540152; x=1784144952;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=COlIbGYEylMlg+08j+MrlBTktSUlvEsQ0xCdXam5qLY=;
-        b=QFis+WsmPLYQnr9dRNaZ3rnufec4kNKwAIwEWOBP+tkbj8DTAsKTGpo+IH4L74ClQY
-         hvSRWotuXEhNrTAYVC9SmBYtrHuskxGpwY1G5DNMh7kJrPaiHxXhLQ/ZJYqUHD82gPcB
-         uOQkSyffDHocMWiK5X7BX/nKQgknk3wGj7YWbzjB8U0uz8/Fa81JtM9hW5dS2vdsv7Zo
-         6nUjlKpjlBsLwQAA8C/UTstjnWnimUANcic7YuiMeyuX4HduGRbbZCTYeAXmUpu7kWbv
-         yFQNCdNxrWCO9jP9a0Vs/XlTWENVl1svWoWnWzvjvI0wMW5xoCua51SKdFW6MmFBD3yr
-         zIcg==
-X-Forwarded-Encrypted: i=1; AHgh+RrWSG0puh8mvqHX+1B/MVsewAB0HqOLRi6Vj+bVxNx2tA3E/bmxHF5SKWq5kPBe2PLkMw/gsXKbIi8Y@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+GweovgSLCRYP8Mgwk2PLQ5QNCb/BbFLaO6eG+ahGR1BptsN0
-	rv8/bUvblQaseswl2T5N7oOMC20aHWPoMxLDSdu1OqspS6/HHaQFCO/P3PRS4XIfEGQ=
-X-Gm-Gg: AfdE7ckbhX46rhJjjMXiqXOPLSXoqMu8LHoQwuwnC8jARsbh28zRUCEcZ52iMNnJgUU
-	ew2lDOmCK7qBqjmmtE39WncagdAwZRnBicIfJVfFkqMa0KjuzzHdZP5zdRZpqkVeJhsFdZ/i+D7
-	MODOvcE4/uFW76AlMQV5LMG//2SdqCfgRRrhqm7W7efvySUuX1uc3pV2OclAWv2ebwHTYSma78d
-	4x4yf4h0vSLbmSzMtUTqjHmFbSFKEv7sorAbbN1QJYhsTHEmRm9IGjowIUwi71VEfxQaX0WriPo
-	T2jUrNMJUKOh2US6mFskAOfcTsmKHJqvVP3iYS6IyAHHOvn7Ckzhql+bY9pnlKH1Ufv1t/jmyGd
-	o7qot1EI3cWoe/43lyR9mpd51yLYo6w4/sFDj7Pmj9kWQQQ3vXxjNj4Hr+a8lP10Q64JMr1riRa
-	c7xk3w7vaJUhQM
-X-Received: by 2002:a05:6214:5293:b0:8ea:c243:84e0 with SMTP id 6a1803df08f44-8fd38f9b4bamr95685346d6.1.1783540152153;
-        Wed, 08 Jul 2026 12:49:12 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8f472a9b1c4sm193173066d6.48.2026.07.08.12.49.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 12:49:11 -0700 (PDT)
-Message-ID: <8309e9c7-a110-478b-8cd4-c002070d2b4c@riscstar.com>
-Date: Wed, 8 Jul 2026 14:49:09 -0500
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="B3Zc2Sf2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vX3+WjwbrNiE4Ej9MW6LuG7+kDRR9JAvlElxf7OQ4Qn/hxhlHtvh9fFYS9lrIZMtbhgQnEntp2Kp2VzZX6ls1z61mDR4goHDfDn0O9yhmlDh/z3/inSQDP1B2q9WXLlSq6iRqN0e7LLQJu1MmdaUinoS/xyNoqGWxTyEpVwxA8gtbPROguheK7exC6CziRV7yM2AE9fT4LZqy61Emx5HvIaTq16uLwCTn5m80IM688Rs2j/Tjv26PqFBUSUvhtB7CqBN826/lMULnmHsP3J0VDhiGtRw//J82Pc3QjJGi59zVdUtdsD/eKeGbGWP5OhB3TgWdUDtoA9nqOcmphPETg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eyS95G9sIEg9bOlDxjUL01jOOiyRrnizBGnKrC0JolY=;
+ b=yQaBnreff2Fv3I5IWHY8JLS3yQRpqlyar+XFlOqQDceGDDRvW5P1JiSDb3wqKDkY5iW+tv17AI0obuZKXM31xUAJ/v6bfPQoL8wDp2Km+TYWWv3vOcpWxeKfLwxtkLbbOr3jojB44sI6JaMi0MSRXalsFv0nlytGrLi/Je5oyzkwqoJRBizqeQM5iqDNhr9tvK3gayzztPlGJGDysuuM0qaCW7TH6LuFKV8WbYNtNKQ0TpRtbb6Sm3PL9ovVra+0QnMhwA5dmuEWRSc9tMMAgsinonoFjovnTJeFX0fPMQr05Tj3qWQEOV2o5h1v5hPNdzVFrd6hji/uNbtdgRc9iQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eyS95G9sIEg9bOlDxjUL01jOOiyRrnizBGnKrC0JolY=;
+ b=B3Zc2Sf2qUiL1W7x//VgkVnoiYGVmtFhznOeqUkdxb9fe2YVjcyHQwStEoi1m4UeRiPi+pD7eaQAHxka9yxP7dau3laPvA3y/mjwR/tWflSGngxCfSPsZn/O+4psNmoJFffnYe0aSv9ASkhHZyO0FK9xzM7FCe0eW85sVaIql6PX4XZG00eE8DavqBhOCGU3UeuvDReIqm4Dkzn5UY7JE7K0vHraaxt4db927Gsha+QOWE2HdbvDPP63LKmXOOUMnPjImgwIsMQBQ/SlLdMKmvhSXEv9RwiCxY/8yZmyzhtx9WcBM6WHAU8WBUi5FQJ5D0Y7w8Zq93Lp7sSJjj56ug==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI1PR04MB7150.eurprd04.prod.outlook.com (2603:10a6:800:12a::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.14; Wed, 8 Jul
+ 2026 19:49:13 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 8 Jul 2026
+ 19:49:13 +0000
+From: Frank.Li@oss.nxp.com
+Date: Wed, 08 Jul 2026 15:48:57 -0400
+Subject: [PATCH 2/3] dt-bindings: mfd: st,stmpe: let interrupt property
+ optional
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260708-dts-stmpe-v1-2-1f51d15bb358@nxp.com>
+References: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
+In-Reply-To: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Linus Walleij <linusw@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783540138; l=900;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=Ta3ej7C29rxWqJ5Bsokx+QvtsaMJv39OZLLX3YXHmF0=;
+ b=xopbX222igskNdMkDPX3KjTHqpd4gxtw8MNhYXZEd9QJt6qTjG9VklH7PBCLzyNy66ro+6I/Z
+ /LXYpt7E8hSCbrAFkSWvhhKRKbxmAKFs5BnOIq+i8vetIhV4dWfuxSy
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: PH8PR22CA0024.namprd22.prod.outlook.com
+ (2603:10b6:510:2d1::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] SM8450 IPA support
-To: Esteban Urrutia <esteuwu@proton.me>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Alex Elder <elder@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me>
- <959db395-ae71-4a50-bd46-ac5add545a52@riscstar.com>
- <48c624c3-5408-4862-b4ec-9321ad279bf9@proton.me>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <48c624c3-5408-4862-b4ec-9321ad279bf9@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB7150:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa08e5a1-a82f-4fa6-e4ba-08dedd29fc90
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|1800799024|366016|921020|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PsVKxcRKmUQSYZbvXLg3mzK6M+SF+e1uPecyWbTidf1djaVg0z+Jpy4S7nNDlULU5Po74vMwqailkBqShxdgWksrOe3+muko6hHISuQHW9MbX4Xq/vT1NV+xYdjl8c6PbCMdX8CPsQwGQRBFOU8p9NE8taVwMj7KpWYYlRE7NvdIAQ9rTtwQxycEKMzkX3z26v59oYxZjsLAr/QMOXPhro11U+s0V5qFgz7HPfvVityA1lOpMmJEl+2/0Da9U8ABA0V7y3g1iR7UJSEkMFdyEplGx1YlYRDxnXcPLP+zhgoxCrzLtC++28n0fBxJoQzkKSGAtdMeqceUufdfqCZ7suw3DQfhKCVRXOQESEuqUuyx4YhylSeRaV9ZQn0kjxRCBn7QCSyUDmVL6sesvTLmVdjNOPwP4WOcMClqTjyscjfMmCnnBVDiU1mQiU8KNtM8ljHw+ufxFCoW7Pev/3Ooj6itl/SEJesqFVbYB9RH9XWf+iybAU8H7NS2ByAKOJDHJG2RJJH8ZyAQIMQK5NCmgpNgoVaJRp+ulxJLps4Hj4NMWITZAdMT4Q2U5j7iOnIxJEdvLiGtEhPB/R9+utpgfhT43tsXxCOQn/IY6byYgoUexXjTtxmJBUIo2nCmI5rOaK3Va2Q9iGvRhi7KmOxxOR6rDtInTsCfWIhkGdRuGsWaVp2RFAuv4aO10PwX2sJriVPaWaBL5XABEOK1h/oMsg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(1800799024)(366016)(921020)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UFI2QldnV3pON0pjWmxyUDBLMWhwd0s0RTB2RmwvUjJiaG83WDcwL2dmbVJK?=
+ =?utf-8?B?ejlDdlhzOEdHWTVpcGhOOTZLb2dlcGx3Z3hYMTFDNTI0OGVLa1hRbFRlMWYv?=
+ =?utf-8?B?OWpzcmZvZnVMS29NVjJENi9TSXl2UWVJRWF6ZG9kc2drNUkvQ2p6czlUQXAv?=
+ =?utf-8?B?WDBXQlhsejJDVk1aWXJBblA0Y2tsUUFJRHJLZ0F6djgwV092eW9HSTU4SXlS?=
+ =?utf-8?B?ZmxCTmZOUzBabXdMMzN5eEIydlNnUFUxektWSDJDSVZtR2pmSC9Fb0M5TU55?=
+ =?utf-8?B?L2xmSlQwTnBraE81VGZjazM5OW85cnEzNURvd0N5SFNCbUhMTDdMdCt4eGRY?=
+ =?utf-8?B?cVRDSDFLSmN4SkdmNHZBbVNwdXFVL3laNmpEZlozRFVpU1dteHEzbHc3Q0ds?=
+ =?utf-8?B?dVFpdStBT0FqeHcyVlFhMXM1aUdVZjZZMldWcXB1Q2JqNUZwYXIrVVZMQ0pj?=
+ =?utf-8?B?S2NETTJ0QXVRMWtzV1FPNUtpSDJaK05zclVzNkFKbzBZQW5hTXRNVlo4TzhF?=
+ =?utf-8?B?WDBXYXhiY05FOGF6VTdZUjA0cUx2QUt6MlQ3dU9lR1RwZnhOSVlNVjcvQ2tQ?=
+ =?utf-8?B?UFVhcXB5NmNDZTdPNnNmbml5MDZuZ2ZCcEZ3WDYyYmMvejBNUE9xNUxNWGJQ?=
+ =?utf-8?B?WWkvWVZMbHNkVnFVSEdQa3RZQmFPcUNCSEhlc1IzaGZGbHYvOHBlUEYzTFc3?=
+ =?utf-8?B?dHJLZWpCS2tYVHBaZld4dUxzUTI5ekNGc21oMm81OXpWWWRZcGd6Z2VNczlG?=
+ =?utf-8?B?OTE0Z3dvekZQNTNxS3FidG9vZ1Rock9kakRMcndhMVdnancxbTZ1KzZxZzBH?=
+ =?utf-8?B?dlpqVGRXMWo1OEVaazBFNnVmcUVUNk1jSGJrdU4vYTFBV0JCZy9teUYweDdT?=
+ =?utf-8?B?UVhiRnZxeTNKTDBFZlFJNGpNL0dtbWtzdjFMR21NQ1RHSXlKTEludnMxM1RE?=
+ =?utf-8?B?ZThmeDZDaEpWUXJQWG91UllqUkYrd25YbUh0UTRxMk95Q0tBaGhQUTVyWnhw?=
+ =?utf-8?B?OGFaWUt0a21TLzhHVmppNEs1cXhVNnZ5MEU0Y3dBd3BxKzA0YzRCbHBILy9a?=
+ =?utf-8?B?dHNmQVAzQ2lRNmNtV3FUUit1R0cxUnRQSllrR1JzdWh0M09IMGNKS1FSZjdT?=
+ =?utf-8?B?M1FVazFPNERSN1dQa0JxUmVMVGVtcEtPRitDUUc1aUVYQm0yM2MxdmdqVFla?=
+ =?utf-8?B?Mk8xeEJ3SEJJTmlXcDVjaTlqTkp6ck9BcG5KN0ZCWWpJaHpadjhzN0JqSk9C?=
+ =?utf-8?B?YmcxRitvbHBxNnF5aVZXSk5xUk1adFNQdFkxWHI0WXJwL0hqalRNMThGZGVI?=
+ =?utf-8?B?K0RuMzY2bGtlTEk3d29WcGNhUmNkOS8zeWJ4Zm93NXZ3dUplMlhZMkFTVExO?=
+ =?utf-8?B?Tk1XMXJFWktObndJS3h6MUVrTExOdFZSOSs2YTJsYXdMMWh3YTQzMldpZTl6?=
+ =?utf-8?B?eE1GeWpkWWYxaFlCSVZvZENwV2kwZmx6MnB2UVR0MzFFOE0wSkJlZlRUNHov?=
+ =?utf-8?B?M3FwK1hlUm5LYWYzZDVIT1AvL2pic1NJc0tQYTUrNkZ5amtEMGNuTjlWZTV0?=
+ =?utf-8?B?UnI4QTladVdTenhBYVFTUENnVmo0TktxbisrMnMyejVzTExPckx3WmJjZWlh?=
+ =?utf-8?B?ZnIrYmcxVW5wQlpFUzUvNHR5NGZqUkNqZ1FDWFpydHNSY25Ibko1SGgxL0ln?=
+ =?utf-8?B?c0wzbWV2WGZTY2lQRGcwd0ptS3UyRzl0N1NaUHFyVmxuSXNuNThnSHF4bEhp?=
+ =?utf-8?B?SnZEZzN3dXd4RUNqd3dnZXhDekJxeEl6V3Nza0VHRHZoU2MxUU9xRFFYRmZG?=
+ =?utf-8?B?ME4xc3NGdzkxWEZoSGVQVXlnaUJ6R2Rqcit0eHpaa1FsYVAvdDBKSWpuV3VB?=
+ =?utf-8?B?eVBiY21ES3BnMTR3SElpV1Y4QkxyRHcxcFp1Z2FwQzFJa0hjc3MxcG5yMlk0?=
+ =?utf-8?B?Yk1lYkF1WXlqekJkV2ZCemNQdFI3dk1HQmUwWkRYV0dkczlERUE2dHV0Rzdk?=
+ =?utf-8?B?WkkvWFM1enJHbUtsalIwS2lzanhZai8zYm5hbnI2ZmswSVRTTmlBRGozYTFw?=
+ =?utf-8?B?MXdncFhEaytQQWNBTkZkdUJwTVFxSDRxMC8zSXhtcmRYOXpFdURmTWtPcy8x?=
+ =?utf-8?B?S0lNQTJlTHNLcEVyRXE1bUhZYlA1SjBnOEtjeUgyTTR1Q1dhbzJOK1RSVFAr?=
+ =?utf-8?B?UmtndllaMzA5ZmV1K0J0a0NkaDdXKzFSQThQcGpCUGlaNnVkWjRsRGtnOEph?=
+ =?utf-8?B?Y0lzNlVpcm5yTzArcmNLT3lFckVJb2c0ZGJkaDZFWXhGYUZNMXJ4ZHpPbHU0?=
+ =?utf-8?B?Z2pWVktLWVNEZ0FjVS80MmZycElwQU9Bd204cGVKaXVXeEREakZjWHYwK3RP?=
+ =?utf-8?Q?NkIlG1fY0CbgENxfK7v/hQAe+kGAQO0+BPOVL?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa08e5a1-a82f-4fa6-e4ba-08dedd29fc90
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 19:49:13.6186
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oyYf65DMFUwJBx1QL8ZG8EYip0SkGDYW0xipA8HPkvPON8Oih1p3qdzCGtKHGyf+RjwBLzKP/2/oJpdY3dH5TOKmvoSlGLF4f/2meQPZ3ZNYZh86qT7M7Be5iCUdSX+W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7150
 
-On 6/23/26 8:57 PM, Esteban Urrutia wrote:
-> On 6/23/26 11:56 AM, Alex Elder wrote:
->> I assume you have implemented this based on what you found in
->> some downstream code.  And if so, could you please indicate
->> where to find that (so I can do some cross-referencing myself).
->> I no longer have access to any Qualcomm internal documentation.
-> 
-> Hello. Yes, that would be the case. What I used goes as follows.
+From: Frank Li <Frank.Li@nxp.com>
 
-Thank you very much for sharing this information.
+Not all boards connect irq lines. So mark interrupt property optional.
 
-> 1. My personal findings regarding IPA:
-> https://gist.github.com/esteuwu/bd49ed67ed9290f41612bdae1cacb5bc
+Fix below CHECK_DTBS warnings:
+  arch/arm/boot/dts/nxp/imx/imx6dl-phytec-pbab01.dtb: stmpe@41 (st,stmpe811): 'oneOf' conditional failed, one must be fixed:
+        'interrupts' is a required property
+        'interrupts-extended' is a required property
 
-This was interesting to see.  It's something I should probably
-document better.  Most everything maps to the downstream code,
-but it's not always completely obvious how, because the upstream
-driver has evolved substantially.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ Documentation/devicetree/bindings/mfd/st,stmpe.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
-> Note that these may be subject to errors since I mostly cross-checked
-> values to get here.
-> 
-> 2. SM8450 downstream device tree:
-> https://github.com/LineageOS/android_kernel_qcom_sm8450-devicetrees/blob/lineage-20/qcom/waipio.dtsi#L3304
-> 
-> 3. SM8475 downstream device tree:
-> https://github.com/LineageOS/android_kernel_qcom_sm8450-devicetrees/blob/lineage-20/qcom/cape.dtsi#L2624
-> 
-> It's worth mentioning that between SM8450 and SM8475, IPA SRAM size is
-> different, so I used the smaller SRAM size to support SM8475 as well. Hence
-> the reason why I included SM8475's downstream device tree as well.
+diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
+index 56aa2570def83..c1a4fd0dc8089 100644
+--- a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
++++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
+@@ -225,7 +225,6 @@ additionalProperties: false
+ required:
+   - compatible
+   - reg
+-  - interrupts
+ 
+ examples:
+   - |
 
-This means that the SRAM size (ipa_mem_data->smem_size) should
-possibly be defined in devicetree (as the IMEM address and size
-now are).
-
-The SMEM region is used for "IPA filter tables", and access to
-it is shared between the AP and the modem.  Unlike the other
-(host) memory regions, the size used is *not* included in the
-ipa_init_modem_driver_req message that communicates from the
-AP to the modem where the regions are, and their sizes.
-
-So it's possible that the size used must actually match what
-is expected by both the AP and modem.  If that is the case,
-using the smaller size might have problems on whichever
-platform (SM8450?) expects the larger one.
-
-So I'm not sure whether using the smaller size for both
-platforms is OK; someone from Qualcomm might be able to
-answer that question.
-
-> 4. SM8450/SM8475 downstream IPA driver:
-> https://github.com/LineageOS/android_kernel_qcom_sm8450-modules/tree/lineage-20/qcom/opensource/dataipa
-> 
-> Most of my cross-checking came from the source code in this folder.
-
-Yes, "ipa_utils.c" contains a great deal of the information
-needed.
-
-> 
-> Finally, for some values such as qmap, aggregation, tre_count and
-> event_count, I had to cross-check on the same folder that all
-> ipa_data-vX.Y.c files reside, since I couldn't find any reference to these
-> values in downstream code.
-
-I'll try to explain those things separately.
-
-					-Alex
-
-> Regards,
-> Esteban
-> 
+-- 
+2.43.0
 
