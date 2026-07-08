@@ -1,162 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50C8420868
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18DC34CFC7
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783470422; cv=none; b=ig+0qjkmQ1EkzgVJZf3MyAZcoOsqVeIx0HOE+kKgZtGZTzI+hni9kBWd2xVYG6IXC+1mC74QTZblBYcv7klL3iFCeajbGenNs7+V9nnjpnnLn87jXLMCKsIfjOlokoUy5VmqM2e7+Qffz7IgubwDhlwRXsZMOcc1UJRSorp+5cI=
+	t=1783471462; cv=none; b=uRJfC774r1u1YOAJKzL4dzfOvCsMYKhVIFreBeGw3jH6xmbtTsmNK6DeC3102+63JXDb4yNLx8m7Jg9WN1h+qMQ9qtivUonhvy9lXMJ/mC5qh4v9j/OLH6xR0OeQpQB3I4WgcZcxYZIjMmzXeYQtThEaRwacfVRt6Z1Q+G2ozEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783470422; c=relaxed/simple;
-	bh=eAMIT+E2Ntoi/KKhcOeUh9jll9X9z9aRqMDvps2bVJA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gOlkVoamcHp9NjBs1kicXS8QbiADZL589zc5waatDV8DNbMgscnH1kJ/QT3R1so3T69uBxh2o74iFvzyINUZaago4QeQvpsf8EvGttb69kDwa+CoiGHc1Gt1JDr0MHnN+GZlS/8W3amBvm7Rl/j9s7B7E5CQF+TIwywPkwaxBJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJ0oTZ8p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783471462; c=relaxed/simple;
+	bh=/KCeT6CaLjFv4YG0pkSD7mFRpmfv0KqWHn+AIQPqtFE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=C30vEYliB8td9yq3WjjAmoihYKi2l0lHjZlfE/y8nxBGIkev/nVmOu6KgG1+SwX+Ql+s8p7KMhozBkKiP5C5dtO6R5XSRXffwo19gAfDM23VtbS8QPTgEmi3LqfUp5J5t2YcEptA7EuZiefTDHaNGmmAwKJ5njjf8bbu4ND4Hxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AWtfPCZz; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJ0oTZ8p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17CB41F000E9;
-	Wed,  8 Jul 2026 00:27:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783470420;
-	bh=/6zdsixgjkgf6RtHJG3ti5zug0G1Q7L3NcGybM9fWl0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hJ0oTZ8pE+3LnyR/WMK58D0E1KJTE+/ohcm70gQvSsbhxjZRRH0xQDTFOFko4V4b8
-	 SSJaGSyi2/hMuZl2Yupe2YbCOg+M7KRPROyfndrNg5RVt0EsgeWWrpjUw7Furhflzx
-	 mRXqVU0C/5gSfGB9oqzGgS/0+vnb98y5opO+kEMRZurawfjk4fu9WQKeICgdkybs8j
-	 +bzpsvOwX84FoOua4OnF8xcFlpvQZ3QsWVAgKdm3JD6reThHgtHySYf4BCpraLZZJu
-	 K+itIiQGLxe3c9Fp/KGd4hMFxQw3C8Q9hCMHYGk+RWDfjjf99HXCc2aHCfj2EmlKw1
-	 /jkJvUw3CJ5dQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 6/6] media: qcom: camss: Drop legacy PHY
- descriptions from x1e
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-6-f8588da41f16@linaro.org>
-References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
- <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-6-f8588da41f16@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 00:26:59 +0000
-Message-Id: <20260708002700.17CB41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AWtfPCZz"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493b77b150aso580055e9.2
+        for <devicetree@vger.kernel.org>; Tue, 07 Jul 2026 17:44:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1783471458; x=1784076258; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kJqtgf5O7l3uNxKLf2LRYyokjEoVzz+7/xwnbiK0taQ=;
+        b=AWtfPCZze+8Qx9vo2G4NXlUTTorxkwdyWzKV9ArOe1ramED2T91f94YB5aZSrogO3w
+         5QyRX6bxveBe2I6f0SSfUscIBqiH+ji+4Lze1HOlp4r9BFy1iY7L7VwMN9+HyA483U1W
+         cv9YvPdKoxxmLgqsj9oSFf4rgsUfgiv42QuTqmME85HQ4hHcbXKmneZnepU3z/D9JRDG
+         PgG491dfl1r1FOwA7TKkHNvvXUaOq10bwI/EA63eJcQedf6Vm8R7UonfpX8mIIvPd2y/
+         TUUbF9YavT/jQGJxkr/pNDFoTjQ8U9h1pG8fGxpX0FqhUqx8d5Y3qUrJcku3gPbHKAjC
+         mYYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783471458; x=1784076258;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kJqtgf5O7l3uNxKLf2LRYyokjEoVzz+7/xwnbiK0taQ=;
+        b=jni+Doe0kFpSlZzCMrC0r4cREjR4U5ibrTsTQ5LOmFoMWKj37spBXVmBSFA+HEyiqK
+         /ffA+hnWGGb6XjbEaYq0OVCq9/SebPHqk+Vr3Lpju1F/RlD4Na6XDiK21dFE+P/DQo2M
+         bDF1h5x5STOZYGpNyfcgAI0MPYkKn9h9ENPZ3bzC2SoGxL0LC9+xj/LU90lQoUGcedJV
+         XvoT+T0PtF1Yk2eK/HbcllUzz7VdKn1AwRzvskEvh933/O4uBTPRO9UDtZQZGiwHkxzQ
+         MDpvOAjGJc4vSi4WvtvMWXSD9xleggIRPa/NO4MXb54VeKY01DbQEJRe+r0Zuqudm2e/
+         wgPw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp39AbNNluuSTIht23UYmH6Ms7vc5sV4OcrDcY8DknixBZYdwV1TdqYGGg8Q7wfqT+uq7L7jI2/sjAu@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxl7A/ghxHRh0xR7m7lGJTW5Eyhxfj5EMwBa4LVWR0SZCHAfJ3k
+	OAKNl4GeAUJzjKXigXYO2UVzkCk77kS8kl13yNZPJZbhmykczPujjS+bGX/MfEkTWsc=
+X-Gm-Gg: AfdE7cm+/KHf13dn4gz/DLtxx1DYMzE0MNt4lkVr3G04b7ebWLS4aUkhFmeCxQl6yAm
+	htJWaaxoNtWILEx3ex4UE5Hkb7nuc0Z/bFJ+0+LOgJQob4KK+wqXa3plDO5ragydi5vjK1JBr1F
+	9t0jkvysP2tgatMqkd6UdccL4vg8c4U0KSpsVI+AAB5wuP8c6by8OyVJ1Zl3gCEcZw4EXXuti/I
+	OcSy4PrnEPIWsyq/+FsRf5UMctP68OzFYuNgaszDaaNMw8maLovRG/p2gdqa7uSM+Ki/Nz3FFmh
+	KOz3Myinaz64aJNaGAs12HZ3UJVH8sxBEeqCOX1eP0i6WlNe7d3ApJqz4wYYpaMuNZv6owDSRbj
+	ko9Cr4Adh0OAJMz9jDRekw4ACfBLqQSg9JYxm2ob10QqegSLgAk6NZzs5T7YSCLPjCZCo3mE8L8
+	SE43MBscXtE7/iwrh1GXo2sUM=
+X-Received: by 2002:a05:600c:1d1e:b0:492:7084:32af with SMTP id 5b1f17b1804b1-493e68bf03amr1328065e9.23.1783471458081;
+        Tue, 07 Jul 2026 17:44:18 -0700 (PDT)
+Received: from [192.168.0.35] ([109.77.92.41])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e0fc1348sm99727985e9.14.2026.07.07.17.44.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jul 2026 17:44:16 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v4 00/11] arm64: dts: qcom: Add x1e/Hamoa camera DTSI
+Date: Wed, 08 Jul 2026 01:44:07 +0100
+Message-Id: <20260708-x1e-camss-csi2-phy-dtsi-v4-0-572348ad1b2a@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOyQ6CMBCA4VcxPTumC2Xx5HsYD7ULTKKUtIRAC
+ O9u4aLGBI//JPPNzCTagDaS82EmwQ4Y0bcpsuOB6Ea1tQU0qQmnPKec5zAyC1o9YwQdkUPXTGD
+ 6iCC5LqWmJjOqJGm7C9bhuMnXW+oGY+/DtB0a2Dr9bw4MKDjhCmPc3ZVZdXlgq4I/+VCTFR34G
+ xJsB+IJKmWVLCVlUdEfSHxAex+JBDEjVSVozliuvqBlWV4AJtuvUQEAAA==
+X-Change-ID: 20260226-x1e-camss-csi2-phy-dtsi-52c85c0d4da8
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Christopher Obbard <christopher.obbard@linaro.org>, 
+ Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3675;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=/KCeT6CaLjFv4YG0pkSD7mFRpmfv0KqWHn+AIQPqtFE=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqTZ1bTImYDuvMKmq8AWFkRAXinDiXKMTi9vmPM
+ kTftbSOxWaJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCak2dWwAKCRAicTuzoY3I
+ OkinD/wMjEWgD2SQvN4u2i89aGCx9fVHlkMgboHhsIbxDVmRC1VJWmJh+CRXAP9sxkzGC2qymHy
+ 9yByRuiTlBg9i0Ti2fpnRgEQwch9Yo628h0FoV0R0rcwL5oIYaH82J1JHCAjHrXY6w6kqo/dDFO
+ W65V8E4L2rcvSwmAGbAKsBGb8Nkad5nS3horwJnugadI8qXKJclrGgBg2jhoRKQkerQ8Rmcl7MJ
+ EAViqLLY1vjxAaVQvtqcBbRpqRmV1nqz+CfjeujFO/W0sR2HGY7nrUcXJ4fekslOGpbdzHNzaC5
+ fsjhhwYI/HGJsLZ2DYawV/pS/bftLvcknAx3wFAKL6dsLZ8dC/njtUFJtBzNUADaOEACAwmqeH0
+ h3ZCr3kr/P4mf1RL1hwXX21zohRGNlV96iHd5IdmCuAX6Sh7QceS04Fs3FG9jS/GPl/x3gfpGSg
+ +Tr9C6L5GAD/ByvzfCc+qkDevq7jMWHf5dCALihP6daeL+ie7xFPuevacoxsrmY8VSqnCYZ4EgY
+ VhRcl5Bom1qVi+oSq77UFNxVZWQ9CqqtNB7Fjp/487i9rbM3YdxUXP6klMW/y1Q5bPsNDq7KyCA
+ bQB7QLbSHtObVT5i3cGoupOgNl2wbVKpZSbT7QXzWX3ADAh91B6sAJXkz4wKixbQ8tlGT48O+vq
+ EC7PtiWO0ImBVEA==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Changes in v4:
+- Implements agreed port/endpoint bindings in CSIPHY series
+- Depends-on: https://lore.kernel.org/r/20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org
+- Depends-on: https://lore.kernel.org/r/20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org
+- Link to v3: https://lore.kernel.org/r/20260326-x1e-camss-csi2-phy-dtsi-v3-0-1d5a9306116a@linaro.org
 
-New issues:
-- [High] Missing `phy_exit()` cleanup on probe error paths results in PHY r=
-esource leaks for non-legacy PHYs.
+v3:
+- Too many depends to have this merged in this cycle plus some review
+  feedback on the depends patches but, for the sake of completeness with
+  the other posted series - posting this now too.
+- GDSC dropped - Konrad
+- Clocks dropped and renamed as agreed - Konrad
+- Using mode PHY_QCOM_CSI2_MODE_DPHY
+- Changes ldo7 on Slim7x to value indicated by Alexanders
+- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
+- Depends-on: https://lore.kernel.org/r/20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org
+- Depends-on: https://lore.kernel.org/r/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org
+- Link to v2: https://lore.kernel.org/r/20260316-x1e-camss-csi2-phy-dtsi-v2-0-859f3fa55790@linaro.org
 
-Pre-existing issues:
-- [High] Potential out-of-bounds access in `camss_subdev_notifier_bound()` =
-due to non-contiguous hardware IDs.
---
+v2:
+- Defines CSIPHY as sub-nodes of CAMSS
+- Includes updated OPP tables for those PHYs
+- Fixes supply names for RGB sensor on slim7x
 
---- Patch [6]: [PATCH v12 6/6] media: qcom: camss: Drop legacy PHY descript=
-ions from x1e ---
-commit 77049628030f3bcd1557363f75216c90c62c80af
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+- Depends-on: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
+- Depends-on: https://lore.kernel.org/r/20260316-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v10-0-fdfe984fe941@linaro.org
+- Link to v1: https://lore.kernel.org/r/20260226-x1e-camss-csi2-phy-dtsi-v1-0-f3f7ddfbf849@linaro.org
 
-media: qcom: camss: Drop legacy PHY descriptions from x1e
+v1:
+Add the dtsi for 
+- CAMSS
+- CAMCC
+- CSIPHY
+- CCI
 
-x1e is the first CAMSS SoC to use the new PHY interface. This patch drops
-the redundant legacy CSIPHY descriptions to enable the new interface.
+Add dts for RGB sensors on
+- x1 crd
+- Lenovo t14s
+- Lenovo Slim7x
+- Dell Inspiron 14p
 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index 146fea438486f..f360b2c99bf89 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-[ ... ]
-> @@ -5803,7 +5767,6 @@ static const struct camss_resources sm8650_resource=
-s =3D {
->  static const struct camss_resources x1e80100_resources =3D {
->  	.version =3D CAMSS_X1E80100,
->  	.pd_name =3D "top",
-> -	.legacy_phy =3D true,
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-[Severity: High]
-Does dropping the legacy PHY interface introduce PHY resource leaks on probe
-error paths?
+---
+Bryan O'Donoghue (11):
+      arm64: dts: qcom: x1e80100: Add CAMCC block definition
+      arm64: dts: qcom: x1e80100: Add CCI definitions
+      arm64: dts: qcom: x1e80100: Add CAMSS block definition
+      arm64: dts: qcom: x1e80100-crd: Add pm8010 CRD pmic,id=m regulators
+      arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB sensor on CSIPHY4
+      arm64: dts: qcom: x1e80100-t14s: Add pm8010 camera PMIC with voltage levels for IR and RGB camera
+      arm64: dts: qcom: x1e80100-t14s: Add on ov02c10 RGB sensor on CSIPHY4
+      arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add pm8010 camera PMIC with voltage levels for IR and RGB camera
+      arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add l7b_2p8 voltage regulator for RGB camera
+      arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add ov02c10 RGB sensor on CSIPHY4
+      arm64: dts: qcom: x1e80100-dell-inspiron14-7441: Switch on CAMSS RGB sensor
 
-If msm_csiphy_subdev_init() fails during camss_init_subdevices(), previously
-initialized PHYs do not appear to be rolled back with phy_exit():
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                | 530 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-crd.dtsi               | 126 +++++
+ arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi        |  83 ++++
+ .../dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi    | 158 ++++++
+ .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts  | 157 ++++++
+ 5 files changed, 1054 insertions(+)
+---
+base-commit: b8806f0398b487708cc65ced0fc4d67fa65648e5
+change-id: 20260226-x1e-camss-csi2-phy-dtsi-52c85c0d4da8
 
-drivers/media/platform/qcom/camss/camss.c:camss_init_subdevices() {
-...
-			ret =3D msm_csiphy_subdev_init(camss, &camss->csiphy[i],
-						     &res->csiphy_res[i],
-						     res->csiphy_res[i].csiphy.id);
-			if (ret < 0)
-				return ret;
-...
-}
+Best regards,
+--  
+Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Additionally, if camss_probe() fails after camss_init_subdevices() (for
-instance, in dma_set_mask_and_coherent()), the error path jumps to
-err_genpd_cleanup, bypassing camss_unregister_entities() and permanently
-leaking all initialized PHYs:
-
-drivers/media/platform/qcom/camss/camss.c:camss_probe() {
-...
-	ret =3D dma_set_mask_and_coherent(dev, 0xffffffff);
-	if (ret)
-		goto err_genpd_cleanup;
-...
-}
-
-Similarly, does camss_register_entities() fail to call phy_exit() for the
-failed csiphy[i] and all subsequent PHYs, since the cleanup loop starts at
-i - 1?
-
-drivers/media/platform/qcom/camss/camss.c:camss_register_entities() {
-...
-err_reg_csiphy:
-	for (i--; i >=3D 0; i--) {
-		if (camss->csiphy[i].phy)
-			msm_csiphy_unregister_entity(&camss->csiphy[i]);
-	}
-...
-}
-
-
-[Severity: High]
-This is a pre-existing issue, but since x1e80100 defines non-contiguous PHY
-IDs (0, 1, 2, and 4), does this cause an out-of-bounds access?
-
-The csiphy_num is 4 for x1e80100, meaning the camss->csiphy array only has
-4 elements. The endpoint port ID is parsed from the device tree and stored
-in csd->interface.csiphy_id:
-
-drivers/media/platform/qcom/camss/camss.c:camss_parse_endpoint_node() {
-...
-	csd->interface.csiphy_id =3D vep.base.port;
-...
-}
-
-If the port number aligns with the physical hardware ID (e.g., port@4 for
-CSIPHY4), will this use id =3D 4 to index the 4-element array in
-camss_subdev_notifier_bound(), causing an out-of-bounds access?
-
-drivers/media/platform/qcom/camss/camss.c:camss_subdev_notifier_bound() {
-...
-	u8 id =3D csd->interface.csiphy_id;
-	struct csiphy_device *csiphy =3D &camss->csiphy[id];
-
-	csiphy->cfg.csi2 =3D &csd->interface.csi2;
-	subdev->host_priv =3D csiphy;
-...
-}
-
->  	.csiphy_res =3D csiphy_res_x1e80100,
->  	.tpg_res =3D tpg_res_x1e80100,
->  	.csid_res =3D csid_res_x1e80100,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-b4-linux-n=
-ext-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org?part=3D6
