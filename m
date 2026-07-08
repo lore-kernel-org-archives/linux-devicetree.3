@@ -1,130 +1,1041 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED98A3C3453
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 20:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783540995; cv=pass; b=XZ0HPNWiU+sLQYMs/G0gGmMu7ertOwgVTUCZWa9+/bzUMdoOSfbPSjcwRxoABA42ZEwpuqiKMKWZgykmbs+0V29JzbIJ6eXXSts4U+Gp+LDV27XiYp+nJKgsu/PkDm5R9TDZCmwuI8ijPiPniUhxrTCpAPZtCqd6sYeW5ADzcL4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783540995; c=relaxed/simple;
-	bh=VHoB62D85pcWXecYyB+2zT7VNa7GDV2Iff4zIPRsuxE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fhx7G1vbDQQVY147S4wrnRk/dUsPZP17nKS9whVBpV8l2n6ZFmE0z/F6vRXfzVnKffJwhbqGq9Vq66ongNV0f7zdxftPNpIUYQfCFrQyNb76Br/Yb5TXVfcjn14ouSXYC0QeE91bidzwvAxyRWEVc4FhHF04pa4RryVFMd3LAVM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Sxu5BKLo; arc=pass smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B513C379C
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 20:06:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783541172; cv=none; b=SI80CtmSN1SX2DGkT2Cu7kzKE+K1piWqIKmz0QNjoUE8tx5umDdtsr/sl3PDy9eLDmGJhGso0XO7gVsnNgBx+BPgZ+j7lzTi2XXw0tURmO8FyhRYmj6WNOmf5RQ4rpwiYwqoAYh1CqncpzeZxdkGbcvJcYtG1YlQwZf7KY1b3JI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783541172; c=relaxed/simple;
+	bh=10bevXObiMTqkCsW5npB4KvOjMgk/AtfBmXN9oCZhjg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mg3DPxtlHUGaR2Pvp5AmteWy+5/hzLxi118anNdzuwycJkmLEyMBDbaI/JgnngdV6rO4MDKUu35I4ZyhBX0FrSVAFAXm/Pi0z4M/rkqU9PB981/ItssCoaPhbAgZobRoE9ERx4WE7TziAqS5HN9GhkIfVpePpsnNsq3MYJOIFyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org; spf=pass smtp.mailfrom=ieee.org; dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b=dMpcp9H3; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Sxu5BKLo"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc6dd436c6so11763275ad.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 13:03:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783540988; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Io91RfjXfDuO+3waN9RhRjoKpVslkky0Vo9aAikZPg3g1QpF1AMQQOcmJ4gKr8SZu8
-         ZWgZpykz0USUvrHzi8ovUM1HTk/BVh7UlK9qEj0QZ7exV6vzMN/5sO+9C4KgyCnisqY3
-         /rl+S+rgrB2SSdgsHq68st/zI33EtY/XQIFxvSIDuWfHVtrBq+9DlXo/bjH/ww3K9NUq
-         Rv2h886mA5JlcGRSNjdnXdRECwAqQqu/HU5r8aySCagTdtnpDUqOuMXaDmSvNkXv0ArC
-         0ze2KgdB7E9ZYHqBGfI9Um2sqweFD/apeJTa1lvBUDGcLzz9tkQy+so8NPQ6SmjCEyVn
-         F81w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3raWAoLWRdXsO1B6qPL4d9kyKqPCs3bPbCVnUUFegwg=;
-        fh=KT3LNXTCuw6paRJNSm+vOW+7mO0xgKHEzI3ax9Xsosk=;
-        b=cA0DFA1miCiNxa/9KORdGopPgyDy3BhXdORGC/1BZyANJgt+d+a6SfrVFUD5kxlqG3
-         NK6fFPFVuHU51n1sybBf+iSUWb3nBzQpwKshl5lOhANiJAI3ukin8YoXtJz6Ku8aJ1As
-         Qq7ZLRTYoJqNFxtAjT6QoL6hdCZ0sh6QaVc3wJzyXy8ybolkUciBsBcNWP4cYr7hRKZs
-         N3f+GebXRucx/sEpNaPKcpXnwRlIBCnQDWfOGuDaG6UNzX//PmL/VhhmlM9Zz6djxXrA
-         kU/1hgchOWSOK1F/5qiIWt0xT9Dnf4o4Iavo1KJaFDfNq+ZRb0lU6+69ZL4MawQUZJbQ
-         oOgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.b="dMpcp9H3"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92e55b62640so57560285a.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 13:06:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1783540988; x=1784145788; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3raWAoLWRdXsO1B6qPL4d9kyKqPCs3bPbCVnUUFegwg=;
-        b=Sxu5BKLoabsMdi/Rp+XbMUw/GJpHKWmXtQtjeJJ1e5jaRoDt0OxDvTBg5lR7E4GYy2
-         q/WL+jB73uROAx9nMRwKq8GEHgWiKyt1Wtw3kQ0N+TKIq+jNvpwMGIOc0gFJa4lmWi7w
-         GSntuDY+XYTkK6cIndgzR2G2+Sckacb/zXfF8ckkstBcSvdofryy4SOvuVT4d8okkDo1
-         OLOncnTlay3g3ZIJ5UFygN7BHv5oMQ7IRim2mMUenEExfTZMdJMagz1guuNBrqAfTEZK
-         9FVKiBkehcUcFflzVq4ELilKFIoleK75rPW0bpAYQLhpiWsbrNppgf0uRHOSdHNX+Kfp
-         cupQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783540988; x=1784145788;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=ieee.org; s=google; t=1783541168; x=1784145968; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3raWAoLWRdXsO1B6qPL4d9kyKqPCs3bPbCVnUUFegwg=;
-        b=lrlmcFVbu6ADd0Hy/9oiY18SIJ0v+9iRQr5p4SduP4voN/Fle+IeozNxttSxFvnWPR
-         /om7gFKSDwOlNNdNjzxEHko0FJFlVg9H4PBofFCU7E7K1RXaTyvH4UeDwwKfS7oxQAXM
-         w4B5A4ly+lnbLy/5+iUpxaPXNNjmpfpTeIOv9a1GKSNyBghjLbTtm0fC8Swe1CXn5fE1
-         CjPbhou1lkyyp7dx+vzrGsYAwUcOY191LRZ/mSTHe/NAP8o7hYfxZ/0AKDbjlRl7fiq2
-         n6ZWioISUFpeLATUoN4H6HSGUbA4uqZereo8KsrHXdachmrHNDbyBXTR7f7609fP26L4
-         uCxA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqf6iaMeYgcZuLPlMgk30U3ACLEuQAlnoe9popNR5yxXEfE1x8Sl7hWJZiX5V23fgh1tExZhvczpWhn@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZQi0c5IuAy7herj6mEcczFb0H+qSyAZSSLyMsidmv7F6zUUXz
-	EMTNULcdsvCSUJpEO4m3GaOJmuQAf0hAU7bVyD3Ca2Egu0PO+LGnprIRgBzMQNkenjO9O9E0V9p
-	rVJSJ5Nxdri6+IE6ihMDxGhyGWVAzP08=
-X-Gm-Gg: AfdE7cnqm3JH50NsbwavfsbqXHdIyjXE/2rRN4IFA7Rzgc+34FYz+LqunoQRn0RV+Ky
-	7UWf+GcMLkzHGkMnwcZzUQyS0mp0e/6Zw61xylHE4CvxUo/mcPcT/4es6fxQBZ4k2+pkLal6VN3
-	0/Rybvh8tIIVNYZNXmc/3sG6tIw2SXBO2ZKUz7ZHDQSrH1iVpjHuNomZEe65R/q1IDuwir2sk4N
-	C1T/VT3yQrhIZ5l26hmgOJ8VwhPrP5uWKk8Jg/m8r83v8tKeS+5QO53x6gD+MT8yffpNbDTt4ES
-	j1YyPCjdARIrO5pzCbLztjz8lP4Agg==
-X-Received: by 2002:a17:902:d507:b0:2c7:f12d:5d37 with SMTP id
- d9443c01a7336-2ccea3b4332mr41011575ad.17.1783540988351; Wed, 08 Jul 2026
- 13:03:08 -0700 (PDT)
+        bh=pRWa9iMqypNRz6lCByjP7aDHCvn8i9o4BkJQoVsXA7g=;
+        b=dMpcp9H3KqMD2nib5rL9Gp6H+NeYXHG3Y2yltldpmM31t3LXU14V51DVA+lEfNo+rh
+         TfOhMNE9Bfy5AkTGoYxK4tjXmdN/vaQTu2P9t9KTAZP+OllAVTF5L09diqdAtxpnCSG+
+         YwGZ8ye2s3CHOE3qLmlimU8CTOwU3M7tEalAc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783541168; x=1784145968;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pRWa9iMqypNRz6lCByjP7aDHCvn8i9o4BkJQoVsXA7g=;
+        b=aPbQlQekEDOlY+bA/CV/uQC/jJTr2CxrJwU9vMkzwckZzoRy5wHTiMzwuXw2NsWril
+         sLC8rHI/o3kjXzd533NkLPM58UmNT8O3CEmV0sQPiNxtHYQEvgcX+sqJCapbw6VyR6Jw
+         UWoaRvPyGMJyrllmeuNa2zdNrtw4GofOzc/feKpQtdFKpKC6xUEaWMU86gyyXCLZU702
+         W42Ckjdkc0JzPmoEUM8gxeJj7OGjAKdendjlei5w1T1WSJasK/wWctWV3d5QLNKI+Iwr
+         RH7v4AyQa6ZDkO/ct/2bsUl+jC+upmNPrbmTDiLisPmM1tuhJgmgiiGgqycAm7o2yPOl
+         UuYA==
+X-Forwarded-Encrypted: i=1; AHgh+RprPq8Cf6fAWDndk4z/vSaOAfIvUgDuGH2OmwKVYKzbM5vLhvO9gdQY+GLYRl6Ho3JMDfmPywg7fEWl@vger.kernel.org
+X-Gm-Message-State: AOJu0YyW4wz/9w7+/C/tujFw8OZaw/zYL3qZ4cIU/wzw1tzz/OvCSTEq
+	1kVBEzE80Cww/qW4L1Jb90jEYKgsxQfSHqMmKQ+XjsG4yiGq7BguLgWdOov8op44Eg==
+X-Gm-Gg: AfdE7ckYQD78BXfZqHizmumKsPK6Z0AK6eDOv7JbZtH2s4r4bS/9INYLtGZsbYtFYix
+	OG92Nn1vnTeTEhVOgAbUVyBvzQWzOh/YlKPh2wpaRlzUUeRbxx6b4U/tYrRV/Td7H+vw3CklqEO
+	IuvMVHkQDIlxb5p3iv7WpRsdDS+fegeXbqOjBAQqcJtDM6g4cFIjFRa6FaA+O21ysK+fCV+kKTZ
+	gHm90jQMISPe/UhjvmgYjGSin2+tB5nKnOAA5XLkCZdCjgxTrEW5o0eEcV1K8haEX6p5q5MXp07
+	4rh9UIUe/I1X2cWuds6jNqEVdkcOzPImGi9uIZMpskYvjMpV8n6j8/AvT+TTByjIVyquK2WScgz
+	2zL8+FMjF83M8kxH9VXpWTMpUEmq9oEMMq5dPcRTvFI5IWITxgSGBlTvaRteiLsT1iYD238+E16
+	b1kGQE/eQ=
+X-Received: by 2002:a05:620a:84c1:b0:915:cda5:27fa with SMTP id af79cd13be357-92ecf8ead95mr410140085a.58.1783541167220;
+        Wed, 08 Jul 2026 13:06:07 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id af79cd13be357-92e90cfe34dsm1532151985a.46.2026.07.08.13.06.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 13:06:05 -0700 (PDT)
+Message-ID: <b810c574-0f60-4d3d-ad5a-4205a119fe00@ieee.org>
+Date: Wed, 8 Jul 2026 15:06:04 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com> <20260706-a9-ir-v1-2-4f082ca8aaf1@amlogic.com>
- <CAFBinCBbRrt6jWj4pczE=-j86Sw2aiAaBpUoTx1x9XErw5NFpQ@mail.gmail.com> <74fc6cfe-f844-4cbb-bc1e-0ad96af37040@amlogic.com>
-In-Reply-To: <74fc6cfe-f844-4cbb-bc1e-0ad96af37040@amlogic.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Wed, 8 Jul 2026 22:02:57 +0200
-X-Gm-Features: AUfX_mylmZnzRL8QYx31DSmWj6ivxEWovLb2UkpKfybbs6Pkvk-Opma3o6RcohY
-Message-ID: <CAFBinCBQ+g8Kr2tL9ob9PvTakGrtwH3qZWjEy-ytGiufGUEieg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: amlogic: a9: Add IR controller support
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] net: ipa: Add IPA v5.1 data
+To: esteuwu@proton.me, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Alex Elder <elder@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me>
+ <20260622-sm8450-ipa-v1-3-532f0299f96e@proton.me>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20260622-sm8450-ipa-v1-3-532f0299f96e@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 8, 2026 at 4:39=E2=80=AFAM Xianwei Zhao <xianwei.zhao@amlogic.c=
-om> wrote:
->
-> Hi Martin,
->     Thanks for your review.
->
-> On 2026/7/8 03:33, Martin Blumenstingl wrote:
-> > Hi Xianwei Zhao,
-> >
-> > On Mon, Jul 6, 2026 at 4:43=E2=80=AFAM Xianwei Zhao via B4 Relay
-> > <devnull+xianwei.zhao.amlogic.com@kernel.org>  wrote:
-> > [...]
-> >> +                               func-ir-in {
-> >> +                                       remote_pins: group-remote-pins=
- {
-> > Can we keep the established naming:
-> > $ git grep remote_input_ao_pins arch/arm64/boot/dts/amlogic/ | wc -l
-> > 37
-> >
-> > I'm worried that adding IR blaster/output support at some point will
-> > then lead to confusion.
-> >
-> Will do. I will rename remote_input_ao_pins.
-I'm also happy with remote_input_d_pins or however the datasheet calls
-this pin/function (seeing that A9 has AO, C, D and TEST pins in the
-always-on domain).
-The part that's important for me: include "input" in the name (so it's
-clear that this is IR input, not IR output).
+On 6/22/26 8:44 PM, Esteban Urrutia via B4 Relay wrote:
+> From: Esteban Urrutia <esteuwu@proton.me>
+> 
+> Add the required ipa_data-v5.1.c file for IPA v5.1 along with changes
+> that declare IPA v5.1 support.
+> This version of IPA is used in both SM8450 and SM8475 SoCs.
+> 
+> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+
+OK I'm finally reviewing this.  Thank you again for sharing links to
+the resources you used and developed while doing this work.
+
+
+For the most part this looks entirely correct.  There is one
+pair of memory table entries that I think should not be there,
+otherwise everything looks just about perfect.
+
+I'm not totally sure that reducing the SMEM size will work
+correctly.
+
+
+I'm taking this opportunity to explain a LOT of things about
+IPA and the driver code.  It's much more than what's typical
+for a review, but I thought this provided a good chance to
+explain some things in context.  You can add it to your notes
+file if you like...
+
+> ---
+>   drivers/net/ipa/Makefile             |   2 +-
+>   drivers/net/ipa/data/ipa_data-v5.1.c | 477 +++++++++++++++++++++++++++++++++++
+>   drivers/net/ipa/gsi_reg.c            |   1 +
+>   drivers/net/ipa/ipa_data.h           |   1 +
+>   drivers/net/ipa/ipa_main.c           |   4 +
+>   drivers/net/ipa/ipa_reg.c            |   1 +
+>   6 files changed, 485 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ipa/Makefile b/drivers/net/ipa/Makefile
+> index e148ec3c1a10..d4995c2e8ca0 100644
+> --- a/drivers/net/ipa/Makefile
+> +++ b/drivers/net/ipa/Makefile
+> @@ -7,7 +7,7 @@ IPA_REG_VERSIONS	:=	3.1 3.5.1 4.2 4.5 4.7 4.9 4.11 5.0 5.5
+>   # Some IPA versions can reuse another set of GSI register definitions.
+>   GSI_REG_VERSIONS	:=	3.1 3.5.1 4.0 4.5 4.9 4.11 5.0
+>   
+> -IPA_DATA_VERSIONS	:=	3.1 3.5.1 4.2 4.5 4.7 4.9 4.11 5.0 5.2 5.5
+> +IPA_DATA_VERSIONS	:=	3.1 3.5.1 4.2 4.5 4.7 4.9 4.11 5.0 5.1 5.2 5.5
+>   
+>   obj-$(CONFIG_QCOM_IPA)	+=	ipa.o
+>   
+> diff --git a/drivers/net/ipa/data/ipa_data-v5.1.c b/drivers/net/ipa/data/ipa_data-v5.1.c
+> new file mode 100644
+> index 000000000000..85b21efa1224
+> --- /dev/null
+> +++ b/drivers/net/ipa/data/ipa_data-v5.1.c
+> @@ -0,0 +1,477 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +/* Copyright (C) 2023-2024 Linaro Ltd. */
+> +/* Copyright (C) 2026 Esteban Urrutia <esteuwu@proton.me> */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/log2.h>
+> +
+> +#include "../ipa_data.h"
+> +#include "../ipa_endpoint.h"
+> +#include "../ipa_mem.h"
+> +#include "../ipa_version.h"
+> +
+> +/** enum ipa_resource_type - IPA resource types for an SoC having IPA v5.1 */
+> +enum ipa_resource_type {
+> +	/* Source resource types; first must have value 0 */
+> +	IPA_RESOURCE_TYPE_SRC_PKT_CONTEXTS		= 0,
+> +	IPA_RESOURCE_TYPE_SRC_DESCRIPTOR_LISTS,
+> +	IPA_RESOURCE_TYPE_SRC_DESCRIPTOR_BUFF,
+> +	IPA_RESOURCE_TYPE_SRC_HPS_DMARS,
+> +	IPA_RESOURCE_TYPE_SRC_ACK_ENTRIES,
+> +
+> +	/* Destination resource types; first must have value 0 */
+> +	IPA_RESOURCE_TYPE_DST_DATA_SECTORS		= 0,
+> +	IPA_RESOURCE_TYPE_DST_DPS_DMARS,
+> +	IPA_RESOURCE_TYPE_DST_ULSO_SEGMENTS,
+> +};
+
+The above looks correct to me.  They come from downstream
+"ipa_utils.c", in the ipa3_rsrc_src_grp_config[IPA_5_1][][]
+array and the ipa3_rsrc_dst_grp_config[IPA_5_1][][] array.
+
+The *_SRC_* symbols are the index values used in the
+ipa_resource_src[] array upstream, and the *_DST_* symbols
+are indexes in the upstream ipa_resource_dst[] array.
+
+> +/* Resource groups used for an SoC having IPA v5.1 */
+> +enum ipa_rsrc_group_id {
+> +	/* Source resource group identifiers */
+> +	IPA_RSRC_GROUP_SRC_UL				= 0,
+> +	IPA_RSRC_GROUP_SRC_DL,
+> +	IPA_RSRC_GROUP_SRC_UNUSED_2,
+> +	IPA_RSRC_GROUP_SRC_UNUSED_3,
+> +	IPA_RSRC_GROUP_SRC_URLLC,
+> +	IPA_RSRC_GROUP_SRC_U_RX_QC,
+> +	IPA_RSRC_GROUP_SRC_COUNT,	/* Last in set; not a source group */
+> +
+> +	/* Destination resource group identifiers */
+> +	IPA_RSRC_GROUP_DST_UL				= 0,
+> +	IPA_RSRC_GROUP_DST_DL,
+> +	IPA_RSRC_GROUP_DST_UNUSED_2,
+> +	IPA_RSRC_GROUP_DST_UNUSED_3,
+> +	IPA_RSRC_GROUP_DST_UNUSED_4,
+> +	IPA_RSRC_GROUP_DST_UC,
+> +	IPA_RSRC_GROUP_DST_DRB_IP,
+> +	IPA_RSRC_GROUP_DST_COUNT,	/* Last; not a destination group */
+> +};
+
+These look correct.  They correspond to the second index values
+in the downstream arrays mentioned earlier, and are used as
+indexes into the limits[] array within an ipa_resource structure.
+
+As you probably now know, the symbols correspond to these comments
+in the downstream code:
+                 /* UL  DL  unused  unused  URLLC UC_RX_Q N/A */
+                 /* UL  DL  unused  unused unused  UC_RX_Q DRBIP N/A */
+> +/* QSB configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_qsb_data ipa_qsb_data[] = {
+> +	[IPA_QSB_MASTER_DDR] = {
+> +		.max_writes		= 0,
+> +		.max_reads		= 0,	/* no limit (hardware max) */
+> +		.max_reads_beats	= 0,
+> +	},
+> +	[IPA_QSB_MASTER_PCIE] = {
+> +		.max_writes		= 0,
+> +		.max_reads		= 0,	/* no limit (hardware max) */
+> +		.max_reads_beats	= 0,
+> +	},
+> +};
+
+I think the DDR values might be wrong, but it's difficult to be
+sure.  In some cases, in arrays like this in the downstream code,
+if there is no entry found in an array, the *earlier* version
+values should be used.  (Unless someone better informed states
+that this is wrong, I think it's fine as-is.)
+
+This information is found in the ipa3_qmb_outstanding[IPA_5_1][]
+array in the downstream code.  However there is no entry for that
+version.  Given that, all zeroes (as you have it) makes sense.
+But it's possible this applies instead:
+
+         [IPA_5_0][IPA_QMB_INSTANCE_DDR]         = {12, 12, 0},
+         [IPA_5_0][IPA_QMB_INSTANCE_PCIE]        = {0, 0, 0},
+
+I have no way of knowing; perhaps someone from Qualcomm can
+get confirmation that all zeroes is correct.
+
+(Note the order of values presented in the downstream code
+differs from upstream.)
+
+
+
+Most of the information in the structure below comes from the
+ipa3_ep_mapping[IPA_V5_1][] array in the downstream code.
+Many of the entries in that array are unused in the upstream
+code, because we only use a small subset of the available
+endpoints.
+
+> +/* Endpoint configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_gsi_endpoint_data ipa_gsi_endpoint_data[] = {
+> +	[IPA_ENDPOINT_AP_COMMAND_TX] = {
+
+IPA_ENDPOINT_AP_COMMAND_TX corresponds to IPA_CLIENT_APPS_CMD_PROD
+in the downstream code.  The downstream code doesn't label the
+assignments within the ipa3_ep_mapping[][] array, so I think it's
+a little harder to understand.  Anyway I'll show how they map
+between downstream and upstream below.
+
+The downstream structure is named ipa_ep_configuration.  The
+upstream structure is named ipa_gsi_endpoint_data.
+
+struct ipa_ep_configuration {
+         bool valid;
+         int group_num;
+         bool support_flt;
+         int sequencer_type;
+         u8 qmb_master_sel;
+         struct ipa_gsi_ep_config ipa_gsi_ep_info;
+         u8 tx_instance;
+};
+
+And although ipa_gsi_ep_config is not defined in this code
+base, here is what it looks like:
+
+struct ipa_gsi_ep_config {
+         int ipa_ep_num;
+         int ipa_gsi_chan_num;
+         int ipa_if_tlv;
+         int ipa_if_aos;
+         int ee;
+         enum gsi_prefetch_mode prefetch_mode;
+         uint8_t prefetch_threshold;
+};
+
+This might not be current; I'm using code found here:
+   https://git.codelinaro.org/clo/la/kernel/msm-5.15.git
+
+
+Here is the upstream structure, and I indicate where the
+information comes from in the downstream code:
+
+struct ipa_gsi_endpoint_data {
+         u8 ee_id;	/* ipa_ep_configuration->ee */
+         u8 channel_id;  /* ipa_ep_configuration->ipa_gsi_chan_num */
+         u8 endpoint_id;	/* ipa_ep_configuration->ipa_ep_num */
+         bool toward_ipa;
+
+         struct gsi_channel_data channel;
+         struct ipa_endpoint_data endpoint;
+};
+
+And here is the first sub-structure:
+
+struct gsi_channel_data {
+         u16 tre_count;	/* Computed based on other code (see below) */
+         u16 event_count;
+         u8 tlv_count;	/* ipa_ep_configuration->ipa_if_tlv */
+};
+
+> +		.ee_id		= GSI_EE_AP,
+
+This is the "execution environment" that the endpoint is
+associated with.  For upstream, that's either the AP or
+the modem.  The "_AP_" sitting where it does in the
+IPA_ENDPOINT_AP_COMMAND_TX endpoint ID also indicates
+this is an AP endpoint.  It also matches what's seen
+in the downstream ipa_gsi_ep_config->ee field.
+
+> +		.channel_id	= 12,
+> +		.endpoint_id	= 14,
+> +		.toward_ipa	= true,
+> +		.channel = {
+> +			.tre_count	= 256,
+> +			.event_count	= 256,
+> +			.tlv_count	= 20,
+
+The tre_count number was derived from code in ipa3_setup_apps_pipes()
+in downstream "ipa/ipa_v3/ipa.c".  There a ipa_sys_connect_params
+structure contains a field desc_fifo_size, which is the size in bytes
+of the transfer ring buffer.  The tre_count in upsteram code is in
+units of a TRE (transfer ring element), i.e. it's the number of such
+entries (that fit in that number of bytes).
+
+The downstream IPA_CLIENT_APPS_CMD_PROD corresponds to upstream
+IPA_ENDPOINT_AP_COMMAND_TX (the array entry we're in the middle
+of here), and the downstream size is IPA_SYS_DESC_FIFO_SZ, or
+0x800=2048 bytes.  Each TRE (struct gsi_tre) is 16 bytes.
+
+In the downstream code--confusingly--ipa_gsi_setup_channel()
+doubles the desc_fifo_sz value (for GSI, versus the older BAM
+interface).  So the ring size becomes 4096 bytes, and that
+works out to 256 16-byte GSI TRE entries.  I'm not sure why
+512 is used for IPA v3.5.1, but it probably just means it's
+bigger than it needs to be.
+
+The event_count should be the same as the tre_count.  Again
+I no longer know why that's not the case for IPA v3.5.1.
+
+
+> +		},
+
+Below is the second sub-structure in the upstream structure
+ipa_gsi_endpoint_data, and the other structures it
+incorporates.
+
+struct ipa_endpoint_data {
+         bool filter_support;
+         struct ipa_endpoint_config config;
+};
+
+struct ipa_endpoint_config {
+         u32 resource_group;
+         bool checksum;
+         bool qmap;
+         bool aggregation;
+         bool status_enable;
+         bool dma_mode;
+         enum ipa_endpoint_name dma_endpoint;
+         union {
+                 struct ipa_endpoint_tx tx;
+                 struct ipa_endpoint_rx rx;
+         };
+};
+
+struct ipa_endpoint_tx {
+         enum ipa_seq_type seq_type;
+         enum ipa_seq_rep_type seq_rep_type;
+         enum ipa_endpoint_name status_endpoint;
+};
+
+struct ipa_endpoint_rx {
+         u32 buffer_size;
+         u32 pad_align;
+         u32 aggr_time_limit;
+         bool aggr_hard_limit;
+         bool aggr_close_eof;
+         bool holb_drop;
+};
+
+> +		.endpoint = {
+> +			.config = {
+> +				.resource_group	= IPA_RSRC_GROUP_SRC_UL,
+
+This resource group corresponds to IPA_v5_0_GROUP_UL in
+the downstream code.
+
+> +				.dma_mode	= true,
+
+The dma_mode is always true for the AP->IPA command TX
+endpoint, false for others.
+
+> +				.dma_endpoint	= IPA_ENDPOINT_AP_LAN_RX,
+
+This is always the DMA endpoint id for the command
+endpoint. I think it's where the status messages
+related to transmitted commands get sent.  The AP<-LAN
+(RX) endpoint is the "default" endpoint.
+
+> +				.tx = {
+> +					.seq_type = IPA_SEQ_DMA,
+
+This is the sequencer type, always DMA for the command
+endpoint.  The sequencer types are set based on what the
+downstream code does.
+
+> +				},
+> +			},
+> +		},
+> +	},
+> +	[IPA_ENDPOINT_AP_LAN_RX] = {
+
+This is the default RX endpoint on the AP.  If a LAN
+interface were supported it would also be the RX
+endpoint for the LAN.  This corresponds to
+IPA_CLIENT_APPS_LAN_CONS
+
+> +		.ee_id		= GSI_EE_AP,
+> +		.channel_id	= 13,
+> +		.endpoint_id	= 16,
+> +		.toward_ipa	= false,
+> +		.channel = {
+> +			.tre_count	= 256,
+> +			.event_count	= 256,
+> +			.tlv_count	= 9,
+> +		},
+> +		.endpoint = {
+> +			.config = {
+> +				.resource_group	= IPA_RSRC_GROUP_DST_UL,
+> +				.aggregation	= true,
+
+Aggregation enabled means multiple received messages will
+be placed by the IPA hardware into a single receive buffer
+before forwarding the buffer to the host for processing.
+
+> +				.status_enable	= true,
+
+This setting means every transfer causes a status header to be
+generated for each received message.  ipa_endpoint_status_parse()
+splits them apart using information in the status header and
+hands each de-aggregated message to the network stack.
+
+> +				.rx = {
+> +					.buffer_size	= 8192,
+
+Each receive buffer is this big (in bytes).
+
+> +					.pad_align	= ilog2(sizeof(u32)),
+
+Before a received message is placed in the receive buffer,
+IPA updates current buffer pointer to be aligned to this
+boundary (in this case, 2^2 bytes).
+
+> +					.aggr_time_limit = 500,
+
+If aggregation hasn't exhausted the receive buffer in this many
+microseconds, it forwards the buffer to the host anyway.
+
+The time limit comes from IPA_GENERIC_AGGR_TIME_LIMIT in the
+downstream code.
+
+> +				},
+> +			},
+> +		},
+> +	},
+> +	[IPA_ENDPOINT_AP_MODEM_TX] = {
+
+The AP_MODEM_TX here says that this is an AP endpoint,
+whose destination is the modem (WAN in the downstream
+code), and it is a TX endpoint (from the AP to the modem).
+This corresponds to IPA_CLIENT_APPS_WAN_PROD.
+
+> +		.ee_id		= GSI_EE_AP,
+> +		.channel_id	= 11,
+> +		.endpoint_id	= 2,
+> +		.toward_ipa	= true,
+> +		.channel = {
+> +			.tre_count	= 512,
+> +			.event_count	= 512,
+> +			.tlv_count	= 25,
+> +		},
+> +		.endpoint = {
+> +			.filter_support	= true,
+> +			.config = {
+> +				.resource_group	= IPA_RSRC_GROUP_SRC_UL,
+> +				.checksum       = true,
+
+The checksum true flag means IPA performs checksumming
+on messages being sent (so the host doesn't have to).
+
+> +				.qmap		= true,
+
+The qmap true flag says that this channel uses QMAP
+protocol (ETH_P_MAP).  A single message contains one
+or more QMAP messages, which multiplexes multiple
+logical channels over a single connection.
+
+> +				.status_enable	= true,
+> +				.tx = {
+> +					.seq_type = IPA_SEQ_2_PASS_SKIP_LAST_UC,
+> +					.status_endpoint =
+> +						IPA_ENDPOINT_MODEM_AP_RX,
+
+This says that status messages generated as a result
+of messages received on this channel (i.e., using
+this endpoint) are delivered to the *modem* endpoint
+that recieves data from the AP.
+
+> +				},
+> +			},
+> +		},
+> +	},
+> +	[IPA_ENDPOINT_AP_MODEM_RX] = {
+
+AP endpoint, *from* the modem.  This corresponds to
+IPA_CLIENT_APPS_WAN_CONS.
+
+> +		.ee_id		= GSI_EE_AP,
+> +		.channel_id	= 1,
+> +		.endpoint_id	= 23,
+> +		.toward_ipa	= false,
+> +		.channel = {
+> +			.tre_count	= 256,
+> +			.event_count	= 256,
+> +			.tlv_count	= 9,
+> +		},
+> +		.endpoint = {
+> +			.config = {
+> +				.resource_group	= IPA_RSRC_GROUP_DST_UL,
+> +				.checksum       = true,
+> +				.qmap		= true,
+> +				.aggregation	= true,
+> +				.rx = {
+> +					.buffer_size	= 8192,
+> +					.aggr_time_limit = 500,
+> +					.aggr_close_eof	= true,
+
+The aggr_close_eof flag determines which of two ways
+aggregation in a receive buffer "closes".  (Closing
+means th receive buffer is delivered to the host for
+processing, and a new receive buffer begins to be
+used.)
+
+One policy closes aggregation when there is not enough
+space left to hold an entire incoming message in the
+buffer.  The other policy closes aggregation when the
+data from a received message crosses a certain mark
+(byte count) in the receive buffer.  (I no longer
+recall which is which.)
+
+> +				},
+> +			},
+> +		},
+> +	},
+> +	[IPA_ENDPOINT_MODEM_AP_TX] = {
+
+Modem endpoint, transmitting (from the modem) *to* the AP.
+Downstream calls the modem "Q6".  Configuring these endpoints
+is the modem's responsibility, but the AP IPA driver needs
+to be aware of these, so they're included in this data.
+(I don't remember why; maybe it's to ensure endpoints and
+channels are accounted for, and/or not reused?)
+
+This endpoint id corresponds to IPA_CLIENT_Q6_WAN_CONS.
+
+> +		.ee_id		= GSI_EE_MODEM,
+> +		.channel_id	= 0,
+> +		.endpoint_id	= 12,
+> +		.toward_ipa	= true,
+> +		.endpoint = {
+> +			.filter_support	= true,
+> +		},
+> +	},
+> +	[IPA_ENDPOINT_MODEM_AP_RX] = {
+
+This corresponds to IPA_CLIENT_Q6_WAN_CONS.
+
+> +		.ee_id		= GSI_EE_MODEM,
+> +		.channel_id	= 7,
+> +		.endpoint_id	= 21,
+> +		.toward_ipa	= false,
+> +	},
+> +	[IPA_ENDPOINT_MODEM_DL_NLO_TX] = {
+
+This has to do with a feature we don't use, but we still
+need to configure it (I think so we take into account that
+it implements filtering).  This endpoint corresponds to
+IPA_CLIENT_Q6_DL_NLO_DATA_PROD.
+
+> +		.ee_id		= GSI_EE_MODEM,
+> +		.channel_id	= 2,
+> +		.endpoint_id	= 15,
+> +		.toward_ipa	= true,
+> +		.endpoint = {
+> +			.filter_support	= true,
+> +		},
+> +	},
+> +};
+"Resources" are data structures managed by the IPA/GSI
+firmware.  We must configure these at initialization
+time, and once configured, that firmware operates
+using these resources.  I don't know much more than
+that, and basically we just configure things the way
+the downstream code does.
+
+> +
+> +/* Source resource configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_resource ipa_resource_src[] = {
+
+Again, this array is filled with information that comes from the
+ipa3_rsrc_src_grp_config[IPA_5_1][][] array in the downstream
+code, in "ipa_utils.c".  Everything you have here looks correct.
+
+> +	[IPA_RESOURCE_TYPE_SRC_PKT_CONTEXTS] = {
+> +		.limits[IPA_RSRC_GROUP_SRC_UL] = {
+> +			.min = 7,	.max = 12,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_SRC_URLLC] = {
+> +			.min = 1,	.max = 63,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_SRC_U_RX_QC] = {
+> +			.min = 0,	.max = 63,
+> +		},
+> +	},
+> +	[IPA_RESOURCE_TYPE_SRC_DESCRIPTOR_LISTS] = {
+> +		.limits[IPA_RSRC_GROUP_SRC_UL] = {
+> +			.min = 21,	.max = 21,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_SRC_URLLC] = {
+> +			.min = 10,	.max = 10,
+> +		},
+> +	},
+> +	[IPA_RESOURCE_TYPE_SRC_DESCRIPTOR_BUFF] = {
+> +		.limits[IPA_RSRC_GROUP_SRC_UL] = {
+> +			.min = 33,	.max = 33,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_SRC_URLLC] = {
+> +			.min = 20,	.max = 20,
+> +		},
+> +	},
+> +	[IPA_RESOURCE_TYPE_SRC_HPS_DMARS] = {
+> +		.limits[IPA_RSRC_GROUP_SRC_UL] = {
+> +			.min = 0,	.max = 63,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_SRC_URLLC] = {
+> +			.min = 1,	.max = 63,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_SRC_U_RX_QC] = {
+> +			.min = 0,	.max = 63,
+> +		},
+> +	},
+> +	[IPA_RESOURCE_TYPE_SRC_ACK_ENTRIES] = {
+> +		.limits[IPA_RSRC_GROUP_SRC_UL] = {
+> +			.min = 38,	.max = 38,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_SRC_URLLC] = {
+> +			.min = 16,	.max = 16,
+> +		},
+> +	},
+> +};
+> +
+> +/* Destination resource configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_resource ipa_resource_dst[] = {
+
+And the content of this array comes from ipa3_rsrc_dst_grp_config[][].
+Everything you have here looks correct as well.
+
+> +	[IPA_RESOURCE_TYPE_DST_DATA_SECTORS] = {
+> +		.limits[IPA_RSRC_GROUP_DST_UL] = {
+> +			.min = 6,	.max = 6,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_DST_DL] = {
+> +			.min = 5,	.max = 5,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_DST_DRB_IP] = {
+> +			.min = 39,	.max = 39,
+> +		},
+> +	},
+> +	[IPA_RESOURCE_TYPE_DST_DPS_DMARS] = {
+> +		.limits[IPA_RSRC_GROUP_DST_UL] = {
+> +			.min = 0,	.max = 3,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_DST_DL] = {
+> +			.min = 0,	.max = 3,
+> +		},
+> +	},
+> +	[IPA_RESOURCE_TYPE_DST_ULSO_SEGMENTS] = {
+> +		.limits[IPA_RSRC_GROUP_DST_UL] = {
+> +			.min = 0,	.max = 63,
+> +		},
+> +		.limits[IPA_RSRC_GROUP_DST_DL] = {
+> +			.min = 0,	.max = 63,
+> +		},
+> +	},
+> +};
+> +
+> +/* Resource configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_resource_data ipa_resource_data = {
+> +	.rsrc_group_dst_count	= IPA_RSRC_GROUP_DST_COUNT,
+> +	.rsrc_group_src_count	= IPA_RSRC_GROUP_SRC_COUNT,
+> +	.resource_src_count	= ARRAY_SIZE(ipa_resource_src),
+> +	.resource_src		= ipa_resource_src,
+> +	.resource_dst_count	= ARRAY_SIZE(ipa_resource_dst),
+> +	.resource_dst		= ipa_resource_dst,
+> +};
+> +
+> +/* IPA-resident memory region data for an SoC having IPA v5.1 */
+
+Memory regions are sort of similar to resources, in that
+there are ranges of available (IPA-local) memory that are
+used by IPA for various purposes.  We need to configure
+these, and this configuration (base and size of various
+memory regions) is shared with the modem via a QMI message
+exchange during initialization.
+
+> +static const struct ipa_mem ipa_mem_local_data[] = {
+
+IPA has local memory that is partitioned as defined by this
+array.  The regions are used by IPA/GSI firmware and/or
+hardware.  The configuration defined here is sent to
+the modem in an ipa_init_modem_driver_req QMI message
+so both the modem and AP have a consistent view of
+how the memory is used.
+
+Many memory regions are preceded by 0-2 "canaries", which
+are 32-byte values initialized to IPA_MEM_CANARY_VAL.
+
+In the downstream code there is structure ipa3_mem_partition
+that defines these things, and structures of this type are
+defined in "ipa_utils.c".  For IPA v5.1, ipa_5_1_mem_part
+defines them all.  The mapping between downstream and
+upstream is not trivial and direct, but it should be
+obvious how they get translated.
+
+
+With two exceptions, what I see here looks like you
+correctly transferred everything.  (The two exceptions
+are entries that from what I can tell, should not be
+present.)
+
+> +	{
+> +		.id		= IPA_MEM_UC_EVENT_RING,
+> +		.offset		= 0x0000,
+> +		.size		= 0x1000,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_UC_SHARED,
+> +		.offset		= 0x1000,
+> +		.size		= 0x0080,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_UC_INFO,
+> +		.offset		= 0x1080,
+> +		.size		= 0x0200,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V4_FILTER_HASHED,
+> +		.offset		= 0x1288,
+> +		.size		= 0x0078,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V4_FILTER,
+> +		.offset		= 0x1308,
+> +		.size		= 0x0078,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V6_FILTER_HASHED,
+> +		.offset		= 0x1388,
+> +		.size		= 0x0078,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V6_FILTER,
+> +		.offset		= 0x1408,
+> +		.size		= 0x0078,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V4_ROUTE_HASHED,
+> +		.offset		= 0x1488,
+> +		.size		= 0x0098,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V4_ROUTE,
+> +		.offset		= 0x1528,
+> +		.size		= 0x0098,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V6_ROUTE_HASHED,
+> +		.offset		= 0x15c8,
+> +		.size		= 0x0098,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_V6_ROUTE,
+> +		.offset		= 0x1668,
+> +		.size		= 0x0098,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_MODEM_HEADER,
+> +		.offset		= 0x1708,
+> +		.size		= 0x0240,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_AP_HEADER,
+> +		.offset		= 0x1948,
+> +		.size		= 0x01e0,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_MODEM_PROC_CTX,
+> +		.offset		= 0x1b40,
+> +		.size		= 0x0b20,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_AP_PROC_CTX,
+> +		.offset		= 0x2660,
+> +		.size		= 0x0200,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_STATS_QUOTA_MODEM,
+> +		.offset		= 0x2868,
+> +		.size		= 0x0060,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_STATS_QUOTA_AP,
+> +		.offset		= 0x28c8,
+> +		.size		= 0x0048,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_STATS_TETHERING,
+> +		.offset		= 0x2910,
+> +		.size		= 0x03c0,
+> +		.canary_count	= 0,
+> +	},
+
+The next two entries look wrong to me.  Can you explain where
+you got these offsets and sizes?  Is it from "ipa_data-v5.0.c"?
+
+Here are the relevant entries I see in ipa_5_1_mem_part
+in the downstream code:
+         .stats_flt_v4_ofst = 0,
+         .stats_flt_v4_size = 0,
+         .stats_flt_v6_ofst = 0,
+         .stats_flt_v6_size = 0,
+         .stats_rt_v4_ofst = 0,
+         .stats_rt_v4_size = 0,
+         .stats_rt_v6_ofst = 0,
+         .stats_rt_v6_size = 0,
+(Since their size is zero, their entries can be omitted.)
+
+> +	{
+> +		.id		= IPA_MEM_AP_V4_FILTER,
+> +		.offset		= 0x29b8,
+> +		.size		= 0x0188,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_AP_V6_FILTER,
+> +		.offset		= 0x2b40,
+> +		.size		= 0x0228,
+> +		.canary_count	= 0,
+> +	},
+
+The remaining entries (below) look good.
+
+> +	{
+> +		.id		= IPA_MEM_STATS_FILTER_ROUTE,
+> +		.offset		= 0x2cd0,
+> +		.size		= 0x0ba0,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_STATS_DROP,
+> +		.offset		= 0x3870,
+> +		.size		= 0x0020,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_MODEM,
+> +		.offset		= 0x3898,
+> +		.size		= 0x0d48,
+> +		.canary_count	= 2,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_NAT_TABLE,
+> +		.offset		= 0x45e0,
+> +		.size		= 0x0900,
+> +		.canary_count	= 0,
+> +	},
+> +	{
+> +		.id		= IPA_MEM_PDN_CONFIG,
+> +		.offset		= 0x4ee8,
+> +		.size		= 0x0100,
+> +		.canary_count	= 2,
+> +	},
+> +};
+> +
+> +/* Memory configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_mem_data ipa_mem_data = {
+> +	.local_count	= ARRAY_SIZE(ipa_mem_local_data),
+> +	.local		= ipa_mem_local_data,
+> +	.imem_addr	= 0x146a8000,
+
+I think I needed to look up the imem offset value
+in Qualcomm documentation I no longer have access
+to.  Perhaps someone from there could confirm you
+are using the right values here.
+
+> +	.imem_size	= 0x00002000,
+> +	/*
+> +	 * While this value is 0xb000 on SM8450 and 0x9000 on SM8475,
+> +	 * it has been left set to 0x9000 for compatibility with SM8475
+> +	 */
+
+As I said earlier, I'm not completely sure this will still
+work on the SM8450.  Someone should confirm this, and it
+really ought to be tested somehow.
+
+> +	.smem_size	= 0x00009000,
+> +};
+> +
+> +/* Interconnect rates are in 1000 byte/second units */
+> +static const struct ipa_interconnect_data ipa_interconnect_data[] = {
+> +	{
+> +		.name			= "memory",
+> +		.peak_bandwidth		= 1900000,	/* 1.9 GBps */
+> +		.average_bandwidth	= 590000,	/* 590 MBps */
+
+I no longer recall where to get these bandwidth values
+for the interconnects.  Perhaps someone from Qualcomm
+can find this out/confirm what you have.
+
+Really nice work figuring out all this stuff...
+
+					-Alex
+
+> +	},
+> +	/* Average rate is unused for the next interconnect */
+> +	{
+> +		.name			= "config",
+> +		.peak_bandwidth		= 76800,	/* 76.8 MBps */
+> +		.average_bandwidth	= 0,		/* unused */
+> +	},
+> +};
+> +
+> +/* Clock and interconnect configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_power_data ipa_power_data = {
+> +	.core_clock_rate	= 120 * 1000 * 1000,	/* Hz */
+> +	.interconnect_count	= ARRAY_SIZE(ipa_interconnect_data),
+> +	.interconnect_data	= ipa_interconnect_data,
+> +};
+> +
+> +/* Configuration data for an SoC having IPA v5.1. */
+> +const struct ipa_data ipa_data_v5_1 = {
+> +	.version		= IPA_VERSION_5_1,
+> +	.qsb_count		= ARRAY_SIZE(ipa_qsb_data),
+> +	.qsb_data		= ipa_qsb_data,
+> +	.modem_route_count	= 11,
+> +	.endpoint_count		= ARRAY_SIZE(ipa_gsi_endpoint_data),
+> +	.endpoint_data		= ipa_gsi_endpoint_data,
+> +	.resource_data		= &ipa_resource_data,
+> +	.mem_data		= &ipa_mem_data,
+> +	.power_data		= &ipa_power_data,
+> +};
+> diff --git a/drivers/net/ipa/gsi_reg.c b/drivers/net/ipa/gsi_reg.c
+> index e13cf835a013..a57072ba4bef 100644
+> --- a/drivers/net/ipa/gsi_reg.c
+> +++ b/drivers/net/ipa/gsi_reg.c
+> @@ -110,6 +110,7 @@ static const struct regs *gsi_regs(struct gsi *gsi)
+>   		return &gsi_regs_v4_11;
+>   
+>   	case IPA_VERSION_5_0:
+> +	case IPA_VERSION_5_1:
+>   	case IPA_VERSION_5_2:
+>   	case IPA_VERSION_5_5:
+>   		return &gsi_regs_v5_0;
+> diff --git a/drivers/net/ipa/ipa_data.h b/drivers/net/ipa/ipa_data.h
+> index 3eb9dc2ce339..fe6f7d5bfe88 100644
+> --- a/drivers/net/ipa/ipa_data.h
+> +++ b/drivers/net/ipa/ipa_data.h
+> @@ -253,6 +253,7 @@ extern const struct ipa_data ipa_data_v4_7;
+>   extern const struct ipa_data ipa_data_v4_9;
+>   extern const struct ipa_data ipa_data_v4_11;
+>   extern const struct ipa_data ipa_data_v5_0;
+> +extern const struct ipa_data ipa_data_v5_1;
+>   extern const struct ipa_data ipa_data_v5_2;
+>   extern const struct ipa_data ipa_data_v5_5;
+>   
+> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
+> index 788dd99af2a4..6c449032ae45 100644
+> --- a/drivers/net/ipa/ipa_main.c
+> +++ b/drivers/net/ipa/ipa_main.c
+> @@ -669,6 +669,10 @@ static const struct of_device_id ipa_match[] = {
+>   		.compatible	= "qcom,sdx65-ipa",
+>   		.data		= &ipa_data_v5_0,
+>   	},
+> +	{
+> +		.compatible	= "qcom,sm8450-ipa",
+> +		.data		= &ipa_data_v5_1,
+> +	},
+>   	{
+>   		.compatible	= "qcom,milos-ipa",
+>   		.data		= &ipa_data_v5_2,
+> diff --git a/drivers/net/ipa/ipa_reg.c b/drivers/net/ipa/ipa_reg.c
+> index 30bd69f4c147..5f22ca6295b1 100644
+> --- a/drivers/net/ipa/ipa_reg.c
+> +++ b/drivers/net/ipa/ipa_reg.c
+> @@ -125,6 +125,7 @@ static const struct regs *ipa_regs(enum ipa_version version)
+>   	case IPA_VERSION_4_11:
+>   		return &ipa_regs_v4_11;
+>   	case IPA_VERSION_5_0:
+> +	case IPA_VERSION_5_1:
+>   	case IPA_VERSION_5_2:
+>   		return &ipa_regs_v5_0;
+>   	case IPA_VERSION_5_5:
+> 
+
