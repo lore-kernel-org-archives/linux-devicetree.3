@@ -1,219 +1,312 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966C03F12C8
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 15:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783525997; cv=pass; b=YVyXYixGhuZw1uBfGPX5pNj5K3WigXGW48en1Fsl8aNLaHHx3V9va1FHIpUw3BE+d3NZG3aGrsIbMtPnKq1scDctoF7mkuiz/HBBP0nOepUojgigQtdervDbz09e2MN0O0xyQGiTCaO1tPC3xcBJBMqp2f14eix/rc2Jbxbdv5A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783525997; c=relaxed/simple;
-	bh=4fZLufBRbYv0ZeoDpC9ZF+sMAM/7XhJjxJD/9UyzC3k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b1jtk9RunyIvM1RT/W3SrkLOvn86QC/qbMl3bqbfB1l+WxPFHGMueFHYykpCQkYOWjJvBUEclBbs77lHF4dIe70qViNAQy2Bl2zmKLeyPIBTNY9mK9fik2ajL7un22+K3rcLE6xIZcp4kbxwZcJ4qtQ3wcOFgPeKbnKqdv9KYUU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=povksdEE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NDt9Givq; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14AB3B1022
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 15:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783526317; cv=none; b=o3bgelz125n1VYju4UTWkFSKl4EexcbiqCNE3vHm/XAQpdrMsJOFoDm7/WsM1ETJqAth/AVxpoojSwpG6wi7eUxPJGq5Jv50gJwU7ffiT6GMbVfavK3ppFfelTEN9d9amV0k2068nXN5JPAfQYe/9WxE8OVZ8JP2sQonzaPNjhs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783526317; c=relaxed/simple;
+	bh=NRBHkdHf8U1o3Vm1YFi5bW5NylV874hTQJBEJFXVcUM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TwVYBccwAOR5wQ/r8pRrLwaWxLnqL2gPN/fPZD2A8js4jR9bGN/yOhLkR6XUFoN4H9yy8a8pxh1v+pziMMmDYw+RmmYO0zWFEbq7QUsBGhuB2NKnqV5PdOK7eshUCiJxD3f6B2bY+YKF4AfMPAcrRf7axHxXRJLau+ggfoESmUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ukke5BSy; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="povksdEE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NDt9Givq"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668C39sb2605295
-	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 15:53:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=; b=povksdEEU32r3U2F
-	208oi4s1n1bP0yeqPcIppmU/CFq/z0p08+vUOGb1+bJfQopePrfbWPCi5pKmapfu
-	xY5ZMZL+fhM+mHK636+iv6T2bySKiKVPwxvAafADP1rm0E9YF71ZlCObddX9+b7h
-	eJ2ZLa89O4/eY1XXhqiLtPo3zpQQUrhecZ1u9YWOyFZncUKFGmH4wNDPyVYOcFWx
-	C4TRD1jkgEth0B8iasVRKmeX2uUWUJw3TedN9oHHXd/jfF9gRTq6QBCYw9Rvfbya
-	yN2GRoHefAatw7UHrkAFHJQ5+aqvsBJYfxPgWtc66NTUjrf/uYyO0qdv7XZbyuUl
-	8jB6Eg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9be5bj5w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 15:53:15 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8eec6acbe21so21742126d6.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 08:53:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783525995; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QfwF2IbhCKztwnj6mjxDEGTdJ6W4mKeJWRykVAhFHv03tU+E6BAhM15Z+VZ62aYxMm
-         uCdFXyyeBC2dSzZC0/NwXkrnD0D6ph9ZPPrYkSO+PXVQrTI5PGMKOk2Ptxhwfd+9UPFu
-         xw83FkWMV6bh8rPv76X4tUlcxUQGABv/cvfeXh3Ljc8GZ4h5IajzkG1x2h1IxM1K+0/M
-         XVTnWM9uBxGbSPZp37k+2D4mhTO4Xg0CJ6f/1bMObBddZa1jnQBAGJVJW59TrEMaTTJu
-         FwX3xeiNs19a5vGIwXnFQbJPgcPEuppmvJaKfMXvX6Kip+3q/vNqQosOGkXuQuOx2IA8
-         7pBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=;
-        fh=OsTDmPPBnZZdYdBILeAH0goqNjutvrOPacWOkTaekzQ=;
-        b=T5YmE8GjNz7ZlViMcXi0AtHsnZqluEiygyQFl4L1IWCTFazUq6m3m9drpECJJ463FM
-         qsBx+0epwXOG/dGcb3QZQruAMCxmzY5jY56s3S18H5xaZeRzid+AfAwKK8Gta+oyBFr9
-         7wWyxtrV1fo+M5QSU9G2CFK0EXbmA6s4QoB7ws5qK/0X8w5ROdHMPVSBVVXjiN1meW1B
-         bjKnxieZ2EG6kS2r7bm+fFl/ceTJ9T/ERdd8sndnq4+nRtCf80ddiMmzNOGiomYME1PW
-         TwITJNBGjRO1XWST7HyuZA5RPtD0YK9aZglnb71Uvctts7GkrAM3HxLBBBKYfbmjLKmr
-         t0Cw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783525995; x=1784130795; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=;
-        b=NDt9Givqru9KH49LUNTBx7QzaIDYfb3qEeX9kaDF10u9+HJpj62ndtvjczDL0P8gL4
-         A+PGxJOgZkhyA5ISv8eurCsOgHbhHn6NG9DPrkUkSe8UKwDrL76WFSQCVyd/3A7Ds3Ht
-         En0LC6IMiA/qm1dmNYkiqVUU/yqSuuU1XC006tOOnwukzx+pKGTk5LRH8w4H1NNdwNHq
-         SR6nA8ql38aQx8HvFmNt7X+4MMuzDIOscnr8YHmjzImCTdJNc7hWSSHIYpxI0W7Faco6
-         /F5dtU8EPbnNQeqotNXhUONIIIkkucpb53jS9xSSd9ozETg36QBS4EBHZNGaKVEQsfFP
-         IDZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783525995; x=1784130795;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=euqtbZ8JKHVRTKJRjjj0PorQ8eQxhdkHP+XNgxpwhdw=;
-        b=k3JtpsjZv3Dx3TCZ/fJmH2l6Qtv6m7QHyNGVVktC1cVt0vB5sB6JFOgOO988XOO+Xp
-         wOZlYMWD1dxea1KMQNzCMYw2tgP/ycAof2snYKk1kjqqYzbhAMCADMxCjVacASd6YCGT
-         LSLvdxJtMhyqDcrN6JaSnKMb9eq0jhKOzyI0v/a/cxzGuLeT8HjrYfjcd8Bax6NBMRCh
-         XYpF18CxCy0OuhyJQbo8sEnir4T/37qWbR8FajsY3tZCfSe31EFRaBvp+bh4ESh/x0Gy
-         Sb2rZ63H44c+wutWh7L/uwMNZrOi7yZio+mq45DlW1uHnmkHGEKX3chATgDeWypSX1wG
-         pF0g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+gU77ZlsXFZbeqrsMq/bkP2cQ9XBt1DxxI2OALTFi6TuTH32UpWIum/pDZ+hyH2vVefpc85oVaXqf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyeo+fOSJHZL5fFaFsMbqXIQtvdeBNyBoLWnUVvPbCzVkymoX9r
-	KS7pa02Fa9dar4NK77lUXNzGwID15tN80ut33QhMQmTcp5oVge1DMf0mq7yIntl/eyEuJVeyi5Q
-	6FciKh/vKLgHi+13eyayM9Dl9i0BR5JlEwXoFq5XkwEwrqnkTJYeCVM3CRkF0uw1BEcpI7zgwec
-	Mmd8LsYCDbluu/nfNF5cLSKSjth5OimBi+PWLRLQg=
-X-Gm-Gg: AfdE7cnMRrZ/n96lvAd8Y0lh9MBm6+2yb4Gw+XEdJbJb2ha0D/jftZwQOiF+NAZTI7P
-	R4gzT0RqMA7WbSzKWAg1f0vKA8xGgLDQJoHCQe3kiuK8ghyM9lZtRR170ArZggo71Shp9oISxRJ
-	Iy23JtmYVKJZPQkiJ6o47oWtZTkvUERLITKmxO8af/9MJNxKW2FfDE1sOqitAkKxgDJtMy
-X-Received: by 2002:a05:6214:5508:b0:8f1:323a:fc54 with SMTP id 6a1803df08f44-8fec361ce5fmr26792366d6.42.1783525994290;
-        Wed, 08 Jul 2026 08:53:14 -0700 (PDT)
-X-Received: by 2002:a05:6214:5508:b0:8f1:323a:fc54 with SMTP id
- 6a1803df08f44-8fec361ce5fmr26792106d6.42.1783525993919; Wed, 08 Jul 2026
- 08:53:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ukke5BSy"
+Message-ID: <e84c4e047e104cca9b88dda791997ceecba1204c.camel@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783526304;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UcCCOzvDbV98M3F8rlVkTHld5hCbvC21pR1I6zAcNZ8=;
+	b=Ukke5BSykD7WieqMgrsaJSYGpONxqjQmGqH7zvEXmCZVW9q3PuvU1WOt5Ucno+CeZ5zY4e
+	Aw25yA11bvZn77hCrogwHy4IKdY414P/Hhv/1wi/5iiss2rIUTy2xm/PS4QKkMO5T6Y90l
+	G1aueunYlVJTF7R+JhnLs0WeBKZAKq4=
+Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Siratul Islam <siratul.islam@linux.dev>
+To: Lukas Metz <lukas.metz@gmx.net>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>,  Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring	 <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, 	devicetree@vger.kernel.org
+Date: Wed, 08 Jul 2026 21:58:13 +0600
+In-Reply-To: <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
+References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
+	 <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org> <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
-In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 8 Jul 2026 17:53:01 +0200
-X-Gm-Features: AVVi8Cfl9mmuZ0-N0YzXyQTku0PxVhLh9qj1SZFF_tsUR-VGJVPz8z3CnsVKBnw
-Message-ID: <CAPx+jO-ow2vo2wMxERLGse88wLoaR=HLdOWk6Qwv97ZdbE4R5Q@mail.gmail.com>
-Subject: Re: [PATCH 10/11] regulator: db8500: Add power domain regulators
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Mark Brown <broonie@kernel.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=GJc41ONK c=1 sm=1 tr=0 ts=6a4e726b cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=l53Gh-upYCO10StVhpkA:9
- a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE1NiBTYWx0ZWRfX1SIPdrvNPpSR
- 1URSo+khWjtQlAJf+FByW3c4ifw2GZt5Wi+KJiMEi+ZeU745c/CcOO2aO8gLQWRV1VWIhmobLBg
- b9iqUTJHkyywjXnWWSxVHxPIhbC5L4c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE1NiBTYWx0ZWRfX87EXUJdZLB+Q
- w/TQH9dldcQoIjJSNpsJsdAlyzgVljLcdUuogq9LNTnnMWxLCmcHvip64V8E+zp2BsD8KE6qSpm
- SvKB22FpFjnWbYaC2/vFTWGYocO7istm40DRTCb8kJgzoCqA11WJxRv4cCn9tkiZRfOMp7o5+WP
- 8clw2SXFa7ub2kOvkmp4G/KvEuTF53iWo7bWAVEB8poV0GBz2FgGMF59hcnFkU8iG5SET34sF1y
- DE9f+vqRixk8frt+rbw0d3ZlPR5l6sCKJirxKPNauJle27hs4QT5Xm2DNNWqlkuD3hx8Te3SWxj
- /tQFRccBc/7nc1JLMdZZp3gQueVqFUm21+EdvpLA3xANoXPmcpcrPG+Nq4//hZrwkI8csW2/Fsd
- u7+qNOngwabOl5UOFV762mOPQKpumqFMvX7TsaE7jvkhMpoFDvK75fsIYSbvktEXwi9UHdC21s8
- RvDsmPZbom+en6XfMvw==
-X-Proofpoint-ORIG-GUID: G0MF6UxO-mw5AB-czk3qD9yywzKjyuWw
-X-Proofpoint-GUID: G0MF6UxO-mw5AB-czk3qD9yywzKjyuWw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
- adultscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080156
+X-Migadu-Flow: FLOW_OUT
 
-On Thu, Jun 18, 2026 at 7:01=E2=80=AFAM Linus Walleij <linusw@kernel.org> w=
-rote:
->
-> Add a DB8500 regulator driver for the VAPE and VSMPS2 compatibility nodes=
-.
->
-> Back the regulator enable state with the corresponding power domains.
->
-> This is done for off-chip consumers: the corresponding voltage rails are
-> routed out so they are used for powering different peripherals using
-> these voltages as supplies.
->
-> Assisted-by: Codex:gpt-5-5
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  arch/arm/boot/dts/st/ste-dbx5x0.dtsi |   2 +
->  drivers/regulator/Kconfig            |  11 ++
->  drivers/regulator/Makefile           |   1 +
->  drivers/regulator/db8500-regulator.c | 221 +++++++++++++++++++++++++++++=
-++++++
->  4 files changed, 235 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/=
-ste-dbx5x0.dtsi
-> index a6fef302c994..fd6a075e4c93 100644
-> --- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-> +++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
-> @@ -673,6 +673,7 @@ db8500-prcmu-regulators {
->                                 // DB8500_REGULATOR_VAPE
->                                 db8500_vape_reg: db8500_vape {
->                                         regulator-always-on;
-> +                                       power-domains =3D <&pm_domains DO=
-MAIN_VAPE>;
+On Wed, 2026-07-08 at 11:52 +0200, Lukas Metz wrote:
+> The DAC756x, DAC816x, and DAC856x devices are low-power, voltage-output,
+> dual-channel, 12-, 14-, and 16-bit digital-to-analog converters (DACs),
+> respectively. These devices include a 2.5-V, 4-ppm/=C2=B0C internal
+> reference, giving a full-scale output voltage range of 2.5 V or 5 V.
+> =C2=A0
+> =C2=A0	=C2=A0 If compiled as a module, it will be called ti-dac7612.
+> =C2=A0
+> +config TI_DAC8163
+> +	tristate "Texas Instruments 12/14/16-bit 2-channel DAC driver"
+> +	depends on SPI_MASTER
+Missing "select REGMAP_SPI" here.
+> +	help
+> +	=C2=A0 Driver for the Texas Instruments digital-to-analog converter
+> +	=C2=A0 family dacxx6x compatible with the following variants
+> +	=C2=A0 - DAC7562 (2 channels, 12 bits, resets to zero)
+> +	=C2=A0 - DAC7563 (2 channels, 12 bits, resets to mid-scale)
+>=20
+>=20
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * DAC8163 IIO driver (SPI)
+> + * https://www.ti.com/de/lit/gpn/dac8163
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/err.h>
+> +#include <linux/errno.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+I asked you to add this "mod_devicetable.h" header previously. But I notice=
+d some reviews by Uwe=C2=A0
+to use more specific headers.=C2=A0
+In your case these should be=C2=A0
 
-Hmm, isn't this the other way around? The power-domains node should
-have a regulator supply?
 
-We may even consider to skip to model the regulator altogether and
-make the power domain operate directly on the prcmu instead.
+#include <linux/device-id/spi.h>
+#include <linux/device-id/of.h>
 
->                                 };
->
->                                 // DB8500_REGULATOR_VARM
-> @@ -693,6 +694,7 @@ db8500_vsmps1_reg: db8500_vsmps1 {
->
->                                 // DB8500_REGULATOR_VSMPS2
->                                 db8500_vsmps2_reg: db8500_vsmps2 {
-> +                                       power-domains =3D <&pm_domains DO=
-MAIN_VSMPS2>;
+unless I'm missing something.
 
-Ditto.
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/stddef.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define COMMAND_MASK GENMASK(6, 3)
+> +#define ADDRESS_MASK GENMASK(2, 0)
+> +
+> +#define CMD_SET(x, y) \
+> +	(FIELD_PREP(COMMAND_MASK, (x)) | FIELD_PREP(ADDRESS_MASK, (y)))
+> +
+> +#define CMD_WRITE_INPUT_REG	0x0
+> +#define CMD_UPDATE_DAC		0x1
+> +#define CMD_WRITE_UPDATE_ALL	0x2
+> +#define CMD_WRITE_UPDATE	0x3
+> +#define CMD_POWER_MODE		0x4
+> +#define CMD_SOFT_RST		0x5
+> +#define CMD_LDAC_MODE		0x6
+> +#define CMD_REF			0x7
+> +
+> +#define LDAC_CHANNEL_A_MASK BIT(0)
+> +#define LDAC_CHANNEL_B_MASK BIT(1)
+> +#define VREF_MASK BIT(0)
+Since the MASKs are defined together, align the values.
 
->                                 };
->
->                                 // DB8500_REGULATOR_VSMPS3
-> diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-> index acc698c17bd2..8db63d8d3fa4 100644
-> --- a/drivers/regulator/Kconfig
-> +++ b/drivers/regulator/Kconfig
-> @@ -397,6 +397,17 @@ config REGULATOR_DA9210
->           converter 12A DC-DC Buck controlled through an I2C
->           interface.
->
++#define LDAC_CHANNEL_A_MASK	BIT(0)
++#define LDAC_CHANNEL_B_MASK	BIT(1)
++#define VREF_MASK		BIT(0)
 
-[...]
+> +
+> +#define DAC8163_INTERNAL_REF_mV 2500
+> +
+...
+> +
+> +#define DAC8163_MID_SCALE(resolution) \
+> +	(BIT((resolution) - 1) << (16 - (resolution)))
+> +
+> +static const struct dac8163_chip_info dac7562_chip_info =3D {
+> +	.name =3D "dac7562",
+> +	.channels =3D {
+> +		DAC8163_CHAN(0, 12),
+> +		DAC8163_CHAN(1, 12),
+> +	},
+> +	.default_output_reg =3D 0,
+> +};
+> +
+> +static const struct dac8163_chip_info dac7563_chip_info =3D {
+> +	.name =3D "dac7563",
+> +	.channels =3D {
+> +		DAC8163_CHAN(0, 12),
+> +		DAC8163_CHAN(1, 12),
+> +	},
+> +	.default_output_reg =3D DAC8163_MID_SCALE(12),
+These resolution values are repeated multiple times. I think they could be =
+defined as something like
+#define DAC8163_RES_12_BIT	12 // 14, 16
 
-Kind regards
-Uffe
+> +};
+> +
+> +static const struct dac8163_chip_info dac8162_chip_info =3D {
+> +	.name =3D "dac8162",
+> +	.channels =3D {
+> +		DAC8163_CHAN(0, 14),
+> +		DAC8163_CHAN(1, 14),
+> +	},
+> +	.default_output_reg =3D 0,
+> +};
+> +
+> +static const struct dac8163_chip_info dac8163_chip_info =3D {
+> +	.name =3D "dac8163",
+> +	.channels =3D {
+> +		DAC8163_CHAN(0, 14),
+> +		DAC8163_CHAN(1, 14),
+> +	},
+> +	.default_output_reg =3D DAC8163_MID_SCALE(14),
+> +};
+> +
+> +static const struct dac8163_chip_info dac8562_chip_info =3D {
+> +	.name =3D "dac8562",
+> +	.channels =3D {
+> +		DAC8163_CHAN(0, 16),
+> +		DAC8163_CHAN(1, 16),
+> +	},
+> +	.default_output_reg =3D 0,
+> +};
+> +
+> +static const struct dac8163_chip_info dac8563_chip_info =3D {
+> +	.name =3D "dac8563",
+> +	.channels =3D {
+> +		DAC8163_CHAN(0, 16),
+> +		DAC8163_CHAN(1, 16),
+> +	},
+> +	.default_output_reg =3D DAC8163_MID_SCALE(16),
+> +};
+> +
+> +static int dac8163_read_raw(struct iio_dev *indio_dev,
+> +			=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan, int *val,
+> +			=C2=A0=C2=A0=C2=A0 int *val2, long mask)
+Put val on the same line as val2. i.e.,
++static int dac8163_read_raw(struct iio_dev *indio_dev,
++			    struct iio_chan_spec const *chan,
++			    int *val, int *val2, long mask)
+
+> +{
+>=20
+...
+> +
+> +static const struct iio_info dac8163_iio_info =3D {
+> +	.write_raw =3D dac8163_write_raw,
+> +	.read_raw =3D dac8163_read_raw
+Missing trailing comma here.
+> +};
+> +
+> +static bool dac8163_reg_false(struct device *dev, unsigned int ref)
+> +{
+> +	return false;
+> +}
+> +
+> +static int dac8163_probe(struct spi_device *spi)
+> +{
+>=20
+...
+> +
+> +	const struct reg_default reg_defaults[] =3D {
+> +		{
+> +			.reg =3D CMD_SET(CMD_WRITE_UPDATE, 0),
+> +			.def =3D info->default_output_reg,
+> +		},
+> +		{
+> +			.reg =3D CMD_SET(CMD_WRITE_UPDATE, 1),
+> +			.def =3D info->default_output_reg,
+> +		},
+> +	};
+> +
+> +	const struct regmap_config regmap_config =3D {
+> +		.reg_bits =3D 8,
+> +		.val_bits =3D 16,
+> +
+> +		.max_register =3D CMD_REF << 3,
+> +		.cache_type =3D REGCACHE_MAPLE,
+> +
+> +		.volatile_reg =3D dac8163_reg_false,
+> +
+> +		.reg_defaults =3D reg_defaults,
+> +		.num_reg_defaults =3D ARRAY_SIZE(reg_defaults),
+> +	};
+Why are these defined inside probe? Should be defined outside the function.
+> +
+> +	st->regmap =3D devm_regmap_init_spi(spi, &regmap_config);
+> +	if (IS_ERR(st->regmap))
+> +		return PTR_ERR(st->regmap);
+Use "dev_err_probe"
+return dev_err_probe(dev, PTR_ERR(st->regmap),
+				     "regmap initialization failed\n");
+> +
+> +	// for now we keep the ldac pin asserted permanently so that the output
+> +	// is updated immediately after a write to the channels raw attribute
+> +	ldac_gpio =3D devm_gpiod_get_optional(&spi->dev, "ldac",
+> +
+...
+>=20
+> +
+> +static const struct spi_device_id dac8163_id_table[] =3D {
+> +	{
+> +		.name =3D "dac7562",
+> +		.driver_data =3D (kernel_ulong_t)&dac7562_chip_info
+Missing trailing commas here too, this and the ones below.
+> +	},
+> +	{
+> +		.name =3D "dac7563",
+> +		.driver_data =3D (kernel_ulong_t)&dac7563_chip_info
+> +	},
+> +	{
+> +		.name =3D "dac8162",
+> +		.driver_data =3D (kernel_ulong_t)&dac8162_chip_info
+> +	},
+> +	{
+> +		.name =3D "dac8163",
+> +		.driver_data =3D (kernel_ulong_t)&dac8163_chip_info
+> +	},
+> +	{
+> +		.name =3D "dac8562",
+> +		.driver_data =3D (kernel_ulong_t)&dac8562_chip_info
+> +	},
+> +	{
+> +		.name =3D "dac8563",
+> +		.driver_data =3D (kernel_ulong_t)&dac8563_chip_info
+> +	},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, dac8163_id_table);
+> +
+> +static struct spi_driver dac8163_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "dac8163",
+> +		.of_match_table =3D dac8163_of_match,
+> +	},
+> +	.probe =3D dac8163_probe,
+> +	.id_table =3D dac8163_id_table,
+> +};
+> +module_spi_driver(dac8163_driver);
+> +
+> +MODULE_AUTHOR("Lukas Metz <lukas.metz@gmx.net>");
+> +MODULE_DESCRIPTION("Texas Instruments 12/14/16-bit 2-channel DAC driver"=
+);
+> +MODULE_LICENSE("GPL");
+
+--
+Best regards,
+Sirat
