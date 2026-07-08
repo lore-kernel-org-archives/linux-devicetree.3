@@ -1,123 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3713EDACC;
-	Wed,  8 Jul 2026 22:15:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6910A13A86C
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 22:15:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783548908; cv=none; b=itaVfC9IVQnDFKxabnxwS1aiw7nC6olfXXAO21Y4Z1HEft9Fs01c0Fsd1+zPTLZ9nBercB2pgLcIvClmO6y9q/8HMkqblStK8YCykW2Q9GwEsktgkJeaykm4fn44L8aKbPlxxWDvAvn8EldabEWxwkNRVd/lSTlz22FDWbL3I2U=
+	t=1783548944; cv=none; b=shzQi6v6QcEswbxhTIAXTf9HFz8ov/WtxId7r+0YODj3wKeLiQOSiLtrk4QSkpMhQvXPn4J/ylGeq71fxHrZx6h4mTfIi/G9m3bAtM+Xywe0JC+GQ9yX4jQu2MKbURAjEQensTrb/JA6Dc8A8wYQ1tFnox97GyAWVebCH4AVRMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783548908; c=relaxed/simple;
-	bh=mPFo8vbzrqAT7qfIgjsFhAJWusCnHtvcDOHSYZA/t8Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z/3RluSUBXOezkwVJg9hPM/+fLOLZ5CmtGMz+8mxdfkSuAC2x9qKV2X49zymkBp+E6ODIAludsKQ83FYF9xtUEnviVHbUjF3qW32vhnBfqAtiz2s3L0IvCtbzuZ9KLhAHbutQLCFPmJrazstBsnRe6vEirhGI+VnWFdWFDsbTis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFIVtUSA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783548944; c=relaxed/simple;
+	bh=eVWSX3qoUnLNprt23AnHi6t/3utg25jC6tbMCv0v57s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MSZnhFjzAtbfMCu922ldo15cRxerEvEHTTE119Ta9Y9WCcpSrV9w3XDHKvySSyC8nOb1jd/VYlCF/KK4Y7HeG+aqtsaWN1VSUdZB358He90+dfhffJg9/qt4N/LyQ3Z+13sxHl6IYCLcSis/ZxnOkSn6Y1uMolZpT8vuLtDrvwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJ5N/A7d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFIVtUSA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB5D1F000E9;
-	Wed,  8 Jul 2026 22:15:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJ5N/A7d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39551F000E9;
+	Wed,  8 Jul 2026 22:15:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783548907;
-	bh=w4erubRnfXbRdTRqkFK5jPmJOr6xXqAxHSLEFkhU5+M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aFIVtUSAiyeprH60mUMZv/e2Y6E2k7APiSTLqWe5Wyiu57+GIe5ipKOhn/57N/v4q
-	 H6Bb1/YBLuznILyiGVoTxWluRgLX5Vic71blXFgK3Dw+PES6gW6P3/N2powX1NrP+w
-	 vUlI2qZyGGwZte1HFccU1WXY1IwAS/8BPuAUi1bRJo/J7iaDLkKpyPi28gM7Qcp63q
-	 7zfL5R5TUYnrkN7/T8IxPstWPWUvXBQh3egckygv9GX6KI4Bj9ENzlMcqnY1QL0fTQ
-	 48z5pC6M1LPdFLLs8uFrUW3NUzWCQpq/hztawLechLlo7HOWYj7nowAVlMbvxc1Q6d
-	 r1nkHhvVGfc8w==
-Message-ID: <eb9fb53f-2a40-4976-9539-918694fa5cbc@kernel.org>
-Date: Wed, 8 Jul 2026 23:15:02 +0100
+	s=k20260515; t=1783548943;
+	bh=7DTJJU6TlX9Bg2RWnPOawNG7pfIEmDlVMYVPRfNZoVg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lJ5N/A7d1GPYbKaAlGkZ+p5EzTNQN1W/0ZsotGYkRcNqJznxV9b868O51u5N/zsYM
+	 Yr2oe4qhmUIcQ0L4y4LtxVDcx3Ri6/4qpn2W7xGISzJHoqx9rbjdQT22pYsxfVa708
+	 tOdEB5x2Ja6J6QF5RAufbMDpb5FPsIONKGg/xxXr/GbQkVA8yN5en4KjO5tNrDs7eP
+	 Og6oZ0KFkcOTXIB28HsYiJQng2V+L8BZAZsVlvk4RC4QTXL8IdWPdNQHOsXPyQl++4
+	 IECXZ4lUMl1P/A5YTttJd581x2api0T2xTE8c6ApMpGcjE674C5j9JPMKxnlz5lobF
+	 O8J3c6JkbrIIw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 output
+ format
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-13-a4a982a9f2e7@collabora.com>
+References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
+ <20260709-dw-hdmi-qp-yuv-v3-13-a4a982a9f2e7@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 22:15:41 +0000
+Message-Id: <20260708221542.C39551F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/6] dt-bindings: media: qcom,x1e80100-camss: Add
- optional PHY handle definitions
-To: Frank Li <Frank.li@oss.nxp.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
- <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-1-f8588da41f16@linaro.org>
- <R6v4BrOfBnooFgUohO6y8awE93B8kVw-B0BkDT3AfrbUFBJfGTF8LH3Gha3BUaIadD4UgocArqYr4I1flSVKNg==@protonmail.internalid>
- <ak7KiHpkQFghDZzj@lizhi-Precision-Tower-5810>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
- jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
- piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
- YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
- B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
- lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
- 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
- MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
- 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
- JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
- bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
- OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
- BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
- VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
- jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
- mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
- 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
- 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
- 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
- kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
- nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
- g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
- dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
- NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
- VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
- Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
- vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
- 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
- ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
- MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
- VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
- NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
- AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
- JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
- 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
- OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
- xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
- t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
- X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
- LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
- 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
- Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <ak7KiHpkQFghDZzj@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 08/07/2026 23:09, Frank Li wrote:
->> +  phy-names:
->> +    items:
->> +      - const: csiphy0
->> +      - const: csiphy1
->> +      - const: csiphy2
->> +      - const: csiphy4
->> +
-> needn't "phy" for phy-names, just csi0|csi1 ...
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-yeah nice and now that I think about it, this is a more consistent 
-naming schema with other architectures.
+Pre-existing issues:
+- [High] Modifying hardware or global driver state within atomic_check call=
+back.
+--
 
-thx.
+--- Patch [13]: [PATCH v3 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 ou=
+tput format ---
+commit 886f3880152ce2fc09e568484e921ca99dad89d4
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
----
-bod
+drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
+
+Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
+color format, and the required bus-format handling and VOP2 support are
+already in place.  Advertise it via the platform supported formats so
+the HDMI core can select it.
+
+YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
+high-resolution modes such as 4K@60Hz on links that cannot otherwise
+carry the full-bandwidth signal.
+
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 78473f9a0fce3..1af29066a0a31 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed something concerni=
+ng
+in dw_hdmi_qp_rockchip_encoder_atomic_check() in this same file:
+
+drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c:dw_hdmi_qp_rockchip_encoder_=
+atomic_check() {
+    ...
+	ret =3D phy_configure(hdmi->phy, &phy_cfg);
+	if (!ret) {
+		hdmi->tmds_char_rate =3D conn_state->hdmi.tmds_char_rate;
+		s->output_type =3D DRM_MODE_CONNECTOR_HDMIA;
+		s->output_bpc =3D conn_state->hdmi.output_bpc;
+		s->bus_format =3D ingest_fmt;
+	} else {
+    ...
+}
+
+Does this code accidentally configure the hardware PHY and modify global
+driver state (hdmi->tmds_char_rate) during the atomic_check phase?
+
+When userspace performs an atomic modeset with the DRM_MODE_ATOMIC_TEST_ONLY
+flag, dw_hdmi_qp_rockchip_encoder_atomic_check() is invoked to validate the
+state. Modifying hardware or global state here breaks the guarantee that
+atomic test-only commits are free of side effects. This could cause the
+hardware state to desynchronize from the DRM core's expectations.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-dw-hdmi-qp=
+-yuv-v3-0-a4a982a9f2e7@collabora.com?part=3D13
