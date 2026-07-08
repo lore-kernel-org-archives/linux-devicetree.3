@@ -1,122 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE27543C7D2;
-	Wed,  8 Jul 2026 14:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58EA3B776C
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522326; cv=none; b=re0bq7vR1O3MEqoR5YBs2tSLoEdJIEdjIA91Z0fkQBNOJifljuvMrASLIMndBa8Y0bhGpMupOk14cM8X6fjhjTO5MpVewx/QhQXryH4wLczcNSsNi++mf4i+30I7BVTyYhAvGHTqaPzGIRzE1pi4Z+YKEobk2Tg3y1dBZpVvbls=
+	t=1783522329; cv=none; b=HhPhqaOefVxXdEcD2/RmlEX80J6lwYHTWNuulDBjk2Xc+zDaS+gy/HClwL6tcNdieC8W0vdgopLk0wQumh1M8hciX0VLQt4NQS7NcKqnZ69TrCdtBpHlnD5g50e/VpYIT7xttzoAzX9JCITGOcO82esPl+w6nUAqglofzY76NEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522326; c=relaxed/simple;
-	bh=+RfC/xqi5foyvk7ovWqVRKrPk/rOuEWPd2u/U/fXfac=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r0zLm4pAktMvOT/tMwYFOGPfe8b9TMaGh7Ol1E697iCpwyOsvEp1ds0hXpK82ZOIkCFNp6n3RwuoREcnm2Q2FtZtQs+zPPbSS7tUC17u2e1Pb07R5Z1qH6smsxQ+q76A2xHghdc86kA8l3nL0oGjidaXY7YxVLFOBlAM5RYjzSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TqqYD7qm; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783522329; c=relaxed/simple;
+	bh=e8u7hQQOGfzCek6z8hSNDt06rCYnVIfuSJwS0y7HFWk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZK9VzkJPxzwdysKSUzu8ZvmhwqRmkOC2eFZdMs+ErCRcRCjZ3rPMKVjgzM2sjOeWdwzoWk6h/XV8YpB1PMCMuCB5sGQuJVFZfx+cP5J5zJfoPL/9qr0O27mFBZ+nYydpGTpBKo4J7KXffaePMqqsElBQiUaxVoRNNIn2Fd8Tky4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n2sXiy3n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TqqYD7qm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783522325; x=1815058325;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+RfC/xqi5foyvk7ovWqVRKrPk/rOuEWPd2u/U/fXfac=;
-  b=TqqYD7qmAbuerlI/NtDfBEhs5+65G/seNtE2uoMqTTtO8XKe4Big9A2A
-   DZV9nY2MlRrnVs0VBpf3Oac8LBBKu90psFVwDGahXgRL4RG97AwatOJfq
-   c3xVCNHIEn3NvVbcnc+NnmKnxv/QDo3Y0JbexAAEJfq220wWU4ejwi5GP
-   1PilbpvEw1sF1PonW3S5KIuaFe8XBo8M5UyBdZXBsMmcEtUdr/l3BDBFy
-   BuDTfCNlNSGWQil5GIa0tjJBEh+JpvEKEoU1WBo9rbAmw5qlXOW/dLuXO
-   G739TcsxTgWmWbbOv+APj0z+xaHSyM1KeWb/BEv09kZ0MJUBBqnR972gO
-   Q==;
-X-CSE-ConnectionGUID: hrrOEuO4T4WO7fvieciQ+w==
-X-CSE-MsgGUID: qajyCrQqRFGSYSO9Rhx7ig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="94791446"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="94791446"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 07:52:00 -0700
-X-CSE-ConnectionGUID: pe2I5EhiQv6m3EpzdylWeQ==
-X-CSE-MsgGUID: 899EseynSvCfbO5YFHPVYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; 
-   d="scan'208";a="292497405"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Jul 2026 07:51:57 -0700
-Date: Wed, 8 Jul 2026 17:51:54 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Md Shofiqul Islam <shofiqtest@gmail.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	jic23@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	u.kleine-koenig@baylibre.com
-Subject: Re: [PATCH v9 2/2] iio: health: add MAX86150 ECG and PPG biosensor
- driver
-Message-ID: <ak5kCs3BkB_Trr2f@ashevche-desk.local>
-References: <20260707112714.2261727-3-shofiqtest@gmail.com>
- <20260707140545.0000029a@gmail.com>
- <ak0X8yrg5ujz8r5L@ashevche-desk.local>
- <CAOTCDVth36hE1JqAi3vJ3hKuqhs_yyjV0ZZx5mZotiJYzNDATg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n2sXiy3n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E17F1F000E9;
+	Wed,  8 Jul 2026 14:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783522328;
+	bh=N6i5LF+0LxyLYZkXfeMpN5/dS19ueJg4x87DdmebEXg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n2sXiy3nnGAp5EGW2MylgAKBdq0oXWsIncy+CSz5J4nJF+kSWSdPjWkvUkFb4ChkT
+	 pla4yBUnMOaVflVj5gVRogDzZq4ak2hyH83oth1ScR7901ZPnRMtkjWuYAC8SxpZ5J
+	 2PXWq41JD1QRFr5XEtU5KN8XuI9Q4U+C1Zil1Ji17RfFJoWoVGa1ZVynphrXPGntiH
+	 3lgvI8dm6IQw5NIIg4tL1EOtrMOmi5M5/U4K37gXZCrpx8/mzdQVf8fxredG41AfCM
+	 4OI5Y5kmOHOTtauqs1R9vpckd18uAsmlLsYlwHda3ZQDfzbSD62T/UJ/yBvncQKOOP
+	 GZk/CqlCIebRA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/7] dtc: dt-check-style: Expect first device_type
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-dts-style-checker-v4-4-c175e6401150@oss.qualcomm.com>
+References: <20260708-dts-style-checker-v4-0-c175e6401150@oss.qualcomm.com>
+ <20260708-dts-style-checker-v4-4-c175e6401150@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 14:52:06 +0000
+Message-Id: <20260708145208.2E17F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOTCDVth36hE1JqAi3vJ3hKuqhs_yyjV0ZZx5mZotiJYzNDATg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Jul 08, 2026 at 03:54:19PM +0300, Md Shofiqul Islam wrote:
-> Hi Andy,
-> 
-> I want to address your concern directly and honestly.
-> 
-> I did use AI tools during this development, primarily to understand
-> kernel conventions and check my code against subsystem patterns. The
-> implementation decisions and the responsibility for what I submitted
-> are mine. I should have disclosed this from the start, and I did not.
-> I apologize for that.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The `compatible` string in the YAML example does not match the sche=
+ma constraint.
+- [Low] Copy-paste error in the comment of the 'good' test fixture.
+- [Low] The docstring for `_property_bucket` missed an update for the new `=
+device_type` fixed slot.
+--
 
-Yes, we have a tag for that Assisted-by.
+--- Patch [4]: [PATCH v4 4/7] dtc: dt-check-style: Expect first device_type=
+ ---
+commit c078538281e29a1c935623ba80b1e47b07008331
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> Regarding types.h: Your feedback was not ignored. As a new contributor
-> managing feedback from multiple reviewers across nine versions in
-> overlapping threads, I lost track of your comment from v4. When
-> Sashiko flagged HIGH severity issues, I panicked and sent new versions
-> too quickly without properly reading all outstanding comments. That
-> was a mistake in my process and entirely my responsibility.
-> 
-> I am committed to contributing properly to this community. All
-> outstanding comments, including types.h, array_size.h, and err.h, are
-> addressed in v10. I will not send another version until I've read and
-> addressed every open comment from every reviewer.
-> 
-> Thank you for the direct feedback. I understand why you raised it.
+dtc: dt-check-style: Expect first device_type
 
-Thank you for following the suggestions!
+Adjust the DTS coding style rules to expect the device_type property first
+and improve the dt-check-style script to handle this correctly, along with
+new test fixtures.
 
-P.S. Please, do not top-post.
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index bb9ec5b82319e..23cdfe78b1890 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
+> @@ -558,28 +558,31 @@ def check_child_name_order(ctx):
+> =20
+>  def _property_bucket(name):
+>      """Return the canonical bucket index for a property:
+> -       0 compatible
+> -       1 reg / reg-names
+> -       2 ranges
+> -       3 standard properties (no vendor comma in #-stripped name)
+> -       4 vendor-specific properties
+> -       5 status
+> +       0 device_type
+> +       1 compatible
+> +       2 reg / reg-names
+> +       3 ranges
+> +       4 standard properties (no vendor comma in #-stripped name)
+> +       5 vendor-specific properties
+> +       6 status
+>      Plus a sub-key inside the bucket for fixed slots (compatible, reg,
+>      reg-names, ranges, status). 'standard' and 'vendor' return None for
 
-> On Tue, Jul 7, 2026 at 6:15 PM Andy Shevchenko
-> <andriy.shevchenko@intel.com> wrote:
-> > On Tue, Jul 07, 2026 at 02:05:45PM +0200, Joshua Crofts wrote:
-> > > On Tue,  7 Jul 2026 14:27:14 +0300
-> > > Md Shofiqul Islam <shofiqtest@gmail.com> wrote:
+[Severity: Low]
+This isn't a bug, but should device_type be added to the list of fixed slots
+in this parenthetical?
 
-...
+>      the sub-key, signalling that the within-bucket key is computed by
 
-> > > You're missing array_size.h, err.h, types.h
-> >
-> > My comment against types.h was ignored. I think that this contribution is
-> > heavily assisted by AI (which has to be mentioned), otherwise I can not
-> > explain such an ignorance and mistakes from a human.
+[ ... ]
 
--- 
-With Best Regards,
-Andy Shevchenko
+> diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-typ=
+e.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-type.yaml
+> new file mode 100644
+> index 0000000000000..433afb731dded
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/bad/yaml-prop-order-device-type.yaml
+> @@ -0,0 +1,31 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/test-bad-prop-order.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Test fixture with device_type
+> +
+> +maintainers:
+> +  - Test User <test@example.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: example,test-prop-order-device-type
+> +  reg:
+> +    maxItems: 1
+> +  device_type: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    device@1000 {
+> +        compatible =3D "example,test-prop-order";
 
+[Severity: Low]
+The compatible string used here in the example doesn't match the const
+requirement defined in properties.compatible above. Will this cause the test
+fixture to fail standard dtschema validation if it's ever checked directly?
 
+> +        device_type =3D "cpu";
+> +        reg =3D <0x1000 0x100>;
+> +    };
+
+[ ... ]
+
+> diff --git a/scripts/dtc/dt-style-selftest/good/dts-property-order.dts b/=
+scripts/dtc/dt-style-selftest/good/dts-property-order.dts
+> new file mode 100644
+> index 0000000000000..0e183e3459cdf
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/good/dts-property-order.dts
+> @@ -0,0 +1,41 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +/*
+> + * Test fixture: Incorrect property order
+
+[Severity: Low]
+This isn't a bug, but since this is the "good" dts file, should this header
+comment be updated to indicate it is testing correct property order?
+
+> + */
+> +
+> +/dts-v1/;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dts-style-=
+checker-v4-0-c175e6401150@oss.qualcomm.com?part=3D4
