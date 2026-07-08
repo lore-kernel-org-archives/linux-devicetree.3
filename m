@@ -1,565 +1,237 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01D43A381C
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 23:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B676274FDC;
+	Wed,  8 Jul 2026 23:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783554589; cv=pass; b=jYRpi1rQZrnDnh61T6NnJEhg7CSMmhkYQuJ/kSvWNRVrFepOc5o7ffMwL+KPDxhNeAbnPrXUMErHtl9hQ/hZoE7Lr1aryqVeg27xC9rwxLVCB98MhXa2uCDZ2SXwDTMZXu4oWl+Z3mnM249RWBl+3z5jIdr600DHTL2DcFHpJ+U=
+	t=1783554830; cv=pass; b=XIN+OSGcjAMUk+qz7YGkNHFOLedy3ClZOGyQKZ/mRSSDSUABWodPS+6i5carNbvWX3RDGUEjB2lIbpPJ0OHxtHiBHtUlc03CvXv/pCm0m42DMUSkNRcdyI/af8hAAjWPDGrVyQBMoCs8Xt0nE6Xd+CUUn91llMCYrZz7aAY2WT0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783554589; c=relaxed/simple;
-	bh=iOu8Vu8FK8936tOh9CPH/yq1tUlz9DnfnSlQFjrnLXY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R+QcowhOpnfXIDv/xoKt460KIbris07+LQokJ6n5sjUI0A9qX40KrScRiJf/vyJkaha8y4XZJFV2TIY8xEiBdaDRf6a5X+jYyuMb+F3cdDXwQEHqdoUucX0N9I0O6F55trBskcpPULrN162WiQVfwE+oKRHNlekKSdBii3iB9qI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RNMLsxEA; arc=pass smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1783554830; c=relaxed/simple;
+	bh=fC5V081ZkhpaeHb7kH3J7HxXMj3e/Piy+acEWGdgULk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TR1xP5EkkVQsxN5Q1svUqd8PeB7LeBSlEYGOmRbnBQfe0st0ORH9lNkPi0qr8sm8+e9sNgLA3g+jYeEI+/xkZq3oixxWUYxNQ0DJmJZUXMdpsOS9/aVmiQeYeo2VCzofo7nA2EDdR3GisoSTTXkhs92UPZMP3VKOqO6w1MutFpI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=I8EfZUnq; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RNMLsxEA"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493b8d92a4eso11035e9.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 16:49:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783554585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hFo5sF+3drtFDQQUxvHh7Md5lv5C1d1SGqQ3KD1zNRbSyZOz0D9qKCjPH1EcH3+wli
-         PWjgalSOUfgvU35F6Lu5QeDG6xNUa987MYvT66r+hUh0jp6ko8ps1GMSibNajvlW8MxW
-         qvKF6pxAg5z9G9jUtuShBrbQaHsJs4sZA70wo+ZfBS38Eo949Qzbj40ef4ntqlO49tf1
-         eEs0ve1MsUTFOFhQJCIOUJTOBRKU8ByxFgspr/+CguLG6chx/fEY1Hhls2yPBb1dGvCC
-         8PmxzJ+ZQoaO5v/ei6e9gyHYlUPM2mj2R9jx5ouN/POV7wvNpfNZS6+NLiEP2SMJtmw1
-         mWXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rib4ibu+dts9p9/XbnX7ZcTmfXYVT7n2/w0qnalOJkU=;
-        fh=lsZ5DuepXwwXR2m0OuEUh+7lVSc5z8y7wUxwjEG6bLI=;
-        b=fi9O/2WX3C7y1ZWyB81G3PdHNTTUnGNzhAj6L5BNDmDMxmqP/WJYM6wRo0yt5f6/eG
-         WBayKmAxs5jwaol5DMNKtGNE5sBqc9cmF5iRudj3H4u9uS4zYNRdLAFMsT5QF/VqDV4S
-         Xi7To7DhI/zpH/WkDcqgi9DROEsNQ6uSKxfaIhOD6huJOniGxlJNGnOMtV06sfHp8b/m
-         QomSdimd8uWcR5WvYCDQ9RyoXEe3JVs/s/TFE9EBrfFBbYGdkBpID8AqV1yPHilX07PT
-         Ptwr9s7FAFEdESCcV3QfdCkfhP64jU08x9cCYuCzopTvThVU4j5ek/Ns6tqvJMnr8SVS
-         W3Fg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783554585; x=1784159385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rib4ibu+dts9p9/XbnX7ZcTmfXYVT7n2/w0qnalOJkU=;
-        b=RNMLsxEAr+xtYUGa2w2RLBYdc3vMdclo2hbrnRNoPtAxzVmN83odkQCAStJGxUynUF
-         BIf5Ujb8R0CcGtrNleby/Jxz4vg3zJXnVYz4l5gbQzms8PTZgmeCpEn/bOhuzop3GKmZ
-         Necd5686JpmAx0zKgZ55Zb97yMJ8KeaMiJsnBQank8P2z0uXUgXS/Qy2ZLbzClUWU5um
-         3vHFLLhdBPE3lliNNNQE4vnnYM4A/5oMAeJoG6w5+v/BNR1fl0BrRARjBS4i9eKZFyrV
-         E/SRiiJ20WmuGW6y9dBs9Q366OpGQptx4i7J/oPJyql07YagvKcmBKqCWW7213gubWw5
-         4O6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783554585; x=1784159385;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rib4ibu+dts9p9/XbnX7ZcTmfXYVT7n2/w0qnalOJkU=;
-        b=UJUGVqqH+TFEMZXxqbBNv8YMwERtW7ksQEyJXrhJeqCBOLMMBogCJrgIMvYN3t2/Dt
-         OS6RIazQuSU3iutG3IdEq4El07bgcZBQuoN7rACaX5bDI5N2QZgUYlSL/aNU8uURN2lH
-         pKWVsYrorwcJhjNNKnqJLKY4IlQg22YvgkTWGEhTGYL/7DliAhvDHRwh9tUVD+hVJpVL
-         vCtudu59DU3D8B+0lFTgpSGvCHAcxAp/+uaDvuHsAh28posDsG+RvqWlbq3264fqZvVs
-         5MEpg850ZvlplC4yBBJ4NV+U5xihOo8qc1/XIX7mfldCsDsbqEGFR6BvYT1z5oQXMW9D
-         H2QQ==
-X-Forwarded-Encrypted: i=1; AHgh+RppBq4rMh7kzm35ETCOtGXom4KirTcLSX9DuRQSPjZnre5ErWmz0DfYkS1z1rzAK5dTo18KeTfvpqsw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwWpyxvmuT8LwDm54/dzEgZtFk12VEzyPdf6cP5X9+/8Wg8Wzp
-	DiX4ZLzxNHzSY9e0ykHzX6Gnhxmk1pRA603s9REqBglFMhSzMl7AT4bSbP0CvYFAFIp8DLDSS+g
-	pv9VI6KcjNEFKobyHQd8shfh9K7yASK7rLmE/fwjF
-X-Gm-Gg: AfdE7cnYMB0oTSY7/y28yr0WJgfdqdnx2Hbbffp6VwwhtnugM3xLtWDGUX6bnZQ5A6J
-	/LEP0Xy06shFlc/DHDMfLBIXVwykqAWOz06RG5fLLdraFMUqDWSVjybnCwObpUm4Ovn5kpq3JSG
-	zgTyBPin5E2b3ZL3mFDipDhYfa8PURIb7diVPCN0Sr/hHFwCFZSyQIBAXmH4ZZIAv0jEaVqboS1
-	z7RwRC0FguSnh2prgRJZqJtI1O3+UHdK/laDcmThCDCPkAIg39UQZML10/0pmcd1yJ700JVg+fF
-	GY3q8AUIvFdnWW/1btp39e7NiHsDUjs+KgVhkEjIzlcglJuNWl85ESvZtg==
-X-Received: by 2002:a05:600d:644a:10b0:490:b3cd:fc4d with SMTP id
- 5b1f17b1804b1-493ec91fb9cmr44975e9.9.1783554584679; Wed, 08 Jul 2026 16:49:44
- -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="I8EfZUnq"
+ARC-Seal: i=1; a=rsa-sha256; t=1783554809; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EZKBstcN1F6fnZqFsDNHlCQUaKES4Tn9QuVuH08cxFsetUDzN3JZw1RveOL1QbPoTfnIxfyow/v6Rk1iMmAARCIzbHBwUrfZcimxae1rwrkX3o3E7fuVjhtcq9mlLwp2UBKbZZbHfR2AMLUL8GYdS75xqFQMOFORGNIGAUJJiz8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783554809; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=GBurEnEvJMYOvAHbhOlPjehgVnaQhBmizbnd1CUS3jM=; 
+	b=n93YZ4QSViJq87icdUBDd0zcvrv6DWK+8HzkJaeGXP4oA/RZPclj6IqkHodrado21aK9u1zuwgHxZyUF7pRuhxOQaK8eOaWy7ARAig9ntMDAFPgtl9xC/HKJV+zWAnaMGS5JYcGdEmDJM5JoSLrw4FjZDQYsHVbtYS0iHY9oQFE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783554809;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=GBurEnEvJMYOvAHbhOlPjehgVnaQhBmizbnd1CUS3jM=;
+	b=I8EfZUnqgcjz9wmxl8g/Y5zliHa57NtuwYbkRYlpGFt9WHgL/nbL5RP5pxEaza+p
+	GqYXlr4AUTaYXqvcezS67liTyziAxM34alBG7jnkP9wqb3yDU61CsckJhSUKcReCrdL
+	eltDAfj8PpdhkbmCOSuXwcedGIfwnRJjR3Pw0/vI=
+Received: by mx.zohomail.com with SMTPS id 1783554806411232.87359725111776;
+	Wed, 8 Jul 2026 16:53:26 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 0DAF81806CA; Thu, 09 Jul 2026 01:53:22 +0200 (CEST)
+Date: Thu, 9 Jul 2026 01:53:22 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Dawid Olesinski <dawidro@gmail.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S . Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Corentin Labbe <clabbe@baylibre.com>, 
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: crypto: rockchip: Add RK356x/RK3588
+ crypto engine binding
+Message-ID: <ak7g2_Se1tlLQJ51@venus>
+References: <20260708175837.1718437-1-dawidro@gmail.com>
+ <20260708175837.1718437-2-dawidro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com> <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-In-Reply-To: <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Wed, 8 Jul 2026 16:49:31 -0700
-X-Gm-Features: AUfX_mzOMAhQgIZCGlz9_znmnioZkDYwZn81U0HlPggiFRGlpgF5nj0v4x5iIA0
-Message-ID: <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Sowjanya Komatineni <skomatineni@nvidia.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Russell King <linux@armlinux.org.uk>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	John Stultz <jstultz@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
-	linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
-	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lnzb2w2bbzyesomx"
+Content-Disposition: inline
+In-Reply-To: <20260708175837.1718437-2-dawidro@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/283.531.57
+X-ZohoMailClient: External
+
+
+--lnzb2w2bbzyesomx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/4] dt-bindings: crypto: rockchip: Add RK356x/RK3588
+ crypto engine binding
+MIME-Version: 1.0
 
-On Wed, Jul 1, 2026 at 9:09=E2=80=AFAM Thierry Reding <thierry.reding@kerne=
-l.org> wrote:
->
-> From: Thierry Reding <treding@nvidia.com>
->
-> There is no technical reason why there should be a limited number of CMA
-> regions, so extract some code into helpers and use them to create extra
-> functions (cma_create() and cma_free()) that allow creating and freeing,
-> respectively, CMA regions dynamically at runtime.
->
-> The static array of CMA areas cannot be replaced by dynamically created
-> areas because for many of them, allocation must not fail and some cases
-> may need to initialize them before the slab allocator is even available.
-> To account for this, keep these "early" areas in a separate list and
-> track the dynamic areas in a separate list.
+Hi,
 
-Hi, It looks like you'll also need to update the CMA dma-buf heap's
-add_cma_heaps init function so that it adds all the CMA areas, not
-just the early ones.
+On Wed, Jul 08, 2026 at 06:58:22PM +0100, Dawid Olesinski wrote:
+> Add a YAML device tree binding for the Rockchip second-generation (V2)
+> cryptographic hardware accelerator present on the RK3568 and RK3588 SoCs.
+>=20
+> The IP block exposes AES-ECB, AES-CBC, AES-XTS block ciphers, SHA-1,
+> SHA-224, SHA-256, SHA-384, SHA-512, MD5, and SM3 hash algorithms, each
+> with a hardware DMA engine controlled via linked-list descriptors.
+>=20
+> The binding covers two compatible strings:
+>=20
+>   - rockchip,rk3568-crypto: clocks and resets are driven directly by the
+>     non-secure CRU (accessible to Linux at EL1).
+>   - rockchip,rk3588-crypto: clocks and resets live in SECURECRU, a
+>     register bank sandboxed to TrustZone. Linux must request them through
+>     the ARM SCMI firmware interface (scmi_clk / scmi_reset), as direct
+>     MMIO access to SECURECRU from EL1 triggers a bus fault.
 
->
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+Looking at the driver, the two implementations are compatible. The
+clocks/reset line source being different is not a reason for not
+being compatible. So the binding should look like this:
+
+  compatible:
+    oneOf:
+      - const: rockchip,rk3568-crypto
+      - items:
+          - enum:
+              - rockchip,rk3588-crypto
+          - const: rockchip,rk3568-crypto
+
+and then in the RK3588 DTS, use
+
+compatible =3D "rockchip,rk3588-crypto", "rockchip,rk3568-crypto";
+
+finally in the driver only bind against "rockchip,rk3568-crypto".
+The RK3588 specific binding is only added in case a difference
+requiring custom RK3588 quirks is found in the future.
+
+Greetings,
+
+-- Sebastian
+
+> Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
 > ---
-> Changes in v3:
-> - rebase on top of recent linux-next, update kernel/dma/contiguous.c
-> - use kzalloc_obj() instead of kzalloc() with sizeof()
->
-> Changes in v2:
-> - rename fixed number of CMA areas to reflect their main use
-> - account for pages in dynamically allocated regions
-> ---
->  arch/arm/mm/dma-mapping.c |   2 +-
->  arch/s390/mm/init.c       |   2 +-
->  include/linux/cma.h       |   8 +-
->  kernel/dma/contiguous.c   |   2 +-
->  mm/cma.c                  | 187 +++++++++++++++++++++++++++++++++++++---=
-------
->  mm/cma.h                  |   5 +-
->  6 files changed, 165 insertions(+), 41 deletions(-)
->
-> diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
-> index f9bc53b60f99..934952ab2102 100644
-> --- a/arch/arm/mm/dma-mapping.c
-> +++ b/arch/arm/mm/dma-mapping.c
-> @@ -254,7 +254,7 @@ struct dma_contig_early_reserve {
->         unsigned long size;
->  };
->
-> -static struct dma_contig_early_reserve dma_mmu_remap[MAX_CMA_AREAS] __in=
-itdata;
-> +static struct dma_contig_early_reserve dma_mmu_remap[MAX_EARLY_CMA_AREAS=
-] __initdata;
->
->  static int dma_mmu_remap_num __initdata;
->
-> diff --git a/arch/s390/mm/init.c b/arch/s390/mm/init.c
-> index f07168a0d3dd..f8f78f1434ea 100644
-> --- a/arch/s390/mm/init.c
-> +++ b/arch/s390/mm/init.c
-> @@ -241,7 +241,7 @@ static int s390_cma_mem_notifier(struct notifier_bloc=
-k *nb,
->         mem_data.start =3D arg->start_pfn << PAGE_SHIFT;
->         mem_data.end =3D mem_data.start + (arg->nr_pages << PAGE_SHIFT);
->         if (action =3D=3D MEM_GOING_OFFLINE)
-> -               rc =3D cma_for_each_area(s390_cma_check_range, &mem_data)=
-;
-> +               rc =3D cma_for_each_early_area(s390_cma_check_range, &mem=
-_data);
->         return notifier_from_errno(rc);
->  }
->
-> diff --git a/include/linux/cma.h b/include/linux/cma.h
-> index 8555d38a97b1..fb7a4923c3ba 100644
-> --- a/include/linux/cma.h
-> +++ b/include/linux/cma.h
-> @@ -7,7 +7,7 @@
->  #include <linux/numa.h>
->
->  #ifdef CONFIG_CMA_AREAS
-> -#define MAX_CMA_AREAS  CONFIG_CMA_AREAS
-> +#define MAX_EARLY_CMA_AREAS    CONFIG_CMA_AREAS
->  #endif
->
->  #define CMA_MAX_NAME 64
-> @@ -57,8 +57,14 @@ struct page *cma_alloc_frozen_compound(struct cma *cma=
-, unsigned int order);
->  bool cma_release_frozen(struct cma *cma, const struct page *pages,
->                 unsigned long count);
->
-> +extern int cma_for_each_early_area(int (*it)(struct cma *cma, void *data=
-), void *data);
->  extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), voi=
-d *data);
->  extern bool cma_intersects(struct cma *cma, unsigned long start, unsigne=
-d long end);
->
->  extern void cma_reserve_pages_on_error(struct cma *cma);
+>  .../crypto/rockchip,rk3588-crypto.yaml        | 75 +++++++++++++++++++
+>  1 file changed, 75 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/crypto/rockchip,rk3=
+588-crypto.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/crypto/rockchip,rk3588-cry=
+pto.yaml b/Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.=
+yaml
+> new file mode 100644
+> index 000000000000..fc09f21b0654
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.yaml
+> @@ -0,0 +1,75 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/crypto/rockchip,rk3588-crypto.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +extern struct cma *cma_create(phys_addr_t base, phys_addr_t size,
-> +                             unsigned int order_per_bit, const char *nam=
-e);
-> +extern void cma_free(struct cma *cma);
+> +title: Rockchip cryptographic offloader
 > +
->  #endif
-> diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-> index f754079a287d..7975551f69b3 100644
-> --- a/kernel/dma/contiguous.c
-> +++ b/kernel/dma/contiguous.c
-> @@ -52,7 +52,7 @@
->  #define CMA_SIZE_MBYTES 0
->  #endif
->
-> -static struct cma *dma_contiguous_areas[MAX_CMA_AREAS];
-> +static struct cma *dma_contiguous_areas[MAX_EARLY_CMA_AREAS];
->  static unsigned int dma_contiguous_areas_num;
->
->  static int dma_contiguous_insert_area(struct cma *cma)
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a13ce4999b39..f989e2e98594 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -34,7 +34,12 @@
->  #include "internal.h"
->  #include "cma.h"
->
-> -struct cma cma_areas[MAX_CMA_AREAS];
-> +static DEFINE_MUTEX(cma_lock);
+> +maintainers:
+> +  - Heiko Stuebner <heiko@sntech.de>
+> +  - Corentin Labbe <clabbe@baylibre.com>
+> +  - Dawid Olesinski <dawidro@gmail.com>
 > +
-> +struct cma cma_early_areas[MAX_EARLY_CMA_AREAS];
-> +unsigned int cma_early_area_count;
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - rockchip,rk3568-crypto
+> +      - rockchip,rk3588-crypto
 > +
-> +static LIST_HEAD(cma_areas);
->  unsigned int cma_area_count;
->
->  phys_addr_t cma_get_base(const struct cma *cma)
-> @@ -198,7 +203,6 @@ static void __init cma_activate_area(struct cma *cma)
->                                 free_reserved_page(pfn_to_page(pfn));
->                 }
->         }
-> -       totalcma_pages -=3D cma->count;
->         cma->available_count =3D cma->count =3D 0;
->         pr_err("CMA area %s could not be activated\n", cma->name);
->  }
-> @@ -207,8 +211,8 @@ static int __init cma_init_reserved_areas(void)
->  {
->         int i;
->
-> -       for (i =3D 0; i < cma_area_count; i++)
-> -               cma_activate_area(&cma_areas[i]);
-> +       for (i =3D 0; i < cma_early_area_count; i++)
-> +               cma_activate_area(&cma_early_areas[i]);
->
->         return 0;
->  }
-> @@ -219,41 +223,77 @@ void __init cma_reserve_pages_on_error(struct cma *=
-cma)
->         set_bit(CMA_RESERVE_PAGES_ON_ERROR, &cma->flags);
->  }
->
-> +static void __init cma_init_area(struct cma *cma, const char *name,
-> +                                phys_addr_t size, unsigned int order_per=
-_bit)
-> +{
-> +       if (name)
-> +               strscpy(cma->name, name);
-> +       else
-> +               snprintf(cma->name, CMA_MAX_NAME,  "cma%d\n", cma_area_co=
-unt);
+> +  reg:
+> +    maxItems: 1
 > +
-> +       cma->available_count =3D cma->count =3D size >> PAGE_SHIFT;
-> +       cma->order_per_bit =3D order_per_bit;
+> +  interrupts:
+> +    maxItems: 1
 > +
-> +       INIT_LIST_HEAD(&cma->node);
-> +}
+> +  clocks:
+> +    items:
+> +      - description: Core clock for the crypto IP internal logic
+> +      - description: AXI interconnect clock interface
+> +      - description: AHB interface clock
 > +
->  static int __init cma_new_area(const char *name, phys_addr_t size,
->                                unsigned int order_per_bit,
->                                struct cma **res_cma)
->  {
->         struct cma *cma;
->
-> -       if (cma_area_count =3D=3D ARRAY_SIZE(cma_areas)) {
-> +       if (cma_early_area_count =3D=3D ARRAY_SIZE(cma_early_areas)) {
->                 pr_err("Not enough slots for CMA reserved regions!\n");
->                 return -ENOSPC;
->         }
->
-> +       mutex_lock(&cma_lock);
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: aclk
+> +      - const: hclk
 > +
->         /*
->          * Each reserved area must be initialised later, when more kernel
->          * subsystems (like slab allocator) are available.
->          */
-> -       cma =3D &cma_areas[cma_area_count];
-> -       cma_area_count++;
-> +       cma =3D &cma_early_areas[cma_early_area_count];
-> +       cma_early_area_count++;
->
-> -       if (name)
-> -               strscpy(cma->name, name);
-> -       else
-> -               snprintf(cma->name, CMA_MAX_NAME,  "cma%d\n", cma_area_co=
-unt);
-> +       cma_init_area(cma, name, size, order_per_bit);
->
-> -       cma->available_count =3D cma->count =3D size >> PAGE_SHIFT;
-> -       cma->order_per_bit =3D order_per_bit;
-> -       *res_cma =3D cma;
->         totalcma_pages +=3D cma->count;
-> +       *res_cma =3D cma;
+> +  resets:
+> +    maxItems: 1
 > +
-> +       mutex_unlock(&cma_lock);
->
->         return 0;
->  }
->
->  static void __init cma_drop_area(struct cma *cma)
->  {
-> +       mutex_lock(&cma_lock);
->         totalcma_pages -=3D cma->count;
-> -       cma_area_count--;
-> +       cma_early_area_count--;
-> +       mutex_unlock(&cma_lock);
-> +}
+> +  reset-names:
+> +    items:
+> +      - const: core
 > +
-> +static int __init cma_check_memory(phys_addr_t base, phys_addr_t size)
-> +{
-> +       if (!size || !memblock_is_region_reserved(base, size))
-> +               return -EINVAL;
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
 > +
-> +       /*
-> +        * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement whic=
-h
-> +        * needs pageblock_order to be initialized. Let's enforce it.
-> +        */
-> +       if (!pageblock_order) {
-> +               pr_err("pageblock_order not yet initialized. Called durin=
-g early boot?\n");
-> +               return -EINVAL;
-> +       }
+> +additionalProperties: false
 > +
-> +       /* ensure minimal alignment required by mm core */
-> +       if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
-> +               return -EINVAL;
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
+> +    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
 > +
-> +       return 0;
->  }
->
->  /**
-> @@ -276,22 +316,9 @@ int __init cma_init_reserved_mem(phys_addr_t base, p=
-hys_addr_t size,
->         struct cma *cma;
->         int ret;
->
-> -       /* Sanity checks */
-> -       if (!size || !memblock_is_region_reserved(base, size))
-> -               return -EINVAL;
-> -
-> -       /*
-> -        * CMA uses CMA_MIN_ALIGNMENT_BYTES as alignment requirement whic=
-h
-> -        * needs pageblock_order to be initialized. Let's enforce it.
-> -        */
-> -       if (!pageblock_order) {
-> -               pr_err("pageblock_order not yet initialized. Called durin=
-g early boot?\n");
-> -               return -EINVAL;
-> -       }
-> -
-> -       /* ensure minimal alignment required by mm core */
-> -       if (!IS_ALIGNED(base | size, CMA_MIN_ALIGNMENT_BYTES))
-> -               return -EINVAL;
-> +       ret =3D cma_check_memory(base, size);
-> +       if (ret < 0)
-> +               return ret;
->
->         ret =3D cma_new_area(name, size, order_per_bit, &cma);
->         if (ret !=3D 0)
-> @@ -444,7 +471,7 @@ static int __init __cma_declare_contiguous_nid(phys_a=
-ddr_t *basep,
->         pr_debug("%s(size %pa, base %pa, limit %pa alignment %pa)\n",
->                 __func__, &size, &base, &limit, &alignment);
->
-> -       if (cma_area_count =3D=3D ARRAY_SIZE(cma_areas)) {
-> +       if (cma_early_area_count =3D=3D ARRAY_SIZE(cma_early_areas)) {
->                 pr_err("Not enough slots for CMA reserved regions!\n");
->                 return -ENOSPC;
->         }
-> @@ -1051,12 +1078,12 @@ bool cma_release_frozen(struct cma *cma, const st=
-ruct page *pages,
->         return true;
->  }
->
-> -int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data=
-)
-> +int cma_for_each_early_area(int (*it)(struct cma *cma, void *data), void=
- *data)
->  {
->         int i;
->
-> -       for (i =3D 0; i < cma_area_count; i++) {
-> -               int ret =3D it(&cma_areas[i], data);
-> +       for (i =3D 0; i < cma_early_area_count; i++) {
-> +               int ret =3D it(&cma_early_areas[i], data);
->
->                 if (ret)
->                         return ret;
-> @@ -1065,6 +1092,25 @@ int cma_for_each_area(int (*it)(struct cma *cma, v=
-oid *data), void *data)
->         return 0;
->  }
->
-> +int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data=
-)
-> +{
-> +       struct cma *cma;
+> +    bus {
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
 > +
-> +       mutex_lock(&cma_lock);
-> +
-> +       list_for_each_entry(cma, &cma_areas, node) {
-> +               int ret =3D it(cma, data);
-> +
-> +               if (ret) {
-> +                       mutex_unlock(&cma_lock);
-> +                       return ret;
-> +               }
-> +       }
-> +
-> +       mutex_unlock(&cma_lock);
-> +       return 0;
-> +}
-> +
->  bool cma_intersects(struct cma *cma, unsigned long start, unsigned long =
-end)
->  {
->         int r;
-> @@ -1147,3 +1193,74 @@ void __init *cma_reserve_early(struct cma *cma, un=
-signed long size)
->
->         return ret;
->  }
-> +
-> +struct cma *__init cma_create(phys_addr_t base, phys_addr_t size,
-> +                             unsigned int order_per_bit, const char *nam=
-e)
-> +{
-> +       struct cma *cma;
-> +       int ret;
-> +
-> +       ret =3D cma_check_memory(base, size);
-> +       if (ret < 0)
-> +               return ERR_PTR(ret);
-> +
-> +       cma =3D kzalloc_obj(*cma, GFP_KERNEL);
-> +       if (!cma)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       cma_init_area(cma, name, size, order_per_bit);
-> +       cma->ranges[0].base_pfn =3D PFN_DOWN(base);
-> +       cma->ranges[0].early_pfn =3D PFN_DOWN(base);
-> +       cma->ranges[0].count =3D cma->count;
-> +       cma->nranges =3D 1;
-> +
-> +       cma_activate_area(cma);
-> +
-> +       mutex_lock(&cma_lock);
-> +       list_add_tail(&cma->node, &cma_areas);
-> +       totalcma_pages +=3D cma->count;
-> +       cma_area_count++;
-> +       mutex_unlock(&cma_lock);
-> +
-> +       return cma;
-> +}
-> +
-> +void cma_free(struct cma *cma)
-> +{
-> +       unsigned int i;
-> +
-> +       /*
-> +        * Safety check to prevent a CMA with active allocations from bei=
-ng
-> +        * released.
-> +        */
-> +       for (i =3D 0; i < cma->nranges; i++) {
-> +               unsigned long nbits =3D cma_bitmap_maxno(cma, &cma->range=
-s[i]);
-> +
-> +               if (!bitmap_empty(cma->ranges[i].bitmap, nbits)) {
-> +                       WARN(1, "%s: range %u not empty\n", cma->name, i)=
-;
-> +                       return;
-> +               }
-> +       }
-> +
-> +       /* free reserved pages and the bitmap */
-> +       for (i =3D 0; i < cma->nranges; i++) {
-> +               struct cma_memrange *cmr =3D &cma->ranges[i];
-> +               unsigned long end_pfn, pfn;
-> +
-> +               end_pfn =3D cmr->base_pfn + cmr->count;
-> +               for (pfn =3D cmr->base_pfn; pfn < end_pfn; pfn++)
-> +                       free_reserved_page(pfn_to_page(pfn));
-> +
-> +               bitmap_free(cmr->bitmap);
-> +       }
-> +
-> +       mutex_destroy(&cma->alloc_mutex);
-> +
-> +       mutex_lock(&cma_lock);
-> +       totalcma_pages -=3D cma->count;
-> +       list_del(&cma->node);
-> +       cma_area_count--;
-> +       mutex_unlock(&cma_lock);
-> +
-> +       kfree(cma);
-> +}
-> diff --git a/mm/cma.h b/mm/cma.h
-> index c70180c36559..ae4db9819e38 100644
-> --- a/mm/cma.h
-> +++ b/mm/cma.h
-> @@ -41,6 +41,7 @@ struct cma {
->         unsigned long   available_count;
->         unsigned int order_per_bit; /* Order of pages represented by one =
-bit */
->         spinlock_t      lock;
-> +       struct list_head node;
->         struct mutex alloc_mutex;
->  #ifdef CONFIG_CMA_DEBUGFS
->         struct hlist_head mem_head;
-> @@ -71,8 +72,8 @@ enum cma_flags {
->         CMA_ACTIVATED,
->  };
->
-> -extern struct cma cma_areas[MAX_CMA_AREAS];
-> -extern unsigned int cma_area_count;
-> +extern struct cma cma_early_areas[MAX_EARLY_CMA_AREAS];
-> +extern unsigned int cma_early_area_count;
->
->  static inline unsigned long cma_bitmap_maxno(struct cma *cma,
->                 struct cma_memrange *cmr)
->
-> --
-> 2.54.0
->
+> +      crypto@fe370000 {
+> +        compatible =3D "rockchip,rk3588-crypto";
+> +        reg =3D <0x0 0xfe370000 0x0 0x2000>;
+> +        interrupts =3D <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH 0>;
+> +        clocks =3D <&scmi_clk SCMI_CRYPTO_CORE>, <&scmi_clk SCMI_ACLK_SE=
+CURE_NS>,
+> +                 <&scmi_clk SCMI_HCLK_SECURE_NS>;
+> +        clock-names =3D "core", "aclk", "hclk";
+> +        resets =3D <&scmi_reset SCMI_SRST_CRYPTO_CORE>;
+> +        reset-names =3D "core";
+> +        };
+> +    };
+> --=20
+> 2.47.3
+>=20
+>=20
+
+--lnzb2w2bbzyesomx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpO4uoACgkQ2O7X88g7
++poLJw/+Pzk9eEzX1y1FHDir56xZ0SvkUnHcQd6hDSo/cYXoDPI/bEjvV1FkUWdb
+UY5J/me4DR+Z9K/6o4Ny/3r76y1+iegrQxsAZ/57Bk1UXX4nEMEQgIlZB+R5Tz6p
+u983ikG6w0k6mKWvitDqoX6Eashfc7iuDDIxdsg6qli28cbTAuKLAf4B9+FO7vtS
+waRRXo7FGBtcEcGaQ4tlP4oDEblKPW4V2vqvZi0g+499VXzVqk/ZuC6p7PWqV0/P
+BwOKQ4i6KN/gLlIVwvZZTpZmPtJwf0ysUfac3IGaMx4etm/4VpfMgStSUOhunP5g
+PdMqBd+ngHhi5qsz4UV2SBUQTkyoxud8R17wyNNrFkVXSPcoWp7sHRFK+1TL9NEJ
+7051bUQAj9SgKPhLwWRqzbuXyBGO7JcOf8hrSEZOiK+oZ2prh/5MrBIvkUqqncWC
+9p3ofgB8GUCaIIJxFTtUlDiJq+Dv0myOCILfFf4yQ0DpiI6KIgjiv/WPqFbfzTtm
+0fTMntcelQq0pfs5xuJVIrvhr4A03iOBTHV6WcdaAp8J6CLrM5Kp7mZ7itucFcYH
+xikiyHPIFO9ma/wddIH1BPyXujMdWetPCeQ0MYNURRDuWDJlOKl7NuvwBLiWCNHL
+GhShK6+gbDc9PzA1WI/61mXVDhjO8fxjSc+6K9u+WEL0/J1A91Q=
+=aDYy
+-----END PGP SIGNATURE-----
+
+--lnzb2w2bbzyesomx--
