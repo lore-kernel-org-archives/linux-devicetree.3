@@ -1,126 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AFE34D3B9;
-	Wed,  8 Jul 2026 15:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783523897; cv=none; b=s1y2tot8i2WrU2/WKJcBBv7ipef+rJ6ypT4r5QyaVaxkDzmL1dFBV/6WIvus1ab5glba265i+ZS4Yx9e77grTqdmTqbSEGSwDqqPo96mHLMFXS2z7i2+Etgt3NvAhI6r7+w8Ar7qIGZZ+zpBI8s8tsGWN1VhwlmSEcScOtwWCk8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783523897; c=relaxed/simple;
-	bh=+sQepOX72FHIzxlHgVnlsfWaCrzOAAD7272q+UU9PR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ubV2Cv4BjRj9Bva2FEvVFEcje6wmT74uPdk5BeJgaKYOnfzVkBNGStYXnRewiyNOeWfTV92PkE+6HIHn0QPt35xsEDJNwLWhHYg/0vwc7zgOkkKJOm23W/ucngwVCwO1bIa0AAQ/7CwJbhgPxX6XvFGjWvQpPupXrh2xJDCANWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuWS6g2R; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E3A3839A8
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 15:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783524009; cv=pass; b=EOK+zomjQRiQ3Uf02jc8vwAynkaKJ2FoxNnUNbEN3vIMuxRRw/fhbblej+C5c/iYs6n1fqG7aubzOt0PacO32zhagfQH6TNszCDQzyOmdRfos1R1g2BlG5tMfxjbVuqG39HvK6YxGOHdkEtwE62iyX7YdEwOrrqfPju4ZCSppJA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783524009; c=relaxed/simple;
+	bh=x249OaL4JY8Ml6bMUfTSabz+1wUJi+34aoe0uUEkz4Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ON7xuZRBt7dsYt3Q+AzIMCRwXzynU2zJMdDG6S+uxUeD0QXUUUOmwJCLC5VdQyxymBcqnaXatvWFwASFt5inq+lfLDZN9wFjd2w5tRo/pwglUQ+T7jxstanu7OFz7Nm9WJRYlUaxnNyR2hxt28pxNtnl+pA7n/28TNSAV/esDXA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y1vz0qAV; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuWS6g2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276FB1F000E9;
-	Wed,  8 Jul 2026 15:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783523896;
-	bh=NeJgD5RqeYSgUCKAd7pwkGxapxLIfd4GsKatP9ijw/Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OuWS6g2RA5H6l2xX1Q+gKsHNxQTM4CZM4PoD8otYQrcx4Q5MCIvq965nn35X7Gqsx
-	 7FjnAWSIlEo97mgYC7B4Wp9x5Q92hwXxodYTsFBYCSf75MOGA6nzsOUtzGOom71jP0
-	 Pc92yl33S5mF/k1dfXOtkyxkx16NwI5rArIHy6Qs/Dd46FUqhdVZc3b7GFP+XYD2NR
-	 83QD64q1k2koBpNUK2Wkf4mfX9xER5kD45ukfujjWWApvvAWi0aBUne+1wov6iChCT
-	 oSfSX0DVj7gMYf9Owf+WbvNEtvcVxw7e04enxB4t1DJJMHUvSB0uEf3UNH8M0+bGP1
-	 T/1kUnecBZskQ==
-Date: Wed, 8 Jul 2026 10:18:13 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/6] dt-bindings: iommu: arm,smmu: Document
- interconnects property
-Message-ID: <ak5pC_meP8KRc3wJ@baldur>
-References: <20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com>
- <20260706-smmu_interconnect_addition-v3-1-afdca0125a65@oss.qualcomm.com>
- <nrht4irqtvt2vk3lrqvljonarc4kanht2nrwjt7pppsfhozffv@o4xei47l6gcj>
- <e8b247d9-d60d-497f-a831-a9772d27481a@oss.qualcomm.com>
- <phlk6zsxr7szdadsvgoecf7ewcqjkuaj5aeqmfqa4uvvvvnsmj@57u2pofxewuh>
- <4e266d45-ee88-42f8-91da-6253927686ae@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y1vz0qAV"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15ca7a7ca9so87885866b.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 08:20:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783524007; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UUkdGpt6wk/UVbGuRwM7n7h4GRIvZPJmvPrNleguXIJDsHA/SLS281N5X64JXZv80i
+         atLKUZobHW7PCyM72LpT8W1rmsvIvS27FsSvmxSaSxHE2tEcFDSbE0J7dLxlr6ByMCYt
+         XWd3jZ2SffKlF2u5k8qV9MPPjlw2NbPvuiLa/qoarzvi2gFb2T6yrWZWO7biW0g8j4mT
+         bXURFyKppcoJ168A4iOV8wleQD97estCXv9sdsesvWStwJCaVCIkUtwra82AxOZAcNFn
+         XExZgf1gYwR1SdKXE1nQSS4zOv/piztMsXOxqqSzRsG5JoH7E6t4BbYPD5hw7Mclk2b2
+         T/qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=x249OaL4JY8Ml6bMUfTSabz+1wUJi+34aoe0uUEkz4Y=;
+        fh=HAMTEBn2Z6tRJt8WQqH8JyfoP4UKZIRynpIVp2FfwM4=;
+        b=VaoJ76K1odpoYl7CIs2gOIODcFuPtYX1Te9/xuhoOBerNS7rlkC+l0sHHr5IdypQ/x
+         TcMqpdR8ubfDLFDp3bIQmUBnHVHxOglJ0Rs0wdYA2GjWaLjRy22h4J47TwD/QuaCbqe4
+         1m/TtHAQ/CilO7RhOVXdGI9nrWE/nGrI3pWGJyfT1/pJ84vl9EiPSyiZ+LZMtsFd4YJJ
+         kiz7LZRhCApRgPUyPtI+/cjAyeTO7VxRyc3qp1JHObXYT+p2xtEWSg+5xXtpz0I0CtPr
+         Tj2Gg1bLIpnZjzxqVxYJ0GqM72Mt+pEqon3G+gmBXujXU0gAoUFt0vzMmIeHtIQAJQI6
+         u2pg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783524007; x=1784128807; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x249OaL4JY8Ml6bMUfTSabz+1wUJi+34aoe0uUEkz4Y=;
+        b=Y1vz0qAVKjJijtFqO9xThPf2tbVEsVzMPvHIDxIyXIngjH4n3dhSzfBJ0kO/pPWgeA
+         LRBLY/pSZax13hgisfuxTgXTfh20+8c35QK23eykJeXZq/X5Jw/dCA7D3cDG4XawyM/U
+         iHjZ72N6Q1gRh7TeGltXJAa08YcLBT0MHADGbmnHafHD1nLyPUe1XkjGOU09dwGLfCuA
+         URwi4Pb0/JIDV65LTXvCW7wR9lJpcPhevgPwG+720DRUPaRMW6O3CNMrmeB/iEohcfit
+         ORfGudGhsvgOezyVSDxtnJF3Q3M7ej/sGLfwK9MZxUwZaiK9SMxEaWrB0i/Qp6LoAwEo
+         rnmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783524007; x=1784128807;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=x249OaL4JY8Ml6bMUfTSabz+1wUJi+34aoe0uUEkz4Y=;
+        b=eRs4QsY0EwV16AkTh/6IVB0TzhipQLcHRzkXe9lJJkRSqIueu7rZSGO/8fKvPQz3A5
+         hyIWommWy155V7gPsGcDVsRNRGi2FUA4xX6kDEGOwa8qM6m6xCClFr1e9LIeTWnzwgaX
+         WS5scgOgwwDk3WR4pFG6cjt0Rr5eXRtQOebz6uT/FsCJn37aLkuBZMMnhzIHe6AfAqQf
+         MNRN1eif/zeuNIjxbKXnqS1KJ42vajoE7jsseU97seFYH+GkXBI1i/BnH4p/vs9PqjBY
+         vo+JrGMZ8iz6mPNqQdIIdmUz4gKU+9QNPN8mXP9YSGAsmdHauBKmfi1i7mX68tEG0I7B
+         LG2A==
+X-Forwarded-Encrypted: i=1; AHgh+RpTCRZtwaVt9r3QcCfRfUYNc4OVAQOWEUmmYvAN3GOWKonKl0G2XJ9WQS84Acr+j8o/nYYhiIRmvx+q@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+PZdHQcVlVy510v8HXh4b8qPIBadJQD3gbSdXVZG6CoSUp8LF
+	Tk/KdLh8TMN+puTQGByiuIbMhXLblwViv4dOW+f0ewL6h+pbrFLcAmyRTbLbUvl9kBWdGeOWGG1
+	JNKa7xh9JIXxxRFJhCvlFkt4jmJOcQSI=
+X-Gm-Gg: AfdE7ckT5xDXEzxkowQc2mEeI0RA7uCJKqTzdRS6iDofl2gdeWNDmPweiC5mzrk082f
+	iWieDat1UI0Wi0A9T+v3PJg7+q2SesEmYIRaltln97BAfFkpYurcqBu2ICAve6we1wFvl67Gg99
+	aGQ/nooRH5a75eNXJ3JzfaFHoU8XXfxfilWM1Hpv9oF7xBcUL49UO8k4OcCIEYUrzhZ96b+Uxuv
+	zp/FfUt0G5SxvaLDBFh3tyneoYjSXX3D2THL7hg4DJio2r2ZwScpvkFLrRyd3nToRUL2hQ7+5lq
+	VPtHy4HGdOzqkeMkRb7pbsnzkpLoSNGcy5RFkrAhqMIZiK2rpTj/KrUTDizn
+X-Received: by 2002:a17:906:c10b:b0:c11:efec:6ca9 with SMTP id
+ a640c23a62f3a-c15cdfe6c2cmr151638566b.8.1783524006447; Wed, 08 Jul 2026
+ 08:20:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4e266d45-ee88-42f8-91da-6253927686ae@oss.qualcomm.com>
+References: <20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com>
+ <20260702-hm1092-driver-v3-2-85faa7ff4fec@gmail.com> <akkRRCaZMRyoWDt7@kekkonen.localdomain>
+ <CAJTcUFQ3CJQhEv_N7L22FmQSJsGpfMvKO1F5wiEarNca5VmV5g@mail.gmail.com> <ak4DfkbDlIvsGY_u@kekkonen.localdomain>
+In-Reply-To: <ak4DfkbDlIvsGY_u@kekkonen.localdomain>
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Date: Wed, 8 Jul 2026 20:49:54 +0530
+X-Gm-Features: AVVi8Cc439u3XEK-4T29XYZN9pnFk6mhtHu9iHtSI7aq2I5-tW8zXJ2xwPEpgZg
+Message-ID: <CAJTcUFSp6Y3NB5q+-DyPqS+E_KH40hhq3mJMBi5hnfcGT=wxjg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR
+ sensor driver
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Jul 08, 2026 at 08:22:00PM +0530, Bibek Kumar Patro wrote:
-> 
-> 
-> On 7/7/2026 10:12 PM, Dmitry Baryshkov wrote:
-> > On Tue, Jul 07, 2026 at 06:06:59PM +0530, Bibek Kumar Patro wrote:
-> > > 
-> > > 
-> > > On 7/6/2026 11:09 PM, Dmitry Baryshkov wrote:
-> > > > On Mon, Jul 06, 2026 at 10:26:34PM +0530, Bibek Kumar Patro wrote:
-> > > > > Some SoC implementations require a bandwidth vote on an interconnect
-> > > > > path before the SMMU register space is accessible. Add the optional
-> > > > 
-> > > > Why is it limited only to those SoCs? Is it also applicable to other
-> > > > Qualcomm SoCs?
-> > > > 
-> > > 
-> > > I was hoping to keep this series focused on the core infrastructure
-> > > changes: the bindings, base ICC bandwidth-voting support, and DT
-> > > interconnect properties for the platforms currently supported on
-> > > Qualcomm Linux and have been validated so far.
-> > > 
-> > > The additional targets have not been tested yet, so I'd prefer
-> > > to add their support in a separate follow-up series once validation
-> > > is complete, rather than growing this series further. WDYT?
-> > 
-> > Then it should be a part of the commit message. All SoCs since SDM12345
-> > need to vote on the interconnect (and then, in the cover letter mention
-> > that you convert only a few of the SoCs). We possibly can help with
-> > testing on other platforms.
-> > 
-> 
-> Ack, sounds reasonable.
-> I'll add the first platform onwards which interconnect voting is required in
-> commit description.
+Hi Sakari,
 
-But to what degree is this related to a specific set of platforms? If we
-look ahead, aren't we expecting the list to grow to include all
-platforms in the end - resulting in a lot of noise and churn.
-
-Can you give an example of a platform where there is no interconnect
-path to vote for here or where it would be harmful to do so?
-
-> And update the cover letter to clarify that this series adds
-> support for the Qualcomm Linux-supported targets available today, and
-> the list will be expanded in follow-up series as additional platforms
-> are enabled.
-> 
-
-The binding should not reflect what has been implemented and verified in
-Linux, it defines the contract between DeviceTree and the OS.
+It's all good regarding my name, the review didn't miss any details.
+I already sent v4, I will drop the data-lane property entirely and add
+the other API elements required by libcamera in v5.
 
 Regards,
-Bjorn
-
-> Thanks & regards,
-> Bibek
-> 
-> > > > > 'interconnects' property to the binding to allow platform DT nodes
-> > > > > to describe this path.
-> > > > > 
-> > > > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > > > > Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> > > > > ---
-> > > > >    .../devicetree/bindings/iommu/arm,smmu.yaml        | 27 ++++++++++++++++++++++
-> > > > >    1 file changed, 27 insertions(+)
-> > > > > 
-> > 
-> 
+Ramshouriesh R
