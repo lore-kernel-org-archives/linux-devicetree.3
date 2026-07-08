@@ -1,220 +1,257 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87CA386576
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:01:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D464E38836E
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783504896; cv=none; b=n5xNvLQbkT9uVO46LEiHRZtDg1whnnBvUAV6CP01DOlrxLMX8FFtP4BiPCCaNv31gX0rE0qo6SIjGtezRSQV4aQKav+Zzl6d+d/pUet75o+BaXC7A4lpcffsNo85ew8DwRS2GLYhw+Vj/PpYkiwv9DdH4l0/KgyAaJEFjJ54dBw=
+	t=1783504968; cv=none; b=a1XURbPohgzSp4X6shYqPwrjq7Uyb/TquCguKOOgTCC7Ze6BOiVZbNkeNIEUtbMZ0j6c8wov9kxiklI+ey8unjlOs5tFKPWv8Op/vJk4d7wsIUsbgEyAzf+vV4cAx+PBJ0uunYarKW50guLd5Tq05EFGKL8WC6ipf0n1o1ckLOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783504896; c=relaxed/simple;
-	bh=oKVfH/0Hygcklu+R5xYMT12z1eblv56XDMwOFHZZNzQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=og2Jr72dxx7ikhHyracgl/IrPrJZ0kM5SDc13vpabU2YgB0YN4hZUSSGdPqNy/hOI0tIGd8Od/BW2SxUnyxZCaiBr/dPcmSemW62nFv2PZyyljEhUbegfIc66UGpkzotrKguTX14U6aK9wu+IYoi5Foia/WFI0q7wSaFwaTsh34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oltHG4ZG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iSCCQCEB; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1783504968; c=relaxed/simple;
+	bh=kLPAtgBR2B9n0/tWDeaqoBhx/cWXwoNhZjVj+IFDhso=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r6ettexf+ds1LpVCeuRW7MDtDkqIght5cAz4MOP5qgbECG29Hm+pMIwlFlyaWgktqB1uAWah0W6bZ31xE1zY/rggsoO47ihaE1S9UOtDAnHxeyZs/Q/OzUikfeLXGnsZiaviuu+sDHKrAFPoWKxXlWPEdPmORDOJhcgqxz+z3pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nph7W2GH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ayjFEeqz; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oltHG4ZG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iSCCQCEB"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66889EUt2231152
-	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 10:01:33 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nph7W2GH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ayjFEeqz"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66889ffu2051950
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 10:02:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XQ9AX7OhkLOaP+j4lLrbeTNcxF7e4kwK6kGQsbCEXA8=; b=oltHG4ZG0U80gfpJ
-	tYRua4KBzGf901wPuYRVh2i5a1FPhwH/fr5a0zAjX3VDEublxoHPSvbZVaHRjjT5
-	CVNGhLqADIgdvEh+ShfpeXP7RXFgIQ32QbejmmRBpxzEg243jUP69Vl3QIpt/3ue
-	wOlVnwQMI5cMt5cnRPvam1Gpq/+FxAldRghc0cFUCAhGcdwDssjsTTQtE/2Cv2ZD
-	IWjMXV6OPjWh7LeTjXNlTovAKeiijLRzgWQqQQt4W9x5DEJhXHA5z98Sm5mYdGVJ
-	a1ACK+xTymCfENv1pL85ypKsPEXw7JDCXTDpWaCUDQ4ZEwRMav11ZN4OetgL0ZVW
-	+LRCmw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f95e5uvx6-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=2r+hMVsWqtKsqmd4HAjb0p
+	75kMs47h2LOovg2koAXzw=; b=Nph7W2GHCwmxZXjEzMtow348148coXiq5n68dL
+	YwhLj7p1lx93+DcFLl1tjUa85PaRHg5TknrEaJfJ+8OIMRy+Pcn0RHJ7rti9m5Zr
+	0GrwTvF6RR+q8FhTSgYX4nHftpV/rq23ZQdGqzArvLRJIwQWIq7nBfxqxAfR0j8F
+	GuNwXDQUgn5lnOcOXSOLBK9EjOl29tfG/jkr90Dm3CgioOnwqA/WuHXcjJZjAd2x
+	bInB2pou+427N+MXVImAm3xhQ9o2DRtH4T9+bhZ2rYRlAqZq90lbp3Gj9RQcByX1
+	kun7yvCM4+mdeBZy4CoutFDUXUw5TxRgjEuuRpJXtWszY4EA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9b5ga6gp-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 10:01:33 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-845e6a11332so893035b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 03:01:33 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 10:02:44 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38096521198so1097617a91.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 03:02:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783504893; x=1784109693; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XQ9AX7OhkLOaP+j4lLrbeTNcxF7e4kwK6kGQsbCEXA8=;
-        b=iSCCQCEBF2iep+w3thlr7rHKWYt30xzMplEk9qjon3uBwp6Ggx7LN9IShcbHOqg5Fi
-         A1AvhZENbeL9oaKGsHRbL9sQDTxP9leUs6tz4dwrmUOYnEG8bTSP13+aLLHM0EyTDENQ
-         wkpdvUmIa+RW3SoHIBpzwf0MBnePNzOqL8Vxic5bsSPIdFfVtO/5+Czcjd9hnUosSVkw
-         ys25jiBE3DxfZGQYr9RnNQGcAPi9AbGoOTwQEQ6SYuA7bRKbuWv/EaokTg/zIsnD0AZ8
-         l5v24dJ+ah1q00WOOOwjTIO0DZXX2IeR+tptJ8PyVO5UgufJpWbv8PFxCU1dGFkXhhRt
-         eSLQ==
+        d=oss.qualcomm.com; s=google; t=1783504964; x=1784109764; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2r+hMVsWqtKsqmd4HAjb0p75kMs47h2LOovg2koAXzw=;
+        b=ayjFEeqzbUnh9eLlBSNHRd8CVVVbln00Pt9FgS474WmODwckDoQcbS8FmBK5TWqAP8
+         MYA40hfEAPh/CcwOtFZMpqAGAM7yWSjXH9NMBvma+FdCZvMMuXwboo4s+l7Zt+CER8a6
+         H5Y3Xpqa3SFXaacmaQ9VD91J4ooDUAk0oaW9XcDSzqBP/dpwXyTdwuLy5v1HZPZ38pUb
+         rGfqzl+Dd/eoCrV5Y1sTrHXxyBe9bixJFxhkC+MNS3TfCCuVngVnNTGB0v/jZN4sgoe6
+         eeP53/5oeyGoivx6c4BKrTdqnHcrqTI+QK6HTrX+DqWtJ/beCepvRdivn84KN6rs4UTH
+         w1aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783504893; x=1784109693;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XQ9AX7OhkLOaP+j4lLrbeTNcxF7e4kwK6kGQsbCEXA8=;
-        b=rM7GRWqSygy9TSV60mMKxVU1i81iNPOwOb1aVV1YvEhF6rXtVGWRrOFtcwuSDILMxD
-         YT7c9UxalhoZBkCXDjJZL+InW5B7L20vKWOkt/HrSpduwc/gvYawtxGLcFfsj+I+yrLX
-         kiozfnghN6NXPuPn5Vbk2Lo6R/+1bg9w7QFkQ1kkYWJiNKeCp7PAyA3dxeUF70f0AbAm
-         FtZ1abbAPICssRz0m6LYdmaH3NzDF5By/hVykRw2ThlZpacv2Lep8/Ia50qUn8CeQQvT
-         d0gVPFGbc/VuURtmKAIMnugrFC1p/V+4kikEwaWI/uTnFgXBhj8QDr1yccsPQoQ4zgaO
-         UCUg==
-X-Forwarded-Encrypted: i=1; AHgh+RoIpoXlMg0ioxPQDUHzE0vBHlL0JJZQpxCr4WijmuWFV/RcJwAgL0FT0XCSaOi6Pe4A4JiGqiJWSoTy@vger.kernel.org
-X-Gm-Message-State: AOJu0YxvBQSLhGQCLnQecu5Q6cvShKxspA8m8yXUnMlIQW9FNj2kHaFT
-	uwWE6X8cMuGZwKrvc6Ta6QyMpL3epWwGbUYg0gBu19lLgfsVI2awiwJkHO60L/mVXpW7vYXebk2
-	/E7uygy4TdwSPSrkydnsCamrRD0XfkbOICuBUf9QBzSRosZ6pX+FNpsaXZqM0Co3R
-X-Gm-Gg: AfdE7clMeWDlztpIs4r2q0VzV8gFlF3Ag4POdbB+w19Gv1O9qR0RmbWqNqQpVYvk6Yn
-	KgXw4KGTg35XC6LQHNSIwBW427uVO4vsFNAUgTP8HbLOXud0Lff54g2/H3Rte9p/xay74wePAyk
-	68KnTj0I8fIWvR1h9F3Suu7tg5W2pOCXa4Rx73+h8f/5DTbphJWs8CLJdHyOSPKYcg+uigqT23N
-	U9jEdSO+xxxQ8mrpvChdylfRJWDzrentfsrF677AJN+xlhcRc+KRGPTR0EZKCrWNpFwYsyGk+ov
-	JcIl2449WvEtOn7LE0CM3i2VzhgfI36tQw4sQuxY1hnEb3WgiF1gKQLgd3mr7uhgJTDWR65TSOg
-	rILGn5n3dzd5KDsa+bLuBM7A02nPB2Xzth8Z2/sw=
-X-Received: by 2002:a05:6a00:2e24:b0:82f:3a1e:5618 with SMTP id d2e1a72fcca58-84842ee9c8emr1865562b3a.22.1783504892625;
-        Wed, 08 Jul 2026 03:01:32 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2e24:b0:82f:3a1e:5618 with SMTP id d2e1a72fcca58-84842ee9c8emr1865535b3a.22.1783504892128;
-        Wed, 08 Jul 2026 03:01:32 -0700 (PDT)
-Received: from [10.219.56.198] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6d4e741sm6916358b3a.28.2026.07.08.03.01.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 03:01:31 -0700 (PDT)
-Message-ID: <4e5a3d82-b946-4490-885a-ea7061939c32@oss.qualcomm.com>
-Date: Wed, 8 Jul 2026 15:31:07 +0530
+        d=1e100.net; s=20251104; t=1783504964; x=1784109764;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2r+hMVsWqtKsqmd4HAjb0p75kMs47h2LOovg2koAXzw=;
+        b=sODn1fki8vt5lSXvMSX8+YtvGYrSMLjW/DAsg/cT/1EBggyxPIkQnVh7Am/ZQISBop
+         2UYw6TjQ+Wma8ML5DBHBnOALTD83DaVu6k18QZRGQgoWLUNqhYHFJAStbrGR+szwCS8G
+         KhkE06UxcLSEsja9+pAbuylJoLBhR0VaWpDrEQ4Fywa/br07ia+b4tRKC8YDrLSpiLgT
+         quTSdYCJRHNO2SM5nHaHvnew+WARudVONgJf8n07S8UcDjH/W09EeTXcKUHozW4dJIYH
+         kebulSULm4G9jUfISvuPehaPe8Y/7lCN2n6LCsYlArx1UgNd92PDqD0TIanU2oXfMDxI
+         ZKRA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3QEfp4DSxXf4A7SxvKGzrUZdhRcUzYtYHhgrziJFLJIIy6nMFoh/V7fzE9rjIOq29oKvbxCKyvDX3@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTbRv/EKOJB7lscUJeeDOLxLYd7qB/4Zb03mH4Sa/jym9IJyy4
+	Kym2sZZhfu4kmvIw1+/uHn3JIq7+BD8R/EuIPZF8uhQTz/CiQeKHVA2vyAinT7svkEc9lrUl4kK
+	9Qq3IBWpS9FLTb2gXZACViMXePhotAbFFKsBIZrhph8F/e+pv0dlKg2NOfZlSdxwqi1bcrdxuNb
+	o=
+X-Gm-Gg: AfdE7clozHuLtBp8mFV5YkhJLVwYKkBHoyijyv/mchwj//94ZYY0jzXMo8gYxgL64io
+	F4Tlfg7BBaphODEyL5RDC4RGVZIE0UCoPlDNsAqnaDgZUFxQhYXp+7nspp9VVdUU+AIAPPkb+c0
+	MkdGCGU+GuEKd7EPHLDuJ7XKGu26kBrvJhTfiQi2fo29OBAZR4VVIQiNWOF0m3OYatwjE+4SgsJ
+	fgpgnABxhAoK2TTM283aiPMZh8KhS9WM4VHl6/W6z3eU+HXbBxvM9LcNe7XvHFOuZUvTr7Ipx4B
+	wi2MWb7zGbnEO4SyPQGxSkOEd+JA2ae3sCFfpwMisEtDbL4N5iZa7FXiqms4Kx/Kkr4G4wkFdmn
+	7Xrfhz8aipe/nGIu4IObcKN1OwxrQ+H+UcfQnuT9sloJ/HCM2ZALD/ORvLA==
+X-Received: by 2002:a17:90b:2e8e:b0:387:df8f:1401 with SMTP id 98e67ed59e1d1-38942b81d57mr1877709a91.34.1783504963984;
+        Wed, 08 Jul 2026 03:02:43 -0700 (PDT)
+X-Received: by 2002:a17:90b:2e8e:b0:387:df8f:1401 with SMTP id 98e67ed59e1d1-38942b81d57mr1877653a91.34.1783504963481;
+        Wed, 08 Jul 2026 03:02:43 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-389098609c9sm875741a91.13.2026.07.08.03.02.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 03:02:43 -0700 (PDT)
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Subject: [PATCH v8 0/7] clk: qcom: Add common clkref support and migrate
+ Glymur and Mahua
+Date: Wed, 08 Jul 2026 03:02:37 -0700
+Message-Id: <20260708-tcsr_qref_0708-v8-0-62c42b5fa269@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/6] arm64: dts: qcom: kodiak: Add GEM_NOC interconnect
- for adreno SMMU
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com>
- <20260706-smmu_interconnect_addition-v3-3-afdca0125a65@oss.qualcomm.com>
- <h6opbtr2ced3sannj3ym573qc2sjk7ek3clpto5j5mtqfrfk6w@34sk2zraoqtj>
- <807f145d-88d3-460a-9862-b63fe2a52cf7@oss.qualcomm.com>
- <a4f5sod3aflubxkk4mm4k5ozddydqcnqeac4s6vnozkd2nvxbi@hmh6zclsw5z3>
-Content-Language: en-US
-From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-In-Reply-To: <a4f5sod3aflubxkk4mm4k5ozddydqcnqeac4s6vnozkd2nvxbi@hmh6zclsw5z3>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 0V77a3ikVwRySZPKuqDexCqqQ30j9EiT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA5NiBTYWx0ZWRfXyolePwIMs7ET
- +b3W/CbwmgZbXj+nJ1SY1u7XK7AJzDuQEUshsU8YrkuTHTZaXPU6jjiCI2xpiiDbrw8pm2/Rhjz
- H96QalkZnRe0KXElJ5M1B/N5Jdsd3+c=
-X-Authority-Analysis: v=2.4 cv=CNoamxrD c=1 sm=1 tr=0 ts=6a4e1ffd cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+X-B4-Tracking: v=1; b=H4sIAD0gTmoC/yXMyw5AMBCF4VeRWZM0SFteRURoB2Ph0kEk4t1VL
+ b+cnP8GRkfIUEY3ODyJaZk9dByBGdt5wISsN6QilUIJneyGXbM57JvArBBWGqmsyhX40+oXukK
+ wqn/z0U1o9q8Cz/MCPAUuYnIAAAA=
+X-Change-ID: 20260708-tcsr_qref_0708-390d6c67d747
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-hardening@vger.kernel.org, Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783504962; l=5886;
+ i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
+ bh=kLPAtgBR2B9n0/tWDeaqoBhx/cWXwoNhZjVj+IFDhso=;
+ b=+lwYvNIQtslePr+gUJPGEnJhsdN9NSKeWNKwFj+A1H1IiBmVRaYP1lHkwZwe3A4o2ubPAGqH9
+ HUBWEikOQSODJceOcNYxWQJJasHP9ziG968hdlla+kQfCHuixxyDerB
+X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
+ pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDA5NiBTYWx0ZWRfX/3jFfqWGYsSR
+ wDuQhqRikWz1o/HeMR1JrdhzIDYpFheYJc8AsDwxat5lIqeWUV9XbQVhPYEmkx8x2Hs8ll39PdH
+ gOkYjJvOtzGq+OehZEgHeAdPF5bDais=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA5NiBTYWx0ZWRfXwJTZBaDVsNkq
+ I/uHZka/KmeVURK7kwX/F5krFZ3SdNm57fEv/ChzcKrZYF8FaHlFukIhOwLQygXOZdU2/g/qcTN
+ cZy5qrEtyZHRunqwMNkqofEn+kByIKyTDzYi4/69rxrbCX2dihG0QJGo51m2wo3EpoXSOT+EDy+
+ +ZT/QPMtjo7xzCljkj3D5ynYHW98yM703HlS7HkRHBWqqVFG1qKMeCihqL1CTs3Yp51PORyCmq5
+ 04/Ax9eICEhI2z7LmM4wEvsa+jqXNgCa4H7Q41TZ7/pNdLvBGj4yoYgCpXTf6OFoFNidOKyRRnx
+ N6Q3bxsX3V4IdLhl6xJhPSTjeZSFzsSvG+Xph26z7b9kZWbtdgq2yUlmospZseFq+4AdwmuI3+Y
+ DdDiNbbGdPEP3rDUZlNsSMrCqjtt30NQIyet/apC5Fvig1uVuug6UalhVJ5P2pGc6Fl0SLVVbo1
+ CXDAGCejYl6oxxyzAqg==
+X-Proofpoint-ORIG-GUID: C0IuTqQl3316e-O7dCj9Q8O9nqQ-k0CD
+X-Authority-Analysis: v=2.4 cv=JLULdcKb c=1 sm=1 tr=0 ts=6a4e2045 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=Gb3r-SE-3tiIfwJ9XNYA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: 0V77a3ikVwRySZPKuqDexCqqQ30j9EiT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDA5NiBTYWx0ZWRfX0+2PTZHTHIEt
- mcPT29MvQ31WYimQ6aysMXm/JN4mSyurQoDosbmEUEJYltUArD0stmBN0DcqDpMcUaaV+9MOqpR
- KifZEsjPlKW9fRyi1+pLj+CYAaFIQuPGe08wUNVsKNJtaj44BAXKD+tVgNZbHLRYfQcFC1ReGUD
- WsS+ixcBmduy7ETv5GQQhwUzpumydJtM6shcWlkWLQoa/p8/oOLmvOs70IrFwrzc+3iZvU8IOXc
- 5oQDSGbVhh+kBmKhHv5CY+qZQkr7PWjcR4kCUUXQk4QjHHOdhxN6H4MG9grELxeNF9+89/qmxpK
- M8N3VKuyvcjKzgdt258rSyNNe4mxY+dFFRu72B37Sdpxwz9Gjmw11ynqu4RichOesGn32lDBy+Y
- BMg3TG5bCYrK8iBIE+LYJafDkzD/1qTSZZtlU9TzuuBPd5qY4Tw17DE0Xpo1nGKCQ34wTEtGtwA
- 4Kw1iz0lOb77l/KNyXQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=zitRP-D0AAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8
+ a=VBF_zcjmYl_iqrD6TbIA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=xwnAI6pc5liRhupp6brZ:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: C0IuTqQl3316e-O7dCj9Q8O9nqQ-k0CD
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-08_01,2026-07-06_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 adultscore=0 phishscore=0 impostorscore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
+ suspectscore=0 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080096
 
+This series adds a common clkref_en implementation and converts glymur
+and mahua to use it, along with the related binding and DTS updates.
 
+The PCIe clkref clocks on Glymur and Mahua gate the QREF block which
+provides reference clocks to the PCIe PHYs. QREF requires LDO supplies
+and a reference voltage from the refgen block to operate. The refgen
+block itself requires vdda-refgen_0p9 and vdda-refgen_1p2 LDOs to
+function.
 
-On 7/7/2026 10:14 PM, Dmitry Baryshkov wrote:
-> On Tue, Jul 07, 2026 at 06:37:24PM +0530, Bibek Kumar Patro wrote:
->>
->>
->> On 7/6/2026 11:12 PM, Dmitry Baryshkov wrote:
->>> On Mon, Jul 06, 2026 at 10:26:36PM +0530, Bibek Kumar Patro wrote:
->>>> On Kodiak platforms, the Adreno SMMU requires a bandwidth vote on
->>>> the GEM_NOC path (MASTER_GPU_TCU -> SLAVE_EBI1) before its registers
->>>> are accessible. Without this vote, the SMMU may become unreachable,
->>>> leading to intermittent probe failures and runtime issues.
->>>>
->>>> Add the required interconnect to ensure reliable register access.
->>>>
->>>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
->>>> ---
->>>>    arch/arm64/boot/dts/qcom/kodiak.dtsi | 2 ++
->>>>    1 file changed, 2 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>>> index 90e50c245c0c..721526f023dd 100644
->>>> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>>> @@ -3389,6 +3389,8 @@ adreno_smmu: iommu@3da0000 {
->>>>    			power-domains = <&gpucc GPU_CC_CX_GDSC>;
->>>>    			dma-coherent;
->>>> +			interconnects = <&gem_noc MASTER_GPU_TCU QCOM_ICC_TAG_ALWAYS
->>>> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
->>>
->>> Why is it ALWAYS? Would it be better to declare it as ACTIVE_ONLY and
->>
->> Added QCOM_ICC_TAG_ALWAYS, to hold the vote in SLEEP bucket as well
->> preventing gem_noc going to sleep when icc_set_bw is being called.
-> 
-> _why_?
-> 
+Previously, these QREF votes were done in PHY drivers. In earlier
+discussion [1], the feedback was that this is the wrong ownership point:
+those supplies are for the QREF controlled by clkref registers, not for
+the PHY directly. Based on that feedback, this series keeps the
+regulator handling with the clkref control path.
 
-Now when i think of where we implemented the hooks, ALWAYS is not 
-needed. We should keep it ACTIVE_ONLY since we are already voting it
-back in resume pah. I'll fix it in next revision.
+Another reason for this series is reuse. clkref_en registers may live in
+different blocks across platforms (for example TCSR on Glymur, TLMM on
+SM8750 [2]), while the behavior is the same. The common helper lets each
+driver provide simple descriptors (name, offset, optional supplies) and
+reuse shared registration and runtime logic.
 
->>
->>> then drop the extra suspend/resume play?
->>
->> Not sure if I understood it correctly.
->> Did you mean the extra suspend/resume play in arm_smmu_runtime_suspend
->> or in arm_smmu_device_shutdown() path?
-> 
-> runtime_suspend/resume. I might be incorrect here, but I think it is
-> exactly what you need.
-> 
+Glymur and Mahua share the same QREF TX/RPT/RX component naming but
+have different PCIe QREF topologies. Both are handled in tcsrcc-glymur.c
+via match_data to select the correct descriptor table per compatible.
 
-Yes, I think we should go with the ACTIVE_ONLY flag and we would need
-this voting in suspend resume path (For the same reason mentioned in 
-commit description and cover letter of the series).
+[1] https://lore.kernel.org/lkml/aEBfV2M-ZqDF7aRz@hovoldconsulting.com/
+[2] https://lore.kernel.org/linux-arm-msm/20260202-topic-8750_tcsr-v1-0-cd7e6648c64f@oss.qualcomm.com/
 
-ALWAYS would avoid the need for this handling, it would keep the vote 
-active unnecessarily, but still that would have been nondeterministic.
+Changes in v8:
+  - Define refs with __counted_by(num_refs) and make provider a single allocation
+  - Use mahua_tcsr_tx1_rpt012_rx2_regulators for PCIe6.
+  - Link to v7: https://lore.kernel.org/all/20260702-tcsr_qref_0702-v7-0-776f2811b7af@oss.qualcomm.com/
 
-Thanks & regards,
-Bibek
+Changes in v7:
+  - Define compatible as an enum and add the per-compatible allOf/if/then block upfront for glymur. Reword commit msg for patch1
+  - Drop Krzysztof's Reviewed-by since the patch changed substantially from what he reviewed.
+  - Added a comment noting that on Mahua the REFGEN4 block is supplied by the vdda-refgen3-* regulators, and mentioned this in the commit message for patch2.
+  - Change the descriptor array to an array of pointers (const struct qcom_clk_ref_desc * const *). Skip unpopulated indices with if (!desc)
+  - Convert tcsr_cc_glymur_clk_descs[] and tcsr_cc_mahua_clk_descs[] to a pointer array.
+  - Add regulator lists for clkref_en on Mahua.
+  - Null-check device_get_match_data() result in probe.
+  - Add rx0 regulator in mahua tcsr node
+  - Squashed the former patch 8 (switch pcie5_phy ref clock to RPMH_CXO_CLK) into patch7, so Mahua PCIe probes at every commit.
+ - Link to v6: https://lore.kernel.org/all/20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com/
 
->>
->> Thanks & regards,
->> Bibek
->>
->>>
->>>>    		};
->>>>    		gfx_0_tbu: tbu@3dd9000 {
->>>>
->>>> -- 
->>>> 2.34.1
->>>>
->>>
->>
-> 
+Changes in v6:
+- Split dt-bindings patch into two: one to move glymur-tcsr to its own
+  binding file, and one to add mahua support
+- Use regmap_set_bits()/regmap_clear_bits() instead of regmap_update_bits()
+  in clk-ref.c
+- Move clk_init_data from struct qcom_clk_ref to a stack variable in
+  qcom_clk_ref_register()
+- Add Co-developed-by/Reviewed-by tags from Konrad Dybcio
+- Add missing regulator supplies for EDP and USB clkref_en on glymur
+- Link to v5: https://patch.msgid.link/20260602-tcsr_qref_0527-v5-0-8ea174a59d7e@oss.qualcomm.com
+
+Changes in v5:
+- Return 0 if regmap_read fail
+- Add a separate file for glymur-tcsr and mahua-tcsr
+- Link to v4: https://patch.msgid.link/20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com
+
+Changes in v4:
+- Add mahua QREF support (binding, driver, DTS) to avoid dtb check error
+- Override pcie5_phy ref clock to RPMH_CXO_CLK on mahua since
+  TCSR_PCIE_1_CLKREF_EN is not available
+- Rename regulator arrays to topology-based names and merge duplicates
+- Remove else: false blocks from binding
+- Sort supply properties alphabetically in binding and DTS
+- Link to v3: https://lore.kernel.org/all/20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com/
+
+Changes in v3:
+- Fix dtb check error: allOf:0: 'then' is a dependency of 'if'.
+- Link to v2: https://lore.kernel.org/all/20260420-vote_qref_in_tcsrcc-v2-0-589a23ae640a@oss.qualcomm.com/
+
+Changes in v2:
+- RFC tag dropped
+- Changed back to additionalProperties: false
+- Moved all Glymur supply properties into top-level properties so they are explicitly defined.
+- Link to v1: https://lore.kernel.org/all/20260331-qref_vote-v1-0-3fd7fbf87864@oss.qualcomm.com/
+
+Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+
+Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+---
+Qiang Yu (7):
+      dt-bindings: clock: qcom: Move glymur TCSR to own binding
+      dt-bindings: clock: qcom,glymur-tcsr: Add mahua support
+      clk: qcom: Add generic clkref_en support
+      clk: qcom: tcsrcc-glymur: Add regulator supplies and migrate to clk_ref helper
+      clk: qcom: tcsrcc-glymur: Add Mahua QREF regulator support
+      arm64: dts: qcom: glymur: Add QREF regulator supplies to TCSR
+      arm64: dts: qcom: mahua: Add QREF regulator supplies to TCSR
+
+ .../bindings/clock/qcom,glymur-tcsr.yaml           | 146 +++++++
+ .../bindings/clock/qcom,sm8550-tcsr.yaml           |   2 -
+ arch/arm64/boot/dts/qcom/glymur-crd.dts            |  20 +
+ arch/arm64/boot/dts/qcom/mahua-crd.dts             |  16 +
+ arch/arm64/boot/dts/qcom/mahua.dtsi                |  13 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/clk-ref.c                         | 205 +++++++++
+ drivers/clk/qcom/tcsrcc-glymur.c                   | 471 +++++++++++----------
+ include/linux/clk/qcom.h                           |  67 +++
+ 9 files changed, 704 insertions(+), 237 deletions(-)
+---
+base-commit: 5c73cd9f0819c1c44e373e3dabb68318b1de1a12
+change-id: 20260708-tcsr_qref_0708-390d6c67d747
+
+Best regards,
+--  
+Qiang Yu <qiang.yu@oss.qualcomm.com>
 
