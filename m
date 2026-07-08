@@ -1,152 +1,204 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1042459EA
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 17:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783530324; cv=pass; b=sA3Dux1Ela61Ywov6faBOHJh+nv7gayhbqluNDdJUeLhwS7odyBxPWoPWcOKsV9+Z1SsT525CqLzOQUI8xDEg7OhOtXkpgTmgAI8MiDZxFlgJ0ocvN+gbCod84fCCpGSW7kVPNZDGL3CNv0On5ACuZ74Js5O5zFesHkjVTA0eMk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783530324; c=relaxed/simple;
-	bh=jFEnWDadcvxYn42dqCMq0+3GPwmDWDfQdaFECo0lz3Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HccyZZiH4Thkr6WjSjmeVErtu8z3LdCtHvW3uluNfpZmYsDx6DoJWDIso6Z9rmGCgg/wllp7FZO+pu+YWuGwQ/+wjdvOd+z2DTwhU8F5TxBy5lK9R9EoiG8xjTmlRkgJlSYmkgd24YilK86iJF5GVv2Kb+B3mndmCMdijRKHw+o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=e1oAR0JA; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD4237C11C;
+	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783530756; cv=none; b=OWL+y95n6vFMM8M8PER2h99O+zDQiJ85bUxeNoTJTlc2XzsBREia4GLZPSG8E7RgI9W2QRumX6BFKRYSEHrr7Raw+TQqc0Hfx2OcbAtZrHoK4RtdGtIQeKM+UErvYkyu2CSjbj5WAF8Q/6RoxS5Rj97o/J/1lW5nkLmpYXW3k3k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783530756; c=relaxed/simple;
+	bh=tXbAC6qNquLg25/6fk3ZbNnuUtaMUBM8ayVvL1QioPk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=t7D9N6dYGL7keIhklDfBJOeN4a9YXtB+z5GnxJnIB1P3pNHuIP216AdBkjAXgIKDswW7YjIiYfiH9UVGofqithAnS65R0toIrDvhrBZMDCXZ7sf42zu8KCuEm78lboLG4/Y1ObygsnswkbBrJ+zw00/VNodE9O4TdUHrYB0XvLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LnIzEUg7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="e1oAR0JA"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c127ec4447cso2506866b.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 10:05:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783530321; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TfQ7NQ69Sx212hD2dXX97NrhVPXgB2onIXlNp9xpGaNIGvaybN4ounb+C/ZYtjh81o
-         5HAdeZczMcz7TQNo2W5VYBOoUP04hVnDifDJmHIIAYVZpRTHVB/JsEGJ+95tgxw2FNp3
-         +2tE49skGaPMJNsP2voC5OcCwcrEGihwdLbKJlIR8/frVDfE/wHJ/jQZ1Tf4GvZL7pNw
-         458p9qV6s+UJ10rVWUOk64mPbt3ZMQUxvfcOLgQKM8mkPQj+qy3rMfrNpcaOpwZ0T2S2
-         YtpEfeK7GUaP+TK9oORNgNaTOMscq+BCDft8vrW4z1P5mYmFX0+ta2Jnzbq8+v2rypvy
-         YnLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pHRAJ8KCEo3kBblosOTrn2Ke4Sb1IqEMIQxw9CoxcGU=;
-        fh=Vm3iYJGeXrmmYv4tkvoF1DcJRUFWdyaBtmLxcQwEkA8=;
-        b=RPjz+tdvVRif6WW0cv821i024J/Cl2WHADwjuwy8G9LZ/Irn097Y9rvDFi94xI7aDq
-         3XeiPCTDmWmLAACsWTInS5C9A8v8l6Q9cjAOtI0HWaZQMWyjfPaYZOoFjtLO6LFGTWOd
-         faLi+G0ap+3nn35lHZFq3ElkPPKgMrqeAZJDEba1u77jsIujrlWQ8NbD6o8Xyaj/xLxp
-         npM9UPK8aw9D0dwyn9URe92ns0oNaw2tt7VvWLenXqY82r7RdflvN+nlrkPhdb72C0Zp
-         /6l7Zbfg78gYqPKL2kKwwjJIGnxxwO8GpZVogsiL0u4XSd9CBzgWXJA4GzvYLGmkCzCL
-         G+ZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1783530321; x=1784135121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pHRAJ8KCEo3kBblosOTrn2Ke4Sb1IqEMIQxw9CoxcGU=;
-        b=e1oAR0JA9eY68TO4ZWKprGd6UdRsSCFqRjFE1Dt8e9yAGRveQCdg8ayH+6o0PMTUm1
-         I4BLej4eMbI2zWP60HZm9El7QgDi4AMPfE/CuUpNH09QukAPq+9/G1jOxP910a0AXOMA
-         0SPsKaTJbJlcjx4EdZEwqS9rn3h0CE5zX6zDUfFYpiTzIvhgXC4iAjF+yfquxVJ+nwPB
-         PO4YL2cn02ZzUh5EulGuYZF3xnofbUAxhbwajyL+1vjeVD9zPuaRFXyPOER0lTKUb6Vd
-         hHYmvuwwd826yw9hz1SRow10BFiCC5+agjjFiaBvHePWAmXU8qPRwREPTWxEMktkze7t
-         shxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783530321; x=1784135121;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pHRAJ8KCEo3kBblosOTrn2Ke4Sb1IqEMIQxw9CoxcGU=;
-        b=qA6azr3N6+XxFarlwu/rM7Dta+oIugBnPDIfeDnNZF3wDd6toj45j5B3wiMAvuleWS
-         672qhaYvBK6J5lTPQnozewFjX8aCLDE2EKwWRCxbvR9f6KVoWT11TPgVrwdpLLiGegr5
-         If7TyOSV4OqQLKXrR471DdTRhAwC5Dws3LA08ujSTuqeHy0UByq3ltQKtf9+EP44pV5x
-         HdT07qa50Y1U27X6cK723Cn4L4aK1V8Nv7dwuJEXjFvwCLn05Qgt+XgnKUZUUxDM3Y0k
-         WwrbtoTT5nU63hA9A/YCBBYEsWqzH+b3TxekeijPAhq8x4qtGbAtMf/XUobSfj4y47Xp
-         xb6A==
-X-Forwarded-Encrypted: i=1; AHgh+RqqSKkdcxKB+sK8+ti+0k1PLHaq3hdX/YcWOF6GoiEgCnn6A1KcbaRjsNtaSf6jr/WX2ppXmeZQ+r39@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+GVTavTdHP5d/GDPH5G77fkPSzhoQshhgP11wPrbQ9wYQg0s5
-	NBElhfCpYfyEdMhEvWBohmS00IYICyIkDX5vJleCkV82tNjGCs56lZAfEYZX48Ugmw7zDKxUqlK
-	2H4Fv/5PVtO36wnmSY6mPMY2EFR735EEpiLQ3WoZNlQ==
-X-Gm-Gg: AfdE7ck75qNSkCA5V/hAnL8wNW4+Ec/5AOj63ahOwCeqvznxFCMg8/hrm+AGVp6QyaF
-	bwzgf8J3qbxA6RUeiiI4HYuaDhtlUr9lA3KxcukGmaZP6KOKvmQhNDHOrX9J2vWkGrVEf7TlyNV
-	1Pcj65M9looM59+fzGZXUFgq5+J8GQFPCAeI82x2GbxiqECoN1pGdsbQrVQPVflAYJ0Aq6rtbrK
-	0Wuv3I9tRh1XOruwppmg7ZJXfU7NUefVUWa+U3wPK+FbDv20j8KwOylJU+fq8RSTyYGYhGmsy0a
-	kAZczpDy/jN6ThcblPsYZ2ViKHcpRzFEZ5+re553dnBBgcoPaeMY09Td4ffM8g==
-X-Received: by 2002:a17:906:4fc5:b0:c12:d971:1c1d with SMTP id
- a640c23a62f3a-c15ce0ee72cmr168212366b.45.1783530320904; Wed, 08 Jul 2026
- 10:05:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LnIzEUg7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5BE51C2BCB3;
+	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783530756;
+	bh=tXbAC6qNquLg25/6fk3ZbNnuUtaMUBM8ayVvL1QioPk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=LnIzEUg7Uz5EjJBanUS2kTdNodkjZBh/6COXXDS3fDhoCH6mVkGv6FwCnOwPU3sYs
+	 0DhBtQCoUQwO9sYEm11iWk+j522QdnMYQXtPJlpLSd+6fCMCMD5oq0b8LgMn4ZTfxa
+	 aWUdC9Bk4N3SdD4DZtPgzVDlXX5Q8Cg+Vl2jlJQ48k4T7LhUzfmVxqQr8NmgyYySNe
+	 5FPtdrLcn99aEKRrCkvGom6Mykhs4TCCIOMdO8NfV/EGcPOfakRRBeItFO13ExgRwI
+	 6eEgDc2q2ZkPrFXe+VuM66qqJ8d6rMiP9b81uX+gno8DdJ76PPdyGdo4Ltwx4uGZCK
+	 pswPlwj4bWN1Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 357E7C43458;
+	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
+From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+Subject: [PATCH net-next v7 00/15] Support for onsemi's S2500 10Base-T1S
+ MAC-PHY
+Date: Wed, 08 Jul 2026 10:12:30 -0700
+Message-Id: <20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260708165201.624271-1-robert.marko@sartura.hr>
- <20260708165201.624271-3-robert.marko@sartura.hr> <20260708-guide-outing-b471d0dc92c9@spud>
-In-Reply-To: <20260708-guide-outing-b471d0dc92c9@spud>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Wed, 8 Jul 2026 19:05:09 +0200
-X-Gm-Features: AVVi8Cdu_ypWhE5d2JkOMVlQ29SNXhJeaUvRunEjCDsT2tHn5OyCd62kkjaC3iM
-Message-ID: <CA+HBbNHceio1GXxsua0L7CUbm2YxaTDE9A2H=cZ-0r2GYP2CUg@mail.gmail.com>
-Subject: Re: [PATCH 3/4] spi: atmel-quadspi: add LAN969x QSPI support
-To: Conor Dooley <conor@kernel.org>
-Cc: nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev, robh@kernel.org, 
-	krzk+dt@kernel.org, broonie@kernel.org, alexandre.belloni@bootlin.com, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, daniel.machon@microchip.com, 
-	luka.perkov@sartura.hr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP+ETmoC/3XOTQ6CMBAF4KuYrh3Tlv6AK+9hXEAZpCa0pK1EY
+ 7i7FV1oDMvJzPvePEjEYDGS/eZBAk42Wu/yoLcbYvranRFsm2fCKVdUUQaRS0phqA2M/R3idRx
+ 9SCC6osaK067RBcnZMWBnb4t7JA4TOLwlcnpv4rW5oEkv9nXb25h8uC8vTGJJfNrkStskgEKLu
+ c2wwqi2PHgXcbA744elZJJfDBNrjMxMWZVaNJp3mss/Rn0xvFpjVGZYaVBXeV1o9sPM8/wEmWs
+ ZuGUBAAA=
+To: Andrew Lunn <andrew@lunn.ch>, 
+ Piergiorgio Beruto <pier.beruto@onsemi.com>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Jerry Ray <jerry.ray@microchip.com>, 
+ Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783530757; l=6125;
+ i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
+ bh=tXbAC6qNquLg25/6fk3ZbNnuUtaMUBM8ayVvL1QioPk=;
+ b=UisVoPQtjN7fUFKv2u/WBdggmy/96ypj7fsB2RxYB54yit0ZEKN7UMLlMPYHueD4D3VFUVTAF
+ xTAJtqmPN54CX2vN0wV3hxUqv/XkysJfd0U9Sdtbnat2avMGhJhl+Wd
+X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
+ pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
+X-Endpoint-Received: by B4 Relay for
+ Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
+X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Reply-To: Selvamani.Rajagopal@onsemi.com
 
-On Wed, Jul 8, 2026 at 7:02=E2=80=AFPM Conor Dooley <conor@kernel.org> wrot=
-e:
->
-> On Wed, Jul 08, 2026 at 06:51:10PM +0200, Robert Marko wrote:
-> > Microchip LAN969x has two QSPI controllers based on SAMA7G5 QSPI.
-> >
-> > It requires pad calibration, supports DMA, and supports 100 MHz operati=
-on.
-> >
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
->
-> > @@ -1708,7 +1769,10 @@ static const struct of_device_id atmel_qspi_dt_i=
-ds[] =3D {
-> >               .compatible =3D "microchip,sama7d65-qspi",
-> >               .data =3D &atmel_sama7d65_qspi_caps,
-> >       },
-> > -
-> > +     {
-> > +             .compatible =3D "microchip,lan9691-qspi",
->
-> Where is this compatible string documented?
+This patch series brings support for onsemi's S2500 that iss
+IEEE 802.3cg compliant Ethernet transceiver with an integrated
+Media Access Controller (MAC-PHY)
 
-Ugh,
-I managed to somehow forget to export and send the dt-bindings patch as wel=
-l.
+Driver implementation is compatible and works with OA TC6
+framework that is already present. S2500 driver supports
+hardware timestamping.
 
-Sorry for that, will respin for v2 tomorrow.
+Driver has support for running selftest and loopback tests.
+Through ethtool, it can provide traffic stats, rmon stats,
+and timestamping related traffic stats.
 
-Regards,
-Robert
+As S2500 has an internal PHY, changes have been added
+to onsemi's PHY driver to support this device.
 
->
-> > +             .data =3D &atmel_lan969x_qspi_caps,
-> > +     },
-> >
-> >       { /* sentinel */ }
-> >  };
-> > --
-> > 2.55.0
-> >
+Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+---
+Changes in v7:
+- Fixed compiler warning due to prototype mismatch
+- Moved the order of patches to ensure dt-bindings comes first
+  before it is being used
+- Added missing review tag
+- Added missing MODULE_DEVICE_TABLE
+- OA_TC6 framework enables 64 bit timestamping mode by default.
+
+- Compiler related warnings fixed.
+- Link to v6: https://lore.kernel.org/r/20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com
+
+Changes in v6:
+- Changes to ensure onsemi code stay within 80 columns.
+- Fixed the error of "not described in comments section"
+  in comments section.
+
+- Fixed compiler warnings.
+- Link to v5: https://patch.msgid.link/20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com
+
+Changes in v5:
+ - kernel doc related changes in oa_tc.c, onsemi driver files and
+  oa tc6 rst file
+- Link to v4: https://lore.kernel.org/r/20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com
+
+Changes in v4:
+ - Added return value comment for genphy_read/write_phy_mmd functions
+ - Added genphy_loopback_fixed_speed helper function to be used in
+   set_loopback callbacks
+ - Updated networking documentation for OA TC6 framework to elaborate
+   on what is expected in the ptp_clock_info structure for registration.
+ - added spi-max-frequency in YAML file based on alert from sashiko-bot
+ - Removed model/version from the onsemi driver's private structure as
+   they were useful as "information-only" data.
+ - Replaced the non-standard selftest with Linux's standard selftest
+   and made it as a separate patch
+ - Changed bit manipulation, shift operations to use macros so that
+   it is clean and readable.
+ - added new read_register and write_register apis with _mms postfix
+   so that MMS (memory map selector) can be given as a parameter.
+ - Fixed the wrong condition check with NETIF_F_RXFCS to subtract
+   FCS size from the length of the frame.
+ - Link to v3: https://lore.kernel.org/r/CY8PR02MB92499C9080614FA3CEB8CD0483162@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v3:
+ - Moved OA TC6 framework to its own directory.
+ - Split changes to smaller patches based on feedback.
+ - Added PHY loopback support as a separate patch.
+ - New, read and write register APIs with extra parameter MMS
+ - Link to v2: https://lore.kernel.org/r/CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v2:
+ - API to add vendor specific MMS to mdio device map.
+ - Link to v1: https://lore.kernel.org/r/CY8PR02MB9249D083B637477C254F9B0583322@CY8PR02MB9249.namprd02.prod.outlook.com
+
+---
+Selvamani Rajagopal (15):
+      dt-bindings: net: add onsemi's S2500
+      Documentation: networking: Add timestamp related APIs to OA TC6 framework
+      net: phy: Helper to read and write through C45 without lock
+      net: phy: Helper to modify PHY loopback mode only
+      net: ethernet: oa_tc6: Move oa_tc6.c to its own directory
+      net: phy: microchip_t1s: Use generic APIs for C45 read and write
+      net: ethernet: oa_tc6: Move constant definitions to header file
+      net: ethernet: oa_tc6: Support for hardware timestamp
+      net: ethernet: oa_tc6: Support for vendor specific MMS
+      net: ethernet: oa_tc6: read, write interface with MMS option
+      net: phy: ncn26000: Support for onsemi's S2500 internal phy
+      net: phy: ncn26000: Enable enhanced noise immunity
+      net: phy: ncn26000: Support for loopback
+      onsemi: s2500: Add driver support for TS2500 MAC-PHY
+      onsemi: s2500: Added selftest support to onsemi's S2500 driver
+
+ .../devicetree/bindings/net/onnn,s2500.yaml        |  67 +++
+ Documentation/networking/oa-tc6-framework.rst      |  80 +++
+ MAINTAINERS                                        |  13 +-
+ drivers/net/ethernet/Kconfig                       |  13 +-
+ drivers/net/ethernet/Makefile                      |   2 +-
+ drivers/net/ethernet/microchip/lan865x/lan865x.c   |  61 +-
+ drivers/net/ethernet/oa_tc6/Kconfig                |  16 +
+ drivers/net/ethernet/oa_tc6/Makefile               |   7 +
+ drivers/net/ethernet/{ => oa_tc6}/oa_tc6.c         | 469 +++++++++------
+ drivers/net/ethernet/oa_tc6/oa_tc6_ptp.c           |  70 +++
+ drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h       | 191 ++++++
+ drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c        | 205 +++++++
+ drivers/net/ethernet/onsemi/Kconfig                |  21 +
+ drivers/net/ethernet/onsemi/Makefile               |   7 +
+ drivers/net/ethernet/onsemi/s2500/Kconfig          |  19 +
+ drivers/net/ethernet/onsemi/s2500/Makefile         |   7 +
+ drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c  | 360 ++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h   | 223 +++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_main.c     | 649 +++++++++++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_ptp.c      | 250 ++++++++
+ drivers/net/phy/dp83867.c                          |  11 +-
+ drivers/net/phy/microchip_t1s.c                    |  32 +-
+ drivers/net/phy/ncn26000.c                         |  63 +-
+ drivers/net/phy/phy_device.c                       |  75 +++
+ include/linux/oa_tc6.h                             |  36 ++
+ include/linux/phy.h                                |   6 +
+ 26 files changed, 2703 insertions(+), 250 deletions(-)
+---
+base-commit: 08030ddb87b4c6c6a2c03c82731b5e188f02f5b9
+change-id: 20260601-s2500-mac-phy-support-4f3ae920fb73
+
+Best regards,
+-- 
+Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
 
-
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
