@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEA93FFAD3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19E5402428;
 	Wed,  8 Jul 2026 21:58:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783547882; cv=none; b=m5abDZ5rODyG4FyEPUwH+GeFmGhWQq82Tc8FQd+eEvF9YhUvDRcMMqtwdqvJVbDcOEddIY5Pm4HEjNors40nUmOiDfEak2q4RPtOOuWVfayK9+e5ULJwceeA7t9m3EugSdSK2Ix5MlmMx2nX+fOPtGHqB8S8eJVRAbeEZwhE+fE=
+	t=1783547883; cv=none; b=Hmuw/eu3h2Qb371gT4NJdyERDvmOuJZqMm780wJDbDXaO7v7TdxIE5sfQDIX24tZ+FTKvj+IVPGttJrNA0gXu/PrRsncGB3ZLXtZ9KQeaKX/KUGdaxdXKhjK74bAF9q51jZiklPTQEHaydKJmZ9TrC2WWiTsGYfTwnb2+goqRso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783547882; c=relaxed/simple;
-	bh=G1dUqD72q2FY05PHYY6caECaecWtFD0swmYnsw623Ug=;
+	s=arc-20240116; t=1783547883; c=relaxed/simple;
+	bh=bZPRTZpe5ZjtalfVUWXc14ZVW4M11P4U3Z/sdB7xUCQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XniXEvZF9AN3JvOOBeBcpukqdoBeWMe0U34Zuw4SjbqDdd4mxdZMs7V7W3p/2371KaXyyF43RqsLhsmh1orFhIJ7Yq+4kxZeZTo8xtpcHaRbOBhtiZJUS9FUY9jKOyRkBH+zk9FHYmBH5BwXnF6xz1KocmliwYa9GiiyyEgCwjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=EY3F/0Sf; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=WbDBPaGLNSQd+8Em7MJ+MA38WDaTaB2aO05mVspIYUO/zpo3/Ye0fNiqhw8x1zq7k6qXsdIIadsGEqTULIBPIEMPLWxk3ZYOwELbdpN6h1NqQHN7VrQL3+fyzGZQE28o7lOC1qQVPdEdYgjP3o5tS72GBiZKGKfSo9efWWmVzGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=bQu8U6bV; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="EY3F/0Sf"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="bQu8U6bV"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783547879;
-	bh=G1dUqD72q2FY05PHYY6caECaecWtFD0swmYnsw623Ug=;
+	s=mail; t=1783547880;
+	bh=bZPRTZpe5ZjtalfVUWXc14ZVW4M11P4U3Z/sdB7xUCQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=EY3F/0SffBmY/EUdDkAIJ/hCRrd6EvOC9GyRaueK+/hKk6Zxoz5kD8Fnr3usXtnfa
-	 0C3sEITJwYpqyuSng2gn2UjVVpFQvJysqOJ8sLr+DimTaK6meeT/XZPegRwah/jQEO
-	 /mx2iG2M+XmbcA6hyekgADiY0X6HoVdMQwwftWAoZKvWpWOue8xujkFdYGeLHbKmEd
-	 B0mTSyvjCsPXy27NamfXbjXU3eU0cxhuDOgGhN3mUyCvzVXHtUvxFOLqzExElugJ3A
-	 s+npcXrBSOmmc5ROLEmZPXBp3uMTEi1+Lz1Dvg7IQNLTX7Tyk8/fE2i7F7Ny3uWBr3
-	 jtO5saTrGlGLg==
+	b=bQu8U6bVljxmqKXe1OlNxyw/nK0zMrA1pi24QRuflj8tHH7kVnhBiCdixXPY32HeT
+	 u79OP3QrqEZBdLc9LL+U+CPzssF2oUQjoJBtU6n1fHcfDpD6YUcFxwjxe3BiyfE0hg
+	 MFS4xkb8YQCoaRKI/TF2NLJ5F+W7C8DJpY6zlvWlmWEdkkm1N2LsR4AEnj5AGVaEGn
+	 5vF4/psUSakbOGFh0NJcSwBkpilaOGti7y9ZvU+cWdQpxwBNSu0ZXij+DyVIYHcS1H
+	 6OKMipTJpKuHiKmTixntbeZYeEvjExf4MOvBfsYl4K4WAbODSoyORHEo0eMOE3ksBk
+	 bz1VHRebfsXiw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8946117E0D33;
-	Wed, 08 Jul 2026 23:57:59 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 43F2D17E0EA6;
+	Wed, 08 Jul 2026 23:58:00 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 09 Jul 2026 00:57:34 +0300
-Subject: [PATCH v3 12/14] drm/rockchip: dw_hdmi_qp: Support 10-bit YUV422
- output format
+Date: Thu, 09 Jul 2026 00:57:35 +0300
+Subject: [PATCH v3 13/14] drm/rockchip: dw_hdmi_qp: Enable YUV420 output
+ format
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-dw-hdmi-qp-yuv-v3-12-a4a982a9f2e7@collabora.com>
+Message-Id: <20260709-dw-hdmi-qp-yuv-v3-13-a4a982a9f2e7@collabora.com>
 References: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
 In-Reply-To: <20260709-dw-hdmi-qp-yuv-v3-0-a4a982a9f2e7@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,53 +67,34 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Rockchip DW HDMI QP encoder supports YUV 4:2:2 output through
-ROCKCHIP_OUT_MODE_YUV422, but was limited to 8-bit depth via
-MEDIA_BUS_FMT_UYVY8_1X16.  Add support for its 10-bit counterpart
-MEDIA_BUS_FMT_UYVY10_1X20, which carries two 10-bit components per clock
-cycle on a 20-bit wide bus.
+Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
+color format, and the required bus-format handling and VOP2 support are
+already in place.  Advertise it via the platform supported formats so
+the HDMI core can select it.
 
-YUV 4:2:2 always transmits two 12-bit components per pixel, regardless
-of the color depth.  From a clock-rate perspective this is equivalent to
-three 8-bit RGB components, so configure the HDMI PHY with 8 bpc when
-YUV 4:2:2 is in use to keep its output clock aligned with the TMDS
-character rate.  Otherwise the PHY PLL output would be scaled by bpc/8
-for higher color depths, producing a clock rate that confuses downstream
-consumers such as the VOP2 display controller.
+YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
+high-resolution modes such as 4K@60Hz on links that cannot otherwise
+carry the full-bandwidth signal.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 9c4cf68d79d5..78473f9a0fce 100644
+index 78473f9a0fce..1af29066a0a3 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -215,6 +215,7 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
- 		break;
- 	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
- 		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
- 		break;
- 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-@@ -226,7 +227,14 @@ dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 	}
+@@ -611,7 +611,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
  
- 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
--	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
-+	/*
-+	 * YUV422 always transmits two 12-bit components per clock cycle,
-+	 * regardless of the color depth, which from a rate perspective is
-+	 * equivalent to three 8-bit RGB components.  Force 8 bpc here to
-+	 * keep the PHY PLL output aligned with the TMDS character rate.
-+	 */
-+	phy_cfg.hdmi.bpc = (s->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
-+				8 : conn_state->hdmi.output_bpc);
+ 	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+ 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+-				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
  
- 	ret = phy_configure(hdmi->phy, &phy_cfg);
- 	if (!ret) {
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
 
 -- 
 2.54.0
