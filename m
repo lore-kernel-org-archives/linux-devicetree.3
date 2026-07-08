@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A83379C56
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 23:04:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99414202963
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 23:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783551865; cv=none; b=UQrxbJFn4XXPUpiXQAkLIz0rI+7S8k5a3jX9qBFurFtTbqksGyFnaxHKL3tyQ9ZhSr5kFta+UzGBfZyOLjJNbrVeOAETQWpPgqUOpYCayhsjtJX78g7zWyWrJcof1HbXseEMlMMAp2hO5sDdxFE/+Pgnez7ucuaeJrA8eTyoDtI=
+	t=1783551922; cv=none; b=dIeO3QuQoAQOjorsKRkHmNYRGEQixmnT4Uwterh2kcscVBmVTqTeNppmdxiOmgX1qwC/TB+J2zFjNDVA8NI1hVBKAnQpXu2KDq7/TAnWiPO5tvYrdh4bfbnZIIw4JoJbFp+mnifxU1sWlp974OkhVLLSEcr0CHPb08CyfvdxLo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783551865; c=relaxed/simple;
-	bh=CkNmuXkrm9AphV+/HDd6pBopBJF4hZCxb/bQkVXOVeo=;
+	s=arc-20240116; t=1783551922; c=relaxed/simple;
+	bh=gJhnwQFyZZPO3Q6Dfku0C9MgSivyhcyGuzzoGKK9WGU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TX31ERH35XtBBg8ovxJaRlm2A+PqDJ7fk9Y07R2kVEn3mxt5jUI5Bte59YnqYQfRF4BBoDXRhv3RlBxekHX3uzy330bYEAdUooHCinxAXcNSh3YpO1932Vv7oRLdbJre7coqfAhwzl3EXkoIDCAB4is3M7fWnMrLQTdfZweKpJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EziJL83Z; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=uT81B2HfhGaRYaIPiI5Lq/6VaDXUHjXPV+5nm5pVWSmxtuyYm0agZKEBUdS/txdfnqn5Q3QXnEFZHEswlhTANuaBVuf2ebA067yHon6NZAtf4H7SH7QOLLfL8gsltv1LrJ3lnrp4KUXpgJ2E5Ppqb59JvyjCpBztbsuS+TAEfdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5F+Ll6J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EziJL83Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8CA1F00A3D
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 23:04:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5F+Ll6J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818BA1F00A3D
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 23:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783551864;
-	bh=8tvZnKf1EOonCwnHP7yo3nXIfcSxA0v9m4Yyik+z4Cs=;
+	s=k20260515; t=1783551921;
+	bh=gJhnwQFyZZPO3Q6Dfku0C9MgSivyhcyGuzzoGKK9WGU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EziJL83ZwjmOdH8rKIzYYM5xWx9AV+mN72k+16zfJeE43A7vJtAVIkRwOAI3InNLK
-	 l+awAsneO7Hg5CjwUjrTYLLIBKNuJfZDdtEJNVzeV0DO2LlGPUAoyCMT5OnRZWK1LW
-	 G+DcWWuWsQs5LwnHvtR0USI+NtX2aPd4PQEDSCiqc/dU6cMn3FpW57zbqbHAw/dTCp
-	 JYs/iOkGRG8qRmk1DDl3x4T50gFckp3NORnrBW3uhkf18ywyxrRwyBb8OIEB9szXU7
-	 avIidXBfSf5ptm7P5KUCojcxsmNtPE8cCQ8GZm4EzZFMABlncEtY3P5hT9dkBf0hTo
-	 zJrMuaDn0ZWSQ==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b0117dda13so1062339e87.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 16:04:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Ro5Fj9omrlVcz2erDKZiHZL2eegtKQXC9eqzp/ziKa2AJ+WOCy34p8F4UPxOLXXotyTXi1Tq0TFkOIf@vger.kernel.org
-X-Gm-Message-State: AOJu0YwflTP7gka5Bi468HfLkTPZQnuaDjIDLMyibIcFIsPJg0hXLH6L
-	Xf+NYuiCCQBcgWT3Pbq4kEVCtbq8a/GloxZEC9jBIsmjd6ymCq+UaYX4zBeb15sZJtIZR6VHLSl
-	4McQzbEa7VocMXXSEL565ROo4xcNvmKM=
-X-Received: by 2002:a05:6512:8353:b0:5b0:161f:8fc6 with SMTP id
- 2adb3069b0e04-5b0161f913emr95235e87.40.1783551862865; Wed, 08 Jul 2026
- 16:04:22 -0700 (PDT)
+	b=I5F+Ll6JGJTNAb8qRo5hi7TIglSrFCNmRjIFCYmudqwe669CoyKMjwerpNePCksYu
+	 tL+paBKot/MGD3xc9PdiKY/IK+NvalrDSrDFRpuWKEZjfjyalXThkMtUsZJXqRsEzl
+	 DcV6T6lT1pz9HRe3letnh2wo7/n5g2XqMF1ihaIexQsBzeLo9o8mtUxyzkoth1CJoc
+	 GgOpk+t8F/bCH3BNtATRnz4jO4jDSYoLQDGB9GK9WvdoqQzhAB0puGo7zPIqLLl6BL
+	 MT+jFMdl7bsahRxGu2c5NnEXckNV/IfbY8KmqPmvs15yEIqs2u5tu32eniR2GhpZI2
+	 SGBo1PPnZB1yw==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aeb77b3afbso1139307e87.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 16:05:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoGTqDa05CQp1dRxQY9fXs6zABL+El4OVBn4hPIrQItOLJGqtu7tXSUrFLVXk9mJ1eG9DaLG6b3NswQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhAKhZ2rGWWpzQuddg5OpEDNU1/K7R7abl8GzZjQz3FX0aM3oT
+	ibcMAT4g6OrzAYZD9Cz8nGyVEvYKs7E2I2tAMqyqIL2vQVa5WEd19L3AiCi3Qrj99yA13orA1bQ
+	fFweYEHtxHidz0KNIAPxxT29a/OqYGcY=
+X-Received: by 2002:a05:6512:2216:b0:5ae:b232:ec03 with SMTP id
+ 2adb3069b0e04-5b0114a85ccmr1074846e87.42.1783551920312; Wed, 08 Jul 2026
+ 16:05:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,51 +42,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260709-ixp4xx-little-endian-v1-0-e9622d0ba9e4@kernel.org>
- <20260709-ixp4xx-little-endian-v1-2-e9622d0ba9e4@kernel.org> <20260708223722.439381F000E9@smtp.kernel.org>
-In-Reply-To: <20260708223722.439381F000E9@smtp.kernel.org>
+ <20260709-ixp4xx-little-endian-v1-3-e9622d0ba9e4@kernel.org> <20260708223310.71F431F000E9@smtp.kernel.org>
+In-Reply-To: <20260708223310.71F431F000E9@smtp.kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 9 Jul 2026 01:04:10 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkf2uOsE3zS_nYFixtaQ4ACW7JqBcUFJoh8bJqhQcBK3Q@mail.gmail.com>
-X-Gm-Features: AUfX_mxt60m0a1t2Co4EqpdX4ktVI3XjLJEizNvOZ2LEV4BhQgAs1wllcBye1nI
-Message-ID: <CAD++jLkf2uOsE3zS_nYFixtaQ4ACW7JqBcUFJoh8bJqhQcBK3Q@mail.gmail.com>
-Subject: Re: [PATCH 2/3] ARM: ixp4xx: Relax endianness
+Date: Thu, 9 Jul 2026 01:05:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnTzXLSkNA8WGci2BZHXTc=Tzt3UVm2uVrsSdmSCHaCTw@mail.gmail.com>
+X-Gm-Features: AUfX_mxXZ6-7xp23zFqGb8rY9ywZAoUf1tULVamM5PyyuWduXSwnq9JiMjwOMJw
+Message-ID: <CAD++jLnTzXLSkNA8WGci2BZHXTc=Tzt3UVm2uVrsSdmSCHaCTw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] ARM: dts: ixp4xx: Drop the reg-offset hack
 To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 9, 2026 at 12:37=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+On Thu, Jul 9, 2026 at 12:33=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
 > [Severity: High]
-> Does removing this big-endian restriction break the IXP4XX flash driver o=
-n
-> little-endian builds?
->
-> The physmap-ixp4xx.c driver documents a hard requirement for the byte swa=
-p
-> option on LE systems:
->
-> drivers/mtd/maps/physmap-ixp4xx.c:flash_read16()
->  * This means that on LE systems each 16 bit word must be swapped. Note t=
-hat
->  * this requires CONFIG_MTD_CFI_BE_BYTE_SWAP to be enabled to 'unswap' th=
-e CFI
->  * data and other flash commands which are always in D7-D0.
->
-> However, the MTD_PHYSMAP_IXP4XX configuration conditionally selects the s=
-wap
-> only for big-endian builds:
->
-> drivers/mtd/maps/Kconfig:MTD_PHYSMAP_IXP4XX
->         select MTD_CFI_BE_BYTE_SWAP if CPU_BIG_ENDIAN
->
-> Because of this conditional, LE builds fail to select the requisite byte =
-swap.
-> Without the byte swap, the CFI backend defaults to host endian and the dr=
-iver
-> sends mangled commands to the flash, causing it to fail to probe.
+> Does removing this break big-endian serial consoles on IXP4xx?
 
-I have tested it and it works, so no.
+This is solved with an orthogonal patch to the serial driver.
 
 Yours,
 Linus Walleij
