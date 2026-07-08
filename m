@@ -1,149 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0B4477E53;
-	Wed,  8 Jul 2026 14:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592DA3B42DE
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:25:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783520481; cv=none; b=Odz17pCn69czG7R1pSXO0FCZZCyXBSRbzpC1JfZmnW9F0+NizaI4OCziXztSp/OR4LQlNuJe/dX3pQmdoycM6nmMeMfAzJeoCysj5hRksvRIivtmIZ0PzFgtbS0PKqy9s+/4tY+v/oQZWAcE7ReonXffVimR0Ke5XKvrLwPQDnk=
+	t=1783520717; cv=none; b=WxjPaFcFf8qimsxeY6E+lIkyBAxZ2H84nant9/s5hU9i2Wd8wkMfYl9jwle7JjVUddEpQZRwK8qNmHAqcbufPzi99bMUHAYUJ9TBdnnbnJLkcTU+321wW409jEdiTvMHpFQTvQrC/S43/lfB1jLD2dkVpCyufyvZLjoUQjjkf2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783520481; c=relaxed/simple;
-	bh=eptoqU3kcoiZ2MPYXhf+3yYOkpZj8bF8iCd83eySl6Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GQ7irYtfGsU6wFVhy7vNC+2SgkNtBHnKuDTEPlB4ycf6AOPwuFHT1d5zUhBQnyhpu0gq18PshPLbDlEVT1pWROig9t/CVWuAUKX1Lazcyc5S4aIIZNC93kJjOAdWHpLMVO2mgIt1kwyfPDsWY/ovWHccfLEN4R1XIxCDWtuu4r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVC0Li+x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783520717; c=relaxed/simple;
+	bh=sSmsdnmJrwAPWW1KiyJRt8MCa+4Zum/gNQgF63z/D1o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=azUMloxi4EVsGO+Gg+9bynTWJnAtxCsN8p0SOWFZP5X8BtN+W1l/fDNEO6PoyCgsEo3kec5gaL1I5u+T4cRPdu3zOSx9A4AZUj7AaAXgngpTlHKwYkq98j2E0/kMtzY5gzegNRWokMJ5zsNfQ9SeOQ8SALS+PEEEoDUGZJgrzx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PyP7HEO3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dan5kR8T; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVC0Li+x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311B21F00A3A;
-	Wed,  8 Jul 2026 14:21:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783520480;
-	bh=EwqgsRzc4TDNJUcYjGgk9JH6x1MFE3isguoRJhDocHw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jVC0Li+xN/1ij1SL2KPvng+w2Q7MpryAem5TDTXRqLvsSUXG4Mxfr0bV7QSPFYc2f
-	 qzJQL1NnYBPCMtDPzDaJ5H5iFP/zE3IiivkAjYwSimIRug66Xz8RoZyvK7pv0x/wAn
-	 kq8TOYhfbz5ma+3zBhH5AxIenj4LC4w23xTrP4mQlYTa4wa4uF7NQeYaGMYea6sMrH
-	 NaS6rOQJ3RxJHqAiLAnIzyTCM89+kR9ejDrnWjUwOFVBOBAqDcM5iGg427f43CZbvH
-	 e1h80rV0X0Bz60w2cTztSrIGmSTEh1TLfGZp8MaoIVYs2erkozflUdyMpkH1gxBwLf
-	 edldXfOZZb3JA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 07/10] ACPI: APEI: introduce GHES helper
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmed Tiba" <ahmed.tiba@arm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260708-topics-ahmtib01-ras_ffh_arm_internal_review-v7-7-8b3a85216cef@arm.com>
-References: <20260708-topics-ahmtib01-ras_ffh_arm_internal_review-v7-0-8b3a85216cef@arm.com>
- <20260708-topics-ahmtib01-ras_ffh_arm_internal_review-v7-7-8b3a85216cef@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 14:21:19 +0000
-Message-Id: <20260708142120.311B21F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PyP7HEO3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dan5kR8T"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668C3ewR2758841
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 14:25:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GvPOfAqnErBt8ztKSYP7B2XU9RLRHl2bIpX+eaysQj4=; b=PyP7HEO3JF6XT+gG
+	EJuLTNmpvlkCRZfJUJSEB8ReOvor7VAA44TxaSxdLDVWeJhZ6vdU3jOojmVKBHtl
+	ks1eKw/63ND/vu+kjFJcAMFIQVKNeu62WpXECEAsV+Zx5uViAopvuE18Hue+ETs6
+	vSMurlyjcDwN+wwrH9JXxDvSlwPsxelBvAnh44CsYBtQIlnLvB6Vc4pq9JjgFEnb
+	B2REVAaXWJDnIJtMRZK9aa5158Eyen0EhQpPn7Sv2N+wEe9MlW745VtzHyXR3x8f
+	crwjvf1Bhs8ylRMHihreF1s8nJw2Wg7FZElD+gi2mcfUVv4Bio04PUNzn4lAMJl5
+	EttpbA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f95e5vuj3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:25:14 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8f0f45415cfso12440246d6.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 07:25:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783520713; x=1784125513; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GvPOfAqnErBt8ztKSYP7B2XU9RLRHl2bIpX+eaysQj4=;
+        b=dan5kR8T6ByjDP4ZG+eaMSlY7jUlHNL12huGe3rrgMZjEpIHdYy694N5aMUjREoLtD
+         LfhlC4yVrq9a/XNVbbGx4Ax+K5RPwzgnOgOXkUEo8b/Zo48ekW33l6A/HYPXFuNXFvHC
+         bu3iJTxPlxPnqzHkgStBnDNzP9/wBB6i34THe/NFlFLJYre6XMFVQOFRqHbqJPd12tUV
+         uKXnSUeaix04NnvFC+Fv1/4a0hURX+VR/M+TZBTQQzsP2KOM4A2RM0bHEneeOs+SI5iR
+         Iayiowl926BXcOKrizkOjp8VIkAPr74J+JgjCptiSghkin4I91OxNtpXmBp5JkjUXk5P
+         Y53w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783520713; x=1784125513;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GvPOfAqnErBt8ztKSYP7B2XU9RLRHl2bIpX+eaysQj4=;
+        b=T14nauw2VPXIlJFlVJX7F0hNV+zBfu2xaMDbk3xCDVdZSddGTqwENum2VfZyW8F1nz
+         y7Nf971Hv5u6p6fNXA9Mkx/10pg2FzImRsY89/XinOEcmatqPsNFioi34DLjtUzZdS0q
+         XbEh1CLiSD3tZ2e2Xaf3yuF80bJ3CLrxQ2D8jt6KuQSaOMtCEto67q6Fn6kD9iBQ2kO6
+         0Ufaed2wuOXOU1jrJcuyziDLzk0xBQYEnNXbVIwVjv4sXUHRfP4hyZlgt9n9slNCPvtd
+         dH496Q8c+gUkM/V0TSlvAXgBGkL50cTjdPtR4pXL9UEzcLgga9kywGkrVVwh0b1zTFlr
+         8/XA==
+X-Forwarded-Encrypted: i=1; AHgh+RrdqVg9BRn0TMw5Pk5IOvoxOaeU3kk/GBtC+llfy5CplRZhA0K9Rc0IqnOwRSKH8KuhUDtdccNl0Py/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfnrV9l2eSuZY+rtLcUyw1RPfbNV7j0opb0zpzqMZiNxtqbgiy
+	oNFhpyfcr9p/5SZ0RNnBRjNce1z+4pQdWGeg8lBheTzSThhUDs4v/ufZd4Opce5p82n33z27vlk
+	8LexKpDneofYOscO+bSw6Yv5roBe+ORuUbzDb3XCWvxPihcoCSaA/cOOfQT5y9hia
+X-Gm-Gg: AfdE7cnK1AmU4WXjGNpbWpsUIQdTaSFBk9FfdywNsKv6T9flnHROweaENquI/CMmO5g
+	8aOhhBuCBZ0jdTLNsxzxfCmDvczrA4nAwIO84oD1tJB/bFGGhRbVSpYsPxsT9AOtJZSRGWrXOgN
+	lMA8qc4HSDDREWBxZXQRSxldmUJ9F3mQt8R0JmjJOf6YmHMNfVr9NPL3gi0lDtoMUtfVP5aNglM
+	FtyIqrXC24rsXEjmkq74JEFcwqtE0mJf8jy2EEWYdbdTsM1pPzn9XG0RHxbqjg84LO0d4oWXwGr
+	GQXM1D+4GyUTvgyxF4TnOh3HWFFXOTUgy9CcyDMIWRIzRLqLEJDeUth/BNc2huJUe2xvcFbxKBh
+	RWv5oA4DRw2Cfgd0/TpaGZsM0JquIFJHH+7npOYvwz6OXejQrXsatP8qJt8uyVk5ye21ue3/hqy
+	xC5x+xKZSKORgg+WK3VAqMtDHl
+X-Received: by 2002:a05:622a:1e1a:b0:51c:ecf:4eb3 with SMTP id d75a77b69052e-51c8b3cc299mr27193071cf.44.1783520713481;
+        Wed, 08 Jul 2026 07:25:13 -0700 (PDT)
+X-Received: by 2002:a05:622a:1e1a:b0:51c:ecf:4eb3 with SMTP id d75a77b69052e-51c8b3cc299mr27192631cf.44.1783520712722;
+        Wed, 08 Jul 2026 07:25:12 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13c1c4dsm4527420e87.66.2026.07.08.07.25.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Jul 2026 07:25:11 -0700 (PDT)
+Date: Wed, 8 Jul 2026 17:25:09 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD
+ device type constants
+Message-ID: <2tu35aavp7sc2npni33ky5bve57idzy3bzp2pk7eh5lryq3r4v@gmm3dhayu4cf>
+References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
+ <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
+ <977711ef-c1fb-4735-b82a-4ca2f4797f51@oss.qualcomm.com>
+ <8ad14017-bce7-485e-9677-9cbf8ecb2742@oss.qualcomm.com>
+ <yvggh2zs6qkuyuzvwydkecswnjoyba2d7t27br6xpk6d2csp53@i25g6okdktz5>
+ <10a346d8-fbb1-4142-a650-507c3917b8f6@oss.qualcomm.com>
+ <dv4n4ntnfvhouv23asgshgs7wcolkmqs7lbuni52maexo4s44x@4bqhf33x4fr6>
+ <1aca8d60-8e39-4532-9095-a5260bba76ac@oss.qualcomm.com>
+ <e7eho7ezujbrdzgumshapf2r7hu2jaujib7lvotrqvcj5er5ut@xpd6l2kgipqu>
+ <9dc4b29e-e9fb-421a-b789-eb16a68ff915@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9dc4b29e-e9fb-421a-b789-eb16a68ff915@oss.qualcomm.com>
+X-Proofpoint-GUID: ODziSBN8-T6ZfkgY8NpRLe5ve-qoN_2u
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE0MSBTYWx0ZWRfX8P9W70nSi6a1
+ sSxM1S/jx/TtRUDPBReqSNAKWs27/FAivGZHVAZl6Gw5q/ChiCyuFCODJ8Cf76n8uHtJbvUvnxe
+ kl7QvqqF6gU7fnxjRE07G9zd4gBec00=
+X-Authority-Analysis: v=2.4 cv=CNoamxrD c=1 sm=1 tr=0 ts=6a4e5dca cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=DU7i0n-ryPtEfpeWOdgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-ORIG-GUID: ODziSBN8-T6ZfkgY8NpRLe5ve-qoN_2u
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE0MSBTYWx0ZWRfX6WAKHZ9mcPhp
+ CW/ZrtzwBhHmVIFSGiumK+eD/POvH6tHkJVovAvQAZy4mAcrFB3DBTspcDpoJOBV5v7tddaS9m1
+ oAikOdKF5OXRuhFQaloyRoIoE/KSA03c/973Lj7SAQzeh0kyuiaMLobhUO1AH1laijb6JLzavaT
+ tyULpjVguPu9E8SQNmsrGnwZzEne+TVr/6pcQdAMwxmIKBh2qsnfnQmkGKg90hqBcCMxw8nWIMx
+ HtlVwfoBJA13fAC6ZlkhkiVTvYfdmxuOr6Hv9At0RxTX96WLvZfnqnqu2xoBoKAFTSQ2S3tU8CO
+ jbxvP8LrN1C2Ct46izpmp+ADKEMmcXykcVqdmDahE6U+OqDxqJR2vFq/yGNl21hHFYRVFYV5qDK
+ 84JYmxJaW0pJ2d4qXP+ZTaczQ7M1QkTJA4ilyXI6W4mEeWf0YLcIBY4EHz860R5UMM2U8zuKume
+ UMOU1/Gdoq/fkmTUUqw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 adultscore=0 phishscore=0 impostorscore=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080141
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The decoupled `GHES_CPER_HELPERS` config relies on symbols defin=
-ed in `ghes.o`, causing linker errors if enabled independently of `ACPI_APE=
-I_GHES`.
-- [Medium] `GHES_CPER_HELPERS` lacks dependencies on `ACPI_APEI` and archit=
-ectural support, causing implicit declarations and linker errors if enabled=
- independently.
---
+On Tue, Jul 07, 2026 at 03:55:13PM +0530, Gaurav Kohli wrote:
+> 
+> 
+> On 7/7/2026 1:04 AM, Dmitry Baryshkov wrote:
+> > On Mon, Jul 06, 2026 at 08:11:35PM +0200, Daniel Lezcano wrote:
+> > > On 7/6/26 19:47, Dmitry Baryshkov wrote:
+> > > > On Mon, Jul 06, 2026 at 07:03:18PM +0200, Daniel Lezcano wrote:
+> > > > > On 7/3/26 17:42, Dmitry Baryshkov wrote:
+> > > > > > On Fri, Jul 03, 2026 at 07:43:39PM +0530, Gaurav Kohli wrote:
+> > > > > > > 
+> > > > > > > 
+> > > > > > > On 7/3/2026 1:23 PM, Konrad Dybcio wrote:
+> > > > > > > > On 7/3/26 7:03 AM, Gaurav Kohli wrote:
+> > > > > > > > > Add Device Tree binding constants for Qualcomm Thermal Mitigation
+> > > > > > > > > Device (TMD) types used by remoteproc-backed thermal cooling devices.
+> > > > > > > > > 
+> > > > > > > > > Qualcomm remote processors expose thermal mitigation endpoints
+> > > > > > > > > through QMI. These endpoints can be registered with the thermal
+> > > > > > > > > framework via the `#cooling-cells` property on the remoteproc node.
+> > > > > > > > > 
+> > > > > > > > > The QMI TMD protocol identifies devices using string names (for example,
+> > > > > > > > > "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
+> > > > > > > > > `#cooling-cells = <3>` requires numeric device id in the form:
+> > > > > > > > > 
+> > > > > > > > >       <&phandle device_id min_state max_state>
+> > > > > > > > > 
+> > > > > > > > > Define common TMD device index constants shared across currently
+> > > > > > > > > supported platforms. If a future target requires a different mapping,
+> > > > > > > > > additional target-specific constants can be introduced while preserving
+> > > > > > > > > existing DT ABI.
+> > > > > > > > > 
+> > > > > > > > > Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> > > 
+> > > [ ... ]
+> > > 
+> > > > > > Why are you using only those TMD devices?
+> > > > > > 
+> > > > > > > More constants can be added as needed.
+> > > > > > 
+> > > > > > Kodiak is one of the supported platforms.
+> > > > > 
+> > > > > What would be the benefit of having more than thirteen cooling devices
+> > > > > declared in the thermal framework and having only a couple of them mapped in
+> > > > > a thermal zone ?
+> > > > > 
+> > > > > I agree there are more TMDs but if they are unused for the moment, why do we
+> > > > > need to add them ? Can we do that incrementally ?
+> > > > 
+> > > > That's what I am trying to understand: why the implementation uses only
+> > > > the selected two devices, if the modem on Kodiak supports others. How
+> > > > can we find out, which TMDs to use on other devices.
+> > > 
+> > > My understanding is that is an initial thermal setup. Gaurav will add them
+> > > step by step while setting up all the thermal zones instead of sending a big
+> > > patchset. And TBH, that will be much easier to review.
+> > 
+> > In such a case it should be noted in the commit message and/or cover
+> > letter.
+> 
+> Thanks for the review/guidance. Not all TMD endpoints are relevant for
+> kernel thermal zone binding — some like BCL and cold temperature are handled
+> from userspace when needed. The constants here cover only
 
---- Patch [7]: [PATCH v7 07/10] ACPI: APEI: introduce GHES helper ---
-commit 0f74f9098911a0c1e3d2f8f68c8908787e6ae1b7
-Author: Ahmed Tiba <ahmed.tiba@arm.com>
+What if there is no userspace? Or the userspace is different from what
+you expect? I doubt we have TMD-speaking userspace yet.
 
-ACPI: APEI: introduce GHES helper
-   =20
-This commit introduces a new GHES_CPER_HELPERS Kconfig entry so the shared
-helper code can be built even when ACPI_APEI_GHES is disabled. It updates
-the build glue and headers to depend on the new symbol.
+> what is needed for modem and CDSP thermal zones on the currently posted
+> targets.
 
-> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig
-> index f165d14cf61a3..13ef0e99f840b 100644
-> --- a/drivers/acpi/Kconfig
-> +++ b/drivers/acpi/Kconfig
-> @@ -6,6 +6,10 @@
->  config ARCH_SUPPORTS_ACPI
->  	bool
-> =20
-> +config GHES_CPER_HELPERS
-> +	bool
-> +	select UEFI_CPER
-> +
+Again, SLPI, ADSP?
 
-[Severity: Medium]
-Since the commit message indicates this config is meant to be built even
-when ACPI_APEI_GHES is disabled, should this have a depends on ACPI_APEI
-rule?
+> 
+> Will add a note in the cover letter clarifying for current tmd's.
+> Please let me if this is fine.
+> 
+> > 
+> > 
+> 
 
-If a future config selects GHES_CPER_HELPERS without ACPI_APEI, it looks
-like ghes_cper.c will fail to compile. For example, ghes_map() calls
-arch_apei_get_mem_attribute(), which lacks a fallback stub in
-arch/x86/include/asm/acpi.h when CONFIG_ACPI_APEI is disabled.
-
-Similarly, ghes_ack_error() calls apei_read(), which is only compiled
-when CONFIG_ACPI_APEI is enabled.
-
->  menuconfig ACPI
->  	bool "ACPI (Advanced Configuration and Power Interface) Support"
->  	depends on ARCH_SUPPORTS_ACPI
-
-[ ... ]
-
-> diff --git a/include/acpi/ghes.h b/include/acpi/ghes.h
-> index 8d7e5caef3f18..2ffab36b61541 100644
-> --- a/include/acpi/ghes.h
-> +++ b/include/acpi/ghes.h
-> @@ -83,15 +83,17 @@ int devm_ghes_register_vendor_record_notifier(struct =
-device *dev,
->  					      struct notifier_block *nb);
-> =20
->  struct list_head *ghes_get_devices(void);
-> -
-> -void ghes_estatus_pool_region_free(unsigned long addr, u32 size);
->  #else
->  static inline struct list_head *ghes_get_devices(void) { return NULL; }
-> -
-> -static inline void ghes_estatus_pool_region_free(unsigned long addr, u32=
- size) { return; }
->  #endif
-> =20
-> +#ifdef CONFIG_GHES_CPER_HELPERS
->  int ghes_estatus_pool_init(unsigned int num_ghes);
-> +void ghes_estatus_pool_region_free(unsigned long addr, u32 size);
-> +#else
-> +static inline int ghes_estatus_pool_init(unsigned int num_ghes) { return=
- -ENODEV; }
-> +static inline void ghes_estatus_pool_region_free(unsigned long addr, u32=
- size) { }
-> +#endif
-
-[Severity: Medium]
-If GHES_CPER_HELPERS is enabled but ACPI_APEI_GHES is disabled, will this
-cause linker errors?
-
-It appears ghes_defer_non_standard_event() in drivers/acpi/apei/ghes_cper.c
-allocates from ghes_estatus_pool:
-
-drivers/acpi/apei/ghes_cper.c:ghes_defer_non_standard_event() {
-    ...
-    entry =3D (void *)gen_pool_alloc(ghes_estatus_pool, len);
-    ...
-}
-
-However, ghes_estatus_pool is defined in drivers/acpi/apei/ghes.c, which is
-entirely omitted when ACPI_APEI_GHES is disabled.
-
-Additionally, exposing the prototype here for ghes_estatus_pool_init()
-disables the inline stub, which could cause link errors for callers like
-hest.c if ghes.o is missing.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-topics-ahm=
-tib01-ras_ffh_arm_internal_review-v7-0-8b3a85216cef@arm.com?part=3D7
+-- 
+With best wishes
+Dmitry
