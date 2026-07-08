@@ -1,95 +1,90 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852943749F5;
-	Wed,  8 Jul 2026 11:45:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783511121; cv=pass; b=eB4F+K9sfn5zmOTEzFN4iByKFIe8xuDzb0yJj+5a45MG+txy79SspVBS2HWCj1r+mxzE1swQoshBpsLDfpYyojIeZFMn3KXWM2DkYaMBHEPQS/t1L1KRDrf9en9fo9lsagLqupq/N84iIurQOYk6BHh84K8sZrjvgDTk8xqnegg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783511121; c=relaxed/simple;
-	bh=vG674cmrQhJjZlTsH72CkjCa0sAbuJq5pd0lZ9+z5lQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pqJp5S7QQb1a/n0p48L14nrFMVkkfdzlAxSEPNyf0EXwwTQyOAGQthAl8ydmy0cTycDzBuYP1edt0q9gqMGCpAX9vCELHswjK5sStMENaF7W0iEGAknlN5FCoFcNOjrf0sn0pLDhiitjBH9jtKouUYSstTo1LPXM2ZzgYIZ8Z10=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=hHGodoC5; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A708432BDB
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 11:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783511279; cv=none; b=aPSG9N5HtJ2FRfAjLhOejJoaJUgW9LrfwKHZ4G7EwdED2Igk6RGfaOftEAyEVyrmXnrDSUpdqG7ikZAh34xHlSqrgkPZFsQk3QjUr8xg/4fuu6J1RrvxxSUlcr9iBcWMw75vmC2Gn8meY/XVKpu+Z895nqPdTvM6K2lyzV+lOaE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783511279; c=relaxed/simple;
+	bh=YgWdbsJ8UAjrSAc8lxvhYVlBDW1BX0UBIoE3vQlrz0I=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HdzWoktWXjJgWOny7d1vfkYOvefHCk/GlA5l7dapTh4dx2GIM2PNIXyv1EhiJMzLPFJyOzPJwheJ+VSbdB9lFYOey3I6DzNpAJEI5ZWomiMwML7HcZTs7btL5AMQ4ovlh1u5FwZcu/Jqg6mD0D178lEPFZr4kHi0CF9Iyve4YFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cecq+hQF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="hHGodoC5"
-ARC-Seal: i=1; a=rsa-sha256; t=1783511084; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BbzfzKxqbvPnrvyVyHOhzb8iD20zR3d66/NJqDevEdeclatBqZjVOp40FJJBVUGAkZDBYHC3ODWdArm/rrjpPI/IYXPshf4P9TSy6xjx5FerLYq09rVpkQAzZ0wtIsSdxbEgl7L1HfDSB20xpPNMSd/B5CoQVlqmup2BYQWPqWA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783511084; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=10jNbGRvZsPmWMGouxLK8UHxoLr85rz2aRkumx5Y9/A=; 
-	b=LLI7sW882jTnhgaNd1popR55mSPsaxMbsW7mOffkw42FDSe0VycSQiGZ6O64cH0tHIQxND9to8OpnJaDzWBoOpCCdbMpAlocI3IZmYvw7TkOJqvBGqRvPyB3UW/jSL7WMfvBv+qkEAA9ROigdTLXPBOSp/QugRRqThk+tJqbR9E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783511084;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=10jNbGRvZsPmWMGouxLK8UHxoLr85rz2aRkumx5Y9/A=;
-	b=hHGodoC5rNtt9ao4ZOa0g7TQj9LXm/mPnD0kmSkHKFrfpnRPy4Mnq1S3IQjvaToI
-	LBIjBPD3bgr6htQpPURhrwg7UUMeCeGicaNuGHnfvGhRuM4zF2kDIcjqD0IrVq3NnNs
-	mazulxdQPHJYyp46a0hAfQktOenapwaW2mdU/4ms=
-Received: by mx.zohomail.com with SMTPS id 1783511083198326.6815554898435;
-	Wed, 8 Jul 2026 04:44:43 -0700 (PDT)
-Message-ID: <3c22fe68c08c414b789c79144ae569840e1ba6a9.camel@collabora.com>
-Subject: Re: [PATCH net-next 2/6] net: stmmac: mediatek: add PERI_ETH_CTRLx
- register offset in platform data
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, Biao Huang
- <biao.huang@mediatek.com>,  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
- kernel@collabora.com, 	netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 08 Jul 2026 13:44:36 +0200
-In-Reply-To: <3e135fe0-4ef9-45be-a962-d131c8a2e9e0@lunn.ch>
-References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
-	 <20260707-dwmac-mediatek-mt8189-v1-2-17f345eaaca3@collabora.com>
-	 <3e135fe0-4ef9-45be-a962-d131c8a2e9e0@lunn.ch>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cecq+hQF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF971F0155B
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 11:47:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783511277;
+	bh=Is/wl9YqGLEOs03hX4R7RoncNjfkI3qNnoxCKS4Se4s=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=cecq+hQFxMrWt7ebJsexLm3Vzm73NiNjjbaqCiTtxFpKDymd5YU9hUS81TdwlAACD
+	 5Fn7eN/AhE9DyxNihzwkAymgszg0+UEY5Q/+7wIhPhEFCm4FNMV1EarLsXnaMiYyX+
+	 opJ79E0Aq0slRlSxXu7zt6aJuleq6MWpMdhdNsyHMWaMydXDZaLgGMSefHOzorgMW+
+	 y03i7BYlADWLmXxZg+KKqRcOQ/SbyVKyGdyClMs4aLjLVFeXdUaHM0xYvUcGQ86yam
+	 HXiRML+IN0b4/3H6Mi89xzu2dll6oHp0oEQFWyxHQQve7RDxyQ1U+enUudodzQcOUj
+	 jSlt0NaSDsAtw==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39b1eb7bde5so4992091fa.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 04:47:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqsZOvk6ANL23jLKp5Rz+sPvVpGNAFfvF2ugEmiX87kV84ILAw15lb7X7HO0D0+PIaRRhEzQbC4ELix@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxf62S1byw7a5pceQJuxioXxfbz35KD24sm79ba6dTDN99hnm5i
+	TiJlWQgEWhKuUt04Tjg1GWA9RmhJcW3Jaf/w2FUwC2U56xicvwxEcy+4gHNispv1QS4pqXQ9yat
+	PnvdOBNIc8EyLXmB/Tei6hb+0x5RglHxzXFoe9yjeYg==
+X-Received: by 2002:a2e:a5c9:0:b0:39b:a75:e8da with SMTP id
+ 38308e7fff4ca-39c79852412mr4803661fa.3.1783511275626; Wed, 08 Jul 2026
+ 04:47:55 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 8 Jul 2026 04:47:54 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 8 Jul 2026 04:47:54 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <87qzlesfo7.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+References: <20260707-hamoa_pdc_v3-v4-0-dfd1f4a3ae89@oss.qualcomm.com> <87qzlesfo7.ffs@fw13>
+Date: Wed, 8 Jul 2026 04:47:54 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeU0QuRozMscv02M59+a66S05Jm18CyvNE-qSYrY=S7hQ@mail.gmail.com>
+X-Gm-Features: AVVi8Ccza8OJ5sr4vN3ioNWBzssDpnygJvxLLZvBUYfXYOw5sGKh-zx4pCfo0KU
+Message-ID: <CAMRc=MeU0QuRozMscv02M59+a66S05Jm18CyvNE-qSYrY=S7hQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] x1e80100: Enable PDC wake GPIOs and deepest idle state
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Sneh Mankad <sneh.mankad@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Andrew
+On Tue, 7 Jul 2026 22:33:44 +0200, Thomas Gleixner <tglx@kernel.org> said:
+> On Tue, Jul 07 2026 at 14:51, Maulik Shah wrote:
+>> The series has been tested on x1e80100 CRD with both old and new firmware
+>> and also on kaanapali. Test conducted with tlmm-test module after
+>> applying [3] as test module needed to be fixed first.
+>>
+>> All 17/17 passes in pass through mode and 16/17 passes in secondary mode.
+>> Failing test tlmm_test_rising_while_disabled seems to be because when in
+>> irq disabled state PDC is not latching the edge interrupt.
+>
+> I've merged the first four patches and tagged them as promised for
+> consumption by the GPIO tree:
+>
+>    git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq-chip-qcom-pdc-for-gpio-07-07-26
+>
+> Thanks,
+>
+>         tglx
+>
+>
 
-On Tue, 2026-07-07 at 14:45 +0200, Andrew Lunn wrote:
-> > +	.peri_eth_ctrl_offset =3D MT8195_PERI_ETH_CTRL_BASE,
->=20
-> nitpick:
->=20
-> Could the naming be more consistent? offset vs base?
->=20
-> 	Andrew
+Pulled, thanks!
 
-Ack.=C2=A0
-
-The commit description and subject also use offset terminology and not
-base so better keep the consistency.
-
-I'll rename this define to MT8195_PERI_ETH_CTRL_OFFSET in the v2
-version and do the same for the MT8189 one in patch 6.
-
-Regards,
-Louis-Alexis
+Bartosz
