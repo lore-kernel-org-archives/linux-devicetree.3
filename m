@@ -1,215 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7A5420868
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:19:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50C8420868
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 00:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783469987; cv=none; b=DDlj6IKccItPYLyPqr3h+5FIm/GuCIzkG+qkOxkq4MUvM1+pt0BhO+rnuuaTAD2Oe9KnLQFxW1Z4O7ihF53dwRWJzcYK1NKNniX9egB7bHFySail3Doaz2TOSXXXyie7Fj3zqNVXg5ppAAColtzdkhRlQmXTXLExFZAgX9kuJQU=
+	t=1783470422; cv=none; b=ig+0qjkmQ1EkzgVJZf3MyAZcoOsqVeIx0HOE+kKgZtGZTzI+hni9kBWd2xVYG6IXC+1mC74QTZblBYcv7klL3iFCeajbGenNs7+V9nnjpnnLn87jXLMCKsIfjOlokoUy5VmqM2e7+Qffz7IgubwDhlwRXsZMOcc1UJRSorp+5cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783469987; c=relaxed/simple;
-	bh=sL3dEYsT8uMSAC6DIs0GlWsieP7GbbdhYt0gJz/Neps=;
+	s=arc-20240116; t=1783470422; c=relaxed/simple;
+	bh=eAMIT+E2Ntoi/KKhcOeUh9jll9X9z9aRqMDvps2bVJA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K9TV5shk/ZmckNba8b/9sjt2SSi127QIzhejazYdLFM67wXfMKqY4ykn1VC2OWYSsuuqVLLhFg/LM/G1UQoJbEgbBaRiB6TFeJ2nnD/eW6tfDcLQTyMKQJ0gKfE9Dh4ZjfCnm/lCPYUsncVXWz03KlPnNEOHkZl6J1uKHWgCv1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwGYw1En; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gOlkVoamcHp9NjBs1kicXS8QbiADZL589zc5waatDV8DNbMgscnH1kJ/QT3R1so3T69uBxh2o74iFvzyINUZaago4QeQvpsf8EvGttb69kDwa+CoiGHc1Gt1JDr0MHnN+GZlS/8W3amBvm7Rl/j9s7B7E5CQF+TIwywPkwaxBJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJ0oTZ8p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwGYw1En"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157E41F000E9;
-	Wed,  8 Jul 2026 00:19:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJ0oTZ8p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17CB41F000E9;
+	Wed,  8 Jul 2026 00:27:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783469986;
-	bh=1+gUsLrAmWhUjLxQuDXcsTRrzwvSX5ocGikbRtKFGhA=;
+	s=k20260515; t=1783470420;
+	bh=/6zdsixgjkgf6RtHJG3ti5zug0G1Q7L3NcGybM9fWl0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FwGYw1EnRXQOZr3Pz3kK1vhnzfckLpbq7m5ZNbUv4v6xfIZOgaPLG3oJQPwfU+xi1
-	 sRImNPnRR9Crq+CSmFmBLXwXIzegOX3wC0dJhEOeyu3E6dZ56nc02ac5cc5ATTms4u
-	 ZzaewnwQN4ClSn5gASXZQiK7JADu8ahpP7s2sujEvfmFXzeiy02gdZ9+vw3MthRw6V
-	 7koMTIWiAr1Y3yC/di+Z8QjH5hL/7sJbYr3UZbVci6KSgwxBUJ+VkFZU5EpSG1eKRc
-	 CneA0UabGbHDaKDKBtQi8aroPHWkwelivUw0wZnjZ7ld4qCysewbE9ooWTcA1nllqu
-	 DNHQ0zV4LcnxQ==
+	b=hJ0oTZ8pE+3LnyR/WMK58D0E1KJTE+/ohcm70gQvSsbhxjZRRH0xQDTFOFko4V4b8
+	 SSJaGSyi2/hMuZl2Yupe2YbCOg+M7KRPROyfndrNg5RVt0EsgeWWrpjUw7Furhflzx
+	 mRXqVU0C/5gSfGB9oqzGgS/0+vnb98y5opO+kEMRZurawfjk4fu9WQKeICgdkybs8j
+	 +bzpsvOwX84FoOua4OnF8xcFlpvQZ3QsWVAgKdm3JD6reThHgtHySYf4BCpraLZZJu
+	 K+itIiQGLxe3c9Fp/KGd4hMFxQw3C8Q9hCMHYGk+RWDfjjf99HXCc2aHCfj2EmlKw1
+	 /jkJvUw3CJ5dQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 5/6] media: qcom: camss: Add support for PHY API
- devices
+Subject: Re: [PATCH v12 6/6] media: qcom: camss: Drop legacy PHY
+ descriptions from x1e
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-5-f8588da41f16@linaro.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-6-f8588da41f16@linaro.org>
 References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
- <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-5-f8588da41f16@linaro.org>
+ <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-6-f8588da41f16@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 00:19:45 +0000
-Message-Id: <20260708001946.157E41F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 00:26:59 +0000
+Message-Id: <20260708002700.17CB41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing `phy_exit()` cleanup on multiple probe error paths, leakin=
-g PHY initialization state.
-- [High] Missing PHY node availability check in `camss_parse_ports()` cause=
-s a WARN_ON crash during link setup if a PHY is disabled in DT.
-- [Medium] The commit unconditionally selects a non-existent Kconfig symbol=
- `PHY_QCOM_MIPI_CSI2`, causing unmet dependencies and build failures.
-- [Medium] Ignored return value from `phy_mipi_dphy_get_default_config_for_=
-hsclk()` may lead to invalid PHY configuration.
+
+New issues:
+- [High] Missing `phy_exit()` cleanup on probe error paths results in PHY r=
+esource leaks for non-legacy PHYs.
+
+Pre-existing issues:
+- [High] Potential out-of-bounds access in `camss_subdev_notifier_bound()` =
+due to non-contiguous hardware IDs.
 --
 
---- Patch [5]: [PATCH v12 5/6] media: qcom: camss: Add support for PHY API =
-devices ---
-commit 6ca141cbb4ec0862b23ea5f00a1fb741065d4818
+--- Patch [6]: [PATCH v12 6/6] media: qcom: camss: Drop legacy PHY descript=
+ions from x1e ---
+commit 77049628030f3bcd1557363f75216c90c62c80af
 Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-media: qcom: camss: Add support for PHY API devices
-   =20
-Add the ability to use a PHY pointer which interacts with the standard PHY
-API.
+media: qcom: camss: Drop legacy PHY descriptions from x1e
 
-In the first instance the code will try to use the new PHY interface. If no
-PHYs are present in the DT then the legacy method will be attempted.
-
-> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/pl=
-atform/qcom/camss/Kconfig
-> index 4eda48cb1adf0..1edc5e5a1829e 100644
-> --- a/drivers/media/platform/qcom/camss/Kconfig
-> +++ b/drivers/media/platform/qcom/camss/Kconfig
-> @@ -7,3 +7,4 @@ config VIDEO_QCOM_CAMSS
->  	select VIDEO_V4L2_SUBDEV_API
->  	select VIDEOBUF2_DMA_SG
->  	select V4L2_FWNODE
-> +	select PHY_QCOM_MIPI_CSI2
-
-[Severity: Medium]
-Is PHY_QCOM_MIPI_CSI2 a valid configuration symbol in the kernel tree?
-
-Selecting a non-existent symbol can lead to unmet dependency warnings or
-build failures since the intended driver won't be enabled.
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/m=
-edia/platform/qcom/camss/camss-csiphy.c
-> index 539ac4888b608..b740edd0c67e6 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-[ ... ]
-> @@ -306,11 +308,89 @@ static int csiphy_stream_on(struct csiphy_device *c=
-siphy)
-[ ... ]
-> +	phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num_lanes, dphy_c=
-fg);
-> +
-> +	phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
-> +
-> +	ret =3D phy_configure(csiphy->phy, &dphy_opts);
-
-[Severity: Medium]
-Should the return value of phy_mipi_dphy_get_default_config_for_hsclk() be
-checked here?
-
-If link_freq is zero or calculation fails, it returns a negative error code
-and leaves dphy_opts unpopulated. Passing an uninitialized struct to
-phy_configure() might cause invalid configurations or division-by-zero erro=
-rs.
-
-[ ... ]
-> @@ -709,6 +789,60 @@ int msm_csiphy_subdev_init(struct camss *camss,
-[ ... ]
-> +	ret =3D phy_init(csiphy->phy);
-> +	if (ret)
-> +		dev_err(dev, "phy %s init fail %d\n", csiphy->name, ret);
-> +
-> +put_np:
-> +	of_node_put(args.np);
-> +
-> +	return ret;
-> +}
-
-[Severity: High]
-Since phy_init() is called here without a devres wrapper, could this leak t=
-he
-PHY initialization state if probe fails later?
-
-For example, if camss_init_subdevices() fails after this point, the error
-path jumps to err_genpd_cleanup and bypasses the camss_unregister_entities()
-call needed to invoke phy_exit().
+x1e is the first CAMSS SoC to use the new PHY interface. This patch drops
+the redundant legacy CSIPHY descriptions to enable the new interface.
 
 > diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
 atform/qcom/camss/camss.c
-> index e814a96953b1b..146fea438486f 100644
+> index 146fea438486f..f360b2c99bf89 100644
 > --- a/drivers/media/platform/qcom/camss/camss.c
 > +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4794,14 +4794,51 @@ static int camss_parse_endpoint_node(struct devic=
-e *dev,
->  static int camss_parse_ports(struct camss *camss)
->  {
->  	struct device *dev =3D camss->dev;
-> +	const struct camss_resources *res =3D camss->res;
->  	struct fwnode_handle *fwnode =3D dev_fwnode(dev), *ep;
->  	int ret;
-> =20
->  	fwnode_graph_for_each_endpoint(fwnode, ep) {
->  		struct camss_async_subdev *csd;
-> +		struct fwnode_handle *remote;
-> +
-> +		if (!fwnode_device_is_available(ep))
-> +			continue;
-> +
-> +		if (res->legacy_phy) {
-> +			csd =3D v4l2_async_nf_add_fwnode_remote(&camss->notifier, ep,
-> +							      typeof(*csd));
-> +		} else {
-> +			struct fwnode_handle *phy_out, *phy_node, *phy_in, *sensor_ep;
-> +
-> +			phy_out =3D fwnode_graph_get_remote_endpoint(ep);
-> +			if (!phy_out)
-> +				continue;
-> +
-> +			phy_node =3D fwnode_graph_get_port_parent(phy_out);
-> +			fwnode_handle_put(phy_out);
-> +			if (!phy_node)
-> +				continue;
-> +
-> +			phy_in =3D fwnode_graph_get_endpoint_by_id(phy_node, 0, 0, 0);
-
-[Severity: High]
-Is it possible to encounter a crash during link setup if a PHY is disabled
-in the device tree?
-
-This code retrieves phy_node but does not check if it is available using
-fwnode_device_is_available() before adding the remote sensor endpoint to
-the notifier.
-
-Later, msm_csiphy_subdev_init() correctly skips the disabled PHY, leaving
-the csiphy entity uninitialized with 0 pads. When the sensor binds,
-camss_subdev_notifier_complete() attempts to link the sensor to this
-empty entity, which triggers a WARN_ON crash inside media_create_pad_link()
-due to sink_pad >=3D sink->num_pads.
-
 [ ... ]
-> @@ -5132,8 +5186,10 @@ static int camss_register_entities(struct camss *c=
-amss)
-> =20
->  	i =3D camss->res->csiphy_num;
->  err_reg_csiphy:
-> -	for (i--; i >=3D 0; i--)
-> -		msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +	for (i--; i >=3D 0; i--) {
-> +		if (camss->csiphy[i].phy)
-> +			msm_csiphy_unregister_entity(&camss->csiphy[i]);
-> +	}
-> =20
->  	return ret;
->  }
+> @@ -5803,7 +5767,6 @@ static const struct camss_resources sm8650_resource=
+s =3D {
+>  static const struct camss_resources x1e80100_resources =3D {
+>  	.version =3D CAMSS_X1E80100,
+>  	.pd_name =3D "top",
+> -	.legacy_phy =3D true,
 
 [Severity: High]
-If msm_csiphy_register_entity() fails at index i, does this rollback loop
-miss cleaning up the PHY at index i?
+Does dropping the legacy PHY interface introduce PHY resource leaks on probe
+error paths?
 
-The loop decrements i before the check, so it only cleans up indices
-strictly less than the failing index, permanently leaking the initialized
-PHY for the failing index itself.
+If msm_csiphy_subdev_init() fails during camss_init_subdevices(), previously
+initialized PHYs do not appear to be rolled back with phy_exit():
+
+drivers/media/platform/qcom/camss/camss.c:camss_init_subdevices() {
+...
+			ret =3D msm_csiphy_subdev_init(camss, &camss->csiphy[i],
+						     &res->csiphy_res[i],
+						     res->csiphy_res[i].csiphy.id);
+			if (ret < 0)
+				return ret;
+...
+}
+
+Additionally, if camss_probe() fails after camss_init_subdevices() (for
+instance, in dma_set_mask_and_coherent()), the error path jumps to
+err_genpd_cleanup, bypassing camss_unregister_entities() and permanently
+leaking all initialized PHYs:
+
+drivers/media/platform/qcom/camss/camss.c:camss_probe() {
+...
+	ret =3D dma_set_mask_and_coherent(dev, 0xffffffff);
+	if (ret)
+		goto err_genpd_cleanup;
+...
+}
+
+Similarly, does camss_register_entities() fail to call phy_exit() for the
+failed csiphy[i] and all subsequent PHYs, since the cleanup loop starts at
+i - 1?
+
+drivers/media/platform/qcom/camss/camss.c:camss_register_entities() {
+...
+err_reg_csiphy:
+	for (i--; i >=3D 0; i--) {
+		if (camss->csiphy[i].phy)
+			msm_csiphy_unregister_entity(&camss->csiphy[i]);
+	}
+...
+}
+
+
+[Severity: High]
+This is a pre-existing issue, but since x1e80100 defines non-contiguous PHY
+IDs (0, 1, 2, and 4), does this cause an out-of-bounds access?
+
+The csiphy_num is 4 for x1e80100, meaning the camss->csiphy array only has
+4 elements. The endpoint port ID is parsed from the device tree and stored
+in csd->interface.csiphy_id:
+
+drivers/media/platform/qcom/camss/camss.c:camss_parse_endpoint_node() {
+...
+	csd->interface.csiphy_id =3D vep.base.port;
+...
+}
+
+If the port number aligns with the physical hardware ID (e.g., port@4 for
+CSIPHY4), will this use id =3D 4 to index the 4-element array in
+camss_subdev_notifier_bound(), causing an out-of-bounds access?
+
+drivers/media/platform/qcom/camss/camss.c:camss_subdev_notifier_bound() {
+...
+	u8 id =3D csd->interface.csiphy_id;
+	struct csiphy_device *csiphy =3D &camss->csiphy[id];
+
+	csiphy->cfg.csi2 =3D &csd->interface.csi2;
+	subdev->host_priv =3D csiphy;
+...
+}
+
+>  	.csiphy_res =3D csiphy_res_x1e80100,
+>  	.tpg_res =3D tpg_res_x1e80100,
+>  	.csid_res =3D csid_res_x1e80100,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-b4-linux-n=
-ext-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org?part=3D5
+ext-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org?part=3D6
