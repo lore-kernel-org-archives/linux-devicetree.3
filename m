@@ -1,121 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E85D43847B
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B7A403EBD
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 12:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783512024; cv=none; b=fboVIHwJo7uRo5qdr9/wn/YlRhs5CZ+gCxG6VRsm9aFEBTVQth1hu5cVJp4YfgLhpppWGv5IMoRKOWPYTz6ig+Q5Ecgg+QArHF8cOsmlObjIgHCoNHJoTLzXbBDRKTGDAfRhIDbE3eZtXjvkVdK2ffiWGZlYHJJZcbJgKajMlb8=
+	t=1783512095; cv=none; b=knDTtkYqRpa5Tgb9R6DUdy0dx/nRS/8agBSDXZoM0rYU42GZbCK5r5zJZEtGyLqJMoGMZ5lOpORgKbIbO3wvi7iFAWtc+ZoUuHfrGTVJcGG4xbfiiCQThYP7OrNkz7hWSYAk5Dsvo7JbU7Fb4q4ft0jLhnk2eAhv6Lcm7isJbJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783512024; c=relaxed/simple;
-	bh=xbVBrUqAtb7iAXIw3bV67j3K2U/EyBVoWT/ZVk/4fu0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Dwxz3GDtIx54DuUxSOUhX1NEW4CF7PeE3vL6TbW2tAcRnqSt8GiF3gO1Hj8lZr4/87bsGVYytFs2UOwYPKtTUgWpV+dZ3V9Fp0Uail1hM/RTgqA+EPe2HJ8mTI+c6NEiumRbNJI2xv01MU2PdkqKmqEcOmgNPbmRsczFjPgt440=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OPEuMR7P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783512095; c=relaxed/simple;
+	bh=/a6IYbpWnGbUzqL0WVdR/2GwZ+Glpr8Tc4xAeYCi4cA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IAfg3rXj52UdHoQKzkwAmuZzsiyhxry/XGq20Zfhi+MX++7FVua1V49YYMmq608hskan2H0HIK/ORFsIEAvI+u1GD+hn9kaBbAiThypTmzbIdf9RSAZQIwEx3l9GCO56igWxRxA8UopgZrfifagl7nRzM5ziBLamxywMRhCkO5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=agbpY/TL; arc=none smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OPEuMR7P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963171F00A3A;
-	Wed,  8 Jul 2026 12:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783512022;
-	bh=Pz9AiJkbaB2Vg+WpeBbn003bDC5vi6kizfsx+9UGdgE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OPEuMR7PYdEG0c0nJuuSiBvK8b3uBtlWQSqMtnrWqXElYtqYQBCJ0FG/oQTNY8n1g
-	 1KXAKR4Ahi/Hrne9+UB7DfNYZoghXZClNjhE4rqtGsXyOcobBzQUBhfBdRPHLrjZi6
-	 NKmTHBp1Z/XvFIH2/6tXHP6rsiEu6iJ1blonT09Lp0fEkmaIxruh1bTcgS5Ylk8MdI
-	 n+SwRNi6tpFAt6b+zeSeW4sRFPNyp0u1EK9Uegd/psQVr/Gh7+oFHYiv5rst/WTiFw
-	 TpR1QLbmbypjMEVGCdGlQOtjd9QTC72Q8LNF9x/may8iii1kaiPUFqFsmctWfg28t3
-	 fJ6WM7mzfaMuA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/4] ASoC: dt-bindings: qcom: add LPASS LPR vote
- clock ID
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Prasad Kumpatla" <prasad.kumpatla@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708114924.1069239-2-prasad.kumpatla@oss.qualcomm.com>
-References: <20260708114924.1069239-1-prasad.kumpatla@oss.qualcomm.com>
- <20260708114924.1069239-2-prasad.kumpatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 12:00:22 +0000
-Message-Id: <20260708120022.963171F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="agbpY/TL"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39c7720bc9cso197861fa.2
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 05:01:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1783512092; x=1784116892; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4i8K/LEMzhnhSZqG+2fTmIR6QB4CQ+QcJMkt3W3IXEw=;
+        b=agbpY/TLvcUiZWsLEQafWQxClTjApWb9UXv1pjQZSXrCOGBjeu1fJhmSgxz/TWm/Uk
+         Eb1TXzSQKh/zEhBxc2gMBlSNhcoPg4jQ7tghDDM2VlP/JcWGpePq6+VoeKHuhaHIQ4WA
+         eHmZELBfWzoacSUfZHiYkjqvJg3cS29fyS6LbjA4YEG1e/onCNhIknAQ9Sl8Af1KL2jx
+         GjtXciIw1GkWBvfBnFKJ6cAzRpP8SvaSOlorEFc3EdC/bzGdU1UsjVf08F56V5/HnSs8
+         xpmxFkwsFoVzX0X2V6X12iACcqcL67fa3Khl3zkjO8ymh+pfdq5E+Yq9SoFUJ1FT4kKr
+         pv6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783512092; x=1784116892;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4i8K/LEMzhnhSZqG+2fTmIR6QB4CQ+QcJMkt3W3IXEw=;
+        b=F7/Ekrms6hWlrGIIZ8vCxoz5e6E+UbarWiKYzzt/s9N499RNZkTJ7AFRrgJG15lUw3
+         atR8ebUxgk1dYCOLwDIAmUmREwwNAvHzI361JZPF3Mb/xtPT5jXgQ9SR/0TONsLrpCtj
+         L43Aj0vK128XccFLOcERxe4mcIFvDC9lL33+n4BZ/QxlMXYmvru26UxLxQ/Pl2Zs/8CG
+         mj4FIjJ7O5uWuEhIqWOW1WVWXsc9BCFUg3S4jx5JLPrIegkJ5wneIU6hneJNGO1Dagw6
+         YaEedoV1eamgCnZ/G/oKuX0aDgG3xHH3FefT+sUknwpOrK8tSE2nRhCjD0KRz4gW2Han
+         JEdg==
+X-Forwarded-Encrypted: i=1; AHgh+Rojy/nLAU190XTzG0wrp9fpEWS10L1WY+tYVrQyDRjXCLm++RyMWGzBdvgOIt9FlIvgTujxKUnD8phz@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOdeEFpNODiZfTTZwxKJAJW06sbzZm1v8bC9pPRjHHx8mMh9pZ
+	SXqE7K2gbf/dADx6HYITAU3KrHSftez/SfZE2oxBSF7QWucobsXFVEqBSXgfqZRyJpU=
+X-Gm-Gg: AfdE7clXgVBvwXYnL2TwDnwM9C7SKunpdAszB0onOxESuAMzDNC/vB+O2PCY9/3z13R
+	yI9O7vpKTucnbLjUyxbtOPKbvTv32PApdKQioeYsxUQ1EcfJh5j6N3HFLl9jcQkZOMtIFowPCuS
+	hI4awS3WxHDkRKL0btD8tWD09o9iBO7gHZMjUyAy8O+sv1/vqQbURFRT9p1Zs2M3fXxLxNcFhdb
+	73nLBCMDp752PfF2bjjEHuD5tL73u2ZRgufOnRt0VOpCjSDeGfGz+T6wK8g+U+reFXpKochEgWa
+	DZaKjDgPdSXHbGINCWXomnm9AlIdX5CuMbmJM1B8x+TsEa0FoCeobKG9j7O9ZCQp98TBJDpW556
+	QER3af5A50lTIcGsyc4BgGPj39rgVMF2wxbKl0eOb+oOzC4p1+l+efCwz0kARrEaDDA9LUimZ8o
+	BdrnOz1HiuQNxnfxJaJZ9WG+Mxlf3KyIMQJELFpRHEmPrtajhk7tOACZ22KGG83mgqMSg=
+X-Received: by 2002:a2e:a5c9:0:b0:39b:90f:b1cb with SMTP id 38308e7fff4ca-39c798269e4mr2943241fa.7.1783512092081;
+        Wed, 08 Jul 2026 05:01:32 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c6f682129sm7596531fa.1.2026.07.08.05.01.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 05:01:31 -0700 (PDT)
+Message-ID: <74608907-dc8a-42c5-b188-0bdb08d6be77@linaro.org>
+Date: Wed, 8 Jul 2026 15:01:30 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, bryan.odonoghue@linaro.org,
+ loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
+ <51a0abf2-2a72-4551-894b-2c2de91ba0c2@linaro.org>
+ <74a5b549-987c-4dac-a1a0-ff81150cd6ab@oss.qualcomm.com>
+ <56f1fd7e-42bc-4034-81dc-302cb7c22951@linaro.org>
+ <dd34b44d-396e-4267-b383-e4f8d20f8ef4@oss.qualcomm.com>
+ <fffc51f1-9137-4951-b9b8-9f7f263c7878@linaro.org>
+ <wwk4nyczcecnllwivqd2lgnbpzboumtwigk3vmundsvgqtqpy7@duq6zdulc7sc>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <wwk4nyczcecnllwivqd2lgnbpzboumtwigk3vmundsvgqtqpy7@duq6zdulc7sc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The newly added clock ID LPASS_HW_LPR_VOTE is missing from the q6p=
-rm clock driver.
-- [High] Q6DSP_MAX_CLK_ID is hardcoded to 104 in the driver, rejecting look=
-ups for the new clock ID.
---
+On 7/8/26 14:35, Dmitry Baryshkov wrote:
+> On Wed, Jul 08, 2026 at 01:28:46PM +0300, Vladimir Zapolskiy wrote:
+>> Hi Gjorgji.
+>>
+>> On 7/8/26 12:32, Gjorgji Rosikopulos (Consultant) wrote:
+>>> Hi Vlad,
+>>>
+>>> On 7/8/2026 11:47 AM, Vladimir Zapolskiy wrote:
+>>>> Hi Gjorgji.
+>>>>
+>>>> On 7/7/26 16:24, Gjorgji Rosikopulos (Consultant) wrote:
+>>>>> Hi Vlad,
+>>>>>
+>>>>> On 7/6/2026 10:46 AM, Vladimir Zapolskiy wrote:
+>>>>> <snip>
+>>>>>>>
+>>>>>>> +            interconnects = <&gem_noc MASTER_AMPSS_M0
+>>>>>>> QCOM_ICC_TAG_ACTIVE_ONLY
+>>>>>>> +                             &config_noc SLAVE_CAMERA_CFG
+>>>>>>> QCOM_ICC_TAG_ACTIVE_ONLY>,
+>>>>>>> +                            <&mmss_noc MASTER_CAMNOC_HF
+>>>>>>> QCOM_ICC_TAG_ALWAYS
+>>>>>>> +                             &mc_virt SLAVE_EBI_CH0
+>>>>>>> QCOM_ICC_TAG_ALWAYS>,
+>>>>>>> +                            <&mmss_noc MASTER_CAMNOC_SF
+>>>>>>> QCOM_ICC_TAG_ALWAYS
+>>>>>>> +                             &mc_virt SLAVE_EBI_CH0
+>>>>>>> QCOM_ICC_TAG_ALWAYS>;
+>>>>>>> +            interconnect-names = "cpu-cfg",
+>>>>>>> +                                 "hf-mnoc",
+>>>>>>> +                                 "sf-mnoc";
+>>>>>>
+>>>>>> This is the topic, which may raise a disagreement, but I'll repeat my
+>>>>>> position about the need to remove all "CAMSS bus" specific resources from
+>>>>>> the device node, they are found and should be allocated on parent's side.
+>>>>>
+>>>>> The interconnect has functionality to handle bw requests from different
+>>>>> clients.
+>>>>>
+>>>>> Yes the best will be to have camss interconnect, so jpeg and other hw's
+>>>>> to vote
+>>>>>
+>>>>> on that (actually it is possible in icc framework) but what is the
+>>>>> benefit of moving
+>>>>>
+>>>>> those to camss? Is it not better to create camss icc. I understand
+>>>>> you want them to be on parent side. But how to vote on bw? Most of the
+>>>>> time it
+>>>>
+>>>> Let's concentrate on hardware bindings description, no APIs, votes etc.
+>>>> at this point of discussion.
+>>> I agree but there should be an API for icc voting which Jpeg need to use,
+>>> currently it is fixed to some values, but voting need to become dynamic
+>>> at some point of time, because it depends on runtime parameters, resolution
+>>> format etc.>
+>>
+>> Sure, but I believe it's quite clear that any software implementation
+>> should be discussed only when the hardware description is fixed.
+>>
+>>>> There is SM8250 CAMSS device, which serves as a hierarchical parent (or
+>>>> could be considered as a "bus" device) to this new JPEG encoder device
+>>>> and probably to a number of future IPs under CAMSS. All CAMSS sub-devices
+>>>> get hardware descriptions as children device tree nodes of CAMSS parent
+>>>> device tree node naturally.
+>>> I agree the device tree is best to represent real hw topology. >
+>>
+>> Well, it's not just the best, it's the only possible way.
+>>
+>>>> Copying of the same identical information about clocks, interconnects
+>>>> and power domains from the hierarchical parent device to children devices
+>>>> is not needed, and practically it only lowers signal-to-noise ratio.
+>>> Here also i tend to agree.>
+>>>> Since information about the actual defect in hardware description is
+>>>> reported, the problem can and should be avoided, the handling of a better
+>>>> hardware description and dealing with any kind of complexity will be done
+>>>> in the CAMSS and/or CAMSS children drivers.
+>>>>
+>>>> If you need to get a bit more formal point of view on the matter, I'd
+>>>> prefer to see descriptions of hardware properties organised in a tree
+>>>> topology rather than in the originally proposed star topology. By doing
+>>>> it the system complexity is reduced from N to 1.
+>>>
+>>> Maybe I'm missing the whole picture of your proposal, but I want to add my
+>>> point of view on this matter.
+>>>
+>>> The JPEG encoder HW block has no dependency on the other processing HW
+>>> blocks in the camera subsystem
+>>>
+>>> It shares resources like camnoc, clocks, GDSC, etc.,
+>>> but does not share anything with the other HW processing blocks. For me,
+>>> the JPEG driver should not have SW architectural dependencies on CAMSS.
+>>
+>> To move forward there should be a clear answer to a simple question,
+>> does Qualcomm JPEG encoder IP belong to CAMSS group of devices or not?
+>>
+>> If no, then JPEG encoder device tree node shall be located outside of
+>> CAMSS device tree node, all resources needed for JPEG encoder device
+>> operation get their descrition in this stand-alone device tree node.
+>>
+>> If yes, then JPEG encoder device tree node is a child of CAMSS "bus"
+>> device tree node, and only resources specific to JPEG encoder device
+>> are described in its device tree node, because other resources are
+>> already described in the parent device tree node.
+> 
+> 2c from my side (for both sides of the discussion). Please keep it
+> separate, if the block simply uses the resource which is also used by
+> the parent (e.g. there are no special requirements on the AHB or sleep
+> clocks) or if the device needs to actuall cast a vote on a particular
+> resource (e.g. for this to function at this performance level, the MMCX
+> needs to be at the turbo level OR for this to function at this
+> performance level it will use 123 MHz of the AXI clock). In the latter
+> case the resources must be described as a part of the device.
+> 
 
---- Patch [1]: [PATCH v1 1/4] ASoC: dt-bindings: qcom: add LPASS LPR vote c=
-lock ID ---
-commit fe14afabf9a256155105b2b26aa6c17a00fb25dd
-Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Even this "description as a part of the device" might be not quite
+necessary in whole, let me try to explain.
 
-ASoC: dt-bindings: qcom: add LPASS LPR vote clock ID
+No doubts resource usage policies specific to a child device should
+be naturally described in child device tree node, and it's applicable
+to any kind of hardware policies (like opp tables etc.), but a list
+of needed hardware resources still can be obtained (also by a driver)
+from the parent, whenever it is found applicable and unambiguous.
 
-Add a new clock ID, LPASS_HW_LPR_VOTE, to represent the LPASS low-power
-resource (LPR) vote through the PRM interface. Also update Q6AFE_MAX_CLK_ID
-to account for the newly added clock ID. This allows clients to explicitly
-manage LPR resource voting via PRM.
+This is to separate planes of hardware dependencies and policies/controls
+needed for hardware usage.
 
-> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include=
-/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-> index 45850f2d43425..06ca2c287ab2f 100644
-> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-> @@ -236,8 +236,9 @@
->  #define LPASS_HW_AVTIMER_VOTE		101
->  #define LPASS_HW_MACRO_VOTE		102
->  #define LPASS_HW_DCODEC_VOTE		103
-> +#define LPASS_HW_LPR_VOTE		104
-
-[Severity: High]
-Is the corresponding driver implementation missing for this new clock ID?
-
-Looking at the clock provider in sound/soc/qcom/qdsp6/q6prm-clocks.c, the
-q6prm_clks array doesn't appear to have an entry for LPASS_HW_LPR_VOTE,
-which means the clock would never be registered when a client device attemp=
-ts
-to request it.
-
-[Severity: High]
-Will the hardcoded limit in the driver reject lookups for this new ID?
-
-In sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c, Q6DSP_MAX_CLK_ID is hardcoded
-to 104. When a client device requests the new clock ID 104, it looks like it
-would be rejected here:
-
-sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c:q6dsp_of_clk_hw_get() {
-    ...
-    if (idx >=3D Q6DSP_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVI=
-SOR) {
-        ...
-        return ERR_PTR(-EINVAL);
-    }
-    ...
-}
-
-Could this result in -EINVAL being returned instead of the expected clock?
-
-Also, if the clock is later added to the initialization array without updat=
-ing
-the Q6DSP_MAX_CLK_ID macro, is there a risk of an out-of-bounds write during
-driver initialization since the array size remains 104?
-
-> =20
-> -#define Q6AFE_MAX_CLK_ID			104
-> +#define Q6AFE_MAX_CLK_ID			105
-> =20
->  #define LPASS_CLK_ATTRIBUTE_INVALID		0x0
->  #define LPASS_CLK_ATTRIBUTE_COUPLE_NO		0x1
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708114924.1069=
-239-1-prasad.kumpatla@oss.qualcomm.com?part=3D1
+-- 
+Best wishes,
+Vladimir
