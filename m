@@ -1,62 +1,64 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E109B434409
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9018A43441A
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783528396; cv=none; b=WFu/VUortpmB9+LnumfSWHjxSJFJvbKjOrAg6R4Lvt2R6yEUk3KS5U8UYv7izJ018bVEYB2REJ0ZJOAlesV0+74dGtRI3XA9Q7YiQSaFU0yi/fYLcXhNi6vxE6kneI6maGQowsBrQIZofKW52XgVNOC6ccfs6kza5N/Kq/nt2IQ=
+	t=1783528398; cv=none; b=ZvNW/m3NN9D5Uhoeo6aqrsIQvQAxLWA6R3/jw5ZkK/Ox+Fja3fUTMfROWhmCDYQaTC2i4XJAGWnM3YqZToEp0ZQaBolvdQ+hqxqcZUNtfs0fCDAnPITaoMdOppqo5iU8E4+M3gW9y6sZ3tRKeLcCQHPCuG94F5UB1MNJwBT0BFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783528396; c=relaxed/simple;
-	bh=62mslteZhIKHAWAAXWoeCiNpK+rmttXRRahA7/bf/Ss=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=K4KK1ZMtCeIaWpzy2PdfaCfizPtuomXquZkgzkQcCiP2Yi1pr/FExx2eX+YXbL8s7pzCIBJp4AxOvvqDktgJV30Fo1VNryH3zfbHP6eu+bmH2is6ebOrxg0G1ptttTwaHfI0ms+9BqV3VGFLzxj7aoQkkKUxjbpl3pfezcYQu2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g6OcfKIu; arc=none smtp.client-ip=209.85.221.46
+	s=arc-20240116; t=1783528398; c=relaxed/simple;
+	bh=15AeTXUAeRhIB66K8fNZfIwbnTEC42hRJaBiGf7fNns=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jws0e6ndafPgjFlnp+QPgjKiM2SOVRzrHCragiqyu7ZNjq6dAjU0ZzrkL1+W2XNvNVTbTRxM4Ytkzsz2ZJUm/NG2VE9maHFLn5Z8aFjTICxHdJnmejOaSbn9jmyKeRjT4Wqmjn5dCPjvU0VpcOxV2BOqUrxRManU9rwIzDnbZDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JSL6jfl0; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g6OcfKIu"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47d70879764so664530f8f.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:33:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JSL6jfl0"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493ae59eca6so5153755e9.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:33:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783528393; x=1784133193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ta7U2T72D7YYjRgGX/nLZ9LJda6iOq9oicgwZdyzAQo=;
-        b=g6OcfKIuJ7L5EDWtVxMv4dAffNDnG8+aAeJcVXjmHGaqgXXc/Vvx/B/Awxvbyyq1fu
-         vgPAyLVz/QU0hApXqdZUQkHEXOW5e9c3E37G0uGEVXzYw2xjKu/oVYdX+nNNutdEEfGc
-         mzqq4GMuUXFbws/O9SpgGhXgtoN1tACGOzjRz+TPBYatlqhCVhCNT/bZFYFok8ds6ome
-         SRIKnc6s2ImYRJMlc+LVsy8OSv6yb7wwD9ELs/9mWtOSqX+hg74ih5eO4nCQ5yoT1TZ7
-         00C+sFwIXoIIscLNnxS9/u9gp6/M0X8wJ2OH/HZOtlmW8Bh+h1xh+mSRhczvvjmdLY7r
-         k44w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783528393; x=1784133193;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783528395; x=1784133195; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ta7U2T72D7YYjRgGX/nLZ9LJda6iOq9oicgwZdyzAQo=;
-        b=JDKXlHOIVzFMfWEa7+itK8PTpC6Gt6DljBAM+zWfzDnxkfOA6DD0LbDMir5uacbTMK
-         Nnv6ryeDLa4bUL18BGSemCY2t3d0gZfDVCmYuG85Dn2Z3GpdMnr+q2c2LrJpYyYkQNmF
-         n189r3STd+DP6xtxtjhXonKLGhk2fx2gglm/U/2xFRUFYNdb6tpKELCRhZlZ+8u0yYDs
-         YetcSdRkiWjkKcTSkDM8BaESoe6zFO5lYvCs1omVVzs/+GSig45TbADp5yz9H/B8UYoc
-         hiMb3L7gNz6oY/jWkrPoog4kKs4SWlcLb39NQHC9F2A0QdPECV96GMrzib2BHSwn3L0j
-         Rx2A==
-X-Forwarded-Encrypted: i=1; AHgh+RpW1JzBY+7/SOpWIafy+4essq+JOyEbBdCn3wrN259kECCAuyQTGn+A1PNS2agSN20WmzC9Jnu7gWp7@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywogw65saOPMHXC2wkIxeWzbqr2EUaqMFVAcdnTdjw+ef0NY17K
-	6IUs8F0ik43KkV9P+9TRoEndw60QwhJeAvpyIHfGY/FA485H6hENcj2I
-X-Gm-Gg: AfdE7clh+3iuTgMQF/yMB/FjkmWGuhTb5JkZiS3iNFcRhEcnU3OXE49+BlEjWpVhOyY
-	gytx/sSFCA09vaR/3QTF1VVgSbkyMYuVPcjHKvKvGtywibNllME34LXzlqNvhBs6ynTxCUC0aFR
-	45a9aDbMGN8yjEqNxhknp3O9JS0PRyCoc7UX4Jcb0hZBKN5WJL5Yhpan61MEyH0D962HVrixpDA
-	aVGgZTQVt+aYR2eBInDtriMmPY9PB1t0WkxJkVIrYmajW0I+rinpiUg+o7KzPZbfG3nHMvADg2D
-	gCvuiM2BBCnLOKXc6tjc7hIu50G9D6AzKzvJRpjOMnyQeYcgoe8t5ex7asRb+S/5UdZM5JU/6ME
-	LxJkjAugFgO5+1klIu3HPLengSHF3+KfK9CRlPzgI8kyx1pi9eNPo9VcY5MMoUHJKsK9qaTbO8o
-	z/xtJD7P6kq8jmMwxgLpGr4v9YKn8AfoWo3No4KYTp73PfkIjDfKQN0PTKdfhvcOkL66SroKkA5
-	scbTgAQEFI1A4P7MbDxKW8qW+w9YVI2XUlsIQ==
-X-Received: by 2002:a05:6000:2911:b0:46f:9d18:bd3c with SMTP id ffacd0b85a97d-47df07a959bmr3978720f8f.12.1783528393111;
-        Wed, 08 Jul 2026 09:33:13 -0700 (PDT)
+        bh=9LMzktzbuCuoam+eHVbF5e1UKPrhBmDuf8QEdKJpdds=;
+        b=JSL6jfl0LlgrCTp26xuc/JvoCOd/BSuqLmIElh77ik9vJE1qwR8P3NLDz93R0NkFY+
+         TwAZUmY1RGDdJPzAk/UtKIVqV9JkWn59dN/n3wPtkhzd0qtqD8oFqbqAdoV4ep/OmkN0
+         ptZgASL5q86ySYDcpAHWOAYKut0D1LbxWZpmtv8WZe7QwUUFjYj582te5nku3xVuPK2l
+         OT3HnZXjVAxx7nRexgXFhAyAPOqQL38gkktrFCGKoR8Ru6gPNGcBIz8Vw19Jd8+Fgeto
+         T3TrjQb645gMb/QdfHjAsdlNAgf3Na88qgEWAuHWIfs4pYODrG/1uCCC1Fz39ttuIL1f
+         A5Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783528395; x=1784133195;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9LMzktzbuCuoam+eHVbF5e1UKPrhBmDuf8QEdKJpdds=;
+        b=r711xs//wl0B2k+tus7h3l9QDQXvGGg2wy/h0HfLgm6sLnkgic9q7kAvXupVNr/hlB
+         wNUvfpop4+BR3wJtbx68bpg+qtDRPn+3ej0zqUg0CoXwbX0FBGTwJWOhBQM2Jd/86WeE
+         Ik2eUP7Cr4yRQW4N7LleVFDCAcE+MITH0SUy9DpiNcwCt968c6MwpnmWQtestrCpH/uK
+         rM07FrbrVs+8wKaxrJxc3NHqPJrPEATErJuWRusLw0sMpZeBqClgiSqOi9iVaTifVRDp
+         IIYGmI83hwZf+d+Mxf2Xe0k+6rG6PDpAkMqq17LFTYRQwFeUrZwM+OTEDzQD08NH4eJG
+         HFrg==
+X-Forwarded-Encrypted: i=1; AHgh+RrA9DVkZ+YjyY45VE+VR3ayAgi9P80U4DtkjWe0zZDnxwNZ4C7m1cu46O3wbZtLt/rJZvEErrBNba4k@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoyDFligEF1OplA9cYn7zVYtUJqw7jlArESBHs49WB7mLSL+zV
+	Vyemg3SHNwL0NGjAWuOPOJJRL+oPHGC7W/d39Sf6lyv67tHjWSudgFvK
+X-Gm-Gg: AfdE7clSN53eVMQ6Z3imRLMUpTeh648Wmlt23EdofMMjZe8Hn2O+2wKJYWZj78zYdw+
+	mKttb8ynsFEQBW8ImJk5HAuX+bLQYWoSTWa7f8eiIzypULgFBodzAz87dqxXxSGW4QNwEGIY/kJ
+	R3IL5fHFjEDl6YWfp2plsX2Q25O8KEdEN9x6EaikYpeGWqj5Z3HZW+GBHLTOkJQ9z4+K+ODCBgy
+	DgCgb2IT5zDm4Iasd5pamaml5I3yC9JxwDs9+/hxrFp2DEsynwxWu5ZDBPior13o7uwN+n3ISn9
+	fOfWbsaM4HQ2sco4RGnlmY5ofXjrP/WxdPyqLYEZfiYGex3/cjqE9zllkZBd8ZHCjIL15nxCVtE
+	yX6APmRN7U5HR/S3TiOuZHfl+Kx+eTvjjIstWqQB1QT+/a4vMtpQaKSUQlFskPD5OvVjfM1+x/Z
+	2FBu6BahFLDGMfkgNEEBjgCPIVFedqIZWe/sTsJw89ZgGqhCu43E9QBKh3ukIBTP4lNh4U1KWku
+	MP2MvRcAalFvuXUiTB1/krLivltc5s3UYVPhQ==
+X-Received: by 2002:a05:600c:4692:b0:493:b750:bd20 with SMTP id 5b1f17b1804b1-493e68a5f91mr34908265e9.15.1783528394790;
+        Wed, 08 Jul 2026 09:33:14 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:ca98:2759:6fb2:4aa7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960af0sm40184167f8f.30.2026.07.08.09.33.12
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960af0sm40184167f8f.30.2026.07.08.09.33.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 09:33:12 -0700 (PDT)
+        Wed, 08 Jul 2026 09:33:13 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -71,10 +73,12 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 0/2] Add PCIe support to RZ/V2H SoC and EVK
-Date: Wed,  8 Jul 2026 17:33:09 +0100
-Message-ID: <20260708163311.222176-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 1/2] arm64: dts: renesas: r9a09g057: Add PCIe nodes
+Date: Wed,  8 Jul 2026 17:33:10 +0100
+Message-ID: <20260708163311.222176-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260708163311.222176-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260708163311.222176-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,33 +89,168 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+Add PCIe nodes to Renesas RZ/V2H(P) ("R9A09G057") SoC DTSI.
 
-This patch series adds PCIe support to the Renesas RZ/V2H SoC and enables
-PCIe on the RZ/V2H EVK. The first patch adds the necessary device tree
-nodes for the PCIe controller, while the second patch enables the PCIe
-slot on the RZ/V2H EVK.
-
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
 v1->v2:
 - Formatted the ranges property so that the new line entries are aligned.
 - Corrected the flag values for dma-ranges property for pcie0/1 nodes.
-- Renamed the node name from pcie to pcie0.
+---
+ arch/arm64/boot/dts/renesas/r9a09g057.dtsi | 140 +++++++++++++++++++++
+ 1 file changed, 140 insertions(+)
 
-v1: https://lore.kernel.org/all/20260602204707.1920839-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Note, the driver and binding patches have landed in linux-next.
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (2):
-  arm64: dts: renesas: r9a09g057: Add PCIe nodes
-  arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Enable PCIe
-
- arch/arm64/boot/dts/renesas/r9a09g057.dtsi    | 140 ++++++++++++++++++
- .../dts/renesas/r9a09g057h44-rzv2h-evk.dts    |  18 +++
- 2 files changed, 158 insertions(+)
-
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+index 8af0f0f2f2f7..639693d464a7 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+@@ -1041,6 +1041,146 @@ rsci9: serial@12803000 {
+ 			status = "disabled";
+ 		};
+ 
++		pcie0: pcie@13400000 {
++			compatible = "renesas,r9a09g057-pcie";
++			reg = <0 0x13400000 0 0x10000>;
++			ranges = <0x02000000 0x0 0x30000000 0x0 0x30000000 0x0 0x08000000>,
++				 <0x43000000 0x4 0x40000000 0x4 0x40000000 0x6 0x00000000>;
++			dma-ranges = <0x43000000 0x0 0x40000000 0x0 0x40000000 0x4 0x00000000>;
++			bus-range = <0x0 0xff>;
++			interrupts = <GIC_SPI 800 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 801 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 802 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 803 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 806 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 792 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 793 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 794 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 795 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 796 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 797 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 799 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 804 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 805 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 807 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 791 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 798 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 808 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 809 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 810 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 811 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 812 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 813 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "serr", "serr_cor", "serr_nonfatal",
++					  "serr_fatal", "axi_err", "inta",
++					  "intb", "intc", "intd", "msi",
++					  "link_bandwidth", "pm_pme", "dma",
++					  "pcie_evt", "msg", "all",
++					  "link_equalization_request",
++					  "turn_off_event", "pmu_poweroff",
++					  "d3_event_f0", "d3_event_f1",
++					  "cfg_pmcsr_writeclear_f0",
++					  "cfg_pmcsr_writeclear_f1";
++			#interrupt-cells = <1>;
++			interrupt-controller;
++			interrupt-map-mask = <0 0 0 7>;
++			interrupt-map = <0 0 0 1 &pcie0 0 0 0 0>, /* INTA */
++					<0 0 0 2 &pcie0 0 0 0 1>, /* INTB */
++					<0 0 0 3 &pcie0 0 0 0 2>, /* INTC */
++					<0 0 0 4 &pcie0 0 0 0 3>; /* INTD */
++			clocks = <&cpg CPG_MOD 0xc4>, <&cpg CPG_MOD 0xc5>;
++			clock-names = "aclk", "pmu";
++			resets = <&cpg 0xb2>;
++			reset-names = "aresetn";
++			power-domains = <&cpg>;
++			device_type = "pci";
++			#address-cells = <3>;
++			#size-cells = <2>;
++			num-lanes = <2>;
++			renesas,sysc = <&sys 0>;
++			status = "disabled";
++
++			pcie_port0: pcie@0,0 {
++				reg = <0x0 0x0 0x0 0x0 0x0>;
++				ranges;
++				device_type = "pci";
++				vendor-id = <0x1912>;
++				device-id = <0x003b>;
++				#address-cells = <3>;
++				#size-cells = <2>;
++			};
++		};
++
++		pcie1: pcie@13410000 {
++			compatible = "renesas,r9a09g057-pcie";
++			reg = <0 0x13410000 0 0x10000>;
++			ranges = <0x02000000 0x0 0x38000000 0x0 0x38000000 0x0 0x08000000>,
++				 <0x43000000 0xa 0x40000000 0xa 0x40000000 0x5 0xc0000000>;
++			dma-ranges = <0x43000000 0x0 0x40000000 0x0 0x40000000 0x4 0x00000000>;
++			bus-range = <0x0 0xff>;
++			interrupts = <GIC_SPI 823 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 824 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 825 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 826 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 829 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 815 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 816 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 817 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 818 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 819 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 820 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 822 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 827 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 828 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 830 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 814 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 821 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 831 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 832 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 833 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 834 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 835 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 836 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "serr", "serr_cor", "serr_nonfatal",
++					  "serr_fatal", "axi_err", "inta",
++					  "intb", "intc", "intd", "msi",
++					  "link_bandwidth", "pm_pme", "dma",
++					  "pcie_evt", "msg", "all",
++					  "link_equalization_request",
++					  "turn_off_event", "pmu_poweroff",
++					  "d3_event_f0", "d3_event_f1",
++					  "cfg_pmcsr_writeclear_f0",
++					  "cfg_pmcsr_writeclear_f1";
++			#interrupt-cells = <1>;
++			interrupt-controller;
++			interrupt-map-mask = <0 0 0 7>;
++			interrupt-map = <0 0 0 1 &pcie1 0 0 0 0>, /* INTA */
++					<0 0 0 2 &pcie1 0 0 0 1>, /* INTB */
++					<0 0 0 3 &pcie1 0 0 0 2>, /* INTC */
++					<0 0 0 4 &pcie1 0 0 0 3>; /* INTD */
++			clocks = <&cpg CPG_MOD 0xc4>, <&cpg CPG_MOD 0xc5>;
++			clock-names = "aclk", "pmu";
++			resets = <&cpg 0xb2>;
++			reset-names = "aresetn";
++			power-domains = <&cpg>;
++			device_type = "pci";
++			#address-cells = <3>;
++			#size-cells = <2>;
++			num-lanes = <2>;
++			renesas,sysc = <&sys 1>;
++			status = "disabled";
++
++			pcie_port1: pcie@0,0 {
++				reg = <0x0 0x0 0x0 0x0 0x0>;
++				ranges;
++				device_type = "pci";
++				vendor-id = <0x1912>;
++				device-id = <0x003b>;
++				#address-cells = <3>;
++				#size-cells = <2>;
++			};
++		};
++
+ 		i2c0: i2c@14400400 {
+ 			compatible = "renesas,riic-r9a09g057";
+ 			reg = <0 0x14400400 0 0x400>;
 -- 
 2.54.0
 
