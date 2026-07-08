@@ -1,346 +1,124 @@
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7A63EE1DC
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 09:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262BD408013;
+	Wed,  8 Jul 2026 09:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783501991; cv=none; b=pixlnbi65qkYgBkiYhSQH0Vmj1IS8T1wrkcqagp4t2cxTGfJFUTt9ZK2r3VlgC1KJLXCYnwKyFF5E//cQgXdB4LgaCBywfns7KMlQYvTlTYUBXYdF2tt/r5WIupxz1E9gF3fGNN7Q2cHqnlWKsGnSnEpyfUqwtrah8dhKDt+ryI=
+	t=1783502105; cv=none; b=rE8wttTTrFV1s3ZLr1W5S9vs0+EyA2AKO2lWQ7VFn/hb3bZh7LFntPUCRfWVs3Iqsj9zDEeQCg3W/PzP+AG34fWcBtUvJc4aKq6qWlmfah/u794vAJUsrQb3Ql6dv9ITkoja4ODtJyTGZh7UXsqoGwqQOCke41yeOfyJOYVdEoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783501991; c=relaxed/simple;
-	bh=SHGSfS2/H1YBWnkNLtdKaMi/zrnlzJnO61zM/C8RyOg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jUrJN5Qo08fyUViRh3M9Xxi+0XGXlJTrEQOrfcayBsBA7CpACufzRX0P8u9VBrAUrO7HFvnF6whNNynFp9uQwH/i7ypLKMFQV0A51mOL5U+0EzptDsMyBFDKANfqwSGTxvS+jb0v2/gv41EcUwTkRNB5WPUW/TqrCJ5Ky6pTULI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ML3Cf4aU; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1783502105; c=relaxed/simple;
+	bh=P+fTFIc3zTm4lUnoS2JEv0wFkbM6kjmvHvTpDQem5xA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lxKFR7voyOqhsX0z2ASEKIZNuF2tvDsST6wrnZsJ9OJ4xeb3oBYYPc0gXykSL4W8Fj3/t3vv/LJgyj5jmD8VuWMymP1ovrzOu+Vm+m3j10CzLpFaeVJTuVLoJYGJzp+EEAME6iijAm7Mxm2hYlchLZ4BSODBNm7AZ5PeeLb1xz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnfTUp/7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ML3Cf4aU"
-Message-ID: <5717102b-f7ab-42b2-8065-064d94dd2bee@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783501985;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lk1A3Ic6rfNLvStv9OZxDE+43p0a6M1kCmZcBw19bYE=;
-	b=ML3Cf4aUm9F0pbbE+QSllyuIs85v5KwzIvQ6uiXwUWTi7vPKfqKNTLKlLrvMgMlSayr18A
-	hCYRyoY+9P8s91+wshquJ5BM3bm3dAb6+eYUJ/QRjko9QeXUAQAwsFv7UPbw0KE6uWxc23
-	QtQBdMMNDrLg7Az61QoiblrroJGmpaM=
-Date: Wed, 8 Jul 2026 11:11:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnfTUp/7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963861F000E9;
+	Wed,  8 Jul 2026 09:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783502103;
+	bh=FAUSVtqet6fcAno27B29SrZvJs6MkDjI+0dDg//GFcs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EnfTUp/72nwZY8Y6b49Kh9tdCkddabdE0ig7Jz7gxtC0HX09Tc0/odJMO8gmcM+g2
+	 OTjqnDVkAQLB84/dadve3uSJF5g7VfyyXHvqHR4lP5V3PRVrGSQaSWB8G/TyDXgyB5
+	 fBvZKQcw58xKQllEVoffZLSkNoNS6qM56tKOHrVjw9mqgHeqdvvEWPb+c1w9I1KCki
+	 srFwbG7HyIvpp+39hLt1oloFOpu9Le5wmYwGTWg0eucB8dTt6Jc1sJgVfmIRVjm1Io
+	 9Sqe2JLNPvuwuyT1LLuxWryD0YHDl7fUlj04hOIE1L8jGo2Mcght/NeV4rCPEsUzAT
+	 xxtpWOjVt8pQQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] PCI: mediatek: handle optional reset for perstout
+ for AN7583
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260708090533.19734-2-ansuelsmth@gmail.com>
+References: <20260708090533.19734-1-ansuelsmth@gmail.com>
+ <20260708090533.19734-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 09:15:02 +0000
+Message-Id: <20260708091502.963861F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH 3/3] ASoC: codecs: wcd9378: add TX/capture codec driver
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Cc: Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ravi Hothi <ravi.hothi@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260706192229.144137-1-jorijnvdgraaf@catcrafts.net>
- <20260706192229.144137-4-jorijnvdgraaf@catcrafts.net>
- <d643de20-50db-4f5c-a803-f1737da253fe@linux.dev>
- <20260707151329.67858-1-jorijnvdgraaf@catcrafts.net>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20260707151329.67858-1-jorijnvdgraaf@catcrafts.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
-On 7/7/26 17:13, Jorijn van der Graaf wrote:
-> [ +Cc Vinod and Bard for the drivers/soundwire items below ]
-> 
-> On Tue, 7 Jul 2026 13:42:26 +0200, Pierre-Louis Bossart wrote:
->>> +static int wcd9378_bus_config(struct sdw_slave *slave,
->>> +			      struct sdw_bus_params *params)
->>
->> Changes to SCP registers are generally done by the SoundWire core.
->> IIRC there is already support for setting the bus scaling registers.
->> Not sure why this function is needed?
-> 
-> You're right, and thanks for the pointer. sdw_slave_set_frequency()
-> computes exactly the values this codec needs (base 19.2 MHz, scale
-> index 2 for the 9.6 MHz bus here). It just never triggers on qcom
-> platforms today: the chip enumerates with class_id 0x00, qcom.c does
-> not set bus->prop.mclk_freq, and so sdw_slave_get_scale_index()
-> would return -EINVAL - which I suspect is why the downstream stack,
-> and this driver following it, hand-roll these writes.
-> 
-> Plan for v2: set prop.mclk_freq in the qcom controller (small
-> separate patch), set prop.clock_reg_supported here, and delete
-> wcd9378_bus_config() plus the hand-rolled base/scale writes. One gap
-> I noticed while checking this: sdw_program_params() gates the
-> bank-switch scale reprogramming on
-> is_clock_scaling_supported_by_slave(), which checks class_id only
-> and not prop.clock_reg_supported, so a class-0 device never gets
-> the next-bank scale written there. That is harmless here, since
-> sdw_slave_set_frequency() programs both banks at enumeration and
-> the qcom bus clock is fixed, but I can extend the helper to honour
-> clock_reg_supported as well - as part of the soundwire-side series
-> with the mclk_freq patch, or however Vinod prefers to route it.
-> Either way I want to re-validate on hardware before deleting: the
-> sequencer stalling on a missing clock indication was the hardest
-> bug of this bring-up, so I'd like to see the core-programmed values
-> keep it alive first. (This also supersedes the shared clock-scale
-> helper I promised in the bot-review triage; with both hand-rolled
-> paths deleted there is nothing left to share.)
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing T_PERST delay between PCIe PERST# assert and deassert.
+- [Medium] Fails to handle non-EPROBE_DEFER error pointers from devm_reset_=
+control_get_optional_exclusive().
+--
 
-IIRC we only enforced the clock scaling for SDCA compliant class devices.
-But these registers appeared in SoundWire 1.2 so could in theory exist even if the class field isn't set.
+--- Patch [2]: [PATCH 2/2] PCI: mediatek: handle optional reset for perstou=
+t for AN7583 ---
+commit 78554414cf365c230ecb9c4411ea14d8c699dd5c
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-I think it's the first time we see this case, so better extend the helper as suggested above.
-> 
->>> +	/* Set suspended until aggregate device is bind */
->>> +	pm_runtime_set_suspended(dev);
->>
->> is this set_suspended() necessary? pm_runtime isn't even enabled in
->> this probe.
-> 
-> Inherited from wcd937x-sdw.c (runtime PM for the slaves is enabled
-> later, in wcd-common's component bind). It is most likely redundant
-> since devices default to the suspended state; I'll check and drop it
-> in v2 if so.
+PCI: mediatek: handle optional reset for perstout for AN7583
 
-ok
+The commit adds support for a dedicated perstout reset line for the Airoha
+AN7583 SoC to avoid glitches. It introduces the pcie-perstout[slot] reset
+name handling and asserts/deasserts it during AN7583 specific startup.
 
-> 
->>> +	component_del(dev, &wcd_sdw_component_ops);
->>
->> pm_runtime_disable() ?
-> 
-> It is there, just not visible in this function: runtime PM is
-> enabled in wcd-common's component bind and disabled in the matching
-> component unbind, which the component_del() here triggers when the
-> aggregate tears down - and if the aggregate never bound, runtime PM
-> was never enabled either. Same structure as the other wcd93xx sdw
-> drivers. I'll add a comment pointing at wcd-common.
+> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/control=
+ler/pcie-mediatek.c
+> index 8b57c3d75b942..3d4de9d694071 100644
+> --- a/drivers/pci/controller/pcie-mediatek.c
+> +++ b/drivers/pci/controller/pcie-mediatek.c
+[ ... ]
+> @@ -865,6 +867,9 @@ static int mtk_pcie_startup_port_an7583(struct mtk_pc=
+ie_port *port)
+>  	size =3D lower_32_bits(resource_size(entry->res));
+>  	regmap_write(pbus_regmap, args[1], GENMASK(31, __fls(size)));
+> =20
+> +	reset_control_assert(port->perstout_reset);
+> +	reset_control_deassert(port->perstout_reset);
 
-ok, that'd be useful.
+[Severity: High]
+Is it intentional to omit the 100ms T_PERST delay here?
 
->>> +	SDW_SLAVE_ENTRY(0x0217, 0x0110, 0),
->>
->> if this was an SDCA device shouldn't you rely on the _EXT macro?
-> 
-> The device enumerates with class_id 0x00 (sdw:x:0:0217:0110:00:y on
-> the bus), so SDW_SLAVE_ENTRY, which is _EXT with version and class
-> zero, matches what the hardware reports: despite the SDCA-shaped
-> control model it does not announce an SDCA class. (That is also why
-> the class_id gate in sdw_slave_set_frequency() never fired here.)
+Without a delay between assert and deassert, the endpoint device will recei=
+ve
+a zero-width reset pulse which violates the PCIe CEM specification. Because
+the AN7583 quirks likely include MTK_PCIE_SKIP_RSTB, the standard 100ms
+delay in mtk_pcie_startup_port_v2() will be skipped, leaving no delay at all
+before link training begins.
 
-ok
+> +
+>  	return mtk_pcie_startup_port_v2(port);
+>  }
+> =20
+> @@ -1020,6 +1025,11 @@ static int mtk_pcie_parse_port(struct mtk_pcie *pc=
+ie,
+>  	if (PTR_ERR(port->reset) =3D=3D -EPROBE_DEFER)
+>  		return PTR_ERR(port->reset);
+> =20
+> +	snprintf(name, sizeof(name), "pcie-perstout%d", slot);
+> +	port->perstout_reset =3D devm_reset_control_get_optional_exclusive(dev,=
+ name);
+> +	if (PTR_ERR(port->perstout_reset) =3D=3D -EPROBE_DEFER)
+> +		return PTR_ERR(port->perstout_reset);
 
-> 
->>> + * The WCD9378 pairs a WCD937x-compatible analog core with SDCA-style
->>
->> SDCA-style or SDCA-compliant?
-> 
-> Deliberately "style": the control model is SDCA-shaped (functions,
-> ITs/PDEs at SDCA-looking control addresses) but the chip reports no
-> SDCA class ID and the downstream driver programs it through a
-> proprietary sequencer layer rather than generic SDCA. Srinivas
-> mentioned elsewhere in this thread that he has been building an
-> SDCA-compliant driver for this codec for Glymur - if that pans out,
-> this wording (and much more) gets revisited. I'll tighten the
-> comment in v2.
+[Severity: Medium]
+Will this silently leak non-EPROBE_DEFER error pointers (like -EINVAL or
+-ENOMEM) into port->perstout_reset?
 
-If you can some wording about what the sequencer is, that'd be useful.
-SDCA really only uses byte read/writes with special tricks for MBQ.
+If devm_reset_control_get_optional_exclusive() fails with something other
+than -EPROBE_DEFER, the error pointer will be stored in port->perstout_reset
+since IS_ERR() isn't checked first.=20
 
->>> +/* sys-usage capability bits (SYS_USAGE_CTRL profile contents) */
->>
->> what does sys-usage mean? it was never clear in the SDCA spec, not
->> sure what this refers to here.
-> 
-> It's not an SDCA concept: SYS_USAGE_CTRL is a vendor register in the
-> chip's sequencer block that selects one of 13 canned "active entity
-> set" profiles. The enum lists the capability bits those profiles
-> advertise, and yes, the hex table below maps profiles to those enum
-> bits (derived from the downstream driver, which also supplied the
-> names). v2 will say all of that in the comment.
+When this pointer is later passed to reset_control_assert() in
+mtk_pcie_startup_port_an7583(), it will trigger a WARN_ON(IS_ERR(rstc)) in
+the reset core framework.
 
-SDCA does define Usage registers in IT and OT. IIRC the goal was to provide hints on signal quality and dynamic range, but it quickly veered into a monster that no one really knows how to set...
+> +
+>  	/* some platforms may use default PHY setting */
+>  	snprintf(name, sizeof(name), "pcie-phy%d", slot);
+>  	port->phy =3D devm_phy_optional_get(dev, name);
 
->>> +	snd_soc_component_write(component, WCD9378_SMP_AMP_FUNC_STAT, 0xff);
->>
->> if this is really SDCA, this would be very odd to set all bits in the
->> function status register. The function status register includers
->> fields such as needs reset, function busy, etc.
-> 
-> The chip has no public documentation, but these behave as the SDCA
-> Function Status sticky flags, which are write-1-to-clear - so I
-> read the 0xff (taken from the downstream driver) as a clear-all
-> after activation rather than a configuration write. v2 will write
-> only the named sticky bits and leave the live FUNCTION_BUSY bit
-> alone, the way sound/soc/sdca clears this register.
-
-Yeah, some bits are really read-only and shouldn't be touched at all by the driver.
-
->> quite a lot of voodoo magic in this function, eh?
-> 
-> No argument. It's a transcription of the downstream activation
-> sequence, delays included, validated on this hardware; the chip has
-> no public documentation beyond that source. v2 will label the steps.
-
-ok
-
-> 
->>> +		sdw_write(tx, SDW_SCP_COMMIT, 0x02);
->>
->> is this SCP_COMMIT needed? This is only used for dual-ranked
->> registers, and there's currently no mechanism to handle them.
->> The bus scale registers are banked, this is a different concept.
-> 
-> Agreed, it looks misplaced. It was carried over from the downstream
-> driver during bring-up - from its headphone-sequencer path, as it
-> turns out; the downstream capture-start clock writes don't include
-> it - and survived because the sequencer's failure mode made me
-> conservative. With the clock programming moving to the core per
-> your first comment, this write goes away with the rest, verified on
-> hardware.
-
-ok
-
->>> +		snd_soc_component_update_bits(component, fn->req_reg, 0xff,
->>> +					      WCD9378_PDE_PS0_ON);
->>
->> if this is remotely inspired by SDCA, the normal sequence is to set
->> the REQUESTED_POWER then poll the ACTUAL_POWER register.
-> 
-> That is what happens: requested power is written here and the
-> ACTUAL_POWER poll is a few lines further down. The clock indication
-> is currently sandwiched between the two because the sequencer only
-> advances with the bus clock indicated; once the clock registers are
-> programmed at enumeration time by the core, this mostly collapses
-> to the classic request-then-poll (the vendor HOST_CLK_DIV2_CTL
-> writes still need a home).
-
-Humm, something doesn't add up for me.
-The clock scaling is really a peripheral property, the PS states are function level.
-If there are multiple functions, programming the clock scaling shouldn't be done while changing power levels but rather when resuming the peripheral.
- 
->> it's quite unclear to me why ports need to be exposed to user space?
->> This is really low-level stuff that isn't typically handled by
->> user-space.
-> Same model as wcd937x/938x/939x, and the qcom UCM configurations set
-> these switches today. I'd rather keep this driver consistent with
-> the family and its userspace than diverge on one chip; if the model
-> should change, that seems like a family-wide discussion.
-
-I have no objection to UCM, but in practice no one seems to upstream the UCM files so even when a driver is upstream there's no easy way to enable it...
-
->>> +	ret = sdw_slave_wait_for_init(wcd9378->tx_sdw_dev, 5000);
->>
->> That's rather unusual, the 'standard' way is to use the update_status
->> callback when the core logic completes the enumeration/initialization.
-> 
-> The update_status callback is still part of what completes the
-> initialization being waited on (wcd_update_status via wcd-common);
-> the wait itself is the pattern the recent enumeration-helper
-> conversion moved the family to - wcd937x/938x/939x and pm4125 all
-> call sdw_slave_wait_for_init() from their component probe now.
-> 
->> and presumably if you wait for the init above the device is already
->> functional?
-> 
-> The slave is; the pm_runtime_resume_and_get() just below is on the
-> codec's platform device (the reset/regulator provider), a different
-> device, so it isn't redundant with the slave init.
-> 
->> doing the io_init() after waiting for the init seems odd to me, the
->> flow isn't classic and deserves more comments IMHO.
-> 
-> Fair. The constraint is that io_init() programs the analog core and
-> runs the function activation, which must hit an enumerated codec
-> with the bus clock running; component probe after the init wait is
-> the earliest point where that all holds. v2 will spell that out.
-
-ok, a description of the flows between SoundWire probe, component probe, component bind would help indeed.
- 
->>> +	/* Give the SDW subdevices some more time to settle */
->>> +	usleep_range(5000, 5010);
->>
->> isn't there a better way to detect that the bus and devices are
->> operational?
-> 
-> Inherited verbatim from wcd937x_bind(); I don't have a better signal
-> to offer and didn't want to diverge from the family blindly. I can
-> experiment with dropping it as a follow-up.
-
-I guess there are two parts to my question, I am not sure what 'settles' means.
-a) make sure all devices are properly enumerated, which IIRC is done automagically on QCOM hardware.
-b) make sure all devices are properly initialized, which is orders of magnitude slower with the byte-based register access.
-
->> same comment as above, if the device is always on then presumably it
->> should never suspend, which begs the question why pm_runtime was
->> introduced?
-> 
-> The hold pins only the TX slave, and only while the codec is bound:
-> the RX slave and the codec's platform device still runtime-suspend
-> normally, and unbind drops the hold. Keeping the runtime PM plumbing
-> also leaves room for the reset-plus-reinit recovery path (needed for
-> system sleep anyway, as noted in the commit message), which would
-> allow narrowing the TX hold to active capture later.
-
-I don't have enough background to follow the explanation, I don't even know what those TX and RX peripherals do and how there's connected to a manager.
-
->>> +	pm_runtime_set_autosuspend_delay(dev, 1000);
->>
->> 1s for pm_runtime autosuspend is rather low, no? Usually values are
->> in the 3s range to avoid suspend-resume transitions while the user
->> is playing with the UI.
-> 
-> Copied from the family (wcd937x/938x/939x all use 1000 ms). Happy to
-> make it 3 s in v2.
-
-it's fine to keep it with a comment.
-> 
->>> +	pm_runtime_disable(dev);
->>> +	pm_runtime_set_suspended(dev);
->>> +	pm_runtime_dont_use_autosuspend(dev);
->>
->> the last two calls seem unnecessary if pm_runtime is disabled already?
-> 
-> Copied from wcd937x_remove(), but checking the mechanics you are
-> right about both: set_suspended() is redundant because the driver
-> core already resets a disabled-but-still-active device to suspended
-> after unbind (pm_runtime_reinit()), and dont_use_autosuspend() plus
-> disable() is exactly what the core's own devm teardown does
-> (pm_runtime_disable_action()). v2 will switch the probe to
-> pm_runtime_use_autosuspend() + devm_pm_runtime_set_active_enabled()
-> and delete this whole block from remove().
-
-ok
-
-> 
->>> +#define WCD9378_SWRS_SCP_BASE_CLK		0x4d
->>> [...]
->>
->> all of those seem like standard registers, do you really need/want
->> to use your own definitions?
-> 
-> 0x4d/0x62/0x72 are indeed SDW_SCP_BUS_CLOCK_BASE and
-> SDW_SCP_BUSCLOCK_SCALE_B0/B1 - those defines disappear together with
-> the hand-rolled writes per your first comment. The remaining ones
-> (HOST_CLK_DIV2_CTL at 0xe0/0xf0 and the INTRTYPE registers at
-> 0xf4-0xfc) have no equivalents in the standard register map -
-> wsa881x already carries the identical HOST_CLK_DIV2_CTL vendor
-> register - so those keep vendor-prefixed names, with a comment
-> saying exactly that.
-
-ok
-
-> Thanks for the detailed pass - the clock-register pointer alone
-> removes most of the SCP special-casing from this driver.
-
-Happy to help... Sometimes I wonder if I am the only one left from the initial SoundWire standardization group...
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708090533.1973=
+4-1-ansuelsmth@gmail.com?part=3D2
