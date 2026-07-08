@@ -1,278 +1,144 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADB437EFFB
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 13:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB43F37701A
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 13:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783517958; cv=none; b=U+ofrI0Mg7ViWDlAo5gwMdfoSOorc9IVhdMuSWzuGBTKiGIOSKz+r+3Anwi/NOfcqFcJB3yStTjaJPmom+aHekQ3nCucFWHvqUknext8iZHnerkxhhkJKpuwHAavk6BR/8ev2lAiSMfl9MGPKmcrVzxfiMFhQdJHmte5O6828qs=
+	t=1783518093; cv=none; b=kJHy9fFwDy3brTIUr6bFSHMmtv9soLNiWIkDncFVA0zq7UgoLJVzV3qklfHjNqBHjlprt4/OtfttdzLjBsnnYlmBajaAQ1lfVFmgfR2YYKl3UQJtji0CZ9uzVB8YyBH145g1oJ4D5yX9jRBfdchwO0nIaddputAirhYtTVtM8n4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783517958; c=relaxed/simple;
-	bh=+wIyjNFCLq0HAVw6zdrhSIPqyF0LnbfBlJxSeKI/uoI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZLWVavDUTCT+SlNfHl79KOAi2JK4rzFYHQIQocmkAU+bNCsEispKUFZsxuu3eLOgHuv1DjVU52GCetcWHZsRNCvV9o2+L4at/VUknvOcPjtscDV+io4oPHGDsQZQh29idYtT3PB9FowMJyx6Jm1BBMV7d6kwFtnPA1AlqvnmEzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V0dRptaz; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783518093; c=relaxed/simple;
+	bh=KFQdtZQUjbmVwnYD1nP9VRox/c9a/BcIswBEt7Piod4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MD2bXLEYGtjgl8FVnz5lw/47Tp7BmkZB7T27rOrQcEurdxS11LYK6C6WQgxHZomO/EgQV8IGDH8UG0VwBTqO8msHQsiVWOjxoS6oisMz7uRhulpAnhIvb165U2+nNM81+3muh/MfNOoHvkF9jyPEY3zvMN+jWtL3846lHt/+xuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DnaCcWKh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dlH+tVwS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V0dRptaz"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493c2b3dc8bso4549015e9.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 06:39:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DnaCcWKh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dlH+tVwS"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668C45Ze2716591
+	for <devicetree@vger.kernel.org>; Wed, 8 Jul 2026 13:41:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cyzbVXqOxQ0lRxphI7MsEng9+COKL6/2C9LvfjUznZ0=; b=DnaCcWKhVz8p8UjR
+	poXCjnT3uYYe0a10krQ49xnRpFQaTZOnO8raaX/F9ayb69pgkzjsZbjQgnrnP/LO
+	ZrVDvoOqzaUo4ywzxDNi5IT6dkSb0MKsprEJBUXWCbZ3jNpr1zmH9fc6peN3gdN0
+	lKg2K5TupL96NIayGPf4JbQMQ0j6d1mfIQNl1USwrnyryRHVrzwcClOzaOk9x7kx
+	X2hlvLOOyLKtW2swBOZzCo6v3F4e874a1kOc59pdahNQ0yhGvBuuuy75R8F+7tTs
+	zuQHQAYzeqS4JoyS7ebhqdyGaab7u2fe5O+R8sp7wz58uVDMnDmD0fHHsJHu4Hsa
+	Um3Y2Q==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f95fd4pc5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 13:41:30 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5bf5b976952so24332e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 06:41:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783517953; x=1784122753; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0ZLjRhxRDh9WQwquBHiNYeqR/5bcBu8OKvSo1Ykywm0=;
-        b=V0dRptazFuOW3zX2z3iyTJam5Fz/6J0sM8Ul7G8I/wO+un8mIfAdbHY+voUeEllQVu
-         Lv3zi9A8aupLSr+ts23MTAY0wqm5s8vKk45Rv+UPtGV/xOlt/dOV2zKqYobOaqdsype+
-         vLLUsPxCq3YJPnlHQkL0wzdEy4gmAptFbcA907GwTee62rEsIYdtS8ZZ7Kio51VQwpwY
-         tlycHTm7jBcNPYflav6iCoZOO9wynRK9CRCs8f7mEadSolEHj5xGsAzxP09FeQpkDooA
-         T5YgJCvsowLd37KVCSdl0sXEfCW6QOoFtV7zDhsKIgOh+foRfQ33AF/DMXTYOuAtWQ2r
-         1GLQ==
+        d=oss.qualcomm.com; s=google; t=1783518090; x=1784122890; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cyzbVXqOxQ0lRxphI7MsEng9+COKL6/2C9LvfjUznZ0=;
+        b=dlH+tVwShjwICJDpdZ8Qs3LHXFCIPuRMaukdy1NtL0zPsPyOObDGZ+BHos7MOS/ysK
+         LHMOsUn2flNi8EY5qo5N8KQD8Of8rYpNViaqXaXM/INt2cdEW9wNSZjgEQF+nh3IF8oT
+         pJdIzEUu6S2HAnIWACA3cP3CbV9K7DCxj3UhNp4CaEIZuxj5sItpvWJUBp43bdgK+T+U
+         hQwGCxqJafuZwgw4kKOsoUOEQZGRjKjf3imAtv7wQ2AsyFtKUQp0JWwt3z5KmDakEzF1
+         7i/LZzQOBqs9A8MJxhuKjconRrGouqayNPNeMAvH3m8r53OaohpMV/2RjGA8vzN9ToXW
+         hCvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783517953; x=1784122753;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0ZLjRhxRDh9WQwquBHiNYeqR/5bcBu8OKvSo1Ykywm0=;
-        b=SN9owrvuQHSd2o7EY2KdR2HfakLD+XcgTrsCqlYoLLIzq/JlDMvigWj4e3oyvsmesM
-         96M2O3r/XKdEMpuXAkK6+wu/RxeEFSiiLGX0WA31X1BqIbFjU+qelgGlO2ytx+GiKKYL
-         K+d7hfwRU6pw4EF3XvfGpjJU2dE5QJFQj2S0d5uZUebLVOrX+FY2oqI/PrD+H9AWf3RV
-         CfMdaJd9D04CWRP/kJc21NuVzuV3cjLbOVDuc0ki25wUU3GthFoGVbEIdrT7UFR5TZ98
-         A+wT1ZvvI1+D1cCK4+rjD43bBLNoZNL/je0SwUTT6+CFEyMu3ArZC/h2IyFAFlLDEamC
-         DD6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrWmNN2OHjom8iO9Lbzx4rBoXw36IG50I0Xk6arDL2ESc4aIOgrh8WPUB6DqyKqtNCiS4Mt3a+gIrTB@vger.kernel.org
-X-Gm-Message-State: AOJu0YxI0nzDFDfWiSosbVPC3zpIPqLazcCpKQki6BepyzbuJf+W+1UR
-	Ab4cA3RhupTEMaRfk5FJDRN390pkwobP9C0tR39Tbw6KHY9Vrfn1j61HaoDQlnI8rm4=
-X-Gm-Gg: AfdE7cllBQJXEA8az96NG0UiJWjWdPOKUoXBe+ko3ypbk1mo+DkwzN+Fiu1w1GMPPLH
-	OIvnlf+y8wuS+QN/ceNyo9vuDgjdAJAbxlLSIF/KVtdnaRFJRhVuaheA0FwAjM9SuI/DbJW41DZ
-	nqxtrrjo2vwP0xdU2FiO+RPiu5m9D7Npi3pVPHB+q1hJPyD+R1rfy1aC1E1W4d3qI+zxuK/rM5F
-	Sp3/NREDwWifjZ0irqtLy0b/iOl8Y4zebx+9/Skxnx75MQBZFTCiXAKrGGg3DPzEurRN9l19W+M
-	trdr+YFsSwe4SAQ5IgkWukebGafw9fkyN+PyRFN6aeRRbLQFf86wKIifvLrTVgzuSaHDfBqmzbO
-	8sx9cQtNxmpshgVNjUE/Ktr+nEkuzxodzMMi6aYtfu44Up8xuk0JYDZjfmvSexzuXaCZOu9FcRk
-	L041TLFwE4Vb8YxGO14Nf8vOrKkCZ9LGVyiEY=
-X-Received: by 2002:a05:600c:a44:b0:493:c35c:b4d1 with SMTP id 5b1f17b1804b1-493e6898b47mr29032615e9.7.1783517953057;
-        Wed, 08 Jul 2026 06:39:13 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff24:7210:28ff:335b:63e2:fdd2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493e5a58853sm48716645e9.1.2026.07.08.06.39.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 06:39:12 -0700 (PDT)
-Date: Wed, 8 Jul 2026 15:39:00 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: sre@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
-	linux@roeck-us.net, andersson@kernel.org, konradybcio@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	neil.armstrong@linaro.org, gaurav.kohli@oss.qualcomm.com,
-	manaf.pallikunhi@oss.qualcomm.com, priyansh.jain@oss.qualcomm.com
-Subject: Re: [PATCH v6 0/3] Lenovo ThinkPad T14s EC thermal monitoring and
- thermal zone integration
-Message-ID: <ak5S9D85t6g3Nhfq@linaro.org>
-References: <20260707192228.14647-1-daniel.lezcano@oss.qualcomm.com>
- <ak48gsxhVW492C7H@linaro.org>
- <76b55f79-010d-46a8-a7c6-a47d18ce2143@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1783518090; x=1784122890;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cyzbVXqOxQ0lRxphI7MsEng9+COKL6/2C9LvfjUznZ0=;
+        b=sRtv3EqktVNpqRNvC/VV4XdQyN9uB9dLyfmkfVi+eUMe0zATvlNObqGuBmHTWVBqZE
+         B1ir1/eNsHq2giPEOG+CZFBez4vI9Vq0hTzWyl5UC0O5EWx1PiQ4HlsiaVFmYRfmuSuU
+         cr7awdG3TKa0J/vWetQNclefDFiia2EOBqbXQZ1mbLGitJr0vA3VGOar5KrteYJpK/45
+         QWnT4oTJ+sHCpJdcahgbfNQ8go0zZk8mpOx1pPy36gp7HC3BLiBu8PDfQGUrAqw3qNnn
+         4HMD4c/LcU0RF/InSFQfJjaFmHbre/ysynzASAD99arKZeeS9CSUQXsIz6e54gPaanhc
+         GTiA==
+X-Forwarded-Encrypted: i=1; AHgh+RqLLQmsqpRF5qHrIRe3XkutGD/ouMjLAcgAnT3UzW1FkRZHqtcx9gPVrjJdjCHdl9F4EfamFqziV+Hh@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqH3e/masZVEijEySLZJ6sjBE0U8B8NKvuwjDp26oSZuIMUEBI
+	CGHObEOuCR+0gWMxNgRsnu6c7+mhe+U7GfMgMPZgKs7E7jDUEtWB2KSy3ynBtZbZb2ljo+AMiST
+	EcttqApa1hk5P7JPPILMfg7+0Gs+zKJwPNUT2NrGf6uzN41Dg5CYClHUqGPC6nmys
+X-Gm-Gg: AfdE7cnutJ9gIy8xMxm5N+4vI2Dn3zkZ8+Zgr4TZCG6euXsi+t8eSF5WZsa0lrXsxV/
+	Kuskj3uJm7G4hfAx6JtGp09Kg5GW0EFMWqd6c8aCQZV0FgOO1Bznnq+vSX59NFsefYjrvkyvaTo
+	T3WteiH6eqh1LYQn+xqLE7aALh1WvPgf0k278tRu7ONyShYZ3Eng6IXBYCuCz7fe1KkpwgjtFtg
+	Zp+m0WehkdYjF66yO0MMRnaSGwNNNG0bNHI6Su6Yck19IofrnWs08E16XbN7kGPuJBYx5ny+MQi
+	fcKUOOwVnIOgJlnr+Ex9escB2qQfJV5tbNHccdYd3UizLjSkGd/GCUTR5AIUYkpxFMAftv8poqm
+	Cq3O6jqBPbQEj83pG+kxlln4RyZqQFk4jrTA=
+X-Received: by 2002:a05:6102:c0e:b0:744:ddf2:afdb with SMTP id ada2fe7eead31-744dff8e891mr447032137.6.1783518090126;
+        Wed, 08 Jul 2026 06:41:30 -0700 (PDT)
+X-Received: by 2002:a05:6102:c0e:b0:744:ddf2:afdb with SMTP id ada2fe7eead31-744dff8e891mr447017137.6.1783518089586;
+        Wed, 08 Jul 2026 06:41:29 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13bb417sm4432418e87.50.2026.07.08.06.41.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 08 Jul 2026 06:41:28 -0700 (PDT)
+Message-ID: <cc934e7b-25bb-4e57-80f6-dbde3b9e263a@oss.qualcomm.com>
+Date: Wed, 8 Jul 2026 15:41:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <76b55f79-010d-46a8-a7c6-a47d18ce2143@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: eliza: Add CPU and LLCC BWMONs
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260708-dts-qcom-eliza-add-bwmon-v1-1-602a409f550f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260708-dts-qcom-eliza-add-bwmon-v1-1-602a409f550f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDEzNCBTYWx0ZWRfX5lCNPFQTyXwV
+ 7PH9wauVX4fKDgkN6ep1NxOKnMcFg95z3k7skCW9EL+8Yn/3wGZ7ukvc4Ns7vuzqwIRJAAWsIeb
+ POgJgXvklq7OCo56tpbH5toQkdOV+HcrzQ2u7Y76Eepahmk3/kx06pEU0Ddw02s/eMxXUxiYL82
+ 55sa2B69sUpiAgRm4Ql/8gKZA0H1zjPd+OyTnz7/oUAP5vOf7G/35gQbMiDZ98tG5hiAq5abAvD
+ F/A0yFKnMyz2LdZgNg/gK6mWdD3Lsi2Us4p5V4wYPnAZAT+s3XIpCO4iOSDH9br4meUXq1ulAMc
+ 3oxOVNG6LBJvZQem5wfIVfHb9Bwu1u78NKRz6PUibS7yxcSy01ehX6EkQTrdN4xMk7MXkSRUK0i
+ 2KDGCupNDk8zTef8a9U1hUtYc1XGOUu/8D/F9pKlxkHjIjyiaZsar/ycHR0cGAM7nJ6fMimDvx8
+ yYBq/rHGONfq5pQqF+g==
+X-Authority-Analysis: v=2.4 cv=VZLH+lp9 c=1 sm=1 tr=0 ts=6a4e538a cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=T3cQ91Bvcxg1os4lQNMA:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: eWGkFxou_QY0UJ0aqxp1lXeUcjcOjhOE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDEzNCBTYWx0ZWRfX0GqUIUecgzwF
+ IKE35DfcBf6MbF2ike/tSKxGjBA1s3CQ3JbFcQKqGqcs08ixvW0c5OMbGXYEWWNCcUNRfjcwEf2
+ rjb5MdiiFv7N1iZmOwfUs5QJ2OeTXUQ=
+X-Proofpoint-GUID: eWGkFxou_QY0UJ0aqxp1lXeUcjcOjhOE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0 clxscore=1015
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607080134
 
-On Wed, Jul 08, 2026 at 03:16:20PM +0200, Daniel Lezcano wrote:
-> On 7/8/26 14:03, Stephan Gerhold wrote:
-> > On Tue, Jul 07, 2026 at 09:22:25PM +0200, Daniel Lezcano wrote:
-> > > This series extends the Lenovo ThinkPad T14s embedded controller driver
-> > > with environmental monitoring capabilities and integrates the exposed
-> > > sensors into the Linux thermal framework.
-> > > 
-> > > The EC provides access to several platform temperature sensors
-> > > covering the SoC, keyboard area, bottom cover, charging circuitry, QTM
-> > > module and SSD. These sensors are currently used by the firmware for
-> > > thermal management but are not exposed to Linux.
-> > > 
-> > > The first patch adds hwmon support for the EC temperature sensors.
-> > > 
-> > > The second patch exposes the EC as a thermal sensor provider in the
-> > > device tree and defines thermal zones for the keyboard skin
-> > > temperature and the charging circuitry temperature. This allows the
-> > > generic thermal framework to react to EC-reported temperatures and
-> > > apply standard Linux thermal mitigation policies.
-> > > 
-> > > As the EC protocol is not fully decoded, the passive trip points
-> > > get/set actions are missing, so it is not possible to program a
-> > > threshold and receive an interrupt when crossed the way up or
-> > > down. Consequently, the thermal zone related to the charging circuitry
-> > > is polled every two seconds until we can set the trip points in the
-> > > EC.
-> > > 
-> > > This series fixes critical thermal issues happening on this platform
-> > > where a kernel compilation, or heavy workloads, lead to a system
-> > > reboot.
-> > > 
-> > 
-> > Thanks for working on this! I have a few comments/questions about this:
+On 7/8/26 2:29 PM, Abel Vesa wrote:
+> Describe the CPU and LLCC bandwidth monitor nodes for Eliza, together
+> with the corresponding OPP tables.
 > 
-> Thanks for jumping in the discussion
-> 
-> > 1. EC vs PMIC temperature sensors
-> > 
-> > AFAIK, the T14s (and actually most X1E laptops) have two sets of
-> > thermistors in each location: One is connected to the PMIC (called
-> > SYS_THERMx), and the other set is connected to the EC.
-> 
-> From the schematics I have in my possession, the SYS_THERMx are connected to
-> the EC, at least this is how they are named. May be it is the other set with
-> different numbers.
-> 
-> I'm curious to know why this mirroring ?
-> 
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
 
-AFAICT the SYS_THERMx thermistors all go to the PMC838C PMIC on the
-T14s. The EC thermistors are on a separate page, search for "RT8203" for
-example.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I'm not sure why this mirroring exists, but even QC's Hamoa/X1E CRD has
-that. IIRC it is not always there though, the Purwa/X1P CRD has the
-sensors only connected to the EC (maybe for some minor cost savings?).
-
-I believe on some devices the OS (Windows/Linux) even needs to send
-temperatures (e.g. CPU/GPU temperature) to the EC for it to work
-correctly. Not sure if the T14s needs/uses that though. I was mostly
-looking at the CRD thermal setup a year ago...
-
-> > The SYS_THERMx sensors connected to the PMIC have been enabled for the
-> > T14s already over a year ago [1]. The reason this is not upstream is
-> > that we now been waiting 3 years for the corresponding ADC/thermal code
-> > to land upstream [2]. It seems pretty close now, the ADC part has landed
-> > and there is only the thermal part left [3].
-> 
-> Right, I have to pick this one.
-> 
-> > The PMIC thermistor setup is likely going to be similar for most X1E
-> > laptops, so I think it would be preferable to use that instead of the EC
-> > sensors to implement additional temperature throttling. It also supports
-> > interrupts/trip points already, so it doesn't need polling.
-> 
-> I definitively second that
-> 
-> > The most recent proposed patch actually adds the SYS_THERMx thermal
-> > zones to all X1E-based devices [4], although I'm not sure if it would be
-> > better to keep that device-specific...
-> > 
-> > [1]: https://github.com/stephan-gh/linux/commit/c0ddc9fa96667d6b32d690ce6a3dcfc76aaabad6
-> > [2]: https://lore.kernel.org/linux-arm-msm/20230708072835.3035398-1-quic_jprakash@quicinc.com/
-> > [3]: https://lore.kernel.org/linux-arm-msm/20260705-gen3_adc_tm-v3-0-ac62f387dbce@oss.qualcomm.com/
-> > [4]: https://lore.kernel.org/linux-arm-msm/20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com/
-> > 
-> > 2. EC sensor mapping vs PMIC sensor mapping
-> > 
-> > In PATCH 2/3 you define:
-> > 
-> > 	{ .label = "soc",	.reg = T14S_EC_SYS_THERM0 },
-> > 	{ .label = "keyboard",	.reg = T14S_EC_SYS_THERM1 },
-> > 	{ .label = "base",	.reg = T14S_EC_SYS_THERM2 },
-> > 	{ .label = "charging",	.reg = T14S_EC_SYS_THERM3 },
-> > 	{ .label = "qtm",	.reg = T14S_EC_SYS_THERM6 },
-> > 	{ .label = "ssd",	.reg = T14S_EC_SYS_THERM7 },
-> > 
-> > I'm not sure if this is correct. When comparing this with the data read
-> > from the sensors connected to the PMIC:
-> > 
-> > | Sensor          | PMIC Channel | EC (hwmon)   | PMIC (thermal)  | Delta    |
-> > |-----------------|--------------|--------------|-----------------|----------|
-> > | SOC             | SYS_THERM0   | 79.0°C       | 78.7°C          | +0.3°C   |
-> > | Keyboard        | SYS_THERM1   | 68.0°C       | 70.1°C          | -2.1°C   |
-> > | Base / Back     | SYS_THERM2   | 66.0°C       | 64.6°C          | +1.4°C   |
-> > | Charging        | SYS_THERM3   | 73.0°C       | 73.8°C          | -0.8°C   |
-> > | West / QTM      | SYS_THERM6   | 64.0°C       | 62.6°C          | +1.4°C   |
-> > | SSD             | SYS_THERM7   | 31.0°C       | 67.1°C          | -36.1°C  |
-> > | Modem           | SYS_THERM4   | N/A          | 31.6°C          | N/A      |
-> > | East            | SYS_THERM5   | N/A          | 70.3°C          | N/A      |
-> > 
-> > The SSD delta of 36°C is definitely suspicious. I think
-> > "ssd"/T14S_EC_SYS_THERM7 in your EC driver patch is actually the modem
-> > sensor (SYS_THERM4).
-> 
-> Yes probably, it was unclear from the documentation. I may have mixed some
-> info.
-> 
-> The SoC sensor seems to be hotter than the Charging sensor. I'm a bit
-> surprised because I've always seen charging hotter than the rest.
-> 
-
-I captured the above while actively stressing the CPU, so presumably the
-SoC was heating up more quickly than the charging in that situation.
-Just a few minutes earlier it was like this in idle state with charging
-indeed warmer than SoC:
-
-| Sensor          | EC (hwmon)   | PMIC (thermal)  | Delta    |
-|-----------------|--------------|-----------------|----------|
-| SOC             | 35.0°C       | 35.8°C          | -0.8°C   |
-| Keyboard        | 32.0°C       | 33.0°C          | -1.0°C   |
-| Base / Back     | 33.0°C       | 31.9°C          | +1.1°C   |
-| Charging        | 37.0°C       | 38.2°C          | -1.2°C   |
-| West / QTM      | 31.0°C       | 35.7°C          | -4.7°C   |
-| SSD             | 25.0°C       | 34.0°C          | -9.0°C   |
-| Modem           | N/A          | 26.2°C          | N/A      |
-| East            | N/A          | 33.1°C          | N/A      |
-
-> 
-> > If you look at a picture of the T14s mainboard
-> > (https://www.notebookcheck.net/fileadmin/_processed_/d/c/csm_DSC_0003_aadae1ddd2.jpg)
-> > and zoom in to the unpopulated modem sub-board left to the fan you can
-> > see the two thermistors RT601 and RT301. The SSD on the other hand sits
-> > almost directly next to the SoC on the right, so I wouldn't expect it to
-> > stay > 30°C cooler than its surroundings.
-> > 
-> > However, there are also two thermistors next to the SSD, see e.g. this
-> > close-up picture of the mainboard:
-> > https://download.lenovo.com/Images/Parts/5B21P83385/5B21P83385_A.jpg
-> > This means that the SSD is probably one of the other mappings. If the
-> > thermistors are consecutively numbered in the EC firmware, the SSD
-> > (RT8203) might be actually the third sensor ("base"/T14S_EC_SYS_THERM2).
-> > I'm not sure how to figure out the proper mapping.
-> > 
-> > The back of the mainboard is completely covered with tape
-> > (https://download.lenovo.com/Images/Parts/5B21P83377/5B21P83377_B.jpg)
-> > so it's impossible to see anything there.
-> > 
-> > 3. Active vs passive throttling
-> > 
-> > Are you matching the Windows cooling/throttling setup here? If not, have
-> > you considered how this interacts with the fan control applied by the
-> > EC? I'm a bit worried that this might lead to unexpected performance
-> > regressions if we start throttling before the EC runs the fan at full
-> > speed.
-> 
-> For the moment, I would say fixing the critical issue is the highest
-> priority. With the 'charging' sensor with a 55°C trip point, AFAICT the fan
-> is at full speed before this trip is reached.
-
-Agreed.
-
-I'm not sure about the fan speed, I never checked properly but my gut
-feeling is that the fan runs faster in Windows and never runs full speed
-in Linux. (Are there fan profiles maybe? Not sure. Maybe I'm imagining
-it. :-))
-
-> 
-> Then we may want to take control of the fan and add active trip and passive
-> trip.
-> 
-> This autonomous EC / PMIC mix sounds a bit strange to me :/
-> 
-
-Right, it's all quite complicated. :/ Ideally, we would be able to
-figure out the exact thresholds for the fan control in the EC firmware,
-so that we can set the throttling temperature to be shortly above that..
-
-Thanks,
-Stephan
+Konrad
