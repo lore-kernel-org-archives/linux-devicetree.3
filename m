@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB3C3C379F;
-	Wed,  8 Jul 2026 06:46:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFAF3E5EC2;
+	Wed,  8 Jul 2026 06:48:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783493195; cv=none; b=m5ySYQwQj8ZAUCVbFuiqEAhE+UA0mwGUUxDetLx5cffuzZQpxP83fUCwiOz5DrfBBGxpMfAsUF9CpryKoIVsdFpPEynig+mcYvhh4XPfkL/KGWA4nmaaWK4XRh0Zx8VR/46gPbPFcmRod5Ggit7pVhT7C2ctvTSsxu38KWyrKNQ=
+	t=1783493347; cv=none; b=HbgHwWu5rxNbDCCAJWRnTWvs7i/Qd+u29POHzoGszqgoNh/tLliKLTas2EXwmJ+/xv7OTGnW25AkvXxyW6jrp092KjyBIdQN+lF7o2UM56iBhI1njn4D3lErfQc37vNL1SGneOfHK1cZO6f1R0xg+z11NilB0n1mdyRNnNV+vSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783493195; c=relaxed/simple;
-	bh=HFxUDoP6Ex7YM2OMJMeS5Y0WZJn/ZyvL5L53UAwwuZ8=;
+	s=arc-20240116; t=1783493347; c=relaxed/simple;
+	bh=JNVT1Z43H9HZFNnEPqqjim02bHO3uhaF1DQEVW85C/Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KdL2LxyJQOZvz4S0i9Vi9GCcRHWCFOZmQhH210F8e7gUzz2N/7ARXBKEih43XVnKUr4qwSw7PzHkyTa711z45Oo84MXNhYHftgtYxpyTtei9hGF1g73WeT3Qk16hwiQo4aB6brkXMAP6EcGzre4mBawHrVhQweGp5d4WL1nC7G4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OO4Lu/dK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DJWa3Ku8sESPXv3U+W5jFPknIGEbPsk+/qz6gZhrZQ1glfrFJjsOnLMU46qQvSYiAiliQ4Geo5InCxmsMHdeudq8hyCetyMHGV3XTkeBzygDZEvQ4iG/6HehIR1n28dF6ZJ6+lth5sR07UcMCxYriJevklpaOjFQKi9qq1rh/xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHSA9G9Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OO4Lu/dK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30FEC1F000E9;
-	Wed,  8 Jul 2026 06:46:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHSA9G9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F78F1F000E9;
+	Wed,  8 Jul 2026 06:48:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783493191;
-	bh=f5iDONaBp7PwW4JhBqAoWBz19tuSVl08JtaCV0icvb4=;
+	s=k20260515; t=1783493338;
+	bh=HvkQwg7gM1W+VIf4PKlNdJk5a/pVXivFwZmTmO2ey6Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OO4Lu/dKbJfUWfzf5g4o/1B117+RUF/zI34kIgMlVs4Luzda0dW2U7WnRiKZoMOu+
-	 KNn6qGDJIdeSFsr2jMhGWFgqm3ajRcJxyW8l0o3zdo+s1H+tXpdq8quECScpoYdfrS
-	 xXj+IjYy3poliTQaKnZQCbdz/kt0dRzx7TsRw5pRqMRiLqf5S+GgYJ8kzCrArB8/46
-	 GNlD4sQAw2HbH+iOt3zfQdzGovHMC0D7LeD0kyOAbeKdmKk317E+ZUegQaXR3k8au/
-	 REjjd1fyY9P3L+MaZGKgl4KbbZDk0FloK5FVOGpWeXJg13FF2n/d4kGqthbhmGLdrn
-	 8uLe7GMIdaqtA==
-Date: Wed, 8 Jul 2026 08:46:27 +0200
+	b=LHSA9G9ZsWX3wEs/gKEB2+IyV4TdoEvRbpnGi7dFgWWr9XPn/6xzXnqC2OMa1GS6S
+	 3bYZXz8KA2/r470L5M40AIUGvgtsuhVXC5Kkhh78Ep+EmzLKJdqbRyoxAIapdtH8tN
+	 yamOVeSnEatQjr33Du0yxUfR4H5U83sR3ab7CaVBO0JBnwyOghyRAY0hGRpFKonLcb
+	 GIAklm39Zl1RS/0HfrmZUPOiaQQD80HZeXucpCwjfaY5lG4ExkcG5oa629wnv/pqal
+	 C6JfYhf1T1yM+ZS5gpSEFJ3pTiTCyxdxzP8bQqn/ffCL9c+TE2k01i7hK80rWxFh2s
+	 tPt+N55RbJCmQ==
+Date: Wed, 8 Jul 2026 08:48:54 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+To: Monish Chunara <monish.chunara@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Harshal Dev <harshal.dev@oss.qualcomm.com>, 
-	Vinod Koul <vkoul@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
-Subject: Re: [PATCH v3 5/6] dt-bindings: dma: qcom,bam-dma: Increase iommus
- maxItems to 7
-Message-ID: <20260708-benevolent-congenial-waxbill-6bdee0@quoll>
-References: <20260706-b4-shikra_crypto_changse-v3-0-23b4c2054227@oss.qualcomm.com>
- <20260706-b4-shikra_crypto_changse-v3-5-23b4c2054227@oss.qualcomm.com>
+	Nitin Rawat <nitin.rawat@oss.qualcomm.com>, Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>, 
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>, Sachin Rathore <sachin.rathore@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V3 2/4] dt-bindings: mmc: sdhci-msm: Document the Glymur
+ compatible
+Message-ID: <20260708-purring-infallible-bullmastiff-8f6dea@quoll>
+References: <20260706141346.4180348-1-mchunara@oss.qualcomm.com>
+ <20260706141346.4180348-3-mchunara@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,17 +48,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260706-b4-shikra_crypto_changse-v3-5-23b4c2054227@oss.qualcomm.com>
+In-Reply-To: <20260706141346.4180348-3-mchunara@oss.qualcomm.com>
 
-On Mon, Jul 06, 2026 at 05:01:33PM +0530, Kuldeep Singh wrote:
-> Qualcomm Shikra platform describes the BAM DMA node with 7 iommus
-> entries. The current schema limit to 6, so update the binding to allow
-> up to 7 entries.
+On Mon, Jul 06, 2026 at 07:43:44PM +0530, Monish Chunara wrote:
+> From: Monish Chunara <monish.chunara@oss.qualcomm.com>
 > 
-> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Glymur integrates the MSM SDHCI v5 controller. Document the SoC-specific
+> 'qcom,glymur-sdhci' compatible as required by binding convention to
+> identify the hardware and reserve the namespace for future SoC-specific
+> quirks, with 'qcom,sdhci-msm-v5' as the fallback.
+
+Drop half of above sentence.
+
+"Document the SDHCI controller on Qualcomm Glymur soC, fully compatible
+with existing MSM SDHCI v5."
+
+You do not need to say anything about some conventions or reserving
+namespaces. We do not reserve namespaces...
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
