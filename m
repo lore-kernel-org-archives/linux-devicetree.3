@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC7B48AE3D;
-	Wed,  8 Jul 2026 14:57:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD4F449EB8;
+	Wed,  8 Jul 2026 14:57:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522633; cv=none; b=cMt9wlJN5yqhqzWY/TxGEmlRwpUYstFvmBqLl/Go0N9+0gmx2RfdyDYrmxUdqp4lWnzOqr43nlNR3t1D17Kh+mWwJ0Q5slhi1mfVMBqk4mVtfb/Q2EmTZEI9PH0XIol0LGzyGSHpevTNmMltpE2UaGi8HX3+DahwJezQf/5y+2w=
+	t=1783522634; cv=none; b=Gp4rNYplVpadXSrD4q+kG0alwhgcEZzpbgGjheGWOFmE2Z3MsGRfYHlQyv8se1JhELGr40r3rbberbvY1zwxc7QrzWlszmDHMOvHc/cIDyFs2ByS2c8kCJOsCbCDnEnjEfPQbZvVbWjqvUbHITWWOslTFc4kGvWM4dUFiPGWIx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522633; c=relaxed/simple;
-	bh=KHvpPBJ9g9Gg1lCuGqlfBAlVJKW1ZkacfwGZx5h7TqQ=;
+	s=arc-20240116; t=1783522634; c=relaxed/simple;
+	bh=pIGSnfnIYwLJBEI78MzuESZyh91XSirlEed4svHdw0E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X7cCo+i7U2WK8iW+t3ojmtgFl/8+KsZXKnyPgXrbNreKQYgbT346rpZuJiZyx1/nnpZBM27TVIe7szu+8vgJqOhhQC0WUsfe4AhisWNQgTTcZJTNFS0Ps9S2Ofu05eE8Ov4YYxC2JI0L/77ROKD43rXtkn4P8tMh+4zcgIP5lTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lUqI4lvo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=jMDcLoHDDSKHxoUegzkwNfYy/Rbb+e68EnEHMJcbxJC5CzRcYJVVZjrljffRJIonXA5KngeRtxMTqRCTawpHlx6YFjMhgfbmHnDMAvI2Lr2N7WfpJciqePsP6LfjejlmtG1NdFBuz1yiTeOR30cBFurTxTa4KRc2jwrv7CYnaXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTdnqPoR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lUqI4lvo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1FC41F00A3A;
-	Wed,  8 Jul 2026 14:57:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTdnqPoR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B824E1F000E9;
+	Wed,  8 Jul 2026 14:57:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522632;
-	bh=htW2xuaAsxZUmNWQEg3/DdzPn68br+nF6JQkk4jdEXM=;
+	s=k20260515; t=1783522633;
+	bh=4uQ508Bd0bc7mLaC8m4/5Bx9glijirQQhS/Y3+JS85M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lUqI4lvo4WxTi0dplNHvINUnRx9nowpL4ZVYBr4u+HLSvYluWlCMBfvBPJp5FVROn
-	 bL4aj5PFzDt2ch9fKK3yQMDfTaqmdEQ/fcbjNCexlPKKnYcxAWrUUm0NGe/Ri747+A
-	 ZDha3fe0DpATLSBfkmrkjKe1rUcHxGp12/VMAXLpU0L4gwSJowz6pjnVtv58NRli6v
-	 S482eXJag3yKM1p2DVPGXfKaDR4OA/GGw9LYXQGTLxfho9g/ddkMOS6S1TPHr69D13
-	 QFoeL/qh0FjMP9fvPBojmi8+YzRMBnRA1KzOx10pNGA3CQv869egk+BGFWxUs3D9to
-	 QvDnZ67PSbs0g==
+	b=lTdnqPoRR2/WAo6YbJXwb3q9OuIrrTONc1Euw681gfZgUVeOEHhDfWn4bD2QMO2qn
+	 gueOmOS40Em6j28bhSYYjitFMaAZ1ww5NPg6RKqh3PBYwx2VNsJIMpdW3NVbh9XGnM
+	 MLxbGd8QUcu67uuQDdwsLmkQ2ZulJ5J2fWLN2tKyCz4GDAe5/7hrkZWTXsNdm3uEhu
+	 0ucloBjzgGuKiPcePpzD7OeXX57ljiE9tL9KE4zCbHE//U8dsF5i72V3VxB51ezt7t
+	 GFOuWRQWQRuBFHptqVgUSy/3NJvW+ePZpOkWY/jJCeJ+nFa/P+qmCPb1IypNj2V3w6
+	 BJgyDdG/M7pLQ==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	David Heidelberg <david@ixit.cz>
+	David Wales <daviewales@disroot.org>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Convert qcm6490 framebuffers to use memory-region
-Date: Wed,  8 Jul 2026 09:56:13 -0500
-Message-ID: <178352261578.2235436.1819010224401346759.b4-ty@kernel.org>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 0/2] Add initial device tree for Motorola Moto G (2014)
+Date: Wed,  8 Jul 2026 09:56:14 -0500
+Message-ID: <178352261576.2235436.17200055989994996286.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260607-shift8-fb-v1-0-72b9dac25f4a@ixit.cz>
-References: <20260607-shift8-fb-v1-0-72b9dac25f4a@ixit.cz>
+In-Reply-To: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
+References: <20260605-device-motorola-titan-mainline-v4-0-08a7be31f05c@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,17 +53,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 07 Jun 2026 16:12:17 +0200, David Heidelberg wrote:
-> Now that upstream u-boot recognize it, no reason to not do.
+On Fri, 05 Jun 2026 23:19:10 +1000, David Wales wrote:
+> The Motorola Moto G (2014) is the second device in the Moto G series,
+> with codename motorola-titan.
 > 
+> This series documents the motorola-titan, and adds an initial device
+> tree.
 > 
+> These patches have been previously discussed and merged into the
+> downstream msm8226-mainline fork:
+> https://github.com/msm8226-mainline/linux/pull/18
+> 
+> [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: qcm6490-shift-otter: Convert fb to use memory-region
-      commit: 97c5fe2c932bfb1857f0f29e2f1389a20264c304
-[2/2] arm64: dts: qcom: qcm6490-fairphone-fp5: Convert fb to use memory-region
-      commit: dcef71a03f5bb375a5da48b666ad47c6c8855278
+[2/2] ARM: dts: qcom: Support Motorola Moto G2 (2014)
+      commit: 28236bb8f50216fe98f895b31d593e8d8ddb8a27
 
 Best regards,
 -- 
