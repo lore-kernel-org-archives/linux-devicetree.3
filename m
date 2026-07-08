@@ -1,136 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DAD43713B
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D9B439351;
+	Wed,  8 Jul 2026 16:52:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783529397; cv=none; b=WhrvQQi1tCJoFBQkjxi4pb89C01TXuyZMjv1AX98AXc/QC5NHkMoyQu1Xsl0M3TDI19F+/ufReSeJPcjMNNcxKWAyREVH7bf9w2I/GyPik+Mhag8A87w54yBq9SEg04uIWMjzLwvTFyKIH/8kOknj1kpMriqQa8u5c2mrkPoF1U=
+	t=1783529537; cv=none; b=fqdy9y5BIIf753qWxx2LzQOCFvp+tNhm5RgOqEBQQ5hsqLswoeIPPx9P6Z9D7SocDoFGjMdWcBUTq7+oXyHITDdZ19wyaddYxUojbZaWXaQblkmCqS0s05u/DzzMRBfeiWbr5xHgwmTLf4vt1bSP1Ni8n+tSpPcCJtkCvw2BC9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783529397; c=relaxed/simple;
-	bh=4yIuYm0sF3Y4hVsI3nq7nbqwG3SXp4KTQ/9LpTR1erc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AAfY0k1tLiOGtGBNhZnf2wQT4JJ9nTEgKsfpj77gbMogGEyZEbRDaTw2NUCF2JXpcowi4DRv/n747BTsBCaamFkSobrDAbFQH2CP78hDr6XqkSFrHgXVwlTPb+CLSkUG1iw7l+VJrAAgKF5IlhAgTuCNXwYyc4/1ZaTDcUSYEpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmhTV2Yk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783529537; c=relaxed/simple;
+	bh=R9fcaMdguJ7xgWlJ3kA2Zvw7Do+nE3aBhc2VfvicLqA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=LpSvcTjYqGAOEqCqRpvFzJTwKaTD1KSCzOVQnKmpDyTSsuxxm/j06J5WQtcf7EG/giBmIsXHelpG62aLc8QH5hTpDGFhNAdjXs+jro01eHd/94XMpM/PoEfUEv1Hy1evDZ4bkytiOrLl0+Os5NZ8bCpU9n91J2yh94AURWdOF3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JLuG1Ovs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmhTV2Yk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806331F000E9;
-	Wed,  8 Jul 2026 16:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JLuG1Ovs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67231F000E9;
+	Wed,  8 Jul 2026 16:52:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783529395;
-	bh=PweMsGz6aPYGsFryeW5fByl4FxC1SJwg7JewtfiPETg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TmhTV2Ykc3EVvJlW2jPi/sdMEVVfYcCvV5NV6dYM2WNf/hJrW8hGql0QDU1NrcMrn
-	 IQd8l0BEU/WHM19rv7TEo/9Dlo45eSLvU64KHpRR1dV34uW7Um3AHnH6u74UggRdiI
-	 ueL4WHVCEH60R2pZm8PJVuMGwWdIcAp8WppoDnWWfOukvH3gDJH2ZjEZu0EdsLtpxW
-	 IUBTa/MD/BDYD4ioE7slZ/k9n33WyzDv9/FT4wwEMB/ZRojXmqSTEvM/YlN9wc0XYb
-	 d73Y0z2v4BMaks7bomTQ2p27QbhHQZzXCR2BzKuHo9DX++onbc+tyqf+514BRqnt6e
-	 sMqr6LN7ZaFgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: dts: renesas: r9a09g057: Add PCIe nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260708163311.222176-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260708163311.222176-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260708163311.222176-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 16:49:55 +0000
-Message-Id: <20260708164955.806331F000E9@smtp.kernel.org>
+	s=k20260515; t=1783529526;
+	bh=plHS15QW33IPNnenRu2SRoBFtCA/UKPiq/4pB5mHiV8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=JLuG1Ovs1tncsn3lEbkGAPhbclG+Mov9RB6nLDPXfC6RdEbijOLLntilzcn0T7WUl
+	 v83nD+a4SuH3dDpdN2fYYP67Z3W0/KCCwZK32/yOqIzVRGEhntqabR0OdlmW3Cz9i3
+	 Nx0aY6PDRumnYK2E6rM7vcqb5mWyPjag17TDlRLT+WpnnzNzRcbbA3CGwLlbWxwMgX
+	 +9064x1jBy3B9N0IMT1UHyOj8rcrbz9T103cFS8Wg9xpYDdIn3wBPWt3VQt1gK4uTB
+	 DCmV5CqDKXSx7y1SqYScCuKgc9DhcwPJuFbVlizYoUdQ8ZAXB3CS9t7d4o8ggpuIEf
+	 JxghZB0++0N6w==
+Date: Wed, 8 Jul 2026 10:52:02 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Jia Wang <wangjia@ultrarisc.com>
+cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kwilczynski@kernel.org>, 
+    Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, Jingoo Han <jingoohan1@gmail.com>, 
+    Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, linux-riscv@lists.infradead.org, 
+    linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+    devicetree@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/3] riscv: add UltraRISC SoC family Kconfig support
+In-Reply-To: <20260427-ultrarisc-pcie-v4-1-98935f6cdfb5@ultrarisc.com>
+Message-ID: <3cf5f6f0-25f2-c0ca-d0ac-aa8672ea4586@kernel.org>
+References: <20260427-ultrarisc-pcie-v4-0-98935f6cdfb5@ultrarisc.com> <20260427-ultrarisc-pcie-v4-1-98935f6cdfb5@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The pcie1 node incorrectly re-uses the exact same clocks and reset=
-s properties as pcie0, causing a hardware resource conflict.
-- [Medium] The `renesas,sysc` property passes an argument to a phandle, but=
- the target `sys` node lacks a `#cells` property.
---
+On Mon, 27 Apr 2026, Jia Wang wrote:
 
---- Patch [1]: [PATCH v2 1/2] arm64: dts: renesas: r9a09g057: Add PCIe node=
-s ---
-commit 146b102b21fdb6341d75564293e25310c00c5056
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> The first SoC in the UltraRISC series is UR-DP1000, containing octa
+> UltraRISC CP100 cores.
+> 
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-arm64: dts: renesas: r9a09g057: Add PCIe nodes
-   =20
-Add PCIe nodes to Renesas RZ/V2H(P) ("R9A09G057") SoC DTSI.
+I pulled this out and will queue it for v7.2-rc.  As Krzysztof mentioned, 
+it's best if you group patches together into separate series that will be 
+merged by specific maintainers.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g057.dtsi
-> index 9581af58024ed..f3199c32423e5 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-> @@ -1024,6 +1024,146 @@ rsci9: serial@12803000 {
-[ ... ]
-> +		pcie0: pcie@13400000 {
-> +			compatible =3D "renesas,r9a09g057-pcie";
-[ ... ]
-> +			#size-cells =3D <2>;
-> +			num-lanes =3D <2>;
-> +			renesas,sysc =3D <&sys 0>;
-                        ^^^^
 
-[Severity: Medium]
-Does the target sys node have a #sysc-cells property defined?
+thanks
 
-If the driver relies on standard of_parse_phandle_with_args() to read the
-controller ID (0), the parsing will fail at runtime because the target
-node lacks #sysc-cells. If the driver uses of_parse_phandle(), the
-argument is simply ignored.
-
-> +			status =3D "disabled";
-> +
-> +			pcie_port0: pcie@0,0 {
-[ ... ]
-> +		pcie1: pcie@13410000 {
-> +			compatible =3D "renesas,r9a09g057-pcie";
-[ ... ]
-> +			interrupt-map =3D <0 0 0 1 &pcie1 0 0 0 0>, /* INTA */
-> +					<0 0 0 2 &pcie1 0 0 0 1>, /* INTB */
-> +					<0 0 0 3 &pcie1 0 0 0 2>, /* INTC */
-> +					<0 0 0 4 &pcie1 0 0 0 3>; /* INTD */
-> +			clocks =3D <&cpg CPG_MOD 0xc4>, <&cpg CPG_MOD 0xc5>;
-> +			clock-names =3D "aclk", "pmu";
-> +			resets =3D <&cpg 0xb2>;
-                        ^^^^
-
-[Severity: High]
-Are these the correct clocks and resets for pcie1?
-
-The pcie1 node re-uses the exact same indices (0xc4, 0xc5, and 0xb2) as
-pcie0. The CPG driver (drivers/clk/renesas/r9a09g057-cpg.c) explicitly maps
-these to pcie_0_aclk, pcie_0_clk_pmu, and PCIE_0_ARESETN.
-
-Probing pcie1 will request the exact same exclusive reset and clock lines as
-pcie0. This will cause the pcie1 probe to fail with -EBUSY due to exclusive
-reset acquisition. Alternatively, if the reset is handled as shared, assert=
-ing
-the reset during pcie1 initialization will unexpectedly reset the active
-pcie0 hardware, dropping any attached devices.
-
-> +			reset-names =3D "aresetn";
-> +			power-domains =3D <&cpg>;
-> +			device_type =3D "pci";
-> +			#address-cells =3D <3>;
-> +			#size-cells =3D <2>;
-> +			num-lanes =3D <2>;
-> +			renesas,sysc =3D <&sys 1>;
-                        ^^^^
-
-[Severity: Medium]
-Does the target sys node have a #sysc-cells property defined?
-
-Similar to pcie0, if the target node lacks #sysc-cells, parsing this
-property with of_parse_phandle_with_args() will fail at runtime.
-
-> +			status =3D "disabled";
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708163311.2221=
-76-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
+- Paul
