@@ -1,78 +1,198 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E8A438026;
-	Wed,  8 Jul 2026 14:57:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E99344BC91
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:58:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522680; cv=none; b=U/FjMag0zWPYjQS/9gUW1IfI6kS213y9OG60jBt+sTXqKTYVEa1s8/H4tiy2+4qMWAlXGGiz+tir9dd7YtLs0jwYu377rDPPxI7tlH+4NWvvuJHKrKlgp6WKayxlVBrzCmP9ix/MYnjHIAqi0+hxJUyMbnAGCNthqoHcUfTQ8sU=
+	t=1783522739; cv=none; b=eU8ah+k7Rq1ccJ9al+JguB8TZAHhlO9DN5L35lNshXv2b+E+OVI3kholBIuEaBXBqgNb1HBEYnS1qZ6p0NuUVB8dm506QO+7zX13MHJvC+uyg5R6x5muvdYhXqwIYYsn+69125QudaoMFZqdvmTCy9Rlv3tezKSTVHFe+3qdjZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522680; c=relaxed/simple;
-	bh=Vf80Ob9xP9krtdO6lBCxOck5UC2MOn3OOH6FIzWek/8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pPC+6+evpm+McMhM4AQnp70R9ISrlo5zKbX0lKIZZDZJd39X5TZWJ/9us72T+/c4IXlql/1TLtA12OO/vngRD6U3c0WXsGuGQ9j2KOlZYbsurBZbkwMfwcaLMhFsSM0uVMZthNuJ3mLYke+ye1F2TsyUrKDUMOy+b2/RLxeVPUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqz6QPRA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783522739; c=relaxed/simple;
+	bh=MJfGSBSfcUBJ1CNxF+ndoiy5VQORzg1w4jrvzEd4Qfg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZTsrpk5pt1RJl/Q8fj5lvtwRDq/QOsKFAg8uI/zDT7iv20Ran3Ed6ndaNlYu/MnRRkuTziwS16Hxeyio5OLQSIA9la4obTdcXst0F68mVfFhbRPAM0IrPxraSWAGTFUoCHVHrV5i7b2NB0UDiQ1AGbQmvZEW8X3pR6PIFQ6bNiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SaJevFJ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqz6QPRA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558BD1F00AC4;
-	Wed,  8 Jul 2026 14:57:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SaJevFJ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840DC1F000E9;
+	Wed,  8 Jul 2026 14:58:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522679;
-	bh=TaO5vibGTWkJfrwKgsX0w++Qq9jVQy25oFhI9/ONpS8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kqz6QPRAUxfdRvgDJBEUFmmThVRqPgT7tEQf2PvodLNzRp4vm96swFK5UNR8/5vOw
-	 OqKPNGg4YQzAW+BOWzALwz8gzkKHvb5mGfUhLK9T+yLaX2jXHd7V7uG/HJlzIdET1s
-	 x3oiPDfYPxfVCLPpcBW0r5QYnt/lfHWdAEupek8ed8V6S3MEpL+4zbpqD4Lp4+57eq
-	 Sqp7Q0yfQlaWR8yVXxbVQ2Jgo19toYcxknlP5mksxCn/PHoHUdBYIQdpDbpBiBtj+e
-	 jQkAi8nRgA4VbuzkPQvDeURB0A89IIZRDQY9VbRHcsx6A7NPxAFBu/LUIndyWEKF7y
-	 unqMWNpDkxLFA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: devicetree@vger.kernel.org,
-	Stanislav Zaikin <zstaseg@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com
-Subject: Re: [PATCH v9 0/2] Add Xiaomi 12 Lite 5G (taoyao) device tree
-Date: Wed,  8 Jul 2026 09:57:00 -0500
-Message-ID: <178352261631.2235436.14670744762244435617.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260608143329.252033-1-zstaseg@gmail.com>
-References: <20260608143329.252033-1-zstaseg@gmail.com>
+	s=k20260515; t=1783522737;
+	bh=0mSVtth4iZ2D8384/fa98ERUfGVGAgJ5Gxx68BMz02o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SaJevFJ9jVK1Ks0k/mgksdSYErgXmSlXixUXynX73SmroPjVkiRNvWadLJKJfozUz
+	 V9Q30uxG2Hzct+QFX90UhU58Kuubdfy09ifzv0DqUy4v09Q9sQJD+sg1GFf7wqnzdp
+	 CvN7jacxoBrfM59c5DBwwV4qLYoSMp1CO450jkqMjZnU/w/o1Y1HF0wqeIjjQI4art
+	 3akb1cia/SXwpxNb8OUeKt/KB2Cxw3Wwqtjd5AHddQ7BEgQq7ioS+hubmILTXpXfA1
+	 yhS60mAodqlN++uHUsDlmK82Lm1JB8wB6Kst0XBDmwfsZZQfOT2dQCOIsq8mccKIVN
+	 vvczWSYv54S1Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 7/7] dtc: dt-check-style: Add more DTS test cases
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-dts-style-checker-v4-7-c175e6401150@oss.qualcomm.com>
+References: <20260708-dts-style-checker-v4-0-c175e6401150@oss.qualcomm.com>
+ <20260708-dts-style-checker-v4-7-c175e6401150@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 14:58:56 +0000
+Message-Id: <20260708145857.840DC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing semicolons at the end of node definitions in multiple newly=
+ added Device Tree Source (DTS) test cases.
+--
 
-On Mon, 08 Jun 2026 16:33:27 +0200, Stanislav Zaikin wrote:
-> This series adds device tree support for the Xiaomi 12 Lite 5G (taoyao),
-> based on the Qualcomm SM7325 SoC.
-> 
-> The display panel model is unknown, so bootloader-initialized
-> simple-framebuffer is therefore used to expose the display.
-> 
-> Changes in v9:
-> - Fix SBU endpoint port reg: 1->2 (patch no. 2)
-> - Link to v8:
->   https://lore.kernel.org/all/20260601150752.666393-1-zstaseg@gmail.com/
-> 
-> [...]
+--- Patch [7]: [PATCH v4 7/7] dtc: dt-check-style: Add more DTS test cases =
+---
+commit 62a01452b76be437a860d7d26f7c0086f5c3e54e
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Applied, thanks!
+dtc: dt-check-style: Add more DTS test cases
 
-[1/2] dt-bindings: arm: qcom: Add SM7325 Xiaomi 12 Lite 5G (taoyao)
-      commit: dbf48f009161162147c8df3cb3a47e8e7a3a0442
-[2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao) DTS
-      commit: 28705df5d0df5f8ba34c7ca3fcc5b46e7799b7c2
+Add a few more test cases for valid and incorrect DTS for
+dt-check-style.
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dts b=
+/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dts
+> new file mode 100644
+> index 0000000000000..dffc81cffbeb5
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dts
+
+[ ... ]
+
+> +	pmu-2 {
+> +		compatible =3D "example,pmu";
+> +
+> +		/* Just reference labels to avoid strict warnings */
+> +		example,foo =3D <&foo>, <&label_bar>;
+> +	}
+
+[Severity: Low]
+Does this node definition need a trailing semicolon? It looks like it ends
+with } instead of };.
+
+> +};
+
+> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-extend-node-child-name=
+-order.dts b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-child-name-o=
+rder.dts
+> new file mode 100644
+> index 0000000000000..19fb800e719fb
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-child-name-order.=
+dts
+
+[ ... ]
+
+> +	pmu {
+> +		compatible =3D "example,pmu";
+> +
+> +		/* Just reference labels to avoid strict warnings */
+> +		example,foo =3D <&foo>, <&label_bar>;
+> +	}
+
+[Severity: Low]
+Is a trailing semicolon missing from the pmu node definition?
+
+> +};
+
+[ ... ]
+
+> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-extend-node-digit-node=
+-order.dts b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-digit-node-o=
+rder.dts
+> new file mode 100644
+> index 0000000000000..66547a1cd2b5a
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-digit-node-order.=
+dts
+
+[ ... ]
+
+> +	serial@30000 {
+> +		compatible =3D "example,serial";
+> +		reg =3D <0x30000 0x1000>;
+> +	};
+> +}
+
+[Severity: Low]
+Should this soc override block end with a semicolon?
+
+> diff --git a/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dts =
+b/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dts
+> new file mode 100644
+> index 0000000000000..b1032885ad486
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dts
+
+[ ... ]
+
+> +	pmu-2 {
+> +		compatible =3D "example,pmu";
+> +
+> +		/* Just reference labels to avoid strict warnings */
+> +		example,foo =3D <&foo>, <&label_bar>;
+> +	}
+
+[Severity: Low]
+Could there be a missing trailing semicolon at the end of this node?
+
+> +};
+
+> diff --git a/scripts/dtc/dt-style-selftest/good/dts-extend-node-child-nam=
+e-order.dts b/scripts/dtc/dt-style-selftest/good/dts-extend-node-child-name=
+-order.dts
+> new file mode 100644
+> index 0000000000000..33ce562b72a39
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/good/dts-extend-node-child-name-order=
+.dts
+
+[ ... ]
+
+> +	pmu {
+> +		compatible =3D "example,pmu";
+> +
+> +		/* Just reference labels to avoid strict warnings */
+> +		example,foo =3D <&foo>, <&label_bar>;
+> +	}
+
+[Severity: Low]
+Does this node definition also require a semicolon?
+
+> +};
+
+[ ... ]
+
+> diff --git a/scripts/dtc/dt-style-selftest/good/dts-extend-node-digit-nod=
+e-order.dts b/scripts/dtc/dt-style-selftest/good/dts-extend-node-digit-node=
+-order.dts
+> new file mode 100644
+> index 0000000000000..d9f1f533beebd
+> --- /dev/null
+> +++ b/scripts/dtc/dt-style-selftest/good/dts-extend-node-digit-node-order=
+.dts
+
+[ ... ]
+
+> +	serial@30000 {
+> +		compatible =3D "example,serial";
+> +		reg =3D <0x30000 0x1000>;
+> +	};
+> +}
+
+[Severity: Low]
+Should this block end with }; to be a valid Device Tree syntax?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dts-style-=
+checker-v4-0-c175e6401150@oss.qualcomm.com?part=3D7
