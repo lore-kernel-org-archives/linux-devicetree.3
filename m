@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4E237DAB5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC88349CDF;
 	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783530756; cv=none; b=h3UEMWPVkpGAsUOnLMUf8TJpf1zA/opoCksSamilIwNjpUGMya3i07RPTCzH3tJ1NFyM2aenIVLXhJlts8tZGtBxkgEUVDEUm1FXOHKVYWsA7PA9njimtm/DJDkSRjPtEsBUJ+Viqo+tvM79s8tWVvO0+tOvNv2Wh9bM9Rmkcj8=
+	t=1783530756; cv=none; b=djSGnVHSG/RWRG/Nh9Z0TprSw89bZgmtDRSq5R9zeKnel0p/dTIt577TCFo5qi5gs8gucrP6l1JQqSXA08Jm/19BIHQJmvJyp7KbW0nxS9kS+ZbBNBK+Cl7ZhxXCsWfAlvRuj75B7//VDaQcKYg8GF/OOs1jPD47x1YoxfnMzpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783530756; c=relaxed/simple;
-	bh=DKXoF2ySQ3cdP8c4lc14cctw+rliLWlJq0ZwphmqZzY=;
+	bh=memOoRnla5Ro5FwjmRHjpkH2Fk7XYz7mXYt8tIJJUmM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Hg3HPZvDR0DTWhC8klrgCU4i+9m7BlEkwoZFEM4byvS9kLRtLNf5NWhD6QIXsFJIOHGOZdtPBSIVtOC71f+b/z9//9GHqY+0LyjTi1Ic0jJPpbC6KFNG7g1tQLJOGBbmkbvSBtAOOzwVc9EGCswhQAndf6TuEadx6a3oVfQg9EM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mCEdRVUb; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=CeWyhRjWfDEwnojw9KmHP7QgFx9SunNf/K1T6jwefx5rmjHMQRpP9c1WmktZP/wzRtl21oNqxnA6eclVqLuIcXoPEDpyR+PJNJtQi8RIBFyUycL3siiz8JcJ80KFbwSGD9xisy8qO8A7KUmZyTsb0tAJIK3hQoSajI+xL6Dt9fU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+VdfyvR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mCEdRVUb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9411CC2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+VdfyvR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E435C4AF0B;
 	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1783530756;
-	bh=DKXoF2ySQ3cdP8c4lc14cctw+rliLWlJq0ZwphmqZzY=;
+	bh=memOoRnla5Ro5FwjmRHjpkH2Fk7XYz7mXYt8tIJJUmM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mCEdRVUbb8aI+DfA/Gg5ednJ1IsT4An67DyzekgfoP8qF4BXuRjryWoH1YlCw4y4z
-	 oywLGaOSMqoE3sw+QRhYdcrxYs3bPizJxLGvTOQEIqnZMxsgkgYxU7vxGpHW+I2eEA
-	 o1Y2d6+5k/iCV/KFjIoeMJDYK82fsprvbCnSqKWjz0kIBNuBAWBnf7uvu7QBNvOPuR
-	 QY90ZBS78bvPNH3ajmE6B/HIN8/NXMsxPJSngKSKjR3bPFpEaEh83lo1+Tk5pz8sL5
-	 t0XW2NjwClUKD4yUgGhLoAZQEr88Oe/Entj53y2w6yEN7aUzq6p1Izq9Xky3z1z+h0
-	 Eua7R38HZRBZQ==
+	b=d+VdfyvRXNQr+hx2C0nhqHxuv0H5F1OdoWVL1m3/iVud7erArdUAAwFGTNvH5ZZWO
+	 ASzBJ+oMUbky6DVtj8zD3/sNk5u20CebQZTW16TKJEht1Hk121Orzx4HiQ3TjpLPod
+	 gphbqVXl4qxn/Y6UBshp5gnVjGsnd25NmJ/cPlx5eCsD5Y4czTWr2fgqibWEP0evNG
+	 6TBU1cz/rVAfDdoDM149WJ2S4gfxr5AU0fTdN+AZDITrDlv7zUx8FTeDxYvHJ4Xp/R
+	 r1wGkUJbj/ut9OXXQU4R2YZfQ5CMxZiY/h4/1jU4VZ1HdSl9H54B+DrzpouBkPWJGd
+	 GKWaJR+dab9Mw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 805D0C43458;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DD6CC44501;
 	Wed,  8 Jul 2026 17:12:36 +0000 (UTC)
 From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Date: Wed, 08 Jul 2026 10:12:34 -0700
-Subject: [PATCH net-next v7 04/15] net: phy: Helper to modify PHY loopback
- mode only
+Date: Wed, 08 Jul 2026 10:12:32 -0700
+Subject: [PATCH net-next v7 02/15] Documentation: networking: Add timestamp
+ related APIs to OA TC6 framework
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260708-s2500-mac-phy-support-v7-4-478c877aa1a9@onsemi.com>
+Message-Id: <20260708-s2500-mac-phy-support-v7-2-478c877aa1a9@onsemi.com>
 References: <20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com>
 In-Reply-To: <20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com>
 To: Andrew Lunn <andrew@lunn.ch>, 
@@ -62,11 +62,11 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jerry Ray <jerry.ray@microchip.com>, 
  Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783530757; l=3409;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783530757; l=5434;
  i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
- bh=u0hfBz58vQHn/EuaGbrplxopzhN6yg8AWzJjwXaz/Xc=;
- b=VxGbkbdhTVWFaV1RdJ3/XSTcR7C9mqDEuULZetDhnTtRLeW0dKsx/FeYMU15lLiUi35e1cOMK
- FkU9Vzl6zyADytIiGrTNV0DEssTjDog7xgwyeJM4aSAaeii99KB4J/P
+ bh=H5GeLlyjiawpJaJt1aTxsPM7HAFhY+Lxpr01l0nosNM=;
+ b=RE9KKP7qLhTvHgdplYk2gh/E4Dq9crNz7jF6iQCJEg2KLtK4Sj3jZqakFn6lHBx266n+9XXYG
+ ltjvV1Mc6n3BKdF6lA2rvrU3sRS1oNOkAY9UUSJ5IGgyZBirex4LNHr
 X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
  pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
 X-Endpoint-Received: by B4 Relay for
@@ -76,10 +76,11 @@ Reply-To: Selvamani.Rajagopal@onsemi.com
 
 From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-Generic helper function to modify loopback bit of the PHY without
-modifying any other bit. This will help the PHYs that may have fixed
-speed, like 10Base-T1S or PHYs that don't need any other settings
-to set them in loopback mode.
+Added new APIs to support hardware timestamp feature as defined in
+OPEN Alliance 10BASE-T1x MAC-PHY serial interface specification.
+
+Expanded read/write APIs to take new mms parameter to avoid
+bit manipulation before calling regular read/write APIs
 
 Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
@@ -89,89 +90,116 @@ changes in v7
 changes in v6
   - No change
 changes in v5
-  - No change
+  - Fixed "no blank line" issues in four places
 changes in v4
-  - Created a new genphy API to set the loopback. No other PHY
-    registers touched.
+  - Added information for new APIs in OA TC6 framework
+changes in v3
+  - Added more information for documentation
+changes in v2
+  - Removed the changes to the existing API
+  - Updated information about newly added APIs
+changes in v1
+  - Added changes to an existing API
+  - Added documentation to new hardware timestamp related APIs
 ---
- drivers/net/phy/dp83867.c    | 11 +----------
- drivers/net/phy/phy_device.c | 20 ++++++++++++++++++++
- include/linux/phy.h          |  2 ++
- 3 files changed, 23 insertions(+), 10 deletions(-)
+ Documentation/networking/oa-tc6-framework.rst | 80 +++++++++++++++++++++++++++
+ 1 file changed, 80 insertions(+)
 
-diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
-index 88255e92b4cd..01ea2e8dd253 100644
---- a/drivers/net/phy/dp83867.c
-+++ b/drivers/net/phy/dp83867.c
-@@ -991,15 +991,6 @@ static void dp83867_link_change_notify(struct phy_device *phydev)
- 	}
- }
+diff --git a/Documentation/networking/oa-tc6-framework.rst b/Documentation/networking/oa-tc6-framework.rst
+index fe2aabde923a..325d299d1a7d 100644
+--- a/Documentation/networking/oa-tc6-framework.rst
++++ b/Documentation/networking/oa-tc6-framework.rst
+@@ -153,6 +153,10 @@ OPEN Alliance TC6 Framework
+ - Forwards the received Ethernet frame from 10Base-T1x MAC-PHY to n/w
+   subsystem.
  
--static int dp83867_loopback(struct phy_device *phydev, bool enable, int speed)
--{
--	if (enable && speed)
--		return -EOPNOTSUPP;
--
--	return phy_modify(phydev, MII_BMCR, BMCR_LOOPBACK,
--			  enable ? BMCR_LOOPBACK : 0);
--}
--
- static int
- dp83867_led_brightness_set(struct phy_device *phydev,
- 			   u8 index, enum led_brightness brightness)
-@@ -1204,7 +1195,7 @@ static struct phy_driver dp83867_driver[] = {
- 		.resume		= dp83867_resume,
- 
- 		.link_change_notify = dp83867_link_change_notify,
--		.set_loopback	= dp83867_loopback,
-+		.set_loopback	= genphy_loopback_fixed_speed,
- 
- 		.led_brightness_set = dp83867_led_brightness_set,
- 		.led_hw_is_supported = dp83867_led_hw_is_supported,
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index b82b99d08132..11fd204eea16 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -2842,6 +2842,26 @@ int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
- }
- EXPORT_SYMBOL(genphy_phy_write_mmd);
- 
-+/**
-+ * genphy_loopback_fixed_speed - Helper to modify the PHY loopback mode
-+ * without affecting any other settings.
-+ * @phydev: The phy_device struct
-+ * @enable: Flag to enable or disable the PHY level loopback.
-+ * @speed: Speed setting. Not expected to be set. Error if it is set.
-+ *
-+ * Returns: 0 if successful, negative error code on failure.
-+ */
-+int genphy_loopback_fixed_speed(struct phy_device *phydev, bool enable,
-+				int speed)
-+{
-+	if (enable && speed)
-+		return -EOPNOTSUPP;
++- If supported by the hardware and enabled, updates hardware timestamp
++  in skb, when indicated by one of the three timestamp capture registers
++  through TSC fields of the header.
 +
-+	return phy_modify(phydev, MII_BMCR, BMCR_LOOPBACK,
-+			  enable ? BMCR_LOOPBACK : 0);
-+}
-+EXPORT_SYMBOL(genphy_loopback_fixed_speed);
+ Data Transaction
+ ~~~~~~~~~~~~~~~~
+ 
+@@ -495,3 +499,79 @@ the MAC-PHY.
+ Zero align receive frame feature can be enabled to align all receive ethernet
+ frames data to start at the beginning of any receive data chunk payload with a
+ start word offset (SWO) of zero.
 +
- int genphy_suspend(struct phy_device *phydev)
- {
- 	return phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN);
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 8266dd4a8dbe..61bcd71a3143 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -2301,6 +2301,8 @@ int genphy_read_mmd_unsupported(struct phy_device *phdev, int devad,
- 				u16 regnum);
- int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
- 				 u16 regnum, u16 val);
-+int genphy_loopback_fixed_speed(struct phy_device *phydev, bool enable,
-+				int speed);
- int genphy_phy_write_mmd(struct phy_device *phydev, int devnum,
- 			 u16 regnum, u16 val);
- int genphy_phy_read_mmd(struct phy_device *phydev, int devnum,
++.. c:function:: int oa_tc6_ptp_register(struct oa_tc6 *tc6, \
++                                        struct ptp_clock_info *info);
++
++Registers the PTP hardware clock related functions with the kernel.
++This API simply registers. Initialization of the fields in the
++ptp_clock_info structure are left to the vendor as programming hardware
++timer is expected to be vendor dependent. The fields max_adj, owner,
++and all the functions for the clock operations, like adjfine, gettimex64,
++settime64, adjtime are expected to be initialized in the structure before
++calling the registering the hardware clock.
++
++.. c:function:: void oa_tc6_ptp_unregister(struct oa_tc6 *tc6);
++
++Unregisters the PTP hardware clock related callbacks.
++
++.. c:function:: int oa_tc6_ioctl(struct oa_tc6 *tc6, struct ifreq *rq, \
++                                 int cmd);
++
++ioctl interface to handle hardware timestamp and PHY related commands.
++
++.. c:function:: int oa_tc6_get_ts_info(struct oa_tc6 *tc6, \
++                                       struct kernel_ethtool_ts_info *info);
++
++Provides timestamp related settings that are supported to ethtool.
++
++.. c:function:: void oa_tc6_hwtstamp_get(struct oa_tc6 *tc6, \
++                                         struct kernel_hwtstamp_config *cfg);
++
++Returns hardware timestamp configuration. Part of net_device_ops callbacks.
++
++.. c:function:: void oa_tc6_get_ts_stats(struct oa_tc6 *tc6, \
++                                         struct ethtool_ts_stats *ts_stats);
++
++Provides hardware timestamp related traffic statistics for ethtool.
++
++.. c:function:: int oa_tc6_hwtstamp_set(struct oa_tc6 *tc6, \
++                                         struct kernel_hwtstamp_config *cfg);
++
++Helper to set hardware timestamp configuration. Part of net_device_ops
++callbacks.
++
++.. c:function:: void oa_tc6_set_vend1_mms(struct oa_tc6 *tc6, int mms);
++
++Helper to map MDIO_MMD_VEND1 command to vendor specific Memory Map Select
++(MMS) value. This function offers flexibility for vendors that may have
++used any MMS value between 10 and 15 as allowed by the specification.
++MDIO_MMD_VEND2 is already mapped to MMS4 in the OA TC6 frame work code.
++
++.. c:function:: int oa_tc6_write_registers_mms(struct oa_tc6 *tc6, \
++                                               u16 address, u16 mms, \
++                                               u32 value[], u8 length);
++
++Writing multiple consecutive registers starting from @address for the
++given @mms memory map selector in the MAC-PHY. Maximum of 128 consecutive
++registers can be written starting at @address.
++
++.. c:function:: int oa_tc6_write_register_mms(struct oa_tc6 *tc6, \
++                                              u16 address, u16 mms, \
++                                              u32 value);
++
++Write a single register addressed by @address and @mms in the MAC-PHY.
++
++.. c:function:: int oa_tc6_read_registers_mms(struct oa_tc6 *tc6, \
++                                              u16 address, u16 mms, \
++                                              u32 value[], u8 length);
++
++Reading multiple consecutive registers starting from @address for the
++given @mms memory map selector value, in the MAC-PHY. Maximum of 128
++consecutive registers can be read starting at @address.
++
++.. c:function:: int oa_tc6_read_register_mms(struct oa_tc6 *tc6, \
++                                             u16 address, u16 mms, \
++                                             u32 *value);
++
++Read a single register addressed by @address and @mms in the MAC-PHY.
 
 -- 
 2.43.0
