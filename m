@@ -1,78 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D4F3DD870;
-	Wed,  8 Jul 2026 07:22:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F683EDE7E
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 07:22:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783495352; cv=none; b=qmMRXokDxppsMELl3gR7GLK65fLMipPvH1EnMmJigywWSQ7l6hlEJQnMXGPYEZSLNIB87x/2RVZ28b3TcYh/K/TlbaWTVqnF+4i8dOgF0fnWeZU13gx7IY7SZnfbBmahC5hls7c7u+1TArHpVv5lEVKlKbmRCWfq047yjgrc56M=
+	t=1783495360; cv=none; b=Y2yhmFCIfU8LOcFF4OkNXZ24fmVldMrgXhbNWfpHHDl1H3gshTiGGsLEjhxylJh/plp+pQyBHMfzm8lfxekErWeSGWFyTemwUpscL2tQlSZyfrab/mXRqMccXZQnkUuyD53BqU1T+BoTxbsAp0nupwDPeMdeTCpZteJ6H/nEB10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783495352; c=relaxed/simple;
-	bh=0sYbVskSjmCcx7cCy496GpXciPQg52CuM7SLw2/kyC4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=P8K2S/5fKFZK473a0QsjHOOB4DVId5ajkzHjRcHBGl86uIDvf8iVHbbXZAHg2q64w7D2qU89UxuGdRRlaCmcuMNDDNCzMcmhXdDK+glZOam59GXeVo2qUuFd5UsfuoL253yM3Li2OUA3L0Yx7yR6+RZBsrx4akN2eRRlKti9hD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nyhJAboT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783495360; c=relaxed/simple;
+	bh=LwAiTP6wK7XROje5kddlxNPUoJ+EyH8OuPxoNK9SRSQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qFPuJfy3vwZXwZrnMFt/a8csN92lY174JRv+GA3DdVTlhcVtZtr6E9H2t93jo0Q+ymXp90IiKE03Js6sjP878nRBS932wTo6nEUMAnDDuZ5N9pEHqfaMJLfkO4GT8U8Al+KgSjEUNgTEdD9Gkt+YwqiQxkXceWGw90ZhIzkPyAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVGCYgeg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nyhJAboT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023DB1F000E9;
-	Wed,  8 Jul 2026 07:22:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVGCYgeg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16071F00A3A;
+	Wed,  8 Jul 2026 07:22:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783495338;
-	bh=nXrz1JhJYkK5xTRspbR1Vl1uzVDLKgTjni3ddD1l4bI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=nyhJAboTtmB+ho6GeJp/6cio7XVRXPa1T6M1RlCOTdimLwLY+xzrwBDvzXmPnsuq2
-	 mv9kWcMCKFUT5hl7fbZz/yRoVLwoiDyfrPuvMYNNe457u1Qi8y4nrWWNh1hj+1HHf/
-	 kMlRCkf16ojSdgwMWOmJnP/Xt4r6lAGeJyY+cwTgGtVksnL5xH2ahCVMK6ZK7kdvF7
-	 sOO+nEwHzJ/CgmE5o5O4yWIOECzDqCWI9LPuaq2vQ/039UdRwdVTpQFjPt9z5e4/Gf
-	 8L+rEg0VswcoNaRSrv3siM9TIOYteqCLPc7HQOwTZHDpYhIv6s5BweMF7b25+fy9vl
-	 B76dTAN3GGf4Q==
-Date: Wed, 8 Jul 2026 01:22:16 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: Guodong Xu <docular.xu@gmail.com>
-cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-    Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Zong Li <zong.li@sifive.com>, Deepak Gupta <debug@rivosinc.com>, 
-    Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
-    Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
-    Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>, 
-    Chen Wang <chen.wang@linux.dev>, linux-doc@vger.kernel.org, 
-    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-    kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-    Paul Walmsley <paul.walmsley@sifive.com>, Conor Dooley <conor@kernel.org>, 
-    Jesse Taube <jtaubepe@redhat.com>, 
-    Charlie Jenkins <thecharlesjenkins@gmail.com>, 
-    Andrew Jones <andrew.jones@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-    spacemit@lists.linux.dev, sophgo@lists.linux.dev, 
-    linux-kselftest@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v5 01/17] dt-bindings: riscv: sort multi-letter Z extensions
- alphanumerically
-In-Reply-To: <20260701-rva23u64-hwprobe-v2-v5-1-2c61f94a695a@gmail.com>
-Message-ID: <a9f1aaa4-aca9-64fa-bf1c-100297a42d22@kernel.org>
-References: <20260701-rva23u64-hwprobe-v2-v5-0-2c61f94a695a@gmail.com> <20260701-rva23u64-hwprobe-v2-v5-1-2c61f94a695a@gmail.com>
+	s=k20260515; t=1783495349;
+	bh=E8HPZvEofekz2sVZyd9gxJBql7Aj+svwGogWEzND6BE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hVGCYgegrltxgZG0+Op0gVXf1qcbWA0IbESvNBSOQFPBVSbMhFoekFdG66pccYtBf
+	 GCzIrapuzDQ+kq8EKGPVDclBzQxZLWXkq86U/LSco2He1D4/1QKCD9YDmkJb8fkwo+
+	 TIHS8V8l9smjagXsTPGkEbT/DMuPOLnhWXzG/kCF5tTO2HRezTgZ835aYL8oNpfxnp
+	 sSxgXg5X9F32kFa0MmewhVIwB/xI5FfsqzKJi47kdzmjvgvBzFslCKPtiwNE87A1ey
+	 aZPenymJyUseZZ06uqRk5Jfhp9Ui4j8Wpssxf2ci46kQyax7AmzJZn2qnrdCaRE0GR
+	 3g+/Tf8XEy36A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 18/26] sched/core: Annotate runqueues into meminspect
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-meminspect-v3-v3-18-7aa5a0a74d5c@oss.qualcomm.com>
+References: <20260708-meminspect-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com>
+ <20260708-meminspect-v3-v3-18-7aa5a0a74d5c@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 08 Jul 2026 07:22:28 +0000
+Message-Id: <20260708072228.E16071F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 1 Jul 2026, Guodong Xu wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Calling virt_to_phys() on a per-CPU pointer yields an invalid phys=
+ical address and causes kernel panics.
+- [Medium] Registering runqueues per-CPU dynamically will exhaust the memin=
+spect inspection table on systems with large core counts.
+--
 
-> The multi-letter extension enum is documented as being sorted
-> alphanumerically (see the "multi-letter extensions, sorted
-> alphanumerically" comment), but several Z entries have drifted out of
-> order.
-> 
-> Reorder the affected entries so the multi-letter Z list is sorted
-> alphanumerically again.
-> 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
+--- Patch [18]: [PATCH v3 18/26] sched/core: Annotate runqueues into memins=
+pect ---
+commit 63843371f43c4c6cde135f463d4c294cece8bc8f
+Author: Eugen Hristev <ehristev@kernel.org>
 
-Thanks, will plan to send this for v7.2-rc.
+sched/core: Annotate runqueues into meminspect
 
+This commit annotates runqueues for the meminspect API by explicitly
+registering them during sched_init() since they are per-cpu allocations.
 
-- Paul
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 2e7cde033a319..1c2e80a54d2b6 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+
+[ ... ]
+
+> @@ -9059,6 +9060,7 @@ void __init sched_init(void)
+>  #endif
+> =20
+>  		zalloc_cpumask_var_node(&rq->scratch_mask, GFP_KERNEL, cpu_to_node(i));
+> +		meminspect_lock_register_va(rq, sizeof(*rq));
+
+[Severity: High]
+Does passing a per-CPU pointer to meminspect_lock_register_va() work correc=
+tly
+here?
+
+The meminspect_lock_register_va() macro expands to meminspect_register_id_v=
+a(),
+which calls virt_to_phys() on the provided address. Since dynamically alloc=
+ated
+per-CPU memory resides in vmalloc space rather than the direct linear mappi=
+ng,
+won't calling virt_to_phys() on 'rq' yield an invalid physical address?
+
+If CONFIG_DEBUG_VIRTUAL is enabled, this could trigger a VIRTUAL_BUG_ON() p=
+anic
+during early boot, or otherwise lead to invalid physical memory mapping in =
+the
+meminspect table.
+
+[Severity: Medium]
+Will registering every possible CPU's runqueue exhaust the meminspect dynam=
+ic
+IDs on large systems?
+
+Because this registration sits inside the for_each_possible_cpu() loop, it
+consumes a dynamic slot for every CPU. The meminspect table has a static ar=
+ray
+limit (MEMINSPECT_ID_MAX, typically 201), with dynamic slots starting at
+MEMINSPECT_ID_DYNAMIC (~33). This leaves around 168 available slots.
+
+On machines with high core counts (e.g., 256 or 512 CPUs), this loop will
+exhaust all available dynamic slots. Any subsequent kernel subsystems attem=
+pting
+to register dynamic memory regions will then fail silently.
+
+>  	}
+> =20
+>  	set_load_weight(&init_task, false);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-meminspect=
+-v3-v3-0-7aa5a0a74d5c@oss.qualcomm.com?part=3D18
