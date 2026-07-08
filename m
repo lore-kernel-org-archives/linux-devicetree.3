@@ -1,174 +1,302 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 440784343E1
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E462047D955
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 16:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783529545; cv=none; b=idXTGxywessfu+j/tAF9YZuY0TAFCrUfWxOWDTYXpnO/j3I7fm9FLQIG057Y+52TV4P/psb/lXy9SYnOvMNkmw8YnEG0JTmt5z2bI5KSFdLDGea85lHYe4tiofuv8/xlmOhSIqQlLubSm7OzO6T90jl4+3fv8BBPLrAirwxO838=
+	t=1783529547; cv=none; b=A/1DeRiSdfKKQheUQ2NM7gx1GmzUwo5+rhy4mLj/sONRAWEikZq065Ws1MIk6+jqTcMgGmmlod6H989IvxhPvu6Whkvv2n2UTAPLpmjHN16gRbRjqZdUimpZ3Sn1gOBH340H9mSsQ00LU3K9Rn9uOEABbbSqgMbdjx8KaYn6BEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783529545; c=relaxed/simple;
-	bh=YerxN599C9K5/WkW/n/MaJlm+4DTVduUUon9gz0fQMk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bu86h2cqf9CmCyEGWI8r8dwoRr72xtqG60Z+ATJMqM1tv6lQYeYuo9cYDoMXBvfq5W4GN2ukpP1Niq5VHdabyWTun9cX8ESRCwDROMurZlin/kPrNSPSRU2f3zBA00G+9uuvZZoGzHj8jIIdN7RQk/Lx0OneOwaRbSk8UfXF8iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=heZsnlOv; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	s=arc-20240116; t=1783529547; c=relaxed/simple;
+	bh=1Wl+9r0+s0TDUjhnfcyyKaDZxB4Fsr0gGq2PjdolWCg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hEcO7imMatopIBHvI8iF0uyeHr3clDJxTfVH6dQEJZ1tzC+HMtr+h1q1eb3GgVMFeMld0Ai8GAbp+r2DIETMRjtIR8m05vkSqHZi8LZZSOSZ48blFhyD3gl6BG3TkaBqaZDq9YpTw0eDz/+h+R/oioan8MAx7TntIhx+q7H8ukc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E90Lz14+; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="heZsnlOv"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493bb510ce4so129395e9.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:52:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E90Lz14+"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-c96d7933910so66044a12.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 09:52:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1783529533; x=1784134333; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e9Qpcj/wkj9TypLUNOyfNd+pq1jx929AEvSS7+Vs/LQ=;
-        b=heZsnlOvdFpDX35dOss1cxVIAGAi4E2jqW8uCycLx48/lF535lfPSGAprT+9r8OLd3
-         CbUDa0fq6BcZKwp0MoyduX2KzFuvGUNVCTimWr++OGMahs3G+OWbEbTWuiNUsWZ3oOTo
-         4+B8DmyFpH4pt/JXpILg25gygCVNw6Rd4RjBjSLGjBbSaT4fLS4FcP/LvCz1CbhuZJa3
-         i3N+NbanK68wGoJCed1jD/HDMA60htoifXMCEk6jxLHPj1xrDiXqoe0CL15F/pMdynIn
-         jxhwlEgBSaMeukbpb0uZT2NdVunCzBxWwlGnGJZu0t1Iq+ceQLhSZfIHAnhWVkrM7MWp
-         Ua0A==
+        d=gmail.com; s=20251104; t=1783529535; x=1784134335; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=U//PbZPS0wgDigTHSbhziRKqlRUyA7Fn8Fac9dDowRc=;
+        b=E90Lz14+1YgTEpbmNeJELtOLuivs6htblOwEKIACSx1T20MCEJlyzKaoKCsa2g/IZj
+         cg4KbrWC3ikRJvr4CnImXIXeiBw+WIS4DvchFbWfUQ4if02vo49MHntfbcXy6rF0tdqL
+         m03NncSEU4lGaAvXA8v0ijiLcDoOe7/nAyFR5BwLMMa3IAaEH5Bg0prrhhRQFspduUCS
+         Ufm+XSd6jjMv3U0EOMIx7HiLkXK31jmtw8jRo4mBFFHgCQfH9oavcpVH3FfsEUCnHsKR
+         h3sqd2yD5nyb91qos+RmloZAPjT77T9OSb8MzdSvuMev+F79O6v+4l3cUkuHGphlyK7Y
+         rEWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783529533; x=1784134333;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e9Qpcj/wkj9TypLUNOyfNd+pq1jx929AEvSS7+Vs/LQ=;
-        b=LrtGDtJOZ0ISNEUqdlzMHDZ8cW8rjUibKDvZCEPbcp4uSBenhERXRLDkPGLUusEjSC
-         pPRMGg9QkNWek3TeuhEtgf4dg7aIX8kHgA+iiHm5WVP18ols6Co7kPkNKImMLEf6Bsku
-         buoAHvziSKRh6/50iPWvjnBxiCn3pS7fy4dpbm9tk6KMaqmqjDM5j/N1QPFabUPz5Dgn
-         Bi0FSV8xSvYN6sCd+NzkiLQdQpkoLnWi1mYa3zSE1NRgR3k3F7Y0z9PVxEDVoMJiMqxI
-         QbQfEC+9O1h9Sr3fEtS9R+kjosbZ/fPNY7V3pT2b/w3MzDf1XDlXuh5bxGpoNLXCAJRp
-         vb2g==
-X-Forwarded-Encrypted: i=1; AHgh+RrC/fDxVosPz4RxXA+DQ6H473FeKZ3mudlYt62XzS9HYOPjLfGzbnokFUzDftVdYRj/5I+pqHxt4UCl@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOV3/44CApnigDeP8s+GUCQVJqYKYcBbUZtFjauz1ZzlGHGZrU
-	YJov/JU9YY9hfBCBXFGZI1GcHwM8JQohxtx1kDnhn/HGSGPt98opK4YOGEKQHQ/3Ehsrkp0HPGS
-	+dOLv
-X-Gm-Gg: AfdE7clhFEOfsDVaUbPcdRZcbdA1Do3KBYak8hrvioyBUVW38zUI8WhWanSlC3RwXJs
-	M95Fw/X3lxN/HFMjAUvsi/tiEXGgLcB8lb/Inww3XeL0x0EeWEr6YH8Gax3sX/wmvc155RXfnaz
-	jEQqLextsh1UV9GKLnFnuIVOVNbksjLLyx9JtQb6dADztLfGJAOavMiOLjlrU+VVSVEkm9JmNay
-	03Rcr9kcfPxQYXRjjcM+b8lI15bgKxqK9URa8yvQMlVDpIZ0ke3vVLT5JtBkaeCoZF69Z8kgZUE
-	tA2/lBCjnZE4NQUCPE+QiO8C5iTST6gu1S7A+pYjFQJELDrEDuZfgcA+wqGdd1z+Z9vX0X6/RcJ
-	Lh+S33qobv6qtrRBofrSIdWVfSu7Dcc2jRZvUBk02DhqRqEAcS5tmW/IAu8GX10GOufS7bbcd2R
-	hadTCfJNpYs0bwItsuEAB8w8JjJUx0gnzhdgLfanNOWhHvDUq9vdtbdm6STbAOKMu+HDFLBPXJc
-	Y1/IuVAZTLclLrF58DSI0P342AlGUOGW4fi3xjGEOk=
-X-Received: by 2002:a5d:5848:0:b0:478:1a24:912d with SMTP id ffacd0b85a97d-47df07a2e71mr4183000f8f.57.1783529532914;
-        Wed, 08 Jul 2026 09:52:12 -0700 (PDT)
-Received: from threadripper-fedora-workstation (dh207-15-57.xnet.hr. [88.207.15.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0f214d2sm42902679f8f.33.2026.07.08.09.52.11
+        d=1e100.net; s=20251104; t=1783529535; x=1784134335;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=U//PbZPS0wgDigTHSbhziRKqlRUyA7Fn8Fac9dDowRc=;
+        b=pC001Dc3kCcwhkdd6vJo14wS6Cbuov+lfIyVrU58VoCwxogbyUn8jmwpIyh2jqJ4Nb
+         8Fyb71oA7pJcOhC1rIwNgakFk0QD/9xJfAb07G5RU10QVU71Zdx8nhGVIgF+NtfD3/r2
+         X/O23vCWIfQtY+MQ30PC7Km9Xd3eZNRzXlc4DNY7Eg856LwZGcAgoo7PwWaBkSxXp9OB
+         Kf78MvYs6QGYBZgdf258ilgZkszkeaFBU+G+OBmoMmPfvlvrvVaZ7nef0geRFyqS1fVc
+         eXD9WTbqsdy+hEcpBQpjhxoUUb90WCxhgwRY8Xhqal4DWVYzQHaXrXwwEg+3FOC7tHHg
+         5QVQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrtDoKX/yPrCuxs9k6rXoursrrgWHQSUc82lgjiG1I+wLO4naq9Sx1vHBOyFIY6ywj9rPGYWTFnlF98@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcqekbJVSKZ26b8bV8A/zEuo2A46IXTQhFLz5KrnF09duVeSu/
+	FkijhTLB4l3kR0Bi+2C4MlP7wxACdFaZA4kMHYCAveaQToSNCUALyfl+
+X-Gm-Gg: AfdE7cmrcXqxh3E2GYzYJTXZ+ASewNAl1av1oQSdAA8v3Cn2v266YqZa4lcCRG0xp3j
+	aU1BwqYwF3krkM6wLvwLmkpmK+b3P6nY39AcqbHPv3Ev+2I/wfZO4aH7FRQpptSN1lx50fvsGgX
+	y2JB1Ps+dwrPaMD6R3C2fpZjG/y6qL4cY1UtU2B0QAF7QySUfLvwmtO0r9sH1l1u6xl5Uu/aJcV
+	qM1SYdFDpQMMmCFU9KEE50Ytnq2O9dbW2Qdbao0S6dojpM9iELzldz75E7KnR+RjAIQILAAPf15
+	n5AVbDAn1A8+L660aRn2cceYXs5en0WG1BPie/7PaE5qfGCxUmsGFXvwJ+JOcP8V8JdIvpFsPo2
+	ewmxtxymC0uBXpZ0HOdszkZ6NnlUklra5u0G3HwrqdMKfBuoAwxd04dA6wDwrk3WNF24RPB2FJK
+	QV1ZDI2D+FW9Z+5kbJ0SxkvA==
+X-Received: by 2002:a17:90b:4c0e:b0:381:1ffc:7d35 with SMTP id 98e67ed59e1d1-38a2122c84amr257831a91.6.1783529535194;
+        Wed, 08 Jul 2026 09:52:15 -0700 (PDT)
+Received: from [192.168.1.2] ([2401:4900:881c:f765:f05c:d31e:8ae0:b06d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311935fd091sm7136661eec.24.2026.07.08.09.52.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 09:52:12 -0700 (PDT)
-From: Robert Marko <robert.marko@sartura.hr>
-To: conor@kernel.org,
-	nicolas.ferre@microchip.com,
-	claudiu.beznea@tuxon.dev,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	broonie@kernel.org,
-	alexandre.belloni@bootlin.com,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	daniel.machon@microchip.com
-Cc: luka.perkov@sartura.hr,
-	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH 2/4] spi: atmel-quadspi: use init callback for gclk variants
-Date: Wed,  8 Jul 2026 18:51:09 +0200
-Message-ID: <20260708165201.624271-2-robert.marko@sartura.hr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260708165201.624271-1-robert.marko@sartura.hr>
-References: <20260708165201.624271-1-robert.marko@sartura.hr>
+        Wed, 08 Jul 2026 09:52:14 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Wed, 08 Jul 2026 22:21:43 +0530
+Subject: [PATCH v2] dt-bindings: iommu: ti,omap-iommu: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260708-ti-omap-iommu-v2-1-612d4a6644ba@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7RgoCMSV9zAshjqFMZaSthAN4
+ e4Crl2+5P33FwjshQNckwU8zxLEDRuoUwK6p6FjlMfGoFJVplVaYxR0lkYUZ+2EOStlqtzolhR
+ sm9GzkffRuzc/DlP7ZB33yG70EqLzn+NwznbvX3vOMMOi1kZfciIqyltnSV5n7Sw067p+Ae2co
+ lO8AAAA
+X-Change-ID: 20260708-ti-omap-iommu-3e22f73fcba2
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783529530; l=6812;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=1Wl+9r0+s0TDUjhnfcyyKaDZxB4Fsr0gGq2PjdolWCg=;
+ b=lFU8uyDQABCOFUqV6yGWemDCgw90I2sdy3M0wBvWUKs6x3ud5O5vkGIWo9zbTdMZJFL+pZkgU
+ CSg/0AYIcAeArks8DjXtY8ClaZrrSbbANMU+VYqk/zDzTTwx7RzBfjn
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Assign the existing SAMA7G5 initialization routine to every generic
-clock variant and dispatch initialization exclusively through the
-capability callback.
+Convert Texas Instruments OMAP2+ IOMMU from text to DT schema. Make the
+'ti,hwmods' property optional and mark it deprecated as it is no longer
+used, it is kept to support legacy dtbs.
 
-This keeps hardware capabilities separate from initialization selection
-and lets variants override the sequence explicitly.
-
-Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- drivers/spi/atmel-quadspi.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+Changes in v2:
+- Added maxItems:1 to ti,syscon-mmuconfig as property expects only one
+  pair of phandle-args
+- Added deafult value 32 for ti,#tlb-entries
+- Link to v1: https://lore.kernel.org/r/20260708-ti-omap-iommu-v1-1-48cfc53aaa46@gmail.com
+---
+ .../devicetree/bindings/iommu/ti,omap-iommu.txt    |  59 -----------
+ .../devicetree/bindings/iommu/ti,omap-iommu.yaml   | 114 +++++++++++++++++++++
+ 2 files changed, 114 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-index 62ea84d234d0..d1aec14e3978 100644
---- a/drivers/spi/atmel-quadspi.c
-+++ b/drivers/spi/atmel-quadspi.c
-@@ -1159,10 +1159,7 @@ static int atmel_qspi_sama7g5_setup(struct spi_device *spi)
- 	/* The controller can communicate with a single peripheral device (target). */
- 	aq->target_max_speed_hz = spi->max_speed_hz;
- 
--	if (aq->caps->init)
--		return aq->caps->init(aq);
+diff --git a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt
+deleted file mode 100644
+index 4bd10dd881b8..000000000000
+--- a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.txt
++++ /dev/null
+@@ -1,59 +0,0 @@
+-OMAP2+ IOMMU
 -
--	return atmel_qspi_sama7g5_init(aq);
-+	return aq->caps->init(aq);
- }
- 
- static int atmel_qspi_setup(struct spi_device *spi)
-@@ -1576,11 +1573,8 @@ static int __maybe_unused atmel_qspi_resume(struct device *dev)
- 		return ret;
- 	}
- 
--	if (aq->caps->init)
--		return aq->caps->init(aq);
+-Required properties:
+-- compatible : Should be one of,
+-		"ti,omap2-iommu" for OMAP2/OMAP3 IOMMU instances
+-		"ti,omap4-iommu" for OMAP4/OMAP5 IOMMU instances
+-		"ti,dra7-dsp-iommu" for DRA7xx DSP IOMMU instances
+-		"ti,dra7-iommu" for DRA7xx IOMMU instances
+-- ti,hwmods  : Name of the hwmod associated with the IOMMU instance
+-- reg        : Address space for the configuration registers
+-- interrupts : Interrupt specifier for the IOMMU instance
+-- #iommu-cells : Should be 0. OMAP IOMMUs are all "single-master" devices,
+-                 and needs no additional data in the pargs specifier. Please
+-                 also refer to the generic bindings document for more info
+-                 on this property,
+-                     Documentation/devicetree/bindings/iommu/iommu.txt
 -
- 	if (aq->caps->has_gclk)
--		return atmel_qspi_sama7g5_init(aq);
-+		return aq->caps->init(aq);
- 
- 	ret = pm_runtime_force_resume(dev);
- 	if (ret < 0)
-@@ -1638,6 +1632,7 @@ static const struct atmel_qspi_caps atmel_sam9x60_qspi_caps = {
- 
- static const struct atmel_qspi_caps atmel_sam9x7_ospi_caps = {
- 	.max_speed_hz = SAM9X7_QSPI_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.octal = true,
- 	.has_dma = true,
-@@ -1648,6 +1643,7 @@ static const struct atmel_qspi_caps atmel_sam9x7_ospi_caps = {
- 
- static const struct atmel_qspi_caps atmel_sama7d65_ospi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI0_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.octal = true,
- 	.has_dma = true,
-@@ -1658,6 +1654,7 @@ static const struct atmel_qspi_caps atmel_sama7d65_ospi_caps = {
- 
- static const struct atmel_qspi_caps atmel_sama7d65_qspi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI1_SDR_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.has_dma = true,
- 	.has_2xgclk = true,
-@@ -1666,6 +1663,7 @@ static const struct atmel_qspi_caps atmel_sama7d65_qspi_caps = {
- 
- static const struct atmel_qspi_caps atmel_sama7g5_ospi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI0_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.octal = true,
- 	.has_dma = true,
-@@ -1675,6 +1673,7 @@ static const struct atmel_qspi_caps atmel_sama7g5_ospi_caps = {
- 
- static const struct atmel_qspi_caps atmel_sama7g5_qspi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI1_SDR_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.has_dma = true,
- 	.has_dllon = true,
+-Optional properties:
+-- ti,#tlb-entries : Number of entries in the translation look-aside buffer.
+-                    Should be either 8 or 32 (default: 32)
+-- ti,iommu-bus-err-back : Indicates the IOMMU instance supports throwing
+-		          back a bus error response on MMU faults.
+-- ti,syscon-mmuconfig : Should be a pair of the phandle to the DSP_SYSTEM
+-                        syscon node that contains the additional control
+-                        register for enabling the MMU, and the MMU instance
+-                        number (0-indexed) within the sub-system. This property
+-                        is required for DSP IOMMU instances on DRA7xx SoCs. The
+-                        instance number should be 0 for DSP MDMA MMUs and 1 for
+-                        DSP EDMA MMUs.
+-
+-Example:
+-	/* OMAP3 ISP MMU */
+-	mmu_isp: mmu@480bd400 {
+-		#iommu-cells = <0>;
+-		compatible = "ti,omap2-iommu";
+-		reg = <0x480bd400 0x80>;
+-		interrupts = <24>;
+-		ti,hwmods = "mmu_isp";
+-		ti,#tlb-entries = <8>;
+-	};
+-
+-	/* DRA74x DSP2 MMUs */
+-	mmu0_dsp2: mmu@41501000 {
+-		compatible = "ti,dra7-dsp-iommu";
+-		reg = <0x41501000 0x100>;
+-		interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
+-		ti,hwmods = "mmu0_dsp2";
+-		#iommu-cells = <0>;
+-		ti,syscon-mmuconfig = <&dsp2_system 0x0>;
+-	};
+-
+-	mmu1_dsp2: mmu@41502000 {
+-		compatible = "ti,dra7-dsp-iommu";
+-		reg = <0x41502000 0x100>;
+-		interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
+-		ti,hwmods = "mmu1_dsp2";
+-		#iommu-cells = <0>;
+-		ti,syscon-mmuconfig = <&dsp2_system 0x1>;
+-	};
+diff --git a/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml
+new file mode 100644
+index 000000000000..9588eb60376e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iommu/ti,omap-iommu.yaml
+@@ -0,0 +1,114 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iommu/ti,omap-iommu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OMAP2+ IOMMU
++
++maintainers:
++  - Bhargav Joshi <j.bhargav.u@gmail.com>
++
++properties:
++  compatible:
++    enum:
++      - ti,omap2-iommu
++      - ti,omap4-iommu
++      - ti,dra7-dsp-iommu
++      - ti,dra7-iommu
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  '#iommu-cells':
++    const: 0
++
++  ti,#tlb-entries:
++    description: Number of entries in the translation look-aside buffer.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [8, 32]
++    default: 32
++
++  ti,iommu-bus-err-back:
++    description:
++      Indicates the IOMMU instance supports throwing back a bus error response
++      on MMU faults.
++    type: boolean
++
++  ti,syscon-mmuconfig:
++    description:
++      Pair of the phandle to the DSP_SYSTEM syscon node that
++      contains the additional control register for enabling the MMU, and the
++      MMU instance number (0-indexed) within the sub-system. The instance number
++      should be 0 for DSP MDMA MMUs and 1 for DSP EDMA MMUs.
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    maxItems: 1
++    items:
++      items:
++        - description: phandle to the DSP_SYSTEM syscon node
++        - description: MMU instance number
++          enum: [0, 1]
++
++  ti,hwmods:
++    description: Name of the hwmod associated with the IOMMU instance
++    $ref: /schemas/types.yaml#/definitions/string
++    deprecated: true
++
++required:
++  - compatible
++  - reg
++  - '#iommu-cells'
++  - interrupts
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,dra7-dsp-iommu
++    then:
++      required:
++        - ti,syscon-mmuconfig
++    else:
++      properties:
++        ti,syscon-mmuconfig: false
++
++additionalProperties: false
++
++examples:
++  - |
++    mmu@480bd400 {
++        #iommu-cells = <0>;
++        compatible = "ti,omap2-iommu";
++        reg = <0x480bd400 0x80>;
++        interrupts = <24>;
++        ti,hwmods = "mmu_isp";
++        ti,#tlb-entries = <8>;
++    };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mmu@41501000 {
++        compatible = "ti,dra7-dsp-iommu";
++        reg = <0x41501000 0x100>;
++        interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
++        ti,hwmods = "mmu0_dsp2";
++        #iommu-cells = <0>;
++        ti,syscon-mmuconfig = <&dsp2_system 0x0>;
++    };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mmu@41502000 {
++        compatible = "ti,dra7-dsp-iommu";
++        reg = <0x41502000 0x100>;
++        interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
++        ti,hwmods = "mmu1_dsp2";
++        #iommu-cells = <0>;
++        ti,syscon-mmuconfig = <&dsp2_system 0x1>;
++    };
+
+---
+base-commit: 0e35b9b6ec0ffcc5e23cbdec09f5c622ad532b53
+change-id: 20260708-ti-omap-iommu-3e22f73fcba2
+
+Best regards,
 -- 
-2.55.0
+Bhargav
 
