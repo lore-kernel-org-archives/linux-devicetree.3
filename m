@@ -1,116 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD2638B148
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 10:15:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDE8380FFD;
+	Wed,  8 Jul 2026 10:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783505719; cv=none; b=sJ5fPJW9rTA860YjdKzsaO0dmP7xIXDU4ZQma5wu4tUS5CugJnKhZsrgOUX86fHXQ+ruV7HMJTqGBL797YS+Lc2iPNpBcKkx1JXHse5mPtoSsq8ABhitlZUDHydxZaDctkOssp9pOod6Jzt31lFVaxJ960aW0e/2Ul4usWro8+E=
+	t=1783505721; cv=none; b=GaI5fXAudkNQPdfBMdH1GguC9PgpyaEBWqQcIrhSGM+eHIFQP4oLQu8zd6hM1pHOoMYP+cA4jd0Q1mNN+wV1xGtYcvvtqQWiCyF1THoBGabZu/5FM4YxnsgP7PtfTDcNJ2pTEkZ94jl5gc8SWjqt5EPDfFzx10avrcTnayhPQeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783505719; c=relaxed/simple;
-	bh=YdoBHtsut+URAKrxxroJdvqN7KixMwK8gFef2jLNStw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R+Wv3BPq6wYlpZmZ0Ih8EZ+AkA+NxwqxhSJQMt7KAPcq66CtHmYjIuHwFqUrV76yjHPkd03oRV43osxnISLdbNrU55k8z/pDxyzvhCF+EIzEFyBr3VC/DtpJfzP17TChKV7rI5rxPxrGa8vpfSoD5ieRhdMjpYhqdilREnic5kY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JHMSgSno; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JHMSgSno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98DC1F00A3A;
-	Wed,  8 Jul 2026 10:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783505718;
-	bh=70uQX6w5PKEivkIjOy7GbZzgTPWEVxSdTMWLatUgUsw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JHMSgSnoPF6rl/sfLiB+cixTg9byxgVcre2VO2+matGGDx1ybtOOdU6kQ282uSnJG
-	 phAzaqaC8ewt1xV3ved8JpSqWA7kRFJ5ege7YHFyOx5Kyyz9KD7MUTlp4BU6WQzc8v
-	 YIi1iaqX1gX00Fgu9fXWMSCSaVLPHVEjImq0aEIXAnMgDGggMj+jTcV0xN2PVM3iJu
-	 gaHOecbC47UMsuz1ZRpvGZdORdoVCvI3tagfalAeRFZnUGeoSY/wVYYxixYWj0FzT3
-	 tmzqKITWgjEnVr9fIcSgJ9h4HIBiKg7PNQTtWaxiXhaXikUoAv2SzzCAZliV/YWZy/
-	 DT6lVKXI2/VTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/7] dt-bindings: clock: qcom,glymur-tcsr: Add mahua
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-tcsr_qref_0708-v8-2-62c42b5fa269@oss.qualcomm.com>
-References: <20260708-tcsr_qref_0708-v8-0-62c42b5fa269@oss.qualcomm.com>
- <20260708-tcsr_qref_0708-v8-2-62c42b5fa269@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 10:15:17 +0000
-Message-Id: <20260708101517.A98DC1F00A3A@smtp.kernel.org>
+	s=arc-20240116; t=1783505721; c=relaxed/simple;
+	bh=5tvlj1Jg/kBw/iZacMOm4SIRGWlDMHmtuDl1+CS763I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sqnf4OZxs5rwXYuLbBYGNyvUhbrMJ/aJ/jqe4CX7H5UETxtsGdyBB7oQ4A5ubRIyboSvWfERbi9JHcozJhAFGIEPkmrFERPC6vH+YN7Kq0Q6ONrM4klLUi7c3NAI0GmABelhHOjljqFn6k1AoYrYWL4U9Dvc2T5RVeKZ4hblwO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89631F000E9;
+	Wed,  8 Jul 2026 10:15:16 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH v2 0/6] R-Car X5H CPG/MDLC support
+Date: Wed,  8 Jul 2026 12:15:05 +0200
+Message-ID: <cover.1783505142.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The device tree binding defines `#clock-cells` and `#reset-cells=
-` as provider capabilities but fails to include them in the global `require=
-d` list.
-- [Medium] Supply properties for the Mahua SoC are incorrectly named after =
-the external board regulators (`vdda-refgen3-0p9`, `vdda-refgen3-1p2`) rath=
-er than the consumer hardware block's input pad (`REFGEN4`).
+	Hi all,
+
+This patch series adds minimal support for the Renesas R-Car X5H Clock
+Pulse Generator (CPG) and Module Controller (MDLC), to aim for replacing
+the dummy clocks in r8a78000.dtsi with proper hardware description.
+These two components are closely related, in the sense that they are
+both supposed to be accessed through the ARM System Control and
+Management Interface (SCMI) on the Ironhide development board.
+
+This series consists of three parts:
+  1. Patches 1-2 add DT bindings and DT binding definitions,
+  2. Patches 3-4 add minimal CPG and MDLC drivers,
+  3. Patches 5-6 update the DTS.
+
+Some of these patches have been sent before as part of "[PATCH/RFC
+00/14] R-Car X5H Ironhide SCMI CPG/MDLC remapping"[1], hence the v2.
+However, this series does not use or rely on SCMI in any way.
+
+Major changes compared to v1[1] (more detail in the individual patches):
+  - Add default support not using SCMI,
+  - Drop everything related to SCMI.
+
+SCMI remapping support will be added in a subsequent series[2].
+Full hardware support without using SCMI could be added, too, if anyone
+would care about that use case.
+
+For testing, I have pushed this series plus additional work to[3].
+
+Thanks for your comments!
+
+[1] "[PATCH/RFC 00/14] R-Car X5H Ironhide SCMI CPG/MDLC remapping"
+    https://lore.kernel.org/cover.1776793163.git.geert+renesas@glider.be
+[2] "[PATCH v2 00/10] R-Car X5H Ironhide CPG/MDLC SCMI remapping support"
+    https://lore.kernel.org/cover.1783505329.git.geert+renesas@glider.be
+[3] topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v2 branch of
+    https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git
+
+Geert Uytterhoeven (6):
+  dt-bindings: clock: Document Renesas R-Car X5H Clock Pulse Generator
+  dt-bindings: power: Document Renesas R-Car X5H Module Controller
+  clk: renesas: Add R-Car X5H CPG driver
+  pmdomain: renesas: Add R-Car X5H MDLC driver
+  arm64: dts: renesas: r8a78000: Add CPG node
+  arm64: dts: renesas: r8a78000: Add MDLC nodes
+
+ .../bindings/clock/renesas,r8a78000-cpg.yaml  |  55 +++
+ .../bindings/power/renesas,r8a78000-mdlc.yaml |  61 ++++
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi     | 300 ++++++++++++++--
+ drivers/clk/renesas/Kconfig                   |   4 +
+ drivers/clk/renesas/Makefile                  |   1 +
+ drivers/clk/renesas/r8a78000-cpg.c            | 216 ++++++++++++
+ drivers/pmdomain/renesas/Kconfig              |   4 +
+ drivers/pmdomain/renesas/Makefile             |   1 +
+ drivers/pmdomain/renesas/r8a78000-mdlc.c      | 329 ++++++++++++++++++
+ drivers/soc/renesas/Kconfig                   |   1 +
+ .../dt-bindings/clock/renesas,r8a78000-cpg.h  |  14 +
+ .../dt-bindings/power/renesas,r8a78000-mdlc.h |  15 +
+ 12 files changed, 976 insertions(+), 25 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+ create mode 100644 Documentation/devicetree/bindings/power/renesas,r8a78000-mdlc.yaml
+ create mode 100644 drivers/clk/renesas/r8a78000-cpg.c
+ create mode 100644 drivers/pmdomain/renesas/r8a78000-mdlc.c
+ create mode 100644 include/dt-bindings/clock/renesas,r8a78000-cpg.h
+ create mode 100644 include/dt-bindings/power/renesas,r8a78000-mdlc.h
+
+-- 
+2.43.0
+
+Gr{oetje,eeting}s,
+
+						Geert
+
 --
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---- Patch [2]: [PATCH v8 2/7] dt-bindings: clock: qcom,glymur-tcsr: Add mah=
-ua support ---
-commit 95da44cfb54a2f053c5c1da86a79be1166f21f64
-Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
-
-dt-bindings: clock: qcom,glymur-tcsr: Add mahua support
-
-This commit adds the qcom,mahua-tcsr compatible string and documents its
-required supply properties. It notes that Mahua has a single QREF block fed
-by REFGEN4 only, which is supplied by regulators vdda-refgen3-1p2 and
-vdda-refgen3-0p9.
-
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yam=
-l b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
-> index ec89feff89e4e..2b64226271657 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
-[ ... ]
-> @@ -82,6 +83,25 @@ allOf:
-[ ... ]
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,mahua-tcsr
-> +    then:
-> +      required:
-> +        - vdda-qrefrpt0-0p9-supply
-[ ... ]
-> +        - vdda-qreftx1-0p9-supply
-> +        - vdda-refgen3-0p9-supply
-> +        - vdda-refgen3-1p2-supply
-
-[Severity: Medium]
-The commit message mentions that the internal hardware block being fed here
-is REFGEN4. Do these supply properties violate device tree property naming
-principles by encoding the board-specific external regulator names
-(vdda-refgen3-*) rather than the consumer pad name?
-
-Should these required properties be renamed to correspond to the REFGEN4 pad
-to avoid encoding board-specific regulator topology into the SoC hardware
-schema?
-
-> =20
->  required:
->    - compatible
-
-[Severity: Medium]
-The device tree binding defines #clock-cells and #reset-cells as provider
-capabilities, but they appear to be missing from this global required list.
-
-Does this omission allow incomplete device tree nodes (those lacking
-#clock-cells and #reset-cells) to pass schema validation? Could this lead
-to dependent drivers or subsystems silently failing at runtime when they
-attempt to use these functionalities?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-tcsr_qref_=
-0708-v8-0-62c42b5fa269@oss.qualcomm.com?part=3D2
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
