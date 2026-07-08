@@ -1,148 +1,93 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319CB3803C5;
-	Wed,  8 Jul 2026 13:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783518314; cv=pass; b=oYY/oVNaCP7uLoe0PTVCicIFO3l5YgUrh1OhbEUzepc+W2ItmirxN7v4j9ipJm12AzJeQbr71g/VckDTbRRBORujhDVi5XqKZSBuwt7wnqY2U7EsvjUD4VIhRb+ZN0/FJhoAOiHL7xyMMzNVkxrQIt0JMhpv/l+L+VE+l1TeZCk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783518314; c=relaxed/simple;
-	bh=qWprFcj4shuGHq5yxrj4ujGarnc9yIZ52TmhC/6XIwk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IeqW/652y/JdA/mEbObu9LYYVzPNHHeJvYPDKIrpc6OZ4txuMJb1Hk+Eu0viFrDBRO/kTQcEUPl0UfyguQIL4lYP2BwyCsNxLfwDabbDfPEFH9uBIhKsbcrT8kB7zJydi0ChUEOoI2xM9dRvgfZcpB6Is/TmMZcEPlkTKosRpUQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=PB5MOWP6; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90654386C15;
+	Wed,  8 Jul 2026 13:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783518638; cv=none; b=bps/yclenLZ1J5OfqJlywQajtA/UpyMwld0wUg9DVPhlH0W+I3xfsh9BVUsFgtpc1P07IzyEMA/r6fw6L8y7kpII8rZ8zvYCwD60Z5FoLCFPELvw+4lBGCSNV5zqLeuP2nCaFdPbNeuzC2037R9dWB0rH47//E388HHNmEYlv9c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783518638; c=relaxed/simple;
+	bh=LXYz2L+NSP72jASj7HPkEG+KtiHTHwEQ2vwPdBAnCE8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=u7KH68G1uLIp1DHPMzP0p8VnfvoycnrIjk1C/V65UzzSFlDXMaOj6P8xXv/wUqygJp0CME+UPxd6IIkDfPK1clGzJQrtoAMqw42d1cS1CH/jhLkf+wT1TRL8SMoIQrXSkKyTYOZRutO8ANmEkzxd0uwQ1LJoLrnzv+yy7qa6sf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBxqDmtD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="PB5MOWP6"
-ARC-Seal: i=1; a=rsa-sha256; t=1783518290; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=HBq9iS9jB6ewfkBvD6l/hbdZk9lWKDtHUbN71aNOZzsPLaY3iejK0SyY1j/4NBwcd9eUXrS+SniQU/2qJDseInB9kzWsSB1x5o6XcRGzRTkW3fzh9mXmRrTEM38b/bPRWHnLqzQmtdZzhYRN5kTvn5g1GWHdz5W38zNcUGDPR1w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783518290; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qWprFcj4shuGHq5yxrj4ujGarnc9yIZ52TmhC/6XIwk=; 
-	b=m6cuxMrOVq4L8VkW/d073JvTz5zzxha3+ZKqTNROYRjUXXEbtxF1PaXWsflkd0SVK0gOre6P4sulmjdLtx0F7J7LCaaYCla+xr1elj1AHOb6EwnWOZdvoZfLQkQ5KHmdyjACCyE8UQsMr+OELEjcVBo68P3XkKdoxRn2PSiEQ64=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783518290;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=qWprFcj4shuGHq5yxrj4ujGarnc9yIZ52TmhC/6XIwk=;
-	b=PB5MOWP6bfWP1uYvdd2mougUVnAF9pEe1jEhriEp822oJuoalAbrJcw9fBaiUssu
-	cjDdpxFnM0U3H7mB8Krxm0/TwkhW5jVwv7DdRs4J8Eur4cNdBl08RvlqbcuxgegdjJS
-	wDFfIWKK2x+8boHirToKdrVaKDl1pBin8nwP48/w=
-Received: by mx.zohomail.com with SMTPS id 178351828794519.896016735108105;
-	Wed, 8 Jul 2026 06:44:47 -0700 (PDT)
-Message-ID: <d1e37bd4f2a05fed6c7bfdc5d9a0fa90c892d608.camel@collabora.com>
-Subject: Re: [PATCH 02/15] dt-bindings: clock: mediatek: regroup MT8188
- dt-bindings into MT8186
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>,  Brian Masney <bmasney@redhat.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Chun-Jie Chen
- <chun-jie.chen@mediatek.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Edward-JW Yang <edward-jw.yang@mediatek.com>,  Richard Cochran
- <richardcochran@gmail.com>, kernel@collabora.com,
- linux-clk@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, 	netdev@vger.kernel.org
-Date: Wed, 08 Jul 2026 15:44:42 +0200
-In-Reply-To: <20260701193311.GA1402559-robh@kernel.org>
-References: 
-	<20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com>
-	 <20260701-mt8189-clocks-system-base-v1-2-2b048feea50a@collabora.com>
-	 <20260701193311.GA1402559-robh@kernel.org>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBxqDmtD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471FD1F000E9;
+	Wed,  8 Jul 2026 13:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783518635;
+	bh=ry+WDaoHwcTLLbbLYDEr/m3NYf9GMyFrpzOzll7j1hY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=LBxqDmtDtuFpHhRocv4gIUDl08ZoVWQkXSz19cBOPubK2KBre9an5LC6NDw3TL4yf
+	 J3+THJZEq7YDD08W0jAkfKFrh6i54p4w2XVHuutcZt+SO9JgWHdpycPc3HEi/aDNpw
+	 RVZExTFWgvAUQ+07V37NDEKzQ5dnfK1DqflfLaNs2LusgGlxDMZEMHt5snGhlI8wgt
+	 RPNsvAYXDdnhiVggEAC8aIwV5XZAw+z/K3kOlv6qS46m10UP1jL6Up/r7smHZ/EVRf
+	 dRkGlIZ5cEGXXcnl8qQoJrlzzKL2orMiRt/WBTtPdMPcx3Gnpvs7sBESSbBt/njdFu
+	 O6fNdqfqb4fvw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Maxime
+ Ripard <mripard@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sriram Dash <quic_sriramd@quicinc.com>,
+ Shazad Hussain <quic_shazhuss@quicinc.com>
+Subject: Re: [PATCH 2/2] phy: qcom: qmp-usb: Add support for SA8255P
+In-Reply-To: <5ucpcgiwlhbhn4m63gydrioyznpxnfq7rgdxf637qubikt3gqp@kivbak76lvtp>
+References: <20260708-phy-qcom-qmp-usb-8255-v1-0-8d852a9535db@kernel.org>
+ <20260708-phy-qcom-qmp-usb-8255-v1-2-8d852a9535db@kernel.org>
+ <5ucpcgiwlhbhn4m63gydrioyznpxnfq7rgdxf637qubikt3gqp@kivbak76lvtp>
+Date: Wed, 08 Jul 2026 15:50:33 +0200
+Message-ID: <87zf01615i.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain
 
-Hello Rob,
+On Wed, Jul 08, 2026 at 16:20, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-On Wed, 2026-07-01 at 14:33 -0500, Rob Herring wrote:
-> On Wed, Jul 01, 2026 at 03:11:07PM +0200, Louis-Alexis Eyraud wrote:
-> > Regroup the MT8188 clock and system clock dt-bindings into MT8186
-> > ones
-> > to ease maintainability and have common files for several currently
-> > supported SoC or new future ones, that have the same kind of clock
-> > controller design.
-> >=20
-> > Note:
-> > The `#clock-cells` property is a required property for all
-> > compatibles
-> > declared in MT8188 clock and system clock dt-bindings but not in
-> > MT8186
-> > ones.
-> > To avoid ABI breakage, conditional blocks to check this requirement
-> > for MT8188 compatibles are added, rather than enforcing it for
-> > MT8186
-> > compatibles.
->=20
-> If the existing DTs are just wrong, then I would just make #clock-
-> cells=20
-> required. But please update the .dts files so the warnings don't
-> grow.
->=20
-I've tested to make the #clock-cells required for the MT8186, MT8192
-and MT8195 system and functional clock controllers.
-I did not see new warnings, so no extra dts patches would be needed.
+> On Wed, Jul 08, 2026 at 02:54:21PM +0200, Mattijs Korpershoek wrote:
+>> From: Sriram Dash <quic_sriramd@quicinc.com>
+>> 
+>> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+>> platform resources, including clocks, interconnects and TLMM.
+>> The driver requests resources operations over SCMI using power protocols.
+>> 
+>> The SCMI power protocol enables or disables resources like clocks,
+>> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+>> such as resume/suspend, to control power on/off.
+>> 
+>> Power domain "usb_core" controls the GDSC, resets, and TLMM (GPIOs)
+>> whereas power domain "usb_transfer" controls clocks and interconnects.
+>> 
+>> In this variant, two disjoint sets of resources are modeled against
+>> the power domain suppliers which can be turned on/off to achieve modeled
+>> device states. Two modeled low power states d1 and d3 are supported.
+>> 
+>> transition: d0 <--> d3  :: both core and transfer suppliers
+>> transition: d0 <--> d1  :: only transfer supplier
+>
+> Sashiko warns about PM resource leaks and those warnings seems legit.
 
-I'll add new patches (one per SoC) in the next revision of the series
-for this, as it simplifies the grouping patches (no more if/then to
-require #clock-cells for the MT8188/MT8189 clock controllers) and the
-note in commit message could be removed.
+Yes, I will double check all the comments and reply to the sashiko
+review (and probably spin a v2)
 
-> The grouping I would do here is:
->=20
-> - clock controller only
-> - reset controller only
-> - both clock and reset controller
->=20
-> That should avoid any if/then schemas.
->=20
-
-By this grouping, I understand you suggest having separate dt-bindings
-files, that could look like:
-- mediatek,mt8186-clock.yaml: clock controllers
-- <name to be found>: reset controllers
-- <name to be found>: clock controllers with reset controller
-- mediatek,mt8186-sys-clock.yaml: system clock controllers.
-- <name to be found>: system clock controllers with reset controller
-
-Is that what you meant?
-
-There is no pure reset controllers for those SoC so no dedicated file
-would needed at the moment.
-The system clock controllers all have reset-controllers, even they may
-currently be not all implemented, so no separate files for system clock
-controllers would needed as well.
-
-Also, from what I see the current dt-bindings, the system clocks
-controllers for the MT8186/MT8188/MT8192/MT8195 SoC have the #reset-
-cells property but it is not required for them (examples:
-mediatek,mt8188-infracfg-ao or mediatek,mt8195-infracfg_ao).
-
-With the patches to make the #clock-cells property required, I already
-removed the biggest if/else block in mediatek,mt8186-clock.yaml, so
-only the one regarding #reset-cells property remains.
-
-So, should I create separate files, following the grouping suggestion,
-for the v2 of this patch?
-
-Regards,
-Louis-Alexis
-
-> Rob
+>
+>> 
+>> Signed-off-by: Sriram Dash <quic_sriramd@quicinc.com>
+>> Signed-off-by: Shazad Hussain <quic_shazhuss@quicinc.com>
+>> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+>> ---
+>>  drivers/phy/qualcomm/phy-qcom-qmp-usb.c | 175 ++++++++++++++++++++++++++++----
+>>  1 file changed, 155 insertions(+), 20 deletions(-)
+>> 
+>
+> -- 
+> With best wishes
+> Dmitry
