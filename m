@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E99344BC91
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 14:58:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BD44C9006
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 15:00:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783522739; cv=none; b=eU8ah+k7Rq1ccJ9al+JguB8TZAHhlO9DN5L35lNshXv2b+E+OVI3kholBIuEaBXBqgNb1HBEYnS1qZ6p0NuUVB8dm506QO+7zX13MHJvC+uyg5R6x5muvdYhXqwIYYsn+69125QudaoMFZqdvmTCy9Rlv3tezKSTVHFe+3qdjZI=
+	t=1783522818; cv=none; b=Zloeh59Wt5DW1AqrLSzVUVpjX6DOQeQw8OBVvRMd1kL+9g19WhIyyczbi2DuAAaXC4c1sAxCIFIQKM0stjfyvwtk7LVPuu999VK1WQfc0Xs+/y8G7dWsmDZf8ZIfuTyIqCdAQK88Px++sCNlwYhWyXgfgWIJVkr1zBvCzgY7bAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783522739; c=relaxed/simple;
-	bh=MJfGSBSfcUBJ1CNxF+ndoiy5VQORzg1w4jrvzEd4Qfg=;
+	s=arc-20240116; t=1783522818; c=relaxed/simple;
+	bh=UOkz27SejflpcepUGYTfScN4p9BqQvyzMO6NtrHoBAk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZTsrpk5pt1RJl/Q8fj5lvtwRDq/QOsKFAg8uI/zDT7iv20Ran3Ed6ndaNlYu/MnRRkuTziwS16Hxeyio5OLQSIA9la4obTdcXst0F68mVfFhbRPAM0IrPxraSWAGTFUoCHVHrV5i7b2NB0UDiQ1AGbQmvZEW8X3pR6PIFQ6bNiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SaJevFJ9; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QzTO+BQ/AyBuc7lGmg/ZJbrt4aU2ICHlFWxwfhYMoCxR2WKaSkkHwEuzj86nLSgXomohVsZjK3jAN+/3Yoe98UmZ9XCwBzbOysoqIhjcEf/Ee5bddvE1xeEn1XAXzfiJf/8Gwj9bHE9jhxSV3S52mTWH6RYoZiZpwPu+Jkg+2sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPSv2IOy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SaJevFJ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840DC1F000E9;
-	Wed,  8 Jul 2026 14:58:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPSv2IOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1151F000E9;
+	Wed,  8 Jul 2026 15:00:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783522737;
-	bh=0mSVtth4iZ2D8384/fa98ERUfGVGAgJ5Gxx68BMz02o=;
+	s=k20260515; t=1783522817;
+	bh=GD4RXuNJUnP5h6+EQlzc5CyZODkSxBqu467rYxACtmo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SaJevFJ9jVK1Ks0k/mgksdSYErgXmSlXixUXynX73SmroPjVkiRNvWadLJKJfozUz
-	 V9Q30uxG2Hzct+QFX90UhU58Kuubdfy09ifzv0DqUy4v09Q9sQJD+sg1GFf7wqnzdp
-	 CvN7jacxoBrfM59c5DBwwV4qLYoSMp1CO450jkqMjZnU/w/o1Y1HF0wqeIjjQI4art
-	 3akb1cia/SXwpxNb8OUeKt/KB2Cxw3Wwqtjd5AHddQ7BEgQq7ioS+hubmILTXpXfA1
-	 yhS60mAodqlN++uHUsDlmK82Lm1JB8wB6Kst0XBDmwfsZZQfOT2dQCOIsq8mccKIVN
-	 vvczWSYv54S1Q==
+	b=hPSv2IOyppasLDsBiEd+Vhlnf4+xBlNM+bX9skP3JBD/E5A/Y4A1n32K/WZsZdeFd
+	 hmVBpvRRbfdOi7VF2jSHgtRbHO9fY/c2ZbctNhCenumlJuzy9gxYRj2VWQsB0trtDS
+	 QM2s+RSdjt7cV0jd52qBfGfMFEFP4yZKzBV9WolU+G2P/DS46X9z0AHiFemtgTzXX1
+	 d6smGwf9xpt6AxaulgbFIorpfFSFTRYLFyOssfSZKxpXFyaEFAVxxnGbHEys6gH/01
+	 N1wVaQwb9CCfs9uBxLiOzhXtsrtdUMC0aSZul0VLageKPO65LrAWPrDYqw/NZEKhid
+	 3TO4yhyDquMQA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/7] dtc: dt-check-style: Add more DTS test cases
+Subject: Re: [PATCH v3 03/20] media: imx355: Remove duplicated registers
+ from the mode tables
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260708-dts-style-checker-v4-7-c175e6401150@oss.qualcomm.com>
-References: <20260708-dts-style-checker-v4-0-c175e6401150@oss.qualcomm.com>
- <20260708-dts-style-checker-v4-7-c175e6401150@oss.qualcomm.com>
+To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260708-media-imx355-v3-3-9df386a623d7@raspberrypi.com>
+References: <20260708-media-imx355-v3-0-9df386a623d7@raspberrypi.com>
+ <20260708-media-imx355-v3-3-9df386a623d7@raspberrypi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 08 Jul 2026 14:58:56 +0000
-Message-Id: <20260708145857.840DC1F000E9@smtp.kernel.org>
+Date: Wed, 08 Jul 2026 15:00:16 +0000
+Message-Id: <20260708150017.3A1151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,153 +47,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Missing semicolons at the end of node definitions in multiple newly=
- added Device Tree Source (DTS) test cases.
+
+Pre-existing issues:
+- [High] Runtime PM Double Power-Off on probe error path.
 --
 
---- Patch [7]: [PATCH v4 7/7] dtc: dt-check-style: Add more DTS test cases =
----
-commit 62a01452b76be437a860d7d26f7c0086f5c3e54e
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+--- Patch [3]: [PATCH v3 03/20] media: imx355: Remove duplicated registers =
+from the mode tables ---
+commit 149de34debabe64c5c7c327e825451e79b0feb6c
+Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-dtc: dt-check-style: Add more DTS test cases
+media: imx355: Remove duplicated registers from the mode tables
 
-Add a few more test cases for valid and incorrect DTS for
-dt-check-style.
+A large number of registers are identical within all the modes.
+Move those to imx355_global_regs.
 
-> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dts b=
-/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dts
-> new file mode 100644
-> index 0000000000000..dffc81cffbeb5
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dts
-
+> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> index ad9a9464175b1..4eaccd9e90f10 100644
+> --- a/drivers/media/i2c/imx355.c
+> +++ b/drivers/media/i2c/imx355.c
 [ ... ]
 
-> +	pmu-2 {
-> +		compatible =3D "example,pmu";
-> +
-> +		/* Just reference labels to avoid strict warnings */
-> +		example,foo =3D <&foo>, <&label_bar>;
-> +	}
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential problem in the
+error handling path of imx355_probe():
 
-[Severity: Low]
-Does this node definition need a trailing semicolon? It looks like it ends
-with } instead of };.
+drivers/media/i2c/imx355.c:imx355_probe() {
+    ...
+	pm_runtime_set_active(imx355->dev);
+	pm_runtime_enable(imx355->dev);
+	pm_runtime_idle(imx355->dev);
 
-> +};
+	ret =3D v4l2_async_register_subdev_sensor(&imx355->sd);
+	if (ret < 0)
+		goto error_media_entity_runtime_pm;
+    ...
+error_media_entity_runtime_pm:
+	pm_runtime_disable(imx355->dev);
+	pm_runtime_set_suspended(imx355->dev);
+	media_entity_cleanup(&imx355->sd.entity);
 
-> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-extend-node-child-name=
--order.dts b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-child-name-o=
-rder.dts
-> new file mode 100644
-> index 0000000000000..19fb800e719fb
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-child-name-order.=
-dts
+error_handler_free:
+	v4l2_ctrl_handler_free(imx355->sd.ctrl_handler);
 
-[ ... ]
+error_power_off:
+	imx355_power_off(imx355->dev);
+    ...
+}
 
-> +	pmu {
-> +		compatible =3D "example,pmu";
-> +
-> +		/* Just reference labels to avoid strict warnings */
-> +		example,foo =3D <&foo>, <&label_bar>;
-> +	}
+Does this code call imx355_power_off() a second time on the error path?
 
-[Severity: Low]
-Is a trailing semicolon missing from the pmu node definition?
+If v4l2_async_register_subdev_sensor() fails, the code jumps to
+error_media_entity_runtime_pm. Earlier in the probe, pm_runtime_idle() was
+called, which synchronously suspends the device by invoking imx355_power_of=
+f().
 
-> +};
+The error handler then disables runtime PM and falls through to error_power=
+_off,
+where it explicitly calls imx355_power_off() again.
 
-[ ... ]
-
-> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-extend-node-digit-node=
--order.dts b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-digit-node-o=
-rder.dts
-> new file mode 100644
-> index 0000000000000..66547a1cd2b5a
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/bad/dts-extend-node-digit-node-order.=
-dts
-
-[ ... ]
-
-> +	serial@30000 {
-> +		compatible =3D "example,serial";
-> +		reg =3D <0x30000 0x1000>;
-> +	};
-> +}
-
-[Severity: Low]
-Should this soc override block end with a semicolon?
-
-> diff --git a/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dts =
-b/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dts
-> new file mode 100644
-> index 0000000000000..b1032885ad486
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dts
-
-[ ... ]
-
-> +	pmu-2 {
-> +		compatible =3D "example,pmu";
-> +
-> +		/* Just reference labels to avoid strict warnings */
-> +		example,foo =3D <&foo>, <&label_bar>;
-> +	}
-
-[Severity: Low]
-Could there be a missing trailing semicolon at the end of this node?
-
-> +};
-
-> diff --git a/scripts/dtc/dt-style-selftest/good/dts-extend-node-child-nam=
-e-order.dts b/scripts/dtc/dt-style-selftest/good/dts-extend-node-child-name=
--order.dts
-> new file mode 100644
-> index 0000000000000..33ce562b72a39
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/good/dts-extend-node-child-name-order=
-.dts
-
-[ ... ]
-
-> +	pmu {
-> +		compatible =3D "example,pmu";
-> +
-> +		/* Just reference labels to avoid strict warnings */
-> +		example,foo =3D <&foo>, <&label_bar>;
-> +	}
-
-[Severity: Low]
-Does this node definition also require a semicolon?
-
-> +};
-
-[ ... ]
-
-> diff --git a/scripts/dtc/dt-style-selftest/good/dts-extend-node-digit-nod=
-e-order.dts b/scripts/dtc/dt-style-selftest/good/dts-extend-node-digit-node=
--order.dts
-> new file mode 100644
-> index 0000000000000..d9f1f533beebd
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/good/dts-extend-node-digit-node-order=
-.dts
-
-[ ... ]
-
-> +	serial@30000 {
-> +		compatible =3D "example,serial";
-> +		reg =3D <0x30000 0x1000>;
-> +	};
-> +}
-
-[Severity: Low]
-Should this block end with }; to be a valid Device Tree syntax?
+Could this double-disabling of regulators and clocks cause reference count
+underflows and trigger kernel WARNs (which might panic the system with
+panic_on_warn)?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dts-style-=
-checker-v4-0-c175e6401150@oss.qualcomm.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-media-imx3=
+55-v3-0-9df386a623d7@raspberrypi.com?part=3D3
