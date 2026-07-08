@@ -1,140 +1,151 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA4C3E16A9
-	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD1C3C09ED
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783546397; cv=none; b=q27qBLUkx2MXO/R+r7DUowqMSWiy0drNWwAf5S6ZkH7eh9aMbOJURVUA+8nxoJGRtKD8dTqXIUZWPXYD/fhOkp+BT3mcJpfbGxb7PMiabdRWAgvbdlZER49vIcFh/GMSec9dGtM1BjqjoT+M0BBGI4MshddKRn9SffM9iFg/d/U=
+	t=1783546489; cv=none; b=UkR7ZsHvGA13ktRY/B4ZnMJsoHDI86K5nycpWo6AQbaiMnlZAP0P1PFfyax60/CAccqNEDf+9iJ0LeEcj60ZNmEczuNglSmIA7t96eDKuLSSVNStnmQDKMMNzTGPuf/Mh6qNQ66KdjPoDFPjgtjBIbc161bQTf2A2N3vYO/eS54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783546397; c=relaxed/simple;
-	bh=NXwOCg+eFKxCNu/u5zqiZjTXNblVDIV1fQBBNSYRkhE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=THJILDnR7a0PuT7LFKJX6OCJvPNSB9aU8nd/f+mS5ZE7bZawrrHCsUFgUrgw1d61dsWkda6OMwOyqKFZy/cJoSvhNFsD6xvhFWfwxjSg8WTeG20XPudLTSymlxBqgORcs1VtClwi01K1BkloE/APk2w4SWOa+IBvMKeO1iuwGoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uFgQeYeF; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783546489; c=relaxed/simple;
+	bh=QOSXPs572gwC1zNEaba3iUlnyvy4QAECU2owztJON50=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GLHImM4uDqvUgENWsUW5VQgOAPu4JCT3ilUMQJQuxllvDBLGb1gevqbY6BYegHdospL5yvXl9+5ebPgK4LtmE/sVhS5iNOBqfuaDkfvhTk/I3awVfI8Jq+xLog6/nL5o+23dYXnJ+bIX+JoBSpnF7w99wO4+pQawBFE6X7tfR5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oLWiMIEJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uFgQeYeF"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493b1710405so7242925e9.2
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:33:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783546394; x=1784151194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9rrOWcnkCxSDr8uiZZdnumYL6A9xsmstIl9Ie1VxD/4=;
-        b=uFgQeYeFbmPZBYb1bJ3QhS0jVqOR21bi0MQnAXZEIOFUShghP23iCglmG8dYTllUnP
-         SHKKWm09rf5Y5dKOZxhdDVM5KJTZEcwwS1Zf0GPbB00rz58eFoO79/L8I9kPTjUhaEXQ
-         oOfDXa8kwBUUbZew0/YSuejrKFRl2K+MqMqqjw5pwGhdCCYMBCB0lDaoOiqbMGKZk/t4
-         3oGKpfJI0v2CL09ulc+memKFK1MI64QE7KR5L832NIikWflehAwXZTu18HyGyjEZVbYn
-         XKBXWqfFXJeoFQf+ilOCq4OK6I7z1MHY0YtiFQwZLbSVbkOgL7uwlH/3ske26uKiHn/m
-         KQcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783546394; x=1784151194;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9rrOWcnkCxSDr8uiZZdnumYL6A9xsmstIl9Ie1VxD/4=;
-        b=CAA/WRv7vDdGoDK1yA2qahkG90q9sfUv13yytNFhLk9MdaV+pXXNiGl7KXQz1h1ODV
-         YKXKMwavjLn3ywnLKuYKY9oIQIpbKOxK8fU5Qr3c8xltq4uYXyjzNexaLf8/Nmo0KJ7K
-         k9wSjvgRJygL2sXVe3O3DEDscMhR6RWTGkjKGbEPOPQiUj9+WYOqhBa103ax4IoJOKNk
-         SiGaV1ahgSl03FZtDQsObz8AHHThg5cK8OsheNIfa1uvWYiy1LbsMPiCcq0Vd0DHCGeW
-         KqT7Hlr4Z1KbKRaFbFPody9BLRpB7RbMuyPrfqVoc6HaQadvqtJgqARD9a6CTmfhwDKy
-         G3uQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpWzp8KpRQqPAi7mEmZ1q9y9NFPda5uj6igdMLQM/aunm3WBiw0tjG7GWJlNxALCx7z8PzyEXzWl7aF@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzxq1AsJnJNlxa2Y1X6AJ5//f/ZRp4eU0mHqi4sr5V7ek6Zw7JH
-	3A0SNWkdDvAhrGfnPh/ysrGP5hDY5ADpyi2qJbfPSkSA0ageMqe6RzjMKx4oE0gfrkU=
-X-Gm-Gg: AfdE7ck91CAknbG45xSm139+2hx0eLdv8j6a9mjjmfg8+xojX1fuyImCsLyJQTOVVdV
-	x2kvmhW+XsYLPiPyVK93XIEKzc5aCty7Nyegbnu+DKkHt0O2s0ydBSp66vTJKdZS9P596BUdRi2
-	LLxZXZU3gm6SweGufgWosEzdmRHumurmcaSfrJmwnbsbiRZpc0ehXUremUSuA4VKB3VKrkLMt/g
-	0/CEajoZ7qA5VBo/O9b7OeeFS3M3+LrpWIOXLE/Z+9v/792PqERIhPblnyUTjA63fJytCqvhuq8
-	wkKQT3EqLYrVCwNAKYCUEO4GLPBtgF5AjNigqZq3VbkynGkfnu6Zt5K0Knc2s8yjtY6tCZ8qG4W
-	ir1aUOmFrXbPcl0NdoE9yzOSoPLRqIezoXoNZ83dRJt4yT/DpYXECUitEW+pdUEuBRH5hs7/t9V
-	4zHp2Me9BEuC8R/3JaNZfBw6Cshts=
-X-Received: by 2002:a05:600c:4455:b0:493:bb0e:2832 with SMTP id 5b1f17b1804b1-493e687fb61mr40754675e9.37.1783546393918;
-        Wed, 08 Jul 2026 14:33:13 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.204.255])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d8410sm46531519f8f.15.2026.07.08.14.33.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 14:33:13 -0700 (PDT)
-Message-ID: <e1b25b3c-ff3a-48f6-92f6-a81f7df24e54@linaro.org>
-Date: Wed, 8 Jul 2026 22:33:12 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oLWiMIEJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1819A1F00A3A
+	for <devicetree@vger.kernel.org>; Wed,  8 Jul 2026 21:34:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783546488;
+	bh=QOSXPs572gwC1zNEaba3iUlnyvy4QAECU2owztJON50=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oLWiMIEJ0W+2X8o0NSe2rZ6aZ3sA6U0G3Dq+g9ru8SeVgFY7ajC/IFv/EZWpsR5Xk
+	 geK/gPYk+UMZRfpa7k1QenCnUGWTbPm3ZsHpkyFzbIAayQBkS6sjilk9ExJRQu8Fs8
+	 7EUnOZAdU1U0xEUWoDATI9FLYwtAhcc2Ly8+nhDxtj4JA8NlBLjGZxSP1Y6GZSOwvI
+	 c+vM8ee3gvlIvJVR8u83IXaNI3/rRtMq7NuqbKXPpIyvrNqSEkSKhU01Jg0EunLJhk
+	 uLfFyYjwY7928goknVNQYJCKy4nlHiR+Dd4FM77K/mm76Z7uNJh7YJTm+FHDnLrUBz
+	 pC+WHzxSmARzw==
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-698c0ff45b5so453570a12.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 14:34:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RosoWwJ3khvz975jW14z5Cs68BL2xtZatidBXL/kHcdJNte5r6bLAjzx3IWkCV/r61DZPbmtlATThLy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwV/15q1+uv9FBmfLzNa0cghrZ7rogx4TBAUkDBSGqjo/oaMuGj
+	u048PnfqShYL+KHVFLJBvCMUwRFZG6ugoM3cJ2YvvaPM+ZO/31oWPyhBw2QRbC2/k981anUGMM0
+	TO6KZMLDaVfNk3xkYgE7c9UY4jyhhIA==
+X-Received: by 2002:a17:906:2099:b0:c15:c323:36e5 with SMTP id
+ a640c23a62f3a-c15e744ffafmr1138866b.10.1783546486746; Wed, 08 Jul 2026
+ 14:34:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/11] arm64: dts: qcom: Add x1e/Hamoa camera DTSI
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-References: <20260326-x1e-camss-csi2-phy-dtsi-v3-0-1d5a9306116a@linaro.org>
- <178352261564.2235436.11540452339147753406.b4-ty@kernel.org>
- <5aa5487b-67ef-448f-8975-0c46ca1d3451@linaro.org>
-Content-Language: en-US
-In-Reply-To: <5aa5487b-67ef-448f-8975-0c46ca1d3451@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com>
+ <20260701-mt8189-clocks-system-base-v1-2-2b048feea50a@collabora.com>
+ <20260701193311.GA1402559-robh@kernel.org> <d1e37bd4f2a05fed6c7bfdc5d9a0fa90c892d608.camel@collabora.com>
+In-Reply-To: <d1e37bd4f2a05fed6c7bfdc5d9a0fa90c892d608.camel@collabora.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 8 Jul 2026 16:34:35 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqK8mmkhp8rM1QVB8cqLmTVqy5toFdt3Y1AFLJ5-wOdhgQ@mail.gmail.com>
+X-Gm-Features: AUfX_mw1Ig80oWjopfC3vG9UTQnueKyNCwAlWOrtHD_SpQ7K2JXbmkzTxRjcs9w
+Message-ID: <CAL_JsqK8mmkhp8rM1QVB8cqLmTVqy5toFdt3Y1AFLJ5-wOdhgQ@mail.gmail.com>
+Subject: Re: [PATCH 02/15] dt-bindings: clock: mediatek: regroup MT8188
+ dt-bindings into MT8186
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Edward-JW Yang <edward-jw.yang@mediatek.com>, Richard Cochran <richardcochran@gmail.com>, 
+	kernel@collabora.com, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08/07/2026 22:11, Bryan O'Donoghue wrote:
-> On 08/07/2026 15:56, Bjorn Andersson wrote:
->> Applied, thanks!
->>
->> [01/11] arm64: dts: qcom: x1e80100: Add CAMCC block definition
->>          commit: 6a3568f938c9ff2cb493f82dc595b4dc2760f517
->> [02/11] arm64: dts: qcom: x1e80100: Add CCI definitions
->>          (no commit info)
->> [03/11] arm64: dts: qcom: x1e80100: Add CAMSS block definition
->>          (no commit info)
->> [04/11] arm64: dts: qcom: x1e80100-crd: Add pm8010 CRD pmic,id=m 
->> regulators
->>          (no commit info)
->> [05/11] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB sensor on CSIPHY4
->>          (no commit info)
->> [06/11] arm64: dts: qcom: x1e80100-t14s: Add pm8010 camera PMIC with 
->> voltage levels for IR and RGB camera
->>          (no commit info)
->> [07/11] arm64: dts: qcom: x1e80100-t14s: Add on ov02c10 RGB sensor on 
->> CSIPHY4
->>          (no commit info)
->> [08/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add pm8010 
->> camera PMIC with voltage levels for IR and RGB camera
->>          (no commit info)
->> [09/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add l7b_2p8 
->> voltage regulator for RGB camera
->>          (no commit info)
->> [10/11] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add ov02c10 RGB 
->> sensor on CSIPHY4
->>          (no commit info)
->> [11/11] arm64: dts: qcom: x1e80100-dell-inspiron14-7441: Switch on 
->> CAMSS RGB sensor
->>          (no commit info)
->>
->> Best regards,
->> -- Bjorn Andersson <andersson@kernel.org>
-> 
-> Bjorn.
-> 
-> This is v3 from March. We are on v12. I don't think you meant to apply 
-> this.
-> 
-> ---
-> bod
+On Wed, Jul 8, 2026 at 8:45=E2=80=AFAM Louis-Alexis Eyraud
+<louisalexis.eyraud@collabora.com> wrote:
+>
+> Hello Rob,
+>
+> On Wed, 2026-07-01 at 14:33 -0500, Rob Herring wrote:
+> > On Wed, Jul 01, 2026 at 03:11:07PM +0200, Louis-Alexis Eyraud wrote:
+> > > Regroup the MT8188 clock and system clock dt-bindings into MT8186
+> > > ones
+> > > to ease maintainability and have common files for several currently
+> > > supported SoC or new future ones, that have the same kind of clock
+> > > controller design.
+> > >
+> > > Note:
+> > > The `#clock-cells` property is a required property for all
+> > > compatibles
+> > > declared in MT8188 clock and system clock dt-bindings but not in
+> > > MT8186
+> > > ones.
+> > > To avoid ABI breakage, conditional blocks to check this requirement
+> > > for MT8188 compatibles are added, rather than enforcing it for
+> > > MT8186
+> > > compatibles.
+> >
+> > If the existing DTs are just wrong, then I would just make #clock-
+> > cells
+> > required. But please update the .dts files so the warnings don't
+> > grow.
+> >
+> I've tested to make the #clock-cells required for the MT8186, MT8192
+> and MT8195 system and functional clock controllers.
+> I did not see new warnings, so no extra dts patches would be needed.
+>
+> I'll add new patches (one per SoC) in the next revision of the series
+> for this, as it simplifies the grouping patches (no more if/then to
+> require #clock-cells for the MT8188/MT8189 clock controllers) and the
+> note in commit message could be removed.
+>
+> > The grouping I would do here is:
+> >
+> > - clock controller only
+> > - reset controller only
+> > - both clock and reset controller
+> >
+> > That should avoid any if/then schemas.
+> >
+>
+> By this grouping, I understand you suggest having separate dt-bindings
+> files, that could look like:
+> - mediatek,mt8186-clock.yaml: clock controllers
+> - <name to be found>: reset controllers
+> - <name to be found>: clock controllers with reset controller
+> - mediatek,mt8186-sys-clock.yaml: system clock controllers.
+> - <name to be found>: system clock controllers with reset controller
+>
+> Is that what you meant?
 
-For example: compatible = "qcom,x1e80100-csi2-phy"; is not a valid binding
+I think so, but not sure I understand the distinction with clock
+controllers and system clock controllers.
 
-Please revert.
+> There is no pure reset controllers for those SoC so no dedicated file
+> would needed at the moment.
+> The system clock controllers all have reset-controllers, even they may
+> currently be not all implemented, so no separate files for system clock
+> controllers would needed as well.
+>
+> Also, from what I see the current dt-bindings, the system clocks
+> controllers for the MT8186/MT8188/MT8192/MT8195 SoC have the #reset-
+> cells property but it is not required for them (examples:
+> mediatek,mt8188-infracfg-ao or mediatek,mt8195-infracfg_ao).
+>
+> With the patches to make the #clock-cells property required, I already
+> removed the biggest if/else block in mediatek,mt8186-clock.yaml, so
+> only the one regarding #reset-cells property remains.
+>
+> So, should I create separate files, following the grouping suggestion,
+> for the v2 of this patch?
 
----
-bod
+Shrug. There's no hard rule here, it's a judgment call. With one
+if/then block dropped, it's a bit more tolerable to keep it as-is. If
+the if/then schemas are as long as the rest of the schema (minus any
+example), then I would say to split the schemas.
 
+Rob
