@@ -1,111 +1,332 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BB43DFC7E
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:58:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D321B6CE9
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 21:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783630734; cv=none; b=KaEzZdW6Lvj/FYsd032z0GCXjjPlfuqzIExHbT7/+uJXM4uTGVVDSqvMPc3V99+9yfZbxZgNyl73rDmhmt8Nplh/ch/5VHEkVggZuM4Cu8wun2IGV4cinbBRPY6vfe6i9wwwImJA4A4mnliyFX/CtjMF20UAXVszmuXT80eKhU0=
+	t=1783630942; cv=none; b=gCKqlRsTM7GMEpHuXnu916k+y5dK8RpS0zpFKGaeRiMxGqXomvYhnJ+g3JqJpz/3xx/8RnOLh03RRuE44vySLmbkVVRk0IvYoWVUV04g9CdOtWebTCK5Ul2qhxj83rhco1GfI0FUorJOodPScD+9v43xyWaE6VQPBnisdY4z0oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783630734; c=relaxed/simple;
-	bh=oUnULa+9FJkurV4+l92RJeMU15pAPFRta7T75xlN6/g=;
+	s=arc-20240116; t=1783630942; c=relaxed/simple;
+	bh=n+1llFJMX4r2FwTuDpq4T0bSfLoNTza05auJsYn+pO8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CtPd+WsX9MXYGXU1qWT0eJ5583z4/vQkqHYjI+AEAEzdl/klhObl94Ey9mA4JD4A9a4j8/UVYXpRrulBzIiw92NlqRg5cciF/speYsvCpCkUW9wOz3eYd3UYkzyaJvumwJkcUSBd2szmD+1yjkSCyfOCjfd+Q3j6TDDA5oD2SkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwTxQ00+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MiFRPvZLuoq0KPbCvI38zmr7XjJQeRUolbdJ1PTv0fbl9TkFMBxjgSOTVkvk8KrkRoYPr6+00u1fvBc8SWkMgBBBhh5kkPOpCZcU+4yknzg6ygiinuZ+nvWFLR1Bye5lAu8eA7Mti6I4Ii3WbPvoXYhkaZ51zlN3CeJAkRo9ftM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCbPv/7+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwTxQ00+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F921F000E9;
-	Thu,  9 Jul 2026 20:58:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCbPv/7+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8832D1F000E9;
+	Thu,  9 Jul 2026 21:02:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783630733;
-	bh=J2Ohcj530sjG8V0nSdIdMmKRwdkckjzr0fv+/fVz4e0=;
+	s=k20260515; t=1783630940;
+	bh=BnIwmRatJQ1oqBcVN2gpQyBg7LcXuPwU4knVhJPW6HY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TwTxQ00+Qy9nWlJXz7VvOJfBuJDZtsRiDcjDIGZD2IbiMAqf3qHmHQ66fYCEfBbMG
-	 9A3HykJww7v12URm6BOuyhPwb1GWNfOVZ84xdXzNOoA1maT1Nu63DENDUYX1nauf/p
-	 IMaNhNSSR8jJLl2dUdji88mtPJjnZofqMEI3tcIkokvNrIyMkjW2aPdqN0VtTYFtav
-	 wufAhittCV4jTYMZ4wLsSY1zVbTPuUXQJch+mFOrYrKxrsqIfnjbiQc7BNifedAwRu
-	 UBFLpZnmU9L39ZXyJknUNigQ9V7YhKV+KXNVB0HMfUNe4XTIBVO6riKgYkZ2bqk24e
-	 X56iCdxxyy87A==
+	b=WCbPv/7+zmJUtghHGnPcXNAtYCEQHzCZhjwCO5CMMW9C7MzKsmrAXteNuHNCFFygf
+	 qAPYv1DtQJoZUIOcOB04gW+L94XBp6Lxt1oVk7yEgZUL8UHON4pQkv7CCOJBf2MZLu
+	 Rm/TGSLb03dcsYzAddNCcRkpq+D0m8CUyQU2iUYp3n+kbi3RS0LKVZHocU22+9TuAl
+	 7PcNJdqF5dY02qy55paywKsp7gJVeoLVcxgV6Sl7vKzxcsl2HGu6L6S3aYmHiUBIwB
+	 MO3fij6LNVNFw+FoAhSoSr0No19h6HOw65ap269a0pLuiMyz3j3LPmQeVbTjDlkLy3
+	 LgCi1RJ5F2eqg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/4] dt-bindings: iio: adc: Add ltc2378
+Subject: Re: [PATCH v2 16/19] crypto: cmh - add SLH-DSA/LMS/XMSS (HCQ)
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <1a3259037ac87539490c8e070487703614e41e62.1783629101.git.marcelo.schmitt@analog.com>
-References: <cover.1783629101.git.marcelo.schmitt@analog.com>
- <1a3259037ac87539490c8e070487703614e41e62.1783629101.git.marcelo.schmitt@analog.com>
+To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709203037.1884436-17-skrishnamoorthy@rambus.com>
+References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-17-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 20:58:52 +0000
-Message-Id: <20260709205853.20F921F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 21:02:18 +0000
+Message-Id: <20260709210220.8832D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] The binding incorrectly forces `ref-supply` to be mandatory (whi=
-le forbidding `refin-supply`) for LTC2378 and most other devices, and wrong=
-ly forbids `ref-supply` for LTC2338-18. This contradicts the physical hardw=
-are capabilities.
+- [Critical] The SLH-DSA, LMS, and XMSS verification and signing functions =
+unconditionally unmap and free DMA-mapped buffers on timeout, leading to po=
+tential use-after-free and memory corruption by the hardware.
+- [High] LMS and XMSS algorithms fail to implement the `.max_size` callback=
+ in their `struct sig_alg` definitions.
+- [High] SLH-DSA, LMS, and XMSS algorithms fail to implement the `.digest_s=
+ize` callback in their `struct sig_alg` definitions.
+- [Medium] The PQC signature algorithms incorrectly reject 0-length message=
+s, preventing empty message signing and verification.
 --
 
---- Patch [1]: [PATCH v6 1/4] dt-bindings: iio: adc: Add ltc2378 ---
-commit 5b94ffdebbdd7e1b8c34a651dee8aae08509770e
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+--- Patch [16]: [PATCH v2 16/19] crypto: cmh - add SLH-DSA/LMS/XMSS (HCQ) -=
+--
+commit aa5a6d3ad22af27c0421ed22c5126da35c7caa5b
+Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-dt-bindings: iio: adc: Add ltc2378
+crypto: cmh - add SLH-DSA/LMS/XMSS (HCQ)
 
-This commit adds device tree bindings for the Analog Devices LTC2378
-and similar ADCs. It defines the required properties, compatible strings
-with fallback enforcement, and constraints for voltage supplies.
+Register SLH-DSA, LMS, LMS-HSS, XMSS, and XMSS-MT algorithms
+using the CMH HCQ core (core ID 0x08).  SLH-DSA is registered as a
+sig algorithm with sign and verify support.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml b=
-/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
-
+> --- a/drivers/crypto/cmh/cmh_pqc_slhdsa.c
+> +++ b/drivers/crypto/cmh/cmh_pqc_slhdsa.c
+> @@ -54,23 +54,342 @@ static inline struct cmh_slhdsa_tfm_ctx *cmh_slhdsa_=
+ctx(struct crypto_sig *tfm)
+>  static int cmh_slhdsa_sign(struct crypto_sig *tfm,
+>                             const void *src, unsigned int slen,
+>                             void *dst, unsigned int dlen)
+>  {
 [ ... ]
-
-> +allOf:
-> +  # Except for LTC2338, all designs require a voltage reference input
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              enum:
-> +                - adi,ltc2338-18
-> +    then:
-> +      required:
-> +        - ref-supply
-> +      properties:
-> +        refin-supply: false
-> +    else:
-> +      properties:
-> +        ref-supply: false
+>         if (ctx->key.mode =3D=3D CMH_KEY_NONE)
+>                 return -EINVAL;
+>         if (dlen < sig_sz)
+>                 return -EINVAL;
+>         if (!slen || slen > SLHDSA_MAX_MSG_LEN)
+>                 return -EINVAL;
 
 [Severity: Medium]
-Could these constraints cause a validation regression for valid hardware
-configurations?
+Does this incorrectly reject valid 0-length messages? Empty strings are val=
+id=20
+inputs for SLH-DSA, but this returns -EINVAL when slen is 0. Is this intend=
+ed=20
+to prevent a ZERO_SIZE_PTR allocation from kmemdup()?=20
 
-For example, if the LTC2378 uses an internal reference without an external
-supply, forcing ref-supply to be mandatory (while forbidding refin-supply)
-might cause valid device trees to fail validation unless a dummy regulator =
-is
-instantiated.
+>         m_buf =3D kmemdup(src, slen, GFP_KERNEL);
+[ ... ]
+>         ret =3D cmh_tm_submit_sync_tmo(vcq, vcq_count, 1, d.mbx_idx,
+>                                      cmh_tm_slow_op_timeout_jiffies());
+>=20
+>         if (!ret) {
+>                 /* Sync bounce buffer so CPU sees the DMA-written signatu=
+re */
+>                 cmh_dma_sync_for_cpu(sig_dma, sig_sz, DMA_FROM_DEVICE);
+>                 memcpy(dst, sig_buf, sig_sz);
+>                 ret =3D sig_sz;
+>         }
+>=20
+> out_unmap:
+>         if (sk_buf) {
+>                 if (!cmh_dma_map_error(sk_dma))
+>                         cmh_dma_unmap_single(sk_dma, sk_sz, DMA_TO_DEVICE=
+);
+>                 kfree_sensitive(sk_buf);
+>         }
+>         if (!cmh_dma_map_error(sig_dma))
+>                 cmh_dma_unmap_single(sig_dma, sig_sz, DMA_FROM_DEVICE);
+>         if (!cmh_dma_map_error(m_dma))
+>                 cmh_dma_unmap_single(m_dma, slen, DMA_TO_DEVICE);
+>=20
+> out_free:
+>         kfree(sig_buf);
+>         kfree(m_buf);
+>         return ret;
+>  }
 
-Similarly, does the LTC2338-18 support overdriving the internal reference
-buffer? If so, forbidding ref-supply for adi,ltc2338-18 could prevent accur=
-ate
-hardware descriptions when an external reference is applied.
+[Severity: Critical]
+Are these buffers safely unmapped and freed if the transaction times out?
 
-Should these constraints be adjusted to fully reflect the physical hardware
-capabilities and internal reference features described in the datasheets?
+If cmh_tm_submit_sync_tmo() returns -ETIMEDOUT, the documentation in the TM
+subsystem notes that the hardware abort might fail, leaving the hardware ac=
+tively
+writing to the DMA buffers. Because kfree() is called unconditionally on=20
+sk_buf, sig_buf, and m_buf here, could this allow the hardware to corrupt=20
+whatever data is subsequently allocated in those physical pages?
+
+> @@ -165,22 +165,58 @@ static int cmh_slhdsa_verify(struct crypto_sig *tfm,
+>                               const void *src, unsigned int slen,
+>                               const void *digest, unsigned int dlen)
+>  {
+[ ... ]
+>         if (!dlen || dlen > SLHDSA_MAX_MSG_LEN)
+>                 return -EINVAL;
+
+[Severity: Medium]
+Similar to the sign function, does this prevent verifying 0-length messages=
+=20
+which are otherwise mathematically valid for SLH-DSA?
+
+>         sig_buf =3D kmemdup(src, slen, GFP_KERNEL);
+[ ... ]
+>         /* SLH-DSA verify recomputes hyper-tree hashes -- inherently slow=
+ */
+>         ret =3D cmh_tm_submit_sync_tmo(vcq, HCQ_VCQ_CMDS_MIN, 1, d.mbx_id=
+x,
+>                                      cmh_tm_slow_op_timeout_jiffies());
+>=20
+> out_unmap:
+>         if (!cmh_dma_map_error(pk_dma))
+>                 cmh_dma_unmap_single(pk_dma, pk_sz, DMA_TO_DEVICE);
+>         if (!cmh_dma_map_error(m_dma))
+>                 cmh_dma_unmap_single(m_dma, dlen, DMA_TO_DEVICE);
+>         if (!cmh_dma_map_error(sig_dma))
+>                 cmh_dma_unmap_single(sig_dma, sig_sz, DMA_TO_DEVICE);
+>=20
+> out_free:
+>         kfree(pk_buf);
+>         kfree(m_buf);
+>         kfree(sig_buf);
+>         return ret;
+>  }
+
+[Severity: Critical]
+Are pk_buf, m_buf, and sig_buf safe to free here on a timeout?=20
+
+For the same reasons as above, if cmh_tm_submit_sync_tmo() returns -ETIMEDO=
+UT,=20
+does unconditionally freeing these buffers risk memory corruption by the=20
+hardware?
+
+> @@ -313,24 +313,64 @@ SLHDSA_INIT(HCQ_SLHDSA_SHA2_256F)
+>  #define SLHDSA_ALG(name, drv, ps_val) {                                 =
+       \
+>                 .sign           =3D cmh_slhdsa_sign,                     =
+ \
+>                 .verify         =3D cmh_slhdsa_verify,                   =
+ \
+>                 .set_pub_key    =3D cmh_slhdsa_set_pub_key,              =
+ \
+>                 .set_priv_key   =3D cmh_slhdsa_set_priv_key,             =
+ \
+>                 .key_size       =3D cmh_slhdsa_key_size,                 =
+ \
+>                 .max_size       =3D cmh_slhdsa_max_size,                 =
+ \
+>                 .init           =3D cmh_slhdsa_init_##ps_val,            =
+ \
+>                 .exit           =3D cmh_slhdsa_exit,                     =
+ \
+>                 .base =3D {                                              =
+ \
+
+[Severity: High]
+Is the .digest_size callback missing from this algorithm definition?
+
+When .digest_size is not provided, crypto_sig_digestsize() falls back to the
+public key size. For SLH-DSA, could this cause valid sign/verify operations=
+ to
+be prematurely rejected with -EINVAL by the asymmetric_keys subsystem if th=
+e=20
+payload is larger than the small public key?
+
+> --- a/drivers/crypto/cmh/cmh_pqc_lms.c
+> +++ b/drivers/crypto/cmh/cmh_pqc_lms.c
+> @@ -49,20 +49,60 @@ static int cmh_lms_verify(struct crypto_sig *tfm,
+>                            const void *src, unsigned int slen,
+>                            const void *digest, unsigned int dlen)
+>  {
+[ ... ]
+>         if (!dlen || dlen > LMS_MAX_MSG_LEN)
+>                 return -EINVAL;
+
+[Severity: Medium]
+Does this incorrectly reject valid 0-length messages for LMS?
+
+>         sig_buf =3D kmemdup(src, slen, GFP_KERNEL);
+[ ... ]
+>         /* LMS verify traverses Merkle hash chains -- inherently slow */
+>         ret =3D cmh_tm_submit_sync_tmo(vcq, LMS_VCQ_CMDS, 1, d.mbx_idx,
+>                                      cmh_tm_slow_op_timeout_jiffies());
+>=20
+> out_unmap:
+>         if (!cmh_dma_map_error(pk_dma))
+>                 cmh_dma_unmap_single(pk_dma, ctx->pub_key_len, DMA_TO_DEV=
+ICE);
+>         if (!cmh_dma_map_error(m_dma))
+>                 cmh_dma_unmap_single(m_dma, dlen, DMA_TO_DEVICE);
+>         if (!cmh_dma_map_error(sig_dma))
+>                 cmh_dma_unmap_single(sig_dma, slen, DMA_TO_DEVICE);
+>=20
+> out_free:
+>         kfree(pk_buf);
+>         kfree(m_buf);
+>         kfree(sig_buf);
+>         return ret;
+>  }
+
+[Severity: Critical]
+Does unconditionally freeing pk_buf, m_buf, and sig_buf on a timeout risk
+use-after-free and memory corruption by the hardware?
+
+> @@ -164,36 +164,36 @@ static void cmh_lms_exit(struct crypto_sig *tfm)
+>  static struct sig_alg cmh_lms_algs[] =3D {
+>         {
+>                 .verify         =3D cmh_lms_verify,
+>                 .set_pub_key    =3D cmh_lms_set_pub_key,
+>                 .key_size       =3D cmh_lms_key_size,
+>                 .init           =3D cmh_lms_init,
+>                 .exit           =3D cmh_lms_exit,
+>                 .base =3D {
+
+[Severity: High]
+Are both the .max_size and .digest_size callbacks missing here?
+
+Without .max_size, crypto_sig_maxsize() defaults to the public key size.=20
+Because LMS signatures are much larger than their public keys, won't this=20
+cause standard verification requests to fail with -EINVAL?=20
+
+Similarly, missing .digest_size may cause operations to be rejected when th=
+e=20
+message size exceeds the public key size.
+
+> --- a/drivers/crypto/cmh/cmh_pqc_xmss.c
+> +++ b/drivers/crypto/cmh/cmh_pqc_xmss.c
+> @@ -49,20 +49,60 @@ static int cmh_xmss_verify(struct crypto_sig *tfm,
+>                             const void *src, unsigned int slen,
+>                             const void *digest, unsigned int dlen)
+>  {
+[ ... ]
+>         if (!dlen || dlen > XMSS_MAX_MSG_LEN)
+>                 return -EINVAL;
+
+[Severity: Medium]
+Does this incorrectly reject valid 0-length messages for XMSS?
+
+>         sig_buf =3D kmemdup(src, slen, GFP_KERNEL);
+[ ... ]
+>         /* XMSS verify traverses Merkle hash chains -- inherently slow */
+>         ret =3D cmh_tm_submit_sync_tmo(vcq, XMSS_VCQ_CMDS, 1, d.mbx_idx,
+>                                      cmh_tm_slow_op_timeout_jiffies());
+>=20
+> out_unmap:
+>         if (!cmh_dma_map_error(pk_dma))
+>                 cmh_dma_unmap_single(pk_dma, ctx->pub_key_len, DMA_TO_DEV=
+ICE);
+>         if (!cmh_dma_map_error(m_dma))
+>                 cmh_dma_unmap_single(m_dma, dlen, DMA_TO_DEVICE);
+>         if (!cmh_dma_map_error(sig_dma))
+>                 cmh_dma_unmap_single(sig_dma, slen, DMA_TO_DEVICE);
+>=20
+> out_free:
+>         kfree(pk_buf);
+>         kfree(m_buf);
+>         kfree(sig_buf);
+>         return ret;
+>  }
+
+[Severity: Critical]
+Does unconditionally freeing pk_buf, m_buf, and sig_buf on a timeout risk
+use-after-free and memory corruption by the hardware?
+
+> @@ -164,36 +164,36 @@ static void cmh_xmss_exit(struct crypto_sig *tfm)
+>  static struct sig_alg cmh_xmss_algs[] =3D {
+>         {
+>                 .verify         =3D cmh_xmss_verify,
+>                 .set_pub_key    =3D cmh_xmss_set_pub_key,
+>                 .key_size       =3D cmh_xmss_key_size,
+>                 .init           =3D cmh_xmss_init,
+>                 .exit           =3D cmh_xmss_exit,
+>                 .base =3D {
+
+[Severity: High]
+Are both the .max_size and .digest_size callbacks missing here?
+
+As with LMS, missing .max_size means crypto_sig_maxsize() defaults to the=20
+public key size, preventing validation of XMSS signatures because they are=
+=20
+larger than their public keys. Missing .digest_size may also break validati=
+on=20
+for any payload larger than the public key.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783629101.gi=
-t.marcelo.schmitt@analog.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
+436-1-skrishnamoorthy@rambus.com?part=3D16
