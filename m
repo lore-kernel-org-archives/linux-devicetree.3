@@ -1,199 +1,217 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010011.outbound.protection.outlook.com [52.101.46.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4B93E44EB
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 07:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783582372; cv=fail; b=mI+EuZLZsHhCctbAaSc00aQ0/V8bu2SlpybsdwxGTMjSN+QM7qrBfhcJ4hvnDBmaM0WnddoVaQz2VteFr2FKduS9kKPauwc/nH/jGAG7OXf2uxCnmVb7nWj6heHXDdTsh5t678ZKdKYGPa65rOwG2dnUWPpHsUDSWuK8TfUvYG8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783582372; c=relaxed/simple;
-	bh=wNwZikjWCytc/IwvL7N9AVusv9fFWWoD/JdCjHJf1OM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=QNxc9bxRJl9Ek4e+Gz80G+QtvQpvySmqmK+NaYo6lw9+OvOeuI0DubhCqTuLJMU4fl16UseUY2/wxtJ5EIb/ELkloHhx30v/z1k5sG51EzDeO4Xl+B5z/DFb3xnW2v1d+zROmdpz4Xlu1+b0s6yliDFWP8qnxi1LWA0I9O6Zixs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (1024-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=bqLwM6/a; arc=fail smtp.client-ip=52.101.46.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392DC3BB101
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 07:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783582442; cv=none; b=lSAHKt6IIiOk75KYzjEdCwZgwKRwA024d5YuE2h42aHi6o1iZlbyjw2eh44nrQkJdA0Gl7eT/QR7tfribCZapEcKHTClJ5U8HtIUrHfQOwgAtLEyPXmaUFFDcxEQXJuO5LBFf0O5UkdrAxWHScHjPmSu0sNHrBSipCuVbXKzgis=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783582442; c=relaxed/simple;
+	bh=Kh5FwszJ4LfJwQ6A/zoYZ4qba9IWmXTwdyA5zZmva+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G2bJrA1XJ15JaX6EnQVnLLRoaNj+Ic09FguDUXEqAhjK41DOyhRkOBdtdy2e8AXGwprwkGFj+2ROrZfiIZOgAyger2xxx/Gc4Rc6iTUmqw6K02XvFGqCiiSrvdA+3C2Xe8/NDIy+FYSXIBpLpukoyTuJuarj1nWQYn/qKznkqU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qr9ckc5a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BPwHheq7; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="bqLwM6/a"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gI3qyYn2r8//edlXMG5zby9nXlFNBrvUg9wRkjeTsrgDUEfdcdg+LPdiccF4g9MB+9T4rB2siA37IgO4zwO9Gme9n5W+X/X73qJGneKWxFG7WJWqvXwVYVOhRvoQrSLTw4AgBbqmIecRuofcLS1te15lST1lBzMNUD7FiosfI4INuhdMjw/dT0ipy/R1Ddzj1T8iE29/nMJq3bN5ZHg01xUfR+Fo6+LZDEuidtnM9PpMvj6qUp4YV5QJGZahvZR+iIIfCovrr/12h7DulZOjgtf7I34nCVNCCJojx/51uJDANNEPsQESXSbcKz3WoIY7K3gDD5iEes1YmypSrjhwEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j7/wkLEw/Ce/4wy5UvRuW8FPMPN06QFeOzWwZExtUCU=;
- b=FBHxurRF4zTw1Sy3RIuIew3hDNewg7MizKnbY05E3wTiBuFgiEkhA+YPlO2lpSaHwM7+Go+0v6nK1ee2tBYjlQ18D7DfFFywuRtBRFoBVoClkX/H1MQOiPBS8AR5U36MDwTTf4a6HFsfga8K50elYPXPINmz8rTeA/YgAkkZDclBUPcRqlUMeTrMMY8rIImft088xZg2NEdSEblR8uE+j+2ujsxjqFuggN4m9A/HEm7ZNBxHmJq914XeVG2Qpqm3zkuVf/kbPLXrlTSKjgh+9WjTu6b3guURRsv1ydiCulUZ3eh5Ogh3TfOo/cPHKYAzq7uQb3iuGzb8WwLGQvsqTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=einfochips.com; dmarc=pass action=none
- header.from=einfochips.com; dkim=pass header.d=einfochips.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=einfochips.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j7/wkLEw/Ce/4wy5UvRuW8FPMPN06QFeOzWwZExtUCU=;
- b=bqLwM6/a/YcZ65gKsy6dQRlZ+DFw5g/sM5smj95vb6qmzJvVQsjYzivJ5ZOk63kuZlyyZXUT2DFi5XrA2t0i5A6dK6EoNBJQSZyK54X5yb6DB7Mm1BwflCfEpzpY24SdKIdT5Kl0iFnwUUSywoeVU4eoe9b2SzSptSloKaFVQIc=
-Received: from SJ2PR04MB8896.namprd04.prod.outlook.com (2603:10b6:a03:53e::6)
- by MN2PR04MB6464.namprd04.prod.outlook.com (2603:10b6:208:1aa::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.12; Thu, 9 Jul
- 2026 07:32:46 +0000
-Received: from SJ2PR04MB8896.namprd04.prod.outlook.com
- ([fe80::8292:662a:4214:95e0]) by SJ2PR04MB8896.namprd04.prod.outlook.com
- ([fe80::8292:662a:4214:95e0%4]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 07:32:46 +0000
-From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-CC: "conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>
-Subject: Re: [PATCH v2 2/8] riscv: dts: eswin: add clock generator for EIC7700
- SoC
-Thread-Topic: [PATCH v2 2/8] riscv: dts: eswin: add clock generator for
- EIC7700 SoC
-Thread-Index: AQHdD3UiyOLaN5AyQ0GVeNSlAkzblg==
-Date: Thu, 9 Jul 2026 07:32:46 +0000
-Message-ID:
- <SJ2PR04MB88963D8B389F871A8925109883FE2@SJ2PR04MB8896.namprd04.prod.outlook.com>
-References: <20260706081055.1126275-1-pinkesh.vaghela@einfochips.com>
- <20260706081055.1126275-3-pinkesh.vaghela@einfochips.com>
- <20260706081623.5AAFB1F000E9@smtp.kernel.org>
-In-Reply-To: <20260706081623.5AAFB1F000E9@smtp.kernel.org>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ActionId=4e9b6825-d573-4630-8899-25c10158484a;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ContentBits=0;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Enabled=true;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Method=Standard;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Name=879e395e-e3b5-421f-8616-70a10f9451af;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SetDate=2026-07-09T07:30:12Z;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SiteId=0beb0c35-9cbb-4feb-99e5-589e415c7944;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Tag=10,
- 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=einfochips.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ2PR04MB8896:EE_|MN2PR04MB6464:EE_
-x-ms-office365-filtering-correlation-id: cae37772-b0f7-4870-9317-08dedd8c4563
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|55112099003|22082099003|4133799003|38070700021|4143699003|56012099006|11063799006;
-x-microsoft-antispam-message-info:
- mxTs/RXMide7rZ2iaiZftxwyrbZle+gBW/faZQROdSqU3Egrfie/AWsw3khQdK9hdvvV5th0sYdnn2oYSV7+2eGLl2KrghhQu6YF3uVKxpckOkeliwHp4mrqGF5fYeSvMOfRbWkvozxXVdNuFtM42Ay6rhd+UM5k9qmUPwDK+5F0Ubl3mdRbnX72F0oR732codClQLRxgvOArpwddQWiN7k5LDOc6OhyEiNc9LtXbFJwuPRwU7EjdNpPSvb+8xwCwIU4NYtIjrWgb2tffaleIrII+naQNIi83q0r/qF1YKD4StE0dITOVyyVH66prkpon9SuPBkTUP1PqE6BfFcVXbsRiibIRnoZv/azVS43/LCuMBGBhohb2S/+T7NuHTXXfB5JrTPbfrXzdlW+LPSNel54c5+fKv139NZcTVqgxKlXkMjYrhDOzz6J6KO2hY36co+hh8KTOP/m4Fol8ZnXy99kYU8HjOnta6SMh6pJGHsF22Mp/ZXKK11WtBnBY99plFqy4SWh/5ws+/tnCcT40ISkn5ow6mXguJ8fMjzu/+5ymS8n7Wnbv5J4So2svqOFxe/u5PfuRhmkYnu4zUM6I8BulsmsImgDby6gcubePms/Fz9WwYWGzi85m2sFG7LdLCqdAchi1NL/IqmzrXrhcEqAR4Ic30rXVNRILXA9nCWsgBU9sEv7dHbzs0fZOINgZwocGWK7faSDGRnskgf9FySXzj7J0sSZAnwroMAEJOQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR04MB8896.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(55112099003)(22082099003)(4133799003)(38070700021)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?xAIgRVnmKOIagOf5kJqcXd2N01Vr7tItpx1963IN1M3Eb8Nsbvv8c17211l7?=
- =?us-ascii?Q?28jbLSWkSAMI/sEMtPNl+kMuCLGsFNFXSsy1R5Q20FKhysQeUw0Ixu+PRI1r?=
- =?us-ascii?Q?DPiwpz/F/fmBXkbidEMte/bbyqowk3wWQbyq5bGzlmB67Ng4a//6BvKq2N2I?=
- =?us-ascii?Q?uUx+p8c0lcqzis2W03Xj5h7lqeHsvdyilYoqUtVny+EKK8M0+GaNHzXs6VC7?=
- =?us-ascii?Q?ydYGAi7/Q7CR7/zLDYnGL6nHyUCVGrSpkII8rTJwpCQVoIIxNahCyOA/QWNw?=
- =?us-ascii?Q?NkArh33zKhMYxa52zD+w70zyNeEKl9m3f2zW00iGvWxfDIufjArUR/zQmPDW?=
- =?us-ascii?Q?kNeqn24n+LFBnmzHDnOjWplEUQ5RN6IQ5SaO8g7Xa9mjHL2sOtwc5BTEW2tp?=
- =?us-ascii?Q?2D+ZOjBh5kLjB1gBk7RJKnLKL4PI4zV4hZoECEC7dU+S5062v1M0cMcnDX7P?=
- =?us-ascii?Q?cuGpBFG+GaPIHXP1M41iOzr4e77KLYANcVq4wwdqfYY+33GjyBBRFAnOEluB?=
- =?us-ascii?Q?NoKTTJq64r1wNQNjiPWUxb/qTQQhycOPpU9yuZswfhDBuFlVsMR39klLjWOw?=
- =?us-ascii?Q?+7kV63iApJoM+oHp9J4h/SQpyDVWJCVARbwIZog/nB/XbNoMvydD28feZ7F6?=
- =?us-ascii?Q?Qw8i/jBY5Kew8Z8TIfc+r9lztVQD7s2rYx/HCBIqRtsIGpEtS8vzYB8YxXys?=
- =?us-ascii?Q?GII4Z/PqqguhhuEd9q1SXCi/kcpjluDEPJ/XrxzZ+D3lVQg9HwvHtgPp49nX?=
- =?us-ascii?Q?OBFhYuCCddGiSdL5UdYe0ejCtPAyc/M0cy5zxd679ZBmqhumndkstcFMCLwF?=
- =?us-ascii?Q?54G8mKNTWY9GPWwfpyIc6QrkPW5rpDnCg9oetcT64ri7sfOMnrlxVDR6rU4V?=
- =?us-ascii?Q?STlJtZr8gWuwnj5aHxV8ghDa3bwv84MP7WrF/jhdeq5pOwdeO3LTMn/WomhT?=
- =?us-ascii?Q?AkT9hgDa4C4jR2iajEglW4DWfXDrg9gXRN7tf3TxFbumRVHhtue9jm+d/aD3?=
- =?us-ascii?Q?rTdyGuBqe9r/QE0pDq2d3O086DRycsX+Ua0p+qmL3MnfpqYWIKGUm6LZCOKo?=
- =?us-ascii?Q?+3gOH0lTSJLFURhYRpQs6PP4swwxy4D8pcvahZYsVX9I+OofdOgdlRK4OPrB?=
- =?us-ascii?Q?ckETKshLHfZ1aIBLnBDpHdJwirx0i9nRTVNAf+4rz7J6JQg1USY8vymaLhzm?=
- =?us-ascii?Q?DtoVSS6tqjqC7JF8qOOPqJcHdCyXmG76H1kO94a2jhVKSvGRrZSp8/0LF5vF?=
- =?us-ascii?Q?PexAVWwvu+bsDM/NKJ0inLicT3dtEv4TDp1SXVp0TPFDhtvxAB0oFkpUxe6C?=
- =?us-ascii?Q?9XHY6G1bFwsDVLtVfiWaQm1Rms+YtzvwtjfmFSfIoIqNNODsHot8DEpvZ7ju?=
- =?us-ascii?Q?h1kg1ys5qM4yIQtyL/n1ebGe/nSUXZayqJJu94jo+uhOcHOz73b950sf8HNa?=
- =?us-ascii?Q?eGcGybC4JT0ZGfBeRjL4fTaDpM6FO953CCpEQF0TnBvzxjPUA/ASt5zhQQub?=
- =?us-ascii?Q?FAfKDgIGHFr4kzbr7gaeQ4aUoixM7nz6OvnnI42A/xZU5i/9P3YQAwvqpRVw?=
- =?us-ascii?Q?WKNtWmNG+5UmCKSJcQiHhj5XFRfY2afI3T1CFRcu8sOp/q89UtbuMuw9A6aL?=
- =?us-ascii?Q?XAc9G5U2BSCjbvYU9bJpKFOOB08h32eG1fjtbPiJOz5R5jNGOmvIm+k5zHyU?=
- =?us-ascii?Q?I277qobwSiTRH27pJlfQ3H9yEztOzSUtGnRC5bmRUHnRdQM/dr1Qjwb6etJC?=
- =?us-ascii?Q?uMeMmxJ+xQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qr9ckc5a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BPwHheq7"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66960FDl931920
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 07:34:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Rj6P6226UzjkYIgt9Mf/cOyc
+	/GcJxd9MKs8WkH4Ew7Q=; b=Qr9ckc5avzQWZ1W8tZnYumyupzdwE+MnUwWtdzBA
+	ufgQsYkesNE3AIDfsX8J38UlEqhL4CvcZbUgLfYe3xOMqX3UAWwwg5IS5JpZNMm2
+	v18IWWZ3U5mDggPrEgQhnZzpVgXWtR2NwSa1SHh7Q2A3apqgJj2e9vg/wYWMgIHD
+	EJLf+M3x2T9XD64jd9mqQMjVLZNluoV2V8cPRyh+Q39mFIVgc1nMnaJUXcYk9UU2
+	D1LKNLerrMssom56HxR8Nvrrk2YbggcDkrXZkAgR8fwSsx9I1W0BachGwEzT9KlV
+	EQ7yrsVx2FXjv2XaFt7/rJ3Gk37HPJv8nGNF86T9zEeShg==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9sqsayc6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:34:00 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9692d7bee20so1297526241.2
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 00:33:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783582439; x=1784187239; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rj6P6226UzjkYIgt9Mf/cOyc/GcJxd9MKs8WkH4Ew7Q=;
+        b=BPwHheq76GVDW+akrAI8qfVUAOhfkdg+1NGSy7h/Y+h5HscPEIwd2zju7g6JpxrWTm
+         Kad5cNn5Hw2tveTuEZpiStgvnw2wP5S/btvT+yQWGEl5Pwc8P+MaSqyuWDbRYfVfKdWC
+         P6VsPFaMGhpEc+xEHPQ8AyPWuW+Ooj1+VNHSm2UB6xQcxqIU90d/mIoyLIx+/UTdCPC7
+         sJd6N0GbfALHIoUb/S/ShUzkkbC3kewCfYo/KVGnHsLBQDutRrbxRg3t+iLJU30XOvaH
+         NlgsLbuyHMUb/25ySPlu9Zs4WhYOKLWGCzp5QzIUSUXOg9smWIhu4waHoE6GVIJHjhyp
+         cq0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783582439; x=1784187239;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rj6P6226UzjkYIgt9Mf/cOyc/GcJxd9MKs8WkH4Ew7Q=;
+        b=m9YnLyhX0cjncJShfio67y2QLDCZZr5G8vDgE9cnWziE4tWbLg/ptRO72jZGQNtL1L
+         ug8wRPvW0upuCU55Ph7oRAQx0Bg5RVZppSXKevbUNhyDlrkFjZFN0liH3bGaeHdv58o1
+         NKHBNhHw7Zt+70RzSmO9XCYuoDaRkI5iQh0O5vCQJ6QksCYt7gIFAsoPbFLOBTfI9/4V
+         k1QDQkEaJeTvOW88aaXtvCq8SepkISt0IfLJk5UGzoVSe5/4obrs0zvnGe8U0Orvz/uu
+         VEfX4+8+Vq225lOzu08WIev6Jkce94kwj9Pc5TmCSs3SCur038oKTmfG/NgrgfsQfPHj
+         Lowg==
+X-Forwarded-Encrypted: i=1; AHgh+RrLYp0Mmvkk7fJlklJ6CsTDxswr0XcI0c8UDRQwOyTkdHUf1D5mxK0RqJQQrYz/Hq2Sn28jAPqQ2uby@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8vFuvkBPp77CwXZ0BxG57rsHzoku/29/YzDMVlmpwQqX3Vqwk
+	QE7i8AGm1HG5YeuPRy8qYqFc9f4zq7vkMgXIO0c9mCiTK9daUZF+Jm7GZzHoDFKnmrt7G9BQ4ui
+	5EWqu/ycC5Xb4eKtBYwxwGG3ZpHXgc5pggNMwISCzpt5UmOPafItYakeMD4nktuA+YJy9zmSK
+X-Gm-Gg: AfdE7cmIZfISDDHZUstkqaycv0rF6wewr7nA+6WGZWL7RUSz0bJhLzMifwuEcU7pKYB
+	nvH1ESWWBMqI0ChM0QX6cNFg7nwuPcSvp1XG5pi981J9vCgP/zM8pATpX22eQhSyn6O6l6u+YJI
+	gZs9GIvh9HIyqDqXZSUFx4OeIL9NA1U6mSfT+C342QufhJU06RhRmvwhwa1DcrH8DUmiWmN9BLQ
+	qVl+tpgtEwfeXSN6lMUdwuEowUGBhiNB1LGE1gGC7jBmfVgD6jWTzmOfG+5OYNZr2z88/EVuJq1
+	7XXirKvfAw7d+RBk1bBn0JFERJrP1PKVL8SFPJQ+tKLdVzna2NyveGrxMlIVboq9sV++AunNzh1
+	hRzS+eePC9oNMawkPZJ2Q1E4XLr2v1eUVSW4SqZi7UDMKvmaybeeJVrLMYT/D4fhE/EdiW+cbwf
+	XtjH5TDFfydQ8rdby9SMeb6Wk2
+X-Received: by 2002:a05:6102:b02:b0:739:5cfb:50f4 with SMTP id ada2fe7eead31-744dfd6fd5bmr3646399137.11.1783582439478;
+        Thu, 09 Jul 2026 00:33:59 -0700 (PDT)
+X-Received: by 2002:a05:6102:b02:b0:739:5cfb:50f4 with SMTP id ada2fe7eead31-744dfd6fd5bmr3646375137.11.1783582439078;
+        Thu, 09 Jul 2026 00:33:59 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13c3a38sm5058764e87.74.2026.07.09.00.33.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 00:33:57 -0700 (PDT)
+Date: Thu, 9 Jul 2026 10:33:56 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, loic.poulain@oss.qualcomm.com,
+        mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
+Message-ID: <wbjec4qhzkpvdfnrvffk7tjmlvli5q2jiuzdp2iqt2cbf2uat7@usg2mizurxpp>
+References: <437d1eb0-4495-406a-9501-b0515cfa3151@linaro.org>
+ <e04cb9dc-76dd-4fa8-92f4-be002bf7ee8b@linaro.org>
+ <8116c54e-4050-4e9d-b236-59d74846bd57@linaro.org>
+ <8a09875d-af5f-438b-b947-bc2b61219b70@oss.qualcomm.com>
+ <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
+ <d0768c15-453f-4d3f-8110-886a5c697b02@oss.qualcomm.com>
+ <d5407ab1-1af7-4678-ae67-5cf30ce8fa4b@kernel.org>
+ <VoXmpDKdgY_XxAvO5tkDze4jpmMzSuKTmIISTejJsbIO_FIO1JFfUBlaPkNdb14E95zf_qwtDB6myQ2wdRCh1Q==@protonmail.internalid>
+ <8fc1ddfd-0f77-4b67-b9bd-33fbd60e2046@oss.qualcomm.com>
+ <54ad9b8a-7596-4bc7-a1c3-7230cca21360@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: einfochips.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR04MB8896.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cae37772-b0f7-4870-9317-08dedd8c4563
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 07:32:46.2140
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0beb0c35-9cbb-4feb-99e5-589e415c7944
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VGUaSe97dS2OipT9lPbiIHHIwbhILU4ymL177yTVRYaIdVYV9aGRUwK8MtaFWb3vjT0rG7HSmRUqxbkyaDbGBOV8hNndRb1ySgVq4Og1YsA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR04MB6464
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <54ad9b8a-7596-4bc7-a1c3-7230cca21360@kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA3MCBTYWx0ZWRfXxI6A5N/UASHM
+ O4A3MDFIcalkL7c1QOphLKyaD1mYSdAyrO/BTUik/AY3Ka9rm9l7NThqoBIGgzyiqk/5ea0DCGb
+ YO97EqpRACLOvTsLsKcRcp0w/mzQbzs=
+X-Proofpoint-GUID: 8BZif6x2p_vw80QPncLYnXDAe_ogV3Zc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA3MCBTYWx0ZWRfXyn8d8sRO5oKU
+ l0NFmQ313zEFQ/ss2zlCyKEjYXC9deHqHxPw63P0yrvpGT/EedpWxRREsE1CDB8Pe/0ufQ/Ke9B
+ eHMp3//uR57EILAAxNKHIGNvYFuMNl5UwY5jRlsMR2x3ofAV4O//2aktxlYBT1xbjJwFnLr/f0H
+ wgifFVQ1FuMB5iYioe/rLPWP02jOoWOBb4gH3Yu0T3BoeMv370Upvw3GA/uE6vDOfa1j7+emi69
+ Nydz5aOu2GC2HPAjSJgqVLwMoS8x8t73lelHhaH6WzVqE0k/l881ysq3WD53P6MV8O8ePZzYSQq
+ VDOVJJTzx1XQxSroqd0T8zKX1HvBAVms1b6LVXixz41Y5kwhHmXhm2grlrsFQHfSPo2eX7cPoxW
+ 0AaflH3rQ/aGVDvxqp+8VZW1XtjUWL/rq4H68OdGzc1cv3pJ1Bs6gZqFTMPRARSARWNFck5a1Xv
+ QCJitm6YzXl3fMR6dqw==
+X-Authority-Analysis: v=2.4 cv=Sv2gLvO0 c=1 sm=1 tr=0 ts=6a4f4ee8 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EXRVaAyRHng4RDevV4oA:9
+ a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-ORIG-GUID: 8BZif6x2p_vw80QPncLYnXDAe_ogV3Zc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090070
 
-Hi Sashiko,
+On Wed, Jul 08, 2026 at 10:21:43PM +0100, Bryan O'Donoghue wrote:
+> On 08/07/2026 13:19, Konrad Dybcio wrote:
+> > On 7/7/26 12:41 PM, Bryan O'Donoghue wrote:
+> > > On 07/07/2026 11:11, Konrad Dybcio wrote:
+> > > > On 7/7/26 12:00 PM, Bryan O'Donoghue wrote:
+> > > > > On 07/07/2026 10:24, Konrad Dybcio wrote:
+> > > > > > On 7/6/26 3:37 PM, Bryan O'Donoghue wrote:
+> > > > > > > On 06/07/2026 14:02, Vladimir Zapolskiy wrote:
+> > [...]
+> > 
+> > > OK, I can see how this thread is confusing.
+> > > 
+> > > The idea is to start to declare sub-nodes "on the road" to making camss into a bus. The legacy binding we have is really for the IFE domain - that is CSIPHY, CSID, IFE.
+> > > 
+> > > Right now the camss binding describes those things - so linking say OPE or JPEG back to the thing that describes those isn't right.
+> > > 
+> > > OTOH we_want_ to make the top-level binding into a bus, we've discussed that several times.
+> > > 
+> > > To transition from monolith IFE-domain only, to camss-bus, we should have the sub-nodes fully describe themselves as "camss-bus" doesn't exist yet.
+> > > 
+> > > Once we have compat="camss-bus" then fine, make that linkage, I fully support that.
+> > > 
+> > > That roadmap BTW is why I'm asking Antanas and Loic to make JPEG and OPE sub-nodes of camss - but make them complete sub-nodes - power-domains, clocks, nocs, including the TOP_GDSC.
+> > I think this needlessly increases the amount of combinations we'll
+> > have to keep supporting down the line (with a ton of compatibility
+> > boilerplate code)
+> > 
+> > Konrad
+> 
+> Fine.
+> 
+> Lets drop the bus idea then. I'm happy to close the conversation as
+> peer-nodes.
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s)
-> to consider:
-> - [Low] The fixed-clock node in the SoC .dtsi is named 'clock-24m' but om=
-its
-> the 'clock-frequency' property, deferring it to the board-specific .dts.
-> --
->=20
-> commit 5bc9617a8cdce75f4ec3cb72e9a91cca1ea64a55
-> Author: Pritesh Patel <pritesh.patel@einfochips.com>
->=20
-> riscv: dts: eswin: add clock generator for EIC7700 SoC
->=20
-> Add clock generator node for EIC7700 SoC. HiFive Premier P550 boards have
-> 24MHz crystal oscillator to provide the input clock.
->=20
-> > diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> > b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> > index 430a210f01e66..af9e40d8739ad 100644
-> > --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> > +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-> [ ... ]
-> > @@ -203,6 +204,11 @@ pmu {
-> >                               <0x00000000 0x0000000f 0xfffffffc 0x00000=
-0ff
-> 0x00000078>;
-> >       };
-> >
-> > +     clock_24m: clock-24m {
-> > +             compatible =3D "fixed-clock";
-> > +             #clock-cells =3D <0>;
-> > +     };
-> > +
->=20
-> [Severity: Low]
-> Does this node naming and structure make sense if the frequency can vary
-> per board?
->=20
-> If the oscillator frequency can vary per board, shouldn't the node name i=
-n the
-> eic7700.dtsi file be generic like 'oscillator' rather than hardcoding 'cl=
-ock-24m'?
->=20
-> Conversely, if the frequency is strictly fixed at 24MHz for all EIC7700
-> implementations, shouldn't clock-frequency =3D <24000000>; be defined
-> directly here in the .dtsi to prevent boilerplate duplication across boar=
-d files?
+It think, this would close the path for upgrading existing platforms to
+split the driver / bindings. If all IFE / PHY / etc. are subnodes of the
+CAMSS, it is easy to play backwards compatibility tricks and
+reinstantiate devices on the fly, pick up only certain resources, etc.
 
-We will change the node name to 'oscillator' in next version.
+If they are sibling nodes, it becomes much more complicated.
 
-Regards,
-Pinkesh
+I might be wrong here. Maybe we really should try a simple (heh)
+experiment. We have your series which adds CSI PHY as a first class
+citizen. And we have existing platforms where CSI PHYs were packed into
+the camss node (and camss driver FWIW).
 
->=20
-> --
-> Sashiko AI review *
-> https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fsashi=
-k
-> o.dev%2F%23%2Fpatchset%2F20260706081055.1126275-1-
-> pinkesh.vaghela%40einfochips.com%3Fpart%3D2&data=3D05%7C02%7Cpinkesh
-> .vaghela%40einfochips.com%7C661a2b84b21241ee99a308dedb36ded6%7C0
-> beb0c359cbb4feb99e5589e415c7944%7C1%7C0%7C639189225884028092%7
-> CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMD
-> AwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C
-> %7C&sdata=3DiSr6Z2nPiB6uohFxn7mNm5F%2F1O4im1MriBk%2B8CMIJoE%3D&
-> reserved=3D0
+Which way of representing device nodes makes it easier to migrate
+existing platform to the CSI PHY driver, while keeping compatibility
+with old DTs (yeah, ABI, old DTs must continue to work)?
+
+> camss@{
+> 	existing CSID/IFE
+> 	IFE SID stuff goes here
+> 	power-domains = TITAN_TOP_GDSC, IFE_GDSC
+> }
+> 
+> csiphy @ {
+> }
+> 
+> jpeg@ {
+> 	JPEG SID stuff goes here
+> 	power-domains = TITAN_TOP_GDSC, JPEG_GDSC
+> }
+> 
+> camnoc@ {
+> 	modelled as an ICC provider and consumed by
+
+I think, it's a part of camss.
+
+> }
+> 
+> ---
+> bod
+
+-- 
+With best wishes
+Dmitry
