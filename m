@@ -1,218 +1,273 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E80741225
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 00:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783555940; cv=pass; b=X9xYAcPGzxGBy4UHyfLB6KfwUNLaOz2Ynpr6VthhkXCA0Qh5UYZSsV8V+xTDY6DaKjhN9/Bva3EEMGLZWth+/ay9Or9qmmZQPFr58ewul3F6RbmONSPScLl60eSoHxIhpJNQH1FQQy5R1X8k6E5Ms3b78HILWQBQytbZXefWbxI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783555940; c=relaxed/simple;
-	bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OrqXTtTsST9i9k2z9Kk1vrgJKV7Hvc9JD3+rScBNAV/jgll+Dtl12mEzHObq+Hs8fEhGCX95dnrYoDJBmZUMaLhdK8vjWWr54ntjY4/PCHpXYknKIdEzkG9qRhB0tIOHObFz7WaGv+t/DkS0hC+DhIfvAjNVM2Bjq5FXAYFy3Hc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qt3TwRYI; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793422ED872;
+	Thu,  9 Jul 2026 00:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783557756; cv=none; b=kUeLurZrQ2QUFQUZR+9lgQiLgS+VdVRgk4ZYAJFMI+icFCxZOKH4iTp7GAkZxqJC09UUnSy8VaKsjN/IXZ5jeLbrXHX6bA8z+xapo7B5TSvgFR80nxUVyqbLbdJOoOPLjL4yDJ2aMb3eIazL7lyp34Cis/IcMRGDULCLHwQCkHI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783557756; c=relaxed/simple;
+	bh=qMEwOjhIqqSuBcthHW0P4U5WFdqGUYGS6CW1uuNpSGM=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=iinqVwOSuAjpx96iS3TMnnoI7Vn/6LROpGYxB5IBrnQdyKhJH2dPYhRMY1NWodLewY5F+8mDaM64WVa6dv/v1ccSst0vgpNiCT9I9TCIADzvjIrNCTa3NgI422lWGrjDWVFQt8rY/5oJwZfiLZjURTXIqlrqrFR/EObz/ALoD/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=mjv4niTK; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qt3TwRYI"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-698a9f11776so2090781a12.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 17:12:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783555934; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QTocNaqWMuzDEuxj398vDYWV7WpNjmtuIl8ncGzHOypybSF1oSgvhsaGQNEX+S/mgD
-         lWQcAtKq7vKF/+h2xfKwowXPrbh3tpfZgd7zJfqYL+qmxAluW8eEQKJqYwqc44n3HL2G
-         kcPSphpxtL++uJJTfJSOLdhIOAdKwti+SAEJridmEmGUufRXyLK4AWBzU7le2MIfLqyM
-         sHnrEDp7Km8TKK9U57BLkdAfI0a60Ga3NEP1jvJBCpr/CuRTnEryCs2Uy1gBxTCB5poH
-         Jnx6AMtL3MA9B6WInRmqq2i/azV0E3ZEhQ9T9izyWfgPR6f0bZdliu2cRWvVOl94zBCA
-         YCCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
-        fh=hUUUYy7CGEaHlBtjnszEecf+7Eb5EvlVJYC5iXBSMuM=;
-        b=iRmrOhQd5jkawMerpiMvs1qlk5JOQvGKV75GLuadry3b5XogQkfjqfCVTzAUB3H90J
-         j2TYWQuVSrYa2ECu3+prPnCyTbJCcWDztlpiVQ/l0UNzYt3M2eQuaDIPeSySA0S/ODIW
-         4uouLTxbAjZHiaPs+SOIGcThsJGVhzC1NyjiCZvn3J/P0a9ZLF0dtq/TB5nE4cXHDbsq
-         bcI14eNZd/c7OCtFxQ3AoZjtqa6iCQuzhgZjjcb6K0BgcilavjYHwVai8w+3YXzOjXKb
-         k9wCCAMK+5TZH5K1mD8bV8MvVpPsZwJkz67rNwc9cgWqjV6GGVapeEYfium5vAbBxjLL
-         /zig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783555934; x=1784160734; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
-        b=qt3TwRYIa3PItGFz0tFZLXGdX3sZE9cSPw56o0roOXRkhG/ZPldnHxqAXG/kX9ANKY
-         qGKgoV//5dFdsacUcB/J5JtYgEvNf/pkr5r4aJZB+omMDGZWjxAHv79AMI8larIDXbQh
-         s05zYnYhV6f1wnxBGEBygS63tBVzRGbBZ9BIlZ9TzDL2sLeRZRWOGV/diqDEm0SR8/eo
-         eFR/uVQFW2xyXyBI5mclyB3/qfCZW558C2HcxvclZmr88SaxcFXyOYxqPsKDBVokt53T
-         hb6GCUmwv8XcV4tM5eM8PXx6aDJcWH8dJC2gfUHWL+lP5Frh5VwHco8O5m1OW7bxgKcE
-         Q84Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783555934; x=1784160734;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
-        b=FQf+TepaTuhA4HN1Jjmn1TnYLwFNNOidy2107191IOMx77N+yvKKCFG+3wgMyHl4g9
-         XfzeLA3ooCnzKA8iEDc+ffSiRY7QKTwkuFDOUF/s5EV6I8FKGDv5+Q8itfbu4sv2UYfz
-         8hGJANjEM9ilQpGcCNPgNpOuJrvNLQ5EZ5N0K3FmQpPkRI3E8J2h9GuMXcrCMDccyYad
-         CpMLXWGBQhk6gQG9JgzqUj+t4fmpApceNxo2ossoRnn+MGhceA8qeI1oAC+tw6NxSobe
-         YWJdaBbqb56zUknX389d5dU8Y344wn9XlFI41cdEGJ3znc2NQfLhauSxMsLvuZweiXYp
-         HEpg==
-X-Forwarded-Encrypted: i=1; AHgh+RqgmUV4cpnXUyvJLZbuhRXNdHA8Azt0eAlco4Q9fPF5eXwQDTe03HO2uyonvv/rDiFXTMr7wZM4vb59@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7B0hsp+k1r0BmRCw8oYfsrgR0MMu2cFuMOH0yYUANS/OUPcoi
-	Hr+ZNwkDL7l1afAiolPsX3tV3vwwUSMMyuFR2mdeYsWVyeaz3uOaiudIcbPrfPSPJdcNGEcA7T2
-	70kULC08I/6Oai3Cpecu1Biopxmi6yxc=
-X-Gm-Gg: AfdE7cmDiTzZfK/5t920dggGz6asmI69X8n/ItlPx4Dev1G0hYi55nOfC5zt/80UtjT
-	eej6jxrh5lq+Hd4PgHO6S4mmmuL/7MCmpLAD4X0Iqir51TJw9+cdskg4yxTlhq+dDVzy4sp47ZG
-	rGAEChKJzaLoCFqwrhZEhkLkKfa5mX/Mto9tFD/WaHiafMEH7JQi4yTmNazF70XBolasUCSljJn
-	bjZz0yJP1rQy9txrXM+uQfmiGzLWqajA6Ql3D5IPaCn1Hkh+jq9koZ0vrE6VycSV9jYA35jV7fE
-	L1sX/Y4tayZY+KFjzxFARS0XI1rjH7N63t2YWaMt
-X-Received: by 2002:a05:6402:4283:b0:69a:b3ab:dbea with SMTP id
- 4fb4d7f45d1cf-69ab4460cf7mr1758244a12.13.1783555934141; Wed, 08 Jul 2026
- 17:12:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="mjv4niTK"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668N5VSj3645907;
+	Wed, 8 Jul 2026 20:42:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=N5SLDJzrITXK9tcpZaqiIbPUpEG
+	RYdtvYgTegwPDZtk=; b=mjv4niTKeG/ogcYVVPA7kkZcG150/xsi0LueWqmWa8l
+	cu7ncfkMWxcLfLRFAOpYEwKvx5xyltN8X7173ThWyGVwSBB2AaDTD37iW+v2bP/k
+	koi7L3qsTGhWfMjuLrQid330T0U2cZydCVpBb+PMC8V/6MequZFIRz3YUM96A9+V
+	v98Py8fB2zI6Y6RTBDAOXb8KfIi6jjueh9+RXJuhekj8BNqYBuE9I5Fd+njvFnH7
+	QI1ucXh+IA8CsyQXV2J7UMVQ97FvWrGVaxzMIsxfaVwrkQh12WS7P2tFjr9V6dKa
+	aivvRq4x1BwFj3N1fkoVDpnFOToow7f7yROvenYwD/A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4f9mybu4ut-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 08 Jul 2026 20:42:26 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6690gPOm021380
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 8 Jul 2026 20:42:25 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 8 Jul 2026 20:42:25 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 8 Jul 2026 20:42:25 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 8 Jul 2026 20:42:25 -0400
+Received: from HYB-7P5GeKnsiiX.ad.analog.com (HYB-7P5GeKnsiiX.ad.analog.com [10.118.4.24])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6690gAet017538;
+	Wed, 8 Jul 2026 20:42:13 -0400
+From: Edelweise Escala <edelweise.escala@analog.com>
+Subject: [PATCH v13 0/2] Add Support for LTC3220 18 Channel LED Driver
+Date: Thu, 9 Jul 2026 08:41:18 +0800
+Message-ID: <20260709-ltc3220-driver-v13-0-9b53237642eb@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604135255.62682-1-midgy971@gmail.com> <20260604135255.62682-7-midgy971@gmail.com>
- <e44b506e-e9d2-48e3-acea-ab28b7be9b37@rock-chips.com> <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
- <0919ffcc-81c3-483a-a3ba-404b455c2040@rock-chips.com> <42f1f39f-ab2b-4473-a82a-7ccefad41fcf@rock-chips.com>
-In-Reply-To: <42f1f39f-ab2b-4473-a82a-7ccefad41fcf@rock-chips.com>
-From: Midgy Balon <midgy971@gmail.com>
-Date: Thu, 9 Jul 2026 02:15:34 +0200
-X-Gm-Features: AVVi8CcApkElNM_3Z1d6_PvamEAEJfcZGBI9cxUob9-qJkpZOuLDZsOO_EVsZe8
-Message-ID: <CA+GS1Y1i87vkv+9NAdqRGNCNsxjQwat2yqEFxjgDZRAPsQjaQA@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 6/9] iommu/rockchip: Clear AUTO_GATING bit 1 on the
- RK356x v1 IOMMU
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Cc: Simon Xue <xxm@rock-chips.com>, tomeu@tomeuvizoso.net, ogabbay@kernel.org, 
-	heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC7uTmoC/33Sz07DMAwG8FeZcqbIdhIn4cR7IA5p/myVxoraq
+ QJNe3fSXVYwcIyj32cfvouayzSUWT3tLmoqyzAP46k9UD/sVDrE0750Q24DRUAMCNwdz0kTQZe
+ nYSlTV0PsOaWQsRjV0PtU6vBxS3x5be/DMJ/H6fO2YMF1+mfUgh10Tre/zBXZhOd4isdx/5jGN
+ 7VmLbTxSMJT8xmMButrMrkKrze+uZ9eN19LZaSSTI1ReLP18n7TfLLBoiPgREZ4+7+3zaOlqKE
+ EH3snPN+9QSc8r96jdd5hyTkL7+7eghfeNQ8VAvXRmkpaeL/xGIT3zRd0DhM6rau8P2w8yf2he
+ Q7GQk2EOvXCI9wDGK0sULu/C8iWKXlvg5cJuE34pYJrB7lYzDm4VDLLhE0JHWiZcGuhqZAjBW8
+ LfUu4Xq9fYi9bRHQDAAA=
+X-Change-ID: 20260106-ltc3220-driver-f9ab6cc9d1e4
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        Edelweise Escala
+	<edelweise.escala@analog.com>,
+        Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783557730; l=6447;
+ i=edelweise.escala@analog.com; s=20260106; h=from:subject:message-id;
+ bh=qMEwOjhIqqSuBcthHW0P4U5WFdqGUYGS6CW1uuNpSGM=;
+ b=Dm11rLrl6PkGnzkHjS2mcsh8hm1LWnPKpu6ygjYz1v+LesN9l0TvmfzWve2dCO7exEDg+wV16
+ /Wya3VsTIWuDk3NsNpyw7KSVo96aWvL8GaVbBdZq/wwOJvdDPS4rYfU
+X-Developer-Key: i=edelweise.escala@analog.com; a=ed25519;
+ pk=lf5HLFe8ZeQjXZgkBkFMK+u9qH5/tqZhCIushTKduNQ=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDAwNCBTYWx0ZWRfX5/ipTKoZoI4K
+ qNtK4tpZ5VuAh/0/4sP6E1g8IhL+NKXUE/xM7JBNFpZ/K+ZvViu5UduCPthRpoYT/uH5qaAnT+S
+ G2w7QbzX3XYJkhjp/Gr0LY010WCE2Lylp2Yj0j/lpywJG/ywTU9p
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDAwNCBTYWx0ZWRfX+5EvvsZJB0Ml
+ cRpxg3z6Ll8mtI43uCPnun8tvFp4/v9sW0IHxwGSpMe65hUxWKPYvOk7uB7TbpurCI5HIEac2RF
+ TbFzbyLngKOiVqIMX1rDypk7L5qt0yXCQYQ9RKysvZtyIBZtR/wL5nrw//TUAmAAgaJy6lWM7xC
+ wH93j8d6KvTsCyApy18G32GMBrAb4r8NoMZyExQxSLLqgUyIPzUfLbWx9LW0qd417ur1r17u7aZ
+ evgIH7jY6eCjeTX9vsXBXLXTn7O2kqoXDnemG4s4xgLODWp1RsgDdcIs2Y6UB5IE7ZloIVfgFLF
+ dYsBm2K0hT+3rZVl2YdmNBS5huz/aX6fCMmR2rcMVvYu8MQA3K8HKcY2ao/r5BrGFn33kN3ciVz
+ g+U+XfDzVsN6q3uWsUGdw4Vo3ra9Rj2rx5qxAdPLnAlf7h+rCLPqWJwUQQCfSk1d/ofGG312h3E
+ +ifVyBc5iWUVinQ3Ung==
+X-Proofpoint-GUID: f8Syn8hQ1u_tHUxB17qIzAX73dkFEcX7
+X-Proofpoint-ORIG-GUID: f8Syn8hQ1u_tHUxB17qIzAX73dkFEcX7
+X-Authority-Analysis: v=2.4 cv=FP8rAeos c=1 sm=1 tr=0 ts=6a4eee72 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=VwQbUJbxAAAA:8
+ a=gAnH3GRIAAAA:8 a=XYAwZIGsAAAA:8 a=508kg2rLO1A2RsMjdRQA:9 a=QEXdDO2ut3YA:10
+ a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_05,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 phishscore=0 priorityscore=1501 clxscore=1015
+ impostorscore=0 bulkscore=0 malwarescore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090004
 
-Hi Chaoyi,
+The LTC3220/LTC3220-1 is a multi-display LED driver, which contains a
+high-efficiency, low-noise charge pump to provide power to up to
+18 LED current sources. The LEDs are individually configurable to
+64-step linear brightness control, blinking and gradation control
+via 2-wire I2C interface. The blinking and gradation configuration
+is shared across all LED.
 
-Sorry for the slow follow-up =E2=80=94 and thanks again for the pointers, t=
-hat closes
-this out cleanly.
+LTC3220 has a quick write function which allows changing the brightness
+on all LEDS simultaneously when the brightness is changed on led 1.
+For this leds are aggregated in the device tree and on probe we check
+if led-sources exist to enable quick write.
+We would like to know if this approach is alright?
+Another way we might want to know is, is it alright to just make a
+virtual led for the quick write function. Changing brightness on
+the virtual led will change the brightness for all.
 
-I read the two rockchip-linux commits (7f8158fb, 6a355e5f) and the merged
-patch you mentioned: "iommu/rockchip: disable fetch dte time limit"
-(Sven P=C3=BCschel, From: Simon Xue,
-20260428-spu-iommudtefix-v2-1-f592f579e508@pengutronix.de), which Joerg
-applied on 2026-06-02. It adds DISABLE_FETCH_DTE_TIME_LIMIT (BIT(31)) and
-does exactly the auto_gate |=3D BIT(31) read-modify-write you suggested, in
-rk_iommu_enable() before paging is enabled, for every Rockchip IOMMU. So bi=
-t
-31 disables the DTE-fetch time limit (without it the newer revision blocks
-after four consecutive master DTE fetches racing the CPU's IOTLB zaps); the
-RK3568/RK3588 erratum is the same one as RV1126/RV1109. That's the accurate
-description I was missing =E2=80=94 thank you.
+Signed-off-by: Edelweise Escala <edelweise.escala@analog.com>
+---
+Changes in v13:
+- Fixed regcache_sync() broadcast issue in aggregated LED mode resume path
+- Removed LED_CORE_SUSPENDRESUME flag
+- Added bounds validation in second LED registration pass
+- Fixed devicetree binding reg property validation
+- Remove unused Headers
+- Link to v12: https://lore.kernel.org/r/20260703-ltc3220-driver-v12-0-d4f0da2985e2@analog.com
 
-Since that fix is already upstream, I'll drop the AUTO_GATING change
-from my series entirely rather than carry a
-duplicate: v4 will rebase on top of it and the NPU MMU picks up BIT(31) for
-free. For the record, on the ROCK 3B the NPU IOMMU services the NPU's reads
-with zero faults both with BIT(31) and on the reset value (0x3), so this is=
- a
-no-op on my hardware/workload =E2=80=94 but rebasing past the merged patch =
-is the
-right thing regardless.
+Changes in v12:
+- Add mutex when changing brightness
+- Add regcache_mark_dirty on suspend
+- Move aggreagted led moe hardware setting after validations
+- Add clamps when changing brightness on various modes
+- Link to v11: https://lore.kernel.org/linux-leds/20260616-ltc3220-driver-v11-0-6e51dd97ced6@analog.com
 
-So my v4 IOMMU dependency list becomes: your per-device-ops series, plus th=
-e
-merged "disable fetch dte time limit" patch. My series no longer touches th=
-e
-IOMMU driver itself.
+Changes in v11:
+- Add guards to check for double reg
+- Add led_classdev_suspend/resume
+- Return -EOPNOTSUPP for repeat request not 1
+- Single write instead of write+read for blink
+- Link to v10: https://lore.kernel.org/r/20260615-ltc3220-driver-v10-0-916562c88598@analog.com
 
-(The convolution output is still uniform zero-point / the job times out =E2=
-=80=94
-that's the separate NPU compute-completion issue, unrelated to this.)
+Changes in v10:
+- Remove volatile reg
+- Add regacache_sync on resume
+- Add delays on reset
+- Remove early return and let software rset even if there is reset
+- Set to max brightness before blink
+- Two pass validation approach to avoid premature sysfs exposure
+- Use pointer arithmetic for container_of
+- Remove unused macros
+- Add missing property header
+- Link to v9: https://lore.kernel.org/r/20260528-ltc3220-driver-v9-0-69450fc213cb@analog.com
 
-Thanks again, and kinds regards
-Midgy
+Changes in v9:
+- Add address-cells and size-cells in required
+- Restrict to reg 1 if led-sources is present
+- Make set brightness only change brighntess for nomal mode,
+  blink and gradation is now handled only in its respective triggers.
+- Fix blink to change mode on blink set
+- Make pattern clear only change brightness and not change gradation
+  mode so it won't affect other leds.
+- Add checks if ever there is duplicate reg in the bindings.
+- Add REGMAP_I2C on Kconfig
+- Rebase on Latest next
+- Link to v8: https://lore.kernel.org/r/20260519-ltc3220-driver-v8-0-e1771c1733f7@analog.com
 
+Changes in v8:
+- Add '>' on descriptions with multiple paragraph
+- Change led registers to hex
+- Change cache type to REGCACHE_FLAT_S
+- Link to v7: https://lore.kernel.org/r/20260508-ltc3220-driver-v7-0-0f092ba54f23@analog.com
 
-Le lun. 8 juin 2026 =C3=A0 05:40, Chaoyi Chen <chaoyi.chen@rock-chips.com> =
-a =C3=A9crit :
->
-> On 6/8/2026 9:45 AM, Chaoyi Chen wrote:
-> > Hi Midgy,
-> >
-> > On 6/8/2026 5:05 AM, Midgy Balon wrote:
-> >> Hi Chaoyi,
-> >>
-> >>> As I said, it is v2. Could you please try using the code below instea=
-d and
-> >>> see if it works?
-> >>> [ auto_gate =3D read(RK_MMU_AUTO_GATING); auto_gate |=3D BIT(31); wri=
-te(...) ]
-> >>
-> >> Thanks -- that's clearly the right shape (read-modify-write, before pa=
-ging is
-> >> enabled, keeping the reset value instead of my clobbering 0x2).
-> >>
-> >> I rebuilt v7.1-rc6 (with the rocket RK3568 series + your per-device-op=
-s work)
-> >> using your bit-31 version and tested it on a ROCK 3B: the NPU IOMMU co=
-mes up and
-> >> services the NPU's DMA cleanly -- the NPU probes, attaches its domain,=
- and runs
-> >> repeated conv submissions with no DMA_READ_ERROR and no page-walk stal=
-l. No
-> >> regression from the write.
-> >>
-> >> To be precise about what I can and can't show: I tested both ways on v=
-7.1-rc6 --
-> >> with your bit-31 write, and on the reset value (0x3) -- and the NPU
-> >> IOMMU services
-> >> the NPU's reads with zero faults in both cases (no DMA_READ_ERROR, no =
-page-walk
-> >> stall). So I don't have a failing baseline here that bit-31 visibly
-> >> fixes. Is the
-> >> AUTO_GATING write needed on current mainline, or only under conditions=
- I'm not
-> >> reproducing (a particular traffic pattern / silicon rev)? I'll keep th=
-e patch in
-> >> your form unless you'd prefer to drop it.
-> >>
-> >> One question so I document it correctly: what does bit 31 of RK_MMU_AU=
-TO_GATING
-> >> control on the v2 block -- is it a master "disable internal auto clock=
--gating"
-> >> for the page-table walker (i.e. so a TLB-miss walk's AXI master keeps =
-its clock
-> >> to completion)? The RK3568 TRM I have doesn't cover the IOMMU register=
-s, so a
-> >> one-line description would let me write an accurate comment.
-> >>
-> >
-> > Glad to hear this works. Please refer to the commit below.
-> >
-> > [0]: https://github.com/rockchip-linux/kernel/commit/7f8158fb41b5cc8e73=
-8aaeebc3637c50ebd74cae
-> > [1]: https://github.com/rockchip-linux/kernel/commit/6a355e5f9a2069a230=
-9e240791bc3aad63b7324e
-> >
->
-> It looks like RGA needs this patch too, and it has already been merged :)=
-.
->
-> https://lore.kernel.org/all/20260428-spu-iommudtefix-v2-1-f592f579e508@pe=
-ngutronix.de/
->
-> --
-> Best,
-> Chaoyi
+Changes in v7:
+- Add cahcetype on regmap
+- Dropped struct ltc3220_state *ltc3220_state and use container_of()
+- Rename ltc3220_state to ltc3220
+- Dropped functions only used once and used inline instead.
+- Loop variable changes
+- Consistent decalaration for container_of
+- Tabbing fixes
+- Link to v6: https://lore.kernel.org/r/20260417-ltc3220-driver-v6-0-18157871eddd@analog.com
+
+Changes in v6:
+- Fix commit message
+- Add manufacturer on Kconfig and improve description
+- Rearrange register map and bitmask and improve naming
+- Use regmap, also use update bits of regmap to avoid unnecessary
+  structs
+- Alignment and spacing fixes
+- Use Define for magic naumbers
+- Fix blink calculation
+- Add comments on aggregated LED
+- Fix variable name to something more understandable like i to led_index
+- Link to v5: https://lore.kernel.org/r/20260126-ltc3220-driver-v5-0-152a30e98ab7@analog.com
+
+Changes in v5:
+- Missed rename on bindings filename in MAINTAINERS file
+- Link to v4: https://lore.kernel.org/linux-leds/20260126-ltc3220-driver-v4-0-c59517206c24@analog.com
+
+Changes in v4:
+- Rename leds-ltc3220.yaml to adi,ltc3220.yaml
+- Add Reviewed-by: Conor Dooley <conor.dooley@microchip.com> on
+  adi,ltc3220.yaml
+Other V1 comments I think already addressed
+- Subject commit message was already changed to match hardware
+- Fixed wrapping after description
+- Dropped "Bindings for" in descriptions and improved description to match hardware
+- Dropped adi,ltc3220-1
+- Dropped redundant description on reset-gpios
+- Dropped adi,force-cpo-level
+- Dropped adi,quick-write in favor of aggregated LED
+- Used consistent quotes ^led@([1-9]|1[0-8])$
+- Fixed wrapping on error messages
+
+- Link to v3: https://lore.kernel.org/r/20260120-ltc3220-driver-v3-0-fef612ec4faa@analog.com
+
+Changes in v3:
+- Dropped quick-write on bindings and added aggregated led instead.
+- Add aggregated led example.
+- Modify quick write to check if there is aggregated led, if there is
+  aggregated led enable quick write.
+- Use DEFINE_SIMPLE_DEV_PM_OPS instead of SIMPLE_DEV_PM_OPS.
+- Link to v2: https://lore.kernel.org/r/20260112-ltc3220-driver-v2-0-d043058fc4df@analog.com
+
+Changes in v2:
+leds-ltc3220.yaml changes
+- Fix wrapping on description
+- Improve description and commit messge to describe hardware
+- Drop ltc3220-1
+- Drop charge pump
+ltc3220.c changes
+- Fix wrapping
+- Drop ltc3220-1
+- Drop devname_mandatory
+- Link to v1: https://lore.kernel.org/r/20260106-ltc3220-driver-v1-0-73601d6f1649@analog.com
+
+---
+Edelweise Escala (2):
+      dt-bindings: leds: Add LTC3220 18 channel LED Driver
+      leds: ltc3220: Add Support for LTC3220 18 channel LED Driver
+
+ .../devicetree/bindings/leds/adi,ltc3220.yaml      | 133 +++++
+ MAINTAINERS                                        |   8 +
+ drivers/leds/Kconfig                               |  13 +
+ drivers/leds/Makefile                              |   1 +
+ drivers/leds/leds-ltc3220.c                        | 586 +++++++++++++++++++++
+ 5 files changed, 741 insertions(+)
+---
+base-commit: 25025253476a64c186592d952c27f24bc3490e42
+change-id: 20260106-ltc3220-driver-f9ab6cc9d1e4
+
+Best regards,
+-- 
+Edelweise Escala <edelweise.escala@analog.com>
+
