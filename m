@@ -1,141 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A915413255
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E612E38330C;
+	Thu,  9 Jul 2026 10:57:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783594563; cv=none; b=ODxzlyH5/lmdWQlWZU3KYP2d+ciglGKyiuWLRwsf1RN/M+Mt/OGSKAhZl8vZFwg9d/B7AUYnOhpFdH1QxCfj1e10t/xgLk8xDKfrL1iXb8a547pjG5CymJI3lnuoBGzx9MTIgh3VmaQgSOxgwWlmT0GnmU72k8yeH3fg1i5lZmU=
+	t=1783594655; cv=none; b=LHzTwwUMKOn8/CkW2w4SoG+LMo9Wr1ET4R6E/9H0Cd1sqMAYdk4cWpZpfg7GuRZIS/pabtXmEkEpMJkK0svxh154QTfz6bNI50ncE4vtI+45YQmW4Be5jx1cqwx1EEyMwToe1eCP0zdPlNm+ITZC8qqjyi6Vmk+CkjUspfLyr3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783594563; c=relaxed/simple;
-	bh=JMUc2CtYa5YEzii3lDmvUINsJVeP5vAeEXITMEO1KAk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U/3yBaFr4RHPsQ7jtXr4EHYixlcnAqD2QA2liG/tEePAaCZWF7mQNG2d5VoqIPKAYINvxQMi2jPdRZhlY+Ac3olf8a4s6hPIRt3F4GayjE9nAI7fhF9MbinuX98uX6fR7lLM++F7rv6/DuXzfzlGAqLPFMoa2uNLd1YDOqm5RsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmB/dkru; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783594655; c=relaxed/simple;
+	bh=yioQIpBuK41XIFrj9plNzq1+tWOja4/XxWztXljprWg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=qnHkKBfMTVeMhWQtF4KOZcvTfn7VcUP8ZZ70icQtrI3x1XGRWcrh4uKilZFaoRC++lBTOHFb5zDgt4uOiA05kh3Oq1ugfCM2mNR13Lsm4L3Z94ZJUcQmxqEEYHrREhrSwfcTea7XBs4aWdzLPjR8C4/tEZOySGRCIOmYAmmlDBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9y96QwG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmB/dkru"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9096C1F000E9;
-	Thu,  9 Jul 2026 10:55:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9y96QwG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2381F000E9;
+	Thu,  9 Jul 2026 10:57:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783594558;
-	bh=2X1PitPO16swJpGXR4Ylf1gJYaJBEkZV8itpiOkhNzo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kmB/dkruhVSAUuWPuT4Hniwf/0abzRlbQcvrB2+eOVOyKOBCs0VVOFoWhdNA6TjRs
-	 BpWZpfnuGnFiJfRkCU3uqNwZs4+zRj9UH4nh64mWxkm8zrQOPO+L/wfRMxOWkg6EHa
-	 hYp+vVjbix2596fhNAZo2SABfZZiOWHmMnOD4ps1FQ9Yqfs+nxkVsMzURIwkGVwgyt
-	 wzZ5WwMFtjrtsD+JmA1xWKphevZ0IY1bGoJ5AU/7WjN64NXOfxtXTz4GcQmd3DHhht
-	 JvZA7MXhtsPLF8KPPgq2j5GRUg4lvodDNubaD5tPek64NIZV4nbwjQ1lcjsXjSTVKG
-	 sTsmFYgAWS/PA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/11] drm/mediatek: mtk_dp: Add support for PHY from
- devicetree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709103431.46616-8-angelogioacchino.delregno@collabora.com>
-References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
- <20260709103431.46616-8-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 10:55:57 +0000
-Message-Id: <20260709105558.9096C1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783594650;
+	bh=l8jwpRzuklUNqFt2VCLS4GmwDHQPef/tVTCpOjZJlFM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=b9y96QwGQyjcii+BfXrVlm4/GEmkMGeHyMF6vvO7ly7mbiCQGTNeBaJL0Ky4yW5Lr
+	 VpzCIVyJsR/dv4i+c8YriAyD5bCAA5yaVpKCPqgH7fDNReyFS4PD7G343VLd1h2Z/j
+	 PvVqDcYQZbJycF9pK5k3/fU7GBIrTrnGyBEH2mudjQgknhhR/dMrSN7ojOErYg7Euh
+	 O4yUNMepPv2lNGdMVpmeFaS89dz1qUud5WZK1fQEga1fGDfa4+wowo+6JmDxYiTPG/
+	 wfRtEuP2Onbx1oRYkYc3Y9zZx8hEYSnJ9ehVlcHT0O506MXzsrU5z8CuU2MR+hmsTo
+	 U0AG77pz9bVug==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com, 
+ pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ Junjie Cao <junjie.cao@linux.dev>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ krzysztof.kozlowski@oss.qualcomm.com
+In-Reply-To: <20260706073307.1038430-1-junjie.cao@linux.dev>
+References: <20260706073307.1038430-1-junjie.cao@linux.dev>
+Subject: Re: (subset) [PATCH v2] MAINTAINERS: update my email address for
+ the AW99706 backlight driver
+Message-Id: <178359464819.2111333.7818516262621173390.b4-ty@b4>
+Date: Thu, 09 Jul 2026 11:57:28 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Double unregister of the PHY platform device in the error path of =
-`mtk_dp_register_phy()`.
-- [High] `phy_power_on()` is called before `phy_init()` during eDP probe on=
- new devicetrees.
+On Mon, 06 Jul 2026 15:33:07 +0800, Junjie Cao wrote:
+> Switch my maintainer entry for the Awinic AW99706 WLED backlight
+> driver from my personal Gmail address to junjie.cao@linux.dev.
+> 
+> Update both MAINTAINERS and the device-tree binding maintainers field.
+
+Applied, thanks!
+
+[1/1] MAINTAINERS: update my email address for the AW99706 backlight driver
+      commit: 4b3f5baf67dea91452b5b114dcb19139feba71dd
+
 --
+Lee Jones [李琼斯]
 
---- Patch [7]: [PATCH v3 07/11] drm/mediatek: mtk_dp: Add support for PHY f=
-rom devicetree ---
-commit 325a8fa9ebb5392753c0df0c9aa94be702f67e6e
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-drm/mediatek: mtk_dp: Add support for PHY from devicetree
-
-This commit adds support for passing a displayport PHY handle from the
-devicetree. It introduces a check for the phys property to support newer
-configurations while maintaining legacy fallback behavior.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index b4cb1996a3314..cabfc833c0a80 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-
-[ ... ]
-
-> @@ -2754,6 +2775,7 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_d=
-p)
->  		return dev_err_probe(dev, ret,
->  				     "Failed to add phy unregister devm action");
-> =20
-> +	/* PHY calibration data is in mtk_dp only for legacy devicetree */
->  	mtk_dp_get_calibration_data(mtk_dp);
-> =20
->  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
-
-[Severity: High]
-Could this error path trigger a double-free of the PHY platform device?
-
-In mtk_dp_register_phy(), we register a devres action to unregister the
-platform device via mtk_dp_unregister_pdevs(). If devm_phy_get() fails
-and we return an error (like -EPROBE_DEFER), the explicit call to
-platform_device_unregister() in the error path will free the device. When
-the devres cleanup runs later, it will execute mtk_dp_unregister_pdevs()
-and call platform_device_unregister() a second time on the same pointer.
-
-[ ... ]
-
-> @@ -2857,9 +2884,18 @@ static int mtk_dp_probe(struct platform_device *pd=
-ev)
->  					     "Failed to register audio driver\n");
->  	}
-> =20
-> -	ret =3D mtk_dp_register_phy(mtk_dp);
-> -	if (ret)
-> -		return ret;
-> +	if (!mtk_dp->legacy_regoff) {
-> +		mtk_dp->phy =3D devm_phy_get(dev, NULL);
-> +		if (IS_ERR(mtk_dp->phy))
-> +			return dev_err_probe(dev, PTR_ERR(mtk_dp->phy),
-> +					     "Failed to get phy\n");
-> +
-> +		mtk_dp->phy_dev =3D NULL;
-
-[Severity: High]
-Are we calling phy_power_on() before phy_init() for eDP displays on new
-devicetrees?
-
-During mtk_dp_probe() for eDP connectors, the driver calls
-mtk_dp_power_enable() to read the EDID before the bridge is attached.
-With the new PHY model, this executes phy_power_on(mtk_dp->phy):
-
-mtk_dp_probe()
-  mtk_dp_power_enable()
-    phy_power_on(mtk_dp->phy);
-
-However, phy_init() is not called until mtk_dp_bridge_attach() via
-mtk_dp_poweron(). Violating the PHY API contract by powering on before
-initialization can cause hardware initialization failures, as clocks
-or regulators managed by phy_init() are not yet enabled.
-
-> +	} else {
-> +		ret =3D mtk_dp_register_phy(mtk_dp);
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
->  	mtk_dp->bridge.of_node =3D dev->of_node;
->  	mtk_dp->bridge.type =3D mtk_dp->data->bridge_type;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
-6-1-angelogioacchino.delregno@collabora.com?part=3D7
