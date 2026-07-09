@@ -1,169 +1,109 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022084.outbound.protection.outlook.com [52.101.126.84])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C843EF664
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783589513; cv=fail; b=ORmt/SX2FQrFo3NurNm80P8gXh7qwEUhEVztzCHYGAfQdHCmNoUaU446dTJakndlp2tEwJHSVpjdzQjjFQyaDEdn/5kZA3OLF22x1SCe2eVXXGyTT4p1uyDzdi2xI6R7hfCIW1MPTCyD3K/7MVOBfHiPgu+cMeUIvnnG6OaWACE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783589513; c=relaxed/simple;
-	bh=u2NG6IQ136bOM+VwDXPW7iVjV0R5qijvbGIJ0PBsnIs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Wb1rAeamua8nUq9UNA5GLBUd3pfcRP3116gJYjpfVLLbGMkSc+03cCo5jHlicY26+XjLRjyiwILdIzbVkrR2EIOpf9MF3jMd951TW5ALlnPce12ApR62SdM7zMULtu6jU0JPLffIp5nzpEOZCL1ewWmBYoXRB8iayfgJObw/Jj4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=LS2vm7Ci; arc=fail smtp.client-ip=52.101.126.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4CD3EF67D
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783589518; cv=none; b=VBw+/2n/E0HeaVPlzJbHz4SEim3L6vSzSy1yDhNFw8+CqJ02JJwddkTIm/qjILavnnmVvlf1bzLx2aBcAQNIhhmxRS1hA2+kYTBhLpava7+s+kH9k1lHJKhfAsN5dexPSYcxB6hZIFD6td6Na43rkhWpnh7YXEWCN0YZm1gSEYg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783589518; c=relaxed/simple;
+	bh=l2s7z1DPjGpuvtq/vawBZj92/4kAb/HjxNAsZhtQ2Ok=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=V6KNEfsVT0Lgu21741mYBhhevCUx8DhOc4BdXX6dTNVd8cUYZ59Myr8tM6iSHU/8XA5vCicT7G0jlYBZx/wreh1Pg6aZdLMcOb+dpNKnK7cEmsse6iOboUF7wC26dtDW4eoZ/dM4ocxiUAiVzJfha7xtVnGnWRoM3qqKtAj9czU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KaZy2q9R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="LS2vm7Ci"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DOFTBbL7P8743tyrg5151FzXSh3vWiXkAUR04xfj0bf0f2QoTyzZJl8Eq+6q9Wy+Y2UkLGjlMklguiy/9qqLpVHighqyMqrNts+qlLQoFAw3ilbspVG0MjcOKjrEpf4d52UcKqV8fcxUXD2RU7Jp0uI4YdfDeLwLt2F6/h+ODfDnow6F9dYdKzqL3Cc4jdv1Gt8/P7A3i2Gyp6C8jaWUAh2JXfF5mn6e1Bivshvorw8ZsiEUtjzX/tfRBHarGMYtaOYZBn37S8DAGy8l81sL+7hldqkVIalWpPL2CuH4QzafggKYows0DF5m6yycJuKbPEAvfnjI4AvCbkGOHxsuZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=69OnSVdVbyAqzMDBu5Yi3FjqYcjADWW+GYhB6uVtDo0=;
- b=sOL2TqVP1U6jlUCS271jJGBlrwjDK8FQ5ypk+ycnn8CFQOln31YB8fCHabp3n1gdXNZ6EDST4SzHRWXe84htEISuiCWMqyE6P0MeWJkZ/Os+2AYgJ4sjSnzUIbFqNJzcgSnPZpcBhGbgRlOV4meWY8Cbs0I+bqNbn4zKY6QPf76tpfUILi2uR4nTNWapmuNW2WhZW9kfWHsKy5ujmeWzLs6MhcT7R8OBw9+HtS6Z6pee0Xy/GkmRUOLdmVX7vugR3BMkqwYPzFYYAKjDn8QDIp+ZlpUvc7G/gJtI3x//NzU9Lkwh5Zs4oaNDkUhejgv/uTzqU5SBd3cBp0IY9HGyWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=69OnSVdVbyAqzMDBu5Yi3FjqYcjADWW+GYhB6uVtDo0=;
- b=LS2vm7CiGapkWMz2zWl7519MplYjRA53ei1Vh7x7/ognFA5DYjr+zqcKgfmI6qAdSgNKzUZ6HVn1uV3i4+2qblk7Qy9vSlmEP0dzgGroTI440TS+IaldY2zf6LkZUQ7gn1i1y/LAu4VWkYEOli+MUzIQk/hIiZpeVEHMbKR6VZX794H7VSOi0Bwl5OnVKdNGMVmW6pUizxe7GJcGQy7hry3ZRTL+ysZiC9YTrK52aes4gogy1FzL+ZT99atCY5HQpLwMc6NHHvXi1Q3/xt/NFj1tXowRJ5z6hDIZ75zTej3koVEx2zVjAotfxfUMOGNyThfNlKVCUgb+WlZMUYs9/g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by SEZPR03MB10185.apcprd03.prod.outlook.com (2603:1096:101:33d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Thu, 9 Jul
- 2026 09:31:48 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 09:31:47 +0000
-Message-ID: <ee06a6db-1f58-4bea-9933-598322f7671a@amlogic.com>
-Date: Thu, 9 Jul 2026 17:31:43 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: amlogic: a9: Add reset controller support
-Content-Language: en-US
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, neil.armstrong@linaro.org
-References: <20260709-a9-reset-v1-0-fd7cf039b853@amlogic.com>
- <20260709-a9-reset-v1-3-fd7cf039b853@amlogic.com>
- <20260709083550.403D61F000E9@smtp.kernel.org>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <20260709083550.403D61F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0045.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::6)
- To TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KaZy2q9R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382441F000E9;
+	Thu,  9 Jul 2026 09:31:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783589514;
+	bh=Bw8WD2xOXXPBgVhhzfYlfoGl0V5j1mB4zuZPEC5w5xY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KaZy2q9RHfTNubAgHKhLf7biUW4i6cn+nhFAw2AOnLUj9PqbAHCj2iu/MEYGwBqdb
+	 9gwLFJIL6jfHhE7BathEYxSxzctQwTLty8w4pkC3GKIqchPg7yf/F3Qy7bKmgpKxJL
+	 rQw88+w/ySLkpOWnm131Fjohh3qbxXjMj8j0QMg42XW9cvE8hxXDmYFZ4BIEyktEJG
+	 mkRwWIF8pidJTuLcYEAYSXehkabRY6FBj7RSRsQckwAV0lzdjpAUc1Ybchu5O7FrIt
+	 az0jMRPs/N6wNSvDaHU8TgG5WyOaPKOsxdL1m7sxwIfPEj/W0SddUw3UxZSLTjlh6J
+	 dEJGO7xFWzNGA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/6] Bluetooth: btqca: Add IPQ5018 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "George Moussalem" <george.moussalem@outlook.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260709-ipq5018-bluetooth-v5-2-e476c41f03b8@outlook.com>
+References: <20260709-ipq5018-bluetooth-v5-0-e476c41f03b8@outlook.com>
+ <20260709-ipq5018-bluetooth-v5-2-e476c41f03b8@outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 09:31:53 +0000
+Message-Id: <20260709093154.382441F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|SEZPR03MB10185:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1caff30d-9850-46f3-b4a6-08dedd9ce5aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|56012099006|11063799006|6133799003|4143699003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	+o1QYsSg8l3VYyLLmguyFpG9kAuWVzXtpv88nGQuUNrN9OLWHW2/dY5ytu+dqDE5i+e1fkbgtuXdVKnYg38pueveB6fsDtaRna21aQNMNu0RqpUWsSKbQ416YxXf3d5CQsL2+m1BCpbeF/gIlmuIeUrqKnEHumPIpH8qEnUfq4C5KDCp3Bn36JgqehdO2qJFUuNJyuyTdz10TtlxlVggYMDN9exFuZ6IGihS/dRKSxQRaY2JH8LdgjPeQ8V4aHD7+QRK842iQa3SHgoCCmgpJQTVBCWHmljBGzpIomZexO72uGYH26gF4Z767gg1IcA3xH1PpAQTV9SbYcdBaOLfMXMUwB+PvZqISkvEaYBIO9yovoVowo1jAluiZy7TJQ6v58tkj84qbBFo+6iWib9y/C2mjPFdERx1lgutPTCJCy+7YPgl3q5PdDS8F/Rh4oWFJ8QK7fylyG2RkR8p2D5sECGainJNGXxxAK5yBvY8jEcINCyrYgQ3+PRbXcxXbhXeWn7feyO/xcJrn2XqC0CKm3sB+Bt8vsYouYu1pzWQzO34CSrKUnFXeVP4VpS/cQh6/8Y6YvoyEbZkvU8omZRKlPB8xMVQV5GTlKMieVzeXqCNNNSZtTIyd5/XUYGI5I+kIUgF/XD+aQR/JMMACdJV0i8XYqq6G3SPJXH4NB8YVo8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(11063799006)(6133799003)(4143699003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXlKNFJ6RDhxbVkveFdpOERLcGdZcHpwUjdTUUxzbDNNbFp0YUJ1WHJqcnh4?=
- =?utf-8?B?Zzh6MVFERTZXbmxUODlnclhtQ2JJYmJWQmpmUjgvNTN2N2s0YzRYZEM0UWJV?=
- =?utf-8?B?cGJQcERmSDlTWUE4VlhGWjFtMExVbWxUbzBVMkRqdUJ2ZGFGRjdrUmNVVDR0?=
- =?utf-8?B?ZXcwcktyZGZRWEhmL2l6c3ptYWc0aXFqTWVyYTlmZHBNQklMd2VzMzd4R0hI?=
- =?utf-8?B?VWNKYktJRjl6ZHAvK3doTDREVE9XaWVaYUpjUFNSeHNYQkVab1BtVndCeHpI?=
- =?utf-8?B?czVnSThCMDc5elEyNGdjT0lVVDdZQzl3bkh3VEFjRGc1cklLUlIwdEFrMnFh?=
- =?utf-8?B?bUNSSjRDMVI3bnVFR1FpRlVVVW1nVVlWRit2c005bms1cWZvUVpqbGNESnBM?=
- =?utf-8?B?ZVlPOE1IN284TFM4Tk1kWTF3RnRjYlMyK212NEtndWwvc2VXZW9kUWYzUjJn?=
- =?utf-8?B?N3lDOWhNbEp4OTNRUkNSUkR3bEp2UjZKbHlVdGw1NWEvZWJYK3NJaDVxNkYx?=
- =?utf-8?B?cjN4ektWcjFpRXIydlZyNUIxWEVuMG03USs2R3p0MHUweDhQd0lDVXJTT2pt?=
- =?utf-8?B?Z29RRmFwVWdxTVdDQXJXYng5dno4ZitFeU9nMmJsT2RmV1NrMnk2WlJMQWVi?=
- =?utf-8?B?dXhDUEZxMS96YTRZUDhtZkZMQm9TcGJPYm9OZWFHU0lDbE54MmtIektkZVQ3?=
- =?utf-8?B?MEh0a0dQbTFvL2hXL1c4L0Y0SnRJZ2Q4OWhxcnZ1WXJVcktnRTE0MmJ1VzZr?=
- =?utf-8?B?Z01FaWFOK2t1b1krVkFuMkNqdnpxemh2RTlsdFVUaThqZGthbElNckpqckkv?=
- =?utf-8?B?MWY2MXMwQWt4OVliQlNxbjZHNCs4ZHM5MFhteUh3bWpyT1lKclVqZWEyTlN2?=
- =?utf-8?B?RXBncFdrejBtdnJZYjhQQTBvS0VHWnNUbDB4bmlwSVNMd1FzbEtndmgrQW01?=
- =?utf-8?B?eXJpckxMaTF4YlFES2JuYzdHOXRrNmZHMEZlaXNwaWpPZllmK1NRY1pHejdp?=
- =?utf-8?B?S2thMURVcTV6OTlVdXZ2MDQ2a0V2N2h0YnRUUkpSRGduVEh3SGdUejhWOEZl?=
- =?utf-8?B?YkJUcTVaQTg4Q05pbG9MQStwVHh5aHl1VitFRVBkc0JWcllYaE1uU3lZQ25K?=
- =?utf-8?B?Tkc0bmxMNnk1djJkdHJIUklrYXFmVjNCeXdVRGlPdzFrbGZiVFlLVjV3ZTNN?=
- =?utf-8?B?TlNzSjBrNWRYYjROeVRENitYaVFQSWppNG1oaVNoQjNLMWorU0p6VjFMNzNz?=
- =?utf-8?B?c0pCY2RWWFgxRU9RM0NoS1hrVmd2RmlTb1gxTTU0cDAxNytsZmYySTJyUnlC?=
- =?utf-8?B?ZGNMdDEwT3dhNnROSUdRSzh6U1RMS3VWMENOdDNzUkxuMXc3S0M0cGRFMEly?=
- =?utf-8?B?aEJ4T1FHbHpiQ2tqMFoyTmJtZnU3NjJTVkI4emtSUElMLzdwdFZpOTJVc3RE?=
- =?utf-8?B?eDczajhCZWdHQ3IyRnpFR1JlZDgvZnJ3OFRLbXNRUWxNTlA0aVZBc2FRZktD?=
- =?utf-8?B?U1hhdS85T0NMV1hiQ3ArN1FKWHQzZ3d2NURrb0thN3VpaGE4a3M3KzZLTEtv?=
- =?utf-8?B?ajFzWjdHNGM1dGM1UjZGY1ExeFhnSlVDWUFSRXZuNEpLSlhadWF0ZU44TzBa?=
- =?utf-8?B?S1ZkN0x4WGRKSko5aVJuN1hyQ3JaZVdSc2sxZlBVT2pBaWFHaXU2Vlc0a2Iy?=
- =?utf-8?B?TEN1R3kwa3kzM3gxYVBkWkNmM0xjUXhCSWdWOUVuSGtlUGpJbTdWWXpFZEp4?=
- =?utf-8?B?a1lqdUM0WG05TUhEcytJSWxzMHlEdEZQclZDV2VsTWQrSXBVckhVRHQ5WEpa?=
- =?utf-8?B?dVJnNldiL2JvcnEzaW5DdVVPQnhPdlg3KzVpR3NoSlBNd2h1NjcyRUJPeFNM?=
- =?utf-8?B?ajIwWjQ3YXN5N1JZekJkd0hpYnpOdW0rUkNtUFNabXpLL2FGOXgrUHloaG93?=
- =?utf-8?B?NHdmeDV4RGhUQUYzUHUxUkdmZ0UzcnoxRGhGZCs0dVdSTXl0VFZycHVvaERr?=
- =?utf-8?B?OVRYbFdJVEpRY1plY0licERIYmFRUU01V3dUWElLQ2tWaGdxdDYwRzFHbGlp?=
- =?utf-8?B?bGFBamdibjdjWGRoejJidWVnVm1kWS9WcUxOSUJjZ3lSUkhpTkFlWTN3c1lO?=
- =?utf-8?B?TjlNc1cxbDJkYXB3NmZDVzQ0UmdkZXAxYTMzVUcrL0xMaHJaQllnTVJTUURh?=
- =?utf-8?B?aUN6NjhmNzdRTkVwaFlMT2JtNk9jRFhIUzUvd0ZtVXlOZmVpeSs1UFJHd2Jm?=
- =?utf-8?B?U21MUTZMQlRiK3ZyNG1FMTRRdFh3Q1ZzN3JMNytTNUFhVzEya1h4QkZzYmNC?=
- =?utf-8?B?cituTzBLZ000R1RyN043QkpwZjlFY0RYR21jV25mWDJlVGJmcDh4dz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1caff30d-9850-46f3-b4a6-08dedd9ce5aa
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 09:31:47.3875
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NOd1Et2hYfn4tUAaUejNHQT/YVpfmf38JxqHibv4GOkuPeMC5uxK+jl6tbF6pRVzq8b+otp4o44dQbOd7Q8stPqCAXxNOslsbIPEu0ycT6k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB10185
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incomplete implementation resulting in dead code: the QCA_IPQ5018 =
+SoC type is not mapped in any device tree match table.
+- [High] The implementation unconditionally skips downloading the required =
+rampatch firmware `qca/bt_fw_patch.mbn`.
+--
 
+--- Patch [2]: [PATCH v5 2/6] Bluetooth: btqca: Add IPQ5018 support ---
+commit 388a60ab03a30caa9b4a4e153c1ccb4a83f4283c
+Author: George Moussalem <george.moussalem@outlook.com>
 
-On 2026/7/9 16:35, sashiko-bot@kernel.org wrote:
-> arm64: dts: amlogic: a9: Add reset controller support
-> 
-> This commit adds reset controller descriptions for the Amlogic A9 SoC.
-> It includes the corresponding reset IDs header and device tree nodes for
-> both the main and ao reset controllers.
-> 
-> [ ... ]
-> 
->> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> --- a/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
->> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi
-> [ ... ]
-> 
->> @@ -204,6 +212,12 @@ aobus: bus@ffa00000 {
->>                        #size-cells = <2>;
->>                        ranges = <0x0 0x0 0x0 0xffa00000 0x0 0x100000>;
->>
->> +                     ao_reset: ao-reset-controller@2000 {
-> [Severity: Low]
-> Could this node use the generic name reset-controller@2000 instead? Standard
-> device tree schema validation expects reset controllers to match the generic
-> pattern ^reset-controller(@.*)?$. Using ao-reset-controller@2000 will likely
-> trigger a validation warning when running make dtbs_check.
-> 
+Bluetooth: btqca: Add IPQ5018 support
 
-will use node-name reset-controller
+This commit adds the IPQ5018 SoC type and support for loading its firmware
+for Bluetooth support.
 
->> +                             compatible = "amlogic,a9-ao-reset";
->> +                             reg = <0x0 0x2000 0x0 0xc>;
->> +                             #reset-cells = <1>;
->> +                     };
->> +
->>                        aobus_pinctrl: pinctrl@4000 {
->>                                compatible = "amlogic,pinctrl-a9";
->>                                #address-cells = <2>;
+> diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
+> index 22b08ab05b829..f5ded8fb1e3ab 100644
+> --- a/drivers/bluetooth/btqca.c
+> +++ b/drivers/bluetooth/btqca.c
+> @@ -775,6 +778,9 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baud=
+rate,
+>  	else
+>  		rom_ver =3D ((soc_ver & 0x00000f00) >> 0x04) | (soc_ver & 0x0000000f);
+> =20
+> +	if (soc_type =3D=3D QCA_IPQ5018)
+> +		goto download_nvm;
+> +
+
+[Severity: High]
+The commit message explicitly states that qca/bt_fw_patch.mbn is needed,
+but doesn't this goto statement unconditionally skip the entire rampatch
+download block?
+
+If a firmware-name is provided via the device tree, it appears it would
+also be incorrectly loaded as the NVM configuration instead of the rampatch
+due to this jump.
+
+[ ... ]
+
+> diff --git a/drivers/bluetooth/btqca.h b/drivers/bluetooth/btqca.h
+> index 8f3c1b1c77b3d..343cd62d11371 100644
+> --- a/drivers/bluetooth/btqca.h
+> +++ b/drivers/bluetooth/btqca.h
+> @@ -158,6 +160,7 @@ enum qca_btsoc_type {
+>  	QCA_WCN6750,
+>  	QCA_WCN6855,
+>  	QCA_WCN7850,
+> +	QCA_IPQ5018,
+>  };
+
+[Severity: High]
+Is there a missing device tree match mapping for QCA_IPQ5018 in hci_qca.c?
+
+Without adding an entry like qcom,ipq5018-bt to qca_bluetooth_of_match,
+it seems the driver will never probe the device and soc_type will never
+be set to QCA_IPQ5018. This would make the newly added firmware loading
+logic completely unreachable.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-ipq5018-bl=
+uetooth-v5-0-e476c41f03b8@outlook.com?part=3D2
