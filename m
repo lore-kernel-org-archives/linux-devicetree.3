@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A91F3B42D6
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 19:26:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7795A3B8BA4;
+	Thu,  9 Jul 2026 19:26:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783625186; cv=none; b=pdbcYzuGei5MY04MTsGYWlNkn8juokR9xqwgsJRDas8amtVOVwDuurb8F9qIGczq+KivYYVKyUJv3zc9DT2mJ96cjzjyjF7E2f/tHt1sugdI/zI6+QNvqVIAtakUArHcol/VEgRIdwB7+PWFHWc7M+hLdnf+ykmcmLH3vjiV5RA=
+	t=1783625218; cv=none; b=fD2xZcsqIekW0WI7W/eQpusZAn05HiN+2HQpuA8taqtQd3MSTZIHqJYemuBr0/GvKje012Lg5bEqPjCBi0pMo2jk5z1aMnKGz1+ZuwTgOeCcmP1skvvcc23FRmdZ02Mrbw+BqD8pj5U4VD/+OFXO3Y8O6J8BlOsg/0UDG2V0CRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783625186; c=relaxed/simple;
-	bh=h5tNGe0Rqw/f/AVHpMuIwWbNTpca0caCMRvaa/h0gnY=;
+	s=arc-20240116; t=1783625218; c=relaxed/simple;
+	bh=WYcBq+2OehXUkps9RBfzqulNDwbhuWbGqAnSWT50caA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fzu5HK8QpnPGvqKzQGlSj3sGAQRDAcjOdyGv0wuuJVbzPeKou2Xz1bhs1rDlc54vqjkw8yio987nwemLDvKLIWGh0qF1Xx84YhHxKfB8BNLhyg4zQmKNbqAX+srIT+Ut943eNePzHQi7Svw41HK2x+ChMHwuO+p7RHNn5fJ9/rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJaA6s9l; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GGwhq7gHTKoqm92EqNehEfYIaxZt6VMIIilxInGPhkCOYeB+xWcc+d9+IOzHkHpdGdHVyrIUuEd6v3i6I+hifHg5oKl5yA118vBEj6/cVFkR3y/Ee0T5PPeDJ/hx3GccGsLNV7pY6Nz8H6MSLviTGRV/7zRrZ+PkaC9trvSv/Hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pnkbbwv0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJaA6s9l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294D81F000E9;
-	Thu,  9 Jul 2026 19:26:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pnkbbwv0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41AF1F000E9;
+	Thu,  9 Jul 2026 19:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783625184;
-	bh=f/V8UmMi87TKTb0msRzTC4tzI6eIXmFO3rct+enhaR4=;
+	s=k20260515; t=1783625217;
+	bh=3YNXmK8iqaVmcFh0KFC0kmph0vK3sC1aXnxnkc76EXk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BJaA6s9ldubRTi8sBBVSjcXqwrp1+tDAGjtMp6Bl72CuNERtPKPhfWyNTUCK5cYga
-	 fLUsOfL4ORYZ2I4jIVtY/Gby7Sp4bR1p3/QZpE0IMO+648L4UYC3WYH0eZbVBGTI6S
-	 r01zQfSraIWKgc+yWn1eYXgHWd8Zsb+fmhV9uIIIrXMV1qhh2d5lcpoOmHsR3dznRD
-	 4ruNPKY+20lTu/j5ZrpV24W2EWMyX7NweLWeFs7LYFE2et2AKYZrFdMxwkvHG4brkq
-	 CRaaQyeDxjcG/igIpITGiaoNkHVKWEQ3VCqJ9E40AHxaf5ESfy/3Xyq6k3k3rBi8/D
-	 +HvC17jhthx/A==
+	b=Pnkbbwv0i2TLMQrlHfxFYvONIbzh4I2luXYHAQHWd6+lafkFjfI486YC2Ycm5xF1/
+	 dTU4t2Nilpwul9W1fHGuQz28NZOXm0dBPXcc0cWh2/my0aeOwD3dDtUiy8yeBxpqyl
+	 i2YCyoCkN1cRflPgvsMx9qVMeZbJZdOzdYhSnx2BfcjMPR0fIZgSeWrOYOuSLDNMS9
+	 k99ampotjKJPixUd3HSQm4sCbJNGpeVKok0F+oCHTDENBSwRstPFtG6oL2ePRRcNzb
+	 M0j/1FVuoOp9Ypx4CBKxWQ+KguLSD7St3gnTmYaK2vuOKRqbMSdQNCAqqP+R6p1O6C
+	 PR+sFlkJEEKow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 19/36] phy: rockchip: usbdp: Re-init the PHY on
- orientation change
+Subject: Re: [PATCH 1/2] dt-bindings: perf: Add Arm Bus Monitor Unit
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, olteanv@gmail.com, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org
-In-Reply-To: <20260709-rockchip-usbdp-cleanup-v11-19-a149ac60f76c@collabora.com>
-References: <20260709-rockchip-usbdp-cleanup-v11-0-a149ac60f76c@collabora.com>
- <20260709-rockchip-usbdp-cleanup-v11-19-a149ac60f76c@collabora.com>
+To: "Robin Murphy" <robin.murphy@arm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org
+In-Reply-To: <1cd17d9c07e9695e1dffdeaa5409f0a1db8ccb81.1783439341.git.robin.murphy@arm.com>
+References: <cover.1783439341.git.robin.murphy@arm.com>
+ <1cd17d9c07e9695e1dffdeaa5409f0a1db8ccb81.1783439341.git.robin.murphy@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 19:26:23 +0000
-Message-Id: <20260709192624.294D81F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 19:26:56 +0000
+Message-Id: <20260709192656.C41AF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,68 +46,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The USB 3.0 PHY hardware is not re-initialized during an orientati=
-on switch for USB-only devices, causing USB 3.0 to silently fail.
+- [Low] The YAML device tree binding schema is missing the mandatory `examp=
+les` section.
 --
 
---- Patch [19]: [PATCH v11 19/36] phy: rockchip: usbdp: Re-init the PHY on =
-orientation change ---
-commit 68cb52c178c7db7d63bbe3d9ed1bf373d3c040be
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [1]: [PATCH 1/2] dt-bindings: perf: Add Arm Bus Monitor Unit ---
+commit d43448a74f2d7de7e06899d55b1561b64c21375c
+Author: Robin Murphy <robin.murphy@arm.com>
 
-phy: rockchip: usbdp: Re-init the PHY on orientation change
+dt-bindings: perf: Add Arm Bus Monitor Unit
 
-This commit updates the Type-C orientation switch callback to track cable
-orientation changes. It sets a flag to trigger PHY re-initialization when
-the cable is flipped to fix DisplayPort functionality.
+This commit adds a new device tree binding schema for the Arm Bus Monitor
+Unit. It defines the required properties, including a mandatory label to al=
+low
+end users to correlate instances with platform documentation.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -620,6 +620,7 @@ static int rk_udphy_orien_sw_set(struct typec_switch_=
-dev *sw,
->  				 enum typec_orientation orien)
->  {
->  	struct rk_udphy *udphy =3D typec_switch_get_drvdata(sw);
-> +	bool flipped =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
-> =20
->  	mutex_lock(&udphy->mutex);
-> =20
-> @@ -631,7 +632,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch=
-_dev *sw,
->  		goto unlock_ret;
->  	}
-> =20
-> -	udphy->flip =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
-> +	if (udphy->flip !=3D flipped)
-> +		udphy->phy_needs_reinit =3D true;
+> diff --git a/Documentation/devicetree/bindings/perf/arm,bus-monitor-unit.=
+yaml b/Documentation/devicetree/bindings/perf/arm,bus-monitor-unit.yaml
+> new file mode 100644
+> index 0000000000000..3cdc3a05b9a63
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/perf/arm,bus-monitor-unit.yaml
 
-[Severity: High]
-This is a pre-existing issue, but does this actually fix the orientation sw=
-ap
-for fast replugs on USB-only devices?
+[ ... ]
 
-If a user rapidly unplugs and replugs a Type-C cable upside down, the DWC3
-controller's 5-second runtime PM autosuspend delay means the PHY active sta=
-te
-is not dynamically cycled via phy_init or phy_power_on.
-
-Because rk_udphy_orien_sw_set() only sets a deferred phy_needs_reinit flag,
-the hardware lane muxing will remain stuck in the old orientation if the PHY
-is already active. This causes USB 3.0 connections to silently fail and fall
-back to USB 2.0 speeds.
-
-Is there a mechanism to force the hardware re-initialization immediately if
-the PHY is currently active during this swap?
-
+> +required:
+> +  - compatible
+> +  - reg
+> +  - label
 > +
-> +	udphy->flip =3D flipped;
->  	rk_udphy_set_typec_default_mapping(udphy);
->  	rk_udphy_usb_bvalid_enable(udphy, true);
+> +additionalProperties: false
+
+[Severity: Low]
+Does this binding schema omit the mandatory examples section? Standard devi=
+ce
+tree bindings typically require an examples block at the end of the file to
+provide a reference node implementation and allow full validation by the
+dt_binding_check tool.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-rockchip-u=
-sbdp-cleanup-v11-0-a149ac60f76c@collabora.com?part=3D19
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783439341.gi=
+t.robin.murphy@arm.com?part=3D1
