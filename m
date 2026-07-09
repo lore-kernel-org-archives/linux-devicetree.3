@@ -1,212 +1,216 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013008.outbound.protection.outlook.com [40.93.201.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC515383C64
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:54:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783608870; cv=none; b=DSbg/Ywp0hbl8pcFqVVyEZZPfJxdgfLAWcglclKLBGmHmva73kOjf4y2aMt90EwCq9N2L/kIqOkVkXcLx0bEK+rDh3au2VZol+Qq4s2AZSt403HtovPajbphtA4khxLNnwavWFp3uE2J7o8Vv1nPoh1UeDbQXMx4IBFSHVhpKzk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783608870; c=relaxed/simple;
-	bh=Iad5UADQt9fXiFcZiRSv6DKnb9zI3RyEtPOMI+t/pn0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ActRHpRmloJbkUq9UbZP7CnhoHSn+RxrnnbSORTH+di6xV7bqSs0EAbzsgEPleyXrzS/Vmt3lb9dU46jDVFlpY9/5xTy2BmMe8+nHB9r4V7JazrwZY7GR/Cd+Ili/N06CmMCvxqXh+ntsuQFrMpDBTmLM1wQA8j93jpsS320wqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fgFK1CrJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kxY1x6Ce; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20509386C0A;
+	Thu,  9 Jul 2026 14:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783609140; cv=fail; b=sSgZSxd3kuoTU76MB08maUkei3q5aHpG4TCcJ2hHeAWZoF12jVLO5e4xCjQpg1MWN+xJjDwfVigDjUAGDaH0FR6sdP4ijyYfHK9kBkfQpkFL/My/W8HPYktiXWqyJlqFD9kfCiYXn+cqrhUhPSZL8lEB0dO+zpbetBLiVv/9VqQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783609140; c=relaxed/simple;
+	bh=eRWXM6yoWLd863VmHBqmlSaMlCz4T99TAK6T8TfU9a0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ws6X5CP67PRIr/LG3X2qb12qsDhytSbqlfmmRsft36vGZYdp8YMGihiDzEz/hsqNVWYPR9q/7tpS3f292MIikVOZstbY74LY2b/Hfd6wsEHLrjnR96mPfJre5yfdCZy8UCorL5RWnqi26vKKJtF4Yxxdish4DtLTmu4Gs8Kah9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tjWdGkX0; arc=fail smtp.client-ip=40.93.201.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fgFK1CrJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kxY1x6Ce"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669DwPLr2014460
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 14:54:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ZMd5SzYa2JtJsuef3gXqhLim
-	tjjWD7XXATJ3fVJWKFY=; b=fgFK1CrJsVkn9+lyI6grWkzihN4jSETSO5v1zhyx
-	yJs1ZTq+7KHtpwkUTbuaxhcF3PrJU2srnVT/38qhJ9mzZM1mQ4QjpOepB4feKAhb
-	qUCPsOaFsIoCJtlfRnch1AnGKK1yM4fPZZ7L0NHLzFKXA8C32Mq4xZlovyMONOpy
-	As1q+d7o8m7GZ4QhEASjtxVGnbHUjp59LzbgeSQo4ZsQoFzzQ+geRApF82v6PJQj
-	J5c9kaLgTPyqOhu17GRIOLVfHTARtljnj0obrgas9663NRdQSoTqMvFGSqpoDCT6
-	DLVVepZvtOFYWaPqh6A4NGKOmJiJpHkHoVfPC2GrQjWg2Q==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9ug6mdfh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 14:54:27 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-744e7c828adso377363137.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:54:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783608867; x=1784213667; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
-        b=kxY1x6CepZIbeBFdl4SJHiJUMZeBfoqaQenmfM/UvsypgAlwrx4xEJwZl4/f/isXex
-         QxxN1KMzu3wjA2EkvGcbEWPKuVyOcNSbrkj2qJiWxJKId/QbE1ybVLe+N7RL+6/jby/6
-         UveKO6/uL8RKAzReXCAqFn5ISRDnx31X4vfAu8YHReCHSwTDiGFZiT9VKzVCB79VvywC
-         Qxug6kBB7wC2dQUT6Vmovu8oAjjPbFyrsnQlZu5Zj43GZptry2CQfnQpDpsU8x8amPay
-         Q4g4c0TCgYgtEasAJyueS1Vj0lpva/PNfpFqE6/LwFNkzTYl4HMXuVHg/eeTcoUviNDb
-         U2mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783608867; x=1784213667;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
-        b=D+cAawfGAp83uY6Ip1+l25qOmYWf8XM4+GK4t6OY8G8MzwJR+Gpz7MT/z5M4vRoDRP
-         xquo76MLQuLsvAsvIMVGNeEokix8Wf7Ae8SexpZiWlc2sb07hJoqCApmhyq8jvZi2ooW
-         cwuWovh1Nvma/XMLrgsXsKAHLnvgAjFZ7rcdaDIhfobg+8sNjglbulL4XsMh9poe3bSt
-         rw/GTqMCdNO+1fmttcprQOfLDnvr1p9D8xO3fIDSVDQTCQ1BGiiodjwnUia+RshV/qFz
-         E8YrHT6PGcPa6Lkx/ZDGLpyoQPboOj+y2rRmNVYRTmU5oPLSXRftKj+66JTsCPoNyFNo
-         uHzQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqyi0yoviix1rM6CLe64Jm6se3git4FdGwuamERyNkkUuZyNwmzrmKO8FeSX/3sPNiiJO3pgNvWKoV/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhWRu1R4/Zpo6qlfCWW8HirdwAf2NXVqyG2IdNw8Ksc6qy/GEs
-	kT4hLCdxjtlGLK4lnN9uZ3j/UWG88zWPp9itYkA3rKSX+vGTgf10SpaNALpLv0YPh1r5cNz1q+C
-	YOX8zAhu2UOqG/3RQdYnPAIC3AtZq8SeuBrAF2yMWaG9TzaWWjpNj3PXk/fWpTalb
-X-Gm-Gg: AfdE7cn34zbDCfhJKEfTJYKuGN7kNz2ZL195hSfDAbqWX+UZcG16WyszL2vi3AhEbrl
-	Eij2wghAET7DpirmSTQIPufap5a7WUujkWDhVujepOaka9qIkFH4EYKUw5B12OeqT2B9vaWYWyr
-	joZ96LHw23epsN6kcGVgvMo4OhH17u0A0KSnMAxawCnrdQ9JucAgl9k/fABqzyUPZuJp01P4PtM
-	L/ewo6STQkSOC5tKyaynFEja9c7xgsEWy/pT610FMFXfDNnM1Iy0nTAWVdzdZGXRrQwbqqHgdF8
-	4ufgBQ9NomrPOagKyx3M2O2rqMkO7x+lq2zTurqJUveTn9RoKCTeenMWJUdFepRl44em9VRV68R
-	RL9c/ci5FEKcw4abazBpjrEqdjySJiSFWmJVUfQcxoN9RrPUdhs6WFmFpE1GP0X3mIijOiynBN7
-	pvNrb1G07Z7OAtS3hfLMOT5qa/
-X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id ada2fe7eead31-744e03d0408mr4194097137.22.1783608866718;
-        Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
-X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id ada2fe7eead31-744e03d0408mr4194057137.22.1783608866193;
-        Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b017c29961sm500429e87.29.2026.07.09.07.54.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 07:54:25 -0700 (PDT)
-Date: Thu, 9 Jul 2026 17:54:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
-Message-ID: <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
- <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
- <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
- <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
- <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tjWdGkX0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oC1RWQI5FF1E4HzCPBimNZuP5+D7dvOHxQ+VKWt+vwv9Qi15+pBXCyhHUkevy6Xfl9I80Iwt569WqZmEftnAVP3t+7RnHdCiRw51hYu9HgwnIu6CvlETk1RcsA13Pgdz/5d6otbT6K83eIjhWamVc0Vt5TEte/aJ/EkQaW1ekMKqnug45xjJDs7WtzpQLsdkBDbQSgwkaKQQS5pHlwcnnck6EOdaFNiYyLePYFbpZrfXd/T4MDByL/E53lHDd6e/iDAvND7NQp44/pAc67sIJTgvSKqT9fvq2WTCSJAFmHiVKZdV5pYHjikPs8cIAk/4IhHnopGIwf3bWaAQ9Egp/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8Wj5D4rXJ8PZvtTARpSNMHa4ItC1GHQ8Xwm7LSBa3Go=;
+ b=Tf2kHeFb5LUSTSAXo4DkRa25yeN/tj1zXqvJr2QXufF1OK2costtrDX5FEJQK/IwECq8dj+ziNtlk9Do35q3hwpq5ptMLRw0eOXd4hfxCFObizJafkwaQIN/9QuS4Ps7IHM+eMEPhG2iqFUASUjqyqjFrQnS2XWzcQFesPkxSGzGWaMQiivN3b+QNITXmBY40OxzUnhZFKxk9XumzL3MdWiFMqcHuSlnkM20cjD5B3qX46O06boRrmUA1TueZof+CToyl0fngaXANocUrA71IcCd/VQyWaSPAV4FT6PwtpVtv/p68MqqFLPoJPq9C2YY89a1lgv8p1rc9k5twbTaGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8Wj5D4rXJ8PZvtTARpSNMHa4ItC1GHQ8Xwm7LSBa3Go=;
+ b=tjWdGkX0GFI73+EeoUC9hV63vF0cKFqDKAWULYI3+EgtI4LfxbsbT84MQkf6pJpV+T+5P49KfJ4P0ImvS/IASKS96+1ZvI/fv5xc7R2tNzKSDYAlyw5HbvYzYRokv4FZ6XlBWQo8ai1IVDRQimeYsP4t00HcF03cCu3Ua7/3akw=
+Received: from CH0PR07CA0011.namprd07.prod.outlook.com (2603:10b6:610:32::16)
+ by EAYPR12MB999180.namprd12.prod.outlook.com (2603:10b6:303:2c2::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 9 Jul 2026
+ 14:58:55 +0000
+Received: from DS2PEPF00003443.namprd04.prod.outlook.com
+ (2603:10b6:610:32:cafe::9f) by CH0PR07CA0011.outlook.office365.com
+ (2603:10b6:610:32::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.11 via Frontend Transport; Thu, 9
+ Jul 2026 14:58:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS2PEPF00003443.mail.protection.outlook.com (10.167.17.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 14:58:52 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
+ 2026 09:58:13 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 9 Jul
+ 2026 09:57:12 -0500
+Received: from xsjblevinsk51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 9 Jul 2026 09:57:12 -0500
+From: Ben Levinsky <ben.levinsky@amd.com>
+To: <andersson@kernel.org>, <mathieu.poirier@linaro.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <ben.levinsky@amd.com>, <tanmay.shah@amd.com>, <michal.simek@amd.com>
+Subject: [PATCH v5 0/2] remoteproc: add AMD MicroBlaze/V BRAM-based remote processor driver
+Date: Thu, 9 Jul 2026 07:57:10 -0700
+Message-ID: <20260709145712.951146-1-ben.levinsky@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX9fZFACuj1OpR
- /zgHoPm4LxUUeT1wu9OVtZB4Kb9Z1hMjckQfn+bUKuGFCUpBdQh83rDwQ2RMBWSgtxa8mR4S8/U
- y9Zqx2mTWVDMMO+8LM0d7tr5NVN1p/o=
-X-Proofpoint-GUID: kQaSfqvQzYjyFZfJ61bTEecgKltRxVTS
-X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a4fb623 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=9jRdOu3wAAAA:8 a=pGLkceISAAAA:8 a=gTY0VpHTFMgWGwS8g40A:9 a=CjuIK1q_8ugA:10
- a=crWF4MFLhNY0qMRaF8an:22 a=ZE6KLimJVUuLrTuGpvhn:22
-X-Proofpoint-ORIG-GUID: kQaSfqvQzYjyFZfJ61bTEecgKltRxVTS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX3OiYlZacJezP
- rzGLaNnFmp8vTiJbbe4c0vVHspSuEm/a35WB0BU9KjW9Em2vG89J35O4g2anStwGMlUHCak9F/I
- tm4gmWDm35u5nWjp9li22YdNV2KQabeDv0aVv1DPzj6nY4m8tX0XULx1APg/t0Tksv2shnIOJom
- jdNRKxKzF7A4M6Tn26sbFrTmsYrxKgIROV3BYQy6yWdS1vt9tjNPg2kJ56Jsx5ueSeI2N+c3FAb
- w4G/pIgtJovYTKWsr0JjOTcd9U/NAWmK0s7oLw13m/1G2Q2WSvvaqTiAbjiCA93FVOOQhBZRMhz
- IHDdq/Q88OZRLZfu2JrCW8v7NtNPlHamzx9KC/5H1sEka7AAJilUuBjQ2NmU6xZmuXwnbd8fVAP
- FVwKAi0uAxVkG5Wsf5j4U9akhBudGBIrxEp18JPzOJpDtIsYrYJwOHlhG5rGAowmwen0ys7Djm4
- md+NUU1cURDJ13fCghA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_03,2026-07-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090147
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|EAYPR12MB999180:EE_
+X-MS-Office365-Filtering-Correlation-Id: 259c273e-5f74-4a88-b9c0-08deddca9741
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|18002099003|13003099007|3023799007|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	nGRfuNALyDlpN8wGN/GPRjQkaRtcPYm9hA71uphmM8GeNKJ8cte7q9KK3POw1tlgDkDvSaU7uA70zkUCSLMXWkf8bZyn5K5I8H/quteZqisc/SBK5fLQCg3YPt36u95N1y5Mvd64cWotxHM5zvRfqfla6y+IGjtl7oGUZThJOXMiZmrrwmVNeFvML/N+mUf9SzPi3mRKRniH+scfGlvupEmV9tbQyrTb3ru/NCiBvmhAWF09ZpagaI7kAvLjnrJrZ7s/tsIV0AapTZN0fckTgS4F37vVI6DJ7bQB00aPvhHELqTD5VRnkSvmQNjgo1zqYDajHsTxORhVCuaFAuRxTxaZukAIu0meMwwasai2B+7IHsRZA00U/T37Mh25c+duh38zgL5o0SAGUwCXJiSVfGEkjoVzVr42Fsqn7yIG2i3+81u8i164s3gvtaEosK9K0opp/4c3mJdvl16cVycPblSJkBULMUfrphpjiQchjXCHYXEJ4uUCUmZLFVZ1dmARuZQ5h5Iya30mXp1N4Tf12vAUxrhTCypZ5CNqbDhqe2uM1Qd4WXnriO3fa/5AlCUSWNA0oCRZXJUbZV1dpF8fPA5sMsHtwMz3+hrCxiSLQTgulrfk2gCsv9dhkDuLiZJlLSeecInSWB3kkm67cQuAnYC3jNnkZtK00rJfE10lAVZsWpAvk5pjE6Q/Ng9N5dKpuemEGOBy+eJ85LfZJfSDbg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(18002099003)(13003099007)(3023799007)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iZg5VXuQKvI19VD3kCeTYUVpo5W8BPWq3d7or58gSG2fwmqYvZ3RBI34FDRA1afS1C0MxkRgljD2LjFF4vlOcRAnTV/teMdPOAPFuTA7sGxk6QD8PkHrj1oic8mH5EJGErSchpHNwUn5Iigf3u2/KXN5/YCChUdW/dfEX3fUjAq27lCRWs7IvFdlmSCqmAGzzpy7vJ8m0KC6NbxhQdibFmSMuHnHqx/7o7pLeAikB1VdKU8oR1cRzzP+O9h7BY1tnTQ8uMvLAuepjfiP7iyd8RvSsEtD1VaPY6zUxeOEa0cER57L5S8y1PSUW0R3KJ2tGMkgj4WMl+yDocx9mVUaiV1lDlMBJvA3/mkxFeHTQMuY+RqvIpducvZEOA0t3+6sZoJqGPpv8IJHJPdZBoTF6Cz+0Jk364V63qwvTgDaggGSCGMa1qChAqzasQltGLBe
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 14:58:52.3501
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 259c273e-5f74-4a88-b9c0-08deddca9741
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003443.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999180
 
-On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
-> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
-> > On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
-> >> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
-> >>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
-> >>>> In order to associate the SID used by LPAC to it's own domain and
-> >>>> context bank we need a separate node on the DTS.
-> >>> Can we use iommu-map instead of adding a new device using the same
-> >>> addresses? You provide zero explanations, but it seems like you are
-> >>> trying to separate a part of the GPU into a separate device, but it's
-> >>> unnecessary.
-> >>
-> >> What I was trying to say is that we need to map sid0 and sid1 to different
-> >> context banks.
-> >>
-> >> From what I recall, so long as we use the same dt node, the iommu drivert
-> >> provides no way of doing this.
-> >>
-> >> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
-> >> and secure.
-> >>
-> >> The address on the lpac device doesn't really matter. I have very limted
-> >> knowledge of DTSs but I think we could just leave it out altogether?
-> > 
-> > I think, you were poined to the Glymur Iris patches. Another option is
-> > the QDA driver being submitted too. Both ot them use iommu-map to
-> > describe the same usecase - a set of SIDs which are used by the device
-> > but which should not be a part of the defaut set. With it in place you
-> > don't need to have separate qcom,lpac devices, no additional properties,
-> > etc. 
-> > 
-> > I'd recommend following the same approach.
-> 
-> iiuc, the conclusion in this recent thread is to use child nodes for a
-> similar case:
-> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+Add a MicroBlaze/V BRAM-based remoteproc driver and corresponding binding
+for AMD soft processors located in programmable logic.
 
-Let me check internally.
+The series models a soft-core processor subsystem that executes firmware
+from dual-port BRAM. The BRAM window is described in the processor-local
+address space and translated to the Linux-visible system physical address
+through the parent bus ranges property.
 
-> 
-> -Akhil
-> 
-> > 
-> >>
-> >>>
-> >>>> Add the code to look up that node on initialization.
-> >>>>
-> >>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> >>>> ---
-> >>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++++++++++-
-> >>>>   drivers/gpu/drm/msm/msm_gpu.h           |  1 +
-> >>>>   2 files changed, 21 insertions(+), 1 deletion(-)
-> >>>>
-> >>
-> >> Best regards,
-> >> -- 
-> >> Anna Maniscalco <anna.maniscalco2000@gmail.com>
-> >>
-> > 
-> 
+This series depends on the remoteproc cleanup series available here:
+
+  https://lore.kernel.org/linux-remoteproc/ah2aVdlsLqy9aeHP@p14s/
+
+That series adds the common WC ioremap carveout callbacks and optional
+ELF resource-table helper used by patch 2.
+
+v5:
+  Patch 1, dt-bindings: remoteproc: document AMD MicroBlaze/V BRAM-based
+  rproc
+
+  - Updated the binding title and patch wording to use MicroBlaze/V.
+  - Added Reviewed-by from Krzysztof Kozlowski.
+
+  Patch 2, remoteproc: add AMD MicroBlaze/V BRAM-based remote processor
+  driver
+
+  - Renamed the Kconfig symbol to AMD_MBV_BRAM_REMOTEPROC.
+  - Updated the Kconfig prompt to use MicroBlaze/V.
+  - Removed the reset GPIO and clock sentence from the Kconfig help text.
+  - Updated the driver and module descriptions to use MicroBlaze/V.
+
+v4:
+  Patch 1, dt-bindings: remoteproc: document AMD BRAM-based rproc
+
+  - Sorted the SoC-specific compatible enum by name.
+
+  Patch 2, remoteproc: add AMD BRAM-based remote processor driver
+
+  - Dropped the driver-specific MAINTAINERS entry.
+  - Trimmed the Kconfig help text.
+  - Reused the common WC ioremap/iounmap carveout callbacks.
+  - Reused the common optional ELF resource-table helper.
+  - Used resource_size(&res) for the translated memory window size.
+  - Kept the coredump segment address as the processor-local device
+    address. The coredump path resolves segment addresses through
+    rproc_da_to_va() against the registered carveout device address, while
+    res.start is the Linux-visible system physical address after DT
+    translation and may differ from the processor-local BRAM address.
+
+v3:
+  This version updates the binding to use SoC-specific compatibles with
+  the fallback form discussed on the thread.
+
+  Patch 1, dt-bindings: remoteproc: document AMD BRAM-based rproc
+
+  - Reworked the compatible schema to use SoC-specific compatibles.
+  - Added amd,versal2-bram-rproc to the supported compatible list.
+  - Used xlnx,zynqmp-bram-rproc as the fallback compatible.
+  - Updated the example to match the new compatible scheme.
+
+  Patch 2, remoteproc: add AMD BRAM-based remote processor driver
+
+  - Updated the driver OF match table to bind via the
+    xlnx,zynqmp-bram-rproc fallback compatible.
+
+v2:
+  This version pivots the series away from a MicroBlaze-specific binding
+  and driver shape and instead models a BRAM-based soft-core processor
+  subsystem more generally.
+
+  This follows the upstream feedback that amd,microblaze was too tied to
+  the processor architecture while also being too generic as a DT
+  compatible for the hardware interface being described.
+
+  Patch 1, dt-bindings: remoteproc: document AMD BRAM-based rproc
+
+  - Renamed the binding away from amd,microblaze and reframed it around a
+    BRAM-based soft-core processor subsystem.
+  - Dropped the redundant trailing "binding" wording from the patch
+    subject.
+  - Rewrote the binding text to describe the hardware rather than the Linux
+    remoteproc framework.
+  - Reworked the example to address the original dt_binding_check
+    complaints about the root node and simple-pm-bus example shape.
+  - Added a clocks property for the soft-core subsystem.
+
+  Patch 2, remoteproc: add AMD BRAM-based remote processor driver
+
+  - Renamed the driver away from the MicroBlaze-specific name to match the
+    BRAM-based binding.
+  - Added clock handling for the soft-core subsystem and the matching
+    COMMON_CLK dependency in Kconfig.
+  - Cleaned up the reset comments and removed the success dev_dbg() message
+    called out in review.
+
+Ben Levinsky (2):
+  dt-bindings: remoteproc: document AMD MicroBlaze/V BRAM-based rproc
+  remoteproc: add AMD MicroBlaze/V BRAM-based remote processor driver
+
+ .../bindings/remoteproc/amd,bram-rproc.yaml   | 105 +++++++++
+ drivers/remoteproc/Kconfig                    |   9 +
+ drivers/remoteproc/Makefile                   |   1 +
+ drivers/remoteproc/amd_bram_rproc.c           | 213 ++++++++++++++++++
+ 4 files changed, 328 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/remoteproc/amd,bram-rproc.yaml
+ create mode 100644 drivers/remoteproc/amd_bram_rproc.c
 
 -- 
-With best wishes
-Dmitry
+2.34.1
