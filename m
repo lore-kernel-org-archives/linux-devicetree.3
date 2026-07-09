@@ -1,158 +1,110 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF98411689
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20373AF665
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:25:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783596261; cv=none; b=S0bYyNgFqKdxVKDLOfeCEbl4rDhvHuW4e8StYZTwDvuasQCFKJBxQvR8bV/tpkMOBfdCf+eCHtTvHF6mPG4iEgq61m5iq1tGz061dMMANtDeNdmNhe786TVkQJGl/MOtGBoNJwxvrWuts0Y7lkBrtCeuQ+653I2YFG5zOTU+qdI=
+	t=1783596306; cv=none; b=BxllxLya+OPr2Y0o9HaYZAz9JkOSkAbSEGrrvwuL03koxRfeFAjck8djmTK1PR0eS96jzTAJzEtK2fWPSusq8t8MlTSmlKPCQnAfejli3j1hbpS6CzhSYfPsMfLlJoIMucRbPQAUVDm1rCrLb4ITrQB0CGEYpwBF9FdSxEqH1Zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783596261; c=relaxed/simple;
-	bh=CN5h3TyOwEIznSft0b8xErmSRMFj5sNT+X4d3LzCde4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iv7S+vYPXlwDqamEDbFQEG8AG7/bNfL3YIZUyBgybeuuCBOrps7VEgZJm+MvitifWPGCSEzn/iQ/tLmdooSxR8fSM/9Jp1kTRZJAeLSwPSwlfjSUlqZJ6MM/dfZUi0snm06R1wTqslYDzg/ae4b/Os29oN8HW26fbZwjSBsNUhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=je4FqlXd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NxVqN75Q; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783596306; c=relaxed/simple;
+	bh=KxphI9QdHGKCAwg6GCLZkXR1AX591BapGbUfthMzqy4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eOIcE8zHZqsVFVHHdOEXMeTOa8omlsBseqBaCj+084WkdwKlfPYgMCDBa6xeQCfVqxj/JS7b5BnyBPxL533eSAw1Zck0cRcwt2UbJkzwAiIRsg900okFM8PdR2W7tFkhtbyA6cy7R1PGfm2w1tMTRt5NDJUV2TWOyiy/OE659bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kF9ZUlG2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="je4FqlXd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NxVqN75Q"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669BNUb51672689
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 11:24:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TwEVV0cJXSPJJj4UNs7yhLlyqJbVus2sdd9Q6EnUG1c=; b=je4FqlXdnHKAyBSa
-	rdZB8gfHe70pTHbPgRgOG9sP8j3x5sts4MwxSNQT7bXIsIM1uGpk3GgjAcVY7c6l
-	3vH1ty293v5pcSZyvTNChSWhVeppFflSyFp7/Q/kqCrdABwf35CmVcCIZGRxIF5j
-	gCNvYeF71p14zRkKw2kmo7VbxxyR7L1xrilY1OQJmR0RbMBM2JY+JXhw0uUfQayX
-	sdmEJgBOnUc99YaSFcxwqEPfyy1LUG9YKsq5FGeHTBSkoVxKwbvCKdq0+EYySPIk
-	srGLRZnvyvlPmqntq2/2ehf0M4qDbZcWoRislMk9rseudcHUtj2h2lH/Bn6YFQCa
-	F2zmGw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9sqsbybm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 11:24:16 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c21be5bb4so9532081cf.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 04:24:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783596256; x=1784201056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TwEVV0cJXSPJJj4UNs7yhLlyqJbVus2sdd9Q6EnUG1c=;
-        b=NxVqN75QFzInA6sCLgA+zEndUK9tiJ8dXVmB6y/ospDk8RSfmaegCf2bRILn/e9lRV
-         jI2DDN7CEe0wNZe7uq0fKLMqAC4CW8w8niY4CWHHYP9y467RFSV2x/W4LgGW3BhPFY3N
-         onBYTxgJcC+lcyX2mY939783f+62O72Qh/XxsSw7xfAisRXnqYtuZ4Uy3QChDKDTiLKL
-         Hb8ivpks6TB/Mr/BKFs7ZawdfmV03zpVSm9LMOWtQ7uATC6CQayM9UQaUIOtz7xqSiAl
-         EQ81vjM09PfXbu8WWlQBhGzwf1KMKWN6JS4GY7I2uPcOTtfTZSwxr08Itmv/TTMU7gG/
-         eEkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783596256; x=1784201056;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TwEVV0cJXSPJJj4UNs7yhLlyqJbVus2sdd9Q6EnUG1c=;
-        b=b+TKH3TsAeonUZXm0UlqzupqnZNxl+Gv2hFAzITbOe3R9MALK9balmN+JfqmOwa6gJ
-         P5PWGq7BmkHHc8tvUD5/EcClh3vhBqLosQ3EmJPeRcpZGvuOrj3wgBPfcSLuCPEOPcJi
-         l5OKCtFDThCG5e4cAl7lEgkwxnDZFzFB4Kfw6KaC79kFy8B35fwcOe0Wta8IrOOCyMF/
-         nvt5m8o9OkAQkZVpNE6qaBFIb1zazyzKm/aqmackH/kmCL3iidAafR+D31Eb/TcjZ3YZ
-         mLY8HCM600ykJzs8Nl56Z/HYPKZ0073zggjOakwTpuSXSafAQYwKC8EQWM/I/46F1xl/
-         xvtg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+LcouPytul5rEP8Id1MlJ+wT0oycKMTpULzRz2t4vZt5PeDyMBzBWvCmKmmt47+U2ys3mAZib8RFA@vger.kernel.org
-X-Gm-Message-State: AOJu0YzU9ofN8AHsvRUIfXP/EkWBy8EbWfogVS3Bkq00m8u4nksUNIyk
-	aJbAIgYk+G/FxrDKpI0nXVuwiPcfmXdpHolJGC7y2nSS92u5oXzKFvCM4BsRbGRJuuxm9gB5dO+
-	d+S+M60LI433IMDjaM74seFsFNE7UjLEnfRl/2AUiBqpqcf8brCo1jAu1H/Ty5myg
-X-Gm-Gg: AfdE7cnUptJV9wEfWwZMx+ANg7y9tfFcpC/XAP1vCTqtpjMf/vDJlT6XyROcXqwp51T
-	NWwaJkOLt953qDCTEKc3Qgrgouxolh2xQPRs6KIBp5MAqM1xZKvYEN5yWoFVWYw2WHXw1jowkx8
-	RPzUlFM3BDsCz7EVVZvp6aVtD2c97kq8iwKF8UE/2rnOyF4RuyXw+CNm5u7+ObUeK8Wd3gQCIl0
-	Jd/M37sMleghap/RBXso9mzhI9B4uG2bns1oJaR2repNXfZCRndN5qdeDpHtKeLFPzEu9tQYEuy
-	l0awxmp9GyCZyXy5bOw5qHNaXvceCbGZBWARCrvP+6u3Sb+ZlUWt2V5hrtQwBv8/rrEUts4+4Q0
-	gPJJJJRi8oKcO+jQYE0hduXe34PHcfgZezrI=
-X-Received: by 2002:a05:622a:101:b0:517:8999:6c50 with SMTP id d75a77b69052e-51c8b512840mr54792381cf.8.1783596255908;
-        Thu, 09 Jul 2026 04:24:15 -0700 (PDT)
-X-Received: by 2002:a05:622a:101:b0:517:8999:6c50 with SMTP id d75a77b69052e-51c8b512840mr54792201cf.8.1783596255474;
-        Thu, 09 Jul 2026 04:24:15 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15c3f5ca3fsm291927166b.51.2026.07.09.04.24.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 04:24:14 -0700 (PDT)
-Message-ID: <97ee8a04-6278-45a4-80ff-29f1b38e0ddb@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 13:24:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kF9ZUlG2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C9F1F000E9;
+	Thu,  9 Jul 2026 11:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783596305;
+	bh=c6Qiu2fHltthm0R3Ov6SaocfILZnGRrbtjK6cCs2I2M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kF9ZUlG2lPIUlfr9drbGF0XwGMdeseEJ/FlbAa6POFmm1BbomxIrpb5EKCtOpVV00
+	 Yxhx11/y7vbVP+cwSY+MUdhVHVMkd7CmAjNm0iEMl/JaQGzY/0N8KQM32+rwu5j6hj
+	 7Do8bAJ7nZ4fKtt052oJ1wQhy0IsGZU0dz0BSd/TjaEWdQOvSEtUHV8M8ElvqNrn1e
+	 07mGIL62Q+s9gbXx3/kNOv2DsSiCuDqhXIrJ3P2LOhlJv1XF4ALkzFLIGz5dhhQdrH
+	 mQvbxPRgzcEluK76KIHXraFXZIhXQQAJTIlNw7cqVB+63kDkO0XB5OgQUqtFLKSwhZ
+	 DKQP0AOg8qzxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/8] clk: clocking-wizard: Move clk_in1 acquisition
+ before static-config check
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709111403.1579159-4-shubhrajyoti.datta@amd.com>
+References: <20260709111403.1579159-1-shubhrajyoti.datta@amd.com>
+ <20260709111403.1579159-4-shubhrajyoti.datta@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 11:25:04 +0000
+Message-Id: <20260709112505.05C9F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 5/7] clk: qcom: tcsrcc-glymur: Add Mahua QREF regulator
- support
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Taniya Das
- <taniya.das@oss.qualcomm.com>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org
-References: <20260708-tcsr_qref_0708-v8-0-62c42b5fa269@oss.qualcomm.com>
- <20260708-tcsr_qref_0708-v8-5-62c42b5fa269@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260708-tcsr_qref_0708-v8-5-62c42b5fa269@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDExMCBTYWx0ZWRfX5rG2KoFRqW9R
- jYoAa3tApuIRi6PTtVdspcNZeD7IBx4U12yamrIppxJjjzbubckk3kAlVnT2gOHKv4fsofCzjvc
- d2pQSr7fS8BjH45ll7CakE55lUtIm70=
-X-Proofpoint-GUID: UG5NrWTo0epfQSCRFHhzlVmlnvnz6ddH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDExMCBTYWx0ZWRfX/F8uvEXuIT9c
- G7HnmD0biVeEF++QEPyNBw3gvcVkjQFhTZpVzwN/wO/C864yvGCZTOqRB11V8dptEHPTX5SzTYH
- hJM0WLRFIEKPSWtsiZwhyrpGlHpd7cxW6JRMFhg7CXEwqmitBH7euO8+SY06ddqv06AZvXvELvf
- ZHjHC6rahWjXK2749ErYSfIFweXygb0CDPRcrLQylpL6I0DyfMo6xM5Bc3eSaF2rv5ojnT2/amR
- wh+ZQkdmsiA+UuSLM4dgP6tvylG0ceCDr+bz1+iiUWvd6wF1eIgqpultJEVEw9YQBA6LcbPGfV1
- KwMZZWdOrubwEpOsp3lWzh6nS7UbM0t4U5FGPHVQDxHA+LvnErRzQxuTHkyLcfu/Cd4M0h6tdrR
- E2H7J0L6aMO6eAZeeuBOrsyLn0uPuiCmFlHY9+QVj1NONLmzib2Abig2R5iqHDFu453BpOP1C38
- tDoRSht1YX/CYZn1CTQ==
-X-Authority-Analysis: v=2.4 cv=Sv2gLvO0 c=1 sm=1 tr=0 ts=6a4f84e0 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=B6dnFezVkazQL_yb00wA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: UG5NrWTo0epfQSCRFHhzlVmlnvnz6ddH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090110
 
-On 7/8/26 12:02 PM, Qiang Yu wrote:
-> Mahua is based on Glymur but uses a different QREF topology, requiring
-> distinct regulator lists and clock descriptors for its PCIe clock
-> references.
-> 
-> Add mahua-specific regulator arrays and clk descriptor table, and use
-> match_data to select the correct descriptor table per compatible string at
-> probe time.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unmet dependency on `s_axi_aclk` in static-config mode causes prob=
+e failure.
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+--- Patch [3]: [PATCH v2 3/8] clk: clocking-wizard: Move clk_in1 acquisitio=
+n before static-config check ---
+commit 2d23efc5eb24a84c2dc3c21068e9e68c699593d8
+Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-Konrad
+clk: clocking-wizard: Move clk_in1 acquisition before static-config check
+
+The clk_in1 is the input clock for both the dynamic reconfig and the
+static-config paths. Acquire clk_in1 for static-config as well. Output
+clocks are registered as fixed-factor children of clk_in1.
+
+> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
+inx/clk-xlnx-clock-wizard.c
+> index e082051221bef..ffc78c90bee6f 100644
+> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+> @@ -1178,6 +1178,11 @@ static int clk_wzrd_probe(struct platform_device *=
+pdev)
+>  		return -EINVAL;
+>  	}
+> =20
+> +	clk_wzrd->clk_in1 =3D devm_clk_get(&pdev->dev, "clk_in1");
+> +	if (IS_ERR(clk_wzrd->clk_in1))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(clk_wzrd->clk_in1),
+> +				     "failed to get clk_in1\n");
+> +
+
+[Severity: High]
+Does this probe sequence correctly handle devices using xlnx,static-config
+without an s_axi_aclk?
+
+Earlier in clk_wzrd_probe(), the driver unconditionally acquires s_axi_aclk:
+
+drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_probe() {
+    ...
+    clk_wzrd->axi_clk =3D devm_clk_get_enabled(&pdev->dev, "s_axi_aclk");
+    if (IS_ERR(clk_wzrd->axi_clk))
+        return dev_err_probe(&pdev->dev, PTR_ERR(clk_wzrd->axi_clk),
+                             "s_axi_aclk not found\n");
+    ...
+}
+
+If a device tree specifies xlnx,static-config and omits the s_axi_aclk cloc=
+k,
+wouldn't this unconditional acquisition return -ENOENT and cause the probe =
+to
+fail before it even reaches this new clk_in1 acquisition?
+
+>  	if (!of_property_present(np, "xlnx,static-config")) {
+>  		clk_wzrd->base =3D devm_platform_ioremap_resource(pdev, 0);
+>  		if (IS_ERR(clk_wzrd->base))
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709111403.1579=
+159-1-shubhrajyoti.datta@amd.com?part=3D3
