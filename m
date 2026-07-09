@@ -1,173 +1,149 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA0F386572
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 07:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71ADD3D6CA4;
+	Thu,  9 Jul 2026 07:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783583792; cv=none; b=mPPZiNKJ69XBT0WWVBdWayi9yfT6RuMMTfOhv3ZyYJ8RgGkF+SaVIaQuG2fP1DTCDyOSNWhqFL5uKeB0p0ScPOE5bZqcOtetNz5A3ANDYIhip4q26rAo3ObK4FDBQwCgjHNfovrpUC8gDylPb4ZVtIe3D7e6Vcsr8P5pFudz97E=
+	t=1783583829; cv=none; b=dp7SBzsXeP4Ps/scVS5OTKuRu2wJojMp35Zwke4KZbAL8XbMcsUlK8s+cM460tDvoJs4oDsU9E+jA+9s8uLqrAFPamlUpCxJB119FxekwbQCh898W8RmRPf4SmM7u6nYZ4wUD8VKTZRrdRFiET/xmiKnBhc/dvaXSDHT0p/TFbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783583792; c=relaxed/simple;
-	bh=DrsO9+/TcsBnB6GcVVjgzMY7RlrO4vA2zjm03UqMC6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jeGIuXLnKdSCXc4F8u6yi3JlNQL4asN0a+1GOoc7rO4oRV/w+XYF8Y6qEqNyeCf0qX9naofY5FiZYQLNby87OwVUaG34Z7muedvMWlPFK1kc4Yqi7rdg2NS3CCSAe5Cf/JM7ZDwu8N43pOgCyVWYUpVX7QDlC6I6YnnMCuNQE40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zfj+Ek1g; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PB2f2j86; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783583829; c=relaxed/simple;
+	bh=vx4ZOWY1pXeJiNfO4/RjNhrRWepiCTVeKLxuTQmSdPk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=entjAK/Nn7P+XRj+2OUg8ebzBh+Aq5lmxYRqyS5oDT+PC75EinFPyGF8rnzbQioGJrY7TjAutfB7gRje62HOU+K7HPLAD0L6ltyjXF450e/Fe7aQdtMXx+mjYjSMQy1Ibrpi2JKpSk2T2cR55kYc64h0HqCUWHpTuINWCRrMroo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZ4xm6b0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zfj+Ek1g";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PB2f2j86"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66961JDg892630
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 07:56:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=tZzhSBXFUjefGXREmfHjGo5T
-	SfL/nszPC7B8+7oKefo=; b=Zfj+Ek1gABNN/Gh5yAb3fIBha4HsGYuVpu2u51z7
-	pXo8lOWhtZq9/pC+S95fWzlR0Sz1VSCLi+bS9GGHGz95//ISs3FRncWdIRjxkONn
-	zC8T07vLI70Hkfq4pH7abbk/H6R+M6wWQsP8J8uODjvrBpJFEBD30Wnf776E7/dH
-	wDG5Lxn1+f+ez/t5RWob2F0MGXMwW9f+85kyAIgxoYncPmsBDYPkwn1qSyx6VKWF
-	WU+3GiLFVHCc4Adn8xMtSGyno/TD+4fGxLW1haKfQekyf0GJvH+qtb3E8x9aUn7g
-	4o8U+XQAblrlXsU+VID/1QsyROrxyQtTtRBFHdz4gXT/Vg==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9urvtfk3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:56:28 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-6751db2792dso255963137.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 00:56:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783583788; x=1784188588; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tZzhSBXFUjefGXREmfHjGo5TSfL/nszPC7B8+7oKefo=;
-        b=PB2f2j86pOtBR33s+m8eFyFY20aiueKoxbk97p8Xs2Kd44X6RRNKuuBFIAxnf3yGPU
-         FJCTNJIRtb9jOD8hCnRQQK3bxt2P5X1Om/lvsNS1Psdlazitv4CQnZQlvP+zZIbl1Yxl
-         Zkoqq7xkXI/tufdvLd49/D8llqvVJwMCevjbGl0KCtJrRlxcSTUct9XvV9vSDbtEQHjd
-         VJJXg6Rd30EqSQTXeWbKvF6ugvrlFnwUHcPIPdKBPuEACzmR37azcETlmmxTy3hUMpYm
-         g3zYO5VJiHZB1YS1rXFAGxJ2e+neV1uu1sRSXRuBsQc+9u5bSjndrJTUGhGuFHNBJpm8
-         BGQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783583788; x=1784188588;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tZzhSBXFUjefGXREmfHjGo5TSfL/nszPC7B8+7oKefo=;
-        b=W1Uh7YdxfdKOcCsbHBPulgl3xVfBMWiP4W2t5KeV6ySrkXK3PtmNUyKExS/7AiQ6Nx
-         9zQiAA9Nrkyw1T0/mj4WzbvkFoMhCmn7rdNNMjkQA5e3ts5jEDkerXpDN/eI+h765Qyc
-         IRuQen40O1DB0Ax5JPNbsjrgxstHOGT1YBJgzouIo/w6pNj/67ICB5HlIQvjursFkQVV
-         UbRhiGqxK2PFSnlu9Kp31V6X3CyJJbu+YkGvm/LEqVdWaT6Acdmn5cQg5uRQ6tKiJBBx
-         Q8x2qvCWNaeZJwBXsrGs+D2PS+24DrXij6ZpPd2MQ1F9BmxCJjdYFG28YaVRHTAgOtyG
-         8wXQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoZG5Vll+FQ64cHShH6ml2twZj5smcbopricd2JQiMeqxs8PpV1e0EMq8QTeKCN5IFBD4dZourRuS7Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YweM3YNpRLvvYC7+ij+R2TM6QupuzQ1GdsPPQdvLt1fwOVailGS
-	ywmgEYLy8cJNKWAavuQy2xIbkMRI9UWUfOoPoMEaVihwzuNU3oqQmkHpf5OLj/Y6Lj3FnobJEtZ
-	ZVmgJ/1N1pPl+TCasvNMrmkUfUDN4A+OwBZ3wKk0jE/tn5NBy0Obl5NveXbUQ29xq
-X-Gm-Gg: AfdE7cmCB1FuhAEoMnvnHmKqg3C9jh8+jpu/8NiZN1lPRnBEso3KqME5TEbsR/HI0cp
-	9HqZPDm/Mp5HMY4X5z+7zRyqDe9OGxUvDU0lfHimUw/gdbeeoTBVsEr6Gg5dpxbW+F0fP8JXhwN
-	d47eid7DnQX9nNFuXy6qGpzCoYXvRj575PaIVemfQqc9uXEPpX+Q+7CXBiN4sdH3oMFJiAtXuq+
-	2UAYrbiAKb7NQeWxwD8+imLJCvx5nZztC9nRKp3MIHHAsd3tnFqkgW3f9rx4iz/N7xwhjxwYXFb
-	9s7NuQS4kBvjtfbNZCfLjfT4TLAineEMvCYlvcfQcRl9Os4SfJBnkuCkqyxLjsuACH6075dpUs1
-	KoV9fiRsBwJ9Gqt1W7Seyy4s9MQOHMsf3NBwz+tN85fzlU+KA2hOO+q/sJ4QO1Vn5riw6wsHEEt
-	teXpVzc/fcArD2rml8pp5+RMei
-X-Received: by 2002:a05:6102:418e:b0:728:68cf:c76 with SMTP id ada2fe7eead31-744dfed2a9fmr3555134137.23.1783583788128;
-        Thu, 09 Jul 2026 00:56:28 -0700 (PDT)
-X-Received: by 2002:a05:6102:418e:b0:728:68cf:c76 with SMTP id ada2fe7eead31-744dfed2a9fmr3555108137.23.1783583787538;
-        Thu, 09 Jul 2026 00:56:27 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed1370110sm5020603e87.9.2026.07.09.00.56.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 00:56:26 -0700 (PDT)
-Date: Thu, 9 Jul 2026 10:56:24 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Wei Deng <wei.deng@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        mengshi.wu@oss.qualcomm.com
-Subject: Re: [PATCH 3/3] power: sequencing: pcie-m2: Deassert W_DISABLE2#
- when no UART serdev is created
-Message-ID: <gatls7n4xes7mrnhgxwsjof7owpocdmjrvuxazedznwa3zeb22@q3mtufc5dzkv>
-References: <20260709-fix-hamoa-m2-w-disable2-v1-0-5e725091266a@oss.qualcomm.com>
- <20260709-fix-hamoa-m2-w-disable2-v1-3-5e725091266a@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZ4xm6b0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B180E1F000E9;
+	Thu,  9 Jul 2026 07:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783583828;
+	bh=637hh54O/BX1i5s54RMUqvzQDP3+O8GSnJYOmxVydF8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HZ4xm6b0VcXTlvHlN74WO7j0jAiETSFKyh6eyV/i46JW9pLdYwZ+sZbbFusdiJo29
+	 XWABYq6mq8TSiR25/J4xVs19VN7CAurQcFO7i50aq3aH+2aJVIXR15tOmuIUTonHVs
+	 wp8LCtP8J2DVbeFGZvxhfCJ4OdVWs48nc/hfC6p2UAjTreL+zJfxRSeNmT2cD8fj3h
+	 Y0D/AVsVU1wrrrzYfrFKuK6DKY867ncN30eiTl4HqbowNl1gzYLqB2lyVa6qkALDbv
+	 bCWOnaIvcb0wPgImMEk77FHYdxnNJ4Utn3wf90P+j6I+VlcOzq3ZdbW/7lTaN3mojk
+	 Cud8vDBgoC+8A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 11/11] arm64: dts: apple: Initial T6030 (M3 Pro) device
+ trees
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Janne Grunau" <j@jannau.net>
+Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709-apple-t603x-initial-devices-v1-11-55b305833123@jannau.net>
+References: <20260709-apple-t603x-initial-devices-v1-0-55b305833123@jannau.net>
+ <20260709-apple-t603x-initial-devices-v1-11-55b305833123@jannau.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 07:57:07 +0000
+Message-Id: <20260709075707.B180E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709-fix-hamoa-m2-w-disable2-v1-3-5e725091266a@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA3NCBTYWx0ZWRfXxImtXFTu0/DV
- ciTHHZgyZr7BxHfpLbVohqef0mkPmwE4ni8HlXNiBIuYDa5e8G8xzRRdmbrOxEWB+PvK6WA/b/X
- SWmZhnpbn/q6B5N/+VzxLCzCNBjVNv4=
-X-Proofpoint-GUID: myv6Hurb64iab01o2ouvnbOkQ0uL1Toc
-X-Proofpoint-ORIG-GUID: myv6Hurb64iab01o2ouvnbOkQ0uL1Toc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA3NCBTYWx0ZWRfX6vG5tJ9HYQ6b
- k5eomqYnmYPUa4oNkTj1fl2FhvxjRxFqDmtg8+ai/sTFbBl8lHAp8hC0VuVSQ85VxM0XZpScW6U
- Ki2hyPopeA+II6qjpIbhJHzDAM7GJ3Ji5XP6cPmIwu5aCBhU2yiwoOJsItEwa2IC94Nsha6WkVh
- dCGz4qyS0CXWWAJtMNy6OYJx6gTmNduuFbBYH/mmrxd0G0l4/FeuVYz/GLIHYQ38wOssgeoz4Ji
- HN5F1NFqbi5LRyjGiDK1TGlKQDzgXBt0gGKukkKkeKHLM0o6akP/8iueeDwEQG+dZ+E89JiP4aE
- HnIWWyl5Q8SNch6JYLnkf277vhGePun31kH4W461q5uSB0e+soOYdeoqBeTZ61q8GIWmn7NROfX
- nFA6TaMfUQXdlycnCd/2qeXwqoAZurvCOtcNXyIwIzyCWcyNVa64L1c241KYPxrqs/zjVGf5lGt
- Czy741AUg2ZR46HnLSQ==
-X-Authority-Analysis: v=2.4 cv=H43rBeYi c=1 sm=1 tr=0 ts=6a4f542c cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=lIAhulC54n7EYnaILX0A:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 phishscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607090074
 
-On Thu, Jul 09, 2026 at 12:59:42PM +0530, Wei Deng wrote:
-> The pwrseq_m2_pci_ids[] table lists PCIe BT devices that use UART as the
-> BT transport and need a UART serdev created by the driver. When a PCIe
-> device under the M.2 connector does not match any entry in this table,
-> no UART serdev is created.
-> 
-> However, the BT subsystem of such a device may still require W_DISABLE2#
-> to be deasserted to power up. Rather than adding every possible non-UART
-> BT device ID to the table, add an else branch that deasserts W_DISABLE2#
-> whenever a PCIe device is detected under the connector but does not match
-> a UART BT entry. This allows any BT interface on the card (USB or other)
-> to enumerate without requiring explicit knowledge of its device ID.
-> 
-> The primary use case is USB BT variants of combo chips that share the
-> same PCIe device ID as their UART counterpart (e.g. WCN7851 NCM865 USB,
-> sub 0x3378, vs NCM865A UART, sub 0x337c): no UART serdev is needed, but
-> W_DISABLE2# must be deasserted so the USB BT device can enumerate.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] `gpio-ranges` for `pinctrl_nub` and `pinctrl_aop` incorrectly refe=
+rence `&pinctrl_ap`
+- [High] Missing `power-domains` property in `pinctrl_nub`
+- [Low] Incorrect unit address for `serial0` node (extra trailing zero)
+--
 
-Instead of forcibly toggling it, would it be more sensible to tie pwrseq
-into the USB too? The onboard-usb-dev implements the same idea (of
-powering up the USB device), but it predates pwrseq.
+--- Patch [11]: [PATCH 11/11] arm64: dts: apple: Initial T6030 (M3 Pro) dev=
+ice trees ---
+commit fa2e19405991d7d2172c7f5e2dd0812674d702eb
+Author: Janne Grunau <j@jannau.net>
 
-> Reassert W_DISABLE2# symmetrically when the PCIe device is removed.
-> 
-> Validated on Hamoa EVK (IQ-X7181-EVK) with WCN7851 NCM865 USB card
-> (sub 0x3378): without this change GPIO116 (W_DISABLE2#) stays low and
-> no BT interface appears; with this change GPIO116 is driven high and the
-> USB BT device enumerates and comes up via btusb.
-> 
-> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
-> ---
->  drivers/power/sequencing/pwrseq-pcie-m2.c | 33 +++++++++++++++++++++----------
->  1 file changed, 23 insertions(+), 10 deletions(-)
-> 
+arm64: dts: apple: Initial T6030 (M3 Pro) device trees
 
--- 
-With best wishes
-Dmitry
+Minimal device trees for the M3 Pro based 14-inch and 16-inch MacBook
+Pro released in November 2023.
+
+> diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/a=
+pple/t6030.dtsi
+> new file mode 100644
+> index 0000000000000..f79fbadaa92cf
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/apple/t6030.dtsi
+
+[ ... ]
+
+> +		serial0: serial@2892000000 {
+> +			compatible =3D "apple,s5l-uart";
+> +			reg =3D <0x2 0x89200000 0x0 0x1000>;
+
+[Severity: Low]
+Does this node have an incorrect unit address? The unit address
+@2892000000 has an extra trailing zero, as the reg property resolves to
+0x289200000. This might trigger a simple_bus_reg device tree compiler
+warning.
+
+[ ... ]
+
+> +		pinctrl_nub: pinctrl@3641f0000 {
+> +			compatible =3D "apple,t6030-pinctrl", "apple,t8103-pinctrl";
+> +			reg =3D <0x3 0x641f0000 0x0 0x4000>;
+
+[Severity: High]
+Is a power-domains property needed here, similar to other Apple SoCs?
+Without it, the OS might not track and enable the NUB GPIO power state,
+which could lead to an SError if the hardware is accessed while powered dow=
+n.
+
+> +
+> +			interrupt-parent =3D <&aic>;
+> +			interrupts =3D <AIC_IRQ 472 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 473 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 474 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 475 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 476 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 477 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 478 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +			gpio-ranges =3D <&pinctrl_ap 0 0 37>;
+
+[Severity: High]
+Does this incorrectly reference &pinctrl_ap instead of a local pinctrl
+node? This would map the NUB GPIOs onto the Application Processor (AP)
+pin controller's domain, which could break GPIO operations for the NUB
+controller and clobber the first 37 pins of the AP pin controller.
+
+[ ... ]
+
+> +		pinctrl_aop: pinctrl@374824000 {
+> +			compatible =3D "apple,t6030-pinctrl", "apple,t8103-pinctrl";
+> +			reg =3D <0x3 0x74824000 0x0 0x4000>;
+> +
+> +			interrupt-parent =3D <&aic>;
+> +			interrupts =3D <AIC_IRQ 394 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 395 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 396 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 397 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 398 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 399 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <AIC_IRQ 400 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			clocks =3D <&clkref>;
+> +
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +			gpio-ranges =3D <&pinctrl_ap 0 0 54>;
+
+[Severity: High]
+Is it possible this node also incorrectly references &pinctrl_ap instead
+of its local node? Similar to the pinctrl_nub node, this would break AOP
+GPIO operations and clobber the first 54 pins of the AP pin controller.
+
+> +			apple,npins =3D <54>;
+> +
+> +			interrupt-controller;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-apple-t603=
+x-initial-devices-v1-0-55b305833123@jannau.net?part=3D11
