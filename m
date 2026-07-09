@@ -1,107 +1,171 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55943FE37B
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B153F4130;
+	Thu,  9 Jul 2026 10:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783592965; cv=none; b=f74fH/F/WWXDbWH0uZtKr375qUj9/qHWgEQ+JkRFajPnrS1rcErxpVH8eYhnyTKmKslUFNlD3RTz5Bk6nvrF81eAQBdZ74NkTDvhEHOKzdkuHVw42rjGlpDc6LtPcPFOUqacw4q0g5KUzvqOPP2WdWUTj93zM61EHoTefhVjFOw=
+	t=1783593115; cv=none; b=t5o2XS/rh/Dsxo/9TfdtqwYGimxTss6r0seqAyMFQW9xr4ep3g/y2xdLL8tlwwwBGeR1DA79ZmogtqK+/Rsj311CDgoIfUiaX/8SlPrLFAf2/9zRm3734lUNpDZ9BJAFmFKvHyxuFGEim90zNHXddtj3Vcc882+EJh3MZktVPEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783592965; c=relaxed/simple;
-	bh=SGuHeYTcGstwO5n9DDhvCGTcKVnams+042+BkbBAGTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kKFmX/2UCsufdlJ+P0lnen9w/RukMJGKgy6tB3X4mqqsOOeVOJmAHlbR0SjZzqsjvDkOsawCPXPlNh2ANNgfahK8Flf3pR7Ti+kkwb29f+7nBbTA50o21nMX3vUv0JfYNrnQLwycpKtXbbVBniLwNUsaFRviDL15JWo4VOqpU/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5bf9466412fso310213e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 03:29:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783592963; x=1784197763;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZamOEqvf20g5QpO72EPkaDRuNkZPExK+6Unu2WZF2DI=;
-        b=MEuu8N8fPDAvjepA69tvpjOtRr/ULtN+XNwHjUWEU2sYxGNVxuKq9emE/gomhNBTQx
-         xBtuUOkcE/Cto8LosS6gAzzJ4L9FlWlVRUaYJtIGRSoRX+acVrAfaFhbgGV5B4wrirUn
-         ovQ99OeL1YkE0l/mz3yaxoldRiHs46Idrc9jYs8Jw0usucXcTMYxDMgyAP2w6yDpU5M/
-         W8hbW3JZHy0chTy/DNE2OFHKk5gn0awgnfJ8TGsYuIexjN3/K7elNL7kvzv1oyfERiwc
-         3JJ8w1hsWkAmBeQEt3cAPJQU7a1pnIDmX91exjXyYPBgDNCpl4vKVjKbkhHvuy8cHA62
-         LiCQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqVbmguEaPfYWDlZ1bxQZB/4kJe70c1SRyfWRpPIvZBykIxRzk6xrwtyDHMs8Znf5yAMh9L2fiPZTL6@vger.kernel.org
-X-Gm-Message-State: AOJu0YyW0DQxAi/OAObnjC6fXzNGVzPBuMwhE4i0RaZ38ui4wboNv40K
-	ZqQ2UHBjBWFdrXx0ZsGbziZIDdVOqjdxQUrMqrdAyE/kVHD+A3srWtoK33UCEdHq+zA=
-X-Gm-Gg: AfdE7cm5oeDTowqphfX75f1stTQC+anw+zYhO42I7edy7+b86hf7ovcjbcetvvlnEIR
-	v16EWNIXpxfxutPBvkUaO8WGVq/olR2Y+gV+6u5WGDVxsgrB2hAxGUUIcgheFwo9QVW00k2ULji
-	CFdlrLkMK1nBM0Ux2D9jMxYD2MliW7ppjDMdhOKe9sdUm3xbwnuaI1YHsmxef7wPnMmBspId1xK
-	UcG2ZhgZzZjb+fXrPa2GSgyQ+ZMCB1H2gWJvw2Cnq5czL0G0NX7gPEfrvNWxUinKW0oXwmzPMar
-	dTls4aORpfrDaY+bD0EQpb4Wz4OUfOOmTVKVmKGYxXms6Y/F9V4QaqQU2hKoewFvuPfYP2KhQmG
-	EBcOWM1fH1Xiz5jdfsIAsh+yYsTSWuVV0SpB+yBTSkbXh3BepgePFZqL5jW4lnWzBBp/3KiTmjr
-	//uTk6T6h1Qm2TstNwK22++Rx4cT3bATHu8S6xO4eAC4X7rV3Q9QgwZg==
-X-Received: by 2002:a05:6122:288d:b0:5bd:a810:b090 with SMTP id 71dfb90a1353d-5bf75d57b8dmr3399781e0c.5.1783592962892;
-        Thu, 09 Jul 2026 03:29:22 -0700 (PDT)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com. [209.85.221.170])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bf8bc8e082sm705348e0c.1.2026.07.09.03.29.21
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 03:29:21 -0700 (PDT)
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5bf9466412fso310182e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 03:29:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpBHgbW+2m3bSH/icU2z3k1E4SBA5ZEFgIsG41GaWhhLlupNsLQ/OBNeZZqM6vHH1tUDDn5xgrwszTF@vger.kernel.org
-X-Received: by 2002:a05:6122:16a2:b0:5bd:9d27:1ded with SMTP id
- 71dfb90a1353d-5bf75d09a7dmr3522535e0c.3.1783592960849; Thu, 09 Jul 2026
- 03:29:20 -0700 (PDT)
+	s=arc-20240116; t=1783593115; c=relaxed/simple;
+	bh=4kBh0293uRNcjEIm8JcDC43jeExZf8brb6PiYAa+U60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DseyAsOZDqPiIhFqcqVORUW2TZEb9uQpkKOqFFSU2XGAinBSCIIj6PQ2vA7KjLwxe6zO6y+1zFl1YdH0RjuRvIe5LBSy0n+rYNiSxmEoNYUA+p6Szo2pR61a0un77PXbw0mBycztC5RD4c0o0i+QfRJfD2/0G2Q1pSEGuqMqrW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXH2uh4G; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXH2uh4G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89B551F000E9;
+	Thu,  9 Jul 2026 10:31:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783593114;
+	bh=Jnd0dDhsHRaigqmdT5qRVE+w4dLZnMejtZ+vWRcs3uY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SXH2uh4Ge1oNU8mwewe+yq1dyeBeAAEIBJBAzC8NLER5JpNHwEeVT70mNhvUViJU0
+	 7xE8C2QUwH+TJmmL3T4n864wDoBd6BcflN7yCKVQ7zm8eyVmvx56dBVszuV5DbKglW
+	 nOOgPQ9ruw+wB3pCytWqpBki+Rh8ocsDKMDejVVNV6TShCqwR065w85g/l9trPnmfA
+	 PpdHHXcA2aWJUDan0DZRHEo6s5ZhLDG2eLzExn1pxUHTkKMokI+ei5tY+vTtiCAnc5
+	 m7IMeKTUCN5Wfs9uLalta7dlcgH0iVCc9X81u4atqGeNtFj+AvHxt2Nod5SYfQe/7a
+	 FKTAuIsqi2IgQ==
+Message-ID: <6f38e218-d3eb-41a6-a89b-7a48fb6fc663@kernel.org>
+Date: Thu, 9 Jul 2026 11:31:39 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1783505142.git.geert+renesas@glider.be> <23f979b0903ca11513ac339ab8b6dd40435603c5.1783505142.git.geert+renesas@glider.be>
- <a069d50d-030d-4189-ae9d-37f989829da4@mailbox.org>
-In-Reply-To: <a069d50d-030d-4189-ae9d-37f989829da4@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 9 Jul 2026 12:29:08 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWCXVYtN+jykp3Uz4tBHpWwW488=NguxSpWkYkO63BB3w@mail.gmail.com>
-X-Gm-Features: AUfX_mxryCBg0UJms9GxmXbM4sVe50wH12jLcYc8l3gBc8Xa9jNslCUWm3ZIyfc
-Message-ID: <CAMuHMdWCXVYtN+jykp3Uz4tBHpWwW488=NguxSpWkYkO63BB3w@mail.gmail.com>
-Subject: Re: [PATCH v2 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <437d1eb0-4495-406a-9501-b0515cfa3151@linaro.org>
+ <e04cb9dc-76dd-4fa8-92f4-be002bf7ee8b@linaro.org>
+ <8116c54e-4050-4e9d-b236-59d74846bd57@linaro.org>
+ <8a09875d-af5f-438b-b947-bc2b61219b70@oss.qualcomm.com>
+ <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
+ <d0768c15-453f-4d3f-8110-886a5c697b02@oss.qualcomm.com>
+ <d5407ab1-1af7-4678-ae67-5cf30ce8fa4b@kernel.org>
+ <VoXmpDKdgY_XxAvO5tkDze4jpmMzSuKTmIISTejJsbIO_FIO1JFfUBlaPkNdb14E95zf_qwtDB6myQ2wdRCh1Q==@protonmail.internalid>
+ <8fc1ddfd-0f77-4b67-b9bd-33fbd60e2046@oss.qualcomm.com>
+ <54ad9b8a-7596-4bc7-a1c3-7230cca21360@kernel.org>
+ <yhaSA5BjqcRkDQ_rt8siFRdNLmWNnlPtdVL9chnAu2_uuWn1GtdaKvupCalWKTO23sj3PM17lGrbovPi66f5Ng==@protonmail.internalid>
+ <wbjec4qhzkpvdfnrvffk7tjmlvli5q2jiuzdp2iqt2cbf2uat7@usg2mizurxpp>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <wbjec4qhzkpvdfnrvffk7tjmlvli5q2jiuzdp2iqt2cbf2uat7@usg2mizurxpp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Marek,
+On 09/07/2026 08:33, Dmitry Baryshkov wrote:
+>> Lets drop the bus idea then. I'm happy to close the conversation as
+>> peer-nodes.
+> It think, this would close the path for upgrading existing platforms to
+> split the driver / bindings. If all IFE / PHY / etc. are subnodes of the
+> CAMSS, it is easy to play backwards compatibility tricks and
+> reinstantiate devices on the fly, pick up only certain resources, etc.
+> 
+> If they are sibling nodes, it becomes much more complicated.
+> 
+> I might be wrong here. Maybe we really should try a simple (heh)
+> experiment. We have your series which adds CSI PHY as a first class
+> citizen. And we have existing platforms where CSI PHYs were packed into
+> the camss node (and camss driver FWIW).
+> 
+> Which way of representing device nodes makes it easier to migrate
+> existing platform to the CSI PHY driver, while keeping compatibility
+> with old DTs (yeah, ABI, old DTs must continue to work)?
 
-On Wed, 8 Jul 2026 at 23:55, Marek Vasut <marek.vasut@mailbox.org> wrote:
-> On 7/8/26 12:15 PM, Geert Uytterhoeven wrote:
-> > --- a/drivers/soc/renesas/Kconfig
-> > +++ b/drivers/soc/renesas/Kconfig
-> > @@ -358,6 +358,7 @@ config ARCH_R8A78000
-> >       default y if ARCH_RENESAS
-> >       default ARCH_RENESAS
->
-> I know this ^ is not related to this patch, but is the "default y" and
-> "default ARCH_RENESAS" above valid ? I can find exactly one such use of
-> Kconfig in the tree.
+I agree with your concerns about old platform migration.
 
-Thanks, both are valid, but sort of duplicates.
-I will send a patch to drop the latter, and restore consistency.
+I will run the peer-node through the DT checker and if it spits out a 
+problem we can re-evaluate. x1e will test both the old way and the new 
+way - I'm prepared to take the pain of resolving this change on x1e, so 
+that both dtb bindings work or rather continue to do so.. Either way we 
+will resolve the debate here. I'd put Kona/sm8250 as "next up" for 
+migration - I have one on the desk in front of me, so its easy to work 
+with this.
 
-Gr{oetje,eeting}s,
+camss {
+     reg = <1234>;
+     reg-names = "csiphy0";
+}
 
-                        Geert
+csiphy0@1234{}
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Is a legal DT declaration - if the csiphy@1234{} is missing use the old 
+way, if not use the new way. if the phys = <> is found, then the driver 
+will not request the csiphy regs - this means a new kernel will work 
+with an old dtb.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+I don't have that fallback logic in the CSIPHY series right now so I 
+will add it in.
+>> camss@{
+>> 	existing CSID/IFE
+>> 	IFE SID stuff goes here
+>> 	power-domains = TITAN_TOP_GDSC, IFE_GDSC
+>> }
+>>
+>> csiphy @ {
+>> }
+>>
+>> jpeg@ {
+>> 	JPEG SID stuff goes here
+>> 	power-domains = TITAN_TOP_GDSC, JPEG_GDSC
+>> }
+>>
+>> camnoc@ {
+>> 	modelled as an ICC provider and consumed by
+> I think, it's a part of camss.
+> 
+>> }
+
