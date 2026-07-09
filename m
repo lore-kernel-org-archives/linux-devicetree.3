@@ -1,64 +1,64 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5660F410D1E
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CD0416CFF
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783596025; cv=none; b=G5w4MghKYGJlo8qr8Mcglcxx/VZKKZpC27vcYeucr32nfyHVN+X2XRmvkiSCU+brg8KqmfvG/S4O+zfWABJrryso03tA1h9bOX+hD+8tMRUcny9PN6zxwnHDBglUvdN/WPVI5tSfB37HZLbWzmcOCYZrmO9wDRyladvmnY+8K2w=
+	t=1783596027; cv=none; b=kIDNp0nnqgViKjdMF/pN8/hBVUd3QmmBqGpvEmkS8Kk0QRVsIwRYyxaAHzFEic0EUvw01T3GqLKXxzdV0Fes+dwTbKdj0AIoVRx9wPI8Rg+hU3zZ7P93Z7bj2hIAb+KTtDuU6aOX7s/sISv8mlfnzcSIeD4q39/7tW+tga35sKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783596025; c=relaxed/simple;
-	bh=wyhKq5giS1/IoMkjpsGRbT+IH8vqF62PQtP170jfxxs=;
+	s=arc-20240116; t=1783596027; c=relaxed/simple;
+	bh=zJUsq8hBqUk3DkfEzxLjaBfCm9NZwOgMgh6kqisTHJA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CjmGuLkaziVTa0kfcdAlPT3we8I1AhFGw5VgeiFgRZg5hdId2A0uYlDfFPi0y09CodfgTMu7kYFDLnrm9WQpVvI4AI1vqbhfvc3QD2bqmIcwdmFqL0/HIVyFLc/MxL7O3PdzsQoMKteOhfPkNxg96YkNpO9O4r4aNYSID/75m6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=DW2150Vu; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=Yo3oInSMN8byT9dAlirc5Izercbq7WfyZbfHMZrCdPMawypTUlKZF18E/Cz3BDwP0IDlTNw70qGBIlAbBtsMMw2rn6sYtBwZMojI6gMdm3891bqeuFwSDW40iK155N/cilv/bT8g0O+rKRIRb1x/J6BQZjtGrjFk52EWKErmeWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=smSusoIS; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="DW2150Vu"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-493c59f740cso13480675e9.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 04:20:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="smSusoIS"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493bab44440so5076995e9.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 04:20:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1783596023; x=1784200823; darn=vger.kernel.org;
+        d=sartura.hr; s=sartura; t=1783596024; x=1784200824; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=damSg+KRPsx8cUGtM6YEq9+rU5hH+rbnhhK5WWTTkmU=;
-        b=DW2150Vu1HjGk1+rbvLNbgTXoXohF4O4Mx0zTTTymm6X39Gc8Q8A30A8PtFxf4yDeR
-         slTY9lL0nkzItkNXb4KLRULJ8aSlbNuBtWpiHJYPswEfbVqkNVdh1GeitZ6K/+N3ca0k
-         uLAAbZmMmRhsojejbCD1yZbivNkjOUWWG15ButysotYWxdn3LWNH4/6mqCs04OyqsaTO
-         zHwpo2rpqo6f4tsKyfrMu6vind6HeK8eQ+ON/egcVREOAWNlUAtcUx6LNqJQvCFpS+ik
-         X2PD/bPcNiZfeVM0kxwk1uJiNZKGxqUEMM0G2SLaT4LqEpg0Q5Wd0yWODGLH9SRe6Fa3
-         N80w==
+        bh=TE/86mbnkjdeQ/eUjLcxECV2tO9a4hCqlVOp6ra577s=;
+        b=smSusoISkVX+jL4XIJmaGMhWtu+f/pYeXkgC/+RAT+bnagRX4HRUz94sNmq6iouvOr
+         NHp1TS1CSaQDYBvWapijcNvXVhDSOpMX/QKM0ugjvSJsPTuezeONEdyUUEfS5RxxyXDM
+         J1YBDGE1EFfydirQz3pfmfGCmksGP5M0fGsD0Kf8RnWHqoPvE71eXTlDrHFNbRB2Gcr0
+         atK9x91TahnvbCZl5DtrJNT2GkPTT+81YKWPFZsIM5O9veGhAQ9pncSPS9JCoeDTv8Gi
+         3EiN0Nw9B14L3CM39tp3TmLGIuIGvLj2WAI/mcQL4A33Uzv+mhWckkN1yS4ag7q6aUzJ
+         bxbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783596023; x=1784200823;
+        d=1e100.net; s=20251104; t=1783596024; x=1784200824;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=damSg+KRPsx8cUGtM6YEq9+rU5hH+rbnhhK5WWTTkmU=;
-        b=m9qxkSHhYaL+bmO9WMZqAoHzbddAioSYH3ZzFiOpRUe7KROiQ7UI73hCbQ8uZ0YbN/
-         tv6dZUDHklRN7gPbvrDENqqjeVThp4LUpwdhg4VOhgZWDJJuoe0gXnSFWH3Fo9KYCU0t
-         O8gfemEN4GFWPB0D/OdJj0aYMrza+dTv1NqX26BKcrD7y90xGpkrS63fv9qKYSbDN9Ch
-         6ZATvmr0DK++0BOGrVVzu4/O5SfH3TqVuw/Ot598JmNIs0Y91G0r4PkCz/xLnOMHvTQL
-         BQQ83HcdL8Kv93Fe51vl0oxvpM/NpLSyiVroXmiT1CWMyOK3ziUQwve18TPqaJXTJiat
-         vEJA==
-X-Forwarded-Encrypted: i=1; AHgh+RozmtiNoi+lCOdtEAwSYg5ScNyQth3MgTjMdrWVz+Bt4FhEoog8IgOksXVX5QyKz4D1ilzCs99TGMlh@vger.kernel.org
-X-Gm-Message-State: AOJu0YwP70o7a4brG7yg36WH3j6rxYOa/AH+yFDkiPN1xCHvYnH2Rcvr
-	bSyY3r8rPaRH34GE2J343SqvjWV28J5R+s5wPP45K5W5ngorQvqqJ8B7+RoMUInUYK8=
-X-Gm-Gg: AfdE7clPQ9peQ91+AtPpSc20uMflemZmO0ECS5cr8cugMvaHQXB2nxFaDV7cs88bZHf
-	1QNNjerkg49EzHYORsndeaqHnmWxThP4IGLjnbHLiOFu4wXKSybrpyI2MP8dtZvvcv34tveuCtc
-	wci3LBymB0q1Y8sKTAgSczx0qsMhjzIlQ+yiiMXDYUF2BQkrMLqA1t6ZijaVow+fGASbo6HbDqP
-	o1vT9rHfD/8RIm74klPZET2qnUm1j2E0PkUN1ldJkZHs5iMuMWZCJXaFxjsf16Af8bHnfMJR0mF
-	LTTUOUhFfJKWhDU16L7zZwREMOhuWbb9y5oFlb57gBTwIFsfDLK/o5fnWHnxuaux4/TVO53lJao
-	L/6qlTRS1UcsboLxZSQym4K1MoHSj5hnKvH77vkIFU0sAyGGnOSdWSRY1oC1nkD3v7JHiOe5XPu
-	uhKQi63mL+8EeZGJRQ2m5R0F+5cJ7VAoLATAJvOm7wy/JrtXvm8RAMeko2heE5+Krif028EjVUc
-	W1LsnP9/gso7HQ4Tel8Mvq8fqnE0af0MgBWlbsBNPk=
-X-Received: by 2002:a05:600c:6286:b0:493:cc25:85cb with SMTP id 5b1f17b1804b1-493e6892d8bmr65828845e9.8.1783596022660;
-        Thu, 09 Jul 2026 04:20:22 -0700 (PDT)
+        bh=TE/86mbnkjdeQ/eUjLcxECV2tO9a4hCqlVOp6ra577s=;
+        b=nXV2ZwV6joANz/WI4L3yyzO3QW3v9Y3/o1pc9I9r9scrdar503MmrmYZs3RV4eB+sl
+         5/w/CgpubruEmqzykyRu7jgQjfPWQLdyC9Lby0IHydETnUmDJyXD2A3PkBt6xEj95tcg
+         oxPu3bx3JMIRI86Bye98B1hg4g9WNT4PSy97gBA3OSRYuJaUSyJUCCnD4x3ANyosGy0c
+         39yLoB/FqDcBf7Fy4/MRsaEapFmBFqOMxLXFANk6Pn3Qn70HNLxquWPDCWVWr/h5cFVJ
+         C2fVxQJmbPIOXmjI3cqGgnObPMK1aQ2uV6TCeGy8pEcqq/c2PTtjkM4P/eLDw/eOfyq2
+         ks4A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrflco/Omn3pEhnIf845R5fDTDbMS/rC42JaIPhrfkeyXsnyPAMmCWiJDH1eC5/wQJQmK09XinMuDzr@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxdh+ETv2AAJcTAKGK4mdb0mZyrc9FUPtpsNk5Ci/PEZ62zZz/K
+	TCFnealOKKf+C3si5T7zDKl+EoJG6W5S1erZC3kmju9EWHIBHJug/zq3jpyvmdg+7JY=
+X-Gm-Gg: AfdE7cnUzRPBFsELakh5WalxrA3jFM5qG9HgEQD8URX1oBvM4+pftj9T/2rrQAtVp/h
+	VJsib4YAYGML1hIjpIw9SqZJXEeDP6iEJ0qwBuPt4OAj/WcKWQYOXfSy+dpdp2wyXOjRseIYJLV
+	b8yGJ7OLyIKnfm7NODQKM5jwJIHKcM/wABNFAhVwxJJXpOVh8zTtDXd0CSm9yrZ5TRdyT1XHUua
+	5yy3/C75opWjfejbRnDNN6Y9RT+GNxjbO7K40tcIP4LlO8b+hG/FL4C57AkQAc7SWpAWe3rH/HB
+	8PqGIJjVWWBzHOAO0A9Lp2KR+30TqMB6h4nmdFQAH3ykPaRNnA5Q/yhGOpHaEn8Vx2IjsfGLukJ
+	5FThCmzjc/okxtlPSSfd+FidyF1Bqh5aX5iUaHdWHEfExWWcOzshnjiQ0SYNioIY0v23LgUjIDI
+	jNez2idzydeC58JF2p69q574p6r4YKrEkZXFym0MN7Po+cUY/homSfi3c/cSy+F9vbvp7+p8sui
+	sp9zFRsvYWbIXpEvjVxucSluIPCle5qwE1S1YTzHT4=
+X-Received: by 2002:a05:600c:5303:b0:493:e41a:9b23 with SMTP id 5b1f17b1804b1-493ec561411mr24840465e9.1.1783596024101;
+        Thu, 09 Jul 2026 04:20:24 -0700 (PDT)
 Received: from threadripper-fedora-workstation (dh207-15-57.xnet.hr. [88.207.15.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6f3c42sm53910475e9.1.2026.07.09.04.20.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6f3c42sm53910475e9.1.2026.07.09.04.20.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 04:20:22 -0700 (PDT)
+        Thu, 09 Jul 2026 04:20:23 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: broonie@kernel.org,
 	robh@kernel.org,
@@ -75,9 +75,9 @@ To: broonie@kernel.org,
 	daniel.machon@microchip.com
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH v2 4/5] spi: atmel-quadspi: add LAN969x QSPI support
-Date: Thu,  9 Jul 2026 13:19:10 +0200
-Message-ID: <20260709112006.390742-5-robert.marko@sartura.hr>
+Subject: [PATCH v2 5/5] arm64: dts: microchip: lan969x: add QSPI nodes
+Date: Thu,  9 Jul 2026 13:19:11 +0200
+Message-ID: <20260709112006.390742-6-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260709112006.390742-1-robert.marko@sartura.hr>
 References: <20260709112006.390742-1-robert.marko@sartura.hr>
@@ -89,120 +89,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Microchip LAN969x has two QSPI controllers based on SAMA7G5 QSPI.
-
-It requires pad calibration, supports DMA, and supports 100 MHz operation.
+Add the required DT nodes for both QSPI controllers.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
- drivers/spi/Kconfig         |  2 +-
- drivers/spi/atmel-quadspi.c | 66 ++++++++++++++++++++++++++++++++++++-
- 2 files changed, 66 insertions(+), 2 deletions(-)
+Changes in v2:
+* Make it apply on top of next-20260708, as SDMMC is not yet upstream
 
-diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-index 8782514bb89b..bb3773f99ad9 100644
---- a/drivers/spi/Kconfig
-+++ b/drivers/spi/Kconfig
-@@ -189,7 +189,7 @@ config SPI_AT91_USART
+ arch/arm64/boot/dts/microchip/lan9691.dtsi | 33 ++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+index ed997d87dd09..a8541c6a098d 100644
+--- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
++++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
+@@ -396,6 +396,39 @@ clks: clock-controller@e00c00b4 {
+ 			clock-names = "cpu", "ddr", "sys";
+ 		};
  
- config SPI_ATMEL_QUADSPI
- 	tristate "Atmel Quad SPI Controller"
--	depends on ARCH_AT91 || COMPILE_TEST
-+	depends on ARCH_MICROCHIP || COMPILE_TEST
- 	depends on OF && HAS_IOMEM
- 	help
- 	  This enables support for the Quad SPI controller in master mode.
-diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-index d1aec14e3978..f05e2617fa89 100644
---- a/drivers/spi/atmel-quadspi.c
-+++ b/drivers/spi/atmel-quadspi.c
-@@ -1152,6 +1152,58 @@ static int atmel_qspi_sama7g5_init(struct atmel_qspi *aq)
- 	return ret;
- }
- 
-+static int atmel_qspi_lan969x_init(struct atmel_qspi *aq)
-+{
-+	u32 val;
-+	int ret;
++		qspi0: spi@e0804000 {
++			compatible = "microchip,lan9691-qspi";
++			reg = <0xe0804000 0x00000100>,
++			      <0x20000000 0x08000000>;
++			reg-names = "qspi_base", "qspi_mmap";
++			interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&fabric_clk>, <&clks GCK_ID_QSPI0>;
++			clock-names = "pclk", "gclk";
++			assigned-clocks = <&clks GCK_ID_QSPI0>;
++			assigned-clock-rates = <100000000>;
++			dmas = <&dma AT91_XDMAC_DT_PERID(1)>,
++			       <&dma AT91_XDMAC_DT_PERID(0)>;
++			dma-names = "tx", "rx";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
 +
-+	atmel_qspi_write(QSPI_CR_DLLOFF, aq, QSPI_CR);
-+	ret = readl_poll_timeout(aq->regs + QSPI_SR2, val,
-+				 !(val & QSPI_SR2_DLOCK), 40,
-+				 ATMEL_QSPI_TIMEOUT);
-+	if (ret)
-+		return ret;
++		qspi2: spi@e0834000 {
++			compatible = "microchip,lan9691-qspi";
++			reg = <0xe0834000 0x00000100>,
++			      <0x30000000 0x04000000>;
++			reg-names = "qspi_base", "qspi_mmap";
++			interrupts = <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&fabric_clk>, <&clks GCK_ID_QSPI2>;
++			clock-names = "pclk", "gclk";
++			assigned-clocks = <&clks GCK_ID_QSPI2>;
++			assigned-clock-rates = <100000000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
 +
-+	ret = atmel_qspi_set_gclk(aq);
-+	if (ret)
-+		return ret;
-+
-+	/* Start the DLL before resetting the controller. */
-+	atmel_qspi_write(QSPI_CR_DLLON | QSPI_CR_STPCAL, aq, QSPI_CR);
-+	ret = readl_poll_timeout(aq->regs + QSPI_SR2, val,
-+				 (val & QSPI_SR2_DLOCK) &&
-+				 !(val & QSPI_SR2_CALBSY), 40,
-+				 ATMEL_QSPI_TIMEOUT);
-+	if (ret)
-+		return ret;
-+
-+	atmel_qspi_write(QSPI_CR_QSPIDIS, aq, QSPI_CR);
-+	ret = atmel_qspi_reg_sync(aq);
-+	if (ret)
-+		return ret;
-+
-+	atmel_qspi_write(QSPI_CR_SWRST, aq, QSPI_CR);
-+	ret = atmel_qspi_reg_sync(aq);
-+	if (ret)
-+		return ret;
-+
-+	ret = atmel_qspi_set_pad_calibration(aq);
-+	if (ret)
-+		return ret;
-+
-+	aq->mr = 0;
-+	aq->scr = 0;
-+
-+	ret = atmel_qspi_set_serial_memory_mode(aq);
-+	if (ret)
-+		return ret;
-+
-+	atmel_qspi_write(QSPI_CR_QSPIEN, aq, QSPI_CR);
-+	return readl_poll_timeout(aq->regs + QSPI_SR2, val,
-+				  (val & QSPI_SR2_QSPIENS), 40,
-+				  ATMEL_QSPI_TIMEOUT);
-+}
-+
- static int atmel_qspi_sama7g5_setup(struct spi_device *spi)
- {
- 	struct atmel_qspi *aq = spi_controller_get_devdata(spi->controller);
-@@ -1679,6 +1731,15 @@ static const struct atmel_qspi_caps atmel_sama7g5_qspi_caps = {
- 	.has_dllon = true,
- };
- 
-+static const struct atmel_qspi_caps atmel_lan969x_qspi_caps = {
-+	.max_speed_hz = SAM9X7_QSPI_MAX_SPEED_HZ,
-+	.init = atmel_qspi_lan969x_init,
-+	.has_gclk = true,
-+	.has_dma = true,
-+	.has_padcalib = true,
-+	.has_dllon = true,
-+};
-+
- static const struct of_device_id atmel_qspi_dt_ids[] = {
- 	{
- 		.compatible = "atmel,sama5d2-qspi",
-@@ -1708,7 +1769,10 @@ static const struct of_device_id atmel_qspi_dt_ids[] = {
- 		.compatible = "microchip,sama7d65-qspi",
- 		.data = &atmel_sama7d65_qspi_caps,
- 	},
--
-+	{
-+		.compatible = "microchip,lan9691-qspi",
-+		.data = &atmel_lan969x_qspi_caps,
-+	},
- 
- 	{ /* sentinel */ }
- };
+ 		reset: reset-controller@e201000c {
+ 			compatible = "microchip,lan9691-switch-reset",
+ 				     "microchip,lan966x-switch-reset";
 -- 
 2.55.0
 
