@@ -1,99 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6501A0BF1;
-	Thu,  9 Jul 2026 12:42:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFCDF9C0
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:46:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783600923; cv=none; b=Ewj8dpcItj1g37sJ30/E5YNyr6PF3thlydETTXEyWK+SgsNTHEgaHvdD/+5+EYp2Aa6OdqXhugxxnsuAxWzh0qGLEQgTfK92fmNe5XbZhZ79o5n35L27bboXpvLfSrEu0b3cxVvf6h5LUkcn/b2mpQEP6V5+33avHPBZF4X3z1s=
+	t=1783601196; cv=none; b=G7Ef4im+9b3xlqWkPuWZR6aDPGZInjxYnn98p4J1r/tqGBSajPqk9a2edfyeEPcljqpj9z3mee5rE8pYAjptDLiMq5lOI5VwzIwcN1vrKTGWNKkKcWrjM4ngjRnz75PEcxYXA9DrPiMkVxKLJu/wcb64VEYy+UvOWVOxFdf73oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783600923; c=relaxed/simple;
-	bh=2MCe7VGg9C5eHcivd6H/L/FitdOf5Z7bQBysBSZUxNI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kZiNzvJO5mKQd4IT1xvrfCEYGmeXFaWnKjAM2ET09jtkp65zBymE0umHpC71AemBDKQ978gky8aXC3xRnQLHUBBm1UjzmUGFWvkfaegvak8U6gMPBCjf5FUlS2yKSUhB9y4z87HQ7i5X5n8ZFtrNXqmxAn3wwbaajBWOKjuYavs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6Zu/moV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783601196; c=relaxed/simple;
+	bh=1fld66592M7rSQymKZU9c49lbvbSYj8/liNPoHSfAug=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bboWNg6PGwxovAd7qxnOOxUsCrN2DcFpOgjJzlhRivZpyHuEwadKPW79h/q4zKVozq6ueWvwQhSjfqjl4um+3wu2PAHenKCjQAp5B+oxTb/eir77UlrNu4sp5wWp6aWTZmWh5rFjDe//v9pQtRmCiRM+YD3AKQJNKrqo07Lxt28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UkiBxfsC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6Zu/moV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D03BB1F000E9;
-	Thu,  9 Jul 2026 12:41:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UkiBxfsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1971F000E9;
+	Thu,  9 Jul 2026 12:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783600921;
-	bh=wUBlcEnGApt/7Mw66KcgTZ0NsDullSXiDqZImdqYWzI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V6Zu/moVwwHFxIa4gm4Zz4rPu8o1umr1KjhPuYvfpRLTRGb6BufJQB4IdPCXCaviJ
-	 UF7JzVSuiDP91dTU2vbj5JGzg8vACiiqi/0aZ+a6Sgub9oS20DzsajelCtk0EPZJyX
-	 6zVikU6GJIwbY34RGJyotbcXCMhyHtcpUaRE3a/xUbsPJKYeG06Nj2Tzek/U4ToyM2
-	 yRyLh7GXzbt+0mgjpiSlfU9I1z8Q2PuUU6AdAGdULocfMaHTxje0r7GPdoG1ocuX9m
-	 jza0pNn5wRPE395q4eLOBJkH7a7XCFlgMWqV0GJmeKVqf23q00WZnm7RNgLWl7q8dz
-	 Ax0roqnXc4Uig==
-Date: Thu, 9 Jul 2026 14:41:50 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 0/5] PCI: rcar-gen4: irqchip/gic-v3: Handle GIC ITS
-Message-ID: <c6btcryv3ziapzdktqqxd7ucrlt42omlqfhduld2snzqlxdj4y@spvm4or5eacb>
-References: <20260707203743.88299-1-marek.vasut+renesas@mailbox.org>
- <ybnitlgx3dcqsesubz6jz7pn6snseuxhtz564tinbtvukianaq@33ubmcynyqmt>
- <c12941e4-3715-404e-b674-090c62b868b8@mailbox.org>
+	s=k20260515; t=1783601194;
+	bh=E7xhPjPUMue64RCK01ukbgWofLj4hGjORkv2j47fM/s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UkiBxfsC8ujQ3EIyD292bKJjp3gHp+6xCwGsZIk602tyzG6S3072nE/b9uQpQykSb
+	 viTGbzSciWmU7u8OxlkLQo3j6fNDwlY7N7CtlSGnRRoZMeZl6XxinGrLPC+//pjjBM
+	 d/ryp7Uu3vmqSfwCwpsbP43dbSJGdAVJeh9IL97c37yhiLlq4H5zJVqoGN/0TPX6VF
+	 q0PxJfVgJmf8jUM3of8mUI2J2aQlZwS5V2rkQcxHD6qBx/2/PNyiRyL5cnVIBidO5F
+	 1p1HslYe0RUNBYli2g6yveQAQN8xijtIjES3AvcQfWTQYfh5Lw92gvBWYwwvndZ6Ii
+	 sfaPPVz03GS7w==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 01/11] dt-bindings: media: qcom,sm8550-iris: Add vpu
+ sub nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-1-72bb62cb2dfd@oss.qualcomm.com>
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+ <20260709-vpu_iommu_iova_handling-v1-1-72bb62cb2dfd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 12:46:34 +0000
+Message-Id: <20260709124634.AB1971F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c12941e4-3715-404e-b674-090c62b868b8@mailbox.org>
 
-On Thu, Jul 09, 2026 at 02:33:22PM +0200, Marek Vasut wrote:
-> On 7/9/26 2:19 PM, Manivannan Sadhasivam wrote:
-> > On Tue, Jul 07, 2026 at 10:35:38PM +0200, Marek Vasut wrote:
-> > > Configure all R-Car Gen4 PCIe controller MSI registers fully, both in
-> > > case MSI are enabled and disabled.
-> > > 
-> > > Patch GIC ITS driver and add quirks for R-Car Gen4 GIC ITS, which is
-> > > configured to 32-bit address width for AXI or APB interface.
-> > > 
-> > > Switch R-Car V4H to use GIC ITS in its DT and describe the GIC ITS
-> > > implementation cacheable and shareable limitations.
-> > > 
-> > > Marek Vasut (5):
-> > >    PCI: dwc: Determine whether iMSI is used before calling .init
-> > >    PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
-> > >    irqchip/gic-v3: Refactor GIC600 limited to 32bit PA erratum handling
-> > >    irqchip/gic-v3: Add Renesas R-Car Gen4 erratum workaround
-> > 
-> > Is there a functional dependency between irqchip and PCI patches? Since the
-> > irqchip patches touch ARM64 Kconfig etc... I'm wondering if it still need to go
-> > through PCI tree.
-> I do not believe there is.
-> 
-> These two configure the PCIe controller hardware:
->   PCI: dwc: Determine whether iMSI is used before calling .init
->   PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
-> 
-> These two fill in GIC ITS quirks:
->   irqchip/gic-v3: Refactor GIC600 limited to 32bit PA erratum handling
->   irqchip/gic-v3: Add Renesas R-Car Gen4 erratum workaround
-> 
-> This one does yes depend on the two and two patches above, and can only be
-> applied once all four aforementioned patches land, otherwise things really
-> yes will break:
->   arm64: dts: renesas: r8a779g0: Add GICv3 ITS and update PCIe nodes
-> 
-> Would you like me to split the series up , or can you and Marc (?) pick the
-> relevant parts via matching trees ?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `oneOf` constraint allows invalid hybrid configurations with=
+ both top-level `iommus` and a single stream subnode.
+- [Low] Unnecessary `#address-cells` and `#size-cells` properties added to =
+the parent node will trigger a `dtc` warning because no child nodes have `r=
+eg` or `ranges` properties.
+--
 
-I'll merge the PCI patches and it is Thomas who can merge irqchips ones.
+--- Patch [1]: [RFC PATCH 01/11] dt-bindings: media: qcom,sm8550-iris: Add =
+vpu sub nodes ---
+commit 952135a9f5f9889eefcc3ad627cf18f885374f2d
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-- Mani
+dt-bindings: media: qcom,sm8550-iris: Add vpu sub nodes
 
--- 
-மணிவண்ணன் சதாசிவம்
+VPU hardwares have a limitation where VPU streams are associated with
+dedicated addressable address range. To address this limitation, the subset
+of stream/s are now represented as sub nodes, so that they can be associated
+to the respective addressable range.
+
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yam=
+l b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> index 0400ca1bff05d..bf4d24ce90bd3 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> @@ -91,6 +91,51 @@ properties:
+>    opp-table:
+>      type: object
+> =20
+> +  '#address-cells':
+> +    const: 2
+> +
+> +  '#size-cells':
+> +    const: 2
+> +
+
+[Severity: Low]
+Does the addition of #address-cells and #size-cells properties to the parent
+node trigger a dtc warning?
+
+Since none of the new child nodes (non-pixel, pixel, firmware, or opp-table)
+use a reg or ranges property, the avoid_unnecessary_addr_size compiler warn=
+ing
+might be triggered during dt_binding_check.
+
+[ ... ]
+
+> @@ -98,9 +143,15 @@ required:
+>    - interconnect-names
+>    - resets
+>    - reset-names
+> -  - iommus
+>    - dma-coherent
+> =20
+> +oneOf:
+> +  - required:
+> +      - iommus
+> +  - required:
+> +      - non-pixel
+> +      - pixel
+> +
+
+[Severity: Medium]
+Will this oneOf constraint allow invalid hybrid configurations to pass
+validation?
+
+If a devicetree incorrectly specifies a top-level iommus property alongside
+only one of the subnodes (such as non-pixel), the first branch evaluates to
+true and the second branch evaluates to false. Because exactly one branch is
+true, the oneOf condition is satisfied instead of rejecting the hybrid stat=
+e.
+
+Should the branches explicitly forbid the properties of the other branch to
+prevent this?
+
+[ ... ]
+
+> @@ -177,12 +228,21 @@ examples:
+>          resets =3D <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
+>          reset-names =3D "bus";
+> =20
+> -        iommus =3D <&apps_smmu 0x1940 0x0000>,
+> -                 <&apps_smmu 0x1947 0x0000>;
+>          dma-coherent;
+> =20
+>          operating-points-v2 =3D <&iris_opp_table>;
+> =20
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <2>;
+> +        iris_non_pixel: non-pixel {
+
+[Severity: Low]
+Does explicitly setting these properties in the example cause dt_binding_ch=
+eck
+to emit a warning due to the lack of reg properties in the child nodes?
+
+> +            iommus =3D <&apps_smmu 0x1940 0x0000>;
+> +            memory-region =3D <&iris_resv>;
+> +        };
+> +
+> +        iris_pixel: pixel {
+> +            iommus =3D <&apps_smmu 0x1947 0x0000>;
+> +        };
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-vpu_iommu_=
+iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com?part=3D1
