@@ -1,172 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B723EDACC
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:03:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3693FE649
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783587821; cv=none; b=OvKzt3t1rb8+qeCaAmpcZWkAi/1XkisGhbahFypVD9MQhYSOrxzOlM8K9ikv2br8klUV6ASCLaLaiZEP/yzMbAYupX2m+f+fhB5v+w8EsTIkLOKMbqPeZBvn/5skXJ4GAcfqiF6qLW8bvjbTdEdoxIgBiigv7t4ys+3CbENMek0=
+	t=1783587837; cv=none; b=bfiaEBSmyB+lEHMz+i4NVad32rnskiaB6cDbMduCYbhy8TShFj+YLMgoyPbknZRWDaWXZktVQ3FVUEfM3JFk3OzDR53y05B/XmS2WnwnIJ3fHIZKy857Tw4TqWR0Y81s5cm8k2OG1KGmlb/VfEHPVCVaLRaQSE2poSmIvt1xEZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783587821; c=relaxed/simple;
-	bh=Zl72qEz8Au9Wve3syQWjDvysrFKXDH5Fj7tPMKlB97g=;
+	s=arc-20240116; t=1783587837; c=relaxed/simple;
+	bh=4+XajVTrkzcmsm4mif4x1I3DXDn0MXhZmjPyuwF0BTY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uTcYTkrc3zCUX8ZxKb8mA1TW9UJeWvNyJnc6lP08wTuTPa78ckKin/Y6q9UlYcDdRSj/YxvgwZxmVZ7E8zeIz8vV1FlX4WQcf7kXjOObmaTFgyt60zC5SWenIqip3CbliAK8fDAMXh/1bnckblRP9ZaWlZhX8pr/sRoWn9uHwQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bnn2Rn1V; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Sdq41HyhXychu3766l3mhzgz9fWK7hJkKGkEC7wKuIUM+dv8tbj5eSCzSDAJ55AV3m+S1jQQriMLCEbuCSEiyIBrizFOgO89HtIQ4AUZSPcAGoCYadrZeyU8R+UD+izVcYTC+RSxJEYHf1etQAxWdjtb0JzVv6lh7oRGiyGgSk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mbbNrKBT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bnn2Rn1V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34CA71F000E9;
-	Thu,  9 Jul 2026 09:03:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mbbNrKBT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9B31F000E9;
+	Thu,  9 Jul 2026 09:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783587819;
-	bh=1nnfAmMEwJ5SPq/YjAF6W0+XHyhL4GvlqR44a2mBP1k=;
+	s=k20260515; t=1783587835;
+	bh=AO/OmAU3ae33pcKOvKgBuBSAFq+N3dAjeHaYchrXT34=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bnn2Rn1VnciLJqhjS/o5b1A/KqsJ73dfcYkdj9N5TSrw22hy9AV5rc9O5rGhpWi4C
-	 1VPKfWjTsCfWlOr/vEqrdghkcn0xZ4e2ENmYotm6UPJmKtkRtNA2GkCZfJK+66/hrP
-	 WYDh/77/J5d7cSzdRT/Uv2QKbV0r9NhdBfFZw4J5sEaV5kcWuz4sxKosFt62/iapf9
-	 YwY04L97x56mpyCGtMCeh7nwuydmqTPZFQeCNf33y7vKv4435gu9m9RbLUuOHNK/5i
-	 1nsD31lc/5Ppguw1w0gR/bq80JwB/6BIWct1qMVp/R3eI5I7IAc3yWsJPiYC+Y2r3c
-	 Q31IKkMETPsnQ==
+	b=mbbNrKBTXciv/q5eRyZLVjzvyAanSkLxg5UCzQSxZhdBH2SmyMyIBRoL0ZxwI1i8w
+	 03hOMoJu/qG8WyfhZqOdbTIGXMc0k2vM+dmMK9a72DCz5yORPCFih3fly7vv5hMbCi
+	 CjJFn4Ob0tQiNAuo18w5YP211bVhgNjbDFLqQ7T0t2N45cz2Gcmuo+riPKXRgaRqnh
+	 /3mOFHaTG9ZBvLRIDfNXzbVlnViuVHaMs3Pju9d0c7hy8yGXDFON2NEIy/QaGO9bMB
+	 mOATRR8s60dlecYOiiAQTHz7RVdRw9vHjLaNlmDMAE9GVDsqibRZ22M5OrXNRLSyBl
+	 62WgepNbNpGHw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/5] pmdomain: mediatek: Fix possible nullptr KP in
- HWV cleanup/on-check
+Subject: Re: [PATCH 2/6] iio: backend: Add support for CRC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+To: "Janani Sunil" <janani.sunil@analog.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260709084635.24912-3-angelogioacchino.delregno@collabora.com>
-References: <20260709084635.24912-1-angelogioacchino.delregno@collabora.com>
- <20260709084635.24912-3-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260709-ad7768-driver-v1-2-44e1194fd96a@analog.com>
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
+ <20260709-ad7768-driver-v1-2-44e1194fd96a@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 09:03:38 +0000
-Message-Id: <20260709090339.34CA71F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 09:03:55 +0000
+Message-Id: <20260709090355.8D9B31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Sleeping in atomic context in HW_VOTER power domain callbacks
-- [High] Use-After-Free during probe error cleanup due to incorrect teardow=
-n order
-- [High] Unbalanced clock and regulator disable during error cleanup for do=
-mains initialized with MTK_SCPD_KEEP_DEFAULT_OFF
+- [Low] The newly added `crc_enable` and `crc_disable` function pointers in=
+ `struct iio_backend_ops` are missing their corresponding descriptions in t=
+he kernel-doc block.
 --
 
---- Patch [2]: [PATCH v3 2/5] pmdomain: mediatek: Fix possible nullptr KP i=
-n HWV cleanup/on-check ---
-commit 6f66af4cf25683016b57cc9dd8c70be44004a959
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: pmdomain: mediatek: Fix possible nullptr KP in HWV cleanup/on-check
+--- Patch [2]: [PATCH 2/6] iio: backend: Add support for CRC ---
+commit 98a340052f70f8ab707e22920844ec1a36237e6a
+Author: Janani Sunil <janani.sunil@analog.com>
 
-This commit fixes a possible NULL pointer dereference in the cleanup and
-on-check paths for HW_VOTER type power domains during probe failure. It che=
-cks
-the MTCMOS type and calls the appropriate functions for checking status and
-powering off.
+iio: backend: Add support for CRC
 
-> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomai=
-n/mediatek/mtk-pm-domains.c
-> index e1cfd42234734..f0a6339affd75 100644
-> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> @@ -393,9 +393,8 @@ static int scpsys_hwv_power_on(struct generic_pm_doma=
-in *genpd)
->  	return ret;
->  };
-> =20
-> -static int scpsys_hwv_power_off(struct generic_pm_domain *genpd)
-> +static int scpsys_hwv_power_off_internal(struct scpsys_domain *pd)
->  {
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can calling sleeping functio=
-ns
-here cause a kernel panic due to scheduling while atomic?
-
-The driver sets GENPD_FLAG_IRQ_SAFE for HWV domains in scpsys_add_one_domai=
-n().
-This causes the genpd framework to acquire a spinlock and disable interrupts
-before calling scpsys_hwv_power_off() and scpsys_hwv_power_on().
-
-However, these functions then call sleeping functions like
-clk_bulk_prepare_enable() and scpsys_regulator_enable(), which would trigger
-a scheduling while atomic BUG.
-
-> -	struct scpsys_domain *pd =3D container_of(genpd, struct scpsys_domain, =
-genpd);
->  	const struct scpsys_hwv_domain_data *hwv =3D pd->hwv_data;
->  	struct scpsys *scpsys =3D pd->scpsys;
+This commit adds backend operations to enable or disable Cyclic Redundancy
+Check (CRC) processing. This allows the backend to handle data integrity
+verification for samples transmitted over the interface.
 
 [ ... ]
 
-> @@ -973,6 +992,7 @@ static int scpsys_add_subdomain(struct scpsys *scpsys=
-, struct device_node *paren
-> =20
->  static void scpsys_remove_one_domain(struct scpsys_domain *pd)
->  {
-> +	struct scpsys *scpsys =3D pd->scpsys;
->  	int ret;
-> =20
->  	/*
-> @@ -984,8 +1004,14 @@ static void scpsys_remove_one_domain(struct scpsys_=
-domain *pd)
->  		dev_err(pd->scpsys->dev,
->  			"failed to remove domain '%s' : %d - state may be inconsistent\n",
->  			pd->genpd.name, ret);
+> diff --git a/include/linux/iio/backend.h b/include/linux/iio/backend.h
+> index 3f95ed1fdf9eb..197cf1ad5e68e 100644
+> --- a/include/linux/iio/backend.h
+> +++ b/include/linux/iio/backend.h
+> @@ -189,6 +189,8 @@ struct iio_backend_ops {
+>  			       enum iio_backend_filter_type type);
+>  	int (*interface_data_align)(struct iio_backend *back, u32 timeout_us);
+>  	int (*num_lanes_set)(struct iio_backend *back, unsigned int num_lanes);
+> +	int (*crc_enable)(struct iio_backend *back);
+> +	int (*crc_disable)(struct iio_backend *back);
 
-[Severity: High]
-This is a pre-existing issue, but does ignoring this failure leave a dangli=
-ng
-pointer and cause a use-after-free?
+[Severity: Low]
+Are the kernel-doc descriptions for crc_enable and crc_disable missing from
+the documentation block above struct iio_backend_ops?
 
-During a probe error, scpsys_domain_cleanup() loops backwards by ID to tear
-down domains. If the DT topology places a parent domain at a higher reg ind=
-ex
-than its child, the loop will attempt to remove the parent first.
-
-When this happens, pm_genpd_remove() will fail with -EBUSY because the child
-is still linked (the driver doesn't explicitly unlink subdomains first).
-Because the error is ignored here, devres will eventually free the
-struct scpsys_domain memory while the domain is still linked in the global
-gpd_list.
-
-> -	if (scpsys_domain_is_on(pd))
-> -		scpsys_power_off(&pd->genpd);
-> +
-> +	if (scpsys->soc_data->type =3D=3D SCPSYS_MTCMOS_TYPE_HW_VOTER) {
-> +		if (scpsys_hwv_domain_is_enable_done(pd))
-> +			scpsys_hwv_power_off_internal(pd);
-> +	} else {
-> +		if (scpsys_domain_is_on(pd))
-> +			scpsys_power_off_internal(pd);
-> +	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could this underflow the clo=
-ck
-and regulator refcounts during error cleanup?
-
-For domains with MTK_SCPD_KEEP_DEFAULT_OFF, the driver skips calling power_=
-on()
-during initialization in scpsys_add_one_domain(). This means clocks and
-regulators are never prepared or enabled by the driver.
-
-If probe fails and the hardware was left ON by the bootloader, this check s=
-ees
-the hardware is on and forcibly calls scpsys_hwv_power_off_internal() or
-scpsys_power_off_internal(). This will unconditionally disable the clocks a=
-nd
-regulators, underflowing the refcounts for resources the driver never acqui=
-red.
-
-> =20
->  	clk_bulk_put(pd->num_clks, pd->clks);
->  	clk_bulk_put(pd->num_subsys_clks, pd->subsys_clks);
+>  	int (*ddr_enable)(struct iio_backend *back);
+>  	int (*ddr_disable)(struct iio_backend *back);
+>  	int (*data_stream_enable)(struct iio_backend *back);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709084635.2491=
-2-1-angelogioacchino.delregno@collabora.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-ad7768-dri=
+ver-v1-0-44e1194fd96a@analog.com?part=3D2
