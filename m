@@ -1,183 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6533F0746
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2A63FF1D5
 	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:19:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783588760; cv=none; b=g3wvLGenoOlGPLxhF8wbXbBQ/Asi1lCchSLdh2m44AbQ+f/08ZXiuurtEa3L/UvGfGvcm3pv1NslWd/6J8tesXXtfzCliztRBTMazWfCbTTPrP2MHW20KYecD4Rzq4N+ODRysVADtS2I+rJp2qSroMBGpvgeRRCtnNl8Kt0H3go=
+	t=1783588761; cv=none; b=GPRux4Wqu7lal1KYKTIQHCnsufRwpwlrZfbfUWCU/wN9hBlYzURbH78ZLdretTgJM3gk3TiUjatsKRLJXArcDpSpqY/RtwHW1UgCmR0TAAQRhE9A5EpIdMs4d3CopJMepJ+2PmJHb+9GviDxm7H89qVJZHJE9lQ9dOkO6gKEVIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783588760; c=relaxed/simple;
-	bh=8J9G/6CpqIeI3h5lGB9jyfD9vKPQEMT2sxxH31SWgeo=;
+	s=arc-20240116; t=1783588761; c=relaxed/simple;
+	bh=MZGKqJh/183nF+xMxQuxdw7W0NELO1qVjNo626b9i/g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S6ymY2qAeDybFSWOqohBymM2JBLlJuUcPp0Bcb48VENPErblBLzL1qHi6Wi50NCNxyoMRT/GdcOPi1wVd0c1scol0ZPhPUGds2e2sagJQPgg2dK6HgBHgiBRBNYuAT/RSTbc5EoD3OMifiJLK7IubDSMp+2T/WZ+yJpbb7RBnmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/SK/3Tn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=aMcFzuxY/KkeHWDFoNZgvADgSnmkUjKcCW48dBehyzfFSD1PjB6nzwyUyXLRI9Yr9HU6aFm4vZcnPvUqZ3ecmU7nsaUYCUg2omYr0TlcEa2bskyLzueB3sSnb2gqL8CyEA3eqoEhGXJ1wlr1qTpkFOfnfCE5oSOv7AJyNmgRNQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ozwgP1VE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/SK/3Tn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1AD01F000E9;
-	Thu,  9 Jul 2026 09:19:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ozwgP1VE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7241D1F00A3A;
+	Thu,  9 Jul 2026 09:19:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783588758;
-	bh=PJcW/6iJnTIXDSyNQkQPDt4fKQ3JZOJUTGWTOYpCKR0=;
+	s=k20260515; t=1783588759;
+	bh=iS+2aQxlpoI7UUtsv916zHgteB6OyRSlXAeos6wLctQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B/SK/3TnZfzbSlQzcqbn5ucyn29bq7d3Z0/4+YaC35Y2Hevc4/PPP3lpVormL4/ni
-	 LmyD8LaMgOyd2kcQg+4O3xpIzAhgWEZoHLUq0HTYWKozfWHyMm4hIz9h3RtlOJLGqI
-	 VapwPWSCgKJwG63UMOuZOIhrbOeJ9e5tJat3ta/1quukEgT0FZJOifqfRIkTubSmeX
-	 CXtMWxt6eXTOKDZ5AF3+c5NCNacEsFz6PSOQ8ZkGUY1pSflQ05sksZ4049mJ++omMp
-	 0cfeQci+FDzOpyFcXRxboI6MCnTTMYVLv5obUPvc7H1hfU9dexNRPGNQCMCDWJ2M56
-	 AUwvOWBQckv2g==
+	b=ozwgP1VETVn4foyNYAeJW4IsytjUl7jqjlk83zC9OPzcXgG3UlNyIOfDGzJKoBl4Q
+	 S5l/vDer1VE70Iem28MF4ZwXBQdn89nvd+3tyXTGW4Dy3aKZAnNQn22PcvGmU7SqXL
+	 Z/TqGu7l7L6RxXOejjxsaAQFg6m+x2YGT+dh1VpJCJqySaDiWhC5sIRECuw1z5eKQl
+	 QXeuTWqXPpfmJQNa9GBtlyr/jlNDiy7VsQi9X533r0Zf5xpfa+hS2geBTvQv2zEtiX
+	 58VIShWjmHrWWB6hmBTDGJ3YJJZEsoStZa3MxYmKp9aG/PDCquY4rxxz4ig8O3P2Y4
+	 qrggeKfK/novQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 4/9] net: dsa: lan9645x: add basic dsa
- driver for LAN9645X
+Subject: Re: [PATCH net-next v9 1/9] net: dsa: add tag driver for LAN9645X
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-dsa_lan9645x_switch_driver_base-v9-4-0d1512a326d7@microchip.com>
+In-Reply-To: <20260708-dsa_lan9645x_switch_driver_base-v9-1-0d1512a326d7@microchip.com>
 References: <20260708-dsa_lan9645x_switch_driver_base-v9-0-0d1512a326d7@microchip.com>
- <20260708-dsa_lan9645x_switch_driver_base-v9-4-0d1512a326d7@microchip.com>
+ <20260708-dsa_lan9645x_switch_driver_base-v9-1-0d1512a326d7@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 09:19:18 +0000
-Message-Id: <20260709091918.A1AD01F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 09:19:19 +0000
+Message-Id: <20260709091919.7241D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Source PGID mask drops all data-plane traffic to and from the CPU.
-- [Low] Trailing backslash on the last line of a Makefile variable assignme=
-nt.
-- [Low] Redundant register write to QS_INJ_CTRL_GAP_SIZE.
+- [High] The tag driver drops the socket buffer (`skb`) without freeing it =
+when encountering errors in both the RX and TX paths, leading to memory lea=
+ks.
+- [High] Hardware-accelerated VLAN tags are missed during transmission, lea=
+ding to incorrect VLAN assignment and corruption of the Internal Frame Head=
+er (IFH) by the conduit NIC hardware.
 --
 
---- Patch [4]: [PATCH net-next v9 4/9] net: dsa: lan9645x: add basic dsa dr=
-iver for LAN9645X ---
-commit 3edb62282650bb2eeb57a08ce4dcd00f00d76a54
+--- Patch [1]: [PATCH net-next v9 1/9] net: dsa: add tag driver for LAN9645=
+X ---
+commit b8cd048a28aade1f235bef2a39bd42989aa9f813
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
 
-net: dsa: lan9645x: add basic dsa driver for LAN9645X
+net: dsa: add tag driver for LAN9645X
 
-Add the LAN9645X basic DSA driver with initialization, parent regmap
-requests, port module initialization for NPI, CPU ports and front ports,
-and phylink integration for MAC side configuration.
+This commit adds a new DSA tag driver for the LAN9645x switch using a front=
+ port
+as a CPU port (NPI mode). The driver configures an asymmetrical frame forma=
+t,
+using a long prefix on extraction and no prefix on injection.
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/Makefile b/drivers/net/ds=
-a/microchip/lan9645x/Makefile
+> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
 > new file mode 100644
-> index 0000000000000..7cc0ae0ada402
+> index 0000000000000..c9049e3620a12
 > --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/Makefile
-> @@ -0,0 +1,8 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +obj-$(CONFIG_NET_DSA_MICROCHIP_LAN9645X) +=3D mchp-lan9645x.o
-> +
-> +mchp-lan9645x-objs :=3D \
-> +	lan9645x_main.o \
-> +	lan9645x_npi.o \
-> +	lan9645x_phylink.o \
-> +	lan9645x_port.o \
-
-[Severity: Low]
-This isn't a bug, but should the trailing backslash on the last line be
-removed? Leaving it could cause the build system to escape the EOF or
-absorb appended lines into the variable in future patches.
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
-/net/dsa/microchip/lan9645x/lan9645x_main.c
-> new file mode 100644
-> index 0000000000000..b253813518c20
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-
+> +++ b/net/dsa/tag_lan9645x.c
 [ ... ]
-
-> @@ -0,0 +1,447 @@
-> +static int lan9645x_setup(struct dsa_switch *ds)
+> +static void lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
+> +					struct net_device *br,
+> +					u32 *vlan_tci, u32 *tag_type)
 > +{
-
-[ ... ]
-
-> +	/* Allow VLAN table to control whether cpu copy from the pgid table is
-> +	 * enabled. Index PGID_ENTRIES is CPU src pgid, so we skip it as the
-> +	 * configuration makes little sense here.
-> +	 */
-> +	for (int i =3D 0; i < PGID_ENTRIES; ++i)
-> +		lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
-> +		       lan9645x, ANA_PGID_CFG(i));
+> +	struct vlan_ethhdr *hdr;
+> +	u16 proto, tci;
 > +
-> +	/* Disable bridging by default */
-> +	for (int p =3D 0; p < lan9645x->num_phys_ports; p++) {
-> +		lan_wr(0, lan9645x, ANA_PGID(PGID_SRC + p));
+> +	if (!br || !br_vlan_enabled(br)) {
+> +		*vlan_tci =3D 0;
+> +		*tag_type =3D LAN9645X_IFH_TAG_TYPE_C;
+> +		return;
+> +	}
+> +
+> +	hdr =3D (struct vlan_ethhdr *)skb_mac_header(skb);
+> +	br_vlan_get_proto(br, &proto);
+> +
+> +	if (skb_headlen(skb) >=3D VLAN_ETH_HLEN &&
+> +	    ntohs(hdr->h_vlan_proto) =3D=3D proto) {
+> +		vlan_remove_tag(skb, &tci);
+> +		*vlan_tci =3D tci;
 
 [Severity: High]
-Will this source PGID mask drop all data-plane traffic to and from the CPU?
+Does this miss hardware-accelerated VLAN tags?
 
-By setting this to 0 for all ports in lan9645x_setup() and later in
-lan9645x_update_fwd_mask(), it appears the user ports lack the CPU port
-module bit.
+If the DSA user device inherits the NETIF_F_HW_VLAN_CTAG_TX feature from the
+conduit device, the networking stack retains the VLAN tag in skb->vlan_tci
+with skb_vlan_tag_present(skb) =3D=3D true rather than pushing it into the =
+payload.
 
-Additionally, because the NPI port isn't part of any bridge, won't its mask
-also be set to 0, causing frames injected by the CPU to be dropped by source
-filtering before reaching the user ports?
+Because this code doesn't check for skb_vlan_tag_present() to clear the tag
+via __vlan_hwaccel_clear_tag(skb), it falls back to the port's PVID and lea=
+ves
+skb->vlan_tci intact.=20
+
+When the skb is later passed to the conduit device, its NIC hardware could
+offload the VLAN tag insertion. Since this driver just prepended a 28-byte =
+IFH,
+the NIC hardware might insert the 4-byte VLAN tag at offset 12 (expecting a
+standard Ethernet frame), overwriting and corrupting the IFH.
+
+> +	} else {
+> +		rcu_read_lock();
+> +		br_vlan_get_pvid_rcu(br, &tci);
+> +		rcu_read_unlock();
+> +		*vlan_tci =3D tci;
+> +	}
+[ ... ]
+> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
+> +				     struct net_device *ndev)
+> +{
+> +	struct dsa_port *dp =3D dsa_user_to_port(ndev);
+> +	struct dsa_switch *ds =3D dp->ds;
+> +	u32 vlan_tci, tag_type;
+> +	u32 qos_class;
+> +	void *ifh;
+> +
+> +	lan9645x_xmit_get_vlan_info(skb, dsa_port_bridge_dev_get(dp), &vlan_tci,
+> +				    &tag_type);
+> +
+> +	/* We need to make sure frame has the proper size after IFH is stripped
+> +	 * by hw.
+> +	 */
+> +	if (__skb_put_padto(skb, ETH_ZLEN, false))
+> +		return NULL;
+
+[Severity: High]
+Does this leak the skb when __skb_put_padto() fails?
+
+Since the free_on_error argument is false, __skb_put_padto() returns an err=
+or
+without freeing the buffer.=20
+
+By returning NULL here without freeing the skb, the buffer could leak under
+memory pressure. DSA core requires tag drivers to explicitly free the skb if
+they return NULL to drop the packet.
 
 > +
-> +		/* Do not forward BPDU frames to the front ports and copy them
-> +		 * to CPU
+> +	qos_class =3D netdev_get_num_tc(ndev) ?
+[ ... ]
+> +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
+> +				    struct net_device *ndev)
+> +{
+> +	u32 src_port, qos_class, vlan_tci, tag_type, popcnt, etype_ofs, cpuq;
+> +	struct dsa_port *dp;
+> +	u32 ifh_gap_len =3D 0;
+> +	u16 vlan_tpid;
+> +	u8 *ifh;
+> +
+> +	/* DSA master already consumed DMAC,SMAC,ETYPE from long prefix. Go back
+> +	 * to beginning of frame.
+> +	 */
+> +	skb_push(skb, ETH_HLEN);
+> +
+> +	if (unlikely(!pskb_may_pull(skb, LAN9645X_TOTAL_TAG_LEN)))
+> +		return NULL;
+
+[Severity: High]
+Can this leak the skb if pskb_may_pull() fails?
+
+If a received packet is smaller than expected, pskb_may_pull() fails and
+returns false.=20
+
+Returning NULL here without freeing the skb causes a memory leak, which cou=
+ld
+be triggered by receiving malformed, undersized packets.
+
+> +
+> +	/* IFH starts after our long prefix */
+> +	ifh =3D skb_pull(skb, LAN9645X_LONG_PREFIX_LEN);
+[ ... ]
+> +	skb_pull(skb, LAN9645X_IFH_LEN);
+> +
+> +	if (unlikely(!pskb_may_pull(skb, ifh_gap_len + ETH_HLEN)))
+> +		return NULL;
+
+[Severity: High]
+Would this also leak the skb for the same reason if pskb_may_pull() fails?
+
+> +
+> +	skb_pull(skb, ifh_gap_len);
+> +	skb_reset_mac_header(skb);
+[ ... ]
+> +	skb->dev =3D dsa_conduit_find_user(ndev, 0, src_port);
+> +	if (WARN_ON_ONCE(!skb->dev)) {
+> +		/* This should never happen since we have disabled reflection
+> +		 * back to the CPU.
 > +		 */
-> +		lan_wr(ANA_CPU_FWD_BPDU_CFG_BPDU_REDIR_ENA,
-> +		       lan9645x, ANA_CPU_FWD_BPDU_CFG(p));
+> +		return NULL;
 > +	}
 
-[ ... ]
+[Severity: High]
+Is it possible to leak the skb here if dsa_conduit_find_user() returns NULL?
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drivers=
-/net/dsa/microchip/lan9645x/lan9645x_port.c
-> new file mode 100644
-> index 0000000000000..0642b59419c25
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-
-[ ... ]
-
-> @@ -0,0 +1,214 @@
-> +void lan9645x_port_cpu_init(struct lan9645x *lan9645x)
-> +{
-> +	/* Map the 8 CPU extraction queues to the CPU port module (datasheet is
-> +	 * wrong)
-> +	 */
-> +	lan_wr(0, lan9645x, QSYS_CPU_GROUP_MAP);
-> +
-> +	/* Set min-spacing of EOF to SOF on injected frames to 0, on cpu device
-> +	 * 1. This is required when injecting with IFH.
-> +	 * Default values emulates delay of std preamble/IFG setting on a front
-> +	 * port.
-> +	 */
-> +	lan_rmw(QS_INJ_CTRL_GAP_SIZE_SET(0),
-> +		QS_INJ_CTRL_GAP_SIZE,
-> +		lan9645x, QS_INJ_CTRL(1));
-> +
-> +	/* Injection: Mode: manual injection | Byte_swap */
-> +	lan_wr(QS_INJ_GRP_CFG_MODE_SET(1) |
-> +	       QS_INJ_GRP_CFG_BYTE_SWAP_SET(1),
-> +	       lan9645x, QS_INJ_GRP_CFG(1));
-> +
-> +	lan_rmw(QS_INJ_CTRL_GAP_SIZE_SET(0),
-> +		QS_INJ_CTRL_GAP_SIZE,
-> +		lan9645x, QS_INJ_CTRL(1));
-
-[Severity: Low]
-This isn't a bug, but is this second write to QS_INJ_CTRL_GAP_SIZE
-intentional? It looks like it writes the exact same value as the register
-modification a few lines above.
-
-> +
-> +	lan_wr(SYS_PORT_MODE_INCL_INJ_HDR_SET(1),
-> +	       lan9645x, SYS_PORT_MODE(lan9645x->num_phys_ports + 1));
+Returning NULL without explicitly freeing the skb drops the reference to the
+buffer without freeing it.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dsa_lan964=
-5x_switch_driver_base-v9-0-0d1512a326d7@microchip.com?part=3D4
+5x_switch_driver_base-v9-0-0d1512a326d7@microchip.com?part=3D1
