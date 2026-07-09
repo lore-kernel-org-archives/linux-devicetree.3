@@ -1,136 +1,293 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893323BFE34
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 19:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1953C10A1
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 19:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783626092; cv=none; b=CyHjdebVutLwHU/M1yP8wTOR6ax6IXKVBmcEWETNd6Zv3U0cr58S6UxVsszGdPEnIvrGtI3+BySmfmnIUOEWVZRZULI3TsEEODyxjCbh2Mu2MHwiN+uG5ssjTCvKnnH/i55zsfrgleajkjqr+WSl54g1W6PtNz65KNkqgaL0gBo=
+	t=1783626110; cv=none; b=m8K5hhyCsaZD7EpU3jc0pDcl2/MZcrsDCDAVOEOQjn6Vyt7ZVOesKaK+OtKAN1Zekn3FPRRgzmfLtkV2C3iQwWWk5PuMgnkVA6I9gTw1ulvJXCheEQMj/NYQw/vL0RestkCE+FYt0cAjxXly7XGlgx+EzuK9NeKZ1rTz+U1Dol4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783626092; c=relaxed/simple;
-	bh=3GIVQCPRqYKvW4hZLuxEDQmunZ36vk38xoI1venMEmU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nSIriMN0D3Df01yD8K2gixRubarqBSmmso50t8QpW5lVaSSmD5buif2wbepG6u0OBel00GZM6sgdZ7zCWOgANi/9CuxDNnupaQ8EPptFk8pGPCKjqGA1ZN+skTnNpjdVYMOl4HSw5zWnS7MbknCI0vuNyqTYnxFDP0xaAT1hsH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXZc9qgo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783626110; c=relaxed/simple;
+	bh=c5KDRIpkqrgIyB324r/T8uJ6XqqL2QIQvvpncoMBlXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IuFbvy34pu5Dt8s+wLJA4G0OTJr4KQzv8sKQj5GEeC/dolLK/QjMGqES2r/m4xGkzovgNHaDB1GhdXuIPj7Mpu5lhq5ziEiuA18OF7f1rEaKCFdXwhC4fj0nN2zYNA5Smp9+aEtGWMjPGqhEYsUtD02nP4bkBMrSpPXFpxCnr3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EXBGbeC0; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXZc9qgo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE87D1F000E9;
-	Thu,  9 Jul 2026 19:41:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783626091;
-	bh=BSwixGZacA8eJ/2GfyJWVMp7rzTtyXn7KbRqjhiLazQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bXZc9qgoFduqHQlI3CYAzo1wII2NGTBhLb+7ggJbHdUUnX02QCanx6vtlq0uQ0eOP
-	 VpR9tbs8ZJOofZ1/16n3zTUbfVqoP3wmPF1hWuyXxDVlwi5tn9Q8hNUw7W1sR7dqbg
-	 ihbDneWsVGFdCzvbSBNQFuVg6Ikxa3VaprEZNgBr3E1QFt+7/Rox71wtLVb1Ud6B0k
-	 4Y4LtCPmV6tKS+PvFiQtenz0tmRH/wAe/aj85jmn43hTCPJj+62MC3bz/uw8h34Iec
-	 cbDlSIXwrOI+r2mhHBKuz18cxVBeM19URez1o5+Tl0eqG6O6bYGtuoO1weCKq9JMjw
-	 +1dC/AvdeGOng==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 35/36] phy: rockchip: usbdp: Re-init PHY on mux
- change
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, olteanv@gmail.com, robh@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260709-rockchip-usbdp-cleanup-v11-35-a149ac60f76c@collabora.com>
-References: <20260709-rockchip-usbdp-cleanup-v11-0-a149ac60f76c@collabora.com>
- <20260709-rockchip-usbdp-cleanup-v11-35-a149ac60f76c@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 19:41:30 +0000
-Message-Id: <20260709194130.AE87D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EXBGbeC0"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-493b27c7451so16575645e9.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 12:41:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783626107; x=1784230907; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8SsIZSGn1+5S84jnNOvQTIacDtHNl14RVJoRD9JK7Xs=;
+        b=EXBGbeC0puuqEqsyORtVfy9r0JGWQWxC6IDm+jmQHHJXX+JrCmLvf0356xseq2pzkW
+         uodHrx77iiReh9U9xpKOx1ezyt0fvMVIB9ZdbbtoBPLtQOljTlltAWo82458/wOGZZhB
+         FXEMhqR/1Y0vc4J0LMF6RXtCchqw4jpM2tvRyWOSCk/CIRNhl2iHJwvitg4iR8R88BQB
+         eqp6aHjNLAw6G1DpCLedn3xwJjIOHkJP13CZIzq1YX/UwvV+Pm4DPehyOpYsCkGMzq+A
+         oN97Hsql4dDaoALZeK++pPzUBACGFWlq2h4uiM4VNCwfvYT/3sRu4lQvmzGURmBlXHkE
+         Vjpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783626107; x=1784230907;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8SsIZSGn1+5S84jnNOvQTIacDtHNl14RVJoRD9JK7Xs=;
+        b=QSqQUDFVIyF0/D4W9dXqits5GbZ6/Oj42ZZmD7M+zWLnRR/WtUGIzIddEkNJ/C6wPK
+         z+yefFzZuc2NFoGXR92gIYpFsdnv82vkUk7mAxyWD2fEi+wTdzQ1A+pXwK1DXmyiEgLk
+         7LRrC4Cae6Q8WTViKhw6yngBKoyuTZnAAczRxuchVeTM6bsZn8994SCB72cWgev/4j6c
+         bbo9seEPgyQ+sqaXJ5IeO9s9jfJY6qR8dDS2T7p/c88j9ved06dYk5+DTRjDWzHNWTLx
+         cGI5liT3hIr2xM/zuO6Ho1dCPfPThBdP1fFJkcVGNGFar82myfY12o8/azXKmVgPmozM
+         skoQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpEruS2AmSk8Cb7LttT9c0KmI06rDNI/bmWe3nxR9qDjFdlgCvrILDhU59udPpZVmLNbk64gmbpj1NA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7oRo1F7NB51QL2HRQ73pNfBC+vcdIe3T1Ni3JQmnRcekezz4C
+	+uikk9QN/dftyx7yZ6jy3arE0PFEIq1dFqN53USPm4ksDEfXXObIZRCn
+X-Gm-Gg: AfdE7cn4eOZMx5/RYxwDW6u4hODUTrzmpUFUqjYwZF8upPJ3yeuGDudHny4t/dfe99G
+	URU17EuBm/v50hccYMBoTd0I3AqpFfV8n3dv9k7Ky4F3KVcDmt0NoipEe6tebVQyy6QbcKlosJZ
+	Sjkuhc4JRFyXAw5iSHeXisRVmgsapXVdQjimf0fvf2tbjjukFnOa90soQzDOoQgz7b6JiIIT84B
+	TAdESkpcqewh0s3f6GA4e7O62VKZrM42Ex0599trUL+vgk9Ok/bmZ+EnFuOketrTZS4/vPA21Vl
+	vLtlUiIRysIgC6mR9s5khWADr0oU0bdaS/SFKr6zt4UduMrlFydKIqqHSnGjYuzsj1uiWf5G1C7
+	A9sysIsMig8DA74WexqG7rTt6NvPxQBuSwu4T66SdH3p5Hf7JoOZ5zATLtuDsrj4akl7k5/+Nrh
+	E7MH8ATCy1irx0jJE=
+X-Received: by 2002:a05:600d:6447:10b0:493:c991:8e56 with SMTP id 5b1f17b1804b1-493f2b24cfbmr3928245e9.4.1783626106445;
+        Thu, 09 Jul 2026 12:41:46 -0700 (PDT)
+Received: from builder ([2001:9e8:f110:7f16:be24:11ff:fe30:5d85])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6e8844sm93126605e9.10.2026.07.09.12.41.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 12:41:46 -0700 (PDT)
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>
+Subject: [PATCH net-next v6 0/4] net: pse-pd: add Realtek PSE MCU support
+Date: Thu,  9 Jul 2026 19:41:19 +0000
+Message-ID: <20260709194125.2784507-1-jelonek.jonas@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+This series adds a PSE-PD driver for the microcontroller (MCU) that
+fronts the PSE silicon on a range of managed switches, together with its
+DT binding.
 
-New issues:
-- [High] Deadlock / Recursive Lock
+Hardware model
+==============
 
-Pre-existing issues:
-- [High] Silent DP PHY State Loss
---
+These boards do not expose the PSE chips to the host directly. A small
+microcontroller sits on an I2C/SMBus or UART bus and manages one or more
+PSE chips behind it; the host CPU only ever talks to that MCU, using a
+fixed 12-byte request/response protocol with a trailing checksum. The
+PSE silicon never appears on the bus.
 
---- Patch [35]: [PATCH v11 35/36] phy: rockchip: usbdp: Re-init PHY on mux =
-change ---
-commit 63e6102eaff345b4ebf6faefafd6aae88e7bb98e
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Two generations of the protocol exist, both Realtek's: an older one on
+boards with Broadcom PSE silicon (BCM59111, BCM59121) and a newer one
+used with Realtek's own PSE silicon (RTL8238B, RTL8239, RTL8239C). They
+diverge in opcode numbering and a few response layouts; the driver
+abstracts that behind a per-dialect opcode table and parser hooks,
+selected by the compatible. The specific PSE chip behind the MCU is
+detected at runtime and only influences per-chip constants (power scaling
+and the per-port cap).
 
-phy: rockchip: usbdp: Re-init PHY on mux change
+The compatibles
+===============
 
-Ensure that the right part of the PHY are powered up when the mode changes.
-This ensures the PHY is re-initialized when cable orientation changes witho=
-ut
-DP being involved, and when switching from DP-only into a mode with USB
-support.
+The protocol compatibles name two generations of the Realtek protocol,
+with the I2C framing folded in:
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index c5ad300620a65..ecf0ed0139f69 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1383,7 +1383,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_=
-dev *mux,
-> =20
->  	rk_udphy_set_typec_state(udphy, state->mode);
-> =20
-> -	return 0;
-> +	return rk_udphy_update_power_state(udphy);
+  realtek,pse-mcu-gen1        gen1, UART
+  realtek,pse-mcu-gen1-smbus  gen1, I2C/SMBus
+  realtek,pse-mcu-gen2        gen2, UART
+  realtek,pse-mcu-gen2-smbus  gen2, I2C/SMBus
+  realtek,pse-mcu-gen2-i2c    gen2, raw I2C
 
-[Severity: High]
-Could this lead to a recursive locking deadlock if the DWC3 controller is
-runtime-suspended?
+and each board carries a device-specific compatible that falls back to one
+of these, e.g.
 
-Since rk_udphy_typec_mux_set() holds udphy->mutex using a guard, the
-following chain seems to re-acquire the same mutex:
+  compatible = "zyxel,xs1930-12hp-pse", "realtek,pse-mcu-gen2-smbus";
 
-rk_udphy_typec_mux_set()
-   guard(mutex)(&udphy->mutex);
-   rk_udphy_update_power_state()
-      phy_notify_reset(udphy->phy_u3, PHY_NOTIFY_PRE_RESET);
+The naming is the part most likely to raise questions, so the reasoning up
+front (the binding documents it too):
 
-If the DWC3 driver handles this notification in device role:
+  - The node describes the MCU together with its Realtek firmware, not a
+    PSE chip and not the microcontroller silicon. The PSE chips sit behind
+    the MCU, never appear on the bus, and are reported by the MCU and
+    detected at runtime; the microcontroller itself is a general-purpose
+    part (GigaDevice, Nuvoton, ...) that varies across boards. What is
+    fixed and Realtek's is the firmware and its host protocol - hence the
+    'realtek' prefix.
 
-dwc3_usb3_phy_notify()
-   pm_runtime_resume_and_get()
-      ...
-      dwc3_resume_common()
-         dwc3_core_init_for_resume()
-            dwc3_phy_init()
-               phy_init()
+  - gen1 and gen2 are two generations of that protocol, both Realtek's:
+    gen1 on older boards fronting Broadcom PSE silicon, gen2 the altered
+    protocol used once Realtek shipped their own PSE silicon. The
+    generation is fixed per board and is all the driver needs at DT-parse
+    time, so the compatible encodes it.
 
-The PHY init then attempts to acquire the lock again:
+  - On I2C the MCU firmware expects one of two framings - SMBus or raw
+    I2C - which is a genuine programming-model difference, so it is part
+    of the compatible ('-smbus' / '-i2c'). A UART attachment carries no
+    framing suffix; the transport is given structurally by the parent
+    'serial' node.
 
-rk_udphy_usb3_phy_init()
-   guard(mutex)(&udphy->mutex);
+  - Each board additionally carries a device-specific compatible that
+    falls back to the protocol one. The driver only ever binds on the
+    protocol compatible; the device-specific string keeps the binding
+    specific and reserves a place for a future per-board quirk without
+    having to retrofit device trees already deployed in the field.
 
-Will this cause a system freeze when hotplugging or switching modes?
+Testing
+=======
+
+ - Linksys LGS328MPCv2     (RTL8238B, I2C)
+ - Zyxel GS1900-10HP A1    (BCM59121, UART)
+ - Zyxel GS1900-10HP B1    (RTL8238B, UART)
+ - Zyxel GS1920-24HPv2     (BCM59121, SMBus)
+ - Zyxel XMG1915-10EP      (RTL8239C, UART)
+ - Zyxel XS1930-12HP       (RTL8239, SMBus)
+
+---
+v5 -> v6:
+ - dt-bindings: reworked the compatibles per DT-maintainer feedback
+    - name the two protocol generations -gen1 / -gen2 (both Realtek's)
+      instead of the -rtk / -brcm dialect suffix (Conor)
+    - encode the I2C framing in the compatible (-smbus / raw -i2c) and
+      drop the realtek,i2c-protocol property (Rob)
+    - add device-specific (switch) compatibles that fall back to the
+      protocol compatibles, with the board↔protocol pairing enforced in
+      the schema (Conor)
+    - rewrite the description accordingly
+ - driver: track the binding rework
+    - match on realtek,pse-mcu-gen{1,2}[-smbus|-i2c]; the I2C transport
+      selects SMBus-vs-raw framing from a native_i2c match-data flag
+      instead of reading the property (drops rtpse_mcu_needs_i2c_proto)
+    - rename the internal dialect and parser symbols rtk/brcm → gen1/gen2
+      (chip identifiers like RTL8238B/BCM59121 kept)
+ - i2c: DMA-safe raw-I2C path — bounce each frame through a heap buffer,
+   since i2c_master_send()/i2c_master_recv() may DMA and the core's
+   frame buffers are on the stack (SMBus and UART paths unaffected)
+   (sashiko-nipa)
+ - includes: drop unused linux/mod_devicetable.h (core) (Uwe)
+ - includes: drop unused linux/delay.h (uart); add
+   linux/regulator/consumer.h (core) and linux/slab.h + linux/string.h
+   (i2c)
+ - commit messages — update the binding, core, and I2C messages to
+   match (generations, framing-in-compatible, DMA note)
+v5: https://lore.kernel.org/netdev/20260706112425.3149226-1-jelonek.jonas@gmail.com/
+
+v4 -> v5:
+ - split the single driver patch into three — core / I2C transport / UART
+   transport. Binding stays patch 1, unchanged in shape. (Paolo)
+   Please give guidance on how to if I should split more.
+ - core: set_pw_limit: guard divide-by-zero on pw_set_lsb_mW; cap the
+   programmed value with U8_MAX instead of a bare 0xff; prg_val is now u8.
+   (Oleksij, Sashiko)
+ - core: discover: also retry transient boot-time frames (-EBADMSG / -EBADE)
+   within the bounded window, not just silence/NAK/not-ready (Sashiko).
+ - core: pw_status: report Broadcom 0x3 → TEST and 0x5 → OTHERFAULT
+   (new STS_TEST/STS_OTHER_FAULT); pw_class comment corrected (0x3/0x5
+   aren't "other fault" on RTL; class-0-vs-fault note). (Sashiko)
+ - core: dropped unused decoded fields — function_mode, cls_type,
+   disconnect_type, pair_type, inrush_mode, limit_type, chip_addr,
+   channel. (Oleksij)
+ - core: removed forward declarations by moving the response structs above
+   the dialect struct. (Oleksij)
+ - core: get_pw_limit_ranges: reverse-Christmas-tree local ordering.
+   (Oleksij)
+ - core: dialect comment clarified (only divergent responses are hooked);
+   commit message "parser hooks" tightened to "…for the responses that
+   differ." (Sashiko)
+ - core: made parse_system_info hook void, both implementations return
+   hardcoded 0. (Paolo)
+ - core: dropped GFP_KERNEL from kzalloc_obj. (Paolo)
+ - core: dropped unneeded u32 cast
+ - kept probe dev_info() for now deliberately, due to different opinions
+   on whether a probe might print or not
+ - NOT included Acked-by from Oleksij, due to several changes
+v4: https://lore.kernel.org/netdev/20260630105651.756058-1-jelonek.jonas@gmail.com/
+
+v3 -> v4:
+ - move owner setting from core to transport, mitigating possible
+   use-after-free (Sashiko)
+ - resend because net-next was still closed
+v3: https://lore.kernel.org/netdev/20260628222705.4052815-1-jelonek.jonas@gmail.com/
+
+v2 -> v3:
+ - dt-bindings: using brcm instead of bcm for Broadcom
+ - rename the driver files and Kconfig symbols to realtek-pse-mcu-* /
+   PSE_REALTEK_MCU* for consistency with the realtek,pse-mcu-* compatibles
+ - rename driver-internal prefix from 'rtpse_' to 'rtpse_mcu' to
+   emphasize this targets the MCU-centric setup (and leaves room open
+   for eventual directly addressable PSE chips)
+ - rework the vendor-prefix rationale (binding + commit message): the
+   prefix names the protocol/firmware owner (Realtek documents the protocol
+   and supplies the firmware), and -rtk/-brcm select the Realtek or Broadcom
+   protocol dialect
+ - core: reject zeroed/echo-mismatched responses via the echoed seq_num
+   (a BCM PORT_ENABLE on port 0 was otherwise accepted from an all-zero
+   frame)
+ - core: enable the PoE supply before global-enabling the MCU, and roll
+   back the global enable on probe failure or driver removal
+ - core: drop inline from helpers (flagged by automated check)
+ - uart: update the completion under rx_lock too, so a late frame can no
+   longer make the next transaction fail spuriously with -EIO
+v2: https://lore.kernel.org/netdev/20260612132944.460646-1-jelonek.jonas@gmail.com/
+
+v1 -> v2:
+ - all points flagged by Sashiko addressed:
+ - uart: drop frame overflow (return count, not the stored length) so
+   serdev retains no leftover bytes that would misalign the next response
+ - uart: guard rx_buf/rx_len with a spinlock to close a data race between
+   the async receive_buf callback and send/recv
+ - i2c: return terminal MCU error opcodes (0xfd/0xfe) to the core
+   immediately instead of polling to the 1 s timeout
+ - core: cap BCM59121 at 30 W (802.3at) — the basic 8-bit set command
+   can't program the advertised 60 W (it silently clamped to 51 W)
+v1: https://lore.kernel.org/netdev/20260608205758.1830521-1-jelonek.jonas@gmail.com/
+
+---
+Jonas Jelonek (4):
+  dt-bindings: net: pse-pd: add bindings for Realtek PSE MCU
+  net: pse-pd: add Realtek PSE MCU core
+  net: pse-pd: realtek-pse-mcu: add I2C transport
+  net: pse-pd: realtek-pse-mcu: add UART transport
+
+ .../bindings/net/pse-pd/realtek,pse-mcu.yaml  | 176 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/net/pse-pd/Kconfig                    |  28 +
+ drivers/net/pse-pd/Makefile                   |   3 +
+ drivers/net/pse-pd/realtek-pse-mcu-core.c     | 993 ++++++++++++++++++
+ drivers/net/pse-pd/realtek-pse-mcu-i2c.c      | 171 +++
+ drivers/net/pse-pd/realtek-pse-mcu-uart.c     | 155 +++
+ drivers/net/pse-pd/realtek-pse-mcu.h          |  90 ++
+ 8 files changed, 1623 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu.yaml
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-core.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-i2c.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-uart.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu.h
 
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does invoking
-rk_udphy_update_power_state() during a mux change cause the DP link to be
-permanently lost?
+base-commit: 6d86ce0da0d5631721c142ea9bb5499cc129b347
+-- 
+2.51.0
 
-When the power state updates, the PHY is re-initialized:
-
-rk_udphy_update_power_state()
-   rk_udphy_init()
-      regmap_write(..., FIELD_PREP(CMN_DP_LANE_EN_ALL, 0));
-
-This reset sequence clears the CMN_DP_LANE_EN_ALL bits and disables DP
-transmission. Since rk_udphy_dp_lane_enable() does not appear to be called
-afterward to restore the active DP configuration, does the DRM subsystem
-lose the link without a full power cycle?
-
->  }
-> =20
->  static void rk_udphy_typec_mux_unregister(void *data)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-rockchip-u=
-sbdp-cleanup-v11-0-a149ac60f76c@collabora.com?part=3D35
