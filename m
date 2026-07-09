@@ -1,191 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C71B39937B;
-	Thu,  9 Jul 2026 17:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9464A138B;
+	Thu,  9 Jul 2026 17:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783619885; cv=none; b=W2Q02dnpdy34/ticVoEZxbcjB8UWrsSwZQTSZXkKzrzH4/+hZSkq4dv+neM7J/+Mw3oWNyNjNyIC6tRmYcIKSht+Oe86ojYq0Y0IQZWM5fDBFROBFP4KpnIePCf/qOc8eN0lnSAiP9kBCHPW9uPG8YSaxTsxstgipcFxfEqZ54w=
+	t=1783619979; cv=none; b=jafXKGDhVk2ygRv8WQuWRHu9w3Ypm7ZM39iN+86yEiAmM7pv1erpOHcrsNMxoTMNVrSvlAWWyzsedMyj5dLh/7mLugKZDkZVSRRgexXF2LOqFfRaVLYjhrMWElF0YwVbX3jkeetWI66BHtfvNsIC9d/5WYunpAhDvD9uwsUv3D4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783619885; c=relaxed/simple;
-	bh=u4rzu6YfPIc1q+pM0Hh0Y2/NQqGaNFdiDn+QTvU16Jw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Bt2xDN2zUoQQcgnGNbU2uFnuJgKaxw1G14+l8iGaY7btE7vTLn279c0lo+z+MbIOXEOZXpgbftWA3fePw0LHHOHVZ2KATY1OuA4J0cZFc1fphst6fMg8+k/KaugjKsVis6t70HxCqHJqDNuh0OgNqT7XvQX362AmvOSHoHJsr1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5I29HUi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783619979; c=relaxed/simple;
+	bh=HhBXEND9TcyG4vCf4K6lxzTUOUgSJ+9Zbj1rSh0OxCk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=siJWd9oz9IFy/RzC8DSsyCGOn0fPSO616bCamDO9cZ3n2D/ypksrHK8u8lKdc9VpdDG/MGCnodkxsEB/g9vu/NmwCEfPF9cm35lE2u/4+JjiFdrR1AvTc2Ncv7Hucw3j8zIGZfz9Zs5TDg22CkozBIYJ1U5CqkLW3AzHaKDgVKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UlnnUMf7; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5I29HUi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01AC81F000E9;
-	Thu,  9 Jul 2026 17:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783619884;
-	bh=LRJ1/OPtx1Iim/kW87V48kJYVXQps8lsYFvlD6icIBk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n5I29HUiseWe37yvndAIEuS+lV5BsGhqvU4NXd/jsX4v+r7Ie4rxuX3TpupyHDj9W
-	 sO04Mvgsk4+I0mSKt1FUxmbhmTIVqiYF2YuAbrRVUbnkGuh318xOJ6VgGlrXBXJlKl
-	 mvb3uq4IdESiEZFShCt+6VGLmPb3IHD3rDIqUPOprQ1XcjptaeQFINqAE/SXvmm57R
-	 98mark9lO/9yMWXUQETpA1Ty5RNwQhLJpCoCSrgP3WqqspWlcLBXvvgY0UtzA90Sq+
-	 vANLKuP/VbEPkgC2MfgJx1nx1hvaxGtUyPjN6YdNw/MKdZWZM8iJimjAsqQa7+ELU1
-	 C181nltTPgCuQ==
-Date: Thu, 9 Jul 2026 18:57:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jianhua Lin <jianhua.lin@mediatek.com>
-Cc: nicolas@ndufresne.ca, mchehab@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Project_Global_Chrome_Upstream_Group@mediatek.com,
-	sirius.wang@mediatek.com, vince-wl.liu@mediatek.com,
-	jh.hsu@mediatek.com
-Subject: Re: [PATCH v9 1/3] dt-bindings: media: mediatek-jpeg-decoder: add
- MT8189 compatible string
-Message-ID: <20260709-octane-refold-37324d9f2aad@spud>
-References: <20260709032657.25730-1-jianhua.lin@mediatek.com>
- <20260709032657.25730-2-jianhua.lin@mediatek.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UlnnUMf7"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669HXHcI2296148;
+	Thu, 9 Jul 2026 17:59:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=GxVBimFKLA/
+	+dc6O86DyZX01do7mut7irghFvAnFxL8=; b=UlnnUMf7pXH42WIoc0E4UfcBJSF
+	BtMvBqYJFneI5sGrHcrG9L3X4PZU20XgvSkSUtg5/1Swy8RBLm06C+q0SuQGhRUe
+	QQ0YUi/akVkNGBBboi2Kd/k63TSE+h/QgCKePJCjVvtUfs5nScbMEp57zgRRuF+P
+	9xC2WvuZt7JttGKYI0paGnwb1tNPQi8CoP5dSG78yNRKzFJ1Y3OWes1mEoTysASQ
+	BCZ/eYp2KnbWR0phu1r9k+J8XX6a1zxM6YRi4LVgnPzFnAcB1bjDJa3QQcRxWyCJ
+	KYQJ3D3rjZna6UQZT07LupURTSyctOs5ePpxD8TJoRySzoQHckT6+zub0hA==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa55vkhqn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 17:59:21 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 669HxIHk020152;
+	Thu, 9 Jul 2026 17:59:18 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f6u8m4wru-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 17:59:18 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 669HxHCe020137;
+	Thu, 9 Jul 2026 17:59:17 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 669HxH9W020133
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 17:59:17 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 84D64630; Thu,  9 Jul 2026 23:29:16 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] ASoC: dt-bindings: qcom,wsa8855: add Qualcomm WSA8855 speaker amplifier
+Date: Thu,  9 Jul 2026 23:29:14 +0530
+Message-Id: <20260709175915.3805851-2-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260709175915.3805851-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260709175915.3805851-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="APjTtQgaMDz/nB9h"
-Content-Disposition: inline
-In-Reply-To: <20260709032657.25730-2-jianhua.lin@mediatek.com>
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE3NyBTYWx0ZWRfX6ngr33ZFZJzP
+ qmahu8UeEKADnoRYvcpzgJ5t0Bgd6AVsKJwQuGNZ/m/TC8PQdkTQiTBKSIcl66gT9iFpZNiIbuJ
+ 9pRZEVqQCDy6xfok5MWWWLjrcT0RthXa9NiaGF+9vnM2LWEZF6R79pR2ANdFz8BUviMSNgoGD85
+ 1LmMy9cZmgMtsKbrI7b3/+EXaP4uDqeY7lHuT4wGfw8bwfgjG6sbzSFTU9xoEWFCgOz901q8I4l
+ ZZc2j4Ca7lwL4eG+uCeXuXCEcDATLIsrVX4U097JMC1oKxjeWkTgosWWpNGsV+zLRfUPZBrUPeJ
+ eD4KRt5zQ4W8UOJrRyVhu5EwJTOPZrshfgSNmJQQQhT2lsUok2SxgLx4CTZpOxy7Poj3vUhx+IV
+ KyGO7L/U36ixCyO+GLIddQu1wbhTddp5/1vtB8n/ARcVd+AtJ8TrgvybSjOFcVCG28TgIAjlhNl
+ O5XfN6MkHfZxtpSpdxA==
+X-Authority-Analysis: v=2.4 cv=KfDidwYD c=1 sm=1 tr=0 ts=6a4fe179 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8
+ a=PrSW79t9vC0gYNWULBgA:9 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE3NyBTYWx0ZWRfXxMpPrDM7Cfg9
+ QgilTzjdQKAnDh47lEApXWNEegGeKs6g5uIFifoIqUF667IyKp1O7Jp2LHYJ3ipAECRZ261YmV9
+ xyv5ei7qe1DD7Jq9QjIZBz9hUoA9+wg=
+X-Proofpoint-ORIG-GUID: W3o5U4IgKShzOg6Yuew6RfqZYZbuy5vk
+X-Proofpoint-GUID: W3o5U4IgKShzOg6Yuew6RfqZYZbuy5vk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ adultscore=0 clxscore=1011 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090177
 
---APjTtQgaMDz/nB9h
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add bindings for the Qualcomm WSA8855 stereo smart speaker amplifier.
 
-On Thu, Jul 09, 2026 at 11:26:54AM +0800, Jianhua Lin wrote:
-> Add the compatible string for the JPEG decoder block found in the
-> MediaTek MT8189 SoC.
->=20
-> Compared to previous generation ICs, the MT8189 JPEG decoder requires
-> 34-bit IOVA address space support and only needs a single clock
-> ("jpgdec") instead of two. Therefore, it is added as a standalone
-> compatible string without falling back to older SoCs.
->=20
-> Update the binding schema to include the new compatible string and add
-> an `allOf` block with conditional checks. This enforces the single clock
-> requirement for MT8189 while preserving the two-clock requirement
-> ("jpgdec-smi", "jpgdec") for older SoCs.
->=20
-> Signed-off-by: Jianhua Lin <jianhua.lin@mediatek.com>
-> ---
->  .../bindings/media/mediatek-jpeg-decoder.yaml | 49 ++++++++++++++++---
->  1 file changed, 41 insertions(+), 8 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-decode=
-r.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
-> index a4aacd3eb189..13fb4fb61f2b 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
-> @@ -15,10 +15,10 @@ description: |-
->  properties:
->    compatible:
->      oneOf:
-> -      - items:
-> -          - enum:
-> -              - mediatek,mt8173-jpgdec
-> -              - mediatek,mt2701-jpgdec
-> +      - enum:
-> +          - mediatek,mt2701-jpgdec
-> +          - mediatek,mt8173-jpgdec
-> +          - mediatek,mt8189-jpgdec
->        - items:
->            - enum:
->                - mediatek,mt7623-jpgdec
-> @@ -32,13 +32,16 @@ properties:
->      maxItems: 1
-> =20
->    clocks:
-> +    minItems: 1
->      maxItems: 2
-> -    minItems: 2
-> =20
->    clock-names:
-> -    items:
-> -      - const: jpgdec-smi
-> -      - const: jpgdec
-> +    oneOf:
-> +      - items:
-> +          - const: jpgdec
-> +      - items:
-> +          - const: jpgdec-smi
-> +          - const: jpgdec
-> =20
->    power-domains:
->      maxItems: 1
-> @@ -51,6 +54,15 @@ properties:
->        Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for de=
-tails.
->        Ports are according to the HW.
-> =20
-> +  mediatek,larb:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: |
-> +      A phandle to the local arbiter (SMI LARB) node. This explicitly
-> +      describes the hardware topology where the JPEG block is connected
-> +      to a dedicated SMI LARB for memory bandwidth arbitration. It is
-> +      required to accurately represent the hardware connection independe=
-ntly
-> +      of the IOMMU.
-> +
->  required:
->    - compatible
->    - reg
-> @@ -60,6 +72,27 @@ required:
->    - power-domains
->    - iommus
-> =20
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: mediatek,mt8189-jpgdec
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        clock-names:
-> +          maxItems: 1
-> +      required:
-> +        - mediatek,larb
-> +    else:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +        clock-names:
-> +          minItems: 2
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ .../bindings/sound/qcom,wsa8855.yaml          | 93 +++++++++++++++++++
+ 1 file changed, 93 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wsa8855.yaml
 
-Please add a mediatek,larb: false here too.
+diff --git a/Documentation/devicetree/bindings/sound/qcom,wsa8855.yaml b/Documentation/devicetree/bindings/sound/qcom,wsa8855.yaml
+new file mode 100644
+index 000000000..00a6a05e9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/qcom,wsa8855.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/qcom,wsa8855.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm WSA8855 stereo smart speaker amplifier
++
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
++  - Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
++
++description:
++  WSA885X is a Qualcomm Aqstic stereo smart speaker amplifier. It uses a PCM
++  audio interface, an I2C control interface, and a Class-H amplifier path for
++  high efficiency, low output noise, and low idle power consumption.
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: qcom,wsa8855
++
++  reg:
++    maxItems: 1
++
++  '#sound-dai-cells':
++    const: 0
++
++  powerdown-gpios:
++    description: GPIO controlling the SD_N powerdown pin.
++    maxItems: 1
++
++  reset-gpios:
++    description: GPIO controlling the SD_N powerdown pin.
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  vdd-1p8-supply: true
++
++  vdd-io-supply: true
++
++  qcom,battery-config:
++    description:
++      Battery topology connected to the speaker amplifier. 1S indicates one
++      battery cell in series, while 2S indicates two battery cells in series.
++    $ref: /schemas/types.yaml#/definitions/string
++    default: 1s
++    enum:
++      - 1s
++      - 2s
++
++required:
++  - compatible
++  - reg
++  - '#sound-dai-cells'
++  - interrupts
++  - vdd-1p8-supply
++  - vdd-io-supply
++
++oneOf:
++  - required:
++      - powerdown-gpios
++  - required:
++      - reset-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        speaker@c {
++            compatible = "qcom,wsa8855";
++            reg = <0x0c>;
++            #sound-dai-cells = <0>;
++            powerdown-gpios = <&tlmm 11 GPIO_ACTIVE_LOW>;
++            interrupt-parent = <&tlmm>;
++            interrupts = <77 IRQ_TYPE_EDGE_FALLING>;
++            vdd-1p8-supply = <&vreg_l2g_1p8>;
++            vdd-io-supply = <&vreg_l1g_1p2>;
++            qcom,battery-config = "1s";
++        };
++    };
++...
+-- 
+2.34.1
 
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +
->  additionalProperties: false
-> =20
->  examples:
-> --=20
-> 2.45.2
->=20
-
---APjTtQgaMDz/nB9h
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak/hJgAKCRB4tDGHoIJi
-0sywAP4/3MErasyHV912BqopkkvO7NXQwYknCYOiZVu8kxtNtwD+Kqr61fQW/M2k
-AvZSQrEqRK2jJ144zH8+IVUJ/w6DxQc=
-=STFS
------END PGP SIGNATURE-----
-
---APjTtQgaMDz/nB9h--
