@@ -1,177 +1,251 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648734071D2;
-	Thu,  9 Jul 2026 10:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783591598; cv=none; b=kCDzjBnBOCLlZsDbScgHI54nyU648QdOEuasjX+lP+NI8D7VlAcXGeH3Cgid/e69PjUL5T7VOT1NLP1kFR8ue/lWrWvS/M5Fjsw1pP8KSg1/5AgOwyz1/gPT5XXMqnKIMNuC6vThojcL75gUTcyXJWqF9+4jLysWIUzuDb/t2oo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783591598; c=relaxed/simple;
-	bh=vIeXSGmYnuqXbWuVwNEh8u50bCXMZ/MRUIXV/uBPzrM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IMEfrOq8A10MjXb97tgY8N592+3+uM4VSM7V7ZS9W+Io1OzpbYy04Dy9RcNUvUQsAeGOB1Xm2Re0VlWBn+WzfZ4xuQMCCD4jJfQEL2tz0bDtztu1+hR0qrNt87ozuGbO0ZXHMSgNXIulQbPSmau3/wG8mS+gQmt0/muHrlH5I3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qR4Ep6U0; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A175B3803CC;
+	Thu,  9 Jul 2026 10:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783591668; cv=fail; b=n++A+aG0vawBNt+7fXzTl/cQjoTyB+OOgptdUZF1+QTBEIOhk7grb+yjoPQxVXcvUYFytYQEwH1wC/9Gab+Co0T0B+y5AS0ZN3/JUfN415W97M29/11C4F312Ics1RpK9+ZCTSvFJ8PhceLLj/TP6BmjqupDC4eqWWbJgjxdPvc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783591668; c=relaxed/simple;
+	bh=sBECDrP5qX7EwJmKWFaI6z9XMb3aTAkrD7vyWoRnOtI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=FvPuPWjegIwqCRiQRYm5FKwERi6ULGEm+srJ4JzDBmPaO0meH1fs9Qi9OANcac3JL9dQRd8SeoSN3n9HMfVanR1TuDnGUT5iZFAnUr/KA6ql+MVjX/0vsv8j3nmMl10f05JsIdd7S8OXZiF7V37FsxTu2VL2ICltiRpTDNaq4BM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=e6cHo6W2; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=uTdrJJ2l; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qR4Ep6U0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783591596;
-	bh=vIeXSGmYnuqXbWuVwNEh8u50bCXMZ/MRUIXV/uBPzrM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qR4Ep6U0r+Al+Okqw+8+c/zp89A+avon0r7EEV7BHsPM+0AfuPUKm64CVkyWXNrZt
-	 N+JYOEUZeNOTNj+RfNlSlynj0FerJj2s8da0PIiJMVfgPk20p1EAim8SqlPIMdmVxX
-	 CssHOnpitGT6o04RDTyNWqcr4BSssNK4SiuJxKBzQlCPWhkdBWb6GFVF/f620f2b+T
-	 Xni9tNYQ3REb9+bUbVisyM7Ckb/ERdI3HPFxs6P5tDzEVt/O015R2oFdf8fD/YovFu
-	 eVQZPAztJvp3yJ2XPU8cNZ7t9/OxxhAkZSBBAzwlEZ+LbBZLUbveIH2Yy9QbO4Nk73
-	 9Lj7mvKsHDFrg==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0041017E0DFB;
-	Thu, 09 Jul 2026 12:06:34 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	jitao.shi@mediatek.com,
-	granquet@baylibre.com,
-	rex-bc.chen@mediatek.com,
-	dmitry.osipenko@collabora.com,
-	ck.hu@mediatek.com,
-	amergnat@baylibre.com,
-	justin.yeh@mediatek.com,
-	jason-jh.lin@mediatek.com,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kernel@collabora.com
-Subject: [PATCH v2 11/11] drm/mediatek: mtk_dp: Clarify XTAL freq and Debounce registers
-Date: Thu,  9 Jul 2026 12:06:17 +0200
-Message-ID: <20260709100617.42583-12-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
-References: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="e6cHo6W2";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="uTdrJJ2l"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6697cYad3635970;
+	Thu, 9 Jul 2026 05:07:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=4SH0aL98N24n6vQT1Lwbq3c8gMWA1kAel8M+rfpN3
+	X8=; b=e6cHo6W21/pcjPeK7VMHv6HIIBrSuOLOQE+TWQjwnXf+deXS8XGonuoG0
+	DVYIocdyzAzCDSqC48HtpLGUIh/jSjbRY6fBkrGPQTHIlDg/26atTN++TxSqcla0
+	EUuFsHIJ1nzDKJILtYLAEwDYCNKCWp1+dIEEVyefrEpVUCBPGBS6TYtOGGGbeILH
+	kzYPoUYa2i6seFVULh2L9i/ERmlrV+xgypllDXhckvghEkm7qRmEdYvX/qsGH3fD
+	RMHMvTEK+nTbsMfcMHO6ITkwFa0sHJ2+sTTXNOmdnluEQSRWqWk5ndkrHpCMAfww
+	MTLsRQEnDyKEEFcBRrzUIuZVJmurw==
+Received: from ch1pr05cu001.outbound.protection.outlook.com (mail-northcentralusazon11010043.outbound.protection.outlook.com [52.101.193.43])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4f9nft7vd2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 05:07:25 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q7j/Al+0pnaYTYDzLNVgkXe7VCfb8DvuJq3OhxRW+14kT5gymerRN47cHNwDA8PByd6d0gJgOlJClC5QMdjLLj/dsKump+9QVtaP1yllGCDioEPXU61tV1G8WdLogHPLd0LcoZLBLl1wMCauWm1reencPz4zUVpAxtS8Xpsol21Rg5KJMauEEWe8/YuUJKaqaA4Vw4XVOuzBFTYEmsBbTnaWjl90a5QAxvi/c7zK2i699Mr5z5sCNrffJjMucpCeTaH+52feauDtxO6JiwxTlnw2l9DVG4sVmSIbZRsQdE5/qPG8zg8e6VUqFm/Ns9W0r5Dppepie39j8Bq+IkQMtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4SH0aL98N24n6vQT1Lwbq3c8gMWA1kAel8M+rfpN3X8=;
+ b=skur07rpMPi3sppI8Ez0LSFK3HGzAfLAoNsSaKdne70bVpUlku+YS8/Q+upw4xgQkpiazKFApGnzvL82iLPKhRRywmq2tfHOgAwI2iP0+X6XbsZHrMU7bI5pua1Wg8mb2jEwgZLNUPhOaHXOT3779eCE6vZiPnhGc4pKUHirC0vJ9Hcb9Rfxw9XdrmzJX3YmDLz6p0LjcZwf1bz7mzERv9AlncRuPEPcQXJOPxKYyeW6e5IL+gsfwPCdkWlZLFAoCc0GjijGXlhyRYahVFKFX7M+sHcy3wrE53/cgbEk+VoAWAJzLhsUxt01U8uWTGon8DKZEi0Wxr785O7nK4zpYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=cadence.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4SH0aL98N24n6vQT1Lwbq3c8gMWA1kAel8M+rfpN3X8=;
+ b=uTdrJJ2lDFednStZoCJp/oZxj/iKzFhj/H66hZ3MDgkH+Ag/NMa8WWgjZYZtK/LdmHu/MguN9dF2KcYZX5QDQrf0T9BhiU80NlwsVuiD3q6W0TwV5lIVUClJu4vVY7U6V2/IE2Ryyu1wZv7y8ZTgCJ9lnguNS+vWzXqjoTbRU60=
+Received: from BN9PR03CA0359.namprd03.prod.outlook.com (2603:10b6:408:f6::34)
+ by BN0PR10MB4821.namprd10.prod.outlook.com (2603:10b6:408:125::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 10:07:22 +0000
+Received: from BN1PEPF00006002.namprd05.prod.outlook.com
+ (2603:10b6:408:f6:cafe::10) by BN9PR03CA0359.outlook.office365.com
+ (2603:10b6:408:f6::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.10 via Frontend Transport; Thu, 9
+ Jul 2026 10:07:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BN1PEPF00006002.mail.protection.outlook.com (10.167.243.234) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 10:07:22 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 9 Jul
+ 2026 05:07:21 -0500
+Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 9 Jul
+ 2026 05:07:21 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 9 Jul 2026 05:07:21 -0500
+Received: from [172.24.21.78] (ltpw0bk3wp.dhcp.ti.com [172.24.21.78])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 669A7FPk385552;
+	Thu, 9 Jul 2026 05:07:16 -0500
+Message-ID: <18b1c832-d0ba-4465-90c8-09e7c48becde@ti.com>
+Date: Thu, 9 Jul 2026 15:37:15 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 net-next 1/2] dt-bindings: phy: cadence-torrent: Update
+ property values to support multilink SERDES configuration
+To: Conor Dooley <conor@kernel.org>
+CC: <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <krzk+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+        <linux-phy@lists.infradead.org>, <neil.armstrong@linaro.org>,
+        <nm@ti.com>, <robh@kernel.org>, <sjakhade@cadence.com>,
+        <kristo@kernel.org>, <vigneshr@ti.com>, <vkoul@kernel.org>,
+        <yamonkar@cadence.com>, <g-praveen@ti.com>
+References: <20260708083725.66777-1-g-praveen@ti.com>
+ <20260708083725.66777-2-g-praveen@ti.com>
+ <20260708-purifier-subside-667f32244c09@spud>
+Content-Language: en-US
+From: "Praveen, Gokul" <g-praveen@ti.com>
+In-Reply-To: <20260708-purifier-subside-667f32244c09@spud>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006002:EE_|BN0PR10MB4821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41161f3b-af35-4528-08a1-08dedda1de81
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700016|23010399003|56012099006|18002099003|22082099003|4143699003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	S+5/eX71ES115MB9w8f0CO0EMUx/OGHVjQTkB+5GlcjKLRqyT8yTZXton+WwmycnSB4LtKYv923xYen6mmdfqIbEgukqp5yn8thljxfD+L2YiRPa9hu4H7nqsGMgzIDCtbe6Dkjg9re1OZf4cl6SDnoLAr7O17c08aIHFkM80Vhyu8pCjS6Ic2PDot8IlZqyVp4Pyrv9GqjOdE5K980xyBOnjLCjYqH3v9yFLGBQNTNyyH0vd7tk0kZdPKcLi7SlGXkj7iimla8/beLg0bbpW+p3p+P+9JQsFJYItyuVaXWkJZSDk5cRhpZy1k9si3eWYllUSo4gHGJpVR62NL74oMUBBaqTlD7nev5MqqeA/U5JnFyQOBEkA4NYcd6p4Fa1lwaywPNJmYTqslgAHvWpJ8nfInjHeXjzjpyZTQp8UTu049TLkFXK2oYo0dmRBrmC20FUvWioB4UfMQhSpeEKWM8saiEU66iX+bUzTxEaz7EGgjGcIaT67KItAf6KNytpXWDGagcRWC4cj6LmvhS1ZoAbcNOoKRHa91SasyssxngxIGfYDlF/wTYm+3eb3TcwiBpbvmAWyYTWL9jAoh2nssGUwm3Js+3cbR9weMaPz3fzDBmIO/ZZE0Zumr6eCF1ivIABy/A9Ox+FgF7G19o4neMze2cH3U61NbJXMPOvnTysVR2fZ2fkOQo5QG/nanF5z8i7kwCTNa6u6WhAeQwHAw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700016)(23010399003)(56012099006)(18002099003)(22082099003)(4143699003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	n7pJSdUdn3AKCcr6S1tLaPEYdVBsPomcABDuoHRBGjaq3eR76y+FlkJUqILhCryFePReT3qCGDFxx2NIJ+pSGeC0taU69deCUGUBv81dSWtMwyLHoolStjDHDPSZE3ZrQNTypdxA1FSmg8qNqQjTma4XL4jjP0Tc1qphV/mQDx2ncXNmmf4Be73Z1RXo5KH9lzFft4Lo70vLY1uduJYQkHLLOO9DPRaMAXwsviMSGMHX/IfGOxi77vfOnXrIHjcsPFCkkDD5xK+8gtGVGarrNFRnGl0DtHzNxdlCjcDUt+xtgCMJL0KLqEpZXrov8xh/BpFIWorKGkmY81rctuWLXBd1O5yp+W1waZvQ3TknYymy/xNtLQokdayVtAjHXu+jxA1BEQOsliXnHncmiFifyX57im6HOg/CLgizHmDLzcWAIr2zs+3cylzswh09iEUf
+X-Exchange-RoutingPolicyChecked:
+	kBLd85Jbr3bRC3+FEpA7zyHXyNjvWiHgWMSXWQUKhB/Crb8RMA942OnsF2I6SvouobotXy0GU48fcpXY7fsxwxxKrVGZ1nII1IKrHdErOzrA+lUpsN93L11DzU5LJANZpaKf2qp1skvAcn6DDLle1GCnlNHoyg1V2y7ELxoFaDu9iGdQ3vT54JENk+EbL+RvgmA9MO4tfIClI4o3yTau47encInr/D3ktTCm/KK01qyEK9nEfawLalZyWRMI5LDcnQ9X1MygG60Y4PqCg7R2M6/T3E3PGltBF+Z3pn0am/Ogf17pXtGnx1MmP7+O0Dmw0scJaTmqPFmGCYhfqdniug==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 10:07:22.4448
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41161f3b-af35-4528-08a1-08dedda1de81
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00006002.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB4821
+X-Authority-Analysis: v=2.4 cv=AaOB2XXG c=1 sm=1 tr=0 ts=6a4f72dd cx=c_pps
+ a=91GdPAjHHMbPGBWG17ie4w==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
+ a=5Hw9ayjz3OrUeUeecOwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: z1DpeiL1NA01FedaYr70aqxuhAdaIu8_
+X-Proofpoint-ORIG-GUID: z1DpeiL1NA01FedaYr70aqxuhAdaIu8_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA5NyBTYWx0ZWRfXx6x7QVYlqNxd
+ 1hvYfoD5tTCrVQS8r9iHhQRX47tikqHxaPwC6ClE6E6Y7C2suO6sMCDhNPUrphGj55uFjOkuDeS
+ zWT4FRYGzQMB91FGdnq9cl3LN6Bup/8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA5NyBTYWx0ZWRfX8Eeb8+aF4uyZ
+ 4iuVeYr+LawzCiTpKyK3hjnp5FGpLbMnIu8hD7ULIdzNH2mcNHE3LOnNJnL33zCGw2fXJ2h4pMs
+ ztsr+Vl3SXWMObpWZiGqQh7LmrbNUR2Ha3R0/SrGH4qdl9f+Qlc/DoytyStgWmUVayE2s34lxwE
+ InMYs8ADvGqg/Il1+TRbi3a7kLgY3+tEU1YQekB0eHlnakRgQywEqM1Ghp94Y0BpaUlcgQhKOxs
+ 7ZNj77r83n9WSKIQNLx8ogoFw/DBdKO4ZfvLnXg9j8xIDSw964AMB6jJcdsxB+Gov+eX0zqEeRN
+ +v+GjmYa8n+ZjkZi7+nswkJnxQFjH6j3F2hTprj0BZF+caFnryfXOA+A5pQ2VrepGWeDCEFyjuc
+ bb4DFKLEihub/8xYE4w4bkmoOyubQgAeiF9H2DxQyRTExzUbN5v8uXgkf3biV/yQ3U3mwqxvTSs
+ iyH3FlUv3WHG1oSCGJg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 bulkscore=0 clxscore=1011 malwarescore=0
+ impostorscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607090097
 
-Clarify the meaning of the sub-fields in the crystal frequency and
-transmitter interrupt debounce registers, with the only purpose of
-increasing human readability.
+Hi Conor,
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- drivers/gpu/drm/mediatek/mtk_dp.c     | 35 ++++++++++++++++-----------
- drivers/gpu/drm/mediatek/mtk_dp_reg.h |  6 +++--
- 2 files changed, 25 insertions(+), 16 deletions(-)
+On 08-07-2026 22:09, Conor Dooley wrote:
+> On Wed, Jul 08, 2026 at 02:07:24PM +0530, Gokul Praveen wrote:
+>> Update the maxItems value of clocks parameter as 3 clocks
+>> (refclk,pll1_refclk,phy_en_refclk) are supported.
+>>
+>> Update the clock-names parameter to support mutilink SERDES configuration
+>> as the existing enum configuration of the clock-names parameter does not
+>> allow both pll1_refclk and phy_en_refclk to be used at the same time,
+>> hence preventing the support for the configuration  (refclk,pll1_refclk,
+>> phy_en_refclk), which is neeed for multilink SERDES usecases.
+>>
+>> For multilink SERDES configurations where the links require different
+>> clock speeds, all 3 clocks(refclk, pll1_refclk and phy_en_refclk)
+>> are needed.
+>>
+>> For example,considering the USXGMII+SGMII multilink SERDES configuration
+>> usecase, having only 1 reference clock(refclk) fails because USXGMII
+>> requires a clock speed of 156.25 Mhz and SGMII protocol requires an
+>> clock speed of 100 Mhz.
+>>
+>> Since one reference clock(refclk) alone cannot cater to the 2
+>> different clock speed requirements of these protocols, the second
+>> input reference clock(pll1_refclk) along with phy_en_refclk
+>> is also needed.
+> This binding supports 2 devices and the generic compatible. Do all these
+> devices have the new refclk?
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index 7151421984ca..3790675d9dc4 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -1216,9 +1216,15 @@ static void mtk_dp_initialize_settings_v2p1(struct mtk_dp *mtk_dp)
- 
- static void mtk_dp_initialize_settings(struct mtk_dp *mtk_dp)
- {
-+	/*
-+	 * Set DP XTAL freq to 26MHz and accumulator to 1.
-+	 * Valid values for XTAL freq are 12 and 26.
-+	 */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_342C,
--			   XTAL_FREQ_DP_TRANS_P0_DEFAULT,
--			   XTAL_FREQ_DP_TRANS_P0_MASK);
-+			   FIELD_PREP_CONST(XTAL_FREQ_DP_ACCUM_NUM_MASK, 1) |
-+			   FIELD_PREP_CONST(XTAL_FREQ_DP_CLOCK_MHZ_MASK, 26),
-+			   XTAL_FREQ_DP_ACCUM_NUM_MASK | XTAL_FREQ_DP_CLOCK_MHZ_MASK);
-+
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3540,
- 			   FEC_CLOCK_EN_MODE_DP_TRANS_P0,
- 			   FEC_CLOCK_EN_MODE_DP_TRANS_P0);
-@@ -1260,28 +1266,29 @@ static void mtk_dp_initialize_aux_hpd_detect_settings(struct mtk_dp *mtk_dp)
- 
- static void mtk_dp_initialize_hpd_detect_settings(struct mtk_dp *mtk_dp)
- {
--	u32 val;
--
- 	/* Mask AUX TOP interrupt, as this uses transmitter for HPD */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
- 			   AUX_TOP_IRQ_MSK, AUX_TOP_IRQ_MSK);
- 
--	/* Debounce threshold */
-+	/* Set Hotplug debounce threshold time: xtal_period * deb_thd */
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
- 			   8, HPD_DEB_THD_DP_TRANS_P0_MASK);
- 
--	val = (HPD_INT_THD_DP_TRANS_P0_LOWER_500US |
--	       HPD_INT_THD_DP_TRANS_P0_UPPER_1100US) << 4;
--	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
--			   val, HPD_INT_THD_DP_TRANS_P0_MASK);
--
- 	/*
--	 * Connect threshold 1.5ms + 5 x 0.1ms = 2ms
--	 * Disconnect threshold 1.5ms + 5 x 0.1ms = 2ms
-+	 * Set interrupt debounce threshold time
-+	 * VAL  |  0     1     2     3  INT_THD
-+	 * Low  | 100   300   500   700 uS
-+	 * High | 700   900  1100  1300 uS
- 	 */
--	val = (5 << 8) | (5 << 12);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
--			   val,
-+			   FIELD_PREP_CONST(HPD_INT_LOW_THD_DP_TRANS_P0_MASK, 2) |
-+			   FIELD_PREP_CONST(HPD_INT_HIGH_THD_DP_TRANS_P0_MASK, 2),
-+			   HPD_INT_THD_DP_TRANS_P0_MASK);
-+
-+	/* Connection and Disconnection thresholds: 1.5ms + (5 x 0.1) ms = 2ms */
-+	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
-+			   FIELD_PREP_CONST(HPD_DISC_THD_DP_TRANS_P0_MASK, 5) |
-+			   FIELD_PREP_CONST(HPD_CONN_THD_DP_TRANS_P0_MASK, 5),
- 			   HPD_DISC_THD_DP_TRANS_P0_MASK |
- 			   HPD_CONN_THD_DP_TRANS_P0_MASK);
- 	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3430,
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-index 9caf743f4fe6..ce47b99dddc4 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-+++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
-@@ -253,6 +253,8 @@
- #define MTK_DP_TRANS_P0_3410				0x1410
- #define HPD_DEB_THD_DP_TRANS_P0_MASK				GENMASK(3, 0)
- #define HPD_INT_THD_DP_TRANS_P0_MASK				GENMASK(7, 4)
-+#define HPD_INT_HIGH_THD_DP_TRANS_P0_MASK			GENMASK(7, 6)
-+#define HPD_INT_LOW_THD_DP_TRANS_P0_MASK			GENMASK(5, 4)
- #define HPD_INT_THD_DP_TRANS_P0_LOWER_500US			(2 << 4)
- #define HPD_INT_THD_DP_TRANS_P0_UPPER_1100US			(2 << 6)
- #define HPD_DISC_THD_DP_TRANS_P0_MASK				GENMASK(11, 8)
-@@ -267,8 +269,8 @@
- #define IRQ_MASK_DP_TRANS_P0_INT_IRQ				(BIT(3) << 4)
- #define IRQ_STATUS_DP_TRANS_P0_MASK				GENMASK(15, 12)
- #define MTK_DP_TRANS_P0_342C				0x142c
--#define XTAL_FREQ_DP_TRANS_P0_DEFAULT				(BIT(0) | BIT(3) | BIT(5) | BIT(6))
--#define XTAL_FREQ_DP_TRANS_P0_MASK				GENMASK(7, 0)
-+#define XTAL_FREQ_DP_ACCUM_NUM_MASK				GENMASK(1, 0)
-+#define XTAL_FREQ_DP_CLOCK_MHZ_MASK				GENMASK(7, 2)
- #define MTK_DP_TRANS_P0_3430				0x1430
- #define HPD_INT_THD_ECO_DP_TRANS_P0_MASK			GENMASK(1, 0)
- #define HPD_INT_THD_ECO_DP_TRANS_P0_HIGH_BOUND_EXT		BIT(1)
--- 
-2.54.0
+Not all of these devices have the new refclk(pll1_refclk), Conor, which 
+is is why the enum was kept as it is and in these devices multilink 
+serdes configuration will not be possible due to the limitation of not 
+having the new refclk(pll1_refclk).
 
+However, The intent of this patch is to add multilink serdes support for 
+the devices which have the new refclk because the
+
+earlier clock-names configuration could not support having all the 3 
+clocks(refclk, pll1_refclk, phy_en_refclk) in the clock-names, which is 
+needed for mutlilink serdes configuration configuration.
+
+Also, Please feel free to ask if you have any other queries, Conor and 
+thank you for this query .
+
+Thanks and Best Regards
+
+Gokul Praveen
+
+> Thanks,
+> Conor.
+>
+>> Signed-off-by: Gokul Praveen <g-praveen@ti.com>
+>> ---
+>>   Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+>> index 9af39b33646a..ac0f625cd76d 100644
+>> --- a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+>> +++ b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+>> @@ -34,7 +34,7 @@ properties:
+>>   
+>>     clocks:
+>>       minItems: 1
+>> -    maxItems: 2
+>> +    maxItems: 3
+>>       description:
+>>         PHY input reference clocks - refclk (for PLL0) & pll1_refclk (for PLL1).
+>>         pll1_refclk is optional and used for multi-protocol configurations requiring
+>> @@ -48,6 +48,7 @@ properties:
+>>       items:
+>>         - const: refclk
+>>         - enum: [ pll1_refclk, phy_en_refclk ]
+>> +      - const: phy_en_refclk
+>>   
+>>     reg:
+>>       minItems: 1
+>> -- 
+>> 2.34.1
+>>
