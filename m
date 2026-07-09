@@ -1,208 +1,214 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C881932694E
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 13:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19153101A7;
+	Thu,  9 Jul 2026 13:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783604573; cv=none; b=S5KWjejfimEltoFRI1tE4ilHlLUSAjnvWhaSEKhqBrfNy2vF7BQLvGipskRK5NTClqLiUfJjCE9wuj1vC2NfkhjAFcvQpmeJxoqbMRuo4W/5J5JTmzyN0RY3bAVdN2gikjAo3jKVaWiPUnJPB9ebiMvJcCLb/rjgkWLY9gJEdvo=
+	t=1783604579; cv=none; b=Bc7Q4igd4PK2eM4JElTpI7e+SZ970xH7VBPFDFYp9xORDekWQO5XpwErLQL4//wAFfmfg9VjsKXw61W3vakXoTF8MHUNWMQ/X1hmvtyIa1S0ovDcIGTChOpGVJ+6dIWFPij5aoSFKjEHIXqGNjzUCa+HzNyb+qBMwcRd0nDtBS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783604573; c=relaxed/simple;
-	bh=Gg4niW8kVv3b3g7jDE+c+5OksWid4lupNeBKdemEzvQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cOayrRTe+H9lPaXvlS26r+whwDv2tMKPq7TU41x+/H7y/kCO+ucI/iOXmPys7KekimnogvjsU/dzcP5JQn1V2W41VsvujS/J7CHsyjXKbHka0QGc0wHUDo0vRHvswUR76sKL7r7DEUltiZstUnk+BqU/CqsNOVDYMQ62YeI/WLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F9Hch3o4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X7ve4I0I; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783604579; c=relaxed/simple;
+	bh=MZpSgeA/3y51G0ijWq5mgY3FPQJZh/AgDpSAdHJpOGI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jgRIZtova+6Hq18kXF3t44SzDbqPMq0FvvnOC5s80efcwXZew+DxoCkD4qMLFVHJ4hYudoB48DBrZGWBdgr2PiCUMgObkGgrTRwK/UnOiVG+hM281JYujeOk3kDQFnOatBTJGgLRRUvq6Qaj1FoaialUcpyvbEOKzSqmv7KDshw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=AE5djD+B; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F9Hch3o4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X7ve4I0I"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669BNTvG1575699
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 13:42:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	g8bbQ0UFrJNgIEmJIIRtCAu5z0XVNIydSzCgLYqggsw=; b=F9Hch3o4T7NJsf1P
-	wYr85a/DCvN6Lk4nLUGhMp6PTQ8FGNyRBL4yiBFkchly0uHRxjitwucI7vHbO41Q
-	tJnar2UtGCxsFj+B9TnV3UlOd8lNnGyad1xFdI9HqkhQGq1dnAAE75yCjkndoECa
-	R4gcK36CkRDIXEBDX1V7M1Han+SiynAuFBVvkiZwvIWLJuLueTQRYwWZH1yDT+z2
-	4fLwJINlvXvRhk4t6gZnB0o7DCb9bUdfxln07nk7QowDBzRE+SHAg+wyvCC9DSbz
-	Mmq2P3Ufltc2M6WYNQiyUmUJ/CIbHY6mcohhCoLsG2pqULDA3YRb2fhaUH9vjLSW
-	DbQShQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9sqwcfxs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 13:42:50 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3810e5c5871so3475962a91.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 06:42:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783604570; x=1784209370; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g8bbQ0UFrJNgIEmJIIRtCAu5z0XVNIydSzCgLYqggsw=;
-        b=X7ve4I0IczmXIz4pogUOghKS9qyZaLIfkZ+VEa8uep+AjbWe8YhFk6vGqlcjM2fGx8
-         1obN7x3/nwQB1Uka0QoJMWZBpPxT9OWEY+OxTflNYMYMGY2WsPUPkWbcdcAsh+RwOjv2
-         iVFwubz9byKWl1yGpfLhy6YGE0rZEghNbfLJM8pmPov7EUZAc+9wctkMFqf+x8z9bOOk
-         YWXx1oYIcqZyNWR70KNO3GL2QIbomq4DNsbfWhbuHAxB3RzO0RRwV0AmSccyZ1QRD/bR
-         yht8FHHvvPKPZMPoxi1Rdki1xc8Gg21IEqyskDOEIWz6DM2ERSYFJHmts7IQ5DKPFczv
-         gmuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783604570; x=1784209370;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g8bbQ0UFrJNgIEmJIIRtCAu5z0XVNIydSzCgLYqggsw=;
-        b=bdAzatJKdGdbdYkKXOduRqxM+gKt+L2RmJSgNZ91clh/ltPqVNv1JXw1pud+z0ItHF
-         bD6pS2bNtnEzc2k5T3Bl8e7EgOPfTht3cP3rNOONzA5DYOJ+VQ2cMa+pvUlKWfsCUADP
-         3N1s9Lgsmyu380V9Hkr2M+u+kl0MfIq/qNEX+FDiEDZn34qDOiEc17qZq8Ydejpo6DEu
-         /pTsDJ2s+qEsx3C7BYFlhQlOoXLC2xqyeM+PZ9gycoMh949rxL2QdpOD+MI5uifpHPhe
-         W8yFvSzSbVtP+E2supmIfUYG4xEaol3XEZOcl0MHez5g7T+tN59I1/DAfu1UH27w7Kto
-         4UXw==
-X-Forwarded-Encrypted: i=1; AHgh+RrWOEjOON6X3JcqeHD1F+XlJAkw6DQ2B+vdDroUksQExmVu+F+gZi0mS/9LgI/yt4QPGop4N1/VhN1P@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBfCAh0hP1DDMHaRX8ST2lKvmbeZRT8wMj02sZd/5mko01B2fW
-	yN/eDrOHyXhH3W4DdlcWCyWRHxgy9Bdh9qajZ87F6udZursOC5V4niqYKYo5be9IrSiiuRpaEfW
-	EhONzJr2AKIjq9YBg+b9DAW1sHR6BgAe3JWn7RHboVmyVaXFDLQk7hxYicbxvRmMl
-X-Gm-Gg: AfdE7ck57WQEl4nSytSBgX5jVqT9OQ/oXiboTPlsVtbKcWII+4nmN4Wj23cr7u/YSEj
-	YFHGjxab6YgdU3NaKHY91nIYNI84GlfQX3lLrZHhWgZ2DkIqyLKBH+fFyUBU2k/TKEqzj+PU9xx
-	7pyKgunfsSI2awSszubcVOSTQ56r+TBZBFxc9f2QRdQZrcAJ6hPV37VNSstRdoieUSh+0MnsutU
-	emXxKRZfSQNijlHpnIbjrfqGaULDi7HrSwY8Xt2ZlTOjz/NbDkIdszDEgTJCPAqia0p3yzPd90M
-	oHOemCMC4U3qAgvmqDFmzc21YnseH6yfXpXXJ7oOJ/EFPcu3fgx/243YR4/2Ba63Mm1T7GmZ21v
-	Gy57GjDDGwd9B9Jrtho+G/++fWHTFoH5BntA=
-X-Received: by 2002:a17:90b:2d91:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-38941102108mr6905008a91.3.1783604569742;
-        Thu, 09 Jul 2026 06:42:49 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d91:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-38941102108mr6904955a91.3.1783604569291;
-        Thu, 09 Jul 2026 06:42:49 -0700 (PDT)
-Received: from [10.204.104.211] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174892711sm32820196eec.13.2026.07.09.06.42.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 06:42:48 -0700 (PDT)
-Message-ID: <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 19:12:39 +0530
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="AE5djD+B"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783604576;
+	bh=MZpSgeA/3y51G0ijWq5mgY3FPQJZh/AgDpSAdHJpOGI=;
+	h=From:Subject:Date:To:Cc:From;
+	b=AE5djD+BNEIFk2fN0gyNCHXzE2Se6J96D5UTtxxbHKfFCRYf204/vTcH2Yn6ysHqB
+	 uOEiIZZcBUUIWlARsJHFP0pg5IeuoEp2uV/PIP0oJdKMhQBQRYM26RJiNUD/k9f51b
+	 bDzMVhKZ5xLHnDoFNeSgppJL0a84Xmvm5h2EmmXILLPn1iBlJF1B3+dt3iErBpSknr
+	 ujh5HdhrqlmQZnzjRHC088ibUG81Jnp1s84UwjNwO77neQqNT9xYKCvZEJsKuA7xr2
+	 DKlnE8t+OeukyB0plybiWEiDVLTdZUDsv7wlWoIxvhRqaAb1VXYiVaR5PoMBRx+Nbi
+	 3BybLLgcrDwXg==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 29F6917E05E8;
+	Thu, 09 Jul 2026 15:42:55 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH v2 00/18] MT8189: Add support for system and base clock
+ controllers
+Date: Thu, 09 Jul 2026 15:42:40 +0200
+Message-Id: <20260709-mt8189-clocks-system-base-v2-0-2926da3db6cf@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
- <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
- <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
- <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
- <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDEzNSBTYWx0ZWRfX7q0NTg5ftXXN
- o5QyG81a0I0rmAfIJleExai9kipAIDID9utUKp+kA5YeqmuKNQv5lwLr7dvQbCN6yMmxVZGUtfP
- lRRIRFyQtmp7Tm1q9sEMgHYN0bLK4ktHl9wAP/O8Y2xkXsUtmK8rU6/uvH47f6N3mt1+dD7C20x
- WKB9nUhcYWHIwLNdjS+JO+KWfBJRYEQVAwH90Pgy7/lJy2nlpSRuiKy2Fdxw5kV6m0EdQFDJP9o
- QjPJRgWJX3k6KLVdSyZlfhED2invGq82R4bNd35eC5ejqs5VVWzFbtVl+V2g0ocZAe/IoN9A45z
- JYA0LVC74K/FdOGHkUepTLBLTOxFY0oyqyMlGhiLSL0ubstAVYgpe7UVMnqBKDC7xNagPOh7y0c
- OgF4slxbCPCaIzAHhCUaIyJfPEuvyohnyuXadAPun9pa3zNR8e92Tb05ldo9CmVXzh84TxWYML+
- 8drrbf3OI6G9iK+b+Cg==
-X-Proofpoint-GUID: _e5x6vg-q_k_n4AM-gOBtEPxgDmrbE1O
-X-Authority-Analysis: v=2.4 cv=fMIJG5ae c=1 sm=1 tr=0 ts=6a4fa55a cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=9jRdOu3wAAAA:8 a=pGLkceISAAAA:8 a=mritAz9d6wIG9kTKuDcA:9
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=ZE6KLimJVUuLrTuGpvhn:22
-X-Proofpoint-ORIG-GUID: _e5x6vg-q_k_n4AM-gOBtEPxgDmrbE1O
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDEzNSBTYWx0ZWRfX+N7F+9zy0KUK
- 1zgu2PdIhroEsQBskHacnMhyWAJfDflrIbWyejalB51iD53pv/t3TLfonGv2DEhTEzxRq5uJyZm
- NhrN2/5j2pOueYsO3vVd3CwRfiW9xwA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607090135
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OQQ6CMBBFr0Jm7Zi2IlRW3sOwKHXQRqDaVgIh3
+ N1aXLt8M3n//wU8OUMeqmwBR6Pxxg4RxC4DfVfDjdBcI4NgomDFgWEfJJcn1J3VD49+9oF6bJQ
+ nLFnJc8rbVigF0X86as2Usi/1xo5e71gRtiMkTdu+N6HKBpoCppqSSfgKd+ODdXPaNvJk/P78z
+ 4yRI0PRsFy2ROrI1FnbrlONdWofu6Be1/UDANO47PcAAAA=
+X-Change-ID: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Edward-JW Yang <edward-jw.yang@mediatek.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, 
+ Irving-CH Lin <irving-ch.lin@mediatek.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783604575; l=7229;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=MZpSgeA/3y51G0ijWq5mgY3FPQJZh/AgDpSAdHJpOGI=;
+ b=+CQQGWq7HsjC1kYHYwSLmlDyeNo4BSaZi14VzEYcGj66cvcvhq32lQDgEZBVDyp/YyhZOf9We
+ lidhZyNHNmAChZLLVQdb8Mu7sgSygc2Qm+J4wwddYL+HGa6D6pME25R
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
-> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
->> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
->>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
->>>> In order to associate the SID used by LPAC to it's own domain and
->>>> context bank we need a separate node on the DTS.
->>> Can we use iommu-map instead of adding a new device using the same
->>> addresses? You provide zero explanations, but it seems like you are
->>> trying to separate a part of the GPU into a separate device, but it's
->>> unnecessary.
->>
->> What I was trying to say is that we need to map sid0 and sid1 to different
->> context banks.
->>
->> From what I recall, so long as we use the same dt node, the iommu drivert
->> provides no way of doing this.
->>
->> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
->> and secure.
->>
->> The address on the lpac device doesn't really matter. I have very limted
->> knowledge of DTSs but I think we could just leave it out altogether?
-> 
-> I think, you were poined to the Glymur Iris patches. Another option is
-> the QDA driver being submitted too. Both ot them use iommu-map to
-> describe the same usecase - a set of SIDs which are used by the device
-> but which should not be a part of the defaut set. With it in place you
-> don't need to have separate qcom,lpac devices, no additional properties,
-> etc. 
-> 
-> I'd recommend following the same approach.
+This series is a continuation by AngeloGioacchino Del Regno and I of a
+previous series ([1]), that adds the clock controller support for
+the Mediatek MT8189 SoC and its variants (MT8371, MT8391).  
 
-iiuc, the conclusion in this recent thread is to use child nodes for a
-similar case:
-https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+The first major changes is the split of the series in two:
+- one for all basic clock controllers including system ones (this
+series)
+- one for the multimedia and graphics related clock controllers (to be
+send in the future)
 
--Akhil
+We chose to separate the multimedia clock drivers from the base system
+ones, as there is currently an unsolvable inter-dependency between the
+power domains and multimedia clocks; the power domains need a
+dual-stage bring-up, where only a part of the multimedia clocks are
+accessible in the first power domain powerup stage, and the rest when
+the second stage (SRAM enablement) is done.
+The current workarounds for this issue, such as removing the is_enabled
+operation from the impacted clock controllers clk_ops table or
+let the multimedia power domain always on, were quickly discarded
+for upstream.
 
-> 
->>
->>>
->>>> Add the code to look up that node on initialization.
->>>>
->>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
->>>> ---
->>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++++++++++-
->>>>   drivers/gpu/drm/msm/msm_gpu.h           |  1 +
->>>>   2 files changed, 21 insertions(+), 1 deletion(-)
->>>>
->>
->> Best regards,
->> -- 
->> Anna Maniscalco <anna.maniscalco2000@gmail.com>
->>
-> 
+The second major change is the dt-bindings patch that got heavily
+reworked, not only because of the split choice. We took the opportunity
+to regroup in the MT8186 clock and system clock dt-bindings the
+description of several other Mediatek SoC (MT8188, MT8192 and MT8195)
+and add in them the MT8189 new ones.
+The rationale is to ease maintainability and have common files for
+several currently supported SoC or new future ones, that have the same
+kind of clock controller design.
+
+Finally the pending remarks from peer reviews on the v6 revision of [1]
+were also taken into account and new fixes and cleanups were also
+added.
+
+A more detailed changelog between [1] and this series:
+- Removed multimedia and graphics related clock controllers code and
+  definitions from series
+- Added new dt-bindings patches to factorise existing MT8188, MT8192
+  and MT8195 in MT8186 clock dt-bindings
+- Heavily modified the MT8189 dt-bindings to add new compatibles 
+  in MT8186 clock dt-bindings
+- Created a new dt-bindings include for the MT8189 reset controller
+  definitions (include/dt-bindings/reset/mediatek,mt8189-resets.h)
+- Removed unnecessary `syscon` compatible fallback from MT8189 base
+  clock controllers
+- Added missing 'mediatek,mt8189-fhctl' compatible declaration in
+  dt-bindings
+- Modified Kconfig to COMMON_CLK_MT8189 be tristate (and not bool) to 
+  allow all MT8189 clock controller drivers to be built as modules (it
+  was partial) 
+- Fix pll unregisters in clk_mt8189_apmixed_probe error case
+- Reparent several clocks to correct 26M references in clk-mt8189-bus.c,
+  clk-mt8189-topckgen.c and clk-mt8189-vlpckgen.c
+- Removed CLK_SET_RATE_NO_REPARENT flag from mfg_sel_mfgpll
+- Rename TOPCKGEN_fmipi_csi_up26m clock to fmipi_csi_up26m to remove caps usage
+- Implemented reset controllers in clk-mt8189-ufs.c
+- Updated all file headers to update copyrights and add all authors
+- Added all co-developed-by trailers
+
+The series is based on linux-next tree (tag: next-20260630) and has
+been tested on Mediatek Genio 520-EVK (MT8371) and 720-EVK (MT8391) boards
+with board hardware enablement patch series ([3]).
+
+[1]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-1-irving-ch.lin@mediatek.com/
+[2]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-2-irving-ch.lin@mediatek.com/
+[3]: https://lore.kernel.org/linux-mediatek/20260701-add-mediatek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com/
+
+---
+Changes in v2:
+- Rebased on next-20260708 tag
+- Added patch 1,2 and 3 to make the #clock-cells a required property in
+  MT8186, MT8192 and MT8195 clock controller dt-bindings
+- Patch 5:
+  - Removed conditional blocks to check clock-cells property presence
+    for MT8188 clock controller compatible
+  - Reworded commit message to remove the note (no more applicable)
+  - Fixed incorrect property value in else block for #reset-cells
+    property check.
+_ Removed from patch 9 conditional blocks to check clock-cells property
+  presence for MT8189 clock controller compatible
+- Fixed missing MODULE_DEVICE_TABLE in patches 10, 11 and 12.
+- Added devicetree series link in cover letter
+- Link to v1: https://lore.kernel.org/r/20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com
+
+---
+Louis-Alexis Eyraud (18):
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8186
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8192
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8195
+      dt-bindings: clock: mediatek: reorder MT8186 compatibles
+      dt-bindings: clock: mediatek: regroup MT8188 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8195 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: Add MT8189 clocks
+      clk: mediatek: Add MT8189 apmixedsys clock support
+      clk: mediatek: Add MT8189 topckgen clock support
+      clk: mediatek: Add MT8189 vlpckgen clock support
+      clk: mediatek: Add MT8189 vlpcfg clock support
+      clk: mediatek: Add MT8189 bus clock support
+      clk: mediatek: Add MT8189 dbgao clock support
+      clk: mediatek: Add MT8189 dvfsrc clock support
+      clk: mediatek: Add MT8189 i2c clock support
+      clk: mediatek: Add MT8189 scp clock support
+      clk: mediatek: Add MT8189 ufs clock support
+
+ .../bindings/clock/mediatek,mt8186-clock.yaml      |  128 ++-
+ .../bindings/clock/mediatek,mt8186-fhctl.yaml      |    1 +
+ .../bindings/clock/mediatek,mt8186-sys-clock.yaml  |   24 +-
+ .../bindings/clock/mediatek,mt8188-clock.yaml      |   93 --
+ .../bindings/clock/mediatek,mt8188-sys-clock.yaml  |   58 --
+ .../bindings/clock/mediatek,mt8192-clock.yaml      |  191 ----
+ .../bindings/clock/mediatek,mt8192-sys-clock.yaml  |   68 --
+ .../bindings/clock/mediatek,mt8195-clock.yaml      |  238 -----
+ .../bindings/clock/mediatek,mt8195-sys-clock.yaml  |   76 --
+ drivers/clk/mediatek/Kconfig                       |   79 ++
+ drivers/clk/mediatek/Makefile                      |    8 +
+ drivers/clk/mediatek/clk-mt8189-apmixedsys.c       |  196 ++++
+ drivers/clk/mediatek/clk-mt8189-bus.c              |  200 ++++
+ drivers/clk/mediatek/clk-mt8189-dbgao.c            |   98 ++
+ drivers/clk/mediatek/clk-mt8189-dvfsrc.c           |   58 ++
+ drivers/clk/mediatek/clk-mt8189-iic.c              |  122 +++
+ drivers/clk/mediatek/clk-mt8189-scp.c              |   77 ++
+ drivers/clk/mediatek/clk-mt8189-topckgen.c         | 1025 ++++++++++++++++++++
+ drivers/clk/mediatek/clk-mt8189-ufs.c              |  133 +++
+ drivers/clk/mediatek/clk-mt8189-vlpcfg.c           |  116 +++
+ drivers/clk/mediatek/clk-mt8189-vlpckgen.c         |  285 ++++++
+ include/dt-bindings/clock/mediatek,mt8189-clk.h    |  433 +++++++++
+ include/dt-bindings/reset/mediatek,mt8189-resets.h |   17 +
+ 23 files changed, 2988 insertions(+), 736 deletions(-)
+---
+base-commit: 451b00e20bcd5526c6def9ee76f9bdb322ae9b46
+change-id: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+
+Best regards,
+-- 
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
