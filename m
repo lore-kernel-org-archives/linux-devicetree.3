@@ -1,184 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196C2199D8
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783606770; cv=none; b=G+92FaeMZuOCa5RTOY896085ldtodsDCvy6KywytB6WogliPpZuil/V+JNY2SIaUFJquuQwU/32IEkrtqkUpij0mWgGSbfJ/Rlf7+Fto963wIC9wIRskpqfy8CekkVFxqd054QjJ5CzsTaVHFIhhNvl5/LkpxJdljlNpJ6aulAE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783606770; c=relaxed/simple;
-	bh=jzayrIo1NKP6Zlso7ln074KuCATdoqV+jIAuhFBKLh8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DlPhlayeK1Is/C1tmrFvY6RMH4JLVbxazEypNbLJpTKFfLX3NdYFgJX6zgPcSKx7ofQrjitlFm/1UD5E4RWwm74Frk/7oheUUW3AiaDSmy+aMn42DPWRlkEbK9saDV9KIhMKzShEtIZPtw4YkxPeXGpAn2AMCCjWZcei/ROyCTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvdK7W2+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F5D1BBBFC
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783606895; cv=pass; b=UC4Nwng1qf6BS4qHGxyLv5a9gOndQDaaTMa2jF65bEehCkCG+Iu0Uy+hZwpjIQWEoB7ReTBd+Ipa0s8ChVzOpaFdS3vZ6DjuCoysIt/MqKODWEwEG2ilMnZF5s94zO6LIs+oiaLbJVpousq8pnRbvC8xV2N9hk4L7pZzBgSSbi4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783606895; c=relaxed/simple;
+	bh=1LFi/C2g955kXJ/o/L4vV9qdHPO2Wk9Vvl9Gbcga3LE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IQgHif6RmvoXuyNIdewVQLW3SAkmb0SwBHF/nVaVV8WxshrJmDLUoH99Rxk3Ry9IhmIpjnWP09ewpjCIUgL2nUeiJASsew/3ZEq9TD1Fl3qNgTgZIbAmf+TTEQA24oSSqR/4UAQcJGkQU5hcI29SPm9nQJjPWGPR3s9CO6PXz2Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=RxiDQrM+; arc=pass smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvdK7W2+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963D81F000E9;
-	Thu,  9 Jul 2026 14:19:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783606768;
-	bh=i07oWIKz2SYc4FMhuHkbpgjUCz6RqiKKw334TT2lRRQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RvdK7W2+lb6fnxqJD7dUpp+BdvhnfQxfYVZs+pGQsCuKOY88AfqOJQeptO8gDaPpm
-	 /l6rHmCZ7Xj4PxF3oioi/OAjkhx3WPxrWlFLID2/tRB12xiUwLG5XQqm8l1tb8fkBB
-	 IMr1dz8LRICSh2mN43/HTsqU8z9RWSlNLxPvCQSyMrBy4rzRErfqvKGb+DHTv87PPa
-	 DXlCr3/zSgHxR3Tv1YgubknzcYWRAngaiz1MJeHqv594ZIoRbQNoxqIrJBYY1G1VP4
-	 1/KoqhJntXRYG1xSWEPcQQhe85CneeUtNH0QweTZSy7pxN6lbflVai9d4+FfxXol9K
-	 38bLz/EQqMHKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 14/18] media: iris: implement support for the Agatti
- platform
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709-iris-ar50lt-v7-14-76af9dd4d1f6@oss.qualcomm.com>
-References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
- <20260709-iris-ar50lt-v7-14-76af9dd4d1f6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 14:19:28 +0000
-Message-Id: <20260709141928.963D81F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="RxiDQrM+"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47640541585so1002619f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:21:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783606892; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HjEX6ywUoaQJGDNt9gZDWiLxOyprLkxG/z/hC+eLt4i3ucm6DaGlNsEQD3wT6QcUok
+         ylIDusq6cU5bQNN16bB1pQyx2uZ4biyJGQDSy9yHrvP8X9UKxId8VeOu9Dsb3F0M6nDP
+         678fHvi7QXBiYlLPhsosbei+42T+OMSwbZZiYlbASkAmJEZ2YZFIQMmBBAA3au2sjXqj
+         TUcPfnjVvl4RRT/PuOkytBIHEwS7qmSoiDRL7lDgPj5xqE34KA8xRmy8+vVfI++Rh7yV
+         RVyx55Rh/tDpsg5YB8jlPgms6cXqezfr/3C/dJuLA6ezthUqqNT/wqktQEqeDs9lE1Z/
+         sJXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PJC4lX0tZTp50J0S7on2pHdgb/jZHm/OiyTuKIg2KPY=;
+        fh=sHwLEOWaTygO+d8AYQb2/7KT3c+sH3Jh3ft2lrw/oQY=;
+        b=ZBApx9YJVl/9fb+WQjkYmyjGkmIDprRgHuOfM7CrHIpamjVK6N+gfWqMFW3Vn6YTzo
+         XiPUmHA3zQKrBdcswZ8sTfhvo9WMb4IesIP73/U6NZmv8egHcuQ1NaZCBi8ft6vk3wdz
+         l2pNgo+tBBvaVTzPuJ/8vYVTWv1OVKaZGOVmeALymHOvJqk2aiSn/WfHAXLFWzpGss/E
+         DPxaKxHJroF+n8XbRXZ8HKpXYbo7DBz8A+zN3eGviD6RpVoAGrJyFBDNuCbbPsElrV5T
+         LJoqWhqLidAQ10kOGK6LjJjTMz1STD4TlHnuueEmTWD6TNH+qQdquwn4NaMMR725p+VA
+         Eq7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1783606892; x=1784211692; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PJC4lX0tZTp50J0S7on2pHdgb/jZHm/OiyTuKIg2KPY=;
+        b=RxiDQrM+/nel+al0V1Yt8xIPucCgxXSo8TzCvLkb4XHIgAD0zYBlDnoLxFbB7sKNKL
+         tYmzUKu7hhJ7gtVbqp7bJQ+Vy5KmVCBhODoYK/vzSrNe5zODVPcsC1vvaX8yGwz/d9TD
+         mKrAAo+Ohh+gCv9NOzcUzX4xgoB26D6Nfd/unSnDnSuwL8ZWKuowZgar1RthPeRdfqwR
+         n0TL9PxkBWcVdYgSK2XRMtxO8GOOuWBbawDkNQ46pMuopjd1vGeu3ktIcjlMuOCF/JmU
+         NvUT9slLQqvAzx0TIsDHGTdfIdCBBe/LeoIDb6G6SAT9Jp8X/HOCpTXDRZO4O5E5WTPi
+         KL1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783606892; x=1784211692;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PJC4lX0tZTp50J0S7on2pHdgb/jZHm/OiyTuKIg2KPY=;
+        b=ThsiJeoVaAEMMUKSDXxn84Mj51kxWOgZikA7VTJR8n4/ftFA4xcrZzEbh0Fa7RXRU2
+         fYz/8CGABYmVO84/VbkcWHPTKXSsqX0U0g8Dmc75jxyuQpSJ7wCxbFg2f0zEw42k7x3T
+         oq6uTeDZRJsMrrWEzciFQNS4SzAi2zpd4SNsD5Bd0g6btbYnQ0MWowIvVefFvZvy3EM/
+         VZo8bVwsW6kHVunmTTAB/0/Ur9o6SNdu77Rbw+RPg5xsrMvkpw0w90jnARHK9xnuXfls
+         stoNU8o8p/SgkBiJdqg5i8nWR9uXTcY2D1XixrHJ1tA80pG8VjGZGEAnfQzAcgPMrdxo
+         Zuvw==
+X-Forwarded-Encrypted: i=1; AHgh+RpYVKsYGxINU8/d9oBlu0CQeljYwCoV57hxvowtdm4GFBP416Hlk/bjUs/QpKPGVysAkfSN+tHR0vWJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNnsBMT27kiOABgyKPPYkXMFSr0TCWjVx0X8bRLG6NRaaxutRn
+	3DW4nRqSws429Uv0aZI121QQnH9KN7NyEA4TuZif3v4s/YZ32p+bfMqM66XTyK+qpgQG2ZHJNxZ
+	IF5ZqzY3affo/sCnUZ1N6h+zcc8XBAHCw87YxQcRjhA==
+X-Gm-Gg: AfdE7cnyfB7bgA88LkJJTR1vOEhXvlPEVwSOw9j9V78KzV7+2rea9mxKZsjZNkQ9D2N
+	d5ZE37xrcMc4m9YxA22Jz+lWAxW+6sC9bZ6ijuAcGieWJJTi207b/hZ75JTFmz5YoBpZoVsN+jW
+	h2X+NXSP4qIVVElkXrIJR0FVxu2mT0iYTKYuDRxteGB0Erui0zYrXUzwMEntGhHosMKuYhRFpQ9
+	XxOL6YV0OLtP25uw9JxGIDdTecrTSLNKJ3kHOt5QAPILcX28bnvupraPx1gVU9rWFvvQTvqntRn
+	k/VKDVzBaYdKLW23z9LH2ZjsriWKqZLrAckPWoT12ZMKt97pLYqHI3lW4JAFgoJfHgJu
+X-Received: by 2002:a05:6000:25c7:b0:477:3986:9b54 with SMTP id
+ ffacd0b85a97d-47df07390e5mr7576513f8f.20.1783606891990; Thu, 09 Jul 2026
+ 07:21:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1783524645.git.gregoire.layet@9elements.com>
+ <cbe59dfba231dcd55fa86233dc076b017d67463a.1783524645.git.gregoire.layet@9elements.com>
+ <20260709-convivial-classy-mouse-db0b2d@quoll>
+In-Reply-To: <20260709-convivial-classy-mouse-db0b2d@quoll>
+From: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
+Date: Thu, 9 Jul 2026 16:21:19 +0200
+X-Gm-Features: AUfX_mxl9lcJsse3vhAYFsJh4Ndo0WrxC586WRK2sT65vAOI74m33ywGfCLJYeM
+Message-ID: <CAFi2wKYXVoBRHOCgA_6F20F2Wm4Z2wVz19+XRE9dH=gP3X+i_A@mail.gmail.com>
+Subject: Re: [PATCH v4 1/7] dt-bindings: serial: 8250: aspeed: add compatible
+ string for ast2600
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
+	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch, 
+	jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
+	anirudhsriniv@gmail.com, linux-serial@vger.kernel.org, 
+	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi Krzysztof,
 
-New issues:
-- [Critical] Unconditional firmware query for buffer requirements during ST=
-REAMON overwrites driver-calculated sizes, breaking Gen1 decoders and causi=
-ng DMA buffer overflows.
+On Thu, 9 Jul 2026 at 10:50, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On Wed, Jul 08, 2026 at 03:35:53PM +0000, Gr=C3=A9goire Layet wrote:
+> > The ast2600 was using the ast2500 vuart compatible string.
+> > Make it possible to have ast2600-specific properties.
+>
+> Then add these properties here as well. Adding a new device is one
+> commit: its compatible and its properties.
 
-Pre-existing issues:
-- [High] Completion crosstalk between a timed out `GET_PROPERTY` command an=
-d a subsequent `SESSION_STOP` command causes premature buffer freeing, lead=
-ing to use-after-free.
-- [Medium] The GOP_SIZE capability is missing the .hfi_id field in Gen1 enc=
-oder configurations, causing silent failures when setting the property.
---
+I thought it was necessary to split the two. I will squash the two
+dt-bindings commits for the next revision.
 
---- Patch [14]: [PATCH v7 14/18] media: iris: implement support for the Aga=
-tti platform ---
-commit 50a13c3b4c9f960eb99c4401684a9076ce008a44
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> >    aspeed,sirq-polarity-sense:
+> >      $ref: /schemas/types.yaml#/definitions/phandle-array
+> >      description: |
+> > -      Phandle to aspeed,ast2500-scu compatible syscon alongside regist=
+er
+> > -      offset and bit number to identify how the SIRQ polarity should b=
+e
+> > -      configured. One possible data source is the LPC/eSPI mode bit. O=
+nly
+> > -      applicable to aspeed,ast2500-vuart.
+> > +      Phandle to aspeed,ast2500-scu or aspeed,ast2600-scu compatible s=
+yscon
+>
+> This is a deprecated property, so it cannot apply to a new device -
+> aspeed,ast2600-vuart. You cannot use deprecated code for new bindings or
+> device support.
 
-media: iris: implement support for the Agatti platform
+True, I'll remove it.
 
-Port support for the AR50Lt video codec core (present for example on the
-Agatti platform) to the Iris driver. Unlike more recent cores this
-generation doesn't have the PIPE property (as it always has only one
-pipe). Also, unlike newer platforms, buffer sizes are requested from the
-firmware instead of being calculated by the driver.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1.c b/drivers/m=
-edia/platform/qcom/iris/iris_hfi_gen1.c
-> index ca1545d28b531..60bc1339ddd41 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1.c
-
-[ ... ]
-
-> +	{
-> +		.cap_id =3D GOP_SIZE,
-> +		.min =3D 0,
-> +		.max =3D (1 << 16) - 1,
-> +		.step_or_mask =3D 1,
-> +		.value =3D 30,
-> +		.set =3D iris_set_u32
-> +	},
-
-[Severity: Medium]
-This is a pre-existing issue, but the GOP_SIZE capability is missing the
-.hfi_id field here, meaning it defaults to 0.
-
-Because of this, when iris_set_u32() invokes session_set_property() with
-ID 0, the default case in iris_hfi_gen1_packet_session_set_property()
-will return -EINVAL. The caller, iris_set_properties(), explicitly ignores
-this return value:
-
-    if (cap->cap_id && cap->set)
-        cap->set(inst, i);
-
-Since AR50Lt lacks the B_FRAME capability (which applies GOP size on other
-platforms), does this completely prevent the GOP size from being configured
-on the firmware?
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c b/d=
-rivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> index 99e82e5510abe..c4baabbacefda 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_command.c
-> @@ -970,6 +970,11 @@ static int iris_hfi_gen1_set_bufsize(struct iris_ins=
-t *inst, u32 plane)
->  	struct hfi_buffer_size_actual bufsz;
->  	int ret;
-> =20
-> +	ret =3D inst->hfi_session_ops->session_get_property(inst,
-> +							  HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS);
-
-[Severity: Critical]
-Does this unconditional firmware query during STREAMON break existing Gen1
-decoders and lead to DMA buffer overflows?
-
-When the firmware responds to this property,
-iris_hfi_gen1_session_buffer_requirements() blindly overwrites
-inst->buffers[type].size with the firmware's required size:
-
-    inst->buffers[type].size =3D req->size;
-
-However, userspace allocated these V4L2 DMA buffers during REQBUFS based on
-the mathematical size from iris_get_buffer_size(). During QBUF,
-iris_vb2_buf_prepare() incorrectly validates against this smaller size inst=
-ead
-of the firmware's newly required size:
-
-    if (vb->type =3D=3D V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE &&
-        vb2_plane_size(vb, 0) < iris_get_buffer_size(inst, BUF_OUTPUT))
-        return -EINVAL;
-
-If the driver then passes the firmware's required size (via
-HFI_PROPERTY_PARAM_BUFFER_SIZE_ACTUAL), could the firmware write past the e=
-nd
-of the physically allocated DMA memory?
-
-Additionally, does applying this unconditional query to existing SM8250 dec=
-oders
-force an unsupported state transition?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this session_get_propert=
-y()
-call lead to a use-after-free if it times out?
-
-iris_hfi_gen1_session_get_property() waits synchronously on inst->completio=
-n.
-If it times out, the command is left pending in the firmware. Later, if
-userspace stops the stream, iris_hfi_gen1_session_stop() reinitializes
-inst->completion and waits for HFI_CMD_SESSION_STOP.
-
-If the delayed HFI_MSG_SESSION_PROPERTY_INFO arrives during this wait,
-iris_hfi_gen1_session_property_info() handles it and blindly calls:
-
-    complete(&inst->completion);
-
-Will this prematurely wake the SESSION_STOP wait, causing the driver to
-mistakenly believe the session has stopped and free internal buffers while
-the firmware is still accessing them?
-
-> +	if (ret)
-> +		return ret;
-> +
->  	if (iris_split_mode_enabled(inst)) {
->  		bufsz.type =3D HFI_BUFFER_OUTPUT;
->  		bufsz.size =3D inst->core->iris_firmware_desc->get_vpu_buffer_size(ins=
-t, BUF_DPB);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-iris-ar50l=
-t-v7-0-76af9dd4d1f6@oss.qualcomm.com?part=3D14
+Regards,
+Gr=C3=A9goire
