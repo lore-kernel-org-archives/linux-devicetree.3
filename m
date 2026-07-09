@@ -1,271 +1,212 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A343EEAEB
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE2F3F0746
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783587183; cv=none; b=qafcxDU1+21W/tFwuxwSvjm+o/jkFq5OSpcovyoLjcjvW5r7wvsQw5s3hshjyy4gnF0+zKeuBqG+fE4AI1+1uJZTpWhPHj+vOBLroaFJWF6mB3ZSMiB8xiQBwzQg15/cLgQlnuKyXxpX07W9TqNfI9JCuuVlXIDU+V1adQCORH0=
+	t=1783587201; cv=none; b=QmouoIYchfhN3h+Bmwjxe8EZdejwKNF8c1G3YsRCexRagbkLQuc2eoTAIguW2ykAdddo6vzbvDYq2retRvCxCgznsJKdDIvKQwMhUAA/BaoFeOyg/mieqSOSuEVi9ObKfTgmFztWvpja3GkC9NByua/VkO9rzdZqniAOg6pKqZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783587183; c=relaxed/simple;
-	bh=2LC4TKuvDL/8ibezYhZ5/e526GGw+mDJkG60Rt+VgOM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kJKol0Vh6ed7ZAPmCbrLdIAwR9sNtUORn3zr2nKyByIh+ChcGdWGhRixNDXFnSxP/LodjH/lwcxB+3xRuTW1cxuBxgHW/B879/05WEiPPpu9mjUUOdX/fFiebxQmVchuXm53GC5nMOGh3QYv2uB83Uqd2tovI2Yh38DLOpnLs1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D0H7Rg+A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cf2rfvG9; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783587201; c=relaxed/simple;
+	bh=gJH9guXcAfNJ6SsL+eO4i7xE/NDXFjDkDL6cAwmmE40=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KRcvKARXimkOrljjfwrj/r33PrtZC361it94jyknXeTJA0g1Om12bAOGTfDW2dQ1J+3lEtnW3CXLYnmKS5adQY5FIUzBZqRVFFEehu9B5iOekwaZfHmzRCPR6X54x4uPD0i7TZSBV4T4WiOR53VYyust/AekiPQT8E43d+EOJwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jksxRTYV; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D0H7Rg+A";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cf2rfvG9"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669618Tq933309
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 08:53:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8x1vSQ0yLHsjUQfaDpuXr3VOOZai+I3ARqOIth0tqys=; b=D0H7Rg+A1yirMptP
-	lw2c+lmUBJodhyxOfeST13/J7lC0huNKHf/DWxEt8Gp893yQYSdGVMzxeYf0/TkU
-	u5nGkybLvVefQo0Ei5kF0bPGKiZBdcmcGiDCL99XkNlyDj1o4/NmpBCLcbDAmo9R
-	8PxiyZHnLQWIdPlvD0wAuphABae+9grlpJikQkf2ZPLoCmktImCJPwAPPgNvOZcV
-	rYe82gYF0hzlR7hpdH4vAbHMvzi/cttnUKdzSEDhEPk+SOFMfuq/FYYvYcX8f2lS
-	TLmMd0nCJ71aMI3GrrX8q/KtQ8n//rDpk7QppVsZ95xTOkwImfdnrjpchMmGA30t
-	/Z40ng==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9ug6jt5w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:52:59 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38c7de7baf1so162542a91.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:52:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jksxRTYV"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4758bd3731bso425809f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:53:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783587179; x=1784191979; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8x1vSQ0yLHsjUQfaDpuXr3VOOZai+I3ARqOIth0tqys=;
-        b=Cf2rfvG9w84wFlABTvTn8zwFru+la7gRvZJaK0eon6aKn+IKTkz0R6t0AGoMlcuJ+U
-         ICAxTEVt6uDYAMa1bUuauxu+8MZ5K8e/8v0tTCiFPYaZUcpYsUxVwy093AAXGYKFC0Cg
-         ps4rbVkmmziWd6cjklSMgU1Nco5yNtNIw/wfslqPJWynzz5Blk4c1HaCsPH5j64MhDIL
-         nC29q5EdSWKmzk8ehSmWnFZrM0pOdMvZLP5dJqS4LjaFK72PM666GB/Ag4JM3/eUJgsU
-         zvQbkqPBswl5PFmuNjCmGsXWfaMFmHFPIeUi+97aDyBVXZZ6K6vFlYWO1Gxb8eK1zTUD
-         +XXA==
+        d=gmail.com; s=20251104; t=1783587197; x=1784191997; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W3WCN+xm9Ku357SP4qkc2nLAhmJTaNSJBwAXmI/hZS4=;
+        b=jksxRTYVH0bOAxQiQT5u/DZMQ87Z5qlltniQc8dywmvycj0i62hJ82UpiEgeDT5lGF
+         fjJdfEoRk6maqbwwKW+gitrKyTMdZcsMT4k1KouHq3RMglWYp7QmJti6wyqQTjboYLTN
+         uz6Ol20xtiYyiA49JlWk220H5bL/spsLxhpkHG7+sSD6X0xTV+HdemhFyq3QRaKgwBWB
+         Dr9b5PVzl+ZQCPzw1OR8pl1xfm25sqEUZVCzDHik84Q38dMYZe6naoR/k0v1erEHHW+z
+         A6ZcQ819qVKNcva8PgADxK5dwwlwDMRXeVW3fhmZs9Nd2x/l/W7wGkTEwdBillnXvNGI
+         7uqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783587179; x=1784191979;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8x1vSQ0yLHsjUQfaDpuXr3VOOZai+I3ARqOIth0tqys=;
-        b=CItkDoLsHEhlwQrVbzdAxXaEFZAgLM6zig49d/yxi80lspzh520XVHPGLnH4yxKQEZ
-         jygc6GP1dEfRN7tl6Wogp+v6ScDbKdKrbbOwwUEg3kOdlBO4E/KfynHaeXgsdN19aHx8
-         Kf2t6bOMifshvR8ZU7pPhYSSOTQK9Cmu3enwEwZNJDWVLsoX20ossr9zTIgOaxYyvIcJ
-         xZ3O7oLGexw1qkrGlwuZ+kjt8kl8Wy/8Y1ywtTZk6Y7IwPjNVjHMI2rHDRfiyzLTStfJ
-         9SrOnEK1YrwkP4a7MITt6oBUvH142XRUvwjxxUHooFLqx0OS3lGInBaocmG9kBiRFJG0
-         z1Vw==
-X-Forwarded-Encrypted: i=1; AHgh+RpNjUlPzUG+bPlj05XAKn8I2A7V1H8OvZqPC3ybIirJJki96PXxgJgMpFKWfxO06dulfJXw1HU41OFp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7i4Q9lwhCLVKSXwvKnAm7UkDHYhRJWIJ0X1Gbnou23ZEcDO7W
-	Lb2iY6QeNQeW04QNriZA0vV/3eY8vDOEFozl2ec7L8X+vbiGjnforW6dbP1bjLhpdHjOjq/syUC
-	YThR46qytoPUVsJViQNa8/xBHeln7/Ku/NcKQJAJlxQQcmVm5X+EZYBjLm8W2rflN
-X-Gm-Gg: AfdE7cnlt1aWEW7deVb33SiZzT6h24ZZ8dRwBlDl4pxTjB2+RAxoMNCsKMH/KEloHRP
-	K55G7nJaYQWA02YEv0yGeYTJrgTIASTCWdNCYFDhqlvswVD9ov84PrLuS3PfCNpKMDIUplMrpXM
-	Cnf3Kb9QBU2KCgmuBrtHdGirWKjL5x1VydJ6LCatQbAZ9GTXZGuotFhrq2kTiTMKnRFQskXlQDK
-	u1H1fPZrVQaGeYZav+jgclpDuho9B7pdG81HqMpANPRmWLBqmZp1ocihbS61Qp8W6AM2pt4UUOX
-	beX2tg61ocPMVdxx7PUE76Cjt7eaZMSyyf4l5lvufyQnz25C577gfYuHrBUTrGh/R172wGuuyoT
-	qjJym7eo382NDgqd5BOHDN78OBShYDoP8u+poHsJhH3oeaJYOO+Go8BcZP//Gu1oPwMr4jyte3I
-	0lj8sA
-X-Received: by 2002:a17:90b:350c:b0:36d:7b62:4767 with SMTP id 98e67ed59e1d1-3893fe5b986mr6638407a91.5.1783587178781;
-        Thu, 09 Jul 2026 01:52:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:350c:b0:36d:7b62:4767 with SMTP id 98e67ed59e1d1-3893fe5b986mr6638372a91.5.1783587178287;
-        Thu, 09 Jul 2026 01:52:58 -0700 (PDT)
-Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38a5574c36dsm822771a91.6.2026.07.09.01.52.54
+        d=1e100.net; s=20251104; t=1783587197; x=1784191997;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=W3WCN+xm9Ku357SP4qkc2nLAhmJTaNSJBwAXmI/hZS4=;
+        b=ZdWuzaEkrTXQvvQNMOITkQP/752ufnNgaJRnbrpdOQiFdOgXye8cDfpYNCXdo8pRhc
+         S6OFXTU1rE95PZcgxLqUF50LnS+IgRzsam+knrTc6NiYINiLZtGx5H2JORc3b6+8imPx
+         dOyKzd4HJYlkZLfzyN89wXi5hRm6e707PyN9+d0Qc39Y6XZnjonRf3O4DTBwE0qMdtOx
+         UAsuSsP1WxIswSFVCnG6sqwmyaMrhfQ+sjceTUthprIMlIA2fqssdriuB0wYTUtXm1B7
+         vm+BOX+qg4eBpHMjr9KsNz081exdB0k8HwMqrwsBnKUFL9hfWybPUZmgIZ6+OjIdFk6m
+         WWUQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrjbSrY302/Ga1iidhB38saGs2dWpj+X9GNPq71ttORJx1Uf93mwuTh/fz9QA0j+RqYJAmMNNbvKyS2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqfBm2qXKJb7bFqgYKFGxDQS1Pt4FVi6w0lq4D8HUfZYKc0T4V
+	vfu2ShFrgeqV2QRL4wkxzXzihE8HlkGENXDpbDs4WmK9MwOKVs+eRNPT
+X-Gm-Gg: AfdE7cneH/wQ3Gmb6l0GypjoD/KUJUFkv8yQUgTkAVvKGkDrqzv3jS3P/1IHZqCuUKN
+	RoJqbgn/4JBGAazWxTHTU5MHGB4og78K5nd/b8oU6e7kua+YQSoH0nabktJVeF7poUVCt1ZZmSw
+	eP3ey5NhjHiMH6vwSWlCQHoViafhyFnvdutqRsilEqDHaQkklX2QzJ4l87uMPRqTs+CRYM63CJD
+	R6AQFiroe+tBKJjpFp5a5OcUqM/w2MOBGvNbhOV1Dm5ig6PNZGr0TsRjM2qrlUvXCBPEDRZfwGW
+	nwlEND54woHc/raHgCjlRdMuLf48wvHY1Zbh6t9LLE3GUGbZoWkXQuYwPw8iM6z8AIe646NXSxA
+	R0kDLTtz0Gu+gJI6q4QWhGfLOsm1bA72fXZzzoOj/U40E4O//00tI9SPWmtcKaNiE8RSVPZ3P9L
+	rvi11N
+X-Received: by 2002:a05:6000:2509:b0:475:da0e:744d with SMTP id ffacd0b85a97d-47df754dbc2mr2043290f8f.8.1783587197256;
+        Thu, 09 Jul 2026 01:53:17 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039ae44sm47621073f8f.23.2026.07.09.01.53.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 01:52:57 -0700 (PDT)
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Date: Thu, 09 Jul 2026 14:22:37 +0530
-Subject: [PATCH v4 2/2] usb: dwc3: qcom: Modify interrupt handling for
- eUSB2 Phy targets
+        Thu, 09 Jul 2026 01:53:16 -0700 (PDT)
+Date: Thu, 9 Jul 2026 09:54:22 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Fred Chen <fredchen.openbmc@gmail.com>
+Cc: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>, 
+	Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>, 
+	Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>, 
+	Brian Chiang <chiang.brian@inventec.com>, Cosmo Chou <chou.cosmo@gmail.com>, 
+	Dixit Parmar <dixitparmar19@gmail.com>, Eddie James <eajames@linux.ibm.com>, 
+	Antoni Pokusinski <apokusinski01@gmail.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
+	Ashish Yadav <ashish.yadav@infineon.com>, Syed Arif <arif.syed@hpe.com>, 
+	ChiShih Tsai <tomtsai764@gmail.com>, Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
+	"Paller, Kim Seer" <KimSeer.Paller@analog.com>, Colin Huang <u8813345@gmail.com>, 
+	Yuxi Wang <Yuxi.Wang@monolithicpower.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, 
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices
+ MAX20912 and MAX20916
+Message-ID: <ak9gFKkfEgkU_q1G@nsa>
+References: <20260707122701.751878-1-fredchen.openbmc@gmail.com>
+ <20260707122701.751878-3-fredchen.openbmc@gmail.com>
+ <f9e32dd1-7c2c-4055-83fa-94683777e30b@roeck-us.net>
+ <ak4QO9uhKOt68dl1@nsa>
+ <20260708-true-carp-of-champagne-a0dcca@quoll>
+ <ak41BRQBNdsQrYww@nsa>
+ <b2a5e99c-6d4d-454e-8ecd-8638e4dc0ddb@roeck-us.net>
+ <PH0PR03MB63512A19C32B7722D17D0FD4F1FE2@PH0PR03MB6351.namprd03.prod.outlook.com>
+ <CABOy65_GqKiZLM+soZUK_34T8MYZS3dRX38-CMf_Bd1EmG0jhA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-eusb2-interrupt-handling-v5-v4-2-d4f993925608@oss.qualcomm.com>
-References: <20260709-eusb2-interrupt-handling-v5-v4-0-d4f993925608@oss.qualcomm.com>
-In-Reply-To: <20260709-eusb2-interrupt-handling-v5-v4-0-d4f993925608@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783587165; l=4842;
- i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
- bh=2LC4TKuvDL/8ibezYhZ5/e526GGw+mDJkG60Rt+VgOM=;
- b=smNUIwlTXF/VpOZSNou22Hl0IXiuqTmfsm8JOd7qf2CBOhKfQHY0upcIuUMmu5suS0QkV93jh
- AFkfq+WV+vvAW0BChuC0x4K6Oy/seub67vv5oaBdnb4UtTJjHiU4ZyU
-X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
- pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfX1VH5zQuZMSes
- KfaXPNaNkW1tUibfLfbGUsid5ivJSgbY66TI9PzOjIORq8gMgQVLPy4QQjex3BQon4UJdg4fzdg
- lWBMKe4dzq995oPQadqI23UWtIlVTKc=
-X-Proofpoint-GUID: LPEYeNOUPTx3pgUlhVHs05myu7MSF9c2
-X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a4f616b cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=tc1UND2VpooZlN5jxTkA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: LPEYeNOUPTx3pgUlhVHs05myu7MSF9c2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfX4oMcUYWXaNFV
- F2o4kMvVGYQcw3KD4BTiiBgEwgjPCI/E1rc9Qx4KwQEtBd3G/1y47VS+bPJEKbu++yFLTwvuEBy
- hEJkaG1Ivm9iBse6Jxp3N5NJ7OxwnEWD6Exbns/guFlbmIi1IAxMpXs6nchD3lk+a2iKv6zQuEA
- mTTJzQMnAcyd/FttD2qetyiOVBsSj7TT3MpH0jKO6BHFDiVA27DqT3xt3tObl9qvQo19XhEevtb
- 08Z+90Gs9TRycV4qtryo7P+L3CZJVaPjPTSbPiFLpaSfyAPlw5SvX1J+J0giuNuDvX56HCNCQiC
- iuK8kf+zDw8RuQeyk04IXVKb0EoKj6njXUMLLmsHc4smXasXhBybuiXcdSCZYdrhmynKwdBaoH8
- ln4EpkIyPvw9mcBGGY4WI8CpC92J0vWoiyHxNG6BXu3byHhdwdZTqQZKjwb7oa77kzhNGdE0OFH
- AGrNQHzUWUEXzOSFmSQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090083
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABOy65_GqKiZLM+soZUK_34T8MYZS3dRX38-CMf_Bd1EmG0jhA@mail.gmail.com>
 
-eUSB2 targets handle wakeup interrupts differently depending on device
-speed when operating in host mode.
+On Thu, Jul 09, 2026 at 03:23:55PM +0800, Fred Chen wrote:
+> Torreno, Alexis Czezar <AlexisCzezar.Torreno@analog.com> 於 2026年7月9日週四 上午8:59寫道：
+> >
+> > > On 7/8/26 04:32, Nuno Sá wrote:
+> > > > On Wed, Jul 08, 2026 at 12:50:25PM +0200, Krzysztof Kozlowski wrote:
+> > > >> On Wed, Jul 08, 2026 at 10:19:56AM +0100, Nuno Sá wrote:
+> > > >>> On Tue, Jul 07, 2026 at 06:52:48AM -0700, Guenter Roeck wrote:
+> > > >>>> On 7/7/26 05:26, Fred Chen wrote:
+> > > >>>>> Add support for the Analog Devices MAX20912 and MAX20916
+> > > >>>>> dual-output multiphase voltage regulators with PMBus interfaces.
+> > > >>>>>
+> > > >>>>> Signed-off-by: Fred Chen <fredchen.openbmc@gmail.com>
+> > > >>>>
+> > > >>>> Please provide evidence that those chips actually exist.
+> > > >>>> Internet search comes up blank. I'll need confirmation from someone
+> > > >>>> at Analog.
+> > > >>>
+> > > >>> Hi Guenter,
+> > > >>>
+> > > >>> Well, in fact I'm in the middle of preparing a series that adds
+> > > >>> support
+> > > >>> for:
+> > > >>>
+> > > >>> "max20826"
+> > > >>> "max20855b"
+> > > >>> "max20908"
+> > > >>> "max20912"
+> > > >>> "max20916"
+> > > >>>
+> > > >>> All the above parts have the datasheet under NDA. But before we had
+> > > >>> a one page "datasheet" in analog.com but I guess that is gone! For
+> > > >>> context I mainly did the base (core) driver for max20826 and then
+> > > >>> Alexis added the other ones.
+> > > >>>
+> > > >>> Not sure how to proceed... I can wait and then work on top of what
+> > > >>> Fred has but this patch is very minimal when compared with what we have.
+> > > >>> Like:
+> > > >>>
+> > > >>> * No regulator support;
+> > > >>> * No direct mode. The chip has two ways to access registers (paging
+> > > >>> and
+> > > >>> * direct mode).
+> > > >>> * No way to count how many phases we have or if RAIL_B (func[1]) is
+> > > >>> being used at all.
+> > > >>>
+> > > >>>
+> > > >>> Some other things more intriguing is that these chips, as far as I'm
+> > > >>> aware (at least for max20826), always have bit 2 set in
+> > > >>> ON_OFF_CONFIG so a gpio vout. Also we needed some special handling
+> > > >>> to read phase current which I'm not seeing in the driver. So I would
+> > > >>> like to understand how the chip was tested?
+> > > >>>
+> > > >>> Anyways, if Fred is ok with it I can just finish what I'm doing and
+> > > >>> send the patches. It would make sense to have something more
+> > > >>> complete on submission but I don't want to just "steal" the work already
+> > > done.
+> > > >>
+> > > >> Binding should be in such case posted complete, so probably not a
+> > > >> trivial device.
+> > > >
+> > > > Yes, in my series bindings are not in trivial as we support the enable
+> > > > gpios.
+> > > >
+> > >
+> > > Same question I asked before: What is your use case ?
+> > >
+> >
+> > Hi Guenter,
+> >
+> > Unlike my MAX20830 patches, for some reason these chips (not only Nuno's max20826)
+> > hardwired the bit 2 in ON_OFF_CONFIG to '1'. This makes the use of gpio to enable the
+> > device a requirement.  (as of the latest info given to us)
+> >
+> > Regards,
+> > Alexis
+> 
+> Hi Nuno,
+> 
+> Based on the MAX20912/16 specs on my hand, these chips do not support
+> PMBUS_PHASE (0x04). Furthermore, the spec only indicates support for VID mode
+> and does not provide m/b/r. Therefore, some of the features you mentioned might
+> be specific to the MAX20826 series.
 
-According to the eUSB2 specification, remote wakeup signaling in host
-mode is detected via different data-line assertions based on the
-connected device speed.
+I see, phases are not supported using standard PMBUS.
 
-When a low-speed device is connected, the host repeater drives eD+ to
-logic '1' upon detecting a K-state on the USB lines during remote wakeup
-(eUSB2 specification, Section 5.5.14).
+> 
+> Regarding enabling VOUT via GPIO, our platform handles this via the CPLD as
+> part of the hardware power sequencing. Managing this pin through the driver is
+> not a requirement for our system.
 
-When a full-speed or high-speed device is connected, the host repeater
-drives eD- to logic '1' upon detecting a K-state on the USB line during
-remote wakeup (eUSB2 specification, Sections 5.5.15 and 5.5.18).
+But we cannot assume all systems will behave like the above. But now i
+do wonder about controlling the GPIOs in the driver. In your system you
+clearly did not need to do it. In mine (testing with a rpi) I had to
+use a GPIO (well I could have used hogs or pinctrl). But if you control the pin
+you do gain the ability to turn off the regulator. If you don't it's always on
+(which might be indeed the bulk of the real usecases for these systems).
 
-Since the eUSB2 PHY's "DP" and "DM" interrupt lines monitor the eD+ and
-eD- line states, configure the wakeup interrupts accordingly
+> 
+> As for the testing, I have verified that the telemetry readings for both Rail A
+> and Rail B behave as expected. The driver reports valid data after system
+> power-on, and the readings drop to 0 properly after power-off.
+> 
+> It's possible my specs are outdated or that I'm missing some use cases. If
+> you plan to submit your more complete driver covering the MAX20912/16
+> soon, I'm more than willing to hold off on sending v2 patch.
+>
 
-Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
----
- drivers/usb/dwc3/dwc3-qcom.c | 40 ++++++++++++++++++++++++++++++----------
- 1 file changed, 30 insertions(+), 10 deletions(-)
+Sure, soon enough :)
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index f43f73ac36ff..65996d47da1f 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -85,6 +85,7 @@ struct dwc3_qcom {
- 	struct icc_path		*icc_path_apps;
- 
- 	enum usb_role		current_role;
-+	bool			has_eusb2_phy;
- };
- 
- #define to_dwc3_qcom(d) container_of((d), struct dwc3_qcom, dwc)
-@@ -272,15 +273,23 @@ static void dwc3_qcom_disable_wakeup_irq(int irq)
- 	disable_irq_nosync(irq);
- }
- 
--static void dwc3_qcom_disable_port_interrupts(struct dwc3_qcom_port *port)
-+static void dwc3_qcom_disable_port_interrupts(struct dwc3_qcom *qcom, int port_index)
- {
-+	struct dwc3_qcom_port *port = &qcom->ports[port_index];
-+
- 	dwc3_qcom_disable_wakeup_irq(port->qusb2_phy_irq);
- 
- 	if (port->usb2_speed == USB_SPEED_LOW) {
--		dwc3_qcom_disable_wakeup_irq(port->dm_hs_phy_irq);
-+		if (qcom->has_eusb2_phy)
-+			dwc3_qcom_disable_wakeup_irq(port->dp_hs_phy_irq);
-+		else
-+			dwc3_qcom_disable_wakeup_irq(port->dm_hs_phy_irq);
- 	} else if ((port->usb2_speed == USB_SPEED_HIGH) ||
- 			(port->usb2_speed == USB_SPEED_FULL)) {
--		dwc3_qcom_disable_wakeup_irq(port->dp_hs_phy_irq);
-+		if (qcom->has_eusb2_phy)
-+			dwc3_qcom_disable_wakeup_irq(port->dm_hs_phy_irq);
-+		else
-+			dwc3_qcom_disable_wakeup_irq(port->dp_hs_phy_irq);
- 	} else {
- 		dwc3_qcom_disable_wakeup_irq(port->dp_hs_phy_irq);
- 		dwc3_qcom_disable_wakeup_irq(port->dm_hs_phy_irq);
-@@ -289,8 +298,10 @@ static void dwc3_qcom_disable_port_interrupts(struct dwc3_qcom_port *port)
- 	dwc3_qcom_disable_wakeup_irq(port->ss_phy_irq);
- }
- 
--static void dwc3_qcom_enable_port_interrupts(struct dwc3_qcom_port *port)
-+static void dwc3_qcom_enable_port_interrupts(struct dwc3_qcom *qcom, int port_index)
- {
-+	struct dwc3_qcom_port *port = &qcom->ports[port_index];
-+
- 	dwc3_qcom_enable_wakeup_irq(port->qusb2_phy_irq, 0);
- 
- 	/*
-@@ -303,12 +314,20 @@ static void dwc3_qcom_enable_port_interrupts(struct dwc3_qcom_port *port)
- 	 */
- 
- 	if (port->usb2_speed == USB_SPEED_LOW) {
--		dwc3_qcom_enable_wakeup_irq(port->dm_hs_phy_irq,
--					    IRQ_TYPE_EDGE_FALLING);
-+		if (qcom->has_eusb2_phy)
-+			dwc3_qcom_enable_wakeup_irq(port->dp_hs_phy_irq,
-+						    IRQ_TYPE_EDGE_RISING);
-+		else
-+			dwc3_qcom_enable_wakeup_irq(port->dm_hs_phy_irq,
-+						    IRQ_TYPE_EDGE_FALLING);
- 	} else if ((port->usb2_speed == USB_SPEED_HIGH) ||
- 			(port->usb2_speed == USB_SPEED_FULL)) {
--		dwc3_qcom_enable_wakeup_irq(port->dp_hs_phy_irq,
--					    IRQ_TYPE_EDGE_FALLING);
-+		if (qcom->has_eusb2_phy)
-+			dwc3_qcom_enable_wakeup_irq(port->dm_hs_phy_irq,
-+						    IRQ_TYPE_EDGE_RISING);
-+		else
-+			dwc3_qcom_enable_wakeup_irq(port->dp_hs_phy_irq,
-+						    IRQ_TYPE_EDGE_FALLING);
- 	} else {
- 		dwc3_qcom_enable_wakeup_irq(port->dp_hs_phy_irq,
- 					    IRQ_TYPE_EDGE_RISING);
-@@ -324,7 +343,7 @@ static void dwc3_qcom_disable_interrupts(struct dwc3_qcom *qcom)
- 	int i;
- 
- 	for (i = 0; i < qcom->num_ports; i++)
--		dwc3_qcom_disable_port_interrupts(&qcom->ports[i]);
-+		dwc3_qcom_disable_port_interrupts(qcom, i);
- }
- 
- static void dwc3_qcom_enable_interrupts(struct dwc3_qcom *qcom)
-@@ -332,7 +351,7 @@ static void dwc3_qcom_enable_interrupts(struct dwc3_qcom *qcom)
- 	int i;
- 
- 	for (i = 0; i < qcom->num_ports; i++)
--		dwc3_qcom_enable_port_interrupts(&qcom->ports[i]);
-+		dwc3_qcom_enable_port_interrupts(qcom, i);
- }
- 
- static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
-@@ -683,6 +702,7 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 	if (ignore_pipe_clk)
- 		dwc3_qcom_select_utmi_clk(qcom);
- 
-+	qcom->has_eusb2_phy = device_property_read_bool(dev, "qcom,has-eusb2-phy");
- 	qcom->mode = usb_get_dr_mode(dev);
- 
- 	if (qcom->mode == USB_DR_MODE_HOST) {
-
--- 
-2.34.1
-
+- Nuno Sá
