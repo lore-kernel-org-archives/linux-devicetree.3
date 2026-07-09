@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F89B399350
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:47:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBDD37C90A
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:47:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783630026; cv=none; b=EuMLS/7qecVoyQfOfuf3OxVqmfKVgx4rvOj4vnFtYZKIyEPAHbD3bVFKevjkVDreXc71MRijvi03TCKI4bpwox1oxtxNvGeZlejlvBia5c72zA9FFBXrnXLL7SNU2UcLvzudUHSKbV61KTeECJQbBK850eVrhFkPl+pecpaV7ts=
+	t=1783630037; cv=none; b=fXfr1meNbHAJcxmSeNwKEV6TJYXSzK2jz0cgBMkEvGYjGM0hOxwUGVE2wT4sCandR8ycszMc/09UEpKh8YIZLFQ6I/59FlnU5tjIBTstO8+sBbiKNxdv4gIB/+Ct+5b7qokRwhueVL0yqc0drdGaJSJMD8UXgLe4rF5+RlMPtsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783630026; c=relaxed/simple;
-	bh=alPH4/mnAtyhHzufFFDrmwhmow3dhNhtBb+jpFc+KSs=;
+	s=arc-20240116; t=1783630037; c=relaxed/simple;
+	bh=oV6XsZVmXEo1AHnhjk7dUjutZ9FTQL3Z3Rr2pegISvg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PhcqeTq+nao70oxCUm7dMrSXgyIlUmJZDYTJLvwxEmJeG80o/NVdHv/Pmusyl+w21qfHRKz0rRLDfL7CV2CYJkKGs+Hqf5sUwyVqeKM5SU9jw7eYKbatd8wc0ojg483OgP9Fme2zcIybJgyQGjViKnO5SCEpa3woKm6rsy4IMBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KcDMBaRq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QUrSwViQYoG8i9pPBxk5GXu1wUvZ8z/93pWfQn+acTqjkDykB0gBL0DdMjoDoDcHnPpA8mBNwbN5ExQsPZ5i5nBe73XUtL/hzJmAYLFvGWOc8h35fyc6J2EGm5YXBGrNwBt9kXtaXL0Af24FfeRmC+vlQfF5mzkXHQEPecJM3JI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOb6Hd8Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KcDMBaRq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0771F000E9;
-	Thu,  9 Jul 2026 20:47:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOb6Hd8Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB291F000E9;
+	Thu,  9 Jul 2026 20:47:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783630025;
-	bh=E9uu5cme0gouU9MxPZEIUCsdwx9/6IsdE/4M5lN5aVE=;
+	s=k20260515; t=1783630036;
+	bh=XzKwkyYkT2//gO4+AR6ebjBaBhcjQdWlCYZiOdZncTc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KcDMBaRqwXGyN6To927UVN0A0DwrPSsk4V/IqysqDyfsdbdoDdNkc6p/bK+oxM4HI
-	 5n1UaV+NbfoCYuAzHHHwvC+cgQWzKEHnxYlzDsl7lX44+4lQ55JZrekDbfSWjalq8h
-	 Nz/fwaHrEq+bTmC3wbrdwmA45p81aDS30H3I8S6Of/o8UxS88i5GHc9tLm1yNUmgRH
-	 O9TC4yDNH87fi7GCqn75ozLE4k+usu1O2GpQH7PqwkQO+MhRLcpzjd5hggxjDvCcEt
-	 LnBBN4ksaVZ9nMTi3hfLV2L+iY/3tXwc3ezAJmoyO0BXxZam0IU9mzMffuUeF4a3L2
-	 2dLG649i2sJgA==
+	b=TOb6Hd8QUbi1fdjeD5CPodilGY7rziHz0BZ4jFcpsIuLSkbdgq2Vt+vbWsne9nsAy
+	 6mXcRrZ+DGKGDL3jQRsYMAIUnQez+NjZVfE4QAsO0LEDlkCma0HdZIE+E7ab+oGQnK
+	 wnKtQE/xuBs2jCGoGnozDYqn6H5X/2nPaBVg1CQS9Lz510eJtdGYEUfo13VCJscP91
+	 fxOKFNP/Z8qn1eQm/vAqQLrs7zvlBkQnXxT1ef1fyTWVS7qjDuPkQvOf94tYlgEs4g
+	 ct8fLYmWZDTXN7Yc6KNdJd19h0NfcmdOal4VMt9zqUthMkvS5NNd9UK+NSHeKAhkHy
+	 4TZ2zG5JLHoRw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/19] crypto: cmh - add SM3 ahash
+Subject: Re: [PATCH v2 08/19] crypto: cmh - add AES skcipher/aead/cmac
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709203037.1884436-8-skrishnamoorthy@rambus.com>
+In-Reply-To: <20260709203037.1884436-9-skrishnamoorthy@rambus.com>
 References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-8-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-9-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 20:47:04 +0000
-Message-Id: <20260709204704.BC0771F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 20:47:15 +0000
+Message-Id: <20260709204715.ADB291F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,176 +46,143 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Linearizing arbitrarily large ahash input buffers via kmalloc rest=
-ricts request sizes and risks deterministic allocation failures.
-- [High] DMA mapping an inline array (rctx->checkpoint) potentially on the =
-stack violates the DMA API, causing cacheline sharing and vmap stack corrup=
-tion.
-- [High] An integer overflow when calculating total available data leads to=
- a massive heap buffer overflow.
-- [Medium] cmh_sm3_export leaks uninitialized memory into the exported stat=
-e buffer.
-- [Medium] Missing endianness conversions when populating hardware command =
-descriptors.
+- [High] Unbounded memory leak and DoS via orphaned chunks in `cmh_aes_cmac=
+_init` and `cmh_aes_cmac_import`.
+- [High] Memory allocation failure and `WARN` due to oversized `kmalloc` in=
+ `cmh_aes_crypt`.
+- [High] Cryptographic logic bug causing mathematically incorrect IV genera=
+tion in CFB-128 partial block chaining.
+- [High] Alignment violation resulting in misaligned pointers for generic C=
+CM fallback subrequest.
+- [High] Sleeping in atomic context due to hardcoded `GFP_KERNEL` in `cmh_a=
+es_cmac_import`.
 --
 
---- Patch [7]: [PATCH v2 07/19] crypto: cmh - add SM3 ahash ---
-commit 28c61ed61efa5f206b21de41a5196e656d04ad75
+--- Patch [8]: [PATCH v2 08/19] crypto: cmh - add AES skcipher/aead/cmac ---
+commit 0196177c32d5ce7a03aa73937a1fac3eb268a239
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add SM3 ahash
+crypto: cmh - add AES skcipher/aead/cmac
 
-Register the SM3 ahash algorithm using the CMH SM3 core (core ID
-0x05).  Supports incremental update/finup/final and export/import.
+Register AES algorithms using the CMH AES core (core ID 0x03): skcipher, ae=
+ad,
+and ahash. Supports 128, 192, and 256-bit keys and handles associated data,
+payload, and authentication tag.
 
-> diff --git a/drivers/crypto/cmh/cmh_sm3.c b/drivers/crypto/cmh/cmh_sm3.c
+> diff --git a/drivers/crypto/cmh/cmh_aes.c b/drivers/crypto/cmh/cmh_aes.c
 > new file mode 100644
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_sm3.c
-> @@ -0,0 +1,651 @@
+> +++ b/drivers/crypto/cmh/cmh_aes.c
 [ ... ]
-> +struct cmh_sm3_reqctx {
-> +	int    error;
-> +	u32    hw_started;
-> +	u32    buf_len;
-> +	u32    has_checkpoint;
-> +	u8     checkpoint[SM3_CONTEXT_SIZE]; /* SM3 context from last SAVE */
+> +static void cmh_aes_update_iv(struct skcipher_request *req, u32 mode,
+> +			      u32 op, const u8 *in_buf, const u8 *out_buf)
+> +{
+[ ... ]
+> +	case AES_MODE_CFB:
+[ ... ]
+> +		if (req->cryptlen >=3D bs) {
+> +			if (op =3D=3D AES_OP_ENCRYPT)
+> +				memcpy(req->iv, out_buf + req->cryptlen - bs,
+> +				       bs);
 
 [Severity: High]
-Can this structure be allocated on the stack?
-
-The crypto framework often allocates ahash request contexts on the stack
-using AHASH_REQUEST_ON_STACK. If CONFIG_VMAP_STACK is enabled, mapping this
-inline checkpoint array for DMA via cmh_dma_map_single() will pass a
-vmalloc address, which yields an invalid physical address.
-
-Additionally, since the checkpoint array isn't cacheline aligned, could
-DMA operations corrupt adjacent fields in the context on non-coherent
-architectures?
-
-> +	/* DMA state for current async operation */
-> +	dma_addr_t ckpt_dma;
-> +	dma_addr_t save_dma;
-[ ... ]
-> +static void vcq_add_sm3_update(struct vcq_cmd *slot, u32 core_id, u64 in=
-put_phys, u32 len)
-> +{
-> +	memset(slot, 0, sizeof(*slot));
-> +	slot->magic =3D VCQ_CMD_MAGIC;
-> +	slot->id =3D VCQ_CMD_ID(core_id, 0, 1, SM3_CMD_UPDATE);
-> +	slot->hwc.sm3.cmd_update.input =3D input_phys;
-> +	slot->hwc.sm3.cmd_update.inlen =3D len;
-> +}
-
-[Severity: Medium]
-Does the hardware expect a specific endianness for these command descriptor=
-s?
-
-The CPU-native values are assigned directly to the hardware command structu=
-re.
-If this driver is built on a Big-Endian architecture and the hardware expec=
-ts
-Little-Endian (which is typical for PCIe/SoCs), will these values be
-interpreted correctly without explicit conversions like cpu_to_le64()?
+Does this extract an unaligned 16-byte slice when the request length is not
+block-aligned? Mixing the end of the previous ciphertext block and the start
+of the partial block produces an incorrect shift-register state for CFB-128.
+If cra_blocksize is set to 1, standard CFB-128 chaining on partial blocks
+requires saving the unused keystream in the state between requests instead.
 
 [ ... ]
-> +static int cmh_sm3_update(struct ahash_request *req)
+> +static int cmh_aes_crypt(struct skcipher_request *req, u32 aes_op)
 > +{
-> +	struct cmh_sm3_reqctx *rctx =3D ahash_request_ctx(req);
-> +	struct vcq_cmd cmds[CMH_SM3_MAX_PAYLOAD];
-> +	struct core_dispatch d;
-> +	u32 total_avail, full_len, tail_len, from_src;
-> +	u32 idx;
-> +	int ret;
-> +	gfp_t gfp;
-> +
-> +	if (rctx->error)
-> +		return rctx->error;
-> +
-> +	if (!req->nbytes)
-> +		return 0;
-> +
-> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-> +	      GFP_KERNEL : GFP_ATOMIC;
-> +
-> +	total_avail =3D rctx->buf_len + req->nbytes;
-> +
-> +	if (total_avail < CMH_SM3_BLOCK_SIZE) {
+[ ... ]
+> +	if (req->cryptlen > CMH_AES_MAX_CRYPTLEN)
+> +		return -EINVAL;
+[ ... ]
+> +	/* Linearise input from scatterlist */
+> +	rctx->in_buf =3D kmalloc(req->cryptlen, gfp);
 
 [Severity: High]
-Could this arithmetic wrap around if a caller provides a very large request?
+Does this allow kmalloc to be called with a size up to 32MB? Since
+KMALLOC_MAX_SIZE is typically 4MB or 8MB, allocations exceeding this limit
+will trigger page allocator warnings and fail. Unprivileged userspace could
+potentially trigger this via the AF_ALG skcipher interface.
 
-If req->nbytes is close to U32_MAX, total_avail can overflow and become
-less than CMH_SM3_BLOCK_SIZE. The code would then bypass the block size
-check and execute:
-
-    scatterwalk_map_and_copy(rctx->buf + rctx->buf_len,
-                             req->src, 0,
-                             req->nbytes, 0);
-
-Would this attempt to copy gigabytes of data into the 64-byte rctx->buf,
-causing a massive buffer overflow?
-
-> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
-> +			memcpy(rctx->buf + rctx->buf_len,
-> +			       req->svirt, req->nbytes);
-> +		else
-> +			scatterwalk_map_and_copy(rctx->buf + rctx->buf_len,
-> +						 req->src, 0,
-> +						 req->nbytes, 0);
-> +		rctx->buf_len =3D total_avail;
-> +		return 0;
-> +	}
-> +
-> +	full_len =3D total_avail - total_avail % CMH_SM3_BLOCK_SIZE;
-> +	tail_len =3D total_avail - full_len;
-> +	from_src =3D full_len - rctx->buf_len;
-> +
-> +	rctx->data_buf =3D kmalloc(full_len, gfp);
+> diff --git a/drivers/crypto/cmh/cmh_aes_aead.c b/drivers/crypto/cmh/cmh_a=
+es_aead.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_aes_aead.c
+[ ... ]
+> +static int cmh_aes_aead_init_tfm(struct crypto_aead *tfm)
+> +{
+[ ... ]
+> +		/*
+> +		 * Subreq lives at (rctx + 1).  Alignment is guaranteed
+> +		 * by the crypto framework's __ctx ALIGN mechanism.
+> +		 */
+> +		crypto_aead_set_reqsize(tfm,
+> +					sizeof(struct cmh_aes_aead_reqctx) +
+> +					sizeof(struct aead_request) +
+> +					crypto_aead_reqsize(fb));
+[ ... ]
+> +static int cmh_aes_ccm_fallback(struct aead_request *req, u32 aes_op)
+> +{
+> +	struct crypto_aead *tfm =3D crypto_aead_reqtfm(req);
+> +	struct cmh_aes_aead_tfm_ctx *tctx =3D crypto_aead_ctx(tfm);
+> +	struct cmh_aes_aead_reqctx *rctx =3D aead_request_ctx(req);
+> +	struct aead_request *subreq =3D (void *)(rctx + 1);
 
 [Severity: High]
-Is it safe to assume the input data will always fit in a contiguous kmalloc
-allocation?
+Does this calculate a misaligned pointer for subreq? The crypto framework
+aligns the start of the primary request context, but
+sizeof(struct cmh_aes_aead_reqctx) is not guaranteed to be a multiple of
+CRYPTO_MINALIGN.
 
-The ahash API contract requires drivers to handle arbitrarily large inputs
-(e.g., multi-megabyte requests from IPsec or dm-verity). Bouncing the
-entire scatterlist into a single contiguous buffer via kmalloc() will fail
-deterministically for sizes exceeding KMALLOC_MAX_SIZE, or earlier due to
-memory fragmentation.
+Because struct aead_request requires strict alignment for its __ctx member,
+this can lead to alignment faults or data corruption when CCM mode falls
+back to software. Should the context size wrap the struct size with
+ALIGN(..., crypto_tfm_ctx_alignment())?
 
-Should the driver process the scatterlist in bounded chunks instead of
-attempting to linearize it entirely?
+> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
+es_cmac.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
+[ ... ]
+> +static int cmh_aes_cmac_init(struct ahash_request *req)
+> +{
+> +	struct cmh_aes_cmac_reqctx *rctx =3D ahash_request_ctx(req);
+> +
+> +	memset(rctx, 0, sizeof(*rctx));
+[ ... ]
+> +static int cmh_aes_cmac_update(struct ahash_request *req)
+> +{
+[ ... ]
+> +	chunk =3D kmalloc(sizeof(*chunk) + req->nbytes, gfp);
+
+[Severity: High]
+Does zeroing the request context in cmh_aes_cmac_init() orphan the chunks
+dynamically allocated during cmh_aes_cmac_update()? If a user repeatedly
+calls .update() followed by .init() on the same request via the AF_ALG
+socket, it seems total_len is reset and the link to the allocated chunks is
+severed. Can this lead to unbounded memory leaks and an out-of-memory
+condition?
 
 [ ... ]
-> +static int cmh_sm3_export(struct ahash_request *req, void *out)
+> +static int cmh_aes_cmac_import(struct ahash_request *req, const void *in)
 > +{
-> +	struct cmh_sm3_reqctx *rctx =3D ahash_request_ctx(req);
-> +	struct cmh_sm3_export_state *state =3D out;
-> +
-> +	if (rctx->hw_started && rctx->has_checkpoint)
-> +		memcpy(state->checkpoint, rctx->checkpoint, SM3_CONTEXT_SIZE);
-> +	else
-> +		memset(state->checkpoint, 0, SM3_CONTEXT_SIZE);
-> +
-> +	if (rctx->buf_len > 0)
-> +		memcpy(state->buf, rctx->buf, rctx->buf_len);
+[ ... ]
+> +	if (state->total_len) {
+> +		chunk =3D kmalloc(sizeof(*chunk) + state->total_len, GFP_KERNEL);
 
-[Severity: Medium]
-Does this leave the remainder of the export buffer uninitialized?
-
-If rctx->buf_len is less than CMH_SM3_BLOCK_SIZE, the trailing bytes in
-state->buf are never initialized. Since the state buffer is provided by the
-caller (e.g., via crypto_ahash_export) and could be an uninitialized socket
-allocation from AF_ALG, could this leak kernel memory if the state is later
-exposed to userspace?
-
-> +
-> +	state->buf_len =3D rctx->buf_len;
-> +	state->hw_started =3D rctx->hw_started;
-> +
-> +	return 0;
-> +}
+[Severity: High]
+Can this allocation happen in atomic or softirq contexts? The kernel crypto
+API allows .import() callbacks to execute during IPsec packet processing.
+Using a hardcoded GFP_KERNEL here without checking
+req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP could trigger a sleeping in
+atomic context bug.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
-436-1-skrishnamoorthy@rambus.com?part=3D7
+436-1-skrishnamoorthy@rambus.com?part=3D8
