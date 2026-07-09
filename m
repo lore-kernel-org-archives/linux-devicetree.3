@@ -1,101 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED1C25B663
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84D93DB31F;
+	Thu,  9 Jul 2026 08:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783585499; cv=none; b=PJGSANHY26orflAue0n86wurdvEoNOybU/pqLGQdjcSv96ApVMr2Z9KDJrRLeuAAMvpMRI3JHR+Z9BnFckjEkUNVplJupl6ldFXMA285Gzb+OenLCvApGNTgvUv3r+LHGcQNcilwM9lyWzXFuulBNyikjQRgGf4aMj6f1JKvAk4=
+	t=1783585613; cv=none; b=IUJ+Rxut7ZfR4mitjNjydaMV6KD0pX2MEr37IF64xWly0Dvx+fsLrR7FoGnr5hJ+9wIIlv4Blhpg6UIxwOE6GSP8PpERPnrNDm4sSrxwn8WnFFOapWwY+4qhzbPHH1A9eGjzQ+AIYjPIYK7PuTm846bI51upvkCydUGvwgkC6Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783585499; c=relaxed/simple;
-	bh=KU9q9OqgQwD9QY92KR5eo1OBRO5IEnzQQvCxZyPs+bs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hVE7vj/wGAVuDBnCltnIcmptc8oh5rYE2leaJspOOQlh0IchgJ1ycvfvTrEofBqRDz8AAMSWWI7hlDzrFxB3EbPMvaJ4LmRYr20YGNyCrWMJjObOikv25FesOrhFCRZYh+q+TO2S75T6LxqXoAJpoq2JLEAixXA8RRNBKvylLbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTjTHykT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783585613; c=relaxed/simple;
+	bh=Cc2E8akdH+G5Ofl/remAcjKjYApuWhW2x/f3uTajPuA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TzrRZf/fzYjvPNi8z2IC3BteR4iJtVDgI95N8arUTw30fC6rRemiAO7Mji5pkGmFkJKo6+jAu3ezW9Owm0dRq2opqTjoP0dHFS+x/ipmv2hb2aA2iFgGLCWNpocJfELUq6/4SHBYY4SU6NmkOnzqXFOAybX6AP24uF4jeiUyY18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YNbV1veO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTjTHykT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66EFD1F000E9;
-	Thu,  9 Jul 2026 08:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783585497;
-	bh=jFi6Dn7F1t4N6uCKWimkSPfG4Ex7cB8L3VhcVdbzOT4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bTjTHykTSfhH0ankdpdZl/sfb9sY4QT301/pYd7+YSHsG0+09ztP0baphceAkPNRC
-	 L/v+ENXKlwpKK4ndZof+dp34Gnm9o5AfsV+Eo2TdVVEYjAsn6kdlN+eLk4AfgjTm/4
-	 2VEVdfe2qnO99i9bV5MZbGnfRXkltByIWpOEh6nWpQLlS//3GgZX0HxiqHM6Kl2Wg0
-	 P7sVWl5sLIqmwv3oQBjDsHcRzGnB5URRmKFbC6GCoyOo6oU9E5/XIuDKI+z7jv1N81
-	 z4ZznJEUvl9uI8CSmw101XyTbUIcll/T7zx5zdQDDEt9Np5/1szG/r+2vyuCVgjY2F
-	 ftBiAvsJG3dVg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 1/3] dt-bindings: pwm: dwc: Document optional resets
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260709081419.2077-1-dongxuyang@eswincomputing.com>
-References: <20260709081337.2022-1-dongxuyang@eswincomputing.com>
- <20260709081419.2077-1-dongxuyang@eswincomputing.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 08:24:56 +0000
-Message-Id: <20260709082457.66EFD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YNbV1veO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A4578C2BCF4;
+	Thu,  9 Jul 2026 08:26:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783585612;
+	bh=Cc2E8akdH+G5Ofl/remAcjKjYApuWhW2x/f3uTajPuA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=YNbV1veO7EUA+5IxYAX+xfO3cP/9RbSB46gB8lslzzu86q4S5fygqcC5gT1pRbKo7
+	 Q9Ob5hedHskFnGAHYSZ9OxW+a0mUHz9kzbjVnr7dank87ovzDmTnE4IpGryoxB2KXZ
+	 YSFYADA1U7y8hDWf80RV87uEsVtJYmXHc7n02thsqyVnAzgissaXrVyiimTE9RYJzb
+	 XOAd4tRgYnFpQaZbjILWY2PKinlOoNRTbCFatBmsyG09gj/KwvlUdxBaXbpz/4aC0X
+	 R8lzXJ0V4MoItjA7wRab4TGXJ0ogU+Ff1QdCQun8+bIXsJDESNuIBn7EbQEdaOu/gG
+	 LslAqdWpD9M9w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86EB8C44507;
+	Thu,  9 Jul 2026 08:26:52 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Thu, 09 Jul 2026 08:26:49 +0000
+Subject: [PATCH 2/3] reset: amlogic: Add A9 AO reset controller support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260709-a9-reset-v1-2-fd7cf039b853@amlogic.com>
+References: <20260709-a9-reset-v1-0-fd7cf039b853@amlogic.com>
+In-Reply-To: <20260709-a9-reset-v1-0-fd7cf039b853@amlogic.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783585609; l=1414;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=patSBH/uW6tkb/H97P+dDOJPShFdk5yhMtjXp5whRlQ=;
+ b=Wr7Qnot0A9kH8SFK8eAdVVE1BLLzUYjbyQMygeJ0+Mtyg7GsbDeYVajtNUYGCghvp8wcPI5Uc
+ kpvQ9xiZvC4CMtPPUY7zXfrAYsOdt9tcGtuqgcpZZcZ6z8/UK12bswT
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Inconsistent Related Binding: The related timer binding (snps,dw=
--apb-timer.yaml) was not updated to support the two reset inputs, causing a=
- mismatch within the same hardware family.
---
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
---- Patch [1]: [PATCH v11 1/3] dt-bindings: pwm: dwc: Document optional res=
-ets property ---
-commit 9b39c1c87d6471d2eec01acf8e6da72e82635001
-Author: Xuyang Dong <dongxuyang@eswincomputing.com>
+Add the reset configuration and compatible entry for the Amlogic A9 AO
+reset controller.
 
-dt-bindings: pwm: dwc: Document optional resets property
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+ drivers/reset/amlogic/reset-meson.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-This commit updates the DesignWare PWM binding to document two optional
-active-low reset lines, presetn and timer_N_resetn, to support future
-use of resets for this IP block.
+diff --git a/drivers/reset/amlogic/reset-meson.c b/drivers/reset/amlogic/reset-meson.c
+index c303e8590dd6..5e8afbceaf23 100644
+--- a/drivers/reset/amlogic/reset-meson.c
++++ b/drivers/reset/amlogic/reset-meson.c
+@@ -49,6 +49,14 @@ static const struct meson_reset_param t7_param = {
+ 	.level_low_reset = true,
+ };
+ 
++static const struct meson_reset_param a9_ao_param = {
++	.reset_ops	= &meson_reset_ops,
++	.reset_num      = 32,
++	.reset_offset	= 0x0,
++	.level_offset   = 0x4,
++	.level_low_reset = true,
++};
++
+ static const struct of_device_id meson_reset_dt_ids[] = {
+ 	 { .compatible = "amlogic,meson8b-reset",    .data = &meson8b_param},
+ 	 { .compatible = "amlogic,meson-gxbb-reset", .data = &meson8b_param},
+@@ -57,6 +65,7 @@ static const struct of_device_id meson_reset_dt_ids[] = {
+ 	 { .compatible = "amlogic,meson-s4-reset",   .data = &meson_s4_param},
+ 	 { .compatible = "amlogic,c3-reset",   .data = &meson_s4_param},
+ 	 { .compatible = "amlogic,t7-reset",   .data = &t7_param},
++	 { .compatible = "amlogic,a9-ao-reset",      .data = &a9_ao_param},
+ 	 { /* sentinel */ },
+ };
+ MODULE_DEVICE_TABLE(of, meson_reset_dt_ids);
 
-> diff --git a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm=
-2.yaml b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-> --- a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-[ ... ]
-> @@ -43,6 +43,11 @@ properties:
->        - const: bus
->        - const: timer
-> =20
-> +  resets:
-> +    items:
-> +      - description: Interface bus (presetn) reset
-> +      - description: PWM timer logic (timer_N_resetn) reset
-> +
+-- 
+2.52.0
 
-[Severity: Medium]
-Since the DesignWare PWM IP has two reset lines for this hardware family,
-does the related timer binding also need a matching update?
 
-Currently, the sibling timer binding restricts resets to a single item:
-
-Documentation/devicetree/bindings/timer/snps,dw-apb-timer.yaml:properties.r=
-esets
-  resets:
-    maxItems: 1
-
-If an SoC device tree author adds both reset lines to a snps,dw-apb-timer
-node to match the hardware capabilities described here, dt_binding_check
-will reject the valid hardware description.
-
-Could the sibling timer binding be updated in this series to prevent
-this inconsistency and allow for both reset lines?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709081337.2022=
--1-dongxuyang@eswincomputing.com?part=3D1
