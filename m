@@ -1,208 +1,140 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93653FDC14
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AC436CDF8
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783593916; cv=none; b=gXV65WnwHUKqikoBSIgnsTJ78hw7DqV22DJmWQlNTjvX3emll27xxekwMkOU1Nk93UuddzPe9aDurEpTIYQEGwrwwy7Ds+sSWszJkq0ddCUgsEEySmjglc/Ynx67p7S874Gg9Qkc//mlXrk1W+CbZRklmQCSPBqS8KISXhDrUPM=
+	t=1783593929; cv=none; b=jUbEjWAV+l1Qp37IgA6c+RWiHnrI3LksKcfJwaBvvlgiugr/hNu7axq4hxom49k0K4n9tfUBL2mWrTPJAUk0I+1nTaAMrjhWk252jRxd/lb52/iNeRhRPRvy76ja5MZ2SLYutDx3ueY7R4RB0TQgRAL9WsMKF00jH02iycBdf18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783593916; c=relaxed/simple;
-	bh=PTGc36+DKPbLKZpOvC5m3aQ5OX1au2eeFPkLDVrfiyQ=;
+	s=arc-20240116; t=1783593929; c=relaxed/simple;
+	bh=v11CCaM2SO1sjN3FanFJterfJszpcdVADsPjT6gZ5+I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CwHe2CHOyCRvh6E78+oHL/iTCrW0c+4x5qEnJf6h1tBVE1Oey8Kqq3Vv41c6RnTljxN5KPddpCAy/impcoXaDOiSR6WuT/V7byv/HZMw8FWwBkjzqAZFAiMqC2sdECTz/xn/NAzZARHSSZQcSX5XX4H0FqO8Q2e86LNvmKcJRCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pfx+2rE5; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=IlhQ4ET3lKksYv904CGe5jI8+PpV3F1hQPb7GfzgAYdACsHg6phuJta68XfqwyUg+P3WbnuK0O8hBmJZn9mWkHkxtVpWAfgngJPstJWWqn7GUQafh1Tr7Njym4KV9UkeLotRfsgVQhyAij+tiXCQvLrKPAG3xK68Td9A/G2V+bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sU+3+KFh; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pfx+2rE5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783593909;
-	bh=PTGc36+DKPbLKZpOvC5m3aQ5OX1au2eeFPkLDVrfiyQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pfx+2rE5s9Wmc4A+0cXz84HhhGd/z9qzWYs5hbmrHSArgJEQnCjPKfWj/CsFPyVnU
-	 0JdBVzgD1nBKHfnniwyx2iSnirMPE9fBd/GtSqN1ESa/GjEcaC0ZylGdLlHQ3Mix3m
-	 EdXJAX5syH8s0bshqvR4I8RyEE1GVDNMou9fRRDk4RwBG8aDHcklf+UqFl1bqPkGQK
-	 iOfHJA6MLM5NH8rJClz1ZM1Bd+b8Jt4PUB7IkuoHYFdHcXOx0BkIKfsnQGCpQXYOjt
-	 om0DdMEBfdRkZwJECTlqwS4280mv0SqkPQ5uEGnlxhaultXL/xlfChW+0OhF15FQNd
-	 zJZQDpw3umvQg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5FFB317E0564;
-	Thu, 09 Jul 2026 12:45:08 +0200 (CEST)
-Message-ID: <45444530-5f69-4f98-b4b7-39f8531eacce@collabora.com>
-Date: Thu, 9 Jul 2026 12:45:08 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sU+3+KFh"
+Message-ID: <4a847a6b-7837-4044-8a87-0ddac47725f8@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1783593915;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U1zptSwNIN+3sFSND6E6Pez9u+xDKFIGwqm4Rxh1P9w=;
+	b=sU+3+KFhltGJBoRT0JuwZfDvcZOV2uNhnSWhxO46Qu1fcznF7EaE0UtRnGF8MZHXJW+0Qr
+	xX4xG560Pw/p4dDjnIz1Qd6csX1rxq3csMxLmYs2z7pFcAL8Cj2pvwEqJa16ioCC0BIgGZ
+	kmwtue0SRDHaoHwZuXeXxg0fy2i88Fw=
+Date: Thu, 9 Jul 2026 11:44:44 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] pmdomain: mediatek: Add support for MT8196 HFRP
- DirectCTL domains
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260709084635.24912-1-angelogioacchino.delregno@collabora.com>
- <20260709084635.24912-6-angelogioacchino.delregno@collabora.com>
- <20260709090006.32D701F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH net-next v7 08/15] net: ethernet: oa_tc6: Support for
+ hardware timestamp
+To: Selvamani.Rajagopal@onsemi.com, Andrew Lunn <andrew@lunn.ch>,
+ Piergiorgio Beruto <pier.beruto@onsemi.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ Jerry Ray <jerry.ray@microchip.com>
+References: <20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com>
+ <20260708-s2500-mac-phy-support-v7-8-478c877aa1a9@onsemi.com>
 Content-Language: en-US
-In-Reply-To: <20260709090006.32D701F000E9@smtp.kernel.org>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20260708-s2500-mac-phy-support-v7-8-478c877aa1a9@onsemi.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-On 7/9/26 11:00, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
+On 08/07/2026 18:12, Selvamani Rajagopal via B4 Relay wrote:
+> From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 > 
-> New issues:
-> - [Medium] Unconditional power-off of SIMPLE_PWRSEQ domains in error cleanup, masking potentially incorrect status mask configurations.
+> PTP register/unregister calls are implemented in oa_tc6_ptp.c.
+> The APIs that work with the hardware for timestamp is provided
+> by vendor code as it may be vendor dependent.
 > 
-
-That's not an issue. It's done on purpose.
-
-> Pre-existing issues:
-> - [Critical] Missing error handling for pm_genpd_init() causes kernel panic via NULL pointer dereference during error cleanup.
-> - [Critical] Missing subdomain unlinking during probe error cleanup leaves freed genpd objects in the global gpd_list, causing Use-After-Free.
-> - [High] HW_VOTER domains invoke sleepable clock and regulator APIs while holding a spinlock with IRQs disabled.
-> - [High] Missing GENPD_FLAG_NO_STAY_ON or sync_state callback causes regulator-supplied domains to stay on indefinitely, leading to hardware malfunction on regulator cleanup.
-> - [High] Unbalanced resource cleanup on the error path for KEEP_DEFAULT_OFF domains left on by the bootloader.
-
-I have already fixed whatever I could, can't do the rest in this cycle; maybe in
-september I can.
-
-Also, this shall not block this series from being picked (as it also contains
-important fixes inside), because those are all pre-existing issues.
-
-> --
+> Interface for ndo_hwtstamp_set/get, ioctl, control and status
+> callback for ethtool are provided to support hardware timestamp
+> feature.
 > 
-> --- Patch [5]: [PATCH v3 5/5] pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains ---
-> commit 5fec9c9afff1947a88f0033701c6c01f031caa0d
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Besides ioctl interface, hardware timestamp functions that handles
+> header and footer data are in oa_tc6.c. Helper functions are in
+> oa_tc6_tstamp.c.
 > 
-> pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains
+> Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 > 
-> Add support for the power domains provided by the HFRPSYS Power Controller of
-> the MT8196 SoC. Those control power to the eDP and DP Transmitter IPs.
-> 
->> --- a/drivers/pmdomain/mediatek/mt8196-pm-domains.h
->> +++ b/drivers/pmdomain/mediatek/mt8196-pm-domains.h
->> @@ -602,6 +602,27 @@ static const struct scpsys_hwv_domain_data hfrpsys_hwv_domain_data_mt8196[] = {
->>   	},
->>   };
->>   
->> +static const struct scpsys_domain_data hfrpsys_domain_data_mt8196[] = {
->> +	[MT8196_POWER_DOMAIN_EDPTX] = {
->> +		.name = "edp-tx",
->> +		.sta_mask = MT8196_PWR_ACK,
->> +		.sta2nd_mask = MT8196_PWR_ACK_2ND,
->> +		.ctl_offs = 0x74,
->> +		.pwr_sta_offs = 0x74,
->> +		.pwr_sta2nd_offs = 0x74,
->> +		.caps = MTK_SCPD_SIMPLE_PWRSEQ,
->> +	},
-> 
-> [ ... ]
-> 
->> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
->> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
->> @@ -1071,7 +1071,7 @@ static void scpsys_remove_one_domain(struct scpsys_domain *pd)
->>   		if (scpsys_hwv_domain_is_enable_done(pd))
->>   			scpsys_hwv_power_off_internal(pd);
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but do HW_VOTER domains invoke
-> sleepable clock and regulator APIs while holding a spinlock with IRQs
-> disabled?
-> 
-> Since HW_VOTER domains are registered with GENPD_FLAG_IRQ_SAFE, the genpd core
-> guarantees their power_on and power_off callbacks run with interrupts
-> disabled. However, scpsys_hwv_power_on() and scpsys_hwv_power_off()
-> unconditionally call clk_bulk_prepare_enable() and scpsys_regulator_enable(),
-> which take sleepable mutexes.
-> 
-> Can this result in a scheduling while atomic BUG or kernel panic?
-> 
->>   	} else {
->> -		if (scpsys_domain_is_on(pd))
->> +		if (scpsys_domain_is_on(pd) || MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ))
->>   			scpsys_power_off_internal(pd);
->>   	}
-> 
-> [Severity: Medium]
-> Will this unconditionally force power off for SIMPLE_PWRSEQ domains on the
-> error path?
-> 
-> If a SIMPLE_PWRSEQ domain is ever configured with MTK_SCPD_KEEP_DEFAULT_OFF
-> and probe fails, it appears the cleanup path unconditionally powers it off
-> regardless of whether it was active. Could this lead to disabling clocks that
-> were never enabled, resulting in a clock underflow WARN_ON?
-> 
-> Is it possible this acts as a workaround that masks the fact that
-> scpsys_domain_is_on() fails to report the true state for these domains due
-> to their status mask configurations (like MT8196_PWR_ACK for edp-tx)?
-> 
-> [Severity: Critical]
-> This is a pre-existing issue, but does scpsys_add_one_domain() ignore the
-> return value of pm_genpd_init()?
-> 
-> If pm_genpd_init() fails, it seems genpd->gpd_list_node remains 0-initialized.
-> On a subsequent probe failure, the error cleanup loop calls pm_genpd_remove()
-> which executes list_del(&genpd->gpd_list_node).
-> 
-> Could this dereference a NULL pointer and cause a kernel panic since the node
-> was never initialized?
-> 
-> [Severity: Critical]
-> This is a pre-existing issue, but does scpsys_domain_cleanup() iterate
-> backwards calling scpsys_remove_one_domain() without breaking parent-child
-> links first?
-> 
-> When this happens, pm_genpd_remove() returns -EBUSY and aborts without
-> unlinking the domain from gpd_list. Since the driver ignores this error, devm
-> may free the still-linked genpd objects.
-> 
-> Could background processes like genpd_power_off_unused later iterate gpd_list
-> and trigger a use-after-free when accessing the freed memory?
-> 
-> [Severity: High]
-> This is a pre-existing issue, but is there unbalanced resource cleanup on
-> the error path for KEEP_DEFAULT_OFF domains left on by the bootloader?
-> 
-> If such a domain is left physically ON, the driver warns but skips OS resource
-> preparation, leaving the enable_count at 0. If probe fails later, this path in
-> scpsys_remove_one_domain() evaluates scpsys_domain_is_on() as true and calls
-> scpsys_power_off_internal().
-> 
-> Could this unconditionally disable resources the OS never enabled, triggering
-> a clock/regulator underflow WARN_ON?
-> 
-> [ ... ]
-> 
->> @@ -1288,6 +1288,10 @@ static const struct of_device_id scpsys_of_match[] = {
->>   		.compatible = "mediatek,mt8196-power-controller",
->>   		.data = &mt8196_scpsys_data,
->>   	},
->> +	{
->> +		.compatible = "mediatek,mt8196-hfrp-power-controller",
->> +		.data = &mt8196_hfrpsys_data,
->> +	},
-> 
-> [Severity: High]
-> This is a pre-existing issue, but is the platform driver missing the
-> .sync_state callback required to clear the stay_on flag for default-ON
-> domains?
-> 
-> Since the driver initializes default-on domains with is_off = false, the genpd
-> core sets genpd->stay_on = true. Without a .sync_state callback or
-> GENPD_FLAG_NO_STAY_ON, stay_on is never cleared, and the framework will refuse
-> to power off unused domains.
-> 
-> When regulator_late_cleanup() later forces unused regulators off, could this
-> silently cut physical power to domains the kernel still considers logically
-> active and cause a hardware malfunction?
+> ---
+> changes in v7
+>    - Fixed the parameter name mismatch in function protoype and
+>      definition
+>    - CONFIG0 is set with 64 bit timestamp support by default.
+>    - Added information about return value for API documentation.
+> changes in v6
+>    - Fixed the issue of function parameter in oa_tc6_get_ts_stats
+>      not described in comments section for documentation.
+>    - Avoided typecasting __be32 as u32
+> changes in v5
+>    - As subtracting skb len by FCS size is considered bug, changes
+>      are removed. Will be fixed in stable branch (net repo)
+> changes in v4
+>    - Fixed the condition check for subtracting the FCS size
+>      from skb len.
+> changes in v3
+>    - Replaced warning printk with ratelimited printk
+>    - Checking the hardware register before enabling hardware
+>      timestamp
+> changes in v1
+>    - Added hardware timestamp support to the OA TC6 framework.
+> ---
+>   MAINTAINERS                                  |   1 +
+>   drivers/net/ethernet/oa_tc6/Makefile         |   2 +-
+>   drivers/net/ethernet/oa_tc6/oa_tc6.c         | 218 +++++++++++++++++++++++++--
+>   drivers/net/ethernet/oa_tc6/oa_tc6_ptp.c     |  70 +++++++++
+>   drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h |  34 +++++
+>   drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c  | 205 +++++++++++++++++++++++++
+>   include/linux/oa_tc6.h                       |  12 ++
+>   7 files changed, 527 insertions(+), 15 deletions(-)
 > 
 
+[...]
+
+> +/**
+> + * oa_tc6_ioctl - generic ioctl interface for MAC-PHY drivers.
+> + * @tc6: oa_tc6 struct.
+> + * @rq: request from socket interface
+> + * @cmd: value to set/get timestamp configuration
+> + *
+> + * Return: 0 on success otherwise failed.
+> + */
+> +int oa_tc6_ioctl(struct oa_tc6 *tc6, struct ifreq *rq, int cmd)
+> +{
+> +	if (!netif_running(tc6->netdev))
+> +		return -EINVAL;
+> +
+> +	if (cmd == SIOCSHWTSTAMP || cmd == SIOCGHWTSTAMP)
+> +		return oa_tc6_tstamp_ioctl(tc6, rq, cmd);
+
+ioctl interface for HW timestamp configuration is deprecated, kernel
+code was recently cleaned up to aviod these ioctl commands in favor of
+ndo_hwtstamp_get/ndo_hwtstamp_set callbacks. New drivers must not use
+deprecated ioctl commands.
+
+> +	else
+> +		return phy_do_ioctl_running(tc6->netdev, rq, cmd);
+> +}
+> +EXPORT_SYMBOL_GPL(oa_tc6_ioctl);
+> +
