@@ -1,188 +1,332 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBDD37C90A
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:47:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D94449980
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:47:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783630037; cv=none; b=fXfr1meNbHAJcxmSeNwKEV6TJYXSzK2jz0cgBMkEvGYjGM0hOxwUGVE2wT4sCandR8ycszMc/09UEpKh8YIZLFQ6I/59FlnU5tjIBTstO8+sBbiKNxdv4gIB/+Ct+5b7qokRwhueVL0yqc0drdGaJSJMD8UXgLe4rF5+RlMPtsk=
+	t=1783630054; cv=none; b=l/pgYRu9FbFCpngS3OaUWNlYzUEfKEl2zhBZLJRg6a5oDKRPo0/qqQ5b40OrC3xfSpZpb/ea6oWYxxjK0HkbxaDQRuihKfMLjbY0lO9NUTZSNqWdTtR5U1WOqxQhEgy7MqKfoSKKO2AJ/DhH28PR/ceHLu2rDYRCDsdZ42RCCK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783630037; c=relaxed/simple;
-	bh=oV6XsZVmXEo1AHnhjk7dUjutZ9FTQL3Z3Rr2pegISvg=;
+	s=arc-20240116; t=1783630054; c=relaxed/simple;
+	bh=XzOiy1ghlJuZet3R9Xve/3GHgHS2RO8vjr2iRc9Wtqo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QUrSwViQYoG8i9pPBxk5GXu1wUvZ8z/93pWfQn+acTqjkDykB0gBL0DdMjoDoDcHnPpA8mBNwbN5ExQsPZ5i5nBe73XUtL/hzJmAYLFvGWOc8h35fyc6J2EGm5YXBGrNwBt9kXtaXL0Af24FfeRmC+vlQfF5mzkXHQEPecJM3JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOb6Hd8Q; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=G7Rx5H3KPaGNTy8UGyxy3WKpWo7tC7lKMMvd806ZZR8QDHe45AxLzF5wiYYtO76kVc88TcvbJWpjZeaRflCh4lRwMLQbyTGRLdG3xskzVTnwu57i2I2pthdJljkG+56T12WVZj4EzwszX/+r991nwluEMNmvngwL50SPHxv0yBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B26eP5VT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOb6Hd8Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB291F000E9;
-	Thu,  9 Jul 2026 20:47:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B26eP5VT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A66F61F000E9;
+	Thu,  9 Jul 2026 20:47:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783630036;
-	bh=XzKwkyYkT2//gO4+AR6ebjBaBhcjQdWlCYZiOdZncTc=;
+	s=k20260515; t=1783630051;
+	bh=cCJQDEYQTZYo2V1zey3xyqvnVbl/x4d7XLJuWbjPT68=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TOb6Hd8QUbi1fdjeD5CPodilGY7rziHz0BZ4jFcpsIuLSkbdgq2Vt+vbWsne9nsAy
-	 6mXcRrZ+DGKGDL3jQRsYMAIUnQez+NjZVfE4QAsO0LEDlkCma0HdZIE+E7ab+oGQnK
-	 wnKtQE/xuBs2jCGoGnozDYqn6H5X/2nPaBVg1CQS9Lz510eJtdGYEUfo13VCJscP91
-	 fxOKFNP/Z8qn1eQm/vAqQLrs7zvlBkQnXxT1ef1fyTWVS7qjDuPkQvOf94tYlgEs4g
-	 ct8fLYmWZDTXN7Yc6KNdJd19h0NfcmdOal4VMt9zqUthMkvS5NNd9UK+NSHeKAhkHy
-	 4TZ2zG5JLHoRw==
+	b=B26eP5VTtMvPgZ5xguneHQ2cEuJ1XwyYprpiGtF/iSX1hRJ09OWrtKNfKD/p8PR2l
+	 ieT91D3YPIlL1evft9eRZISGjnGeYm5ajaXTiIScJlqHrG2WCZkxmzz9Z6zE/Zy68w
+	 gPEdke6wUYL8tB7+FiQ9aGUJczBteXFot8fk2QRl1qSKasZ5ahM7LlVoU9r0CVp+IL
+	 7PwmfMCm3mNbND1TuZsqtPlqu21rWrqf4UNZy95wJk+3etgMC98ezdMMLXsH5Hf9Rg
+	 K80OhkG+NZ6fXgd3vZT8FVTZbHNsRHGsY4UwMCx3oYK0IoS59NNPllyz86SBu92ca1
+	 ziNDG0I21T3HA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/19] crypto: cmh - add AES skcipher/aead/cmac
+Subject: Re: [PATCH v2 06/19] crypto: cmh - add CSHAKE/KMAC ahash
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709203037.1884436-9-skrishnamoorthy@rambus.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709203037.1884436-7-skrishnamoorthy@rambus.com>
 References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-9-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-7-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 20:47:15 +0000
-Message-Id: <20260709204715.ADB291F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 20:47:31 +0000
+Message-Id: <20260709204731.A66F61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Unbounded memory leak and DoS via orphaned chunks in `cmh_aes_cmac=
-_init` and `cmh_aes_cmac_import`.
-- [High] Memory allocation failure and `WARN` due to oversized `kmalloc` in=
- `cmh_aes_crypt`.
-- [High] Cryptographic logic bug causing mathematically incorrect IV genera=
-tion in CFB-128 partial block chaining.
-- [High] Alignment violation resulting in misaligned pointers for generic C=
-CM fallback subrequest.
-- [High] Sleeping in atomic context due to hardcoded `GFP_KERNEL` in `cmh_a=
-es_cmac_import`.
+- [High] Unbounded memory allocation in `cmh_cshake_update` allows local me=
+mory exhaustion (OOM).
+- [High] Orphaned chunk memory leak during ahash request re-initialization =
+or abort.
+- [High] Sleeping allocations and synchronous hardware submission in `.expo=
+rt()` callback.
+- [High] Use-After-Free when memory chunks are freed before their correspon=
+ding DMA mappings are unmapped in `cmh_cshake_export`.
+- [High] Softirq state corruption caused by using `spin_lock_bh()` in gener=
+ic ahash callbacks.
+- [High] DMA mapping of stack-allocated memory (`rctx->checkpoint`) violate=
+s the DMA API.
 --
 
---- Patch [8]: [PATCH v2 08/19] crypto: cmh - add AES skcipher/aead/cmac ---
-commit 0196177c32d5ce7a03aa73937a1fac3eb268a239
+--- Patch [6]: [PATCH v2 06/19] crypto: cmh - add CSHAKE/KMAC ahash ---
+commit cc0628276b3e9843b67472a50c051e71a03197e3
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add AES skcipher/aead/cmac
+crypto: cmh - add CSHAKE/KMAC ahash
 
-Register AES algorithms using the CMH AES core (core ID 0x03): skcipher, ae=
-ad,
-and ahash. Supports 128, 192, and 256-bit keys and handles associated data,
-payload, and authentication tag.
+Register ahash algorithms for cSHAKE128, cSHAKE256, KMAC128, and
+KMAC256 using the CMH hash core.  cSHAKE supports incremental
+update and export/import.  KMAC has a 64KB data cap imposed by the
+hardware.
 
-> diff --git a/drivers/crypto/cmh/cmh_aes.c b/drivers/crypto/cmh/cmh_aes.c
+> diff --git a/drivers/crypto/cmh/cmh_cshake.c b/drivers/crypto/cmh/cmh_csh=
+ake.c
 > new file mode 100644
+> index 0000000000000..02f9b853dd338
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes.c
+> +++ b/drivers/crypto/cmh/cmh_cshake.c
 [ ... ]
-> +static void cmh_aes_update_iv(struct skcipher_request *req, u32 mode,
-> +			      u32 op, const u8 *in_buf, const u8 *out_buf)
+> +static int cmh_cshake_init(struct ahash_request *req)
 > +{
-[ ... ]
-> +	case AES_MODE_CFB:
-[ ... ]
-> +		if (req->cryptlen >=3D bs) {
-> +			if (op =3D=3D AES_OP_ENCRYPT)
-> +				memcpy(req->iv, out_buf + req->cryptlen - bs,
-> +				       bs);
-
-[Severity: High]
-Does this extract an unaligned 16-byte slice when the request length is not
-block-aligned? Mixing the end of the previous ciphertext block and the start
-of the partial block produces an incorrect shift-register state for CFB-128.
-If cra_blocksize is set to 1, standard CFB-128 chaining on partial blocks
-requires saving the unused keystream in the state between requests instead.
-
-[ ... ]
-> +static int cmh_aes_crypt(struct skcipher_request *req, u32 aes_op)
-> +{
-[ ... ]
-> +	if (req->cryptlen > CMH_AES_MAX_CRYPTLEN)
-> +		return -EINVAL;
-[ ... ]
-> +	/* Linearise input from scatterlist */
-> +	rctx->in_buf =3D kmalloc(req->cryptlen, gfp);
-
-[Severity: High]
-Does this allow kmalloc to be called with a size up to 32MB? Since
-KMALLOC_MAX_SIZE is typically 4MB or 8MB, allocations exceeding this limit
-will trigger page allocator warnings and fail. Unprivileged userspace could
-potentially trigger this via the AF_ALG skcipher interface.
-
-> diff --git a/drivers/crypto/cmh/cmh_aes_aead.c b/drivers/crypto/cmh/cmh_a=
-es_aead.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_aead.c
-[ ... ]
-> +static int cmh_aes_aead_init_tfm(struct crypto_aead *tfm)
-> +{
-[ ... ]
-> +		/*
-> +		 * Subreq lives at (rctx + 1).  Alignment is guaranteed
-> +		 * by the crypto framework's __ctx ALIGN mechanism.
-> +		 */
-> +		crypto_aead_set_reqsize(tfm,
-> +					sizeof(struct cmh_aes_aead_reqctx) +
-> +					sizeof(struct aead_request) +
-> +					crypto_aead_reqsize(fb));
-[ ... ]
-> +static int cmh_aes_ccm_fallback(struct aead_request *req, u32 aes_op)
-> +{
-> +	struct crypto_aead *tfm =3D crypto_aead_reqtfm(req);
-> +	struct cmh_aes_aead_tfm_ctx *tctx =3D crypto_aead_ctx(tfm);
-> +	struct cmh_aes_aead_reqctx *rctx =3D aead_request_ctx(req);
-> +	struct aead_request *subreq =3D (void *)(rctx + 1);
-
-[Severity: High]
-Does this calculate a misaligned pointer for subreq? The crypto framework
-aligns the start of the primary request context, but
-sizeof(struct cmh_aes_aead_reqctx) is not guaranteed to be a multiple of
-CRYPTO_MINALIGN.
-
-Because struct aead_request requires strict alignment for its __ctx member,
-this can lead to alignment faults or data corruption when CCM mode falls
-back to software. Should the context size wrap the struct size with
-ALIGN(..., crypto_tfm_ctx_alignment())?
-
-> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
-es_cmac.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
-[ ... ]
-> +static int cmh_aes_cmac_init(struct ahash_request *req)
-> +{
-> +	struct cmh_aes_cmac_reqctx *rctx =3D ahash_request_ctx(req);
+> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
+> +	struct cmh_cshake_reqctx *rctx =3D ahash_request_ctx(req);
 > +
-> +	memset(rctx, 0, sizeof(*rctx));
-[ ... ]
-> +static int cmh_aes_cmac_update(struct ahash_request *req)
-> +{
-[ ... ]
-> +	chunk =3D kmalloc(sizeof(*chunk) + req->nbytes, gfp);
+> +	rctx->info =3D cmh_cshake_get_info(tfm);
+> +	rctx->error =3D 0;
+> +	INIT_LIST_HEAD(&rctx->chunks);
+> +	rctx->num_chunks =3D 0;
 
 [Severity: High]
-Does zeroing the request context in cmh_aes_cmac_init() orphan the chunks
-dynamically allocated during cmh_aes_cmac_update()? If a user repeatedly
-calls .update() followed by .init() on the same request via the AF_ALG
-socket, it seems total_len is reset and the link to the allocated chunks is
-severed. Can this lead to unbounded memory leaks and an out-of-memory
-condition?
+When the crypto framework re-uses an active request by calling the init
+or import callbacks, does this overwrite the list head without freeing the
+previously linked chunks?
 
-[ ... ]
-> +static int cmh_aes_cmac_import(struct ahash_request *req, const void *in)
+For long-lived sessions, like IPsec or AF_ALG sockets, it seems the chunks
+might remain permanently orphaned in the global tctx->all_chunks list,
+leading to a progressive memory leak. Should we free the existing chunks
+before re-initializing the list head here, and also in cmh_cshake_import()
+and cmh_kmac_init()?
+
+> +	rctx->total_len =3D 0;
+> +	rctx->has_checkpoint =3D 0;
+> +
+> +	return 0;
+> +}
+> +
+> +static int cmh_cshake_update(struct ahash_request *req)
 > +{
-[ ... ]
-> +	if (state->total_len) {
-> +		chunk =3D kmalloc(sizeof(*chunk) + state->total_len, GFP_KERNEL);
+> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
+> +	struct cmh_cshake_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
+> +	struct cmh_cshake_reqctx *rctx =3D ahash_request_ctx(req);
+> +	struct cmh_cshake_chunk *chunk;
+> +	int nents;
+> +
+> +	if (rctx->error)
+> +		return rctx->error;
+> +
+> +	if (!req->nbytes)
+> +		return 0;
+> +
+> +	chunk =3D kmalloc(sizeof(*chunk) + req->nbytes,
+> +			req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +			GFP_KERNEL : GFP_ATOMIC);
 
 [Severity: High]
-Can this allocation happen in atomic or softirq contexts? The kernel crypto
-API allows .import() callbacks to execute during IPsec packet processing.
-Using a hardcoded GFP_KERNEL here without checking
-req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP could trigger a sleeping in
-atomic context bug.
+Is there a limit on how much memory can be allocated here?
+
+Unlike the KMAC implementation which enforces a 64KB cap, this appears to
+unconditionally allocate memory for every incoming chunk and append it to
+the request context. If an unprivileged local attacker streams endless
+amounts of data to the cshake128 algorithm via an AF_ALG socket, could
+this buffer the entire stream in memory and trigger the OOM killer?
+
+> +	if (!chunk) {
+> +		rctx->error =3D -ENOMEM;
+> +		goto err_free_chunks;
+> +	}
+[ ... ]
+> +	list_add_tail(&chunk->list, &rctx->chunks);
+> +	spin_lock_bh(&tctx->chunk_lock);
+> +	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
+> +	spin_unlock_bh(&tctx->chunk_lock);
+
+[Severity: High]
+Is it safe to use the _bh spinlock variants in generic ahash callbacks?
+
+The ahash API allows update and final operations to be invoked with hardware
+interrupts disabled. spin_unlock_bh() internally calls local_bh_enable(),
+which requires hardware IRQs to be enabled. Calling it from an IRQ-disabled
+context might trigger warnings and corrupt the softirq state. Should this
+use standard irqsave variants instead here and in cmh_kmac_update()?
+
+> +	rctx->num_chunks++;
+> +	rctx->total_len +=3D req->nbytes;
+> +
+> +	return 0;
+[ ... ]
+> +static int cmh_cshake_final(struct ahash_request *req)
+> +{
+[ ... ]
+> +	/* Map checkpoint buffer if present (CMH eSW reads it) */
+> +	if (rctx->has_checkpoint) {
+> +		ckpt_dma =3D cmh_dma_map_single(rctx->checkpoint,
+> +					      HC_CONTEXT_SIZE, DMA_TO_DEVICE);
+
+[Severity: High]
+Can the rctx->checkpoint buffer be allocated on the stack?
+
+The ahash_request structure is frequently allocated on the stack by kernel
+subsystems using the AHASH_REQUEST_ON_STACK macro. Stack memory is not
+guaranteed to be cache-line aligned or isolated, meaning a DMA operation
+could overwrite adjacent active stack variables. Could this cause memory
+corruption or kernel panics on architectures with non-coherent caches?
+
+> +		if (cmh_dma_map_error(ckpt_dma)) {
+> +			ret =3D -ENOMEM;
+> +			goto out_unmap_digest;
+> +		}
+> +	}
+[ ... ]
+> +static int cmh_cshake_export(struct ahash_request *req, void *out)
+> +{
+> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
+> +	struct cmh_cshake_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
+> +	struct cmh_cshake_reqctx *rctx =3D ahash_request_ctx(req);
+> +	const struct cmh_cshake_alg_info *info =3D rctx->info;
+> +	struct core_dispatch d;
+> +	struct vcq_cmd cmds[CMH_CSHAKE_MAX_PAYLOAD];
+> +	struct cmh_sg_map *sgm =3D NULL;
+> +	dma_addr_t save_dma =3D DMA_MAPPING_ERROR;
+> +	dma_addr_t ckpt_dma =3D DMA_MAPPING_ERROR;
+> +	u8 *save_buf;
+> +	u32 idx;
+> +	int ret;
+> +
+> +	if (rctx->num_chunks > 0) {
+> +		sgm =3D cmh_cshake_build_sg(rctx, GFP_KERNEL);
+
+[Severity: High]
+Is it intended to unconditionally use GFP_KERNEL in the export callback?
+
+The crypto API allows export and import to be called from non-sleepable
+atomic contexts, such as inside network softirqs or under spinlocks.
+Allocating with GFP_KERNEL can sleep, which might lead to deadlocks or
+scheduling while atomic warnings if called from these contexts.
+
+> +		if (!sgm)
+> +			return -ENOMEM;
+> +	}
+> +
+> +	save_buf =3D kzalloc(HC_CONTEXT_SIZE, GFP_KERNEL);
+> +	if (!save_buf) {
+> +		cmh_dma_free_sg(sgm);
+> +		return -ENOMEM;
+> +	}
+[ ... ]
+> +	vcq_add_hc_save(&cmds[idx++], d.core_id, (u64)save_dma,
+> +			HC_CONTEXT_SIZE);
+> +	vcq_add_flush(&cmds[idx++], d.core_id);
+> +
+> +	ret =3D cmh_vcq_pack_and_submit(cmds, idx, rctx->packed, CMH_CSHAKE_MAX=
+_PACKED,
+> +				      d.mbx_idx);
+
+[Severity: High]
+Could this synchronous hardware submission block in an atomic context?
+
+Because export can be called from non-sleepable contexts, waiting for a
+hardware response might block the CPU and cause system instability.
+
+> +
+> +	/* Unmap before CPU read */
+> +	if (rctx->has_checkpoint)
+> +		cmh_dma_unmap_single(ckpt_dma, HC_CONTEXT_SIZE, DMA_TO_DEVICE);
+> +	cmh_dma_unmap_single(save_dma, HC_CONTEXT_SIZE, DMA_FROM_DEVICE);
+> +
+> +	if (!ret) {
+> +		memcpy(out, save_buf, HC_CONTEXT_SIZE);
+> +		/* Checkpoint now represents all accumulated state */
+> +		memcpy(rctx->checkpoint, save_buf, HC_CONTEXT_SIZE);
+> +		rctx->has_checkpoint =3D 1;
+> +		/* Accumulated chunks are now captured in checkpoint */
+> +		cmh_cshake_free_chunks(rctx, tctx);
+> +	}
+> +
+> +	kfree(save_buf);
+> +	cmh_dma_free_sg(sgm);
+
+[Severity: High]
+Does this free the chunks before tearing down their DMA mappings?
+
+In the success path, cmh_cshake_free_chunks() loops over the chunks and
+frees them. Immediately afterward, cmh_dma_free_sg() iterates and calls
+dma_unmap_single() on the addresses mapping those newly freed chunks.
+
+The DMA API requires that memory must be unmapped from the device prior
+to being freed back to the allocator. Could this sequence lead to cache
+and memory corruption?
+
+> +	return ret;
+> +}
+> +
+> +static int cmh_cshake_import(struct ahash_request *req, const void *in)
+> +{
+> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
+> +	struct cmh_cshake_reqctx *rctx =3D ahash_request_ctx(req);
+> +
+> +	rctx->info =3D cmh_cshake_get_info(tfm);
+> +	rctx->error =3D 0;
+> +	INIT_LIST_HEAD(&rctx->chunks);
+> +	rctx->num_chunks =3D 0;
+
+[Severity: High]
+Similar to the issue in cmh_cshake_init(), does this overwrite the list head
+without freeing the existing chunks, causing an orphaned memory leak?
+
+> +	rctx->total_len =3D 0;
+> +
+> +	memcpy(rctx->checkpoint, in, HC_CONTEXT_SIZE);
+> +	rctx->has_checkpoint =3D 1;
+> +
+> +	return 0;
+> +}
+[ ... ]
+> diff --git a/drivers/crypto/cmh/cmh_kmac.c b/drivers/crypto/cmh/cmh_kmac.c
+> new file mode 100644
+> index 0000000000000..7177a2558e977
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_kmac.c
+[ ... ]
+> +static int cmh_kmac_init(struct ahash_request *req)
+> +{
+> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
+> +	struct cmh_kmac_reqctx *rctx =3D ahash_request_ctx(req);
+> +
+> +	rctx->info =3D cmh_kmac_get_info(tfm);
+> +	rctx->error =3D 0;
+> +	INIT_LIST_HEAD(&rctx->chunks);
+> +	rctx->num_chunks =3D 0;
+
+[Severity: High]
+As with the cSHAKE implementation, does this re-initialization leak the
+previously buffered chunks by overwriting the list head without freeing the=
+m?
+
+> +	rctx->total_len =3D 0;
+> +
+> +	return 0;
+> +}
+> +
+> +static int cmh_kmac_update(struct ahash_request *req)
+> +{
+[ ... ]
+> +	list_add_tail(&chunk->list, &rctx->chunks);
+> +	spin_lock_bh(&tctx->chunk_lock);
+> +	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
+> +	spin_unlock_bh(&tctx->chunk_lock);
+
+[Severity: High]
+As noted in the cSHAKE update function, does using the _bh spinlock variants
+here risk corrupting the softirq state if called from an IRQ-disabled
+context?
+
+> +	rctx->num_chunks++;
+> +	rctx->total_len +=3D req->nbytes;
+> +
+> +	return 0;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
-436-1-skrishnamoorthy@rambus.com?part=3D8
+436-1-skrishnamoorthy@rambus.com?part=3D6
