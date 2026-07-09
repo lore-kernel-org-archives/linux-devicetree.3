@@ -1,159 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869F141DEE4
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 13:59:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF4F4418DF
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:00:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783605559; cv=none; b=IQp0/p5+viKENm/AE+q0Zl0dvtd4p1SQpYaGBPy/RcWiu2715r3sAsXMsjYQOdUf/YUi+dpsyOPyOjJGtjI+Ri5qbXgc9UZHWlQppn2v50B9Ead+YrwJhxVJ/zwlvtZT32VRm1pVWXK6+LYikN0FZ1Hr1z2QBQpMORqQ+hyd79M=
+	t=1783605616; cv=none; b=q7SomsC/JyCZkf9zZrB8j3/RBXBWjDDsxdCSpFHH9QMee06wJRmQfO1ZsAOIT5UTg2XBi5JftJ4UGXkJ9waIMyn+1N27GCAI2H1fTVP0gKKAMsbnniCRWxD0ncHqsA8UJbNtTRjHILYtUgJDyvZ85LedpAo3iqyZ73vMmGAKYek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783605559; c=relaxed/simple;
-	bh=Zi/JLlsRiBBhlevsygVTZ1BlfJQ1Tl4eesCJRqT1X9s=;
+	s=arc-20240116; t=1783605616; c=relaxed/simple;
+	bh=mE63ay4nSLPLfSnHSbkenKQSg9En6dp2o44ekKnlmWw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SCkYcTcDzSnhzbs8LhN2r075BGdBJhnGW6AcajJaA6DMeQeB2jSmQkuzIKe+ZbZqpuSgMjDrHrrgg/sRiImr6jk67lgiA0d9MCt1HIq019rXbZOCpcr7oXwiyLmuwn2Vd/7Cj2bJ88XUelnkbQwmt/Iq68C5D77xA3I8Jwh1Li8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cXfnj3Xu; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Xd+Z6ePkRskV6zKSjxl4ca8Y/DMKEdIcWFo960jVvVQF3Ee+UoFQpHIbWHgNwVcw8nm6wlWbiSbXeLeJE4SsN8I0V77RnlX/4xjCJvl0uxNTKCi6YaLhsxtlKzzotSEXE9CFPIz9Uq5dl2WKoc0FZCurZaOpL210p0LogDm5Cfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcu+oi0M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cXfnj3Xu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87F51F00A3A;
-	Thu,  9 Jul 2026 13:59:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcu+oi0M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D0F1F000E9;
+	Thu,  9 Jul 2026 14:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783605556;
-	bh=2pU0IbrYcj8JWG63RkPtwpkRiWx/qJ1OQud6IC2Mz9c=;
+	s=k20260515; t=1783605614;
+	bh=AXc+U2NTX+WfNCK3szRtITB4pG4K/eausIBZdvDkBZ8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cXfnj3Xu1pEnB5HWrVA2ajJIMQwwIHP5fYOf9XTRJVLe5jSfrjTK9aBtV0+mXG9Vz
-	 DPUrhUxB6pAzirlpdNt+PM0DnavDoE/QEt6E/kXGRctPcuCzzQmhKg1S4cJIl9TXX4
-	 6txQyRFIGd6voZXNSQKv8/nJSiT6M2hR+uiUpHfnsZlrh38c8AHZ4nrIU8HsRFjxKv
-	 Q7L4OH25r5I5h8heQXqpLwqjdTD4yZAxHS7tJjpQ1sdEzIZ1kzki06pzIYbDJUOCYg
-	 WoE/KHtniikEUmcRGQPZxhy3FH6qsNfKRoOiNwqQiqFVCy2tQi5jJPPVolOeM1L62z
-	 muRIhqa6uGs1w==
+	b=gcu+oi0MkysS7sXP2vYUTb/VHOp2MptzsdAkXMTCHIPLASrbB2mwe6Re8xLzfTJCD
+	 s2HvdFb91XhDjQYd8qwcx9Kv5/IJeEXRdQoX/IsUs2EOEAHcYdfPOTklpOZYu1w1qX
+	 T6tSTDgxGwEoGt1uhwRkxqtTxmcqICVLUAAaFAXAUcOxuMOtZQPrTQhpSmpmaCwmSA
+	 qEZouCb0qT6eqZxnaFTobQ/4E34TMqaNN3kVhfZuqw13VHWW+a6YiA+fqlsVP4ohyt
+	 /Mezse8HEXtHiKH9KUxwJ4fsiANu/Vi5wRPH5CpYEL9yNE4XDdmMVhL8HikF7YuIx7
+	 qqn7U8MpDZkYQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 11/18] media: iris: Add framework support for
- AR50_LITE video core
+Subject: Re: [PATCH v1 03/11] spi: dw: update SPI_CTRLR0 register
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260709-iris-ar50lt-v7-11-76af9dd4d1f6@oss.qualcomm.com>
-References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
- <20260709-iris-ar50lt-v7-11-76af9dd4d1f6@oss.qualcomm.com>
+To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709055204.138168-4-changhuang.liang@starfivetech.com>
+References: <20260709055204.138168-1-changhuang.liang@starfivetech.com>
+ <20260709055204.138168-4-changhuang.liang@starfivetech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 13:59:15 +0000
-Message-Id: <20260709135915.C87F51F00A3A@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 14:00:14 +0000
+Message-Id: <20260709140014.A1D0F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The `iris_vpu_boot_firmware` function incorrectly returns success =
-(0) when a firmware boot error is detected.
-- [High] Hardware clocks are unprepared after disabling the power domain, c=
-ausing a teardown ordering violation in `iris_vpu_power_off_hw`.
+- [Medium] The newly introduced `enh_cfg` parameter in `dw_spi_update_confi=
+g()` is never populated or passed by any caller, rendering the enhanced mod=
+e configuration logic effectively dead code.
 --
 
---- Patch [11]: [PATCH v7 11/18] media: iris: Add framework support for AR5=
-0_LITE video core ---
-commit 4e8fec9384d1018aa16fad1dc0afb88de83d8e99
-Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+--- Patch [3]: [PATCH v1 03/11] spi: dw: update SPI_CTRLR0 register ---
+commit b571b86cd59a7cddd50fbc1933264b4589cd6f16
+Author: Sudip Mukherjee <sudip.mukherjee@sifive.com>
 
-media: iris: Add framework support for AR50_LITE video core
+spi: dw: update SPI_CTRLR0 register
 
-Add power sequence for ar5lt core.
-Add register handling for ar50lt by hooking up vpu op with ar50lt
-specific implemtation or resue from earlier generation wherever
-feasible.
+This commit updates the SPI DesignWare driver to configure the SPI_CTRLR0
+register for enhanced mode transfers. It introduces a new dw_spi_enh_cfg
+structure and passes it to dw_spi_update_config() to set up instruction=20
+lengths, address lengths, and wait cycles.
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c b/drivers=
-/media/platform/qcom/iris/iris_vpu_ar50lt.c
-> new file mode 100644
-> index 0000000000000..e084a5b49f2e3
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c
+> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+> index 8d4ad4035d7c9..6befe47929b4c 100644
+> --- a/drivers/spi/spi-dw-core.c
+> +++ b/drivers/spi/spi-dw-core.c
 [ ... ]
-> +static void iris_vpu_ar50lt_power_off_hw(struct iris_core *core)
-> +{
-> +	dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAI=
-N], false);
-> +	iris_disable_unprepare_clock(core, IRIS_THROTTLE_CLK);
-> +	iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
-> +	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
-> +	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_PO=
-WER_DOMAIN]);
-> +}
+> @@ -451,7 +460,7 @@ static int dw_spi_transfer_one(struct spi_controller =
+*ctlr,
+> =20
+>  	dw_spi_enable_chip(dws, 0);
+> =20
+> -	dw_spi_update_config(dws, spi, &cfg);
+> +	dw_spi_update_config(dws, spi, &cfg, NULL);
 
-[Severity: High]
-This is a pre-existing issue on the older platforms, but I noticed you are
-correctly disabling the clocks before the power domains here for the new AR=
-50LT
-platform.
-
-However, in the shared common function iris_vpu_power_off_hw() for the older
-platforms, the power domain is disabled before the clocks:
-
-drivers/media/platform/qcom/iris/iris_vpu_common.c:iris_vpu_power_off_hw() {
-    iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_PO=
-WER_DOMAIN]);
-    iris_disable_unprepare_clock(core, IRIS_BSE_HW_CLK);
-    iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
-    ...
-}
-
-Does this teardown ordering violation in the older platforms cause system b=
-us
-hangs or unclocked access faults when the clock controller attempts to inte=
-ract
-with the unpowered block?
+[Severity: Medium]
+Is this intended to always be NULL here? By passing NULL unconditionally,=20
+the new enhanced configuration block in dw_spi_update_config() will never=20
+execute for this path.
 
 [ ... ]
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers=
-/media/platform/qcom/iris/iris_vpu_common.c
-> index 41498f94480e8..d64e7745a63dc 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> @@ -97,7 +97,8 @@ int iris_vpu_boot_firmware(struct iris_core *core)
->  	}
+> @@ -718,7 +727,7 @@ static int dw_spi_exec_mem_op(struct spi_mem *mem, co=
+nst struct spi_mem_op *op)
 > =20
->  	writel(HOST2XTENSA_INTR_ENABLE, core->reg_base + CPU_CS_H2XSOFTINTEN);
-> -	writel(0x0, core->reg_base + CPU_CS_X2RPMH);
-> +	if (!core->iris_platform_data->no_rpmh)
-> +		writel(0x0, core->reg_base + CPU_CS_X2RPMH);
+>  	dw_spi_enable_chip(dws, 0);
 > =20
->  	return 0;
->  }
+> -	dw_spi_update_config(dws, mem->spi, &cfg);
+> +	dw_spi_update_config(dws, mem->spi, &cfg, NULL);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but while modifying this functio=
-n, I
-noticed a potential issue in the firmware boot wait loop just above this co=
-de:
+[Severity: Medium]
+Similarly in dw_spi_exec_mem_op(), the enh_cfg parameter is also=20
+unconditionally passed as NULL. Is there a missing piece that was supposed=
+=20
+to extract the enhanced mode configurations from the memory operation and=20
+pass them along?=20
 
-	while (!ctrl_status && count < max_tries) {
-		ctrl_status =3D readl(core->reg_base + CTRL_STATUS);
-		if ((ctrl_status & CTRL_ERROR_STATUS__M) =3D=3D 0x4) {
-			dev_err(core->dev, "invalid setting for uc_region\n");
-			break;
-		}
-		...
-	}
-
-If the hardware reports an invalid uc_region, the loop breaks immediately.
-
-Because the variable count will be less than max_tries, the subsequent time=
-out
-check evaluates to false, and the function mistakenly falls through to retu=
-rn
-success (0) here.
-
-Can this bypass of the error return cause the driver to incorrectly assume =
-the
-firmware booted successfully and proceed to enable host interrupts, potenti=
-ally
-leading to unhandled timeouts, hardware hangs, or system crashes?
+Since all current callers provide NULL, the newly added SPI_CTRLR0 register=
+=20
+update logic inside dw_spi_update_config() appears to be permanently=20
+unreachable.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-iris-ar50l=
-t-v7-0-76af9dd4d1f6@oss.qualcomm.com?part=3D11
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709055204.1381=
+68-1-changhuang.liang@starfivetech.com?part=3D3
