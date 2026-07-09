@@ -1,224 +1,157 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FEA3F5BF5
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A943C062C
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:42:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783593740; cv=none; b=liw5HKndbwGMz5E37tvD5BSaxuAM/OSu00Z0zidZ3mXTva1Cq17EIhORO1FtTVkB9B2YvdGBMSnEyxsUxD8iNcTNwiCDVerdxYVShWCXK/AYpL7kCccBSZ1upTRTfcgdygYm/YS3GugRM823EW1f12WeQYTncVqw7WeZpGEZrkM=
+	t=1783593752; cv=none; b=G7kCIcJS0hqjDlwLalz5UQpnBiSz2oi2OW5DVzCxnyK5NqsL8ok8fig9+STlGZMOFXvu3NeXXwU7Ej3+02qhVx93rj1V6Z5OrRHep0OheHMaGAMRwR9VFmjmXGSw8F82q6f4r/JLDV1Y3Biqvb2sempfgSGr1fyqmujj+QkzVuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783593740; c=relaxed/simple;
-	bh=2gPZ9ppRdv8niKJmnenk/VipJKBnL2UlhO35HK9NxfA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vfukw3yILC3Xm09JwVHXZJkc8o1Q+mMWRBYar0e8PSbYuDTgoxegov/U4SAGPXnu3Cqkf2Mo0fV7AmtUHdMxGpueQ7jQ7xRtKcfkpH2zqmBMQDDQgYFfccqK/97PDTaEzwv853IciMUnbBO1V5kYIyTgbJmKLoWp9HqUxZ2PSEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZmBQCweC; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783593752; c=relaxed/simple;
+	bh=ebhuN0NO6XXkb4uTi+U2xBkRovod9Mk+tL+SILWT/Y0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ya2bqBdfLjMud1Ehr2IyBmc8YL/2RztFfPBBd1U57nmyPNjO+DM7wEkLuqCiZGAjhW7LILy6Vsj5RWEHvnxb8C2pMliCMuKscsH17w/K/B4B5JTIEh3KstvXqJYvvTTbhjhij/WKCnjS7VckBLzD6Glj9ZOHCUvxa0HPDWSILyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dsM4Ej0Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZmBQCweC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783593737;
-	bh=2gPZ9ppRdv8niKJmnenk/VipJKBnL2UlhO35HK9NxfA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZmBQCweCCis06ffuLrZsNtCZUDxnBnoCDs+8rqG9fJ2vKM3FIlB+FomFqdRDwoNVL
-	 7g3XQ8siAekFKrIBzHsyEghRrpmJUXj0MJOJqYrjWEjyfkC8VvZOSZTDLoIJezVMzo
-	 qTbQ+92WWFOLovcEXFO6nBUMu5q9rM9iC7MkaufV6Hr2KxtKEnNfpetuRWHTpSrLwT
-	 5EP93iUJkrTHJzia+gKaRq9BzEWbEhOF3GbABoVouCGHTKY3yztxc0cosZ1Z3gGjHW
-	 3b7zYF2Z+eBi6ED2tkPL6/RieELiq1bsXt49VQ/yAamOBAC73zsq9hPEPMio7vz+ty
-	 j4t6qqG8eyXyQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C47C817E0564;
-	Thu, 09 Jul 2026 12:42:16 +0200 (CEST)
-Message-ID: <771c3867-2d42-43a3-beb0-7cb535cbd208@collabora.com>
-Date: Thu, 9 Jul 2026 12:42:16 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dsM4Ej0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F2C1F000E9;
+	Thu,  9 Jul 2026 10:42:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783593750;
+	bh=+dgR4rJQSnbnutQZ8qvfq9w6PhvECejCMiZqrfMb6no=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dsM4Ej0Q8ceY+XID9zup4NKbc4ENvAZpuIvMaNpAnSC6dOdUwWtpa+af46t7H/sM1
+	 bhcxF3LkE4BlVxgIabXnnX7Er7VKwSdsJfVs7oARIrGXcYzaN6k4EbTYK3xbZGvs/4
+	 Wy/hwVdt1LVsWiVn4yQruHzKV9nf8aaFmoCXhOl+WYAww+E/ZIYMhbMBk8DfIE3FVk
+	 on6+afPbzOf+X3Dy7YpuXzBjBjccP3xm0N79StWB25xgZg8LWh9UWo9RPxuQQzvznP
+	 HjvkOej99/T7wljpSR63OmeY1GKUY2wPri4ZXuwBp/x3/9dRfYvMPyrxLqB16Fe1wr
+	 V29ORFbGe1Hzw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/11] drm/mediatek: mtk_dp: Clarify XTAL freq and
+ Debounce registers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709103431.46616-12-angelogioacchino.delregno@collabora.com>
+References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
+ <20260709103431.46616-12-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 10:42:29 +0000
+Message-Id: <20260709104230.81F2C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] pmdomain: mediatek: Add support for Direct CTL
- simple power sequence
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260709084635.24912-1-angelogioacchino.delregno@collabora.com>
- <20260709084635.24912-5-angelogioacchino.delregno@collabora.com>
- <20260709085843.6C09E1F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260709085843.6C09E1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/9/26 10:58, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] Incomplete error recovery in `scpsys_power_off_internal` leaves hardware paralyzed and causes clock refcount underflows.
-> - [High] Unbalanced lifecycle operations in `scpsys_power_on` fail to revert hardware state on error.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The patch silently fixes a register programming bug, changing th=
+e programmed HPD interrupt debounce thresholds, despite the commit message =
+claiming 'the only purpose of increasing human readability'.
+- [Low] Unused legacy macros were left in the header file after their usage=
+ was removed.
+--
 
-Unfortunately there's no way of fixing those two briefly; the hardware may randomly
-lockup if changes are reverted at that point.
+--- Patch [11]: [PATCH v3 11/11] drm/mediatek: mtk_dp: Clarify XTAL freq an=
+d Debounce registers ---
+commit a0d0ec4a08e7bb60a4d55891bd6e55ba3b2ab740
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-I'm not even sure if there's any way at all of fixing this, but research will
-be done a bit later. Not relevant for this series.
+drm/mediatek: mtk_dp: Clarify XTAL freq and Debounce registers
 
-> - [Medium] Malformed device trees lacking access controllers guarantee a NULL pointer dereference in `scpsys_bus_protect_get_regmap`.
+This patch refactors the initialization of the crystal frequency and
+transmitter interrupt debounce registers in the MediaTek DP driver to
+use FIELD_PREP_CONST for better readability.
 
-No, that's not true - only HFRPSYS HWV lack access controllers, and will use
-different ops, so that's not going to create any NULL pointer dereference.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index 868d918a0b161..4403a25784d4e 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
 
-> --
-> 
-> --- Patch [4]: [PATCH v3 4/5] pmdomain: mediatek: Add support for Direct CTL simple power sequence ---
-> commit 0a6955778a8abcdf284811fe9a9089e2c1cff6d6
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> pmdomain: mediatek: Add support for Direct CTL simple power sequence
-> 
-> Some new SoCs like MT8196, MT6991, and others, have got one
-> additional power controller (usually in the HFRP Multimedia
-> block) which needs a simplified power on/off sequence while
-> using Direct Control strategy.
-> 
-> Domains using the "simple power sequence" are not backed by
-> the RTFF hardware, have no Bus Protection mechanism, lacks
-> the ISO, PWR_ON, PWR_ON_2ND bits, and therefore get enabled
-> automatically after getting out of reset.
-> 
-> This simple power sequence is then a subset of the full one
-> as only needs the enablement of the specific power domain's
-> clock input and reset (where, again, after getting out of
-> reset, the ISO and PWR_ON bits are automatically internally
-> getting flipped) to enable or disable (power on or off).
-> 
-> Moreover, the simple power sequence power domains guarantee
-> that they always get enabled/disabled after executing the
-> relevant power sequence (on/off) so, differently from the
-> others, there is also no need to poll for a PWR_ACK.
-> 
->> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomain/mediatek/mtk-pm-domains.c
->> index 8d49d9ee3cd29..632c5dcdcedaf 100644
->> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
->> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> [ ... ]
->> @@ -688,7 +739,8 @@ static int scpsys_power_on(struct generic_pm_domain *genpd)
->>   err_enable_bus_protect:
->>   	scpsys_bus_protect_enable(pd, 0);
->>   err_disable_sram:
->> -	scpsys_sram_disable(pd);
->> +	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ))
->> +		scpsys_sram_disable(pd);
->>   err_disable_subsys_clks:
->>   	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_STRICT_BUS_PROTECTION))
->>   		clk_bulk_disable_unprepare(pd->num_subsys_clks,
->>   					   pd->subsys_clks);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does this error path fail to revert
-> the hardware state if an error occurs?
-> 
-> If scpsys_bus_protect_disable() or clk_bulk_prepare_enable() fails after
-> *_pwrseq_on() has successfully executed, the error path jumps to err_pwr_ack.
-> 
-> This path disables the domain's regulator and clocks but fails to execute
-> *_pwrseq_off() or revert ext_buck_iso:
-> 
-> err_pwr_ack:
-> 	clk_bulk_disable_unprepare(pd->num_clks, pd->clks);
-> err_reg:
-> 	scpsys_regulator_disable(pd->supply);
-> 	return ret;
-> 
-> Could this sever the supply while leaving the domain's internal logic active,
-> resulting in hardware lockup and state machine desynchronization?
-> 
-> [ ... ]
->> @@ -725,15 +778,21 @@ static int scpsys_power_off_internal(struct scpsys_domain *pd)
->>   		return ret;
->>   
->>   	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
->> -		scpsys_modem_pwrseq_off(pd);
->> +		ret = scpsys_modem_pwrseq_off(pd);
->> +	else if (MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ))
->> +		ret = scpsys_simple_pwrseq_off(pd);
->>   	else
->> -		scpsys_ctl_pwrseq_off(pd);
->> +		ret = scpsys_ctl_pwrseq_off(pd);
->> +
->> +	if (ret < 0) {
->> +		/* Re-enable clocks so that next power off doesn't break the refcount */
->> +		int r = clk_bulk_prepare_enable(pd->num_subsys_clks, pd->subsys_clks);
->> +
->> +		if (r)
->> +			dev_warn(scpsys->dev, "Could not re-enable clocks: %d\n", r);
->>   
->> -	/* wait until PWR_ACK = 0 */
->> -	ret = readx_poll_timeout(scpsys_domain_is_on, pd, tmp, !tmp, MTK_POLL_DELAY_US,
->> -				 MTK_POLL_TIMEOUT);
->> -	if (ret < 0)
->>   		return ret;
->> +	}
->>   
->>   	clk_bulk_disable_unprepare(pd->num_clks, pd->clks);
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does the error recovery in
-> scpsys_power_off_internal() leave the hardware in a paralyzed state?
-> 
-> If pwrseq_off fails, this block restores subsys_clks but leaves the domain's
-> SRAM disabled, isolation applied, and bus protection disabled, while
-> returning an error to genpd.
-> 
-> Because an error is returned, genpd treats the domain as still ON, allowing
-> active consumers to interact with a paralyzed hardware domain.
-> 
-> Additionally, if scpsys_bus_protect_enable() fails earlier in this function:
-> 
-> 	ret = scpsys_bus_protect_enable(pd, BUS_PROT_IGNORE_SUBCLK);
-> 	if (ret < 0)
-> 		return ret;
-> 
-> It returns early and bypasses clock recovery entirely, causing a permanent
-> clock refcount underflow on the next failure.
-> 
-> Can we ensure consistent state on power off errors?
-> 
-> [ ... ]
->> @@ -1109,6 +1168,12 @@ static int scpsys_get_bus_protection_legacy(struct device *dev, struct scpsys *s
->>   		regmap[2] = NULL;
->>   	}
->>   
->> +	/* If no access controllers are needed, don't allocate and don't fail */
->> +	if (num_regmaps == 0) {
->> +		scpsys->bus_prot = NULL;
->> +		return 0;
->> +	}
->> +
->>   	scpsys->bus_prot = devm_kmalloc_array(dev, num_regmaps,
->>   					      sizeof(*scpsys->bus_prot), GFP_KERNEL);
-> 
-> [Severity: Medium]
-> This is a pre-existing issue, but does this result in a NULL pointer
-> dereference if the device tree is malformed?
-> 
-> If an older SoC's device tree is missing required access controllers,
-> num_regmaps becomes 0. The probe function succeeds and explicitly sets
-> scpsys->bus_prot = NULL.
-> 
-> When the domain later attempts to power on, scpsys_bus_protect_enable() sees
-> that the hardcoded SoC domain data still requests bus protection and
-> unconditionally dereferences the NULL array in
-> scpsys_bus_protect_get_regmap():
-> 
-> 	unsigned short block_idx = scpsys->bus_prot_index[bpd->bus_prot_block];
-> 	return scpsys->bus_prot[block_idx];
-> 
-> Should we ensure scpsys->bus_prot is not dereferenced when NULL, or perhaps
-> fail the probe if required controllers are missing?
-> 
+[ ... ]
+
+> @@ -1260,28 +1266,29 @@ static void mtk_dp_initialize_aux_hpd_detect_sett=
+ings(struct mtk_dp *mtk_dp)
+> =20
+>  static void mtk_dp_initialize_hpd_detect_settings(struct mtk_dp *mtk_dp)
+>  {
+> -	u32 val;
+> -
+>  	/* Mask AUX TOP interrupt, as this uses transmitter for HPD */
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_IRQ_MASK,
+>  			   AUX_TOP_IRQ_MSK, AUX_TOP_IRQ_MSK);
+> =20
+> -	/* Debounce threshold */
+> +	/* Set Hotplug debounce threshold time: xtal_period * deb_thd */
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
+>  			   8, HPD_DEB_THD_DP_TRANS_P0_MASK);
+> =20
+> -	val =3D (HPD_INT_THD_DP_TRANS_P0_LOWER_500US |
+> -	       HPD_INT_THD_DP_TRANS_P0_UPPER_1100US) << 4;
+> -	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
+> -			   val, HPD_INT_THD_DP_TRANS_P0_MASK);
+> -
+>  	/*
+> -	 * Connect threshold 1.5ms + 5 x 0.1ms =3D 2ms
+> -	 * Disconnect threshold 1.5ms + 5 x 0.1ms =3D 2ms
+> +	 * Set interrupt debounce threshold time
+> +	 * VAL  |  0     1     2     3  INT_THD
+> +	 * Low  | 100   300   500   700 uS
+> +	 * High | 700   900  1100  1300 uS
+>  	 */
+> -	val =3D (5 << 8) | (5 << 12);
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
+> -			   val,
+> +			   FIELD_PREP_CONST(HPD_INT_LOW_THD_DP_TRANS_P0_MASK, 2) |
+> +			   FIELD_PREP_CONST(HPD_INT_HIGH_THD_DP_TRANS_P0_MASK, 2),
+> +			   HPD_INT_THD_DP_TRANS_P0_MASK);
+
+[Severity: Medium]
+The commit message states the patch has "the only purpose of increasing hum=
+an
+readability", but does this actually fix a bug in the old code?
+
+The original code calculated the values with an extra shift:
+
+val =3D (HPD_INT_THD_DP_TRANS_P0_LOWER_500US |
+       HPD_INT_THD_DP_TRANS_P0_UPPER_1100US) << 4;
+
+Since those macros were already shifted by 4 and 6, the extra shift by 4
+resulted in val =3D 0xA00. When updated with the 0xF0 mask, this effectively
+wrote 0 to the register. The new code correctly programs 0xA0.
+
+Could the commit message be updated to mention this functional change?
+
+> +
+> +	/* Connection and Disconnection thresholds: 1.5ms + (5 x 0.1) ms =3D 2m=
+s */
+> +	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3410,
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp_reg.h b/drivers/gpu/drm/medi=
+atek/mtk_dp_reg.h
+> index 9caf743f4fe61..ce47b99dddc43 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp_reg.h
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp_reg.h
+> @@ -253,6 +253,8 @@
+>  #define MTK_DP_TRANS_P0_3410				0x1410
+>  #define HPD_DEB_THD_DP_TRANS_P0_MASK				GENMASK(3, 0)
+>  #define HPD_INT_THD_DP_TRANS_P0_MASK				GENMASK(7, 4)
+> +#define HPD_INT_HIGH_THD_DP_TRANS_P0_MASK			GENMASK(7, 6)
+> +#define HPD_INT_LOW_THD_DP_TRANS_P0_MASK			GENMASK(5, 4)
+>  #define HPD_INT_THD_DP_TRANS_P0_LOWER_500US			(2 << 4)
+>  #define HPD_INT_THD_DP_TRANS_P0_UPPER_1100US			(2 << 6)
+
+[Severity: Low]
+This isn't a bug, but are these legacy macros still needed?
+
+The code no longer uses HPD_INT_THD_DP_TRANS_P0_LOWER_500US or
+HPD_INT_THD_DP_TRANS_P0_UPPER_1100US after this patch.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
+6-1-angelogioacchino.delregno@collabora.com?part=3D11
