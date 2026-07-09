@@ -1,147 +1,145 @@
-Received: from ironport.ite.com.tw (60-251-196-230.hinet-ip.hinet.net [60.251.196.230])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A334410D13;
-	Thu,  9 Jul 2026 11:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2803E8324
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783596364; cv=none; b=hteDGy/Iri2U7Au+Mw4AaJHA5+sjMaoYpmSzVXCKrSPI1iQOZHIMQPVlJwwHJUbjqWI6Rbc4fCm/YTBiwxlqkIlVKqK9JWZWq38XkgsBcW3BZNJ9EmpZEv77Fptyr9SOJPuWuFbi3PyvztrFfL0OSude7n5Po0FKUHBXdW4Cl7w=
+	t=1783596364; cv=none; b=C2Fk4PEfYN9Evum07o+/2eTaPrGtXq2Rf9r5hyMN5tX2PRPvwRfdJKfWkJI6y8yuPSO8cbENX2nHJtpTMzqOt91jl96/Pqeq6QY0eduif5Vkg6l+xOJ5vQfwQ1CEuQo9WoJ0OwiY8ml3ESdMGbrgoiAe2zoIGv16yAjT4hHZ5zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783596364; c=relaxed/simple;
-	bh=OofZMJL109njsqXxz80JUFGZf9nrKd8SY+AvqSDKwNo=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=AdXcbDNMDZprwN0HZvrc1AHhGtVSqkaDvFHV2JRjOP4A806cp9Bin2ecSBW1OJ2fuLiDNFX9YMaM8Pg2Oa/vXCUUi/cXBKY5V5zG7nEvnuqYykgKMfLmvKhAeHLfZu3WUFcd17A+9QtXUAsQt3db34ghQaQNsh/SQoz9GCsjuqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=psqLETwd; arc=none smtp.client-ip=60.251.196.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	bh=HhuMu9SUrGbRj7K8rxBQ1DIZvC3FIsZ1TnKtsOXnLuY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XH8Sly9XlAZeXPxeg3QW3ItomYMU6Rzqae2omBQAekMlGcj7ZGiaPbYl7GAPMj6nzVJ/i9eSQRE9W8yKL1ncc5SmvMbJI4yjO1r7fJC/3XMsrqUWjDzzezb3Fbw0c7bQNhPDRd9GkJ+Mi+9H9wDZZs5gCC0glwYVPjgV8WsTTek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0T7RtPk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="psqLETwd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=8WzcaJFlm+Ze+sn2/OTZccdOtQx+JEHSj35YZsPGCbg=;
-  b=psqLETwdvQxXbMB54s6aP6Q8ja6kK/PkvSreZY0gt0byPOV3w9VyxdVc
-   GN4cTdc9DDrgD2Hu4E2AaMLqqp4yLrnfGc4BZZnjL5mOhImRe8vVn7oiC
-   j6qpQD4ddiiOs4TlQH+sgfZcG8MgD74VhRpQlF3xjm3FH8oeANSYKMFqv
-   ASB0YL5Xz0KMLnFVPz/oy81Hf/ZsweacjRdgvnyh3pgW1pGrTkdX7o5VM
-   ud06WMk1Ot3GpC14rul8rcXWmrRGZ18NgCmTm4x2lTYAH7ghQsuRqRkix
-   pZUrzuS1uohqrJ080MalxzIouBj5N0G9IA4AwYtYm8G8dPNrl4zJqxzF4
-   A==;
-X-CSE-ConnectionGUID: 5bH+dLnMRk2SuDoJhxEfzg==
-X-CSE-MsgGUID: 83hStgKiRi6v2diV7vfiKw==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 09 Jul 2026 19:25:55 +0800
-Received: from hscmail1.internal.ite.com.tw (HSCMAIL1.internal.ite.com.tw [192.168.35.58])
-	by mse.ite.com.tw with ESMTP id 669BPpHn093117;
-	Thu, 9 Jul 2026 19:25:51 +0800 (+08)
-	(envelope-from amber.kao@ite.com.tw)
-Received: from [127.0.1.1] (192.168.37.107) by HSCMAIL1.internal.ite.com.tw
- (192.168.35.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 9 Jul
- 2026 19:25:50 +0800
-From: Amber Kao <amber.kao@ite.com.tw>
-Subject: [PATCH v3 0/2] usb: typec: ucsi: Add ITE IT885x Type-C PD
- controller driver
-Date: Fri, 10 Jul 2026 03:25:46 +0800
-Message-ID: <20260710-ucsi-itepd-feature-v3-0-8523e1e1c47a@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0T7RtPk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44BB71F000E9;
+	Thu,  9 Jul 2026 11:26:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783596363;
+	bh=EAl8RRkDb7yUrdPgcFLiKpJzF/Lkx1QiX+FHTL0ai6k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=o0T7RtPkkJTGAO+Zo2GCdV14dHP8Sk2uEWJK/xwgxPq76cs7YY2lUt1PDnM2YNy+I
+	 SmoBVhMx6VsaoJ9k2XPjI6I/prjx28qDJ7/QgYmFabP9PcmwhcQqKS6rRmTTF8Xq0H
+	 f5uh/i4rVNxHO3KNS5rJyEKnNMRJJzGPtoDQxhApvDmEwK8TaK/vUI2jU6WKBhfskl
+	 o9OucilAeKIAexXHsJtdhgygtWT3DwIJObTKXGljqZnLTXZ6Yf/8kc+qY3KhckgOiC
+	 Eo/U1WlCQyWGbR6WKIk7/ZgD2qhkSJVh2V38XjPf6tOVs3AvZhJRcIcSHf2Ch444AW
+	 qrQrrDYueHwiw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/8] clk: clocking-wizard: Add static-config clock
+ provider support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709111403.1579159-5-shubhrajyoti.datta@amd.com>
+References: <20260709111403.1579159-1-shubhrajyoti.datta@amd.com>
+ <20260709111403.1579159-5-shubhrajyoti.datta@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 11:26:02 +0000
+Message-Id: <20260709112603.44BB71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NTQ6CMBBGr0Jm7ZBSKAor72FYYDuVMRFIW1BDu
- LsFti5fvp+3gCfH5KFOFnA0s+ehj5CfEtBd2z8I2UQGKWQpSqFw0p6RA40GLbVhcoSVotJoosJ
- qBXE4OrL82U9vzcF+uj9Jh+1pa3Tsw+C+u3WWW+8QnDPxTzBLFFhkVZFbo4zNL9eYp3p4peENz
- bquP1qmiWHHAAAA
-X-Change-ID: 20260605-ucsi-itepd-feature-95e6dcee4fc5
-To: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Bling Chiang <Bling.Chiang@ite.com.tw>,
-        Doreen Lin <doreen.lin@ite.com.tw>, Eric Su <Eric.Su@ite.com.tw>,
-        Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Heikki
- Krogerus <heikki.krogerus@linux.intel.com>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Amber Kao <amber.kao@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: CSBMAIL2.internal.ite.com.tw (192.168.65.41) To
- HSCMAIL1.internal.ite.com.tw (192.168.35.58)
-X-TM-SNTS-SMTP:
-	F7C5159D00E60979CC7037F65561722ECF459CEE3E5641EE0976348B6114D89A2002:8
-X-MAIL:mse.ite.com.tw 669BPpHn093117
 
-This series adds Device Tree bindings and minimal UCSI driver
-support for the ITE IT885x USB Type-C Power Delivery controller
-over I2C.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Flexible array access violates `__counted_by` bounds check due to =
+uninitialized `num` variable in `clk_wzrd_probe`.
+--
 
-Per Heikki's review of v1, this series has been split into smaller,
-self-contained patches. This version drops the Alternate Mode
-support, the UCSI command-translation hook, and the auxiliary-bus
-core/client split entirely. The driver now does nothing more than
-register the UCSI ports and partners. Alternate Mode support and
-the auxiliary-bus split will follow in later series, once each
-feature can be reviewed on its own.
+--- Patch [4]: [PATCH v2 4/8] clk: clocking-wizard: Add static-config clock=
+ provider support ---
+commit 0905a91a49c4de73e34946b056e201766ae078dd
+Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-v2 also had two high-severity issues found by Sashiko review,
-both fixed in this version: a use-after-free race in remove() where
-free_irq() ran after ucsi_unregister() had already freed the 
-ucsi->connector array a pending IRQ could still access, and a missing
-check on the interrupt-clear write that could unconditionally return
-IRQ_HANDLED even when the hardware interrupt was never actually cleared,
-risking an IRQ storm.
+clk: clocking-wizard: Add static-config clock provider support
 
-Note: This driver has not been tested on physical hardware. Runtime
-verification was performed by building the module out-of-tree
-against the currently running kernel's headers and loading it on an
-x86_64 virtual machine, using i2c-stub with manual device
-instantiation to trigger probe().
+This commit adds support for static-config mode in the clocking wizard.
+It bypasses AXI register mapping and advertises output clocks as
+clk_fixed_factor children of clk_in1 using synthesized ratios. It also
+adds a 10 us delay in the enable hook to allow the clock to settle.
 
-Testing performed:
-- checkpatch.pl --strict: no errors or warnings
-- dt_binding_check / dtbs_check: no errors or warnings
-- Sparse (C=2 CF="-D__CHECK_ENDIAN__"): no errors or warnings
-- checkstack.pl: no functions exceed 512-byte stack limit on
-  x86_64, arm64, arm32, and ppc64le
-- Kconfig tristate: tested =m, =y, =n, allmodconfig, allnoconfig
-- Cross-compilation: x86_64, arm64, arm32, ppc64le
-- CONFIG_SMP and CONFIG_PREEMPT: both on and off
-- Strict warning mode (W=1 EXTRA_CFLAGS=-W): no new warnings
-- i2c-stub emulation with manual device instantiation: re-verified
-  after the v3 fixes,probe() still correctly rejects devices with 
-  no IRQ resource (-ENODEV), no crash, module load/unload cycle clean
-- Fault injection (CONFIG_FAILSLAB, fail-nth): each reachable kzalloc()/
-  devm_kzalloc() in probe() was individually failed and returned -ENOMEM
-  cleanly with correct teardown; the runtime IRQ/UCSI paths were not
-  reachable via i2c-stub.
+> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
+inx/clk-xlnx-clock-wizard.c
+> index ffc78c90bee6f..5470a717fccc8 100644
+> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+[ ... ]
+> @@ -1224,6 +1314,51 @@ static int clk_wzrd_probe(struct platform_device *=
+pdev)
+[ ... ]
+> +	} else {
+> +		u32 mul_div[WZRD_NUM_OUTPUTS * 2];
+> +		const struct clk_parent_data parent_data =3D { .fw_name =3D "clk_in1" =
+};
+> +		int num_elems =3D nr_outputs * 2;
+> +
+> +		/*
+> +		 * xlnx,clk-mul-div is a uint32-matrix of <mul div> pairs;
+> +		 * FDT encodes it as a flat u32 array so we can read it directly.
+> +		 */
+> +		ret =3D of_property_read_u32_array(np, "xlnx,clk-mul-div",
+> +						 mul_div, num_elems);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "xlnx,clk-mul-div missing or invalid\n");
+> +			return ret;
+> +		}
+> +
+> +		for (i =3D 0; i < nr_outputs; i++) {
+> +			u32 mul =3D mul_div[2 * i];
+> +			u32 div =3D mul_div[2 * i + 1];
+> +
+> +			if (!mul || !div)
+> +				return dev_err_probe(&pdev->dev, -EINVAL,
+> +						     "invalid mul/div for clkout%d\n", i);
+> +
+> +			clk_name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL,
+> +						  "%s_out%d", dev_name(&pdev->dev), i);
+> +			if (!clk_name)
+> +				return -ENOMEM;
+> +
+> +			hw =3D clk_wzrd_devm_register_static_fixed_factor(&pdev->dev, clk_nam=
+e,
+> +									&parent_data,
+> +									CLK_SET_RATE_PARENT,
+> +									mul, div);
+> +			if (IS_ERR(hw))
+> +				return PTR_ERR(hw);
+> +			clk_wzrd->clk_data.hws[i] =3D hw;
 
-Note: big-endian (ppc64) cross-compilation was not tested, as
-TYPEC_UCSI currently depends on !CPU_BIG_ENDIAN upstream. Byte-order
-correctness was instead verified via sparse.
+[Severity: High]
+Will this trigger a UBSAN bounds-check panic when assigning to hws[i]?
 
-Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
----
-Amber Kao (2):
-      dt-bindings: usb: Add ITE IT885x support
-      usb: typec: ucsi: Add ITE IT885x Type-C PD controller driver
+The struct clk_hw_onecell_data uses the __counted_by(num) attribute for
+its hws flexible array. Since clk_wzrd->clk_data.num is zero here (from
+the initial kzalloc) and is only updated after this loop, does writing
+to hws[i] violate the __counted_by bounds check?
 
- .../devicetree/bindings/usb/ite,itepd-it885x.yaml  | 105 ++++++
- MAINTAINERS                                        |  12 +
- drivers/usb/typec/ucsi/Kconfig                     |  10 +
- drivers/usb/typec/ucsi/Makefile                    |   1 +
- drivers/usb/typec/ucsi/ucsi_itepd.c                | 354 +++++++++++++++++++++
- 5 files changed, 482 insertions(+)
----
-base-commit: 8fde5d1d47f69db6082dfa34500c27f8485389a5
-change-id: 20260605-ucsi-itepd-feature-95e6dcee4fc5
+Should clk_wzrd->clk_data.num be set to nr_outputs before entering the
+loop to prevent a panic during device probe when CONFIG_UBSAN_BOUNDS
+is enabled?
 
-Best regards,
---  
-Amber Kao <amber.kao@ite.com.tw>
+It looks like the pre-existing dynamic config path in
+clk_wzrd_register_output_clocks() suffers from this same initialization
+ordering issue, even though this specific loop is new to this patch.
 
+> +		}
+> +
+> +		clk_wzrd->clk_data.num =3D nr_outputs;
+> +
+> +		ret =3D devm_of_clk_add_hw_provider(&pdev->dev, of_clk_hw_onecell_get,
+> +						  &clk_wzrd->clk_data);
+> +		if (ret)
+> +			return dev_err_probe(&pdev->dev, ret,
+> +					     "unable to register clock provider\n");
+>  	}
+> =20
+>  	return 0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709111403.1579=
+159-1-shubhrajyoti.datta@amd.com?part=3D4
