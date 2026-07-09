@@ -1,166 +1,173 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2128406287;
-	Thu,  9 Jul 2026 10:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2A540862F
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783591470; cv=none; b=DlwxagN6WDBBsLNSraJNbPBf4yK/b/FSyQFnI4WGD1wSMLHv2+rSDnehQI4fdc0MPQhmiDPP71Zeg4Z8MnxglOhRiA82ByFhBfRyEiHrEdXQI9GEczkl0o7Q0VIJEBjlmLs2qOuLa3kq7Y5h6gFXUaSsJdkJqG873cS6GSVC73A=
+	t=1783591487; cv=none; b=hF5NXlRCqh+i+cTRMj38OU6oImzANyAfrU2eNEGx7eW6Rf7HsX89p0aUt9RyUva2Ij5c3Y59rYgdELZMKAhPictmBwyn/D70ppFHuR3ls3KywFpXot0FWenNF75znfhNP722gaiclmHzripY05xi7qXCTrASOvBv9lEynLHV7OU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783591470; c=relaxed/simple;
-	bh=83dwYyFcaU55ghmn5xrQZV9qr/tiAXvwfw93RtEnGWU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y4ffml+CKUj4qFfAZGjMsrcm3T/5mAr6x3MebiJFbt/An36NWT/2eM2a+E2j0fdpI3pz5S55VVm9LV+FJTXwcIYKMCstbrH4coLMau879dhOOgSvWYcoyXN1qmojJ4BTKQhbZ5IjxBGIDzhxyLaFjV6w51JFnBfL+O39Fmqt6J8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=lukas.metz@gmx.net header.b=ItmQvK5Q; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1783591487; c=relaxed/simple;
+	bh=jnRthcRh18ECwG4Qubk9hDmz59sP/LjpoR0YrTy21w0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nTx+7t4qTFwvILPZAGjrHk5ERotjKXeJ+pfC2TCZQee2z0Aho9KLCtEsRinxAwm+gbaamv0KPGqGvYxHWcYUjS0B1k72MS4p9CfSPV3oqUR9t9NLQjOEcIrtOI+uO0pTLYGjbtSEOut/d0m3D02wqxOvCCNJa9z8b+KBvynPiGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u/BOI4ro; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=lukas.metz@gmx.net header.b="ItmQvK5Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1783591460; x=1784196260; i=lukas.metz@gmx.net;
-	bh=USuhseTGFuEXWc92U8HIk8WKyZ4VAiRhWM2IQRdM0Ug=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:In-Reply-To:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=ItmQvK5QYhR8A4zWgxU14y71JPnQ6u+OEgRK9dtKFlM5Qi7+uSwLik6PVc2CJuCl
-	 ElFP2jEPsgsVmMEp8GK5O4huajA2IKt+2WrJAbFY3GM0qUdtpfpJtMcGjpNSMCus+
-	 y6PAURgm6/ixq4X6Wy9jN1IEItFRnL5k8kYLY1I4TSdzWzKzDBR41WV4k8DbPlPs4
-	 J0vM7TGNts6lznB8MV4JZQ/Sf5EaP28sEem+0oCjWFVklx+Nadnl75Q0nljDT3f45
-	 MwVfqLR1YoH9p4jKAg7D5LbhEs33TpSM1BB+K9p+LXz8VZaMdGNZC3KGwHra2qY4S
-	 T8FSsFaWV5Skb0ReMA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MUGe1-1wY2S715cZ-00PKGP; Thu, 09
- Jul 2026 12:04:20 +0200
-Date: Thu, 9 Jul 2026 12:03:14 +0200
-From: Lukas <lukas.metz@gmx.net>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
-Message-ID: <ak9x4iKf7yR1rMWN@berta-MS-7693>
-References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
- <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
- <ak41MZNHFvVzeq6Z@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u/BOI4ro"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15b75c9e48so232682966b.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 03:04:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1783591484; x=1784196284; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TVm4IvduA/DyKHoGxNy4y6/zPAWfmeUpt6Sdfg7MdY4=;
+        b=u/BOI4roAJCkcmxvCbpH6tTU4zGCxVYdUknBr9dXtno+1HA6Fn//ya3alj9d14RrI/
+         QuF1eSS7v0ZoROcpofhzj/ixiXLSwhgBI1YQyTjR8nIpUwYb7xrg/Pd7viSM/aaPkLZH
+         qIDNR0TN3kgeFo7NUA17VXmSGqPvLH17KPH/yq7A+awuEAxq+EGCrISyCCj1N7bwTPeh
+         vFf662lyA/Gdc6s910ZU2f+4lNrgHOO9S6iF6fViXMl/b8h6uR+rnuPg7r+hCOiP5XJK
+         1IaYkG28xwNiH4G4KJxVTJiErF8uRMoTimgAaz3WrywdVbdheXnyazQw40yk2Ej+mEUe
+         wShA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783591484; x=1784196284;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TVm4IvduA/DyKHoGxNy4y6/zPAWfmeUpt6Sdfg7MdY4=;
+        b=E5ZGYPR7R32MX9/dISGaIAc3OkvfH1OZxNn+uTNYKs5t4iqbZRxAqdUXX3ghY7LhdW
+         9Lm2+5tZl87SyRW/NeXMNVdEOVg02U5j7n8caxbL7I3FhiCYipsDpEs4n2MOC7KZvXv5
+         CWx5mNJuzRn8vnrX+bvGYxFehJXgrcbkhqlIMuSa4h+0dbTdGupYBjNjgvbZTpVkc4Ii
+         uSCHg8+SKS1kRJgN10wcLpw+4efGDHqAtmUPTfi24+NeEc5EekqpITH7alCaZN36JRdf
+         KmljZE7z5KiO7xaOfYkwP5lwTm7zJMWfuw2vuwUtD2YR8RjhMDq9BEe0E6OyopOIljRI
+         3cAQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrMLsgv10ZIalsbhIzJIYsZbga2OBpXwIjWdorTQVqdY/f0LM7DY7D/DrS5LZ3Zsa1g7wcVYP2WsVkr@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWKkRvhF+nLiRdtmrpy+/zidR9dxJgCaK+zNekYf9eeOF4dFtx
+	y19rcqdXMvGSwG8qu/0FmkTF10Ct9MyAYA+2xZWsFsMU/wXS4QNBLNZW9j6aDb8Lzes=
+X-Gm-Gg: AfdE7cmvqnlNuMjm1CiEbv8nhhLb61oHCxejF1ofBGMpO0UoMQO/reB485/7Ov6ldL3
+	h852V6/hwEkBhmUVdlyTm4gzunLKNY9QLCDA4J9R3d8Abf/0XT//TzxLaIer7QPJet5cWP0QWih
+	H4WbY4P3BAo4erNMyHPYaFcUjg7e0sL+PZ3vxho7Cp3mIbvJs5PdUe83cnrPRCvwYH7zj5XGzFF
+	ZTEInfNQvAYRNQfrTW7HispIxoSxXu8JSyjX5CrpjC1o/Lhp/nksFDWn//EnW/dI/PQcArLqYnQ
+	oGMjigg+OH8DF8T9Xbs8OZcFcKdpfx8U5TAG+ZbS10dTei0G/cBgfEmglsmLBtN8zF2J8P8nd7I
+	FSVMj/Y1FjN0K1cE3+dn92Kg1JFthv0AGv/R3PCOOMJUicHGfk3D0xpSCGioxih7eKV1wD0/dAT
+	DqA+jSLLVFKNF8xfSNmfj6hmPg
+X-Received: by 2002:a17:907:960f:b0:c12:8c27:e2f6 with SMTP id a640c23a62f3a-c15cdec5297mr323277666b.13.1783591484174;
+        Thu, 09 Jul 2026 03:04:44 -0700 (PDT)
+Received: from [192.168.0.101] ([93.107.71.88])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15edfcdb9dsm46291766b.61.2026.07.09.03.04.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 03:04:43 -0700 (PDT)
+Message-ID: <2ea78bd6-5abd-4ba8-8f8e-24057a587cdc@linaro.org>
+Date: Thu, 9 Jul 2026 11:04:40 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ak41MZNHFvVzeq6Z@ashevche-desk.local>
-X-Provags-ID: V03:K1:VxkbhtbInvJx/V1PGrnBIv4LsX/nRBrVRrBrDJUecpMxk+3Kqlf
- TpQ5yTWt/XbdRibtis0UM58b6Nkob1Hd+b3pIzxNg19iSE/jKEylfFj8Ft1xgSKXqv3JZsa
- lswfmzsn7oo/jWerpEsV5L0XWLI8f2DOH9k8QFINbHPZWZBday4atN+5w+F0eAoy3US8EPq
- IADBZ4NOsCmAjhMuJTPug==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:GhFA5QtiZ7k=;Qz7siSPBBkj7+vjqet5DGu9j1a3
- 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
- GLT9heliNJi4xzA==
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/5] media: qcom: camss: Populate CAMSS child devices
+ via DT
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, vladimir.zapolskiy@linaro.org,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-2-atanas.filipov@oss.qualcomm.com>
+ <d579ffd2-b99e-4e8d-b2b7-e7e896b2d71d@linaro.org>
+ <CAFEp6-0rwuRzXM0fu0uyrvSvgG0ttpygOULkKfTT7aw8m_HUog@mail.gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <CAFEp6-0rwuRzXM0fu0uyrvSvgG0ttpygOULkKfTT7aw8m_HUog@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 08, 2026 at 02:32:01PM +0300, Andy Shevchenko wrote:
->=20
-> At the first glance it seems I already commented on the issues in this d=
-river.
-> Yes, I see that I commented
->=20
->   "Leave trailing commas in the non-terminator entries here and there."
->=20
-> and in several places in this version it has not been addressed.
-> Taking into account this I don't want to go through and check what
-> else is missing, so please go again to v1 and carefully read *all*
-> the comments and either address them, or explain why it's not done.
->
+On 09/07/2026 08:45, Loic Poulain wrote:
+> On Thu, Jul 9, 2026 at 12:30 AM Bryan O'Donoghue
+> <bryan.odonoghue@linaro.org> wrote:
+>>
+>> On 06/07/2026 08:11, Atanas Filipov wrote:
+>>> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>>>
+>>> Use devm_of_platform_populate() so that child nodes declared under the
+>>> CAMSS device tree node (e.g. OPE) are automatically instantiated as
+>>> platform devices. This is required now that CAMSS is modelled as a
+>>> simple-bus and ISP blocks such as OPE are described as child nodes.
+>>>
+>>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>>> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+>>
+>> Looking at my commit logs I see this isn't my commit message ..
+>>
+>> Anyway.
+>>
+>>> ---
+>>>    drivers/media/platform/qcom/camss/camss.c | 3 +++
+>>>    1 file changed, 3 insertions(+)
+>>>
+>>> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+>>> index 2123f6388e3d..95e655a8b6aa 100644
+>>> --- a/drivers/media/platform/qcom/camss/camss.c
+>>> +++ b/drivers/media/platform/qcom/camss/camss.c
+>>> @@ -16,6 +16,7 @@
+>>>    #include <linux/of.h>
+>>>    #include <linux/of_device.h>
+>>>    #include <linux/of_graph.h>
+>>> +#include <linux/of_platform.h>
+>>>    #include <linux/pm_runtime.h>
+>>>    #include <linux/pm_domain.h>
+>>>    #include <linux/slab.h>
+>>> @@ -5362,6 +5363,8 @@ static int camss_probe(struct platform_device *pdev)
+>>>        if (!camss)
+>>>                return -ENOMEM;
+>>>
+>>> +     devm_of_platform_populate(dev);
+>>> +
+>>>        camss->res = of_device_get_match_data(dev);
+>>>
+>>>        atomic_set(&camss->ref_count, 0);
+>>
+>> Just drop this patch entirely and model JPEG as a peer of CAMSS. I'll do
+>> the same with the CSIPHY and Loic the OPE.
+>>
+>> Modelling for subnodes is nice if you have the idea the camera block
+>> should be a bus.
+>>
+>> But for what reason ? As you pointed out it should be possible to both
+>> compile and run JPEG without the compat=camss node on sm8250.
+>>
+>> Making the camera block a bus is a nice idea for "reasons" as this
+>> thread has shown, its a problem to implement with an upside we struggle
+>> to define.
+>>
+>> When the facts change, I change my mind.
+>>
+>> You were right to argue to have this as a peer node. Lets do that.
+> 
+> Having a camera-subsystem bus/parent still makes sense, especially
+> when dealing with shared resources. Whether that should be the
+> existing camss node is indeed the question. Today, camss effectively
+> describes only the VFE (including the CSID) and CSIPHY, so using it as
+> the subsystem parent would introduce incorrect layering unless the
+> node is significantly reworked/broken. So yes, for now, keeping the
+> components as peers appears to be the simpler and more scalable
+> approach.
+> 
+> Regards,
+> Loic
 
-You are right, i forgot to change that in several places. I think i got
-lost a little bit due to the amount of changes. I will make sure to=20
-carefully check that i didnt miss anything before sending v3.
-Thanks for taking the time.
+I would _like_ a bus but the question is how do you mutate the existing 
+IFE only node to a bus - without a big bang integration ?
 
-Best regards
+There doesn't seem to be support with colleagues to gradually transition 
+so we're best off making individual nodes - why BTW isn't wrong and has 
+upsides - like clear separation of JPEG and IFE in this example.
 
-Lukas
+---
+bod
