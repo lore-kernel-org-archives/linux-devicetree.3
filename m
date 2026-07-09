@@ -1,976 +1,348 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011001.outbound.protection.outlook.com [40.107.130.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF1236A355;
-	Thu,  9 Jul 2026 16:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E1437AA6D
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 16:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783614583; cv=fail; b=L5KmpuUDXhAbFzvQI+xSGiEMmV2V4JzurPfjD2mDjLnAZOrbn4Og42Cp5W+1N6O6MZ8CHZg6pWhssVdNiCPKBVuYgcdyr6Mm/VwKoBxMVXFtUQCMcTNWNfHj17R5bPjpuvKj+IuLPjsd/rwBj9BVza6VUiNffGaSJqGwaWQdY+Q=
+	t=1783614839; cv=pass; b=fqFgV24qPk+iMCNwAfukMZv/JlEysFs0dR4wSJ4e/m+e4Ec+U4BHNhSGoA+YMS8qJGe0pklgS0XIqOwr0N5+Xb97Iqyf8hA3IULEFm40LYpBwBMg+V+AXP7v6S0dijpkHTr0YiOj/eqwZts93c3rhdKvQsSH2Vsk7JlNB3nPAIU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783614583; c=relaxed/simple;
-	bh=+Q4DTg3Ob7Ow6iskQ3t5j1mfrp/ddGObBFj6CpAEe98=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HMbWNiq2nMnXS/BRG3m35G4LWjZcoZuiEIlDzlygMrzDfzp7Tz8MHqVHzYncFe46ifpaIoSqjdrb/M6LpXti0aBhPgZt1l9Il6Si7SvHbjvWPkIzfHhZVbfdBcIq3Cqp6fswibjKb57Mhq4N+7VYInooE/RyggRVHUUzocRF9B8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=paKgulSs; arc=fail smtp.client-ip=40.107.130.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1783614839; c=relaxed/simple;
+	bh=xeFfrz6h8yMo4SlaHzqhiMDslcgOYLX/u46LE+HL1N4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B3qYO2OhjoJNI90GFhPwC8XOMjQJ4jbL5wBo9HjUQ8Qve+oZ3sqUdwDuCao1X4e93cqVrhq7P4wkbfAiozeZvStTi80AjXvm6vnz+OfTxw4vtkTR/IOaMI5z7rVte/dSxGvR6Vg8Tm7R+Wp1gkBo8CGJWp54MdZw4zfuCW39Gtc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gJK+cjCB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fpt0Ge61; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="paKgulSs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dl7NdidaW6CgVPvHCB444kD6hTAG7MTiBT6YyFq1tcSsUsTI1pn11R1b5ljoktF1J9/dYkVrxyBM43nrjyi2TORzZ0YGHcW/VRt6ydv/eA1aWstc6V2qtwLci/ts2BEzE1xK6dMTmTJGR55zyZK3WPZ22VsBRukT5av6mr2W9cL9H9DSO9xpQOcU8cbmcdpc6Nf952Hh6gq7vELy1+t5j9cpwcdKwFHnBxnGGw1KVcaOA1Saf4k8oliHvgVeE1HVoTk4pRAmsrsiap7p6F18lD0Q6BGnwltPPUEha0C8BgJuo5Hy3oDY9S8sbfaOeANxlqyWtrPwFftvDqv6V8toug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sA3HlL6Pr9bVctQKOR9oDG6n1Ot3g3I6L9OYoKOqLII=;
- b=diV8DkMqoXCFJmwPuWg5XXOJn2iqyOO0RFX+/QG5k8DpczOcbdmJQCQgZbpjTQQesy2pUj5cUkTJoA7Nd8aNQ4+MeQ1h/U84hLB9nRvYEwtizvglb/RP4hYmpYPF1N/8eaHMByw0gpGEma7hgaGWky/QTIkEVVsNwz1tium3u22MTSjhnY4E1Eqgk5AWyxc0c6B8FqYIUtTW0GjvYzRWi4uv9s7ynBbR9l8UrJGUDR/8ie5pK9+2Mlb0rd6KstshGxJ2DjF6Jn1Dl0/hKaxcwm6/9nvcDR7wxlnVKCCH04bcXxbLXQPru/w1/6ZNcWkLQHdHOdBHx6kbLmJ9Ltm7cQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sA3HlL6Pr9bVctQKOR9oDG6n1Ot3g3I6L9OYoKOqLII=;
- b=paKgulSszPjUiYSfDfYoKfRUNmC9ju/7IgXvoFo0D+c0nBf5NVN/u5YkPFagc2kx6cx0roZ2Ibi6txk0hIJ4834+O60VH5GqlROaJYuADeYHfNH0WX1QS9w/RHPsFK6CcSxbDfYyzcVbLLuwVwW9sd+BpGWmip/NxHjG79md+8m0A228j2nskY+YqzQmIjbP55YJ21b4J/UFBh16dxfnhlScFsCZfKWXJvLRaxCRDlGG0UoIfX1q8hnAMyv8LkmSGfZPjw9mvrlPbqvD1sne1jBDHhe+ILCmrY1LCQct3U3oMJc8VIBmuVAbBDgI13hN2Y/ZBfXedutTo9np6D2dAA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB10643.eurprd04.prod.outlook.com (2603:10a6:800:27c::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
- 2026 16:29:36 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Thu, 9 Jul 2026
- 16:29:36 +0000
-Date: Thu, 9 Jul 2026 12:29:28 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-Message-ID: <ak_MaOTL5LatgWRz@lizhi-Precision-Tower-5810>
-References: <20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org>
- <20260708-x1e-csi2-phy-v9-2-0210b90c04cf@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260708-x1e-csi2-phy-v9-2-0210b90c04cf@linaro.org>
-X-ClientProxiedBy: SA0PR11CA0079.namprd11.prod.outlook.com
- (2603:10b6:806:d2::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gJK+cjCB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fpt0Ge61"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669DwiHT2014121
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 16:33:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Xd9eNrOSCFFAWaQdLSMEnWBSlqv0nUO4Pn2WJ4es7Z4=; b=gJK+cjCBtngOV7iC
+	igPGm0DUQGrCJ4j6Nf3o2zSH+gzpMxI2RKaRYq2YIFHKLcoslxd26PqvM049n4rD
+	w4QcL9+BsLOFQt2iXsHoiyqhZLl+JrY+L+CszR+J8Ijs69uPXjd1FCfV1PmLnkvb
+	+DTac5yISgY+QT0jLVZPpRJTfJM9zH2DvrgCQSZD4Li3h1HB0DfU7KOOLyqzA6Mj
+	03iGCkAbIeJqHP1VD40uzx7rQ9aP+PgEyQWaoVAx7DvvZvAY8AhSXbDZeV64BgeH
+	jA6M72Q/Ac4jzxMz8MlDnxeX35icerG0uAnsT2Y0zGVT/NFko+kGNXnXNy8peEf4
+	S0nXRg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa418kaj5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 16:33:57 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ec3146553so192225785a.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 09:33:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783614836; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Xi054Z/w/NZCIRPWRcEpmeOcvIsj99JF0K9F39OJGJupPjs3lPZb0FimmdYIxEZREp
+         VBHLoo/4A4bWTODp/LcRZnAHrUTBUVyiQR+gN7oqg1JdQ19K0bbXrm5KozJnbQyo6qi1
+         Gd9xE8/1ReSysbGZoETxgWVPxn7phL5YfTWskxQSq135dygYOYokSs1dN7s5F3CNS4zc
+         7GtqGXEDKYlR1VJAPvneFBqq4y/7SrecxrpCDOsOrle61Zf6tpPEbDa16eHjIbM6/EHl
+         6+Rux8gTIGzt3I1Ul4IeGDszJpeVjWLzro8+yEP/Ru+Z3/OY20p9D4BJob03p2xHIoQC
+         i4cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Xd9eNrOSCFFAWaQdLSMEnWBSlqv0nUO4Pn2WJ4es7Z4=;
+        fh=bquDIPLrQfk43CUiETPcm54MdOr8mvbLHcZ0ZaACeqQ=;
+        b=qMFmZPWobTOa97mkaVE14p3nw7PgA2TkHDv48QRWVQ6UeYEUrBEmjTJlRSk7W29n6n
+         jvOvWQ3fHxQ6nEmPfEcWosaQBY9jZVfZWgboAaOkllDxKvPTn/GTIyKI648WeF4eWS+N
+         uRCD+EMMqO4SJc4d7GTGBM4dll6Qyz9LVHwlQ6ygaqMpvb0HQWfA6NX6ZtvOrpi76F3h
+         rqlh10g7JANaNz+vOzwP01PyuxzvvIRlH2kcUyUIVgWqNX4DsMMZpqYBGnUd9uzjTlJC
+         FPOgTsrJqOm+K7bvZJfzRqjmcM3jX0qroM9UIMIKEhFlRLN0raq27tN0sB8o9Sl4phau
+         V76w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783614836; x=1784219636; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xd9eNrOSCFFAWaQdLSMEnWBSlqv0nUO4Pn2WJ4es7Z4=;
+        b=fpt0Ge61k5eCyN9EOd3N/vQYe1fzWqSuCP/YYZPD/aFxIGX2YRsVyaAUtnzEi8MYgu
+         2FjfEotctKoJ9D4aeitc+mUcMEOchaYZNOYMn9JDxUgfpYkwGZHwIU+5mOlqdXaIaEP8
+         1L3AcgYdI2Gjfbv36p8hT5FrGdUzHj/E3yoV618uY1seH4pCotPsGrhAVI9OP70M7G68
+         CyAbz/m5UOLEPCL0cLym2skivYF3sV/Fr0K3vOCoZaxGNrzF5XrlA+nuHOhy/ErQmAsS
+         GtGAHWvnGXFqdu0po/7VzbVtipFMY5yLGrqObJbWaUqlcdnXFam9QFAIgpxGaMqriq0S
+         rVwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783614836; x=1784219636;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xd9eNrOSCFFAWaQdLSMEnWBSlqv0nUO4Pn2WJ4es7Z4=;
+        b=fTsj2MaP0jkLw5sPr3l2aU03xfDz4z1kkXyGbWIVrhg5mpN6YfhbmsQfFA3PwWpswS
+         tp22QQlFhDVwDb9TyvZSY/5RkQM1d43DAl0CdhPhAHBCvhUUs/rSlo4OP1ms4SwZoycD
+         ftc8YNHu81u30kBzbG6Os/yupjfwEcoPXQV/rd6pEmRmCoRdn1e9vZYK3HX89br4VU00
+         5k1DTBtW6Qg/7G8+sWVX6bnD4TYw3R+fAbMKAX4usl2aCu2NcmCXerFSq4M2koao+997
+         18pn8qGcSQ8g0f4kqkefjfZ07Tpa0Is8w4vJLUuF1ZAHjIdcSplgMS7pBp68lsyQIfFS
+         dobA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqy9+RJC74Oge3CdSk6N9fmprtxUxwvpCDz0Zj6/BnMH8gelcd8nQWxhrMcf6vLq8bFdu4+I9VM65er@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7s4hA7IETuU21j4B52H0WPRStpN9f63CXrM6sBhfG0xJ96KdZ
+	8kVqlhETxx92O4bclNo3qvavU//CsvriEYiTZh3fGaibrhz9EEmxJ5CeGtYrOXJ/G3aR92gl3vs
+	whDGDK5ZlTq3C4086IJgt8szmqpT+MmhkI9qrmmbbOqLkZM1oxaK6SeKOrKeXHl2bPBaAjvOWnm
+	6sQt72xW3ZPx/ZJSo1mluJwZJrGiyLMoeA/5HQlP4=
+X-Gm-Gg: AfdE7cmZHCP+VOOuU4A+SqyIuGLQAY6n2k2/4NzgrCdXl4MhclKz1MK0P3pztoDQSEu
+	W+A4f4RMPvkfY6ntpgHrRLvgBEuawSQrIv7j7kS1SjtSjcA7who8R7krFlI3XLZVjUOPpBumOOK
+	uz59ZzCB2UdqeWX6NiK4px+WuHUgRkkBI+jgqQ71pmCd3ZELE9ECEnPvuSxghHk8lQpeEoXSVDX
+	zKWLVB/7934Inb6oABBvpREntD86vrw0iO3t8b0UlOQsnN5Wb13vluJ6ioJ8nlscSDkI+3zSBPv
+	m4HGZSOIDA==
+X-Received: by 2002:a05:620a:6cc5:b0:92e:c117:9ea2 with SMTP id af79cd13be357-92ecf8edac8mr795068485a.80.1783614836247;
+        Thu, 09 Jul 2026 09:33:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:6cc5:b0:92e:c117:9ea2 with SMTP id
+ af79cd13be357-92ecf8edac8mr795063985a.80.1783614835839; Thu, 09 Jul 2026
+ 09:33:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10643:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6fbb861-4993-47ba-043a-08deddd743d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|19092799006|376014|1800799024|23010399003|56012099006|11063799006|4143699003|3023799007|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	gfyRCJPLACCbBe3s3GV88QA6988w+xbHEe3EMwOmPKqRAcnuDVFnZoqlFKA34f/ZhcZU0oSKFBiXXY3WUuowiJa9Q2jtVr0D9OnjCTR1Zo55HJ/rTf1w7UjSE54kQOHmWpsMS2hI4RY+qEW48q29R5iQsl8hWDlkh8uGPKnFKWnH2itXMxw9yNbPr6ixlVuy97WVWTcjkye+a/TsfGGicgKe7JDqVq54D3VFgXPkSxUNK8I7EUKoikudyseXvSzMizYGbLx6DDGtle9VuevWdfAwa8vpcJGf1GKwciWZsO9NQxJ8Ht7cpVC82lcyXZ2NSRepVCiD/4z7FyfkTeVv7Ra6DW0MnGl2UT8m/7K4VgDsQvuWKiRkyGB+SZvKtTUQVoU4n6UITR19zWyeCageFKzky2j90aWW9Dee/T6fdsxpAS3422c0NORhlznI5aN+wAUFK3An/gQpp114QOZ7mglEClBnwO81PdYrIAbql/KkHwHVqh3OyNzRH+Dp88BZK2P/q40wJyiFz95LHGq0uhiJnPehPuQWv207slMHvVA0GCiwQwfQzoAJeoqNuDTOVQV7cEJtjkLfbIiu/wz6qnf9LtrM2eF2oOpIUIFHt7Wb+NUvEf+y+X60wNfyA9wh1sdI9bm+INneJNCH9xf0l1VJUGKPE/Agz6YxTotdA9E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(19092799006)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y3JHRDBaaXYrWWZpL21xMHIrNEFETk0xSTZNR2RSVGdmZEpXdFlDbG5pcHBo?=
- =?utf-8?B?YjdhYklkMXgwdjZBdjdQTElaR0lnT0R2UEp3dGhJY09iaTBFR1F0WEpuM1lz?=
- =?utf-8?B?YjJoNEMvamVkeWttUlAydmIrMFVFQ1R4emdJZk04bzYxd0JQZC81ckJ0QkpV?=
- =?utf-8?B?WlNva2Q4N09zMmYyWWpHUjNHQ2NSRSs2R0VRa1F6c3VxZTNZTTVOS0xGWm1p?=
- =?utf-8?B?Z2htamp1NzZvdjJmdlV6NFhiVkhXNFpwY3JYZjI5dmRJWi9mVjR6MWtNZEl3?=
- =?utf-8?B?VkpxQS9YeGFXbmZrenNvQ1JTNld2SGlSMGZaQ0RrSlMrQmxValNaUWs2blU0?=
- =?utf-8?B?L3BtVUdZaXhKUFVTdm1sZnFwMVBGeU1nQWlXZnM5VlNZNnZyTFY0akJqSXEw?=
- =?utf-8?B?bjNUa3BlZzh3SzJhZUR5OHdhcmVEVnhVNDRJR2tFeSs3djBxcytvYVgybW5T?=
- =?utf-8?B?My8rdUxKSmE3NXpET3MxbUMvZ3haSmZ1dU4rcTFCSU45ZjliME1OSy9QOGdh?=
- =?utf-8?B?cDErci9qLzBjQ2duTVhPaFpWS3hNeFNHckxYZkg4eU5pTnpSOEd2Z3g3Yzd4?=
- =?utf-8?B?K2FnMFFYSG1aUzdwVk96Q0pxNlRQUUVtcWdBVXZ0bFg4RXZoV2gvaUI2cjVP?=
- =?utf-8?B?K1IrRWNhUmFTV1o0Vy85bkV2UjRwZHc1L2Y4K0lhbWtqbXJNVTgzL1ZXUWVY?=
- =?utf-8?B?VlVtQVBmaWhLWURoTlJzTUVWVEp6QlNjY1E1MnFjMmQzallYQktmcmJ1ZUVR?=
- =?utf-8?B?VUc5ODdtL1FIMHpvNW5DQ0NQM01LaXJhWVNkWDFjMy9hTldITU1kMHpuL1Y0?=
- =?utf-8?B?VWsvamgybmZuZjl1b2N4L296OCsxQTZTdU42dUdqME5ienlvYnp2ckdHOVA3?=
- =?utf-8?B?VjBVVGxkK00xWWNoOWpSM0JMTVFTTU44Q3NKZFU5U2Rza3Yzd2pBM3BUL1I1?=
- =?utf-8?B?OHp4MWkvbWFjVlZXd2llRkpSYzFHRStmR2Yzbm1MV1FzSTExNTBKVHFJWVBC?=
- =?utf-8?B?Z1FtZHFtUjhsemZTVlE2WWxQSzlvdDl2R2l5bGNEVENXdjJkZTJBdG1XRFAz?=
- =?utf-8?B?QUxxbnYyY3ZOOGJQZGFnRGJEbjV3RmVMTG01T1FIYi91YTB5LzY2R01UdC9O?=
- =?utf-8?B?Q2RXSkh3dUNzZnpXVk1WL0FIbU8yVG9ZNWZmc1l0cGN1dTRGV3EyVlVzUkpK?=
- =?utf-8?B?ZFUyb3VFbTJFdUhGREVicWp6YTdzTlBpRXhIQ2djRmRYZWx4eHpOMm9ra0FT?=
- =?utf-8?B?czAxUzgwVU9adytLQW52cmJLZ3NESHdKc0FIb2treTRVMnE1Q0tjcFVPRHRI?=
- =?utf-8?B?aGc3SEowVGRZbTNSTU9Qb1o1czJZYW0wZ2IwK0R5ODlaQ3NxTmFoMzFscVZB?=
- =?utf-8?B?MFIyeUhXMmx0ODFxUWZKUW1uZVJIendmdFRjVW9seFhMOWNCSldHUVFUa0l3?=
- =?utf-8?B?M3pLckYwRFI2M2ljQ3g5SWhOditSN2xiZjhTUnNJKytFSzZETkRPVHVxd2VM?=
- =?utf-8?B?QU5QVTBybElWbzFKTHhhMnVuaXV6MFlDRTRJdmp0c1BkMGdjYUFaVVdHTTl0?=
- =?utf-8?B?VUozNUVxcytKZlFVQzN5bk5LODVsT2RYYndON0QxOE5JNlM1aGUvUHp6VmVO?=
- =?utf-8?B?d0VOU0J6amhuUVV1Rm9DNXR5aG1LTFdvR3B6QVI2b0hkMDVWaWdhek5CckxW?=
- =?utf-8?B?LzZMUzVuZlBCM0NoUnV0LytJUW5obWZIUW84WEJRTC83MUNFWnhJN2t6bHJ4?=
- =?utf-8?B?d0dyU2pWM3JoOXB2Vk9EREtiVHNHa29aVWY4blA0aXJvVkpIcGp3L3FudWVM?=
- =?utf-8?B?dWF0cVIvVGV1bnAxb2NVVis5MWErYWs4Z2NOMjdDbmdYZkx3OURlS01qNGtW?=
- =?utf-8?B?NTJ0dkNLZVNiY0Qwb3E5MTV1cS9MRmFRb1lFTGpsV2FUcGlCbDFRRU0rTm5o?=
- =?utf-8?B?azdoMndPYUJteU9Cb0hOditZTUoxVnFiaUJON2dLdm1xblJna1UySkhkczFa?=
- =?utf-8?B?ZE1WM2ZTck5QRjNWUm1oSW1iZ0MzUENtYlF6YkkvaEtVaE1tK2hCZGJQelVK?=
- =?utf-8?B?d1pKbmxFam9SbzhISy9ZZytreXA0T1VNT2hmUmM0Nllqa0xtRWFxbkc0Uk9i?=
- =?utf-8?B?L0p5Y1JpeXNzRUVUbS9HeEMwaUZQaGZVejVDcmE1WWhPZS9CWUIyeHU5dkNK?=
- =?utf-8?B?V2NIc080aWxNMFZrYUpRN1BBNklpWk1QZlZQQ2ZseWdIbkRMYjMwUU1RMnhW?=
- =?utf-8?B?RWozNDZDdVNKR0VKdGZGN1g5Y0g1a0tKeDlaQm9PSUdLcUlMZ2dqdDFHQXZm?=
- =?utf-8?B?ZnRYMEJGRmMzcSsxdXVRR1NWVTdKQmVKRWIybFYyZVhoSkNWd3NoYmlFNmNV?=
- =?utf-8?Q?vSpsaBm+tcy4qBAMqkBZiCD9zWYKFbfVDJZWW?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6fbb861-4993-47ba-043a-08deddd743d2
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 16:29:36.2494
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z5p0utD1RbxJ2aDCLIjO38vsCpUp43lTXOAU6+LdZWnmdLNmqiLpC9v9x1goynzenfKIS8MHYzX3yHLBz9BJIDecPxFynV5+rwK2CVaTghRujqkyClzTGj42W8VJBi+E
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10643
+References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+ <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-4-f8588da41f16@linaro.org>
+In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-4-f8588da41f16@linaro.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 9 Jul 2026 18:33:44 +0200
+X-Gm-Features: AUfX_mxrvMsfVaIuwsAqRlu-SiIqeRWjw3dsC18UJ-fCRtJqc3yI7XzxXZWCYk4
+Message-ID: <CAFEp6-00rJSrOCyHnCQ-VkSWLYHA6C-MCGNt2oMwAA6ngi=Dxw@mail.gmail.com>
+Subject: Re: [PATCH v12 4/6] media: qcom: camss: Add legacy_phy flag to SoC
+ definition structures
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        "Bryan O'Donoghue" <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=UI3t2ify c=1 sm=1 tr=0 ts=6a4fcd75 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=LRu0fTMIKIkxnFiMMFwA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE2MiBTYWx0ZWRfX+9vxKRWxgv13
+ ZCo5idzGEsI0DM2HjIjf4hzR61c14Y9WB6z4VhqsXrb8bdDWMq9Tgv0DEi25A1ty+UNjLvDj9O2
+ BPIdRF9DtTflHJsbWDjSOyyPyz2eYmDdIr4JtRMk4qqVDzDdiomDmO2bHXhcpNCk7Axa58NP/z4
+ T6NEm/lOygDHwEWVK+LX3I2jm8o0onHs5hrRfx94IyWc1fOMlauszawdaY1KvoYLACEBbGYWSe7
+ UOeUoMgJDfyGNmRC+NljOzy5MeS32KcDdZRIJNdgtGdDaLLTaWhMIvfNz3FFB+bkb1BcbXV3Atn
+ RG27vZMooi0kp3CduRSIXQ1HjrZLtCjsG/BXATVJodLyXpA6gypLQ9Kh89eq9TvdSoJqmD8b3O2
+ 0AckhfeHWDrWKBgwKeGcmC8KOCtvPLOwIbRcAIWWjfxiCsNfEaS/8LeiNgaHrykrzsgSt4WOxjb
+ QdUwHi+mrm6G0GjB5/Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE2MiBTYWx0ZWRfX1lXEQstaKM2Q
+ sLPvxVnjgdqyekZQtxWXW1egvbzHDcS4dXIOOjekkeJ9oegZu+FiXM5Pqk62KW+IRjJQB432fML
+ C4UwStG28+lbzVpLdN0gW2Zk41Dha+E=
+X-Proofpoint-GUID: 8boV1m57u8HPPw7F9cakohKmLIGi9Zk1
+X-Proofpoint-ORIG-GUID: 8boV1m57u8HPPw7F9cakohKmLIGi9Zk1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_03,2026-07-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090162
 
-On Wed, Jul 08, 2026 at 12:39:03AM +0100, Bryan O'Donoghue wrote:
-> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-> existing CAMSS CSI PHY init sequences are imported in order to save time
-> and effort in later patches.
+On Wed, Jul 8, 2026 at 2:07=E2=80=AFAM Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
 >
-> The following devices are supported in this drop:
-> "qcom,x1e80100-csi2-phy"
->
-> In-line with other PHY drivers the process node is included in the name.
-> Data-lane and clock lane positioning and polarity selection via newly
-> amended struct phy_configure_opts_mipi_dphy{} is supported.
->
-> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
-> DPHY is supported.
->
-> In porting some of the logic over from camss-csiphy*.c to here its also
-> possible to rationalise some of the code.
->
-> In particular use of regulator_bulk and clk_bulk as well as dropping the
-> seemingly useless and unused interrupt handler.
->
-> The PHY sequences and a lot of the logic that goes with them are well
-> proven in CAMSS and mature so the main thing to watch out for here is how
-> to get the right sequencing of regulators, clocks and register-writes.
->
-> The register init sequence table is imported verbatim from the existing
-> CAMSS csiphy driver. A follow-up series will rework the table to extract
-> the repetitive per-lane pattern into a loop.
+> Flag which SoCs have legacy - builtin PHY code. This will be useful in
+> subsequent patches to inform PHY bringup logic if legacy bindings are
+> available.
 >
 > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+
 > ---
->  MAINTAINERS                                        |  10 +
->  drivers/phy/qualcomm/Kconfig                       |  14 +
->  drivers/phy/qualcomm/Makefile                      |   5 +
->  drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 387 ++++++++++++++++++
->  drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 431 +++++++++++++++++++++
->  drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  98 +++++
->  6 files changed, 945 insertions(+)
+>  drivers/media/platform/qcom/camss/camss.c | 17 +++++++++++++++++
+>  drivers/media/platform/qcom/camss/camss.h |  1 +
+>  2 files changed, 18 insertions(+)
 >
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 15011f5752a99..a203b41475ea4 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22296,6 +22296,16 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/media/qcom,*-iris.yaml
->  F:	drivers/media/platform/qcom/iris/
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index 95e655a8b6aa0..e814a96953b1b 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -5512,6 +5512,7 @@ static void camss_remove(struct platform_device *pd=
+ev)
 >
-> +QUALCOMM MIPI CSI2 PHY DRIVER
-> +M:	Bryan O'Donoghue <bod@kernel.org>
-> +L:	linux-phy@lists.infradead.org
-> +L:	linux-media@vger.kernel.org
-> +L:	linux-arm-msm@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/phy/qcom,*-csi2-phy.yaml
-> +F:	drivers/phy/qualcomm/phy-qcom-mipi-csi2*.c
-> +F:	drivers/phy/qualcomm/phy-qcom-mipi-csi2*.h
-> +
->  QUALCOMM NAND CONTROLLER DRIVER
->  M:	Manivannan Sadhasivam <mani@kernel.org>
->  L:	linux-mtd@lists.infradead.org
-> diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
-> index 60a0ead127fa9..779a3511ba852 100644
-> --- a/drivers/phy/qualcomm/Kconfig
-> +++ b/drivers/phy/qualcomm/Kconfig
-> @@ -28,6 +28,20 @@ config PHY_QCOM_EDP
->  	  Enable this driver to support the Qualcomm eDP PHY found in various
->  	  Qualcomm chipsets.
+>  static const struct camss_resources msm8916_resources =3D {
+>         .version =3D CAMSS_8x16,
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_8x16,
+>         .csid_res =3D csid_res_8x16,
+>         .ispif_res =3D &ispif_res_8x16,
+> @@ -5523,6 +5524,7 @@ static const struct camss_resources msm8916_resourc=
+es =3D {
 >
-> +config PHY_QCOM_MIPI_CSI2
-> +	tristate "Qualcomm MIPI CSI2 PHY driver"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on OF
-> +	depends on PM
-> +	depends on COMMON_CLK
-> +	select GENERIC_PHY
-> +	select GENERIC_PHY_MIPI_DPHY
-> +	help
-> +	  Enable this to support the MIPI CSI2 PHY driver found in various
-> +	  Qualcomm chipsets. This PHY is used to connect MIPI CSI2
-> +	  camera sensors to the CSI Decoder in the Qualcomm Camera Subsystem
-> +	  CAMSS.
-> +
->  config PHY_QCOM_IPQ4019_USB
->  	tristate "Qualcomm IPQ4019 USB PHY driver"
->  	depends on OF && (ARCH_QCOM || COMPILE_TEST)
-> diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
-> index b71a6a0bed3f1..382cb594b06b6 100644
-> --- a/drivers/phy/qualcomm/Makefile
-> +++ b/drivers/phy/qualcomm/Makefile
-> @@ -6,6 +6,11 @@ obj-$(CONFIG_PHY_QCOM_IPQ4019_USB)	+= phy-qcom-ipq4019-usb.o
->  obj-$(CONFIG_PHY_QCOM_IPQ806X_SATA)	+= phy-qcom-ipq806x-sata.o
->  obj-$(CONFIG_PHY_QCOM_M31_USB)		+= phy-qcom-m31.o
->  obj-$(CONFIG_PHY_QCOM_M31_EUSB)		+= phy-qcom-m31-eusb2.o
-> +
-> +phy-qcom-mipi-csi2-objs			+= phy-qcom-mipi-csi2-core.o \
-> +					   phy-qcom-mipi-csi2-3ph-dphy.o
-> +obj-$(CONFIG_PHY_QCOM_MIPI_CSI2)	+= phy-qcom-mipi-csi2.o
-> +
->  obj-$(CONFIG_PHY_QCOM_PCIE2)		+= phy-qcom-pcie2.o
+>  static const struct camss_resources msm8939_resources =3D {
+>         .version =3D CAMSS_8x39,
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_8x39,
+>         .csid_res =3D csid_res_8x39,
+>         .ispif_res =3D &ispif_res_8x39,
+> @@ -5534,6 +5536,7 @@ static const struct camss_resources msm8939_resourc=
+es =3D {
 >
->  obj-$(CONFIG_PHY_QCOM_QMP_COMBO)	+= phy-qcom-qmp-combo.o phy-qcom-qmp-usbc.o
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> new file mode 100644
-> index 0000000000000..5a97dc3d45d88
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> @@ -0,0 +1,387 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Qualcomm MSM Camera Subsystem - CSIPHY Module 3phase v1.0
-> + *
-> + * Copyright (c) 2011-2015, The Linux Foundation. All rights reserved.
-> + * Copyright (C) 2016-2026 Linaro Ltd.
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/time64.h>
-> +
-> +#include "phy-qcom-mipi-csi2.h"
-> +
-> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(offset, n)	((offset) + 0x4 * (n))
-> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL0_PHY_SW_RESET	BIT(0)
-> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE	BIT(7)
-> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B	BIT(0)
-> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID	BIT(1)
-> +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL10_IRQ_CLEAR_CMD	BIT(0)
-> +#define CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(offset, n)	((offset) + 0xb0 + 0x4 * (n))
-> +
-> +#define CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(n)		((0x200 * (n)) + 0x24)
-> +
-> +/*
-> + * 3 phase CSI has 19 common status regs with only 0-10 being used
-> + * and 11-18 being reserved.
-> + */
-> +#define CSI_COMMON_STATUS_NUM				11
-> +/*
-> + * There are a number of common control registers
-> + * The offset to clear the CSIPHY IRQ status starts @ 22
-> + * So to clear CSI_COMMON_STATUS0 this is CSI_COMMON_CONTROL22, STATUS1 is
-> + * CONTROL23 and so on
-> + */
-> +#define CSI_CTRL_STATUS_INDEX				22
-> +
-> +/*
-> + * There are 43 COMMON_CTRL registers with regs after # 33 being reserved
-> + */
-> +#define CSI_CTRL_MAX					33
-> +
-> +#define CSIPHY_DEFAULT_PARAMS				0
-> +#define CSIPHY_SETTLE_CNT_LOWER_BYTE			2
-> +#define CSIPHY_SKEW_CAL					7
-> +
-> +/* 4nm 2PH v 2.1.2 2p5Gbps 4 lane DPHY mode */
-> +static const struct
-> +mipi_csi2phy_lane_regs lane_regs_x1e80100[] = {
-> +	/* Power up lanes 2ph mode */
-> +	{.reg_addr = 0x1014, .reg_data = 0xd5, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x101c, .reg_data = 0x7a, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x1018, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +
-> +	{.reg_addr = 0x0094, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x00a0, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0090, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0098, .reg_data = 0x08, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0094, .reg_data = 0x07, .delay_us = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0030, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0000, .reg_data = 0x8e, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0038, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x002c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0034, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x001c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0014, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x003c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0004, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0020, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0008, .reg_data = 0x10, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-> +	{.reg_addr = 0x0010, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0094, .reg_data = 0xd7, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x005c, .reg_data = 0x00, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0060, .reg_data = 0xbd, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0064, .reg_data = 0x7f, .param_type = CSIPHY_SKEW_CAL},
-> +
-> +	{.reg_addr = 0x0e94, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0ea0, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e90, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e98, .reg_data = 0x08, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e94, .reg_data = 0x07, .delay_us =  0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e30, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e28, .reg_data = 0x04, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e00, .reg_data = 0x80, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e0c, .reg_data = 0xff, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e38, .reg_data = 0x1f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e2c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e34, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e1c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e14, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e3c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e04, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e20, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0e08, .reg_data = 0x10, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-> +	{.reg_addr = 0x0e10, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +
-> +	{.reg_addr = 0x0494, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x04a0, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0490, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0498, .reg_data = 0x08, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0494, .reg_data = 0x07, .delay_us =  0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0430, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0400, .reg_data = 0x8e, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0438, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x042c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0434, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x041c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0414, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x043c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0404, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0420, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0408, .reg_data = 0x10, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-> +	{.reg_addr = 0x0410, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0494, .reg_data = 0xd7, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x045c, .reg_data = 0x00, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0460, .reg_data = 0xbd, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0464, .reg_data = 0x7f, .param_type = CSIPHY_SKEW_CAL},
-> +
-> +	{.reg_addr = 0x0894, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x08a0, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0890, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0898, .reg_data = 0x08, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0894, .reg_data = 0x07, .delay_us =  0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0830, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0800, .reg_data = 0x8e, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0838, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x082c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0834, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x081c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0814, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x083c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0804, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0820, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0808, .reg_data = 0x10, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-> +	{.reg_addr = 0x0810, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0894, .reg_data = 0xd7, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x085c, .reg_data = 0x00, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0860, .reg_data = 0xbd, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0864, .reg_data = 0x7f, .param_type = CSIPHY_SKEW_CAL},
-> +
-> +	{.reg_addr = 0x0c94, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0ca0, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c90, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c98, .reg_data = 0x08, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c94, .reg_data = 0x07, .delay_us =  0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c30, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c00, .reg_data = 0x8e, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c38, .reg_data = 0xfe, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c2c, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c34, .reg_data = 0x0f, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c1c, .reg_data = 0x0a, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c14, .reg_data = 0x60, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c3c, .reg_data = 0xb8, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c04, .reg_data = 0x0c, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c20, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c08, .reg_data = 0x10, .param_type = CSIPHY_SETTLE_CNT_LOWER_BYTE},
-> +	{.reg_addr = 0x0c10, .reg_data = 0x52, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0c94, .reg_data = 0xd7, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0c5c, .reg_data = 0x00, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0c60, .reg_data = 0xbd, .param_type = CSIPHY_SKEW_CAL},
-> +	{.reg_addr = 0x0c64, .reg_data = 0x7f, .param_type = CSIPHY_SKEW_CAL},
-> +};
-> +
-> +static inline const struct mipi_csi2phy_device_regs *
-> +csi2phy_dev_to_regs(struct mipi_csi2phy_device *csi2phy)
-> +{
-> +	return &csi2phy->soc_cfg->reg_info;
-> +}
-> +
-> +static void phy_qcom_mipi_csi2_hw_version_read(struct mipi_csi2phy_device *csi2phy)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
-> +	u32 tmp;
-> +
-> +	writel(CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
-> +
-> +	tmp = readl_relaxed(csi2phy->base +
-> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 12));
-> +	csi2phy->hw_version = tmp;
-> +
-> +	tmp = readl_relaxed(csi2phy->base +
-> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 13));
-> +	csi2phy->hw_version |= (tmp << 8) & 0xFF00;
-> +
-> +	tmp = readl_relaxed(csi2phy->base +
-> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 14));
-> +	csi2phy->hw_version |= (tmp << 16) & 0xFF0000;
-> +
-> +	tmp = readl_relaxed(csi2phy->base +
-> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 15));
-> +	csi2phy->hw_version |= (tmp << 24) & 0xFF000000;
-> +
-> +	dev_dbg_once(csi2phy->dev, "CSIPHY 3PH HW Version = 0x%08x\n", csi2phy->hw_version);
-> +}
-> +
-> +/*
-> + * phy_qcom_mipi_csi2_reset - Perform software reset on CSIPHY module
-> + * @phy_qcom_mipi_csi2: CSIPHY device
-> + */
-> +static void phy_qcom_mipi_csi2_reset(struct mipi_csi2phy_device *csi2phy)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
-> +
-> +	writel(CSIPHY_3PH_CMN_CSI_COMMON_CTRL0_PHY_SW_RESET,
-> +	       csi2phy->base + CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 0));
-> +	usleep_range(5000, 8000);
-> +	writel(0x0, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 0));
-> +}
-> +
-> +/*
-> + * phy_qcom_mipi_csi2_settle_cnt_calc - Calculate settle count value
-> + *
-> + * Helper function to calculate settle count value. This is
-> + * based on the CSI2 T_hs_settle parameter which in turn
-> + * is calculated based on the CSI2 transmitter link frequency.
-> + *
-> + * Return settle count value or 0 if the CSI2 link frequency
-> + * is not available
-> + */
-> +static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 link_freq, u32 timer_clk_rate)
-> +{
-> +	u32 t_hs_prepare_max_ps;
-> +	u32 timer_period_ps;
-> +	u32 t_hs_settle_ps;
-> +	u8 settle_cnt;
-> +	u32 ui_ps;
-> +
-> +	if (link_freq <= 0)
-> +		return 0;
-> +
-> +	ui_ps = div_u64(PSEC_PER_SEC, link_freq);
-> +	ui_ps /= 2;
-> +	t_hs_prepare_max_ps = 85000 + 6 * ui_ps;
-> +	t_hs_settle_ps = t_hs_prepare_max_ps;
-> +
-> +	timer_period_ps = div_u64(PSEC_PER_SEC, timer_clk_rate);
-> +
-> +	if ((t_hs_settle_ps / timer_period_ps) < 6)
-> +		return 0;
-> +
-> +	settle_cnt = t_hs_settle_ps / timer_period_ps - 6;
-> +
-> +	return settle_cnt;
-> +}
-> +
-> +static void
-> +phy_qcom_mipi_csi2_gen2_config_lanes(struct mipi_csi2phy_device *csi2phy,
-> +				     u8 settle_cnt)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
-> +	const struct mipi_csi2phy_lane_regs *r = regs->init_seq;
-> +	int i, array_size = regs->lane_array_size;
-> +	u32 val;
-> +
-> +	for (i = 0; i < array_size; i++, r++) {
-> +		switch (r->param_type) {
-> +		case CSIPHY_SETTLE_CNT_LOWER_BYTE:
-> +			val = settle_cnt & 0xff;
-> +			break;
-> +		case CSIPHY_SKEW_CAL:
-> +			/* TODO: support application of skew from dt flag */
-> +			continue;
-> +		default:
-> +			val = r->reg_data;
-> +			break;
-> +		}
-> +		writel(val, csi2phy->base + r->reg_addr);
-> +		if (r->delay_us)
-> +			udelay(r->delay_us);
-> +	}
-> +}
-> +
-> +static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *csi2phy,
-> +					   struct mipi_csi2phy_stream_cfg *cfg)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
-> +	struct mipi_csi2phy_lanes_cfg *lane_cfg = &cfg->lane_cfg;
-> +	u8 settle_cnt;
-> +	u8 val;
-> +	int i;
-> +
-> +	settle_cnt = phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2phy->timer_clk_rate);
-> +	if (!settle_cnt)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * CSI_COMMON_CTRL5 is a physical lane power-up bitmap:
-> +	 * - Bits [0,2,4,6] → D-PHY data lanes(LN0, LN2, LN4, LN6)
-> +	 * - Bits [1,3,5] → C-PHY trio lanes(LN1, LN3, LN5)
-> +	 * - Bit [7] → D-PHY clock lane(LNCK) dedicated clock enable
-> +	 */
-> +	val = BIT(lane_cfg->clk.pos);
-> +	for (i = 0; i < cfg->num_data_lanes; i++)
-> +		val |= BIT(lane_cfg->data[i].pos * 2);
-> +
-> +	writel(val, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 5));
-> +
-> +	/* Lane configuration for polarity @ CSIPHY-base + CTRL9 */
-> +	for (i = 0; i < cfg->num_data_lanes; i++) {
-> +		if (lane_cfg->data[i].pol) {
-> +			u8 pos = lane_cfg->data[i].pos;
-> +
-> +			writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(pos));
-> +		}
-> +	}
-> +
-> +	if (lane_cfg->clk.pol)
-> +		writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(lane_cfg->clk.pos));
-> +
-> +	val = CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B;
-> +	writel(val, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
-> +
-> +	val = 0x02;
-> +	writel(val, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 7));
-> +
-> +	val = 0x00;
-> +	writel(val, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 0));
-> +
-> +	phy_qcom_mipi_csi2_gen2_config_lanes(csi2phy, settle_cnt);
-> +
-> +	/* IRQ_MASK registers - disable all interrupts */
-> +	for (i = CSI_COMMON_STATUS_NUM; i < CSI_CTRL_STATUS_INDEX; i++) {
-> +		writel(0, csi2phy->base +
-> +		       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, i));
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void
-> +phy_qcom_mipi_csi2_lanes_disable(struct mipi_csi2phy_device *csi2phy,
-> +				 struct mipi_csi2phy_stream_cfg *cfg)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
-> +
-> +	writel(0, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 5));
-> +
-> +	writel(0, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
-> +}
-> +
-> +static const struct mipi_csi2phy_hw_ops phy_qcom_mipi_csi2_ops_3ph_1_0 = {
-> +	.hw_version_read = phy_qcom_mipi_csi2_hw_version_read,
-> +	.reset = phy_qcom_mipi_csi2_reset,
-> +	.lanes_enable = phy_qcom_mipi_csi2_lanes_enable,
-> +	.lanes_disable = phy_qcom_mipi_csi2_lanes_disable,
-> +};
-> +
-> +static const char * const x1e_clks[] = {
-> +	"core",
-> +	"timer",
-> +	"ahb"
-> +};
-> +
-> +static const char * const x1e_supplies[] = {
-> +	"vdda-0p8",
-> +	"vdda-1p2"
-> +};
-> +
-> +static struct mipi_csi2_genpd x1e_genpds[] = {
-> +	{ .name = "top", .scaled = false },
-> +	{ .name = "mmcx", .scaled = true },
-> +	{ .name = "mx", .scaled = true },
-> +};
-> +
-> +const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
-> +	.ops = &phy_qcom_mipi_csi2_ops_3ph_1_0,
-> +	.reg_info = {
-> +		.init_seq = lane_regs_x1e80100,
-> +		.lane_array_size = ARRAY_SIZE(lane_regs_x1e80100),
-> +		.common_regs_offset = 0x1000,
-> +	},
-> +	.supply_names = (const char **)x1e_supplies,
-> +	.num_supplies = ARRAY_SIZE(x1e_supplies),
-> +	.clk_names = (const char **)x1e_clks,
-> +	.num_clk = ARRAY_SIZE(x1e_clks),
-> +	.genpds = x1e_genpds,
-> +	.num_genpds = ARRAY_SIZE(x1e_genpds),
-> +};
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-> new file mode 100644
-> index 0000000000000..5036926b741b5
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-> @@ -0,0 +1,431 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2026, Linaro Ltd.
-> + */
-> +
-> +#include <dt-bindings/phy/phy.h>
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/pm_opp.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/phy/phy-mipi-dphy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/reset.h>
-> +#include <linux/slab.h>
-> +
-> +#include "phy-qcom-mipi-csi2.h"
-> +
-...
-> +
-> +static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
-> +{
-> +	struct mipi_csi2phy_stream_cfg *stream_cfg = &csi2phy->stream_cfg;
-> +	u32 lane_polarities[CSI2_MAX_DATA_LANES + 1];
-> +	u32 data_lanes[CSI2_MAX_DATA_LANES];
-> +	struct device *dev = csi2phy->dev;
-> +	struct fwnode_handle *ep;
-> +	int num_polarities;
-> +	int num_data_lanes;
-> +	int i, ret;
-> +
-> +	ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 1, 0);
-
-use auto cleanup
-
-> +	if (ep) {
-> +		fwnode_handle_put(ep);
-> +		dev_err(dev, "DPHY split mode is not supported\n");
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> +	if (!ep) {
-> +		dev_err(dev, "Missing port@0\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	num_data_lanes = fwnode_property_count_u32(ep, "data-lanes");
-> +	if (num_data_lanes < 1 || num_data_lanes > CSI2_MAX_DATA_LANES) {
-> +		ret = -EINVAL;
-> +		dev_err(dev, "Invalid data-lanes count: %d\n", num_data_lanes);
-> +		goto out_put;
-> +	}
-> +	stream_cfg->num_data_lanes = num_data_lanes;
-> +
-> +	ret = fwnode_property_read_u32_array(ep, "data-lanes", data_lanes,
-> +					     stream_cfg->num_data_lanes);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to read data-lanes: %d\n", ret);
-> +		goto out_put;
-> +	}
-> +
-> +	/* lane-polarities: optional, up to num_data_lanes + 1 entries */
-> +	memset(lane_polarities, 0x00, sizeof(lane_polarities));
-> +	num_polarities = fwnode_property_count_u32(ep, "lane-polarities");
-> +	if (num_polarities > 0) {
-> +		if (num_polarities != stream_cfg->num_data_lanes + 1) {
-> +			ret = -EINVAL;
-> +			dev_err(dev, "clock+data-lane %d/polarities %d mismatch\n",
-> +				stream_cfg->num_data_lanes + 1, num_polarities);
-> +			goto out_put;
-> +		}
-> +
-> +		ret = fwnode_property_read_u32_array(ep, "lane-polarities", lane_polarities,
-> +						     num_polarities);
-> +		if (ret) {
-> +			dev_err(dev, "Failed to read lane-polarities: %d\n", ret);
-> +			goto out_put;
-> +		}
-> +	}
-> +
-> +	csi2phy->stream_cfg.lane_cfg.clk.pos = CSI2_DEFAULT_CLK_LANE;
-> +	csi2phy->stream_cfg.lane_cfg.clk.pol = lane_polarities[0];
-> +
-> +	for (i = 0; i < csi2phy->stream_cfg.num_data_lanes; i++) {
-> +		if (data_lanes[i] > CSI2_MAX_LANE_NUM) {
-> +			dev_err(dev, "Invalid lane %d\n", data_lanes[i]);
-> +			ret = -EINVAL;
-> +			goto out_put;
-> +		}
-> +		csi2phy->stream_cfg.lane_cfg.data[i].pos = data_lanes[i];
-> +		csi2phy->stream_cfg.lane_cfg.data[i].pol = lane_polarities[i + 1];
-> +	}
-> +
-> +	ret = 0;
-> +
-> +out_put:
-> +	fwnode_handle_put(ep);
-> +
-> +	return ret;
-> +}
-> +
-> +static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
-> +{
-> +	unsigned int i, num_clk, num_supplies;
-> +	struct mipi_csi2phy_device *csi2phy;
-> +	struct phy_provider *phy_provider;
-> +	struct device *dev = &pdev->dev;
-> +	struct phy *generic_phy;
-> +	int ret;
-> +
-> +	csi2phy = devm_kzalloc(dev, sizeof(*csi2phy), GFP_KERNEL);
-> +	if (!csi2phy)
-> +		return -ENOMEM;
-> +
-> +	csi2phy->dev = dev;
-> +	dev_set_drvdata(dev, csi2phy);
-> +
-> +	csi2phy->soc_cfg = device_get_match_data(&pdev->dev);
-> +
-> +	if (!csi2phy->soc_cfg)
-> +		return -EINVAL;
-> +
-> +	num_clk = csi2phy->soc_cfg->num_clk;
-> +	csi2phy->clks = devm_kzalloc(dev, sizeof(*csi2phy->clks) * num_clk, GFP_KERNEL);
-> +	if (!csi2phy->clks)
-> +		return -ENOMEM;
-> +
-> +	ret = phy_qcom_mipi_csi2_parse_routing(csi2phy);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = phy_qcom_mipi_csi2_attach_pm_domains(csi2phy);
-> +	if (ret < 0 || csi2phy->pd_list == NULL)
-> +		return dev_err_probe(dev, ret, "Failed to attach power-domain list\n");
-> +
-> +	devm_pm_runtime_enable(dev);
-
-Need check return value
-
-> +
-> +	for (i = 0; i < num_clk; i++)
-> +		csi2phy->clks[i].id = csi2phy->soc_cfg->clk_names[i];
-> +
-> +	ret = devm_clk_bulk_get(dev, num_clk, csi2phy->clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get clocks\n");
-> +
-> +	csi2phy->timer_clk = devm_clk_get(dev, "timer");
-> +	if (IS_ERR(csi2phy->timer_clk)) {
-> +		return dev_err_probe(dev, PTR_ERR(csi2phy->timer_clk),
-> +				     "Failed to get timer clock\n");
-> +	}
-
-can you use devm_clk_bulk_get_all() then iterate list to find "timer" clock
-to simplify codes.
-
-Frank
-
-> +
-> +	ret = devm_pm_opp_set_clkname(dev, "core");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to set opp clkname\n");
-> +
-> +	ret = devm_pm_opp_of_add_table(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "invalid OPP table in device tree\n");
-> +
-> +	num_supplies = csi2phy->soc_cfg->num_supplies;
-> +	csi2phy->supplies = devm_kzalloc(dev, sizeof(*csi2phy->supplies) * num_supplies,
-> +					 GFP_KERNEL);
-> +	if (!csi2phy->supplies)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < num_supplies; i++)
-> +		csi2phy->supplies[i].supply = csi2phy->soc_cfg->supply_names[i];
-> +
-> +	ret = devm_regulator_bulk_get(dev, num_supplies, csi2phy->supplies);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to get regulator supplies\n");
-> +
-> +	csi2phy->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(csi2phy->base))
-> +		return PTR_ERR(csi2phy->base);
-> +
-> +	generic_phy = devm_phy_create(dev, NULL, &phy_qcom_mipi_csi2_ops);
-> +	if (IS_ERR(generic_phy)) {
-> +		ret = PTR_ERR(generic_phy);
-> +		return dev_err_probe(dev, ret, "failed to create phy\n");
-> +	}
-> +	csi2phy->phy = generic_phy;
-> +
-> +	phy_set_drvdata(generic_phy, csi2phy);
-> +
-> +	phy_provider = devm_of_phy_provider_register(dev, qcom_csi2_phy_xlate);
-> +	if (!IS_ERR(phy_provider))
-> +		dev_dbg(dev, "Registered MIPI CSI2 PHY device\n");
-> +
-> +	return PTR_ERR_OR_ZERO(phy_provider);
-> +}
-> +
-> +static const struct of_device_id phy_qcom_mipi_csi2_of_match_table[] = {
-> +	{ .compatible	= "qcom,x1e80100-csi2-phy", .data = &mipi_csi2_dphy_4nm_x1e },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, phy_qcom_mipi_csi2_of_match_table);
-> +
-> +static struct platform_driver phy_qcom_mipi_csi2_driver = {
-> +	.probe		= phy_qcom_mipi_csi2_probe,
-> +	.driver = {
-> +		.name	= "qcom-mipi-csi2-phy",
-> +		.of_match_table = phy_qcom_mipi_csi2_of_match_table,
-> +	},
-> +};
-> +
-> +module_platform_driver(phy_qcom_mipi_csi2_driver);
-> +
-> +MODULE_DESCRIPTION("Qualcomm MIPI CSI2 PHY driver");
-> +MODULE_AUTHOR("Bryan O'Donoghue <bod@kernel.org>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> new file mode 100644
-> index 0000000000000..17b8eb505b7bd
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> @@ -0,0 +1,98 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + *
-> + * Qualcomm MIPI CSI2 CPHY/DPHY driver
-> + *
-> + * Copyright (C) 2025 Linaro Ltd.
-> + */
-> +#ifndef __PHY_QCOM_MIPI_CSI2_H__
-> +#define __PHY_QCOM_MIPI_CSI2_H__
-> +
-> +#include <linux/phy/phy.h>
-> +
-> +#define CSI2_MAX_DATA_LANES	4
-> +#define CSI2_DEFAULT_CLK_LANE	7
-> +#define CSI2_MAX_LANE_NUM	7
-> +
-> +struct mipi_csi2phy_lane {
-> +	u8 pos;
-> +	u8 pol;
-> +};
-> +
-> +struct mipi_csi2phy_lanes_cfg {
-> +	struct mipi_csi2phy_lane data[CSI2_MAX_DATA_LANES];
-> +	struct mipi_csi2phy_lane clk;
-> +};
-> +
-> +struct mipi_csi2phy_stream_cfg {
-> +	s64 link_freq;
-> +	u8 num_data_lanes;
-> +	struct mipi_csi2phy_lanes_cfg lane_cfg;
-> +};
-> +
-> +struct mipi_csi2phy_device;
-> +
-> +struct mipi_csi2phy_hw_ops {
-> +	void (*hw_version_read)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	void (*reset)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	int (*lanes_enable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			    struct mipi_csi2phy_stream_cfg *cfg);
-> +	void (*lanes_disable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			      struct mipi_csi2phy_stream_cfg *cfg);
-> +};
-> +
-> +struct mipi_csi2phy_lane_regs {
-> +	const s32 reg_addr;
-> +	const s32 reg_data;
-> +	const u32 delay_us;
-> +	const u32 param_type;
-> +};
-> +
-> +struct mipi_csi2phy_device_regs {
-> +	const struct mipi_csi2phy_lane_regs *init_seq;
-> +	const int lane_array_size;
-> +	const u32 common_regs_offset;
-> +};
-> +
-> +struct mipi_csi2_genpd {
-> +	const char *name;
-> +	bool scaled;
-> +};
-> +
-> +struct mipi_csi2phy_soc_cfg {
-> +	const struct mipi_csi2phy_hw_ops *ops;
-> +	const struct mipi_csi2phy_device_regs reg_info;
-> +
-> +	const char ** const supply_names;
-> +	const unsigned int num_supplies;
-> +
-> +	const char ** const clk_names;
-> +	const unsigned int num_clk;
-> +
-> +	const struct mipi_csi2_genpd *genpds;
-> +	const unsigned int num_genpds;
-> +};
-> +
-> +struct mipi_csi2phy_device {
-> +	struct device *dev;
-> +	u8 phy_mode;
-> +
-> +	struct phy *phy;
-> +	void __iomem *base;
-> +
-> +	struct clk_bulk_data *clks;
-> +	struct clk *timer_clk;
-> +	u32 timer_clk_rate;
-> +
-> +	struct regulator_bulk_data *supplies;
-> +	struct dev_pm_domain_list *pd_list;
-> +
-> +	const struct mipi_csi2phy_soc_cfg *soc_cfg;
-> +	struct mipi_csi2phy_stream_cfg stream_cfg;
-> +
-> +	u32 hw_version;
-> +};
-> +
-> +extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e;
-> +
-> +#endif /* __PHY_QCOM_MIPI_CSI2_H__ */
+>  static const struct camss_resources msm8953_resources =3D {
+>         .version =3D CAMSS_8x53,
+> +       .legacy_phy =3D true,
+>         .icc_res =3D icc_res_8x53,
+>         .icc_path_num =3D ARRAY_SIZE(icc_res_8x53),
+>         .csiphy_res =3D csiphy_res_8x96,
+> @@ -5547,6 +5550,7 @@ static const struct camss_resources msm8953_resourc=
+es =3D {
+>
+>  static const struct camss_resources msm8996_resources =3D {
+>         .version =3D CAMSS_8x96,
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_8x96,
+>         .csid_res =3D csid_res_8x96,
+>         .ispif_res =3D &ispif_res_8x96,
+> @@ -5558,6 +5562,7 @@ static const struct camss_resources msm8996_resourc=
+es =3D {
+>
+>  static const struct camss_resources qcm2290_resources =3D {
+>         .version =3D CAMSS_2290,
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_2290,
+>         .csid_res =3D csid_res_2290,
+>         .vfe_res =3D vfe_res_2290,
+> @@ -5571,6 +5576,7 @@ static const struct camss_resources qcm2290_resourc=
+es =3D {
+>  static const struct camss_resources qcs8300_resources =3D {
+>         .version =3D CAMSS_8300,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_8300,
+>         .tpg_res =3D tpg_res_8775p,
+>         .csid_res =3D csid_res_8775p,
+> @@ -5587,6 +5593,7 @@ static const struct camss_resources qcs8300_resourc=
+es =3D {
+>  static const struct camss_resources sa8775p_resources =3D {
+>         .version =3D CAMSS_8775P,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_8775p,
+>         .tpg_res =3D tpg_res_8775p,
+>         .csid_res =3D csid_res_8775p,
+> @@ -5602,6 +5609,7 @@ static const struct camss_resources sa8775p_resourc=
+es =3D {
+>
+>  static const struct camss_resources sdm660_resources =3D {
+>         .version =3D CAMSS_660,
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_660,
+>         .csid_res =3D csid_res_660,
+>         .ispif_res =3D &ispif_res_660,
+> @@ -5613,6 +5621,7 @@ static const struct camss_resources sdm660_resource=
+s =3D {
+>
+>  static const struct camss_resources sdm670_resources =3D {
+>         .version =3D CAMSS_845,
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_670,
+>         .csid_res =3D csid_res_670,
+>         .vfe_res =3D vfe_res_670,
+> @@ -5624,6 +5633,7 @@ static const struct camss_resources sdm670_resource=
+s =3D {
+>  static const struct camss_resources sdm845_resources =3D {
+>         .version =3D CAMSS_845,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_845,
+>         .csid_res =3D csid_res_845,
+>         .vfe_res =3D vfe_res_845,
+> @@ -5635,6 +5645,7 @@ static const struct camss_resources sdm845_resource=
+s =3D {
+>  static const struct camss_resources sm6150_resources =3D {
+>         .version =3D CAMSS_6150,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_sm6150,
+>         .csid_res =3D csid_res_sm6150,
+>         .vfe_res =3D vfe_res_sm6150,
+> @@ -5661,6 +5672,7 @@ static const struct camss_resources sm6350_resource=
+s =3D {
+>  static const struct camss_resources sm8250_resources =3D {
+>         .version =3D CAMSS_8250,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_8250,
+>         .csid_res =3D csid_res_8250,
+>         .vfe_res =3D vfe_res_8250,
+> @@ -5674,6 +5686,7 @@ static const struct camss_resources sm8250_resource=
+s =3D {
+>  static const struct camss_resources sc8280xp_resources =3D {
+>         .version =3D CAMSS_8280XP,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_sc8280xp,
+>         .csid_res =3D csid_res_sc8280xp,
+>         .ispif_res =3D NULL,
+> @@ -5688,6 +5701,7 @@ static const struct camss_resources sc8280xp_resour=
+ces =3D {
+>  static const struct camss_resources sc7280_resources =3D {
+>         .version =3D CAMSS_7280,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_7280,
+>         .csid_res =3D csid_res_7280,
+>         .vfe_res =3D vfe_res_7280,
+> @@ -5701,6 +5715,7 @@ static const struct camss_resources sc7280_resource=
+s =3D {
+>  static const struct camss_resources sm8550_resources =3D {
+>         .version =3D CAMSS_8550,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_8550,
+>         .csid_res =3D csid_res_8550,
+>         .vfe_res =3D vfe_res_8550,
+> @@ -5715,6 +5730,7 @@ static const struct camss_resources sm8550_resource=
+s =3D {
+>  static const struct camss_resources sm8650_resources =3D {
+>         .version =3D CAMSS_8650,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_sm8650,
+>         .csid_res =3D csid_res_sm8650,
+>         .csid_wrapper_res =3D &csid_wrapper_res_sm8550,
+> @@ -5729,6 +5745,7 @@ static const struct camss_resources sm8650_resource=
+s =3D {
+>  static const struct camss_resources x1e80100_resources =3D {
+>         .version =3D CAMSS_X1E80100,
+>         .pd_name =3D "top",
+> +       .legacy_phy =3D true,
+>         .csiphy_res =3D csiphy_res_x1e80100,
+>         .tpg_res =3D tpg_res_x1e80100,
+>         .csid_res =3D csid_res_x1e80100,
+> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/pl=
+atform/qcom/camss/camss.h
+> index 93d691c8ac63b..698694d3064ea 100644
+> --- a/drivers/media/platform/qcom/camss/camss.h
+> +++ b/drivers/media/platform/qcom/camss/camss.h
+> @@ -107,6 +107,7 @@ enum icc_count {
+>  struct camss_resources {
+>         enum camss_version version;
+>         const char *pd_name;
+> +       const bool legacy_phy;
+>         const struct camss_subdev_resources *csiphy_res;
+>         const struct camss_subdev_resources *tpg_res;
+>         const struct camss_subdev_resources *csid_res;
 >
 > --
 > 2.54.0
