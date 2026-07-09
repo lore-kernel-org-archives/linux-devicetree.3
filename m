@@ -1,87 +1,44 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BB143B4A1
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 18:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CEB449990;
+	Thu,  9 Jul 2026 19:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783622610; cv=none; b=d0pEPWMZHKfvrzpgsjd3fch5GWxXh3wnB0GQx1x5ixPKYF2YCXN1Xz2iB6WV5K+wSy1VbHineofjOFOyEH0itwV6JBF8gBtFy83QnaSOkfoWiMU6UA4izDDJBfisMhghM+H8EZywzSp5tt6fxwnDNijNm9ZzRKe6FA6AOls6dDo=
+	t=1783623753; cv=none; b=hmkQM3IQjR0WUeQ4KpMooi57t9EDKOPC15ou26/RJmh8tpHZWBbuACGsiVPgWV6oS0gcCsUYNUYY0mLjp65dSZ8tuda7r17TjzsuGVD34nbNQtkP214DhAZgOrS6cOxVME+mTyg3SB8DnAdONd/GRzg80BqWR63AFVpk7K+Acac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783622610; c=relaxed/simple;
-	bh=I0NgFN3rF+KkU4yqBh/hyP5wG9C/1rf8uLv6/y4DOzo=;
+	s=arc-20240116; t=1783623753; c=relaxed/simple;
+	bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XmIZInHAxgZmCqf6CB1s5yT2QtR0DWb8GKYkmhWeAV8bY2rjyo24WHWpjp/43O4ucre0PXrhWNQ0oifT5IISfApFwAHKot8HGpqT9kbBrmJNA9BTt59jwxJjpWHxVlTgOFLQWkO5Z14JTg/4PfInbAns57HNMc3z9Y6Zr8xnmW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XrFaRUVX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PtQNxNt9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=FH2mMVYdsdxz9pqH8yZjOhBQgOWknDfJzfgju57uQzH9iodbkbw4FOKDBt99wW0AuSn01UwD2P2C1+AvrGB/OmH7GbolG6dp3I0Btusxyki5c47oKc6QCNgH2pzLmhh/cChDVz3nD9SCcYawjNxeQah/A2t8Z/EtBceUoXhHvqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GTHauvKn; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XrFaRUVX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PtQNxNt9"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669HXAG92503948
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 18:43:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	L1sQOlc7W2R+Nl5G9nVFB2M5cH4AGDkF0NzQkvcFvZA=; b=XrFaRUVXvcGaBNhE
-	ipDn5AT4mzKJkmmrNwgSczG9YfhH1HLN3LqbVGfzkoZ4d+ZwQCBxGoqoiFq/8qHt
-	LQeFAijKeUWmlUvtdQY844OtLzkeR113+HWzn6J/DkvbdkjV4Wzt9AljQ6uoLrvS
-	/z7SYXRzAGTLe71+O2jVCHnKtHXma/1qaJij/1uOa3wOtCKGkq883YeFVm0x+Whu
-	HnN80yEmEA1TBY5RL1xnMvuHcoNPyKyfIeFpPwUOUH+/xEE1H74Tl6x6a2Wzv6gl
-	JXLe2o9ZvPhGwnGxQ9/dwKR3udYAL7jP/LSWLSWx4hD1y565HjsEsXkKCNuql0IK
-	Z6rgdg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa6p3ucuh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 18:43:28 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c894391f000so299906a12.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 11:43:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783622608; x=1784227408; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L1sQOlc7W2R+Nl5G9nVFB2M5cH4AGDkF0NzQkvcFvZA=;
-        b=PtQNxNt9iRkGLSfPyu/0w6+3SNxXARJBdTcL0+7yQPNDxB3ZKcYs3vshJseggAOBVE
-         kt8MrpGvOf/CIrSDeZ1bWSAxbECks089zLc4HEURLARWZkDvNbjee1EVPRDdmp52WhDa
-         VjKNzeurFvReZA02EOaguc/SWOKTf+A0IfeCFUGlYRDsghs3ThWc8KE7Un4yh2koJobf
-         gJeSgmRnJfwQJsUmutCn61Fm7+Q7XHafuOCqJUbdb8Gyb3fCnruZKVTBUJ4HXUspDwb6
-         m2GHH/1lg1g+tivFhp7ZUrvRS6SLQ2UTakiDjI5z+/7aAAph2a7YrN6xEPT9ZOXps9b9
-         aFjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783622608; x=1784227408;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L1sQOlc7W2R+Nl5G9nVFB2M5cH4AGDkF0NzQkvcFvZA=;
-        b=kjMnNV1K/B1tNLD2uP2Gi3Y7Qt8lbdspJs3XUbUf+s9+7uPRUCwitGdPg9BoBhM0uZ
-         o1MuYqPvCfAxhU+Cg5uEYDh18wvWQ70sA8xGdFSkm11E5+bciiuUCCC3iJVHZ/ohqiMu
-         0pe8xbCWLQhzdqFQbBYTlPxEC16hIVQaqmfjZ52Iv8yk98JnTXps2ofMdeDAIqooofoV
-         V59Bf28REgRNJW0HxO06YfNfNLx0WctnP+quxuoNWWI97T16ul5uUp57SQ+v7guIxKkg
-         eH3v4YGm4llBl7QwN3cs/lnZOIdPXjROXv2i3b6RW22e5vfAEOrxANmvpLaU0XTF1myZ
-         gCMQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqCqtfGVmzatwNQEf/dOr6v9DNiQHqYr9pwaQxnFeY8D7BT5ajHKecDZfQAzfhCgO4EIm4Q6sM7MII6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzhJ/AN/y0EMlYHAFdVPDllP1nokHLJ2P8mRQ7oE6b/W948ARyM
-	XOTeDejrp+05yG+JkPV8LjgC8TGcTZkTvka/7hI77VTKSx8nNQ1BuAdlgTk8UgtHKAirFIw2Mze
-	0E3omwRAhAhBgs+i3yk0qudSGVLEA4sOTnDDiM+7Dan9Jc0MaQd/+qXoS7HWoAzrZ
-X-Gm-Gg: AfdE7clohq5N4NbxkyNUvl8FbKFyJTYfrpvruboKeaE6Hnl6XSqUA/GnQyrlVdXgihl
-	hw+pkmwcQ3tcWeSmTiBcQJn6O8LG+c4QZP6IO7t16j5z9+v9FYIqFiVxnHNyGEeBx8oC77a0SEK
-	5vVvpm4QJxvDkGqQot2sLYcZAVNBBF6AC4tZcKY0fosuvX0YZf0/4SObMRGJYWwQz63d+UlLFpE
-	o7TdpR77hQW+HlkWaoezWxHKZKG0Fiyu1+hu6Zlcm2b/4ZqviTadgnnYjbJyNSL5z9sojFyA0EB
-	rMRQSRWg7HyB71cjcntg59llM2nRe17yMj6taDW7sDG5PMRfHdRtDI68g9rcIMaky6zTT8o6uM+
-	1toO2FNobFp8l8heXP7uDWeHElohnEH37j6Y=
-X-Received: by 2002:a05:6a21:4902:b0:3c0:b766:750e with SMTP id adf61e73a8af0-3c0bcfea632mr10283282637.25.1783622607970;
-        Thu, 09 Jul 2026 11:43:27 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4902:b0:3c0:b766:750e with SMTP id adf61e73a8af0-3c0bcfea632mr10283252637.25.1783622607576;
-        Thu, 09 Jul 2026 11:43:27 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a56848sm34205652eec.16.2026.07.09.11.43.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 11:43:27 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 00:12:06 +0530
-Subject: [PATCH v6 7/7] arm64: dts: qcom: shikra-evk: Enable A704 GPU
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GTHauvKn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783623750;
+	bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=GTHauvKnzd7SFlDljFZd6gtM4inFUMIkL28Lr/Lw7wDnGFrhtbvsurc8DiRUJxfG1
+	 PJESMGmm1tsD7L6p90QcuSOnWql1p30gOW2gbz+j48dKUpYcO1ksAkdRLdRTMmGGnx
+	 8ge439FgbGh6RNxl7uDcE3HrH7tifUhIzuKvL4Ra4qKi7lyo9Nk8OYg5Rd12NC0b5b
+	 0djR2RG91azIfTOGTU8qNc/K4JFgAvDwX5ymvK750+WBTDsXoJ8//V/mCV54akwOXz
+	 gPBXGn4GLNgT3kANBB8L0I7kDo/PXcqNTXoOeUiuKISNMV8K8XJPlfg2vUIa/4PI+b
+	 Eggm7kcoH2drQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EEE6317E0DFB;
+	Thu, 09 Jul 2026 21:02:29 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id A599648002F; Thu, 09 Jul 2026 21:02:29 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 09 Jul 2026 21:02:26 +0200
+Subject: [PATCH v11 03/36] phy: rockchip: usbdp: Do not lose USB3 PHY
+ status
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,99 +47,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-shikra-gpu-v6-7-b388ec5dce77@oss.qualcomm.com>
-References: <20260710-shikra-gpu-v6-0-b388ec5dce77@oss.qualcomm.com>
-In-Reply-To: <20260710-shikra-gpu-v6-0-b388ec5dce77@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        iommu@lists.linux.dev, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Aditya Sherawat <asherawa@qti.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Message-Id: <20260709-rockchip-usbdp-cleanup-v11-3-a149ac60f76c@collabora.com>
+References: <20260709-rockchip-usbdp-cleanup-v11-0-a149ac60f76c@collabora.com>
+In-Reply-To: <20260709-rockchip-usbdp-cleanup-v11-0-a149ac60f76c@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@flipper.net>, linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783622535; l=849;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=TpvtLBwihWHNEKd1VwQvgAfHhzoeB2GGOqDfiPe0Xho=;
- b=ZIve4DWCl87XBF7AfPHf5g2BJeKum6itVChbN+14NX0yb+c2lSO4GLV80PWdApQDHp0lHww6y
- MmdHRS+rBCEDgn1bSRRYLQshjQmUl8u8iyr/Z7ckKek/8UGqepWFhl2
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-ORIG-GUID: 4wZIviWgDhgonfy3GvDarkDYxJL4-Lps
-X-Proofpoint-GUID: 4wZIviWgDhgonfy3GvDarkDYxJL4-Lps
-X-Authority-Analysis: v=2.4 cv=TPh1jVla c=1 sm=1 tr=0 ts=6a4febd0 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=Xl3f10jGzgz6Ja07nhwA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE4NSBTYWx0ZWRfX73PwrSxsYCaK
- /B8bM04RaWpLBngW725W35w4lx3dn9XD59CO95eEBNxDR/5IuwBtxK95okWZ4FDkdSRUVdV3c8y
- LCBQGnYsScb0AjVI5ONX8pHRbIAwqo4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE4NSBTYWx0ZWRfX1hyU88t13p8e
- AEVXf+Hw6qY3GCeS2ylD7LaIOGn3nAYqmVOA4JprNcciI9V3zKZxUpaAVgi9jJNVG6mGrmIz5dx
- itREpoL5LDYIslooQVqczNY9ZXsPKO66qz+mzOk4YOJHOSRCgint+JauZ/+u/XBmEglIcmjN+u6
- SuECCbRui7FX8K2awehiwo0RT898dBgWnKYquF9FsLFZW4VzcxmPa8hfXBnKVDh0LsrxPsX9Krc
- llQDkCfcQlp+9ZF0EHVPvCTcUp5luT3Qyf8n+1dXLdDWMZf4vyiLsYk2jwpMocq+1jWQjtr5yBJ
- YRffwHZJTe1a463gumUSpz1dwy9EfR4BpYIJI+uFLwZyAI6lb61OaE0XVewxcs5nqp0rrjB94se
- SePXftEnpGlfLQuk6w/j+wd0uobHIDg04lD4yUke+F087JfvwgZFx59L5SRTs94W8gfz/n3+Lw+
- Ore8d3OSmtr8wl3QCxQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 bulkscore=0 phishscore=0
- lowpriorityscore=0 clxscore=1015 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090185
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1409;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpP8EQjsudxf4/WOIhhtLCpFVjF17WZM+Z1q
+ Q8l8C0bfqVZZ4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqT/BEAAoJENju1/PI
+ O/qajRcQAIMA8PmiKyo2R+Km3wV0GQoLW+qUv5C5Ck5lBoBAs0bYjvBRaQhCp5k+gROZsELvW6z
+ 9VBJeYkoqCnmR7SRSz7T6P5Y9rb35HpUZQgS7NKEa1BtM2J9z9Srb4wKuq4Cb4+ebeTGHuxfZ5o
+ V/zRX1UBS+CsU065B+wLJNVNl8Mqknx5R6HjEEmugID1tH+6ZP9t/G6Mn6SQ2TNjt4PYEfCpZQy
+ /U+Xi5NdofRyJ987zyc5UTzruaNKWNEWCGIGcWMgoQ3gsatLkc3xKUc2DpVH6PexwTyPv7yoKL9
+ 5l0K9G7VvqVxflZV22IzO0NIXaWQc9YQXDcf+sqrSIEQ1qYAUJ7XyrpAgWqeeh8VqbHh1KuOJNv
+ vDSN7G6tyDuw8sBAVomexoZNaw8EYUrw7Udl/vNj4vLvpO45tg+IoDeAyb8vdYpvGkdtpmrkgpL
+ ia7uchn56SkbvYFDsHtEdNoU2360UE79S1eZfyTYN8zpxvv2rzj5Aso+nx1uz0b/h4LBq2awn45
+ 43ae+t+Cyygn5cqSGCDfbUDM5HxeNm/5cRZzie9uSGleRLLZzF5dDPhna2NtYrAK2e4zZxltF4j
+ hPTyPXbpy1xYOqwzrpktp0p4HgIpLsvKVQTwG5mwO6C5j8hOVcmtOLRBHRfm5HdZRx9UZ7+nEsg
+ tPG5iFxjETqALmgXwFBUw7g==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-From: Aditya Sherawat <asherawa@qti.qualcomm.com>
+By default (i.e. without manually enabling runtime PM) DWC3 requests the
+USB3 PHY once and keeps it enabled all the time. When DisplayPort is
+being requested later on, a mode change is needed. This re-initializes
+the PHY. During re-initialization the status variable has incorrectly
+been cleared, which means the tracking information for USB3 is lost.
 
-Enable the A704 GPU and configure its zap-shader firmware on the
-Shikra EVK boards.
+This is not an immediate problem, since the DP side keeps the PHY
+enabled. But once DP is toggled off, the whole PHY will be disabled.
+This is a problem, because the USB side still needs it powered.
 
-Signed-off-by: Aditya Sherawat <asherawa@qti.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Fix things by not clearing the status flags.
+
+Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- arch/arm64/boot/dts/qcom/shikra-evk.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-index 4b7be09eb5a5..9febbf200f10 100644
---- a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-@@ -36,6 +36,14 @@ vreg_pmu_ch1: ldo4 {
- 	};
- };
- 
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/shikra/a704_zap.mbn";
-+};
-+
- &qupv3_0 {
- 	firmware-name = "qcom/shikra/qupv3fw.elf";
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index a5ffdf7a6e76..12dfdd470a78 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -1008,7 +1008,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 			rk_udphy_u3_port_disable(udphy, false);
+ 		udphy->mode_change = false;
+ 	} else if (udphy->mode_change) {
+-		udphy->status = UDPHY_MODE_NONE;
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
  
 
 -- 
-2.54.0
+2.53.0
 
