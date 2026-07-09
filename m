@@ -1,63 +1,63 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7DD3911AD
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 00:50:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682BE3939D0
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 00:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783558211; cv=none; b=Y5JGtc3XHEfVR9HonLcA/37bHt78GUYVXZs6uix1YOmvg1i4gwpDStgc72bOFMLqpxqqN/4O2CDomz9isRBfD6Chone+B7rlUuwv2iX6kGdhsmerJVR46jUBdOa6CSAooI1ej3ex+C2P8mjxO7msAfouELliqokSDT/lCeOxZtk=
+	t=1783558212; cv=none; b=qJaDdT5gix/jpoggP1EtWRc5dlE62jagX3AOqB7Qxrj1ZjQae/pksxkxyH3p12Xrnqhq09aX4MuC1uP+8LsWys68F4yl3CBCUtYNjmpSRBsS1CWCZPFX7n9e+otRYozdm0bUaJSmpHsMkFU3Ls2hCLpvnM90Chkfqpjp5wzq9n0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783558211; c=relaxed/simple;
-	bh=y4B66Wux+JJKAcfCF1cMe2wXGvPfoijKaxFDbJe62SU=;
+	s=arc-20240116; t=1783558212; c=relaxed/simple;
+	bh=tlBwYf0b9XjU9uTZIFTm8XjdV5yV4hbezrjHQCom/jc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K6epdO4y54zHFKSuKvme43hKv49by1KEXNPBsPQepiRzVwSNJ4O23cBLiPLOJZtMDzyzZIIs9gCQTp84+xR4xzDiRqeaZNaWv/GD1g6ISzDiWbQqb/AFKLi7/DWKFahc1SZ2IPoiXsGabXmFHGv6FKkpIckKT6KfZtyNA4xPkb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aC04S9w6; arc=none smtp.client-ip=209.85.214.177
+	 MIME-Version; b=QdiGKI4UZA/yHc7BBFZsMviKDq97loMLBhyWvKKiz3+eqvfPsan/8CmYiTFBjUGYsX4gyj1Sa1isSpxcTd1C0aEDMt9AEnK6UGFZkMaxbiT6yopkCbyrUh8+JvqD9nH1sbSDkWOXeOOxrrNR57CcIFPCSKm/WIfFn4tug4UD7uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qn9zLvd9; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aC04S9w6"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cc7ef7ec27so17160235ad.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 17:50:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qn9zLvd9"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2caced6038eso5228215ad.0
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 17:50:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783558209; x=1784163009; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783558211; x=1784163011; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O/CQ58f2X+E1rLJHgMnpMlJRaoK+MsOQXmqFnkKcVtQ=;
-        b=aC04S9w68k2kNzE2vt1AOOHltkFsQSBJ4VXzSz4FNmHG+y3ARLhzd0f3ceE34Vhy2S
-         SIWeP2fY98jesFkDw4/h/ObxEOa/jz1cOZ4vxACGyQthFh5ZHXLyKCamrK+8qh5yqPvd
-         h9OAIcq5xUaaampmxfDffvKZ2Brh55WVbvJZ4w6T2AdErFAnm4H2k/o0SHgG3eEwC9Tj
-         iM8smBY5kHfoJgehDK8n5SJ1EshR32aE0ORG0gskIPiH73vnzq9zQSknG61f1bAmyKGk
-         r9pneBgQ8fqKRjzqQldzkZrXmznlY54rHVNzYRLcKxWUhHfeDBHULzLaS3JJdO1EREcq
-         udpA==
+        bh=HZ7Y6Bxon+oOUVGfq9tz5mANF1fTOnqA75LK51EcslE=;
+        b=Qn9zLvd97nqxAzkW93nM0uljgIn6uV4wMQPTHypCKJwCsz34pDZJkH0ZhFWPTaW6oz
+         yTINqUjmKiorKp/pe5LAKMO8kxa6C9xdFhtbpbpnMKVg4tU0CHmHf3PxskVbloMQnESi
+         DvTmHir1SkHNK0MLrPaTq89sh4/CQmGuVetDKa1ktS0vsXSkl5iWINIIc5Mgc9t9zB9l
+         ohduOoFHf4y+sePE3m0uWnDpzG0QYsYfka5M68Frx1j/AekU8JRbgavLv6rccTkG0BRo
+         ZXubMHmfw//Bs6OYfYayJYtXfgxnyz5cyvyRaym5kHbZUSkL56CDD+9Du+ltKVvVPHBV
+         d9sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783558209; x=1784163009;
+        d=1e100.net; s=20251104; t=1783558211; x=1784163011;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O/CQ58f2X+E1rLJHgMnpMlJRaoK+MsOQXmqFnkKcVtQ=;
-        b=b+fDTIHkEyVwMQVa/mxyRk71dClLp0dKdcqBMM0mIDwIAdO/Pbj4yvIZ5KrRjTZ5z+
-         O3C0SgRSwla/TFuh7nsl7s2nDmzpSVIQXL8KrQi2IZDjiWG4ym5at0YDygC+YMa8mIzq
-         zLBYUGtSDqdpljc2Vmvem/x61oCFEmBU9iam74UVkmV4nMpJPPl5uI/rf7CIVynWv7Xd
-         WIVcrwhJRE4GOX6/KFR1BlUq6nOD3eE5HtlIIarcSeok3X5RTupclkle86qOd8rwINFI
-         X3SvWBkUtvn9eahPUzhuq76DqRbqKMzDtj6YU5624olDWtZpcW/Hq+wY9zNPPRP/xtU/
-         OYag==
-X-Gm-Message-State: AOJu0Yytdk66UChBFJwMK20o/ia6ysiLUeY9WAQ+eM3pa1o2fvPHuTce
-	HqlTaf9rJXoVHg5RAjScFZNv/6dm9DT7P99MReBJeYouAcLHO95uG78D2l0EPQ==
-X-Gm-Gg: AfdE7clUQtc9mdnh3a4Rt1rm7vLtwUhbZFHSKSFkiPNxxORDSo4ED3lnrrhIfHEV4sG
-	zPlmPR0muBK5DB/qLOPvKVjADxZyeiMCSvL6FeyqxakCCGrf2ajJR6iHBle6HfiMjjpnyVRgSws
-	Ixp/iZUm//ETgvmnn1a+htomVChYEkTfUg2BRsB1oHXUpI+VE/bMH92ElddmM/4rHfwh9n4sUKz
-	TPvmUdU1YCjoipG8ZchgVvjAsm8JZppgtwYtbTIWx7dbC3WeYkvp1vZtjJlWo7yLPvDhwmKDrNY
-	6IahwBWofdYlmiAk32qPNuhyWWufHFyNDdXoDlDTnaAo1UE6abuYIM+ass6w1QvZnU7GdboKoeY
-	B28m2hPFaRxMAGVxGN6DBt0WO210tktEP1I5TLpFN+BpTGs9uhf78Jz8S82LMXypycdYNM5nE8W
-	wXyadx7gmlhjbd0u3vKcpgy79yktsvigGGcLKDA6U2eXkJRUWMy50/OwGQlogg7/rvMaCKyjz9t
-	kefpDMXL25LQC1XdlDGeR2mnguAS+WtdRke/Tu26gdasJN/7o0olo2REqUYSDYAxQ==
-X-Received: by 2002:a17:903:1b23:b0:2cc:d6de:d597 with SMTP id d9443c01a7336-2ccea36a539mr52045675ad.7.1783558209417;
-        Wed, 08 Jul 2026 17:50:09 -0700 (PDT)
+        bh=HZ7Y6Bxon+oOUVGfq9tz5mANF1fTOnqA75LK51EcslE=;
+        b=LFAigQxqlPxWbJLLyFjo4sQP4ZAfiwHGsdCsNtMdBm24swCgf7Apb4X7M7jk+B5HGZ
+         kE9YrpmyWrsd5FJxpQy4nBhLh1gLERrUR7tUu8CbYjySSV0Mj1/IzPig53qKgJm2N3UA
+         n+S6I2HHYj4jjd/lC39I05bJvyJcQ/Qe2YinJFv/Ck5L0gcy+XD2g/mX89KmnDhDdZi3
+         hcHTfrtOfyMMB2xdCEA0wS4mz1eCIdUL7bHxSTRY25eHb5sSPIWOSJ7u9n7nuw+ZFmeQ
+         ifqq2rH/IAIwtxiwNCDoByXE+FPSmlazW1blHvqvjQK8EoLQlrb9JE9nmNV8s7HG7ccB
+         a13A==
+X-Gm-Message-State: AOJu0Yz65+V/uQw80XpgpDQQQ2Vgzw+23tmpy5xHrcNGKVmSEdFfJaZt
+	h9LvxEF77i0DtIwR0vrKkRhVk7z3LdhrDLb0qCY3MJCdr6hPKHSU/jOv1epj8Q==
+X-Gm-Gg: AfdE7cliV9BORLnoNShpp1M56ODFNgIW4jRXJnL1HOh+OcdZQ96c9++MeMOKuSX4Y/2
+	pw+1J4hux2X1g6iRjQqshTOxZjtACJorrBECfDqeVEiDGaynlyhUoyCdTwY6QEJ+3vKsLHiJP60
+	s2t66I/eW3rgHB7LQEJ7vVaoSjvNsMRZhFGYO5R404cZGE/qpc16+Uokn5hZ32BdCt6WR+fPvqB
+	2ec/qPQD9WNYJkfT+7IBMtoiqvUTqmFU32qDAYw96BePuPVpSlvojYZdRIP4rAiKv6msazo8z7H
+	PErhcEk4Byz+ZqfSbl7HfsrHh6oJkBnSX8uaXhwaCEznTDXI/k2YVl1eENkme/IMMI0gVsOWqiB
+	qsDvxDAqWQ9x8B7gU8ZDOYMUIIMMtVUq3mSCSjpzWwhPLYPlL+CRGGCrIa+fB+00pZ9WLPVjTJw
+	wltLz3nHh4YNcJ+QOQpnItMTs1DH1SEjdwIA5onCLoEew4iK96TZ9RG9zkHda/PrF/dsd+ODWS/
+	U2QkJiXb6jG192+kic39mh4oMo3Y88hhVHpMDgRT7iQkelwxJism+kmV6KMKfDEAA==
+X-Received: by 2002:a17:903:240c:b0:2c7:c385:c5a7 with SMTP id d9443c01a7336-2cdebdb10c3mr5477215ad.26.1783558210748;
+        Wed, 08 Jul 2026 17:50:10 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d59e51sm35604605ad.76.2026.07.08.17.50.07
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d59e51sm35604605ad.76.2026.07.08.17.50.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 17:50:08 -0700 (PDT)
+        Wed, 08 Jul 2026 17:50:10 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: devicetree@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>,
@@ -69,9 +69,9 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
 	Dennis Gilmore <dennis@ausil.us>,
 	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2 1/3] ARM: dts: helios4: add vcc-supply to EEPROM
-Date: Wed,  8 Jul 2026 17:50:03 -0700
-Message-ID: <20260709005005.1587852-2-rosenp@gmail.com>
+Subject: [PATCHv2 2/3] ARM: dts: helios4: add vcc-supply to GPIO expander
+Date: Wed,  8 Jul 2026 17:50:04 -0700
+Message-ID: <20260709005005.1587852-3-rosenp@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260709005005.1587852-1-rosenp@gmail.com>
 References: <20260709005005.1587852-1-rosenp@gmail.com>
@@ -83,36 +83,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The at24 driver requests a 'vcc' supply for the EEPROM, producing
-'supply vcc not found, using dummy regulator' at boot when the
-property is missing.
+The pca953x driver requests a 'vcc' supply, producing:
+  pca953x 0-0020: supply vcc not found, using dummy regulator
 
-The EEPROM sits on the Helios 4 and is powered by the
-same always-on 3.3V rail used by other on-board I2C devices.
-Add vcc-supply = <&reg_3p3v> to silence the warning.
+The PCA9655 (PCA9555-compatible) expander is powered by the same
+always-on 3.3V rail as the other I2C devices on the bus.  Add
+vcc-supply = <&reg_3p3v> to silence the warning.
 
 Fixes: ced8025b569e ("ARM: dts: armada388-helios4")
 Assisted-by: opencode:big-pickle
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/arm/boot/dts/marvell/armada-388-helios4.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm/boot/dts/marvell/armada-388-helios4.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index 390e98df49c9..05540b8012c2 100644
+index 05540b8012c2..cf0432a0e71a 100644
 --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
 +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -201,6 +201,10 @@ temp_sensor: temp@4c {
- 					reg = <0x4c>;
- 					vcc-supply = <&reg_3p3v>;
- 				};
-+
-+				eeprom@53 {
+@@ -169,6 +169,7 @@ expander0: gpio-expander@20 {
+ 					gpio-controller;
+ 					#gpio-cells = <2>;
+ 					reg = <0x20>;
 +					vcc-supply = <&reg_3p3v>;
-+				};
- 			};
- 
- 			i2c@11100 {
+ 					pinctrl-names = "default";
+ 					pinctrl-0 = <&pca0_pins>;
+ 					interrupt-parent = <&gpio0>;
 -- 
 2.55.0
 
