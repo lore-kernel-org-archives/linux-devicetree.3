@@ -1,329 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306773033CB;
-	Thu,  9 Jul 2026 19:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C483BD657
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 19:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783625777; cv=none; b=pwjQhr4J08NmSxH/FnQFiPACfxKC87trdh7NYxiOfjWQ+TWPFk8edjnGxqccXcNHVh2kl+A/AkU4ZTrDzjpyvUyFZyk6ECD2YQFp7OQFEPswNE8bcrkgL4oiKJpMtWAwSGDeD5wNYrdsuLyX4D4LQMztvRmvdaR1bBglq1P1TGM=
+	t=1783625950; cv=none; b=IWKnVHFCal5GzKbt13r6QBjTlBoNxPj5VlnsH2EINsvEm4HdgpWy6xwrKg0kTxdJDBq2yF0xc3cbwqqCBKlwD40SMkdUiJZxlnQfvQfJEYZYWz1BO1RRhv9LxUv6wLoKs5KVyltkk0I7HGBt0YseRcqwCzhKP0ZLE0i+bcXJxE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783625777; c=relaxed/simple;
-	bh=j2YgczC1FZSqFFNy5uzhwAEdbC8aJllpA4aHNmuhgrg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hXjI8yUPm22zBkoE64rkKgZ4BN7DI0NCNVW0wBf+Fph8jWb6bh/WEtMcfd8QmSxM6Q8BXi7dYTwiIRZDr2HpWvrHMirGVBLTwUyoMepcjRFSX1WbpfrZNQOp/rCasGKRRKDkqn6K3YM0HRlEQFl2H/KkCst6Gh9PT8tKsnBaRCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z621rvKP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783625950; c=relaxed/simple;
+	bh=QD9mJPs+t+9s56rb5xaB5rKMWigU4OS46sDGTzukNhw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jFqex0LkHMjWqRX7NpOsSyLAad6aY2gjowgPJdzA2MDvovBPLP/v9IaEj2huQKmgF91gqOZ1dMSIcKj3Yt7BblOslmvjlxWQkFxwBXPivgW5dQpR+mxbWfUM1Mkql4FBKHmgBfx073TIcHj4CKsVt7qBtRVdGsBN/l3Bu5Zdjt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f51JX49F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JZh0bVKg; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z621rvKP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854C51F00A3A;
-	Thu,  9 Jul 2026 19:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783625775;
-	bh=i9iV01k9ziMP3XSBiiNS8Mi8cRNY/Qwn2OOKpHuWkgY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z621rvKPSwwezB/OhcS5wkzHiP/sprH9wjrtj3g6lakQbSjcIQ8OtBNjD+pYjT9lE
-	 xwYhg9rQJndY1wpdDKhwWcwcM82aG8ueKL+E0C11ULH9SCAnZ1S5WufHm1Q/ri1pzy
-	 ki0phBJeyg2il6kyPD/rTMEkW3X0tgAzFQZP1SEZ/41/XllmzpbzeMvw24l99LLWfo
-	 6y+pWubTvt+Gnew0k3rlNk1ox11L7pyL43I5fQIDPALqpBrh1YU0F+3wchpl2/bPze
-	 xDh6RO5LKwx45zZ9guVM03aGzdQWY8ZUo+6BK1hb7VokZ9Aei2+hqY5/F0jUUc0W1W
-	 1g7hQhBxvsHiQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] perf: Add Arm Bus Monitor Unit driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robin Murphy" <robin.murphy@arm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <a09eacfd687649c5e97eeb60876cbcbe3efde912.1783439341.git.robin.murphy@arm.com>
-References: <cover.1783439341.git.robin.murphy@arm.com>
- <a09eacfd687649c5e97eeb60876cbcbe3efde912.1783439341.git.robin.murphy@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 19:36:14 +0000
-Message-Id: <20260709193615.854C51F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f51JX49F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JZh0bVKg"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669HXJeS2386398
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 19:39:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=lXtkLmMeqA5Txfu3sYVMsQEq
+	969mvFVnJZMw0O2S5F4=; b=f51JX49FycsxSY94vb3shNav9rc4rU9buD/v8EbY
+	gVT3Lzsu85teQtDP4CIdy4rdzXRUPg42PS7hEJP4b0FsK6YCzMl1q46AneSH5TZh
+	KiTZVG/rQcrE/J44s0nXXL/PfqyCp9d9o8YRwns0vDcsmgnm0IaLH+DDznbFgCyr
+	iU3M7WhK1e4+S6M6odp6pB0/bZCh0rGdAAEyA+rajwDiFSXUBTR/F8zsUQ4fyqgN
+	Xd57d61SwMw2Xn/A3UrfTytP5EsFkWf1198r7R2i86Y97z6boIBCgQdzRf1jWfwY
+	h3EwAl+O3tTATUnjedMXV0VdoK2YMibTyYBQkNrldiFmFQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa1ydvppw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 19:39:07 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-744e806f474so43733137.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 12:39:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783625947; x=1784230747; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lXtkLmMeqA5Txfu3sYVMsQEq969mvFVnJZMw0O2S5F4=;
+        b=JZh0bVKgOEI3u0b0w055ufllEhkU94/wWKI6gpYU1QjVxa3EMcmrTk84NeUoCXVR/N
+         0tAK29bzu0crlN+XpMVkEp8map5ghzOrjG2vGMuDmjP216pBw6kf1B94NmS92sjTk7uW
+         j4bOSe0g77P7qxlQbTkzwiARemWqpEJ+Ioh7m7r5d4Qhk33/48lKzMC2MdW6/5MfTomf
+         T6sFqDzpW90GxUSwTPnNV0RJcDUNaFLnyqOLPNlnvtm+i1xV6RAl3a8esMVoq5jD5KRD
+         pJf+vltpvKJvQ/JbOWHbYAXSP5EjuzExiy2XvOxI60Ny94UBkwFUnSe91mFvLQ6Kp19w
+         uzsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783625947; x=1784230747;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lXtkLmMeqA5Txfu3sYVMsQEq969mvFVnJZMw0O2S5F4=;
+        b=r+TlbRqQQtzRBe4UQYMy3JRi3VhPb4c3DqqrMOY/ekVjK+EU8xSqy83Nptp9rB0C2S
+         8KF5nf0YPQAAe/d+5AU54McQzGZVUsjEJDjYT2xFiOR2hfbHy8ulbRo7Bb/14xSUcXGK
+         iDlcAMeG6DOeeRi9KrYSfsdK1zv+d4xfN8cyXWaSyRPzDR13gB1QYfk/MsW3cUk6Pvk8
+         22m7caUHhJsGcdw13Yssux/5odxqrrQY61N3PRHDnlKTYNo45JpWEC6B6pZQ/PwVGn0e
+         MBUaCP6RefhiTLbLuXgFhVnKCVdrF3explHit5zwmPLX64B+eJVyyeROaLNv0Lyi+5+2
+         2sVA==
+X-Forwarded-Encrypted: i=1; AHgh+RpVXIYzSf7ivdhXX73F6ACAGvXwU++IlUQHBE6AGFoaZ9QtQr8nfGVO/CjbW7ixUp3r5b6cBqADUwaF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTSz5lKnTm4qYXJYt7psneTh8HVMvBkLDs/Xe/wyVAmJJB2lr5
+	CVf/+Unxh/e814vKTsGRCfiRuTxVzeH6cQAs1hfykywbIZ/vOYlATHLeyeKJOBa9DIQjMQlHZ3n
+	D+Ifi7tGOP4Wt7zeOxCa2bFJSEnbN1WqM2yFKQKXTeUteEWKfEdTRIAuIZZgiNH9U
+X-Gm-Gg: AfdE7cnnwqQ8j1VQ/jJmI0IjHyi963/EPWhaxfOgyKYzVo6/gN1LrOx4268tVL9FF7U
+	BycZBgr1xrUxHtQe7BVAEDWhYsl60sXrTQEVBYUb55VoPnpywB0iaKx3QKYRCjMFFlYjXMy1oBP
+	Y0QSgtk9HHKNRVjLmfxcw5hd3++vpOU1NHOB9GG39Yespq5vOIw/+Kt7IKr2O7a9RHdtLI0T7OH
+	J/KaNrpZIhe49vng7iwxTZefBpvCdaR2RBJccCvEc6facbv6wOxb4p5sCHZKAqsUXpwEla+3e2U
+	dYilEiBjiUEY209wQWa/Ub3EqPH08ciZy3pbnLnofd2Zx2TzqcZKeDkwacLASLZRRUupMe7qPyy
+	AFb91mB5VzHOl8DbSff5Mw98ZvWbPQA20dD6ftvWQtzayrJgZUGtLpETMkc/wIxBobJgL1u81rm
+	2m7RjJK28jMjBYh7fOmFjACGgh
+X-Received: by 2002:a05:6102:1490:b0:631:af51:7d8e with SMTP id ada2fe7eead31-744e00d15demr5013508137.17.1783625946398;
+        Thu, 09 Jul 2026 12:39:06 -0700 (PDT)
+X-Received: by 2002:a05:6102:1490:b0:631:af51:7d8e with SMTP id ada2fe7eead31-744e00d15demr5013479137.17.1783625945914;
+        Thu, 09 Jul 2026 12:39:05 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c84b13407sm5148981fa.12.2026.07.09.12.39.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 12:39:03 -0700 (PDT)
+Date: Thu, 9 Jul 2026 22:39:01 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
+        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+Message-ID: <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+ <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+ <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
+ <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
+ <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+ <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE5NSBTYWx0ZWRfX05+Dj8WfyMFl
+ M3SRrnJkZ8DWAwgd000I3Y4zUS1yVowCku/zCLxvvzTI1MP7HN2BmnclQxZyEKCWRGyEQNidfY5
+ I2VgT1sutJbk0nmZEaqqaobz4PGKWbY=
+X-Proofpoint-ORIG-GUID: YWZYmKIhkWvmobnQEHaunSc8g0v6Ekdu
+X-Authority-Analysis: v=2.4 cv=cOLQdFeN c=1 sm=1 tr=0 ts=6a4ff8db cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=9jRdOu3wAAAA:8 a=KUW68C9JwZgBSL_lDhwA:9 a=CjuIK1q_8ugA:10
+ a=crWF4MFLhNY0qMRaF8an:22 a=ZE6KLimJVUuLrTuGpvhn:22
+X-Proofpoint-GUID: YWZYmKIhkWvmobnQEHaunSc8g0v6Ekdu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE5NSBTYWx0ZWRfX2IRXAhU0Vyfh
+ O21uOBVfuDAOrxEATpYJRVhDhtddYfchVGUAHA8AQrqVHpfoy/i8JxpzGwjqc34Y1yJW/9MGfD5
+ jinXRzimG5WQf+dgakUCBcauVsjg2HnWJNWcHuzI6PoxI0gNjePHzaDibGvLCC9RSDYxXAz/12Q
+ AeE+QdCYCMlTSjn3QVQIE2hBLy5v/Aixl1ysT4qpPC5lQ/ohaIxaXpy8nzta4w9fAaNCfvL4Clh
+ 3edJEYVR0HBsLxS3tR0BfWxRn1rmr6xGTPln3MJ6JaBdNUQjZC2+DIXsvOwPC0wCxSWFnjnjk7L
+ b57G8o01XDwOuREzp1PhgOvXJBHZYqvH4iXp8VSfiIUOAAU6fa1Z/mSkp1L+SMje8oRrWd5u6pC
+ zoAebu9TwYem7ebVyJxJE2jHESV/z6galxIN1AN3gspX6/9SXTTwAgzf2gSseZaY2mmxGYGkAua
+ w1lerotRdnMOBT3LWoQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090195
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [High] Uninitialized variable `err` is returned when `devm_request_mem_re=
-gion` fails.
-- [High] Event validation erroneously pre-increments the event count for al=
-l IMUs in `arm_bmu_validate_group()`, rejecting valid groups.
-- [High] Improper error checking of `devm_ioremap` return value causes NULL=
- pointer dereference on failure.
-- [High] Incorrect CPU hotplug registration order causes NULL pointer deref=
-erence or Use-After-Free.
-- [High] The driver fails to verify that the hardware-provided PMU offsets =
-and sizes fall within the mapped MMIO resource boundary.
-- [Medium] Negative IRQ error code from `platform_get_irq()` is stored and =
-later passed to `irq_set_affinity()`.
-- [Medium] The PMU IRQ handler resets the running hardware counter, permane=
-ntly losing events.
-- [Medium] Spurious `WARN_ON` triggers if an event is deleted while an over=
-flow is pending.
-- [Medium] CPU selection races with CPU hotplug because `cpus_read_lock()` =
-is not held.
-- [Low] Format string type mismatch passing 32-bit `resource_size_t` to `%l=
-lx` specifier.
-- [Low] Using `%*pbl` format specifier with a pointer to `u64` reads incorr=
-ectly on 32-bit architectures.
---
+On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
+> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
+> > On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
+> > > On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
+> > >> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
+> > >>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+> > >>>> In order to associate the SID used by LPAC to it's own domain and
+> > >>>> context bank we need a separate node on the DTS.
+> > >>> Can we use iommu-map instead of adding a new device using the same
+> > >>> addresses? You provide zero explanations, but it seems like you are
+> > >>> trying to separate a part of the GPU into a separate device, but it's
+> > >>> unnecessary.
+> > >>
+> > >> What I was trying to say is that we need to map sid0 and sid1 to different
+> > >> context banks.
+> > >>
+> > >> From what I recall, so long as we use the same dt node, the iommu drivert
+> > >> provides no way of doing this.
+> > >>
+> > >> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
+> > >> and secure.
+> > >>
+> > >> The address on the lpac device doesn't really matter. I have very limted
+> > >> knowledge of DTSs but I think we could just leave it out altogether?
+> > > 
+> > > I think, you were poined to the Glymur Iris patches. Another option is
+> > > the QDA driver being submitted too. Both ot them use iommu-map to
+> > > describe the same usecase - a set of SIDs which are used by the device
+> > > but which should not be a part of the defaut set. With it in place you
+> > > don't need to have separate qcom,lpac devices, no additional properties,
+> > > etc. 
+> > > 
+> > > I'd recommend following the same approach.
+> > 
+> > iiuc, the conclusion in this recent thread is to use child nodes for a
+> > similar case:
+> > https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+> 
+> Let me check internally.
 
---- Patch [2]: [PATCH 2/2] perf: Add Arm Bus Monitor Unit driver ---
-commit 2a4c03f8d2ffe5343511aa668d1b1b9f0e2a6b53
-Author: Robin Murphy <robin.murphy@arm.com>
-Subject: perf: Add Arm Bus Monitor Unit driver
+After a brief discussion: it can be either, depending on what suites
+better (and if you can persuade DMA / IOMMU maintainers to let one extra
+bus or not).
 
-This commit introduces the Arm Bus Monitor Unit (BMU) driver to support=20
-performance event counting on Arm BMU devices, placing it under arm_cspmu=20
-to share common register definitions.
-
-> diff --git a/drivers/perf/arm_cspmu/arm-bmu.c b/drivers/perf/arm_cspmu/ar=
-m-bmu.c
-> new file mode 100644
-> index 0000000000000..0ed9e34857ff8
-> --- /dev/null
-> +++ b/drivers/perf/arm_cspmu/arm-bmu.c
-[ ... ]
-> +static ssize_t arm_bmu_format_show(struct device *dev,
-> +				   struct device_attribute *attr, char *buf)
-> +{
-> +	struct arm_bmu_format_attr *fmt =3D container_of(attr, typeof(*fmt), at=
-tr);
-> +
-> +	if (!fmt->config)
-> +		return sysfs_emit(buf, "config:%*pbl\n", 64, &fmt->field);
-> +
-> +	return sysfs_emit(buf, "config%d:%*pbl\n", fmt->config, 64, &fmt->field=
-);
-> +}
-
-[Severity: Low]
-Does passing a pointer to a u64 variable into the %*pbl format specifier re=
-ad
-incorrectly on 32-bit architectures?=20
-
-The %*pbl specifier expects a pointer to an array of unsigned longs. On 32-=
-bit
-big-endian systems under COMPILE_TEST, this might result in reversed words.
-
-[ ... ]
-> +static int arm_bmu_validate_group(struct perf_event *event)
-> +{
-> +	struct arm_bmu *bmu =3D to_bmu(event->pmu);
-> +	struct perf_event *sibling, *leader =3D event->group_leader;
-> +	int num[MAX_IMUS] =3D { 0 };
-[ ... ]
-> +	for (int i =3D 0; i < bmu->num_imus; i++) {
-> +		if (++num[i] > bmu->imus[i].num_counters)
-> +			return -EINVAL;
-> +	}
-> +	return 0;
-> +}
-
-[Severity: High]
-Does this loop unconditionally increment the event count requirement for ev=
-ery
-IMU on the device? It appears `++num[i]` will be evaluated for all iteratio=
-ns,
-meaning valid groups might be rejected if they don't use all available IMUs.
-
-[ ... ]
-> +static void arm_bmu_event_stop(struct perf_event *event, int flags)
-> +{
-> +	struct arm_bmu_pmu *pmu =3D to_bmu_pmu(event);
-> +
-> +	writel_relaxed(1ULL << event->hw.idx, pmu->base + PMCNTENCLR);
-> +	if (flags & PERF_EF_UPDATE)
-> +		arm_bmu_event_read(event);
-> +}
-[ ... ]
-> +static void arm_bmu_event_del(struct perf_event *event, int flags)
-> +{
-> +	struct arm_bmu_pmu *pmu =3D to_bmu_pmu(event);
-> +
-> +	arm_bmu_event_stop(event, PERF_EF_UPDATE);
-> +	pmu->evcnt[event->hw.idx] =3D NULL;
-> +}
-[ ... ]
-> +static void arm_bmu_pmu_irq(struct arm_bmu_pmu *pmu)
-> +{
-> +	u32 reg =3D readl_relaxed(pmu->base + PMOVSCLR);
-> +	u64 __iomem *pmevcnt =3D pmu->base + PMEVCNTR_LO;
-> +
-> +	for (int i =3D 0; i < PMU_MAX_COUNTERS; i++) {
-> +		if (!(reg & (1U << i)))
-> +			continue;
-> +		if (WARN_ON(!pmu->evcnt[i]))
-> +			continue;
-
-[Severity: Medium]
-Could an uncleared overflow interrupt trigger this WARN_ON spuriously?
-
-When an event is stopped, the hardware counter is halted, but pending overf=
-low
-interrupts in PMOVSCLR are not cleared. If an overflow fires just before the
-counter is stopped and deleted, the IRQ handler might observe a NULL pointer
-here and unnecessarily spam the logs.
-
-> +		arm_bmu_event_read(pmu->evcnt[i]);
-> +		local64_set(&pmu->evcnt[i]->hw.prev_count, S64_MIN);
-> +		lo_hi_writeq_relaxed(S64_MIN, pmevcnt + i);
-> +	}
-> +	writel_relaxed(reg, pmu->base + PMOVSCLR);
-> +}
-
-[Severity: Medium]
-Does writing S64_MIN back to the hardware counter permanently lose events?
-
-The hardware counter is still running while it is being read in the handler.
-Blindly resetting it without first disabling it via PMCNTENCLR might overwr=
-ite
-and drop any counts that accumulated between the read and this reset.
-
-[ ... ]
-> +static int arm_bmu_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	/* PMUs and MPAM MSCs are intermingled so we can't claim the whole reso=
-urce */
-> +	base =3D devm_ioremap(dev, res->start, resource_size(res));
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-
-[Severity: High]
-Will IS_ERR(base) ever evaluate to true here?=20
-
-devm_ioremap() returns NULL on failure, not an ERR_PTR. Checking it with
-IS_ERR() means allocation failures are silently ignored, leading to a NULL
-pointer dereference on the subsequent writel_relaxed().
-
-[ ... ]
-> +	cfg =3D lo_hi_readq_relaxed(base + MCU_CONFIG);
-> +	num =3D 1 + FIELD_GET(MCUCFG_NUM_IMU_MONITORS, cfg);
-> +	/* We don't expect to have dual-page complications to worry about */
-> +	sz =3D FIELD_GET(MCUCFG_PMU_ELEMENT_SIZE, cfg);
-> +	if (sz !=3D 1)
-> +		return dev_err_probe(dev, -EINVAL, "PMU_ELEMENT_SIZE 0x%x not supporte=
-d\n", sz);
-> +
-> +	/* The PMU pages *are* exclusively ours */
-> +	off =3D SZ_4K * FIELD_GET(MCUCFG_PMU_ELEMENT_START, cfg);
-
-[Severity: High]
-Should the hardware-provided offset be validated against the mapped MMIO
-resource boundary?=20
-
-Adding `off` to `base` without verifying that the resulting region falls wi=
-thin
-resource_size(res) could lead to an out-of-bounds memory read if the hardwa=
-re
-reports an unexpectedly large value.
-
-> +	if (!devm_request_mem_region(dev, res->start + off, num * SZ_4K, dev_na=
-me(dev)))
-> +		return dev_err_probe(dev, err, "Unable to request PMU region\n");
-
-[Severity: High]
-Is `err` uninitialized in this error path?=20
-
-If devm_request_mem_region() fails, it returns NULL and doesn't modify `err=
-`.
-This might cause the probe function to return random stack garbage, or 0
-(success), leaving the driver only partially initialized.
-
-[ ... ]
-> +	bmu->cpu =3D cpumask_local_spread(atomic_fetch_inc(&n), dev_to_node(dev=
-));
-
-[Severity: Medium]
-Could the selected CPU go offline before the PMU's hotplug state is registe=
-red?
-
-Since cpus_read_lock() is not held around this selection, a race could leave
-the driver permanently bound to an offline CPU if a hotplug event occurs ri=
-ght
-after this assignment.
-
-> +	bmu->irq =3D platform_get_irq(pdev, 0);
-> +	if (bmu->irq > 0) {
-> +		err =3D devm_request_irq(dev, bmu->irq, arm_bmu_handle_irq,
-> +				       IRQF_NOBALANCING | IRQF_NO_THREAD,
-> +				       dev_name(dev), bmu);
-> +		if (err)
-> +			bmu->irq =3D 0;
-> +		else
-> +			irq_set_affinity(bmu->irq, cpumask_of(bmu->cpu));
-> +	}
-> +	if (!bmu->irq)
-> +		dev_info(dev, "Continuing without IRQ\n");
-
-[Severity: Medium]
-If platform_get_irq() fails and returns a negative error code, will it bypa=
-ss
-the `!bmu->irq` check and retain the negative value?
-
-Later during a CPU hotplug migration, arm_bmu_migrate() checks `if (bmu->ir=
-q)`
-and might pass this negative error code directly into irq_set_affinity().
-
-[ ... ]
-> +	if (name)
-> +		name =3D devm_kasprintf(dev, GFP_KERNEL, "arm_bmu_%s", name);
-> +	else
-> +		name =3D devm_kasprintf(dev, GFP_KERNEL, "arm_bmu_%llx", res->start >>=
- 12);
-
-[Severity: Low]
-Could using %llx here cause format string corruption on 32-bit builds?=20
-
-Under COMPILE_TEST, `res->start` is a resource_size_t, which is a 32-bit
-integer on 32-bit architectures. Passing a 32-bit integer to a 64-bit format
-specifier will consume extra bits from the variadic arguments.
-
-> +	if (!name)
-> +		return -ENOMEM;
-> +
-> +	err =3D cpuhp_state_add_instance_nocalls(arm_bmu_cpuhp_state, &bmu->cpu=
-hp_node);
-> +	if (err)
-> +		return err;
-> +
-> +	err =3D perf_pmu_register(&bmu->pmu, name, -1);
-> +	if (err)
-> +		cpuhp_state_remove_instance_nocalls(arm_bmu_cpuhp_state, &bmu->cpuhp_n=
-ode);
-> +
-> +	return err;
-> +}
-
-[Severity: High]
-Does registering with CPU hotplug before perf_pmu_register() create a race
-window?=20
-
-If a hotplug event fires between these two calls, it would trigger
-perf_pmu_migrate_context() on an uninitialized PMU context, which might res=
-ult
-in a NULL pointer dereference.
-
-> +static void arm_bmu_remove(struct platform_device *pdev)
-> +{
-> +	struct arm_bmu *bmu =3D platform_get_drvdata(pdev);
-> +
-> +	for (int i =3D 0; i < bmu->num_imus; i++)
-> +		writel_relaxed(U32_MAX, bmu->imus[i].base + PMINTENCLR);
-> +
-> +	perf_pmu_unregister(&bmu->pmu);
-> +	cpuhp_state_remove_instance_nocalls(arm_bmu_cpuhp_state, &bmu->cpuhp_no=
-de);
-> +}
-
-[Severity: High]
-Similarly, does unregistering the PMU before removing the hotplug instance
-create a use-after-free window if a hotplug event occurs right after
-perf_pmu_unregister() returns?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783439341.gi=
-t.robin.murphy@arm.com?part=3D2
+-- 
+With best wishes
+Dmitry
