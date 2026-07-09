@@ -1,106 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F71E3AFD08;
-	Thu,  9 Jul 2026 10:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12BE3AC0F8
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783592365; cv=none; b=Blz3a3icZutWcqS5TL4D7ft8QkveQpTlOHcKYvCr7rbVLthSGEt06JTOvLfJttrN9FY6MaULSep3iRJ2xhiE8bfCd7Mid56uCB88wD6oPLpbHihecLbRISFK5ynj1bEvV6rHm2E1BOLHj0C9WChwOepV7epS1yorxMkuPmArlO0=
+	t=1783592416; cv=none; b=cbRLnzGd9xkzc8zsBqdlRM6Brp25vnkJGFYNybZCJ3chDouTq/U8mywMrhsjXZkG5ZnUFTx+mmkAzHz+dfxYNfyf35j9owKYwrvChdRiSc/DUP7OmY08kaOGznIr7Z/9eIwOvGw5xyCrvkCXvlz9b2rt+SNF8ncr/vfbbGAUmmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783592365; c=relaxed/simple;
-	bh=C6Zr3JPMN5tTq60ktTOM2vy0OVuEMSsWu+hbALmvEZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=INepMwYrF8Us7aqtZ8n8uLB2l+zBjYg3ZOvUqdBZpvep/jwq5+cPefMFzftzgoq0W9ERHLGIMLxMx5klcvFwXJ9irTWth7mEG1p1q0POMSwENIP/6bmvAv7KSHQ7u9Fxz40TWheEfZxMEr+rmIyHDb1BsepgCqp1wE49Qigb5WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WICtewaP; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783592416; c=relaxed/simple;
+	bh=p4UfTFRZvH8kPU/u6hpEqgqPRpsTnoV9gpCUTKxnIVI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CwOfhVFXL0EAjqjq1/bi3lCELbiQPZDa1hiFtCTwo92BFyRuQasXVedJegBaUs8AcJpB/7Zfd1TsHsqKyWjiKFiG2Uahp0oiDSpHWI3/CsgtV3YD+Ke+BuhWARmd69YLtYjNX4zn9fa0BaiK4zoMc2qR3x5RYG+320gA+VReyZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxvZSRo6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WICtewaP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783592364; x=1815128364;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=C6Zr3JPMN5tTq60ktTOM2vy0OVuEMSsWu+hbALmvEZU=;
-  b=WICtewaPuv6xrsqD/8iFgRXzbioAcnzSqJfX6l+Hy1zXgb/Z7dT5pD9R
-   Wpdygd679sO2PQjxqTM1glaXxQn2iIrQrEDwdZw8vh7o8FfppsRhwwKW3
-   34WG36XgxTVkGOWuyRfWtuyCmU9ydQwN8DJfKuPZTwahfKJCyTV4d2+m5
-   2W/bkzOm5nketbBDo6j4bgs3QnihPLU4k5XuvAW8XEJT89/i4xCgpKk8m
-   itpDQ7iz+pAUe5ewW10qjJhL6gLuy+czm24NejnzwoF+fuo/XdunRbaGx
-   mh99NlOCj811dmApT5hteQ9HhTvqs/C7N1DCkqAL3+b43mFaqkGx0kke9
-   Q==;
-X-CSE-ConnectionGUID: bdjMnXNsSk6sUXb5bENmzg==
-X-CSE-MsgGUID: hINaXRUATbmwyAfEL8axZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84049145"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="84049145"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 03:19:23 -0700
-X-CSE-ConnectionGUID: xdmAXBAHSk+RrTuLQSFiZw==
-X-CSE-MsgGUID: tbqOnLjfTia+tCAFPlXeEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="277774860"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Jul 2026 03:19:21 -0700
-Date: Thu, 9 Jul 2026 13:19:18 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Lukas <lukas.metz@gmx.net>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: dac: dac8163: Add driver for DAC8163
-Message-ID: <ak91pq1suFO2k76v@ashevche-desk.local>
-References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
- <20260708-dac8163-work-v2-2-3acd1bf20182@gmx.net>
- <ak41MZNHFvVzeq6Z@ashevche-desk.local>
- <ak9x4iKf7yR1rMWN@berta-MS-7693>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxvZSRo6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545EC1F000E9;
+	Thu,  9 Jul 2026 10:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783592415;
+	bh=Giyh/AYMD+/0jexkX4BgpX9MB8bptuUkeWgajJRS1WM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LxvZSRo6SJxYFP2AGx4F6wIXyUJY/IxNO6nEAIM3tx7a3Y5vBeGzosA6XkNGHxF1P
+	 RzSePcKT9wwTeUXCGXRlh7BifDfVyZj/n5hlowxzmlIvXxpCaOuegcu8G5LCbz2fwb
+	 FTJuPwxaRLCulGpZlW0WRPWd2xORKeoPX8qVzB3uTHi8missalB4i7u4BAXtBBQw0M
+	 mH04NsBILh5Fs9BcFdbNFHo9sBPG+V7+DY0Knmldr2TRnF4SA1BjGR4sr7i/JXJFR2
+	 7/Etk9DZ4HbyM0/ZXfeEBLMa+FqYH485tY6gNtfbTo8v0pVdMe/8jtGNclXGk4pwy2
+	 Lc5+rD7YBcuxg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and phy
+ driver unregistration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709100617.42583-4-angelogioacchino.delregno@collabora.com>
+References: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
+ <20260709100617.42583-4-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 10:20:13 +0000
+Message-Id: <20260709102014.545EC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ak9x4iKf7yR1rMWN@berta-MS-7693>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Jul 09, 2026 at 12:03:14PM +0200, Lukas wrote:
-> On Wed, Jul 08, 2026 at 02:32:01PM +0300, Andy Shevchenko wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Wrong device pointer passed to devm_add_action_or_reset() for the =
+audio codec platform device causes a leak and double-free.
+- [High] Manual platform_device_unregister() calls in the devm_add_action_o=
+r_reset() error paths lead to double unregistrations.
+--
 
-...
+--- Patch [3]: [PATCH v2 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and ph=
+y driver unregistration ---
+commit ec9d95ddc19e68c697bea7b649dc680e85f406a8
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-> > At the first glance it seems I already commented on the issues in this driver.
-> > Yes, I see that I commented
-> > 
-> >   "Leave trailing commas in the non-terminator entries here and there."
-> > 
-> > and in several places in this version it has not been addressed.
-> > Taking into account this I don't want to go through and check what
-> > else is missing, so please go again to v1 and carefully read *all*
-> > the comments and either address them, or explain why it's not done.
-> 
-> You are right, i forgot to change that in several places. I think i got
-> lost a little bit due to the amount of changes.
+drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
 
-The advice here is to slow down, and be not in a hurry, just take your time
-for what needs to be done.
+This commit attempts to fix platform device leaks during probe deferrals
+by adding devm_add_action_or_reset() calls to automatically unregister
+the HDMI codec and DisplayPort PHY platform devices.
 
-> I will make sure to carefully check that i didnt miss anything before sending
-> v3.  
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index eefbc7e0f9c8d..2c738c16dafab 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
 
-> Thanks for taking the time.
+[ ... ]
 
-You're welcome!
+> @@ -2680,18 +2687,29 @@ static int mtk_dp_register_audio_driver(struct de=
+vice *dev)
+>  		.data =3D mtk_dp,
+>  		.no_capture_mute =3D 1,
+>  	};
+> +	int ret;
+> =20
+>  	mtk_dp->audio_pdev =3D platform_device_register_data(dev,
+>  							   HDMI_CODEC_DRV_NAME,
+>  							   PLATFORM_DEVID_AUTO,
+>  							   &codec_data,
+>  							   sizeof(codec_data));
+> -	return PTR_ERR_OR_ZERO(mtk_dp->audio_pdev);
+> +	if (IS_ERR(mtk_dp->audio_pdev))
+> +		return PTR_ERR(mtk_dp->audio_pdev);
+> +
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+                                                                     ^^^^^^=
+^^^^^^^^^
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: High]
+Should this be passing mtk_dp->audio_pdev instead of mtk_dp->phy_dev?
 
+Passing mtk_dp->phy_dev here registers a second unregister action for the p=
+hy
+device, which could lead to a double-free on driver unbind, while leaving
+the audio device leaked.
 
+> +	if (ret) {
+> +		platform_device_unregister(mtk_dp->audio_pdev);
+
+[Severity: High]
+Will this cause a double unregistration if devm_add_action_or_reset() fails?
+
+Since devm_add_action_or_reset() automatically executes the action callback
+(mtk_dp_unregister_pdevs) upon failure, wouldn't calling
+platform_device_unregister() here unregister it a second time?
+
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add codec unregister devm action");
+> +	}
+> +	return 0;
+>  }
+> =20
+>  static int mtk_dp_register_phy(struct mtk_dp *mtk_dp)
+>  {
+>  	struct device *dev =3D mtk_dp->dev;
+> +	int ret;
+> =20
+>  	mtk_dp->phy_dev =3D platform_device_register_data(dev, "mediatek-dp-phy=
+",
+>  							PLATFORM_DEVID_AUTO,
+> @@ -2701,6 +2719,13 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_=
+dp)
+>  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy_dev),
+>  				     "Failed to create device mediatek-dp-phy\n");
+> =20
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+> +	if (ret) {
+> +		platform_device_unregister(mtk_dp->phy_dev);
+
+[Severity: High]
+Similarly, does this result in a double unregistration if the devm action
+fails to allocate?
+
+devm_add_action_or_reset() will call mtk_dp_unregister_pdevs(mtk_dp->phy_de=
+v)
+internally if it returns an error, making this manual unregister redundant =
+and
+potentially unsafe.
+
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add phy unregister devm action");
+> +	}
+> +
+>  	mtk_dp_get_calibration_data(mtk_dp);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709100617.4258=
+3-1-angelogioacchino.delregno@collabora.com?part=3D3
