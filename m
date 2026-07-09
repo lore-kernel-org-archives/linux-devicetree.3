@@ -1,135 +1,179 @@
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FC94E377E
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 18:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D39C2DA75C;
+	Thu,  9 Jul 2026 18:35:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783621740; cv=none; b=BF0Gff4aXxZKZa3qul9qgN5GfcF+GNF63kQllBU6CKhTp7Ec5dhjMF18xkevsEZWyXuzvvwIOfMSqWhIcYj+dpWnplyGtKl95k258AgzZYbdS6NbcHVL+eyH2Dz8cuAOVrPnRoxSFvVhDSMXsS3r54YFzwRTz45Ol4Hk9W0a/Gs=
+	t=1783622130; cv=none; b=rMTmi9XIaWzI2nMDis0cn9LSwelIdV36O22fk6C6QKEBOq7or0bFstr8YLuwZN/vGUWWFEaBJGfrzRAjPZhoxPX9mvSXuWZa76qG4Xsu+G68qIsriXCU9AJfi51kiH9jVt0m0FzNjFt/UNemiF61Ls5ecnLi6YIOvcPzvPlh9yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783621740; c=relaxed/simple;
-	bh=F3880iQjXWhrnjsz5UgW9kwELR4+dgn6tPqZG2gmN40=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=oRESe8U5bmhS/JL1IdlysuWsV2B0PXnLY+/c1A8bijxpPWq8Rc/r+sT/lk68nipa0s/w4ZAFcwOqd/JG7iADRxBx6IU2sChdIUpzM1oR2xf+RKKpoOPyT0qZSqRcl0R/KosHUEHN0P4xcOJPfxNfA3OkazmWqzZdeGYFGNkYYDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=echKC+5X; arc=none smtp.client-ip=74.125.227.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783622130; c=relaxed/simple;
+	bh=bGfG1R9tGv1X9oJXk+3B01J3EtPcQKdVt5vrlOs3Mzg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HQBw+llZ7bXZbzZTWKDEgY8UZRNgDdhTGiCZizQc1frZVZJmdrO+vRnbYIcH4Ow//uNtjYMcDD+a2fnmbkIqWp+5R9SU1yGRClP6LGyARN6by0aJOxqWlIPoDGrCVHiZ2R64zCpL7O7W89MNeTJM2bgk+EcwDiqvh3C0ERAOixc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlyQdMR9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="echKC+5X"
-Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-380feaa05dcso145792a91.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 11:28:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783621735; x=1784226535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=RN+4SkO8PJ9d9SXPrFRpz0v6UaMeYjDz8fSXVOFCTUQ=;
-        b=echKC+5X5qoqV5LdJaqQGubY47jm7Zembzmf9K7+sEEa/jSGiN3uWpdGkt0T+WmwvW
-         DTkiOupga53wz/0Nff48YilHcxX8v3vvxOgWtfcNT8t0eAJDze39VGM6u/76qVIhOOTz
-         0tuchl/Zimj0RwsH0BPMZOQoyXYS9oiqzNfEWXp0ykQZj/WNS1dKaiFNVg65RicVazY8
-         K5tVgJR1KULffrnSHW3bT/q/PewsLuEnrmLOWr1HQLd9t9Veela2IwRPw4f4TOkKjmWc
-         /BAmcxxtuW7jGII3slRz8XGALERCP0cWgbeNH0lcGa5pKFMV4MXNcL1FVlqB3dxCbTYb
-         0A3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783621735; x=1784226535;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RN+4SkO8PJ9d9SXPrFRpz0v6UaMeYjDz8fSXVOFCTUQ=;
-        b=Fh+6oxKHHucnLcof2/6YtRVfPtCSOGuXrxDvCGgPrWt7FLvarD4AKxJLpxqSkblI60
-         EwiOEkNk9razJqoXOmA8GHFWrHImFHppEiNrUdvq5uclay2qF1tQxM4vbg2E1HbvoE1M
-         3ftG2mNg6fKqh+sdy5xDaBGZmepPQnIcnKpMhEcMuMRSz6cfzMbW1PdZdBxHEhK1ljZn
-         RdosQ7xFgDRwILhrrY5AiDaDTZ9sjovqIV4dYJfyqhL0UCsFGdpKgyPnEo0WMpV4kXKD
-         It4QDUxeZB60lBI8SG53nKIh303aJJLE/58urQOYIl0k49aFWaaX/peOMbsrXgJ99XZZ
-         YPSg==
-X-Forwarded-Encrypted: i=1; AHgh+RrTHIZjeTMqNqxiG+qQMEnqlN6mZMtrfcrQ2k0mO9h24m4SyC4feLmKy633FU3BGp0dSKKXqTq5f1xR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxzx5XFsIfJ8qi1qNRehMgfgw0RGqF5UHU8JErsJw3Q1Ut7TbFC
-	qVgOELhG6TQoKrTEQ3SqIbzP4pO9pQzGRhGBIMocMgqGcfTig95KqeRZ
-X-Gm-Gg: AfdE7ckf8Jzm/v/gzTLhYM1Z0bKWl120wFCDG54elaXOnXAsUEi6qAjmLlqXG5WyXJ7
-	hVzyuMtPfJp7kSJ0w/QonCWDWG3hdNT/eHWA6aVDpktpSVxnVLWZ8gBcKYlKynQjnItiM8RXNpt
-	IbT6rSOwb3jXVBOz+U45p7f8jfuV1jrNhZG5PJ8haHj05l863hQ3ZQOg4i0HgwxCpVrkgv7c9st
-	U6pIuNW7dWY22RMywuDoRujUa4BlcKY7jm9IsAHC1w0Ek05jQto35GT/pJE4xeXXFvSRVs+DG23
-	7pCeLg//8vgAIuaONhRYXpOg4pytSLXme2oAJQN0FPLIuhzS3RmbZMFxEtQCsqBlI2VVfCUPb22
-	s4oC9QmOhj31ZqL0zm0QQ3UI9nlqkAoBfl4mR5QGPOD40OCpnZYpoACAwyafu/TjOKAPG8eSxqT
-	Pb/oxqbvb5O+T1EMaUTfDm1cg=
-X-Received: by 2002:a05:6a21:7482:b0:3a2:f7bd:a9a5 with SMTP id adf61e73a8af0-3c0bcbc0455mr10030942637.38.1783621734601;
-        Thu, 09 Jul 2026 11:28:54 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([150.230.217.250])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca5af7d5946sm4088600a12.7.2026.07.09.11.28.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 11:28:54 -0700 (PDT)
-Date: Wed, 01 Jul 2026 18:01:30 +0800
-From: Coia Prant <coiaprant@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Dragan Simic <dsimic@manjaro.org>, Jonas Karlman <jonas@kwiboo.se>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add graperain
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260701-sturdy-imported-oryx-dfc12a@quoll>
-References: <20260630153810.3574714-2-coiaprant@gmail.com> <20260630153810.3574714-4-coiaprant@gmail.com> <20260701-sturdy-imported-oryx-dfc12a@quoll>
-Message-ID: <A4CA0393-B348-48A0-B5DB-D1F9098EB37B@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlyQdMR9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACCB81F000E9;
+	Thu,  9 Jul 2026 18:35:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783622129;
+	bh=muZKBxbTDNcwDwKPshS+loxZreKpCDhK1Bft7STGHqg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JlyQdMR9Dg10Ny40XsRF3Ut3qnA55AXuVCKWzSySwJ9T+yhPWjbHPGxrtNedG6x6a
+	 GBRDlZY/oCCpR8ID4OHumxNYbEHhnx8Mq6S6xnqQHPYYpVNz53PkoYX0IguRRVohPQ
+	 PK8djsefnEZbNTCBepfGCv4zHv4cm1MXo1kTlpyVQ63dAPVdDVUdQTzK3DPzRMs15c
+	 EU1OfcsmjR8Mtpz52eyh4KUucM/sBfDRkYTV/YqO5j7FrE0x7cGbUo2txF2OXS3cEJ
+	 zJhq0QjU8XL8L59GHFpuE98D34+clDStbW40eIagR23tVaZe9D6E9UvMxzoBu6dR8e
+	 ayZmFpmULST/Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/8] can: rcar_canfd: Allow the CAN FD clock to be
+ sourced from fck
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Claudiu Beznea" <claudiu.beznea+renesas@tuxon.dev>
+Cc: linux-can@vger.kernel.org, "Oliver Hartkopp" <socketcan@hartkopp.net>, wsa+renesas@sang-engineering.com, "Oleksij
+ Rempel" <o.rempel@pengutronix.de>, "Marc Kleine-Budde" <mkl@pengutronix.de>, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, "Vincent
+ Mailhol" <mailhol@kernel.org>
+In-Reply-To: <20260709182332.876408-5-claudiu.beznea+renesas@tuxon.dev>
+References: <20260709182332.876408-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260709182332.876408-5-claudiu.beznea+renesas@tuxon.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 18:35:28 +0000
+Message-Id: <20260709183528.ACCB81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On July 1, 2026 3:05:45 PM GMT+08:00, Krzysztof Kozlowski <krzk@kernel=2Eor=
-g> wrote:
->On Tue, Jun 30, 2026 at 11:38:09PM +0800, Coia Prant wrote:
->> Add graperain to the vendor prefixes=2E
->>=20
->> Link: https://www=2Egraperain=2Ecn/ (China)
->> Link: https://www=2Egraperain=2Ecom/ (Global)
->>=20
->> Signed-off-by: Coia Prant <coiaprant@gmail=2Ecom>
->> ---
->>  Documentation/devicetree/bindings/vendor-prefixes=2Eyaml | 2 ++
->>  1 file changed, 2 insertions(+)
->>
->
-><form letter>
->This is a friendly reminder during the review process=2E
->
->It looks like you received a tag and forgot to add it=2E
->
->If you do not know the process, here is a short explanation:
->Please add Acked-by/Reviewed-by/Tested-by tags when posting new
->versions of patchset, under or above your Signed-off-by tag, unless
->patch changed significantly (e=2Eg=2E new properties added to the DT
->bindings)=2E Tag is "received", when provided in a message replied to you
->on the mailing list=2E Tools like b4 can help here=2E However, there's no
->need to repost patches *only* to add the tags=2E The upstream maintainer
->will do that for tags received on the version they apply=2E
->
->Please read:
->https://elixir=2Ebootlin=2Ecom/linux/v6=2E12-rc3/source/Documentation/pro=
-cess/submitting-patches=2Erst#L577
->
->If a tag was not added on purpose, please state in the patch changelog
->or cover letter why and what changed=2E
-></form letter>
->
->Best regards,
->Krzysztof
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-My apologies! I am quite new to the kernel submission process and=20
-missed picking up the tag from v1=2E=20
+New issues:
+- [High] Unhandled ERR_PTR dereference leading to kernel panic in clock API.
 
-Since I need to spin a v3 anyway to fix the text wrapping issue in=20
-patch 2, I will make sure to include the missing tags and resend the=20
-entire series=2E
+Pre-existing issues:
+- [High] Use-After-Free and Double Free on probe error path.
+--
 
-Thanks for your patience and for pointing this out!
+--- Patch [4]: [PATCH v2 4/8] can: rcar_canfd: Allow the CAN FD clock to be=
+ sourced from fck ---
+commit 4210af3a91e163ec149ddcdedbbe130decc7d427
+Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-Best,
-Coia
+can: rcar_canfd: Allow the CAN FD clock to be sourced from fck
+
+Adjust the existing canfd clock handling code to support the RZ/G3S CAN.
+When fck is used, it is divided internally by the CAN FD controller.
+
+Link: https://lore.kernel.org/all/1d9719e3-10ff-4cd8-b729-55fea93c37ce@wana=
+doo.fr
+
+> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rca=
+r_canfd.c
+> index b40ae5998c1da..0283620ebcf8d 100644
+> --- a/drivers/net/can/rcar/rcar_canfd.c
+> +++ b/drivers/net/can/rcar/rcar_canfd.c
+[ ... ]
+> @@ -2190,13 +2196,19 @@ static int rcar_canfd_probe(struct platform_devic=
+e *pdev)
+>  	 */
+>  	gpriv->can_clk =3D devm_clk_get(dev, "can_clk");
+>  	if (IS_ERR(gpriv->can_clk) || (clk_get_rate(gpriv->can_clk) =3D=3D 0)) {
+> -		gpriv->can_clk =3D devm_clk_get(dev, "canfd");
+> -		if (IS_ERR(gpriv->can_clk))
+> -			return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
+> -					     "cannot get canfd clock\n");
+> +		if (info->fcan_pclk) {
+> +			fcan_freq =3D clk_get_rate(gpriv->clkp);
+> +		} else {
+
+[Severity: High]
+If info->fcan_pclk is true and can_clk is not present, gpriv->can_clk
+retains an ERR_PTR value here.
+
+When the interface is brought up later, rcar_canfd_open() calls
+clk_prepare_enable(gpriv->can_clk):
+
+drivers/net/can/rcar/rcar_canfd.c:rcar_canfd_open() {
+    ...
+	/* Peripheral clock is already enabled in probe */
+	err =3D clk_prepare_enable(gpriv->can_clk);
+	if (err) {
+    ...
+}
+
+Because clk_prepare_enable() checks for NULL but not for IS_ERR(), will
+this dereference the error pointer and cause a kernel panic? Should
+gpriv->can_clk be explicitly set to NULL when using the fcan_pclk fallback?
+
+> +			gpriv->can_clk =3D devm_clk_get(dev, "canfd");
+> +			if (IS_ERR(gpriv->can_clk))
+> +				return dev_err_probe(dev, PTR_ERR(gpriv->can_clk),
+> +						     "cannot get canfd clock\n");
+> +
+> +			fcan_freq =3D clk_get_rate(gpriv->can_clk);
+> +		}
+> =20
+>  		/* CANFD clock may be further divided within the IP */
+> -		fcan_freq =3D clk_get_rate(gpriv->can_clk) / info->postdiv;
+> +		fcan_freq /=3D info->postdiv;
+>  	} else {
+>  		fcan_freq =3D clk_get_rate(gpriv->can_clk);
+>  		gpriv->extclk =3D gpriv->info->external_clk;
+
+[Severity: High]
+This is a pre-existing issue, but there is a use-after-free and double
+free on the probe error path.
+
+In rcar_canfd_channel_probe():
+
+drivers/net/can/rcar/rcar_canfd.c:rcar_canfd_channel_probe() {
+    ...
+	gpriv->ch[priv->channel] =3D priv;
+	err =3D register_candev(ndev);
+	if (err) {
+		dev_err(dev, "register_candev() failed: %pe\n", ERR_PTR(err));
+		goto fail_candev;
+	}
+    ...
+fail_candev:
+	netif_napi_del(&priv->napi);
+fail:
+	free_candev(ndev);
+	return err;
+}
+
+If register_candev() fails, ndev (which contains priv) is freed via
+free_candev(), but the global pointer gpriv->ch[priv->channel] is not
+cleared.
+
+Then in the parent rcar_canfd_probe(), the error handler cleans up:
+
+drivers/net/can/rcar/rcar_canfd.c:rcar_canfd_probe() {
+    ...
+fail_channel:
+	for_each_set_bit(ch, &gpriv->channels_mask, info->max_channels)
+		rcar_canfd_channel_remove(gpriv, ch);
+    ...
+}
+
+And rcar_canfd_channel_remove() bypasses the NULL check:
+
+drivers/net/can/rcar/rcar_canfd.c:rcar_canfd_channel_remove() {
+	struct rcar_canfd_channel *priv =3D gpriv->ch[ch];
+
+	if (priv) {
+		unregister_candev(priv->ndev);
+		netif_napi_del(&priv->napi);
+		free_candev(priv->ndev);
+	}
+}
+
+Will this cause unregister_candev() to be called on an already freed device,
+followed by a second free_candev()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709182332.8764=
+08-1-claudiu.beznea+renesas@tuxon.dev?part=3D4
