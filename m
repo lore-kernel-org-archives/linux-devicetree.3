@@ -1,123 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2122B425CD2
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585F5423A83;
+	Thu,  9 Jul 2026 12:41:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783600769; cv=none; b=Nzi/zYu8XvsBADzuADki5eIGdeTZ9cjLi0vT27Qu+ZLpMp1zKAlh/sfS0DJIojoYbcPx+ys7dHFjENXkADzUoiK++ecMAJ8E6dIQdYpiRO5HacCwdVC6DFYsEPM5AvfR6LHSTzI1Cp/wlTHRQ6NF4ePvMRIGf3zHY1w/YmKHoMg=
+	t=1783600905; cv=none; b=h0ebnFZrhDNUpa2IfR0Rjm9kc7J06vpeA23dijwYRHm9jBYtOIr3+DOd7R5zeFzwNxfcx+xNjaZ1/db8lk1h+3SsXocOqJ8WhT019RFIwGBsx5vsFR9BQjQ9MchNQVbM5J+2ieyM4UAxDPqE1cnH87IyVbhTehFpfJJY+JSNcz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783600769; c=relaxed/simple;
-	bh=Gu/mfaCwUOZfbyd3j2jz9BUIQ2t6OtsdXr1YluxXw64=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QJ+Jh2LstfjWR8DF5Dmi5T8VERSl7F/utilcQoXRRNenncGBEINtD840TydgLVJtdH0xTwJctR2sY2PH7V+IKeN0YwIgM4B+BLSV+VozONOc0/fGo6YbaTFlSPoX+h8rBwFojxrv+BcMaAjTz52N4axetTCDilQG+nbnU8a8BD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLsrnEO/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783600905; c=relaxed/simple;
+	bh=LvE5Bv+Q9Kb3QhOwyuRjRXb/JhFAVTspcyRqZ8jaZaA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pyDW3kiWtDIp2GcgdxU7svO9HmMjZ922bDRejtstw1bQGB9oNkvc6QzOJk4dKQZCBiVyIiEC4oj+JzSosFlbVEaoX5KEL+LA4uHgdzNcdzlwaS8LSHX8Nq40KxwuSHM8zcg5H5SMD0qokSbYlWBEKOCtzqGYnyDimdlQe8R4CRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xzjy5hPy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLsrnEO/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BCF1F00A3A;
-	Thu,  9 Jul 2026 12:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xzjy5hPy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90C01F000E9;
+	Thu,  9 Jul 2026 12:41:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783600767;
-	bh=Glra8PM4NwvhMoMLMUELeGKOY0pVK6QZo2f4IdxRaAU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZLsrnEO/ZcW59JRoT86lZ+E9E28AhGnpRErvAOVVnWPrRDW+wR1C395amEmkVL+V3
-	 0CnScU3wO3EbvbZpWlp5oZo8b28t/FisJKOX0CZ+Pboh17WbYAYYCVny+HfhMobJli
-	 1I36KtBSqFWe7tR2/4D56v/8QTUKAt5XiB0srZ/EmRqfrGiMcn8c1M3FUKqcYHZ0zD
-	 qpjan/xwLbcLCrdUwSxm4wprEPn7C4JVbEAflOQLzUc9yPykPN+ZxaJSFplZXxbbf9
-	 y/9C1nRDIxdcpCuHep5V86OZ9+yWrs1PFkO92xrKVoGcd40BUBu1b4YURuOZBIktTL
-	 JCjWPjd5ZFZkA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 4/4] arm64: dts: cix: sky1: add audss cru
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709120125.3997078-5-joakim.zhang@cixtech.com>
-References: <20260709120125.3997078-1-joakim.zhang@cixtech.com>
- <20260709120125.3997078-5-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 12:39:26 +0000
-Message-Id: <20260709123927.67BCF1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1783600904;
+	bh=WQqtsvZ3BMfepcYWgRcnRUjPPP25Gh+uDRBYwRXYJWE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Xzjy5hPyo2DjQhrnPLTIzPPYdMyyaV7ZD45/nq1TbE60yWbX/IIB0ild2cKXv5CD+
+	 omiPZc+Fjr8HR7CNhBGhSnuUhyEZBmnSAL03WO8W/K/4O1G8U3Y98cDqkD6cJb6GL9
+	 0UhM+8nWfaisUyai710fHlLO5QNWvvMlQVtIsL50BuvG1aSdoiKqSfa+rtVbITJmo0
+	 prZYGStsyMBKoiyMSzXo/+qM6nj/wW7pCI46zNcGD41ieo0wTPUvgH3ROsJ+PGYya2
+	 u9HM1jyNGc/S+KOLm45XYmTi/mcBHMmb9W26tP6nOdMyYvzqkGnYsLRs+pHAU6/QeS
+	 fvDoBTX9su/Tg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1who4T-00000003H2e-1Npk;
+	Thu, 09 Jul 2026 12:41:41 +0000
+Date: Thu, 09 Jul 2026 13:43:26 +0100
+Message-ID: <87v7ao5o5t.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,	linux-pci@vger.kernel.org,
+	Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,	Bjorn
+ Helgaas <bhelgaas@google.com>,	Catalin Marinas <catalin.marinas@arm.com>,
+	Conor Dooley <conor+dt@kernel.org>,	Geert Uytterhoeven
+ <geert+renesas@glider.be>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v4 0/5] PCI: rcar-gen4: irqchip/gic-v3: Handle GIC ITS
+In-Reply-To: <c12941e4-3715-404e-b674-090c62b868b8@mailbox.org>
+References: <20260707203743.88299-1-marek.vasut+renesas@mailbox.org>
+	<ybnitlgx3dcqsesubz6jz7pn6snseuxhtz564tinbtvukianaq@33ubmcynyqmt>
+	<c12941e4-3715-404e-b674-090c62b868b8@mailbox.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: marek.vasut@mailbox.org, mani@kernel.org, linux-pci@vger.kernel.org, kwilczynski@kernel.org, bhelgaas@google.com, catalin.marinas@arm.com, conor+dt@kernel.org, geert+renesas@glider.be, krzk+dt@kernel.org, lpieralisi@kernel.org, robh@kernel.org, yoshihiro.shimoda.uh@renesas.com, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Double decrement of the PM runtime usage counter in the probe erro=
-r path.
---
+On Thu, 09 Jul 2026 13:33:22 +0100,
+Marek Vasut <marek.vasut@mailbox.org> wrote:
+> 
+> On 7/9/26 2:19 PM, Manivannan Sadhasivam wrote:
+> > On Tue, Jul 07, 2026 at 10:35:38PM +0200, Marek Vasut wrote:
+> >> Configure all R-Car Gen4 PCIe controller MSI registers fully, both in
+> >> case MSI are enabled and disabled.
+> >> 
+> >> Patch GIC ITS driver and add quirks for R-Car Gen4 GIC ITS, which is
+> >> configured to 32-bit address width for AXI or APB interface.
+> >> 
+> >> Switch R-Car V4H to use GIC ITS in its DT and describe the GIC ITS
+> >> implementation cacheable and shareable limitations.
+> >> 
+> >> Marek Vasut (5):
+> >>    PCI: dwc: Determine whether iMSI is used before calling .init
+> >>    PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
+> >>    irqchip/gic-v3: Refactor GIC600 limited to 32bit PA erratum handling
+> >>    irqchip/gic-v3: Add Renesas R-Car Gen4 erratum workaround
+> > 
+> > Is there a functional dependency between irqchip and PCI patches? Since the
+> > irqchip patches touch ARM64 Kconfig etc... I'm wondering if it still need to go
+> > through PCI tree.
+> I do not believe there is.
+> 
+> These two configure the PCIe controller hardware:
+>   PCI: dwc: Determine whether iMSI is used before calling .init
+>   PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
+> 
+> These two fill in GIC ITS quirks:
+>   irqchip/gic-v3: Refactor GIC600 limited to 32bit PA erratum handling
+>   irqchip/gic-v3: Add Renesas R-Car Gen4 erratum workaround
+> 
+> This one does yes depend on the two and two patches above, and can
+> only be applied once all four aforementioned patches land, otherwise
+> things really yes will break:
+>   arm64: dts: renesas: r8a779g0: Add GICv3 ITS and update PCIe nodes
+> 
+> Would you like me to split the series up , or can you and Marc (?)
+> pick the relevant parts via matching trees ?
 
---- Patch [4]: [PATCH v9 4/4] arm64: dts: cix: sky1: add audss cru ---
-commit 37987ea88a502f3fe87d70d7d428d9f00deb012d
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
+I don't think there's anything for me to pick. The whole thing looks
+like a consistent set, and it probably should be kept together.
 
-arm64: dts: cix: sky1: add audss cru
-   =20
-Add the AUDSS CRU device node providing clocks and software resets
-for audio subsystem peripherals.
+Given that the irqchip stuff has been acked by the relevant party, and
+that the last patch will cause havoc if taken on its own, the only
+course of action is to route the whole thing together, the PCI tree
+being the most obvious victim.
 
-> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/=
-sky1.dtsi
-> index a77c52296ebd3..9b2d969f6bfe7 100644
-> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
-> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+	M.
 
-[ ... ]
-
-> @@ -558,6 +562,20 @@ mbox_pm2ap: mailbox@65a0080 {
->  			cix,mbox-dir =3D "rx";
->  		};
-> =20
-> +		audss_cru: clock-controller@7110000 {
-> +			compatible =3D "cix,sky1-audss-cru";
-> +			reg =3D <0x0 0x07110000 0x0 0x10000>;
-> +			#clock-cells =3D <1>;
-> +			#reset-cells =3D <1>;
-> +			clocks =3D <&scmi_clk CLK_TREE_AUDIO_CLK0>,
-> +				 <&scmi_clk CLK_TREE_AUDIO_CLK2>,
-> +				 <&scmi_clk CLK_TREE_AUDIO_CLK4>,
-> +				 <&scmi_clk CLK_TREE_AUDIO_CLK5>;
-> +			clock-names =3D "x8k", "x11k", "sys", "48m";
-> +			power-domains =3D <&smc_devpd SKY1_PD_AUDIO>;
-> +			resets =3D <&s5_syscon SKY1_AUDIO_HIFI5_NOC_RESET_N>;
-> +		};
-> +
-
-[Severity: High]
-While reviewing this device node, I noticed a regression in the correspondi=
-ng
-driver's probe error path in drivers/clk/cix/clk-sky1-audss.c:sky1_audss_cl=
-k_probe():
-
-fail_clks_set:
-	pm_runtime_put_sync(dev);
-err_pm:
-	pm_runtime_put_noidle(dev);
-	pm_runtime_disable(dev);
-
-Does this sequence result in a double decrement of the PM runtime usage
-counter?=20
-
-The error path correctly calls pm_runtime_put_sync(dev) but then falls thro=
-ugh
-to err_pm which calls pm_runtime_put_noidle(dev).=20
-
-Decrementing the usage counter twice when it was only incremented once caus=
-es
-it to underflow to -1, which corrupts the device's PM runtime state machine.
-
-If deferred probing occurs or the driver is re-bound, will the next probe
-attempt fail to properly resume the device because a single increment will =
-only
-bring the counter back up to 0?
-
->  		mbox_sfh2ap: mailbox@8090000 {
->  			compatible =3D "cix,sky1-mbox";
->  			reg =3D <0x0 0x08090000 0x0 0x10000>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709120125.3997=
-078-1-joakim.zhang@cixtech.com?part=3D4
+-- 
+Jazz isn't dead. It just smells funny.
