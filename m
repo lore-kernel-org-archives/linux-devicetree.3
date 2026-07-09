@@ -1,193 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783D2364943
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E4A36827E;
+	Thu,  9 Jul 2026 15:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783610403; cv=none; b=fvG8pdxYTFL1/AjRg7T9bZTtYk3DQq9wPWoPjelaxSJsJyzZLPcTjAp1IVi2q/XDsjusCTI6BZbs0Ym65hNx5GizT9v5VqIbq1K7An1mtNKzdDzWHJGzcuCa2r0cLk3MG8t+e7DB9VmvgpcFd+m14c94ZO7ZIDbbHRw4HGtUM8k=
+	t=1783610548; cv=none; b=Jm//J7XON4oOEIZkFzOv5/L3I218JdFqWlRiaC2agLZoiqGKEqSznZPfotjCi8NNNnB86qCXheVC0nY3XwiUog/fhNRUQkDx1m4++3xMJfUsKoqlZdtD+hH1Dq9cB4iho1G8GybHu1X2Xxx27DP1BTzCPK0BiXnnkNrUODQCU7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783610403; c=relaxed/simple;
-	bh=UEkmvC/q4vEukLwG+Ow46ntUuHEXuSQPGkXWyaNAVfc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XgAnLoYVdUJTaNh5cmLgOvYnYz8y60zFfV3t+fmXjP/SbCZ0aC4ROwJ3bkoZ8LYuCQwlm5sP+HiOjBLanWCZAINJ43iwwMNVPRmjdmWNIUNqQTYMBVAXnYd55N30wAjrBQpDgSsLmgNDv6T/fU+C4OUINaYqyIZNlrzPpJURqVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LYUuB2df; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783610548; c=relaxed/simple;
+	bh=BSIfjK1k/RavKFMkJAdhOhD5k3mXFCRucl7IdwdjzMY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cu+JzI67yc9nCsOeREatajyr419LLzaunvj/Zkr9KLlnjwOvhHZDf4LJ07b9Nbd+pdX0YWtfPNgEqh8Nia80Y+ivF3SvoaVLw+FJe8mvngh0h1QjEJQKHNf51Drsa3999wKv1FegTRl/9sZK8Pflyffey98e7J1irH7Pynf1Kcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=rtC/EAly; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LYUuB2df"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D1E1F000E9;
-	Thu,  9 Jul 2026 15:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783610401;
-	bh=bujbwCVrYa9QgMI4R1VWXuDwlL+vyG5/n47qVFsByIM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LYUuB2dfw44xlWr/tYT9Fn/o6S6YG+n6ueumPlTprR7IOkvSGFlr0agMI6M/dh3ej
-	 bG/gtbxMzVvRDS89D2tVRxhZ6PEl86hvVZetFXrPyFVNEDpI6IG6YFQnVnjrgTvFwI
-	 04an7sAdvir8R7IDFB3BpIxSZR0tzxo0qPNOWql58WgWiTu5s6O3FeiCaEXYmDGGfQ
-	 5hHXDpJoBsiEOONBj5eNWFov1tPgkLKjEupdzbOgHTWpFMrCXpGygzGZI5OvdOVnm8
-	 6kwMWy1m31ry3vt+yKJt+eVAhG5wP4VYN9hwM7zeAc3MCCXGguJEdTk3pGu7AP64I/
-	 txFdYO9Gj3QZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 09/11] spi: dw: detect enhanced spi mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709055204.138168-10-changhuang.liang@starfivetech.com>
-References: <20260709055204.138168-1-changhuang.liang@starfivetech.com>
- <20260709055204.138168-10-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 15:20:00 +0000
-Message-Id: <20260709152000.B1D1E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="rtC/EAly"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gwzGl2hsWzMlFX;
+	Thu, 09 Jul 2026 17:22:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783610543;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dsIcksqCjHhl+PgskQMA9X+AMXn/bCWoXZcBglPsCLQ=;
+	b=rtC/EAlyOKiXirZSk/d71ooja/c7nLc/BRFJk2yPB9Kp77blaHjJixRruUPHZShcnQmrMh
+	7+SMmdJEdMxFsB5ZS7lZPfaJ+uVcB/KjL9gMSXOj56cxfdFXHHhVVxljxPCcL6NsH/puCO
+	FoVe9kapTLf4GFyfNn/3znlCX6oEG7hqvtGSw4XwUWovt25rISI/AKNsA66c4U8xvMxhPx
+	3c6MvDftlnqEPNrogLW4S8YKlLwiEb1GkNAos/eb8XFxS23SScur9PYnsWuljTvW1QQ6fM
+	29aOllfZZP/td96j/NbsGuV27BUOp/FVm82DoRkNx1FQ6FwOEnIxfqooQWgq2w==
+Message-ID: <a8eaf0be-175e-4e3e-a773-d0684a23b396@mailbox.org>
+Date: Thu, 9 Jul 2026 17:22:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH v4 0/5] PCI: rcar-gen4: irqchip/gic-v3: Handle GIC ITS
+To: Manivannan Sadhasivam <mani@kernel.org>, Marc Zyngier <maz@kernel.org>
+Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260707203743.88299-1-marek.vasut+renesas@mailbox.org>
+ <ybnitlgx3dcqsesubz6jz7pn6snseuxhtz564tinbtvukianaq@33ubmcynyqmt>
+ <c12941e4-3715-404e-b674-090c62b868b8@mailbox.org>
+ <87v7ao5o5t.wl-maz@kernel.org>
+ <lkxuw3lgr6gbi4vnj33pfq5kh7h7qefkwiovlqsltnfivbrfit@khnoyfmibg5f>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <lkxuw3lgr6gbi4vnj33pfq5kh7h7qefkwiovlqsltnfivbrfit@khnoyfmibg5f>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 329c7eef028ecd092b3
+X-MBO-RS-META: tctohij9qgjyajkrm4cs6844iwq15twh
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] detect_enh_mode() leaks detected multi-lane modes into ctlr->mode_=
-bits on clock stretch test failure.
-- [High] Advertising multi-bit SPI modes globally without supporting them i=
-n dw_spi_transfer_one() causes standard multi-lane transfers to corrupt dat=
-a.
-- [High] The register writability test falsely detects OCTAL mode support o=
-n QUAD-only hardware.
-- [High] dw_spi_hw_init() blindly overwrites ctlr->mode_bits, wiping out dy=
-namically established capabilities like SPI_LOOP after a suspend/resume cyc=
-le.
---
-
---- Patch [9]: [PATCH v1 09/11] spi: dw: detect enhanced spi mode ---
-commit 0f885f7a3380b812c7026e7502b6a3b2baf64278
-Author: Sudip Mukherjee <sudip.mukherjee@sifive.com>
-
-spi: dw: detect enhanced spi mode
-
-All the SSI controllers supporting enhanced spi modes might not support
-all the three dual or quad or octal modes. Detect the modes that are
-supported and finally enable the DW_SPI_CAP_EMODE capability which will
-start using all the enhanced spi functions that has been added.
-
-> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-> index 526b54385cd3e..ef1abb540f069 100644
-> --- a/drivers/spi/spi-dw-core.c
-> +++ b/drivers/spi/spi-dw-core.c
-[ ... ]
-> @@ -1083,6 +1083,64 @@ static void dw_spi_cleanup(struct spi_device *spi)
-[ ... ]
-> +static u16 detect_enh_mode(struct dw_spi *dws)
-> +{
-[ ... ]
-> +	/* test octal mode */
-> +	tmp_val =3D DW_SPI_CTRLR0_SPI_FRF_OCT_SPI << frf_shift;
-> +	dw_writel(dws, DW_SPI_CTRLR0, tmp_val);
-> +	if ((tmp_val & dw_readl(dws, DW_SPI_CTRLR0)) =3D=3D tmp_val)
-> +		mode |=3D SPI_TX_OCTAL | SPI_RX_OCTAL;
-
-[Severity: High]
-Can this writability test falsely detect Octal mode support on Quad-only
-hardware?
-
-If the SPI_FRF field is 2 bits wide, Quad mode would require both physical
-flip-flops to exist. When the driver tests for Octal mode by writing a value
-that sets both bits, the readback will confirm both bits are set. This would
-hold the value and trick the driver into assuming the IP supports internal
-Octal logic when it may only be synthesized for Quad.
-
-> +
-> +	if (!mode)
-> +		goto disable_enh;
-> +
-> +	/* test clock stretching */
-> +	dw_writel(dws, DW_SPI_SPI_CTRLR0, DW_SPI_ENH_CTRLR0_CLK_STRETCH_EN);
-> +	if ((DW_SPI_ENH_CTRLR0_CLK_STRETCH_EN & dw_readl(dws, DW_SPI_SPI_CTRLR0=
-)) !=3D
-> +	    DW_SPI_ENH_CTRLR0_CLK_STRETCH_EN)
-> +		/*
-> +		 * If clock stretching is not enabled then do not use
-> +		 * enhanced mode.
-> +		 */
-> +		goto disable_enh;
-
-[Severity: High]
-Does this error path leak the detected multi-lane modes?
-
-When the clock stretching test fails, the code jumps to the disable_enh lab=
-el
-without clearing the local mode variable. The non-zero mode bitmask is then
-returned and unconditionally bitwise-ORed into ctlr->mode_bits by the calle=
-r.
-
-Could this falsely advertise multi-lane capabilities to the SPI subsystem
-when the controller does not actually support enhanced mode?
-
-> +
-> +	dws->caps |=3D DW_SPI_CAP_EMODE;
-> +
-> +disable_enh:
-> +	dw_writel(dws, DW_SPI_CTRLR0, tmp_ctrlr0);
-> +	dw_writel(dws, DW_SPI_SPI_CTRLR0, tmp_spi_ctrlr0);
-> +	dw_spi_enable_chip(dws, 1);
-> +
-> +	return mode;
-> +}
-[ ... ]
-> @@ -1162,6 +1220,9 @@ static void dw_spi_hw_init(struct device *dev, stru=
-ct dw_spi *dws)
-[ ... ]
->  		dws->caps |=3D DW_SPI_CAP_DFS32;
->  	}
-> =20
-> +	dws->ctlr->mode_bits =3D SPI_CPOL | SPI_CPHA;
-
-[Severity: High]
-Does this direct assignment overwrite dynamically established capabilities?
-
-During initial probe, dw_spi_add_controller() sets capabilities like:
-    ctlr->mode_bits |=3D SPI_LOOP;
-
-When the system resumes, dw_spi_resume_controller() calls dw_spi_hw_init():
-
-drivers/spi/spi-dw-core.c:dw_spi_resume_controller() {
-    ...
-    dw_spi_hw_init(&dws->ctlr->dev, dws);
-    ...
-}
-
-Will this blind assignment wipe out flags like SPI_LOOP after a
-suspend/resume cycle?
-
-> +	dws->ctlr->mode_bits |=3D detect_enh_mode(dws);
-
-[Severity: High]
-Does advertising these multi-bit SPI modes globally cause standard multi-la=
-ne
-transfers to corrupt data?
-
-By adding these multi-lane modes to the controller's mode_bits, they are
-exposed to standard (non-mem_ops) SPI transfers. If a user-space application
-or kernel driver initiates a standard spi_transfer with tx_nbits > 1, the S=
-PI
-core will accept it.=20
-
-However, looking at dw_spi_transfer_one(), the standard transfer handler
-appears to ignore multi-lane requests and executes everything in 1-bit
-standard mode:
-
-drivers/spi/spi-dw-core.c:dw_spi_transfer_one() {
-    ...
-    .spi_frf =3D DW_SPI_CTRLR0_SPI_FRF_STD_SPI,
-    ...
-}
-
-Will this result in data corruption and protocol mismatch on the SPI bus?
-
-> +
->  	/* enable HW fixup for explicit CS deselect for Amazon's alpine chip */
->  	if (dws->caps & DW_SPI_CAP_CS_OVERRIDE)
->  		dw_writel(dws, DW_SPI_CS_OVERRIDE, 0xF);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709055204.1381=
-68-1-changhuang.liang@starfivetech.com?part=3D9
+On 7/9/26 2:57 PM, Manivannan Sadhasivam wrote:
+> On Thu, Jul 09, 2026 at 01:43:26PM +0100, Marc Zyngier wrote:
+>> On Thu, 09 Jul 2026 13:33:22 +0100,
+>> Marek Vasut <marek.vasut@mailbox.org> wrote:
+>>>
+>>> On 7/9/26 2:19 PM, Manivannan Sadhasivam wrote:
+>>>> On Tue, Jul 07, 2026 at 10:35:38PM +0200, Marek Vasut wrote:
+>>>>> Configure all R-Car Gen4 PCIe controller MSI registers fully, both in
+>>>>> case MSI are enabled and disabled.
+>>>>>
+>>>>> Patch GIC ITS driver and add quirks for R-Car Gen4 GIC ITS, which is
+>>>>> configured to 32-bit address width for AXI or APB interface.
+>>>>>
+>>>>> Switch R-Car V4H to use GIC ITS in its DT and describe the GIC ITS
+>>>>> implementation cacheable and shareable limitations.
+>>>>>
+>>>>> Marek Vasut (5):
+>>>>>     PCI: dwc: Determine whether iMSI is used before calling .init
+>>>>>     PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
+>>>>>     irqchip/gic-v3: Refactor GIC600 limited to 32bit PA erratum handling
+>>>>>     irqchip/gic-v3: Add Renesas R-Car Gen4 erratum workaround
+>>>>
+>>>> Is there a functional dependency between irqchip and PCI patches? Since the
+>>>> irqchip patches touch ARM64 Kconfig etc... I'm wondering if it still need to go
+>>>> through PCI tree.
+>>> I do not believe there is.
+>>>
+>>> These two configure the PCIe controller hardware:
+>>>    PCI: dwc: Determine whether iMSI is used before calling .init
+>>>    PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
+>>>
+>>> These two fill in GIC ITS quirks:
+>>>    irqchip/gic-v3: Refactor GIC600 limited to 32bit PA erratum handling
+>>>    irqchip/gic-v3: Add Renesas R-Car Gen4 erratum workaround
+>>>
+>>> This one does yes depend on the two and two patches above, and can
+>>> only be applied once all four aforementioned patches land, otherwise
+>>> things really yes will break:
+>>>    arm64: dts: renesas: r8a779g0: Add GICv3 ITS and update PCIe nodes
+>>>
+>>> Would you like me to split the series up , or can you and Marc (?)
+>>> pick the relevant parts via matching trees ?
+>>
+>> I don't think there's anything for me to pick. The whole thing looks
+>> like a consistent set, and it probably should be kept together.
+>>
+>> Given that the irqchip stuff has been acked by the relevant party, and
+>> that the last patch will cause havoc if taken on its own, the only
+>> course of action is to route the whole thing together, the PCI tree
+>> being the most obvious victim.
+> 
+> Alright then. I'll merge all 4 patches to PCI tree.
+Thank you all.
