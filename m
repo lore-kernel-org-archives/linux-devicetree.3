@@ -1,148 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9552E332917;
-	Thu,  9 Jul 2026 15:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980C5430CDA
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 16:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783612757; cv=none; b=MdCamrvEElkcAErpZvVRkts9j+uQoPN9C7JuAoUAeLkL5/SQazWw1wNXbqbILvKyt1E9eJa+oySYT/IHIVHG1Jgc7VmtB7UPiGlx/8Phs/mZNW2hoJKTliHyR9D+8jhF2cXA7P412lNySmE6zRIedc3x95xblH/QtDiZxwPUq2c=
+	t=1783613301; cv=none; b=KBC3KQwzod6NGgLCDtiZduXo6IpSdaIR+KWrgULvORm9LNoFLNkFcOWRO8t8751OFgg9CZaL4ahaVWgHkRK9tIxCa7r0k/BDxUlJ5Uf/VE/1iWqgz8pmfGzC8Bx/ApHhCgP0smgWsONSZW1LwJdWkGt2QGKy2exPIaFaQF2b4GQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783612757; c=relaxed/simple;
-	bh=aJbh9LElbrEI7E/P7mvmoKpzdOlw1yDQ59JtSNULaUQ=;
+	s=arc-20240116; t=1783613301; c=relaxed/simple;
+	bh=O4qNM2C0nbt2VbBlFC31/e1eUeaxHOXJ2oTMrSmpe0E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OkqPKPu/lg5N2S3ELhLewsEkHXFGWfEttEj1hBfoo8kUpU9FxPEceEwuBfUeOhKMbYXOK7AADlMTFPTvwPBcsCCYMvDgTzpFTDVDnba1Cnuigvcl3Dt6o9RtEyJnZRQ4D7T64UXbikBm4RzMLIH8a4kyGaa8+xijyPPgXvGw7gE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RC+SN67W; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bau5QO3HpUMo5i5dN3za2URpKg2ikVHOXYuBwFTzoIHhl9itcE6/mDOE1R4NiceYKKtzTEjtf7lHWkxiUMFo6FMVilJ663vHbXgkSmx+OrBw1rJZ1V7OGJ3Go95bspFWf+m44fbFpvbxCn4gxl7QSEAZoi+pNdI7ynZ+/aL/Hug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q3CX03Bo; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RC+SN67W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7221E1F000E9;
-	Thu,  9 Jul 2026 15:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783612756;
-	bh=aJbh9LElbrEI7E/P7mvmoKpzdOlw1yDQ59JtSNULaUQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RC+SN67Wo1bRPHmk2A3aRNqpRIZs1vt054/wDbMqrDQX+h2TC1c2qOU/P+vZpdlhO
-	 AGbczQTeBS/xYxBRav4immcCdk9NfNEvFoxtcbuJpR+9S08i4HqzmmxUf2mXM8hMj7
-	 lXpkqf096CaOPzHCghkHjTNtD6G/fOZ8q4jHCFjUFlLP5HaCXiv4HJYAS5IZqtiACw
-	 SFUrZULwFBv+H+0ToU32sDdtnyqRsHAorRSMSNXr8y2FRWFng0qncigrrOJt/3zqzq
-	 3H/Ma20+f66D8Hr1nfijRAegJrkTFT+SYpIfq6Gx4gdnn9Z3ulZD77FcSZxNF6fYJs
-	 u62hwfrMdO64Q==
-Date: Thu, 9 Jul 2026 17:59:13 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q3CX03Bo"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493ba701891so15571755e9.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 09:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783613296; x=1784218096; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E6idM/+ud/Xn7x4a5piPI4eTdbJ2+tm5HROj0RrFqGw=;
+        b=q3CX03Bo1EI6Xj17QBACUu2hZO9GeMn6jlSukLMs8bE2/Iarf+HuJ+nCuuKLX5QbMn
+         9Qd/ntD2Iq2J8lS4XEiA6AtJvZo5+rNeKthQtJ9Vk/6xdypBYmX30pObmjxoZ3IeCBg/
+         QElwVDrqKoR/SwVA4At4rg5b47OidgzvcOLVRKsRTrfqggsFMnwywQ5G4znG+nQ/AH/X
+         h7PBPMlfPXXL7abEc/NBFZHROrh9g4X8+XBdWdxYtM06oA6rY6i3K6zn+n6nUfFgeQdz
+         LT8jT4aEcBC1bKq/LNGmPXYlWz58fJLfq5guTIfwgCSWlNb5XmNmT6pEsXo2ccUdNMuY
+         awMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783613296; x=1784218096;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=E6idM/+ud/Xn7x4a5piPI4eTdbJ2+tm5HROj0RrFqGw=;
+        b=psGZxMEWAlRSVvOTgzPc8Q8CjBEn0+8W+CRe2LkNAHCqy7yUs6nyJhywmma8SXOwey
+         2iA09VBvLy3BW7CGbG0JdQrVJWBEpPOzWPMdJVygGNGEUaxpgxz1xbQOz12oRp/lu8F9
+         hgJwv91Cndc47ae1RwDAy2qIUcjcZRKtHa232vvJ9Tfrrn13aqme8WBXRWeNadc6IbXV
+         xpXNaqU4f55zob0Cz6xlGrvmiNzimyEZrtJq/JZVA99GQAFH4L95G20rXBW45Jkf57dk
+         ldiSokz7Dd8GrlRTM+6DIJPz00TNuxjtF/B9vRn+eKweI9HweupNSJKG5G1Lrv2dJ4dZ
+         +O3g==
+X-Forwarded-Encrypted: i=1; AHgh+Rpz3TtLnUh/R7UmYJoHllSgjkOTp+8paQ9qUhw/+U1+VBeavhEvU3YxbEzAY7IBtKgX09EEFT+9zHP5@vger.kernel.org
+X-Gm-Message-State: AOJu0YwX/+kH7pwssukhH4kWd1fC5uRwS8ZgnUXhmkspeOu9WuQKJipN
+	c+14acg87mlvOiMNIeO660vmraDibQ8KGuMRjOrtz5JXGYtZ3GRkOjQB
+X-Gm-Gg: AfdE7cmfQBaxMiNMJ2qC5OSwOF+wCDp53YoJtKVnS9s1nhYsOZE8blz3EpgLIOk9Y95
+	f4OgnqT08+KWSEVfipkPm2DZrRp8M9q02iGbSK0IVv1WkeYh9tNJQ37We2RLT5ZY/YF0T3XlHbj
+	xLmf1sIGWE62VrQGgE/clAQ9BYwuvn/5mvb0iAqPspBLvzI3VYCKnqcF31TxJUMKLZdJIS5FvLZ
+	L1yvxRZB4MBCsUA7bg3ZEHVLIOQ9OmbqXvfYiZCtGDJQDC6Wi6a1FS7AhwqTDBKtNgZUNNT6Dwr
+	V/WwgDb8ezRdi/BVR1F5tb6r1Fqy8FgvjVggGCpNianUe5X8RryeFMnppYWxL+sO/Pvhe6avZnF
+	yDNCon9W6XkYZC/CV248YzBA+r/qF2/QG3PRe0UwHKGKHkmDWek8gyOEGbL73/U1SemKIh26Ri4
+	M+7tTf3cbOdzotCT0=
+X-Received: by 2002:a05:600c:a00d:b0:493:a96b:fa0b with SMTP id 5b1f17b1804b1-493e68beea6mr80777025e9.24.1783613295994;
+        Thu, 09 Jul 2026 09:08:15 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960b06sm51644492f8f.28.2026.07.09.09.08.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 09:08:15 -0700 (PDT)
+Date: Thu, 9 Jul 2026 17:09:20 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Fred Chen <fredchen.openbmc@gmail.com>, 
+	"Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
-	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-Message-ID: <ak_E4UxfnFJywJa7@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
- <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
- <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
- <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>, 
+	Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>, 
+	Brian Chiang <chiang.brian@inventec.com>, Cosmo Chou <chou.cosmo@gmail.com>, 
+	Dixit Parmar <dixitparmar19@gmail.com>, Eddie James <eajames@linux.ibm.com>, 
+	Antoni Pokusinski <apokusinski01@gmail.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
+	Ashish Yadav <ashish.yadav@infineon.com>, Syed Arif <arif.syed@hpe.com>, 
+	ChiShih Tsai <tomtsai764@gmail.com>, Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
+	"Paller, Kim Seer" <KimSeer.Paller@analog.com>, Colin Huang <u8813345@gmail.com>, 
+	Yuxi Wang <Yuxi.Wang@monolithicpower.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, 
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices
+ MAX20912 and MAX20916
+Message-ID: <ak_G4_eAUYflt9M3@nsa>
+References: <20260707122701.751878-3-fredchen.openbmc@gmail.com>
+ <f9e32dd1-7c2c-4055-83fa-94683777e30b@roeck-us.net>
+ <ak4QO9uhKOt68dl1@nsa>
+ <20260708-true-carp-of-champagne-a0dcca@quoll>
+ <ak41BRQBNdsQrYww@nsa>
+ <b2a5e99c-6d4d-454e-8ecd-8638e4dc0ddb@roeck-us.net>
+ <PH0PR03MB63512A19C32B7722D17D0FD4F1FE2@PH0PR03MB6351.namprd03.prod.outlook.com>
+ <CABOy65_GqKiZLM+soZUK_34T8MYZS3dRX38-CMf_Bd1EmG0jhA@mail.gmail.com>
+ <ak9gFKkfEgkU_q1G@nsa>
+ <5b865eed-ae58-47fc-8d80-e14a76a93050@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j2boipej3wyu4mib"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5b865eed-ae58-47fc-8d80-e14a76a93050@roeck-us.net>
 
+On Thu, Jul 09, 2026 at 08:54:09AM -0700, Guenter Roeck wrote:
+> On Thu, Jul 09, 2026 at 09:54:22AM +0100, Nuno Sá wrote:
+> > > 
+> > > Based on the MAX20912/16 specs on my hand, these chips do not support
+> > > PMBUS_PHASE (0x04). Furthermore, the spec only indicates support for VID mode
+> > > and does not provide m/b/r. Therefore, some of the features you mentioned might
+> > > be specific to the MAX20826 series.
+> > 
+> > I see, phases are not supported using standard PMBUS.
+> > 
+> 
+> As mentioned in my other e-mail, it can still be supported by the driver.
+> That is what the chip drivers are for, after all.
+> 
+> > > 
+> > > Regarding enabling VOUT via GPIO, our platform handles this via the CPLD as
+> > > part of the hardware power sequencing. Managing this pin through the driver is
+> > > not a requirement for our system.
+> > 
+> > But we cannot assume all systems will behave like the above. But now i
+> > do wonder about controlling the GPIOs in the driver. In your system you
+> > clearly did not need to do it. In mine (testing with a rpi) I had to
+> > use a GPIO (well I could have used hogs or pinctrl). But if you control the pin
+> > you do gain the ability to turn off the regulator. If you don't it's always on
+> > (which might be indeed the bulk of the real usecases for these systems).
+> > 
+> Agreed. I don't really like it, but if the chip and some specific hardware
+> mandate it, it should be supported. However, that code also needs to be
+> tested - an untested implementation would be worse than no implementation.
 
---j2boipej3wyu4mib
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-MIME-Version: 1.0
+That's how I tested it :). So from what I understand the preferred way
+is to support these pins as optional? If they are not there we just
+assume the pins are always enabled by some other means? In contrast to
+what I have today which makes these pins mandatory!
 
-On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
-> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
-> > On 7/7/26 12:02, Marek Szyprowski wrote:
-> >> On 01.07.2026 18:08, Thierry Reding wrote:
-> >>> From: Thierry Reding <treding@nvidia.com>
-> >>>
-> >>> There is no technical reason why there should be a limited number of =
-CMA
-> >>> regions, so extract some code into helpers and use them to create ext=
-ra
-> >>> functions (cma_create() and cma_free()) that allow creating and freei=
-ng,
-> >>> respectively, CMA regions dynamically at runtime.
-> >>
-> >> Well, the technical reason for not creating cma regions dynamically at
-> >> runtime is that on some architectures (like 32bit ARM) the early fixup
-> >> for the region is needed to make it functional for DMA.
-> > Can you point me at the code that does that? Thanks!
-> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in=C2=A0
-> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings =
-for
-> the CMA reserved region in linear map are remapped with 4k pages instead
-> of the 1M sections, so later, it will be=C2=A0possible to alter the mappi=
-ngs and
-> change them to coherent when needed (altering 1M sections is not possible,
-> because each process has it's own level-1 array even for the kernel linear
-> mapping).
->=20
->=20
->=20
-> However, in the use case in this patchset the reserved region is only sha=
-red
-> with buddy allocator by using the CMA infrastructure, not registered to t=
-he
-> regular DMA-mapping API, so it would work fine. I'm not convinced that th=
-is
-> is the right API to use for this though.
+> 
+> Note to anyone from Analog listening: It is really unfortunate that I,
+> as subsystem maintainer, do not have access to datasheets. That means I have
+> to rely on assumptions and can not really provide actionable feedback other
+> than guesswork based on the PMBus standard. That feedback may and likely
+> will miss essential details.
 
-Are you saying you're not convinced that CMA is the right API to use for
-this? Or something else?
+I cannot make any promises but can at least raise this internally.
 
-I certainly don't think we want to get the DMA-mapping API involved for
-this because that always implies that we perform cache operations, which
-we specifically don't want for this memory.
+- Nuno Sá
 
-Thierry
-
---j2boipej3wyu4mib
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpPxVEACgkQ3SOs138+
-s6Eb0Q/+LDCagsX5c/5bbiHk3kITlOkkdqUCHLmicqkfr4LZXyuHnPZlygaoxrFM
-pWQKdyKOOfpM0U1Z1cuOHjLwTv5iB98Ne5qANisu+FqK6xFJ4ccA5Y2pXRG+2cEG
-YJS9S13i37EoR6iOHndhRxeZyxcx080fd7aAJdY9yKXL4+bAmW9W5/zS5XbLyBbt
-9MEA8Ah3pUnnLdjfeEq0SH2diKgT9OHXRpP4MEEFJbBufctOLZKoBOBBYPuURxCJ
-UxjR6KKyMObW2G6HP7fdgDzj5XYdbMEyHN+Cvom68auUKijpkjfOt5NUTQvxuuni
-YbwzbmHnbB76VYY6E/4i8uUPDxlBxha2COauHTiiJvdhBoJtPWSKLEYRU7BFrqBr
-SJY+OpLNROUP+oZLTyr7jmAoaJI0wLnBLxId6GjF0iID6w1BybeRRDX34o5+mkpE
-TOQ703x0/ZpECHboXKqJgo9CX0XIWtiD+yEbn7/HnR/wvHjksGNrCGxYaR5mrIAv
-N75RHCupJjA918YwITUGC0EtKUWOcwlVvLwS2G8gAUZd6goYWyEd/fV7G4VEj/4+
-+GA2L/CzSK0TbN+Ktayav2Ec5EQy4mKHa47hkWmWGe+Lh22DNNiP2CS3LjnPGs2i
-II6qTao1jGC6L0sqjSQAw8VxP4TpU/XHRW8zs9HCzUaNg0ZSnGs=
-=xmpu
------END PGP SIGNATURE-----
-
---j2boipej3wyu4mib--
