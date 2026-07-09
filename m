@@ -1,299 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A483BD647
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4948F283FD4;
+	Thu,  9 Jul 2026 20:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783630175; cv=none; b=X6FV0JLnFGESLTOAZP9YzQFepBDlFdZRdA5iZ+UWqGfu3Xy3ggdgCXpfPnpIydxZt50yM5NGZBlnlWgYjiDyBeTUg1l6imrxLjqvA67Rlu1Hxuy3YXTvzumTBd2grhMWqnIz73gLu6J14GfTnLgRL/TiE8az6hTpFCJoMoX5fRw=
+	t=1783630175; cv=none; b=E93J3xxXJdaLWTN7ZVc4VyrVBq0qk8ik0ov/5fDvFv/sh+OuPgKPKIKIG5PpMisSzgzfJ06sbK1PVNGaSmsWuPvvKIIxvaQEVMqwqFd8XX7JQKCseFh26ZRsoGGFvXLsaBEu3xFQR97uvNUa58QknHVS/MvYpH8ZZefJAR33rwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783630175; c=relaxed/simple;
-	bh=VFBQEWskgoD4QmrmNDMfVOZo4DNsfoQ3+ipGJseocwg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bchCRC+JUDRZAOyykpENfRDCo46/zFWffOCL+ULOufsvdFx88uQeTMjS/b/KVE1GhbLHEEBgyDwzkXuF+O2McMdXm3rmm5XymqTOtI+UsPmNjRv6NXvgf1bNd+ViSrh1Uh1WeVWTN+mBM4N1KZJEyNNs03E/5l/Gs9fEUs1ABS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KahVaobK; arc=none smtp.client-ip=100.103.45.18
+	bh=3xga7A3kXtcNqzDDYv/uIDEfi064QFEQN2be+835/9g=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TeQncBFtKRjCz30r36o1I+ta38i8/Rnx6FXbyL09R5ZqczAi2JxDCS6XSXloW8rboBfSoNd53VLU+ijTFtymF2kSK9Olyk+MQ84flqgq2V10cu+V/LzGtJxvEqCT4pw1lSqHi4YarkWmcYY5rUD7IFNXZyo3Ch2nqs+FLfMfNhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=XaSTqKAT; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KahVaobK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879A01F00A3D;
-	Thu,  9 Jul 2026 20:49:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783630173;
-	bh=+KyxZsgjfckTYepXUcLxjTRmRC1e2iK99yImRl2L7OU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KahVaobKlMLqliKI1/NWOLUy1UKKtECDDxTnxeSMZmAjkAUZoRWZ7LXCi/d3b5uUM
-	 WWjGA5zxP5PK9XCWgK1VuMXOuNEeBRou6vZA/cL1JtWXty1jU0NluuQs1+ws92WLqJ
-	 MS7ixtHas9rQ4/UGuXzqfXycO+17oFKj90CRh6Ze7lfYTHPoB1mi4O44adt3PWHNME
-	 2lJUpa6A3CLnWE8OtEZomqt3AT8mYegPNWtgIabuYU4iDeJlAEzLSxqEWXrdQo4i4Z
-	 pDqJyQaspawfuyonx1io9vlIG1Z/2OU4gU2XXY4ypItHDpNmyi64/AjkDcJUayim71
-	 BR7xyePT5rGXw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/19] crypto: cmh - add SM4 skcipher/aead/cmac/xcbc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709203037.1884436-10-skrishnamoorthy@rambus.com>
-References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-10-skrishnamoorthy@rambus.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 20:49:33 +0000
-Message-Id: <20260709204933.879A01F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="XaSTqKAT"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669JEWaO1847790;
+	Thu, 9 Jul 2026 16:49:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=h+dw3kCW/kleuhP7037TwZKiQBp
+	A/08bWVZBjne8V2Q=; b=XaSTqKATpdNZoMx2Se/+LUzHj/63kdOTAsg57MEe/Pv
+	45LviQ9MLtY3EQT/KalsxzBeSUPIb9du2lMuO0MCufWfO1GfRw/VkeBczEwzJzTn
+	bdqNjm5aeJpHoLwzgp3ALQ50rFluMyvBk7v09aJTWgbOctyi1FG03t99RChQGmvm
+	dEGwtIO90X4yzJyI8YyO3jPBfzK+BelSGDaRUk4aIpbG552AzGhgnGo49BfjsaIr
+	IQslu++eplygeDdDqiggDD6HLuXeouHFx2vJPzHNpwJIqpXKtZfUhgbL+JF/Ezw3
+	UQ8e1fKJh0W5e23qxvDYfaSg311pTCcbU8EBlWSHkiw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fa9qsagjy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 09 Jul 2026 16:49:22 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 669KnKp3046364
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 9 Jul 2026 16:49:20 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 9 Jul
+ 2026 16:49:19 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 9 Jul 2026 16:49:19 -0400
+Received: from work.maxim-ic.internal ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 669Kn7wn003656;
+	Thu, 9 Jul 2026 16:49:10 -0400
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>,
+        <dlechner@baylibre.com>, <andy@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <julianbraha@gmail.com>,
+        <marcelo.schmitt1@gmail.com>
+Subject: [PATCH v6 0/4] iio: adc: Add support for LTC2378 and similar ADCs
+Date: Thu, 9 Jul 2026 17:49:02 -0300
+Message-ID: <cover.1783629101.git.marcelo.schmitt@analog.com>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDIwNiBTYWx0ZWRfX12iMe7JvJjLJ
+ +dxkYmOGhOAEspzeza8WBw75uD+cCq6CKgoo6Kvhc6y4tjCDqMce4Tp3a7YxSq8POEjpGDmS5p7
+ e2Lgq0L6uK93RjMrXqmp7ECH+Vbw/KluIyZpg2EYlB706tR6YAbb
+X-Proofpoint-GUID: CDqef9lPiYbQcPAcIpfq8YOj9dGw2r_A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDIwNiBTYWx0ZWRfXwNaKDcY79JnH
+ 4eSeAI8/GT5HINbERnzQ2/5eseU0chCSnFhbTriQ9AdRXFRAHLpdmtcIf/YteAIwn1JVqZwOgBj
+ 3MBJU+Irgk60YhfTpfmifWpwxAwuRc4YBPfD0VnphCaHLw2EnHeu/mBDPuVmqdajmFm6h0yMQNV
+ 0Gwi6fXBEelV04MX0PwDXK+dAfR79KNTnPB0ctFl6Jj3stGb7gVyJINa1/PmnyBQp2y2HUgVtdD
+ /kc/xmB7eDBByDLHnpk8INXrib+xL2Ha+UXbtSkJY9D6HUJRJ0xrEOgYCWFUY+uKxXwAKT/FztF
+ 04kvjuAISQOdAE2ONJ1wR/UZpfg+/pnv2sCpRPQj3j49OKvIBXWRNkg9BrUsSoxdmkcA10DR1XE
+ nZn4wNkGyTZ9FHNhbzSptEzDIDJYKDUyvE9bTd6sLzC0LAbB5J9D8VhtfYtCYe1f6slFkLmXFf8
+ 6HNksh+BvxbeZI+8adg==
+X-Authority-Analysis: v=2.4 cv=fu7sol4f c=1 sm=1 tr=0 ts=6a500952 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=XqN69BuZ7wOcV2cAv7kA:9
+X-Proofpoint-ORIG-GUID: CDqef9lPiYbQcPAcIpfq8YOj9dGw2r_A
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 suspectscore=0 spamscore=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090206
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] The driver allocates up to 32MB of contiguous memory using kmalloc=
- for skcipher requests, which exceeds KMALLOC_MAX_SIZE and triggers page al=
-locator warnings.
-- [High] The ahash export() function fails with -ENOSPC for valid hash accu=
-mulations, breaking the crypto API contract.
-- [High] The ahash update() error path fails to reset total_len, allowing u=
-ninitialized kernel memory to be hashed and exposed as a MAC oracle.
-- [High] Incorrect IV chaining in cmh_sm4_update_iv for CFB mode when req->=
-cryptlen is not a multiple of the block size.
-- [High] Unbounded memory leak of accumulated MAC data chunks when ahash re=
-quests are aborted, re-initialized, or imported.
-- [High] The cmh_sm4_mac_import() function unconditionally uses GFP_KERNEL,=
- which can cause a sleep in atomic context.
-- [Medium] Failed key setups in AEAD and MAC algorithms lead to a torn stat=
-e where the software fallback cipher and the hardware context use different=
- keys.
---
+This patch series adds support for LTC2378 and similar low noise, low power,
+high speed, successive approximation register (SAR) ADCs. These ADCs are similar
+among each other, varying mainly on the amount of precision bits, maximum sample
+rate, and input configuration (either fully differential or pseudo-differential).
 
---- Patch [9]: [PATCH v2 09/19] crypto: cmh - add SM4 skcipher/aead/cmac/xc=
-bc ---
-commit f6f59427e5bb8538a2126c7ca1459a18ff4882e0
-Author: Alex Ousherovitch <aousherovitch@rambus.com>
+Patch 1 adds device tree documentation for LTC2378.
 
-crypto: cmh - add SM4 skcipher/aead/cmac/xcbc
+Patch 2 enables single-shot sample read with a GPIO connected to the LTC2378 CNV pin.
 
-Registers SM4 algorithms using the CMH SM4 core (core ID 0x04),
-including skcipher, aead, and ahash variants.
+Patch 3 enables high-speed data captures with SPI offloading.
+The setup is similar to AD4030, with a specialized PWM generator being used both
+for SPI offload triggering and conversion start signaling.
 
-> diff --git a/drivers/crypto/cmh/cmh_sm4_aead.c b/drivers/crypto/cmh/cmh_s=
-m4_aead.c
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_sm4_aead.c
-[ ... ]
-> +static int cmh_sm4_aead_setkey(struct crypto_aead *tfm, const u8 *key,
-> +			       unsigned int keylen)
-> +{
-> +	struct cmh_sm4_aead_tfm_ctx *tctx =3D crypto_aead_ctx(tfm);
-> +	/* SM4 always uses 128-bit keys */
-> +	if (keylen !=3D CMH_SM4_KEY_SIZE)
-> +		return -EINVAL;
-> +
-> +	if (tctx->sw_cipher) {
-> +		int ret;
-> +
-> +		ret =3D crypto_cipher_setkey(tctx->sw_cipher, key, keylen);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return cmh_key_setkey_raw(&tctx->key, key, keylen, CORE_ID_SM4);
-> +}
+Patch 4 enables running buffered data captures without SPI offloading.
 
-[Severity: Medium]
-Could this leave the transform context in a torn state if the hardware key
-setup fails?
+Even though these parts are somewhat similar to AD4000, the wiring configuration
+for LTC parts is different as well as the available HDL for high speed sample
+rate mode. Because of that, I propose creating a new device driver for
+supporting LTC2378-like devices.
 
-If cmh_key_setkey_raw() returns an error, the software cipher has already=20
-been updated with the new key. Empty inputs might then be processed by the=
-=20
-software fallback using the new key, while non-empty inputs could be=20
-processed by the hardware using the old key.=20
+Specifications can be found at:
+https://www.analog.com/media/en/technical-documentation/data-sheets/233818fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236416fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236418f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236716fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236718f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236816f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236818f.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/236918fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237016fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237616fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237618fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237620fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237716fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237718fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237720fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237816fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237818fa.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237820fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/237918fb.pdf
+https://www.analog.com/media/en/technical-documentation/data-sheets/238016fb.pdf
 
-Would it be safer to only update the software cipher after the hardware=20
-key setup succeeds?
+Previous submissions:
+  v5: https://lore.kernel.org/linux-iio/cover.1783028033.git.marcelo.schmitt@analog.com/
+  v4: https://lore.kernel.org/linux-iio/cover.1782397418.git.marcelo.schmitt@analog.com/
+  v3: https://lore.kernel.org/linux-iio/cover.1781661028.git.marcelo.schmitt@analog.com/
+  v2: https://lore.kernel.org/linux-iio/cover.1779976379.git.marcelo.schmitt@analog.com/
+  v1: https://lore.kernel.org/linux-iio/cover.1779117444.git.marcelo.schmitt1@gmail.com/
 
-> diff --git a/drivers/crypto/cmh/cmh_sm4_cmac.c b/drivers/crypto/cmh/cmh_s=
-m4_cmac.c
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_sm4_cmac.c
-[ ... ]
-> +static int cmh_sm4_mac_init(struct ahash_request *req)
-> +{
-> +	struct cmh_sm4_mac_reqctx *rctx =3D ahash_request_ctx(req);
-> +
-> +	memset(rctx, 0, sizeof(*rctx));
-> +	INIT_LIST_HEAD(&rctx->chunks);
-> +	return 0;
-> +}
+Change log v5 -> v6:
+[DT]
+- Dropped single compatible strings for parts that have a fall back so dt-schema
+  can enforces the fallback compliance.
+[IIO]
+- Added a comment to clarify IIO buffer storagebits and endianness for the
+  offload use case.
+- Added comment to clarify CPU endianness is used when device native BE is not.
+- Protected single sample read procedure with a mutex.
+- Dropped mod_devicetable.h, include device-id/spi.h device-id/of.h instead.
+- Used iwyu to add missing #includes and dropped superfluous ones.
+- Used pahole to minimize memory holes in LTC2378 data structures.
 
-[Severity: High]
-Does this leak accumulated chunks if the request is re-initialized?
+With best regards,
+Marcelo
 
-The ahash cmh_sm4_mac_init() function simply zero-fills the request
-context, which abandons any chunks previously allocated and appended to
-tctx->all_chunks. Since these chunks are only freed during the teardown
-in cmh_sm4_mac_exit_tfm(), could repeated initializations cause an
-unbounded memory leak leading to an out of memory condition?
 
-[ ... ]
-> +err_free_chunks:
-> +	/*
-> +	 * Terminal error -- free all previously accumulated chunks.
-> +	 * callers may not call .final() on error, so they would leak.
-> +	 */
-> +	cmh_sm4_mac_free_chunks(rctx, tctx);
-> +	return ret;
-> +}
+Marcelo Schmitt (4):
+  dt-bindings: iio: adc: Add ltc2378
+  iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
+  iio: adc: ltc2378: Enable high-speed data capture
+  iio: adc: ltc2378: Enable triggered buffer data capture
 
-[Severity: High]
-Can this error path in cmh_sm4_mac_update() lead to an uninitialized
-memory leak to user-space?
+ .../bindings/iio/adc/adi,ltc2378.yaml         | 170 ++++
+ MAINTAINERS                                   |   8 +
+ drivers/iio/adc/Kconfig                       |  19 +
+ drivers/iio/adc/Makefile                      |   1 +
+ drivers/iio/adc/ltc2378.c                     | 821 ++++++++++++++++++
+ 5 files changed, 1019 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+ create mode 100644 drivers/iio/adc/ltc2378.c
 
-If an error occurs and it jumps to err_free_chunks, it frees the=20
-accumulated chunks but does not reset rctx->total_len.=20
-   =20
-If a caller subsequently invokes final(), the code uses this stale=20
-rctx->total_len to allocate the buffer:
 
-rctx->buf =3D kmalloc(rctx->total_len, gfp);
+base-commit: 093239070573637ad2b4cb56abc9c4c7ee109294
+-- 
+2.53.0
 
-Since the chunk list is empty, nothing is copied into the buffer, leaving=20
-it fully uninitialized. This uninitialized kernel memory is then DMA-mapped=
-=20
-and passed to the hardware for MAC tag generation, which could expose=20
-sensitive kernel memory when the tag is returned.
-
-[ ... ]
-> +static int cmh_sm4_mac_export(struct ahash_request *req, void *out)
-> +{
-> +	struct cmh_sm4_mac_reqctx *rctx =3D ahash_request_ctx(req);
-> +	struct cmh_sm4_mac_export_state *state =3D out;
-> +	struct cmh_sm4_mac_chunk *chunk;
-> +	u32 offset =3D 0;
-> +
-> +	if (rctx->total_len > CMH_SM4_MAC_EXPORT_MAX)
-> +		return -ENOSPC;
-
-[Severity: High]
-Does this break the crypto API contract for ahash export?
-
-The driver allows accumulating up to 64KB in cmh_sm4_mac_update(), but=20
-cmh_sm4_mac_export() strictly checks against CMH_SM4_MAC_EXPORT_MAX (which=
-=20
-is slightly under 4KB). If a caller accumulates more than this threshold=20
-and calls export(), it will fail with ENOSPC.=20
-
-Since the API requires export() to succeed when provided a buffer of=20
-exactly statesize, will this unexpectedly break subsystems like IPsec=20
-that clone ahash states?
-
-[ ... ]
-> +static int cmh_sm4_mac_import(struct ahash_request *req, const void *in)
-> +{
-> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
-> +	struct cmh_sm4_mac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> +	struct cmh_sm4_mac_reqctx *rctx =3D ahash_request_ctx(req);
-> +	const struct cmh_sm4_mac_export_state *state =3D in;
-> +	struct cmh_sm4_mac_chunk *chunk;
-> +
-> +	/*
-> +	 * Do NOT call free_chunks() here: the crypto API does not
-> +	 * guarantee the request context is in a valid state before
-> +	 * import(), so the list pointers may be stale or invalid.
-> +	 * Re-initialize from scratch instead.  Any pre-existing chunks
-> +	 * are tracked on tctx->all_chunks and freed in exit_tfm.
-> +	 */
-> +	memset(rctx, 0, sizeof(*rctx));
-> +	INIT_LIST_HEAD(&rctx->chunks);
-
-[Severity: High]
-Could this memset abandon existing chunks similar to the init() function?
-
-When the crypto API imports state, the request context might already=20
-contain active allocations. Zeroing it out directly abandons them in=20
-tctx->all_chunks, creating another pathway for unbounded memory leaks.
-
-> +
-> +	if (state->total_len > CMH_SM4_MAC_EXPORT_MAX)
-> +		return -EINVAL;
-> +
-> +	if (state->total_len) {
-> +		chunk =3D kmalloc(sizeof(*chunk) + state->total_len, GFP_KERNEL);
-
-[Severity: High]
-Is it safe to use GFP_KERNEL here?
-
-The crypto API allows import() to be called from atomic or softirq=20
-contexts, such as when the networking stack restores IPsec states. Using=20
-GFP_KERNEL here allows direct reclaim, which could result in a scheduling
-while atomic bug or deadlock.
-
-> diff --git a/drivers/crypto/cmh/cmh_sm4_skcipher.c b/drivers/crypto/cmh/c=
-mh_sm4_skcipher.c
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_sm4_skcipher.c
-[ ... ]
-> +static void cmh_sm4_update_iv(struct skcipher_request *req, u32 mode,
-> +			      u32 op, const u8 *in_buf, const u8 *out_buf)
-> +{
-> +	u32 bs =3D CMH_SM4_BLOCK_SIZE;
-> +	u32 nblocks;
-> +
-> +	switch (mode) {
-[ ... ]
-> +	case SM4_MODE_CFB:
-> +		/*
-> +		 * For sub-block requests (cryptlen < 16), there is no
-> +		 * complete ciphertext block to chain, so the IV is left
-> +		 * unchanged -- CFB-128 has no defined chaining semantic
-> +		 * for partial blocks (shift-register CFB-n is a different
-> +		 * mode).  Without this guard the pointer arithmetic
-> +		 * underflows and reads before the buffer.
-> +		 */
-> +		if (req->cryptlen >=3D bs) {
-> +			if (op =3D=3D SM4_OP_ENCRYPT)
-> +				memcpy(req->iv, out_buf + req->cryptlen - bs,
-> +				       bs);
-> +			else
-> +				memcpy(req->iv, in_buf + req->cryptlen - bs,
-> +				       bs);
-> +		}
-> +		break;
-
-[Severity: High]
-Will this copy an invalid IV for unaligned CFB requests?
-
-If req->cryptlen is not a multiple of the 16-byte block size, this pointer=
-=20
-arithmetic will copy a mix of bytes from the last full ciphertext block and=
-=20
-the final partial block.=20
-   =20
-Since CFB-128 strictly requires full 128-bit blocks for its feedback=20
-mechanism, this looks like it creates a shift-register style IV.=20
-Could this result in corrupted ciphertext on chained sub-block requests?
-
-[ ... ]
-> +static int cmh_sm4_crypt(struct skcipher_request *req, u32 sm4_op)
-> +{
-> +	struct crypto_skcipher *tfm =3D crypto_skcipher_reqtfm(req);
-> +	struct cmh_sm4_tfm_ctx *tctx =3D crypto_skcipher_ctx(tfm);
-[ ... ]
-> +	rctx->in_buf =3D kmalloc(req->cryptlen, gfp);
-> +	if (!rctx->in_buf)
-> +		return -ENOMEM;
-
-[Severity: High]
-Can this allocation exceed the maximum kmalloc limits?
-
-The req->cryptlen value is user-controlled and can be up to 32MB=20
-(CMH_SM4_MAX_CRYPTLEN). Passing this directly to kmalloc() exceeds=20
-the typical maximum page order limit (usually 4MB or 8MB).=20
-
-If a large payload is submitted, this will fail and trigger a page=20
-allocation warning in the kernel log. Could this be exploited by an=20
-unprivileged user to cause log spam or a denial of service? Would=20
-a scatter-gather approach or chunking be more appropriate here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
-436-1-skrishnamoorthy@rambus.com?part=3D9
