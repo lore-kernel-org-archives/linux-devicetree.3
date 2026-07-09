@@ -1,140 +1,116 @@
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96AC436CDF8
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C42B40D56E
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783593929; cv=none; b=jUbEjWAV+l1Qp37IgA6c+RWiHnrI3LksKcfJwaBvvlgiugr/hNu7axq4hxom49k0K4n9tfUBL2mWrTPJAUk0I+1nTaAMrjhWk252jRxd/lb52/iNeRhRPRvy76ja5MZ2SLYutDx3ueY7R4RB0TQgRAL9WsMKF00jH02iycBdf18=
+	t=1783593989; cv=none; b=rF45M+mHvZ9Bx5Z0rwZkv+seXREN27u/rtwJBr7+k04pAuG9ekhY7RRRKHiE1lgs0yR5iLwAnkj3W68s6454pP1DEoaxNTWCE0Kwk8AgyWPon1Dz3ZPo8SxcySR6KtIVsw3wmraeMzjHXZjbCqKxcilE13t2Peuwk1IDJ8rAabo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783593929; c=relaxed/simple;
-	bh=v11CCaM2SO1sjN3FanFJterfJszpcdVADsPjT6gZ5+I=;
+	s=arc-20240116; t=1783593989; c=relaxed/simple;
+	bh=8idKvVN+cfS9P+M8/Oo0SXlgO6nAa98PuAMKfFCHyUA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IlhQ4ET3lKksYv904CGe5jI8+PpV3F1hQPb7GfzgAYdACsHg6phuJta68XfqwyUg+P3WbnuK0O8hBmJZn9mWkHkxtVpWAfgngJPstJWWqn7GUQafh1Tr7Njym4KV9UkeLotRfsgVQhyAij+tiXCQvLrKPAG3xK68Td9A/G2V+bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sU+3+KFh; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=Lx8apPRe7IDInBAYgGVzJuMZ/nFj9BtXC5Bh/JH28E4LM/S6p9PjQgL102uHtIhKfHQvwKMX1dNiWWnvfeGUiuMp+FdTxKAUu0h7SwVo6UN6zdGxxgcjB84wXAgQ0ZlJlZEUlfPfJ7bmVRS848tgr15BHnIXF4ITb3a2N4DRY+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PQgn+7X0; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sU+3+KFh"
-Message-ID: <4a847a6b-7837-4044-8a87-0ddac47725f8@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783593915;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U1zptSwNIN+3sFSND6E6Pez9u+xDKFIGwqm4Rxh1P9w=;
-	b=sU+3+KFhltGJBoRT0JuwZfDvcZOV2uNhnSWhxO46Qu1fcznF7EaE0UtRnGF8MZHXJW+0Qr
-	xX4xG560Pw/p4dDjnIz1Qd6csX1rxq3csMxLmYs2z7pFcAL8Cj2pvwEqJa16ioCC0BIgGZ
-	kmwtue0SRDHaoHwZuXeXxg0fy2i88Fw=
-Date: Thu, 9 Jul 2026 11:44:44 +0100
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PQgn+7X0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783593982;
+	bh=8idKvVN+cfS9P+M8/Oo0SXlgO6nAa98PuAMKfFCHyUA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=PQgn+7X0EvOfECkABffase/CdqsHlnTopkvVFROpUwXBoy8PxsCcvIzfjcCqF09y9
+	 fwtaD3Aq9rwIpLJgtBEBTY9cKWbpowYrlnV2Y6LZEmf9QjUvf3pHe4qa0hhtE285tl
+	 oDzoDIhvI//4YqO9C9Tfl2Gd73kCjqRHqiLeXKY5OD31nDoSoa5fK1XoWxIoViUcaG
+	 MMW+dYJJ+K6JTKNooM6F/7/HeaLI/QhUbab20bJvxWNXY5Ak1zeSDrW2KI83Obvu/V
+	 2+WcGPD6kLq1fl6qoa9uCF0T81LSumjl5Fvg0jGADu++Q/GCCRkNG1Jo18EiY8J0Fd
+	 4C4wqyqWQUgCg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F23B817E01AC;
+	Thu, 09 Jul 2026 12:46:21 +0200 (CEST)
+Message-ID: <28324cf7-0841-42f9-967a-f942ac537c44@collabora.com>
+Date: Thu, 9 Jul 2026 12:46:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH net-next v7 08/15] net: ethernet: oa_tc6: Support for
- hardware timestamp
-To: Selvamani.Rajagopal@onsemi.com, Andrew Lunn <andrew@lunn.ch>,
- Piergiorgio Beruto <pier.beruto@onsemi.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- Jerry Ray <jerry.ray@microchip.com>
-References: <20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com>
- <20260708-s2500-mac-phy-support-v7-8-478c877aa1a9@onsemi.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] arm64: dts: mediatek: mt8173: Add and use UART
+ AP_DMA controller
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+References: <20260709090924.27056-1-angelogioacchino.delregno@collabora.com>
+ <20260709090924.27056-3-angelogioacchino.delregno@collabora.com>
+ <20260709091701.098811F000E9@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260708-s2500-mac-phy-support-v7-8-478c877aa1a9@onsemi.com>
+In-Reply-To: <20260709091701.098811F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
-On 08/07/2026 18:12, Selvamani Rajagopal via B4 Relay wrote:
-> From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-> 
-> PTP register/unregister calls are implemented in oa_tc6_ptp.c.
-> The APIs that work with the hardware for timestamp is provided
-> by vendor code as it may be vendor dependent.
-> 
-> Interface for ndo_hwtstamp_set/get, ioctl, control and status
-> callback for ethtool are provided to support hardware timestamp
-> feature.
-> 
-> Besides ioctl interface, hardware timestamp functions that handles
-> header and footer data are in oa_tc6.c. Helper functions are in
-> oa_tc6_tstamp.c.
-> 
-> Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-> 
-> ---
-> changes in v7
->    - Fixed the parameter name mismatch in function protoype and
->      definition
->    - CONFIG0 is set with 64 bit timestamp support by default.
->    - Added information about return value for API documentation.
-> changes in v6
->    - Fixed the issue of function parameter in oa_tc6_get_ts_stats
->      not described in comments section for documentation.
->    - Avoided typecasting __be32 as u32
-> changes in v5
->    - As subtracting skb len by FCS size is considered bug, changes
->      are removed. Will be fixed in stable branch (net repo)
-> changes in v4
->    - Fixed the condition check for subtracting the FCS size
->      from skb len.
-> changes in v3
->    - Replaced warning printk with ratelimited printk
->    - Checking the hardware register before enabling hardware
->      timestamp
-> changes in v1
->    - Added hardware timestamp support to the OA TC6 framework.
-> ---
->   MAINTAINERS                                  |   1 +
->   drivers/net/ethernet/oa_tc6/Makefile         |   2 +-
->   drivers/net/ethernet/oa_tc6/oa_tc6.c         | 218 +++++++++++++++++++++++++--
->   drivers/net/ethernet/oa_tc6/oa_tc6_ptp.c     |  70 +++++++++
->   drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h |  34 +++++
->   drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c  | 205 +++++++++++++++++++++++++
->   include/linux/oa_tc6.h                       |  12 ++
->   7 files changed, 527 insertions(+), 15 deletions(-)
-> 
+On 7/9/26 11:17, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] The AP_DMA controller specifies `dma-requests = <8>` but only provides 6 `reg` and 6 `interrupts` entries, which causes the APDMA driver to fail during probe. Additionally, the patch omits DMA assignments for `uart0` despite the commit message claiming to configure all four UART controllers.
 
-[...]
+Will fix later while applying.
 
-> +/**
-> + * oa_tc6_ioctl - generic ioctl interface for MAC-PHY drivers.
-> + * @tc6: oa_tc6 struct.
-> + * @rq: request from socket interface
-> + * @cmd: value to set/get timestamp configuration
-> + *
-> + * Return: 0 on success otherwise failed.
-> + */
-> +int oa_tc6_ioctl(struct oa_tc6 *tc6, struct ifreq *rq, int cmd)
-> +{
-> +	if (!netif_running(tc6->netdev))
-> +		return -EINVAL;
-> +
-> +	if (cmd == SIOCSHWTSTAMP || cmd == SIOCGHWTSTAMP)
-> +		return oa_tc6_tstamp_ioctl(tc6, rq, cmd);
-
-ioctl interface for HW timestamp configuration is deprecated, kernel
-code was recently cleaned up to aviod these ioctl commands in favor of
-ndo_hwtstamp_get/ndo_hwtstamp_set callbacks. New drivers must not use
-deprecated ioctl commands.
-
-> +	else
-> +		return phy_do_ioctl_running(tc6->netdev, rq, cmd);
-> +}
-> +EXPORT_SYMBOL_GPL(oa_tc6_ioctl);
-> +
+> --
+> 
+> --- Patch [2]: [PATCH v3 2/7] arm64: dts: mediatek: mt8173: Add and use UART AP_DMA controller ---
+> commit ac8a25e005302375b885a8325819560714cb8e2c
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> arm64: dts: mediatek: mt8173: Add and use UART AP_DMA controller
+> 
+> This commit adds the UART AP_DMA controller to the mt8173 device tree.
+> It also assigns DMA channels to the UART controllers to increase TX/RX
+> efficiency.
+> 
+>>      In order to increase the efficiency of data TX/RX over the UART
+>>      controllers, add the UART DMA controller and assign the right
+>>      channels to each of the four UART controllers.
+> 
+> [Severity: High]
+> The commit message mentions assigning channels to each of the four UART
+> controllers, but only uart1, uart2, and uart3 are updated in the patch. Is
+> uart0 intentionally missing?
+> 
+>> diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+>> --- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+>> +++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
+> [ ... ]
+>> +		apdma: dma-controller@11000400 {
+>> +			compatible = "mediatek,mt8173-uart-dma", "mediatek,mt6577-uart-dma";
+>> +			reg = <0 0x11000400 0 0x80>, <0 0x11000480 0 0x80>,
+>> +			      <0 0x11000500 0 0x80>, <0 0x11000580 0 0x80>,
+>> +			      <0 0x11000600 0 0x80>, <0 0x11000680 0 0x80>;
+>> +			interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_LOW>,
+>> +				     <GIC_SPI 98 IRQ_TYPE_LEVEL_LOW>,
+>> +				     <GIC_SPI 99 IRQ_TYPE_LEVEL_LOW>,
+>> +				     <GIC_SPI 100 IRQ_TYPE_LEVEL_LOW>,
+>> +				     <GIC_SPI 101 IRQ_TYPE_LEVEL_LOW>,
+>> +				     <GIC_SPI 102 IRQ_TYPE_LEVEL_LOW>;
+>> +			clocks = <&pericfg CLK_PERI_AP_DMA>;
+>> +			#dma-cells = <1>;
+>> +			dma-requests = <8>;
+> 
+> [Severity: High]
+> Does this dma-requests count of 8 match the provided reg and interrupts
+> arrays?
+> 
+> The mtk-uart-apdma driver iterates dma-requests times during probe. With only
+> 6 resources defined in the reg and interrupts arrays,
+> devm_platform_ioremap_resource() will fail with -EINVAL when trying to map
+> the missing resources. This will cause the probe to abort, unconditionally
+> breaking DMA for all UARTs on this SoC.
+> 
+> Should dma-requests be 6 here since uart0 was omitted, or are there missing
+> reg and interrupts entries that should be added?
+> 
