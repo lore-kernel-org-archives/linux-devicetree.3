@@ -1,243 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EF540DFA0
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:51:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB88A3BBFBE
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783594296; cv=none; b=mb0B6b9dgnf7FrbX9K8YJl4OfF2vdeEXAK+h1Eo7hphEeuGHc5XLXK6r/NRvl4I3AUdZZ95VHOpMLK3n5RBpY6LmPZD9jAlX1xb4WVUQYDGbGRtdZc0vZOx3q262tpJR4T8+BOI1q9HlMrB/dcsp7hxDsEwt4dFVBrUquM2Yt2s=
+	t=1783594333; cv=none; b=gO/rFy4yGIdMu3kPQpafMT/UnZNVO92VxFoO11rYTSsb3Mr8efi39lyR7SmemDWQYufoj8yfY01M5sYpFcDsg/V0o/mbrW+c+D8Ntz0u+PY7A/+uzboXuomU4BTnRnxMNaRy1gGSRpcq78O3cBGytVaQdjlCXtr9AyfSGedYfYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783594296; c=relaxed/simple;
-	bh=6pscFZmhP8Wm65MRUgiucUJnG/7JzD/DAuO/yQihiyo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R3eavej27nqYPdtO/1e0pYRpPKIPwBivqmN5QD6d8xXBc59w7QP/M9vx+oawtugApPv2522PBZZcYJ3lqUzdiPiMgbRHx+7dds6LjLuF3zwTra9g21fdlaF5Ud2J5a5h4wjDS60D/gV6DqFp3XAtLehOAHYObkXCvL1liSyYTMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IC+rvB6p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783594333; c=relaxed/simple;
+	bh=r6FjVnEXwE0IGEmKbTI/hDFm3Nf0DQ8S1T/ck81JAEM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jr6Ni8bi4L2qWEebsrOeNyJWrV0/SBSNWLnOwEQji+KlYjc78PMBCHkz/so3Hl3bEPpcpPrSrsffoT39N+fXvODjg1ea1GSzg1UaMDlpZzlA4bXw/x++gxBP+Khlv8+C0GDlkUomG157OttKtxRBFi80oFsaEqOoLiMNS5xwYcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=h2ekCjMH; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IC+rvB6p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140E81F00A3A;
-	Thu,  9 Jul 2026 10:51:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783594291;
-	bh=6AV/Bv9CWVyZqKThlG/GXC41B3XIuc7Yvx0wx4dEtok=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IC+rvB6pfNQknxBlYcsASU3fzinOarBApXf9KLccSSyIzR8JdUZkYZKnx/drcdh08
-	 qrIubAFnIMuk14AeNERlDryW+YhDUSUXmqE7BD+1DjwXkju1WUrfmVhw9Z3FI2xVAC
-	 6VclaFwGVOkgGDvbN3AKIwaGjv/+ySg9MvfG2ilEIU+iea5Xa9w2QkPypIUELyNBwO
-	 Etni97gCjAyHFFVxNJ1MIZvi2LvAK5z5RnnaKhMDPm/vOJbykrlmsRg91IW/j7R6Kp
-	 Dyf+Ya9yHOyOFnYMLmS2YNzYZM2jTbrk2fQP+PmkaLPR6GiqjWZhyIigD+2ZLRdg/5
-	 3F7I5UYV5kaew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/11] drm/mediatek: mtk_dp: Add support for eDP1.5
- IPs and MT8196 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709103431.46616-11-angelogioacchino.delregno@collabora.com>
-References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
- <20260709103431.46616-11-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 10:51:30 +0000
-Message-Id: <20260709105131.140E81F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="h2ekCjMH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783594330;
+	bh=r6FjVnEXwE0IGEmKbTI/hDFm3Nf0DQ8S1T/ck81JAEM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=h2ekCjMHC5AgjXntNqWY2j4muZT4FhN2htvXPl6KTYk6Q165IBO2SsF+8avDrAiAB
+	 EhRlP3kE/rtBT7T08UutOjZ0+eh2EJnuWkxuPSf6UcdNixIRWTr09OY8W2ap4y4tWk
+	 HNkpSmpXODFp6wchiKv//DRKOxAVrC0A3ODgdVmC16tu1zKhfppxyTgOMl4ryDZnZ2
+	 TsGTpWr1QlZL4/hGoSMJXgad7fYUfUGaeFspvSFQrXXz/b+XLWJBZmBlhoDG/JTay+
+	 jjXJqxzewxs9WHRrPOrubkTnmrtNxLNtXNVZDm0KpyXDWOGKEdsEK4DYa2CvWjSCBh
+	 XsUdhdJHIYmjw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E9ADA17E0886;
+	Thu, 09 Jul 2026 12:52:09 +0200 (CEST)
+Message-ID: <be903cb1-8184-4112-9672-ea262716e5b9@collabora.com>
+Date: Thu, 9 Jul 2026 12:52:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+To: Chen-Yu Tsai <wenst@chromium.org>, sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ "moderated list:ARM/Mediatek SoC support"
+ <linux-mediatek@lists.infradead.org>, Mark Brown <broonie@kernel.org>
+References: <20260709081928.612294-1-wenst@chromium.org>
+ <20260709083024.330381F000E9@smtp.kernel.org>
+ <CAGXv+5HO5eWaJ-AhH9JG=aZ9f_se8L8Ebz-NRHfKMsNXvGnQTg@mail.gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <CAGXv+5HO5eWaJ-AhH9JG=aZ9f_se8L8Ebz-NRHfKMsNXvGnQTg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On 7/9/26 11:27, Chen-Yu Tsai wrote:
+> On Thu, Jul 9, 2026 at 4:30 PM <sashiko-bot@kernel.org> wrote:
+>>
+>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>> - [High] The MT6319 PMIC fallback compatible triggers incorrect MT6315_PP mode ganging in the regulator driver, causing silent cross-talk between the CPU and EMI VDDQ regulators.
+>> - [Low] Grammatical error in the comment explaining the firmware workaround.
+>> --
+>>
+>> --- Patch [1]: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC ---
+>> commit 0ff94c6622559a57199ed1f2d1f4063c6c911df1
+>> Author: Chen-Yu Tsai <wenst@chromium.org>
+>>
+>> arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+>>
+>> The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR4X
+>> DRAM.
+>>
+>>> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+>>> index 8e423504ec052..af05315092f53 100644
+>>> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+>>> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+>> [ ... ]
+>>> @@ -1225,6 +1235,70 @@ &spi2 {
+>>>        status = "okay";
+>>>   };
+>>>
+>>> +&spmi {
+>>> +     pinctrl-names = "default";
+>>> +     pinctrl-0 = <&spmi_pins>;
+>>> +     #address-cells = <2>;
+>>> +     #size-cells = <0>;
+>>> +     status = "okay";
+>>> +
+>>> +     pmic@6 {
+>>> +             compatible = "mediatek,mt6319-regulator", "mediatek,mt6315-regulator";
+>>> +             reg = <0x6 SPMI_USID>;
+>>
+>> [Severity: High]
+>> Does this fallback compatible trigger incorrect mode ganging?
+>>
+>> The mt6315-regulator driver maps USID 6 to the MT6315_PP variant, which
+>> hardcodes mode ganging for vbuck1, vbuck2, and vbuck4. On the MT8188
+>> Geralt's MT6319, vbuck4 is wired as an independent regulator for
+>> pp0600_emi_vddq.
+>>
+>> If a mode change happens on vbuck1 (which is allowed by the
+>> regulator-allowed-modes property), the driver will apply the ganged
+>> mask and silently overwrite vbuck4's mode bits in the PMIC, potentially
+>> forcing the RAM supply into an unexpected mode.
+>>
+>> Could this silent cross-talk between the CPU and EMI VDDQ regulators
+>> lead to memory voltage instability?
+> 
+> This discrepency is actually bigger than Sashiko mentions. The ganging
+> supported by the driver only applies to the PMICs in the Asuarada design:
+> 
+>    - SPMI ID 6 has 1+2 (GPU); 3 and 4 are unused
+>    - SPMI ID 7 has 1+2+4 (big cores) and 3 (little cores)
+> 
+> On the Cherry design we have:
+> 
+>    - SPMI ID 6 has 1+2 (GPU); 3 and 4 are unused
+>    - SPMI ID 7 has 1+2+3+4 (big cores)
+> 
+> On the Corsola designs with beefier chips:
+> 
+>    - SPMI ID 6 has 1+2 (big cores); 3 and 4 are unused
+> 
+> On the Geralt design (this one):
+> 
+>    - SPMI ID 7 has 1+2 (big cores); 3 (DRAM); 4 (DRAM)
+> 
+> Any ideas on what to do about this mess?
 
-New issues:
-- [High] PHY bias power is incorrectly forced ON instead of OFF during the =
-bridge atomic disable sequence.
-- [High] Zero-width reset pulse and failure to clear PHY reset state for th=
-e eDP 1.5 IP.
-- [Medium] Uninitialized calibration data is unconditionally flushed to PHY=
- registers when MT8196 uses the legacy PHY configuration.
+wenst, I think that the only way to fix that properly is to add generic support
+for buck phases ganging in the regulator API... because AFAIK there's nothing
+right now.
 
-Pre-existing issues:
-- [High] Double free / use-after-free of the PHY platform device on probe e=
-rror path.
-- [High] Use-after-free in debounce timer teardown due to failure to disabl=
-e threaded IRQ.
---
+ From what I remember from last time I looked, MediaTek PMICs wouldn't be the
+only ones, there's something else that also has ganged bucks, and again if I
+remember correctly, I remember seeing one platform data struct for each of the
+ganging combinations in that driver.
 
---- Patch [10]: [PATCH v3 10/11] drm/mediatek: mtk_dp: Add support for eDP1=
-.5 IPs and MT8196 SoC ---
-commit f310ca07bbff89c8e8b27b5c8d3a9c8cfc72e839
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC
+So.. especially because MTK wouldn't be the first, I think the addition of some
+kind of generic properties (and callbacks) for this kind of configuration in
+the API would be both profitable and welcome.
 
-This commit adds support for MediaTek's Embedded DisplayPort (eDP) v1.5 IP,=
-=20
-found in the MT8196 SoC. It introduces conditional register writes based on=
-=20
-platform data booleans to handle SDP encoders, PSR support, and power state=
-=20
-forcing differences between IP revisions. It also partially prepares for DP=
-=20
-1.4 IP support on the same SoC.
+Mark, any considerations?
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index fb216811c80c7..868d918a0b161 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-[ ... ]
-> @@ -1210,24 +1315,87 @@ static void mtk_dp_initialize_aux_settings(struct=
- mtk_dp *mtk_dp)
-[ ... ]
-> +static void mtk_dp_encoder_reset(struct mtk_dp *mtk_dp)
-> +{
->  	/* dp tx encoder reset all sw */
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
->  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0,
->  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> =20
-> +	if (mtk_dp->data->hwip_v1p4) {
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004, 0,
-> +				   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> +		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-> +				   ENC_PHY_STATE_RESET_ALL_MASK,
-> +				   ENC_PHY_STATE_RESET_ALL_MASK);
-> +	}
-> +
->  	/* Wait for sw reset to complete */
->  	usleep_range(1000, 5000);
-> -	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
-> -			   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> +
-> +	if (!mtk_dp->data->hwip_v1p4)
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
-> +				   0, DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> +}
+Cheers,
+Angelo
 
-[Severity: High]
-For the eDP 1.5 IP (hwip_v1p4), does asserting
-DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0 to 1 and immediately deasserting it to=
- 0
-create a zero-width pulse that the hardware might ignore?
+> 
+> Another thing is that I kind of wonder why the mode configuration register
+> setting isn't ganged in hardware like the enable and voltage settings.
+> 
+> 
+> Thanks
+> ChenYu
+> 
+>>> +             pvdd1-supply = <&pp4200_s5>;
+>>> +             pvdd2-supply = <&pp4200_s5>;
+>>> +             pvdd3-supply = <&pp4200_s5>;
+>>> +             pvdd4-supply = <&pp4200_s5>;
+>>> +
+>>> +             regulators {
+>>> +                     /*
+>>> +                      * vbuck1 is the cpu-supply for CPU6 and CPU7.
+>>> +                      *
+>>> +                      * However, this device originally shipped with a broken
+>>> +                      * firmware that causes register reads over SPMI fail.
+>>> +                      * This is fixed in firmware version 15842.175.0, which
+>>> +                      * is included in ChromeOS releases R150-16700.22.0 or
+>>> +                      * R151-16721.0.0 and later.
+>>> +                      *
+>>> +                      * Assigning the cpu-supply properties for CPU6 and CPU7
+>>> +                      * without the fix will likely cause CPU DVFS to stop
+>>> +                      * working. Hence the assignment is left out to avoid a
+>>> +                      * regression of the function. If the user is confident
+>>> +                      * that their system has the fix, they can added the
+>>
+>> [Severity: Low]
+>> This isn't a bug, but there is a typo in this comment. It should say
+>> "they can add the property themselves".
+>>
+>>> +                      * property themselves.
+>>> +                      */
+>>
+>> --
+>> Sashiko AI review · https://sashiko.dev/#/patchset/20260709081928.612294-1-wenst@chromium.org?part=1
 
-Furthermore, ENC_PHY_STATE_RESET_ALL_MASK is asserted but never explicitly
-cleared after the delay. Will this leave the PHY permanently in reset unless
-the register is self-clearing?
-
-[ ... ]
-> @@ -1359,8 +1550,10 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk=
-_dp,
->  		}
->  	};
-> =20
-> -	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE, DP_PWR_STATE_BANDGAP,
-> -			   DP_PWR_STATE_MASK);
-> +	/* Set power state requests only if power states are not forced */
-> +	if (!mtk_dp->data->force_pwr_states)
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE, DP_PWR_STATE_BANDGAP,
-> +				   DP_PWR_STATE_MASK);
-> =20
->  	ret =3D phy_configure(mtk_dp->phy, &phy_opts);
->  	if (ret)
-> @@ -1373,6 +1566,11 @@ static int mtk_dp_phy_configure(struct mtk_dp *mtk=
-_dp,
->  	if (mtk_dp->phy_dev)
->  		mtk_dp_set_calibration_data(mtk_dp);
-
-[Severity: Medium]
-If MT8196 is used with a device tree lacking the separate phys node, it will
-fall back to the legacy architecture and create mtk_dp->phy_dev.
-
-Since mt8196_edp_data does not provide an efuse_fmt,
-mtk_dp_get_calibration_data() is skipped, leaving the cal_data array zeroed.
-
-Later in mtk_dp_phy_configure(), the code unconditionally calls
-mtk_dp_set_calibration_data() if mtk_dp->phy_dev exists.
-
-Will this flush uninitialized or zeroed cal_data directly into the PHY
-registers and misconfigure the hardware?
-
-[ ... ]
-> @@ -2580,6 +2795,9 @@ static void mtk_dp_bridge_atomic_disable(struct drm=
-_bridge *bridge,
->  	/* SDP path reset sw*/
->  	mtk_dp_sdp_path_reset(mtk_dp);
-> =20
-> +	if (mtk_dp->data->force_pwr_states)
-> +		mtk_dp_encoder_force_bias_power_on(mtk_dp);
-> +
-
-[Severity: High]
-Is it intentional to force the PHY bias power ON during the bridge disable
-sequence?
-
-The disable path usually turns hardware off to save power (as done in
-mtk_dp_power_disable() which calls mtk_dp_encoder_force_bias_power_off()).
-
-Does this cause a power leak or keep the PHY in an incorrect state during
-teardown?
-
->  	/* Ensure the sink is muted */
->  	msleep(20);
->  }
-> @@ -2860,7 +3078,8 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_d=
-p)
->  				     "Failed to add phy unregister devm action");
-> =20
->  	/* PHY calibration data is in mtk_dp only for legacy devicetree */
-> -	mtk_dp_get_calibration_data(mtk_dp);
-> +	if (mtk_dp->data->efuse_fmt)
-> +		mtk_dp_get_calibration_data(mtk_dp);
-> =20
->  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
->  	if (IS_ERR(mtk_dp->phy)) {
->  		platform_device_unregister(mtk_dp->phy_dev);
->  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy), "Failed to get phy\n");
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but if devm_phy_get() fails here, the explicit
-error handling path calls platform_device_unregister(mtk_dp->phy_dev) before
-returning.
-
-Since mtk_dp_unregister_pdevs was registered as a devm action just prior to
-this, returning an error will trigger the devres core to unwind the stack a=
-nd
-call platform_device_unregister() a second time on the same device pointer.
-
-Can this cause a double-free or use-after-free crash?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but there is a pre-existing issu=
-e in
-mtk_dp_remove() regarding the debounce timer teardown.
-
-The HPD interrupt is registered during probe using devm_request_threaded_ir=
-q(),
-meaning its lifetime spans until after mtk_dp_remove() returns.
-
-Inside mtk_dp_remove(), the code calls timer_delete_sync(&mtk_dp->debounce_=
-timer)
-but does not disable the IRQ:
-
-static void mtk_dp_remove(struct platform_device *pdev)
-{
-    ...
-    if (mtk_dp->data->bridge_type !=3D DRM_MODE_CONNECTOR_eDP)
-        timer_delete_sync(&mtk_dp->debounce_timer);
-    ...
-}
-
-Because the IRQ is still active, an incoming hardware interrupt can immedia=
-tely
-fire the mtk_dp_hpd_event_thread() handler, which can re-arm the timer using
-mod_timer(). Once the mtk_dp object is subsequently freed by devres, the ti=
-mer
-expires and accesses freed memory.
-
-Could this lead to a use-after-free on driver unbind?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
-6-1-angelogioacchino.delregno@collabora.com?part=3D10
