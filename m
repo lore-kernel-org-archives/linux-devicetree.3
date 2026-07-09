@@ -1,277 +1,194 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681BE42EED1
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 13:52:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A9A244661
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 13:54:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783605123; cv=none; b=iRHoIYQ333otPv0Pxcs8BQc2Zcqws52ku00DOReV4HGwDJo1VGwyaVwPyQ185zzs4eQnDWKHEV7fIeAet8zCdZ2wpJvxoXYV77NsY6N7BXU/NxNBOyIqHbf2zykYEBQT4nKhIpaFD65aiyvldXD5TD123O+dTH2w0LoOdVckHlQ=
+	t=1783605260; cv=none; b=Txexsa8QWV/pk69QcC2FOiaT2J/Mm8SrrLY+4xLrYPTyzSGxJY+9hEmkwsMEY0lI1gbGNffP909rrnJ/x0eXvaR4kPdfmGAPSqousiY9WEpbug0haB0B/fp3UHsq7J1zUQETrzlqrarzIP16zcH46ThC6xP3sW2Djz2/r9qLTqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783605123; c=relaxed/simple;
-	bh=YhzlfPd0hTh8S+xkIpvYunh0o/0tYbuHg+no0ssYtgI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P563CwGo62o2qZFODZh3hWnLA1tJ/joH2869kx6Vf0JUmxVdO5BH3aQq1GoVHetO2dcq6UEDLoWcLGV+9Y89bv0wXFKEz9iDKEyyWJzgy3OJx4E8oacMYZxqU458gRqs6i+jVAfs4GJpilUI3Cqe0WgJFfU72Vx1NNgnngBm7kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IbOV94Ty; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1783605260; c=relaxed/simple;
+	bh=JE06n19fj89DtD98QIGe4Eu+0ooIquemuxqBRlpEtk8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=M3xU+URa36cmZr0SOzRfQoGiNsXoLYDLCo8uwxISuoGjcBgCsxMc73A121cSZO/iSzeGjXVrY77jynJVZaW5R2BZn6vNGTeV8cql24YvjN4KI5WEto5sFjOhK5jrTIBAaiA2AtLopyo+Hl7BCevxRPhDy+haq1B/5oXuh+JpB0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D60pDBEP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IbOV94Ty"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783605120;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ysWlghC9J8ScLCpP/g8zxoZvmb5MDE+iTRZ+tsKYUa8=;
-	b=IbOV94Ty14a5DCPQVC5yu1BV/+bi+CGyQXCkpTvZFEsrR1Z3DxCrTMgWuin33KKjONa7u6
-	emDk86T7i2Y5hNTKDWAwGRUzXvBWxqtxE2wE+5QzqAzeV1HCHT05cqOCrR5p/MBPZawHcD
-	iB1NmXgW5k1pEErBQVaw/fgOUbaY6VI=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-648-0XHMz5IlPXOl-THAHDU14g-1; Thu,
- 09 Jul 2026 09:51:54 -0400
-X-MC-Unique: 0XHMz5IlPXOl-THAHDU14g-1
-X-Mimecast-MFC-AGG-ID: 0XHMz5IlPXOl-THAHDU14g_1783605112
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8369C19560B5;
-	Thu,  9 Jul 2026 13:51:51 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.33.79])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E6FCC1956089;
-	Thu,  9 Jul 2026 13:51:46 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: niklas.soderlund+renesas@ragnatech.se
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	geert+renesas@glider.be,
-	magnus.damm@gmail.com,
-	richardcochran@gmail.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v4 2/3] ptp: Add driver for R-Car Gen4
-Date: Thu,  9 Jul 2026 15:51:41 +0200
-Message-ID: <20260709135141.243782-1-pabeni@redhat.com>
-In-Reply-To: <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
-References: <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D60pDBEP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9421B1F000E9;
+	Thu,  9 Jul 2026 13:54:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783605258;
+	bh=dVUJlaH/y+Uaehg0hwfcjbEaynQqpPtsp5WYpmW1C0A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=D60pDBEPuGueDK4zGHJxEkPFG7iBEXCSnKIFnm1Unf4Hrv1Ap9ex8YAO3xtmk3Q5A
+	 2Tf/Ge3izXvSwGYrZqsG3MCECtw+Y2PYpOve7wTekgBlq6XGKr4NJOH467QoiEfQuk
+	 DegUrzbfPaphlP8VTuW1pI1nqtWrCEaEGy9e+tYufd5hzI3d1wG9KAI8SsBjZ8Qjhc
+	 ep3VwYmp3tFkp4c/KmJuUiKtN605fU2C04Ws0SfDSoZ7IlRuEmXxnHlbZPsBc6Qz6i
+	 M80sbIL4aTzoRr+UIvYTonTF0zeNlzOGv0tto+cxV+hNC4bZo+o97Zw8Rey1I2yZxB
+	 EBjLpEKWjkRBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 06/11] media: iris: Add hooks for pixel and
+ non-pixel context banks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-6-72bb62cb2dfd@oss.qualcomm.com>
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+ <20260709-vpu_iommu_iova_handling-v1-6-72bb62cb2dfd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 13:54:18 +0000
+Message-Id: <20260709135418.9421B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: AI Reviewer <ai@example.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
----
-ptp: Add driver for R-Car Gen4
+New issues:
+- [High] Unregistering context bank devices in `remove` while V4L2 FDs are =
+open causes DMA API mismatch and IOMMU faults.
+- [Medium] Hardcoded platform device ID causes name collision if multiple I=
+ris instances exist.
 
-This patch adds a standalone platform driver for the gPTP timer block
-on R-Car Gen4 SoCs (S4, V4H, V4M). The timer shares its module clock
-(and reset) with either RSWITCH or RTSN on S4/V4H, and has its own
-module clock on V4M. A pre-existing implementation exists at
-drivers/net/ethernet/renesas/rcar_gen4_ptp.c consumed by the RSWITCH
-and RTSN drivers.
+Pre-existing issues:
+- [High] Missing cancellation of sys_error_handler delayed work leads to Us=
+e-After-Free.
+- [High] Use-After-Free on `iris_core` during deferred V4L2 close due to `d=
+evm_kzalloc`.
+--
 
-> diff --git a/drivers/ptp/Kconfig b/drivers/ptp/Kconfig
-> index b93640ca08b7..3593fd9da92a 100644
-> --- a/drivers/ptp/Kconfig
-> +++ b/drivers/ptp/Kconfig
+--- Patch [6]: [RFC PATCH 06/11] media: iris: Add hooks for pixel and non-p=
+ixel context banks ---
+commit ac38538cd2eb8a1aa776f7262b1bd953d7ac3a78
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-[ ... ]
+media: iris: Add hooks for pixel and non-pixel context banks
+   =20
+Iris platforms use separate context-bank devices for the pixel and
+non-pixel domains. Add platform hooks to create and destroy those
+subdevices, and wire them up for the affected platforms.
 
-[Medium]
-A pre-existing driver drivers/net/ethernet/renesas/rcar_gen4_ptp.c
-already implements essentially the same hardware programming
-(identical register offsets, identical adjfine/gettime/settime/adjtime
-bodies, identical addend derivation) and is still consumed by RSWITCH
-and RTSN via rcar_gen4_ptp_alloc() / rcar_gen4_ptp_register().
-
-After this patch, the same silicon can be described two different ways
-in DT (embedded in RTSN as reg-names "tsnes"/"gptp" versus standalone
-renesas,rcar-gen4-gptp) and driven by two different code paths.
-
-On r8a779g0 the DTS already keeps the 0xe6449000 gPTP registers mapped
-both from the tsn0 node and from the new gptp node, so nothing
-prevents both drivers from mapping the same MMIO region and racing on
-control writes.
-
-Is there a migration plan for the existing consumers, and can anything
-in the binding or driver reject the double-bind case where the same
-register block is described both ways in one DT?
-
-> diff --git a/drivers/ptp/ptp_rcar_gen4.c b/drivers/ptp/ptp_rcar_gen4.c
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_sm8550.c b/dr=
+ivers/media/platform/qcom/iris/iris_platform_sm8550.c
 > new file mode 100644
-> index 000000000000..0d862849cd4c
+> index 0000000000000..bea904a9249ba
 > --- /dev/null
-> +++ b/drivers/ptp/ptp_rcar_gen4.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_sm8550.c
+> @@ -0,0 +1,71 @@
 
 [ ... ]
 
-> +static int ptp_rcar_gen4_probe(struct platform_device *pdev)
+> +static int sm8550_init_cb_devs(struct iris_core *core)
 > +{
-> +	struct ptp_rcar_gen4_priv *priv;
-> +	struct device *dev = &pdev->dev;
-> +	unsigned long rate;
+> +	struct device *dev;
 > +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
+> +	dev =3D iris_create_cb_dev(core, "non-pixel");
+
+[Severity: Medium]
+When creating the child context banks here, could this cause a name
+collision if there are multiple Iris instances?
+
+Looking at iris_create_cb_dev() in iris_resources.c, it zero-initializes
+struct platform_device_info, which forces the device id to 0:
+
+drivers/media/platform/qcom/iris/iris_resources.c:iris_create_cb_dev() {
+	struct platform_device_info plat_dev_info =3D {};
+	...
+}
+
+This causes platform_device_register_full() to assign exact names like
+"pixel.0" and "non-pixel.0". If a second Iris instance probes, wouldn't
+kobject_add() return -EEXIST? Should PLATFORM_DEVID_AUTO be used instead?
+
+> +	if (IS_ERR(dev))
+> +		return PTR_ERR(dev);
 > +
-> +	platform_set_drvdata(pdev, priv);
+> +	core->np_dev =3D dev;
 > +
-> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(priv->base))
-> +		return PTR_ERR(priv->base);
-> +
-> +	priv->clk = devm_clk_get(dev, NULL);
-> +	if (IS_ERR(priv->clk))
-> +		return PTR_ERR(priv->clk);
-> +
-> +	rate = clk_get_rate(priv->clk);
-> +	if (!rate)
-> +		return -ENODEV;
-
-[Low]
-Is querying clk_get_rate() before the module is powered up safe here?
-The clock is queried before pm_runtime_enable() / pm_runtime_get_sync()
-runs, and some clock providers legitimately return 0 for a gated
-clock, which would make probe return -ENODEV even when the rate is
-well-defined once the module is powered. The older driver received
-the rate from the Ethernet parent driver after its own
-pm_runtime_get_sync() had run.
-
-[Medium]
-The DT binding declares "resets" as a required property, but the
-driver never acquires a reset_control (no reset_control_get() /
-reset_control_deassert() / reset_control_reset()).
-
-On the Renesas CPG-MSSR reset controller, reset deassertion is a
-separate operation from clock enable; clocks are not implicitly
-deasserted.
-
-On V4H (r8a779g0) this driver depends implicitly on the RTSN driver
-calling reset_control_reset() on the shared module reset ID 2723, but
-that reset_control_reset() will also asynchronously reset the gPTP
-block after it has been programmed here. On V4M (r8a779h0) where the
-binding also applies and no sibling driver exists, nothing would ever
-deassert the reset.
-
-Should the driver acquire and deassert its own reset_control, or
-should the binding be revised so that the driver does not appear to
-support V4M standalone?
-
-> +
-> +	spin_lock_init(&priv->lock);
-> +
-> +	priv->info = ptp_rcar_gen4_info;
-> +
-> +	/* Default timer increment in ns.
-> +	 * bit[31:27] - integer
-> +	 * bit[26:0]  - decimal
-> +	 * increment[ns] = perid[ns] * 2^27 => (1ns * 2^27) / rate[hz]
-> +	 */
-> +
-> +	priv->default_addend = div_s64(1000000000LL << 27, rate);
-> +
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_get_sync(dev);
-> +
-> +	iowrite32(priv->default_addend, priv->base + PTPTIVC0_REG);
-> +	iowrite32(1, priv->base + PTPTMEC_REG);
-
-[High]
-Should the return value of pm_runtime_get_sync() be checked here?
-
-The kernel documentation for pm_runtime_get_sync() notes that the
-usage counter is incremented in all cases, including error, and
-recommends pm_runtime_resume_and_get() when the caller needs to check
-success.
-
-If resume fails, the module clock may remain gated and the subsequent
-iowrite32() to PTPTIVC0_REG / PTPTMEC_REG would touch a clock-gated
-CPG-MSSR module, which can raise a bus error / SError on ARM64. On
-top of that, the usage counter is leaked on the error path.
-
-Would something like this be more appropriate:
-
-    ret = pm_runtime_resume_and_get(dev);
-    if (ret) {
-        pm_runtime_disable(dev);
-        return ret;
-    }
-
-> +
-> +	priv->clock = ptp_clock_register(&priv->info, dev);
-> +	if (IS_ERR(priv->clock)) {
-> +		pm_runtime_put_sync(dev);
-> +		pm_runtime_disable(dev);
-> +		return PTR_ERR(priv->clock);
-> +	}
-
-[Low]
-The remove path writes PTPTMDC_REG = 1 to disable the timer before
-dropping the runtime PM reference, but this error path (when
-ptp_clock_register() fails) does not. Since the driver has no
-runtime_suspend callback that would stop the timer, should the probe
-error path also issue iowrite32(1, priv->base + PTPTMDC_REG) for
-symmetry with remove()?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static void ptp_rcar_gen4_remove(struct platform_device *pdev)
-> +{
-> +	struct ptp_rcar_gen4_priv *priv = platform_get_drvdata(pdev);
-> +	struct device *dev = &pdev->dev;
-> +
-> +	ptp_clock_unregister(priv->clock);
-> +
-> +	iowrite32(1, priv->base + PTPTMDC_REG);
-> +
-> +	pm_runtime_put_sync(dev);
-> +	pm_runtime_disable(dev);
-> +}
-
-[Medium]
-There are no system-wide dev_pm_ops on this driver (no .suspend /
-.resume / .freeze / .thaw / .restore, no SET_LATE_SYSTEM_SLEEP_PM_OPS).
-
-Even with the DT placing the device in R8A779G0_PD_ALWAYS_ON, module
-clocks can still be gated by pm_runtime_force_suspend() during a
-system suspend/resume cycle. When that happens, PTPTIVC0 (addend),
-PTPTMEC (enable), and the timer counter are all liable to lose state,
-and there is no callback that reprograms them on resume.
-
-Because ptp_clock_register() exposes /dev/ptpN to userspace, would
-ptp4l / phc2sys see a silently wrong clock after a suspend/resume
-cycle? The older driver was tied to the Ethernet driver's PM chain,
-so this hazard is newly introduced by making the PTP block a
-standalone driver.
-
-> +
-> +static const struct of_device_id ptp_rcar_gen4_of_match[] = {
-> +	{ .compatible = "renesas,rcar-gen4-gptp", },
-> +	{ /* Sentinel */ },
-> +};
+> +	dev =3D iris_create_cb_dev(core, "pixel");
 
 [ ... ]
--- 
-This is an AI-generated review.
 
+> +static void sm8550_deinit_cb_devs(struct iris_core *core)
+> +{
+> +	if (core->p_dev)
+> +		platform_device_unregister(to_platform_device(core->p_dev));
+> +	if (core->np_dev)
+> +		platform_device_unregister(to_platform_device(core->np_dev));
+> +
+> +	core->p_dev =3D NULL;
+> +	core->np_dev =3D NULL;
+> +}
+
+[Severity: High]
+Does unregistering the context bank devices here cause a DMA API mismatch if
+a user-space application still holds a V4L2 file descriptor open?
+
+V4L2 file handles can outlive the driver's remove callback. If a user closes
+the device after remove completes, iris_close() calls
+iris_destroy_all_internal_buffers() which calls iris_get_cb_dev().
+
+Since p_dev and np_dev are NULL, iris_get_cb_dev() falls back to core->dev:
+
+drivers/media/platform/qcom/iris/iris_resources.c:iris_get_cb_dev() {
+	...
+	return dev ? dev : core->dev;
+}
+
+This means dma_free_attrs() is executed using core->dev, but the memory
+was originally allocated with the context bank devices. Could this mismatch
+violate the DMA API and cause IOMMU unmap faults?
+
+[Severity: High]
+This is a pre-existing issue, but does tying the iris_core struct to the
+device lifecycle result in a Use-After-Free during a deferred V4L2 close?
+
+In iris_probe(), core is allocated with devm_kzalloc():
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_probe() {
+	...
+	core =3D devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
+	...
+}
+
+When the driver is unbound, iris_remove() returns and devres frees core.
+If an application holds a file descriptor open, iris_close() is eventually
+called, which dereferences inst->core to clean up sessions:
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_close() {
+	...
+	iris_remove_session(inst);
+	...
+}
+
+Since core is already freed, won't this cause memory corruption?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for the
+sys_error_handler delayed work to trigger a Use-After-Free if it runs
+during or after driver unbind?
+
+The sys_error_handler is dynamically scheduled on hardware errors, but
+iris_remove() does not appear to cancel it:
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_remove() {
+	struct iris_core *core;
+
+	core =3D platform_get_drvdata(pdev);
+	if (!core)
+		return;
+
+	iris_core_deinit(core);
+}
+
+If the unbind occurs while the work is pending or running, core will be
+freed by devres after iris_remove() returns. When the workqueue executes
+iris_sys_error_handler(), won't it dereference the freed core?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-vpu_iommu_=
+iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com?part=3D6
