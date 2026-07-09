@@ -1,70 +1,95 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC70830DECB
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084633C4572
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783585177; cv=none; b=dRcxB8St3mGcOtOj51BxW3SB9kXfaVcVPg51x2YBxhsPyRDJxwWxDD0Vxwz2MLkO0IO8UhFUk8js2GEHgx9N8uI5Bx04yvOk3F8CqgEdFH8LVSA6DhObkjtHpcu4G9oq3tQO9bHcjtyhMKvuQDT4JfcQCdWw14rT0c/KRyodXyY=
+	t=1783585252; cv=none; b=nqoSgYPDFthAEdzLHoCS6wlxwzGxfmo3vP0jVq7Lxeac8W9jF6whIBC+5RMQyLTjH9N9JDtNWc2wv8KkqwIfuxG+cRvNW8pvNgqrcsoQVMCq2OQGHF1m5eLjIA5eOGsyfF3zKb27CBnEQ/T/xAMvykX4DT8wyMWekjtuSBkXwXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783585177; c=relaxed/simple;
-	bh=S5UFZMLjFckuRxZtPhVtitmozymvSSYfH08eAs51SZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TBGl9LMbFFx0qRG5N2UI4PaXJNhweH7aCpdkxHFd915tQA+3mRPznq5SOmidmgfMGjZo5J0o944hhu+QOlHniteZBUAlffecqPQhjGc+7w6ZFr8tK2YncCsnlBu/6rRA1nnQpYVSxJjFfO4Srob1qYvIgx3tnOEU2x8X2k+CVVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=dGNgtopy; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1783585252; c=relaxed/simple;
+	bh=hy06WEp7lakBxT8oij2blpEsCOVJABmGTMRVXzweoy0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Go06GEik4+rYf9MuLxjT7kPeN7IWfbq5puBvkLQtqvcEKQSHPOrDuNeIeh5U39aOMgBV0lgR8Ya+cjY+Hj7JOkFazSbVW6Gw6aCxfwmom4mXvLPsOu8dSWQIvxtbVxZSPHHDbJgV8NOAGmykSV+AkBxFxB0KDpUTMges325iuAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ld3gzjIR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GeaLJRWJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="dGNgtopy"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8453427d3f4so1487052b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:19:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ld3gzjIR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GeaLJRWJ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66960HCg749792
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 08:20:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=LVFbsmyElM/L+CCIqiuiSwvH0ilc0S1tpfB
+	Fg/GiJt8=; b=ld3gzjIRPJ/0FJjIIR23GWKMMluSPa4y9e+oshZ+jyyN1Y1Ggyd
+	0aqaUo4TOr5w1Iw+xAXDSVrosTR2EmhTfbyZULw9E+PoRmyy/dHIoFLmmygKhhEf
+	qST3NFELIOKHWdQeyL9pT8NyxEEDvaJU3dR5/9+lk6raC9SSOfHJuhv6RXtPdwMk
+	UcQdjSDhvF2OSb34I3G1/smSLI4deRFdxKuj4YQmEkPGM9wI4YEP1Ui9kddZpycx
+	z15xEZQuBmED6Jh8CyxAHyF94z88rIto58AXro8DWKjlrMAsi7izyXS7aqQeMRwk
+	YjZR8gO9kVlu0H8i52Ki2n9ihbHskHGD7rw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9wwft3mx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:20:49 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84865f326efso80139b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:20:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1783585175; x=1784189975; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783585249; x=1784190049; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cTOPP+o88VWkb8bpp8Y96c4/97TqS6hM51V5JviFgiY=;
-        b=dGNgtopypIm39RarrIOuCPUUTl3gZO/VftINsfMIBB91hzlAs68YF2UF4UBSjbrLjz
-         QPyioj8pd6ujFaM70JRE4RIpT45aK+QO1TlTiWQGWu7xxDhI6/082kYLeMFqY1D1fRHZ
-         /uBlFJxEFxbI7KWqLowLrGMi32KcvycMOdp6U=
+        bh=LVFbsmyElM/L+CCIqiuiSwvH0ilc0S1tpfBFg/GiJt8=;
+        b=GeaLJRWJ6A7KIV4gMNTGDLlsIfNz0jQCM+P+HDUWJXwXMlCaXUy+NxOw2v384c9Xyf
+         akJmbVl4p4zgImKVohT0BmaM7mnVgZ10W+cUkC8AX372/ZPH/GyG0Fx0N94VrL5FYcHx
+         McPsz4i7OgMiCdI73QcGk//ThajIISyOjDNzEKa2FuCZNqb/We/mqdxJyT9RkI6Xu/nN
+         0c0hItUu8aRkCX7HgDg6mGRpHSyo/1k8eb+7WcmgDls+nSGDx73/O4G87PXXIiTtePxi
+         bD43RQ4aUNst5GIdSeOmLTjopY287WZQPAvFKhXIu6+Nhupl0JDAdJlP/X8X1lZl2seH
+         kEHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783585175; x=1784189975;
+        d=1e100.net; s=20251104; t=1783585249; x=1784190049;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cTOPP+o88VWkb8bpp8Y96c4/97TqS6hM51V5JviFgiY=;
-        b=DXVlt1gqZlhJM7wMNU7cSPvB8WPkRdaNZa41iXUKMDs7Mmia5LCNJ0EJQldilIMX4e
-         M6aoOPwQqqCYixVcczfggVEMygbW+JZii/4KkdeAfZ/0sg4ImZ3zETBn0OMwzg7b+14G
-         hKHPrP5UpXdGO7p8fSbWa5UvaImfl8MnlBHQClG4W62rCs2VhCwNsNy3Us3gloDckVe2
-         892cHbTsvP/g+w+x+HqdfcfS9NY64lgZBta6EJ4x8RiPcJRJUyyW4svGILaXSPSe18Fc
-         ut9v0CpkoWvYFO1AU7NOyjdxIkdLrKdP/pYe1H/GcHorXN3ma29Ohposwx1wnEXA/Roj
-         QO7w==
-X-Forwarded-Encrypted: i=1; AHgh+RpjM4o9n3yUW4jn15yuLMpyiVN/lWGI5DwtLFctRH1o8N5NkLFGZWu7go4IjYMSLok7sf/Qbx2f9Npl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxx3x4TMhZ3hKD3EOM12rzHpzf5HSniRz+0FGUl67LhfYQ3STDR
-	z3xp+pN4ciyb9MqWuNrI+qjBPSS6sMaa4cvPEmowCezqM3fmoTs7InD4TQfM+t+Y/g==
-X-Gm-Gg: AfdE7cktsQYPx3AZtPTATF+pZNhsKOPzRsBpZpWWTbYkrPJ48f9EWH9j9Imd/S/8k+u
-	+7em2TNUzp0ObZ8la3U5P9gODPiAtXwPPYq/ygiL7tKNuvwL4lnNhxD6/Ku+2pxoZ+ufPQ2Iomv
-	REMPnNJPwUoOZr5Mj/ffwwvFpi82kayLIHTOIBSSSI94mfni4qbN4MrnuiJnlkw+5fqIE2inxGm
-	IJ61FDXoOy5o3ee5maiXmOZ6I7Lk7DH5MBcdptEFx3ApGiv6eZJEttqWCevM5w0h5zXcX+ZQHpT
-	wyGCsiEhU2pekoPuk1NuEnxloOObvVNgp5G7NQFsL6moX4VqRJ5RRcwmOTXySSEseZPjcTh1ufJ
-	givF8G6Fkn+9owDEMthZ7mzJvjzWr0uLxC8dfBqOoUCWZrQPNU2OwbpfsusbAiKwD5mf7fr07tj
-	V9Lvdi8uY3gaA+i5Ovf0GzmX5kEDheUByE9SLQbHvH6Af5oHTUFe4ZgTeO3ZoZM9VGvU0bnQ==
-X-Received: by 2002:a05:6a00:2450:b0:848:2b8f:c9d7 with SMTP id d2e1a72fcca58-84843027f6emr5831170b3a.18.1783585175251;
-        Thu, 09 Jul 2026 01:19:35 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:bd09:6ddb:180a:69c5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6dbdc8dsm8211863b3a.55.2026.07.09.01.19.33
+        bh=LVFbsmyElM/L+CCIqiuiSwvH0ilc0S1tpfBFg/GiJt8=;
+        b=juz0YDVVk0B72A9ISZ8n02odkfMkE5IL4mbCaF8z+bweb6CJyIeeGvFFITTONg7Z2F
+         w2Z2szMZKrkJrGwndLAmVbQ837AB6tdu+bcmHPR0V/iE+ISMgHND4aaNvHEBUBAClX9j
+         JwuI9+Ra8/XG4tAXRvw56zBrwRzgEC6TjDIRy0rQ/2sisYUiTdkk62yB9Nqu+p488wXv
+         DPKvDBmMp+XySEvgHGAIkm1B+KXJzBo9UyLqqH7PHvz+v486hQ2H3P3uhRobDiG2VDfT
+         E8H8m0/wOm55Tfxv4Po9XMUkdpM8D/s1wrneq0vUMvN+1XOeOOeCxacFZ0BxM01gPEDR
+         C96A==
+X-Forwarded-Encrypted: i=1; AHgh+RqDrrMPXuvD+negcc0TqZ2IcHMFlwJCUX1ggF6/RzpafaGgg+mkkmUopYfPKrCvMzxEKASLbWMnue/X@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYgdMTmRV2Pih+7c7LC+v1Kyn3TSGoG0KLz8isCCLHYShjA7xd
+	5ug7hEqx5aNJUx9Csy9OlptTsrl8ZkKPfJCfPehDKUtfNnL1Fu1X96gQpgNn4aFfeJnLfhyhbct
+	8JRGcdp1H33YZVwJHXdSYv8E2whnrb2VygCMUKlRmqZO2uFakcUKNpM+k+LlpdAms
+X-Gm-Gg: AfdE7cmXZcDEi5wtNt/FIHEOs/cAq2V3sVJGepA1SsU9g/aWZ/xt6kDuA2jBYSnKJAu
+	dOB/YLkNT4emw+Mt1f7JV+O4HoHUiWiAHCTMk5lpIrIB80ceIGWst4+cASzf9Jm+5GKD7m6WCvR
+	W8VhyFtJvj2amL69rn5+iyupAwXk16jNVhZCdoBxrcLwFCFZlWaxTXREcxxNnPsO0rykqeGc0r/
+	9eO3YDqET9yO+fFY++E5is1NJQg2x24c+XUAkpAucpVONenzPvpCu6jGzZwIeMoa/86CSUn0ZkN
+	W/bC/gRrg8Ea/jhZ0Q5Ksv272ywobT6jZInT/kDH60Gc18w0hkFx0J1Y9YFRkPat+J+Zi7Ea9jL
+	HlHQvKZIRMvrLkVoDBJIEGxkigxQjWEeqq3iwV0lsLTrDJOWEu4G9Vh3DxT51p09ta2js9HA=
+X-Received: by 2002:a05:6a00:399d:b0:848:31fb:43d9 with SMTP id d2e1a72fcca58-84842f9fe29mr6182874b3a.45.1783585249008;
+        Thu, 09 Jul 2026 01:20:49 -0700 (PDT)
+X-Received: by 2002:a05:6a00:399d:b0:848:31fb:43d9 with SMTP id d2e1a72fcca58-84842f9fe29mr6182846b3a.45.1783585248485;
+        Thu, 09 Jul 2026 01:20:48 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6dbfd41sm8323523b3a.57.2026.07.09.01.20.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 01:19:34 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
-Date: Thu,  9 Jul 2026 16:19:27 +0800
-Message-ID: <20260709081928.612294-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.795.g602f6c329a-goog
+        Thu, 09 Jul 2026 01:20:48 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: misc: qcom,fastrpc: Document Nord FastRPC
+Date: Thu,  9 Jul 2026 16:20:40 +0800
+Message-ID: <20260709082040.4070711-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,128 +97,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA3OCBTYWx0ZWRfX6hYSV9oP5pER
+ yi5dvNoXAPY+OrPc48vRHVdHffuhwbRvSEf3AazHTbIZw4wsHmixMuGAV84VkcmuPB9HtwCfara
+ ubHkH8vMTJRTFgrdyi1Pf4kDZ4UMye6KjiMSQPezZAX5FMsDgWnacSLCQVte3kMH4w5EPmJSBIT
+ HszHkx1X49JwgyIKTiJUFJekKHXKz7J35vzvvRW+dVobE3u3yAcN/xzJcWPY+5CMfMZPZpAOCqr
+ +tabsPkAbwCQ4zlx8BpN0BAJOQV/JHWaFWq/Ij7FT61potOk/zMW3PnszLMTUuIIgwpch9vg+oo
+ sM6PoGQqDjigYo2Qaqg67BWmifma54Zp9askFkYWrDSqfZMbURHh7Ekcdz4oknHxch/4zzmlgvE
+ uPAOMFPqnujxgSTkSHBC7PHVkA0GTBubj89J/lQcowLrY/AkO79YxBqtwBHC46IVBRDluc2rT0V
+ /l9QgcibgbLMdTBrE/A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA3OCBTYWx0ZWRfX+rpkosz6QgIL
+ oxg1jridYEvTP4k2VyM4iYeN9xTyJxRc6ptyTvtDg90ptuzcZWmPoh56XsRMy+E9d5FMRUkH8BM
+ 8NVX9RALxgf+OdCtUhOH52ShqYXm+wc=
+X-Proofpoint-ORIG-GUID: rg_4B3aNpJPiulbuRGvuNf0IrP53wnM5
+X-Proofpoint-GUID: rg_4B3aNpJPiulbuRGvuNf0IrP53wnM5
+X-Authority-Analysis: v=2.4 cv=Krh9H2WN c=1 sm=1 tr=0 ts=6a4f59e1 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=v9Ym3Pauzs3pF5Qw1NMA:9 a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607090078
 
-The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR4X
-DRAM.
+Add compatible for Qualcomm Nord FastRPC which is compatible with
+Kaanapali FastRPC.
 
-Add a device node for it and hook up all the supplies. However do not
-add cpu-supply properties for the big cores. Adding them without the
-firmware fix mentioned below will likely cause CPU DVFS to stop working.
-
-This change requires a firmware fix for the SPMI bus to read back
-correctly. The required firmware version is 15842.175.0. This is
-included in ChromeOS releases R150-16700.22.0 (available in Beta
-channel as of writing or stable channel in mid-July) or
-R151-16721.0.0 and later.
-
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
-Changes since v1:
-- Dropped cpu-supply on CPU6 and CPU7
-- Added comment about broken firmware and upgrade versions
----
- .../boot/dts/mediatek/mt8188-geralt.dtsi      | 74 +++++++++++++++++++
- 1 file changed, 74 insertions(+)
+ Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index f382f90c48f5..dee946309121 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -4,6 +4,8 @@
-  */
- /dts-v1/;
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/spmi/spmi.h>
-+
- #include "mt8188.dtsi"
- #include "mt6359.dtsi"
+diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+index 2876fdd7c6e6..24fc0752c11a 100644
+--- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
++++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+@@ -26,6 +26,7 @@ properties:
+           - enum:
+               - qcom,glymur-fastrpc
+               - qcom,hawi-fastrpc
++              - qcom,nord-fastrpc
+           - const: qcom,kaanapali-fastrpc
  
-@@ -1156,6 +1158,14 @@ pins-bus {
- 		};
- 	};
- 
-+	spmi_pins: spmi-pins {
-+		pins-bus {
-+			pinmux = <PINMUX_GPIO175__FUNC_B0_SPMI_M_SCL>,
-+				 <PINMUX_GPIO176__FUNC_B0_SPMI_M_SDA>;
-+			bias-disable;
-+		};
-+	};
-+
- 	uart0_pins: uart0-pins {
- 		pins-bus {
- 			pinmux = <PINMUX_GPIO31__FUNC_O_UTXD0>,
-@@ -1267,6 +1277,70 @@ &spi2 {
- 	status = "okay";
- };
- 
-+&spmi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spmi_pins>;
-+	#address-cells = <2>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	pmic@6 {
-+		compatible = "mediatek,mt6319-regulator", "mediatek,mt6315-regulator";
-+		reg = <0x6 SPMI_USID>;
-+		pvdd1-supply = <&pp4200_s5>;
-+		pvdd2-supply = <&pp4200_s5>;
-+		pvdd3-supply = <&pp4200_s5>;
-+		pvdd4-supply = <&pp4200_s5>;
-+
-+		regulators {
-+			/*
-+			 * vbuck1 is the cpu-supply for CPU6 and CPU7.
-+			 *
-+			 * However, this device originally shipped with a broken
-+			 * firmware that causes register reads over SPMI fail.
-+			 * This is fixed in firmware version 15842.175.0, which
-+			 * is included in ChromeOS releases R150-16700.22.0 or
-+			 * R151-16721.0.0 and later.
-+			 *
-+			 * Assigning the cpu-supply properties for CPU6 and CPU7
-+			 * without the fix will likely cause CPU DVFS to stop
-+			 * working. Hence the assignment is left out to avoid a
-+			 * regression of the function. If the user is confident
-+			 * that their system has the fix, they can added the
-+			 * property themselves.
-+			 */
-+			mt6319_buck1: vbuck1 {
-+					regulator-name = "ppvar_dvdd_proc_bc";
-+					regulator-min-microvolt = <520000>;
-+					regulator-max-microvolt = <1155000>;
-+					regulator-enable-ramp-delay = <256>;
-+					regulator-allowed-modes = <0 1 2>;
-+					regulator-always-on;
-+			};
-+
-+			/* vbuck2 is ganged with vbuck1 */
-+
-+			mt6319_buck3: vbuck3 {
-+					regulator-name = "pp1125_emi_vdd2";
-+					regulator-min-microvolt = <1060000>;
-+					regulator-max-microvolt = <1170000>;
-+					regulator-enable-ramp-delay = <256>;
-+					regulator-allowed-modes = <0 1 2>;
-+					regulator-always-on;
-+			};
-+
-+			mt6319_buck4: vbuck4 {
-+					regulator-name = "pp0600_emi_vddq";
-+					regulator-min-microvolt = <570000>;
-+					regulator-max-microvolt = <650000>;
-+					regulator-enable-ramp-delay = <256>;
-+					regulator-allowed-modes = <0 1 2>;
-+					regulator-always-on;
-+			};
-+		};
-+	};
-+};
-+
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_pins>;
+   label:
 -- 
-2.55.0.795.g602f6c329a-goog
+2.43.0
 
