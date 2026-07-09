@@ -1,187 +1,304 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022117.outbound.protection.outlook.com [52.101.126.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA37421885
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783598486; cv=none; b=PF3daxOAre1/GZbwGjZQDaYefbz8CXdvlihVHc23gGdujvz+jAUxQoh65GHesV18dP7PhtFmIhs9BLF1uvVLRBy37ia0Yhbm8LQuLG0K1peoOQAWlSlSvHobXrSxG+Vyxx03uQLOuUc7feeFdRQ7uJtrkGb8kwRJWLs3Dy3wLns=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783598486; c=relaxed/simple;
-	bh=dSRokIMG5FGCZ4G+yYBu/oIlzG/8dd+9MeEg+3C5DBQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jVAPsYLS6GT25mvMmtBsaElAAPq/turjrYEBPsbt74pfWr+zqhZAfzRaqJw/Suzo0q0wMjsPjzDNY0rVNETyQBxlOw9PRGoeZhs/w7fDv0On+YXRdohJ3quTWYBqwwhVeCe+75WndUOTqUa+zE01pe21m8atWny97vwF56+FN64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Dk0OYiTT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LbH6dWt9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dk0OYiTT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LbH6dWt9"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669BNBlZ1715982
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 12:01:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lSRAHUem76Xncoxq5BufxBYy
-	3+SviaRcXkZ1QjWiysc=; b=Dk0OYiTTBBpY3gWGfrqEtNt4Xc3PNPcfwugHEUjy
-	klD/ypb045J/c1uZs9YUjlVDNfGidVnOs0OQ8oRmRlXcijHfopZ1qSfOyaff2/VM
-	WbnrnX+DRZnBb6NdGJxZr4bZ2E/TwKbe5Ma0Od6mCpILXnwEKpa60rarUBEfn9rw
-	YGtKrGxujBfFVXLxbSkZtxj1OU45GQv7wrXNUNFexxBC9Dgt7gK7uCbse3W3F0vx
-	qzJdRfQi7kIkHK72+CRp56wYgYhxvNfzD9AzyR245mZKEigjLplcGpWp+bOJE5D+
-	SkpBw9LOtY/mNQu5JrR63Ey2WIApy2oo46+BO0EuRYVwzw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9v4vup1j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 12:01:24 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3855a987c0aso2314353a91.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 05:01:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783598484; x=1784203284; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lSRAHUem76Xncoxq5BufxBYy3+SviaRcXkZ1QjWiysc=;
-        b=LbH6dWt9+wlR3Acrk02BfqbHdM4yM6OBSZV1AzNPMFjcVKPDxpPwU2BSu1hozsjd0X
-         VVGEmuy0RA4sFk2Bccie/+Oe1nOyBbHKZC0s9WreDa3/CCNTArnPSLRlZ3ESUxylAj5i
-         WEIV0rA+hmHSALvdypNHts5XmcKsLlRvx63LN7vEHn6Ahq9627Q5HezVRWgfVoa6oKVR
-         9WyIp87tgDR+Ydr7kIM2m/HvxgOo3+ZmtKDbFyX4k1Ug6hU+BEkpNQRcurD+RERj/zIr
-         2QntrZElHAtWE2VcY+b1Gajd9SKMUC/YRTA8M4kN3CHODGvDG6QDvxNNoGvTJS2Kof/a
-         OVMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783598484; x=1784203284;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lSRAHUem76Xncoxq5BufxBYy3+SviaRcXkZ1QjWiysc=;
-        b=RD3E4uAAv9osaUwndG0Z7/uV1wkOrysA44QWqp25FgEk9PpTA4orv4mQV1ZyiNXWOP
-         9GAM40uTLHPk1c+wsL5rUsOl0Fai16Saud4hNPQuFy40UWWvNeASoOtcMdvgu0WIFmEx
-         UmJcLF5UWbebjw4CLw10WU9Ptcf6CQmyQ6CONkVSF4R7dDS1GyPmwzQuC5ipaJEWmhEK
-         DOvWx3vpY6rO88IAIFWhYklFgnGT4xKAWAeh1KTkxaa1V7ur9pR1KCIbI8GDaAwo8PIQ
-         5xD0IqrxOlYahqudnFOOkVKMOtThJdkEwAGiP6qUgBw3uZWSluHPHdb6NEekwas3DVEs
-         +l0A==
-X-Forwarded-Encrypted: i=1; AHgh+RqFwblMI0Za43BODym5qCxPPJqkPvO4j1QaowTmH6OVXG9MgMLc7uDXO5jnrwjWfqh6OaYk1loxqU1K@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeUn2jAb+uz+AQy2ZpXl3kMcUBr18O2jpR+s3bOz4ac5yc5GWP
-	WoMJXUSEL8C1+dRFamBD4gTf5PowYntHO8AfmekRrz0/HaeQIEBOrbk/BmkBq707gxL7jjRpNEv
-	XlxNuNYFj6u8VvfiAMlQ0VE52uUseCwCov37VNQz9oN81CWdwVb/kjhtnFVIncMRL
-X-Gm-Gg: AfdE7cmki2qYG7g39G5ZvvO+HMTNGeAIuaCKiCzYCnHPcFosFsfJmxgdksWdkWTbbzk
-	dF1BIwX/NwnX/+aovWyivZml3Gr5yRexmI0YseSaS5UvtLFNfm5g2VWiM0XDC3UgX2q90uup1Nk
-	/HiPvs3OxYSHZ3+/2GVUihiAt7n7GR+xzQkCf5hFkZijxKJd/vaT73jSjEboTD5+GhDBsqRKczG
-	vN8gNz9rGNQJChYBVDNHUOfXdRNpAHM1HWrLEW7c52FXf9SjHWE3/I1FFSTNDo48l+EG+hB0nuQ
-	3kmR2TffzF2xz2Nc6pq4WWJ5KgVLotCV/clIN5UuiMPDt6zkx47SvXPourl0sj5b2BIoBQU7NCj
-	OvrX4TBv1Jx0/GFNUUfIvCOLIZfvAz+qZFy+eb2wyRrTzTOB0YJOltd0evmPT
-X-Received: by 2002:a17:90b:4cce:b0:37f:9ce0:af32 with SMTP id 98e67ed59e1d1-389421ac479mr7391612a91.29.1783598483676;
-        Thu, 09 Jul 2026 05:01:23 -0700 (PDT)
-X-Received: by 2002:a17:90b:4cce:b0:37f:9ce0:af32 with SMTP id 98e67ed59e1d1-389421ac479mr7391549a91.29.1783598483101;
-        Thu, 09 Jul 2026 05:01:23 -0700 (PDT)
-Received: from hu-anancv-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174a583bcsm34921181eec.19.2026.07.09.05.01.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 05:01:22 -0700 (PDT)
-Date: Thu, 9 Jul 2026 05:01:20 -0700
-From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] arm64: dts: qcom: fix SoCCP memory mappings for
- Glymur
-Message-ID: <ak-NkIoAuiZ_8q9u@hu-anancv-lv.qualcomm.com>
-References: <20260707-glymur-soccp-v5-0-053993f0c6fe@oss.qualcomm.com>
- <20260707-glymur-soccp-v5-2-053993f0c6fe@oss.qualcomm.com>
- <20260709071407.hd2etfpud5dq44yd@hu-mojha-hyd.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06635421896;
+	Thu,  9 Jul 2026 12:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.117
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783598497; cv=fail; b=LEFwJQViERa5svM2Bj8/BWNm5Flnn2M0nL6Un+t5+/lVUzvQHGj6aza2iHA4AJUGGZbmqwtIWdkfg1pGLA/SroFTgzy9NOFk+FcR5w0ldSPDT2Icftg1/N5WEG2vIQ59YhCYv/MtrSA6iMaFQG/vJHFXLKmXsDIq/BljD7Ui1+4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783598497; c=relaxed/simple;
+	bh=hcpQc8TkxBYLssSkBpBmkRoJy7k+tt6OzepS8jWZ0Gw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZwVd2JdOw/gesn2Q/5mXpeiZVp1IsWdMkL5slHsgcv2qpPrzHuxm4hfT/PoX2sFz+Twq3nb+e8os8gYWVM+UbzTXBLasbBay4WvPlOpAi1DhxI/u7JHWZOwx3LlkFVVOZhXRBRbbB8BJZ2Tq8pM87yFDmxvZT6ZoekfT9WcL+WQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vOVMgk75worEZW0ZtBmK1cxTmZOcQBnA2ceq57kHLfkAHs1Bt1I1npVmZnqUjqQjQcHBjaaUgZt1YPS9k1R9cJuimCObwlqKeBBiJBBAtQ1+KELz2GFeVtWA/63GEa4uZbikH6bIZS4YWfT1Ip9+hHlm6qWtrNJuFvuWtzVFeWcHCTFpCccgIsPmeApYRrdVSZwmdB0je5zteb8SNJh+eAPj9NHV3ymfy5E+Jd/+jk50XvaGmzjZ+XTC8dbWBcmeqLJtSFUuQwPH5rppM+5hR9uEuKZ148mINJ1bquVHxar4XfarXrOaGK6TPl2L+ItHO82KvYxnYXnOxhLie1MkYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=efu/eKs2NQ92JaelL1qHqkQ1iI9MMxrdg9ZC113sUtE=;
+ b=iwA68grFwvP6Yfd+PGVDTz2AvVHIONvvxfw7+v6Q/MdqXnhJULF6iWE9AqiMi/ETNq/xYoH2vsaZy8GNFlGYpWOVwkS+a4SOtlNIqlz6u8eOWStGXRhFMS+5/YWEAWuHdVQk1yaeWatB7Gc5hde9r23GvsR2ymj9n9QhFwjGoHgTQSQluY3mqKMBhuoJAedgNnJA0UY7drRbG3bPFxD4ebb5Gc8C8GxvSWeJanqe4jS5LM0RCUNRALoFzgS2+aIrOvaUl18SgF2ZF4g4bK5qZvTsuWH1jcVabDMbce0o4PepPNgiVK7r5uKZDsPSXxKuMeBEP9YyU/bm31cNK0o9Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=baylibre.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR02CA0010.apcprd02.prod.outlook.com (2603:1096:4:194::15)
+ by TY2PPF089F03E6D.apcprd06.prod.outlook.com (2603:1096:408::784) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 12:01:31 +0000
+Received: from SG2PEPF000B66D0.apcprd03.prod.outlook.com
+ (2603:1096:4:194:cafe::8f) by SI2PR02CA0010.outlook.office365.com
+ (2603:1096:4:194::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.10 via Frontend Transport; Thu, 9
+ Jul 2026 12:01:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66D0.mail.protection.outlook.com (10.167.240.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 9 Jul 2026 12:01:30 +0000
+Received: from cix (unknown [172.18.64.61])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id D00E740920E2;
+	Thu,  9 Jul 2026 20:01:29 +0800 (CST)
+From: joakim.zhang@cixtech.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	bmasney@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	p.zabel@pengutronix.de
+Cc: cix-kernel-upstream@cixtech.com,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Joakim Zhang <joakim.zhang@cixtech.com>
+Subject: [PATCH v9 3/4] reset: cix: add sky1 audss auxiliary reset driver
+Date: Thu,  9 Jul 2026 20:01:24 +0800
+Message-ID: <20260709120125.3997078-4-joakim.zhang@cixtech.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260709120125.3997078-1-joakim.zhang@cixtech.com>
+References: <20260709120125.3997078-1-joakim.zhang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709071407.hd2etfpud5dq44yd@hu-mojha-hyd.qualcomm.com>
-X-Proofpoint-GUID: vztWt0f5-VnVF2uzseQyBVElskbyLS_f
-X-Proofpoint-ORIG-GUID: vztWt0f5-VnVF2uzseQyBVElskbyLS_f
-X-Authority-Analysis: v=2.4 cv=GIg41ONK c=1 sm=1 tr=0 ts=6a4f8d94 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=9Iu-izY7Zm1IiM7mkRwA:9 a=CjuIK1q_8ugA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDExNSBTYWx0ZWRfX2IdtP5Prn8tN
- nVvfxPifB5YU5jUmuOOtKx/kR5sTyvcdf98gw1o0oY1eMyYl9fT/p6/c+7OjjDlJ/2FUgA3gPZH
- l9wIpP7qHOq9OnILYaezpKBT5zdf1QnmM14HHZ+25e92cHNNLPOgkCZLXU9xvxf7DGs40TBEvmI
- RJgVh+XJ4ZHWOFui4ZaLchSGyLcxhVyh6ooR2ZPCQMQJedrQQAN4MvxwnXM3q2yjSN6L8eIr5D5
- WKA6wTu2dZp1o90K1mOFRa3hGice8zQHFWyU4W5NMpcCyaDSJCYHzDtZ4c5cIS0XxZedNvDU8rK
- 3hjVN87R4Xe1jmxEx7qCfz3mtIT8sP2okn6idFqEkQtQ9VIzr+dIjp10feHtWKhhu+8OlkbXjcK
- lgAAD/55zHL+AR4f+xqti3MhR9/KSAwvoCGHlkRR/xtc6gsubykXV3I5f3b5UrkUT5jPo/JzghZ
- unIQYDxwJDKBkzWG1nQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDExNSBTYWx0ZWRfXyzY0a0ZNZbuY
- vfYr6m353cNX/8xgiIMr74T2XtDWkc8F3fdAQCuca7WSJRZIOpLvZW449hvhkzsbwbIXT+GnA9g
- 1l7KUY5Aq2dqTJzmtHh03nE/xHKnX8Q=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501
- spamscore=0 malwarescore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090115
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66D0:EE_|TY2PPF089F03E6D:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: fc20061b-dc33-40a4-febc-08deddb1d07d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|7416014|1800799024|5023799004|56012099006|18002099003|3023799007|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ieex+3VGMa+ljgq5B5Pt4l6KyIDWh/Fm2eKzg5QmOZ0Ug6UVNo1t4ijtLuQyTnj7cyQoac6lW1eoK5Ge7vFG7UzUkHP8XvyCzQNqCRVB9pfeMolnhkxhxj4m+ouQAcnvdvLTxiXP6an6oA9wLYCvdTIg/ol2i6xNY7WM/AJJne1mIoNU02o+WQ9d9jyi7eFuls+Zjw8eFiR0swHWABsZaRg2ui4FRqgEb/REOTDXMl4dNY59R1ygFswZuuaJ4lRDno+38K4DjrQkA8RDm/YmEH/76uQC8K2mwYoqzlz87shahwwkUOu5wLuM38CbQPkzCRhWhe3bkIJ02+L/G5/p0RPem5Jl9EH5mNt1lDMjRFb218RP981EGBNzGPN70FO0go6A+fClkKYdDwUUc9NdKMr+xvUpFFZP4AUVLR4mvG7XwbHfv2id8D+dguKpM0hazqCB60GvQz3hm/EFAl4vmry9EppJ7147Q5PiIsUIPzCeziT3t63QSEyEtnIXPfylms+FP7vjX44bdUVR1kG3GCZt0ChHqXRGnOPR9u1F1YU1ils67j+DmutUBDcvwH68QyB14RdPt66Kphe9y6fk5WuBAhxs9wCwuW5M/Das653qjhUNCKj41QVnDZiFKPrxaf+TDfH8og7bIWuqXL3BM9wwSZQ2Z6C5QaMKpj53Lm1FeO3Zdz9QhHBB87w+6Ht3g/i4974efbS2c1/FVXjNuA==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(7416014)(1800799024)(5023799004)(56012099006)(18002099003)(3023799007)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qlqVAmZa6lEJ2p/APzKJChpupbRj0FJs0dxs5M3758hPATjyHPpDjnQF465/MsyH3z0M+Las4zBm/0X9Tpup7sJbPGmPh3lnbCr/w6l881Op9JmXoH2HzL6gC4MHh2FMsjLeYkXCrSCggp+kAjha4Z4RaT/PiLqNR2OGjKqhPbapw0MalzYgp+Wsf6F4sR+zR6YBXzn5F1xIoEe43stxdmNef/sykv5TxdOYLAdr/0g6cpn7C84h0qGQut12bAQPpJAUMbAq6cdXm10E6kN2VbUwHa4gMcDSO/isOQEuoLuZEU9c/YZcXjsHL86xqtRVQ6Tqr9/svp3PzAaJrhDmbzJFmSa1bLTycINTq+DANP0bivHM1MrEs62+iDJug2dL/zdlP8Ep4Hfbcbw4mToJImS8CwSqXqcNq/Mq2EXqZA2fedUnZfQJ/5hwMV2DXHEc
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 12:01:30.7809
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc20061b-dc33-40a4-febc-08deddb1d07d
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66D0.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PPF089F03E6D
 
-Hi Mukesh,
+From: Joakim Zhang <joakim.zhang@cixtech.com>
 
-On Thu, Jul 09, 2026 at 12:44:07PM +0530, Mukesh Ojha wrote:
-> On Tue, Jul 07, 2026 at 03:12:45AM -0700, Ananthu C V wrote:
-> > The currently listed SoCCP and SoCCP DTB reserved memory regions
-> > don't align with the memory requested by the SoCCP Firmware. Fix
-> > this by updating the SoCCP/SoCCP DTB memory regions to reflect the
-> > memory region requirements of the SoCCP firmware, as described in
-> > the Glymur v21 memory map release.
-> > 
-> > Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> 
-> 
-> It should have fixes tag ?
+Add an auxiliary reset controller driver for the AUDSS CRU. Sixteen
+software reset lines for audio subsystem peripherals are controlled
+through one register in the CRU register map.
 
-I did consider this, but since neither reserved regions had uesrs, I
-thought this might not be applicable.
+The driver is created by the AUDSS clock platform driver and registers
+the reset controller on the CRU device node.
 
-> > ---
-> >  arch/arm64/boot/dts/qcom/glymur.dtsi | 8 ++++----
-> >  1 file changed, 4 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> > index 20b49af7298e..9ec7c256b80a 100644
-> > --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> > @@ -602,13 +602,13 @@ spss_region_mem: spss@88a00000 {
-> >  			no-map;
-> >  		};
-> >  
-> > -		soccpdtb_mem: soccpdtb@892e0000 {
-> > -			reg = <0x0 0x892e0000 0x0 0x20000>;
-> > +		soccp_mem: soccp@88e00000 {
-> > +			reg = <0x0 0x88e00000 0x0 0x400000>;
-> >  			no-map;
-> >  		};
-> >  
-> > -		soccp_mem: soccp@89300000 {
-> > -			reg = <0x0 0x89300000 0x0 0x400000>;
-> > +		soccpdtb_mem: soccpdtb@89200000 {
-> > +			reg = <0x0 0x89200000 0x0 0x20000>;
-> >  			no-map;
-> >  		};
-> >  
-> > 
-> > -- 
-> > 2.43.0
-> > 
-> 
-> -- 
-> -Mukesh Ojha
+Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+---
+ drivers/reset/Kconfig            |  13 +++
+ drivers/reset/Makefile           |   1 +
+ drivers/reset/reset-sky1-audss.c | 137 +++++++++++++++++++++++++++++++
+ 3 files changed, 151 insertions(+)
+ create mode 100644 drivers/reset/reset-sky1-audss.c
 
-Best,
-Ananthu
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index d009eb0849a3..b19e719f2abe 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -300,6 +300,19 @@ config RESET_SKY1
+ 	help
+ 	  This enables the reset controller for Cix Sky1.
+ 
++config RESET_SKY1_AUDSS
++	tristate "Cix Sky1 Audio Subsystem reset controller"
++	depends on ARCH_CIX || COMPILE_TEST
++	select AUXILIARY_BUS
++	default CLK_SKY1_AUDSS
++	help
++	  Support for block-level software reset lines in the Cix Sky1
++	  Audio Subsystem (AUDSS) Clock and Reset Unit. Sixteen reset
++	  outputs for audio peripherals are controlled through the CRU
++	  register map. The driver binds as an auxiliary device from
++	  the AUDSS clock driver. Say M or Y here if you want to build
++	  this driver.
++
+ config RESET_SOCFPGA
+ 	bool "SoCFPGA Reset Driver" if COMPILE_TEST && (!ARM || !ARCH_INTEL_SOCFPGA)
+ 	default ARM && ARCH_INTEL_SOCFPGA
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 3e52569bd276..e81407ea3e29 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -39,6 +39,7 @@ obj-$(CONFIG_RESET_RZV2H_USB2PHY) += reset-rzv2h-usb2phy.o
+ obj-$(CONFIG_RESET_SCMI) += reset-scmi.o
+ obj-$(CONFIG_RESET_SIMPLE) += reset-simple.o
+ obj-$(CONFIG_RESET_SKY1) += reset-sky1.o
++obj-$(CONFIG_RESET_SKY1_AUDSS) += reset-sky1-audss.o
+ obj-$(CONFIG_RESET_SOCFPGA) += reset-socfpga.o
+ obj-$(CONFIG_RESET_SUNPLUS) += reset-sunplus.o
+ obj-$(CONFIG_RESET_SUNXI) += reset-sunxi.o
+diff --git a/drivers/reset/reset-sky1-audss.c b/drivers/reset/reset-sky1-audss.c
+new file mode 100644
+index 000000000000..d31d80e1251a
+--- /dev/null
++++ b/drivers/reset/reset-sky1-audss.c
+@@ -0,0 +1,137 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Cix Sky1 Audio Subsystem reset controller driver
++ *
++ * Copyright 2026 Cix Technology Group Co., Ltd.
++ */
++
++#include <dt-bindings/reset/cix,sky1-audss-cru.h>
++
++#include <linux/auxiliary_bus.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regmap.h>
++#include <linux/reset-controller.h>
++
++#define SKY1_RESET_SLEEP_MIN_US		50
++#define SKY1_RESET_SLEEP_MAX_US		100
++
++#define AUDSS_SW_RST			0x78
++
++struct sky1_audss_reset_map {
++	unsigned int offset;
++	unsigned int mask;
++};
++
++struct sky1_audss_reset {
++	struct reset_controller_dev rcdev;
++	struct regmap *regmap;
++	const struct sky1_audss_reset_map *map;
++};
++
++static const struct sky1_audss_reset_map sky1_audss_reset_map[] = {
++	[AUDSS_I2S0_SW_RST]   = { AUDSS_SW_RST, BIT(0) },
++	[AUDSS_I2S1_SW_RST]   = { AUDSS_SW_RST, BIT(1) },
++	[AUDSS_I2S2_SW_RST]   = { AUDSS_SW_RST, BIT(2) },
++	[AUDSS_I2S3_SW_RST]   = { AUDSS_SW_RST, BIT(3) },
++	[AUDSS_I2S4_SW_RST]   = { AUDSS_SW_RST, BIT(4) },
++	[AUDSS_I2S5_SW_RST]   = { AUDSS_SW_RST, BIT(5) },
++	[AUDSS_I2S6_SW_RST]   = { AUDSS_SW_RST, BIT(6) },
++	[AUDSS_I2S7_SW_RST]   = { AUDSS_SW_RST, BIT(7) },
++	[AUDSS_I2S8_SW_RST]   = { AUDSS_SW_RST, BIT(8) },
++	[AUDSS_I2S9_SW_RST]   = { AUDSS_SW_RST, BIT(9) },
++	[AUDSS_WDT_SW_RST]    = { AUDSS_SW_RST, BIT(10) },
++	[AUDSS_TIMER_SW_RST]  = { AUDSS_SW_RST, BIT(11) },
++	[AUDSS_MB0_SW_RST]    = { AUDSS_SW_RST, BIT(12) },
++	[AUDSS_MB1_SW_RST]    = { AUDSS_SW_RST, BIT(13) },
++	[AUDSS_HDA_SW_RST]    = { AUDSS_SW_RST, BIT(14) },
++	[AUDSS_DMAC_SW_RST]   = { AUDSS_SW_RST, BIT(15) },
++};
++
++static struct sky1_audss_reset *to_sky1_audss_reset(struct reset_controller_dev *rcdev)
++{
++	return container_of(rcdev, struct sky1_audss_reset, rcdev);
++}
++
++static int sky1_audss_reset_set(struct reset_controller_dev *rcdev,
++				unsigned long id, bool assert)
++{
++	struct sky1_audss_reset *priv = to_sky1_audss_reset(rcdev);
++	const struct sky1_audss_reset_map *signal = &priv->map[id];
++	unsigned int value = assert ? 0 : signal->mask;
++
++	return regmap_update_bits(priv->regmap, signal->offset, signal->mask, value);
++}
++
++static int sky1_audss_reset_assert(struct reset_controller_dev *rcdev,
++				   unsigned long id)
++{
++	int ret;
++
++	ret = sky1_audss_reset_set(rcdev, id, true);
++	if (ret)
++		return ret;
++
++	usleep_range(SKY1_RESET_SLEEP_MIN_US, SKY1_RESET_SLEEP_MAX_US);
++	return 0;
++}
++
++static int sky1_audss_reset_deassert(struct reset_controller_dev *rcdev,
++				     unsigned long id)
++{
++	int ret;
++
++	ret = sky1_audss_reset_set(rcdev, id, false);
++	if (ret)
++		return ret;
++
++	usleep_range(SKY1_RESET_SLEEP_MIN_US, SKY1_RESET_SLEEP_MAX_US);
++	return 0;
++}
++
++static const struct reset_control_ops sky1_audss_reset_ops = {
++	.assert   = sky1_audss_reset_assert,
++	.deassert = sky1_audss_reset_deassert,
++};
++
++static int sky1_audss_reset_probe(struct auxiliary_device *adev,
++				  const struct auxiliary_device_id *id)
++{
++	struct sky1_audss_reset *priv;
++	struct device *dev = &adev->dev;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->regmap = dev_get_regmap(dev->parent, NULL);
++	if (!priv->regmap)
++		return dev_err_probe(dev, -ENODEV, "failed to get parent regmap\n");
++
++	priv->map = sky1_audss_reset_map;
++	priv->rcdev.owner = THIS_MODULE;
++	priv->rcdev.nr_resets = ARRAY_SIZE(sky1_audss_reset_map);
++	priv->rcdev.ops = &sky1_audss_reset_ops;
++	priv->rcdev.of_node = dev->of_node;
++	priv->rcdev.dev = dev;
++
++	return devm_reset_controller_register(dev, &priv->rcdev);
++}
++
++static const struct auxiliary_device_id sky1_audss_reset_ids[] = {
++	{ .name = "clk_sky1_audss.reset" },
++	{ }
++};
++MODULE_DEVICE_TABLE(auxiliary, sky1_audss_reset_ids);
++
++static struct auxiliary_driver sky1_audss_reset_driver = {
++	.probe = sky1_audss_reset_probe,
++	.id_table = sky1_audss_reset_ids,
++};
++module_auxiliary_driver(sky1_audss_reset_driver);
++
++MODULE_AUTHOR("Joakim Zhang <joakim.zhang@cixtech.com>");
++MODULE_DESCRIPTION("Cix Sky1 Audio Subsystem reset driver");
++MODULE_LICENSE("GPL");
+-- 
+2.50.1
+
