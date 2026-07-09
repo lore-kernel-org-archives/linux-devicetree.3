@@ -1,92 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119FC29DB64
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC70830DECB
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783585098; cv=none; b=RGg15EWy2ixNLmV9UIOPDLDJJagFSwdZTo4oiCh9gaJw3LJpAkRPFCqtOVwM3Vp5a5tHT6n7ZJupe070t90ttcEo49n6wGwYYaIBaKL0IfQubuHSE0CfjCnK70sLsSKME9CnjTfh8UCsh4QFas2FxogG1WB/zcuWj8QH6En4hKA=
+	t=1783585177; cv=none; b=dRcxB8St3mGcOtOj51BxW3SB9kXfaVcVPg51x2YBxhsPyRDJxwWxDD0Vxwz2MLkO0IO8UhFUk8js2GEHgx9N8uI5Bx04yvOk3F8CqgEdFH8LVSA6DhObkjtHpcu4G9oq3tQO9bHcjtyhMKvuQDT4JfcQCdWw14rT0c/KRyodXyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783585098; c=relaxed/simple;
-	bh=ajkEBXAjpA1ZpqDt4IMgDH5OQTNTmZskafEtOoSynhg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dMjx0wOAwviJx4Kcdo62KPVvo/asMy2D87tkFBpfE2A7qgMphc3VR4xWFPWkLk8MwkSMiLD/DQ1roZRXhHji2jVcfV/xwUQsPIvEaip5cuLooU5oATdyol9ctXJM4gJwQwYIOshoXv0f7xgFSx3eNHNoEpP2MXcdr0GIoXouIs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ANj/CGe+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783585177; c=relaxed/simple;
+	bh=S5UFZMLjFckuRxZtPhVtitmozymvSSYfH08eAs51SZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TBGl9LMbFFx0qRG5N2UI4PaXJNhweH7aCpdkxHFd915tQA+3mRPznq5SOmidmgfMGjZo5J0o944hhu+QOlHniteZBUAlffecqPQhjGc+7w6ZFr8tK2YncCsnlBu/6rRA1nnQpYVSxJjFfO4Srob1qYvIgx3tnOEU2x8X2k+CVVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=dGNgtopy; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ANj/CGe+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A941F00A3A;
-	Thu,  9 Jul 2026 08:18:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783585096;
-	bh=PJhUb4Q8hnbK291ddFFjSMce0CeKhvn0I/ZxWyhGnCs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ANj/CGe+v9mSvLkJDOAfeSYNCcGWMt56WXMpiJ2K6NReMufJpGF+oDYiLZ8Bl3KTO
-	 9AvlFq4lyN9du7XklDil/LqZ84EMCI2FXb7YjSRuzKGoRTYWcKOeSMl+TnwvnHL/nB
-	 j2ShKf9ooY4gzZ0yjmBQ7lyKIOmy7zPJY3SloDDNRRjJBx5k40D4o4MgWUPWfEodqM
-	 esTOpSumPmda+I7DQVs4WhHjhsSd1fn1cKqXZn6x63eVnz5cA3ep/NC+siNt/lynM0
-	 uIo/e3RKaTqSntbBqs0oH8wk72dxrD9jUfTTCCOs6QF7vgSKihB/XfdwCcB9xQb3rv
-	 tZJO4UxU6aiZA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/2] media: dt-bindings: Add Himax HM1092 NIR sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ramshouriesh R" <rshouriesh@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709-hm1092-driver-v5-1-a1f5baa6fe08@gmail.com>
-References: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com>
- <20260709-hm1092-driver-v5-1-a1f5baa6fe08@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 08:18:16 +0000
-Message-Id: <20260709081816.A3A941F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="dGNgtopy"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8453427d3f4so1487052b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:19:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1783585175; x=1784189975; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cTOPP+o88VWkb8bpp8Y96c4/97TqS6hM51V5JviFgiY=;
+        b=dGNgtopypIm39RarrIOuCPUUTl3gZO/VftINsfMIBB91hzlAs68YF2UF4UBSjbrLjz
+         QPyioj8pd6ujFaM70JRE4RIpT45aK+QO1TlTiWQGWu7xxDhI6/082kYLeMFqY1D1fRHZ
+         /uBlFJxEFxbI7KWqLowLrGMi32KcvycMOdp6U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783585175; x=1784189975;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cTOPP+o88VWkb8bpp8Y96c4/97TqS6hM51V5JviFgiY=;
+        b=DXVlt1gqZlhJM7wMNU7cSPvB8WPkRdaNZa41iXUKMDs7Mmia5LCNJ0EJQldilIMX4e
+         M6aoOPwQqqCYixVcczfggVEMygbW+JZii/4KkdeAfZ/0sg4ImZ3zETBn0OMwzg7b+14G
+         hKHPrP5UpXdGO7p8fSbWa5UvaImfl8MnlBHQClG4W62rCs2VhCwNsNy3Us3gloDckVe2
+         892cHbTsvP/g+w+x+HqdfcfS9NY64lgZBta6EJ4x8RiPcJRJUyyW4svGILaXSPSe18Fc
+         ut9v0CpkoWvYFO1AU7NOyjdxIkdLrKdP/pYe1H/GcHorXN3ma29Ohposwx1wnEXA/Roj
+         QO7w==
+X-Forwarded-Encrypted: i=1; AHgh+RpjM4o9n3yUW4jn15yuLMpyiVN/lWGI5DwtLFctRH1o8N5NkLFGZWu7go4IjYMSLok7sf/Qbx2f9Npl@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxx3x4TMhZ3hKD3EOM12rzHpzf5HSniRz+0FGUl67LhfYQ3STDR
+	z3xp+pN4ciyb9MqWuNrI+qjBPSS6sMaa4cvPEmowCezqM3fmoTs7InD4TQfM+t+Y/g==
+X-Gm-Gg: AfdE7cktsQYPx3AZtPTATF+pZNhsKOPzRsBpZpWWTbYkrPJ48f9EWH9j9Imd/S/8k+u
+	+7em2TNUzp0ObZ8la3U5P9gODPiAtXwPPYq/ygiL7tKNuvwL4lnNhxD6/Ku+2pxoZ+ufPQ2Iomv
+	REMPnNJPwUoOZr5Mj/ffwwvFpi82kayLIHTOIBSSSI94mfni4qbN4MrnuiJnlkw+5fqIE2inxGm
+	IJ61FDXoOy5o3ee5maiXmOZ6I7Lk7DH5MBcdptEFx3ApGiv6eZJEttqWCevM5w0h5zXcX+ZQHpT
+	wyGCsiEhU2pekoPuk1NuEnxloOObvVNgp5G7NQFsL6moX4VqRJ5RRcwmOTXySSEseZPjcTh1ufJ
+	givF8G6Fkn+9owDEMthZ7mzJvjzWr0uLxC8dfBqOoUCWZrQPNU2OwbpfsusbAiKwD5mf7fr07tj
+	V9Lvdi8uY3gaA+i5Ovf0GzmX5kEDheUByE9SLQbHvH6Af5oHTUFe4ZgTeO3ZoZM9VGvU0bnQ==
+X-Received: by 2002:a05:6a00:2450:b0:848:2b8f:c9d7 with SMTP id d2e1a72fcca58-84843027f6emr5831170b3a.18.1783585175251;
+        Thu, 09 Jul 2026 01:19:35 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:bd09:6ddb:180a:69c5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-847f6dbdc8dsm8211863b3a.55.2026.07.09.01.19.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 01:19:34 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+Date: Thu,  9 Jul 2026 16:19:27 +0800
+Message-ID: <20260709081928.612294-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.795.g602f6c329a-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `data-lanes` property is unconstrained in the MIPI CSI-2 endpoi=
-nt, allowing invalid hardware configurations to pass validation.
---
+The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR4X
+DRAM.
 
---- Patch [1]: [PATCH v5 1/2] media: dt-bindings: Add Himax HM1092 NIR sens=
-or ---
-commit c0fd35985ccc449c8ccfd7a8009b9fa4c8298ef0
-Author: Ramshouriesh R <rshouriesh@gmail.com>
+Add a device node for it and hook up all the supplies. However do not
+add cpu-supply properties for the big cores. Adding them without the
+firmware fix mentioned below will likely cause CPU DVFS to stop working.
 
-media: dt-bindings: Add Himax HM1092 NIR sensor
+This change requires a firmware fix for the SPMI bus to read back
+correctly. The required firmware version is 15842.175.0. This is
+included in ChromeOS releases R150-16700.22.0 (available in Beta
+channel as of writing or stable channel in mid-July) or
+R151-16721.0.0 and later.
 
-This commit adds a device tree binding schema for the Himax HM1092, a 1
-megapixel monochrome near-infrared CMOS image sensor. The sensor streams
-10-bit RAW data over a single MIPI CSI-2 data lane.
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+Changes since v1:
+- Dropped cpu-supply on CPU6 and CPU7
+- Added comment about broken firmware and upgrade versions
+---
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yam=
-l b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+index f382f90c48f5..dee946309121 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+@@ -4,6 +4,8 @@
+  */
+ /dts-v1/;
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/spmi/spmi.h>
++
+ #include "mt8188.dtsi"
+ #include "mt6359.dtsi"
+ 
+@@ -1156,6 +1158,14 @@ pins-bus {
+ 		};
+ 	};
+ 
++	spmi_pins: spmi-pins {
++		pins-bus {
++			pinmux = <PINMUX_GPIO175__FUNC_B0_SPMI_M_SCL>,
++				 <PINMUX_GPIO176__FUNC_B0_SPMI_M_SDA>;
++			bias-disable;
++		};
++	};
++
+ 	uart0_pins: uart0-pins {
+ 		pins-bus {
+ 			pinmux = <PINMUX_GPIO31__FUNC_O_UTXD0>,
+@@ -1267,6 +1277,70 @@ &spi2 {
+ 	status = "okay";
+ };
+ 
++&spmi {
++	pinctrl-names = "default";
++	pinctrl-0 = <&spmi_pins>;
++	#address-cells = <2>;
++	#size-cells = <0>;
++	status = "okay";
++
++	pmic@6 {
++		compatible = "mediatek,mt6319-regulator", "mediatek,mt6315-regulator";
++		reg = <0x6 SPMI_USID>;
++		pvdd1-supply = <&pp4200_s5>;
++		pvdd2-supply = <&pp4200_s5>;
++		pvdd3-supply = <&pp4200_s5>;
++		pvdd4-supply = <&pp4200_s5>;
++
++		regulators {
++			/*
++			 * vbuck1 is the cpu-supply for CPU6 and CPU7.
++			 *
++			 * However, this device originally shipped with a broken
++			 * firmware that causes register reads over SPMI fail.
++			 * This is fixed in firmware version 15842.175.0, which
++			 * is included in ChromeOS releases R150-16700.22.0 or
++			 * R151-16721.0.0 and later.
++			 *
++			 * Assigning the cpu-supply properties for CPU6 and CPU7
++			 * without the fix will likely cause CPU DVFS to stop
++			 * working. Hence the assignment is left out to avoid a
++			 * regression of the function. If the user is confident
++			 * that their system has the fix, they can added the
++			 * property themselves.
++			 */
++			mt6319_buck1: vbuck1 {
++					regulator-name = "ppvar_dvdd_proc_bc";
++					regulator-min-microvolt = <520000>;
++					regulator-max-microvolt = <1155000>;
++					regulator-enable-ramp-delay = <256>;
++					regulator-allowed-modes = <0 1 2>;
++					regulator-always-on;
++			};
++
++			/* vbuck2 is ganged with vbuck1 */
++
++			mt6319_buck3: vbuck3 {
++					regulator-name = "pp1125_emi_vdd2";
++					regulator-min-microvolt = <1060000>;
++					regulator-max-microvolt = <1170000>;
++					regulator-enable-ramp-delay = <256>;
++					regulator-allowed-modes = <0 1 2>;
++					regulator-always-on;
++			};
++
++			mt6319_buck4: vbuck4 {
++					regulator-name = "pp0600_emi_vddq";
++					regulator-min-microvolt = <570000>;
++					regulator-max-microvolt = <650000>;
++					regulator-enable-ramp-delay = <256>;
++					regulator-allowed-modes = <0 1 2>;
++					regulator-always-on;
++			};
++		};
++	};
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_pins>;
+-- 
+2.55.0.795.g602f6c329a-goog
 
-[ ... ]
-
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        required:
-> +          - link-frequencies
-
-[Severity: Low]
-The commit message mentions that the sensor streams over a single MIPI
-CSI-2 data lane. Should this endpoint definition include a constraint for
-data-lanes (for example, maxItems: 1) to prevent invalid hardware
-configurations with multiple lanes from passing schema validation?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-hm1092-dri=
-ver-v5-0-a1f5baa6fe08@gmail.com?part=3D1
