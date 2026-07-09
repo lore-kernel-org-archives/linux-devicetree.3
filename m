@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C383314BF
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 05:24:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3EA390CB3;
+	Thu,  9 Jul 2026 05:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783574679; cv=none; b=ryUyXEOkOvoPY62vrJehUXnR5dRY5lMiVqKMkNST5WaMK4YXZc313gk+AqrTjDZhw45DMo99idtChCQZPZfKJar/jCSmicMvU7s8Gv/3beI/gvnBkmyZfhgrHW7gemf3dUkltWkXF17vWuZqgSCUaZdXrdClCMcwTuRMvJ0t34k=
+	t=1783574843; cv=none; b=cKRxuJW+Rc5m14wg48VyCwALsUs+qHq7TiNVCqNDhjsVTLjd+67xTFq0EkHiLAHbyatLmFhaFGMiNZMwM5SbisikaP9lpiGbTEwSn5ijZbq8+RohT9si8vG7jBzNY+z+1sm6hlTesgSnyNfZNH2Pp5ZZijZrP06XWoqjD+dYfJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783574679; c=relaxed/simple;
-	bh=eCEmFNBKDCUgi/XpzjhkSQjXE6ML/LWB346kaTFfFn0=;
+	s=arc-20240116; t=1783574843; c=relaxed/simple;
+	bh=vwqDMBYSjv8gqPoU1nOysOPHJh5eN5V4wV9NFJDES0o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JUhGEevUv3E/DssfA3MgvVZ9FoXN82QwxchknfX6/sXzBstYkX8/KuxsRlu+mV4+Yoem2nr1oF/ZFqqsjfxuspCvg0O+lV/ILR4yKgE0cANusiIXLuM92l3dhJQnSUzZDZQf1MDIkco9083ExfepHVhj+msmJxheevfrMy2tsd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a35GQmGs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xmko6yvi; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=YaFzijBekhZbLj7+CKdXGoE4MxqZc0/4fwA6nivX4x8MZHPfMIgNCK4DF6lAWADWVfk0OrVmkRGYKrNIpefU+gKoSuvPUETyx68IxPN98YUUHeBaRKQCAQkE98V2foPdWGCP4pVRGVLHmz8EFsfHtGhVpVGbmYZFZrbyghBJiCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OhNnI6XR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a35GQmGs";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xmko6yvi"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668N8aeY037203
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 05:24:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VD1AdfG2BjNXiv/VHQwI0Lnl5qw+Uds4QKa09TDo4ds=; b=a35GQmGs9wr7rn+0
-	ZhoGjA7yyYan+76zASJR+jiS752KDbhgRM8t7qeoBOi20HePqfqTSRypLPDCpRAd
-	cDO7i2YEaOafS22jzgsocg2l5OCEh7Q6VqxI4r+DhrQ1IOMSrh7qzpzrMsTVLMaa
-	jtqtK5e/b5in5sCvRTAHuwrQq/kBtbUZWA5/oaGtm+99M6SPaSWOI3TDxBSljlUm
-	S9QvOav5tq6V59VvbeilyXBY6UbYSOQr0R8IAQ1L7Ga1E7lpz0abA1Efq3GW+8D7
-	wHdIjX/wgLt3XeH1j1TDCiUDCD4QhXNa+GJfecbvFsWjC5kNA/0q1SG+LQ8rJ4Cf
-	MZwquA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9ug6j14g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 05:24:35 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c88aab7c1d4so1549302a12.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 22:24:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783574674; x=1784179474; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VD1AdfG2BjNXiv/VHQwI0Lnl5qw+Uds4QKa09TDo4ds=;
-        b=Xmko6yviZxwnc0Y5jFf8MudMF/CzgrsLOlhn6AlGCDY+oxfRMFunB1tixTiaM7In96
-         C0v6xkXhLg86djeXv5XqcaZNjcyWZUE+f4bHYPSDwR9+hFrufDlC11sS91eFV4DMK2xJ
-         MM3GYdBN92glMtUYIe6E67S33Ue9zHxARTilQzIzN7lrB1PUHqGsCRoLROcY+i5UCPKT
-         kDq692v2Tsu1Dxiq34HupMBSVAeLYWAQvMe8KwsGbskIqORb0iGyPikaT7Ln7KXdggnT
-         DzQ4vvPOg5Km/elKl5AyY+VqM0rhYfYaPcImkDZtYhfHxTzi5uzG/mVf86re6UphnLG6
-         ZSLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783574674; x=1784179474;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VD1AdfG2BjNXiv/VHQwI0Lnl5qw+Uds4QKa09TDo4ds=;
-        b=Pxe3BWqDY1xFtN/61q1OndodSu7Z6eHCgarf8Max6XU0wxlyRHAJizML0WvZ6RgD6K
-         icr+oP26LEqZveIlVcR2Dfj6X6h7EojQQE9CoeUiUpPfEpM0381tpyWpSDEf4i7b/Udi
-         G4eEvUiKdt7UoSdlbttQ0LcbeWJMI7trZqGoVi069+R4fuKnGPcqipzH3CaG+Vmh8zi+
-         NW3vhfhZItEvrW08iN8tYilMyOI2tl9XCzG/v5hcGxI0c/BTbFOG4xdSPi46ZlzcDX2y
-         JuY7SpnXdQECU3KRxp3bpZw66StbbzTCfleh42AVf0pUSBBYsGNx2VIpU4UL1o9aTtvD
-         JP8A==
-X-Forwarded-Encrypted: i=1; AHgh+RqWSSsV5gdPOsKTenviAeJALJsVi7pxV2vk10q6WzGa/KlbiRCRGwh01bwK0Y13A9mZeLsTIJQzDzlW@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLU+1QeZ9JrLkCYQY1Wh6eIEUrTCvVyUubRR0RcQBbnLNVTkEw
-	x3ta/1Gf41jJydVKZxsQWTLOMQZxVEK4cs9XP5ZuR57YEPjgl5OMXgdd8bvJHp89WRmFqE5rqs/
-	bnDPvY7cHC2GwQr0BrH3WTiVOEai0CsFHNQBtsOg5r8FDLCK3DHO1uPUCCqPmbWgyvzFpSo60
-X-Gm-Gg: AfdE7cly6niABjO0FbSY3JL3qBCmTu460c+Cz6sPo/BkyZYJMZXaIBtUf5bNjooQ2wz
-	yzpu5PQJhx89cxt4FU6EnMIDj7z1M9gY0T3LYAmcQA8MaIg3zJtKiKfI/rAPgjHWozFabWZXqJF
-	xDAZVOrNhyWnYe6cph9oXLDt7pSw50dW5vijPH6TuIce3u2eywMviD5vrw+vJEdtSI6FJqDkClt
-	cbVy60TLUDN2d539nY3I2q+Kug+ik9+pvyLwOwHIg+GFqtpAp6VbRu9OIM/7w5O/Zjlu0jszX0h
-	RurEZ9zvW/dQZ1unvOgTC2ndlU8VLwJnhOQMxHPYgttk/w8PpaNMQRecyiv8HsyRYak0GK34Bhm
-	XcEm2GjFCUiVcOnPfITVAs4tw7ko79C9cY5F/MRzS9w==
-X-Received: by 2002:a05:6a00:c88:b0:846:de21:3da4 with SMTP id d2e1a72fcca58-84842ebc27cmr4969628b3a.3.1783574674323;
-        Wed, 08 Jul 2026 22:24:34 -0700 (PDT)
-X-Received: by 2002:a05:6a00:c88:b0:846:de21:3da4 with SMTP id d2e1a72fcca58-84842ebc27cmr4969596b3a.3.1783574673765;
-        Wed, 08 Jul 2026 22:24:33 -0700 (PDT)
-Received: from [10.217.199.117] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8483d117a1dsm2382038b3a.37.2026.07.08.22.24.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 22:24:33 -0700 (PDT)
-Message-ID: <6f179f96-fdd1-4fa9-b26c-df7372eb6d20@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 10:54:26 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OhNnI6XR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0AF1F000E9;
+	Thu,  9 Jul 2026 05:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783574841;
+	bh=tVOQQ1gm3MZyZojREIn2l7JKx5S7mcFVw/rTEMaa2fY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OhNnI6XRrEpf3ZwrCwpNHNFOrPAjL2ojo6iw0FWwEY/4x/EewKG6iCK5K9gQxmzYN
+	 WVbGhd5MXQYUVzGH8Uua+VoFc7ycTHtS1S4+zAEvIEPs2rHcIbzfJsARayquQ43TqY
+	 0IDe8hCWW2fReqILaKxHXGwfUfb5/RL/04EOWm64sYnpZ6/EK7WVtCRZGLzcv/r8MR
+	 AE3LVZkV00Ggbv2I3kSeRt5RuthiMfDiQfgIdeAdvu2y22wt2WcVkuOkFSsQrUZ9bo
+	 gZxMFbSM/ErhsYtj5wrg5BmlXkRKhmWR5F8muKLos4YYZRMVMnb+YideQLXU9KDAHg
+	 mPfYzxyKKYFGg==
+Message-ID: <eaef5bcc-99df-4549-8d37-fb3d127c414e@kernel.org>
+Date: Thu, 9 Jul 2026 07:27:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,159 +35,179 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/10] dt-bindings: firmware: qcom: tmd: add TMD device
- type constants
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com>
- <20260703-qmi-tmd-v4-1-3882189c1f83@oss.qualcomm.com>
- <977711ef-c1fb-4735-b82a-4ca2f4797f51@oss.qualcomm.com>
- <8ad14017-bce7-485e-9677-9cbf8ecb2742@oss.qualcomm.com>
- <yvggh2zs6qkuyuzvwydkecswnjoyba2d7t27br6xpk6d2csp53@i25g6okdktz5>
- <10a346d8-fbb1-4142-a650-507c3917b8f6@oss.qualcomm.com>
- <dv4n4ntnfvhouv23asgshgs7wcolkmqs7lbuni52maexo4s44x@4bqhf33x4fr6>
- <1aca8d60-8e39-4532-9095-a5260bba76ac@oss.qualcomm.com>
- <e7eho7ezujbrdzgumshapf2r7hu2jaujib7lvotrqvcj5er5ut@xpd6l2kgipqu>
- <9dc4b29e-e9fb-421a-b789-eb16a68ff915@oss.qualcomm.com>
- <2tu35aavp7sc2npni33ky5bve57idzy3bzp2pk7eh5lryq3r4v@gmm3dhayu4cf>
+Subject: Re: [PATCH v4 5/7] soc: aspeed: add host-side PCIe BMC device driver
+To: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>,
+ joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk,
+ devicetree@vger.kernel.org, gregkh@linuxfoundation.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: andrew@lunn.ch, jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com,
+ ninad@linux.ibm.com, anirudhsriniv@gmail.com, linux-serial@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1783524645.git.gregoire.layet@9elements.com>
+ <51e455417bdcfe608270c6cb2806b1fd971fb998.1783524645.git.gregoire.layet@9elements.com>
 Content-Language: en-US
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-In-Reply-To: <2tu35aavp7sc2npni33ky5bve57idzy3bzp2pk7eh5lryq3r4v@gmm3dhayu4cf>
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ xsFNBE6S54YBEACzzjLwDUbU5elY4GTg/NdotjA0jyyJtYI86wdKraekbNE0bC4zV+ryvH4j
+ rrcDwGs6tFVrAHvdHeIdI07s1iIx5R/ndcHwt4fvI8CL5PzPmn5J+h0WERR5rFprRh6axhOk
+ rSD5CwQl19fm4AJCS6A9GJtOoiLpWn2/IbogPc71jQVrupZYYx51rAaHZ0D2KYK/uhfc6neJ
+ i0WqPlbtIlIrpvWxckucNu6ZwXjFY0f3qIRg3Vqh5QxPkojGsq9tXVFVLEkSVz6FoqCHrUTx
+ wr+aw6qqQVgvT/McQtsI0S66uIkQjzPUrgAEtWUv76rM4ekqL9stHyvTGw0Fjsualwb0Gwdx
+ ReTZzMgheAyoy/umIOKrSEpWouVoBt5FFSZUyjuDdlPPYyPav+hpI6ggmCTld3u2hyiHji2H
+ cDpcLM2LMhlHBipu80s9anNeZhCANDhbC5E+NZmuwgzHBcan8WC7xsPXPaiZSIm7TKaVoOcL
+ 9tE5aN3jQmIlrT7ZUX52Ff/hSdx/JKDP3YMNtt4B0cH6ejIjtqTd+Ge8sSttsnNM0CQUkXps
+ w98jwz+Lxw/bKMr3NSnnFpUZaxwji3BC9vYyxKMAwNelBCHEgS/OAa3EJoTfuYOK6wT6nadm
+ YqYjwYbZE5V/SwzMbpWu7Jwlvuwyfo5mh7w5iMfnZE+vHFwp/wARAQABzSFKaXJpIFNsYWJ5
+ IDxqaXJpc2xhYnlAa2VybmVsLm9yZz7CwXcEEwEIACEFAlW3RUwCGwMFCwkIBwIGFQgJCgsC
+ BBYCAwECHgECF4AACgkQvSWxBAa0cEnVTg//TQpdIAr8Tn0VAeUjdVIH9XCFw+cPSU+zMSCH
+ eCZoA/N6gitEcnvHoFVVM7b3hK2HgoFUNbmYC0RdcSc80pOF5gCnACSP9XWHGWzeKCARRcQR
+ 4s5YD8I4VV5hqXcKo2DFAtIOVbHDW+0okOzcecdasCakUTr7s2fXz97uuoc2gIBB7bmHUGAH
+ XQXHvdnCLjDjR+eJN+zrtbqZKYSfj89s/ZHn5Slug6w8qOPT1sVNGG+eWPlc5s7XYhT9z66E
+ l5C0rG35JE4PhC+tl7BaE5IwjJlBMHf/cMJxNHAYoQ1hWQCKOfMDQ6bsEr++kGUCbHkrEFwD
+ UVA72iLnnnlZCMevwE4hc0zVhseWhPc/KMYObU1sDGqaCesRLkE3tiE7X2cikmj/qH0CoMWe
+ gjnwnQ2qVJcaPSzJ4QITvchEQ+tbuVAyvn9H+9MkdT7b7b2OaqYsUP8rn/2k1Td5zknUz7iF
+ oJ0Z9wPTl6tDfF8phaMIPISYrhceVOIoL+rWfaikhBulZTIT5ihieY9nQOw6vhOfWkYvv0Dl
+ o4GRnb2ybPQpfEs7WtetOsUgiUbfljTgILFw3CsPW8JESOGQc0Pv8ieznIighqPPFz9g+zSu
+ Ss/rpcsqag5n9rQp/H3WW5zKUpeYcKGaPDp/vSUovMcjp8USIhzBBrmI7UWAtuedG9prjqfO
+ wU0ETpLnhgEQAM+cDWLL+Wvc9cLhA2OXZ/gMmu7NbYKjfth1UyOuBd5emIO+d4RfFM02XFTI
+ t4MxwhAryhsKQQcA4iQNldkbyeviYrPKWjLTjRXT5cD2lpWzr+Jx7mX7InV5JOz1Qq+P+nJW
+ YIBjUKhI03ux89p58CYil24Zpyn2F5cX7U+inY8lJIBwLPBnc9Z0An/DVnUOD+0wIcYVnZAK
+ DiIXODkGqTg3fhZwbbi+KAhtHPFM2fGw2VTUf62IHzV+eBSnamzPOBc1XsJYKRo3FHNeLuS8
+ f4wUe7bWb9O66PPFK/RkeqNX6akkFBf9VfrZ1rTEKAyJ2uqf1EI1olYnENk4+00IBa+BavGQ
+ 8UW9dGW3nbPrfuOV5UUvbnsSQwj67pSdrBQqilr5N/5H9z7VCDQ0dhuJNtvDSlTf2iUFBqgk
+ 3smln31PUYiVPrMP0V4ja0i9qtO/TB01rTfTyXTRtqz53qO5dGsYiliJO5aUmh8swVpotgK4
+ /57h3zGsaXO9PGgnnAdqeKVITaFTLY1ISg+Ptb4KoliiOjrBMmQUSJVtkUXMrCMCeuPDGHo7
+ 39Xc75lcHlGuM3yEB//htKjyprbLeLf1y4xPyTeeF5zg/0ztRZNKZicgEmxyUNBHHnBKHQxz
+ 1j+mzH0HjZZtXjGu2KLJ18G07q0fpz2ZPk2D53Ww39VNI/J9ABEBAAHCwV8EGAECAAkFAk6S
+ 54YCGwwACgkQvSWxBAa0cEk3tRAAgO+DFpbyIa4RlnfpcW17AfnpZi9VR5+zr496n2jH/1ld
+ wRO/S+QNSA8qdABqMb9WI4BNaoANgcg0AS429Mq0taaWKkAjkkGAT7mD1Q5PiLr06Y/+Kzdr
+ 90eUVneqM2TUQQbK+Kh7JwmGVrRGNqQrDk+gRNvKnGwFNeTkTKtJ0P8jYd7P1gZb9Fwj9YLx
+ jhn/sVIhNmEBLBoI7PL+9fbILqJPHgAwW35rpnq4f/EYTykbk1sa13Tav6btJ+4QOgbcezWI
+ wZ5w/JVfEJW9JXp3BFAVzRQ5nVrrLDAJZ8Y5ioWcm99JtSIIxXxt9FJaGc1Bgsi5K/+dyTKL
+ wLMJgiBzbVx8G+fCJJ9YtlNOPWhbKPlrQ8+AY52Aagi9WNhe6XfJdh5g6ptiOILm330mkR4g
+ W6nEgZVyIyTq3ekOuruftWL99qpP5zi+eNrMmLRQx9iecDNgFr342R9bTDlb1TLuRb+/tJ98
+ f/bIWIr0cqQmqQ33FgRhrG1+Xml6UXyJ2jExmlO8JljuOGeXYh6ZkIEyzqzffzBLXZCujlYQ
+ DFXpyMNVJ2ZwPmX2mWEoYuaBU0JN7wM+/zWgOf2zRwhEuD3A2cO2PxoiIfyUEfB9SSmffaK/
+ S4xXoB6wvGENZ85Hg37C7WDNdaAt6Xh2uQIly5grkgvWppkNy4ZHxE+jeNsU7tg=
+In-Reply-To: <51e455417bdcfe608270c6cb2806b1fd971fb998.1783524645.git.gregoire.layet@9elements.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA0OCBTYWx0ZWRfX+1CkvNry27rd
- 6NapbLqblGjnW5pSxHArP4E2UwBDe/+/EtTa5TjdZ417btckGLFza58mQSAyWaWmBoM4VXHGgTx
- oyW1Cvp35+wWVv8+90h0l9HE/VewiCQ=
-X-Proofpoint-GUID: dARK_E48dBXcjlutkZ67s6BMvbX9q7jG
-X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a4f3093 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=tNnYrs7vTIEjkU0joGkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: dARK_E48dBXcjlutkZ67s6BMvbX9q7jG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA0OCBTYWx0ZWRfX3xRX5ZBofgth
- rIrrEh7vhPinjCCy5H746ZR1eTqstlGgQC8quP4yoeYPNpKCg3n1lK0+YwPMub23hHQ523t7SOI
- cBuN8iK7Ta4dS8IzHTlofS+hbhq6kKoD05unDYPnUxTjMTfyI9UgwUUf/KwaXLgJdZXJp1mV0q5
- rohQhauedfWdTZoBq2pdvZNcoH2q+fmX53ez1vpB+e7smF1y6whLOrIMYXEhAc5thhg/FHqHO6i
- pTL5ciohH+2qkNmAp4BgrRvrMT+mf3D4iumP8mGwAYrAzOnUP7scJ9EkTJE5XAl+xlKcs9S7YOZ
- YRGViE8NrN+q0Zva3NNeoE7g/TkdXRLK2dW+mVp8a1vXurG+YaneJocXApXdcYX230zu5n7S7iE
- KVbcW+JkF2d+65clgH7r6q0tGI8dnIhaRXl4qcUnyaKOZU8XcGYH+WtqkW9FnKi8rBE50l3YKZj
- 49R20fwolAnPPJ3SYTA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_05,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090048
 
-
-
-On 7/8/2026 7:55 PM, Dmitry Baryshkov wrote:
-> On Tue, Jul 07, 2026 at 03:55:13PM +0530, Gaurav Kohli wrote:
->>
->>
->> On 7/7/2026 1:04 AM, Dmitry Baryshkov wrote:
->>> On Mon, Jul 06, 2026 at 08:11:35PM +0200, Daniel Lezcano wrote:
->>>> On 7/6/26 19:47, Dmitry Baryshkov wrote:
->>>>> On Mon, Jul 06, 2026 at 07:03:18PM +0200, Daniel Lezcano wrote:
->>>>>> On 7/3/26 17:42, Dmitry Baryshkov wrote:
->>>>>>> On Fri, Jul 03, 2026 at 07:43:39PM +0530, Gaurav Kohli wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On 7/3/2026 1:23 PM, Konrad Dybcio wrote:
->>>>>>>>> On 7/3/26 7:03 AM, Gaurav Kohli wrote:
->>>>>>>>>> Add Device Tree binding constants for Qualcomm Thermal Mitigation
->>>>>>>>>> Device (TMD) types used by remoteproc-backed thermal cooling devices.
->>>>>>>>>>
->>>>>>>>>> Qualcomm remote processors expose thermal mitigation endpoints
->>>>>>>>>> through QMI. These endpoints can be registered with the thermal
->>>>>>>>>> framework via the `#cooling-cells` property on the remoteproc node.
->>>>>>>>>>
->>>>>>>>>> The QMI TMD protocol identifies devices using string names (for example,
->>>>>>>>>> "pa", "modem", and "cdsp_sw"), while the DT cooling-device binding with
->>>>>>>>>> `#cooling-cells = <3>` requires numeric device id in the form:
->>>>>>>>>>
->>>>>>>>>>        <&phandle device_id min_state max_state>
->>>>>>>>>>
->>>>>>>>>> Define common TMD device index constants shared across currently
->>>>>>>>>> supported platforms. If a future target requires a different mapping,
->>>>>>>>>> additional target-specific constants can be introduced while preserving
->>>>>>>>>> existing DT ABI.
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
->>>>
->>>> [ ... ]
->>>>
->>>>>>> Why are you using only those TMD devices?
->>>>>>>
->>>>>>>> More constants can be added as needed.
->>>>>>>
->>>>>>> Kodiak is one of the supported platforms.
->>>>>>
->>>>>> What would be the benefit of having more than thirteen cooling devices
->>>>>> declared in the thermal framework and having only a couple of them mapped in
->>>>>> a thermal zone ?
->>>>>>
->>>>>> I agree there are more TMDs but if they are unused for the moment, why do we
->>>>>> need to add them ? Can we do that incrementally ?
->>>>>
->>>>> That's what I am trying to understand: why the implementation uses only
->>>>> the selected two devices, if the modem on Kodiak supports others. How
->>>>> can we find out, which TMDs to use on other devices.
->>>>
->>>> My understanding is that is an initial thermal setup. Gaurav will add them
->>>> step by step while setting up all the thermal zones instead of sending a big
->>>> patchset. And TBH, that will be much easier to review.
->>>
->>> In such a case it should be noted in the commit message and/or cover
->>> letter.
->>
->> Thanks for the review/guidance. Not all TMD endpoints are relevant for
->> kernel thermal zone binding — some like BCL and cold temperature are handled
->> from userspace when needed. The constants here cover only
+On 08. 07. 26, 17:35, Grégoire Layet wrote:
+> Add support for VUART over PCIe between BMC and host.
+> Add the host side driver.
+> Support only the AST2600.
 > 
-> What if there is no userspace? Or the userspace is different from what
-> you expect? I doubt we have TMD-speaking userspace yet.
+> Taken from ASPEED 6.18 Kernel SDK and trimmed down.
+...
+> --- /dev/null
+> +++ b/drivers/soc/aspeed/aspeed-host-bmc-dev.c
+> @@ -0,0 +1,174 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +// Copyright (C) ASPEED Technology Inc.
+> +
+> +#include <linux/init.h>
+> +#include <linux/module.h>
+> +#include <linux/kernel.h>
+> +#include <linux/errno.h>
+> +#include <linux/pci.h>
+> +#include <linux/serial_core.h>
+> +#include <linux/serial_8250.h>
+> +
+> +#define BMC_MULTI_MSI	32
+> +#define PCI_BMC_DEVICE_ID 0x2402
+> +
+> +#define DRIVER_NAME "aspeed-host-bmc-dev"
+> +
+> +enum aspeed_platform_id {
+> +	ASPEED,
 
-Thanks for mail, The TMD userspace implementation is available upstream 
-at https://github.com/qualcomm/qmi-framework.
+What is this good for?
 
-> 
->> what is needed for modem and CDSP thermal zones on the currently posted
->> targets.
-> 
-> Again, SLPI, ADSP?
+> +};
+> +
+> +static const int vuart_msi_index[2] = { 16, 17 };
+> +static const int vuart_port_addr[2] = {0x3f8, 0x2f8};
 
-Sorry, I should have said "generic subsystems" rather than listing 
-specific ones. SLPI and ADSP do not require active thermal mitigation on 
-these platforms.
+Sort of inconsistent spaces. Both arrays should be unsigned anyway. And 
+for the latter, u16 should be enough.
 
-> 
->>
->> Will add a note in the cover letter clarifying for current tmd's.
->> Please let me if this is fine.
->>
->>>
->>>
->>
-> 
+> +struct aspeed_pci_bmc_dev {
+> +	unsigned long message_bar_base;
+> +
+> +	struct uart_8250_port uart[2];
+> +	int uart_line[2];
+> +};
+> +
+> +static int aspeed_pci_bmc_device_setup_vuart(struct pci_dev *pdev, int idx)
+> +{
+> +	struct aspeed_pci_bmc_dev *pci_bmc_dev = pci_get_drvdata(pdev);
+> +	struct device *dev = &pdev->dev;
+> +	struct uart_8250_port *uart = &pci_bmc_dev->uart[idx];
+> +	u16 vuart_ioport;
+> +	int ret;
+> +
+> +	/* Assign the line to non-exist device before everything is setup */
+> +	pci_bmc_dev->uart_line[idx] = -ENOENT;
+> +
+> +	vuart_ioport = vuart_port_addr[idx];
+> +	/* ASPEED BMC device shift addresses by 2 to the left */
+> +	vuart_ioport = vuart_ioport << 2;
 
+Simply:
+vuart_ioport <<= 2;
+? Or join the two lines?
+
+> +	uart->port.flags = UPF_SKIP_TEST | UPF_BOOT_AUTOCONF | UPF_SHARE_IRQ;
+> +	uart->port.uartclk = 115200 * 16;
+> +	uart->port.irq = pci_irq_vector(pdev, vuart_msi_index[idx]);
+> +	uart->port.dev = dev;
+> +	uart->port.iotype = UPIO_MEM32;
+> +	uart->port.iobase = 0;
+> +	uart->port.mapbase = pci_bmc_dev->message_bar_base + vuart_ioport;
+> +	uart->port.membase = 0;
+> +	uart->port.type = PORT_16550A;
+> +	uart->port.flags |= (UPF_IOREMAP | UPF_FIXED_PORT | UPF_FIXED_TYPE);
+> +	uart->port.regshift = 2;
+> +
+> +	ret = serial8250_register_8250_port(&pci_bmc_dev->uart[idx]);
+> +	if (ret < 0) {
+> +		dev_err_probe(dev, ret, "Can't setup PCIe VUART%d\n", idx);
+> +		return ret;
+> +	}
+> +
+> +	pci_bmc_dev->uart_line[idx] = ret;
+> +
+> +	return 0;
+> +}
+...
+> +static struct pci_device_id aspeed_host_bmc_dev_pci_ids[] = {
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_ASPEED, PCI_BMC_DEVICE_ID),
+> +		.class = 0xFF0000, .class_mask = 0xFFFF00,
+
+PCI_CLASS_OTHERS << 16
+
+> +		.driver_data = ASPEED },
+> +	{ 0 }
+> +};
+> +
+> +MODULE_DEVICE_TABLE(pci, aspeed_host_bmc_dev_pci_ids);
+> +
+> +static struct pci_driver aspeed_host_bmc_dev_driver = {
+> +	.name		= DRIVER_NAME,
+> +	.id_table	= aspeed_host_bmc_dev_pci_ids,
+> +	.probe		= aspeed_pci_host_bmc_device_probe,
+> +	.remove		= aspeed_pci_host_bmc_device_remove,
+> +};
+> +
+> +module_driver(aspeed_host_bmc_dev_driver, pci_register_driver, pci_unregister_driver);
+> +
+> +MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
+> +MODULE_DESCRIPTION("ASPEED Host BMC DEVICE Driver");
+> +MODULE_LICENSE("GPL");
+
+thanks,
+-- 
+js
+suse labs
