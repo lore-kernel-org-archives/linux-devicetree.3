@@ -1,79 +1,41 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B351D4DBD67
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 18:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C153876B3;
+	Thu,  9 Jul 2026 18:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783621225; cv=none; b=IcNejNICy2QCTQuc5PEh+JC8HpxZTQkXQScFiuPVZ9tlpcREeFXB2uPF4eUYIb9iUVtb2LhsmSyR4vVy3dvy9wHc9LK9inOzE6GnsMWk2GkxFpFPrKA6mSqCimq0SqesKomqoNukuob2l9yvQ3vuvS1xtk920e7jSP4jHOEg4U0=
+	t=1783621421; cv=none; b=kNyBtR27dFsfvO5PYeVplAoMy57NWkxHwP9G1QMtpMNzicV2TyarS4bPL7lDy2xfOr09jQ2vX5kXQYKU6aS5k6BB5XQnIFg+zrZB1tFsJ7W1Qwf/hZi3BUmZl2X+fPMd8RiGiGzgmvzdwrSF2qelsxwNMNgY6ZNKyHDTAjwrjcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783621225; c=relaxed/simple;
-	bh=XYMLLDJSM4xjJT8F7RlgLCND0cDcPiqKQh/YbTNVVzU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ad4Rjxe61JxMgTi3Xfnl63QvRVqwZZ62lvE7lLM4GzxaIWobr9SkBQPu1xhlG4PyDZ14hoc9sYJdxDt73uwXJEx2V99wbSq2VRhcqLo+tUHSQPQUxtDMzTHt91niGXQSPnGNcqHsucEO+4xBivpymaHzeqvujl3H7PD0dGxXeEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZ4z2Go0; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZ4z2Go0"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47df43bfb07so52538f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 11:20:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783621222; x=1784226022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EXJuaOsCL/ERnu3SR2SjgqemJAXLgbxcgVcSbRu+n3U=;
-        b=cZ4z2Go0tQusPACRos8UyUS/IRp+nsmII1BHigx/1Pj1CqgoDuroFZMh6yUxupsXX0
-         TnD1cTD6cYddsQoPhNmD8Ah3Cl15ogAPrKOiLzLtOz042r78sUgFVMhoalfBuglZuKej
-         W6vczmRYe2PgkgSR5hSh/71/1GMYthy65V/aKGG6xkXRKVTxhxj9VULUiUyUoDOguKcH
-         3tQbSnR/TuBUnhUfEmwMHvh80feKy8m9l52xiG4ZifDRSPfh7Y85z7NAcEzvQUIBlIZr
-         e148ABMFpoY5QFdGL59OcohyN4cuIj2tHuB5+KI+MzDEf7FbQDNKlpGfyCYxKDN0Rzo+
-         r+zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783621222; x=1784226022;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EXJuaOsCL/ERnu3SR2SjgqemJAXLgbxcgVcSbRu+n3U=;
-        b=TQW+Y90pY+FMO5PbQDC60wfaKTR/Xk28LD7UBxM+W0KThfEPbIP5RqhV5QMU5Vdi0L
-         bYqJyKMxltxNNjYE4/iu0pht0D7kIDd4zIxANOrs0jHfbk6E8ea4HTgow6DDpRhlUj2o
-         VwhP1ApoMeNfiwMdX9/18tO6UdSr+bIanbLSQwu7tyzPancaOdQI3L/KzSLTMkb3J7hh
-         3V4e9xjWQVcnRsvEJsAktPO6q7BFYyEZKpCQjC/2ZNjFukGzYE7ZfbOZPIhjfyAc5IPh
-         hQiimPGNe1WuWX0+BHCXFhJk/ZeLvxAcG+fZr9cwGAoAA8jv0/LD3cLnCBGgrqI3XVqx
-         o4GQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro3pTqJA/FuWc6zNdX1quW31R7srbuMJDWNaDdItsEggdspCeVEU6Qly8LV+qtshkWpsROMgRves/Mr@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPVy2g5+ZrYVmJfppulWrZHCED2cXysCnh3fLk6rRWdM+UqGsa
-	MLdYQbUI3BLo8Y6CXwf7LDjqHGVgqjz0BMaFwJLsGSsS0m8WBXbpGpB9sLp8kiutfw4=
-X-Gm-Gg: AfdE7ckkzEwQ5w6IG0HQD4w1AJbgxS/OiASprQHkP4inXx/ttlI9kNVgs/2DksQCTbl
-	KvtXeMhYqz+UNHNWytw99w0lGFxv+Yse9UkdXwXzB2rKAtBtAgkiXvD4wQoRjgKSfkt6lQkKHHP
-	+J514301hzh7INpcBImGjm7lc+dDfICGMY7ZG9FgRBmWAhCr3PubfWr8zvCbjOKXPl6SoPxP/K0
-	G2i9ijWj90gw7rgOOCGwGYSTRGLPC7WRR8ak6bU4wguycC4+LuII6dUxhSMNmPoCABXiIPKvP8f
-	s8O5zsrl4m8ElJDBjrv/MDJbA3EtYv1SX+MuZ2NlURSvr7ML5qJGDmTIU77/NchRHsBb99oFRW2
-	kfn4nswkH1YnsTX9q7IOtkoaOImsgYBmBdFrrnQvfaM4ZosAFYSo3hROy6Vno+d1SS2HNoRFeWX
-	EupGE=
-X-Received: by 2002:a05:6000:4802:b0:47d:eabc:3e87 with SMTP id ffacd0b85a97d-47df071e561mr9489283f8f.6.1783621221859;
-        Thu, 09 Jul 2026 11:20:21 -0700 (PDT)
-Received: from avermoal ([185.13.179.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960b06sm52612834f8f.28.2026.07.09.11.20.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 11:20:21 -0700 (PDT)
-From: Mikhail Lukianchikov <avermoal@gmail.com>
-To: Rengarajan.S@microchip.com
-Cc: avermoal@gmail.com,
-	andrew+netdev@lunn.ch,
-	conor+dt@kernel.org,
-	davem@davemloft.net,
-	devicetree@vger.kernel.org,
-	edumazet@google.com,
+	s=arc-20240116; t=1783621421; c=relaxed/simple;
+	bh=4e/MIi3W1yerU8MpEdCHYx1zGCbn9dCaY/CDYCNnZc8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p78Snx0UUetuXWVJ+4TmZmNzeOzKxcceXB7PSuI4BRRsz0AIzGce3FsCbDNaZcwdCLnj2Yj9oD0rq5XMyMP7MV2Rsvv1BViVgx7QWRelwmCuCSRwr+mx/J5CRo7Xd7I4sflYqa14NfY0zdoI7uL2gyGjNTpg0GX96SF3NL1Aqxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B32E1F000E9;
+	Thu,  9 Jul 2026 18:23:35 +0000 (UTC)
+From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+To: mkl@pengutronix.de,
+	mailhol@kernel.org,
+	robh@kernel.org,
 	krzk+dt@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org
-Subject: [PATCH v2] dt-bindings: net: microchip,lan78xx: convert to DT schema
-Date: Fri, 10 Jul 2026 00:17:25 +0600
-Message-ID: <20260709181724.24682-2-avermoal@gmail.com>
-X-Mailer: git-send-email 2.52.0
+	conor+dt@kernel.org,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com,
+	mturquette@baylibre.com,
+	sboyd@kernel.org,
+	bmasney@redhat.com,
+	biju.das.jz@bp.renesas.com,
+	claudiu.beznea.uj@bp.renesas.com,
+	fabrizio.castro.jz@renesas.com
+Cc: claudiu.beznea@tuxon.dev,
+	linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v2 0/8] can: rcar_canfd: Add support for Renesas RZ/G3S
+Date: Thu,  9 Jul 2026 21:23:24 +0300
+Message-ID: <20260709182332.876408-1-claudiu.beznea+renesas@tuxon.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,216 +44,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Microchip LAN78xx family (LAN7800, LAN7801, LAN7850) binding
-documentation from plain text to DT schema.
+From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-The conversion adds proper validation for the 'microchip,led-modes'
-property inside the MDIO node and updates the MAINTAINERS entry.
+Hi,
 
-Signed-off-by: Mikhail Lukianchikov <avermoal@gmail.com>
----
+Series adds CAN support for the Renesas RZ/G3S SoC. Along with it a typo
+fix patch was added on the CAN driver.
+
+Thank you,
+Claudiu
+
 Changes in v2:
- - Rename file to microchip,lan7800.yaml.
- - Keeps only one maintainer.
- - Code style fixed.
- - Example fixed, remove usb-port@1 node.
- - Move patternProperties for PHY inside mdio node to fix validation. (suggested by sashiko-bot)
+- collected tags
+- addressed sashiko review comments
 
-Link to v1: https://lore.kernel.org/netdev/20260707165840.107409-1-avermoal@gmail.com
+Claudiu Beznea (8):
+  clk: r9a08g045-cpg: Add clocks and resets for CAN-FD
+  dt-bindings: can: renesas,rcar-canfd: Document RZ/G3S SoC
+  can: rcar_canfd: Fix typos in macro names
+  can: rcar_canfd: Allow the CAN FD clock to be sourced from fck
+  can: rcar_canfd: Do not set registers selecting the CAN mode
+  can: rcar_canfd: Add support for Renesas RZ/G3S
+  arm64: dts: renesas: r9a08g045: Add CAN-FD node
+  arm64: dts: renesas: rzg3s-smarc: Enable CAN-FD
 
- .../bindings/net/microchip,lan7800.yaml       | 105 ++++++++++++++++++
- .../bindings/net/microchip,lan78xx.txt        |  53 ---------
- MAINTAINERS                                   |   3 +-
- 3 files changed, 106 insertions(+), 55 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/microchip,lan7800.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/microchip,lan78xx.txt
+ .../bindings/net/can/renesas,rcar-canfd.yaml  | 20 +++++-
+ arch/arm64/boot/dts/renesas/r9a08g045.dtsi    | 39 +++++++++++
+ .../boot/dts/renesas/rzg3s-smarc-switches.h   | 12 ++++
+ arch/arm64/boot/dts/renesas/rzg3s-smarc.dtsi  | 46 +++++++++++++
+ drivers/clk/renesas/r9a08g045-cpg.c           |  9 +++
+ drivers/net/can/rcar/rcar_canfd.c             | 64 +++++++++++++++----
+ 6 files changed, 177 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan7800.yaml b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
-new file mode 100644
-index 000000000000..289980c23181
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/microchip,lan7800.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip LAN7800/LAN7801/LAN7850 Gigabit Ethernet controller
-+
-+maintainers:
-+  - Rengarajan Sundararajan <Rengarajan.S@microchip.com>
-+
-+description:
-+  The LAN7800/LAN7801/LAN7850 devices are usually configured by
-+  programming their OTP or with an external EEPROM, but some
-+  platforms (e.g. Raspberry Pi 3 B+) have neither. The Device Tree
-+  properties, if present, override the OTP and EEPROM.
-+
-+allOf:
-+  - $ref: /schemas/usb/usb-device.yaml#
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - usb424,7800
-+      - usb424,7801
-+      - usb424,7850
-+
-+  reg:
-+    maxItems: 1
-+    description: USB port number
-+
-+  local-mac-address:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    minItems: 6
-+    maxItems: 6
-+    description:
-+      MAC address to use if not stored in OTP or EEPROM. If present,
-+      overrides OTP/EEPROM.
-+
-+  mdio:
-+    $ref: /schemas/net/mdio.yaml#
-+    unevaluatedProperties: false
-+
-+    patternProperties:
-+      "^ethernet-phy(@[0-9a-f]+)?$":
-+        type: object
-+        description: |
-+          PHY node for the embedded or external PHY. The PHY address is
-+          given by the 'reg' property.
-+
-+        properties:
-+          reg:
-+            maxItems: 1
-+            description: PHY address.
-+
-+          microchip,led-modes:
-+            $ref: /schemas/types.yaml#/definitions/uint32-array
-+            minItems: 1
-+            maxItems: 4
-+            description:
-+              Array of LED mode values for each of up to 4 LEDs.
-+              Omitted LEDs are turned off. Allowed values are defined
-+              in include/dt-bindings/net/microchip-lan78xx.h.
-+
-+        required:
-+          - reg
-+
-+        additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/net/microchip-lan78xx.h>
-+    / {
-+        usb {
-+            compatible = "usb-host";
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            ethernet@1 {
-+                compatible = "usb424,7800";
-+                reg = <1>;
-+                local-mac-address = [00 11 22 33 44 55];
-+
-+                mdio {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+                    ethernet-phy@1 {
-+                        reg = <1>;
-+                        microchip,led-modes = <
-+                            LAN78XX_LINK_1000_ACTIVITY
-+                            LAN78XX_LINK_10_100_ACTIVITY
-+                        >;
-+                    };
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt b/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-deleted file mode 100644
-index 11a679530ae6..000000000000
---- a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-+++ /dev/null
-@@ -1,53 +0,0 @@
--Microchip LAN78xx Gigabit Ethernet controller
--
--The LAN78XX devices are usually configured by programming their OTP or with
--an external EEPROM, but some platforms (e.g. Raspberry Pi 3 B+) have neither.
--The Device Tree properties, if present, override the OTP and EEPROM.
--
--Required properties:
--- compatible: Should be one of "usb424,7800", "usb424,7801" or "usb424,7850".
--
--The MAC address will be determined using the optional properties
--defined in ethernet.txt.
--
--Optional properties of the embedded PHY:
--- microchip,led-modes: a 0..4 element vector, with each element configuring
--  the operating mode of an LED. Omitted LEDs are turned off. Allowed values
--  are defined in "include/dt-bindings/net/microchip-lan78xx.h".
--
--Example:
--
--/* Based on the configuration for a Raspberry Pi 3 B+ */
--&usb {
--	usb-port@1 {
--		compatible = "usb424,2514";
--		reg = <1>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		usb-port@1 {
--			compatible = "usb424,2514";
--			reg = <1>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--			ethernet: ethernet@1 {
--				compatible = "usb424,7800";
--				reg = <1>;
--				local-mac-address = [ 00 11 22 33 44 55 ];
--
--				mdio {
--					#address-cells = <0x1>;
--					#size-cells = <0x0>;
--					eth_phy: ethernet-phy@1 {
--						reg = <1>;
--						microchip,led-modes = <
--							LAN78XX_LINK_1000_ACTIVITY
--							LAN78XX_LINK_10_100_ACTIVITY
--						>;
--					};
--				};
--			};
--		};
--	};
--};
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f37a81950e25..157a677a284f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27928,10 +27928,9 @@ F:	drivers/usb/isp1760/*
- USB LAN78XX ETHERNET DRIVER
- M:	Thangaraj Samynathan <Thangaraj.S@microchip.com>
- M:	Rengarajan Sundararajan <Rengarajan.S@microchip.com>
--M:	UNGLinuxDriver@microchip.com
- L:	netdev@vger.kernel.org
- S:	Maintained
--F:	Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-+F:	Documentation/devicetree/bindings/net/microchip,lan7800.yaml
- F:	drivers/net/usb/lan78xx.*
- F:	include/dt-bindings/net/microchip-lan78xx.h
- 
 -- 
-2.52.0
+2.43.0
 
