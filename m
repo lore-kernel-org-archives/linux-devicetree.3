@@ -1,189 +1,464 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB88A3BBFBE
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034A640D57A;
+	Thu,  9 Jul 2026 10:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783594333; cv=none; b=gO/rFy4yGIdMu3kPQpafMT/UnZNVO92VxFoO11rYTSsb3Mr8efi39lyR7SmemDWQYufoj8yfY01M5sYpFcDsg/V0o/mbrW+c+D8Ntz0u+PY7A/+uzboXuomU4BTnRnxMNaRy1gGSRpcq78O3cBGytVaQdjlCXtr9AyfSGedYfYw=
+	t=1783594373; cv=none; b=WR1ruxxKvYhinfvavelMkd6SvCpDaQbj6IWSaLYaTMXckcGcrrxRxIHePNNSYEx2GRG36tyI3RJmKUH5x8FbkAiDvWMUqix7FIoaJhDtzmfVDi28AZJqYYjoIoG15QFzP+BYOP7Qo74v8lqzxvAVdC4EuICK/HFPfEWHlBO0R/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783594333; c=relaxed/simple;
-	bh=r6FjVnEXwE0IGEmKbTI/hDFm3Nf0DQ8S1T/ck81JAEM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jr6Ni8bi4L2qWEebsrOeNyJWrV0/SBSNWLnOwEQji+KlYjc78PMBCHkz/so3Hl3bEPpcpPrSrsffoT39N+fXvODjg1ea1GSzg1UaMDlpZzlA4bXw/x++gxBP+Khlv8+C0GDlkUomG157OttKtxRBFi80oFsaEqOoLiMNS5xwYcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=h2ekCjMH; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783594373; c=relaxed/simple;
+	bh=Kr3kxrls9pqLY8PgcynW/TkNHifyJ1XzFoDFVGYZsIM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=L+q//NTfCEVGm6MiQE9pah70ZTOHHWUnzLv5afqB+NvFktbcOCGSMAlzp49FyIyWeQLSdEkm0AJcEiBh/xP6y3daS7RcsDn0DmUSJHHc743ik+LZuQIWWBTLZ7pRQN1oaoMk4m+mHjuF58MvNWrKNF0KlBUGH23SVE6VypWUHM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vQ+VWMRe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="h2ekCjMH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783594330;
-	bh=r6FjVnEXwE0IGEmKbTI/hDFm3Nf0DQ8S1T/ck81JAEM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h2ekCjMHC5AgjXntNqWY2j4muZT4FhN2htvXPl6KTYk6Q165IBO2SsF+8avDrAiAB
-	 EhRlP3kE/rtBT7T08UutOjZ0+eh2EJnuWkxuPSf6UcdNixIRWTr09OY8W2ap4y4tWk
-	 HNkpSmpXODFp6wchiKv//DRKOxAVrC0A3ODgdVmC16tu1zKhfppxyTgOMl4ryDZnZ2
-	 TsGTpWr1QlZL4/hGoSMJXgad7fYUfUGaeFspvSFQrXXz/b+XLWJBZmBlhoDG/JTay+
-	 jjXJqxzewxs9WHRrPOrubkTnmrtNxLNtXNVZDm0KpyXDWOGKEdsEK4DYa2CvWjSCBh
-	 XsUdhdJHIYmjw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E9ADA17E0886;
-	Thu, 09 Jul 2026 12:52:09 +0200 (CEST)
-Message-ID: <be903cb1-8184-4112-9672-ea262716e5b9@collabora.com>
-Date: Thu, 9 Jul 2026 12:52:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vQ+VWMRe"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1DEDCC2BCF4;
+	Thu,  9 Jul 2026 10:52:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783594372;
+	bh=Kr3kxrls9pqLY8PgcynW/TkNHifyJ1XzFoDFVGYZsIM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=vQ+VWMRer81B4+w+o6YWF7gzKTqf7pQ11AcUlhkAnDI6ei2v9SwmrILiBy7wxoEvC
+	 AHi+y0CmKWq9BCNjYplYRbd92TbxoYhNQlLctjXTeRDmgntBxBBfULmL3QJIr/1IjO
+	 BnmFNWDwvWHbSFdw22Phdph7+VCOA5do6oEUnWPxIrPwp3zb9VjDSH51PJK2c0lS7e
+	 TBWqWvXpaW1jpFfEdTarsJ/DlnFF7lbLlLSyp6ODwnoDcJa+kg0P5BtJryswxJ+zDE
+	 y87Lv3lcfSjPIFbAdJzEKWfJ+N/Kv/mY+c2XSo6kC7U99pKKnKehAEMBox3diEGkFB
+	 ff+WiA6zByagA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CECCC44507;
+	Thu,  9 Jul 2026 10:52:52 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Thu, 09 Jul 2026 13:52:48 +0300
+Subject: [PATCH v5 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
+ driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
-To: Chen-Yu Tsai <wenst@chromium.org>, sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- "moderated list:ARM/Mediatek SoC support"
- <linux-mediatek@lists.infradead.org>, Mark Brown <broonie@kernel.org>
-References: <20260709081928.612294-1-wenst@chromium.org>
- <20260709083024.330381F000E9@smtp.kernel.org>
- <CAGXv+5HO5eWaJ-AhH9JG=aZ9f_se8L8Ebz-NRHfKMsNXvGnQTg@mail.gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <CAGXv+5HO5eWaJ-AhH9JG=aZ9f_se8L8Ebz-NRHfKMsNXvGnQTg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260709-mt6323-adc-v5-2-d11b8332a735@protonmail.com>
+References: <20260709-mt6323-adc-v5-0-d11b8332a735@protonmail.com>
+In-Reply-To: <20260709-mt6323-adc-v5-0-d11b8332a735@protonmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783594368; l=12074;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=cdo2n4utcrxfxA30v7GaqTLAN07hVaOJ8J00i2r47v8=;
+ b=K1Qexdec+rvZH+fj2iqi1fh0euQUtDdT1ke13Qr7DF0tLSZyhAiCCGJCIxf4Z3NpA4XyXSjy7
+ hDduw6NNqk5C1cf8cQhSp2ll7DriipRYmo+K+78SMVMD3uMLrxYvhYi
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-On 7/9/26 11:27, Chen-Yu Tsai wrote:
-> On Thu, Jul 9, 2026 at 4:30 PM <sashiko-bot@kernel.org> wrote:
->>
->> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->> - [High] The MT6319 PMIC fallback compatible triggers incorrect MT6315_PP mode ganging in the regulator driver, causing silent cross-talk between the CPU and EMI VDDQ regulators.
->> - [Low] Grammatical error in the comment explaining the firmware workaround.
->> --
->>
->> --- Patch [1]: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC ---
->> commit 0ff94c6622559a57199ed1f2d1f4063c6c911df1
->> Author: Chen-Yu Tsai <wenst@chromium.org>
->>
->> arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
->>
->> The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR4X
->> DRAM.
->>
->>> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
->>> index 8e423504ec052..af05315092f53 100644
->>> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
->>> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
->> [ ... ]
->>> @@ -1225,6 +1235,70 @@ &spi2 {
->>>        status = "okay";
->>>   };
->>>
->>> +&spmi {
->>> +     pinctrl-names = "default";
->>> +     pinctrl-0 = <&spmi_pins>;
->>> +     #address-cells = <2>;
->>> +     #size-cells = <0>;
->>> +     status = "okay";
->>> +
->>> +     pmic@6 {
->>> +             compatible = "mediatek,mt6319-regulator", "mediatek,mt6315-regulator";
->>> +             reg = <0x6 SPMI_USID>;
->>
->> [Severity: High]
->> Does this fallback compatible trigger incorrect mode ganging?
->>
->> The mt6315-regulator driver maps USID 6 to the MT6315_PP variant, which
->> hardcodes mode ganging for vbuck1, vbuck2, and vbuck4. On the MT8188
->> Geralt's MT6319, vbuck4 is wired as an independent regulator for
->> pp0600_emi_vddq.
->>
->> If a mode change happens on vbuck1 (which is allowed by the
->> regulator-allowed-modes property), the driver will apply the ganged
->> mask and silently overwrite vbuck4's mode bits in the PMIC, potentially
->> forcing the RAM supply into an unexpected mode.
->>
->> Could this silent cross-talk between the CPU and EMI VDDQ regulators
->> lead to memory voltage instability?
-> 
-> This discrepency is actually bigger than Sashiko mentions. The ganging
-> supported by the driver only applies to the PMICs in the Asuarada design:
-> 
->    - SPMI ID 6 has 1+2 (GPU); 3 and 4 are unused
->    - SPMI ID 7 has 1+2+4 (big cores) and 3 (little cores)
-> 
-> On the Cherry design we have:
-> 
->    - SPMI ID 6 has 1+2 (GPU); 3 and 4 are unused
->    - SPMI ID 7 has 1+2+3+4 (big cores)
-> 
-> On the Corsola designs with beefier chips:
-> 
->    - SPMI ID 6 has 1+2 (big cores); 3 and 4 are unused
-> 
-> On the Geralt design (this one):
-> 
->    - SPMI ID 7 has 1+2 (big cores); 3 (DRAM); 4 (DRAM)
-> 
-> Any ideas on what to do about this mess?
+From: Roman Vivchar <rva333@protonmail.com>
 
-wenst, I think that the only way to fix that properly is to add generic support
-for buck phases ganging in the regulator API... because AFAIK there's nothing
-right now.
+The mt6323 AUXADC is a 15-bit ADC used for system monitoring. This driver
+provides support for reading various channels including battery and
+charger voltages, battery and chip temperature, current sensing and
+accessory detection.
 
- From what I remember from last time I looked, MediaTek PMICs wouldn't be the
-only ones, there's something else that also has ganged bucks, and again if I
-remember correctly, I remember seeing one platform data struct for each of the
-ganging combinations in that driver.
+Add a driver for the AUXADC found in the MediaTek mt6323 PMIC.
 
-So.. especially because MTK wouldn't be the first, I think the addition of some
-kind of generic properties (and callbacks) for this kind of configuration in
-the API would be both profitable and welcome.
+Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: David Lechner <dlechner@baylibre.com>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ MAINTAINERS                     |   1 +
+ drivers/iio/adc/Kconfig         |  11 ++
+ drivers/iio/adc/Makefile        |   1 +
+ drivers/iio/adc/mt6323-auxadc.c | 314 ++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 327 insertions(+)
 
-Mark, any considerations?
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 86b9a35c3d20..69c157edb92f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16582,6 +16582,7 @@ MEDIATEK MT6323 PMIC AUXADC DRIVER
+ M:	Roman Vivchar <rva333@protonmail.com>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
++F:	drivers/iio/adc/mt6323-auxadc.c
+ F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
+ 
+ MEDIATEK MT6735 CLOCK & RESET DRIVERS
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index bc21034078b5..8035e5313153 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -1166,6 +1166,17 @@ config MCP3911
+ 	  This driver can also be built as a module. If so, the module will be
+ 	  called mcp3911.
+ 
++config MEDIATEK_MT6323_AUXADC
++	tristate "MediaTek MT6323 PMIC AUXADC driver"
++	depends on MFD_MT6397
++	help
++	  Say yes here to enable support for MediaTek MT6323 PMIC Auxiliary ADC.
++	  This driver provides multiple channels for system monitoring,
++	  such as battery voltage, PMIC temperature, and others.
++
++	  This driver can also be built as a module. If so, the module will be
++	  called mt6323-auxadc.
++
+ config MEDIATEK_MT6359_AUXADC
+ 	tristate "MediaTek MT6359 PMIC AUXADC driver"
+ 	depends on MFD_MT6397
+diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+index 707dd708912f..dc24d0ae76a5 100644
+--- a/drivers/iio/adc/Makefile
++++ b/drivers/iio/adc/Makefile
+@@ -100,6 +100,7 @@ obj-$(CONFIG_MCP320X) += mcp320x.o
+ obj-$(CONFIG_MCP3422) += mcp3422.o
+ obj-$(CONFIG_MCP3564) += mcp3564.o
+ obj-$(CONFIG_MCP3911) += mcp3911.o
++obj-$(CONFIG_MEDIATEK_MT6323_AUXADC) += mt6323-auxadc.o
+ obj-$(CONFIG_MEDIATEK_MT6359_AUXADC) += mt6359-auxadc.o
+ obj-$(CONFIG_MEDIATEK_MT6360_ADC) += mt6360-adc.o
+ obj-$(CONFIG_MEDIATEK_MT6370_ADC) += mt6370-adc.o
+diff --git a/drivers/iio/adc/mt6323-auxadc.c b/drivers/iio/adc/mt6323-auxadc.c
+new file mode 100644
+index 000000000000..c450fb6f09cb
+--- /dev/null
++++ b/drivers/iio/adc/mt6323-auxadc.c
+@@ -0,0 +1,314 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2026 Roman Vivchar <rva333@protonmail.com>
++ *
++ * Based on drivers/iio/adc/mt6359-auxadc.c
++ */
++
++#include <linux/array_size.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/iio/iio.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/stringify.h>
++#include <linux/time.h>
++#include <linux/types.h>
++
++#include <linux/mfd/mt6323/registers.h>
++
++#include <dt-bindings/iio/adc/mediatek,mt6323-auxadc.h>
++
++#define AUXADC_STRUP_CON10_RSTB_SEL	BIT(7)
++#define AUXADC_STRUP_CON10_RSTB_SW	BIT(5)
++
++#define AUXADC_TOP_CKPDN2_CTL_CK	BIT(5)
++
++#define AUXADC_TRIM_CH2_MASK		GENMASK(11, 10)
++#define AUXADC_TRIM_CH4_MASK		GENMASK(9, 8)
++#define AUXADC_TRIM_CH5_MASK		GENMASK(5, 4)
++#define AUXADC_TRIM_CH6_MASK		GENMASK(3, 2)
++
++#define AUXADC_CON27_VREF18_ENB_MD	BIT(15)
++#define AUXADC_CON27_MD_STATUS		BIT(0)
++
++#define AUXADC_CON19_GPS_STATUS		BIT(1)
++
++#define AUXADC_CON26_VREF18_SELB	BIT(1)
++#define AUXADC_CON26_DECI_GDLY_SEL	BIT(0)
++
++#define AUXADC_CON11_VBUF_EN		BIT(4)
++
++#define AUXADC_CON19_DECI_GDLY_MASK	GENMASK(15, 14)
++#define AUXADC_ADC19_BUSY_MASK		GENMASK(15, 1)
++#define AUXADC_READY_MASK		BIT(15)
++#define AUXADC_DATA_MASK		GENMASK(14, 0)
++
++#define AUXADC_CON9_OSR_MASK		GENMASK(12, 10)
++#define AUXADC_DEFAULT_OSR		3
++
++#define MTK_PMIC_IIO_CHAN(_name, _chan, _addr)                  \
++{                                                               \
++	.type = IIO_VOLTAGE,                                    \
++	.indexed = 1,                                           \
++	.channel = _chan,                                       \
++	.address = _addr,                                       \
++	.datasheet_name = __stringify(_name),                   \
++	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |          \
++			      BIT(IIO_CHAN_INFO_SCALE),         \
++}
++
++/*
++ * AUXADC reports everything in mV, including temperature and
++ * current channels. Channel macros are mapped such that their
++ * ID matches their respective hardware bit position in CON22.
++ */
++static const struct iio_chan_spec mt6323_auxadc_channels[] = {
++	MTK_PMIC_IIO_CHAN(baton2,    MT6323_AUXADC_BATON2,    MT6323_AUXADC_ADC6),
++	MTK_PMIC_IIO_CHAN(ch6,       MT6323_AUXADC_CH6,       MT6323_AUXADC_ADC11),
++	MTK_PMIC_IIO_CHAN(bat_temp,  MT6323_AUXADC_BAT_TEMP,  MT6323_AUXADC_ADC5),
++	MTK_PMIC_IIO_CHAN(chip_temp, MT6323_AUXADC_CHIP_TEMP, MT6323_AUXADC_ADC4),
++	MTK_PMIC_IIO_CHAN(vcdt,      MT6323_AUXADC_VCDT,      MT6323_AUXADC_ADC2),
++	MTK_PMIC_IIO_CHAN(baton1,    MT6323_AUXADC_BATON1,    MT6323_AUXADC_ADC3),
++	MTK_PMIC_IIO_CHAN(isense,    MT6323_AUXADC_ISENSE,    MT6323_AUXADC_ADC1),
++	MTK_PMIC_IIO_CHAN(batsns,    MT6323_AUXADC_BATSNS,    MT6323_AUXADC_ADC0),
++	MTK_PMIC_IIO_CHAN(accdet,    MT6323_AUXADC_ACCDET,    MT6323_AUXADC_ADC7),
++};
++
++/*
++ * The MediaTek MT6323 (as well as a lot of other PMICs) has the following hierarchy:
++ * PMIC AUXADC <- PMIC MFD <- SoC PWRAP (wrapper for PWRAP FSM)
++ *
++ * Therefore, PWRAP regmap should be obtained using dev->parent->parent.
++ */
++struct mt6323_auxadc {
++	struct regmap *regmap;
++	/* AUXADC doesn't support reading multiple channels simultaneously. */
++	struct mutex lock;
++};
++
++static int mt6323_auxadc_prepare_channel(struct mt6323_auxadc *auxadc)
++{
++	struct regmap *map = auxadc->regmap;
++	u32 val;
++	int ret;
++
++	ret = regmap_read(map, MT6323_AUXADC_CON19, &val);
++	if (ret)
++		return ret;
++
++	/* The ADC is idle. */
++	if (!(val & AUXADC_CON19_DECI_GDLY_MASK))
++		return 0;
++
++	ret = regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19,
++				       val, !(val & AUXADC_ADC19_BUSY_MASK),
++				       10, 500);
++	if (ret)
++		return ret;
++
++	return regmap_clear_bits(map, MT6323_AUXADC_CON19,
++				 AUXADC_CON19_DECI_GDLY_MASK);
++}
++
++static int mt6323_auxadc_request(struct mt6323_auxadc *auxadc,
++				 unsigned long channel)
++{
++	struct regmap *map = auxadc->regmap;
++	int ret;
++
++	ret = regmap_set_bits(map, MT6323_AUXADC_CON11, AUXADC_CON11_VBUF_EN);
++	if (ret)
++		return ret;
++
++	return regmap_set_bits(map, MT6323_AUXADC_CON22, BIT(channel));
++}
++
++static int mt6323_auxadc_release(struct mt6323_auxadc *auxadc,
++				 unsigned long channel)
++{
++	struct regmap *map = auxadc->regmap;
++	int ret;
++
++	ret = regmap_clear_bits(map, MT6323_AUXADC_CON22, BIT(channel));
++	if (ret)
++		return ret;
++
++	return regmap_clear_bits(map, MT6323_AUXADC_CON11, AUXADC_CON11_VBUF_EN);
++}
++
++static int mt6323_auxadc_read(struct mt6323_auxadc *auxadc,
++			      const struct iio_chan_spec *chan, int *out)
++{
++	struct regmap *map = auxadc->regmap;
++	u32 val;
++	int ret;
++
++	ret = regmap_read_poll_timeout(map, chan->address,
++				       val, (val & AUXADC_READY_MASK),
++				       1 * USEC_PER_MSEC, 100 * USEC_PER_MSEC);
++	if (ret)
++		return ret;
++
++	*out = FIELD_GET(AUXADC_DATA_MASK, val);
++
++	return 0;
++}
++
++static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
++				  const struct iio_chan_spec *chan,
++				  int *val, int *val2, long mask)
++{
++	struct mt6323_auxadc *auxadc = iio_priv(indio_dev);
++	int ret, mult;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE:
++		if (chan->channel == MT6323_AUXADC_ISENSE ||
++		    chan->channel == MT6323_AUXADC_BATSNS)
++			mult = 4;
++		else
++			mult = 1;
++
++		/* 1800mV full range with 15-bit resolution. */
++		*val = mult * 1800;
++		*val2 = 15;
++
++		return IIO_VAL_FRACTIONAL_LOG2;
++	case IIO_CHAN_INFO_RAW: {
++		guard(mutex)(&auxadc->lock);
++
++		ret = mt6323_auxadc_prepare_channel(auxadc);
++		if (ret)
++			return ret;
++
++		ret = mt6323_auxadc_request(auxadc, chan->channel);
++		if (ret)
++			return ret;
++
++		/* Hardware limitation: the AUXADC needs a delay to become ready. */
++		fsleep(300);
++
++		ret = mt6323_auxadc_read(auxadc, chan, val);
++
++		if (mt6323_auxadc_release(auxadc, chan->channel))
++			dev_err(&indio_dev->dev,
++				"failed to release channel %d\n", chan->channel);
++
++		if (ret)
++			return ret;
++
++		return IIO_VAL_INT;
++	}
++	default:
++		return -EINVAL;
++	}
++}
++
++static int mt6323_auxadc_init(struct mt6323_auxadc *auxadc)
++{
++	struct regmap *map = auxadc->regmap;
++	int ret;
++
++	ret = regmap_set_bits(map, MT6323_STRUP_CON10,
++			      AUXADC_STRUP_CON10_RSTB_SW |
++			      AUXADC_STRUP_CON10_RSTB_SEL);
++	if (ret)
++		return ret;
++
++	ret = regmap_set_bits(map, MT6323_TOP_CKPDN2, AUXADC_TOP_CKPDN2_CTL_CK);
++	if (ret)
++		return ret;
++
++	ret = regmap_update_bits(map, MT6323_AUXADC_CON10,
++				 AUXADC_TRIM_CH2_MASK | AUXADC_TRIM_CH4_MASK |
++				 AUXADC_TRIM_CH5_MASK | AUXADC_TRIM_CH6_MASK,
++				 FIELD_PREP(AUXADC_TRIM_CH2_MASK, 1) |
++				 FIELD_PREP(AUXADC_TRIM_CH4_MASK, 1) |
++				 FIELD_PREP(AUXADC_TRIM_CH5_MASK, 1) |
++				 FIELD_PREP(AUXADC_TRIM_CH6_MASK, 1));
++	if (ret)
++		return ret;
++
++	ret = regmap_set_bits(map, MT6323_AUXADC_CON27,
++			      AUXADC_CON27_VREF18_ENB_MD |
++			      AUXADC_CON27_MD_STATUS);
++	if (ret)
++		return ret;
++
++	ret = regmap_set_bits(map, MT6323_AUXADC_CON19, AUXADC_CON19_GPS_STATUS);
++	if (ret)
++		return ret;
++
++	ret = regmap_set_bits(map, MT6323_AUXADC_CON26,
++			      AUXADC_CON26_VREF18_SELB |
++			      AUXADC_CON26_DECI_GDLY_SEL);
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(map, MT6323_AUXADC_CON9, AUXADC_CON9_OSR_MASK,
++				  FIELD_PREP(AUXADC_CON9_OSR_MASK, AUXADC_DEFAULT_OSR));
++}
++
++static const struct iio_info mt6323_auxadc_iio_info = {
++	.read_raw = mt6323_auxadc_read_raw,
++};
++
++static int mt6323_auxadc_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct mt6323_auxadc *auxadc;
++	struct regmap *regmap;
++	struct iio_dev *iio;
++	int ret;
++
++	regmap = dev_get_regmap(dev->parent->parent, NULL);
++	if (!regmap)
++		return dev_err_probe(dev, -ENODEV, "failed to get regmap\n");
++
++	iio = devm_iio_device_alloc(dev, sizeof(*auxadc));
++	if (!iio)
++		return -ENOMEM;
++
++	auxadc = iio_priv(iio);
++	auxadc->regmap = regmap;
++
++	ret = devm_mutex_init(dev, &auxadc->lock);
++	if (ret)
++		return ret;
++
++	ret = mt6323_auxadc_init(auxadc);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to initialize auxadc\n");
++
++	iio->name = "mt6323-auxadc";
++	iio->info = &mt6323_auxadc_iio_info;
++	iio->modes = INDIO_DIRECT_MODE;
++	iio->channels = mt6323_auxadc_channels;
++	iio->num_channels = ARRAY_SIZE(mt6323_auxadc_channels);
++
++	return devm_iio_device_register(dev, iio);
++}
++
++static const struct of_device_id mt6323_auxadc_of_match[] = {
++	{ .compatible = "mediatek,mt6323-auxadc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, mt6323_auxadc_of_match);
++
++static struct platform_driver mt6323_auxadc_driver = {
++	.driver = {
++		.name = "mt6323-auxadc",
++		.of_match_table = mt6323_auxadc_of_match,
++	},
++	.probe	= mt6323_auxadc_probe,
++};
++module_platform_driver(mt6323_auxadc_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("MediaTek MT6323 PMIC AUXADC Driver");
 
-Cheers,
-Angelo
+-- 
+2.54.0
 
-> 
-> Another thing is that I kind of wonder why the mode configuration register
-> setting isn't ganged in hardware like the enable and voltage settings.
-> 
-> 
-> Thanks
-> ChenYu
-> 
->>> +             pvdd1-supply = <&pp4200_s5>;
->>> +             pvdd2-supply = <&pp4200_s5>;
->>> +             pvdd3-supply = <&pp4200_s5>;
->>> +             pvdd4-supply = <&pp4200_s5>;
->>> +
->>> +             regulators {
->>> +                     /*
->>> +                      * vbuck1 is the cpu-supply for CPU6 and CPU7.
->>> +                      *
->>> +                      * However, this device originally shipped with a broken
->>> +                      * firmware that causes register reads over SPMI fail.
->>> +                      * This is fixed in firmware version 15842.175.0, which
->>> +                      * is included in ChromeOS releases R150-16700.22.0 or
->>> +                      * R151-16721.0.0 and later.
->>> +                      *
->>> +                      * Assigning the cpu-supply properties for CPU6 and CPU7
->>> +                      * without the fix will likely cause CPU DVFS to stop
->>> +                      * working. Hence the assignment is left out to avoid a
->>> +                      * regression of the function. If the user is confident
->>> +                      * that their system has the fix, they can added the
->>
->> [Severity: Low]
->> This isn't a bug, but there is a typo in this comment. It should say
->> "they can add the property themselves".
->>
->>> +                      * property themselves.
->>> +                      */
->>
->> --
->> Sashiko AI review · https://sashiko.dev/#/patchset/20260709081928.612294-1-wenst@chromium.org?part=1
 
