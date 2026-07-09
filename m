@@ -1,126 +1,222 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1954DBD60;
-	Thu,  9 Jul 2026 18:12:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E763B4DB57E
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 18:14:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783620734; cv=none; b=GQVahcJfXsP5eqGL9m2aVKarHuFqhHRIlI1HyA9nxMpsLx69tJx9Tfp0NFfv4qEdwy6Pbzns7vnOrwS/++tXL5HqOgfMDcE8oZK7RrG3jKmTwUzQ2/Azf3vFiUwopeOCyEffNXJJ4+wwaYR+fWwHfZf75qMec1Hax71FfOzforM=
+	t=1783620872; cv=none; b=nO8jjv75dlu+I6l6qSgrHB1SIuY+Tkhy+zxMUnNWk9X4Mn9G4p4CmOmDC22osZINkeOClA6dwtvubTwpmeB8VfbZBxj0Ubr8eEDLjJPv890YveZD/r7MzjnRnSH92uKsQ5rM8Eucr+pK4LiuLm0i3zxQNixRKzaXQ8MY2hob2tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783620734; c=relaxed/simple;
-	bh=gG/aMUL9K6J7MQeQ3D/OrW9+BsX4y94z01HtY4iuQps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqQpovp5J5nKLSj34w5k3ckJHuGJ1TFVBVT3JJTw/ZiqJqo+1UpHEpK2qgBSk09oaCpjUhaklPcjLpD/W8K+vOV2k/btlJhcz2IQ0Aic/05Kw7Y8zHuRS6Zo9k1U6dQCiAGUuhpoJEeJ0bGx8bwrL3IDsKjgKKbMdHkXkrAKHME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gGDgNua5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783620872; c=relaxed/simple;
+	bh=djsGwgjE+OBll3Kb1arMiXCWkoJH/H3JofBSmvuDXg8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pnnw5l/9PGDz56LZzAzDNnZGZIymeyZ5Mp2Ls6VzPlPTgsgEBnHl8qxHGZXkcWD2SqbnfMdkQ+himVOgCok1TgWm4H3GEdyS6HrAjUKhFJGyNnVuRFZ4s9/cag1YlZ4uGORuA6T8zTjNxuHzGHFJDBkzGnAqsbfF0aMjUnrXYqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/sSKfIk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gGDgNua5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CDAB1F000E9;
-	Thu,  9 Jul 2026 18:12:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/sSKfIk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509131F000E9;
+	Thu,  9 Jul 2026 18:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783620732;
-	bh=N6ExRqFYusMX+tjVg7cG0UAnunHkBLlwLxZ3V0z43Yo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gGDgNua5r/LnOAlUxg9BTyvo5mQCvFnGTGo2oOO+5cSHjWM2J1jOjdJw8UPmHQnVV
-	 NlH8GCheUps5nixZGBXCLRI3924QII5l9IIy6oTlD/eSL8YAg/U1hW6gwouU13vVUF
-	 lRUFbx29bdoVukedcHBj7JgWIYnmDfE4d2QatHh/DGoODhpiv5Pzfzd840SDSL6xvZ
-	 BFBh57Rc5mmIG1MjI/a3Xxt4g6W8VF+0TlOkcDDe8LxtovAtURy5EqMo6DtEi1XVXq
-	 uXMngg8j0bC9Quvo4bGNhGf9LY1O1H6Wd0B58owsFccwEEd4vh4py600QE4bLMDEm0
-	 lO+sQU8ACHo6A==
-Date: Thu, 9 Jul 2026 19:12:07 +0100
-From: Conor Dooley <conor@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Edward-JW Yang <edward-jw.yang@mediatek.com>,
-	Richard Cochran <richardcochran@gmail.com>, kernel@collabora.com,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	Irving-CH Lin <irving-ch.lin@mediatek.com>
-Subject: Re: [PATCH v2 08/18] dt-bindings: clock: mediatek: Add MT8189 clocks
-Message-ID: <20260709-omission-thievish-45fb4b21f4a2@spud>
-References: <20260709-mt8189-clocks-system-base-v2-0-2926da3db6cf@collabora.com>
- <20260709-mt8189-clocks-system-base-v2-8-2926da3db6cf@collabora.com>
- <39ba7e37-bdd7-41ab-b72d-fed0bdbfc3b6@collabora.com>
+	s=k20260515; t=1783620870;
+	bh=TwwjOLBwMhMlDuK8KM/oFpBOb79kXfOxP9klkhAgZfU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l/sSKfIkF+p2JZFEV9rGlI5SRtYdvDu+idPbfEGFn1X+RBKwcmd5phf4NVpEIccjn
+	 IoyKroHHTT3yZ3ZoXPphcdVS42LU2vGT59KulatfU/gHj2hBBVCpGTvdVySZobwK76
+	 2V5OWYprn5Tv2NrZY1hDDXxVK25i0k6iC8E/GCRcbNqFcxqQEuOUaK9xXD6LAvWa2s
+	 SkTbFmRyQcJSzirkJfvOuLueMuMdol9VwjvFcoJOamN0dMIAbXemex65puIbgubbtn
+	 tO/uzQxr5EF7VCfPwpPoHsQHc2aIwaLnsZyp4Ek0YGRYuzceQzJkA0AOleTsteewH3
+	 k20x+dWBu13DQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH] dt-bindings: power: Add power-limit-controller
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709180727.4015267-1-manaf.pallikunhi@oss.qualcomm.com>
+References: <20260703-modern-indigo-wolverine-6b6eaa@quoll>
+ <20260709180727.4015267-1-manaf.pallikunhi@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 18:14:29 +0000
+Message-Id: <20260709181430.509131F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UX1C2aIXjTZQUR6q"
-Content-Disposition: inline
-In-Reply-To: <39ba7e37-bdd7-41ab-b72d-fed0bdbfc3b6@collabora.com>
 
---UX1C2aIXjTZQUR6q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] Node name regexes for domains and limits incorrectly restrict un=
+it addresses to decimal digits, breaking on standard hex addresses.
+- [Medium] Missing `#address-cells` and `#size-cells` properties for nodes =
+with `reg`-bearing children, causing dtc warnings and schema validation fai=
+lures.
+- [Medium] Use of non-standard `-microsecond` suffix prevents automatic sch=
+ema typing.
+--
 
-On Thu, Jul 09, 2026 at 04:05:35PM +0200, AngeloGioacchino Del Regno wrote:
-> On 7/9/26 15:42, Louis-Alexis Eyraud wrote:
-> > Add dt schema and IDs for the clocks of MediaTek MT8189 SoC.
-> > The MT8189 clock IP provide clock control for main system
-> > (apmixedsys, topcksys and vlpcksys) and subsys (eg. peri, scp,
-> > ufs...).
-> >=20
-> > Also, add compatible for frequency hopping and spread spectrum clock
-> > functionality and reset controller header file for MT8189 UFS reset
-> > controller support.
-> >=20
-> > Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-> > Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-> > Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
->=20
-> Both the commit description and title are misleading, as in, you're not a=
-dding
-> MT8189 clocks, but *both* clocks *and* resets.
->=20
-> Fix it please.
->=20
-> After which:
->=20
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
+--- Patch [1]: [RFC PATCH] dt-bindings: power: Add power-limit-controller s=
+chema ---
+commit 04e63fa5b3b701b0306a74eba5521673337890b4
+Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
 
-And
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+dt-bindings: power: Add power-limit-controller schema
+   =20
+This RFC proposes a new device tree binding schema for power limit
+controllers that manage SoC power domains with hardware-enforced power
+capping capabilities.
 
-pw-bot: changes-requested
+> diff --git a/Documentation/devicetree/bindings/power/limits/power-limit-c=
+ontroller.yaml b/Documentation/devicetree/bindings/power/limits/power-limit=
+-controller.yaml
+> new file mode 100644
+> index 0000000000000..9cd4d9d6414d9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/limits/power-limit-controll=
+er.yaml
+> @@ -0,0 +1,238 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/power/limits/power-limit-controller.y=
+aml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 
-Cheers,
-Conor.
+[ ... ]
 
->=20
-> > ---
-> >   .../bindings/clock/mediatek,mt8186-clock.yaml      |  15 +
-> >   .../bindings/clock/mediatek,mt8186-fhctl.yaml      |   1 +
-> >   .../bindings/clock/mediatek,mt8186-sys-clock.yaml  |   5 +
-> >   include/dt-bindings/clock/mediatek,mt8189-clk.h    | 433 ++++++++++++=
-+++++++++
-> >   include/dt-bindings/reset/mediatek,mt8189-resets.h |  17 +
-> >   5 files changed, 471 insertions(+)
-> >=20
->=20
->=20
+> +properties:
+> +  $nodename:
+> +    pattern: "^power-limits(@.*)?$"
+> +
+> +  '#power-limit-domain-cells':
+> +    description: |
+> +      Number of cells in a power limit domain specifier for child domain=
+s.
+> +      Typically 1, representing the domain index.
+> +    const: 1
 
---UX1C2aIXjTZQUR6q
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Medium]
+Will this schema cause dtc warnings for missing #address-cells and #size-ce=
+lls?
 
------BEGIN PGP SIGNATURE-----
+Since the child nodes like power-limit-domain@0 require a reg property,
+wouldn't the root node need to define #address-cells and #size-cells
+properties here in the schema?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak/kdwAKCRB4tDGHoIJi
-0nERAP4kLU13u3da3l4qcBWIw/VmYndpJtfFXpU6Zgypf9MYBQD8DwkM+FWeYAyD
-xhlJbInggvLHDfXzemV0LCSaeSizQAw=
-=+U1Y
------END PGP SIGNATURE-----
+> +
+> +patternProperties:
+> +  "^power-limit-domain@[0-9]+$":
 
---UX1C2aIXjTZQUR6q--
+[Severity: Medium]
+Does this regular expression restrict unit addresses to only decimal digits?
+
+Standard device trees use hexadecimal for unit addresses, so a node like
+power-limit-domain@a would fail to match this pattern. Could this be
+updated to [0-9a-f]+ instead?
+
+> +    type: object
+> +    description: |
+> +      Individual power limit domain/zone under this controller.
+> +      Each domain can either:
+> +        - Have power limit constraints (with power-limits child node)
+> +        - Be monitoring-only (without power-limits child node)
+
+[ ... ]
+
+> +      power-limits:
+> +        type: object
+> +        description: |
+> +          Container node for power limit constraints within this domain.
+> +          Each child node represents a power limit constraint index.
+> +
+> +          This node is optional. If omitted (or if monitoring-only is se=
+t),
+> +          the domain provides only power/energy measurement without limi=
+ts.
+> +
+> +        patternProperties:
+> +          "^power-limit@[0-9]+$":
+
+[Severity: Medium]
+Similarly, does this constraint node pattern also improperly restrict unit
+addresses to decimal digits instead of hexadecimal?
+
+> +            type: object
+> +            description: |
+> +              Individual power limit constraint configuration.
+
+[ ... ]
+
+> +              power-limit-microwatt:
+> +                description: |
+> +                  Default power limit value for this constraint at boot/=
+reset.
+> +                  This is the initial value that will be programmed.
+> +
+> +              time-window-min-microsecond:
+
+[Severity: Medium]
+Does the -microsecond suffix prevent dtschema from automatically inferring
+property types?
+
+The standard suffix recognized by the core schema for microseconds is -us.
+Without the standard suffix, the schema validator cannot automatically infer
+the property types (such as uint32), which could cause missing type definit=
+ion
+errors during dt_binding_check.
+
+> +                description: |
+> +                  Minimum time window for power averaging.
+> +                  Shorter windows allow faster response to power excursi=
+ons.
+
+[ ... ]
+
+> +            required:
+> +              - reg
+> +
+> +            additionalProperties: true
+> +
+> +        additionalProperties: false
+
+[Severity: Medium]
+Will this strict additionalProperties: false prevent adding #address-cells
+and #size-cells to the power-limits container?
+
+Because the power-limit@N child nodes require reg properties, this container
+node will need these cell-count properties, but they aren't explicitly defi=
+ned
+in this schema block.
+
+> +
+> +    required:
+> +      - reg
+> +
+> +    additionalProperties: true
+> +
+> +additionalProperties: true
+> +
+> +examples:
+> +  - |
+> +    // Multi-domain power limit controller with mixed capabilities
+> +    // Demonstrates multiple domains with and without power limit constr=
+aints
+> +    power-limits@ef3b000 {
+> +        compatible =3D "qcom,glymur-spel";
+> +        reg =3D <0x0ef3b000 0x1000>;
+> +        #power-limit-domain-cells =3D <1>;
+
+[Severity: Medium]
+Could this example fail dt_binding_check due to the missing #address-cells
+and #size-cells properties in the power-limits@ef3b000 node?
+
+> +
+> +        // Domain 0: System domain with full power limit control (PL1/PL=
+2)
+> +        sys_domain: power-limit-domain@0 {
+> +            reg =3D <0>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709180727.4015=
+267-1-manaf.pallikunhi@oss.qualcomm.com?part=3D1
