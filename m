@@ -1,198 +1,212 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012070.outbound.protection.outlook.com [52.101.66.70])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5278385D8B;
-	Thu,  9 Jul 2026 14:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783608855; cv=fail; b=IHf0K/EVL1z0XX7cHzrdfBHaTIk6qbGxetXs8CDrcS1lF2CRP9m/r5DOioVvF4WmqNGc1ONRV1ux5E//g9s0jnb4X8ofkwbxUpR+JCJpm/jdnSYmUcGcQbX6J0QiZ3pjsefHrlA5m4MUuWbp1Z+UUkPzQkI2hgMB8sfGt2RPiwY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783608855; c=relaxed/simple;
-	bh=h6S2Qr/4wdYT717wxcIHanW4OvIF2vkC4f3WhzdstNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=aZDBBdGlyfBFHEaAS9PYzS3lVsnSpknI5BAwEkZcqqeMFbcFEEnKR6A1RuVOpGz0fS3Not4LkJjLVRQJ0qnTVxdoIvxsM2Y1Fd4hei837mZa704gTTjwjW8hNnOYVq6VxerHjADsH4AmX02imyLXlBG31sTc8g5gij22Hlq55UE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Jwh/F/pz; arc=fail smtp.client-ip=52.101.66.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC515383C64
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:54:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783608870; cv=none; b=DSbg/Ywp0hbl8pcFqVVyEZZPfJxdgfLAWcglclKLBGmHmva73kOjf4y2aMt90EwCq9N2L/kIqOkVkXcLx0bEK+rDh3au2VZol+Qq4s2AZSt403HtovPajbphtA4khxLNnwavWFp3uE2J7o8Vv1nPoh1UeDbQXMx4IBFSHVhpKzk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783608870; c=relaxed/simple;
+	bh=Iad5UADQt9fXiFcZiRSv6DKnb9zI3RyEtPOMI+t/pn0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ActRHpRmloJbkUq9UbZP7CnhoHSn+RxrnnbSORTH+di6xV7bqSs0EAbzsgEPleyXrzS/Vmt3lb9dU46jDVFlpY9/5xTy2BmMe8+nHB9r4V7JazrwZY7GR/Cd+Ili/N06CmMCvxqXh+ntsuQFrMpDBTmLM1wQA8j93jpsS320wqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fgFK1CrJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kxY1x6Ce; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Jwh/F/pz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RrDmTJ9ekJwY3vquk75jT9rvXhgwTRkMruTZXav+cKn/i7EhERJ7YAdrDop7SfpgZ39wg6PXoDKRAAiS8hvMJXX2WCgq4mfSHaTpd/YPXDoNmd2G+22S73EHzf5ToM65eCNN0WXlO4sChxO2F/IgtV7cq0wEfxwS5Gq6yeNZv+v0QNWZ1TpVCZVk42lesGhFRfKx6NRK97RVm5ZbQ2uSJAv3FsRaVXKJTYLFyWf9zBHA3WrOQMhicewqEvROmRP4iJKHy+s/GDLfFoklLS9r7u3tSTcwUwXmrnzohBEVX/NfOiO6j9M5HS914v5dyc8eouxNWiVG88Jh8tU2YDXjEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Gs/+wI51uvlfIZPezddyVcPdCnytuHjB3tFf5wchmA=;
- b=Q2W7N45rDmM7WY1ZlzA457jvDq9ojDy4aFUg8r4Ai6o/xGLrl7B8iphaNdNM4U2bO4Dp4lTT7EAnDuZJRo4ZxE7wnjtbJKb2TtI6PVuFmCAcSSiOgyiqLA5a7Aql/5/NEnTz3JAoH3M2gNJEUdjqA60q40lgUD022s7sq5PMwH+Yz2Rcl0KVKgXJKLnXWZH4FSsBzrAKmFj370R5Cip4qfaEU0anzzrAzZmwArwyOayaN8FCE+MmBdt70fuoyQ89TqB+2UXDqGIfXsIfV98uZwE1yPbb/qzgcjzlnrGfDqq3LPQe7J8igYw1tF6Ja5uVfUab2cr2edOrHJ06Spg0Uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Gs/+wI51uvlfIZPezddyVcPdCnytuHjB3tFf5wchmA=;
- b=Jwh/F/pzDI7BhHG8CnXhIGMXyLqQ0Ei1z/FZ6BsbBfP35HMCI0aNgXmjYI8sKR7WU3gtrN4h75vhgMZRkF0XTUDsLw4fOldnbu7AyqafyQ6mwvcCWhoRNRf6B6PSsF7KlKNwQ+yLg3gqXVc6L6o8uUSVUrfdOInnEXil3K5sEaGGWki3eCvISOKLZ6JWcpQ6Q7OZl6ny+yAqITHrC3X5DNkic22+nTBz73q3vaOwapWNiebAGSIEFmCVJ6LuiIvCLul/WRXsUQ28YIFzh/5GmXnD7iBNLQhw08RBclEe24wsNinBxLgCewkSaGXN1C4JBLWudBmIUSD9iUcnSMUGKg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AMBPR04MB11741.eurprd04.prod.outlook.com (2603:10a6:20b:6f3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
- 2026 14:54:11 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Thu, 9 Jul 2026
- 14:54:10 +0000
-Date: Thu, 9 Jul 2026 09:53:57 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, amitkumar.karwar@nxp.com,
-	neeraj.sanjaykale@nxp.com, marcel@holtmann.org,
-	luiz.dentz@gmail.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de,
-	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	bhelgaas@google.com, brgl@kernel.org, imx@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org, sherry.sun@nxp.com
-Subject: Re: [PATCH V5 2/4] PCI: imx6: Add skip_pwrctrl_off flag support
-Message-ID: <ak-2BQEUMg8Ewjz9@SMW015318>
-References: <20260709101555.3034853-1-sherry.sun@oss.nxp.com>
- <20260709101555.3034853-3-sherry.sun@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709101555.3034853-3-sherry.sun@oss.nxp.com>
-X-ClientProxiedBy: PH8P221CA0062.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:349::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fgFK1CrJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kxY1x6Ce"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669DwPLr2014460
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 14:54:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ZMd5SzYa2JtJsuef3gXqhLim
+	tjjWD7XXATJ3fVJWKFY=; b=fgFK1CrJsVkn9+lyI6grWkzihN4jSETSO5v1zhyx
+	yJs1ZTq+7KHtpwkUTbuaxhcF3PrJU2srnVT/38qhJ9mzZM1mQ4QjpOepB4feKAhb
+	qUCPsOaFsIoCJtlfRnch1AnGKK1yM4fPZZ7L0NHLzFKXA8C32Mq4xZlovyMONOpy
+	As1q+d7o8m7GZ4QhEASjtxVGnbHUjp59LzbgeSQo4ZsQoFzzQ+geRApF82v6PJQj
+	J5c9kaLgTPyqOhu17GRIOLVfHTARtljnj0obrgas9663NRdQSoTqMvFGSqpoDCT6
+	DLVVepZvtOFYWaPqh6A4NGKOmJiJpHkHoVfPC2GrQjWg2Q==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9ug6mdfh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 14:54:27 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-744e7c828adso377363137.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:54:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783608867; x=1784213667; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
+        b=kxY1x6CepZIbeBFdl4SJHiJUMZeBfoqaQenmfM/UvsypgAlwrx4xEJwZl4/f/isXex
+         QxxN1KMzu3wjA2EkvGcbEWPKuVyOcNSbrkj2qJiWxJKId/QbE1ybVLe+N7RL+6/jby/6
+         UveKO6/uL8RKAzReXCAqFn5ISRDnx31X4vfAu8YHReCHSwTDiGFZiT9VKzVCB79VvywC
+         Qxug6kBB7wC2dQUT6Vmovu8oAjjPbFyrsnQlZu5Zj43GZptry2CQfnQpDpsU8x8amPay
+         Q4g4c0TCgYgtEasAJyueS1Vj0lpva/PNfpFqE6/LwFNkzTYl4HMXuVHg/eeTcoUviNDb
+         U2mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783608867; x=1784213667;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZMd5SzYa2JtJsuef3gXqhLimtjjWD7XXATJ3fVJWKFY=;
+        b=D+cAawfGAp83uY6Ip1+l25qOmYWf8XM4+GK4t6OY8G8MzwJR+Gpz7MT/z5M4vRoDRP
+         xquo76MLQuLsvAsvIMVGNeEokix8Wf7Ae8SexpZiWlc2sb07hJoqCApmhyq8jvZi2ooW
+         cwuWovh1Nvma/XMLrgsXsKAHLnvgAjFZ7rcdaDIhfobg+8sNjglbulL4XsMh9poe3bSt
+         rw/GTqMCdNO+1fmttcprQOfLDnvr1p9D8xO3fIDSVDQTCQ1BGiiodjwnUia+RshV/qFz
+         E8YrHT6PGcPa6Lkx/ZDGLpyoQPboOj+y2rRmNVYRTmU5oPLSXRftKj+66JTsCPoNyFNo
+         uHzQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqyi0yoviix1rM6CLe64Jm6se3git4FdGwuamERyNkkUuZyNwmzrmKO8FeSX/3sPNiiJO3pgNvWKoV/@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhWRu1R4/Zpo6qlfCWW8HirdwAf2NXVqyG2IdNw8Ksc6qy/GEs
+	kT4hLCdxjtlGLK4lnN9uZ3j/UWG88zWPp9itYkA3rKSX+vGTgf10SpaNALpLv0YPh1r5cNz1q+C
+	YOX8zAhu2UOqG/3RQdYnPAIC3AtZq8SeuBrAF2yMWaG9TzaWWjpNj3PXk/fWpTalb
+X-Gm-Gg: AfdE7cn34zbDCfhJKEfTJYKuGN7kNz2ZL195hSfDAbqWX+UZcG16WyszL2vi3AhEbrl
+	Eij2wghAET7DpirmSTQIPufap5a7WUujkWDhVujepOaka9qIkFH4EYKUw5B12OeqT2B9vaWYWyr
+	joZ96LHw23epsN6kcGVgvMo4OhH17u0A0KSnMAxawCnrdQ9JucAgl9k/fABqzyUPZuJp01P4PtM
+	L/ewo6STQkSOC5tKyaynFEja9c7xgsEWy/pT610FMFXfDNnM1Iy0nTAWVdzdZGXRrQwbqqHgdF8
+	4ufgBQ9NomrPOagKyx3M2O2rqMkO7x+lq2zTurqJUveTn9RoKCTeenMWJUdFepRl44em9VRV68R
+	RL9c/ci5FEKcw4abazBpjrEqdjySJiSFWmJVUfQcxoN9RrPUdhs6WFmFpE1GP0X3mIijOiynBN7
+	pvNrb1G07Z7OAtS3hfLMOT5qa/
+X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id ada2fe7eead31-744e03d0408mr4194097137.22.1783608866718;
+        Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
+X-Received: by 2002:a05:6102:5cc1:b0:62f:522f:5b2a with SMTP id ada2fe7eead31-744e03d0408mr4194057137.22.1783608866193;
+        Thu, 09 Jul 2026 07:54:26 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b017c29961sm500429e87.29.2026.07.09.07.54.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 07:54:25 -0700 (PDT)
+Date: Thu, 9 Jul 2026 17:54:23 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
+        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+Message-ID: <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+ <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+ <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
+ <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
+ <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMBPR04MB11741:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd670e94-8c90-40c0-e5ff-08deddc9ef30
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|19092799006|1800799024|22082099003|18002099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	PSFR9sD2ngAsK2mgpQNVcuJV++Cu2XOvB5LUW822j39lkXYYGFfAaTP9HFgvRnHgWZY3EHsYWTbfY87mK7dOg88tqOLJSDdspqmreTDB8TjnuA553v2Zr1y5oDeytvWvnZiCzfxkf+xP+CGIWrXoeFQNSKmuPqQ6ggRgPasXr92kGJPcbbnITFlqvoVnm15RJaewQVbemGoK9H1CtX0VzbKyUFToNnDUuON3Q6d08X3Eafix4/YLpYb0auY4FkPFfP/yhhcFZKjU2IyKTQDGsN5jeLF6+FOThXEAQjZ3P/Oo3sH6Lf+rqxj+GQQLyouTHJYkQwPYnsyGWmr26K2Uq9VHbPNgM7ManjduBThpo59jLMxdBgKk2/2J+FyF7Afb4tE/E2icQd0UFSAhhvnykULaCmzGn1oiBKowNYFKSWkMvvP4TKgKZnSKDQCyhtOzld29MJsxXfhqBdht4Ic5oBm7qNOuXVJfd9yXfkwGgoYAko0U2PnKPz1bm16ovvY1P0fLlteC146zzIuMY+82dzPQ/d47PKE1bTZ3uzdySZbCx2vtYh8aSe59ZbZxq3AcThLuiup6J3ZVpJMpnhsCx61Ra3rk+mOCGUnair/SfdPK7bhDdnSvP7J6Z3TOZlDGUq/JGU/YgYPUZ+NwWkDCekVgTgLZITX9Br6tTUm9gLE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(19092799006)(1800799024)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sPdj9wfj6V7/BC8bPj/SiAvmlBtb9cSbI1XFogddXOD9yhmrzxtoMeV8Cqso?=
- =?us-ascii?Q?z6ax4DL+9CzokvcuoiiyzQh6nFLbixwKwZNTdkPUdX2+xdEq78E1O7+xdozi?=
- =?us-ascii?Q?w0zNioObnqm+LWqQ+OyNFN0E//5AQeg8co1AAPDcDaYI4m7tgHzYogJptoNU?=
- =?us-ascii?Q?4WrX/EMk6E9sweeZWQDm0dOOKrDZuY7c++U13ebH1CrgFbM02r24zfG1Vzz9?=
- =?us-ascii?Q?5ZXxxQBU9ZHL7bxx4O9m8Bi3B73kYVNgQhFNZ4Epm0GSHHo3Hz2YLHvAmkzi?=
- =?us-ascii?Q?MID1IZgdnWwbT6PIxGKgXFYh8vdZEfyTFz3XlEKY4mXKWaUt4U1s8hm9x1SF?=
- =?us-ascii?Q?4OG5o7hijbB1HsjnteGsYaJd3p/9q8rplbEkDxBX7jF8h8+H/MiCk/T5Hpmn?=
- =?us-ascii?Q?/rpofaF4J2DTnQcHA5nkd7tnyXwd975Zg1eRGwXBrIsDm4g+MiM20kiYy3fe?=
- =?us-ascii?Q?yhrEYvn+/pbv+ylp+rkyvUQDNHz73iiNe9WSDLiPvDqYd8leSW96OZwPrv3a?=
- =?us-ascii?Q?2zcbM8D028RhvGUUbwfe6j4IsFUlpCCkBKjkHmqX05nIF/vFGQPKFx8A8s/s?=
- =?us-ascii?Q?ikjaciALyS29Sw2zAMyVtYAwVdS3l/jtWDS0ciIcq8lyRIOim04PjNDtKVIB?=
- =?us-ascii?Q?ZRO6OqkEHfLB5hCjVRhnHCuAok21HSP5jy2bsbwt6SaolWXeie6f/OUEtODn?=
- =?us-ascii?Q?ulZuXTNbqGFBJemOY7Nn9uIDfnS/EwBc0KznIiUPihXislO0SQDBoVCuiTWM?=
- =?us-ascii?Q?yWjR4HDBx7YAUitU/KBdOtZBd1xpbnRiI/oHcHpkwMKWqurmfH9VmX4v78pf?=
- =?us-ascii?Q?0X5Aw7Kus5GM1JEykBPjmaM+yMXR3U4BgiB7hfI7ElehFJ3LEHAKmmjISy5V?=
- =?us-ascii?Q?25kVk1Yhi5aVKFuGUNjBEsebGcy8fLbfp9JyEDgOQDKopP+4Dq9f0MHSdSND?=
- =?us-ascii?Q?2Jkss81IXl89InKguWfj1EPQQEArE/cmcraaF8FxSH3zs2Oszcec7cyPxu0u?=
- =?us-ascii?Q?vI4fufcnjtETBA5q0uNU6K6TEXw4KkRsAq3D49l9u598jDqe3qqddV/529jc?=
- =?us-ascii?Q?hb83J7ADsJbsmulvGvdUAtrSJT4W3d5rlN9smZWRhP9Oyotrq6T0SrfTwXTw?=
- =?us-ascii?Q?6kyOBJULs1uCF0V6CPi6kzZGZiOKuXIRcj8K58fDJOdd2TC+g30jIo+B70qw?=
- =?us-ascii?Q?4+tKZT3PcLxsz8gl/idCujUc/oPuZAq/737FV1Csv7sicSmiBmog1RA4MZxG?=
- =?us-ascii?Q?YmaioqjtazHefmYsOjz9PM/YqTmNzffYBHFlVsrFrzTvSJu/0B62HndcmE9b?=
- =?us-ascii?Q?MaVXM4s9I6tUjT8n3Mq6qS7ZgSF3zUaVsivTt0YtzvkRGkpKOYIsG+U07onI?=
- =?us-ascii?Q?OIv6/3LEC5nqU2OGaR9Iliu7Wz4ytic+xO2JfHZVbuhUEW4qwjinWZOpn2B/?=
- =?us-ascii?Q?bI5RlIQgHi46R9qDuPiBlQ3WNfsJv6ezDQPUoAT+yG1hXLj0Xgt4YsXhkhZt?=
- =?us-ascii?Q?R/YdphltIicjpZVs7QGeXBcAKIjiHiPNsrLiIs9xGN5umzUS5f0IqkFrB+bv?=
- =?us-ascii?Q?2X7N56EIJz2gLeMYhHP9jm/ya/KefZ0KFFWgt4bPdZXapAUgf2u50gp5Yz5M?=
- =?us-ascii?Q?FoQpC9NtV6nsLuwvrNTsfuD833Vaqi0fjt8kKr7LVRFR52iPzSsRs/JJ82GT?=
- =?us-ascii?Q?y44PDPECDNSM2Hc8PEaEjSZoRH8tofpVPtPNvxzRs3AS9LRP+k1pfn7UHi2i?=
- =?us-ascii?Q?iWFGGrPcUJ7H3TAjX84ssJ6GWE2zpqO3nswBDA2Hkq+8PjXNwh+m?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd670e94-8c90-40c0-e5ff-08deddc9ef30
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 14:54:10.8054
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eIoLWCrGxdG+ZNUjE6v00kXc68EEtMLtUSiB4vyAgIEK7BAx5r7vXUa1nT+ZT1zuq7KaEdcCqrwDMvV8qAVs5JvQDLjTn7kYy45MK/Ea0HqP9huFk62vOPqkeppiuDkh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB11741
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX9fZFACuj1OpR
+ /zgHoPm4LxUUeT1wu9OVtZB4Kb9Z1hMjckQfn+bUKuGFCUpBdQh83rDwQ2RMBWSgtxa8mR4S8/U
+ y9Zqx2mTWVDMMO+8LM0d7tr5NVN1p/o=
+X-Proofpoint-GUID: kQaSfqvQzYjyFZfJ61bTEecgKltRxVTS
+X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a4fb623 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=9jRdOu3wAAAA:8 a=pGLkceISAAAA:8 a=gTY0VpHTFMgWGwS8g40A:9 a=CjuIK1q_8ugA:10
+ a=crWF4MFLhNY0qMRaF8an:22 a=ZE6KLimJVUuLrTuGpvhn:22
+X-Proofpoint-ORIG-GUID: kQaSfqvQzYjyFZfJ61bTEecgKltRxVTS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE0NyBTYWx0ZWRfX3OiYlZacJezP
+ rzGLaNnFmp8vTiJbbe4c0vVHspSuEm/a35WB0BU9KjW9Em2vG89J35O4g2anStwGMlUHCak9F/I
+ tm4gmWDm35u5nWjp9li22YdNV2KQabeDv0aVv1DPzj6nY4m8tX0XULx1APg/t0Tksv2shnIOJom
+ jdNRKxKzF7A4M6Tn26sbFrTmsYrxKgIROV3BYQy6yWdS1vt9tjNPg2kJ56Jsx5ueSeI2N+c3FAb
+ w4G/pIgtJovYTKWsr0JjOTcd9U/NAWmK0s7oLw13m/1G2Q2WSvvaqTiAbjiCA93FVOOQhBZRMhz
+ IHDdq/Q88OZRLZfu2JrCW8v7NtNPlHamzx9KC/5H1sEka7AAJilUuBjQ2NmU6xZmuXwnbd8fVAP
+ FVwKAi0uAxVkG5Wsf5j4U9akhBudGBIrxEp18JPzOJpDtIsYrYJwOHlhG5rGAowmwen0ys7Djm4
+ md+NUU1cURDJ13fCghA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_03,2026-07-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090147
 
-On Thu, Jul 09, 2026 at 06:15:53PM +0800, Sherry Sun (OSS) wrote:
-> From: Sherry Sun <sherry.sun@nxp.com>
->
-> Use dw_pcie_rp::skip_pwrctrl_off to avoid powering off devices during
-> suspend to preserve wakeup capability of the devices and also not to
-> power on the devices in the init path.
->
-> This allows controller power-off to be skipped when some devices (e.g.
-> M.2 Key E cards without auxiliary power) need to support PCIe L2 link
-> state and wake-up mechanisms.
->
-> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-> ---
->  drivers/pci/controller/dwc/pci-imx6.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-> index 92f8e4a299e8..afcf3b6bf3cd 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> @@ -1382,10 +1382,12 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
->  		}
->  	}
->
-> -	ret = pci_pwrctrl_power_on_devices(dev);
-> -	if (ret) {
-> -		dev_err(dev, "failed to power on pwrctrl devices\n");
-> -		goto err_reg_disable;
-> +	if (!pp->skip_pwrctrl_off) {
+On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
+> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
+> > On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
+> >> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
+> >>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+> >>>> In order to associate the SID used by LPAC to it's own domain and
+> >>>> context bank we need a separate node on the DTS.
+> >>> Can we use iommu-map instead of adding a new device using the same
+> >>> addresses? You provide zero explanations, but it seems like you are
+> >>> trying to separate a part of the GPU into a separate device, but it's
+> >>> unnecessary.
+> >>
+> >> What I was trying to say is that we need to map sid0 and sid1 to different
+> >> context banks.
+> >>
+> >> From what I recall, so long as we use the same dt node, the iommu drivert
+> >> provides no way of doing this.
+> >>
+> >> What kgsl does is having a node for the iommu and then subnodes for gfx lpac
+> >> and secure.
+> >>
+> >> The address on the lpac device doesn't really matter. I have very limted
+> >> knowledge of DTSs but I think we could just leave it out altogether?
+> > 
+> > I think, you were poined to the Glymur Iris patches. Another option is
+> > the QDA driver being submitted too. Both ot them use iommu-map to
+> > describe the same usecase - a set of SIDs which are used by the device
+> > but which should not be a part of the defaut set. With it in place you
+> > don't need to have separate qcom,lpac devices, no additional properties,
+> > etc. 
+> > 
+> > I'd recommend following the same approach.
+> 
+> iiuc, the conclusion in this recent thread is to use child nodes for a
+> similar case:
+> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
 
-if pci_pwrctrl_power_on_devices is true, where call pci_pwrctrl_power_on_devices()
+Let me check internally.
 
-> +		ret = pci_pwrctrl_power_on_devices(dev);
-> +		if (ret) {
-> +			dev_err(dev, "failed to power on pwrctrl devices\n");
-> +			goto err_reg_disable;
-> +		}
->  	}
->
->  	ret = imx_pcie_clk_enable(imx_pcie);
-> @@ -1454,7 +1456,8 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
->  err_clk_disable:
->  	imx_pcie_clk_disable(imx_pcie);
->  err_pwrctrl_power_off:
-> -	pci_pwrctrl_power_off_devices(dev);
-> +	if (!pp->skip_pwrctrl_off)
-> +		pci_pwrctrl_power_off_devices(dev);
->  err_reg_disable:
->  	if (imx_pcie->vpcie)
->  		regulator_disable(imx_pcie->vpcie);
-> @@ -1473,7 +1476,8 @@ static void imx_pcie_host_exit(struct dw_pcie_rp *pp)
->  	}
->  	imx_pcie_clk_disable(imx_pcie);
->
-> -	pci_pwrctrl_power_off_devices(pci->dev);
-> +	if (!pci->pp.skip_pwrctrl_off)
-> +		pci_pwrctrl_power_off_devices(pci->dev);
+> 
+> -Akhil
+> 
+> > 
+> >>
+> >>>
+> >>>> Add the code to look up that node on initialization.
+> >>>>
+> >>>> Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> >>>> ---
+> >>>>   drivers/gpu/drm/msm/adreno/adreno_gpu.c | 21 ++++++++++++++++++++-
+> >>>>   drivers/gpu/drm/msm/msm_gpu.h           |  1 +
+> >>>>   2 files changed, 21 insertions(+), 1 deletion(-)
+> >>>>
+> >>
+> >> Best regards,
+> >> -- 
+> >> Anna Maniscalco <anna.maniscalco2000@gmail.com>
+> >>
+> > 
+> 
 
-Not sure if there are counter in side power_(on|off) function, if not,
-just skip power_off is enough.
-
-Frank
-
->  	if (imx_pcie->vpcie)
->  		regulator_disable(imx_pcie->vpcie);
->  }
-> --
-> 2.50.1
->
->
+-- 
+With best wishes
+Dmitry
