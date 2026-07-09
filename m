@@ -1,170 +1,297 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BA93A2E28
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 18:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B351D4DBD67
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 18:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783621045; cv=none; b=LwQyW/zEojKGzIUkJwQxFwBZczaTUPrB7RsT6DWYEL76i3YuMjhW1TK/vPB2HfW83j63oid0+g03pFDf25hPj8ZWUzv7H66Htr86AHc9TMA4r9JNsmiOIXI79YTLRnZrZfc53mItWxQ9dA7l5YC1BfnfWKqx/t9Ihke8DR1w8dY=
+	t=1783621225; cv=none; b=IcNejNICy2QCTQuc5PEh+JC8HpxZTQkXQScFiuPVZ9tlpcREeFXB2uPF4eUYIb9iUVtb2LhsmSyR4vVy3dvy9wHc9LK9inOzE6GnsMWk2GkxFpFPrKA6mSqCimq0SqesKomqoNukuob2l9yvQ3vuvS1xtk920e7jSP4jHOEg4U0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783621045; c=relaxed/simple;
-	bh=8jCrSeZHB1v8sGHQ98I0I2rMmqYVExTJMSbrKIT/U/M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aB++aa4KpA6xNY86u7RQ93xnBQfGnSEvPhv6mHq2ujLj9eKIhZjlDHNFdqip00+UEXPCg8lUvuDgNvtq5xfFayCuaNv6Efb7nDMySV6pOq+ijo89LzSSZ3La+WwrEZ0gu+U8emYB66WlarWxjhErPdPjdf0nG7mwpbf7KCVFG6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aVU644Hr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hjEqnsFh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783621225; c=relaxed/simple;
+	bh=XYMLLDJSM4xjJT8F7RlgLCND0cDcPiqKQh/YbTNVVzU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ad4Rjxe61JxMgTi3Xfnl63QvRVqwZZ62lvE7lLM4GzxaIWobr9SkBQPu1xhlG4PyDZ14hoc9sYJdxDt73uwXJEx2V99wbSq2VRhcqLo+tUHSQPQUxtDMzTHt91niGXQSPnGNcqHsucEO+4xBivpymaHzeqvujl3H7PD0dGxXeEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZ4z2Go0; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aVU644Hr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hjEqnsFh"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669HXp572423016
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 18:17:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nDO0ELt4xarDeNp50XpZhJxN+arGp/U3imA7JgKtXtI=; b=aVU644HrqqOoF4nF
-	mP8RoEKHZkKEk7dN+pZMQXH3kgreOIqDge4xpwRBL3StEw2hMxfraILexrO8dWdX
-	TKyUGOVSuTsLgOq9NPn8HquXo3IUzhIyNUs4IYISnHjMw/of4H9vA/DKnL0yq0Ts
-	ZOR8oqFB3QNXyAAHGjry09k21oaMUgJsAjdMCSD0U6F2Ui+dcsU6oMExsoRd59QD
-	P6yKHNvFM6TkXKSWNOTVMg7BrZaDn34u+Dnn4zvxKNyrSaEzz7ULShibIYOsH6pq
-	yd6Tunz+/C1r3qavbB1y8AVylxzmtrYHT3QTpQXO7fXZtIFx7zy3mTu/gYPzSYK2
-	opDteg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fadvj9132-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 18:17:22 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51bfa45b280so184551cf.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 11:17:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZ4z2Go0"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47df43bfb07so52538f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 11:20:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783621040; x=1784225840; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nDO0ELt4xarDeNp50XpZhJxN+arGp/U3imA7JgKtXtI=;
-        b=hjEqnsFhkSbus0cOs8krbNOeF0NHbagsSpehsj76PkwGKiR3t/pTT6BCFs/SYJNqi/
-         qGU/2+BPaUxxqd2+H6ORMbks0UO2+l8/NdhunakyUpmnMCd223dmxLV/Kmkw8CWYDSkE
-         Ew4JaF/pFZmz/VKlImU2J83e7J5U5jR4hrt4ri/moTwrUfQbBJZ1H4l8rpJ6DdCtQArr
-         pc/ePWe57QDHTjKSzxy01mKWLTZxlgIS226xo04lTtewT2yLcJobT2tggaaX9N/RFv+y
-         JQBh6sZ0wKpdRpcBcCZHP7lCMDG85uLS5UV4Zqtk5uNQENiwHRcMiL/tr9p32Y/ZVxKH
-         T7KQ==
+        d=gmail.com; s=20251104; t=1783621222; x=1784226022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EXJuaOsCL/ERnu3SR2SjgqemJAXLgbxcgVcSbRu+n3U=;
+        b=cZ4z2Go0tQusPACRos8UyUS/IRp+nsmII1BHigx/1Pj1CqgoDuroFZMh6yUxupsXX0
+         TnD1cTD6cYddsQoPhNmD8Ah3Cl15ogAPrKOiLzLtOz042r78sUgFVMhoalfBuglZuKej
+         W6vczmRYe2PgkgSR5hSh/71/1GMYthy65V/aKGG6xkXRKVTxhxj9VULUiUyUoDOguKcH
+         3tQbSnR/TuBUnhUfEmwMHvh80feKy8m9l52xiG4ZifDRSPfh7Y85z7NAcEzvQUIBlIZr
+         e148ABMFpoY5QFdGL59OcohyN4cuIj2tHuB5+KI+MzDEf7FbQDNKlpGfyCYxKDN0Rzo+
+         r+zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783621040; x=1784225840;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783621222; x=1784226022;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nDO0ELt4xarDeNp50XpZhJxN+arGp/U3imA7JgKtXtI=;
-        b=rsKBsTV+a2QKaaQAHMrkDl/MIxJBky42gypuNdpJgznE39GGoLdXVgqGZ0X9mYENpW
-         aFyFcAlDZ/j+eJziP8RfUMzzrnRXJIaJ9PZh3jeSemITbAnxMeibGp7h8h5SyBfoEhZp
-         Kzxl2kCVfr/mWBpcE1torFOihpRPlJB4uzw9c+cbBsg479iOmRVts2pucVHiic0imcib
-         mOJyUXELIA6G5HPvZk+8PPqy16BbJskndC1wiT/vzzGDR+l36pBJSjsr3pU4fdpGUNq/
-         AxnEjaZCw/DSYxwGQ9486t4cv851lKbVeuVhYoB+iiPDTxhdsK4cgrOJFjvLq3IzKyp9
-         62UQ==
-X-Forwarded-Encrypted: i=1; AHgh+RonA42dDHFqa4lk3JnQgsfxbyH5K+OplVjRuyJRHukr9QIoPyCinPk+h3qvFSqH8O/vnGqc93QDqXHM@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6pNfwBfqQnd/IvHH/ZyNKFyoBkaGKaiN+qWL/BXP92Y01KZ49
-	NksS/brs+0bGozBVmXdk7u7hgKlnYaKNthV8eqyakEXLl13atS6x8jUhKOd5dk8oAuQ5XLS7MJo
-	EzwZV/EtUalKrAS33KlAFeu9cHimhcOEa0wlJF0XqY+lUTI61oCz/GyMzKbgAc5S0
-X-Gm-Gg: AfdE7cnMwehoIFYlFwSqoW6NIpmLlccAuUhe784GCAhN+LqlXn7zxPihoxrum9h1RrU
-	vyDoxMdscqaRkg2ANwwW1AZ5VaIZ6cILpkUdvF/+GA18o82gx7wfFnUIdeN/difzAofr9dogZ45
-	usgm/5oN2ihMJvOkPAK+Ur08vwEu6sKBEO+5yYvQpu06qE6zAElK/XMRMI8DhIs6HEdnUlRxx+Q
-	deSwKvxWBQQaJcWFqnIY50kqy3KencCCZBSHg3fSfGrCNrPiu11kLjCHA2tojACMb/vk15ChrJE
-	aTNHYRAZKTpxZK4PsKzXTK/Xl88AL8HCNBCE13GVaInDT0xxmWwAh9Mazrjmqss75DiX0h7JZkJ
-	uSmyVdRIufHtfe4ahjk+EkpMCuRYNiNgOqnM=
-X-Received: by 2002:a05:622a:181d:b0:51c:83f1:bcd4 with SMTP id d75a77b69052e-51c8b2613abmr73375261cf.0.1783621040384;
-        Thu, 09 Jul 2026 11:17:20 -0700 (PDT)
-X-Received: by 2002:a05:622a:181d:b0:51c:83f1:bcd4 with SMTP id d75a77b69052e-51c8b2613abmr73374791cf.0.1783621039927;
-        Thu, 09 Jul 2026 11:17:19 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15adb30f98sm550971966b.55.2026.07.09.11.17.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 11:17:19 -0700 (PDT)
-Message-ID: <11796dd7-11c8-45e3-8f9e-1dc27da0b229@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 20:17:16 +0200
+        bh=EXJuaOsCL/ERnu3SR2SjgqemJAXLgbxcgVcSbRu+n3U=;
+        b=TQW+Y90pY+FMO5PbQDC60wfaKTR/Xk28LD7UBxM+W0KThfEPbIP5RqhV5QMU5Vdi0L
+         bYqJyKMxltxNNjYE4/iu0pht0D7kIDd4zIxANOrs0jHfbk6E8ea4HTgow6DDpRhlUj2o
+         VwhP1ApoMeNfiwMdX9/18tO6UdSr+bIanbLSQwu7tyzPancaOdQI3L/KzSLTMkb3J7hh
+         3V4e9xjWQVcnRsvEJsAktPO6q7BFYyEZKpCQjC/2ZNjFukGzYE7ZfbOZPIhjfyAc5IPh
+         hQiimPGNe1WuWX0+BHCXFhJk/ZeLvxAcG+fZr9cwGAoAA8jv0/LD3cLnCBGgrqI3XVqx
+         o4GQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3pTqJA/FuWc6zNdX1quW31R7srbuMJDWNaDdItsEggdspCeVEU6Qly8LV+qtshkWpsROMgRves/Mr@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPVy2g5+ZrYVmJfppulWrZHCED2cXysCnh3fLk6rRWdM+UqGsa
+	MLdYQbUI3BLo8Y6CXwf7LDjqHGVgqjz0BMaFwJLsGSsS0m8WBXbpGpB9sLp8kiutfw4=
+X-Gm-Gg: AfdE7ckkzEwQ5w6IG0HQD4w1AJbgxS/OiASprQHkP4inXx/ttlI9kNVgs/2DksQCTbl
+	KvtXeMhYqz+UNHNWytw99w0lGFxv+Yse9UkdXwXzB2rKAtBtAgkiXvD4wQoRjgKSfkt6lQkKHHP
+	+J514301hzh7INpcBImGjm7lc+dDfICGMY7ZG9FgRBmWAhCr3PubfWr8zvCbjOKXPl6SoPxP/K0
+	G2i9ijWj90gw7rgOOCGwGYSTRGLPC7WRR8ak6bU4wguycC4+LuII6dUxhSMNmPoCABXiIPKvP8f
+	s8O5zsrl4m8ElJDBjrv/MDJbA3EtYv1SX+MuZ2NlURSvr7ML5qJGDmTIU77/NchRHsBb99oFRW2
+	kfn4nswkH1YnsTX9q7IOtkoaOImsgYBmBdFrrnQvfaM4ZosAFYSo3hROy6Vno+d1SS2HNoRFeWX
+	EupGE=
+X-Received: by 2002:a05:6000:4802:b0:47d:eabc:3e87 with SMTP id ffacd0b85a97d-47df071e561mr9489283f8f.6.1783621221859;
+        Thu, 09 Jul 2026 11:20:21 -0700 (PDT)
+Received: from avermoal ([185.13.179.6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960b06sm52612834f8f.28.2026.07.09.11.20.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 11:20:21 -0700 (PDT)
+From: Mikhail Lukianchikov <avermoal@gmail.com>
+To: Rengarajan.S@microchip.com
+Cc: avermoal@gmail.com,
+	andrew+netdev@lunn.ch,
+	conor+dt@kernel.org,
+	davem@davemloft.net,
+	devicetree@vger.kernel.org,
+	edumazet@google.com,
+	krzk+dt@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org
+Subject: [PATCH v2] dt-bindings: net: microchip,lan78xx: convert to DT schema
+Date: Fri, 10 Jul 2026 00:17:25 +0600
+Message-ID: <20260709181724.24682-2-avermoal@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] arm64: dts: qcom: ipq5018: add node required for
- Bluetooth support
-To: george.moussalem@outlook.com, Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260709-ipq5018-bluetooth-v5-0-e476c41f03b8@outlook.com>
- <20260709-ipq5018-bluetooth-v5-5-e476c41f03b8@outlook.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260709-ipq5018-bluetooth-v5-5-e476c41f03b8@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDE3OSBTYWx0ZWRfX12fTCL+sdOqW
- SE3OKl/1RLUxpRuItietQh5H65mig3Uf1wxaIMF9jOclhU+EtGyUfV6cl8mNjhReq8ggKh5TGsI
- WJ/bHDtftAklJ3DqkX8plNnHDTXBwNNKUrEBZ7nLB3BDaGmapSf74F40nz1cC5TZdHjj20OWlg5
- OkKhpAdyfXJ1fEG3rnbuNepA0cd1H3WQek7AqooKNowVBB/dhQgsTITuCF11AI1jF7WcyBEsg/M
- XA5J5LoFlDdbhSEI5HeWkZ0cg06Q+1629CnHWRCl6xJqtvticND9wKKKt0bnO3PIb1HXNHqqxVh
- zcNJTuDmptrD8f8+Ksn0aLd4lZ2GcNvXc9hQprRhsoQ0t24MzYLlhIr+L/APlBa71zVZffFqTod
- kZexwM5iewKNQaIhJiRJO4rDK2iTEbD9OO9c8bdKye0NEukeHVIjULZNsco0JYO2EoPhjT8iAxN
- B/XbE6xK6vaYLdlw0wg==
-X-Authority-Analysis: v=2.4 cv=WpIb99fv c=1 sm=1 tr=0 ts=6a4fe5b2 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=UqCG9HQmAAAA:8 a=EUspDBNiAAAA:8 a=HNkros0ZRfBbVPr8Po0A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: I-tF-q9jxeFs_WAAw70RvUkuFIvtl-Cr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDE3OSBTYWx0ZWRfX6FxPCSYlfmvh
- zGmK5JjdgHpKeuwxjfDZHOC+pWY0L78OWqM6YEWeAGgnl0tDrhPLjqL1PbC7TtWYtN5qv+zvjGI
- PdPszS8q217XVADGbk0d3Guh2a3zmKM=
-X-Proofpoint-ORIG-GUID: I-tF-q9jxeFs_WAAw70RvUkuFIvtl-Cr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607090179
+Content-Transfer-Encoding: 8bit
 
-On 7/9/26 11:18 AM, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> Add node to enable Bluetooth support on the IPQ5018 platform.
-> 
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-> ---
->  arch/arm64/boot/dts/qcom/ipq5018.dtsi | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-> index 6f8004a22a1f..8c252fa3ff5b 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-> @@ -453,6 +453,22 @@ tcsr: syscon@1937000 {
->  			reg = <0x01937000 0x21000>;
->  		};
->  
-> +		bluetooth: bluetooth@7000000 {
-> +			compatible = "qcom,ipq5018-bt";
-> +			reg = <0x07000000 0x58000>;
-> +
-> +			firmware-name = "qca/bt_fw_patch.mbn";
+Convert the Microchip LAN78xx family (LAN7800, LAN7801, LAN7850) binding
+documentation from plain text to DT schema.
 
-Hm, rethinking this, it must have ipq5018 somewhere in the name
+The conversion adds proper validation for the 'microchip,led-modes'
+property inside the MDIO node and updates the MAINTAINERS entry.
 
-Konrad
+Signed-off-by: Mikhail Lukianchikov <avermoal@gmail.com>
+---
+Changes in v2:
+ - Rename file to microchip,lan7800.yaml.
+ - Keeps only one maintainer.
+ - Code style fixed.
+ - Example fixed, remove usb-port@1 node.
+ - Move patternProperties for PHY inside mdio node to fix validation. (suggested by sashiko-bot)
+
+Link to v1: https://lore.kernel.org/netdev/20260707165840.107409-1-avermoal@gmail.com
+
+ .../bindings/net/microchip,lan7800.yaml       | 105 ++++++++++++++++++
+ .../bindings/net/microchip,lan78xx.txt        |  53 ---------
+ MAINTAINERS                                   |   3 +-
+ 3 files changed, 106 insertions(+), 55 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/microchip,lan78xx.txt
+
+diff --git a/Documentation/devicetree/bindings/net/microchip,lan7800.yaml b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+new file mode 100644
+index 000000000000..289980c23181
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/microchip,lan7800.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microchip LAN7800/LAN7801/LAN7850 Gigabit Ethernet controller
++
++maintainers:
++  - Rengarajan Sundararajan <Rengarajan.S@microchip.com>
++
++description:
++  The LAN7800/LAN7801/LAN7850 devices are usually configured by
++  programming their OTP or with an external EEPROM, but some
++  platforms (e.g. Raspberry Pi 3 B+) have neither. The Device Tree
++  properties, if present, override the OTP and EEPROM.
++
++allOf:
++  - $ref: /schemas/usb/usb-device.yaml#
++  - $ref: /schemas/net/ethernet-controller.yaml#
++
++properties:
++  compatible:
++    enum:
++      - usb424,7800
++      - usb424,7801
++      - usb424,7850
++
++  reg:
++    maxItems: 1
++    description: USB port number
++
++  local-mac-address:
++    $ref: /schemas/types.yaml#/definitions/uint8-array
++    minItems: 6
++    maxItems: 6
++    description:
++      MAC address to use if not stored in OTP or EEPROM. If present,
++      overrides OTP/EEPROM.
++
++  mdio:
++    $ref: /schemas/net/mdio.yaml#
++    unevaluatedProperties: false
++
++    patternProperties:
++      "^ethernet-phy(@[0-9a-f]+)?$":
++        type: object
++        description: |
++          PHY node for the embedded or external PHY. The PHY address is
++          given by the 'reg' property.
++
++        properties:
++          reg:
++            maxItems: 1
++            description: PHY address.
++
++          microchip,led-modes:
++            $ref: /schemas/types.yaml#/definitions/uint32-array
++            minItems: 1
++            maxItems: 4
++            description:
++              Array of LED mode values for each of up to 4 LEDs.
++              Omitted LEDs are turned off. Allowed values are defined
++              in include/dt-bindings/net/microchip-lan78xx.h.
++
++        required:
++          - reg
++
++        additionalProperties: false
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/net/microchip-lan78xx.h>
++    / {
++        usb {
++            compatible = "usb-host";
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ethernet@1 {
++                compatible = "usb424,7800";
++                reg = <1>;
++                local-mac-address = [00 11 22 33 44 55];
++
++                mdio {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++                    ethernet-phy@1 {
++                        reg = <1>;
++                        microchip,led-modes = <
++                            LAN78XX_LINK_1000_ACTIVITY
++                            LAN78XX_LINK_10_100_ACTIVITY
++                        >;
++                    };
++                };
++            };
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt b/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
+deleted file mode 100644
+index 11a679530ae6..000000000000
+--- a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
++++ /dev/null
+@@ -1,53 +0,0 @@
+-Microchip LAN78xx Gigabit Ethernet controller
+-
+-The LAN78XX devices are usually configured by programming their OTP or with
+-an external EEPROM, but some platforms (e.g. Raspberry Pi 3 B+) have neither.
+-The Device Tree properties, if present, override the OTP and EEPROM.
+-
+-Required properties:
+-- compatible: Should be one of "usb424,7800", "usb424,7801" or "usb424,7850".
+-
+-The MAC address will be determined using the optional properties
+-defined in ethernet.txt.
+-
+-Optional properties of the embedded PHY:
+-- microchip,led-modes: a 0..4 element vector, with each element configuring
+-  the operating mode of an LED. Omitted LEDs are turned off. Allowed values
+-  are defined in "include/dt-bindings/net/microchip-lan78xx.h".
+-
+-Example:
+-
+-/* Based on the configuration for a Raspberry Pi 3 B+ */
+-&usb {
+-	usb-port@1 {
+-		compatible = "usb424,2514";
+-		reg = <1>;
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		usb-port@1 {
+-			compatible = "usb424,2514";
+-			reg = <1>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			ethernet: ethernet@1 {
+-				compatible = "usb424,7800";
+-				reg = <1>;
+-				local-mac-address = [ 00 11 22 33 44 55 ];
+-
+-				mdio {
+-					#address-cells = <0x1>;
+-					#size-cells = <0x0>;
+-					eth_phy: ethernet-phy@1 {
+-						reg = <1>;
+-						microchip,led-modes = <
+-							LAN78XX_LINK_1000_ACTIVITY
+-							LAN78XX_LINK_10_100_ACTIVITY
+-						>;
+-					};
+-				};
+-			};
+-		};
+-	};
+-};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f37a81950e25..157a677a284f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27928,10 +27928,9 @@ F:	drivers/usb/isp1760/*
+ USB LAN78XX ETHERNET DRIVER
+ M:	Thangaraj Samynathan <Thangaraj.S@microchip.com>
+ M:	Rengarajan Sundararajan <Rengarajan.S@microchip.com>
+-M:	UNGLinuxDriver@microchip.com
+ L:	netdev@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/net/microchip,lan78xx.txt
++F:	Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+ F:	drivers/net/usb/lan78xx.*
+ F:	include/dt-bindings/net/microchip-lan78xx.h
+ 
+-- 
+2.52.0
+
