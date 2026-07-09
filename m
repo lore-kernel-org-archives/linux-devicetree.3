@@ -1,145 +1,170 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B07E428470
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BBC42B324;
+	Thu,  9 Jul 2026 15:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783612233; cv=none; b=VFDHkTfExdo3fpRivg2jFe760U+STAfyO0PpMUHz23C32tKXAqWiEjn1xoA5Dpx3Tp2MQ4Fdlg7eyNBRwvOA6O+UzJ7rq59H8jWIHgLfSott8LB7rjnhwCRCdUTWIQ25HjIaksUMWZpSbPfnROTphmvwbeYzifEdtzdKCi/WN1s=
+	t=1783612326; cv=none; b=Yz8H/fVpc2OH3XToC02Istx2fzf/9mIzkRTaoIYkwqnnwaYtZpTDRxrTh9P7hvLk2tuyaBT/FwupZi3SswV9/xY1R6+GV/IC40LCzsOr9OxoH4096AeaI4oOCb8EEoVDhnwEj9+7LkOo8thBN/1J7dxlmj17q/6GmtPnA+CPCUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783612233; c=relaxed/simple;
-	bh=eom0WPIbBG5Lak9ChFz39EfdnHARVndwf2X4ZpXwW98=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YxMIvXWkYEM0ZhbDg20XzIlCSm3rrMb9XbKibA7grnn8wClX0N9q7EEAd6/9mV9IuwVCHgkfdutBgzOcegxShy9Yqq7+16b7Zvgmk6a9Ks2uWNMf2J8Jk/9fzPgtLDrGpiSriReWQ+SYqKxJ8IGkHKafEBTLGb2wnIKcPARZRxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SoTo8QRY; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783612326; c=relaxed/simple;
+	bh=QgoiG6IPX5YsMyUlVzmh9MgMADCFITLbf9l1isOTDOc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rBt2YMtxPxnucmojJWG4E6D2ZXZVBPLJ/VjzskSj9H5KIhMoG9VYTN+oyWChpf11Z9qNpYBztH8QFgh6eUEen1OM8yRKhN4ysZOcfBjn9duYv0y07IE22ZOtZjzx7SaNcSiWmU8ycMXGmsJzLlZo4D2GNlWCZpHVzzQIJDakYnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YwClcfqy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SoTo8QRY"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15e3141d02so1995966b.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:50:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783612230; x=1784217030; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AzNulL+Y3yaGtB2zj4UUmjmsfxIxbrKupidFWaMr/Xg=;
-        b=SoTo8QRYzRgHEUewqesNyHLSKMU+2EsHm5msBTW8T3pOQQwRvr/IdtPDiVVrbcr5aj
-         da0ZqE/P/r/vmA8IYiMkWaWovEFNXBEJyIVIAgGakNfRFZz1Cw3+Av8eBJsSFHUnQRGu
-         fYZc2cYEbfAOR7aHlzHhV6muKdaAmppCY0cmm5uWvZLgpN2+0+sthCOAXuDErb6Lbrgl
-         WPMqZAmVlEKmJSuRTnVrJoleRonRhrfb6pbd2LPy5aVqIEeqvm/UVjE9JrAUzs5bQzPq
-         Wjn6ww9AiqvFpnOIGCe7LdrmFrkhH6BGhDRuoeY72378cH/poF643VJFEQKcWaoIb+D8
-         v2SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783612230; x=1784217030;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AzNulL+Y3yaGtB2zj4UUmjmsfxIxbrKupidFWaMr/Xg=;
-        b=Lbludu3MuYKPcLJxkxt64jNNtARxj6wgNTHOmQ0I3XEOBnJTYui4DXAvHUsO5jE0Cg
-         c6Tah3rNb3OF6bnMnNg1lMkzae8q1XQRLq8tO1p+D238FiWTaEojDfmn8s0VjCppkK8q
-         1K4w+mQrmO3dzWrNpo8mM/g/UVI4SVXJalLHzbu1C84udKxXGi6zqKK0NtlI2CrzQSSG
-         XcV2wWLQrlwxljycE0coPfSy3rBXL38kevyNUp6Xwjd/rT99i/RLaWoEppJIPW0K/eJp
-         cCRs2a19YbMR5r/9jNQSsOjNeUXIZkZlVyKIQw44ltjX9k6IJuzjX0NyU0lXqt4Oiv+2
-         MfTw==
-X-Forwarded-Encrypted: i=1; AHgh+RoYi+NAcY41o3dfgPk0ptjZMohskt+fgbTLLGffrYrIH5Tn3DPkkvYTJMMxOoGaO5JR7VaDYTt/bTkF@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXzzeYjRahfub4Nn8S8gCgCcmlXGLhppg5FieGY+6T2QUOlkl6
-	7yyGCJnUW9DeRyiB5MItgVHmDXF4vHrxHiIYN1YhgfSh6hMglYx2/nAOoi572Kuxp44=
-X-Gm-Gg: AfdE7clbQcbUAtnWUFsUy71Uvj1gWvSU6UDA74Fy9SsmyBdUSMiZcTBD1ffEQG/Lfgb
-	kAMkDkvOGI+hNnyTCqGzpQP59bsJojiYGzSwCEn97FpG0cU38JCu1Y8YDMbztDyx14UsHGNu/pT
-	onKbaRsJyHveF1AOR981U/u8YEEOqVBHVFQ82FwDyB7NHMAlkUB+0QqFLBxL3kbQaOUa/uj5rdR
-	vzvQDNe4GsCVonmtbHPc2+SFLormtX1qcfFJ/5gjlU4OEpRT0KCN6GxKiyHY+FhM5B1PiaKqZcA
-	7JAcFn8A2H2Wa4hhCBbokXbmCM08s/RrshV97kB349ogOoef4JYOHjq9HkybQ1K7q+8gEF9g/S7
-	Xoj8owIojpPjJ5fh8VgXSf/ok8YVdenqvO2wkJ2xzKljVXiaJEUR3gBGWNNWnvvxpIVLvl9KhPr
-	2R/Cg4c2r2Ilo3gSg7XA4CbzoN
-X-Received: by 2002:a17:907:2684:b0:c12:cacc:92c6 with SMTP id a640c23a62f3a-c15ce229e98mr373985966b.59.1783612229849;
-        Thu, 09 Jul 2026 08:50:29 -0700 (PDT)
-Received: from [192.168.0.101] ([93.107.71.88])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15d4bffdbesm284895766b.45.2026.07.09.08.50.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 08:50:29 -0700 (PDT)
-Message-ID: <abb179ca-a3fb-4bcf-bf7c-9766f939431c@linaro.org>
-Date: Thu, 9 Jul 2026 16:50:26 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YwClcfqy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D8F1F000E9;
+	Thu,  9 Jul 2026 15:52:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783612324;
+	bh=GRMlo223WK1vJhCGy8/PE42NkVsYFCsHmCK+AI0l5aI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YwClcfqy+EI0om3wSR+FTT1nFgfjpWkF5h/T1GEs2Hwem8VlfwtaZT1QNgHljZDAW
+	 hipWaCyRmHExw0KqSNv/DEr/yLqjSScHHShaYXoLCEbXeMIIj+Aqs4O9iJP7uWLJrk
+	 AxD0I3bINYSMttjJ51Ryh5aKOd7sAt7uBRwhghu20uMYKW5WnpcJoKdRgm3FEeNjce
+	 jPV4MVNrJp4jz/JLFpD5KL5Ppm5AmP8zte4zGC+yyiRtCNYhZsUAyoFYBNxfPJbzr/
+	 gnyt7BrYYpctTlbIIhJaXsAkkugU6Ep2yVX3ZIZ7V1dAOJjimxGQQqNViFMw3LaZsy
+	 BAtoaebdIc8gQ==
+Date: Thu, 9 Jul 2026 16:51:59 +0100
+From: Conor Dooley <conor@kernel.org>
+To: "Praveen, Gokul" <g-praveen@ti.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org, neil.armstrong@linaro.org, nm@ti.com,
+	robh@kernel.org, sjakhade@cadence.com, kristo@kernel.org,
+	vigneshr@ti.com, vkoul@kernel.org, yamonkar@cadence.com
+Subject: Re: [PATCH v5 net-next 1/2] dt-bindings: phy: cadence-torrent:
+ Update property values to support multilink SERDES configuration
+Message-ID: <20260709-unvalued-washtub-d024d21f5624@spud>
+References: <20260708083725.66777-1-g-praveen@ti.com>
+ <20260708083725.66777-2-g-praveen@ti.com>
+ <20260708-purifier-subside-667f32244c09@spud>
+ <18b1c832-d0ba-4465-90c8-09e7c48becde@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 2/6] dt-bindings: media: qcom,x1e80100-camss: Describe
- iommu entries
-To: Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
- <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-2-f8588da41f16@linaro.org>
- <HCPw5KYwtYb7jBFED4lssTvcaMo2bK808SHkTWNR77q0DXGPQklaADJXvuyeBrXh_GsEMKdiaaktkzQ9_xeseg==@protonmail.internalid>
- <cbc1b1eb-0064-4999-b829-2bec451c682a@oss.qualcomm.com>
- <f307848d-6abd-4e96-9183-36f8599026ce@kernel.org>
- <85a05836-6298-4111-97ca-80d7e3b3a9c4@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <85a05836-6298-4111-97ca-80d7e3b3a9c4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mqzgQ8eCWAJGP231"
+Content-Disposition: inline
+In-Reply-To: <18b1c832-d0ba-4465-90c8-09e7c48becde@ti.com>
 
-On 09/07/2026 16:28, Vikram Sharma wrote:
-> 
-> On 7/9/2026 3:02 AM, Bryan O'Donoghue wrote:
->> On 08/07/2026 16:15, Vikram Sharma wrote:
->>>
->>> On 7/8/2026 5:36 AM, Bryan O'Donoghue wrote:
->>>>                iommus = <&apps_smmu 0x800 0x60>,
->>>> +                     <&apps_smmu 0x820 0x60>,
->>>> +                     <&apps_smmu 0x840 0x60>,
->>>>                         <&apps_smmu 0x860 0x60>,
->>>
->>> I think only "iommus = <&apps_smmu 0x800 0x60>" should be enough as mask which 0x60 is implicitly covering sids like 0x820, 0x840 and 0x860.
->>>
->>> Regards,
->>> Vikram
->>>
->>
->> These all come from the Hamoa iommu defintions in qcom docs.
->>
->> Can you double check for yourself and let me know.
-> Hi Bryan,
-> 
-> Confirmed — all four SIDs (0x800, 0x820, 0x840, 0x860) are valid and documented for IFE/SFE. My point was specifically about how the ARM SMMU SMR matching logic handles these with the given mask.
-> 
-> In SMR hardware, the mask field marks bits as "don't care" during stream ID comparison. With SID = 0x800 and MASK = 0x60:
-> 
-> MASK = 0x60 = 0b 0110 0000  →  bits [6:5] are don't-care
-> The four SIDs differ only in bits [6:5]:
-> 
-> 0x800 = 0b 1000 0000 0000  → bits[6:5] = 00
-> 0x820 = 0b 1000 0010 0000  → bits[6:5] = 01
-> 0x840 = 0b 1000 0100 0000  → bits[6:5] = 10
-> 0x860 = 0b 1000 0110 0000  → bits[6:5] = 11
-> 
-> Since 0x60 masks out exactly those differing bits, a single entry <&apps_smmu 0x800 0x60> will match all four SIDs.
-> 
-> That said, I'd say this is more of a preference — both forms are functionally correct, and if you prefer keeping the four explicit entries for clarity or to stay aligned with how the Qcom docs enumerate them, that's perfectly fine too.
-> 
-> Regards,
-> Vikram
+--mqzgQ8eCWAJGP231
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I rote-copied with my brain switched off.
+On Thu, Jul 09, 2026 at 03:37:15PM +0530, Praveen, Gokul wrote:
+> Hi Conor,
+>=20
+> On 08-07-2026 22:09, Conor Dooley wrote:
+> > On Wed, Jul 08, 2026 at 02:07:24PM +0530, Gokul Praveen wrote:
+> > > Update the maxItems value of clocks parameter as 3 clocks
+> > > (refclk,pll1_refclk,phy_en_refclk) are supported.
+> > >=20
+> > > Update the clock-names parameter to support mutilink SERDES configura=
+tion
+> > > as the existing enum configuration of the clock-names parameter does =
+not
+> > > allow both pll1_refclk and phy_en_refclk to be used at the same time,
+> > > hence preventing the support for the configuration  (refclk,pll1_refc=
+lk,
+> > > phy_en_refclk), which is neeed for multilink SERDES usecases.
+> > >=20
+> > > For multilink SERDES configurations where the links require different
+> > > clock speeds, all 3 clocks(refclk, pll1_refclk and phy_en_refclk)
+> > > are needed.
+> > >=20
+> > > For example,considering the USXGMII+SGMII multilink SERDES configurat=
+ion
+> > > usecase, having only 1 reference clock(refclk) fails because USXGMII
+> > > requires a clock speed of 156.25 Mhz and SGMII protocol requires an
+> > > clock speed of 100 Mhz.
+> > >=20
+> > > Since one reference clock(refclk) alone cannot cater to the 2
+> > > different clock speed requirements of these protocols, the second
+> > > input reference clock(pll1_refclk) along with phy_en_refclk
+> > > is also needed.
+> > This binding supports 2 devices and the generic compatible. Do all these
+> > devices have the new refclk?
+>=20
+> Not all of these devices have the new refclk(pll1_refclk), Conor, which is
+> is why the enum was kept as it is and in these devices multilink serdes
+> configuration will not be possible due to the limitation of not having the
+> new refclk(pll1_refclk).
 
-Your suggestion seems correct to me.
+In that case, please restrict 3 clocks to only the devices which have
+them.
 
----
-bod
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+>=20
+> However, The intent of this patch is to add multilink serdes support for =
+the
+> devices which have the new refclk because the
+>=20
+> earlier clock-names configuration could not support having all the 3
+> clocks(refclk, pll1_refclk, phy_en_refclk) in the clock-names, which is
+> needed for mutlilink serdes configuration configuration.
+>=20
+> Also, Please feel free to ask if you have any other queries, Conor and th=
+ank
+> you for this query .
+>=20
+> Thanks and Best Regards
+>=20
+> Gokul Praveen
+>=20
+> > Thanks,
+> > Conor.
+> >=20
+> > > Signed-off-by: Gokul Praveen <g-praveen@ti.com>
+> > > ---
+> > >   Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml | 3 =
+++-
+> > >   1 file changed, 2 insertions(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/phy/phy-cadence-torren=
+t.yaml b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+> > > index 9af39b33646a..ac0f625cd76d 100644
+> > > --- a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+> > > +++ b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
+> > > @@ -34,7 +34,7 @@ properties:
+> > >     clocks:
+> > >       minItems: 1
+> > > -    maxItems: 2
+> > > +    maxItems: 3
+> > >       description:
+> > >         PHY input reference clocks - refclk (for PLL0) & pll1_refclk =
+(for PLL1).
+> > >         pll1_refclk is optional and used for multi-protocol configura=
+tions requiring
+> > > @@ -48,6 +48,7 @@ properties:
+> > >       items:
+> > >         - const: refclk
+> > >         - enum: [ pll1_refclk, phy_en_refclk ]
+> > > +      - const: phy_en_refclk
+> > >     reg:
+> > >       minItems: 1
+> > > --=20
+> > > 2.34.1
+> > >=20
+
+--mqzgQ8eCWAJGP231
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak/DnwAKCRB4tDGHoIJi
+0n4XAQC5MnC2I5YXHC52d+ueIJB+UAs57axUxbMswrRVlQ4JpgEA/wgE2WC9Nhgs
+VMzI4rhMq6Yy6RqGA/Uoy3fwULsBgQM=
+=t+xa
+-----END PGP SIGNATURE-----
+
+--mqzgQ8eCWAJGP231--
