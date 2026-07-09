@@ -1,104 +1,198 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF003F7A88
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:47:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D50E3F7A88;
+	Thu,  9 Jul 2026 10:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783594064; cv=none; b=eF4pO3dA3TZCygpcQeuOge0TYtaKMBz5EGsPA/s2yMN7oP4Fio6ImiXtGgcM7mQZcqRykFrwUJmE3WMl6OhejjdPxiVLWjmcTZnW4u+Gu9syTCBCwhMDQCLJFDRgeqRE7lfeJI1UynJ08IBwcCRoDh8RdLzknIJMFJgg/EnYmmU=
+	t=1783594127; cv=none; b=NEuUHt2VLVNc3WP1x7fuRcFWMg5gDIAoxK4pv6GHl+EQVERCxCXF8QpIpXxxU88IMCCbBh16xxankYwgynFe1+BUSgwxgZDQCJyQxFRkPVBhPl6lsGzruljNCwJpEY6AlS+otzNx5xuYFzblebEgGqrMQMWsV4Wf6JSyJrY0Z4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783594064; c=relaxed/simple;
-	bh=kUawqPO6xoT/lhqVwxW0SjQsE5u6MZjKe/+SqApHAfM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LclgKwJpjJqeKdNQmQvyBkp0rGIDLiYqfitySkmclAPIlS7wW6iqF26QJ0jyQUkp3QZGG53JJ76srK1AJbz9ltwFX6HkXdU9iND40QEp0KECwXcswomYMVQat+tkhsGtmBGJsP5Gy6I6krRABvnZ+pPh4LuJF1/kBVjTaMbmOnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/jW8wrv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783594127; c=relaxed/simple;
+	bh=MCJ2tlV7MZiFrR5iu4+hBC5VY95Jd/otmvFfJAj/7+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=orR8W9BBbZxbpCNdlJir2Z48nDytw9QLOkOTQa7FfPjxNPEWdYw1vC4Wp1cxpYQAY8cUKc4j7twERlnrUdgpx0A9Cd43F9Uecj9sfzL1dsIWwj+QJiN4dxZ91v13tKJfKlEtqroJO8MVwNwLd9pLYU3BB6CpAEqDSrxeDSnxTJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f4xsBE7E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/jW8wrv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5487A1F000E9;
-	Thu,  9 Jul 2026 10:47:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f4xsBE7E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1654B1F000E9;
+	Thu,  9 Jul 2026 10:48:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783594062;
-	bh=4gdq3iURDqADJ4o8X5+XR8dL0ApUrHFEcU005U5spLs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R/jW8wrvbcHxepcTKDfgBf71Ly3r6TA7FwXslwahauBebguCw27YR4JKqekCtg3kN
-	 C7tJQqTm9AF7I0UE4LwFJchDWYX22TVOJ7a9lJkY2w+9FCfBLq0IboqsQp7g0P82+A
-	 WfxoWyhOsL8eY92upSR5Wn4MkYh1K9YS1WKLXyZgR5y8EbHy163QJDUEyU4MK2VaVW
-	 zZiyleoOkpZpPX2JPu6aMR+DiGsRFCFVbMbu9rqOqxPnPIYRTZoOC0VmsVkz+mnJIX
-	 hlLK3cYNBslhzkS1czyh50asSFxCoSpJakVORZwxXgezTCjdzaUxqYlVj2p6RfL1FT
-	 Q+/XjvvtJY9Nw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/11] drm/mediatek: mtk_dp: Move max link rate to
- SoC specific data
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709103431.46616-9-angelogioacchino.delregno@collabora.com>
-References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
- <20260709103431.46616-9-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 10:47:41 +0000
-Message-Id: <20260709104742.5487A1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783594125;
+	bh=Z+B3U76zF9vaVqdzguP5USnJ8fvaogWWhRk6cyG9O7o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=f4xsBE7ENto5vtfWgRYZ3u6bKckKJtybeGIsKdpBm3FaCd7/MfxK6EQFByNVIAC9o
+	 zsWzGxJcY5cZ93xQk03ceiL9JXBNhprOzGxTHq83j3alro54KHbCTPbZxXuNZAhjyQ
+	 wmuYyz9VXj+Bcc10ciCCYLphjXFkAalpt3EKMN1ebLq0g58LpRc0ToRTWMrq8rsHym
+	 jLUApfTDLJFeQIjWlPgcCrD1HusAjyRsyKfucPMD2+pZHgaBDpEL3SoENWtY9Z8Iy6
+	 M9C9vQ8dG9DBu9kr4mUePYDinSIDZuf1736e6C8tmp6Pj3bUqE1j9rC9gLkh9NEMTR
+	 lUr1zJNKNYYjA==
+Date: Thu, 9 Jul 2026 11:48:39 +0100
+From: Lee Jones <lee@kernel.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-rtc@vger.kernel.org
+Subject: Re: [PATCH 3/8] mfd: Support for ROHM BD73800 PMIC core
+Message-ID: <20260709104839.GG2045740@google.com>
+References: <cover.1782909323.git.mazziesaccount@gmail.com>
+ <043fc930caca4c436651e8fa77a1ae16a26d0a98.1782909323.git.mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <043fc930caca4c436651e8fa77a1ae16a26d0a98.1782909323.git.mazziesaccount@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+/* Sashiko Automation: Reviewed (0 Findings) */
 
-Pre-existing issues:
-- [High] mtk_dp_bridge_mode_valid() uses the SoC's absolute maximum link ra=
-te for mode validation instead of the negotiated limit, leading to unsuppor=
-table display modes being accepted.
---
+On Wed, 01 Jul 2026, Matti Vaittinen wrote:
 
---- Patch [8]: [PATCH v3 08/11] drm/mediatek: mtk_dp: Move max link rate to=
- SoC specific data ---
-commit 47b5711a6d2bc56c41f2725702c27dbf19ea9ba4
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-drm/mediatek: mtk_dp: Move max link rate to SoC specific data
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+> 
+> The BD73800 integrates regulators, ADC (intended for accumulating current /
+> voltage / power values), a real-time clock (RTC), clock gate and GPIOs.
+> 
+> Add core support for ROHM BD73800 Power Management IC.
+> 
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> ---
+>  drivers/mfd/Kconfig              |  15 +-
+>  drivers/mfd/rohm-bd71828.c       | 145 ++++++++++++++-
+>  include/linux/mfd/rohm-bd73800.h | 307 +++++++++++++++++++++++++++++++
+>  include/linux/mfd/rohm-generic.h |   1 +
+>  4 files changed, 461 insertions(+), 7 deletions(-)
+>  create mode 100644 include/linux/mfd/rohm-bd73800.h
+> 
+> diff --git a/drivers/mfd/rohm-bd71828.c b/drivers/mfd/rohm-bd71828.c
+> index a79f354bf5cb..31637777b627 100644
+> --- a/drivers/mfd/rohm-bd71828.c
+> +++ b/drivers/mfd/rohm-bd71828.c
+> @@ -2,7 +2,7 @@
+>  /*
+>   * Copyright (C) 2019 ROHM Semiconductors
+>   *
 
-This patch moves the maximum link rate to SoC specific data instead of
-statically assigning it. This is in preparation for adding support for the
-MT8196 eDP IP which supports a higher maximum link rate.
+You should consider updating this.
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index cabfc833c0a80..ea90462b26f5e 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-[ ... ]
-> @@ -1469,7 +1470,7 @@ static void mtk_dp_initialize_priv_data(struct mtk_=
-dp *mtk_dp)
+> - * ROHM BD718[15/28/79] and BD72720 PMIC driver
+> + * ROHM BD718[15/28/79], BD72720 and BD73[8/9]00 PMIC driver
+>   */
+>  
+>  #include <linux/gpio_keys.h>
+> @@ -249,6 +256,17 @@ static const struct mfd_cell bd72720_mfd_cells[] = {
+>  	},
+>  };
+>  
+> +static const struct mfd_cell bd73800_mfd_cells[] = {
+> +	{ .name = "bd73800-pmic", },
+> +	{ .name = "bd73800-clk", },
+> +	{ .name = "bd73800-gpio", },
+> +	{
+> +		.name = "bd73800-rtc",
+> +		.num_resources = ARRAY_SIZE(bd73800_rtc_irqs),
+> +		.resources = &bd73800_rtc_irqs[0],
+> +	},
+> +};
+
+'bd73800_rtc_irqs'?
+
+> +
+>  static const struct regmap_range bd71815_volatile_ranges[] = {
+>  	regmap_reg_range(BD71815_REG_SEC, BD71815_REG_YEAR),
+>  	regmap_reg_range(BD71815_REG_CONF, BD71815_REG_BAT_TEMP),
+> @@ -383,6 +412,24 @@ static const struct regmap_access_table bd72720_volatile_regs_4c = {
+>  	.n_yes_ranges = ARRAY_SIZE(bd72720_volatile_ranges_4c),
+>  };
+>  
+> +static const struct regmap_access_table bd73800_volatile_regs = {
+> +	.yes_ranges = &bd73800_volatile_ranges[0],
+
+'bd73800_volatile_ranges'?
+
+> +	.n_yes_ranges = ARRAY_SIZE(bd73800_volatile_ranges),
+> +};
+> +
+> +static const struct regmap_range bd73800_read_only_ranges[] = {
+> +	regmap_reg_range(BD73800_REG_PRODUCT_ID, BD73800_REG_NVMVERSION),
+> +	regmap_reg_range(BD73800_REG_POW_STATE, BD73800_REG_POW_STATE),
+> +	regmap_reg_range(BD73800_REG_ADC_ACCUM_CNT2, BD73800_REG_ADC_TEMP_VAL0),
+> +	regmap_reg_range(BD73800_REG_INT_MAIN_STAT, BD73800_REG_INT_MAIN_STAT),
+> +	regmap_reg_range(BD73800_REG_INT_MAIN_SRC, BD73800_REG_INT_5_SRC),
+> +};
+> +
+> +static const struct regmap_access_table bd73800_ro_regs = {
+> +	.no_ranges = &bd73800_read_only_ranges[0],
+
+Etc.
+
+> +	.n_no_ranges = ARRAY_SIZE(bd73800_read_only_ranges),
+> +};
+> +
+>  static const struct regmap_config bd71815_regmap = {
+>  	.reg_bits = 8,
+>  	.val_bits = 8,
+> @@ -852,6 +962,25 @@ static const struct regmap_irq_chip bd72720_irq_chip = {
+>  	.irq_reg_stride = 1,
+>  };
+>  
+> +static const struct regmap_irq_chip bd73800_irq_chip = {
+> +	.name = "bd73800_irq",
+> +	.main_status = BD73800_REG_INT_MAIN_STAT,
+> +	.irqs = &bd73800_irqs[0],
+
+Here too.
+
+> +	.num_irqs = ARRAY_SIZE(bd73800_irqs),
+> +	.status_base = BD73800_REG_INT_1_STAT,
+> +	.unmask_base = BD73800_REG_INT_1_EN,
+> +	.ack_base = BD73800_REG_INT_1_STAT,
+> +	.init_ack_masked = true,
+> +	.num_regs = 5,
+> +	.num_main_regs = 1,
+> +	/*
+> +	 * Ignore mirrored bits [7:5]. They are handled as part of normal INT_4
+> +	 * handling.
+> +	 */
+> +	.num_main_status_bits = 5,
+> +	.irq_reg_stride = 1,
+> +};
+> +
+>  static int set_clk_mode(struct device *dev, struct regmap *regmap,
+>  			int clkmode_reg)
 >  {
->  	bool plugged_in =3D (mtk_dp->bridge.type =3D=3D DRM_MODE_CONNECTOR_eDP);
-> =20
-> -	mtk_dp->train_info.link_rate =3D DP_LINK_BW_5_4;
-> +	mtk_dp->train_info.link_rate =3D mtk_dp->data->hw_max_link_rate;
+> diff --git a/include/linux/mfd/rohm-bd73800.h b/include/linux/mfd/rohm-bd73800.h
+> new file mode 100644
+> index 000000000000..4bceb20ac6b1
+> --- /dev/null
+> +++ b/include/linux/mfd/rohm-bd73800.h
+> @@ -0,0 +1,307 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Copyright 2024 ROHM Semiconductors.
+> + *
 
-[Severity: High]
-This is a pre-existing issue, but does setting mtk_dp->train_info.link_rate
-to the SoC's absolute maximum bypass the board-level and sink limits during
-mode validation?
+This is new to use.  Please update this too.
 
-In mtk_dp_bridge_mode_valid(), the available bandwidth is calculated using
-the unbounded mtk_dp->train_info.link_rate:
-
-	u32 rate =3D drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate) *
-		   lane_count_min;
-
-Since mtk_dp_parse_capabilities() parses the sink's DPCD capabilities into
-rx_cap but doesn't update train_info.link_rate, this bandwidth calculation
-appears to ignore both the board-level limit (mtk_dp->max_linkrate) and the
-sink's negotiated limit (rx_cap).
-
-Because the actual link training will cap the rate to the limits, could this
-cause mtk_dp_bridge_mode_valid() to erroneously accept unsupportable
-high-bandwidth modes, resulting in display corruption or black screens when
-those modes are sent over a lower-bandwidth trained link?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
-6-1-angelogioacchino.delregno@collabora.com?part=3D8
+> + * Author: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+> + */
+> +
+> +#ifndef _MFD_BD73800_H
+> +#define _MFD_BD73800_H
+> +
+> +#include <linux/regmap.h>
+> +
