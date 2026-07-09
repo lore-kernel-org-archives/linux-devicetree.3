@@ -1,170 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BBC42B324;
-	Thu,  9 Jul 2026 15:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DA8426D18
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:52:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783612326; cv=none; b=Yz8H/fVpc2OH3XToC02Istx2fzf/9mIzkRTaoIYkwqnnwaYtZpTDRxrTh9P7hvLk2tuyaBT/FwupZi3SswV9/xY1R6+GV/IC40LCzsOr9OxoH4096AeaI4oOCb8EEoVDhnwEj9+7LkOo8thBN/1J7dxlmj17q/6GmtPnA+CPCUo=
+	t=1783612357; cv=none; b=HHxlKZe4QSKuyx0rHmN0ThtHqebaFBgoTWgIE+vPOyjrwJ7CBaXXYLMNBAxlO00OsbxDL3brh79g/hcyMyzdVX309LMFfkd4hNrsvESNfdpK+TA8yCrV1ACTX9JHk0wcluqpcOhGxZPd7syfaTUwFgnSUKKL8XiVP8tqD8eauqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783612326; c=relaxed/simple;
-	bh=QgoiG6IPX5YsMyUlVzmh9MgMADCFITLbf9l1isOTDOc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rBt2YMtxPxnucmojJWG4E6D2ZXZVBPLJ/VjzskSj9H5KIhMoG9VYTN+oyWChpf11Z9qNpYBztH8QFgh6eUEen1OM8yRKhN4ysZOcfBjn9duYv0y07IE22ZOtZjzx7SaNcSiWmU8ycMXGmsJzLlZo4D2GNlWCZpHVzzQIJDakYnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YwClcfqy; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YwClcfqy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D8F1F000E9;
-	Thu,  9 Jul 2026 15:52:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783612324;
-	bh=GRMlo223WK1vJhCGy8/PE42NkVsYFCsHmCK+AI0l5aI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YwClcfqy+EI0om3wSR+FTT1nFgfjpWkF5h/T1GEs2Hwem8VlfwtaZT1QNgHljZDAW
-	 hipWaCyRmHExw0KqSNv/DEr/yLqjSScHHShaYXoLCEbXeMIIj+Aqs4O9iJP7uWLJrk
-	 AxD0I3bINYSMttjJ51Ryh5aKOd7sAt7uBRwhghu20uMYKW5WnpcJoKdRgm3FEeNjce
-	 jPV4MVNrJp4jz/JLFpD5KL5Ppm5AmP8zte4zGC+yyiRtCNYhZsUAyoFYBNxfPJbzr/
-	 gnyt7BrYYpctTlbIIhJaXsAkkugU6Ep2yVX3ZIZ7V1dAOJjimxGQQqNViFMw3LaZsy
-	 BAtoaebdIc8gQ==
-Date: Thu, 9 Jul 2026 16:51:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "Praveen, Gokul" <g-praveen@ti.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org, neil.armstrong@linaro.org, nm@ti.com,
-	robh@kernel.org, sjakhade@cadence.com, kristo@kernel.org,
-	vigneshr@ti.com, vkoul@kernel.org, yamonkar@cadence.com
-Subject: Re: [PATCH v5 net-next 1/2] dt-bindings: phy: cadence-torrent:
- Update property values to support multilink SERDES configuration
-Message-ID: <20260709-unvalued-washtub-d024d21f5624@spud>
-References: <20260708083725.66777-1-g-praveen@ti.com>
- <20260708083725.66777-2-g-praveen@ti.com>
- <20260708-purifier-subside-667f32244c09@spud>
- <18b1c832-d0ba-4465-90c8-09e7c48becde@ti.com>
+	s=arc-20240116; t=1783612357; c=relaxed/simple;
+	bh=FK7tiZEI0WffDbTlu07kAZuJRwj0uLdhH15mcZOjFjk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=siaaqBU/5vBmdZWiHRCHOaI9QyPGRTYoZP4YdaG9JambsjOtebcmUiVVIcjwfb037TvbUIpixjWdM7TJIIkAwDGCgDXyAAQB3C+P6gYi52PZF/QImXtzAJund4GcuUK4B3RmvVOFhjGDSzqqTxPQ3XEiaF4noh6l6BXQzTXp498=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6a354eea06dso2263eaf.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:52:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783612356; x=1784217156;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iqrcHFDoPWS2t5kW57shcQV+qLcmaCnZOWUcXcNxWfY=;
+        b=JH054x2n0+jieE0xcyd/jQr4DJ8JqGOZEFFNx/r01dEGwcSsE68lbEnvFfjSWrg8EW
+         qW8WgU69/iwaCH43giFiD6dfnqGMY0gQ0skcrKyaK2e0qKloYz4ovNKu5mqXxx1vZPF6
+         GXwTUsA3QFthAy0FYl4U7JmDCRSfPZW9MJ3OOHVcsf68ySepdiMMj6s3xbANY7/pEvhn
+         PqYGJnDRGCw1zl2GUecPUvtms1UUIlyIB39xRTYJYWtmkXWhimDDefOeTqdG5cShjLnB
+         m8UUJCg/H8GbdV7XUblJICdAWPYLSik8ABtWVNFBXBMm9jf5i6qmJP+adah1G6TYwDMh
+         MkqQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+j+87OF7KUNZoopd26SovoQqgLENH16iGTaY8zO6YNnjZbPjBUTUZZRrc1umneMBQguLMD9e2++ac0@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUQvk2cY3fgM6C16FXoU6iTiqpd3xSxLjfmwsugw/kx5LheTrq
+	XYcgoTCybq5/KmzpqaHZwlj2vDnROa5TEa4/Ea0u+RgDAgMZp1Fwo2N3BXZOZEPgpJ4=
+X-Gm-Gg: AfdE7cmqicIstXTfrCw/sMf06Z8dJ2RqiCNy1sDkiX7VywbWxEEQSIKeYqmf3BdLbDy
+	YYmrXx5vI5PhUg3CC+4d/eyO6jK98NmJn4AA/eoDSVewmm0GDQxlNLRANkWNvQZ7loU0wmF0y7S
+	tSR4T2oapQHvuZytlR3MOpQHw0kboA+5J2m22JoCFKJZRV+/4JynUUBjQEqWmw80zXu1jixaG9a
+	GBTfj0idoEc3t+klY7izZ2ENu+oJzCQHhke11eY38yEUIOvTCwxk4UvpfdaC065cRCmRMMTZ96D
+	KtGcebNhUaSYJsXgDnwUm75njf7OP4COCx2Q2vju6xFziv1nKa78e3QDn9va3znJ/ifX5iPh5J+
+	UUoCf9/JFSIlveFcUnWcBi7dkje06ic34gfut3+C4mPgiAc0IkkgvYbZpQtzKbzHLDLS3ytpauO
+	wSRfhf8CsCTjTbwAawfjBKZPhFUIrHYLSexOYbo4QyiGWMwaIwQQ==
+X-Received: by 2002:a05:6820:210e:b0:69e:c2ef:617e with SMTP id 006d021491bc7-6a36d8eb23amr5303944eaf.30.1783612355560;
+        Thu, 09 Jul 2026 08:52:35 -0700 (PDT)
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com. [209.85.161.44])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-451912444f0sm2296484fac.1.2026.07.09.08.52.34
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 08:52:35 -0700 (PDT)
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6a321bb0328so2073eaf.2
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:52:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8QhbCsUshsHkp6+FHvVFG7ssb/NIgSSNPdOSd12zyhsrmoG2LQP+EZiwIexRqpMrciZj6LY4IwxYGp@vger.kernel.org
+X-Received: by 2002:a05:6102:f8b:b0:6c2:e290:cc69 with SMTP id
+ ada2fe7eead31-744e01021e1mr4657081137.23.1783611946911; Thu, 09 Jul 2026
+ 08:45:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mqzgQ8eCWAJGP231"
-Content-Disposition: inline
-In-Reply-To: <18b1c832-d0ba-4465-90c8-09e7c48becde@ti.com>
+References: <20260707102418.1646159-1-claudiu.beznea+renesas@tuxon.dev> <20260707102418.1646159-2-claudiu.beznea+renesas@tuxon.dev>
+In-Reply-To: <20260707102418.1646159-2-claudiu.beznea+renesas@tuxon.dev>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 9 Jul 2026 17:45:35 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUEQVN7VqsmQ6EKWxazrFyQdY4edaHyt8pPFEaJfGgbpQ@mail.gmail.com>
+X-Gm-Features: AUfX_mz8Do1OkGKS8SDkGEbLBy8tojYuESbee1M6XmgysSPwrDRBiIuowYvmngs
+Message-ID: <CAMuHMdUEQVN7VqsmQ6EKWxazrFyQdY4edaHyt8pPFEaJfGgbpQ@mail.gmail.com>
+Subject: Re: [PATCH 1/8] clk: r9a08g045-cpg: Add clocks and resets for CAN-FD
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: mkl@pengutronix.de, mailhol@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
+	biju.das.jz@bp.renesas.com, tu.nguyen.xg@renesas.com, 
+	fabrizio.castro.jz@renesas.com, claudiu.beznea@tuxon.dev, 
+	linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
---mqzgQ8eCWAJGP231
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, 7 Jul 2026 at 12:24, Claudiu Beznea
+<claudiu.beznea+renesas@tuxon.dev> wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> Renesas RZ/G3S SoC has a CAN-FD IP. Add clocks and resets for it.
+>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-On Thu, Jul 09, 2026 at 03:37:15PM +0530, Praveen, Gokul wrote:
-> Hi Conor,
->=20
-> On 08-07-2026 22:09, Conor Dooley wrote:
-> > On Wed, Jul 08, 2026 at 02:07:24PM +0530, Gokul Praveen wrote:
-> > > Update the maxItems value of clocks parameter as 3 clocks
-> > > (refclk,pll1_refclk,phy_en_refclk) are supported.
-> > >=20
-> > > Update the clock-names parameter to support mutilink SERDES configura=
-tion
-> > > as the existing enum configuration of the clock-names parameter does =
-not
-> > > allow both pll1_refclk and phy_en_refclk to be used at the same time,
-> > > hence preventing the support for the configuration  (refclk,pll1_refc=
-lk,
-> > > phy_en_refclk), which is neeed for multilink SERDES usecases.
-> > >=20
-> > > For multilink SERDES configurations where the links require different
-> > > clock speeds, all 3 clocks(refclk, pll1_refclk and phy_en_refclk)
-> > > are needed.
-> > >=20
-> > > For example,considering the USXGMII+SGMII multilink SERDES configurat=
-ion
-> > > usecase, having only 1 reference clock(refclk) fails because USXGMII
-> > > requires a clock speed of 156.25 Mhz and SGMII protocol requires an
-> > > clock speed of 100 Mhz.
-> > >=20
-> > > Since one reference clock(refclk) alone cannot cater to the 2
-> > > different clock speed requirements of these protocols, the second
-> > > input reference clock(pll1_refclk) along with phy_en_refclk
-> > > is also needed.
-> > This binding supports 2 devices and the generic compatible. Do all these
-> > devices have the new refclk?
->=20
-> Not all of these devices have the new refclk(pll1_refclk), Conor, which is
-> is why the enum was kept as it is and in these devices multilink serdes
-> configuration will not be possible due to the limitation of not having the
-> new refclk(pll1_refclk).
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3.
 
-In that case, please restrict 3 clocks to only the devices which have
-them.
+Gr{oetje,eeting}s,
 
-pw-bot: changes-requested
+                        Geert
 
-Thanks,
-Conor.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
->=20
-> However, The intent of this patch is to add multilink serdes support for =
-the
-> devices which have the new refclk because the
->=20
-> earlier clock-names configuration could not support having all the 3
-> clocks(refclk, pll1_refclk, phy_en_refclk) in the clock-names, which is
-> needed for mutlilink serdes configuration configuration.
->=20
-> Also, Please feel free to ask if you have any other queries, Conor and th=
-ank
-> you for this query .
->=20
-> Thanks and Best Regards
->=20
-> Gokul Praveen
->=20
-> > Thanks,
-> > Conor.
-> >=20
-> > > Signed-off-by: Gokul Praveen <g-praveen@ti.com>
-> > > ---
-> > >   Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml | 3 =
-++-
-> > >   1 file changed, 2 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/phy/phy-cadence-torren=
-t.yaml b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
-> > > index 9af39b33646a..ac0f625cd76d 100644
-> > > --- a/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
-> > > +++ b/Documentation/devicetree/bindings/phy/phy-cadence-torrent.yaml
-> > > @@ -34,7 +34,7 @@ properties:
-> > >     clocks:
-> > >       minItems: 1
-> > > -    maxItems: 2
-> > > +    maxItems: 3
-> > >       description:
-> > >         PHY input reference clocks - refclk (for PLL0) & pll1_refclk =
-(for PLL1).
-> > >         pll1_refclk is optional and used for multi-protocol configura=
-tions requiring
-> > > @@ -48,6 +48,7 @@ properties:
-> > >       items:
-> > >         - const: refclk
-> > >         - enum: [ pll1_refclk, phy_en_refclk ]
-> > > +      - const: phy_en_refclk
-> > >     reg:
-> > >       minItems: 1
-> > > --=20
-> > > 2.34.1
-> > >=20
-
---mqzgQ8eCWAJGP231
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCak/DnwAKCRB4tDGHoIJi
-0n4XAQC5MnC2I5YXHC52d+ueIJB+UAs57axUxbMswrRVlQ4JpgEA/wgE2WC9Nhgs
-VMzI4rhMq6Yy6RqGA/Uoy3fwULsBgQM=
-=t+xa
------END PGP SIGNATURE-----
-
---mqzgQ8eCWAJGP231--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
