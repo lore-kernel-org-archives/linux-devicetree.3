@@ -1,111 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10FE3B71B8
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 19:31:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815ED2750FB;
+	Thu,  9 Jul 2026 19:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783625485; cv=none; b=SPoMItUu9QcYlVttW9buuuSdqg+jxLWpPMRzfzzA8YAQewJYA9VXtg8+b9zaFQ6eZXt52jnpsDaZ0+HRS7/4L3jSj8b9Naal/mDIL1DLj3jGe8DjkVu1k0fhesDlkaTVisu7pue4khH35FbkulTH+192SBFRvPtigtgELK6jTZE=
+	t=1783625569; cv=none; b=XNC4L1m4vgsBpWr0w1DazUMn8QDQ0MxGhTXJtwxxK40YYTCPwSvR2SiVzQjVz54T+UBBiL5Oc2iUCBo8+h/tTSYsIRrfFj8wpm5vp5GHG3ry8+YvSWBO9UR2bzKtfgiWPHce23qUtWcGeD5eksreGbMHt5B46TOPc6YcG2mAZE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783625485; c=relaxed/simple;
-	bh=tKLE0foum07Ja0U895S8r+WevTsrTL079P+6XA6GXeY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DziU/HvVMW+YKdPwnfBlcNkXLoHIqtEt+CWeYAHNjpEEs0YzBdL/ZAzCe62IJClNV7Olnwuk+quf9D+31OWA8WKJB8eyGdHmPbIcBZL4QbkrMXBmmw59CBZu9p4SHIIUty/hSh+Ufu98payL8N4cghgW+iMptqEGqnSMsg13QrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WAOfCKF2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783625569; c=relaxed/simple;
+	bh=lBVcNbE3SdloI5j4P8VPbIu6NmrvZndG9ZjUXvjaqfU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TFTcnLos4OqI86xXTqRDbcr+Cil5Phkyqb9OksLquAU2EDCtJMyfuxjI6fqC8o61JL+ToAaoDJJ16Rq03JegWRlo6Yq9Gse/mDtBI0nTsRVGdKbdFK+CowT7LFfKjs3NyeSsPvAjqYeANxRu5H2ESKg8IvkM7srNqs8Fnyc3Nxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auzMKv1K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WAOfCKF2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD09D1F000E9;
-	Thu,  9 Jul 2026 19:31:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auzMKv1K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244A21F000E9;
+	Thu,  9 Jul 2026 19:32:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783625484;
-	bh=3Ls4+41419D22kbbInJE2a79Lesp0aJ51xYR879H7I0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WAOfCKF2+JAMOkC+JT1TZlFm3IkaF+zBS/lnFkunlD08Rw15RPPhhnKULtYVa+Nk/
-	 1gkxt9yO81V5m+3OTtt1t5E2NzvR8TBeUZ0Vvzh0IYAPt9Yx3y5sKiA7oPp4breH/D
-	 nUyHA58C6qlTWALyHtTHEvYz6zQEUiMd2B6jkxzF6/uxwo3Plt94lNGwLjQohDyBBb
-	 zI2xRV3ggtEpYKeRDiY8Y5es47hmBboKgOpz7t5r5SwL+BhXaHepmvHysVDxy+B8/5
-	 /JOvnrL5toNSv6kVfmO7lfFRNSJ6G6SgxafttWMTjy2nN1N6EBUGg3/tBFIVtqD/bU
-	 27/OP0aIDP56w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 29/36] phy: core: add notifier infrastructure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260709-rockchip-usbdp-cleanup-v11-29-a149ac60f76c@collabora.com>
-References: <20260709-rockchip-usbdp-cleanup-v11-0-a149ac60f76c@collabora.com>
- <20260709-rockchip-usbdp-cleanup-v11-29-a149ac60f76c@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 19:31:23 +0000
-Message-Id: <20260709193123.AD09D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783625568;
+	bh=kAnk8wurZx5c5OpGGojggK9/9lXOvy6JHQHST6N14hk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=auzMKv1KlscxwXNmEZXTOFba3AzC1zvV5+KdLqK0W5IDP55KMnvUDomWlmIqurbJq
+	 KvnBdQZTeHn6OnilAVzhRDXElp2+lyOAqSt8AzaPojSa6/oownhsZAeRZ66qSpL/oZ
+	 QPffV5w4Rg1Ou9qpCF7MsXqreDvfczmOByHdhc/WAsKhMv9fb0+4/LyVRMjvolSXnM
+	 gyP9Q5qvjQcq8TuiOCwfjhGGvo1RbIJw+Ef2lv9z7fc6OWQJoR7zsX7App24WvM+x2
+	 0Sx8wwnFRJlrbavFkDmXz0Sm0yUuWQncw1ncAwrPth0JOYmqq7jEyRTmUKtvOrGDpc
+	 uBdy+bMWI8DJw==
+From: Bjorn Andersson <andersson@kernel.org>
+To: konradybcio@kernel.org,
+	Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-remoteproc@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com,
+	sean@poorly.run,
+	akhilpo@oss.qualcomm.com,
+	lumag@kernel.org,
+	abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com,
+	marijn.suijten@somainline.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	vikash.garodia@oss.qualcomm.com,
+	bod@kernel.org,
+	mchehab@kernel.org,
+	elder@kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jjohnson@kernel.org,
+	mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com,
+	jenswi@kernel.org,
+	op-tee@lists.trustedfirmware.org,
+	apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service support
+Date: Thu,  9 Jul 2026 14:32:39 -0500
+Message-ID: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260702115835.167602-1-sumit.garg@kernel.org>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Potential self-deadlock or AB-BA deadlock between `phy->mutex` a=
-nd `phy->notifier.rwsem` when consumers handle reset notifications.
---
 
---- Patch [29]: [PATCH v11 29/36] phy: core: add notifier infrastructure ---
-commit 205cc0767ab713005453a3401f261c9b0a0289ce
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
+> 
+> [...]
 
-phy: core: add notifier infrastructure
+Applied, thanks!
 
-This commit introduces a new PHY notifier API to allow consumer drivers to
-handle reset events coming from a PHY device. It adds functions to register
-and unregister notifiers, and to trigger reset notifications.
+[01/14] firmware: qcom: Add a generic PAS service
+        commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
+[02/14] firmware: qcom_scm: Migrate to generic PAS service
+        commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
+[03/14] firmware: qcom: Add a PAS TEE service
+        commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
+[14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+        commit: 6701259025d49139131a0eb2257659a066dcca22
 
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-[ ... ]
-> +int phy_notify_reset(struct phy *phy, enum phy_notification event)
-> +{
-> +	int ret;
-> +
-> +	if (!phy)
-> +		return 0;
-> +
-> +	ret =3D blocking_notifier_call_chain(&phy->notifier, event, phy);
+This is available as an immutable branch, for other subsystems to pull at:
+  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
 
-[Severity: Medium]
-Could this lead to a self-deadlock or an AB-BA deadlock between phy->mutex
-and the notifier rwsem?
 
-If a PHY provider calls phy_notify_reset() from within a PHY operation
-callback that executes with phy->mutex held, the notifier chain takes a
-read lock on phy->notifier.rwsem. If a consumer callback then attempts to
-quiesce its hardware by calling a PHY framework API like phy_power_off(),
-it will try to acquire phy->mutex again, resulting in a self-deadlock:
+[04/14] remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+        commit: 254030af0d81b12b7624d9ce85c6bdd3171629c6
+[05/14] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+        commit: f3b1357673ddb37ae8b9a8fe44df73cbd2a519c5
+[06/14] remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+        commit: ea3b5245f5deba916320b32a8e6510a74c034c17
+[07/14] remoteproc: qcom: Select QCOM_PAS generic service
+        commit: c4383254ac7a529736577e304176a10371c2ee0b
 
-phy_set_mode()
-  mutex_lock(&phy->mutex);
-  provider_ops->set_mode()
-    phy_notify_reset()
-      blocking_notifier_call_chain()  // takes rwsem read lock
-        consumer_callback()
-          phy_power_off()
-            mutex_lock(&phy->mutex);  // self-deadlock
-
-Conversely, if phy_notify_reset() is called outside of phy->mutex, but the
-consumer calls back into the PHY framework, it establishes a lock dependency
-from the notifier rwsem to phy->mutex. A concurrent PHY operation that holds
-phy->mutex and registers a notifier could create a classic AB-BA deadlock if
-a writer is pending on the rwsem.
-
-Should the documentation warn consumers to defer PHY API calls to a
-workqueue when handling these notifications, or should the lock hierarchy
-be explicitly defined?
-
-> +	return notifier_to_errno(ret);
-> +}
-> +EXPORT_SYMBOL_GPL(phy_notify_reset);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-rockchip-u=
-sbdp-cleanup-v11-0-a149ac60f76c@collabora.com?part=3D29
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
