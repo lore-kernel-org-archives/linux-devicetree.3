@@ -1,135 +1,317 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAAA36A375
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48D040BCD6
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:43:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783611726; cv=none; b=rgSGRa+1lbicN9z4QdsuGXPnr3TnfhaUTJlXqnj0Pb0EzmFp+ievL7638ZSP94A7OMtki3MbhyBuYWzQN15iCpkRc7AykeaJz84N4W/bJjrxN4Epv4fmVD3F+mVc9dHh7jyfj8/9b6t9FChW34aF+vrVGh0YhrEE8bR41k7i8fk=
+	t=1783611813; cv=none; b=r+xVtiCnoZS3s3EWzuSBMSwQrXSmj0f3wYw3kpHS3QCquJftZPjL1C0DssXa4p37qLLjEwWLmBx/nR4GPBuvGEzibOpiWKesgq8Qkb/TJ6j0tSEybHWcIG4uel0rfMWV3UdIra/ugZbcUY6hwdACxogZHWB38vMsv8JVdw1VpQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783611726; c=relaxed/simple;
-	bh=jBebvc9q65tpbTKgY3CaACwUbwDd+EIwTyXbtUWv9VU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jmpxdnfYmgCAV7+lTjxETge2SN48GOY5xVnj6UP5SKU7cDq1QYRR32NUsvrqMza7e5TcxjEvq1A/PB/DhB5WgLni3UZgNHx8pwQHBzZAocyxa6fwTu4tzXPmXj90DxjQOKKA2efFwbH17wE/3zZ/0DVkC/0L6YOVr7Robrpvu68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IHeX7M47; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783611813; c=relaxed/simple;
+	bh=46Vxt43agJazPbO88O2vqw7lt9h7u00qTiJXc2dgbv8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ap0+mVXL+kIk+oLwuVpFuHdnVu+Mzhrs2gCnvzrpa2Rdq7ky9HJkpTGShc5NXglQEfZY24V2mwDHp6TT23zGFrlNJCZbmXt9CT+uBKkx933Je3B/XBGAX4EQunQS8aR6j3DqY4+TSUBERA3PstFkMfa1+pgmmNyXqWQ7vI8dt/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gEYXdEq9; arc=none smtp.client-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IHeX7M47"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2caed617615so19617175ad.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:42:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gEYXdEq9"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso4006a34.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:43:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783611723; x=1784216523; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=m5WMgCSmDt8RWpA7neeShBFtGrEL8sTi9loDykIc/BY=;
-        b=IHeX7M470HwInMtqFmjWjYFKB1DfkzuN8Lzu6OYbPe8fJEr+tr3TSsOvfdCeoHzJqN
-         nJKIBQH7MUaanHEGKOwxZOm2mqyZRtJP5gaJzfNPoXegcnap3Fb/WXLJhCztRHBI/mIL
-         MND/LotOCyG5NThW4keBM4/phNovAqcvl5jFA0NQaagF0hqrdKMyF06nLnaml/cSy79c
-         Di8VbEiVWKSR0xt3SBw6qOPeYxvEZErATI1a48pdPne6YUowJlW9iw7oC5aiGdaxG5xY
-         nRsr6hFORV2TKiOXSb3ggJI9YntbtZOXDk5AV1QTqV30OoaDzct2gnJETyesEERJNixb
-         eXoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783611723; x=1784216523;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1783611809; x=1784216609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=m5WMgCSmDt8RWpA7neeShBFtGrEL8sTi9loDykIc/BY=;
-        b=L4bJW5szkePb1lCSVra9ukqQ4Lfb+I3lf+USrkgpsCdU2AjDP3U31jVElkKTnyG2Rj
-         ZKVjg5GtqtHOzDARJ9V0KhdJCXo8E+tlqjC3yVWFuSyS/dm75etuqJslJSHKC0TBxbUZ
-         8dLkBhC0vl+bfDE82NsCo+VP6wzOVVJeQdGAXZkhH5h+ETNXFTYrmk0ipGqRJGvBMXH5
-         +1lZjXQv66YKWGq8zTgfFjvCojLn0ineQiSIiNJDBy97evbdnrOrEEnxF8Yi8WJEWrl0
-         LtmpoIrnY/nhHIASWAyXa0tV0Voi8GQfp6+UsF5/Q8LFFKcgC1+hXTTP6RbXZUEswsiJ
-         3n/Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrgzUbwUHg37AkR/ZWq2iQYtYrm1zcIPl1maitvEd54+Tu3Nw4GZy4IpkeHelkvxahzTW/L6S6XckNp@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHx7tF9NV+qJHEQgLvOU2je9642TR3RPhTAo+6WY2iDLC0NtER
-	apTxDF5RPR1FeuKI0wYnI0ZscAxHGCNjnplZsmxjAklBllrTZGcVCY5w
-X-Gm-Gg: AfdE7cmpMRfLoEr2rO0/dhtIE+yQGOz9Q5CS6Fgtgc88FH4pBegXjAJg91yKaViQoh9
-	lllTQsMGFr0YI82RT6/Pl3wazHxJYkwYgEswbKk9LwDJOSpiXHYbrzy9wW9YD05W9y/qQzS+NC/
-	aONxOv7/gFykn8D/Z7IWbFla3QRE8KTnLO2iNkRVsIq+nTRIn8f+vzf+KRFpDT6p6FvsWj7IDjl
-	4bRH1zTeCpYwNbG09sj+dfV7KJDg5Hk+8NjK8vZqj7edtKbn89wvNqGSH9yJOBpHqJw6ekasTMx
-	NcE4IKzCbo96PnGN1QL5SHwpsnp4WQf3MLGTXgfufrKMSPeBEmsaz1qCzBxmcw697eZWWO7WINy
-	ioLJInjlEfaertHBiSLKG92dCTiUdV5SOqOCEe+s785BXLF09lZ/UMmwONDxXDv+3qJPrFvFClh
-	WH3yykpZuwd7MOM45mVdSomruXyA==
-X-Received: by 2002:a17:903:1a84:b0:2c7:ebfb:618f with SMTP id d9443c01a7336-2ccea3c7bdcmr84739185ad.14.1783611723236;
-        Thu, 09 Jul 2026 08:42:03 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d1e284sm46431485ad.40.2026.07.09.08.42.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 08:42:02 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 9 Jul 2026 08:42:01 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Fred Chen <fredchen.openbmc@gmail.com>
-Cc: "Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <noname.nuno@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>,
-	Brian Chiang <chiang.brian@inventec.com>,
-	Cosmo Chou <chou.cosmo@gmail.com>,
-	Dixit Parmar <dixitparmar19@gmail.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Antoni Pokusinski <apokusinski01@gmail.com>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Ashish Yadav <ashish.yadav@infineon.com>,
-	Syed Arif <arif.syed@hpe.com>, ChiShih Tsai <tomtsai764@gmail.com>,
-	Abdurrahman Hussain <abdurrahman@nexthop.ai>,
-	"Paller, Kim Seer" <KimSeer.Paller@analog.com>,
-	Colin Huang <u8813345@gmail.com>,
-	Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices
- MAX20912 and MAX20916
-Message-ID: <1a7a6350-fc17-42b6-bcda-24d49725b92d@roeck-us.net>
-References: <20260707122701.751878-1-fredchen.openbmc@gmail.com>
- <20260707122701.751878-3-fredchen.openbmc@gmail.com>
- <f9e32dd1-7c2c-4055-83fa-94683777e30b@roeck-us.net>
- <ak4QO9uhKOt68dl1@nsa>
- <20260708-true-carp-of-champagne-a0dcca@quoll>
- <ak41BRQBNdsQrYww@nsa>
- <b2a5e99c-6d4d-454e-8ecd-8638e4dc0ddb@roeck-us.net>
- <PH0PR03MB63512A19C32B7722D17D0FD4F1FE2@PH0PR03MB6351.namprd03.prod.outlook.com>
- <CABOy65_GqKiZLM+soZUK_34T8MYZS3dRX38-CMf_Bd1EmG0jhA@mail.gmail.com>
+        bh=K71vA2rRxJHnRmY4YuInHn+JTOnkMM3kjsWFyARkKU4=;
+        b=gEYXdEq9nRZbXdd/wrFq1do5TqiYjXSW94459W5MmhV5Xeyaf/hcrvCvUVGE448PMK
+         TQNNjHq9f7FqqO7N46i7+rAJmwaQmOoza3zqAz6hqFi5qWRpKW0LCGUCMHcrmFcr9Ihw
+         7gIGBpwxuSlCQiffMs5I0nTRgqeKS0Z4ZR7I6Ip/RpA1/JdIznKiV2cUcHhkjAOFDOy7
+         Vxzc7D8/gAlXaCfBsRtO1cI9Y2+3KcdmuMrD54Gj+I/x6H5W2FvLl5eVu+7RQHvVgy6Z
+         ylQGXLubndBym826n7XPXDijePHj7mCAZP+HlKbLfMkKQUjFIjw2C6hgPz4saxTVPMi+
+         up5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783611809; x=1784216609;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K71vA2rRxJHnRmY4YuInHn+JTOnkMM3kjsWFyARkKU4=;
+        b=BzCUqaBoYouEEvov3AIegJ5EAesQow7JPEzm8HEA/izvWQV5cvrNjGTqgp7OibGbCd
+         tYAzKCq7595G3E+AMjLvoIqL3m5bwndylg9TOPx6rLSmP2LTFXkQY0D+ddkrBJKRJXBK
+         mhdd8Ld6Xn5k0tFqCg9VMRDG4wAjRkxD2itSln7GSjnUuvfORzxBK0Ay2I7o32aDsoau
+         Z7eG6BwAf5SCKgZ7GjjDN4kJYMCcE0YHb5tvd1zvRsesgf1zS0ntzj5ccMd194KKrXfz
+         wFKWcOQp+lqJoBzvPRTMiHBKPRY+/c+nEvQf5kPnsOQGoD/e52t3Crj8vSlodrp12ZOf
+         G7Pg==
+X-Forwarded-Encrypted: i=1; AFNElJ9O4lxAYYvoxbYHXz8J5JM7jiWnx9RJnoGHnO2S7GD7uIs/ngXNt9Q5dnw60iM0zCtt9H2GRMs5Jow7@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/gJUxlM37aLpODCuanvQ3AiVDhg/T+KV0QJFeDGEqT6vtjHPJ
+	LX1Om+sywPhrYQLsmR4kTZ6kEoHnu5mh9RnCRijFEsCuu3DtBpxoDx7IzLOOCtBIwl8=
+X-Gm-Gg: AfdE7clvauBbuC+iU/3VXPq8bUKKlGb/ftbKwXyjCJvnPrzsBB8qQsg+2GJHs8/3S10
+	FHX+v1s+XpfnYwEYpWWLtoxk2s4tiZfWxBkyu8DZ+h/Un8Z9ZtiDrDyla25eV9hSpa7ArYJihac
+	OS4jJUrTqqtvTfnyb9A5XLdltsjNnMPhLK39OFJRQz1oby4QTtG3tFyLruuGljj4TLRoDvndbXd
+	sR5STIodzzBJJ485z13Pz6ijGHsjX3NMwaBLAZl8iq2TyKarsuwDb4eefXcKPE7x4ZZvUOWYikG
+	gp+yeeBlgnUgD0W9n993HrTBGlCPzl1WFxT05baBFjB4olYakcSkv7mmZJw9JvpervutNWUxIYk
+	+mJrk83j2/XnxL1XyWuAGbxplzMykcnRxh7mj1JFga2AmIzFPR8Twj/aDvEuOGjv646yV/atE97
+	o22pz/0SBZ5+wSP7XCCVzLh3ofylwBX1t7PXpl8NxnbJap3DEbCQy4dwIGrWnLG+Q=
+X-Received: by 2002:a05:6830:82bb:b0:7dc:cdea:7d9 with SMTP id 46e09a7af769-7ebcff82b2dmr5550730a34.22.1783611808795;
+        Thu, 09 Jul 2026 08:43:28 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:2a8b:8d9e:f359:9a35? ([2600:8803:e7e4:500:2a8b:8d9e:f359:9a35])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb3f27besm4343356a34.25.2026.07.09.08.43.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 08:43:28 -0700 (PDT)
+Message-ID: <36df7c4f-82ea-4ed5-a4f9-3a29c75dc99a@baylibre.com>
+Date: Thu, 9 Jul 2026 10:43:27 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABOy65_GqKiZLM+soZUK_34T8MYZS3dRX38-CMf_Bd1EmG0jhA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: iio: adc: Add AD7768
+To: Janani Sunil <janani.sunil@analog.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, jananisunil.dev@gmail.com
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
+ <20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 09, 2026 at 03:23:55PM +0800, Fred Chen wrote:
+On 7/9/26 3:50 AM, Janani Sunil wrote:
+> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8 channel)
+> simultaneous sampling ADC
 > 
-> Based on the MAX20912/16 specs on my hand, these chips do not support
-> PMBUS_PHASE (0x04). Furthermore, the spec only indicates support for VID mode
-> and does not provide m/b/r. Therefore, some of the features you mentioned might
-> be specific to the MAX20826 series.
-
-FWIW, phase support can be implemented in the chip driver. Other chips
-such as MAX16601 don't support the standard phase command either.
-
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> ---
+>  .../devicetree/bindings/iio/adc/adi,ad7768.yaml    | 285 +++++++++++++++++++++
+>  MAINTAINERS                                        |   7 +
+>  2 files changed, 292 insertions(+)
 > 
-> Regarding enabling VOUT via GPIO, our platform handles this via the CPLD as
-> part of the hardware power sequencing. Managing this pin through the driver is
-> not a requirement for our system.
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
+> new file mode 100644
+> index 000000000000..b74fe6aef01c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
+> @@ -0,0 +1,285 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/adi,ad7768.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Analog Devices AD7768 and AD7768-4 ADC
+> +
+> +maintainers:
+> +  - Janani Sunil <janani.sunil@analog.com>
+> +
+> +description: |
+> +  The AD7768 is a 8-channel, 24-bit simultaneous sampling ADC with configurable
+> +  power and performance modes. The AD7768-4 is a 4-channel version.
 
-That would normally be the case, but if the chip mandates the use of the EN pin
-the driver should support (but not mandate) it. I would not expect you to implement
-it, though, if you can not test it. This functionality is critical enough that
-it should be implemented and tested by someone with access to hardware using it.
+Probably worth mentioning that this binding is for SPI mode, not for pin control
+mode.
 
-Thanks,
-Guenter
+And that the io-backend is for the data output interface, so consumes the DOUTx,
+DCLK, DRDY. Maybe also START? And SYNC_{IN,OUT}?
+
+> +
+> +  Datasheet at:
+> +    https://www.analog.com/media/en/technical-documentation/data-sheets/ad7768.pdf
+
+A link to the example HDL project for the io-backend would be helpful too.
+
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,ad7768
+> +      - adi,ad7768-4
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: Master clock (MCLK)
+
+Could also be XTAL{1,2}.
+
+> +
+> +  avdd-supply:
+> +    description: Analog power supply AVDD1 (4.5V to 5.5V)
+> +
+> +  avss-supply:
+> +    description: Analog ground/negative supply AVSS (0V to -2.75V)
+> +
+
+What about AV{DD,SS}{1,2}{A,B} supplies?
+
+> +  dvdd-supply:
+> +    description: Analog power supply AVDD2 (2.0V to 5.5V)
+> +
+> +  iovdd-supply:
+> +    description: Digital I/O power supply (1.8V or 2.25V to 3.6V)
+> +
+> +  vref-supply:
+> +    description: ADC reference voltage supply
+
+There is more that one reference voltage input. so ref1-supply, ref2-supply.
+
+vref is the name of an internal signal, so doesn't make sense here.
+
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: GPIO connected to the active-low RESET pin
+> +
+> +  gpio-controller: true
+> +
+> +  '#gpio-cells':
+> +    const: 2
+> +
+> +  adi,data-lines-number:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [1, 2, 4, 8]
+> +    description:
+> +      Number of data output lines used for serial interface.
+
+This could be made a bit more clear that this is a secondary data
+output interface, not the SPI lines.
+
+> +      AD7768 supports 1, 2, or 8 lines. AD7768-4 supports 1 or 4 lines.
+> +
+> +  adi,common-mode-output:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - avdd-avss-half
+> +      - 1.65V
+> +      - 2.5V
+> +      - 2.14V
+> +    description:
+> +      Common mode voltage output selection.
+
+Why not using standard regulator provider bindings for this?
+
+> +
+> +  adi,vcm-power-down:
+> +    type: boolean
+> +    description: Power down the common mode output buffer
+
+Is the buffer separate from the output? In that case I would expect
+buffer to be in the property name, otherwise this should just be
+part of the enum options above (and the default one at that).
+
+> +
+> +  adi,power-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - low
+> +      - median
+> +      - fast
+> +    description:
+> +      Power mode selection.
+
+Unless there are pins that control this, it seems like it should be
+left up to the driver to decide how to set this.
+
+In this case, it looks like the power mode also influences sample rate
+which is normally something controlled at runtime.
+
+> +
+> +  io-backends:
+> +    maxItems: 1
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^channel@[0-7]$":
+> +    type: object
+> +    description: |
+> +      Represents the external channels which are connected to the device.
+> +      AD7768 supports channels 0-7, AD7768-4 supports channels 0-3.
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
+> +        maximum: 7
+> +        description: The channel number
+> +
+> +      adi,ch-mode:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 0
+> +        maximum: 1
+> +        description: |
+> +          Channel mode selection. The AD7768 supports two independent
+> +          configuration profiles (Mode A and Mode B) for filter and
+> +          decimation settings. Each channel can be assigned to either mode:
+> +            0 - Channel uses Mode A filter and decimation settings
+> +            1 - Channel uses Mode B filter and decimation settings
+
+This could probably be handled in the driver. E.g. allow per-channel settings
+that just get stored in a data structure. Then when starting a buffered read
+check that all enabled channels have at most 2 different groups of settings.
+Then do all of the required register config at that time.
+
+> +
+> +      adi,prebuf-pos-en:
+> +        type: boolean
+> +        description: Enable positive input precharge buffer
+> +
+> +      adi,prebuf-neg-en:
+> +        type: boolean
+> +        description: Enable negative input precharge buffer
+> +
+> +      adi,refbuf-pos-en:
+> +        type: boolean
+> +        description: Enable positive reference buffer
+> +
+> +      adi,refbuf-neg-en:
+> +        type: boolean
+> +        description: Enable negative reference buffer
+> +
+> +    required:
+> +      - reg
+> +      - adi,ch-mode
+> +
+> +    additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - avdd-supply
+> +  - avss-supply
+> +  - dvdd-supply
+> +  - iovdd-supply
+> +  - vref-supply
+
+> +  - adi,data-lines-number
+
+Suggest making the highest number of lines the default instead
+of making this property required.
+
+
+> +  - adi,common-mode-output
+
+Should probably default to disabled, unless it is always used?
+Changing it to a regulator provider makes this not relevant.
+
+> +  - io-backends
+> +
