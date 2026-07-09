@@ -1,236 +1,639 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A779233B6D0
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1999133A9DA
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783607449; cv=none; b=nkcwereoR5+EcalEZNwOrXPkXZ6p7lBxUqGF72fN5d3XEf6VhGyaGHECagfweWxmWei9Bkso7iQ4hVtl00Or6QWIC5lb2Ec+om+/fe5GPERgbs0oeu9aJAXp5dDoIILWqtqD/bGBFj0i7PjZL1t6dCbA630dLF19undj0cWatZ0=
+	t=1783607456; cv=none; b=P49sU8623TE08Ko0NhbC6gJreGDDacPAm94A1vssJlwIWJV9sKlYh/UimFxc76NvduWTJf2NkRRS6pbvbQS8deZQJQOtuFH1VFj/GwIZlxbw1Rx/4umTCBldzwCd9wO0/QaZTHxObAVDJF4D5/V8su8xwb0eT87NTEcBrVMld6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783607449; c=relaxed/simple;
-	bh=LCDgTylm0KhzXaLh4XhVz4M54wYM42mgVg8/ap8khyE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rAjCDwBx7USFVvm7q2qmIOoZLWqVCZI1sFFzebzaq5GExTK6dARz7XwkWRNPXkTC4axpquVL0bLdwnnF6JPfZAvQumGux8JFeEDQ0xpTWbOQ9WhYbuvpnRNgxI5oRVdbCuPh9D12mnN6U6AmGJ+XkSU1P4TVfXvsVVMlkAP0nLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g76rJHvM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783607456; c=relaxed/simple;
+	bh=5MloX1Ma08p2ZU0fiKkIGjrCAyt4XODN9Eei0+LEP4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=vEgpdVsnzDuM66HG6mLt7/jDCD2bPCHgmBb7CdD40cQlOYw8cp87Z+dDQuhFACeKBQCtdOY0uCF98j9CdiBcnF8m0aemxPCIwjvtWh65e7XJQ8FdmkiBWLQII3IB+DKqj1F2Ujeon1qfRoZaF/8bszsvTFdbuj3MEaT9cAwf/1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A14dc2lM; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g76rJHvM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5721F000E9;
-	Thu,  9 Jul 2026 14:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783607447;
-	bh=shB8RqSQ46ijNC5J6wU3IR8KtrP2rhgsTEChmJTJrMI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g76rJHvMgOShNVXIyrb84wAh8rnOGiidfvkh85IbrZWNeuxyEFVUNnTR6YQsmR6Qt
-	 d/hunmZ+6Z+WRzR0IRQfthBCS38YfxOPDPcRdlT3PENsxHFNWBKBzP6yIAKnznCPu1
-	 90X0C/jGI/XnDYVFbcbbIpXRqutfra0MWnTT3/O4Up8Y5DB/3Q6Pf4pqkFrv/THg0p
-	 5WEgd1Ocn5pHpL1XecRWccDjShkblkYX+8P1obCJDYrzLkiJSFDct++cLSbrWoSaOl
-	 Z2W+RrETFVatKijfyMd52bi1DEzkOt9oc+xdau6xuqT1+1Dx6etzld8Z3QBr4sNXC6
-	 g1E4xieKmQk9Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 08/11] arm64: dts: qcom: sm8550: Move Iris IOMMUs to
- child nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-8-72bb62cb2dfd@oss.qualcomm.com>
-References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
- <20260709-vpu_iommu_iova_handling-v1-8-72bb62cb2dfd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 14:30:46 +0000
-Message-Id: <20260709143046.7B5721F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A14dc2lM"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso1043489a12.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:30:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783607453; x=1784212253; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iEEZ0/5K5qAQ+cj7COiX8QPDrLBCgWIMBAhQUBFdT/s=;
+        b=A14dc2lMGqkdA1dwWZgEg83qE0wXfc7QcvtnLe/nAPFEyW9q1c6YGHbscnjb9Mzz8F
+         4heg9oCzCjPxyedvouhbhSFcvcdYelXMe0s5/9wdTSj9WMfT7hT5/BZC6R8oWtSngOI4
+         z0n8McazL5ENck7I4TgxxI5m2+llYUQXsCAlZPcvxEiH9DUJBcbSY9Rn+QIG7MwwxeKT
+         jPRxFffqbX9YWWQZYihYEbb2e1dWbcrxM1JEMGMnILcwEXyslGkl7szgVuZ21jFjHi1f
+         Mp5mOy9Fand6Tpjy0ryXnUMFk0LNUK3cXl/+KuiUfQGjqcboEx7rwAQ4Y2IcDXBj3s4z
+         xk0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783607453; x=1784212253;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iEEZ0/5K5qAQ+cj7COiX8QPDrLBCgWIMBAhQUBFdT/s=;
+        b=ZMfhzCdMDW3/lpY323yJgLHQPNGx7Lf+3J9sP20am0CuPTfguZKXevNXt4pwjehUcL
+         Dw5rsByKGb5TfdBqFDf6WS4whJyBusl/DQZBBMMuRenW2gkQ9uCZqTSDzPnCoWNDLIv1
+         Szw1x2zhjWhBHwK2GJpvKDX9mN8DY8qeZ3hJR+fI0k5qKRUcwOGNIcTBVpyN2GNYJrSp
+         POW3OzGaHv4y21w0dRmDWDKHvNqtSiJ+7NPaFPh/b98Z1qpkbFbxi/ouBkhdlXXsFnt8
+         oHAa//ur2Pnuj/h3mgxfKOhyfDbJzVn3VXE3s5G2F+mh29tESo4YzGuZnzwYtbbi6wma
+         WEpg==
+X-Forwarded-Encrypted: i=1; AHgh+RqBDFXTsapiY2eCogxf7VAkOTReik06AnwWrA3fllGBT986Y/ONDcIFvgOwKFa6LfinqHkVRlkL4KlE@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz30O1fJ92vQsnubeGSdmuM/S7AZbCRJJfFBNNJJ/dlYOqR28Ko
+	OqjcBSDSXGpxQdCltXCk8C75lwMqJXippbFJPJUoNXrNblvHDHxWpBqV
+X-Gm-Gg: AfdE7cmkLH3KQYoo0kD76KRY5Idp57hx0miSezbdsTu60pGpWSnf3AX14dYpX3ybgJS
+	5Ock+9jj+hE2OMSg9rAQIms6xxO01Qd5ODJcYrS4DqIT8OvU6aWAG2AArCxDT9b2KcpkfpYBQOV
+	Lw0rDxIUJOZD+gCXofr1yxSvQ5HyQlruuQGkNhTkapEE3AiSUMuLWBL58YM8PLw5dsFzmB9dAVa
+	74UWl19w77H7O/IleOEj9ns0QdGh8IDG1g6/xpexoFA7+DjNM7LSpDyrCM/iykdS3ZRiHvLQ2VF
+	pmmvrEact632xICPRuO/v13XiitqgpW2uFk3y1Nn4kQ0WDacSYtWvfFFyAipnM3VSAfqQOqYmfE
+	6h+BLIidzDZ6rggLLWUPh2fhpbuCs0myi+lgXEOaSK9mYhU+QbnPjV1y6U84IRqQmv2bVj4dS43
+	t8nHzAMU5ix2ZnB10cLRiUwrurw8yGFmtXJogrOws=
+X-Received: by 2002:a05:6a20:3d0c:b0:3a3:17f8:bedd with SMTP id adf61e73a8af0-3c0bcec1a02mr8901278637.17.1783607453213;
+        Thu, 09 Jul 2026 07:30:53 -0700 (PDT)
+Received: from nuvole ([144.202.86.13])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca79aff904dsm2009666a12.6.2026.07.09.07.30.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 07:30:52 -0700 (PDT)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Pengyu Luo <mitltlatltl@gmail.com>
+Subject: [PATCH v3 2/2] drm/panel: Add Novatek NT36536 panel driver
+Date: Thu,  9 Jul 2026 22:28:46 +0800
+Message-ID: <20260709142846.12463-3-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260709142846.12463-1-mitltlatltl@gmail.com>
+References: <20260709142846.12463-1-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Add a driver for panels using the Novatek NT36536 Display Driver IC,
+including support for the CSOT PP8807HB1-1, a dual-link 10-bit panel
+found in LENOVO Legion Y700 Gen4.
 
-New issues:
-- [High] The `reservation-iris` node uses `iommu-addresses` without a `reg`=
- property. In `of_iommu_get_resv_regions`, this is parsed as an `IOMMU_RESV=
-_RESERVED` region. The IOMMU subsystem explicitly reserves these regions in=
- the IOVA allocator tree (e.g., in `reserve_iova`), which prevents any DMA =
-allocations from using this memory range. Instead of limiting the non-pixel=
- stream to the 0-600 MB IOVA range, this patch effectively denylists the 0-=
-600 MB range, forcing all allocations to use IOVAs above 600 MB. This inver=
-ts the intended hardware constraint and will cause the VPU crashes it aims =
-to prevent.
-- [High] The `non-pixel` and `pixel` child nodes lack `compatible` strings =
-and do not bind to any platform driver. The driver registers them using `pl=
-atform_device_register_full()`, but because no driver probes them, the driv=
-er core never calls `platform_dma_configure()` (and thus `of_dma_configure(=
-)`) for these devices. Consequently, their `dev->iommu_fwspec` and DMA ops =
-remain unconfigured. When `dma_alloc_attrs()` is later called using these c=
-ontext bank devices, the allocations will bypass the IOMMU (falling back to=
- direct physical memory allocations) and trigger SMMU translation faults. T=
-he driver must manually invoke `of_dma_configure()` on the created child de=
-vices.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+---
+v3:
+- Only include needed device-id headers (Uwe)
+v2:
+- Collect tags
+- Use devm_drm_panel_add() (Neil)
+---
+ drivers/gpu/drm/panel/Kconfig                 |  11 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36536.c | 488 ++++++++++++++++++
+ 3 files changed, 500 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36536.c
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but in `of_iommu_get=
-_resv_regions`, if `of_translate_dma_region()` fails (e.g., crossing a non-=
-translatable boundary or encountering a malformed `dma-ranges`), it returns=
- `NULL`, which is assigned to the `maps` pointer. Because `length` is unini=
-tialized, it can be non-zero, allowing the code to bypass the `if (length =
-=3D=3D 0)` check. The loop condition `while (maps < end)` evaluates to true=
- (since `NULL < end`), and the next iteration immediately dereferences the =
-`NULL` pointer at `be32_to_cpup(maps++)`, resulting in a kernel panic.
-- [High] This problem wasn't introduced by this patch, but `of_iommu_get_re=
-sv_regions` lacks bounds checking when parsing `iommu-addresses`. The loop =
-blindly advances `maps` cell by cell, without skipping the address and size=
- data for unmatched phandles. If a data cell coincidentally matches `dev->o=
-f_node`'s phandle, or if the property is truncated, `of_translate_dma_regio=
-n` delegates to `__of_translate_address`, which executes `memcpy(addr, in_a=
-ddr, na * 4)` and `of_read_number(prop + na, ns)` without ensuring there ar=
-e `na + ns` cells remaining before `end`. This leads to an out-of-bounds re=
-ad of the device tree property.
---
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index cfbfb371bc67..53c0b95c26ca 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -662,6 +662,17 @@ config DRM_PANEL_NOVATEK_NT36523
+ 	  around the Novatek NT36523 display controller, such as some
+ 	  Boe panels used in Xiaomi Mi Pad 5 and 5 Pro tablets.
+ 
++config DRM_PANEL_NOVATEK_NT36536
++	tristate "Novatek NT36536 panel driver"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_KMS_HELPER
++	help
++	  Say Y here if you want to enable support for Novatek NT36536-based
++	  display panels, such as the one found in the LENOVO Legion Y700
++	  Gen4.
++
+ config DRM_PANEL_NOVATEK_NT36672A
+ 	tristate "Novatek NT36672A DSI panel"
+ 	depends on GPIOLIB
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 0f29f22f589e..3b523cf37833 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -64,6 +64,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35532) += panel-novatek-nt35532.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35560) += panel-novatek-nt35560.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35950) += panel-novatek-nt35950.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) += panel-novatek-nt36523.o
++obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36536) += panel-novatek-nt36536.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36536.c b/drivers/gpu/drm/panel/panel-novatek-nt36536.c
+new file mode 100644
+index 000000000000..961bfc605b1a
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36536.c
+@@ -0,0 +1,488 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Novatek NT36536 DriverIC panels driver
++ * Copyright (c) 2026 Pengyu Luo <mitltlatltl@gmail.com>
++ *
++ * Based on the sample code which is generated with
++ * linux-mdss-dsi-panel-driver-generator
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/device-id/of.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_graph.h>
++#include <linux/regulator/consumer.h>
++
++#include <drm/display/drm_dsc.h>
++#include <drm/display/drm_dsc_helper.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++#include <video/mipi_display.h>
++
++struct novatek {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi[2];
++	const struct panel_desc *desc;
++	struct drm_dsc_config dsc;
++	struct gpio_desc *reset_gpio;
++	struct regulator_bulk_data *supplies;
++	struct backlight_device *backlight;
++};
++
++struct panel_desc {
++	unsigned int width_mm;
++	unsigned int height_mm;
++	unsigned int bpc;
++	unsigned int lanes;
++	enum mipi_dsi_pixel_format format;
++	unsigned long mode_flags;
++	const struct drm_dsc_config *dsc_cfg;
++	const struct drm_display_mode *modes;
++	unsigned int num_modes;
++
++	int (*init_sequence)(struct mipi_dsi_multi_context *dsi_ctx);
++
++	bool is_dual_dsi;
++	bool has_dcs_backlight;
++};
++
++static const struct regulator_bulk_data novatek_supplies[] = {
++	{ .supply = "vddio" },
++	{ .supply = "vsp" },
++	{ .supply = "vsn" },
++};
++
++static inline struct novatek *to_novatek(struct drm_panel *panel)
++{
++	return container_of(panel, struct novatek, panel);
++}
++
++static inline struct mipi_dsi_device *to_primary_dsi(struct novatek *ctx)
++{
++	/* Sync on DSI1 for dual dsi */
++	return ctx->desc->is_dual_dsi ? ctx->dsi[1] : ctx->dsi[0];
++}
++
++static void novatek_reset(struct novatek *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(11000, 12000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(3000, 4000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++}
++
++static int novatek_prepare(struct drm_panel *panel)
++{
++	struct novatek *ctx = to_novatek(panel);
++	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
++	struct drm_dsc_picture_parameter_set pps;
++	struct device *dev = &dsi->dev;
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(novatek_supplies),
++				    ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	novatek_reset(ctx);
++
++	ret = ctx->desc->init_sequence(&dsi_ctx);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		regulator_bulk_disable(ARRAY_SIZE(novatek_supplies),
++				       ctx->supplies);
++		return ret;
++	}
++
++	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
++	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
++	mipi_dsi_compression_mode_multi(&dsi_ctx, true);
++	mipi_dsi_msleep(&dsi_ctx, 28);
++
++	return backlight_enable(ctx->backlight);
++}
++
++static int novatek_off(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
++	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
++
++	return dsi_ctx->accum_err;
++}
++
++static int novatek_unprepare(struct drm_panel *panel)
++{
++	struct novatek *ctx = to_novatek(panel);
++	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
++	struct device *dev = &dsi->dev;
++	int ret;
++
++	backlight_disable(ctx->backlight);
++
++	ret = novatek_off(&dsi_ctx);
++	if (ret < 0)
++		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(novatek_supplies), ctx->supplies);
++
++	return 0;
++}
++
++static int novatek_get_modes(struct drm_panel *panel,
++			     struct drm_connector *connector)
++{
++	struct novatek *ctx = to_novatek(panel);
++	const struct panel_desc *desc = ctx->desc;
++	int i;
++
++	for (i = 0; i < desc->num_modes; i++) {
++		const struct drm_display_mode *m = &desc->modes[i];
++		struct drm_display_mode *mode;
++
++		mode = drm_mode_duplicate(connector->dev, m);
++		if (!mode) {
++			dev_err(panel->dev, "failed to add mode %ux%u@%u\n",
++				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
++			return -ENOMEM;
++		}
++
++		mode->type = DRM_MODE_TYPE_DRIVER;
++		if (i == 0)
++			mode->type |= DRM_MODE_TYPE_PREFERRED;
++
++		drm_mode_set_name(mode);
++		drm_mode_probed_add(connector, mode);
++	}
++
++	connector->display_info.width_mm = desc->width_mm;
++	connector->display_info.height_mm = desc->height_mm;
++	connector->display_info.bpc = desc->bpc;
++
++	return desc->num_modes;
++}
++
++static const struct drm_panel_funcs novatek_panel_funcs = {
++	.prepare = novatek_prepare,
++	.unprepare = novatek_unprepare,
++	.get_modes = novatek_get_modes,
++};
++
++static int novatek_bl_update_status(struct backlight_device *bl)
++{
++	struct novatek *ctx = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++
++	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
++							 brightness);
++}
++
++static const struct backlight_ops novatek_bl_ops = {
++	.update_status = novatek_bl_update_status,
++};
++
++static struct backlight_device *novatek_create_backlight(struct novatek *ctx)
++{
++	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 512,
++		.max_brightness = 4095,
++		.scale = BACKLIGHT_SCALE_NON_LINEAR,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, ctx,
++					      &novatek_bl_ops, &props);
++}
++
++static int csot_pp8807hb1_1_init_seq(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_ROWS, 0x50);
++
++	/* cabc */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x23);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x89, 0xa4);
++
++	/* pen code */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xcd, 0x8f, 0xa9, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xce, 0x8c, 0xa9, 0x00);
++
++	/* esd init */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x27);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x79, 0x22);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd0, 0x31);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd1, 0x08, 0x08);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd2, 0x08);
++
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0xd0);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x00, 0x31);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x09, 0xee);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0x77);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1d, 0x07);
++
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0xe0);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbb, 0x00);
++
++	/* IC transfer */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0xf0);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe6, 0x02);
++
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3b,
++				     0x03, 0x4e, 0x1a, 0x04, 0x04, 0x01, 0x80,
++				     0x36, 0x36);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x00);
++	/* enable DSC */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x03, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x91,
++				     0xab, 0xa8, 0x00, 0x14, 0xd2, 0x00, 0x00,
++				     0x00, 0x01, 0xb9, 0x00, 0x06, 0x05, 0x7a,
++				     0x05, 0xb8);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x92, 0x10, 0xe0);
++	/* frame ctl */
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb2, 0x91, 0x80);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb3, 0x40);
++	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
++	mipi_dsi_msleep(dsi_ctx, 105);
++	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
++	mipi_dsi_msleep(dsi_ctx, 40);
++
++	return dsi_ctx->accum_err;
++}
++
++static struct drm_dsc_config csot_pp8807hb1_1_dsc_cfg = {
++	.dsc_version_major = 1,
++	.dsc_version_minor = 2,
++	.slice_height = 20,
++	.slice_width = 476,
++	.slice_count = 2,
++	.bits_per_component = 10,
++	.bits_per_pixel = 8 << 4,
++	.block_pred_enable = true,
++};
++
++static const struct drm_display_mode csot_pp8807hb1_1_modes[] = {
++	/* 915552 KHz */
++	{
++		.clock = (952 + 138 + 16 + 16) * 2 * (3040 + 26 + 4 + 330) * 120 / 1000,
++		.hdisplay = 952 * 2,
++		.hsync_start = (952 + 138) * 2,
++		.hsync_end = (952 + 138 + 16) * 2,
++		.htotal = (952 + 138 + 16 + 16) * 2,
++		.vdisplay = 3040,
++		.vsync_start = 3040 + 26,
++		.vsync_end = 3040 + 26 + 4,
++		.vtotal = 3040 + 26 + 4 + 330,
++	},
++	{
++		.clock = (952 + 138 + 16 + 16) * 2 * (3040 + 3426 + 4 + 330) * 60 / 1000,
++		.hdisplay = 952 * 2,
++		.hsync_start = (952 + 138) * 2,
++		.hsync_end = (952 + 138 + 16) * 2,
++		.htotal = (952 + 138 + 16 + 16) * 2,
++		.vdisplay = 3040,
++		.vsync_start = 3040 + 3426,
++		.vsync_end = 3040 + 3426 + 4,
++		.vtotal = 3040 + 3426 + 4 + 330,
++	},
++	{
++		.clock = (952 + 138 + 16 + 16) * 2 * (3040 + 10226 + 4 + 330) * 30 / 1000,
++		.hdisplay = 952 * 2,
++		.hsync_start = (952 + 138) * 2,
++		.hsync_end = (952 + 138 + 16) * 2,
++		.htotal = (952 + 138 + 16 + 16) * 2,
++		.vdisplay = 3040,
++		.vsync_start = 3040 + 10226,
++		.vsync_end = 3040 + 10226 + 4,
++		.vtotal = 3040 + 10226 + 4 + 330,
++	},
++	/* 1064606.4 KHz */
++	{
++		.clock = (952 + 50 + 16 + 16) * 2 * (3040 + 26 + 4 + 50) * 165 / 1000,
++		.hdisplay = 952 * 2,
++		.hsync_start = (952 + 50) * 2,
++		.hsync_end = (952 + 50 + 16) * 2,
++		.htotal = (952 + 50 + 16 + 16) * 2,
++		.vdisplay = 3040,
++		.vsync_start = 3040 + 26,
++		.vsync_end = 3040 + 26 + 4,
++		.vtotal = 3040 + 26 + 4 + 50,
++	},
++	{
++		.clock = (952 + 50 + 16 + 16) * 2 * (3040 + 481 + 4 + 50) * 144 / 1000,
++		.hdisplay = 952 * 2,
++		.hsync_start = (952 + 50) * 2,
++		.hsync_end = (952 + 50 + 16) * 2,
++		.htotal = (952 + 50 + 16 + 16) * 2,
++		.vdisplay = 3040,
++		.vsync_start = 3040 + 481,
++		.vsync_end = 3040 + 481 + 4,
++		.vtotal = 3040 + 481 + 4 + 50,
++	},
++	/* 737942.4 KHz */
++	{
++		.clock = (952 + 330 + 16 + 16) * 2 * (3040 + 26 + 4 + 50) * 90 / 1000,
++		.hdisplay = 952 * 2,
++		.hsync_start = (952 + 330) * 2,
++		.hsync_end = (952 + 330 + 16) * 2,
++		.htotal = (952 + 330 + 16 + 16) * 2,
++		.vdisplay = 3040,
++		.vsync_start = 3040 + 26,
++		.vsync_end = 3040 + 26 + 4,
++		.vtotal = 3040 + 26 + 4 + 50,
++	},
++};
++
++static int novatek_probe(struct mipi_dsi_device *dsi)
++{
++	struct mipi_dsi_device_info dsi_info = {"dsi-secondary", 0, NULL};
++	struct mipi_dsi_host *dsi1_host;
++	struct device *dev = &dsi->dev;
++	const struct panel_desc *desc;
++	struct device_node *dsi1;
++	struct novatek *ctx;
++	int num_dsi = 1;
++	int ret, i;
++
++	ctx = devm_drm_panel_alloc(dev, struct novatek, panel,
++				   &novatek_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(novatek_supplies),
++					    novatek_supplies, &ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	desc = of_device_get_match_data(dev);
++	if (!desc)
++		return -ENODEV;
++	ctx->desc = desc;
++	ctx->dsc = *desc->dsc_cfg;
++
++	if (desc->is_dual_dsi) {
++		num_dsi = 2;
++		dsi1 = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
++		if (!dsi1) {
++			dev_err(dev, "cannot get secondary DSI node.\n");
++			return -ENODEV;
++		}
++
++		dsi1_host = of_find_mipi_dsi_host_by_node(dsi1);
++		of_node_put(dsi1);
++		if (!dsi1_host)
++			return dev_err_probe(dev, -EPROBE_DEFER,
++					     "cannot get secondary DSI host\n");
++
++		ctx->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host,
++								 &dsi_info);
++		if (IS_ERR(ctx->dsi[1])) {
++			dev_err(dev, "cannot get secondary DSI device\n");
++			return PTR_ERR(ctx->dsi[1]);
++		}
++
++		mipi_dsi_set_drvdata(ctx->dsi[1], ctx);
++	}
++
++	ctx->dsi[0] = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	ctx->panel.prepare_prev_first = true;
++
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to add panel\n");
++
++	for (i = 0; i < num_dsi; i++) {
++		ctx->dsi[i]->lanes = desc->lanes;
++		ctx->dsi[i]->format = desc->format;
++		ctx->dsi[i]->mode_flags = desc->mode_flags;
++		ctx->dsi[i]->dsc = &ctx->dsc;
++		ret = devm_mipi_dsi_attach(dev, ctx->dsi[i]);
++		if (ret < 0) {
++			drm_panel_remove(&ctx->panel);
++			return dev_err_probe(dev, ret,
++					     "Failed to attach to DSI host\n");
++		}
++	}
++
++	if (desc->has_dcs_backlight) {
++		ctx->backlight = novatek_create_backlight(ctx);
++		if (IS_ERR(ctx->backlight))
++			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
++					     "Failed to create backlight\n");
++	} else {
++		ret = drm_panel_of_backlight(&ctx->panel);
++		if (ret)
++			return dev_err_probe(dev, ret, "Failed to get backlight\n");
++	}
++
++	return 0;
++}
++
++/* Model name: CSOT PP8807HB1-1 */
++static const struct panel_desc csot_pp8807hb1_1_desc = {
++	.width_mm = 118,
++	.height_mm = 190,
++	.bpc = 10, /* set this to 8 with RGB888 format to support 8-bit mode */
++	.lanes = 3,
++	.format = MIPI_DSI_FMT_RGB101010,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS |
++		      MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_MODE_VIDEO_BURST |
++		      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT,
++	.dsc_cfg = &csot_pp8807hb1_1_dsc_cfg,
++	.modes = csot_pp8807hb1_1_modes,
++	.num_modes = ARRAY_SIZE(csot_pp8807hb1_1_modes),
++	.init_sequence = csot_pp8807hb1_1_init_seq,
++	.is_dual_dsi = true,
++	.has_dcs_backlight = false,
++};
++
++static const struct of_device_id novatek_of_match[] = {
++	{ .compatible = "csot,pp8807hb1-1", .data = &csot_pp8807hb1_1_desc },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, novatek_of_match);
++
++static struct mipi_dsi_driver novatek_driver = {
++	.probe = novatek_probe,
++	.driver = {
++		.name = "panel-novatek-nt36536",
++		.of_match_table = novatek_of_match,
++	},
++};
++module_mipi_dsi_driver(novatek_driver);
++
++MODULE_AUTHOR("Pengyu Luo <mitltlatltl@gmail.com>");
++MODULE_DESCRIPTION("Novatek NT36536 DriverIC panels driver");
++MODULE_LICENSE("GPL");
+-- 
+2.54.0
 
---- Patch [8]: [RFC PATCH 08/11] arm64: dts: qcom: sm8550: Move Iris IOMMUs=
- to child nodes ---
-commit 84b6e774da5044311b95ef6d8c3458ace387439e
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Subject: arm64: dts: qcom: sm8550: Move Iris IOMMUs to child nodes
-
-This commit separates the Iris VPU IOMMUs into pixel and non-pixel child
-nodes to describe their different IOVA constraints. It also attempts to
-restrict the non-pixel stream to the 0-600 MB IOVA range using a memory
-reservation node.
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8550.dtsi b/arch/arm64/boot/dts/=
-qcom/qcs8550.dtsi
-> --- a/arch/arm64/boot/dts/qcom/qcs8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/qcs8550.dtsi
-
-[ ... ]
-
-> @@ -158,5 +158,9 @@ mpss_dsm_mem: mpss-dsm-region@d4d00000 {
->  			reg =3D <0x0 0xd4d00000 0x0 0x3300000>;
->  			no-map;
->  		};
-> +
-> +		iris_resv: reservation-iris {
-> +			iommu-addresses =3D <&iris_non_pixel 0x0 0x0 0x0 0x25800000>;
-> +		};
->  	};
->  };
-
-[Severity: High]
-Does this configuration actually reserve the 0-600 MB range for the non-pix=
-el
-stream to use, or does it unintentionally prevent its use?
-
-Since the reservation-iris node uses iommu-addresses without a reg property,
-the IOMMU subsystem parses this as an IOMMU_RESV_RESERVED region. The IOVA
-allocator explicitly denylists reserved regions to protect them, preventing
-any DMA allocations from using that memory range.
-
-Will this force all non-pixel stream allocations into higher addresses
-outside the 0-600 MB range, potentially causing the VPU crashes this aims
-to prevent?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the addition of the
-iommu-addresses property expose an unhandled failure path in the IOMMU core?
-
-If address translation fails for any reason (like a malformed property),
-of_translate_dma_region() returns a NULL pointer. Because the length variab=
-le
-is uninitialized, the code can bypass the length =3D=3D 0 check:
-
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-	...
-	maps =3D of_translate_dma_region(np, maps, &iova, &length);
-	if (length =3D=3D 0)
-		continue;
-=09
-	phandle =3D be32_to_cpup(maps++);
-	...
-}
-
-The loop condition while (maps < end) remains true, and the next iteration
-will immediately dereference the NULL pointer at be32_to_cpup(maps++),
-causing a kernel panic.=20
-
-[Severity: High]
-This is also a pre-existing issue, but does parsing the iommu-addresses
-property risk an out-of-bounds read?
-
-The loop in of_iommu_get_resv_regions() advances the maps pointer cell by
-cell. If a data cell coincidentally matches a device phandle, it calls
-of_translate_dma_region() which blindly delegates the copy:
-
-drivers/of/address.c:__of_translate_address() {
-	...
-	memcpy(addr, in_addr, na * 4);
-	...
-}
-
-If there are not enough cells remaining before the end of the property
-array, could this read past the allocated bounds of the device tree
-property?
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
-com/sm8550.dtsi
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-
-[ ... ]
-
-> @@ -3690,10 +3694,11 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_O=
-NLY>,
->  			resets =3D <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
->  			reset-names =3D "bus";
-> =20
-> -			iommus =3D <&apps_smmu 0x1940 0>,
-> -				 <&apps_smmu 0x1947 0>;
->  			dma-coherent;
-> =20
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +
->  			/*
->  			 * IRIS firmware is signed by vendors, only
->  			 * enable on boards where the proper signed firmware
-> @@ -3701,6 +3706,15 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ON=
-LY>,
->  			 */
->  			status =3D "disabled";
-> =20
-> +			iris_non_pixel: non-pixel {
-> +				iommus =3D <&apps_smmu 0x1940 0x0>;
-> +				memory-region =3D <&iris_resv>;
-> +			};
-> +
-> +			iris_pixel: pixel {
-> +				iommus =3D <&apps_smmu 0x1947 0x0>;
-> +			};
-> +
->  			iris_opp_table: opp-table {
->  				compatible =3D "operating-points-v2";
-
-[Severity: High]
-Because these child nodes lack compatible strings, they do not bind to any
-platform driver. When the driver registers them, is their DMA configuration
-left uninitialized?
-
-The driver core calls platform_dma_configure() automatically when a driver
-probes. Without a driver binding, the device's iommu_fwspec and DMA ops
-remain unconfigured:
-
-drivers/media/platform/qcom/iris/iris_resources.c:iris_create_cb_dev() {
-	...
-	pdev =3D platform_device_register_full(&plat_dev_info);
-	/* of_dma_configure() is not called manually here */
-}
-
-When the driver later calls dma_alloc_attrs() for these context bank
-devices, will it bypass the IOMMU entirely and trigger SMMU translation
-faults?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-vpu_iommu_=
-iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com?part=3D8
