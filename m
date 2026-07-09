@@ -1,188 +1,260 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023093.outbound.protection.outlook.com [40.107.44.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7AB3FFF91
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783597127; cv=none; b=dv6nAIFC5+DAWM/ai4qLO8v1qt4Do/MEhi1hc1FcPfGg69U/cRPMhSP4x4++wy89q836GPdz1aoG5N7SmNY8w8CF1UKyt8duabL3sBpMOJ7S/01z+JcBtf4xSKp2p3reLukKxCnyAHdvRD9/QhPrLaLKw9Lm281T5RJ9sTShmpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783597127; c=relaxed/simple;
-	bh=OVbpVDRyZTBO7y/N/FqdD48oqS1uZjPktXmBLeNpn7c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kjqT/SfInxDYTGnLC6OTk++r7Y5I3EgFXJHYUCP8A6UCd2vjECceTvgmtcYByPfF2s2JVy2BmY9ZITf409CiIuUbqWHqm3pBYXcYRzIn5vFHcBZ5P4k9OCos13xUaNCNy2HMp7l377HHxkoUoQU+arl3T6OcuoJrg9FbseQ88kQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FByXFh9E; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FByXFh9E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C47B1F000E9;
-	Thu,  9 Jul 2026 11:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783597121;
-	bh=Qy2mrmLiFlokOqk+VudBdNGIf3/P95lVo/QF7Qudbwc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FByXFh9EHRdCTGkWYSJVZJAfD8dMIyllYmmFrYhBFvk3iNMEzyBX/z6ftjzlGlD/h
-	 NnrBSA0vHu+A43F1z18tNlDEQjSxGfMSqGXJss0cGIBbMrUnQisHzxexiWYjR/FmhO
-	 mc1rfZfTg5qIHHaXQ2NYafiUZv0AM7ipMH1Ta1F6KA3t15ZHIEw5mwRN0+05RdDZeR
-	 8efnww/afHbJZlahk9h3zJmnFs/toQs7EHoHNUhV522NbOXSi/cTN5j8WYdGELschP
-	 /QxyivcIdNXuw29Vnvt+2N6ZeW/PvkM/psGLXAJS6CAB1Zuqa008x20x1yGdZAdfnE
-	 8HpCS6OLTosew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] spi: atmel-quadspi: add controller init callback
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robert Marko" <robert.marko@sartura.hr>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709112006.390742-3-robert.marko@sartura.hr>
-References: <20260709112006.390742-1-robert.marko@sartura.hr>
- <20260709112006.390742-3-robert.marko@sartura.hr>
-Content-Type: text/plain; charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4960F3DCDB1;
+	Thu,  9 Jul 2026 11:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.93
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783597300; cv=fail; b=Mpq+6PkBa0XvN1ID1Mk28e5tmHjMsfhZBfC5rgxseguE+2FmoFn2WL0xHUBFSCHHCeJQNmUuJBSUvTfeTHK5Xp1SNcFNwCEqtvWI3Ji7q679CsBlMzRg6WMk8aVGic8pZZS+ueiRrALlUVvV2NXFLCpkSz1X78S99FvdFb7THcE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783597300; c=relaxed/simple;
+	bh=c/1RiAH0qqfRF/Lmkvqjqyvpsibxezih2r9H+oD4BRQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gWvPOUUfDYFkjISnADx/tqaFyR14LDw0HF4nvzVKI27vYGvYfohmj+8djx0CFiKTQMEU+2FGVodGgcoD/JrVdIoYoA0V1G7ohQLmUT9zbm/rxEP7vqTOobAu9a5IS95lSBvuN83drZGviwKAKk8e73U29/SVToDpvDyNlpk+cK4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZwCwzp1Sf8S8w9BphnTtruE8aWGSjOHA0PMKy94FoCW5wo96Hk7DD62Ng84X0jUWj5zO6yw7lGaoBZ3VaMfKeXkuG+iMYeKg4G0wIx+dFOTRUpuTk6ku/syQVH40kHZ733h7ospQ/h1gLSMD6YUxPwH/akPP6+p9ATJF3MXwj8Q8hfI9exV4PdT3SPX5RS27SwRefOEo9pkzN5CwBt2Plf8DFjMu/L/9J/3m4uxjT/QOUFABGO7IEGVgIerHYovYquCxoxVT7L77dY/5HCAluEVj4THPsveeDioA4LV2BSp/l/K2G18z7Xm7TbwTzvjAvC6+Qe6Lf6zrBA7VLbeo5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fi3dpORxWc7BEXzXZ0HZ/zfVNxMLiZDKAOqZRnaJFeY=;
+ b=vzMwC8irziet6022UwbEzHDeEH9l6lJTRnqn0lBRdf8FrIaX1ZQtifo/Dt8ysuavVIpqe5emmbcrupJoDrXGs6xmg6SfSTyOqB+gTaJGb31IUlvH+7wk58+l5MWX4aHPGOo+9p52cqP5DP8YL/Blfd350IUFi3WDMXVcoZIk814GMwks45gf5FlfgDwvi/YIfE+CsnOi2KzKKMJBvis0m2p8MU96V8zh3DInAindEnFHksBhR97BIE7sTqJnaTNcQI/MfygzikR2VdLL/BIOwTYOhnXczIpZmjY3QqZFtWoZS1oOjnpOKnq32GzDXmxpMv6ZbPD/gDUrIf4oMiausw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cixtech.com; dmarc=pass action=none header.from=cixtech.com;
+ dkim=pass header.d=cixtech.com; arc=none
+Received: from SEYPR06MB6226.apcprd06.prod.outlook.com (2603:1096:101:df::13)
+ by SEYPR06MB5205.apcprd06.prod.outlook.com (2603:1096:101:8b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 11:41:32 +0000
+Received: from SEYPR06MB6226.apcprd06.prod.outlook.com
+ ([fe80::56e8:777c:d80e:d364]) by SEYPR06MB6226.apcprd06.prod.outlook.com
+ ([fe80::56e8:777c:d80e:d364%5]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
+ 11:41:31 +0000
+From: "Joakim  Zhang" <joakim.zhang@cixtech.com>
+To: Brian Masney <bmasney@redhat.com>
+CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
+	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, cix-kernel-upstream
+	<cix-kernel-upstream@cixtech.com>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>
+Subject: RE: [PATCH v8 2/4] clk: cix: add sky1 audss clock controller
+Thread-Topic: [PATCH v8 2/4] clk: cix: add sky1 audss clock controller
+Thread-Index: AQHdCI4sgJ5SELj9hUii2FK6GmyvibZiTCcAgALSB3A=
+Date: Thu, 9 Jul 2026 11:41:31 +0000
+Message-ID:
+ <SEYPR06MB6226AAAACF3A737EE7109F2182FE2@SEYPR06MB6226.apcprd06.prod.outlook.com>
+References: <20260630124413.1814379-1-joakim.zhang@cixtech.com>
+ <20260630124413.1814379-3-joakim.zhang@cixtech.com>
+ <ak0q1pWZREYsvJ4f@redhat.com>
+In-Reply-To: <ak0q1pWZREYsvJ4f@redhat.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cixtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR06MB6226:EE_|SEYPR06MB5205:EE_
+x-ms-office365-filtering-correlation-id: 897a8581-e68c-4669-2085-08deddaf0570
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|38070700021|4143699003|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ V5HEmPCTvARQpM30pq/XsZ+GTo00IF6bZiV2DKO7ePHXl6lh7E3/GJChacmvnsDlDKegoV3CtXuq1cQVvkqcoWnvnyGTgrYReQQUz9j7QzVof20VF3KtbAuTz6GBI4tMrR/7a4W7PAf2du6QAD2JLAdnFt35v/+1QFU6QoTAWpPjqvvdHg4ZI5PJ6ZrnW6XXQfqoOXR72JpIsTm+npGmTRGsKoeTAmiRsguMuq56JfmDpwdkKk9qTYEg/sbRIR5gRXRAM5aN3h0/of7pNG+9N1YxhwbvPRMkQE+ljC8pV/cQFImWNQkcu1kt3HBnsF+SLCTLDaPYME2nFBwm/fpJ9YU9a2H/lmPwYM8gI1rQfc51OKu9ymLU3ZLxr8/BRlo2K8N6UgRmNXAkXb+seKoG29yMLqJ2eM0sctAfRhQQqnyZ+PhIS5zC7gMlNY7S8saGERrkoLRf0jdzCq2X8SAciQMKzJaB29vZ8PbN4rLZTAL+ZjKRKW1r9EvGxU4rpKQF2Uv7ESbtmm9ZjbOjDv7udm06tib33jTKC3YpBe1WX8x4rgI4SGyEjyt61eh7f3662DeydPQ+CXW5mJqIZbRq/o7THuGsoYJ3aSZxkwZt7tTibIsS5t+ROwmxteeA98jLfMefgFiJZUy9UfbW4mScMlfEzTz9CvKcmQXmTVjumG0=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB6226.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?GVaiIX6iOasCxjEq3djUc9P8mIVA/x9RtlttwVlCV9AiWLt+MLvKoApJlcbC?=
+ =?us-ascii?Q?MyPUgkHGvLXOPU6DdzYeQpcLAB9lINLDXak5knYVeZt2nWLMSYUEU39QLbZm?=
+ =?us-ascii?Q?6MPlmMNDWyI9fKTTVZ0IDXvUROHWDQ4sCgJpLpHgGDotItajW0I6g27hRxRF?=
+ =?us-ascii?Q?DhCABQc8FzCcBTTqD0mvqw89ILfri2raElzy1vTnZVMRlKSKdQKOm/OHroK/?=
+ =?us-ascii?Q?uMDYaOcRc4TsaS7IWUmFABLMgN9KLuucSr9EFKDas7O0q+ETm0S/VfvsvR7g?=
+ =?us-ascii?Q?1Qug9/Ng3/vF3PWIk6gFcRpO7xEoHAyEL+JMxe7jLk/FLjjekcx8+3IZEiv1?=
+ =?us-ascii?Q?AOGfsBmGUiK91No5Qx6T1qheS2188GWNzmjD9t+VxDdV11TqCD3lvytxsaPd?=
+ =?us-ascii?Q?yDrA3jDKKC99aKUkOLbQ+d9dfjbEvxjv2TcIxaknSG+Ni6m24fXd8abqVhv8?=
+ =?us-ascii?Q?qhyCKC8ZPDcICIRQ084LAku5hlzDSsvnZwk0YASBknRnv0Hv6W5txpUmq0PS?=
+ =?us-ascii?Q?WTDmsablJeJ0f6lTpOUJgcUSkWhdw9fga0n6M+eFSsfxM3dxAvnTy+Svtkew?=
+ =?us-ascii?Q?w4QfX9AbAu2suKBki5R9x+4YH+a7QfmGoxBtfhRbWBKAIcBDolj0Am3mtDJv?=
+ =?us-ascii?Q?6VMnfhTp51efYa2I88XfJAYbVVyTf58baJc1j3BPcrd8W9SjzbvqCZq0SHy9?=
+ =?us-ascii?Q?Lscje9zDeAR1BV785m1zfA13ur4ApuQzPS+aW/2EYGuWs5ehVhQFFpGvWzIx?=
+ =?us-ascii?Q?QOg3mfkrIKv2uwjbo76Ewxj4JV0WAm8Ln6ZJ408sDsleR3kxMrhrfd0vPQWe?=
+ =?us-ascii?Q?cyuRVJhOPyKptixnjDO/J/6oRAosSdCZePtzhrZNmNYSiaTppHcZ5OVz3mD9?=
+ =?us-ascii?Q?O1Rs/Na96+pLUeDEeeoVqcERRpgM4m/0p9MZ6jibcJbOlAz/zPey/4XhUP0R?=
+ =?us-ascii?Q?2Awep5kBK0YVwtdQP4wgr/ihm9G1dqfAPPBrZEGWM3fuP1qCuHO8MC6XPosV?=
+ =?us-ascii?Q?muJzttBbuVbAfvwU7ZkiYU66kL4Z7qPcpnecqxx38EQ4UPvQgIVVelPEhTxA?=
+ =?us-ascii?Q?CRbCQ67wYvxf2Yg9WNKeePZQbBzVQlsZgbfucsZoCv1uumRBrl3N28kZySuK?=
+ =?us-ascii?Q?BreOk9TvF7wWR+HUep9k2cLlZ2YU2RIG9YHUhh1O++O9ficpCss85X1s+oKA?=
+ =?us-ascii?Q?OtSpz1PnXuIzyggob4LA2Ye1phm14FX8qZGEdiB3e8CYQBPVrvjZ46jkYJHj?=
+ =?us-ascii?Q?6bUM9flYn6bocEbsrJELw+te4lSGBUIBZAnJ0KV47rUNzv0mVgAlPptEViq/?=
+ =?us-ascii?Q?XKy/liufkXKaU/SDAYIs/4le1ZqDI080W7BXFOVnVkA68o/4MdUs2wHiGlKT?=
+ =?us-ascii?Q?tQdDCGNcZFqJ164T7OoEIJLm/j1DtR2+rLOliWiU5COD9q0pA3VSw5gtno8F?=
+ =?us-ascii?Q?agFpZjqsTb8L4IxXUtrjlINx0Eh4oTnk0oxBAF/sIYBZt8aAFiWw9n1+BkMe?=
+ =?us-ascii?Q?mrKy4HeQyW9oIEAQc1L447H23iHeqXckksEckydEk8q1maR9utpKppJfeMtt?=
+ =?us-ascii?Q?NogU4vgDhZNjqGgTIC9y1JhhKLHN6myIMVuCLVR5P/LBDFvL6+jDoDrEXZcv?=
+ =?us-ascii?Q?vY1SBYcsbSyev/on4WNtH81nFSxswmtd7FKgeIsBrw1h+7je3NwUtrB4+aQM?=
+ =?us-ascii?Q?CNca2vSshkc/m4pAUDgdEhigWVf7Cn0YOVnC6YcG5RoiXbOcKXIO/3356QDY?=
+ =?us-ascii?Q?/Mpe1DPt5Q=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 11:38:40 +0000
-Message-Id: <20260709113841.6C47B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB6226.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 897a8581-e68c-4669-2085-08deddaf0570
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 11:41:31.3260
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: uLIfahgcR4XZVvwkzFa/qxrxEhEQEe9F6ljcAyMXWU7qnCIsa48CQm5rhlpvoPCP7UPLrnk335GpGI4SJ82B3JTlAHd+xh/XZOI8ko90zh4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5205
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hello Brian,
 
-New issues:
-- [Medium] The custom `.init` callback is evaluated unconditionally in `atm=
-el_qspi_resume()`, bypassing required PM state restoration for non-gclk var=
-iants.
-- [Medium] Unbalanced clock prepare operations on the error path of the new=
-ly added `.init()` callback in `atmel_qspi_resume()`.
+Thanks for your kindly review.
 
-Pre-existing issues:
-- [High] Pre-existing bugs in the `has_gclk` suspend/resume paths cause a P=
-M runtime usage counter leak and perform hardware register accesses with di=
-sabled clocks.
-- [High] The generic clock (`gclk`) enable count leaks continuously because=
- `clk_prepare_enable()` is invoked unconditionally during every SPI setup.
---
+> -----Original Message-----
+> From: Brian Masney <bmasney@redhat.com>
+> Sent: Wednesday, July 8, 2026 12:36 AM
+> To: Joakim Zhang <joakim.zhang@cixtech.com>
+> Cc: mturquette@baylibre.com; sboyd@kernel.org; robh@kernel.org;
+> krzk+dt@kernel.org; conor+dt@kernel.org; p.zabel@pengutronix.de; cix-kern=
+el-
+> upstream <cix-kernel-upstream@cixtech.com>; linux-clk@vger.kernel.org;
+> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-
+> kernel@lists.infradead.org
+> Subject: Re: [PATCH v8 2/4] clk: cix: add sky1 audss clock controller
+>=20
+> EXTERNAL EMAIL
+>=20
+> Hi Joakim,
+>=20
+> Thanks for the patch.
+>=20
+> On Tue, Jun 30, 2026 at 08:44:11PM +0800, joakim.zhang@cixtech.com wrote:
+> > From: Joakim Zhang <joakim.zhang@cixtech.com>
+> >
+> > Add a platform driver for the Cix Sky1 AUDSS CRU. The driver maps the
+> > CRU registers and registers mux, divider and gate clocks for DSP,
+> > SRAM, HDA, DMAC, I2S, mailbox, watchdog and timer blocks.
+> >
+> > Four SoC-level audio reference clocks are enabled as inputs to the
+> > internal clock tree. The driver releases the AUDSS NOC reset, enables
+> > runtime PM and instantiates the auxiliary reset device.
+> >
+> > Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+>=20
+> [snip]
+>=20
+> > +static struct clk_hw *sky1_audss_clk_register(struct device *dev,
+> > +                                           const char *name,
+> > +                                           const char * const *parent_=
+names,
+> > +                                           int num_parents,
+> > +                                           struct regmap *regmap,
+> > +                                           const u32 *mux_table,
+> > +                                           struct muxdiv_cfg *mux_cfg,
+> > +                                           struct muxdiv_cfg *div_cfg,
+> > +                                           struct gate_cfg *gate_cfg,
+> > +                                           unsigned long flags,
+> > +                                           spinlock_t *lock) {
+> > +     const struct clk_ops *sky1_mux_ops =3D NULL;
+> > +     const struct clk_ops *sky1_div_ops =3D NULL;
+> > +     const struct clk_ops *sky1_gate_ops =3D NULL;
+> > +     struct clk_hw *hw =3D ERR_PTR(-ENOMEM);
+> > +     struct sky1_clk_divider *sky1_div =3D NULL;
+> > +     struct sky1_clk_gate *sky1_gate =3D NULL;
+> > +     struct sky1_clk_mux *sky1_mux =3D NULL;
+>=20
+> Reverse Christmas tree order please.
+OK
 
---- Patch [2]: [PATCH v2 2/5] spi: atmel-quadspi: add controller init callb=
-ack ---
-commit 6c4a6f692bd1bda4ee70cd3b53efc7320ebf6191
-Author: Robert Marko <robert.marko@sartura.hr>
+> > +
+> > +     if (mux_cfg->offset >=3D 0) {
+> > +             sky1_mux =3D devm_kzalloc(dev, sizeof(*sky1_mux), GFP_KER=
+NEL);
+> > +             if (!sky1_mux)
+> > +                     return ERR_PTR(-ENOMEM);
+> > +
+> > +             sky1_mux->mux.reg =3D NULL;
+> > +             sky1_mux->mux.shift =3D mux_cfg->shift;
+> > +             sky1_mux->mux.mask =3D BIT(mux_cfg->width) - 1;
+> > +             sky1_mux->mux.flags =3D mux_cfg->flags;
+> > +             sky1_mux->mux.table =3D mux_table;
+> > +             sky1_mux->mux.lock =3D lock;
+> > +             sky1_mux_ops =3D &sky1_audss_clk_mux_ops;
+> > +             sky1_mux->regmap =3D regmap;
+> > +             sky1_mux->offset =3D mux_cfg->offset;
+> > +     }
+> > +
+> > +     if (div_cfg->offset >=3D 0) {
+> > +             sky1_div =3D devm_kzalloc(dev, sizeof(*sky1_div), GFP_KER=
+NEL);
+> > +             if (!sky1_div)
+> > +                     return ERR_PTR(-ENOMEM);
+> > +
+> > +             sky1_div->div.reg =3D NULL;
+> > +             sky1_div->div.shift =3D div_cfg->shift;
+> > +             sky1_div->div.width =3D div_cfg->width;
+> > +             sky1_div->div.flags =3D div_cfg->flags |
+> CLK_DIVIDER_POWER_OF_TWO;
+> > +             sky1_div->div.lock =3D lock;
+> > +             sky1_div_ops =3D &sky1_audss_clk_divider_ops;
+> > +             sky1_div->regmap =3D regmap;
+> > +             sky1_div->offset =3D div_cfg->offset;
+> > +     }
+> > +
+> > +     if (gate_cfg->offset >=3D 0) {
+> > +             sky1_gate =3D devm_kzalloc(dev, sizeof(*sky1_gate), GFP_K=
+ERNEL);
+> > +             if (!sky1_gate)
+> > +                     return ERR_PTR(-ENOMEM);
+> > +
+> > +             sky1_gate->gate.reg =3D NULL;
+> > +             sky1_gate->gate.bit_idx =3D gate_cfg->shift;
+> > +             sky1_gate->gate.flags =3D gate_cfg->flags;
+> > +             sky1_gate->gate.lock =3D lock;
+> > +             sky1_gate_ops =3D &sky1_audss_clk_gate_ops;
+> > +             sky1_gate->regmap =3D regmap;
+> > +             sky1_gate->offset =3D gate_cfg->offset;
+> > +     }
+> > +
+> > +     hw =3D clk_hw_register_composite(dev, name, parent_names,
+> num_parents,
+> > +                                    sky1_mux ? &sky1_mux->mux.hw : NUL=
+L,
+> sky1_mux_ops,
+> > +                                    sky1_div ? &sky1_div->div.hw : NUL=
+L, sky1_div_ops,
+> > +                                    sky1_gate ? &sky1_gate->gate.hw : =
+NULL,
+> sky1_gate_ops,
+> > +                                    flags);
+>=20
+> Please use devm_clk_hw_register_composite_pdata() to make sure that
+> everything is cleaned up in the expected order relative to the other
+> devm_*() calls.
+OK
 
-spi: atmel-quadspi: add controller init callback
+> Please go through the Sashiko feedback at
+> https://sashiko.dev/#/message/20260630125936.E186A1F000E9%40smtp.kerne
+> l.org
+> and I'll do do a thorough review on the next version.
+OK, I will fix the feedback which I think is reasonable.
 
-Allow controller variants to provide a custom initialization callback
-through their capability data. This prepares the driver for variants
-which require a different hardware initialization sequence without
-adding SoC checks to the common path.
-
-> diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-> index aaf7f4c46b22f..62ea84d234d02 100644
-> --- a/drivers/spi/atmel-quadspi.c
-> +++ b/drivers/spi/atmel-quadspi.c
-
-[ ... ]
-
-> @@ -1156,6 +1159,9 @@ static int atmel_qspi_sama7g5_setup(struct spi_devi=
-ce *spi)
->  	/* The controller can communicate with a single peripheral device (targ=
-et). */
->  	aq->target_max_speed_hz =3D spi->max_speed_hz;
-> =20
-> +	if (aq->caps->init)
-> +		return aq->caps->init(aq);
-> +
-
-[Severity: High]
-This is a pre-existing issue, but does invoking initialization callbacks
-from atmel_qspi_sama7g5_setup() cause a generic clock enable count leak?
-
-The generic clock enable count appears to leak continuously because
-atmel_qspi_set_gclk() unconditionally calls clk_prepare_enable().
-
-Since spi_setup() can be called multiple times during the device lifecycle,
-such as when the SPI core probes child devices or adjusts transfer speeds,
-the clock's enable count repeatedly increments:
-
-drivers/spi/atmel-quadspi.c:atmel_qspi_set_gclk() {
-    ...
-	ret =3D clk_prepare_enable(aq->gclk);
-    ...
-}
-
-Because clk_disable_unprepare() is only called once during system
-suspend, the clock becomes severely unbalanced and might never be fully
-shut down.
-
->  	return atmel_qspi_sama7g5_init(aq);
->  }
-
-[ ... ]
-
-> @@ -1570,6 +1576,9 @@ static int __maybe_unused atmel_qspi_resume(struct =
-device *dev)
->  		return ret;
->  	}
-> =20
-> +	if (aq->caps->init)
-> +		return aq->caps->init(aq);
-> +
-
-[Severity: Medium]
-Will this unconditional early return bypass required power management state
-restoration for non-gclk variants?
-
-If a non-gclk variant defines an init callback, it will intercept the
-system resume path and completely bypass pm_runtime_force_resume() and the
-default non-gclk hardware restoration sequence that occurs further down in
-atmel_qspi_resume().
-
-[Severity: Medium]
-Does this also create a clock prepare count leak on the error path?
-
-If the newly added init callback fails and returns a non-zero error code
-in atmel_qspi_resume(), the function returns immediately.
-
-This skips the necessary clk_unprepare() calls for aq->pclk and aq->qspick
-that were successfully prepared earlier in atmel_qspi_resume().
-
->  	if (aq->caps->has_gclk)
->  		return atmel_qspi_sama7g5_init(aq);
-
-[Severity: High]
-This is a pre-existing issue, but does returning early for has_gclk
-devices leak a power management runtime usage counter and access hardware
-with disabled clocks?
-
-In atmel_qspi_suspend(), pm_runtime_resume_and_get() increments the power
-management usage count. For has_gclk devices, it returns early, skipping
-pm_runtime_force_suspend() and missing a balancing pm_runtime_put():
-
-drivers/spi/atmel-quadspi.c:atmel_qspi_suspend() {
-    ...
-	if (aq->caps->has_gclk) {
-		ret =3D atmel_qspi_sama7g5_suspend(aq);
-		clk_disable_unprepare(aq->pclk);
-		return ret;
-	}
-    ...
-}
-
-In atmel_qspi_resume(), it calls clk_prepare() for aq->pclk but misses
-clk_enable(). It then returns early via atmel_qspi_sama7g5_init(),
-completely skipping pm_runtime_put_autosuspend().
-
-As a result, every system suspend/resume cycle permanently leaks a power
-management usage count.
-
-Furthermore, because clk_enable() is never called, the hardware
-initialization callback accesses registers with a disabled peripheral clock,
-which could cause an asynchronous external abort or bus fault on resume:
-
-drivers/spi/atmel-quadspi.c:atmel_qspi_lan969x_init() {
-    ...
-	atmel_qspi_write(QSPI_CR_DLLOFF, aq, QSPI_CR);
-    ...
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709112006.3907=
-42-1-robert.marko@sartura.hr?part=3D2
+Thanks,
+Joakim
