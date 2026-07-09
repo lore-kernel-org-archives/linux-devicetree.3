@@ -1,472 +1,208 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022129.outbound.protection.outlook.com [52.101.126.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2823E44EB;
-	Thu,  9 Jul 2026 08:11:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.129
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783584680; cv=fail; b=iy0mXJeVSnySDTUOgOC+0CkO34vyFrlBDx2Wh2pLxcbkAX54CH32BiYu9fwZUoY3BRUozEf7mT1DDk69j1wbHRfS/VqQILaeVzlwBxdE1SIzaz34UCdSRywGpOQxmjGQiJ6BjB4KJWMB6IPVG3tK58GoOnX6nqN5+dd9LjSG0Q8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783584680; c=relaxed/simple;
-	bh=AHHK9KjU3mro1YinRtydmXuP85LBlNs1AQzQ64tON2s=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=szlkn2hfAgdcaR2FIpfKXGFgsjFoPAMArmkrIEJtEFMc+ICSvlAPfcGgKDi35Ur3qodN6uT1XWNNzLOqbXV+7df2/ZKEooVg5lY9wHgrUOYOzydOXo8LqifimWCGRSLAP4RDVYXfdbE1bMOu3ixK1Byv7xF4F37szdpOBpqwfJA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=gkBDvqbL; arc=fail smtp.client-ip=52.101.126.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274933DB33F
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:12:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783584754; cv=none; b=SxAV6a2OHFzNgQO83g0zruiRpgMF33upWZjxs6TDuPsjvNI2YqouoXPfbPbzeKrMx1L1xQlJGsFs8H/wExom9Q/A78S+Et/9mYHdesg02Zm4lBjsOW0gNtaTY+cHWU2szB5vCW+4PlBc49+mELrCn2/jQrePw5WY0dLVrAfuytc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783584754; c=relaxed/simple;
+	bh=W1OXVY9puxMvuLpLOktjHcdYOOhnW9MMsJY9qFlEz6A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SdbzX0s2byo0xBMaFBRXc9VHadh9Y1ALAOhvv3T+klfYKviWKVqu++5Ig38cOmDyaroEnN0cETULwRZWDpSeLypJzxIMTi2s9vmpNLHft7T/E6GqiS+A0XM0h1Gpj12T+Y2C30qO75tXeF8kNb6Bp/+IJN/tybeGhebEEG8sQSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pm/HadQM; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="gkBDvqbL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rrHw7cHUaGB6PuOS16ztLB1BWjKQ+iV2L0+HPsGOSn576EeQttEpewKVvwwUWCc7x92dC1+kWZhsgXI9CrTtAj090Aj6J9ddCnbHBBP94D0Nw90Gldwxac06WqtGz/9+OG126HtZw7j/hNIROF+47dSsIDv1ihmnBAQUT99gzvPtXL0WC8pjuVitS6+9ugmSdWq4CZNDfKDXDNoSSk9nUUwIQMriHXEtVr+vl6HqVbkRc5/JKP3qeRzoH5ZnSIyg908GsKsu9hLjnvFzj/wPcEfuHjFp1rR6k9+QdHc/0l3Eb3yNCu/2KSKpznqDeY6dmQ33tRPeRGQCHAfKrJlNmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2ZiuNbipBeGMfEQj6fshtzRIKR9h78/N7JUx6VZj/bU=;
- b=bD17OsRr3Y986xywRXaDq1qL/2VkUYeiuPL8xe73wqBHt+3ikL/cftPc1LafpZuA2ipvZE9GmYo3+StCiP1ho7G/fj7ELvcCbvBdpEGQuQqu6PLce3PcmZeyiEF/qccyo4dhwNFEolkUWoUTn+XeWtJVEPOWnffDrc6rE66qV9ceYd1G8plPMI+CdL9MWu05jDZZ8tTM6gsiK2iDrAeIwzHLhOEfbJYcrtepSGc2FLDqtLLL4lm1+eIoxppowyUUIR6iHTnFvO1SebyJZo3Rc9kMe8bFmHzdfZ3k2gg4+UVmrHTYYeUhSeyFS4uQCKDsvoxvigXZjqN6KFnIR5PCGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2ZiuNbipBeGMfEQj6fshtzRIKR9h78/N7JUx6VZj/bU=;
- b=gkBDvqbLZLDhgogb8PgyKyfFOWLVlDoKtSueuCHfFXfkr1I6aXfRfXqX0CCAf0K8ph0bLqmsyYU3B4jiGca6HImZPUfO+zVt0OWjS5pY8PkEimRrXqckDNT16/RT4mtvILmkYlaCGytQnXCZhEPu4UctMIOgHCmTeELoHgO7RAGy/IVyy2Y+WsDgC991XtXRljFacVIKAbqKdW+n4cQ9IzH6TZZNUymrHZgBjfgIc/CwH/4YkpoAfKueFJZ4Y9siLxnCOoBxismOA0b9R59s2glu2vu3GoIZw1D968CogPzAu9AsFuqzmYCrka3JB7O2lO5votb8g/SSvX5xv7+NPw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by TYSPR03MB7582.apcprd03.prod.outlook.com (2603:1096:400:413::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
- 2026 08:11:14 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 08:11:14 +0000
-Message-ID: <312356d0-39e3-4160-b862-0277ba146f47@amlogic.com>
-Date: Thu, 9 Jul 2026 16:11:10 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/3] dmaengine: amlogic: Add general DMA driver for A9
-Content-Language: en-US
-To: sashiko-reviews@lists.linux.dev,
- Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Cc: dmaengine@vger.kernel.org, neil.armstrong@linaro.org,
- Frank.Li@kernel.org, vkoul@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org,
- linux-amlogic@lists.infradead.org
-References: <20260626-amlogic-dma-v9-0-558d672c4a95@amlogic.com>
- <20260626-amlogic-dma-v9-2-558d672c4a95@amlogic.com>
- <20260626055325.ED2721F000E9@smtp.kernel.org>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <20260626055325.ED2721F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0036.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::8)
- To TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pm/HadQM"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-381891a9525so812024a91.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:12:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783584751; x=1784189551; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fuRby/8yQ9T3IbKDfaI8jasKcp0bZvcAPDvEgOKp9H4=;
+        b=pm/HadQMTJTaSz1pTHDWiQ08wZsHo7WL/Xr5gr29ubXtwo0mjgZFiPbL47xugnI4+n
+         dfjCYLvrO2sXRiEVPiA2BtRJvbx5oo57i6FF9VitnxFc5eHdaFMtrsVAW7VTUYYGjoJv
+         BgMHO6Vw1Ops+DkM+oZAuq3FUQIhf8lcCbPTul/RysbHiFHm8mUle5DyI+nvQ3r6bRFB
+         VMHyv/KVHEkmgCfaX47KGviFuyHGF4OXYe6ff9iLqXSAT/PsbzxzhiXYSjRiPUbwiyoa
+         ImTM7oPBA9RZR60B0iMO+PQ/TmGkd6u1OkWQ4xSYMTBT0+BbwMZvyad6R4/N9KwF0m5i
+         5S/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783584751; x=1784189551;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fuRby/8yQ9T3IbKDfaI8jasKcp0bZvcAPDvEgOKp9H4=;
+        b=mO93RYx3Y9ZmReP8CHnFlqzyRp+OO+3TFx7Yj0rfmB8c5GuBxkUMQOltc6QauGOuyC
+         ABd44TUm6fz5f7qbGjlNciDwyUPIWnDsqYj57uKdwQatDBnDt/1ZKpABDH05OS9SRXho
+         miBm4izkEE4wm09/vzD/uzdufA1LRy/vx5LV2wkmGT2goywY0xLgDAgTeIctew9sxGmb
+         /frB7AdB0XLTfXhGAQkfguHhRiJ+m4AxA8FuXNW6bTdy8hCFxzbE4JZlmb9QiUsdy0Bj
+         YDn1MyUdt/v6N1oSSRixgAncqaOTaK/eW36GAA1AByLBs/S2J6mI7dBjvNVNbntimX5Y
+         udZg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3zgbfvlmebfKofpVfb55IE5muf7FD8idpENjP7JDD8e+kIMz76co5hE/3EfVzzUyetlliVAZKh1Tz@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQ3tldHfj2ySZtVhkL4umAOBob6ehkLs5QniPve6xHx+efjMv/
+	4EsA92Ml+VUXZ4qUu/EhkEdYkI07eOtoONQ/4s2q7DSGPmRxuRVvRPy5
+X-Gm-Gg: AfdE7cnc0RJqbAIygKUsn1hGNO11rT8lRcVfCc0cOd3EDLfKwPDPK1jPb4dMeGqWzoU
+	t1voTUhzLw/e1BSIR8Xu9XJifAZxa1/QLH8NCY1e9dm91MxvVVpVEY5xMV30xxM8vWpoToN1aMs
+	WgpxP1qhFVSn/A9yqmIekevvrMbn1LSDFUjVs0jvluP6GcqbIGHz1xZikH+Gcg9jHJUA3AawQ74
+	7pOIte8srIwzgRqwKuob6wvz6hHemGN1I/3DM21IHD7qiKgDxt2ugD88uCgi0iwoaPUlMA8osrt
+	RIBL+Ol4S7+KJRyPYOoloB3c1U8C/i8HF30L3to4xGm+1sZLUJ7+ul/NguPkSbdDDAMoYf77aUF
+	tTLaAo3MpYZpkvtXC+fjR4wG59qB4SXY14OrqUZ0CMv47DdbBhA9bTlD9CzNC8vh12ACS6JhR0H
+	LBv9pBHMAB+eXFca+3sg==
+X-Received: by 2002:a17:90b:3149:b0:37f:9ce1:7367 with SMTP id 98e67ed59e1d1-389416ebb78mr5632903a91.29.1783584751376;
+        Thu, 09 Jul 2026 01:12:31 -0700 (PDT)
+Received: from [127.0.1.1] ([2401:4900:8902:7295:9616:9031:8f8a:a80a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31198cb2b99sm10274601eec.26.2026.07.09.01.12.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 01:12:30 -0700 (PDT)
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Subject: [PATCH v5 0/2] media: Add Himax HM1092 mono NIR sensor driver
+Date: Thu, 09 Jul 2026 13:41:53 +0530
+Message-Id: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|TYSPR03MB7582:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2b08437-9951-4ae1-54a9-08dedd91a529
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|7416014|4143699003|3023799007|18002099003|22082099003|56012099006|11063799006|5023799004|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	APkd8mWnkrjNHazQAB5qDsEchw0I36dQHpj0kmYK5cY24hANaTCqVcG/MXyJ6P+I8KBbz2aR9BviDDPZnutgsMab36hBlYQ2kl/Hr6xw6glwQEsa19PneEqUbZUCRmGiLzfOXRZ4y0irqZinC5PdS3xaxhNlwWt3MGSAfzAYC1wiaKxSB/vIxwwCktWFhYIU2U9bO/K0JTjAqajDQ8gitmk+T964dQwwMx4GsSz23z75UlU7p6FKY6Kp8z+Hu5Jb/+Ovuph0lOV+cnUlaHP5J90KuwZzxfcZE1ak3jsW2Gj9YTeOJ+GNAZsXevjWNMqW9Mn1oIguo2Ews6cXJfwdrqg2Df8ZutoMEm6ojDoG6XQkLDAJ8ajTcqMwaRybZ1niqjwjGsip1nS57D79VnOk6cMGGMrW4n39MIlwykqHFrwT4SpqfsNKD4nyZnQvxU5+ORib1qGBr2MRCXJx7QVEdwg+2zWKY/bj475QDFKpL+GdZq3yPCoWcQTSFQpAwQpdnKg6TEKQIqgnvRbMgKOfK51dYrVLsNBokQvvcEdXqU+hauSyDzu5JYXovHk4V09j2UYkcEkl1CxiISpIJzFqUBSn+QVYof/OllJldVPo0bo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(7416014)(4143699003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZmpLL1p5SnJ1T3dFcUsvblN3YTl6cnIzR3FhaEd2L1poM0pmLzRaYVFGSDZL?=
- =?utf-8?B?YWVNUEdRRHg1aUhmdVVWc3hqb3p0Y3Bqd3NJWjZRbEVNSHJFUWNGdE85UzEv?=
- =?utf-8?B?TzN6eXV3M3JLN1F0WFdISy9wcE1LdmNsSUhCazRrNFNpZmJYUU0zc1NEZzlH?=
- =?utf-8?B?RU83NElEMCthQnR4SlZ3TldxN1N3NjdnNlhpZEJuaVMwU0U0OG5uSng1TGx3?=
- =?utf-8?B?ZldGbzl3cWVBUHM2R0Y1b0lSeWljemRJdVdYTHF5QWV6bkZJRkJsQmgvSjND?=
- =?utf-8?B?QkpxelBGNW1adzhaRFQ2a0kvNzdESWc3U3Mza3JhZkhXYnRRdUxRNkQxRE1V?=
- =?utf-8?B?ZzNCS3pGZlJkWkZFTzdISkV6cmhDLzRnZkw3OU8wSlpmOHNFbE83VUg0Qzhq?=
- =?utf-8?B?V0M0dEhhTUZuMXVPOXorL3JBdGx6S3ExQTdVUVh2N3ZqZGp0VStDOXhEZDJu?=
- =?utf-8?B?T2RaNjZqNjcvNTZJMmd4eElqR0lSYUpqZTI2dWxYNUhCbHN4RDhBZGJVQ0xj?=
- =?utf-8?B?UmdKUUNudGZRZjBhb2tJM1VxS3FJT2lGRmM5Vi9QM29tVjEzNkNFODFTNUxx?=
- =?utf-8?B?b1plQnRXVExWUUV5RURSWTN2UkVaNEhNYWVZUWpONW4ycURCNElnZEkwWFp1?=
- =?utf-8?B?SytsSWk3RGd6R3NZQjd6RTFFaE5ZSzlXaHA0VGJMMTA5SzdOd0sxSFcxU2V5?=
- =?utf-8?B?MHNPZmhMdG5jOXdocndWQ0ZkZk5TS3NRMk94NldNbHoyN1NESlRQNXliNTh3?=
- =?utf-8?B?VzRwbjlRcVVXWTN4bHlpNHFSNkdReHIwdzYwTFU0dXBKQXFMaUgvVmk2N3dm?=
- =?utf-8?B?ZU1NR201MHpMcTZGeU1tNVpJTWlYeHl0VERiOUd3LzY4RFI2YVJuNVZMZUFx?=
- =?utf-8?B?YkUxZ241a2hkd1BCZXJYZFlVTU1xc2lXYnY5K3VPVW1obG5HZkppMDd5WHR0?=
- =?utf-8?B?Q2RaVVRZRzNKUk1rOEdycDFLMlNiQVZyMEhIWnhWOG4xa3Y3dlVmV05VaWVG?=
- =?utf-8?B?U1liRGlZU1NFeHdkY1Z1ZUZWZjBSU3JyTEdydUtMc3QvLzNZS2lGREdVdzhV?=
- =?utf-8?B?NURDdmNERGV2OFluNjlFa20vK0E4RWx2SkVZVHMvNExDWm1VbHZNWVlLdFhO?=
- =?utf-8?B?U3phVitIOHAyelB6T252YkJ0ZFYySHNpRTEzY2JVS3JkSllLRkVmR3Q5bGF5?=
- =?utf-8?B?dGRmdUo1SjdER1ZLRHBkd2F0Q3V0TnJOMzJ3UjB4U24vTUNlL0lwUTdsZUFE?=
- =?utf-8?B?S25XRHREWUNUUmcwRUFPVlNveXpTM2x0SkR4akNQTkIycUhWMC9sN0pqalY4?=
- =?utf-8?B?OUIrZ25vQkxJSmlvNDVwazV5S3Axb2JsM3hrT2lRWHlnSG1iK2lPcUIyNFhq?=
- =?utf-8?B?c29sb3JGWWpsVy9NUmRNWUF1SUxDSlVNTG15SlE2a0dCeURIMUhXUFo0VTc3?=
- =?utf-8?B?eXlCNFdPV1M3SC91UFVuY3ZDTy8wZUZDenlVbmhncnFCUWpqc1c2QW9iTm5M?=
- =?utf-8?B?M0hXK1ZvRHd1V2RJdHYrVHNYTVlTSFdIUk1JYjdMc0t6R2oyNFV6OU14OWJI?=
- =?utf-8?B?Si9pS0diWHN1VXdSMXAyVG1JeDdtNXNWallha2sxaDVTVkpSM28rdVc5bCtk?=
- =?utf-8?B?NXhlWU9nRkpNYnJURFdPcUN6Mk5JSG5NNjR1MUxueit1MENhc2YrMVV5OGZr?=
- =?utf-8?B?My9KQXI2ZXQ4UEV3MWFETmxDS2ZMeERnNWJ5SjBPYndRaGZKWHhJREhqazBu?=
- =?utf-8?B?bmtwK1I5N1R4MTVRWnpvSGo1amlJTTQ2cjh3Yjk0cUp1Y0J4OGNwLzA3aUFV?=
- =?utf-8?B?QTZET0VOK0Jwb04zd3U0NjlBOE01cTl3dzNMWis3Snl3ZzBKWERZLzFVVUdU?=
- =?utf-8?B?RTJodzlodWFPRDlRbGdCak5GZytwRVFnMGp6UEJzRTRaN1N4Zzg1MlhlcnRt?=
- =?utf-8?B?QVVEWWg1aUVSSUFHQ0FrbU1MUnJXVGR2cUxRVkQ3QUlwU2crSGlGUlVSNGs2?=
- =?utf-8?B?a1p1V0VLZGc5SUpRci9OUThQWDZuM0xNQ1BQU1c3SEh0TVhkNW9ETFIxQS9o?=
- =?utf-8?B?QjJIUG5CSlRhNUlWUWltVGN5WHFzMWIxQ2swQW5RSVhQMmZYSTZsS3FIVjFj?=
- =?utf-8?B?SnpORGdiNVVLc2NlYTgxbHBmVzFaS1VTM0ZyZEJ5aXVMOUdod3lTeVo0ZnFq?=
- =?utf-8?B?dGdyVVgrY05nQ1RNZGVndzdzWjhqRVk2Z0dkWks5SDVZVi8wOHlSM3pyR3Mz?=
- =?utf-8?B?dkhsTStUUzNoUjMwRGx1UDlGcnc1Skg3bkFyZ3pUL2JVSkNlckYzOVpUWHV4?=
- =?utf-8?B?d21XWlg1MC9pR2JnaDBmUnU4bnplZHZ0eE16bVFXWlpQcWM2aXByQT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2b08437-9951-4ae1-54a9-08dedd91a529
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 08:11:14.5553
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dVa1XXTuUD+Afi7pDu5xEW64+22BaqOJAdjdcAf+qLMrIx1k/3N7GO9vj9t9dAl6Rnoy+p6qqJKtWpOItCDgZb7H8qhPv2wlqHsF3jgxTKM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB7582
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQW7DIBCF4atErEsEA8Y4q96j6mIMQ0xVxxGkq
+ FXkuwcnG4tFl0+a7587y5QiZXY63FmiEnNcLnV0bwfmJryciUdfNwMBRhhp+TRLMQD3KRZKHE0
+ ARO8DCMmquSYK8ffZ+/h87fwzfpG7bZHtYor5tqS/58Mit7tXuxeyaRfJBfdy9FYSKDV27+cZ4
+ /fRLTPb2gX2GloNVeswBGUGb1DbVqt/taradgGxD0EHcq3We921WlctUCpy0Gtvh71e1/UBUe+
+ 56nYBAAA=
+X-Change-ID: 20260618-hm1092-driver-a6f2aaddf201
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5027; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=W1OXVY9puxMvuLpLOktjHcdYOOhnW9MMsJY9qFlEz6A=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqT1fnu98JgGCIxuDSLTnJB0MNckA0tDSB3EqE8
+ YEE/e3bQVSJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCak9X5wAKCRAVlYpeERwF
+ 3gjBD/wLe8MNEWtl3ZhzAzeRd/3+zjtKkWmiNdzCOjCVQ9YtVE6pOIDZGH3SaHbSGyGeg9ziiuC
+ QttRlc0PfKH23qfdJih4w8AcadHEaD3F2sPc7IQ6ZXRXB468tRYGbb8Co7Hboz10yuF/79BWW14
+ V9cWggSY+CXPIC1PahGm/7oE3bSgzFBWWYrMVBJnJgAiPHvVFrr7UAXDhAknlbGKuO0Z+VYEvkY
+ oK1LkbjoVQDVVxtIfrmNiFPsFMjQetb9UszwMIMSgxMnK7zJOMRTeZV71kaGdIhcgz0l9lKYBl0
+ FKKl5SZYCUhKdOUe/R8veWsGd0EQJGfvkTF7dS9j6kzyqJJW7ES87V4tZW5uisxsNpU3mnKQtw2
+ N9XVQboAnc27a88uk7RXaBjxjyNC//0xuO6sJxerwc83DShKjxjUBjQdZ8YsXXoHMZxtPAcgvfh
+ v3Gzq0wTKLga6fIudl1TiP2BDezWw/QDOLfnqWiWeLsAZxdxgbKNzYtBI7yUHMEyJvIAgIkYvJV
+ bLFrluxQwj0yxEYPx30sNINblM/uTZddFXu4Si+uiVkoZCt27tx9lzaj+KmyjakzpxgMTZPu7Es
+ fb0tiFhpkIHFPxwvVGm5xCw8DE72CabvJCblNaNMrYwOwC4Xffe7RD0MiK07TbqZtV3e5k6FBoF
+ A0g7RnfEZYQ+bcg==
+X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
+ fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
+This adds a V4L2 subdev driver and DT binding for the Himax HM1092, a
+1 megapixel monochrome near-infrared image sensor. On laptops it sits
+behind the IR camera used for face unlock. It speaks a single MIPI CSI-2
+data lane and outputs 10-bit RAW at 560x360.
 
+The driver exposes that one native mode, a test pattern control and the
+standard fwnode properties (orientation, rotation). It has been tested on
+real hardware (an ASUS Zenbook A14): the sensor probes, streams, and the
+on-chip test patterns come through the full CSI-2 pipeline.
 
-On 2026/6/26 13:53, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 7 potential issue(s) to consider:
-> - [High] Use-After-Free during driver removal due to missing IRQ synchronization.
-> - [High] Sleeping in atomic context when freeing virtual DMA descriptors.
-> - [High] Out-of-bounds write in `aml_dma_prep_slave_sg` when processing zero-length scatterlist elements.
-> - [High] Broken pause/resume state machine logic leading to channel stall and state corruption.
-> - [Medium] `aml_dma_terminate_all()` fails to reset channel error state, causing permanent stall.
-> - [Medium] `aml_dma_tx_status()` improperly handles unissued descriptors, causing false errors and incorrect residues.
-> - [Medium] Mismatched DMA address registers used for 64-bit physical addresses.
-> --
-> 
-> commit 7102a7639af273fc6303ccde475117debb548165
-> Author: Xianwei Zhao<xianwei.zhao@amlogic.com>
-> 
-> dmaengine: amlogic: Add general DMA driver for A9
-> 
-> Amlogic A9 SoCs include a general-purpose DMA controller that can be used
-> by multiple peripherals, such as I2C PIO and I3C. Each peripheral group
-> is associated with a dedicated DMA channel in hardware.
-> 
->> diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
->> index 0000000000000..bce6932f3a12e
->> --- /dev/null
->> +++ b/drivers/dma/amlogic-dma.c
-> [ ... ]
-> 
->> +static void aml_dma_free_desc(struct virt_dma_desc *vd)
->> +{
->> +     struct aml_dma_desc *aml_desc = to_aml_dma_desc(vd);
->> +
->> +     dma_free_coherent(aml_desc->dma_device->dev,
->> +                       aml_desc->sg_link_size,
->> +                       aml_desc->sg_link,
->> +                       aml_desc->sg_link_phys);
-> [Severity: High]
-> Does this code sleep in atomic context?
-> 
-> When the virtual DMA descriptor is freed, vchan_dma_desc_free_list() calls
-> this callback from within vchan_complete(), which runs in tasklet
-> (softirq) context. Calling a sleepable function like dma_free_coherent()
-> from a tasklet can result in a scheduling while atomic panic.
-> 
-> Could this driver use dma_pool_alloc/free or kzalloc/kfree for descriptor
-> management instead?
-> 
+The available HM1092 documentation does not describe the test pattern
+modes. Their menu names are based on output observed during hardware
+testing; the register programming was recovered from the Windows driver.
 
-Use workqueue to release resources.
+The pixel rate, horizontal and vertical blanking and the orientation and
+rotation controls that libcamera requires have been present since v1; v5
+adds the get_selection support requested for libcamera. The one gap is that
+this driver does not implement the V4L2_CID_ANALOGUE_GAIN and
+V4L2_CID_EXPOSURE controls that libcamera lists as mandatory for RAW
+sensors: the same lack of documentation means the gain and exposure register
+layout is not known, and the sensor is driven at the fixed exposure baked
+into the init sequence. Gain/exposure can follow if the register map is
+discovered.
 
->> +     kfree(aml_desc);
->> +}
-> [ ... ]
-> 
->> +/* DMA transfer state  update how many data reside it */
->> +static enum dma_status aml_dma_tx_status(struct dma_chan *chan,
->> +                                      dma_cookie_t cookie,
->> +                                      struct dma_tx_state *txstate)
->> +{
->> +     struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
->> +     struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
->> +     struct aml_dma_desc *aml_desc = NULL;
->> +     struct virt_dma_desc *vd;
->> +     u32 residue = 0, done;
->> +     unsigned long flags;
->> +     enum dma_status ret;
->> +
->> +     ret = dma_cookie_status(chan, cookie, txstate);
->> +     if (ret == DMA_COMPLETE || !txstate)
->> +             return ret;
->> +
->> +     spin_lock_irqsave(&aml_chan->vchan.lock, flags);
->> +     vd = vchan_find_desc(&aml_chan->vchan, cookie);
->> +     if (vd) {
->> +             aml_desc = to_aml_dma_desc(vd);
->> +             residue = aml_desc->data_len;
->> +     } else if (aml_chan->cur_desc && aml_chan->cur_desc->vd.tx.cookie == cookie) {
->> +             aml_desc = aml_chan->cur_desc;
->> +             regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &done);
->> +             residue = aml_desc->data_len - done;
->> +     } else {
->> +             dev_err(aml_dma->dma_device.dev, "cookie error\n");
-> [Severity: Medium]
-> Will this incorrectly handle unissued descriptors?
-> 
-> Looking at aml_dma_tx_status(), it attempts to locate a descriptor using
-> vchan_find_desc(), 
-> 
-> If a client queries the status of a descriptor that was submitted (residing
-> in desc_submitted) but not yet issued via issue_pending(), vchan_find_desc()
-> will return NULL.
-> 
-> This causes the driver to log a spurious "cookie error" and return a residue
-> of 0, which might incorrectly imply the pending transfer is complete.
-> 
+The sensor driver and its binding are SoC-neutral, so they are sent on
+their own through the media tree. The board-level device tree and PHY
+work that wires this camera up on the ASUS Zenbook A14 will be sent as
+its own series.
 
-If it is not found desc, it indicates that the client's callback has 
-been invoked, and then he should not come to query status.
+Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+---
+Changes in v5:
+- dt-bindings: drop the data-lanes property entirely; the fixed
+  single-lane wiring is not configurable, so it does not belong in DT.
+- hm1092: implement the get_selection pad op (CROP, CROP_DEFAULT,
+  CROP_BOUNDS and NATIVE_SIZE) reporting the sensor's pixel-array
+  geometry, as required by libcamera.
+- Link to v4: https://patch.msgid.link/20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com
 
->> +     }
->> +     spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-> [ ... ]
-> 
->> +static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
->> +             (struct dma_chan *chan, struct scatterlist *sgl,
->> +             unsigned int sg_len, enum dma_transfer_direction direction,
->> +             unsigned long flags, void *context)
->> +{
->> +     struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
->> +     struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
->> +     struct aml_dma_desc *aml_desc = NULL;
->> +     struct aml_dma_sg_link *sg_link = NULL;
->> +     struct scatterlist *sg = NULL;
->> +     u64 paddr;
->> +     u32 link_count, avail;
->> +     u32 i;
-> [ ... ]
-> 
->> +     sg_link = aml_desc->sg_link;
->> +     for_each_sg(sgl, sg, sg_len, i) {
->> +             avail = sg_dma_len(sg);
->> +             paddr = sg->dma_address;
->> +             while (avail > SG_MAX_LEN) {
->> +                     /* set dma address and len to sglink*/
->> +                     sg_link->addr_low = lower_32_bits(paddr);
->> +                     sg_link->addr_high = upper_32_bits(paddr);
->> +                     sg_link->ctl = FIELD_PREP(LINK_LEN, SG_MAX_LEN);
->> +                     paddr = paddr + SG_MAX_LEN;
->> +                     avail = avail - SG_MAX_LEN;
->> +                     sg_link++;
->> +             }
->> +             /* set dma address and len to sglink*/
->> +             sg_link->addr_low = lower_32_bits(paddr);
->> +             sg_link->addr_high = upper_32_bits(paddr);
->> +             sg_link->ctl = FIELD_PREP(LINK_LEN, avail);
->> +
->> +             aml_desc->data_len += sg_dma_len(sg);
->> +             sg_link++;
-> [Severity: High]
-> Can this write out of bounds for zero-length scatterlist elements?
-> 
-> Earlier in aml_dma_prep_slave_sg(), sg_nents_for_dma() calculates the
-> required number of link descriptors. For an SG element with length 0, it
-> computes DIV_ROUND_UP(0, SG_MAX_LEN), adding 0 to the link count.
-> 
-> However, this for_each_sg loop unconditionally consumes at least one link
-> slot per SG element, setting its properties and incrementing sg_link.
-> 
-> If a client provides an empty SG element, this mismatch might result in an
-> out-of-bounds write past the end of the dma_alloc_coherent array, leading
-> to memory corruption.
+Changes in v4:
+- dt-bindings: make data-lanes optional for the fixed single-lane sensor,
+  constrain explicit values to <1>, and omit it from the example.
+- hm1092: add the copyright notice.
+- hm1092: replace the private register representation and write helper
+  with CCI register sequences and direct CCI writes.
+- hm1092: use descriptive test-pattern names based on hardware captures;
+  the available documentation does not identify these modes.
+- hm1092: parse fwnode properties before creating controls and set
+  read-only flags after validating control creation.
+- hm1092: use the generic get_fmt callback for the fixed sensor mode.
+- hm1092: initialize endpoint parsing with the fixed one-lane default,
+  reject other lane configurations, and remove the redundant endpoint
+  presence check.
+- hm1092: use fsleep() and null-safe GPIO calls, and apply the requested
+  declaration, brace, return-value and error-path formatting cleanups.
+- Link to v3: https://patch.msgid.link/20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com
 
-Zero-length processing will be skipped in loop.
+Changes in v3:
+- dt-bindings: add the Reviewed-by tag from Conor Dooley.
+- hm1092: initialize RAW colorimetry fields in the pad format helper so
+  userspace values cannot leak into subdevice state.
+- hm1092: return -ENXIO when the required firmware graph endpoint is
+  absent instead of deferring probe indefinitely.
+- Link to v2: https://patch.msgid.link/20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com
 
->> +     }
-> [ ... ]
-> 
->> +static int aml_dma_chan_pause(struct dma_chan *chan)
->> +{
->> +     struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
->> +     struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
->> +     unsigned long flags;
->> +
->> +     spin_lock_irqsave(&aml_chan->vchan.lock, flags);
->> +     regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
->> +     aml_chan->pre_status = aml_chan->status;
->> +     aml_chan->status = DMA_PAUSED;
-> [Severity: High]
-> Is the pause and resume state tracking prone to corruption?
-> 
-> If aml_dma_chan_pause() is called twice, it overwrites pre_status with
-> DMA_PAUSED, which might brick the channel upon resume.
-> 
-> Also, if a client submits a new transaction while paused,
-> aml_dma_chan_resume() restores DMA_COMPLETE but doesn't call
-> aml_dma_start(), which could permanently stall the channel.
-> 
+Changes in v2:
+- hm1092: use pm_ptr() instead of pm_sleep_ptr() for the dev_pm_ops
+  pointer. The ops come from DEFINE_RUNTIME_DEV_PM_OPS(), so gating them
+  on CONFIG_PM_SLEEP dropped runtime PM on a CONFIG_PM=y, PM_SLEEP=n
+  build.
+- hm1092: free the control handler on the error paths in
+  hm1092_init_controls(); the fwnode-parse and ctrl_hdlr->error returns
+  leaked the handler.
+- Link to v1: https://patch.msgid.link/20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com
 
-NO, I don't think the driver will call pause multiple times.
+To: Ramshouriesh R <rshouriesh@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
->> +     spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
->> +
->> +     return 0;
->> +}
-> [ ... ]
-> 
->> +static int aml_dma_terminate_all(struct dma_chan *chan)
->> +{
->> +     struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
->> +     struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
->> +     int chan_id = aml_chan->chan_id;
->> +     struct virt_dma_desc *cur_vd;
->> +     unsigned long flags;
->> +     LIST_HEAD(head);
->> +
->> +     spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-> [Severity: Medium]
-> Will the channel stall permanently if terminated after errors?
-> 
-> When a channel hits 6 hardware errors, aml_dma_start() halts the channel
-> and abandons pending processing. To recover, a client driver typically calls
-> dmaengine_terminate_all().
-> 
-> However, aml_dma_terminate_all() doesn't reset aml_chan->status to
-> DMA_COMPLETE or aml_chan->err_num to 0. Any subsequent transactions
-> submitted to this channel might hang forever because aml_dma_start() will
-> immediately return due to the persistent error state.
-> 
+---
+Ramshouriesh R (2):
+      media: dt-bindings: Add Himax HM1092 NIR sensor
+      media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
 
-Will add reset reset aml_chan->status to DMA_COMPLETE.
+ .../bindings/media/i2c/himax,hm1092.yaml           | 101 +++
+ MAINTAINERS                                        |   7 +
+ drivers/media/i2c/Kconfig                          |  11 +
+ drivers/media/i2c/Makefile                         |   1 +
+ drivers/media/i2c/hm1092.c                         | 767 +++++++++++++++++++++
+ 5 files changed, 887 insertions(+)
+---
+base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
+change-id: 20260618-hm1092-driver-a6f2aaddf201
 
->> +     regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-> [ ... ]
-> 
->> +static void aml_dma_start(struct aml_dma_chan *aml_chan)
->> +{
->> +     struct virt_dma_desc *vd = vchan_next_desc(&aml_chan->vchan);
->> +     struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
->> +     struct aml_dma_desc *aml_desc = NULL;
->> +     int chan_id = aml_chan->chan_id;
-> [ ... ]
-> 
->> +     if (aml_chan->direction == DMA_MEM_TO_DEV) {
->> +             regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_ADDR,
->> +                          lower_32_bits(aml_desc->sg_link_phys));
->> +             regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_ADDR_HIGH,
->> +                          upper_32_bits(aml_desc->sg_link_phys));
-> [Severity: Medium]
-> Are the correct DMA address registers being used for 64-bit addresses?
-> 
-> The hardware registers define RCH_ADDR (0xc), RCH_ADDR_LOW (0x20), and
-> RCH_ADDR_HIGH (0x24).
-> 
-> In aml_dma_start(), the lower 32 bits of the physical address are programmed
-> into the legacy 32-bit RCH_ADDR (0xc) rather than RCH_ADDR_LOW (0x20), while
-> writing the upper 32 bits to RCH_ADDR_HIGH (0x24).
-> 
-> If the hardware expects the lower bits of a 64-bit address at 0x20, this
-> might result in an invalid address and immediate DMA failures.
-> 
+Best regards,
+--  
+Ramshouriesh R <rshouriesh@gmail.com>
 
-These two registers are equivalent.
-
->> +             regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_LEN, aml_desc->data_len);
-> [ ... ]
-> 
->> +static irqreturn_t aml_dma_interrupt_handler(int irq, void *dev_id)
->> +{
->> +     struct aml_dma_dev *aml_dma = dev_id;
->> +     struct aml_dma_chan *aml_chan;
->> +     struct aml_dma_desc *aml_desc;
->> +     u32 done, eoc_done, err, err_l, end;
->> +     u32 cpl_data;
->> +     int i = 0;
-> [ ... ]
-> 
->> +     while (done) {
->> +             i = ffs(done) - 1;
->> +             regmap_write(aml_dma->regmap, CLEAR_RCH, BIT(i));
->> +             done &= ~BIT(i);
->> +             aml_chan = aml_dma->aml_rch[i];
->> +             if (!aml_chan) {
->> +                     dev_err(aml_dma->dma_device.dev, "idx %d rch not initialized\n", i);
->> +                     continue;
->> +             }
->> +             spin_lock(&aml_chan->vchan.lock);
->> +             aml_chan->status = (err & BIT(i)) ? DMA_ERROR : DMA_COMPLETE;
-> [Severity: High]
-> Can an interrupt overwrite the paused state?
-> 
-> If an interrupt fires while the channel is paused, this handler unconditionally
-> overwrites status to DMA_COMPLETE and calls aml_dma_start(). Could this unpause
-> the hardware and break the pause semantics?
-> 
-
-When paused, DMA will not work and no interruption will occur. So this 
-situation will not occur.
-
->> +             aml_desc = aml_chan->cur_desc;
-> [ ... ]
-> 
->> +static int aml_dma_probe(struct platform_device *pdev)
->> +{
->> +     struct device_node *np = pdev->dev.of_node;
->> +     struct dma_device *dma_dev;
->> +     struct aml_dma_dev *aml_dma;
->> +     int ret, i, len;
->> +     u32 chan_nr;
-> [ ... ]
-> 
->> +     ret = devm_request_irq(&pdev->dev, aml_dma->irq, aml_dma_interrupt_handler,
->> +                            0, dev_name(&pdev->dev), aml_dma);
-> [Severity: High]
-> Can this cause a use-after-free during driver removal?
-> 
-> Since devm_request_irq() is used in aml_dma_probe(), the IRQ remains active
-> until after aml_dma_remove() completes.
-> 
-> In aml_dma_remove(), the driver loops and calls tasklet_kill(&aml_chan->vchan.task):
-> 
-
-NO, when module remove, mask all irq.
-
->> +static void aml_dma_remove(struct platform_device *pdev)
->> +{
->> +     struct aml_dma_dev *aml_dma = platform_get_drvdata(pdev);
->> +     struct aml_dma_chan *aml_chan = NULL;
->> +     int i;
->> +
->> +     of_dma_controller_free((&pdev->dev)->of_node);
->> +
->> +     regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
->> +     regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
->> +
->> +     for (i = 0; i < MAX_CHAN_ID; i++) {
->> +             aml_chan = aml_dma->aml_rch[i];
->> +             if (aml_chan)
->> +                     tasklet_kill(&aml_chan->vchan.task);
-> But an executing interrupt handler on another CPU can subsequently call
-> vchan_cookie_complete() and reschedule the tasklet.
-> 
-> Once remove() returns, devres unregisters the DMA engine, frees the IRQ, and
-> frees the driver struct via devm_kfree. The tasklet will then run and access
-> freed memory, causing a use-after-free panic.
-> 
-> Should the driver explicitly free or disable the IRQ using devm_free_irq()
-> before calling tasklet_kill()?
-
-Yes it had  mask all irq before call tasklet_kill.
-
-> 
->> +             aml_chan = aml_dma->aml_wch[i];
->> +             if (aml_chan)
->> +                     tasklet_kill(&aml_chan->vchan.task);
->> +     }
->> +}
-> --
-> Sashiko AI review ·https://sashiko.dev/#/patchset/20260626-amlogic-dma-v9-0-558d672c4a95@amlogic.com?part=2
