@@ -1,97 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA6F2D5923
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:03:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6FA2874E1
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783609395; cv=none; b=rmIJMNwR+3fX+0g6EpG9ZAE56++UDPBn75zqgJp82tQbESocAPS/55agagcq9YnxA+UOUVu8ydl9ojx1BaPfM1a18d0rA7rfj2WNJ9hsGa8TRn4UDVvsr7TJPYziooBz22kISeQ2iiZCthXbszi8P7CA5FP6Av9HMIB5h0fjP/k=
+	t=1783609411; cv=none; b=VoMtvZibYjqKbQg6vIEguoSkSZVkW/uRfoMJyNKGO/vRNK3mYk8KH5YdrnrOqQHk+SIMZpa4ZyYAjerfDoNqzSzGnVJxkIyOrmF4T+utENSwczZTnnMnefA7WbbZo5nPKIhwEvQpOIaXS10aSYOD6T6YPL3urWPgphRCxAGgpuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783609395; c=relaxed/simple;
-	bh=yj4Dz2SnhtNl05+daMdy52THRlpCzi/BuKt6nu4xPac=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WOBsAMmlIpUM/xbucDpOMUmvWbCveMFxBeIida34/HAOQEB3+E9rhhKQ7ATWSmPJPYXWkuHqnl1G2OEFipdv2NWAMNHYxThihdLL61QD/9mYB4ETIwc4hyZDAh/vzfBOUMrzjWoKbBh6pODDjQ8/VH2BIpOTO3i4cFlQAUQhBsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DzF6DCDO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DzF6DCDO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1B11F000E9;
-	Thu,  9 Jul 2026 15:03:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783609393;
-	bh=Pnvtqb+Hmz+TzxifFH3F66CccxkOD7fIyHN10ZZOSl0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DzF6DCDO+VKMt3DFWnvvMZQ5wrQ0sLt4UwrCIeExhra/qYeRUsOCalf8g32kdhe0u
-	 QZSr5pAJtas4IGVdsNbmfmPmVHotRnwYw7Kcg04Cxwox7yyBtI8m3orfGMv76BF/tc
-	 3ECXTLB0+V44N2lQGAOy9jh70j7IecSKaJOjprhfqdjA9YHfP118ETSMklz93ilAwH
-	 lyrBzdhJL7hVH6Ch/NRT3dAcu28JVL8ke4JK2yrjVPEk4oKcMfchi78DUMp/w/IeMC
-	 XX4gEEPq9glaE3lu67Gwsxr+XkI4q4b5gWrO4Qi+TzI8qTcRxYdeXmU6HomFwB6u8S
-	 k2W3AQaS29r3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 10/11] arm64: dts: qcom: monaco: Move Iris IOMMUs to
- child nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-10-72bb62cb2dfd@oss.qualcomm.com>
-References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
- <20260709-vpu_iommu_iova_handling-v1-10-72bb62cb2dfd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 15:03:13 +0000
-Message-Id: <20260709150313.9B1B11F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1783609411; c=relaxed/simple;
+	bh=Ywx5XHcvMXEATTIxBq1F6f4GLGgI9GxM1jMgq6ZA5Us=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PK9+cNtbFMpfvbSxqI9qQTP8Bd+cChiOVr10UnRP1Oj6lIU5ijrEGLhwmTukthEFZBs4g3OpZziKHd5JphzL/SUFAZ5Za7zlxglxuTQ/9Q7XHG4L5p7OeUUhh/ALnqUA5xibSz9Fw8k1/fEglOERU9xSgv/3YsKOxCJsZe5ytn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c029505b389so169036866b.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:03:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783609408; x=1784214208;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FhJA8BeE3pPaGDlrUUvedWi+hMG2tf39b7PewxLsBUk=;
+        b=CgV5MAHjQRk2SbjjtP03ah9IVO0vJ5ODJmD0YUGspzqEJF9l4CfGvOqE8C7kK/jDEY
+         HL+ZSYP3g0lBkw5ZFQk7YJxGm12u0oMWzx5wc4zSCh5Z88hFtI7bj/Ri3rzlCb6lE0O4
+         LyfOpfmlaGmB09KeRQ/Eh4V1HXeDnvx2gJVpObuOJ4WUm9rzo6/y1m2YNzqF9jmnWFvq
+         X8yPQwavVyBcKcxiPoAicDZxwMN8svsgXs7iwOAJF5aI6yKPTSVIKW/ywJoz4EdN8p6J
+         ScmmhyWMVSrgzOfsNWZKv2dtZrGVNoMFnBU9KOCbKBy0M6sJtqwOUYnhERoLOFM2G7O7
+         UNqA==
+X-Forwarded-Encrypted: i=1; AHgh+RoJ8YCF5r6C9yHxBP1Iql+wazm+q7fPdFRhTJ7WvZhvYZdjYX6YC/dZFTCFrbHBfRbx/b8MaqUXR+6l@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOmUnIc/8Ye5YPRYCgf6zf8sCmRA72lPe6lJod7atklIQAveOZ
+	V8zJABpi10pvVbWUR4hKnUrJvFRQIEbQbceQsco/+ktlhqvADQ/uxuliNyeOnqNwEvk=
+X-Gm-Gg: AfdE7cntZmjwsO0MRDV1Ln8s5E5FfvsRR7IHdd49GOuflr5gaE32pcg9nBWyGdr2oEg
+	J46WXpe3rRb8kt+YPV9OEmYPNZm0uB1495QhfIcrvIlhbgbVb8q4u+zZJqW1tR++b1OjC4vgK3c
+	f6IPQlJbbVNV2eC+uktKLFEI+uJH7HORuE1zorgjtnU2YJPDG8t+7m6F244qVKalC80VCX3hKgA
+	vr9//V2wFSHq50oTeEiqtZcki4/YrL2CuHWEgeypgurnsxaqqySQd4cPKurqvhoDvfLf2pJ2u31
+	uLV7TqpioQ5UGpePKkJXgtSrqrvdyftifG9Xau6tK69AUcFuzr5hOeqEDB9dp6XtlAs1nYjpVDR
+	JRWTXw1kVRmUeI2RLrTlwypFqs0dL7rJVm70AqS2+W8cXqDN/44w8/nuacobsOg8lBUh009hsRe
+	vfn5XsZ4uqQN6KLTdESD8yK1tB8gXEh73qIsOR+zd7Yfs8EPw0Rg==
+X-Received: by 2002:a17:906:bf45:b0:bd2:15b5:bf60 with SMTP id a640c23a62f3a-c15e740e2f6mr153623966b.3.1783609408420;
+        Thu, 09 Jul 2026 08:03:28 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad844cacsm516185566b.19.2026.07.09.08.03.25
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 08:03:26 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-698aa7ba320so2447112a12.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:03:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RofiO82zOP5dDw0KH8DpUtUTndK+Fhwy58tu60y5OELDx6pOSItT8VWpEhJ2oc22gTCh6dF5Fzq0liO@vger.kernel.org
+X-Received: by 2002:a05:6402:a29b:10b0:69c:20b8:f1e with SMTP id
+ 4fb4d7f45d1cf-69c20b811camr18850a12.18.1783609404940; Thu, 09 Jul 2026
+ 08:03:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260708172849.227915-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260708172849.227915-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260708172849.227915-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 9 Jul 2026 17:03:09 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWJ04fbFGK5vOyQF6ED9d=1bv=khtPZOZVUv25r5TKQAQ@mail.gmail.com>
+X-Gm-Features: AUfX_mwiu6IJcbWIAEAJjxVY7iWOVhxZgcxDH221GNBhFtNI0GgJXWs_ZUqzb1w
+Message-ID: <CAMuHMdWJ04fbFGK5vOyQF6ED9d=1bv=khtPZOZVUv25r5TKQAQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g056: Fix PCIe dma-ranges
+ memory space code
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Misuse of `iommu-addresses` in a `reserved-memory` node creates an=
- `IOMMU_RESV_RESERVED` region that actively blocks IOVA allocations in the =
-0-600MB range, rather than restricting allocations to it.
---
+On Wed, 8 Jul 2026 at 19:29, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> The RZ/V2N SoC supports up to 8 GiB of memory. Update the PCIe dma-ranges
+> property to use the 64-bit prefetchable memory space code.
+>
+> Fixes: 4c443296ff17 ("arm64: dts: renesas: r9a09g056: Add PCIe node")
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
---- Patch [10]: [RFC PATCH 10/11] arm64: dts: qcom: monaco: Move Iris IOMMU=
-s to child nodes ---
-commit 2ee0f65b225528a8b439c85350380c9a56ad101f
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3.
 
-arm64: dts: qcom: monaco: Move Iris IOMMUs to child nodes
+Gr{oetje,eeting}s,
 
-This commit splits the Iris VPU device into non-pixel and pixel child nodes
-to accommodate different IOVA constraints. It adds a reserved IOVA range
-intending to limit the non-pixel stream to the 0-600 MB range.
+                        Geert
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
-com/monaco.dtsi
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> @@ -831,6 +831,10 @@ video_mem: video-region@9be82000 {
->  			reg =3D <0x0 0x9be82000 0x0 0x700000>;
->  			no-map;
->  		};
-> +
-> +		iris_resv: reservation-iris {
-> +			iommu-addresses =3D <&iris_non_pixel 0x0 0x0 0x0 0x25800000>;
-> +		};
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[Severity: High]
-Does this iommu-addresses property block allocations in the 0-600MB range
-instead of restricting allocations to it?
-
-During device probe, of_iommu_get_resv_regions() parses this memory-region.
-Because iris_resv has an iommu-addresses property but lacks a physical reg
-property, it is classified as IOMMU_RESV_RESERVED.
-
-The IOMMU DMA allocator then passes this range to reserve_iova(), which
-explicitly excludes the 0-600MB range from the available IOVA pool.=20
-
-Will this force subsequent allocations for the non-pixel stream into addres=
-ses
-above 600MB, resulting in the exact IOMMU faults and device crashes this
-patch intends to fix?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-vpu_iommu_=
-iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com?part=3D10
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
