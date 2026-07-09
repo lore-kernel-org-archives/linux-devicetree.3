@@ -1,93 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A413423760;
-	Thu,  9 Jul 2026 12:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2122B425CD2
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783600662; cv=none; b=DzG3fTO/t2LWKJv7OH3MIvXsiR9OKOGBwqFNW+RVx0qeX4zwNEyif/9vu5kf6kkTc9HBeQ1tKF7Sg6TT/rCMCeg39V1RAMW7wb+WQB3xdsxkeumKHbbrhPQErBb4ZaQv1I/qfbw7/HuxYaJZi2Y/8ipWVktED+8Axyl8F4uHv88=
+	t=1783600769; cv=none; b=Nzi/zYu8XvsBADzuADki5eIGdeTZ9cjLi0vT27Qu+ZLpMp1zKAlh/sfS0DJIojoYbcPx+ys7dHFjENXkADzUoiK++ecMAJ8E6dIQdYpiRO5HacCwdVC6DFYsEPM5AvfR6LHSTzI1Cp/wlTHRQ6NF4ePvMRIGf3zHY1w/YmKHoMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783600662; c=relaxed/simple;
-	bh=0J7hIgkwB5sE4OU6Sqh60k9YNz3oEtRruhHnA5cNaM4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JmdvK9GCkKdkl5bbD8V0c2kY36eQP9h40vFiaGlvG6OdkYXsyyer2vDZM/NurEQFFTUTPx8lqbxVP+bpXWh0syrVrAd7Yu0uITR0waVr3AP0+NkWGwgNL18C0thx5I3G5QBlRBWDik89ic9qzTryxC3vgQuG7/JPGDbBYrDLLaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBvof/BB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783600769; c=relaxed/simple;
+	bh=Gu/mfaCwUOZfbyd3j2jz9BUIQ2t6OtsdXr1YluxXw64=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QJ+Jh2LstfjWR8DF5Dmi5T8VERSl7F/utilcQoXRRNenncGBEINtD840TydgLVJtdH0xTwJctR2sY2PH7V+IKeN0YwIgM4B+BLSV+VozONOc0/fGo6YbaTFlSPoX+h8rBwFojxrv+BcMaAjTz52N4axetTCDilQG+nbnU8a8BD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLsrnEO/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBvof/BB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0DA71F000E9;
-	Thu,  9 Jul 2026 12:37:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLsrnEO/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67BCF1F00A3A;
+	Thu,  9 Jul 2026 12:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783600661;
-	bh=d+I6Ij0RIVg4FWAhVXqvFwgT8exdZa7Y7XGYR47xqP8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oBvof/BBK2qlFdfZqtGxer2TfVy4zGc+dfBe34gfduhEZ/RPn3FWVeSDc2IDqE66v
-	 bJ4Jmonx2fkfW6XfrHVkh2BwLrPoEJJFJhaGaM2WV4jEmmr8pUxs8bhOBTQVQLRSQO
-	 +0kxyfWzzeo0yLnIxQpvmVrC2MMr2ab5QbiLDl5gAEfnmHx3c73NmcNbeA1IYPHgqd
-	 N3nPTx2RoncCXefMvZ4WUN5kV0yh0PCSUWgyh0fZE8kHLMf3CtiqBih9GREO4owe2E
-	 rlcDRoo2FHLQbCfQAQjcqlEEPMej9oaxyR5+VXrEn1nFWr96f6woouuhXXhx8gb2Th
-	 5nsJTf1BEUufw==
-Date: Thu, 9 Jul 2026 13:37:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v1 2/4] ASoC: qcom: q6prm: add support for LPASS LPR
- resource voting
-Message-ID: <806426ae-d110-4e15-bd33-1ee689e9d1c9@sirena.org.uk>
-References: <20260708114924.1069239-1-prasad.kumpatla@oss.qualcomm.com>
- <20260708114924.1069239-3-prasad.kumpatla@oss.qualcomm.com>
- <CAMRc=MfE3thXsff0JO2f2Ly_+CqzDfqs8V9CdcrT84h81OFV3A@mail.gmail.com>
+	s=k20260515; t=1783600767;
+	bh=Glra8PM4NwvhMoMLMUELeGKOY0pVK6QZo2f4IdxRaAU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZLsrnEO/ZcW59JRoT86lZ+E9E28AhGnpRErvAOVVnWPrRDW+wR1C395amEmkVL+V3
+	 0CnScU3wO3EbvbZpWlp5oZo8b28t/FisJKOX0CZ+Pboh17WbYAYYCVny+HfhMobJli
+	 1I36KtBSqFWe7tR2/4D56v/8QTUKAt5XiB0srZ/EmRqfrGiMcn8c1M3FUKqcYHZ0zD
+	 qpjan/xwLbcLCrdUwSxm4wprEPn7C4JVbEAflOQLzUc9yPykPN+ZxaJSFplZXxbbf9
+	 y/9C1nRDIxdcpCuHep5V86OZ9+yWrs1PFkO92xrKVoGcd40BUBu1b4YURuOZBIktTL
+	 JCjWPjd5ZFZkA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 4/4] arm64: dts: cix: sky1: add audss cru
+Reply-To: sashiko-reviews@lists.linux.dev
+To: joakim.zhang@cixtech.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709120125.3997078-5-joakim.zhang@cixtech.com>
+References: <20260709120125.3997078-1-joakim.zhang@cixtech.com>
+ <20260709120125.3997078-5-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 12:39:26 +0000
+Message-Id: <20260709123927.67BCF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UVr7qDEcqlz5LFxi"
-Content-Disposition: inline
-In-Reply-To: <CAMRc=MfE3thXsff0JO2f2Ly_+CqzDfqs8V9CdcrT84h81OFV3A@mail.gmail.com>
-X-Cookie: MS-DOS must die!
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Double decrement of the PM runtime usage counter in the probe erro=
+r path.
+--
 
---UVr7qDEcqlz5LFxi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--- Patch [4]: [PATCH v9 4/4] arm64: dts: cix: sky1: add audss cru ---
+commit 37987ea88a502f3fe87d70d7d428d9f00deb012d
+Author: Joakim Zhang <joakim.zhang@cixtech.com>
 
-On Thu, Jul 09, 2026 at 01:23:24AM -0700, Bartosz Golaszewski wrote:
-> On Wed, 8 Jul 2026 13:49:22 +0200, Prasad Kumpatla
-> <prasad.kumpatla@oss.qualcomm.com> said:
-> > Add support for issuing LPASS low-power resource (LPR) votes through
-> > the PRM interface.
+arm64: dts: cix: sky1: add audss cru
+   =20
+Add the AUDSS CRU device node providing clocks and software resets
+for audio subsystem peripherals.
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/=
+sky1.dtsi
+> index a77c52296ebd3..9b2d969f6bfe7 100644
+> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
+> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
 
---UVr7qDEcqlz5LFxi
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> @@ -558,6 +562,20 @@ mbox_pm2ap: mailbox@65a0080 {
+>  			cix,mbox-dir =3D "rx";
+>  		};
+> =20
+> +		audss_cru: clock-controller@7110000 {
+> +			compatible =3D "cix,sky1-audss-cru";
+> +			reg =3D <0x0 0x07110000 0x0 0x10000>;
+> +			#clock-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +			clocks =3D <&scmi_clk CLK_TREE_AUDIO_CLK0>,
+> +				 <&scmi_clk CLK_TREE_AUDIO_CLK2>,
+> +				 <&scmi_clk CLK_TREE_AUDIO_CLK4>,
+> +				 <&scmi_clk CLK_TREE_AUDIO_CLK5>;
+> +			clock-names =3D "x8k", "x11k", "sys", "48m";
+> +			power-domains =3D <&smc_devpd SKY1_PD_AUDIO>;
+> +			resets =3D <&s5_syscon SKY1_AUDIO_HIFI5_NOC_RESET_N>;
+> +		};
+> +
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpPlg4ACgkQJNaLcl1U
-h9Cjlgf+Nz5uKRE/NLkLLPGryvc60gmomFY+Luj+HjVvajw33sMYqHdrZcWiMjas
-i8SvLnQJDIQOKSe339Vf92a9AplghkHDBkGqx2ZruNqzPUSvHc1k6Hc/PljbmwC2
-Pv/6U1txwrr3WSRUY8ph+U8qGYNttYkDIySJ1oqxQIINoL139hkWKe/1/u9Qz98f
-Q/LxyY159NRPMWrj5VHFqlt4YuVB4/IBxJSMhl9leYYRxXXESeFYvOV6Pwa/85Ur
-FLcrYfmS33lDR4u5uM5rRyTHL9DIKOjrPu5iHKPSe2YPOpxYNKpKnVTP00Gg3N+3
-4PZ221lSnuuVM2bGVkAnWN9IMT8UGw==
-=XU7P
------END PGP SIGNATURE-----
+[Severity: High]
+While reviewing this device node, I noticed a regression in the correspondi=
+ng
+driver's probe error path in drivers/clk/cix/clk-sky1-audss.c:sky1_audss_cl=
+k_probe():
 
---UVr7qDEcqlz5LFxi--
+fail_clks_set:
+	pm_runtime_put_sync(dev);
+err_pm:
+	pm_runtime_put_noidle(dev);
+	pm_runtime_disable(dev);
+
+Does this sequence result in a double decrement of the PM runtime usage
+counter?=20
+
+The error path correctly calls pm_runtime_put_sync(dev) but then falls thro=
+ugh
+to err_pm which calls pm_runtime_put_noidle(dev).=20
+
+Decrementing the usage counter twice when it was only incremented once caus=
+es
+it to underflow to -1, which corrupts the device's PM runtime state machine.
+
+If deferred probing occurs or the driver is re-bound, will the next probe
+attempt fail to properly resume the device because a single increment will =
+only
+bring the counter back up to 0?
+
+>  		mbox_sfh2ap: mailbox@8090000 {
+>  			compatible =3D "cix,sky1-mbox";
+>  			reg =3D <0x0 0x08090000 0x0 0x10000>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709120125.3997=
+078-1-joakim.zhang@cixtech.com?part=3D4
