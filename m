@@ -1,260 +1,277 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011008.outbound.protection.outlook.com [40.107.208.8])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D14332AAC6;
-	Thu,  9 Jul 2026 13:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783605100; cv=fail; b=s9mobyeuIADBSrNpoRq7hU6VBjdlNEAOUUZOs+FuAnJUoZJ+K/Vn/37chvJpbkTnEc+/NI+ieIOxOLYV6zOLi9iYovyz6kgY3HE7vxxaXNCLaaZgMo8Gc6+wrWrs3VVQju1eClUNhEREKHbsgFeEitdwEuekNqzslSO1nujVsRA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783605100; c=relaxed/simple;
-	bh=TWDEGpUphryd4rGCztX/jpgp0IN3KrRqi2vHehmH9Ug=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=IrALQlMugQ1tmzg4m+KkzoD2ssH8+7PjXBYhqdcdYy4cJ8cyl8RVmhvgeC+4SeMykRv/KeETXMO4kiUY2OH7dkYi57vY7aBjRSnoRx3SpcFOObCdBJdfcesy0xWz3UtKHUtF2hicd2RjKJaqYzx9W+GlkQY8K+/MZnn68Rr70yo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=o25jgKGP; arc=fail smtp.client-ip=40.107.208.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681BE42EED1
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 13:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783605123; cv=none; b=iRHoIYQ333otPv0Pxcs8BQc2Zcqws52ku00DOReV4HGwDJo1VGwyaVwPyQ185zzs4eQnDWKHEV7fIeAet8zCdZ2wpJvxoXYV77NsY6N7BXU/NxNBOyIqHbf2zykYEBQT4nKhIpaFD65aiyvldXD5TD123O+dTH2w0LoOdVckHlQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783605123; c=relaxed/simple;
+	bh=YhzlfPd0hTh8S+xkIpvYunh0o/0tYbuHg+no0ssYtgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P563CwGo62o2qZFODZh3hWnLA1tJ/joH2869kx6Vf0JUmxVdO5BH3aQq1GoVHetO2dcq6UEDLoWcLGV+9Y89bv0wXFKEz9iDKEyyWJzgy3OJx4E8oacMYZxqU458gRqs6i+jVAfs4GJpilUI3Cqe0WgJFfU72Vx1NNgnngBm7kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IbOV94Ty; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="o25jgKGP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uh8JKinh0CmaG7p615zQlw/i7DFL3RAtUAxXI4HvDSeC2/DfiA9gK52sMyFNp/CWJjWtXJMc2xjrdZHbsYF4q2zW/OwCQjHLbQlVGo+6ZFOhGhR8BbF8MV6K43W0PT2Et509P1OtdfSg/DpiK3/lKXOmm4PnQLwCESNVovPDAW0b44hvzLjsFY0ndPJ1NSpivuV1E4m1AYQaLQfQkwTsGL8DyEE0Gaux6LukrG4NEdsQCt7ZBCO4iLUS7pwvSYgmHoMJamSZlwpb1JCNa7q1eCEjVbKlxoN4gTkn2lJWSYkhVCcg9lawT0Xmn7I7D7tMWVkxn/3MzhoSAFoP2wHyqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G2ve1YfxoeNbQgzehGKDOk4KBKtPqlDm+rn25pVaLRA=;
- b=pspe4pGwW5vDLr7ikTgMxVa9bMgYLziazMRUL6naYozI6lCY+9FehAZozK9FKl5+Fx7SmLSaYS8CTDdq2qt4szvYyqdUH5jEv1RB0TZDpNIwxQ0Ox8tCKNlFbtq1OExYW93ZF8owuV+a3lTbadQDdPqnV1dHUoe7mowUjzJDwMqbp96D+umSeHfoawMYXNJbg6ie6JHy6HHqP4rJcGb1Y5lyYD25pkR0e5+K+WCl/mKk/jLX1NNOPOVNIKgRT31c0TAU1utdfEIXsIltM2IdJf0XNI8tiwOX58KK3SoPW0oBaQ+Q86oEj0Xgvq9fGhApj2a0xyVDyoncXdHidXk2Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G2ve1YfxoeNbQgzehGKDOk4KBKtPqlDm+rn25pVaLRA=;
- b=o25jgKGPWF0Q9ChD9mev//oDrHhsFS90DANDcmc1r4lrIU5S8DH1LexlzpuhtKvvZphoBdLiZ5OWSFgLtf3r9KH3lOggJ76pNQWfkqXItOmgG+w3mSqYipylY+o5kWcg+99f/PHSkrG/lQFnHuVlrzLe6m+JNROPOdfAUDJWzQc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6448.namprd12.prod.outlook.com (2603:10b6:8:8a::7) by
- IA1PR12MB6187.namprd12.prod.outlook.com (2603:10b6:208:3e5::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 9 Jul 2026
- 13:51:34 +0000
-Received: from DM4PR12MB6448.namprd12.prod.outlook.com
- ([fe80::62c2:71cd:7fdc:987a]) by DM4PR12MB6448.namprd12.prod.outlook.com
- ([fe80::62c2:71cd:7fdc:987a%6]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
- 13:51:34 +0000
-Message-ID: <a7a67da7-cf10-43cb-823f-90bb06709667@amd.com>
-Date: Thu, 9 Jul 2026 06:51:30 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] remoteproc: add AMD BRAM-based remote processor
- driver
-To: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Michal Simek <michal.simek@amd.com>
-Cc: Ben Levinsky <ben.levinsky@amd.com>, andersson@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, tanmay.shah@amd.com
-References: <20260629164003.3940208-1-ben.levinsky@amd.com>
- <20260629164003.3940208-3-ben.levinsky@amd.com> <akfl1Uhn9QHRwE6n@p14s>
- <30c8d353-f0ec-4ee2-bbaa-0d21e2b985f1@amd.com> <ak55jBBfQMJ71Afj@p14s>
-Content-Language: en-US
-From: Ben Levinsky <blevinsk@amd.com>
-In-Reply-To: <ak55jBBfQMJ71Afj@p14s>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR13CA0013.namprd13.prod.outlook.com
- (2603:10b6:610:b1::18) To DM4PR12MB6448.namprd12.prod.outlook.com
- (2603:10b6:8:8a::7)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IbOV94Ty"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1783605120;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ysWlghC9J8ScLCpP/g8zxoZvmb5MDE+iTRZ+tsKYUa8=;
+	b=IbOV94Ty14a5DCPQVC5yu1BV/+bi+CGyQXCkpTvZFEsrR1Z3DxCrTMgWuin33KKjONa7u6
+	emDk86T7i2Y5hNTKDWAwGRUzXvBWxqtxE2wE+5QzqAzeV1HCHT05cqOCrR5p/MBPZawHcD
+	iB1NmXgW5k1pEErBQVaw/fgOUbaY6VI=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-648-0XHMz5IlPXOl-THAHDU14g-1; Thu,
+ 09 Jul 2026 09:51:54 -0400
+X-MC-Unique: 0XHMz5IlPXOl-THAHDU14g-1
+X-Mimecast-MFC-AGG-ID: 0XHMz5IlPXOl-THAHDU14g_1783605112
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8369C19560B5;
+	Thu,  9 Jul 2026 13:51:51 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.33.79])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E6FCC1956089;
+	Thu,  9 Jul 2026 13:51:46 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: niklas.soderlund+renesas@ragnatech.se
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com,
+	richardcochran@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v4 2/3] ptp: Add driver for R-Car Gen4
+Date: Thu,  9 Jul 2026 15:51:41 +0200
+Message-ID: <20260709135141.243782-1-pabeni@redhat.com>
+In-Reply-To: <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
+References: <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6448:EE_|IA1PR12MB6187:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a96338f-e34c-4bf8-9daf-08deddc13016
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|56012099006|4143699003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	V2kn5Vjf52aU9CUQFhfmSJmMADFMQCDqzDoQYUHSrOj+UxxrD0XgV0kXykh4rjHSpoF55+2F1eI/Li8LOyQS9KhYIYq4z6nD9bFsp1DQ1h0m8tSTa1K2rL4gY2FUVhwuXiWgcideiX/xNmOjLDQqoe3bYt2dQTTblwnwEHZRyGlwlya9TsIURzXUfMM0qE2uQ9fetaoDY9h8HeFFINL/qaJvkd8Mw6Ol1Tpl3wEBZBCfBCOGLWq6o5+W7MumgX/DmwbtFnUA/sSScBunRUBRZ9B9y0Hdj77vhkmDhc0cr3CDq+woVZzhDpUgKAMWv7wg9ko4Iel+AaGrMRbMwiq+yxXm0/IZLiPKju7mCG1fnt6hVynGA3jr6y2LK9+UcBJdYIQEbDwcKEaLEZxDWpLnCGmXiETrCNSma0IwfkTxP/PXTlUzWdDnM8Ghf0VzSDeVW3fcyWKU6OyaZ/JdJikYHvEhTdYLISFFq0vMCQO23/xZcdxSCdM0ky6dY5oqoNhrk3SzegoebVyaAwP2YdySwdVjcJL9z+Le2vu7SpzcbnnIk4YQ1KQfLHXnHVEfcmdp5cs2NoJNjxC4imdy7RMtd+B94gBSYwR4pd8LAWlT83z2JyM3icmdbs7EU/OWshm8EENG6S25luZPPjl8SFgvByPhqPWaY3fP/5wFy77pF2o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6448.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(4143699003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aW85OHhES3RmN0cyR0NwV2JPVkwySHY2b1ZkcjJTMjdpWDgvSEJNRHV0Q3RQ?=
- =?utf-8?B?VUpZNCtScmJWMlNtd3FoampjY2s3RzlGK2lVQ0Jna2dwOU9ndDlxZFc5Z2Ey?=
- =?utf-8?B?Ykl4UzlSUW16eEd6cnUrQjg3ODhoUFU0R2lEdWpzV3BxZGNzUGQrdXArSmZV?=
- =?utf-8?B?NE1qSStSY0FDVzJjMzR2NjNvMkNOM0N4UWkwVkU0eElCK0xESVdXWHRvTWM0?=
- =?utf-8?B?Q1Y3YWc0aUF5RkJQMW4vS1pCU0sydkJrTml6RWo0M2pES085OFRaekYycjVG?=
- =?utf-8?B?STZYcHhhTE9oY24xb1NPTUMxVFVmR2w0ZXBoazZtVTFTcTJpbXVCMnU4aS84?=
- =?utf-8?B?NzQ1aTRtbjBCek53OHBUc2QvcEZTTDBidFVuN2daWlo0dEp2cFJKdTZOYVVp?=
- =?utf-8?B?Q2hoMkd6bS9sR1pGOERHcUtIM2MrWjRHQ09DNXBYYjd6UGVuM3dzK3VsZlBS?=
- =?utf-8?B?Vy80UnRaY0grV0V3MHJITFBmUlFOVS80dFl3U0Q0U3BCS0RDa0ZqbDNWQkxB?=
- =?utf-8?B?eTNMVVFPRUJDcUZnNzExR2F1dHFDd1JINFFidnZNMnNDTGNBeDMwOXh2RmNF?=
- =?utf-8?B?d1N1azlHTUMvaTd6SFNCeTVoaEdpQ2pPS3crMTJscWlqZFRWUjhrNFAveGZs?=
- =?utf-8?B?ODVSMXZDK0Y3UmNOOUZZdHlXTThYUng3SnkzUFJsZTZsVUVlR0tVaEVTdlpW?=
- =?utf-8?B?V29vWVJwK3EzOHkzRWlTVWkzeDZvZjlnMS90bWpGMVp1UnpWZ2lOampvdU43?=
- =?utf-8?B?NUsrRGY0UmE5aStReFhwdGp2SG5aMnh1YkZPZTh4YXl4OVgvcmd5bHlTS2t2?=
- =?utf-8?B?RmtlQWp2WG43cHpUWmVSRVNwcG0rUXNQZTZ2SFJJNURnV01oM0JXdE1pSmdF?=
- =?utf-8?B?OUNicExKZ04raVA1UDdtRnlUS0dPZnlQTGw4VFBXa2Z5bmM0dkhhb0ZSallq?=
- =?utf-8?B?dW1XUFdkQWNQcHNVMGRqTzVmUE9kRHR4Ym1qSG1iNGt6aWsrR0FqZ0ZhaTRj?=
- =?utf-8?B?MTRxd0hhUFlwcjJYaWhoV0k5KzNabkQ3Z2RLTWpMbGpqeUhmd1FrN0Z0ZWNy?=
- =?utf-8?B?VTFDbU4xRTgxOUE2R3VGb2s0T043emoybDduRU0xV2tNdGNKMWZWZXRLa0Ry?=
- =?utf-8?B?cWl5bjg0SGdzT1N2ODg2djVTMitYTGJScFdwV3V2bC9xTzlRWmFETExQVURs?=
- =?utf-8?B?ZHpMMTNreFZqZmVkQ29PSzdTMzBmeWV5QlA4WnZ4UmN1TmxxcklPUnZ6NTVW?=
- =?utf-8?B?YUd6dGU3TDdFTndwclpjcmlpZk1ncm1URGU1K1BWb3grVUQ0SVlWMlZZTEhp?=
- =?utf-8?B?MTZMWDlaazFaTGJNbmNEbFlqQ1RQNmd4STNPUW1UR3ZJcW9qYWVDVnZCNzRr?=
- =?utf-8?B?Q2lxWGg4czVlazd3MnAxOGQwREdHT01ZWXh2dDJMWjdsa2ptRWgvTGRMemNT?=
- =?utf-8?B?anl5MzY0UG92Q3R1ZlFCbGRaT3ZDT041VVdxQ2NFZ05tYkdxbW12RGRjZlVL?=
- =?utf-8?B?M2lXQWpPL0ZMQU9MQ3NteXYrN21lTnYvaHVjcHZ0T2ovN0NEcmlTemVTaGEr?=
- =?utf-8?B?QWhaUjU2Qk9sSm1SY0k1VU1Hb2tqaklXVGtPdWpYcVpqcVdYMng5ZzNUbTRR?=
- =?utf-8?B?SVZjSGpNZmd5YVpGcW5FQ2NicXhYQmZhclZqN3VBcWd6SlZSNkhPaDVJYWVG?=
- =?utf-8?B?dXViMGRCbFpQMlRMUU1BRDQweEVEZE1ZTTdnd2ltVHNmc3JXZjBDZThiVmVs?=
- =?utf-8?B?UTJybVV1NVlvMmZpNm52RTFyODRMOTZ4cGpzU2xTVk0rMFRYS0hXSUdxLzJr?=
- =?utf-8?B?aHQ5NTczWnF4SHl0QSt5YlNROG1vazkzSDRnKzFISWdSVmdpUVlxMTYzTGdo?=
- =?utf-8?B?ODNIaDhxR1VIam9wUmNiSjVMVEE3QTVOVEZ6cTl0NVpzOGZGcHNwYkZuZzY1?=
- =?utf-8?B?SGtUVVlHQWNxWnJoRm92MGtvajlMTWNxN0VPeGJ1SVNnNkk5QnlxdHVWOHRV?=
- =?utf-8?B?VlVkZEZ6K1NmRVNBUVpvTUMrbUxSVDFlVjZVYWZUSGxXWmdaVmVHWm5VVlVl?=
- =?utf-8?B?NjBCS1I2NEljVld4czRLTDFIUUFtQ2Z4dnZzeTkwcTZ0YVVPeFh5Z01nWmZi?=
- =?utf-8?B?aEUzc01VcWhoZkJMOEtHM0VQMEJtZm9MeWEybFZlTk9lWURydmNwdVdGdllK?=
- =?utf-8?B?WVF4RExOZXBEYXEvOTQwNERja0t0T3VJZk5hbzNBMEhyQ2lTYWU3Y054aENT?=
- =?utf-8?B?OUFJUGJDUXlrWDdJVHVOT0RBK2wwUnAxOUxRcG8vbDBpRStxQysvZ3hlaERp?=
- =?utf-8?B?Y1FVeGZwcExRWU1QcmJiNnIreUliUms1WEpTaGFkYjYvWUtOUSs5QT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a96338f-e34c-4bf8-9daf-08deddc13016
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6448.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 13:51:33.9984
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7yIQn9v1lbpPmjTIjnMA6/s6zz9JgYiZNL2+Qeyc8BMJE6E6GDuSOe2uJBeaQPWRaZfuVj2bD6nloz+Ze/mwtQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6187
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi Mathieu,
+From: AI Reviewer <ai@example.com>
 
-On 7/8/26 9:23 AM, Mathieu Poirier wrote:
-> On Tue, Jul 07, 2026 at 10:59:55AM +0200, Michal Simek wrote:
->>
->>
->> On 7/3/26 18:39, Mathieu Poirier wrote:
->>> Hi Ben,
->>>
->>> On Mon, Jun 29, 2026 at 09:40:03AM -0700, Ben Levinsky wrote:
->>>> Add a remoteproc driver for AMD soft-core processor subsystems
->>>> instantiated in programmable logic and using dual-port BRAM for
->>>> firmware storage and execution.
->>>>
->>>> The driver parses the firmware memory window from the remoteproc device
->>>> node's reg property, interprets that address and size in the
->>>> processor-local address space, and then uses standard devicetree
->>>> address translation through the parent bus ranges property to obtain
->>>> the corresponding Linux-visible system physical address.
->>>>
->>>> The resulting translated region is registered as the executable
->>>> remoteproc carveout and coredump segment.
->>>>
->>>> The processor is controlled through an active-low reset GPIO and a
->>>> subsystem clock. The clock is enabled before reset is released, and the
->>>> processor is kept in reset until firmware loading completes.
->>>>
->>>> The firmware-name property is optional, allowing firmware to be
->>>> assigned later through the remoteproc framework. Firmware images
->>>> without a resource table are also accepted.
->>>>
->>>> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
->>>> ---
->>>>   drivers/remoteproc/Kconfig          |  11 ++
->>>>   drivers/remoteproc/Makefile         |   1 +
->>>>   drivers/remoteproc/amd_bram_rproc.c | 213 ++++++++++++++++++++++++++++
->>>>   3 files changed, 225 insertions(+)
->>>>   create mode 100644 drivers/remoteproc/amd_bram_rproc.c
->>>>
->>>> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
->>>> index c521c744e7db..58fa566b609f 100644
->>>> --- a/drivers/remoteproc/Kconfig
->>>> +++ b/drivers/remoteproc/Kconfig
->>>> @@ -23,6 +23,17 @@ config REMOTEPROC_CDEV
->>>>   	  It's safe to say N if you don't want to use this interface.
->>>> +config AMD_BRAM_REMOTEPROC
->>>> +	tristate "AMD BRAM-based remoteproc support"
->>>> +	depends on OF && COMMON_CLK && (GPIOLIB || COMPILE_TEST)
->>>> +	help
->>>> +	  Say y or m here to support a BRAM-based remote processor managed
->>>> +	  through the remoteproc framework.
->>>> +
->>>> +	  The processor is controlled through a reset GPIO and clock.
->>>> +
->>>
->>> This last sentence doesn't belong here - please remove.
-Sure will do.
->>>
->>> Looking at the bindings and this Kconfig I wonder why the emphasis of the naming
->>> convention, i.e "BRAM-based remoteproc" is placed on the kind of memory the
->>> remote processor is connected to rather than the remote processor itself.
->>>
->>> Wouldn't it be better to have something like "AMD MicroBlaze/V remote
->>> processor"?  What happens when we get another AMD softcore that is completely
->>> different than MicroBlaze/V that is also connected to the same type of memory?
->>>
->>> I'm good with the implemenation, I just wonder about the name...
->>
->> We started with very generic amd,bram-proc compatible string and then based
->> on discussion
->> https://lore.kernel.org/all/20260427162703.1644103-2-ben.levinsky@amd.com/
-> 
-> Thanks for the link, it provides useful context.
-> 
->> we got recommendation to treat is as soc specific instead of generic.
->> Which give us back to origin point if driver should be more soc specific or not.
->>
->> I think no issue with AMD prefix.
-> 
-> Agreed.
-> 
->>
->> BRAM - that's technology used for access. And I see value in symbol to state
->> it because access to different memory can be done differently too.
->>
-> 
-> Agreed.
-> 
->> Shouldn't be there any soc string? This is for zynqmp, versal* SOCs that's
->> why hard to choose which one.
->>
-> 
-> Why not just adding a Zynqmp somewhere in there?  But admittedly, the relation
-> between Zynqmp and MicroBlaze/V is unknown to me.
-> 
->> The driver is written in very generic way that if there is arm, mips, ppc,
->> different risc-v or others access will be the same. Our primary target is
->> obviously MicroBlaze/V and I don't think it is a problem to change
->> description to just reference them even it is technically possible to
->> connect different cpus too.
->>
->> Is this enough?
->>
->> -	tristate "AMD BRAM-based remoteproc support"
->> +	tristate "AMD MicroBlaze/V BRAM-based remoteproc support"
-> 
-> Yes, that would be just fine. "AMD Zynqmp BRAM-based remoteproc support" would
-> also work.
-> 
->>
->> Are you fine with AMD_BRAM_REMOTEPROC symbol name?
-> 
-> AMD_MBV_BRAM_REMOTEPROC or AMD_ZQ_BRAM_REMOTEPROC
-Ok will use AMD_MBV_BRAM_REMOTEPROC 
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+---
+ptp: Add driver for R-Car Gen4
 
-Thank you
-Ben
-> 
-> I'm good with anything that is slightly more descriptive, just pick the one that
-> makes the most sense.  
-> 
->>
->> Thanks,
->> Michal
+This patch adds a standalone platform driver for the gPTP timer block
+on R-Car Gen4 SoCs (S4, V4H, V4M). The timer shares its module clock
+(and reset) with either RSWITCH or RTSN on S4/V4H, and has its own
+module clock on V4M. A pre-existing implementation exists at
+drivers/net/ethernet/renesas/rcar_gen4_ptp.c consumed by the RSWITCH
+and RTSN drivers.
+
+> diff --git a/drivers/ptp/Kconfig b/drivers/ptp/Kconfig
+> index b93640ca08b7..3593fd9da92a 100644
+> --- a/drivers/ptp/Kconfig
+> +++ b/drivers/ptp/Kconfig
+
+[ ... ]
+
+[Medium]
+A pre-existing driver drivers/net/ethernet/renesas/rcar_gen4_ptp.c
+already implements essentially the same hardware programming
+(identical register offsets, identical adjfine/gettime/settime/adjtime
+bodies, identical addend derivation) and is still consumed by RSWITCH
+and RTSN via rcar_gen4_ptp_alloc() / rcar_gen4_ptp_register().
+
+After this patch, the same silicon can be described two different ways
+in DT (embedded in RTSN as reg-names "tsnes"/"gptp" versus standalone
+renesas,rcar-gen4-gptp) and driven by two different code paths.
+
+On r8a779g0 the DTS already keeps the 0xe6449000 gPTP registers mapped
+both from the tsn0 node and from the new gptp node, so nothing
+prevents both drivers from mapping the same MMIO region and racing on
+control writes.
+
+Is there a migration plan for the existing consumers, and can anything
+in the binding or driver reject the double-bind case where the same
+register block is described both ways in one DT?
+
+> diff --git a/drivers/ptp/ptp_rcar_gen4.c b/drivers/ptp/ptp_rcar_gen4.c
+> new file mode 100644
+> index 000000000000..0d862849cd4c
+> --- /dev/null
+> +++ b/drivers/ptp/ptp_rcar_gen4.c
+
+[ ... ]
+
+> +static int ptp_rcar_gen4_probe(struct platform_device *pdev)
+> +{
+> +	struct ptp_rcar_gen4_priv *priv;
+> +	struct device *dev = &pdev->dev;
+> +	unsigned long rate;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +
+> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->base))
+> +		return PTR_ERR(priv->base);
+> +
+> +	priv->clk = devm_clk_get(dev, NULL);
+> +	if (IS_ERR(priv->clk))
+> +		return PTR_ERR(priv->clk);
+> +
+> +	rate = clk_get_rate(priv->clk);
+> +	if (!rate)
+> +		return -ENODEV;
+
+[Low]
+Is querying clk_get_rate() before the module is powered up safe here?
+The clock is queried before pm_runtime_enable() / pm_runtime_get_sync()
+runs, and some clock providers legitimately return 0 for a gated
+clock, which would make probe return -ENODEV even when the rate is
+well-defined once the module is powered. The older driver received
+the rate from the Ethernet parent driver after its own
+pm_runtime_get_sync() had run.
+
+[Medium]
+The DT binding declares "resets" as a required property, but the
+driver never acquires a reset_control (no reset_control_get() /
+reset_control_deassert() / reset_control_reset()).
+
+On the Renesas CPG-MSSR reset controller, reset deassertion is a
+separate operation from clock enable; clocks are not implicitly
+deasserted.
+
+On V4H (r8a779g0) this driver depends implicitly on the RTSN driver
+calling reset_control_reset() on the shared module reset ID 2723, but
+that reset_control_reset() will also asynchronously reset the gPTP
+block after it has been programmed here. On V4M (r8a779h0) where the
+binding also applies and no sibling driver exists, nothing would ever
+deassert the reset.
+
+Should the driver acquire and deassert its own reset_control, or
+should the binding be revised so that the driver does not appear to
+support V4M standalone?
+
+> +
+> +	spin_lock_init(&priv->lock);
+> +
+> +	priv->info = ptp_rcar_gen4_info;
+> +
+> +	/* Default timer increment in ns.
+> +	 * bit[31:27] - integer
+> +	 * bit[26:0]  - decimal
+> +	 * increment[ns] = perid[ns] * 2^27 => (1ns * 2^27) / rate[hz]
+> +	 */
+> +
+> +	priv->default_addend = div_s64(1000000000LL << 27, rate);
+> +
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_get_sync(dev);
+> +
+> +	iowrite32(priv->default_addend, priv->base + PTPTIVC0_REG);
+> +	iowrite32(1, priv->base + PTPTMEC_REG);
+
+[High]
+Should the return value of pm_runtime_get_sync() be checked here?
+
+The kernel documentation for pm_runtime_get_sync() notes that the
+usage counter is incremented in all cases, including error, and
+recommends pm_runtime_resume_and_get() when the caller needs to check
+success.
+
+If resume fails, the module clock may remain gated and the subsequent
+iowrite32() to PTPTIVC0_REG / PTPTMEC_REG would touch a clock-gated
+CPG-MSSR module, which can raise a bus error / SError on ARM64. On
+top of that, the usage counter is leaked on the error path.
+
+Would something like this be more appropriate:
+
+    ret = pm_runtime_resume_and_get(dev);
+    if (ret) {
+        pm_runtime_disable(dev);
+        return ret;
+    }
+
+> +
+> +	priv->clock = ptp_clock_register(&priv->info, dev);
+> +	if (IS_ERR(priv->clock)) {
+> +		pm_runtime_put_sync(dev);
+> +		pm_runtime_disable(dev);
+> +		return PTR_ERR(priv->clock);
+> +	}
+
+[Low]
+The remove path writes PTPTMDC_REG = 1 to disable the timer before
+dropping the runtime PM reference, but this error path (when
+ptp_clock_register() fails) does not. Since the driver has no
+runtime_suspend callback that would stop the timer, should the probe
+error path also issue iowrite32(1, priv->base + PTPTMDC_REG) for
+symmetry with remove()?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static void ptp_rcar_gen4_remove(struct platform_device *pdev)
+> +{
+> +	struct ptp_rcar_gen4_priv *priv = platform_get_drvdata(pdev);
+> +	struct device *dev = &pdev->dev;
+> +
+> +	ptp_clock_unregister(priv->clock);
+> +
+> +	iowrite32(1, priv->base + PTPTMDC_REG);
+> +
+> +	pm_runtime_put_sync(dev);
+> +	pm_runtime_disable(dev);
+> +}
+
+[Medium]
+There are no system-wide dev_pm_ops on this driver (no .suspend /
+.resume / .freeze / .thaw / .restore, no SET_LATE_SYSTEM_SLEEP_PM_OPS).
+
+Even with the DT placing the device in R8A779G0_PD_ALWAYS_ON, module
+clocks can still be gated by pm_runtime_force_suspend() during a
+system suspend/resume cycle. When that happens, PTPTIVC0 (addend),
+PTPTMEC (enable), and the timer counter are all liable to lose state,
+and there is no callback that reprograms them on resume.
+
+Because ptp_clock_register() exposes /dev/ptpN to userspace, would
+ptp4l / phc2sys see a silently wrong clock after a suspend/resume
+cycle? The older driver was tied to the Ethernet driver's PM chain,
+so this hazard is newly introduced by making the PTP block a
+standalone driver.
+
+> +
+> +static const struct of_device_id ptp_rcar_gen4_of_match[] = {
+> +	{ .compatible = "renesas,rcar-gen4-gptp", },
+> +	{ /* Sentinel */ },
+> +};
+
+[ ... ]
+-- 
+This is an AI-generated review.
 
