@@ -1,179 +1,162 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3158743935A;
-	Thu,  9 Jul 2026 02:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6827C337BB5
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 02:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783563360; cv=none; b=XGpYR1u7+IN26+8nqf3VL+ZOlDcKPsGbKFTfsECjeoXtDt1t1TMXSSAGCqZG0BIZa+PCLb0zxccT2UKOeUt0+9v8K/1eDKgyFNzkf4Cr3Q1NTderew7IlnJf6Mv8Mk8ecXdkoUvKbKJsOhs08pqzudEKp7XPaIUIGlu4kLOLysU=
+	t=1783564569; cv=none; b=NaSa0kIZmmfKL3OBmkgfVM3Gy4+PB3Vmxxc/Qf94/lxwA1zfNNPXwph9QlZmYMq1hwdMuomnWw/tx0r15Gtminkw5KJfw6nT6awIIXq56lo+9Oz/5lASKWwy7z91BoyBfmGEPd7ymLBWE0VtnhmvejZqSnlDu4Xr8fE5Aqd1sUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783563360; c=relaxed/simple;
-	bh=1W/jN5MATUKphhVI/5TFutLNeb2i+ne7yq33wlAuY+k=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VcihXAejmVNxUtJ6fUzYkZmKtCPZpohccs8qAjKd1q8X2rpnlCE93HFpPnPJ0SG3aoiWx9KahxZC9i8G64Q4zuHf7W8F8p8QttO/fy3cQHAsiBugrQDicSTakj+7OGJLjcIvgZz+8Kkkx93CecJEoz2VLsUAW7RCm+WZ21BumbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=ftms0R3l; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1783564569; c=relaxed/simple;
+	bh=h7ixAFmKcgZptEaFgwYIMwhx22MwAhDKeNBxTwFO+gk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=Cstn5Qenj1xKpkZHH9sX8hL+Ls5zhMolICmRuljqTQlJuw9PRLJ7npdxz4qLAAaRWHd9/2786xVcVD9axvVLMOI1HV0Hc3n4Q5Mf+ug6EwInR/i0NCV2TUYDFyga5JXbhk0mJkbAGXSTa6Er2rBTEviwswCfLEDrWDvQs+JYcQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=UCO7CIBX; arc=none smtp.client-ip=170.10.153.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="ftms0R3l"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1783563355;
-	bh=tH41RNED5+clJ8bDU3yrsPjDBxC2yWIilI8EOLE574U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ftms0R3l1Hxi9KJ9589VO97Frg6kN7OeNXibsjqRd65pV+OUowKvaK4G4y+TYgTcP
-	 uB8ZX8+0DdAGA9lY46OHDqUkT6OKe9E+U6Qv3eAvvB2EFuX83vJgLY32mW9W7R2I3G
-	 +bdp1eQu07nsN0ZxcHvRxL+ScRsJuX6dFWeI1ii/hsUmk6FVy6+KDGykQo2oHiHIm9
-	 4FEHkiIC5/XDz69xWmYZ9N8Ig7zcnjVc4pCi+OBHq3yDJBRjbDDph0P556SoViAXfd
-	 92Bij0zFycrY5a3rYKvMIzMD5MaGxwK7jNQEI3u5uDKgKDeiaeMte/jhozACIZDuW1
-	 4PMwao+akqDRQ==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4823960288;
-	Thu,  9 Jul 2026 10:15:53 +0800 (AWST)
-Message-ID: <ddb133ca1a3be605ee776b2276c1907c9ad32491.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v2 2/3] phy: add AST2700 usb3.2 phy driver
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Ryan Chen <ryan_chen@aspeedtech.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>, Philipp Zabel
- <p.zabel@pengutronix.de>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 09 Jul 2026 11:45:52 +0930
-In-Reply-To: <20260116-upstream_usb3phy-v2-2-0b0c9f3eb6f4@aspeedtech.com>
-References: <20260116-upstream_usb3phy-v2-0-0b0c9f3eb6f4@aspeedtech.com>
-	 <20260116-upstream_usb3phy-v2-2-0b0c9f3eb6f4@aspeedtech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="UCO7CIBX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1783564566;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h7ixAFmKcgZptEaFgwYIMwhx22MwAhDKeNBxTwFO+gk=;
+	b=UCO7CIBXvkNY2W5ImPHhZN5tx1R8xL5glmILdETR4WjFxqoejqd8MOXc2ATS/sC8RfwJfF
+	Gyc/R7qhFVaA3RoPLyguJXy1GOenioHfgsJgxmwy9qnj2SVTvSLtimW9zLHBQ3iNpkT9ix
+	xMXg7cP170TmditLG2+FFLKjN7w6iYl0tVfVPOHbg12TNYseOa3BNU21kfhxvFIl4UocHW
+	8p/XGG4ojFhOqR4RGzL6fdG0OO+x0rVzurFPOqPwxiINxBjVuCNS3gXKVZiIYeyvWXGKT/
+	tpzF+k++lHOPO08mu+Rtx6+sErEhNpRtp9OtDNLRw5ASBCmWCMwXOYjq/Qtm9g==
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011044.outbound.protection.outlook.com [52.101.62.44])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-10-v36LDFo5NyKphKHIYueCfQ-1; Wed,
+ 08 Jul 2026 19:29:34 -0700
+X-MC-Unique: v36LDFo5NyKphKHIYueCfQ-1
+X-Mimecast-MFC-AGG-ID: v36LDFo5NyKphKHIYueCfQ_1783564168
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
+ by BN0PR02MB7917.namprd02.prod.outlook.com (2603:10b6:408:160::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 02:29:27 +0000
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0181.009; Thu, 9 Jul 2026
+ 02:29:27 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: "ciprian.regus@analog.com" <ciprian.regus@analog.com>, Parthiban
+ Veerasooran <parthiban.veerasooran@microchip.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Andrew Lunn
+	<andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+	<linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH net-next v5 10/13] net: phy: add generic helpers for
+ direct C45 MMD access
+Thread-Topic: [PATCH net-next v5 10/13] net: phy: add generic helpers for
+ direct C45 MMD access
+Thread-Index: AQHdDmHokZwNZhTmyEi12dE3JLi4pLZkd5Zw
+Date: Thu, 9 Jul 2026 02:29:26 +0000
+Message-ID: <CYYPR02MB9828A0F83559EF025D01A14C83FE2@CYYPR02MB9828.namprd02.prod.outlook.com>
+References: <20260708-adin1140-driver-v5-0-4aca7b51a58b@analog.com>
+ <20260708-adin1140-driver-v5-10-4aca7b51a58b@analog.com>
+In-Reply-To: <20260708-adin1140-driver-v5-10-4aca7b51a58b@analog.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|BN0PR02MB7917:EE_
+x-ms-office365-filtering-correlation-id: ea9e8d8c-2f13-49cc-b343-08dedd61e5cb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|921020|38070700021|18002099003|22082099003|6133799003|56012099006|4143699003|11063799006
+x-microsoft-antispam-message-info: OAZxQLv4TukccaRUtc9+mcsyCHTvPE0dfQYRmkiRyZrXNSJYQFt/9zrvVu2W8IPJfxbuP0BNwmeqyYVlUWz2Ek/kLJUSJciNNyTHcVDJj1eihlkgK4xcdwJ8/qd5EKEP3YTBrNCRW2g5SCfBhF9a4TRdwddgYe2AfVJl5SsbAmRoVM1KKTekfxJZh6vHpGedBWmOhRGc50sUfBqVHtLuI1JV1HoBgNFBVo4TA+WxbWReP5VXkAVuseIhavrA+V009+pcEkav0GlsWxblZrnReLr9NVhvtcORHbsIxjx1GNiOX4HcMgqY41M0WgQ6RgY8ttv9P4YySjr4qr7Km7DMTAU7OGzYFRlsGHYd5lauAPMw49t5VuKLz2pjmylyAiV/1UqwdhcBk1ehIER/Y0cgPldAO5R+35mWHox8w+JQV/5u7zZayPYzADIGoCAFit2kxBd4OE97XEvb+cA/IV3dBBMwUhSKAUvAIdOgTm0QRHPRgrwPDtnTSKAKfhDCsPCnlUX2zYNExbNEWnfOCL14Q3qinUZeM6KioDMlQ3HZ2+0V9zBhXU7V49k1lycloe0bt3S1i9nuzvql/K3F9tioZsZUDlnS0nMZ78KCQMa3ABmei1iMkznp424nhfQeTAz7wLbODBmj0EJTemeql9coaaUIspQXVDxfbtf7igUSmSIlel/W6vEcv/MAvMUmcWxKF/suRZXqqsp0G0/HT6Xm7zvRD1P4/IiuskjXFc/JemJEGZl1fbUW3gENF+t2SHnc
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(921020)(38070700021)(18002099003)(22082099003)(6133799003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?T3Y5dTlKeE1GZTZiYXo4OFI2V09rdmhuSzNlRnJ3RVQycGNNc3RGK3BBUCtV?=
+ =?utf-8?B?bHVPeE1aZEpFR3lWb0ppcjlGejNVSEkrUVEwWkcrTDF6cXhHSG1jTHJMZVZa?=
+ =?utf-8?B?RFRDNTBhTUVoSTFEcmdoc1pjMnlYbnlDWllvMWREK3FaY1pGSzdJbWlYbS9H?=
+ =?utf-8?B?WVN5Q1pVNU5jWGVzR0srczR2eTR0Yi83bnRTd2F6UXdZZE9qNG1aWlFPbUcz?=
+ =?utf-8?B?WVU3bzNOS3ZPU3RsZzZNck1QcmcweFVac1RtbHd5NnYwcFlmeEpzanpCSXZy?=
+ =?utf-8?B?TGtZUkptV0x3Y205cVdTTjBjTW5Oa0puaGZGU1U1NzRkcGZFSjJ1K2NvRzc4?=
+ =?utf-8?B?a2hCUzhWSGZJUk55eWl6SElibm1oRkVKUDdDYnBURTRmRXp1S1ZZUXJWSzI4?=
+ =?utf-8?B?bTFvcHJhR3c2Zi9XRmhMUGthZk1xWUM4b0svQUVBYW9WQklNMCs0cTlabHZH?=
+ =?utf-8?B?c2wvVVJSNm1QUGtySGowWE5qZ0gzZUpndEpCU0crWnhQVy9hZkwrczcvOC8x?=
+ =?utf-8?B?Tkd2QWhVZU1NZ21pajdEelJ6b2dtdWtSRUlqQXhiaXYyVFZ6VmhBYnZBSzhS?=
+ =?utf-8?B?Z0lvTHlhR1ZaTnJZaGRpTEJHaFZzUnp0eEdkeUZ2T1VCNGtSVm83c3BSU3dZ?=
+ =?utf-8?B?TVcrRm95cVBaeTV2SGRacktTd2V1bC9ObjFrSk1McGZsMllxdVFMNUFXeHdz?=
+ =?utf-8?B?TStuTDljeFFUanN6QlhhZDY3cjI3aTRua3JmMFpKcDlmVDhUTFQ4N1Z0VW9k?=
+ =?utf-8?B?YVVydUZiblJwQjlZNVRmOVBmL0MyaDRKeWVBckFwdlpYZjNKVU5yNVFCYmg3?=
+ =?utf-8?B?bXNPd1FpNVphT2FSOUsxUkV0M1RDS1NtMnJlTGFVWW1ab0xQampKT1pmTCtF?=
+ =?utf-8?B?aEU1OWxzU0QzNkFWbzhGWkNTZVA0ZFFldWJ2UjFwMjUyanVhQmNkQ2VMMk5H?=
+ =?utf-8?B?TjNicHNqNGhqdTBpQ0lEM3VMQWdEdlltK0VpMUdnYWQrU3paSVJtWlFpMHhp?=
+ =?utf-8?B?SjJsekF2MTBoNCs5cG1FVjNGYnFBYzVmZjZJVkZKV0l0TjJJZytBYUZqb1gw?=
+ =?utf-8?B?TUhUaTdBbjg5anZxeEluYzgvZnZHb1JjTnVWUlRtMkZ2b2xxSnAxWnpFQ1c5?=
+ =?utf-8?B?SkF0QU15MW1zcW5IakZyNU82d1ZHVzlaV051R3djczZCWlVRWE5rT3RMcG1G?=
+ =?utf-8?B?UjlCQVBjaFZCZmdQYVVKZXkxUjd6MW5PcWJ6WTVOVU5EUFBpRERDSmQzKzNn?=
+ =?utf-8?B?REpqYXhZcnRjTUxrbGYwTEd0ZmppRzRkRzBVTTdvcmNxL3p3dmpWQVdmOEts?=
+ =?utf-8?B?TW53amsyOVI5MXZ5MzAxVWw4YU4xY1J2Tkoza1dsTm5WcU41NW9oL0Jybmgr?=
+ =?utf-8?B?YWl5RWR6cTJkcENqSkEwS29lTldpb3B5bGVDYWFDK1BKR0dnaG04R1cwRUJC?=
+ =?utf-8?B?bTRxbzAxeU5NZVQyRUZsZWhCYzJXYi8va3pXbEI3YVEydngzOHg1L0d0cFo3?=
+ =?utf-8?B?aFRZc1BlRVdONjNndTFjSWNNSW9uNmRnMjFnTlFpbDQxcm44dzJxc3RqUmVw?=
+ =?utf-8?B?T3RiQXowMHlCdEVQOEVRQVFlSVJtb09nckxsSjFqUzBvZnhPY1p3bHFNdFVl?=
+ =?utf-8?B?dVRMbVhhYXBOUExzNXVrKzJYSEdQQVFET2IwV0JOdUhPaE05MW82aURtU3Ix?=
+ =?utf-8?B?Vzg2dEJGdkdQd2pmQXhDTlM1YjBVbWt4eHVyL2RuMldIbVFYREtjR3ZyS2Rh?=
+ =?utf-8?B?Zm5oNFBaN0hpeklaRGt3ams4UFZlVHRjaGp0eFZaOTlUTi9KUWUySGlEVEh3?=
+ =?utf-8?B?NHgwb1BxaHBqVm1uMlVjVkVsMkRtV1JzSG80YTQrRUJFdmVXaFhpYVZUVm5Q?=
+ =?utf-8?B?ZFpmckJPbVVLWVY0S3VWZzdNcW9mSFhMQ1hIUFJsbEdlL05zUks0b1RndENG?=
+ =?utf-8?B?ay8xNndJRnlSV1p6NnFkTW4wTDZlSXY1ZDBDNUxLUUZIUnR4a3h5bm9qY0lP?=
+ =?utf-8?B?QjJicWU3eExRSXhtTUhTUVRsbjMvRXdEUGtGSTQ2cXlJcnBZSG96N01LOHVj?=
+ =?utf-8?B?OWg1UWtpU3ZUbHhrTmEyeXZHOFdNMUVIM211WWZWLzVyZFp1c1haNy9DVDhu?=
+ =?utf-8?B?TGd0a2IxRmtGZHczNHNZam9HUTZpU09RaXJFQkwzTFJ0N094a2J6VFdJN1d5?=
+ =?utf-8?B?MjluWDB2ai81VkY0MFdJSTZBOVpQRDB5L1pPbUdSWllVR1lhM3VJelRuZmla?=
+ =?utf-8?B?TDJab0JlY0haVkZuT2kxbUJpU0xiTCtNVkxGNi9td0VHOG5waHRzWmNCdzFz?=
+ =?utf-8?B?NHB6cXdKNG1MeUJRU2ZIREI1Q2lza3hFbVRWUGNNRmMxOWFBRTRUSm15eE9u?=
+ =?utf-8?Q?meVj+lKBpoKlT39g=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: ezuC4Yp30IrfcPbyz+qykLsl4WV28+xQI4zcaxJ31V0KWLG6w/22KqYkizVRuxBkxzPqX6I5mxcpMkFA5pIgn///RZFC+8QX7efuFqQZnla0o4xpkO3YfC19ubOzzAnWDvBErAL8i/253KePzQyjG/yG4QTyD8ghn1GUHkAne3DtnCKrwdlpNCmYYwI7wTHoNvF3d4wUZnHGoo+vOV7faRiqi2caPeZzN8bPqCx5/r1JilCrgPB70OHNRXNpT/FBmX22cIIicbkTFA9fqCHBFuGcM89Be1EKAVNPy3XQXDmOilxIS81zOfJdncjRMoUPwZ62JfQs6U4mnvvncp8oRQ==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea9e8d8c-2f13-49cc-b343-08dedd61e5cb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 02:29:26.9607
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dAC6CMVxNRglRSLs9Bu4f6KbdAKHjCg7w3XLLvpasRKYW+lNFfYWeopcx/Xi9U+zurSRCA2DECHEvjr3BYUWCwgNBk8xacQzxbAvjxOgEh4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR02MB7917
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Y9SmZ40vZ7P6OSMDXnKF-AXl0lJA0AcRm6zQk3ZOeP4_1783564168
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Hi Ryan,
+DQo+ICtpbnQgZ2VucGh5X3JlYWRfbW1kX2M0NShzdHJ1Y3QgcGh5X2RldmljZSAqcGh5ZGV2LCBp
+bnQgZGV2bnVtLCB1MTYgcmVnbnVtKQ0KPiArew0KPiArIHN0cnVjdCBtaWlfYnVzICpidXMgPSBw
+aHlkZXYtPm1kaW8uYnVzOw0KPiArIGludCBhZGRyID0gcGh5ZGV2LT5tZGlvLmFkZHI7DQoNCllv
+dSBtYXkgd2FudCB0byBpbnNlcnQgdGhlIGxvY2tkZXBfYXNzZXJ0IGhlcmUuIFRoYXQnbGwgZW5z
+dXJlIHRoYXQgcmVhZC93cml0ZSBBUElzIGFyZSBjYWxsZWQNCmFmdGVyIHRoZSBtZGlvLWxvY2sg
+aXMgdGFrZW4uIEFuZHJldydzIHN1Z2dlc3Rpb24uDQoNCiAgIGxvY2tkZXBfYXNzZXJ0X2hlbGQo
+JmJ1cy0+bWRpb19sb2NrKQ0KDQoNCj4gKyByZXR1cm4gX19tZGlvYnVzX2M0NV9yZWFkKGJ1cywg
+YWRkciwgZGV2bnVtLCByZWdudW0pOw0KPiArfQ0KDQoNCj4gK2ludCBnZW5waHlfd3JpdGVfbW1k
+X2M0NShzdHJ1Y3QgcGh5X2RldmljZSAqcGh5ZGV2LCBpbnQgZGV2bnVtLCB1MTYgcmVnbnVtLA0K
+PiArIHUxNiB2YWwpDQo+ICt7DQo+ICsgc3RydWN0IG1paV9idXMgKmJ1cyA9IHBoeWRldi0+bWRp
+by5idXM7DQo+ICsgaW50IGFkZHIgPSBwaHlkZXYtPm1kaW8uYWRkcjsNCg0KDQpBbmQgaGVyZSB0
+b28uDQoNCg0KPiArIHJldHVybiBfX21kaW9idXNfYzQ1X3dyaXRlKGJ1cywgYWRkciwgZGV2bnVt
+LCByZWdudW0sIHZhbCk7DQo+ICt9DQo+ICtFWFBPUlRfU1lNQk9MKGdlbnBoeV93cml0ZV9tbWRf
+YzQ1KTsNCj4gKw0KDQo=
 
-On Fri, 2026-01-16 at 10:53 +0800, Ryan Chen wrote:
-
-
-...
-
-> diff --git a/drivers/phy/aspeed/phy-aspeed-usb3.c b/drivers/phy/aspeed/ph=
-y-aspeed-usb3.c
-> new file mode 100644
-> index 000000000000..872d2163fcf5
-> --- /dev/null
-> +++ b/drivers/phy/aspeed/phy-aspeed-usb3.c
-> @@ -0,0 +1,236 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright 2026 Aspeed Technology Inc.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/reset.h>
-> +
-> +#define PHY3S00		0x00
-> +#define PHY3S00_INIT_DONE		BIT(15)
-> +#define PHY3S00_SRAM_BYPASS		BIT(7)
-> +#define PHY3S00_SRAM_EXT_LOAD	BIT(6)
->=20
-
-...
-
-> +
-> +static int aspeed_usb3_phy_init(struct phy *phy)
-> +{
-> +	struct aspeed_usb3_phy *aspeed_phy =3D phy_get_drvdata(phy);
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(aspeed_phy->clk);
-> +	if (ret) {
-> +		dev_err(aspeed_phy->dev, "Failed to enable clock %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D reset_control_deassert(aspeed_phy->rst);
-> +	if (ret) {
-> +		clk_disable_unprepare(aspeed_phy->clk);
-> +		return ret;
-
-Nit: Given we have to do this below if the reset_control_deassert()
-succeeds, perhaps add a label below and use goto here?
-
-> +	}
-> +
-> +	/* Wait for USB3 PHY internal SRAM initialization done */
-> +	ret =3D readl_poll_timeout(aspeed_phy->regs + PHY3S00, val,
-> +				 val & PHY3S00_INIT_DONE,
-> +				 USEC_PER_MSEC, 10 * USEC_PER_MSEC);
-> +	if (ret) {
-> +		dev_err(aspeed_phy->dev, "SRAM init timeout\n");
-> +		goto err_assert_reset;
-> +	}
-> +
-> +	val =3D readl(aspeed_phy->regs + PHY3S00);
-> +	val |=3D PHY3S00_SRAM_BYPASS;
-> +	writel(val, aspeed_phy->regs + PHY3S00);
-
-According to the datasheet PHY3S00[15] (PHY3S00_INIT_DONE above)
-indicates that the PHY internal SRAM initialisation is complete. The
-datasheet reports the SRAM is used for configuration of calibration
-among other things. PHY3S00[6] instructs the PHY that software has
-completed loading the configuration data into SRAM, however
-PHY3S00_SRAM_BYPASS (PHY3S00[7]) tells the PHY to load configuration
-from "hard wired" values.
-
-Is it necessary to wait for SRAM initialisation to complete if we're
-bypassing it? Or are there other side-effects involved in the setting
-of PHY3S00[15]?
-
-> +
-> +	/* Set protocol1_ext signals as default PHY3 settings based on SNPS doc=
-uments.
-> +	 * Including PCFGI[54]: protocol1_ext_rx_los_lfps_en for better compati=
-bility
-> +	 */
-> +	writel(PHY3P00_DEFAULT, aspeed_phy->regs + PHY3P00);
-> +	writel(PHY3P04_DEFAULT, aspeed_phy->regs + PHY3P04);
-> +	writel(PHY3P08_DEFAULT, aspeed_phy->regs + PHY3P08);
-> +	writel(PHY3P0C_DEFAULT, aspeed_phy->regs + PHY3P0C);
-> +
-> +	return 0;
-> +
-> +err_assert_reset:
-> +	reset_control_assert(aspeed_phy->rst);
-> +	clk_disable_unprepare(aspeed_phy->clk);
-> +	return ret;
-> +}
->=20
-
-...
-
->=20
-> +static struct platform_driver aspeed_usb3_phy_driver =3D {
-> +	.probe		=3D aspeed_usb3_phy_probe,
-> +	.driver		=3D {
-> +		.name	=3D KBUILD_MODNAME,
-> +		.of_match_table	=3D aspeed_usb3_phy_match_table,
-> +	},
-> +};
-> +module_platform_driver(aspeed_usb3_phy_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("ASPEED USB3.0 PHY Driver");
-
-MODULE_AUTHOR()?
-
-Andrew
