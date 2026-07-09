@@ -1,169 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447D233ADA3
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 21:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AB81B6CE9
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 21:04:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783631002; cv=none; b=gxvb5ruI70O0ErBLQQQDACF4C2VbhS4GBuE2xO1mbzlOpkP7tPlOxFQN7WVtY87R1fRnH50B5YWXqbUfbPpF4xh0PDc20/pL7ppB2ZCc95J3cVk/QC7vmRoaaY5dx/7D/4gH4+52t0bDFVTepkUA/78L85W3f1YZ7IctGyeKgAo=
+	t=1783631061; cv=none; b=JMAjLsLRN4URXvkNg5oGd0H+uIPoPaoYL1SukXabOBHnz8Pzu0t5LUW2lVNHDQW5qgl8VZ4shKdnz7ZiPMPsi1AMskTakRZh4hkfFnMgY0KpFfCl1jYeK2vYurJqrf5dr3Ml4WyaURBLyXlhoZPRO/FINTo/2EVx9oNLvB1x+bY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783631002; c=relaxed/simple;
-	bh=mzADz6eyDapBeLkuhk5eJCllLRdiP6R+peDUtChPSd4=;
+	s=arc-20240116; t=1783631061; c=relaxed/simple;
+	bh=pg6O6pLAi4R+D9EBSgd+5OcWBrIWQhjgK06k9wKlVJY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HebCvujqb8Jjqb9gxaR+qIe+JA7tpYjP/4LP/6Dg6yO6ajkq3EqxDtyepoyslwDHGFi9ohGsS31fXml7ji5zoYx8x8pZoAneorQUcXktrquFB2MNmOISZCd5WVsi+XsYjR5vUkTa0XDvTJbGC6jCIzN5Vx8Q9MlUzxO9jfl9qOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNt9EMFw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nY4L/f4wfmrT6De2vj+xRakcj0Eo/IjFZvFU2t7XJWivYGS8APqMHaoPGDMIR09eNwawsMLfYrHIjmnQ6PmMdktXAim9Y85z2uBu/wP2TMSLxBiezGqW2VpgOhG0exGQJn/vAb8eb0XxZMZHCMfwSulQFxo8mWvKRQ7fn2Ikx0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nr3EYfW4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNt9EMFw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31E61F000E9;
-	Thu,  9 Jul 2026 21:03:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nr3EYfW4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E11241F000E9;
+	Thu,  9 Jul 2026 21:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783631000;
-	bh=6T3peSU6Dqq0Arq9wEa14hWd40xVC2v5bl+7TBB3s1g=;
+	s=k20260515; t=1783631060;
+	bh=4Kd+SY2SVO2wVBZeTKckuh7Gm/ifykDErzX+ihX0yjA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oNt9EMFwn1wcWyHeCVyLGLlVZwHy4mWjei0dP075E93nYef0VmMWPoFKXITVvkrxZ
-	 7gv2UoNeXSKgMV2qKgiASPmFLuopl6xiD5+0BtCF6gm/Ur/XIuUrHJuvLdx/Q37wJY
-	 RUQgVWsCJB6ZlE+l7f9JPcfQ64YDip8VTzIAScgJojt4YohDpiqJtHPDkzETD9kOQi
-	 mY1MSeYOXh1+PBu1Q/u+mxugR7iOLVcvWyfUW0FgRZZzoPiyfHpI4Q60hhPbael420
-	 0opRnNUAy6s7/x0GPRTDS0r6KFJcp/ViyxGq3qaVKu5EXOflYGdSde2u5mtHdXqcIu
-	 d9fihebMNZU4A==
+	b=nr3EYfW45HgGWPxAXVMUksW0Y94+dMJSJUapXrVDOeDodJHPQmr/etvRIz5nL/4CI
+	 UHRro95lON0qis3F4rIBClek4U+B4IyzMY04dCxHO16FmlVJtW2jz7e16ARqqQH785
+	 TcXpqA7RkPh/U7ZTGW0FsCDlo3olYSkk6w6/cZgw0u9SAWJ0jBIjMJKYr6TSdZwpFX
+	 eZWK9TZ02x3A+33mVBMs+BUrrmTmr/uGehG03s36lv5P3yk8R2Q3ZN0nKr3oM5ZG2z
+	 elSUOCRCQeEbMubJOKizK5hptIiXdly6dzc75vhMBrFuWxwXUMESbMCK6TN80csm6Z
+	 Ru+UC40H41mTQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 15/19] crypto: cmh - add ML-KEM/ML-DSA (QSE)
+Subject: Re: [PATCH v2 13/19] crypto: cmh - add ECDSA/SM2 sig
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709203037.1884436-16-skrishnamoorthy@rambus.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709203037.1884436-14-skrishnamoorthy@rambus.com>
 References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-16-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-14-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 21:03:20 +0000
-Message-Id: <20260709210320.A31E61F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 21:04:18 +0000
+Message-Id: <20260709210419.E11241F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Missing software fallback for oversized ML-DSA messages and incorr=
-ect rejection of 0-length messages.
-- [Medium] Redundant DMA mappings and DMA API ownership violation for key b=
-uffers.
+- [High] `cmh_ecdsa_set_priv_key` incorrectly rejects valid P-521 private k=
+eys due to a strict length check.
+- [High] A malicious user can provide an oversized ECDSA signature to trigg=
+er a WARN_ON_ONCE, potentially causing a kernel panic on systems with panic=
+_on_warn enabled.
+- [Medium] Unnecessary copying and DMA mapping of the private key on the fa=
+st path during `cmh_ecdsa_sign()`.
 --
 
---- Patch [15]: [PATCH v2 15/19] crypto: cmh - add ML-KEM/ML-DSA (QSE) ---
-commit c3b137e6f523e1962d3380a121a8e0166757ffb3
+--- Patch [13]: [PATCH v2 13/19] crypto: cmh - add ECDSA/SM2 sig ---
+commit 6d12540edcf70f967d4d40c53ce926233bb16875
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add ML-KEM/ML-DSA (QSE)
+crypto: cmh - add ECDSA/SM2 sig
 
-This patch registers ML-KEM and ML-DSA algorithms using the CMH QSE core.
-It provides ML-DSA as a signature algorithm at priority 5001, overriding
-the kernel's software implementation. It includes key generation, signing,
-and verification capabilities.
+This commit registers ECDSA and SM2 signature algorithms using the CMH PKE
+core. It supports P-256, P-384, P-521, and SM2 curves for signing and
+verification. SM2 is registered as verify-only via the crypto API.
 
-> diff --git a/drivers/crypto/cmh/cmh_pqc_mldsa.c b/drivers/crypto/cmh/cmh_=
-pqc_mldsa.c
+> diff --git a/drivers/crypto/cmh/cmh_pke_ecdsa.c b/drivers/crypto/cmh/cmh_=
+pke_ecdsa.c
 > new file mode 100644
-> index 0000000000000..cbe63c34a1c80
+> index 0000000000000..6b65f7fb72cc9
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_pqc_mldsa.c
+> +++ b/drivers/crypto/cmh/cmh_pke_ecdsa.c
+
 [ ... ]
-> +static int cmh_mldsa_sign(struct crypto_sig *tfm,
+
+> +static void ecdsa_vli_to_be(const u64 *vli, unsigned int ndigits,
+> +			    u8 *out, unsigned int out_len)
+> +{
+
+[ ... ]
+
+> +	} else {
+> +		/* VLI wider than out -- skip leading (zero) bytes */
+> +		u8 tmp[ECC_MAX_BYTES];
+> +
+> +		for (i =3D 0; i < ndigits; i++)
+> +			put_unaligned_be64(vli[ndigits - 1 - i],
+> +					   &tmp[i * sizeof(u64)]);
+> +		skip =3D full_len - out_len;
+> +		WARN_ON_ONCE(memchr_inv(tmp, 0, skip));
+
+[Severity: High]
+Can an unprivileged user trigger this WARN_ON_ONCE by providing an
+oversized signature (e.g., via keyctl or AF_ALG)?
+
+If the user passes an r or s array padded with non-zero upper bytes during
+signature verification, could this cause a kernel panic on systems with
+panic_on_warn enabled?
+
+Would it be safer to return -EINVAL here instead of warning?
+
+> +		memcpy(out, tmp + skip, out_len);
+> +	}
+> +}
+
+[ ... ]
+
+> +static int cmh_ecdsa_sign(struct crypto_sig *tfm,
 > +			  const void *src, unsigned int slen,
 > +			  void *dst, unsigned int dlen)
 > +{
+
 [ ... ]
-> +	if (ctx->key.mode !=3D CMH_KEY_RAW)
-> +		return -EINVAL;
-> +	if (dlen < sig_size)
-> +		return -EINVAL;
-> +	if (!slen || slen > ML_DSA_MAX_MLEN)
-> +		return -EINVAL;
 
-[Severity: High]
-Does returning -EINVAL here permanently fail valid operations?
-
-FIPS 204 allows 0-length messages, so rejecting slen =3D=3D 0 might break v=
-alid
-requests. Additionally, since this driver registers at priority 5001 and
-overrides the generic software implementation (priority 5000), returning an
-error for messages over ML_DSA_MAX_MLEN (10KB) means the crypto API won't
-transparently fall back.
-
-Should the driver internally allocate a fallback software tfm to handle
-oversized messages, and properly support 0-length messages?
-
-> +
-> +	m_buf =3D kmemdup(src, slen, GFP_KERNEL);
-> +	sig_buf =3D kzalloc(sig_size, GFP_KERNEL);
-> +	if (!m_buf || !sig_buf) {
-> +		ret =3D -ENOMEM;
-> +		goto out_free;
-> +	}
-> +
-> +	if (ctx->key.raw.len !=3D sk_size) {
-> +		ret =3D -EINVAL;
-> +		goto out_free;
-> +	}
-> +
+> +	dig_buf =3D kzalloc(clen, GFP_KERNEL);
+> +	sig_buf =3D kzalloc(sig_raw_len, GFP_KERNEL);
 > +	sk_buf =3D kmemdup(ctx->key.raw.data, ctx->key.raw.len, GFP_KERNEL);
-
-[Severity: Medium]
-Does this redundantly copy and map the secret key?
-
-The key in ctx->key.raw.data was already mapped as ctx->key.raw.dma in
-cmh_key_setkey_raw() for the lifetime of the key. Also, since that buffer
-is mapped to the device (DMA_TO_DEVICE), does reading from it here with
-kmemdup() violate DMA API ownership rules?
-
-Can this code just pass ctx->key.raw.dma directly to the VCQ command to
-avoid the extra allocation and copy on the hot path?
-
-> +	if (!sk_buf) {
+> +	if (!dig_buf || !sig_buf || !sk_buf) {
 > +		ret =3D -ENOMEM;
 > +		goto out_free;
 > +	}
+> +
+> +	/*
+> +	 * Truncate or zero-pad digest to clen bytes, right-aligned.
+> +	 * Matches ECDSA bits2int: use leftmost min(slen, clen) bytes,
+> +	 * zero-pad on the left when slen < clen.
+> +	 */
+> +	memcpy(dig_buf + (clen - copy_len), src, copy_len);
+> +
+> +	dig_dma =3D cmh_dma_map_single(dig_buf, clen, DMA_TO_DEVICE);
+> +	sig_dma =3D cmh_dma_map_single(sig_buf, sig_raw_len, DMA_FROM_DEVICE);
+> +	sk_dma =3D cmh_dma_map_single(sk_buf, ctx->key.raw.len, DMA_TO_DEVICE);
+
+[Severity: Medium]
+Is it necessary to allocate and DMA map the private key on the fast path
+during cmh_ecdsa_sign()?
+
+Since cmh_key_setkey_raw() already pre-maps the key into ctx->key.raw.dma
+for the lifetime of the transform, does duplicating this mapping here
+cause unnecessary performance overhead, or unnecessarily expose the private
+key material in a transient heap buffer?
+
+> +
+> +	if (cmh_dma_map_error(dig_dma) || cmh_dma_map_error(sig_dma) ||
+> +	    cmh_dma_map_error(sk_dma)) {
+> +		ret =3D -ENOMEM;
+
 [ ... ]
-> +static int cmh_mldsa_verify(struct crypto_sig *tfm,
-> +			    const void *src, unsigned int slen,
-> +			    const void *digest, unsigned int dlen)
+
+> +static int cmh_ecdsa_set_priv_key(struct crypto_sig *tfm,
+> +				  const void *key, unsigned int keylen)
 > +{
-[ ... ]
-> +	if (!ctx->pub_key)
-> +		return -EINVAL;
-> +	if (slen !=3D sig_size)
-> +		return -EINVAL;
-> +	if (!dlen || dlen > ML_DSA_MAX_MLEN)
+> +	struct cmh_ecdsa_tfm_ctx *ctx =3D cmh_ecdsa_ctx(tfm);
+> +
+> +	if (keylen !=3D ctx->clen)
 > +		return -EINVAL;
 
 [Severity: High]
-Similar to the signing path, does this incorrectly reject valid 0-length
-messages and oversized messages?
+Does this strict length equality check prevent P-521 signing?
 
-Since the driver overrides the software fallback, it likely needs to handle
-dlen =3D=3D 0 and delegate messages larger than ML_DSA_MAX_MLEN to a softwa=
-re
-fallback to maintain API contracts.
+The kernel crypto API passes exactly 66 bytes (ceil(521/8)) for P-521
+coordinates, but ctx->clen for P-521 is 68. Would it be better to accept
+lengths <=3D clen and left-pad them with zeroes, similar to how
+cmh_ecdsa_set_pub_key() handles it?
 
 > +
-> +	sig_buf =3D kmemdup(src, slen, GFP_KERNEL);
-> +	m_buf =3D kmemdup(digest, dlen, GFP_KERNEL);
-> +	pk_buf =3D kmemdup(ctx->pub_key, pk_size, GFP_KERNEL);
-
-[Severity: Medium]
-Does this redundantly allocate and map the public key on every verification?
-
-Instead of copying it here, could the public key be mapped once in
-cmh_mldsa_set_pub_key() and reused, avoiding this extra copy overhead
-on every verify operation?
-
-> +	if (!sig_buf || !m_buf || !pk_buf) {
-> +		ret =3D -ENOMEM;
-> +		goto out_free;
-> +	}
+> +	return cmh_key_setkey_raw(&ctx->key, key, keylen, CORE_ID_PKE);
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
-436-1-skrishnamoorthy@rambus.com?part=3D15
+436-1-skrishnamoorthy@rambus.com?part=3D13
