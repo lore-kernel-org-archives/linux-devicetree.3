@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BAE439342;
-	Thu,  9 Jul 2026 10:34:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AC0405C3F;
+	Thu,  9 Jul 2026 10:34:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783593278; cv=none; b=kC7Y+n54xTC2pZMW7+Ysk1nUW/zh/xymMFRPo+2SaFgHcL9oskoALT4pihx28wAwlMBQGZVdvh26Chm2laPp2of1BMl6W7iqLAHtjglU8Z79+y1ALaS0D/p7Uyy0BgmWK5WXx5LzhNWg1racMj/37b9gJI9ifxvZpqhs1mq5WuI=
+	t=1783593279; cv=none; b=hgt5nn07D/Bn3O/OtmnXKd1De5qR02Gh7Kk67jnC40ZXZdncAaTEIutrX40ZFZO8laZ+/2Pi+TQ+6E9CGQd+yQhnRZpxfqaYbBwt5IkqW/qIgz7YU9wVQ/Ljmud0vURI3UOhFmnW6KTsDGg7F5l6uV02r2ySc+71CBRe4ATQ+fU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783593278; c=relaxed/simple;
-	bh=o0Yw5UvJ7mIldIg8Qe+QDn/C3b8GslyK/JoVs7xCZ6Q=;
+	s=arc-20240116; t=1783593279; c=relaxed/simple;
+	bh=kHVv2nCdsp0f/QR38D6tcCGOazDnOTOs2KSvBo2SWnI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F05VuPWxGQeJlGRQRAk5nHXqleN7mXHi83fOV5A0puSWr49XvOvkoWcQUsyf8fL31byDV1/LBLLrXNTbt5/gQ3xLv9oZi3tHAMF2PDHEkAtsCzV+GyuO9e9x4tLD0/Al1kTLCrsUQ9qhNpNTyQObEtnnrwppNaVNrkUgq0RTl6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=HSNEDKBO; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=c5RCA/n8h7xuDZBbN7L38bElJXhoLRrWxPhMiRUPcH7Q8cJzjStdGMeTBM6RiK6VC1lgw/nuMK7YFlDZD3yY9yo/dEvpZRr7nPogssgbIIHPt3vCqeWeK+lHmzToo/Rbzs5gXzlVoS4jv0RfmqPHQNuYYjSBrgGW7JWx89OaOoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=NAOsadfR; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="HSNEDKBO"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="NAOsadfR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783593275;
-	bh=o0Yw5UvJ7mIldIg8Qe+QDn/C3b8GslyK/JoVs7xCZ6Q=;
+	s=mail; t=1783593276;
+	bh=kHVv2nCdsp0f/QR38D6tcCGOazDnOTOs2KSvBo2SWnI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=HSNEDKBOFib8MTQf+hrPqmbH71R1tXAjNZerMBPLlnNDeivPoqXY3N/1zsQT0FE11
-	 oo/rnxOpnH1nesh3Os8UU7O9zRbgXXJ1vRfBPLFYyNMzwrVMGAURBy5pMRj88HPOdc
-	 4GzrQaEzz69MtW4vjwsnEWGBeiz6wjS75WSopU/9+EuttRbz+/97TB6KVXDr3/pfa9
-	 8Uc02k0cj8bpeCTW4G98RFvaeI12pgSiJi4Hfk53CYoYPgDJUPrTno85D4yyJw9HuO
-	 3ahPEB+qMyjXaDKSXN+sqthHJ4F4OyjDkuQvyTw+VJWzMpWOTnNdoL6k6WytoHVQ83
-	 4bHf+H9crGHzw==
+	b=NAOsadfR5/GhS5a6Blg4iy/kPKN7ErRwXBYIo5WUe3EZeG71lK2RGnJJmVjjZBJ2c
+	 i7P2rvaq2581vvojbBUmuM6gHoztnJVuZ31rnEomZAZdN0EnCW5Jk/V6leXU45Xt7P
+	 NGuCpQFo8Q5HT3k24XZXa8G8ohADojDZCabd7EgyIqyTI8YBuPynSFjrvu2PliwaeH
+	 s+0zm8IWvrNo5q6LSgL494UHJr5E9lmIclcCSQZ64yODy28BySZYIELR34CUPq5rHL
+	 vyPjH9reCFExcfIXvbPuxiBEhkQj9LVxRetVFc5K9eLvGq4pcYqd3N6ZFdpbyveJqn
+	 4uVyEK6r3yaTw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E0ED517E0CDE;
-	Thu, 09 Jul 2026 12:34:34 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F419417E0D53;
+	Thu, 09 Jul 2026 12:34:35 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -60,9 +60,9 @@ Cc: p.zabel@pengutronix.de,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	kernel@collabora.com
-Subject: [PATCH v3 01/11] dt-bindings: display: mediatek: dp: Deprecate nvmem efuse data
-Date: Thu,  9 Jul 2026 12:34:21 +0200
-Message-ID: <20260709103431.46616-2-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v3 02/11] dt-bindings: display: mediatek: dp: Add compatible for MT8196 eDP
+Date: Thu,  9 Jul 2026 12:34:22 +0200
+Message-ID: <20260709103431.46616-3-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
 References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
@@ -74,33 +74,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Deprecate nvmem-cells and nvmem-cell-names and clarify their
-purpose, as those are for PHY calibration data, not for the DP
-IP itself, and that data shall go in the PHY binding instead.
+Add a new compatible for the Embedded DisplayPort IP found in the
+MT8196 SoC.
+
+This IP is compatible with the previous ones, but not fully.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dp.yaml     | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/display/mediatek/mediatek,dp.yaml        | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-index 8f4bd9fb560b..980f76667ada 100644
+index 980f76667ada..3a752a99949a 100644
 --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
 +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
-@@ -30,10 +30,12 @@ properties:
+@@ -25,6 +25,7 @@ properties:
+       - mediatek,mt8188-edp-tx
+       - mediatek,mt8195-dp-tx
+       - mediatek,mt8195-edp-tx
++      - mediatek,mt8196-edp-tx
+ 
+   reg:
      maxItems: 1
- 
-   nvmem-cells:
-+    deprecated: true
-     maxItems: 1
--    description: efuse data for display port calibration
-+    description: efuse data for display port phy calibration
- 
-   nvmem-cell-names:
-+    deprecated: true
-     const: dp_calibration_data
- 
-   power-domains:
 -- 
 2.54.0
 
