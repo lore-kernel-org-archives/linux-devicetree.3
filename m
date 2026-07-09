@@ -1,107 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CD13C2764
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 19:32:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED483B9952;
+	Thu,  9 Jul 2026 19:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783625571; cv=none; b=UXrB1P8oD90uy6y8oa0CSGehudf3I2kyOPlxtUUc/E27+b6SK7gSskQgFFZiZALRwL/pCYl0i/pU1QKO5Cqv62y4WQUyVcaTUUxV4jB0uX/03saq/H211zYQv72baw/OY/LCsLAoJg/JYk3fxPwUEkrn6Su32OCUnwiioiskc3w=
+	t=1783625580; cv=none; b=t+tzoaYfPwktN5B3Qpf1xpx0XZoeSScBbb7JAeZkAwJAtdpAf+ooHlLJlmpR3BpyuXQMpr/3tAZTkYrqdWE3IOGxVd3iPi/qRimwj3SKoSPCwOFIGbCuZGBZ8lP1l7HmISX1KWFWTIB1xteB4m+JL+IRfp4H0AEhl7Uu2y1/v6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783625571; c=relaxed/simple;
-	bh=uJ0ImeRyztV7x7OfHAvwUvDYG6RtnwerG7JbMmIpl48=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fWltoHDIqasx05me982UUwbmcZYWjAlUW4NeJC4mYKSU2AsxkFbTQs9YURF5i4n0BwSB/orM594sLIPRtt3LE5cHzkF1t+B4CsPbd6dLtDBRlwL6Xe7CooQQg+zkyxdkKykYF7Ow3H4ZEip5g7RxHTBs6y+LEC+fWjH0V9r+MOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nQ5t79D/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783625580; c=relaxed/simple;
+	bh=gVFuG7+vBpy63DDiHHNwlDwPc7yR8XEQeKmMBJcP2/A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OjHG/IobjztX+BSVktwKcimGl/9QCGLntQ/w6G9zqovkpgoiQGtK12DPkkjFxw8yTYRU9cdHdGA3+D4Uvz9locqlBhNZOiv6qZFuIsY/1qDbiIUmfzw8fvU31z/Y5AaaZKuQ5zo2MdWxUtlAI5fGV87f9OdQhKCw/qmkdrCyBbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8lLIwO4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nQ5t79D/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0F41F00A3E
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 19:32:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8lLIwO4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DAFD1F000E9;
+	Thu,  9 Jul 2026 19:32:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783625570;
-	bh=itjAd6Yu2/1jr1PqBGbi5CDPntn/QjOciL4IWtLxdZc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nQ5t79D/dF9D4I9vNXHZ3W3lmj+iTYnKG5h27W7hL8MCXp5iecHai+hqMR3+rCita
-	 BzHsa2fgHlPOk5umIDn+ZPyzVgG4x5Pv8VaHywG68m+h3kmwDKzOXHQL+BxuVE/HGo
-	 xNUo922WgyyOJG+/EbHppBFdeOwHx9GF3O1wVmsJNJkh34T5FS6wwc+r7HUZv2XZaa
-	 dpcahCQj1vtFRxHk1bq9LHIEvd4T19gt68IntGsyGojet9mSrDwN7c5VG/MyTbiTFJ
-	 L7YcJMR3sZVtjRxfqDxje9/jJS32vv0pLqzOJCZLlZc0ZuEt195cdhSehTs+ODBHpC
-	 UYGsZrDelc9sA==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b013aa02b2so2001179e87.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 12:32:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RoGnnPJAXdt3bhj0TKHEpPRF9XcBfFZerTuuv4PIkVjQmiOvYehnohOcLMH3EFMl/konfMxuW5cC6nh@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYPbBC3F/lgqwJMQAMsTlPnXFeNMREyOvJ5AZFt3PpRpqs204J
-	ZMVa3fB+9dwEo7GwQfvqjHJvukQr8knlvdZAbEj9VbGvzC7rkT1rj5hMA/WqFgbKpykgg5WCrJk
-	vnnGIEtzhm2eeTNqrDvwkO8FpW6I6nqY=
-X-Received: by 2002:a05:6512:61d8:10b0:5b0:15ed:e1a with SMTP id
- 2adb3069b0e04-5b01c63a114mr64809e87.26.1783625569146; Thu, 09 Jul 2026
- 12:32:49 -0700 (PDT)
+	s=k20260515; t=1783625579;
+	bh=sngdqUCXqTLY0/tvNdwEAQ4+9TiWOAZtPzmnzyZ5zp0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O8lLIwO4anUEdTcDCgb4CrWDpg9PYVf2hQZoO1X5m/qt4HUVxt6ELnnYmgTCgtk9A
+	 dXYT2j2dWANZZ2XkYBzC+8a67ph8x5yhI2JmPb7LS3Dftl4lVJKeh/W0WhAyP7i41n
+	 LTc9JGLMTOFxVdSZCGVZveRabzloi1XwPZTdaZOIEZxIHiX5g/XONaWXKl0F2yKeeS
+	 hOH1kMAAPAq/c8jlSfMHPPbFxk+7yJZx3U+2OYEK9kOn93kvHSyg73OqZkbLUCu8GC
+	 gObTDtU37Rm1jsfXFR5HhamoWa0XbODGFU2qK/Bcw8ptE8vrsoUj/vg4lT3DMzBBtX
+	 PrdFSGEBC6WMQ==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: eliza: Add CPU and LLCC BWMONs
+Date: Thu,  9 Jul 2026 14:32:53 -0500
+Message-ID: <178362531886.2423236.15524151411935053875.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260708-dts-qcom-eliza-add-bwmon-v1-1-602a409f550f@oss.qualcomm.com>
+References: <20260708-dts-qcom-eliza-add-bwmon-v1-1-602a409f550f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709-ixp4xx-little-endian-v1-0-e9622d0ba9e4@kernel.org>
- <20260709-ixp4xx-little-endian-v1-1-e9622d0ba9e4@kernel.org> <20260708224834.138FC1F00A3D@smtp.kernel.org>
-In-Reply-To: <20260708224834.138FC1F00A3D@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 9 Jul 2026 21:32:36 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmUwxEdEw23H0sk6YsBCVDPLtY_SA=SeBRcxf+jTO=4tQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwhYf00QarAzMarBQQ3Wni43KkqpeoWuM9RX7O1CGi0RRu2IeSAq3qhlsw
-Message-ID: <CAD++jLmUwxEdEw23H0sk6YsBCVDPLtY_SA=SeBRcxf+jTO=4tQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] ARM: decompressor: always set endianess on xscale
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 9, 2026 at 12:48=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this XScale-specific
-> cache flush sequence execute unconditionally on all CPUs in a multiplatfo=
-rm
-> build?
->
-> arch/arm/boot/compressed/head-xscale.S:__XScale_start()
->     ...
->     mcr p15, 0, r0, c7, c10, 4  @ drain WB
->     mcr p15, 0, r0, c7, c7, 0   @ flush I & D caches
->     ...
->
-> When booting a multiplatform kernel configured with both CONFIG_CPU_XSCAL=
-E and
-> CONFIG_CPU_ARM720T on an ARM720T CPU (such as CLPS711x), could this cause=
- a
-> fatal undefined instruction exception during early boot?
->
-> Since these CP15 cache flush instructions are undefined on the ARM720T
-> architecture and execute before the exception vectors are set up, does th=
-is
-> lead to an unconditional system crash?
+On Wed, 08 Jul 2026 15:29:23 +0300, Abel Vesa wrote:
+> Describe the CPU and LLCC bandwidth monitor nodes for Eliza, together
+> with the corresponding OPP tables.
+> 
+> 
 
-Hm.
+Applied, thanks!
 
-I did originally patch it like this:
+[1/1] arm64: dts: qcom: eliza: Add CPU and LLCC BWMONs
+      commit: 4e967cad02bce8983c4e826cd13ef0e730692832
 
-+               mrc p15, 0, r0, c1, c0, 0
-+#ifdef CONFIG_CPU_BIG_ENDIAN
-+               orr     r0, r0, #(1 << 7)       @ enable big endian mode
-+#else
-+               bic     r0, r0, #0x80
-+#endif
-+               mcr     p15, 0, r0, c1, c0, 0
-+ 0:           mrc     p15, 0, r0, c1, c0, 0
-+               tst       r0, #0x80
-+               bne     0b
-+               sub     pc, pc, #4              @ flush instruction pipelin=
-e
-
-which works fine as well.
-
-Shall we go for this version instead if it will be nicer on other CPUs?
-
-It has the upside of just fiddling with a single bit.
-
-Yours,
-Linus Walleij
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
