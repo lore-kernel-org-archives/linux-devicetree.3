@@ -1,337 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA154028D6
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783589267; cv=none; b=TePaPoAUdSXkn6SexVsktUqQUFVg02yBF0hAFHUOxxORmrXjm+PsTtR+z4SioprBncjL6K12bJc4zAfC3FVlMIFSUXjRBzo0zhHituyuElKUy9UYwqSGFfnyfjdt9g9vm2kvjYUFUBTW+RYbmdJ/hruoGV0RWPoMSkHj+IK7dSs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783589267; c=relaxed/simple;
-	bh=2kgwc9ZnRZLmNNFL0HwzkVn8eMCbTjucjVgN2Wfjp6U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tQ2/AV4Xgi+6cOYdB7UL4mPxfYlvN9e5BwU2+c8mmH7HV684q0h8iTItKxSoUQ6JIpeXqTqNiyriWygOpaXTsd9Vhk1AgQPPV/V2DP4V4AfjGEG859ZFRcpaaMdbRAaV19EaJb8ev0gcjEaIo7Zf2FC2ayz9V4xmuA5VNafDapU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7oeH6Rt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A818B403AE8
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783589281; cv=pass; b=uGobd7I/hg5X6y6rtOzdn+jHUOd+sLRHtNEnRMC/fttMMOkC+lLmlHTp7J2OJo066CTwOK1wvUgC6pkrna/7+3rvz9y1au2Cbrw8YaoHkMTEugZmk+jKSdrSaGUoJzqr6cDbNaK7/MOxs05RZtBMmhAdqDxB8i6pMgrmUwqjhX4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783589281; c=relaxed/simple;
+	bh=mekk8Qs9paOr/JOz+cCQQowV22V0kdNKPamGxe5W2bU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qlU3fuyJSIEZgmbkKG/qzF4hhopqEMXADKkwdwTG/Aasm96fuJpLyP+QaPgHrv4DEIgViWueQ2u84AstgTdkC35x5vw5lq6JJbJTdicNYI11iPaBvSEwtczZt1F1b/Nfr15eLfpYbM4um/6QuG5w2uxj46B/oBydFWefaN+LEXU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Pta5oDD0; arc=pass smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7oeH6Rt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89091F000E9;
-	Thu,  9 Jul 2026 09:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783589259;
-	bh=rZeFNPDrH3zAjcZhmDrymUHsHtzCKc6MHpyUJHcoGvQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O7oeH6RtydUv4mOEM+RnSKkHThGS1StldMvalZUQGOn5IkNj3x+UShKyT4w4QHbTg
-	 71TYyqAryBVOf9KUIJ16pozXlMn2qCxNNq3AOgAbG6v3XCWuHNtHaCxrDecMglY4+d
-	 IwfWbil2gpWiJcvI9ejRpL2kG0iGP3D+wUUgQSYfbdovIP7tRNVYxDu8gfyE3sGM9D
-	 U39wYxBTwU2B15nSXA6UiWhD7AqZciKLIr+nuotfdSI1GQJi2hHNqB+ZadT0FPkj15
-	 aJ9r1LJ+LmEImZU1hdN2kMcZ3Ziabj0txP2EnZLALhiIUjl3rv5JUre2ujsM5Xi8MW
-	 NqQbF5fMTif1A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/6] iio: adc: Add AD7768 IIO Driver support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709-ad7768-driver-v1-4-44e1194fd96a@analog.com>
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
- <20260709-ad7768-driver-v1-4-44e1194fd96a@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 09:27:38 +0000
-Message-Id: <20260709092738.D89091F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Pta5oDD0"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66628618509so976142d50.2
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 02:27:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783589271; cv=none;
+        d=google.com; s=arc-20260327;
+        b=spcf79aU9wcXl0loX2Zwy3uGaor2nAWAK4F5UYrh5PJAENMN0y4ex/O8IMKA+8HCxT
+         ZiG++sH0uUjo1acoLJ1ShMyYKc9PsdqoOm7o+6/uQMAQE43X6lUAIVtT2tRNF4uqUuC7
+         j705Hce2O+t5gKKfJtYWfupWDCns3Thobaek6NlIAwyR5PzICEPSyBTuV+nc74kis0QU
+         rZxuelBOW7lsTF1QACMsRnnBTmjw0fcx2JCfzQhbNak0EF4PIz4gkkYPPV4A7zyBUPKg
+         IX0W6zHksZ0pJAaF9+QDDsIGZXJxtypYEovxbSCIYBdNOu2d5xb7/WdANsgF/tqrHMcD
+         9Geg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=74c3zDUYj1sq4/rZ6bxjy4uiRjT7W3hHmw8hfbbGZdU=;
+        fh=Dcsate2Q5+LeS9EBFWreJHWg2I7PTdSXNFgEHIV76Us=;
+        b=UagNm2awZTib/7efDPomOm6kbYGGJarJBzZoDhvrX4qGe/AUdyvQONowk0fEqF1ULK
+         fgJR8csDRaQ7nMnUEm44DWbmBT+tmwmyRKE0CEFs+7XQ/+PBnULk/gQv5rb2CQ0GO8s9
+         +hBKLfzp/mX3ZyTmFtxsoCj2tyqKjFtDOKPU1TwFKnrGGgxBtQR1Cr0kX/ldq3NISaNu
+         adwtWw1BtV4iiSdvn0cUCAKS6emuGqK/wW3bl8GeZpvS78pOyVFMkaEXWFYUdZZJDPuO
+         9YMmTOpfeDXqwGwguW9OuTqrrChVOPwb/zyEkmL6nmIWchV4yCrVtHsoTVbk6j+bHkIP
+         txHw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1783589271; x=1784194071; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=74c3zDUYj1sq4/rZ6bxjy4uiRjT7W3hHmw8hfbbGZdU=;
+        b=Pta5oDD01+qqIiCQKZxYoV7CXTd9/YDc+ExqWz/u9YbuO+rYq3V9nt2jiZhUpI8fNf
+         5kYIXrJDZ8B1pKnjVvxzyaxeZQ49YEB6sqXd1twA0qvoFsvLni5SzZWWPJ3lBlfKVIJw
+         IA0dyYW70iyzh+d0Nzi6M/AmGSd1HgJoYmZjI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783589271; x=1784194071;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=74c3zDUYj1sq4/rZ6bxjy4uiRjT7W3hHmw8hfbbGZdU=;
+        b=ELHcZRYhllcOwhzwlD6fBNYBbF/dn6PeS4y3V6UzvKwpyrGZibNo0Yt8nGH4KkRLtT
+         iCt4VYDdPwavbI9r89zic4enI8xNUMuLWWwqiSw7hWu+0eEWEkmo/KBv8KAiHLt+gtTb
+         RSkigHOnwli9ISYIL7NfKPDnM2Z3zU+eGi12nxIbXcCsgFdo4hDi5k6xTYoXpWZP2nQw
+         3gKIxCl04aDadciRx0BlnqiROZseEbfTfiYFNMW0CNjfVJHyhMBlVZSV/w77/XK+5isV
+         2np5a6eZEolLIGmp3RDIbNqzVN9fy99SHGkCbfHyYp0zDEJWRYWbDp3QjiHa83zQES7W
+         jXQA==
+X-Gm-Message-State: AOJu0Yw4g7R+W8sqyQsYk/9SRnklJ9WLqWFoInU6faCJIZFGDWCKkl2S
+	CxiDkgOiGE7cSnAoLXDLxI112rgR1wy4xBxTfFnmjd4gjj8OE9swrYAw3gsJaiSB1P9lbe0Mmfa
+	BkSVZD+EjnJiyBDN3pO/IcaHF4sOciHgYSOpnkS4p
+X-Gm-Gg: AfdE7cnIvfjCjb9xyM5vj6dbCEOhSuQOt7Dl843LdjH5YAaOq2AmbSffZ5IfA4+kEj+
+	XRPKJVGw303e1gdzVNN5WQzxc1bQekfPqfbYxxrrILAyUVYZ4T6KSsiqhyAewT26wVFlW9lPV3T
+	sy2dVd5QpBQzvIPUHtAxx5730WhnaGO/45FrUI8X83aizSesmRWt/lWMikIBflEWXRyRBfkE87J
+	Nxe9+9VGyjtIkx3lJjB1tj34LQwCGMGkuNPVe/uB2vG/ET1rdwOZ+74bv4ok9nSXy4FP58ff9fz
+	qmthrBemHZqJPd5zL+Ww9q0Qp38=
+X-Received: by 2002:a05:690e:134a:b0:667:b262:16bd with SMTP id
+ 956f58d0204a3-667b26234b2mr2825271d50.81.1783589271117; Thu, 09 Jul 2026
+ 02:27:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260709081928.612294-1-wenst@chromium.org> <20260709083024.330381F000E9@smtp.kernel.org>
+In-Reply-To: <20260709083024.330381F000E9@smtp.kernel.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 9 Jul 2026 17:27:39 +0800
+X-Gm-Features: AUfX_mx_3xgToBgzkBmOX1DPVDvwVrzb4et6fk5WWd8Ysjgsr4mMAnsSLQdDprs
+Message-ID: <CAGXv+5HO5eWaJ-AhH9JG=aZ9f_se8L8Ebz-NRHfKMsNXvGnQTg@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+To: sashiko-reviews@lists.linux.dev, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, 
+	"moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] The AD7768_REG_CH_STANDBY register is programmed with an incorrect=
- contiguous bitmask for the AD7768-4 variant, preventing unused hardware ch=
-annels from entering standby.
-- [High] Missing or delayed validation for the `adi,data-lines-number` DT p=
-roperty allows a division by zero kernel panic.
-- [High] Unvalidated master clock (`mclk`) frequency can result in a divisi=
-on by zero crash.
-- [High] Missing sign-extension when reading the 24-bit CALIBBIAS (offset) =
-and 8-bit PHASE calibration registers causes data corruption.
-- [High] The SPI read function reuses the same buffer for concurrent `tx_bu=
-f` and `rx_buf` across multiple transfers in the same message, violating th=
-e DMA API and the device's SPI protocol.
-- [High] Missing error rollback in `ad7768_update_scan_mode` leaves the IIO=
- backend hardware in a partially enabled state on failure.
-- [High] Hardware configuration is modified without claiming direct mode, a=
-llowing state corruption if modified while the IIO buffer is active.
-- [Medium] The device will not automatically enter suspend after probe beca=
-use the autosuspend timer is never started, resulting in a permanent power =
-leak if unused.
-- [Medium] Hardware reset sequence asserts and immediately deasserts the re=
-set pin without any delay, potentially violating the minimum reset pulse wi=
-dth.
---
+On Thu, Jul 9, 2026 at 4:30=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] The MT6319 PMIC fallback compatible triggers incorrect MT6315_PP=
+ mode ganging in the regulator driver, causing silent cross-talk between th=
+e CPU and EMI VDDQ regulators.
+> - [Low] Grammatical error in the comment explaining the firmware workarou=
+nd.
+> --
+>
+> --- Patch [1]: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319=
+ PMIC ---
+> commit 0ff94c6622559a57199ed1f2d1f4063c6c911df1
+> Author: Chen-Yu Tsai <wenst@chromium.org>
+>
+> arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+>
+> The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR4X
+> DRAM.
+>
+> > diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm=
+64/boot/dts/mediatek/mt8188-geralt.dtsi
+> > index 8e423504ec052..af05315092f53 100644
+> > --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> > +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> [ ... ]
+> > @@ -1225,6 +1235,70 @@ &spi2 {
+> >       status =3D "okay";
+> >  };
+> >
+> > +&spmi {
+> > +     pinctrl-names =3D "default";
+> > +     pinctrl-0 =3D <&spmi_pins>;
+> > +     #address-cells =3D <2>;
+> > +     #size-cells =3D <0>;
+> > +     status =3D "okay";
+> > +
+> > +     pmic@6 {
+> > +             compatible =3D "mediatek,mt6319-regulator", "mediatek,mt6=
+315-regulator";
+> > +             reg =3D <0x6 SPMI_USID>;
+>
+> [Severity: High]
+> Does this fallback compatible trigger incorrect mode ganging?
+>
+> The mt6315-regulator driver maps USID 6 to the MT6315_PP variant, which
+> hardcodes mode ganging for vbuck1, vbuck2, and vbuck4. On the MT8188
+> Geralt's MT6319, vbuck4 is wired as an independent regulator for
+> pp0600_emi_vddq.
+>
+> If a mode change happens on vbuck1 (which is allowed by the
+> regulator-allowed-modes property), the driver will apply the ganged
+> mask and silently overwrite vbuck4's mode bits in the PMIC, potentially
+> forcing the RAM supply into an unexpected mode.
+>
+> Could this silent cross-talk between the CPU and EMI VDDQ regulators
+> lead to memory voltage instability?
 
---- Patch [4]: [PATCH 4/6] iio: adc: Add AD7768 IIO Driver support ---
-commit 73c0da3f81ae06a5de50f6a53d4da30b75b35a25
-Author: Janani Sunil <janani.sunil@analog.com>
+This discrepency is actually bigger than Sashiko mentions. The ganging
+supported by the driver only applies to the PMICs in the Asuarada design:
 
-iio: adc: Add AD7768 IIO Driver support
-   =20
-Add support for AD7768 4/8 channel,simultaneous sampling Sigma-Delta
-ADC, supporting configurable power modes, decimation filters and data
-output lines
+  - SPMI ID 6 has 1+2 (GPU); 3 and 4 are unused
+  - SPMI ID 7 has 1+2+4 (big cores) and 3 (little cores)
 
-> diff --git a/drivers/iio/adc/ad7768.c b/drivers/iio/adc/ad7768.c
-> new file mode 100644
-> index 0000000000000..f76a7081090ec
-> --- /dev/null
-> +++ b/drivers/iio/adc/ad7768.c
-[ ... ]
-> +static int ad7768_regmap_read(void *context, const void *reg_buf,
-> +			      size_t reg_size, void *val_buf, size_t val_size)
-> +{
-[ ... ]
-> +	struct spi_transfer t[] =3D {
-> +		{
-> +			.tx_buf =3D &st->d16,
-> +			.len =3D 2,
-> +			.cs_change =3D 1,
-> +		}, {
-> +			.tx_buf =3D &st->d16,
-> +			.rx_buf =3D &st->d16,
-> +			.len =3D 2,
-> +		},
-> +	};
+On the Cherry design we have:
 
-[Severity: High]
-Does this second transfer violate the DMA API by double-mapping the same
-virtual pointer (&st->d16) used in the first transfer?
+  - SPMI ID 6 has 1+2 (GPU); 3 and 4 are unused
+  - SPMI ID 7 has 1+2+3+4 (big cores)
 
-Also, wouldn't transmitting st->d16 again during the read phase violate
-standard SPI protocol by sending the read command on the MOSI line instead
-of leaving it 0x00?
+On the Corsola designs with beefier chips:
 
-Could .tx_buf be left NULL for the second transfer?
+  - SPMI ID 6 has 1+2 (big cores); 3 and 4 are unused
 
-[ ... ]
-> +static int ad7768_read_calib_value(struct ad7768_state *st,
-> +				   unsigned int base_reg, int *val)
-> +{
-[ ... ]
-> +	*val =3D (msb << 16) | (mid << 8) | lsb;
-> +
-> +	return 0;
-> +}
+On the Geralt design (this one):
 
-[Severity: High]
-Since the CALIBBIAS register stores a 24-bit two's complement offset, does
-this assignment correctly handle negative offsets?
+  - SPMI ID 7 has 1+2 (big cores); 3 (DRAM); 4 (DRAM)
 
-It appears the value is ORed together as an unsigned 24-bit value and assig=
-ned
-without sign extension, which might cause negative offsets to be returned to
-userspace as large positive integers.
+Any ideas on what to do about this mess?
 
-Should sign_extend32() be used here?
+Another thing is that I kind of wonder why the mode configuration register
+setting isn't ganged in hardware like the enable and voltage settings.
 
-[ ... ]
-> +static int ad7768_set_clk_divs(struct ad7768_state *st,
-> +			       unsigned int freq, unsigned int ch)
-> +{
-[ ... ]
-> +	chan_per_doutx =3D st->chip_info->num_channels / st->datalines;
-> +	if (!chan_per_doutx)
-> +		return -EINVAL;
-[ ... ]
-> +	dclk =3D f_cfg.freq * AD7768_SAMPLE_SIZE * chan_per_doutx;
-> +	if (dclk > mclk)
-> +		return -EINVAL;
-> +
-> +	/* Set dclk_div to the nearest power of 2 less than the original value =
-*/
-> +	dclk_div =3D DIV_ROUND_CLOSEST_ULL(mclk, dclk);
 
-[Severity: High]
-Is it possible for the configured mclk to be 0?
+Thanks
+ChenYu
 
-If the clock rate returns 0, dclk will also become 0. Would this trigger a
-division by zero kernel panic inside the DIV_ROUND_CLOSEST_ULL() macro?
-
-[ ... ]
-> +static int ad7768_read_raw(struct iio_dev *indio_dev,
-> +			   const struct iio_chan_spec *chan,
-> +			   int *val, int *val2, long info)
-> +{
-[ ... ]
-> +	case IIO_CHAN_INFO_PHASE:
-[ ... ]
-> +		ret =3D regmap_read(st->regmap, base_reg, val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		return IIO_VAL_INT;
-
-[Severity: High]
-Similar to the CALIBBIAS register, the PHASE register stores an 8-bit two's
-complement value. Since regmap_read() zero-extends the 8-bit read, will this
-corrupt negative phase values?
-
-[ ... ]
-> +static int ad7768_write_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int val, int val2, long info)
-> +{
-[ ... ]
-> +	switch (info) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		return ad7768_set_sampling_freq(indio_dev, val, chan->channel);
-
-[Severity: High]
-Is it safe to update the sampling frequency without claiming direct mode?
-
-Since ad7768_set_sampling_freq() invokes ad7768_sync() to reset the ADC's
-digital filters and SPI synchronization, could userspace writes to sysfs
-attributes corrupt or desynchronize ongoing buffer captures?
-
-Should iio_device_claim_direct_mode() be used here?
-
-[ ... ]
-> +static int ad7768_update_scan_mode(struct iio_dev *indio_dev,
-> +				   const unsigned long *scan_mask)
-> +{
-[ ... ]
-> +	for (c =3D 0; c < st->chip_info->num_channels; c++) {
-> +		if (test_bit(c, scan_mask))
-> +			ret =3D iio_backend_chan_enable(st->back, c);
-> +		else
-> +			ret =3D iio_backend_chan_disable(st->back, c);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-If an error occurs midway through this loop, returning ret immediately leav=
-es
-previously enabled backend channels active.
-
-Does this leak backend resources and leave the hardware streaming
-indefinitely, potentially breaking future captures? Would it be better to
-rollback the enabled channels on failure?
-
-[ ... ]
-> +static int ad7768_parse_config(struct iio_dev *indio_dev,
-> +			       struct device *dev)
-> +{
-[ ... ]
-> +	ret =3D regmap_write(st->regmap, AD7768_REG_CH_STANDBY,
-> +			   GENMASK(st->chip_info->num_channels - 1, 0));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	device_for_each_child_node_scoped(dev, child) {
-[ ... ]
-> +		ret =3D regmap_update_bits(st->regmap, AD7768_REG_CH_STANDBY,
-> +					 BIT(channel), 0);
-
-[Severity: High]
-For the AD7768-4 variant, which uses physical channels 0, 1, 4, and 5, will
-this contiguous mask GENMASK(3, 0) correctly power down the unused channels?
-It seems this would write 1s to bits 0-3 and 0s (active) to bits 4 and 5,
-potentially leaving the upper hardware channels permanently active.
-
-Additionally, will BIT(channel) correctly clear the bits for the upper
-hardware channels? If channel is 2 or 3 (representing the 3rd and 4th
-channels), this would attempt to wake up non-existent physical channels whi=
-le
-leaving bits 4 and 5 active.
-
-[ ... ]
-> +	st->datalines =3D 1;
-> +	ret =3D device_property_read_u32(&st->spi->dev, "adi,data-lines-number",
-> +				       &st->datalines);
-> +	if (ret)
-> +		return dev_err_probe(&st->spi->dev, ret,
-> +				     "Missing \"adi,data-lines-number\" property\n");
-> +
-> +	ad7768_set_available_sampl_freq(st);
-[ ... ]
-> +	for (i =3D 0; i < indio_dev->num_channels; i++) {
-> +		ret =3D ad7768_set_sampling_freq(indio_dev, st->sampling_freq,
-> +					       indio_dev->channels[i].channel);
-
-[Severity: High]
-Could st->datalines be 0 if the user provides adi,data-lines-number =3D <0>
-in the device tree?
-
-Because validation of this property happens at the end of the function,
-calling ad7768_set_sampling_freq() here delegates to ad7768_set_clk_divs(),
-which performs st->chip_info->num_channels / st->datalines.
-
-Would this trigger a division by zero kernel panic?
-
-[ ... ]
-> +static int ad7768_set_filter_mode(struct iio_dev *indio_dev,
-> +				  const struct iio_chan_spec *chan,
-> +				  unsigned int mode)
-> +{
-[ ... ]
-> +	ret =3D regmap_update_bits(st->regmap,
-> +				 AD7768_REG_CH_MODE(st->chn_mode[chan->address]),
-> +				 AD7768_CH_MODE_FILTER_TYPE_MSK,
-> +				 AD7768_CH_MODE_FILTER_TYPE_MODE(mode));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return ad7768_sync(st);
-> +}
-
-[Severity: High]
-Similar to ad7768_write_raw(), is it safe to update the filter mode and sync
-the hardware without claiming direct mode using
-iio_device_claim_direct_mode()?
-
-[ ... ]
-> +static int ad7768_reset(struct ad7768_state *st)
-> +{
-[ ... ]
-> +	if (reset_ctrl) {
-> +		ret =3D reset_control_assert(reset_ctrl);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D reset_control_deassert(reset_ctrl);
-
-[Severity: Medium]
-Is a delay required between asserting and deasserting the reset line?
-
-Executing reset_control_deassert() immediately after reset_control_assert()
-might result in an extremely brief reset pulse. Could this fail to reset the
-hardware properly on fast platforms?
-
-[ ... ]
-> +static int ad7768_probe(struct spi_device *spi)
-> +{
-[ ... ]
-> +	pm_runtime_set_autosuspend_delay(dev, 2000);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_active(dev);
-> +
-> +	ret =3D devm_pm_runtime_enable(dev);
-
-[Severity: Medium]
-Does this properly start the autosuspend timer after probe?
-
-Because the usage counter is 0 and no idle check is manually queued, the co=
-re
-never starts the autosuspend timer, leaving the ADC fully powered on
-indefinitely until userspace triggers a pm_runtime_get()/put() cycle.
-
-Should pm_runtime_mark_last_busy() and pm_runtime_put_autosuspend() be call=
-ed
-before exiting probe?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-ad7768-dri=
-ver-v1-0-44e1194fd96a@analog.com?part=3D4
+> > +             pvdd1-supply =3D <&pp4200_s5>;
+> > +             pvdd2-supply =3D <&pp4200_s5>;
+> > +             pvdd3-supply =3D <&pp4200_s5>;
+> > +             pvdd4-supply =3D <&pp4200_s5>;
+> > +
+> > +             regulators {
+> > +                     /*
+> > +                      * vbuck1 is the cpu-supply for CPU6 and CPU7.
+> > +                      *
+> > +                      * However, this device originally shipped with a=
+ broken
+> > +                      * firmware that causes register reads over SPMI =
+fail.
+> > +                      * This is fixed in firmware version 15842.175.0,=
+ which
+> > +                      * is included in ChromeOS releases R150-16700.22=
+.0 or
+> > +                      * R151-16721.0.0 and later.
+> > +                      *
+> > +                      * Assigning the cpu-supply properties for CPU6 a=
+nd CPU7
+> > +                      * without the fix will likely cause CPU DVFS to =
+stop
+> > +                      * working. Hence the assignment is left out to a=
+void a
+> > +                      * regression of the function. If the user is con=
+fident
+> > +                      * that their system has the fix, they can added =
+the
+>
+> [Severity: Low]
+> This isn't a bug, but there is a typo in this comment. It should say
+> "they can add the property themselves".
+>
+> > +                      * property themselves.
+> > +                      */
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709081928.61=
+2294-1-wenst@chromium.org?part=3D1
