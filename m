@@ -1,157 +1,227 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47513FCB22
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:49:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749E73F12D1
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:49:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783597742; cv=none; b=YZO8nZmYOSo6LMulbDyjtYRc1MpX1gW5c+IR+vyu7QIjYkRZkethdK+BO7NbpkEaI+9elnSANaELY5aCU8mOL3NmkD6+zygZRvCQseCGSyJZydN83asqnmrE2W2SAiEGoaULzfpOpKGkuAXC4zk1Ji2snNOkm7xtvK9tgaFfywg=
+	t=1783597790; cv=none; b=JkZNaPDwDK4dS16jNA8TZPhJK2eI3tORuX3N4BoaXcp4GC/EQGLS1bC6m4tnu9yXVUKXe4AfOSrVQM7ij7UNzje4S60CVCm0sKkgj4A1Ikb66PjeFsNipzftMNn2KMNXruTtAIDSaWGfA6rmMkiWNx3E470bLe6ZmNUnsxcgBF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783597742; c=relaxed/simple;
-	bh=5RmmWY9nEFHnmDPjJT/CK8uBE40dk3n4+J67zz0+sfY=;
+	s=arc-20240116; t=1783597790; c=relaxed/simple;
+	bh=ifdfQ8CSUJPNPCw8veHocu+0WBsy9B0MPCQU2rSIWMc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KLs1nHKH5wJXWMaT1obmqtgnAlKlgNAm9aY1GNIQWbIE1HRdsrC4I6usdz84OUMK2VEo7CeIr4m3fXO0KiZIo6xiChdZBDvvviMvvZe8KWh7US+cX6eYX2ZpRBIa7n9C7en9erEsQWqBOWDWu9nCkOmJI3XzNHpSnWLA3IPowl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7nxkOYg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=l5XjEc8RsmpNP5biJuRBErHj9cLaYVma/FdWqwU6ME/dLteDXXrw+NNahhzCDz8NBDtotCvJUipGTg4zNBYueysWhNOyZdvSIE2ae42MZTgkmareYnJmXUXFLMg+E2d5Yiux5w58gGrtBZWXrFddxngoPKx5a9x95lcpdHJWnbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KErqG7Yh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7nxkOYg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B611F000E9;
-	Thu,  9 Jul 2026 11:49:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KErqG7Yh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6B581F000E9;
+	Thu,  9 Jul 2026 11:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783597740;
-	bh=05L0JJIY6mJX59erNIBr+MFmvKx8LMAmktooty4tt3o=;
+	s=k20260515; t=1783597789;
+	bh=JRWsN1cOaRFKbjPMmYa9IPfjPyISyWDka+JsJJ2JcJQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O7nxkOYg3MTRciY2sRmixAqgTCig7KnmTOL+gfIB/UP7vyrMPxWZK1Bqn18iN979P
-	 OtsH2AOssHYDbFqcVkAwWOt5SZEkCx66Jnyqzs4lXTV7LoSbagTSMKgY6SBwXNgf7x
-	 OCIh9c3IwFAURJrjkyRcVXl+Hby2y39LCL5/i7R3Se27hKUJ872LToZHuDwqCIUkUZ
-	 SoC7ymmahweZ5LzmI7Mct00hREHHGXWXtieP1a+MM1QSGX+qslljl6pqJdREcOF1KN
-	 JYp9MCs7HAQaaVXb3i2g310I7pk2IksRbwdmh85LTfKVo1P9Va98k0q5N6Dmt2deCk
-	 WUZcs09R+70VA==
+	b=KErqG7Yhcg1WtLOO9LubZyhrOMokDlYgBtFXURmrGZOPZJm7N+YI5UVP7JzqtgrDE
+	 QiHaPL2r7SO48RJcL1VWmvMjRp/41xwnWcLiPEsYF7jjBIxOJOKeknvkiA+u2GpOO0
+	 wpztCFE1OzlRpRSkfgYmkaxx44JlImaerS1Va44GCmnJv3ELQhcBEsdJ0qviD5kWHd
+	 CfYHewfyDPHMPipNO7ZfujWRoar1Uc+b/j3b4JSIJ2OUpSPYp0mq3b+FRixnuGSyFV
+	 KHtLoL94+lvbUsRthUzFnCQm5DcO0NYBO374Z86hod3iy5fyPxwfU6OgRDm+aMoeX+
+	 4TA3GDca/fJgw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/12] drm/mediatek: mtk_dp: Fix hdmi codec and phy
- driver unregistration
+Subject: Re: [PATCH v2 10/11] drm/mediatek: mtk_dp: Add support for eDP1.5
+ IPs and MT8196 SoC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709113148.49090-5-angelogioacchino.delregno@collabora.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
- <20260709113148.49090-5-angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709100617.42583-11-angelogioacchino.delregno@collabora.com>
+References: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
+ <20260709100617.42583-11-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 11:48:59 +0000
-Message-Id: <20260709114900.41B611F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 11:49:48 +0000
+Message-Id: <20260709114948.C6B581F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The hardware interrupt is not disabled during driver unbind (`mtk_=
-dp_remove`), allowing the IRQ handler and thread to execute while resources=
- are being destroyed, leading to use-after-free, timer re-arming, and bus e=
-rrors.
-- [High] The ALSA `get_eld` callback can dereference a NULL `mtk_dp->conn` =
-if called between a hotplug event and a DRM modeset.
+- [High] The patch introduces a forbidden sleeping function (`msleep`) insi=
+de atomic commit paths.
+- [High] `mtk_dp_bridge_atomic_disable()` incorrectly forces the encoder bi=
+as power ON rather than OFF, likely due to a copy-paste error.
+- [High] Conflicting register programming in `mtk_dp_encoder_reset` overwri=
+tes PHY enable bits and potentially leaves the PHY in permanent reset.
+- [High] Double unregister of the PHY platform device (`mtk_dp->phy_dev`) o=
+n the error path.
+- [High] `mtk_dp_setup_encoder` constructs an update mask using raw bit val=
+ues instead of proper field masks, failing to clear bits in multi-bit field=
+s.
 --
 
---- Patch [4]: [PATCH v4 04/12] drm/mediatek: mtk_dp: Fix hdmi codec and ph=
-y driver unregistration ---
-commit 6ce33bac50c12bbd077cc2e659b77509b20cd720
+--- Patch [10]: [PATCH v2 10/11] drm/mediatek: mtk_dp: Add support for eDP1=
+.5 IPs and MT8196 SoC ---
+commit a9e93bd64557c3ad0ae0387b6e0c8b87e41baeda
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
+Subject: drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC
 
-This commit converts the unregistration of the HDMI Codec and DisplayPort P=
-HY
-platform devices to use devm actions. This ensures they are properly cleaned
-up even during probe deferrals or failures.
+This patch adds support for MediaTek's Embedded DisplayPort (eDP) v1.5 IP
+found in the MT8196 SoC and other variants. It introduces conditional
+hardware initialization sequences, platform data switches for newer feature=
+s,
+and includes partial support paths for the DisplayPort 1.4 IP on the same S=
+oC.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
 /mtk_dp.c
-> index 0d0507890d993..8399a6b411689 100644
+> index fb216811c80c7..868d918a0b161 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dp.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
 [ ... ]
-> @@ -2680,18 +2687,28 @@ static int mtk_dp_register_audio_driver(struct de=
-vice *dev)
->  		.data =3D mtk_dp,
->  		.no_capture_mute =3D 1,
->  	};
-> +	int ret;
-> =20
->  	mtk_dp->audio_pdev =3D platform_device_register_data(dev,
->  							   HDMI_CODEC_DRV_NAME,
->  							   PLATFORM_DEVID_AUTO,
->  							   &codec_data,
->  							   sizeof(codec_data));
+> @@ -648,7 +669,18 @@ static void mtk_dp_setup_encoder(struct mtk_dp *mtk_=
+dp)
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3364,
+>  			   FIFO_READ_START_POINT_DP_ENC1_P0_VAL << 12,
+>  			   FIFO_READ_START_POINT_DP_ENC1_P0_MASK);
+> -	mtk_dp_write(mtk_dp, MTK_DP_ENC1_P0_3368, DP_ENC1_P0_3368_VAL);
+> +
+> +	mask =3D VIDEO_SRAM_FIFO_CNT_RESET_SEL_DP_ENC1_P0 | VIDEO_STABLE_CNT_TH=
+RD_DP_ENC1_P0;
+> +	mask |=3D BS2BS_MODE_DP_ENC1_P0;
+> +
+> +	val =3D mask;
+> +
+> +	mask |=3D SDP_DP13_EN_DP_ENC1_P0;
+> +
+> +	if (mtk_dp->data->sdp_encoder1_enable)
+> +		val |=3D SDP_DP13_EN_DP_ENC1_P0;
+> +
+> +	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3368, val, mask);
 
 [Severity: High]
-This is a pre-existing issue, but does the ALSA get_eld callback have a
-potential NULL pointer dereference race with hotplug events?
+Does this code construct the update mask using single-bit values rather than
+multi-bit field masks?
 
-When a display is plugged in, mtk_dp_hpd_event_thread() unconditionally sets
-the enabled flag before the DRM core populates mtk_dp->conn during a modese=
-t:
-
-mtk_dp_hpd_event_thread()
-    ...
-    mtk_dp->enabled =3D true;
-
-If userspace or the sound subsystem queries the ELD via mtk_dp_audio_get_el=
-d()
-in the window between the hotplug event and the DRM modeset, it seems we
-dereference mtk_dp->conn without checking if it is NULL:
-
-mtk_dp_audio_get_eld()
-    if (mtk_dp->enabled)
-        memcpy(buf, mtk_dp->conn->eld, len);
-
-Could this lead to a crash if a local user probes ALSA mixers before the
-modeset completes?
+The previous code wrote directly to the register, but the update here seems
+to use bit values (like BS2BS_MODE_DP_ENC1_P0) as the mask itself.=20
+Since BS2BS_MODE_DP_ENC1_P0 is just one bit but the field might be larger,
+will this leave uncleared bits in the multi-bit fields like
+VIDEO_SRAM_FIFO_CNT_RESET_SEL_MASK and BS2BS_MODE_DP_ENC1_P0_MASK?
 
 [ ... ]
-> @@ -2870,9 +2890,6 @@ static void mtk_dp_remove(struct platform_device *p=
-dev)
->  	pm_runtime_disable(&pdev->dev);
->  	if (mtk_dp->data->bridge_type !=3D DRM_MODE_CONNECTOR_eDP)
->  		timer_delete_sync(&mtk_dp->debounce_timer);
-> -	platform_device_unregister(mtk_dp->phy_dev);
-> -	if (mtk_dp->audio_pdev)
-> -		platform_device_unregister(mtk_dp->audio_pdev);
+> @@ -1116,6 +1148,72 @@ static void mtk_dp_hwirq_enable(struct mtk_dp *mtk=
+_dp, bool enable)
+>  			   IRQ_MASK_DP_TRANS_P0_MASK);
 >  }
+> =20
+> +static void mtk_dp_encoder_force_bias_power_on(struct mtk_dp *mtk_dp)
+> +{
+> +	/* Force MCU to enable BIAS */
+> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
+> +			   ENC_PHY_PWR_OVERWRITE_EN, ENC_PHY_PWR_OVERWRITE_EN);
+> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
+> +			   FIELD_PREP_CONST(ENC_PHY_PWR_STATE_OVERWRITE_MASK,
+> +					    ENC_PHY_BIAS_PWR_ON),
+> +			   ENC_PHY_PWR_STATE_OVERWRITE_MASK);
+> +
+> +	/* Wait for the MCU to get LDO ready in PHYD */
+> +	msleep(50);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but since we are modifying driver
-removal, is there a risk of the hardware interrupt firing during or after
-mtk_dp_remove()?
+Can this sleep in an atomic context?
 
-The hardware interrupt is managed by devres and remains active until after
-mtk_dp_remove() returns. Since pm_runtime_disable() is called here, the
-device power domain might be turned off.
+This function is called by mtk_dp_set_lanes() during display enabling, and
+by mtk_dp_bridge_atomic_disable(), both of which are executed in atomic
+commit paths where sleeping functions are forbidden. Could this msleep(50)
+cause kernel warnings or deadlocks during non-blocking commits?
 
-If a hotplug interrupt fires during this window, mtk_dp_hpd_event() will
-attempt to read hardware registers:
+> +
+> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
+> +			   0, ENC_PHY_PWR_OVERWRITE_EN);
+> +}
+[ ... ]
+> +static void mtk_dp_encoder_reset(struct mtk_dp *mtk_dp)
+> +{
+>  	/* dp tx encoder reset all sw */
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
+>  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0,
+>  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
+> =20
+> +	if (mtk_dp->data->hwip_v1p4) {
+> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004, 0,
+> +				   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
+> +		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
+> +				   ENC_PHY_STATE_RESET_ALL_MASK,
+> +				   ENC_PHY_STATE_RESET_ALL_MASK);
 
-mtk_dp_hpd_event()
-    u32 irq_status =3D mtk_dp_swirq_get_clear(mtk_dp) |
-                     mtk_dp_hwirq_get_clear(mtk_dp);
+[Severity: High]
+Does this write to ENC_PHY_STATE_RESET_ALL_MASK permanently hold the PHY in
+reset and overwrite unrelated fields?
 
-Could this cause a bus error or crash if the power domain is already off?
+Looking at the definition of ENC_PHY_STATE_RESET_ALL_MASK, it is
+GENMASK(7, 0). Writing 1s to this entire mask overwrites the enable bits
+DP_ENCODER_DVO_ON_W_1 and PHY_STATE_W_1_DP_ENC_P0_3 (bits 5 and 6) that were
+just configured. Since the reset is never cleared, will the PHY remain stuck
+in this reset state?
 
-Furthermore, if the interrupt handler schedules the IRQ thread,
-mtk_dp_hpd_event_thread() could re-arm the debounce timer or attempt to
-access the PHY during training after it has been unregistered by devres,
-leading to a use-after-free:
+> +	}
+[ ... ]
+> @@ -2580,6 +2795,9 @@ static void mtk_dp_bridge_atomic_disable(struct drm=
+_bridge *bridge,
+>  	/* SDP path reset sw*/
+>  	mtk_dp_sdp_path_reset(mtk_dp);
+> =20
+> +	if (mtk_dp->data->force_pwr_states)
+> +		mtk_dp_encoder_force_bias_power_on(mtk_dp);
+> +
 
-mtk_dp_hpd_event_thread()
-    /* Training */
-    ret =3D mtk_dp_training(mtk_dp);
+[Severity: High]
+Is mtk_dp_encoder_force_bias_power_on() the correct function to call during
+the disable path?
 
-Should the IRQ be explicitly disabled in mtk_dp_remove() before deleting
-the timers and disabling pm runtime?
+This turns the encoder bias power ON during bridge disable. Given that
+mtk_dp_power_disable() correctly calls mtk_dp_encoder_force_bias_power_off(=
+),
+should this be calling the power_off function instead to properly power down
+the display path?
+
+>  	/* Ensure the sink is muted */
+>  	msleep(20);
+>  }
+[ ... ]
+> @@ -2860,7 +3078,8 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_d=
+p)
+>  				     "Failed to add phy unregister devm action");
+> =20
+>  	/* PHY calibration data is in mtk_dp only for legacy devicetree */
+> -	mtk_dp_get_calibration_data(mtk_dp);
+> +	if (mtk_dp->data->efuse_fmt)
+> +		mtk_dp_get_calibration_data(mtk_dp);
+> =20
+>  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+>  	if (IS_ERR(mtk_dp->phy)) {
+
+[Severity: High]
+Could the error path for devm_phy_get cause a double free of the PHY device?
+
+The patch registers a devm action earlier in this function:
+
+    ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs,
+                                   mtk_dp->phy_dev);
+
+However, the existing error path for devm_phy_get manually unregisters the
+device:
+
+    if (IS_ERR(mtk_dp->phy)) {
+        platform_device_unregister(mtk_dp->phy_dev);
+        return dev_err_probe(...);
+    }
+
+Since returning an error will trigger the devres cleanup (and run
+mtk_dp_unregister_pdevs), will this result in platform_device_unregister()
+being called a second time on the same pointer?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709113148.4909=
-0-1-angelogioacchino.delregno@collabora.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709100617.4258=
+3-1-angelogioacchino.delregno@collabora.com?part=3D10
