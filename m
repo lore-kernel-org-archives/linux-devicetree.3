@@ -1,257 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3CC413D8B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E67641C2FE
 	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:32:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783596778; cv=none; b=T/bsRhRgVGWtrr4aE2td7Gm7eKt0cRkhGyFQbEpGaTuSi3wQsEdTRZC8FFpwRnes+T+CDsWbjbL3Z07bpKQV+jRInMBu2ZcSD9sDudpmr+ArWsQ3YdFqaaCcE4ay6s2EU+Fc4p1Zb1qR1kRjwZG3J4V9nzQ7rY/bGFAB0hpQuvI=
+	t=1783596779; cv=none; b=pWGAxpVIbD2nqhDfHIBiEUz2ouO88HJIqaBB8dIYISQt6As4ty92upKhf42/htYLEuFs6O/JEttxWf7p6kP0b0DbaEHqb6is3o6+zOIQH3gu0mds3VpH6iyUAdVZjA2/Bl6Gm6ytRHWxKTXf5jEgInRh/IYtlLGUcvSUiS9zVic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783596778; c=relaxed/simple;
-	bh=X3b3YuZFHpJkVna26Tg4WbvtA8R4kV65KTUnT+sX6fo=;
+	s=arc-20240116; t=1783596779; c=relaxed/simple;
+	bh=C68wGKbvi7QZRnlxm4tNzQFi1L4tSpcRbSf2TXi1hrs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DWQKD6vk5EAINx5kztlgI8UQ7VhCEoint+TVl1sesTkenqCzOtVcqW+SjiEMa/+6/qeEU7KWeqdKQRlYBkCLDd6aAl8ZYBtc0v6klS4Em3E2LawHLiTnJptDUZNjtOHTWgZ/kgs8qJdeVGJ6igEZWsAWpY2jPkpzUDEImTB+6/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gg/5mPTu; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=IaNNyp8/WLHmybdT1oySePQ6oEKP8fi9hkhVJ50Dcqso5eUNbjvuRRjzIcJS1ZyntyM3ZrRyHY3D+1eB6fScu8zyUFFM1W2cwZmWi+1OnFNNZn7dsUq+eCgd4im62dvpZRKF4BqOJBN7va9GPNPxxRWxJBdSQQe7DWj1CfsTtu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4vw+tM/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gg/5mPTu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28DE1F000E9;
-	Thu,  9 Jul 2026 11:32:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4vw+tM/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869D01F00A3D;
+	Thu,  9 Jul 2026 11:32:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1783596777;
-	bh=0ulM/nJHDl/w4xPJ0KGDg1wnzkPcMO8uuxgndAa1ryk=;
+	bh=37OD9pu/+XxsJMPggOES3ndkeWsyrJRSDvNPYC/8Fuc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gg/5mPTuKsy6OwwZNXtlgep3Sot/Pl92MXQv7zGPi9wTkOLxvQJhBPF2Bpq1NnywI
-	 EQCbi4JHTGNVGiDQDu/pcR6HjRMJ0mcssM7eKyt17LXFAq6UqRyRBKMNoxqVYBIa0b
-	 /Zy32dSOGJNYK+6ID+vJKQXiMJop8sVRbddPt4jnQScOzel94JScS1Z5E+goizzKGQ
-	 YNgsnZl283fLGJopRUbQsr6nlCbzlxB5FR9IcEYSfUo3LtXf+BnAkMalUcWcjV6bo4
-	 nVIJHkNZBObql2UFJR1O5VBC1rz28v1gpwRtFQkXJTSd9crE2a3W95noc8+yInoa+9
-	 q0V+yCudb0r0Q==
+	b=n4vw+tM/2xK/Z13/paCR/n15kc8ieBy24AFQ8GQ9f6eTTzV95/SKA8WYUI3fZRRLc
+	 baStSEkeLY/M6+sbOxctwj71C5MCc1rmsjr0rGQBVeqVwOPoaWJjkLBDKa3zUVIEI4
+	 SQ5JcjMGelEvew2O3yj1Wdla6i+jsm31SfJanDlKilnwSpgFbnHn1xfkaZK7obbJdC
+	 koa+JZeojW1EBK83tyrBvLdCAZ5JaDTZ+ejMan5Ai1TvNaIx85ryW7xY+7j1bw3Nmz
+	 /ptdXyiAx7XrXpACAzGgmJC5HjE7z5clLdSsapWr7Tte8lBX0qSz+h7c65kuskoyCO
+	 3Td1UR18ie1tA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] spi: atmel-quadspi: add LAN969x QSPI support
+Subject: Re: [PATCH v2 09/11] drm/mediatek: mtk_dp: Add support for HotPlug
+ Detection in DP AUX
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Robert Marko" <robert.marko@sartura.hr>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260709112006.390742-5-robert.marko@sartura.hr>
-References: <20260709112006.390742-1-robert.marko@sartura.hr>
- <20260709112006.390742-5-robert.marko@sartura.hr>
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260709100617.42583-10-angelogioacchino.delregno@collabora.com>
+References: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
+ <20260709100617.42583-10-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 11:32:56 +0000
-Message-Id: <20260709113256.C28DE1F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 11:32:57 +0000
+Message-Id: <20260709113257.869D01F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Loss of SPI Chip Select custom timings due to explicitly clearing =
-shadow registers in lan969x init.
-- [High] Missing clk_disable_unprepare() on error paths in atmel_qspi_lan96=
-9x_init() causes clock reference leak.
-
-Pre-existing issues:
-- [High] Missing PM runtime wakeup in has_gclk device setup path causes sys=
-tem hang.
-- [High] Silent loss of QSPI_MR configuration across suspend/resume because=
- shadow register check prevents hardware update.
-- [High] Clock enable count leak in atmel_qspi_set_gclk() on repeated SPI s=
-etup.
-- [Medium] System resume timeout if no SPI child devices are attached to th=
-e controller.
+- [High] Unconditionally unmasking legacy DP_TRANS HPD interrupts while fai=
+ling to clear them when `aux_hpd_supported` is true causes an unhandled IRQ=
+ storm.
+- [Medium] Missing `mtk_dp->legacy_regoff` offset when polling the `MTK_DP_=
+AUX_P0_364C` register via `regmap_read_poll_timeout()`.
 --
 
---- Patch [4]: [PATCH v2 4/5] spi: atmel-quadspi: add LAN969x QSPI support =
----
-commit e7c8f2e53e20c016b424a0d36952bf174920cb87
-Author: Robert Marko <robert.marko@sartura.hr>
+--- Patch [9]: [PATCH v2 09/11] drm/mediatek: mtk_dp: Add support for HotPl=
+ug Detection in DP AUX ---
+commit 804af7d08e6512ddf93b2634e3ded89904e4b43b
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: drm/mediatek: mtk_dp: Add support for HotPlug Detection in DP AUX
 
-spi: atmel-quadspi: add LAN969x QSPI support
+Newer MediaTek DisplayPort IPs can finally use the AUX to perform hotplug
+detection without having to power up the entire eDP or DP IP. This commit
+enables support for configuring and performing HPD in AUX, checking the
+correct HPD strategy with a new platform data variable.
 
-Microchip LAN969x has two QSPI controllers based on SAMA7G5 QSPI.
-It requires pad calibration, supports DMA, and supports 100 MHz operation.
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
 
-> diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-> index d1aec14e39789..f05e2617fa89e 100644
-> --- a/drivers/spi/atmel-quadspi.c
-> +++ b/drivers/spi/atmel-quadspi.c
 [ ... ]
-> @@ -1152,6 +1152,58 @@ static int atmel_qspi_sama7g5_init(struct atmel_qs=
-pi *aq)
->  	return ret;
+
+> @@ -1086,8 +1086,28 @@ static u32 mtk_dp_hwirq_get_clear(struct mtk_dp *m=
+tk_dp)
+>  	return irq_status;
 >  }
 > =20
-> +static int atmel_qspi_lan969x_init(struct atmel_qspi *aq)
+> +static inline u32 mtk_dp_hwirq_get_clear(struct mtk_dp *mtk_dp)
 > +{
-> +	u32 val;
-> +	int ret;
+> +	if (mtk_dp->data->aux_hpd_supported)
+> +		return mtk_dp_aux_hwirq_get_clear(mtk_dp);
 > +
-> +	atmel_qspi_write(QSPI_CR_DLLOFF, aq, QSPI_CR);
-> +	ret =3D readl_poll_timeout(aq->regs + QSPI_SR2, val,
-> +				 !(val & QSPI_SR2_DLOCK), 40,
-> +				 ATMEL_QSPI_TIMEOUT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D atmel_qspi_set_gclk(aq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Start the DLL before resetting the controller. */
-> +	atmel_qspi_write(QSPI_CR_DLLON | QSPI_CR_STPCAL, aq, QSPI_CR);
-> +	ret =3D readl_poll_timeout(aq->regs + QSPI_SR2, val,
-> +				 (val & QSPI_SR2_DLOCK) &&
-> +				 !(val & QSPI_SR2_CALBSY), 40,
-> +				 ATMEL_QSPI_TIMEOUT);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-Does this early return path leave the hardware generic clock running?
-
-The function calls atmel_qspi_set_gclk() which prepares and enables aq->gcl=
-k.
-If the subsequent readl_poll_timeout() operations fail (such as waiting for
-the DLL to lock), the function directly returns the error code.
-
-Without calling clk_disable_unprepare(aq->gclk), won't this result in a
-permanent clock reference leak?
-
-[ ... ]
-> +	atmel_qspi_write(QSPI_CR_SWRST, aq, QSPI_CR);
-> +	ret =3D atmel_qspi_reg_sync(aq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D atmel_qspi_set_pad_calibration(aq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	aq->mr =3D 0;
-> +	aq->scr =3D 0;
-
-[Severity: High]
-Does explicitly clearing these shadow registers permanently wipe the
-cached hardware timings?
-
-During system resume or dynamic reconfiguration via spi_setup(),=20
-atmel_qspi_resume() or atmel_qspi_setup() invokes aq->caps->init().
-Zeroing out aq->mr and aq->scr clears the chip select timings (cs_setup,
-cs_hold, cs_inactive) that were configured by atmel_qspi_set_cs_timing().
-
-Will this cause data communication failures with SPI memory because the tim=
-ings
-are wiped from the cache and never written back, making the controller oper=
-ate
-with zero delays?
-
-> +
-> +	ret =3D atmel_qspi_set_serial_memory_mode(aq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	atmel_qspi_write(QSPI_CR_QSPIEN, aq, QSPI_CR);
-> +	return readl_poll_timeout(aq->regs + QSPI_SR2, val,
-> +				  (val & QSPI_SR2_QSPIENS), 40,
-> +				  ATMEL_QSPI_TIMEOUT);
+> +	return mtk_dp_trans_hwirq_get_clear(mtk_dp);
 > +}
 
+[Severity: High]
+If aux_hpd_supported is true, this function only clears the AUX interrupts.
+Could the unmasked DP_TRANS interrupts trigger an interrupt storm since they
+are never cleared here?
 
-Additionally, there are some pre-existing issues in this file that I noticed
-while reviewing the code.
+>  static void mtk_dp_hwirq_enable(struct mtk_dp *mtk_dp, bool enable)
+>  {
+> +	u32 mask, val;
+> +
+> +	/* Valid only for SoCs with working AUX HPD, this register is ignored o=
+n the others */
+> +	if (enable) {
+> +		mask =3D HPD_CONNECT_EVENT | HPD_INTERRUPT_EVENT | HPD_DISCONNECT_EVEN=
+T;
+> +		val =3D 0;
+> +	} else {
+> +		mask =3D DP_TX_AUX_INT_MASK;
+> +		val =3D DP_TX_AUX_INT_MASK;
+> +	}
+> +	mtk_dp_update_bits(mtk_dp, MTK_DP_TX_AUX_INT_MASKING, val, mask);
+> +
+>  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3418,
+>  			   enable ? 0 :
+>  			   IRQ_MASK_DP_TRANS_P0_DISC_IRQ |
+>  			   IRQ_MASK_DP_TRANS_P0_CONN_IRQ |
+>  			   IRQ_MASK_DP_TRANS_P0_INT_IRQ,
+>  			   IRQ_MASK_DP_TRANS_P0_MASK);
+>  }
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the has_gclk device set=
-up
-path lack a PM runtime wakeup, potentially causing a system hang?
+Is it intended to unconditionally unmask the legacy DP_TRANS HPD interrupts
+here, even when aux_hpd_supported is true?
 
-drivers/spi/atmel-quadspi.c:atmel_qspi_setup() {
-    ...
-	if (aq->caps->has_gclk)
-		return atmel_qspi_sama7g5_setup(spi);
-    ...
-}
+If a DP_TRANS interrupt fires when aux_hpd_supported is true,
+mtk_dp_hwirq_get_clear() will skip clearing it, which might lead to an
+unhandled irq loop.
 
-The atmel_qspi_setup() function delegates to atmel_qspi_sama7g5_setup() whi=
-ch
-directly invokes hardware register writes via aq->caps->init(aq). Unlike the
-fallback non-gclk path in the exact same function, this path fails to call
-pm_runtime_resume_and_get().
+[ ... ]
 
-If spi_setup() is called by a client driver while the SPI controller has
-autosuspended, won't the driver touch registers with the power domain or
-peripheral clock disabled, causing a system crash or bus fault?
-
+> @@ -2113,10 +2191,15 @@ static int mtk_dp_wait_hpd_asserted(struct drm_dp=
+_aux *mtk_aux, unsigned long wa
+>  	u32 val;
+>  	int ret;
+> =20
+> -	ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> -				       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> -				       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> -				       wait_us / 100, wait_us);
+> +	if (mtk_dp->data->aux_hpd_supported)
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs, MTK_DP_AUX_P0_364C,
+> +					       val, !!(val & HPD_STATUS_DP_AUX_TX_P0_MASK),
+> +					       wait_us / 100, wait_us);
 
 [Severity: Medium]
-This is a pre-existing issue, but does atmel_qspi_resume() unconditionally
-attempt hardware initialization using uninitialized speed values?
+Does this regmap_read_poll_timeout() call need to include the
+mtk_dp->legacy_regoff offset for the MTK_DP_AUX_P0_364C register?
 
-drivers/spi/atmel-quadspi.c:atmel_qspi_resume() {
-    ...
-	if (aq->caps->has_gclk)
-		return aq->caps->init(aq);
-    ...
-}
+Other register accesses seem to consistently add this offset. Missing it
+here might lead to polling the wrong physical memory address and timing out
+if legacy_regoff happens to be non-zero on the hardware.
 
-If no SPI child devices probe successfully, aq->target_max_speed_hz remains=
- 0.
-During system resume, atmel_qspi_resume() executes aq->caps->init(aq) for
-has_gclk controllers. This invokes atmel_qspi_set_gclk(), setting the clock
-to 0 Hz.
-
-Won't the subsequent polling for the DLL lock (QSPI_SR2_DLOCK) inevitably
-timeout since the clock is halted, causing readl_poll_timeout() to stall for
-1000ms?
-
-
-[Severity: High]
-This is a pre-existing issue, but does the shadow register check block
-hardware writes if the bit is already cached, breaking restoration on resum=
-e?
-
-drivers/spi/atmel-quadspi.c:atmel_qspi_set_serial_memory_mode() {
-    ...
-	if (!(aq->mr & QSPI_MR_SMM)) {
-		aq->mr |=3D QSPI_MR_SMM;
-		atmel_qspi_write(aq->mr, aq, QSPI_MR);
-    ...
-}
-
-During system resume, non-gclk controllers rely on atmel_qspi_init() to
-restore hardware state after a software reset (QSPI_CR_SWRST). It calls
-atmel_qspi_set_serial_memory_mode() to restore the Mode Register (QSPI_MR).
-
-Because aq->mr retains its pre-suspend value with the SMM bit set, the
-condition evaluates to false and the register write is silently skipped.
-Could this leave the hardware at its reset state of 0 and break device
-communication after resume?
-
-
-[Severity: High]
-This is a pre-existing issue, but does atmel_qspi_set_gclk() unconditionally
-increment the clock enable count during every setup call?
-
-drivers/spi/atmel-quadspi.c:atmel_qspi_set_gclk() {
-    ...
-	/* Enable the QSPI generic clock */
-	ret =3D clk_prepare_enable(aq->gclk);
-    ...
-}
-
-spi_setup() can be called multiple times during the lifecycle of a SPI devi=
-ce.
-Every time it is called on a has_gclk controller, it invokes
-aq->caps->init(aq), which sequentially calls atmel_qspi_set_gclk().
-
-Since clk_disable_unprepare() is only ever called once during device suspend
-or removal, won't this endlessly increment the clock reference count and le=
-ak
-the reference?
+> +	else
+> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs,
+> +					       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
+> +					       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
+> +					       wait_us / 100, wait_us);
+>  	if (ret) {
+>  		mtk_dp->train_info.cable_plugged_in =3D false;
+>  		return ret;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709112006.3907=
-42-1-robert.marko@sartura.hr?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709100617.4258=
+3-1-angelogioacchino.delregno@collabora.com?part=3D9
