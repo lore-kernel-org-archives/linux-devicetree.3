@@ -1,948 +1,140 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A047B3DB33F
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DF33E9F95
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783584768; cv=none; b=XoevAff3wBcuHOXaYc6o+lM6ed/cBIYw43I/GStsNOwaSQvEBMmY1D4c+9cTWKgjui5b27GX74WtyjYiz1X8yAYnBW06FapNNEm3q2D+fy4RwuPaIBPL1jzJr3Udqn7kOOdEbNPlwN1IsoTOWSaAmGtg/q2ggq4gEYN34w9JQw4=
+	t=1783584769; cv=none; b=a06yuTBt1YL8xOzQ4+uIyg/MMQ8GKiw43BVDQkGOSeozX2z87yQ6LpshhKYr05xOEFapwEcBPwzn2Rrxx83OYeX1uWGwL7Sjfr3tyTAed0TSIXEIvTRuzlDF5wwIstAtJjQDvmKIDzt31mBMqXsRUhJRCydt6zPdG4DplbOaYXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783584768; c=relaxed/simple;
-	bh=KZo/OiVV5iNPEQ3ZVHDzKmz+Wrj0r5cVvSxEJ+L+vBs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jjqDTN5UcW8KBba/+1PfCzTu4qJCSOdfZMX/mKt8OieU8xW32Qd6yiBrz53ovpKV+xiFPd3PbNvDOADrbEjtOnaBOAlkDXJlOhoZhT1zgIB7wehZPxXwpU/VvpFqsEZUI8pefhXVzFg8wpTQ6O9nOrYSIoYt4bbWwJp5Eq6D+KE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gE/W7mPF; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783584769; c=relaxed/simple;
+	bh=niKygPrLJDSVAAD++px275RNa9zTNKh6KuMMtjoQ10Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=g5TQDHdl73IhUz+whGEBJlNjmsc3vkNucKeLv4Y1sBx1fJcwY6BcqxmIco/ZgjQQB79Nh7j7fUo3X8rRZ9MtJ7NM7dsaUeOiouV4b6ez6pTbt/k4mOCFibTKB4jqS7r9IcTdruUU3Ea9jeb4zlNBHvOBTbSWQ76fffN3U8cOL68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R0FIk1WH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R20XTesd; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gE/W7mPF"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3811074a8c5so1383997a91.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:12:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R0FIk1WH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R20XTesd"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66960a8v837432
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 08:12:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=NnyUzY7/I91
+	fQnA2ocfZbXoRwelCNf8o4yij2RikmG0=; b=R0FIk1WHWr9AfzcZCDwPs0mY+eZ
+	BQ6DKnYMTR0161gxj4edxcGmSp1c/l90F1Yli3GHyaUaH0IKmb8pwkM+waAI3Js0
+	KJYz+4rOz2XnITBMLRE5kvpqor3qjwCq5ApsQE+oZ+wfH9WfCWEBeMWmYEU6poRk
+	FRLvGu4l+AS6ck9i6oLbVBVYD7nMFuKzDcTlJyJSwUwp+B8ATv7ZRtuaGFKpzW2l
+	CXclkbWQ9A25Obyo49HNq17p4s9mUzRygUJSE3hTZT4arDSsT/fUnKouYkUZPWbl
+	poEd04g2k3x0vHjSbaDBr/fnSZod4bHl3IiJ5FsSQ5/y69wB1ca9CYeG4cA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9sqwb41v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:12:45 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8484513ec19so414777b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:12:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783584762; x=1784189562; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1783584765; x=1784189565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fhrNeN6HqpLmnu7DwgkDr66d0h0BDobgJrOZmCFzxUU=;
-        b=gE/W7mPFYKgyXBS5+23QnH/aRKC6kXQ0FB2JkmF0iChaEYgv+R2/y3PJu5OyqgkGoa
-         AoQP7IZvSg2IpbdNuRwc49+W3OYT+/ZL7oHK10mohkSqRaW140FoL3PSLHg+lJxvZ8XZ
-         GFkpxnoLJ6xWfU/8tKAzquFNNHKqX2wBed4q8hlj1TMxYSkhyn54Ln/060YI9V+7qN8H
-         YE+XRlxj79sDlJuRg0Xnw+XuA3MeEDbamPmS7OSA4kJZBiN1e7OE4ZaV4QGQ4OOSyjkX
-         eFyFX74cKPBIBEnNQLNrXJBzTyjHPmJt7b+Pvy43QfSOBiF8FjaCYcEhQPsJZLRpw5Is
-         DHQQ==
+        bh=NnyUzY7/I91fQnA2ocfZbXoRwelCNf8o4yij2RikmG0=;
+        b=R20XTesdTBH3Usq8OxPzX/CpySdpJSQ+v/ha65CFZ4QhKsynuMNJPK06z8fXXa47E9
+         43GEgxshiC7Zn3eJ1dirQ/MDVA1nxZQol4s9gPeuHiKASAJxMKkp8+DDfehJ3TutPSD5
+         zeUYeY3Yky5u+7g2d5wzgFsBGRUuF7SmmdqGx9F6YxI2t3Wd+O1s6QY8zRNhYp6HQLBk
+         b3n7fVPK+VMUjF2bjhPFNZdJ1L/eILayTwBd/21DOXXA+RnFv8QpD/8hBSsbj2MRzpED
+         p5n/ZC7AKVR5y01kLcQZYBc9NtJXRQuEIv89BI/Z+UitXgqeunmElJYCyVobJqEmgeu0
+         JQzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783584762; x=1784189562;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fhrNeN6HqpLmnu7DwgkDr66d0h0BDobgJrOZmCFzxUU=;
-        b=E4afcMzsEIewfQNbtMANUeGNAbHiTzX9tVUBbAkeabibBP7rZYnLTLCS1oyB95Q8V+
-         FcRA5/ON1qyq/l6v4865cCDLjhrIkvF/jFiU7+uH0HoPD3GJWXok1iyK/+Mm8Y1+GbnA
-         9dopQ3xALCMo328aGo7AeHflIU/zHhfx8u2KI0MykXXsHl8vI3p+cNJnnv2g5tUOTzHI
-         +1X0Agi32EgE+KP4feHH3B698LhdJEmQX/sGE+jpTp+BaSUuRrgN3jQboZQpHvPrw4+L
-         jS50Xg10PMLP5QR1RbXESAu09nKkS849UZCFqC9KaQgIkvnZP05KQm7surRcyS5Ar/Yw
-         7qvw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp8CgY95yggV76M4DtbS98Euszq5+uvbJDoD6YHaNbRHlk4+4V63/afKiadFJiPf5FupHrvaK6f5TmT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8SBAQv+Tn5e2OBENWMcud86ATOstH964sWoozUYoFxkmaXJkX
-	HY8sbRjpc3ZY4s7rICKUQb0djjxhxAPvLiwsOmwlmZKVSD2goz7T0InDOjyAU7iG
-X-Gm-Gg: AfdE7clMtWXFjUSMNOqBu0hCqebYQ/uFNAjx14FcB/1S7dF6ICE2ZN8ND+rN99BIEwX
-	4fIpil69/xxKRlEi6kHNmIc+FDWozKzvXrslgfE1vvABMRkfm11dLna5PQuJwylvpHOSOAGrWE3
-	b+Evizh/M/o59DjSp2QjOK74lYz8PVYHvGe8O4Bs2Ynr/pplsHaPrDdHcHh0ZweQ73tap+j9BWy
-	Qc4qo502HqGYf7+uQ4SROrZc220AbTkUidZI1j5iICvJ2UrwhcJpaPacSEOEAOeW1gZTUpXnv30
-	QPpngR0z+wj5D0/InUYDU0K75zR0zn/NdU03eiSz5YIsa91F+H7ourzS3d6okMLBtBBnsGwfWK+
-	WP7dryzikqCT9tq2PkVwf5MSL3LL/J5xJhGecqmkW52MD60FniJ2zY9NFPQ/2qmlRJFUgGQPD1t
-	gRp3tqhv/Gj1tfmGrOnQ==
-X-Received: by 2002:a17:90b:58c8:b0:387:e0db:bc24 with SMTP id 98e67ed59e1d1-389421a2dabmr5981305a91.36.1783584762050;
-        Thu, 09 Jul 2026 01:12:42 -0700 (PDT)
-Received: from [127.0.1.1] ([2401:4900:8902:7295:9616:9031:8f8a:a80a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31198cb2b99sm10274601eec.26.2026.07.09.01.12.37
+        d=1e100.net; s=20251104; t=1783584765; x=1784189565;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NnyUzY7/I91fQnA2ocfZbXoRwelCNf8o4yij2RikmG0=;
+        b=NMVQmZjmqQJpk/NVSfYOqjYKPX1isYkTih7E3w/EMELEJ0FqVPpn+ts1i7OuzNDrPs
+         XwvOSAwwbRjHeJ6M0e+iHqf78xO/ai7LwpeAZz4T6ei7IKsjDomK2ZG3hL2SmenAQ79A
+         KTiWUVcR5FFkDWLV2cD0hkfgsm/Srdmn74sKuErSuG5v1yq/WgCwZx9ZRwUziVs+w0aT
+         Bgmo+dRgWDWiH2scYaXgKnLKUv8IBLJLUqnj1esRj/3sN75Kq4ImYsGYWEoBxm/xfB80
+         X6GM/Z06Crr/j91c7mNpzvL/nN2PrZ0KuPeyZxrDA3GHgqj3/DMEYIiEjUx4cvMRRPwa
+         jCaA==
+X-Forwarded-Encrypted: i=1; AHgh+RpiL3nb6ZR6q68gP7OslK6ufzkmLzI4PAInPhHpk+gkY3Wv4l4PiFm4IzsKNp/cTmQopfvKlutdh41d@vger.kernel.org
+X-Gm-Message-State: AOJu0YwD3BL1p8JpDnjUjk8k1wdtKzy8LXprfuvy7SEvin9w9V2fem9u
+	Us05dT5/G4SgvJlWVcu4kDg0FQYdmLMH87lqb2oUa7iBSsvEG0oBLEgi/YqCsb5/0qImtI8UqQF
+	e/V4v1NjhvJ0JYM6RtTFtwWeJOWfznaRgNYt4s3JQJEdj/LvLmiBFBBUna7PgXi+Bdsa/ynH1t/
+	k=
+X-Gm-Gg: AfdE7cmLh0jI6FlURbTpk8XyHEzN41EeoYfd4sxzBc5c9zRQlyt/pswIeALbrUm/V4t
+	KKD8hPaT/172c6P2dFBcq17Ft2cnXxnVdOhh66gngnJAyr53J1OIodChAMWkVp3VfpWGHpMzjfn
+	61v4KEQcIXWVKXe5cJl939wedCRVeQLS/HTiUsSJuaguG6rJFFXMMRSX3MAP7evjOgNXRxTrez5
+	qVtS5MN087J67jNwT5q17Pq2oJMdBHENhwR/5X9Zj9mdT65IgFAdNpisKmg798SkY2XeJBT8wxA
+	kZmHZ+iPTtx06zciAv9gTQwtazUdPfzSb5u+pWaOySLH+EPnNb4PWCgdMOC4JpAt37Hobkq3wik
+	EzVmiQdhvN2G85MXaAwi3CF0IWKSbH+Cb3cMEcbHMTu8V6kTOn7byQtAi8qoJTg==
+X-Received: by 2002:a05:6a00:7702:b0:848:5c3a:14a6 with SMTP id d2e1a72fcca58-8485c3a1a3amr1077861b3a.6.1783584764652;
+        Thu, 09 Jul 2026 01:12:44 -0700 (PDT)
+X-Received: by 2002:a05:6a00:7702:b0:848:5c3a:14a6 with SMTP id d2e1a72fcca58-8485c3a1a3amr1077840b3a.6.1783584764224;
+        Thu, 09 Jul 2026 01:12:44 -0700 (PDT)
+Received: from hu-weiden-sha.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84848939b38sm1937292b3a.10.2026.07.09.01.12.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 01:12:41 -0700 (PDT)
-From: Ramshouriesh R <rshouriesh@gmail.com>
-Date: Thu, 09 Jul 2026 13:41:55 +0530
-Subject: [PATCH v5 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR
- sensor driver
+        Thu, 09 Jul 2026 01:12:43 -0700 (PDT)
+From: Wei Deng <wei.deng@oss.qualcomm.com>
+To: dmitry.baryshkov@oss.qualcomm.com
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
+        brgl@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH 0/3] power: sequencing: pcie-m2: Enable USB/UART BT coexistence on Hamoa EVK
+Date: Thu,  9 Jul 2026 13:42:38 +0530
+Message-Id: <20260709081238.421905-1-wei.deng@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <drwgkj27gdstulk47cev2nxs6icienfa6vb3tu2uc2gqkbeedh@duj252fcm3bz>
+References: <drwgkj27gdstulk47cev2nxs6icienfa6vb3tu2uc2gqkbeedh@duj252fcm3bz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-hm1092-driver-v5-2-a1f5baa6fe08@gmail.com>
-References: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com>
-In-Reply-To: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=24271; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=KZo/OiVV5iNPEQ3ZVHDzKmz+Wrj0r5cVvSxEJ+L+vBs=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqT1fpsGNqAQ1E2rtPTCEha5/EiRp0nP8jJ+IWT
- NOII9H9pZeJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCak9X6QAKCRAVlYpeERwF
- 3rhHEACOxbpucIXxNF9gKoE+grcvSqiCorZk/RWrY77XiOjHdqbhFfHYGTQ1Wuaxc3bwPhbDitl
- NwjTxN8x3KEa3f0r/F4DZ7jUKIYduH0meIqNcpZxXqnXP7Munk+wldb2V/z/zEYhGEn/hGTcqGm
- fGfnyHs15GFvaeSc6ktWkkSBGfScHqwghne7YZl57FWA0VHHC/zZbYlZLzumt+p0E9SYSsVnJJS
- haCU1hyCsUWGrk4wm+4KU+NnV0ylIOShr82ehNbrnGdtl9ZeRLiwK1Y5q4KeBKMa85tLCgvrc1o
- TPqxwZoIzyrJCluTBM9JVd98C//yFwcS/QE3VMPorhWhqKendgt8yg5uWyNvSGaOSSskzZadP8b
- PJr0LhND0QRJWTLqILS/efV/tK12ofdaM0+EgLXb5Up0d+p2Ipydwa4BVTtgBpzqy+OsgtVH7Pc
- KkgLOISjX117x/d+syIIdEFcrdz0HR/clKLLUDvaWx0Ln0C9w0yErDO4ANFGSnV91+RSoglhBjP
- eiHqH+ID1QrGg8EevT38+Z7ViLt6KjA+vJrP5PPpCpZRXplhac/9esh/TslNiTV4yyGtJT9iPul
- QO2eDF8+J3VKp07UhL+P/J+/JGTPW/o2uVPEYCGETLGHMFe8ok0bufLwCKJPn39lxMOU9QR15zi
- JOJEW14GJ25lsNQ==
-X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
- fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA3NiBTYWx0ZWRfX7g2Zm51o7xRx
+ dmn1eVXz2p8hoLvoL7OtUTuYWgjIPIEXyTPx/EswgIFlSpxgi7rKLDW3E4wD8bmi+FOOi/YzQrN
+ XZE3k3XucZqVjU2QzhhdMm0/LBwZaTd896Lx5ZhCaFCkjSaFLJ9vRfwFXFAnH4hnb3mNLJVHNKb
+ rY2CwlIUt4gcrgHctF2dAqh3lPPjOqO3nY10AWt+n/hYKmp6z7Qmm9w6l1KBpBr9W3iPYmwCHYu
+ Dqr880vKChoNLJJfR1ueKE+XD/X5awl2ogDXazOaQSv/gjFN2XicaktFeqnTjBuxcmAkdZaUzMt
+ s2dOzvK8323Nu+txsqWDF0kq3EBOvNqV5U5ZC1Pt31KSDointcPbB19DUON+ueHXlUQnaS3hmTv
+ d7eIXoP/VF2QLNTkcYseleaHDSC94EF+PFk2UnmB6lLRWSZUxWZNLdB4yVlg51iFGi1qHBvUFvB
+ gb99imTlAAXJkEmrZ+w==
+X-Proofpoint-GUID: T4XHylcw9BwmGlDdjtm-m6fo7Dgor4gl
+X-Authority-Analysis: v=2.4 cv=fMIJG5ae c=1 sm=1 tr=0 ts=6a4f57fd cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=XXUDAU8s_W5M1BeKZ3IA:9
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-ORIG-GUID: T4XHylcw9BwmGlDdjtm-m6fo7Dgor4gl
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA3NiBTYWx0ZWRfX/Vz2gn/Uoo1T
+ +Qp7JXbPsCGrGZw+eHPo5NQ3HjFe1ad2RwDe59gnLG6EZc4IbKLBsnM6tYSt1kFRTttDe/3Bmw6
+ 23c12hmQ7rBB2Ra8FDTR6pElM4q59zU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607090076
 
-Add a V4L2 subdev driver for the Himax HM1092, a 1 megapixel monochrome
-near-infrared image sensor with a single-lane MIPI CSI-2 interface,
-typically used as the face-authentication IR camera on laptops.
+On Thu, 9 Jul 2026, Dmitry Baryshkov wrote:
+> What are the dependencies between patches?
 
-The driver supports the sensor's native 560x360 10-bit mono mode, a test
-pattern control and the standard fwnode properties (orientation,
-rotation).
+Patches 2 and 3 are ordered: patch 2 narrows the table to UART-only
+sub-IDs, which patch 3 depends on.
 
-Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
----
- MAINTAINERS                |   7 +
- drivers/media/i2c/Kconfig  |  11 +
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/hm1092.c | 767 +++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 786 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5e11dd741d9f..4d9a4991ca2b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11652,6 +11652,13 @@ L:	linux-kernel@vger.kernel.org
- S:	Maintained
- F:	drivers/misc/hisi_hikey_usb.c
- 
-+HIMAX HM1092 SENSOR DRIVER
-+M:	Ramshouriesh R <rshouriesh@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-+F:	drivers/media/i2c/hm1092.c
-+
- HIMAX HX83112B TOUCHSCREEN SUPPORT
- M:	Job Noorman <job@noorman.info>
- L:	linux-input@vger.kernel.org
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5d173e0ecf42..f94621edbe1a 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -137,6 +137,17 @@ config VIDEO_HI847
-           To compile this driver as a module, choose M here: the
-           module will be called hi847.
- 
-+config VIDEO_HM1092
-+	tristate "Himax HM1092 sensor support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a Video4Linux2 sensor driver for the Himax HM1092
-+	  monochrome near-infrared CMOS image sensor, used as the
-+	  face-authentication IR camera on laptops.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called hm1092.
-+
- config VIDEO_IMX111
- 	tristate "Sony IMX111 sensor support"
- 	select V4L2_CCI_I2C
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index e45359efe0e4..6507c173d0fa 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -45,6 +45,7 @@ obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
- obj-$(CONFIG_VIDEO_HI556) += hi556.o
- obj-$(CONFIG_VIDEO_HI846) += hi846.o
- obj-$(CONFIG_VIDEO_HI847) += hi847.o
-+obj-$(CONFIG_VIDEO_HM1092) += hm1092.o
- obj-$(CONFIG_VIDEO_I2C) += video-i2c.o
- obj-$(CONFIG_VIDEO_IMX111) += imx111.o
- obj-$(CONFIG_VIDEO_IMX208) += imx208.o
-diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
-new file mode 100644
-index 000000000000..c7cde6928bb9
---- /dev/null
-+++ b/drivers/media/i2c/hm1092.c
-@@ -0,0 +1,767 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Himax HM1092 monochrome near-infrared image sensor driver.
-+ *
-+ * Copyright (c) 2026 Ramshouriesh R <rshouriesh@gmail.com>
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+#define HM1092_LINK_FREQ_400MHZ		400000000ULL
-+#define HM1092_MCLK			24000000
-+#define HM1092_BITS_PER_SAMPLE		10
-+
-+#define HM1092_REG_STREAM		CCI_REG8(0x0100)
-+#define HM1092_STREAM_STANDBY		0x00
-+#define HM1092_STREAM_ON		0x01
-+
-+#define HM1092_REG_TEST_PATTERN		CCI_REG8(0x0601)
-+#define HM1092_TEST_PATTERN_MAX		4
-+
-+/*
-+ * Pixel array geometry, as programmed by the streaming init sequence:
-+ * the readout window spans X_ADDR [0x0030..0x04ad] and Y_ADDR
-+ * [0x0008..0x02d5], i.e. a 1150x718 active area whose bottom-right corner
-+ * is the last addressable pixel. There is a single fixed mode that 2x bins
-+ * this window down to the 560x360 output.
-+ */
-+#define HM1092_NATIVE_WIDTH		1198U
-+#define HM1092_NATIVE_HEIGHT		726U
-+#define HM1092_ACTIVE_LEFT		48U
-+#define HM1092_ACTIVE_TOP		8U
-+#define HM1092_ACTIVE_WIDTH		1150U
-+#define HM1092_ACTIVE_HEIGHT		718U
-+
-+static const struct cci_reg_sequence hm1092_init_regs[] = {
-+	{ CCI_REG8(0x0103), 0x00 },
-+	{ CCI_REG8(0x030a), 0x05 },
-+	{ CCI_REG8(0x030d), 0x0c },
-+	{ CCI_REG8(0x030f), 0x5a },
-+	{ CCI_REG8(0x0307), 0x00 },
-+	{ CCI_REG8(0x0309), 0x01 },
-+	{ CCI_REG8(0x0387), 0x01 },
-+	{ CCI_REG8(0x0100), 0x02 },
-+	{ CCI_REG8(0x4265), 0x02 },
-+	{ CCI_REG8(0x4002), 0x2b },
-+	{ CCI_REG8(0x4001), 0x00 },
-+	{ CCI_REG8(0x0101), 0x03 },
-+	{ CCI_REG8(0x4024), 0x40 },
-+	{ CCI_REG8(0x0203), 0xbe },
-+	{ CCI_REG8(0x0202), 0x00 },
-+	{ CCI_REG8(0x0341), 0xee },
-+	{ CCI_REG8(0x0340), 0x02 },
-+	{ CCI_REG8(0x0343), 0x50 },
-+	{ CCI_REG8(0x0342), 0x06 },
-+	{ CCI_REG8(0x0345), 0x30 },
-+	{ CCI_REG8(0x0344), 0x00 },
-+	{ CCI_REG8(0x0349), 0xad },
-+	{ CCI_REG8(0x0348), 0x04 },
-+	{ CCI_REG8(0x0347), 0x08 },
-+	{ CCI_REG8(0x0346), 0x00 },
-+	{ CCI_REG8(0x034b), 0xd5 },
-+	{ CCI_REG8(0x034a), 0x02 },
-+	{ CCI_REG8(0x5015), 0xb3 },
-+	{ CCI_REG8(0x0350), 0x53 },
-+	{ CCI_REG8(0x0361), 0x30 },
-+	{ CCI_REG8(0x0360), 0x00 },
-+	{ CCI_REG8(0x034d), 0x30 },
-+	{ CCI_REG8(0x034c), 0x02 },
-+	{ CCI_REG8(0x034f), 0x68 },
-+	{ CCI_REG8(0x034e), 0x01 },
-+	{ CCI_REG8(0x0390), 0x03 },
-+	{ CCI_REG8(0x0383), 0x00 },
-+	{ CCI_REG8(0x0387), 0x10 },
-+	{ CCI_REG8(0x50dd), 0x01 },
-+	{ CCI_REG8(0x50cb), 0x21 },
-+	{ CCI_REG8(0x5005), 0x28 },
-+	{ CCI_REG8(0x5004), 0x40 },
-+	{ CCI_REG8(0x5007), 0x28 },
-+	{ CCI_REG8(0x5006), 0x40 },
-+	{ CCI_REG8(0x5011), 0x00 },
-+	{ CCI_REG8(0x501d), 0x4c },
-+	{ CCI_REG8(0x5013), 0x03 },
-+	{ CCI_REG8(0x4131), 0x01 },
-+	{ CCI_REG8(0x5283), 0x03 },
-+	{ CCI_REG8(0x5282), 0xff },
-+	{ CCI_REG8(0x5010), 0x20 },
-+	{ CCI_REG8(0x4132), 0x20 },
-+	{ CCI_REG8(0x50d5), 0xe0 },
-+	{ CCI_REG8(0x50d7), 0x12 },
-+	{ CCI_REG8(0x50bb), 0x14 },
-+	{ CCI_REG8(0x50b7), 0x00 },
-+	{ CCI_REG8(0x50b9), 0xff },
-+	{ CCI_REG8(0x50b8), 0x70 },
-+	{ CCI_REG8(0x50ba), 0xff },
-+	{ CCI_REG8(0x50fa), 0x02 },
-+	{ CCI_REG8(0x50b4), 0x00 },
-+	{ CCI_REG8(0x50a2), 0x0b },
-+	{ CCI_REG8(0x50ad), 0x07 },
-+	{ CCI_REG8(0x50ac), 0x24 },
-+	{ CCI_REG8(0x50af), 0x40 },
-+	{ CCI_REG8(0x50ae), 0x20 },
-+	{ CCI_REG8(0x50ab), 0x07 },
-+	{ CCI_REG8(0x50aa), 0x22 },
-+	{ CCI_REG8(0x50a7), 0x00 },
-+	{ CCI_REG8(0x50a6), 0x00 },
-+	{ CCI_REG8(0x5099), 0x11 },
-+	{ CCI_REG8(0x509b), 0x03 },
-+	{ CCI_REG8(0x50b3), 0x04 },
-+	{ CCI_REG8(0x50a0), 0x30 },
-+	{ CCI_REG8(0x5098), 0x00 },
-+	{ CCI_REG8(0x52f2), 0x53 },
-+	{ CCI_REG8(0x5209), 0x0c },
-+	{ CCI_REG8(0x5216), 0x02 },
-+	{ CCI_REG8(0x521e), 0x01 },
-+	{ CCI_REG8(0x50e8), 0x00 },
-+	{ CCI_REG8(0x5200), 0x60 },
-+	{ CCI_REG8(0x5202), 0x00 },
-+	{ CCI_REG8(0x5201), 0x80 },
-+	{ CCI_REG8(0x5203), 0x01 },
-+	{ CCI_REG8(0x5208), 0x0b },
-+	{ CCI_REG8(0x520d), 0x40 },
-+	{ CCI_REG8(0x520c), 0x15 },
-+	{ CCI_REG8(0x5215), 0x04 },
-+	{ CCI_REG8(0x50ea), 0x74 },
-+	{ CCI_REG8(0x5214), 0x28 },
-+	{ CCI_REG8(0x5218), 0x07 },
-+	{ CCI_REG8(0x5217), 0x01 },
-+	{ CCI_REG8(0x0310), 0x00 },
-+	{ CCI_REG8(0x4b31), 0x06 },
-+	{ CCI_REG8(0x4b3b), 0x02 },
-+	{ CCI_REG8(0x4b45), 0x01 },
-+	{ CCI_REG8(0x4b44), 0x0c },
-+	{ CCI_REG8(0x4b47), 0x00 },
-+	{ CCI_REG8(0x5101), 0x13 },
-+	{ CCI_REG8(0x5100), 0x03 },
-+	{ CCI_REG8(0x5103), 0x33 },
-+	{ CCI_REG8(0x5102), 0x23 },
-+	{ CCI_REG8(0x5105), 0x42 },
-+	{ CCI_REG8(0x5104), 0x43 },
-+	{ CCI_REG8(0x5106), 0x40 },
-+	{ CCI_REG8(0x5119), 0x00 },
-+	{ CCI_REG8(0x5118), 0x00 },
-+	{ CCI_REG8(0x511b), 0x00 },
-+	{ CCI_REG8(0x511a), 0x00 },
-+	{ CCI_REG8(0x511d), 0x00 },
-+	{ CCI_REG8(0x511c), 0x00 },
-+	{ CCI_REG8(0x511e), 0x00 },
-+	{ CCI_REG8(0x5131), 0x23 },
-+	{ CCI_REG8(0x5130), 0x13 },
-+	{ CCI_REG8(0x5133), 0x43 },
-+	{ CCI_REG8(0x5132), 0x33 },
-+	{ CCI_REG8(0x5135), 0x40 },
-+	{ CCI_REG8(0x5134), 0x42 },
-+	{ CCI_REG8(0x5136), 0x40 },
-+	{ CCI_REG8(0x5149), 0x01 },
-+	{ CCI_REG8(0x5148), 0x01 },
-+	{ CCI_REG8(0x514b), 0x01 },
-+	{ CCI_REG8(0x514a), 0x01 },
-+	{ CCI_REG8(0x514d), 0x01 },
-+	{ CCI_REG8(0x514c), 0x01 },
-+	{ CCI_REG8(0x514e), 0x01 },
-+	{ CCI_REG8(0x51c0), 0x00 },
-+	{ CCI_REG8(0x51c6), 0x00 },
-+	{ CCI_REG8(0x51cc), 0x00 },
-+	{ CCI_REG8(0x51d2), 0x00 },
-+	{ CCI_REG8(0x51d8), 0x00 },
-+	{ CCI_REG8(0x51c1), 0x81 },
-+	{ CCI_REG8(0x51c7), 0x81 },
-+	{ CCI_REG8(0x51cd), 0x81 },
-+	{ CCI_REG8(0x51d3), 0x81 },
-+	{ CCI_REG8(0x51d9), 0x81 },
-+	{ CCI_REG8(0x51c2), 0xec },
-+	{ CCI_REG8(0x51c8), 0xec },
-+	{ CCI_REG8(0x51ce), 0xec },
-+	{ CCI_REG8(0x51d4), 0xec },
-+	{ CCI_REG8(0x51da), 0xec },
-+	{ CCI_REG8(0x51c3), 0x00 },
-+	{ CCI_REG8(0x51c9), 0x00 },
-+	{ CCI_REG8(0x51cf), 0x00 },
-+	{ CCI_REG8(0x51d5), 0x00 },
-+	{ CCI_REG8(0x51db), 0x00 },
-+	{ CCI_REG8(0x51c4), 0x55 },
-+	{ CCI_REG8(0x51ca), 0x55 },
-+	{ CCI_REG8(0x51d0), 0x54 },
-+	{ CCI_REG8(0x51d6), 0x53 },
-+	{ CCI_REG8(0x51dc), 0x53 },
-+	{ CCI_REG8(0x51c5), 0x44 },
-+	{ CCI_REG8(0x51cb), 0x24 },
-+	{ CCI_REG8(0x51d1), 0x24 },
-+	{ CCI_REG8(0x51d7), 0x14 },
-+	{ CCI_REG8(0x51dd), 0x14 },
-+	{ CCI_REG8(0x51e0), 0x09 },
-+	{ CCI_REG8(0x51e2), 0x04 },
-+	{ CCI_REG8(0x51e4), 0x08 },
-+	{ CCI_REG8(0x51e6), 0x08 },
-+	{ CCI_REG8(0x51e1), 0x03 },
-+	{ CCI_REG8(0x51e3), 0x03 },
-+	{ CCI_REG8(0x51e5), 0x07 },
-+	{ CCI_REG8(0x51e8), 0x04 },
-+	{ CCI_REG8(0x51e7), 0x07 },
-+	{ CCI_REG8(0x51e9), 0x46 },
-+	{ CCI_REG8(0x51eb), 0x62 },
-+	{ CCI_REG8(0x51ea), 0x43 },
-+	{ CCI_REG8(0x51ed), 0x00 },
-+	{ CCI_REG8(0x51ec), 0x61 },
-+	{ CCI_REG8(0x51ee), 0x00 },
-+	{ CCI_REG8(0x5206), 0x80 },
-+	{ CCI_REG8(0x3110), 0x02 },
-+	{ CCI_REG8(0x3704), 0x02 },
-+	{ CCI_REG8(0x3704), 0x02 },
-+	{ CCI_REG8(0x4b20), 0x9e },
-+	{ CCI_REG8(0x4b18), 0x00 },
-+	{ CCI_REG8(0x4b3e), 0x00 },
-+	{ CCI_REG8(0x4b0e), 0x0e },
-+	{ CCI_REG8(0x4800), 0xac },
-+	{ CCI_REG8(0x0104), 0x01 },
-+	{ CCI_REG8(0x0104), 0x00 },
-+	{ CCI_REG8(0x4801), 0xae },
-+	{ CCI_REG8(0x0000), 0x00 },
-+	{ CCI_REG8(0x0037), 0x30 },
-+};
-+
-+struct hm1092_mode {
-+	u32 width;
-+	u32 height;
-+	u32 hts;
-+	u32 vts;
-+};
-+
-+static const struct hm1092_mode hm1092_mode_560x360 = {
-+	.width = 560,
-+	.height = 360,
-+	.hts = 0x0650,
-+	.vts = 0x02ee,
-+};
-+
-+static const char * const hm1092_supply_names[] = {
-+	"dovdd",
-+	"avdd",
-+	"dvdd",
-+};
-+
-+/*
-+ * The available HM1092 documentation does not describe the test patterns.
-+ * Their names are based on observed output from hardware testing; the
-+ * register and mode values were reverse-engineered from the Windows driver.
-+ */
-+static const char * const hm1092_test_pattern_menu[] = {
-+	"Disabled",
-+	"Solid Color Fill",
-+	"Standard Color Bars",
-+	"Fade To Grey Color Bars",
-+	"Pseudorandom data",
-+};
-+
-+static const s64 hm1092_link_freq_menu[] = {
-+	HM1092_LINK_FREQ_400MHZ,
-+};
-+
-+struct hm1092 {
-+	struct device *dev;
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct regmap *regmap;
-+	struct clk *img_clk;
-+	struct gpio_desc *reset;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(hm1092_supply_names)];
-+	struct v4l2_ctrl *link_freq;
-+	struct v4l2_ctrl *pixel_rate;
-+	struct v4l2_ctrl *hblank;
-+	struct v4l2_ctrl *vblank;
-+	u8 mipi_lanes;
-+};
-+
-+static inline struct hm1092 *to_hm1092(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct hm1092, sd);
-+}
-+
-+static int hm1092_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct hm1092 *hm1092 = container_of(ctrl->handler, struct hm1092,
-+					     ctrl_handler);
-+	int ret;
-+
-+	/*
-+	 * The control value is cached by the framework and (re)applied from
-+	 * hm1092_enable_streams() once the device is powered up for streaming.
-+	 */
-+	if (pm_runtime_get_if_in_use(hm1092->dev) == 0)
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = cci_write(hm1092->regmap, HM1092_REG_TEST_PATTERN,
-+				ctrl->val, NULL);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops hm1092_ctrl_ops = {
-+	.s_ctrl = hm1092_set_ctrl,
-+};
-+
-+static int hm1092_init_controls(struct hm1092 *hm1092)
-+{
-+	struct v4l2_ctrl_handler *ctrl_hdlr = &hm1092->ctrl_handler;
-+	const struct hm1092_mode *mode = &hm1092_mode_560x360;
-+	struct v4l2_fwnode_device_properties props;
-+	s64 hblank, pixel_rate;
-+	int ret;
-+
-+	ret = v4l2_fwnode_device_parse(hm1092->dev, &props);
-+	if (ret)
-+		return ret;
-+
-+	v4l2_ctrl_handler_init(ctrl_hdlr, 6);
-+
-+	hm1092->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
-+						   &hm1092_ctrl_ops,
-+						   V4L2_CID_LINK_FREQ,
-+						   0, 0,
-+						   hm1092_link_freq_menu);
-+
-+	pixel_rate = div_u64(HM1092_LINK_FREQ_400MHZ * 2 * hm1092->mipi_lanes,
-+			     HM1092_BITS_PER_SAMPLE);
-+	hm1092->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					       V4L2_CID_PIXEL_RATE, 0,
-+					       pixel_rate, 1, pixel_rate);
-+
-+	hblank = mode->hts - mode->width;
-+	hm1092->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					   V4L2_CID_HBLANK, hblank, hblank, 1,
-+					   hblank);
-+
-+	hm1092->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					   V4L2_CID_VBLANK,
-+					   mode->vts - mode->height,
-+					   0xffff - mode->height, 1,
-+					   mode->vts - mode->height);
-+
-+	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &hm1092_ctrl_ops,
-+				     V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(hm1092_test_pattern_menu) - 1,
-+				     0, 0, hm1092_test_pattern_menu);
-+
-+	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &hm1092_ctrl_ops, &props);
-+
-+	if (ctrl_hdlr->error) {
-+		ret = ctrl_hdlr->error;
-+		goto err_free;
-+	}
-+
-+	hm1092->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	hm1092->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	hm1092->vblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	hm1092->sd.ctrl_handler = ctrl_hdlr;
-+
-+	return 0;
-+
-+err_free:
-+	v4l2_ctrl_handler_free(ctrl_hdlr);
-+
-+	return ret;
-+}
-+
-+static void hm1092_update_pad_format(struct v4l2_mbus_framefmt *fmt)
-+{
-+	fmt->width = hm1092_mode_560x360.width;
-+	fmt->height = hm1092_mode_560x360.height;
-+	fmt->code = MEDIA_BUS_FMT_Y10_1X10;
-+	fmt->field = V4L2_FIELD_NONE;
-+	fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	fmt->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
-+	fmt->quantization = V4L2_QUANTIZATION_DEFAULT;
-+	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
-+}
-+
-+static int hm1092_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 u32 pad, u64 streams_mask)
-+{
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(hm1092->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = cci_multi_reg_write(hm1092->regmap, hm1092_init_regs,
-+				  ARRAY_SIZE(hm1092_init_regs), NULL);
-+	if (ret) {
-+		dev_err(hm1092->dev, "failed to write init registers\n");
-+		goto out;
-+	}
-+
-+	ret = __v4l2_ctrl_handler_setup(hm1092->sd.ctrl_handler);
-+	if (ret)
-+		goto out;
-+
-+	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
-+			HM1092_STREAM_ON, NULL);
-+	if (ret)
-+		dev_err(hm1092->dev, "failed to start streaming\n");
-+
-+out:
-+	if (ret)
-+		pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static int hm1092_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  u32 pad, u64 streams_mask)
-+{
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
-+			HM1092_STREAM_STANDBY, NULL);
-+	pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static int hm1092_enum_mbus_code(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index)
-+		return -EINVAL;
-+
-+	code->code = MEDIA_BUS_FMT_Y10_1X10;
-+
-+	return 0;
-+}
-+
-+static int hm1092_enum_frame_size(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->index)
-+		return -EINVAL;
-+
-+	if (fse->code != MEDIA_BUS_FMT_Y10_1X10)
-+		return -EINVAL;
-+
-+	fse->min_width = hm1092_mode_560x360.width;
-+	fse->max_width = hm1092_mode_560x360.width;
-+	fse->min_height = hm1092_mode_560x360.height;
-+	fse->max_height = hm1092_mode_560x360.height;
-+
-+	return 0;
-+}
-+
-+static int hm1092_get_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = HM1092_ACTIVE_LEFT;
-+		sel->r.top = HM1092_ACTIVE_TOP;
-+		sel->r.width = HM1092_ACTIVE_WIDTH;
-+		sel->r.height = HM1092_ACTIVE_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = HM1092_NATIVE_WIDTH;
-+		sel->r.height = HM1092_NATIVE_HEIGHT;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int hm1092_init_state(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *state)
-+{
-+	hm1092_update_pad_format(v4l2_subdev_state_get_format(state, 0));
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops hm1092_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_pad_ops hm1092_pad_ops = {
-+	.set_fmt = v4l2_subdev_get_fmt,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.enum_mbus_code = hm1092_enum_mbus_code,
-+	.enum_frame_size = hm1092_enum_frame_size,
-+	.get_selection = hm1092_get_selection,
-+	.enable_streams = hm1092_enable_streams,
-+	.disable_streams = hm1092_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops hm1092_subdev_ops = {
-+	.video = &hm1092_video_ops,
-+	.pad = &hm1092_pad_ops,
-+};
-+
-+static const struct media_entity_operations hm1092_entity_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
-+};
-+
-+static const struct v4l2_subdev_internal_ops hm1092_internal_ops = {
-+	.init_state = hm1092_init_state,
-+};
-+
-+static int hm1092_check_hwcfg(struct hm1092 *hm1092)
-+{
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus = {
-+			.mipi_csi2 = {
-+				.num_data_lanes = 1,
-+			},
-+		},
-+		.bus_type = V4L2_MBUS_CSI2_DPHY,
-+	};
-+	struct device *dev = hm1092->dev;
-+	struct fwnode_handle *ep, *fwnode = dev_fwnode(dev);
-+	unsigned long link_freq_bitmap;
-+	int ret;
-+
-+	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
-+
-+	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       hm1092_link_freq_menu,
-+				       ARRAY_SIZE(hm1092_link_freq_menu),
-+				       &link_freq_bitmap);
-+	if (ret)
-+		goto out;
-+
-+	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "only 1 data lane is supported, got %u\n",
-+				    bus_cfg.bus.mipi_csi2.num_data_lanes);
-+		goto out;
-+	}
-+
-+	hm1092->mipi_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
-+
-+out:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+	return ret;
-+}
-+
-+static int hm1092_get_pm_resources(struct hm1092 *hm1092)
-+{
-+	hm1092->reset = devm_gpiod_get_optional(hm1092->dev, "reset",
-+						GPIOD_OUT_HIGH);
-+	if (IS_ERR(hm1092->reset))
-+		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->reset),
-+				     "failed to get reset gpio\n");
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(hm1092_supply_names); i++)
-+		hm1092->supplies[i].supply = hm1092_supply_names[i];
-+
-+	return devm_regulator_bulk_get(hm1092->dev,
-+				       ARRAY_SIZE(hm1092_supply_names),
-+				       hm1092->supplies);
-+}
-+
-+static int hm1092_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 1);
-+	clk_disable_unprepare(hm1092->img_clk);
-+	regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
-+			       hm1092->supplies);
-+
-+	return 0;
-+}
-+
-+static int hm1092_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	/*
-+	 * Power-up sequence:
-+	 *   1. enable all rails (~3 ms ramp)
-+	 *   2. hold reset asserted
-+	 *   3. start MCLK and let the sensor clock for ~1 ms
-+	 *   4. release reset and wait 18 ms for the sensor to come up
-+	 */
-+	ret = regulator_bulk_enable(ARRAY_SIZE(hm1092_supply_names),
-+				    hm1092->supplies);
-+	if (ret)
-+		return ret;
-+	fsleep(3000);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 1);
-+
-+	ret = clk_prepare_enable(hm1092->img_clk);
-+	if (ret) {
-+		regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
-+				       hm1092->supplies);
-+		return ret;
-+	}
-+	fsleep(1000);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 0);
-+	fsleep(18000);
-+
-+	return 0;
-+}
-+
-+static void hm1092_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	pm_runtime_disable(hm1092->dev);
-+	if (!pm_runtime_status_suspended(hm1092->dev)) {
-+		hm1092_power_off(hm1092->dev);
-+		pm_runtime_set_suspended(hm1092->dev);
-+	}
-+}
-+
-+static int hm1092_probe(struct i2c_client *client)
-+{
-+	struct hm1092 *hm1092;
-+	unsigned long freq;
-+	int ret;
-+
-+	hm1092 = devm_kzalloc(&client->dev, sizeof(*hm1092), GFP_KERNEL);
-+	if (!hm1092)
-+		return -ENOMEM;
-+
-+	hm1092->dev = &client->dev;
-+
-+	hm1092->img_clk = devm_v4l2_sensor_clk_get(hm1092->dev, NULL);
-+	if (IS_ERR(hm1092->img_clk))
-+		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->img_clk),
-+				     "failed to get imaging clock\n");
-+
-+	freq = clk_get_rate(hm1092->img_clk);
-+	if (freq != HM1092_MCLK)
-+		return dev_err_probe(hm1092->dev, -EINVAL,
-+				     "external clock %lu is not supported\n",
-+				     freq);
-+
-+	v4l2_i2c_subdev_init(&hm1092->sd, client, &hm1092_subdev_ops);
-+
-+	ret = hm1092_check_hwcfg(hm1092);
-+	if (ret)
-+		return ret;
-+
-+	ret = hm1092_get_pm_resources(hm1092);
-+	if (ret)
-+		return ret;
-+
-+	hm1092->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(hm1092->regmap))
-+		return PTR_ERR(hm1092->regmap);
-+
-+	ret = hm1092_power_on(hm1092->dev);
-+	if (ret)
-+		return dev_err_probe(hm1092->dev, ret, "failed to power on\n");
-+
-+	ret = hm1092_init_controls(hm1092);
-+	if (ret)
-+		goto err_power_off;
-+
-+	hm1092->sd.internal_ops = &hm1092_internal_ops;
-+	hm1092->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	hm1092->sd.entity.ops = &hm1092_entity_ops;
-+	hm1092->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	hm1092->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&hm1092->sd.entity, 1, &hm1092->pad);
-+	if (ret)
-+		goto err_ctrls;
-+
-+	hm1092->sd.state_lock = hm1092->ctrl_handler.lock;
-+	ret = v4l2_subdev_init_finalize(&hm1092->sd);
-+	if (ret)
-+		goto err_entity;
-+
-+	pm_runtime_set_active(hm1092->dev);
-+	pm_runtime_enable(hm1092->dev);
-+
-+	ret = v4l2_async_register_subdev_sensor(&hm1092->sd);
-+	if (ret)
-+		goto err_subdev;
-+
-+	pm_runtime_idle(hm1092->dev);
-+
-+	return 0;
-+
-+err_subdev:
-+	pm_runtime_disable(hm1092->dev);
-+	pm_runtime_set_suspended(hm1092->dev);
-+	v4l2_subdev_cleanup(&hm1092->sd);
-+
-+err_entity:
-+	media_entity_cleanup(&hm1092->sd.entity);
-+
-+err_ctrls:
-+	v4l2_ctrl_handler_free(hm1092->sd.ctrl_handler);
-+
-+err_power_off:
-+	hm1092_power_off(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(hm1092_pm_ops, hm1092_power_off,
-+				 hm1092_power_on, NULL);
-+
-+static const struct of_device_id hm1092_of_match[] = {
-+	{ .compatible = "himax,hm1092" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, hm1092_of_match);
-+
-+static struct i2c_driver hm1092_i2c_driver = {
-+	.driver = {
-+		.name = "hm1092",
-+		.pm = pm_ptr(&hm1092_pm_ops),
-+		.of_match_table = hm1092_of_match,
-+	},
-+	.probe = hm1092_probe,
-+	.remove = hm1092_remove,
-+};
-+
-+module_i2c_driver(hm1092_i2c_driver);
-+
-+MODULE_DESCRIPTION("Himax HM1092 monochrome NIR image sensor driver");
-+MODULE_LICENSE("GPL");
+Patch 1 functionally depends on patches 2 and 3: USB M.2 BT will not
+work on the Hamoa EVK without them.
 
 -- 
-2.53.0
-
+Best Regards,
+Wei Deng
