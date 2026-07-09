@@ -1,186 +1,197 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EF0346FA4
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 07:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515713E44EC;
+	Thu,  9 Jul 2026 07:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783582251; cv=none; b=pNPIOczkg03llESf2rkXsWzd/dCDCOn3jxS7iCYRLnLmm7kJYrDPXrhQBnEgK6x1y0XmHaVrQ6xj8IFk6qJgMUc5uzaKnwq5vV0w4uI16AOQa0KgB478B/md8FIi5z5lPDVPEhhVYAj55bv5shwyNzEWg+ruVZetxiM4Udc/0zM=
+	t=1783582280; cv=none; b=l32JS8lCmmkehiyk4nJw5T8xXMX18dq6LFwDcXlN7hh+eEZa05xPhgGIDtL6snyza90CwOQDEv8MOOZaMtVu3/hx1BjBjWOeFjE9TFpxRn5sdBNh7szAF+mXS1t+l4DOIekSWGh0c3qJDfhnfjFeAz2Kvbzpb9H/vaO0HlrLzEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783582251; c=relaxed/simple;
-	bh=yPigDOPI2hIqQ/pjyZYrG8uHNbPYwc8vco1azOeA7/4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A+zp4UZTXDw+3OHnRMsa5cyuxqfnJuSYLZP0YRvck+nnvR1eNOgSj3QFUR6PlxhesnUiMltbifnDnXqNF4nx/kigVBm2wBAkvTLZR9fUW8B3h+7hyTTJiMIDlVYiBIs1bjkcPZhhAkyib5SHjuJ3r+Bw9tkh8w1j6Hvym6s1mns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MlmdEqWF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IXq7cx0h; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783582280; c=relaxed/simple;
+	bh=XsJSiWwd2mbK2l11b/JXgHSqFuO9/PYl34cq33dd54o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ued3SddebgNiRLq2CCe/0oLD7/UZUCFgufVvDhV5/Q0Lyqe+Y/Xnf1dRTxhg39XhXAb3RlG20FO+0BVkveCUziaa27xBFKGZ3X3K5odADQnYU02J+CsPaBGDWaeVU5xOEVOGFSzYpWnCIPENLb9T9dr0+fOn46wQktYDoMrZLB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=hrhXbskg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RFwp6tIW; arc=none smtp.client-ip=103.168.172.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MlmdEqWF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IXq7cx0h"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66960axG837474
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 07:30:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uBGu1KF1MsKF0eCaRLbzYIztwO0B9HN+Ez39kZicTP8=; b=MlmdEqWFtXi8UL+D
-	aLZvSohVF6rMvlUTAfjoYgfAZgZkWoq3scqk3bzqDxEPX404KJYq2Yu4BKePlj1w
-	jAENwYAMUSOcHQIFVioxr6mxVkbiEcfS2D9eVCBj3KQ8ADlMpUoHtdEkgFa3PZpj
-	IsCef66Ulq7nqQXtMwbS5Rfr3zdgp42GTVjX49Z6/4T/hBBptihw5PqRsenwDL6r
-	RlKXxlwe/HYrm/vZNx3po3UI0fn2R/5HyyEIe5oernY7qHR27/kSoPH/0NbEZSiG
-	X0+xlm7tLF93wZ/flR87TB8KGhGzl3doX6aNnMPg0VIlrxcsjyuB1U5ulO/6XIiF
-	RRQlag==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9sqwax7g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:30:48 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc6dd43737so37685595ad.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 00:30:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783582248; x=1784187048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uBGu1KF1MsKF0eCaRLbzYIztwO0B9HN+Ez39kZicTP8=;
-        b=IXq7cx0hGpe6ZvUFDk4Fl84dC/4E6/3bgHRyzh7g03FHx8xuRtmvlFoy1s6HGZcHVX
-         6CAuKVko4cUXV0pNnf4nkXTu1uo5myF1hhCPYk6eq3pxk5W+BpSq4VqRzqQi3FiaYYrz
-         YFKeXCNV3zhb8p0CnJdjGTm7cqt6uPAMjvDkfnclwSyb3BfkgDGO1v1XW2DESKpj8bTR
-         ZYneMEq0lvJHGe+WoV/H18TQUmSjtib3vuYe6MIlEO3pGpoRqfFG/dHEJkG5BqgvH/TS
-         ZgC1AFIYi0MN4jAJTLLY1Ua/WL7CSAgzb4CPpCB1r51ZRmuK9DGFy7GSeNpcGjDPSwK1
-         AoGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783582248; x=1784187048;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uBGu1KF1MsKF0eCaRLbzYIztwO0B9HN+Ez39kZicTP8=;
-        b=iqHXKtCU72jkiPq3xvO5oneHxHF4vb+zVbIhQTDs6gucS1KoEfH1UDUTleTl+4Fgsi
-         iE5Oc1r74SGWN01YyUbFTG1OKrYmigXCivmr8PcIoTZpzNaHHFGu7nI/HvYGhtGhSVPa
-         Ze3igZxgMRGFUMjpAYZh/MOSS1BJyopEow2/YFek/grpD2qq8parmXwrTq4oVb+xvwDr
-         DZwfdV2+b6g6QfnhelDrU2/bdcBRbUah/UnGPy2+Fa5NDzTEK7RkuVzIUK7bg+KXv0+S
-         8e4Hs2J6FjNNUr8TFcdpzxpWFX2NTk3W4S0O4/rop0HVolMhUOqxB1i09YnVjoGVVH0j
-         S9KQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2YfXYOdlwEK/QU83rblFawBHMRWrcL0J8TXBmQK0Ajsv7zeag/tO/MfisXueFKW7OE6uiLqlRz38R@vger.kernel.org
-X-Gm-Message-State: AOJu0YywlCrGQ/jZZODiDWTDC1VLv3XsAgFoGZZ60tdJCmkWCPERQ/1/
-	F4MsIFVD3BTiDF5jXWyDCnEUmsUdMmAl4hpZ7uQNQ6CNweij/EtGN7b6JloYt+oFY6/GJgRlJ9A
-	jWWjqDsspImwnWqSBSszjWCfGB6ZA2G5Dlr1yaSpIHHLvsyTZLEFz+QQt7ZjZGbWw
-X-Gm-Gg: AfdE7cnNVR4BwFTFAd3EDGIKZLQ+N78i0Upz7tUTDM1EM7MwrHaFP6wI+m+lxkAZrAz
-	9iaSHw7w6JLrEbGXf2miO+UlP7LB9j2KZKAjIBXgX6gU7/qk/YcQMnRALryOUDCFrY9woX9WBs7
-	77NYWqzrsdRAT7uu8+LhU3FQf+NH4qZaPEB5APWQJPfzsIo4xmoekHo4Zb0XtHjszwx5ScwNfBw
-	8acU7uiz9D80ZRc0b6tgWTLryYCrcAe5CL0duvolScW3o8fsHZe/z7lN3oE3Jpq00GuPpPqPRzJ
-	sOaNVDl1RvL3hl8dwHYRpP7iKywP73vYPZp6mhVa/MI0cd2mVT7nnNgBekdOzYIKrrQl4CFGLPV
-	LbiGASHm/ivKrzXasH04LwNTTofDviQ/Vvx//Fg==
-X-Received: by 2002:a17:902:f709:b0:2ca:6eca:492f with SMTP id d9443c01a7336-2ccea374c16mr58574095ad.14.1783582247964;
-        Thu, 09 Jul 2026 00:30:47 -0700 (PDT)
-X-Received: by 2002:a17:902:f709:b0:2ca:6eca:492f with SMTP id d9443c01a7336-2ccea374c16mr58573645ad.14.1783582247468;
-        Thu, 09 Jul 2026 00:30:47 -0700 (PDT)
-Received: from [10.218.37.104] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf8e9csm39463965ad.24.2026.07.09.00.30.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 00:30:46 -0700 (PDT)
-Message-ID: <0c1b1970-07fc-4612-afa8-f242c2808517@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 13:00:42 +0530
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="hrhXbskg";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RFwp6tIW"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailflow.phl.internal (Postfix) with ESMTP id 7BC79138006C;
+	Thu,  9 Jul 2026 03:31:15 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 09 Jul 2026 03:31:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1783582275; x=1783589475; bh=ty
+	kZSdBbFVnoxsjT3yV+4MRoChTaLH6xBUntMi9i5W8=; b=hrhXbskg7JksXDuhBv
+	pHSvTZd++o1Vmt7b3L4uOQO2/ACUBJDBMlVJXM0JcuJVERnncBNTzucq4b5my8yP
+	XnNg1UXNWqMy+kmlieCZndfewzQtUFKNS2u/6rmZxEd6XM6h/mnPhzp7oS3PWGvX
+	jI7c/OvWTQzUPwf/NwH357ABxZe/HRaeWjtPJcDUf2nj98XDARAH5YQw3rSV4DD1
+	l747e1WbLXj2TMWJV7+gKSrzesjowFKYaHOeMXIeDfVHCWyF96CTNDyGs/VCU/SQ
+	DtssinlyUUEREryjZ3AlneErCnqYdVATDS3UDqeaYOFOR3FZvW1jXPS+xhJCsJXX
+	/Llg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1783582275; x=1783589475; bh=tykZSdBbFVnoxsjT3yV+4MRoChTa
+	LH6xBUntMi9i5W8=; b=RFwp6tIWojWBFLZDWC5WAYOMVlj4RM0q9CjscGm3Zlgh
+	ATAhn8WHAaKRA8GItkeStdixzP6i4YM4h6KZM9EeRKjtsttiWQEiJjVqMwBk5gFh
+	xxt4ThvagRrU7HGbgqq0u9tkOL/bQnX9YMeRG3Q+mU0EUIXdl4hYxH6ntIeGXLXF
+	BVv7IzOq+v+AIbdnGVUKVIvsNBjmF7CUO4ElxcrnIuhkyKEvYqsy4cepYNW9JdwJ
+	1ymbm+R/RmqfxwOjcLxFcBNQVgctvItbe/T4+GNJLsbZjmAehVn2hYRcAc83r1zz
+	N8Ug1+delKrjwIG+EOxEWeOdZ0D69fTwtRgSZlrLVQ==
+X-ME-Sender: <xms:Qk5PapHK1MCI5wSYHX4pCDhHSXnnNEItquukk4c3NTeDt2K84iM4Xw>
+    <xme:Qk5PapGWcBzcsF2mORJhqFxs2crrE8itSAUN93Z-e0KrxQDwTFTfrqIVAg_BLA9zF
+    W-TZ7X4WL1-6qmopyRS7NDvzWVWU_MKoG7CLJTDjkwpJ29DWKJARAE>
+X-ME-Received: <xmr:Qk5PaqAxhdsSrf3gspn8Dwv3_-SKxUNex04JzmoNEAbQ1XKleg0cHUvC8a7J91HgLKJheCDJiC9CTvB16tzwCw_a3llcf-ehBbI>
+X-ME-Proxy-Cause: dmFkZTFSjdEBfLERVP1KXx0Gpwc6pvTv5Wcp1YpThT70UXH1FfpqSJZOc0ISQHxtU+MxDh
+    +67W+jKjcWO8Emjnwx9c2cPI4vcHYm1fIHunL9bsxD8PvVLg5zc3fwVzQnOE6XGe4mQMXh
+    TSRu6QPliu32CCyJiDgidFV/7cS84vyzWqS9tOjtyj+mnlJB8CW0rhQxWJ8lM8jziJMgf7
+    H2SI+DFO4cOB23YJrS8Fxa11AAGNyy9ItlV/2w5Gsa33KvxZDeGAZ4/eEPGffX9DTjsgJH
+    rKsoYtROEtnhh1n33QQUze7uf45lNJYJ0FYDovQk5IIReAIcX4szV+xhyKuYFmiO7YGxN+
+    daQL240SQMBC0r16xXUA08C+cDICvlWtBgD9i+daAwsYUlMg0G22prlM8K/0VTpgt4BtDh
+    V13zM8XQ9qHUdwWnGekOridrdTdY4oITDg/j3ifY1ZWOd4NQMc230YjEzrrafOQJtmZrrP
+    BDbt8JdBQxbT/MwObfW8DgI/NK+HGdx33+ceu1NA2bHslqU0LbJkmLq3dMvKXPAIKEJiR1
+    uhzGa5MVoKK+gkCHHsMigTnA37v4VhiDaUelwJ+Ybe17Q19Vl0bqC/UU9CN6LJf6WA9Lql
+    ftAqFgnYlnhnqp5bH4rZRZ5MRh5hbyyTsVtEcUC3cfINW4KQj5bLVuFq6MSg
+X-ME-Proxy: <xmx:Qk5Pal06FD5BdD0PI-YxYR0xLFVuDllFzEnM8too4AaWQos66OnbVA>
+    <xmx:Qk5PagCv8twDCim9dDzErvGkCFu-mJJyvDikCmD2QKowwBYshrCnBA>
+    <xmx:Qk5PaubCS7lrU8__KEGzuPXGQDdKqR3DtshK3dWxCGZqblVjO7frUQ>
+    <xmx:Qk5PasawQIjMxHYAEMWX5QoQF_ua2g0kxvSDS_Nz3A9fLZDdpYKxTA>
+    <xmx:Q05Pas6ZstJ0dtMI1s7oIfw-7SmibGgDUFcOxtm-4l-AyTxEPiz8rQiG>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 9 Jul 2026 03:31:14 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Subject: [PATCH 00/11] Initial Apple M3 Pro, Max and Ultra device trees
+Date: Thu, 09 Jul 2026 09:30:46 +0200
+Message-Id: <20260709-apple-t603x-initial-devices-v1-0-55b305833123@jannau.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] arm64: dts: qcom: eliza-cqs-evk: Enable sound card
- support with WSA8845 and DMIC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mohammad.rafi.shaik@oss.qualcomm.com,
-        ajay.nandam@oss.qualcomm.com
-References: <20260703083421.2736184-1-ravi.hothi@oss.qualcomm.com>
- <20260703083421.2736184-3-ravi.hothi@oss.qualcomm.com>
- <bbd86b28-b6e7-4483-93a1-bac96c2dba43@oss.qualcomm.com>
- <059f8b92-6df0-4439-b3ff-1a270b5ee1b7@oss.qualcomm.com>
- <5d46c46b-1f58-487c-a883-bfb8ea356035@oss.qualcomm.com>
-Content-Language: en-US
-From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
-In-Reply-To: <5d46c46b-1f58-487c-a883-bfb8ea356035@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA2OSBTYWx0ZWRfX0+MeAXUB1Wqi
- 8YVCL/1FoQMUaLOdyaKw8X4djHhGbVYzeOgOWbclIKfR5X8G8fe4hj80qrKwnqvq9tZCIN9A5Q0
- e1dOGxuzg4FydE8NDkxkYUnlbPbYJqor8VInnM/wRlkW778voW9KKL6IMn5M0lPQgkB+n03zYb9
- QdBsNlOgS+cKQFI2f6VvKqf02GRRr0fzOTZYFVuvGujyb+E7E4q+fpS0J83kWRVL+WPd40HhKG3
- HCmfZOCtQc4lHgz/QE2wM4f7hoZ+v8tXVSoI9EremdmFuSdO/A9IKIvQRp+G/Tm422tdu1UrTmj
- wDHEnBMSn5XmA4AeYqg557tHfGaU3NORA1zNN9cVRVCWk9lRquBRlC7FmjwVIHd7xXR9/34/rjN
- he19GHCTn4eTOTvg4l+SQ9wFEKc+YEVMCHFPStZhin8PGXNJsLH1aVPDcqMS9HjlCHqVaV9TSGW
- zlY+4uE8urKQnpjOEZw==
-X-Proofpoint-GUID: h6u4Td1LDXuuKmrPBzkRf9cOTaUtjpoY
-X-Authority-Analysis: v=2.4 cv=fMIJG5ae c=1 sm=1 tr=0 ts=6a4f4e28 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=QKulUWdV5NHAk1IIq1IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: h6u4Td1LDXuuKmrPBzkRf9cOTaUtjpoY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA2OSBTYWx0ZWRfX87yaaUxPqI20
- IeALAGntP/4x9PZxNVZsfUi1+uQZNpDbQJrEsiR8U6cb7p0qHj2onQFew2GNNNy7U/z5tlggqkl
- 8nf819Ie6FyYG3dj0rLOB1DDV/OYQ/k=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607090069
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTsQR1rRq4iLMfnVkRJDEqVQe
+ vfGuvwW781UkA2Fzt1MGV8r9o4N+11H/qnxAbbQTOJkcEfXs6Y0guvgDhNbtGo6cmihR2EBvEo
+ 4BemV2iFl3G3a7pfr3+Vze8HX35KWZQViqfcWfwAAAA==
+X-Change-ID: 20260705-apple-t603x-initial-devices-2eeca2d9d25a
+To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+ Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ Janne Grunau <j@jannau.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4913; i=j@jannau.net;
+ h=from:subject:message-id; bh=XsJSiWwd2mbK2l11b/JXgHSqFuO9/PYl34cq33dd54o=;
+ b=kA0DAAoWoRs8240vZWYByyZiAGpPTjuh9olovaOYNi3XzaP1uc61FQmexw9PBlpGAc/0hjYyu
+ YiRBAAWCgA5FiEEYivpiACrfCFcfeBWoRs8240vZWYFAmpPTjsbFIAAAAAABAAObWFudTIsMi41
+ KzEuMTIsMywyAAoJEKEbPNuNL2Vm7AcA/iD+hDv9ElL1sz9sRA/SN6GrZQ2xJQ6sdUFXTTUym0s
+ vAQDKbRQtKmQe72JfQHpxagdyyBgz7xwRrGYKMROSSPjACQ==
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
+This series adds device trees for Apple silicon devices with M3 Pro, Max
+and Ultra SoCs. The M3 generation has fewer devices than their M1 and M2
+predecessors. The only non-laptop device is the M3 Ultra Mac Studio. The
+Laptops are the known 14 and 16-inch Macbook Pros now with M3 Pro and
+M3 Max SoCs. The M3 Max variant with fewer CPU and GPU cores has
+additionally only a 384-bit wide memory bus instead of 512-bit of the
+full M3 Max. It has a separate identifier (T6034) and so there are six
+laptop device trees.
+Another difference to M1 and M2 Pro/Max/Ultra is that the M3 Pro is
+distinct SoC design and not a smaller M3 Max. For this reason both M3
+Max variants and the M3 Ultra will use "apple,t6030" as compatible
+prefix. In the M1 and M2 generations Pro, Max and Ultra SoCs shared
+"apple,t6000" / "apple,t6020" as common prefix. There is currently no
+known difference but M3 Pro and M3 Max are not as closely related as
+previously.
 
+This series adds the same level of hardware as the base M3 (T8122) has
+in v7.2-rc1. This includes CPU cores, interrupt controller, power
+states, watchdog, serial, pin controller, i2c and the boot framebuffer.
+This is intended as base so that support for additional hardware can be
+added to all M3 based devices at the same time.
 
-On 7/8/2026 5:42 PM, Konrad Dybcio wrote:
-> On 7/8/26 1:27 PM, Ravi Hothi wrote:
->>
->>
->> On 7/7/2026 2:11 PM, Konrad Dybcio wrote:
->>> On 7/1/26 7:43 PM, Ravi Hothi wrote:
->>>> Enable the sound card on the Eliza CQS EVK platform, including the
->>>> WSA8845 external speaker path and DMIC microphone capture via VA macro.
->>>>
->>>> Enable the required LPASS WSA macro, VA macro and SoundWire controller
->>>> along with the necessary pinctrl configurations for DMIC and WSA
->>>> SoundWire interfaces.
->>>>
->>>> Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
->>>> ---
-> 
-> [...]
-> 
->>>> +&pm7550_gpios {
->>>> +    dmic-eldo-en-hog {
->>>> +        gpio-hog;
->>>> +        gpios = <7 GPIO_ACTIVE_HIGH>;
->>>> +        output-high;
->>>> +        line-name = "dmic-eldo-en";
->>>> +    };
->>>
->>> Why add a hog if you defined the regulator already?
->>>
->>> Konrad
->>>
->>
->> The gpio-hog is the mechanism that actually drives PM7550 GPIO8 high at boot to enable the ELDO hardware. This GPIO enable is required to enable the ELDO regulator which is powering the MIC BIAS supply.
->> The regulator-fixed driver with empty fixed_voltage_ops has no .enable()/.disable() callbacks — it cannot toggle the GPIO. The dmic_eldo regulator node is needed to correctly describe the supply chain to the VA macro driver (vdd-micb-supply) and for power tracking, but it cannot control the GPIO itself. Both are needed for different purposes.
-> 
-> Well, why do you think the binding would accept the GPIO if it
-> couldn't be controlled? Of course it can power it on/off, check
-> regulator core code
-> 
-> Konrad
+Merge strategy:
+Since the dt-binding add new compatible strings without driver changes
+it would be preferred if the whole [1] series would be merged through
+apple-soc/arm-soc. This will help ensuring a warning free
+`make dtbs_check` for followup series with additional M3* hardware
+support I hope to send for this cycle.
 
-Thanks for pointing it out. Will fix it in the next version.
+This series will conflict with the M4 series [3] sent A couple of days
+ago. I would prefer if this could be merged first (in order of SoC
+release).
 
-Thanks,
-Ravi Hothi
+[1]: I see that the M4 watchdog change was already picked up by Guenter
+     in [2] 
+
+Link: https://lore.kernel.org/asahi/a03c19ee-cf74-4f26-826d-f2bfb816fb3f@roeck-us.net/ [2]
+Link: https://lore.kernel.org/asahi/20260705-apple-m4-initial-devicetrees-v1-0-e5655ee56523@cyberchaos.dev/ [3]
+
+Signed-off-by: Janne Grunau <j@jannau.net>
+---
+Janne Grunau (11):
+      dt-bindings: arm: apple: Add M3 Pro/Max/Ultra devices (T603x)
+      dt-bindings: interrupt-controller: apple,aic2: Invert #interrupt-cells condition
+      dt-bindings: interrupt-controller: apple,aic2: Add apple,t6031-aic3 compatible
+      dt-bindings: arm: apple: apple,pmgr: Add t6030 and t6031 compatibles
+      dt-bindings: power: apple,pmgr-pwrstate: Add t6030 and t6031 compatibles
+      dt-bindings: watchdog: apple,wdt: Add t6030 and t6031 compatibles
+      dt-bindings: pinctrl: apple,pinctrl: Add t6030 and t6031 compatibles
+      dt-bindings: i2c: apple,i2c: Add t6030 and t6031 compatibles
+      dt-bindings: pwm: apple,s5l-fpwm: Add t6030 and t6031 compatibles
+      arm64: dts: apple: Initial T603[124] (M3 Max and Ultra) device trees
+      arm64: dts: apple: Initial T6030 (M3 Pro) device trees
+
+ Documentation/devicetree/bindings/arm/apple.yaml   |   37 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    2 +
+ .../devicetree/bindings/i2c/apple,i2c.yaml         |    2 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |   10 +-
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    2 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |    2 +
+ .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    2 +
+ .../devicetree/bindings/watchdog/apple,wdt.yaml    |    2 +
+ arch/arm64/boot/dts/apple/Makefile                 |    7 +
+ arch/arm64/boot/dts/apple/t6030-j514s.dts          |   22 +
+ arch/arm64/boot/dts/apple/t6030-j516s.dts          |   22 +
+ arch/arm64/boot/dts/apple/t6030-pmgr.dtsi          | 1437 ++++++++++++
+ arch/arm64/boot/dts/apple/t6030.dtsi               |  524 +++++
+ arch/arm64/boot/dts/apple/t6031-base.dtsi          |  297 +++
+ arch/arm64/boot/dts/apple/t6031-die0.dtsi          |  197 ++
+ arch/arm64/boot/dts/apple/t6031-dieX.dtsi          |  107 +
+ arch/arm64/boot/dts/apple/t6031-gpio-pins.dtsi     |   53 +
+ arch/arm64/boot/dts/apple/t6031-j514c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6031-j516c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6031-pmgr.dtsi          | 2400 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t6031.dtsi               |   48 +
+ arch/arm64/boot/dts/apple/t6032-j575d.dts          |   46 +
+ arch/arm64/boot/dts/apple/t6032.dtsi               |  419 ++++
+ arch/arm64/boot/dts/apple/t6034-j514m.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6034-j516m.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6034.dtsi               |   12 +
+ arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi     |   67 +
+ 27 files changed, 5785 insertions(+), 4 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260705-apple-t603x-initial-devices-2eeca2d9d25a
+
+Best regards,
+--  
+Janne Grunau <j@jannau.net>
+
