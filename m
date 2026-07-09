@@ -1,317 +1,185 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012030.outbound.protection.outlook.com [52.101.66.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D48D040BCD6
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783611813; cv=none; b=r+xVtiCnoZS3s3EWzuSBMSwQrXSmj0f3wYw3kpHS3QCquJftZPjL1C0DssXa4p37qLLjEwWLmBx/nR4GPBuvGEzibOpiWKesgq8Qkb/TJ6j0tSEybHWcIG4uel0rfMWV3UdIra/ugZbcUY6hwdACxogZHWB38vMsv8JVdw1VpQ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783611813; c=relaxed/simple;
-	bh=46Vxt43agJazPbO88O2vqw7lt9h7u00qTiJXc2dgbv8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ap0+mVXL+kIk+oLwuVpFuHdnVu+Mzhrs2gCnvzrpa2Rdq7ky9HJkpTGShc5NXglQEfZY24V2mwDHp6TT23zGFrlNJCZbmXt9CT+uBKkx933Je3B/XBGAX4EQunQS8aR6j3DqY4+TSUBERA3PstFkMfa1+pgmmNyXqWQ7vI8dt/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gEYXdEq9; arc=none smtp.client-ip=209.85.210.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE03733D4FB;
+	Thu,  9 Jul 2026 15:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783612057; cv=fail; b=AriIUHkmrWMFF8zqvtwZyY1jkzuOQjrjZmB3h5OFwfIxGyy/J9clD5iFqDXIOczEbDyWCfEpUyjH//xT7xO8r33skSIrLpNdir01m9HpkEIQG4tdxCx25W9C3KVFPHrojiA/V6Qqv1NkL0AMk5lp3secweIuF5fEXst3nisLQ70=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783612057; c=relaxed/simple;
+	bh=xEE/4fUuDDRcmbnkyMoHqcvcpoDAh4QI6dGw3VP/lm4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=i7zFJq/ktiufUCykDBXzoQn3ppRJUQ52fDjQ4sjxFKlvN4hOcAG5Yn7S9aoLS7iHDN73PDqZKmVL6InwcyY27dYfjI0z7EU9CxzEZKIGS1ZuOtVljeYeF24FKQwHjos3oCu6Qg7PhBS901CxFlm7jQTqzC62Tzv4KVKNqyCvZcw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OGb8Jdy2; arc=fail smtp.client-ip=52.101.66.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gEYXdEq9"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7e9fc3de7ceso4006a34.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:43:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783611809; x=1784216609; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K71vA2rRxJHnRmY4YuInHn+JTOnkMM3kjsWFyARkKU4=;
-        b=gEYXdEq9nRZbXdd/wrFq1do5TqiYjXSW94459W5MmhV5Xeyaf/hcrvCvUVGE448PMK
-         TQNNjHq9f7FqqO7N46i7+rAJmwaQmOoza3zqAz6hqFi5qWRpKW0LCGUCMHcrmFcr9Ihw
-         7gIGBpwxuSlCQiffMs5I0nTRgqeKS0Z4ZR7I6Ip/RpA1/JdIznKiV2cUcHhkjAOFDOy7
-         Vxzc7D8/gAlXaCfBsRtO1cI9Y2+3KcdmuMrD54Gj+I/x6H5W2FvLl5eVu+7RQHvVgy6Z
-         ylQGXLubndBym826n7XPXDijePHj7mCAZP+HlKbLfMkKQUjFIjw2C6hgPz4saxTVPMi+
-         up5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783611809; x=1784216609;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K71vA2rRxJHnRmY4YuInHn+JTOnkMM3kjsWFyARkKU4=;
-        b=BzCUqaBoYouEEvov3AIegJ5EAesQow7JPEzm8HEA/izvWQV5cvrNjGTqgp7OibGbCd
-         tYAzKCq7595G3E+AMjLvoIqL3m5bwndylg9TOPx6rLSmP2LTFXkQY0D+ddkrBJKRJXBK
-         mhdd8Ld6Xn5k0tFqCg9VMRDG4wAjRkxD2itSln7GSjnUuvfORzxBK0Ay2I7o32aDsoau
-         Z7eG6BwAf5SCKgZ7GjjDN4kJYMCcE0YHb5tvd1zvRsesgf1zS0ntzj5ccMd194KKrXfz
-         wFKWcOQp+lqJoBzvPRTMiHBKPRY+/c+nEvQf5kPnsOQGoD/e52t3Crj8vSlodrp12ZOf
-         G7Pg==
-X-Forwarded-Encrypted: i=1; AFNElJ9O4lxAYYvoxbYHXz8J5JM7jiWnx9RJnoGHnO2S7GD7uIs/ngXNt9Q5dnw60iM0zCtt9H2GRMs5Jow7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/gJUxlM37aLpODCuanvQ3AiVDhg/T+KV0QJFeDGEqT6vtjHPJ
-	LX1Om+sywPhrYQLsmR4kTZ6kEoHnu5mh9RnCRijFEsCuu3DtBpxoDx7IzLOOCtBIwl8=
-X-Gm-Gg: AfdE7clvauBbuC+iU/3VXPq8bUKKlGb/ftbKwXyjCJvnPrzsBB8qQsg+2GJHs8/3S10
-	FHX+v1s+XpfnYwEYpWWLtoxk2s4tiZfWxBkyu8DZ+h/Un8Z9ZtiDrDyla25eV9hSpa7ArYJihac
-	OS4jJUrTqqtvTfnyb9A5XLdltsjNnMPhLK39OFJRQz1oby4QTtG3tFyLruuGljj4TLRoDvndbXd
-	sR5STIodzzBJJ485z13Pz6ijGHsjX3NMwaBLAZl8iq2TyKarsuwDb4eefXcKPE7x4ZZvUOWYikG
-	gp+yeeBlgnUgD0W9n993HrTBGlCPzl1WFxT05baBFjB4olYakcSkv7mmZJw9JvpervutNWUxIYk
-	+mJrk83j2/XnxL1XyWuAGbxplzMykcnRxh7mj1JFga2AmIzFPR8Twj/aDvEuOGjv646yV/atE97
-	o22pz/0SBZ5+wSP7XCCVzLh3ofylwBX1t7PXpl8NxnbJap3DEbCQy4dwIGrWnLG+Q=
-X-Received: by 2002:a05:6830:82bb:b0:7dc:cdea:7d9 with SMTP id 46e09a7af769-7ebcff82b2dmr5550730a34.22.1783611808795;
-        Thu, 09 Jul 2026 08:43:28 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:2a8b:8d9e:f359:9a35? ([2600:8803:e7e4:500:2a8b:8d9e:f359:9a35])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb3f27besm4343356a34.25.2026.07.09.08.43.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 08:43:28 -0700 (PDT)
-Message-ID: <36df7c4f-82ea-4ed5-a4f9-3a29c75dc99a@baylibre.com>
-Date: Thu, 9 Jul 2026 10:43:27 -0500
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OGb8Jdy2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jXT/YCmH0HyYShef/a2jvtWerMGYZWF/VYGmdfqyB94aqiMvTMYHFDKIjfQ1uXGsHV4dB8UBy8jSH98h6d7sOnILJJfo2PEp8ou5+C25SZqb3ea6VGMEH+aSVh838Z4xesCRl4Ba9/Ct5/ch56Qn/ubU0uSo6fqow7N5ZinGiilikYXog+lTaptA10mjmja3Z4dTfur3RjhKT0WCRlDuD3zk4xqOsV4+I9z9pFkOn3K5oDQMo+an8InFax9QmqMIIBoKUUZ++z66wqpG4ooKs9kQ8RZBMqY35JrfDam1ES6oEgbJxvdgEIxtisWrC3roi+Mo6qcD2eZX1D2WNzlR1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+sLYMCLhg0HoAhsRqndrtmdCR0ZuLtmTiZj4r/97iao=;
+ b=kpAc+NeQO1Iu/e1rQlz11Ba/PON3xfkzLUqFDNY7B6FXqEjFIv1J8Pfj/kv0i5HT8NrsQzzy1b4jJZYrVqwQZ4EjQ7e4Fozhe2nwB60qCS9tw0kNHpeVKU2DhoDt/g2/IY+N607VrzKFRIXCLYBGLCq/HCnGDWfaoLlQeWsxCqw67UZrmRHWQ58rDguFACJGCIuepWYMRReCLGYekmsLL8KZCiZy77HqHTJWmHxxvK20leKEXnGFD7TVsPiRMuu9LHOnlTuItxluiVPf8oz4dDwVa9yqKN4EIxbl+WCkRRTNwSnI1pO3f2AJPa48GlTNc05oEWUJAzws5FU19THMjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+sLYMCLhg0HoAhsRqndrtmdCR0ZuLtmTiZj4r/97iao=;
+ b=OGb8Jdy2x1dQLH3c8MWRBb+oICmj+8RXc49BPmv6akp2tozplM9ZZGiFYvu43Pa3miCRZjkSssWayPnkzdzqYvR/JdpbHyI1KKR5v+FcSEDRtshCeM2/jerL/mfM6Z8jlRqI7Tp67/BOPUfTgniIsjt092vlHSrLR6x6cTRi0GDbtma+VA7L1UHH6EaIKckkqXqj5XdhdkEswAwdvY+3U9vMSLIluh9feXq1RRDGxgZ03yYuAtc+9J2RLORe7SMJDlMygz706GcIpWdIxohAOqKg3laEpCXL7mL4LY6820pOd8fSZMKUmRiuRutySMUX0+O5pxSNBQrBo7k9R/4bdQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU4PR04MB10573.eurprd04.prod.outlook.com (2603:10a6:10:587::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 9 Jul 2026
+ 15:47:32 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Thu, 9 Jul 2026
+ 15:47:32 +0000
+Date: Thu, 9 Jul 2026 11:47:22 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v12 3/6] media: qcom: camss: Add support to populate
+ sub-devices
+Message-ID: <ak_CivYjBZcNrBaG@lizhi-Precision-Tower-5810>
+References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+ <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-3-f8588da41f16@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-3-f8588da41f16@linaro.org>
+X-ClientProxiedBy: SA0PR11CA0098.namprd11.prod.outlook.com
+ (2603:10b6:806:d1::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: iio: adc: Add AD7768
-To: Janani Sunil <janani.sunil@analog.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, jananisunil.dev@gmail.com
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
- <20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB10573:EE_
+X-MS-Office365-Filtering-Correlation-Id: e6ba8538-fe9b-413f-42a4-08deddd163ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|7416014|366016|376014|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	0spLdcw2uGV+WY+6HSxDX16yQpVv2SmpDBlU1CE2FXH8cqZmtKpdDRI+xl+Fo1F1f5OHaCkbumsHYa091EOl4rlY7zIAXtzXLskRsdaXR4vdPc3YCWaZ08gxL/HJTx9UBAgd4kvsgmBE+vaINI6Z/WBMAqG0XrTL4Ojm5/Hxo4gNscREkZQdnxraDwCg5uG0MOyLdcCThPLMhxomdF4k/8qb6tLZamNsC3FFxDmRCauMfQfYX/nM/DOoo5V29GoqTATEuiF9VWJ0xXlUqCvqI1RuwQG5xes2uO7aYXN3b5iG1k9ipBeH29uO7SSi+lGz/Cu32uqBLzKeMPRJpWiT8EDXGJmhGSzKMxxvRvK/HAKVKX/0NnSgvCSfw/sVpGW4V13fV/Bf+XacEVOYvYgheb2q6e3QlFPQJ7VdnDaM35Ez1Kc2iGPdXGhTIEEpPnH54L+CY2DNB0y2j7lb2bdIdOs9BBV7nnIcwbLtvwHMfd8BcJfJBRBD+k6S3FAlbEgCpv25bhhI83PCvOAdwTuvuH4Sejy+PyWpJves89nfZKfVTl8jHG4vCvieJUp5Kv8NNkVdFLxdQNUJiy5cV69YIx+MGqiH5EcjaXjMRXhdI0Ju9oWzVVI0lU+CSivmcbNa/5UWj5EzWSzSGGFEOAGhD519xeKzkwtWDlGo0+zwk/o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(7416014)(366016)(376014)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LLfI4q7FnORyAgcxm/ewfe5BrO6jUOq8YgxTHDhuemxcdEXVCTaBBv5+PgDk?=
+ =?us-ascii?Q?waDfY/uAd3IyLH9oXFYUPIGq+lseVhTySvwXfCT2DKmGU1OJOtixPpWBOR7f?=
+ =?us-ascii?Q?JekFAyBOq6m02KTlIthZAPg8gBf+M8kHO3nNcC9NcEoV7EfTe0eHzNOP05I/?=
+ =?us-ascii?Q?jQxc3S20PCMKSVwkv6DZnVlJQUVY0IRirgRCuVzpMtC74IF/VPgqHXVil3hX?=
+ =?us-ascii?Q?pZp1cQSmLo8OPbgC47GD7l/SttcKiqIJed+HPW5Hj/eu3DzDR4Yzh/grTwEC?=
+ =?us-ascii?Q?zCNt6j6YTbwaP0HkjPFgrSGCpHciAgpkIqyvSUdg1R3e6SI8JqkRYNpY9ajU?=
+ =?us-ascii?Q?DE5ZBhRqAycoDE9xFImUWqsOAKxHMI26calDgmaA4zT7ZBt9Gk+0lPBy/bcT?=
+ =?us-ascii?Q?qt23qo33LGUnvHppFyIzE/smaHZSTEYSHjwZE1P/j8O3udkv0RiDMJ9eMYZS?=
+ =?us-ascii?Q?0+VQqgfJDDucby+U3rMjNTayaZIPVHHR9PxIuFY8hUn2DWb9MrWcEeclAeV9?=
+ =?us-ascii?Q?I97azQuFm2HqZGBitglz77dXUf7gUA9TOjTZNPpnUjAFvjfX7koDrwS72tZr?=
+ =?us-ascii?Q?zx6qPwrf+3vjnw1q2NwEVyNksJdogGSj0pRYTyk9vKrivG6UqAEhzny/52un?=
+ =?us-ascii?Q?PF2UYt9yOxqrmgqEUt9L8KyRPr1JuGrJSItyBRlHL8MgEtkPJEftL7hr1vPx?=
+ =?us-ascii?Q?rvK9+sF+/DNdGKTE7//KHbTLZFeVZ3hkh8XiQhrxNCt1eJOs055AZLUk2wwX?=
+ =?us-ascii?Q?fyRWAV/uD9/qJ+CX7Ioc2CTwFEVvIv+lxdeFZhL72u0jhF+hr93IylwbH1+I?=
+ =?us-ascii?Q?kahaZ2F54Ff0nuUUpRXmt8eUmKhEOYQnjmnepf+6OiK9crH6agB+9psxhaLc?=
+ =?us-ascii?Q?BKXOF0PWG2dZ9l3ApPG+Hb9m9azeVGTJuhd642Jo4BiEFA866Gb+BA7XEPs2?=
+ =?us-ascii?Q?FeX11Ff6qX3DQFdW7QhTmp2+j85fqyelkT5JyrqPVXxeClcNPEXuWtyh3cLL?=
+ =?us-ascii?Q?dPfE7GbQp2T0nLfe8o4+u5L/umHulxhmzjztnQ1CxEvfHDQ/dAlv00CfuTQ1?=
+ =?us-ascii?Q?ogW6mp4Bw5/NRB5Kg6fT1ODr41JjNa+3pMdvqG8yh0oxpam6aC1RzpCQAvYG?=
+ =?us-ascii?Q?wYn7x7mUH4Z7oB+aa/qZvGYLolgDcVDk/tf91LRSEkmYqTTTIStgLox0xkzH?=
+ =?us-ascii?Q?mmTb2D9oRxaDJS8gg53WZtIpmB1l+lGv5zYKOBUb8SABBhx4Jj0SlFFrllHp?=
+ =?us-ascii?Q?J66Oas0Ektkdiq5YzaF1BcjgcUN1utYXmraVkxOfQgEJW8D01ROKkHUKcz4t?=
+ =?us-ascii?Q?DV0oxA+w5wfofb4dmtMls+3fqozH1vaGQvsmMQfLTJXip8ZuMSc7r9LJq0w6?=
+ =?us-ascii?Q?E0/rJvLb2wvIw4UwT8miunjUXDjctDn28Kp/pnY4PJ/47Jkebj+LdYCL92OG?=
+ =?us-ascii?Q?l3o7aKtTeeD99H58YkMBny3gbObp8qJ334er4sS4Sw0N4NiCzQ+DriKwNVjX?=
+ =?us-ascii?Q?O/yxXoasoyHBP9W2r0ZJVTdBZerAMGX+ZtLpgn4iiwcH9M90Mgz1w4E/KTmn?=
+ =?us-ascii?Q?aLtkEzOJ82gcwfbG8mce8g9MdRh1sGZITPFaIRsm2pFrstHfPNlOtd6DI4yg?=
+ =?us-ascii?Q?12I+uhVkdv3JEEg0ji3BEMTa0b1hD1Q6HM1hbT/HlpOC6eT+ONg9L7+Ua0OB?=
+ =?us-ascii?Q?GN0IDzESGaWnJLPsQvuuwWk8FbTceZ17mT+aBASDEry/wE+CLHPCfQFp3ADE?=
+ =?us-ascii?Q?GTVIzg1DFBbPUn4KAtAzUXjUO63phUSgcGkGVODcOZXxGg5uxygz?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6ba8538-fe9b-413f-42a4-08deddd163ac
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 15:47:32.5439
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YDhcw9C0GQSl5vFz8RQkWNAwCLwacekzlggITRyFMSyFHC1Zfl2akYXmRe3zvROV5SlDkzJ9YBSZZtuoP6iw+kZhExtJ1OYGMBJwG2IaTcrKYORtGNZETWUe5Q41kS5q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10573
 
-On 7/9/26 3:50 AM, Janani Sunil wrote:
-> Devicetree Bindings for AD7768-4 (4 channel) and AD7768 (8 channel)
-> simultaneous sampling ADC
-> 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+On Wed, Jul 08, 2026 at 01:06:57AM +0100, Bryan O'Donoghue wrote:
+> Use devm_of_platform_populate() to populate subs in the tree.
+>
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
->  .../devicetree/bindings/iio/adc/adi,ad7768.yaml    | 285 +++++++++++++++++++++
->  MAINTAINERS                                        |   7 +
->  2 files changed, 292 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
-> new file mode 100644
-> index 000000000000..b74fe6aef01c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
-> @@ -0,0 +1,285 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/adi,ad7768.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD7768 and AD7768-4 ADC
-> +
-> +maintainers:
-> +  - Janani Sunil <janani.sunil@analog.com>
-> +
-> +description: |
-> +  The AD7768 is a 8-channel, 24-bit simultaneous sampling ADC with configurable
-> +  power and performance modes. The AD7768-4 is a 4-channel version.
-
-Probably worth mentioning that this binding is for SPI mode, not for pin control
-mode.
-
-And that the io-backend is for the data output interface, so consumes the DOUTx,
-DCLK, DRDY. Maybe also START? And SYNC_{IN,OUT}?
-
-> +
-> +  Datasheet at:
-> +    https://www.analog.com/media/en/technical-documentation/data-sheets/ad7768.pdf
-
-A link to the example HDL project for the io-backend would be helpful too.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,ad7768
-> +      - adi,ad7768-4
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: Master clock (MCLK)
-
-Could also be XTAL{1,2}.
-
-> +
-> +  avdd-supply:
-> +    description: Analog power supply AVDD1 (4.5V to 5.5V)
-> +
-> +  avss-supply:
-> +    description: Analog ground/negative supply AVSS (0V to -2.75V)
+>  drivers/media/platform/qcom/camss/camss.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index 2123f6388e3d7..95e655a8b6aa0 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+>  #include <linux/of_graph.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/pm_domain.h>
+>  #include <linux/slab.h>
+> @@ -5362,6 +5363,8 @@ static int camss_probe(struct platform_device *pdev)
+>  	if (!camss)
+>  		return -ENOMEM;
+>
+> +	devm_of_platform_populate(dev);
 > +
 
-What about AV{DD,SS}{1,2}{A,B} supplies?
+Need check return value for all devm_*()
 
-> +  dvdd-supply:
-> +    description: Analog power supply AVDD2 (2.0V to 5.5V)
-> +
-> +  iovdd-supply:
-> +    description: Digital I/O power supply (1.8V or 2.25V to 3.6V)
-> +
-> +  vref-supply:
-> +    description: ADC reference voltage supply
+what's happen
 
-There is more that one reference voltage input. so ref1-supply, ref2-supply.
+     camss {
+	phys = <&phya>;
 
-vref is the name of an internal signal, so doesn't make sense here.
+	phya: phy{
+	}
+     }
 
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: GPIO connected to the active-low RESET pin
-> +
-> +  gpio-controller: true
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  adi,data-lines-number:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [1, 2, 4, 8]
-> +    description:
-> +      Number of data output lines used for serial interface.
+Can device defer probe handle cyclic dependence? phy driver may ready later,
+following phy request will be defer and cause of_platform_depopulate(),
+then phy device will be removed.
 
-This could be made a bit more clear that this is a secondary data
-output interface, not the SPI lines.
+Frank
 
-> +      AD7768 supports 1, 2, or 8 lines. AD7768-4 supports 1 or 4 lines.
-> +
-> +  adi,common-mode-output:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    enum:
-> +      - avdd-avss-half
-> +      - 1.65V
-> +      - 2.5V
-> +      - 2.14V
-> +    description:
-> +      Common mode voltage output selection.
-
-Why not using standard regulator provider bindings for this?
-
-> +
-> +  adi,vcm-power-down:
-> +    type: boolean
-> +    description: Power down the common mode output buffer
-
-Is the buffer separate from the output? In that case I would expect
-buffer to be in the property name, otherwise this should just be
-part of the enum options above (and the default one at that).
-
-> +
-> +  adi,power-mode:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    enum:
-> +      - low
-> +      - median
-> +      - fast
-> +    description:
-> +      Power mode selection.
-
-Unless there are pins that control this, it seems like it should be
-left up to the driver to decide how to set this.
-
-In this case, it looks like the power mode also influences sample rate
-which is normally something controlled at runtime.
-
-> +
-> +  io-backends:
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^channel@[0-7]$":
-> +    type: object
-> +    description: |
-> +      Represents the external channels which are connected to the device.
-> +      AD7768 supports channels 0-7, AD7768-4 supports channels 0-3.
-> +
-> +    properties:
-> +      reg:
-> +        minimum: 0
-> +        maximum: 7
-> +        description: The channel number
-> +
-> +      adi,ch-mode:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 1
-> +        description: |
-> +          Channel mode selection. The AD7768 supports two independent
-> +          configuration profiles (Mode A and Mode B) for filter and
-> +          decimation settings. Each channel can be assigned to either mode:
-> +            0 - Channel uses Mode A filter and decimation settings
-> +            1 - Channel uses Mode B filter and decimation settings
-
-This could probably be handled in the driver. E.g. allow per-channel settings
-that just get stored in a data structure. Then when starting a buffered read
-check that all enabled channels have at most 2 different groups of settings.
-Then do all of the required register config at that time.
-
-> +
-> +      adi,prebuf-pos-en:
-> +        type: boolean
-> +        description: Enable positive input precharge buffer
-> +
-> +      adi,prebuf-neg-en:
-> +        type: boolean
-> +        description: Enable negative input precharge buffer
-> +
-> +      adi,refbuf-pos-en:
-> +        type: boolean
-> +        description: Enable positive reference buffer
-> +
-> +      adi,refbuf-neg-en:
-> +        type: boolean
-> +        description: Enable negative reference buffer
-> +
-> +    required:
-> +      - reg
-> +      - adi,ch-mode
-> +
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - avdd-supply
-> +  - avss-supply
-> +  - dvdd-supply
-> +  - iovdd-supply
-> +  - vref-supply
-
-> +  - adi,data-lines-number
-
-Suggest making the highest number of lines the default instead
-of making this property required.
-
-
-> +  - adi,common-mode-output
-
-Should probably default to disabled, unless it is always used?
-Changing it to a regulator provider makes this not relevant.
-
-> +  - io-backends
-> +
+>  	camss->res = of_device_get_match_data(dev);
+>
+>  	atomic_set(&camss->ref_count, 0);
+>
+> --
+> 2.54.0
+>
