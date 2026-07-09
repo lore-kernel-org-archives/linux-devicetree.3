@@ -1,140 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880B13F5BF5
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:46:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF003F7A88
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783594012; cv=none; b=EGfsG0ZxOA3cdAnleELqujGO9j8Oqr73T0FIhSUzHTuGzDI4K61iss0XKQPbfnKiI4CkHlcje/1LnGsZzJUdh6KeNmgIzzX2X6XE81l4EK3dcKaFUjRTbuPdjPwrfFkwv3RotDIN9LMEX8F0NclU8WxxpfLSu+GB4Wc0Yq4c6vM=
+	t=1783594064; cv=none; b=eF4pO3dA3TZCygpcQeuOge0TYtaKMBz5EGsPA/s2yMN7oP4Fio6ImiXtGgcM7mQZcqRykFrwUJmE3WMl6OhejjdPxiVLWjmcTZnW4u+Gu9syTCBCwhMDQCLJFDRgeqRE7lfeJI1UynJ08IBwcCRoDh8RdLzknIJMFJgg/EnYmmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783594012; c=relaxed/simple;
-	bh=J4F8tkobiRk9bPwGq7ZObULf4JIDuhF/WM3lcn+/1Ok=;
+	s=arc-20240116; t=1783594064; c=relaxed/simple;
+	bh=kUawqPO6xoT/lhqVwxW0SjQsE5u6MZjKe/+SqApHAfM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EQjBXfAHVqouQxM5vTNJMf/GeJPS1AVardlxN7Af47M3owhC6eHEexupW9qJTVEr/qIC4oNjSN0xz7SXp6NIaJWAjmS+fq2bF7ZB94kid9YQAG3qjXjXuXlVPSc8EtOOzMQk6lecfW7u6t/9S5/K8JAUvUxYW+QduB6M7bCrFco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtYb4snC; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LclgKwJpjJqeKdNQmQvyBkp0rGIDLiYqfitySkmclAPIlS7wW6iqF26QJ0jyQUkp3QZGG53JJ76srK1AJbz9ltwFX6HkXdU9iND40QEp0KECwXcswomYMVQat+tkhsGtmBGJsP5Gy6I6krRABvnZ+pPh4LuJF1/kBVjTaMbmOnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/jW8wrv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtYb4snC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBE51F000E9;
-	Thu,  9 Jul 2026 10:46:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/jW8wrv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5487A1F000E9;
+	Thu,  9 Jul 2026 10:47:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783594011;
-	bh=q7ScW9hJpjng45n+X/4/5Xe8MZhmqsiLLYoixjG84RQ=;
+	s=k20260515; t=1783594062;
+	bh=4gdq3iURDqADJ4o8X5+XR8dL0ApUrHFEcU005U5spLs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KtYb4snCcoipava9zr2sU5riBZE5uo3l+Mk3D3Rs3/cVNfL014gOgtuPX147vNfwW
-	 VD740rriun0D23eoz5UE1sBlkBfnSxabqVk5Rn6VxMJX3bT1q/8CoSBBFQWyHmjs7G
-	 xpabMU5zhmk/XI8yFgfh5b57j2ycYRfSqQmCWsUzg/VbFx2XNWPJ5edCqZi4CKT0EO
-	 vGpb3/bT7ZxMb5KmU7PI2lSlpWjfPb5U+0lmOCNwFqBL7gtgVRs085QdXfah4p8te4
-	 L6Y80bEkCIx9dvbJDeaykCQVghEPTAKJqiLk0ebXPAnq4FYWTs5ZG7M9o27JcvKaLT
-	 ae6fkFdFOgVBA==
+	b=R/jW8wrvbcHxepcTKDfgBf71Ly3r6TA7FwXslwahauBebguCw27YR4JKqekCtg3kN
+	 C7tJQqTm9AF7I0UE4LwFJchDWYX22TVOJ7a9lJkY2w+9FCfBLq0IboqsQp7g0P82+A
+	 WfxoWyhOsL8eY92upSR5Wn4MkYh1K9YS1WKLXyZgR5y8EbHy163QJDUEyU4MK2VaVW
+	 zZiyleoOkpZpPX2JPu6aMR+DiGsRFCFVbMbu9rqOqxPnPIYRTZoOC0VmsVkz+mnJIX
+	 hlLK3cYNBslhzkS1czyh50asSFxCoSpJakVORZwxXgezTCjdzaUxqYlVj2p6RfL1FT
+	 Q+/XjvvtJY9Nw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and phy
- driver unregistration
+Subject: Re: [PATCH v3 08/11] drm/mediatek: mtk_dp: Move max link rate to
+ SoC specific data
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709103431.46616-4-angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260709103431.46616-9-angelogioacchino.delregno@collabora.com>
 References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
- <20260709103431.46616-4-angelogioacchino.delregno@collabora.com>
+ <20260709103431.46616-9-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 10:46:50 +0000
-Message-Id: <20260709104650.BFBE51F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 10:47:41 +0000
+Message-Id: <20260709104742.5487A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [Critical] Double free / use-after-free of mtk_dp->phy_dev on devm_phy_ge=
-t error path.
-
 Pre-existing issues:
-- [High] Asynchronous pm_runtime_put() used immediately before pm_runtime_d=
-isable() leaves hardware in incorrect power state.
+- [High] mtk_dp_bridge_mode_valid() uses the SoC's absolute maximum link ra=
+te for mode validation instead of the negotiated limit, leading to unsuppor=
+table display modes being accepted.
 --
 
---- Patch [3]: [PATCH v3 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and ph=
-y driver unregistration ---
-commit ee2a644d342bfbaa916286b22d4e54ddc62e5878
+--- Patch [8]: [PATCH v3 08/11] drm/mediatek: mtk_dp: Move max link rate to=
+ SoC specific data ---
+commit 47b5711a6d2bc56c41f2725702c27dbf19ea9ba4
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+drm/mediatek: mtk_dp: Move max link rate to SoC specific data
 
-drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
-
-This commit adds devm actions to unregister the HDMI Codec and DisplayPort
-PHY platform devices during probe. This prevents multiple instances of these
-devices from being registered if the driver probe is deferred.
+This patch moves the maximum link rate to SoC specific data instead of
+statically assigning it. This is in preparation for adding support for the
+MT8196 eDP IP which supports a higher maximum link rate.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
 /mtk_dp.c
-> index eefbc7e0f9c8d..fefd1fae44c90 100644
+> index cabfc833c0a80..ea90462b26f5e 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dp.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
 [ ... ]
-> @@ -2701,6 +2718,11 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_=
-dp)
->  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy_dev),
->  				     "Failed to create device mediatek-dp-phy\n");
+> @@ -1469,7 +1470,7 @@ static void mtk_dp_initialize_priv_data(struct mtk_=
+dp *mtk_dp)
+>  {
+>  	bool plugged_in =3D (mtk_dp->bridge.type =3D=3D DRM_MODE_CONNECTOR_eDP);
 > =20
-> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
-phy_dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to add phy unregister devm action");
-> +
->  	mtk_dp_get_calibration_data(mtk_dp);
-> =20
->  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
->  	if (IS_ERR(mtk_dp->phy)) {
->  		platform_device_unregister(mtk_dp->phy_dev);
-
-[Severity: Critical]
-Does this create a double-free on the error path?
-
-Looking at mtk_dp_register_phy() in drivers/gpu/drm/mediatek/mtk_dp.c, if
-devm_phy_get() fails (returning e.g. -EPROBE_DEFER), we manually call
-platform_device_unregister() here.=20
-
-However, since we successfully added the devm action earlier in the functio=
-n,
-returning the error from probe will cause the devres unwind mechanism to
-execute mtk_dp_unregister_pdevs().
-
-Won't that call platform_device_unregister() a second time on the already-f=
-reed
-mtk_dp->phy_dev pointer, resulting in memory corruption?
-
-[ ... ]
-> @@ -2870,9 +2892,6 @@ static void mtk_dp_remove(struct platform_device *p=
-dev)
->  	struct mtk_dp *mtk_dp =3D platform_get_drvdata(pdev);
-> =20
->  	pm_runtime_put(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
+> -	mtk_dp->train_info.link_rate =3D DP_LINK_BW_5_4;
+> +	mtk_dp->train_info.link_rate =3D mtk_dp->data->hw_max_link_rate;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is it safe to call
-pm_runtime_put() immediately before pm_runtime_disable() here in
-mtk_dp_remove()?
+This is a pre-existing issue, but does setting mtk_dp->train_info.link_rate
+to the SoC's absolute maximum bypass the board-level and sink limits during
+mode validation?
 
-Since pm_runtime_put() queues an asynchronous suspend, calling
-pm_runtime_disable() right after it cancels the pending suspend work.
+In mtk_dp_bridge_mode_valid(), the available bandwidth is calculated using
+the unbounded mtk_dp->train_info.link_rate:
 
-Doesn't this leave the hardware in an active power state after the driver is
-removed? Should this be changed to pm_runtime_put_sync() to ensure the susp=
-end
-completes before module unload?
+	u32 rate =3D drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate) *
+		   lane_count_min;
 
->  	if (mtk_dp->data->bridge_type !=3D DRM_MODE_CONNECTOR_eDP)
->  		timer_delete_sync(&mtk_dp->debounce_timer);
-> -	platform_device_unregister(mtk_dp->phy_dev);
-> -	if (mtk_dp->audio_pdev)
-> -		platform_device_unregister(mtk_dp->audio_pdev);
->  }
+Since mtk_dp_parse_capabilities() parses the sink's DPCD capabilities into
+rx_cap but doesn't update train_info.link_rate, this bandwidth calculation
+appears to ignore both the board-level limit (mtk_dp->max_linkrate) and the
+sink's negotiated limit (rx_cap).
+
+Because the actual link training will cap the rate to the limits, could this
+cause mtk_dp_bridge_mode_valid() to erroneously accept unsupportable
+high-bandwidth modes, resulting in display corruption or black screens when
+those modes are sent over a lower-bandwidth trained link?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
-6-1-angelogioacchino.delregno@collabora.com?part=3D3
+6-1-angelogioacchino.delregno@collabora.com?part=3D8
