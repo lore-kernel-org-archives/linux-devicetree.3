@@ -1,260 +1,322 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58373CE0A2
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:43:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6632B399350
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:45:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783629782; cv=none; b=PAooVrDTXkb3vjcV12AqFJjiNMn2+QauWbWCF3Al4noyB7Aa9eG1f1Jfi7BKX44xFnkd0izz+xmlJkIDTvUb9enr9Patn+/OyArkOwqQVLfdrrtSA85JKeoBqOKqnpQLpQ8SG61ZgQAn2cS6rfEe0O/YoFi0eH6e+o3BYWrKB1k=
+	t=1783629959; cv=none; b=CqRUlFtjZ2NO1DcxK51kFZ7IzVoEvqJ0lZPWfzvDnpnW+vmavN2LUEr+3g0zXxhWoBN6YNAKWGxKCE67cL/22sremvL0dL1wjvdmwF2De8XSFN+wMfcHBeXWN/MgMYiMUHypQShxZkfa09k2Z8v/TeZFYOCq/SaJrBsOUo05Nes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783629782; c=relaxed/simple;
-	bh=1zvICOfhyw1LOeVpe1mzyyhA5bIgz1IRxkrlcqnDsjU=;
+	s=arc-20240116; t=1783629959; c=relaxed/simple;
+	bh=1AzhMmUmI0iVoHKa6f+P5wL1HZG9WqHB7NpqvmIROXU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Gd1azkkmsfC8ZJsbBgWG3rOd+HwRzgoZUwmgc8PO4fVDpvk97Dc/YRwYpwaEoRJoAID+8aOlebaM3GBhHC48v7ufvDdBRNPynQOT7zA9lp0pgCNS1+hYbVMWLxRl+6uxFhBkTQ7IiTWu2SfY4Ce/cg6rW87+7n7e+hfSAdKAvdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lsSQijIK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ISVOP+CeBEb+THqKAAB5+IJafXixdodCpzKd9smY4fEih/n/ur+U9WAC8Jw8OoLB3eygYuqDZqvXm1fvtOkEfQyV/LFBbkfc5s+J2m0svn/C/m3vYu9p0Bpm8AeSbidEllCbfmvWHEAIUsHE8HQOOTXJy5DnyMV5Jv5XLYWwtPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VE7NP3NY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lsSQijIK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7841F00A3F;
-	Thu,  9 Jul 2026 20:42:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VE7NP3NY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1ADC1F000E9;
+	Thu,  9 Jul 2026 20:45:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783629780;
-	bh=A+zu/cFqd/F1eq2Dd7B8W/O7aUgKCyrPVTSAv2M7/X4=;
+	s=k20260515; t=1783629957;
+	bh=EJM4euXwSE8eX+aVDxxzxPk27aThBgnIhpi9IAVmwz4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lsSQijIKd6hlCcw594nXK9P/3ItuMwFVyHeMsC/ItNRykGFtt28eCwiVbei7jJk6S
-	 YDM9cZn/XGeE8c2w/19NwIUM5DRI6pN6T4KEcHlZVONY2SFFYez9ljyW4RY6XLNGF4
-	 4WEf7lL8vqnKa3JkVNL2qFcPl1f1BTSJYv5lc4fbQsELc4gEver3baHX6/wXXIGsVb
-	 YGPyfmVHyLp9qKsGH9IRWsPfyDdthdTvUlIB6V2kQuu/n74QjHmKt3H19SnY1ilLwd
-	 jKprDwmM5QfTMx4PkK95NBYfe2VcG2iFuMUnydTpAwK7PSL36Qt1zM9QROsDnD24A6
-	 Z6RuSjQxbRhAg==
+	b=VE7NP3NYUn2aBePZQY1P8KYEFsixH//PhsAKV+EHxyU73sSOKg+B+veSplP4Dcmxi
+	 X4GDOA/dwukI6mQn6IOLhSxKlLtHTlO0f4POON07qp5h0L0Uw2eh6XUPnWWRJkQqsE
+	 +RXdqmE8SxeRYw+ToCQleN0NBMmefR9kfrjUbbjm84ItPfVGC+1QTCt6sdX839ApT5
+	 ++EWhUkHTItxLihlJiLcLTSgfsTwdvEMFL3O9sgRUzMe6FUVdbmDQPRj7CGmpTY5S1
+	 VvwhWn/bKl0Hn0Z1rgBX7MU0BVwxau+Z/YrBkr40/Ccx1inoMClTpSX2hwsV4Qnar+
+	 sHNnxfMyr/mSw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 05/19] crypto: cmh - add HMAC ahash
+Subject: Re: [PATCH v2 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260709203037.1884436-6-skrishnamoorthy@rambus.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709203037.1884436-5-skrishnamoorthy@rambus.com>
 References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-6-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-5-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 20:42:59 +0000
-Message-Id: <20260709204259.EA7841F00A3F@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 20:45:56 +0000
+Message-Id: <20260709204556.A1ADC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] The HMAC driver buffers unbounded input data in software, violatin=
-g `ahash` API contracts for arbitrary data lengths and state export.
-- [High] Dynamically allocated chunks leak when an ahash request is aborted=
- or reused, allowing an unprivileged local DoS.
-- [High] Unconditional use of `GFP_KERNEL` in `cmh_hmac_import` can cause t=
-he kernel to sleep in an atomic context.
-- [High] Mismatched Core IDs between HMAC Key setup and HMAC operation exec=
-ution.
+- [Critical] Integer underflow and overflow in buffer length calculations c=
+ause massive out-of-bounds memory corruption.
+- [High] Reusing API `block_size` for internal holdback breaks hardware Kec=
+cak state for SHAKE algorithms.
+- [High] DMA mapping an embedded stack buffer violates the DMA API and caus=
+es memory corruption.
+- [Medium] Linearizing arbitrary-length payloads into a single `kmalloc` bu=
+ffer leads to ENOMEM DoS.
+- [Medium] Information leak of uninitialized kernel memory in state export.
+- [Medium] Mutating internal request state before verifying resource alloca=
+tions causes permanent state corruption on transient errors.
 --
 
---- Patch [5]: [PATCH v2 05/19] crypto: cmh - add HMAC ahash ---
-commit dc6fee6be6ca3f7c1ff3752ad3551a1e1e242ea0
+--- Patch [4]: [PATCH v2 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash -=
+--
+commit e7705891a076afa5f048f03e13336b71200b908c
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add HMAC ahash
+crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
 
-Register ahash algorithms for HMAC-SHA-224, HMAC-SHA-256,
-HMAC-SHA-384, HMAC-SHA-512, HMAC-SHA3-224, HMAC-SHA3-256,
-HMAC-SHA3-384, and HMAC-SHA3-512 using the CMH hash core.
+Register ahash algorithms for SHA-224, SHA-256, SHA-384, SHA-512,
+SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, and SHAKE256
+using the CMH hash core (core ID 0x02).
 
-> diff --git a/drivers/crypto/cmh/cmh_hmac.c b/drivers/crypto/cmh/cmh_hmac.c
+> diff --git a/drivers/crypto/cmh/cmh_hash.c b/drivers/crypto/cmh/cmh_hash.c
 > new file mode 100644
-> index 0000000000000..1f536088eabf2
+> index 0000000000000..2256bf4314c33
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_hmac.c
+> +++ b/drivers/crypto/cmh/cmh_hash.c
 [ ... ]
-> @@ -262,18 +262,14 @@ static int cmh_hmac_setkey(struct crypto_ahash *tfm=
-, const u8 *key,
->  			   unsigned int keylen)
->  {
->  	struct cmh_hmac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> =20
->  	return cmh_key_setkey_raw(&tctx->key, key, keylen, CORE_ID_HC);
+> +struct cmh_hash_reqctx {
+> +	const struct cmh_hash_alg_info *info;
+> +	int    error;
+> +	u32    hw_started;      /* non-zero after first HW submission */
+> +	u32    buf_len;         /* bytes in holdback buf[] */
+> +	u32    has_checkpoint;  /* non-zero if checkpoint[] valid */
+> +	/* DMA state for current async operation */
+> +	dma_addr_t ckpt_dma;   /* RESTORE input */
+> +	dma_addr_t save_dma;   /* SAVE output (update only) */
+> +	dma_addr_t data_dma;   /* UPDATE input */
+> +	dma_addr_t digest_dma; /* FINAL output (final/digest only) */
+> +	u8    *save_buf;       /* SAVE output buffer */
+> +	u8    *data_buf;       /* linearised data for DMA */
+> +	u32    data_len;       /* bytes in data_buf */
+> +	u8    *digest_buf;     /* digest output buffer */
+> +	u8     buf[CMH_HASH_MAX_BLOCK]; /* holdback for partial block */
+> +	u8     checkpoint[HC_CONTEXT_SIZE]; /* HC context from last SAVE */
 
 [Severity: High]
-Is the core ID statically hardcoded to CORE_ID_HC here during key setup?
+Could this array cause memory corruption during DMA unmap?
 
->  }
-> =20
->  static int cmh_hmac_init(struct ahash_request *req)
->  {
->  	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
->  	struct cmh_hmac_reqctx *rctx =3D ahash_request_ctx(req);
-> =20
->  	rctx->info =3D cmh_hmac_get_info(tfm);
->  	rctx->error =3D 0;
->  	INIT_LIST_HEAD(&rctx->chunks);
+The checkpoint array is embedded here without cacheline alignment padding.=
+=20
+Since ahash_request contexts can be allocated on the stack (for instance, v=
+ia=20
+AHASH_REQUEST_ON_STACK in networking subsystems), cache invalidations durin=
+g=20
+DMA unmap might silently corrupt adjacent struct members like buf and packe=
+d on=20
+non-cache-coherent architectures. Additionally, the DMA API strictly forbid=
+s=20
+mapping stack memory.
 
-[Severity: High]
-If a request is reused (for example, by calling crypto_ahash_init() before
-final()), will this blindly overwrite the chunk list and strand any previou=
-sly
-accumulated chunks?
-
->  	rctx->num_chunks =3D 0;
->  	rctx->total_len =3D 0;
-> =20
->  	return 0;
->  }
-> =20
->  static int cmh_hmac_update(struct ahash_request *req)
->  {
->  	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
->  	struct cmh_hmac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
->  	struct cmh_hmac_reqctx *rctx =3D ahash_request_ctx(req);
->  	struct cmh_hmac_chunk *chunk;
->  	int nents;
-> =20
->  	if (rctx->error)
->  		return rctx->error;
-> =20
->  	if (!req->nbytes)
->  		return 0;
-> =20
->  	if (req->nbytes > HMAC_MAX_DATA - rctx->total_len) {
-
-[Severity: High]
-Does this code violate the ahash API contract by arbitrarily capping the
-input data length at 64KB?
-
-The crypto API expects ahash implementations to handle streaming inputs of
-arbitrary lengths. Should we be allocating a software fallback (like shash)
-to handle inputs larger than what the hardware can support?
-
->  		rctx->error =3D -EINVAL;
->  		goto err_free_chunks;
->  	}
+> +	struct vcq_cmd packed[CMH_HASH_MAX_PACKED];
+> +};
 [ ... ]
->  	list_add_tail(&chunk->list, &rctx->chunks);
->  	spin_lock_bh(&tctx->chunk_lock);
->  	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
-
-[Severity: High]
-The chunks are added to the TFM-wide list here, but if the request doesn't
-complete, they will be left indefinitely on this list.
-
->  	spin_unlock_bh(&tctx->chunk_lock);
->  	rctx->num_chunks++;
->  	rctx->total_len +=3D req->nbytes;
-> =20
->  	return 0;
+> +static int cmh_hash_update(struct ahash_request *req)
+> +{
+> +	struct cmh_hash_reqctx *rctx =3D ahash_request_ctx(req);
+> +	const struct cmh_hash_alg_info *info =3D rctx->info;
+> +	struct vcq_cmd cmds[CMH_HASH_MAX_PAYLOAD];
+> +	struct core_dispatch d;
+> +	u32 block_size =3D info->block_size;
+> +	u32 total_avail, full_len, tail_len, from_src;
+> +	u32 idx;
+> +	int ret;
+> +	gfp_t gfp;
 [ ... ]
-> @@ -428,14 +428,11 @@ static int cmh_hmac_final(struct ahash_request *req)
-> =20
->  	/*
->  	 * Raw key: pack SYS_CMD_WRITE(SYS_REF_TEMP) into the
->  	 * same VCQ so the key write + HMAC are atomic.
->  	 */
->  	key_dma =3D tctx->key.raw.dma;
->  	vcq_add_sys_write(&cmds[idx++], SYS_REF_TEMP, (u64)key_dma,
->  			  SYS_REF_NONE, tctx->key.raw.len,
->  			  tctx->key.raw.sys_type);
+> +	/* Have at least one full block -- submit to HW */
+> +	full_len =3D total_avail - total_avail % block_size;
 
 [Severity: High]
-If the system has multiple HC instances, cmh_core_select_instance() will
-return a dynamically selected core_id.
+Does this break the hardware Keccak state for SHAKE algorithms?
 
-Will this SYS_CMD_WRITE command dispatch the key to the static core cached
-earlier in cmh_hmac_setkey(), while the HC_CMD_HMAC command executes on the
-new dynamically selected core, causing cryptographic failures?
+The Linux crypto API requires cra_blocksize =3D 1 for byte-oriented XOFs li=
+ke
+SHAKE. Here, the driver reuses info->block_size for hardware holdback
+calculations. For SHAKE, this results in full_len being calculated on unali=
+gned
+1-byte boundaries, whereas the hardware Keccak core requires SAVE and RESTO=
+RE
+operations to occur strictly on full rate-aligned boundaries (168 or 136 by=
+tes).
 
->  	key_ref =3D SYS_REF_TEMP;
->  	keylen =3D tctx->key.raw.len;
->  	d =3D cmh_core_select_instance(CMH_CORE_HC);
+> +	tail_len =3D total_avail - full_len;
+> +	from_src =3D full_len - rctx->buf_len;
+
+[Severity: Critical]
+Is it possible for from_src to underflow here?
+
+If an attacker uses AF_ALG to export state, alters state->buf_len to be lar=
+ger
+than the algorithm's block_size (for example, 100 for SHA-256 where block_s=
+ize
+is 64), and imports it, this bypasses the 144-byte MAX_BLOCK check in
+cmh_hash_import.
+
+A subsequent update calculates total_avail =3D 100 + 10 =3D 110, full_len =
+=3D 64,
+and from_src =3D 64 - 100 =3D -36. The u32 underflow results in 0xFFFFFFDC,=
+ which
+passes a > 0 check further down and copies a massive amount of memory from =
+user
+space into the kmalloc buffer.
+
+> +
+> +	/* Linearise: holdback prefix + full blocks from scatterlist */
+> +	rctx->data_buf =3D kmalloc(full_len, gfp);
+
+[Severity: Medium]
+Could this allocation fail and cause a denial of service?
+
+This attempts to allocate a physically contiguous buffer for the entire inp=
+ut
+payload. If users provide multi-megabyte payloads (for instance, through
+dm-crypt or AF_ALG), this request will easily exceed the page allocator's
+MAX_ORDER limit and fail with -ENOMEM. Processing large scatterlists might
+need to be done in smaller, fixed-size chunks.
+
+> +	if (!rctx->data_buf)
+> +		return -ENOMEM;
 [ ... ]
-> @@ -513,11 +513,9 @@ static int cmh_hmac_export(struct ahash_request *req=
-, void *out)
->  {
->  	struct cmh_hmac_reqctx *rctx =3D ahash_request_ctx(req);
->  	struct cmh_hmac_export_state *state =3D out;
->  	struct cmh_hmac_chunk *chunk;
->  	u32 offset =3D 0;
-> =20
->  	if (rctx->total_len > CMH_HMAC_EXPORT_MAX)
->  		return -ENOSPC;
+> +	/* Move tail to holdback */
+> +	if (tail_len > 0) {
+> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+> +			memcpy(rctx->buf, req->svirt + from_src,
+> +			       tail_len);
+> +		else
+> +			scatterwalk_map_and_copy(rctx->buf, req->src,
+> +						 from_src, tail_len,
+> +						 0);
+> +	}
+> +	rctx->buf_len =3D tail_len;
+> +	rctx->data_len =3D full_len;
+> +
+> +	/* Allocate SAVE output buffer */
+> +	rctx->save_buf =3D kzalloc(HC_CONTEXT_SIZE, gfp);
+> +	if (!rctx->save_buf) {
+> +		ret =3D -ENOMEM;
+> +		goto err_free;
+> +	}
+
+[Severity: Medium]
+Will this corrupt the cryptographic request state on transient memory press=
+ure?
+
+The persistent state (rctx->buf_len and rctx->buf) is advanced before
+verifying the kzalloc and cmh_dma_map_single allocations. If an allocation
+fails and returns an error without restoring the previous state, the full_l=
+en
+payload is lost. If the caller retries or ignores the error, the hash output
+will be incorrect.
+
+> +
+> +	/* DMA map data, save output, and checkpoint */
+> +	rctx->data_dma =3D cmh_dma_map_single(rctx->data_buf, full_len,
+> +					    DMA_TO_DEVICE);
+> +	if (cmh_dma_map_error(rctx->data_dma)) {
+> +		ret =3D -ENOMEM;
+> +		goto err_free;
+> +	}
+> +
+> +	rctx->save_dma =3D cmh_dma_map_single(rctx->save_buf, HC_CONTEXT_SIZE,
+> +					    DMA_FROM_DEVICE);
+> +	if (cmh_dma_map_error(rctx->save_dma)) {
+> +		ret =3D -ENOMEM;
+> +		goto err_unmap_data;
+> +	}
+> +
+> +	rctx->ckpt_dma =3D DMA_MAPPING_ERROR;
+> +	if (rctx->has_checkpoint) {
+> +		rctx->ckpt_dma =3D cmh_dma_map_single(rctx->checkpoint,
+> +						    HC_CONTEXT_SIZE,
+> +						     DMA_TO_DEVICE);
 
 [Severity: High]
-Will this fail the export operation for any state exceeding ~4KB?
+Does this violate the DMA API by mapping an embedded struct member?
 
-Generic consumers like af_alg expect state serialization to always succeed =
-if
-given a buffer matching the declared statesize.
+This maps the checkpoint array which is embedded directly in the ahash_requ=
+est
+context. As mentioned above, this can map stack memory (forbidden by the DMA
+API) and lacks cacheline alignment, which can lead to memory corruption dur=
+ing
+the mapping and unmapping operations.
 
-> =20
->  	state->total_len =3D rctx->total_len;
+> +		if (cmh_dma_map_error(rctx->ckpt_dma)) {
+> +			ret =3D -ENOMEM;
+> +			goto err_unmap_save;
+> +		}
+> +	}
 [ ... ]
-> @@ -529,19 +529,14 @@ static int cmh_hmac_import(struct ahash_request *re=
-q, const void *in)
->  {
->  	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
->  	struct cmh_hmac_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
->  	struct cmh_hmac_reqctx *rctx =3D ahash_request_ctx(req);
->  	const struct cmh_hmac_export_state *state =3D in;
->  	struct cmh_hmac_chunk *chunk;
-> =20
->  	/*
->  	 * Do NOT call free_chunks() here: the crypto API does not
->  	 * guarantee the request context is in a valid state before
->  	 * import(), so the list pointers may be stale or invalid.
->  	 * Re-initialize from scratch instead.  Any pre-existing chunks
->  	 * are tracked on tctx->all_chunks and freed in cra_exit.
->  	 */
->  	rctx->info =3D cmh_hmac_get_info(tfm);
->  	rctx->error =3D 0;
->  	INIT_LIST_HEAD(&rctx->chunks);
+> +static int cmh_hash_finup(struct ahash_request *req)
+> +{
+> +	struct cmh_hash_reqctx *rctx =3D ahash_request_ctx(req);
+> +	u32 data_len;
+> +	u8 *data_buf;
+> +	gfp_t gfp;
+> +
+> +	if (rctx->error)
+> +		return rctx->error;
+> +
+> +	data_len =3D rctx->buf_len + req->nbytes;
 
-[Severity: High]
-Similarly to cmh_hmac_init(), will this overwrite the chunk list and leak
-previously tracked chunks if an active request is reused?
+[Severity: Critical]
+Is this data_len calculation vulnerable to integer overflow?
 
->  	rctx->num_chunks =3D 0;
->  	rctx->total_len =3D 0;
-> =20
->  	if (state->total_len > CMH_HMAC_EXPORT_MAX)
->  		return -EINVAL;
-> =20
->  	if (state->total_len) {
->  		chunk =3D kmalloc(sizeof(*chunk) + state->total_len, GFP_KERNEL);
+Because data_len is a 32-bit u32, if req->nbytes is close to 4GB, the sum
+can overflow. This would lead to a tiny 0-byte kmalloc allocation followed
+by a massive memcpy.
 
-[Severity: High]
-Can this trigger a sleep-in-atomic BUG?
+> +
+> +	if (data_len =3D=3D 0)
+> +		return cmh_hash_submit_final(req, NULL, 0);
+> +
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	data_buf =3D kmalloc(data_len, gfp);
 
-The ahash import() operation can be invoked from atomic or interrupt contex=
-ts
-(such as the IPsec network stack processing packets in softirq), making an
-unconditional GFP_KERNEL allocation unsafe.
+[Severity: Medium]
+Can this large kmalloc cause a denial of service for large payloads?
 
->  		if (!chunk)
->  			return -ENOMEM;
+Similar to the update path, attempting to allocate contiguous memory for the
+entire payload plus holdback can exceed MAX_ORDER and fail reliably for lar=
+ge
+scatterlists.
+
+> +	if (!data_buf)
+> +		return -ENOMEM;
 [ ... ]
-> @@ -578,13 +578,11 @@ static void cmh_hmac_cra_exit(struct crypto_tfm *tf=
-m)
->  {
->  	struct cmh_hmac_tfm_ctx *tctx =3D crypto_tfm_ctx(tfm);
->  	struct cmh_hmac_chunk *chunk, *tmp;
-> =20
->  	/* Free any orphaned chunks (e.g. testmgr export/reimport poison) */
->  	spin_lock_bh(&tctx->chunk_lock);
->  	list_for_each_entry_safe(chunk, tmp, &tctx->all_chunks, tfm_node) {
->  		list_del(&chunk->tfm_node);
+> +static int cmh_hash_export(struct ahash_request *req, void *out)
+> +{
+> +	struct cmh_hash_reqctx *rctx =3D ahash_request_ctx(req);
+> +	struct cmh_hash_export_state *state =3D out;
+> +
+> +	if (rctx->hw_started && rctx->has_checkpoint)
+> +		memcpy(state->checkpoint, rctx->checkpoint, HC_CONTEXT_SIZE);
+> +	else
+> +		memset(state->checkpoint, 0, HC_CONTEXT_SIZE);
+> +
+> +	if (rctx->buf_len > 0)
+> +		memcpy(state->buf, rctx->buf, rctx->buf_len);
 
-[Severity: High]
-Since orphaned chunks are only freed here when the entire TFM is destroyed,
-couldn't a user trivially trigger unbounded memory exhaustion (OOM) by
-repeatedly accumulating data via AF_ALG sockets and aborting requests?
+[Severity: Medium]
+Could this leak uninitialized kernel memory to callers?
 
->  		kfree_sensitive(chunk);
->  	}
+This copies rctx->buf_len bytes into state->buf but does not clear the rest=
+ of
+the array. When the partial struct is populated into the caller's out buffer
+(which is often uninitialized, such as with AF_ALG), the remaining padding =
+and
+trailing bytes retain stale kernel memory, which might later be exported or
+dumped.
+
+> +
+> +	state->buf_len =3D rctx->buf_len;
+> +	state->hw_started =3D rctx->hw_started;
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
-436-1-skrishnamoorthy@rambus.com?part=3D5
+436-1-skrishnamoorthy@rambus.com?part=3D4
