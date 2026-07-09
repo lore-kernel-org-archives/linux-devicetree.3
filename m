@@ -1,140 +1,201 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F5D1BBBFC
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783606895; cv=pass; b=UC4Nwng1qf6BS4qHGxyLv5a9gOndQDaaTMa2jF65bEehCkCG+Iu0Uy+hZwpjIQWEoB7ReTBd+Ipa0s8ChVzOpaFdS3vZ6DjuCoysIt/MqKODWEwEG2ilMnZF5s94zO6LIs+oiaLbJVpousq8pnRbvC8xV2N9hk4L7pZzBgSSbi4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783606895; c=relaxed/simple;
-	bh=1LFi/C2g955kXJ/o/L4vV9qdHPO2Wk9Vvl9Gbcga3LE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IQgHif6RmvoXuyNIdewVQLW3SAkmb0SwBHF/nVaVV8WxshrJmDLUoH99Rxk3Ry9IhmIpjnWP09ewpjCIUgL2nUeiJASsew/3ZEq9TD1Fl3qNgTgZIbAmf+TTEQA24oSSqR/4UAQcJGkQU5hcI29SPm9nQJjPWGPR3s9CO6PXz2Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=RxiDQrM+; arc=pass smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4D433120C
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783607032; cv=none; b=QP8DrqHZDCT4NUf5ti2n34Vq1zY+HiaRAyoDV4law4OiEVX5MAFqvinwlL3ie0a5eNkC++8L4NUeQCIpXyAueO/iiP80xBFnFXLPZ/vTlq+JunJcrHoL8guCTLMryf8ZI2E6zJbbV4ZgKlRGzLoK5PfYo/Tmv3afp3BmP+w5aiA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783607032; c=relaxed/simple;
+	bh=w1onKlf50uEy/uaJL1PpT1Rx63vdI1ZJYNMceHJwvow=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HcpicNbL+Zg3TiWzNmczUf038T0GJjxPOQho2JKn9m8dhHqpCKQ0WZ2QMao/FsnAwiKJNwER8EvEuMnpWy75WkuF80/d3x5Nybf0O2XhJl2JLZPZk2ZDkd4E/nh56x9EZ53bxKtKnhij72gY+fEvvFpl/20atVDJ8Oj2LPgllQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HpPN2DXD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="RxiDQrM+"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47640541585so1002619f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 07:21:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783606892; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HjEX6ywUoaQJGDNt9gZDWiLxOyprLkxG/z/hC+eLt4i3ucm6DaGlNsEQD3wT6QcUok
-         ylIDusq6cU5bQNN16bB1pQyx2uZ4biyJGQDSy9yHrvP8X9UKxId8VeOu9Dsb3F0M6nDP
-         678fHvi7QXBiYlLPhsosbei+42T+OMSwbZZiYlbASkAmJEZ2YZFIQMmBBAA3au2sjXqj
-         TUcPfnjVvl4RRT/PuOkytBIHEwS7qmSoiDRL7lDgPj5xqE34KA8xRmy8+vVfI++Rh7yV
-         RVyx55Rh/tDpsg5YB8jlPgms6cXqezfr/3C/dJuLA6ezthUqqNT/wqktQEqeDs9lE1Z/
-         sJXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PJC4lX0tZTp50J0S7on2pHdgb/jZHm/OiyTuKIg2KPY=;
-        fh=sHwLEOWaTygO+d8AYQb2/7KT3c+sH3Jh3ft2lrw/oQY=;
-        b=ZBApx9YJVl/9fb+WQjkYmyjGkmIDprRgHuOfM7CrHIpamjVK6N+gfWqMFW3Vn6YTzo
-         XiPUmHA3zQKrBdcswZ8sTfhvo9WMb4IesIP73/U6NZmv8egHcuQ1NaZCBi8ft6vk3wdz
-         l2pNgo+tBBvaVTzPuJ/8vYVTWv1OVKaZGOVmeALymHOvJqk2aiSn/WfHAXLFWzpGss/E
-         DPxaKxHJroF+n8XbRXZ8HKpXYbo7DBz8A+zN3eGviD6RpVoAGrJyFBDNuCbbPsElrV5T
-         LJoqWhqLidAQ10kOGK6LjJjTMz1STD4TlHnuueEmTWD6TNH+qQdquwn4NaMMR725p+VA
-         Eq7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1783606892; x=1784211692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PJC4lX0tZTp50J0S7on2pHdgb/jZHm/OiyTuKIg2KPY=;
-        b=RxiDQrM+/nel+al0V1Yt8xIPucCgxXSo8TzCvLkb4XHIgAD0zYBlDnoLxFbB7sKNKL
-         tYmzUKu7hhJ7gtVbqp7bJQ+Vy5KmVCBhODoYK/vzSrNe5zODVPcsC1vvaX8yGwz/d9TD
-         mKrAAo+Ohh+gCv9NOzcUzX4xgoB26D6Nfd/unSnDnSuwL8ZWKuowZgar1RthPeRdfqwR
-         n0TL9PxkBWcVdYgSK2XRMtxO8GOOuWBbawDkNQ46pMuopjd1vGeu3ktIcjlMuOCF/JmU
-         NvUT9slLQqvAzx0TIsDHGTdfIdCBBe/LeoIDb6G6SAT9Jp8X/HOCpTXDRZO4O5E5WTPi
-         KL1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783606892; x=1784211692;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PJC4lX0tZTp50J0S7on2pHdgb/jZHm/OiyTuKIg2KPY=;
-        b=ThsiJeoVaAEMMUKSDXxn84Mj51kxWOgZikA7VTJR8n4/ftFA4xcrZzEbh0Fa7RXRU2
-         fYz/8CGABYmVO84/VbkcWHPTKXSsqX0U0g8Dmc75jxyuQpSJ7wCxbFg2f0zEw42k7x3T
-         oq6uTeDZRJsMrrWEzciFQNS4SzAi2zpd4SNsD5Bd0g6btbYnQ0MWowIvVefFvZvy3EM/
-         VZo8bVwsW6kHVunmTTAB/0/Ur9o6SNdu77Rbw+RPg5xsrMvkpw0w90jnARHK9xnuXfls
-         stoNU8o8p/SgkBiJdqg5i8nWR9uXTcY2D1XixrHJ1tA80pG8VjGZGEAnfQzAcgPMrdxo
-         Zuvw==
-X-Forwarded-Encrypted: i=1; AHgh+RpYVKsYGxINU8/d9oBlu0CQeljYwCoV57hxvowtdm4GFBP416Hlk/bjUs/QpKPGVysAkfSN+tHR0vWJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzNnsBMT27kiOABgyKPPYkXMFSr0TCWjVx0X8bRLG6NRaaxutRn
-	3DW4nRqSws429Uv0aZI121QQnH9KN7NyEA4TuZif3v4s/YZ32p+bfMqM66XTyK+qpgQG2ZHJNxZ
-	IF5ZqzY3affo/sCnUZ1N6h+zcc8XBAHCw87YxQcRjhA==
-X-Gm-Gg: AfdE7cnyfB7bgA88LkJJTR1vOEhXvlPEVwSOw9j9V78KzV7+2rea9mxKZsjZNkQ9D2N
-	d5ZE37xrcMc4m9YxA22Jz+lWAxW+6sC9bZ6ijuAcGieWJJTi207b/hZ75JTFmz5YoBpZoVsN+jW
-	h2X+NXSP4qIVVElkXrIJR0FVxu2mT0iYTKYuDRxteGB0Erui0zYrXUzwMEntGhHosMKuYhRFpQ9
-	XxOL6YV0OLtP25uw9JxGIDdTecrTSLNKJ3kHOt5QAPILcX28bnvupraPx1gVU9rWFvvQTvqntRn
-	k/VKDVzBaYdKLW23z9LH2ZjsriWKqZLrAckPWoT12ZMKt97pLYqHI3lW4JAFgoJfHgJu
-X-Received: by 2002:a05:6000:25c7:b0:477:3986:9b54 with SMTP id
- ffacd0b85a97d-47df07390e5mr7576513f8f.20.1783606891990; Thu, 09 Jul 2026
- 07:21:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HpPN2DXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E16A1F000E9;
+	Thu,  9 Jul 2026 14:23:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783607030;
+	bh=Mi8Smvt11rBjhpa+Uk+hRBEsyaqcP1O0InEeXW3km0M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HpPN2DXDVmtsznHtVqZYgaQC0bUY2Hjq9v6CVcQEuih3K/PNyPuGLKzFbk3E4qqKQ
+	 RlCuC2zNbd+PIMVMrS6H/ABzuTOh+hy9+YhrzUgagnibzqBvH2B1GOpu1OvQzMESpm
+	 c8ZxPKcMYRS3N3tDn7hZA0uClEiDKQa0LKVfQfYiLaflIuI2co2iPRYdXjq+tIBoJP
+	 cR4WfGxUXykSMBN9XdQi8n/1oiMAGWH3pKI581r1pAhibWW/NOwUXsSZBlSAHpyMBv
+	 g0etewu5Mp/C0U3wELeSKZqndZiyjHKnLGbH9scjmEZDQkex0QjjNMzLuozfaRSRIu
+	 tRpOg1pK+iqdg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 05/11] spi: dw: Introduce enhanced
+ single/dual/quad/octal spi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709055204.138168-6-changhuang.liang@starfivetech.com>
+References: <20260709055204.138168-1-changhuang.liang@starfivetech.com>
+ <20260709055204.138168-6-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 14:23:50 +0000
+Message-Id: <20260709142350.8E16A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1783524645.git.gregoire.layet@9elements.com>
- <cbe59dfba231dcd55fa86233dc076b017d67463a.1783524645.git.gregoire.layet@9elements.com>
- <20260709-convivial-classy-mouse-db0b2d@quoll>
-In-Reply-To: <20260709-convivial-classy-mouse-db0b2d@quoll>
-From: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Date: Thu, 9 Jul 2026 16:21:19 +0200
-X-Gm-Features: AUfX_mxl9lcJsse3vhAYFsJh4Ndo0WrxC586WRK2sT65vAOI74m33ywGfCLJYeM
-Message-ID: <CAFi2wKYXVoBRHOCgA_6F20F2Wm4Z2wVz19+XRE9dH=gP3X+i_A@mail.gmail.com>
-Subject: Re: [PATCH v4 1/7] dt-bindings: serial: 8250: aspeed: add compatible
- string for ast2600
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
-	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch, 
-	jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
-	anirudhsriniv@gmail.com, linux-serial@vger.kernel.org, 
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] Divide-by-zero in wait cycle calculation causes kernel panic o=
+n commands without dummy cycles.
+- [Critical] Enhanced memory operations completely fail to perform actual d=
+ata transfers, causing uninitialized memory reads and silently dropped writ=
+es.
+- [High] `dw_spi_exec_enh_mem_op` ignores the operation-specific maximum fr=
+equency, violating the SPI memory API contract.
+- [High] Calculated wait cycles can exceed the 5-bit hardware register limi=
+t and are silently truncated to 0, corrupting read timing.
+- [High] Unclamped data length for enhanced mode write operations leads to =
+16-bit hardware register truncation.
+--
 
-On Thu, 9 Jul 2026 at 10:50, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On Wed, Jul 08, 2026 at 03:35:53PM +0000, Gr=C3=A9goire Layet wrote:
-> > The ast2600 was using the ast2500 vuart compatible string.
-> > Make it possible to have ast2600-specific properties.
->
-> Then add these properties here as well. Adding a new device is one
-> commit: its compatible and its properties.
+--- Patch [5]: [PATCH v1 05/11] spi: dw: Introduce enhanced single/dual/qua=
+d/octal spi ---
+commit 0f1cbd98fc45570180f08cb46b29e531be3e743b
+Author: Sudip Mukherjee <sudip.mukherjee@sifive.com>
 
-I thought it was necessary to split the two. I will squash the two
-dt-bindings commits for the next revision.
+spi: dw: Introduce enhanced single/dual/quad/octal spi
 
-> >    aspeed,sirq-polarity-sense:
-> >      $ref: /schemas/types.yaml#/definitions/phandle-array
-> >      description: |
-> > -      Phandle to aspeed,ast2500-scu compatible syscon alongside regist=
-er
-> > -      offset and bit number to identify how the SIRQ polarity should b=
-e
-> > -      configured. One possible data source is the LPC/eSPI mode bit. O=
-nly
-> > -      applicable to aspeed,ast2500-vuart.
-> > +      Phandle to aspeed,ast2500-scu or aspeed,ast2600-scu compatible s=
-yscon
->
-> This is a deprecated property, so it cannot apply to a new device -
-> aspeed,ast2600-vuart. You cannot use deprecated code for new bindings or
-> device support.
+This commit introduces support for enhanced single/dual/quad/octal SPI modes
+in the DesignWare SPI controller driver. It adds a new function to execute
+enhanced memory operations and updates the SPI_CTRLR0 register configuration
+when these modes are utilized.
 
-True, I'll remove it.
+> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+> index 010a665b17b76..58159e8269f53 100644
+> --- a/drivers/spi/spi-dw-core.c
+> +++ b/drivers/spi/spi-dw-core.c
+> @@ -815,6 +815,89 @@ static int dw_spi_exec_mem_op(struct spi_mem *mem, c=
+onst struct spi_mem_op *op)
 
-Regards,
-Gr=C3=A9goire
+[ ... ]
+
+> +static int dw_spi_exec_enh_mem_op(struct spi_mem *mem, const struct spi_=
+mem_op *op)
+> +{
+> +	struct spi_controller *ctlr =3D mem->spi->controller;
+> +	struct dw_spi *dws =3D spi_controller_get_devdata(ctlr);
+> +	struct dw_spi_enh_cfg enh_cfg;
+> +	struct dw_spi_cfg cfg;
+> +
+> +	switch (op->data.buswidth) {
+
+[ ... ]
+
+> +	dw_spi_init_enh_mem_buf(dws, op);
+> +
+> +	cfg.dfs =3D 8;
+> +	cfg.freq =3D clamp(mem->spi->max_speed_hz, 0U, dws->max_mem_freq);
+
+[Severity: High]
+Does this code ignore the operation-specific maximum frequency?
+
+The spi_mem_op struct specifies op->max_freq which dictates the maximum
+safe clock speed for this specific command.=20
+
+Using mem->spi->max_speed_hz instead might cause operations with stricter
+frequency limits to execute at the higher overall bus speed, potentially
+leading to hardware timing violations.
+
+> +	cfg.ndf =3D op->data.nbytes;
+> +	if (op->data.dir =3D=3D SPI_MEM_DATA_IN)
+> +		cfg.tmode =3D DW_SPI_CTRLR0_TMOD_RO;
+> +	else
+> +		cfg.tmode =3D DW_SPI_CTRLR0_TMOD_TO;
+
+[Severity: High]
+Can enhanced transmit-only mode operations suffer from size truncation?
+
+Enhanced Transmit Only mode uses DW_SPI_CTRLR1 to count frames to transmit,
+and this is a 16-bit register.=20
+
+While dw_spi_adjust_mem_op_size() clamps SPI_MEM_DATA_IN, it does not
+clamp SPI_MEM_DATA_OUT operations. If an outbound transfer is large,
+such as exactly 65536 bytes, the unclamped length will be truncated when
+written to the 16-bit DW_SPI_CTRLR1 register.
+
+> +
+> +	if (op->data.buswidth =3D=3D op->addr.buswidth &&
+> +	    op->data.buswidth =3D=3D op->cmd.buswidth)
+> +		enh_cfg.trans_t =3D DW_SPI_ENH_CTRLR0_TRANS_TYPE_TT2;
+
+[ ... ]
+
+> +	enh_cfg.addr_l =3D op->addr.nbytes << 1;
+> +	if (op->cmd.nbytes =3D=3D 2)
+> +		enh_cfg.inst_l =3D DW_SPI_ENH_CTRLR0_INST_L_INST_L16;
+> +	else if (op->cmd.nbytes =3D=3D 1)
+> +		enh_cfg.inst_l =3D DW_SPI_ENH_CTRLR0_INST_L_INST_L8;
+> +	else
+> +		enh_cfg.inst_l =3D DW_SPI_ENH_CTRLR0_INST_L_INST_L0;
+> +
+> +	enh_cfg.wait_c =3D (op->dummy.nbytes * (BITS_PER_BYTE / op->dummy.buswi=
+dth));
+
+[Severity: Critical]
+Can this cause a divide-by-zero crash if the operation has no dummy phase?
+
+For operations like READ ID or standard read/write without dummies, both
+op->dummy.nbytes and op->dummy.buswidth are initialized to 0.=20
+
+Since there is no check before the division, this will cause a kernel panic
+whenever such a command is sent in enhanced mode.
+
+[Severity: High]
+Additionally, could this calculation result in a value that exceeds the
+hardware register limit?
+
+If op->dummy.nbytes is 4 and op->dummy.buswidth is 1, enh_cfg.wait_c
+evaluates to 32.=20
+
+Later, dw_spi_update_config() applies a 5-bit mask to this value:
+
+cr0 |=3D FIELD_PREP(DW_SPI_ENH_CTRLR0_WAIT_CYCLE_MASK, enh_cfg->wait_c);
+
+Since 32 requires 6 bits, FIELD_PREP will truncate it to 0, incorrectly
+configuring the controller for 0 wait cycles instead of 32.
+
+> +
+> +	dw_spi_enable_chip(dws, 0);
+> +
+> +	dw_spi_update_config(dws, mem->spi, &cfg, &enh_cfg);
+> +
+> +	dw_spi_enable_chip(dws, 1);
+> +
+> +	return 0;
+
+[Severity: Critical]
+Does this function complete without actually performing the SPI data
+transfers?
+
+The function enables the SPI chip and then immediately returns 0. It
+appears to omit the steps to write the command, address, or data to the
+data register, and does not read from the RX FIFO.=20
+
+Will this cause read operations to return uninitialized buffer memory and
+write operations to silently drop all data?
+
+> +}
+> +
+>  /*
+>   * Initialize the default memory operations if a glue layer hasn't speci=
+fied
+>   * custom ones. Direct mapping operations will be preserved anyway since=
+ DW SPI
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709055204.1381=
+68-1-changhuang.liang@starfivetech.com?part=3D5
