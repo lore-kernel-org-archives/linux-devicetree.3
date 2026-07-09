@@ -1,116 +1,140 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C42B40D56E
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:46:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880B13F5BF5
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783593989; cv=none; b=rF45M+mHvZ9Bx5Z0rwZkv+seXREN27u/rtwJBr7+k04pAuG9ekhY7RRRKHiE1lgs0yR5iLwAnkj3W68s6454pP1DEoaxNTWCE0Kwk8AgyWPon1Dz3ZPo8SxcySR6KtIVsw3wmraeMzjHXZjbCqKxcilE13t2Peuwk1IDJ8rAabo=
+	t=1783594012; cv=none; b=EGfsG0ZxOA3cdAnleELqujGO9j8Oqr73T0FIhSUzHTuGzDI4K61iss0XKQPbfnKiI4CkHlcje/1LnGsZzJUdh6KeNmgIzzX2X6XE81l4EK3dcKaFUjRTbuPdjPwrfFkwv3RotDIN9LMEX8F0NclU8WxxpfLSu+GB4Wc0Yq4c6vM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783593989; c=relaxed/simple;
-	bh=8idKvVN+cfS9P+M8/Oo0SXlgO6nAa98PuAMKfFCHyUA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lx8apPRe7IDInBAYgGVzJuMZ/nFj9BtXC5Bh/JH28E4LM/S6p9PjQgL102uHtIhKfHQvwKMX1dNiWWnvfeGUiuMp+FdTxKAUu0h7SwVo6UN6zdGxxgcjB84wXAgQ0ZlJlZEUlfPfJ7bmVRS848tgr15BHnIXF4ITb3a2N4DRY+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PQgn+7X0; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783594012; c=relaxed/simple;
+	bh=J4F8tkobiRk9bPwGq7ZObULf4JIDuhF/WM3lcn+/1Ok=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EQjBXfAHVqouQxM5vTNJMf/GeJPS1AVardlxN7Af47M3owhC6eHEexupW9qJTVEr/qIC4oNjSN0xz7SXp6NIaJWAjmS+fq2bF7ZB94kid9YQAG3qjXjXuXlVPSc8EtOOzMQk6lecfW7u6t/9S5/K8JAUvUxYW+QduB6M7bCrFco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtYb4snC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PQgn+7X0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783593982;
-	bh=8idKvVN+cfS9P+M8/Oo0SXlgO6nAa98PuAMKfFCHyUA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PQgn+7X0EvOfECkABffase/CdqsHlnTopkvVFROpUwXBoy8PxsCcvIzfjcCqF09y9
-	 fwtaD3Aq9rwIpLJgtBEBTY9cKWbpowYrlnV2Y6LZEmf9QjUvf3pHe4qa0hhtE285tl
-	 oDzoDIhvI//4YqO9C9Tfl2Gd73kCjqRHqiLeXKY5OD31nDoSoa5fK1XoWxIoViUcaG
-	 MMW+dYJJ+K6JTKNooM6F/7/HeaLI/QhUbab20bJvxWNXY5Ak1zeSDrW2KI83Obvu/V
-	 2+WcGPD6kLq1fl6qoa9uCF0T81LSumjl5Fvg0jGADu++Q/GCCRkNG1Jo18EiY8J0Fd
-	 4C4wqyqWQUgCg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id F23B817E01AC;
-	Thu, 09 Jul 2026 12:46:21 +0200 (CEST)
-Message-ID: <28324cf7-0841-42f9-967a-f942ac537c44@collabora.com>
-Date: Thu, 9 Jul 2026 12:46:21 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtYb4snC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBE51F000E9;
+	Thu,  9 Jul 2026 10:46:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783594011;
+	bh=q7ScW9hJpjng45n+X/4/5Xe8MZhmqsiLLYoixjG84RQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KtYb4snCcoipava9zr2sU5riBZE5uo3l+Mk3D3Rs3/cVNfL014gOgtuPX147vNfwW
+	 VD740rriun0D23eoz5UE1sBlkBfnSxabqVk5Rn6VxMJX3bT1q/8CoSBBFQWyHmjs7G
+	 xpabMU5zhmk/XI8yFgfh5b57j2ycYRfSqQmCWsUzg/VbFx2XNWPJ5edCqZi4CKT0EO
+	 vGpb3/bT7ZxMb5KmU7PI2lSlpWjfPb5U+0lmOCNwFqBL7gtgVRs085QdXfah4p8te4
+	 L6Y80bEkCIx9dvbJDeaykCQVghEPTAKJqiLk0ebXPAnq4FYWTs5ZG7M9o27JcvKaLT
+	 ae6fkFdFOgVBA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and phy
+ driver unregistration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709103431.46616-4-angelogioacchino.delregno@collabora.com>
+References: <20260709103431.46616-1-angelogioacchino.delregno@collabora.com>
+ <20260709103431.46616-4-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 10:46:50 +0000
+Message-Id: <20260709104650.BFBE51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] arm64: dts: mediatek: mt8173: Add and use UART
- AP_DMA controller
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-References: <20260709090924.27056-1-angelogioacchino.delregno@collabora.com>
- <20260709090924.27056-3-angelogioacchino.delregno@collabora.com>
- <20260709091701.098811F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260709091701.098811F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/9/26 11:17, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] The AP_DMA controller specifies `dma-requests = <8>` but only provides 6 `reg` and 6 `interrupts` entries, which causes the APDMA driver to fail during probe. Additionally, the patch omits DMA assignments for `uart0` despite the commit message claiming to configure all four UART controllers.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Will fix later while applying.
+New issues:
+- [Critical] Double free / use-after-free of mtk_dp->phy_dev on devm_phy_ge=
+t error path.
 
-> --
-> 
-> --- Patch [2]: [PATCH v3 2/7] arm64: dts: mediatek: mt8173: Add and use UART AP_DMA controller ---
-> commit ac8a25e005302375b885a8325819560714cb8e2c
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> arm64: dts: mediatek: mt8173: Add and use UART AP_DMA controller
-> 
-> This commit adds the UART AP_DMA controller to the mt8173 device tree.
-> It also assigns DMA channels to the UART controllers to increase TX/RX
-> efficiency.
-> 
->>      In order to increase the efficiency of data TX/RX over the UART
->>      controllers, add the UART DMA controller and assign the right
->>      channels to each of the four UART controllers.
-> 
-> [Severity: High]
-> The commit message mentions assigning channels to each of the four UART
-> controllers, but only uart1, uart2, and uart3 are updated in the patch. Is
-> uart0 intentionally missing?
-> 
->> diff --git a/arch/arm64/boot/dts/mediatek/mt8173.dtsi b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
->> --- a/arch/arm64/boot/dts/mediatek/mt8173.dtsi
->> +++ b/arch/arm64/boot/dts/mediatek/mt8173.dtsi
-> [ ... ]
->> +		apdma: dma-controller@11000400 {
->> +			compatible = "mediatek,mt8173-uart-dma", "mediatek,mt6577-uart-dma";
->> +			reg = <0 0x11000400 0 0x80>, <0 0x11000480 0 0x80>,
->> +			      <0 0x11000500 0 0x80>, <0 0x11000580 0 0x80>,
->> +			      <0 0x11000600 0 0x80>, <0 0x11000680 0 0x80>;
->> +			interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_LOW>,
->> +				     <GIC_SPI 98 IRQ_TYPE_LEVEL_LOW>,
->> +				     <GIC_SPI 99 IRQ_TYPE_LEVEL_LOW>,
->> +				     <GIC_SPI 100 IRQ_TYPE_LEVEL_LOW>,
->> +				     <GIC_SPI 101 IRQ_TYPE_LEVEL_LOW>,
->> +				     <GIC_SPI 102 IRQ_TYPE_LEVEL_LOW>;
->> +			clocks = <&pericfg CLK_PERI_AP_DMA>;
->> +			#dma-cells = <1>;
->> +			dma-requests = <8>;
-> 
-> [Severity: High]
-> Does this dma-requests count of 8 match the provided reg and interrupts
-> arrays?
-> 
-> The mtk-uart-apdma driver iterates dma-requests times during probe. With only
-> 6 resources defined in the reg and interrupts arrays,
-> devm_platform_ioremap_resource() will fail with -EINVAL when trying to map
-> the missing resources. This will cause the probe to abort, unconditionally
-> breaking DMA for all UARTs on this SoC.
-> 
-> Should dma-requests be 6 here since uart0 was omitted, or are there missing
-> reg and interrupts entries that should be added?
-> 
+Pre-existing issues:
+- [High] Asynchronous pm_runtime_put() used immediately before pm_runtime_d=
+isable() leaves hardware in incorrect power state.
+--
+
+--- Patch [3]: [PATCH v3 03/11] drm/mediatek: mtk_dp: Fix hdmi codec and ph=
+y driver unregistration ---
+commit ee2a644d342bfbaa916286b22d4e54ddc62e5878
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+drm/mediatek: mtk_dp: Fix hdmi codec and phy driver unregistration
+
+This commit adds devm actions to unregister the HDMI Codec and DisplayPort
+PHY platform devices during probe. This prevents multiple instances of these
+devices from being registered if the driver probe is deferred.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
+/mtk_dp.c
+> index eefbc7e0f9c8d..fefd1fae44c90 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+[ ... ]
+> @@ -2701,6 +2718,11 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_=
+dp)
+>  		return dev_err_probe(dev, PTR_ERR(mtk_dp->phy_dev),
+>  				     "Failed to create device mediatek-dp-phy\n");
+> =20
+> +	ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs, mtk_dp->=
+phy_dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to add phy unregister devm action");
+> +
+>  	mtk_dp_get_calibration_data(mtk_dp);
+> =20
+>  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
+>  	if (IS_ERR(mtk_dp->phy)) {
+>  		platform_device_unregister(mtk_dp->phy_dev);
+
+[Severity: Critical]
+Does this create a double-free on the error path?
+
+Looking at mtk_dp_register_phy() in drivers/gpu/drm/mediatek/mtk_dp.c, if
+devm_phy_get() fails (returning e.g. -EPROBE_DEFER), we manually call
+platform_device_unregister() here.=20
+
+However, since we successfully added the devm action earlier in the functio=
+n,
+returning the error from probe will cause the devres unwind mechanism to
+execute mtk_dp_unregister_pdevs().
+
+Won't that call platform_device_unregister() a second time on the already-f=
+reed
+mtk_dp->phy_dev pointer, resulting in memory corruption?
+
+[ ... ]
+> @@ -2870,9 +2892,6 @@ static void mtk_dp_remove(struct platform_device *p=
+dev)
+>  	struct mtk_dp *mtk_dp =3D platform_get_drvdata(pdev);
+> =20
+>  	pm_runtime_put(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to call
+pm_runtime_put() immediately before pm_runtime_disable() here in
+mtk_dp_remove()?
+
+Since pm_runtime_put() queues an asynchronous suspend, calling
+pm_runtime_disable() right after it cancels the pending suspend work.
+
+Doesn't this leave the hardware in an active power state after the driver is
+removed? Should this be changed to pm_runtime_put_sync() to ensure the susp=
+end
+completes before module unload?
+
+>  	if (mtk_dp->data->bridge_type !=3D DRM_MODE_CONNECTOR_eDP)
+>  		timer_delete_sync(&mtk_dp->debounce_timer);
+> -	platform_device_unregister(mtk_dp->phy_dev);
+> -	if (mtk_dp->audio_pdev)
+> -		platform_device_unregister(mtk_dp->audio_pdev);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709103431.4661=
+6-1-angelogioacchino.delregno@collabora.com?part=3D3
