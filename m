@@ -1,215 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2A63FF1D5
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5BB400E18
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:19:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783588761; cv=none; b=GPRux4Wqu7lal1KYKTIQHCnsufRwpwlrZfbfUWCU/wN9hBlYzURbH78ZLdretTgJM3gk3TiUjatsKRLJXArcDpSpqY/RtwHW1UgCmR0TAAQRhE9A5EpIdMs4d3CopJMepJ+2PmJHb+9GviDxm7H89qVJZHJE9lQ9dOkO6gKEVIw=
+	t=1783588761; cv=none; b=t3l+ZxPV1huwd0/JwW9T4NdJynS29iEmtM8wWIxfpLgZ1UI5vWHYhKUyoN8dpPGUPi8Ng++QnKxy+8X6tm9Glk4p60b1Cy+j5esEfeu+HvbLpM7XyZgY3WpP2gimFSZV7LhwZ1tGSTSdAMkAh+f+U7bAOX3FKFqGOG2fGhhOU8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783588761; c=relaxed/simple;
-	bh=MZGKqJh/183nF+xMxQuxdw7W0NELO1qVjNo626b9i/g=;
+	bh=63Gel5F/sgkZ7tnHtBh2dSmDKcJpyJtSP+0XhdDsJbU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aMcFzuxY/KkeHWDFoNZgvADgSnmkUjKcCW48dBehyzfFSD1PjB6nzwyUyXLRI9Yr9HU6aFm4vZcnPvUqZ3ecmU7nsaUYCUg2omYr0TlcEa2bskyLzueB3sSnb2gqL8CyEA3eqoEhGXJ1wlr1qTpkFOfnfCE5oSOv7AJyNmgRNQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ozwgP1VE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=J2LF3PCLHmGCXC8cAjiXwB6XsyiHwuuywxmK2MYGZ8aj5azsXspBaSlaObftY0uEZttP374XQflyImKlK6syRksNGiqbDTU5ZNE1gQC7/vYGPmvpHDmgCzFgB2RuewluyflkrJZQS/BYHohhXn3LIexk01STtA1tD/IJ6eEqORc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QeFyZm5S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ozwgP1VE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7241D1F00A3A;
-	Thu,  9 Jul 2026 09:19:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QeFyZm5S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390B11F00A3D;
+	Thu,  9 Jul 2026 09:19:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783588759;
-	bh=iS+2aQxlpoI7UUtsv916zHgteB6OyRSlXAeos6wLctQ=;
+	s=k20260515; t=1783588760;
+	bh=rJk+2bj8kYCZa7LVHtU5zcUWhQv8qrKoDAUPqo+/1+c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ozwgP1VETVn4foyNYAeJW4IsytjUl7jqjlk83zC9OPzcXgG3UlNyIOfDGzJKoBl4Q
-	 S5l/vDer1VE70Iem28MF4ZwXBQdn89nvd+3tyXTGW4Dy3aKZAnNQn22PcvGmU7SqXL
-	 Z/TqGu7l7L6RxXOejjxsaAQFg6m+x2YGT+dh1VpJCJqySaDiWhC5sIRECuw1z5eKQl
-	 QXeuTWqXPpfmJQNa9GBtlyr/jlNDiy7VsQi9X533r0Zf5xpfa+hS2geBTvQv2zEtiX
-	 58VIShWjmHrWWB6hmBTDGJ3YJJZEsoStZa3MxYmKp9aG/PDCquY4rxxz4ig8O3P2Y4
-	 qrggeKfK/novQ==
+	b=QeFyZm5SAWwVUn5wagaMmtwkt1qPaQv2gdUq4cmmYtK/eV8OZIZimrT6677PhNgFe
+	 ZIeIAc2TaLfDMMSdamSergGxKqxPyz5TjfPEr/tREnvONR6m8uJTr4Woch0kJnyf2Z
+	 BBaH+YJSDyoXY76/WZEieaoXmBBHyP7hOImsCKbtLE9oJ+JTEBIkoYvBorX7GMbTgp
+	 SBJQd5mCawKWuoL//1CAQrZHWgKST1CvC+WXXh+l+/lUx6uQbiU1ACgVpmTIMre9fU
+	 83WXMeLi6l58/bUjoMb9do4G6DwtoN9k8EYEklUkod0VAXuCMiMzc6+qaeTX7S86/4
+	 gWSvcWnN/8SgQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 1/9] net: dsa: add tag driver for LAN9645X
+Subject: Re: [PATCH net-next v9 9/9] net: dsa: lan9645x: add port statistics
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260708-dsa_lan9645x_switch_driver_base-v9-1-0d1512a326d7@microchip.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260708-dsa_lan9645x_switch_driver_base-v9-9-0d1512a326d7@microchip.com>
 References: <20260708-dsa_lan9645x_switch_driver_base-v9-0-0d1512a326d7@microchip.com>
- <20260708-dsa_lan9645x_switch_driver_base-v9-1-0d1512a326d7@microchip.com>
+ <20260708-dsa_lan9645x_switch_driver_base-v9-9-0d1512a326d7@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Thu, 09 Jul 2026 09:19:19 +0000
-Message-Id: <20260709091919.7241D1F00A3A@smtp.kernel.org>
+Message-Id: <20260709091920.390B11F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The tag driver drops the socket buffer (`skb`) without freeing it =
-when encountering errors in both the RX and TX paths, leading to memory lea=
-ks.
-- [High] Hardware-accelerated VLAN tags are missed during transmission, lea=
-ding to incorrect VLAN assignment and corruption of the Internal Frame Head=
-er (IFH) by the conduit NIC hardware.
+- [High] Potential spinlock deadlock due to using `spin_lock()` instead of =
+`spin_lock_bh()` for `sw_lock`, which is shared between process context and=
+ SoftIRQ context.
 --
 
---- Patch [1]: [PATCH net-next v9 1/9] net: dsa: add tag driver for LAN9645=
-X ---
-commit b8cd048a28aade1f235bef2a39bd42989aa9f813
+--- Patch [9]: [PATCH net-next v9 9/9] net: dsa: lan9645x: add port statist=
+ics ---
+commit 3c87269564235dbc14761981f5b167363d8b2671
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
+net: dsa: lan9645x: add port statistics
 
-net: dsa: add tag driver for LAN9645X
+Add statistics support for the port counters. The driver maintains a 64-bit
+software cache and updates it frequently from a delayed work item to handle
+hardware overflows.
 
-This commit adds a new DSA tag driver for the LAN9645x switch using a front=
- port
-as a CPU port (NPI mode). The driver configures an asymmetrical frame forma=
-t,
-using a long prefix on extraction and no prefix on injection.
-
-> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driver=
+s/net/dsa/microchip/lan9645x/lan9645x_stats.c
 > new file mode 100644
-> index 0000000000000..c9049e3620a12
+> index 0000000000000..e38f510eb8f66
 > --- /dev/null
-> +++ b/net/dsa/tag_lan9645x.c
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> @@ -0,0 +1,929 @@
 [ ... ]
-> +static void lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
-> +					struct net_device *br,
-> +					u32 *vlan_tci, u32 *tag_type)
+> +static void __lan9645x_stats_view_idx_update(struct lan9645x *lan9645x,
+> +					     enum lan9645x_view_stat_type vtype,
+> +					     int idx)
 > +{
-> +	struct vlan_ethhdr *hdr;
-> +	u16 proto, tci;
+> +	struct lan9645x_stats *s =3D lan9645x->stats;
 > +
-> +	if (!br || !br_vlan_enabled(br)) {
-> +		*vlan_tci =3D 0;
-> +		*tag_type =3D LAN9645X_IFH_TAG_TYPE_C;
-> +		return;
-> +	}
+> +	lockdep_assert_held(&s->hw_lock);
 > +
-> +	hdr =3D (struct vlan_ethhdr *)skb_mac_header(skb);
-> +	br_vlan_get_proto(br, &proto);
-> +
-> +	if (skb_headlen(skb) >=3D VLAN_ETH_HLEN &&
-> +	    ntohs(hdr->h_vlan_proto) =3D=3D proto) {
-> +		vlan_remove_tag(skb, &tci);
-> +		*vlan_tci =3D tci;
+> +	if (!__lan9645x_stats_view_idx_hw_read(lan9645x, vtype, idx)) {
+> +		spin_lock(&s->sw_lock);
 
 [Severity: High]
-Does this miss hardware-accelerated VLAN tags?
+Could this lead to a deadlock if a softirq interrupts the process context
+while the lock is held?
 
-If the DSA user device inherits the NETIF_F_HW_VLAN_CTAG_TX feature from the
-conduit device, the networking stack retains the VLAN tag in skb->vlan_tci
-with skb_vlan_tag_present(skb) =3D=3D true rather than pushing it into the =
-payload.
+In __lan9645x_stats_view_idx_update() this lock is acquired from the
+background workqueue context using a plain spin_lock().
 
-Because this code doesn't check for skb_vlan_tag_present() to clear the tag
-via __vlan_hwaccel_clear_tag(skb), it falls back to the port's PVID and lea=
-ves
-skb->vlan_tci intact.=20
+However, lan9645x_stats_get_stats64() is called from atomic/softirq
+context and also tries to acquire s->sw_lock:
 
-When the skb is later passed to the conduit device, its NIC hardware could
-offload the VLAN tag insertion. Since this driver just prepended a 28-byte =
-IFH,
-the NIC hardware might insert the 4-byte VLAN tag at offset 12 (expecting a
-standard Ethernet frame), overwriting and corrupting the IFH.
+/* Called in atomic context */
+void lan9645x_stats_get_stats64(...)
+{
+        ...
+        spin_lock(&s->sw_lock);
+        ...
+}
 
-> +	} else {
-> +		rcu_read_lock();
-> +		br_vlan_get_pvid_rcu(br, &tci);
-> +		rcu_read_unlock();
-> +		*vlan_tci =3D tci;
+If a network softirq fires on the same CPU while the background workqueue
+holds sw_lock, it seems the softirq would spin forever waiting for the lock.
+Should the process-context callers use spin_lock_bh() instead?
+
+> +		__lan9645x_stats_view_idx_transfer(lan9645x, vtype, idx);
+> +		spin_unlock(&s->sw_lock);
 > +	}
+> +}
 [ ... ]
-> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
-> +				     struct net_device *ndev)
+> +void lan9645x_stats_get_ethtool_stats(struct lan9645x *lan9645x, int por=
+t,
+> +				      u64 *data)
 > +{
-> +	struct dsa_port *dp =3D dsa_user_to_port(ndev);
-> +	struct dsa_switch *ds =3D dp->ds;
-> +	u32 vlan_tci, tag_type;
-> +	u32 qos_class;
-> +	void *ifh;
+> +	struct lan9645x_stats *stats =3D lan9645x->stats;
+> +	u64 *c;
+> +	int i;
 > +
-> +	lan9645x_xmit_get_vlan_info(skb, dsa_port_bridge_dev_get(dp), &vlan_tci,
-> +				    &tag_type);
+> +	c =3D lan9645x_stats_view_idx_update(lan9645x, LAN9645X_STAT_PORTS, por=
+t);
 > +
-> +	/* We need to make sure frame has the proper size after IFH is stripped
-> +	 * by hw.
-> +	 */
-> +	if (__skb_put_padto(skb, ETH_ZLEN, false))
-> +		return NULL;
+> +	spin_lock(&stats->sw_lock);
 
 [Severity: High]
-Does this leak the skb when __skb_put_padto() fails?
+Similar to the background updater above, should this ethtool callback
+also use spin_lock_bh() to protect against the softirq reader?
 
-Since the free_on_error argument is false, __skb_put_padto() returns an err=
-or
-without freeing the buffer.=20
-
-By returning NULL here without freeing the skb, the buffer could leak under
-memory pressure. DSA core requires tag drivers to explicitly free the skb if
-they return NULL to drop the packet.
-
-> +
-> +	qos_class =3D netdev_get_num_tc(ndev) ?
+> +	for (i =3D 0; i < ARRAY_SIZE(lan9645x_port_ethtool_stats); i++)
+> +		*data++ =3D c[lan9645x_port_ethtool_stats[i].idx];
+> +	spin_unlock(&stats->sw_lock);
+> +}
 [ ... ]
-> +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
-> +				    struct net_device *ndev)
-> +{
-> +	u32 src_port, qos_class, vlan_tci, tag_type, popcnt, etype_ofs, cpuq;
-> +	struct dsa_port *dp;
-> +	u32 ifh_gap_len =3D 0;
-> +	u16 vlan_tpid;
-> +	u8 *ifh;
-> +
-> +	/* DSA master already consumed DMAC,SMAC,ETYPE from long prefix. Go back
-> +	 * to beginning of frame.
-> +	 */
-> +	skb_push(skb, ETH_HLEN);
-> +
-> +	if (unlikely(!pskb_may_pull(skb, LAN9645X_TOTAL_TAG_LEN)))
-> +		return NULL;
-
-[Severity: High]
-Can this leak the skb if pskb_may_pull() fails?
-
-If a received packet is smaller than expected, pskb_may_pull() fails and
-returns false.=20
-
-Returning NULL here without freeing the skb causes a memory leak, which cou=
-ld
-be triggered by receiving malformed, undersized packets.
-
-> +
-> +	/* IFH starts after our long prefix */
-> +	ifh =3D skb_pull(skb, LAN9645X_LONG_PREFIX_LEN);
-[ ... ]
-> +	skb_pull(skb, LAN9645X_IFH_LEN);
-> +
-> +	if (unlikely(!pskb_may_pull(skb, ifh_gap_len + ETH_HLEN)))
-> +		return NULL;
-
-[Severity: High]
-Would this also leak the skb for the same reason if pskb_may_pull() fails?
-
-> +
-> +	skb_pull(skb, ifh_gap_len);
-> +	skb_reset_mac_header(skb);
-[ ... ]
-> +	skb->dev =3D dsa_conduit_find_user(ndev, 0, src_port);
-> +	if (WARN_ON_ONCE(!skb->dev)) {
-> +		/* This should never happen since we have disabled reflection
-> +		 * back to the CPU.
-> +		 */
-> +		return NULL;
-> +	}
-
-[Severity: High]
-Is it possible to leak the skb here if dsa_conduit_find_user() returns NULL?
-
-Returning NULL without explicitly freeing the skb drops the reference to the
-buffer without freeing it.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dsa_lan964=
-5x_switch_driver_base-v9-0-0d1512a326d7@microchip.com?part=3D1
+5x_switch_driver_base-v9-0-0d1512a326d7@microchip.com?part=3D9
