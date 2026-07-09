@@ -1,215 +1,226 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DC2244661
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 13:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FF225A354;
+	Thu,  9 Jul 2026 13:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783602221; cv=none; b=N4FvcOzzyWC1dIlLhM4qoy2pSqOmjpUwJo+EUSYsmfoeC8nujjYY6QN1+ATEX24j0MAsM+eMjyzXVQYAYl4DIFRj3ERS/SIav/9t/TqrZ5O/BslmtQz6gSQOJvzwwOQALdtJ7+o2uRw1N+LwNidEa6q60Ie5cwQBXTwDrlqo81U=
+	t=1783602416; cv=none; b=u4yvYj8wect81MBdPLZjj1wXgn3t4mljUYbtMFs6d0At1l63FhfD74fNnNcCRS/XocvCjmz6hrBKZCBEVUTBPUofwn3F0vVbGjQ0uuUlv22TGR2lwRFi5tn0T5xVY/0Ec+96O752pK5wC3Ek8nLkrmXIypn2p45vFdCAr0AUkdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783602221; c=relaxed/simple;
-	bh=WnckAIHlaTmAFvP6s1AxpeWPyK4BmV81YD7bCW8Qmuc=;
+	s=arc-20240116; t=1783602416; c=relaxed/simple;
+	bh=Dof8XhwYjSFqmcMhLA8ka9FKc3kOtS19iaB0epMgNho=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BPScdIyXsvdRhla3O7rD6q+yFSjEyTdb8zPZXhCTeLg0w7lWUc9B+F0IQ0nAp18D22MOwW+DsKM8HL3OA5ysFXagQxFN38FU5i58NNYJPSAy4iid3ZWaEqQ8xhsqeUYxnmAfCtsUQ4FqowYDJkvYJltK5UDWF6UT+UQjPPO/Nlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qw7ua+O+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CA1/HDe3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=cb2aH3hBL0ftbSEocvbToCwdWA9WyQNbQ1vUnTVecCVoeAEswuRhiG8BFm2yyu/uRuAhUNTMX+kGSRIGIRzrUzDM9NjBey7J/7SEwRbtufk2+I4UjPZDDtxFtcIZE8KBh/g2jbFnabxQ/WUM4Xi6FY2oFsCsGGYh7FA+Ql1IQYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cWeCNFvZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qw7ua+O+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CA1/HDe3"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669BNV6B1667893
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 13:03:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=6hes+AyfmlrE00EiSFN67s5z
-	YH/93a114Q8pXjrH7gY=; b=Qw7ua+O+UB3grvP+67fYmPnISpR8ncdbPMkGqkdF
-	QUdqZDCzWKWoWeJAaby3Gic0piPCsP7cOB9cIOgyxDkGeUwzQpCfviJntm3IuQmg
-	wl1dSOx0btaMqZylZOY2UUCqWqs8fqPXoR8CTQXOXUh8St1qncbKPK3eR2IYP0MG
-	HoDBmROOcjC9JUoALmWQixEL/EvVUkZu2zNJAzZoxjHgcyfcN7qNLfsHHkA+pgRh
-	T8nO5tB2ggpTK4khhUnQtHQvGGxzoqacwv38pvFcb0WCANIVXL+jtsAZqYcd5JHO
-	RbXDD5KeNC5sltWs5VJwQ+Ez1AfyuE7DWsV5hE5QBUrwkQ==
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9ug6kv3h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 13:03:37 +0000 (GMT)
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6a0c02365c7so2747585eaf.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 06:03:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783602217; x=1784207017; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6hes+AyfmlrE00EiSFN67s5zYH/93a114Q8pXjrH7gY=;
-        b=CA1/HDe3EXjLiJcAiu/7vAnnkuk3CZIzsmTjCWhcyqJbb7lQGDtTFIPrpACtu+jFYF
-         ONb/p/8RaEE2vFmNIGYWbnwmAUuM2TBNsMAxxlx3pxgS66VV1+835HFSoazn/aFPUOvS
-         Cd6tGALYdr1mpDqd9Vft8FT4If4NKSWh0ANWixkeIv8wUp7H4G2sHyHlxo+skCNKzWay
-         1XjXABCVwKoHoB4exBhttLiaqRBCWxlVrBu6YV4dwxXOMPH7hpltCRBmc4jl9DO/bR/A
-         Va9SO15kPGCuaJN5p5dJJKmj0ZX6kBKW+FMUVPErUL+TzZOCT+qZXmdATXbkH3YqzJO9
-         R5Fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783602217; x=1784207017;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6hes+AyfmlrE00EiSFN67s5zYH/93a114Q8pXjrH7gY=;
-        b=lqAsvmB/kyYC4AHpn+qbD6ucDhOaGX+tlpSvhefZUev5k+lZ3p8VsM15mUNiO29pf+
-         CT/cfcwjJJM4lUiHvUO0s/Rfccu6GxACMeZiEBmLC3u/Q/bdYgby5bIVKmnDCbwDPDnx
-         4COI9NMy9RflE0kzItroj3OCXMZT30wQy2AKOQxFMZH8KDT13DURNKI1/kGsT3Yy9QnI
-         1g44Awt2Gc7AnRWQC3plvfqMv5qtbSZ6dvQv45d6sD1XLlAUhZ6fqdGEsVLOvDGxbgIW
-         KTBlZaBvpkJLZ6lrIcs4tnw+KrcBb5o3pUiZRBcBo8cB+z7ReO488gZgtse94XYnsw6R
-         omTA==
-X-Forwarded-Encrypted: i=1; AFNElJ+dLy5+qp0z3bMMZltsF/zgqSeNb45mVOma6E/0TQxf3xv+6tU4s/7InyCrzSzCOkW4sQQ69tKuprLJ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxip2jFzQw9HDc+D95jy8//xaDPs794f4bcESOHruKdvvMkDY0/
-	PYU7wLTba4OsRH6tOIJLtlE8YuU5TV1oLaE9sHY9UGiTU6R9NIv3YPJmnZOdeur08NJlaJolLOv
-	IQy04XIdOzuJGxLUb6DehJgJZLQky4JyGUv5lMq1mswwpO7lzhW0EbLpdeaYqwip9
-X-Gm-Gg: AfdE7ckhJqYFCBVvkwKjaykfmcirZMbQ9gtwANtzUq+K9pHafUSu4iTTRobVG3sqhdD
-	2afPrzKL/TV9dDIKKAmZkve0QSUi41TPBE6VaiMwt7OuHdMLiOQ8WUH6VGkRHeAhUiQT6wN09Jt
-	qAjMNIzJ0WfIzZWXQtQNe9AnE5XoPE216smde3mk/ct4pDCM2Vlzlof7plNBLpTatgbTZmd2bry
-	o1ZyB2qLm4tTPmaE+JBudO5e5lAt3bhBkXIiVojT0YTnx+RmgJYW9/Wf6Ucv9IYEa9+pqWjmMPK
-	m+Ocksxy3zTBDKFlUNfwZ+Pgtl9T0ha1QjCuDPYE6kXJyoCV4tNP4KuSMuRNVNpr8QykszcfLyt
-	4lOSW9xzawwDuzobGB7cOQnIwCujDTz/j0eoHWIoMMtA5so1tELBOVD3uGBjoxUePFFmSdv+tr5
-	7SdTpJIh9UfBOBTGVDMZmoB7Uw
-X-Received: by 2002:a05:6820:2d42:b0:6a1:7644:772f with SMTP id 006d021491bc7-6a36da2e65fmr5613940eaf.63.1783602217187;
-        Thu, 09 Jul 2026 06:03:37 -0700 (PDT)
-X-Received: by 2002:a05:6820:2d42:b0:6a1:7644:772f with SMTP id 006d021491bc7-6a36da2e65fmr5613861eaf.63.1783602216506;
-        Thu, 09 Jul 2026 06:03:36 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c849180ddsm3055701fa.3.2026.07.09.06.03.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 06:03:35 -0700 (PDT)
-Date: Thu, 9 Jul 2026 16:03:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [RFC PATCH 07/11] arm64: dts: qcom: hamoa: Move Iris IOMMUs to
- sub nodes
-Message-ID: <3t76ahxtn6e7rhxzxtwhbgq26tdztgfow5kh6lxgtmtr7mucxh@dydqcmawo5g2>
-References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
- <20260709-vpu_iommu_iova_handling-v1-7-72bb62cb2dfd@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cWeCNFvZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B0C1F000E9;
+	Thu,  9 Jul 2026 13:06:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783602415;
+	bh=z6JSKq8c4C6JVKQqJp+bC2Msv4Dnv7XkGJWu/rV3OJw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cWeCNFvZP8OeaOr/gLHsGq+E2lqITQPDNpDs1bNwIYjG4aDA9rYKqC6z2epF5raR8
+	 NyfsU5i8wq93jg4Un+Pxr3FbT0Oa6DZ9TV4gEd+nBu0XSkRSjF9XU4PoAJtMOQvRVY
+	 buB6Oi5P9BMpAAqGSzFEQZPLnlEhCgryYFAemmnlbWbsKUhPJOHO36AIZGMbLU1Si8
+	 LEqK360T9wT59rSOym0aCgfeFBapZ2cj53Rz0F5uEJptvBH/PdYSbLnJbm5SXx5g+f
+	 7+dHE8yy96KiRVExaBq4xnUO7G59yye5D4b20VSIrTyZLDD2l4etFrGrw97xlE78VZ
+	 joM/OyxPNqyrw==
+Date: Thu, 9 Jul 2026 15:06:39 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2 E
+ key connector
+Message-ID: <ze7dfikl7kzz3ovenrpjw62obimwgxwwvlycwoebgx4ify3e46@dnvp4olbatbh>
+References: <20260708-eliza_evk-v2-0-c599246ceba1@oss.qualcomm.com>
+ <20260708-eliza_evk-v2-1-c599246ceba1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-7-72bb62cb2dfd@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDEyNyBTYWx0ZWRfXzIS8t+z6oPv9
- jtG04D6Weq94hwZ2VQCV4zyZ4cbzr4UpHMkZjOHUA5QnIuTKnz7Olf3wES+OdfFG9Q7AeSuxIIs
- L3SXLnFVM//u0wzdEzVsEnvUBZitrT4=
-X-Proofpoint-GUID: fGqj_I2Hwu3GjGdJw4LIM_FevbKK4RU1
-X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a4f9c29 cx=c_pps
- a=lkkFf9KBb43tY3aOjL++dA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=e5mUnYsNAAAA:8
- a=EUspDBNiAAAA:8 a=KY5bm7jO3qav85b11RkA:9 a=CjuIK1q_8ugA:10
- a=k4UEASGLJojhI9HsvVT1:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: fGqj_I2Hwu3GjGdJw4LIM_FevbKK4RU1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDEyNyBTYWx0ZWRfXwv7lQ9/K91JX
- hEOhJgW26q5ROqW5lW/02dhZy+/711e9OFHTLt6FqdEchndf8EkQEjsN+ih1N4y1ztmMxpYJFwG
- +QrYQRFH+2nQxA4Spi/3yoIUFm4owWk9WX3EbP5+DTzLmTJYWik+uwm1+J9GsWhUZfEudoBSHUS
- FLXa3ZCg2WalGJAA8hdmiMy9hWh2cFJHkPknk5mnIkqXvz02Ym3W2QbV6JSiTyQlebuPQav9jEn
- vyKKE0uIPpqEY5DhEJAX6QX1lIdYtN6RU6e4GA+oWSKqbWL4uMAe0zmRKr4R2OQJNXOncV+BjJM
- Lixsf8eiIs38uEBHKNd5kyNUEN7Oib/k3+SWCZgsH/3Yh44zTB1hyLpeFZQOuZhN2V4HOOA8ZBT
- C4BKgqAoUq0pbQGnVrp0TCZTFgpqhKgG4Hi5/Fnwby/rWf07Rit356AorM186/tQuwQVJFrUxd5
- o0QWR2jnaXrABXYL96Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090127
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260708-eliza_evk-v2-1-c599246ceba1@oss.qualcomm.com>
 
-On Thu, Jul 09, 2026 at 06:05:53PM +0530, Vikash Garodia wrote:
-> The Iris VPU has separate streams with different IOVA constraints. The
-> non-pixel stream must be limited to the 0-600 MB IOVA range, while the
-> pixel stream can use the full IOVA space.
-> Using a single set of IOMMU entries for the Iris node does not describe
-> these per-stream limits and can allow accesses outside the supported
-> range, which may lead to device crashes. One such issue was reported at:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+On Wed, Jul 08, 2026 at 11:47:16AM +0530, Krishna Chaitanya Chundru wrote:
+> The Eliza EVK board features an M.2 E key connector connected to PCIe0.
+> Enable the PCIe0 root port and its QMP PHY with the necessary RPMH
+> regulator supplies. The M.2 slot's 3.3V supply rail is GPIO-controlled
+> via a TCA9538 I/O expander on I2C4.
 > 
-> Add non-pixel and pixel child nodes, move each stream ID to its
-> corresponding child node, and add a reserved IOVA range for the
-> non-pixel stream.
+> The M.2 E key slot hosts a WLAN card connected over PCIe and a Bluetooth
+> device connected over UART. Model the connector using the
+> pcie-m2-e-connector binding, wiring the PCIe root port and UART5 for
+> the respective interfaces.
 > 
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+
+- Mani
+
 > ---
->  arch/arm64/boot/dts/qcom/hamoa.dtsi | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
+>  arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 116 ++++++++++++++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/eliza.dtsi     |   1 +
+>  2 files changed, 117 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> index 60f485a4892e062980d01f0b930af4b02f36513c..a2baa2c9f46dc19c3db11dc784358223a035475f 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> @@ -657,6 +657,10 @@ smem_mem: smem@ffe00000 {
->  			hwlocks = <&tcsr_mutex 3>;
->  			no-map;
->  		};
-> +
-> +		iris_resv: reservation-iris {
-> +			iommu-addresses = <&iris_non_pixel 0x0 0x0 0x0 0x25800000>;
-> +		};
+> diff --git a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+> index e47b24f8b827..6d76715ccffb 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza-evk.dtsi
+> @@ -11,6 +11,92 @@ aliases {
+>  	chosen {
+>  		stdout-path = "serial0:115200n8";
 >  	};
->  
->  	qup_opp_table_100mhz: opp-table-qup100mhz {
-> @@ -5435,10 +5439,11 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
->  			resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
->  			reset-names = "bus";
->  
-> -			iommus = <&apps_smmu 0x1940 0>,
-> -				 <&apps_smmu 0x1947 0>;
->  			dma-coherent;
->  
-> +			#address-cells = <2>;
-> +			#size-cells = <2>;
 > +
->  			/*
->  			 * IRIS firmware is signed by vendors, only
->  			 * enable on boards where the proper signed firmware
-> @@ -5446,6 +5451,15 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
->  			 */
->  			status = "disabled";
->  
-> +			iris_non_pixel: non-pixel {
-> +				iommus = <&apps_smmu 0x1940 0x0>;
-> +				memory-region = <&iris_resv>;
+> +	vreg_pcie_m_3p3: regulator-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "vreg_3p3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&gpio_expander1 6 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	connector-0 {
+> +		compatible = "pcie-m2-e-connector";
+> +		vpcie3v3-supply = <&vreg_pcie_m_3p3>;
+> +		w-disable1-gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios = <&pm8550vs_g_gpios 4 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&m2_w_disable1>, <&m2_w_disable2>;
+> +		pinctrl-names = "default";
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				m2_e_pcie_ep: endpoint@0 {
+> +					reg = <0>;
+> +					remote-endpoint = <&pcieport0_ep>;
+> +				};
 > +			};
 > +
-> +			iris_pixel: pixel {
-
-Unused label. Also, shouldn't you specify the IOMMU region for this one
-too?
-
-> +				iommus = <&apps_smmu 0x1947 0x0>;
-> +			};
+> +			port@3 {
+> +				reg = <3>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
 > +
->  			iris_opp_table: opp-table {
->  				compatible = "operating-points-v2";
+> +				m2_e_uart_ep: endpoint@0 {
+> +					reg = <0>;
+> +					remote-endpoint = <&uart5_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&i2c4 {
+> +	pinctrl-0 = <&qup_i2c4_data_clk>;
+> +	pinctrl-names = "default";
+> +
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	gpio_expander1: gpio@3c {
+> +		compatible = "ti,tca9538";
+> +		#gpio-cells = <2>;
+> +		gpio-controller;
+> +		reg = <0x3c>;
+> +	};
+> +};
+> +
+> +&pcie0 {
+> +	status = "okay";
+> +};
+> +
+> +&pcie0_phy {
+> +	vdda-phy-supply = <&vreg_l1k>;
+> +	vdda-pll-supply = <&vreg_l3k>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie0port0 {
+> +	wake-gpios = <&tlmm 114 GPIO_ACTIVE_LOW>;
+> +	reset-gpios = <&tlmm 78 GPIO_ACTIVE_LOW>;
+> +
+> +	port {
+> +		pcieport0_ep: endpoint {
+> +			remote-endpoint = <&m2_e_pcie_ep>;
+> +		};
+> +	};
+>  };
 >  
+>  &uart13 {
+> @@ -18,3 +104,33 @@ &uart13 {
+>  
+>  	status = "okay";
+>  };
+> +
+> +&uart5 {
+> +	status = "okay";
+> +
+> +	port {
+> +		uart5_ep: endpoint {
+> +			remote-endpoint = <&m2_e_uart_ep>;
+> +		};
+> +	};
+> +};
+> +
+> +&pm8550vs_g_gpios {
+> +	m2_w_disable2: m2-w-disable2-state {
+> +		pins = "gpio4";
+> +		function = "normal";
+> +		input-disable;
+> +		output-enable;
+> +		bias-disable;
+> +		power-source = <2>;
+> +	};
+> +};
+> +
+> +&tlmm {
+> +	m2_w_disable1: m2-w-disable1-state {
+> +		pins = "gpio35";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-pull-up;
+> +	};
+> +};
+> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
+> index 7cfd242bc192..cce65e18f979 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+> @@ -1909,6 +1909,7 @@ opp-8000000-3 {
+>  			};
+>  
+>  			pcie0port0: pcie@0 {
+> +				compatible = "pciclass,0604";
+>  				device_type = "pci";
+>  				reg = <0x0 0x0 0x0 0x0 0x0>;
+>  				bus-range = <0x01 0xff>;
 > 
 > -- 
 > 2.34.1
 > 
 
 -- 
-With best wishes
-Dmitry
+மணிவண்ணன் சதாசிவம்
