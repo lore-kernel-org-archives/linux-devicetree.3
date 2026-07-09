@@ -1,174 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D83E40242D;
-	Thu,  9 Jul 2026 09:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6533F0746
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783588717; cv=none; b=DcI8H3MRsrwnAJLD4gv0dZ+FDTI0hb12n8KhRra8m0GfZqUVt+8oJA7vN+8kIcWGNT/04B1z/otJSKWfxZjHz/3TYWk6iSu8+PrQDFoilkZcyujXxqCjaHZh6uQrZK4JJh+cf2kxB1CvRAzo4X0OCnbB1ydWmYVSWYegxB8951E=
+	t=1783588760; cv=none; b=g3wvLGenoOlGPLxhF8wbXbBQ/Asi1lCchSLdh2m44AbQ+f/08ZXiuurtEa3L/UvGfGvcm3pv1NslWd/6J8tesXXtfzCliztRBTMazWfCbTTPrP2MHW20KYecD4Rzq4N+ODRysVADtS2I+rJp2qSroMBGpvgeRRCtnNl8Kt0H3go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783588717; c=relaxed/simple;
-	bh=zSb2qTXstNSO4+tg5smeErLlaavovFWajf+p3/s4dTU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RFvhT/oioFUUCaMuJQZXjlkp16LMNaKzth8evDLjotmaJ/NVhoAWVHTIgtccbOVpP6B6T60GuQ2s/OgXTTk+M/p9utmOUDBqF/NgRsyojESh1zey4YpQmKZmZ9KIlXkRK8WuS3cnRpq1U5bMZWxpNPGn+lfykjpHqIqNXASMBAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhHGF524; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783588760; c=relaxed/simple;
+	bh=8J9G/6CpqIeI3h5lGB9jyfD9vKPQEMT2sxxH31SWgeo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=S6ymY2qAeDybFSWOqohBymM2JBLlJuUcPp0Bcb48VENPErblBLzL1qHi6Wi50NCNxyoMRT/GdcOPi1wVd0c1scol0ZPhPUGds2e2sagJQPgg2dK6HgBHgiBRBNYuAT/RSTbc5EoD3OMifiJLK7IubDSMp+2T/WZ+yJpbb7RBnmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/SK/3Tn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhHGF524"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 67FDDC2BCF7;
-	Thu,  9 Jul 2026 09:18:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783588716;
-	bh=zSb2qTXstNSO4+tg5smeErLlaavovFWajf+p3/s4dTU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EhHGF524qyJVcpmoOh/GAZ3WcOV8gy34/ARxzufm/LSLKRLAn0BPbTjWgdAmB6/X0
-	 55JkmOv3xZX4AkHbW+5nmAO8DEURtBzOl+KO8w/lUwcIC+w7MrMHQzMVtAWtc3TgBB
-	 zgZZCkU8SNHk1x+Fn8p+IIMbzk5RQV/2KezkaGhcX1W4avhLtm4ILOayd25tpHaOpF
-	 D0G7JMDQjiUwamVGVENaefqaEX328XX7uqxtoUgvR6B2sAu2wHsKva09C7cFA3DxSy
-	 iDvpF3RYMz0nUg8u5O8UORt1lG97Rqe6JFWs6g6ettlPEfyTUkS8c3tnD0+F4X9M9p
-	 4VRGkG8SXzdnw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A93CC44501;
-	Thu,  9 Jul 2026 09:18:36 +0000 (UTC)
-From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Thu, 09 Jul 2026 13:18:28 +0400
-Subject: [PATCH v5 2/6] Bluetooth: btqca: Add IPQ5018 support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/SK/3Tn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1AD01F000E9;
+	Thu,  9 Jul 2026 09:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783588758;
+	bh=PJcW/6iJnTIXDSyNQkQPDt4fKQ3JZOJUTGWTOYpCKR0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B/SK/3TnZfzbSlQzcqbn5ucyn29bq7d3Z0/4+YaC35Y2Hevc4/PPP3lpVormL4/ni
+	 LmyD8LaMgOyd2kcQg+4O3xpIzAhgWEZoHLUq0HTYWKozfWHyMm4hIz9h3RtlOJLGqI
+	 VapwPWSCgKJwG63UMOuZOIhrbOeJ9e5tJat3ta/1quukEgT0FZJOifqfRIkTubSmeX
+	 CXtMWxt6eXTOKDZ5AF3+c5NCNacEsFz6PSOQ8ZkGUY1pSflQ05sksZ4049mJ++omMp
+	 0cfeQci+FDzOpyFcXRxboI6MCnTTMYVLv5obUPvc7H1hfU9dexNRPGNQCMCDWJ2M56
+	 AUwvOWBQckv2g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v9 4/9] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260708-dsa_lan9645x_switch_driver_base-v9-4-0d1512a326d7@microchip.com>
+References: <20260708-dsa_lan9645x_switch_driver_base-v9-0-0d1512a326d7@microchip.com>
+ <20260708-dsa_lan9645x_switch_driver_base-v9-4-0d1512a326d7@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 09:19:18 +0000
+Message-Id: <20260709091918.A1AD01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-ipq5018-bluetooth-v5-2-e476c41f03b8@outlook.com>
-References: <20260709-ipq5018-bluetooth-v5-0-e476c41f03b8@outlook.com>
-In-Reply-To: <20260709-ipq5018-bluetooth-v5-0-e476c41f03b8@outlook.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- George Moussalem <george.moussalem@outlook.com>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783588713; l=2878;
- i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=qc8c/Yy1ZkHuPR/drWQrBMtWnyaqgtWj4Gk+5ass+zE=;
- b=/v5zO0whsAkNyt9TgUc+SglI5cJliQW02KXgAkz9Is3OfxuZZKD+cGI7ZBFDBIWMRCr4Jv5JJ
- uVx9J4umom/BlB+JkUOolaeRA4rwB8C+L0cQOGHZEkJiMJ0T3+WCSIL
-X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
- pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
-X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
- with auth_id=364
-X-Original-From: George Moussalem <george.moussalem@outlook.com>
-Reply-To: george.moussalem@outlook.com
 
-From: George Moussalem <george.moussalem@outlook.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Source PGID mask drops all data-plane traffic to and from the CPU.
+- [Low] Trailing backslash on the last line of a Makefile variable assignme=
+nt.
+- [Low] Redundant register write to QS_INJ_CTRL_GAP_SIZE.
+--
 
-Add the IPQ5018 SoC type and support for loading its firmware.
+--- Patch [4]: [PATCH net-next v9 4/9] net: dsa: lan9645x: add basic dsa dr=
+iver for LAN9645X ---
+commit 3edb62282650bb2eeb57a08ce4dcd00f00d76a54
+Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
+ip.com>
 
-The firmware tested has been taken from GPL sources of various router
-boards. Firmware files needed are:
-- qca/bt_fw_patch.mbn
-- qca/mpnv10.bin
+net: dsa: lan9645x: add basic dsa driver for LAN9645X
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: George Moussalem <george.moussalem@outlook.com>
----
- drivers/bluetooth/btqca.c | 16 ++++++++++++++++
- drivers/bluetooth/btqca.h |  3 +++
- 2 files changed, 19 insertions(+)
+Add the LAN9645X basic DSA driver with initialization, parent regmap
+requests, port module initialization for NPI, CPU ports and front ports,
+and phylink integration for MAC side configuration.
 
-diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
-index 08600b0fc041..eed30a4480e0 100644
---- a/drivers/bluetooth/btqca.c
-+++ b/drivers/bluetooth/btqca.c
-@@ -361,6 +361,9 @@ static int qca_tlv_check_data(struct hci_dev *hdev,
- 		break;
- 
- 	case TLV_TYPE_NVM:
-+		if (soc_type == QCA_IPQ5018)
-+			break;
-+
- 		if (fw_size < sizeof(struct tlv_type_hdr))
- 			return -EINVAL;
- 
-@@ -778,6 +781,9 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
- 	else
- 		rom_ver = ((soc_ver & 0x00000f00) >> 0x04) | (soc_ver & 0x0000000f);
- 
-+	if (soc_type == QCA_IPQ5018)
-+		goto download_nvm;
-+
- 	if (soc_type == QCA_WCN6750)
- 		qca_send_patch_config_cmd(hdev);
- 
-@@ -865,6 +871,7 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
- 	if (soc_type == QCA_QCA2066 || soc_type == QCA_WCN7850)
- 		qca_read_fw_board_id(hdev, &boardid);
- 
-+download_nvm:
- 	/* Download NVM configuration */
- 	config.type = TLV_TYPE_NVM;
- 	if (firmware_name) {
-@@ -878,6 +885,10 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
- 		}
- 	} else {
- 		switch (soc_type) {
-+		case QCA_IPQ5018:
-+			snprintf(config.fwname, sizeof(config.fwname),
-+				 "qca/mpnv%02x.bin", rom_ver);
-+			break;
- 		case QCA_QCA2066:
- 			qca_get_nvm_name_by_board(config.fwname,
- 						  sizeof(config.fwname),
-@@ -942,7 +953,11 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
- 		return err;
- 	}
- 
-+	if (soc_type == QCA_IPQ5018)
-+		msleep(NVM_READY_DELAY_MS);
-+
- 	switch (soc_type) {
-+	case QCA_IPQ5018:
- 	case QCA_QCA2066:
- 	case QCA_QCA6390:
- 	case QCA_WCN3991:
-@@ -982,6 +997,7 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
- 	bt_dev_dbg(hdev, "QCA HCI_RESET succeed");
- 
- 	switch (soc_type) {
-+	case QCA_IPQ5018:
- 	case QCA_WCN3991:
- 	case QCA_WCN6750:
- 	case QCA_WCN6855:
-diff --git a/drivers/bluetooth/btqca.h b/drivers/bluetooth/btqca.h
-index 8f3c1b1c77b3..343cd62d1137 100644
---- a/drivers/bluetooth/btqca.h
-+++ b/drivers/bluetooth/btqca.h
-@@ -54,6 +54,8 @@
- #define QCA_HSP_GF_SOC_ID		0x1200
- #define QCA_HSP_GF_SOC_MASK		0x0000ff00
- 
-+#define NVM_READY_DELAY_MS		1500
-+
- enum qca_baudrate {
- 	QCA_BAUDRATE_115200	= 0,
- 	QCA_BAUDRATE_57600,
-@@ -158,6 +160,7 @@ enum qca_btsoc_type {
- 	QCA_WCN6750,
- 	QCA_WCN6855,
- 	QCA_WCN7850,
-+	QCA_IPQ5018,
- };
- 
- #if IS_ENABLED(CONFIG_BT_QCA)
+> diff --git a/drivers/net/dsa/microchip/lan9645x/Makefile b/drivers/net/ds=
+a/microchip/lan9645x/Makefile
+> new file mode 100644
+> index 0000000000000..7cc0ae0ada402
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/Makefile
+> @@ -0,0 +1,8 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_NET_DSA_MICROCHIP_LAN9645X) +=3D mchp-lan9645x.o
+> +
+> +mchp-lan9645x-objs :=3D \
+> +	lan9645x_main.o \
+> +	lan9645x_npi.o \
+> +	lan9645x_phylink.o \
+> +	lan9645x_port.o \
 
--- 
-2.53.0
+[Severity: Low]
+This isn't a bug, but should the trailing backslash on the last line be
+removed? Leaving it could cause the build system to escape the EOF or
+absorb appended lines into the variable in future patches.
 
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
+/net/dsa/microchip/lan9645x/lan9645x_main.c
+> new file mode 100644
+> index 0000000000000..b253813518c20
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 
+[ ... ]
+
+> @@ -0,0 +1,447 @@
+> +static int lan9645x_setup(struct dsa_switch *ds)
+> +{
+
+[ ... ]
+
+> +	/* Allow VLAN table to control whether cpu copy from the pgid table is
+> +	 * enabled. Index PGID_ENTRIES is CPU src pgid, so we skip it as the
+> +	 * configuration makes little sense here.
+> +	 */
+> +	for (int i =3D 0; i < PGID_ENTRIES; ++i)
+> +		lan_wr(ANA_PGID_CFG_OBEY_VLAN_SET(1),
+> +		       lan9645x, ANA_PGID_CFG(i));
+> +
+> +	/* Disable bridging by default */
+> +	for (int p =3D 0; p < lan9645x->num_phys_ports; p++) {
+> +		lan_wr(0, lan9645x, ANA_PGID(PGID_SRC + p));
+
+[Severity: High]
+Will this source PGID mask drop all data-plane traffic to and from the CPU?
+
+By setting this to 0 for all ports in lan9645x_setup() and later in
+lan9645x_update_fwd_mask(), it appears the user ports lack the CPU port
+module bit.
+
+Additionally, because the NPI port isn't part of any bridge, won't its mask
+also be set to 0, causing frames injected by the CPU to be dropped by source
+filtering before reaching the user ports?
+
+> +
+> +		/* Do not forward BPDU frames to the front ports and copy them
+> +		 * to CPU
+> +		 */
+> +		lan_wr(ANA_CPU_FWD_BPDU_CFG_BPDU_REDIR_ENA,
+> +		       lan9645x, ANA_CPU_FWD_BPDU_CFG(p));
+> +	}
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drivers=
+/net/dsa/microchip/lan9645x/lan9645x_port.c
+> new file mode 100644
+> index 0000000000000..0642b59419c25
+> --- /dev/null
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
+
+[ ... ]
+
+> @@ -0,0 +1,214 @@
+> +void lan9645x_port_cpu_init(struct lan9645x *lan9645x)
+> +{
+> +	/* Map the 8 CPU extraction queues to the CPU port module (datasheet is
+> +	 * wrong)
+> +	 */
+> +	lan_wr(0, lan9645x, QSYS_CPU_GROUP_MAP);
+> +
+> +	/* Set min-spacing of EOF to SOF on injected frames to 0, on cpu device
+> +	 * 1. This is required when injecting with IFH.
+> +	 * Default values emulates delay of std preamble/IFG setting on a front
+> +	 * port.
+> +	 */
+> +	lan_rmw(QS_INJ_CTRL_GAP_SIZE_SET(0),
+> +		QS_INJ_CTRL_GAP_SIZE,
+> +		lan9645x, QS_INJ_CTRL(1));
+> +
+> +	/* Injection: Mode: manual injection | Byte_swap */
+> +	lan_wr(QS_INJ_GRP_CFG_MODE_SET(1) |
+> +	       QS_INJ_GRP_CFG_BYTE_SWAP_SET(1),
+> +	       lan9645x, QS_INJ_GRP_CFG(1));
+> +
+> +	lan_rmw(QS_INJ_CTRL_GAP_SIZE_SET(0),
+> +		QS_INJ_CTRL_GAP_SIZE,
+> +		lan9645x, QS_INJ_CTRL(1));
+
+[Severity: Low]
+This isn't a bug, but is this second write to QS_INJ_CTRL_GAP_SIZE
+intentional? It looks like it writes the exact same value as the register
+modification a few lines above.
+
+> +
+> +	lan_wr(SYS_PORT_MODE_INCL_INJ_HDR_SET(1),
+> +	       lan9645x, SYS_PORT_MODE(lan9645x->num_phys_ports + 1));
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260708-dsa_lan964=
+5x_switch_driver_base-v9-0-0d1512a326d7@microchip.com?part=3D4
