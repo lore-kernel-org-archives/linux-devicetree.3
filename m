@@ -1,280 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010023.outbound.protection.outlook.com [52.101.229.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEAE42DA29;
-	Thu,  9 Jul 2026 16:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783613610; cv=none; b=YW8Xp3/oKKm1BwbS8ESd4uUP6pCwH63LxzMgUCCb3Ilqe0d/C39m2ku/JbDepAi93SIZt21INfuFPHI4Kx0DVBB8+I4zyhBIs4iuT7d7YwXj5RdDn++zaevwgAH3Dn3mFf60YfRvFrdAKriGLqboKNMjXYtWJcNJ/Lszgc/u/Ho=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783613610; c=relaxed/simple;
-	bh=RAelIY3SGJPFiX9W78brt71IyKj6nxt4Jj1gg/NENhM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ss88lkAHwbDRcgoINGhkB+p7DbDQ80obacXE6/lciBGO8GtFsKaZC2FkNrefPBkEXtaGy7Pvf87Z9q/QhO+H5JEaH9w8oGvyfq6gGkbTmGyilqgOkxzrCRSchFPf6AKeFDVo0/8gvA1btWpbxnu6q2+ZcyxrONUzeTpIglJeyIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8tKeN5i; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1947416D15;
+	Thu,  9 Jul 2026 16:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783614276; cv=fail; b=f0OY4Cf/YLti3M27RSqyVOPvgdVotcwOs1h+1/Apt8VGG8DRo6DR4AV1j68UcKVGp6Z7ClBkAoMzX//45ThSqjjTu7Euj69Pg++dh+5n8esFQbgROj/355A+ZO/22ONuNuptkya0RJG/5d2CamqYHU3sa4Oi61mE6wPQLOTwvcY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783614276; c=relaxed/simple;
+	bh=7V4j690yZK6J7H7C3jBsgT+jhQqmRsUtQjjMxD8AuHQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=nHGMMCyfmX2j69rbo2hlAQpQaaMxYwWB0630W3e/dtYEewK+YR6TUcO1IssDPjetN5OprDq2ef+idePnGzFmi1V5s8wuiuKrEOhjRq20BlkuCGIa03r0OrlAOKYq70N0LUEK1wVbvvF+z9zxcQ0pCooOtOSv6kwDSIOGVnQErEg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=lTpk1ht5; arc=fail smtp.client-ip=52.101.229.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8tKeN5i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2C31F00A3A;
-	Thu,  9 Jul 2026 16:13:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783613608;
-	bh=RAelIY3SGJPFiX9W78brt71IyKj6nxt4Jj1gg/NENhM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e8tKeN5i4m4ACoOIBmSex0OeWH2XVw83XZ/aBvIwAmA4coEeCRkZa20zr/3Llj4QL
-	 6vzg0h1m+yrIbw5jfQXfNEWCibeZaeL4FHjTTGZiP9eAP/lTt3VOP3zXoetxmU0q0/
-	 79FOEwYtkhE9Xmg6wgzbgQmtchuGg/eeL1OjeSNT/5CTp5HwVi9+sU+rSGiOhb85nm
-	 CjX2Wsyt7C4fzG2CQU2FPvrchrTG/FgiPV99mGrgxgNQfmP/+MqQIKgRdf6MPKsoOS
-	 zICm/nvJRVVETdHHU8Emsy3FV9eKl4gAhMMhlVaCEy4/b8Hsbqv4Wy0XMBByorPdci
-	 ErIM9s1QwJm+Q==
-Date: Thu, 9 Jul 2026 18:13:26 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Will Deacon <will@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
-	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
-	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, Chun Ng <chunn@nvidia.com>
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-Message-ID: <ak_F9o4KMMqZAsq3@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-4-d80f7b871bb4@nvidia.com>
- <akYs91INHMXMTI-t@willie-the-truck>
- <akZkuwktaXFTrASP@orome>
- <akaSJ5D98w2cHqb6@orome>
- <akftuw9NyRy36fXA@willie-the-truck>
- <akuvyu1Pq0ZVMZV0@orome>
- <akzikTrmhMsvkNVY@willie-the-truck>
- <ak5CXzGStC6ZmtwI@orome>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="lTpk1ht5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kgzxZswpDHZJk4gBSDOSYaDTc5/j++8wrL0VCOQ2+QVb84F+ABn+cCAhfLCm/u4vNYTaXVcVNKSdrGoGWNRKxVL3cO5YP6FjU9Smo4EtOEptCcio9bsslYOsmGdGhyrRqa6W76vsuuTdqVtoK3uOgSlJGaFVDdQow/AefI1e+bqphXDVNmLlr9GQQiykUKysSr+oH9ocz1oTASGpU9XMIzEdjbeMxUZLM0koRcE1NWfNL6FbCmLut9yhvmoW7A3H36keNFwsKDWxLbQ9272GcEKj/oChgo38vF8KJvZORmZUleK25tEyeJQTki3FI1j1TjC1aVoaBModNv3iih/UmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kOijpU89bEcpSffQaS+jSTUIxgf3ZnHjumKfA2F1ZlQ=;
+ b=iGA8tjmTgNRDGl14sylfrvD+qfsXjvKeqfPnkCb91brSgB3utgLILlxV8oKDeOBW0IymB5wof0hlaoLXaAbzl4BhYb+Wu+5JoAvRQH6Sl9j9PHg4nQ7pwkzRIrxYjcdfzGlg9OSYjq+k3g7LsGsRIHrPQJhpuP9chRxU5956ZfSGqPvyN7GcW7FiZ8YQTrRsy/RzjqEfQMiqDULS6CzftiDwKTkOynFxCwKtD4XoL+FpFSbnBXjdTNh1VckmtoqdKQMftf7EyZTmR9Ygi+FTsz7Xl85H70p34aCnu96R6kU494ZV+Ny8eNxi7iOfnFiAtoieyie86jFoKUY3OSAkYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kOijpU89bEcpSffQaS+jSTUIxgf3ZnHjumKfA2F1ZlQ=;
+ b=lTpk1ht5yUj7fk+iKtZXUQsLUXUyVrnWaNaD+lnf63r7lCWq1dNSkTK+mT+i4R9HwFqBKTIGBnia3Yi1UJdrlVpK9Buv44vZ0jEhZdCr7Rz4Pg9Q8Kx6rgqaLeIDTGizE8JKa7i9FkRWTHjEKTzAIeQCX2uB7F12gbZjlINshsQ=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYYPR01MB6944.jpnprd01.prod.outlook.com (2603:1096:400:d7::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Thu, 9 Jul
+ 2026 16:24:29 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0181.009; Thu, 9 Jul 2026
+ 16:24:26 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: biju.das.au <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Philipp Zabel <p.zabel@pengutronix.de>, magnus.damm <magnus.damm@gmail.com>
+CC: wsa+renesas <wsa+renesas@sang-engineering.com>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
+	<biju.das.au@gmail.com>
+Subject: RE: [PATCH v18 00/12] Add Renesas RZ/G3L SD/eMMC support
+Thread-Topic: [PATCH v18 00/12] Add Renesas RZ/G3L SD/eMMC support
+Thread-Index: AQHdAl+r4yj1HERfHk6QPePkoaHOOLZleakw
+Date: Thu, 9 Jul 2026 16:24:26 +0000
+Message-ID:
+ <TY3PR01MB113462BB275A7939C5A82CCB586FE2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260622155610.184271-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260622155610.184271-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB6944:EE_
+x-ms-office365-filtering-correlation-id: 83958412-0721-469d-d10e-08deddd68b92
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|11063799006|56012099006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ rV+4lFYzaO0dbRsxTZThmHS9+IomQQQfaotvgsQEc1RWKJPNzjfvY47hoRKY4EhfpABdNIhubjG52diYH0iqJtxcGoUa7dHqWoevB8CBRBaTpXJL8/E8iqKRi2jlv7K4VFkiDKPjB8jfv68Zeqk2bjfRiY3cbiKmaqjQ74TxhCyfuARxJEqOIhth4VNOBawH4Wyc9GtiJ/oP+ZKdG2OEG1vblSYyMU89vUJaL5NJDbA67VlMCXkggj8pElYm9GcHcf612QFiVscFtetNgZUGiK43S/w6lwwCguuQWaEUzxFhjrWAZUefpsiN4MeT/eZJRRaMEuZ0TjJg+24hBla66rnBwzB2f2b2NgeFwHLg3M0Pi1ObMGy/OV5VyaD5ROhyBP7Vp+4KJq2ulfeWdlhvgm46JbDgI5s8LY+9IYodX5mavDgccFMDwej93Svv8y7DugLdm4I0ZSNW8WJsZrHSGie6a2Hi9O+78vsTCAQSU2P1yRqi5H12zkd4Le8OMWOk2qMjhMqO2e4EWrXF9S9tYm+RLy1sLWB+9Vzh3SWb6RzlO6tCD5Mxr/i3utR7Vj6ufEw7H8b6gnbPK3fsqCFrEiPuLMLSd5TiyUnWPRHEJngwf43rcaMvaEE/rzxgZzFmeOKz0OtK0LSdCZxBLrIf6VMWnVOyHjOOAJg0Gx49cjZXsLR+aQNih2h6g02dNjbrL35VsQzVjI6fIGqkJQaxz63sRD2QaMxkgLV/9CaQbXw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?dG0OP5u59kKtw6NGdN66hMWOPxCiDvTcPWnNIvImIUadjc4mFK+jzDKgXzFo?=
+ =?us-ascii?Q?jfm2sETIcp7gvkWrtZRR2gGrhHpBh02OEW8CRNx3ZHWSKJB68Y3PR96Ii3Jx?=
+ =?us-ascii?Q?klXejYBpq9AQe4Am2FAqdkAD1ejkHmJ+uD5//M3CLlxO1kVtvIxXHswrUYcS?=
+ =?us-ascii?Q?8wtkUexLG1ObjgAaMO8JCNBj9tGcQ+CMFeVIoXQwl0VA8IGjA+mHTSlzzd+G?=
+ =?us-ascii?Q?OAcpqx4Q9OUmyI6+4hfyal5NfguukJFI/PI35fk5fpFE+3U4diiv9L6ZAmpL?=
+ =?us-ascii?Q?jgoIhNhoNdEW/aRKi9m7bYZBt9KcaLxsP8CfYvYPSUNkIsSYS/85mXv6FbCv?=
+ =?us-ascii?Q?IU6jEEkmy44UY/EBCUIHT/WW4cBVvvG/srnNKVSKTzo0Sm0YHum9sznmK+lC?=
+ =?us-ascii?Q?OZl37RkCsPUkBOz/DN/RkI07v+X2oOW+EMRbFwm1fNzDb8Tn5CNuUKfy+GRI?=
+ =?us-ascii?Q?qVDjz80qWfQxShRdbHOwx8SdtjHTcsU0MmVhonCCcEK7HaHMgwdcAaYJILd3?=
+ =?us-ascii?Q?05D8bL68hIqo5wAnhDfTNiP1KJv5/tKseWi4CCYV0H21fT3a1CKmTBysgib6?=
+ =?us-ascii?Q?8+h3JqKEobReeAzAijCQrDKNsF0l9kLf2P3mz6T8bPsio2OnTvU0pE1SzA6K?=
+ =?us-ascii?Q?+Y5izU4R8jA9eWXT9rsGhRMvCabuB7OVXIFZ8ly98ciF35j2jmlRf4Vwvti+?=
+ =?us-ascii?Q?DkDUkB67T1ygHbalveBX5gXZNcFhhUBdcKtKPZAcRIvJW70STgDksRXHNSQe?=
+ =?us-ascii?Q?+xEPIWMQrHEO4WTpGCnD+U4sv+7R5rzxtDsbgxaPHueG/uJOE4+ICIBSq0Bx?=
+ =?us-ascii?Q?iSOVZtuCMJzQbirEl61GMyyFjyLNit+cPaCzqmZPlSr0Ezq7ATvOPTArPpMY?=
+ =?us-ascii?Q?ZT8SH9f7Y7rc4Gk1tgBv2H9P/ZRB00B4OvFB5xA4I4e/uCxB/A2Kt13XRjPP?=
+ =?us-ascii?Q?+J6RpJDmw7exmLmnLV7UIWQLDUqrmLbdB8eJk6V8glapnSSVUx748TaKNuFP?=
+ =?us-ascii?Q?MuJxbe8cRJX/BScmFy7PJVKcm/GvfwQIwgIiiAgWBPfYW9mDCOqaMqNNg9Eg?=
+ =?us-ascii?Q?KEE87/QY94AG93AF8Vo1g1QnegNSa6a7uji5QGEP9iVzx7VyUBJppsoRYM7t?=
+ =?us-ascii?Q?MNXVjxIxLy4iGXhG8H3DGy1ZxtDz4nWLP0f79tyg7fAIBdYgElNqdCCwGeSE?=
+ =?us-ascii?Q?LY18+4w9oBRiUz6nUbHfblg6u+MbdRubwSuugwqlVJDjNfCoQkreWn4yANgN?=
+ =?us-ascii?Q?ha0E4mcJ3aVRryda4AiFrL+OWOinp+W5nt3j2Mljea3n7feWQ66rssVtL5aR?=
+ =?us-ascii?Q?9aD24N1Urs1gVIEyMsY2h8hQmJE0YtBw5PG4xKNoPPYHax8Iw18QL9El9Jo3?=
+ =?us-ascii?Q?rMyO5Se1GNeHK1bMuITmyRNqC8EEOe1GvAmoDWQ9Z0ravuy0D84RHfjSTqHK?=
+ =?us-ascii?Q?obPsNQszu1k+Na+dq29KtDfvM3ufKdtMEI1XW4PcqDoZhwENEqy6bkzyLPW9?=
+ =?us-ascii?Q?bD4TZm0elylstoY6Qrt0dfGSu0Bf1yoDqae4g5nKn0t7qTiUjtQZIyNCkT4q?=
+ =?us-ascii?Q?JU1eh3EPisLILHmUiAF/4ab8ZOjMg81h2iTP6jr15TWpSzGkNZezjq+ym9nZ?=
+ =?us-ascii?Q?QndtaQ9VlJIAoUZHoLHLYxwioO5yxuGdaFhs5haHdguZX095Utled3G29ayb?=
+ =?us-ascii?Q?pLUH/25/jVqVG6MY6WLKtYIOt5dFIqPxttnJ5eTaunfQGT2H/DUgnbWNiROT?=
+ =?us-ascii?Q?9knN9FTMsw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="u2l7n4igggpssyeo"
-Content-Disposition: inline
-In-Reply-To: <ak5CXzGStC6ZmtwI@orome>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83958412-0721-469d-d10e-08deddd68b92
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 16:24:26.6953
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X0or/Qwl4CwgXYDIzyuva41Y/Pcm4N6wsLFTbNPGCI4ewLadsk6p4OxlInc7pcogZdYEU5gLPz42YhQfKF6/cdRH39MtHbt3pu1ePaV23iU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB6944
 
+Hi Wolfram,
 
---u2l7n4igggpssyeo
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 04/11] arm64/mm: Add set_memory_device() and
- set_memory_normal()
-MIME-Version: 1.0
-
-On Wed, Jul 08, 2026 at 02:50:04PM +0200, Thierry Reding wrote:
-> On Tue, Jul 07, 2026 at 12:27:13PM +0100, Will Deacon wrote:
-> > On Mon, Jul 06, 2026 at 03:49:24PM +0200, Thierry Reding wrote:
-> > > On Fri, Jul 03, 2026 at 06:13:31PM +0100, Will Deacon wrote:
-> > > > On Thu, Jul 02, 2026 at 06:41:23PM +0200, Thierry Reding wrote:
-> > > > > On Thu, Jul 02, 2026 at 03:46:44PM +0200, Thierry Reding wrote:
-> > > > > > On Thu, Jul 02, 2026 at 10:18:47AM +0100, Will Deacon wrote:
-> > > > > > > On Wed, Jul 01, 2026 at 06:08:15PM +0200, Thierry Reding wrot=
-e:
-> > > > > > > > From: Chun Ng <chunn@nvidia.com>
-> > > > > > > >=20
-> > > > > > > > Add helpers to swap PROT_NORMAL and PROT_DEVICE_nGnRnE prot=
-ection bits
-> > > > > > > > on a kernel-linear-map range.
-> > > > > > >=20
-> > > > > > > That sounds like a really terrible idea. Why is this necessar=
-y and how
-> > > > > > > does it interact with things like load_unaligned_zeropad()?
-> > > > > >=20
-> > > > > > This is necessary because once the memory controller has walled=
- off the
-> > > > > > new memory region the CPU must not access it under any circumst=
-ances or
-> > > > > > it'll cause the CPU to lock up (I think technically it'll hit a=
-n SError
-> > > > > > but in practice that just means it'll freeze, as far as I can t=
-ell).
-> > > > > >=20
-> > > > > > Probably doesn't interact well at all with load_unaligned_zerop=
-ad().
-> > > > > >=20
-> > > > > > > I think you should unmap the memory from the linear map and m=
-emremap()
-> > > > > > > it instead.
-> > > > > >=20
-> > > > > > Given that the memory can never be accessed by the CPU after th=
-e memory
-> > > > > > controller locks it down, I don't think we'll even need memrema=
-p(). The
-> > > > > > only thing we really need is the sg_table we hand out via the D=
-MA BUFs
-> > > > > > so that they can be used by device drivers to program their DMA=
- engines
-> > > > > > internally.
-> > > > > >=20
-> > > > > > Looking through some of the architecture code around this, shou=
-ldn't we
-> > > > > > simply be using set_memory_encrypted() and set_memory_decrypted=
-() for
-> > > > > > this? While they might've been created for slightly other use-c=
-ases,
-> > > > > > they seem to be doing exactly what we want (i.e. remove the pag=
-e range
-> > > > > > from the linear mapping and flushing it, or restoring the valid=
- bit and
-> > > > > > standard permissions, respectively).
-> > > > >=20
-> > > > > Ah... I guess we can't do it because we're not in a realm world a=
-nd so
-> > > > > the early checks in __set_memory_enc_dec() would return early and=
- turn
-> > > > > it into a no-op.
-> > > > >=20
-> > > > > How about if I extract a common helper and provide set_memory_p()=
- and
-> > > > > set_memory_np() in terms of those. Those are available on x86 and
-> > > > > PowerPC as well, so fairly standard. I suppose at that point we're
-> > > > > closer to set_memory_valid().
-> > > >=20
-> > > > Why not just call set_direct_map_invalid_noflush() +
-> > > > flush_tlb_kernel_range() for each page? We already have APIs for th=
-is.
-> > >=20
-> > > Having a "standard" helper with a fixed and documented purposed seemed
-> > > like a preferable approach for this particular case. We also may want=
- to
-> > > make the driver that uses this buildable as a module, in which case w=
-e'd
-> > > need to export these rather low-level APIs. And then there's also the
-> > > fact that we typically call this on a rather large region of memory
-> > > (usually something like 512 MiB), so doing it page-by-page is rather
-> > > suboptimal.
-> > >=20
-> > > > The big challenge I see with any linear map manipulation, however, =
-is
-> > > > that it will rely on can_set_direct_map() which likely means you ne=
-ed to
-> > > > give up some performance and/or security to make this work. Does me=
-mory
-> > > > become inaccesible dynamically at runtime? If not, the best bet wou=
-ld
-> > > > be to describe it as a carveout in the DT and mark it as "no-map" so
-> > > > we avoid mapping it in the first place.
-> > >=20
-> > > VPR exists in two modes: static and resizable. For static VPR we do
-> > > exactly that: describe it as carveout in DT with no-map and deal with=
- it
-> > > accordingly in the driver. Resizable VPR is for device that have small
-> > > amounts of RAM. Content-protected video playback will in the worst ca=
-se
-> > > consume around 1.8 GiB of RAM, so we want to be able to reuse for oth=
-er
-> > > purposes when VPR is unused on those devices. In that case, the memory
-> > > is also described as a reserved-memory region in DT, but it is marked=
- as
-> > > reusable so that it can be managed by CMA.
-> > >=20
-> > > The resize operation is fairly slow to begin with because we need to
-> > > stall the GPU and put it into reset before the operation, then take it
-> > > out of reset and resume it afterwards.
-> > >=20
-> > > What kind of performance impact do you expect?
-> >=20
-> > You'll need to measure it, but we've seen reports of double-digit
-> > percentage regressions in performance and power. As I said, the problem
-> > is that you need to split the linear map to 4k page at runtime to unmap
-> > the dynamic carveout, but that isn't something that can be done on most
-> > CPUs. Therefore you end up having to use page-granular mappings for the
-> > entire thing, similarly to how 'rodata_full' drives can_set_direct_map()
-> > and the perf/power hit affects everything.
-> >=20
-> > It's hard to know what to suggest... I wonder if any of the memory
-> > hotplug logic could help here?
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 22 June 2026 16:56
+> Subject: [PATCH v18 00/12] Add Renesas RZ/G3L SD/eMMC support
 >=20
-> I've read up on memory hotplug a bit and it sounds like it could fit
-> this really nicely. Given that we only use CMA (along with the extra
-> patches to it) to make sure that any buffers are reclaimed for VPR use,
-> we should be able to get rid of the CMA usage altogether and replace it
-> with online_pages() and offline_pages() instead. Rather than using a
-> fixed set of CMA areas like we currently do, each "chunk" in the VPR
-> driver could represent a memory block instead (which looks like it will
-> be 128 MiB for 4 KiB pages and 512 MiB for 64 KiB pages). We currently
-> use 512 MiB as the chunk size, so it should be relatively similar and
-> easy to adjust.
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >=20
-> One issue that we would absolutely need this memory to be ZONE_MOVABLE
-> from the start. Using no-map in DT and then online_pages() probably will
-> not work because there's no struct page for the memory. So we're left
-> with keeping the memory onlined by default, in which case we'd need some
-> way for DT to instruct the memory to be put into ZONE_MOVABLE always.
+> RZ/G3L SoC has:
 >=20
-> There's a "hotpluggable" property for "memory" nodes, maybe that can be
-> extended to apply to reserved-memory nodes as well?
+> Channel 0 supports SD and eMMC (including HS400/HS400ES).
+> Channel 1 supports SD and eMMC (except for HS400).
+> Channel 2 supports SD.
+>=20
+> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does n=
+ot support IOVS and PWEN in the
+> SDHI register (no internal regulator), unlike SD1 and SD2. It has an inte=
+rnal divider for all modes
+> except HS400.
+> It also has a 2048-bit divider compared to 512 on others. Moreover RZ/G3L=
+ supports HS400 enhanced strobe
+> mode.
 
-I haven't been having much success with this. memblock_mark_hotplug()
-doesn't have much of an effect because the kernel clears this flag
-automatically at some point, so by the time the movable zone is created
-there's no memory left that's marked hotpluggable. I don't know if it's
-a good idea to modify the code to keep the flag.
+I will be sending an improved version of the patch series that
+Handles clock divider correctly.
 
-Another thing I briefly tried was to use add_memory_driver_managed()
-together with the no-map flag in an attempt to get the memory explicitly
-added as movable, but that fails because __request_resource() notices
-that the reserved memory is actually part of the system RAM that was
-registered earlier.
+Cheers,
+Biju
 
-I think in order for this to work the bindings would probably need to
-change, such that reserved-memory nodes aren't used but it's described
-using the memory nodes instead. That way a piece of system RAM could be
-carved out and added by the VPR driver. I don't know if the kernel would
-like this kind of splicing of the system RAM, though.
+>=20
+> v17->v18:
+>  * Collected tag
+>  * Merged patch #4 and #5 and updated commit description
+>  * Annotated the empty sentinel entries in the OF match tables with a
+>    "Sentinel." comment for clarity.
+>  * Retained the tag as it is a trivial cleanup.
+>  * New patches drop struct renesas_sdhi_hw_info, instead using
+>    renesas_sdhi_of_data and tmio_mmc_data.
+>  * Dropped clk, pinctrl, SoC, and board dtsi from this patch series;
+>    will send later.
+> v1->v17:
+>  * Collected tag for binding patch.
+>  * Resending the series as there is an issue with patch threading from
+>    patch #14.
+>=20
+> Biju Das (12):
+>   dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
+>   mmc: renesas_sdhi: Fix whitespace alignment in struct
+>     renesas_sdhi_of_data
+>   mmc: renesas_sdhi: Add clk_mask field to support SoC-specific clock
+>     divider widths
+>   mmc: renesas_sdhi: Add max_divider field to support SoC-specific clock
+>     divider ranges
+>   mmc: renesas_sdhi: Add tuning delay support for RZ/G2L
+>   mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
+>   mmc: renesas_sdhi: Add optional axis/axim reset controls
+>   mmc: renesas_sdhi: Add RZ/G3L SDHI support
+>   mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
+>   mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
+>   mmc: renesas_sdhi: Add RZ/G3L HS400 support
+>   mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
+>=20
+>  .../devicetree/bindings/mmc/renesas,sdhi.yaml | 101 ++++++--
+>  drivers/mmc/host/renesas_sdhi.h               |  12 +-
+>  drivers/mmc/host/renesas_sdhi_core.c          | 239 ++++++++++++++----
+>  drivers/mmc/host/renesas_sdhi_internal_dmac.c |  73 +++++-
+>  drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  12 +-
+>  include/linux/platform_data/tmio.h            |  18 ++
+>  6 files changed, 370 insertions(+), 85 deletions(-)
+>=20
+> --
+> 2.43.0
 
-It's all very close to what I need for this, but doesn't quite fit. Any
-ideas which of the options is best? Right now it sounds like finding a
-way to make this region explicitly ZONE_MOVABLE would be the best. That
-should allow offline_pages() and online_pages() to be used, which seems
-like the cleanest approach.
-
-Thierry
-
---u2l7n4igggpssyeo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpPyKMACgkQ3SOs138+
-s6HMyg//VTBl5irgppGTb3EjEccykd6c0o9JZQ0UMSSSA+GHq89TLA0mP06UMEIo
-rhLr7OakIAbbZ1QlsTywvsU9Fm33hcO4AddUn1OAcl4HTvP19JfwNN3Y/AwZtsKw
-CO5/J9sJOO2Ofb3O20BC7RHHfLxHhhwjdcp8+aQ739tG7fKlyA6r/R3ebAOVsQqJ
-VTSFF8Bdej2X/EWVBZRWprUdSgDACyFlhNIRBOt57nRObqO7iqnXEjm84gMXJWxk
-/4OStnkVJL4fVk1ZaDzYjFJzi1MTT20KOEldRWAL3CwxSLYBcP8rYG0YoGLaZIfC
-Hgvo0XBO+RHwufv77wN4Z7vDLAktcNu6PTS1ovemW24iW3DelUv89/7Fh32l31CV
-dTnvNK6sukz82QXd62VFzskpbfxW9ONO5awGKcpxDEoSeUGd/4Cg+nfvXIbhfZgN
-kdjAJXxD5VvDeIpvOVMSQVINE9T/OkGqV8CkCMQfDu3+hSq7iU8OW8TH2eybWcqt
-POCKNDd0dm21w1miNqpi5qvUrUa8zzYfjmQt1dxwPUf36EcoodZaOSNjkKi0amdm
-S5yLHnW6KuFY26nTGPQ54Noup4ZPuKBoqZjg/m6sPx34fr8HKIMSLM6Kp2oYq2K6
-oga7buaPA7sRTHJ9tMFv/G9ACDJo71dmTuDyMAnNFqpv46c1+4c=
-=+7m0
------END PGP SIGNATURE-----
-
---u2l7n4igggpssyeo--
