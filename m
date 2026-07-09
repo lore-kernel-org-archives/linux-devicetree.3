@@ -1,254 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022089.outbound.protection.outlook.com [40.107.209.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5A33CB8F1;
-	Thu,  9 Jul 2026 20:31:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783629082; cv=none; b=VxBatsQ5RSRt++wiCDaJ8A7/em810zVsORIf6Vi38NE00ZX8/Z+vVxOhC048EcSlXA7B4+i3EjhrRsmc/7wBPwjlVQ64o1sZckCkWP6Yn9Wl60NnWEn4CGLTOItHDyiViPbsaJ9KSlV0eFi4gpR8CuxblK2l71Ox2PHSYp3M4z8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783629082; c=relaxed/simple;
-	bh=ixMi6HpM4htSHbYkQqTkfjEBKIC3adwC+jwQ/ynG114=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HA6nJpyN278ilNdO47akb2o55e4jmNyoA4lxT70JwhrQc8WMdU9tGooeE4I/h8iFWJLxu/CJZcRDK5NJwbjUcsqYeG892vQ2KkqWYAxDbK23bauI5RzNx0ar7ajK8yNqrpkjtrLZj9CUG9rbeYdLgyQh8Zd9eobVYxaPI/XOLt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mPqolArs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E973C3BB690;
+	Thu,  9 Jul 2026 20:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.89
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783629089; cv=fail; b=nGV9gpJXR6KGXRw+D4ConboE98V8ALNdeYA6yvNnHlSDHVj9UcVt8cO30/OyNL3mmbBeOd7FYROEteBBJXWaaZIMGjeT4EYw4yNZCLBPJReOtbHSdo/TEc97v62vjKX3JnZFpv99RLTgbFZ7Rd9CrQnyccdm2jPT+SPgyzE/y/U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783629089; c=relaxed/simple;
+	bh=RXH+7StCTr2wb1/D2sV6JgqxomTmuS3kWEDJthweZSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pudvVdzxpcvM2Y09jk2bEitFSMOgKS1fR1ztqF7XFKrqOwrBL9hCBE39eZNRjz3iTdjl7UAMSdyrg5/MmC/HBAJ63nmjpgUjCv0GrDgLeTS/weO64fYuQieYc22/dWwuaPugAA85DtXYL5P/n3emsPt/fy+UekTUoPpKf01YYMY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=5p1fdGvC; arc=fail smtp.client-ip=40.107.209.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mPqolArs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9861F000E9;
-	Thu,  9 Jul 2026 20:31:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783629079;
-	bh=mU6wcQmTF9H5kdA4V6p1oE5hd739P6/b6LjkbNEjJo8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mPqolArs5+rCBpKiIViShiPvWCTmtVNHSmuZtyl92YiFmNNlY4RNS0m32zsXkIA9e
-	 ZIgUVmdV3mc48AOFXhOf+FJN+XbIgFzggFMiQ74LhWPTV23AcW4OJaR8uPWUrWydjR
-	 E8cxZyqfWva2Ai4ZwNBA5Jm5eaqZ6o46957oULm+LUH3WGcf7dMzPesIumt/wbPbLr
-	 LXIQ0f8G5b2KlHLzJquCp1A5titiua7SRDkDDM+/iV3bsdNdeK0Qgcp5YgO/iszDWf
-	 kSpLtwc8/CDjY/WkSg2uIxXxNI4RTwmCqFUegkVxI9FWZ+QRzKODn17c6nl/B0LZaD
-	 IcnFy7izDWdqQ==
-Date: Thu, 9 Jul 2026 15:31:15 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
-Cc: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
-	mathieu.poirier@linaro.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	konradybcio@kernel.org, manikanta.mylavarapu@oss.qualcomm.com, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 0/6] Add new driver for WCSS secure PIL loading
-Message-ID: <alAEKQzBXqjESAbo@baldur>
-References: <20260505102310.2925956-1-varadarajan.narayanan@oss.qualcomm.com>
- <e6311e97-0a26-4412-bcf0-d0313bf52c01@oss.qualcomm.com>
- <4a4e0e9c-8541-4fcc-8019-10a576840109@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="5p1fdGvC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LG9AHbfbP6kitddVFbAGelgYLTUjF6pVNOUgO2NBzYDn1gZrpyqgOpy10AR+pBcxHl/FmdaG95GXtfkqF2IRqulyVVHWur1RgxRUHkaIdp6RCXu4rRqgGTf++fg+Xg1ug7E2QlB3huDawNeF02xQhjB6+DDAQhtQGinfOsCEl/UwFQ9dxmaWR79AOsSYUnK9bBIkRrau06JGllOa0bSMhZALERLj/5y6QcH2n5Xsve0l+cdA8/OEnJ5WwEEunk/+h/SpDwRcHyz3yJb7g0in+/CtyK2KGFEvTn44dyNLkvn0dzFWdeRN0w0U3vWOZQXvFqt+d42gIXDHyOatJE81aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N2Gvlj7CPrvOIDQ5v7xoQ92Y6S2eisSDD4WdQ+mG380=;
+ b=YY7PDA8jT9REo9rStfMWtGJSo35J2hO+mXrWPLlxQhFHLmr/l+sGfNydiyEDAe7qRFDVdSIj8h2auXhPOoMLVBW8gEauWIHfny19+wt+SPfGJsm8FaKjyWr3aXeR3bM6rXsL4VAZHYh69Tbk16TnB+eUBDW+c4imzYvOS9/Of+THhL2j7cNG0fMlZvp6kEvNQ/ClAna3ifwhtY/TRVl3O+A7FtNBDqdezgqOyzBHT3/+EJrBh1pAj8MwaNoTPKloDwBTw8Gfq1mF/PHZj2/e0RNT8f1rGE5WzoHO24aBlVCfYs5OCfGOUXJ1GaIUFI4qsuIXo/gCTUT2j7bWODGsVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 192.86.86.210) smtp.rcpttodomain=cryptography.com smtp.mailfrom=rambus.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=rambus.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N2Gvlj7CPrvOIDQ5v7xoQ92Y6S2eisSDD4WdQ+mG380=;
+ b=5p1fdGvCgQzlenrQkWz+Jggh/ijxw0yAXOd297hFGLrp0OjI8v3ehkZ9h3g8lVUjX9vhhr2mJDNIoryA2nRaSmNlkbZWhYvC8lSIY0lM6b/LPa+MiNDKPlP1BR1qEjeyjaivputltDJmEAKNHeuQNs3T4zE8rvrhrf03ABRGelyux625X2JcW6mrmxiINuctszZrFxauOicrYEF3YFVEAVFKA529VXjNz66uuKJcxNifyBFJk0PoAcQfk7+7KI2pPpjYlTN/C5UcFASml60CrbgEipzPVGhVUtABiasfCH4JhULuAjgrIWXchiGWelW4SpOT7a4Dt05/x3woxYLR8w==
+Received: from SJ0PR13CA0068.namprd13.prod.outlook.com (2603:10b6:a03:2c4::13)
+ by SA6PR04MB9143.namprd04.prod.outlook.com (2603:10b6:806:40e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 9 Jul
+ 2026 20:31:24 +0000
+Received: from CO1PEPF000075F1.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::b7) by SJ0PR13CA0068.outlook.office365.com
+ (2603:10b6:a03:2c4::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.5 via Frontend Transport; Thu, 9
+ Jul 2026 20:31:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 192.86.86.210)
+ smtp.mailfrom=rambus.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=rambus.com;
+Received-SPF: Pass (protection.outlook.com: domain of rambus.com designates
+ 192.86.86.210 as permitted sender) receiver=protection.outlook.com;
+ client-ip=192.86.86.210; helo=hqxsv-psmtppxy02.rambus.com; pr=C
+Received: from hqxsv-psmtppxy02.rambus.com (192.86.86.210) by
+ CO1PEPF000075F1.mail.protection.outlook.com (10.167.249.40) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.6
+ via Frontend Transport; Thu, 9 Jul 2026 20:31:23 +0000
+Received: from hqxsv-cmdev3-skrishnamoorthy.rambus.com (hqn-lb-int-float.rambus.com [10.12.20.20])
+	by hqxsv-psmtppxy02.rambus.com (Postfix) with ESMTPS id 9026E180177F;
+	Thu,  9 Jul 2026 20:31:21 +0000 (UTC)
+From: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+To: Albert Ou <aou@eecs.berkeley.edu>,
+	Alex Ousherovitch <aousherovitch@rambus.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org,
+	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+	linux-api@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thi Nguyen <thin@rambus.com>
+Subject: [PATCH v2 19/19] MAINTAINERS: add Rambus CryptoManager Hub (CMH)
+Date: Thu,  9 Jul 2026 13:30:37 -0700
+Message-ID: <20260709203037.1884436-20-skrishnamoorthy@rambus.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
+References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4a4e0e9c-8541-4fcc-8019-10a576840109@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075F1:EE_|SA6PR04MB9143:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 60c4a879-840a-4e3d-252a-08deddf90b64
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|7416014|376014|23010399003|82310400026|921020|18002099003|22082099003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	/IVrSLm3X8irf3XyZI2ITGDZe0PIDTPWVxMMvz1NEf5y6tQpkra/8yKLwXSUFp7WD6P0qV2JfuljUOrwCFWY78sn5UgulRNl7cmI7IjkMXTrZE3e3jZ1JEy8JQBjDyf+QdQfIUvrAYwiEypmjOJsV+btETtf6lZuxQ1VIVJJcvy/Gc5gkaRWlTLgcAwy0UDTs77BP4JRavQQz1qoVe42QXmRGHGvxylmOggs23nwFtK9IpGKQjoFeBNQjbRtxXXQ5+4i+e0eIZSmtEtJVBPEI9n2Zw4cvrdp4RbsLZqX/GdAId5tqwOwpgcMZD0bp9o8wcAKYeXkM81l8O4kN7SMixVM34iDx1nhk8AftxAA9WavBQKKh0Y6yl2xnsO35G4rQoO3yGD0rzAn/lCshiDrS5qKc1ZXKyCC/dVFbVmi8vH3kPEvETMjAQVUJTChXpW5B7VAWYMAk1QGjU0H8DeQ/w9H4xzbMntbPoVUXl56JGENy9s5Bb84AMHPv7X4IczCR1HFCQ9eVxS0jvJs91N2svq0pkPs1BJ9fHs7wWArF+fFn/p1DkpHWEsAHiRr2LwOEBW9O9K5t12RRldr7bZVCVqAobwcU40RRZhxih9tYT08vmgZQZP30erXqKcOEmeZ6DsUMXOkpiXDQNjimEwNXO1r0Z1KyzwFIBy8ejUcsRJ6evtMTR93jS+1X4kNN6Ud2Jjv4tz8p4JyPd6ngIA4pCYcReNq+dSSNVyNvP2o2WH554i7GAPs1j6bwoE0GVqR
+X-Forefront-Antispam-Report:
+	CIP:192.86.86.210;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:hqxsv-psmtppxy02.rambus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(23010399003)(82310400026)(921020)(18002099003)(22082099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pVzAx6S+dfqiGP25jAsTqStgY6OnMq/1DOrmNefST9qYWcHDJV23aYu6yfiHZ7wL+7aoNp6E01nslYPLzq2e+ZN7+LD1ehzoAoReuPC8X1lrNs3Uagldu6uovEE3P4+znbbMQaBxLjrx9OPYyuDPso7aPPinMbECtNn5QRLzg+dzbdxSjQskB1MBZ78tIupCWr/7vP5T1M3S5F+1u6Z5eNwI2zT0mby0mPY5MIVtvHlOOFqB3Tslae4Ho9miJ/ggGFvqn+bAZ/wmCf1yhR/2T96StxXQ5Beu0xnY1DrWzdcn67G/r/zjbtSvu+VPDgM22BDFri6NCI+xwzIcsxrTLhbM6JozDVMKKxPQ/tW1PPYMroScgL++EYKKwa3bkSIQrO7Gh8HmXRPVvP/+kWCATbJSS7a2EZCHzUU20rMh6Bneebq5sq+/pMkEyU/SKSuM
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 20:31:23.9998
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60c4a879-840a-4e3d-252a-08deddf90b64
+X-MS-Exchange-CrossTenant-Id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bd0ba799-c2b9-413c-9c56-5d1731c4827c;Ip=[192.86.86.210];Helo=[hqxsv-psmtppxy02.rambus.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000075F1.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR04MB9143
 
-On Thu, Jul 09, 2026 at 11:25:17AM +0530, Vignesh Viswanathan wrote:
-> Hi Bjorn,
-> 
-> Could you please help review and pick this series if it looks okay to you.
-> 
+From: Alex Ousherovitch <aousherovitch@rambus.com>
 
-Sorry for not keeping up with this corner of my inbox.
+Add MAINTAINERS entry for the CRI CryptoManager Hub (CMH) hardware
+crypto accelerator driver under drivers/crypto/cmh/.
 
-Series looks good, please rebase on the PAS changes that should show up
-in the next linux-next.
+Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
+Reviewed-by: Joel Wittenauer <Joel.Wittenauer@cryptography.com>
+Reviewed-by: Thi Nguyen <thin@rambus.com>
+---
+ MAINTAINERS | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-Regards,
-Bjorn
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d1dbf2f07104..1c153a84f70f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6891,6 +6891,23 @@ F:	kernel/cred.c
+ F:	rust/kernel/cred.rs
+ F:	Documentation/security/credentials.rst
+ 
++CRI CRYPTOMANAGER HUB (CMH) HARDWARE CRYPTO ACCELERATOR
++M:	Alex Ousherovitch <aousherovitch@rambus.com>
++M:	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
++R:	Joel Wittenauer <Joel.Wittenauer@cryptography.com>
++R:	Thi Nguyen <thin@rambus.com>
++L:	linux-crypto@vger.kernel.org
++S:	Maintained
++F:	Documentation/ABI/testing/cmh-mgmt
++F:	Documentation/ABI/testing/debugfs-driver-cmh
++F:	Documentation/ABI/testing/sysfs-driver-cmh
++F:	Documentation/crypto/device_drivers/cmh.rst
++F:	Documentation/devicetree/bindings/crypto/cri,cmh.yaml
++F:	Documentation/userspace-api/ioctl/cmh_mgmt.rst
++F:	drivers/crypto/cmh/
++F:	include/uapi/linux/cmh_mgmt_ioctl.h
++F:	tools/testing/selftests/drivers/crypto/cmh/
++
+ INTEL CRPS COMMON REDUNDANT PSU DRIVER
+ M:	Ninad Palsule <ninad@linux.ibm.com>
+ L:	linux-hwmon@vger.kernel.org
+-- 
+2.43.7
 
-> Thanks,
-> Vignesh
-> 
-> On 5/13/2026 11:49 PM, Vignesh Viswanathan wrote:
-> > Hi Bjorn,
-> > 
-> > A gentle reminder to review this series. All the patches have picked
-> > up R-b tags. If it looks okay to you, could you please help pick
-> > it up in the current merge window.
-> > 
-> > Thanks
-> > Vignesh
-> > 
-> > On 5/5/2026 3:53 PM, Varadarajan Narayanan wrote:
-> >> As discussed in [4] posting this series after dropping IPQ5424 support
-> >> to remove dependency on Sricharan's tmel-qmp mailbox driver series v4 [1].
-> >>
-> >> Imported from 20251215-ipq5018-wifi-v7-0-ec4adba941b5@outlook.com.
-> >>
-> >> Imported from f20250417061245.497803-1-gokul.sriram.p@oss.qualcomm.com
-> >> I've resumed Gokul's work as the last submission dates back April 2025.
-> >>
-> >> - Secure PIL is signed, firmware images which only TrustZone (TZ)
-> >>   can authenticate and load. Linux kernel will send a request to TZ to
-> >>   authenticate and load the PIL images.
-> >>
-> >> - When secure PIL support was added to the existing wcss PIL driver
-> >>   earlier in [2], Bjorn suggested not to overload the existing WCSS
-> >>   rproc driver, instead post a new driver for PAS based IPQ WCSS driver.
-> >>   This series adds a new secure PIL driver for the same.
-> >>
-> >> - Also adds changes to scm to pass metadata size as required for IPQ5332,
-> >>   reposted from [3].
-> >>
-> >> [1]
-> >> https://patchwork.kernel.org/project/linux-arm-msm/cover/20250327181750.3733881-1-quic_srichara@quicinc.com/
-> >>
-> >> [2]
-> >> https://patchwork.kernel.org/project/linux-arm-msm/patch/1611984013-10201-3-git-send-email-gokulsri@codeaurora.org/
-> >>
-> >> [3]
-> >> https://patchwork.kernel.org/project/linux-arm-msm/patch/20240820055618.267554-6-quic_gokulsri@quicinc.com/
-> >>
-> >> [4]
-> >> https://lore.kernel.org/linux-arm-msm/aUN7Aer%2FGG1d5Om9@hu-varada-blr.qualcomm.com/
-> >>
-> >> Changes in v12:
-> >> 	- No code change
-> >> 	- Rebase to ToT
-> >> 	- Change quicinc mail ids to oss.qualcomm.com mail ids
-> >> 	- Link to v11: https://lore.kernel.org/linux-arm-msm/20260326043320.2507890-1-varadarajan.narayanan@oss.qualcomm.com/
-> >>
-> >> Changes in v11:
-> >> 	- Add R-b tags
-> >> 	- Rebase the first patch ("firmware: qcom_scm: ipq5332: add support to pass metadata size") to top of tree
-> >> 	- No change in other patches
-> >> 	- Link to v10: https://lore.kernel.org/linux-arm-msm/20260113092021.1887980-1-varadarajan.narayanan@oss.qualcomm.com/
-> >>
-> >> Changes in v10:
-> >> 	- Add R-b tags
-> >> 	- Remove unused fields from 'struct wcss_sec'
-> >> 	- Remove glink and ssr subdev if wcss_sec_probe() fails
-> >> 	- Link to v9: https://lore.kernel.org/linux-arm-msm/20260106105412.3529898-1-varadarajan.narayanan@oss.qualcomm.com/
-> >>
-> >> Changes in v9:
-> >> 	- Add R-b from Konrad for dts patches
-> >> 	- Renamed qcom,wcss-sec-pil.yaml -> qcom,ipq5018-wcss-sec-pil.yaml
-> >> 	- Restore clocks & clock-names in above yaml
-> >> 	- Fix DCO on two patches
-> >> 	- Link to v8: https://lore.kernel.org/linux-arm-msm/20251219031010.2919875-1-varadarajan.narayanan@oss.qualcomm.com/
-> >>
-> >> Changes in v8:
-> >> 	- Dropped Krzysztof's 'Reviewed-by' as the bindings file has changed significantly
-> >> 		* IPQ5018 support added in v6
-> >> 		* IPQ5424 support dropped in v8
-> >> 		* Updated to use IPQ9574 as example
-> >> 	- dt-bindings-check and dtbs-check passed
-> >> 	- Dropped IPQ5424 support from drivers/remoteproc/qcom_q6v5_wcss_sec.c
-> >> 	- Updated copyrights of drivers/remoteproc/qcom_q6v5_wcss_sec.c
-> >> 	- Change 'qcom,smem-state-names' order to resolve dt-bindings-check error in ipq5018.dtsi
-> >> 	- Dropped changes to ipq5424.dtsi
-> >> 	- Link to v7: https://lore.kernel.org/linux-arm-msm/20251215-ipq5018-wifi-v7-0-ec4adba941b5@outlook.com/
-> >>
-> >> Changes in v7:
-> >> 	- correctly sorted QCOM_SCM_PIL_PAS_INIT_IMAGE_V2 by command ID
-> >> 	- correctly sorted smp2p-wcss nodes in dtsi files
-> >> 	- Link to v6: https://lore.kernel.org/r/20251208-ipq5018-wifi-v6-0-d0ce2facaa5f@outlook.com
-> >>
-> >> Changes in v6:
-> >> 	- added patch to fix IPC register offset for ipq5424
-> >> 	- changed phandle description for mboxes property in dt-bindings
-> >> 	- updated bindings to define the right clocks per SoC based on
-> >> 	  compatible. Ran make dt_binding_check for validation of all
-> >> 	  SoCs
-> >> 	- use of more descriptive match data property (use_tmelcom) and
-> >> 	  added a condition in wcss_start to not error out if tmelcom
-> >> 	  isn't used
-> >> 	- mitigated potential off-by-one
-> >> 	- adopted use of of_reserved_mem_region_to_resource to acquire
-> >> 	  memory-region resource
-> >> 	- added driver support for ipq5018 SoC
-> >> 	- corrected size of reg properties as per Konrad's comments
-> >> 	- added patch to bring up Q6 in ipq5018 dtsi
-> >> 	- Link to v5: https://lore.kernel.org/r/20250417061245.497803-1-gokul.sriram.p@oss.qualcomm.com
-> >>
-> >> Changes in v5:
-> >> 	- retained all the patches as in v3 and addressed comments in
-> >> 	  v3.
-> >> 	- reverted changes to dt-bindings done in v4 and retained as in
-> >> 	  v3 and fixed firmware format from .mdt to .mbn and retained
-> >> 	  reviewed-by.
-> >> 	- dropped 2 patches in v4 that adds support for q6 dtb loading.
-> >> 	  Will post them as a new series.
-> >>
-> >> 	Following tests were done:
-> >> 	- checkpatch
-> >> 	- dt_binding_check and dtbs_check
-> >> 	- Link to v4: https://lore.kernel.org/r/20250327181750.3733881-1-quic_srichara@quicinc.com
-> >>
-> >> Changes in v4:
-> >>         - changed q6 firmware image format from .mdt to .mbn
-> >>         - corrected arrangement of variable assignemnts as per comments
-> >>           in qcom_scm.c
-> >>         - added scm call to get board machid
-> >>         - added support for q6 dtb loading with support for additional
-> >>           reserved memory for q6 dtb in .mbn format
-> >>         - updated dt-bindings to include new dts entry qcom,q6-dtb-info
-> >>           and additional item in memory-region for q6 dtb region.
-> >>         - removed unnecessary dependency for QCOM_Q6V5_WCSS_SEC in
-> >>           Kconfig
-> >>         - removed unwanted header files in qcom_q6v5_wcss_sec.c
-> >>         - removed repeated dtb parsing during runtime in qcom_q6v5_wcss_sec.c
-> >>         - added required check for using tmelcom, if available. Enabled
-> >>           fallback to scm based authentication, if tmelcom is unavailable.
-> >>         - added necessary padding for 8digt hex address in dts
-> >> 	- Link to v3: https://lore.kernel.org/r/20250107101320.2078139-1-quic_gokulsri@quicinc.com
-> >>
-> >> 	Following tests were done:
-> >> 	- checkpatch
-> >> 	- kernel-doc
-> >> 	- dt_binding_check and dtbs_check
-> >>
-> >> Changes in v3:
-> >>         - fixed copyright years and markings based on Jeff's comments.
-> >>         - replaced devm_ioremap_wc() with ioremap_wc() in
-> >>           wcss_sec_copy_segment().
-> >>         - replaced rproc_alloc() and rproc_add() with their devres
-> >>           counterparts.
-> >>         - added mailbox call to tmelcom for secure image authentication
-> >>           as required for IPQ5424. Added ipq5424 APCS comatible required.
-> >>         - added changes to scm call to pass metadata size as required for
-> >>           IPQ5332.
-> >> 	- Link to v2: https://lore.kernel.org/r/20240829134021.1452711-1-quic_gokulsri@quicinc.com
-> >>
-> >> Changes in v2:
-> >>         - Removed dependency of this series to q6 clock removal series
-> >>           as recommended by Krzysztof
-> >> 	- Link to v1: https://lore.kernel.org/r/20240820085517.435566-1-quic_gokulsri@quicinc.com
-> >>
-> >> George Moussalem (1):
-> >>   arm64: dts: qcom: ipq5018: add nodes to bring up q6
-> >>
-> >> Manikanta Mylavarapu (4):
-> >>   firmware: qcom_scm: ipq5332: add support to pass metadata size
-> >>   dt-bindings: remoteproc: qcom: document hexagon based WCSS secure PIL
-> >>   arm64: dts: qcom: ipq5332: add nodes to bring up q6
-> >>   arm64: dts: qcom: ipq9574: add nodes to bring up q6
-> >>
-> >> Vignesh Viswanathan (1):
-> >>   remoteproc: qcom: add hexagon based WCSS secure PIL driver
-> >>
-> >>  .../remoteproc/qcom,ipq5018-wcss-sec-pil.yaml | 178 ++++++++++
-> >>  arch/arm64/boot/dts/qcom/ipq5018.dtsi         |  64 ++++
-> >>  arch/arm64/boot/dts/qcom/ipq5332.dtsi         |  64 +++-
-> >>  arch/arm64/boot/dts/qcom/ipq9574.dtsi         |  60 +++-
-> >>  drivers/firmware/qcom/qcom_scm.c              |  14 +-
-> >>  drivers/firmware/qcom/qcom_scm.h              |   1 +
-> >>  drivers/remoteproc/Kconfig                    |  19 +
-> >>  drivers/remoteproc/Makefile                   |   1 +
-> >>  drivers/remoteproc/qcom_q6v5_wcss_sec.c       | 325 ++++++++++++++++++
-> >>  include/linux/remoteproc.h                    |   2 +
-> >>  10 files changed, 723 insertions(+), 5 deletions(-)
-> >>  create mode 100644 Documentation/devicetree/bindings/remoteproc/qcom,ipq5018-wcss-sec-pil.yaml
-> >>  create mode 100644 drivers/remoteproc/qcom_q6v5_wcss_sec.c
-> >>
-> >>
-> >> base-commit: 9d0d467c3572e93c5faa2e5906a8bbcd70b24efd
-> > 
-> 
