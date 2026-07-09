@@ -1,205 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDE43822AA;
-	Thu,  9 Jul 2026 08:22:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A6C38B7A7
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:22:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783585342; cv=none; b=QUYuFy2ls/yjOcIFGb8YYaDi4UXA96fXC8OfAcy2D/FinDVkHQ3xqjW68gzK5FZL30KBjlrJuGyjbwfayik22CAOtuLLzFlEpE/Bks4/QfhQNHKu/w1KObeYSe6tPDFbYtuQPJ8d1sseWWn4pbyj+I7C6JqQ+xix7fqKaRdMNWI=
+	t=1783585360; cv=none; b=XP0QAhNn6LYjuC1Av7UlWL6qPoUjJRk7RsacBbqPrBluLc9QdYfo0GgOyPGns6tcghbriqOecdEvXlv2t7JQtbqHc+YBXjwSsPMyYMsnB/kp0kv77huj2MyjanrObNY1NPkfxDJB9mJPH0fPKG1barV6I+ujzz3j6LFRseHyz1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783585342; c=relaxed/simple;
-	bh=NLms4Xe5J7APb9pVInZUqfnYHA58Y/jk/Hgfv79l1/w=;
+	s=arc-20240116; t=1783585360; c=relaxed/simple;
+	bh=mJR7HJexqdw2D2UhDD3JaEqukCrDeFuvkJCO0AFqn5s=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c8yOir1WQhwfYXQjFFKDlebk2I6ui76bGz49/h3TIzlHaHhloYrfjtVmUCK3s/CA4fgirQCfnxd2cS8P60KDl5y1gGtmL1enMjEculwG7EE0VOd/RsTgOuVn+zM9lxTKxFMb5SWOnd0kddTT+5K9FmbbGq9Y6hpB7TAuc4ZJnN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G2NZYQ1b; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BpCUAkMP9vEz+l7IWTy5xEDd0lgwVU+noye4RHA34owf9O53sFbIHq/h9qmWt+PPp04wg0QKkR/CkPovb+SWWhuRuOPHkmLZ8dT93Hab1DYvbHJIRUCUkMjkqvQrLWni/cRfPBREuJ/MuV5Qr16/p95VRtAgPIc+tld7jIdH9NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYwqzilE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G2NZYQ1b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D6E1F000E9;
-	Thu,  9 Jul 2026 08:22:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYwqzilE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2261F000E9;
+	Thu,  9 Jul 2026 08:22:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783585341;
-	bh=YHIupDpuUzdRT4ikQZYN1LzFeo2ys/t6QlxuMJq5TB8=;
+	s=k20260515; t=1783585358;
+	bh=3vxJy7GG0BQ2HMPMTAJwMVS9Jd8Dsk++9LqtvQbQGR4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G2NZYQ1bEXnWCoZjC8N/ekkMvkk4g1Bj9skTR9T0aEVfSLBW5H9v8AxkuOtAI43hp
-	 dbO1Az6yYO1eqjgrKqzteFAHy7btSqAe8STCxwR8KfnWPVEOviUbn4NoPlBc48eaVD
-	 5ht/658AJ3cIBk5DQK1f86kxeGp1RRTyr+AoDGH9je4hv2PWr6dG+kCWtaKO5Sc/XG
-	 HlMAc1k88TacVSr0Dj9e2bmxV4/4wHDOx0eS+XvNMoQf9Jdd/QQ6wr909qL1wrLGil
-	 Qc8QL/WcGlPwro0hqs7gaLOXYV+tu/rx2+seOKwsYOIGCfT6s4CG2N6MF871JUOVJw
-	 wq5W3w90T68tQ==
+	b=eYwqzilEKIUEOz/iR4dWwgAzIMQpOW/PEE02sdQ5A9kqr4cDQ1JKo2drYZ8PZdI+m
+	 bHUXlD2fiafrXRZVXlCrcQZs/XQC6l+CUcekRlIXmyhPSj/kIMnQidUnZ65sPq1y6y
+	 0fX4AguyCVnzyyLemyzF3F8zCzKZBDaiszn5CkzIO2xyL0JCGBPu8KMQ5xXYt2jxSQ
+	 gl6SoCFutJivi6FwFypYyD8qkFMM/zAauAggm+1199YpL/QG1uEnv0f1PbKNGGI7KL
+	 PH/WHiNN1CE3BXAwOjDL7Eos9D6Si8jSI8JEOKbBew8reOJymROQxq93hznQ7vTeJA
+	 7hs7UA7tftjZg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] thermal/drivers/imx: Add calibration offset
- support
+Subject: Re: [PATCH v5 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR
+ sensor driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "HaoNing Cheng" <Haoning.CHENG@cn.bosch.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-2-00ff72495e24@cn.bosch.com>
-References: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-0-00ff72495e24@cn.bosch.com>
- <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-2-00ff72495e24@cn.bosch.com>
+To: "Ramshouriesh R" <rshouriesh@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260709-hm1092-driver-v5-2-a1f5baa6fe08@gmail.com>
+References: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com>
+ <20260709-hm1092-driver-v5-2-a1f5baa6fe08@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 08:22:20 +0000
-Message-Id: <20260709082220.D4D6E1F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 08:22:38 +0000
+Message-Id: <20260709082238.AF2261F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Premature thermal zone registration exposes sysfs before the IRQ i=
-s requested, allowing unbalanced IRQ enable/disable operations.
-- [High] Data race on `data->irq_enabled` between process context and hardi=
-rq context leads to unbalanced IRQ disable depths and permanently disabled =
-interrupts.
-- [High] Use-After-Free of `data->tz` in the thermal alarm IRQ thread durin=
-g driver removal due to skipped `disable_irq()` synchronization.
+- [Medium] Unnecessary device power-on sequence in probe() introduces a ~22=
+ms boot delay per camera with no functional benefit.
 --
 
---- Patch [2]: [PATCH v2 2/2] thermal/drivers/imx: Add calibration offset s=
-upport ---
-commit 7cfd21023fa90494618a836d7b36a5a78f4f8447
-Author: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+--- Patch [2]: [PATCH v5 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR=
+ sensor driver ---
+commit 4abd5da551efe32eec434d2e88b53c45de5fc3dc
+Author: Ramshouriesh R <rshouriesh@gmail.com>
 
-thermal/drivers/imx: Add calibration offset support
-   =20
-Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements.
+media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
 
-Read the optional fsl,temp-calibration-offset-millicelsius property from
-DT and apply it to the i.MX6/6SX/7D calibration formulas.
+Add a V4L2 subdev driver for the Himax HM1092 monochrome near-infrared
+image sensor. The driver supports the sensor's native 560x360 10-bit mono
+mode, test patterns, and standard fwnode properties.
 
-> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-> index 5aaacbc534786..971d6b4737c68 100644
-> --- a/drivers/thermal/imx_thermal.c
-> +++ b/drivers/thermal/imx_thermal.c
-
-[ ... ]
-
-> @@ -274,7 +278,7 @@ static int imx_get_temp(struct thermal_zone_device *t=
-z, int *temp)
-> =20
->  	/* See imx_init_calib() for formula derivation */
->  	if (data->socdata->version =3D=3D TEMPMON_IMX7D)
-> -		*temp =3D (n_meas - data->c1 + 25) * 1000;
-> +		*temp =3D (n_meas - data->c1 + 25) * 1000 + data->calibration_offset;
->  	else
->  		*temp =3D data->c2 - n_meas * data->c1;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential race
-condition involving the sysfs exposure of this temperature read.
-
-In imx_thermal_probe(), the thermal zone is registered before the IRQ is
-requested:
-
-imx_thermal_probe() {
-    data->tz =3D thermal_zone_device_register_with_trips(...)
-    ...
-    ret =3D devm_request_threaded_irq(...)
-}
-
-Could userspace trigger a read through sysfs immediately after registration,
-calling into imx_get_temp() before the IRQ is fully requested?
-
-If so, and if it reaches this path:
-
-imx_get_temp() {
-    if (!data->irq_enabled && *temp < data->alarm_temp) {
-        data->irq_enabled =3D true;
-        enable_irq(data->irq);
-    }
-}
-
-Would it call enable_irq() on an unrequested IRQ, leading to unbalanced IRQ
-enable/disable operations?
-
-Furthermore, if devm_request_threaded_irq() fails, the error path
-unregisters the thermal zone, which calls
-imx_change_mode(THERMAL_DEVICE_DISABLED).  Since data->irq_enabled was set
-to true, would it deterministically call disable_irq() on the unrequested I=
-RQ?
+> diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
+> new file mode 100644
+> index 0000000000000..c7cde6928bb91
+> --- /dev/null
+> +++ b/drivers/media/i2c/hm1092.c
 
 [ ... ]
 
-> @@ -629,6 +633,10 @@ static int imx_thermal_probe(struct platform_device =
-*pdev)
-> =20
->  	platform_set_drvdata(pdev, data);
-> =20
-> +	of_property_read_s32(dev->of_node,
-> +			     "fsl,temp-calibration-offset-millicelsius",
-> +			     &data->calibration_offset);
+> +static int hm1092_probe(struct i2c_client *client)
+> +{
+> +	struct hm1092 *hm1092;
+> +	unsigned long freq;
+> +	int ret;
+
+[ ... ]
+
+> +	hm1092->regmap =3D devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(hm1092->regmap))
+> +		return PTR_ERR(hm1092->regmap);
 > +
+> +	ret =3D hm1092_power_on(hm1092->dev);
+> +	if (ret)
+> +		return dev_err_probe(hm1092->dev, ret, "failed to power on\n");
 
-[Severity: High]
-This is a pre-existing issue, but while reviewing the IRQ handling in this
-driver, I noticed a potential data race on data->irq_enabled between process
-context and hardirq context.
+[Severity: Medium]
+Does this driver need to power on the sensor during probe?
 
-The flag is accessed and modified in imx_change_mode() without
-synchronization:
+Looking at hm1092_power_on(), the sequence introduces ~22ms of sleep delays
+to bring up regulators and clocks. However, there doesn't appear to be any
+I2C communication (such as reading a hardware ID register to verify the chip
+is present) that follows in the hm1092_probe() function.
 
-imx_change_mode() {
-    if (data->irq_enabled) {
-        disable_irq(data->irq);
-        data->irq_enabled =3D false;
-    }
-}
+Since the device is just powered on and then immediately idled and suspended
+shortly after via pm_runtime_idle(), could this power-on step be deferred
+entirely to runtime PM or streaming initialization to avoid the boot delay?
 
-It is also concurrently modified in hardirq context:
-
-imx_thermal_alarm_irq() {
-    disable_irq_nosync(data->irq);
-    data->irq_enabled =3D false;
-}
-
-If imx_change_mode(THERMAL_DEVICE_DISABLED) reads data->irq_enabled as true,
-and an alarm interrupt fires immediately after on another CPU, the hardirq
-handler will run, call disable_irq_nosync(), and set the flag to false.
-
-When the hardirq completes, would imx_change_mode() resume and
-unconditionally call disable_irq(), incrementing the IRQ disable depth to 2?
-
-Would subsequent reenables only decrement it by 1, leaving the hardware IRQ
-permanently disabled?
-
-[Severity: High]
-This is another pre-existing issue related to the IRQ handling, but I
-noticed a potential use-after-free of data->tz in the thermal alarm IRQ
-thread during driver removal.
-
-During imx_thermal_remove(), thermal_zone_device_unregister() is called,
-which internally sets the mode to disabled by calling
-imx_change_mode(THERMAL_DEVICE_DISABLED).
-
-If a thermal alarm interrupt fired just prior, the hardirq handler will have
-set data->irq_enabled =3D false and woken up the IRQ thread.  Because
-data->irq_enabled is now false, imx_change_mode() skips calling disable_irq=
-():
-
-imx_change_mode() {
-    if (data->irq_enabled) {
-        disable_irq(data->irq);
-    }
-}
-
-By skipping disable_irq(), does it fail to provide the required
-synchronization barrier to wait for the IRQ thread to complete?
-
-If thermal_zone_device_unregister() proceeds to free data->tz, could the
-still-running imx_thermal_alarm_irq_thread() then dereference the freed
-pointer:
-
-imx_thermal_alarm_irq_thread() {
-    thermal_zone_device_update(data->tz, THERMAL_EVENT_UNSPECIFIED);
-}
-
-Would this lead to a use-after-free?
+> +
+> +	ret =3D hm1092_init_controls(hm1092);
+> +	if (ret)
+> +		goto err_power_off;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-b4-symana2=
-1-11221-imx-thermal-support-upstream-6-18-v2-0-00ff72495e24@cn.bosch.com?pa=
-rt=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-hm1092-dri=
+ver-v5-0-a1f5baa6fe08@gmail.com?part=3D2
