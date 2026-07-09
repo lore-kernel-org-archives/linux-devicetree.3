@@ -1,153 +1,218 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF25D39021C;
-	Wed,  8 Jul 2026 23:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E80741225
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 00:12:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783554989; cv=pass; b=MBHSwYiuAibP1iILvt/+TcxO2p+ACi5uddGPe43f5MU+Fb+sTunHgY49R2CfNPoszfeuKyIt+5445p+fGxk+vuewyrGNYspmzWSmMtnVd/jDArNeYGw0x7GqH3JYjtunBWRHWjlHOJZkGfctf/1L74DNgnc6yATirIGzD0hxRLg=
+	t=1783555940; cv=pass; b=X9xYAcPGzxGBy4UHyfLB6KfwUNLaOz2Ynpr6VthhkXCA0Qh5UYZSsV8V+xTDY6DaKjhN9/Bva3EEMGLZWth+/ay9Or9qmmZQPFr58ewul3F6RbmONSPScLl60eSoHxIhpJNQH1FQQy5R1X8k6E5Ms3b78HILWQBQytbZXefWbxI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783554989; c=relaxed/simple;
-	bh=1S0123Ko3TwwqEYz9+NFJGMEEcDCr/jiCUfmFtGOsJM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gtLmL1R68i6kx5IWJkA2TcO58oEtVb5yPzsH3DfsObSD7p5/8swTmqlpyMVI6NTD1m7F7JU8VF+pn+4u79FWHltwcux2SCyjQ+FY8KqwMjPIkGyFWxYuKsj4sZGWhEYdolvzzrXI3rAmQK6byhMqmYpHGk1p9s/eYOkWj14nbMs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=F2b67eCg; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783555940; c=relaxed/simple;
+	bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OrqXTtTsST9i9k2z9Kk1vrgJKV7Hvc9JD3+rScBNAV/jgll+Dtl12mEzHObq+Hs8fEhGCX95dnrYoDJBmZUMaLhdK8vjWWr54ntjY4/PCHpXYknKIdEzkG9qRhB0tIOHObFz7WaGv+t/DkS0hC+DhIfvAjNVM2Bjq5FXAYFy3Hc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qt3TwRYI; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="F2b67eCg"
-ARC-Seal: i=1; a=rsa-sha256; t=1783554977; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XFb4GppKjEilY55ygRsHWBLOhnNKpUcm1DkzM5BcMD3KdJ0BG9a2LVDTRquH33zAmRW6wy3en2cJy+R7a4uBEyQaTtKaKnf8L0ym4D0vZnjfts9y7VmDBErGqJYq7mPC5+rVNi+/iR1Qs6HZqPSmYNxmlHAjZ7T1uAa7wua0oqE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783554977; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=CbB3C9UwRHwJz8l8h3m0DtvM1ARd9imbzXPsvbNCwWY=; 
-	b=PS4tCHROjJk2PrBhFzM1Ve3trFDTdtcsasKSNYaZNYXE7Cj+gUoC7ldhlQgFvmAv/2TKwI5G94JhBA2I8Oq58SPfvwm4R4EG6WAuyijiSwFFbpPI09n2iMj8Qfng4sdN2DfbeJu9q2gJqQc7x5AnVZnCXGIxE0eY0y+KP7yzr3I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783554977;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=CbB3C9UwRHwJz8l8h3m0DtvM1ARd9imbzXPsvbNCwWY=;
-	b=F2b67eCg2Gk8F9eawFiscCcCs/KpYLYJLV0/6xrQwCWeA9UZc5/1swtcHIKL+fAh
-	UxiuKT/3C6m5eTplA6T64ww6m7o3KhjXpsR8sjxNzAyBqGqZXTd/Lmcr4HDFaiOFrsN
-	SZ+5e6MJyDfbs4gNMS1UmJ4j8KMHYi6S5F6w4D78=
-Received: by mx.zohomail.com with SMTPS id 1783554974300771.8410971279968;
-	Wed, 8 Jul 2026 16:56:14 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 2C4631806CA; Thu, 09 Jul 2026 01:56:10 +0200 (CEST)
-Date: Thu, 9 Jul 2026 01:56:10 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Dawid Olesinski <dawidro@gmail.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S . Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Corentin Labbe <clabbe@baylibre.com>, 
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] arm64: dts: rockchip: Add crypto node to
- rk356x-base
-Message-ID: <ak7jEYTAGgeDdi1W@venus>
-References: <20260708175837.1718437-1-dawidro@gmail.com>
- <20260708175837.1718437-4-dawidro@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qt3TwRYI"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-698a9f11776so2090781a12.1
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 17:12:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783555934; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QTocNaqWMuzDEuxj398vDYWV7WpNjmtuIl8ncGzHOypybSF1oSgvhsaGQNEX+S/mgD
+         lWQcAtKq7vKF/+h2xfKwowXPrbh3tpfZgd7zJfqYL+qmxAluW8eEQKJqYwqc44n3HL2G
+         kcPSphpxtL++uJJTfJSOLdhIOAdKwti+SAEJridmEmGUufRXyLK4AWBzU7le2MIfLqyM
+         sHnrEDp7Km8TKK9U57BLkdAfI0a60Ga3NEP1jvJBCpr/CuRTnEryCs2Uy1gBxTCB5poH
+         Jnx6AMtL3MA9B6WInRmqq2i/azV0E3ZEhQ9T9izyWfgPR6f0bZdliu2cRWvVOl94zBCA
+         YCCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
+        fh=hUUUYy7CGEaHlBtjnszEecf+7Eb5EvlVJYC5iXBSMuM=;
+        b=iRmrOhQd5jkawMerpiMvs1qlk5JOQvGKV75GLuadry3b5XogQkfjqfCVTzAUB3H90J
+         j2TYWQuVSrYa2ECu3+prPnCyTbJCcWDztlpiVQ/l0UNzYt3M2eQuaDIPeSySA0S/ODIW
+         4uouLTxbAjZHiaPs+SOIGcThsJGVhzC1NyjiCZvn3J/P0a9ZLF0dtq/TB5nE4cXHDbsq
+         bcI14eNZd/c7OCtFxQ3AoZjtqa6iCQuzhgZjjcb6K0BgcilavjYHwVai8w+3YXzOjXKb
+         k9wCCAMK+5TZH5K1mD8bV8MvVpPsZwJkz67rNwc9cgWqjV6GGVapeEYfium5vAbBxjLL
+         /zig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783555934; x=1784160734; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
+        b=qt3TwRYIa3PItGFz0tFZLXGdX3sZE9cSPw56o0roOXRkhG/ZPldnHxqAXG/kX9ANKY
+         qGKgoV//5dFdsacUcB/J5JtYgEvNf/pkr5r4aJZB+omMDGZWjxAHv79AMI8larIDXbQh
+         s05zYnYhV6f1wnxBGEBygS63tBVzRGbBZ9BIlZ9TzDL2sLeRZRWOGV/diqDEm0SR8/eo
+         eFR/uVQFW2xyXyBI5mclyB3/qfCZW558C2HcxvclZmr88SaxcFXyOYxqPsKDBVokt53T
+         hb6GCUmwv8XcV4tM5eM8PXx6aDJcWH8dJC2gfUHWL+lP5Frh5VwHco8O5m1OW7bxgKcE
+         Q84Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783555934; x=1784160734;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ujm2++fOaQbhOA4MmQSTLdq4gprqLzthH/E1smRUGkc=;
+        b=FQf+TepaTuhA4HN1Jjmn1TnYLwFNNOidy2107191IOMx77N+yvKKCFG+3wgMyHl4g9
+         XfzeLA3ooCnzKA8iEDc+ffSiRY7QKTwkuFDOUF/s5EV6I8FKGDv5+Q8itfbu4sv2UYfz
+         8hGJANjEM9ilQpGcCNPgNpOuJrvNLQ5EZ5N0K3FmQpPkRI3E8J2h9GuMXcrCMDccyYad
+         CpMLXWGBQhk6gQG9JgzqUj+t4fmpApceNxo2ossoRnn+MGhceA8qeI1oAC+tw6NxSobe
+         YWJdaBbqb56zUknX389d5dU8Y344wn9XlFI41cdEGJ3znc2NQfLhauSxMsLvuZweiXYp
+         HEpg==
+X-Forwarded-Encrypted: i=1; AHgh+RqgmUV4cpnXUyvJLZbuhRXNdHA8Azt0eAlco4Q9fPF5eXwQDTe03HO2uyonvv/rDiFXTMr7wZM4vb59@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7B0hsp+k1r0BmRCw8oYfsrgR0MMu2cFuMOH0yYUANS/OUPcoi
+	Hr+ZNwkDL7l1afAiolPsX3tV3vwwUSMMyuFR2mdeYsWVyeaz3uOaiudIcbPrfPSPJdcNGEcA7T2
+	70kULC08I/6Oai3Cpecu1Biopxmi6yxc=
+X-Gm-Gg: AfdE7cmDiTzZfK/5t920dggGz6asmI69X8n/ItlPx4Dev1G0hYi55nOfC5zt/80UtjT
+	eej6jxrh5lq+Hd4PgHO6S4mmmuL/7MCmpLAD4X0Iqir51TJw9+cdskg4yxTlhq+dDVzy4sp47ZG
+	rGAEChKJzaLoCFqwrhZEhkLkKfa5mX/Mto9tFD/WaHiafMEH7JQi4yTmNazF70XBolasUCSljJn
+	bjZz0yJP1rQy9txrXM+uQfmiGzLWqajA6Ql3D5IPaCn1Hkh+jq9koZ0vrE6VycSV9jYA35jV7fE
+	L1sX/Y4tayZY+KFjzxFARS0XI1rjH7N63t2YWaMt
+X-Received: by 2002:a05:6402:4283:b0:69a:b3ab:dbea with SMTP id
+ 4fb4d7f45d1cf-69ab4460cf7mr1758244a12.13.1783555934141; Wed, 08 Jul 2026
+ 17:12:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nchjsrkyo2s4nb4j"
-Content-Disposition: inline
-In-Reply-To: <20260708175837.1718437-4-dawidro@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/283.531.57
-X-ZohoMailClient: External
-
-
---nchjsrkyo2s4nb4j
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+References: <20260604135255.62682-1-midgy971@gmail.com> <20260604135255.62682-7-midgy971@gmail.com>
+ <e44b506e-e9d2-48e3-acea-ab28b7be9b37@rock-chips.com> <CA+GS1Y16++cztPxdUGLrPA73ENm4vJGFrjm-jP8r=8OQqcMJGA@mail.gmail.com>
+ <0919ffcc-81c3-483a-a3ba-404b455c2040@rock-chips.com> <42f1f39f-ab2b-4473-a82a-7ccefad41fcf@rock-chips.com>
+In-Reply-To: <42f1f39f-ab2b-4473-a82a-7ccefad41fcf@rock-chips.com>
+From: Midgy Balon <midgy971@gmail.com>
+Date: Thu, 9 Jul 2026 02:15:34 +0200
+X-Gm-Features: AVVi8CcApkElNM_3Z1d6_PvamEAEJfcZGBI9cxUob9-qJkpZOuLDZsOO_EVsZe8
+Message-ID: <CA+GS1Y1i87vkv+9NAdqRGNCNsxjQwat2yqEFxjgDZRAPsQjaQA@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 6/9] iommu/rockchip: Clear AUTO_GATING bit 1 on the
+ RK356x v1 IOMMU
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: Simon Xue <xxm@rock-chips.com>, tomeu@tomeuvizoso.net, ogabbay@kernel.org, 
+	heiko@sntech.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 3/4] arm64: dts: rockchip: Add crypto node to
- rk356x-base
-MIME-Version: 1.0
 
-Hi,
+Hi Chaoyi,
 
-On Wed, Jul 08, 2026 at 06:58:24PM +0100, Dawid Olesinski wrote:
-> Add the device tree node for the V2 cryptographic hardware accelerator
-> on RK356x SoCs (RK3566, RK3568).
->=20
-> The IP block sits in the non-secure peripheral domain. Its three clocks
-> (core, aclk, hclk) and reset line are accessible directly through the
-> main non-secure CRU, so no firmware intermediary is required.
->=20
-> The node is disabled by default; board files that wish to use hardware
-> crypto offload must enable it.
+Sorry for the slow follow-up =E2=80=94 and thanks again for the pointers, t=
+hat closes
+this out cleanly.
 
-Why is it disabled by default? It doesn't seem to be board specific
-at all to me (the same question applies to the RK3588 DT).
+I read the two rockchip-linux commits (7f8158fb, 6a355e5f) and the merged
+patch you mentioned: "iommu/rockchip: disable fetch dte time limit"
+(Sven P=C3=BCschel, From: Simon Xue,
+20260428-spu-iommudtefix-v2-1-f592f579e508@pengutronix.de), which Joerg
+applied on 2026-06-02. It adds DISABLE_FETCH_DTE_TIME_LIMIT (BIT(31)) and
+does exactly the auto_gate |=3D BIT(31) read-modify-write you suggested, in
+rk_iommu_enable() before paging is enabled, for every Rockchip IOMMU. So bi=
+t
+31 disables the DTE-fetch time limit (without it the newer revision blocks
+after four consecutive master DTE fetches racing the CPU's IOTLB zaps); the
+RK3568/RK3588 erratum is the same one as RV1126/RV1109. That's the accurate
+description I was missing =E2=80=94 thank you.
 
-Greetings,
+Since that fix is already upstream, I'll drop the AUTO_GATING change
+from my series entirely rather than carry a
+duplicate: v4 will rebase on top of it and the NPU MMU picks up BIT(31) for
+free. For the record, on the ROCK 3B the NPU IOMMU services the NPU's reads
+with zero faults both with BIT(31) and on the reset value (0x3), so this is=
+ a
+no-op on my hardware/workload =E2=80=94 but rebasing past the merged patch =
+is the
+right thing regardless.
 
--- Sebastian
+So my v4 IOMMU dependency list becomes: your per-device-ops series, plus th=
+e
+merged "disable fetch dte time limit" patch. My series no longer touches th=
+e
+IOMMU driver itself.
 
->=20
-> Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index a5832895bd39..9de7e7487ca1 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> @@ -1112,6 +1112,18 @@ sdhci: mmc@fe310000 {
->  		status =3D "disabled";
->  	};
-> =20
-> +	crypto: crypto@fe380000 {
-> +		compatible =3D "rockchip,rk3568-crypto";
-> +		reg =3D <0x0 0xfe380000 0x0 0x2000>;
-> +		interrupts =3D <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-> +		clocks =3D <&cru CLK_CRYPTO_NS_CORE>, <&cru ACLK_CRYPTO_NS>,
-> +			 <&cru HCLK_CRYPTO_NS>;
-> +		clock-names =3D "core", "aclk", "hclk";
-> +		resets =3D <&cru SRST_CRYPTO_NS_CORE>;
-> +		reset-names =3D "core";
-> +		status =3D "disabled";
-> +	};
-> +
->  	/*
->  	 * Testing showed that the HWRNG found in RK3566 produces unacceptably
->  	 * low quality of random data, so the HWRNG isn't enabled for all RK356x
-> --=20
-> 2.47.3
->=20
->=20
+(The convolution output is still uniform zero-point / the job times out =E2=
+=80=94
+that's the separate NPU compute-completion issue, unrelated to this.)
 
---nchjsrkyo2s4nb4j
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks again, and kinds regards
+Midgy
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpO45kACgkQ2O7X88g7
-+pqdGhAAnuYg7zLjumByWrVauxAbYdeNH1NJ0MFQCIsxYyhDCl9PVKc27oFP6/Ev
-Xtwp8RQDB0Aq1AHuGPnmhy9UOTBwOi0I6uaOtdRjPKT/pEOATJY5UvpdGsHe9c+/
-/HFlMJdEykULZjzULWjyFNAxON/gc5qGAfPKaaMKryJgRKVBu2girSp1ky+YSoAx
-GeWAf2WvTf0jrSbrrxcCbRrUVVs5Ni9TMTgijp2rNNKEW98MiJSj8FnWYmmhfbIO
-WRJz/r5/NgGZwXiL/FE50wV8p+p5s2OvFER4NBcuKao6rVDyrBtuxX0Nfgq68qqU
-DqJXzfHTBSn9zq/Wxp1VTGDm0IYShRFQ6qDHPWzEl817WBs8JDy+9i5qCSDtVXli
-lLwZOKqEiuYJj1IKSLJcePomtilj8v+VJr2CJM5TezKaTAZN82rruqr7PX16ubdC
-oV96WMMqeEYOObrN2tfzCGjq+cF7MciSGnvMNVSmCxF5laD7AQXihQo/fxhw1P/c
-MZnz8K1lFD1qUU9Yx7T0zjmvFVvmfY8/mrp/gcGtYQ53f+U9Lfe3B4sK50kEyBdS
-bcgaWJL1R+X/DDdH0AUqAs+jLPwXYDk93DqV4F/PPwUUlvFJVnFs5wsk6wtawIXn
-P2wdhmkYnCwD5DBgk1MVyWFGCMfS8ur91pGWCctlXLRWkwIAJiw=
-=xw6V
------END PGP SIGNATURE-----
-
---nchjsrkyo2s4nb4j--
+Le lun. 8 juin 2026 =C3=A0 05:40, Chaoyi Chen <chaoyi.chen@rock-chips.com> =
+a =C3=A9crit :
+>
+> On 6/8/2026 9:45 AM, Chaoyi Chen wrote:
+> > Hi Midgy,
+> >
+> > On 6/8/2026 5:05 AM, Midgy Balon wrote:
+> >> Hi Chaoyi,
+> >>
+> >>> As I said, it is v2. Could you please try using the code below instea=
+d and
+> >>> see if it works?
+> >>> [ auto_gate =3D read(RK_MMU_AUTO_GATING); auto_gate |=3D BIT(31); wri=
+te(...) ]
+> >>
+> >> Thanks -- that's clearly the right shape (read-modify-write, before pa=
+ging is
+> >> enabled, keeping the reset value instead of my clobbering 0x2).
+> >>
+> >> I rebuilt v7.1-rc6 (with the rocket RK3568 series + your per-device-op=
+s work)
+> >> using your bit-31 version and tested it on a ROCK 3B: the NPU IOMMU co=
+mes up and
+> >> services the NPU's DMA cleanly -- the NPU probes, attaches its domain,=
+ and runs
+> >> repeated conv submissions with no DMA_READ_ERROR and no page-walk stal=
+l. No
+> >> regression from the write.
+> >>
+> >> To be precise about what I can and can't show: I tested both ways on v=
+7.1-rc6 --
+> >> with your bit-31 write, and on the reset value (0x3) -- and the NPU
+> >> IOMMU services
+> >> the NPU's reads with zero faults in both cases (no DMA_READ_ERROR, no =
+page-walk
+> >> stall). So I don't have a failing baseline here that bit-31 visibly
+> >> fixes. Is the
+> >> AUTO_GATING write needed on current mainline, or only under conditions=
+ I'm not
+> >> reproducing (a particular traffic pattern / silicon rev)? I'll keep th=
+e patch in
+> >> your form unless you'd prefer to drop it.
+> >>
+> >> One question so I document it correctly: what does bit 31 of RK_MMU_AU=
+TO_GATING
+> >> control on the v2 block -- is it a master "disable internal auto clock=
+-gating"
+> >> for the page-table walker (i.e. so a TLB-miss walk's AXI master keeps =
+its clock
+> >> to completion)? The RK3568 TRM I have doesn't cover the IOMMU register=
+s, so a
+> >> one-line description would let me write an accurate comment.
+> >>
+> >
+> > Glad to hear this works. Please refer to the commit below.
+> >
+> > [0]: https://github.com/rockchip-linux/kernel/commit/7f8158fb41b5cc8e73=
+8aaeebc3637c50ebd74cae
+> > [1]: https://github.com/rockchip-linux/kernel/commit/6a355e5f9a2069a230=
+9e240791bc3aad63b7324e
+> >
+>
+> It looks like RGA needs this patch too, and it has already been merged :)=
+.
+>
+> https://lore.kernel.org/all/20260428-spu-iommudtefix-v2-1-f592f579e508@pe=
+ngutronix.de/
+>
+> --
+> Best,
+> Chaoyi
