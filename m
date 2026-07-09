@@ -1,61 +1,63 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74218449997
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 22:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380733DEAC0
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 22:13:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783635223; cv=none; b=tk6dlNANl5tIkLMW+MfT6AvT9Zt2+nG39H3fLEIddc8AuvGl1bx+Ys/3vhs2eMlMyXg7qBqFZD7xl4KCgHZunohz/VTkuLfV6aCk2Qhdwd4WLbRb8q/5JiWyTSyw5v/ajmzZmu4EzsxggWGzKp8YS6f3Dvp8s762Z8HQHkajxEY=
+	t=1783635226; cv=none; b=e8peSobu/XT11sNjzxvSPF5O51Acmyes0R9e0jJa9t6ncI9xltbn4NmPsW7M0mZZqFSH56ZvR22Lvnh+274JWLm3FW7i8hRHelwTagEorAUV6wqQuOYwALqtbvRH2TAc8A7zFeKppoyE8R4K/My3aFMvBxnFXeYJFkuyDP1wNow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783635223; c=relaxed/simple;
-	bh=c9aE93lkkyDRQAGKWchGNXimHCtf+KxRam7dICs83lA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FdzQSnzfCxUj5U5NJsFs4OOzba1ELWfNsjf3qQvWA9h5gp8VBVcN9sZJWlt4APxVw27iXdQv/yBP85rG2MUDeL847vT3+acLEuTlPSPZf5WsYgCNz4QzDlHHhnZCFzIsbW4yn9wF2ze0xNK/g/imwGc94bCuw1d8nwEIprANQeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PnrmI+Ma; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1783635226; c=relaxed/simple;
+	bh=C4ayAE9UL2Kf4OuNTPepG8l1D14PXJZwapmcgB7cAA8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=plHoJyF32ot/LiWQlWPZmgptFzlUv8GmXrozilAiPd8AfzF4KDZgQJx3UE8GTjHt6OjCuQzKAC7OYhUyYjcvp3PwJoYZILz13zuIVffC9hMjigw1saobSztD+5YrvjGq8+O5ZJ3/dpCV35nrHnf8rVYOsaIGiycU5vk/MIkeT0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=okYof8CQ; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PnrmI+Ma"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so324433f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 15:13:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="okYof8CQ"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4629051c9d1so207080f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 15:13:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783635221; x=1784240021; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XUAu6I6BOkoB20ZosEqwiYIiRv3UnwmkNWFwoAnykFw=;
-        b=PnrmI+MaqLudVxCPNN5SVi8Q0j/gDFdFrSZJTXFdm2U+vEAKCnW04r0JdlPIOqnUI0
-         AehhrIbCdE0+365+N3aB+9C5HEaWfYhetVJ0l4lS+dRF2EPsK/iFfGVkW0XbVkf5CjSY
-         +Q8GQo4OepL7TLNqcN6fZ1MfRo+Yv7v6dKO7kqRZFJofEutWfaUEY8Dq8hHYEzhDlO0C
-         hgdvrXZrrJta6MoQjhw02diAktVAwUhq9Fvmb+TaFeh/wjUlNFaELwuhNCMW2FDfEwYU
-         dE/IW9p7J7lOefycpQ1G4Hmk4kn3481azPOc3gF4qiXta4VbUptR44/dpfvapyxiehIk
-         KyHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783635221; x=1784240021;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1783635222; x=1784240022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XUAu6I6BOkoB20ZosEqwiYIiRv3UnwmkNWFwoAnykFw=;
-        b=Xa6dzOu26NZpgGyHlCfGeLU/GDkCD373wevuhaAkgayD3UdSlFMoO2uuRGIu3UpEii
-         UhgYaGeuANS4s3cWcLUafFlMsLIsVBdAS6mygsYZhOHBhHQfIquLD10hk3AHTZsWtd0U
-         4qPARymLqNf6NldO/d00NvMMQ5mMZptrc73KRZFFKnCBXzA54Xc+GTpK2Ho3UMaPj6z0
-         N9pgVxLlS88it0tDwXIajhKmusCFnlb9yiTslSH/YbnfWTizLFh1nmNfaj23Btb0EF8f
-         PIMKS6cN8BiGrUfnGZ2hZgRdIlnxVXyNQ6deTeDKoThbXsQZVfAQy7cGquKf/AIE97d1
-         e5yg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4c6sEq+Thd/nEC1xcbWBeS/NOeL0JH9RDEiswUtbe3LDMIEp1uLvP7an5ewUg9e+V1MWpolj4UCD3@vger.kernel.org
-X-Gm-Message-State: AOJu0YxemMhqk3hdno+m65eiQSOAMBTNr9ZJrqDLfxNP//tkFfQ87dpA
-	58c/7+b49Js9LS1Jj6TeiIib4qX60KvD4OiWBDnJj4zt0X+hQlVZmttj
-X-Gm-Gg: AfdE7cl+8P40c6FUCTzjLuMKmbFLYbWYo2M2eIXAk5BOkDM9hOAnF9YtaFhNFstnu65
-	a3xs4xx/5nb9pIURywpA085JpMOcWVV8QauWdtTEmbPGZzhOhphr6VSKD3Bt5Nb4UlIGKkxZGzF
-	ejdGShOdJLs+qEkDpVaUtMrP1T8IB6kbm/+6OXEu77FxnFfhAW5v8rolvTAX91cgZ//a0aIc67I
-	V8FgV+/bPJ9orI+R9enqV8oOgjCThJluD2YroPpQlQ8nzDuvhd3UU8E3aQcjOs0xu7Ao/tR7EA1
-	brmNMIw/uDTf43euNWHJAQOpl6/6qoYPpGD3XH6TPWeJ2wc9bJ0Wgef01wVQCVSxrZCn1K1ZYS+
-	Iyestp3vzzkbYuH9cPpDHSvFw+Sk6dSaYF0fRFD1ni+EnArYzH6wFjQfKg+mMYVUDemn1T7wTIu
-	UUAN+FiZ1pcnaR5yZIiZCL6oc418RV3rPk
-X-Received: by 2002:a5d:5e92:0:b0:476:c622:d41f with SMTP id ffacd0b85a97d-47df0768507mr10065889f8f.47.1783635220736;
-        Thu, 09 Jul 2026 15:13:40 -0700 (PDT)
+        bh=dGaJjpg4Uf6A0xkO/I1SgrYYhus1D3i3U8sND88Lz3k=;
+        b=okYof8CQ+33sEXKxtRIX+6hfZXjGXlKW2J5xnaaXezTTA00KfOEa6VVDBe7YzZiBoi
+         Vxfwrr/9VbwX+IaaJ/dAXLcHWNooUhE4G4Gdwk5acgD+B59aSLse/cX7h03CQBGy04qd
+         /l+jBJ72yvJffGV6b2nTr4ynBDgRzD55oj1g/gOXMBxrpzBp2iEkKJowTMeRX3z8InE7
+         KZqdmsiSwPlGLbT8a2vU50tM9mSM7/zZ2ho10J6NyKVlAf73NbwZNPwGqBi129OkPoDY
+         lCMbv9+hZ/gm7EAcV4m+eHLqjWOdhah49v5Bf7rNPNXkJ1fhuebQPyyQi8cLcM+VPuby
+         AeVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783635222; x=1784240022;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dGaJjpg4Uf6A0xkO/I1SgrYYhus1D3i3U8sND88Lz3k=;
+        b=KMzM3BKb2dd/cqpyXTiqGZUt33ySztT1JHKzAtdAnLgswi9Gtt/c7EfPRpWgv4vqfq
+         +0pJWEBMZ56Pjpf3guozk2ZYdcC1Fv+B2TLqCME8Kqq1iyfrSWIIdV+fXS7NT1aGlwwY
+         rscyNdUNhzFNnlyKB3q0VOP3axIj5sTXTItVWb1MCoGKtw49LJT5i8+v+9LPC/qbkLKx
+         N2hZmye1zdyw3XJJBDXiO+Ak+jxfhdNLRwLjAijAktpN3ndiS9KQoegaHSuFlwkizP3u
+         jCBDB8wK3SfyWwY7QevzwNOvM2W7ZVk09kJvp4U1fNTUnte+g1IyGGFmTqMQB3AstT8i
+         NJxQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpa2g4q0KfTmOcYyS8+3WNAdnzZvktYTqKYjOxB6dwaYlDqe9PDrUDbNecWtpA2UVT6cyO3qfGqnzOO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGVkNGKkrEpRU1OJb1GgIOnnsMtneMwBosHLdqJ9oiXGXQHil7
+	ud1PYtknATIW8v/jSMY50hbBGwHd7svNPWseYhfK4scrHffGcBXyBdz7
+X-Gm-Gg: AfdE7cna3dG8tS5tYQFhRe1/+z8p5AWVVjYuVl2dn/76i4kOCGRxU6gsjegyANao9OV
+	ngOHYZKs9R7StQl7H9W8zvpaGttybOAP60cxYcLM/s2Q1tq5eEDU2X0FUjNcCz3lcnE8e7onm6t
+	XqzoHNWY97htzq0M9DSOtgajQjvBscJ529jVCoRS3HkA5JLO4oUnJQKD3V+Na62lakpQpelDoz4
+	npWc0zf4/4GKQqhlR4niNcYtqIndF+xayvrBgVDKBy3PewPPHHgPMR3Rqp8hMhIgOgwCPUucqxt
+	lnHWFWxA9nKJ1A1THBCiSaqxK13Fs9iyL5ijw/ZN0yYzNv3IY2r/9bMyM1UHS0gRY7z4GvRcSEn
+	aw10EAl03a+acwDZQJErAGrbuuli3e02tR16AZEw5iyPNG5M2N+k97cXqqUlgqPcZvSiTnuXQRP
+	gtdz3D5FIuPmU62lKHvYI+lGXBFtsaxOdU
+X-Received: by 2002:a05:6000:1a8b:b0:470:2fb1:3dca with SMTP id ffacd0b85a97d-47df07ec8d2mr11730313f8f.30.1783635222528;
+        Thu, 09 Jul 2026 15:13:42 -0700 (PDT)
 Received: from unknown.tail46804.ts.net ([2a02:b023:8011:c993:4bf6:23f5:d942:9d70])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f2465ae8bsm869008f8f.36.2026.07.09.15.13.38
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47f2465ae8bsm869008f8f.36.2026.07.09.15.13.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 15:13:40 -0700 (PDT)
+        Thu, 09 Jul 2026 15:13:42 -0700 (PDT)
 From: Gianluca Boiano <morf3089@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -71,10 +73,12 @@ Cc: Gianluca Boiano <morf3089@gmail.com>,
 	linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 0/2] ASoC: codecs: add Texas Instruments TAS2557 smart amplifier driver
-Date: Fri, 10 Jul 2026 00:13:27 +0200
-Message-ID: <20260709221331.989109-1-morf3089@gmail.com>
+Subject: [PATCH v1 1/2] dt-bindings: sound: add Texas Instruments TAS2557
+Date: Fri, 10 Jul 2026 00:13:28 +0200
+Message-ID: <20260709221331.989109-2-morf3089@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260709221331.989109-1-morf3089@gmail.com>
+References: <20260709221331.989109-1-morf3089@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,42 +87,165 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TAS2557 is a mono Class-D smart amplifier with an on-chip DSP for
-speaker protection, controlled over I2C with audio carried over
-I2S/TDM. The DSP requires a board-specific firmware image generated
-with TI's PurePath Console tuning tools; without it the device passes
-no audio.
+Document the TAS2557 mono Class-D smart amplifier with an integrated
+DSP for speaker protection. The device is controlled over I2C and
+receives audio over I2S/TDM (ASI). It can drive a single mono speaker
+or, as two devices, a stereo pair; in that case the ti,channel
+property selects the audio slot each device reproduces and the
+per-device tuning it applies.
 
-Patch 1 adds the devicetree binding. Patch 2 adds the ASoC codec
-driver: mono and dual-device stereo operation, per-device ti,channel
-tuning, and fault-interrupt recovery that reloads the firmware
-configuration on clock loss, over-current, brownout or
-over-temperature.
+The on-chip DSP boots from a firmware image generated per speaker
+design with the TI PurePath Console tuning tools; the optional
+firmware-name property selects a board-specific image.
 
-Tested in mono configuration on Xiaomi Mi A2 (SDM660, jasmine),
-Xiaomi Redmi Note 6 Pro (SDM636, tulip) and Xiaomi Redmi 5 Plus
-(MSM8953, vince), driving the top speaker, and in dual-device stereo
-configuration on Xiaomi Mi Pad 4 (SDM660, clover).
-
-Based on v7.2-rc1.
-
-Gianluca Boiano (2):
-  dt-bindings: sound: add Texas Instruments TAS2557
-  ASoC: codecs: add TAS2557 mono smart amplifier driver
-
- .../devicetree/bindings/sound/ti,tas2557.yaml |  123 +
- MAINTAINERS                                   |    1 +
- sound/soc/codecs/Kconfig                      |   11 +
- sound/soc/codecs/Makefile                     |    2 +
- sound/soc/codecs/tas2557.c                    | 2476 +++++++++++++++++
- sound/soc/codecs/tas2557.h                    |  218 ++
- 6 files changed, 2831 insertions(+)
+Signed-off-by: Gianluca Boiano <morf3089@gmail.com>
+---
+ .../devicetree/bindings/sound/ti,tas2557.yaml | 123 ++++++++++++++++++
+ MAINTAINERS                                   |   1 +
+ 2 files changed, 124 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2557.yaml
- create mode 100644 sound/soc/codecs/tas2557.c
- create mode 100644 sound/soc/codecs/tas2557.h
 
-
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+diff --git a/Documentation/devicetree/bindings/sound/ti,tas2557.yaml b/Documentation/devicetree/bindings/sound/ti,tas2557.yaml
+new file mode 100644
+index 000000000000..b1d1183c4a79
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/ti,tas2557.yaml
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2026 Gianluca Boiano <morf3089@gmail.com>
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/ti,tas2557.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TAS2557 Mono Smart Amplifier
++
++maintainers:
++  - Gianluca Boiano <morf3089@gmail.com>
++
++description: |
++  The TAS2557 is a mono, digital-input Class-D amplifier with an
++  integrated DSP for speaker protection. Audio is carried over I2S/TDM
++  (ASI). The on-chip DSP boots from a firmware image that is generated
++  for a specific speaker design using the TI PurePath Console tuning
++  tools.
++
++  Stereo playback is built from two devices, each reproducing one audio
++  slot selected through the ti,channel property and applying the
++  matching per-device tuning contained in a stereo-tuned firmware
++  image.
++
++  Datasheet: https://www.ti.com/lit/gpn/tas2557
++
++allOf:
++  - $ref: dai-common.yaml#
++
++properties:
++  compatible:
++    const: ti,tas2557
++
++  reg:
++    maxItems: 1
++
++  '#sound-dai-cells':
++    const: 0
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to the active-low RESET pin.
++
++  interrupts:
++    maxItems: 1
++    description: Fault interrupt output (INT).
++
++  vbat-supply:
++    description: Battery/boost input supply (VBAT), 2.9 V to 5.5 V.
++
++  iovdd-supply:
++    description: Digital I/O supply, 1.62 V to 3.6 V.
++
++  avdd-supply:
++    description: Analog supply, 1.65 V to 1.95 V.
++
++  dvdd-supply:
++    description: Digital core supply, 1.65 V to 1.95 V.
++
++  ti,imon-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: TDM TX time slot for current-sense data.
++    default: 0
++    minimum: 0
++    maximum: 7
++
++  ti,vmon-slot-no:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: TDM TX time slot for voltage-sense data.
++    default: 2
++    minimum: 0
++    maximum: 7
++
++  ti,channel:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      Audio slot of the stereo stream reproduced by this device (0 =
++      left, 1 = right). With stereo firmware this also selects which
++      per-device tuning set is applied.
++    enum: [0, 1]
++    default: 0
++
++  firmware-name:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: |
++      Name of the DSP firmware image to load. Defaults to a name
++      derived from the silicon revision. Stereo systems typically use
++      a stereo-tuned image shared by both devices.
++
++required:
++  - compatible
++  - reg
++  - '#sound-dai-cells'
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        audio-codec@4c {
++            compatible = "ti,tas2557";
++            reg = <0x4c>;
++            #sound-dai-cells = <0>;
++            reset-gpios = <&tlmm 77 GPIO_ACTIVE_LOW>;
++            interrupt-parent = <&tlmm>;
++            interrupts = <73 IRQ_TYPE_LEVEL_HIGH>;
++
++            vbat-supply = <&vph_pwr>;
++            iovdd-supply = <&vreg_l6b_1p8>;
++            avdd-supply = <&vreg_l6b_1p8>;
++            dvdd-supply = <&vreg_l6b_1p8>;
++
++            ti,imon-slot-no = <0>;
++            ti,vmon-slot-no = <2>;
++            ti,channel = <0>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15011f5752a9..8a824da3979e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26677,6 +26677,7 @@ M:	Sen Wang <sen@ti.com>
+ L:	linux-sound@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/ti,tas2552.yaml
++F:	Documentation/devicetree/bindings/sound/ti,tas2557.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas2562.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas2770.yaml
+ F:	Documentation/devicetree/bindings/sound/ti,tas27xx.yaml
 -- 
 2.55.0
 
