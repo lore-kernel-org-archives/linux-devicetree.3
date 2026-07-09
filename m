@@ -1,123 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4AF8472
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 14:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE250263F34;
+	Thu,  9 Jul 2026 14:05:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783605913; cv=none; b=OSYLwdP3yvHA5otT+aQucHGGbAvZPc1/4HY5HLbaOT+GXa6ygtKrKrxiiuHHhy40n0YHrHxdF5kA5daT1aYm+8ko5KHMfq5ZVPAimjpD9lRcHxFzQkCiPQsTTw3tuGQLM2HF7DJwklYd2Cdu9wMmEEUD2Iq2/QMnPQi0qxwc5X4=
+	t=1783605939; cv=none; b=gspM+2GyKJcjw3A2RpVZzFvkNGesRB+O1YwaG7xm02oizaWHhTNLTctY0DkRl5nuJhvXH/c3phJOcz09Uww/E0kwYTMjWXaEBofsoHAD43N1ogDXuVE2b30XLF/lckWogfrHclYceneGGFWumWZgKqWSbNWJ7rdL+JiVOXO8n9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783605913; c=relaxed/simple;
-	bh=Qf0J6bWemGlfmjmGgxr+eHguk8IWCakPKEnD2W8b6oM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F5CaBRLXiXgm3MjOf6FAgKIsRLicD7xPrAwHiwCiWIcfq5DsXs9sYls7ZaJqv77vA1gXTcfgjR5E+jgB1kbHdVPpQzhyI3kM28Ol3tuRcEJBJGFThLuuHnuSGO2B/fT5MRNVNARtfISRtTqZxjdKW3MZnyPHiE4/DfjAqPnT9Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFVz9FhV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783605939; c=relaxed/simple;
+	bh=22XW+V5XF0iLnR9+YP/enVD7BjheUREeDzPkDNifOPI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HYc0G1C8cZesJcUJgC7KIsh5N/btGC4DPThN5Sp5nnYH50qcYCaGSyshXvyOT+Ja90J4RAbqcb8JmnRFSRQRqIpi8c+i2vsLwo9PQflJXxBk5ly0FkSmYKDzQdwtJNQtfoNo7dwL2nCfbRE7XEg/vrc2gQ3CDkep8gZv5rGtQ9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=E2gh5g0k; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFVz9FhV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B951F000E9;
-	Thu,  9 Jul 2026 14:05:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783605911;
-	bh=A/WnIpld9ENE9dRajyAAU/Djnw4yshNdKzpzGB09TOc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YFVz9FhVcISvz4ndTF3iQUoOvbc1xJFhy0lSsKAnLOQtz7WsJw/l1LJ6QVWs9k3vO
-	 07Ht4x4Eai592Q1GYZPkqWOZFqWS8aNjQiV6MHMecn24qcYXwNBc7c0P1ffSMPbotV
-	 Z/QtWajI90fLK1kDFmwrUr5HQQW1GLytUGJKccs9Bm6V3CSlufJOnFpOQ1Dhw04rqr
-	 cV5h0XhYyb/lEwGUbHWxj02Bnks66QSPuXnZgGZC4G7nWiG/DkTlIxl2yIwjxPbRbU
-	 rA11+7e9e+nYZxOZYjua9mBjhiepa3Cz8Li5nMj9UmTCvmvCLO9yAoDkJ/YrHbleW/
-	 W1llPmu1InwaA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 13/18] media: iris: update buffer requirements based
- on received info
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709-iris-ar50lt-v7-13-76af9dd4d1f6@oss.qualcomm.com>
-References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
- <20260709-iris-ar50lt-v7-13-76af9dd4d1f6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 14:05:10 +0000
-Message-Id: <20260709140510.F3B951F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="E2gh5g0k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783605936;
+	bh=22XW+V5XF0iLnR9+YP/enVD7BjheUREeDzPkDNifOPI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=E2gh5g0kBLcL0tlvGP5nqHnNOU9SxBdqIErJCJ08vhsQe96SukRtXPz0bsZ31RePJ
+	 heP8e84zIwb2JQlb79rVImPzBDdiu6WMid3f1JVswovoT0UVHBJsLz5cKuu2mPR3J8
+	 vdQ//iJB/Ewhm7tFUxQTIUHJt1y8BCctSOj+xi6+swIyxdqNOj5iVKDsfE0E7WA4ih
+	 6xXs5SJkWULzDLLjdRtyMDq1reTPelSSTxCaqElhEmaT0j6DOLIfH1caWtr6/yBa65
+	 cqEAblwdhI6KY9XPbbO+UhVkiQTtltwIxsSxaX9BOxMkILfdmYaOolzgtpgKutMal6
+	 R0XunXKcYLiSQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 84B4D17E01AC;
+	Thu, 09 Jul 2026 16:05:35 +0200 (CEST)
+Message-ID: <39ba7e37-bdd7-41ab-b72d-fed0bdbfc3b6@collabora.com>
+Date: Thu, 9 Jul 2026 16:05:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/18] dt-bindings: clock: mediatek: Add MT8189 clocks
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Edward-JW Yang <edward-jw.yang@mediatek.com>,
+ Richard Cochran <richardcochran@gmail.com>
+Cc: kernel@collabora.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ netdev@vger.kernel.org, Irving-CH Lin <irving-ch.lin@mediatek.com>
+References: <20260709-mt8189-clocks-system-base-v2-0-2926da3db6cf@collabora.com>
+ <20260709-mt8189-clocks-system-base-v2-8-2926da3db6cf@collabora.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260709-mt8189-clocks-system-base-v2-8-2926da3db6cf@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 7/9/26 15:42, Louis-Alexis Eyraud wrote:
+> Add dt schema and IDs for the clocks of MediaTek MT8189 SoC.
+> The MT8189 clock IP provide clock control for main system
+> (apmixedsys, topcksys and vlpcksys) and subsys (eg. peri, scp,
+> ufs...).
+> 
+> Also, add compatible for frequency hopping and spread spectrum clock
+> functionality and reset controller header file for MT8189 UFS reset
+> controller support.
+> 
+> Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+> Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Pre-existing issues:
-- [High] Missing reference counting on `iris_inst` objects allows an interr=
-upt handler to use a freed instance.
---
+Both the commit description and title are misleading, as in, you're not adding
+MT8189 clocks, but *both* clocks *and* resets.
 
---- Patch [13]: [PATCH v7 13/18] media: iris: update buffer requirements ba=
-sed on received info ---
-commit fb9888a16075cc5bb0904df74da5c901575cc14f
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Fix it please.
 
-media: iris: update buffer requirements based on received info
+After which:
 
-Upon receiving data for HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS the
-driver should update buffer sizes and counts from the received data.
-Implement corresponding functionality updating buffers data.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/=
-drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> index 23fc7194b1e3a..7ad6f0bb46770 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+> ---
+>   .../bindings/clock/mediatek,mt8186-clock.yaml      |  15 +
+>   .../bindings/clock/mediatek,mt8186-fhctl.yaml      |   1 +
+>   .../bindings/clock/mediatek,mt8186-sys-clock.yaml  |   5 +
+>   include/dt-bindings/clock/mediatek,mt8189-clk.h    | 433 +++++++++++++++++++++
+>   include/dt-bindings/reset/mediatek,mt8189-resets.h |  17 +
+>   5 files changed, 471 insertions(+)
+> 
 
-[ ... ]
 
-> @@ -657,7 +731,7 @@ static void iris_hfi_gen1_handle_response(struct iris=
-_core *core, void *response
->  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_FILL_BUFFER) {
->  			iris_hfi_gen1_session_ftb_done(inst, hdr);
->  		} else if (hdr->pkt_type =3D=3D HFI_MSG_SESSION_PROPERTY_INFO) {
-> -			complete(&inst->completion);
-> +			iris_hfi_gen1_session_property_info(inst, hdr);
->  		} else {
->  			struct hfi_msg_session_hdr_pkt *shdr;
-
-[Severity: High]
-This is a pre-existing issue, but since we are modifying the message
-handling flow here, there appears to be a use-after-free race condition in
-iris_hfi_gen1_handle_response().
-
-Can an interrupt handler access a freed instance if iris_close() is called
-concurrently?
-
-If a user closes the device, iris_close() executes. Concurrently, the
-threaded IRQ handler reads a message and looks up the instance:
-
-IRQ Thread:
-iris_hfi_gen1_handle_response() {
-    ...
-    inst =3D iris_get_instance(core, pkt->shdr.session_id);
-    // iris_get_instance returns the pointer without acquiring a reference
-    mutex_lock(&inst->lock); // blocks if iris_close() is holding the lock
-    ...
-}
-
-User Thread:
-iris_close() {
-    ...
-    mutex_lock(&inst->lock);
-    iris_remove_session(inst);
-    mutex_unlock(&inst->lock);
-    mutex_destroy(&inst->lock);
-    kfree(inst);
-    ...
-}
-
-Once iris_close() frees the instance, the IRQ thread unblocks and attempts
-to use the destroyed mutex and freed instance memory. Does the driver need
-reference counting (e.g., kref) on the iris_inst structure to prevent it
-from being freed while the IRQ thread is processing messages for it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-iris-ar50l=
-t-v7-0-76af9dd4d1f6@oss.qualcomm.com?part=3D13
