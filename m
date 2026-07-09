@@ -1,118 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C952F3AA9CA;
-	Thu,  9 Jul 2026 05:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D003A7858;
+	Thu,  9 Jul 2026 05:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783575921; cv=none; b=SqzR474Njr/CJ+h47wQ1xZm4gr/50cGZentN5BuLhNqtvjXq8wRD/+A2AxVioZLZb6pPe0fSOTgcKNPcPLI0x16hdPwD3uKfOQnGb/7HB8JUitwNgQYaPjinhvMxi4LTByQ4Nlk4Ps8SFTdeTUL3doaWnEBr8w1HO3mYkNnO+UU=
+	t=1783576240; cv=none; b=bjdJccJ8sJNfq7Kr/GSG5Au/E6V/XN0tj3BA0Mq0gPKhMEcKrrbHgi/i+8wb/ZO5qb7WQYp8D85E7Va9u5T2fGcT6jWgYcadnGL+qMXlXjohoEj27QaeKeJAjWFexikOZPF2XRZAh0a1l1p8BY055v9J6Ln9gPA8tC7DA14v8Wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783575921; c=relaxed/simple;
-	bh=Undh417amuoNmnWjoLPCXV9xTq0nyBGyg1m4Fninpcs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LNGnNFIu3CGF0Z4wokztONt/NPCsNsPzchD1kXSIBkK5gkG0q1Suv+hd+tbS+VStzS7a86XCoMgZWXJk16Gu867dL1st2kFZUwUoPTKvsBkJhYS/5Z8wXXqzHnzdr3O/l6ooxvNJQnNYScrg7jV9qJkTQqB0Yd8e1EPa8wE9dfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwDcxqNv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783576240; c=relaxed/simple;
+	bh=FX7whN65jVrE20PvneALpRHqPhH6kmMEfSszGNbBOJY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dOgvBD78OiWSJPNGs+7Lm8eZyESzR06K8JEbGt5AP/7FIrTbgtpm73GvrmDuJfULIoUmdn6RH//Tpcv2g6awhUi+PTOcf1Kw/B/EXscWqk9auNDvsbLHV7AO83DrCaexBzRn8wZ8EK60cNuI7wCiMEIzgRR+ytWO018s+WNDvfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MH7QksTF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwDcxqNv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6F626C2BCB7;
-	Thu,  9 Jul 2026 05:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783575921;
-	bh=Undh417amuoNmnWjoLPCXV9xTq0nyBGyg1m4Fninpcs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=cwDcxqNvPWa063pvfvwJ/gclokj0bXUE8jyw3/G7pTAj64XPZXsL4LDCFvVDFcczc
-	 3MMZLpwsE3oj9aZnL+BVvMIaZMNv4B8xzM46vk88xueE0TolxtS/7lx8/XF1urI/TA
-	 vsOSMbf0+4g3KE5b+zDs8/hPq+xFMae6TPaMvyryLL40kpX1prU7QJcZGtddSrMJrR
-	 VaLJainTFmttsTKBnB+ddHyhPAuE0E9weDqIvK5cRrnIKSGpnG/7Dk4H7lgf0kf5Gf
-	 Mkc0M60B7SJX+hdxEPVC/2cJvn9G4E0TAaRdayReot3WRJZ1dOV2+VB1+m1iue+b+D
-	 E84h68Y5H7XWw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50D33C44503;
-	Thu,  9 Jul 2026 05:45:21 +0000 (UTC)
-From: HaoNing Cheng via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Date: Thu, 09 Jul 2026 13:43:27 +0800
-Subject: [PATCH 1/2] dt-bindings: thermal: imx: Document calibration offset
- property
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MH7QksTF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1E61F000E9;
+	Thu,  9 Jul 2026 05:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783576239;
+	bh=YNn6ISIEjfzZs3npYxuLbY/ckJbGgqpqaTejrCtmRcE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MH7QksTFDL1iM/bByvrapR8cbRQxfcdXy6oHlU3Xl38gEpJPxLVaOdwaWt4Dd/PmU
+	 FHw9Pfddpbmg8OIaXVLf0dWGiBZ6h9gawbZ5EWJ2cQhWeSVb5ZeBE2PjBc4Uo3aggr
+	 luyncI9IFV2JLU5LorSKC3La1Z8eYAacCB/hbwd1O3ai+eJ0jMdbgSGIxOv0jbSQ1J
+	 UiUdqE1hYlqPZ6WngGTzRRmKRjqzk4z31ouXlf4vGiX3pbZcbGrs8GWUQrz4Vn8tlq
+	 YVgpj27Y2voMkzgkbFx3n1lgX7SoB8+T6cRH/TY27YsN4N6HgEkyL4OOZTVdZ74krI
+	 5Zu0s+/3k+CNw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: thermal: imx: Document calibration
+ offset property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "HaoNing Cheng" <Haoning.CHENG@cn.bosch.com>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-1-00f88f42930b@cn.bosch.com>
+References: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-0-00f88f42930b@cn.bosch.com>
+ <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-1-00f88f42930b@cn.bosch.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 05:50:38 +0000
+Message-Id: <20260709055038.BF1E61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-1-00f88f42930b@cn.bosch.com>
-References: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-0-00f88f42930b@cn.bosch.com>
-In-Reply-To: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-0-00f88f42930b@cn.bosch.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783575916; l=1688;
- i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=+ktspic5FuVpdH2DPCuQLJE0m7veRBsySegdaHpw1dM=;
- b=9c10GNPVKYp0qiKdERsyCTSST7+4HWR2poW7/XY9T67HoBwQY6V7VQVACJGkleIp2do4a6DtH
- R/6T7kj1j0FCnoBsfnK8taIGOvJVRe3xgbrRqKmj/vn4nPiLeePeARl
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
- pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
-X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
- with auth_id=860
-X-Original-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
-Reply-To: Haoning.CHENG@cn.bosch.com
 
-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Inconsistent indentation in the device tree example for the newly a=
+dded property.
+--
 
-Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements.
+--- Patch [1]: [PATCH 1/2] dt-bindings: thermal: imx: Document calibration =
+offset property ---
+commit 1a75813b8a61f5ee87309553dc49a0dab98ae1c1
+Author: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
 
-Document the optional fsl,temp-calibration-offset-millicelsius property,
-a signed offset in millicelsius that is added to the calculated sensor
-temperature. The property is optional and the existing behaviour is kept
-when it is omitted.
+dt-bindings: thermal: imx: Document calibration offset property
 
-Update the binding example to show its usage.
+This commit documents a new optional property,
+fsl,temp-calibration-offset-millicelsius, to align the reported CPU
+temperature with board-level measurements. The binding example is also
+updated to demonstrate its usage.
 
-Signed-off-by: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
----
- Documentation/devicetree/bindings/thermal/imx-thermal.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml b=
+/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
+> --- a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
 
-diff --git a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-index 949b154856c5..29bdcb921a96 100644
---- a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-@@ -59,6 +59,13 @@ properties:
-   clocks:
-     maxItems: 1
- 
-+  fsl,temp-calibration-offset-millicelsius:
-+    description:
-+      A signed calibration offset, in millicelsius, added to the calculated
-+      sensor temperature to compensate for board-level measurement
-+      differences. When absent, no offset is applied.
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-   "#thermal-sensor-cells":
-     const: 0
- 
-@@ -109,6 +116,7 @@ examples:
-             nvmem-cells = <&tempmon_calib>, <&tempmon_temp_grade>;
-             nvmem-cell-names = "calib", "temp_grade";
-             clocks = <&clks IMX6SX_CLK_PLL3_USB_OTG>;
-+             fsl,temp-calibration-offset-millicelsius = <(-6400)>;
-             #thermal-sensor-cells = <0>;
-         };
-     };
+[ ... ]
 
--- 
-2.43.0
+> @@ -109,6 +116,7 @@ examples:
+>              nvmem-cells =3D <&tempmon_calib>, <&tempmon_temp_grade>;
+>              nvmem-cell-names =3D "calib", "temp_grade";
+>              clocks =3D <&clks IMX6SX_CLK_PLL3_USB_OTG>;
+> +             fsl,temp-calibration-offset-millicelsius =3D <(-6400)>;
 
+[Severity: Low]
+This isn't a bug, but does this line have an extra leading space? It appears
+to be indented with 13 spaces instead of 12, misaligning it slightly with t=
+he
+surrounding properties in the example.
 
+>              #thermal-sensor-cells =3D <0>;
+>          };
+>      };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-b4-symana2=
+1-11221-imx-thermal-support-upstream-6-18-v1-0-00f88f42930b@cn.bosch.com?pa=
+rt=3D1
