@@ -1,134 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C623AE1A8
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:00:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C133EB818
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 09:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783587629; cv=none; b=oNRc40LenrxvIQbZvCDcKXtuJjH4ErB3n/8oDGehuOniiVOtXKXEJSHRyQ3IbouvgznB+vylMfjmiCzSigTw472MQhu+r6kxmeAfjlZiZyn+Z2aDfK775JrOwOdhTHCvSlFF6m/kXURebLpZYDJT1FFL0MNtVuFTqHASSYWEEb4=
+	t=1783587655; cv=none; b=TRP2RKqRIsZPrLMwtyCVE7zCrzISmkv0LPwCjYQHCaMQukvKfxJnPqxdUQ2C3G6INQbiz33yHVkt+FeRJ0VXlBiDzUNMwYwj3jepBy9L0N+DwKtSI3wHnXZXdHsudPtXpNOjNEp+us/zzV7Ta0Ma03IG8XZD/9uRHSocgcu27s0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783587629; c=relaxed/simple;
-	bh=Z3u6bRs5CnH6CFkloRfu1WNYogSo53cSkVJmZB2sqZI=;
+	s=arc-20240116; t=1783587655; c=relaxed/simple;
+	bh=pzKZK6OOMvtocIfCYPz86gZNXLlkFy+q8esWHjnUFTg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=toqZ58GOrPJfqn81qVYsNMA9pJ7VbuOc7FmiGQ7OqJIKtYAQAZFjy2VllCy+S51BFHaCSd0jwKGJ4iBcJ1fCDk9V93icUB5SRamxKBudWT6tLnGIe9DKSfeIh4Jr3HzxbqdTHIBnIsRyNIKI9yQfXhN7ZIohlb69EfMqqBuUQDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3tKAh07; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=O/qNGx9HMTuWuKCB6JmREqpxzzPeer+mmhYutVR+eJqrybd/PeSog2z1LHvptzqYT4u6w90Dr0aBPGsx4Oyw9ht0iBTTCNimnhZVtXBz+jHh4RSNXN61NL9lTSg6bL/fg7Ks9BwlyzFJ/O/NXZ7t+vLIRl1Mc8ddPDFACKWKfUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eyA1F/eh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3tKAh07"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74521F00A3A;
-	Thu,  9 Jul 2026 09:00:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eyA1F/eh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35ACF1F000E9;
+	Thu,  9 Jul 2026 09:00:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783587628;
-	bh=iiIV8DMw9GERaN2Zgb+Y1HCzKM4RiH4uE1Oc9V79VsY=;
+	s=k20260515; t=1783587654;
+	bh=YRx2ixGiNlTCT020E6LEI0GOs9e6epyCPOVvW6d7Hc0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h3tKAh07YUZBRK+mWGkirAPciKe7PZiJD1FUwDgfPob63FKHUVGW1DEF2RpYSO9y/
-	 0Ii4E/UDy1y2qu+oSFBjd3CGtUstK9b1/xkAgEu8jBTSTmQlSloWyYB8YQ3YoDyYhG
-	 LYc3v5mXEODq7tkw1CcXOHBuG8gnn0T5QZjaeQKZOr811oLsXLggrhxSeyNu3anqRS
-	 82sm25s+cOSEAmFy+2AqjNbbOKftGHjrja//nQswroNxMZSagCONd4lMYC74dSr1ID
-	 S19ZqM1MXkYaPN4NMhQuNNPAMPDnb1Nap3UKMaCFrMLo2ppP5CshzvAMfpS0pBi7z9
-	 jBOXHdzqxorSQ==
+	b=eyA1F/ehUJGBGRI55PM+X2ArgV8LmlfNTrtYuU5ltCUXlU1b/EE105Zt8Touaikyz
+	 erFxkktO9Zccr98peeoHGQ7bMgnr+3Q+opcaHlEghsY4N1dwmuHj/LADKFiMtQegyw
+	 XdlxCFGJye818qEsPUFXwEPMDMpA7bBw9FB62yX2DIbeDbfSkOqDUS9BEeixvFlQBP
+	 ZzTvujo+5JdmOifwNjo7fSRXPPXQMfr0pqvTubdAna2YfZNzfKICxh2k04j2vQoU1R
+	 SmK2Qf2q32S3tFaSw4borPX2tsgv89ks+ct3xTdDPegGp/ygpwct5fgFlm1Y8Zy1FE
+	 7s5FXUrVO8yyQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 9/9] arm64: dts: renesas: r9a08g046l48-smarc: Add
- USB2.0 support
+Subject: Re: [PATCH 3/3] remoteproc: qcom: pas: Add Nord ADSP support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709083108.108370-10-biju.das.jz@bp.renesas.com>
-References: <20260709083108.108370-1-biju.das.jz@bp.renesas.com>
- <20260709083108.108370-10-biju.das.jz@bp.renesas.com>
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709085149.4072181-4-shengchao.guo@oss.qualcomm.com>
+References: <20260709085149.4072181-1-shengchao.guo@oss.qualcomm.com>
+ <20260709085149.4072181-4-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 09:00:27 +0000
-Message-Id: <20260709090027.E74521F00A3A@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 09:00:53 +0000
+Message-Id: <20260709090054.35ACF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Incomplete and inconsistent USB OTG configuration for Port 0
+
+New issues:
+- [High] The patch introduces a compilation failure by initializing a non-e=
+xistent `early_boot` member, and omits the "attach path" logic promised in =
+the commit message.
+- [Low] The `qcom_pas_of_match` array is not kept in alphabetical order.
+
+Pre-existing issues:
+- [High] Missing unroll logic in `qcom_pas_assign_memory_region()` permanen=
+tly leaks secure memory assignments on error.
 --
 
---- Patch [9]: [PATCH v4 9/9] arm64: dts: renesas: r9a08g046l48-smarc: Add =
-USB2.0 support ---
-commit 1964bef80a134cfc6d3060cab9485db22da3e126
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+--- Patch [3]: [PATCH 3/3] remoteproc: qcom: pas: Add Nord ADSP support ---
+commit c4d506b746f90f7894797ce51ad96d54c9cd9077
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-arm64: dts: renesas: r9a08g046l48-smarc: Add USB2.0 support
+remoteproc: qcom: pas: Add Nord ADSP support
 
-This commit enables USB2.0 on the RZ/G3L SMARC board. It configures Port 0
-as OTG and Port 1 as host-only, including the respective pinmuxing, VBUS
-supplies, and PHY resets.
+The ADSP on Nord SoC is pre-booted by XBL before Linux starts. This patch
+adds the ADSP resource descriptor and sets the early_boot flag for the
+attach path rather than a cold boot sequence.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/ar=
-m64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> index 5289efd1a430a..6096137e193a1 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> @@ -71,6 +71,16 @@ codec_dai: codec {
->  #endif
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -1354,6 +1354,27 @@ static const struct qcom_pas_data milos_cdsp_resou=
+rce =3D {
+>  	.smem_host_id =3D 5,
 >  };
 > =20
-> +&ehci0 {
-> +	dr_mode =3D "otg";
+> +static const struct qcom_pas_data nord_adsp_resource =3D {
+> +	.crash_reason_smem =3D 423,
+> +	.firmware_name =3D "adsp.mdt",
+> +	.dtb_firmware_name =3D "adsp_dtb.mbn",
+> +	.pas_id =3D 1,
+> +	.dtb_pas_id =3D 36,
+> +	.minidump_id =3D 5,
+> +	.auto_boot =3D true,
+> +	.early_boot =3D true,
 
 [Severity: High]
-Does this configuration work properly without a peripheral controller (hsus=
-b)
-defined in the SoC DTSI to handle device-mode traffic?
+Does this cause a build failure? Looking at the definition of
+struct qcom_pas_data in drivers/remoteproc/qcom_q6v5_pas.c, it doesn't
+appear to have an early_boot member.
 
-> +	status =3D "okay";
-> +};
-> +
-> +&ehci1 {
+Additionally, the commit message mentions setting the early_boot flag for
+the attach path rather than a cold boot sequence. If the build is fixed by
+simply adding early_boot to the struct, will the probe succeed but fall
+back to the cold boot path since the driver appears to be missing the
+attach logic?
+
+This could cause the driver to reset and reload firmware on an
+already-running DSP.
+
+> +	.proxy_pd_names =3D (char*[]){
+> +		"cx",
+> +		"mx",
+> +		NULL
+> +	},
 
 [ ... ]
 
-> @@ -181,6 +205,16 @@ ssi0_pins: ssi0 {
->  			 <RZG3L_PORT_PINMUX(H, 2, 9)>, /* SSIF0_RCK */
->  			 <RZG3L_PORT_PINMUX(H, 3, 9)>; /* SSIF0_TXD */
->  	};
-> +
-> +	usb0_pins: usb0 {
-> +		pinmux =3D <RZG3L_PORT_PINMUX(3, 0, 12)>, /* USB20_OVRCUR */
-> +			 <RZG3L_PORT_PINMUX(3, 1, 12)>; /* USB20_VBUSEN */
-> +	};
+> @@ -1578,6 +1599,7 @@ static const struct of_device_id qcom_pas_of_match[=
+] =3D {
+>  	{ .compatible =3D "qcom,milos-cdsp-pas", .data =3D &milos_cdsp_resource=
+ },
+>  	{ .compatible =3D "qcom,milos-mpss-pas", .data =3D &sm8450_mpss_resourc=
+e },
+>  	{ .compatible =3D "qcom,milos-wpss-pas", .data =3D &sc7280_wpss_resourc=
+e },
+> +	{ .compatible =3D "qcom,nord-adsp-pas", .data =3D &nord_adsp_resource },
+>  	{ .compatible =3D "qcom,msm8226-adsp-pil", .data =3D &msm8996_adsp_reso=
+urce },
+
+[Severity: Low]
+This isn't a bug, but does this break the alphabetical ordering of the
+qcom_pas_of_match array? The compatible qcom,nord-adsp-pas is inserted
+between qcom,milos-wpss-pas and qcom,msm8226-adsp-pil. Since nord starts
+with n, it should likely be placed further down after the msm entries.
+
 
 [Severity: High]
-Is there an OTG ID pin that should be routed in this pinmux?
+This is a pre-existing issue, but I noticed a potential leak of secure
+memory assignments on error paths:
 
-Without the ID pin mapped, cable insertions might not be detected for hardw=
-are
-role switching.
+drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_assign_memory_region() {
+    ...
+    if (ret < 0) {
+        dev_err(pas->dev, "assign memory %d failed\n", offset);
+        return ret;
+    }
+    ...
+}
 
-> +
-> +	usb1_pins: usb1 {
+If an assignment fails at an offset greater than 0, the function returns
+an error code without reverting the permissions of regions that were
+successfully mapped in prior iterations.
 
-[ ... ]
+Additionally, in qcom_pas_probe():
 
-> @@ -241,3 +275,18 @@ &ssi0 {
->  	status =3D "okay";
->  };
->  #endif
-> +
-> +&usb2_phy0 {
-> +	pinctrl-0 =3D <&usb0_pins>;
-> +	pinctrl-names =3D "default";
-> +	vbus-supply =3D <&usb0_vbus_otg>;
+drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_probe() {
+    ...
+    ret =3D qcom_pas_assign_memory_region(pas);
+    if (ret)
+        goto free_rproc;
+    ...
+}
 
-[Severity: High]
-Because the ID pin is not mapped in usb0_pins, should this node include the
-renesas,no-otg-pins property?
+The probe failure path jumps to free_rproc, bypassing the unassign_mem
+label and failing to call qcom_pas_unassign_memory_region().
 
-Without it, the PHY driver might attempt to switch roles using a floating
-ID pin state. If the unmapped pin floats high, the PHY driver could
-unexpectedly switch to device mode and internally disconnect the EHCI/OHCI
-controllers, making Port 0 non-functional.
-
-> +	status =3D "okay";
-> +};
+Does this permanently leak system memory to the secure environment,
+rendering it inaccessible to the host OS?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709083108.1083=
-70-1-biju.das.jz@bp.renesas.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709085149.4072=
+181-1-shengchao.guo@oss.qualcomm.com?part=3D3
