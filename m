@@ -1,87 +1,40 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2C240B371
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93653FDC14
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783593913; cv=none; b=hxWlrd9hkTB8ASEofAIymgDfVyHIn/lUYrNwUGBQ4Ip3Xs6y8MACaNK1JnKJF+9vHsR+bQrLAOKVVe01EXP0MNbUahx4E+lOh9uJmTswWgBMZyvDuWICgPjmhhK2jYDCS2rV6buG20rgXz1lnGE0jamSDYzn3Y6XylmRc3rl0i0=
+	t=1783593916; cv=none; b=gXV65WnwHUKqikoBSIgnsTJ78hw7DqV22DJmWQlNTjvX3emll27xxekwMkOU1Nk93UuddzPe9aDurEpTIYQEGwrwwy7Ds+sSWszJkq0ddCUgsEEySmjglc/Ynx67p7S874Gg9Qkc//mlXrk1W+CbZRklmQCSPBqS8KISXhDrUPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783593913; c=relaxed/simple;
-	bh=QD3manX5WJLWHwklT44Bd7vdgJYfsMpFHVdu5gZjIIo=;
+	s=arc-20240116; t=1783593916; c=relaxed/simple;
+	bh=PTGc36+DKPbLKZpOvC5m3aQ5OX1au2eeFPkLDVrfiyQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M7jTYxa77w4mVKJEN2YiT1Q2HCd2NXigJRD3C3hEiF3CgixSRWMmCxMM4FDooLBYwlfK+CKqsWJwbPYW3yaawGBxwJNSuO9frKpJilfwiQg3DFWqoVKftJk3bZfNgyKAbxizSXH2Iy6konXGBTg8KfYMya9eGEIJFci4wESWWwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SYS7QpqN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WeneMEE6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=CwHe2CHOyCRvh6E78+oHL/iTCrW0c+4x5qEnJf6h1tBVE1Oey8Kqq3Vv41c6RnTljxN5KPddpCAy/impcoXaDOiSR6WuT/V7byv/HZMw8FWwBkjzqAZFAiMqC2sdECTz/xn/NAzZARHSSZQcSX5XX4H0FqO8Q2e86LNvmKcJRCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pfx+2rE5; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SYS7QpqN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WeneMEE6"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669AhrA01579424
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 10:45:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TukoVQ0gaDRj7ld7E34mbrss1dmlhmyy144jGx/Q9fc=; b=SYS7QpqNi0NA1j7q
-	9icx9AKADrt8J+HVynauUN4NPfaAvw6XreQSsGDrx3StTaPlQaRUQLUhzMkHICzn
-	nja7mE1etjXlot8x+lpWTmxBkRsV+ENUVFFNBXQRwOkXvQdGLgb3UFeH/khMB+Ue
-	G6yTQSVBHQuTi8E7SIHjILpIQdSg0YJCn8gLGogaCGPTMKHRl2UnDxzN4aAE10T/
-	i+87tdF6gX6MHyfFA9VQUceGWF8r0t+AlKi+kSPqnmqy5skc9NnSNEXuAqaOCmk7
-	ynYaymiz22+PWRJvQjQ6FD0gg1SE3CyH9+I6G/hsH1x6NM2ecR3gUe8EnE2kF4cD
-	ivamhg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa418hnan-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 10:45:07 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e5e21552dso33434485a.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 03:45:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783593906; x=1784198706; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TukoVQ0gaDRj7ld7E34mbrss1dmlhmyy144jGx/Q9fc=;
-        b=WeneMEE6z2DlNxYeGWMRBQcygnOzgc4JXcCIhNemYy0c5ykymDNPvHm79tOAcx2iGY
-         A4vGV9g88HSPh1mDhMpN31x4ISaVIBVXAXJMKJWz5nwrkQxgBB14QC1ejz9sqG5CtbFE
-         ZBWuxbrgZ/UtDIDzpDqEtuiEa4lfsinrysDw1Vab8FJ+OH8Xg+c+0Mn/V9bv+nU2e1YY
-         VnRDHrCCAu3cc/EwQULoHYncyx4WPWaRq+NrknuqnSMJ6iLeIPqwsSnCOdm08RQG4vNT
-         AdVw4h4yjzOlFd3sB102cV7aYLkTAFbtZMh5hzkEblrID0VIho3I7zIm/WqkqEM3Xs4J
-         6lkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783593906; x=1784198706;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TukoVQ0gaDRj7ld7E34mbrss1dmlhmyy144jGx/Q9fc=;
-        b=mYD5rVSN6Ke3WRJXVY/UbYiQ0Luu8/2hTEmPrPmA3Arig77v8L6aybDxJNV9GYg9Ub
-         RbiVhv/MlxmCppaE89YoF5VXtmAYAWCzkKa0dCgBGfC/KUrpipaSglUqD1dPdjhfiP3F
-         Qsrk5PX4Kk68jDxYY4BMuPMz6QUz+WKg44/XzLVQ0C/hhoHce3nZf3lzra0sKbWanWrM
-         +pyV9v5xpBsEUpcOiXRS0gqvihLlE/Hcg1yLiaG1VrvAvKu7UiXVi6ZYLPH9gxo+QPM3
-         grzB3PnGCDfmHRg9vI5R8O9antbo0sdx6WmeHUKK6EaoAswBJClB35mbBXdV6Gz+s/UH
-         /faQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9UfuW8zevfqjGmC96jXpDLgRGZAkudr08are23xvK9aZS99wdFIrhtYAGxPRtbnoYLo1jlDKp6Ndz@vger.kernel.org
-X-Gm-Message-State: AOJu0YyYCzH+klaWGQzzVz/R1ddeq6aXAdY/IIB8k/BDt65WHBWEiGMA
-	+GFVXroTHL5Cj0u5U14n/GKoX4XhVNfN4jCNfEw+aady4GRfZDNSk60/1lqVfSUKgshcI1jkzXN
-	+DJ6QdY5wvfmg8C+4W2gPbFMrgb+5Sx/NKBC4lS4ZdMF3wc3v5kpXRsHTXX0hdW7B
-X-Gm-Gg: AfdE7cmodz48jGXBMLsyoFiCI+hcJllui6aVxE7nf7YKLsU4fBodfyNeWVNOg46qomZ
-	zNrX5fBPbXcHIw2SeDf5WYRk+fb1u4k8PMbmgIFQ3Lx8KHy5VvLA8Tij6REHcTSCMVd6oII8PKH
-	0QI7IRHAtisTIYuXuqLm/7JOdNTt5TuAw5qncwj0pzqQS+/63F0/mG1dIFs2OFV65SLsaXJY0rt
-	JpCy0jEVAX+mwVFHSjY8iqc+ehpZgIGvmuT776XO8Q4r1NMyS2o3yJ97yuUkeByXAbroiFSYvkp
-	q/udkDcEazXcN64l7Jg/f5R7IB/LjvXJ7un6m4VdDfxGwmOjSRaCN4jFfQE88N9WpLVu7C8lGKg
-	DTC1VtFcXCBaO9yDqgo/iLx4FfAA8E80D50M=
-X-Received: by 2002:a05:620a:8813:b0:92b:55d5:ba3 with SMTP id af79cd13be357-92ed764b013mr276071985a.0.1783593906114;
-        Thu, 09 Jul 2026 03:45:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:8813:b0:92b:55d5:ba3 with SMTP id af79cd13be357-92ed764b013mr276067685a.0.1783593905690;
-        Thu, 09 Jul 2026 03:45:05 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ada05d72sm465024266b.53.2026.07.09.03.45.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 03:45:04 -0700 (PDT)
-Message-ID: <89a2537b-ed04-4444-aa1d-698b0f998fc8@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 12:45:01 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pfx+2rE5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783593909;
+	bh=PTGc36+DKPbLKZpOvC5m3aQ5OX1au2eeFPkLDVrfiyQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pfx+2rE5s9Wmc4A+0cXz84HhhGd/z9qzWYs5hbmrHSArgJEQnCjPKfWj/CsFPyVnU
+	 0JdBVzgD1nBKHfnniwyx2iSnirMPE9fBd/GtSqN1ESa/GjEcaC0ZylGdLlHQ3Mix3m
+	 EdXJAX5syH8s0bshqvR4I8RyEE1GVDNMou9fRRDk4RwBG8aDHcklf+UqFl1bqPkGQK
+	 iOfHJA6MLM5NH8rJClz1ZM1Bd+b8Jt4PUB7IkuoHYFdHcXOx0BkIKfsnQGCpQXYOjt
+	 om0DdMEBfdRkZwJECTlqwS4280mv0SqkPQ5uEGnlxhaultXL/xlfChW+0OhF15FQNd
+	 zJZQDpw3umvQg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5FFB317E0564;
+	Thu, 09 Jul 2026 12:45:08 +0200 (CEST)
+Message-ID: <45444530-5f69-4f98-b4b7-39f8531eacce@collabora.com>
+Date: Thu, 9 Jul 2026 12:45:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,65 +42,167 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] clk: qcom: common: Register reset controller only
- when resets are present
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260708-shikra-audiocorecc-v2-0-b320d822cdd0@oss.qualcomm.com>
- <20260708-shikra-audiocorecc-v2-1-b320d822cdd0@oss.qualcomm.com>
+Subject: Re: [PATCH v3 5/5] pmdomain: mediatek: Add support for MT8196 HFRP
+ DirectCTL domains
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260709084635.24912-1-angelogioacchino.delregno@collabora.com>
+ <20260709084635.24912-6-angelogioacchino.delregno@collabora.com>
+ <20260709090006.32D701F000E9@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260708-shikra-audiocorecc-v2-1-b320d822cdd0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260709090006.32D701F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=UI3t2ify c=1 sm=1 tr=0 ts=6a4f7bb3 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=IyfWUWnWmjsiacPjz4MA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=zZCYzV9kfG8A:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDEwMyBTYWx0ZWRfXwTwNPb6mYzGO
- 3raw2cdJ7wOlE7IApEJrAsGbCDerk9OYzFSlRT3QD/KCnE2VRQVa2nMwwvBH92r3XZpqe+4jKOS
- DnKG5gNw+vMG1QwPJM8cVZpyqBUDbKHbBXVpqPzfgf3fQFEU25TRNFayHGOZHqwkcD1UvI6YpbG
- CY+DQu0trIgMxBX7xPYCY0JHTYAJcW5/fBCRpMCqzGaCenCxGvxWcef951jzSc40cvU+FeCziuz
- 5n89VKkhhiOnRjosEDm0loFwJwCViSWjo1RawP+cWw016undI4VR4PDogOON8HIlU12byb8bkL0
- fc4OoNTKF9s5kSSy6O8xryvGV87FYmIW8LMoxH+D4A6Te3ZuxPGGd8Gql6DLhFI34GENyWlA5De
- K+KTsJAA8Fqbd8opU8ysO8SIWXgOXJp22vTNGXM015FFhHUvduy6si/4PJv5K1Jzkil7CSl/406
- MI1ZriykHWsduAkghrw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDEwMyBTYWx0ZWRfXyAEsP/qsWSUv
- va09Z08pDSQP83GMlO1FgGdYAPoCUFS160IKlXAitA6a+HJ/v4smbAhFRNGNLgIfHujt6YmJkph
- aMRdJjwhOE3AmIZRAAb6bBky10OiutU=
-X-Proofpoint-GUID: OKxvmqK1l_V94zlcRuJOzJHZNdFRN3Gh
-X-Proofpoint-ORIG-GUID: OKxvmqK1l_V94zlcRuJOzJHZNdFRN3Gh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_02,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- adultscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090103
 
-On 7/8/26 8:25 PM, Imran Shaik wrote:
-> Some clock controller descriptors do not define resets. Avoid registering
-> a reset controller in such cases by checking desc->num_resets.
+On 7/9/26 11:00, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
 > 
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> ---
+> New issues:
+> - [Medium] Unconditional power-off of SIMPLE_PWRSEQ domains in error cleanup, masking potentially incorrect status mask configurations.
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+That's not an issue. It's done on purpose.
 
-Konrad
+> Pre-existing issues:
+> - [Critical] Missing error handling for pm_genpd_init() causes kernel panic via NULL pointer dereference during error cleanup.
+> - [Critical] Missing subdomain unlinking during probe error cleanup leaves freed genpd objects in the global gpd_list, causing Use-After-Free.
+> - [High] HW_VOTER domains invoke sleepable clock and regulator APIs while holding a spinlock with IRQs disabled.
+> - [High] Missing GENPD_FLAG_NO_STAY_ON or sync_state callback causes regulator-supplied domains to stay on indefinitely, leading to hardware malfunction on regulator cleanup.
+> - [High] Unbalanced resource cleanup on the error path for KEEP_DEFAULT_OFF domains left on by the bootloader.
+
+I have already fixed whatever I could, can't do the rest in this cycle; maybe in
+september I can.
+
+Also, this shall not block this series from being picked (as it also contains
+important fixes inside), because those are all pre-existing issues.
+
+> --
+> 
+> --- Patch [5]: [PATCH v3 5/5] pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains ---
+> commit 5fec9c9afff1947a88f0033701c6c01f031caa0d
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains
+> 
+> Add support for the power domains provided by the HFRPSYS Power Controller of
+> the MT8196 SoC. Those control power to the eDP and DP Transmitter IPs.
+> 
+>> --- a/drivers/pmdomain/mediatek/mt8196-pm-domains.h
+>> +++ b/drivers/pmdomain/mediatek/mt8196-pm-domains.h
+>> @@ -602,6 +602,27 @@ static const struct scpsys_hwv_domain_data hfrpsys_hwv_domain_data_mt8196[] = {
+>>   	},
+>>   };
+>>   
+>> +static const struct scpsys_domain_data hfrpsys_domain_data_mt8196[] = {
+>> +	[MT8196_POWER_DOMAIN_EDPTX] = {
+>> +		.name = "edp-tx",
+>> +		.sta_mask = MT8196_PWR_ACK,
+>> +		.sta2nd_mask = MT8196_PWR_ACK_2ND,
+>> +		.ctl_offs = 0x74,
+>> +		.pwr_sta_offs = 0x74,
+>> +		.pwr_sta2nd_offs = 0x74,
+>> +		.caps = MTK_SCPD_SIMPLE_PWRSEQ,
+>> +	},
+> 
+> [ ... ]
+> 
+>> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
+>> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
+>> @@ -1071,7 +1071,7 @@ static void scpsys_remove_one_domain(struct scpsys_domain *pd)
+>>   		if (scpsys_hwv_domain_is_enable_done(pd))
+>>   			scpsys_hwv_power_off_internal(pd);
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but do HW_VOTER domains invoke
+> sleepable clock and regulator APIs while holding a spinlock with IRQs
+> disabled?
+> 
+> Since HW_VOTER domains are registered with GENPD_FLAG_IRQ_SAFE, the genpd core
+> guarantees their power_on and power_off callbacks run with interrupts
+> disabled. However, scpsys_hwv_power_on() and scpsys_hwv_power_off()
+> unconditionally call clk_bulk_prepare_enable() and scpsys_regulator_enable(),
+> which take sleepable mutexes.
+> 
+> Can this result in a scheduling while atomic BUG or kernel panic?
+> 
+>>   	} else {
+>> -		if (scpsys_domain_is_on(pd))
+>> +		if (scpsys_domain_is_on(pd) || MTK_SCPD_CAPS(pd, MTK_SCPD_SIMPLE_PWRSEQ))
+>>   			scpsys_power_off_internal(pd);
+>>   	}
+> 
+> [Severity: Medium]
+> Will this unconditionally force power off for SIMPLE_PWRSEQ domains on the
+> error path?
+> 
+> If a SIMPLE_PWRSEQ domain is ever configured with MTK_SCPD_KEEP_DEFAULT_OFF
+> and probe fails, it appears the cleanup path unconditionally powers it off
+> regardless of whether it was active. Could this lead to disabling clocks that
+> were never enabled, resulting in a clock underflow WARN_ON?
+> 
+> Is it possible this acts as a workaround that masks the fact that
+> scpsys_domain_is_on() fails to report the true state for these domains due
+> to their status mask configurations (like MT8196_PWR_ACK for edp-tx)?
+> 
+> [Severity: Critical]
+> This is a pre-existing issue, but does scpsys_add_one_domain() ignore the
+> return value of pm_genpd_init()?
+> 
+> If pm_genpd_init() fails, it seems genpd->gpd_list_node remains 0-initialized.
+> On a subsequent probe failure, the error cleanup loop calls pm_genpd_remove()
+> which executes list_del(&genpd->gpd_list_node).
+> 
+> Could this dereference a NULL pointer and cause a kernel panic since the node
+> was never initialized?
+> 
+> [Severity: Critical]
+> This is a pre-existing issue, but does scpsys_domain_cleanup() iterate
+> backwards calling scpsys_remove_one_domain() without breaking parent-child
+> links first?
+> 
+> When this happens, pm_genpd_remove() returns -EBUSY and aborts without
+> unlinking the domain from gpd_list. Since the driver ignores this error, devm
+> may free the still-linked genpd objects.
+> 
+> Could background processes like genpd_power_off_unused later iterate gpd_list
+> and trigger a use-after-free when accessing the freed memory?
+> 
+> [Severity: High]
+> This is a pre-existing issue, but is there unbalanced resource cleanup on
+> the error path for KEEP_DEFAULT_OFF domains left on by the bootloader?
+> 
+> If such a domain is left physically ON, the driver warns but skips OS resource
+> preparation, leaving the enable_count at 0. If probe fails later, this path in
+> scpsys_remove_one_domain() evaluates scpsys_domain_is_on() as true and calls
+> scpsys_power_off_internal().
+> 
+> Could this unconditionally disable resources the OS never enabled, triggering
+> a clock/regulator underflow WARN_ON?
+> 
+> [ ... ]
+> 
+>> @@ -1288,6 +1288,10 @@ static const struct of_device_id scpsys_of_match[] = {
+>>   		.compatible = "mediatek,mt8196-power-controller",
+>>   		.data = &mt8196_scpsys_data,
+>>   	},
+>> +	{
+>> +		.compatible = "mediatek,mt8196-hfrp-power-controller",
+>> +		.data = &mt8196_hfrpsys_data,
+>> +	},
+> 
+> [Severity: High]
+> This is a pre-existing issue, but is the platform driver missing the
+> .sync_state callback required to clear the stay_on flag for default-ON
+> domains?
+> 
+> Since the driver initializes default-on domains with is_off = false, the genpd
+> core sets genpd->stay_on = true. Without a .sync_state callback or
+> GENPD_FLAG_NO_STAY_ON, stay_on is never cleared, and the framework will refuse
+> to power off unused domains.
+> 
+> When regulator_late_cleanup() later forces unused regulators off, could this
+> silently cut physical power to domains the kernel still considers logically
+> active and cause a hardware malfunction?
+> 
+
