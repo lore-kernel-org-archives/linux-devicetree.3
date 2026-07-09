@@ -1,416 +1,125 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386D53C1F29
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 07:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BE03BB101;
+	Thu,  9 Jul 2026 07:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783582860; cv=none; b=IxI87k+35392+ctP4Mdfi8uGMRa0gDEtTHYQSMx8a523V28+YYWVn1BtiTD06Jx56TSjtn9toIKo0fvY/e0bUqDWMkG2EVII7u0813A1/ZuJJn/F/WnNrSR6/PQoVYSSbTYrDZL2ER6gTf3g1X45fpyv0ij9oGQbZbV2jK3eJbs=
+	t=1783582924; cv=none; b=AaYCcnvrpA6FqjN2mwI4YliLbCYFv0D8oAomEwIgTr5AdDuIYV8Mr04XiOTWyC8WPzVykwlN+iubDTl5vbSzVeOWrd0SbGYRLpxUe+9OmSIy7X33U2DdI8rqXUwW4991VTcIiAGcTIwMF9l9qU7K4k8R2E4FZRbidKSFIZGONkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783582860; c=relaxed/simple;
-	bh=U1ulw6iBG5h9C17DYlIs4+DpjlK+5wjsawx9Qbz0V5k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PQ5VeKZirlP1dXHGBhvwmhfUKE9lGILvSOwD3RbizbFG57O9uKJatQQfs9WntNOnTS7U2mz/xoAblPilnpcYAW6UTxdYYLJxciKsXMgjIEfwFVAWihGIJoDVm11jGXrFcFaAT55KXGO623rZmdgKeXlkzEDoeaJg6lXXHX3wC2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JVVrRNEg; arc=none smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1783582924; c=relaxed/simple;
+	bh=87WeVOORuzTpahjb77APHd4rpR1j9OlPTAyoi7iKB1A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uJ9L7Pon+ZFC/hKGuPq9XDzDtz674G4gON6K6nlUQRxm00K/8AkIyVvJuGBCaE+NGau1JRhFf8/MVgHPYCsQ2IbUtI5wVY2YB8ftOUCSCFrUesGX7oUCNB6GcaNmf7wlS3DfpnSU6TxDAWBSyK6gKcCsrMXLqpwzcfvYbkHPKcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmtxrgqW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JVVrRNEg"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aea16460cdso44719e87.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 00:40:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783582855; x=1784187655; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8yH1YNoaMWIJTqKTNCWri0730PMLmS7x/g08jHqQ684=;
-        b=JVVrRNEg7Hiqk2W1qvBTujwEx81IKIQqtUgi6QKXYuRFZzTtWhN24O3fI7U8fu+Pxm
-         VZJUPu1WFGZM7ubh+3TiIakavNbzzRRIJPAOgsteRdc8xk0TXMLZHXrczUqCs6msyKw9
-         TWU06oUaMCkbVczwdmUrJmhQ72beI4sOElDK5t6LhJDLGJsmS543MmTsk0NPmNnWPu3E
-         joHbBq2970zRsuq4J50TA6faLUo8GWbo14t71cdNfp6iyvO1k0H8vKks46XuQd4UtpAJ
-         12/MZTON8sryBRMo4EETvYSUnyeOkRoDkHuJYi/KOlkSkIKofyYVvBShZq+n6G54BWMU
-         Axzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783582855; x=1784187655;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8yH1YNoaMWIJTqKTNCWri0730PMLmS7x/g08jHqQ684=;
-        b=kSOQElC1aSB5DVq72VnpTLjWQ18FIlr8zhbsbKOufegBIV3NES2z1leTAsWHD3Pjpn
-         KJOSa/ylUyc6DgUxn53DKrkezEc0un513cop/CTcZ54jregZNpwhc1TBiMXxF5P6UXC6
-         VDnMWys8V0ZGngCSaiHMyUQkYbMw+AQmUogWd8B0sO2HZY/VZkmHKK08fuBrr2kd3NlJ
-         qcNnsuDf75jqBMtMkZmpbYHbZrfFI5vxhyQ3zR87Yu1srnBKLO0NZej57Myags7uJ8rh
-         Zfe+ivTcrxIynFSVmxDoGE6ad2NgO8ivk/rXPsSUFhFsL0WJkvqgmFAD/z7z6b+YCE0N
-         5B1g==
-X-Forwarded-Encrypted: i=1; AHgh+RqhkxU021bPYI6KpkZrWnXYFCUWjY5DTMMCEnQWr80Ojh6l//krAYMxJAOQp4AOk77Mng1B2+BXgBEs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzt/gZ5UvQ76icKJYT7stJ6v9C6K6a+JLKklb62pqn8QoEpCUZD
-	jdvVLIUjr55bEWmjaIOjLKNVKPy1K5ej0OfWP7EKimcbfPYN+c3KezgvGnPRZts4pjzPqd5vVRf
-	oWbD33ws=
-X-Gm-Gg: AfdE7ck8KDj4T5KyhYpULLhp9VMG5tZvNJXtY4pgbQwyZMsexDWTQQItj8MzBG09nCP
-	6jGmPMoRA2xVNUByESOLq4BYgel38BWOitt3EG219Az6ldF+Xv9VPjQl8wRavp9wKCYgqcZhYAp
-	8zMYpwXmNYyms6pUFhLhaEga1gLxvyi9e2Mllq+Hm2mvT233GxVjxOImg5p4h9lA5qM9grThoxo
-	SCvCrIXpSRXnOQLPcTNMGAHDhzdmpsAgL2M/uiGMtuP6ngKUT4v6yOF60uk/q5JRxzUF0RNXdSt
-	l1GQpQkHMfutl+uSXavyLSAJwT6MII0//vqeE8KfTGAy+DH8vCi6h1zYL5NKfZG9iZBuwVXGtHw
-	TR5WU/3+l6HXM/4fFCE9RD6EAX9anCHbK2apb6RWHMlLeH/iyiFD2eJIeGxDZ7bdOj+jJqHYLG8
-	YBsvvxDj1MJt/TRqWN3PJJgE994Kr0POpVvPQSeYiGl0RzTKI9rvjkv1uYWEhrNZJvJmI=
-X-Received: by 2002:a05:6512:3ca1:b0:5b0:312:21ca with SMTP id 2adb3069b0e04-5b011474220mr806567e87.2.1783582855271;
-        Thu, 09 Jul 2026 00:40:55 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aed13c4acdsm5083912e87.76.2026.07.09.00.40.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 00:40:54 -0700 (PDT)
-Message-ID: <b834e9a0-a61c-4912-b57c-36d571938b75@linaro.org>
-Date: Thu, 9 Jul 2026 10:40:54 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmtxrgqW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A36A1F000E9;
+	Thu,  9 Jul 2026 07:42:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783582923;
+	bh=DcCAJUUdE2PH7v36Disc1MhOkmF26smewevRUweMx64=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OmtxrgqW/Pgj9gnceXMJFZU24nTouu/SMeRXIqdBGo9hmiLukbvy4ylj4x8FHZTW4
+	 3BvdFedw8ggAX3Muhy5M/7vE+WqrmvnlFF1X8M+aSTa3/3WR76BMcukuOfGdr+xRWX
+	 R7y1iAB5HtMLl0U0Fuz7C6I2o1b2KFBeJDmRB4F3/hF5Pcfg7DsexA74YdGkLP1A/a
+	 SoFlzjrc82/A6kp3N91cB6auhkcBLd3MSz3zG8NqdNsSZ0ey9RZFWsvUrFZXQ+TJjm
+	 8XFmmyg3ic+KB2d4Ir6rZudjraaifm5N2z/E1eRfRb8Df/GJiMM6L3kjN+xrce0eCv
+	 Snd8+wx2E2UpQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 02/11] dt-bindings: interrupt-controller: apple,aic2:
+ Invert #interrupt-cells condition
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Janne Grunau" <j@jannau.net>
+Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260709-apple-t603x-initial-devices-v1-2-55b305833123@jannau.net>
+References: <20260709-apple-t603x-initial-devices-v1-0-55b305833123@jannau.net>
+ <20260709-apple-t603x-initial-devices-v1-2-55b305833123@jannau.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 07:42:02 +0000
+Message-Id: <20260709074203.1A36A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bod@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org>
- <20260708-x1e-csi2-phy-v9-1-0210b90c04cf@linaro.org>
- <YSunV_lNJ8xW_y-Aa2psZavniF6mcHJlJipuj1RYWMB8Zb8yLC-gb7eEnk0XMjfwQOneMGsZM5foFKutCNhYqw==@protonmail.internalid>
- <b7baffda-b97c-4b83-8d9e-e381d0289682@linaro.org>
- <3ab676ac-919b-4a80-8dd6-71dd7f6fe06c@kernel.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <3ab676ac-919b-4a80-8dd6-71dd7f6fe06c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/9/26 00:55, Bryan O'Donoghue wrote:
-> On 08/07/2026 08:44, Vladimir Zapolskiy wrote:
->> On 7/8/26 02:39, Bryan O'Donoghue wrote:
->>> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
->>> PHY devices.
->>>
->>> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
->>>
->>> The schema here defines two ports with three endpoints:
->>>
->>> port@0: Sensor input.
->>>              endpoint@0: primary sensor
->>>              endpoint@1: optional second sensor, implies DPHY split-mode
->>>
->>> port@1: Controller output.
->>>
->>> The CSIPHY devices have their own pinouts on the SoC as well as their own
->>> individual voltage rails.
->>>
->>> The need to model voltage rails on a per-PHY basis leads us to define
->>> CSIPHY devices as individual nodes.
->>>
->>> Two nice outcomes in terms of schema and DT arise from this change.
->>>
->>> 1. The ability to define on a per-PHY basis voltage rails.
->>> 2. The ability to require those voltage.
->>>
->>> We have had a complete bodge upstream for this where a single set of
->>> voltage rail for all CSIPHYs has been buried inside of CAMSS.
->>>
->>> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
->>> CAMSS parlance, the CSIPHY devices should be individually modelled.
->>>
->>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->>> ---
->>>     .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 202 +++++++++++++++++++++
->>>     1 file changed, 202 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->>> new file mode 100644
->>> index 0000000000000..a7fbf6804cd9e
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->>> @@ -0,0 +1,202 @@
->>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Qualcomm SoC CSI2 PHY
->>> +
->>> +maintainers:
->>> +  - Bryan O'Donoghue <bod@kernel.org>
->>> +
->>> +description:
->>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
->>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
->>> +  modes.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: qcom,x1e80100-csi2-phy
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +  "#phy-cells":
->>> +    const: 1
->>> +    description:
->>> +      The single cell specifies the PHY operating mode.
->>
->> Unfortunately my review comment given before was ignored before publishing
->> this version, thus I will repeat.
->>
->> There is a clash between the proposed phy cells value and 'bus-type' property
->> of the media endpoint, the proposed value of phy cells brings no information,
->> and therefore the whole proposed '#phy-cells' prorperty shall be removed.
->>
->> There shall be no third link introduced between CAMSS and CAMSS CSIPHYs.
-> 
-> As explained in the cover letter: I'm following guidance from Rob on that.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The compatible string `apple,t6031-aic3` explicitly referenced i=
+n the commit message is completely missing from both the top-level schema `=
+properties: compatible` definition and the inverted `#interrupt-cells` 4-ce=
+ll conditional block, defeating the stated purpose of the patch.
+--
 
-Pehaps you've misread a given review comment, because Rob's guidance is
-to remove 'phy-type' property, and so far there were no arguments given
-against removing unnecessary '#phy-cells' propert, which is needed to
-exclude the clash on peer's side between its value and 'bus-type' value.
+--- Patch [2]: [PATCH 02/11] dt-bindings: interrupt-controller: apple,aic2:=
+ Invert #interrupt-cells condition ---
+commit 96c242a2f78e06c67eac2004fca37e5d7d112361
+Author: Janne Grunau <j@jannau.net>
 
-> 
-> 20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org
-> 
-> Old guidance granted, so let me see if I can get his attention to this
-> matter. Perhaps your suggestion is fine by him if so then fine, if not I
-> will stick to his original nudge, either way its up to him as the
-> original reviewer and senior schema maintainer to call this one.
+dt-bindings: interrupt-controller: apple,aic2: Invert #interrupt-cells cond=
+ition
 
-Hopefully Rob will discuss my review comment, at the moment there is no
-any technical arguments against it from anyone, so it's still open.
+This commit updates the #interrupt-cells condition by explicitly listing
+the compatibles used for multi-die SoCs and assigning them 4 cells, while
+leaving 3 cells as the default for others.
 
->>> +
->>> +  clocks:
->>> +    maxItems: 3
->>> +
->>> +  clock-names:
->>> +    items:
->>> +      - const: core
->>> +      - const: timer
->>> +      - const: ahb
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  operating-points-v2: true
->>> +
->>> +  power-domains:
->>> +    items:
->>> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
->>> +      - description: MMCX voltage rail
->>> +      - description: MXC or MXA voltage rail
->>> +
->>> +  power-domain-names:
->>> +    items:
->>> +      - const: top
->>> +      - const: mmcx
->>> +      - const: mx
->>
->> None of the power domains finds its place in this device tree node, the
->> child device belongs to CAMSS, which already enables these power domains.
-> 
-> Right, I think the whole subnode debate has run its course. Its a
-> problem for JPEG and a bit of a fake debate, there is no real "bus" here
-> so what is the point of mutating DT to look like a bus ? We are forever
-> lecturing people about "making fake DT stuff for convenience".
+>     The condition for 3 or 4 #interrupt-cells list compatibles for the 3
+>     cells variant (not used in SoCs consisting out of multiple dies). This
+>     includes the AICv3 base compatible "apple,t8122-aic3". This will match
+>         compatible =3D "apple,t6031-aic3", "apple,t8122-aic3";
+>     shared for M3 Max and Ultra based devices which require the additional
+>     interrupt cell for the die number.
+>     Instead list the compatibles used for multi-die SoCs explicitly and u=
+se
+>     4 #interrupt-cells for them.
 
-Please remind me, what is the point of grouping CAMSS devices under one
-device tree node? Is there an X1E CAMSS device?
+[Severity: Medium]
+The commit message mentions adding support for "apple,t6031-aic3", but is
+this compatible string missing from the schema entirely?=20
 
-> 
-> Peer nodes with TITAN_TOP_GDSC will perfectly adequately describe this
-> hardware and the JPEG too.
+It appears that "apple,t6031-aic3" is not present in the top-level properti=
+es
+compatible definition. Without being listed there, would device trees using
+this string fail standard schema validation?
 
-It's not an argument against my proposal to get a simpler hardware
-description in the form of device tree bindings. Please address
-the review comments actually received.
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple=
+,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,a=
+ic2.yaml
+> index d0d9a90e96e7b..a94787939d345 100644
+> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.y=
+aml
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.y=
+aml
+> @@ -128,16 +128,16 @@ allOf:
+>          compatible:
+>            contains:
+>              enum:
+> -              - apple,t8112-aic
+> -              - apple,t8122-aic3
+> +              - apple,t6000-aic
+> +              - apple,t6020-aic
 
->>
->>> +
->>> +  vdda-0p8-supply:
->>> +    description: Phandle to a 0.8V regulator supply to a PHY.
->>
->> The property name shall be vdda-0p9-supply, the description shall be
->> changed accordingly
-> 
-> Hmm what ? I'll have to look back through my notes, I thought the opposite.
-> 
-> Let me follow up in v10 after grepping for this again.>>
->>> +
->>> +  vdda-1p2-supply:
->>> +    description: Phandle to 1.2V regulator supply to a PHY.
->>> +
->>> +  ports:
->>> +    $ref: /schemas/graph.yaml#/properties/ports
->>> +
->>> +    properties:
->>> +      port@0:
->>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>> +        description:
->>> +          Sensor input. Always present. A single sensor is described by a
->>> +          single endpoint with one to four data lanes. DPHY split mode,
->>> +          where two independent sensors share the same PHY, is described
->>> +          by two endpoints; endpoint@0 with exactly two-data lanes and
->>> +          endpoint@1 with exactly one data-lane.
->>> +        unevaluatedProperties: false
->>> +
->>> +        patternProperties:
->>> +          "^endpoint(@[0-9a-f]+)?$":
->>
->> This is too wide regexp mask for one or two endpoints only.
-> 
-> Yeah you're right, this is just fluff.
-> 
->>
->>> +            $ref: /schemas/media/video-interfaces.yaml#
->>> +            unevaluatedProperties: false
->>> +            properties:
->>> +              data-lanes:
->>> +                minItems: 1
->>> +                maxItems: 4
->>> +              remote-endpoint: true
->>> +            required:
->>> +              - data-lanes
->>> +              - remote-endpoint
->>> +
->>> +        allOf:
->>> +          - if:
->>> +              required:
->>> +                - endpoint@1
->>> +            then:
->>> +              properties:
->>> +                endpoint@0:
->>> +                  properties:
->>> +                    data-lanes:
->>> +                      minItems: 2
->>> +                      maxItems: 2
->>> +                endpoint@1:
->>> +                  properties:
->>> +                    data-lanes:
->>> +                      maxItems: 1
->>> +              required:
->>> +                - endpoint@0
->>> +
->>> +      port@1:
->>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>> +        description: Output to the CAMSS CSID controller.
->>> +        unevaluatedProperties: false
->>> +
->>> +        patternProperties:
->>> +          "^endpoint(@[0-9a-f]+)?$":
->>> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
->>> +            unevaluatedProperties: false
->>> +            properties:
->>> +              remote-endpoint: true
->>> +            required:
->>> +              - remote-endpoint
->>> +
->>> +    required:
->>> +      - port@0
->>> +      - port@1
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - "#phy-cells"
->>> +  - clocks
->>> +  - clock-names
->>> +  - interrupts
->>> +  - operating-points-v2
->>> +  - power-domains
->>> +  - power-domain-names
->>> +  - vdda-0p8-supply
->>> +  - vdda-1p2-supply
->>> +  - ports
->>> +
->>> +additionalProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
->>> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
->>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
->>> +
->>> +    phy@ace4000 {
->>> +        compatible = "qcom,x1e80100-csi2-phy";
->>> +        reg = <0x0ace4000 0x2000>;
->>> +        #phy-cells = <1>;
->>> +
->>> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
->>> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
->>> +                 <&camcc CAM_CC_CORE_AHB_CLK>;
->>> +        clock-names = "core",
->>> +                      "timer",
->>> +                      "ahb";
->>> +
->>> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
->>> +
->>> +        operating-points-v2 = <&csiphy_opp_table>;
->>> +
->>> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
->>> +                        <&rpmhpd RPMHPD_MMCX>,
->>> +                        <&rpmhpd RPMHPD_MX>;
->>> +        power-domain-names = "top",
->>> +                             "mmcx",
->>> +                             "mx";
->>> +
->>> +        vdda-0p8-supply = <&vreg_l2c_0p8>;
->>> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
->>> +
->>> +        ports {
->>> +            #address-cells = <1>;
->>> +            #size-cells = <0>;
->>> +
->>> +            port@0 {
->>> +                reg = <0>;
->>> +                csiphy0_in: endpoint {
->>> +                    data-lanes = <0 1 2 3>;
->>
->> The previously given review comment about numeration of lanes was
->> not implemented.
-> 
-> I understand your comment but as Nihal pointed out - CAMSS has an
-> established pattern for this - and I think his argument is convincing -
-> we should stick to that pattern.
+[Severity: Medium]
+Does this conditional block omit the M3 Max/Ultra compatibles?=20
 
-I disagree with it, since it's a new dt binding description, and the
-issue is known in advance, it should fixed and not ignored.
+Since "apple,t6031-aic3" and "apple,t8122-aic3" are not included in this
+explicit list of multi-die SoCs, they will fall through to the else branch.
+Will they incorrectly receive a 3-cell constraint instead of the 4 cells
+intended for multi-die devices?
 
->>
->>> +                    remote-endpoint = <&sensor_out>;
->>> +                };
->>> +            };
->>> +
->>> +            port@1 {
->>> +                reg = <1>;
->>> +                csiphy0_out: endpoint {
->>> +                    remote-endpoint = <&csid_in>;
->>> +                };
->>> +            };
->>> +        };
->>> +    };
->>> +
->>> +    csiphy_opp_table: opp-table {
->>> +        compatible = "operating-points-v2";
->>> +
->>> +        opp-300000000 {
->>> +            opp-hz = /bits/ 64 <300000000>;
->>> +            required-opps = <&rpmhpd_opp_low_svs_d1>,
->>> +                            <&rpmhpd_opp_low_svs_d1>;
->>> +        };
->>> +    };
->>>
+>      then:
+>        properties:
+>          '#interrupt-cells':
+> -          const: 3
+> +          const: 4
+>      else:
+>        properties:
+>          '#interrupt-cells':
+> -          const: 4
+> +          const: 3
 
--- 
-Best wishes,
-Vladimir
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-apple-t603=
+x-initial-devices-v1-0-55b305833123@jannau.net?part=3D2
