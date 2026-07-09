@@ -1,131 +1,179 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2D131B4223;
-	Thu,  9 Jul 2026 01:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3158743935A;
+	Thu,  9 Jul 2026 02:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783560083; cv=none; b=tpXbcVjDm3dPKY/iVyaIcRSrlV8oT3dKY0bYc2tqV6VEWO3+YcrgVKKOasE5ognBwZXt+9G5aHLp4ydln6LQE0MvFUpnv8rfvyxvkkNaSH9vjL3KD8CAgKQz6aG5oiDHgAsItzp3+hTrJyN1D3BJAKZbgPWj5hWgHCMI8nTZ9T4=
+	t=1783563360; cv=none; b=XGpYR1u7+IN26+8nqf3VL+ZOlDcKPsGbKFTfsECjeoXtDt1t1TMXSSAGCqZG0BIZa+PCLb0zxccT2UKOeUt0+9v8K/1eDKgyFNzkf4Cr3Q1NTderew7IlnJf6Mv8Mk8ecXdkoUvKbKJsOhs08pqzudEKp7XPaIUIGlu4kLOLysU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783560083; c=relaxed/simple;
-	bh=6TrxWkbaxN0/bZBlsK9YOj23oJ+KR30cjtgITH92HIs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=ejBwYiWS/rYvoKs/4cxzhUAmZ9bwJdI+I7ik/rAs7udqLaMSgOVJ3lTzfOLrLBZyhojURpmvfpLO/he/cZv75j7J0EpaBcvzdYh9bkv06QAkwDhmprGv183zZdn3/eDtWvascMf9mFUmwhtxBJ0poq2eW9r/GwQBwdMRbUpL0fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Thu, 9 Jul 2026 09:21:08 +0800 (GMT+08:00)
-Date: Thu, 9 Jul 2026 09:21:08 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: [PATCH v10 3/3] pwm: dwc: add of/platform support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260703094710.723361F000E9@smtp.kernel.org>
-References: <20260703093308.482-1-dongxuyang@eswincomputing.com>
- <20260703093430.699-1-dongxuyang@eswincomputing.com>
- <20260703094710.723361F000E9@smtp.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1783563360; c=relaxed/simple;
+	bh=1W/jN5MATUKphhVI/5TFutLNeb2i+ne7yq33wlAuY+k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VcihXAejmVNxUtJ6fUzYkZmKtCPZpohccs8qAjKd1q8X2rpnlCE93HFpPnPJ0SG3aoiWx9KahxZC9i8G64Q4zuHf7W8F8p8QttO/fy3cQHAsiBugrQDicSTakj+7OGJLjcIvgZz+8Kkkx93CecJEoz2VLsUAW7RCm+WZ21BumbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=ftms0R3l; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="ftms0R3l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1783563355;
+	bh=tH41RNED5+clJ8bDU3yrsPjDBxC2yWIilI8EOLE574U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ftms0R3l1Hxi9KJ9589VO97Frg6kN7OeNXibsjqRd65pV+OUowKvaK4G4y+TYgTcP
+	 uB8ZX8+0DdAGA9lY46OHDqUkT6OKe9E+U6Qv3eAvvB2EFuX83vJgLY32mW9W7R2I3G
+	 +bdp1eQu07nsN0ZxcHvRxL+ScRsJuX6dFWeI1ii/hsUmk6FVy6+KDGykQo2oHiHIm9
+	 4FEHkiIC5/XDz69xWmYZ9N8Ig7zcnjVc4pCi+OBHq3yDJBRjbDDph0P556SoViAXfd
+	 92Bij0zFycrY5a3rYKvMIzMD5MaGxwK7jNQEI3u5uDKgKDeiaeMte/jhozACIZDuW1
+	 4PMwao+akqDRQ==
+Received: from [192.168.68.117] (unknown [180.150.112.11])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4823960288;
+	Thu,  9 Jul 2026 10:15:53 +0800 (AWST)
+Message-ID: <ddb133ca1a3be605ee776b2276c1907c9ad32491.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2 2/3] phy: add AST2700 usb3.2 phy driver
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Ryan Chen <ryan_chen@aspeedtech.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>, Philipp Zabel
+ <p.zabel@pengutronix.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 09 Jul 2026 11:45:52 +0930
+In-Reply-To: <20260116-upstream_usb3phy-v2-2-0b0c9f3eb6f4@aspeedtech.com>
+References: <20260116-upstream_usb3phy-v2-0-0b0c9f3eb6f4@aspeedtech.com>
+	 <20260116-upstream_usb3phy-v2-2-0b0c9f3eb6f4@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <476c5c3b.82a5.19f4476dc69.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgDH3aCE905qb58yAA--.9066W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgEDAmpOfBoHp
-	wABsh
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWDJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-PiAKPiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBm
-b3VuZCAzIHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoKPiAKPiBOZXcgaXNzdWVzOgo+
-IC0gW0hpZ2hdIEhhcmR3YXJlIHJlc2V0IGlzIGFzc2VydGVkIGFmdGVyIGdhdGluZyBjbG9ja3Ms
-IHdoaWNoIGNhbiBjYXVzZSBidXMgaGFuZ3MuCj4gLSBbSGlnaF0gUmFjZSBjb25kaXRpb24gYmV0
-d2VlbiBydW50aW1lIFBNIGNoZWNrIGFuZCBkaXNhYmxlIGNhdXNlcyBhIHBlcm1hbmVudCBjbG9j
-ayBsZWFrLgo+IAo+IFByZS1leGlzdGluZyBpc3N1ZXM6Cj4gLSBbSGlnaF0gVW5tYXNraW5nIHRo
-ZSB0aW1lciBpbnRlcnJ1cHQgd2l0aG91dCBhbiBJUlEgaGFuZGxlciBjYW4gY2F1c2UgYSBzZXZl
-cmUgaW50ZXJydXB0IHN0b3JtLgo+IC0tCj4gCj4gY29tbWl0IGE1MDYwOWJhOTY5MzhjMDJmYmM5
-NGY1NDMxOGM5NTU2MWY2NjE3NTgKPiBBdXRob3I6IFh1eWFuZyBEb25nIDxkb25neHV5YW5nQGVz
-d2luY29tcHV0aW5nLmNvbT4KPiBTdWJqZWN0OiBwd206IGR3YzogYWRkIG9mL3BsYXRmb3JtIHN1
-cHBvcnQKPiAKPiBUaGUgZHdjIHB3bSBjb250cm9sbGVyIGNhbiBiZSB1c2VkIGluIG5vbi1QQ0kg
-c3lzdGVtcywgc28gYWxsb3cgZWl0aGVyIAo+IHBsYXRmb3JtIG9yIE9GIGJhc2VkIHByb2Jpbmcu
-IEltcGxlbWVudHMgcG9sYXJpdHkgY29udHJvbCBieSBleHBsb2l0aW5nIAo+IHRoZSB0aW1lcidz
-IGR1YWwgbG9hZCByZWdpc3RlcnMuCj4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9wd20vcHdt
-LWR3Yy1jb3JlLmMgYi9kcml2ZXJzL3B3bS9wd20tZHdjLWNvcmUuYwo+ID4gaW5kZXggNmRhYmVj
-OTNhM2M2NC4uNDlmMDY1N2Q0YWQ0NCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvcHdtL3B3bS1k
-d2MtY29yZS5jCj4gPiArKysgYi9kcml2ZXJzL3B3bS9wd20tZHdjLWNvcmUuYwo+IAo+IFsgLi4u
-IF0KPiAKPiA+IEBAIC04NSw2ICsxMzgsOSBAQCBzdGF0aWMgaW50IF9fZHdjX3B3bV9jb25maWd1
-cmVfdGltZXIoc3RydWN0IGR3Y19wd20gKmR3YywKPiA+ICAJICogcGVyaW9kcyBhcmUgc2V0IGJ5
-IExvYWQgQ291bnQgcmVnaXN0ZXJzLgo+ID4gIAkgKi8KPiA+ICAJY3RybCA9IERXQ19USU1fQ1RS
-TF9NT0RFX1VTRVIgfCBEV0NfVElNX0NUUkxfUFdNOwo+ID4gKwlpZiAoZHdjLT5mZWF0dXJlcyAm
-IERXQ19USU1fQ1RSTF8wTjEwMFBXTV9FTikKPiA+ICsJCWN0cmwgfD0gRFdDX1RJTV9DVFJMXzBO
-MTAwUFdNX0VOOwo+ID4gKwo+ID4gIAlkd2NfcHdtX3dyaXRlbChkd2MsIGN0cmwsIERXQ19USU1f
-Q1RSTChwd20tPmh3cHdtKSk7Cj4gCj4gW1NldmVyaXR5OiBIaWdoXQo+IFRoaXMgaXNuJ3QgYSBi
-dWcgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNoLCBidXQgZG9lcyB3cml0aW5nIHRoaXMgY29udHJv
-bAo+IHJlZ2lzdGVyIHVubWFzayB0aGUgdGltZXIgaW50ZXJydXB0Pwo+IAo+IFRoZSBjdHJsIHZh
-bHVlIGlzIGNvbnN0cnVjdGVkIHdpdGhvdXQgRFdDX1RJTV9DVFJMX0lOVF9NQVNLIHNldC4gSWYg
-dGhpcwo+IGhhcmR3YXJlIGlzIG9uIGFuIE9GIHBsYXRmb3JtIHdoZXJlIGludGVycnVwdHMgYXJl
-IGNvbW1vbmx5IHNoYXJlZCwgY291bGQKPiB0aGlzIHVubWFza2VkIHRpbWVyIGZsb29kIHRoZSBz
-eXN0ZW0gd2l0aCBpbnRlcnJ1cHRzIHNpbmNlIHRoZXJlIGlzIG5vCj4gSVJRIGhhbmRsZXI/Cj4g
-CgpIaSBTYXNoaWtvLAoKV2lsbCBhZGQgRFdDX1RJTV9DVFJMX0lOVF9NQVNLIGluIHRoZSBuZXh0
-IHZlcnNpb24uCgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcHdtL3B3bS1kd2Mtb2YuYyBiL2Ry
-aXZlcnMvcHdtL3B3bS1kd2Mtb2YuYwo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+IGluZGV4
-IDAwMDAwMDAwMDAwMDAuLjdiYmJmOThkNzY5N2EKPiA+IC0tLSAvZGV2L251bGwKPiA+ICsrKyBi
-L2RyaXZlcnMvcHdtL3B3bS1kd2Mtb2YuYwo+IAo+IFsgLi4uIF0KPiAKPiA+ICtzdGF0aWMgdm9p
-ZCBkd2NfcHdtX3BsYXRfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiAr
-ewo+ID4gKwlzdHJ1Y3QgZHdjX3B3bV9kcnZkYXRhICpkYXRhID0gcGxhdGZvcm1fZ2V0X2RydmRh
-dGEocGRldik7Cj4gPiArCXN0cnVjdCBwd21fY2hpcCAqY2hpcCA9IGRhdGEtPmNoaXBzWzBdOwo+
-ID4gKwlzdHJ1Y3QgZHdjX3B3bSAqZHdjID0gdG9fZHdjX3B3bShjaGlwKTsKPiA+ICsJdW5zaWdu
-ZWQgaW50IGlkeDsKPiA+ICsJaW50IHJldDsKPiA+ICsKPiA+ICsJcHdtY2hpcF9yZW1vdmUoY2hp
-cCk7Cj4gPiArCj4gPiArCXJldCA9IHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoJnBkZXYtPmRl
-dik7Cj4gPiArCWlmIChyZXQgPCAwKSB7Cj4gPiArCQlkZXZfd2FybigmcGRldi0+ZGV2LCAiZmFp
-bGVkIHRvIHJlc3VtZSBkZXZpY2U6ICVkXG4iLCByZXQpOwo+ID4gKwl9IGVsc2Ugewo+ID4gKwkJ
-Zm9yIChpZHggPSAwOyBpZHggPCBjaGlwLT5ucHdtOyBpZHgrKykgewo+ID4gKwkJCWlmIChkd2Nf
-cHdtX3JlYWRsKGR3YywgRFdDX1RJTV9DVFJMKGlkeCkpICYKPiA+ICsJCQkJCSAgRFdDX1RJTV9D
-VFJMX0VOKQo+ID4gKwkJCQlwbV9ydW50aW1lX3B1dF9ub2lkbGUoJnBkZXYtPmRldik7Cj4gPiAr
-CQl9Cj4gPiArCQlwbV9ydW50aW1lX3B1dF9zeW5jKCZwZGV2LT5kZXYpOwo+ID4gKwl9Cj4gPiAr
-Cj4gPiArCWlmICghcG1fcnVudGltZV9zdGF0dXNfc3VzcGVuZGVkKCZwZGV2LT5kZXYpKSB7Cj4g
-PiArCQljbGtfZGlzYWJsZV91bnByZXBhcmUoZHdjLT5jbGspOwo+ID4gKwkJY2xrX2Rpc2FibGVf
-dW5wcmVwYXJlKGR3Yy0+YnVzX2Nsayk7Cj4gPiArCX0KPiA+ICsJcG1fcnVudGltZV9kaXNhYmxl
-KCZwZGV2LT5kZXYpOwo+IAo+IFtTZXZlcml0eTogSGlnaF0KPiBDb3VsZCB0aGlzIG9yZGVyaW5n
-IGNhdXNlIGEgcGVybWFuZW50IGNsb2NrIGxlYWsgaWYgYSBjb25jdXJyZW50IHJ1bnRpbWUKPiBQ
-TSByZXN1bWUgb2NjdXJzPwo+IAo+IElmIHVzZXJzcGFjZSB0cmlnZ2VycyBhIHJlc3VtZSAoZS5n
-LiB2aWEgc3lzZnMpIGJldHdlZW4gdGhlCj4gcG1fcnVudGltZV9zdGF0dXNfc3VzcGVuZGVkKCkg
-Y2hlY2sgYW5kIHBtX3J1bnRpbWVfZGlzYWJsZSgpLCB0aGUKPiBkd2NfcHdtX3J1bnRpbWVfcmVz
-dW1lKCkgY2FsbGJhY2sgd2lsbCByZS1lbmFibGUgdGhlIGNsb2Nrcy4KPiAKPiBPbmNlIHBtX3J1
-bnRpbWVfZGlzYWJsZSgpIHJ1bnMsIHRoZSBQTSBzdGF0ZSBpcyBmcm96ZW4sIGJ1dCB0aGUgZHJp
-dmVyIHdpbGwKPiBoYXZlIGxvc3QgdHJhY2sgb2YgdGhlIHJlLWVuYWJsZWQgY2xvY2tzLiBTaG91
-bGQgcG1fcnVudGltZV9kaXNhYmxlKCkgYmUKPiBjYWxsZWQgYmVmb3JlIG1hbnVhbGx5IHJvbGxp
-bmcgYmFjayB0aGUgY2xvY2sgc3RhdGU/Cj4gCgpDYWxsIHBtX3J1bnRpbWVfZGlzYWJsZSgpIGJl
-Zm9yZSBtYW51YWxseSByb2xsaW5nIGJhY2sgdGhlIGNsb2NrIHN0YXRlLgoKPiA+ICsKPiA+ICsJ
-aWYgKGR3Yy0+cnN0KSB7Cj4gPiArCQlyZXQgPSByZXNldF9jb250cm9sX2Fzc2VydChkd2MtPnJz
-dCk7Cj4gCj4gW1NldmVyaXR5OiBIaWdoXQo+IERvZXMgYXNzZXJ0aW5nIHRoZSByZXNldCB3aGls
-ZSB0aGUgSVAgYmxvY2sncyBjbG9ja3MgYXJlIGRpc2FibGVkIGNhdXNlCj4gYSBidXMgbG9ja3Vw
-Pwo+IAo+IEluIGR3Y19wd21fcGxhdF9yZW1vdmUoKSwgdGhlIGNsb2NrcyBhcmUgZ3VhcmFudGVl
-ZCB0byBiZSBvZmYgaGVyZQo+IChlaXRoZXIgaW1wbGljaXRseSBieSBhbGxvd2luZyB0aGUgZGV2
-aWNlIHRvIHN1c3BlbmQsIG9yIGV4cGxpY2l0bHkgdmlhIHRoZQo+IGNsa19kaXNhYmxlX3VucHJl
-cGFyZSgpIGNhbGxzIGp1c3QgYWJvdmUpLgo+IAo+IE9uIEFNQkEvQVBCIGJ1c2VzLCBhc3NlcnRp
-bmcgYSByZXNldCBvbiBhbiB1bmNsb2NrZWQgSVAgYmxvY2sgb2Z0ZW4gcHJldmVudHMKPiB0aGUg
-cmVzZXQgc2lnbmFsIGZyb20gcHJvcGFnYXRpbmcsIGxlYWRpbmcgdG8gYSBzeXN0ZW0gaGFuZyB3
-aGVuIHRoZSByZXNldAo+IGNvbnRyb2xsZXIgYXR0ZW1wdHMgdG8gY29tcGxldGUgdGhlIHRyYW5z
-YWN0aW9uLgo+IAoKUmVtb3ZlIHJlc2V0IGFzc2VydCBpbiByZW1vdmUgZnVuY3Rpb24sIGFzIGRp
-c2FibGluZyBQTSBhbmQgY2xvY2tzCnByZXZlbnRzIGZ1cnRoZXIgb3BlcmF0aW9uCgpCZXN0IHJl
-Z2FyZHMsClh1eWFuZyBEb25nCgo+ID4gKwkJaWYgKHJldCkKPiA+ICsJCQlkZXZfd2FybigmcGRl
-di0+ZGV2LCAiZmFpbGVkIHRvIGFzc2VydCByZXNldDogJWRcbiIsCj4gPiArCQkJCSByZXQpOwo+
-ID4gKwl9Cj4gPiArfQo+IAo+IC0tIAo+IFNhc2hpa28gQUkgcmV2aWV3IMK3IGh0dHBzOi8vc2Fz
-aGlrby5kZXYvIy9wYXRjaHNldC8yMDI2MDcwMzA5MzMwOC40ODItMS1kb25neHV5YW5nQGVzd2lu
-Y29tcHV0aW5nLmNvbT9wYXJ0PTMK
+Hi Ryan,
+
+On Fri, 2026-01-16 at 10:53 +0800, Ryan Chen wrote:
+
+
+...
+
+> diff --git a/drivers/phy/aspeed/phy-aspeed-usb3.c b/drivers/phy/aspeed/ph=
+y-aspeed-usb3.c
+> new file mode 100644
+> index 000000000000..872d2163fcf5
+> --- /dev/null
+> +++ b/drivers/phy/aspeed/phy-aspeed-usb3.c
+> @@ -0,0 +1,236 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Copyright 2026 Aspeed Technology Inc.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/reset.h>
+> +
+> +#define PHY3S00		0x00
+> +#define PHY3S00_INIT_DONE		BIT(15)
+> +#define PHY3S00_SRAM_BYPASS		BIT(7)
+> +#define PHY3S00_SRAM_EXT_LOAD	BIT(6)
+>=20
+
+...
+
+> +
+> +static int aspeed_usb3_phy_init(struct phy *phy)
+> +{
+> +	struct aspeed_usb3_phy *aspeed_phy =3D phy_get_drvdata(phy);
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D clk_prepare_enable(aspeed_phy->clk);
+> +	if (ret) {
+> +		dev_err(aspeed_phy->dev, "Failed to enable clock %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret =3D reset_control_deassert(aspeed_phy->rst);
+> +	if (ret) {
+> +		clk_disable_unprepare(aspeed_phy->clk);
+> +		return ret;
+
+Nit: Given we have to do this below if the reset_control_deassert()
+succeeds, perhaps add a label below and use goto here?
+
+> +	}
+> +
+> +	/* Wait for USB3 PHY internal SRAM initialization done */
+> +	ret =3D readl_poll_timeout(aspeed_phy->regs + PHY3S00, val,
+> +				 val & PHY3S00_INIT_DONE,
+> +				 USEC_PER_MSEC, 10 * USEC_PER_MSEC);
+> +	if (ret) {
+> +		dev_err(aspeed_phy->dev, "SRAM init timeout\n");
+> +		goto err_assert_reset;
+> +	}
+> +
+> +	val =3D readl(aspeed_phy->regs + PHY3S00);
+> +	val |=3D PHY3S00_SRAM_BYPASS;
+> +	writel(val, aspeed_phy->regs + PHY3S00);
+
+According to the datasheet PHY3S00[15] (PHY3S00_INIT_DONE above)
+indicates that the PHY internal SRAM initialisation is complete. The
+datasheet reports the SRAM is used for configuration of calibration
+among other things. PHY3S00[6] instructs the PHY that software has
+completed loading the configuration data into SRAM, however
+PHY3S00_SRAM_BYPASS (PHY3S00[7]) tells the PHY to load configuration
+from "hard wired" values.
+
+Is it necessary to wait for SRAM initialisation to complete if we're
+bypassing it? Or are there other side-effects involved in the setting
+of PHY3S00[15]?
+
+> +
+> +	/* Set protocol1_ext signals as default PHY3 settings based on SNPS doc=
+uments.
+> +	 * Including PCFGI[54]: protocol1_ext_rx_los_lfps_en for better compati=
+bility
+> +	 */
+> +	writel(PHY3P00_DEFAULT, aspeed_phy->regs + PHY3P00);
+> +	writel(PHY3P04_DEFAULT, aspeed_phy->regs + PHY3P04);
+> +	writel(PHY3P08_DEFAULT, aspeed_phy->regs + PHY3P08);
+> +	writel(PHY3P0C_DEFAULT, aspeed_phy->regs + PHY3P0C);
+> +
+> +	return 0;
+> +
+> +err_assert_reset:
+> +	reset_control_assert(aspeed_phy->rst);
+> +	clk_disable_unprepare(aspeed_phy->clk);
+> +	return ret;
+> +}
+>=20
+
+...
+
+>=20
+> +static struct platform_driver aspeed_usb3_phy_driver =3D {
+> +	.probe		=3D aspeed_usb3_phy_probe,
+> +	.driver		=3D {
+> +		.name	=3D KBUILD_MODNAME,
+> +		.of_match_table	=3D aspeed_usb3_phy_match_table,
+> +	},
+> +};
+> +module_platform_driver(aspeed_usb3_phy_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("ASPEED USB3.0 PHY Driver");
+
+MODULE_AUTHOR()?
+
+Andrew
