@@ -1,191 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636A5416CE5
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26203FCB3A
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783598436; cv=none; b=WXrhQI2W6b57duE05YnsZ4I4i51ao4CgfOrDmmBAK+PYxqHEEKJIUMxs5oTsXjagswgeS2FV4c1K2ulz0A2FMZFyj1PoVNPojJ320du8rz7tMFYAqZM1AiO9pr3LfmPZxwasNeuVawoPyxbXF9eySrIxANkjZqxdsTF1kfsjiMI=
+	t=1783598463; cv=none; b=Z5mEhTd/255masK/A4fFVS7btvOzfIkW7Yc/t7QEfsSaaACk9Bt2zyvrZyaGoLY4MFRV6wcN+SVc+/55TreY+kzV8omCCB75AATagzZboafaiufFQgeEmKYC3i/ADiBAJuL8i7GPljaDmZ4DWDn79aX6hJWkFbuetnYkO6GXBA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783598436; c=relaxed/simple;
-	bh=+6+HxMPNiMV/SaDQj7awVOS5dS4EfUNo64NxSoZeEgU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QMRG+7GKHnni4PBvxrMWcgfu5fxzBPZRJoTzi8nWllVHySLOPsra4R1RjfogQ4Y0zQx8Ukb7gErmoa5bBcDRNs0Kg/1EgM210JDsNoniyjHfyKGs9BfwCslnGDCij+pClCj/rdeNqgXODfR/uqK5TGjjDw15zn7v9cz1HGT9uj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZju8aeX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783598463; c=relaxed/simple;
+	bh=ukjLxkiHe+tw8+6yxvy29o709TShRUnzOMu/rsFUy3A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VErtPeWQh78lZg0ZlAEkCHsakbRqP23wKGI9k00wZB5Sizqj1L21V/4YnvP6FSIc/+BQBiUR515x7ZcTaZj7IOHfX0WwtHngXqasyw03vhwGF6ARrWUKlW/R0WcLTdEGVNXoSL0LTsvFAkFoZeFBQAK9vlYPOeb2pFRXUns1154=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d2d7zpJB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RS2fZvCo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZju8aeX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123891F000E9;
-	Thu,  9 Jul 2026 12:00:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783598433;
-	bh=Xdy7Q718IMHWx41sRqXBrnpU0ZeFsc7LYSQLsD6AR+w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UZju8aeXiNqvDHI3RabYydI1QOudm/GikyhLndVjWIRgRYG3hxSByIYyr8qvlD99N
-	 ooplmveyp3L28nvOC7hgEeSRmoDz+njCwvWG0pdRz6lMyFc80fZtd7vTKPrEyYYwp7
-	 YUr9UpGWl1kx/GePO5pdOwZYW5JDbcfJumzeu9UQIktL1tpiNDxfnS7LtGyc7iu9c9
-	 X9v3535V8JialKRt9mx0ZZDNIhtA05n/Eas+wKCzptoy1zlCQz4agRVDgc2nVvCeaD
-	 eolhNxDonoQxEFcbnqNtGIZTlEnu4q6kt3KYXSuP9tMiVW//sUVgEJ2cPRDMaGBngz
-	 tj3PSvlVi1ggA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotPlug
- Detection in DP AUX
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
- <20260709113148.49090-11-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 12:00:32 +0000
-Message-Id: <20260709120033.123891F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d2d7zpJB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RS2fZvCo"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669BN44T1668533
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 12:01:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2zHrV0DH0mQvkMRCsEmNZ1cpcyc9t41ij1zmLU7sQ6c=; b=d2d7zpJBo1tCDGHh
+	IkcsmDQ2Ica9ZhM6vu5AELdqRdB4e8BILiy8krZoWLV1TfxAIszjES89Ec2T2S9C
+	J9L2I0W4fTMyEce6zjfn5W+frJwVAf7wJLQyw0AHalTc+8tIyKLB63jxLbbWtkOr
+	/r80LN39AXTc5Mw/nqgp8WS6cwsW3b447bLWV2Wy99L2D+0dgNfQZ2oDUjkU/RuP
+	MWKGHm/nZEzXPljgnZrJPNeD7JSEVTzR1XmeAA2YsV5MZqsBCSxnC5Gnkq05K8EG
+	SLJVgQIL3W9YF7+6Xu1nUK9AlC4gZvd+vRWcn8HP9DAeSfQx6zX3ap1G6w6acFc+
+	57Jpug==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa418hynq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 12:01:00 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e5e21552dso34331185a.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 05:01:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783598460; x=1784203260; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2zHrV0DH0mQvkMRCsEmNZ1cpcyc9t41ij1zmLU7sQ6c=;
+        b=RS2fZvCoIGTfU/jGv6A8W39IzkxJYOc2wKewZWyYOc1uU1nTJy4FmcS4rPflmgzbtf
+         LeBsKhe5rDtFNV0we1HwS6Ej1k1ey/knEeip5QDJbFPdj1zup7dJNXbCwVnUHFfJT6+F
+         e5yw2NhWga5VJEaNORfIsRYxAE4ZSRezsqvkLBe427E1Eks/sP3QmnowRkH4Q5Fajvat
+         uD2fV9jJ0J7z5QjT3DArLL8G5yWJo7efMaP/n+08tl13XOyd51XiWhVWa3CCOyBjggD+
+         hpoZ6cbiAh4SbQE5fXn4wUogRe78VPpzz+eUBDUpd5U4jvQ6Ek6IJnmI4OmKRFEmEWjO
+         rxTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783598460; x=1784203260;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2zHrV0DH0mQvkMRCsEmNZ1cpcyc9t41ij1zmLU7sQ6c=;
+        b=l3ta2ZDHsh3r17xH2Sh0nk2yvms1sO8K1gi0LZS3b6h4rXT9bcqHMZnvO6yHezSE1t
+         Fosyw/52MQWAfLhRBNOmn/YMxMna2EMmxTKBWvgXe3qlhqK15blFc+YeOitVzqHoRAcY
+         rLge6KwTE7uyCyqmuZh8LwGjVHduvLxLmPipmgb0oZJHfUNB+EZsZyK9qdAkHIEwnPAM
+         HM6anB3UhV1vWJr+/cxLeuFzwFUAKuYS7ANiPtaXqF1rmctSq1GzuikuCkTkMsWIV5Ds
+         3Ri8dLtXqgE25NVpndvtVXoXoqGNod2NfUkb8zvX4628amziMc9wenMPGKKjxe72C6LS
+         xyRA==
+X-Forwarded-Encrypted: i=1; AHgh+RoTPgEek8bqSIuM5HStnuj6aRu4ZaEgZoRCyr+RzeIoYuMwKdpL0PWHQKF9DKerIeOaMljJmHzaJsT/@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywms6xR3E8OvwWTQYq32QvKA0h18s5ZL6XQC8AV5ZCa7gS9xZUj
+	/UgLBn5bwG60CN4Hsh5Tmo+OStCTIifm9L5gg1W9irhOafOUha76AfXoqJqO3+DNS6EWgkD+4vN
+	Any7Ae0SeTtijwfZgcQxlknf/qPT65HSw2NSF9D7reFpWvrFWHbJgYnW1gJv7m+75
+X-Gm-Gg: AfdE7cnQSyKIreoistMk+5doRjlegYwp/T25KVIjQkbzc9GvPXV6bhXxoADEFIthMk4
+	WzafEc++9/LCo9ylI+0CSCD6/SP2Dr3nOfHJbtGMuGYDJiXVujIOb3CX3YNhb9tWpfhAvQDdSZj
+	zMAbHziR1/hwGNotrYvD5unt5Z8JZKnZ1fOYp14xyEflvQXBinoxAf/nsFUkBmN9CM12kr7R3DH
+	cShjBZN0SX2eXoiD3R1fEFjmOlSjuebagnt6XMTA/u2fKjfGNY90VkinP5Bf5Rr51vPySnA7IHl
+	svtUfxoIUbc6+vNMdbQ48hti725EnfN+rlzdkdQf50mieAJqIYYfYeaORqoFSlWnrdokRpeUkle
+	OY9OcG4S2KwCdIVmE8GHQ5DHSnkjHXEYmHwU=
+X-Received: by 2002:a05:620a:8813:b0:92b:55d5:ba3 with SMTP id af79cd13be357-92ed764b013mr297583585a.0.1783598459574;
+        Thu, 09 Jul 2026 05:00:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:8813:b0:92b:55d5:ba3 with SMTP id af79cd13be357-92ed764b013mr297572385a.0.1783598458706;
+        Thu, 09 Jul 2026 05:00:58 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15bb94c782sm381852466b.40.2026.07.09.05.00.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 05:00:57 -0700 (PDT)
+Message-ID: <71576059-b5cd-401e-b4b0-c1784f24ba46@oss.qualcomm.com>
+Date: Thu, 9 Jul 2026 14:00:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: shikra: Add support for
+ AudioCoreCC and AudioCoreCSR nodes
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260708-shikra-audiocorecc-v2-0-b320d822cdd0@oss.qualcomm.com>
+ <20260708-shikra-audiocorecc-v2-4-b320d822cdd0@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260708-shikra-audiocorecc-v2-4-b320d822cdd0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=UI3t2ify c=1 sm=1 tr=0 ts=6a4f8d7c cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=tlOuMNSg9W14aln77gIA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDExNSBTYWx0ZWRfX009/GcEU9Q6M
+ 2xzywz6ziYfYQIXjtZyNUzpZXIVk0pJ9LUH/sF2vDrJmBgjK9F9YtC05ASAqUPTSQ5IzXtsmb91
+ hpk33UHkUWPZs3oKaXJGEf/2ki7Xdv0Xcxqex1T4pQODXZcW8UfHuNT8sJZrveEic6/GJsCo0KL
+ 6mjZuDAyotoyBvsH4iIMdx4NQtChY1CGR5pHSfMo8EloIpV//xsECCOuveRbTuLqm9Y6apGU7H2
+ t+5uQxURoUdugkZKgz2b5Qvkd8GOqdbmBw0BblDkW9B1iKXmr4AuH0LWejJdEc7hS6LdEFJRVfM
+ vlkJ1SDWnwVq0gAZxt7Bbzscm4NS88mYrTDIMmbgB8xTzaZnbd7Jsr6KrM7+WYv5QkuTvFnvp22
+ 77Ovu3OVxCE9g70zuPCJijdV3XUctZFHhyBIO5HgzZVfdPlTkKFm3AkKerdkrxVh6lBQWnQqQip
+ WTCoICB587Mom1LNlWw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDExNSBTYWx0ZWRfX2WMxKuzOi/8S
+ CUVQMCRTlSzBpJqKhyynOCiBVgeHAizksvdyBkTlYN8GPFBOwBMhRJ4PTJRWfu7d2ia3ieyn9N1
+ 8jUj+a5dBF4viyoYntR60Ox7gN369Ds=
+X-Proofpoint-GUID: jYDhX7E0yldul522h-QAeBlHMPPlHXKt
+X-Proofpoint-ORIG-GUID: jYDhX7E0yldul522h-QAeBlHMPPlHXKt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090115
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Unhandled interrupt storm due to unconditional unmasking of AUX HP=
-D interrupts on older SoCs.
-- [High] Unsafe read-modify-write on the interrupt clear register `MTK_DP_A=
-UX_TX_P0_INT_CLR` causes lost interrupts.
-- [Medium] Missing `legacy_regoff` addition when polling the AUX HPD status=
- register `MTK_DP_AUX_P0_364C`.
---
+On 7/8/26 8:25 PM, Imran Shaik wrote:
+> Add support for Audio Core Clock Controller (AudioCoreCC) and Audio Core
+> CSR nodes on Qualcomm Shikra SoC. The Audio Core Clocks and Resets support
+> differs across Shikra variants based on Audio subsystem enablement as
+> follows:
+> - CQM variant: The QAIF driver runs on HLOS, hence both clocks and resets
+> are required to be supported on HLOS.
+> - CQS variant: The QAIF driver runs on the Modem, and required clocks are
+> handled on Modem, so from HLOS only resets are needed.
+> - IQS variant: no soundwire codes, hence no clocks/resets are needed.
+> 
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> ---
 
---- Patch [10]: [PATCH v4 10/12] drm/mediatek: mtk_dp: Add support for HotP=
-lug Detection in DP AUX ---
-commit d87425adb9b3f30b1f231894a984a344e048ae99
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+For the sake of simplification, can the resets be enabled
+globally by default?
 
-drm/mediatek: mtk_dp: Add support for HotPlug Detection in DP AUX
-
-This patch adds support for hotplug detection via DP AUX in MediaTek DP IP,
-avoiding the need to power up the entire eDP/DP IP. It introduces a new
-flag to select the HPD strategy.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index ea970a9bfe936..772ba311a34a7 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-> @@ -1047,7 +1048,30 @@ static u32 mtk_dp_swirq_get_clear(struct mtk_dp *m=
-tk_dp)
->  	return irq_status;
->  }
-> =20
-> -static u32 mtk_dp_hwirq_get_clear(struct mtk_dp *mtk_dp)
-> +static u32 mtk_dp_aux_hwirq_get_clear(struct mtk_dp *mtk_dp)
-> +{
-> +	u32 irq_status =3D mtk_dp_read(mtk_dp, MTK_DP_AUX_TX_P0_INT_STA);
-> +	u32 ret =3D 0;
-> +
-> +	if (irq_status) {
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_TX_P0_INT_CLR,
-> +				   irq_status, irq_status);
-
-[Severity: High]
-Can this read-modify-write operation drop newly arrived interrupts?
-
-mtk_dp_update_bits() uses regmap_update_bits() which performs a
-read-modify-write. By using irq_status as the mask, if the clear register
-reads back with new interrupt bits set (that arrived after the INT_STA read=
-),
-the read-modify-write will preserve those new bits and write them back as 1=
-s,
-unintentionally clearing them before they are handled.
-
-Should a full mask (like DP_TX_AUX_INT_MASK) be used here instead to ensure
-non-target bits are zeroed out?
-
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_AUX_TX_P0_INT_CLR,
-> +				   0, irq_status);
-> +	}
-> +
-
-[ ... ]
-
-> @@ -1062,8 +1086,28 @@ static u32 mtk_dp_hwirq_get_clear(struct mtk_dp *m=
-tk_dp)
->  	return irq_status;
->  }
-> =20
-> +static inline u32 mtk_dp_hwirq_get_clear(struct mtk_dp *mtk_dp)
-> +{
-> +	if (mtk_dp->data->aux_hpd_supported)
-> +		return mtk_dp_aux_hwirq_get_clear(mtk_dp);
-> +
-> +	return mtk_dp_trans_hwirq_get_clear(mtk_dp);
-> +}
-> +
->  static void mtk_dp_hwirq_enable(struct mtk_dp *mtk_dp, bool enable)
->  {
-> +	u32 mask, val;
-> +
-> +	/* On SoCs with working AUX HPD, the transmitter HPD register is ignore=
-d by HW */
-> +	if (enable) {
-> +		mask =3D HPD_CONNECT_EVENT | HPD_INTERRUPT_EVENT | HPD_DISCONNECT_EVEN=
-T;
-> +		val =3D 0;
-> +	} else {
-> +		mask =3D DP_TX_AUX_INT_MASK;
-> +		val =3D DP_TX_AUX_INT_MASK;
-> +	}
-> +	mtk_dp_update_bits(mtk_dp, MTK_DP_TX_AUX_INT_MASKING, val, mask);
-> +
-
-[Severity: High]
-Does this code risk causing an unhandled interrupt storm on older SoCs?
-
-Since MTK_DP_TX_AUX_INT_MASKING is updated unconditionally, the AUX HPD
-interrupts are unmasked even if aux_hpd_supported is false.
-
-If an older SoC triggers an AUX HPD interrupt, mtk_dp_hwirq_get_clear()
-will branch to mtk_dp_trans_hwirq_get_clear() and ignore the AUX interrupt,
-causing it to remain asserted and repeatedly trigger.
-
-Should this unmasking be guarded by the aux_hpd_supported flag?
-
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_TRANS_P0_3418,
->  			   enable ? 0 :
->  			   IRQ_MASK_DP_TRANS_P0_DISC_IRQ |
-
-[ ... ]
-
-> @@ -2113,10 +2191,15 @@ static int mtk_dp_wait_hpd_asserted(struct drm_dp=
-_aux *mtk_aux, unsigned long wa
->  	u32 val;
->  	int ret;
-> =20
-> -	ret =3D regmap_read_poll_timeout(mtk_dp->regs,
-> -				       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
-> -				       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
-> -				       wait_us / 100, wait_us);
-> +	if (mtk_dp->data->aux_hpd_supported)
-> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs, MTK_DP_AUX_P0_364C,
-> +					       val, !!(val & HPD_STATUS_DP_AUX_TX_P0_MASK),
-> +					       wait_us / 100, wait_us);
-
-[Severity: Medium]
-Is the register address missing the legacy_regoff addition here?
-
-Unlike mtk_dp_read() which automatically adds mtk_dp->legacy_regoff,
-regmap_read_poll_timeout() operates directly on the regmap.
-
-If a platform with aux_hpd_supported also uses a non-zero legacy_regoff, th=
-is
-will poll the wrong physical register address. The fallback path for older
-SoCs correctly applies the offset manually.
-
-> +	else
-> +		ret =3D regmap_read_poll_timeout(mtk_dp->regs,
-> +					       MTK_DP_TRANS_P0_3414 + mtk_dp->legacy_regoff,
-> +					       val, !!(val & HPD_DB_DP_TRANS_P0_MASK),
-> +					       wait_us / 100, wait_us);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709113148.4909=
-0-1-angelogioacchino.delregno@collabora.com?part=3D10
+Konrad
