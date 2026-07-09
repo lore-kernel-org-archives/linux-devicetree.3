@@ -1,92 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB223ED5BB
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:29:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997993F0777
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:30:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783585760; cv=none; b=qoqQ1SVyScGyh68ljQyKPA/hGSM/MGyqkIszz4QZfwhxEET7V7OS0uDIIRE4gTtFBpkVSAZOwT1EfP339ptVSP+xXmnPw1tM9uBTnEgaEul7YqqS2P+IhteB/Z4mImgstYqv4bskxOd0v9kR9Kr4pX3uHVOsiWG9jqpTJ3nVMHw=
+	t=1783585825; cv=none; b=Tn2wo4nPAL6FYZXOMGYJHOtTZ9m1l8LVbegJzIxgQtrQn3rOZAQRHVdplpTOZ/s+A1R0fYwAFBkKaRJgiAkpm8aEH4sPeBLQ1aKz8sWic424y5s2nkU96bN3g+rqGcdT8+bFikTdeLhE36WBRGxBwhjoQ3cIBB3qvHAkL83z+AU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783585760; c=relaxed/simple;
-	bh=i0igLMQ33zhxoOIX3XetWF7gN8smYnjfTXIhRoexI1A=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RM21Ns2WW7h/xHQj30muFZddJRxj1kKOkEzjYzQ1TJhW5FZAwLE03HrMVRHXXkNwf4bIpsoKUrcfNpEXlrmyyQ/bEuU3onuwAo5wRyIuEbfl/lF1W2jjtt0O8UOAexaSgGR2GidrFBWZJ463S3obLDrqGCy0NCeYI2mEfXLk3Zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cx50iv8X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783585825; c=relaxed/simple;
+	bh=0V+IOXvSzk1yZ9C4dkvJAwDWLi8ZJR4YqJNADjn7JOY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ch+7sDb6c9VBU25rXvW0l6c+yfQBgab+8MFA6iw+eR7IXNiMfREm9p33rXdbB52AW0js60Z6nVqzRB6kjU7de8TNmZs4PgymDSxdD2DvoCq9HVfTllTg6IMlU8w6DiF1FYdaSkz+xdKleMCuF8vVqhrFym2ZpMsIGjfpX6HCZKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lcD6HkqY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cx50iv8X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 983011F00ADB
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:29:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lcD6HkqY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330381F000E9;
+	Thu,  9 Jul 2026 08:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783585759;
-	bh=YAtIHqm2ZMjAhBbacLCHQR++DR43xD3ram9aYjsmlhY=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Cx50iv8X0cQmJSVUnfFpWfSZ5KfOX7K+K63BaXt8a6PedSRTewifFWyiyS8wo6IsV
-	 4zCChQ+17C8Auvsr2sBx2f6bonbX3nxBEIPndgt7ZNHeYwYDaqahn6jRHrDdGn0Yxj
-	 TzsiOD7HZ+uO21u0paGCSs4fXOtYdm+awwY8emRhgFMXvkGhu7I+BPpwCfdvMrGb/t
-	 UBBWIRbPepf+qieGlaR5sV4z+F3ojGNBCeBm9PDvqJ6v34r4bDdrr1Mpw3VxtZXhbd
-	 GdatVEZ3XO+1X8T5EyL2fi8t0UwLy5J8RSOUFEJHyPH3DWmDGxQH9rRSx6vW+gvmii
-	 HDy4kGUVgVaeA==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39b349ae174so13417881fa.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:29:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rrd5LKd5o4awDlEyS3K2eChilTmuyVgHYd+f91ugT2/gKmlDQYGE1+RQ3LS17nfgyZGY4BK9twiF1eq@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQFhDl1P1BSSI+nDEH9YgxnUMbtAADuHPa9wc646CBBhTXk7V8
-	Dbj2UNI1C59T1ySbuTGY8Q30rgtzsgJD3UkZGQuP6zxRoPyju4uVZaJImVwRqNYp8UGdnH6+rPr
-	wzpn1CfI5MVHMzkINSkzuCm2Fqnnov1sDnAOlGHZqZg==
-X-Received: by 2002:a05:651c:199e:b0:399:90ae:a406 with SMTP id
- 38308e7fff4ca-39c799c9fa9mr12982771fa.27.1783585758335; Thu, 09 Jul 2026
- 01:29:18 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 01:29:16 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 9 Jul 2026 01:29:16 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260709082040.4070711-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1783585824;
+	bh=BS+Mz4u7R5lM1yzMVry6qi0O+NFSeHzupxj5OiZFV+0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lcD6HkqYqASw0sdchvcoZ3lchI17dsqh7/mcbSILYmzVbmGXkXyJuXnrQSWVdtqo/
+	 dQ6a1Ctawen7stJWSoASOIuTqHmNZrXLRgPGXqY1wMoVnQFY/xjzANDyvqgR8O+Rwq
+	 4bDuOrZglzITQXfxqmdYgJ5YTVAwAOL0WqsMwVoZrE90JXXvAo+/y43tgCoGQ2En9V
+	 LV+YOGL23QJKzc0v6PVc4sBcYCtwjS/vKNQGhb6SzB/TzrAwcI1M7HblYOBRasQ+2B
+	 7BCXCHzXv96iK9UTOCjL3oXD4vJOEdgAr8WqPJFdF58h7lB/l/Y5YHN4EuRi74q6JD
+	 j2koN9S6mMUQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260709081928.612294-1-wenst@chromium.org>
+References: <20260709081928.612294-1-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 08:30:23 +0000
+Message-Id: <20260709083024.330381F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260709082040.4070711-1-shengchao.guo@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 01:29:16 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mdt+39pbnE3XOwRm6yWJAENU1UeQhw9xaFu2vDqgcXU1Q@mail.gmail.com>
-X-Gm-Features: AVVi8CevtjxRrM5Jiux4yHD5WK_K0ewuBLgZ4WNdELr7GiHQbbHlJ0bNIUyMMn4
-Message-ID: <CAMRc=Mdt+39pbnE3XOwRm6yWJAENU1UeQhw9xaFu2vDqgcXU1Q@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Document Nord FastRPC
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 9 Jul 2026 10:20:40 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> Add compatible for Qualcomm Nord FastRPC which is compatible with
-> Kaanapali FastRPC.
->
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-> index 2876fdd7c6e6..24fc0752c11a 100644
-> --- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-> +++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
-> @@ -26,6 +26,7 @@ properties:
->            - enum:
->                - qcom,glymur-fastrpc
->                - qcom,hawi-fastrpc
-> +              - qcom,nord-fastrpc
->            - const: qcom,kaanapali-fastrpc
->
->    label:
-> --
-> 2.43.0
->
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The MT6319 PMIC fallback compatible triggers incorrect MT6315_PP m=
+ode ganging in the regulator driver, causing silent cross-talk between the =
+CPU and EMI VDDQ regulators.
+- [Low] Grammatical error in the comment explaining the firmware workaround.
+--
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--- Patch [1]: [PATCH v2] arm64: dts: mediatek: mt8188-geralt: Add MT6319 P=
+MIC ---
+commit 0ff94c6622559a57199ed1f2d1f4063c6c911df1
+Author: Chen-Yu Tsai <wenst@chromium.org>
+
+arm64: dts: mediatek: mt8188-geralt: Add MT6319 PMIC
+
+The Geralt design uses a MT6319 PMIC to power the big cores and LPDDR4X
+DRAM.
+
+> diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64=
+/boot/dts/mediatek/mt8188-geralt.dtsi
+> index 8e423504ec052..af05315092f53 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+[ ... ]
+> @@ -1225,6 +1235,70 @@ &spi2 {
+>  	status =3D "okay";
+>  };
+> =20
+> +&spmi {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&spmi_pins>;
+> +	#address-cells =3D <2>;
+> +	#size-cells =3D <0>;
+> +	status =3D "okay";
+> +
+> +	pmic@6 {
+> +		compatible =3D "mediatek,mt6319-regulator", "mediatek,mt6315-regulator=
+";
+> +		reg =3D <0x6 SPMI_USID>;
+
+[Severity: High]
+Does this fallback compatible trigger incorrect mode ganging?
+
+The mt6315-regulator driver maps USID 6 to the MT6315_PP variant, which
+hardcodes mode ganging for vbuck1, vbuck2, and vbuck4. On the MT8188
+Geralt's MT6319, vbuck4 is wired as an independent regulator for
+pp0600_emi_vddq.
+
+If a mode change happens on vbuck1 (which is allowed by the
+regulator-allowed-modes property), the driver will apply the ganged
+mask and silently overwrite vbuck4's mode bits in the PMIC, potentially
+forcing the RAM supply into an unexpected mode.
+
+Could this silent cross-talk between the CPU and EMI VDDQ regulators
+lead to memory voltage instability?
+
+> +		pvdd1-supply =3D <&pp4200_s5>;
+> +		pvdd2-supply =3D <&pp4200_s5>;
+> +		pvdd3-supply =3D <&pp4200_s5>;
+> +		pvdd4-supply =3D <&pp4200_s5>;
+> +
+> +		regulators {
+> +			/*
+> +			 * vbuck1 is the cpu-supply for CPU6 and CPU7.
+> +			 *
+> +			 * However, this device originally shipped with a broken
+> +			 * firmware that causes register reads over SPMI fail.
+> +			 * This is fixed in firmware version 15842.175.0, which
+> +			 * is included in ChromeOS releases R150-16700.22.0 or
+> +			 * R151-16721.0.0 and later.
+> +			 *
+> +			 * Assigning the cpu-supply properties for CPU6 and CPU7
+> +			 * without the fix will likely cause CPU DVFS to stop
+> +			 * working. Hence the assignment is left out to avoid a
+> +			 * regression of the function. If the user is confident
+> +			 * that their system has the fix, they can added the
+
+[Severity: Low]
+This isn't a bug, but there is a typo in this comment. It should say
+"they can add the property themselves".
+
+> +			 * property themselves.
+> +			 */
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709081928.6122=
+94-1-wenst@chromium.org?part=3D1
