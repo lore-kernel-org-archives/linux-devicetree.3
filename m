@@ -1,158 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21BC3BE161;
-	Thu,  9 Jul 2026 12:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E813E7BCB
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 12:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783599275; cv=none; b=lyFZi5mUJBViENHjnTvPYtPMuTIyBUjv3ifWaFdJwnWy5EtDN7W6UiAWUihf0fMEZCvo+yMqPH94PNAlJAqKzf/dq4FPbCyAQ/SHAYzJwZ/0eZ6ZeHMzmvA+rftDgtDBaTl5+hfPyQGXBqld9eNaKx4DqvK5wUALXOqSzYob40o=
+	t=1783599328; cv=none; b=WNRCZ+o/3RqmPEdHRECQobsE5k5V9ajCXlsNARP9NuxzMYNXWxAOuU3L5i07ArAuAZdb/KnOZGPfRntBbJH7mIYDSA7giC7RzOxpeM0gvJCnb0NrXjBYZXcI3urA9oCPfSNVQ9jhLR8cCrWb3k8qj9FYCfKYIpnbPu6ENPQaW08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783599275; c=relaxed/simple;
-	bh=0BUO7HSUyXZHya3ZDwDZTPOJCWm4IMuPlEHjmyFnvGo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zkrd3Mb7azd1nLQy+A3P6zBh0uemEu4qxrIsUOo3K0RpoxLqgKD9+Nhssax/j881WtKOy7Jl/g1jzg2EHIEVfB6RnUUDLysYJmxdZutONdFxbT26+ODiHJZz4cPS3xtXX7AVHUVqGP0cL5ApKOF1VAoshv6xCz7PSL8wyrq4ix0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mq5TcMCH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783599328; c=relaxed/simple;
+	bh=4DHPjlHLdj6J7HkYDBhZ7UPu72CXJPLetcGH7D6pLbI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T8yIMgwsNMOKLmsnPUqr3FyfBpnH33gyJprEOBZgnky8fxSi6Y2SNmuBxlM0/5Ix/oBnvknTrop1olsrAqQC8V1xTZtski1tye2LpgtM2zjqJk56DuXt50pTLMu82HtB+ujl9RLtzqm+ZBJZeZ6ikgxbC0a6BoVo7FU+gFgtgtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fikp+o+E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hxPRlm5+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mq5TcMCH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902721F000E9;
-	Thu,  9 Jul 2026 12:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783599273;
-	bh=nVORFCL6CNiHKh74SYn46d3zLuWsmQs7QLWTxIm0GWc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Mq5TcMCH4bH5+VnDeCl0hxlH3M8xzo07koGO+Xft9Q2fKYsFUlK9/h9C4/tL/NnCO
-	 nThDMFBmb6+PcrQoKWcP3beU1gkp+H7J/nLNCi6+PwTaZEAJqvSu+awdqDY6XXEcKu
-	 sEAXCYBuHreiSAHttpxn/zM60EfwzAjepRxZatCYEYFc+9Ovge3YDAga83m9NDzO3x
-	 nMC92+AkiQ4+eqQnQ/JkNL8ssrPNFoqDLQ9qDLq3SuqOlORInx6ii6exez2Od77cx9
-	 +B8bnQBtgq5eNgZND+mtN/MU26l9iQeiHeoS6BRwenZI+LGch71BWokGojGrwkvy9v
-	 OhCc0d7A/4MIQ==
-Message-ID: <bfc0dbc8-4f92-436d-86bd-dd6dc8a193fc@kernel.org>
-Date: Thu, 9 Jul 2026 14:14:23 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fikp+o+E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hxPRlm5+"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669BNOEU1537957
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 12:15:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	I1ClfnulykakYWxfiN6hTT4mRoy9cKqDFd/GfOqMO+4=; b=fikp+o+E5petAbo5
+	NWi66rI3kl/rkX5CRx5LtCj7NfqIl3ohsKBZq5S2iKkA2wbCJsjS2Je/VEKQcgzE
+	rQkSX82JsdsM0ynQT8OpAWCIjs5FUA+XxqTG8a6dDXBfth0AWNBGTIMDuHxO3R8v
+	u6U4uW4Pn6KluL0/2vsZzzQL0Yt3sKbOB9ytSEWDrH89eT/OGgMM3l3PyyuCndPj
+	VVKFeJOvk9rHMnafLbkqzzQyvRA1Zzt04ztIkrMK4ViWq2wWO3mtdpfZo+FocAV5
+	0qxBK61RbX8GYV7n48bBKn6fd39yU72reQERS3aHEPE1e+OaTRyqp1y51aJAErOC
+	jBF6jA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fa1ydtk17-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 12:15:26 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-385d2703b64so976283a91.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 05:15:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783599326; x=1784204126; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I1ClfnulykakYWxfiN6hTT4mRoy9cKqDFd/GfOqMO+4=;
+        b=hxPRlm5+eir/J+1cPBpo1r71n1axVle7aEzaw4wf/u7b4sidiZQ9406BNsQnXAasph
+         opAekLQEElDgwdaaqPEWMRgicj211TQVxql9NTd50kSSjBPR9pnB5WDWprW8EGJ3MBvv
+         HL8Hnrx6AExADrOrq2f7blMetb10csVa7cOWFWq3HG2hFqkQr+F1QasOmMbgZFt+0XPI
+         LY7SyEry0qwPwZFGiXCoJR6WQRSKthSb00ovt9HWiRJB5O4VSmQYtVnJ+BYJIgGKUSmf
+         i2W3W7j0S1x/m5cWZ79xDzAu6/9LnaNTYhzGxNNMwefonCvtq/OZnhKrfI0PSkGV6eZD
+         o7cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783599326; x=1784204126;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=I1ClfnulykakYWxfiN6hTT4mRoy9cKqDFd/GfOqMO+4=;
+        b=JaYXldo41ckz7Sl4vOmlifH76VfZOtAhYmHVf1Qy8j3UHuGq0MUqWgngNaT0vG4qMf
+         KTjVa7kOg+1cnvdFLUfV5KLl6f1kZNDBVxnlEoL27k0psLskc9vGdhKUl0B7KXI7sqCT
+         /YiyKvhDtzx0Cu/2iAC13YwteCnlfnc+pgl4PbL3r7NANAXI8Dc1W2JrjZmiH+gxPFJp
+         k5AHaxenFRtOd+Nujkupcq+kbfDfLOnewC48TCUsefWzHG3k7A62zr8v+0Mq/2ad2WTG
+         9jf7g3KqKT8zbfcYrDKsHV/53VShwcH6qeuCx9a5uaDdg4y9JmvkxPHaE6sW1zti7Ws6
+         sZHg==
+X-Forwarded-Encrypted: i=1; AHgh+RpId52pPFaB9EV1UnYu9uGK775i0MXgULPFyvCsjJJl6ndPH8U/Lp0vDaWSUaMLeDMH1X0hL19RELEw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeoRv4qloI+JY1j2y9qhavR0mRvmnsAEz03zw40jeK4/swnS83
+	X2ToHQ9rr8f7iHC/A/Pc/EcNwyq5Hd/HhogFasjA5E2ow8rAfAbVQ0KxBl0N1ti9FIuh7OFu8wC
+	2f4Dcai3oCbGRG0qrPUlWKew97i1R29OYJg/JDMUo0jbxFyP97Juzvh2bFrKhkVJdw5pO0ITc
+X-Gm-Gg: AfdE7cnK6DWEPvYBvf+HOcpfvBjIlB2auT1ZFYBdYZSzi0HS7mA6bZC1dzQxL4RS83g
+	i9UpCMiWJYsjEtag9xi2EgcGkbrBRlw+/f1eBnTMf5gKyzQVTasF6DViqiy6VnWMqCnTrD8zNhj
+	evWSu5MxC/Rq/HSNK3yXoG3sjAQLubAxRPGSEavgHSP2ZZm1ntw31/ltlC8e+Y4MjS6GWBpRXkG
+	YXWOnDMpFDaYs4K38DHrDEze7l2wiRR9yAyTQQ/XqiCQI9vB3yq2ZE6nXuQ+/5VeWbk3L2e2aW4
+	Q5ohrVgVRjefadNyNZlhDirN6qPrpADcwEJ4kV/X6QA2D6sClGyGVxEUZNV2KS+6IVXxnpMJlCp
+	QKIUvzs39jbD9ZnF3pLRKczu/7851dDXuWcbKTMAuqMXZeYsi8XPkeucVMos8
+X-Received: by 2002:a05:6a20:d81a:b0:3bf:a8fa:a7b1 with SMTP id adf61e73a8af0-3c0d6c6f129mr3431089637.37.1783599326165;
+        Thu, 09 Jul 2026 05:15:26 -0700 (PDT)
+X-Received: by 2002:a05:6a20:d81a:b0:3bf:a8fa:a7b1 with SMTP id adf61e73a8af0-3c0d6c6f129mr3431058637.37.1783599325730;
+        Thu, 09 Jul 2026 05:15:25 -0700 (PDT)
+Received: from hu-anancv-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659d8da9sm50551004c88.14.2026.07.09.05.15.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 05:15:25 -0700 (PDT)
+Date: Thu, 9 Jul 2026 05:15:23 -0700
+From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
+        devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: add SoCCP DT node for Glymur
+Message-ID: <ak-Q27DbuZAuT69h@hu-anancv-lv.qualcomm.com>
+References: <20260707-glymur-soccp-v5-0-053993f0c6fe@oss.qualcomm.com>
+ <20260707-glymur-soccp-v5-3-053993f0c6fe@oss.qualcomm.com>
+ <20260707102536.0055F1F00A3D@smtp.kernel.org>
+ <qek6vh2xcc7haiz7w2qdsfpglewxltbpvjedijqnf7bev3iux2@x5cqyojrwjh5>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: usb: Add ITE IT885x support
-To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
- Yaode Fang <Yaode.Fang@ite.com.tw>, Bling Chiang <Bling.Chiang@ite.com.tw>,
- Doreen Lin <doreen.lin@ite.com.tw>, Eric Su <Eric.Su@ite.com.tw>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260710-ucsi-itepd-feature-v3-0-8523e1e1c47a@ite.com.tw>
- <20260710-ucsi-itepd-feature-v3-1-8523e1e1c47a@ite.com.tw>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260710-ucsi-itepd-feature-v3-1-8523e1e1c47a@ite.com.tw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <qek6vh2xcc7haiz7w2qdsfpglewxltbpvjedijqnf7bev3iux2@x5cqyojrwjh5>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDExOSBTYWx0ZWRfX+p8AWGNSA/Bg
+ lsvdzZ2OyYcfaPav56dBJlRTz1imLAp24E8A7RHJkyuZSWFVGCuRWjXGrxPHmgG3XHtnxuL3sOf
+ jr5WwjCe8D79R7sXBeH0nnrsOOZnZIQ=
+X-Proofpoint-ORIG-GUID: Dn4rzH3XfvE5W4DwlTw0YDsZ_rksDQhK
+X-Authority-Analysis: v=2.4 cv=cOLQdFeN c=1 sm=1 tr=0 ts=6a4f90df cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=8nJEP1OIZ-IA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=AaYUaR78CUu4QMINtNYA:9
+ a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: Dn4rzH3XfvE5W4DwlTw0YDsZ_rksDQhK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDExOSBTYWx0ZWRfX9qFX8oEBlzmL
+ zZVhtsoAoVoDZWTfw1xbUSHypHrcRSMFgRl07aOaK6p0Nb+JPlB3Xdce+Xr6duMy2mvMJZ35Bvv
+ DBjQBgUPX88Ep/uH6UY0HUt/FcmIvY8HYyKlk3J5y/wpm+VcFMKBYoLLaoahs+GPoeEcglFrU9q
+ 3sxUGY62ZJBKxsaX+PjLjff4mcdlw4KuhWLHzSykwhhCgUbVYeJoeIknm18cHp56mLcs4PLJX2x
+ FP5VgnaIdXkQBdOOYXj+bqDZIX5v438nfVKr5YghWb0HBZ/TEGh875BiKYjYOQdoczQ4S52OP6p
+ 6iKVceNQf6BZM6lqup4iYopMvgYXLl3wPBVz7JpDucyg5kv1Om6IHZvbPv0AX1dCihrfjfHg7yR
+ /L99/jwi2+op9PcN859oANC6QZ4v9T/F3SVoUt+Iy1NKTQR0/sB/BvLjAlRsKC1LY4YL0YnNQKs
+ k8GU0uxU1FMTRv90i1Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_02,2026-07-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 bulkscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090119
 
-On 09/07/2026 21:25, Amber Kao wrote:
-> Add device tree binding documentation for the ITE IT885x. The ITE
-> IT885x is an I2C-based USB Type-C Power Delivery (PD) controller.
+On Thu, Jul 09, 2026 at 10:18:03AM +0300, Dmitry Baryshkov wrote:
+> On Tue, Jul 07, 2026 at 10:25:35AM +0000, sashiko-bot@kernel.org wrote:
+> > 
 > 
-> v2 -> v3: No changes, resent alongside the driver patch which needed
-> another revision.
+> > > +			compatible = "qcom,glymur-soccp-pas", "qcom,kaanapali-soccp-pas";
+> > 
+> > [Severity: High]
+> > Is it safe to use "qcom,kaanapali-soccp-pas" as a fallback here?
 > 
-> v1 -> v2:
-> - Per Conor/Sashiko: dropped the redundant `gpios` property, the
->   interrupt line is already described via `interrupts`
-> - Per Conor: renamed example node from `itepd@40` to `typec@40`
+> It doesn't. Please fix DT bindings.
 
-None of these go to commit msgm but changelog (---).
+We assumed breaking the bindings wasn't an option, but given everything can land
+in the same cycle, maybe it should be fine. We'll fix this in the next re-spin.
 
-Please fix your timezone, so you do not send email from the future (7
-hours in the future). It messes with mailboxes.
-
-You also keep sending way too often this patchset. Please read
-submitting patches.
-
+> > 
+> > If an older kernel lacking the Glymur-specific match binds to this node via
+> > the fallback, it will use the kaanapali_soccp_resource which does not set
+> > .needs_tzmem = true.
+> > 
+> > Since Glymur requires TrustZone memory configuration to prevent faults, the
+> > Kaanapali driver cannot safely run Glymur hardware and may cause a fatal
+> > SMMU or TrustZone panic during remote processor boot.
+> > 
+> > > +			reg = <0x0 0x00d00000 0x0 0x200000>;
+> > 
+> > [ ... ]
+> > 
+> > -- 
+> > Sashiko AI review · https://sashiko.dev/#/patchset/20260707-glymur-soccp-v5-0-053993f0c6fe@oss.qualcomm.com?part=3
 > 
-> Cc: Yaode Fang <Yaode.Fang@ite.com.tw>
-> Cc: Jeson Yang <jeson.yang@ite.com.tw>
-> Cc: Bling Chiang <Bling.Chiang@ite.com.tw>
-> Cc: Eric Su <Eric.Su@ite.com.tw>
-> Cc: Doreen Lin <doreen.lin@ite.com.tw>
-> Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
+> -- 
+> With best wishes
+> Dmitry
 
-...
+Thanks for the review.
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 461a3eed6129..1b03fa3aa060 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -13720,6 +13720,17 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->  F:	Documentation/devicetree/bindings/display/bridge/ite,it66121.yaml
->  F:	drivers/gpu/drm/bridge/ite-it66121.c
->  
-> +ITE IT885x TYPE-C PD CONTROLLER DRIVER
-> +M:	Jeson Yang <jeson.yang@ite.com.tw>
-> +M:	Amber Kao <amber.kao@ite.com.tw>
-> +R:	Yaode Fang <Yaode.Fang@ite.com.tw>
-> +R:	Bling Chiang <Bling.Chiang@ite.com.tw>
-> +R:	Doreen Lin <doreen.lin@ite.com.tw>
-> +R:	Eric Su <Eric.Su@ite.com.tw>
-
-Are all these people going to provide reviews?
-
-> +L:	linux-usb@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/usb/ite,itepd-it885x.yaml
-> +
->  IVTV VIDEO4LINUX DRIVER
->  M:	Andy Walls <awalls@md.metrocast.net>
->  L:	linux-media@vger.kernel.org
-> 
-
-
-Best regards,
-Krzysztof
+Best,
+Ananthu
