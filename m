@@ -1,158 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F5C378839
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:46:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F89B399350
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:47:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783630020; cv=none; b=rUqLouYBEhL20A5YiTKUr+omT/he9xRmRurVAmhdPUT/kaK8PSvtvrFZ6vZ1TKUBuujf8g0eDhVqZpO7g/TUzONeq0LtYSPN5a4oYvd+IUqZzA+BYQzQzMGW4ZGL7gJGlrGlM8uB2vFDOiiQtWGxN27wLw+2XSMPQHjytrESZFk=
+	t=1783630026; cv=none; b=EuMLS/7qecVoyQfOfuf3OxVqmfKVgx4rvOj4vnFtYZKIyEPAHbD3bVFKevjkVDreXc71MRijvi03TCKI4bpwox1oxtxNvGeZlejlvBia5c72zA9FFBXrnXLL7SNU2UcLvzudUHSKbV61KTeECJQbBK850eVrhFkPl+pecpaV7ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783630020; c=relaxed/simple;
-	bh=KB8wOnRdNXOSKHPQa04wjYPDr5KL7VJR570mh6YMFOE=;
+	s=arc-20240116; t=1783630026; c=relaxed/simple;
+	bh=alPH4/mnAtyhHzufFFDrmwhmow3dhNhtBb+jpFc+KSs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QvRdFLmb8o/MBBL0LUG7GyyGPTkRE1l/jk5eAHacGT+pHZbJmJGF43/pA82SRfwllsO/Jg86gbspj6BK62Kx/qI+wXwRBgJ66xaZjHEzasabyO3f2BasCXpQH2c24FQ5pAF4WRLt3VbIwBfmYrVhqZ5t3At2wDX2LBwcA2zL4Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3ovBeUF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=PhcqeTq+nao70oxCUm7dMrSXgyIlUmJZDYTJLvwxEmJeG80o/NVdHv/Pmusyl+w21qfHRKz0rRLDfL7CV2CYJkKGs+Hqf5sUwyVqeKM5SU9jw7eYKbatd8wc0ojg483OgP9Fme2zcIybJgyQGjViKnO5SCEpa3woKm6rsy4IMBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KcDMBaRq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3ovBeUF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1211F000E9;
-	Thu,  9 Jul 2026 20:46:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KcDMBaRq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0771F000E9;
+	Thu,  9 Jul 2026 20:47:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783630019;
-	bh=h9C5p8uVfIVhyihbp7S/pjPXzz6PjBaHOH1FeDKhJ0c=;
+	s=k20260515; t=1783630025;
+	bh=E9uu5cme0gouU9MxPZEIUCsdwx9/6IsdE/4M5lN5aVE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=E3ovBeUFmuU0CTkfNLABf4W4DqSu72tti6MYh6gXrp9K+qlV12GdnVsqwi75t9tAW
-	 TUzM++5NsZ2ALDF+WEiGucHH3q2O++b3PJW5P0OKYSqcwAorgbQiHbaMroviPr4D8G
-	 jp3A0qNGCeK/jL9Tpkc9IBWlNGlMi44htzmTXlVqq6543i8dCdQESLGtOsx5K6jF5Y
-	 YUtOd0u7CWb+8vCl//Lar6V8s2NOONCIHm4urFAEvlUrAej/bqIrkkIMES4OIbWSmx
-	 EIchZgN7ERFiPAqAZb9U/RO1WbgQOMVt471GlFuNk4FcDNDj1pMBcuX2nIbf+NuqUq
-	 Kts4g1N1ZZ1Aw==
+	b=KcDMBaRqwXGyN6To927UVN0A0DwrPSsk4V/IqysqDyfsdbdoDdNkc6p/bK+oxM4HI
+	 5n1UaV+NbfoCYuAzHHHwvC+cgQWzKEHnxYlzDsl7lX44+4lQ55JZrekDbfSWjalq8h
+	 Nz/fwaHrEq+bTmC3wbrdwmA45p81aDS30H3I8S6Of/o8UxS88i5GHc9tLm1yNUmgRH
+	 O9TC4yDNH87fi7GCqn75ozLE4k+usu1O2GpQH7PqwkQO+MhRLcpzjd5hggxjDvCcEt
+	 LnBBN4ksaVZ9nMTi3hfLV2L+iY/3tXwc3ezAJmoyO0BXxZam0IU9mzMffuUeF4a3L2
+	 2dLG649i2sJgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/19] crypto: cmh - add ChaCha20-Poly1305
+Subject: Re: [PATCH v2 07/19] crypto: cmh - add SM3 ahash
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260709203037.1884436-11-skrishnamoorthy@rambus.com>
+In-Reply-To: <20260709203037.1884436-8-skrishnamoorthy@rambus.com>
 References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-11-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-8-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 20:46:58 +0000
-Message-Id: <20260709204658.9F1211F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 20:47:04 +0000
+Message-Id: <20260709204704.BC0771F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Critical] Failure to reset `total_len` during an error in `cmh_poly_upda=
-te` causes `cmh_poly_final` to leak uninitialized kernel heap memory.
-- [High] Unbounded kernel memory exhaustion (DoS) in Poly1305 driver due to=
- missing request destructor and improper re-initialization.
-- [Medium] Using `dma_addr_t` as a boolean check in the error path of `cmh_=
-poly_final` leaks a DMA mapping if the mapped address is 0.
+- [High] Linearizing arbitrarily large ahash input buffers via kmalloc rest=
+ricts request sizes and risks deterministic allocation failures.
+- [High] DMA mapping an inline array (rctx->checkpoint) potentially on the =
+stack violates the DMA API, causing cacheline sharing and vmap stack corrup=
+tion.
+- [High] An integer overflow when calculating total available data leads to=
+ a massive heap buffer overflow.
+- [Medium] cmh_sm3_export leaks uninitialized memory into the exported stat=
+e buffer.
+- [Medium] Missing endianness conversions when populating hardware command =
+descriptors.
 --
 
---- Patch [10]: [PATCH v2 10/19] crypto: cmh - add ChaCha20-Poly1305 ---
-commit 23c814e3e61faada221bb1fbcd27c935e6800b9b
+--- Patch [7]: [PATCH v2 07/19] crypto: cmh - add SM3 ahash ---
+commit 28c61ed61efa5f206b21de41a5196e656d04ad75
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add ChaCha20-Poly1305
+crypto: cmh - add SM3 ahash
 
-Register ChaCha20-Poly1305 AEAD and ChaCha20 skcipher algorithms
-using the CMH CCP core (core ID 0x18).  Also registers the Poly1305
-ahash for standalone use.
+Register the SM3 ahash algorithm using the CMH SM3 core (core ID
+0x05).  Supports incremental update/finup/final and export/import.
 
-> diff --git a/drivers/crypto/cmh/cmh_ccp_poly.c b/drivers/crypto/cmh/cmh_c=
-cp_poly.c
+> diff --git a/drivers/crypto/cmh/cmh_sm3.c b/drivers/crypto/cmh/cmh_sm3.c
 > new file mode 100644
-> index 0000000000000..020a98fbe6070
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_ccp_poly.c
-
+> +++ b/drivers/crypto/cmh/cmh_sm3.c
+> @@ -0,0 +1,651 @@
 [ ... ]
-
-> +static int cmh_poly_init(struct ahash_request *req)
-> +{
-> +	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
-> +
-> +	memset(rctx, 0, sizeof(*rctx));
+> +struct cmh_sm3_reqctx {
+> +	int    error;
+> +	u32    hw_started;
+> +	u32    buf_len;
+> +	u32    has_checkpoint;
+> +	u8     checkpoint[SM3_CONTEXT_SIZE]; /* SM3 context from last SAVE */
 
 [Severity: High]
-Does this code leak dynamically allocated chunks? If a user-space applicati=
-on
-creates an AF_ALG socket, accumulates data, and then either closes the requ=
-est
-or re-initializes it by calling cmh_poly_init() again, the request context =
-is
-zeroed here, losing the pointers to the chunks while they remain on the TFM
-list.
+Can this structure be allocated on the stack?
 
-The ahash API does not have a freereq callback to handle early closure
-cleanups.
+The crypto framework often allocates ahash request contexts on the stack
+using AHASH_REQUEST_ON_STACK. If CONFIG_VMAP_STACK is enabled, mapping this
+inline checkpoint array for DMA via cmh_dma_map_single() will pass a
+vmalloc address, which yields an invalid physical address.
 
-> +	INIT_LIST_HEAD(&rctx->chunks);
-> +	return 0;
-> +}
+Additionally, since the checkpoint array isn't cacheline aligned, could
+DMA operations corrupt adjacent fields in the context on non-coherent
+architectures?
 
+> +	/* DMA state for current async operation */
+> +	dma_addr_t ckpt_dma;
+> +	dma_addr_t save_dma;
 [ ... ]
-
-> +err_free_chunks:
-> +	/*
-> +	 * Terminal error -- free all previously accumulated chunks.
-> +	 * Callers may not call .final() on error, so they would leak.
-> +	 */
-> +	cmh_poly_free_chunks(rctx, tctx);
-> +	return ret;
-
-[Severity: Critical]
-Could this leak uninitialized kernel memory? When cmh_poly_update() encount=
-ers
-an error and frees the chunks here, it does not reset rctx->total_len to 0.
-
-If cmh_poly_final() is subsequently called, it allocates an uninitialized
-kmalloc buffer of size total_len, skips the memcpy loop because the chunk l=
-ist
-is empty, and maps it for DMA.
-
-An attacker providing the key could potentially recover the plaintext of the
-uninitialized kernel heap data by reversing the resulting MAC.
-
-> +}
-
-[ ... ]
-
-> +static int cmh_poly_final(struct ahash_request *req)
+> +static void vcq_add_sm3_update(struct vcq_cmd *slot, u32 core_id, u64 in=
+put_phys, u32 len)
 > +{
-> +	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
-> +	struct cmh_poly_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> +	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
-> +	struct vcq_cmd cmds[CMH_POLY_MAX_PAYLOAD];
+> +	memset(slot, 0, sizeof(*slot));
+> +	slot->magic =3D VCQ_CMD_MAGIC;
+> +	slot->id =3D VCQ_CMD_ID(core_id, 0, 1, SM3_CMD_UPDATE);
+> +	slot->hwc.sm3.cmd_update.input =3D input_phys;
+> +	slot->hwc.sm3.cmd_update.inlen =3D len;
+> +}
+
+[Severity: Medium]
+Does the hardware expect a specific endianness for these command descriptor=
+s?
+
+The CPU-native values are assigned directly to the hardware command structu=
+re.
+If this driver is built on a Big-Endian architecture and the hardware expec=
+ts
+Little-Endian (which is typical for PCIe/SoCs), will these values be
+interpreted correctly without explicit conversions like cpu_to_le64()?
+
+[ ... ]
+> +static int cmh_sm3_update(struct ahash_request *req)
+> +{
+> +	struct cmh_sm3_reqctx *rctx =3D ahash_request_ctx(req);
+> +	struct vcq_cmd cmds[CMH_SM3_MAX_PAYLOAD];
 > +	struct core_dispatch d;
-> +	s32 target_mbx;
-> +	u32 core_id;
+> +	u32 total_avail, full_len, tail_len, from_src;
 > +	u32 idx;
 > +	int ret;
 > +	gfp_t gfp;
+> +
+> +	if (rctx->error)
+> +		return rctx->error;
+> +
+> +	if (!req->nbytes)
+> +		return 0;
+> +
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	total_avail =3D rctx->buf_len + req->nbytes;
+> +
+> +	if (total_avail < CMH_SM3_BLOCK_SIZE) {
+
+[Severity: High]
+Could this arithmetic wrap around if a caller provides a very large request?
+
+If req->nbytes is close to U32_MAX, total_avail can overflow and become
+less than CMH_SM3_BLOCK_SIZE. The code would then bypass the block size
+check and execute:
+
+    scatterwalk_map_and_copy(rctx->buf + rctx->buf_len,
+                             req->src, 0,
+                             req->nbytes, 0);
+
+Would this attempt to copy gigabytes of data into the 64-byte rctx->buf,
+causing a massive buffer overflow?
+
+> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+> +			memcpy(rctx->buf + rctx->buf_len,
+> +			       req->svirt, req->nbytes);
+> +		else
+> +			scatterwalk_map_and_copy(rctx->buf + rctx->buf_len,
+> +						 req->src, 0,
+> +						 req->nbytes, 0);
+> +		rctx->buf_len =3D total_avail;
+> +		return 0;
+> +	}
+> +
+> +	full_len =3D total_avail - total_avail % CMH_SM3_BLOCK_SIZE;
+> +	tail_len =3D total_avail - full_len;
+> +	from_src =3D full_len - rctx->buf_len;
+> +
+> +	rctx->data_buf =3D kmalloc(full_len, gfp);
+
+[Severity: High]
+Is it safe to assume the input data will always fit in a contiguous kmalloc
+allocation?
+
+The ahash API contract requires drivers to handle arbitrarily large inputs
+(e.g., multi-megabyte requests from IPsec or dm-verity). Bouncing the
+entire scatterlist into a single contiguous buffer via kmalloc() will fail
+deterministically for sizes exceeding KMALLOC_MAX_SIZE, or earlier due to
+memory fragmentation.
+
+Should the driver process the scatterlist in bounded chunks instead of
+attempting to linearize it entirely?
 
 [ ... ]
-
-> +out_unmap_in:
-> +	if (rctx->total_len > 0 && rctx->in_dma)
-> +		cmh_dma_unmap_single(rctx->in_dma, rctx->total_len,
-> +				     DMA_TO_DEVICE);
+> +static int cmh_sm3_export(struct ahash_request *req, void *out)
+> +{
+> +	struct cmh_sm3_reqctx *rctx =3D ahash_request_ctx(req);
+> +	struct cmh_sm3_export_state *state =3D out;
+> +
+> +	if (rctx->hw_started && rctx->has_checkpoint)
+> +		memcpy(state->checkpoint, rctx->checkpoint, SM3_CONTEXT_SIZE);
+> +	else
+> +		memset(state->checkpoint, 0, SM3_CONTEXT_SIZE);
+> +
+> +	if (rctx->buf_len > 0)
+> +		memcpy(state->buf, rctx->buf, rctx->buf_len);
 
 [Severity: Medium]
-Does this code inadvertently leak a DMA mapping on architectures where 0 is=
- a
-valid DMA address? Checking if a dma_addr_t is non-zero will fail when the
-mapped address happens to be exactly 0, skipping the unmap call.
+Does this leave the remainder of the export buffer uninitialized?
 
-> +out_unmap_tag:
-> +	cmh_dma_unmap_single(rctx->tag_dma, POLY1305_DIGEST_SIZE,
-> +			     DMA_FROM_DEVICE);
+If rctx->buf_len is less than CMH_SM3_BLOCK_SIZE, the trailing bytes in
+state->buf are never initialized. Since the state buffer is provided by the
+caller (e.g., via crypto_ahash_export) and could be an uninitialized socket
+allocation from AF_ALG, could this leak kernel memory if the state is later
+exposed to userspace?
+
+> +
+> +	state->buf_len =3D rctx->buf_len;
+> +	state->hw_started =3D rctx->hw_started;
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
-436-1-skrishnamoorthy@rambus.com?part=3D10
+436-1-skrishnamoorthy@rambus.com?part=3D7
