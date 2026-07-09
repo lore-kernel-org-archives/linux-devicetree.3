@@ -1,180 +1,456 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4948F283FD4;
-	Thu,  9 Jul 2026 20:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4ED3D3337
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 20:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783630175; cv=none; b=E93J3xxXJdaLWTN7ZVc4VyrVBq0qk8ik0ov/5fDvFv/sh+OuPgKPKIKIG5PpMisSzgzfJ06sbK1PVNGaSmsWuPvvKIIxvaQEVMqwqFd8XX7JQKCseFh26ZRsoGGFvXLsaBEu3xFQR97uvNUa58QknHVS/MvYpH8ZZefJAR33rwY=
+	t=1783630176; cv=none; b=FZeTQpxPOluCgG9dFbLyS8s5xR89o7+Gf0tm8LlGfPdNPLG38JUg6s1MhkPdSijNZiTpIMUXs7TMsSAj5VKJInhFgy4ZhQtYCqVr8MbPhaFJxnvDQqvYOPiu8vvwriZMuq2JI8OinjRgF+rLn830M7FfoRL9yF/PMXRl9aQ29UA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783630175; c=relaxed/simple;
-	bh=3xga7A3kXtcNqzDDYv/uIDEfi064QFEQN2be+835/9g=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TeQncBFtKRjCz30r36o1I+ta38i8/Rnx6FXbyL09R5ZqczAi2JxDCS6XSXloW8rboBfSoNd53VLU+ijTFtymF2kSK9Olyk+MQ84flqgq2V10cu+V/LzGtJxvEqCT4pw1lSqHi4YarkWmcYY5rUD7IFNXZyo3Ch2nqs+FLfMfNhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=XaSTqKAT; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1783630176; c=relaxed/simple;
+	bh=ahFf06i3bUhTPtnOaSZdM7d5dq5f2qQ5vAesUd80niU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VeK/QWVI5/Y7Xi56ScmpzthObTXsj8q3ztEzr3mO5tcxLdx+JxfevpoMP+Vom3l4FFUwMW0eyf4c/oKkKxFsDUAUx/9XaGtUIKK8kJBMaIJnwFDphB7mgNSI/HIHro9aLS2hl3fnrWLutPQzsWQQWg+tWMWPSbqiZMmr8tRSaD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKjX9us+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="XaSTqKAT"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669JEWaO1847790;
-	Thu, 9 Jul 2026 16:49:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=h+dw3kCW/kleuhP7037TwZKiQBp
-	A/08bWVZBjne8V2Q=; b=XaSTqKATpdNZoMx2Se/+LUzHj/63kdOTAsg57MEe/Pv
-	45LviQ9MLtY3EQT/KalsxzBeSUPIb9du2lMuO0MCufWfO1GfRw/VkeBczEwzJzTn
-	bdqNjm5aeJpHoLwzgp3ALQ50rFluMyvBk7v09aJTWgbOctyi1FG03t99RChQGmvm
-	dEGwtIO90X4yzJyI8YyO3jPBfzK+BelSGDaRUk4aIpbG552AzGhgnGo49BfjsaIr
-	IQslu++eplygeDdDqiggDD6HLuXeouHFx2vJPzHNpwJIqpXKtZfUhgbL+JF/Ezw3
-	UQ8e1fKJh0W5e23qxvDYfaSg311pTCcbU8EBlWSHkiw==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fa9qsagjy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Jul 2026 16:49:22 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 669KnKp3046364
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 9 Jul 2026 16:49:20 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 9 Jul
- 2026 16:49:19 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 9 Jul 2026 16:49:19 -0400
-Received: from work.maxim-ic.internal ([10.66.6.192])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 669Kn7wn003656;
-	Thu, 9 Jul 2026 16:49:10 -0400
-From: Marcelo Schmitt <marcelo.schmitt@analog.com>
-To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>,
-        <dlechner@baylibre.com>, <andy@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <julianbraha@gmail.com>,
-        <marcelo.schmitt1@gmail.com>
-Subject: [PATCH v6 0/4] iio: adc: Add support for LTC2378 and similar ADCs
-Date: Thu, 9 Jul 2026 17:49:02 -0300
-Message-ID: <cover.1783629101.git.marcelo.schmitt@analog.com>
-X-Mailer: git-send-email 2.39.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKjX9us+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51D111F000E9;
+	Thu,  9 Jul 2026 20:49:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783630174;
+	bh=1n6LmBB3NhsX+jeP9MNl8/AuwQWxyWKVqT8Tdi/ykI0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MKjX9us+xS6b9g1XZKbTL7QRPIaHYHDSp6oJs/s625aovCoEDIOSher1rhHIGQGXQ
+	 yeJclVhcMFvi1dP8aE5dsEASyQJzZs0wTPFjguO01SMQ8vqEzm4gIPoh6qJhgE4P/c
+	 OYBy4X21iFjSe6MRoRu5nm0gVsfyeYmRoamlClo030SpYQ4W1UchzbZLTM0H+geNnW
+	 C7iB9QcL72f+atfrMVOaDAou+pFRP43Vhbc8Wxny4p6JKQarO4bogNAyGgAe25dZOl
+	 z+moUiGsMiXhxpGGCYQDkRnkOD6EODFZZv8aNKmkWeddIDmSq/XnLB5L9Hm4uwR+kV
+	 D58W88EIkb0sg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 03/19] crypto: cmh - add key provisioning and
+ management
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709203037.1884436-4-skrishnamoorthy@rambus.com>
+References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-4-skrishnamoorthy@rambus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 20:49:33 +0000
+Message-Id: <20260709204934.51D111F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDIwNiBTYWx0ZWRfX12iMe7JvJjLJ
- +dxkYmOGhOAEspzeza8WBw75uD+cCq6CKgoo6Kvhc6y4tjCDqMce4Tp3a7YxSq8POEjpGDmS5p7
- e2Lgq0L6uK93RjMrXqmp7ECH+Vbw/KluIyZpg2EYlB706tR6YAbb
-X-Proofpoint-GUID: CDqef9lPiYbQcPAcIpfq8YOj9dGw2r_A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDIwNiBTYWx0ZWRfXwNaKDcY79JnH
- 4eSeAI8/GT5HINbERnzQ2/5eseU0chCSnFhbTriQ9AdRXFRAHLpdmtcIf/YteAIwn1JVqZwOgBj
- 3MBJU+Irgk60YhfTpfmifWpwxAwuRc4YBPfD0VnphCaHLw2EnHeu/mBDPuVmqdajmFm6h0yMQNV
- 0Gwi6fXBEelV04MX0PwDXK+dAfR79KNTnPB0ctFl6Jj3stGb7gVyJINa1/PmnyBQp2y2HUgVtdD
- /kc/xmB7eDBByDLHnpk8INXrib+xL2Ha+UXbtSkJY9D6HUJRJ0xrEOgYCWFUY+uKxXwAKT/FztF
- 04kvjuAISQOdAE2ONJ1wR/UZpfg+/pnv2sCpRPQj3j49OKvIBXWRNkg9BrUsSoxdmkcA10DR1XE
- nZn4wNkGyTZ9FHNhbzSptEzDIDJYKDUyvE9bTd6sLzC0LAbB5J9D8VhtfYtCYe1f6slFkLmXFf8
- 6HNksh+BvxbeZI+8adg==
-X-Authority-Analysis: v=2.4 cv=fu7sol4f c=1 sm=1 tr=0 ts=6a500952 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=XqN69BuZ7wOcV2cAv7kA:9
-X-Proofpoint-ORIG-GUID: CDqef9lPiYbQcPAcIpfq8YOj9dGw2r_A
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 impostorscore=0 suspectscore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090206
 
-This patch series adds support for LTC2378 and similar low noise, low power,
-high speed, successive approximation register (SAR) ADCs. These ADCs are similar
-among each other, varying mainly on the amount of precision bits, maximum sample
-rate, and input configuration (either fully differential or pseudo-differential).
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
+(s) to consider:
+- [Critical] Unprotected cross-VCQ access to the shared per-mailbox `SYS_RE=
+F_TEMP` datastore creates a race condition that can leak or corrupt raw cry=
+ptographic keys.
+- [High] Optional DMA pointers default to `DMA_MAPPING_ERROR` instead of `0=
+`, causing the hardware to DMA from an invalid address.
+- [High] The ECDH ioctl ignores the CMH_PKE_FLAG_DS_RESULT flag, causing an=
+ unconditional out-of-bounds write to userspace memory.
+- [High] Persistent hardware datastore slots for intermediate results are l=
+eaked during normal execution of certain ioctls, leading to datastore exhau=
+stion.
+- [High] Applying `PKE_SWAP_FLAGS` to `SYS_CMD_NEW` scrambles the returned =
+datastore reference handle, causing subsequent operations to fail.
+- [High] ECDSA signatures are computed over the wrong hash value because th=
+e digest is padded with trailing zeros instead of leading zeros.
+- [High] Hardware datastore key slots become permanently orphaned if the fi=
+nal `copy_to_user()` fails to deliver the reference to user space.
+- [High] Unsynchronized hardware mailbox flush creates a denial of service =
+(DoS) vector for concurrent crypto operations.
+- [High] Premature exposure of the `/dev/cmh_mgmt` misc device before drive=
+r initialization is complete leads to a NULL pointer dereference.
+- [Medium] Valid DMA addresses mapped at `0` are leaked due to unsafe boole=
+an evaluation.
+- [Medium] Potential out-of-bounds kernel memory read in `cmh_mgmt_ds_expor=
+t` if `req.len` is smaller than the wrapper header size.
+- [Medium] Uninitialized kernel heap memory is potentially copied to user s=
+pace in `cmh_mgmt_eac_read`.
+--
 
-Patch 1 adds device tree documentation for LTC2378.
+--- Patch [3]: [PATCH v2 03/19] crypto: cmh - add key provisioning and mana=
+gement ---
+commit fdf4a06222c37879ad3a1f641550a83825a212f0
+Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-Patch 2 enables single-shot sample read with a GPIO connected to the LTC2378 CNV pin.
+crypto: cmh - add key provisioning and management
 
-Patch 3 enables high-speed data captures with SPI offloading.
-The setup is similar to AD4030, with a specialized PWM generator being used both
-for SPI offload triggering and conversion start signaling.
+This commit adds the CMH key management subsystem, including key provisioni=
+ng,
+system object management, and a management ioctl interface (/dev/cmh_mgmt).
+It exposes key lifecycle, KIC key derivation, PKE operations, PQC operation=
+s,
+and SM2 multi-step protocols.
 
-Patch 4 enables running buffered data captures without SPI offloading.
+> diff --git a/drivers/crypto/cmh/cmh_main.c b/drivers/crypto/cmh/cmh_main.c
+> index de065a425a2cf..7673ed3e58618 100644
+> --- a/drivers/crypto/cmh/cmh_main.c
+> +++ b/drivers/crypto/cmh/cmh_main.c
+> @@ -196,12 +197,19 @@ static int cmh_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		goto err_rh_init;
+> =20
+> +	/* Register key management device (/dev/cmh_mgmt) */
+> +	ret =3D cmh_mgmt_register();
+> +	if (ret)
+> +		goto err_mgmt_register;
+> +
+>  	g_cmh_dev =3D dev;
 
-Even though these parts are somewhat similar to AD4000, the wiring configuration
-for LTC parts is different as well as the available HDL for high speed sample
-rate mode. Because of that, I propose creating a new device driver for
-supporting LTC2378-like devices.
+[Severity: High]
+Is it safe to register the misc device via cmh_mgmt_register() before setti=
+ng
+the global g_cmh_dev pointer? If userspace opens the device and executes an
+ioctl immediately, could the ioctl handler's use of cmh_dev() trigger a NULL
+pointer dereference?
 
-Specifications can be found at:
-https://www.analog.com/media/en/technical-documentation/data-sheets/233818fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/236416fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/236418f.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/236716fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/236718f.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/236816f.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/236818f.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/236918fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237016fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237616fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237618fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237620fb.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237716fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237718fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237720fb.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237816fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237818fa.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237820fb.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/237918fb.pdf
-https://www.analog.com/media/en/technical-documentation/data-sheets/238016fb.pdf
+> diff --git a/drivers/crypto/cmh/cmh_mgmt.c b/drivers/crypto/cmh/cmh_mgmt.c
+> index 0000000000000..d228213f7850c 100644
+> --- a/drivers/crypto/cmh/cmh_mgmt.c
+> +++ b/drivers/crypto/cmh/cmh_mgmt.c
+> @@ -89,6 +89,53 @@ static atomic_t mgmt_temp_dirty =3D ATOMIC_INIT(0);
+> =20
+>  /* -- KEY_NEW -------------------------- */
+> =20
+> +static int cmh_mgmt_key_new(void __user *argp)
+> +{
+[ ... ]
+> +	req.ref =3D *ref_buf;
+> +	kfree(ref_buf);
+> +
+> +	if (copy_to_user(argp, &req, sizeof(req)))
+> +		return -EFAULT;
 
-Previous submissions:
-  v5: https://lore.kernel.org/linux-iio/cover.1783028033.git.marcelo.schmitt@analog.com/
-  v4: https://lore.kernel.org/linux-iio/cover.1782397418.git.marcelo.schmitt@analog.com/
-  v3: https://lore.kernel.org/linux-iio/cover.1781661028.git.marcelo.schmitt@analog.com/
-  v2: https://lore.kernel.org/linux-iio/cover.1779976379.git.marcelo.schmitt@analog.com/
-  v1: https://lore.kernel.org/linux-iio/cover.1779117444.git.marcelo.schmitt1@gmail.com/
+[Severity: High]
+Does this code leak the newly allocated hardware datastore key if copy_to_u=
+ser
+fails? Should it issue a SYS_CMD_GRANT with 0 permissions to delete the obj=
+ect
+before returning -EFAULT?
 
-Change log v5 -> v6:
-[DT]
-- Dropped single compatible strings for parts that have a fall back so dt-schema
-  can enforces the fallback compliance.
-[IIO]
-- Added a comment to clarify IIO buffer storagebits and endianness for the
-  offload use case.
-- Added comment to clarify CPU endianness is used when device native BE is not.
-- Protected single sample read procedure with a mutex.
-- Dropped mod_devicetable.h, include device-id/spi.h device-id/of.h instead.
-- Used iwyu to add missing #includes and dropped superfluous ones.
-- Used pahole to minimize memory holes in LTC2378 data structures.
+> @@ -351,6 +351,59 @@ static int cmh_mgmt_ds_export(void __user *argp)
+> +	dmabuf =3D kzalloc(req.len, GFP_KERNEL);
+> +	if (!dmabuf)
+> +		return -ENOMEM;
+[ ... ]
+> +	/* Parse actual blob size from the eSW-written header */
+> +	{
+> +		struct sys_wrap_hdr *hdr =3D (struct sys_wrap_hdr *)dmabuf;
+> +		u64 actual;
+> +
+> +		if (check_add_overflow((u64)sizeof(*hdr), (u64)hdr->wrap,
+> +				       &actual) ||
 
-With best regards,
-Marcelo
+[Severity: Medium]
+What happens if the user specifies a very small req.len, such as 4 bytes?
+If the hardware unexpectedly returns success for a truncated buffer, could
+casting dmabuf to struct sys_wrap_hdr * and reading its fields cause an
+out-of-bounds read of kernel memory?
 
+> @@ -493,6 +493,76 @@ static int cmh_mgmt_ds_import(void __user *argp)
+> +static int cmh_mgmt_kic_hkdf1(void __user *argp)
+> +{
+[ ... ]
+> +	if (temp) {
+> +		/* Flush MBX to reset temp stack -- see KIC section comment */
+> +		ret =3D cmh_tm_flush_mbx(MGMT_MBX);
 
-Marcelo Schmitt (4):
-  dt-bindings: iio: adc: Add ltc2378
-  iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
-  iio: adc: ltc2378: Enable high-speed data capture
-  iio: adc: ltc2378: Enable triggered buffer data capture
+[Severity: High]
+Will unconditionally flushing MGMT_MBX abort any active commands concurrent=
+ly
+executing on that shared mailbox? Does this create a denial of service vect=
+or
+for other crypto operations?
 
- .../bindings/iio/adc/adi,ltc2378.yaml         | 170 ++++
- MAINTAINERS                                   |   8 +
- drivers/iio/adc/Kconfig                       |  19 +
- drivers/iio/adc/Makefile                      |   1 +
- drivers/iio/adc/ltc2378.c                     | 821 ++++++++++++++++++
- 5 files changed, 1019 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
- create mode 100644 drivers/iio/adc/ltc2378.c
+> +		if (ret)
+> +			goto out_unmap_label;
+> +
+> +		n_cmds =3D 3;
+> +		vcq_set_header(&vcq[0], n_cmds);
+> +		vcq_add_kic_hkdf1(&vcq[1], SYS_REF_TEMP, req.base_key,
+> +				  label_dma, req.key_len, req.label_len,
+> +				   SYS_TYPE_SET(0, CORE_ID_AES));
+> +		vcq_add_sys_flush(&vcq[2]);
+[ ... ]
+> +	ret =3D cmh_tm_submit_sync_mbx(vcq, n_cmds, 1, MGMT_MBX);
 
+[Severity: Critical]
+Since the derived key is stored in SYS_REF_TEMP and the ioctl then returns =
+to
+userspace, what prevents a concurrent crypto request on the same MGMT_MBX f=
+rom
+overwriting this temporary slot before the key is later consumed? Could a
+subsequent read inadvertently extract the raw key of the unrelated crypto
+operation?
 
-base-commit: 093239070573637ad2b4cb56abc9c4c7ee109294
--- 
-2.53.0
+> @@ -608,6 +608,8 @@ out_unmap_label:
+> +out_unmap_label:
+> +	if (label_buf && !cmh_dma_map_error(label_dma) && label_dma)
+> +		cmh_dma_unmap_single(label_dma, req.label_len, DMA_TO_DEVICE);
 
+[Severity: Medium]
+Does the && label_dma condition mistakenly treat a valid DMA mapping at add=
+ress
+0 as an error? Will this leak the mapping on architectures where 0 is a
+legitimate bus address?
+
+> @@ -1185,6 +1185,41 @@ static int cmh_mgmt_key_new_random(void __user *ar=
+gp)
+> +static long cmh_mgmt_eac_read(void __user *argp)
+> +{
+[ ... ]
+> +	rsp =3D kmalloc_obj(*rsp, GFP_KERNEL);
+> +	if (!rsp)
+> +		return -ENOMEM;
+
+[Severity: Medium]
+Since rsp is allocated without zeroing its contents, what happens if the
+hardware performs a partial DMA write? Could the trailing unwritten fields
+such as sram_bank_errors retain old kernel heap data that gets leaked when
+copied to userspace?
+
+> @@ -1369,6 +1369,87 @@ static inline bool cmh_mgmt_needs_temp_flush(unsig=
+ned int cmd)
+> +static long cmh_mgmt_ioctl(struct file *file, unsigned int cmd,
+> +			   unsigned long arg)
+> +{
+> +	void __user *argp =3D (void __user *)arg;
+> +	int ret;
+> +
+> +	if (cmh_mgmt_needs_temp_flush(cmd) &&
+> +	    atomic_xchg(&mgmt_temp_dirty, 0)) {
+> +		ret =3D cmh_tm_flush_mbx(MGMT_MBX);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[Severity: High]
+Can this conditional flush of MGMT_MBX abort in-flight commands from concur=
+rent
+crypto operations? Should there be a lock to verify no concurrent operations
+are executing before flushing the shared mailbox?
+
+> diff --git a/drivers/crypto/cmh/cmh_mgmt_pke.c b/drivers/crypto/cmh/cmh_m=
+gmt_pke.c
+> index 0000000000000..6954832fa8ac5 100644
+> --- a/drivers/crypto/cmh/cmh_mgmt_pke.c
+> +++ b/drivers/crypto/cmh/cmh_mgmt_pke.c
+> @@ -319,6 +319,160 @@ int cmh_mgmt_pke_rsa_keygen(void __user *argp)
+> +{
+[ ... ]
+> +		/* Sync DMA so we can read back the opaque refs */
+> +		cmh_dma_unmap_single(d_ref_dma, sizeof(u64), DMA_FROM_DEVICE);
+> +		cmh_dma_unmap_single(crt_ref_dma, sizeof(u64),
+> +				     DMA_FROM_DEVICE);
+> +		d_ref_dma =3D 0;
+> +		crt_ref_dma =3D 0;
+[ ... ]
+> +out_unmap:
+> +	if (crt_ref_dma && !cmh_dma_map_error(crt_ref_dma))
+> +		cmh_dma_unmap_single(crt_ref_dma, sizeof(u64),
+> +				     DMA_FROM_DEVICE);
+
+[Severity: Medium]
+Does this code use 0 as a sentinel for an unmapped address? If the DMA API
+returns 0 as a valid mapped address, will this condition skip the unmap step
+and leak the mapping?
+
+[ ... ]
+> +	if (!ret) {
+> +		/* Copy generated modulus and refs back */
+> +		if (copy_to_user(u64_to_user_ptr(req.n), n_buf, n_len)) {
+> +			ret =3D -EFAULT;
+> +			goto out_free;
+> +		}
+
+[Severity: High]
+If copy_to_user fails here, does this skip cleaning up the d_ref and crt_ref
+datastore objects? Will these hardware key slots become permanently orphaned
+since the user never receives the references to free them?
+
+> @@ -513,6 +513,66 @@ int cmh_mgmt_pke_ecdsa_sign(void __user *argp)
+> +{
+[ ... ]
+> +	dig_map_len =3D max_t(u32, req.digest_len, clen);
+> +
+> +	dig_buf =3D kzalloc(dig_map_len, GFP_KERNEL);
+> +	sig_buf =3D kzalloc(sig_len, GFP_KERNEL);
+[ ... ]
+> +	if (copy_from_user(dig_buf, u64_to_user_ptr(req.digest),
+> +			   req.digest_len)) {
+
+[Severity: High]
+If the provided req.digest_len is smaller than the curve length clen, does
+copying the digest to the start of dig_buf incorrectly pad it with trailing
+zeros? Since the buffer is interpreted as a big-endian integer, will this a=
+ct
+as a mathematical left-shift and cause the signature to be computed over the
+wrong hash value?
+
+> @@ -594,6 +594,76 @@ int cmh_mgmt_pke_ecdh(void __user *argp)
+> +{
+[ ... ]
+> +	vcq_add_sys_new(&vcq[idx++], 0, ref_dma, clen);
+> +	vcq_add_pke_ecdh(&vcq[idx++], pke_cid, req.curve, clen, clen,
+> +			 ss_type, peer_dma, req.key_ref,
+> +			 SYS_REF_LAST, swap);
+[ ... ]
+> +	ret =3D cmh_tm_submit_sync_mbx(vcq, 4, 1, MGMT_MBX);
+> +	if (ret)
+> +		goto out_unmap;
+> +
+> +	/* Sync bounce buffer so CPU sees the DMA-written ref */
+> +	cmh_dma_sync_for_cpu(ref_dma, sizeof(u64), DMA_FROM_DEVICE);
+> +
+> +	/* Phase 2: extract shared secret from DS via actual ref */
+> +	vcq_set_header(&vcq[0], 3);
+> +	vcq_add_sys_data(&vcq[1], *ref_buf, ss_dma, clen);
+[ ... ]
+> +	ret =3D cmh_tm_submit_sync_mbx(vcq, 3, 1, MGMT_MBX);
+
+[Severity: High]
+Does this code leak the persistent datastore slot for the shared secret? Af=
+ter
+the result is extracted to memory, it appears the slot is never deleted via=
+ a
+SYS_CMD_GRANT with 0 permissions.
+
+[ ... ]
+> +	if (!ret) {
+> +		if (copy_to_user(u64_to_user_ptr(req.output), ss_buf, clen))
+> +			ret =3D -EFAULT;
+> +	}
+
+[Severity: High]
+Is the CMH_PKE_FLAG_DS_RESULT flag in req.flags being ignored here? By
+unconditionally executing Phase 2 and copying clen bytes to req.output, will
+this cause an out-of-bounds write to userspace memory if the caller expected
+only an 8-byte reference?
+
+> diff --git a/drivers/crypto/cmh/cmh_mgmt_pqc.c b/drivers/crypto/cmh/cmh_m=
+gmt_pqc.c
+> index 0000000000000..db479e80326bc 100644
+> --- a/drivers/crypto/cmh/cmh_mgmt_pqc.c
+> +++ b/drivers/crypto/cmh/cmh_mgmt_pqc.c
+> @@ -356,6 +356,117 @@ int cmh_mgmt_ml_kem_dec(void __user *argp)
+> +{
+[ ... ]
+> +		ret =3D cmh_tm_submit_sync_mbx(vcq, QSE_VCQ_CMDS_MIN,
+> +					     1, MGMT_MBX);
+> +		if (ret)
+> +			goto out_unmap;
+> +
+> +		/* Phase 2: extract ss from SYS_REF_TEMP */
+> +		vcq_set_header(&vcq[0], QSE_VCQ_CMDS_MIN);
+> +		vcq_add_sys_data(&vcq[1], SYS_REF_TEMP, ss_dma,
+> +				 ss_out_len);
+> +		vcq_add_sys_flush(&vcq[2]);
+> +
+> +		ret =3D cmh_tm_submit_sync_mbx(vcq, QSE_VCQ_CMDS_MIN,
+> +					     1, MGMT_MBX);
+
+[Severity: Critical]
+Because Phase 1 writes to SYS_REF_TEMP and Phase 2 reads from it using
+entirely separate submissions, what prevents a concurrent crypto request on
+MGMT_MBX from overwriting the temporary slot in between these phases? Does
+this lack of synchronization risk leaking raw keys to userspace?
+
+> @@ -844,6 +844,115 @@ int cmh_mgmt_slhdsa_keygen(void __user *argp)
+> +{
+[ ... ]
+> +	} else {
+> +		vcq_cnt =3D HCQ_VCQ_CMDS_MAX; /* hdr+new+write+keygen+read+flush */
+> +		vcq_set_header(&vcq[idx++], vcq_cnt);
+> +		vcq_add_sys_new(&vcq[idx++], SYS_CID_NONE, ref_dma,
+> +				sk_sz);
+> +	}
+[ ... ]
+> +	if (!ds_ref)
+> +		vcq_add_sys_read(&vcq[idx++], SYS_REF_LAST, sk_dma,
+> +				 0, sk_sz + SYS_WRAP_HDR_SIZE);
+
+[Severity: High]
+When ds_ref is false, a persistent slot is created to hold the generated ke=
+y,
+but does it ever get deleted after the key is read back to memory? This see=
+ms
+to leak the datastore slot.
+
+> @@ -1005,6 +1005,108 @@ int cmh_mgmt_slhdsa_sign(void __user *argp)
+> +{
+[ ... ]
+> +	dma_addr_t sig_dma, rnd_dma =3D DMA_MAPPING_ERROR;
+[ ... ]
+> +	if (req.add_random) {
+> +		rnd_buf =3D kmalloc(n_val, GFP_KERNEL);
+[ ... ]
+> +	if (rnd_buf) {
+> +		rnd_dma =3D cmh_dma_map_single(rnd_buf, n_val, DMA_TO_DEVICE);
+[ ... ]
+> +	vcq_add_hcq_slhdsa_sign(&vcq[1], hcq_cid, req.parameter_set,
+> +				req.msg_len, req.ctx_len,
+> +				rnd_dma, msg_dma, ctx_dma,
+> +				req.sk, sig_dma);
+
+[Severity: High]
+If req.add_random is omitted, rnd_dma remains DMA_MAPPING_ERROR. When this
+is passed directly into the hardware VCQ structure, won't the hardware atte=
+mpt
+a DMA read from an invalid physical address and trigger bus errors?
+
+> diff --git a/drivers/crypto/cmh/cmh_pke_sm2.c b/drivers/crypto/cmh/cmh_pk=
+e_sm2.c
+> index 0000000000000..9a6e30c7f5e59 100644
+> --- a/drivers/crypto/cmh/cmh_pke_sm2.c
+> +++ b/drivers/crypto/cmh/cmh_pke_sm2.c
+> @@ -156,6 +156,128 @@ int cmh_mgmt_sm2_ecdh(void __user *argp)
+> +{
+[ ... ]
+> +	/* Phase 1: sys_new(shared_point_ref) + SM2_ECDH(->SYS_REF_LAST) */
+> +	idx =3D 0;
+> +	vcq_set_header(&vcq[idx++], 4);
+> +	vcq_add_sys_new(&vcq[idx], 0, ref_dma, SM2_POINT_LEN);
+> +	vcq[idx++].id |=3D PKE_SWAP_FLAGS;
+
+[Severity: High]
+Does applying PKE_SWAP_FLAGS to the SYS_CMD_NEW command ID scramble the 64-=
+bit
+reference handle returned by the hardware? Will this cause subsequent
+operations attempting to use this reference to fail with an ENOENT error?
+
+> @@ -563,6 +563,80 @@ int cmh_mgmt_sm2_ecdh_hash(void __user *argp)
+> +{
+[ ... ]
+> +	/*
+> +	 * Phase 1: sys_new(shared_key_ref) + SM2_ECDH_HASH
+> +	 * The shared_point_ref from the ECDH step is passed directly
+> +	 * as a DS reference -- the eSW hub reads it from DS.
+> +	 */
+> +	vcq_set_header(&vcq[0], 4);
+> +	vcq_add_sys_new(&vcq[1], 0, ref_dma, SM2_SHARED_KEY_LEN);
+> +	vcq[1].id |=3D PKE_SWAP_FLAGS;
+
+[Severity: High]
+Similarly here, does applying PKE_SWAP_FLAGS to SYS_CMD_NEW corrupt the
+datastore reference handle?
+
+[ ... ]
+> +	/* Phase 2: read shared key from DS -> DMA */
+> +	vcq_set_header(&vcq[0], 3);
+> +	vcq_add_sys_data(&vcq[1], *ref_buf, sk_dma, SM2_SHARED_KEY_LEN);
+> +	vcq_add_sys_flush(&vcq[2]);
+
+[Severity: High]
+Is the persistent object orphaned and leaked here after extracting its data?
+Should it be deleted with SYS_CMD_GRANT using 0 permissions?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709203037.1884=
+436-1-skrishnamoorthy@rambus.com?part=3D3
