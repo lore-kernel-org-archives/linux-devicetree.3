@@ -1,102 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D693F39EF
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253FD3E4C7F;
+	Thu,  9 Jul 2026 08:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783586338; cv=none; b=dozvE708bRu2WfhZfjn+H0HwSA1X7T4K4KpM0L6hSpzmKVDo3cBFFPA7ClEi9Esm2xZLr453x8IzUW1smnrLgAJBtKy3v082R/3RraXIkK5QKs4izXn0vTHK2On1FoFOmFTZFe3cq031hUTG8eMlpsy4ty2XVRF22bNEUBPtLYc=
+	t=1783586803; cv=none; b=C+x1f1ltnXmMwb559Ecg+yEGaX5cmw6w8S0wv2Ntk2CmMoYo/j1CXB76O6LhwhVmB9j69SwCzLDwy02PfmmxcTgk3jd8OKY/QY6pvHx93qcxw3rpGMRXdBKcy0ASYfnB2hSspdK86kTtKASa+R4UGUhs+6W6JehgSvRyCec+t44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783586338; c=relaxed/simple;
-	bh=fVx4GI8GO2fkLh9rRxWtaeQfXDTwTiOGYVXXhZvsye0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PnEkFsBGdCqYvUJbhxSsrNkr0KpobUCy/1pH2BmGgGpayfZev/Bwn78ksotWgx8Whrbc8ALRFtXxVsUNAH6dDbvug94lYz5+C1g0TJ6beaqmMbL8XEvA+R+VCCSnbvbC8kzUkuBGHxgTWNcJmtiweSkYrU42KSaCxWEK6PGEZm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iYjfESAD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783586803; c=relaxed/simple;
+	bh=5cG0A2p0dlO1yjnfX1PXqAS5ejqeFnCrhtr+/kbgOJY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hUgEUUSxnTbr9b6mgSpOPIheT0gF4P/F6pMMiOpkf+74BaVF2ULliPNKgjjdC/enoe/DXXnFhsaILi+zq/rK7T+CN3AAXHNyFJonW6PcAkL11rNIBfF1aixyefa6WCwT4NQvm0Mox43+GPIEdha15X1i6LhOJ7Ira7oaBnDvqKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=IzqBCxq0; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iYjfESAD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526261F000E9;
-	Thu,  9 Jul 2026 08:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783586331;
-	bh=fHlLr5GZV8B3XkHYfrJRVxt4h/bZyWQDrkRCQkdlRNU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iYjfESADbBtYR3whSuduKiJO840ZxLYzO/8h+aWecHRWwlDBQkRdtA4xlexRQzL2G
-	 oEXgt5PwIOMui4Y79mrYTDtQjGO39UzOwTpsRC6PVKR4/NzRDypAnavmATKuuKZHrM
-	 b1aRyBk+QF0w6AMqGdt9NCP2u2tBgLsyz0EJZSGVUzQV9r2jmpd4ehcm8W4DxShoB8
-	 +6PLlfbpb22GbftvXl+QdS4ajAWiq2pgIe6wVHntUpD2xQPytKSTmTbLQcts5tyaQH
-	 0mk7ffivy9r+gxAO2Yrfqw+dHYd9OTY2+q9yrZDHKFsghlWmrnR1gCfaH3ZoWN3WrF
-	 4k9XeajM17e3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/9] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl:
- Document RZ/G3L support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260709083108.108370-2-biju.das.jz@bp.renesas.com>
-References: <20260709083108.108370-1-biju.das.jz@bp.renesas.com>
- <20260709083108.108370-2-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 08:38:50 +0000
-Message-Id: <20260709083851.526261F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="IzqBCxq0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783586800;
+	bh=5cG0A2p0dlO1yjnfX1PXqAS5ejqeFnCrhtr+/kbgOJY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=IzqBCxq0cEnlJD/CkMZb3Selaz3Cn4HEItsk9rO9IdOeRn/HEdOnzcU+0zNrwmxI9
+	 2NFRvh4LOtEF8kYUkOus/py1+me5WVNfM2v40zT6q1RnjCzyH4ytPUDa9+LvDq6vMe
+	 Z7uWmrkUlINDUHGmwdpqXAqyyZyrV+c53m44+Ljb3U2aVTSIfMeryXRBMldToz6UVi
+	 YOaED1nqNy98OBwlKD4Z8xQ82u6oRWzXpoOszo1eeYuz6ce0jHdZvEJNejn0Xblkjx
+	 3gDU2W0VypwzoHRn0X4xXOGeOU7oqpg8Ny6sHSgvr6Ha10umIV2vRVwC7ZDXFSunc1
+	 2z1EE7hAYVjxQ==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 85A4F17E0886;
+	Thu, 09 Jul 2026 10:46:39 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: ulfh@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	nfraprado@collabora.com,
+	irving-ch.lin@mediatek.com,
+	macpaul.lin@mediatek.com,
+	aford173@gmail.com,
+	mbrugger@suse.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	justin.yeh@mediatek.com,
+	kernel@collabora.com
+Subject: [PATCH v3 0/5] pmdomains: Fixes and add support for HFRP Direct
+Date: Thu,  9 Jul 2026 10:46:30 +0200
+Message-ID: <20260709084635.24912-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added `regulators` object node is missing the `additional=
-Properties: false` constraint. This omission permits arbitrary undocumented=
- or misspelled properties within the `regulators` node to silently bypass d=
-evicetree schema validation.
---
+Changes in v3:
+ - Added new Fixes commit for possible null pointer kp during cleanup
+   of internal on-check
+ - Added proper error state cleanup support for SIMPLE_PWRSEQ domains
 
---- Patch [1]: [PATCH v4 1/9] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl=
-: Document RZ/G3L support ---
-commit 0d58c252d092486ce47b52a5876e30094131aee2
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+Changes in v2:
+ - Fixed return value checking in power off path
 
-dt-bindings: reset: renesas,rzg2l-usbphy-ctrl: Document RZ/G3L support
+This series adds support for the DirectCTL HFRPSYS power domains found
+on the MT8196 SoC (the ones without HW Voter support) and also adds a
+fix to respect the power domain relationships during error cleanup,
+which avoids HW lockups in case probe deferrals in the specific case
+of "almost fully probed" power domains (where most of them probed and
+got set up but a probe deferral happened almost at the end), behavior
+seen on the MT8189 SoC during bringup (but honestly I have no idea how
+are the current ones working fine without this fix...!).
 
-This commit documents the Renesas RZ/G3L USB PHY controller bindings. It
-introduces a regulators sub-node to handle per-port vbus0 and vbus1 entries
-for the RZ/G3L, which has an OTG controller per port.
+This was tested on MT8173, MT8186, MT8188, MT8189, MT8192, MT8195 and
+also on MT8196, over months of development, both manually and over CI,
+with no regressions detected.
 
-> diff --git a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy=
--ctrl.yaml b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-c=
-trl.yaml
-> index c83469a1b379a..06e003218d2a8 100644
-> --- a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
-aml
-> +++ b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
-aml
-[ ... ]
-> @@ -50,6 +53,28 @@ properties:
->      $ref: /schemas/regulator/regulator.yaml#
->      unevaluatedProperties: false
-> =20
-> +  regulators:
-> +    type: object
-> +    description:
-> +      list of vbus regulators provided by this controller.
-> +
 
-[Severity: Low]
-Does this new regulators object need an additionalProperties: false
-constraint? Without it, arbitrary undocumented or misspelled properties
-within the regulators node might silently bypass devicetree schema validati=
-on.
+AngeloGioacchino Del Regno (5):
+  dt-bindings: power: mediatek: Add support for MT8196 direct HFRP
+  pmdomain: mediatek: Fix possible nullptr KP in HWV cleanup/on-check
+  pmdomain: mediatek: Respect PD relationships during error cleanup
+  pmdomain: mediatek: Add support for Direct CTL simple power sequence
+  pmdomain: mediatek: Add support for MT8196 HFRP DirectCTL domains
 
-> +    properties:
-> +      vbus0:
-> +        type: object
-> +        description: Port 1 USB VBUS regulator
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        unevaluatedProperties: false
-[ ... ]
+ .../power/mediatek,power-controller.yaml      |   1 +
+ drivers/pmdomain/mediatek/mt8196-pm-domains.h |  27 +++
+ drivers/pmdomain/mediatek/mtk-pm-domains.c    | 184 ++++++++++++++----
+ drivers/pmdomain/mediatek/mtk-pm-domains.h    |   1 +
+ .../dt-bindings/power/mediatek,mt8196-power.h |   4 +
+ 5 files changed, 184 insertions(+), 33 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709083108.1083=
-70-1-biju.das.jz@bp.renesas.com?part=3D1
+-- 
+2.54.0
+
