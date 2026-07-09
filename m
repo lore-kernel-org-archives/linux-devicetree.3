@@ -1,572 +1,260 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B9738B7B4
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 01:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783559446; cv=none; b=aY5qI/Al8a+k1tjNgf06oSfHmabsuCpFjSJL51Ff5gLUAnWFDKSckZptHGLUfPiSyk1eFBZiyfbxz0gyvkLyvAs5jBCNs9yqyyYy3alQd9fF1ECIxy/p9HILBuUrWzDiG2uK5+XRN6i+xo9bPX4AcYOW8EYdvW68VG4P3NuXHRs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783559446; c=relaxed/simple;
-	bh=NorYOSPVJZcKZxDpD9sKvkFX7ejrxkySeB+SqU3BlRA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ql+AGlSRDnK6a4tBA6LcHTDJ6132KZAtlCLP3taHEp3rzezDJUCqekaG8zt6PDr+VXwo+oI5agstUugoh6gislZNeZHDOsbUohMtVYAQTvA3j8BUpb70kaz+pjQsvmoBxkNQimaWVNmaqiscBBJFCPES0de78fmFgfa+PBvwCgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=K2r95X5/; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BCF1B4224;
+	Thu,  9 Jul 2026 01:12:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783559567; cv=fail; b=WD7Wh3oi3r2RQ22+PrV6e8XSdziqvS6C9+HdTuoVj0DQGJK6bbXEswcYcm4dcCQPj/eh+Vq7gjlDXtDAae+zQ8+5xCx2cTIDF6lkSI3EmS1MNzL+hHsYS4lyftjO/CR+hoND244NHoWe2Dw8i8kECIPux3WyiyOXnemhcS/et3s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783559567; c=relaxed/simple;
+	bh=kZsrwXzGQ77uKYW8NCzc2k5Xa4S9s7Ct/FlUPm+xDIs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=YLZh7oEyLZqOcGiBUxwMZUoU4MrsgUUxzO/3MzdeUiW7F3+pEamuRAVA1xolk1n1Iz3SslNek/bXNh6lWn8xstWoVAGebBupEoK0Rel+0zzc+GqBWEJYmwf59AB9lkMxQ7lBE/IoC37unOnqX2t9EimLPL6Tx9nL/ES6ZpuqNKQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=ZcdHYvAH; arc=fail smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="K2r95X5/"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493e8d4f4dcso6126385e9.0
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 18:10:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783559438; x=1784164238; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8L+CQ4Gynkx2AYXtRuWONCUauUOwqk9uV3HudEHaG/k=;
-        b=K2r95X5/djCO11/JBj5MiLSOqZ0od2M56LwKbw/edr6lKyuLN+gzxllYpB+cAOG85M
-         9zsUrbf4xjRAhuAtPQUdB7oIrDhODuDFD+we0dh4nGnQ8ks6v4H4EVduO9mWIcuy9Y5W
-         W6Ai3L6OiAm0tLbja6Unga/UUB8Vs96p+00Y6sOFK2pDemrkHoFCQKeklAv75BH+q20x
-         ezv/WhFuvj4njKo1pbxpx5HXjvJS7P8sefmhnCi3QcKPpsE3GIAIm7xOmiOod+XoGkuv
-         o/Stp0OAxezH7MQDD6GZyoQ0QEH2MrHx/gTr3Rytl1gRrxFB5foBMK5gEcRaqSwP1Xei
-         oN+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783559438; x=1784164238;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8L+CQ4Gynkx2AYXtRuWONCUauUOwqk9uV3HudEHaG/k=;
-        b=HduwNWGy+erVU0wnN/wlNe81nFNuMR2qCxAlN008gvAT/eQ5ax64sCDG++GsnNTss1
-         aDEuSiIEiUaMgHlP85ICvkqM7dhXWJoLzNl3hIA/BBIa4F9oEU28fEQkzXXAt4zn18ea
-         VE9s4Rq/yjjycACZHqtAE1WLcgr8s3sCD9fTTy75ZCVRDCYtUfBHD+pUv0IihGrWBx+y
-         w0yT4fsNn6yoC0/GkBTtJKvBMON+9qjVyMq0BwbKd3IQr7Dx7HQ+IccgB2zdU3MrF6gu
-         BZ55vr3P5JKRVzbiMUGgNmIB1uhSrgXwOjqeyAnyMMWZ8SxOlZ5IkUyvbkIDjFOGj7s/
-         KLKA==
-X-Forwarded-Encrypted: i=1; AHgh+RoIbDMRcaGJZmL6EQJZhUYVdVVEzUktqQ8Aj6owvXPXM17zTiReGUFdrHmINUM1DLP50g7sITUpgq5V@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlOr/tn9k6QVReRGVRPz5SMUuafZwdLETyv9zVkvTPxlTqlUAQ
-	YxAves27VVHI8S5sJfrIB44AFzTQr4oI4DNaOvMZVQR73rlYR2bKJk0W4n6dNFABF2o=
-X-Gm-Gg: AfdE7cnQ+oL6MRUR9bysbaPVhLq5Z/UYp8RUQ4LTP9dPy0o8FUMlCzmZaY77JmMNGKM
-	EqX6U16+tW/wnXIB8y6By3a+N2v4lWsK41hGbqWTxt6uqEwpaDhQvVI09I3wW/EJ0HVKkWWSZhG
-	lzUP8HYg1AaRtxfSj1a0KFX6w+qE9CYIwQ2oqm1nZtRYlI1wtrv41KrqAhAMwTVw0Uf9ayMACp5
-	T1OChDIX/7KlLHkn9Vw2JR54kqoqF0z+5rBlwOKzBcreKrEsnOgyn9IBrOd6KG6JkKgzb5U0Y8w
-	g2igDYdrJA5TEdJ3O00lz/fDygnsQpuvc5XaWKV1FKVrSSdCZG3JAb+zmT+MEilgKtloBkG7HlZ
-	sFmfFwHwXtKvGIGszhFGDmt/atQEN57NLWJvN2YMn8VXwABRu/9o6pXpLMiXJqGjIYYcF71GYaB
-	GAua1vxnMXjiXIA2NOttcdjBvoOKy4faCkoQJiDonmeUoYlyZjXq9h0b0uUoFjwWBebFm1J7JiZ
-	soE
-X-Received: by 2002:a05:600c:1910:b0:493:e52f:6ee1 with SMTP id 5b1f17b1804b1-493e8a618bamr27806825e9.0.1783559438392;
-        Wed, 08 Jul 2026 18:10:38 -0700 (PDT)
-Received: from [127.0.1.1] ([2.122.8.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb742d0esm18994725e9.13.2026.07.08.18.10.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 18:10:37 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Thu, 09 Jul 2026 02:10:29 +0100
-Subject: [PATCH 3/3] thermal: samsung: acpm-tmu: add Exynos850 support
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="ZcdHYvAH"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668N5qqI3575429;
+	Wed, 8 Jul 2026 21:12:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=kZsrw
+	XzGQ77uKYW8NCzc2k5Xa4S9s7Ct/FlUPm+xDIs=; b=ZcdHYvAHTU7+16jfmKK/P
+	gdGzBt5HI0a82o//KVZOFztL47456ihJeSzhEUSx7VMFrpqPFLLkQeRPigpQHlET
+	biWjePcezHToUbszqsqyfeaNvXRsKWBOAaJLQZnzVna0REFV+KMLZnsyjl3d55Hf
+	hBfHYQL2TtIZow/OjfuDvxFaPukXLI68PaJ9Gsyucl1b1pWeCGLG6OVBZUTOPEOG
+	q0L7ygbo/DMAFit9Qd3R0z/eUioJV3TYiyq0nfktFQxBaeTX5bFVFOkh2LxBH3rm
+	uLkI5xg4XwoMhYcaxIKjB9uuuLeM6Oz/QNNYSwc8geCnwhDXFnNJBVZ9Q+w9X8hq
+	w==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011043.outbound.protection.outlook.com [40.93.194.43])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4f9kfpujt9-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 08 Jul 2026 21:12:43 -0400 (EDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IriVuIkXFf7TSRsVHF0tryZcpmzklknZOfJC7bkBKSlq+/lqP2pjcAATrxpayAWCyN+E9MElnjFy4O9FoZtMqgfJBsc+nHSFsReZowLK4ljsjkDJdZiJXZrBTzT1upsHe6QWBUcU8Kt0HkhfMxyvJRqM+Sr9Y4fsBC4uuX9CrelY5wIylskXBBamAmqTCGD6PxVJTLZZJXTw/L178UaL++qC1tsGLbKkhhDyFerOSf3hxH18x39VYCWL9ahiLWyd2TMbIWVloMxJ2mi+nDTCtBJNMwwC/tE9qNrjokC9OOD4r3zNwNSSwhGModGCTemqjw/Lm38A0HsPP0YQpl81Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kZsrwXzGQ77uKYW8NCzc2k5Xa4S9s7Ct/FlUPm+xDIs=;
+ b=gcyYtjHVDi6bGkOOVigXGYSNTpQ4425X2yMeJC2qSPjGlR8bArySULhoYfeDgF7pAbFEJhucVTHnqVOTNksXjSWIalSGFre5ppjOUsf1ELxzSAqGH9RQqTJBMMaAyI45K+nqDam1OnK7gyLO8I+wSOz5zBK+GikEHBTEu3pFmP6eFp9rEdAimmlrVWtL5zc5pkyUq6nlzLVcQhIH7RHsuLU1lOyncGai1oim+3/oeIWmSD+ur+7lJ5+17jlswNpIh+PSv7cNfsgHtA23/GB2UNrbJuOM5qo6b7nvjsAnmyFDtKmeCsC7x9thLBdHasW29Ex3WHUHfnIuN2qFKCWlWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
+ dkim=pass header.d=analog.com; arc=none
+Received: from DS0PR03MB7228.namprd03.prod.outlook.com (2603:10b6:8:126::15)
+ by SJ2PR03MB7110.namprd03.prod.outlook.com (2603:10b6:a03:4fd::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Thu, 9 Jul 2026
+ 01:12:39 +0000
+Received: from DS0PR03MB7228.namprd03.prod.outlook.com
+ ([fe80::f873:a933:7837:67f5]) by DS0PR03MB7228.namprd03.prod.outlook.com
+ ([fe80::f873:a933:7837:67f5%5]) with mapi id 15.21.0181.009; Thu, 9 Jul 2026
+ 01:12:39 +0000
+From: "Escala, Edelweise" <Edelweise.Escala@analog.com>
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+CC: "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
+        "conor+dt@kernel.org" <conor+dt@kernel.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+        "lee@kernel.org" <lee@kernel.org>, "robh@kernel.org" <robh@kernel.org>
+Subject: RE: [PATCH v13 1/2] dt-bindings: leds: Add LTC3220 18 channel LED
+ Driver
+Thread-Topic: [PATCH v13 1/2] dt-bindings: leds: Add LTC3220 18 channel LED
+ Driver
+Thread-Index: AQHdDzvZbmh8zVoDAUST3jISVnEbGrZkXE+AgAAEa6A=
+Date: Thu, 9 Jul 2026 01:12:39 +0000
+Message-ID:
+ <DS0PR03MB722835ABFEF5B6CC3B862E35EDFE2@DS0PR03MB7228.namprd03.prod.outlook.com>
+References: <20260709-ltc3220-driver-v13-0-9b53237642eb@analog.com>
+ <20260709-ltc3220-driver-v13-1-9b53237642eb@analog.com>
+ <20260709005343.DAE521F00A3E@smtp.kernel.org>
+In-Reply-To: <20260709005343.DAE521F00A3E@smtp.kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR03MB7228:EE_|SJ2PR03MB7110:EE_
+x-ms-office365-filtering-correlation-id: 6ffab4cf-f1cc-466b-3aeb-08dedd572b9f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|38070700021|11063799006|5023799004|22082099003|18002099003|56012099006|3023799007|4143699003;
+x-microsoft-antispam-message-info:
+ aeZDASyXYJUP5NOTU8Ke462QLII61FvCN3pq55Cuvc9CgQZ00tY7JL56obbVyCbHB1UzjloRKRpgRoQQxFGjCuXcgkUYb9YLJoWKM3eatrz+YDB7VCUKwlK8HlxlET+yVFborcqecdgp7RNhytOHl5rvonxItLwvdkdBBhtKoHSFLwVObMM8MiHxOHVpOHydYAPTLRG3W3fPN7H2rKAV12Y/w1aQ+S+fi6EakzUxClgDcElCWLbWLnd2eEKF4B4yDwxBAZSJSXx3Q0PDVwrqPTs9mW8a92JdLQv7drrFJrbZFiKrwJUOYD+o2EHKICTeE4oYn7/Uck6DVWkil1mO86jz5TyHjpXUloGhGnZucCU3Smx5eINPNHZpH1mb3lWMc+HwdmmnWQ4LR/asaW22bCGhiJA4X1kCSyUs7o7AKFKshqpAjR0Vj7jyNwEdM26DHBiqSMRdKFtDX4OC9N200K2orG4/6fAoXMoWbvzdjDF1MY7m210379MJeJwUdju+ttdTWt3niszGW2bc6wTLVyKIvPaLdE/54Ng+Ot4hg2hXqKhC5Y6T8STgD1U7NSxKFM3EYew1p+1VZjSAqA7wE/c2tSgAeDOMRYpmPE8qnhzF1KH9xlWvSj8/BsCPtCWDnZEcv379Zj1o5Qjqi2t35ahvgeD5VoNXcMpOtpdfOKY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR03MB7228.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(38070700021)(11063799006)(5023799004)(22082099003)(18002099003)(56012099006)(3023799007)(4143699003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?bXBqK2t6NnVyU1gwOUZWNWpGdkNHVkY1b0d1UWdjejRnTlU2RUF3YTRXVjNH?=
+ =?utf-8?B?TmpXcytnWmU0eU5pNGtyMjRmNlNCTUdRQXFWbTFBdHp3dlJzU2R1MS9NVTht?=
+ =?utf-8?B?K0NtVVpWUXAxc1hrTWtPOEl2YVRPRVg4dkl3SjQ3eFRDTittV2tBSGQ1QUpl?=
+ =?utf-8?B?MUFyRWZtTXA4NFRlTUFJMzFlVmhja3FsMGkyNTNEZ0ZqN0RMV3ZKdWZVU1pC?=
+ =?utf-8?B?YUx3VlZ2WGFpaUdEVkxqN3pBR21IZkNFTnZ2QW1aU1NtaWdOQzJEQkJEdS9Q?=
+ =?utf-8?B?TkFaZWFMR09HNGNYZDhtZFcxK0ZSWU9kQUJFL1hIVXNsaitodCt5TG1vMnZQ?=
+ =?utf-8?B?azhqejR6a2poc21wc2pBOUNkZmxNWFFXdG9LNHJGdGJPa1o3ZlQzUTc2UEFD?=
+ =?utf-8?B?dFg3UmZuVEJ2RS9ZMllaN3ZIRGhmY3VBemNxeS9mOEVYMlV0ZEY5S3l1K1hX?=
+ =?utf-8?B?MFNLeTJ6NU9tZGVpMmVOUFBMQXAzb29KUnBQUGQwN3ZOdVlWOWY5cVdOZ290?=
+ =?utf-8?B?OFpRTDlRY3dxaVBOa0djUGhkSkdqNkh5MEJxYXlkQUh0UU12UTdoVU1vT0Mz?=
+ =?utf-8?B?UWk0ZlphRGZ6OXAvaEt6WFZlUnlsM2hzSUxheXZwNGhqd0hnSWJIdG9ScTlk?=
+ =?utf-8?B?TVJlb05PYnVkL3Q5K0ZId3RvRXVaQVFPbzJ2eFhOT0p0ay9rdXR0c2FBSHhG?=
+ =?utf-8?B?S1gyTHNraXhtT2tJYWliSHd4ZjF4MVg2b29CYmZKRmg2dkpmZEVVTXhIbjRr?=
+ =?utf-8?B?eC82c29NT3Jac2toeklaMzRWTEhhTmd5RUhBT1c3N2QrRkpSZWgyN1FkbHB0?=
+ =?utf-8?B?SEF2cFh6V0pPUkRQV2JlTDNvQ2pSZEVDU1VGazVNUENDTk5vT3B1VDA5QTIr?=
+ =?utf-8?B?OHNtVmFabyt1UjVWakVEQ3dBNi8rR0gvRFFFVE13d0lta2d3bzF6M1FqTWZQ?=
+ =?utf-8?B?N1hGQkpKdVd1alc0Ty93dE9YV2tsQ3hLWXFrQm81cVhpakduYlJzWitIRTZo?=
+ =?utf-8?B?K3ZiQ0ZUVlEwaTJxZGUveWxDNW5rSlgweGlXdGtNNWZVWXBzSlpFTWoyMXgr?=
+ =?utf-8?B?dDM3SDF1UUpxcmJOaDJnRWE4QWhzTGZ6Ukw3YTZuRXFtbU05cjh4SitURnQr?=
+ =?utf-8?B?K1REd1lYSVAvSmFEbzhWaWRkZW95Q1NpUUNBZjNjbUt3N3VSSDAyeGVqOFla?=
+ =?utf-8?B?aU1EQ2pBL1AxanJBR2JWWDEvSThLTFZXWHZmclEvcWNjc3p1c2hzNjdmd0ti?=
+ =?utf-8?B?aDdiSS9RUUx5Mkx5QXVaekhuNzFacng0UUh1dFBjTUVXck5JNENPRk1FMEl0?=
+ =?utf-8?B?M1hPZWR1cnZkdmFWY1NtQ3AvcDV2eFppWXlBUG01aWMwY2hkSEpyRHVMUFhl?=
+ =?utf-8?B?TzFWZWdMWkd2UUFjbXlZV2daU3lPblRlUWdha3VRdVF2UkdqQkFid3djeS85?=
+ =?utf-8?B?QS9laktVL1c0eUJFeWRTMHZIMDY3S0xaZlhCU1lta1lrMUp6NnR5UjRxUVZO?=
+ =?utf-8?B?OHBhTmZHOEwzVXFRWUUybEVCd2dLYnVwV3d3Z0pJekMzQ2pXTG1QZ2NDODVr?=
+ =?utf-8?B?L0M3NWVmT3JYZjVPN2hGaWkxMXpxTGlZaTdIUjB1VTdTbVhjS3JXTzNFWm0w?=
+ =?utf-8?B?Nm9TV1VrWW5tK2lLdW85bGJqVDVzYnhMdnFDRGFEMldQcVZKRVFXK2laY0VY?=
+ =?utf-8?B?Tk5PS1NZcnBadFhsbVc0bDYzcnNBS2pNRFdwcjN0eTBvMGFxMDMyN1JSVitX?=
+ =?utf-8?B?K3NjenRIN2ZBckV6RC9CcUIzSWgxcTVKWWkvNlArRDZ0ODdyV1NDLzE1cVZp?=
+ =?utf-8?B?Q1gzbHMvMkpJV3BmVzRTY1VjM0J0Q0NzV2JRWDR2T0ZPdlB5T0lwL2pVckdJ?=
+ =?utf-8?B?SG5hcWJEcUE0NjlLLzUrTjNncmZlNU5qWkVzcWVOaFEzRmlmVEdDMzhCdEtR?=
+ =?utf-8?B?cnhZblpOL2FTdjBkbzdkVEZ1Y1E5bzd1OFF3Tzk2Q1NtTTlVY3dxY2I3cXBH?=
+ =?utf-8?B?THR0TWc0Sk9jeHhJcDYyYnp3dWdBSnl0cVNUdmxRcHBlNU10YjhLY2k3NnpM?=
+ =?utf-8?B?RVlNak05SXY3V1F3SkJLckpWNW5mVm5IcTlSOGlaWCtQcjJyeCthNnF2MTJ0?=
+ =?utf-8?B?QnVicmhidGdCbHVBNmhwZ0RvSkYyYkswcFkvckNMM1pwSXRROUxkbXdENkdU?=
+ =?utf-8?B?cFZsRXQxZVhpOVh4UU9mRGZGclc0ZWE1TEZDSW8zallmeDRrc0Q2ektKRVUz?=
+ =?utf-8?B?UHJYaFZ5bFJIcjRacVdlTzRVeklJNmc2Q0lMa1VkYVRoZ09XTS9XQSs3aHFO?=
+ =?utf-8?B?WnhublplNlpsK2U0QWtWWHVsckpvSWYvMEVPWVNWZ0JKU2JFUUNtQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-acpm-tmu-e850-support-v1-3-9fdd58b634af@linaro.org>
-References: <20260709-acpm-tmu-e850-support-v1-0-9fdd58b634af@linaro.org>
-In-Reply-To: <20260709-acpm-tmu-e850-support-v1-0-9fdd58b634af@linaro.org>
-To: Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Sam Protsenko <semen.protsenko@linaro.org>, 
- Mateusz Majewski <m.majewski2@samsung.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexey Klimov <alexey.klimov@linaro.org>
-X-Mailer: b4 0.14.3
+X-Exchange-RoutingPolicyChecked:
+	OgS9ZrDjcjciS3WlpE8ZxtBGry+I8iv2ZO6PTU3a3o3MURC6cw3FTkTBC3Uj0ubM5gFvrCluUcdVSsSOfhO+hZ8Rdzzebxu8VXowKx641V/f2G5Mte9s6su34F6FLQdrXiKzafpVGS0AwxSfkBma15N6H54iol5hKCFbQZINN4nWgJn8oAXsqadePzEnUPKqwqvNKu9K6YXHA4S40oxKN35DgiMz++AHI+JtMw+sTUcbBH+Ecyw9ctgUfh3st1rPP+s2WSMbEMaVFBBfYQ7XTwKlM98RmBZSsz96aynoKOhINu3cwILXUV4sFn3RaFLpwBXCPsc2EecWDjIFqkRyhg==
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR03MB7228.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ffab4cf-f1cc-466b-3aeb-08dedd572b9f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2026 01:12:39.6428
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dnh5w/6k2VxB3fLze/iTwytxCMDn+SM0D4ugHdXnNacBJ6nTbTH3LLNBpUlBYCOIGwmsD5b2dCnKWG5PABoXcWHUtkIR8PbX2AkJMPU+OWE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7110
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDAwOCBTYWx0ZWRfX54yIcJfyBgHT
+ FAgsfYjJkI+O5EJxMWFE4wnuH1VzyvnlhDBpRYVa4Wa1dzFcn8SQEYvWn+acmQLbfzBpFFLJ4KA
+ BYA36cRY0EzEBctZLaxnuLmHfUGAEAyQt+kb4aeW89LvlJp5MaPI/oKUHRgmsr++hWkxEoz2ye7
+ Iaey7S4Rk0ywNn6ZzyWBUwIfsIy/+cOEYH5c78Mk59HdmSirvVx4BoJPFM/mhwmTVAPjB+x7rsW
+ e18+gcAyugBb4c3XSxE7y8v46UJBw+FvyTbgS1EuQQKf3Vxd7AObM0k7B9sI6BOI+zmGQGTKZr/
+ 06JGjTZMuSYXEvSxtCgIVe8C1gKiSIPSCDEdn5RXBVD+ayUuxqH7IQX5bqiFP9G0tSC3Pd1TZyr
+ SuO7Icmp5djEfmLgITa9daYWRive07MRokZJVXV4VINgYljoSXi153RUwSQL+iGJDmsgrDrOYVj
+ Mx0+fJe/2u6TLalj4iw==
+X-Proofpoint-ORIG-GUID: CjqM5S3su38W19-K4ghqBqr1D1qfTf0c
+X-Proofpoint-GUID: CjqM5S3su38W19-K4ghqBqr1D1qfTf0c
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDAwOCBTYWx0ZWRfX7nyIfn18hJHC
+ Sehm7cY5vYijp9i7+SO37R1EzLjUnMfnAF0fBLDadLpP5iZc00Y89FY4+xsHu8oVLUa8f2c3P0H
+ Zk17DUr9DVFH/ygH044vZquBXPFnKR0fC/QbvURw2t57/Zyvli7c
+X-Authority-Analysis: v=2.4 cv=IKIyzAvG c=1 sm=1 tr=0 ts=6a4ef58b cx=c_pps
+ a=CM6yQ3ajfX3ct242QRRZiw==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=uherdBYGAAAA:8 a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8
+ a=gAnH3GRIAAAA:8 a=HLiN16as4UwyhheZkb4A:9 a=QEXdDO2ut3YA:10
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_05,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 adultscore=0 phishscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090008
 
-Add support for the Thermal Management Unit block found on the
-Exynos850 SoC.
-
-Unlike the GS101, the Exynos850 ACPM firmware implements a smaller
-set of IPC commands (primarily basic TMU initialization, suspend/resume,
-and temperature reading). While the firmware supports basic TMU
-initialization, suspend/resume, and temperature polling, it lacks the
-ability to fully configure the hardware. The remaining functionality
-is implemented via direct MMIO access:
-- TMU initialization sequence,
-- setting falling and rising thresholds and associated IRQs,
-- helpers to convert temperature to hardware values,
-- handling of IRQs,
-- thermal zone control (TMU core enable/disable).
-
-Additionally, this also reorders the sensor group assignment in
-acpm_tmu_probe() to let it happen before TMU init SoC callback.
-
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
- drivers/thermal/samsung/acpm-tmu.c | 356 ++++++++++++++++++++++++++++++++++++-
- 1 file changed, 355 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung/acpm-tmu.c
-index b3cea9890b4b..2bf880515e31 100644
---- a/drivers/thermal/samsung/acpm-tmu.c
-+++ b/drivers/thermal/samsung/acpm-tmu.c
-@@ -5,6 +5,7 @@
-  * Copyright 2026 Linaro Ltd.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/device/devres.h>
-@@ -23,9 +24,79 @@
- 
- #include "../thermal_hwmon.h"
- 
-+#define TYPE_TWO_POINT_TRIMMING		1
-+
- #define EXYNOS_TMU_SENSOR(i)		BIT(i)
- #define EXYNOS_TMU_SENSORS_MAX_COUNT	16
- 
-+#define EXYNOS850_INTPEND_RISE_MASK	GENMASK(8, 0)
-+#define EXYNOS850_INTPEND_FALL_MASK	GENMASK(23, 16)
-+
-+#define EXYNOS850_GPU_SENSOR_MASK	(EXYNOS_TMU_SENSOR(3))
-+#define EXYNOS850_CPUCL1_SENSOR_MASK	(EXYNOS_TMU_SENSOR(2))
-+#define EXYNOS850_CPUCL0_SENSOR_MASK	(EXYNOS_TMU_SENSOR(1))
-+
-+#define EXYNOS_TMU_REG_TRIMINFO		(0x0)
-+#define EXYNOS850_TMU_TRIMINFO_SHIFT	4
-+#define EXYNOS850_TMU_TRIMINFO_OFFSET(n)	\
-+	(EXYNOS_TMU_REG_TRIMINFO + (n) * EXYNOS850_TMU_TRIMINFO_SHIFT)
-+
-+#define EXYNOS_FIRST_POINT_TRIM		25
-+#define EXYNOS_SECOND_POINT_TRIM	85
-+
-+#define EXYNOS_TRIMINFO_CALIB_SEL_MASK	BIT(23)
-+#define EXYNOS_TRIMINFO_25_MASK		GENMASK(8, 0)
-+#define EXYNOS_TRIMINFO_85_MASK		GENMASK(17, 9)
-+#define EXYNOS850_TMU_BGRI_TRIM_SHIFT	20
-+#define EXYNOS850_TMU_BGRI_TRIM_MASK	0xf
-+#define EXYNOS850_TMU_VREF_TRIM_SHIFT	12
-+#define EXYNOS850_TMU_VREF_TRIM_MASK	0xf
-+#define EXYNOS850_TMU_VBEI_TRIM_SHIFT	8
-+#define EXYNOS850_TMU_VBEI_TRIM_MASK	0xf
-+
-+#define EXYNOS850_TMU_CONTROL		(0x20)
-+#define EXYNOS850_TMU_CONTROL1		(0x24)
-+#define EXYNOS850_TMU_COUNTER_VALUE0	(0x30)
-+#define EXYNOS850_TMU_COUNTER_VALUE1	(0x34)
-+#define EXYNOS850_TMU_AVG_CONTROL	(0x38)
-+#define EXYNOS850_TMU_TRIM0		(0x3c)
-+
-+#define EXYNOS_TMU_REG_INTPEND0		(0x118)
-+#define EXYNOS_TMU_REG_INTPEND5		(0x318)
-+#define EXYNOS_TMU_REG_INTPEND8		(0x658)
-+
-+#define EXYNOS_TMU_REG_INTEN0		(0x110)
-+#define EXYNOS_TMU_REG_INTEN5		(0x310)
-+#define EXYNOS_TMU_REG_INTEN8		(0x650)
-+#define EXYNOS850_RISE_LEVEL1		BIT(1)
-+#define EXYNOS850_FALL_LEVEL1		BIT(17)
-+
-+#define EXYNOS_TMU_REG_THD_TEMP0	(0x50)
-+#define EXYNOS_TMU_REG_THD_TEMP1	(0x170)
-+#define EXYNOS_TMU_REG_THD_TEMP8	(0x450)
-+
-+#define EXYNOS850_REG_RISE1_0_OFFSET	(0xc)
-+#define EXYNOS850_REG_FALL1_0_OFFSET	(EXYNOS850_REG_RISE1_0_OFFSET + 0x10)
-+#define EXYNOS850_THD_LEVEL1_MASK	GENMASK(24, 16)
-+
-+#define EXYNOS850_TMU_REG_THD(p)	((p == 0) ?					\
-+					EXYNOS_TMU_REG_THD_TEMP0 :			\
-+					((p < 8) ?					\
-+					(EXYNOS_TMU_REG_THD_TEMP1 + (p - 1) * 0x20) :	\
-+					(EXYNOS_TMU_REG_THD_TEMP8 + (p - 8) * 0x20)))
-+
-+#define EXYNOS850_TMU_REG_INTEN(p)	((p < 5) ?					\
-+					(EXYNOS_TMU_REG_INTEN0 + p * 0x10) :		\
-+					((p < 8) ?					\
-+					(EXYNOS_TMU_REG_INTEN5 + (p - 5) * 0x10) :	\
-+					(EXYNOS_TMU_REG_INTEN8 + (p - 8) * 0x10)))
-+
-+#define EXYNOS850_REG_INTPEND(p)	((p < 5) ?					\
-+					(EXYNOS_TMU_REG_INTPEND0 + p * 0x10) :		\
-+					((p < 8) ?					\
-+					(EXYNOS_TMU_REG_INTPEND5 + (p - 5) * 0x10) :	\
-+					(EXYNOS_TMU_REG_INTPEND8 + (p - 8) * 0x10)))
-+
- #define GS101_CPUCL2_SENSOR_MASK (EXYNOS_TMU_SENSOR(0) |	\
- 				  EXYNOS_TMU_SENSOR(6) |	\
- 				  EXYNOS_TMU_SENSOR(7) |	\
-@@ -69,6 +140,9 @@ struct acpm_tmu_sensor {
- 	struct acpm_tmu_priv *priv;
- 	struct mutex lock; /* protects sensor state */
- 	bool enabled;
-+
-+	u32 efuse_value;
-+	u16 temp_error1, temp_error2;
- };
- 
- struct acpm_tmu_priv {
-@@ -81,6 +155,7 @@ struct acpm_tmu_priv {
- 	unsigned int mbox_chan_id;
- 	unsigned int num_sensors;
- 	int irq;
-+	u32 cal_type;
- 	struct acpm_tmu_sensor sensors[] __counted_by(num_sensors);
- };
- 
-@@ -92,6 +167,7 @@ struct acpm_tmu_driver_data {
- 	unsigned int mbox_chan_id;
- 
- 	/* SoC-specific TMU routines and values */
-+	u32 efuse_value;
- 	int (*tz_control)(struct acpm_tmu_sensor *sensor, bool on);
- 	int (*tmu_check_and_clear_irqs)(struct acpm_tmu_sensor *sensor,
- 					bool *pending_irq);
-@@ -139,6 +215,40 @@ static const struct regmap_config gs101_regmap_config = {
- 	.max_register = GS101_REG_INTPEND(15),
- };
- 
-+static const struct acpm_tmu_sensor_group exynos850_sensor_groups[] = {
-+	ACPM_TMU_SENSOR_GROUP(EXYNOS850_CPUCL0_SENSOR_MASK, 0),
-+	ACPM_TMU_SENSOR_GROUP(EXYNOS850_CPUCL1_SENSOR_MASK, 1),
-+	ACPM_TMU_SENSOR_GROUP(EXYNOS850_GPU_SENSOR_MASK, 2),
-+};
-+
-+static const struct reg_field exynos850_reg_fields[REG_INTPEND_COUNT] = {
-+	[P0_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(0), 0, 23),
-+	[P1_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(1), 0, 23),
-+	[P2_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(2), 0, 23),
-+	[P3_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(3), 0, 23),
-+	[P4_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(4), 0, 23),
-+	[P5_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(5), 0, 23),
-+	[P6_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(6), 0, 23),
-+	[P7_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(7), 0, 23),
-+	[P8_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(8), 0, 23),
-+	[P9_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(9), 0, 23),
-+	[P10_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(10), 0, 23),
-+	[P11_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(11), 0, 23),
-+	[P12_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(12), 0, 23),
-+	[P13_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(13), 0, 23),
-+	[P14_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(14), 0, 23),
-+	[P15_INTPEND] =		REG_FIELD(EXYNOS850_REG_INTPEND(15), 0, 23),
-+};
-+
-+static const struct regmap_config exynos850_regmap_config = {
-+	.name = "e850_tmu_regs",
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.use_relaxed_mmio = true,
-+	.max_register = EXYNOS850_REG_INTPEND(15),
-+};
-+
- static int gs101_tz_control(struct acpm_tmu_sensor *sensor, bool on)
- {
- 	struct acpm_tmu_priv *priv = sensor->priv;
-@@ -155,6 +265,129 @@ static int gs101_tmu_init(struct acpm_tmu_priv *priv)
- 	return handle->ops->tmu.init(handle, priv->mbox_chan_id);
- }
- 
-+static int exynos850_tz_control(struct acpm_tmu_sensor *sensor, bool on)
-+{
-+	struct acpm_tmu_priv *priv = sensor->priv;
-+
-+	regmap_update_bits(priv->regmap, EXYNOS850_TMU_CONTROL,
-+			   BIT(0), on ? BIT(0) : 0);
-+	return 0;
-+}
-+
-+static int exynos850_tmu_init(struct acpm_tmu_priv *priv)
-+{
-+	struct acpm_handle *handle = priv->handle;
-+	struct regmap *regmap = priv->regmap;
-+	unsigned int trim_info, trim;
-+	unsigned int t_buf_vref_sel, t_buf_slope_sel, avg_mode;
-+	unsigned int t_bgri_trim, t_vref_trim, t_vbei_trim;
-+	u32 trim0_mask, trim0_val;
-+	int ret, i;
-+
-+	ret = handle->ops->tmu.init(handle, priv->mbox_chan_id);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Bootloader may partly initialise TMU or may not initialise it at all,
-+	 * regardless of that we do the full TMU initialisation here and
-+	 * collect calibration info.
-+	 */
-+	regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(0), &trim_info);
-+	priv->cal_type = FIELD_GET(EXYNOS_TRIMINFO_CALIB_SEL_MASK, trim_info);
-+
-+	for (i = 0; i < priv->num_sensors; i++) {
-+		struct acpm_tmu_sensor *sensor = &priv->sensors[i];
-+		unsigned long mask = sensor->group->mask;
-+		int t;
-+		u16 temp_error1, temp_error2;
-+
-+		for_each_set_bit(t, &mask, EXYNOS_TMU_SENSORS_MAX_COUNT) {
-+			regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(t), &trim_info);
-+
-+			temp_error1 = FIELD_GET(EXYNOS_TRIMINFO_25_MASK, trim_info);
-+			temp_error2 = FIELD_GET(EXYNOS_TRIMINFO_85_MASK, trim_info);
-+
-+			if (temp_error1)
-+				sensor->temp_error1 = temp_error1;
-+			else
-+				sensor->temp_error1 = FIELD_GET(EXYNOS_TRIMINFO_25_MASK,
-+								priv->data->efuse_value);
-+
-+			if (priv->cal_type == TYPE_TWO_POINT_TRIMMING) {
-+				if (temp_error1)
-+					sensor->temp_error2 = temp_error2;
-+				else
-+					sensor->temp_error2 = FIELD_GET(EXYNOS_TRIMINFO_85_MASK,
-+									priv->data->efuse_value);
-+			}
-+		}
-+	}
-+
-+	/* Read TRIMINFO 0, 1, 2 settings */
-+	regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(0), &trim);
-+	t_buf_vref_sel = FIELD_GET(GENMASK(22, 18), trim);
-+
-+	regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(1), &trim);
-+	t_buf_slope_sel = FIELD_GET(GENMASK(21, 18), trim);
-+
-+	regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(2), &trim);
-+	avg_mode = FIELD_GET(GENMASK(20, 18), trim);
-+
-+	/*
-+	 * Set BUF_VREF_SEL and BUF_SLOPE_SEL.
-+	 * Clear bit 12 -- disable thermal tripping for now.
-+	 * Clear bit 0 -- TMU core off
-+	 */
-+	regmap_update_bits(regmap, EXYNOS850_TMU_CONTROL,
-+			   GENMASK(28, 24) | BIT(12) | GENMASK(11, 8) | BIT(0),
-+			   FIELD_PREP(GENMASK(28, 24), t_buf_vref_sel) |
-+			   FIELD_PREP(GENMASK(11, 8), t_buf_slope_sel));
-+
-+	/*
-+	 * Set NUM_PROBE equal to number of sensors.
-+	 * Disable LPI by clearing bit 10.
-+	 */
-+	regmap_update_bits(regmap, EXYNOS850_TMU_CONTROL1,
-+			   GENMASK(19, 16) | BIT(10),
-+			   FIELD_PREP(GENMASK(19, 16), priv->num_sensors));
-+
-+	/* Set AVG_MODE (If avg_mode > 0, set bit 4 and insert avg_mode into bits [2:0]) */
-+	regmap_update_bits(regmap, EXYNOS850_TMU_AVG_CONTROL,
-+			   BIT(4) | GENMASK(2, 0),
-+			   avg_mode ? (BIT(4) | FIELD_PREP(GENMASK(2, 0), avg_mode)) : 0);
-+
-+	/* Set COUNTER_VALUE 0 & 1 */
-+	regmap_update_bits(regmap, EXYNOS850_TMU_COUNTER_VALUE0,
-+			   GENMASK(15, 0), FIELD_PREP(GENMASK(15, 0), 0x028A));
-+
-+	regmap_update_bits(regmap, EXYNOS850_TMU_COUNTER_VALUE1,
-+			   GENMASK(31, 16), FIELD_PREP(GENMASK(31, 16), 0x028A));
-+
-+	/* Read TRIMINFO 3, 4, 5 for BGR_I/VREF/VBE_I */
-+	regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(3), &trim);
-+	t_bgri_trim = FIELD_GET(GENMASK(21, 18), trim);
-+
-+	regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(4), &trim);
-+	t_vref_trim = FIELD_GET(GENMASK(21, 18), trim);
-+
-+	regmap_read(regmap, EXYNOS850_TMU_TRIMINFO_OFFSET(5), &trim);
-+	t_vbei_trim = FIELD_GET(GENMASK(21, 18), trim);
-+
-+	/* Set TRIM0 */
-+	trim0_mask = (EXYNOS850_TMU_BGRI_TRIM_MASK << EXYNOS850_TMU_BGRI_TRIM_SHIFT) |
-+		     (EXYNOS850_TMU_VREF_TRIM_MASK << EXYNOS850_TMU_VREF_TRIM_SHIFT) |
-+		     (EXYNOS850_TMU_VBEI_TRIM_MASK << EXYNOS850_TMU_VBEI_TRIM_SHIFT);
-+
-+	trim0_val = (t_bgri_trim << EXYNOS850_TMU_BGRI_TRIM_SHIFT) |
-+		    (t_vref_trim << EXYNOS850_TMU_VREF_TRIM_SHIFT) |
-+		    (t_vbei_trim << EXYNOS850_TMU_VBEI_TRIM_SHIFT);
-+
-+	regmap_update_bits(regmap, EXYNOS850_TMU_TRIM0, trim0_mask, trim0_val);
-+
-+	return 0;
-+}
-+
- static int acpm_tmu_op_tz_control(struct acpm_tmu_sensor *sensor, bool on)
- {
- 	struct acpm_tmu_priv *priv = sensor->priv;
-@@ -268,6 +501,74 @@ static int acpm_tmu_get_temp(struct thermal_zone_device *tz, int *temp)
- 	return 0;
- }
- 
-+static int temp_to_code(struct acpm_tmu_sensor *sensor, u8 temp)
-+{
-+	struct acpm_tmu_priv *priv = sensor->priv;
-+
-+	if (priv->cal_type == TYPE_TWO_POINT_TRIMMING)
-+		return (temp - EXYNOS_FIRST_POINT_TRIM) *
-+		       (sensor->temp_error2 - sensor->temp_error1) /
-+		       (EXYNOS_SECOND_POINT_TRIM - EXYNOS_FIRST_POINT_TRIM) +
-+		       sensor->temp_error1;
-+
-+	return temp + sensor->temp_error1 - EXYNOS_FIRST_POINT_TRIM;
-+}
-+
-+static int exynos850_tmu_update_thresholds(struct acpm_tmu_sensor *sensor,
-+				      u8 thresholds[2], u8 inten)
-+{
-+	struct acpm_tmu_priv *priv = sensor->priv;
-+	unsigned long mask = sensor->group->mask;
-+	bool was_enabled;
-+	int ret, restore_ret, i, trip_code, trip_code_low;
-+	u32 addr;
-+
-+	guard(mutex)(&sensor->lock);
-+
-+	was_enabled = sensor->enabled;
-+
-+	if (was_enabled) {
-+		ret = acpm_tmu_op_tz_control(sensor, false);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	trip_code = temp_to_code(sensor, thresholds[1]);
-+	trip_code_low = temp_to_code(sensor, thresholds[0]);
-+
-+	for_each_set_bit(i, &mask, EXYNOS_TMU_SENSORS_MAX_COUNT) {
-+		u32 irq_en = 0;
-+
-+		if (inten & BIT(0)) {
-+			addr = EXYNOS850_TMU_REG_THD(i) + EXYNOS850_REG_FALL1_0_OFFSET;
-+			regmap_update_bits(priv->regmap, addr, EXYNOS850_THD_LEVEL1_MASK,
-+					   FIELD_PREP(EXYNOS850_THD_LEVEL1_MASK, trip_code_low));
-+			irq_en = EXYNOS850_FALL_LEVEL1;
-+		}
-+
-+		if (inten & BIT(1)) {
-+			addr = EXYNOS850_TMU_REG_THD(i) + EXYNOS850_REG_RISE1_0_OFFSET;
-+			regmap_update_bits(priv->regmap, addr, EXYNOS850_THD_LEVEL1_MASK,
-+					   FIELD_PREP(EXYNOS850_THD_LEVEL1_MASK, trip_code));
-+			irq_en |= EXYNOS850_RISE_LEVEL1;
-+		}
-+
-+		regmap_update_bits(priv->regmap, EXYNOS850_TMU_REG_INTEN(i),
-+				   (EXYNOS850_FALL_LEVEL1 | EXYNOS850_RISE_LEVEL1), irq_en);
-+	}
-+
-+	if (was_enabled) {
-+		restore_ret = acpm_tmu_op_tz_control(sensor, true);
-+		if (restore_ret)
-+			dev_err(priv->dev, "Failed to restore sensor state: %d\n",
-+				restore_ret);
-+		if (!ret)
-+			ret = restore_ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int gs101_tmu_update_thresholds(struct acpm_tmu_sensor *sensor,
- 				       u8 thresholds[2], u8 inten)
- {
-@@ -376,6 +677,36 @@ static int gs101_handle_irqs(struct acpm_tmu_sensor *sensor, bool *pending_irq)
- 	return ret;
- }
- 
-+static int exynos850_handle_irqs(struct acpm_tmu_sensor *sensor,
-+				 bool *pending_irq)
-+{
-+	struct acpm_tmu_priv *priv = sensor->priv;
-+	unsigned long mask = sensor->group->mask;
-+	int i, ret;
-+	u32 val, clear_val;
-+
-+	guard(mutex)(&sensor->lock);
-+
-+	for_each_set_bit(i, &mask, EXYNOS_TMU_SENSORS_MAX_COUNT) {
-+		ret = regmap_field_read(priv->regmap_fields[i], &val);
-+		if (ret)
-+			return ret;
-+
-+		if (val) {
-+			clear_val = val &
-+				(EXYNOS850_INTPEND_RISE_MASK | EXYNOS850_INTPEND_FALL_MASK);
-+			ret = regmap_field_force_write(priv->regmap_fields[i], clear_val);
-+			if (ret)
-+				dev_err(priv->dev,
-+					 "sensor %d: failed to clear IRQ (%d)\n", i, ret);
-+			*pending_irq = true;
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static irqreturn_t acpm_tmu_thread_fn(int irq, void *id)
- {
- 	struct acpm_tmu_priv *priv = id;
-@@ -423,11 +754,28 @@ static const struct acpm_tmu_driver_data acpm_tmu_gs101 = {
- 	.tmu_update_thresholds = gs101_tmu_update_thresholds,
- };
- 
-+static const struct acpm_tmu_driver_data acpm_tmu_exynos850 = {
-+	.reg_fields = exynos850_reg_fields,
-+	.regmap_config = &exynos850_regmap_config,
-+	.sensor_groups = exynos850_sensor_groups,
-+	.num_sensor_groups = ARRAY_SIZE(exynos850_sensor_groups),
-+	.mbox_chan_id = 9,
-+	.efuse_value = 55,
-+	.tz_control = exynos850_tz_control,
-+	.tmu_check_and_clear_irqs = exynos850_handle_irqs,
-+	.tmu_init = exynos850_tmu_init,
-+	.tmu_update_thresholds = exynos850_tmu_update_thresholds,
-+};
-+
- static const struct of_device_id acpm_tmu_match[] = {
- 	{
- 		.compatible = "google,gs101-tmu-top",
- 		.data = &acpm_tmu_gs101
- 	},
-+	{
-+		.compatible = "samsung,exynos850-tmu-top",
-+		.data = &acpm_tmu_exynos850,
-+	},
- 	{ /* sentinel */ },
- };
- MODULE_DEVICE_TABLE(of, acpm_tmu_match);
-@@ -501,6 +849,13 @@ static int acpm_tmu_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to resume device\n");
- 
-+	/* Sensor groups should be assigned before ->tmu_init() for some SoCs */
-+	for (i = 0; i < priv->num_sensors; i++) {
-+		struct acpm_tmu_sensor *sensor = &priv->sensors[i];
-+
-+		sensor->group = &data->sensor_groups[i];
-+	}
-+
- 	if (priv->data->tmu_init) {
- 		ret = priv->data->tmu_init(priv);
- 		if (ret) {
-@@ -513,7 +868,6 @@ static int acpm_tmu_probe(struct platform_device *pdev)
- 		struct acpm_tmu_sensor *sensor = &priv->sensors[i];
- 
- 		mutex_init(&sensor->lock);
--		sensor->group = &data->sensor_groups[i];
- 		sensor->priv = priv;
- 
- 		sensor->tzd = devm_thermal_of_zone_register(dev, i, sensor,
-
--- 
-2.51.0
-
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogc2FzaGlrby1ib3RAa2Vy
+bmVsLm9yZyA8c2FzaGlrby1ib3RAa2VybmVsLm9yZz4NCj4gU2VudDogVGh1cnNkYXksIEp1bHkg
+OSwgMjAyNiA4OjU0IEFNDQo+IFRvOiBFc2NhbGEsIEVkZWx3ZWlzZSA8RWRlbHdlaXNlLkVzY2Fs
+YUBhbmFsb2cuY29tPg0KPiBDYzogbGludXgtbGVkc0B2Z2VyLmtlcm5lbC5vcmc7IGNvbm9yK2R0
+QGtlcm5lbC5vcmc7DQo+IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsZWVAa2VybmVsLm9y
+Zzsgcm9iaEBrZXJuZWwub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjEzIDEvMl0gZHQtYmlu
+ZGluZ3M6IGxlZHM6IEFkZCBMVEMzMjIwIDE4IGNoYW5uZWwgTEVEDQo+IERyaXZlcg0KPiANCj4g
+W0V4dGVybmFsXQ0KPiANCj4gVGhhbmsgeW91IGZvciB5b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlr
+byBBSSByZXZpZXcgZm91bmQgMyBwb3RlbnRpYWwgaXNzdWUocykgdG8NCj4gY29uc2lkZXI6DQo+
+IC0gW01lZGl1bV0gSW5jb3JyZWN0IFByb3BlcnR5IENvbnN0cmFpbnRzIGZvciBgcmVnYCBjYXVz
+aW5nIGluZWZmZWN0aXZlIGJvdW5kcw0KPiB2YWxpZGF0aW9uDQo+IC0gW01lZGl1bV0gTWlzc2lu
+ZyBhcnJheSBib3VuZHMgYW5kIHZhbHVlIGNvbnN0cmFpbnRzIGZvciBgbGVkLXNvdXJjZXNgIHBy
+b3BlcnR5DQo+IC0gW01lZGl1bV0gRW5jb2RpbmcgZHJpdmVyIHNvZnR3YXJlIGxpbWl0YXRpb25z
+IGludG8gRGV2aWNlIFRyZWUgc2NoZW1hIGZvcg0KPiBhZ2dyZWdhdGVkIExFRHMNCj4gLS0NCj4g
+DQo+IC0tLSBQYXRjaCBbMV06IFtQQVRDSCB2MTMgMS8yXSBkdC1iaW5kaW5nczogbGVkczogQWRk
+IExUQzMyMjAgMTggY2hhbm5lbCBMRUQNCj4gRHJpdmVyIC0tLSBjb21taXQgNGQxNTA0ZDJjY2Zi
+YmI4YWMyZWNjZDI3MjhhMmM1Yzk3NmZkNGQ5NQ0KPiBBdXRob3I6IEVkZWx3ZWlzZSBFc2NhbGEg
+PGVkZWx3ZWlzZS5lc2NhbGFAYW5hbG9nLmNvbT4NCj4gDQo+IGR0LWJpbmRpbmdzOiBsZWRzOiBB
+ZGQgTFRDMzIyMCAxOCBjaGFubmVsIExFRCBEcml2ZXINCj4gDQo+IFRoaXMgY29tbWl0IGFkZHMg
+ZGV2aWNlIHRyZWUgYmluZGluZyBkb2N1bWVudGF0aW9uIGZvciB0aGUgQW5hbG9nIERldmljZXMN
+Cj4gTFRDMzIyMCBMRUQgZHJpdmVyLiBUaGUgYmluZGluZyBzcGVjaWZpZXMgcHJvcGVydGllcyBm
+b3IgaW5kZXBlbmRlbnQgYW5kDQo+IGFnZ3JlZ2F0ZWQgTEVEIGNvbnRyb2wgYWNyb3NzIGl0cyAx
+OCBjaGFubmVscy4NCj4gDQo+ID4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
+ZS9iaW5kaW5ncy9sZWRzL2FkaSxsdGMzMjIwLnlhbWwNCj4gPiBiL0RvY3VtZW50YXRpb24vZGV2
+aWNldHJlZS9iaW5kaW5ncy9sZWRzL2FkaSxsdGMzMjIwLnlhbWwNCj4gPiBuZXcgZmlsZSBtb2Rl
+IDEwMDY0NA0KPiA+IGluZGV4IDAwMDAwMDAwMDAwMDAuLjQ4MjE1YWQ4MmQ5YTcNCj4gPiAtLS0g
+L2Rldi9udWxsDQo+ID4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xl
+ZHMvYWRpLGx0YzMyMjAueWFtbA0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiArcGF0dGVyblByb3Bl
+cnRpZXM6DQo+ID4gKyAgJ15sZWRAKFsxLTlhLWZdfDFbMC0yXSkkJzoNCj4gPiArICAgIHR5cGU6
+IG9iamVjdA0KPiA+ICsgICAgJHJlZjogL3NjaGVtYXMvbGVkcy9jb21tb24ueWFtbCMNCj4gPiAr
+ICAgIHVuZXZhbHVhdGVkUHJvcGVydGllczogZmFsc2UNCj4gPiArICAgIHByb3BlcnRpZXM6DQo+
+IA0KPiBbU2V2ZXJpdHk6IE1lZGl1bV0NCj4gU2hvdWxkIGxlZC1zb3VyY2VzIGJlIGV4cGxpY2l0
+bHkgY29uc3RyYWluZWQgaGVyZT8NCj4gDQo+IFNpbmNlIGl0IGlzIGluaGVyaXRlZCBmcm9tIGNv
+bW1vbi55YW1sIHdpdGhvdXQgbG9jYWwgYm91bmRzLCBhIGRldmljZSB0cmVlIGNvdWxkDQo+IHBv
+dGVudGlhbGx5IGRlZmluZSBhbiBhcnJheSBvZiBtb3JlIHRoYW4gMTggY2hhbm5lbHMgb3IgdXNl
+IG91dC1vZi1ib3VuZHMgaW5kaWNlcw0KPiBhbmQgc3RpbGwgcGFzcyB2YWxpZGF0aW9uLg0KPiAN
+Cg0KVGhlIGxlZC1zb3VyY2VzIHByb3BlcnR5IGluaGVyaXRzIHZhbGlkYXRpb24gZnJvbSBjb21t
+b24ueWFtbC4gV2hpbGUgd2UgY291bGQgYWRkIA0KZXhwbGljaXQgbG9jYWwgY29uc3RyYWludHMg
+KG1pbkl0ZW1zL21heEl0ZW1zOiAxOCwgaXRlbXM6IHttaW5pbXVtOiAxLCBtYXhpbXVtOiAxOH0p
+LCANCnRoZSBkcml2ZXIgYWxyZWFkeSB2YWxpZGF0ZXMgdGhpcyBhdCBwcm9iZSB0aW1lLg0KDQo+
+ID4gKyAgICAgIHJlZzoNCj4gPiArICAgICAgICBkZXNjcmlwdGlvbjoNCj4gPiArICAgICAgICAg
+IE91dHB1dCBjaGFubmVsIGZvciB0aGUgTEVEICgxLTE4IG1hcHMgdG8gTEVEIG91dHB1dHMgRDEt
+RDE4KS4NCj4gPiArICAgICAgICAgIFVuaXQtYWRkcmVzcyBtdXN0IGJlIGluIGhleGFkZWNpbWFs
+ICgxLTEyIGhleCA9IDEtMTggZGVjaW1hbCkuDQo+ID4gKyAgICAgICAgICBGb3IgYWdncmVnYXRl
+ZCBMRUQgY29udHJvbCwgZGVmaW5lIG9ubHkgb25lIExFRCBub2RlIHdpdGggcmVnID0gPDB4MT4N
+Cj4gPiArICAgICAgICAgIGFuZCB1c2UgbGVkLXNvdXJjZXMgdG8gbGlzdCBhbGwgY29udHJvbGxl
+ZCBvdXRwdXRzLiBPbmx5IHJlZyAxIHNob3VsZA0KPiA+ICsgICAgICAgICAgYmUgcHJlc2VudCB3
+aGVuIHVzaW5nIGxlZC1zb3VyY2VzLg0KPiANCj4gW1NldmVyaXR5OiBNZWRpdW1dDQo+IERvZXMg
+cmVzdHJpY3RpbmcgcmVnIHRvIDEgd2hlbiBsZWQtc291cmNlcyBpcyBwcmVzZW50IGVuY29kZSBh
+IHNvZnR3YXJlIGRyaXZlcg0KPiBsaW1pdGF0aW9uIGludG8gdGhlIGhhcmR3YXJlIGRlc2NyaXB0
+aW9uPw0KPiANCj4gSWYgdGhlIGhhcmR3YXJlIGFsbG93cyBncm91cGluZyB0aGUgMTggY2hhbm5l
+bHMgaW50byBtdWx0aXBsZSBkaXNjcmV0ZSBwaHlzaWNhbA0KPiBMRURzIChlLmcuLCBMRUQgQSBv
+biBjaGFubmVscyAxKzIsIExFRCBCIG9uIGNoYW5uZWxzIDMrNCksIHRoaXMgc2NoZW1hDQo+IHJl
+c3RyaWN0aW9uIHdvdWxkIHByZXZlbnQgdmFsaWQgaGFyZHdhcmUgdG9wb2xvZ2llcyBmcm9tIGJl
+aW5nIGRlc2NyaWJlZC4NCj4gDQoNClRoaXMgaXMgYWN0dWFsbHkgYSAqKmhhcmR3YXJlIGxpbWl0
+YXRpb24qKiwgbm90IHNvZnR3YXJlLiBUaGUgTFRDMzIyMCdzIFFVSUNLX1dSSVRFIA0KZmVhdHVy
+ZSBicm9hZGNhc3RzIHdyaXRlcyBPTkxZIGZyb20gcmVnaXN0ZXIgYWRkcmVzcyAweDAxIChMRUQx
+KSB0byBhbGwgMTggY2hhbm5lbHMuDQoNCj4gPiArICAgICAgICBpdGVtczoNCj4gPiArICAgICAg
+ICAgIC0gbWluaW11bTogMQ0KPiA+ICsgICAgICAgICAgICBtYXhpbXVtOiAxOA0KPiANCj4gW1Nl
+dmVyaXR5OiBNZWRpdW1dDQo+IEFyZSB0aGVzZSBtaW5pbXVtIGFuZCBtYXhpbXVtIGNvbnN0cmFp
+bnRzIHByb3Blcmx5IGV2YWx1YXRlZCBmb3IgcmVnIGFycmF5cz8NCj4gDQo+IEJ5IG5lc3Rpbmcg
+dGhlbSBpbnNpZGUgYW4gaXRlbXMgYXJyYXkgbGlzdCwgdGhlIHNjaGVtYSBhcHBsaWVzIHRoZSBu
+dW1lcmljDQo+IGNvbnN0cmFpbnRzIHRvIHRoZSBhcnJheSBpdHNlbGYsIHdoaWNoIEpTT04gU2No
+ZW1hIGlnbm9yZXMsIHNpbGVudGx5IGFsbG93aW5nIG91dC0NCj4gb2YtYm91bmRzIHZhbHVlcy4g
+UGxhY2luZyB0aGVtIGRpcmVjdGx5IHVuZGVyIHJlZyBhbGxvd3MgZHQtc2NoZW1hIHRvIGNvcnJl
+Y3RseQ0KPiB2YWxpZGF0ZSB0aGUgaW50ZWdlcnMuDQo+IA0KPiA+ICsNCj4gPiArICAgIHJlcXVp
+cmVkOg0KPiA+ICsgICAgICAtIHJlZw0KPiA+ICsNCj4gPiArICAgIGlmOg0KPiA+ICsgICAgICBy
+ZXF1aXJlZDoNCj4gPiArICAgICAgICAtIGxlZC1zb3VyY2VzDQo+ID4gKyAgICB0aGVuOg0KPiA+
+ICsgICAgICBwcm9wZXJ0aWVzOg0KPiA+ICsgICAgICAgIHJlZzoNCj4gPiArICAgICAgICAgIGl0
+ZW1zOg0KPiA+ICsgICAgICAgICAgICAtIGNvbnN0OiAxDQo+IA0KPiBbU2V2ZXJpdHk6IE1lZGl1
+bV0NCj4gRG9lcyBhcHBseWluZyBjb25zdDogMSBpbnNpZGUgYW4gaXRlbXMgbGlzdCBmb3IgdGhl
+IHJlZyBwcm9wZXJ0eSBmYWlsIHVuY29uZGl0aW9uYWxseQ0KPiBvbiBhcnJheXM/DQo+IA0KDQpQ
+cmV2aW91cyByZXZpZXcgKHYxMikgaWRlbnRpZmllZCB0aGF0IHNjYWxhciBjb25zdHJhaW50cyBk
+b24ndCB2YWxpZGF0ZSANCnVpbnQzMi1tYXRyaXggcHJvcGVydGllcy4gVGhlIGl0ZW1zIGFycmF5
+IGZvcm1hdCB3YXMgYXBwbGllZCBhcyB0aGUgZml4IGFuZCANCmR0X2JpbmRpbmdfY2hlY2sgcGFz
+c2VzIHN1Y2Nlc3NmdWxseS4NCg0KPiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRw
+czovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9zYXNoaWtvLmRldi8qL3BhdGNoc2V0LzIw
+MjYwNzA5LWx0YzMyMjAtDQo+IGRyaXZlci12MTMtMC0NCj4gOWI1MzIzNzY0MmViQGFuYWxvZy5j
+b20/cGFydD0xX187SXchIUEzTmk4Q1MweTJZITVuaEcyYTlkWVBOZ05sU21pYg0KPiBkZ1FpQ1dq
+UE80MzBPdFNjSjBMX3plX2tQUXJIZ3RscnhIV2hKaFVhVDBZUXpzQkdDOFktDQo+IHRNS3ZXcUhj
+el92QXJJZkNzZDdJSSQNCg==
