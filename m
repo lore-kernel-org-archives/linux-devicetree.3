@@ -1,99 +1,153 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DA8426D18
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66F43382E5
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 15:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783612357; cv=none; b=HHxlKZe4QSKuyx0rHmN0ThtHqebaFBgoTWgIE+vPOyjrwJ7CBaXXYLMNBAxlO00OsbxDL3brh79g/hcyMyzdVX309LMFfkd4hNrsvESNfdpK+TA8yCrV1ACTX9JHk0wcluqpcOhGxZPd7syfaTUwFgnSUKKL8XiVP8tqD8eauqo=
+	t=1783612453; cv=none; b=LzPw5M2iyfMoLeIed82/WeuKjvt9rvVIJCTH/xdRaEfQdlaBcxBkwo25NyhU65FJA9RJctmx53kD+4LFN+Hvi1yw2uewC5F66Vsgwv3K9XeltJr2qihaI5RpmgsHGXv5Ez10H+j817zbkcL2eQaufKu8ZWuMgy/DVZkKgeIesyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783612357; c=relaxed/simple;
-	bh=FK7tiZEI0WffDbTlu07kAZuJRwj0uLdhH15mcZOjFjk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=siaaqBU/5vBmdZWiHRCHOaI9QyPGRTYoZP4YdaG9JambsjOtebcmUiVVIcjwfb037TvbUIpixjWdM7TJIIkAwDGCgDXyAAQB3C+P6gYi52PZF/QImXtzAJund4GcuUK4B3RmvVOFhjGDSzqqTxPQ3XEiaF4noh6l6BXQzTXp498=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.161.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1783612453; c=relaxed/simple;
+	bh=E7xh6evd46JlapDcP1wu59TPdEBuTy/YptxJBkiz3T8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QqNgyeowOmjniI2qtEArbZApS102ZQvEYffOn5ZbPALRJyQNDynUqNA//d+CmXgfW0AttbDilIOSncVMjNI8H/c2ASnq6YmOTVLGz6WzhC1roMxFu+B2bQyqv5j1Y0/2TWO2umVSaGKwQWzA/4VCGp59eH1mZU4Szb8+YHiOojo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CAhydAe+; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6a354eea06dso2263eaf.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:52:36 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CAhydAe+"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cc7e86e7aeso20557515ad.2
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:54:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783612451; x=1784217251; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iyiC5ezPowkdRB/jC99TZVbd/6jva1/e2ioHJ+vpJlU=;
+        b=CAhydAe+OhkxBPdygMWMa98stHEw/YsRduHEum3lnZ9PBWL6Qfbuc/Ejfs7VGCi8oj
+         ZuuessoqrKGRMWQSNnBMiBFJkRc08UOfASEIEWl+o3lDzF5qj6OdKecR1fP3mDwtJe8M
+         29a/uqvBok7bYqahsDYPvFSjgh62w9n2I1tsVwMoci7cj7Mpcvi1XX4+3axOzFnkok80
+         PEbjc/KFGoWagNG1O8Qjm28K57SwFUiJ42uotEG8A76sZOJ7STPEu2noJcwnEoEwWOcv
+         3sION70qAfk+4vvN3mArxF7hMjX/x/mBdgdLDL5Dxnt1ZFPjbjvC3aESJo6a6JDgT6sy
+         9m3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783612356; x=1784217156;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iqrcHFDoPWS2t5kW57shcQV+qLcmaCnZOWUcXcNxWfY=;
-        b=JH054x2n0+jieE0xcyd/jQr4DJ8JqGOZEFFNx/r01dEGwcSsE68lbEnvFfjSWrg8EW
-         qW8WgU69/iwaCH43giFiD6dfnqGMY0gQ0skcrKyaK2e0qKloYz4ovNKu5mqXxx1vZPF6
-         GXwTUsA3QFthAy0FYl4U7JmDCRSfPZW9MJ3OOHVcsf68ySepdiMMj6s3xbANY7/pEvhn
-         PqYGJnDRGCw1zl2GUecPUvtms1UUIlyIB39xRTYJYWtmkXWhimDDefOeTqdG5cShjLnB
-         m8UUJCg/H8GbdV7XUblJICdAWPYLSik8ABtWVNFBXBMm9jf5i6qmJP+adah1G6TYwDMh
-         MkqQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+j+87OF7KUNZoopd26SovoQqgLENH16iGTaY8zO6YNnjZbPjBUTUZZRrc1umneMBQguLMD9e2++ac0@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUQvk2cY3fgM6C16FXoU6iTiqpd3xSxLjfmwsugw/kx5LheTrq
-	XYcgoTCybq5/KmzpqaHZwlj2vDnROa5TEa4/Ea0u+RgDAgMZp1Fwo2N3BXZOZEPgpJ4=
-X-Gm-Gg: AfdE7cmqicIstXTfrCw/sMf06Z8dJ2RqiCNy1sDkiX7VywbWxEEQSIKeYqmf3BdLbDy
-	YYmrXx5vI5PhUg3CC+4d/eyO6jK98NmJn4AA/eoDSVewmm0GDQxlNLRANkWNvQZ7loU0wmF0y7S
-	tSR4T2oapQHvuZytlR3MOpQHw0kboA+5J2m22JoCFKJZRV+/4JynUUBjQEqWmw80zXu1jixaG9a
-	GBTfj0idoEc3t+klY7izZ2ENu+oJzCQHhke11eY38yEUIOvTCwxk4UvpfdaC065cRCmRMMTZ96D
-	KtGcebNhUaSYJsXgDnwUm75njf7OP4COCx2Q2vju6xFziv1nKa78e3QDn9va3znJ/ifX5iPh5J+
-	UUoCf9/JFSIlveFcUnWcBi7dkje06ic34gfut3+C4mPgiAc0IkkgvYbZpQtzKbzHLDLS3ytpauO
-	wSRfhf8CsCTjTbwAawfjBKZPhFUIrHYLSexOYbo4QyiGWMwaIwQQ==
-X-Received: by 2002:a05:6820:210e:b0:69e:c2ef:617e with SMTP id 006d021491bc7-6a36d8eb23amr5303944eaf.30.1783612355560;
-        Thu, 09 Jul 2026 08:52:35 -0700 (PDT)
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com. [209.85.161.44])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-451912444f0sm2296484fac.1.2026.07.09.08.52.34
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 08:52:35 -0700 (PDT)
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6a321bb0328so2073eaf.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:52:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8QhbCsUshsHkp6+FHvVFG7ssb/NIgSSNPdOSd12zyhsrmoG2LQP+EZiwIexRqpMrciZj6LY4IwxYGp@vger.kernel.org
-X-Received: by 2002:a05:6102:f8b:b0:6c2:e290:cc69 with SMTP id
- ada2fe7eead31-744e01021e1mr4657081137.23.1783611946911; Thu, 09 Jul 2026
- 08:45:46 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783612451; x=1784217251;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iyiC5ezPowkdRB/jC99TZVbd/6jva1/e2ioHJ+vpJlU=;
+        b=U4MUF7FKP3lo+aTgYdLdEPAohBbk6J9SRro8LdVe8E/OLT1PqecwkqP+cbomaCAjnh
+         aoqs5505rJNBTx5S9Ly3Zv1mko8RocNLsOTPxQb12ocD6KNZALlnCu3lS7IwsJxHVC/E
+         jyHQpqK1KlCXlc12xXZLGEuzkVEOLTZhVl/pjhxaDnLTfZlLXckMoJ/dTSO6HASOSgGq
+         bJKSwycHxVJotHx1u0NpD7Z/fF4mFRcwXEBNxAW0g0387qMBeoR5Wujv6kFFEQ0pJE5W
+         PJHYE+SS1tXUzexQl2gQB40/MITMJV1SWhw4UEPAAhul2GPuI5y8qMS0EUpGyKxc85Q2
+         Rz+g==
+X-Forwarded-Encrypted: i=1; AHgh+Rr57ngjep7I46U4XkUcnpa5xv04A2pf95ss6x7IVIK1fs8y/yCqmzS/HA7ojpRl2/DuEWKFiWqFcrx9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUGZBW+7iVXmcX2Gj6276cxaA/7QTxjHLedR3waTqt10zyKFnQ
+	Xwibv3HvqbWbama7tv4mUDFVnhQAUUYA5RFV3oO//hrOJp6k1QnXwWTx
+X-Gm-Gg: AfdE7clyW6QYIFz6GNReJZIbB5qURipQwCD/0q7l7mI6kfsou7h7hlPZBxGxku/Bib1
+	DmTBb9P09zYNrNhvA/Q6XS72nBEuVjszAy4xiSOFp2KABOdSM28kMiKB7UQs+OgUK1SOg9BnPT0
+	ICzNm5Fb4m21wnVI3ry7OFFpfYCLJatHLjK9ohckFqzw+c05rd/6WEaIyDjUEQZdtCElmEcaHhP
+	kNcpIZ/jbV4TZDILz8vNa1YHs8Kbl0tXkOfjKKw9dHWitnOYY7o1QQdyMkdHLkWmacDHe/wY9C8
+	rVnGLaX0dPsqnLEIIrxEDzUsksnVQHZBBDiyMMe9NeqZ+FD3EEWeOPbmdlGwbwkfCrZDrR0yFcu
+	SmPZUPobA5PIN4+vFf5v2dQX1kT5yIUcyeLMpdQcnzeDGhxxlLVoMS00oy7VdJ7ETwk/TsQxI4b
+	2aglbY5MYr8VN/m3cUmKvXINFOfg==
+X-Received: by 2002:a17:903:2990:b0:2cc:f4d4:29a7 with SMTP id d9443c01a7336-2ccf4d46bd1mr64154525ad.24.1783612451048;
+        Thu, 09 Jul 2026 08:54:11 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d1edb0sm46019575ad.53.2026.07.09.08.54.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 08:54:10 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 9 Jul 2026 08:54:09 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Nuno =?iso-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+Cc: Fred Chen <fredchen.openbmc@gmail.com>,
+	"Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>,
+	Brian Chiang <chiang.brian@inventec.com>,
+	Cosmo Chou <chou.cosmo@gmail.com>,
+	Dixit Parmar <dixitparmar19@gmail.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Antoni Pokusinski <apokusinski01@gmail.com>,
+	Thorsten Blum <thorsten.blum@linux.dev>,
+	Ashish Yadav <ashish.yadav@infineon.com>,
+	Syed Arif <arif.syed@hpe.com>, ChiShih Tsai <tomtsai764@gmail.com>,
+	Abdurrahman Hussain <abdurrahman@nexthop.ai>,
+	"Paller, Kim Seer" <KimSeer.Paller@analog.com>,
+	Colin Huang <u8813345@gmail.com>,
+	Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices
+ MAX20912 and MAX20916
+Message-ID: <5b865eed-ae58-47fc-8d80-e14a76a93050@roeck-us.net>
+References: <20260707122701.751878-1-fredchen.openbmc@gmail.com>
+ <20260707122701.751878-3-fredchen.openbmc@gmail.com>
+ <f9e32dd1-7c2c-4055-83fa-94683777e30b@roeck-us.net>
+ <ak4QO9uhKOt68dl1@nsa>
+ <20260708-true-carp-of-champagne-a0dcca@quoll>
+ <ak41BRQBNdsQrYww@nsa>
+ <b2a5e99c-6d4d-454e-8ecd-8638e4dc0ddb@roeck-us.net>
+ <PH0PR03MB63512A19C32B7722D17D0FD4F1FE2@PH0PR03MB6351.namprd03.prod.outlook.com>
+ <CABOy65_GqKiZLM+soZUK_34T8MYZS3dRX38-CMf_Bd1EmG0jhA@mail.gmail.com>
+ <ak9gFKkfEgkU_q1G@nsa>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260707102418.1646159-1-claudiu.beznea+renesas@tuxon.dev> <20260707102418.1646159-2-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260707102418.1646159-2-claudiu.beznea+renesas@tuxon.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 9 Jul 2026 17:45:35 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUEQVN7VqsmQ6EKWxazrFyQdY4edaHyt8pPFEaJfGgbpQ@mail.gmail.com>
-X-Gm-Features: AUfX_mz8Do1OkGKS8SDkGEbLBy8tojYuESbee1M6XmgysSPwrDRBiIuowYvmngs
-Message-ID: <CAMuHMdUEQVN7VqsmQ6EKWxazrFyQdY4edaHyt8pPFEaJfGgbpQ@mail.gmail.com>
-Subject: Re: [PATCH 1/8] clk: r9a08g045-cpg: Add clocks and resets for CAN-FD
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: mkl@pengutronix.de, mailhol@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
-	mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
-	biju.das.jz@bp.renesas.com, tu.nguyen.xg@renesas.com, 
-	fabrizio.castro.jz@renesas.com, claudiu.beznea@tuxon.dev, 
-	linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ak9gFKkfEgkU_q1G@nsa>
 
-On Tue, 7 Jul 2026 at 12:24, Claudiu Beznea
-<claudiu.beznea+renesas@tuxon.dev> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> Renesas RZ/G3S SoC has a CAN-FD IP. Add clocks and resets for it.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+On Thu, Jul 09, 2026 at 09:54:22AM +0100, Nuno Sá wrote:
+> > 
+> > Based on the MAX20912/16 specs on my hand, these chips do not support
+> > PMBUS_PHASE (0x04). Furthermore, the spec only indicates support for VID mode
+> > and does not provide m/b/r. Therefore, some of the features you mentioned might
+> > be specific to the MAX20826 series.
+> 
+> I see, phases are not supported using standard PMBUS.
+> 
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.3.
+As mentioned in my other e-mail, it can still be supported by the driver.
+That is what the chip drivers are for, after all.
 
-Gr{oetje,eeting}s,
+> > 
+> > Regarding enabling VOUT via GPIO, our platform handles this via the CPLD as
+> > part of the hardware power sequencing. Managing this pin through the driver is
+> > not a requirement for our system.
+> 
+> But we cannot assume all systems will behave like the above. But now i
+> do wonder about controlling the GPIOs in the driver. In your system you
+> clearly did not need to do it. In mine (testing with a rpi) I had to
+> use a GPIO (well I could have used hogs or pinctrl). But if you control the pin
+> you do gain the ability to turn off the regulator. If you don't it's always on
+> (which might be indeed the bulk of the real usecases for these systems).
+> 
+Agreed. I don't really like it, but if the chip and some specific hardware
+mandate it, it should be supported. However, that code also needs to be
+tested - an untested implementation would be worse than no implementation.
 
-                        Geert
+Note to anyone from Analog listening: It is really unfortunate that I,
+as subsystem maintainer, do not have access to datasheets. That means I have
+to rely on assumptions and can not really provide actionable feedback other
+than guesswork based on the PMBus standard. That feedback may and likely
+will miss essential details.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Guenter
