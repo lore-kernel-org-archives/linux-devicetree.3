@@ -1,118 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967D73E866B;
-	Thu,  9 Jul 2026 08:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF793E9C05
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783584628; cv=none; b=poabzCst2p4FrQV3Z1RiMHozAVt/xb+ydtV2U7kGEbFlQYmK+A2DqWhXRK6UrZspmGqz4a/XVf7XzWtRcr3TpjPzVym3NNo5XlcB+Rvl5xFinui8AsWKixL8V4Cw3oPlUUKlX9WW6okS/bZyiwzDeQX+16vMeyjDLiK2SYba+nY=
+	t=1783584634; cv=none; b=jydIVkWRuPcIZ/HxdZah7zrEy3AYpho5LzqJKis8v0avCwQKz1PoZtlwBlBHstMjPPRuIHVJDt6iJpawUu42Q7fRxuA8srg7Fi/I5AsOphbUMzDcasj/9u4FT0KcFHDEzFL3SqJootvhwCFs4fWnkngrGCeTh5rCaSE2D8EpFwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783584628; c=relaxed/simple;
-	bh=NXPtnJSElIpKRB1lKI8cYyBmhE5lNVooFcti28hZYio=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JVKKQQ1AALalcRktTBM99AWVC1eNJyXwy7eJMCYJj+7d0U/wwIZYSJr8DDstzvuA3MEq4KScca3atpzL2nIYVZ9oYz2nRX/B87sxRTX4hYDsTWVBdelfkoyHhapcVVdVMtc3gBbNr/8KBFslJLGmcAshNSUTJce6zZWlGbpHTdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BoK6Xd0p; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783584634; c=relaxed/simple;
+	bh=OEahzOA/KTRGTvkyoCk8o8fpVF85458RzotimJ/M6YA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FgI9aymOPSjmyVZqfVrXi/5ekvy9Q6BpNTWpT78NH9S3UjLBZYXNdyjqsFnac/NvlcX/rmfc1hOWiSDW3bP3exWOcgxJcXQHKoKEWkm4ESeDTVZbP0DXZhSoCFYfJrRagG8QGgUAl1j1r7rc5vmUSu7W3lfMI1pUfYSeFW1Lr+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTBH081n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BoK6Xd0p"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 322A8C2BCC7;
-	Thu,  9 Jul 2026 08:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783584628;
-	bh=NXPtnJSElIpKRB1lKI8cYyBmhE5lNVooFcti28hZYio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BoK6Xd0pM8eop8hVMrtbQAQFiJiwhKrpx2BNxi/nJjkuyzZVCY2MOmUwt/iSMCo6Q
-	 dbBsybbzE3ISJadibD/w82vLXGHf13qx38vyujoBnRVyrCUfl4sBWvP58sIvL2lN2p
-	 jEs87R4c1C+hsGu/1YaUSSJn8IdKm9sXDq/oy4XDTn3drL6mTeKLrpg3+B1gKItgVL
-	 tuUyXjUJi9IrF62yot2yhWpf2MBOQMfcCYwSSEkp4flLoyXVJWBxychZS9gbLmzuLQ
-	 XXrg3P+xThloraVniICedArXtVqwj38N1e/HXO1gDXiDFfqluVPEvZ0roRMRYiH4v0
-	 j0MjuYoZEGAYw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 208DCC44501;
-	Thu,  9 Jul 2026 08:10:28 +0000 (UTC)
-From: HaoNing Cheng via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Date: Thu, 09 Jul 2026 16:10:21 +0800
-Subject: [PATCH v2 1/2] dt-bindings: thermal: imx: Document calibration
- offset property
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTBH081n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B421F00ADB
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783584633;
+	bh=OEahzOA/KTRGTvkyoCk8o8fpVF85458RzotimJ/M6YA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=WTBH081nAVdwug7LFzIXFDgrbegoCxoadFT6WO6Frj2908/6QzMGpqt+CfrEXJqRU
+	 rcgGiDX4HCNTU8FqoW1govO01jdvhuzUXNNJ0tTwJ/a75ha6cknVn+4Ri9j8V9UT6j
+	 FEDw2qbGgQMoPPJBJI33u2xbH/NNR/2Po70XNcNawxYMXR37COZ6bP05UqWxnXPglt
+	 +/3qvpADr+xjrw+F8R/KNXi2aw9RGkyyEgsPKWJU1EspALz+kc34kr4mUtD5XemHJd
+	 k7mj/FGZm/6JeoPOKEQouTiImik/jECjqVZ4/3PN4IM+ItDJKnXZfeOx0R9CmyjUkp
+	 t8QVaWsR+PBRg==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5aebba706b3so1812440e87.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:10:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoHoyTJ+RfFSNsAzTono5VhWxP0SD7oQsGLe6Fta/sCnk8Go5tcIfHDIQZuFoImK4efQZJrnEnRA1W7@vger.kernel.org
+X-Gm-Message-State: AOJu0YwORKxNTj84J5jJ/LqU+ugET98rgFKtXjIO+dpSzhOuTv3ncqi2
+	t0SHTdOhKCFxgW7N71tYrOmumWQxX2abeeQ0zSsu5EuLiSIZMmVviD0YJBf7nJW4tR7+fZR/u/M
+	/PHXnq2nfCh/HWdHrx9VzPsBAIz+zBd2cRhIsx862Mg==
+X-Received: by 2002:ac2:57cb:0:b0:5ae:b75a:7176 with SMTP id
+ 2adb3069b0e04-5b0115b31cbmr957946e87.65.1783584632201; Thu, 09 Jul 2026
+ 01:10:32 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 9 Jul 2026 01:10:30 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 9 Jul 2026 01:10:30 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260708-samsung-kp-v2-0-3c6ed4c9b3b6@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-1-00ff72495e24@cn.bosch.com>
-References: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-0-00ff72495e24@cn.bosch.com>
-In-Reply-To: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v2-0-00ff72495e24@cn.bosch.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783584623; l=1654;
- i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=DKKt2yS4Vd7uuoQbKmjwi1DTXyFYmb5Ugq4J+iX+RsI=;
- b=Qh66sonmy7IwkqL0J84EmMAwlZpycTwQ7sPM/A5AoBKvpKaMAEtczmQPgdHYKWSVXvfLzcuMg
- tf8m9bMmVScAVwzOBFshx74TULMu/oniE5brR4mugWQhAc1pI5KWHSQ
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
- pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
-X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
- with auth_id=860
-X-Original-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
-Reply-To: Haoning.CHENG@cn.bosch.com
+References: <20260708-samsung-kp-v2-0-3c6ed4c9b3b6@gmail.com>
+Date: Thu, 9 Jul 2026 01:10:30 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfJQm8RqhiLbRA1x7skt=jW8vvTD-1VCDcw-dO_VjisZQ@mail.gmail.com>
+X-Gm-Features: AVVi8CddxA9iUF7IgAB_SRFc1uKWkA3NnqyOXCt0i1LuR82tf86E-F3pS5f_rfg
+Message-ID: <CAMRc=MfJQm8RqhiLbRA1x7skt=jW8vvTD-1VCDcw-dO_VjisZQ@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] Remove support for platform data from samsung keypad
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+	patches@opensource.cirrus.com, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Russell King <linux@armlinux.org.uk>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Charles Keepax <ckeepax@opensource.cirrus.com>, 
+	Sam Protsenko <semen.protsenko@linaro.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>
+Content-Type: text/plain; charset="UTF-8"
 
-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+On Thu, 9 Jul 2026 06:52:58 +0200, Dmitry Torokhov
+<dmitry.torokhov@gmail.com> said:
+> Hi,
+>
+> This is a reworked and extended version of the series previously posted
+> to convert the Samsung keypad driver and Cragganmore 6410 board to
+> generic device properties. The first 8 patches of the original series
+> (general cleanups) have been merged into mainline, and this version
+> focuses on the remaining keypad rework and extends the board conversion.
+>
+> Specifically, we rework the Samsung keypad driver to stop using platform
+> data and instead rely on generic device properties, and convert the
+> Cragganmore board to use software nodes for all its peripherals, removing
+> legacy GPIO lookup tables.
+>
+> We start by introducing a compact matrix keypad binding and implementing
+> it in the driver. To support referencing Samsung GPIO chips in board
+> properties, we add infrastructure to register and attach software nodes
+> to Samsung gpio_chips. We then switch the Cragganmore keypad to use
+> software properties and drop platform data support from the driver.
+>
+> To convert the PMIC DVS regulator on Cragganmore, we add software node
+> support to the wm831x regulator driver, allowing DVS configuration via
+> device properties. Once the board is converted, we clean up the driver
+> by removing legacy DVS platform data fields.
+>
+> Finally, we convert the remaining peripherals on Cragganmore (GPIO keys,
+> PMIC, WM1250, SPI0, basic-mmio-gpio, and LEDs) to software properties.
+> This allows us to eliminate all legacy GPIO lookup tables, which also
+> fixes incorrect GPIO chip names ("GPIO<N>" vs "GP<N>") from previous
+> descriptor conversions.
+>
+> Mark, it would be great if you could give this a spin on Cragganmore.
+>
+> Thanks!
+>
 
-Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements.
+I admit I haven't looked at the series in great detail but it looks sane and
+you've been doing these conversions before so I trust your judgment.
 
-Document the optional fsl,temp-calibration-offset-millicelsius property,
-a signed offset in millicelsius that is added to the calculated sensor
-temperature. The property is optional and the existing behaviour is kept
-when it is omitted.
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Update the binding example to show its usage.
-
-Signed-off-by: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
----
- Documentation/devicetree/bindings/thermal/imx-thermal.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-index 949b154856c5..eb7243a7ebaf 100644
---- a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-@@ -59,6 +59,13 @@ properties:
-   clocks:
-     maxItems: 1
- 
-+  fsl,temp-calibration-offset-millicelsius:
-+    maxItems: 1
-+    description:
-+      A signed calibration offset, in millicelsius, added to the calculated
-+      sensor temperature to compensate for board-level measurement
-+      differences. When absent, no offset is applied.
-+
-   "#thermal-sensor-cells":
-     const: 0
- 
-@@ -109,6 +116,7 @@ examples:
-             nvmem-cells = <&tempmon_calib>, <&tempmon_temp_grade>;
-             nvmem-cell-names = "calib", "temp_grade";
-             clocks = <&clks IMX6SX_CLK_PLL3_USB_OTG>;
-+            fsl,temp-calibration-offset-millicelsius = <(-6400)>;
-             #thermal-sensor-cells = <0>;
-         };
-     };
-
--- 
-2.43.0
-
-
+Thanks,
+Bartosz
