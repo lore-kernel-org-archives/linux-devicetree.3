@@ -1,133 +1,157 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6906C3C10AE
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 21:46:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4C3449997;
+	Thu,  9 Jul 2026 22:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783633568; cv=none; b=DYw8iMDRJRixXQ1C52foplnhWwUIMkY5e/HPc1oQXkW+1M1nHs0YnnIiuyYKWOXq27PGAVaQeviLPtcHWicZZPUZx8pKleXBBsmO1FZo/PMgAG2iV+LmxRiVcP2RBf6N+N8g3qyd5Y1TEyDTYUjw3oBEj6ig+u8CAXXwiAcDklY=
+	t=1783635181; cv=none; b=UB5pE1xiMdiR1Ljy46UnKe2tsIoq2i02pIxV70z6ylTEiqq9HG8LBj7Bn8pLcptI1+18PIsjpelmJ4PsHwqswg3kIKHV/yydIroZA6+HSIONxy7rIRlVN+lXvGuow7kZUq0BWkzAVLWwAYV/C84gBgx+ueyd614t+ARW4zRf6aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783633568; c=relaxed/simple;
-	bh=MXG6F+XOaJjTHz4SHrXau2henaRyFb9pRMsdcqxvSUQ=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qlYumlB+QYUxqxquJdB3I/3f4NEebhtlcLFvfcgBpCsgcZGd+t9LWOAAabyV+nVIgbDa0OSsbOf6TMXxnSeFK52ZKyuCugndy0rE58KMRcupbWiX2Q3Yz1MDToU6SYgqYUq5QabskXnj+8SlcSrU39n2gJ4woTA7WF1eM+mV1+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VMPFIP5V; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783635181; c=relaxed/simple;
+	bh=5/rCRI3UZ45EfEwK6TTp7JRSRgCGf2m9q/mNeRMDj1o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SHyLVemS1eTsirf4NwHpKqS+0xXv3TbEH53W+noq176vgorVRYT1pcnVe4qj89G6MED1UYwR2/U5TtiJLDekkS0dnq7+SRBs2PKlrVRrmWCQ+yznLjHZKpwPshz6HIDafAT3rhv7XBY1gLqy7u/ZeZ59003ZGBA7JmLl2crq1bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OqvJPZhI; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=DHl5iHBZ; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VMPFIP5V"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-472326ca506so231198f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 14:46:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783633566; x=1784238366; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VkbACm5M+XrCUV3Z7NNaW5IbCVSb/enbC9nT9Rpc0jM=;
-        b=VMPFIP5VmYlPsYdxH/RzSJ6YIXQzfqwwW4TxGyWMyNeZJmO8ZBRMeZAfUmud4k3ZUU
-         cmrDSyB5V1N8jey9jGLTwytFgVx0mzGCAuxjMfbsTjC5XITv0HadgKAdwgr1fGNtXE+f
-         dABxE6ik17BUHEPzQTfon56MxZsKBWFr9NXRZP310hRtR9kwsF6vZR+YSwdAK37qcp1t
-         7SnqFISUE5EAfyIET7Xb9vDHYBwETw9iHVil+492YuKakTW5Cg7qA3KGbpe/Qjfme1+a
-         GgZN1BracjpPpnZJwiimk/gkL03jSUxdHwZLnHLD3qqL/U8jccLENEbyEHeBFLFeltmP
-         IUXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783633566; x=1784238366;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VkbACm5M+XrCUV3Z7NNaW5IbCVSb/enbC9nT9Rpc0jM=;
-        b=Fn/338+AFuSEty4eyjbTGcZOn5/o00+B5DZ8W+UHQACEDnOZsyzBPwi27aC3gIFnGV
-         WdySsmBDU0XBoZa5BexsCSW2keHfRaQdYyI43vw8rNorn515zW8nKcZdm31e16DF3hEV
-         PgM9fIA9wDjlfg48QxAa9M+tLBY9fXSQljC9S+4hFRD1OxrWnVADuDCoxapHpe+npQNZ
-         UyXkF2PBNWAV2E+Iy8XVGSiSYio/bgWYeaIwJHH6BZch2HDedLNf696kdW2SCiYOnPvd
-         At13U/WsUqE/rpL1GDbtRaVdum+aDEZ3KbOLE0Nvwl+6bSTuNYf2rqK6mWeLjsGd9AWS
-         RACg==
-X-Forwarded-Encrypted: i=1; AHgh+RoMU4ZR+kPCPu+dWrbxZ+oh7EAQtY2wiZfSpon5/EYaIvedNhY5D+sfpvEXeyjUZbQc2VC7OAOOvHpK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpUUwCAZlngHVSf0q1RwxVPU6dvDjWH2o+pufPp7ZdSAT/9jOh
-	gLNeZi6G9ZtRDmiaGGphtHHw5FvqRmQqxJC1hk5VKud0KPm4ZXxmn60y
-X-Gm-Gg: AfdE7ckBjOkrrcP2PCwoOwqq5cTQqdPqwHEWyY/J0IKIle8Ijv3vM4UpQ+nrZ5wJ9fo
-	RU6HSY9WlJVPh0sbYO0vaN5SkOPXK4Fuwebt/GZWBzIJ7NMVJQArVU8BcV9SyD8YPoY6jfmomLY
-	zosT6Q6AGKkQ1aD4Ybfm/HPSzvYPWXA9l3SutJ/mFxUkJNC0hUdP2WZ+OHdQL9UFOyrjTB0jqs9
-	SDrzcdlJdJS4gjeyIEI8sdiySQoI73aVol3IWHfED32PNJuoSaQRA4rdtYsvh4e3PxMkebK0AP4
-	x+TflQsGILn+sYwBfVfIiV6eVcbNTqufZYIT0jNgevXtFtWqDL2SRN5vVsUisSve/eM2yaDHCNl
-	dg1jHVYinzLEl3r3Z4Z21+tzajbJ253OobVFb3euPJcl9cZlQZIRD8egpQtjI5M90uHAYui2WtO
-	KGma4/kX1lDBL3+1dq2/MTYRYYTtHrOkoscxEqpUITg9Rj3vsk9KHuJbMTOSrwkymKdhbnBB5yT
-	w==
-X-Received: by 2002:a05:6000:2385:b0:475:f0f0:9ef0 with SMTP id ffacd0b85a97d-47df0782dfcmr9126719f8f.53.1783633565738;
-        Thu, 09 Jul 2026 14:46:05 -0700 (PDT)
-Received: from Ansuel-XPS. (host-95-248-227-210.retail.telecomitalia.it. [95.248.227.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9b4d850dsm55980888f8f.0.2026.07.09.14.46.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 14:46:05 -0700 (PDT)
-Message-ID: <6a50169d.41a38e5f.1bb169.a6d5@mx.google.com>
-X-Google-Original-Message-ID: <alAWmmBXI7S1QUG_@Ansuel-XPS.>
-Date: Thu, 9 Jul 2026 23:46:02 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OqvJPZhI";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="DHl5iHBZ"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gx8NS4jDdzKnR7;
+	Fri, 10 Jul 2026 00:12:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783635176;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=laLRk3O1bPDNGHI/gc/k6EDjwMB+P9jDPSaWLIRQBbw=;
+	b=OqvJPZhIiakwtCop6MXeEMt/soVSIahHllBwACDTaxN+2QwcFt2Wh6NafVwkj6QxTTdFR7
+	uq7ex/AKbTFMye2Le8u31XmMtt+l5pWdWILFQoaWhCD3FL3Ss4hovXj5VQCoCaL5CorxVj
+	r51VM2FT52f59V/54rYVwWFpJzRLPnWutP1RHAyPxMKQWEW1eZXcHN41uOs1xePiEXAcOa
+	xsYjXNCPoA6wzO90KsSiulqw4YqGWKChGUyKe3rxgKPM34IzEQBqw2frKjpgxXMxdrFupO
+	J0WSHSTGO53Ka7sL1IgbTVnLUlbXb7F7dzboWyXCvlBzRdfe3jWsuuRIZSYloQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=DHl5iHBZ;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783635175;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=laLRk3O1bPDNGHI/gc/k6EDjwMB+P9jDPSaWLIRQBbw=;
+	b=DHl5iHBZuPMJ33GHGleJrtpeJzBwFkFvJztFvwlkPGoyPQpEE9E4SLab+fzrQVyd0MDknn
+	4gsxYj2Zudf1S+pprtoDwjKNjUJvsjfLETZclIk3CJlev33PclRiWsjVybn0tJsQMl83Cc
+	nj3zxRLIKrJjMlF8Jqv9XfhoyxrOBZxvGZcnSLV9c6QqB5FIhPA0/kpHuPgZ91GIvtzywB
+	mLEOhbvwUt6LJ670o5Ro+hEkTwGmelvoJ15dg9ChTK7HgTR4pDyjjR3p6ObVXWFS4oH2pM
+	hxr5BjymqQpGtehVhnCC/p0M5QQG9HsihuUaUOSbyWQgxHOzopooOpI4PHs9NA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	stable@vger.kernel.org,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	John Ogness <john.ogness@linutronix.de>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	Gerhard Engleder <eg@keba.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Lukas Wunner <lukas@wunner.de>, Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH 3/4] serial: 8250: map UAPI port type to internal enum
-References: <20260709205656.319531-1-ansuelsmth@gmail.com>
- <20260709205656.319531-4-ansuelsmth@gmail.com>
- <alAUrANx15gyOgdZ@ashevche-desk.local>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: ironhide: Describe inline ECC carveouts
+Date: Fri, 10 Jul 2026 00:12:16 +0200
+Message-ID: <20260709221245.146406-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alAUrANx15gyOgdZ@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 64a105b4cf20af77a8f
+X-MBO-RS-META: gte15z866jw5dyzru7hp41k38a9ssom7
+X-Rspamd-Queue-Id: 4gx8NS4jDdzKnR7
 
-On Fri, Jul 10, 2026 at 12:37:48AM +0300, Andy Shevchenko wrote:
-> On Thu, Jul 09, 2026 at 10:56:51PM +0200, Christian Marangi wrote:
-> > There is currently some confusion when a new 8250 UART device needs to be
-> > defined with the related index for uart_config[] to be directly defined in
-> > UAPI header.
-> > 
-> > There isn't any specific reason to define the index directly in UAPI header
-> > unless it's also needed to be defined for userspace usage.
-> > 
-> > To try to address this confusion and making it clear how these specific
-> > index should be defined and where, create a dedicated enum in 8250.h
-> > with all the current defined values in UAPI header and document how these
-> > id should be defined.
-> > 
-> > Rename the define in 8250_port.c with the new UART_ prefix.
-> 
-> This will bring a wide field for the all possible conflicts and doesn't really
-> solve the issue. Why not simply kill the UAPI part of the definitions for good?
-> (Move the all, except the first 13) to be internal to the kernel.
-> 
+The DBSC5 DRAM controller protects DRAM content using inline ECC.
+The inline ECC utilizes areas of DRAM for its operation, which are
+in the DRAM address range, but must not be accessed or modified.
+Describe the inline ECC carveout areas used by the DBSC5 controller
+on this hardware as reserved-memory, which must not be accessed.
 
-I mean... With correct review from maintainers, conflict won't happen. I don't
-feel it's that easy to kill UAPI header... userspace stuff and we don't
-kill userspace.
+In case of high DRAM utilization, unless the inline ECC carveouts
+are properly reserved, Linux may use and corrupt the memory used
+by the DBSC5 DRAM controller for inline ECC, which would lead to
+the system becoming unstable.
 
-The previous suggested solution was to stop declaring stuff in UAPI header
-and start declaring in the internal header making the situation even worse
-and error prone with id conflict. This can really be prevent only by
-correct review of the change. (or keep using UAPI)
+Fixes: ad142a4ef710 ("arm64: dts: renesas: r8a78000: Add initial Ironhide board support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ .../boot/dts/renesas/r8a78000-ironhide.dts    | 41 +++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-Maybe other have better ideas on this. On net we have a similar problem and
-the implementation is mostly similar with duplicated reference and some
-BUILD_BUG magic.
-
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+index d2b3fc08954a1..f073145a682bf 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
++++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+@@ -107,6 +107,47 @@ tee@8c400000 {
+ 			reg = <0x0 0x8c400000 0x0 0x02000000>;
+ 			no-map;
+ 		};
++
++		/* DRAM controller inline ECC areas */
++		ecc@10cccd0000 {
++			reg = <0x10 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@12cccd0000 {
++			reg = <0x12 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@14cccd0000 {
++			reg = <0x14 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@16cccd0000 {
++			reg = <0x16 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@18cccd0000 {
++			reg = <0x18 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@1acccd0000 {
++			reg = <0x1a 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@1ccccd0000 {
++			reg = <0x1c 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
++
++		ecc@1ecccd0000 {
++			reg = <0x1e 0xcccd0000 0x0 0x33330000>;
++			no-map;
++		};
+ 	};
+ };
+ 
 -- 
-	Ansuel
+2.53.0
+
