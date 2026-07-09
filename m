@@ -1,147 +1,223 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DEB379C32
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:42:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50BF4410D1E
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:45:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783597350; cv=none; b=EhjFN9HwB95n50Zcntcz4tuGpJWKKgvw/x5ugXDHGEDPbsRx53eYoEe4mtA749GuBHGgjdOw5s4cmTyRtBROO9LFjtd6tcsTXIQ0MiZU69FedqaWmThpDWk5oJdWqnd5yElnXj+sT0EyU/LpUNuis/HWtNLA7jV4cqSeURyESBE=
+	t=1783597515; cv=none; b=na2i7qU4Pf89Ipsuqv/oZ4OmBSnbz1/PYY6NBwxBnTaJfgA/nNYzIbckC8J6H4/K7xiGcm2r8N1OTJ0nETsDg9UdQwqz1A9PkXkEH9k4ncAHoXVyFuPoPBR43Sc8QIJYCBI25iK3i8GnWwowPPmvrpzUjSF/aCuKCdxRSfcdkCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783597350; c=relaxed/simple;
-	bh=NN9mmKUqCNF6zcZ8bIWehn2nuFiayQDWMqsq4wmwQPQ=;
+	s=arc-20240116; t=1783597515; c=relaxed/simple;
+	bh=2OBdz7p99f8mjl1xNW1NNf8FV5RDqN+SXHoGkftcUsw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nx0ogeSqxZtSWaBI5wCmev8ponXXzwvX9jdtSduF/2Ij6eFxHy98ZdqOR0eC17y3i0sWmYkyJbfp7oZOQRtzp1J2mRjlVwwk8Ij15MOASH8RsPze+vzni52Cf3G2gkQ6qwkuipbMpPno9vS/4QK+pvIFEWOj+PDFqDahj/5ueyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N1mGwHXe; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Hm6xC8trNDMtUBEku3UjgMfmc8lP9+vtQshIocFKURhWLfzPS3Sx09BbGOObkz/D6vrIWJ0YVX3+TQ51QI3u+XUb/gwxcXZtaBIkjPTXx/EcJ0PWLpIUhs7dAoE9B75YpfuarLXzonunbsMG50BumQsp2lUWdpBnrDEa2mgULXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fx/Ca+sj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N1mGwHXe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F6C1F000E9;
-	Thu,  9 Jul 2026 11:42:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fx/Ca+sj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F091F00A3A;
+	Thu,  9 Jul 2026 11:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783597349;
-	bh=ea25fSWQJ+PLUWKyg+knrAfpCEbYTM76MsTqOxi30sA=;
+	s=k20260515; t=1783597514;
+	bh=k3fEcf3QI/sjj5Cid4RGiPs+Ainmk1/yQvgx8llKw+4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N1mGwHXecbs/9Yh026CbhukHj1jKjsBrlut/kJN4eo+HMiK3S+C49cEhgEmf+aYXM
-	 uPRUb+XeUd5dNyOFKbRwLZRpLwcAU2TXWTSQ1JqkqMOHpJnyDXeBGjp9l3UIHB3YSL
-	 ml7i5kZxmsFtBYxgfv2h2GHik3toBuCl3KeBe4jemDqd5I5zAPpLNAH3Z53tbkXWTz
-	 406CAAYKBYMu/R8U+rFtPNq54sX53Kckxa5pbu7lfBJgE3Cv9ifogiOoX8iMPuXrQz
-	 YiPrOh9KZYaUqwqXW717GcSVORbyaeotkFeR4zsDMbJlXuKmx4bvYB5lcL/kzKcqZW
-	 CRQHbIzeaN5LQ==
+	b=fx/Ca+sjOPMM7WVmW6syeffySf7qzObx30OaG8IK5S+zpLEBsundkdo/mnVCkbeLr
+	 wWELopOXBMgXtmvmoV7DHhEgIG244kL7UaVYU1d91FMHceTxuezcfBMpQL82rUJlgJ
+	 BJ3OI8TQS7BelPUGkjSC/HhaNmKlvdMnDj5fBbKoZxZEMJ50/wa/J/c02U2rG5YjfS
+	 Pv1w12vk4wB4SXwYfu6yxNtIh3QATg5BP7yMnB5gSJQpAwZ026BJWIvBxfFPZxd36m
+	 H9+tVlwJF0eBMe99cOZvr5QolO1DTd3+hA0p98qMte5X2fB5w2O8SylwEAHPNJNnG3
+	 rsaCNl0lZj1gw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 03/12] drm/mediatek: mtk_dp: Call
- pm_runtime_put_sync() in removal path
+Subject: Re: [PATCH v4 09/14] usb: hub: Power on connected M.2 E-key
+ connectors with power sequencing API
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260709113148.49090-4-angelogioacchino.delregno@collabora.com>
-References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
- <20260709113148.49090-4-angelogioacchino.delregno@collabora.com>
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709095726.704448-10-wenst@chromium.org>
+References: <20260709095726.704448-1-wenst@chromium.org>
+ <20260709095726.704448-10-wenst@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 11:42:27 +0000
-Message-Id: <20260709114228.32F6C1F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 11:45:13 +0000
+Message-Id: <20260709114513.D1F091F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Replacing `pm_runtime_put()` with `pm_runtime_put_sync()` sync=
-hronously powers off the hardware before tearing down child devices, DRM br=
-idges, and IRQs, causing system crashes when they access unpowered register=
-s.
-
-Pre-existing issues:
-- [High] Using `timer_delete_sync()` instead of `timer_shutdown_sync()` in =
-the remove path allows the timer to be re-armed by the concurrently active =
-IRQ thread, leading to a use-after-free.
+- [High] Incomplete and race-prone clearing of `hub->ports[]` causing Use-A=
+fter-Free during teardown.
+- [High] Missing NULL pointer checks cause deterministic crashes if the UAF=
+ mitigation is triggered.
+- [Medium] Port device sysfs exposure before power sequencer initialization=
+ causes data races and potential Use-After-Free.
 --
 
---- Patch [3]: [PATCH v4 03/12] drm/mediatek: mtk_dp: Call pm_runtime_put_s=
-ync() in removal path ---
-commit f976047da5b8089ab1d0475df94302360f23d7f2
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+--- Patch [9]: [PATCH v4 09/14] usb: hub: Power on connected M.2 E-key conn=
+ectors with power sequencing API ---
+commit db3c17ab30961cf683de3a4643e34e109f716eac
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-drm/mediatek: mtk_dp: Call pm_runtime_put_sync() in removal path
+usb: hub: Power on connected M.2 E-key connectors with power sequencing API
 
-Since pm_runtime_put() queues an asynchronous suspend, calling
-pm_runtime_disable() right after will cancel the pending suspend
-work.
+This commit adds power sequencing API support for M.2 E-key USB connectors
+so their power can be enabled and W_DISABLE2# signal deasserted. It uses
+the usb_port device to acquire the power sequencing descriptor and manages
+it during port creation and removal.
 
-Call pm_runtime_put_sync() instead during mtk_dp_remove() to
-overcome to this issue, making sure that the suspend ops execute
-and that the hardware correctly powers off before module unload.
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index db867dc1cd14f..e1908a4e1f54a 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index f656b85b84212..0d0507890d993 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-> @@ -2866,7 +2866,7 @@ static void mtk_dp_remove(struct platform_device *p=
-dev)
+[ ... ]
+
+> @@ -886,20 +897,24 @@ static void hub_tt_work(struct work_struct *work)
+>  int usb_hub_set_port_power(struct usb_device *hdev, struct usb_hub *hub,
+>  			   int port1, bool set)
 >  {
->  	struct mtk_dp *mtk_dp =3D platform_get_drvdata(pdev);
+> +	struct usb_port *pwrseq_port =3D hub->ports[port1 - 1];
+>  	int ret;
 > =20
-> -	pm_runtime_put(&pdev->dev);
-> +	pm_runtime_put_sync(&pdev->dev);
-
-[Severity: Critical]
-Does changing this to a synchronous put cause a regression where the
-hardware is powered off before child devices and IRQs are torn down?
-
-Because the driver uses a devm-managed IRQ, the interrupt can still fire
-and execute mtk_dp_hpd_event() which reads hardware registers:
-
-mtk_dp_hpd_event() {
-        u32 irq_status =3D mtk_dp_swirq_get_clear(mtk_dp) |
-                         mtk_dp_hwirq_get_clear(mtk_dp);
-        ...
-}
-
-Additionally, child platform devices like the audio codec are still active.
-If they are torn down later and trigger mtk_dp_audio_shutdown(), it also
-accesses hardware:
-
-mtk_dp_audio_shutdown() {
-        mtk_dp_audio_mute(mtk_dp, true);
-        ...
-}
-
-Will accessing these registers after the PM domain is synchronously powered
-down result in a bus fault or system crash? Should the PM operations be
-moved to the end of the teardown process after explicitly disabling IRQs
-and unregistering child devices?
-
->  	pm_runtime_disable(&pdev->dev);
->  	if (mtk_dp->data->bridge_type !=3D DRM_MODE_CONNECTOR_eDP)
-> -		timer_delete_sync(&mtk_dp->debounce_timer);
-> +		timer_delete_sync(&mtk_dp->debounce_timer);
+> +	ret =3D usb_hub_set_port_pwrseq(pwrseq_port, set);
 
 [Severity: High]
-This is a pre-existing issue, but could this timer_delete_sync() result in
-a use-after-free?
+Does this code dereference a NULL pointer if the port creation previously
+failed?
 
-Since the hardware interrupt is managed by devres, it remains active
-throughout mtk_dp_remove(). If the IRQ thread is executing concurrently,
-it can unconditionally re-arm the timer:
+If usb_hub_create_port_device() hits an error, it sets this array entry
+to NULL. A concurrent PM or sysfs call to usb_hub_set_port_power() might
+pass this NULL pointer directly into usb_hub_set_port_pwrseq(), which
+then accesses port->pwrseq.
 
-mtk_dp_hpd_event_thread() {
-        ...
-        mod_timer(&mtk_dp->debounce_timer,
-                  jiffies + msecs_to_jiffies(100) - 1);
-}
+> diff --git a/drivers/usb/core/hub.h b/drivers/usb/core/hub.h
+> index de524c6da9fc4..7277c38c9e62c 100644
+> --- a/drivers/usb/core/hub.h
+> +++ b/drivers/usb/core/hub.h
 
-If mod_timer() is called right after timer_delete_sync() finishes, the
-timer is successfully re-armed. Once mtk_dp_remove() returns, devres will
-free the mtk_dp structure. When the timer expires, won't it access freed
-memory?
+[ ... ]
 
-Should this be updated to use timer_shutdown_sync() instead to permanently
-prevent the timer from being re-armed?
+> @@ -103,7 +103,13 @@ static inline bool hub_is_port_power_switchable(stru=
+ct usb_hub *hub)
+>  	if (!hub)
+>  		return false;
+>  	hcs =3D hub->descriptor->wHubCharacteristics;
+> -	return (le16_to_cpu(hcs) & HUB_CHAR_LPSM) < HUB_CHAR_NO_LPSM;
+> +	if ((le16_to_cpu(hcs) & HUB_CHAR_LPSM) < HUB_CHAR_NO_LPSM)
+> +		return true;
+> +	/* check for controllable external power sequencers */
+> +	for (unsigned int i =3D 0; i < hub->hdev->maxchild; i++)
+> +		if (hub->ports[i] && hub->ports[i]->pwrseq)
+
+[Severity: High]
+Is it possible for hub->ports[i] to be set to NULL between the two reads?
+
+Since the array entry can be cleared by another thread without a lock or
+READ_ONCE(), evaluating hub->ports[i] twice might result in a NULL pointer
+dereference on the second read.
+
+> diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
+> index f3e4d6a31798a..dfb9f4bcd6124 100644
+> --- a/drivers/usb/core/port.c
+> +++ b/drivers/usb/core/port.c
+
+[ ... ]
+
+> @@ -813,6 +859,7 @@ int usb_hub_create_port_device(struct usb_hub *hub, i=
+nt port1)
+>  	if (!is_acpi_node(dev_fwnode(&hdev->dev)))
+>  		device_set_node(&port_dev->dev,
+>  				fwnode_graph_get_port_by_id(dev_fwnode(&hdev->dev), port1));
+>  	mutex_init(&port_dev->status_lock);
+>  	retval =3D device_register(&port_dev->dev);
+
+[Severity: Medium]
+Does registering the device here expose sysfs attributes before the power
+sequencer is fully initialized?
+
+device_register() exposes the device to userspace. A concurrent write to
+the sysfs disable attribute can invoke disable_store(), which calls
+usb_hub_set_port_power() and accesses port_dev->pwrseq without locking,
+before it is assigned below.
+
+>  	if (retval) {
+>  		put_device(&port_dev->dev);
+> +		hub->ports[port1 - 1] =3D NULL;
+>  		return retval;
+>  	}
+
+[ ... ]
+
+> @@ -871,10 +925,13 @@ int usb_hub_create_port_device(struct usb_hub *hub,=
+ int port1)
+>  	}
+>  	return 0;
+> =20
+> +err_put_pwrseq:
+> +	pwrseq_put(port_dev->pwrseq);
+
+[Severity: Medium]
+Could this result in a use-after-free if a concurrent sysfs write is in
+progress?
+
+If device_register() succeeded earlier, a racing sysfs operation might be
+using the pwrseq descriptor when we free it here on the error path.
+
+>  err_put_kn:
+>  	sysfs_put(port_dev->state_kn);
+>  err_unregister:
+>  	device_unregister(&port_dev->dev);
+> +	hub->ports[port1 - 1] =3D NULL;
+
+[Severity: High]
+Does clearing the array entry after device_unregister() leave a race window?
+
+Since device_unregister() blocks to drain active sysfs and PM operations,
+the array still contains a dangling pointer to this soon-to-be-freed memory
+during that window. Should hub->ports[port1 - 1] be cleared before
+unregistering?
+
+> =20
+>  	return retval;
+>  }
+> @@ -888,6 +945,7 @@ void usb_hub_remove_port_device(struct usb_hub *hub, =
+int port1)
+>  {
+>  	struct usb_device *hdev =3D hub->hdev;
+>  	struct usb_port *port_dev =3D hub->ports[port1 - 1];
+>  	struct usb_port *peer;
+> =20
+>  	peer =3D port_dev->peer;
+
+[Severity: High]
+Does this code need to check if port_dev is NULL?=20
+
+If usb_hub_create_port_device() failed previously, it sets this array entry
+to NULL. During hub disconnect, iterating over all ports and calling this
+function would blindly dereference port_dev here.
+
+>  	if (peer)
+>  		unlink_peers(port_dev, peer);
+> +	pwrseq_put(port_dev->pwrseq);
+
+[Severity: High]
+Could freeing the power sequencer here cause a use-after-free?
+
+By calling pwrseq_put() before device_unregister(), the descriptor is freed
+while PM runtime and sysfs attributes are still fully active. A racing PM
+autosuspend timer calling usb_hub_set_port_power() could dereference the
+freed port->pwrseq.
+
+Additionally, should hub->ports[port1 - 1] be set to NULL here to prevent
+dangling pointers?
+
+>  	component_del(&port_dev->dev, &connector_ops);
+>  	sysfs_put(port_dev->state_kn);
+>  	device_unregister(&port_dev->dev);
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709113148.4909=
-0-1-angelogioacchino.delregno@collabora.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709095726.7044=
+48-1-wenst@chromium.org?part=3D9
