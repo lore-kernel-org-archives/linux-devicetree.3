@@ -1,369 +1,147 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF92401A25;
-	Thu,  9 Jul 2026 08:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A223FFACC
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 08:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783587072; cv=none; b=Jbd6hvOd66m0g3HAmpwZ/LT2OuH8iVCdwEqxJBbk+Eml6KOAYHI0h5kweIm3b5QcksTflWTxNGUzz7DmH1RCHqzul0mOGC9iDHAE4PlejWlb2CJSc9HrfO2kADhh3YWOo6iAw2/suiaZ1lAbcpbXIrQkeDcXXT+T00jxVCNP73c=
+	t=1783587144; cv=none; b=Nrtz8iRA7mg5P3cZqpcWDtaAxSNWVK2ARFX58Rdb+jOSg/Uq/GHzzVgQtJSqIi2d7UyFS7CCOAQkOgiCGwr21amAFlG2NX9oF7tawUyJ1v//L8ZD67PhCyOnHMWZKsId1kXBHheMHYmELEhBnlJE2ZRRFou1QBR6KOy3gyw7x6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783587072; c=relaxed/simple;
-	bh=Gzue0wXD7dOgBiIiLp1g8F0rX9C137u75V+oh7Yxv1w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=cQ0S+lir4+P7cHdWnk1nX3weLUPz63MyZc0/QftgZXPmA3LfefbYmPFtcqK6TVSC0/OUgHoOITLkGHTnvgDZyf3rJWEULIqtTChO54XKCPuYuW5iFvpwR+xhduQQzZf8oOt6Hzwl893PvTI+yg/FS4lc6hRtvyBrp6Hk7N5Hcx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=VC47+a0X; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1783587144; c=relaxed/simple;
+	bh=CEzdu4hjCxN900cClvyfjf2+rQRO/dcw4HTOGkcHk/g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i0YQzUHULOvwRl1XS19aXA6Xpp+5GGLFzy+0x/0EKQHWW82EGFQylmDK6rFrxsgapVVG1tUlb7fZG979ZuQKlgKJJzgmYAUSx92rb5GDHjDh2lpvaYxH92OvFJdDSHszIKhIBrCY12uKMDUJlIMlHi47S5/nlI/xjwXHaUCkeeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M2eC1kdV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WLZR+Hjp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="VC47+a0X"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6697aLtq267962;
-	Thu, 9 Jul 2026 04:50:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=lHdOD
-	KHongYEY/mkHZFd+aKhUu6QqlZLnHMVB+W9gI8=; b=VC47+a0X6zj/hWl8kNA1G
-	ytuEKTUfpfAgyBmy0ZMk4uRSWo+6bXn2oGJq9+q9MfXm2WVnioF0nbcg9cRDN8pu
-	6G0JN9WtURyHT/IXB5pItZJZXqGm73EmedBRczHU47v+Zz4sh17FmdIVRXIvNtvd
-	4L0JUrcTdb+3BN/o/zjiwlRY/CXY/zGVkQe1KB8QJAgfseiNJ14QntDZ6D66rOFw
-	cE7gPvplk8hIg6mrPEzGITpy8Y6sJ9WBqJbtRcY+c6vk0Qg4gQBJtlEF0L8CT9/E
-	UbejqmHItNMUeLNssNmXk9otrJeAfs/7D61DyNf7KUZow1bF2CfDu+Yys2e2Gnu3
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4fa2jghraf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Jul 2026 04:50:55 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6698osSa003610
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 9 Jul 2026 04:50:54 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 9 Jul
- 2026 04:50:54 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 9 Jul 2026 04:50:54 -0400
-Received: from HYB-e1y2fvUQ3cx.ad.analog.com (HYB-e1y2fvUQ3cx.ad.analog.com [10.44.3.70])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6698oLR2015849;
-	Thu, 9 Jul 2026 04:50:47 -0400
-From: Janani Sunil <janani.sunil@analog.com>
-Date: Thu, 9 Jul 2026 10:50:17 +0200
-Subject: [PATCH 6/6] Documentation: iio: Add AD7768 Documentation
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M2eC1kdV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WLZR+Hjp"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66960JMF750007
+	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 08:52:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=GVZrXg9KekARpSXHiVBpNmROGTY7fe3HqB/
+	w0Xh3O18=; b=M2eC1kdVmHYcfwQrMy4CsHCN1RhDZ0ug0JVYn6JbknYNm1ViHON
+	2JSh1aTN7990OtfdTuq7XBJT7AkOMyKQfmo06MPqIG4CGtsn+gC4I1J0ugHt9fgv
+	5HeoANfsZ+Xrk3D3iwy5dSI6BuLuBU46TvBb32QxDBb24KBI9GItQWu6Pb0GJsX+
+	KyC5CEu8Gq4IEcWk9V0l+5T0FxzFrAflrnmxtPOdxE0SmpzoCx9qtgDK1CofpGQY
+	eQHFBaeQLAxBWBXbFkmJZIgoOGCRXsjAiFa7BizL0gjMIc8aZ3DIKjcdlKua4DSh
+	AMARs2jY51Y/Qr53n8rPAt6OR6CNz49kVOA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9wwft87h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 08:52:22 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-848551b54f5so1296277b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 01:52:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783587142; x=1784191942; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GVZrXg9KekARpSXHiVBpNmROGTY7fe3HqB/w0Xh3O18=;
+        b=WLZR+HjpHDrl5ql6YjC7Bn+LHyp6qBAJqNJZGweX1IruTsH87og7qLSwGFll4RpuSP
+         PiWJi6l6oo4yPK/BSJu8CToXr98Jw0KWVrGFpXAfsNYNUl6nAKXslUGa+lMClEAFYFuG
+         C8V5LPXYriZoxxY/r+e2Bg0w3KgXg0q2o1GT/MGeRVar5UD5eosPcXjhyp7+Zijc2pR9
+         wIyuszO9naxTkls1INg1/iCDEoknpQ+vM+10KzhN3dKseROCmNRAOUythgG86wLAGypz
+         Isfvf50q7QXx7eBLp2mu9QTH97NDhOKJSQ6nMxdeBwt3tHrwXk8eVkDyg//oEiLR0MjC
+         yXxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783587142; x=1784191942;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GVZrXg9KekARpSXHiVBpNmROGTY7fe3HqB/w0Xh3O18=;
+        b=KgVKZmg03mW7umDyMbhGfq0BQrDznkgwloPxXjyeN17rJpDh3lE+6uvUaCbAKI2CYG
+         qS3iTzBfk3cJ72bNRI5pz+jM77QVK48Xilldtxx78Lvxr3YcNg8dGvWzFQmsoAc0GAb2
+         QrVl4ehuswbPBHM64lJYBZaWvP1EZL7utrDXeRtYtm9x4/WlVXAmHWWW5z/YEQ6tObrl
+         2SOiFauIppyBjaKyPAUsRU7gxu3KhZnzEXqKf3peUgRoE2aSySSY7KoH+r7Qbj2yind3
+         Qm27mPcuBmXcr9TVqlQc4aLlA4ksR6DH1NHkOD+Llz9n+YVr6SV/vKJ5vJrNAjIBh9LB
+         uU6w==
+X-Forwarded-Encrypted: i=1; AHgh+Rqll5Jz66xOHStffXwF0I3kdCNI8KFreEe8xLH39Gr0JJVoEEVOQdINv8bLnmR5IeOgE81Jyz+qiA7C@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc+VYEWX7rzqIM57nGvkj+EAktX1ktQFLjfZ6v72m3Pk3Wz8dt
+	pnKz86apQ8L2ZhdILSCWWaYNpdkeDikKJx5oTEM1ScHjtvQIwhayCVLwDCAzilxY/EPqZVh/j93
+	kB2KVZdHyyxwCWARflSV0PonYXLsXEzjyljabOxEGr7XsIRnVN9aU5fnjIYph3Zq+
+X-Gm-Gg: AfdE7cmqjOjqbZwSAo8Xs+LJOoWmgf47T1DFL0rT962R10TjCArkAGDuXH42D1FtCRj
+	W//4LPaMY0o4dxQngQCurlq8F/dCXYl+TUGuVX2M5fA8ibHH2R+h7Y75v3ReUFzygWdmjwiJUQK
+	4l3UPL0cgzKRyqKwDAP8gyuLYUMYLnzVoA2jQsqSDugKp8lg9W8Zq7Z3lfkcbhWbU/hQXZtnspa
+	W8AiNAiytn+MhMIkDiw+2ve9msVhVZOU7pIJf7hkEgyfgSEpCmTtG/GuigNQn/vEoyxQJefQHka
+	GFkBjgDc0hpun5L1Z2/H52SzMPRWUmBLMFa8FlZO0rq5lGckjXS6n6yHvzH9zLU97/lRMIyWR7i
+	COrI1Q6oBzBFFoKJ1w0dOqYk0ofVOwDrUxr5M5v+kFj02W8daTa6bPjVy9af64PG2ZXXiZTA=
+X-Received: by 2002:a05:6a00:170c:b0:847:83bb:9b94 with SMTP id d2e1a72fcca58-84843424973mr5718334b3a.48.1783587141612;
+        Thu, 09 Jul 2026 01:52:21 -0700 (PDT)
+X-Received: by 2002:a05:6a00:170c:b0:847:83bb:9b94 with SMTP id d2e1a72fcca58-84843424973mr5718311b3a.48.1783587141169;
+        Thu, 09 Jul 2026 01:52:21 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca5b3b25204sm3460027a12.28.2026.07.09.01.52.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 09 Jul 2026 01:52:20 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 0/3] Add ADSP support for Nord SoC
+Date: Thu,  9 Jul 2026 16:51:46 +0800
+Message-ID: <20260709085149.4072181-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260709-ad7768-driver-v1-6-44e1194fd96a@analog.com>
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
-In-Reply-To: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David
- Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob
- Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor
- Dooley <conor+dt@kernel.org>,
-        Olivier Moysan <olivier.moysan@foss.st.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>
-CC: <linux@analog.com>, <linux-iio@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <jananisunil.dev@gmail.com>, Janani Sunil <janani.sunil@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783587021; l=9441;
- i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
- bh=Gzue0wXD7dOgBiIiLp1g8F0rX9C137u75V+oh7Yxv1w=;
- b=go9SaAst0su+CEu08GXXG4+pn0Pwhnj7LQaX1urggcSmBGjMugPcjEIMSe6idmxsGHXAV/NGJ
- /3Usa1IYcSIAhnTI3OiHT4eO6VJOgsbu4b730Yb7GC01TQYEOZ4QJwU
-X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
- pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfXwZic2XDUvkKB
- EkeV5LgxVnVCieUQeXoCcgtwqXffiUSiDszkY0svnKKb5Ri9fpKA5Z5WZp++CWGoj1jjrt88Tna
- Xv+R2SqlkzyZ9HlOLLtUjyMIQYNi7TiEUITiZAcbldqAs5mtebx0
-X-Authority-Analysis: v=2.4 cv=bPcm5v+Z c=1 sm=1 tr=0 ts=6a4f60ef cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
- a=VwQbUJbxAAAA:8 a=GV2GhdOKgmG-7AKwTDsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: jQkRfAWnSYx8XI0sZvIO71I1U0m4BF7L
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfX9k+7xwwST4je
- mbjxw/FpIPVkUaY+qJ36tOXQfqyIeUPtrk+3eJm+eSDF0EKWWZ1lDzH+LGx56J5JyvQU4zIF7pM
- HAsQi1RUt9A+V2+swEB5jKR7B8fOJm/wf2Xzhlr2jNcHXNUSZMa6s2FGyVb0ONx1X2TurQ5dVmc
- hpbtdy89WwjWCrLmnvGnyWaEq+Zm9Dm3ofy5vSpM+ie3WeKhuKGKziwSJGTrWbwuENoh4p/0mYp
- 18AyO0Qpd5uR7AeqIQSu1vw2RzrEMl+iXhrEu5JWOCUWpindaIivV5vmbmM8ZQZTHdML4BfUGcc
- sQIGyMxpAk96vJPbbhW5ZLN8GAPH+V/97dQJBoNo7ou55GARP4bcTzrszJJQyQxyxgbh3TUBqUN
- koVSGfuTu7XgeBkmwBNqhNMBmlKATJLX1M+4kxMcF2DkBUGPoFXFC4gXCEx6DxCCotDEQRH2HnW
- B9cBY5aqHkgWi8JXztg==
-X-Proofpoint-ORIG-GUID: jQkRfAWnSYx8XI0sZvIO71I1U0m4BF7L
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfX9Nf9S3PJOFGl
+ oPhEHLhUxQW71ZKv+Hkko2KdBb3x8ejWKkyRmoUAVdNHVnMmm3nw97RGS5lVqidoGyuV8CcEY/Q
+ E2IzcaFRZrcfuN4VrTHCD/wqtu90YzeM6Csn2F391ZJiSNtuVTNItnIo556jCWYmVjz0qPiwOE1
+ eJHFQhooOcWPPvDoUFOo42GdikUOYjaQHemrLtlPmC0kyFfAxfJiIqA6Bx8VwCgoQAdgTlqd/Pc
+ gZYBLieIWf5RTS4URhIaxpX8+KjEa2t7i11982jUyEMPY1pzJuHLD2J5Z8cwXaIPacYUIWKxJUc
+ 63NECtnhZPDFInvyJUwPGUiGvHEXnUuVLbtmFX8J6w6HgesHDXlHZ7m0hI057OuZaGieBG92tVN
+ 7dK8EkSxeDO4rcZ+0ZReQZqevfF8JNwzHivRzbf5JwXQOb46QIKMf+l0wso4XJULW4kGdzp6zSM
+ hFw4iZZXYeTsD2bg2BA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfXypZD+h2K7Hhu
+ yo0k664WXNcTgxVE2kjv5ROGgjX7LO5zKgXVuQwXFjngMjLbdaJHMBC5+3qh9GZ5DEvmwXjXdjV
+ tNOyoqDbJcDytKntIipd7vHjYGQxoJ4=
+X-Proofpoint-ORIG-GUID: lS-No13z01EAqPrimis4RTMef-ExmWMd
+X-Proofpoint-GUID: lS-No13z01EAqPrimis4RTMef-ExmWMd
+X-Authority-Analysis: v=2.4 cv=Krh9H2WN c=1 sm=1 tr=0 ts=6a4f6146 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=H-xtdE_VxQG5-1k7KcYA:9
+ a=IoOABgeZipijB_acs4fv:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 phishscore=0
- clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090083
+ clxscore=1015 phishscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607090083
 
-Add driver documentation for AD7768
+The series documents AOSS side channel and adds ADSP (HPASS DSP)
+remoteproc support for Nord SoC.
 
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
----
- Documentation/iio/ad7768.rst | 207 +++++++++++++++++++++++++++++++++++++++++++
- Documentation/iio/index.rst  |   1 +
- MAINTAINERS                  |   1 +
- 3 files changed, 209 insertions(+)
+Nord SoC actually have 3 ADSPs. This series only enables ADSP0 which
+can work independently. The rest two instances have dependencies on
+ADSP0 regarding start/stop and SSR. And remoteproc framework doesn't
+seem to support such "slave" instances yet.
 
-diff --git a/Documentation/iio/ad7768.rst b/Documentation/iio/ad7768.rst
-new file mode 100644
-index 000000000000..438e33d4f375
---- /dev/null
-+++ b/Documentation/iio/ad7768.rst
-@@ -0,0 +1,207 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+
-+=============
-+AD7768 driver
-+=============
-+
-+ADC driver for Analog Devices Inc. AD7768 and AD7768-4 devices. The module name
-+is ``ad7768``.
-+
-+Supported devices
-+=================
-+
-+The following chips are supported by this driver:
-+
-+* `AD7768 <https://www.analog.com/en/products/ad7768.html>`_ - 8-channel, 24-bit simultaneous sampling ADC
-+* `AD7768-4 <https://www.analog.com/en/products/ad7768-4.html>`_ - 4-channel, 24-bit simultaneous sampling ADC
-+
-+Supported features
-+==================
-+
-+Power modes
-+-----------
-+
-+The AD7768 family supports three configurable power and performance modes:
-+
-+* **Low power mode** - Optimized for lowest power consumption
-+* **Median mode** - Balanced power and performance
-+* **Fast mode** - Highest performance with maximum sampling rates
-+
-+The power mode affects the available sampling frequencies and power consumption.
-+Set via the ``adi,power-mode`` device tree property.
-+
-+Data output configuration
-+-------------------------
-+
-+The devices support flexible serial data output configurations:
-+
-+AD7768 data lines
-+^^^^^^^^^^^^^^^^^
-+
-+* 1 data line (DOUT0) - Standard single-lane output
-+* 2 data lines (DOUT0, DOUT1) - Dual-lane output for higher throughput
-+* 8 data lines (DOUT0-DOUT7) - Maximum throughput, one line per channel
-+
-+AD7768-4 data lines
-+^^^^^^^^^^^^^^^^^^^
-+
-+* 1 data line (DOUT0) - Standard single-lane output
-+* 4 data lines (DOUT0-DOUT3) - Maximum throughput, one line per channel
-+
-+The number of data lines is configured via the ``adi,data-lines-number``
-+device tree property.
-+
-+Channel configuration
-+---------------------
-+
-+Each channel can be individually configured with:
-+
-+Channel modes
-+^^^^^^^^^^^^^
-+
-+* **Mode A** - First set of filter and decimation settings
-+* **Mode B** - Second set of filter and decimation settings
-+
-+Each channel can be assigned to either Mode A or Mode B via the
-+``adi,ch-mode`` device tree property.
-+
-+Channels assigned to the same mode share the same runtime filter and
-+decimation configuration. The per-channel IIO attributes for sampling
-+frequency and filter type are aliases to the channel's assigned mode
-+profile rather than independent per-channel settings.
-+
-+Precharge and reference buffers
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+Per-channel buffer control for optimal signal integrity:
-+
-+* Positive input precharge buffer (``adi,prebuf-pos-en``)
-+* Negative input precharge buffer (``adi,prebuf-neg-en``)
-+* Positive reference buffer (``adi,refbuf-pos-en``)
-+* Negative reference buffer (``adi,refbuf-neg-en``)
-+
-+Common mode voltage
-+-------------------
-+
-+Configurable common mode output voltage levels:
-+
-+* (AVDD - AVSS) / 2V
-+* 1.65V
-+* 2.5V
-+* 2.14V
-+
-+Set via the ``adi,common-mode-output`` device tree property.
-+The common mode buffer can be powered down using ``adi,vcm-power-down``.
-+
-+Filter types
-+------------
-+
-+Two digital filter types are available:
-+
-+* **Wideband** - Optimized for wide bandwidth applications
-+* **Sinc5** - Fifth-order sinc filter for high rejection of out-of-band noise
-+
-+IIO backend support
-+-------------------
-+
-+The driver integrates with IIO backends (e.g., AXI ADC) for high-speed data
-+capture and DMA operations. Features include:
-+
-+* Automatic channel enable/disable based on scan mask
-+* CRC on data interface. CRC replaces the header every 4th output sample.
-+* High-throughput buffered data acquisition
-+
-+GPIO controller
-+---------------
-+
-+The AD7768 includes a 5-pin GPIO controller for auxiliary digital I/O
-+operations. The GPIO pins can be configured as inputs or outputs.
-+
-+Device attributes
-+=================
-+
-+The following IIO attributes are available for each enabled channel:
-+
-+Sampling frequency
-+------------------
-+
-++---------------------------------------+--------------------------------------------------------------+
-+| Attribute                             | Description                                                  |
-++=======================================+==============================================================+
-+| ``in_voltage<N>_sampling_frequency``  | Current sampling frequency in Hz for channel N. Channels     |
-+|                                       | assigned to the same mode profile read back the same value.  |
-++---------------------------------------+--------------------------------------------------------------+
-+
-+Filter configuration
-+---------------------
-+
-++---------------------------------------+--------------------------------------------------------------+
-+| Attribute                             | Description                                                  |
-++=======================================+==============================================================+
-+| ``in_voltage<N>_filter_type``         | Current filter type for channel N: "wideband" or "sinc5".    |
-+|                                       | Channels assigned to the same mode profile share this value. |
-++---------------------------------------+--------------------------------------------------------------+
-+| ``in_voltage<N>_filter_type_          | Available filter types for channel N: "wideband sinc5".      |
-+| available``                           |                                                              |
-++---------------------------------------+--------------------------------------------------------------+
-+
-+Per-channel calibration
-+-----------------------
-+
-++---------------------------------------+--------------------------------------------------------------+
-+| Attribute                             | Description                                                  |
-++=======================================+==============================================================+
-+| ``in_voltage<N>_calibbias``           | Channel offset calibration value                             |
-++---------------------------------------+--------------------------------------------------------------+
-+| ``in_voltage<N>_calibscale``          | Channel gain calibration value                               |
-++---------------------------------------+--------------------------------------------------------------+
-+| ``in_voltage<N>_phase``               | Channel phase calibration value.                             |
-++---------------------------------------+--------------------------------------------------------------+
-+
-+Device buffers
-+==============
-+
-+This driver supports IIO buffered data acquisition through IIO backends.
-+When used with compatible backends like the AXI ADC, it provides:
-+
-+* High-speed simultaneous sampling across all enabled channels
-+* Hardware-triggered data capture
-+* DMA-based data transfer for minimal CPU overhead
-+* CRC error detection
-+
-+See :doc:`iio_devbuf` for more information about IIO device buffers.
-+
-+Example usage
-+=============
-+
-+.. code-block:: bash
-+
-+	# Read current sampling frequency for channel 0
-+	cat /sys/bus/iio/devices/iio:device0/in_voltage0_sampling_frequency
-+
-+	# Update sampling frequency for channel 0
-+	echo 8000 > /sys/bus/iio/devices/iio:device0/in_voltage0_sampling_frequency
-+
-+	# Read current filter type for channel 0
-+	cat /sys/bus/iio/devices/iio:device0/in_voltage0_filter_type
-+
-+	# List available filter types for channel 0
-+	cat /sys/bus/iio/devices/iio:device0/in_voltage0_filter_type_available
-+
-+	# Update filter type for channel 0 to wideband
-+	echo wideband > /sys/bus/iio/devices/iio:device0/in_voltage0_filter_type
-+
-+	# Updating one channel also updates all channels assigned to the same
-+	# mode profile (Mode A or Mode B) selected by adi,ch-mode in devicetree
-+
-+	# Read calibration scale for channel 0
-+	cat /sys/bus/iio/devices/iio:device0/in_voltage0_calibscale
-+
-+	# Read phase calibration for channel 0
-+	cat /sys/bus/iio/devices/iio:device0/in_voltage0_phase
-+
-+
-+Unimplemented features
-+======================
-+
-+* CRC message every 16 samples (CRC_SEL configuration) - currently only supports CRC every 4 samples
-diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
-index b02b879b053a..73c58cec7620 100644
---- a/Documentation/iio/index.rst
-+++ b/Documentation/iio/index.rst
-@@ -29,6 +29,7 @@ Industrial I/O Kernel Drivers
-    ad7380
-    ad7606
-    ad7625
-+   ad7768
-    ad7944
-    ade9000
-    adf41513
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3de7ebcc4ee7..b93c77d3a4c3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1639,6 +1639,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,ad7768.yaml
-+F:	Documentation/iio/ad7768.rst
- F:	drivers/gpio/gpio-ad7768.c
- F:	drivers/iio/adc/ad7768.c
- 
+Shawn Guo (3):
+  dt-bindings: soc: qcom,aoss-qmp: Document Nord AOSS side channel
+  dt-bindings: remoteproc: qcom,sm8550-pas: Document Nord ADSP
+  remoteproc: qcom: pas: Add Nord ADSP support
+
+ .../bindings/remoteproc/qcom,sm8550-pas.yaml  | 19 ++++++++++++++++
+ .../bindings/soc/qcom/qcom,aoss-qmp.yaml      |  1 +
+ drivers/remoteproc/qcom_q6v5_pas.c            | 22 +++++++++++++++++++
+ 3 files changed, 42 insertions(+)
 
 -- 
 2.43.0
