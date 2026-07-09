@@ -1,94 +1,184 @@
-Received: from mail.maslowski.xyz (mail.maslowski.xyz [45.77.158.94])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DEE347BAF;
-	Thu,  9 Jul 2026 23:23:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.77.158.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90E73ACA43
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 23:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783639429; cv=none; b=Tn0CxMf4y6h/9EB8HQ9iDO7nItUJMx5JnSGqSPZlhIkoqpK856/yOA7EptmoW9omrS0pnnLqtownMSZ8w8uxO6GuNITZThpTfAHxfdVzTBX4A8bGBGfFMk6T701oDeTc7k7DWw82feL3LYexFfV4ypa27qmHmo6EIKK8cUrUk1Y=
+	t=1783639486; cv=none; b=WG4TU84OhgXgJxEUNxSez6TU9JbMCyAUvze73SUvxAPLeE22bcKz9EsTzi2EOnTNeCvdxIoLuO+SVlVVfP3lQnwM1Kyz2+qp8ezd8kOegWdzDfHa6Mbyf9sJdtJ3M+3s6R17bVEI26lkhJNVwHMlPoQLyuLRv0Bc2Pu3+OO+eGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783639429; c=relaxed/simple;
-	bh=6p4mTHct6xG4EjksULhZhC0FBM6s3IkWFA5OdscgQ9g=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=OoQFoCd0EjA4SzV6mBSoxzgGD+yvBylQy28tGzCLngQnq8teQiH77KPfZ76S4iF0H6T0N5AvE3SCOR6iDy+hx9pVeXctzeTGc3/oLomg03BNfwxKwrWjGk9KieJyqbMugFzkxWsPi76pTOSPkvj+9r+rdVedPUWhJG7TbJZWRIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=maslowski.xyz; spf=pass smtp.mailfrom=maslowski.xyz; dkim=pass (2048-bit key) header.d=maslowski.xyz header.i=@maslowski.xyz header.b=FzT9y8Xb; arc=none smtp.client-ip=45.77.158.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=maslowski.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=maslowski.xyz
+	s=arc-20240116; t=1783639486; c=relaxed/simple;
+	bh=TDfow234Y24Uv9VVaS5R1w/TbIdo/8wYGSDZ7Qohh14=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AqzCVFeK3gobNBnQDJWvWnbzm/noKr9TKzM+tK5ZsKlZz2bAVAkBs+roELQ2djWhxJNxCTx9cHMWq0SHpJvvauChq6QkSY64vEM0Uy7414y9xNesvzaR302T/a8aUKiwfXJWeUyiCGhux9S75W3NmOmig+bYMkft7xr7hu0ZHDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqZaCLlj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=maslowski.xyz header.i=@maslowski.xyz header.b="FzT9y8Xb"
-Received: from localhost (public-gprs387849.centertel.pl [37.47.146.74])
-	by mail.maslowski.xyz (Postfix) with ESMTPSA id EB0CE7D5AC;
-	Thu,  9 Jul 2026 23:17:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=maslowski.xyz;
-	s=mail; t=1783639063;
-	bh=6p4mTHct6xG4EjksULhZhC0FBM6s3IkWFA5OdscgQ9g=;
-	h=Date:To:Cc:Subject:From:References:In-Reply-To:From;
-	b=FzT9y8Xb8ZNgiWivEhcuM9ax/2mZEvdYBOIH9b3rFWRnv+oUTd3enuolQPLD7SKOq
-	 hRTkLGZtoXjWkqAB8SwxF51ELLrVeAJWbycZ2TxTnHyGBf3I4J26pqjITfSQwXXblc
-	 7OyjEgrjZ0dTD2rOMo1ncmD1z3KiP/Q8yDuUv2o8/bVhRFjtcZYb0/Yu4EadKso4Tj
-	 BlBZH9/wr1tt6PGKIkNac2nB7j9vzkaiEYtSJttq1Vlpf4S4+SMPZ+9Ps/mqHJfEO+
-	 MAsSfXywvllxKToDmvCYNk4kr3PzsrUnGhoK0Rqo1rJssb78m7yhYLw/irtxpvdesY
-	 IHgcA1OmICZrQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqZaCLlj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40EE11F000E9;
+	Thu,  9 Jul 2026 23:24:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783639484;
+	bh=bWAUnOxH+vE2eri1zPU9+ocxlWjlHvuUPBABOTNL/cs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SqZaCLljKLz3qJkvggIcS0cJ36XTYwP59oIl13mHultYC7YsZ1ZW+ooPsUkm+OWCo
+	 WR3nqsMS53Imwc62h1ce4fd2ZMB2wt2gv+tazg5Jd2pYNu3kNKChNfk2vjZ/qMX/9L
+	 Tm+odqIvx7JQuofyzsHFj/JTJXXNuCm4s/tUC/Eu2KVtaAT0AlzcK+6Kp19tPiLzEL
+	 AqsaJKAkPiMTxxeM+gRDbyX9vhR0cbaEiGI/jqM/yVSFCvODioIayyC3IRUj+t32NS
+	 ZmN7/uY0Lv7ldhbqLcN09bY/Y5CkvLCCFkCJ2uyMmIv8L6ZtXLX8fXvHI8805SO9n9
+	 bFy+OzEmRyBKA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 3/4] iio: adc: ltc2378: Enable high-speed data
+ capture
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <4d4b5cac52b6f4a341d97bd41562a451e8e757f7.1783629101.git.marcelo.schmitt@analog.com>
+References: <cover.1783629101.git.marcelo.schmitt@analog.com>
+ <4d4b5cac52b6f4a341d97bd41562a451e8e757f7.1783629101.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 23:24:43 +0000
+Message-Id: <20260709232444.40EE11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 10 Jul 2026 01:17:39 +0200
-Message-Id: <DJUFA03SIN5C.1A8B6N89448P0@maslowski.xyz>
-To: "Janne Grunau" <j@jannau.net>
-Cc: "Sven Peter" <sven@kernel.org>, "Neal Gompa" <neal@gompa.dev>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Thomas Gleixner" <tglx@kernel.org>,
- "Wim Van Sebroeck" <wim@linux-watchdog.org>, "Guenter Roeck"
- <linux@roeck-us.net>, "Linus Walleij" <linusw@kernel.org>, "Mark Kettenis"
- <kettenis@openbsd.org>, "Andi Shyti" <andi.shyti@kernel.org>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, "Sasha
- Finkelstein" <k@chaosmail.tech>, <asahi@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-watchdog@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>, <linux-i2c@vger.kernel.org>,
- <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH 08/11] dt-bindings: i2c: apple,i2c: Add t6030 and t6031
- compatibles
-From: =?utf-8?q?Piotr_Mas=C5=82owski?= <piotr@maslowski.xyz>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260709-apple-t603x-initial-devices-v1-0-55b305833123@jannau.net> <20260709-apple-t603x-initial-devices-v1-8-55b305833123@jannau.net>
-In-Reply-To: <20260709-apple-t603x-initial-devices-v1-8-55b305833123@jannau.net>
 
-Hello. This is the tiniest possible nitpick, but it could
-throw somebody off when grepping through commit messages so:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `st->offload_trigger_config` structure is partially mutated on=
+ the error path, leading to out-of-sync hardware configuration.
+- [Medium] Spurious failure in sample frequency configuration due to asymme=
+tric period-to-frequency mathematical conversions.
+- [Low] Missing MODULE_IMPORT_NS for the SPI_OFFLOAD namespace.
+--
 
-On Thu Jul 9, 2026 at 9:30 AM CEST, Janne Grunau wrote:
-> The i2c block on Apple silicon M3 Pro, Max and Ultra SoCs are compatible
-> with the t8103 (M1) one. Add "apple,t6030-i2c" for M3 Pro and
-> "apple,t6031-i2c" for M3 Max and Ultra as per-S0C compatibles.
+--- Patch [3]: [PATCH v6 3/4] iio: adc: ltc2378: Enable high-speed data cap=
+ture ---
+commit 3324fe468bed00820abda81953b558c8f8c9f5e4
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-You've got a '0' (zero) instead of an 'O' here.  ^
+iio: adc: ltc2378: Enable high-speed data capture
 
->
-> Signed-off-by: Janne Grunau <j@jannau.net>
-> ---
->  Documentation/devicetree/bindings/i2c/apple,i2c.yaml | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/i2c/apple,i2c.yaml b/Docum=
-entation/devicetree/bindings/i2c/apple,i2c.yaml
-> index 9e59200ad37b..d39f5e3f1df4 100644
-> --- a/Documentation/devicetree/bindings/i2c/apple,i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/apple,i2c.yaml
-> @@ -24,6 +24,8 @@ properties:
->        - items:
->            - enum:
->                - apple,t6020-i2c
-> +              - apple,t6030-i2c
-> +              - apple,t6031-i2c
->                - apple,t8122-i2c
->            - const: apple,t8103-i2c
->        - items:
+This commit updates the ltc2378 ADC driver to support high-speed data
+capture. It utilizes SPI transfer offloading to increase data acquisition
+rates up to 2 MSPS.
 
-Cheers,
-Piotr Mas=C5=82owski
+> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> index c9f8b19e0298c..10f1a0c4534be 100644
+> --- a/drivers/iio/adc/ltc2378.c
+> +++ b/drivers/iio/adc/ltc2378.c
+[ ... ]
+> @@ -260,7 +359,136 @@ static int ltc2378_read_raw(struct iio_dev *indio_d=
+ev,
+[ ... ]
+> +static int ltc2378_update_conversion_rate(struct ltc2378_state *st, int =
+freq_Hz)
+> +{
+> +	struct spi_offload_trigger_config *config =3D &st->offload_trigger_conf=
+ig;
+> +	unsigned int min_read_offset, offload_period_ns;
+> +	struct pwm_waveform cnv_wf =3D { };
+> +	u64 target =3D LTC2378_TCNV_HIGH_NS;
+> +	unsigned int count;
+> +	u64 offload_offset_ns;
+> +	int ret;
+> +
+> +	if (freq_Hz =3D=3D 0)
+> +		return -EINVAL;
+> +
+> +	if (!in_range(freq_Hz, 1, st->info->max_sample_rate_Hz))
+> +		return -ERANGE;
+> +
+> +	/* Configure CNV PWM waveform */
+> +	cnv_wf.period_length_ns =3D DIV_ROUND_CLOSEST(NSEC_PER_SEC, freq_Hz);
+> +
+[ ... ]
+> +	/*
+> +	 * Configure SPI offload PWM trigger.
+> +	 * The trigger should fire after tBUSYLH + tCONV + tDSDOBUSYL.
+> +	 * Minimum time needed: TBUSYLH (13ns) + TCONV (part-specific) + TDSDOB=
+USYL (5ns)
+> +	 *
+> +	 * Use the same period as CNV PWM to avoid timing issues.
+> +	 * Convert back from period to frequency for the SPI offload API.
+> +	 */
+> +	offload_period_ns =3D cnv_wf.period_length_ns;
+> +	config->periodic.frequency_hz =3D DIV_ROUND_UP(HZ_PER_GHZ, offload_peri=
+od_ns);
+> +	min_read_offset =3D LTC2378_TBUSYLH_NS + st->info->tconv_ns + LTC2378_T=
+DSDOBUSYL_NS;
+> +	offload_offset_ns =3D min_read_offset;
+> +	count =3D 100;
+> +	do {
+> +		config->periodic.offset_ns =3D offload_offset_ns;
+> +		ret =3D spi_offload_trigger_validate(st->offload_trigger, config);
+> +		if (ret)
+> +			return ret;
+
+[Severity: High]
+Does modifying config directly leave the device state out of sync if
+validation fails?
+
+Here config aliases to &st->offload_trigger_config, and its frequency_hz and
+offset_ns fields are mutated. If spi_offload_trigger_validate() returns an
+error, the function returns without restoring the old configuration.
+
+However, st->cnv_wf is only updated at the end of the function. If the
+buffer is later enabled, could this result in the PWM running with the old
+frequency while the SPI offload engine tries to use the new, rejected
+frequency?
+
+> +		offload_offset_ns +=3D 10;
+> +	} while (count-- && config->periodic.offset_ns < min_read_offset);
+> +
+> +	/* Check the minimum CNV to SCLK delay is met */
+> +	if (config->periodic.offset_ns < min_read_offset)
+> +		return -EDOM;
+> +
+> +	/* Check the PWM periods remain the same */
+> +	offload_period_ns =3D div64_u64(HZ_PER_GHZ, config->periodic.frequency_=
+hz);
+> +	if (cnv_wf.period_length_ns !=3D offload_period_ns)
+> +		return -EDOM;
+
+[Severity: Medium]
+Could this strict equality check unintentionally reject valid sample
+frequencies due to integer math rounding?
+
+If a requested frequency produces a period (cnv_wf.period_length_ns) that
+does not perfectly divide 1,000,000,000, DIV_ROUND_UP() might round the
+frequency up. Converting that frequency back to a period via div64_u64()
+would yield a slightly smaller period.
+
+For example, 133,333 Hz yields a 7500 ns period. 10^9 / 7500 =3D 133333.33,
+which rounds up to 133334. Then 10^9 / 133334 =3D 7499 ns. Since 7500 !=3D =
+7499,
+this check would fail and return -EDOM.
+
+> +
+> +	st->cnv_wf =3D cnv_wf;
+> +	st->cnv_Hz =3D DIV_ROUND_CLOSEST_ULL(HZ_PER_GHZ, cnv_wf.period_length_n=
+s);
+> +
+> +	return 0;
+> +}
+[ ... ]
+> @@ -412,3 +789,4 @@ module_spi_driver(ltc2378_driver);
+>  MODULE_AUTHOR("Marcelo Schmitt <marcelo.schmitt@analog.com>");
+>  MODULE_DESCRIPTION("Analog Devices LTC2378 ADC series driver");
+>  MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_DMAENGINE_BUFFER");
+
+[Severity: Low]
+Does this driver also need to import the SPI_OFFLOAD namespace?
+
+Since the driver uses symbols from the SPI offload core (like
+devm_spi_offload_get), it seems it should also include
+MODULE_IMPORT_NS("SPI_OFFLOAD"); to avoid a modpost warning during strict
+module builds.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783629101.gi=
+t.marcelo.schmitt@analog.com?part=3D3
