@@ -1,214 +1,101 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7443A872D
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 05:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95ED3AC0C9;
+	Thu,  9 Jul 2026 05:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783575667; cv=none; b=lxmEfqAarISUSP3AxsfUD0/wvRkJfzDNaU9hE5tthHX6/xvdIaGCWywEwN9H9ptxEwPPkv7CMI5Ix8hGQFAHAToNxy60Sv75se2CAGxujryVeT8nyqK4IWP4LOZnTnmJSUKYoiLVGPHakueb9LfBb9ySGNQX6BtlEX2nP2Ia3EI=
+	t=1783575921; cv=none; b=lpwTM96BMK59/oOza6gr1oza6gNNJ63vuqDPUf4Jkh4HXoPqslB8TT9lD05qg6+jm5md+IGnXFAu80Xgu3v/OtgPc9F1Y81lVZpUllrkFrcHtjGpjFGav8/jMbuwGmguJuPIzb/orl7svDZTebrFCEmNBBy8WGWSim2WsRcgHQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783575667; c=relaxed/simple;
-	bh=quwu+cde7ba9hLMTE61fx30w8O+wPuSVUmWVKkQQ6Os=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kjjjKkMxDvBVy5vOowEnQ1oQ3WTypBMGtEmv9oib9zVrcKllEcSh122gQLSLizdKoXI5asBXEaW3v7691IVRV6OjCi4qpMKT6W3SIDi6qpHgHNKZ7xBzkFZ6W3HOKezpbLppiEfU059xq7fDIPmxBHE/bdYZxSoHzzHNFo0Ht1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q2fsT9wP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c8WAFPMZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783575921; c=relaxed/simple;
+	bh=WbMChnrVJ5hLjteSDIcwpCRJ7d6FUBqAjyKBvueOBbk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=X/Df8817zJ7qYJjTArOvTfUXuTtsFMNMmIBBHzUYErMbKQkHuW3Hfrg9qNXmUUdl+sYSSz8PXBwMIbgq6uU30r3UMMbgNClHKXCm02XKMDxI7I1wnJEYsGxdUkRshQKbSGq2D9ZtDG6aZNKtjme0JnPu6/C0fHAIUT7H7PC0WQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G06ykPQd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q2fsT9wP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c8WAFPMZ"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 668N9Rud041595
-	for <devicetree@vger.kernel.org>; Thu, 9 Jul 2026 05:41:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HZLxGrfv7jXMYi1H20L/RrftdACB9MvmvKJ3YlkaKUI=; b=Q2fsT9wPtj5O6eRf
-	E8YJCbyH/MIPaL09nP/thMyB4RchZvgx+2eccLjmGsS1+nPAJ7dyc1mG+TvYYI9X
-	L0FeCJrYXfHINLWu4iZdPSXh4/CCtF4mTNWPYloLIJTf9+hFmw/9q4zD6/dnWFXr
-	Y3dq72GI3qhfIwgCJSEr3+oNJxmhtVPv5ROaGfyqYFz0C+tjXiVZsduiV8k9IfjX
-	+owwq/+zQlaegU7lx6y2sRPsacyA0Li4fQEJ1A4Wb+9DtZVViP0X5Mb7e/1F2hk1
-	I9luw73dq8OwQb00etk/lfbwmT+Lu6GBRP+4DIRJCFIiQJJ45ullW/QDvHEJc5j2
-	Gw/R/w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9sqsahxy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 05:41:04 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5174a236220so15540201cf.3
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 22:41:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783575664; x=1784180464; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HZLxGrfv7jXMYi1H20L/RrftdACB9MvmvKJ3YlkaKUI=;
-        b=c8WAFPMZvO3N8GxXsjfTBvd8CzHXcyG/CRRBp2lGc4urhXs6OcAteuGhkkKSi376Fa
-         OwXwkt0j6g5kqyL/pqJYLpqOtd/IPSrd6rzu+YlbCPJVjEtwX/R0/cmHdLxhJrtJ6R7q
-         ApHaQb85Jedkdz4xGfISX73+s4JHBIgem7p5KIxOo6PdNPa6TYpscrClNRCi5cGvjGix
-         VT6xQgOKQRVP9bKmuJN249SpLFXEbT42mcvDI5YVQGmLvdoeFUrMtNNIkvHGlgfCNon+
-         dE/VtDhu+01rdsJNa+UJQvWmm1bxeGOPlkMRAZ6yGeT+YQxYhXjQP4JKxgIYYm4gSw9T
-         NtLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783575664; x=1784180464;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HZLxGrfv7jXMYi1H20L/RrftdACB9MvmvKJ3YlkaKUI=;
-        b=EEG+tKvf54micOcP2qh4JRTMt9Q4QwqBEkqoaFwWuL0+v8nbxV0Oit3tRcd0T9q5vU
-         XaHJkumUPXN8yadUhsOdurHzDVYn5DTJjgvy2n2fksww0UIvfcXv83GvEQuKD46+a4UZ
-         OzhrEQg+OpkV8fCaAsvxDPQQiy0tWdyCnFcO0z7KTWK8S+0gZw45gvQdbbGGSYYhFOOX
-         84OM3pCyZAGHU1zvfj7Glgj2jQsZ9cP2yMEEsY+nN5WHlUy0AXmno8Y3GQoJHQ8m4LG7
-         0ZILjsY8dQKSzN8W1qH7ojN7F+i/J4HBZAD0P2Es9eFF0jdyOjtfyz/yyQvLC83YF3NO
-         CgCw==
-X-Forwarded-Encrypted: i=1; AHgh+RqX+5N6ecGxinzgj8G/0o8T2KKiE/uES5R98erqDcE1gMn5sNB6g3jfoD7pbTFTjWhnaFS6PHC3TB16@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOUqTOhCRRUs1ICvHYkiVACRF4/lfSX/aBpOob9l3l9gdxfvHL
-	9hAgwo/sBNur0tqPpywW/U/0iQmusJpwhAEyK0wZdpQjdwGwHs4uYmA41V5FRYaGldHibBf0Q5O
-	YTlQAypDa5GE6W6fvN5FV7TkZN/rrFkRVeTpQBLWDrhbek1X4JzcfWkv1dOeGh1Y/
-X-Gm-Gg: AfdE7cl+aUVUNtEN3cxPOWAlZbY2gY8jaDP8Rz+zWwExGQP5xT9257cmapOCEKHHUOv
-	FkoNksFybAHMHkCv87Omg/VKD8IcCo7P3Mf0fvbYrxhnk4X8yfYpFvfgwLdfgrS++LghJ6JNEcJ
-	G43Nqu9U7EYJ16xx9DAhkp19t9fPIljB7wCoy+OppH63/W6NMrtTKdE6xOeHbwfhkw/mDL2TX3e
-	7vGdI+/trkO9CarDJ4WmkDDniTkgKkHKrFbr36grr/L3rPW0JrJpN38yP6uT06zv8ukjeeusekn
-	CNl0mMRTx6nQZD1Iuv6+ncKl1K02xyZQp0JZIaSWXTnugS3UBPlX/7IEXTXtXgXZjEQSC3bL0F3
-	fr+8k/Oph1dnOfu/xHGZpENVJz8xV0rgVXCg3VXe65ZKCq4rTSL1KnAd+gTI3ewBd53h7qkuoTo
-	rdcFcGB/4=
-X-Received: by 2002:a05:622a:5599:b0:51c:14f5:8f9c with SMTP id d75a77b69052e-51c8b2e3578mr59044221cf.27.1783575664303;
-        Wed, 08 Jul 2026 22:41:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:5599:b0:51c:14f5:8f9c with SMTP id d75a77b69052e-51c8b2e3578mr59043881cf.27.1783575663835;
-        Wed, 08 Jul 2026 22:41:03 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15e2936b42sm64059766b.21.2026.07.08.22.41.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jul 2026 22:41:03 -0700 (PDT)
-Message-ID: <a80f9d60-e1be-45e9-b601-c47361591f52@oss.qualcomm.com>
-Date: Thu, 9 Jul 2026 08:41:00 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G06ykPQd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 64C1DC2BCC6;
+	Thu,  9 Jul 2026 05:45:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783575921;
+	bh=WbMChnrVJ5hLjteSDIcwpCRJ7d6FUBqAjyKBvueOBbk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=G06ykPQdF2bEvLEaIZfns4aNwe6V/hyy8+VmBsch3GqLiu/JulFxmJUdEJXiqAyd5
+	 HgL9kb2KGpblOajJbw8GHyoArzbvhpR07xHe7MIQhtDSl8HQkURWqgtDjrVuhevwq8
+	 7jGesErIpVSTlsjNUvMhagjDhzorLe+XsGF914Q7K4L3OabyAUhO6zfJcSzS8fvM7g
+	 HBTDbTr9wTNSnwAeFxZjwDTlNWU/VwN13UAw1hdlx09nYSN+sWBRpQzG5D5qe5qJS3
+	 vpkMPy3bPA9xWijItik8DDQLThgim3ISbpg83gDIQEjvkziVStBOgtbrvvOYTihx0x
+	 SSa8iAId4r0oQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40D3BC43458;
+	Thu,  9 Jul 2026 05:45:21 +0000 (UTC)
+From: HaoNing Cheng via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
+Subject: [PATCH 0/2] thermal: imx: Add calibration offset support
+Date: Thu, 09 Jul 2026 13:43:26 +0800
+Message-Id: <20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-v1-0-00f88f42930b@cn.bosch.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        linux-media@vger.kernel.org
-Cc: loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <68e59764-5a10-4abc-849c-14ea2d9ef76e@linaro.org>
- <d74d7839-d126-427a-b151-ca895a27a83e@linaro.org>
- <437d1eb0-4495-406a-9501-b0515cfa3151@linaro.org>
- <e04cb9dc-76dd-4fa8-92f4-be002bf7ee8b@linaro.org>
- <8116c54e-4050-4e9d-b236-59d74846bd57@linaro.org>
- <8a09875d-af5f-438b-b947-bc2b61219b70@oss.qualcomm.com>
- <c8c38ec6-4422-4c91-a249-20bc20260e73@linaro.org>
- <d0768c15-453f-4d3f-8110-886a5c697b02@oss.qualcomm.com>
- <d5407ab1-1af7-4678-ae67-5cf30ce8fa4b@kernel.org>
- <VoXmpDKdgY_XxAvO5tkDze4jpmMzSuKTmIISTejJsbIO_FIO1JFfUBlaPkNdb14E95zf_qwtDB6myQ2wdRCh1Q==@protonmail.internalid>
- <8fc1ddfd-0f77-4b67-b9bd-33fbd60e2046@oss.qualcomm.com>
- <54ad9b8a-7596-4bc7-a1c3-7230cca21360@kernel.org>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <54ad9b8a-7596-4bc7-a1c3-7230cca21360@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA1MCBTYWx0ZWRfXzX7tjszylkkr
- EKweoIXBhVE7cV/sw/mbAAUUNVR/kcKQL0mzB87EZTCB9iIkb7UZn83U2j7zlLuvb+T2CJ3d7Uk
- ZAzUkWnTo0kXhZbeKCFsNh3Xvn0c+jY=
-X-Proofpoint-GUID: iquSF8Ast25TrOEobZOg2oVEnCSLdSnY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA1MCBTYWx0ZWRfX0ROIOxvssklf
- +4T4Jyoh0oCdOUEnSLlXoi4YJoD3nMeJ3gYP2f4RuPQZWa5jC/2KURSTqmW7wHjKeEYlPKaB2SV
- eTLmLHz9amsJ/HZ08Vn2VJIjf7JPdd+6IcIi5PWw5LbWATyI/M23AZFuj6OkMoOUc1/FPVLXBb2
- jwPzX318ebUkbjuRAim/mq+oZ1V+EcSx0i1mW/lcLzNAMbu7REz681Oze2CuF5XaN6mIcbVSTM4
- 2l1bDtQSty3WVSftFCiMiKegu3znh5HKDSZTahFj/qZQGXfeGhFFBMTsr/nOUMWymuwr5azQp4k
- DiNrLCrS7KhH5ryyBA5RuvPEfNT97P43GSUZRCqRwnlD8EUCycI8GmsIwHzM/GoaUkQou8/EseG
- IJkFadifD6InWsWExwsDfwRIar94TC3UdlFIOb92XIkIh8ZsloMXILeGtKNZdNEhxX58GSX1lqk
- ZwwqkOoxgJLil5Uch7w==
-X-Authority-Analysis: v=2.4 cv=Sv2gLvO0 c=1 sm=1 tr=0 ts=6a4f3470 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=CVLRNxM7UcJW-wxj-VEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: iquSF8Ast25TrOEobZOg2oVEnCSLdSnY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-08_05,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090050
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP40T2oC/yXNQQ7CIBCF4as0s3YSIIRSr2JcQDtajLSEAVPT9
+ O6ibl7ybd6/A1MOxHDudsj0ChzWpUGeOhhnt9wJw9QMSigjejGg18jv6BanJEqp2oa4YZkpR/d
+ ErimtuWBNXDK5iAalRSesHqyeyPcG2nPKdAvbr3q5/s3VP2gs3xQcxweapxislwAAAA==
+X-Change-ID: 20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-a084984deb76
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783575916; l=1237;
+ i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
+ bh=WbMChnrVJ5hLjteSDIcwpCRJ7d6FUBqAjyKBvueOBbk=;
+ b=WqH42b8JtaKetUkHD06W8GNAZAw0KozZWsslG7Ipqvnb+EYgHYP8NqvJfBOBEGbSM6bSooo1o
+ nWVtP19QWlOAX+w3nngyrP1CIkHZCbSldQtk5eiLEPKYL8xtICKNCmS
+X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
+ pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
+X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
+ with auth_id=860
+X-Original-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+Reply-To: Haoning.CHENG@cn.bosch.com
 
+Some i.MX boards need a small per-design correction to align the
+reported CPU temperature with board-level measurements. This series
+adds an optional DT property to specify such a calibration offset
+and implements the corresponding support in the imx_thermal driver.
 
+Patch 1 documents the new fsl,temp-calibration-offset-millicelsius
+property in the i.MX thermal DT binding.
 
-On 7/9/2026 12:21 AM, Bryan O'Donoghue wrote:
-> On 08/07/2026 13:19, Konrad Dybcio wrote:
->> On 7/7/26 12:41 PM, Bryan O'Donoghue wrote:
->>> On 07/07/2026 11:11, Konrad Dybcio wrote:
->>>> On 7/7/26 12:00 PM, Bryan O'Donoghue wrote:
->>>>> On 07/07/2026 10:24, Konrad Dybcio wrote:
->>>>>> On 7/6/26 3:37 PM, Bryan O'Donoghue wrote:
->>>>>>> On 06/07/2026 14:02, Vladimir Zapolskiy wrote:
->> [...]
->>
->>> OK, I can see how this thread is confusing.
->>>
->>> The idea is to start to declare sub-nodes "on the road" to making camss into a bus. The legacy binding we have is really for the IFE domain - that is CSIPHY, CSID, IFE.
->>>
->>> Right now the camss binding describes those things - so linking say OPE or JPEG back to the thing that describes those isn't right.
->>>
->>> OTOH we_want_ to make the top-level binding into a bus, we've discussed that several times.
->>>
->>> To transition from monolith IFE-domain only, to camss-bus, we should have the sub-nodes fully describe themselves as "camss-bus" doesn't exist yet.
->>>
->>> Once we have compat="camss-bus" then fine, make that linkage, I fully support that.
->>>
->>> That roadmap BTW is why I'm asking Antanas and Loic to make JPEG and OPE sub-nodes of camss - but make them complete sub-nodes - power-domains, clocks, nocs, including the TOP_GDSC.
->> I think this needlessly increases the amount of combinations we'll
->> have to keep supporting down the line (with a ton of compatibility
->> boilerplate code)
->>
->> Konrad
-> 
-> Fine.
-> 
-> Lets drop the bus idea then. I'm happy to close the conversation as peer-nodes.
-> 
-> camss@{
->     existing CSID/IFE
->     IFE SID stuff goes here
->     power-domains = TITAN_TOP_GDSC, IFE_GDSC
-> }
-> 
-> csiphy @ {
-> }
-> 
-> jpeg@ {
->     JPEG SID stuff goes here
->     power-domains = TITAN_TOP_GDSC, JPEG_GDSC
-> }
-> 
-> camnoc@ {
->     modelled as an ICC provider and consumed by
-> }
-> 
+Patch 2 reads this property in the imx_thermal driver and applies
+the offset to the i.MX6/6SX/7D calibration formulas. When the
+property is absent, the default offset remains 0, preserving the
+current behaviour.
 
-I vote for this as well. For me having resources at parent side which are already referenced counted, is
-not justifying the complexity we are adding. Another argument is that i don not like the exceptions, either
-we move every hw block as child device of CAMMS including CCI or go with peer-nodes.
+Signed-off-by: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+---
+HaoNing Cheng (2):
+      dt-bindings: thermal: imx: Document calibration offset property
+      thermal/drivers/imx: Add calibration offset support
 
-~Gjorgji
+ Documentation/devicetree/bindings/thermal/imx-thermal.yaml |  8 ++++++++
+ drivers/thermal/imx_thermal.c                              | 11 ++++++++---
+ 2 files changed, 16 insertions(+), 3 deletions(-)
+---
+base-commit: c50a940dcde35c647e097e89a9150003abd48329
+change-id: 20260709-b4-symana21-11221-imx-thermal-support-upstream-6-18-a084984deb76
 
-> ---
-> bod
-> 
+Best regards,
+--  
+Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+
 
