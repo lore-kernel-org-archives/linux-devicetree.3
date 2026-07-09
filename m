@@ -1,142 +1,111 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0608413254
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856D8414A31
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783596024; cv=none; b=FLjc1PqPLzKhuIX6qRDqBDLPti2uxW+baDgPG2jspxetq44PSVCpUNINFmsoCWJIvysGS9Myu/G6VE8VFAwYqghrXb+qE9+2gJEX+Pj48Ns5URooHkGgH04CsshFbdoL4TMkM1j9PByxXCCeslLA5g/w5ividAff5+jWyjeI5YE=
+	t=1783596024; cv=none; b=Ocw2PpxeJkJXsyUzct8PHd0z8mZ8vqsiNzjcEg0uT0PezorCi37J3i9wSbmvNAGxpjRogFCh3WlJpxCDtRrwkmokoIRVKQanmXSVT0pQFlN4Xa93twLJ9YiFeQq4J3YWgQ8UWrrLO9S5TyNHCpB2wj6C72ECvH1DQ0iiyWiMKSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783596024; c=relaxed/simple;
-	bh=Bc+3nUd8JHXptnb6yT5c8317T5N2BuIDDaHFmOya5rY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Omq1e8lbUU1BQGAW39gTCkDBvWyaGY9lIa3YBwRVTHnOyBaevhXnfq1Uwq+mV3/Fynk9kfsRHln+SG7eY/yjvlhxVHmWJo1IXkuu8yd3bJcwbjOrvOdsZsuLhjisn0m3AUvdWWvKeGc8YDRyl8z507Qr+A100IigCjxV2b4ul9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=L55aoCig; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	bh=kyqTCjcPBKDmDbhJaQIwajyRclLNv4JjG8sXxp2O4Vg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=L4alziLTYGOj1BNG/zLNYPp4geP6+3+Lfj7rX+k0ycAOMGCo1sfZSF47gtpIqOZv2fvvyqumXpLoXZFJeX6gQ5R7f4k2mI2XgEPd/lUnft/gxcsWIC3/6b1aivoY1Qt5FVJvmz8mLZMmGG+3GvGi0jm6IXZsBEhOmis7wbvYl7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Grqz991b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="L55aoCig"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493c83474ddso15456165e9.3
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 04:20:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1783596020; x=1784200820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OGtUrkx/TpXSV9KyMxarboRJ5bR8WEDJ79N5wF/Lel0=;
-        b=L55aoCigaDLtXTq5VLNvcmJIBthRvEJxwQGWw3V7LC83/1nidZMET1KRNtKFFSciBo
-         1ud3KxJ/YvqVe+w7+n7Bs1e3w2BAHErMP+phfvXZ7ISLVCrxslEv6KNMgSZjDCaI2dRD
-         Os2RXFzXdd/4egQjdjPCAAz6Wl7kKxOzz2o3SyHcAdwnrH/A9h9n1h9ilvh+9+AgMtVc
-         TxG1OjwLz2bpdJiwReoEiCQqwpL99nVB2HA/hHDYgGlqJZV+yvmQOY83DD5NERx05MH5
-         TB39ayq5nHVn6E+8qBp8T5KQb52A+XgMkELz9CRqTcSe4nmT87X0HJaxCC/4rhHxtrxx
-         kRxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783596020; x=1784200820;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OGtUrkx/TpXSV9KyMxarboRJ5bR8WEDJ79N5wF/Lel0=;
-        b=TiTWp1JwpjsKyAXSmxBzs85pFvqSpFB2/0ngHdx99/vMMyGk504bQt9cHHQfPWwi2z
-         Kff/IyOA1oU+1k0dsebBQf3N8rU0d19uWYgWaQv6yCi9/yghS1MNGWvfkrnRCJJ0BMxW
-         4jqFB+FmTrb9zNEaLuS63DaB6rCxhHBJEJaOZpWesWwQkuw/NUFWkRaw/HFdomC+XVot
-         KlEqPFwCUv/K2zZvEKBgtOQn0tsCfk+IoVhPGsEv1ZSvQ6csE19FFlLjhT415nglL/Qc
-         KesmMlH8ZGqTaudrtDKgcPUsdRGzRArv/vRqhsuoSAgKKLVA1o4+H+XvGnm+XWBtK7Rp
-         6NRw==
-X-Forwarded-Encrypted: i=1; AHgh+RroiW4Efil1dQyvEUeeBSi+mBCwu6FmFXJeo/uVaOR7nFMTY/0WzQ/wPB7zwuqeg+d5avFua2crTL9d@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBSGYbTmMlAtgkhDJlYPgE1gslC9QErfOGIIl7xbtZcSCP1/E6
-	fakQSUYrDoBi1RkdD9qHL5E+80fB+MzBNH6yVTdJAPfZDHTzCYmym3vuLntrrDGcoGdJYIz0RLK
-	yiTQn
-X-Gm-Gg: AfdE7ckIX+uXmuzU2kjpXLBDeZEyt++RLPixRUhELQuEmrCraWd36K9nPqGuHiadCoo
-	ATmaLGEuZBVBRWzDaAmurrr9nFFaBdkv0xl6/41Inq33WzuaLbiH6SmXnODwB5Uuq0qucFoHhiv
-	S9AlkeYCaI12ly37vILG08oT2caN1vgeO5vgbQPFuS9mFvW3Uab7i7b2NdLXayXW/AHNed108DU
-	bvm/406F8m6zz7qCpgunNOkPqw7oJFLpxpFFWbE/kr1MnA4C0GCTgzy2fIjsYwR3nqJA6qGXg+H
-	TxmzUcHP+A9+dNqyhVZ3hLrqz3hao9St7PZIOC9Jgw+dZTd4WWr1C/aYuhXOj8CI8atZSj/7zJ2
-	EgtfJSpGAcDoOQon7lf5AZ3RvLNGvdAvVWDFoViyhxrcsk9A+RZKzmg78eWoMfACn7cGrSvHZqW
-	xMYEFh/E4uWyLXTTW/nSn0JgNlb4slNd/vIMiy5xCSSeXk/ENh4WAJQemqIegJ6Rg44nVWXcr75
-	r/Tf42BylP+pRPtOlEA+A0bglp1GVjXJfYqCWQvRUQ=
-X-Received: by 2002:a05:600c:34d3:b0:493:b4cf:d37f with SMTP id 5b1f17b1804b1-493e68c699bmr69231815e9.16.1783596020048;
-        Thu, 09 Jul 2026 04:20:20 -0700 (PDT)
-Received: from threadripper-fedora-workstation (dh207-15-57.xnet.hr. [88.207.15.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6f3c42sm53910475e9.1.2026.07.09.04.20.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 04:20:18 -0700 (PDT)
-From: Robert Marko <robert.marko@sartura.hr>
-To: broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev,
-	tudor.ambarus@linaro.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	daniel.machon@microchip.com
-Cc: luka.perkov@sartura.hr,
-	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH v2 2/5] spi: atmel-quadspi: add controller init callback
-Date: Thu,  9 Jul 2026 13:19:08 +0200
-Message-ID: <20260709112006.390742-3-robert.marko@sartura.hr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260709112006.390742-1-robert.marko@sartura.hr>
-References: <20260709112006.390742-1-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Grqz991b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B421F00ADB;
+	Thu,  9 Jul 2026 11:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783596023;
+	bh=db5QYznW5xf/Hd/GXaXEuPFqjRu+CSLiGqpqeVi6r+w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Grqz991bEctGInIzL9hD+SPKFGikgEq9s2f5paUAXQ+YtLPxNtse+tB6mwTun4q+9
+	 gpi1VyuafY/gybwslbxOZi2Oi5TCpQJ3yh8Na0Gvdbm77vOUV3DGYnAhqCX59Hjgrg
+	 up32KUVgvs/rLG7xY3SLV/cOJLuXDLpC8s9oFYGBX0Nprq2VqBcH6IJRc//nIZvGyn
+	 nfo2kUz7077xV5YBSJ7VU65ptVTlckfzvukmzOpNbIA4fvHcKwmRSGRg5mgadntn52
+	 Yx67jzil8MXGjumfU9/7EN+op/hOCvv9+f0UwktTXOFGKKAKqNkVrnZb7iSfnwURSS
+	 PI2p9SaBC/ORQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 8/8] clk: clocking-wizard: Use separate
+ notifier_block for each clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709111403.1579159-9-shubhrajyoti.datta@amd.com>
+References: <20260709111403.1579159-1-shubhrajyoti.datta@amd.com>
+ <20260709111403.1579159-9-shubhrajyoti.datta@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 11:20:22 +0000
+Message-Id: <20260709112023.02B421F00ADB@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Allow controller variants to provide a custom initialization callback
-through their capability data.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Incorrect `container_of` cast when reusing the same notifier callb=
+ack for a new `notifier_block`, resulting in a misaligned `struct clk_wzrd`=
+ pointer and out-of-bounds memory accesses.
+--
 
-This prepares the driver for variants which require a different hardware
-initialization sequence without adding SoC checks to the common path.
+--- Patch [8]: [PATCH v2 8/8] clk: clocking-wizard: Use separate notifier_b=
+lock for each clock ---
+commit f1481850744c067369ec043b5f8c6bf3ee19d10b
+Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-Signed-off-by: Robert Marko <robert.marko@sartura.hr>
----
- drivers/spi/atmel-quadspi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+clk: clocking-wizard: Use separate notifier_block for each clock
 
-diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-index aaf7f4c46b22..62ea84d234d0 100644
---- a/drivers/spi/atmel-quadspi.c
-+++ b/drivers/spi/atmel-quadspi.c
-@@ -256,8 +256,11 @@ static const struct atmel_qspi_pcal pcal[ATMEL_QSPI_PCAL_ARRAY_SIZE] = {
- 	{200000000, 7},
- };
- 
-+struct atmel_qspi;
-+
- struct atmel_qspi_caps {
- 	u32 max_speed_hz;
-+	int (*init)(struct atmel_qspi *aq);
- 	bool has_qspick;
- 	bool has_gclk;
- 	bool has_ricr;
-@@ -1156,6 +1159,9 @@ static int atmel_qspi_sama7g5_setup(struct spi_device *spi)
- 	/* The controller can communicate with a single peripheral device (target). */
- 	aq->target_max_speed_hz = spi->max_speed_hz;
- 
-+	if (aq->caps->init)
-+		return aq->caps->init(aq);
-+
- 	return atmel_qspi_sama7g5_init(aq);
- }
- 
-@@ -1570,6 +1576,9 @@ static int __maybe_unused atmel_qspi_resume(struct device *dev)
- 		return ret;
- 	}
- 
-+	if (aq->caps->init)
-+		return aq->caps->init(aq);
-+
- 	if (aq->caps->has_gclk)
- 		return atmel_qspi_sama7g5_init(aq);
- 
--- 
-2.55.0
+This commit introduces a dedicated notifier_block, nb_axi, for the
+s_axi_aclk chain. This prevents linked list corruption that occurs
+when registering a single notifier block to multiple chains.
 
+> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
+inx/clk-xlnx-clock-wizard.c
+> index 289c32ab5cd80..bcbfb4341dbab 100644
+> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+> @@ -137,6 +138,7 @@ enum clk_wzrd_int_clks {
+>   */
+>  struct clk_wzrd {
+>  	struct notifier_block nb;
+> +	struct notifier_block nb_axi;
+>  	void __iomem *base;
+
+[ ... ]
+
+> @@ -1318,8 +1320,10 @@ static int clk_wzrd_probe(struct platform_device *=
+pdev)
+>  				dev_warn(&pdev->dev,
+>  					 "unable to register clock notifier\n");
+> =20
+> +			clk_wzrd->nb_axi.notifier_call =3D clk_wzrd_clk_notifier;
+> +
+>  			ret =3D devm_clk_notifier_register(&pdev->dev, clk_wzrd->axi_clk,
+> -							 &clk_wzrd->nb);
+> +							 &clk_wzrd->nb_axi);
+
+[Severity: High]
+Does sharing clk_wzrd_clk_notifier for nb_axi lead to an incorrect
+container_of() cast?
+
+Looking at clk_wzrd_clk_notifier(), it uses to_clk_wzrd(nb), which is
+hardcoded to expect the original nb field:
+
+#define to_clk_wzrd(_nb) container_of(_nb, struct clk_wzrd, nb)
+
+Since nb_axi is at a non-zero offset in struct clk_wzrd (unlike nb), won't=
+=20
+using the same callback for nb_axi result in a misaligned struct clk_wzrd=20
+pointer?=20
+
+It seems this would lead to out-of-bounds memory accesses and incorrectly=20
+skipped frequency bounds checks when the s_axi_aclk chain triggers a rate=20
+change.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709111403.1579=
+159-1-shubhrajyoti.datta@amd.com?part=3D8
