@@ -1,227 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749E73F12D1
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:49:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9B5416CEF
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:50:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783597790; cv=none; b=JkZNaPDwDK4dS16jNA8TZPhJK2eI3tORuX3N4BoaXcp4GC/EQGLS1bC6m4tnu9yXVUKXe4AfOSrVQM7ij7UNzje4S60CVCm0sKkgj4A1Ikb66PjeFsNipzftMNn2KMNXruTtAIDSaWGfA6rmMkiWNx3E470bLe6ZmNUnsxcgBF0=
+	t=1783597814; cv=none; b=AGWYLIgpCnCHnVRZJgUdooXoupPxIAYBmr0x6PBo6l0AYqyaTI0nxu0sh1tDiOTFCvf1kxBtVrJy+G1uqQ2D+A7ZrCCnp471aZgRSf3faJFiByLIta99l/oKkUZud6UplQaF8VimRYp1cqlZkz9JybeAiAqqQdpaNW2HZV/e5Tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783597790; c=relaxed/simple;
-	bh=ifdfQ8CSUJPNPCw8veHocu+0WBsy9B0MPCQU2rSIWMc=;
+	s=arc-20240116; t=1783597814; c=relaxed/simple;
+	bh=lPQo5v0+fjfvvbWCIZozxzvHTC4DR92jVgKKiw6jkXY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l5XjEc8RsmpNP5biJuRBErHj9cLaYVma/FdWqwU6ME/dLteDXXrw+NNahhzCDz8NBDtotCvJUipGTg4zNBYueysWhNOyZdvSIE2ae42MZTgkmareYnJmXUXFLMg+E2d5Yiux5w58gGrtBZWXrFddxngoPKx5a9x95lcpdHJWnbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KErqG7Yh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Gy0489HvrJAdRosyORwmdtQ2pB5Q99XJTGkerPGVPAWAibyJlM4Ifh8XDXpnxoT+A/RP/iW1XQ8Bx5x+0kgDUJYNpnGX+2KmHxyqXkX0M2kelZkR6shKtbWVoCd8nDLSzMopsloonwAOnGnACUBnlfRzXxZWOrNuiJaK7G40WpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iFdu5//T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KErqG7Yh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6B581F000E9;
-	Thu,  9 Jul 2026 11:49:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iFdu5//T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D920B1F000E9;
+	Thu,  9 Jul 2026 11:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783597789;
-	bh=JRWsN1cOaRFKbjPMmYa9IPfjPyISyWDka+JsJJ2JcJQ=;
+	s=k20260515; t=1783597812;
+	bh=rEz2WhRFJH1R98Rbiao/B1aZVBCkrvCJeCN9h3ZRwz8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KErqG7Yhcg1WtLOO9LubZyhrOMokDlYgBtFXURmrGZOPZJm7N+YI5UVP7JzqtgrDE
-	 QiHaPL2r7SO48RJcL1VWmvMjRp/41xwnWcLiPEsYF7jjBIxOJOKeknvkiA+u2GpOO0
-	 wpztCFE1OzlRpRSkfgYmkaxx44JlImaerS1Va44GCmnJv3ELQhcBEsdJ0qviD5kWHd
-	 CfYHewfyDPHMPipNO7ZfujWRoar1Uc+b/j3b4JSIJ2OUpSPYp0mq3b+FRixnuGSyFV
-	 KHtLoL94+lvbUsRthUzFnCQm5DcO0NYBO374Z86hod3iy5fyPxwfU6OgRDm+aMoeX+
-	 4TA3GDca/fJgw==
+	b=iFdu5//TIAzQhl+OHkQt+4ZAN9ohL1g7H6WX1tgTMid93Vqv0N3PgjLfyJz2t0sfp
+	 R4xE6d0BuhcVd/PDNup6Jdctq9JK+D4i/PmwXptym1+Ou2cyEYqd0bET0g+JN/pbw+
+	 jymrB8OrUGgMfWc6rHJ8aD9Rfai+dSvSrE06pQtMMByoDQfROq/tD9LcOKYbrwF+vv
+	 rx3uXSIH+YCPlmZaFqj7rzPbzXmsUxszMw3ofxDuYeoPbViAwZuR8hWGpGXghpvmRp
+	 C6uyHXDSTwLmSnxBy51HfdXk41zGrAPawJm0ecn1NNYrVdGFxEuS2ILEA9fYCf1U2u
+	 0YJUHz9CWW5iQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/11] drm/mediatek: mtk_dp: Add support for eDP1.5
- IPs and MT8196 SoC
+Subject: Re: [PATCH v2 5/5] arm64: dts: microchip: lan969x: add QSPI nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260709100617.42583-11-angelogioacchino.delregno@collabora.com>
-References: <20260709100617.42583-1-angelogioacchino.delregno@collabora.com>
- <20260709100617.42583-11-angelogioacchino.delregno@collabora.com>
+To: "Robert Marko" <robert.marko@sartura.hr>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260709112006.390742-6-robert.marko@sartura.hr>
+References: <20260709112006.390742-1-robert.marko@sartura.hr>
+ <20260709112006.390742-6-robert.marko@sartura.hr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 09 Jul 2026 11:49:48 +0000
-Message-Id: <20260709114948.C6B581F000E9@smtp.kernel.org>
+Date: Thu, 09 Jul 2026 11:50:10 +0000
+Message-Id: <20260709115011.D920B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The patch introduces a forbidden sleeping function (`msleep`) insi=
-de atomic commit paths.
-- [High] `mtk_dp_bridge_atomic_disable()` incorrectly forces the encoder bi=
-as power ON rather than OFF, likely due to a copy-paste error.
-- [High] Conflicting register programming in `mtk_dp_encoder_reset` overwri=
-tes PHY enable bits and potentially leaves the PHY in permanent reset.
-- [High] Double unregister of the PHY platform device (`mtk_dp->phy_dev`) o=
-n the error path.
-- [High] `mtk_dp_setup_encoder` constructs an update mask using raw bit val=
-ues instead of proper field masks, failing to clear bits in multi-bit field=
-s.
+- [Medium] The `qspi2` node is missing `dmas` and `dma-names` properties (u=
+nlike `qspi0`), which degrades performance to PIO mode and causes the atmel=
+-quadspi driver to log a spurious error during probe.
 --
 
---- Patch [10]: [PATCH v2 10/11] drm/mediatek: mtk_dp: Add support for eDP1=
-.5 IPs and MT8196 SoC ---
-commit a9e93bd64557c3ad0ae0387b6e0c8b87e41baeda
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: mtk_dp: Add support for eDP1.5 IPs and MT8196 SoC
+--- Patch [5]: [PATCH v2 5/5] arm64: dts: microchip: lan969x: add QSPI node=
+s ---
+commit 297e92dccc7e525621a995eb1402956ad591b3bf
+Author: Robert Marko <robert.marko@sartura.hr>
 
-This patch adds support for MediaTek's Embedded DisplayPort (eDP) v1.5 IP
-found in the MT8196 SoC and other variants. It introduces conditional
-hardware initialization sequences, platform data switches for newer feature=
-s,
-and includes partial support paths for the DisplayPort 1.4 IP on the same S=
-oC.
+arm64: dts: microchip: lan969x: add QSPI nodes
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek=
-/mtk_dp.c
-> index fb216811c80c7..868d918a0b161 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-[ ... ]
-> @@ -648,7 +669,18 @@ static void mtk_dp_setup_encoder(struct mtk_dp *mtk_=
-dp)
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3364,
->  			   FIFO_READ_START_POINT_DP_ENC1_P0_VAL << 12,
->  			   FIFO_READ_START_POINT_DP_ENC1_P0_MASK);
-> -	mtk_dp_write(mtk_dp, MTK_DP_ENC1_P0_3368, DP_ENC1_P0_3368_VAL);
-> +
-> +	mask =3D VIDEO_SRAM_FIFO_CNT_RESET_SEL_DP_ENC1_P0 | VIDEO_STABLE_CNT_TH=
-RD_DP_ENC1_P0;
-> +	mask |=3D BS2BS_MODE_DP_ENC1_P0;
-> +
-> +	val =3D mask;
-> +
-> +	mask |=3D SDP_DP13_EN_DP_ENC1_P0;
-> +
-> +	if (mtk_dp->data->sdp_encoder1_enable)
-> +		val |=3D SDP_DP13_EN_DP_ENC1_P0;
-> +
-> +	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC1_P0_3368, val, mask);
+This commit adds device tree nodes for both QSPI controllers on the Microch=
+ip
+LAN969x SoC. It configures base addresses, interrupts, and clocks for the
+controllers.
 
-[Severity: High]
-Does this code construct the update mask using single-bit values rather than
-multi-bit field masks?
-
-The previous code wrote directly to the register, but the update here seems
-to use bit values (like BS2BS_MODE_DP_ENC1_P0) as the mask itself.=20
-Since BS2BS_MODE_DP_ENC1_P0 is just one bit but the field might be larger,
-will this leave uncleared bits in the multi-bit fields like
-VIDEO_SRAM_FIFO_CNT_RESET_SEL_MASK and BS2BS_MODE_DP_ENC1_P0_MASK?
+> diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot=
+/dts/microchip/lan9691.dtsi
+> index ed997d87dd09f..a8541c6a098d1 100644
+> --- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
+> +++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
 
 [ ... ]
-> @@ -1116,6 +1148,72 @@ static void mtk_dp_hwirq_enable(struct mtk_dp *mtk=
-_dp, bool enable)
->  			   IRQ_MASK_DP_TRANS_P0_MASK);
->  }
+
+> @@ -396,6 +396,39 @@ clks: clock-controller@e00c00b4 {
+>  			clock-names =3D "cpu", "ddr", "sys";
+>  		};
 > =20
-> +static void mtk_dp_encoder_force_bias_power_on(struct mtk_dp *mtk_dp)
-> +{
-> +	/* Force MCU to enable BIAS */
-> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-> +			   ENC_PHY_PWR_OVERWRITE_EN, ENC_PHY_PWR_OVERWRITE_EN);
-> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-> +			   FIELD_PREP_CONST(ENC_PHY_PWR_STATE_OVERWRITE_MASK,
-> +					    ENC_PHY_BIAS_PWR_ON),
-> +			   ENC_PHY_PWR_STATE_OVERWRITE_MASK);
-> +
-> +	/* Wait for the MCU to get LDO ready in PHYD */
-> +	msleep(50);
+> +		qspi0: spi@e0804000 {
+> +			compatible =3D "microchip,lan9691-qspi";
 
-[Severity: High]
-Can this sleep in an atomic context?
-
-This function is called by mtk_dp_set_lanes() during display enabling, and
-by mtk_dp_bridge_atomic_disable(), both of which are executed in atomic
-commit paths where sleeping functions are forbidden. Could this msleep(50)
-cause kernel warnings or deadlocks during non-blocking commits?
-
-> +
-> +	mtk_dp_update_bits(mtk_dp, REG_3F44_DP_ENC_P0_3,
-> +			   0, ENC_PHY_PWR_OVERWRITE_EN);
-> +}
 [ ... ]
-> +static void mtk_dp_encoder_reset(struct mtk_dp *mtk_dp)
-> +{
->  	/* dp tx encoder reset all sw */
->  	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004,
->  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0,
->  			   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> =20
-> +	if (mtk_dp->data->hwip_v1p4) {
-> +		mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_3004, 0,
-> +				   DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0);
-> +		mtk_dp_update_bits(mtk_dp, REG_3FF8_DP_ENC_P0_3,
-> +				   ENC_PHY_STATE_RESET_ALL_MASK,
-> +				   ENC_PHY_STATE_RESET_ALL_MASK);
 
-[Severity: High]
-Does this write to ENC_PHY_STATE_RESET_ALL_MASK permanently hold the PHY in
-reset and overwrite unrelated fields?
-
-Looking at the definition of ENC_PHY_STATE_RESET_ALL_MASK, it is
-GENMASK(7, 0). Writing 1s to this entire mask overwrites the enable bits
-DP_ENCODER_DVO_ON_W_1 and PHY_STATE_W_1_DP_ENC_P0_3 (bits 5 and 6) that were
-just configured. Since the reset is never cleared, will the PHY remain stuck
-in this reset state?
-
-> +	}
-[ ... ]
-> @@ -2580,6 +2795,9 @@ static void mtk_dp_bridge_atomic_disable(struct drm=
-_bridge *bridge,
->  	/* SDP path reset sw*/
->  	mtk_dp_sdp_path_reset(mtk_dp);
-> =20
-> +	if (mtk_dp->data->force_pwr_states)
-> +		mtk_dp_encoder_force_bias_power_on(mtk_dp);
+> +			dmas =3D <&dma AT91_XDMAC_DT_PERID(1)>,
+> +			       <&dma AT91_XDMAC_DT_PERID(0)>;
+> +			dma-names =3D "tx", "rx";
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
 > +
+> +		qspi2: spi@e0834000 {
+> +			compatible =3D "microchip,lan9691-qspi";
+> +			reg =3D <0xe0834000 0x00000100>,
+> +			      <0x30000000 0x04000000>;
+> +			reg-names =3D "qspi_base", "qspi_mmap";
+> +			interrupts =3D <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&fabric_clk>, <&clks GCK_ID_QSPI2>;
+> +			clock-names =3D "pclk", "gclk";
+> +			assigned-clocks =3D <&clks GCK_ID_QSPI2>;
+> +			assigned-clock-rates =3D <100000000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
 
-[Severity: High]
-Is mtk_dp_encoder_force_bias_power_on() the correct function to call during
-the disable path?
+[Severity: Medium]
+Is it intentional that qspi2 is missing the dmas and dma-names properties?
 
-This turns the encoder bias power ON during bridge disable. Given that
-mtk_dp_power_disable() correctly calls mtk_dp_encoder_force_bias_power_off(=
-),
-should this be calling the power_off function instead to properly power down
-the display path?
+During probe, the atmel-quadspi driver unconditionally checks for dma since
+aq->caps->has_dma is true for LAN969x compatible strings, and then calls
+atmel_qspi_dma_init().
 
->  	/* Ensure the sink is muted */
->  	msleep(20);
->  }
-[ ... ]
-> @@ -2860,7 +3078,8 @@ static int mtk_dp_register_phy(struct mtk_dp *mtk_d=
-p)
->  				     "Failed to add phy unregister devm action");
-> =20
->  	/* PHY calibration data is in mtk_dp only for legacy devicetree */
-> -	mtk_dp_get_calibration_data(mtk_dp);
-> +	if (mtk_dp->data->efuse_fmt)
-> +		mtk_dp_get_calibration_data(mtk_dp);
-> =20
->  	mtk_dp->phy =3D devm_phy_get(&mtk_dp->phy_dev->dev, "dp");
->  	if (IS_ERR(mtk_dp->phy)) {
+Without the dmas property present here, devm_dma_request_chan() returns
+-ENODEV. The driver handles this with dev_err_probe(), which emits a
+kernel error log ('error -ENODEV: RX DMA channel is not available') because
+it is not -EPROBE_DEFER.
 
-[Severity: High]
-Could the error path for devm_phy_get cause a double free of the PHY device?
+The controller will then fall back to pio mode, degrading performance.
 
-The patch registers a devm action earlier in this function:
-
-    ret =3D devm_add_action_or_reset(dev, mtk_dp_unregister_pdevs,
-                                   mtk_dp->phy_dev);
-
-However, the existing error path for devm_phy_get manually unregisters the
-device:
-
-    if (IS_ERR(mtk_dp->phy)) {
-        platform_device_unregister(mtk_dp->phy_dev);
-        return dev_err_probe(...);
-    }
-
-Since returning an error will trigger the devres cleanup (and run
-mtk_dp_unregister_pdevs), will this result in platform_device_unregister()
-being called a second time on the same pointer?
+If the hardware supports dma for qspi2, should these properties be added?
+If it does not, should the driver be updated to avoid unconditionally setti=
+ng
+has_dma to true for all instances?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709100617.4258=
-3-1-angelogioacchino.delregno@collabora.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709112006.3907=
+42-1-robert.marko@sartura.hr?part=3D5
