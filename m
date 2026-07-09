@@ -1,202 +1,119 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0643ED132;
-	Thu,  9 Jul 2026 08:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882703FC5D8;
+	Thu,  9 Jul 2026 08:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783587057; cv=none; b=T52/0gYipHU/JSUXG16sKEorcarlMOPm52aStgN6pWJfc4fR5p3QU0beOB2BdNYvxU1rCeULdPWBB+LjeqGSqnmj+qxmoNNtNN89qcBeufmMniw0VzEOYFuJLsvmXsLBqrVFlFOg1hpoAvFpRm7DpLvHVirF0PuPnaZhTs5GiL0=
+	t=1783587059; cv=none; b=t0F1JwFOPUM6C5ytK9ghYfU7af4zXeV/MHXD2Z212iouy2fNnYhU4Z26oF1DFl8Qbv+MFQInOp0rl166XUPXkg51sPb11LMsE1bVaV/lHTatGfMM91PV14JzslNj934hYtyiYTNf6u0E0Oj+LXgHoJ+bSujChz/DvjpEj+YB13I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783587057; c=relaxed/simple;
-	bh=LwPXNvoQE1JwDNZzh7Zqn5J8rhgL3nsUHFamEVgofDM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=L9fO2Hv5C1fnaYJPunJss2hfY8P4XVbxGeJl8g+1LTg3GEiXpoJS2Y5qWD0fP8pcv2eAN4/uIy6JrVgOj6oa/2ZAUR1jVL0EE917HOK1vBeZxogtt20pGBiLpHTfs2Ak7sbKZ1A4kvTB/KgfdY8SH/JpnMLHONEQsgt+QAHcU54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=aqiBHWFN; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1783587059; c=relaxed/simple;
+	bh=fJtmUecI0fgi0aU2q/zJyfwXVuX9+OWKwPRTDA+tlDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CZVcp+ZTQ6iVqt1Z9EeeoVfQAHdMU6RFEE01gPi73x/cJvuUyXeSZrZdO/syrshp7L7BxK5odfSJ0bv5Ou21OyQJeBkfiAlQQzDPXVm52e+zUwHSuH/G6IplmTVf7mxi6pSLApxqU34w9sBYAmR5ANmF518W8+4B0Z9AWOvvx34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxaMoZ7D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="aqiBHWFN"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6697aLvU267925;
-	Thu, 9 Jul 2026 04:50:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=qArtu
-	rFPsA/lOApl2xzI8Fs8FhcSlz6CVpN/dLFWmWo=; b=aqiBHWFNQMUVuuPlk4r1N
-	CsBJZWsy7puYdCGoGK1g190cKZb3MBNLA5JSrmENSfyrjzOdRT9wC+q7hMkSH6Ui
-	EWi95+14eZdAQGfKNnGZdS+9LAvb2njCOQrbqgoEDVcJgCbgTc2LbKtxyAGrWGNw
-	hYMGT68EMVF6joA2hN8RJ0ldP3TFnL7fsyT82Bpgg6SwPBP3IywFSyrLa/VPwbhJ
-	7u/O5qK/vcW296ZMy42kXe3CpvNGMgSgmcrsCu2UXSaOGAp+2RQLzXT7bDiyDn+R
-	CKBBU5d8wF2q3HX8CmIB+LM4Lr9TZA+AxgfuPRB33d31RlcYkwm1I0kpxxZSIVx4
-	A==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4fa2jghra4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 09 Jul 2026 04:50:45 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6698oi8f003594
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 9 Jul 2026 04:50:44 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 9 Jul
- 2026 04:50:44 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 9 Jul 2026 04:50:44 -0400
-Received: from HYB-e1y2fvUQ3cx.ad.analog.com (HYB-e1y2fvUQ3cx.ad.analog.com [10.44.3.70])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6698oLQw015849;
-	Thu, 9 Jul 2026 04:50:37 -0400
-From: Janani Sunil <janani.sunil@analog.com>
-Date: Thu, 9 Jul 2026 10:50:13 +0200
-Subject: [PATCH 2/6] iio: backend: Add support for CRC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxaMoZ7D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6478A1F000E9;
+	Thu,  9 Jul 2026 08:50:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783587058;
+	bh=a1rwfWs0eVUYLQvnn313Ek+k2iZwPDLH9jg+S7+NtUA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gxaMoZ7DMEct622BGXXQ2Ri8Sr/J+tvZNU6g0FIegAoymMY/llbxd69ppfm/oxOj8
+	 F/ygKBf7/fmoDsb4JgXAudUtdk+OVg8nZMkEddDkCi+oINbIN2XjQMqrCqvvYyNcai
+	 T++YqXgDP4X5eCQRe5sUImYg26aXYViq8185n4MMoadByVpazZw4C8lFvxMSTdnjhz
+	 Iug1z0tdGaZ6DJPqWaNhmNrVLYwxK9IRWFk0GLyCD/rg3VNeX49FxbyvX2qGyWzvGz
+	 QNk3i4hWWa7yOqO61Yw8sZmWB2wq/50RN15U9kBPW1u/NSS9f2ekmTeEqX07oEjgiT
+	 o9qFAb6Fe4YWg==
+Date: Thu, 9 Jul 2026 10:50:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: =?utf-8?B?R3LDqWdvaXJl?= Layet <gregoire.layet@9elements.com>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
+	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch, 
+	jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
+	anirudhsriniv@gmail.com, linux-serial@vger.kernel.org, linux-aspeed@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/7] dt-bindings: serial: 8250: aspeed: add compatible
+ string for ast2600
+Message-ID: <20260709-convivial-classy-mouse-db0b2d@quoll>
+References: <cover.1783524645.git.gregoire.layet@9elements.com>
+ <cbe59dfba231dcd55fa86233dc076b017d67463a.1783524645.git.gregoire.layet@9elements.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260709-ad7768-driver-v1-2-44e1194fd96a@analog.com>
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
-In-Reply-To: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David
- Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob
- Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor
- Dooley <conor+dt@kernel.org>,
-        Olivier Moysan <olivier.moysan@foss.st.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>
-CC: <linux@analog.com>, <linux-iio@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <jananisunil.dev@gmail.com>, Janani Sunil <janani.sunil@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783587021; l=3358;
- i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
- bh=LwPXNvoQE1JwDNZzh7Zqn5J8rhgL3nsUHFamEVgofDM=;
- b=VuftJvzn69Xgbyo3dJ9dd6JpRtc1whE+b9fGr828Lw0KgMa2XMsjDfoR1Uky7T2ufDnfVDDDp
- J1ZlZlm+UNdCQAngD4BjWw0YBze6Hae83sbx9iixKQoMH4hYoePiJmi
-X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
- pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfX73ZXPEW/+ZMi
- TnP+MqyQXWaqKyjKJnICAlfNj2SRBRVZRlFY+Lh14K0AJJJzjZsK6ryU/22aT8Lw0nS0g/vfKHN
- SD0BAcrvRx68IpGp6u6KgZrgufJC2eq3GTqsFGBFD6SYUfmM/6qj
-X-Authority-Analysis: v=2.4 cv=bPcm5v+Z c=1 sm=1 tr=0 ts=6a4f60e5 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
- a=KKt7U01DjHU_5c1eSo8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: dLv-XhUIEZKcMww-UNR8O1gEvXpdfMLb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA4MyBTYWx0ZWRfX9Rv5cSjn7HQK
- bRs6nJChTGVAQW2PaOGhEaOijz2LAvC4/asC92rUwoSIqgx9zF+ReksK9mtdr/eG35Ckz9YGBXh
- 1QfC7Jz+Dma0iEjjjgtCao3fyR1UbkYfjFPjdFG3p9KyccNwgo1TbICYDj/EJ5wTo40+C4RY4qt
- GTLaplZMbP14JqCiYV1qLW3hPuVl2PEPtq/CPcUlqD0XyGw0pfh8q4PvihXhQwQ2D9AbVzwtVhQ
- ggyDanYe50t9r7BWzv3WHPq2zsUbNetvW1D9P4xxQAVzCWN10dylACnr7qtj2n9teEDA8Fpsx2Z
- CLc5NEnlDi32MPZxN+FFXLSvB5xE6kPkV02/cHuLyvN4BlaxJ1SyTbDSMi8QHPqWByD4UswzhJH
- RGL2JcgwAbxAkP/ytBpTyR8yq4F7IHVdIK/3wa2Zk/z2kS0Tt6ZMvJGqlA0A59mz67ZvtZc+zKb
- 5oH2ZH9ulhFVEXvbk/Q==
-X-Proofpoint-ORIG-GUID: dLv-XhUIEZKcMww-UNR8O1gEvXpdfMLb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 malwarescore=0 impostorscore=0 phishscore=0
- clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090083
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <cbe59dfba231dcd55fa86233dc076b017d67463a.1783524645.git.gregoire.layet@9elements.com>
 
-Add a backend operation to enable or disable Cyclic Redundancy Check
-processing for data integrity verification. When enabled, the backend
-will generate, verify, or process CRC information for data samples
-transmitted over the interface, allowing the host to detect corrupted
-samples.
+On Wed, Jul 08, 2026 at 03:35:53PM +0000, Gr=C3=A9goire Layet wrote:
+> The ast2600 was using the ast2500 vuart compatible string.
+> Make it possible to have ast2600-specific properties.
 
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
----
- drivers/iio/industrialio-backend.c | 33 +++++++++++++++++++++++++++++++++
- include/linux/iio/backend.h        |  4 ++++
- 2 files changed, 37 insertions(+)
+Then add these properties here as well. Adding a new device is one
+commit: its compatible and its properties.
 
-diff --git a/drivers/iio/industrialio-backend.c b/drivers/iio/industrialio-backend.c
-index f7a4be8ec320..379a426931cd 100644
---- a/drivers/iio/industrialio-backend.c
-+++ b/drivers/iio/industrialio-backend.c
-@@ -886,6 +886,39 @@ int iio_backend_num_lanes_set(struct iio_backend *back, unsigned int num_lanes)
- }
- EXPORT_SYMBOL_NS_GPL(iio_backend_num_lanes_set, "IIO_BACKEND");
- 
-+/**
-+ * iio_backend_crc_enable - Enable the CRC generation.
-+ * @back: Backend device
-+ *
-+ * Enable Cyclic Redundancy Check processing for data integrity
-+ * verification. When enabled, the backend will generate, verify, or process
-+ * CRC information for data samples transmitted over the interface.
-+ *
-+ * RETURNS:
-+ * 0 on success, negative error number on failure.
-+ */
-+int iio_backend_crc_enable(struct iio_backend *back)
-+{
-+	return iio_backend_op_call(back, crc_enable);
-+}
-+EXPORT_SYMBOL_NS_GPL(iio_backend_crc_enable, "IIO_BACKEND");
-+
-+/**
-+ * iio_backend_crc_disable - Disable the CRC generation.
-+ * @back: Backend device
-+ *
-+ * Disable Cyclic Redundancy Check processing. When disabled, the backend
-+ * will stop generating, verifying, or processing CRC information for data samples.
-+ *
-+ * RETURNS:
-+ * 0 on success, negative error number on failure.
-+ */
-+int iio_backend_crc_disable(struct iio_backend *back)
-+{
-+	return iio_backend_op_call(back, crc_disable);
-+}
-+EXPORT_SYMBOL_NS_GPL(iio_backend_crc_disable, "IIO_BACKEND");
-+
- /**
-  * iio_backend_ddr_enable - Enable interface DDR (Double Data Rate) mode
-  * @back: Backend device
-diff --git a/include/linux/iio/backend.h b/include/linux/iio/backend.h
-index 3f95ed1fdf9e..197cf1ad5e68 100644
---- a/include/linux/iio/backend.h
-+++ b/include/linux/iio/backend.h
-@@ -189,6 +189,8 @@ struct iio_backend_ops {
- 			       enum iio_backend_filter_type type);
- 	int (*interface_data_align)(struct iio_backend *back, u32 timeout_us);
- 	int (*num_lanes_set)(struct iio_backend *back, unsigned int num_lanes);
-+	int (*crc_enable)(struct iio_backend *back);
-+	int (*crc_disable)(struct iio_backend *back);
- 	int (*ddr_enable)(struct iio_backend *back);
- 	int (*ddr_disable)(struct iio_backend *back);
- 	int (*data_stream_enable)(struct iio_backend *back);
-@@ -237,6 +239,8 @@ int iio_backend_filter_type_set(struct iio_backend *back,
- 				enum iio_backend_filter_type type);
- int iio_backend_interface_data_align(struct iio_backend *back, u32 timeout_us);
- int iio_backend_num_lanes_set(struct iio_backend *back, unsigned int num_lanes);
-+int iio_backend_crc_enable(struct iio_backend *back);
-+int iio_backend_crc_disable(struct iio_backend *back);
- int iio_backend_ddr_enable(struct iio_backend *back);
- int iio_backend_ddr_disable(struct iio_backend *back);
- int iio_backend_data_stream_enable(struct iio_backend *back);
+>=20
+> Signed-off-by: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
+> ---
+>  .../devicetree/bindings/serial/8250.yaml      | 24 ++++++++++++-------
+>  1 file changed, 16 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
+tation/devicetree/bindings/serial/8250.yaml
+> index bb7b9c87a807..8f22121381fc 100644
+> --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> @@ -23,7 +23,10 @@ allOf:
+>      then:
+>        properties:
+>          compatible:
+> -          const: aspeed,ast2500-vuart
+> +          contains:
+> +            enum:
+> +              - aspeed,ast2500-vuart
+> +              - aspeed,ast2600-vuart
+>    - if:
+>        properties:
+>          compatible:
+> @@ -106,6 +109,9 @@ properties:
+>        - const: ns16850
+>        - const: aspeed,ast2400-vuart
+>        - const: aspeed,ast2500-vuart
+> +      - items:
+> +          - const: aspeed,ast2600-vuart
+> +          - const: aspeed,ast2500-vuart
+>        - const: intel,xscale-uart
+>        - const: mrvl,pxa-uart
+>        - const: nuvoton,wpcm450-uart
+> @@ -287,17 +293,19 @@ properties:
+>    aspeed,sirq-polarity-sense:
+>      $ref: /schemas/types.yaml#/definitions/phandle-array
+>      description: |
+> -      Phandle to aspeed,ast2500-scu compatible syscon alongside register
+> -      offset and bit number to identify how the SIRQ polarity should be
+> -      configured. One possible data source is the LPC/eSPI mode bit. Only
+> -      applicable to aspeed,ast2500-vuart.
+> +      Phandle to aspeed,ast2500-scu or aspeed,ast2600-scu compatible sys=
+con
 
--- 
-2.43.0
+This is a deprecated property, so it cannot apply to a new device -
+aspeed,ast2600-vuart. You cannot use deprecated code for new bindings or
+device support.
+
+
+> +      alongside register offset and bit number to identify how the SIRQ
+> +      polarity should be configured. One possible data source is the LPC=
+/eSPI
+> +      mode bit. Only applicable to aspeed,ast2500-vuart and
+> +      aspeed,ast2600-vuart.
+>      deprecated: true
+
+Best regards,
+Krzysztof
 
