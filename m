@@ -1,67 +1,69 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47EB29B77E
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 01:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C717C37C0E5
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 01:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783559436; cv=none; b=LI+IZuVuJ1fJ+GbeScWzNW6jgaYH7aTV5Vw9y55IcWzOlMYb5wUKJ71lwAbBihfzF0r6wegqhNufL32Qidg/byfluYcP9DgYtaTWghUeIeSKZlwMPAaoPyS5jf0P4GIa1UjLE1aTJ9KY1NXhfLzmFaJsnf+Y2i5cpvpYl2kMLqc=
+	t=1783559439; cv=none; b=WAk6pWYrhE+jVlu4AEvoOKWLFjzHxH3B3y30CidrQC0NFqimLYa7MkPiEyJuVMgco8/cYjgxrxjnn9nPzM9uyOVmBG9e5/1IEjctFx3YqcY/Yk4yA/r9H6p4qE0Mb2Rpik97Fu7M8mKdzV0u7OwRWF2dqD1+wf8Zxbw4DFVkVe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783559436; c=relaxed/simple;
-	bh=k3K2O09SarAjPeX241uL2J937+yy32T1n43Z11zxY0I=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=psKuhnWMH8O9gOWeJ4FW0cfZVzGQkCd12iZvZMNchqU4qoIiUOG51mFTslt7FPR9Uey2kRP4ilQIUmwUUSoWHRaF7VJF99fxdKHeQ52aYpJkB3qGiVJKvw9Hh5GFvelCy81ktb2PFe1ktvcHxwCca7j9vwfYzCC/1onACNqrq4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xE1AEC1k; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1783559439; c=relaxed/simple;
+	bh=s1AKyzoSxxIvdhYYPordthXUPycyeTIy07faFZKS5zg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G+caxM7iTSp6GPPORuRLOXAhBb3byt2EHqWTdFGRL3Z5iOvG7XqkxZ6WImIbNDeMunpImrCz7MBDWRO8eVu4fxLcenAbQlOio/gIvf/KIo7XOw/N8RkjQb9ZPPy7Li13In0ricGn0j3t9fUi/ZPpFvxaFRVSMm8UTtrPP8W2wZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VX/Z2DfC; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xE1AEC1k"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so10342985e9.1
-        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 18:10:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VX/Z2DfC"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493ba701891so9042835e9.3
+        for <devicetree@vger.kernel.org>; Wed, 08 Jul 2026 18:10:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783559433; x=1784164233; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0Y9hy7trM4rhn2V5CWQ6cEWC05ni+rRFhrd6P/Y+NVc=;
-        b=xE1AEC1kDGZvXCmf4IdfGnhKHV3jHpmtku/GvbEMQjCuwaOiB1sIquTHrzBdtDVCra
-         s5jAkqNWNj4Jq/5PbVKZmExFkbhO2BdaozWDlMZo8izMPyP40tUgDI0ElTl1CsS5lWOj
-         eoN9/379iUtYuHSkVjxbl8vIAfgTPO2QimjqOm9uTUTH6q1HfN4FNqgrEocMrPyroC4W
-         UiXefQbFvWljNAo1KhMx3GbTBRaXExcRF2H6XAJ+fB0DwtgHdsvJdZtunvrGDiqBlWrV
-         MYuVyLAMnbQfvp4bGv24gSSWkoZrseaIEjBhtHyppJvZqTWGsMxVXFX2sblGwDxaHbd8
-         L3XQ==
+        d=linaro.org; s=google; t=1783559435; x=1784164235; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jq7X/6sAn2Z6bUb0L/rtYSi5kwwPRvuB+ZVyS57/4wU=;
+        b=VX/Z2DfCoqvjm2owhRY6CxUoUTERFnSDdXkeEny75dtIlSRWA2uRYokSX6qCShaiQf
+         69PeL4/3OtdoyJ5uMe9aCJNl+iDZ84I1gqGktlF/hMGHJ1DzPkm93zNMmPsQ9WqLbma4
+         Fbejp2zJCQw1oS7TpV9p+YVXi70IJuRgmQgrMTdghRlwNtwy/3UlMMIU5rXn36VT5DnJ
+         XPr9cx0TNgwwF2ZjLTMzl9mZNwJlHYSFm2GA4gZtP5f3+ND2XajrstQ+J0/RDNFde4xa
+         F5UOMn4LiVlSAc+aytAeu8UnL2Varnil0Iqzi0PVG5b9huFcxrr3KImYzYXfNyvI71SX
+         qGnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783559433; x=1784164233;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0Y9hy7trM4rhn2V5CWQ6cEWC05ni+rRFhrd6P/Y+NVc=;
-        b=cEqDcK7KGK9ryhZ5z8qieFZsMVkZMZWpwzUBrMruf5ktSiNAif8xzCiokzkfxoSIF0
-         qo9m5ckvzk+RciQtdJD/r2RDKX/t7dxcRqUWY08k/R1LsbVqk9EL9K8oBELD6Q7UV69W
-         MqhT/19qeZwDSLWp1fajfnHcg6onH2zlyXvhTr2yphiDe+j0+i95Xcv/YfaCD7P0YGny
-         pjOYFCyznGbKkmQ3GvZoKhqakpZKa7YnHBTHw3w/N5zjEwQ4P9IZqlWXQW5Ehw7iaAdH
-         kyNBjQKJcRTSdm3OuKvSq/5CMa59WmjUhozyrF9+jIh+S8rZuexShEytZS+pmG05alyR
-         9UlA==
-X-Forwarded-Encrypted: i=1; AHgh+RrEJUhhhZQAgKipELUrJBSQw11dBMNYq/4F+fiVcRa5QJxvBR/40+RWmdrciePujIGoRgvzwqPghS7K@vger.kernel.org
-X-Gm-Message-State: AOJu0YzreuxWHG0QiOpXrn+9mx48M0XgOtRqZSeKQ628AVWBqM/muVJJ
-	BqdHdHTvTNNF7dr+vTaAhqu20Z8txttwaNzfSOq1BqJLDvtfr8TNlz5J8/vLQA6mB+I=
-X-Gm-Gg: AfdE7clqIPDQP2z74zrn5W+ISUXL2tyeA9eZNlEFhR5uWpcnpcWyHdK+Wj+6FZYi9LJ
-	W6TYDnw9D4uvexFxo/q8ybYXW2GtbmQaL0Mk+kNZ8gAbyjSTKSmn6XLzR31sHZ9sUYjC29S4pSy
-	OdIBl2owPbmKRxnxRFzPMQ4PIVZa2KMNFQYtUxByV/MzQbvCgTTVG3EY+4T0UaGZL+UvIwrxmil
-	zxrs0ldKc3Hyg3UU5g5JeVqQNm5h6XS6GnMLO7Iw/Y1qKPC7m0+CBtawv8hphM64NY3oRV6ZVV+
-	LDBKqYqLNvPnI9ihhledMjCc2HeGGholjElQLs2g2cwXv60yif71h57RZ2+HS4/g0V86SYwGsyt
-	+NnKAA6BhCNC/7kH/rExrpIAsFr4L/E3eTkbnnGCi3wZPlfn107+77atoPnye3pNvF2JW7yuYHh
-	G3dEvDf6P/9klk/JcTgb261zKSbPagxhPlc1fQM4ef+r53rhsMQ+aU2vW4tTsCNN4OesV0HoBFf
-	vQV
-X-Received: by 2002:a05:600c:83c6:b0:493:c42e:5be0 with SMTP id 5b1f17b1804b1-493e6853dbfmr51091305e9.0.1783559433204;
-        Wed, 08 Jul 2026 18:10:33 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783559435; x=1784164235;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jq7X/6sAn2Z6bUb0L/rtYSi5kwwPRvuB+ZVyS57/4wU=;
+        b=jg22QFisSGp37ep2ogxkjfayOVHJRmf5ApMUzfJ6JsAykyrbM1kPJGeFq335BjGiHj
+         tHvuT9glJlpFnaAfVWSkzD2o9kQYopja7uFjWKQQeDZPOYMig+dZZn1JlqZsjMLS/NHj
+         VU3e0tKYXl2aCOgUYwRtd7G4Kah1NOC88T3Kj3xIeX2txtFB8TmsgLXvWiUvHTHSSIkT
+         7YTWK+tjU+i4sKfY+ULYm1TGnknT22NYXFCTVUMFFGJedLECiqujs7oiZe6aCMLMxYQ+
+         X2LkcuhVia+JtAb4zKbSyXf8GuidNCVM9DmvjM0t1UDQZ9F+pFJFDaztnjmLT28h886/
+         bIvA==
+X-Forwarded-Encrypted: i=1; AHgh+RrNdbNwOJAKTmomO7V8TwEsuq+A741AjSEyy51Qr34jLC6URBKQhisJ9FsaDxnTVTGbtMtf+Vn6mUQ8@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMNRplygx7Th703zflm1J3V+5Ey5hLnd3UAqpWTeSW7CX3sv/H
+	nTBUM1E7iwVjg2ZDKwlJHeEYvrf0GdELwYmkXlrUErsZSTwgG94NnefP3VXaIXI4RX8=
+X-Gm-Gg: AfdE7ckK5pu9nf8RDo+9wnX337LmoiDM+CdfT+Z1DM8mqFqoHR9cTyBRRILqEQYqvmu
+	IAKScjRct1BC0Zl34rZJOtlFWSJtTKcphXrFped4t7EMJV7ijE/JWsHvXYB22UR0p8FMZjGXFXX
+	MzTIMZv7MEyhSmHip8LKfsdmAeJB9AMQKCODn/GfuF28fuC3LIFwVCwCm/1NIiBGUDsFZmCIe+j
+	APPXlCRuwH5ahU6nQ+dJQ0NNMRAT8Jgd7nQNEOwhyKfc7NOXrfQj8oDWTTiFNoKQcmvOuw2677O
+	dv06LzW40MXu5zhca5ubwBfHgB/1lEFooRrCf6ThqLe3Bi2TGlA9Mup+E3wvemcJYuUCNgNavtD
+	5kQkEv8K5l/nY16pAK91ZU0Ib5Tfm1O9cZGLaQpL+/tLzf+g5ZjuOxcm3lkuMFRUV6bCD0ne0Kn
+	HOzn2GVpg2qOplk4KsX52SoAJu8xFHUGJJYr7371yPtHr2fy+4JnqyldKLNDaM8w1xedWa+xH1k
+	9dl
+X-Received: by 2002:a05:600c:34c3:b0:493:bb29:af40 with SMTP id 5b1f17b1804b1-493e689b37amr57409965e9.14.1783559435205;
+        Wed, 08 Jul 2026 18:10:35 -0700 (PDT)
 Received: from [127.0.1.1] ([2.122.8.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb742d0esm18994725e9.13.2026.07.08.18.10.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb742d0esm18994725e9.13.2026.07.08.18.10.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2026 18:10:32 -0700 (PDT)
+        Wed, 08 Jul 2026 18:10:33 -0700 (PDT)
 From: Alexey Klimov <alexey.klimov@linaro.org>
-Subject: [PATCH 0/3] thermal: samsung: acpm-tmu: Add Exynos850 support
-Date: Thu, 09 Jul 2026 02:10:26 +0100
-Message-Id: <20260709-acpm-tmu-e850-support-v1-0-9fdd58b634af@linaro.org>
+Date: Thu, 09 Jul 2026 02:10:27 +0100
+Subject: [PATCH 1/3] dt-bindings: thermal: gs101-tmu: add Exynos850
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,11 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAL1TmoC/0XMQW7DIBCF4atYrDvRADEmXuUeURYYP6dIxThgR
- 5Wi3L3EWXT3/pHme4qCHFBE3zxFxiOUkOYa8qsR/tvNN1AYawvFynDHlpxfIq1xI9iWqWzLkvJ
- KYNWZFoM/QYv6u2RM4Xd3L9dPZ9y3yq+fo4goxe183+y4Yf2PPywx8SStZKdbA3P+CbPL6ZDy7
- e0ProB8ijGsfeOk10p1k5d1jVb7sW4MJ31kM7ojdDeBDQZxfb3+ANTWkuvxAAAA
-X-Change-ID: 20260708-acpm-tmu-e850-support-e02765ebc9e3
+Message-Id: <20260709-acpm-tmu-e850-support-v1-1-9fdd58b634af@linaro.org>
+References: <20260709-acpm-tmu-e850-support-v1-0-9fdd58b634af@linaro.org>
+In-Reply-To: <20260709-acpm-tmu-e850-support-v1-0-9fdd58b634af@linaro.org>
 To: Tudor Ambarus <tudor.ambarus@linaro.org>, 
  Sam Protsenko <semen.protsenko@linaro.org>, 
  Mateusz Majewski <m.majewski2@samsung.com>, 
@@ -92,66 +92,62 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
  Alexey Klimov <alexey.klimov@linaro.org>
 X-Mailer: b4 0.14.3
 
-This series adds support for the Thermal Management Unit found on
-the Samsung Exynos850 SoC to the existing acpm-tmu driver.
+Document the `samsung,exynos850-tmu-top` compatible string for the
+Exynos850 SoC.
 
-The acpm-tmu driver was recently introduced to support a hybrid thermal
-architecture where hardware management is shared between the kernel and
-the ACPM firmware. 
-
-However, the distribution of responsibilities between the Application
-Processor and the firmware varies depending on the SoC:
-
-1. GS101 (Existing):
-   The ACPM firmware handles sensor initialization, threshold configuration,
-   and temperature reading via ACPM IPC. The kernel only uses MMIO to read
-   the interrupt pending registers.
-
-2. Exynos850 (This series):
-   The firmware implements a much smaller subset of TMU IPC commands
-   (temperature readings, TMU suspend/resume, basic TMU init).
-   The driver should use direct MMIO register access to support the
-   remaining functionality.
-
-In this series the patch 2/3 prepares the acpm-tmu driver by moving the
-hardcoded GS101 IPC calls into SoC-specific callbacks: tz_control,
-tmu_init, tmu_update_thresholds, and tmu_check_and_clear_irqs.
-
-The patch 3/3 implements actual Exynos850 support.
-
-There are some updates to be made (rework defines a little bit
-and get rid of hardcoded values in exynos850_tmu_init() but it will
-be useful to get feedback about patch 2/3 which is refactoring
-acpm-tmu to support more than one SoC.
-
-Dependencies
-============
-
-This series is done on top of the following series from Tudor:
-v8 gs101 acpm-tmu support
-https://lore.kernel.org/linux-samsung-soc/20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org/
+Unlike the GS101, where the ACPM firmware handles most of the TMU
+initialization and threshold configuration, the Exynos850 firmware
+implements a significantly smaller subset of TMU IPC commands.
+Consequently, the Application Processor requires broader direct
+MMIO access to initialize the thermal unit, configure thresholds,
+clear interrupts and collect calibration data.
 
 Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
-Alexey Klimov (3):
-      dt-bindings: thermal: gs101-tmu: add Exynos850 compatible
-      thermal: samsung: acpm-tmu: refactor SoC-specific operations into driver data
-      thermal: samsung: acpm-tmu: add Exynos850 support
+ .../bindings/thermal/google,gs101-tmu-top.yaml     | 26 +++++++++++++++-------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
- .../bindings/thermal/google,gs101-tmu-top.yaml     |  26 +-
- drivers/thermal/samsung/acpm-tmu.c                 | 460 +++++++++++++++++++--
- 2 files changed, 445 insertions(+), 41 deletions(-)
----
-base-commit: a1c3227fc1a1cd83cd7fceb93406da4e37fe06eb
-change-id: 20260708-acpm-tmu-e850-support-e02765ebc9e3
-prerequisite-message-id: 20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org
-prerequisite-patch-id: 335add736ef8f6753c3bdd94f19747aa4b9e782b
-prerequisite-patch-id: e254a5f13d367da94d4bd299304859baa9409f0b
-prerequisite-patch-id: 45efb8d607e3380686135441c62eb6c2747e70e3
-prerequisite-patch-id: 718107c8283ea4a449d9838b57966e1c319f32b5
-prerequisite-patch-id: 45b02a84dacb09cd95969b638caa64960f73d242
+diff --git a/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+index 75560ebca48d..bea208cd4619 100644
+--- a/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
++++ b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+@@ -15,17 +15,27 @@ description:
+   both direct register-level access and firmware-mediated management
+   via the ACPM (Alive Clock and Power Manager) firmware.
+ 
+-  On these platforms, the hardware is managed in a hybrid fashion. The
+-  Application Processor (AP) maintains direct memory-mapped access
+-  exclusively to the interrupt pending registers to identify thermal
+-  events. All other functional aspects - including sensor
+-  initialization, threshold configuration, and temperature acquisition
+-  - are handled by the ACPM firmware. The AP coordinates these
+-  operations through the ACPM IPC protocol.
++  On these platforms, the hardware is managed in a hybrid fashion, though
++  the distribution of responsibilities between the Application Processor
++  (AP) and the ACPM firmware varies by SoC.
++
++  On the GS101, the AP maintains direct memory-mapped access exclusively
++  to the interrupt pending registers to identify thermal events. All other
++  functional aspects - including sensor initialization, threshold
++  configuration, and temperature acquisition - are handled by the ACPM
++  firmware. The AP coordinates these operations through the ACPM IPC protocol.
++
++  On the Exynos850, the ACPM firmware implements a smaller subset of TMU IPC
++  commands (mainly temperature querying, basic TMU initialization, and power
++  state management). Consequently, the AP is responsible for register-level
++  access to initialize the thermal unit, configure thresholds and handle
++  interrupts via MMIO.
+ 
+ properties:
+   compatible:
+-    const: google,gs101-tmu-top
++    enum:
++      - google,gs101-tmu-top
++      - samsung,exynos850-tmu-top
+ 
+   reg:
+     maxItems: 1
 
-Best regards,
 -- 
-Alexey Klimov <alexey.klimov@linaro.org>
+2.51.0
 
