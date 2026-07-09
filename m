@@ -1,145 +1,142 @@
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E918440D573
-	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB63739A7F5
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 10:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783592124; cv=none; b=k0abc3bEvZ1Ex5QCM7PbRTtiwsgHiQLMjIHI+rNgtDDfiBZHZljLrsdfaQVlgfK/fImmmQnLwSrxgNVdzIxUQOHBIvrDHJ1btpBFfvazsWg3/pGFgcZC7if3i6Zl3RZw9ZwV0N9iXaCglTa5vfP1F3f7eIcqRAnrMV27VBm7S8U=
+	t=1783592310; cv=none; b=A1n+53VtpJ/1gYl3HoPAR/ARWaqrDkVJXbgC6v9ZKF9lgjQx6azn6455GNLtMcfL69a9JVXyA3+y7BSkDJeog1e0CTPLOeYx/4to4nZMNvW9EdYiANvkFJghbMT4MqUa1uq/DOxUFzfTXI9dkTwoYnNnRwJM6UIgAUQqJhyMycc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783592124; c=relaxed/simple;
-	bh=+PFCG0w/MsJHNIa+KwCQFagbnO1XKLpWiSxrbAq4u0A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aE4EnWMXChK76s8Ps/B9IZA5Ko8qxbx5JbDod6/OtXwwgVefE7+fLUT92H0aLeRE/JGPmZrt4LM5TcayMs+9f+6QXmFAGwMPVLUnk3XJxyEzOhbywPFyuLEHyMZIsHKIqPz1gRnUij2SGLQUQC+x82FLGU3MxlBZrATLQGt8xmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-73770fd1b65so463198137.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 03:15:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783592119; x=1784196919;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+	s=arc-20240116; t=1783592310; c=relaxed/simple;
+	bh=yaj0W5X6oCbo4WUumWzVBVwkSEBMzMLAlQ6ucjWEMFw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cMvi3YvGA/WE9CJgGA4bPj8qjUfXE+OXTEXwC6T5cDtAEWXdUMeniVA6JzcIhd9iWlQLm8gNs32ggWMWus4YWjt+80N7jJ1EBEShjkFF85SPFTzLuYJM9lje4fjxZ13pJ25YMv/h3/VLwVxGJRTrI4V8KhYagjF8gtyckIG/CrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Fyb7d6Ju; arc=none smtp.client-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Fyb7d6Ju"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeb99bc721so179545e87.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 03:18:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1783592307; x=1784197107; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=29Wr7PF0zfw9GDJijqoW4TX16ag4mbudBnzJuOzFV2o=;
-        b=LIKS8CIuJUxZ3WEHsSXk3XA2JIJQf/FUVPUQDxFwyP1Edh/VsyOzfV0hElVaixk8iI
-         8FnuIVO2rdDoF6ahtiUhOIC4onPVh+QL+2eL6Iont07LGaDHUtA5T0rtm2eks+arlR1r
-         wWk48aCBN2AmIvz+gd1tOwpKnuADcpgM8gshhH3EcpkA/5z9R8Bdg1O2dliykNtLl7nR
-         CAQZyH5c+HUHOmoOuhPjj/K4AxYjw1vnxkOqdxj29jx7Se5mmGTWEi2W2gESqz+LswAe
-         ukkP86WHDu5nkVEWixWoTfLBQ7XusgBkh6p9L8pV6URppSwIdqXTNBeCe9YBmqBN0BrB
-         5Z6g==
-X-Forwarded-Encrypted: i=1; AHgh+Rpv1dpMA2VFlSJB467trX0+HToTy4GSiJij7ellhd6nKQ6pijTCH4XPsZHI/PksH0hM8Xwc+xOBQG3f@vger.kernel.org
-X-Gm-Message-State: AOJu0YwU6CWuGPjiplb0Gmjqfetp09g96ClSYrdo/e6lq4lGsV4HLU2P
-	ZgJcFtzCyb6hK0WeQz2Yb9rq1Ak3qcB8ErVwVdKGWi7vz0phPx+6LlYW5SrA4CNClv0=
-X-Gm-Gg: AfdE7ckKUjcNEVSIzMfJWQkgbmb+Q8pjUdMqVZJpGvch9m7Ost6T/XYQAfe2rmJWLwm
-	zamaNktr3gHX2qNWog18iyhgbM8Ukp46fYVKjTkxUk8XyTS+PzbiQ/c5rhXb674QH8tIY1STVYp
-	uOoBGabBPeJ+cPJU43fhmQJ0fj64q7Z381NIiiG1iAVQPZlFVEB3c0dqN4TAw1PJk99KpnQVwgG
-	tKZhjjIDP6AkOvuUX9GDd5Y2FV42jt5LbT4Q4+sRsgw9xqT1y633ETc0HRsJPMPjKBcADFZMmqq
-	6j0KZK4rQ9SFhW6/6RGE5gVeYGXAXgpqic4OixwH+5Nx9sGbKu0HizLkc0S5bwz7/jIRKOwXUgD
-	Cylou2aOVIM14AqKMI1dxZhwhjB1HKAY6uT8aaop5G2iXSa3MfCWQKahsa510InEXyPcpkQ7VF7
-	xQIlXRkyMylgxgAL3/Dx0WqRA2oEMFo4aYYyweOM/t/00kna/SbxkWGg==
-X-Received: by 2002:a05:6102:644e:b0:738:ecd7:1984 with SMTP id ada2fe7eead31-744dff0ad01mr3542287137.3.1783592119400;
-        Thu, 09 Jul 2026 03:15:19 -0700 (PDT)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-744d6a3e6a1sm3211312137.1.2026.07.09.03.15.16
-        for <devicetree@vger.kernel.org>
+        bh=zrROiXI0zNUVTumAeHoman/juLPQPZ/xLG3NWye+Z/c=;
+        b=Fyb7d6JuGilbcpyaQj2EFT5YTxZNFhmWDMD7IAaQ4m7antd4YUJ+mmbnARpRawgm3q
+         tebchlo6bQ8mcMikjqs2+92KovTTEsWsN6aGLp3lI0rqyDsvvAlilt6YYqXTaE8xvGMS
+         qmCZHEnLT/CPrk93aJgsWF58cUTe0zW8thZUpdb+U9BpMipZhLPVnymNicwCRrduCka9
+         BzjX6/MnjX22GGp4WePCwEUo62I1YuykEei80m4mcwMVoEZkIFeWcKEWS/Cf5ntE0I8F
+         8aie6gvXzTdya8ZZPy2XewjxQwBeOBczeP9sz4AAUC2C62IMab1+eRPrkTkfT03bbax7
+         AXZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783592307; x=1784197107;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zrROiXI0zNUVTumAeHoman/juLPQPZ/xLG3NWye+Z/c=;
+        b=VzfbAwNNDqiAfzJP6Q5fT3DT4dcDczo/8oFzU3I/FdhJjPaw0OWlOiWizNs1SYL9gX
+         /hbolj+YbqEBazyQiZ6voOHftSE6zqbIR1Pdko6E1vLi4ZvZYOsY4b6haZWkFpjkIW6D
+         gSvzJp7ClbGQS9umsLbZIL/2CTIuEBLMBRcPkrUfevCs7U296ZzQ4F1Ms2t/9jr5Qzc9
+         savJvTqGhAnAgMbnED4Zqbe5x1y4bRzjIf/VYgutp/oZEs2r7CcuAhiGsOMWiCWvkN+i
+         BxyjZtJQdINGakDiFBKZCneAiZSrfn+x+0mqWdZDkfuOymXrAkiIjOUWWJYJYsWHzBRU
+         yaIA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqzpdz027gH/aOu6zR7qCJ7o6sbkSdvTtExqMSfAegWBRmf814TImngBMRWYX9UyPkxiqQ1uECR6R1B@vger.kernel.org
+X-Gm-Message-State: AOJu0YyYNE+1oVkR4JucXbZF27YWvoRV53nmtS3WfMwLuM61XPmrhj8I
+	iHd+MoFwEbfQqTY1bd4pjTrQ40jWVlSHfq1KesCFDnAqhve2mcoCJ98YFc8plSh39kM=
+X-Gm-Gg: AfdE7cmjUdoFrb9kyHnAE95Vj7/EoLqghcrzCf5v/HQJy0NN3INeHS8I0J0txD8nyS8
+	E/F1fecNPaZYUtPGRb9g1sq2dJLJruO/8msw/Y79JksxEgvah5JItj7JkmCbVxvqymGhlsJHf9h
+	MIsY9mhz7UQ04Gn73ye58ASy+EyJ8uXjfLvbmxJHrWWC8nqV2PdFTL3cmPm5wZhheJwbSCC61Pr
+	97ZTdBFb8E1bPRDaryFHQzjsXcg9A+C1T/iDB1s0+rR0/mA6/J5Ut3gw0tn3IIhaQ0HI/OMHhdm
+	VXG/MDcDvd1jZV6h8Gk4DHbv/5Ah+DBUeykM7ZKS4jSpIJLmAJpU8xc89ZC6khHrgohDBuOjrES
+	BQqLxD6252bAHtLDIsScw2OjN0bSa0Ds3NU7qYqTm4JohUWENnkflWWChbEqrC1P4Jr0aHvBkMq
+	nhHthjsk9W4m+1xcRRwu3bIwxyWJ3Fhv7KT+OH1v44H/BuvNIz45EF8ujxEgsfhGKeapw=
+X-Received: by 2002:a05:6512:a351:b0:5ae:bf93:d65a with SMTP id 2adb3069b0e04-5b01552c6bamr289400e87.7.1783592306874;
+        Thu, 09 Jul 2026 03:18:26 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b0151b89cfsm531244e87.14.2026.07.09.03.18.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Jul 2026 03:15:18 -0700 (PDT)
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5bf95ade656so124249e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 03:15:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpXxKa7Ocl08jRAytO5CmWwOGhxmo0fs/taO8mzzKbuJl/VBQ8J/WqmxyfRNDnEqBROVis9pVY08mJ9@vger.kernel.org
-X-Received: by 2002:a05:6122:4fa2:b0:5bf:6d56:85e5 with SMTP id
- 71dfb90a1353d-5bf75e9a99amr3435653e0c.12.1783592116295; Thu, 09 Jul 2026
- 03:15:16 -0700 (PDT)
+        Thu, 09 Jul 2026 03:18:26 -0700 (PDT)
+Message-ID: <89cc9f43-891d-4ef6-948f-37341c04411e@linaro.org>
+Date: Thu, 9 Jul 2026 13:18:25 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1783505142.git.geert+renesas@glider.be> <dca2c4940ba38b897f04b6fb67591de9835900e1.1783505142.git.geert+renesas@glider.be>
- <20260708104726.052F21F00A3A@smtp.kernel.org>
-In-Reply-To: <20260708104726.052F21F00A3A@smtp.kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 9 Jul 2026 12:15:04 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUUwsGfZ8QX+qDTTWE7r29qrM7+uRU9Ur0uNL28ONkACQ@mail.gmail.com>
-X-Gm-Features: AUfX_mxmVKl5oIraABhC5nL6N7ouZpLugoAmbQe59QVRHQ1H670N0ohp9eewiP0
-Message-ID: <CAMuHMdUUwsGfZ8QX+qDTTWE7r29qrM7+uRU9Ur0uNL28ONkACQ@mail.gmail.com>
-Subject: Re: [PATCH v2 6/6] arm64: dts: renesas: r8a78000: Add MDLC nodes
-To: sashiko-reviews@lists.linux.dev
-Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] clk: qcom: common: Register reset controller only
+ when resets are present
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260708-shikra-audiocorecc-v2-0-b320d822cdd0@oss.qualcomm.com>
+ <20260708-shikra-audiocorecc-v2-1-b320d822cdd0@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260708-shikra-audiocorecc-v2-1-b320d822cdd0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Sashiko,
+On 7/8/26 21:25, Imran Shaik wrote:
+> Some clock controller descriptors do not define resets. Avoid registering
+> a reset controller in such cases by checking desc->num_resets.
+> 
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> ---
+>   drivers/clk/qcom/common.c | 24 +++++++++++++-----------
+>   1 file changed, 13 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/clk/qcom/common.c b/drivers/clk/qcom/common.c
+> index eec369d2173b5ce24bc1ca860d2ac1bbdce04524..be9b6ebb2fffde05e3f209571c53b601d823d479 100644
+> --- a/drivers/clk/qcom/common.c
+> +++ b/drivers/clk/qcom/common.c
+> @@ -359,17 +359,19 @@ int qcom_cc_really_probe(struct device *dev,
+>   		qcom_cc_clk_regs_configure(dev, desc->driver_data, regmap);
+>   	}
+>   
+> -	reset = &cc->reset;
+> -	reset->rcdev.of_node = dev->of_node;
+> -	reset->rcdev.ops = &qcom_reset_ops;
+> -	reset->rcdev.owner = dev->driver->owner;
+> -	reset->rcdev.nr_resets = desc->num_resets;
+> -	reset->regmap = regmap;
+> -	reset->reset_map = desc->resets;
+> -
+> -	ret = devm_reset_controller_register(dev, &reset->rcdev);
+> -	if (ret)
+> -		goto put_rpm;
+> +	if (desc->num_resets) {
+> +		reset = &cc->reset;
+> +		reset->rcdev.of_node = dev->of_node;
+> +		reset->rcdev.ops = &qcom_reset_ops;
+> +		reset->rcdev.owner = dev->driver->owner;
+> +		reset->rcdev.nr_resets = desc->num_resets;
+> +		reset->regmap = regmap;
+> +		reset->reset_map = desc->resets;
+> +
+> +		ret = devm_reset_controller_register(dev, &reset->rcdev);
+> +		if (ret)
+> +			goto put_rpm;
+> +	}
+>   
+>   	if (desc->gdscs && desc->num_gdscs) {
+>   		scd = devm_kzalloc(dev, sizeof(*scd), GFP_KERNEL);
+> 
 
-On Wed, 8 Jul 2026 at 12:47, <sashiko-bot@kernel.org> wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Hardware mapping mismatch between MDLC driver and DT causes probe failure for hscif0.
-> --
->
-> --- Patch [6]: [PATCH v2 6/6] arm64: dts: renesas: r8a78000: Add MDLC nodes ---
-> commit f3c8aa0f294cd575595329194a9adf5e14b5f350
-> Author: Geert Uytterhoeven <geert+renesas@glider.be>
->
-> arm64: dts: renesas: r8a78000: Add MDLC nodes
->
-> This patch adds device nodes for the Module Control (MDLC) blocks on the
-> R-Car X5H (R8A78000) SoC. It also links all (H)SCIF serial ports to an MDLC
-> for power domains and resets to complete their hardware description.
->
-> > diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> > index e22e307ce31fb..6ca1b1e95aef2 100644
-> > --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> > +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> [ ... ]
-> > @@ -886,6 +895,8 @@ hscif0: serial@c0710000 {
-
-You are hallucinating, as this line is not present in my patch.
-
-> >                                <&cpg R8A78000_CPG_SGASYNCD4_PERW_BUS>,
-> >                                <&scif_clk>;
-> >                       clock-names = "fck", "brg_int", "scif_clk";
-> > +                     power-domains = <&mdlc_perw R8A78000_MDLC_PD_APL 0x41>;
->
-> [Severity: Medium]
-> Is this the correct ID for hscif0?
->
-> The r8a78000-mdlc driver introduced earlier in this series restricts power
-> domain attachment to module IDs in its allowlist.
->
-> The driver specifically defines ID 0x54 as HSCIF0.
->
-> Since 0x41 is not mapped to hscif0 in the driver's allowlist, will
-> r8a78000_mdlc_attach_dev() return -ENOENT and permanently prevent hscif0 from
-> successfully probing?
->
-> > +                     resets = <&mdlc_perw 0x41>;
-> >                       status = "disabled";
-> >               };
-> [ ... ]
-> > @@ -922,6 +937,8 @@ hscif3: serial@c071c000 {
-> >                                <&cpg R8A78000_CPG_SGASYNCD4_PERW_BUS>,
-> >                                <&scif_clk>;
-> >                       clock-names = "fck", "brg_int", "scif_clk";
-> > +                     power-domains = <&mdlc_perw R8A78000_MDLC_PD_APL 0x54>;
-
-You are hallucinating, as this line is not added in this hunk.
-
->
-> [Severity: Medium]
-> Will this conflict with the MDLC driver?
->
-> The driver explicitly maps ID 0x54 to HSCIF0, but here it is being assigned to
-> hscif3.
-
-Gr{oetje,eeting}s,
-
-                        Geert
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best wishes,
+Vladimir
