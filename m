@@ -1,238 +1,147 @@
-Received: from ironport.ite.com.tw (hc210-202-87-179.vdslpro.static.apol.com.tw [210.202.87.179])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B693FFF8E;
-	Thu,  9 Jul 2026 11:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F0B3161A3
+	for <devicetree@vger.kernel.org>; Thu,  9 Jul 2026 11:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783596430; cv=none; b=JEYpghWD0VpaNh/EylO7pRNMXgO8MfLgBkVObPVH7ViVobnlFinf/flPI3mzREdu6Zlt4qIO5h/HHS1X8hOKqGlH2R9EPPBy2dHpf1taK+XVGO3LJ9lQ81QA8LOH8ZXodXLiMjVJCVceQX3wr/kRRXASc3eRKG1bQWmMEwgD8eA=
+	t=1783596485; cv=none; b=D9F11erRB5TsyZw+8xMukRpn7Nw8wUw0hXaOYJSQbXhJmHWnE8yu40gp+fjRVZK6I7NOfJORAp/47itOUrz9sVZQtYg9W+o3+DGKP2GQvAWB9GqZ8DDoc0pmgnrspPnJ9o0/cIgnceKRGwcZb2YyTVY9gtSY98tL99H7r0NSeok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783596430; c=relaxed/simple;
-	bh=luJW/TfpwScFAJOPzOKKSMkvd9yiHNCd+kn0ONp/zJE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=ACzFxsr0p7zp0w2kK93Pt4owwgtZ2YodrR62T7Li+dSpzvw3iiM9xCwyipDqtPgPpIj622AuGS4wfYhfacTcZDO1uKSVyoG86QYjnaQPmss1YIjteLoeatb2ifirHrLg5bpHV99BYDvwTG7aT4OwNkKap9jCZ1MIHSIx1z4PH0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=jNbmxidu; arc=none smtp.client-ip=210.202.87.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1783596485; c=relaxed/simple;
+	bh=K2q4i1BUtOHLUNHbTs87Eqz3MoDSnPF9MSY6jPRAM/8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uMybuLbE5/GQ47XIZPQQKT1srv6KrKOguHBzwgO9X/0PlpNNxRVzeW1BW+HVJ5M/SK9bBvkt2pZKVwUrvups+DMNDVxIrrd49mgJWYJsUHufVrEjg1ZUgKbLvtANijRGfkq59YCJHwzH/T5pi5CEGnXxTKWb7yf+TWHQncOeupw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCCs1SKs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="jNbmxidu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=t8eYubgmszips6H0ZPFeGALMgj6ljkLqh8iAGD5/48Y=;
-  b=jNbmxiduhxSOz/A5GTWBdrSpWW/LlpKE+CiWFrCxTcFAkrbLa6n8DRvs
-   RiLbm4vT9cDuukXbKFlLrQjkflLHZYD5LDHs845CMc6MaQnn3biz++3vP
-   TvzQzexjZGeRE2RfZ7/rYnW0Eb4ib5qTaW0todaY0D4ioYeMkexXLn2lN
-   nB7fI6o5La/vQEjQjt79+5LyTBe+1/wluT33anUsTwfmvZ+2GSHIoENF6
-   7HUjZF18B2vJxhaImiyfh546RURDbzmz3uTnAUkFG8NBYlQX/yxY0tQIi
-   YbpCW6yqzC/TGcS2Yjcgs6tB6EGCe5c32PnkxktDH3gxl5aXGTqmW8kwL
-   w==;
-X-CSE-ConnectionGUID: GqxYrjjKQ6+goGngqTQ2xw==
-X-CSE-MsgGUID: VvIjqZWVTrSxOvMrGkJScg==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 09 Jul 2026 19:25:56 +0800
-Received: from hscmail1.internal.ite.com.tw (HSCMAIL1.internal.ite.com.tw [192.168.35.58])
-	by mse.ite.com.tw with ESMTP id 669BPqM9093118;
-	Thu, 9 Jul 2026 19:25:52 +0800 (+08)
-	(envelope-from amber.kao@ite.com.tw)
-Received: from [127.0.1.1] (192.168.37.107) by HSCMAIL1.internal.ite.com.tw
- (192.168.35.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 9 Jul
- 2026 19:25:50 +0800
-From: Amber Kao <amber.kao@ite.com.tw>
-Date: Fri, 10 Jul 2026 03:25:47 +0800
-Subject: [PATCH v3 1/2] dt-bindings: usb: Add ITE IT885x support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCCs1SKs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424C81F000E9;
+	Thu,  9 Jul 2026 11:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783596483;
+	bh=Goj6Bw+hnZGuEzusgtyaoE4c5NexPuMP50pZr+/RxsM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eCCs1SKsXQ6plqD0gW2KwRu/pX3Q11dB8xbEYWF4YoPVOK6PBX4dkcUIf8FwUWYoL
+	 dBjCreo2yNlDluPygpzHPPdeL6lg8ciArbgLZ/jVkbhRqbX1Pua5DEY3adYk8EWNAF
+	 OFB9Qf5mihFrI7xXO17wMZsrmntCRu/Q118LzwQ54aOcnbrZwiYQv0okBQNNNlPo+G
+	 saK8W8deyYmW4eXrtKPQxOk0/JvIIi59NovLSP2wlYI/EHaDxX9TcFwROtFCSCTjwu
+	 Md+ym8kfl7QAaNSqd8Cs90aEil+YkQKcRWNakrzixtp2K6uy2eKBgC85St7IKxb3rs
+	 QTbEdTtsqZdwA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/8] clk: clocking-wizard: Do not map the memory for
+ static-config
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260709111403.1579159-3-shubhrajyoti.datta@amd.com>
+References: <20260709111403.1579159-1-shubhrajyoti.datta@amd.com>
+ <20260709111403.1579159-3-shubhrajyoti.datta@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 09 Jul 2026 11:28:02 +0000
+Message-Id: <20260709112803.424C81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260710-ucsi-itepd-feature-v3-1-8523e1e1c47a@ite.com.tw>
-References: <20260710-ucsi-itepd-feature-v3-0-8523e1e1c47a@ite.com.tw>
-In-Reply-To: <20260710-ucsi-itepd-feature-v3-0-8523e1e1c47a@ite.com.tw>
-To: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Bling Chiang <Bling.Chiang@ite.com.tw>,
-        Doreen Lin <doreen.lin@ite.com.tw>, Eric Su <Eric.Su@ite.com.tw>,
-        Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Heikki
- Krogerus <heikki.krogerus@linux.intel.com>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Amber Kao <amber.kao@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: CSBMAIL2.internal.ite.com.tw (192.168.65.41) To
- HSCMAIL1.internal.ite.com.tw (192.168.35.58)
-X-TM-SNTS-SMTP:
-	1A0234764F38D13FC10216A884E845B759D95D4C06B6A4AA3A8A219F0C702D062002:8
-X-MAIL:mse.ite.com.tw 669BPqM9093118
 
-Add device tree binding documentation for the ITE IT885x. The ITE
-IT885x is an I2C-based USB Type-C Power Delivery (PD) controller.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-v2 -> v3: No changes, resent alongside the driver patch which needed
-another revision.
+Pre-existing issues:
+- [High] Unconditional fetch of `s_axi_aclk` causes probe failure in static=
+-config mode.
+- [High] The driver completely skips clock and provider registration in sta=
+tic-config mode.
+- [High] Notifier chain linked list corruption due to registering the same =
+`struct notifier_block` twice.
+--
 
-v1 -> v2:
-- Per Conor/Sashiko: dropped the redundant `gpios` property, the
-  interrupt line is already described via `interrupts`
-- Per Conor: renamed example node from `itepd@40` to `typec@40`
+--- Patch [2]: [PATCH v2 2/8] clk: clocking-wizard: Do not map the memory f=
+or static-config ---
+commit 0264def41bcae176c3fa735b3a9b2da6412f451c
+Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-Cc: Yaode Fang <Yaode.Fang@ite.com.tw>
-Cc: Jeson Yang <jeson.yang@ite.com.tw>
-Cc: Bling Chiang <Bling.Chiang@ite.com.tw>
-Cc: Eric Su <Eric.Su@ite.com.tw>
-Cc: Doreen Lin <doreen.lin@ite.com.tw>
-Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
+clk: clocking-wizard: Do not map the memory for static-config
 
----
-v1: https://lore.kernel.org/all/20260615-ucsi-itepd-feature-v1-0-a826cfd0df6a@ite.com.tw/
----
- .../devicetree/bindings/usb/ite,itepd-it885x.yaml  | 105 +++++++++++++++++++++
- MAINTAINERS                                        |  11 +++
- 2 files changed, 116 insertions(+)
+With xlnx,static-config the MMCM/PLL topology is fixed at synthesis time
+and no register programming is performed; only the dynamic path needs
+the AXI register block. Move devm_platform_ioremap_resource() under the
+non-static-config branch.
 
-diff --git a/Documentation/devicetree/bindings/usb/ite,itepd-it885x.yaml b/Documentation/devicetree/bindings/usb/ite,itepd-it885x.yaml
-new file mode 100644
-index 000000000000..0a292a8e72cd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/ite,itepd-it885x.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/ite,itepd-it885x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT885x USB Type-C Power Delivery Controller
-+
-+maintainers:
-+  - Jeson Yang <jeson.yang@ite.com.tw>
-+
-+description:
-+  The ITE IT885x is an I2C-based USB Type-C Power Delivery (PD) controller.
-+
-+properties:
-+  compatible:
-+    const: ite,itepd-it885x
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  wakeup-source: true
-+
-+  pinctrl-names:
-+    minItems: 1
-+
-+  pinctrl-0: true
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+patternProperties:
-+  "^connector(@[0-9a-f]+)?$":
-+    $ref: /schemas/connector/usb-connector.yaml#
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        typec@40 {
-+            compatible = "ite,itepd-it885x";
-+            reg = <0x40>;
-+            interrupts-extended = <&tlmm 129 IRQ_TYPE_EDGE_FALLING>;
-+            wakeup-source;
-+
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&itepd_int_default>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            connector@0 {
-+                compatible = "usb-c-connector";
-+                reg = <0>;
-+                label = "USB-C";
-+                power-role = "dual";
-+                data-role = "dual";
-+
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                            remote-endpoint = <&eud_con>;
-+                        };
-+                    };
-+
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                            remote-endpoint = <&redriver_ss_out>;
-+                        };
-+                    };
-+
-+                    port@2 {
-+                        reg = <2>;
-+                        endpoint {
-+                            remote-endpoint = <&fsa4480_sbu_mux>;
-+                        };
-+                    };
-+                };
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 461a3eed6129..1b03fa3aa060 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13720,6 +13720,17 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/bridge/ite,it66121.yaml
- F:	drivers/gpu/drm/bridge/ite-it66121.c
- 
-+ITE IT885x TYPE-C PD CONTROLLER DRIVER
-+M:	Jeson Yang <jeson.yang@ite.com.tw>
-+M:	Amber Kao <amber.kao@ite.com.tw>
-+R:	Yaode Fang <Yaode.Fang@ite.com.tw>
-+R:	Bling Chiang <Bling.Chiang@ite.com.tw>
-+R:	Doreen Lin <doreen.lin@ite.com.tw>
-+R:	Eric Su <Eric.Su@ite.com.tw>
-+L:	linux-usb@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/usb/ite,itepd-it885x.yaml
-+
- IVTV VIDEO4LINUX DRIVER
- M:	Andy Walls <awalls@md.metrocast.net>
- L:	linux-media@vger.kernel.org
+> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
+inx/clk-xlnx-clock-wizard.c
+> index 4a0136349f71a..e082051221bef 100644
+> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+> @@ -1168,10 +1168,6 @@ static int clk_wzrd_probe(struct platform_device *=
+pdev)
+>  		return -ENOMEM;
+>  	platform_set_drvdata(pdev, clk_wzrd);
+> =20
+> -	clk_wzrd->base =3D devm_platform_ioremap_resource(pdev, 0);
+> -	if (IS_ERR(clk_wzrd->base))
+> -		return PTR_ERR(clk_wzrd->base);
+> -
+>  	clk_wzrd->axi_clk =3D devm_clk_get_enabled(&pdev->dev, "s_axi_aclk");
+>  	if (IS_ERR(clk_wzrd->axi_clk))
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(clk_wzrd->axi_clk),
 
--- 
-2.53.0
+[Severity: High]
+This isn't a bug introduced by this patch, but since the static-config devi=
+ce
+tree bindings explicitly make the s_axi_aclk clock optional (because the bus
+interface is unused), doesn't this unconditional call to devm_clk_get_enabl=
+ed()
+cause the probe to fail with -ENOENT if the clock is legitimately missing?
 
+> @@ -1183,6 +1179,10 @@ static int clk_wzrd_probe(struct platform_device *=
+pdev)
+>  	}
+> =20
+>  	if (!of_property_present(np, "xlnx,static-config")) {
+> +		clk_wzrd->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +		if (IS_ERR(clk_wzrd->base))
+> +			return PTR_ERR(clk_wzrd->base);
+> +
+
+[Severity: High]
+This is a pre-existing issue, but by putting all the provider registration =
+logic
+inside this non-static-config block, doesn't the driver completely bypass
+registering any output clocks when in static-config mode?
+
+If clk_wzrd_register_output_clocks() and devm_of_clk_add_hw_provider() are
+skipped entirely, won't consumer devices depending on this provider hang
+indefinitely with -EPROBE_DEFER?
+
+[ ... ]
+
+>  		if (clk_wzrd->speed_grade) {
+>  			clk_wzrd->nb.notifier_call =3D clk_wzrd_clk_notifier;
+> =20
+>  			ret =3D devm_clk_notifier_register(&pdev->dev, clk_wzrd->clk_in1,
+>  							 &clk_wzrd->nb);
+>  			if (ret)
+>  				dev_warn(&pdev->dev,
+>  					 "unable to register clock notifier\n");
+> =20
+>  			ret =3D devm_clk_notifier_register(&pdev->dev, clk_wzrd->axi_clk,
+>  							 &clk_wzrd->nb);
+
+[Severity: High]
+This is a pre-existing issue, but does calling devm_clk_notifier_register()=
+ for
+both clk_in1 and axi_clk using the exact same struct notifier_block instance
+(&clk_wzrd->nb) cause notifier chain corruption?
+
+Since the notifier_block contains a next pointer that gets overwritten when
+linked into a second chain, won't this splice the clk_in1 and axi_clk notif=
+ier
+chains together and cause list corruption or use-after-free during clock ra=
+te
+changes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709111403.1579=
+159-1-shubhrajyoti.datta@amd.com?part=3D2
