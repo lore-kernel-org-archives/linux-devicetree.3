@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6647A4071E2;
-	Fri, 10 Jul 2026 10:28:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E06E3F8222;
+	Fri, 10 Jul 2026 10:31:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783679322; cv=none; b=RPsXDEuWpnQ7uagg6xJ9V3/c5IK85OvwLXG3OTZ4KwxDRjO3294JGzXOHa80Uk0210+oX6rTISpYpj+eLVMVvqIGM46YB40SqW0iND0c42MnhrYByZNwI2Ea76tpMqHOMTtstQl9wOXH9e7fWu8TVcVPKtJBvsdCsyWEkCjR5vU=
+	t=1783679468; cv=none; b=C6VmxprjgQGy5eB+MQJxOhCjw6w/V2mnutUV+BnLupTN9aw0l39PeMYWNFQz8xO27sH/brKBYJdUwvo844kUryllTp+ciwUQHHZxhXqgHMh5a11KLqKNRGECSuRv2SmJ+Jz0BX+cGwf0V/Lo8nweASZArhpZwWuMnat6SxP5I6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783679322; c=relaxed/simple;
-	bh=rpgmiohzFdxwDRPM5FW/4/Q3zF/zUimx18sWUjRCBp8=;
+	s=arc-20240116; t=1783679468; c=relaxed/simple;
+	bh=ciMpBU5q5X5MpU3DMrlVl+ZF4pBUD8wSBnMQE41zaZk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MrXU7uVCScKEjXMiBrlV+0QgpRX6AUe0tRlV+/LpVU6i0Cc4k9B4U04sbUPYmogZhRKdyexHuh1RhgJ+zC8cN8jHCt+3MOLLvnvB1HhkLemdd/ULXLWi7ZdLpWVQqietRl4gQh03P3OZvwsg/serIxO2vUeP4NG6BUKIgtcPTMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FPUq2UNY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ws6Cu2agejA3q9G6DuoW7iDOr2kYIMtV6fyiU1rKFjvV6WlKgxWsHhHPWOs5zjBP6yge3XD5VY6Np9Z3oAceasHqn9Y8r+dH1mc/lOwDBYJirL7XxvvSV1iS3c0jP3lpeJbpKlv+oNUxO2dCT57CJUM8n3eHsJGb/qaLRuQ347Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FQ5FjPsN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FPUq2UNY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670D81F000E9;
-	Fri, 10 Jul 2026 10:28:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FQ5FjPsN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24191F000E9;
+	Fri, 10 Jul 2026 10:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783679321;
-	bh=7MUfl+qwpC1o7BVjkJfwBEdwVKVSN/Dl3tD+mqKLJFw=;
+	s=k20260515; t=1783679465;
+	bh=v9mglEQYnPs6uk3OJ3Xuvp9hCfi2X4aAytOeMWAoI7k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FPUq2UNYbkh7tvmcQ2svWUONIrBGEKCCzMCYNSDjhxFO0BtceBRYDuFQL/okwRfIn
-	 7OdwRxfzEu/SweNWxSmYDocZDwNJzxgk50ivjVWoU6bgty6yqcJT6gY+kQMy9M60c0
-	 ks9scJ+DDJtOvbDxW7r9s4kZpJr4+l6A2/50KPRJtac9VFcAoyYvuOESeR1uYNJIXN
-	 HO6U1H6IMJ6jrgd7/Vd0XAPWgdjwKI4PIYFXZZA8833xGFlCKy4i78s8+ctYGAevHk
-	 WVQ2tp6jMY9eKdBt96hZtQ5edJyOPjXw4l2yu6h6oFONU70wqRwI0uQqNv2nuBzI+v
-	 jmQIGugLOB4VA==
-Date: Fri, 10 Jul 2026 12:28:37 +0200
+	b=FQ5FjPsNOieS0sERUz6obcmLz+1VTDcNw2SSm6i/1AWFQK7OGHR9gNhNNON/C2Axb
+	 A13b6MhKhmHt0k4Junss+zgGFrkf96FdL4WkOuB99IRLqbjzCy/M11AVo8lRQuIr1h
+	 wJ7EU8nPdIfdaJp+ynA3eY6Jvmj9nZRHGj/l8ZSE5ZbSvKOwYcSfme4Rg2URQDSSfY
+	 r4uvcoDcIk4FSPwexuP9x5FfKF4llBPb6GB43OboPkJMDUSdXZ80wlSjt7PdX8+9Qs
+	 JrVJk30/lIsewgOKAKb9Q0i/FIC8nYohBxCSzhfKltHOS1mzen3PjBqkrBOeul1nO7
+	 dUXz3OKzePTug==
+Date: Fri, 10 Jul 2026 12:31:01 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Qiang Zhao <qiang.zhao@nxp.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v2 04/10] dt-bindings: soc: fsl: qe: Add support of IRQ
- in QE GPIO
-Message-ID: <20260710-accurate-cherry-toad-5d20c3@quoll>
-References: <20260708-qe-pic-gpios-v2-0-1972044cfbd1@bootlin.com>
- <20260708-qe-pic-gpios-v2-4-1972044cfbd1@bootlin.com>
+	Bjorn Andersson <andersson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: mailbox: qcom-ipcc: Document Nord IPCC
+Message-ID: <20260710-armored-tacky-jackal-e5edc1@quoll>
+References: <20260709080848.4070338-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,37 +46,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260708-qe-pic-gpios-v2-4-1972044cfbd1@bootlin.com>
+In-Reply-To: <20260709080848.4070338-1-shengchao.guo@oss.qualcomm.com>
 
-On Wed, Jul 08, 2026 at 12:15:17PM +0200, Paul Louvel wrote:
-> Some QE GPIO pins have an associated interrupt line in the QE PIC to
-> signal state changes on the pin.  Add the corresponding
-> interrupt-controller / nexus properties to the QE GPIO binding.
+On Thu, Jul 09, 2026 at 04:08:48PM +0800, Shawn Guo wrote:
+> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 > 
-> Because the GPIO controller does not perform any interrupt handling
-> itself, a nexus node (interrupt-map) is used to map each GPIO line
-> supporting IRQ to the parent QE PIC interrupt domain.
+> Document Inter-Processor Communication Controller on Qualcomm Nord SoC.
 > 
-> As the QE PIC can be configured to generate an interrupt on either a
-> high-to-low transition or any change in signal state, three
-> interrupt-map entries are needed per GPIO pin that can yield an
-> interrupt (falling, both, and the "none" case which defaults to both in
-> QE PIC).  This overhead is necessary because the interrupt-map-pass-thru
-> property is not part of the DT specification.
-> 
-> The interrupt-map property is optional: it is not required for GPIO
-> banks that have no interrupt capable GPIO line (e.g. port D on MPC8323),
-> or when interrupt functionality is not used.
-> 
-> Update the example to show a scenario where each bank supports a
-> different numbers of IRQs, or no IRQs at all.
-> 
-> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
->  .../bindings/gpio/fsl,mpc8323-qe-pario-bank.yaml   | 39 ++++++++++++++++++++++
->  1 file changed, 39 insertions(+)
+> Changes in v2:
+> - Drop qcom,ipcc fallback from commit log
+> - Link to v1: https://lore.kernel.org/all/20260420040141.1247612-1-shengchao.guo@oss.qualcomm.com/
+> 
+>  Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
