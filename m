@@ -1,53 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67512882D6
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:53:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A40537AA8A
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783709609; cv=none; b=d0Kwz2uNIq38veNu/DHOlxN6E3Lnny9JhduqTODNXNwoxmf+h3Xj0ovMaCOEPDEdw8rALlnUsOSeG+gW/CtlX09sO6j0opXCihXjGdfwzth8gDtbnQ+YdmYV4gxW5UysLAsw0bsx6f+1crOJaRHymXEXWVMGN0QYatVoL0kDMl0=
+	t=1783709663; cv=none; b=qUbqrn9ie7/Kuzu2H/rqRZ1f8uiXlwJzSz0Cem3ApqRdrlnugy/xpwpHDl7teK0CcrFsc/Ph4F0EBLOVCUKrpNjowu/J3XDSNhb3PQ2owWrA9zr96F5G1U221+xN5dhSkfZ8BxyGQ3vrJhnOMEs0OFOPWVpsdwpKHfF5NaoTJbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783709609; c=relaxed/simple;
-	bh=mS485fOgIvhcuepZ3Oku5/wDYi5YVAtYod06IGUO/W8=;
+	s=arc-20240116; t=1783709663; c=relaxed/simple;
+	bh=ouBlTpHGnmyUfrXsmo1Bq7O40Y624bpYwfRwC5r1Lzc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DlVS6Rfbqo1bibt2eM1ANZCjQ4XFdQc5AY4X4vB+jJlyhD2wlKZeN46eeMI4zvS2FLfzsV6h57dicI8G4oplQBskE9Z2x4T0wJRc503K2rKcsI1TlYwGVvDSCOaLNh8oL+XR2v7qhfSPMN6WvpLDb2geSOrdmaqcyFEttHFuP4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nC1gZkZG; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=swiDlkPDmJsgp72BUWCWTi7hiTLZa9/4svvXxlVU86lZmdUpfg1WwO9jO2qUjgkzla0kjwkxDsKizth3mmVsl6e26ToDX87r1QLhqMdKfdYxm9DqjzlhKPBGoYlC+diNqzZCExc85EY+L8eJI4Ic4L3aBzuIJ0VbMCv5pG6W+Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=njlNg6ft; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nC1gZkZG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB621F00ADB
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:53:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="njlNg6ft"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CBD1F00A3F
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783709608;
-	bh=mS485fOgIvhcuepZ3Oku5/wDYi5YVAtYod06IGUO/W8=;
+	s=k20260515; t=1783709661;
+	bh=ouBlTpHGnmyUfrXsmo1Bq7O40Y624bpYwfRwC5r1Lzc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nC1gZkZGUu1c+ijRrCKUlcDODg0wDdbTfE/l8HAx67EYodxhv5NUpCETx43W1TTkU
-	 6bDmYUu3pjoHfW8d2SifUOq7ef+JQ2k7es4ev27hYVTTZKTUID62MenQ2qHU9p6Q/I
-	 zshxisfohZVOFnwJOtkapzZXGeHFRn0EW8McOD4z/5N0bWb83eNFd5SGxk7fyh7Rmu
-	 MSWB4cyXgFLPcAbRCO4i/8frv/c0YYd5dRipH5fhIQDqUj0UqnPhcSi5hhsj+qBk2Q
-	 R2kNF9ITFd5pqJ6qFZwzWBY8QqJQNQpRjmrA68EfbzPlDGKbgw78ngCZ7RxgkGmbx3
-	 qwqeIi/pPifQg==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b01146b205so905261e87.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:53:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrYBOAPklOi0VeMuTaJ2r5oWi0geUKM6fnIY6E+9DtVbS0CZCJhvii2xXaZjBTBeWOkEqjTlbgUfcTH@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVj13li0+mteL1LEm4o54YB+mx1g2AOhz1HfAvCkU7xt2HINg1
-	VFtwbw+bqgq/QyJsrcC3QFiySHKfYvAlJFe1oUV0rSIIaeo11JpztxtZwvUusp4k9HYV05Z+Nq4
-	UAxegtKmIGngj+VsgWcWGuKVKd9cEBO0=
-X-Received: by 2002:a05:6512:6699:20b0:5ae:b629:4517 with SMTP id
- 2adb3069b0e04-5b0236de948mr44182e87.63.1783709607271; Fri, 10 Jul 2026
- 11:53:27 -0700 (PDT)
+	b=njlNg6ftu1pr5TlPVDwX5iYcyzqbkWZjhazrr5pZxCuSLX4SS4vRCyPH/3Krq/JKR
+	 2qVVUZWPTgLmxYxYxlKOZefx8K3az8Cm991C6PSaghBVPz4x3qjpZJji1f84w19KTv
+	 N+EIVk5FrLC8rA/qN4i6WKFcWmFGbqUxEgMMxQE6qhUzsS162mRMAMSc1aGkFD8Pjo
+	 wBprcfpqR37kWJJKptREZel4YnXs1YnkL4jmUS4kc58cjcJpj17sjp5kiL95SipdiW
+	 iPhR1kKFCgJFwx6T5YrAVxMJgUuJFObpzapqamBWiZ1BnxkagBQ0cTALJo3Q45YioC
+	 0GBdXgSJ4SxCg==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aec6360133so887704e87.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:54:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq5D0N4N9306EF++OLHk0fyNbSH+hMScog/q5A29b5QfC6n3WmLhpF0mZWTlKSBB147xQytDsB5zAOz@vger.kernel.org
+X-Gm-Message-State: AOJu0YzUJCWHCeAGZbVvQltVPvADi7Anv8OlwtiVGfYAb9Q6SRQalQen
+	8214/tJ+jfcTi5DSPb94rFEYpg2XfwNUahkFZXlw7pIWvCGYo1ZN8ZRPCf3k1GJ7oK7ruiVVkvR
+	T+sGqrjRPhm7cHwn0/feGLR709PyeZWE=
+X-Received: by 2002:a05:6512:33d1:b0:5ae:bd53:70f8 with SMTP id
+ 2adb3069b0e04-5b0236a3403mr65056e87.47.1783709660727; Fri, 10 Jul 2026
+ 11:54:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260706101823.341230-3-krzysztof.kozlowski@oss.qualcomm.com> <20260706101823.341230-4-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260706101823.341230-4-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260706101823.341230-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260706101823.341230-4-krzysztof.kozlowski@oss.qualcomm.com> <CAD++jLkQPHfq=_D_TPMbmmA4JFwbhhtTC+3Dj+uD2P6LFNtfUg@mail.gmail.com>
+In-Reply-To: <CAD++jLkQPHfq=_D_TPMbmmA4JFwbhhtTC+3Dj+uD2P6LFNtfUg@mail.gmail.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 10 Jul 2026 20:53:15 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkQPHfq=_D_TPMbmmA4JFwbhhtTC+3Dj+uD2P6LFNtfUg@mail.gmail.com>
-X-Gm-Features: AUfX_myNLzbgrTSqqqiX6xG1do6m36L6LA1SqCR-RLu3gRQM6LPnA90pLzI98Wc
-Message-ID: <CAD++jLkQPHfq=_D_TPMbmmA4JFwbhhtTC+3Dj+uD2P6LFNtfUg@mail.gmail.com>
+Date: Fri, 10 Jul 2026 20:54:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmk7c-836VWFkZTKtgFgvR-4uizQShiUuyQ7jL-iAJP_w@mail.gmail.com>
+X-Gm-Features: AUfX_mx-aW0xSlv_lXB_IgSnV0_rVkl-4iwi5PwHYhMokOtVpZa9KEbz-fl7ZxA
+Message-ID: <CAD++jLmk7c-836VWFkZTKtgFgvR-4uizQShiUuyQ7jL-iAJP_w@mail.gmail.com>
 Subject: Re: [PATCH 2/2] ARM: dts: st: ste: Correct indentation
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Cc: Viresh Kumar <vireshk@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -57,15 +58,20 @@ Cc: Viresh Kumar <vireshk@kernel.org>, Rob Herring <robh@kernel.org>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 6, 2026 at 12:18=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
-
-> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
-> No functional impact (same DTB).
+On Fri, Jul 10, 2026 at 8:53=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
+> On Mon, Jul 6, 2026 at 12:18=E2=80=AFPM Krzysztof Kozlowski
+> <krzysztof.kozlowski@oss.qualcomm.com> wrote:
 >
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Correct spaces or mix of tabs+spaces into proper tab-indented lines.
+> > No functional impact (same DTB).
+> >
+> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.co=
+m>
+>
+> This patch 2/2 applied to my ux500 tree, thanks!
 
-This patch 2/2 applied to my ux500 tree, thanks!
+Oh nevermind they are already in the SoC tree, even better.
 
 Yours,
 Linus Walleij
