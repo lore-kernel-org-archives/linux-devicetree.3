@@ -1,180 +1,132 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DC8371D07
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:01:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C9F379C21
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783713709; cv=none; b=CZP67NZdX8nqZjdEKji9ZhqJFL1GKTnK6zxey8TKR+mtqTH1urohSg4XzHSXaiOmURpZTBh4UOtZ3U0AVrpUlKPmf/7SCWdcYsRRfMGX89RWe6u77gqs8sVS9hujyQjdgl9kpzUjW65beTPT2risVGhBcSL0o6se5rODp3B72r4=
+	t=1783714000; cv=none; b=s4VlWmXm+gYGC9czuTvtmnjGs6aMWboz7+ggrLHxRCa/x4Hc22baYaqq+rL0wWwzg6z5iP12uLXaqCnhx2F8/8VSbVzIUAaQ1QkOFGE+sunui8j2zhxl+/0LSCpXe1WYwQYk+ZnJbbsrOtwJyjSBZYVAfO16tMlyaOR7QkdEooc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783713709; c=relaxed/simple;
-	bh=Wpj7biINABXruyl7S8E64d6S+aIPAP+SvchHl1VAxwI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q3N+lAqaSv/b70BNhHjIbaov+vP8Itb0xaGg+5cIOoQ7LsCtcxIqCZkmnB1VLjt9ezbIqYnaDj0L1dn1hkK9d1j1a3R/dHsLU/RJ+NgC+EbxKA27Gg8Gr88DzOOpqrUH3CPWmjbtumN5NE1Z3F5FLB/NRtKlaf4dKbuoNhReGrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ekx/Ir9K; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RtJLyEIg; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783714000; c=relaxed/simple;
+	bh=VTtJMkoIE7aY9ADQYgKgI9tia/pJhvsGnk0AWgm65VU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nUSOR6iEPamyOy9XkCPH2pk9LDmPz+wSdUGwxcwJyhkkxHO4YAM2uFMcH00YgoSbPotWoE5OhR/i53uF/YbHbwZzpub1RyoB5jVbj1oTs/92/qBjHFJNHHLU71vGgMFRqohuOepC7mv+TOPBe9K6oiZj25FnKTqZgavXyVDRcK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WD0uMvEp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ekx/Ir9K";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RtJLyEIg"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AH3gOZ1453112
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:01:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6TauvJkutb2hiYeXYH72NLc7gaplt5eyXb6hMmwHelw=; b=ekx/Ir9KisQqT+sO
-	S+dKYkRjkjB89OmCaMF97bUAQTE4ze415+U13BgRp71chl9J8OEjUDfECg6839Yc
-	nrHU8OXQkaA3HRIHSAsV8zu4b9FSDGXSVoYE3+JqrgU63WAXQo7Y+LXc0Qn2dbNZ
-	212MK8O2wSik+3XE3fyIz8kqOILZi9bFNmrGti4fH90kNAuOWbthXc1f5nzxXi3Z
-	i3SUAjXVjvtmqxsJsvxaQjH7BE46ROkkYC942Ci3GUBi7ZxKgprf/NNh+C4N9Moi
-	KcwsOwgJ4eWEKmHL0/2w+8WpmOwVO7wPVFc8npsdtlae8mdoAPVb52lzhb7gw2wn
-	ZmWaaw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fb3xn0t2q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:01:47 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c6bbd0afffso23417195ad.0
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:01:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783713702; x=1784318502; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6TauvJkutb2hiYeXYH72NLc7gaplt5eyXb6hMmwHelw=;
-        b=RtJLyEIgqnNad7be2CYn6VXWOjk31k/W+zXl/1132uS53TFuElau2+U6ngDlo4KaZ8
-         uBN4fCmesPQuIVvtrS+WM8jO2dwESugErk01lemvx/YGw6h8/5NMFMlCMArVCnU7vl/X
-         SNtyIVMKi0aILFHbu/HJxHOzAKQhHpPf/4ae75o+ftIPvT0ivva9q3D3O4N8kWTczWoP
-         SPfLBDMyKp82zDYtRrcBgFuAWfLcI5ZwIVXTaIBSlGcghnBL5UJzynavxmKwq2sn1ZPQ
-         XBX+ksYWuEgB62UteUjZNDrMGuVFstdETycwYrN8AHRdtjzHyhDxjHizobuqcVNw8tJ/
-         Cpwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783713702; x=1784318502;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6TauvJkutb2hiYeXYH72NLc7gaplt5eyXb6hMmwHelw=;
-        b=XRQEOjxUVTpeUysQq7wZyHzzfvMYW1U/cJB/2BX0sYofP2ivmHXJtjz4amSK56nye+
-         nspp1JroIa1+UtBv67FTaiNdX8VLywFicsz61owrF+uP6XFXbW3Ka+mUjlLhcG+hhCWJ
-         2aOG2tFMmk5CiaxYSCrYL0No+g+obqpB+fr/wPGNFpzDTGF32mmhyZV02WSsh0Y4x/79
-         /UBX9MZABK1BvRvyzP+VIGSMMeOsuc/J3nuQGavJZM4C6v5v8W6O/w8/+sCVCKmwZqb4
-         E/DpAGKDSxUgRLmVOkNZwixxUXbsqfCsdN6YoO5WfFPs5h481zKqeMBQxfK811xzH1jc
-         +l+g==
-X-Forwarded-Encrypted: i=1; AHgh+RqTIIXjh8CkX5RpfPHC2cN2hOukSUy0wYYV4FQ+IKlcsNCoAMu/Neohm+UFBVasw27BKevGkN5A2wYd@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLX8b5NvLcVkVfkcx0xx+yIIHOsWWffd4GtePhetjGJgaLcvIb
-	geB1vEdbWwFe55PW/te1+HB/8ngt/OkFk+K6BXq0YTNmqysdQWH9x1n92Q0Tpyel4UNf6GNy7l2
-	YP0kgEpgeHIbI5V/K3CEfW37WY4lyLAYRo+iUJZVz7lvmLWscx1BlQoYCo7H8g2yr
-X-Gm-Gg: AfdE7cka0yi9TXKQPC5OV5WkM5GgQy+jPF2LZqT0JIXgOC4BkaUODF+GrNKUCBnHPOx
-	GxWzopuIaeDXsGoaTxam24bNEDtEGgUb8XHObQPwhvysiCb3HiBM1s8YSXfLnWqfkAnymDGGGn7
-	TATUBT2wFoamIgjiE4OSwJ6sr19ijQ7D6MlXsDauziDEvheL9f4YcDFHWX7y2+P1EUO4BOFMVZh
-	JE2/xmOiD6s9646+fSUcGhg4GCtaYJgF5dcmDPIBFLifDKiqPnaGtv2FULn/f6B6A061MTl4aS3
-	D4aIE8e981FUThFDMpi64umUXmWPU0kZyN/LvlhneMHYvMcTvlTRiH9i2T8fAVFUj3+vD7aFTwA
-	KduxQShUHd0SRhz4NSg1juAKWJaMdmo+9Iyb3KAL3QMR+7Otx1IBP3VmLwE7oQJJV6JRe
-X-Received: by 2002:a05:6a20:258e:b0:3c0:42c0:702e with SMTP id adf61e73a8af0-3c110ba2a31mr439252637.52.1783713702120;
-        Fri, 10 Jul 2026 13:01:42 -0700 (PDT)
-X-Received: by 2002:a05:6a20:258e:b0:3c0:42c0:702e with SMTP id adf61e73a8af0-3c110ba2a31mr439205637.52.1783713701649;
-        Fri, 10 Jul 2026 13:01:41 -0700 (PDT)
-Received: from [192.168.1.11] (15.sub-75-218-246.myvzw.com. [75.218.246.15])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659666e7sm50819545c88.7.2026.07.10.13.01.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 13:01:40 -0700 (PDT)
-Message-ID: <3f399cac-d82d-4d52-8a52-45cd9a0e31d8@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 13:01:37 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WD0uMvEp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EBF1F00ACA
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:06:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783713998;
+	bh=B9Kk8b2yeKJda2bcD7uscL9OAXJzdAoXShPD9wofJ1Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WD0uMvEpmZ4hjD/0FYhelcJkG2V8mh5HWOkjkEDVb+ET9E29v/9HpaUWFL0KG8S1c
+	 tWXnEMY+7mgl00OYFq4k+2h1AdtW0B6YwVQCN9m0kaupFYZbmSrKfdSR4HESs9vtJS
+	 IH7B6PdHTJxE3PB5WY2YBFyoLvJu1AeOomuPwEQjCHP7UzLiezOyi66t3HYde6crCJ
+	 XjWxgov+Ts4Ut1zJ/WpJJlRPASZGEDilLzeLl9Fcz/wROM5nagZves8f0FdBjBFhUF
+	 lsUb5iPHK9+u2ZPCmxxX71TYTz6Y72MzwuaGciu7sIYOLVtLJzTYbKj7eHojZHoh/x
+	 ndvoTXlgEuJ6w==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5aeb77b3afbso1335925e87.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:06:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RowkkymE07JuyYWmjw3i6gozY4rfmmV5w3PHNPDHZGGeDnai9GvxRg7+dsx39mfv0GWpCOKFgSZNnao@vger.kernel.org
+X-Gm-Message-State: AOJu0YywSCcteafiBjj2V7Yw4fD2ixUj6DS8M4uvLxkGtXKd4WKa3Yra
+	BmWtJnnBQCAMNFPi+fqb3oZ3wY2l5O91FM98K52fIU+YnvpB4muFff0P9xK4itGaxS4ykI3WBCZ
+	vrd3Oqewd5qduNfk7mr/Muy1cCv00LvY=
+X-Received: by 2002:ac2:5547:0:b0:5b0:f9d:f7b9 with SMTP id
+ 2adb3069b0e04-5b023564b81mr79634e87.2.1783713997465; Fri, 10 Jul 2026
+ 13:06:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service
- support
-To: Bjorn Andersson <andersson@kernel.org>, konradybcio@kernel.org,
-        Sumit Garg <sumit.garg@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-media@vger.kernel.org, netdev@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
-        akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
-        jesszhan0024@gmail.com, marijn.suijten@somainline.org,
-        airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
-        bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
-        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
-        mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
-        mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
-        jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
-        vignesh.viswanathan@oss.qualcomm.com,
-        srinivas.kandagatla@oss.qualcomm.com,
-        amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
-        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
-        skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
- <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=JJYLdcKb c=1 sm=1 tr=0 ts=6a514fab cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=6VQYfvmiyQ8t40WkS/mQdw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=G7o58nB-JDmhE5M--eMA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: kxV_Ue264sA-W96qdCxMbpUCs0HHFjjP
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDIwMCBTYWx0ZWRfXy/D1DmnnDj2u
- 8ykkyWMdoUHOFBp/CvrWffa7HiPrzPSqNCFNjOSmPpUfAB+SSMFISNCZe8yVir8norSUdfLL5Dl
- nR4orV/YohIs6LDfJ/1HHlYTz2aMEoU=
-X-Proofpoint-GUID: kxV_Ue264sA-W96qdCxMbpUCs0HHFjjP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDIwMCBTYWx0ZWRfX7CsJjEB5T1Yr
- /2RcWWghhPW55nhIcRQ3drm3Ycu8o+R0XqLQSECdIqJwFL4kCs1zhffU2+Rm02md9xQHwQMml4H
- OzYc0d55OyzcKC6gdAlS2rJLqyCtVECyUv+ZlB0wXiVe8pWhHCDK+LDfqb0sY0XNsvVd+pazxQl
- sLeWOApE/6/yzDNrp9sMNTOYb1iq1hI0H5qse884PQRfHWUPm8yTjeNFXwLB5sVPG850M7FukQV
- gVQkFk6/6TOozm7WjPsnankwYgPHgCeiIFoH/mWO3MUII004CjG5IUSksX1R3gcjqTnEDU38PdM
- MgdszzYEW38KESsb9gMaNeagfy13ljacQ3xxfg5LL4ra/ThGTVppYGdn0/DkSXZK35g3u5RiAZc
- xszQJcK/ygqptjKI2uV1BaeNmk5wxclHoaUfPi8oUdCuWHaooCOpfl61LH8MjLHMBvWosTCAZT2
- rjmiHN7AeQ06CxINeLg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_05,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 impostorscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100200
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com> <20260709-ad7768-driver-v1-5-44e1194fd96a@analog.com>
+In-Reply-To: <20260709-ad7768-driver-v1-5-44e1194fd96a@analog.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 10 Jul 2026 22:06:24 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=iqrJV=Qbe=O8iycMZZVmVbjzPG47Bf_SUVjUb+4AcxA@mail.gmail.com>
+X-Gm-Features: AUfX_myotWGi2qG-MCbfVtZjA7xuips9ZVSbzGCI_OB1AcLKfs_3jsKmDONnS60
+Message-ID: <CAD++jL=iqrJV=Qbe=O8iycMZZVmVbjzPG47Bf_SUVjUb+4AcxA@mail.gmail.com>
+Subject: Re: [PATCH 5/6] gpio: ad7768: Add AD7768 GPIO auxiliary driver
+To: Janani Sunil <janani.sunil@analog.com>, Michael Walle <mwalle@kernel.org>
+Cc: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/9/2026 12:32 PM, Bjorn Andersson wrote:
-> 
-> On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
->> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
->>
->> Qcom platforms has the legacy of using non-standard SCM calls
->> splintered over the various kernel drivers. These SCM calls aren't
->> compliant with the standard SMC calling conventions which is a
->> prerequisite to enable migration to the FF-A specifications from Arm.
->>
->> [...]
-> 
-> Applied, thanks!
-> 
-> [01/14] firmware: qcom: Add a generic PAS service
->         commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
-> [02/14] firmware: qcom_scm: Migrate to generic PAS service
->         commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
-> [03/14] firmware: qcom: Add a PAS TEE service
->         commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
-> [14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
->         commit: 6701259025d49139131a0eb2257659a066dcca22
-> 
-> This is available as an immutable branch, for other subsystems to pull at:
->   https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
+Hi Janani,
 
-I've merged this branch into ath/ath-next so it is available for ongoing
-ath12k support.
+thanks for your patch!
 
-/jeff
+On Thu, Jul 9, 2026 at 10:51=E2=80=AFAM Janani Sunil <janani.sunil@analog.c=
+om> wrote:
+
+> The AD7768/AD7768-4 ADC exposes 5 general-purpose I/O pins that can be
+> independently configured as inputs or outputs. Add an auxiliary bus drive=
+r
+> to expose these pins as a GPIO chip, registered by the parent IIO driver.
+>
+> The driver uses the parent's regmap for register access and delegates
+> runtime power management to the parent device.
+>
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+
+(...)
+
+When I look at these functions I see they are very close to something
+the GPIO_REGMAP helpers should be able to do.
+
+Bascically all that stops you from doing this is:
+
+> +static int ad7768_gpio_direction_input(struct gpio_chip *chip,
+> +                                      unsigned int offset)
+> +{
+> +       struct ad7768_gpio_state *st =3D gpiochip_get_data(chip);
+> +
+> +       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(st->parent, pm);
+> +       int ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+
+These two things.
+
+> +static int ad7768_gpio_get_direction(struct gpio_chip *chip,
+> +                                    unsigned int offset)
+> +{
+> +       struct ad7768_gpio_state *st =3D gpiochip_get_data(chip);
+> +       unsigned int val;
+> +       int ret;
+> +
+> +       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(st->parent, pm);
+> +       ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +       if (ret)
+> +               return ret;
+
+Here again, etc.
+
+Can't we just add a
+
+struct device *pm_dev; to struct gpio_regmap_config, pass
+st->parent there at init, modify drivers/gpio/gpio-regmap.c adding:
+
+static int gpio_regmap_pm(struct gpio_regmap *gpio)
+{
+    PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(gpio->pm_device, pm);
+    ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+    if (ret)
+        return ret;
+    return 0;
+}
+
+And call this in each of the standard callbacks so gpio-regmap.c
+can handle PM as well for free? The above can be an ifdef stub if
+runtime PM is not enabled.
+
+Yours,
+Linus Walleij
