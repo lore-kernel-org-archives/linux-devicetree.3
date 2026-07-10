@@ -1,191 +1,112 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FBF408001
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 12:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2AA199931;
+	Fri, 10 Jul 2026 12:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783685460; cv=none; b=QmXM3n6C6fInj3IsyMjA9WjlXmuO3bjf1NhgTgZto3SJREsyGL+sl6vcNg2Bok1fDBLhMayjD/8Sb1dHvZepXVdYzUGstLpsfhv4QOWmtQgpNs4bLq0zSV7TC1APwaKfbAtNMXVaAtTf6NJt5gv8OtQ0Ep96vucSPT/WsUsEqZw=
+	t=1783685539; cv=none; b=Db7kNDbc96aRn2HfKJIx3J4C4D9sBCdal0OPq/V8b1/RI2s8w2riNLkCy8rOig/TJuyIGwwdLB/GtpwCM3DlYnoAAvxflM7SXlGJfKyiBWzHp6JQuIfN1iFbAbFSbiVpw6e+G3VoWribTiBnZeMYSbHDX0umYapIPrN3PXSwf3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783685460; c=relaxed/simple;
-	bh=LQuqMBiMfznhd5njKcRFfwpGiKCYjugLtkhtU7uU7rM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZbLNZYBvRghG5AgZVxZc3qmVi93pm3IvA2nVEmthbGnpkQ3xEfoW/cAuHngoDASh0R5O+G5IpxXp2zx1NWaHbK/5/lNlHHoCbZztdrlXTT3gKv9a6KquPrEIV3kVCbMCI15u0l7wxdo+7b2PSfHr8jtcI/Esa9pmbUrLrrV+LDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cjdqP+yv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eG+Ad/CQ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783685539; c=relaxed/simple;
+	bh=nVuv/Hu964f3n0QjnsdrXirjEZ9hx5LnS/ajlZNJqtU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=laflhZwtvVqRLPXlGolV0FtQs+1ldgU2u7qgrD1S4cqnYEXr6jhNCTPt4vRVJAiBdJexnfva4jntJ6ZA+2qMiiUQGCYvTG6NVr6WzWttLnZrqdT1zrlSwGbBvy41q/qGKJin0kZXui6iW7zEURKsuhuiB98hefxLyOMNvpsIaVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsHYXBoU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cjdqP+yv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eG+Ad/CQ"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AAmh4m393296
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 12:10:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BMHYD3IApt7H3j1PjH1ywGPQU4YgKE9uns8OQVgsLG0=; b=cjdqP+yvsqtn6gPc
-	W+muhRwpAEjb8KOgdYqYgcyr9oh7YA3nxxu/lmn6zEvw/C8I2oicRSES4ZQQBep8
-	u22fp53QKB3BGmePM0prjkBOpPuHkc8W0uHr2yBIlapcZ0FphrPBtDeViTQAMs3n
-	+H0UZx0wRm9P4XM2eHbln7299wzAI6WFA6s8oE9ssdEoK+a9+zhdbC0/F2EFrmJZ
-	C7S6OY2rgHWvD9uPInMbCQBTm3qSv0C5KPf5YmcfNGbhPXaRM3HjirQFJBiaUG/Y
-	IoNP6alu/Byf8pt25HOABSpN96pox1tbMPE4UsL1l4k4kwNMctXY0XG82VJPi+IC
-	E2y5KQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fahv8k6w8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 12:10:58 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51bfd1772d8so2002761cf.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 05:10:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783685452; x=1784290252; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BMHYD3IApt7H3j1PjH1ywGPQU4YgKE9uns8OQVgsLG0=;
-        b=eG+Ad/CQRqAWo2z/mxzOUoY0Iewu+f51JLlWOgPDWiFp4qmJR9e00c8J8fWh3rAYV3
-         26DsbecVSFmaOg/7kQ3liyuXpfmtH2XvJjxKwpEs0gc7tV/B4fZuCMPNSYiQABsc3wRc
-         ihGu1s9B9W7LaUw/phI/2Qk9C+W71MCzHGVuRarS9ngOdnhepD3FHdE338XNJjRa2mAR
-         rOEleev08DTc6issSCyhFwLSL7EGfiFGvZPd6eviYZsCbDaAjMq0q4v3l269GcJ0EYLr
-         cZSCADdOFQwZV0Pno2Aym/KQKgalqwi7Ff76T0o0eSil/DYOjTxVaASkC7+6OskLwmk2
-         tHqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783685452; x=1784290252;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BMHYD3IApt7H3j1PjH1ywGPQU4YgKE9uns8OQVgsLG0=;
-        b=UdHUJ6s25WlnOIcciV/dpi/R1DdqfAmK01du3Ax/mFwkSSayvcuuszTd40He2E0E17
-         S2pu3vjZbMUzCk3GayXFHCosPPBIKzYXv+g3g0yirUX2r0C0gUe6R3Tu3CeVWsByZhr0
-         wcyn6UqqyIEEmMZPoTl8ZpDCgEHEs79hovwwU4yC623hoQybjGs2xEI2jg/AHQtmxSla
-         r3fBb177dsLh3J/QQ8GLzV212aSdO5hdIZAHA3NpM9BSuq30cOvs7CtEhMfd9D/T9Gqc
-         GXor7WVWiJkyqmT565EzZ8mkxR6CRmclCU4Un1b4f6uT6m4cjPgQMcAJptnRWY75LfHo
-         7TGg==
-X-Forwarded-Encrypted: i=1; AHgh+RqjVzCCPm8LpxJBCUW6ATCgnaXsi08diBAZyYng57b4hZ4UaWRRpJLZRsIF4YT85I+yauLNtvAN44kT@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE4cS5n0BgV92X0OG6+0iiS/NV8nzVUwHvNNicuPhfiN2Ra9da
-	b6x+85M+RP4rjMcWsJ7FDLUdIGBrCfA/pKAY07Wef7HAG6AFWgwHaWHI7PN1m2s+samhIJNyhhO
-	1xt6UI+JrAaPKH/UZRlRMXQejmn17Rhd4WzOI0PgX6kZFBto81R93S6Z/yA17Fcxf
-X-Gm-Gg: AfdE7cmpIdk06+tOjinlcU29QdfK1cpb4oW/S15eA0IpcVAOc05olLLv+f5eT/SzmW4
-	DRQg1zGFT7L8XqxuKD4akh9jf1LDMaNAOH7WHHiScPsYy/UX4adSweEdkveQu9/43ZpOpRJCUmf
-	imTE5ogIRjlDHsAfxdOhc6YtXutZ5glRBA69e0KhsR8gnB6aq+YrZo1Kg7DcF1z4FRW9gLbTyAS
-	kOwrf7kraK3D4tYYnpcTdJrt5jfeyj4M48kD0rc8tRuDfQbtGibkb7KZvfm53P5L9tb1Ht2dbL+
-	ruZfgq+4G8lHrVHc0I3vmFWItNnWG5IhYqV+pH6NXFDpIfk44hMg/01y8SiROLR0/ywQFiQc2U1
-	oiIE1dWijrnfvrgMZWVbTGoz3iKEKWGyRTf0=
-X-Received: by 2002:ac8:5d91:0:b0:51a:8d32:f796 with SMTP id d75a77b69052e-51c964037f9mr69730211cf.0.1783685452054;
-        Fri, 10 Jul 2026 05:10:52 -0700 (PDT)
-X-Received: by 2002:ac8:5d91:0:b0:51a:8d32:f796 with SMTP id d75a77b69052e-51c964037f9mr69729851cf.0.1783685451645;
-        Fri, 10 Jul 2026 05:10:51 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15c3f5ca3fsm437597666b.51.2026.07.10.05.10.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 05:10:50 -0700 (PDT)
-Message-ID: <d7322cb1-1c8f-4c81-a3c0-638d60b53230@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 14:10:48 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsHYXBoU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2EC1F000E9;
+	Fri, 10 Jul 2026 12:12:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783685538;
+	bh=2mX5s+LgF61GsTT2jOOQtbwBRT5YocgNpg7DpK7Idac=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YsHYXBoUwEO/JD7uEwImzg3mv7r4evHYn6bmm/BpwFz7s+/PEwFuAjQwpC9NLZTD1
+	 uJiaFsewk7OWDBXeUTrZRYi3CisEgF1I2aAOEqad225cY6f/P7our9/zVZA9xwWjUf
+	 gWh99RMEJrfxKFrTpFsWA2bi+SyaLc9Cd6P8qCO0megJ5ZRuh7ZlTI3YW53k+vUyvV
+	 8QEaTaE63VVnw+8W2DmuU+gHjLUFXUvjCp4nuKuqEckoC1l5cvi2RdnxTeafSuYftb
+	 uui7ecoebrEKYvZpeR5W9/axJDkt1zUqKM0o3phcWbkxcx2zEVQaPpW16AabvYVH6k
+	 mcLVwF5Hg+7vA==
+Date: Fri, 10 Jul 2026 17:42:00 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	robin.clark@oss.qualcomm.com, sean@poorly.run,
+	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+	bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+	mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+	jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+	vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
+	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service
+ support
+Message-ID: <alDhkHVnzReCgU6H@sumit-xelite>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
+ <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] arm64: dts: qcom: shikra-cqm-evk: Enable display
- and add ili7807s panel
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
-        Nabige Aala <nabige.aala@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260706-shikra-dt-changes-v2-0-56fcd1659ea4@oss.qualcomm.com>
- <20260706-shikra-dt-changes-v2-2-56fcd1659ea4@oss.qualcomm.com>
- <8a3cc857-0b1c-4bd5-a5ce-a564823ca614@oss.qualcomm.com>
- <ec5017a5-8af7-433c-a011-9ad7c6cd33b7@oss.qualcomm.com>
- <6f8d8cf5-1e35-4d45-b2c1-6f36ac51ad4a@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <6f8d8cf5-1e35-4d45-b2c1-6f36ac51ad4a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: CoB2lxuB4Jux_NVdD5odrJIH4wosFrhy
-X-Proofpoint-ORIG-GUID: CoB2lxuB4Jux_NVdD5odrJIH4wosFrhy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDEyMCBTYWx0ZWRfX7Q3lfWXC5vos
- rc5S5dk+bziiq/MHyz3WlBudjFGp+rOD+WpmgjGyRG2droGBj32ByrJCvBK4zLY35jZ80R9C9BY
- c+UgtFOamXJ/V0k/kIR0xzzVkl1yUlA=
-X-Authority-Analysis: v=2.4 cv=funsol4f c=1 sm=1 tr=0 ts=6a50e152 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=7g_QvTktBp9WSWir8t8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDEyMCBTYWx0ZWRfX8OME/KCL4HcY
- ycxRKM9oRq1qaCUCCpRiIkf6hLGli4Ww/R5MScZ8a/9YzBtN0Rp2+kFyETDAL9mZPdI7nfxfL+b
- UirbGafgb0B/+Vmdam7Cs3r6hVpzp8E3RY5nb+dMgCu1u81EjXDjD1xChioM+lw18+iPQ52FQyq
- AkAS/mG5qqHoaNZfpszRQtEeqHC0K9cfypdO3pPrjAVsbl658I4WxwbW7x511e6b6+JeETma1I6
- xx8BnT+6KFxUEWQmpM4TJ2oIrc8xF/CH87tzUxVvnzj1WnURi+66lactJ9MzSFaeoSVrQWT7yod
- aTFNQKXNTzdBq5sWY9z1jZ1RecIsN7KVstimVm/RSHNu+4zqfIsoVrJ7g7syijMadXEFjy0Oqtd
- kO3zCPr4H7y09mKa+wKiYACW+L+5K4NLyBLNQ6BMqPtw9HEjOmmzPhRA7tYVzJsBqni+jEXyWzp
- MKcE51TzRCyCv+ThU4g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_03,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100120
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
 
-On 7/10/26 1:58 PM, Arpit Saini wrote:
-> Hi Konrad,
-> 
-> On 7/10/2026 2:31 PM, Arpit Saini wrote:
->> Hi Konrad,
->>
->> On 7/6/2026 3:33 PM, Konrad Dybcio wrote:
->>> On 7/6/26 8:04 AM, Nabige Aala wrote:
->>>> From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Hi Bjorn,
 
-[...]
+On Thu, Jul 09, 2026 at 02:32:39PM -0500, Bjorn Andersson wrote:
+> 
+> On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > [...]
+> 
+> Applied, thanks!
+> 
+> [01/14] firmware: qcom: Add a generic PAS service
+>         commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
+> [02/14] firmware: qcom_scm: Migrate to generic PAS service
+>         commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
+> [03/14] firmware: qcom: Add a PAS TEE service
+>         commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
+> [14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+>         commit: 6701259025d49139131a0eb2257659a066dcca22
+> 
+> This is available as an immutable branch, for other subsystems to pull at:
+>   https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
+> 
+> 
+> [04/14] remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+>         commit: 254030af0d81b12b7624d9ce85c6bdd3171629c6
+> [05/14] remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+>         commit: f3b1357673ddb37ae8b9a8fe44df73cbd2a519c5
+> [06/14] remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+>         commit: ea3b5245f5deba916320b32a8e6510a74c034c17
+> [07/14] remoteproc: qcom: Select QCOM_PAS generic service
+>         commit: c4383254ac7a529736577e304176a10371c2ee0b
+> 
 
->>>> +    panel_bl_en_suspend: panel-bl-en-suspend-state {
->>>> +        pins = "gpio91";
->>>> +        function = "gpio";
->>>> +        drive-strength = <2>;
->>>> +        bias-pull-down;
->>>> +        output-low;
->>>> +    };
->>> output-foo isn't necessary, the panel driver will assert it as
->>> necessary
->>>
->>> Konrad
->>
->> Ack, thanks for pointing out.
->>
->> Arpit
->>
-> I just checked,
-> 
-> Normally the backlight EN pin is controlled by a backlight driver.
-> 
-> However, this panel uses MIPI DCS based backlight control with no
-> 
-> separate backlight driver. Since there is no driver to assert gpio91,
-> 
-> we control it via the panel's pinctrl default state..
-> 
-> So this is platform specific pin , we need this to enable/disable
-> 
-> the backlight.
+Thanks for picking the partial set although I expected for you to pick
+the entire set given acks from all the other subsystem maintainers. Let
+me know how we should proceed further.
 
-Why would the backlight state be so tightly defined by the panel?
-Disabling or adjusting the backlight level without shutting down
-the panel is a perfectly valid use case.
-
-Take a look at pwm-backlight or gpio-backlight.
-
-Konrad
-
-P.S. Set `mailnews.wraplength = 0` in your thunderbird config - it
-currently inserts an extra \n between every single line
+-Sumit
