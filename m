@@ -1,102 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424D6285CAA
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 15:09:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3392E8DEC
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 15:09:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783696149; cv=none; b=UNkbTpi3qaKMj610xf1x5omlCHWhxkSJBpSCcMANQ6DSbdlPDUHmzbGEkZx+eeXt02Qu2iIVErhK6ea3IhpS6PtxILq+nZ3pmjewbz1IuZ3rdiNBUPu+Z1feFGVIDc+FZ3Z7fq/3cJvmDCCJhG+qkY8KXHePlu4KJprBaGin8WY=
+	t=1783696152; cv=none; b=XvaBmORSbDeFxCHgo/crec9q7mAaqjuZjXJHH2hM+Tw4hVrYR2pUz2BxGxT7QQipRi4aFHtzL5NhzOCAUFJcJS20M9iX8MWmvlnt41tzX6+hi77zpWF44gir0EiF6mpSo3KN2UDDiHW9UJxZ9y0BCEgUUq7t0RceuwBaqpQsbtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783696149; c=relaxed/simple;
-	bh=5FOPalQYQUuBPnwSf9FziF/S5T9BGTxiInZ92FxN+b8=;
+	s=arc-20240116; t=1783696152; c=relaxed/simple;
+	bh=6fVXoA+3Uf+AkLhPI+Ql+36BZcke28bJiUizZOt3JM4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DMZYyRB1OG60sEld2RTaRseXm3SF8dFZCgRq/NMvryUYp1RZ/bfXc4nl3bazj+M42qEDbfqDSUidqkKhoP73qz70m621faDsZqj98aXXO7VCpUZeFojB4snfzuXM6bW2XfY2WvKLFEyBEhsPFFLrGdCI0EC8v6k7d5ohZ9Lt/WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lWGOjFhd; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nUcQm9CustGeOE8ltpKwUQc6ibGATwJdxhXmiSsHXoDqB37O4jFczJTxKp/uRMfVF18eYj6O5DjiQnf/Wp9QENfl776tG0vO2Pdbb4rJLXtmRq3xOrHX7bLiN/PVA5x+uqTtq7criLKtD2v7zih7FJRirLpm1PoeVprk49p0HCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvUVzvra; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lWGOjFhd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14BE1F00A3D;
-	Fri, 10 Jul 2026 15:09:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvUVzvra"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26CD61F000E9;
+	Fri, 10 Jul 2026 15:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783696147;
-	bh=QW0Z+bCsRsr5RVPh9Rg8/b6x7ml6ZkYeVLHLUAwEET0=;
+	s=k20260515; t=1783696149;
+	bh=Uz1KpyPklgHHA7d/Pwa0W+d4aIXXq2l9lBzgSwirwq8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lWGOjFhd8QT+mAvmOLvb4I9pgO1ooxxIZ3jC1DpbI4J3gblA7B5LiWbBeOgh5m9K3
-	 oyCaTTBLihVtVIIlxX3kGaWS7eemBfD9EN9wah2mQc7S7dLus8MfbeNlS/TA0vjT3n
-	 9M4oVnYMSDGIeYQXppuLqzs0BfNPq4mWq2slNSbv5YveJlYcsnr2VbbZ1GaJ9ZaaUD
-	 shIu6aYk2JhojuIgJeA8hDvtGmHp077JK8+1Gay1shLq1CHC/kOK33hH1jpebXfSxO
-	 1t0TZJzKfGeie/nRIUmsRVUB7d+eycpefA0Lr+ZuP5sZ1T2FvchOWIAjckRL2n59hd
-	 kYsVyo/SQkANQ==
+	b=dvUVzvraLCX6upkkFtPKR9rJ4gpvp88QSBvocJUMcPvYrHnMKyqLJCG3CHc3GTZRv
+	 wLo8E9V+1apeB2WnKOl1uuULgOMQ4Egu1VLX34QDy2+zO0qet9wb22zOMF6ecte8Dn
+	 Sz/aMxnnGh8IzFjxDwHzBJJ0t5oEeg+NZUmnaaCXHvsKU79WUWN/ACe/tS2HMba9yX
+	 jqyo8hleYy4F14nTXIiKfvO/icRKRUVbrLe6WfsWAcTh86JUjE/15rlfpUjJ92sGQ7
+	 c0l69u3G4yxaJ8eJ1KiQuBvnmZie9NdzXC65GAQXeyP2sQpbt0lCyJiaE/zPaaueDY
+	 DCXqmHvbY6C7Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/18] dt-bindings: clock: mediatek: regroup MT8192
- dt-bindings into MT8186
+Subject: Re: [PATCH v2 09/18] clk: mediatek: Add MT8189 apmixedsys clock
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260709-mt8189-clocks-system-base-v2-6-2926da3db6cf@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260709-mt8189-clocks-system-base-v2-9-2926da3db6cf@collabora.com>
 References: <20260709-mt8189-clocks-system-base-v2-0-2926da3db6cf@collabora.com>
- <20260709-mt8189-clocks-system-base-v2-6-2926da3db6cf@collabora.com>
+ <20260709-mt8189-clocks-system-base-v2-9-2926da3db6cf@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 15:09:07 +0000
-Message-Id: <20260710150907.B14BE1F00A3D@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 15:09:08 +0000
+Message-Id: <20260710150909.26CD61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The if-then block conditionally requiring `#reset-cells` for MT8=
-188 devices incorrectly uses `enum` instead of `contains: enum` to match th=
-e compatible array.
+
+New issues:
+- [Medium] FHCTL I/O memory mapped by fhctl_parse_dt() is leaked if mtk_clk=
+_register_pllfhs() fails during probe.
+
+Pre-existing issues:
+- [High] Dangling I/O pointers in the static pllfhs array can lead to a use=
+-after-free Data Abort on driver re-probe.
 --
 
---- Patch [6]: [PATCH v2 06/18] dt-bindings: clock: mediatek: regroup MT819=
-2 dt-bindings into MT8186 ---
-commit 788afe3e2a2b9eb892a1f9b88e225e3204455c7a
+--- Patch [9]: [PATCH v2 09/18] clk: mediatek: Add MT8189 apmixedsys clock =
+support ---
+commit 5ceb4e2595f9e63ad996ab6c91c8b563477a9fc7
 Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
-   =20
-Regroup the MT8192 clock and system clock dt-bindings into MT8186 ones
-to ease maintainability and have common files for several currently
-supported SoC or new future ones, that have the same kind of clock
-controller design.
+clk: mediatek: Add MT8189 apmixedsys clock support
 
-> diff --git a/Documentation/devicetree/bindings/clock/mediatek,mt8186-cloc=
-k.yaml b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
-> index 0bc2da60a6016..b5988d122e4dd 100644
-> --- a/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
-> +++ b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
+Add support for the MT8189 apmixedsys clock controller, which provides
+PLLs generated from SoC 26m.
+
+> diff --git a/drivers/clk/mediatek/clk-mt8189-apmixedsys.c b/drivers/clk/m=
+ediatek/clk-mt8189-apmixedsys.c
+> new file mode 100644
+> index 0000000000000..0657a50c30d9f
+> --- /dev/null
+> +++ b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
 
 [ ... ]
 
+> +static struct mtk_pllfh_data pllfhs[] =3D {
+> +	FH(CLK_APMIXED_ARMPLL_LL, 0, 0x003C),
+> +	FH(CLK_APMIXED_ARMPLL_BL, 1, 0x0050),
+> +	FH(CLK_APMIXED_CCIPLL, 2, 0x0064),
+> +	FH(CLK_APMIXED_MAINPLL, 3, 0x0078),
+> +	FH(CLK_APMIXED_MMPLL, 4, 0x008C),
+> +	FH(CLK_APMIXED_MFGPLL, 5, 0x00A0),
+> +	FH(CLK_APMIXED_EMIPLL, 6, 0x00B4),
+> +	FH(CLK_APMIXED_TVDPLL1, 7, 0x00C8),
+> +	FH(CLK_APMIXED_TVDPLL2, 8, 0x00DC),
+> +	FH(CLK_APMIXED_MSDCPLL, 9, 0x00F0),
+> +	FH(CLK_APMIXED_UFSPLL, 10, 0x0104),
+> +	FH(CLK_APMIXED_APUPLL, 11, 0x0118),
+> +	FH(CLK_APMIXED_APUPLL2, 12, 0x012c),
+> +};
+
+[ ... ]
+
+> +static int clk_mt8189_apmixed_probe(struct platform_device *pdev)
+> +{
+> +	int r;
+> +	struct clk_hw_onecell_data *clk_data;
+> +	struct device_node *node =3D pdev->dev.of_node;
+> +	const u8 *fhctl_node =3D "mediatek,mt8189-fhctl";
+> +
+> +	clk_data =3D mtk_alloc_clk_data(ARRAY_SIZE(apmixed_plls));
+> +	if (!clk_data)
+> +		return -ENOMEM;
+> +
+> +	fhctl_parse_dt(fhctl_node, pllfhs, ARRAY_SIZE(pllfhs));
+> +
+
+[Severity: High]
+This is a pre-existing issue, but does unbinding and re-probing this driver
+create a use-after-free risk with the static pllfhs array?
+
+When the driver is unbound, mtk_clk_unregister_pllfhs() unmaps the FHCTL
+base but leaves the state.base pointer and state.fh_enable flag set in the
+static array:
+
+drivers/clk/mediatek/clk-pllfh.c:mtk_clk_unregister_pllfhs() {
+        ...
+        if (fhctl_base)
+                iounmap(fhctl_base);
+        ...
+}
+
+If the driver is then re-probed and fhctl_parse_dt() encounters an error
+(like an of_iomap failure), it returns without clearing the static array.
+
+When probe proceeds to mtk_clk_register_pllfhs(), will it see fh_enable =3D=
+=3D 1
+and attempt to access the unmapped I/O memory left over in state.base?
+
+> +	r =3D mtk_clk_register_pllfhs(&pdev->dev, apmixed_plls, ARRAY_SIZE(apmi=
+xed_plls),
+> +				    pllfhs, ARRAY_SIZE(pllfhs), clk_data);
+> +	if (r)
+> +		goto free_apmixed_data;
+
 [Severity: Medium]
-Looking at the schema validation in this file, there is a regression
-introduced in the prior patch of this series (dt-bindings: clock: mediatek:
-regroup MT8188 dt-bindings into MT8186) where the if-then block evaluates
-the compatible array against a scalar string enum:
+If mtk_clk_register_pllfhs() fails here, does the error handling path leak
+the I/O memory mapped by fhctl_parse_dt()?
 
-Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml:allOf.if
-  allOf:
-    - if:
-        properties:
-          compatible:
-            enum:
-              - mediatek,mt8188-camsys-rawa
+The goto jumps directly to free_apmixed_data, completely bypassing the
+unregister_plls label where the unmapping would normally happen.
 
-Is this evaluation correct for an array property?
-
-Comparing the compatible array directly against an enum always fails.
-Consequently, valid device trees with MT8188 blocks and the required
-#reset-cells property fall into the else block (which enforces
-#reset-cells: false), leading to spurious schema validation failures
-when running make dtbs_check.
-
-Could this be updated to use contains: enum to correctly match the
-compatible array?
+> +
+> +	r =3D of_clk_add_hw_provider(node, of_clk_hw_onecell_get, clk_data);
+> +	if (r)
+> +		goto unregister_plls;
+> +
+> +	platform_set_drvdata(pdev, clk_data);
+> +
+> +	return 0;
+> +
+> +unregister_plls:
+> +	mtk_clk_unregister_pllfhs(apmixed_plls, ARRAY_SIZE(apmixed_plls), pllfh=
+s,
+> +				  ARRAY_SIZE(pllfhs), clk_data);
+> +free_apmixed_data:
+> +	mtk_free_clk_data(clk_data);
+> +	return r;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260709-mt8189-clo=
-cks-system-base-v2-0-2926da3db6cf@collabora.com?part=3D6
+cks-system-base-v2-0-2926da3db6cf@collabora.com?part=3D9
