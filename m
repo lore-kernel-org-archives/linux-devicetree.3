@@ -1,42 +1,42 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9B142DFFA
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 15:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13B842E8D3;
+	Fri, 10 Jul 2026 15:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783697538; cv=none; b=O0athOvrXiQV9Rqa4rEkq+JRajlk/clJbpzfLhJ0G+Mx9gPiJ5dO6RqdqcSUy0okAB3eFi4mOFiNa+5VAJ8MPEfjm0q2yBtyl01Cvegalya22JRNP9V7CklSR5JDsC139r8B5d6jJQh6UmKqt0XgyG9WtgygCe8AcKmpiLYizwo=
+	t=1783697538; cv=none; b=ks3QzgEy1dZwQng0WaB53bewHN9sh1cKdfu16MHsOQR2sf8uQ6TU5Lf48VWwG+5B7XPVOaNcFog+VNsqJaVOlYnI0/MCBi2icoKrz1xvArGN+WcTyd+1C2EA4ONr+//tTMuKgDqgco+0j3/dRyntC9CiZRvJmWpDg3KX0Tbx6yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783697538; c=relaxed/simple;
-	bh=IHC3taB/c1hjjbHV78+MpFaKPexGySK661G3gH5QQQ8=;
+	bh=BiSi1t1NUOIhyg6vwnL1alqPw0iJySL8ICnheLp+aN0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZIAu/VeXB+DBnp/HF2yOYLjVrCEDB/9w44iI+HqPFM+g5GSI/bAqJWJnA8mRt1jqcGrU49IFhKhZMa3+XikRV7hOZNYWsOJelyntA6p4tbeSxRrdmSliIdJ/7O9kuTGKhj6B9fyOjZb6tpmURIwfFnsSYgt8S7BzJDu3AOTM5bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KQ7TB6i6; arc=none smtp.client-ip=185.246.85.4
+	 In-Reply-To:To:Cc; b=tUHgl9uZ0XLbwSaaSZu9CAHxjIzuv++VHVlWRvtMutaNL5VuPH01O0IWescsnuF6HYv6T34/sMZTM0dBcGsGMgaq9NIhs24qTyTMAAgeCbw37v014p7Qzo5UXkT5V/dr6VkuPUhcTCgwGLS+dvSFu04re78RGWwTuV27fJY97n4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hwAgVCeP; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KQ7TB6i6"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hwAgVCeP"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6371C4E40D47;
-	Fri, 10 Jul 2026 15:32:14 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id CB210C2C64E;
+	Fri, 10 Jul 2026 15:32:29 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 360AF60342;
-	Fri, 10 Jul 2026 15:32:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 757B411BD1C39;
-	Fri, 10 Jul 2026 17:32:09 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7AED560346;
+	Fri, 10 Jul 2026 15:32:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D4AF511BD1C34;
+	Fri, 10 Jul 2026 17:32:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783697532; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1783697525; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=vqW9/RH3UDRT9Qj8/JqT5f9mnBCAvdontHcYO/WHgd0=;
-	b=KQ7TB6i6xoEyqyf8PatcXCiYct4jjrpYwKZjqvtUmp49z3BDY+YgsogTLYjCYQD2nzV6Cp
-	jzA62MZcQtwyMXcq/JgDW8xvjmDJZr+Jyvp/4BAVR57gJcE8rUNKQ20QTSwl9rcdT9qqZj
-	18NbSmGo0CO70zoqJ1lsz/SOKSLbOiMi2JDKV16qWSDkT9yifaDrOegRslu0oFesFMGGE9
-	dfnjNcr8/aofwu4uJPk/M81a6HX1UNnVuaQO9YPJGM0BaQQPLfmt8Zkh6MSLenljl6Vwbh
-	litX4zOu6p9ZsZwJtZnu5JrapXohtrwPCGWNU7pjGoeQmgF/GMS9mMVaEe6l1g==
+	bh=tijUZy13OY+lpBLDlS9vMkTfAAXJmYkbRtFLhtiaaxU=;
+	b=hwAgVCePQDdOl38e0eOljEd89vJodZTSjMwAfyub0tBhi8wgL60YINarvPdFNifjqc4Hay
+	ceTIpKzHnDfeMeR7wY9RSh8WhGXVm7XIz58C6OL4aDAUCnFSyU48ccp9aha3S0r+NnqWaq
+	XJmICvJiAZMcNDUtr7YVoDyC3LMFY3C4C7YnI2erAPvvoc3KC6iL7m/PEgS2Op5y9JKkBH
+	2TBm2+HY35tPscFdW+23yUxaS+9c994VCDlpJ1fZx7Z0RaVHIB7nslZMbxewNvHmI6G+yq
+	n6baH/qqOlkmwRsFVE91KvPmjOUAwyIVzwY8OHwLM6TN99Eb/DTOV7CpVuFXEA==
 From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-Date: Fri, 10 Jul 2026 17:31:37 +0200
-Subject: [PATCH 4/5] arm64: dts: nuvoton: npcm845-evb: Import optee node
- from u-boot device tree
+Date: Fri, 10 Jul 2026 17:31:35 +0200
+Subject: [PATCH 2/5] arm: dts: st: Import optee node from u-boot device
+ trees
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-mathieu-uboot-dts-import-v1-4-ffe0210e50c9@bootlin.com>
+Message-Id: <20260710-mathieu-uboot-dts-import-v1-2-ffe0210e50c9@bootlin.com>
 References: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
 In-Reply-To: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -66,32 +66,45 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Tom Rini <trini@konsulko.com>, Peter Robinson <pbrobinson@gmail.com>, 
  Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783697511; l=914;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783697511; l=1640;
  i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
- bh=IHC3taB/c1hjjbHV78+MpFaKPexGySK661G3gH5QQQ8=;
- b=YskH4XXITgrh4BDy7rh0C6CaVOqf90OiQ1uWiaAX0EZCYFl1sya1haf7eiT+PGVrxz6VH/5dW
- a7FkqvpzAQNBiehXRDDXPhkjxZYE5L5SFgYVNqmshnsrG0QXePXT5YN
+ bh=BiSi1t1NUOIhyg6vwnL1alqPw0iJySL8ICnheLp+aN0=;
+ b=B4vFTHfXQRbCBa4gp7JA6+tDIx0+dgYq3zVpsg/Yp9hnGhSOdseawTAnqzSZuqSmUUGkfkp9Z
+ RLTUNtyzpweBZkiGIDn9hSzDhROdWHjROLOt7/ttWZPDtmoqRT6FT7y
 X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
  pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
 X-Last-TLS-Session-Version: TLSv1.3
 
-U-Boot is defining its own device tree for this platform. Among all
-differences, a firmware node to enable communication with OP-TEE is
-added. Importing this node here will reduce these differences.
+U-Boot is importing kernel device trees for these platforms, but adding
+a firmware node to enable communication with OP-TEE. Importing
+changes here will allow to remove these additions in U-Boot.
+
+Also import the corresponding reserved-memory region.
 
 Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
 ---
- arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+ arch/arm/boot/dts/st/stm32mp157a-dk1.dts | 17 +++++++++++++++++
+ arch/arm/boot/dts/st/stm32mp157c-ed1.dts | 12 ++++++++++++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-index 5edf5d13342d..6be771e581df 100644
---- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-+++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-@@ -26,6 +26,13 @@ refclk: refclk-25mhz {
- 		clock-frequency = <25000000>;
- 		#clock-cells = <0>;
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
+index 0da3667ab1e0..236da589eb90 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
++++ b/arch/arm/boot/dts/st/stm32mp157a-dk1.dts
+@@ -22,4 +22,21 @@ aliases {
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
  	};
++
++	reserved-memory {
++		bootph-pre-ram;
++
++		optee@de000000 {
++			reg = <0xde000000 0x02000000>;
++			no-map;
++			bootph-pre-ram;
++		};
++	};
 +
 +	firmware {
 +		optee: optee {
@@ -100,8 +113,29 @@ index 5edf5d13342d..6be771e581df 100644
 +		};
 +	};
  };
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
+index 49dd555cc228..7da726035086 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
+@@ -70,6 +70,18 @@ retram: retram@38000000 {
+ 			reg = <0x38000000 0x10000>;
+ 			no-map;
+ 		};
++
++		optee@fe000000 {
++			reg = <0xfe000000 0x02000000>;
++			no-map;
++		};
++	};
++
++	firmware {
++		optee: optee {
++			compatible = "linaro,optee-tz";
++			method = "smc";
++		};
+ 	};
  
- &serial0 {
+ 	led {
 
 -- 
 2.47.3
