@@ -1,135 +1,116 @@
-Received: from fx.arvanta.net (93-87-244-166.static.isp.telekom.rs [93.87.244.166])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C31B83769E9;
-	Fri, 10 Jul 2026 17:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=93.87.244.166
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A873D3603D3
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 17:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783705485; cv=none; b=EVeaBfkrqzeO5VyC6lMXksF/H/keDOsQeHQ1FjstcvQOvwQDh3cVdDVtdbxPh+9ngWNsa+/0lJEo5HM2var6OQCQtOYwEor1z1h7bETX21lgqHAPEFVmrQVKxyEQkiVJaUiV6vhWsJwayy1owStV7oXbrl2mY3Q+5vZfC3fBK0c=
+	t=1783705564; cv=none; b=kE/64jzoL+7QPE3VaRRGwwbaZ4vdDHmI7NJ1S5p8R1w9DPH639TEM+OKPvupnnHiThLKOfKJEclhKQRZROatmNehty3IEMUIas2BSsO5mfmmouubrOcZ2isWTCJRhtzV8jJ4GZVJ278noXQM+182tdcCDSVvLmyZbFhGl97wTII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783705485; c=relaxed/simple;
-	bh=bfJbN/i3p8vhV4jRbWd4NRdb0ZEMHuwXU3j0imuckcs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FpZ0gx3bBB/HNSMU7U0lDRFYUui/oFCudx9L7idQg/2sZvYtFlqzUN1mK5cAQ02WZdNECFXbbeuFLonee8ij/7U5P7xvPSIVdOwDe0oAutH126niZkhkJMYbDwsLNqk1U92x01WWXN5cuEt8SpU7KiOg+AGEYg/i+qL9fm2yaw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=arvanta.net; spf=pass smtp.mailfrom=arvanta.net; arc=none smtp.client-ip=93.87.244.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=arvanta.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arvanta.net
-Received: from air.arvanta.net (air.arvanta.net [10.5.1.4])
-	by fx.arvanta.net (Postfix) with ESMTP id ED996CF;
-	Fri, 10 Jul 2026 19:25:06 +0200 (CEST)
-Date: Fri, 10 Jul 2026 19:25:06 +0200
-From: Milan =?utf-8?Q?P=2E_Stani=C4=87?= <mps@arvanta.net>
-To: Shuwei Wu <shuwei.wu@mailbox.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] cpufreq: spacemit: Add cpufreq support for K1 SoC
-Message-ID: <20260710172506.GA7260@air.arvanta.net>
-References: <20260626-shadow-deps-v4-0-bba9831f2f1d@mailbox.org>
+	s=arc-20240116; t=1783705564; c=relaxed/simple;
+	bh=KvBYP+wl2IjCxMaSVmX25pjv+NEzDq5zeL7bHnenBoI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s6Dp2HqYqevUDqA/Is5a2scx/iB0Q9oWTjKzBc08YwJI4VKtiNvN6oAaZbvWz3SqWgiRiDhwJxkshfCdByrTcsxZlynQgU7sYqUrzbRk9u5+7HhPSL0YvXiComRo5HsLnbhn4e1WkpB9OiFyTKC5L3gEoTbLuNiYptTBwedfdHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kj7a6Pu5; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kj7a6Pu5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 796941F01560
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 17:46:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783705562;
+	bh=KvBYP+wl2IjCxMaSVmX25pjv+NEzDq5zeL7bHnenBoI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Kj7a6Pu5eehgdCmmTI+vwhf9nbZJIqM/gmnHg3wk7GzSc/sIfh4SLBJdGeaTBEiDv
+	 b8rDzUGmQ/ofpb+jeVOCzO/AAJvsUlpTJmujo/sCcFYlSo5w1qI5V62txkfh20z4kl
+	 8oUrAnr7A+VpIdb3rMwkdCVuO7ctSV2dTRn501mKvbH8XS7Ebz3yLokZ6BfsTxc9Bm
+	 bPq4gjzedbjsGFpMYyyq3+099H0QssWs4bvFBBUd2pgnTSl5SQ1f1xtuAKGKw076b6
+	 m1YLoNVUzOAFOWsUsdRS6GJyVcxI8PKE6nSaCG5S2VX3Fwb/kc2mr1aHX9vD75TnB0
+	 Uq2zAgam/8dZQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b01cb18515so1014489e87.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 10:46:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq20UaoMOmy3lRX6rI1/OHVh/L8y3wHGf5mLiEEQcuQzNkTwYfSQjdAHigUgnMITv7kZQsSU3vq3oYd@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhSAVDJvX5lAmcFvE4BFzc2N9VjtABOFt7JSNUBpQF6+thyvrU
+	z0Lieoi/4YUaN54YR+fAuRuaNzX2NJk1Lx1Cc8iiT5P9hsYGO0xHyFcNQ3pvfQq70awcNz1T++X
+	ObW6LPat666kRk+hwotT8tW4S2ptK4x0=
+X-Received: by 2002:a05:6512:688f:10b0:5b0:12d6:4c05 with SMTP id
+ 2adb3069b0e04-5b02369c6e8mr17375e87.36.1783705559836; Fri, 10 Jul 2026
+ 10:45:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260626-shadow-deps-v4-0-bba9831f2f1d@mailbox.org>
+References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com> <20260703193855.110619-11-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260703193855.110619-11-mukesh.ojha@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 10 Jul 2026 19:45:47 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnUf6j8jPJogpuo4w55EHqgt7LChOQX5JY5h4n2VOf5nQ@mail.gmail.com>
+X-Gm-Features: AUfX_mz2mAY-nRqzEwN08-F9a7Mq7XiQwd_nI9Ppbf1sw-soYPlPLluIapY3fR0
+Message-ID: <CAD++jLnUf6j8jPJogpuo4w55EHqgt7LChOQX5JY5h4n2VOf5nQ@mail.gmail.com>
+Subject: Re: [PATCH 10/42] drm: pl111: Use devm_of_reserved_mem_device_init()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Paul Cercueil <paul@crapouillou.net>, 
+	Anitha Chrisanthus <anitha.chrisanthus@intel.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Alexey Brodkin <abrodkin@synopsys.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Michal Simek <michal.simek@amd.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Eddie James <eajames@linux.ibm.com>, 
+	Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+	Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai <minghsiu.tsai@mediatek.com>, 
+	Houlong Wei <houlong.wei@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>, 
+	Marvin Lin <kflin@nuvoton.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ge Gordon <gordon.ge@bst.ai>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, 
+	Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Peter Chen <peter.chen@cixtech.com>, Fugang Duan <fugang.duan@cixtech.com>, 
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>, Fabio Estevam <festevam@gmail.com>, 
+	Nicolin Chen <nicoleotsuka@gmail.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Chunyan Zhang <zhang.lyra@gmail.com>, 
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-media@vger.kernel.org, openbmc@lists.ozlabs.org, 
+	linux-mediatek@lists.infradead.org, kernel@collabora.com, 
+	linux-tegra@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-sound@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, imx@lists.linux.dev, 
+	sound-open-firmware@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-06-26 at 16:10, Shuwei Wu wrote:
-> This series enables CPU DVFS for the SpacemiT K1 SoC using the generic
-> cpufreq-dt driver.
-> 
-> K1 has two CPU clock clusters. The two clusters have separate CPU clocks,
-> so they are represented as two cpufreq policies: policy0 for CPUs 0-3 and
-> policy4 for CPUs 4-7.
-> 
-> The CPU voltage rail is shared between the clusters. To model this with two
-> policies, the OPP entries describe voltage ranges instead of a single fixed
-> voltage, so the shared regulator can keep the rail within a range acceptable
-> for the active OPP constraints.
-> 
-> Tested on Banana Pi BPI-F3:
-> 
-> ~ # cat /sys/devices/system/cpu/online
-> 0-7
-> 
-> ~ # ls /sys/devices/system/cpu/cpufreq/
-> policy0  policy4
-> 
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy0/scaling_driver
-> cpufreq-dt
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy0/affected_cpus
-> 0 1 2 3
-> 
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy4/scaling_driver
-> cpufreq-dt
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy4/affected_cpus
-> 4 5 6 7
-> 
-> Both policies expose the same OPP frequencies:
-> 
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
-> 614400 819000 1000000 1228800 1600000
-> 
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies
-> 614400 819000 1000000 1228800 1600000
-> 
-> For each policy, scaling_setspeed was set to each supported OPP and the
-> workload was pinned to one CPU covered by that policy with taskset.
-> CPU0 was used for policy0, and CPU4 was used for policy4. The clock rates below
-> are from /sys/kernel/debug/clk/clk_summary.
-> 
-> policy0 / CPU0:
-> ----------------------------------------------------------
-> Frequency    |  cpu_c0_core_clk  |  Real (s)  |  User (s)
-> (kHz)        |  (Hz)             |            |
-> -------------+-------------------+------------+-----------
-> 1,600,000    |  1,600,000,000    |    1.81    |    1.80
-> 1,228,800    |  1,228,800,000    |    2.37    |    2.37
-> 1,000,000    |  1,000,000,000    |    2.89    |    2.89
->   819,000    |    819,200,000    |    3.56    |    3.55
->   614,400    |    614,400,000    |    4.71    |    4.71
-> ----------------------------------------------------------
-> 
-> policy4 / CPU4:
-> ----------------------------------------------------------
-> Frequency    |  cpu_c1_core_clk  |  Real (s)  |  User (s)
-> (kHz)        |  (Hz)             |            |
-> -------------+-------------------+------------+-----------
-> 1,600,000    |  1,600,000,000    |    1.81    |    1.80
-> 1,228,800    |  1,228,800,000    |    2.36    |    2.36
-> 1,000,000    |  1,000,000,000    |    2.89    |    2.89
->   819,000    |    819,200,000    |    3.55    |    3.55
->   614,400    |    614,400,000    |    4.71    |    4.70
-> ----------------------------------------------------------
-> 
-> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
-> ---
-> Changes in v4:
-> - Represent K1 as two cpufreq-dt policies, one per CPU clock cluster
-> - Use OPP voltage ranges for the shared CPU supply
-> - Link to v3: https://lore.kernel.org/r/20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org
-> 
-> Changes in v3:
-> - Add a K1-specific cpufreq driver for the shared-rail, dual-clock topology
-> - Use one shared CPU OPP table and one cpufreq policy for all CPUs
-> - Link to v2: https://lore.kernel.org/r/20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org
-> 
-> Changes in v2:
-> - Move OPP tables to dedicated k1-opp.dtsi
-> - Enable OPP only on BPI-F3 with cpu-supply present
-> - Link to v1: https://lore.kernel.org/r/20260308-shadow-deps-v1-0-0ceb5c7c07eb@mailbox.org
-> 
+On Fri, Jul 3, 2026 at 9:43=E2=80=AFPM Mukesh Ojha <mukesh.ojha@oss.qualcom=
+m.com> wrote:
 
-Tested on bananapi-F3 and Musebook, works fine.
+> Switch to devm_of_reserved_mem_device_init() so the reserved memory
+> region is released automatically on probe failure or device removal.
+> Remove the explicit of_reserved_mem_device_release() calls in the
+> dev_put error path and pl111_amba_remove().
+>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-Tested-by: Milan P. Stanić <mps@arvanta.net>
+Looks good to me:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> ---
+Yours,
+Linus Walleij
