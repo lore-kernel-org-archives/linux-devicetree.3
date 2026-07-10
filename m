@@ -1,147 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD162C15AB;
-	Fri, 10 Jul 2026 02:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2191ADFE4
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783651859; cv=none; b=I/NUi8GMj08npWcqW1CfbDERBddGIE81LPc8sZ5HJGr9PvRXm76z+nsgQ9G8zRtksuBadWh2JtO3IMupaTb0quo96SFqWs2T9v3IKtOQSbj0kIYeS3azPOf+4NPosDiSElFjbsA9SSwuIhORJDz/S7clM+G4JN24/oXVny1XVtw=
+	t=1783652061; cv=none; b=US0T693auE6xLob+CQwxTZQPlJgGze/OfaLrXntrPR7OJVG/XQPycjGjZc1ACMCRaKgsSkbsChQmvlGjDZUHByWUjkKInHIxUfDPsvttTPrmHa8pPQaLPn4wr1K+Syqc+bPSGRDiwp/mj8lzobqhERygn5AYeTqSpOdjcyfit2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783651859; c=relaxed/simple;
-	bh=TpGJ0HgZLVDPaYc57SOUoH7whSlNEtTx1wMSxT+hVHk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MpliaPd8fpsU86BKIEaKWfp72L272w6ia1l+riXPSsWUa/v1EY4SPhG/vsbKu4kMlv+PcqzLU24gPvVYuHXqL8Ngqb/uC/4gpZU7+JMvmm0SiACDmj21ogpWDeXNjYbTZLFTi139v7TPLsbeqCP5C/1ooBi4aeaVBrwJSHy1kOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oc3BafBb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783652061; c=relaxed/simple;
+	bh=xAfI9Cte2aMExBxVH+u0uIgAwkS7A46wKVXeFGtBWrI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ML/a14LsyKiHlS+FtzxzXEOnSbxw9F/Spzv+indbMNJJiUYC+eZT+FZsGGQJU0Yh+KZlEhJ1fbmEaZqMrBvMp6gYwBS7DDfd5urH006AE+Rr0HUYlqnsLuUFO3EJ5vq3F3YmF4J4LKhWbStTugMskCiR/A5RVldSLVNFAdT3H44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCMaKDRl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oc3BafBb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CFD0BC2BCF4;
-	Fri, 10 Jul 2026 02:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783651858;
-	bh=TpGJ0HgZLVDPaYc57SOUoH7whSlNEtTx1wMSxT+hVHk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=oc3BafBbM1+2+7u1C9raEOim1a/RvQLKXsY/94Sj4UpwfxvMn+IuUCtt6mYLko9et
-	 YuA41I/cgijjdOKzw7aObFO390t2nfvCKJcrn4FSN2Xa2JL+xjRvuid18BBX1YwyLC
-	 dm+G7DfbQ3SvC1iemH+ar58RofQ+Bb9iJt1hXIm+CoKa6br5TYZ4wv8snpJNmAtIun
-	 CV8xd+Z69ZPF6EtEdkSO9G6xbjVwu/aq3IzLpaB/PPDdqE2YQr4mQoG3LkB3YNbh9b
-	 83JQWN6PVgStWjcTMFMmV9SVxhVXcWTgxnWwJ3agTNwIB/au8hRiWemlKW0PxWQQKD
-	 h0t7GqRJP+5bQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3DD7C44506;
-	Fri, 10 Jul 2026 02:50:58 +0000 (UTC)
-From: HaoNing Cheng via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Date: Fri, 10 Jul 2026 10:50:41 +0800
-Subject: [PATCH v3 2/2] thermal/drivers/imx: Add calibration offset support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCMaKDRl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9797A1F000E9;
+	Fri, 10 Jul 2026 02:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783652059;
+	bh=JPMIWfqgT5UnvuVSLaVXftYkfC2QmSUurqf1mla3cyI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cCMaKDRl8Y7KD3syKj1RVgtJ/H85k1A3+PfZja35+au9C7QvJ6OFMo68FnqIHNys/
+	 j/jpqrp8oHi+BflppX9kz9nzL4RH6VbrCRGt6TRuxVPGtplnqll57KflidxYi96Y9U
+	 9FfIXgqllCXjXG9da3lpmJgRDzEfjVTK2xNiFrL1VgQ8IlYApW3ExsQUAcDajIPGSY
+	 5pDNGN1aleSetVxDt9a/yH77mb8Lj10jI6krRx2hbSuJMUuEMTm9FzvTS4Pwwu3NIf
+	 hcvBR41Ou0FtUvm/J+j/yf+hMcs0E80yhIvTgpOEbFDNRgSHsfaYLx9xgvh4XKTuKe
+	 O2/pIt0Etl6IA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 3/5] arm64: dts: qcom: kaanapali: bind traceNoC on
+ the platform bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260710-fix-tracenoc-probe-issue-v6-3-41eb36fef8d9@oss.qualcomm.com>
+References: <20260710-fix-tracenoc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com>
+ <20260710-fix-tracenoc-probe-issue-v6-3-41eb36fef8d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 02:54:19 +0000
+Message-Id: <20260710025419.9797A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-2-db9fc2947c55@cn.bosch.com>
-References: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-0-db9fc2947c55@cn.bosch.com>
-In-Reply-To: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-0-db9fc2947c55@cn.bosch.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783651853; l=2625;
- i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=MRMJXW3PasN1+vP3XrwOg3tSDMAKHZqZCG42ukJ5xEc=;
- b=M74uxJU0s38atttQdAJ0RxLeYA/l+9RZLMZC5PB4EX8tUKWiXQCTaLh0NUwF3l+lEmt7GteX6
- uSxBQnjYCUKAlINdAIaoFmDczFLseXi5M4UA51Rb8PaPQwekSs++xXa
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
- pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
-X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
- with auth_id=860
-X-Original-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
-Reply-To: Haoning.CHENG@cn.bosch.com
 
-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Transitioning this device to the platform bus exposes an unbalance=
+d clock disable (double disable) during device unbind or module removal due=
+ to missing PM runtime synchronization in the platform driver's remove path.
+--
 
-Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements.
+--- Patch [3]: [PATCH v6 3/5] arm64: dts: qcom: kaanapali: bind traceNoC on=
+ the platform bus ---
+commit c36a0dfa1784492dc5cc63336f15362356597417
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
+arm64: dts: qcom: kaanapali: bind traceNoC on the platform bus
 
-Read the optional fsl,temp-calibration-offset-millicelsius property from
-DT and apply it to the i.MX6/6SX/7D calibration formulas. When the
-property is not present, the default offset remains 0, preserving the
-current behaviour.
+This patch removes the arm,primecell compatible string from the traceNoC
+node in the kaanapali device tree. This forces the device to bind via the
+platform bus rather than the AMBA bus to avoid deferred probes caused by
+invalid component IDs.
 
-Signed-off-by: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
----
- drivers/thermal/imx_thermal.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
+s/qcom/kaanapali.dtsi
+> index 7aa9653bd456e..5d0e7e8c2e58c 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -5004,7 +5004,7 @@ tpdm_pcie_rscc_out: endpoint {
+>  		};
+> =20
+>  		tn@111b8000 {
+> -			compatible =3D "qcom,coresight-tnoc", "arm,primecell";
+> +			compatible =3D "qcom,coresight-tnoc";
 
-diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-index 38c993d1bcb3..8062d34ffed8 100644
---- a/drivers/thermal/imx_thermal.c
-+++ b/drivers/thermal/imx_thermal.c
-@@ -207,6 +207,7 @@ struct imx_thermal_data {
- 	struct regmap *tempmon;
- 	u32 c1, c2; /* See formula in imx_init_calib() */
- 	int temp_max;
-+	s32 calibration_offset;
- 	int alarm_temp;
- 	int last_temp;
- 	bool irq_enabled;
-@@ -240,10 +241,13 @@ static void imx_set_alarm_temp(struct imx_thermal_data *data,
- 
- 	data->alarm_temp = alarm_temp;
- 
--	if (data->socdata->version == TEMPMON_IMX7D)
--		alarm_value = alarm_temp / 1000 + data->c1 - 25;
--	else
-+	if (data->socdata->version == TEMPMON_IMX7D) {
-+		alarm_value = DIV_ROUND_UP(alarm_temp - data->calibration_offset,
-+					   1000) + data->c1 - 25;
-+		alarm_value = clamp(alarm_value, 0, 0x1ff);
-+	} else {
- 		alarm_value = (data->c2 - alarm_temp) / data->c1;
-+	}
- 
- 	regmap_write(map, soc_data->high_alarm_ctrl + REG_CLR,
- 		     soc_data->high_alarm_mask);
-@@ -274,7 +278,7 @@ static int imx_get_temp(struct thermal_zone_device *tz, int *temp)
- 
- 	/* See imx_init_calib() for formula derivation */
- 	if (data->socdata->version == TEMPMON_IMX7D)
--		*temp = (n_meas - data->c1 + 25) * 1000;
-+		*temp = (n_meas - data->c1 + 25) * 1000 + data->calibration_offset;
- 	else
- 		*temp = data->c2 - n_meas * data->c1;
- 
-@@ -413,7 +417,7 @@ static int imx_init_calib(struct platform_device *pdev, u32 ocotp_ana1)
- 	temp64 *= 1000; /* to get result in °mC */
- 	do_div(temp64, 15423 * n1 - 4148468);
- 	data->c1 = temp64;
--	data->c2 = n1 * data->c1 + 28581;
-+	data->c2 = n1 * data->c1 + 28581 + data->calibration_offset;
- 
- 	return 0;
- }
-@@ -629,6 +633,10 @@ static int imx_thermal_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, data);
- 
-+	of_property_read_s32(dev->of_node,
-+			     "fsl,temp-calibration-offset-millicelsius",
-+			     &data->calibration_offset);
-+
- 	if (of_property_present(dev->of_node, "nvmem-cells")) {
- 		ret = imx_init_from_nvmem_cells(pdev);
- 		if (ret)
+[Severity: High]
+Will transitioning this device to the platform bus expose an unbalanced
+clock disable during device unbind or module removal?
 
--- 
-2.43.0
+The platform driver's probe fetches and enables the clock using
+devm_clk_get_optional_enabled(), which registers a devres action to disable
+the clock on cleanup:
 
+drivers/hwtracing/coresight/coresight-core.c:coresight_get_enable_clocks()
+    *pclk =3D devm_clk_get_optional_enabled(dev, "apb_pclk");
 
+When the device suspends, tnoc_runtime_suspend() disables the clock:
+
+drivers/hwtracing/coresight/coresight-tnoc.c:tnoc_runtime_suspend()
+    clk_disable_unprepare(drvdata->pclk);
+
+During unbind, tnoc_platform_remove() fails to call pm_runtime_get_sync()
+to resume the device before disabling runtime PM:
+
+drivers/hwtracing/coresight/coresight-tnoc.c:tnoc_platform_remove()
+    coresight_unregister(drvdata->csdev);
+    pm_runtime_disable(&pdev->dev);
+    if (drvdata->atid > 0)
+        coresight_trace_id_put_system_id(drvdata->atid);
+
+Because the device remains suspended, its clock is already disabled. When
+devres subsequently cleans up and executes the clk_disable_unprepare()
+action, it could result in a double-disable of the clock. The AMBA bus
+handles PM runtime synchronization automatically during remove, but the
+platform bus does not.
+
+Could this trigger a kernel warning and corrupt the clock enable count?
+
+>  			reg =3D <0x0 0x111b8000 0x0 0x4200>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-fix-tracen=
+oc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com?part=3D3
