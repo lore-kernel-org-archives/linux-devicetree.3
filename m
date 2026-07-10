@@ -1,107 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE9A38E8A3
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:18:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174A13B14C2
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:20:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783718324; cv=none; b=eBe4zo2W0lau9z8AW8/QCCWPNHFZybkVyPEIVSCyKTZyQpj9/xsKm9iCAgbmrB/E65iiDSO5xYmbmfnMzhSDkwwLrWo1jyQP7YDhjMoNjF/LtW05TXks3t/+emi+p8edyyvDPxZrbVxuiHlm11L+G1iWjbVCEq6hmhjoGgfUQVw=
+	t=1783718403; cv=none; b=MU/PelRVG3ZagHuL9U/ZHgblWipMnLk9m8Gc5oPnfWe6ukmIXw0glyS/kEamaiDx+nE188hgYvL0bQXvzRUIfecg7xIDi4ZLVBMrw69953SHWYiXLOBewLB6e+H5XFb+vWIfBjrAcWqJxP300TrYi2SL/hjCxW/ICuxgCX80WbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783718324; c=relaxed/simple;
-	bh=eA3chI25c1R7+n7XsMJA/dsHhSiD0yqaX4fIXCS55Ys=;
+	s=arc-20240116; t=1783718403; c=relaxed/simple;
+	bh=Mey/L86LXHTjCZDtl+gOHdvQ0iXtLAFRq/NRjxr54zo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sgFCAclWlNnHIc9IXexKgPQgvTh48saiJ276yX4lE+1osGzbFxqnzI9wSpipkPg+YpxMit5Bt1Hqv02NRHkPWMzcrnhuc1KzWssGpIu8RlcFC7O3IilB24Fi8iMeBy4uz7ysTUQ3/fLNbgBzjhvo2SFCRBQvB1fT9IZiquwWDOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLbyAnjT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WSAxRmim7VNM9xliQQKo3DU/+bIHN/KzoJXIG18qKymXHluXjhwpAc1WZASCMLb+U/Lfplrv+XiZ0Idry0VD/krDThaf5WkpdJieQDtVx+Vh9Cnb5GRtU75BnGxH0iQsl9UFjnYHC9/sKOrbKsMseNru35tRzZCzy8P0owuUG3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LyV1pL0l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLbyAnjT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24721F000E9;
-	Fri, 10 Jul 2026 21:18:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LyV1pL0l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5731F00A3A;
+	Fri, 10 Jul 2026 21:20:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783718323;
-	bh=jt+Fd9u0Tn4LsSFmXs3cDAG8+/bQsqEi3AqJQ8VflT4=;
+	s=k20260515; t=1783718402;
+	bh=EI+LtceVAhQJEqPxtiiVn7H7VZKchQfHbavOANyRi7U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CLbyAnjTjFbYGHVTLwSzmdhVKOHxNh/vkRQc1UEC9dAGBPZJRueFtXNSgbNEDCDLr
-	 FyKCRGcodbbGymCdQ+Z3qHzW49WIUJ61oQztPf5AvLdhxvIUlykM9dBS0+x8VvBC8T
-	 0XkzFrcoocEREEVSOZHTwGqcbCMkImhtf3dlcwurQbV3a+YOXbeF/yhlqVLORW4Bjk
-	 MKPfM1QLPH/8e2URwf0ic1ZgD/pYgtmEde6LDAt9RtmZcBMhmjgWqqFQw0qptVCQjY
-	 dPihQFAZYg1yncE3gIex5L0URyDm9cyebt1XpPAxlcoriK7pS9eMDAhyv2T6drgPFt
-	 O3q5edR458IoQ==
+	b=LyV1pL0l38EmEVHkBSQDImMBrnShKnu0prThj3DrGOcTjFz20gf4GF78yJmnXZPyn
+	 AWjjITzEfqdr6i8tiKlgg1lDVXzXCmk1JC+qSv/pTTMPYOaqdSgki2c/cMZ4Ry4Ryz
+	 QFN783GG3WpbunIZssyWaru+LVW8bitUSR4aGgkmrSrusgGvHcJ2uOkHxoRLEHgf6p
+	 6QdWFhgmOv+TcApl9aOyc1b6GCT4Y0luKvQj9zg044y85SOWCdStsR0PG1Vz3anLhE
+	 JDpG+0lXIgtC0T270CqjANcsh9YQoOzg8Kd0cdjRxIfJnMUiEO5XV07TJOEIzcwNp8
+	 cByT4MUlk9AIQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 22/36] phy: rockchip: usbdp: Use guard functions for
- mutex
+Subject: Re: [PATCH v12 30/36] usb: dwc3: core: support PHY reset
+ notifications
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-22-8b41a9a9bef0@collabora.com>
+Cc: devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org
+In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-30-8b41a9a9bef0@collabora.com>
 References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
- <20260710-rockchip-usbdp-cleanup-v12-22-8b41a9a9bef0@collabora.com>
+ <20260710-rockchip-usbdp-cleanup-v12-30-8b41a9a9bef0@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 21:18:42 +0000
-Message-Id: <20260710211842.B24721F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 21:20:01 +0000
+Message-Id: <20260710212001.8A5731F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but `rk_udphy_dp_phy=
-_configure` accesses shared PHY state without holding `udphy->mutex`.
+- [High] The global `phy_reset_count` atomic variable is incorrectly used t=
+o track the reset state of multiple independent USB3 ports, and is read non=
+-atomically, leading to cross-port state corruption, TOCTOU race conditions=
+, and unbalanced PM usage counters.
+- [High] The PHY reset workaround is completely bypassed if Runtime PM is d=
+isabled in the kernel configuration or via sysfs, causing the very hardware=
+ corruption the patch intends to fix.
 --
 
---- Patch [22]: [PATCH v12 22/36] phy: rockchip: usbdp: Use guard functions=
- for mutex ---
-commit f4715c1e8ea1ff2794633378980dbaf55d276684
+--- Patch [30]: [PATCH v12 30/36] usb: dwc3: core: support PHY reset notifi=
+cations ---
+commit 9e1e85d93d9ab9e98188f6d4d342fd431f334513
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Use guard functions for mutex
+usb: dwc3: core: support PHY reset notifications
 
-Convert the driver to use guard functions for mutex handling as
-a small cleanup. There is a small functional change in the DP PHY
-power up function, which no longer sleeps if the internal powerup
-code returns an error.
+This commit handles external PHY reset notifications on Rockchip platforms
+by asserting PHYSOFTRST before the PHY disables and deasserting it when the
+PHY returns. This prevents the DWC3 IP from corrupting the PHY's internal
+state and failing to lock PLL clocks.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 0399cbf96e195..8c165bcab7968 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+> index 517aa7f1486da..4d0b4c1c73f11 100644
+> --- a/drivers/usb/dwc3/core.c
+> +++ b/drivers/usb/dwc3/core.c
 
 [ ... ]
 
-> @@ -1255,35 +1254,30 @@ static const struct phy_ops rk_udphy_dp_phy_ops =
-=3D {
->  static int rk_udphy_usb3_phy_init(struct phy *phy)
->  {
+> @@ -880,6 +881,90 @@ static int dwc3_phy_init(struct dwc3 *dwc)
+>  	return ret;
+>  }
+> =20
+> +static int dwc3_usb3_phy_notify(struct notifier_block *nb,
+> +				unsigned long action, void *data)
+> +{
+> +	struct dwc3_phy_nb *pnb =3D container_of(nb, struct dwc3_phy_nb, nb);
+> +	struct dwc3 *dwc =3D pnb->dwc;
+> +	int port =3D pnb->port_index;
+> +	unsigned long flags;
+> +	u32 reg;
+> +
+> +	switch (action) {
+> +	case PHY_NOTIFY_PRE_RESET:
+> +		/*
+> +		 * If already suspended, the resume path will reinit GUSB3PIPECTL
+> +		 * via dwc3_core_init(). A forced resume is not possible as that
+> +		 * would call phy_init() resulting in a deadlock. Due to the
+> +		 * phy_init() in the resume path there is also no need to block
+> +		 * async RPM resume on our side, since the PHY synchronizes it
+> +		 * for us.
+> +		 */
+> +		if (pm_runtime_get_if_active(dwc->dev) <=3D 0)
+> +			return NOTIFY_OK;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but rk_udphy_dp_phy_configure()
-accesses shared PHY state without holding udphy->mutex.
+If CONFIG_PM is disabled, or runtime PM is disabled for this device via
+sysfs, pm_runtime_get_if_active() returns -EINVAL.
 
-Could this create a data race with Type-C orientation changes?
+Will this check treat the -EINVAL error code as suspended and bypass the
+workaround completely, even though the DWC3 IP is actively running?
 
-The function iterates over the udphy->dp_lane_sel array and writes to the
-hardware PHY registers based on the mapped lanes:
+Also, if the check is later modified to proceed on -EINVAL, would the
+POST_RESET path underflow the PM counter? pm_runtime_get_if_active()
+doesn't increment the usage count when returning -EINVAL, but POST_RESET
+unconditionally calls pm_runtime_put_autosuspend().
 
-    for (i =3D 0; i < udphy->lanes; i++) {
-        lane =3D udphy->dp_lane_sel[i];
-        switch (udphy->link_rate) {
-        ...
+> +
+> +		atomic_inc(&dwc->phy_reset_count);
+> +
+> +		/*
+> +		 * Assert USB3 PHY soft reset within DWC3 before the external
+> +		 * PHY resets. This disconnects the PIPE interface, preventing
+> +		 * the DWC3 from interfering with PHY reinitialization and
+> +		 * avoiding LCPLL lock failures.
+> +		 */
+> +		spin_lock_irqsave(&dwc->lock, flags);
+> +		reg =3D dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
+> +		reg |=3D DWC3_GUSB3PIPECTL_PHYSOFTRST;
+> +		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
+> +		spin_unlock_irqrestore(&dwc->lock, flags);
+> +		break;
+> +
+> +	case PHY_NOTIFY_POST_RESET:
+> +		if (!atomic_read(&dwc->phy_reset_count))
+> +			return NOTIFY_OK;
 
-Because phy_configure is called by the DRM bridge without udphy->mutex held,
-and concurrent Type-C orientation switch events handled in
-rk_udphy_orien_sw_set() hold udphy->mutex while modifying udphy->dp_lane_sel
-and udphy->lane_mux_sel, they might run at the same time.
+[Severity: High]
+Can this global count cause state corruption on multi-port systems if
+notifications interleave with PM state changes?
 
-If a cable is flipped exactly during a display bring-up, could this cause a
-torn read that applies settings to the same lane twice while omitting other=
-s,
-leaving the hardware incorrectly configured and DP alt mode output broken?
+For example, if Port 0 starts a reset while suspended, it skips the PRE_RES=
+ET
+workaround and doesn't increment phy_reset_count.
+
+If the controller resumes and Port 1 starts a reset, it increments the
+global phy_reset_count to 1.
+
+When Port 0 finishes its reset and hits POST_RESET, it sees phy_reset_count
+as 1. Won't it erroneously clear PHYSOFTRST for Port 0 (which was never set=
+),
+call pm_runtime_put_autosuspend() unbalanced, and decrement the count to 0?
+
+If Port 1 then finishes its reset, won't it see phy_reset_count at 0 and
+skip its cleanup, leaving Port 1 permanently stuck in PHYSOFTRST?
+
+> +		/*
+> +		 * Deassert PHY soft reset to reconnect the PIPE interface
+> +		 * after PHY reinitialization.
+> +		 */
+> +		spin_lock_irqsave(&dwc->lock, flags);
+> +		reg =3D dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
+> +		reg &=3D ~DWC3_GUSB3PIPECTL_PHYSOFTRST;
+> +		dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
+> +		spin_unlock_irqrestore(&dwc->lock, flags);
+> +
+> +		pm_runtime_put_autosuspend(dwc->dev);
+> +		atomic_dec(&dwc->phy_reset_count);
+> +		break;
+> +	}
+> +
+> +	return NOTIFY_OK;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-rockchip-u=
-sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D22
+sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D30
