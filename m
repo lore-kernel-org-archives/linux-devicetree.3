@@ -1,111 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F8A2C3257
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 23:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144103E9C31
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 23:08:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783724660; cv=none; b=DSQcpkQgLdZdA0gfGZIctT+PF1BGKFaRuBZgeGHvRV7sAz+1CcTg4J7/AC92knVDK8IwYFXEHm75DaYFBlUKJgpyifxF8GZ9qTeijHXytONDFYpAi6rzhEqrCWGblgFLZ/h2N5b5RWQAVpZvKkgsrl4UtErkMTHuJ5u1WMkd/Fc=
+	t=1783724892; cv=none; b=h/bLSPSN7ioooWaBj5qPXSslkz44iUjIHUkJfR2/trC8JN9/m3VxU0U2FhKUFWbBJCUFLZ7r3q03BPcOJfh6bZzxhnM2RovfD9Eod22OYKp3LRB18w1xX0SVJlgdJg6BWB+kE02VR0mTOuj8AtyaRkU3ihUm0hH50xLFISB4MjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783724660; c=relaxed/simple;
-	bh=CinSyIaGV5EaSPqXG6OkjA6YQin24ox/ppVZAJ0PvpI=;
+	s=arc-20240116; t=1783724892; c=relaxed/simple;
+	bh=xl5XwiIMMOykmHbvXDZnvY54Db/nM2wF/OGCG/y6FhI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WYHChxnKjBVdlRHacO+Odlh8i5J2c9XSh4PQvlgJAypOFh9hkvteYdO/6bm58LYFKiUWl9GxJHRRrH6o/x3ZcB2v27lN7eJx2y5WJNNiAy3Adzgw5Uz4EjxyEa9gwMBNl6U8+swxaGoDU/ZS7MYiposE57s13Su7auN82LA8dpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxhEhxxj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OlCo3mZNvLymh7+Wu957b78Fm0CGjt66+PK5YLhcE9IzzXju3eJqTynQLJWJvY5dK/1Sg+e4DTu4RukaAxfwAXz/VILRDfDeSMcTU8gHZ7efPn2exv6muj+NRqcjETtrdLqiotosN3axmNnosMhCM5nAmCQrDzoXYbPhmOwXcFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnwROqWd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxhEhxxj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E3B1F000E9;
-	Fri, 10 Jul 2026 23:04:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnwROqWd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C13A1F000E9;
+	Fri, 10 Jul 2026 23:08:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783724659;
-	bh=JKcG9Z9tLmRz+JzofZOuSpNYNEc8AzQBQXQBRZvxc7I=;
+	s=k20260515; t=1783724890;
+	bh=rmdN35sIDH5dhqWVfNgYorzn2L1XW/hSPuGxan3FRvU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bxhEhxxj0IH4uy9FMCdCpYvv2fgsBGylw1S0FTGdnaMlZjbapg+Q1efxhoH6QP408
-	 QVrQ8YeL0GNROZtRXp+dH74Psj5QCbabNqvJfqRAKDmeimv2Zq13l8FLzcxYThAcjk
-	 bYC56h6PggxPNycGRkqZoIBRuCbOhMrcKij3rM18pJzT45XeW8WIxjc3oL6gDAEv70
-	 mHvjJEN0rnAPT0AXIW5ZIxKR0ayAtMZAWo90qHC+GJ8IlHp89qhJ7TH7YFvDwUMvBr
-	 8cBrJe8rwbqqr6QlwJDLAq+8qWRvSgSbaw4nftOMBSF4R6wpqdFW7vLmPc+k3K4feA
-	 tcWgQ4I/8YNyw==
+	b=gnwROqWdfMrsyAWHAoSgmj0FgHeYzIQmCHRglpu3gofxLUCMi55vvirvIEHqfMOmd
+	 jsv6SszPKELhM6QXA8e9Q6+TfDWVrsR8I4WYPEAOuLzmYXnJQXRdcZ6NpOsXh8V++/
+	 LWZ3KxyiiOdVCUuZYwE3d4EySLM7h7OcbCtZXlav5iDPPqgpxxIqx7e4LH65OhEYou
+	 3gAQYe/+GYelSs8TSjWoYVn3Q45Zo77tDhaHzoVoWzuHPj+qH7mPggOuVvqRkU5hJE
+	 LmHEG+vyxy7ym3R31tRjOaXHjSmVHmlug4iO+6B3pWp4q3vDicj3YnPrmiRd8KThg5
+	 OiZxwDn9Q766w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/8] iio: adc: ti-ads112c14: implement gain on
- internal short SYS_MON channel
+Subject: Re: [PATCH v3 8/8] iio: adc: ti-ads112c14: add measurement channel
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?RGF2aWQgTGVjaG5lciAoVEkp?= <dlechner@baylibre.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-8-746d52cbf1d0@baylibre.com>
 References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
- <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
+ <20260710-iio-adc-ti-ads122c14-v3-8-746d52cbf1d0@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 23:04:18 +0000
-Message-Id: <20260710230419.12E3B1F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 23:08:09 +0000
+Message-Id: <20260710230810.6C13A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The `read_avail` callback incorrectly casts a native `s64` array=
- to `const int *` for the IIO core, which corrupts scale values on big-endi=
-an architectures.
+
+New issues:
+- [Medium] The parsed `burn-out-current-nanoamp` Devicetree property is nev=
+er applied to the hardware registers.
+
+Pre-existing issues:
+- [High] Short I2C block reads leak uninitialized stack memory to userspace.
+- [High] Casting an `s64` array to `const int *` for `IIO_AVAIL_LIST` produ=
+ces corrupted values on big-endian architectures.
 --
 
---- Patch [7]: [PATCH v3 7/8] iio: adc: ti-ads112c14: implement gain on int=
-ernal short SYS_MON channel ---
-commit 6c0e6ddc837dab31f5440831baff3fcb1a43f658
+--- Patch [8]: [PATCH v3 8/8] iio: adc: ti-ads112c14: add measurement chann=
+el support ---
+commit d188e14a67542447de91b1747691ed2a77615e7a
 Author: David Lechner (TI) <dlechner@baylibre.com>
 
-iio: adc: ti-ads112c14: implement gain on internal short SYS_MON channel
+iio: adc: ti-ads112c14: add measurement channel support
 
-This commit implements support for the programmable gain amplifier on the
-internal short SYS_MON channel. The scale_available table is populated
-during probe to allow the PGA to be set to the same gain as external
-channels.
+Add support for parsing devicetree properties for measurement channels
+and doing direct reads on these.
 
 > diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c1=
 4.c
-> index 4d2e7d37be829..2ce4411a0d86f 100644
+> index 2ce4411a0d86f..a310abd69d8fa 100644
 > --- a/drivers/iio/adc/ti-ads112c14.c
 > +++ b/drivers/iio/adc/ti-ads112c14.c
+
 [ ... ]
-> @@ -402,6 +430,69 @@ static int ads112c14_read_raw(struct iio_dev *indio_=
-dev,
->  	}
->  }
-> =20
-> +static int ads112c14_read_avail(struct iio_dev *indio_dev,
-> +				const struct iio_chan_spec *chan, const int **vals,
-> +				int *type, int *length, long mask)
+
+> @@ -257,12 +302,113 @@ static const struct regmap_config ads112c14_regmap=
+_config =3D {
+
+[ ... ]
+
+> +static int ads112c14_prepare_measurement_channel(struct ads112c14_data *=
+data,
+> +						 const struct iio_chan_spec *chan)
 > +{
-> +	struct ads112c14_data *data =3D iio_priv(indio_dev);
+> +	struct ads112c14_measurement *measurement =3D &data->measurements[chan-=
+>scan_index];
+> +	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
+> +	int ret;
 > +
-> +	if (chan->channel =3D=3D ADS112C14_SYS_MON_CHANNEL_SHORT) {
-> +		*vals =3D (const int *)data->sys_mon_chan_short_scale_available;
-> +		*length =3D 2 * ARRAY_SIZE(data->sys_mon_chan_short_scale_available);
-> +		*type =3D IIO_VAL_DECIMAL64_PICO;
+> +	ret =3D regmap_update_bits(data->regmap, ADS112C14_REG_MUX_CFG,
+
+[ ... ]
+
+> +	ret =3D regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
+> +				 ADS112C14_DATA_RATE_CFG_GC_EN,
+> +				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
+> +					    measurement->global_chop));
+> +	if (ret)
+> +		return ret;
+> +
 
 [Severity: Medium]
-Does casting a native s64 array to a const int pointer corrupt the scale
-values on big-endian architectures?
+Is the burn-out current setting being applied to the hardware?
 
-When the IIO core processes these values as 32-bit pairs, vals[0] becomes
-the most significant 32 bits and vals[1] the least significant on big-endian
-systems. If the core later composes this via iio_val_s64_compose(vals[0],
-vals[1]), the halves will be swapped, resulting in a mangled 64-bit scale
-value.
+In ads112c14_parse_channels(), the burn-out-current-nanoamp property is
+parsed and stored in measurement->burnout. However, it does not appear
+to be applied to the ADS112C14_REG_DEVICE_CFG register during this channel
+configuration step, which might mean the feature remains unconfigured.
 
-Should the driver explicitly decompose the 64-bit values into an integer
-array before handing them to the IIO core to avoid endianness issues?
+> +	refp_buf_en =3D !data->refp_is_avdd &&
+> +		      measurement->vref_source =3D=3D ADS112C14_VREF_SOURCE_EXTERNAL;
+> +	refn_buf_en =3D !data->refn_is_gnd &&
 
-> +		return IIO_AVAIL_LIST;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
 [ ... ]
+
+> @@ -386,7 +534,8 @@ static int ads112c14_read_raw(struct iio_dev *indio_d=
+ev,
+>  			return -EINVAL;
+>  		}
+> =20
+> -		*val =3D sign_extend32(*val, fsr_bits);
+> +		if (!measurement || measurement->bipolar)
+> +			*val =3D sign_extend32(*val, fsr_bits);
+> =20
+>  		return IIO_VAL_INT;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but does this sequence safely handle short I2C
+block reads?
+
+In ads112c14_read_raw(), an uninitialized buffer is declared on the stack
+and passed for conversion:
+
+ads112c14_read_raw()
+    ...
+    u8 buf[3];
+    ...
+    ret =3D ads112c14_single_conversion(data, chan, buf);
+
+Inside ads112c14_single_conversion(), the read is performed:
+
+    return i2c_smbus_read_i2c_block_data(client, ..., buf);
+
+If the block data read returns a positive value less than the requested
+number of bytes, checking ret < 0 will not catch the error. The partially
+uninitialized stack memory in buf could then be parsed using
+get_unaligned_be16() or get_unaligned_be24() and returned to userspace.
+
+[ ... ]
+
+> @@ -436,14 +592,29 @@ static int ads112c14_read_avail(struct iio_dev *ind=
+io_dev,
+>  {
+>  	struct ads112c14_data *data =3D iio_priv(indio_dev);
+> =20
+> -	if (chan->channel =3D=3D ADS112C14_SYS_MON_CHANNEL_SHORT) {
+> -		*vals =3D (const int *)data->sys_mon_chan_short_scale_available;
+> -		*length =3D 2 * ARRAY_SIZE(data->sys_mon_chan_short_scale_available);
+> -		*type =3D IIO_VAL_DECIMAL64_PICO;
+> -		return IIO_AVAIL_LIST;
+> -	}
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
+> +			struct ads112c14_measurement *measurement;
+> +
+> +			measurement =3D &data->measurements[chan->scan_index];
+> +			*vals =3D (const int *)measurement->scale_available;
+
+[Severity: High]
+This is a pre-existing issue, but will casting an s64 array to a const int *
+cause incorrect scale values on big-endian architectures?
+
+The IIO core reads this list as pairs of 32-bit integers, combining them
+into an s64 by using the first integer as the lower 32 bits and the second
+as the upper 32 bits.
+
+On big-endian systems, the upper 32 bits of the s64 are stored first in
+memory, meaning the halves could be swapped when read by the IIO core.
+
+> +			*length =3D 2 * ARRAY_SIZE(measurement->scale_available);
+> +			*type =3D IIO_VAL_DECIMAL64_PICO;
+> +			return IIO_AVAIL_LIST;
+> +		}
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-iio-adc-ti=
--ads122c14-v3-0-746d52cbf1d0@baylibre.com?part=3D7
+-ads122c14-v3-0-746d52cbf1d0@baylibre.com?part=3D8
