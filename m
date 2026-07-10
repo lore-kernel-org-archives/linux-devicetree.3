@@ -1,257 +1,196 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FCD3242B0
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 10:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B34F404BF7
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 10:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783680904; cv=none; b=ZD608s93eBKjEc2J4zabsxAqWw854meP8ikyqUYrEe2wiqh+19shhzji46epgpbTi1TFKrTYR0Ukvl9U8B2BMEvoI8d2qnGo+vi38JGdd9pZYDPOwOK9s7Kh4CHUMYWgJDkZ7i4hxupzF0XwQWuRDokk8dzSokDf2ut8+d9VGmw=
+	t=1783680954; cv=none; b=cJSY2z0TbXNAMRdlECPim8QU02edmfKs6QREP7sDZl1nWqNQYwlzz0lELLKx4hoSxmvZfYpTNLBd6Vfn5EnIyusnNpvpU2zaHnSvPE3bcIr8nQ09VicXbv94U9HGxq8STNjxZjUd9+2wPRuIZpGwJW6onYQ5wgIdZdnRMHIru44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783680904; c=relaxed/simple;
-	bh=Jc+cyW0SAXe60JSqWOsvka8eUS3RRaYLEvEnsVaDZaU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YSN9fKT6/YoOgwwC168O/zWdP8DflNWOp9JjkJqfSCx8iotCngwmr84lJNKEUi33vIKmWrl+2ziZvAU8sSij/dJcm0VEMEcSk0qR8PXY6dOjnEvCO4AaYq/k8PMcl/bX666dG0YWvA8oOBOXQGORrqguduKjkVrzlfizCXm3vm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A2SHe7cY; arc=none smtp.client-ip=209.85.210.177
+	s=arc-20240116; t=1783680954; c=relaxed/simple;
+	bh=xlSYGNU16W6S2PY8aAe6JeUMg8Dxgfqi4tAC4006wEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kxAu/112S/4KQGNvYf590w+Ci9pjLReRKvGSyWbivz6SI5ykLJfByxxiVgmyqBNwtGlQ81pQjzFmDB9mpJbiKCyu5UAzrdbbqcSJ1WGP9qrIRUmAJQiEr7h1znzPGwrAMEeVqgiiGuR9TUul+OY0z1+w8ro9hUnF+IL4wtWsSWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TqCCH7kj; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A2SHe7cY"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-848593533cbso548523b3a.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 03:55:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TqCCH7kj"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8485b358552so809224b3a.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 03:55:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783680902; x=1784285702; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=534LbVPyjYMVPj0BO46vzk6oyGda1cLHKL7+ZYYErcI=;
-        b=A2SHe7cYRsiwO1lIeI/WbX1PADypli+s3N78ZJU1WKIey34CeB3g+xIbE7J/nXieis
-         y6tN7rGqtzwFGpjmttLcuSmvefIongiM/oQdV8dNCuFaORUCcD/oLM+7X0S7Wk7XrxST
-         kBUkLD73dyeerZ/P+z29GdUqBCaWUVTyNnkbsRkW7GGK1Cbni3HS5TvmKzfs2nPn+NZw
-         5QmqHGr5ldusnDgeHIgKWH7tbKGIVthvviffzlQRyYimlq8kSRrpmFdyFmoK49wB5V/G
-         Fl4Q4qrj7T6EAot06midMMUJ7Yhb8leqJV81/tjzXNUlmDAZdLnz7Zy4jUskXZX1FB3P
-         29xg==
+        d=gmail.com; s=20251104; t=1783680952; x=1784285752; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DYS+VjE3ZeLF6fGUZwF6+bVV7JweMtmHNhPsPcBJC0k=;
+        b=TqCCH7kj8OFiFPynhzBgWKBNJxZT4zOQz7f9BD7Mh+5vaRMRKAFT42STjynxUlrkDS
+         ubzMyw4igB2gxrwAhdiFO0rxJCfuz7S16rwJJWmn+ZkP2y3Z3BB3iVMMlggl1bURDmvx
+         R7DGswCr6fn/Dth7YLEAIVESRgM4aL5fKmvwO5h0ahzt1TUfdtApSw4OuikUfPMDe+gR
+         asxgBpwwBVEp4zk3OppiNY3xjGM/HjyOLQgOZPV1ArZq6yJjDubgiBoeqJB8eVGq5Fpl
+         iU7ybbjnMMu6+gVoWZ0cctNYlfMk5Wu0Hv77paReko0DY0JVj9wkpZkFfTv2JyLrz3MH
+         Kneg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783680902; x=1784285702;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=534LbVPyjYMVPj0BO46vzk6oyGda1cLHKL7+ZYYErcI=;
-        b=sodhMleUMzeNwQmjouX54sodSSrSjJ316FM0BIgFxrsClKBRQu4CK7C7vKT21BbcMY
-         zl9/BiwFcK+502uxEu3odqTe6Mn2iHc9mTjQKDl+oQUStuDZkdu2WZvrDCWrvdMJU2Os
-         nH/1Heroa3+kqAxVphPfP0Wxc+aSecC86fFmT7rkIb42y8bDUjzSDFd0exO3T6AlRrwp
-         lvJCsJYlSlFd9i0wLUI/Hgem8TJr+8UhkF4KyN67qRCDDre8Zy2Y8FTd1tOJ0OdpkJwD
-         1YORuEjJnIf5U6Gfs8NQXUSRaTmyDuh8Aqk6uYSe9xEV8nuS2JCiF+NCg2AR4jUi8Y0K
-         jrPQ==
-X-Forwarded-Encrypted: i=1; AHgh+RprVJ7k11YrFrU3GshPkpICH7HTLzn6wtEj0wNliKtxZ4QvNa4lBKe3WOogQoTgk/tWb0s8P7zs9oCq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4Rl+l/XqU/hZzgEqfE1YxDFeFxU4DthxztkY/nHoNEjHCSYu5
-	bBB7mlAd4ItgkfCG01IjPxF1CykFkJ4cpOs+JkKG0/ArxUhXU0mo7uWo
-X-Gm-Gg: AfdE7ck3jfja+fNbCbZh2eIsoZtWJYOm03IS8CqhKjV/EvaGIIu+oVvuBxqkEesPNBV
-	09U6o18vALghB8aBjjpYqqScoxauXeLKOihl7CGQ3/YJI/mLpckwIDpw7m2bPfkxnxfNIlDatDq
-	2kBbiLNBQrJ5I2p85wPnVOdLerCWXcA5P/1AhW2+i6C2uAmnPSDQOM3ERovKuvHG7wYOIpR/y6n
-	ij7vDYOMetsjago3rz93tFFlyNFH+DNF+CpZSfNf1ywYDH+UO9Z3d+YBEDoAxW5lEenzTLji/cf
-	mL7e71OPEPCSTtj+GQXMPGzxp0uMeWu5hVYlofx19xMH+RNmhxshVg5RASrCT15SvI9e90+QJeT
-	BWoESY2sAqDxCPtX3Ge4Nmz6cATDJbWD+bNPpd8cuWgGW/5RcBzl1Yv2ZHZ//oTRr6phxJqbYii
-	Qs1pYSgdh8dhM9mjfR0vgPvhHK8h1Gr1I=
-X-Received: by 2002:a05:6a21:6b01:b0:3bf:baed:c797 with SMTP id adf61e73a8af0-3c0bd0fa3d7mr13220654637.49.1783680901822;
-        Fri, 10 Jul 2026 03:55:01 -0700 (PDT)
-Received: from DESKTOP-TIT0J8O.dm.ae ([49.47.198.15])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659c8572sm40752937c88.9.2026.07.10.03.54.54
+        d=1e100.net; s=20251104; t=1783680952; x=1784285752;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DYS+VjE3ZeLF6fGUZwF6+bVV7JweMtmHNhPsPcBJC0k=;
+        b=i7E4iwa9tH8JCxl4NXIhhcOBcIpr78eOaKY2cwI9M2CjMlRX8/Qq0rg+wA3Ix03M62
+         Go2RaaNUomZj8mKXzHQ462Kz9Q4lrmsILlNOcvT4WrdI+TmHUPeiRg4YAgQPFic7W8En
+         QwL9BqbOw8WnvBUNPSdzk8shXEpesavSQ5CRxhsW+eylU2/EIjJnuk/BFGfsfyRIYlJG
+         p1GZutmQ8JjFk2f+UUjRnVIzDK+2Hfu9FGu4SGkvIEK7oIl9QYbIxslU1xICp45sDSZL
+         3rFb1AdauMbEq510V9Nl9y1EvTA8euCvJLdqU0imeXgFJCqy/jyG4/6mWM4O07pp0nKO
+         GB3w==
+X-Forwarded-Encrypted: i=1; AHgh+RqYyApzgGQSE9I1SZkj7UiAhBcw/mgHTzNYJ8ZnAmyJGF0yu3rYltQs4mVcPynNtm3WUx1xxiohaiFy@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE8Ev0cLt0Lp1tkKwNbv25fqW8rIzLoX/VgReEVQZ8oC3yHcQn
+	UsF4pw+iu3UZsOlIl8J8G70TCFT9z7zLpFU0wuKd6fhTvX7A+rOuU4LY
+X-Gm-Gg: AfdE7ckeexDCqF2AK++GvkVef6cRjuql39q/hB13WS6u1DV94P7PnWRvzW7SoxbwfwF
+	MLDSAJ6QM2eHI/c0bDoPLES0WNns9XOHDggpV0lf2Y2ecUoisdRbgR3PpCrfH2nQkb4bHqxAuzC
+	X09f9ORQf7A7N5hvG4b7QAH5fHksanN8whsnhXPuyhsyPyuRvt4LfenfueIG4bWdGesFPazKdi5
+	1GYFEhLc9qlN3KEP80Wg+rxa8b/CRkoVl04ilVpH6Y5QFGV9+rJ4EaUpVSzdCbA7t/pS9pBputP
+	2mRCXIRYdU+FIaxtsqBeaVr3X/gNXPrBa/A9S2INzPonVzHKW9Tt6wpOeNciG8n1De41uGwIukX
+	3KtoOu8SE1L+WlRGlacXQ95HU8dsFRIzW8EeGs/6uEWnz+eam6FxXF/85MUQNpJeL
+X-Received: by 2002:a05:6a00:288f:b0:845:4888:74c5 with SMTP id d2e1a72fcca58-84842eecdafmr10377896b3a.23.1783680952357;
+        Fri, 10 Jul 2026 03:55:52 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca5af6df87fsm4986672a12.5.2026.07.10.03.55.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 03:55:01 -0700 (PDT)
-From: Ahmed Naseef <naseefkm@gmail.com>
-To: netdev@vger.kernel.org
-Cc: =?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew@lunn.ch>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	DENG Qingfang <dqfext@gmail.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Landen Chao <Landen.Chao@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	Ahmed Naseef <naseefkm@gmail.com>
-Subject: [PATCH net-next 2/2] net: dsa: mt7530: add EN7528 support
-Date: Fri, 10 Jul 2026 14:54:24 +0400
-Message-Id: <1865eaedef97e593ba608764c7390209cae85b30.1783680864.git.naseefkm@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1783680864.git.naseefkm@gmail.com>
-References: <cover.1783680864.git.naseefkm@gmail.com>
+        Fri, 10 Jul 2026 03:55:51 -0700 (PDT)
+Date: Fri, 10 Jul 2026 18:55:10 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Christian Bruel <christian.bruel@foss.st.com>, 
+	Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>, 
+	Qiang Yu <qiang.yu@oss.qualcomm.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Alex Elder <elder@riscstar.com>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Vidya Sagar <vidyas@nvidia.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>, 
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v4 2/6] PCI: spacemit-k1: Add multiple PHY handles support
+Message-ID: <alDNlfb0_T9g-ATO@inochi.infowork>
+References: <20260709040027.958400-1-inochiama@gmail.com>
+ <20260709040027.958400-3-inochiama@gmail.com>
+ <ak9KzNFF26B0Kttz@ashevche-desk.local>
+ <alBNXgMAwXPKwiJ2@inochi.infowork>
+ <alCoTEDUY8AO9OzD@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alCoTEDUY8AO9OzD@ashevche-desk.local>
 
-The EcoNet EN7528 SoC integrates an MT7530 switch (the chip revision
-register reads 0x7530), memory-mapped in the SoC register space and
-reached through the same MMIO glue used for the built-in switches of the
-MediaTek MT7988 and Airoha EN7581/AN7583 SoCs. Its reset sequence and its
-PHY indirect access registers are the same as on those switches, so add
-an ID_EN7528 variant bound with the "econet,en7528-switch" compatible,
-reusing mt7988_setup() and the indirect PHY accessors.
+On Fri, Jul 10, 2026 at 11:07:40AM +0300, Andy Shevchenko wrote:
+> On Fri, Jul 10, 2026 at 09:57:05AM +0800, Inochi Amaoto wrote:
+> > On Thu, Jul 09, 2026 at 10:16:28AM +0300, Andy Shevchenko wrote:
+> > > On Thu, Jul 09, 2026 at 12:00:22PM +0800, Inochi Amaoto wrote:
+> 
+> ...
+> 
+> > > >  struct k1_pcie {
+> > > >  	struct dw_pcie pci;
+> > > >  	const struct k1_pcie_device_data *data;
+> > > > -	struct phy *phy;
+> > > > +	struct phy **phy;
+> > > 
+> > > Should it be annotated by __counted_by_ptr() ?
+> > 
+> > Yes, I think it can, this is something I have missed.
+> > 
+> > > > +	unsigned int phy_count;
+> > > 
+> > > Ah, you allocate much more memory than possible PHYs... Can you redesign and
+> > > use the above annotation?
+> > 
+> > IIRC use the annotation does not reduce this memory usage...
+> 
+> It's about how you allocate it, the code uses max_phy_count instead of
+> phy_count.
+> 
+> > > >  	void __iomem *link;
+> > > >  	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
+> > > >  	u32 pmu_off;
+> > > 
+> > > >  }
+> 
+> ...
+> 
+> > > > +	k1->phy_count = i;
+> > > > +	if (k1->phy_count == 0)
+> > > > +		return -EINVAL;
+> > > > +
+> > > > +	return 0;
+> > > 
+> > > This doesn't seem correct to me, I would expect phy_count to be assigned only
+> > > when it's valid. (Yes, perhaps 0 is the same as it was, but semantically it's
+> > > different 0 in this case.)
+> > 
+> > I guess you think 0 is a valid number? I can not understand what you thing
+> > Assign this to 0 if there is no phy is fine to me, which shows there is 0
+> > vaild phy found.
+> 
+> Isn't it already 0? Semantically code is wrong in a flow (not in the result).
+> 
 
-The switch core, however, is an MT7530 and not an MT7531 derivative: it
-has no MT7531 CFC register, and the CPU port to trap frames to is set
-through the MT7530-style CPU_EN / CPU_PORT fields of the MFC register, so
-add it to the MT7530 handling in mt753x_conduit_state_change(). For the
-same reason the MT7530 mirror and force-mode register layouts already
-apply to it as the default of the MT753X_*() macros.
+In fact it is already 0 here. But I am not understand why you thing is wrong.
+Could you explain it in detail? (Maybe you think it is not good to return 
+-EINVAL?)
 
-The four user ports (1-4) are connected to integrated Gigabit PHYs at
-MDIO addresses 9-12 of the switch internal MDIO bus. The CPU port (port
-6) is connected to the SoC Ethernet MAC at a fixed 1000 Mbps full duplex
-link, so the port capabilities cannot be shared with the MT7988 and
-EN7581 switches, whose CPU ports run at 10 Gbps.
+> > > See also above. Do we have some PHY API that just counts provided PHYs?
+> > > If not, that what you should probably add first, before this patch.
+> > 
+> > I have not found any api for this. But the actual problem is, how the api
+> > is designed. I have checked both the array bulk api for reset and clock,
+> > it seems like it is much more than this patch...
+> 
+> Yeah, I looked at the phy-core and I think it will be hard to implement.
+> So, the idea is then is to reallocate the pointer each time you get a new PHY.
+> In this case the phy_count will reflect the actual memory consumption by phy.
+> 
 
-The LAN GPHYs advertise EEE by default, but negotiating EEE with some
-link partners results in an unstable link with dropped frames. Disable
-EEE advertisement on them at setup time, like mt7531_setup() does for the
-MT7531 switch PHYs.
+Emmm, I think it is kind of buggy and not necessary. In most case
+this array is not long actually, so allocate some pointer should be
+fine and be an acceptable cost.
 
-Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
----
- drivers/net/dsa/mt7530-mmio.c |  1 +
- drivers/net/dsa/mt7530.c      | 56 ++++++++++++++++++++++++++++++++++-
- drivers/net/dsa/mt7530.h      |  1 +
- 3 files changed, 57 insertions(+), 1 deletion(-)
+> ...
+> 
+> > > > +	for (i = 0; i < k1->phy_count; i++)
+> > > 
+> > > 	for (unsigned int i = 0; i < k1->phy_count; i++)
+> > > 
+> > 
+> > I agree with the unsigned int, but I guess this definition is not
+> > allowed in linux.
+> 
+> It's allowed and it's encouraged even by Linus. As long as iterator is local,
+> use this syntax sugar and reduce its scope. It hardens the code.
+> 
 
-diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
-index 1dc8b93fb51a..1065671bcdd1 100644
---- a/drivers/net/dsa/mt7530-mmio.c
-+++ b/drivers/net/dsa/mt7530-mmio.c
-@@ -13,6 +13,7 @@
- static const struct of_device_id mt7988_of_match[] = {
- 	{ .compatible = "airoha,an7583-switch", .data = &mt753x_table[ID_AN7583], },
- 	{ .compatible = "airoha,en7581-switch", .data = &mt753x_table[ID_EN7581], },
-+	{ .compatible = "econet,en7528-switch", .data = &mt753x_table[ID_EN7528], },
- 	{ .compatible = "mediatek,mt7988-switch", .data = &mt753x_table[ID_MT7988], },
- 	{ /* sentinel */ },
- };
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 3c2a3029b10c..2aecad77af9a 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -2912,6 +2912,30 @@ static void en7581_mac_port_get_caps(struct dsa_switch *ds, int port,
- 	}
- }
- 
-+static void en7528_mac_port_get_caps(struct dsa_switch *ds, int port,
-+				     struct phylink_config *config)
-+{
-+	switch (port) {
-+	/* Ports which are connected to switch PHYs. There is no MII pinout. */
-+	case 1 ... 4:
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_10 | MAC_100 | MAC_1000FD;
-+		break;
-+
-+	/* Port 6 is connected to SoC's GMAC at 1000 Mbps full duplex. There
-+	 * is no MII pinout.
-+	 */
-+	case 6:
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_1000FD;
-+		break;
-+	}
-+}
-+
- static void
- mt7530_mac_config(struct dsa_switch *ds, int port, unsigned int mode,
- 		  phy_interface_t interface)
-@@ -3254,7 +3278,8 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
- 	 * forwarded to the numerically smallest CPU port whose conduit
- 	 * interface is up.
- 	 */
--	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
-+	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
-+	    priv->id != ID_EN7528)
- 		return;
- 
- 	mask = BIT(cpu_dp->index);
-@@ -3319,9 +3344,17 @@ static int mt753x_setup_tc(struct dsa_switch *ds, int port,
- 	}
- }
- 
-+/* The EN7528 LAN ports are integrated GPHYs at MDIO addresses 9..12 (switch
-+ * ports 1..4) on the switch internal MDIO bus, reachable only through the PHY
-+ * indirect access registers. There is no mdiodev to derive the addresses from.
-+ */
-+#define EN7528_GPHY_BASE		9
-+#define EN7528_NUM_GPHYS		4
-+
- static int mt7988_setup(struct dsa_switch *ds)
- {
- 	struct mt7530_priv *priv = ds->priv;
-+	int i;
- 
- 	/* Reset the switch */
- 	reset_control_assert(priv->rstc);
-@@ -3342,6 +3375,17 @@ static int mt7988_setup(struct dsa_switch *ds)
- 	/* Reset the switch PHYs */
- 	mt7530_write(priv, MT7530_SYS_CTRL, SYS_CTRL_PHY_RST);
- 
-+	/* The EN7528 LAN GPHYs advertise EEE by default, but negotiating EEE
-+	 * with common link partners (e.g. Realtek GbE NICs) results in an
-+	 * unstable link with dropped frames. Disable EEE advertisement on
-+	 * them.
-+	 */
-+	if (priv->id == ID_EN7528)
-+		for (i = EN7528_GPHY_BASE;
-+		     i < EN7528_GPHY_BASE + EN7528_NUM_GPHYS; i++)
-+			mt7531_ind_c45_phy_write(priv, i, MDIO_MMD_AN,
-+						 MDIO_AN_EEE_ADV, 0);
-+
- 	return mt7531_setup_common(ds);
- }
- 
-@@ -3459,6 +3503,16 @@ const struct mt753x_info mt753x_table[] = {
- 		.phy_write_c45 = mt7531_ind_c45_phy_write,
- 		.mac_port_get_caps = en7581_mac_port_get_caps,
- 	},
-+	[ID_EN7528] = {
-+		.id = ID_EN7528,
-+		.pcs_ops = &mt7530_pcs_ops,
-+		.sw_setup = mt7988_setup,
-+		.phy_read_c22 = mt7531_ind_c22_phy_read,
-+		.phy_write_c22 = mt7531_ind_c22_phy_write,
-+		.phy_read_c45 = mt7531_ind_c45_phy_read,
-+		.phy_write_c45 = mt7531_ind_c45_phy_write,
-+		.mac_port_get_caps = en7528_mac_port_get_caps,
-+	},
- };
- EXPORT_SYMBOL_GPL(mt753x_table);
- 
-diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-index dd33b0df3419..5f1e841f42c0 100644
---- a/drivers/net/dsa/mt7530.h
-+++ b/drivers/net/dsa/mt7530.h
-@@ -21,6 +21,7 @@ enum mt753x_id {
- 	ID_MT7988 = 3,
- 	ID_EN7581 = 4,
- 	ID_AN7583 = 5,
-+	ID_EN7528 = 6,
- };
- 
- #define	NUM_TRGMII_CTRL			5
--- 
-2.34.1
+Could you give me a reference url to check, I have not found this
+on the coding-style.
+https://www.kernel.org/doc/html/latest/process/coding-style.html
 
+> > > > +		phy_exit(k1->phy[i]);
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
+
+Regards,
+Inochi
