@@ -1,134 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F812D1303;
-	Fri, 10 Jul 2026 16:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAD636A379;
+	Fri, 10 Jul 2026 16:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783701827; cv=none; b=VTe9ZKWbKAFI4t1NWd/rPceQm9ZOm7+fj0aj0BMAIArNX34AAiokHiAxCo3UvAvb+LwM28GdHJhPHRCnAII3rBGycFIycUh/MTNkym0rnhn7H/KkPKGNEKpLdEwezB7KJEKSbdSr0d9+EwtXKqsfZogHn/dxwDD7OdN0SbnymhI=
+	t=1783701982; cv=none; b=GpBXuQWrBkX245kX1hxUHaBSURcDuKah5sucajgXBRS8aNHY/OgmF8XXGbhhoDbd1tB8uE63IJdO0yLvxMz7oOZV+7IrwwiVV87zYkO5qNA/kGGP5K7WKfQPr9joPonX9+BXAI+sxjbheViu6LOsnyn8kKj3ZKyoKnF/aPQqlVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783701827; c=relaxed/simple;
-	bh=a0izDYQoThGK2KONJQmc8Z1OqN4YhnGbQqsbYLPXrXU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=am7p9nVzeyXp1x+BIsR6TSkMW5Fz6XESaWr5Jz6ypBqIxhZcETe+Xj307d0KmsO6X7JuRv5TI9bVJACfoNc6+D4ZCOhPEXAQStE11Myy5sFSkPyKI3GEagXIH5Ji1G+kTRPaNQ2Dn0Y9LuvGU5K+eDzycamtRLW1hVoZ75OY8oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJaBmO7t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783701982; c=relaxed/simple;
+	bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SddofXoHDNECcsdjIosIC5spTlK9Rl2Hk+797HRToCPLZr2kOXBqtgWgLnhxSDnbCJfVhlD0PXG/+FiAhb0DMSkz9Y849Lj9eBTapB4LePghVedKhLiSeEdVtsBVTFHr8F7FVyXuRYyxrA8AT5gdqtW+WgWoIqs6oS51GUSLdjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Z9/lgldW; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJaBmO7t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A902D1F000E9;
-	Fri, 10 Jul 2026 16:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783701825;
-	bh=LO42XwNP83w3z5CFc+s0wvS8JJ79+rDi2PXVCc38KOM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SJaBmO7tVG7y2hCdLEUg7YkQ2jQBkq+GVDN8ZQwA14XKU17rc/JYBGmTsLG5IL9D8
-	 VZpyTOUzDzqfHR3nS5KE0cdIFlYKIXHjg5i+XA7zEOkYiclD5c83ByteDqLWXpRgs8
-	 fovLd01f78SO/8ray2y7oRQdXMPVWDsXDPeTtvEi3i/Fl34hhPk2C/YgOE6WCi76Gi
-	 Vox3g/oLJNF1t3H+oubRINiCCqp66X4g0Yh64jsa0zOBSdTCePlEOyjqemc4HNNcJo
-	 +nAMNas8rTshaxKl+aK+iclCjFEEUfZav18ukel5e314LaMITfxCZW02mf8O+k0W3g
-	 u+CN08jyxL7Mw==
-Date: Fri, 10 Jul 2026 17:43:40 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Haoning.CHENG@cn.bosch.com
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: thermal: imx: Document calibration
- offset property
-Message-ID: <20260710-diocese-gentleman-ec8fcff76398@spud>
-References: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-0-db9fc2947c55@cn.bosch.com>
- <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-1-db9fc2947c55@cn.bosch.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Z9/lgldW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783701978;
+	bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Z9/lgldW1p/torIfO3+0J7K5SE7Px5YDPwEuMuUqbjYAZzc9N7qCZmS8LqapBK2QV
+	 WlPAwUMWx6EEZuJmTnnNJdo+eB3Mb29MQtZ1QTZPEAsjFZWm7w90aaCjt6BjNGwAiW
+	 BGaNzkDa4AlB6U9LmgjkvBhRNm7PJePBV7A7rKLLmnavF0H9I0rUgOYK6rTU/wMa7E
+	 Z4BPFaHRELtG4haE9EuLaQv1Ff9aIRJsy4YZXuR8zgl0SLjBVZzgrs/oI6ZjBLxNE3
+	 S5CwAwEc0mlONyWXiamHsZ3PcoL5rTWDd26pELCCNbL+UgKR33Ee04Zb0qPWWkb7sR
+	 PVOk3F/knagtg==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2AA3C17E0EA6;
+	Fri, 10 Jul 2026 18:46:18 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id DF44248002F; Fri, 10 Jul 2026 18:46:17 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 10 Jul 2026 18:44:41 +0200
+Subject: [PATCH v12 03/36] phy: rockchip: usbdp: Do not lose USB3 PHY
+ status
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YxTcWEGVuS17YjL2"
-Content-Disposition: inline
-In-Reply-To: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v3-1-db9fc2947c55@cn.bosch.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-rockchip-usbdp-cleanup-v12-3-8b41a9a9bef0@collabora.com>
+References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
+In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@flipper.net>, linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1409;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=ou2OeHe9NiTPGYgMcRzTUBwKmURTgL5/azZ1wBtlGvM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpRIdgT4M5ecjWoo9i4FR9rI2qvhAlHpQ8ej
+ pRJGRn/KQ+JrIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqUSHYAAoJENju1/PI
+ O/qaL6IP/3NBH0E5hs6z3K/Y0L4JnphZO8K1ayvhrcKZi9bmum93d+iJwJHKF1+Tp5WTQxHn1ON
+ nzZ+WbWi2ZItdAms5R6mE1k1+fkaK6N1VwaLl50KeefC9oHSxxbombhkVOBNmSgYSM00jXJL1N2
+ YTDL5421gLW6E5jLXt6/rDLtDbecmGayYRsVKAqz5POE5MKeTKf3asC9lZfND2b7D4VtH/ut/07
+ wJgIBBspErHRGub6coWLLz61eurp5Gb5/HzpEM3GIm2+VPrDUVpQzZuCUrxJTNDsN9+HVO/+Agw
+ 6SBmcQh0ItYcMd4iM8a6NAK+0BkOucayNENTAY3fS7naKMzPt2jGNN6P4dHJlDhiZBvKyuf66ib
+ BgySUYlltC92bpz6Qh41a0sWg8D6lA2ckCJOdiM49HFyXWHvUjsfx2J5Gbcnqj7VjAMngQ0jWK9
+ XL6XzlS8le4hb2LluTzLtIbYlWCvmPgIv3+UWRYJ+7sxMcRXgiH9DXDVWM6FbxHU0PSMLn+PHLO
+ rWtho30nM7FWmzDTYaVQD39leq9N/c2rFPIIRT0CVOvcUmjQ8+2U2A0U0+eGF1VgmpNAu5f5Fdc
+ 9jYwhTjAmEXmP88+kqxOu3+MP7MzImDKTRTOwr1Iu7I7wbC4ERrVj7tBIUy0e9t79NjrUmPDYZK
+ vIDAyuiff8QfNgHtG5Sc0CQ==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
---YxTcWEGVuS17YjL2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+By default (i.e. without manually enabling runtime PM) DWC3 requests the
+USB3 PHY once and keeps it enabled all the time. When DisplayPort is
+being requested later on, a mode change is needed. This re-initializes
+the PHY. During re-initialization the status variable has incorrectly
+been cleared, which means the tracking information for USB3 is lost.
 
-On Fri, Jul 10, 2026 at 10:50:40AM +0800, HaoNing Cheng via B4 Relay wrote:
-> From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
->=20
-> Some boards need a small per-design correction to align the reported CPU
-> temperature with board-level measurements.
->=20
-> Document the optional fsl,temp-calibration-offset-millicelsius property,
-> a signed offset in millicelsius that is added to the calculated sensor
-> temperature. The property is optional and the existing behaviour is kept
-> when it is omitted.
->=20
-> Update the binding example to show its usage.
->=20
-> Signed-off-by: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+This is not an immediate problem, since the DP side keeps the PHY
+enabled. But once DP is toggled off, the whole PHY will be disabled.
+This is a problem, because the USB side still needs it powered.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Fix things by not clearing the status flags.
 
-> ---
->  Documentation/devicetree/bindings/thermal/imx-thermal.yaml | 10 ++++++++=
-++
->  1 file changed, 10 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml b=
-/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-> index 949b154856c5..704bf2fa48cf 100644
-> --- a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-> @@ -59,6 +59,15 @@ properties:
->    clocks:
->      maxItems: 1
-> =20
-> +  fsl,temp-calibration-offset-millicelsius:
-> +    maxItems: 1
-> +    description:
-> +      A signed calibration offset, in millicelsius, added to the calcula=
-ted
-> +      sensor temperature to compensate for board-level measurement
-> +      differences. When absent, no offset is applied.
-> +    minimum: -28580
-> +    maximum: 28580
-> +
->    "#thermal-sensor-cells":
->      const: 0
-> =20
-> @@ -109,6 +118,7 @@ examples:
->              nvmem-cells =3D <&tempmon_calib>, <&tempmon_temp_grade>;
->              nvmem-cell-names =3D "calib", "temp_grade";
->              clocks =3D <&clks IMX6SX_CLK_PLL3_USB_OTG>;
-> +            fsl,temp-calibration-offset-millicelsius =3D <(-6400)>;
->              #thermal-sensor-cells =3D <0>;
->          };
->      };
->=20
-> --=20
-> 2.43.0
->=20
->=20
+Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
---YxTcWEGVuS17YjL2
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index a5ffdf7a6e76..12dfdd470a78 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -1008,7 +1008,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 			rk_udphy_u3_port_disable(udphy, false);
+ 		udphy->mode_change = false;
+ 	} else if (udphy->mode_change) {
+-		udphy->status = UDPHY_MODE_NONE;
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
+ 
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.53.0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCalEhPAAKCRB4tDGHoIJi
-0uLeAQDJi0oIsUXiFpOhsENkrPOBOVbkTK9/+jwt4V/Avu8pfgEAlx56YdWYvhF3
-9fxQ5FOYGhVzjS0m80NhMCm/S1Z06Ak=
-=pItJ
------END PGP SIGNATURE-----
-
---YxTcWEGVuS17YjL2--
