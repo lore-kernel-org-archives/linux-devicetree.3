@@ -1,119 +1,78 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3228B6FC3;
-	Fri, 10 Jul 2026 01:04:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB0E2AEF5;
+	Fri, 10 Jul 2026 01:39:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783645501; cv=none; b=oMxzKt/nDwmHmpf9QvlAYGbpDEk9nMeT/h9jJ4dj5BJastGx8UbkvX6/tq6NxQMTURA4a5FZlP5dv97vppLh0c2Nh7B//tqlPXjRMLVvw/eok5XoemxuhBYCU8pba9WdH13uMLOl54ue5eSfdWQffb6i+iHGSNsPV7gxMQ+ghQQ=
+	t=1783647597; cv=none; b=l83iluxY6iin2qkcMx5YZ6QzWDru4G85mW/6m56Q1yoO8MlpyODa1XzrSG5iqc/NjT5OIJ7Z7xr/qN0fBE91d1y9XRqsHGR5jaMi+i3zSKdeX5JKT6f/tqxQRSoFSK8xetaklNO6QK5fQ8AqPKoBKywrWtAloNcB6ZgoSA0bIcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783645501; c=relaxed/simple;
-	bh=vSI/6JH46QRuCk7VHxcBTsb2eFB7aXDQvaCGhbXab18=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cpBN+UmhsI1xY9kwVSgXxgP+xGnH7T8borEPrcPM/RN9iydKb9OJnZ9zfPbUdbONDcICtejWecM8XNmTqrYEkXmS6HMncnkRay2ReTq8x90blNizWWgGricFioxGjk42YLj7GlEYgG5Z5GAM8f0uJp+PI51RMdTyZIXuaSreZuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cIf5N81i; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1783647597; c=relaxed/simple;
+	bh=cUBVyZI3iYzLKWMJuqgnvmoXqw3n6EnxScqGD+AWtVo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tNDGnx1gW1owre63NqCyO3LsRyfn5Z1zhyUqdyH4+/cCQ+GJWdtsYh6tVvZzx26/QQ5eiGew7chJNTw8W2DDcjd0CVVKle2mYCl2IJ+FR7xTE3JMn3KPsgHmKSHsmM5Vu474MbGAYVmD/TLxAhK++e8NGETabXtT98i/ppvmrw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NxeLZXfI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cIf5N81i"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=r0em5pMNZ4xKYprueCCCRKfXhTmoQMeSgXfGFULzODo=; b=cIf5N81iy//LNUKpfZ2HOlkcRK
-	8OA05pKoaYtr720datPqjB+ls/s6YXte8CR6FvzePOyuSql/y1U92bp9Zn9poUR7eI0yKf4A/uQ0I
-	hkjv2Imdk+fudyI10U2oGtPa3UmTH6nJkGysIaDAMApxxBgdJrgw4weijDwKSIJXAqHLLNe/5XV9/
-	jvJeiYV7eolYFfISs+gD4ExEIMRKxBm+nUuLrFZPCrW7xP3yCmzZegIS7YN7dymDA2f4vgFum/r9U
-	qb24QdtoSndJpEyVbn1AkRvXkc0ZDH3CUMiwexB/Gmg5VGI1fmsmk2KSuxeILXjEAr2W9e3K/ojoP
-	7o/eTqcg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1whzfe-00000003twW-1ujf;
-	Fri, 10 Jul 2026 01:04:50 +0000
-Message-ID: <fd2e3b89-339a-4964-9b0c-e24ed7f7b31f@infradead.org>
-Date: Thu, 9 Jul 2026 18:04:49 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NxeLZXfI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B901F000E9;
+	Fri, 10 Jul 2026 01:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783647595;
+	bh=EQuZbHgu/I8MUtI51d+1TjEXGoO04JHKmOy5gEswLS8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NxeLZXfIPrLnn1rdtiSLe0YI3yMgsXdI+sfwgbbzw0EWl7qZy+DqiPqZc8QWDQTxz
+	 suXaK1qkuhTDt5/8AxA/5E9dxNEwD+59Mz7V8/6EMy4t7mdzybYFFTiNjkj0w1rLZh
+	 36H0hi4YaNbtqHQDEuUEw1ESDsMdGFzO4NdQINgc4fWDz8DAJBQvS5earkFjvdHKon
+	 ILWaxUv832hsw+LwZEnZJ+Dbn3mjwjPPzaScwSitCcj1g1/WT5nRZ09LZoR3sU2qvq
+	 aNCLaIf2IXT15JjlHQWYdeayMt8q9exRVoDhV4gqObvrmRQQRPV0qn3SgxKPlxHdwX
+	 2nIYQBDoQL2nA==
+Date: Fri, 10 Jul 2026 02:39:47 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, <linux@analog.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <jananisunil.dev@gmail.com>
+Subject: Re: [PATCH 1/6] dt-bindings: iio: adc: Add AD7768
+Message-ID: <20260710023947.0056f29e@jic23-huawei>
+In-Reply-To: <20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
+	<20260709-ad7768-driver-v1-1-44e1194fd96a@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/19] MAINTAINERS: add Rambus CryptoManager Hub (CMH)
-To: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
- Albert Ou <aou@eecs.berkeley.edu>,
- Alex Ousherovitch <aousherovitch@rambus.com>,
- Conor Dooley <conor+dt@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
- Rob Herring <robh@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Ninad Palsule <ninad@linux.ibm.com>, linux-hwmon@vger.kernel.org
-Cc: Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
- Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
- linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
- Shuah Khan <skhan@linuxfoundation.org>, Thi Nguyen <thin@rambus.com>
-References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-20-skrishnamoorthy@rambus.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260709203037.1884436-20-skrishnamoorthy@rambus.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-
-
-On 7/9/26 1:30 PM, Saravanakrishnan Krishnamoorthy wrote:
-> From: Alex Ousherovitch <aousherovitch@rambus.com>
-> 
-> Add MAINTAINERS entry for the CRI CryptoManager Hub (CMH) hardware
-> crypto accelerator driver under drivers/crypto/cmh/.
-> 
-> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
-> Reviewed-by: Joel Wittenauer <Joel.Wittenauer@cryptography.com>
-> Reviewed-by: Thi Nguyen <thin@rambus.com>
-> ---
->  MAINTAINERS | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d1dbf2f07104..1c153a84f70f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6891,6 +6891,23 @@ F:	kernel/cred.c
->  F:	rust/kernel/cred.rs
->  F:	Documentation/security/credentials.rst
->  
-> +CRI CRYPTOMANAGER HUB (CMH) HARDWARE CRYPTO ACCELERATOR
-> +M:	Alex Ousherovitch <aousherovitch@rambus.com>
-> +M:	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
-> +R:	Joel Wittenauer <Joel.Wittenauer@cryptography.com>
-> +R:	Thi Nguyen <thin@rambus.com>
-> +L:	linux-crypto@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/ABI/testing/cmh-mgmt
-> +F:	Documentation/ABI/testing/debugfs-driver-cmh
-> +F:	Documentation/ABI/testing/sysfs-driver-cmh
-> +F:	Documentation/crypto/device_drivers/cmh.rst
-> +F:	Documentation/devicetree/bindings/crypto/cri,cmh.yaml
-> +F:	Documentation/userspace-api/ioctl/cmh_mgmt.rst
-> +F:	drivers/crypto/cmh/
-> +F:	include/uapi/linux/cmh_mgmt_ioctl.h
-> +F:	tools/testing/selftests/drivers/crypto/cmh/
 > +
+> +      adi,prebuf-pos-en:
 
-Hm, I thought for a moment there that this new CRI entry was out of
-place (alphabetically). No, it's the next entry that is so far
-out of place. :(
+Spell out precharge and probably enable as well so
+adi,prechargebuf-pos-enable
 
->  INTEL CRPS COMMON REDUNDANT PSU DRIVER
->  M:	Ninad Palsule <ninad@linux.ibm.com>
->  L:	linux-hwmon@vger.kernel.org
 
--- 
-~Randy
-
+> +        type: boolean
+> +        description: Enable positive input precharge buffer
+> +
+> +      adi,prebuf-neg-en:
+> +        type: boolean
+> +        description: Enable negative input precharge buffer
+> +
+> +      adi,refbuf-pos-en:
+> +        type: boolean
+> +        description: Enable positive reference buffer
+> +
+> +      adi,refbuf-neg-en:
+> +        type: boolean
+> +        description: Enable negative reference buffer
