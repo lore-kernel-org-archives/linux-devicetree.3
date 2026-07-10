@@ -1,281 +1,264 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7F8410D32;
-	Fri, 10 Jul 2026 11:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783682026; cv=fail; b=Bo7d+NiGz6LGlYTSn8zycerudeTChfHyVEj/Q6Xw8iCnjoP5I/Tq7kAMuf+Jc9z08zn7FZ4iR0AGnOrx2cEJ8SSHD+mKq1AoYdXR4BSze47AYPvn/AwFbofH2KO5Gh4BRZmtAy9awZx7SHJx0AZVRw5yYvFgRiG2oghlQ+m++bE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783682026; c=relaxed/simple;
-	bh=S6spQyI206EExSEvqFa4ThIxKWasIfjTOkByxunwPrY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Krawxw034/1/PF/15pxnrCzZvXpDdQRCb7aLjH1NDg/TnBx41UNFUw0bxbU58Bz5ueqMEd0+3aCYqWXY3gNXXZm/IhNzJ/09X38EJ5tLVM7XOo9GvkzkzqzQYRbch9rYIisLqd//Iwz0nPRK3y9TIHlqTNC6yJwx1Uxx4Xv3PIM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=qpsDBXHW; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=h8WWADm+; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CBC4192E2;
+	Fri, 10 Jul 2026 11:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783682460; cv=none; b=kVMDKy/nPh99YVi4yD21J+LOFCwO4V8tMv+FrmUmCpn0/IIcmOt+/007j5bZ6nlc0tx+Lgu9M1DLqSBoENPAigq8vJbqM/wgsyK839hVokAnQ9pBV3GcZybMm2XQfAfiJRv/QuYWw5i/74ltDpRMn60IYud+ETFUz1j/+ketWv8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783682460; c=relaxed/simple;
+	bh=qtq4eiaVGYxzcA6lYNEKl8443SsdNTAWffYeDYhIzjo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OOu6Enf/7bhb3MJeojIXB7Z2WDmUdj2q4+cX+6UDhbheL6Gn5g26xIXsZ+50qWIe2zWK4HiHEHrNSZ1PaMlemlb36Nmok8AInsAcrYyxlq2z0Fo4Ixb7c+RxjSz3ZYYV5ycrLlZzldgUnu0iIshFkCKeIhO9gIkZ0QITKbOsjGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hxr9Mykg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="qpsDBXHW";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="h8WWADm+"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AAjuZh3678619;
-	Fri, 10 Jul 2026 06:13:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=kM/m42YV0DYfcWZUaLfc/6VVkEiM0W5A4O/mwmE2L
-	9A=; b=qpsDBXHWAQww8/zMHTm7o5ewhgO8PSWL5kAVhEl0cDvgU+oInQJNZqdR7
-	x0d5ERu663DaGAM4TecTLX7KQfjI0Jn4yVEn+US0zW7aPJWCJQdkjPDwjPoMbJ2m
-	0YCWnuGokeJYnmVZnWES5AU76VXePtrKkaUw+PXyqpbGOFTD65h1t0P8iDTOLfkO
-	3r/jQsaTiVQkAYWr/Qrv0I7mwYuy7oJMXecC5UYhHeU/9HWOiq8SfqrXONPXDfDh
-	oKuaEM9vLO0XVKB1EM0X9VmM0n2hXmGWxVFFVya62y7NSzVmNX8ML/SBZJYmHM+v
-	9/3UTK7/4+2cY0Ypg4L9U3hWhNTdw==
-Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010046.outbound.protection.outlook.com [40.93.198.46])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4faskvhtx0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 10 Jul 2026 06:13:34 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AInp0CfG1ooJMVde9Xm1zhvZpXeMeAAc8urSKhh6lgEXc/WHG+05BAQK8PAEHcYlhn5j5P0B3WdCTkOsu9PrkJSrlssVSWnYQEA6OZ5HZfgrp9Hrn8N/i29aFHURbiX1MhEgMgGFeCpoxKOBBvtrPpL6BfT3WroZ9f4EwVRz9oMps6Q4Tma2oWTP65x9CDR072V61rTv2N8QKL+v76TPscUDlWlBd/o+CSwUsJxISvYKnpvI4lYtz57A2nPYD+pWotrpxu2OJ/KDtcnzaqRXtUQUgsOesqrlehdRuUEOFbp9GSnaDH8T0u11HpYuJNavMXLD2B2wzS5jWfPsrW87rA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kM/m42YV0DYfcWZUaLfc/6VVkEiM0W5A4O/mwmE2L9A=;
- b=tA+YvK3NvsTB3pggr/hPOM7yENSZY1xw0oOMLMfK7rfkEIcHIN7mTjBAzDaPxF0mGrJ/Ql1fNWqWORmjeWqvpdFvpZyTslUM3vJSQwonbNeArIppmbAtg+Ohx885FDBqH0jXWobNoxjs4UvgvEk22pnAIoLWBITegd84vUXZef0fuEJQjEpk8NpeSWK2YaSefrf4Mb7FYb+9MAbRrC0gXuJLbPyyr9ocBkc3Mt0eZ4cbBsq6QP5CcAX51xjIrUvvKDnaVNHDXAZ9QhpuMosv/c015R02EYq4OlalgPo76uM0zRcBnrtmj58ViCQxopC/76hQij6o5Avk4imfIfhmPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kM/m42YV0DYfcWZUaLfc/6VVkEiM0W5A4O/mwmE2L9A=;
- b=h8WWADm+nXVy8gUBACB+mZbJX0jZEmvmhEyHrINVo/NK6iotEzP4PEhKW+DxOO63lyoZcVEacom5eok+eO7zMGn+z+L0xJlaRMt00SloQWNCELKcoL1xjVZUkrWG4lLyR9nHdl/TTBo8Bc3kLH8Xy+7854GrqfjEdMOVKX195iw=
-Received: from SJ0PR03CA0003.namprd03.prod.outlook.com (2603:10b6:a03:33a::8)
- by BL3PR10MB6017.namprd10.prod.outlook.com (2603:10b6:208:3b0::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Fri, 10 Jul
- 2026 11:13:31 +0000
-Received: from MWH0EPF000C6187.namprd02.prod.outlook.com
- (2603:10b6:a03:33a:cafe::4) by SJ0PR03CA0003.outlook.office365.com
- (2603:10b6:a03:33a::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.8 via Frontend Transport; Fri, 10
- Jul 2026 11:13:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- MWH0EPF000C6187.mail.protection.outlook.com (10.167.249.119) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Fri, 10 Jul 2026 11:13:30 +0000
-Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 10 Jul
- 2026 06:13:30 -0500
-Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 10 Jul
- 2026 06:13:30 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 10 Jul 2026 06:13:30 -0500
-Received: from [10.24.52.205] (a0512632.dhcp.ti.com [10.24.52.205])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66ABDNtq3551611;
-	Fri, 10 Jul 2026 06:13:24 -0500
-Message-ID: <a427d796-63c2-4bc9-a3ce-d4b1b527f3c1@ti.com>
-Date: Fri, 10 Jul 2026 16:43:23 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hxr9Mykg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6377DC2BCF4;
+	Fri, 10 Jul 2026 11:20:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783682458;
+	bh=qtq4eiaVGYxzcA6lYNEKl8443SsdNTAWffYeDYhIzjo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=hxr9Mykg21S7/3d8GNn9pNPELgupyaIYWPQCE6Kav361Mk3YryS+lTYPycMhx63DL
+	 KV7k/Q2ZD5yzuI1vE45YHb/4GvMEVrhs4WAA1zYRUxnclW87FwMiaV2xQPhedduL/4
+	 MEb8edvLYWL+jSv5QnPw59s9YCk42RllmYw1ym2Noy9zwy52xXxjqJ8OoDgez7syvF
+	 tvC3qo7risO//dJN5ZrnfrvEun/C5CtC/IRFqTCQ1XZhE+OU1QxVAqvBXY3qN0E16v
+	 Ff5bmkInGCHjPVOoydJWe4yQucr388DJ6kwgRpxWiO0mSmwOGEPCY8hhLGyvtWK1YU
+	 Z3afXr0SLAUcg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44510C44501;
+	Fri, 10 Jul 2026 11:20:58 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Fri, 10 Jul 2026 12:20:46 +0100
+Subject: [PATCH v7 2/7] iio: dac: ad5686: refactor command/data macros
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: ti: k3-am62l: Add HDMI & DSI support
-To: "Kumar, Udit" <u-kumar1@ti.com>, <nm@ti.com>, <vigneshr@ti.com>,
-        <kristo@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <tomi.valkeinen@ideasonboard.com>
-CC: <r-sharma3@ti.com>, <devarsht@ti.com>, <praneeth@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-References: <20260528133529.3476499-1-s-jain1@ti.com>
- <cb4c1b80-40c0-4e63-bfa8-65a68c577999@ti.com>
-Content-Language: en-US
-From: Swamil Jain <s-jain1@ti.com>
-In-Reply-To: <cb4c1b80-40c0-4e63-bfa8-65a68c577999@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6187:EE_|BL3PR10MB6017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9df0a03a-c23c-4a9e-563e-08dede744643
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|13003099007|22082099003|18002099003|3023799007|6133799003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	VPd2RNJoMW4MkAFLbp98wn1rtD0qMHhf1p/IgWyxwYyHEg+JZWPcvAkpDu6uBtIVdncZQCUxwIaLfH++W6dc3/6M5IP3NLFBa5wVOAIBz0C1mSbmTiz2znvsdFNoaPhB1zNqSnzbB9jXfyl4NOW1lwuKOhAg8GCzXnJCar/awZlv2kMqSeQwCn8cKmYt8mr4jNp9swSZiv7kR9LyQVahcize8MjQSQtEknO/aBcUpvJLT/tpb7zrW1W8wYpWGOC1OQaSil8rWR7aiy/ekCHcl53O51EX3iobSAKnK5YGHnyDHWk+Ir8incjWYrLiSDiQDHzILyl++fANI0NwxJ/Qb3sXW78jc2/LZknZGCMUN3qnBWsnklOhC8bp+Z5yYmgmS/IiN5l8Kkz8rAMeuI74V8fTJMmhsk3iZV9HZzErElv+PZKa22v9l8GMKnBC5BU7WxPkdPZbH82FdFxrd8IWCANpHAeTU9YnPzO5FJftBaBU4MtIZPo/HmEvdQFUCZ6YkFxCkfxodhPZ2D8f3TLajcip5mN/CqPaS/SmO01ecaBO3oNEVm38PaQoubk86eKnGxn2mkQ7NyT9mf9LK4zbuxH9QkOYT0WbQqSzTV/xkEuJnrZY+r4zFDpNDXH+AGCBB1qTl7kXJtMjHeh5TIlXdl3MadHWJmY1dyeCmnZwDGU7yiMhCWVTh0MHSE4xxkSnYtju8e7ucjb0NNZVvJfwqw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(13003099007)(22082099003)(18002099003)(3023799007)(6133799003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OYaQLIT7QE0NiFcTVimKAZsStBqjZ3f0inlhQwSTqG14Q1Vwsdyacg1H69fvqJzpqwTk5LzJmeIu1bqroMhGkHbhMA2zGZTG0VSF9TgS3gyCGpRiICZZv7Af9Qbb4VhPN2ZspvbFykU/l2+D1llpUveaCmCB2/m8Ke8YhjVhL+6iVQdUzOLHgdnibGJDSpGVpZdL0RSt7QTQyX9bCaOTX6Urfkm8htRcilq/dbsRIBmIrme0lBA95DYLBqJbjgmyXGNegq7WHQjk0vQMVBaLg+2Xu9yeU2CoaUbtKC4UYhRMRAF1DJDczVAlMl8u3W6s8dLtAq3ZCE4uYpRHQbaIaQSOjExKYxIO6evz3ukA8dZyTi09MT0LVhGUSnvHAdheJp3AKEQzHaoiU/BumGIOCy1np7KpxtwjW/Lq4RxN4YBG+NICTjePKPvd0eCwjXgx
-X-Exchange-RoutingPolicyChecked:
-	AUXztGU2wMwR/+UlRNE0PlxunISqX6hwj7lzuDKCAadlMdUQYlO9rj/obuslglEdI89K0grB7V9UMi8eF6R65HkNixVu0GJ+1co7OpQE+u0Nn3gZU8tk1vibcR/Pg9mVAhiPJSPkAxXoiBp7mhlUGB5+8Kjv29GNxiB/qOszrYkh1SEDT6ykIqPtonj6xcC730hvaKhzTYWtGHgAx40f95ZtOD6NI+654tUbEHZbvTrpq5XTxSLSvf4Mlmadc9zqWbr22KCrSnFFl9vWQ9udZaJT2yJWXOKEtlHbNMj28gE8lpWaBaI0MXaelAidS2KDeEMSlBGVxchk3jqUyk134Q==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 11:13:30.8262
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9df0a03a-c23c-4a9e-563e-08dede744643
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6187.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR10MB6017
-X-Proofpoint-ORIG-GUID: dA86P8WXtgbLpwiXrFE7-DCQ99y-F91z
-X-Authority-Analysis: v=2.4 cv=AeOB2XXG c=1 sm=1 tr=0 ts=6a50d3de cx=c_pps
- a=HD8lxhnvDrzpkXyYnuuseQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8
- a=VwQbUJbxAAAA:8 a=11sOcgTRacJIbtiZYdwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDExMSBTYWx0ZWRfX/2Y8XrAlJjzu
- K3s6JkogbZWRMYCZEmMiAQume/uL8NKVvxcChII09Uq5+iyKxYAl+ysIYymqDDKEbTqDtjYBnIc
- 5+jwAxDNg5EmsrxVJITB0gnW4CxKecc=
-X-Proofpoint-GUID: dA86P8WXtgbLpwiXrFE7-DCQ99y-F91z
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDExMSBTYWx0ZWRfXy0QQVtMi7tEJ
- sT98bqMmKur3MK+MzAMizqz933yecuozIr2Po8tYAcDT6wcQClY/poPnWiJ6qaKWUH9zvY4ZagU
- QHJGqjHDZGSN/pncxLnJgXXCAXEAtDypoVi+DFsky07nPSwf2dXFlygRKiS1ql0Aca1Tcv4PZxl
- sj348vvFxeOmEw6pJpZfk0T4cR/SbA2Zor8pz4A+P6lYgBJb8TAZljZbldNMHHTn/k/aocuQ0Rd
- xsZ57Bs2KdWaPOkHNRuk2k+TpxX1Nn8NmO3h6BWEjSfWuXXVIc02mJlq+h3pFk1++JV8XbN9T5A
- ubUWF+0ZZ/gwhQc6DLDv1elUy8YE2+gAAIXmaNx6wmdEniy2sPthmJLrbAuPLDD15Wcula3fRYH
- vcxbqEv7faHLL57ixLaILe6u40zylfnywHt8jeim/GfvdovFcwwJryGTn+GxJqgDCUjyVdXYC3Y
- rks5J2Vd1NFzjFy83WQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_03,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 malwarescore=0 adultscore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607100111
+Message-Id: <20260710-ad5686-new-features-v7-2-1bcc8c280e4d@analog.com>
+References: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
+In-Reply-To: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
+To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>, sashiko-bot@kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783682457; l=7147;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=qRHhDvXGjsAHu+93uFBdiAIlGZwBaY4I1ZjDTZ6pcx8=;
+ b=WUUdOw/nwbKkYyAOpe2Hstci3fxn9nohhUXtpvUDp3h4WZf5E91t+EEjdtAHHEVOpa/rzbIdn
+ J6XiYns/tj4BethZB++H0uhoTo8ywpfDSt5wLb9Jo3XK9hXs9GKrXGt
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
 
-Hi Udit,
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-On 5/29/26 14:28, Kumar, Udit wrote:
-> 
-> 
-> On 5/28/2026 7:05 PM, Swamil Jain wrote:
->> From: Devarsh Thakkar <devarsht@ti.com>
->>
->> Add DSS, DSI, DPHY, and HDMI bridge nodes to enable DPI-to-HDMI output
->> on AM62L[1]. The DSS uses parallel DPI interface with pinctrl
->> configuration to drive an external SiI9022 HDMI bridge.
->>
->> DSI and DPHY nodes are added but remain disabled, as the AM62L shares a
->> single video port for DPI and DSI output.
->>
->> DSI functionality can be enabled via overlays when required.
->>
->> [1]: https://www.ti.com/product/AM62L
->>
->> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
->> Signed-off-by: Swamil Jain <s-jain1@ti.com>
->> ---
->> Changelog:
->> v1->v2:
->> - Update the commit message to elaborate more about the patch.
->> - Add dpi-pinctrl configuration.
->> - Update the interrupt routing index for HDMI interrupt line
->>
->> Link to v1: https://lore.kernel.org/all/20260513210942.692269-1-s-jain1@ti.com/
->> ---
->>   arch/arm64/boot/dts/ti/k3-am62l-main.dtsi | 47 +++++++++++
->>   arch/arm64/boot/dts/ti/k3-am62l3-evm.dts  | 95 +++++++++++++++++++++++
->>   2 files changed, 142 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
->> index 80615ca1e01a..1d255c9138db 100644
->> --- a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
->> +++ b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
->> @@ -584,4 +584,51 @@ scmi_shmem: sram@0 {
->>   			bootph-all;
->>   		};
->>   	};
->> +
->> +	dss: dss@30200000 {
->> +		compatible = "ti,am62l-dss";
->> +		reg = <0x00 0x30200000 0x00 0x1000>, /* common */
->> +		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
->> +		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
->> +		      <0x00 0x3020a000 0x00 0x1000>, /* vp1 */
->> +		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
->> +		reg-names = "common", "vidl1", "ovr1", "vp1", "common1";
->> +		power-domains = <&scmi_pds 39>;
->> +		clocks = <&scmi_clk 162>,
->> +			 <&scmi_clk 161>;
->> +		clock-names = "fck", "vp1";
->> +		interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
->> +		status = "disabled";
->> +
->> +		dss_ports: ports {
->> +			#address-cells = <1>;
->> +			#size-cells = <0>;
->> +		};
->> +	};
->> +
->> +	dphy_tx0: phy@301c0000 {
->> +		compatible = "ti,j721e-dphy";
->> +		reg = <0x0 0x301c0000 0x0 0x1000>;
->> +		clocks = <&scmi_clk 348>, <&scmi_clk 343>;
->> +		clock-names = "psm", "pll_ref";
->> +		#phy-cells = <0>;
->> +		power-domains = <&scmi_pds 86>;
->> +		assigned-clocks = <&scmi_clk 343>;
->> +		assigned-clock-parents = <&scmi_clk 341>;
->> +		assigned-clock-rates = <25000000>;
->> +		status = "disabled";
->> +	};
->> +
->> +	dsi0: dsi@30500000 {
->> +		compatible = "ti,j721e-dsi";
->> +		reg = <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
->> +		clocks = <&scmi_clk 155>, <&scmi_clk 158>;
->> +		clock-names = "dsi_p_clk", "dsi_sys_clk";
->> +		power-domains = <&scmi_pds 38>;
->> +		interrupt-parent = <&gic500>;
->> +		interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
->> +		phys = <&dphy_tx0>;
->> +		phy-names = "dphy";
->> +		status = "disabled";
-> 
-> 
-> I think you should add port information for dsi as well
-> see DSI node in other SOC (J721E, J721S2, J784s4) for reference.
->
+Replace usage of bit shifting macros for FIELD_PREP(), which would not
+ignore bit masking when preparing SPI/I2C commands. This change is a code
+hardening measure to be paired with the upcoming triggered buffer support.
+For the AD5310 regmap case, 16-bit data coming from the buffer may overlap
+with command bits if the data field is unmasked.
 
-Sure, will add ports info. in the next rev.
+*_REF_BIT_MSK and *_PD_MSK bit position macros are renamed (with a DATA
+prefix) so to indicate that they are relative to the DATA field.
 
-Regards,
-Swamil.
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/all/20260628143026.EC6CA1F000E9@smtp.kernel.org/#t
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+ drivers/iio/dac/ad5686-spi.c | 21 +++++++++++----------
+ drivers/iio/dac/ad5686.c     | 10 +++++-----
+ drivers/iio/dac/ad5686.h     | 22 ++++++++++++----------
+ drivers/iio/dac/ad5696-i2c.c | 11 ++++++-----
+ 4 files changed, 34 insertions(+), 30 deletions(-)
 
+diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
+index 6b6ef1d7071f..d3b64b4361d5 100644
+--- a/drivers/iio/dac/ad5686-spi.c
++++ b/drivers/iio/dac/ad5686-spi.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <linux/array_size.h>
++#include <linux/bitfield.h>
+ #include <linux/errno.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+@@ -26,21 +27,21 @@ static int ad5686_spi_write(struct ad5686_state *st,
+ 
+ 	switch (st->chip_info->regmap_type) {
+ 	case AD5310_REGMAP:
+-		st->data[0].d16 = cpu_to_be16(AD5310_CMD(cmd) |
+-					      val);
++		st->data[0].d16 = cpu_to_be16(FIELD_PREP(AD5310_CMD_MSK, cmd) |
++					      FIELD_PREP(AD5310_DATA_MSK, val));
+ 		buf = &st->data[0].d8[0];
+ 		tx_len = 2;
+ 		break;
+ 	case AD5683_REGMAP:
+-		st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) |
+-					      AD5683_DATA(val));
++		st->data[0].d32 = cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, cmd) |
++					      FIELD_PREP(AD5683_DATA_MSK, val));
+ 		buf = &st->data[0].d8[1];
+ 		tx_len = 3;
+ 		break;
+ 	case AD5686_REGMAP:
+-		st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) |
+-					      AD5686_ADDR(addr) |
+-					      val);
++		st->data[0].d32 = cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, cmd) |
++					      FIELD_PREP(AD5686_ADDR_MSK, addr) |
++					      FIELD_PREP(AD5686_DATA_MSK, val));
+ 		buf = &st->data[0].d8[1];
+ 		tx_len = 3;
+ 		break;
+@@ -81,9 +82,9 @@ static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
+ 		return -EINVAL;
+ 	}
+ 
+-	st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) |
+-				      AD5686_ADDR(addr));
+-	st->data[1].d32 = cpu_to_be32(AD5686_CMD(AD5686_CMD_NOOP));
++	st->data[0].d32 = cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, cmd) |
++				      FIELD_PREP(AD5686_ADDR_MSK, addr));
++	st->data[1].d32 = cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, AD5686_CMD_NOOP));
+ 
+ 	ret = spi_sync_transfer(spi, t, ARRAY_SIZE(t));
+ 	if (ret < 0)
+diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+index 713fe71ad1e7..120dd095dd2e 100644
+--- a/drivers/iio/dac/ad5686.c
++++ b/drivers/iio/dac/ad5686.c
+@@ -35,8 +35,8 @@ static int ad5310_control_sync(struct ad5686_state *st)
+ 	unsigned int pd_val = st->pwr_down_mask & st->pwr_down_mode;
+ 
+ 	return ad5686_write(st, AD5686_CMD_CONTROL_REG, 0,
+-			    FIELD_PREP(AD5310_PD_MSK, pd_val & AD5686_PD_MSK) |
+-			    FIELD_PREP(AD5310_REF_BIT_MSK, st->use_internal_vref ? 0 : 1));
++			    FIELD_PREP(AD5310_DATA_PD_MSK, pd_val & AD5686_PD_MSK) |
++			    FIELD_PREP(AD5310_DATA_REF_MSK, st->use_internal_vref ? 0 : 1));
+ }
+ 
+ static int ad5683_control_sync(struct ad5686_state *st)
+@@ -44,8 +44,8 @@ static int ad5683_control_sync(struct ad5686_state *st)
+ 	unsigned int pd_val = st->pwr_down_mask & st->pwr_down_mode;
+ 
+ 	return ad5686_write(st, AD5686_CMD_CONTROL_REG, 0,
+-			    FIELD_PREP(AD5683_PD_MSK, pd_val & AD5686_PD_MSK) |
+-			    FIELD_PREP(AD5683_REF_BIT_MSK, st->use_internal_vref ? 0 : 1));
++			    FIELD_PREP(AD5683_DATA_PD_MSK, pd_val & AD5686_PD_MSK) |
++			    FIELD_PREP(AD5683_DATA_REF_MSK, st->use_internal_vref ? 0 : 1));
+ }
+ 
+ static inline unsigned int ad5686_pd_mask_shift(const struct iio_chan_spec *chan)
+@@ -562,7 +562,7 @@ int ad5686_probe(struct device *dev,
+ 		break;
+ 	case AD5686_REGMAP:
+ 		ret = ad5686_write(st, AD5686_CMD_INTERNAL_REFER_SETUP, 0,
+-				   st->use_internal_vref ? 0 : AD5686_REF_BIT_MSK);
++				   st->use_internal_vref ? 0 : AD5686_DATA_REF_MSK);
+ 		if (ret)
+ 			return ret;
+ 		break;
+diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+index c424720f8f72..32cb3931413c 100644
+--- a/drivers/iio/dac/ad5686.h
++++ b/drivers/iio/dac/ad5686.h
+@@ -14,12 +14,14 @@
+ 
+ #include <linux/iio/iio.h>
+ 
+-#define AD5310_CMD(x)				((x) << 12)
++#define AD5310_CMD_MSK				GENMASK(15, 12)
++#define AD5310_DATA_MSK				GENMASK(11, 0)
+ 
+-#define AD5683_DATA(x)				((x) << 4)
++#define AD5683_DATA_MSK				GENMASK(19, 4)
+ 
+-#define AD5686_ADDR(x)				((x) << 16)
+-#define AD5686_CMD(x)				((x) << 20)
++#define AD5686_CMD_MSK				GENMASK(23, 20)
++#define AD5686_ADDR_MSK				GENMASK(19, 16)
++#define AD5686_DATA_MSK				GENMASK(15, 0)
+ 
+ #define AD5686_ADDR_DAC(chan)			(0x1 << (chan))
+ #define AD5686_ADDR_ALL_DAC			0xF
+@@ -38,15 +40,15 @@
+ #define AD5686_CMD_CONTROL_REG			0x4
+ #define AD5686_CMD_READBACK_ENABLE_V2		0x5
+ 
+-#define AD5310_REF_BIT_MSK			BIT(8)
+-#define AD5310_PD_MSK				GENMASK(10, 9)
++#define AD5310_DATA_REF_MSK			BIT(8)
++#define AD5310_DATA_PD_MSK			GENMASK(10, 9)
+ 
+-#define AD5683_REF_BIT_MSK			BIT(12)
+-#define AD5683_PD_MSK				GENMASK(14, 13)
++#define AD5683_DATA_REF_MSK			BIT(12) /* DB16 */
++#define AD5683_DATA_PD_MSK			GENMASK(14, 13) /* DB18:DB17 */
++
++#define AD5686_DATA_REF_MSK			BIT(0)
+ 
+-#define AD5686_REF_BIT_MSK			BIT(0)
+ #define AD5686_PD_MSK				GENMASK(1, 0)
+-
+ #define AD5686_PD_MODE_1K_TO_GND		0x1
+ #define AD5686_PD_MODE_100K_TO_GND		0x2
+ #define AD5686_PD_MODE_THREE_STATE		0x3
+diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
+index 6f726e6301a6..73dcd2e6f51b 100644
+--- a/drivers/iio/dac/ad5696-i2c.c
++++ b/drivers/iio/dac/ad5696-i2c.c
+@@ -7,6 +7,7 @@
+  * Copyright 2018 Analog Devices Inc.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/errno.h>
+ #include <linux/i2c.h>
+ #include <linux/mod_devicetable.h>
+@@ -35,9 +36,8 @@ static int ad5686_i2c_read(struct ad5686_state *st, u8 addr)
+ 	};
+ 	int ret;
+ 
+-	st->data[0].d32 = cpu_to_be32(AD5686_CMD(AD5686_CMD_NOOP) |
+-				      AD5686_ADDR(addr) |
+-				      0x00);
++	st->data[0].d32 = cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, AD5686_CMD_NOOP) |
++				      FIELD_PREP(AD5686_ADDR_MSK, addr));
+ 
+ 	ret = i2c_transfer(i2c->adapter, msg, 2);
+ 	if (ret != 2)
+@@ -52,8 +52,9 @@ static int ad5686_i2c_write(struct ad5686_state *st,
+ 	struct i2c_client *i2c = to_i2c_client(st->dev);
+ 	int ret;
+ 
+-	st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) | AD5686_ADDR(addr)
+-				      | val);
++	st->data[0].d32 = cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, cmd) |
++				      FIELD_PREP(AD5686_ADDR_MSK, addr) |
++				      FIELD_PREP(AD5686_DATA_MSK, val));
+ 
+ 	ret = i2c_master_send(i2c, &st->data[0].d8[1], 3);
+ 	if (ret < 0)
 
-> 
->> +	};
->>   };
->> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
->> index a1af4571a815..9b04fa6d2cba 100644
->> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
->> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
->> @@ -119,6 +119,18 @@ vcc_1v8: regulator-3 {
->>   		regulator-always-on;
->>   		regulator-boot-on;
->>   	};
->> +
-> [..]
+-- 
+2.43.0
+
 
