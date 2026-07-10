@@ -1,84 +1,111 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2033F482A;
-	Fri, 10 Jul 2026 09:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6E33F6613;
+	Fri, 10 Jul 2026 09:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783676004; cv=none; b=BOYi0IgIAm0X9KcFOCNq/D/4q5Vw2PBDWfgsPQXavDLFGW1O44GqpJiLJ1YIBR67GfYMfL5Yl1DTUZfALJvInXHx1eyd0sd6GWqm6uqU4RGFdSLQTPhEWjSLxz12wjssrFUkfnpRqzGwCruCdMHVBxYNWatA9jNa6ry8bJi3cQ0=
+	t=1783676071; cv=none; b=Nn2HA1nE4iJEoRvrWp8N1/VbYET78yUc3vLKCgLPpzWx1lg1YyFBQbS/fWSwJjVaKv51XGhcBxMYhSF/PWRbRaxDJNdjKgCbuIfqRSiPlSk9YZyQVuzHipHnM3/f7q266uUh66tXWrFx9dmaMWown+EW0A4V6d/EEV6osry0Ob4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783676004; c=relaxed/simple;
-	bh=T04Yklz3oRFt1PRpe4Yj4K9rJt4571BACCXcIi5ZLgs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=YgnVC1s4lqEegkmSYDD392yarQ4P4R3tMo9EDzhe9w7w0QmMiXze0T3MZ+ReYVwlsfc3MnqOvtpPfnidlkACGxat7x3OtBFsCHtu8GEdl9eXK8bYTDxYQvWO9xYmD9ghh/ruLW2IvFQQCAFtR2MoIvAK4Ed4c2TRY5PF8aXNrZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=q8mV/dQy; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783676071; c=relaxed/simple;
+	bh=+SSbmdxaiq0J0wa30iE1zuvjGBNzgjfpAoxryIKdcl4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=WFwOWF7pIi1n3vvbehvyc50GxEVW/NoTMnhXB/ZbEaShstiZiWQVQdo4qcxKTKzTfqqULH6L4Au88n+m5bbiL3Z6g+e4Bn9yXJ9ld7D9seGpd3jSIH+PNc1fNyFxTHXSCawll+ZkWGayF3ZYx24dRr6fC7/LnjVZyxCpxRF+g9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=oPpHa34e; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="q8mV/dQy"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B1F341A0F3A;
-	Fri, 10 Jul 2026 09:33:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8397860341;
-	Fri, 10 Jul 2026 09:33:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6785F11BD280C;
-	Fri, 10 Jul 2026 11:33:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783675999; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=PdzuN4WWG8ww2PkB8OywBoYS6cV9TEq80igjFkOCi/E=;
-	b=q8mV/dQyQsB2f4rYUwBqW3OZLRasJRAZbKA3DU+PyPTl31vCsxi+uQtCG2pbCJGi5Wx/zz
-	RgU0cRWpd2k0SPbMFGJwnAhZAwtJYZZ9E1s/RdzaCJUhjbS1xR6Tkv/7U8ZZ/kia6h18AC
-	J/h6yzyJdM8QsdGfsN8lrk0mFvFTHTLDkAFkuSiU75sqGVZdKpJD5k9y+meBwBvFzRl5u1
-	IE7+z4uRTXMqy/vfwpwuFx7Iwd4KfgAMG0oqKRKU60xA6BrH3vORoo4pIS2irNWU2sKSIn
-	0sZZcjaiDevXL9spIHjAH7Vb4Wd7i+0GVphUqHZw6HFVsaYgXQm0+J9eOpB5rw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Antoine Tenart <atenart@kernel.org>,  Christian Marangi
- <ansuelsmth@gmail.com>,  Conor Dooley <conor+dt@kernel.org>,  David S.
- Miller <davem@davemloft.net>,  Geert Uytterhoeven
- <geert+renesas@glider.be>,  Herbert Xu <herbert@gondor.apana.org.au>,
-  Jayesh Choudhary <j-choudhary@ti.com>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Magnus Damm <magnus.damm@gmail.com>,  Michael
- Turquette <mturquette@baylibre.com>,  Olivia Mackall <olivia@selenic.com>,
-  Rob Herring <robh@kernel.org>,  Thomas Gleixner <tglx@kernel.org>,
-  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,  Pascal EBERHARD
- <pascal.eberhard@se.com>,  Wolfram Sang
- <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 01/16] dt-bindings: clock: Introduce nexus nodes
-In-Reply-To: <177595659711.5403.18166114937625609985@lazor> (Stephen Boyd's
-	message of "Sat, 11 Apr 2026 18:16:37 -0700")
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-	<20260327-schneider-v7-0-rc1-crypto-v1-1-5e6ff7853994@bootlin.com>
-	<177595659711.5403.18166114937625609985@lazor>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Fri, 10 Jul 2026 11:33:11 +0200
-Message-ID: <87a4rzi3zc.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="oPpHa34e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1783676056; x=1783935256;
+	bh=qTqD8XHnXnpCzH66fJSE8CBGzOPJsWGe02GIOrSsx/M=;
+	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=oPpHa34elIXrWQ2qBDuDchAmHHoC1fHSmb+YsLWiTSpntZaJmK8rMpO2Gxm/DkqaH
+	 13Pv03dCDl50Li3QBPZRBiifPuS61U/wPKrN0O8aROtls5LcBk29+Kfiu4yzbU8yn7
+	 YHsy44XQwBWmNfaIX/P+N+ZtzrTp7RXMqoW7T1euCoXZn2nFzxpuTLDEWO95TST+bA
+	 pHTit8ZtmC87FdVFvVd2hyuxRTzaEOrsjQx9qCb4kSzEnwALyyXAtRRkyUqqGKBm/g
+	 GRGj/KuDzsCNSxOKlOYfFdUzlIivmozJpDxXqcX4Ym97TEFOoLQ/g+4IuZuUyHEtn1
+	 if/dBUj7ZamjA==
+X-Pm-Submission-Id: 4gxRVb0VhTz2ScPc
+From: Esben Haabendal <esben@geanix.com>
+Date: Fri, 10 Jul 2026 11:34:00 +0200
+Subject: [PATCH] arm64: dts: imx8mq: Add dcss node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-imx8mq-dcss-device-tree-node-v1-1-fc724dfd574e@geanix.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJIUGqVzEusPMDQ0LRDhgSw
+ t2tuvwW7+1kSAqja7FTwltN55hRngoKQxt7sEo2Va46u6Z0rNPmpxdLMGPJQQAvCeA4C/giXe0
+ FztdoKS+eCZ1uv/3t/retjxFh+T7pOD7KPpaCgAAAAA==
+X-Change-ID: 20260710-imx8mq-dcss-device-tree-node-9df58de085ea
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Esben Haabendal <esben@geanix.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783676054; l=1806;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=+SSbmdxaiq0J0wa30iE1zuvjGBNzgjfpAoxryIKdcl4=;
+ b=sc+S0NvCxqN9/XLrbs6f0pnZylchIoPD8w2pilECc4TqUMxOnhXBshV4gDioLcjbdkM1qzzXj
+ +rIxB3EqvPFAF8bFBRR0O7WMBjzIAswH0IkrMQS5UpuG/5AugIdslMX
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-Hi Stephen,
+Add DCSS node for i.MX8MQ based on the example in the bindings
+documentation.
 
->> +title: Clock Nexus
->> +
->> +description: >
->> +  A nexus node allows to remap a phandle list in a consumer node throug=
-h a
->
-> Should this say "remap a clock specifier list" instead of "remap a
-> phandle list"? A phandle list sounds like there are zero cells.
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+ arch/arm64/boot/dts/freescale/imx8mq.dtsi | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-That's right, thanks for the suggestion!
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq.dtsi b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+index e60872aeeb49..fb99bd3ad7c9 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+@@ -1611,6 +1611,27 @@ irqsteer: interrupt-controller@32e2d000 {
+ 			};
+ 		};
+ 
++		dcss: display-controller@32e00000 {
++			compatible = "nxp,imx8mq-dcss";
++			reg = <0x32e00000 0x2d000>, <0x32e2f000 0x1000>;
++			interrupts = <6>, <8>, <9>;
++			interrupt-names = "ctxld", "ctxld_kick", "vblank";
++			interrupt-parent = <&irqsteer>;
++			clocks = <&clk IMX8MQ_CLK_DISP_APB_ROOT>, <&clk IMX8MQ_CLK_DISP_AXI_ROOT>,
++			         <&clk IMX8MQ_CLK_DISP_RTRM_ROOT>, <&clk IMX8MQ_VIDEO2_PLL_OUT>,
++			         <&clk IMX8MQ_CLK_DISP_DTRC>;
++			clock-names = "apb", "axi", "rtrm", "pix", "dtrc";
++			assigned-clocks = <&clk IMX8MQ_CLK_DISP_AXI>,
++			                  <&clk IMX8MQ_CLK_DISP_RTRM>,
++			                  <&clk IMX8MQ_VIDEO2_PLL1_REF_SEL>;
++			assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_800M>,
++			                         <&clk IMX8MQ_SYS1_PLL_800M>,
++			                         <&clk IMX8MQ_CLK_27M>;
++			assigned-clock-rates = <800000000>,
++			                       <400000000>;
++			status = "disabled";
++		};
++
+ 		gpu: gpu@38000000 {
+ 			compatible = "vivante,gc";
+ 			reg = <0x38000000 0x40000>;
 
-Thanks,
-Miqu=C3=A8l
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260710-imx8mq-dcss-device-tree-node-9df58de085ea
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
+
