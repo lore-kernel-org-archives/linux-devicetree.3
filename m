@@ -1,107 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD86372B41;
-	Fri, 10 Jul 2026 11:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9297416CE3
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:36:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783683418; cv=none; b=EanvtiLgAux8PX3PrPxwKkgkRm5IZb7oFoGG49mlpeFNk7ZgjIf5KvrDNeb8xE2U2swTD0ssB6UtJfDZZ/wXK4V5z6EfDBs37rkMbUqadVOmW5r/4Rt2Zf9TXq2wV/QAY5VcObOA9u51kj+F6y+7u9y1ietDQ7J7JjkPcnhpWPE=
+	t=1783683415; cv=none; b=u7G0eXDVA4Vh4sPTRDrXmNVenPVBzEIFINW+RKP6q0DjWDicoX/rChviVOBMT4KU3jEM2BN7s21PB9T67b4KjXn8osdt6ZfTO1SnYwwAgqMEAHdFvQa6LNpJGrK6WJFznRTaFO/eu9mIqYpZVNFmyHgr5FHxRpS323LClkSEorU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783683418; c=relaxed/simple;
-	bh=dPDAAQ1Y0doxNrqH4XMItBZzd1isbkCZyJgyueiJTUs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Os5UdgYDwplcj8+TNLIvyYIlgb1azkvZYKMkQEv5X3dCQRJywMkYbui9eObk4Pk5gucZkp3cDpIAYvqYskQ2T4GL2snPNSglhErLQPmDtd0i3T+SPz9j6oS5NIrEbMLHzk6mT7GQzNQ2DIMGBaQreOKQybJLhOEHXfbwQBTs13g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHJmxy/c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783683415; c=relaxed/simple;
+	bh=2MJor19UruydCPG4eC/O6GXHteEhn8IerN1++wZNn3s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Q0NoDQ23T5S7chxDJt+9VsK8vHeB1fVh54riAmC/iMGDFt1jBBAi9jVozDPh62qUXBoYDBdrYvbm558LH4Y4rR5O5WDAh9zoeHr/Wj06GneNiVpHA7WMhCV0OYJve81y4M+ha68q6b4rkeIo54A1xdg0DVzXu6qbhso8GzD2PFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IrsIlGkW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHJmxy/c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840981F000E9;
-	Fri, 10 Jul 2026 11:36:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IrsIlGkW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08931F00A3A;
+	Fri, 10 Jul 2026 11:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783683399;
-	bh=NUTr5anCLZVZhpUoM9Dy/7PnWeEET1cKY3vZE3EkEWs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nHJmxy/c7khjrnuKhnyi8kdL1Y3MVOfhkrs0y/l4XGP/dbsG5JS5WDhpcWBByhpiz
-	 bslsu2ga8r1h9oK0DjQrMGlOw/tGF70oxYGI+40kyJdTs6z5fjn+UQnD4rrpCNbGM7
-	 tlWiMmKDlMIkrHl+A2GJ63tOYJSYTukmlIYjm+QBg510MaTnCJ6RyaPhFtMoW+1nGV
-	 UGeuZ7z+vmWKArP+TtZDyerW7dQmmt5Wrav0CrEpErCjmQ+EYsmyd4efoFr2Qy2m0J
-	 izU2MYC38XXqlxkNVawxROpGjbuSG/Kw7I1gOZdJhM4imhFWFJNpGtUjmMxT+p6JEO
-	 kRRCLA1e2DyAg==
-Message-ID: <a7dfc071-4816-4e8f-9ecd-d819d3655a05@kernel.org>
-Date: Fri, 10 Jul 2026 13:36:30 +0200
+	s=k20260515; t=1783683396;
+	bh=81tXuwbLTzXkcK8mSp5QQTU1hxB69dL+TlJcxup+jXQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IrsIlGkWr9Oq5a5lixO/T+EIBNiYOBxM8XAmhy3BxrLVCaWadro0KsDzYeQADa/jU
+	 qnmTTIeXQR0xRRXctQQWE5CMHW38pH4JlE4YcVm02wEIbAy18G4cKDPk0kBTd69HaB
+	 BfvqrQncaaEkaERcIhxMkhUCdvPl/hhClVrcQuxQIovlh+/5V5BmxLlO4npV1WjlFa
+	 HaST5B4QjtS5MMR2Q7DWVyjgcb3w4gv2ta79B8XLjmLJRnxHK6f+eSHd1C8+DVrqjz
+	 t1h3FMAbZcMrUdnwBizK/dRjSe5EpmjKwid/1YTA9U5FoP86IBHFlX31mNXdBHMV3u
+	 8BVDGGrBltL8Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/7] iio: dac: ad5686: refactor command/data macros
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260710-ad5686-new-features-v7-2-1bcc8c280e4d@analog.com>
+References: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
+ <20260710-ad5686-new-features-v7-2-1bcc8c280e4d@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 11:36:35 +0000
+Message-Id: <20260710113635.A08931F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: Add missing bracket
-To: Manuel Ebner <manuelebner@mailbox.org>, Lee Jones <lee@kernel.org>,
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260710112529.435341-2-manuelebner@mailbox.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260710112529.435341-2-manuelebner@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10/07/2026 13:25, Manuel Ebner wrote:
-> Add missing '};' to code.
-> 
-> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
-> ---
->  Documentation/devicetree/bindings/leds/backlight/88pm860x.txt | 1 +
->  1 file changed, 1 insertion(+)
-> 
-Sorry, this is pretty close to pointless change and will be fixed by
-proper conversion to DT schema format.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Best regards,
-Krzysztof
+Pre-existing issues:
+- [High] DMA API Cacheline Sharing Violation in SPI Read
+--
+
+--- Patch [2]: [PATCH v7 2/7] iio: dac: ad5686: refactor command/data macro=
+s ---
+commit 7ffa72bdbbf5952d81c8c2ac98d1aa1023cddf2f
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+iio: dac: ad5686: refactor command/data macros
+
+This commit refactors bit shifting macros in the AD5686 driver to use
+FIELD_PREP(). It hardens the code to prepare for upcoming triggered buffer
+support by ensuring bit masking is applied correctly.
+
+Link: https://lore.kernel.org/all/20260628143026.EC6CA1F000E9@smtp.kernel.o=
+rg/#t
+
+> diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
+> index 6b6ef1d7071fe..d3b64b4361d51 100644
+> --- a/drivers/iio/dac/ad5686-spi.c
+> +++ b/drivers/iio/dac/ad5686-spi.c
+[ ... ]
+> @@ -81,9 +82,9 @@ static int ad5686_spi_read(struct ad5686_state *st, u8 =
+addr)
+>  		return -EINVAL;
+>  	}
+> =20
+> -	st->data[0].d32 =3D cpu_to_be32(AD5686_CMD(cmd) |
+> -				      AD5686_ADDR(addr));
+> -	st->data[1].d32 =3D cpu_to_be32(AD5686_CMD(AD5686_CMD_NOOP));
+> +	st->data[0].d32 =3D cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, cmd) |
+> +				      FIELD_PREP(AD5686_ADDR_MSK, addr));
+> +	st->data[1].d32 =3D cpu_to_be32(FIELD_PREP(AD5686_CMD_MSK, AD5686_CMD_N=
+OOP));
+> =20
+>  	ret =3D spi_sync_transfer(spi, t, ARRAY_SIZE(t));
+>  	if (ret < 0)
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible this setup
+causes a DMA API cacheline sharing violation during SPI reads?
+
+In ad5686_spi_read(), the SPI transfers use adjacent elements from the
+st->data array:
+
+    struct spi_transfer t[] =3D {
+        {
+            .tx_buf =3D &st->data[0].d8[1],
+            .len =3D 3,
+            .cs_change =3D 1,
+        }, {
+            .tx_buf =3D &st->data[1].d8[1],
+            .rx_buf =3D &st->data[2].d8[1],
+            .len =3D 3,
+        },
+    };
+
+Since st->data elements are 4-byte unions, they reside within the same
+CPU cacheline. When spi_sync_transfer() maps st->data[0] and st->data[1]
+as DMA_TO_DEVICE and st->data[2] as DMA_FROM_DEVICE simultaneously, does
+this create overlapping mappings that violate the DMA API?
+
+This could trigger CONFIG_DMA_API_DEBUG warnings for overlapping
+mappings, and on non-coherent architectures, could there be a risk of
+memory corruption when DMA_FROM_DEVICE cache invalidations interact
+with active transfers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-ad5686-new=
+-features-v7-0-1bcc8c280e4d@analog.com?part=3D2
