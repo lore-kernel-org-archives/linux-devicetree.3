@@ -1,144 +1,140 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438513644CB
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 15:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783697068; cv=pass; b=ZbiFATB1zboWpv8+ItPNMu5+/WYZR4++Dl6ULukdYpOluSkfJ4g43kXNsqDTAsyKQTIYzAO1jXYXmktQhsXjYTmdZwB5XVNBaVBm6rKSCjDT+RvKmvQa42JM9iDRL3DiBw6vYpJLEDZ/OUAWp9sXigFP+VFgP/Si/MnuBsoedDQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783697068; c=relaxed/simple;
-	bh=EqyqUxpIYNWHP1s0GX+47xMaDhlkc859gdGdTZYGzl8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Sgs7DF/4fontJRYkR3aqMK2aNi6EY9Wz7PoYy97ovMAdhGjaItli/d5Lc6tQKgERnUXZsRR0TBT00kr2CC4xKvnBTYjkENEkUvdicyl4WaXoUHxEHUKKKg+4L/53Rf6yPpGCXgTpcUc1SmIhshINPBVMBcGKBP/mpv6/In+Ohkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TKFjtHwc; arc=pass smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D497E2EDD40;
+	Fri, 10 Jul 2026 15:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783697526; cv=none; b=Hmvd2Ik/9PPPE5CiC+33nWAQPf9os4qwbkTQvrwDyVgBVXBLdITClLUws6+2waGU6DysnthkqZhK2wdFIhCpFu7FqWefAXkBME7mRSmHiBXytIfCd2gdwDMVf4sO6NANLQXRp3A+9rJ8G4PYzDM7Cbjw6F58gM5Pd3ntg9/aceY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783697526; c=relaxed/simple;
+	bh=GvF+goMJzkF/uRrgajuo8a2aYORnv/sPr+Q/viHrWb8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=um/FwveSLIytidFGESpSR/ZZpwhpGMPXxHur31yI2NUh5wPfOqFoE1DDGCKb6Fb3EVPtziNhilFqMJKJtUj9R0pz6P5IFenK25VDMaoDqEO0BVlznHu1R3DK47xnMvyeRt9Ziyd8Fcw5DLRejoJpRLCjjs5W3uQoJniFx8tYh0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=So9Q79Yh; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TKFjtHwc"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca97d139d8dso640241a12.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 08:24:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783697067; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m4jXdlEy/AaePYYcCB3gnVD3bUSRUaGzvYln2vnw2h4N3RTYuvDJRxOyBgacl7KXiM
-         LcvP0oqBCYvMukrbDfhFw9yjqeOjaHAnZRksT726TV+dsLIgT+jZHMjRMnJ0UdYwwf6c
-         Z2cgb68QtIPh1/BQfTacjTqNl2dHu+ZLWUIzgCogxIh2Ro9I5KDKPiZYfsscck5qqGVo
-         yKiXa7SdAibV82QmV/kIZ3RfxGsP+/FdeGj5XaQiC4rQOJ92KB8tr3tHY4AlVf3Cp0mg
-         Cq7Svhm8lN2SbkuC3dI09VzL9YVcyKdlOCcq3OPHog6jCDydmEIHa9PlzPUb1Z/taiqG
-         BlMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=EqyqUxpIYNWHP1s0GX+47xMaDhlkc859gdGdTZYGzl8=;
-        fh=zPgLC8GqrrVAGKtXv3FH4jfCMGK/rRhqNNrgyr3ujIU=;
-        b=m+fOsTO5kwAvNq5x/jHmzJbUzibHwGC7l7zxnMBj09GOO4hpyP4CM807OExL+fVQZ8
-         zzVK3mdzGORFTUD6WTqFJbbjpzAY7ZrkfQg7rq7U+4qc38wv3UYMMVQaksTH2ZZldz0b
-         BN/295RS2oTK3sDmz/r9JBAP5lLzmStUiqQUjH6AAbQPXSDyR+9KQ24AeatUhUqMvAw7
-         L2Kb5sEKZYFhzMhq7W1f71Utk/jKTb9CBZEOzXeLWp58iXkt7OdY7bpzzolkYI4UTq3H
-         tRwovbOHAPNNMkD6w+vs0uSP4VGvLjRpwq8BOizIBS9n+tf8LwGSQYOHz/bcpCztii9d
-         IHXg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783697067; x=1784301867; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EqyqUxpIYNWHP1s0GX+47xMaDhlkc859gdGdTZYGzl8=;
-        b=TKFjtHwc0C/UCtAWzmS5fCt4F1AaLrSWXByvKBvD/ctrsW7DXdTWlqCSqeEH1kCoYJ
-         z3qt2vJuIJ/fM1HFweqyoRGyMWVobPTBa/CqSlWEiWKrZJOufkYGdPV7U3ImZNglXGwK
-         80Sl+DSBRgEwrl7bNU7d5d9+KFXYUtW+K6juNlbcLroVM3InCWgYgQV3FtaOpkJWx/eS
-         1uvHzTOsB+JMQ5o/E3oQ0BDTTU35wyzzoZL4/5zgQ3r+NvklqYBu8BDt2YF8uSnh0Y0o
-         d0SEj1HOxtwQrUW1WuAcJ98MI97Zqh4apzWcmRorHMAprFwufwAEhUhDU1WKzCbQiRlr
-         Inqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783697067; x=1784301867;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EqyqUxpIYNWHP1s0GX+47xMaDhlkc859gdGdTZYGzl8=;
-        b=IYh1+pWr0wl9EqZnKNzeMQRa5Cv4tTLcC/AIV9wEU84IVFvrOHTCWxtZQmqkitFvxD
-         TuFAwyp/gc2sRKlorYP7z/RL7DPvcdU9R8DRBkY5LUYZknDedAZG+ONBNiSrSSgqEUhR
-         NFzOe5duej7pllPbeB92JtWzZo5xS0Lsue/ZH0Q0D85tfb58gYmg+Y4v1C/ydxibzuaU
-         fwKx5QywlA9aVEEcxSzUSVLwf2Kdc5RKqiBdZjD5mG8MxjCcnhnpyvAXAXwgJ/wuMtpE
-         lJiEA35t76dvpmLJxnCWQqJSFR3F9ynRQjK+4eVWXPiRLM97DN2UOPyj8ASlroog5Izl
-         zjWQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrD2JJFa5LXaazwQXalHlFWsG6vlBblStlaX+KKKrxr3yCaiVMsraN/WDOwA3aEvkr37sH5yetaFtzc@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTVpuy4kFeFcpDMG0XkLZSuEgGEx/WAvq20AXDJzTECLMyMasX
-	mqYfpwxS2WtMop2r/GNNAYpbODoCKOq0C/zaURJowOkQYVSes9gzktitIgwLaS0M7mc/OWU61HC
-	T3nAv4BJ8W6ikfs6Mzrtl5lCd0DzMWls=
-X-Gm-Gg: AfdE7cn/EhZQuCr5xQm4VHB0B608w9wiqz2xcfFMjcKylfDlyiv7P8dxVlq/rRfNyyV
-	adq0suTeXqv5XuPG3Srlt79/QAFiZ3jiPI86LFWrghq1onq++L16IG5tV+ddtYGUyvLVvbhrjv5
-	5nWxv86ZO/QuZ37//1r+lYKp7psgXRVtGILNo3YgO2Eqd8nn0Q0WzMDEWrtqXOk50HVWVT9k63p
-	2XgUAmgDhQZz5GNNm0LJIk2FNo1KRZzFzvPQkb6sIKYID+PdoMInbrtAI04qdAMpcghHouZvW5N
-	Uwbi9ExPuWzbW6iyHRGTyKUSfFsk+TSxbjitW+u2DvsiTR9rFGqzMDAg4WkR
-X-Received: by 2002:a05:6a20:258d:b0:3c0:b55a:80ff with SMTP id
- adf61e73a8af0-3c0bcfc669cmr15058954637.24.1783697066297; Fri, 10 Jul 2026
- 08:24:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="So9Q79Yh"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 381971A0F43;
+	Fri, 10 Jul 2026 15:32:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D84CC60342;
+	Fri, 10 Jul 2026 15:32:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AB3C011BD0EF7;
+	Fri, 10 Jul 2026 17:31:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783697518; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=opjT5/t2075ZwXKLhLNRf46iRkyFA1PSM/HbIUktT94=;
+	b=So9Q79YhoDHT/FGDeFSSz3t4dbs5QiCYvboGne3BFeM233eBO4h5D92DoMoNc57Mbr41OQ
+	9yw9kSjV+hEEz7vp86+bNRHok/osHrUOQDeOS/AvnURhfz+ETg1SVlOhfJ7+SM1dX/8mTg
+	zr56j5czUW5Fa3PskU3skwb3RhgGflmv0fTQMRrlijpZNkrQxJLxYkH8HRmmDxQdcDwgzv
+	aRRAvSLtNmSNbdVkpRwtV8FOMSJXpEEOOmj/0BGdpVc1Aku5WHBR0uo6YFA84i7kDDIX8f
+	4ygK3NCgsmvUbEsvo/65brZKVyV03qr1g8ZmtPtqZ9CNjjoSfIQtlCyr1/m2XQ==
+From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Subject: [PATCH 0/5] Import optee node from u-boot device trees
+Date: Fri, 10 Jul 2026 17:31:33 +0200
+Message-Id: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260707014525.1015-1-kimjinseob88@gmail.com> <20260707014525.1015-5-kimjinseob88@gmail.com>
- <ak0cVeEUhNP1wTkQ@ashevche-desk.local>
-In-Reply-To: <ak0cVeEUhNP1wTkQ@ashevche-desk.local>
-From: Kim Jinseob <kimjinseob88@gmail.com>
-Date: Sat, 11 Jul 2026 00:24:12 +0900
-X-Gm-Features: AUfX_mxU46GPfSBn7INGwH9DSFKpdE3Tct9lB7NY0v2qLaRw04FyfJBrzDmLygk
-Message-ID: <CALMSewLACs7+QEq=3Pp=Wo6dvmEu0hFjmuOx8oe0AGoZHPmADw@mail.gmail.com>
-Subject: Re: [PATCH v7 4/5] iio: osf: add authenticated stream parser
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFUQUWoC/x3MQQqAIBBA0avIrBvQoKSuEi00p5qFGWoRSHdPW
+ r7F/wUSRaYEoygQ6ebE4ahQjYBlN8dGyK4aWtn2UiuJ3uSd6cLLhpDR5YTszxAz9sPaKbvIQTs
+ NNT8jrfz862l+3w+Q4xJIagAAAA==
+X-Change-ID: 20260710-mathieu-uboot-dts-import-69f51bc097d7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Wei Xu <xuwei5@hisilicon.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, openbmc@lists.ozlabs.org, 
+ Tom Rini <trini@konsulko.com>, Peter Robinson <pbrobinson@gmail.com>, 
+ Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783697511; l=3294;
+ i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
+ bh=GvF+goMJzkF/uRrgajuo8a2aYORnv/sPr+Q/viHrWb8=;
+ b=6FNuUzGqgL00oYjpCi6BVoz145dDiOaDz5uzPPuGqQNHNyEUiD+kRXgMLs7vzR5ZwO86WxY8j
+ nHWsJLbnupUCAaPtOHaJiaKJgq4r7J0GvK9kSFtko/5gHJz4AvqLwqu
+X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
+ pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
+X-Last-TLS-Session-Version: TLSv1.3
 
-> Why so complicated? le32_to_cpup() + just integer comparison should work, no?
-> Alternatively get_unaligned_le32() if the buffer is unaligned.
+In a recent discussion on the U-Boot mailing list [1], it was found out
+that several platforms were adding the OP-TEE device tree-node thanks to
+some U-Boot specific dtsi. This was deemed as a bad solution, as this
+should instead be added in the DTS files hosted in Linux sources,
+particularly for platforms already using the "upstream" (Linux) device
+tree.
 
-I have reworked this in my local next revision. Complete four-byte
-candidates are now compared using get_unaligned_le32() and
-OSF_FRAME_MAGIC.
+Most i.MX8 and i.MX9 platforms are already using OF_UPSTREAM
+configuration in U-Boot. Some are not, but are fairly new, so we can
+expect them to use the Linux device tree once their support is a bit
+more stable. So they will benefit from these changes once upstream
+device trees are refreshed in U-Boot.
 
-A small separate check remains only for preserving a trailing one-,
-two-, or three-byte "OSF0" prefix when the magic is split across
-receive callbacks. I added a comment explaining that case.
+STM32MP157 platforms are using OF_UPSTREAM, with similar consequences.
 
-> Seems like reinvention of min() from minmax.h.
+The two other platforms are using an U-Boot specific device tree, yet
+adding these nodes on the kernel side will help to reduce the
+differences.
 
-Agreed. The open-coded minimum calculations are now replaced with min().
+The zynqmp platform was ignored, as a similar change was previously
+reverted [2]. I also ignored a few platforms without direct match
+between U-Boot and Linux dts files.
 
-> I believe I have commented on this already. Please, go and double check all comments.
+Also add the OP-TEE node on the imx93 FRDM platform device tree: while
+this is not part of U-Boot code today, it is the change that triggered
+the U-Boot discussion.
 
-> My comment was to use the same pattern as in _init() above.
+[1]: https://lore.kernel.org/all/20260706145906.GW749385@bill-the-cat/
+[2]: https://lore.kernel.org/all/20251125-revert-zynqmp-optee-v1-1-d2ce4c0fcaf6@vaisala.com/
 
-osf_stream_reset() now uses the same early-return pattern as
-osf_stream_init(). I also re-audited the earlier comments, including the
-common magic definition, loop-local variables, redundant casts, GENMASK(),
-Kconfig wording, and partial-frame statistics.
+Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+---
+Mathieu Dubois-Briand (5):
+      arm64: dts: freescale: Import optee node from u-boot device trees
+      arm: dts: st: Import optee node from u-boot device trees
+      arm64: dts: hisilicon: hi3798cv200-poplar: Import optee node from u-boot device tree
+      arm64: dts: nuvoton: npcm845-evb: Import optee node from u-boot device tree
+      arm64: dts: freescale: imx93-frdm: Add OP-TEE device tree node
 
-> Why all this dances? first_err is 0, we all know this.
+ arch/arm/boot/dts/st/stm32mp157a-dk1.dts                | 17 +++++++++++++++++
+ arch/arm/boot/dts/st/stm32mp157c-ed1.dts                | 12 ++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mm.dtsi               |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx8mn.dtsi               |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx8mp.dtsi               |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts       |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts      |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts  |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts       |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts      |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts         |  7 +++++++
+ .../arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts |  7 +++++++
+ arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts  |  7 +++++++
+ .../arm64/boot/dts/freescale/imx93-var-som-symphony.dts |  7 +++++++
+ arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts    |  7 +++++++
+ arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts     |  7 +++++++
+ 16 files changed, 127 insertions(+)
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260710-mathieu-uboot-dts-import-69f51bc097d7
 
-The zero-length path now directly returns osf_stream_process(stream).
+Best regards,
+-- 
+Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
 
-> This error checking and handling is unusual. It requires a good comment
-> explaining what's going on.
-
-The parser continues processing the current received chunk after a
-recoverable framing error so that later valid frames in the same chunk are
-not delayed until another callback. Only the first error is retained for
-diagnostic logging, while the serdev callback still reports the complete
-byte count as consumed.
-
-I added a source comment documenting this behavior and verified that
-CRC-valid frames ignored by the core are consumed in full without
-resynchronizing into their payload.
-
-thanks,
-
-jinseob
