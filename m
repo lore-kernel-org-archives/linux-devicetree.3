@@ -1,136 +1,250 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D61E3C277E;
-	Fri, 10 Jul 2026 10:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B03D3F86F7;
+	Fri, 10 Jul 2026 10:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783678163; cv=none; b=osZo2pCFwdVTwPrhZSljVG7gTxBc7mrykO3PAPPwP2g0kJF/jWukXQKEfXZsyfK94PBZ9XrvrpEQwzM65FIiEDm/kEo3hzlcAiqsXkOTz+wXUomCm2wrZzAtj3mE09bLTCBrsKHXBKxAtmAtLVoingX7DHxjdf1zpL22oku4v3I=
+	t=1783678392; cv=none; b=KOIAR4aa2HEheviyboSluqzp/hf6REurLVj3EHF66nc0s0K7PBKdprO0Bnh0G1G2pLYQItfdEbc55tct3Uk9yzD2D2BSWB5jv0JMml0Kg5rmGNHbovekagyPMnC3PPQqOv21zo+MYTYfhLc2DTM0ytM5NkNCiziwwl65v+4rGV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783678163; c=relaxed/simple;
-	bh=XR/AKWm9S/bmj9R9xWPMyTJeT0hkkYbgIdFX+BFmVaU=;
+	s=arc-20240116; t=1783678392; c=relaxed/simple;
+	bh=gdzghHsVJkX/BeYiGV7j+ToMLP4NKruD9h6gRDju5ig=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZyZGBrSiGoUzwk/f6q4vw8Jf19bvk8q4d2lbp15u/46nd7EUe+iF8FBu8VeHtG5FqRZgLyRspJSxUD48IkeKgnsJeApUc6yeDfIwEx3eLlgI+GihepeTSR/lZ0DOJ2Vk6WTKqV4jvt3NEL1JvotnfiGxhZALPzF63TvOR+6cWXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VMM2JGq/; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=APwVG/ZprVmBaYmI2m4/v8YFZCW1/ekUOhiMTJU3ZkD870cZaqglf6O7sHsDwWI28rcinaUD4UItx7osyAtk2WSxHualsDoulYFCSaukCYOb4Rs5/ElLXm1WuLxIhA9PCx0Z0hSoU4GyvuL4WhyPHqqanfvoh/NW+QhvshvoSiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Yxis0IsE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VMM2JGq/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783678162; x=1815214162;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XR/AKWm9S/bmj9R9xWPMyTJeT0hkkYbgIdFX+BFmVaU=;
-  b=VMM2JGq/nhc5yOiOzHQCg5NdeBW3khGvnk+GHNX57ngiMStO65qQSUSQ
-   he28S/3lUF+9NzlhhetvN3DmegYdDIewrwlSdYO9+nh/Tn29zIlFbwjC1
-   ebp0RJL3zMLzcHQbGCSyYPio4uNP0rqrvJGntxbgwb6lDimQE24KRoozq
-   97uFN681m8hc90aUP6gPOfrZBG0eHw3PCmMrZSoW5RvgdZEc406RMFnO2
-   JA3oIoQURUHeu4AbAZvmiLG7rljKvu9NGHSS5k6/Ohsj8RDiHA0WzMpPt
-   i6Evv43507G9+bKJy30epAKjfcJIt5D8GsOBTZiA9ewrS03Yq/FuZZX/J
-   A==;
-X-CSE-ConnectionGUID: tlvP+TnwTeq2iLsWXkrnlQ==
-X-CSE-MsgGUID: dTSOxMTsR3OWc31Kyxjs3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="109921648"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="109921648"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 03:09:20 -0700
-X-CSE-ConnectionGUID: lssv4d2ET0CBZjyOXT6OfA==
-X-CSE-MsgGUID: AUwfa79ARf6ngIC2ZTogHQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="279256841"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 03:09:14 -0700
-Date: Fri, 10 Jul 2026 13:09:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	John Ogness <john.ogness@linutronix.de>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	Gerhard Engleder <eg@keba.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Lukas Wunner <lukas@wunner.de>, Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH 3/4] serial: 8250: map UAPI port type to internal enum
-Message-ID: <alDExy46n55IVHeN@ashevche-desk.local>
-References: <20260709205656.319531-1-ansuelsmth@gmail.com>
- <20260709205656.319531-4-ansuelsmth@gmail.com>
- <alAUrANx15gyOgdZ@ashevche-desk.local>
- <6a50169d.41a38e5f.1bb169.a6d5@mx.google.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yxis0IsE"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66A7eeXU092339;
+	Fri, 10 Jul 2026 10:13:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fDaAlLM/vYTFmq4duyZj/0Kvfiq4vCvEiCwsqBWXP30=; b=Yxis0IsEmW4McgPE
+	CtHigz4y7Xn3wzuO/Iyv7/n8BLtQtNOrIx2dMHNKhzTliNifzbIGu1FoA0yll/za
+	dq3ca7Z4sxym3FhB36oR3x/Ra72CSC6rIR4jeMKMYc67Pg7Ki4e5Qx3icjyoDGgc
+	xwO8xaQEsPTcgca3wL4EoO688H6wLBU+3m1ZTPd1qsM6Mq/IlvK5f1ZqdbTfUckH
+	sfynLtsQD3U7UREgkaOKj5daCCtMJVTkbfZxfu2WgYzPoEjgbUPrpxCwnJlXIm/7
+	UydnCT+GRQbUEsBiSzbId58WX4r1LP5n6mP/NG2uXf+5OktfLWp6fyUO/Y6ZZ/K0
+	+PJxMA==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fadvjc5sm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 10 Jul 2026 10:13:03 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66AACxmL030438;
+	Fri, 10 Jul 2026 10:12:59 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4f6u8mgsjd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 10 Jul 2026 10:12:59 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66AACxWS030433;
+	Fri, 10 Jul 2026 10:12:59 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66AACwrx030431
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 10 Jul 2026 10:12:59 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 067D0B2D; Fri, 10 Jul 2026 15:42:58 +0530 (+0530)
+Date: Fri, 10 Jul 2026 15:42:58 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+        sashiko-reviews@lists.linux.dev,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>, robh@kernel.org,
+        linux-phy@lists.infradead.org, neil.armstrong@linaro.org,
+        vkoul@kernel.org, olteanv@gmail.com, krzk+dt@kernel.org,
+        conor+dt@kernel.org, devicetree@vger.kernel.org,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Shikra CQM SoM platform
+Message-ID: <20260710101258.32srtofmovmxqhh7@hu-kotarake-hyd.qualcomm.com>
+References: <20260514103918.cs5m5kcxcrcgukvx@hu-kamalw-hyd.qualcomm.com>
+ <obdxony34ckfbtsqj66siszw44sgieskcye5hg66ulkisctpwl@fyqczpze5tnw>
+ <20260518114927.edxbzvklqatlntv2@hu-kamalw-hyd.qualcomm.com>
+ <CAO9ioeVMieo8HtpRw+n4ZU9uV-_RQM061q5XfAA1Dtk2fnp4+g@mail.gmail.com>
+ <bvankzuazswuigrm7hvyjqigzfaru5o43wi3zvyphgme2pgqwz@pyspqky3u6cn>
+ <5idu4ljmcvcvzqsr5g73h2roxzs36l6xxc5ju6ovc5aitt3gx4@wmfqueyf2rj6>
+ <20260630124220.4lja4zshpf66kwj3@hu-kotarake-hyd.qualcomm.com>
+ <33c74e59-076a-4877-9e62-83a8ebbf2d54@oss.qualcomm.com>
+ <20260703093035.q5xgljuigpt6zqt6@hu-kotarake-hyd.qualcomm.com>
+ <fku5jad6op5upobwvrphbqteg76zukbovsifzarizz4m3ofuka@gdpaxzzuraee>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <6a50169d.41a38e5f.1bb169.a6d5@mx.google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fku5jad6op5upobwvrphbqteg76zukbovsifzarizz4m3ofuka@gdpaxzzuraee>
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDA5OSBTYWx0ZWRfX75PDXj2du02N
+ pSAq0Z/AIuLDA4sJUgg2fUxDmuWmVkYEZthLfBzVh5iHx20Yvx12LyqoijY6BfOLCVxVYadJX+5
+ 2XUuY80CyM6RgelZWlT5bB6UeVShct4atPVw/9rvtPLXjbgkENwqXUGcg+gUtKNSmThvUUFUSNw
+ FbzBbUU4ytR4lRy3PNCszdBvnooSY49KRYFqAWTntd+dG4JTJ1EsqOOiMthrBnLVdErnOkNqqGS
+ oKCMuYkltqL9jJBTveQ7TarSDpfOTWULHt6YeRbnC091Or6e10AtXgxX3oswnxtMjYZhVqiX6xH
+ I7u5uJBKiMlBGcn7E3qbTYCBusmzVvtBWaEctEVzf3IP/gmzJWfszR18atFIXUbYEO5vIkDKsay
+ wOCO28Ea0gQgp4Adyvtty3bIuSttYwqjDnImPQP/4qV7KOd3hSeUE1Hfth3ZUMyhVbD6GJnIWSS
+ 1JU4dY0+IdqCJEJ53OA==
+X-Authority-Analysis: v=2.4 cv=WpIb99fv c=1 sm=1 tr=0 ts=6a50c5af cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=VBNFWE7bcIDabh-JT7cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: C-z7uAMYT63C9wHHvd6mIaQe3zUhmRyV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDA5OSBTYWx0ZWRfXx19kZwwGD1rB
+ U24buVBizs2URxLvTLDcANrnZWgDIioWzCd2Q5rD+huWOVel7717vyPmAi/QM4s8+kN2uE8rnb+
+ RaCJTIZqSau0fqeVey0Q7v3CIxv0Dy4=
+X-Proofpoint-ORIG-GUID: C-z7uAMYT63C9wHHvd6mIaQe3zUhmRyV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-10_02,2026-07-09_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
+ clxscore=1015 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607100099
 
-On Thu, Jul 09, 2026 at 11:46:02PM +0200, Christian Marangi wrote:
-> On Fri, Jul 10, 2026 at 12:37:48AM +0300, Andy Shevchenko wrote:
-> > On Thu, Jul 09, 2026 at 10:56:51PM +0200, Christian Marangi wrote:
-> > > There is currently some confusion when a new 8250 UART device needs to be
-> > > defined with the related index for uart_config[] to be directly defined in
-> > > UAPI header.
+On Fri, Jul 03, 2026 at 06:32:10PM +0300, Dmitry Baryshkov wrote:
+> On Fri, Jul 03, 2026 at 03:00:35PM +0530, Rakesh Kota wrote:
+> > On Tue, Jun 30, 2026 at 03:50:16PM +0200, Konrad Dybcio wrote:
+> > > On 6/30/26 2:42 PM, Rakesh Kota wrote:
+> > > > On Sun, Jun 28, 2026 at 03:33:23PM +0300, Dmitry Baryshkov wrote:
+> > > >> On Thu, Jun 25, 2026 at 09:11:19PM +0530, Kamal Wadhwa wrote:
+> > > >>> On Wed, Jun 17, 2026 at 03:48:14PM +0300, Dmitry Baryshkov wrote:
+> > > >>>> On Mon, 18 May 2026 at 14:49, Kamal Wadhwa
+> > > >>>> <kamal.wadhwa@oss.qualcomm.com> wrote:
+> > > >>>>>
+> > > >>>>> On Sun, May 17, 2026 at 08:18:15PM +0300, Dmitry Baryshkov wrote:
+> > > >>>>>> On Thu, May 14, 2026 at 04:09:18PM +0530, Kamal Wadhwa wrote:
+> > > >>>>>>> On Wed, May 13, 2026 at 06:14:20PM +0300, Dmitry Baryshkov wrote:
+> > > >>>>>>>> On 13/05/2026 17:29, Rakesh Kota wrote:
+> > > >>>>>>>>> On Wed, May 13, 2026 at 03:01:47PM +0300, Dmitry Baryshkov wrote:
+> > > >>>>>>>>>> On Wed, May 13, 2026 at 04:28:35AM +0000, sashiko-bot@kernel.org wrote:
+> > > >>>>>>>>>>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> > > >>>>>>>>>>> - [High] The PMIC regulator definitions omit their required input supply dependencies (e.g., `vdd_s2-supply`, `vdd_l3-supply`), breaking the power hierarchy.
+> > > >>>>>>>>>>> - [Medium] The device tree inaccurately hardcodes the `compatible` string to a different PMIC model (`qcom,rpm-pm2250-regulators`) instead of explicitly identifying the actual hardware (PM4125).
+> > > >>>>>>>>>>> --
+> > > >>>>>>>>>>>> +
+> > > >>>>>>>>>>>> +         pm4125_s2: s2 {
+> > > >>>>>>>>>>>> +                 regulator-min-microvolt = <1000000>;
+> > > >>>>>>>>>>>> +                 regulator-max-microvolt = <1200000>;
+> > > >>>>>>>>>>>> +         };
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>>> Do these regulators need to explicitly define their input supply dependencies
+> > > >>>>>>>>>>> such as vdd_s2-supply?
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>>> Without these properties, the regulator framework might be unaware that the
+> > > >>>>>>>>>>> PMIC regulators draw power from upstream supplies.
+> > > >>>>>>>>>>>
+> > > >>>>>>>>>>> If the kernel dynamically manages the upstream supply and its reference count
+> > > >>>>>>>>>>> drops to zero, could it be disabled, causing an unexpected power loss for
+> > > >>>>>>>>>>> downstream components?
+> > > >>>>>>>>>>
+> > > >>>>>>>>>> And this is a correct comment. Please provide missing supplies.
+> > > >>>>>>>>>>
+> > > >>>>>>>>> As per the Qualcomm system design, the parent-child supply relationship
+> > > >>>>>>>>> is managed by the RPM firmware, not the Linux regulator framework. The
+> > > >>>>>>>>> RPM ensures the parent supply is never disabled until all subsystem
+> > > >>>>>>>>> votes are cleared.
+> > > >>>>>>>>
+> > > >>>>>>>> How is this different from other, previous platforms?
+> > > >>>>>>>
+> > > >>>>>>> This is not different. In the previous platforms too this is taken care from the
+> > > >>>>>>> RPM/RPMH firmware side, the only case where we may need explicit vote to parent
+> > > >>>>>>> is for non-rpmh/rpm regulator rails (like i2c based regulator pm8008), which
+> > > >>>>>>> may have a RPM/RPMH regulator as a parent.
+> > > >>>>>>>
+> > > >>>>>>> Even on those previous targets the parent rail of all RPM/RPMH regulators are
+> > > >>>>>>> internally voted by RPM/RPMH FW at proper voltage with required headroom
+> > > >>>>>>> calculated based on the active child rails. This was done for all the
+> > > >>>>>>> subsystems (including APPS) regulators.
+> > > >>>>>>>
+> > > >>>>>>> So no explicit handling from the APPS is required for parent supply.
+> > > >>>>>>
+> > > >>>>>> You are explaining the driver behaviour. But the question is about the
+> > > >>>>>> hardware description. If there is no difference, please add necessary
+> > > >>>>>> supplies back.
+> > > >>>>>
+> > > >>>>> I understand your concern about descibing the parent-child relation in the
+> > > >>>>> devicetree, and given that we have been almost always followed this for all
+> > > >>>>> the previous targets, it will expected of us to add them.
+> > > >>>>
+> > > >>>> Yes.
+> > > >>>>
+> > > >>>>>
+> > > >>>>> However, we want to avoid the unnecessary access to the parent from APPS.
+> > > >>>>
+> > > >>>> Why? What is the reason? Do we want to do the same for all the
+> > > >>>> platforms? Only for Shikra? Something else?
+> > > >>>>
+> > > >>>>> At the moment, I do not see a way to avoid that, if we add the parent
+> > > >>>>> regulators.
+> > > >>>>
+> > > >>>> That depend on the answer to the previous question. In the end, we can
+> > > >>>> make the driver ignore the parents by removing them from the regulator
+> > > >>>> desc.
+> > > >>>
+> > > >>> Ok, this seems like a good suggestion, so you mean its ok if we define the
+> > > >>> regulator desc's supply column with NULL? And only keep that in the DT?
+> > > >>>
+> > > >>> you mean like this?
+> > > >>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/regulator/qcom-rpmh-regulator.c?h=v7.1#n1453
+> > > >>>
+> > > >>> (please let me know if i got that right. thanks)
+> > > >>
+> > > >> Yes. Don't forget to explain in the commit message, why you are doing
+> > > >> so.
+> > > > 
+> > > > Currently, Agatti uses the same PMIC, so we cannot set the driver
+> > > > supply name reference to NULL. Since it's an older target,
+> > > > we'll need to run a regression before making any driver-level changes.
+> > > > 
+> > > > Additionally, the child-to-parent regulator ganging differs between
+> > > > Shikra and Agatti:
+> > > > 
+> > > >  - On Agatti, l3 regulator is ganged with vdd_l13_l14_l15_l16
+> > > >  - On Shikra, l3 is ganged with vdd_l2_l3
 > > > 
-> > > There isn't any specific reason to define the index directly in UAPI header
-> > > unless it's also needed to be defined for userspace usage.
-> > > 
-> > > To try to address this confusion and making it clear how these specific
-> > > index should be defined and where, create a dedicated enum in 8250.h
-> > > with all the current defined values in UAPI header and document how these
-> > > id should be defined.
-> > > 
-> > > Rename the define in 8250_port.c with the new UART_ prefix.
+> > > Is it configurable on the PMIC level? I was under the impression the
+> > > supply maps are fixed in hardware.  Is there a chance the agatti
+> > > description is just wrong?
 > > 
-> > This will bring a wide field for the all possible conflicts and doesn't really
-> > solve the issue. Why not simply kill the UAPI part of the definitions for good?
-> > (Move the all, except the first 13) to be internal to the kernel.
+> > The supply ganging between child LDOs and parent supplies is not fixed
+> > at the PMIC hardware level — it varies per platform based on system
+> > design requirements. The same LDO can have a different parent supply on
+> > different SoCs.
 > 
-> I mean... With correct review from maintainers, conflict won't happen. I don't
-> feel it's that easy to kill UAPI header... userspace stuff and we don't
-> kill userspace.
+> It can have different power supplies, but the supply is provided through
+> a fixed pin of the PMIC. Please correct me if I'm wrong.
 > 
-> The previous suggested solution was to stop declaring stuff in UAPI header
-> and start declaring in the internal header making the situation even worse
-> and error prone with id conflict. This can really be prevent only by
-> correct review of the change. (or keep using UAPI)
+
+You're right, I apologize for the confusion. The supply rail is fixed in
+hardware via physical pin connections. The differing supply name in the
+Agatti DTS is likely incorrect. 
+
+I'll address this in the next patch series — updating the driver
+to set the parent supply to NULL, and correcting the Agatti and Shikra
+DT parent supply names to match the actual PMIC pin connections,
+since the base change has already been merged.
+
+https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git/tree/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi?h=for-next#n52
+
+> > I have verified the Agatti parent-child supply mappings and they are
+> > correct. The difference between Agatti and Shikra is a legitimate
+> > platform-level design difference, not an error in the Agatti DT.
 > 
-> Maybe other have better ideas on this. On net we have a similar problem and
-> the implementation is mostly similar with duplicated reference and some
-> BUILD_BUG magic.
+> There is an error in the DT. It uses fake PMIC supply names.
+>
+yes, i will correct.
 
-The whole point of UAPI list of the supported types of the ports is busted from
-the very first case when we start re-using gaps. Meaning that if there is any
-current userspace software that relies on that information, it's already in a mess
-state. There is a Debian source code browser, you can check how many programs
-use that list for something real (behind the assigning types to the unknown ports).
-I believe none. And the assigning unknown port should not be considered valuable
-these days as we expect to have kernel drivers for most of the modern HW.
-That's why I just recommend to find a great common denominator and leave only
-those (and I think this split is exactly between the files in UAPI) in UAPI
-and hide the rest completely from the user space. Yes, big change on paper,
-but with 99.99% probability no functional change at all at the end of the day.
-
-Submit and RFC patch.
-
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+regards
+Rakesh Kota
