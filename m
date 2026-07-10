@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A2043F4D6;
-	Fri, 10 Jul 2026 16:46:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A2243F8C0;
+	Fri, 10 Jul 2026 16:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783701995; cv=none; b=L8TLTGFcT2LxYn+ML+cFC7ghgBc7E7BqQqcM+8wHGmM6dLKnvDLdw89yQkQnmhLXIbE07fwL0w6s9FFynkVB7f9dX0czBXQwEfzYlWmOOWAyWGS05Zwpk8tUeNC+CANT+C2GiKpSGPe/WUTGQIWnkpxVOC9cLEDx6QlibrtnA1A=
+	t=1783701996; cv=none; b=qA3zWP9CNf483C+oKhbmxzfmfXpirD6hMLGUvPBw8FW0i8WdiHTixMd9M0lGrF00ZEgFlFb6qjRUe9X2T+V1Kup1ASMc0z9GHWFMlSEmk4WSCTlakimjVaZ2R5kE2A03NiKUV5R8JmqCFNZhQYwdbelojF2xWHVmRnZWAz5XVI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783701995; c=relaxed/simple;
-	bh=M0nFL5Ec9a+nAx7KM5MPvRfwUmrPlBv56rRN9JqMFu4=;
+	s=arc-20240116; t=1783701996; c=relaxed/simple;
+	bh=BNl2Fn08aUkxOhWB1xQv712EcMXS1inZZsIZsld0Xl0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dx0S/uWLcuHCaPugtsIQL7ITHgJneZqfYImMKbzCN9yd1n/etvVVKv6Bc+FHXiTrOS2L+K5v51LbDBFmFWcJqLCbLkjdfaJtq9aGxW43mZcTXwMVSpwkg7REENxPAqDqC14qjmBotmarqW1zSH/XM4x49KsrFiDrLod+atAF6JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LCuZiY13; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=HcSUM+k/wiXQBhoiTuu5ENsfayjC3HmHxSIRBF0AfkD8OBvkTW/WBq7uSFQdILMUAwlZKMfI8waVK2C0KaZNv6+JX6qgWkYRLQIRnowEwq0KFkclhX6mtaKqVAl2pa3w7OBU9DSWFkeJqk7ey/xp+j7mmpLRdnD1hA2bg3eWMvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=AUqe67x/; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LCuZiY13"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="AUqe67x/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1783701979;
-	bh=M0nFL5Ec9a+nAx7KM5MPvRfwUmrPlBv56rRN9JqMFu4=;
+	bh=BNl2Fn08aUkxOhWB1xQv712EcMXS1inZZsIZsld0Xl0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LCuZiY13oen7vGcIJN8GAYwikrUhNu4laH8qiyDGnVHIuzjiS7lQ6+EHEb+iJ3NnK
-	 g/BFN8kI88QuezwImjxPBDucDXlOPnKOReRq9CwybuE6G8IhcwpucOZoSWAXuDOQNR
-	 m9xOxYUbLYE3FSxad+teheuB6zbIXt3z0hPmxbVzkwk2YdypOJjOO0yTLF5d1RKkPe
-	 7eN+chuOY3G47O+uxqLhOuuD/h466l7+CHvEXHzdWpWiwZXQu7wGWyfLeGEw9NxxwK
-	 Z4s3XF4EitFdegM1Jt6+kwx4oNNFPpRS36RZxUdkNi0sJjt5RJAIQH1al6DEjBzSrb
-	 n0eptkXtwvl0w==
+	b=AUqe67x/ZtquKA2YD/Nz6YUwPLO6XcJ8eKOy5OdfOE3NTN9de//boWyPAi2i9InWz
+	 fBrqabeJ32F+8fNiLEQs8njWuzoZyDyIpzsMQevQDoLf5oMXoaqoYXnr8YoyaQFpSj
+	 dXOT/Xvs5CqEGEGpx3hmCplkt97zbXJrQiojZ2o/p6W1HuoLkzIKRACdL7yITMBCqE
+	 LZjpvkNAmnuH9houP59JvLIJ8GczpbVAjQ+2vhpVawOgjZ8t4CPz/lwYytxV5oyJ+s
+	 9xRmiVtgepAkIsMmLSCZT4vX91MJq2K2KvgpL6xzOxTVYDmqZToBtVmHNSJ+sqJj7/
+	 iTz0Cee9n8PVA==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C590117E101E;
-	Fri, 10 Jul 2026 18:46:18 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4A9F217E14CE;
+	Fri, 10 Jul 2026 18:46:19 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id F23A5480055; Fri, 10 Jul 2026 18:46:17 +0200 (CEST)
+	id 18291480076; Fri, 10 Jul 2026 18:46:18 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 10 Jul 2026 18:44:53 +0200
-Subject: [PATCH v12 15/36] phy: rockchip: usbdp: Cleanup DP lane selection
- function
+Date: Fri, 10 Jul 2026 18:45:10 +0200
+Subject: [PATCH v12 32/36] phy: rockchip: usbdp: Drop -EPROBE_DEFER hack
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +46,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-rockchip-usbdp-cleanup-v12-15-8b41a9a9bef0@collabora.com>
+Message-Id: <20260710-rockchip-usbdp-cleanup-v12-32-8b41a9a9bef0@collabora.com>
 References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
 In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -66,75 +65,60 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1889;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1501;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=M0nFL5Ec9a+nAx7KM5MPvRfwUmrPlBv56rRN9JqMFu4=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpRIdnqu9WnvXtVfALP/heXYjhF1739NIHt9
- vbsnBCRW3FR64kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqUSHZAAoJENju1/PI
- O/qa3QMP/3U18siTpCKZtv1qpp9eOec/quVU9Owehf5/dOR5tttpOLMJ5W3Ah2dnrxvepCAFH2S
- w9q4FkuTjQrTYU821ahUkdKfcHSo3VDzEfjrAhVAd8PJwJsUk4wxzxtPRVw9b9xhie/2zAe/i4D
- hOG/FfoXCcWBUxapSqHqQCtRR2nDlsYxR0HzZZNDTmTP7L0VnSeuXPcZhmTqOsmnkT+xV/MHnvJ
- pOtd9Ab6gbrEmsFeXd+wJNuQsoB9rwEex/f02XAMbhDBgplmylex2H3OhKvz8gq+F1XVCYJhXJS
- dJdAPLAcUMtfS149qydCG/IUx19rAjYuxs0rEhJu+/y9MsXZehoQrIolsPs9Ed0ieda1tOATyYc
- Z9Cx7TBXx7tOfIgdZKonVqD6Vif1JPlO5jFUf6+cZkPAS/2SkMOLlriZAYceT/gN8gKS8ZhwiwP
- QlfFemUWYsp9vyKEM8ZrM3y4qt2lBKaxgNsiivXQLLUDAmOCpR1SrRJyBuqhqvAYTKbd2ed3SOZ
- uhqG987dgSWffvUWTeqTiisPbvUsNYtnKUkCMd5Qio4Kaa3Gy2H6p+bNv8DSTb1yU5hinscIz09
- Bkq6HawEppCCZS0MXt6cGOlgS4wtWnhUw6IHS8xFqoXOqofkWviseO9+hHztEgQOtiMzsRAsr+E
- pQ92EdpF3oo64o0REnzYltw==
+ bh=BNl2Fn08aUkxOhWB1xQv712EcMXS1inZZsIZsld0Xl0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpRIdmX8P61+Usbf8aM4mZbcdyVTC6ApzP7I
+ xNHRYHr+VY8D4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqUSHZAAoJENju1/PI
+ O/qaQBgP/RuOFUVNpwxGF9p6Rx8Da9Z+UP9bowWSo33x/69xr/UdAiipnYENJ+pIZSLtQeno+xa
+ jCA6Lqs0xGvJc3T2RotOJx7lP1CK/uosErAnhhD/aOllm9hKIDPn4hXPC13ZyMwxK6Zdg1m3QNr
+ DVR9WV4X070/NufJD9obFBnvheaU9kBMlbQcc07pzUv7sjK6kPAf4RTATq01xYUO3aENmmvXgkR
+ ZssHt75R6rlYuFy3tsiw8JHopKjgtAs1iVDA54Foz3WCX6AHI49vgRojLx530j6ZMQKN7KWgeDQ
+ iSKPOa7HOrCR5WevRsDlzbxW70knVyu5XDgud03s7jVTIKZQnkCe+PhwjaUqv2d/T5Guqz8eYnm
+ 0cVLxJx93X7KV6ELiHRWppq9l1RH0zOz3+Lhy1r3cqym1/f4Wo57VBngi5luxOhEjCqVXR+3IM7
+ 9x778iwPY4igO517XjRYG6PcHZYTXCkdwCGeGhdXR02IFCi9OXTUImWZIwsjHGzmz94wn49a9Tq
+ +XfPBaAbsPzZHKPtH05q2AlWA8sWSosn7sC6W5/R5/+5dhdeh6uunmNId+xKGm74t+5Yeb5aBM/
+ NFlhJoQ6S6i5oQY8wUavQFic5WN01TGZBJu7x54h4sjBQP63hvPmLgS+TEiiK3zf7EKY+h41dpq
+ bGpVGUUPgKSRpEm9mLYQ0tw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Use FIELD_PREP_WM16() helpers to simplify the DP lane selection
-logic.
+The hack to return -EPROBE_DEFER when the lcpll lock timeouts is no
+longer needed. The driver now does a reset during its probe routine
+marking everything as off and later on does a re-init, which avoids
+the problem.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Apart from that rk_udphy_status_check() is called after the probe,
+so it should not return -EPROBE_DEFER.
+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 28 +++++++---------------------
- 1 file changed, 7 insertions(+), 21 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 05593e98c16d..eda3f7a1e267 100644
+index 0333e846ce34..cf173276bfc0 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -548,30 +548,16 @@ static void rk_udphy_usb_bvalid_enable(struct rk_udphy *udphy, u8 enable)
- static void rk_udphy_dp_lane_select(struct rk_udphy *udphy)
- {
- 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
--	u32 value = 0;
--
--	switch (udphy->dp_lanes) {
--	case 4:
--		value |= 3 << udphy->dp_lane_sel[3] * 2;
--		value |= 2 << udphy->dp_lane_sel[2] * 2;
--		fallthrough;
--
--	case 2:
--		value |= 1 << udphy->dp_lane_sel[1] * 2;
--		fallthrough;
-+	u32 value = FIELD_PREP_WM16(DP_LANE_SEL_ALL, 0);
-+	int i;
+@@ -750,17 +750,7 @@ static int rk_udphy_status_check(struct rk_udphy *udphy)
+ 					       (val & CMN_ANA_LCPLL_LOCK_DONE), 200, 100000);
+ 		if (ret) {
+ 			dev_err(udphy->dev, "cmn ana lcpll lock timeout\n");
+-			/*
+-			 * If earlier software (U-Boot) enabled USB once already
+-			 * the PLL may have problems locking on the first try.
+-			 * It will be successful on the second try, so for the
+-			 * time being a -EPROBE_DEFER will solve the issue.
+-			 *
+-			 * This requires further investigation to understand the
+-			 * root cause, especially considering that the driver is
+-			 * asserting all reset lines at probe time.
+-			 */
+-			return -EPROBE_DEFER;
++			return ret;
+ 		}
  
--	case 1:
--		value |= 0 << udphy->dp_lane_sel[0] * 2;
--		break;
-+	for (i = 0; i < udphy->dp_lanes; i++)
-+		value |= field_prep(DP_LANE_SEL_N(udphy->dp_lane_sel[i]), i);
- 
--	default:
--		break;
--	}
-+	value |= FIELD_PREP_WM16(DP_AUX_DIN_SEL, udphy->dp_aux_din_sel);
-+	value |= FIELD_PREP_WM16(DP_AUX_DOUT_SEL, udphy->dp_aux_dout_sel);
- 
--	regmap_write(udphy->vogrf, cfg->vogrfcfg[udphy->id].dp_lane_reg,
--		     ((DP_AUX_DIN_SEL | DP_AUX_DOUT_SEL | DP_LANE_SEL_ALL) << 16) |
--		     FIELD_PREP(DP_AUX_DIN_SEL, udphy->dp_aux_din_sel) |
--		     FIELD_PREP(DP_AUX_DOUT_SEL, udphy->dp_aux_dout_sel) | value);
-+	regmap_write(udphy->vogrf, cfg->vogrfcfg[udphy->id].dp_lane_reg, value);
- }
- 
- static void rk_udphy_dp_lane_enable(struct rk_udphy *udphy, int dp_lanes)
+ 		if (!udphy->flip) {
 
 -- 
 2.53.0
