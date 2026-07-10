@@ -1,143 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B4123D7C2;
-	Fri, 10 Jul 2026 13:55:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E39224677B
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783691749; cv=none; b=R4aioxQxgkV86nzXpEAM7o4S8Px6eknf0dZxgBxduplKfyTi5HSmp0kF4oHujL3ESPkXQeNgOmz4mpMIG4kqSupOWtTmNl6TB7qcLYmE96ZoO8ZGWqBXckFbT2YCgyTLbAEk6rvNrUclOwmIvaPbZpFPSaa/aLrSHe1KftyUCh4=
+	t=1783691922; cv=none; b=ak4kFISpINnwnxXhstvAC20rsSiFmtSO1mUP2W7zl7BL2PS5ifj9qNI2Bm8wye1uOz3dVPPdEoHXeUKFUgwzUfgNi16nIb/pDYDCEME+ESUnZ0XQYkSuPN1t1IZWzilSjXzPuwyc7wOcyPDLM/vzA7ikVwkAD0xZDDS+Yvu6wP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783691749; c=relaxed/simple;
-	bh=zGH6/UoidOUJX1GGxuENbg2obstwFb+znMjTEFJ+mBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tZKIyx/ZA5VNLuqvo/XNjR1VWiACFdWDIq4WAZULTH7aVL20e7lOfLx8pBMk2mXixt4z/hIDjdX2ZQmRHeLJxY62Syb1nIG99Odz6PVmGHwUfZJIwV1UdzYJavcW4vZN4f7RsHo80IxYRh6W+otyLZ8J1g7PfUKoIyWKMR8vNi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3iJ0fr1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783691922; c=relaxed/simple;
+	bh=oDMFkzxjs/KXUSaVb8duhkY5CEnHTeJPvE9VzQ6FDQc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=VfLgOcuQWkc1gg1nzkmdSwSge7ikIugd5We870cZaAIc0VVyUDhiCpLyII4amXSoPtYaSV9Sd+dN74VzmXelpem7guRoDjK78AfZn4wr3W4KXV6tDXoWjNqeLuXISBwTNRIxzflS03ZPy7JyKjZNV0pVnWDih/bjlTlM3hwhfgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=HHVfu76P; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3iJ0fr1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F174E1F000E9;
-	Fri, 10 Jul 2026 13:55:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783691748;
-	bh=Vg+BaXA2y1/rVl6+xeOssCA/C7mxttAAHghTmLyrHnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R3iJ0fr1GE7a+w0yzsB5cuC5AKYztKN9D9R4LRQEpTbMzyrz0EW0wJFmvPfhy4BOv
-	 Gps4YH6SfQ0EyKP9wN7QPmMYGgPZNLjqsBc7msHTpUnFKkIP143GUafbunbrggcwoG
-	 D0ADDDSmdT2VLcNKuf8QvW2s+LQY3TE88XsNDn8DE+EdeAGCWb+zB0dnipiGomq0ER
-	 NifSEqB0GWVDVVCE8Ny0AHMxzukr3K/RrAboZHxX7WOtADonoK9SmmZjWkE3Apg1W/
-	 WbN4hTj2L8sbSlFXeUSAOvTBxoZApZW91Mtac4J5fZLpwakIOohiRiGXXi/O1FM3aF
-	 oVYSFTuoI+lDw==
-Date: Fri, 10 Jul 2026 14:55:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Gianluca Boiano <morf3089@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] ASoC: codecs: add TAS2557 mono smart amplifier
- driver
-Message-ID: <e1471661-cf25-4db4-9a77-48d726811a51@sirena.org.uk>
-References: <20260709221331.989109-1-morf3089@gmail.com>
- <20260709221331.989109-3-morf3089@gmail.com>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="HHVfu76P"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15e0c3f395so111831566b.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 06:58:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1783691917; x=1784296717; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oDMFkzxjs/KXUSaVb8duhkY5CEnHTeJPvE9VzQ6FDQc=;
+        b=HHVfu76PljNItpbRCBn4egmQy6/B4UiN8P92zrc5eGS0B0Q65poEDe3B2DnA7Z6Omj
+         TRLYt4zjm7+5inPC/IUfNvo//2eI5r69qMPEjguJsqgWCz0/oqUm0c3NrdqfYuX/ULk2
+         KkBgXb/3Fk+qsAEF0xXvZ/6cpluqpHOdwJ8/jxUa5Aa6t3zw/F/7mgJSHK+gLGs/IUfZ
+         2hF+DhfL9i5fU3Tf6lYwSsn0vroM86DXkbciETq8JhqFW/45D6CbeC7wAEUTIKuNktYd
+         6V6IHuCITuCDgPxye6L4kDBBwpgQRO07k3FXBQCVSbaPCAoPvg1aNvS/tNygqakVAKXv
+         yHTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783691917; x=1784296717;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oDMFkzxjs/KXUSaVb8duhkY5CEnHTeJPvE9VzQ6FDQc=;
+        b=j9zLzXj9fRbHEi8A28fkob3XwH5He1BR1VR8RheAYtUo3OHnsAdJDjuXwZit7Joa6/
+         CQ4/HmtUVZsCzC63AkMbsb4dfyPzEqREn3z/LNu3Ee0jyQlKBaIiq6JvKmbBB7ZAQBWV
+         AMsmp0ipmaaLicw+pZNnOBGrPTrs3DJA+qFdhrpWjX+IEpeeHu3Gk6oexIUCnovjA0ph
+         MSxv/KfvCIwpE9/vv6Pr3rApHqdB+XRMstCACJHYqaXljj766MqWIcIGHUV3e0VpFLn+
+         /oIepZhN1Bbw7n+QlZLhUzQkZr2acwfmO0r9j54LGlyCRcyvQ0+iwDqBOlRdItC0dh6q
+         xn6A==
+X-Forwarded-Encrypted: i=1; AHgh+RrpLgLGVG9UlFfjXV/4SZLFlbEWUKT2FQou9roucg9bq4lOteu88xW2Z31K/WDWkA8jJcuxmONkq6oU@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRtBI4OkNvorCGi0gJMgOeCtARJ6rij22FLxGZLhMfIzYnvvrN
+	0jEdFC4lDsNR6aX4BaWKu55cktJkelRgrdLdmG1/xj1gg/R6WYGHMVLl3it9vrBYp4g=
+X-Gm-Gg: AfdE7ckFygQsJscegzyl0uqkz4/Uh18qac3lMRnNAxJb0m65nU7qKUTP6MDnc1vEi6Q
+	kvPKkrUffjonNDRe3qc0vzi1+Q++9rOa8b/9FFUgzXIo2JujvtkLIXOuTWtiPhaL6lE6KC//Yev
+	kfxfcvaqrcES8Rhng2oB7E2RQ8CuDQ8kcTxHcApvl0ihqxUKXeHryd4dFjZVWOUH8iCtW7+oyZz
+	y9znJu4CS9w7GyzZ1tcRPF479kiMq9r1b83nilxfxNSrdfYsXUso7wdlXtQq5vDAJ32S5CTe+e1
+	HZtJelI5RnDXyv+3QGlF9BXMVIk0WIH90uSZUg9pqT9iWGYtyFcaYWucYghJ3SkzhAI0yMs0q9d
+	O5RwkMbs8JwyYstIyX/ZrMe0e5ZxBxXtVpPakl5a1UxWATiJYYtKUVzqRXVjn5XpWAYx+x9Vuiq
+	7Cv0bYQpCfdQa0afNZaXtb6N3EA8KWoo+TYnB7liVQ2ibVyJWDQ3j532yMcg==
+X-Received: by 2002:a17:907:990f:b0:c12:695b:8876 with SMTP id a640c23a62f3a-c15cded1355mr392545366b.5.1783691917105;
+        Fri, 10 Jul 2026 06:58:37 -0700 (PDT)
+Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15d3859f69sm407039066b.27.2026.07.10.06.58.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 06:58:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="J0SSosx8O0lFALVO"
-Content-Disposition: inline
-In-Reply-To: <20260709221331.989109-3-morf3089@gmail.com>
-X-Cookie: Did I say I was a sardine?  Or a bus???
-
-
---J0SSosx8O0lFALVO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 10 Jul 2026 15:58:35 +0200
+Message-Id: <DJUY0I0R3DGG.1YC9D7H4AAI0J@fairphone.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/4] arm64: dts: qcom: milos: add OSM L3 node
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Georgi Djakov" <djakov@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Sibi Sankar"
+ <sibi.sankar@oss.qualcomm.com>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Alexander Koskovich"
+ <akoskovich@pm.me>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260710-milos-cpu-opp-v1-0-ae7f4b09bc77@fairphone.com>
+ <20260710-milos-cpu-opp-v1-2-ae7f4b09bc77@fairphone.com>
+ <bf766035-54fa-4e98-8abe-22cf0a229ffa@oss.qualcomm.com>
+In-Reply-To: <bf766035-54fa-4e98-8abe-22cf0a229ffa@oss.qualcomm.com>
 
-On Fri, Jul 10, 2026 at 12:13:29AM +0200, Gianluca Boiano wrote:
-> The TAS2557 is a mono Class-D smart amplifier with an on-chip DSP for
-> speaker protection. Audio is received over I2S/TDM (ASI) and processed
-> by DSP firmware before reaching the Class-D output stage.
+Hi Konrad,
 
-> +static const unsigned int tas2557_startup_data[] =3D {
-> +	TAS2557_GPI_PIN_REG,              0x15,	/* enable DIN, MCLK, CCI */
-> +	TAS2557_GPIO1_PIN_REG,            0x01,	/* enable BCLK (ASI1) */
-> +	TAS2557_GPIO2_PIN_REG,            0x01,	/* enable WCLK (ASI1) */
-> +	/* ASI2 GPIO wiring; arm the BCLK source (GPIO5) before its dividers */
-> +	TAS2557_GPIO6_PIN_REG,            0x01,	/* GPIO6 =3D ASI2 WCLK input */
-> +	TAS2557_GPIO8_PIN_REG,            0x02,	/* GPIO8 =3D ASI2 DIN */
-> +	TAS2557_GPIO5_PIN_REG,            0x01,	/* GPIO5 =3D ASI2 BCLK input */
+On Fri Jul 10, 2026 at 3:44 PM CEST, Konrad Dybcio wrote:
+> On 7/10/26 11:22 AM, Luca Weiss wrote:
+>> Add the OSC L3 Cache controller node.
+>>=20
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>> ---
+>
+> I'd suggest to squash this series into 1 big patch, without patch
+> 3 applied the OSM driver will engage and perform sync_state (with
+> 0 requests, so it will vote for 0/lowest) and the system
+> performance will be tragic
 
-This looks suspicously board specific, it should probably come from
-device tree.
+Fair point I think, I took the structure of the patches from sm8650
+which had it split this way but yes, it doesn't make too much sense in
+terms of keeping system performance alive through bisection.
 
-> +	TAS2557_ASI2_DAC_FORMAT_REG,      0x18,	/* ASI2: 32-bit I2S */
+Will do so in v2.
 
-This should be set_dai_fmt().
+Regards
+Luca
 
-> +	TAS2557_ASI2_BDIV_CLK_SEL_REG,   0x01,
-> +	TAS2557_ASI2_BDIV_CLK_RATIO_REG, 0x01,
-> +	TAS2557_ASI2_BDIV_CLK_RATIO_REG, 0x81,	/* power up BDIV */
-> +	TAS2557_ASI2_WDIV_CLK_RATIO_REG, 0x40,
-> +	TAS2557_ASI2_WDIV_CLK_RATIO_REG, 0xc0,	/* power up WDIV */
+>
+> Konrad
 
-Can't these be worked out dynamically?
-
-> +	/* Power sequencing: Class-D + Boost first, then DSP/PLL */
-> +	TAS2557_POWER_CTRL2_REG, 0xA0,		/* Class-D, Boost power up */
-> +	TAS2557_POWER_CTRL2_REG, 0xA3,		/* Class-D, Boost, IV-sense power up */
-
-tas2557_isense_put() also writes to this register, there's a disconnect
-with blind writing. =20
-
-> +/* =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> + * Firmware parsing
-> + *
-> + * Format (all multi-byte fields are big-endian):
-
-Is there any overlap with other TI firmware parsers?
-
-> +static irqreturn_t tas2557_irq_handler(int irq, void *data)
-> +{
-> +	struct tas2557_priv *tas2557 =3D data;
-> +	unsigned int int1 =3D 0, int2 =3D 0, pwr_flag =3D 0;
-> +	int ret;
-> +
-> +	mutex_lock(&tas2557->lock);
-> +
-> +	if (!tas2557->fw || !tas2557->powered) {
-> +		mutex_unlock(&tas2557->lock);
-> +		return IRQ_HANDLED;
-> +	}
-
-We definitely didn't handle an IRQ in this case - this will break
-sharing and debug features in the interrupt core.
-
-> +	/* Gate the chip's INT output while diagnosing the fault */
-> +	tas2557_dev_write(tas2557, TAS2557_GPIO4_PIN_REG, 0x00);
-
-Is GPIO4 the only line that can be an interrupt source?
-
---J0SSosx8O0lFALVO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpQ+d4ACgkQJNaLcl1U
-h9Ctugf+JqafgH6Ph31bwWwBHP8mTHAwfrluUC9IOgPq9uldrYKtt6oYVg0XTrbv
-w0zfsMq9fA4+3Dr6+YawNzm/q4NG7qMC2Cm1aZYQ+O8/gdGqDOf0xXQZkl0JynPN
-d+WnSwBMjnw3RinVVdBP20ec/Gyw/vpo6jRxTzU425nx+cGVSSUwSDPbvT+Rw6/U
-YbB5ZPydD7SrO1rSbOi1+rN9QznzG49ClhzobGNbXyVShBGg1pY7f+v+7rI8wcno
-pQVneWFxyRnXflRA2VluDrVzCcRD67uWh+kCQvBlKZAmjvOfpYLvAVZJ1bZwaauP
-b9N10UkaRnWAf/Vt5m59Hpgrx4v94w==
-=DHzl
------END PGP SIGNATURE-----
-
---J0SSosx8O0lFALVO--
