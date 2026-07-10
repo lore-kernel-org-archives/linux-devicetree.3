@@ -1,148 +1,192 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11022127.outbound.protection.outlook.com [40.93.195.127])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D69640800E
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 23:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783725132; cv=none; b=klUMAx+aEzs/Jcf2k6g8B2sKv/UqJZqzPLJ9ggziqgty9R+yPsB6xiQZea/Bau6WhDPyReiEs75SslLnP7Q7KDKh63lFs28+ei/duNEc7nIywMv5TUMlqwYqYlBMLC9g/MWaFk3ib0NtKNolxnLFdn4paiwtn66R4jNlxXa2CTI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783725132; c=relaxed/simple;
-	bh=WolUqNqLG8wcbpxo1euYF2zvMyMZNYCNCWIwYPG4YAc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r4wnyrVZghDUsQ8Gc3UYNff3M94eW4v53F/9Gm/FXF4NlfGUszWHyl6cro3Gswz0ihJdh4jZQWDOUP5NMzryaOuqWJmxP2A7ukOk8k7YfR6FYYbO6cixC58/OMvkgeqyY8Ii0IxDFKb1Yh/tmCFy4Oux0TGW4oqcvlzyZ6wmjBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=paLba9Ga; arc=none smtp.client-ip=209.85.210.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEA9340A46;
+	Fri, 10 Jul 2026 23:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.127
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783725260; cv=fail; b=jZepRbUBxmQ0TZi4d/PWH0ul2zIBEgMJCcuxgY8LPqMcZBNf28h4KV0vLJEF8KezVMSa74rOiI5gw25KvlnqIbsZ8g9vboexO29US7nC9gxRVjZUSc3Lq4Aw1aVc9nV+PneOl6BFKbDSOZ0aPTuE64LMGI463Q4H0E41qhc96oE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783725260; c=relaxed/simple;
+	bh=JI1nOgpMbHbZz9QBC7nmNhlcJEMqsGjSWesFDJnuluM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=UtMI4cg+394DQKhj4J13Ij87jtfHffXh6fTDYxWyV1W7gJPq8awzWr5v5ofoohut9WEkna/zPFaXjh3G6OAQJ04v8eIVhIU42Zeavkqxp5qVbVbTHSCj1DXEsqOPxJduukBV7+yiX7eyxmxewIceJUt+aUOpwRjB9OYXo7nHeL8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=1B/q9c7Q; arc=fail smtp.client-ip=40.93.195.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="paLba9Ga"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e9ecd7216cso738707a34.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 16:12:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783725129; x=1784329929; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=orAXM50ok0dlT4J0LLGqek12i5V341QLmN68gXTBWUg=;
-        b=paLba9GaMx2aJNEVWo8/61lzZuD+9h6A3fbJwZEZBoGXmVTSjIVpxWYOTxqmuJQuVz
-         B7pR4Zdc63hgPdmEO7dAe/LC1geVOATe05OApro4NvcqCTCeVeEey44UQBS3WDrQ18Dn
-         g2vpdrL4cNYM6pSg4jQ1QFjrd9bSX3HAjJwE+IwTtdvAstGXu4F4M8VU+KDQh1U9rVRw
-         BG+a36v/CSRkQ9ZmQy0WZhOqiEDWBv3xzeQQAjf9mlv6JjB9/FB44R5H6/QUhSiNvWWQ
-         edCLTDDDjDXtrX/G18AtpTiYnNjKC8V4GWiOH3KLItG3flWdnxl4icbAlCzHyrEW7KBh
-         hJxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783725129; x=1784329929;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=orAXM50ok0dlT4J0LLGqek12i5V341QLmN68gXTBWUg=;
-        b=F1KaZuYwXWpIGsUvvcou0c6WEtlws1nxnuJH/sIM6Ju8HEP9L/HbLVyzlRjjHJUcgL
-         smaJKfy8NYqjwKrOi/NaMaFRA5Qd2BK8AyNuZGOABKaTIxYlk5jBjdNFDp8S7KnV32YF
-         6C4JpskXcRBm0YQ/m4oBPr0Jxx1pDNIdHBBh6VMCAwrC1QYtLKijujsFoRewrGF95WzM
-         mqOzo5Hpi3rPEfix+FDQB8cUnvLOLzdEwsj0Er/7az4ucewbHiBo0EcKQZs9kqIUCTQq
-         8+isQEpkhdzcSlG12sDFijb8N3pAiGXxgb3GKPPgzeBI8TUCBUrOh3ZhtZAEBUBOwF55
-         b24A==
-X-Forwarded-Encrypted: i=1; AFNElJ/IXOBsO5/YC4bi+YEETMR/30ibuN/2k7ni5XwMsjtQ2XTXCmWe4TQIrJmDd+Mlubg+tDWkUYOPY/qB@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+2ar8mjx/quiUlZj7piuBYP9GTOToy1mTK75fxrCFI054fe/h
-	d6qkB935qpCOtgJAulMFNa5PWE2h0tB4Id3Xtf0Rhf5qQoBWiyBFztrcEG7tadjGKwY=
-X-Gm-Gg: AfdE7ck8PLd1fbxiZxnystbgZp6Z0SHhNnmhROnhO3cIebxbg59BAI2egGpbVbVDJs5
-	eHqr1hDSlT6IBSZOpzm3ivRyv4UVP5VZdntPR3DJgscR2bCLroITexqjIQmfRgVjG0iyvXg76fN
-	OWk+J8pxF5rdRpqINY1y6Zonz6apHCAFry69+z/ORVp6M77smfCB678dzvLKbq1IQc5POvRD1LT
-	2iui9LX25QSkD4ATYet+DeekJHBN52/JSmx6xCBJhfi/JqzffgwrosaHIdJj8UPSNTsmeq5eMvm
-	oYtEeXcHObmns7FWTf1hP2r4x5X236X2Vi1K1HZpLv59EJOGVZxXvM8AkX4v7JvVse2IuTpfTmC
-	3nwXtpIZ6Xu+BA3WKll+HdEq90+F359zpmEQcnbZVPZF40ei9ifxKn8ycWdd4OWCjAV0EfQp1Fa
-	h3GlQ7w4ErQ2xB69VdpHtCT2edDePoc7ypC55xWJZIs/qpUusrMLGncUv3dELpveo629XntF0=
-X-Received: by 2002:a05:6820:178c:b0:6a1:41ae:1bd3 with SMTP id 006d021491bc7-6a39a6b62d2mr734605eaf.42.1783725129440;
-        Fri, 10 Jul 2026 16:12:09 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:1b03:95c:fbd4:4d00? ([2600:8803:e7e4:500:1b03:95c:fbd4:4d00])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4519124d07dsm6322280fac.2.2026.07.10.16.12.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 16:12:08 -0700 (PDT)
-Message-ID: <f1c5be4b-6bbd-41d9-a152-ee480988f44d@baylibre.com>
-Date: Fri, 10 Jul 2026 18:12:07 -0500
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="1B/q9c7Q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fMB7nhjXOkqAu+fWCaQf6UKRAOu+eWxSJySUSfffkCdWpcjXElbgAyLhREL6syuQ4TVYC8tr/xrFdCgsnbRC0z9GbSb2Ep7/G7AX2jhVkI5Rp9ndAKYFFI208usgN566X1SU08Zp9dACxK5hzj/ltq1AG7p6BYQjAKCZ6VDVSWR3KGsaO+hOKMosV8fmw00fLax/gfSjbUjlw7STFH2qrZcvddbOKT70RzzzH7yWIIK7bqnOG3rWYsUfTUg/okCp2x4bZzX+lHSWfaW82cNniYH02MtlqmMCNUXQy5jjeDWvVPUCEGwUV/4OF9HS+a1ZCxqeI7w4rPhz3tKFfb7R6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JI1nOgpMbHbZz9QBC7nmNhlcJEMqsGjSWesFDJnuluM=;
+ b=Hy3xmbh25gIvdFWtSXEYEF0FlfNkQ8403KWtunhuZyhkyhVxW8uWOqqYJ6VCa1gvjhC1PalSNfL8NeKI/0lTgwHzMGYM9UeB/CAJAFCcxTWEda3hL4KYe8L7/8yKFi1W2HoPP8rOqtlkj1PfWxjFdXR8OBt3MgIvtYNqMnJDMwNlj8B9DNpQOhn+agcSyms7fZD7/FVjLGdKCzHg5f+/qb1YywFESYgF71zcVpF1JsPRMKa6BnbpT1mdVxMPjLN1RdnaXuakZIEbTY4jcVEk15Xh28BVoxKC+prQsam/4mVRSULQ2Wr/odovQnX9D2S80ASwfdG8OnNiEImEXWvj1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
+ dkim=pass header.d=rambus.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JI1nOgpMbHbZz9QBC7nmNhlcJEMqsGjSWesFDJnuluM=;
+ b=1B/q9c7Q4c9YqYDyr3O40QaFPu3AWlyeBKWGuZKp8pFYiEekr0Zm+1aZSPZ+OlNQkaknb66qQSV9J14qNK+Y0+n/+pfLjPCD7iRwFMYXzjcsZlaHYJbEJFnJF3HTSuXP703kvH0CLfEDb+8rosz92XR/ILWfMbTb5L5f/G5mTzzyCKFCcNPOuOYFA21Uc+E0nCXxOjVCNuTMKqyGMdHrL6yI8VONx1DK3OhRlRtT7w85ejRtiruk6r8wO3uV8vlnzhxBBsKiU0c/lkWEnrf1SYxQXTr7dM4Nu6neTFR68BXg07Ggz0+kIGhmLYHH6swuEAOi/HbpjE6VQhwo625MaA==
+Received: from SA3PR04MB9001.namprd04.prod.outlook.com (2603:10b6:806:398::17)
+ by PH0PR04MB8279.namprd04.prod.outlook.com (2603:10b6:510:105::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Fri, 10 Jul
+ 2026 23:14:12 +0000
+Received: from SA3PR04MB9001.namprd04.prod.outlook.com
+ ([fe80::3da3:45d7:8860:e196]) by SA3PR04MB9001.namprd04.prod.outlook.com
+ ([fe80::3da3:45d7:8860:e196%6]) with mapi id 15.21.0181.017; Fri, 10 Jul 2026
+ 23:14:12 +0000
+From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
+To: Conor Dooley <conor.dooley@microchip.com>, "Krishnamoorthy,
+ Saravanakrishnan" <skrishnamoorthy@rambus.com>
+CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>, Herbert Xu
+	<herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Paul
+ Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>, Shuah Khan
+	<shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "Wittenauer, Joel"
+	<Joel.Wittenauer@cryptography.com>, "linux-api@vger.kernel.org"
+	<linux-api@vger.kernel.org>, "linux-crypto@vger.kernel.org"
+	<linux-crypto@vger.kernel.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
+	<linux-kselftest@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, Shuah Khan <skhan@linuxfoundation.org>,
+	"Nguyen, Thi" <thin@rambus.com>
+Subject: RE: [PATCH v2 01/19] dt-bindings: crypto: add Rambus CryptoManager
+ Hub
+Thread-Topic: [PATCH v2 01/19] dt-bindings: crypto: add Rambus CryptoManager
+ Hub
+Thread-Index: AQHdD+HshuImNmj2q0GDF9X/lpOPwbZmdM8AgADs7vA=
+Date: Fri, 10 Jul 2026 23:14:11 +0000
+Message-ID:
+ <SA3PR04MB9001E7DC9B2D4788EDCE2390D7FD2@SA3PR04MB9001.namprd04.prod.outlook.com>
+References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-2-skrishnamoorthy@rambus.com>
+ <20260710-siding-unmatched-5e066fbe4c01@wendy>
+In-Reply-To: <20260710-siding-unmatched-5e066fbe4c01@wendy>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+dlp-product: dlpe-windows
+dlp-version: 11.11.2.117
+dlp-reaction: no-action
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=rambus.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR04MB9001:EE_|PH0PR04MB8279:EE_
+x-ms-office365-filtering-correlation-id: 3d81d6f3-1286-4f69-8186-08deded8f3f9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|38070700021|56012099006|4143699003|11063799006|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ cKElAf2hElcTrc30MNdglEnoajQqDxXtzsqfpiiB6zBA3K2g0M6hNpR4UFd/cKLDwCYEBeVRYNZPCiGhuZgVB+BzitikIwNaZQdgT+5opstrLBwFIb4MkyNY3WWGo9KPEWzoc2PG9fWEShtznbFoauBUJO3gFh+czFcv81zjo8bE3690uLJ8TB3bMFNh7wI5rakJc1sMviOE+XTIAQgCUDmH8BzzqHeCKM8oFVMOKM0vHHlyO/DeA8UNFY97J22ufIVdCQVB5p6Rda0kXkhzTiL7Z/INLUCiCFtEg1h+4CPhbdBSxb5W1yMRN4XJEeAIrO0TwEjrXSsgmXQD+/twsMiGoslUjSkyhhCaMkjSxwTseJ3YM+B5JwBhQ7AGk9cl+2Ic1DYu3iTtsY3s2vrhVvsd0vcaUQYqhmvvZ2kSmozkolFyrKw3ky/zYP6fXIgdvkfFHkmZIYAiytRl4HA8VKDqxDi8NIxaeT5WWgYLe4nDk4EUhVk5SoWgzfqNNNH6ASduclEgL0YkiMeCOwQgDNWimk6DQhqc2pw8dnMB1XZzpXSq1nunWyhs5Vk+6gFa2THfgBc3jDH3Fqz6eu42zkA6+Xze+vprTYJr+5VMAmWiK97p+j+UiXha5mjlGstv2w/3U/rlNOpR/mxvzWF5jDoqXgO4w9kHb0oPqcwmoAdrbaMdw9Mwib5oJRx99fGkleGBtK1At8L5Yl6SBVuaICwwYoiMIkXb5Ro7I8g86AA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR04MB9001.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(38070700021)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?zg89MWmfEpDkNexMjoRsJdbDAbiDg59nAjSJZL/4vLiKPs/K5GovK0idWtno?=
+ =?us-ascii?Q?4nSMfxUCwvA1TVD7iKV+Avi/5LijHxI8f5ttY2xIQajFseQYJY/lweqgpBf1?=
+ =?us-ascii?Q?5XD/NDJ+9CsUJgQAOvGsXKIvSc/TYtWFO856mem+VGktwddsjD9mw/Wq75Tp?=
+ =?us-ascii?Q?1MwpBJQgW6tHwiVqNULyZVRwTgdjjg3A4EN67hVcQvVTIiVM5+kOo6QsM0Oy?=
+ =?us-ascii?Q?LADcM4oP7U9V1MPcUeweSXRFqHdoyv1KS2OL0MTtCcBnGytEVwlF2ePw07Gs?=
+ =?us-ascii?Q?IRG5Dz4D3Ao70AyRfFkiiefqWXbpoh931arzNADL4tc/6n/RrMfJHx6bpZHV?=
+ =?us-ascii?Q?aNOiu+to3V22jd9c37VYoyGlfFFGmzzoNTLO2R+cku58bv5TanBClbFh2Mq6?=
+ =?us-ascii?Q?DsN4/w5QtANSKeYad/KQTD31O331EvhqxWNsILV4y17WpOFV7zntMutvNKkx?=
+ =?us-ascii?Q?waTrbMrIo4eSBcW24qUlca+NDP6GQ8EDFPigfaKceVbjwX+kNPzV0D9q50UH?=
+ =?us-ascii?Q?bAxQ2zoPBQkDOJ/g4ahbBqKxLAhy4KBRFx69SfD/g5WvyrYQ7i1LxBJHPzRY?=
+ =?us-ascii?Q?9PRGCU+L9jrEuOfN2k4UFA+UtWbMamLVLDkn+ED0ouwD2r5+6uVz1BQuD3Xy?=
+ =?us-ascii?Q?W35/kd5Ih8G1r3BqwcoEFBBBKMGJQExiULeT8bVsf6tZmLcvJR4c/uISaAIy?=
+ =?us-ascii?Q?MU3mh9nRJuyTtDhB1us2YYryGPGG9B3Doi8xnSbJygh7KX16ER+Z1pFf/P7V?=
+ =?us-ascii?Q?7ffFvafdDDwp8XFPeW1QJDkxHwpIXhKB527JG/AA30R84M8cMy+VC53KSuZU?=
+ =?us-ascii?Q?ZNkyh1syLyMCCUAuC/Bm9CpUX3qoQTo9T/Wz5Kpm4foPlBE+VRXpnkIfD2nA?=
+ =?us-ascii?Q?xMOUthOVfBoVhJ7YZchoU/AiQGrOvOch1wAgV9Q0jFKJAh0i5cC2IoBUkDwQ?=
+ =?us-ascii?Q?PQ0B2j7xkbOuzCfpGjAfRvPMsTl2Qu/5Cv8SUhR/ZJhnF/52cTRB5ndhVUIY?=
+ =?us-ascii?Q?fIkfSh62DisxoVjPH0V+c6jg9f82NhaP1bhxHmITWkRfOWiGdrmQxBbFnadW?=
+ =?us-ascii?Q?WZSR8+wRvAl/4MLQAm6o5h38qX9WicA1NNaxIcvM7pPFV8mEZQoSrqGqSWEV?=
+ =?us-ascii?Q?WMmxOLsj+n6ZI/hwwRqk97JxF92EOAqKrfBT0qO+oJf6ghFZoIzeYC6epEMs?=
+ =?us-ascii?Q?3POYDEz26IsG5xQl3NKB1xc9hVaH8wQMroPocRYBh/DGcOTzKSh6/Mo1wBZH?=
+ =?us-ascii?Q?QLoF1oxIZ9KI/kXWrvsCBAkgraGjbEf3/D0xsNeHEvc3YC1x28Gs4a3AcEvK?=
+ =?us-ascii?Q?2ekWP7f/jWuV5F+EvTdPAxKzgKnn3qeS8LyE2hXgrerNpWOYERUmbb6KpXBH?=
+ =?us-ascii?Q?2OGDgY3Ny7ZkPh6acz+f/QHslJkRQQDl5dpJWXcDqdIvAwR4/nW2KSL88DIM?=
+ =?us-ascii?Q?B7ueiDdmQobBIdVxSTEE8Y8k6nuHTu8Qk5ZC6Tpn5Ho6eABCFy/gtCadTgJX?=
+ =?us-ascii?Q?KATdgwpQg7UWpBealJvsRsEa6HU3M+2UrvS4fLDMapz4oAAa/yKNTaxw7gDR?=
+ =?us-ascii?Q?AnPPkmyVkvvTygo7j0hO6wwa5bt9fDmFg07VUCRZK0IFJbMZQWp1oIVaAhBG?=
+ =?us-ascii?Q?4FFRdw2Jv6CNDoxrFX69XUoRpyZ42fNYBOIJMHG4uXMzhCSaDT/OuBBFjnN6?=
+ =?us-ascii?Q?QWRE8s03zHrbJhZM/ri/GIcgm+FUsl60ktfgCF2bmjPTDWguiMs0eWolWKo2?=
+ =?us-ascii?Q?GoA6ZCjkWg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/8] dt-bindings: iio: adc: add ti,ads122c14
-To: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, sashiko-reviews@lists.linux.dev
-Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
- Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
- <20260710-iio-adc-ti-ads122c14-v3-5-746d52cbf1d0@baylibre.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-5-746d52cbf1d0@baylibre.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR04MB9001.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d81d6f3-1286-4f69-8186-08deded8f3f9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jul 2026 23:14:12.0688
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PUbuGh22NwrSEbGxQqb2+hwmWkaheiiISUQ8ylUhdelsOjElDbM0FbVMigZjFzINUBnkeJj7OqrWYznYHFlV+FYSj8fERMV8aNA1c+J/394=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR04MB8279
 
-Replying to https://sashiko.dev/#/patchset/20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com?part=5
+On Fri, Jul 10, 2026 at 1:59 AM, Conor Dooley <conor.dooley@microchip.com> =
+wrote:
 
-On 7/10/26 5:50 PM, David Lechner (TI) wrote:
-> Add new bindings for ti,ads122c14 and similar devices.
-> 
-> This is an ADC that is primarily intended for use with temperature
-> sensors. There are a few unusual properties because of this. In
-> particular, the reference voltage source and current output requirements
-> can be different for each measurement, so these are included in the
-> channel bindings.
-> 
-> The REFP/REFN reference voltage is usually just connected to a resistor
-> that is being driven by the ADC's current outputs, so there is special
-> property for this case rather than requiring a regulator to be defined
-> to represent that.
-> 
+> This company no longer exists, you should probably introduce a rambus
+> vendor prefix instead.
 
-> ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
-> have preferred an enum of strings).
+Cryptography Research, Inc. does still exist -- it's now a wholly-owned
+subsidiary of Rambus (our co-maintainer is @cryptography.com). The
+prefix names the IP originator, which is consistent with existing
+subsidiary/acquired-vendor prefixes in the tree (e.g. al =3D Annapurna
+Labs under Amazon, mstar noted as acquired by MediaTek, fsl, cavium,
+xlnx). We'd prefer to keep "cri" on that basis, and can annotate the
+description as "Cryptography Research, Inc. (a Rambus company)" to make
+the ownership explicit. Happy to switch if you feel strongly.
 
-This paragraph is leftover from v1 and should be deleted. (If someone
-called it out in v2, I missed it.)
+> This property seems like it could be replaced by having a reg entry
+> for each mailbox.
 
+Agreed -- v3 will make each mailbox a subnode with its own reg window
+and drop cri,mbx-instances.
 
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: FAULT interrupt (GPIO2 pin)
-> +      - description: DRDY interrupt (GPIO3 pin)
-> +
-> +  interrupt-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      enum: [fault, drdy]
+> This looks like it should be deducible from a device-specific
+> compatible. [slots/strides]
 
-I know the descriptions are a inconsistent with allowing names to
-be in any order. I don't really know a better way to write that
-though that allows both
+These aren't fixed per silicon -- they're the per-mailbox layout of the
+VCQ rings in host DMA memory, chosen at platform integration and
+programmed by the driver into the mailbox QUEUE/SLOTS/STRIDE registers.
+They can differ per mailbox on the same silicon, so a compatible can't
+encode them. v3 will keep them as optional, defaulted properties on the
+per-mailbox subnodes.
 
-	interrupts = <0>;
-	interrupt-names = "fault";
+> This whole subnode thing seems like it is only required because you
+> don't have device-specific compatibles [cores].
 
-and 
+Core presence is actually discoverable at runtime from the CORE_ENABLE
+register, so v3 will drop the per-core child nodes entirely and probe
+for enabled cores -- no per-variant compatible needed.
 
-	interrupts = <0>;
-	interrupt-names = "drdy";
+> this could probably be handled via reg-names? [affinity]
 
-They are just descriptions, so does it really matter?
+Yes -- v3 will express affinity per mailbox (a "role" of a specific core
+type for a dedicated mailbox, or "generic" for the round-robin pool),
+which is the subnode analog of your reg-names idea. One caveat: this
+cleanly covers 1:1 core-to-mailbox dedication plus a shared pool; a
+mailbox dedicated to several specific cores would need multiple role
+tokens.
 
-> +
-> +  gpio-controller: true
-> +  '#gpio-cells':
-> +    const: 2
-> +
-
-No, gpio-conroller should not be required. It is rare to use the GPIOs on
-this chip and the pins are shared with other functions.
-
+Thanks -- this restructures nicely.
