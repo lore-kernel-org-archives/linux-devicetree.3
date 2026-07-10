@@ -1,171 +1,123 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B6B3EC2E7;
-	Fri, 10 Jul 2026 08:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A652F3EB801;
+	Fri, 10 Jul 2026 08:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783670876; cv=none; b=Sz+RQ/dWf57B5802ZW/e5TVMVF3r7Qov7jdfGgA9YjQWf2DzbYlZJG7hVK8CaHqLm9Hv1UG0SRxGI/FcDvK2wwomP58FkdwbNH0lk+1bHEUYsaxim91Sjvd43Gp+xt9yBQt1fCP5Uxp4IUZrtnmGR4Le3/OmGcz/BkC0hHjgoVM=
+	t=1783671136; cv=none; b=jH5P7/bM2OTHUg8ptw9AV+8Zdy8wslaQXcrKqwV1Dwg6q+nAczoEGCimmwvsl02bqsTd5bFtoCf9VXgSPC10/Lz1QLaVpaDC7c0KLs47tz9NtRFP7F0ZjksUU5kdzYGaMnq1VuHJpEDA5RzJeVXBRr+L0xMrQGqUCt0oinCR0y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783670876; c=relaxed/simple;
-	bh=naUIyFM2ineqBmx6cpwvg+5iO9MPbuiQdUMA+z7fCpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ixQ7v5lo6izxKqsDWN5hDKYDX/zzDbTobPFlK/NtOQmeQUs4AcjAZkFGZ38DV2Ds4aj4sCpyP6Q62Rm5kD/quAsBOUXlVG+vaLznqv2y/kbstRKE5KhNhI+HRFrxiepJjYMyb56DDv6j3/poSjytBqFxSdGF9jmxK8p5JbuFtw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FU0Sixje; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1783671136; c=relaxed/simple;
+	bh=EGXmBFOFGPJRCa2KDW3qx68vLK9mF6Uj/kcuDfPy0IQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T/z65PlXGpEuW+LIX5sVmTsT0XuxaihWeRSNZf73bm7VTP/hIh+uOCUIBgbt5HWchR9zCHA0JvSrLDxcQLhkJTsAQc9J7AYN3zDm7zTu3NLYqhxJe+0psyElCcMX2FhvhX4LuSsyuN+pxkgOLjQl/us1/K3wHzutrRzo+HbPp/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BP4bd7W6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FU0Sixje"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783670875; x=1815206875;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=naUIyFM2ineqBmx6cpwvg+5iO9MPbuiQdUMA+z7fCpA=;
-  b=FU0Sixje3F1kyh/X6/v+zbPaRQIld/+SPfiPmw3nonutF84BHFlPwc99
-   nV2UcJRTYpaqg7Co7w+1rV7eRuxwRTNnzv/IOSbBBc5GhqYkXtSNFcXkD
-   jp1ou/uJIsLNJphQ1lGeo7dMuwyTk8rtdgqBJM1Cta2js7CTaOLHuAaJ/
-   soV9wcfbBQcalE5kJhaTOusSTUy4SbIGGHidCMqq91oDLXxsuyOUcgleE
-   NJAG+tVyAQ6zD1OXCgbGYMZ14s5j8RvcME29OUkAZdpywo7rfuas9P+Hz
-   NBz8Omfd51QZ9rAKEST1Crp9yxjSWyXYFW4BpKT0EGUVonFuea9Ja+1uJ
-   A==;
-X-CSE-ConnectionGUID: 8UaaC3cGRC2fUL38lZgCcw==
-X-CSE-MsgGUID: jH5Aln9IRUyNeW34eNXfLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84467120"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="84467120"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 01:07:55 -0700
-X-CSE-ConnectionGUID: k7BT+p0WS6GXZTFCbLFfbQ==
-X-CSE-MsgGUID: ZEvW6qjkTVuzuBJ7QTu3sw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="253089844"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 01:07:47 -0700
-Date: Fri, 10 Jul 2026 11:07:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v4 2/6] PCI: spacemit-k1: Add multiple PHY handles support
-Message-ID: <alCoTEDUY8AO9OzD@ashevche-desk.local>
-References: <20260709040027.958400-1-inochiama@gmail.com>
- <20260709040027.958400-3-inochiama@gmail.com>
- <ak9KzNFF26B0Kttz@ashevche-desk.local>
- <alBNXgMAwXPKwiJ2@inochi.infowork>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BP4bd7W6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D23D1F000E9;
+	Fri, 10 Jul 2026 08:12:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783671133;
+	bh=h7nDO43+tKnnu6CxuyKnxlviLmUXS03CPGd8nFXhdng=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BP4bd7W6zNBoI3b8Ib5OZzb2TuuQl527kyh0lxT5H1eBurLMsZ17mx8X+/cD2lq/d
+	 D0PxqKmKSLjAiJTw5dBDbP4hjTSfU96lNIKZsD8HrgnmKxutHHtVASVcAQ/vUpEK6M
+	 cmDIFWwvV90wXoP9v3rQtXBuiXDWk3InlVaJGYuJBXgSykJS4V2gcx3kN8320jPG3Q
+	 yA5nWSurT6o/nvIIUXnqKo1+Yh0UXlO9kqujC5ap1uXeZHKpEQSqhyFyPuCzXPfgLt
+	 GJBWWFxIalOsLx8gE31Eww9QE8SP2mQDXOR2SfTleQNXdLSqNNxAjodwDJOfrpDK6b
+	 BFgkuoDzxpxVQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wi6LD-00000003aiN-2BIe;
+	Fri, 10 Jul 2026 08:12:11 +0000
+Date: Fri, 10 Jul 2026 09:14:00 +0100
+Message-ID: <87tsq75kjb.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: John <therealgraysky@proton.me>
+Cc: Mark Rutland <mark.rutland@arm.com>,	Daniel Lezcano
+ <daniel.lezcano@kernel.org>,	Thomas Gleixner <tglx@kernel.org>,	Rob Herring
+ <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
+ <conor+dt@kernel.org>,	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,	"Ivan T. Ivanov"
+ <iivanov@suse.de>,	Stefan Wahren <wahrenst@gmx.net>,	Andrea della Porta
+ <andrea.porta@suse.com>,	Peter Robinson <pbrobinson@gmail.com>,	Stanimir
+ Varbanov <svarbanov@suse.de>,	=?UTF-8?B?TWHDrXJh?= Canal
+ <mcanal@igalia.com>,	Gregor Herburger <gregor.herburger@linutronix.de>,
+	"linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,	"linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,	"devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,	"linux-rpi-kernel@lists.infradead.org"
+ <linux-rpi-kernel@lists.infradead.org>
+Subject: Re: [REGRESSION] Raspberry Pi 5 (BCM2712) hangs at boot since d87773de9efe  (arm_arch_timer: default to EL2 virtual timer under VHE)
+In-Reply-To: <vUQ4-RaOlZaTlasD0DLGmWOWcVLQXYYK_yid3Tsqeyi53CPsTCpOvXSGZiz0RAyxsxCzWTXOe4zK8rzOLdtDXiVu-xBjp2VkPz9JRj9QUWA=@proton.me>
+References: <oTZ1wsFlcf4l8zMuD8DYCCvff35nVbFn7gTb5_vrUPSJtjVBSTmGti8S3KnbVdVWJEzP1QRbWma6UYYXyi6v2J0fl61khniPROEhsdxMIz8=@proton.me>
+	<86h5mcp4em.wl-maz@kernel.org>
+	<vUQ4-RaOlZaTlasD0DLGmWOWcVLQXYYK_yid3Tsqeyi53CPsTCpOvXSGZiz0RAyxsxCzWTXOe4zK8rzOLdtDXiVu-xBjp2VkPz9JRj9QUWA=@proton.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alBNXgMAwXPKwiJ2@inochi.infowork>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: therealgraysky@proton.me, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, florian.fainelli@broadcom.com, bcm-kernel-feedback-list@broadcom.com, iivanov@suse.de, wahrenst@gmx.net, andrea.porta@suse.com, pbrobinson@gmail.com, svarbanov@suse.de, mcanal@igalia.com, gregor.herburger@linutronix.de, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Fri, Jul 10, 2026 at 09:57:05AM +0800, Inochi Amaoto wrote:
-> On Thu, Jul 09, 2026 at 10:16:28AM +0300, Andy Shevchenko wrote:
-> > On Thu, Jul 09, 2026 at 12:00:22PM +0800, Inochi Amaoto wrote:
-
-...
-
-> > >  struct k1_pcie {
-> > >  	struct dw_pcie pci;
-> > >  	const struct k1_pcie_device_data *data;
-> > > -	struct phy *phy;
-> > > +	struct phy **phy;
-> > 
-> > Should it be annotated by __counted_by_ptr() ?
+On Mon, 06 Jul 2026 16:20:13 +0100,
+John <therealgraysky@proton.me> wrote:
 > 
-> Yes, I think it can, this is something I have missed.
+> On Monday, July 6th, 2026 at 10:40 AM, Marc Zyngier <maz@kernel.org> wrote:
 > 
-> > > +	unsigned int phy_count;
+> > On Mon, 06 Jul 2026 15:13:27 +0100,
+> > John <therealgraysky@proton.me> wrote:
+> > >
+> > > Since commit d87773de9efe ("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running VHE"), the Raspberry Pi 5 (BCM2712, arm64) hangs during boot on v7.2-rc1 and later. Reverting that commit on top of v7.2-rc2 boots reliably. Found by bisection.
+> > >
+> > > Environment: - Raspberry Pi 5 Model B, arm64, device-tree boot (no ACPI) - CPUs start at EL2 with VHE - Mainline v7.2-rc1 and v7.2-rc2
+> > >
+> > > Symptom: - Silent hang early in driver probe; no panic or oops. Boot banner shows
+> > >   "arch_timer: cp15 timer running at 54.00MHz (hyp-virt)". The first blocking, timer-backed wait during probe never returns because the EL2 virtual timer's interrupt is not delivered on this SoC, so clockevents are dead. The softlockup/hung-task detectors can't fire either, since they depend on the same dead timer.
+> > >
 > > 
-> > Ah, you allocate much more memory than possible PHYs... Can you redesign and
-> > use the above annotation?
+> > Is that a guess? Or do you know something we don't? Or worse, is this
+> > report entirely AI generated?
 > 
-> IIRC use the annotation does not reduce this memory usage...
-
-It's about how you allocate it, the code uses max_phy_count instead of
-phy_count.
-
-> > >  	void __iomem *link;
-> > >  	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
-> > >  	u32 pmu_off;
-> > 
-> > >  }
-
-...
-
-> > > +	k1->phy_count = i;
-> > > +	if (k1->phy_count == 0)
-> > > +		return -EINVAL;
-> > > +
-> > > +	return 0;
-> > 
-> > This doesn't seem correct to me, I would expect phy_count to be assigned only
-> > when it's valid. (Yes, perhaps 0 is the same as it was, but semantically it's
-> > different 0 in this case.)
+> Hi Marc - I'm not a programmer, but I can use git. I performed the bisect, and verification steps by hand. I am convinced the bisect is correct based on the restoration of booting.
 > 
-> I guess you think 0 is a valid number? I can not understand what you thing
-> Assign this to 0 if there is no phy is fine to me, which shows there is 0
-> vaild phy found.
-
-Isn't it already 0? Semantically code is wrong in a flow (not in the result).
-
-> > See also above. Do we have some PHY API that just counts provided PHYs?
-> > If not, that what you should probably add first, before this patch.
+> My RPi5B freezes when booting into d87773de9e and reverting it gives a clean boot.
 > 
-> I have not found any api for this. But the actual problem is, how the api
-> is designed. I have checked both the array bulk api for reset and clock,
-> it seems like it is much more than this patch...
-
-Yeah, I looked at the phy-core and I think it will be hard to implement.
-So, the idea is then is to reallocate the pointer each time you get a new PHY.
-In this case the phy_count will reflect the actual memory consumption by phy.
-
-...
-
-> > > +	for (i = 0; i < k1->phy_count; i++)
-> > 
-> > 	for (unsigned int i = 0; i < k1->phy_count; i++)
-> > 
+> I used Opus to analyze the result of the bisect in concert with the logs I captured from the serial console. I also used it to summarize everything into a concise bug report. I can't vouch for the accuracy of the interpretation, but I can confirm the problematic commit and restoration of function.
 > 
-> I agree with the unsigned int, but I guess this definition is not
-> allowed in linux.
+> 
+> > Again, how do you know it isn't functional? Could it be, for example,
+> > that the firmware has not configured the interrupt correctly?
+> 
+> I cannot. In the future, when I use these tools, I will scope the ask to just factual content, rather than allowing them to speculate.
+> 
+> > A proposed fix has been posted at [1]. Until we hear from the
+> > implementer about the state of the HW, it is difficult to do anything.
+> > 
+> > 	M.
+> > 
+> > [1] https://lore.kernel.org/all/878q898ulx.wl-maz@kernel.org/
+> 
+> Thank you for linking that! I applied it on top of 7.2-rc2 (with d87773de9efe intact) and got a clean boot.
 
-It's allowed and it's encouraged even by Linus. As long as iterator is local,
-use this syntax sugar and reduce its scope. It hardens the code.
+FWIW, and in the absence of any feedback from the SoC manufacturer,
+I've posted this patch[2]. There isn't much else I can do for this
+stuff.
 
-> > > +		phy_exit(k1->phy[i]);
+	M.
+
+[2] https://lore.kernel.org/all/20260710080958.491620-1-maz@kernel.org/
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jazz isn't dead. It just smells funny.
