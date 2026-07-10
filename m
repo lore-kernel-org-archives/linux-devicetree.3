@@ -1,282 +1,169 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 589A3397E85;
-	Fri, 10 Jul 2026 08:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783671938; cv=none; b=pfe9jPLNnehaRXwHYakpQ5Iv14Oh+ZLTq+nrxZsiwt8m8zT//yiwSXJY2XAiC+YDp/XGvRqjtyjyhG4Moo6xBdJ24tlnMoeIMRRwvJH0S2X3jcHKu6eUU+YeiA4ij9oz/btvHmfA52LXrF8bwoDhAzaAs8UdVrJP7uhWwEAx2C8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783671938; c=relaxed/simple;
-	bh=noKs33TJZorLDIcKqQG4GC8+hvDY0J+qKj32q8KUzrA=;
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011046.outbound.protection.outlook.com [40.107.130.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5C53EFFB2;
+	Fri, 10 Jul 2026 08:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783672009; cv=fail; b=qON2glzNGCgc/KPi9WhbLQgdvaf0EwcT+5S+es7tdDdMTre5EsEGcarIKn7zff+XJJWz5qOCkDRuPqQKZ/mh4MMD3lHv4gBG7GcczFi5UuyBTawbuozelM5U4+tZrbcNRHQ31hnHi8fete+Ll44hPohBfDkox4I+eXDksUThYIE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783672009; c=relaxed/simple;
+	bh=t6Lo1F8IpNefYeBAwHdHKBFXj+XLjrLKNWllyH4wDIE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HguprKAyz/Z0r7aDRaBikQVx/9MdNtcOONDKi1uACPWAiuUBw5XWmJFjBf4upl4mocdT+bcsoP1STzr2Vgx0o0RDKAkGM/yx5291SwaMk+YbEnyD1xTg3Gbow9LQvt9vvyB0rVHWwmN5pUDEIwrRzZ249nH3wuZoW1G35KkXVrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.155])
-	by gateway (Coremail) with SMTP id _____8Dxeet3rFBqIzQCAA--.9121S3;
-	Fri, 10 Jul 2026 16:25:27 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.155])
-	by front1 (Coremail) with SMTP id qMiowJBxEuRtrFBqEx4IAA--.24690S4;
-	Fri, 10 Jul 2026 16:25:25 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
+	 Content-Type:MIME-Version; b=JwgMpoOr0/ez3IkY9YeB0K9ntv7Ddn/KEzI2/bckdvRf9+p8szME3gKtcCzUpNuXk3YQUEXUU3vR/gt/Vki4/n4mRlDm7SHWP+phsXyObA/3Gw2tXOqoYz8vjg+QCzPfjhiXBeLMpTcXgLtTCVBadj48G4SGiAY8EFa+i2pFHUU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=ktab6rPP; arc=fail smtp.client-ip=40.107.130.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="ktab6rPP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K6VcM1Clik8afNl91EPhYLPQeHZVF1O5V93lkhXmryTmUrNQ2fInggL+1/gsh9cOxlhZNQmMv2IBrPX78EBOh7KCcdMfY3MsHSq3v2q+36crWV7A13Tbw1806/Eu1YyLUSOaDCJP5FLj94Biexg5/w1MFLNTHPB/fQO8jBAyZ1WkUGB1FnkgxJ4HLopVCzK0NA5661oXWn3Fh0DR3HvtZwwsyx0PjhrN9RornwdiKcR/K/ZbND9mnNOAn7oNEQJgG4bYXThBr4WyhxB+RoPwQgsLG5WmuAxrn0sOK2jsMhVCOpEakodAj8Kub35RuzBYsLTJWT4Bd9e6NTGai/NdfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uDMrCxeHbibDimrcVkRwzwg4TdiskrjwdgRpSbWviOQ=;
+ b=DVoe7V2zKYb58QnjvAvkTdg9ncF1Xt1Q52sBbxj0n04XhrEehrAZbfYPCzSBUxjqZDnaopTeyYvNW1UdpYzxYqB+tQka5vVpPL9ffweYt59s80af/IJiBfhbfDhaWmdyTMKzoiIWugzFcW640xPBjV+avQBjv6ZRmKWaPcAsKeYsmIeHWzcqc8V30b50TZobS2o79DH/naFZKCe0Hd/GNJDFjlPL9JF4fxCVps8cZ9ZWvQsHbIhlxvNZz90xjMX2IzS77+wzebhBfYg1Yti5WvAKZQ9pj3tGXxoMjSvHhdslTqefvShb/05SFv2az0Ajpr1dyaf+FGXJjb7/QdWIwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
+ header.d=mt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uDMrCxeHbibDimrcVkRwzwg4TdiskrjwdgRpSbWviOQ=;
+ b=ktab6rPPKZyHv8zNg0nzl3L4CU91YRm5aPfd0H8A3F3UDxQfCMKeB8U36/y6gYCNsNZMiz2aAFhxHX00GEMeXw3ZAU34/q5BlfTHf5y7+TW6enMK+B7WYlPpjsShT3YwL6I55Bq9MTb9jIr80yvJmSUlgqIX9O5zPoimm5o0jdWzXo64xrd2N1yRbhKJtco69NKudy0hr45zxRZf+IyyUrAKnKCrI+1/fcrxhCscXWxrbsgPtVdTJgDOVl/IA7BIp5MhNUcwlBivshL2OAT62KI7Y575H8dscJwt1ghRcqcJmelFmsL/ZnZf3Q/bsl4yitJzJ90PJy4ZBNsJ4/8PBw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mt.com;
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
+ by DU0PR03MB9731.eurprd03.prod.outlook.com (2603:10a6:10:44d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Fri, 10 Jul
+ 2026 08:26:43 +0000
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
+ 08:26:43 +0000
+From: Wojciech Dubowik <wojciech.dubowik@mt.com>
+To: linux-kernel@vger.kernel.org
+Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Marek Vasut <marex@denx.de>,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH 2/2] thermal/drivers/loongson2: Add thermal driver support for Loongson-2K0300
-Date: Fri, 10 Jul 2026 16:25:00 +0800
-Message-ID: <e5a574b2ae0e5e0ec32fe81c0ccd03eb3ad5a164.1783670011.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1783670011.git.zhoubinbin@loongson.cn>
-References: <cover.1783670011.git.zhoubinbin@loongson.cn>
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 0/2] drm/bridge: ti-sn65dsi83: Add reverse lvds lanes support
+Date: Fri, 10 Jul 2026 10:26:27 +0200
+Message-ID: <20260710082630.394040-2-wojciech.dubowik@mt.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260710082630.394040-1-wojciech.dubowik@mt.com>
+References: <20260710082630.394040-1-wojciech.dubowik@mt.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZR0P278CA0028.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:1c::15) To DB9PR03MB7180.eurprd03.prod.outlook.com
+ (2603:10a6:10:22d::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBxEuRtrFBqEx4IAA--.24690S4
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEECGpQcs0EvgAAsz
-X-Coremail-Antispam: 1Uk129KBj93XoW3WFyfuw1DurWxZFy8ZFy3WrX_yoW3Ar15pa
-	4UA3s8KrWkGr4Uuw1jyr1DZr4Yvry3tFZxXFs7Gw1fW393t34agFy8tF1FvrWfCFZ8JFyU
-	ZryqgrZrua4DX3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Gr1j6F4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Wrv_ZF1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14v26r1j6r18MI8I3I0E74
-	80Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0
-	I7IYx2IY67AKxVW7JVWDJwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42
-	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF
-	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUsDDJDUUUU
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|DU0PR03MB9731:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2428e767-4ea7-4311-f683-08dede5cf917
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|19092799006|1800799024|56012099006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	XRG5skWfbpRYOHQQVlwN+Ta6Lnr3Cvovw/VuIVCg+4qO11PXdcGyjWgAfddkSWMrBIrRrtgQht41w9nsGx2z75EQuO6SjXYEHoxyJUWyDLhC3Yh2woPYuNeY5u0n0SHSCyHl/aox51l2/vy8q20q4XqMw3+i97vqK/qrOZ2KmC2/IECZlgJhsGrNVxA+b/2ZgriXKynnWyFT3nffv28cR+R3t2J5wsCrUO27f6zvjDllEd9gOZswngyqNDvXV5vAErPHz4ceRobNqX2bZ+IxbzIkAAsiCrQPmJdxu97X9bZUV+rkCGSKeW+3etA7gus24s94pgZCY/w8KDDZhpSNbgpxQ/ofzbYps65KwYekBJ84NJbfLkjRmowy75At+SQhJSQnCrGksz7KzNB6dhv+XXvYoLcQ3wajcSEXYNgdzEEyRxRlh6wqDOL9eQENT2DtgaUsLYzFd8Pakdf8UMPHWXZFbRBs4N9hQ+tphiUBcqI0wC6aMY7KiBgkW8wiO2+8cxOsL3Lf1d0O7EnhT856upcE+IekFw1Ul3mYLI0r3Ou/AZcq8OPslpwMJqP8EISssM5D0K1IjlIBhIljK7BBQ3gWmjMnZpQPBaYBWtmA/M4OIHw4ZicnJ/qAB15F56o9kYMNsGQOa6Fiouh73GaqNxVAgqcr7BPDDkwfuompaHo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(19092799006)(1800799024)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?J3kz34IMcRR2b+0q45IKsFSpyY066vCtCmaIz6p4k43AAelB5sqf14Joypfq?=
+ =?us-ascii?Q?/gy7zPJA8SuE969X7GJ7rJ9EW9aD/moOZUS+GomMepGbacz/W4PEcaAFxegv?=
+ =?us-ascii?Q?5atDpyBMwM/8DOkD0NOv+8vV186qyK7MPREveqAm+7CuTzekraeYWcmh3n6O?=
+ =?us-ascii?Q?zRnpmy0nUIMkNVrR9YprJ7mLeTuhvrBkUi4xlKUPEhFy+iyIrzOAsr5ssOz9?=
+ =?us-ascii?Q?zgxY2hgxr9+TsHmr85bTjDOqHvbotZTOgl0csnNjgTJwBKGj2mQv3zbC2iB8?=
+ =?us-ascii?Q?wRACAaFuCzYMmhPNd1qCcxPpz02QU1BeFCuu4jxR3MbkFSxVZYneM4Jh9Grl?=
+ =?us-ascii?Q?tE3KZnTquGVnfZKsknYl2ncZAWXvmI1yhUo1CDJ+wqKYf74eW30UqiLkMTga?=
+ =?us-ascii?Q?Ck8erU/qiAkQ2lrSPIVr/Oi2OxCbTMeoi6ujPyP9ndpX/kX1LIOh4kKcHvOW?=
+ =?us-ascii?Q?xqMtCMlxfUA+16+ng170Q5gLuU7kAs8NN3CIuEOfpfTRPhRIsPrB97kKyPJ4?=
+ =?us-ascii?Q?a2zer9XbQqcIi2bDyFcmE97Xcb9foeLtAZ3RhafglCArcW5JzqvM/xounaWv?=
+ =?us-ascii?Q?8a4GtEc+4tK60QK5+aolfZmvGJqhxYE2dDurqQroqM8Zm89O8SJ3euXboQ9Z?=
+ =?us-ascii?Q?lJxy95w9FQ2FeOcgEmai3RRxhCfpNnzGj9Kya4zJh1xIXy45uA/vYJEolTjn?=
+ =?us-ascii?Q?2wus+d4VoRvtz8ovzSC4SpDItaSMtiHD+5ra5ok6RZZz+l1ifCPhYRMPDOEb?=
+ =?us-ascii?Q?WyxxfxDahda7ZWiOsdnLKJwLITkHBbUeeJQyRgyu7xfjv2tmdsLgGvgIM0x4?=
+ =?us-ascii?Q?8dGa0qUYGXspZdkP+M7Fb2qd+yHY4h02r540VnxJc3a6hOyX9+DGN6GrzE2T?=
+ =?us-ascii?Q?Hh7VHp0r5516uzlxw4aGEYJRrIyKRZWP/8SAIYaamJhHcS8dLRffLxINzOjO?=
+ =?us-ascii?Q?JDgm6Nu86bjsP640w/MJxdwP32qHWQTecc0adYEk/CkIzmIclkzcDa4SfXuK?=
+ =?us-ascii?Q?+tEkQJSObizXVM4eY4TuRaIUMNUVMmW3ujcifs5M6i1vaVe8UDuJ5bqGaSsW?=
+ =?us-ascii?Q?gVQB2SbBFtkR69ZZjvK6YH9M54YTgDOfA1/5vK9TlV5eDW4NNmpDiKpY58OL?=
+ =?us-ascii?Q?QnNLw84jnhU5ZzrQwK34t4NxCo6fmc0zxhryAMMUneanWisRY+04+JD7aNDK?=
+ =?us-ascii?Q?Lcc81YR0al853tu8yRgJKogAejfOpigWbF4l9PgfZke0qPYwy28VwV1v7YGE?=
+ =?us-ascii?Q?u2UTEr7iPKPcIsZ3ywJgABfYm/sdrJUuhAturv7wgvhIUWGFfNk6H/KlwuBL?=
+ =?us-ascii?Q?Q59dp13r08C8FSOhgZE4iVZKrNYgfgCLxClR+3YIvKVtAmVo7ymQK8FiRmR/?=
+ =?us-ascii?Q?s7P8qRUDImYID8F+VnXlGHtNnssSSOkMASTEjErXM6YxjnhwTRqT+PMDzBn5?=
+ =?us-ascii?Q?UqoWpAIc4dLA0Ox6QSm5Qu6n+Za3PVZkFRa2dmIf3H3S2Bs9KGvfXnmNhPcI?=
+ =?us-ascii?Q?51BdF2oLPeooyTVWHTq/RrOeupdGggeAncDNx8cr/cx92Gs2zYhaiaQg+ZDL?=
+ =?us-ascii?Q?uGDcnhBhSxJsZHwGBAS24J9+NvybNBdSOXgMZLdf/U6auL+netPlBjNqfcgl?=
+ =?us-ascii?Q?j6s1uRAjcz5teY9bpTYWYIrFUsrj9JtjD0fOm3rOHEeJaBCWeHpUD9JnsW4V?=
+ =?us-ascii?Q?WonrTeyRGbRm1JEqZcd9cY6gZBAdezTIf9Z/S29bSjvQ8qzWTqezMpnz0B6M?=
+ =?us-ascii?Q?EeggkdM+mw=3D=3D?=
+X-OriginatorOrg: mt.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2428e767-4ea7-4311-f683-08dede5cf917
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 08:26:43.1816
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a/t3N2AuzJ/5+SbMlLi1RLQ7WYhIaZJ0UPlS/mV1G0eqD7LtxuMjhJMgBIuDlaGldLbwQGX5iMjqdeOPMCO6+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9731
 
-The Loongson-2K0300 SoC uses a new thermal sensor that requires reading
-a separate CPU ID register to obtain hardware version information. This
-version info is used as a correction factor (fix_data) in the
-temperature calculation formula.
+From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 
-Its thermal sensor requires the following hardware-specific handling:
- - Read chip ID register (offset 0x0 and 0x4) to get the compensation
-   value (comp_val). The value is stored in either bits [31:20] of the
-   ID0 register or bits [15:0] of the ID1 register, depending on the
-   EXTERN_ID bit.
+Add support for reversed lvds output lanes. With an optional
+data-lanes property one can support default layout <1 2 3 4>
+or reversed layout <4 3 2 1>. The property is optional and when
+not set it keeps the default output layout.
 
- - The compensation value is a signed 15-bit field; extract the value
-   and apply sign accordingly.
-
-Additionally, some early Loongson-2K0300 chips may have an old fuse that
-yields invalid temperature readings outside the -55 to 125 range. In
-such cases, the driver falls back to a simplified formula (raw * 569 -
-394700) and logs a warning, ensuring the system can still function
-without crashing.
-
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 ---
- drivers/thermal/loongson2_thermal.c | 83 ++++++++++++++++++++++++++---
- 1 file changed, 77 insertions(+), 6 deletions(-)
+Changes in v3:
+- Add optional data-lanes bindings for output nodes
+Changes in v2:
+- Parse existing data-lanes property instead of ading new DT
+  bindings
+---
 
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index ea4dd2fb1f47..a7eb87070aa9 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -2,9 +2,11 @@
- /*
-  * Author: zhanghongchen <zhanghongchen@loongson.cn>
-  *         Yinbo Zhu <zhuyinbo@loongson.cn>
-- * Copyright (C) 2022-2023 Loongson Technology Corporation Limited
-+ *         Binbin Zhou <zhoubinbin@loongson.cn>
-+ * Copyright (C) 2022-2026 Loongson Technology Corporation Limited
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/minmax.h>
-@@ -23,27 +25,44 @@
- #define LOONGSON2_THSENS_CTRL_LOW_REG	0x8
- #define LOONGSON2_THSENS_STATUS_REG	0x10
- #define LOONGSON2_THSENS_OUT_REG	0x14
-+#define LOONGSON2_THSENS_CFG_REG	0x18
- 
- #define LOONGSON2_THSENS_INT_LO		BIT(0)
- #define LOONGSON2_THSENS_INT_HIGH	BIT(1)
- #define LOONGSON2_THSENS_INT_EN		(LOONGSON2_THSENS_INT_LO | \
- 					 LOONGSON2_THSENS_INT_HIGH)
- #define LOONGSON2_THSENS_OUT_MASK	0xFF
-+#define LS2K0300_THSENS_OUT_MASK	GENMASK(10, 0)
-+
-+#define LS2K0300_CHIP_ID1		0x4
-+#define LS2K0300_EXTERN_ID		BIT(4)
-+#define LS2K0300_ID0_VAL_MASK		GENMASK(31, 20)
-+#define LS2K0300_ID1_VAL_MASK		GENMASK(15, 0)
-+
-+#define LS2K0300_COMP_VAL_MASK		GENMASK(14, 0)
-+#define LS2K0300_COMP_SIGN_BIT		BIT(15)
-+
-+#define LS2K0300_LOWEST_VALID_TEMP	(-55000)
-+#define LS2K0300_HIGHEST_VALID_TEMP	(125000)
- 
- /*
-  * This flag is used to indicate the temperature reading
-  * method of the Loongson-2K2000
-  */
- #define LS2K2000_THSENS_OUT_FLAG	BIT(0)
-+#define LS2K0300_CHIP_ID_FLAG		BIT(1)
- 
- struct loongson2_thermal_chip_data {
- 	unsigned int thermal_sensor_sel;
- 	unsigned int flags;
-+	const struct thermal_zone_device_ops *thermal_ops;
- };
- 
- struct loongson2_thermal_data {
-+	struct device *dev;
- 	void __iomem *ctrl_reg;
- 	void __iomem *temp_reg;
-+	void __iomem *id_reg;
- 	const struct loongson2_thermal_chip_data *chip_data;
- };
- 
-@@ -71,6 +90,38 @@ static int loongson2_thermal_set(struct loongson2_thermal_data *data,
- 	return 0;
- }
- 
-+static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz, int *temp)
-+{
-+	struct loongson2_thermal_data *tdata = thermal_zone_device_priv(tz);
-+	int calib_data, calib_offset, temp_mc, raw_adc;
-+	u32 chip_id0, chip_id1;
-+
-+	raw_adc = FIELD_GET(LS2K0300_THSENS_OUT_MASK,
-+			    readl(tdata->ctrl_reg + LOONGSON2_THSENS_OUT_REG));
-+	chip_id0 = readl(tdata->id_reg);
-+	chip_id1 = readl(tdata->id_reg + LS2K0300_CHIP_ID1);
-+
-+	if (chip_id0 & LS2K0300_EXTERN_ID)
-+		calib_data = FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id1);
-+	else
-+		calib_data = FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id0);
-+
-+	calib_offset = FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-+	if (calib_data & LS2K0300_COMP_SIGN_BIT)
-+		calib_offset = -calib_offset;
-+
-+	temp_mc = (raw_adc + calib_offset) * 570 - 394700;
-+
-+	/* For old fuse which can not read right thermal data */
-+	if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K0300_HIGHEST_VALID_TEMP) {
-+		dev_warn_once(tdata->dev, "It's an old fuse, thermal %d is not right\n", temp_mc);
-+		temp_mc = raw_adc * 569 - 394700;
-+	}
-+	*temp = temp_mc;
-+
-+	return 0;
-+}
-+
- static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int *temp)
- {
- 	int val;
-@@ -112,6 +163,11 @@ static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low,
- 	return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
- }
- 
-+static const struct thermal_zone_device_ops loongson2_2k0300_of_thermal_ops = {
-+	.get_temp = loongson2_2k0300_get_temp,
-+	.set_trips = loongson2_thermal_set_trips,
-+};
-+
- static const struct thermal_zone_device_ops loongson2_2k1000_of_thermal_ops = {
- 	.get_temp = loongson2_2k1000_get_temp,
- 	.set_trips = loongson2_thermal_set_trips,
-@@ -124,7 +180,6 @@ static const struct thermal_zone_device_ops loongson2_2k2000_of_thermal_ops = {
- 
- static int loongson2_thermal_probe(struct platform_device *pdev)
- {
--	const struct thermal_zone_device_ops *thermal_ops;
- 	struct device *dev = &pdev->dev;
- 	struct loongson2_thermal_data *data;
- 	struct thermal_zone_device *tzd;
-@@ -134,6 +189,7 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 	if (!data)
- 		return -ENOMEM;
- 
-+	data->dev = dev;
- 	data->chip_data = device_get_match_data(dev);
- 
- 	data->ctrl_reg = devm_platform_ioremap_resource(pdev, 0);
-@@ -145,10 +201,13 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 		data->temp_reg = devm_platform_ioremap_resource(pdev, 1);
- 		if (IS_ERR(data->temp_reg))
- 			return PTR_ERR(data->temp_reg);
-+	}
- 
--		thermal_ops = &loongson2_2k2000_of_thermal_ops;
--	} else {
--		thermal_ops = &loongson2_2k1000_of_thermal_ops;
-+	/* The chip id register is needed for Loongson-2K0300 */
-+	if (data->chip_data->flags & LS2K0300_CHIP_ID_FLAG) {
-+		data->id_reg = devm_platform_ioremap_resource(pdev, 1);
-+		if (IS_ERR(data->id_reg))
-+			return PTR_ERR(data->id_reg);
- 	}
- 
- 	irq = platform_get_irq(pdev, 0);
-@@ -160,7 +219,7 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 	loongson2_thermal_set(data, 0, 0, false);
- 
- 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
--		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
-+		tzd = devm_thermal_of_zone_register(dev, i, data, data->chip_data->thermal_ops);
- 
- 		if (!IS_ERR(tzd))
- 			break;
-@@ -181,17 +240,29 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k0300_data = {
-+	.thermal_sensor_sel = 0,
-+	.flags = LS2K0300_CHIP_ID_FLAG,
-+	.thermal_ops = &loongson2_2k0300_of_thermal_ops,
-+};
-+
- static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k1000_data = {
- 	.thermal_sensor_sel = 0,
- 	.flags = 0,
-+	.thermal_ops = &loongson2_2k1000_of_thermal_ops,
- };
- 
- static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k2000_data = {
- 	.thermal_sensor_sel = 0,
- 	.flags = LS2K2000_THSENS_OUT_FLAG,
-+	.thermal_ops = &loongson2_2k2000_of_thermal_ops,
- };
- 
- static const struct of_device_id of_loongson2_thermal_match[] = {
-+	{
-+		.compatible = "loongson,ls2k0300-thermal",
-+		.data = &loongson2_thermal_ls2k0300_data,
-+	},
- 	{
- 		.compatible = "loongson,ls2k1000-thermal",
- 		.data = &loongson2_thermal_ls2k1000_data,
+Wojciech Dubowik (2):
+  drm/bridge: ti-sn65dsi83: Add reversed lvds lanes support
+  dt-bindings: display: sn65dsi83: Add output data-lanes
+
+ .../bindings/display/bridge/ti,sn65dsi83.yaml | 42 ++++++++++++++++
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c         | 50 +++++++++++++++++++
+ 2 files changed, 92 insertions(+)
+
 -- 
-2.52.0
+2.47.3
 
