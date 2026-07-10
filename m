@@ -1,99 +1,137 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 244E11A9FA8
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B6831F9B1
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783651635; cv=none; b=S5XZOsJmKn+5WwLnGIWlJDAuLHwW1vLGF2v8Ufmw+1Hr04zF+wWj0rbPYrVBA9pNMnz0rrLfJWv2K9SL4JDvjXpC1bgMjXbfvWW4SfjkA6nEd/Ozds9Gl9Kb0GT/nzQ3jcj4D/XLrqRFeC6miiA9N0ZeOe/ZmrcqrzMbEk4/pt8=
+	t=1783651708; cv=none; b=bA/8GM2l5DyEak037xgyfw3FXeMr+KA8l0DdsEfI0gE2j3xFvw+5sOVktdQ3u6c7iFR6WIIeznEN5+tfcZzcpf2CtvRIVAv84Lj3gn3krZjhWvGrpqbkG5Vijwn9iMsB3SFuZSK78HWuMWHsdZlhDxU+QQpotFW1/FHtfm/BoOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783651635; c=relaxed/simple;
-	bh=uanaD7B3NUzHDv3dq2Wp3tkr5OnXVMbjagRrR4w2s5g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=VUesHGut9VGDcNPH3s23t/YFY7lX6ZAGyFoqek4loD2n0mUwz1z9GwaG2+wiUWIJ9Chuho30Bo0z5dCf4yP9zuGliwSgZrm58R+rEcg+whjY/ftgKwC1hyGv6MdPQpBlywwh9ovBluUML0z/ve1K5kIqnGIosiu7pnLZo001rps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Fri, 10 Jul 2026 10:46:57 +0800 (GMT+08:00)
-Date: Fri, 10 Jul 2026 10:46:57 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: sashiko-reviews@lists.linux.dev, andrew@lunn.ch
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
-	"Min Lin" <linmin@eswincomputing.com>
-Subject: Re: Re: [PATCH net-next v10 1/4] dt-bindings: ethernet: eswin:
- relax internal delay model to range-based constraints
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260708064323.73A661F00A3A@smtp.kernel.org>
-References: <20260707064033.1265-1-lizhi2@eswincomputing.com>
- <20260707064131.1282-1-lizhi2@eswincomputing.com>
- <20260708064323.73A661F00A3A@smtp.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1783651708; c=relaxed/simple;
+	bh=j+Hv+OZ8Yjh5aIJIDGCGd3Q2p0Gwj1L8pyJ9mRofDg0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O5B2+6b/5y5tde+1JnQif7D+HFpA8pXNwDoif0dPX4W0tiYW1SA0Geyi61xo3wpwyYbViSWRuxTSh4+lJv+oPO0dI8wUgYaVdHgeei1dgKaxI6RQv8ALIbBRd+UthwzknegkqkEjNAohhuE3DIsspQ6GNIHnOuo1zwa+M26KOYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m84tAcAp; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m84tAcAp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135A51F000E9;
+	Fri, 10 Jul 2026 02:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783651705;
+	bh=AFjXCR730VyGPuHj/phLYKFWXPDWPpw5RWAcLeJdUFU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=m84tAcApxnC2ajal9Luf4MHjOZ9ZJMqEiwENe6PZQNS0F78aHHBGrQsaT8eWIba9v
+	 BCW88LGkYL12CgKud+quUTIVSc8VULawfiEBscpbpLiF2Ce1ZRJbSRgS7VxZCc6Mx5
+	 m8MunnUqXvIz1GpVKquHhKit+Y6qo8+uUoaa164Mza9PKx6VEWcrXZy5QlLIvevxAO
+	 ipNEGyIPsr28MqwZGfYUQw3MOgTji47NNmThkgldfUBMRKlhLWZ/dl9xql+sY9pu7d
+	 HXIzuJ4hLmXbb7STmO9Q+sPYZGw4nhBOCklFOzAkXcGRHUP3gpXMjJaa6oVZ8I/OTI
+	 gdz1mUKvhxM4g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/5] dt-bindings: arm: coresight-tnoc: Bind on
+ platform bus instead of AMBA
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260710-fix-tracenoc-probe-issue-v6-1-41eb36fef8d9@oss.qualcomm.com>
+References: <20260710-fix-tracenoc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com>
+ <20260710-fix-tracenoc-probe-issue-v6-1-41eb36fef8d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 02:48:23 +0000
+Message-Id: <20260710024824.135A51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <747f8c43.a62e.19f49ebca5e.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TAJkCgDHW3AhXVBqS+oyAA--.9842W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEEDGpPzZoJEQABsg
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiBzYXNoaWtvLWJvdEBrZXJu
-ZWwub3JnCj4gU2VuZCB0aW1lOldlZG5lc2RheSwgMDgvMDcvMjAyNiAxNDo0MzoyMgo+IFRvOiBs
-aXpoaTJAZXN3aW5jb21wdXRpbmcuY29tCj4gQ2M6IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3Jn
-LCByb2JoQGtlcm5lbC5vcmcsIGNvbm9yK2R0QGtlcm5lbC5vcmcKPiBTdWJqZWN0OiBSZTogW1BB
-VENIIG5ldC1uZXh0IHYxMCAxLzRdIGR0LWJpbmRpbmdzOiBldGhlcm5ldDogZXN3aW46IHJlbGF4
-IGludGVybmFsIGRlbGF5IG1vZGVsIHRvIHJhbmdlLWJhc2VkIGNvbnN0cmFpbnRzCj4gCj4gVGhh
-bmsgeW91IGZvciB5b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQgMSBw
-b3RlbnRpYWwgaXNzdWUocykgdG8gY29uc2lkZXI6Cj4gLSBbSGlnaF0gRFQgQmluZGluZyBhbmQg
-RHJpdmVyIG1pc21hdGNoOiByZWxheGVkIGRlbGF5IHByb3BlcnRpZXMgY2F1c2UgcHJvYmUgZmFp
-bHVyZS4KPiAtLQo+IAo+IC0tLSBQYXRjaCBbMV06IFtQQVRDSCBuZXQtbmV4dCB2MTAgMS80XSBk
-dC1iaW5kaW5nczogZXRoZXJuZXQ6IGVzd2luOiByZWxheCBpbnRlcm5hbCBkZWxheSBtb2RlbCB0
-byByYW5nZS1iYXNlZCBjb25zdHJhaW50cyAtLS0KPiBjb21taXQgM2RjZWFmOTMxOTE1YzI0ODg3
-ZTExZTAwYzBkODVjYjQ1Y2VmNGQzOQo+IEF1dGhvcjogWmhpIExpIDxsaXpoaTJAZXN3aW5jb21w
-dXRpbmcuY29tPgo+IAo+IGR0LWJpbmRpbmdzOiBldGhlcm5ldDogZXN3aW46IHJlbGF4IGludGVy
-bmFsIGRlbGF5IG1vZGVsIHRvIHJhbmdlLWJhc2VkIGNvbnN0cmFpbnRzCj4gCj4gVGhpcyBjb21t
-aXQgcmVsYXhlcyBpbnRlcm5hbCBkZWxheSBjb25zdHJhaW50cyBmb3IgdGhlIEVJQzc3MDAgRXRo
-ZXJuZXQKPiBiaW5kaW5nLCByZXBsYWNpbmcgZml4ZWQgZW51bWVyYXRpb25zIHdpdGggcmFuZ2Ut
-YmFzZWQgZGVmaW5pdGlvbnMuIEl0IGFsc28KPiBtYWtlcyB0aGUgcngtaW50ZXJuYWwtZGVsYXkt
-cHMgYW5kIHR4LWludGVybmFsLWRlbGF5LXBzIHByb3BlcnRpZXMgb3B0aW9uYWwuCj4gCj4gPiBk
-aWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9lc3dpbixl
-aWM3NzAwLWV0aC55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9l
-c3dpbixlaWM3NzAwLWV0aC55YW1sCj4gPiBpbmRleCA2NTg4MmZmNzlkOGQ3Li40ZTAyZmVkYWU1
-YzY3IDEwMDY0NAo+ID4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25l
-dC9lc3dpbixlaWM3NzAwLWV0aC55YW1sCj4gPiArKysgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvbmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwKPiBbIC4uLiBdCj4gPiBAQCAt
-MTA1LDggKzEwOSw2IEBAIHJlcXVpcmVkOgo+ID4gICAgLSBwaHktbW9kZQo+ID4gICAgLSByZXNl
-dHMKPiA+ICAgIC0gcmVzZXQtbmFtZXMKPiA+IC0gIC0gcngtaW50ZXJuYWwtZGVsYXktcHMKPiA+
-IC0gIC0gdHgtaW50ZXJuYWwtZGVsYXktcHMKPiAKPiBbU2V2ZXJpdHk6IEhpZ2hdCj4gV2l0aCB0
-aGlzIGNoYW5nZSwgdGhlIERUIHNjaGVtYSBtYWtlcyB0aGVzZSBwcm9wZXJ0aWVzIG9wdGlvbmFs
-LiBIb3dldmVyLCBkb2VzCj4gdGhlIGVpYzc3MDAtcW9zLWV0aCBkcml2ZXIgc3RpbGwgcmVxdWly
-ZSB0aGVtPwo+IAo+IExvb2tpbmcgYXQgZWljNzcwMF9kd21hY19wcm9iZSgpLCBpdCBhcHBlYXJz
-IHRvIHJldHVybiBhbiBlcnJvciBpZiB0aGVzZQo+IHByb3BlcnRpZXMgYXJlIG1pc3Npbmc6Cj4g
-Cj4gZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5jOmVp
-Yzc3MDBfZHdtYWNfcHJvYmUoKSB7Cj4gICAgIC4uLgo+IAl9IGVsc2Ugewo+IAkJcmV0dXJuIGRl
-dl9lcnJfcHJvYmUoJnBkZXYtPmRldiwgLUVJTlZBTCwKPiAJCQkibWlzc2luZyByZXF1aXJlZCBw
-cm9wZXJ0eSByeC1pbnRlcm5hbC1kZWxheS1wc1xuIik7Cj4gCX0KPiAgICAgLi4uCj4gCX0gZWxz
-ZSB7Cj4gCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCAtRUlOVkFMLAo+IAkJCSJt
-aXNzaW5nIHJlcXVpcmVkIHByb3BlcnR5IHR4LWludGVybmFsLWRlbGF5LXBzXG4iKTsKPiAJfQo+
-ICAgICAuLi4KPiB9Cj4gCj4gV2lsbCB0aGlzIGNhdXNlIHRoZSBwcm9iZSB0byBmYWlsIGlmIGEg
-ZGV2aWNlIHRyZWUgb21pdHMgdGhlc2UgcHJvcGVydGllcywKPiBhcyBwZXJtaXR0ZWQgYnkgdGhl
-IHVwZGF0ZWQgc2NoZW1hPwo+IAoKSGkgU2FzaGlrbywKClRoYW5rcyBmb3IgdGhlIHJldmlldy4K
-ClRoZXNlIGNvbW1lbnRzIGFyZSBhbGwgZmFsc2UgcG9zaXRpdmVzIGR1ZSB0byBwZXJmb3JtaW5n
-IHRoZSByZWdyZXNzaW9uCmFuYWx5c2lzIG9mIG9uZSBwYXRjaCBhdCBvbmNlIGJ5IEFJLgpUaGVz
-ZSBmb3VyIHBhdGNoZXMgYXJlIHNlcXVlbnRpYWwgbW9kaWZpY2F0aW9ucyBtYWRlIGZvciB0aGUg
-cHVycG9zZSBvZgpmYWNpbGl0YXRpbmcgcmV2aWV3LgoKUGxlYXNlIHBlcmZvcm0gZGVlcCByZWdy
-ZXNzaW9uIGFuYXlseXNpcyBvZiB0aGlzIHNlcmllcyBhZnRlciBhcHBseWluZyBhbGwgdGhlIHBh
-dGNoZXMuCgpBbmRyZXcsIGRvIHlvdSBoYXZlIGFueSBjb21tZW50cyBvbiB0aGlzIFYxMCBwYXRj
-aCBzZXJpZXM/CgpUaGFua3MsClpoaSBMaQoKPiA+ICAgIC0gZXN3aW4saHNwLXNwLWNzcgo+ID4g
-IAo+ID4gIHVuZXZhbHVhdGVkUHJvcGVydGllczogZmFsc2UKPiAKPiAtLSAKPiBTYXNoaWtvIEFJ
-IHJldmlldyDCtyBodHRwczovL3Nhc2hpa28uZGV2LyMvcGF0Y2hzZXQvMjAyNjA3MDcwNjQwMzMu
-MTI2NS0xLWxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20/cGFydD0xCg==
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The kernel has no platform driver configured to match the `qcom,co=
+resight-tnoc` compatible string, leaving the device unbound on the platform=
+ bus.
+- [Low] Restricting the 'compatible' property to a single string abruptly b=
+reaks schema validation for existing in-tree device trees that use the dual=
+-string AMBA format.
+--
+
+--- Patch [1]: [PATCH v6 1/5] dt-bindings: arm: coresight-tnoc: Bind on pla=
+tform bus instead of AMBA ---
+commit 53696bf96bfa353e6c866bb916cba6363324a355
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
+
+dt-bindings: arm: coresight-tnoc: Bind on platform bus instead of AMBA
+
+The Aggregator TraceNoC hardware exposes CID registers, but the Component
+ID value returned by the hardware is 0x00000000 instead of a valid AMBA
+Component ID. As a result, the device cannot be identified on the AMBA
+bus.
+
+> Describe the Aggregator TraceNoC with a dedicated single
+> "qcom,coresight-tnoc" compatible instead of the two-string AMBA form
+> "qcom,coresight-tnoc", "arm,primecell". This creates the device on the
+> platform bus so it is bound by the platform driver through its compatible
+> string rather than as an AMBA device.
+
+[Severity: High]
+Does the platform driver have the correct compatible string to match this?
+
+Looking at itnoc_of_match in drivers/hwtracing/coresight/coresight-tnoc.c:
+
+static const struct of_device_id itnoc_of_match[] =3D {
+	{ .compatible =3D "qcom,coresight-itnoc" },
+	{}
+};
+
+Since "qcom,coresight-tnoc" is not in this match table, will the device
+silently fail to probe at runtime on the platform bus?
+
+> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.ya=
+ml b/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.yaml
+> index ef648a15b8065..72fb1210e22e0 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.yaml
+
+[ ... ]
+
+> @@ -22,24 +22,12 @@ description: >
+> =20
+>    Note this binding is specifically intended for Aggregator TNOC instanc=
+es.
+> =20
+> -# Need a custom select here or 'arm,primecell' will match on lots of nod=
+es
+> -select:
+> -  properties:
+> -    compatible:
+> -      contains:
+> -        enum:
+> -          - qcom,coresight-tnoc
+> -  required:
+> -    - compatible
+> -
+>  properties:
+>    $nodename:
+>      pattern: "^tn(@[0-9a-f]+)$"
+> =20
+>    compatible:
+> -    items:
+> -      - const: qcom,coresight-tnoc
+> -      - const: arm,primecell
+> +    const: qcom,coresight-tnoc
+
+[Severity: Low]
+Will this break schema validation for existing device trees?
+
+Existing files like arch/arm64/boot/dts/qcom/sm8750.dtsi still use the dual
+string format:
+
+		tn@109ab000 {
+			compatible =3D "qcom,coresight-tnoc", "arm,primecell";
+
+Running make dtbs_check might produce validation errors until those device
+trees are updated to match this new strict constraint.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-fix-tracen=
+oc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com?part=3D1
