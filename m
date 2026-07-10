@@ -1,103 +1,90 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9D8421A13;
-	Fri, 10 Jul 2026 11:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E9141C2F2
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783683930; cv=none; b=RVZg+aPCXiQVAESXmqBmqbRJvl+tShCnlD3YJRGPJNW8pq9n6PjWbYyG82nXQlNoWnuJUp7LooaW7qOZ/9oHYmH4dn1kq3bXR8U1tB049JJvVz9NxbI/gfoJsYPiX6MQ43gn5I52efh7v3ZyehgaDwqX15fF7hojmcGKhJkIpt8=
+	t=1783683949; cv=none; b=MV/4nKlahHN460JcYrI3dtZ7KFwapCFaT2cPHazAKXgR0l8sJymmt/Z/z7hqHKJaDuW2gBtvaoqAZDQJbJCombQXtUEo1cMq6LXOQi6LQMyS2Y3HxWiVVYeMxO7zgCX5zJBxhelm+waZHASdpXsdEcZ+s3v/Vqzn13vk0nq5kZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783683930; c=relaxed/simple;
-	bh=u5nphNG168GZ/VoM3JlEPFsfbmOIChAwWaJlqtZYhRU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hVXEJra9sYuDd4oW1Zz+zynJ59vSI9JbInyixL1o0y3iQ/R/SShbCTBFQp26YF6b3lTIiJEX5jufZvfgMo7QbvPdmvhRQxqI8VOyoDozqfTICJ70yAVXBJ/ak976kuUUeR/tav54kIge+tYjLJHC+kXOpDbWN0VF9C0B83xJatY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QYTxTAwl; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QYTxTAwl"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id BA1C21A0F3A;
-	Fri, 10 Jul 2026 11:45:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 828E560342;
-	Fri, 10 Jul 2026 11:45:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0B21111BD0281;
-	Fri, 10 Jul 2026 13:44:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783683909; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lNEfnd2GOwK6OV6o3n233rtSH9H6bRRqMfAyW9Ht5sQ=;
-	b=QYTxTAwl8ZZXjQUPTzcKeqjX0JGuQk0ZxPy1WBaHghwxQ14Zbow3vbxZLkweXwy9an4Rrs
-	iF83k5c+2MPNBs52qoP9HCDa10QpUnqxWF+90v+GHdaaFRIU8sH+BsNMsRcfJIPqNhQoj5
-	/JyDADaosgmQ3YFMvJa/694nNHppGxSrixD96m1Z9qWZ3LfzvDacOcUJfbQ3NT4Yzvy90v
-	Gj3FoBW+DOqcbX/E2tByHZxsmKxfTeDAezvKuaFuFlmdgV4016fhRh1xRKFcbAIEEL9mdG
-	Nchh02+7vjL7SK9qqTVdwab/4W5DIfcjRyILYca8ShWQjF4smF+DWQoc438ZRg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney@redhat.com>,  Michael Turquette
- <mturquette@baylibre.com>,  Rob Herring <robh@kernel.org>,  Krzysztof
- Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
-  Thomas Gleixner <tglx@kernel.org>,  Olivia Mackall <olivia@selenic.com>,
-  Herbert Xu <herbert@gondor.apana.org.au>,  Jayesh Choudhary
- <j-choudhary@ti.com>,  David S. Miller <davem@davemloft.net>,  Christian
- Marangi <ansuelsmth@gmail.com>,  Antoine Tenart <atenart@kernel.org>,
-  Geert Uytterhoeven <geert+renesas@glider.be>,  Magnus Damm
- <magnus.damm@gmail.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-  Pascal EBERHARD <pascal.eberhard@se.com>,  Wolfram Sang
- <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org,  Herve
- Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH 10/16] clk: Add support for clock nexus dt bindings
-In-Reply-To: <177595635458.5403.1619739189587608339@lazor> (Stephen Boyd's
-	message of "Sat, 11 Apr 2026 18:12:34 -0700")
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-	<20260327-schneider-v7-0-rc1-crypto-v1-10-5e6ff7853994@bootlin.com>
-	<acqT3Dh03y3JiLLc@redhat.com> <87y0j76p8o.fsf@bootlin.com>
-	<177595635458.5403.1619739189587608339@lazor>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Fri, 10 Jul 2026 13:44:53 +0200
-Message-ID: <87jyr3gjbe.fsf@bootlin.com>
+	s=arc-20240116; t=1783683949; c=relaxed/simple;
+	bh=EekNeqjV4N0gGnWuwGaCvsr4HCbdqEM0Tp8JVDwVAfk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cozxFruGWMGg0wC/Nuiu+AyueckIIJbf7O3KbhpXCnXv2jBllmlas8LYHKRhsVko9vLYIk32DuhF+74VHtT6fFm4sIZVR+uNofA7AMI3H3EXjggqrNU0xIFbUmRkIHceMXlRK0ETKJu+efOTb6bqThlFmAjLry7+RLFAGvMirqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9691bfc9f81so472407241.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:45:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783683933; x=1784288733;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fwdk8OQjfZ4g1oKCi9DzVNLxPRzraPZCDq7l76gWtBY=;
+        b=DVyKQgth7s1PEPVPnkphloC6r1u/OITroCgMu1eaPAjsOk9z3rI/JXHPVj0/Gk+Nty
+         jrbTIollumATVEwltlDpLBF9Yii5Hf5LY/CENnpwCr/QUa9oF3bQfmVKgAF4El0b6M5d
+         nx2tNY/vQvHwjrtQ4lEPi1p3b1RkunRDIWPo+96UqWDH7Q0KTJ/jTST66Y+qd8TNeuHE
+         pSkezE/zDKz/hEMoWXts6vg4cfgGp5tCwO9tf6gbfrwyz8P6Cn0/hMuHSrmPjtVSGMuT
+         a9Cei+DbUF5p4ONSf1cKw1uoy7fgQcfqkMXKgO7LJy3JFSigh/p1lwHFaOaeqOXEXLnu
+         U/6A==
+X-Forwarded-Encrypted: i=1; AHgh+RqEO3kMaytk7LrFtNOEyTuejM29vXaeqDZREZEy1+sL4Wh08Nu69a1BY/i+EmeUv8rYyS3PCElXR2nM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFv+l45cMfU0nvjr7FO6MnqNipaFJ+G1R5dS5/iKsMdXPhUOas
+	Uv086Bvul3a8zUvGMJ+0it7WXJa1AxdrjXHtxv+jKc/1vOJf1qv61UsYW188U4t66Bc=
+X-Gm-Gg: AfdE7cmplEcYutrl+bnvfdwCmYLpC3YF9V3y5/NxXNjt08M7gTCZme7BWGyGg6/gcWh
+	RZ6sUQ9YluqzQ6IBW5ICxK6Kn4SE5ptbL1elO4foEuwiXQgiCgPRogyjtxLHTINhePbXKdx6iBU
+	/FXJir1KFAASQWonGxZH5XL9IZh6EdwESwVWSsL6DCVMLb0ZPDAv6cITQIJP2PIxqOrTw4rF5Pc
+	fvmPenwf2ggYupVE7kTPL8V+LCS2VJary4909yY3DrLtS6dKPB6OrBdrzQUYQcKAFbk7JcD3SVR
+	8Bw+C8R0Qz6LtuxdT+ArtFH4r1oFMzrH/sU5Ixfxt6iAaD242bcDYQ+xFeboCmAVTFw2vuXfjKh
+	76AK2oxsV3o0a3lk2roCcApZW698uzlKmZhx5YhnEsRnTLU2ouYx+b8N5uJ5FYq373p2HD3bHOj
+	euKY+HVOhHzRd3Za+yQFW+vPAGXugB3Gj95G8r47wEhEcTqCreSQ==
+X-Received: by 2002:a05:6102:2910:b0:737:bfe6:3b03 with SMTP id ada2fe7eead31-744dfe620bamr6946487137.7.1783683932893;
+        Fri, 10 Jul 2026 04:45:32 -0700 (PDT)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-744d6deb1aasm5177101137.7.2026.07.10.04.45.32
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 04:45:32 -0700 (PDT)
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-73b7c3791dbso409079137.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:45:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq9AvW/8zzN+rbxKMgwHnVD62Ansg8xV+cvyP4Pw2sEO/wEuqCsQJ5OJaZ243Q0kVvgYhtDFMJWCnTY@vger.kernel.org
+X-Received: by 2002:a05:6102:598c:b0:726:8813:2078 with SMTP id
+ ada2fe7eead31-744dfebf3c1mr6762275137.11.1783683931945; Fri, 10 Jul 2026
+ 04:45:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260710113029.436415-2-manuelebner@mailbox.org>
+In-Reply-To: <20260710113029.436415-2-manuelebner@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 10 Jul 2026 13:45:20 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVN124Dnj3i70BpKaAAWCF4t1Anx2mBHXqXYXKWj2feiQ@mail.gmail.com>
+X-Gm-Features: AUfX_myuyPuTjg5DZyr9KKKOqV5l0_ncCR0jCoB2bLPghzOOyFOUVx8su2-pqUY
+Message-ID: <CAMuHMdVN124Dnj3i70BpKaAAWCF4t1Anx2mBHXqXYXKWj2feiQ@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: memory-controllers: renesas,dbsc: fix bracket
+To: Manuel Ebner <manuelebner@mailbox.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
-
->> > Before I left my Reviewed-by, I should have double checked Sashiko. It
->> > has several questions about this patch. The first is:
->> >
->> >     Are there other places in the clock framework that need to transit=
-ion to the
->> >     new map API to ensure assigned clocks work?
->> >=20=20=20=20=20
->> >     For instance, assigned-clocks and assigned-clock-parents are parse=
-d in
->> >     drivers/clk/clk-conf.c using of_parse_phandle_with_args(). If a de=
-vice
->> >     specifies an assigned clock that routes through a nexus node, will=
- it fail
->> >     to configure because the map is not traversed?
->>=20
->> The goal of the nexus node is to isolate what is behind. Are
->> assigned-clocks et al. supposed to traverse a nexus node? I am tempted
->> to say "no", but I'm open to discussing this ofc.
+On Fri, 10 Jul 2026 at 13:31, Manuel Ebner <manuelebner@mailbox.org> wrote:
+> Remove needless ')'.
 >
-> Why would assigned-clocks not traverse the nexus node? If I'm a DT
-> author I would think any clock specifier should be routed properly
-> through the nexus node.
+> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
 
-Ok, giving this another thought, it may indeed be relevant to apply a
-default frequency which needs to traverse the nexus to be active. I've
-done the same change in the clk-conf.c file and tested with a dummy
-example, it just works.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Thanks,
-Miqu=C3=A8l
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
