@@ -1,362 +1,237 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB61337AA99
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:20:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA11537AA99
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783675203; cv=none; b=Pvehk7V4gTu1U3zokdIEowRV0NViWltZo1sCoGhhXPi1lS6NfZNUSgtUNAqFUBkIyCoviuOR0bMymH5iuofPwEfz/rw2CwaezEef6UK0s2BiZlTow7RS61oscSwf75HYk/j8p+aS2qohnbVO0Y++ybVM/1+k+jXaLLOQFJ7ZTKk=
+	t=1783675309; cv=none; b=HXA6MBzPMtSLUpoOB2lrEG800g8MKj3jFPqiNV7IdpbEtghF0l1Ig+8pzg1zU+NQkAcwkUgjUKdCCOijfYuDE4c/pDvDDEgrzf1cikoM5/jnK5eaDD1z6EKJt/7hat1dgitalSABCCMcc/0IZlCB6ceiqr0b2FxXBJ8UhpW3Ppg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783675203; c=relaxed/simple;
-	bh=DboHiimy+fIyGhJ4Tqt6sUu6u50/QleTL8jeVHS4BBk=;
+	s=arc-20240116; t=1783675309; c=relaxed/simple;
+	bh=fyEWnGDAEa/HgG20jLg5jLlb6GIfg2Aa/vXS3MRTTxs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MXQfQv/oWqa2XElUEggPYg47pm7tN3Dwn8qWhE4ohmtJ7yU0qaCpI7PLUQKkUkVJLAQv9VTjHFW0tsxErv1MBYLeFxP1zL7kURIQRSw2lPtpame+vAMi0ZXJLF6AyRhczyj/+UU71h6EPtO1/Gd1WK0eJ2ryXasetdodsfTpNtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3XHA0KI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EZfqxjS8XoflyWUOnCwz0AKo/3ZctmDysnMM1afzFwWYBtVK1w5Tp6eD4O5apNtoxHnTt8l1Vkwe3g/WbXy+QQJvEwRq9SKrCLvUPby48Pgo59Woub33IdVUZ1goQCXFnBLpsb6ICLpEHPD8v9VrIGfwatzez1eglBfSEE+HWa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SoY1/+R9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3XHA0KI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EDB61F000E9;
-	Fri, 10 Jul 2026 09:20:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SoY1/+R9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CCE21F000E9;
+	Fri, 10 Jul 2026 09:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783675201;
-	bh=Ya6OU+hKpKU8ohmRDR9xrRsYcFj8J27jOWYwPudjSMY=;
+	s=k20260515; t=1783675307;
+	bh=MiMyDM8D8czwbte1kJuOVImGuOipqsJQKsUKKDhadDo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P3XHA0KIUgyxfKkcUIMbLvWbwkwdxrXXJRE/vf/JN7Zj4ASVZ3Cj/DaW2Z5x1bY0w
-	 4+n32LjPNf/p5yx4cDAGp0Pp90ODp2HQCe01CND2QYvBf7UYazFSGnozh8v/5M/Roh
-	 1lMf3kqyym7mV5ydljyDu0Uo3nua1m8d5I1+XM78UEtEfXzHv0s7Edx49tqZQ3e2tS
-	 XwWAd4kyMWG1WkgNTSKHjQTN0rHE2kPiwbyBENEmpyjJ76qBF8NCDV2vM1M69gdG8Q
-	 NZobwrpEu3Je5plysBCUG6ZKgfHtmtsf+br86+3tM+kTR3bWxXlIvKx2a8V5ogdm4o
-	 7KJF0ThNCk/Aw==
+	b=SoY1/+R9ZM54AZkyN9NnTaAHLYnvxxqQe986V/YdMwt0yKeg5HpByWZ8om1SaEeGV
+	 CwDpXOD0cFBM5ixoN1hICvWkEtcdn30UeU8oI2TPDJIGVFKxJ/cPz352ZCkDkC4dzi
+	 jzmbRBdZbz71TWcGTL9p2PkvhVwkXVNyLGAszuHfV3KqVU7Bx5xuU87WLb4kfMqIac
+	 D5JwHGEA0P2zLO2ndvnlb6CViKyHdtka0exhiPrwIPU+JlTNsqfGx1+QOCcgcr9dE8
+	 WzcYIzYra1We+NsME6oZ0CrC0tT98IcSzCNyanhqHRwiFlY/HwguoAO/f+N+y0YIKe
+	 PVUSNibG9+ywQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/7] media: qcom: camss: Add camss-pipeline helper
+Subject: Re: [PATCH v4 5/7] media: uapi: Add CAMSS ISP configuration
+ definition
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260710-camss-isp-ope-v4-1-51207a0319d8@oss.qualcomm.com>
+In-Reply-To: <20260710-camss-isp-ope-v4-5-51207a0319d8@oss.qualcomm.com>
 References: <20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com>
- <20260710-camss-isp-ope-v4-1-51207a0319d8@oss.qualcomm.com>
+ <20260710-camss-isp-ope-v4-5-51207a0319d8@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 09:20:00 +0000
-Message-Id: <20260710092001.1EDB61F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 09:21:46 +0000
+Message-Id: <20260710092147.4CCE21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Synchronous freeing of pipeline structure causes use-after-free fo=
-r embedded V4L2 objects.
-- [High] Missing file operations (`vdev.fops` =3D NULL) causes an immediate=
- NULL pointer dereference on device registration.
-- [High] Video devices are exposed to userspace before their internal state=
- and media controller links are fully initialized.
-- [High] Inverted subdevice cleanup order in teardown exposes freed state t=
-o concurrent userspace ioctls.
-- [High] Providing NULL subdev operations triggers a kernel BUG_ON, directl=
-y violating the API contract.
-- [High] If base entity registration fails, the error teardown path mistake=
-nly unregisters it, causing a crash.
-- [Medium] `v4l2_subdev_init_finalize()` is called after `v4l2_device_regis=
-ter_subdev()`, exposing uninitialized state.
-- [Medium] Missing validation for `desc->name` causes a crash if NULL, or a=
- silent resource leak if empty.
-- [Medium] Link validation silently allows misconfigured one-sided links to=
- be dropped.
+- [High] The use of a `_MAX` enumerator and fixed maximum payload size macr=
+o breaks forward compatibility in an extensible UAPI.
+- [High] The CAMSS driver validates and parses the V4L2 ISP parameter buffe=
+r directly from shared user memory without copying it to kernel space first=
+, creating a severe Time-of-Check to Time-of-Use (TOCTOU) vulnerability.
+- [Medium] Hardware configuration parameters explicitly documented as signe=
+d values are defined with unsigned data types.
+- [Medium] The Q-format ranges documented for `camss_params_color_correct` =
+mathematically contradict the declared 12-bit signed data type, misleading =
+userspace developers.
+- [Low] Spelling errors in the UAPI header documentation.
 --
 
---- Patch [1]: [PATCH v4 1/7] media: qcom: camss: Add camss-pipeline helper=
- ---
-commit 1a345e2180f40422d57cb436157b91e6ed4a268d
+--- Patch [5]: [PATCH v4 5/7] media: uapi: Add CAMSS ISP configuration defi=
+nition ---
+commit 3a76aaf5e8a665b80168c10573fd48e3e63313fc
 Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-media: qcom: camss: Add camss-pipeline helper
+media: uapi: Add CAMSS ISP configuration definition
 
-Add a declarative MC topology builder for CAMSS offline ISP drivers.
-Drivers describe their entire media graph, entities (video devices,
-subdevs, or base entities), their pads, and the links between them
-in a static descriptor table. The builder validates the table,
-allocates and registers all entities, and creates all MC pad links.
+Add the uapi header camss-config.h defining the ISP parameter structures
+used by the CAMSS Offline Processing Engine (OPE) driver. This includes
+structures for white balance, chroma enhancement and color correction
+configuration.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-pipeline.h b/drivers=
-/media/platform/qcom/camss/camss-pipeline.h
+> diff --git a/include/uapi/linux/camss-config.h b/include/uapi/linux/camss=
+-config.h
+> new file mode 100644
 > --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-pipeline.h
-
+> +++ b/include/uapi/linux/camss-config.h
+> @@ -0,0 +1,161 @@
 [ ... ]
-
-> +struct camss_isp_entity_desc {
-> +	const char				*name;
-> +	u32					obj_type;
-> +	u32					function;
-> +	const struct camss_isp_pad_desc		*pads;
-> +
-> +	union {
-> +		/* MEDIA_ENTITY_TYPE_VIDEO_DEVICE */
-> +		struct {
-> +			u32					caps;
-> +			void					*drvdata;
-> +			const struct v4l2_file_operations	*fops;
-
-[Severity: High]
-The documentation for this struct mentions that fops can be NULL to use
-kernel defaults, but won't that cause a crash during registration?
-
-If fops is NULL, video_register_device() will directly dereference it to
-grab the module owner.
-
-> +			const struct v4l2_ioctl_ops		*ioctl_ops;
-> +			const struct media_entity_operations	*entity_ops;
-> +		} vdev;
-> +		/* MEDIA_ENTITY_TYPE_V4L2_SUBDEV */
-> +		struct {
-> +			const struct v4l2_subdev_ops		*ops;
-
-[Severity: High]
-Similarly, the documentation says ops can be NULL, but won't that trigger a
-BUG_ON?
-
-If ops is NULL, v4l2_subdev_init() will immediately hit BUG_ON(!ops).
-Should these fields be made mandatory in the documentation?
-
-> +			const struct v4l2_subdev_internal_ops	*internal_ops;
-> +			const struct media_entity_operations	*entity_ops;
-> +		} subdev;
-> +	};
+> +enum camss_params_block_type {
+> +	CAMSS_PARAMS_WB_GAIN =3D 1,
+> +	CAMSS_PARAMS_CHROMA_ENHAN =3D 2,
+> +	CAMSS_PARAMS_COLOR_CORRECT =3D 3,
+> +	CAMSS_PARAMS_MAX,
 > +};
 
-[ ... ]
+[Severity: High]
+Does including CAMSS_PARAMS_MAX break forward compatibility?
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-pipeline.c b/drivers=
-/media/platform/qcom/camss/camss-pipeline.c
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-pipeline.c
-
-[ ... ]
-
-> +static int isp_pipeline_validate(struct device *dev,
-> +				 const struct camss_isp_entity_desc *descs,
-> +				 unsigned int num_entities)
-> +{
-> +	unsigned int i, pi;
-> +
-> +	for (i =3D 0; i < num_entities; i++) {
-> +		const struct camss_isp_pad_desc *pads =3D descs[i].pads;
-> +		unsigned int num_pads =3D isp_count_pads(pads);
-> +
-> +		for (pi =3D 0; pi < num_pads; pi++) {
-> +			const struct camss_isp_pad_desc *pad =3D &pads[pi];
-> +			const struct camss_isp_pad_desc *peer_pad;
+If new blocks are added to the extensible V4L2 generic ISP parameter framew=
+ork
+in the future, the max value will change. Applications compiled against old=
+er
+headers might miscalculate buffer sizes or array bounds, leading to ABI
+breakage. Standard Linux UAPI guidelines recommend omitting max values for
+extensible enumerations.
 
 [ ... ]
+> +/**
+> + * struct camss_params_wb_gain - White Balance gains
+> + *
+> + * Implements the CLC_WB pipeline module.  The pipeline applies three
+> + * sequential operations per channel:
+> + *   1. Subtract sub-offset (black-level substraction)
 
-> +			/* Verify back-reference consistency */
-> +			if (peer_pad->peer_entity >=3D 0 &&
-> +			    ((unsigned int)peer_pad->peer_entity !=3D i ||
-> +			     peer_pad->peer_pad !=3D pi)) {
-> +				dev_err(dev, "entity[%u].p%u <-> entity[%d].p%u: mismatch\n",
-> +					i, pi, peer_ent, pad->peer_pad);
-> +				return -EINVAL;
-> +			}
+[Severity: Low]
+Is there a typo here? Should substraction be subtraction?
+
+[ ... ]
+> + * RGB2Y - Luma (Y) ceofficients
+
+[Severity: Low]
+Is there a typo here? Should ceofficients be coefficients?
+
+> + * Y =3D v0 * R + v1 * G + v2 * B
+> + *
+> + * @luma_v0:  R-to-Y coefficient (12sQ8)
+> + * @luma_v1:  G-to-Y coefficient (12sQ8)
+> + * @luma_v2:  B-to-Y coefficient (12sQ8)
+> + * @luma_k:   Y output offset    (9s,  0 =3D no offset)
+> + *
+[ ... ]
+> +struct camss_params_chroma_enhan {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 luma_v0;
+> +	__u16 luma_v1;
+> +	__u16 luma_v2;
+> +	__u16 luma_k;
+> +	__u16 coeff_ap;
+> +	__u16 coeff_am;
+> +	__u16 coeff_bp;
+> +	__u16 coeff_bm;
+> +	__u16 coeff_cp;
+> +	__u16 coeff_cm;
+> +	__u16 coeff_dp;
+> +	__u16 coeff_dm;
 
 [Severity: Medium]
-Does this back-reference check silently accept invalid graph topologies?
+Since these chroma enhancement coefficients are documented as signed 12-bit
+fixed-point values (12sQ8), does defining them as unsigned __u16 force
+userspace developers to cast or perform manual bitwise sign-extension logic?
 
-If a SINK pad descriptor defines a peer_entity, but the targeted SOURCE pad
-defines no link (peer_entity =3D=3D -1), the peer_pad->peer_entity >=3D 0 c=
-heck
-evaluates to false, bypassing the mismatch validation.
-
-Since links are only created from the SOURCE side later in registration,
-will this silently drop the specified SINK link instead of warning the user?
-
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
+Could these be defined as __s16 to allow native compiler support for
+negative values?
 
 [ ... ]
-
-> +void camss_isp_pipeline_free(struct camss_isp_pipeline *pipeline)
-> +{
-> +	kfree(pipeline);
-> +}
-
-[Severity: High]
-Could freeing the pipeline structure synchronously here cause a use-after-f=
-ree
-for the embedded V4L2 objects?
-
-Because isp_register_vdev() sets video_device_release_empty as the release
-callback, the V4L2 core won't defer the memory release. If a userspace proc=
-ess
-holds an open file descriptor to the video node when this module is unbound,
-could it later access this freed memory?
-
-> +EXPORT_SYMBOL_GPL(camss_isp_pipeline_free);
-> +
-> +/* -------- Registration -------- */
-> +
-> +void camss_isp_pipeline_unregister(struct camss_isp_pipeline *pipeline)
-> +{
-> +	int i;
-> +
-> +	/* Unregister entities in reverse order */
-> +	for (i =3D (int)pipeline->num_entities - 1; i >=3D 0; i--) {
-> +		struct camss_isp_pipeline_entity *slot =3D &pipeline->entities[i];
-> +
-> +		switch (slot->obj_type) {
-> +		case MEDIA_ENTITY_TYPE_VIDEO_DEVICE:
-> +			if (slot->vdev.name[0])
-> +				video_unregister_device(&slot->vdev);
-> +			break;
-> +		case MEDIA_ENTITY_TYPE_V4L2_SUBDEV:
-> +			if (slot->subdev.name[0]) {
-> +				v4l2_subdev_cleanup(&slot->subdev);
-> +				v4l2_device_unregister_subdev(&slot->subdev);
-
-[Severity: High]
-Could this cleanup order expose freed state to concurrent userspace ioctls?
-
-Calling v4l2_subdev_cleanup() frees internal state like sd->active_state.
-Because the devnode is not unregistered until v4l2_device_unregister_subdev=
-()
-runs on the next line, could a concurrent ioctl like VIDIOC_SUBDEV_G_FMT
-reach the subdev and access the freed state during driver teardown?
-
-> +			}
-> +			break;
-> +		case MEDIA_ENTITY_TYPE_BASE:
-> +			if (slot->entity.name) {
-> +				media_entity_remove_links(&slot->entity);
-> +				media_device_unregister_entity(&slot->entity);
-> +			}
-
-[Severity: High]
-Could this error handling path cause a NULL pointer dereference?
-
-If an entity fails to register, the err_unregister path calls
-camss_isp_pipeline_unregister(), which iterates over all slots and checks
-if (slot->entity.name) to determine if they need cleanup.
-
-Because isp_register_base_entity() assigns the name before the registration
-attempt:
-
-    isp_register_base_entity()
-        entity->name =3D desc->name;
-        ...
-        return media_device_register_entity(...);
-
-The unregister function will call media_device_unregister_entity() on an
-entity that failed registration. Will this dereference a zeroed list_head
-and cause an oops?
-
-> +			break;
-> +		}
-> +
-> +		kfree(slot->pads);
-> +		slot->pads =3D NULL;
-> +	}
-> +
-> +	pipeline->v4l2_dev =3D NULL;
-> +}
-> +EXPORT_SYMBOL_GPL(camss_isp_pipeline_unregister);
-> +
-> +static int isp_register_vdev(struct camss_isp_pipeline_entity *slot,
-> +			     const struct camss_isp_entity_desc *desc,
-> +			     struct v4l2_device *v4l2_dev)
-> +{
-> +	struct video_device *vdev =3D &slot->vdev;
-> +	int ret;
-> +
-> +	strscpy(vdev->name, desc->name, sizeof(vdev->name));
+> + * @a:       G-input coefficients per output channel (12s;
+> + *           a[0]=3DOut_G, a[1]=3DOut_B, a[2]=3DOut_R)
+> + * @b:       B-input coefficients (12s)
+> + * @c:       R-input coefficients (12s)
+> + * @k:       per-output-channel offsets (typically 9s effective)
+> + * @qfactor: Q-format selector (2u):
+> + *           0 =3D 12sQ7  (range ~-256.0 .. +255.992)
+> + *           1 =3D 12sQ8  (range ~-128.0 .. +127.996)
+> + *           2 =3D 12sQ9  (range ~-64.0  .. +63.998)
+> + *           3 =3D 12sQ10 (range ~-32.0  .. +31.999)
 
 [Severity: Medium]
-What happens if desc->name is NULL or an empty string?
+Are these documented Q-format ranges mathematically correct for a 12-bit
+signed integer?
 
-If desc->name is NULL, strscpy() will crash. If it is an empty string,
-vdev->name[0] will be '\0'. In camss_isp_pipeline_unregister(), the cleanup
-path checks if (slot->vdev.name[0]) before unregistering. Will an empty str=
-ing
-cause the teardown to silently skip the entity and leak the V4L2 structures?
+A 12-bit signed integer has a range of [-2048, 2047]. When divided by 128 f=
+or
+Q7, the actual hardware range would be [-16.0, 15.992] rather than
+[-256.0, 255.992], which appears to be calculated based on a 16-bit signed
+integer. Could userspace developers unknowingly supply out-of-bounds parame=
+ter
+values by trusting the UAPI documentation?
 
-> +	vdev->vfl_dir     =3D isp_caps_to_vfl_dir(desc->vdev.caps);
-> +	vdev->v4l2_dev    =3D v4l2_dev;
-> +	vdev->device_caps =3D desc->vdev.caps | V4L2_CAP_IO_MC;
-> +	vdev->release     =3D video_device_release_empty;
-> +	if (desc->vdev.fops)
-> +		vdev->fops =3D desc->vdev.fops;
-
-[ ... ]
-
-> +	ret =3D media_entity_pads_init(&vdev->entity, slot->num_pads, slot->pad=
-s);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D video_register_device(vdev, VFL_TYPE_VIDEO, -1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	video_set_drvdata(vdev, desc->vdev.drvdata);
-
-[Severity: High]
-Is there a race condition exposing this video device to userspace too early?
-
-video_register_device() makes the /dev/videoX node visible immediately.
-Could userspace open it and encounter uninitialized driver data before
-video_set_drvdata() runs?
-
-Additionally, could userspace interact with an incomplete topology before t=
-he
-media links are created later in camss_isp_pipeline_register()?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int isp_register_subdev(struct camss_isp_pipeline_entity *slot,
-> +			       const struct camss_isp_entity_desc *desc,
-> +			       struct v4l2_device *v4l2_dev)
-> +{
-> +	struct v4l2_subdev *sd =3D &slot->subdev;
-> +	int ret;
-> +
-> +	v4l2_subdev_init(sd, desc->subdev.ops);
-> +	strscpy(sd->name, desc->name, sizeof(sd->name));
-
-[ ... ]
-
-> +	ret =3D media_entity_pads_init(&sd->entity, slot->num_pads, slot->pads);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D v4l2_device_register_subdev(v4l2_dev, sd);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D v4l2_subdev_init_finalize(sd);
+> + */
+> +struct camss_params_color_correct {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 a[3];
+> +	__u16 b[3];
+> +	__u16 c[3];
+> +	__u16 k[3];
 
 [Severity: Medium]
-Is it safe to call v4l2_subdev_init_finalize() after the subdevice has
-already been registered?
-
-Since v4l2_device_register_subdev() makes the subdevice visible via the
-media controller, could concurrent in-kernel accesses or ioctls racing with
-the initialization dereference uninitialized state?
-
-> +	if (ret) {
-> +		v4l2_device_unregister_subdev(sd);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
+Similarly to the chroma enhancement parameters, these coefficients are
+documented as 12s but are defined as unsigned __u16 fields. Should these use
+a signed data type?
 
 [ ... ]
+> +#define CAMSS_PARAMS_MAX_PAYLOAD		\
+> +	(sizeof(struct camss_params_wb_gain)	+\
+> +	 sizeof(struct camss_params_chroma_enhan)	+\
+> +	 sizeof(struct camss_params_color_correct))
+
+[Severity: High]
+Does hardcoding CAMSS_PARAMS_MAX_PAYLOAD break forward compatibility?
+
+If new parameter blocks are added to the UAPI in future kernel releases, th=
+is
+fixed maximum size will become invalid and could cause applications compiled
+against older headers to miscalculate buffer sizes.
+
+[ ... ]
+
+While reviewing the configuration parameters, I also noticed a potential
+regression in how the blocks are validated in
+drivers/media/platform/qcom/camss/camss-params.c:
+
+drivers/media/platform/qcom/camss/camss-params.c:camss_isp_params_apply() {
+    ...
+	remaining =3D buf->data_size;
+
+	while (remaining >=3D sizeof(struct v4l2_isp_params_block_header)) {
+		const union camss_isp_params_block *block =3D
+			(const union camss_isp_params_block *)&buf->data[offset];
+		u16 type  =3D block->header.type;
+		u32 bsize =3D block->header.size;
+    ...
+		offset +=3D bsize;
+		remaining -=3D bsize;
+	}
+    ...
+}
+
+[Severity: High]
+Does reading bsize directly from the user-accessible memory mapping (buf->d=
+ata)
+introduce a Time-of-Check to Time-of-Use (TOCTOU) regression?
+
+If a malicious userspace thread modifies bsize to 0 concurrently with the
+kernel's parsing, could it cause an infinite loop and denial of service?
+Similarly, if bsize is changed to a large value, remaining could underflow,
+allowing offset to point arbitrarily far out-of-bounds during subsequent re=
+ads.
+
+Does the payload need to be copied to kernel-only memory before parsing to
+ensure safety?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-camss-isp-=
-ope-v4-0-51207a0319d8@oss.qualcomm.com?part=3D1
+ope-v4-0-51207a0319d8@oss.qualcomm.com?part=3D5
