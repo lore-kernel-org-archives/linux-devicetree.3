@@ -1,80 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736722AD3F;
-	Fri, 10 Jul 2026 00:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3228B6FC3;
+	Fri, 10 Jul 2026 01:04:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783644384; cv=none; b=PnccmGzn5lcBMzMrzul11FD0kM/YJDmxzI0zn+IvmKa1UJFCUwPXOR98VpVtkhEb5uS3lo1FoPqTkhgFfY6feWozN+kruVNL00eDFnodrEuu8n0G7dea79Snq8HyNg7+eON88IGDKVKlJEnArgkF/Z4S8LhOGze9W/p1wlZU/sQ=
+	t=1783645501; cv=none; b=oMxzKt/nDwmHmpf9QvlAYGbpDEk9nMeT/h9jJ4dj5BJastGx8UbkvX6/tq6NxQMTURA4a5FZlP5dv97vppLh0c2Nh7B//tqlPXjRMLVvw/eok5XoemxuhBYCU8pba9WdH13uMLOl54ue5eSfdWQffb6i+iHGSNsPV7gxMQ+ghQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783644384; c=relaxed/simple;
-	bh=NcAY33Cz+Y07dZSUoRE4dYMoOX/ODftBQ6ejSLDLCig=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZQ52rdw32Lshb1ZZ2M3gyXJdhXi7X1UUQXrRiTHMRq7vMVE7J22LY/y2/rZecMBjBesBPULZpUnf6MPyo2wxAMTqkPyoo0aIhEBjGszlZqIksTfYZendhzVjI5JbOv/+pstSuZ0Gbn/R8wBXMErZ3RZdqxe2Ok7u/5/M8WLo2K8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n26oLl7f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783645501; c=relaxed/simple;
+	bh=vSI/6JH46QRuCk7VHxcBTsb2eFB7aXDQvaCGhbXab18=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cpBN+UmhsI1xY9kwVSgXxgP+xGnH7T8borEPrcPM/RN9iydKb9OJnZ9zfPbUdbONDcICtejWecM8XNmTqrYEkXmS6HMncnkRay2ReTq8x90blNizWWgGricFioxGjk42YLj7GlEYgG5Z5GAM8f0uJp+PI51RMdTyZIXuaSreZuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cIf5N81i; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n26oLl7f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5956F1F000E9;
-	Fri, 10 Jul 2026 00:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783644383;
-	bh=13E5iFkRhhPo8tsl5s9roEJL6c2uaz4ktKevVkLd3/I=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=n26oLl7fvkRaj9R0WlIMV9CH2IijPq0UbKzEoXjkl6V3zPgfQU6pqoeIgXJWJIKQs
-	 R8WnP75NkWglA4FGzr0WfYVH2hQmRxKbEdKD3CY1FE1//vfxrouyUEVHx9LObYbmSC
-	 EFSFATVRBr6ADR3Kg447bHV10pnJAftkOJjiBvRkgiYrWn14nWd/vAOlhZKNm3dS1Y
-	 qpInly4maBuEpmP37Ax7YP3GdlytUCsn+PlrT4puoIZKiV30efH2I0eAbOfCZlzzrh
-	 1pXW2ltxzjOSkgUZFem3MOiJHHWfnhl1uS+eY4I8DAIvgK+TGrFEGWoRZgZiahkg6v
-	 QkNLnaFK4UXfA==
-Date: Fri, 10 Jul 2026 01:46:17 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Andy Shevchenko <andy@kernel.org>, "Rob Herring" <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>, Philipp
- Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, <linux@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <jananisunil.dev@gmail.com>
-Subject: Re: [PATCH 3/6] iio: adc: adi-axi-adc: Add support for CRC
-Message-ID: <20260710014617.323acf6e@jic23-huawei>
-In-Reply-To: <20260709-ad7768-driver-v1-3-44e1194fd96a@analog.com>
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
-	<20260709-ad7768-driver-v1-3-44e1194fd96a@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cIf5N81i"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=r0em5pMNZ4xKYprueCCCRKfXhTmoQMeSgXfGFULzODo=; b=cIf5N81iy//LNUKpfZ2HOlkcRK
+	8OA05pKoaYtr720datPqjB+ls/s6YXte8CR6FvzePOyuSql/y1U92bp9Zn9poUR7eI0yKf4A/uQ0I
+	hkjv2Imdk+fudyI10U2oGtPa3UmTH6nJkGysIaDAMApxxBgdJrgw4weijDwKSIJXAqHLLNe/5XV9/
+	jvJeiYV7eolYFfISs+gD4ExEIMRKxBm+nUuLrFZPCrW7xP3yCmzZegIS7YN7dymDA2f4vgFum/r9U
+	qb24QdtoSndJpEyVbn1AkRvXkc0ZDH3CUMiwexB/Gmg5VGI1fmsmk2KSuxeILXjEAr2W9e3K/ojoP
+	7o/eTqcg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1whzfe-00000003twW-1ujf;
+	Fri, 10 Jul 2026 01:04:50 +0000
+Message-ID: <fd2e3b89-339a-4964-9b0c-e24ed7f7b31f@infradead.org>
+Date: Thu, 9 Jul 2026 18:04:49 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 19/19] MAINTAINERS: add Rambus CryptoManager Hub (CMH)
+To: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alex Ousherovitch <aousherovitch@rambus.com>,
+ Conor Dooley <conor+dt@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+ Rob Herring <robh@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Ninad Palsule <ninad@linux.ibm.com>, linux-hwmon@vger.kernel.org
+Cc: Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
+ Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+ linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
+ Shuah Khan <skhan@linuxfoundation.org>, Thi Nguyen <thin@rambus.com>
+References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
+ <20260709203037.1884436-20-skrishnamoorthy@rambus.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260709203037.1884436-20-skrishnamoorthy@rambus.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, 9 Jul 2026 10:50:14 +0200
-Janani Sunil <janani.sunil@analog.com> wrote:
 
-> Add support for enabling and disabling Cyclic Redundancy Check (CRC)
-> processing in the AXI ADC backend. CRC provides data integrity verification
-> for high-speed ADC data streams, ensuring reliable data transfer between
-> the ADC frontend and backend processing systems.
+
+On 7/9/26 1:30 PM, Saravanakrishnan Krishnamoorthy wrote:
+> From: Alex Ousherovitch <aousherovitch@rambus.com>
 > 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-The 'other things' I found bit from Sashiko is interesting. Far as I can
-tell it is right and [devm_]mutex_init() is missing for lock
-in struct adi_axi_adc_state().  
-
-Nuno, looks like it was from:
-7ecb8ee5c93b ("iio: adc: adi-axi-adc: support digital interface calibration")
-
-Which indeed adds the lock with a mutex_init()
-
-Jonathan
-
->  static const struct iio_backend_info adi_axi_adc_generic = {
+> Add MAINTAINERS entry for the CRI CryptoManager Hub (CMH) hardware
+> crypto accelerator driver under drivers/crypto/cmh/.
 > 
+> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
+> Reviewed-by: Joel Wittenauer <Joel.Wittenauer@cryptography.com>
+> Reviewed-by: Thi Nguyen <thin@rambus.com>
+> ---
+>  MAINTAINERS | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d1dbf2f07104..1c153a84f70f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6891,6 +6891,23 @@ F:	kernel/cred.c
+>  F:	rust/kernel/cred.rs
+>  F:	Documentation/security/credentials.rst
+>  
+> +CRI CRYPTOMANAGER HUB (CMH) HARDWARE CRYPTO ACCELERATOR
+> +M:	Alex Ousherovitch <aousherovitch@rambus.com>
+> +M:	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> +R:	Joel Wittenauer <Joel.Wittenauer@cryptography.com>
+> +R:	Thi Nguyen <thin@rambus.com>
+> +L:	linux-crypto@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/ABI/testing/cmh-mgmt
+> +F:	Documentation/ABI/testing/debugfs-driver-cmh
+> +F:	Documentation/ABI/testing/sysfs-driver-cmh
+> +F:	Documentation/crypto/device_drivers/cmh.rst
+> +F:	Documentation/devicetree/bindings/crypto/cri,cmh.yaml
+> +F:	Documentation/userspace-api/ioctl/cmh_mgmt.rst
+> +F:	drivers/crypto/cmh/
+> +F:	include/uapi/linux/cmh_mgmt_ioctl.h
+> +F:	tools/testing/selftests/drivers/crypto/cmh/
+> +
+
+Hm, I thought for a moment there that this new CRI entry was out of
+place (alphabetically). No, it's the next entry that is so far
+out of place. :(
+
+>  INTEL CRPS COMMON REDUNDANT PSU DRIVER
+>  M:	Ninad Palsule <ninad@linux.ibm.com>
+>  L:	linux-hwmon@vger.kernel.org
+
+-- 
+~Randy
 
