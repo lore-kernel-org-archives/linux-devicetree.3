@@ -1,216 +1,119 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011046.outbound.protection.outlook.com [40.107.130.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95D53F0A81;
-	Fri, 10 Jul 2026 08:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783672015; cv=fail; b=muwT2LR5Oy9vaIEZsxtKjK61yN7tNCiKgF5ZqZnHrnBI+SjEH7NWfUgFrkqHxSmHC1lp/DysMI8EWgWVC2wu2N94tlaf0DAXFP58OSIZd8s49pBGWs4HtKNeTLBfRJNyNW59kwj2iWkWriWHIxcVtK63bRK3uOeWEFR4ZAkqbWU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783672015; c=relaxed/simple;
-	bh=Pt6mYqy0jhbwDVJNq2P+2UJRJF21Ka4anz3cHsVtBiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Y8Wm75qAXN1HD3CI/xP7nOBqVKsI9et/l/roYZ2uMsRSSRol0PtBKkcxvehlF7AvM48p1ydvJmu/xDIbEjNG2z+qG0KJQKEUbiu5YvWxC/Ta/sDIBNLdy7LQL1saSmwOQSeu9ZOE+/SzgDuQRLtI65NDc9BCrybEnj+PBhmKH4Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com; spf=fail smtp.mailfrom=mt.com; dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b=prBqacXb; arc=fail smtp.client-ip=40.107.130.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mt.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=mt.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C149D3EFFD7;
+	Fri, 10 Jul 2026 08:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783672097; cv=none; b=YNeZ8k/I8I45QER+Lp6H72zCw+aND4GnEEEQrg8QqQa5PGprGBc9XjyEhd5FpEGl1uUwHDKVCehahULaLkleR9vm79mJKlIKEALrm4FiG5DnvEruShNw6qFrtuVWB5pFF1pwltc9dh0/QRfTwb+x7EGMYkU4IufP2CpNxCohiJE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783672097; c=relaxed/simple;
+	bh=SXhT/IG4Sn1qQjgoVmJGVUCKPwTprjMulXhkXSPMVk8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rixWurDLRJzzr4+j16C4x386za4oDGzXOcH5SCrC3dryCjb/7jAxTfhl089Td6MU00witxBuRiLBbGdfb2Yq21UwoOtKZFS7RBxr2ejep7rwCyOvjMX1HSCdH6o6aIGybvAAgU82wARZUNXDIcYzYCdWxS5y1Ewat+PBV0kRLvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+SX3jrl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mt.com header.i=@mt.com header.b="prBqacXb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XnqHzgs5M3oeOGwzGmUFkxSkdJJnc3MYr4mgCIZtW7e2lhMwGPhenZTacYX5G+DqOLi0z1G7Q0II/X2NpEJI42d7qDD8+zpvO6pQCirLDnw1fQ1CbGQou1DPjPcvoVj7gb+35Zk4PakkGNb29xx1mAnxaDo5nBhCYpT5RwBvio7fc0JiMm4yAkOmlZNgff695eK7f3gOQE7QfkRTHJGWdr7A/QqZ4g6VjMvBGDbboX3aov9xdxd4QPtG1mRNyt0kXCv9WWcAfyvGtwdsAxnDQRGtmRk46XJSw9F0eMU9UZhVPdqJN+KKEqssOX+ADkd0CkZvxblc1L/VFB8tgV+P8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oXCZexwMMh6Ir/LSRmykd59PQpEf3pr9BCcsxsbQyQw=;
- b=H0CNzpGTen9G7Vob4ODbBMhFAAoZM+Gvujv88IKZsEocbwoYEEGK0+Dzh/tkYCT/ZTAu/49Q65UC8wp8/tBCzwik9Ls/7L+bxa1L8gq4Nk4odo0hfo0e3GnxukpLf1YxnqA0nrRYGddKt1w3j1eMJkRxOtvUw9azpo4S49AlW9tOohRrAvHxuxCMmzbMljJ9+HXOWQKRYShW+NAYEPzL1TKZSTQI+fZxmXxKHS3XvCMkOCQqrIb6qWvltYpuKiF9gH7qDlQl6bj6o/Cn431hqOgmuu67dEG+S5FpbxKnfgg08kFexAuck7sedpeWAx1UmuAzOlVLSrwCHNJhn0jg4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
- header.d=mt.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oXCZexwMMh6Ir/LSRmykd59PQpEf3pr9BCcsxsbQyQw=;
- b=prBqacXbQpuFdjT1h4VCPhHr117D8rINRdiLsqsJGlVDENM+rAPZf5TxQLE/rNr8dgF+gG2KbkYY21FWDpinIWjQapcpYhOX8SPuveTiMY80K0ND6kNr/0KQiI7rmrPa4jLJ82GEASBLd2eCtB0CWepMWYuSztUsMbOPfzrZ4It/DUvYva8PiOV/nevyOT3ynYdcYY54qJ5y6qo277StwLdjCTvpFMsryv+G/6qBXG5/ObLQffzjjORfCttYdnvftgFpaKC81+1pM8yhjb6hcW1bTjuaR5l2BoPLDT2rW4e+4P/UFy557X3WO2FRJMRbsYhZdWAmEhHN+n4useWK4A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mt.com;
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
- by DU0PR03MB9731.eurprd03.prod.outlook.com (2603:10a6:10:44d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Fri, 10 Jul
- 2026 08:26:45 +0000
-Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
- ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
- 08:26:45 +0000
-From: Wojciech Dubowik <wojciech.dubowik@mt.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Marek Vasut <marex@denx.de>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 2/2] dt-bindings: display: sn65dsi83: Add output data-lanes
-Date: Fri, 10 Jul 2026 10:26:29 +0200
-Message-ID: <20260710082630.394040-4-wojciech.dubowik@mt.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260710082630.394040-1-wojciech.dubowik@mt.com>
-References: <20260710082630.394040-1-wojciech.dubowik@mt.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0028.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:1c::15) To DB9PR03MB7180.eurprd03.prod.outlook.com
- (2603:10a6:10:22d::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+SX3jrl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587891F000E9;
+	Fri, 10 Jul 2026 08:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783672095;
+	bh=F6KudrFDGEDQqOhegar75aieWQMc2k5wBts8J2fU69w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=N+SX3jrlYmsL5bMWiQ1GMDeRKxW9iAigjmPFC06Wz319fosORES2zhht2QaH/6qFq
+	 DwmmN17OAX/kzxh+a2JI+o4ifiTmNWEPHKxuiUuX0B0MULGUhJi0t3Fevbi0OiDEXz
+	 A7laFPH8WbFKGhOC36Yygn6qAz+sNpKGn9pdookoPdWdYqt+2MlTojVKF+9R54TIcR
+	 /FYacKL0pAatQHo3G/oFCy5hp54dc69KxWmNbAxfdmpv20n+KQyxYbVLNn/aCzECBJ
+	 3dUBpVjy1o7y2Roi5/yQdpsZn102AV8KToXzOnO+/W/q0dLmu64YnwWJiju6W4aqJU
+	 lmzAH9Fcl7WeQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wi6aj-00000003b2r-1kdZ;
+	Fri, 10 Jul 2026 08:28:13 +0000
+Date: Fri, 10 Jul 2026 09:30:02 +0100
+Message-ID: <87qzlb5jsl.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org,	kernel test robot <lkp@intel.com>,	Krzysztof
+ =?UTF-8?B?V2lsY3p5xYRza2k=?= <kwilczynski@kernel.org>,	Bjorn Helgaas
+ <bhelgaas@google.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Conor
+ Dooley <conor+dt@kernel.org>,	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Lorenzo Pieralisi
+ <lpieralisi@kernel.org>,	Manivannan Sadhasivam <mani@kernel.org>,	Rob
+ Herring <robh@kernel.org>,	Yoshihiro Shimoda
+ <yoshihiro.shimoda.uh@renesas.com>,	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] PCI: rcar-gen4: Inline GIC_TRANSLATER offset macro
+In-Reply-To: <20260709201103.90162-1-marek.vasut+renesas@mailbox.org>
+References: <20260709201103.90162-1-marek.vasut+renesas@mailbox.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|DU0PR03MB9731:EE_
-X-MS-Office365-Filtering-Correlation-Id: f680c878-6d98-4386-f8c0-08dede5cfaa6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|19092799006|1800799024|56012099006|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	sZ0GWgBQ9f4sp7PJ8rp3bWy3xqygi7SbLd04t/uOjBpPZSefCO/gxkaV8i2tPHcAe+DsSeuEhnwY1dus8+7WZi+5KC3M82B6XZE7nf4fwKVQQZNOH3juT14WZzDvfp/HYW43riFdLvZ55EMvvGkIBKCIAO+zjAcIAHp3QMjtC0aNKXgx/9Opr+j3H+TcROW1uJJXHJiknfyVSPdGUsbEsnpRT6hJubtTobAew/RQY7n+QTz5rB/WvFRVAu67wPP+A7O3GOUw5dr76BIY+EhrDks0x/rUXEez0spccwmZ7vGEW2DWIfx4Ln2nZKait5wSaOrKIBbrWVVCsA+EfHNs/S3mFVBckIruTmJ7TTu2jWxy/1xroRJkQRma2lg9PatBGtbpHZ+aMu26qEkNWzOK3Ur+PlniBzWktUGBBS+FuCG0XcWYVeFIOf+lcmoIlvYJ8Hpsqf0mimC4Wtl6Pw2XtQTsxJ/LIJAJTq08GuNOEEo5h1XHNdthnMjntAe15HK2r/0Unjuye4BRmiFrapJ6sF53dYiEjeIPVtuOm3vKVckt07e+hgCN0esf/L9opFAfMW8czMdUHOxp8mzBTgQI5L7T3v6WlWA0BKRF1nNpkvjkrJjrIjdtcaBuJ1W5UqsiO8EV4oaQyDsiage24u+hRSlDoDMHT912WE5Q/g+cxRc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB7180.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(19092799006)(1800799024)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nyLm56JHVZEceuZ61Pcm8kdbgCMcIJiT3LDFnTYJ7+9qtIOddLU94Umvy3qW?=
- =?us-ascii?Q?TSQ/zUHxEB9JuBjUU4PE7g7vAEdlVu7iHFfH4I5tNTwzZr0jZjcHCZ1c02PB?=
- =?us-ascii?Q?OsBeFR+CORwqVtVpAULxYU8mmSmbH6ENb1hfe/2DGUbPAkUpQgLxWO43qrpq?=
- =?us-ascii?Q?eC+F2ha/ZMjuAmdB92eDnB+MjesWdk2omKMD4yNDv5DGIsg5ANU9XTqNHipg?=
- =?us-ascii?Q?tqfWLANufnMpCI/lEyYg/Yj67A6nD3gNQLkU4ZJeCdJjRKwxamJGiENwxpnn?=
- =?us-ascii?Q?1heKZqA8d9C4Pg47ZkGhoMetFm01se6FHFIs9bN1gb5Heou+vxUI35O5uGIW?=
- =?us-ascii?Q?24lp5XKczceqAP4GEBBKX2MDmTOxHFaDH+pmg/1396Qu7uG4VHXgx6EzbkP2?=
- =?us-ascii?Q?HPCfC9cJ8GGleFXoDpZK+J7bQ7jIzc8tGa6jdlWLf9pvzKhxU9waixH+yHIN?=
- =?us-ascii?Q?5FgwaBAfkldc9f+Rp3DGDqk5QMGETXMLdzM75/QnI2khqY10niydTCdeYee/?=
- =?us-ascii?Q?cpbI5NksotsqV5ZsH7/DuQOnkDupo3JP2MvB3ApLa4uESNxNeMChQ+9t0ggZ?=
- =?us-ascii?Q?+ZRsZHgh/MC1YIDjnmVC/vRMZoLE17D586UYiQNJpk+RJ4DOlTUKYNYTI7yQ?=
- =?us-ascii?Q?Euvjm6axjjrm53N8k/uOr28NZhVj7hZYY6r8DgHohYYXkJdlHUVamkkb6DvR?=
- =?us-ascii?Q?3jzuNmS29SDxO9ho5YG8l9UE81aaaZ6ixnWM0bpnW+CqGXHbrbijlGBJzyYT?=
- =?us-ascii?Q?aTNGcDQleDJqF6xwMfSPRMxEMbIhYDeOQN07FQsDIBPqPsFGv0yQQBuFNDLF?=
- =?us-ascii?Q?oZS7JW38Bs2Hya2xj5RVscBZ1kQgUHW0BbBxOSWu2/ZET9Pp37RBtIyubt3i?=
- =?us-ascii?Q?RwB2u8mZ/zWnEtQW+et+ESLMGFWDpmc+XR7bRO3fkPUHl9r/7jzgWyhxGMUF?=
- =?us-ascii?Q?6n7bfABfwK57o2SWt46v9EHlbEgr8ugwsTneKsl9OtRqor2Rd2a9sgIts5Xk?=
- =?us-ascii?Q?308R4ygNJzp81gMqq1nmF6tEMb3FmguHwYxZDbyEYieFQK+B5RDOscVj8NoK?=
- =?us-ascii?Q?X4j1czeFXbr6dHpLEMhhorOurBKiNS4ifTSu5sslcSDW1rxuljdEuYZW9N9P?=
- =?us-ascii?Q?CphdiMkae3ZRvS3uZ4qgpGc6HCCKBIb2SkaPWMsDpSS5CFdS6GtpElLQEwNK?=
- =?us-ascii?Q?VW32U6TDm5srrF3z1cv9E0xoQ7CBidXURlo6TyiwOg4imAEa7ZDwMistM6lT?=
- =?us-ascii?Q?aPqS02sWTC2/dpVb+zj3i7nhkSHY82D8WsMkErsSFYZw9Mqc5v/JSqIclM6E?=
- =?us-ascii?Q?KrKWHDHLEdJVH9S2YAo4cyBCoQhF/YjosCjo1e3J+zUFXJc8jgoPVTs7gOP4?=
- =?us-ascii?Q?tfFeDJEvbpPiSpHQcrh+yZqW3tbjmnrvRL8AKxdgXUYdCoXR2LTWawTJxZuK?=
- =?us-ascii?Q?pMo79ajxD7Fp4hPBVkHVs0EgBioBmCM57xlpgpzpOQbQVjgV6DUz2xE+JQVe?=
- =?us-ascii?Q?+r4WQIoeYxtv0+ZYKrLjDmaCb0WcZa9QiKfVVv91HY2DRcCzFT/s8mJItve4?=
- =?us-ascii?Q?5ljVcjJwh4DNFDwgriC1X9JIO1H7EvbSPKfSIi+O7TaYNa3nBeHdKaBI2bKO?=
- =?us-ascii?Q?TFpQRNdtBruEzfQOSXkcxHLBpPbEhFnPZ1KB/fCDbz9mJ0082+uE250biMgf?=
- =?us-ascii?Q?0a6TOuRWkCbLGAWMA+c84KIKzxw0MfHJ4ZL10gikByDle5N8xx0BweE4PQax?=
- =?us-ascii?Q?bVPkYUjn3w=3D=3D?=
-X-OriginatorOrg: mt.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f680c878-6d98-4386-f8c0-08dede5cfaa6
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 08:26:45.7630
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z9ZjsTQsH3uPg8h0rEtCnBRQycg59aDXxWA+3wCwdzc4JBX8dyG2x8u+o6E8s4DfSAZD6pN58GQudQVaJxS8BQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB9731
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: marek.vasut+renesas@mailbox.org, linux-pci@vger.kernel.org, lkp@intel.com, kwilczynski@kernel.org, bhelgaas@google.com, catalin.marinas@arm.com, conor+dt@kernel.org, geert+renesas@glider.be, krzk+dt@kernel.org, lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org, yoshihiro.shimoda.uh@renesas.com, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+On Thu, 09 Jul 2026 21:10:03 +0100,
+Marek Vasut <marek.vasut+renesas@mailbox.org> wrote:
+>=20
+> Instead of pulling in the whole linux/irqchip/arm-gic-v3.h , copy the
+> one GITS_TRANSLATER register offset macro directly into the driver.
+> This repairs the ability to build the driver on non-ARM non-GIC targets
+> the way it was possible until now, which retains good build test coverage.
+>=20
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202607100310.iQw5m9Uo-lkp@i=
+ntel.com/
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: "Krzysztof Wilczy=C5=84ski" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-doc@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+> Note: The alternative I could think of would be ifdeffery which
+>       is not nice and thwarts the build coverage, or limit the
+>       driver to ARM/ARM64 in Kconfig which also thwarts the build
+>       coverage. I could also split off the register macros in
+>       linux/irqchip/arm-gic-v3.h into some separate header
+>       linux/irqchip/arm-gic-v3-regs.h and include that which
+>       might be OKish and avoids duplication. Thoughts ?
 
-Add an optional output lvds data lanes property with
-two allowed values. The array <1 2 3 4> for standard
-layout and <4 3 2 1> for reversed lvds output lanes.
-The latter informs the driver that reverse lvds config
-option has to be set in config register for the respective
-output channel.
+No, I'm not hacking something that is purely architecture specific for
+the purpose of a bizarre integration quirk that should be handled by
+the boot firmware, and not Linux.
 
-Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
----
- .../bindings/display/bridge/ti,sn65dsi83.yaml | 42 +++++++++++++++++++
- 1 file changed, 42 insertions(+)
+Add whatever you want to the PCI glue code, limit this to arm64 (which
+is the only architecture this can ever be used on, and the build
+coverage argument really doesn't hold), but please leave the GIC code
+alone.
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-index e69b6343a8eb..4431f113bb9c 100644
---- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
-@@ -86,10 +86,52 @@ properties:
-         description: Video port for LVDS Channel-A output (panel or bridge).
-         $ref: '#/$defs/lvds-port'
- 
-+        properties:
-+          data-lanes:
-+            $ref: /schemas/types.yaml#/definitions/uint32-array
-+            description: |
-+              Array of physical LVDS data lane indexes
-+            oneOf:
-+              - items:
-+                  - const: 1
-+                  - const: 2
-+                  - const: 3
-+                  - const: 4
-+                description: |
-+                  This is the default layout
-+              - items:
-+                  - const: 4
-+                  - const: 3
-+                  - const: 2
-+                  - const: 1
-+                description: |
-+                  This is the reversed layout
-+
-       port@3:
-         description: Video port for LVDS Channel-B output (panel or bridge).
-         $ref: '#/$defs/lvds-port'
- 
-+        properties:
-+          data-lanes:
-+            $ref: /schemas/types.yaml#/definitions/uint32-array
-+            description: |
-+              Array of physical LVDS data lane indexes
-+            oneOf:
-+              - items:
-+                  - const: 1
-+                  - const: 2
-+                  - const: 3
-+                  - const: 4
-+                description: |
-+                  This is the default layout
-+              - items:
-+                  - const: 4
-+                  - const: 3
-+                  - const: 2
-+                  - const: 1
-+                description: |
-+                  This is the reversed layout
-+
-     required:
-       - port@0
-       - port@2
--- 
-2.47.3
+	M.
 
+--=20
+Jazz isn't dead. It just smells funny.
