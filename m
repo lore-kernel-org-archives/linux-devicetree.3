@@ -1,139 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7138A40F8D6
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFF54192FE
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783683118; cv=none; b=c/C0u/LPJUEvfSIGmznmk2ODhGBumYHs95Oscy3fX7Nw9fhR3y760u2oMobYikFkmopzRlK9oLP7ZaHh0iJsam58Ui4P2uG65FvtvCdPXkUBV7mxyjwPCzE2XjDHESskD/qtwJQN0QRPWrFub1mz+/peoNtGGJZCB5yJ8KoKvXo=
+	t=1783683350; cv=none; b=hCCHy1fBylddw6FJYKMdzgjKiiDjJPpx1GgQct3rtcYTGZuhTFIfsPmw5yc94fJbEv+/e8JL1E3LuluCXljUusEWOtuOJgBSI1V8XKoxXoK/w6/IV0kjJ+TEHykaYOWDoPr82FUNbW6naSHWMXGYFfbpy2UVn5IuQxrzpiCmIws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783683118; c=relaxed/simple;
-	bh=TlueALM1QniMcpcWV1t8La7BW85wcp5nJk1dBIJ0p2k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GSokW0U0+dRFyvX9AMjpZTp1uMNE5GTx7HvgVuT2ukTSuhPEMTYt0xiBfpKV+NpzQ1MDhjYt8vAGJCOEfuNUXQ2WmKUBo8yY60SMyl53R1/ZXIH0tqlfWi7QG77mlKSiO/7iAQo0O9hM003NgIzaYxELjrZyCGHrlZ9qdXAp0b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JS8ya6Mm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JS8ya6Mm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EC51F000E9;
-	Fri, 10 Jul 2026 11:31:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783683109;
-	bh=iIimHaYhyTG+YVu/mMDt3SkSOFmqp1BwxLP9K7WRQd0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JS8ya6Mmea0wMLj2ZiZNB9K6TmKH5jEpSxGF6DKBAT8F+XeWOnbtbbMbo1i0e22rN
-	 FlxRlbJah2nsFsy+tmojckGlFdDf8Wj2gtKT32rH9+P3fb9BWZ09KDc/2WvbFyHr88
-	 arBzljVaB5dAWo7c4U/BwXAbH+sxprGD+ceG+daMmGlndNtRoUBQGKkQqgJJDtqWqX
-	 Q/9cANWBB7DJTljPw/Hytyklcyjsq3cuQPFh8b5UqiCqZfghAPEFUdx/o/x7+eGPd3
-	 sktBA0Tjs5f8QuQL6kGskRsfmdESbxGM1aChxJnUGLkTj6W/+CAbHPF14Au58Bbugv
-	 M49h9qeSmlBrw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/7] iio: dac: ad5696: properly check i2c_transfer()
- return value
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260710-ad5686-new-features-v7-1-1bcc8c280e4d@analog.com>
-References: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
- <20260710-ad5686-new-features-v7-1-1bcc8c280e4d@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 11:31:48 +0000
-Message-Id: <20260710113149.53EC51F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1783683350; c=relaxed/simple;
+	bh=4pksEl7hMLsBYG9ZkoLxK/BecZCy0PswewcYkqaTKsE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RdNLYEL1SWNe+rw/xIdmvOKAF553Pkgi7bUs9yV2crKi9iCZwYxhCIzTPEx5+pQQaMBTVDFL+K1a5vnA8nOxj/JNpSY1xW3b0929bo8C9I/q3AZpwUNizhJ9LPyeeatNUEYxetSvwwl0zyTPxKYzBz85QrjYHk4d4or7mSowE0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-736eec08c43so709945137.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:35:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783683341; x=1784288141;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OJD6tiSjIPreQ8N2oNzf0qaDxzfObFILUs5bMv8F2lc=;
+        b=k+84EfhvP8rsRdguTuBOZo7Tln3pmidOLfDznV/KHeevR0rl+l5fO73gefPqWMJP/6
+         qQlD+qg57MJzZTqAk/XXsY+k1WatNyXUFrwUw/2OFWow2ugX1ThuOE3TBwz91s0Qarz8
+         ioPTwa+LeFKEAnid0wpewLfEUtg87L/Yhg/tu0gM/J036ii3esjmAKtFgMR9aB2FGRUN
+         whXVB1SICbOquSiU+5V42XEu74IjcBHC+2sdHedFz8zbSXXJouD6fidGye3tXq+I8lup
+         WkU9AVL7L3cTO8psxVBgszMGbhALWxF6nQRiNxVxagSPB4bn1CzupoWplq4wbCUIAoS/
+         rgHA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpkxp6LJnOgXbo4EAogkeb+ZPQhLDwbC1RCyK5F8P/Ddl42afDHT5lDEdT13r1gc1K9AM0tiXDrkcmx@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEl9wA6CZEnSHVKBmP3OmoaQNp7xTBrkmcK5yNTUA+HCbdAGHL
+	l9r4UhZLrC9Hsne2TQBZ/wAWN6SU8KQ/KgT7M7VhR96jOPoh8pYB70o6F7i/LsbcL/w=
+X-Gm-Gg: AfdE7ckM5P5NmF3dwdHmsSmNK3xVdY0Q9lG3i5ZshHsT3scY7/on1AS5h4shQNLMZQQ
+	bWLUftxocbnmjqkLUBPVpGqeQKFt8d9zrSiEmUmCiadS+3vKO8hGB377KMAqaesLQZluAiVo8f+
+	m8BjJwAmNTUca4RKhxbxgpJ28N+JhKo3hgm0wtWifSkOt58RpBt2NUAFH9SfIA5g24jH9XxVtts
+	gGnjXtUpYAMIIoaLpcg8ovmS1KumAiZs+n0pUVS5BzV68pEhHdPhAvPCbKCxRuZwCeJiNQ1HWcM
+	ohtPCtQkVjT0w0aRTw6ujMB8LNuZKO/heyEu0aljSZrcrPatlAH1jVk0clPKiFeYnJWfB3HYI0w
+	BWaoBr/HQFpjOT2C+7C15l/3XPyGwWe6Bd87irEFM0kdSNkLTKLKRKlcYladw1f+sKKwiAmNQ0w
+	r59lG6Vr9/iesE4IWTSm5JyEHZjXu+ImjrdSxFvV9BPlHKkNukMQ==
+X-Received: by 2002:a05:6102:50a8:b0:73e:e4ab:1c84 with SMTP id ada2fe7eead31-7450d0b7eecmr1749256137.5.1783683341607;
+        Fri, 10 Jul 2026 04:35:41 -0700 (PDT)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-744d6a3e6a1sm4948215137.1.2026.07.10.04.35.40
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 04:35:40 -0700 (PDT)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-971de219a85so354497241.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:35:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrmQM3wdy88rTG05evs5Ne4wmGq9/utV8PF32rXyDFEXrODB3nVk3x2Pd2Ydx9TaOQh7j9Juw3nxqK+@vger.kernel.org
+X-Received: by 2002:a05:6102:8195:10b0:737:edda:e7d7 with SMTP id
+ ada2fe7eead31-7450c6bee37mr1282524137.1.1783683340215; Fri, 10 Jul 2026
+ 04:35:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260707145135.247565-1-biju.das.jz@bp.renesas.com> <20260707145135.247565-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260707145135.247565-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 10 Jul 2026 13:35:29 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXh4LZ8yFyca2EXSq34P0+OgxLyA2J7O6OhZD1PPVanhg@mail.gmail.com>
+X-Gm-Features: AUfX_mx1HkmTEWvYMocI1aNW_zjBk9JHXgCAqkMrY6has8ck0rJ6O0h4yvq4kRE
+Message-ID: <CAMuHMdXh4LZ8yFyca2EXSq34P0+OgxLyA2J7O6OhZD1PPVanhg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: usb: renesas,usbhs: Document RZ/G3L SoC
+To: Biju <biju.das.au@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue, 7 Jul 2026 at 16:51, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> The USBHS IP block on RZ/G3L SoC is identitcal to the one found on the
+> RZ/G3S device. Document the RZ/G3L USBHS IP block.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Pre-existing issues:
-- [High] The I2C read transaction uses overlapping transmit and receive buf=
-fers, causing a DMA mapping violation and potential cacheline corruption.
-- [High] Missing NULL check for `chip_info` during driver probe when bound =
-via sysfs.
---
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
---- Patch [1]: [PATCH v7 1/7] iio: dac: ad5696: properly check i2c_transfer=
-() return value ---
-commit 7918e0fc4a2bf3dec679b7e0bd608081aff01ef3
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Gr{oetje,eeting}s,
 
-iio: dac: ad5696: properly check i2c_transfer() return value
+                        Geert
 
-Verify that the expected number of i2c messages were transferred when
-ad5686_i2c_read() is called.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Closes: https://lore.kernel.org/all/20260705114746.1485F1F000E9@smtp.kernel=
-.org/
-
-> diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
-> index 279309329b64b..6f726e6301a6e 100644
-> --- a/drivers/iio/dac/ad5696-i2c.c
-> +++ b/drivers/iio/dac/ad5696-i2c.c
-> @@ -40,8 +40,8 @@ static int ad5686_i2c_read(struct ad5686_state *st, u8 =
-addr)
->  				      0x00);
-> =20
->  	ret =3D i2c_transfer(i2c->adapter, msg, 2);
-> -	if (ret < 0)
-> -		return ret;
-> +	if (ret !=3D 2)
-> +		return ret < 0 ? ret : -EIO;
-
-[Severity: High]
-This is a pre-existing issue, but does this I2C read transaction use
-overlapping transmit and receive buffers?
-
-Looking at the msg array initialization earlier in ad5686_i2c_read():
-
-    struct i2c_msg msg[2] =3D {
-        {
-            ...
-            .buf =3D &st->data[0].d8[1],
-        },
-        {
-            ...
-            .buf =3D (char *)&st->data[0].d16,
-        },
-    };
-
-The transmit buffer and the receive buffer are mapped to the same
-st->data[0] union, meaning they overlap and share the same cacheline.
-
-When the I2C controller uses non-cache-coherent DMA, mapping overlapping
-buffers for both DMA_TO_DEVICE and DMA_FROM_DEVICE within the same
-cacheline violates the DMA API.
-
-Could the cache invalidation for the receive buffer clobber the dirty
-cacheline containing the transmit buffer's data, leading to corrupted data
-being sent to the DAC or corrupted readback?
-
->  	return be16_to_cpu(st->data[0].d16);
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing NULL
-check for chip_info during driver probe when bound via sysfs?
-
-In drivers/iio/dac/ad5696-i2c.c:ad5686_i2c_probe():
-
-    return ad5686_probe(&i2c->dev, i2c_get_match_data(i2c), ...);
-
-If a user binds the driver using driver_override via sysfs with a device
-name not present in the driver's id_table or of_match_table,
-i2c_get_match_data() will return NULL.
-
-This NULL pointer is then passed to ad5686_probe() in
-drivers/iio/dac/ad5686.c:
-
-    st->vref_mv =3D st->use_internal_vref ? st->chip_info->int_vref_mv : re=
-t / 1000;
-
-Will this unconditionally dereference chip_info and cause a kernel panic
-during device probe?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-ad5686-new=
--features-v7-0-1bcc8c280e4d@analog.com?part=3D1
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
