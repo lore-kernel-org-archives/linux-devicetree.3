@@ -1,243 +1,798 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BBA8231842
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 01:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BAB22D4E9;
+	Fri, 10 Jul 2026 02:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783648668; cv=none; b=ll9f+nFTsJ35Bd7wivEpjNJxGEu1wGk77ovaETO9diBJfltgjLA8BWjla5+DOC6UHeEubR2hFygOXrEpgxMfPQjJe0v1jkSGukHFHKSoytbJD7dE7088cg+hIEAQ+YCnNqq/DwJadjcVbEK1MzgIux3GP9fXlDN9eTiwvr8jCrA=
+	t=1783649448; cv=none; b=cV/1J/oYSpIuL+7ARaiQkeg/+nRpvjvh8+sbr8mXp2Gd5CS1gWO2EgTzbEuAHp2YYFNrKVVsS1EkdIzsKilO1iyb7UO1bS7IdtVOQNtxPG4BNgE60qAgL9iy+HIQ06oB8RunYpNqnD/DkKhIy7MyQNPcdUVOrY4YgyLER4x7dhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783648668; c=relaxed/simple;
-	bh=dHlhaxBZM7dXqt8/qgDa0jI803YV2CvBpu+tjHS7fCo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X6HHn9jPCy2NKCQp4OAbNmO+Vg2wFYpwYDEYwDXOQjEdIIZHl260OBLWwB5fD1BMv2pooU/R3yNbC5ODVf71V9L7zHoxo8SG2RNbA6RsENoK2C3FqffHEjNoxdQ56NUhxepfyqQ1FX8m1BeMX4QUA+wVyJBvp8O9RZAhQ/eJtA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eSPbH2HF; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783649448; c=relaxed/simple;
+	bh=woq6WgXy9TfakaN1qZGNrx9DsmZmCvdY4fvu2f3tMHA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=A0O3iwRcRgYnkICJwtJs+iJWSsJ2iI/OZiY7dnURu/NKLIjDj36pCkgatA/5bvxN3aFTuEKUjErEyodLdi/sfJQx6j1V2ueDUyt4ghCv6GZi0/GuDVOyNX+VfK68aShAPbJrvmMPkeIqtw6Nb6btWbrnUPa/nidgZyxP+s3OE5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cOCKyDgI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eSPbH2HF"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c95d0a54ea5so338590a12.0
-        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 18:57:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783648666; x=1784253466; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yNnnvPqeszB5BO6wBdcbAXNtS5SR1xypVlNj/wphgrw=;
-        b=eSPbH2HF86IK1D8xyAWd3Ovr2ycC0AcFUKNWOZcBC7qp+vLwsA97BUZ3KfVyXbVC9p
-         vDx3XsshlSGuxXN3WScaHxPkhH4Ud9O3lhukKuWXUJ05bq83I+goEWEA9GE1rxlgFAkk
-         dGS893+LHGQpdEgeGjcz3LY/IOvgE0yLCj8g/1zim8teEytw2FatCO/Q13MOihQMVPBm
-         IUAz69eiXGdSvhfyiF3l9rjKjWDNKVm/p17230CpaFrcZru/O2IaeupIN5n/UnJ69xU7
-         3fS2671NL2ztAaki1duaoRJ8PWiPlZq4Q2H4PwkbtFQhiFveIRPghWQZZATtpoBTNEFi
-         5wuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783648666; x=1784253466;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yNnnvPqeszB5BO6wBdcbAXNtS5SR1xypVlNj/wphgrw=;
-        b=piPf8FUxnjV5zXNlhHCI0jbOEnvCe7/vBjZ4VweNnJ7oU143hgC4rPjkpdVOVHks0D
-         nle2gxcAXX2UY3lA4AVaroJtxa/XCn1qWag+9cqwKF1PI73bbPxB/0PhJaMrrUtW94d1
-         Q0RdaE7rKznm6L/mTe/M1BiFxitZhgDE89zYvrqcVYluwRhY4eesvDSYsNy8HbaYZ0UH
-         zB1aMhaGBoDCkIFbtz9HOEXedcQlg4CClNyLJRX3fNYrQVpWZOWNmV64cYBj2Dkp8pnK
-         wWrLeAo3U1/K44us1VFTzMjKZDKCUjbxsbBWaBw8yQ+Kbdzcopo2ID5EbbOVUI7EpANO
-         aNqA==
-X-Forwarded-Encrypted: i=1; AHgh+RrQoqQ6btUOQy5zTU/QygQHbF/pDGge64s8ZoNEp6km/F4/hQ5p4HL8QCgCHyF2UOiC2/VSUa612UjR@vger.kernel.org
-X-Gm-Message-State: AOJu0YykwU42n4JuUG5LeHiBS3nmTFlmpzGaCA7E8NEJrw1PhmrhYaOl
-	JEfVrEtrcOYxz6ZxD+EM5NQNKTqWD8OVpXJpyWy8pcSbL783J7dDcY5k
-X-Gm-Gg: AfdE7cnOgbZ4exN9BQnf7IWNgDLIqa/+N+avPgKtCDYyRmUCAnZH5nan+KOjnzkuQaj
-	atZ4hQ5blNMGHlavZg1TB7Jw7Io22RM/CUyvVDOiOF7VS1IBenUwyxDB6fXKjBE2n/GeWTMlmaI
-	r48iRKwQvvPRSCQZJfJG6ohJkxjFVQYOn2iy36hEpMHxT2J/hefnAf2iMeNON4e0CW4RWxG7Hos
-	kptOY0mbn0Y21kRLCNR0CsQzxjorLFiVbs6jsSaa2of55YK1oLPb3sWj3a4s36fFK8Fj5CRBFBu
-	npbaTpx4iR+hoW++hDvGTLDwSRDTH9qVrWMs5dPJIa6pXQTlJmI2dqyi04kq9/w00E3mI74CByU
-	Yzh53JI+htuMj+Hw4JQqlj7/enVon6brDUsisUWbrDCVOODb35pi99Hsnl/ky6ZiT
-X-Received: by 2002:a05:6a20:1587:b0:3c0:b3f7:e5e9 with SMTP id adf61e73a8af0-3c0bc8c42f4mr11229276637.15.1783648666263;
-        Thu, 09 Jul 2026 18:57:46 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311b00048a3sm5608901eec.5.2026.07.09.18.57.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 09 Jul 2026 18:57:45 -0700 (PDT)
-Date: Fri, 10 Jul 2026 09:57:05 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Christian Bruel <christian.bruel@foss.st.com>, 
-	Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>, 
-	Qiang Yu <qiang.yu@oss.qualcomm.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Alex Elder <elder@riscstar.com>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Vidya Sagar <vidyas@nvidia.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>, 
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v4 2/6] PCI: spacemit-k1: Add multiple PHY handles support
-Message-ID: <alBNXgMAwXPKwiJ2@inochi.infowork>
-References: <20260709040027.958400-1-inochiama@gmail.com>
- <20260709040027.958400-3-inochiama@gmail.com>
- <ak9KzNFF26B0Kttz@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cOCKyDgI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8092C1F000E9;
+	Fri, 10 Jul 2026 02:10:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783649446;
+	bh=nHCdTMtFEcwpxyUY8ehNZy9hqBWY0Y1eRe3jsHCgWSQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cOCKyDgI0SLvi4MUk8cEEgmUfELxo7JkjDU9/q7xfYn+DBkMUq6TvPhcyr4FTFHFu
+	 rV+UskIKR/KwGUmvi62XLYunsi6EgfZYW3ELEOs9cCn05bqO1z3rIu6z3YMNG95f55
+	 YHt1T4wLCqaqcZVk1HTCsvGOlxD4USyeTsOWepcoMj0zL56GCaeJ86Gov5ru6VgqtJ
+	 WaNCOIkflWRqbhxDATsaC85ZeUDj7gkqW4+2AteBT9LDZPEBHlstSsBLdi0afca22i
+	 WjuLJvg02LVb+Mg0o/kDcjhhDJ6kjFrN4dc+ivPlTXSHzgLmXD5i9C0bHS+pNuqP0G
+	 3i4nuJmolSo8w==
+Date: Fri, 10 Jul 2026 03:10:39 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Olivier
+ Moysan <olivier.moysan@foss.st.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, <linux@analog.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <jananisunil.dev@gmail.com>
+Subject: Re: [PATCH 4/6] iio: adc: Add AD7768 IIO Driver support
+Message-ID: <20260710031039.3d41982d@jic23-huawei>
+In-Reply-To: <20260709-ad7768-driver-v1-4-44e1194fd96a@analog.com>
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
+	<20260709-ad7768-driver-v1-4-44e1194fd96a@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ak9KzNFF26B0Kttz@ashevche-desk.local>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 09, 2026 at 10:16:28AM +0300, Andy Shevchenko wrote:
-> On Thu, Jul 09, 2026 at 12:00:22PM +0800, Inochi Amaoto wrote:
-> > The PCIe controller on Spacemit K3 may use multiple PHYs at the
-> > same time. The feature is not support by the current driver.
-> > So extend the PHY definition to support multiple PHY handles.
-> 
-> ...
-> 
-> >  struct k1_pcie {
-> >  	struct dw_pcie pci;
-> >  	const struct k1_pcie_device_data *data;
-> > -	struct phy *phy;
-> > +	struct phy **phy;
-> 
-> Should it be annotated by __counted_by_ptr() ?
-> 
+On Thu, 9 Jul 2026 10:50:15 +0200
+Janani Sunil <janani.sunil@analog.com> wrote:
 
-Yes, I think it can, this is something I have missed.
+> Add support for AD7768 4/8 channel,simultaneous sampling Sigma-Delta
+> ADC, supporting configurable power modes, decimation filters and data
+> output lines
+> 
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Hi Janani.
 
-> > +	unsigned int phy_count;
-> 
-> Ah, you allocate much more memory than possible PHYs... Can you redesign and
-> use the above annotation?
-> 
+Various things inline.
 
-IIRC use the annotation does not reduce this memory usage...
+> ---
+>  MAINTAINERS              |    1 +
+>  drivers/iio/adc/Kconfig  |   16 +
+>  drivers/iio/adc/Makefile |    1 +
+>  drivers/iio/adc/ad7768.c | 1291 ++++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 1309 insertions(+)
+
+> diff --git a/drivers/iio/adc/ad7768.c b/drivers/iio/adc/ad7768.c
+> new file mode 100644
+> index 000000000000..f76a7081090e
+> --- /dev/null
+> +++ b/drivers/iio/adc/ad7768.c
+> @@ -0,0 +1,1291 @@
+...
+> +
+> +#define AD7768_AUX_DEV_GPIO_NAME	"gpio"
+
+Can this just go inline?
+
+> +#define AD7768_REG_GPIO_CONTROL		0x0E
+
+> +/* AD7768_REG_POWER_MODE */
+> +#define   AD7768_SLEEP_MODE_MSK			BIT(7)
+> +#define   AD7768_POWER_MODE_POWER_MODE_MSK	GENMASK(5, 4)
+> +#define   AD7768_POWER_MODE_POWER_MODE(x)	(((x) & 0x3) << 4)
+> +#define   AD7768_POWER_MODE_GET_POWER_MODE(x)	(((x) >> 4) & 0x3)
+> +#define   AD7768_POWER_MODE_MCLK_DIV_MSK	GENMASK(1, 0)
+> +#define   AD7768_POWER_MODE_MCLK_DIV_MODE(x)	(((x) & 0x3) << 0)
+
+FIELD_GET() inline. This define doesn't give us anything wrt
+to readability over that.
+
+> +
+> +/* AD7768_REG_DATA_CONTROL */
+> +#define   AD7768_DATA_CONTROL_SPI_RESET_MSK	GENMASK(1, 0)
+> +#define   AD7768_DATA_CONTROL_SPI_RESET_1	0x03
+> +#define   AD7768_DATA_CONTROL_SPI_RESET_2	0x02
+> +#define   AD7768_DATA_CONTROL_SPI_SYNC_MSK	BIT(7)
+> +#define   AD7768_DATA_CONTROL_SPI_SYNC		BIT(7)
+
+No need for define, use FIELD_PREP(AD7768_DATA_CONTROL_SPI_SYNC_MASK, 1)
+inline
+> +#define   AD7768_DATA_CONTROL_SPI_SYNC_CLEAR	0
+Not obvious why a define is needed for this. 
+> +
+> +/* AD7768_REG_INTERFACE_CFG */
+> +#define   AD7768_INTERFACE_CFG_DCLK_DIV_MSK	GENMASK(1, 0)
+> +#define   AD7768_INTERFACE_CFG_DCLK_DIV_MODE(x)	(4 - ffs(x))
+> +#define   AD7768_MAX_DCLK_DIV			8
+> +
+> +#define   AD7768_INTERFACE_CFG_CRC_SELECT_MSK	GENMASK(3, 2)
+> +/* only 4 samples CRC calculation support exists */
+
+Exists where?  In the backend, or if the hardware. Good to be more specific.
+
+> +#define   AD7768_INTERFACE_CFG_CRC_SELECT	FIELD_PREP(GENMASK(3, 2), 0x01)
+
+> +/* AD7768_REG_PRECHARGE_BUF1 and 2*/
+> +#define   AD7768_PRECHARGE_BUF1_MSK(val)	((val) & GENMASK(7, 0))
+> +#define   AD7768_PRECHARGE_BUF2_MSK(val)	(((val) & GENMASK(15, 8)) >> 8)
+> +#define   AD7768_4_PRECHARGE_BUF1_MSK(val)	((val) & GENMASK(3, 0))
+> +#define   AD7768_4_PRECHARGE_BUF2_MSK(val)	(((val) & GENMASK(7, 4)) >> 4)
 
 
-> >  	void __iomem *link;
-> >  	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
-> >  	u32 pmu_off;
-> 
-> >  }
-> 
-> ...
-> 
-> > +static int k1_pcie_get_phy_handle(struct k1_pcie *k1, struct device_node *node)
-> > +{
-> > +	const struct k1_pcie_device_data *data = k1->data;
-> > +	struct device *dev = k1->pci.dev;
-> > +	unsigned int i;
-> > +
-> > +	k1->phy = devm_kmalloc_array(dev, data->max_phy_count,
-> > +				     sizeof(*k1->phy), GFP_KERNEL);
-> > +	if (!k1->phy)
-> > +		return -ENOMEM;
-> > +
-> > +	for (i = 0; i < data->max_phy_count; i++) {
-> > +		k1->phy[i] = devm_of_phy_get_by_index(dev, node, i);
-> 
-> > +		if (IS_ERR(k1->phy[i])) {
-> > +			if (PTR_ERR(k1->phy[i]) == -ENODEV)
-> > +				break;
-> > +
-> > +			return PTR_ERR(k1->phy[i]);
-> > +		}
-> 
-> 		if (PTR_ERR(k1->phy[i]) == -ENODEV)
-> 			break;
-> 		if (IS_ERR(k1->phy[i]))
-> 			return PTR_ERR(k1->phy[i]);
-> 
+> +#define   AD7768_CALIB_REG_MSB_MASK(val)		(((val) & 0xFF0000) >> 16)
 
-Yeah, this is more clear. Thanks.
+That seems unlikely to be the mask. It's the value. So just define the mask
+and let FIELD_GET() deal with the shift.
 
-> 
-> > +	}
-> 
-> > +	k1->phy_count = i;
-> > +	if (k1->phy_count == 0)
-> > +		return -EINVAL;
-> > +
-> > +	return 0;
-> 
-> This doesn't seem correct to me, I would expect phy_count to be assigned only
-> when it's valid. (Yes, perhaps 0 is the same as it was, but semantically it's
-> different 0 in this case.)
-> 
 
-I guess you think 0 is a valid number? I can not understand what you thing
-Assign this to 0 if there is no phy is fine to me, which shows there is 0
-vaild phy found.
+> +#define   AD7768_CALIB_REG_MID_MASK(val)		(((val) & 0x00FF00) >> 8)
+> +#define   AD7768_CALIB_REG_LSB_MASK(val)		((val) & 0x0000FF)
+> +#define   AD7768_REV_ID_VAL			0x06
 
-> See also above. Do we have some PHY API that just counts provided PHYs?
-> If not, that what you should probably add first, before this patch.
-> 
 
-I have not found any api for this. But the actual problem is, how the api
-is designed. I have checked both the array bulk api for reset and clock,
-it seems like it is much more than this patch...
+...
+> +
+> +static const unsigned int ad7768_4_available_datalines[] = {
+> +	1, 4
+> +};
+> +
+> +static const char * const ad7768_supply_names[] = {
+> +	"avdd", "avss", "dvdd", "iovdd", "vref"
+> +};
 
-> > +}
-> > +
-> > +static int k1_pcie_enable_phy(struct k1_pcie *k1)
-> > +{
-> > +	unsigned int i;
-> > +	int ret;
-> > +
-> > +	for (i = 0; i < k1->phy_count; i++) {
-> > +		ret = phy_init(k1->phy[i]);
-> > +		if (ret)
-> > +			goto err_phy;
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +err_phy:
-> > +	while (i--)
-> > +		phy_exit(k1->phy[i]);
-> > +
-> > +	return ret;
-> > +}
-> 
-> ...
-> 
-> > static void k1_pcie_deinit(struct dw_pcie_rp *pp)
-> >  {
-> >  	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> >  	struct k1_pcie *k1 = to_k1_pcie(pci);
-> 
-> > +	int i;
-> >  
-> >  	/* Assert fundamental reset (drive PERST# low) */
-> >  	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CLK_RESET_CONTROL,
-> >  			PCIE_RC_PERST);
-> >  
-> > -	phy_exit(k1->phy);
-> 
-> > +	for (i = 0; i < k1->phy_count; i++)
-> 
-> 	for (unsigned int i = 0; i < k1->phy_count; i++)
-> 
+Add trailing commas to these.  They aren't terminated in
+any way so in theory at least we might get more elements
+on the next line.
 
-I agree with the unsigned int, but I guess this definition is not
-allowed in linux.
+> +
+> +static int ad7768_regmap_read(void *context, const void *reg_buf,
+> +			      size_t reg_size, void *val_buf, size_t val_size)
+> +{
+> +	struct spi_device *spi = context;
+> +	struct ad7768_state *st = spi_get_drvdata(spi);
+> +	unsigned int reg;
+> +	int ret;
+> +	struct spi_transfer t[] = {
+> +		{
+> +			.tx_buf = &st->d16,
+> +			.len = 2,
+> +			.cs_change = 1,
+> +		}, {
+> +			.tx_buf = &st->d16,
 
-> > +		phy_exit(k1->phy[i]);
-> >  
-> >  	k1_pcie_disable_resources(k1);
-> >  }
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+Sashiko moaned about this.  Add a comment on why tx_buf is
+set to the same thing.
 
-Regards,
-Inochi
+> +			.rx_buf = &st->d16,
+> +			.len = 2,
+> +		},
+> +	};
+> +
+> +	reg = *(const u8 *)reg_buf;
+> +
+> +	st->d16 = cpu_to_be16(AD7768_SPI_READ_CMD |
+> +			      FIELD_PREP(AD7768_SPI_REG_MASK, reg));
+> +
+> +	ret = spi_sync_transfer(spi, t, ARRAY_SIZE(t));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	*(u8 *)val_buf = FIELD_GET(AD7768_SPI_DATA_MASK, be16_to_cpu(st->d16));
+I'd prefer seeing a local pointer variable for the correct size
+
+	u8 *data_val = val_buf;
+...
+
+> +
+> +	return ret;
+> +}
+
+> +
+> +static int ad7768_read_calib_value(struct ad7768_state *st,
+> +				   unsigned int base_reg, int *val)
+> +{
+> +	unsigned int msb, mid, lsb;
+> +	int ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	ret = regmap_read(st->regmap, base_reg + 0, &msb);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(st->regmap, base_reg + 1, &mid);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(st->regmap, base_reg + 2, &lsb);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = (msb << 16) | (mid << 8) | lsb;
+
+No bulk read?  
+
+> +
+> +	return 0;
+> +}
+
+
+> +static unsigned int ad7768_get_max_mode_freq(const struct ad7768_state *st,
+> +					     unsigned int mode,
+> +					     unsigned int mode_freq)
+> +{
+> +	unsigned int max_freq = 0;
+> +	unsigned int i, freq;
+> +
+> +	for (i = 0; i < AD7768_NUM_CHANNEL_MODES; i++) {
+> +		if (!(st->active_modes & BIT(i)))
+> +			continue;
+> +
+> +		freq = i == mode ? mode_freq : st->mode_freq[i];
+> +		if (freq > max_freq)
+> +			max_freq = freq;
+		max_freq = max(max_freq, freq);
+
+> +	}
+> +
+> +	return max_freq;
+> +}
+> +
+> +static int ad7768_set_sampling_freq(struct iio_dev *indio_dev,
+> +				    unsigned int freq, unsigned int ch)
+> +{
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +	unsigned int mode = st->chn_mode[ch];
+> +	int ret = 0;
+
+Always set before use so don't init.
+
+> +	unsigned int max_freq;
+> +
+> +	if (!freq)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	max_freq = ad7768_get_max_mode_freq(st, mode, freq);
+> +
+> +	ret = ad7768_set_clk_divs(st, max_freq, ch);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = ad7768_set_channel_decimation(st, freq, ch);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = ad7768_sync(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->mode_freq[mode] = freq;
+
+blank line before simple returns like this one.
+
+> +	return 0;
+> +}
+
+> +
+> +static int ad7768_read_raw(struct iio_dev *indio_dev,
+> +			   const struct iio_chan_spec *chan,
+> +			   int *val, int *val2, long info)
+> +{
+
+...
+
+> +	case IIO_CHAN_INFO_PHASE:
+> +		if (st->chip_info->num_channels == AD7768_MAX_CHANNEL)
+> +			base_reg = AD7768_REG_PHASE(chan->address);
+> +		else
+> +			base_reg = AD7768_4_REG_PHASE(chan->address);
+> +
+> +		ret = regmap_read(st->regmap, base_reg, val);
+
+As below. Check units.
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ad7768_write_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int val, int val2, long info)
+> +{
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +	unsigned int base_reg;
+> +	int ret;
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&st->spi->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	switch (info) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		return ad7768_set_sampling_freq(indio_dev, val, chan->channel);
+> +
+> +	case IIO_CHAN_INFO_CALIBBIAS:
+> +		return ad7768_write_calib_value(st,
+> +			ad7768_get_calib_reg_base(st, chan, false), val);
+
+Probably use a local variable for the reg base as you do for
+phase so you can align easily after the (
+
+> +
+> +	case IIO_CHAN_INFO_CALIBSCALE:
+> +		return ad7768_write_calib_value(st,
+> +			ad7768_get_calib_reg_base(st, chan, true), val);
+> +
+> +	case IIO_CHAN_INFO_PHASE:
+> +		if (st->chip_info->num_channels == AD7768_MAX_CHANNEL)
+> +			base_reg = AD7768_REG_PHASE(chan->address);
+> +		else
+> +			base_reg = AD7768_4_REG_PHASE(chan->address);
+> +
+> +		return regmap_write(st->regmap, base_reg, val);
+
+Is val in the units the ABI expects? Seems unlikely given that's radians.
+
+
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +
+> +static int ad7768_buffer_postdisable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +
+> +	pm_runtime_mark_last_busy(&st->spi->dev);
+
+Look up what the next call does.
+
+> +	pm_runtime_put_autosuspend(&st->spi->dev);
+> +	return 0;
+> +}
+
+> +
+> +static void ad7768_set_available_sampl_freq(struct ad7768_state *st)
+> +{
+> +	unsigned int mode;
+> +	unsigned int dec;
+> +	unsigned int mclk = clk_get_rate(st->mclk);
+> +	struct ad7768_avail_freq *avail_freq;
+> +
+> +	for (mode = 0; mode < AD7768_NUM_POWER_MODES; mode++) {
+	for (unsigned int mode = 0;  
+> +		avail_freq = &st->avail_freq[mode];
+> +		for (dec = ARRAY_SIZE(ad7768_dec_rate); dec > 0; dec--) {
+
+for (unsigned int dec = ...
+
+
+> +			struct ad7768_freq_config freq_cfg;
+> +
+> +			freq_cfg.dec_rate = dec - 1;
+> +			freq_cfg.freq = mclk / (ad7768_dec_rate[dec - 1] *
+> +					ad7768_mclk_div[mode]);
+> +			avail_freq->freq_cfg[avail_freq->n_freqs++] = freq_cfg;
+> +		}
+> +	}
+> +
+> +	/* The max frequency is not supported in one data line configuration */
+> +	if (st->datalines == 1)
+> +		st->avail_freq[AD7768_FAST_MODE].n_freqs--;
+> +}
+> +
+> +static int ad7768_gpio_adev_init(struct ad7768_state *st)
+> +{
+> +	struct device *dev = &st->spi->dev;
+> +	struct auxiliary_device *adev;
+> +	int id;
+> +
+> +	if (!device_property_read_bool(dev, "gpio-controller"))
+> +		return 0;
+> +
+> +	id = (st->spi->controller->bus_num << 8) | spi_get_chipselect(st->spi, 0);
+
+Why that particular ID?  Add some comment.
+
+> +	adev = __devm_auxiliary_device_create(dev, KBUILD_MODNAME,
+> +					      AD7768_AUX_DEV_GPIO_NAME,
+> +					      (void *)st->chip_info->name, id);
+
+Why is the cast to void * needed?  Suggests perhaps the type is wrong for name.
+
+
+> +	if (!adev)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "Failed to create GPIO auxiliary device\n");
+> +
+> +	return 0;
+> +}
+
+> +
+> +static int ad7768_configure_precharge_buffers(struct iio_dev *indio_dev,
+> +					      struct ad7768_precharge_config *precharge_cfg)
+> +{
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +	int ret;
+> +	u8 ch;
+> +	u8 prebuf1_val, prebuf2_val;
+
+Prefer reverse xmas tree where the ordering isn't really enforced by anything else.
+
+> +	u16 prebuf_mask = 0;
+> +	u8 refbufp_val = 0;
+> +	u8 refbufn_val = 0;
+> +
+> +	if (st->chip_info->num_channels == AD7768_MAX_CHANNEL) {
+
+This match is odd. Encode what you need in chip_info, don't use the
+number of channels as a place holder for which chip it is.
+Maybe via a callback, or maybe via data. I haven't messed around
+with it to see how bad the data version is (masks etc)
+
+> +		for (ch = 0; ch < indio_dev->num_channels; ch++) {
+> +			u8 channel = indio_dev->channels[ch].channel;
+> +
+> +			if (precharge_cfg[channel].prebufp_en)
+> +				prebuf_mask |= AD7768_PREBUF_POS_EN(channel);
+> +
+> +			if (precharge_cfg[channel].prebufn_en)
+> +				prebuf_mask |= AD7768_PREBUF_NEG_EN(channel);
+> +
+> +			if (precharge_cfg[channel].refbufp)
+> +				refbufp_val |= BIT(channel);
+> +
+> +			if (precharge_cfg[channel].refbufn)
+> +				refbufn_val |= BIT(channel);
+> +		}
+> +
+> +		prebuf1_val = AD7768_PRECHARGE_BUF1_MSK(prebuf_mask);
+> +		prebuf2_val = AD7768_PRECHARGE_BUF2_MSK(prebuf_mask);
+> +	} else {
+> +		for (ch = 0; ch < indio_dev->num_channels; ch++) {
+> +			u8 channel = indio_dev->channels[ch].channel;
+> +
+> +			if (precharge_cfg[channel].prebufp_en)
+> +				prebuf_mask |= AD7768_PREBUF_POS_EN(channel);
+> +
+> +			if (precharge_cfg[channel].prebufn_en)
+> +				prebuf_mask |= AD7768_PREBUF_NEG_EN(channel);
+> +
+> +			if (precharge_cfg[channel].refbufp)
+> +				refbufp_val |= ad7768_4_get_refbuf(channel);
+> +
+> +			if (precharge_cfg[channel].refbufn)
+> +				refbufn_val |= ad7768_4_get_refbuf(channel);
+> +		}
+> +
+> +		prebuf1_val = AD7768_4_PRECHARGE_BUF1_MSK(prebuf_mask);
+> +		prebuf2_val = AD7768_4_PRECHARGE_BUF2_MSK(prebuf_mask);
+> +	}
+> +
+> +	ret = regmap_write(st->regmap, AD7768_REG_PRECHARGE_BUF1, prebuf1_val);
+Mentioned below, but if (ret) is more appropriate for regmap calls because...
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, AD7768_REG_PRECHARGE_BUF2, prebuf2_val);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, AD7768_REG_REFP_BUF, refbufp_val);
+> +	if (ret < 0)
+> +		return ret;
+> +
+
+If ret did go positive ever the following would treat it differently to
+every other call.
+
+> +	return regmap_write(st->regmap, AD7768_REG_REFN_BUF, refbufn_val);
+> +}
+
+> +
+> +static struct iio_chan_spec_ext_info ad7768_ext_info[] = {
+> +	IIO_ENUM("filter_type", IIO_SEPARATE,
+> +		 &ad7768_filter_types_enum),
+> +	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE, &ad7768_filter_types_enum),
+> +	{ },
+
+No trailing comma on a terminating entry like that one.
+
+
+> +};
+> +
+> +static const struct iio_chan_spec ad7768_channel_template = {
+> +	.type = IIO_VOLTAGE,
+> +	.info_mask_separate =	BIT(IIO_CHAN_INFO_CALIBBIAS) |
+> +				BIT(IIO_CHAN_INFO_CALIBSCALE) |
+> +				BIT(IIO_CHAN_INFO_PHASE) |
+> +				BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> +	.indexed = 1,
+> +	.scan_type = {
+> +		.sign = 's',
+> +		.realbits = 24,
+> +		.storagebits = 32,
+> +	},
+> +	.ext_info = ad7768_ext_info,
+> +};
+> +
+> +static void ad7768_init_chan(struct iio_chan_spec *chan, unsigned int channel)
+> +{
+> +	*chan = ad7768_channel_template;
+I'd replace where this is called with
+		chan[chan_idx] = (struct iio_chan_spec) {
+			.type = IIO_VOLTAGE,
+etc.
+  Generally ends up easier to read than a template and modify.
+
+> +	chan->address = channel;
+> +	chan->channel = channel;
+> +	chan->scan_index = channel;
+> +}
+> +
+> +static int ad7768_parse_config(struct iio_dev *indio_dev,
+> +			       struct device *dev)
+> +{
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +	const unsigned int *available_datalines;
+> +	struct ad7768_precharge_config precharge_cfg[AD7768_MAX_CHANNEL] = {};
+
+Trivial but { }; would be my preference for style of that.
+
+> +	struct iio_chan_spec *chan;
+> +	unsigned int num_channels;
+> +	unsigned int channel;
+> +	unsigned int i, len, vcm_sel, vcm_pd, ch_mode, pwr_mode;
+
+What you combine and what you don't combine here seems a bit random. Maybe
+take another look and see if there is a more logical combination.
+(or maybe this makes sense after a later patch, in which case ignore
+this comment).
+
+> +	int chan_idx = 0;
+> +	int ret;
+> +
+> +	num_channels = device_get_child_node_count(dev);
+> +
+
+Given following is a check on the value returned, no blank line here would
+keep that association more obvious.
+
+> +	if (!num_channels || num_channels > st->chip_info->num_channels)
+> +		return dev_err_probe(dev, -EINVAL, "Invalid number of channels\n");
+> +
+> +	chan = devm_kcalloc(indio_dev->dev.parent, num_channels,
+> +			    sizeof(*chan), GFP_KERNEL);
+> +	if (!chan)
+> +		return -ENOMEM;
+> +
+> +	indio_dev->channels = chan;
+> +	indio_dev->num_channels = num_channels;
+> +
+> +	ret = regmap_write(st->regmap, AD7768_REG_CH_STANDBY,
+> +			   GENMASK(st->chip_info->num_channels - 1, 0));
+> +	if (ret < 0)
+> +		return ret;
+
+regmap is always 0 or negative, so these can be if (ret)
+
+> +
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		ret = fwnode_property_read_u32(child, "reg", &channel);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to parse reg property of %pfwP\n", child);
+> +
+> +		if (channel >= st->chip_info->num_channels)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "Invalid channel number %d\n", channel);
+
+maybe put "from firmware" in that error message.
+
+> +
+> +		ret = regmap_update_bits(st->regmap, AD7768_REG_CH_STANDBY,
+> +					 BIT(channel), 0);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		ret = fwnode_property_read_u32(child, "adi,ch-mode", &ch_mode);
+
+David covered this when reviewing the binding. There is quite a bit of precedence
+of smaller sets of config registers than channels. Usually we just make it a userspace
+thing and fail if too many configs are requested.
+
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to parse property adi,ch-mode %pfwP\n",
+> +					     child);
+
+> +
+> +	ret = regmap_update_bits(st->regmap,
+> +				 AD7768_REG_GENERAL_CONFIG,
+> +				 AD7768_GEN_CONFIG_VCM_PD,
+> +				 vcm_pd ? AD7768_GEN_CONFIG_VCM_PD : 0);
+
+regmap_assign_bits()
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = device_property_match_property_string(&st->spi->dev,
+> +						    "adi,power-mode",
+> +						    ad7768_power_mode_str,
+> +						    ARRAY_SIZE(ad7768_power_mode_str));
+> +	if (ret < 0) {
+> +		if (ret != -ENODATA)
+
+Check for device property existing before reading it. Avoids need for caring
+about the specific return value.
+
+	if (device_property_present()) {
+		ret = device_property_match...
+...
+	} else {
+		pwr_mode = AD7768_LOW_POWER_MODE;
+	}
+
+> +			return dev_err_probe(&st->spi->dev, ret,
+> +					     "Invalid \"adi,power-mode\" property\n");
+> +
+> +		pwr_mode = AD7768_LOW_POWER_MODE;
+> +	} else {
+> +		pwr_mode = ret;
+> +	}
+> +
+> +	ret = ad7768_set_power_mode(indio_dev, pwr_mode);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set power mode\n");
+> +
+> +	for (i = 0; i < indio_dev->num_channels; i++) {
+> +		ret = ad7768_set_sampling_freq(indio_dev, st->sampling_freq,
+> +					       indio_dev->channels[i].channel);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to set sampling freq for channel %d\n",
+> +					     indio_dev->channels[i].channel);
+> +	}
+> +
+> +	available_datalines = st->chip_info->available_datalines;
+> +	len = st->chip_info->num_datalines;
+> +
+> +	for (i = 0; i < len; i++) {
+> +		if (available_datalines[i] == st->datalines)
+> +			return 0;
+I'd be tempted to not do something so specific to it being the last bit
+of the function and keep the error case as clearly out of line.
+		if (...)
+			break;
+	}
+	if (i == len)
+		return dev_err_probe();
+
+	return 0;
+> +	}
+> +
+> +	return dev_err_probe(&st->spi->dev, -EINVAL,
+
+use dev
+
+> +			     "Invalid data-lines-number %d for %s\n",
+> +			     st->datalines, st->chip_info->name);
+> +}
+> +
+> +static int ad7768_reset(struct ad7768_state *st)
+> +{
+> +	struct reset_control *reset_ctrl;
+> +	int ret;
+> +
+> +	reset_ctrl = devm_reset_control_get_optional_exclusive(&st->spi->dev, NULL);
+> +	if (IS_ERR(reset_ctrl))
+> +		return PTR_ERR(reset_ctrl);
+> +
+> +	if (reset_ctrl) {
+> +		ret = reset_control_assert(reset_ctrl);
+> +		if (ret)
+> +			return ret;
+
+Probably do need a delay of some type here. See if you can find anything in the
+data sheet on what it should be (sashiko)
+
+> +
+> +		ret = reset_control_deassert(reset_ctrl);
+> +		if (ret)
+> +			return ret;
+> +	} else {
+> +		ret = regmap_write(st->regmap, AD7768_REG_DATA_CONTROL,
+> +				   AD7768_DATA_CONTROL_SPI_RESET_1);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_write(st->regmap, AD7768_REG_DATA_CONTROL,
+> +				   AD7768_DATA_CONTROL_SPI_RESET_2);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/* ADC start-up time after reset: 1.66 ms max (datasheet Table 1) */
+> +	fsleep(2000);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ad7768_probe(struct spi_device *spi)
+> +{
+
+...
+
+> +	ret = devm_iio_backend_enable(dev, st->back);
+> +	if (ret)
+> +		return ret;
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, 2000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_set_active(dev);
+> +
+> +	ret = devm_pm_runtime_enable(dev);
+
+I'm fairly sure the sashiko comment here is incorrect but do check it.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->setup_ops = &ad7768_buffer_ops;
+> +
+> +	ret = ad7768_gpio_adev_init(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static int ad7768_runtime_suspend(struct device *dev)
+> +{
+> +	struct ad7768_state *st = dev_get_drvdata(dev);
+> +
+> +	return regmap_update_bits(st->regmap, AD7768_REG_POWER_MODE,
+> +				  AD7768_SLEEP_MODE_MSK,
+> +				  AD7768_SLEEP_MODE_MSK);
+
+regmap_set_bits()
+
+> +}
+> +
+> +static int ad7768_runtime_resume(struct device *dev)
+> +{
+> +	struct ad7768_state *st = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret = regmap_update_bits(st->regmap, AD7768_REG_POWER_MODE,
+> +				 AD7768_SLEEP_MODE_MSK, 0);
+
+regmap_clear_bits()
+
+> +	if (ret)
+> +		return ret;
+
+
