@@ -1,183 +1,83 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7E743F8B4;
-	Fri, 10 Jul 2026 16:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B65943F8B8;
+	Fri, 10 Jul 2026 16:55:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783701999; cv=none; b=FlN6yKQ74955wQvFem00jnowo9ujN4xAyxpSo2sih9NC19mk7/YE/pNdUePUarjfYVLZwmByOHFyS158MCx8tyaQ1JeCx0GzDZp7kdjBwvpXSQrw2EGmCGLrjfbdF1gqGZFks0irMi7bfc5EZ+p2RZPC3uM+tCn6Losy1Z59wE4=
+	t=1783702523; cv=none; b=Prl7hlqt/1H8/R6Dh5chah9XiDrfdOHPiKgoG011V1xi4qa2Iq4SvctU8J6vp2THvrZnrfQlv1iCvtGOGgD3UbIukHA5GuXE/VcS7c3TlELiT5HQp54rYI5S9LZCPFw+MSmDEg1Qj7aXMeTui5dH5sCjFbnT20jrTMGmCQr/wLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783701999; c=relaxed/simple;
-	bh=1EpS3VBx4qH9faH0FA9d8/B9FiHgliXdwRmJBhi8wWg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W3bBfxH/mIMeF7BPvbsvad6gVvHi0mquYppdfcFCY1QXXxv7Izim7acrlqUgy+fq+jI6FeiPa1WOYgx/sJe6cnS7SSrLY0r6fDWAFHDgrgYSsI/oHefGIYXs2VkDjWMLBbnWwoGYyqFEFDg4xvUGK5XjgH8QS8Vh/lQ7eLmwwBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VWFTQ/xs; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783702523; c=relaxed/simple;
+	bh=UjxSN9svmwXOeyJ1UPe3NeYnyfx/h6gTHTP9Tc+U/5g=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gzbm5vSaXEJDOS2DuowdbGVDkqDbl+IkhJsrvKnRzwu/nItg13HTR0ScfsA1WZb8ZKYwKnLatwsf6VmTaBfgonCk0lz1aNkfapo2lcpO5X5tbcDoyx5MWDwJtoFsv2iTzMfFXvd4elsxErKDl7s1UO5tiH5FtrQCwux0QZZ0X/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=sLmfLuOd; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VWFTQ/xs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783701979;
-	bh=1EpS3VBx4qH9faH0FA9d8/B9FiHgliXdwRmJBhi8wWg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=VWFTQ/xsZbKE64ED1G6SR58NwgmX1LF/ZreKTBeQeJOmNgK6sdtsBJP6Psub4o9/A
-	 KQir3UbTgjjXhPZ+WLgLM5NAgjQ1hMc7LW5QbaJLBZo2acKYnt7ynAS0bPNwEBXZu3
-	 SZGpnFsm4JarFBQkZeil7xotr+FfWvC1z4jJZiirg/LtK6rbzPTi89Zj/xqI2Fe0VW
-	 bcHj4hsDrTbVuupyKYWxsZWrzmwTHqZ9tLwPUaSTslcG4kHR1mQbAL+E8cKHAdbVNc
-	 R0lAQlZSAvyaiiNIPDWwwuRHyilW7Wt/gaGl+IUvvBiP/HQ4ymSbr1so7idcLHAGi+
-	 t5OlpJlhWGXNQ==
-Received: from jupiter.universe (unknown [100.64.1.62])
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="sLmfLuOd"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
 	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 14AD317E1078;
-	Fri, 10 Jul 2026 18:46:19 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0D31148006B; Fri, 10 Jul 2026 18:46:18 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 10 Jul 2026 18:45:03 +0200
-Subject: [PATCH v12 25/36] phy: rockchip: usbdp: Add some extra debug
- messages
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gxdHW4C0RzMlBX;
+	Fri, 10 Jul 2026 18:55:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783702519;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UjxSN9svmwXOeyJ1UPe3NeYnyfx/h6gTHTP9Tc+U/5g=;
+	b=sLmfLuOd1o2QsOdRII9dnXDrfO3VvwfIMWZWI2Zm6jCEPgsKW2l7shxw3WHlXBDMxp4SCt
+	bJVvLPVrb4hpNTyr5hF8dNaGLBLc9cso2lJDYkivgAQI6+r8+zeMMegtB3afQRN+0owCGO
+	tG+iclJz436BI4rlSd48gcMCWSmMIvzmEyVQFgNm3352b1dsv4Odb401lCHRBDo3VDyKQd
+	oUALxiEpgIyepfz2ZeCbprhsLb5yTyHvSh01B0Zp0KQQsciC2ly4SjSLHxeEe+SRY8otVY
+	tX9e99kWDWMj3rcf8Tsy/mj+WHt6ROm/MhrKVw6c8XiMMeig9ypFV8E83SxQ8Q==
+Message-ID: <a3723ad0ac56ca5d6986d2fec5a02386b423e207.camel@mailbox.org>
+Subject: Re: [PATCH] dt-bindings: memory-controllers: renesas,dbsc: fix
+ bracket
+From: Manuel Ebner <manuelebner@mailbox.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Magnus Damm	 <magnus.damm@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Date: Fri, 10 Jul 2026 18:55:14 +0200
+In-Reply-To: <8ad5043e-0d5e-486d-80eb-87168d9ede87@kernel.org>
+References: <20260710113029.436415-2-manuelebner@mailbox.org>
+	 <8ad5043e-0d5e-486d-80eb-87168d9ede87@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-rockchip-usbdp-cleanup-v12-25-8b41a9a9bef0@collabora.com>
-References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
-In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Yubing Zhang <yubing.zhang@rock-chips.com>, 
- Alexey Charkov <alchark@flipper.net>, linux-phy@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3232;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=1EpS3VBx4qH9faH0FA9d8/B9FiHgliXdwRmJBhi8wWg=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpRIdlqnRV+IsDAf6xvarg8hGQOK2KftzJ7W
- GUkvUO7YlluTYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqUSHZAAoJENju1/PI
- O/qaI/UP/iLziTTNurHIqWA9Wb1mlq3j42vH0Iy83ORfb88bJLHWv32798MpCWFzYbk2lxypzib
- 1b/NUxHvabkGOyB+09yyOV+l4ojuQ7UlR3rHrYo6GKeu/YiylurOt4uKBZFoW2xb3y/z//qvC8m
- EWWmPItimNwvoUVUFspcIgy8MecPwGwJovEShyxYm8+eTrU6uL92XaAkSyHwV6MZMPCbp9PjVkT
- kLJmyZlS1TXs+FjUn7akTTV8vnpLxhVc0E/q442+BKUsfuWvRRekxCePl2jRduF3pBxJ+xHWpqj
- cX0ULA3OYh83QY875YAIKnHxL5XEH9hTy3T2fO035A7cG0DRWqCpuTLxb+X5Gc7WUa3iAN61/NK
- L4XEeQNzI+XQ7fBo0G3PQePoKl2ZzzbyaVpp+1BOyLrp86478PrHfuMInY9Xt5Qm6Hj9FYfNJKH
- ijcdxFB0kCU6pQQCT7lma91J83iG/88SBRv6o+W79TskOUsR9TpIJ4/9739Yjm5jz87i0oBXnEL
- PtR0kQMFpsWM6aG1yzt9F9hyzxMQPAf7iXss8cMHO5QjED8CsgykvQb+ctDEf8xn7b6p38zSMwd
- Xo20c1nf9BhYEReMquFUDUHjvSesbmHTTGq3a6CaU2OFc3S9uFZ3rxyM8rE5n/SZ32L0OECVRV9
- HQuDlGYnFBq6gz9K+Ha86YA==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+X-MBO-RS-META: fcxmjbho7dypwzhr85t63i6cb7qj5m96
+X-MBO-RS-ID: 5d12656b401615a3090
 
-It's useful to log PHY reinit to ease debugging issues around
-USB-C hotplugging.
+On Fri, 2026-07-10 at 13:37 +0200, Krzysztof Kozlowski wrote:
+> On 10/07/2026 13:30, Manuel Ebner wrote:
+> > Remove needless ')'.
+> >=20
+>=20
+> You sent multiple patches like that and that's unnecessary effort to
+> handle.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+I'm sorry for that. I got the suggestion to send a patch per file when
+sending patches with Documentation/ABI/.
 
-diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index cd79c5da566a..edee27933d89 100644
---- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-+++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -24,6 +24,7 @@
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
-+#include <linux/string_choices.h>
- #include <linux/usb/ch9.h>
- #include <linux/usb/typec_dp.h>
- #include <linux/usb/typec_mux.h>
-@@ -462,6 +463,8 @@ static int rk_udphy_reset_deassert(struct rk_udphy *udphy, char *name)
- 			return reset_control_deassert(list[idx].rstc);
- 	}
- 
-+	dev_err(udphy->dev, "failed to de-assert missing reset line: %s\n", name);
-+
- 	return -EINVAL;
- }
- 
-@@ -488,6 +491,8 @@ static void rk_udphy_u3_port_disable(struct rk_udphy *udphy, u8 disable)
- 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
- 	const struct rk_udphy_grf_reg *preg;
- 
-+	dev_dbg(udphy->dev, "USB3 port %s\n", str_on_off(!disable));
-+
- 	preg = udphy->id ? &cfg->grfcfg.usb3otg1_cfg : &cfg->grfcfg.usb3otg0_cfg;
- 	rk_udphy_grfreg_write(udphy->usbgrf, preg, disable);
- }
-@@ -662,8 +667,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
- 		return 0;
- 	}
- 
--	if (udphy->flip != flipped)
-+	if (udphy->flip != flipped) {
-+		dev_dbg(udphy->dev, "cable orientation changed, PHY re-init required.\n");
- 		udphy->phy_needs_reinit = true;
-+	}
- 
- 	udphy->flip = flipped;
- 	rk_udphy_set_typec_default_mapping(udphy);
-@@ -781,6 +788,11 @@ static int rk_udphy_init(struct rk_udphy *udphy)
- 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
- 	int ret;
- 
-+	dev_dbg(udphy->dev, "reinit PHY with USB3=%s and DP=%s (%u lanes) flipped=%s\n",
-+		str_on_off(udphy->mode & UDPHY_MODE_USB),
-+		str_on_off(udphy->mode & UDPHY_MODE_DP),
-+		udphy->dp_lanes, str_yes_no(udphy->flip));
-+
- 	rk_udphy_reset_assert_all(udphy);
- 	usleep_range(10000, 11000);
- 
-@@ -851,6 +863,8 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
- {
- 	int ret;
- 
-+	dev_dbg(udphy->dev, "enable PHY\n");
-+
- 	ret = clk_bulk_prepare_enable(udphy->num_clks, udphy->clks);
- 	if (ret) {
- 		dev_err(udphy->dev, "failed to enable clk\n");
-@@ -869,6 +883,7 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
- 
- static void rk_udphy_disable(struct rk_udphy *udphy)
- {
-+	dev_dbg(udphy->dev, "disable PHY\n");
- 	clk_bulk_disable_unprepare(udphy->num_clks, udphy->clks);
- 	rk_udphy_reset_assert_all(udphy);
- }
-@@ -1310,8 +1325,12 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
- 	struct rk_udphy *udphy = typec_mux_get_drvdata(mux);
- 
- 	/* Ignore mux events not involving USB or DP */
--	if (!rk_udphy_is_supported_mode(state))
-+	if (!rk_udphy_is_supported_mode(state)) {
-+		dev_dbg(udphy->dev, "ignore mux event with mode=%lu\n", state->mode);
- 		return 0;
-+	}
-+
-+	dev_dbg(udphy->dev, "new mode: %lu\n", state->mode);
- 
- 	guard(mutex)(&udphy->mutex);
- 
+> These are trivial - one patch for all bindings should be enough.
 
--- 
-2.53.0
+I made a unified patch for Documentation/devicetree/bindings/. It's
+18 files. get_maintainer returns 44 addresses for To=3D and 18 addresses
+for Cc=3D. Should I just send it with all addresses?
 
+Thanks
+ Manuel Ebner
+
+>=20
+> Best regards,
+> Krzysztof
