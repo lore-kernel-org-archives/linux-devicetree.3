@@ -1,79 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B866E37A481
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 19:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B372AD3F
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 19:50:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783712907; cv=none; b=tpZ2rpmuqc60QGupzjT5LcIxkjwbOKeKT96+7HJccAy44C30BPqFv7VqXqwcvNM0T4ukU/jr90mHe3txnK1TjDo0AWvXDmxAbJqnUzniUTgnsDZM3BjfS0mPm4I3UW7xc1EHG8aUSF00vxFkatr3g5ePgyquZ/oj6V8Tm5a80q4=
+	t=1783713009; cv=none; b=fm0OGiOkMUXgkLeyr1S1v7j3aD5zUuRJHhothQE8A/2QqCtPuGvycWzgIEXAvdpOEK43xSps7M74FclipJDG+oEJLHRirHbVmYUE+hz4nbu+yOxfhoHhkCzNfQHWhN0y6PJewMAyDBKlt/A2Pz+dYrWcqB6o2spkPWWPI2N1enM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783712907; c=relaxed/simple;
-	bh=r1Zf4djkyVsGdqHiqgT2yCHA+1xehfGqV1emcYl1I6A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s9L+pgzia2FDjLV2wm7E9JNyDO61vESYVE+E0OBDHJo3a10B2RKUH/azwez73Np02UiADxNJ1soYfnnNYywFAOtV4Q9B0SenRhthOQmwXq2Uezr0GBAbxA2gmxylNZTvWnzHt/9p4iLr0yDafCtpoXtlxtAvbil73oGVDwhha2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHubEODI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783713009; c=relaxed/simple;
+	bh=WucpsYI69zUjxgCnQpH7VeayPXFlu3a6JmojAh0xuXM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VEZc7URUazXfiVdMXy3qXWOEbOyzYiY6rK5x2rdbNIljseVsXNS9W+EETzWbVPk3JEQwCRiPIPjyQBjs3o5wDYVkxVoEYJScCSTopzwmlhhFjrrYmfS+Y85E59+an5J7IjmWjNKFLE2GLdBGvYUSCygX2lxKZ7aBPw6H3+25ZOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=AvmtNw24; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHubEODI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62BCC1F01560
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 19:48:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783712905;
-	bh=r1Zf4djkyVsGdqHiqgT2yCHA+1xehfGqV1emcYl1I6A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KHubEODI5OK2JjTzLoacd+Xr01Bdn2djdhyaYl/074SiQhy7GiltXk3uOVmqYK+Jx
-	 gaIBB4JvCVLuVWPwYbajMX4wyLMe20zpe2yvO2E3Zf+M/jCxYCtOb96KZAZxJygLu6
-	 LdIjuylf2OpzLru6fOiYnIeUqX4b1688vkKDiuc/Clwpgiu9XPvMV7U6eLhfHANeUj
-	 svnCfvd5/BhdvmEos+dlaiaungyCXAz4FGHwtAWGlWWynv1es0W6tunrIph+PFAp1c
-	 dy4llZLsfp/AE70Xrsxq5ev2pLwZe9Z+2hWF2+joPs1FeVyde3GT8lRFUGCmZxJcjx
-	 plVtsxTqbfDZA==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aeba09900bso1017877e87.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 12:48:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rpu1TXMNKwweWQXOfzq0QawUV4R6zbmk7qu1nG3YktFb/Qm7TPdjgTYsb1XPahe0LEM9hzeQnS9SrJG@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/N1Es5LdvJa9r5NFPoXzo11rzOlUjoA02fokzwWIWd0DhjeLI
-	Lpbo2PU5QnSaOJ+HzLuigPWsNJBGS+vZQ2DfK8qujW+paioAAg85qrwoBMXOu6o6hhSmKSRLQla
-	TyHg3ZiFjGG7Ivw0Uv5ZsMr3D/gTnLu0=
-X-Received: by 2002:a05:6512:2c0e:b0:5ae:aeaa:140b with SMTP id
- 2adb3069b0e04-5b0236a5c9fmr98033e87.43.1783712904103; Fri, 10 Jul 2026
- 12:48:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="AvmtNw24"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-e1b5cab7be; t=1783713007;
+ bh=G97p3I72zO6HSzwQX3GsrN/RHi2gmwpFncs/h5lZiNA=;
+ b=AvmtNw24ODMRQgcUsgrZ7N+tCJBuHFhayq45BRVMl1Xo5d4vbs86pmwdKZSOckOZiuI/oTwEH
+ rVkhK6dHYeISZQTQpOU5kxD0u+kCcA8dkSGF6ycyGnKrdblxjbx9jPiDLzNc03WTZfpYdsG1q/A
+ 90AokbF0d9kuVtRxLZIxKL58VISZrsk7rR7P2YBrJNgFNO/NULVoH83fIIyKed95WJhU9YDYLQu
+ hT1iO40uS6MJVeTMJ+EiIg+Qt6iyMxNKOCyW3YZ+trmiXxrzEmBzmNauhh0knPeBsLBodkW3mDu
+ 60hNCN45pom5vupAq97DWm9pe2oQKrXT89VSi/gcP20g==
+X-Forward-Email-ID: 6a514ca876cf32b2f5f788d4
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.10.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <2127e98d-d411-4be9-aac0-bc3684339faa@kwiboo.se>
+Date: Fri, 10 Jul 2026 21:48:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709-apple-t603x-initial-devices-v1-0-55b305833123@jannau.net>
- <20260709-apple-t603x-initial-devices-v1-7-55b305833123@jannau.net>
-In-Reply-To: <20260709-apple-t603x-initial-devices-v1-7-55b305833123@jannau.net>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 10 Jul 2026 21:48:12 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnKYrW3LzEWj47Mmi7DYL=cGZNLRzbF3w91GTs7FBCsjA@mail.gmail.com>
-X-Gm-Features: AUfX_mwDu5nHkfrpKW31EzIHDBbQz-W_XVTsCEkvJgwgFKC10BW3wqwVZ3eoWUg
-Message-ID: <CAD++jLnKYrW3LzEWj47Mmi7DYL=cGZNLRzbF3w91GTs7FBCsjA@mail.gmail.com>
-Subject: Re: [PATCH 07/11] dt-bindings: pinctrl: apple,pinctrl: Add t6030 and
- t6031 compatibles
-To: Janne Grunau <j@jannau.net>
-Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Mark Kettenis <kettenis@openbsd.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-pwm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/12] dt-bindings: pinctrl: rockchip: Add RV1106
+ compatible
+To: Simon Glass <sjg@chromium.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ Fabio Estevam <festevam@nabladev.com>, linux-arm-kernel@lists.infradead.org,
+ Conor Dooley <conor+dt@kernel.org>, Jeffy Chen <jeffy.chen@rock-chips.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>, huang lin <hl@rock-chips.com>,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260706195818.3906949-1-sjg@chromium.org>
+ <20260706195818.3906949-4-sjg@chromium.org>
+Content-Language: en-US
+From: Jonas Karlman <jonas@kwiboo.se>
+In-Reply-To: <20260706195818.3906949-4-sjg@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 9, 2026 at 9:31=E2=80=AFAM Janne Grunau <j@jannau.net> wrote:
+Hi Simon,
 
-> The pin controller on Apple silicon M3 Pro, Max and Ultra SoCs is
-> compatible with the t8103 (M1) one. Add "apple,t6030-pinctrl" for M3 Pro
-> and "apple,t6031-pinctrl" for M3 Max and Ultra as per-SoC compatibles.
->
-> Signed-off-by: Janne Grunau <j@jannau.net>
+On 7/6/2026 9:57 PM, Simon Glass wrote:
+> Add the compatible for the pin controller of the Rockchip RV1106 and
+> its RV1103 package variant.
 
-This patch 7 applied to the pinctrl tree.
+The RV1106/RV1103 has a dedicated GPIO IOC regs block for each GPIO
+controller. Something that seem to be different compared to other
+Rockchip pinctrl/gpio controllers.
 
-Yours,
-Linus Walleij
+I think we possible need to have a rockchip,ioc or similar added to each
+gpio bank for this variant.
+
+Address mapping for gpio controllers and ioc regs.
+
+  GPIO0		FF380000	32KB
+  GPIO1_IOC	FF388000	32KB
+  [...]
+  GPIO1		FF530000	32KB
+  GPIO1_IOC	FF538000	32KB
+  GPIO2		FF540000	32KB
+  GPIO2_IOC	FF548000	32KB
+  GPIO3		FF550000	32KB
+  GPIO3_IOC	FF558000	32KB
+  GPIO4		FF560000	32KB
+  GPIO4_IOC	FF568000	32KB
+
+I even made a note of this in my mainline U-Boot tree at [1]:
+
+  FIXME: range overlap gpio2+, u-boot pinctrl driver
+  fail pinconf of gpio2+ unless regmap cover all banks.
+
+Something I simply ignored at the time when I played around booting my
+RV1106/RV1103 boards using mainline U-Boot. However, this is something
+that should be fixed in a proper way for mainline Linux.
+
+[1] https://git.u-boot-project.org/u-boot/contributors/kwiboo/u-boot/-/blob/rk3562/arch/arm/dts/rv1106.dtsi#L130-137
+
+Regards,
+Jonas
+
+> 
+> Signed-off-by: Simon Glass <sjg@chromium.org>
+> ---
+> 
+>  Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml
+> index 9b3cbeb54fed..81747bb53056 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/rockchip,pinctrl.yaml
+> @@ -51,6 +51,7 @@ properties:
+>        - rockchip,rk3576-pinctrl
+>        - rockchip,rk3588-pinctrl
+>        - rockchip,rv1103b-pinctrl
+> +      - rockchip,rv1106-pinctrl
+>        - rockchip,rv1108-pinctrl
+>        - rockchip,rv1126-pinctrl
+>  
+
