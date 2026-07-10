@@ -1,132 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C9F379C21
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB418182D6;
+	Fri, 10 Jul 2026 20:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783714000; cv=none; b=s4VlWmXm+gYGC9czuTvtmnjGs6aMWboz7+ggrLHxRCa/x4Hc22baYaqq+rL0wWwzg6z5iP12uLXaqCnhx2F8/8VSbVzIUAaQ1QkOFGE+sunui8j2zhxl+/0LSCpXe1WYwQYk+ZnJbbsrOtwJyjSBZYVAfO16tMlyaOR7QkdEooc=
+	t=1783716976; cv=none; b=Y48f8Go8jPWfVOHLI76Nd9EleQwC/s8LpA5AkX+MRSZlbjpvhsVjq1zQ9YtWcC9vyrgHgavdwuYjB0uDJw6T6+eUvju8ez776vFpZs8KI4UbnrKugzZGxg0MI8e+JfopkO+3BDT6RI+oHyCR0pkDVfjvA4J8Dr/JCF5lVcZYEm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783714000; c=relaxed/simple;
-	bh=VTtJMkoIE7aY9ADQYgKgI9tia/pJhvsGnk0AWgm65VU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nUSOR6iEPamyOy9XkCPH2pk9LDmPz+wSdUGwxcwJyhkkxHO4YAM2uFMcH00YgoSbPotWoE5OhR/i53uF/YbHbwZzpub1RyoB5jVbj1oTs/92/qBjHFJNHHLU71vGgMFRqohuOepC7mv+TOPBe9K6oiZj25FnKTqZgavXyVDRcK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WD0uMvEp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783716976; c=relaxed/simple;
+	bh=KsztTcLL1hh9As65BcDTh5Y7TjOnYb7YivozEbWiMmA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uLJ8rPl36pQzg+zL8QSqhTUBXJcVRbleJcW/m6mWnuO5NA8gpvGxdcn7c+rS+9zUhBXLVh7NJ+MGPgP97ptxtyds/LIL8vC2Dpv+raUFdE7MXOIoItWT2o3nSV2MctczsGEf86WrokECqznsJnEgzEgYFTbIaYV+VXO4B+U132o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=AsnlYnKE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WD0uMvEp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EBF1F00ACA
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:06:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783713998;
-	bh=B9Kk8b2yeKJda2bcD7uscL9OAXJzdAoXShPD9wofJ1Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WD0uMvEpmZ4hjD/0FYhelcJkG2V8mh5HWOkjkEDVb+ET9E29v/9HpaUWFL0KG8S1c
-	 tWXnEMY+7mgl00OYFq4k+2h1AdtW0B6YwVQCN9m0kaupFYZbmSrKfdSR4HESs9vtJS
-	 IH7B6PdHTJxE3PB5WY2YBFyoLvJu1AeOomuPwEQjCHP7UzLiezOyi66t3HYde6crCJ
-	 XjWxgov+Ts4Ut1zJ/WpJJlRPASZGEDilLzeLl9Fcz/wROM5nagZves8f0FdBjBFhUF
-	 lsUb5iPHK9+u2ZPCmxxX71TYTz6Y72MzwuaGciu7sIYOLVtLJzTYbKj7eHojZHoh/x
-	 ndvoTXlgEuJ6w==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5aeb77b3afbso1335925e87.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:06:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RowkkymE07JuyYWmjw3i6gozY4rfmmV5w3PHNPDHZGGeDnai9GvxRg7+dsx39mfv0GWpCOKFgSZNnao@vger.kernel.org
-X-Gm-Message-State: AOJu0YywSCcteafiBjj2V7Yw4fD2ixUj6DS8M4uvLxkGtXKd4WKa3Yra
-	BmWtJnnBQCAMNFPi+fqb3oZ3wY2l5O91FM98K52fIU+YnvpB4muFff0P9xK4itGaxS4ykI3WBCZ
-	vrd3Oqewd5qduNfk7mr/Muy1cCv00LvY=
-X-Received: by 2002:ac2:5547:0:b0:5b0:f9d:f7b9 with SMTP id
- 2adb3069b0e04-5b023564b81mr79634e87.2.1783713997465; Fri, 10 Jul 2026
- 13:06:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="AsnlYnKE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783716973;
+	bh=KsztTcLL1hh9As65BcDTh5Y7TjOnYb7YivozEbWiMmA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=AsnlYnKEb4+9cZLy7mzp7QAshUqMTXL9/EbdW3DuunJuDxdbrpMOeL1FWPDHPPvR+
+	 Cxzgb3felcLaF6Lu4mhE9gH93JLD9e8MPz4lH9/vgwq1Vimxj3KXCFwyMF/h4zTUMm
+	 UFb/9duz/3TSeYwaU3hAuk6ik15A2DPWsumwP/6GY+HS230VrOz/RJkya3jGxKWyGY
+	 TwBIuppasQHWCwxaAQv3eU0X7MaZPFIjyxwAf5/9e3i2tFKXc7KIbGcFPLyxdMwUrI
+	 mVw6Aku2yLhdX8RZJyrEmmfAZNtooXlEe/0JnRfQV+GMCDmkCHGAfmSqJh8lxHwci2
+	 LFfc8TgHc1OqQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 13FEF17E0720;
+	Fri, 10 Jul 2026 22:56:13 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 02912480064; Fri, 10 Jul 2026 18:46:18 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 10 Jul 2026 18:44:56 +0200
+Subject: [PATCH v12 18/36] phy: rockchip: usbdp: Rename mode_change to
+ phy_needs_reinit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com> <20260709-ad7768-driver-v1-5-44e1194fd96a@analog.com>
-In-Reply-To: <20260709-ad7768-driver-v1-5-44e1194fd96a@analog.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 10 Jul 2026 22:06:24 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=iqrJV=Qbe=O8iycMZZVmVbjzPG47Bf_SUVjUb+4AcxA@mail.gmail.com>
-X-Gm-Features: AUfX_myotWGi2qG-MCbfVtZjA7xuips9ZVSbzGCI_OB1AcLKfs_3jsKmDONnS60
-Message-ID: <CAD++jL=iqrJV=Qbe=O8iycMZZVmVbjzPG47Bf_SUVjUb+4AcxA@mail.gmail.com>
-Subject: Re: [PATCH 5/6] gpio: ad7768: Add AD7768 GPIO auxiliary driver
-To: Janani Sunil <janani.sunil@analog.com>, Michael Walle <mwalle@kernel.org>
-Cc: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-rockchip-usbdp-cleanup-v12-18-8b41a9a9bef0@collabora.com>
+References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
+In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@flipper.net>, linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1831;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=KsztTcLL1hh9As65BcDTh5Y7TjOnYb7YivozEbWiMmA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpRIdnKMGlckTMit4CKUXquYmHJn7bDwh6N3
+ QCRwH7JCCLelYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqUSHZAAoJENju1/PI
+ O/qaVUUP/RKGEc58xxEWdv1e05CjoEyyVl/NtF3LV43Blv0Rr0F8LAyJnPHAEyHZXDsgUIdC3qL
+ R+SDKy8GPLvGJovGEniewLnVE808qs45iyfHL2QNLBrZxexZApBB+1qJsN2c/viXCs6FOuyQTeq
+ k8VLrL4xA2nmOEoYcX5OVYEYQyYyzWzWFtP7IC+zqr8xFAzrPfqp3cq2RVFsGuD87JL73+kvNpc
+ e1KPphOsi7rW53oXVXyp1n8gvspuIbtSUkAdvSgmddz7hH9RG7DPnGCbxnZ0BQXrbs9QyXHi2XN
+ NGwG1zPGpDjCKHnDBddwoDiLoxg4IgI3QLs31mmBMSjA7D3wt7kDdq4JpqGhq/jUxd8DjPKwY6h
+ HTfDMBdShp0LXsQCW8ICv2uDJmuuxwSEwO4EorhkMlB48lGLr1UhVoTd1NNe7pk6s7qw2wG5Ym8
+ oErzKqkKcuxon7KRD0WZE0WCoR9WISO6bpuyGgUyHtMiOsLuFt5eEM7x2yM62XGF5EF2fHO4vXV
+ BqpPUzXzrIwClZEnf7G+pkuUaiiQY0x88VReUWCbep1TqV1MAKPPkTKzNVkK9Lp3GnEIHW2cV9e
+ J2n5OzOSOCYo3PXKoNceJ77VOcIkSerpj4ssCTR42MlFQfmUIp/q1vBUhqeBn47PTMuJznctDb6
+ b/oFJibv47hP7sO+5f/M0Rg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Hi Janani,
+Right now the mode_change property is set whenever the mode changes
+between USB-only, DP-only and USB-DP. It is needed, because on any
+mode change the PHY needs to be re-initialized. Apparently at least
+DP also requires a re-init when the cable orientation is changed,
+which is currently not being done (except when the orientation switch
+also involves a mode change). Prepare for this by renaming mode_change
+to phy_needs_reinit.
 
-thanks for your patch!
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-On Thu, Jul 9, 2026 at 10:51=E2=80=AFAM Janani Sunil <janani.sunil@analog.c=
-om> wrote:
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index 24108816e3b9..e44d19c9d119 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -171,7 +171,7 @@ struct rk_udphy {
+ 
+ 	/* PHY status management */
+ 	bool flip;
+-	bool mode_change;
++	bool phy_needs_reinit;
+ 	u8 mode;
+ 	u8 status;
+ 
+@@ -578,7 +578,7 @@ static void rk_udphy_mode_set(struct rk_udphy *udphy, u8 mode)
+ 	if (udphy->mode == mode)
+ 		return;
+ 
+-	udphy->mode_change = true;
++	udphy->phy_needs_reinit = true;
+ 	udphy->mode = mode;
+ }
+ 
+@@ -951,15 +951,15 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 
+ 		if (udphy->mode & UDPHY_MODE_USB)
+ 			rk_udphy_u3_port_disable(udphy, false);
+-		udphy->mode_change = false;
+-	} else if (udphy->mode_change) {
++		udphy->phy_needs_reinit = false;
++	} else if (udphy->phy_needs_reinit) {
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
+ 
+ 		ret = rk_udphy_init(udphy);
+ 		if (ret)
+ 			return ret;
+-		udphy->mode_change = false;
++		udphy->phy_needs_reinit = false;
+ 	}
+ 
+ 	udphy->status |= mode;
 
-> The AD7768/AD7768-4 ADC exposes 5 general-purpose I/O pins that can be
-> independently configured as inputs or outputs. Add an auxiliary bus drive=
-r
-> to expose these pins as a GPIO chip, registered by the parent IIO driver.
->
-> The driver uses the parent's regmap for register access and delegates
-> runtime power management to the parent device.
->
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+-- 
+2.53.0
 
-(...)
-
-When I look at these functions I see they are very close to something
-the GPIO_REGMAP helpers should be able to do.
-
-Bascically all that stops you from doing this is:
-
-> +static int ad7768_gpio_direction_input(struct gpio_chip *chip,
-> +                                      unsigned int offset)
-> +{
-> +       struct ad7768_gpio_state *st =3D gpiochip_get_data(chip);
-> +
-> +       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(st->parent, pm);
-> +       int ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-
-These two things.
-
-> +static int ad7768_gpio_get_direction(struct gpio_chip *chip,
-> +                                    unsigned int offset)
-> +{
-> +       struct ad7768_gpio_state *st =3D gpiochip_get_data(chip);
-> +       unsigned int val;
-> +       int ret;
-> +
-> +       PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(st->parent, pm);
-> +       ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +       if (ret)
-> +               return ret;
-
-Here again, etc.
-
-Can't we just add a
-
-struct device *pm_dev; to struct gpio_regmap_config, pass
-st->parent there at init, modify drivers/gpio/gpio-regmap.c adding:
-
-static int gpio_regmap_pm(struct gpio_regmap *gpio)
-{
-    PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(gpio->pm_device, pm);
-    ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-    if (ret)
-        return ret;
-    return 0;
-}
-
-And call this in each of the standard callbacks so gpio-regmap.c
-can handle PM as well for free? The above can be an ifdef stub if
-runtime PM is not enabled.
-
-Yours,
-Linus Walleij
