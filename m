@@ -1,163 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8501347535
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAA8347535
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:07:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783717662; cv=none; b=trywSruzuGcJvLWN4rDktAkTc+100CCMEpn7GfvWWmRx6SwuJMmTaN6Xk6x7VQIbt57bK+qjVAqU9wDjKzp40wXsjiyEpdLXqHPsMdKrKheOfuFkDpsWkJ66Q/0STkgjre1yK5SWsbUP4+tcMgd31CCnwvzZtymEWYXee0sPbzM=
+	t=1783717668; cv=none; b=gLwTt4y+yYaE+QQlFkzo5Rmvd/aWnSqB6e/xE2uL7R7hSXeGhf5gURcihzhl3p25E9aG2hdQoqQU3S6CQi6IS7LFnY0kXhMw6oC9rH8FJMkGhBsPPJ4URK51VeFAPBoCik1hwySXfL+pzNDXr2ZzC631h+7kDadDjL0tyMDyQkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783717662; c=relaxed/simple;
-	bh=QbkEWasvGFkqS7MDUh5Dif7zSSUTlgT56lHXHZjUDjY=;
+	s=arc-20240116; t=1783717668; c=relaxed/simple;
+	bh=Bk+oyhKjoVGxSG8tJnKilQjza8UXkNfQs2mgARltQQc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RiwXCrRuAb+ZAon+YBmQRa3xaljG0I4mcG/YaooXvrMJhzdocjtyBpjoRucY0qYKtz2pAODKE/FR6ZzhMaI+e+Rfzlq1pYJTeOUPdtBxXSDVy3gCGSzLJeDcbXXEhfe2TEi3xbpzTIrLKsLtKnYVU8alJEhKowVr+gMT0mZ2EcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdmG1IgP; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=efMxoW0obeg4CCEM6S0T7pfkl8g0tDv6Oi+RUHEsDJYscgowYrGfzat3DnkIv90cpuijeKFhbxujXWnzZee7yCln8N7B1p6RASX5CoFqoiDEJ38j/VMOZFAhwyGUBw0mc4PRqSKmnbM9rJpEjygO+IoaGBJsp5taC/ftiMWszxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cYxrpbS/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdmG1IgP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02D761F000E9;
-	Fri, 10 Jul 2026 21:07:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cYxrpbS/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E752F1F000E9;
+	Fri, 10 Jul 2026 21:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783717661;
-	bh=OjDT+XU08SbkEiLzCZ3Sp0g2d4xORNwQTRirAqxonvE=;
+	s=k20260515; t=1783717667;
+	bh=7dchypg2t5RA7C2oLIg2jyC66usHbCwahs5TrnmSHL8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LdmG1IgPddPqXFjlEboNzWU6K6Cbgw76Ywc3mThJmOwHB64zEV9R+vHxfAaAubMSl
-	 ZUlrnrNHu6ZB2XHhH/tWlLIQtrXAXyzBjrf9sQrMgz6aKP84GuEnT7bgLe2pyDLbyY
-	 mp4KnTZTorDnyqg2Q81wQBqFdqkSMaXS2HJ2XKAgQMfVnzBSpzkIsadEw/FG2sR3V0
-	 DGEJ1Qe6vCGgd7xOD+Bs+8bq+ZZz/+K4yB9rj+lkjYoLDer2eZeUGf23M24SDmPwP+
-	 oW1A/dI1piVEGKuHOxOQ43y0aKv6r/1vigHHFqIUelCZQLW7mN/0CwAjyg4xELHAMl
-	 SpH7lfqfU/cmw==
+	b=cYxrpbS/IVKgZBUZfPN+W53R8Haa3E7clcVLb6U6B1381W2CVrBcMXcCef2Jfsiis
+	 CMWEVFG8/FqebZNKOUAFY7I1w5YAcP2HOyid8hLQLkHxbeU9EkESuyrn5xiX+FC0rE
+	 t1PDmLlhvA2Iox1r8wYkv13KUmbg2Nga4WZespnhiUvqBo51sYgePcZafoe7R/PzEr
+	 nLvjdK3iy2aDG857mZ+l6C4Oho2wJOtWGFF9GUC6kAojdmkhHbRR04N1VnZ/52x9bC
+	 MtoNTH1stzLvVu6vWiifyUQb0fgmHgUni88DA5aAyUd+Op306tSJ2SawbLjAtcmkjn
+	 Lrmt/0JNBPXXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 03/36] phy: rockchip: usbdp: Do not lose USB3 PHY
- status
+Subject: Re: [PATCH v12 05/36] phy: rockchip: usbdp: Handle missing
+ clock-names DT property gracefully
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: linux-phy@lists.infradead.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-3-8b41a9a9bef0@collabora.com>
+Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-5-8b41a9a9bef0@collabora.com>
 References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
- <20260710-rockchip-usbdp-cleanup-v12-3-8b41a9a9bef0@collabora.com>
+ <20260710-rockchip-usbdp-cleanup-v12-5-8b41a9a9bef0@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 21:07:40 +0000
-Message-Id: <20260710210741.02D761F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 21:07:46 +0000
+Message-Id: <20260710210746.E752F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Removing the clearance of `udphy->status` introduces unbalanced cl=
-ock disables and repeated hardware teardowns on the `rk_udphy_setup()` erro=
-r path.
-
 Pre-existing issues:
-- [High] Missing mutex acquisition in `rk_udphy_dp_phy_configure` leads to =
-data races on shared driver state.
-- [High] Incomplete handling of mode transitions causes DWC3 SErrors and pe=
-rmanently breaks the USB3 data stream.
+- [High] Missing NULL check for clock IDs when iterating over clocks, leadi=
+ng to a NULL pointer dereference with non-compliant device trees.
+- [Medium] Resource leak of clock enable counts on probe error paths and up=
+on driver unbinding due to missing `.remove` callback.
 --
 
---- Patch [3]: [PATCH v12 03/36] phy: rockchip: usbdp: Do not lose USB3 PHY=
- status ---
-commit efe9bcb0d6328640e43461f982816e45f55f9a36
+--- Patch [5]: [PATCH v12 05/36] phy: rockchip: usbdp: Handle missing clock=
+-names DT property gracefully ---
+commit a11924d81c315e2223d2b7de676184666d98b48a
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Do not lose USB3 PHY status
+phy: rockchip: usbdp: Handle missing clock-names DT property gracefully
 
-By default (i.e. without manually enabling runtime PM) DWC3 requests the
-USB3 PHY once and keeps it enabled all the time. When DisplayPort is
-being requested later on, a mode change is needed. This re-initializes
-the PHY. During re-initialization the status variable has incorrectly
-been cleared, which means the tracking information for USB3 is lost.
+This commit fixes a NULL pointer dereference in rk_udphy_clk_init() by
+ensuring the clock ID is not NULL before calling strncmp(). This gracefully
+handles cases where the device tree specifies 'clocks' but misses the requi=
+red
+'clock-names' property.
 
-This is not an immediate problem, since the DP side keeps the PHY
-enabled. But once DP is toggled off, the whole PHY will be disabled.
-This is a problem, because the USB side still needs it powered.
-
-Fix things by not clearing the status flags.
+Closes: https://sashiko.dev/#/message/20260619154349.071321F000E9%40smtp.ke=
+rnel.org
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index a5ffdf7a6e76b..12dfdd470a782 100644
+> index 2845a012eafcc..3fc8222fcaec2 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1008,7 +1008,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
->  			rk_udphy_u3_port_disable(udphy, false);
->  		udphy->mode_change =3D false;
->  	} else if (udphy->mode_change) {
-
-[Severity: High]
-This is a pre-existing issue, but I have a question about how the mode
-transitions are handled here in rk_udphy_power_on().
-
-When Type-C negotiation changes the mode to UDPHY_MODE_DP_USB, the driver
-skips calling rk_udphy_u3_port_disable(udphy, true). It then cuts the PHY
-clocks via rk_udphy_disable() while the DWC3 controller might still be
-active. Can this cause System Errors (SErrors) from the DWC3 controller?
-
-Additionally, if the old mode was UDPHY_MODE_DP, the USB3 port is disabled
-but never re-enabled after rk_udphy_setup() succeeds. Does this leave the
-USB3 data stream permanently broken in the GRF registers?
-
-> -		udphy->status =3D UDPHY_MODE_NONE;
->  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
->  			rk_udphy_u3_port_disable(udphy, true);
+> @@ -432,6 +432,9 @@ static int rk_udphy_clk_init(struct rk_udphy *udphy, =
+struct device *dev)
 > =20
->  		rk_udphy_disable(udphy);
->  		ret =3D rk_udphy_setup(udphy);
->  		if (ret)
->  			return ret;
+>  	/* used for configure phy reference clock frequency */
+>  	for (i =3D 0; i < udphy->num_clks; i++) {
+> +		if (!udphy->clks[i].id)
+> +			continue;
+> +
 
 [Severity: High]
-Since this clearance is removed, what happens if rk_udphy_setup() fails
-immediately after this block?
+This is a pre-existing issue, but does the same NULL pointer dereference
+exist in other rockchip PHY drivers when 'clock-names' is missing?
 
-If rk_udphy_setup() returns an error, the function exits without updating
-udphy->status to reflect that the hardware was actually disabled by
-rk_udphy_disable() just above.
+For example, looking at rockchip_usb2phy_clk480m_register() in
+phy-rockchip-inno-usb2.c:
 
-Could this lead to unbalanced clock disables and repeated resets later when
-phy_power_off() or phy_power_on() is called, since the driver still assumes
-the PHY is active?
+	for (i =3D 0; i < rphy->num_clks; i++) {
+		if (!strncmp(rphy->clks[i].id, "phyclk", 6)) {
+			refclk =3D rphy->clks[i].clk;
 
-[ ... ]
+And similarly in rockchip_combphy_parse_dt() in phy-rockchip-naneng-combphy=
+.c:
 
-[Severity: High]
-This is a pre-existing issue, but does rk_udphy_dp_phy_configure() need to
-hold udphy->mutex when accessing shared driver state?
+	for (i =3D 0; i < priv->num_clks; i++) {
+		if (!strncmp(priv->clks[i].id, "ref", 3)) {
+			priv->refclk =3D priv->clks[i].clk;
 
-Looking at drivers/phy/rockchip/phy-rockchip-usbdp.c:
+Do these drivers also need similar checks before calling strncmp() to avoid
+crashing with non-compliant device trees?
 
-rk_udphy_dp_phy_configure() {
-	struct rk_udphy *udphy =3D phy_get_drvdata(phy);
-	...
-	if (dp->set_voltages) {
-		for (i =3D 0; i < udphy->lanes; i++) {
-			lane =3D udphy->dp_lane_sel[i];
-...
+>  		if (!strncmp(udphy->clks[i].id, "refclk", 6)) {
+>  			udphy->refclk =3D udphy->clks[i].clk;
+>  			break;
 
-This function reads udphy->dp_lane_sel, udphy->lanes, and
-udphy->lane_mux_sel without acquiring the mutex.
+[Severity: Medium]
+This is a pre-existing issue, but does this driver leak clock enable counts
+during probe failures or upon unbinding?
 
-Meanwhile, if a Type-C orientation flip occurs, rk_udphy_orien_sw_set()
-acquires the mutex and mutates this exact state:
+Looking at rk_udphy_probe(), if rk_udphy_get_initial_status() detects that
+the hardware was already enabled, it leaves the clocks manually enabled.
+However, if a subsequent step fails, such as the orientation-switch setup:
 
-rk_udphy_orien_sw_set() {
-	...
-	mutex_lock(&udphy->mutex);
-	...
-	udphy->flip =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
-	rk_udphy_set_typec_default_mapping(udphy);
-...
+	if (device_property_present(dev, "orientation-switch")) {
+		ret =3D rk_udphy_setup_orien_switch(udphy);
+		if (ret)
+			return ret;
+	}
 
-Can this data race cause voltages to be programmed to the wrong PHY lanes,
-leading to DP link training failures if a cable is flipped during active
-DisplayPort use?
+The error path returns directly without disabling the clocks. If this fails
+with -EPROBE_DEFER, will the leaked clock enable count increment on each
+retry?
+
+Additionally, the driver appears to lack a .remove callback entirely:
+
+static struct platform_driver rk_udphy_driver =3D {
+	.probe		=3D rk_udphy_probe,
+	.driver		=3D {
+		.name	=3D "rockchip-usbdp-phy",
+
+Does unbinding the driver while the PHY is active leave the clocks
+permanently enabled and reset states deasserted?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-rockchip-u=
-sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D3
+sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D5
