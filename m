@@ -1,90 +1,90 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23E42472AE
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD9B261B9B
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783691390; cv=none; b=fZptgws1uxjMgrgn1P2NqUeYPYIPcNEIYA/zF7sMwg1JbCGYOUkHznI43DLuDUtU0PrNrUqNynTHrQANnd++UMJZMrrFE7FBs5hVPgMgZdfWnuuknzS2gO+UluGaZvTeLD8btoO0DTXrQgtH2+HN6PH5QBbO8NctYgEmDRGkj24=
+	t=1783691392; cv=none; b=dBDyXfhJPt3IbPHZp8O3D+WqaC63j2aFGWgF7CxehRONBYISyMmKwFzyXa8uGezzaY1lU+uuCHyskY8jEhJeshuXw1sI+lVW9UN7UWooMWLiLHkIaLmUTjzzwLBHvpsU8lMvAs3oBYH5Xk44+HTdpI+DmJHs/9GYcG2YdKMX9Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783691390; c=relaxed/simple;
-	bh=d09lYffK7NKQtWks133wtN3qnkJ/qWtJQRxHm1karAo=;
+	s=arc-20240116; t=1783691392; c=relaxed/simple;
+	bh=yhfsNlH0RS+IypgukP+bK07b4g+Hfp3VDvpALH2BQRg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O+h05nMaee6N9wORchukGsOGRyfui19YXFZJDDqWwucS2IvxVfn1WzVCjpxIA3tbdByssrBnHV8/cjxUESCuqRLNRXrUjdtpfEbVPpD5unJRUSx8DjjTJWauKP/uArYQ/8jk1e2u5Gl8ZF/JtbDSBaEesMpc3ZFjnth7RcC99WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oD2z+ZjE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fPGMD3az; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=WLo3TJlz81dA02YH/urw9n8iC1XWBHJlfQGFnNbNC735gwiHiDaxMBzdanqsEe+rP0nsAN4cxI+hoCTW4GeIgZUa8F5VTWzxI8Z7v9cG8PisfS5+bUEezurpeUFk4MPlDchle9nl9tgA8gAN9gffgPCg/+VRXMwsRH7gqqLb1Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X250Y2de; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WY5691P0; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oD2z+ZjE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fPGMD3az"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AD6cbc823427
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:49:48 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X250Y2de";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WY5691P0"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AD6260910464
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:49:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GQ2mUQRBJOhBt3jiMHO33GZLC4ik6IchEt7Uxsn85FA=; b=oD2z+ZjE+c/m/MoI
-	MjqxMNUP0+Eoif9yAsCdqYqFUVOkyJXw0zrDKJyWDdaTBK/h+exCq4zptZo1KMdR
-	D9ux4oY/YJwLn4hUTCpWsFeM7bUjVGpa4oyLT/2+MLrYukTrUtyjL7ftzoSqlw0m
-	rRUcNMkSxiHCGIrR51guUxVPN0TgaoFN9jLTOQpi+SitNmvMXRfFFd5E09Q1GIAz
-	WsWJWVzoaiGirPs03VLdxHRX0BISn9hpN2dA+HNLAcJr9mBJI2LJbdCY+RjigEd9
-	K0Si5D8x8oTajWCASY9zT4qC0CSo3xm4dDHRexMAHO4x22yT16TK110qGqgCj19i
-	RDY39g==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fadvjcxkn-1
+	xw1CkDWjLhQVF/dM2ooBjoypzkFyoYlTxDKQRjStW5Y=; b=X250Y2deU1JxPQLk
+	BWpRVtx+AQByTtNv7NnPxUE5qdh6783aCxZDeHf3wBWvtAY7Wzr8nQ3kyCg1tBwN
+	nWhoHGqtmnUjeLQa/yzS2ef6Wq4U2V4zWPaKshkPxRia4ZEcJzSZ8iutzg3dU9Kl
+	O2MU4j4wHEuKjthtFl5PCZtG4KImDIFx+nj4nQ8pL0nWIARoO5WgJeiCQWcctEqH
+	LGVkBT+6A+cu0ieFCycZapvAWNpUmHF/51gyu6UAxU0u0q3/5xWjbVkfxE8jpxvh
+	s69crDR0GSjQi0v+WkAQ39RYfvXn7S38DJ87uvxsHiBduH7pSj6xsXIDAlLozDs+
+	861ABw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fanwearyk-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:49:47 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51a87ef9713so21829891cf.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 06:49:47 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:49:49 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c1eb52e1fso16145361cf.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 06:49:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783691387; x=1784296187; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783691389; x=1784296189; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GQ2mUQRBJOhBt3jiMHO33GZLC4ik6IchEt7Uxsn85FA=;
-        b=fPGMD3azt9D0FK7eIh6f82O5k4p9JFa3qwZjU0wvIRnxmMksoHRd1vzOFFvz+APip6
-         6gkvFHRDEybfpvjaSFmZSksUBE4ldLVzx864rjlri3DASXLvpBbJumNSf2TLULzBn+Ss
-         Zk+FzPS7YCnrMAAbIS3wNP7vK14WosGArB7VnCH9QEARCcWWyKH05vYV36ULRsufbUBw
-         AKsUmNCvt0JhpW3PZ4IDrZYxTH2d9EH08Pp8ZaslX8Wwzq2ZFdTlfyt2f7Q03ddaELTU
-         HyWaLZnED5K0VQh1caLvzrBh/tGToTw4AKDUxCRRvnGYdU5GHJQxxt+b1ZpYMKRD/kTx
-         ddOA==
+        bh=xw1CkDWjLhQVF/dM2ooBjoypzkFyoYlTxDKQRjStW5Y=;
+        b=WY5691P0NzQZrWAFlquUkk7w74SEgKT3tkMALtxelr576qFgMA10KcPN//uP0lNm/w
+         p7Os89J3db6lnLi9aC1qwqLpH1t1jj9jns4sMNzQVsfxhnaSDs5++U/cMejw5f6c+sN5
+         T9oCG5473VdYuFDt5XInefp9WpNeoSvOSswNoBfwrj3ysO771EMmSomIR8gegOk7Q0GS
+         dphimL86nFIdZCVybDmWHl+GI3GiaEk/6SvD4AQR1d9S8NRnGYKhNQTUdBKgEZDI3OPR
+         K+5YygyG4Tq5DIyFVu5xGVpHP59sGqV/f6Wtq18VVhXxVJCaVEPApKw/yHWGKY4JVGkr
+         j9/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783691387; x=1784296187;
+        d=1e100.net; s=20251104; t=1783691389; x=1784296189;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GQ2mUQRBJOhBt3jiMHO33GZLC4ik6IchEt7Uxsn85FA=;
-        b=kEpHNQ4hCKL+GlHm3aHvoXebwavYB4otm0CJHDyMKTEAYULprLRqF134bWDeLjDcUq
-         uSH1sO0tSZ5p/SjIJEjvKOiTGJPBai/0kK4rg4MLax58vRAY+9h918nkjlUrHYSDySId
-         8+pBmVsGAEdExpXDmUNLZVSsbKrDcQBwuKvcmLdMe3giOpOOdnRL9QYFyFd5CPNxObux
-         HTAXjlJvGJV5J6NouhiGgmN/mUWLO/N0P8DM0/+Zg/v5VsdtqLvML7Do38H7bg/G+Fve
-         W7MBw5hJ7x17WNAjJ79oTrS3HT579pIk7cGkcy0StejRWJmAu4xV7PQ6XYMsykF1UL6F
-         VpQA==
-X-Forwarded-Encrypted: i=1; AHgh+RrG8Lu7bfxsunT0Jdj6Mp7doV9uSLbBFjhtR22GQmHmprlaF2iY2Qgai+yp1GIBngA/a3rEdRhyxn84@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQWC2YQbVMtTOF8yyf62EyrGF721SdHVhhnMMS+oK1X5lM/rcb
-	Z2K3uHN41qGqbApAqJHS5kC0OZg0G5ZrUCqrZRXZLRbS+AIsAU7R+w+4t92ZGVvEFO/bba1j5wV
-	1kpSsuu3+u9K/0mo8/elM8qw/0lCHXLxdXTHMDYDLCgkwUpjO9wGCC+BgyEVkKJcq
-X-Gm-Gg: AfdE7cma7A5ds4pcFzgbw8HBEraPriPEeyMcnsRc1a3bvGcPBiI1qW3RrAkdeazNkRs
-	sNrHE4gQqrhmA8X6BGmPTgzJCWfzJ3BLSDP7WoG465ifHrmrQDR2ssTJE1BhcpZAnPfeUK464JC
-	zJ1NboHpXxI01gntf201pZoxXA6I9GgOmKf3LRrDrfb/D/BkLOcB5g55muQUqw6rgQFwIInmOHh
-	mrt1hDNQJJATtDb53wOgLO83X57cyZ4yEbBl+zXcYZX4RcWb9NVcfQfH/XrHddMtcoc3bw81xa2
-	GxtPioZPSqPAvK8rUWWBj5wZYnpwWIskodKUHhLtlJWlK/9mBlwGHjeizcadOgr5M/bQA+e3mMz
-	yPTKJMT7VyXc/rbQze0hG1GhYyyGj2YVzMoNgoZeREV7FPrNZw7JStRG14U/MeLrsZCMkRX5lP8
-	2xBw5OTDJFb0JaINA2Fq2BKHvstdj9K0HIsNrbmjyqGcEHh9Iz+mEDQf9khuNgJuUfHau+AvuJw
-	/m3mJpGrI5f9O4abIQc
-X-Received: by 2002:ac8:7f92:0:b0:51b:feb2:3827 with SMTP id d75a77b69052e-51caa1702a5mr36452651cf.32.1783691387137;
-        Fri, 10 Jul 2026 06:49:47 -0700 (PDT)
-X-Received: by 2002:ac8:7f92:0:b0:51b:feb2:3827 with SMTP id d75a77b69052e-51caa1702a5mr36452251cf.32.1783691386647;
-        Fri, 10 Jul 2026 06:49:46 -0700 (PDT)
+        bh=xw1CkDWjLhQVF/dM2ooBjoypzkFyoYlTxDKQRjStW5Y=;
+        b=NeDYmzRp87BTryAEHg8hT83wXSE4itdeVG4F6kNl7CBCi9XDSzaJoiE93RWrVQq3tK
+         g2jsMGoTpAcaQBYxLsKc7+xBhpmG9o/VUGJMGlDGfsYI/zr43Oj95q1/Q9U9Q/SaAMjJ
+         I9D/HS9JX6vUoitIvyt/hOGD+D3bF9zbFq8fzNTevNuYbZQFol9F03ypZDruICetHWwy
+         bBVEyImq1036XBXJXiGPLULHLGjKSxWAK9bzKFhnB1pKhIl8JgR/gQSPo1n3QOiYRx8k
+         LZbQLBdUm58MXtjmi5y3U8FBqQKHsWPEc9B3mTjwVgjtkaQSbsXJ/QaN1D1LARLteP3y
+         rdLg==
+X-Forwarded-Encrypted: i=1; AHgh+RrxN40EMR9WYVshTpJfvxPSpkxT2PVxQp6kaBBmkCrW7wkX5QLxsRoY9yTcZlbkAKrsuMoau36jEVtW@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGjMgqxepfw9Z59n3Saio+QHdhiMg3IRj5cm6VxNuF9ARQW3L0
+	8C2D1gsdmioj7WClp9qeowmDZtYztsOngljqvl7qW/5E7yO0v/O90xrNob8iTk4PUOJxEYo1zkp
+	brWJNhfDCMY0fStFlGGg04JLSd8CEcfu8d9cKgsQJRsHUktBoe+HSWPeUf7+iO5gm
+X-Gm-Gg: AfdE7cmgqqPSFdi6yZm0hea1G7dTBGtU+6dt3kDCynGeTORpMe4qIpUVZKYAJfm573R
+	WOHfCYluy0h/6OuphLefdNDqVfS29V2FJXr8PMAEnKdRk8cRVheaqGZolj1od2+ZVQoyiLGxHmM
+	8bE5dso67RE9JlTptI2m2Ut6MENadXYY6nWJpaqSiqLJodgxaX83luYL/+bX268Y8eyJ0bLcMt0
+	vClAvrhQrz0quI2DkbQTTXERvAZJdQjRy8aplmyh/QFHuHtmh0aP2rVEozV5tnFEqzpWhsNp6T6
+	BgSNOfeYvU5D1gAm60h+LnbkyO4tp/Wr/v38YbjenRnHKB4d++pwpGPw/KzuILluVxvGrvLB5Mc
+	O/onQB3lw8WWS2LdjI1vV+iPn0dNXj+i8wQrS2TLQeoafgeO+fDpL0K0UNPa2n5FwSXJ9sVbb/O
+	Qx6jnlQQPFpV0K1jiiMi6BXXG/YCZT9diCFd98RvG1kL5zVHNgWfCQXYtUQ8ZQAX9v4S734jLNp
+	olz/tPGLm9Wo9eAOCoJ
+X-Received: by 2002:a05:622a:315:b0:51c:8439:14d9 with SMTP id d75a77b69052e-51c8b3c2a7dmr121726531cf.54.1783691388721;
+        Fri, 10 Jul 2026 06:49:48 -0700 (PDT)
+X-Received: by 2002:a05:622a:315:b0:51c:8439:14d9 with SMTP id d75a77b69052e-51c8b3c2a7dmr121726261cf.54.1783691388257;
+        Fri, 10 Jul 2026 06:49:48 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com (82-64-236-198.subs.proxad.net. [82.64.236.198])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15bb94c782sm538164866b.40.2026.07.10.06.49.45
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15bb94c782sm538164866b.40.2026.07.10.06.49.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 06:49:45 -0700 (PDT)
+        Fri, 10 Jul 2026 06:49:47 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 15:49:41 +0200
-Subject: [PATCH v5 1/4] dt-bindings: leds: nxp,pca963x: fix reg maximum for
- pca9635
+Date: Fri, 10 Jul 2026 15:49:42 +0200
+Subject: [PATCH v5 2/4] dt-bindings: leds: nxp,pca963x: add multicolor LED
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,7 +93,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-monza-leds-v5-1-a8972d28c28f@oss.qualcomm.com>
+Message-Id: <20260710-monza-leds-v5-2-a8972d28c28f@oss.qualcomm.com>
 References: <20260710-monza-leds-v5-0-a8972d28c28f@oss.qualcomm.com>
 In-Reply-To: <20260710-monza-leds-v5-0-a8972d28c28f@oss.qualcomm.com>
 To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
@@ -108,86 +108,180 @@ Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
         Loic Poulain <loic.poulain@oss.qualcomm.com>,
         Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDEzNyBTYWx0ZWRfX1E8xHtTrsYMc
- QpZqCHxcfbFtz9o0/GV2Sjeb1ymOSa7lG0PNe0xvZAmblta7PhIum6ZclUd1t+BOO7nDnGHUfdF
- 7hIBFmiHXBbj7DPERkbWzncDXhiwWJBlB0Z6WXLi1BfvGHLV+h81yR5llgBPwTyzBhKFhTVq2gH
- uW6KtUTjFApo/6TXoKKAdmA9uqSHqFQa+1JQ4Qc3nlvjUSSC2hLkOLsQ6OQTrSH/dw/FpJWd03X
- Oj+smnWLhaq2VLXOzzuXkzW2LRqvQyICgkDy3Dh0uiJT8jTVr1qbnc/HRQ/G4TA1PPIH5OQg+ml
- oLnfXcIINLsqV3bjoGOW720WxSpv+wmac77fnPRZ0rYaUMt62H60nWeAb1jZIpCvADUugJIs9J/
- rf0eaPIwXcvayVpDNsY+xH8FsisNjPMHBD7hRHYoFZ3KgWruFfqjWqwDcxnTrq6mRgOZtD7dKPe
- I4VP8MREYwCq4JfPQsQ==
-X-Authority-Analysis: v=2.4 cv=WpIb99fv c=1 sm=1 tr=0 ts=6a50f87b cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=MDeckJw97qnk8wCBExTehA==:17
+X-Authority-Analysis: v=2.4 cv=LbIMLDfi c=1 sm=1 tr=0 ts=6a50f87d cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=MDeckJw97qnk8wCBExTehA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=XYAwZIGsAAAA:8 a=EUspDBNiAAAA:8 a=yPTVd8cUMD2GasGf7IAA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-GUID: E6SOAW6wSrcRTaxEqHa_cuY3gDHf7mTH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDEzNyBTYWx0ZWRfX2nwiNhv83XWi
- WvQhVTW6j/ELPyJkfU33G1VmA8yYeVfjfx1jLH1ETIhIZZgzUZTCQe2Jd2QElKuoB8DCTV3xvjo
- L2MOPpdUj1YFlFM/jNkTKNTgrao34/U=
-X-Proofpoint-ORIG-GUID: E6SOAW6wSrcRTaxEqHa_cuY3gDHf7mTH
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=XYAwZIGsAAAA:8 a=EUspDBNiAAAA:8 a=OnDUQqxwl_I-XVlDrPYA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDEzNiBTYWx0ZWRfXxBy9hAVMgoMr
+ mME5pNz3iCOX9b7qoMAKXZ76lg9XFetu5LZ4qq4A8jHd8NpT1bF8OvUSJxq836u2ZSub3SJjBhJ
+ 8eBTTqApsdQh8wO2bfmHev6hFlEWcwD41RdGB+vEqIrZAfNtsqJ5qxq1pb95Qt8dDYXsTCJL7qd
+ F0Hykp3MSPpysmWpP1O1Gq122b3ZBeurKihtZ1GqZsonVsaEJcwu06JOF+BwAmI6qexPKgdvWW/
+ cV8EaUNGfuGPI3hBuozxJUYIB8SCREnkz556RtDHOWg2f31yjOsUoopejwNwBGzmnO+w/1tiVy+
+ W5Qqcodd8aB2RQQX2zB8d1UmN4d1GPFPPNIo5fBcusRM9v+uCeX4lf2BpSAkUaR5ZhHsDU4zao3
+ Ht9kSeJ+gzD8IKC1A9F+H8caGIm3iZ2NLrdDxnvpQFx2bGnyo1RwBt8aviVN5XajYwDhQUGZAIf
+ regRpWsYoOuxN9tpaYQ==
+X-Proofpoint-ORIG-GUID: Fd9buIWhLl5V7paq-LJnCse7byyNWI9Q
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDEzNiBTYWx0ZWRfXzgoo0sLg8wk0
+ jPol1lO3OynAnBHRjY/TP2Yzr5vhA31rgIwHVx0Mz905TZ8o5KMEVJlu4cAxkOcgQs378qLTxoJ
+ 88Xawr0Xnlrc4aeNE4B+/ij5a3zHMUo=
+X-Proofpoint-GUID: Fd9buIWhLl5V7paq-LJnCse7byyNWI9Q
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-10_03,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607100137
+ malwarescore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100136
 
-The pca9635 supports 16 LED channels, unlike the pca9634 which only
-supports 8. The allOf conditional grouped both chips under a single
-else branch capping reg at a maximum of 7.
+Add support for grouping individual PCA963x channels into a multicolor
+LED by introducing a multi-led@N node pattern. This follows the
+convention established by other multicolor LED drivers such as
+kinetic,ktd202x.
 
-Give pca9634 its own if/then block and set maximum: 15 unconditionally
-in the top-level led@ node, making it the default for pca9635 and any
-future compatible. Also tighten the node name regex from [0-9a-f]+ to
-[0-9a-f] to match the single-digit hardware limit.
+This is necessary to support and model hardware setups where multiple
+PWM channels drive a single physical RGB LED.
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/leds/nxp,pca963x.yaml | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ .../devicetree/bindings/leds/nxp,pca963x.yaml      | 96 +++++++++++++++++++++-
+ 1 file changed, 94 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml b/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
-index 938d0e48fe51bce82779c4457c8e99cb6d80fe70..4fda602912f7a9443b8a77e46bc015e244f82e08 100644
+index 4fda602912f7a9443b8a77e46bc015e244f82e08..eccf37de51285a0dc6d28ffaba2d47a9f93d867f 100644
 --- a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
 +++ b/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
-@@ -62,14 +62,14 @@ properties:
-       open-drain, newer chips to totem pole).
- 
- patternProperties:
--  "^led@[0-9a-f]+$":
-+  "^led@[0-9a-f]$":
-     type: object
-     $ref: common.yaml#
-     unevaluatedProperties: false
- 
-     properties:
-       reg:
--        minimum: 0
-+        maximum: 15
- 
+@@ -74,6 +74,40 @@ patternProperties:
      required:
        - reg
-@@ -88,7 +88,13 @@ allOf:
+ 
++  "^multi-led@[0-9a-f]$":
++    type: object
++    $ref: leds-class-multicolor.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        maximum: 15
++
++      "#address-cells":
++        const: 1
++
++      "#size-cells":
++        const: 0
++
++    patternProperties:
++      "^led@[0-9a-f]$":
++        type: object
++        $ref: common.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          reg:
++            maximum: 15
++
++        required:
++          - reg
++          - color
++
++    required:
++      - reg
++      - "#address-cells"
++      - "#size-cells"
++
+ allOf:
+   - if:
+       properties:
+@@ -84,10 +118,16 @@ allOf:
+               - nxp,pca9633
+     then:
+       patternProperties:
+-        "^led@[0-9a-f]+$":
++        "^.*led@[0-9a-f]$":
            properties:
              reg:
                maximum: 3
--    else:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - nxp,pca9634
-+    then:
++        "^multi-led@[0-9a-f]$":
++          patternProperties:
++            "^led@[0-9a-f]$":
++              properties:
++                reg:
++                  maximum: 3
+   - if:
+       properties:
+         compatible:
+@@ -96,10 +136,16 @@ allOf:
+               - nxp,pca9634
+     then:
        patternProperties:
-         "^led@[0-9a-f]+$":
+-        "^led@[0-9a-f]+$":
++        "^.*led@[0-9a-f]$":
            properties:
+             reg:
+               maximum: 7
++        "^multi-led@[0-9a-f]$":
++          patternProperties:
++            "^led@[0-9a-f]$":
++              properties:
++                reg:
++                  maximum: 7
+ 
+ additionalProperties: false
+ 
+@@ -143,4 +189,50 @@ examples:
+         };
+     };
+ 
++  - |
++    #include <dt-bindings/leds/common.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        led-controller@62 {
++            compatible = "nxp,pca9633";
++            reg = <0x62>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            /* Three channels controlling one RGB LED */
++            multi-led@0 {
++                    reg = <0>;
++                    color = <LED_COLOR_ID_RGB>;
++                    function = LED_FUNCTION_STATUS;
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    led@0 {
++                            reg = <0>;
++                            color = <LED_COLOR_ID_RED>;
++                    };
++
++                    led@1 {
++                            reg = <1>;
++                            color = <LED_COLOR_ID_GREEN>;
++                    };
++
++                    led@2 {
++                            reg = <2>;
++                            color = <LED_COLOR_ID_BLUE>;
++                    };
++            };
++
++            /* Remaining channel used as a plain white LED */
++            led@3 {
++                    reg = <3>;
++                    color = <LED_COLOR_ID_WHITE>;
++                    function = LED_FUNCTION_STATUS;
++            };
++        };
++    };
++
+ ...
 
 -- 
 2.34.1
