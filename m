@@ -1,848 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012016.outbound.protection.outlook.com [40.107.200.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4226B379C21;
-	Fri, 10 Jul 2026 05:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783662491; cv=none; b=Q+ISbSnSlnCrGxF4b4/xyx3OV9A9BXwQwIMAyeOhMN33fNEndEFm++jUOMAN38cDIioJdxeM1p6ER07aeBFr8/U5bS7Hn9f/2PESDJzcrl1El86vQ6okjSFEGexWxGrI7i6YtsKzSNqozPC8jF0cNEHiBS1F7IBxUKT97V5+2e4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783662491; c=relaxed/simple;
-	bh=5E65rsR5gEPB6+KBJKso4oGrc1O5H9L9Dp7Hh5A/hKU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mwrvjgsQtplrAeFV8R/nMzggkYwSOWOnhEWvr8WgE/IyKuerSAk4tEcTbFXznfekjHlpI2b2CKep8cjlldA1obguWrWIB73fPLUGRLqIcw4Fi16Lnw6aoHa2/1Iib+S5ufnOfCkovwNihA0Mh0SOVNFpxRYmZmsQ/HTHXtlV24s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ygt/Is6c; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A50037881D;
+	Fri, 10 Jul 2026 05:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783662591; cv=fail; b=kXB/nRZC5X2hMFmScRDjpAyLj7/jLwCik5kASqi0iqtzrWJbCUnQrqWz4LIk4t8hDTi3Naa7eiYnDlCBbpNB7yjszFFiVg3gUeuYQxxKzatb4eU57UuIRnG6uxg/tyn4Eqv5mFm4iLxzn5dtw4giOk4TcIfn7DnaUnQbZO1k8sc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783662591; c=relaxed/simple;
+	bh=fFOvmCFRMaJTI56a7aE7EaY8fn+PplN4ghATfPIv8y0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FmUndjwVfHZbWZB92bt5WmXdQDXzBtE8MZmt4FrtizIG4Mpk7q/FmHpVE3GXVQNGZr/0iGQ2lK5xlfAMfEwHU74aP/IL6VtCNHiYExlGHiRymjDAt5If2IeKVobjQ+XksS6NPVIa7OEtLoJWNqtXTJYwLNdkVbTAr0bCyAaih0s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tCnKLcRx; arc=fail smtp.client-ip=40.107.200.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ygt/Is6c"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ED8BCC2BCC6;
-	Fri, 10 Jul 2026 05:48:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783662491;
-	bh=5E65rsR5gEPB6+KBJKso4oGrc1O5H9L9Dp7Hh5A/hKU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Ygt/Is6cOVdcn1hAARadb1wikJeIFM0zPuh7Q4+mZKv7Tmx30U4x5szBo4/Ok9mb6
-	 ullvgjrR3NdEL/IwCoXWQobyYy8so7QsSXGkwrChcUPDtRwXkGk/kVMgxgaYKBGEzn
-	 kQOTbYQsad/9KeW2BKQeRIbVPXKr77b3iIfkoyiUuUmSO8Yrp+kAAqsCJPYeBTcRqK
-	 bBb2F6jcyJeQZI5/kqsh6+OLL7xAmcLjp3oNVYIeiHbQ+qGapkGvXGq+unYiNgK/03
-	 KyHJDRS5nUgsctdFt8JVjwwsR6n4bigY5ad7Ez4ESyr+FIm0jY24Mfiwy/7S5ZuDYF
-	 3lMXkEhJ7Zv0g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE2A5C44507;
-	Fri, 10 Jul 2026 05:48:10 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Fri, 10 Jul 2026 05:48:07 +0000
-Subject: [PATCH v10 2/3] dmaengine: amlogic: Add general DMA driver for A9
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tCnKLcRx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mhEQ+fnmUXvQQcTVcs3GWmNzMgwP1n3eYhJSPsrYBC9c8PBvRqBuGar2jEkeQoDoNVAULxHJpmWwmJA7Z0Rto1fy0I+/FFjCrCkg6nZdRqY7rfbpUIUlSfiQlc2wL0PG0dXFfNipjRvMv1F1VcRf8VFHHgH2PwcsXuRVwvdvJZts3y756LVuzsgrKzu9fhFRTCRWHZKyB3g7iUi3AlIIRI4kkUFfzq4bscGVzgOyy7CEHB/rAgTFWnG3qjAQ52MGm1riXvkXBjOPKiJr4kHUOYX0ddWztwugNr43aDnQTeiqb3f79Dbw9FjHVYwuub6wejKIObWntAD46jPMUSQiMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b2Y45i/RbcAAzMU11PEJZYNZzNCuWeRpfDzY7DpC3Xw=;
+ b=F/TQtVMfZImH83fLcwbEEw7mfkt/5F+K5HvDMS0ja2ghk51rSHf9QnIn2OvWm4LZ1gw0W9+nXKrZlRTotJTZtxzwirDTcwmrauzAhjLUC26gNL4bKkDJ0Xp1HQ70RiKlydbLWI9W4zbqRcpRT0kDOxkxih4CW2vE8+WoQd1PZcfLXWLqRpwj/RIJg2jcpfcoxx8fsZbvN5Xg5vRrb0jY9tVZLwj8fVlxTCHnWCDTAruvOpEeNLbUeOWOWsqsL7ejI0w7Du15+WcWc4Nd5Ochyt6uDBv4fRC4xC1fZoGJJNxIY1kdnUhWdaSZrxczag6pH6yeFpzqd8vLkE3Xtoxbyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=codeconstruct.com.au
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2Y45i/RbcAAzMU11PEJZYNZzNCuWeRpfDzY7DpC3Xw=;
+ b=tCnKLcRxIx3wvtvAT1PJyHv1yYTL9xwYNxaQiixIdbXsvIgkiDRcE0FN3M9H3mTRaEkODBFroEc0THcptN9KxgX8y7r9sgUzDRSfICJbvsV82yFtioXhYtdAO2/qywJcj+jz/0Og2gtJr+8gOUFSNu8GxXl1kNP3ZdHZZkDz44REML/ZYFyUkrYTUeH04+wZ6W1a/Ba9iR2TrPvPzfXjm6xIjq49xnx1bIGrfafuDLN0HUu3q3eNwEHFSfhf4o0XmX5+N7/pWPGVjfGQ1y7tcexOq+rhRI8sKNy8S+1D98B5jZMsrOylLBo3A5ZKBbc45IgXFIefOJr/kINNw5zPww==
+Received: from DSSP221CA0013.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:3d5::9) by
+ IA1PR12MB8555.namprd12.prod.outlook.com (2603:10b6:208:44f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
+ 2026 05:49:42 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:8:3d5:cafe::41) by DSSP221CA0013.outlook.office365.com
+ (2603:10b6:8:3d5::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.13 via Frontend Transport; Fri,
+ 10 Jul 2026 05:49:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.0 via Frontend Transport; Fri, 10 Jul 2026 05:49:41 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Jul
+ 2026 22:49:30 -0700
+Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Jul
+ 2026 22:49:28 -0700
+From: Jacky Huang <jackyhuang@nvidia.com>
+To: <andrew@codeconstruct.com.au>, <joel@jms.id.au>, <robh@kernel.org>,
+	<krzysztof.kozlowski@oss.qualcomm.com>, <conor+dt@kernel.org>,
+	<andrew@lunn.ch>
+CC: <devicetree@vger.kernel.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<openbmc@lists.ozlabs.org>, Jacky Huang <jackyhuang@nvidia.com>
+Subject: [PATCH v3 0/2] Add device tree for NVIDIA VR-NVL BMC
+Date: Fri, 10 Jul 2026 14:46:54 +0900
+Message-ID: <20260710054849.3178747-1-jackyhuang@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-amlogic-dma-v10-2-ff4deae837e7@amlogic.com>
-References: <20260710-amlogic-dma-v10-0-ff4deae837e7@amlogic.com>
-In-Reply-To: <20260710-amlogic-dma-v10-0-ff4deae837e7@amlogic.com>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783662489; l=24881;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=wX792f5w5cT8R8Rd4+UTnN48Qd3FWM54Kts2W8FiT+s=;
- b=Y/zVG1w9vOF5qKpRIPLvsS7Sqte+Ft5RHQqpmC1HmdAY1WDgEK0wTO3YEfdj4JxzebasfRl0W
- 8+5uQRrHmUABCl3Sm3RO3o8KzGxKatlVDT2rrRQBSve2sB8tP6IGszn
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|IA1PR12MB8555:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b771590-a04b-4863-6104-08dede4709bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|7416014|376014|82310400026|1800799024|13003099007|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mnSUMlkcptb3pcjuYolHtxQK6HNyelp96suuitkOEGtTohE9yw8BhH+FQ1/6ZJW3Bfj/oYOw6F6ScFQknbLP1xia+uT9htcwd+d2tReR1OdDVwFbhdeUl01JA8VDL1+bULBWql0t36ZeqCw4ZvU4KxW0xRKfrLxJniWLikvwenIFffki+D25H2P6dhLj3cwKC/UWFVJe9QNN7oKAjWxO7E1a16iBmK8fuLIZqti11+ws0UEhBhR+FNSmCpiz2iGeXgnh92HVTF9GeLw3zoPZMNSN2hnm9wlECluMUtyOUxJhADiUB0Gk7K1OkSso7O0RBUQBYDkKLaZaOkHG0ApXngrB2T+Jc53llOKtnyH/4eqk6ZcNMCbS1AdW0Nkb2qE79imd7ryGVQxVMFVwxaITQCDNeLkBZbexaapsS08eEwYd91zXnh6OyCHbsY/NDOfGV87La6HlIDJdpRN6LilRRZYkCEZwdBZsVsXiCGD+KUzByTQLV/aIFHFeDPqdFsEmzmiQujHqGntI3bFR2r/D4kxoqE4zmoBb1CwFAzFukCt4xmvobgdEpavXy1MbB+2Kkvan86i9GEgcAMDp1O7FQjZJdhiomMzf3x868EjkkiaCtc8aImKZQYtLq8LLUrK8mqqhlRw5iC9wtWvEOhwslqmEFIPE+HqNvLnLwnD7ZSPnImQQPUu2Hd/jrWuVExWgpDENBsK4S7tck2KYMipdXg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(7416014)(376014)(82310400026)(1800799024)(13003099007)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	51fBqc5TpzV4o4uYyKelKS9N6hws9qywvuUDUVFjimD/ZSs5FQKvi+FNH+9ahzUrVeddss+Dl/6ZZRounUOriX/m+R4JNitvCKld6JdKsPV7zourNp0bylHK6Vg8iBqchUtK6kcBtP2VO1qLLLE/BRYoyybxSVjqLQb35oBXBA5C+4+uyNdZC2aUUPfFKcMSDEahACCcm8upFCwgTYX7vJyBjEHdjMimhb93ZVtgdAeRNmSECBMsH1NlNBv5Lz7j99C5H9HMOFdBJbLQhiMBiYyOiFqnS7VXQyKEWKbw+Rpjf03NFvzU7p4tfFh9Agk2IrszkWQzAxR7p3NvcvGrQtAK8td1JAHwgOetJjkdzoazNq6zLyaUz6wv+d4BtAFQMOZ5o4hCg5l1XJJu3hrYgxngYm8B2tfQuMYRlictMExTXIeJuvgUqF+nnTE8l0b5
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 05:49:41.8848
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b771590-a04b-4863-6104-08dede4709bd
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000011.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8555
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+This series adds the DT binding compatible and the device tree for
+the NVIDIA VR-NVL BMC, an Aspeed AST2600-based BMC for the Vera
+Rubin NVL compute platform.
 
-Amlogic A9 SoCs include a general-purpose DMA controller that can be used
-by multiple peripherals, such as I2C PIO and I3C. Each peripheral group
-is associated with a dedicated DMA channel in hardware.
+Changes in v3:
+- dts: reword the &mac0 comment per Andrew Lunn's feedback.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- drivers/dma/Kconfig       |  10 +
- drivers/dma/Makefile      |   1 +
- drivers/dma/amlogic-dma.c | 723 ++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 734 insertions(+)
+Changes in v2:
+- dts: correct the compatible of the PDB I/O expander at 0x75 from
+  nxp,pca9555 to nxp,pca9539 to match the actual part.
+- Pick up Acked-by from Krzysztof Kozlowski on the binding.
+- Pick up Reviewed-by from Andrew Lunn on the &mac0 and &mdio0 nodes.
 
-diff --git a/drivers/dma/Kconfig b/drivers/dma/Kconfig
-index ae6a682c9f76..01f96a8257e5 100644
---- a/drivers/dma/Kconfig
-+++ b/drivers/dma/Kconfig
-@@ -85,6 +85,16 @@ config AMCC_PPC440SPE_ADMA
- 	help
- 	  Enable support for the AMCC PPC440SPe RAID engines.
- 
-+config AMLOGIC_DMA
-+	tristate "Amlogic general DMA support"
-+	depends on ARCH_MESON || COMPILE_TEST
-+	select DMA_ENGINE
-+	select DMA_VIRTUAL_CHANNELS
-+	select REGMAP_MMIO
-+	help
-+	  Enable support for the Amlogic general DMA engines. THis DMA
-+	  controller is used some Amlogic SoCs, such as A9.
-+
- config APPLE_ADMAC
- 	tristate "Apple ADMAC support"
- 	depends on ARCH_APPLE || COMPILE_TEST
-diff --git a/drivers/dma/Makefile b/drivers/dma/Makefile
-index 14aa086629d5..f62d12b08e15 100644
---- a/drivers/dma/Makefile
-+++ b/drivers/dma/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_DMATEST) += dmatest.o
- obj-$(CONFIG_ALTERA_MSGDMA) += altera-msgdma.o
- obj-$(CONFIG_AMBA_PL08X) += amba-pl08x.o
- obj-$(CONFIG_AMCC_PPC440SPE_ADMA) += ppc4xx/
-+obj-$(CONFIG_AMLOGIC_DMA) += amlogic-dma.o
- obj-$(CONFIG_APPLE_ADMAC) += apple-admac.o
- obj-$(CONFIG_ARM_DMA350) += arm-dma350.o
- obj-$(CONFIG_AT_HDMAC) += at_hdmac.o
-diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
-new file mode 100644
-index 000000000000..388b5a581ae5
---- /dev/null
-+++ b/drivers/dma/amlogic-dma.c
-@@ -0,0 +1,723 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/*
-+ * Copyright (C) 2025 Amlogic, Inc. All rights reserved
-+ * Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
-+ */
-+
-+#include <dt-bindings/dma/amlogic,a9-dma.h>
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/dmaengine.h>
-+#include <linux/interrupt.h>
-+#include <linux/init.h>
-+#include <linux/list.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_dma.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/types.h>
-+
-+#include "virt-dma.h"
-+
-+#define RCH_REG_BASE		0x0
-+#define WCH_REG_BASE		0x2000
-+/*
-+ * Each rch (read from memory) REG offset  Rch_offset 0x0 each channel total 0x40
-+ * rch addr = DMA_base + Rch_offset+ chan_id * 0x40 + reg_offset
-+ */
-+#define RCH_READY		0x0
-+#define RCH_STATUS		0x4
-+#define RCH_CFG			0x8
-+#define CFG_CLEAR		BIT(25)
-+#define CFG_PAUSE		BIT(26)
-+#define CFG_ENABLE		BIT(27)
-+#define CFG_DONE		BIT(28)
-+#define RCH_ADDR		0xc
-+#define RCH_LEN			0x10
-+#define RCH_RD_LEN		0x14
-+#define RCH_PRT			0x18
-+#define RCH_SYCN_STAT		0x1c
-+#define RCH_ADDR_LOW		0x20
-+#define RCH_ADDR_HIGH		0x24
-+/* if work on 64, it work with RCH_PRT */
-+#define RCH_PTR_HIGH		0x28
-+
-+/*
-+ * Each wch (write to memory) REG offset  Wch_offset 0x2000 each channel total 0x40
-+ * wch addr = DMA_base + Wch_offset+ chan_id * 0x40 + reg_offset
-+ */
-+#define WCH_READY		0x0
-+#define WCH_TOTAL_LEN		0x4
-+#define WCH_CFG			0x8
-+#define WCH_ADDR		0xc
-+#define WCH_LEN			0x10
-+#define WCH_RD_LEN		0x14
-+#define WCH_PRT			0x18
-+#define WCH_CMD_CNT		0x1c
-+#define WCH_ADDR_LOW		0x20
-+#define WCH_ADDR_HIGH		0x24
-+/* if work on 64, it work with RCH_PRT */
-+#define WCH_PTR_HIGH		0x28
-+
-+/* DMA controller reg */
-+#define RCH_INT_MASK		0x1000
-+#define WCH_INT_MASK		0x1004
-+#define CLEAR_W_BATCH		0x1014
-+#define CLEAR_RCH		0x1024
-+#define CLEAR_WCH		0x1028
-+#define RCH_ACTIVE		0x1038
-+#define WCH_ACTIVE		0x103c
-+#define RCH_DONE		0x104c
-+#define WCH_DONE		0x1050
-+#define RCH_ERR			0x1060
-+#define RCH_LEN_ERR		0x1064
-+#define WCH_ERR			0x1068
-+#define DMA_BATCH_END		0x1078
-+#define WCH_EOC_DONE		0x1088
-+#define WDMA_RESP_ERR		0x1098
-+#define UPT_PKT_SYNC		0x10a8
-+#define RCHN_CFG		0x10ac
-+#define WCHN_CFG		0x10b0
-+#define MEM_PD_CFG		0x10b4
-+#define MEM_BUS_CFG		0x10b8
-+#define DMA_GMV_CFG		0x10bc
-+#define DMA_GMR_CFG		0x10c0
-+
-+#define MAX_CHAN_ID		32
-+#define SG_MAX_LEN		GENMASK(26, 0)
-+
-+struct aml_dma_sg_link {
-+#define LINK_LEN		GENMASK(26, 0)
-+#define LINK_IRQ		BIT(27)
-+#define LINK_EOC		BIT(28)
-+#define LINK_LOOP		BIT(29)
-+#define LINK_ERR		BIT(30)
-+#define LINK_OWNER		BIT(31)
-+	u32 ctl;
-+	u32 addr_low;
-+	u32 addr_high;
-+	u32 revered;
-+} __packed;
-+
-+/* 1 page for link 256*16 */
-+#define DMA_MAX_LINK		256
-+/* sizeof(struct aml_dma_sg_link) */
-+#define DMA_LINK_SIZE		16
-+#define DMA_LINK_MAX_SIZE	(DMA_LINK_SIZE * DMA_MAX_LINK)
-+
-+struct aml_dma_desc {
-+	struct virt_dma_desc		vd;
-+	struct aml_dma_sg_link		*sg_link;
-+	struct dma_device		*dma_device;
-+	dma_addr_t			sg_link_phys;
-+	size_t				sg_link_size;
-+	u32				data_len;
-+	struct work_struct		free_work;
-+};
-+
-+struct aml_dma_chan {
-+	struct virt_dma_chan		vchan;
-+	struct aml_dma_dev		*aml_dma;
-+	struct aml_dma_desc		*cur_desc;
-+	enum dma_status			pre_status;
-+	enum dma_status			status;
-+	enum dma_transfer_direction	direction;
-+	int				chan_id;
-+	/* reg_base (direction + chan_id) */
-+	int				reg_offs;
-+	/* When there are multiple consecutive transmission errors, this chanel halt */
-+	int				err_num;
-+};
-+
-+struct aml_dma_dev {
-+	struct dma_device		dma_device;
-+	void __iomem			*base;
-+	struct regmap			*regmap;
-+	struct clk			*clk;
-+	int				irq;
-+	struct platform_device		*pdev;
-+	struct aml_dma_chan		*aml_rch[MAX_CHAN_ID];
-+	struct aml_dma_chan		*aml_wch[MAX_CHAN_ID];
-+	unsigned int			chan_nr;
-+	unsigned int			chan_used;
-+	struct aml_dma_chan		aml_chans[]__counted_by(chan_nr);
-+};
-+
-+static inline struct aml_dma_chan *to_aml_dma_chan(struct dma_chan *chan)
-+{
-+	return container_of(chan, struct aml_dma_chan, vchan.chan);
-+}
-+
-+static inline struct aml_dma_desc *to_aml_dma_desc(struct virt_dma_desc *vd)
-+{
-+	return container_of(vd, struct aml_dma_desc, vd);
-+}
-+
-+static void aml_dma_free_desc_work(struct work_struct *work)
-+{
-+	struct aml_dma_desc *aml_desc =
-+			container_of(work, struct aml_dma_desc, free_work);
-+
-+	dma_free_coherent(aml_desc->dma_device->dev,
-+			  aml_desc->sg_link_size,
-+			  aml_desc->sg_link,
-+			  aml_desc->sg_link_phys);
-+	kfree(aml_desc);
-+}
-+
-+static void aml_dma_free_desc(struct virt_dma_desc *vd)
-+{
-+	struct aml_dma_desc *aml_desc = to_aml_dma_desc(vd);
-+
-+	schedule_work(&aml_desc->free_work);
-+}
-+
-+static int aml_dma_alloc_chan_resources(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+
-+	/* offset is the same RCH_CFG and WCH_CFG */
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+
-+	aml_chan->status = DMA_COMPLETE;
-+	aml_chan->cur_desc = NULL;
-+	aml_chan->err_num = 0;
-+
-+	return 0;
-+}
-+
-+static void aml_dma_free_chan_resources(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct virt_dma_desc *cur_vd = NULL;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+	if (aml_chan->cur_desc)
-+		cur_vd = &aml_chan->cur_desc->vd;
-+	aml_chan->cur_desc = NULL;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+	if (cur_vd)
-+		aml_dma_free_desc(cur_vd);
-+
-+	vchan_free_chan_resources(&aml_chan->vchan);
-+}
-+
-+/* DMA transfer state  update how many data reside it */
-+static enum dma_status aml_dma_tx_status(struct dma_chan *chan,
-+					 dma_cookie_t cookie,
-+					 struct dma_tx_state *txstate)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct aml_dma_desc *aml_desc = NULL;
-+	struct virt_dma_desc *vd;
-+	u32 residue = 0, done;
-+	unsigned long flags;
-+	enum dma_status ret;
-+
-+	ret = dma_cookie_status(chan, cookie, txstate);
-+	if (ret == DMA_COMPLETE || !txstate)
-+		return ret;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	vd = vchan_find_desc(&aml_chan->vchan, cookie);
-+	if (vd) {
-+		aml_desc = to_aml_dma_desc(vd);
-+		residue = aml_desc->data_len;
-+	} else if (aml_chan->cur_desc && aml_chan->cur_desc->vd.tx.cookie == cookie) {
-+		aml_desc = aml_chan->cur_desc;
-+		regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &done);
-+		residue = aml_desc->data_len - done;
-+	} else {
-+		dev_err(aml_dma->dma_device.dev, "cookie error\n");
-+	}
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+
-+	dma_set_residue(txstate, residue);
-+
-+	return ret;
-+}
-+
-+static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
-+		(struct dma_chan *chan, struct scatterlist *sgl,
-+		unsigned int sg_len, enum dma_transfer_direction direction,
-+		unsigned long flags, void *context)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct aml_dma_desc *aml_desc = NULL;
-+	struct aml_dma_sg_link *sg_link = NULL;
-+	struct scatterlist *sg = NULL;
-+	u64 paddr;
-+	u32 link_count, avail;
-+	u32 i;
-+
-+	if (aml_chan->direction != direction) {
-+		dev_err(aml_dma->dma_device.dev, "direction not support\n");
-+		return NULL;
-+	}
-+
-+	link_count = sg_nents_for_dma(sgl, sg_len, SG_MAX_LEN);
-+	if (link_count == 0)
-+		return NULL;
-+
-+	aml_desc = kzalloc_obj(*aml_desc, GFP_NOWAIT);
-+	if (!aml_desc)
-+		return NULL;
-+
-+	INIT_WORK(&aml_desc->free_work, aml_dma_free_desc_work);
-+	aml_desc->sg_link_size = link_count * sizeof(*sg_link);
-+	aml_desc->sg_link = dma_alloc_coherent(aml_dma->dma_device.dev, aml_desc->sg_link_size,
-+					       &aml_desc->sg_link_phys, GFP_NOWAIT);
-+	if (!aml_desc->sg_link) {
-+		kfree(aml_desc);
-+		return NULL;
-+	}
-+	aml_desc->dma_device = &aml_dma->dma_device;
-+
-+	sg_link = aml_desc->sg_link;
-+	for_each_sg(sgl, sg, sg_len, i) {
-+		avail = sg_dma_len(sg);
-+		if (avail == 0)
-+			continue;
-+		paddr = sg->dma_address;
-+		while (avail > SG_MAX_LEN) {
-+			/* set dma address and len to sglink*/
-+			sg_link->addr_low = lower_32_bits(paddr);
-+			sg_link->addr_high = upper_32_bits(paddr);
-+			sg_link->ctl = FIELD_PREP(LINK_LEN, SG_MAX_LEN);
-+			paddr = paddr + SG_MAX_LEN;
-+			avail = avail - SG_MAX_LEN;
-+			sg_link++;
-+		}
-+		/* set dma address and len to sglink*/
-+		sg_link->addr_low = lower_32_bits(paddr);
-+		sg_link->addr_high = upper_32_bits(paddr);
-+		sg_link->ctl = FIELD_PREP(LINK_LEN, avail);
-+
-+		aml_desc->data_len += sg_dma_len(sg);
-+		sg_link++;
-+	}
-+
-+	/* the last sg set eoc flag */
-+	sg_link--;
-+	sg_link->ctl |= LINK_EOC;
-+
-+	return vchan_tx_prep(&aml_chan->vchan, &aml_desc->vd, flags);
-+}
-+
-+static int aml_dma_chan_pause(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	aml_chan->pre_status = aml_chan->status;
-+	aml_chan->status = DMA_PAUSED;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+
-+	return 0;
-+}
-+
-+static int aml_dma_chan_resume(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	aml_chan->status = aml_chan->pre_status;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+
-+	return 0;
-+}
-+
-+static int aml_dma_terminate_all(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	int chan_id = aml_chan->chan_id;
-+	struct virt_dma_desc *cur_vd;
-+	unsigned long flags;
-+	LIST_HEAD(head);
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+
-+	if (aml_chan->direction == DMA_MEM_TO_DEV)
-+		regmap_set_bits(aml_dma->regmap, RCH_INT_MASK, BIT(chan_id));
-+	else if (aml_chan->direction == DMA_DEV_TO_MEM)
-+		regmap_set_bits(aml_dma->regmap, WCH_INT_MASK, BIT(chan_id));
-+
-+	vchan_get_all_descriptors(&aml_chan->vchan, &head);
-+	cur_vd = &aml_chan->cur_desc->vd;
-+	aml_chan->cur_desc = NULL;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+	if (cur_vd)
-+		aml_dma_free_desc(cur_vd);
-+
-+	vchan_dma_desc_free_list(&aml_chan->vchan, &head);
-+
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+	aml_chan->status = DMA_COMPLETE;
-+	aml_chan->err_num = 0;
-+
-+	return 0;
-+}
-+
-+static void aml_dma_start(struct aml_dma_chan *aml_chan)
-+{
-+	struct virt_dma_desc *vd = vchan_next_desc(&aml_chan->vchan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct aml_dma_desc *aml_desc = NULL;
-+	int chan_id = aml_chan->chan_id;
-+
-+	if (aml_chan->status == DMA_ERROR) {
-+		if (aml_chan->err_num > 5) {
-+			dev_err(aml_dma->dma_device.dev, "hw error\n");
-+			return;
-+		}
-+		regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+		regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+		aml_chan->err_num++;
-+		regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+		regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+		aml_chan->status = DMA_COMPLETE;
-+	} else {
-+		aml_chan->err_num = 0;
-+	}
-+
-+	if (!vd)
-+		return;
-+
-+	if (aml_chan->status != DMA_COMPLETE)
-+		return;
-+
-+	list_del(&vd->node);
-+	aml_desc = to_aml_dma_desc(vd);
-+	aml_chan->cur_desc = aml_desc;
-+
-+	if (aml_chan->direction == DMA_MEM_TO_DEV) {
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_ADDR,
-+			     lower_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_ADDR_HIGH,
-+			     upper_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_LEN, aml_desc->data_len);
-+		regmap_clear_bits(aml_dma->regmap, RCH_INT_MASK, BIT(chan_id));
-+		/* for rch (tx) need set cfg 0 to trigger start */
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, 0);
-+	} else if (aml_chan->direction == DMA_DEV_TO_MEM) {
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + WCH_ADDR,
-+			     lower_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + WCH_ADDR_HIGH,
-+			     upper_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + WCH_LEN, aml_desc->data_len);
-+		regmap_clear_bits(aml_dma->regmap, WCH_INT_MASK, BIT(chan_id));
-+	}
-+}
-+
-+static void aml_dma_issue_pending(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	if (vchan_issue_pending(&aml_chan->vchan) && !aml_chan->cur_desc)
-+		aml_dma_start(aml_chan);
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+}
-+
-+static irqreturn_t aml_dma_interrupt_handler(int irq, void *dev_id)
-+{
-+	struct aml_dma_dev *aml_dma = dev_id;
-+	struct aml_dma_chan *aml_chan;
-+	struct aml_dma_desc *aml_desc;
-+	u32 done, eoc_done, err, err_l, end;
-+	u32 cpl_data;
-+	int i = 0;
-+
-+	/* deal with rch normal complete and error */
-+	regmap_read(aml_dma->regmap, RCH_DONE, &done);
-+	regmap_read(aml_dma->regmap, RCH_ERR, &err);
-+	regmap_read(aml_dma->regmap, RCH_LEN_ERR, &err_l);
-+	err = err | err_l;
-+
-+	done = done | err;
-+
-+	while (done) {
-+		i = ffs(done) - 1;
-+		regmap_write(aml_dma->regmap, CLEAR_RCH, BIT(i));
-+		done &= ~BIT(i);
-+		aml_chan = aml_dma->aml_rch[i];
-+		if (!aml_chan) {
-+			dev_err(aml_dma->dma_device.dev, "idx %d rch not initialized\n", i);
-+			continue;
-+		}
-+		spin_lock(&aml_chan->vchan.lock);
-+		aml_chan->status = (err & BIT(i)) ? DMA_ERROR : DMA_COMPLETE;
-+		aml_desc = aml_chan->cur_desc;
-+		if (!aml_desc) {
-+			spin_unlock(&aml_chan->vchan.lock);
-+			continue;
-+		}
-+		if (aml_chan->status == DMA_ERROR) {
-+			aml_desc->vd.tx_result.result = DMA_TRANS_READ_FAILED;
-+			regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &cpl_data);
-+			aml_desc->vd.tx_result.residue = aml_desc->data_len - cpl_data;
-+		}
-+		vchan_cookie_complete(&aml_desc->vd);
-+		aml_chan->cur_desc = NULL;
-+		aml_dma_start(aml_chan);
-+		spin_unlock(&aml_chan->vchan.lock);
-+	}
-+
-+	/* deal with wch normal complete and error */
-+	regmap_read(aml_dma->regmap, DMA_BATCH_END, &end);
-+	if (end)
-+		regmap_write(aml_dma->regmap, CLEAR_W_BATCH, end);
-+
-+	regmap_read(aml_dma->regmap, WCH_DONE, &done);
-+	regmap_read(aml_dma->regmap, WCH_EOC_DONE, &eoc_done);
-+	done = done | eoc_done;
-+
-+	regmap_read(aml_dma->regmap, WCH_ERR, &err);
-+	regmap_read(aml_dma->regmap, WDMA_RESP_ERR, &err_l);
-+	err = err | err_l;
-+
-+	done = done | err;
-+	i = 0;
-+	while (done) {
-+		i = ffs(done) - 1;
-+		done &= ~BIT(i);
-+		regmap_write(aml_dma->regmap, CLEAR_WCH, BIT(i));
-+		aml_chan = aml_dma->aml_wch[i];
-+		if (!aml_chan) {
-+			dev_err(aml_dma->dma_device.dev, "idx %d wch not initialized\n", i);
-+			continue;
-+		}
-+		spin_lock(&aml_chan->vchan.lock);
-+		aml_chan->status = (err & BIT(i)) ? DMA_ERROR : DMA_COMPLETE;
-+		aml_desc = aml_chan->cur_desc;
-+		if (!aml_desc) {
-+			spin_unlock(&aml_chan->vchan.lock);
-+			continue;
-+		}
-+		if (aml_chan->status == DMA_ERROR) {
-+			aml_desc->vd.tx_result.result = DMA_TRANS_WRITE_FAILED;
-+			regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &cpl_data);
-+			aml_desc->vd.tx_result.residue = aml_desc->data_len - cpl_data;
-+		}
-+		vchan_cookie_complete(&aml_desc->vd);
-+		aml_chan->cur_desc = NULL;
-+		aml_dma_start(aml_chan);
-+		spin_unlock(&aml_chan->vchan.lock);
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static struct dma_chan *aml_of_dma_xlate(struct of_phandle_args *dma_spec, struct of_dma *ofdma)
-+{
-+	struct aml_dma_dev *aml_dma = (struct aml_dma_dev *)ofdma->of_dma_data;
-+	struct aml_dma_chan *aml_chan = NULL;
-+	u32 type;
-+	u32 phy_chan_id;
-+
-+	if (dma_spec->args_count != 2)
-+		return NULL;
-+
-+	type = dma_spec->args[0];
-+	phy_chan_id = dma_spec->args[1];
-+
-+	if (phy_chan_id >= MAX_CHAN_ID)
-+		return NULL;
-+
-+	if (type == DMA_TX) {
-+		aml_chan = aml_dma->aml_rch[phy_chan_id];
-+		if (!aml_chan) {
-+			if (aml_dma->chan_used >= aml_dma->chan_nr) {
-+				dev_err(aml_dma->dma_device.dev, "some dma clients err used\n");
-+				return NULL;
-+			}
-+			aml_chan = &aml_dma->aml_chans[aml_dma->chan_used];
-+			aml_dma->chan_used++;
-+			aml_chan->direction = DMA_MEM_TO_DEV;
-+			aml_chan->chan_id = phy_chan_id;
-+			aml_chan->reg_offs = RCH_REG_BASE + 0x40 * aml_chan->chan_id;
-+			aml_dma->aml_rch[phy_chan_id] = aml_chan;
-+		}
-+	} else if (type == DMA_RX) {
-+		aml_chan = aml_dma->aml_wch[phy_chan_id];
-+		if (!aml_chan) {
-+			if (aml_dma->chan_used >= aml_dma->chan_nr) {
-+				dev_err(aml_dma->dma_device.dev, "some dma clients err used\n");
-+				return NULL;
-+			}
-+			aml_chan = &aml_dma->aml_chans[aml_dma->chan_used];
-+			aml_dma->chan_used++;
-+			aml_chan->direction = DMA_DEV_TO_MEM;
-+			aml_chan->chan_id = phy_chan_id;
-+			aml_chan->reg_offs = WCH_REG_BASE + 0x40 * aml_chan->chan_id;
-+			aml_dma->aml_wch[phy_chan_id] = aml_chan;
-+		}
-+	} else {
-+		dev_err(aml_dma->dma_device.dev, "type %d not supported\n", type);
-+		return NULL;
-+	}
-+
-+	return dma_get_slave_channel(&aml_chan->vchan.chan);
-+}
-+
-+static int aml_dma_probe(struct platform_device *pdev)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct dma_device *dma_dev;
-+	struct aml_dma_dev *aml_dma;
-+	int ret, i, len;
-+	u32 chan_nr;
-+
-+	const struct regmap_config aml_regmap_config = {
-+		.reg_bits = 32,
-+		.val_bits = 32,
-+		.reg_stride = 4,
-+		.max_register = 0x3000,
-+	};
-+
-+	ret = of_property_read_u32(np, "dma-channels", &chan_nr);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to read dma-channels\n");
-+	if (chan_nr > (MAX_CHAN_ID * 2))
-+		return dev_err_probe(&pdev->dev, -EINVAL, "dma-channels unusual\n");
-+
-+	len = sizeof(struct aml_dma_dev) + sizeof(struct aml_dma_chan) * chan_nr;
-+	aml_dma = devm_kzalloc(&pdev->dev, len, GFP_KERNEL);
-+	if (!aml_dma)
-+		return -ENOMEM;
-+
-+	aml_dma->chan_nr = chan_nr;
-+
-+	aml_dma->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(aml_dma->base))
-+		return PTR_ERR(aml_dma->base);
-+
-+	aml_dma->regmap = devm_regmap_init_mmio(&pdev->dev, aml_dma->base,
-+						&aml_regmap_config);
-+	if (IS_ERR_OR_NULL(aml_dma->regmap))
-+		return PTR_ERR(aml_dma->regmap);
-+
-+	aml_dma->clk = devm_clk_get_enabled(&pdev->dev, NULL);
-+	if (IS_ERR(aml_dma->clk))
-+		return PTR_ERR(aml_dma->clk);
-+
-+	aml_dma->irq = platform_get_irq(pdev, 0);
-+
-+	aml_dma->pdev = pdev;
-+	aml_dma->dma_device.dev = &pdev->dev;
-+
-+	dma_dev = &aml_dma->dma_device;
-+	INIT_LIST_HEAD(&dma_dev->channels);
-+
-+	/* Initialize channel parameters */
-+	for (i = 0; i < chan_nr; i++) {
-+		struct aml_dma_chan *aml_chan = &aml_dma->aml_chans[i];
-+
-+		aml_chan->aml_dma = aml_dma;
-+		aml_chan->vchan.desc_free = aml_dma_free_desc;
-+		vchan_init(&aml_chan->vchan, &aml_dma->dma_device);
-+	}
-+	aml_dma->chan_used = 0;
-+
-+	dma_set_max_seg_size(dma_dev->dev, SG_MAX_LEN);
-+	dma_cap_set(DMA_SLAVE, dma_dev->cap_mask);
-+	dma_dev->device_alloc_chan_resources = aml_dma_alloc_chan_resources;
-+	dma_dev->device_free_chan_resources = aml_dma_free_chan_resources;
-+	dma_dev->device_tx_status = aml_dma_tx_status;
-+	dma_dev->device_prep_slave_sg = aml_dma_prep_slave_sg;
-+	dma_dev->device_pause = aml_dma_chan_pause;
-+	dma_dev->device_resume = aml_dma_chan_resume;
-+	dma_dev->device_terminate_all = aml_dma_terminate_all;
-+	dma_dev->device_issue_pending = aml_dma_issue_pending;
-+	/* PIO 4 bytes and I2C 1 byte */
-+	dma_dev->dst_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_4_BYTES) | BIT(DMA_SLAVE_BUSWIDTH_1_BYTE);
-+	dma_dev->directions = BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV);
-+	dma_dev->residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
-+
-+	regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
-+	regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
-+
-+	ret = devm_request_irq(&pdev->dev, aml_dma->irq, aml_dma_interrupt_handler,
-+			       0, dev_name(&pdev->dev), aml_dma);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to register irq\n");
-+
-+	ret = dmaenginem_async_device_register(dma_dev);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to register dmaenginem\n");
-+
-+	ret = of_dma_controller_register(np, aml_of_dma_xlate, aml_dma);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to register xlate\n");
-+
-+	platform_set_drvdata(pdev, aml_dma);
-+
-+	return 0;
-+}
-+
-+static void aml_dma_remove(struct platform_device *pdev)
-+{
-+	struct aml_dma_dev *aml_dma = platform_get_drvdata(pdev);
-+	struct aml_dma_chan *aml_chan = NULL;
-+	int i;
-+
-+	of_dma_controller_free((&pdev->dev)->of_node);
-+
-+	regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
-+	regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
-+
-+	for (i = 0; i < MAX_CHAN_ID; i++) {
-+		aml_chan = aml_dma->aml_rch[i];
-+		if (aml_chan)
-+			tasklet_kill(&aml_chan->vchan.task);
-+		aml_chan = aml_dma->aml_wch[i];
-+		if (aml_chan)
-+			tasklet_kill(&aml_chan->vchan.task);
-+	}
-+}
-+
-+static const struct of_device_id aml_dma_ids[] = {
-+	{ .compatible = "amlogic,a9-dma", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, aml_dma_ids);
-+
-+static struct platform_driver aml_dma_driver = {
-+	.probe		= aml_dma_probe,
-+	.remove		= aml_dma_remove,
-+	.driver		= {
-+		.name	= "aml-dma",
-+		.of_match_table = aml_dma_ids,
-+	},
-+};
-+
-+module_platform_driver(aml_dma_driver);
-+
-+MODULE_DESCRIPTION("GENERAL DMA driver for Amlogic");
-+MODULE_AUTHOR("Xianwei Zhao <xianwei.zhao@amlogic.com>");
-+MODULE_LICENSE("GPL");
+v2: https://lore.kernel.org/all/20260706101526.2556226-1-jackyhuang@nvidia.com/
+v1: https://lore.kernel.org/all/20260702165524.2168091-1-jackyhuang@nvidia.com/
+
+Jacky Huang (2):
+  dt-bindings: arm: aspeed: Add NVIDIA VR-NVL BMC
+  ARM: dts: aspeed: Add NVIDIA VR-NVL BMC
+
+ .../bindings/arm/aspeed/aspeed.yaml           |   1 +
+ arch/arm/boot/dts/aspeed/Makefile             |   1 +
+ .../aspeed/aspeed-bmc-nvidia-vr-nvl-bmc.dts   | 901 ++++++++++++++++++
+ 3 files changed, 903 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-nvl-bmc.dts
 
 -- 
-2.52.0
-
+2.43.0
 
