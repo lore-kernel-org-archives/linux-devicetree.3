@@ -1,188 +1,138 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B3642B311;
-	Fri, 10 Jul 2026 12:59:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225D94279EE
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 12:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783688383; cv=none; b=ltFhJKx/IfYci9OZ89F8DfuKuWgDsgaylvA7i943BZy/aMgQs4dKLqzBLAILdUeouZsNVolQbhVHL2Uf8BcoBrzx3Qkpkwxgi/N5J0gagBuV+/vRut7VpNWgWrChlelrDnclxtWwXN/g7FCFWX0NQBQsJiajlevsQSchEJNEtUQ=
+	t=1783688385; cv=none; b=iEF5gEHC83K1sOki0DJqPnr5AGseqHEKQK74CrxSznv2WMDL0H5ix6KEOkVCQJUQ3BK9dcqIXsirqVJeGuSEoZRzQxDTq82Ve2bB93ajWGISgrwP3Xzg32BlLXTZ3aqLPcGC45B5rWZ8YqJHrLrqf3jsKJS50xX9Evz3NLQJ9qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783688383; c=relaxed/simple;
-	bh=/6sXJuUOctndqmdSaxuO2kvNa2414Xs031qJp2Qo3/0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KpzWEd/vMwZlpwgtrLt1chiKxhXjf5xcYUcfqwtrgexh+89XeMft7heBe+NuWf4Piti6tqpQo1c4DjIu5cu3cjwpilkH/tT8dd2pZl/W/y8fMKJf2El2zwPBkhGufjTOJ2hk3gksAGo7I7wFXSKKvhdWyUyClry+b40//Msq5cY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=eBUf2nVN; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1783688385; c=relaxed/simple;
+	bh=DR3XTdg4I7lwPyfsMjIcQHSN5LQxWRSvHGsZmoT0D50=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bsCbZs3dPHRMqT6iP65G09C45Gc992FAhO6xu+ixLWe7U+saWuTiUkP3gENbD0aNJTvlJe61axogtdiGeA0aDmVqYh8dCrF2EEOoc/TOX2DM3j3rMzulNeSkIrh7/VMpF0Z/4DfbFWw+xzZYHZa7uhBAh3mnRYqdXOaxON5AF5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRE+9WIJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="eBUf2nVN"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 534DC4E40D46;
-	Fri, 10 Jul 2026 12:59:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1629960342;
-	Fri, 10 Jul 2026 12:59:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7EEEB11BD041E;
-	Fri, 10 Jul 2026 14:59:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783688373; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tVE3k2wNc11oGNnWAyHGoU5XfSdc5JYzcD9eXOmLp6c=;
-	b=eBUf2nVN8AVKC6kOJnhTuK/k1N66T/yVJ/bHVl3sko1ofApykwoi8BTLKdwU8HriZh9YsS
-	zJynoQn9LOafgWeqL29qT9ogxPZGhp+EhHgD6oMDDCEMjj97E/FbLfMCaa9KT6OefQ4jm/
-	8IpPdMtr7Wbag7M4Tpv3pgyUYMvS/EyTAmO0PJFUGqUrJzu2/I2YIDHcQv1U9KWvGq56P2
-	/naUd+n9+sIYYhAjAWI0bNvHa9uygtCYzyCnWMZE4S2LJ9jscI3aItLSvm1kvO8FdG4smz
-	kiyq7TvXWb79NO9mRBWB3GnW/rqAQR2400EF5ZK9djy6Mf13KuXeRXKAE7oHmA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
- <sboyd@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
- Dooley <conor+dt@kernel.org>,  Thomas Gleixner <tglx@kernel.org>,  Olivia
- Mackall <olivia@selenic.com>,  Herbert Xu <herbert@gondor.apana.org.au>,
-  Jayesh Choudhary <j-choudhary@ti.com>,  "David S. Miller"
- <davem@davemloft.net>,  Christian Marangi <ansuelsmth@gmail.com>,  Antoine
- Tenart <atenart@kernel.org>,  Geert Uytterhoeven
- <geert+renesas@glider.be>,  Magnus Damm <magnus.damm@gmail.com>,  Thomas
- Petazzoni <thomas.petazzoni@bootlin.com>,  Pascal EBERHARD
- <pascal.eberhard@se.com>,  Wolfram Sang
- <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 05/16] dt-bindings: bus: eip150: Describe the EIP-150
- container node
-In-Reply-To: <20260407194449.GA3542959-robh@kernel.org> (Rob Herring's message
-	of "Tue, 7 Apr 2026 14:44:49 -0500")
-References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
-	<20260327-schneider-v7-0-rc1-crypto-v1-5-5e6ff7853994@bootlin.com>
-	<20260407194449.GA3542959-robh@kernel.org>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Fri, 10 Jul 2026 14:59:25 +0200
-Message-ID: <875x2ngfv6.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRE+9WIJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10E51F000E9;
+	Fri, 10 Jul 2026 12:59:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783688382;
+	bh=zDbjVr06gmB3HgeOEEoXAW9YfnUEcb3mFJtwG478FWA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TRE+9WIJp11XDZBdx0+1w+tT8KWLpG+1f4bC5jno7NG+9ALEa8aaHhafiPPimMlEd
+	 LELZBro4IsLWmFeyYY/A7i+NbREXEUHIMnfOwotcekcIrHymTu/t84kfXQ8jTZyMK8
+	 NzD7HA7Ps4YzjMhI4nEe+rf08sGQ66b7jFSOyJpVRrxgJZRm+ulTKE5WcmSxMgwvnn
+	 JwYPaCcaBA2mKkT6e9J2AkiSbzgH/0fIL/fDYYXuYtwppynOakWb5yVGlGYykieDm2
+	 XxA3JDvGEQq1h+J8aFFUiX6f9EUDiCsnTN7DxbWGgAZmo42syzjImU4X/W0jsVwUnJ
+	 6mxd8GJ/szb3w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: ti: var-som-am62: Add support for
+ Variscite Symphony Board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <51bff35ed6a2111f70844c13fbf119b7e07a0265.1783687321.git.stefano.r@variscite.com>
+References: <cover.1783687321.git.stefano.r@variscite.com>
+ <51bff35ed6a2111f70844c13fbf119b7e07a0265.1783687321.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 12:59:41 +0000
+Message-Id: <20260710125941.E10E51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 07/04/2026 at 14:44:49 -05, Rob Herring <robh@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The `cs-gpios` property for `main_spi2` incorrectly specifies `G=
+PIO_ACTIVE_HIGH` for a general-purpose SPI bus.
+- [Low] The `reg_sdhc1_vmmc` regulator node is missing the `pinctrl-names` =
+property and uses the deprecated `gpio` property.
+- [Low] The `pca9534` GPIO expander node is missing the `interrupt-controll=
+er;` and `#interrupt-cells =3D <2>;` properties.
+--
 
-> On Fri, Mar 27, 2026 at 09:09:27PM +0100, Miquel Raynal (Schneider Electr=
-ic) wrote:
->> Part of Inside-Secure's SafeXcel family, the EIP-150 is some kind of
->> container node composed of:
->> - a public key accelerator,
->> - random number generator,
->> - an interrupt controller.
->>=20
->> It also acts as proxy for the clocks.
->>=20
->> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin=
-.com>
->> ---
->>  .../bus/inside-secure,safexcel-eip150.yaml         | 58 +++++++++++++++=
-+++++++
->>  1 file changed, 58 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/bus/inside-secure,safexce=
-l-eip150.yaml b/Documentation/devicetree/bindings/bus/inside-secure,safexce=
-l-eip150.yaml
->> new file mode 100644
->> index 000000000000..1b3d83a852f5
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/bus/inside-secure,safexcel-eip15=
-0.yaml
->> @@ -0,0 +1,58 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/bus/inside-secure,safexcel-eip150.ya=
-ml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Inside-Secure SafeXcel EIP-150 container
->> +
->> +maintainers:
->> +  - Miquel Raynal <miquel.raynal@bootlin.com>
->> +
->> +description:
->> +  The EIP-150 is a hardware container, it has its own interrupt
->> +  controller inside to which a random number generator and a public key
->> +  accelerator are wired.
->> +
->> +allOf:
->> +  - $ref: simple-pm-bus.yaml#
->> +  - $ref: /schemas/clock/clock-nexus-node.yaml#
->
-> Generally, if a schema has 'select: true', you don't reference it as it=20
-> has already been applied. And you have to list the properties here=20
-> anyways because you need to define how many #clock-cells for example.
+--- Patch [3]: [PATCH v2 3/3] arm64: dts: ti: var-som-am62: Add support for=
+ Variscite Symphony Board ---
+commit 39365377c2ed764159841e605bd1eff65b2d9ad1
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-I see, I'll drop that line. Thanks for the explanation, very appreciated.
+arm64: dts: ti: var-som-am62: Add support for Variscite Symphony Board
 
->> +properties:
->> +  compatible:
->> +    items:
->> +      - const: inside-secure,safexcel-eip150
->> +      - {} # simple-pm-bus, but not listed here to avoid false select
->> +
->> +  clocks:
->> +    minItems: 1
+Add device tree support for the Variscite Symphony carrier board with
+the VAR-SOM-AM62 system on module.
 
-Should be:
+Link: https://www.variscite.it/product/single-board-computers/symphony-boar=
+d/
 
-       maxItems: 1
+> diff --git a/arch/arm64/boot/dts/ti/k3-am625-var-som-symphony.dts b/arch/=
+arm64/boot/dts/ti/k3-am625-var-som-symphony.dts
+> new file mode 100644
+> index 0000000000000..1aa50fa8809d1
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/ti/k3-am625-var-som-symphony.dts
+[ ... ]
+> +	reg_sdhc1_vmmc: regulator-sdhc1 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "+V3.3_SD";
+> +		pinctrl-0 =3D <&pinctrl_sd1_vmmc>;
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		regulator-boot-on;
+> +		enable-active-high;
+> +		gpio =3D <&main_gpio0 30 GPIO_ACTIVE_HIGH>;
 
-I did the error once, and copy-pasted it two more times in this series.
+[Severity: Low]
+Does this node need a pinctrl-names property? When pinctrl-0 is provided,
+the DT schema requires pinctrl-names.
 
-> Seems to me you are adding this to satisfy simple-pm-bus. Maybe this=20
-> should just be simple-bus?
+Also, should this use the gpios property instead of the deprecated gpio
+property?
 
-I really need that clock, it feeds my container and is then populated
-through the child nodes. I actually selected simple-pm-bus on purpose,
-as my use case seems to really fit the description?
+> +		bootph-all;
+> +	};
+[ ... ]
+> +	/* GPIO expander */
+> +	pca9534: gpio@20 {
+> +		compatible =3D "nxp,pca9534";
+> +		reg =3D <0x20>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_pca9534>;
+> +		#gpio-cells =3D <2>;
+> +		gpio-controller;
+> +		interrupt-parent =3D <&main_gpio1>;
+> +		interrupts =3D <30 IRQ_TYPE_EDGE_FALLING>;
 
->> +  "#address-cells":
->> +    const: 1
->> +
->> +  "#size-cells":
->> +    const: 1
->> +
->> +  ranges: true
->> +
->> +patternProperties:
->> +  "^interrupt-controller@[0-9a-f]+$":
->> +    type: object
->> +    $ref: /schemas/interrupt-controller/inside-secure,safexcel-eip201.y=
-aml#
->
-> Better to just list a compatible you require. Like this, the schema is=20
-> applied twice.
+[Severity: Low]
+Should this node include interrupt-controller; and #interrupt-cells =3D <2>;
+properties?
 
-Mmmh, ok!
+Without these, device tree overlays cannot use this expander as an
+interrupt parent. The OF core will refuse to parse interrupts for any exter=
+nal
+nodes that specify interrupt-parent =3D <&pca9534>.
 
->> +  "^rng@[0-9a-f]+$":
->> +    type: object
->> +    $ref: /schemas/rng/inside-secure,safexcel-eip76.yaml#
->> +
->> +  "^crypto@[0-9a-f]+$":
->> +    type: object
->> +    $ref: /schemas/crypto/inside-secure,safexcel-eip28.yaml#
->> +
->> +required:
->> +  - compatible
->> +  - clocks
->
->> +  - "#address-cells"
->> +  - "#size-cells"
->> +  - ranges
->
-> The bus schema requires all these already.
+[ ... ]
+> +&main_spi2 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_spi2>;
+> +	ti,pindir-d0-out-d1-in;
+> +	cs-gpios =3D <&main_gpio1 13 GPIO_ACTIVE_HIGH>;
 
-I'll drop them.
+[Severity: Medium]
+Is GPIO_ACTIVE_HIGH correct for this general-purpose SPI bus chip select?
 
-Thanks!
-Miqu=C3=A8l
+Standard SPI chip selects are almost universally active-low. By specifying
+GPIO_ACTIVE_HIGH, the SPI core expects the physical chip select line to be
+driven high to select the device, which could cause communication failures
+for standard active-low devices attached to the bus.
+
+> +	status =3D "okay";
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783687321.gi=
+t.stefano.r@variscite.com?part=3D3
