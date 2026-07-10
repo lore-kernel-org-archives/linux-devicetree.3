@@ -1,147 +1,106 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6713EF0D3;
-	Fri, 10 Jul 2026 08:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783671601; cv=pass; b=OqNkPatFlD0NSztCEYPwBfc9YiFRf6xXYoex2ICdvWeUU0cKgeDCKU4zUkJx6cCiVKijobfmSloWPV4cb7NprTg0yNsuVZSoBI6HUYOIt0Y+Ia6VRAMdMghBfT69pFHE15DWwGtsA655AHbaiBKfmct9pnK+HcDauNNXkRbJtYw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783671601; c=relaxed/simple;
-	bh=A6yuDsR2nZi6+auXXFpGtmRTYQlKL2m32zKzAUWpsuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M+BJ55CTh98rrmuc0znOTxtL6W4A0ZrSF/wRnGkj4XJKx4Do6bnyHtC49JUcDKIQm9Y6QPlglWEGLGDKbw/3nfIgBVpltik4Isw56gYlfDEqD5H7keDwEmAJ2E6sbdOIhGduGsmGyA5dXC+jps/Kk4WP1JfiGYTJ2c2dBIgNeMk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=FFnMn0Cf; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547FF3E0255;
+	Fri, 10 Jul 2026 08:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783671671; cv=none; b=OyVtwvYMSjEZyn0GRmz3aq4WpD+0TutH0DFcuPLogtmV7nEvNCwJsvAd7tDZ+K4gGAGS743DDfv0Qc9KPekLgXBJnnlliOU8YHv4gHWsOmxpU3Xc2GD8sYw6gON/pHu1QT2F3uPXfLpuIcMCuACKfvYAwW3AvPnU86kKeTaVlnQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783671671; c=relaxed/simple;
+	bh=pBrycRR6DWm1J7z2nRQaGxJWAsRmCbxjaFUKGUDaepE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JEnSMlxiUzy2kynk/XFMMiyCeyH5iACc3aMzwwm8fAEJPRHdleTdHNpP7Ui/8UVSnd90anlVsDdwbvRAwqh/xXP8TqSK3gUzhSspPFBROU4lq4byPp8n9jTldqtMrl42JPGa5QFd1DYu2byGkVRusBaPqYeojfb/m8XIBKQWH/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nky/z5Z/; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="FFnMn0Cf"
-ARC-Seal: i=1; a=rsa-sha256; t=1783671496; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=n1lilrOhB4g5YW6x6G9IiFkIE7cfPY646RXZhmeBeRU8vt/Xx9bipqzOH437Yw97SoOGWsi6diBYmTI0TYz7Spkgc8HTkBcyOyMzfh59yPBSw05OA6h2azT2bgsLebTK/kztYKqSVt1g4J+Lfr3EC3HBXmEksib7LE6CevODMbI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1783671496; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wNhWASr7b/ZTOhcTDo/rAGZJQBNr7Kmww1CuII50ggg=; 
-	b=KzVJV3qeyarguw6hz9kE7z6vCLOBH41NDHxBP60XjAWbYdVyRx4BdzoxPYnBsKXqISCpPpiknHP/lbrKwWbfZSlZj8qPWnerYwHuVZfthM/RiwyHsk1sJsbpbDcruZtep4SIczOrhwHVxxhJF8ObBRv1kKP+7ED7nKrf1V47Ws0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783671496;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=wNhWASr7b/ZTOhcTDo/rAGZJQBNr7Kmww1CuII50ggg=;
-	b=FFnMn0CfDn5F3352XtaZr/QmRsRz8rLmzZocUKukr5Ojp1+hiTHPyc3rbW2Zy+S1
-	bOUZDwihK/kW3HXc+EyDdMZPXBcsEVnrUiNVKyPQWNQCSgGFPDMhHaTIewGDobgikZT
-	oCrvfmpvHCAuKEHCF4PM+K5AHYqHi8YICnThQ1PA=
-Received: by mx.zohomail.com with SMTPS id 1783671494588655.4558382967103;
-	Fri, 10 Jul 2026 01:18:14 -0700 (PDT)
-Message-ID: <66d4ed68-f8b1-4275-96de-83d1125d49c9@collabora.com>
-Date: Fri, 10 Jul 2026 10:18:05 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nky/z5Z/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783671670; x=1815207670;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pBrycRR6DWm1J7z2nRQaGxJWAsRmCbxjaFUKGUDaepE=;
+  b=Nky/z5Z/kmmp0pchISAtl56rONTTb2sCRNrWSfxDY9mbQ1cUE/CaUxt2
+   bUhWRuwewt1+KqEZ7PJrJej6M0qrlk0tbApmBpG8r28SxULqYBJe//ckZ
+   0cy7Iax14UZI+VWSYb5HdWaEgf3YWsRGie1CwXJhDGIflOCkrSI25KUMX
+   jjfKaKw7WqbHiKuY5ey7ptwb2zUuZnWgvfwxHJYUhifYDVskCp1gsJmsl
+   Ilw/f12TH4ieqT1lzuwdj1CXZVCf9a8HLIDWsd7N5eegQ3w/pEC8Oac1O
+   FQwtmip6S3q3rmZlbif83kjp1ZGtDsnYQNuQ6Qwjk0ClEbAw+2EkCNk37
+   g==;
+X-CSE-ConnectionGUID: KGFtGL0RQm6OAKey756qBg==
+X-CSE-MsgGUID: pu/qCCSYR1KqKLuoa+A6Wg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88197535"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="88197535"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 01:20:55 -0700
+X-CSE-ConnectionGUID: 7VSVUrYUQYqP2c81jnBTpw==
+X-CSE-MsgGUID: tLeIWpBvR2203uq7ve0tgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="254328183"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 01:20:51 -0700
+Date: Fri, 10 Jul 2026 11:20:48 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	John Ogness <john.ogness@linutronix.de>,
+	Marco Felsch <m.felsch@pengutronix.de>,
+	Gerhard Engleder <eg@keba.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Rong Zhang <rongrong@oss.cipunited.com>,
+	Lukas Wunner <lukas@wunner.de>, Lubomir Rintel <lkundrak@v3.sk>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH 2/4] serial: 8250: export serial8250_get_baud_rate()
+Message-ID: <alCrYPnk-0FmDnqw@ashevche-desk.local>
+References: <20260709205656.319531-1-ansuelsmth@gmail.com>
+ <20260709205656.319531-3-ansuelsmth@gmail.com>
+ <alAT4QMOi8U2ITho@ashevche-desk.local>
+ <6a501516.a1b3dc3f.1e550b.96ea@mx.google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] media: dt-bindings: video-interface-devices: add
- video-interface-devices.h references
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>,
- Matthias Fend <matthias.fend@emfend.at>,
- Mikhail Rudenko <mike.rudenko@gmail.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Paul Elder <paul.elder@ideasonboard.com>,
- Martin Kepplinger <martin.kepplinger@puri.sm>,
- Quentin Schulz <quentin.schulz@theobroma-systems.com>,
- Tommaso Merciai <tomm.merciai@gmail.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>,
- Richard Acayan <mailingradian@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux@ew.tq-group.com, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-References: <20260628-kbingham-orientation-v3-0-4ed92968aff8@ideasonboard.com>
- <20260628-kbingham-orientation-v3-2-4ed92968aff8@ideasonboard.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20260628-kbingham-orientation-v3-2-4ed92968aff8@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6a501516.a1b3dc3f.1e550b.96ea@mx.google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Kieran,
-
-On 6/28/26 12:22, Kieran Bingham wrote:
-> Expand the documentation of the video-interface-devices orientation to
-> reference the include/dt-bindings/media/video-interface-devices.h header
-> which provides human readable defines for the orientation enum, to help
-> avoid hardcoding values in dts.
+On Thu, Jul 09, 2026 at 11:39:32PM +0200, Christian Marangi wrote:
+> On Fri, Jul 10, 2026 at 12:35:02AM +0300, Andy Shevchenko wrote:
+> > On Thu, Jul 09, 2026 at 10:56:50PM +0200, Christian Marangi wrote:
+> > > Some driver might need to access the current baud rate to correctly
+> > > configure it.
+> > > 
+> > > Export the serial8250_get_baud_rate() function to limit code duplication.
+> > 
+> > Why?
+> > 
+> > We have _get_divisor() / _set_divisor() for exactly that purpose, no?
 > 
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+> I can only see set and I'm not following how that helps with any driver
+> that needs to get the baud_rate?
 
-Acked-by: Michael Riesch <michael.riesch@collabora.com>
+You operate on the divisor settings instead of baud rate. Otherwise, can
+you elaborate why no other (out of dozens!) driver needs this? What do
+you try to achieve with the baud rate settings exactly?
 
-Thanks and best regards,
-Michael
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> ---
->  .../bindings/media/video-interface-devices.yaml         | 17 +++++++++++------
->  1 file changed, 11 insertions(+), 6 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/video-interface-devices.yaml b/Documentation/devicetree/bindings/media/video-interface-devices.yaml
-> index a81d2a155fe6..c9c3f4f16719 100644
-> --- a/Documentation/devicetree/bindings/media/video-interface-devices.yaml
-> +++ b/Documentation/devicetree/bindings/media/video-interface-devices.yaml
-> @@ -392,17 +392,22 @@ properties:
->        The orientation of a device (typically an image sensor or a flash LED)
->        describing its mounting position relative to the usage orientation of the
->        system where the device is installed on.
-> +      See include/dt-bindings/media/video-interface-devices.h.
-> +
->      $ref: /schemas/types.yaml#/definitions/uint32
->      enum:
-> -        # Front. The device is mounted on the front facing side of the system. For
-> -        # mobile devices such as smartphones, tablets and laptops the front side
-> -        # is the user facing side.
-> +        # MEDIA_ORIENTATION_FRONT
-> +        # The device is mounted on the front facing side of the system. For
-> +        # mobile devices such as smartphones, tablets and laptops the front
-> +        # side is the user facing side.
->        - 0
-> -        # Back. The device is mounted on the back side of the system, which is
-> +        # MEDIA_ORIENTATION_BACK
-> +        # The device is mounted on the back side of the system, which is
->          # defined as the opposite side of the front facing one.
->        - 1
-> -        # External. The device is not attached directly to the system but is
-> -        # attached in a way that allows it to move freely.
-> +        # MEDIA_ORIENTATION_EXTERNAL
-> +        # The device is not attached directly to the system but is attached in
-> +        # a way that allows it to move freely.
->        - 2
->  
->  additionalProperties: true
-> 
 
