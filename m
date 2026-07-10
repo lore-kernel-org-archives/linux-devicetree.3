@@ -1,196 +1,514 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B533DF00B
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED7529E11A
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783675439; cv=none; b=B9uWPvbgvNI/Nl/FlaQ1zBFCBQxuIllji8xs2f73dESQ+csMkuYNt4IGxQCXCIZ1vqeMmN0+hLrYyxS0f9cPqXMLYJf5oHvExoZYgcjpIbdLUU8rq30f5yvhOAsEDylMGCITIwywMiGmR2jn6H5elYLh9TTDK3L9DS+n5wthpW8=
+	t=1783675499; cv=none; b=ibLjqcYBLm0wNECs9rjKMwcP0YXeAHFNjICs0jsfB1zQCBTz5T9fCqsOyu305+EKiRt0X2pskUr18SY/Pv+10vTwaoDz/tcMubXisRH/EeOUyZYzrOdpTn72dc1j/Qf963U0w3Ua7GnONvvK8UCouyYC47C8Chg+hLjNpmTanos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783675439; c=relaxed/simple;
-	bh=YoVUDj0VmVAC2jmbVX6pbD6bZIFZCdW/Q0ywRUHMsJ4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gvmak6wYAXyOJPmx6dNpVMoc1AOtqsv4qTa0ytbXm0RsIn4yebDqKC0lC+6B7bi1u36WG5AfxSsyibmAt+6vnksm0/DBCARJDOmI/V1ghOhV+FL4o32Np3aU3MwOJqiMANq6ovycysDIwPM0EzO9o0jJ+tnX3MxrQyRw4b2DGX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Uh5zxbbw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AvPYxgXH; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783675499; c=relaxed/simple;
+	bh=yQiy5ikRqoWyFbvyrf26cS+spm6uOlxKPsrw4GgXruo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MA86qydp1KIxWD+4bctIZdSnIb2T5HEJE+6TgSaAy9LyVtXOx8AVmodHX8veM+wCQAEkZcVWPViQvIxodmLiSIPDAem9r7fDiCFauG2qpABZLbZcHNOQw9Jcs/HQMaa9QU5ipow8km+fK+y76lAjyI8JXsPiW6+BiMvnuMZOHow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9zKPuqQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Uh5zxbbw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AvPYxgXH"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66A7dXQn4194213
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:23:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	66CNho0zRKeJhcUQz19hKeeEOAaD98LvwCXadn+4LsM=; b=Uh5zxbbwI1VKccuM
-	b93P9bjn0BjqDmDT9Pj3cSoLHYNPkJEjf8fhIM0AyitIMR7cDabw7zPz3djCM6cx
-	9X6KO3cT2D9jFVoSzRCLBnXSOVHeed/YyMjobcCqR9nptteX79LsvnNXeJN6lNn5
-	Crz+8J8Jl72+ByJR/ZD3qvPwAEinjoYmKdzMvAOWROWmtuGxyiH9gXA5Bw3fHl5b
-	n9vMkMKe6MGRThvPsgKj5yUbsL6GqRZt+dOl9EfOiktolWLY5O6Bw8txwiyUtGcM
-	mSZ4QpoulhBQE8emu0KfDJUI5HhQIoW1LK82sZUkEPcIZpGBS4nfQU1ms7mrmO6s
-	93PCqw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4faf24uk5e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:23:56 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92eb5f54b6dso19192485a.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783675435; x=1784280235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=66CNho0zRKeJhcUQz19hKeeEOAaD98LvwCXadn+4LsM=;
-        b=AvPYxgXHH7HIZre96xpaZPYA5DMHZCO9jvagOmyOv3TP5rUZKdjNC3qVHTjNFxiTzM
-         3cmhWxxCF1O9zSINRJtfXPbu7vNpSIxrrkCpfO5qW/mXV8u3HwNbpLL012Fn8R+6EVNG
-         VA7rSMcoiNuJlojTUzAkltJMNXEaFQwrXdA4cf+ZL4SIy/qfMJOy+Qc64foxsG7p8Scf
-         H1fi9J7GQGmckaXJBmWTyGPQBX10eslUunArus0Lk7KC9sHh6rh41E2jFREBsXEwgiY/
-         dgNbWleqFM8aMYxbBgQWQZpiNemo7W0zzNKO1ZlbxSfg2pTALF2ZIwOLXMBpACHiL7F5
-         mxLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783675435; x=1784280235;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=66CNho0zRKeJhcUQz19hKeeEOAaD98LvwCXadn+4LsM=;
-        b=cvGSdPaoadmBwSmUODQdZ3UGAMiNTbHyltLkGQkl5BboHz4tBDMD6SevILAc7PRapC
-         i0DsRk+Qk5EGkyfLV6ZkBvKSoR24TYPAqbBWF3duzIVWn4aZ5iN+UnzOD5S9RHk7bPBM
-         5JlL8cWBw+Q29INj5G2myGPMMQ69SshgP2uK+tA3KTnjwjlIjQCRcNV/34gSxb2gDdKt
-         xHIY1vsjiuCiQuVL7nmIxnSa65F/bplaKa/HgNmXBOVakBZaVp6o8xOS1Y19/y8sVGjL
-         NWHia8Ff5RD0guJBeRRs+rhablm4LeEIeK5/IsgQdOvU0S/Feyy2HAnPnKvVrWCyE6RS
-         76LQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrgdgznYM78Wuo5eu8wDcnKo4dtdhf/dDeF1+HObpShmCsYwPGmISPoz4cfKmK+8JjSNE74n1t4xUDW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx04h022FewuhIJ2Kp4YLofsqLtEm+wgpY35rGEnbchj7QP4yL1
-	NamhkOIqLk3DUa381tropDAf1BEsdl3BvXa0PgwT5T2ctJLUPPN8BFGEchhFACp/eMw8fv61FN2
-	aiLAdfFMD+KbzUvJdbRYR3MnZwU1lKNvYHwblMXjR52V4giebekmN5L1+aco9Ohax
-X-Gm-Gg: AfdE7ck5eMOxqSCqHS3I4jG5mC9QvOpNR4uslv/PbdTWGTyHAXET5YXKrJHyfFAfbac
-	JBv9KJEl+hayEB1XaEwiIKMwFitVwuoulKnld/RhW8USfu0SBivdN7dzWCwTDCBDZpE4v3THj7Q
-	12Dv+y8BQNfzJmIXXjoaoDtVK253gRdtppxF/oWYA+fW1furAHGhDzxRqzails2vWLi70I76rjQ
-	L7X7TIaWn8JAYY8Fksh4W9glyT95Vzn6F23x5yi13w77/kNAdI/IwFwt/+ZfsGLSXoywMTLfkef
-	FsAC1gbqsVV3mf+xIAxIuPnnDctthsh3XXreVtymSvuuBSuMtTrUyVNHc4x7lXlL5OiaQkuum+G
-	ANP7lZU53emu6S7MOTwVYRwKuNfcBmoD6kLM=
-X-Received: by 2002:a05:620a:444a:b0:92e:72a4:f283 with SMTP id af79cd13be357-92ed7a3d1fdmr672201185a.8.1783675435393;
-        Fri, 10 Jul 2026 02:23:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:444a:b0:92e:72a4:f283 with SMTP id af79cd13be357-92ed7a3d1fdmr672199285a.8.1783675434826;
-        Fri, 10 Jul 2026 02:23:54 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15c38c164asm436634766b.3.2026.07.10.02.23.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 02:23:53 -0700 (PDT)
-Message-ID: <c75c88bc-3aba-44cb-a530-1d994bcd8954@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 11:23:51 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9zKPuqQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74A4E1F000E9;
+	Fri, 10 Jul 2026 09:24:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783675497;
+	bh=1c/kAMbeVAp5pOXJWMosfXkrH+zW0brXJVq4utI0x/M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=A9zKPuqQM8pm0wDdtj+5znj/v9Nax/vf4WVK3nhor4Hd+0afDh+n/lpX+g1BcSKK/
+	 0k6i3ivwp/cn12QieSS43EouYp0BVOn9UxkMtYd948PyaRGC/IBoR6QCTRW7dEp/Bf
+	 r5w4D3cyIa7pYYCIqVRvGQ2QGN5R3rC85oTbYl5mwHnSkIfxfBvR+q/QOI2w1bQyyh
+	 Lw5CEFpNDuHh2amSm7LV6bmOYhIUiloZy5s/RuhzGs2petZCol+3OPfvAaP1G8g7sK
+	 0zTXemR2t+rFX4bj7S9twIkYK0eSg8nlRTcOpTRIjPxaIxIiMOwl+Y/ubk280SH/wn
+	 VfgBaMq3EyxhQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 6/7] media: qcom: camss: Add CAMSS Offline Processing
+ Engine driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260710-camss-isp-ope-v4-6-51207a0319d8@oss.qualcomm.com>
+References: <20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com>
+ <20260710-camss-isp-ope-v4-6-51207a0319d8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 09:24:56 +0000
+Message-Id: <20260710092457.74A4E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] arm64: dts: qcom: ipq5018: add node required for
- Bluetooth support
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        George Moussalem <george.moussalem@outlook.com>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-References: <20260709-ipq5018-bluetooth-v5-0-e476c41f03b8@outlook.com>
- <20260709-ipq5018-bluetooth-v5-5-e476c41f03b8@outlook.com>
- <11796dd7-11c8-45e3-8f9e-1dc27da0b229@oss.qualcomm.com>
- <SN7PR19MB673648D6C15A8E15D35F1E5E9DFE2@SN7PR19MB6736.namprd19.prod.outlook.com>
- <fab734fd-adfe-45b6-a10f-a8a25f7affb1@oss.qualcomm.com>
- <CAMRc=MccvtBxJaddbX0PjjMpV+6iwZeYf2ebq953msbMeVN=Aw@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAMRc=MccvtBxJaddbX0PjjMpV+6iwZeYf2ebq953msbMeVN=Aw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: G1eWzC0_soHx-kTaSscqc0kDRmKYSlRl
-X-Proofpoint-ORIG-GUID: G1eWzC0_soHx-kTaSscqc0kDRmKYSlRl
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDA5MSBTYWx0ZWRfX7ACA6WVR6sNi
- MMhVhCPmH9fmHLGQa8XuaHUmBOt2gzmaTUH1S1IZTvCFCyuSem7tCx+1Ql6s70MGGtzJjfKz4qK
- La4YTDiRpVZtKYYdxB5B0PR97YvkelM=
-X-Authority-Analysis: v=2.4 cv=daKwG3Xe c=1 sm=1 tr=0 ts=6a50ba2c cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=UqCG9HQmAAAA:8 a=0aS1VzSqY7UWMrxkMG8A:9
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDA5MSBTYWx0ZWRfX0M5a2RciJHZy
- bHtqdemN+yB9xX/xX2tdopr4/CO03tAnldX6jGOcbwS4TsRAKG17MNZOKFpms6cD0KaUzrEfO9c
- yL4lSlshHv/ddqDew4Xozxw3F2DpNS9krpsvbvwc2NoLWImT0U/9pkFl1jiGVXqpnxuZJlwHmNH
- 7JN4HVyonju1I1pjDuDFz5BftCpWt2VByZEUYnkdXGW/tzdGsAWEjkFtD7NBpNzTv2guyPes8w9
- HTLdm+Jsk3OEXW9zc7AvQTgsfeWZxcnW3Vlu40rYeJJvYHQv7r1S9D8hP0jttW7IWB5ti0Juzzl
- Vtx9ZZ/mlLk67hAWd2LpsKs8mjH5V5hYHLcWm7O2bgPteLDomY9a4fB0C3T72/Hkx1EkPuf5erB
- sqPZRALHcSxdJhsmTNc1ScUt8JJi9o061l69oR6oKRbznW+NNOWQLJJdzBTaoIt8+kA/5muH/bp
- BRspTgsniN5d3U7zV2Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_02,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- clxscore=1015 malwarescore=0 priorityscore=1501 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100091
 
-On 7/10/26 11:14 AM, Bartosz Golaszewski wrote:
-> On Thu, 9 Jul 2026 20:40:04 +0200, Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> said:
->> On 7/9/26 8:25 PM, George Moussalem wrote:
->>> On 7/9/26 22:17, Konrad Dybcio wrote:
->>>> On 7/9/26 11:18 AM, George Moussalem via B4 Relay wrote:
->>>>> From: George Moussalem <george.moussalem@outlook.com>
->>>>>
->>>>> Add node to enable Bluetooth support on the IPQ5018 platform.
->>>>>
->>>>> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->>>>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
->>>>> ---
->>>>>  arch/arm64/boot/dts/qcom/ipq5018.dtsi | 16 ++++++++++++++++
->>>>>  1 file changed, 16 insertions(+)
->>>>>
->>>>> diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
->>>>> index 6f8004a22a1f..8c252fa3ff5b 100644
->>>>> --- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
->>>>> +++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
->>>>> @@ -453,6 +453,22 @@ tcsr: syscon@1937000 {
->>>>>  			reg = <0x01937000 0x21000>;
->>>>>  		};
->>>>>
->>>>> +		bluetooth: bluetooth@7000000 {
->>>>> +			compatible = "qcom,ipq5018-bt";
->>>>> +			reg = <0x07000000 0x58000>;
->>>>> +
->>>>> +			firmware-name = "qca/bt_fw_patch.mbn";
->>>>
->>>> Hm, rethinking this, it must have ipq5018 somewhere in the name
->>>
->>> I agree but all QCA BT firmware and rampatches are published in the
->>> /lib/firmware/qca directory, see:
->>> https://git.kernel.org/pub/scm/linux/kernel/git/ath/linux-firmware.git/tree/qca
->>
->> +Jeff, Bartosz?
->>
-> 
-> I'm not sure what the question is. This particular blob doesn't seem to exist
-> anywhere in linux-firmware yet. I agree, ideally the platform name should be in
-> the firmware name so let's upstream it to linux-firmware as such? Am I missing
-> something?
+Thank you for your contribution! Sashiko AI review found 15 potential issue=
+(s) to consider:
+- [Critical] Missing locking in V4L2 ioctls allows format state tearing, le=
+ading to out-of-bounds DMA access.
+- [High] Concurrent job execution during streamoff causes DMA Use-After-Fre=
+e.
+- [High] Probe always fails with a timeout due to a masked reset interrupt,=
+ and unbounded wait hangs the kernel during teardown.
+- [High] IRQ handler does not abort after triggering a software reset, lead=
+ing to double-completion of buffers and starting hardware mid-reset.
+- [High] Hardware configuration is not fully restored after a software rese=
+t, leading to corrupted frames.
+- [High] Downscaler can produce a 0 output width for the last stripe under =
+high downscale ratios, leading to hardware violation.
+- [High] Concurrent list_add and list_del on ope->ctx_list causes list corr=
+uption due to unlocked access.
+- [High] Repeatedly opening and closing the device node causes a kernel mem=
+ory leak.
+- [High] The main `ope_dev` structure is freed via devres upon device unbin=
+d, causing a Use-After-Free if a file descriptor remains open.
+- [High] Driver removal does not stop the hardware or disable the IRQ befor=
+e canceling the workqueue, leading to a Use-After-Free.
+- [Medium] Missing `pm_ptr()` wrapper for `dev_pm_ops` assignment creates d=
+ead code when PM is disabled.
+- [Medium] Asynchronous Runtime PM put during probe error path causes a pow=
+er leak.
+- [Medium] Missing phase accumulator programming causes scaling discontinui=
+ties (seams).
+- [Medium] OPE_ENTITY_DISP does not propagate sink format changes to its so=
+urce pad.
+- [Medium] Hardware pipeline stalls indefinitely after encountering a proce=
+ssing error because the scheduler is not triggered.
+--
 
-That's what I'd like to happen - just wanted to make sure you're in the
-loop, so that a platform-specific MBN doesn't end up with such a generic
-name in case that was the plan.
+--- Patch [6]: [PATCH v4 6/7] media: qcom: camss: Add CAMSS Offline Process=
+ing Engine driver ---
+commit 4b6f83336240d059ff0d3b87339ee9f1c8085fee
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Konrad
+media: qcom: camss: Add CAMSS Offline Processing Engine driver
+
+Add an image processing driver for the Qualcomm Offline Processing Engine
+(OPE). OPE is a memory-to-memory ISP block that converts raw Bayer
+frames to YUV.
+
+> diff --git a/drivers/media/platform/qcom/camss/camss-ope.c b/drivers/medi=
+a/platform/qcom/camss/camss-ope.c
+> new file mode 100644
+> index 0000000000000..2c0d68cf1a637
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-ope.c
+
+[ ... ]
+
+> +static void ope_gen_stripe_dsc(struct ope_ctx *ctx, struct ope_stripe *s=
+tripe,
+> +			       unsigned int h_scale, unsigned int v_scale)
+> +{
+
+[ ... ]
+
+> +	dsc_y->input_height =3D stripe->src.height;
+> +
+> +	/* Clip the output so the WE always receives the expected count */
+> +	dsc_y->output_width  =3D DS_OUTPUT_PIX(sw, 0, h_scale);
+
+[Severity: High]
+Does this downscaler formula truncate to 0 under high downscale ratios?
+For large downscale ratios, ope_calc_h_scale() bounds the last stripe's
+input width to OPE_STRIPE_MIN_W (16). The integer division in DS_OUTPUT_PIX
+with a large h_scale would yield 0, which gets programmed into the Write En=
+gine
+and triggers an IMG_SZ_VIOL or hardware hang.
+
+[ ... ]
+
+> +static void ope_job_finish(struct ope_ctx *ctx, enum vb2_buffer_state st=
+ate)
+> +{
+
+[ ... ]
+
+> +	dev_dbg(ctx->ope->dev, "done ctx=3D%p state=3D%u\n", ctx, state);
+> +
+> +	if (state =3D=3D VB2_BUF_STATE_DONE)
+> +		ope_try_schedule(ctx);
+> +}
+
+[Severity: Medium]
+Will this indefinitely stall the hardware pipeline after a processing error?
+If a hardware violation triggers RST_DONE, ope_job_finish() completes the
+buffer with VB2_BUF_STATE_ERROR. Since ope_try_schedule() is skipped,
+subsequent queued buffers are ignored and the hardware remains idle.
+
+[ ... ]
+
+> +static void ope_prog_stripe(struct ope_ctx *ctx, struct ope_stripe *stri=
+pe)
+> +{
+
+[ ... ]
+
+> +		ope_write_wr(ope, OPE_BUS_WR_CLIENT_ADDR_IMAGE(i),
+> +			     stripe->dst[i].addr);
+> +		ope_write_wr(ope, OPE_BUS_WR_CLIENT_IMAGE_CFG_0(i),
+> +			     (stripe->dst[i].height << 16) | stripe->dst[i].width);
+
+[Severity: High]
+Is it possible to program the hardware Write Engine with a size of 0 here?
+If the downscaler computed an output_width of 0 for the last stripe,
+stripe->dst[i].width would be 0, leading to a constraint violation.
+
+[ ... ]
+
+> +		ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_IMAGE_SIZE_CFG(base),
+> +			     ((dsc->input_width - 1) << 16) | (dsc->input_height - 1));
+> +		ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_MN_H_CFG(base),
+> +			     dsc->phase_step_h);
+> +		ope_write_pp(ope, OPE_PP_CLC_DOWNSCALE_MN_DS_MN_V_CFG(base),
+> +			     dsc->phase_step_v);
+
+[Severity: Medium]
+Are the initial phase offsets missing here?
+The driver programs the phase steps but does not program the initial phase
+offsets (OPE_PP_CLC_DOWNSCALE_MN_DS_MN_H_PHASE_CFG and V_PHASE_CFG).
+This resets the phase to 0 at the start of every 336-pixel boundary,
+which can cause visible scaling discontinuities or seams.
+
+[ ... ]
+
+> +static void ope_sched_cancel(struct ope_ctx *ctx)
+> +{
+
+[ ... ]
+
+> +	if (running) {
+> +		reinit_completion(&ope->reset_complete);
+> +		ope_write(ope, OPE_TOP_RESET_CMD, OPE_TOP_RESET_CMD_SW);
+> +		wait_for_completion(&ope->reset_complete);
+> +	}
+> +}
+
+[Severity: High]
+Could this result in an unbounded wait?
+wait_for_completion() will hang the process permanently if the hardware
+fails to respond or if the interrupt is lost. Should this use a timeout?
+
+> +
+> +static void ope_run_work(struct work_struct *work)
+> +{
+
+[ ... ]
+
+> +		if (!ope_job_ready(ctx))
+> +			return;
+> +		ctx_changed =3D (ope->prev_ctx !=3D ctx);
+> +		ope->prev_ctx =3D ctx;
+> +		ope->curr_ctx =3D ctx;
+> +	}
+> +
+> +	ope_run_job(ctx, ctx_changed);
+> +}
+
+[Severity: High]
+Can ctx_changed incorrectly evaluate to false after a software reset?
+If a hardware error resets the engine, the RST_DONE IRQ calls
+ope_job_finish() which clears ope->curr_ctx but leaves ope->prev_ctx
+intact. On the next job, this computes ctx_changed as false, preventing
+the Image Quality modules from being properly re-enabled, leading
+to corrupted frames.
+
+> +
+> +static void ope_try_schedule(struct ope_ctx *ctx)
+> +{
+> +	struct ope_dev *ope =3D ctx->ope;
+> +
+> +	if (!ope_job_ready(ctx))
+> +		return;
+> +
+> +	scoped_guard(spinlock_irqsave, &ope->sched_lock) {
+> +		if (ctx->queued || ope->curr_ctx)
+> +			return;
+> +		ctx->queued =3D true;
+> +	}
+> +
+> +	schedule_work(&ope->run_work);
+> +}
+
+[Severity: High]
+Could this reschedule the workqueue asynchronously after a streamoff?
+Calling VIDIOC_STREAMOFF on the OPE_QUEUE_DISP_OUT queue leaves
+ctx->started true (it is only cleared for FRAME_IN). If a hardware completi=
+on
+interrupt fires concurrently after the software reset, the IRQ handler calls
+ope_try_schedule(), which evaluates ctx->started as true and reschedules
+run_work. This can run after cancel_work_sync() has returned, resulting in a
+DMA Use-After-Free when it programs the hardware with freed buffer pointers.
+
+[ ... ]
+
+> +static irqreturn_t ope_irq(int irq, void *dev_id)
+> +{
+
+[ ... ]
+
+> +	if (status & OPE_TOP_IRQ_STATUS_WE)
+> +		ope_we_irq(ope, ctx);
+> +
+> +	if ((status & OPE_TOP_IRQ_STATUS_IDLE) && ctx) {
+> +		struct ope_stripe *stripe =3D ope_current_stripe(ctx);
+
+[Severity: High]
+Should this return early if a hardware reset was triggered?
+If ope_we_irq() detects a constraint violation, it issues a full hardware
+reset (OPE_TOP_RESET_CMD_SW). However, execution continues here to evaluate
+the IDLE status. If IDLE is set, it calls ope_job_finish(), dequeues the
+buffer, and calls ope_try_schedule() which issues a new GO_CMD while the
+hardware is mid-reset, potentially causing a bus hang.
+
+[ ... ]
+
+> +static void ope_adjust_power(struct ope_dev *ope)
+> +{
+> +	unsigned int loadavg =3D 0, loadpeak =3D 0, loadconfig =3D 0;
+> +	unsigned long pixclk =3D 0;
+> +	struct dev_pm_opp *opp;
+> +	struct ope_ctx *ctx;
+> +	int ret;
+> +
+> +	list_for_each_entry(ctx, &ope->ctx_list, list) {
+> +		unsigned int fps;
+
+[Severity: High]
+Is it safe to iterate ope->ctx_list without acquiring ope->mutex?
+Concurrent additions and deletions to ctx_list via ope_open() and
+ope_release() can cause list corruption and kernel crashes.
+
+[ ... ]
+
+> +static void ope_stop_streaming(struct vb2_queue *q)
+> +{
+
+[ ... ]
+
+> +	dev_dbg(ctx->ope->dev, "streaming stop ctx=3D%p queue=3D%u\n", ctx, idx=
+);
+> +
+> +	if (idx =3D=3D OPE_QUEUE_FRAME_IN) {
+> +		ctx->started =3D false;
+> +		ope_adjust_power(ctx->ope);
+> +	}
+> +
+> +	ope_sched_cancel(ctx);
+
+[Severity: High]
+Does this safely stop the pipeline for the DISP_OUT queue?
+It only clears ctx->started if the FRAME_IN queue is stopped. Calling
+streamoff on DISP_OUT ignores this state update. As noted earlier, this can
+lead to DMA Use-After-Free if a concurrent IRQ reschedules the workqueue.
+
+[ ... ]
+
+> +static int ope_init_vq(struct ope_ctx *ctx, unsigned int idx)
+> +{
+> +	struct ope_dev *ope =3D ctx->ope;
+> +	struct ope_vq_priv *qpriv;
+> +	struct vb2_queue *q =3D &ctx->queues[idx].vq;
+> +
+> +	qpriv =3D devm_kzalloc(ope->dev, sizeof(*qpriv), GFP_KERNEL);
+
+[Severity: High]
+Does this cause a memory leak on every open/close cycle?
+Using devm_kzalloc() ties the lifetime of qpriv to the device binding rather
+than the file descriptor. Repeatedly opening and closing the device node wi=
+ll
+exhaust kernel memory since the context is destroyed in ope_release() but
+the devm allocations are not freed.
+
+[ ... ]
+
+> +static int ope_s_fmt_vid_out(struct file *file, void *priv, struct v4l2_=
+format *f)
+> +{
+
+[ ... ]
+
+> +	fmt =3D ope_fmt_try(ctx->ope, false, &f->fmt.pix_mp);
+> +	ctx->fmt_in.fmt		    =3D fmt;
+> +	ctx->fmt_in.width	    =3D f->fmt.pix_mp.width;
+> +	ctx->fmt_in.height	    =3D f->fmt.pix_mp.height;
+> +	ctx->fmt_in.bytesperline    =3D f->fmt.pix_mp.plane_fmt[0].bytesperline;
+> +	ctx->fmt_in.sizeimage	    =3D f->fmt.pix_mp.plane_fmt[0].sizeimage;
+
+[Severity: Critical]
+Is this missing synchronization?
+This modifies multi-component state locklessly. Concurrent S_FMT ioctls can
+cause format state tearing, combining a small sizeimage with large geometri=
+cal
+dimensions. This would cause the hardware to DMA past the allocated buffer
+bounds. The video device nodes appear to be registered without vdev.lock.
+
+[ ... ]
+
+> +static int ope_disp_set_fmt(struct v4l2_subdev *sd,
+> +			    struct v4l2_subdev_state *state,
+> +			    struct v4l2_subdev_format *fmt)
+> +{
+
+[ ... ]
+
+> +	v4l_bound_align_image(&fmt->format.width,  OPE_MIN_W, OPE_MAX_W, 0,
+> +			      &fmt->format.height, OPE_MIN_H, OPE_MAX_H, 0, 0);
+> +	fmt->format.field      =3D V4L2_FIELD_NONE;
+> +	fmt->format.colorspace =3D V4L2_COLORSPACE_SRGB;
+> +
+> +	pad_fmt  =3D v4l2_subdev_state_get_format(state, fmt->pad);
+> +	*pad_fmt =3D fmt->format;
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Should this propagate sink format changes to the source pad?
+If fmt->pad is a sink pad, it updates the sink pad format but does not
+automatically propagate those changes (like mbus_code or resolution) to the
+corresponding source pad, which breaks the V4L2 subdev API contract.
+
+[ ... ]
+
+> +static int ope_release(struct file *file)
+> +{
+
+[ ... ]
+
+> +	kfree(fh);
+> +
+> +	scoped_guard(mutex, &ope->mutex) {
+> +		if (--ope->open_count !=3D 0)
+> +			return 0;
+> +		ope->shared_ctx =3D NULL;
+> +	}
+> +
+> +	ope_ctx_destroy(ctx);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Does dropping the mutex here lead to list corruption?
+ope_ctx_destroy() is called completely unlocked and executes
+list_del(&ctx->list). A concurrent thread calling ope_open() will acquire
+ope->mutex and execute list_add(), causing list corruption.
+
+Also, if the device has been unbound, ope_dev might already be freed via
+devres, making the access to ope->mutex a Use-After-Free.
+
+[ ... ]
+
+> +static const struct camss_isp_entity_desc ope_entity_descs[] =3D {
+> +	[OPE_ENTITY_FRAME_IN] =3D {
+> +		.name      =3D "ope_input",
+> +		.obj_type  =3D MEDIA_ENTITY_TYPE_VIDEO_DEVICE,
+> +		.function  =3D MEDIA_ENT_F_IO_V4L,
+> +		.vdev.caps =3D V4L2_CAP_VIDEO_OUTPUT_MPLANE | V4L2_CAP_STREAMING,
+> +		.vdev.drvdata =3D (void *)(uintptr_t)OPE_QUEUE_FRAME_IN,
+> +		.vdev.fops =3D &ope_fops,
+> +		.vdev.ioctl_ops =3D &ope_video_ioctl_ops,
+
+[Severity: Critical]
+Is .vdev.lock missing here?
+Registering the video device without initializing vdev.lock causes video_io=
+ctl2
+to execute without serialization. This leads to the format state tearing is=
+sue
+in S_FMT mentioned earlier.
+
+[ ... ]
+
+> +static void ope_v4l2_cleanup(struct ope_dev *ope)
+> +{
+> +	if (ope->pipeline) {
+> +		camss_isp_pipeline_unregister(ope->pipeline);
+> +		camss_isp_pipeline_free(ope->pipeline);
+> +		ope->pipeline =3D NULL;
+> +	}
+> +	media_device_unregister(&ope->mdev);
+> +	v4l2_device_unregister(&ope->v4l2_dev);
+> +	media_device_cleanup(&ope->mdev);
+> +	cancel_work_sync(&ope->run_work);
+> +}
+
+[Severity: High]
+Could this cause a Use-After-Free during unbind?
+The hardware and interrupts are not stopped before canceling the workqueue.
+Since the IRQ is managed by devres, it is still active here. An interrupt
+firing immediately after cancel_work_sync() can reschedule ope->run_work.
+Once the unbind finishes and devres frees ope_dev, the newly scheduled work
+will access freed memory.
+
+> +
+> +static int ope_soft_reset(struct ope_dev *ope)
+> +{
+
+[ ... ]
+
+> +	reinit_completion(&ope->reset_complete);
+> +	ope_write(ope, OPE_TOP_RESET_CMD, OPE_TOP_RESET_CMD_SW);
+> +
+> +	if (!wait_for_completion_timeout(&ope->reset_complete,
+> +					 msecs_to_jiffies(OPE_RESET_TIMEOUT_MS))) {
+> +		dev_err(ope->dev, "Reset timeout\n");
+> +		pm_runtime_put(ope->dev);
+> +		return -ETIMEDOUT;
+> +	}
+
+[Severity: High]
+Will this unconditionally time out during probe?
+The hardware interrupts (OPE_TOP_IRQ_MASK) are not enabled until
+__ope_irq_init() is called during streamon. Because the reset interrupt is
+masked at probe time, this wait_for_completion_timeout() can never succeed.
+
+[Severity: Medium]
+Does using the asynchronous pm_runtime_put() here cause a power leak?
+If probe fails, devres automatically calls pm_runtime_disable(), which canc=
+els
+the pending asynchronous suspend work leaving the device powered on permane=
+ntly.
+This should use pm_runtime_put_sync().
+
+[ ... ]
+
+> +static int ope_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct ope_dev *ope;
+> +	int ret, irq;
+> +
+> +	ope =3D devm_kzalloc(dev, sizeof(*ope), GFP_KERNEL);
+
+[Severity: High]
+Does allocating ope_dev via devm_kzalloc() cause a Use-After-Free?
+If the device is unbound via sysfs while userspace holds an open file descr=
+iptor,
+devres will free ope_dev. Subsequent ioctls or the final close() will access
+the freed memory (e.g., locking ope->mutex in ope_release). The core state
+structure's lifetime should be tied to the V4L2 device's internal refcount.
+
+[ ... ]
+
+> +static struct platform_driver ope_driver =3D {
+> +	.probe  =3D ope_probe,
+> +	.remove =3D ope_remove,
+> +	.driver =3D {
+> +		.name           =3D OPE_NAME,
+> +		.of_match_table =3D ope_dt_ids,
+> +		.pm             =3D &ope_pm_ops,
+> +	},
+> +};
+
+[Severity: Medium]
+Is this missing the pm_ptr() wrapper macro?
+Assigning &ope_pm_ops directly causes compiler warnings and creates dead co=
+de
+linked into the kernel when CONFIG_PM is disabled.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-camss-isp-=
+ope-v4-0-51207a0319d8@oss.qualcomm.com?part=3D6
