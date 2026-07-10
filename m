@@ -1,99 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C48738AC83
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783675721; cv=none; b=JndnzopWdP9fca1Sv8+fhgPnMwBbuRWJe47eVPlnymjPAPs7Jqj9A8ul0E/x/djl6Q/IZ+Vcp+w78KHo5rNpy0tmV3C2nFdaChQ23+GvSyfmhoU2JbGVYWSMZn99mzG/baVf0CIlSxX4WlnchyMtxowelA5jgPOLW7LHwXeupOo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783675721; c=relaxed/simple;
-	bh=HoVVxq6/HksWs7+PW6hooBJQWkOOjzRNwJHZo1B2p4M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NpY+rrCv02RoLGnHzwDXgXO5evFMqauZdd9mbdQ3ACE/wlHE1pefX00iCamb6yvQWiyEhWOmqthdyRD4UDP7NFxWTahTnDuFElDwYaOeGDR3Rz2AefjFiPxKAyqyy92D5A2k9tl5FxtR8NhvKM9VuOnno2tgFoJLGKT7Nb+Z3Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WT9Ej5Rt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C77138AC83;
+	Fri, 10 Jul 2026 09:28:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783675727; cv=pass; b=OTinrq3Pul0It5MFHEr9sxRSdhFt8ODlT/dPbZVMrQH/lxpNAfvl/6nxyWowEZ4tHU6C4uR4kv0o6gEn1hDArNYv/sLDv80eE/T+DQpkH/L7nGTcSiJ5JyELQ0zEViJSkRiQL4VqctZEaO6BSzMRbXa3S0XSshVLUAGyTomBYSM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783675727; c=relaxed/simple;
+	bh=+qfUw8s56cKeUTD2JUtqHnuc7oaw2Z9yv7VQPnyg90o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NHYdLxoaBwie5gi5Q3dr6bVxw4mk4TsjUeVIPYZyIZ/Nn8PxpGbaIP8saioJRR0Wksw2tzsXSNjvjnvESXcDBLKFqhriBjS+Tw+1jVFc4z41C/K/xwW3jCgTJ/Uagg3BbwIOR6R1y70Qeye42iZdK4cYPHLqWnFsFDLtJ7ZzYBA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=LUDiahPo; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WT9Ej5Rt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048541F000E9;
-	Fri, 10 Jul 2026 09:28:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783675720;
-	bh=LMgDLp3D7h+9+VTwEWSGuoQNH7pyk/IZGonYb4AQD4Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WT9Ej5Rt3uxk0l/OvHZ1rdEqUrOOwmB0G3VEZTdgn3DBf98PnjlXj5SOloZ7FaUnp
-	 Re7wE/v95JaM/lxq2Y/GpmysKog5rZ6aP03dtUPV82t341vVL7pA9JHpOMnI2Mo7m+
-	 KSK1vCjU7MKzwVk4GWY/E7JlkPPUPa2rQiVg+n7ptLaoyPRjeUpkcOi4+p4lX2keWc
-	 DCwbtJSlAsbqX+1sv4F8fy/LsJiRWJwUil4xlY/w+cVx/8Wp1kRgDC3QNvL1TeYlZy
-	 K9VXs6JW0/Oy/yItYHvaDskBoM0L6ItFTRZI3fMp1vbTKAN8A1ZzGParr7WdKxWhJY
-	 9wl4pYIkPGU4Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: milos: add CPU OPP table with DDR
- & L3 bandwidths
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260710-milos-cpu-opp-v1-4-ae7f4b09bc77@fairphone.com>
-References: <20260710-milos-cpu-opp-v1-0-ae7f4b09bc77@fairphone.com>
- <20260710-milos-cpu-opp-v1-4-ae7f4b09bc77@fairphone.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 09:28:39 +0000
-Message-Id: <20260710092840.048541F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="LUDiahPo"
+ARC-Seal: i=1; a=rsa-sha256; t=1783675711; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=fDBdrajC6dWpdTAPHLp6XUftta9JPXlcrSWiob5sFP4lTxC9j3nTLbSA+CAg2xX3T09JhigFLBQaYlMt+pSHuN7NGZLUtWBu/o44wQuxVajLLKa8WNlO9pAe20W+awImDVDXW/5RBK0ApXkf5mji8NFwY3qYWSzXSJFshTyhvUQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783675711; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Fw/fy3UoHLfUYgga6EEL6C47y2bXn7ggaSSiSrjCLtc=; 
+	b=MKDV4Wjohs0/c7b92RwXmwayvARNhIjdXBlSwTZSGwl4P4oAgUpN1i2PhpdBo/27b1u96SDzedat0QMNCk5IKUdteZ+RRKL1ZZnG9hiaIWUCM4NzXEl3di2nZyHLp7wombGfESywc0YUefqIy4BiuBTXxz9eJnvWWviEITNsrII=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783675711;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Fw/fy3UoHLfUYgga6EEL6C47y2bXn7ggaSSiSrjCLtc=;
+	b=LUDiahPo1uiRU9vDQVYU+OFRhDkQahT0ybvnAezfY4H3qbRqmw/gC3sYDiwGzbgT
+	ONNOjgc4vhnP/N/dN1fL4vGcB5b+YgweeHJ+C0WD4K5/HWL8w3mPIwClVamrVwL09AD
+	bwP9mrHhj9P4Wxyzjt/TLON9mFCyB/dj2eWeaTwg=
+Received: by mx.zohomail.com with SMTPS id 1783675708973953.0877608836702;
+	Fri, 10 Jul 2026 02:28:28 -0700 (PDT)
+Message-ID: <29e2a6f6-c086-4d86-91d6-7d8dd39eb1c9@collabora.com>
+Date: Fri, 10 Jul 2026 11:28:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] phy: rockchip: phy-rockchip-inno-csidphy: fix
+ rk1808 hsfreq table
+To: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260630-feature-mipi-csi-dphy-4k60-v3-0-176792ab71fa@wolfvision.net>
+ <20260630-feature-mipi-csi-dphy-4k60-v3-1-176792ab71fa@wolfvision.net>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260630-feature-mipi-csi-dphy-4k60-v3-1-176792ab71fa@wolfvision.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Hardcoded memory bandwidths for LPDDR5 in the SoC DTSI without a=
-ccommodating LPDDR4 variants.
---
+Hi Gerald,
 
---- Patch [4]: [PATCH 4/4] arm64: dts: qcom: milos: add CPU OPP table with =
-DDR & L3 bandwidths ---
-commit a003f8c1742072e3a4def9c84f16252b9b3b93fb
-Author: Luca Weiss <luca.weiss@fairphone.com>
+Thanks for your work.
 
-arm64: dts: qcom: milos: add CPU OPP table with DDR & L3 bandwidths
+On 6/30/26 09:48, Gerald Loacker wrote:
+> The rk1808 hsfreq table capped at 2499 Mbps, preventing a data rate of
+> exactly 2500 Mbps. Extend the final entry to 2500 Mbps to support this
+> rate.
+> 
+> This is essential for RK3588 reusing this array and fully supporting
+> rates up to 2500 Mbps.
 
-This commit adds the OPP tables for each CPU cluster to permit scaling
-the DDR and L3 cache frequency. The bandwidth requests are aggregated
-across CPU cores based on their current OPP configuration.
+Makes sense to me.
 
-> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qc=
-om/milos.dtsi
-> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-[ ... ]
-> +	cpu0_opp_table: opp-table-cpu0 {
-> +		compatible =3D "operating-points-v2";
-> +		opp-shared;
-[ ... ]
-> +		opp-1497600000 {
-> +			opp-hz =3D /bits/ 64 <1497600000>;
-> +			opp-peak-kBps =3D <(768000 * 4) (1363200 * 32)>;
-> +		};
-> +
-> +		opp-1593600000 {
-> +			opp-hz =3D /bits/ 64 <1593600000>;
-> +			/* TODO: ddr4 =3D 1017000, ddr5 =3D 1555000 */
-> +			opp-peak-kBps =3D <(1555000 * 4) (1363200 * 32)>;
-> +		};
+> 
+> Fixes: bd1f775d6027 ("phy/rockchip: add Innosilicon-based CSI dphy")
+> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-[Severity: Medium]
-Will hardcoding the LPDDR5 bandwidths here in the shared SoC device tree
-cause issues for boards equipped with LPDDR4 memory?
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
-Since this explicitly sets the higher LPDDR5 values and leaves the LPDDR4
-values as an unresolved TODO, could this lead to LPDDR4-equipped boards
-requesting out-of-spec bandwidths?
+Best regards,
+Michael
 
-This might result in increased power consumption or interconnect configurat=
-ion
-errors when LPDDR4 devices attempt to scale frequencies based on these OPPs.
+> ---
+>  drivers/phy/rockchip/phy-rockchip-inno-csidphy.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> index c79fb53d8ee5c..5281f8dea0ad3 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> @@ -170,7 +170,7 @@ static const struct hsfreq_range rk1808_mipidphy_hsfreq_ranges[] = {
+>  	{ 299, 0x06}, { 399, 0x08}, { 499, 0x0b}, { 599, 0x0e},
+>  	{ 699, 0x10}, { 799, 0x12}, { 999, 0x16}, {1199, 0x1e},
+>  	{1399, 0x23}, {1599, 0x2d}, {1799, 0x32}, {1999, 0x37},
+> -	{2199, 0x3c}, {2399, 0x41}, {2499, 0x46}
+> +	{2199, 0x3c}, {2399, 0x41}, {2500, 0x46}
+>  };
+>  
+>  static const struct hsfreq_range rk3326_mipidphy_hsfreq_ranges[] = {
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-milos-cpu-=
-opp-v1-0-ae7f4b09bc77@fairphone.com?part=3D4
