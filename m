@@ -1,52 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBD437B3FE;
-	Fri, 10 Jul 2026 18:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D43937B415;
+	Fri, 10 Jul 2026 18:07:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783706842; cv=none; b=e4Mo4Ym2zxZy7piMJEbBvcoz5oknPY5IoUbO8l+4Oh1m/A3EWBdxh71ir4pJBg9kEGctGhwvQaBdavCCnl6ozxnbzNuz/eSX9bwdAiKFKJwVGX61HiWHXXAtSzPQjpc7v6RASod5AEArFEAkzvVJ9xD5rpSm5SBxlwgVPp/Oxgk=
+	t=1783706846; cv=none; b=US62I42sZSloN3+dqyhhqZh/ctqp8i6GCVXmvGV35OAVByQecna34zdfImBm4OdXVhEt2D3z5zNgmAnz5vNkuPsqRoBHZmmJn3Etxsm4OlGABh8/D+P77VrA24PWmQs+fZsUKBB7QswMZJwXnrFnG+oX7ICJe72kBu1qUFCDLfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783706842; c=relaxed/simple;
-	bh=Ea2dc/zQmoNHDSZIjzgfaOeZ+qwH3BXjDCO5+0emuis=;
+	s=arc-20240116; t=1783706846; c=relaxed/simple;
+	bh=lcpICsyTNqKGxTwAISCqIqc1zQK9fexyXV9marLETHk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uh+V/EPr0JRGNBO/A0gKkblDGQn3S8022psoaXTY9gIbpFa19bKAEY+ILyuLfPXerZeLneoxkFtWTCxMlQXKvDWD0402UmVt8j1/9HLtN4ZA1wSKwQ0anYSpK5DxI+Wbe65xMLB4NS/ASJG0C2conPj2QDK8Z7oN5sQB8kyE3hQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ko+HQ5mV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=NllHFZwTt4CqObPcMlLXDuXfRSr3grbLPnQe3bCYzC9sYOPSAOD9T0pwNtmS7FSpup1PmC559PJYVm/n3MSlGrOxIE0v/UD752WL/5jUajjO5DUUQKgsGA7u0lfoDg+FdSW3G1HOxY+96lufIHeXe2z+i/6hHSR6/RVH4eAMwdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkavSFY6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ko+HQ5mV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687DD1F00A3A;
-	Fri, 10 Jul 2026 18:07:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkavSFY6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDBA1F00A3F;
+	Fri, 10 Jul 2026 18:07:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783706840;
-	bh=q64mLoIKKO6acehYZpPZaLa/VgE/uGU2tHBrQbnJjHw=;
+	s=k20260515; t=1783706843;
+	bh=4G+nAEbDkSf79QMV/VmVVdOvQKG969j3uYzdvbfr1YQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ko+HQ5mV6YOD+yBIhB5MOp3yEwOS+SM5J68ioNNDx71Y3gJNlvXGjWmHmSm7p38qo
-	 GIHCXvlIfgVMbMFZ3Dis2HPndxB3gypOoQ3PqmVpPgYOr+Jb5gZDxDzVhUVRg/VczQ
-	 /9qOWtihxB7LiKWVr8iZfyJffSrk49LLvlWqCY3l7X1B1fuRNzoXnTm7Dz1kDpojv4
-	 3pfsBUHHeQUCAR3cw3ogO9glxIDoHt0xNCYpzuPlgQ/t64HrRi4C4E1M5j0HyZ6Sqt
-	 HcZVyMfPpp1+HR55R3E7onMSH1IzL3UsqV/Wc8a30MYsznMQR70gGgrrkQQgT7QfZ9
-	 S3+8T3BUd5p6Q==
+	b=dkavSFY62Auhika3QZ0PRVc9ADe2tkbwq27tSizdqnfHX5gERCYyQe9zNd5RrT88i
+	 P3FzInuzog0a8hTeSNMcLExpSuYi3ftDEtQJabZHKhZE/1SH5CTjylRJKvcorRNlVS
+	 UMWZKqFoldUpyeC9xTgE9wKLkuFXoD0lcwVsC9YmpbJIyFpJe7wifI1CGNuCXak9EF
+	 O9S1FDP5sWdmT4kbRgYr357br2cTvPyY3NtyEuqT7BtleRnlCdGmCDipdLmuFSmRSx
+	 LPYR8OwT/Ga3KBKzZLX3pl0M1w/iVzlG3isCSHWt8V//Dlyk/2hRg5ZLDY6N+zbuHH
+	 fWzRyd2UFwIQw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: krzk+dt@kernel.org,
-	mturquette@baylibre.com,
-	linux-remoteproc@vger.kernel.org,
-	Alexandru Gagniuc <mr.nuke.me@gmail.com>
-Cc: mathieu.poirier@linaro.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	konradybcio@kernel.org,
-	sboyd@kernel.org,
-	p.zabel@pengutronix.de,
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Val Packett <val@packett.cool>
+Cc: =?UTF-8?q?Matti=20Lehtim=C3=A4ki?= <matti.lehtimaki@gmail.com>,
+	Luca Weiss <luca@lucaweiss.eu>,
+	Vladimir Lypak <vladimir.lypak@gmail.com>,
+	=?UTF-8?q?Barnab=C3=A1s=20Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	~postmarketos/upstreaming@lists.sr.ht,
+	linux@mainlining.org,
+	phone-devel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: Re: (subset) [PATCH v2 0/9] remoteproc: qcom_q6v5_wcss: add native ipq9574 support
-Date: Fri, 10 Jul 2026 13:07:04 -0500
-Message-ID: <178370682987.2572738.13491033810212556744.b4-ty@kernel.org>
+	linux-remoteproc@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH v2] remoteproc: qcom_wcnss: Fix handling the lack of PD regulators in v3
+Date: Fri, 10 Jul 2026 13:07:07 -0500
+Message-ID: <178370682982.2572738.1804514769753985254.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260109043352.3072933-1-mr.nuke.me@gmail.com>
-References: <20260109043352.3072933-1-mr.nuke.me@gmail.com>
+In-Reply-To: <20260201210230.911220-1-val@packett.cool>
+References: <20260201210230.911220-1-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,32 +63,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 08 Jan 2026 22:33:35 -0600, Alexandru Gagniuc wrote:
-> Support loading remoteproc firmware on IPQ9574 with the qcom_q6v5_wcss
-> driver. This firmware is usually used to run ath11k firmware and enable
-> wifi with chips such as QCN5024.
+On Sun, 01 Feb 2026 17:55:03 -0300, Val Packett wrote:
+> The changes introduced to handle single power domain platforms have
+> swapped the info pointer increment from num_pd_vregs to num_pds, which
+> would shift the info pointer past the end of the array for pronto-v3,
+> which does not list power domain regulators in vregs.
 > 
-> When submitting v1, I learned that the firmware can also be loaded by
-> the trustzone firmware. Since TZ is not shipped with the kernel, it
-> makes sense to have the option of a native init sequence, as not all
-> devices come with the latest TZ firmware.
+> This showed up as a difference between GCC- and LLVM-compiled kernels
+> on SDM632 devices, where only with LLVM one would get the
+> "regulator request with no identifier" error, because the out-of-bounds
+> memory ended up being zeroed. Fix by skipping the increment when there
+> are more power domains than regulators.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/9] remoteproc: qcom_q6v5_wcss: drop unused clocks from q6v5 struct
-      commit: 22afc6163c0c7a144d24a09352b87719d64d5f65
-[2/9] dt-bindings: remoteproc: qcom,ipq8074-wcss-pil: convert to DT schema
-      commit: 2a756ac4d98efc97503629fcaddb2e7c46255824
-[4/9] dt-bindings: remoteproc: qcom: add IPQ9574 image loader
-      commit: bc33b5b5e23a389e660c3d696cd2e043fdf33ef7
-[7/9] remoteproc: qcom_q6v5_wcss: support IPQ9574
-      commit: 0149254e603f1fd89cb08aec36174ba7c2f198e3
-[8/9] remoteproc: qcom_q6v5_wcss: support m3 firmware
-      commit: 67804d8274d478ba8d1a84e9437fb340a8d3c26f
-[9/9] remoteproc: qcom_q6v5_wcss: use bulk clk API for q6 clocks in QCS404
-      commit: 920aa0298197a9a116210ac6057f1e880b9edd99
+[1/1] remoteproc: qcom_wcnss: Fix handling the lack of PD regulators in v3
+      commit: 3dbc90b9c22ea96e37bf55f6011e63b5123ec668
 
 Best regards,
 -- 
