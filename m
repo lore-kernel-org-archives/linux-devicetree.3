@@ -1,121 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5283B4E8B
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:17:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAC53B47E3
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783718235; cv=none; b=sSdqW6EUQlbi+Rtnsn4lvQYW+shSTXNSRZWIMFHEPz9axNqNt6q0yKAeXYMGChO4mhLtPsw8drQG6CYSSEe9DJdZ2MUEfgoPmU6UPdkgIIpGOHQdZVzLmnYLC9FnXlCL3v2fydcem/nBQk/vg5nRlPKfdVJTlw/82zQw1xpojHs=
+	t=1783718269; cv=none; b=MfJSQp3bwZ29Z30nv0d736mT02JNyVCBY1AYPS4hm/3ZF0+iTOxxFaQCiwZMaXTPnlqrQX+WDhaopUEouAmeWx4Ga5+WfBVMwPFJjDxMpGPOz5H1HJqWOETWu2F29SpPtCSee8N0NuVnF2oAJbultdxq2lK8z0oY4JA2KXdRIXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783718235; c=relaxed/simple;
-	bh=4nS7AAIEeHikTcY+5gRo/qtgcIz5azqNdCkC+8VxlHs=;
+	s=arc-20240116; t=1783718269; c=relaxed/simple;
+	bh=V26YNRFNMVsnk4Erx4Qnjy/vxu2d35NNeRaaj6VzmB8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mm//FiGLKHX0Wq1M4i6/MWe4KCxvTCLffcOLKId2yv2TOUKFlOnXLjBSXByUb0Cr60wUK7vNhZbnSgXNPqSJA76tpJZYCUsWHn8wjqd2jljz6Q6Cbj0uWoOaHLIYfx1yTnbI9z56oR6+prKVhgPo752nYC4/NrXZKHM0KQWOPUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9yRTCpV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=drSkIEkH+PIlt4oZpk9uG4n6ZWRs4ww57NT5glV7uMscmvu3X3atiNE5ehnx2QOQIqrOpQCFUr502647B8o0MCrkmyv8RZuHvVidthOCb3e3Y7EeBvBZSzrDzk1AqyvBaR6ufsm9LObXxbURJpY5V/jbMm64ZhfoEgrv8FSzS54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YbAJDl69; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9yRTCpV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A891F000E9;
-	Fri, 10 Jul 2026 21:17:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YbAJDl69"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B981F000E9;
+	Fri, 10 Jul 2026 21:17:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783718234;
-	bh=3kAKtJifAmqhY5uQydDew1OG49zgWiKMKwW6/uKxx+g=;
+	s=k20260515; t=1783718267;
+	bh=J21CImOksovrOYuVYaZdWQYvBKjp1a6itO/Eo0bE9gY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A9yRTCpVv1OW31qXCYipnFdjOu5N5QSihN0rbj7r6OfKAFBBHDzYLx9uVm1/CJcNo
-	 t4nDfqZOV1pghbpZwCh8dLSE7VT/FCKtYAiJp4mE1AmYlpHShG01MK2+Bf2M0iFnV4
-	 IYgX9zKxeb2vL3jJ1wrD7p0FUbmbo6Ri+PFKrY7O3IWpH/tK6VFbDUP8tg4V/pD3kE
-	 zZljgZVCqvFpisY8WUR/b2oSmMU1RDyvmeBrSJV/wFT/PzioHobbWKzFcrXsp7AYs3
-	 J4YoqmeZCCHfOpBu8iNtEX9PSsXVFstsfA+7HR+XOs9USLwso3e3iIMVz1K/Gs1iJ/
-	 Z6LGi6/LZSBVQ==
+	b=YbAJDl69jzrNIXnDNc32KCPRIfhT+qafoWYUqWrIZbTm3+DLq9n+f+hGRJnj471td
+	 vKO7A5ztPlisIr/QUlzipqS4H0Z1ShwIU3LvM0aG4bSjW53U80VivdQv0ainBTvl5D
+	 Pj16L1u4rljBZeRrpclRWLMX9ydCJ0YyDqB9X7Y+AegMwUzqt2VLaiLNdoyue7ZDQb
+	 ZDIJSvjPEW8z5m+5KCxjVDMmbJI6faiKmPUE7ynSSwhIsRutV8xjaIFp2jl1MBwPGL
+	 vmWpy+R3HUAdegmvk0765P5h8jfQtr+JOu5JlwaScsrq/JKzLqfYmIoNOvjF8vXc7F
+	 I5G/Ct4XbG0RA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 27/36] phy: rockchip: usbdp: Handle
- rk_udphy_reset_deassert errors
+Subject: Re: [PATCH v12 23/36] phy: rockchip: usbdp: Clear USB status on PHY
+ exit
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-27-8b41a9a9bef0@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-23-8b41a9a9bef0@collabora.com>
 References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
- <20260710-rockchip-usbdp-cleanup-v12-27-8b41a9a9bef0@collabora.com>
+ <20260710-rockchip-usbdp-cleanup-v12-23-8b41a9a9bef0@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 21:17:13 +0000
-Message-Id: <20260710211713.99A891F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 21:17:46 +0000
+Message-Id: <20260710211747.53B981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Clearing the USB status flag without checking if the PHY should be=
+ completely disabled leads to a clock reference and PHY power leak.
+
 Pre-existing issues:
-- [Medium] If PHY re-initialization fails during a mode change, the U3 port=
- is left permanently disabled and in reset, but the software state incorrec=
-tly remains active.
+- [High] The `rk_udphy_dp_phy_configure` function accesses and modifies sha=
+red PHY driver state without holding the proper subsystem lock (`udphy->mut=
+ex`).
 --
 
---- Patch [27]: [PATCH v12 27/36] phy: rockchip: usbdp: Handle rk_udphy_res=
-et_deassert errors ---
-commit 00e32198a00a3780b193e546b8f16d2218cefb74
+--- Patch [23]: [PATCH v12 23/36] phy: rockchip: usbdp: Clear USB status on=
+ PHY exit ---
+commit 87780d47b4da4078adb1684ca9ebb6fc0529d86c
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Handle rk_udphy_reset_deassert errors
+phy: rockchip: usbdp: Clear USB status on PHY exit
+   =20
+Ensure the USB status flag is cleared when the USB3 PHY is
+exited while the system is in DP-only mode.
 
-This commit modifies the initialization sequence to handle errors returned
-by reset deassertion, avoiding a theoretical SError.
-
-Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/message/20260626211151.2332F1F000E9%40smtp.ke=
-rnel.org
+Closes: https://sashiko.dev/#/message/20260625-rockchip-usbdp-cleanup-v7-24=
+-38eb3cf654fd%40collabora.com
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
+> index 8c165bcab7968..a742bde7155be 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -803,8 +803,12 @@ static int rk_udphy_init(struct rk_udphy *udphy)
->  	/* Step 1: power on pma and deassert apb rstn */
->  	rk_udphy_grfreg_write(udphy->udphygrf, &cfg->grfcfg.low_pwrn, true);
+> @@ -1273,8 +1273,10 @@ static int rk_udphy_usb3_phy_exit(struct phy *phy)
+>  	guard(mutex)(&udphy->mutex);
 > =20
-> -	rk_udphy_reset_deassert(udphy, "pma_apb");
-> -	rk_udphy_reset_deassert(udphy, "pcs_apb");
-> +	ret =3D rk_udphy_reset_deassert(udphy, "pma_apb");
-> +	if (ret)
-> +		goto assert_resets;
+>  	/* DP only or high-speed */
+> -	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
+> +	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs) {
+> +		udphy->status &=3D ~UDPHY_MODE_USB;
+>  		return 0;
+> +	}
 
-[Severity: Medium]
-This is a pre-existing issue, but returning an error here propagates up to
-rk_udphy_power_on(). Does this leave the U3 port in a permanently disabled
-state?
+[Severity: High]
+Does this early return bypass rk_udphy_disable() if the PHY should be compl=
+etely
+disabled?
 
-When USB3 is active and a new mode is enabled, rk_udphy_power_on() triggers
-re-initialization. It disables the U3 port and calls rk_udphy_init(). If
-rk_udphy_init() fails and returns an error here, the caller propagates it
-immediately:
+If the DP side is not active, udphy->status drops to UDPHY_MODE_NONE (0) he=
+re.
+Because the function returns early, it bypasses rk_udphy_power_off() and fa=
+ils
+to call rk_udphy_disable(udphy).
 
-rk_udphy_power_on() {
-        ...
-        ret =3D rk_udphy_init(udphy);
-        if (ret)
-                return ret;
+Will this leave the PHY hardware permanently powered on and the clock counts
+unbalanced?
 
-        if (udphy->mode & UDPHY_MODE_USB)
-                rk_udphy_u3_port_disable(udphy, false);
-        ...
+The next time the PHY is powered on, status =3D=3D 0 would cause another ca=
+ll to
+rk_udphy_setup(), which calls clk_bulk_prepare_enable() again, causing a
+cumulative clock reference leak.
+
+> =20
+>  	rk_udphy_power_off(udphy, UDPHY_MODE_USB);
+
+[ ... ]
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
+    ...
+    struct rk_udphy *udphy =3D phy_get_drvdata(phy);
+    struct phy_configure_opts_dp *dp =3D &opts->dp;
+    u32 i, val, lane;
+    int ret;
+
+    if (dp->set_rate) {
+    ...
 }
 
-If this path is taken, the U3 port is left permanently disabled and in rese=
-t,
-but the software state (udphy->status) incorrectly remains active. The USB3
-controller is unaware that the PHY has been forced into reset.=20
+[Severity: High]
+This is a pre-existing issue, but does rk_udphy_dp_phy_configure() access a=
+nd
+modify shared PHY driver state without holding the proper subsystem lock?
 
-Could this result in a silently dropped USB3 connection, potentially causing
-I/O errors for active storage devices?=20
+The PHY core framework calls .configure which reads udphy->dp_lanes and
+udphy->dp_lane_sel, and writes udphy->lanes without acquiring udphy->mutex.
 
-While a previous patch in the series mitigates the SError by safely routing
-the PIPE clock to UTMI, the state inconsistency and dead USB connection seem
-to remain.
+Concurrently, a Type-C event handled by rk_udphy_typec_mux_set() or
+rk_udphy_orien_sw_set() might alter those shared fields while holding the m=
+utex.
+
+Could this race condition lead to the hardware being programmed with
+inconsistent lane mappings during normal Type-C hotplug and DP modesetting?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-rockchip-u=
-sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D27
+sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D23
