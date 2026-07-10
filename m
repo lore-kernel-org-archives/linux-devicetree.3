@@ -1,149 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B623B42DA32
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783688471; cv=none; b=By7BRNr+ZNaDMUifsF3CA3v+aFGk2EgnJp1e/+D6iyQ4nTSe2P+XYug6XN0Ktawfpxyq4yeUoLnzI0/QYUc2KFjMuOt3IU1njPjjG/+XRQZQ5mwtbR5L1DstCCuQhgdym10jxndxlJl3HDzsikd+bWC0XSvbQ0L+YAEY3y6VZOw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783688471; c=relaxed/simple;
-	bh=IzrIYAqK12+0DbBs+SW6tlw64V962i3LE/L8V8Wfs88=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MM3qjHxMTJxIZPJIJTKwOt9Kb5mRZKwMM6/u8iDkL+um8hxWjROBF9rUB1zIHCSIjRlMJYQQP0ZP9NxKRTPnAZ5MCrfEaAD1aSvlWU+yup3gPhfOCIwVWnvCLzkcNz/DhqxiUevUoMEsoBZaaexgIPL1O8iB/kewdfvaKqwJwV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RG8cobAt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hkwt7ETX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A24442A7BD;
+	Fri, 10 Jul 2026 13:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783688566; cv=pass; b=fd20H49iOVJc2Vf15fMiFqJJRPobYKUwmJ5q8NObcYSkcwEhKxfN6JsQOLjjoQAX1+vNwn2wPZjd/dygLBokRYz1LWY4KPYD6/VKcehbg5ffEjIKQnwdDxMMknyaRNYQKJqeK/WB8OBZ5kBDxTRsFnnwf27qUufJau9XW2M3vc0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783688566; c=relaxed/simple;
+	bh=eXraE2Ns3ecpg4pFHewAEJ+5B988G+Typl4Tddd0b+U=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Jv185HeArQpcpD5ORoRLlpgSCCqVAuT0flX4TLKrlM1nVZsnPvcauth/30pNDRNvZIT92EJqQyGCTzCbH7bCeyiKkC2JphmtKjsdoakZMuRS3W2ZwrMBn8lU1WqsQz+8/pwBXbSO7TEOQYNcRnwQD9MZoe4NvHib4THKQ3WobDE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=kl+P/qm1; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RG8cobAt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hkwt7ETX"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AAmVT9615089
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:01:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6f4ngRNf22D5k1LmrlO8ahcDEww5AcgtWpArh10h7pc=; b=RG8cobAtccDGy9Fr
-	A9QbasxRaTIXsbjqafaS8tG7YdsU+vQPGRcsz99XdzM+KYfMCM5e2ogfanq16Jip
-	ahjrWVSEWyR9lglhEKpH90gSJWEq7rWlfEvI8TxeIcueDAI9pizb11FYyTxFyvhg
-	Jcxox2SYibdX9aBJG1FeNjLZ9dt8w0XtapRrhVooE3HcSd0JVEOeLDXdcYWeBnss
-	U7K6KaqOHJe1Y74Bh0odf9X1qWCL6h9+ldyfbLS04Z6HxJXU1tWEe4Zn112XvUyQ
-	tNVLyNMvtQYHuOUXjKVTJxmu2c/NpIht2UJS0STlXo+3E0aj9zcFppqBa6PA/Ok4
-	jBCX0Q==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fajte35jx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:01:05 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-495ef87af01so111520b6e.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 06:01:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783688465; x=1784293265; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6f4ngRNf22D5k1LmrlO8ahcDEww5AcgtWpArh10h7pc=;
-        b=Hkwt7ETXbkdqRm5Hapfj9g9/jIvjAcWvPOTd2O0HE9hUgOnKjz2Of9w5CB4q+I1DO5
-         zAXaqugF1YCM2gb0OkKQ57lse33JyT45imMTw9tANwoN5obrCjAH5mEdaQBQkF0Qumzg
-         8tuWVizcvGfsCxAbbd/uGQA9b1vr0fbRNp66ufp9AEbEwpBR1Fb9aXYKLvaVBPu++WtX
-         ANqMQTaWgiyu9ecH222OZiKnevAKNURIBrLTsoGGF9hFUGm8mCdfPco30ZTTK+Innubg
-         MhVOTlR5NVjBlbMj8haKCGkEM7IcjmLoBDVsLaQBh7vBgP9atNUrS8fzYutjWZbFNgpD
-         t0HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783688465; x=1784293265;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6f4ngRNf22D5k1LmrlO8ahcDEww5AcgtWpArh10h7pc=;
-        b=cNWCm3zfNYXObvwLg1lONUyuCkjuG2l1aVEY8LpPg++9gj9tEqRGEM4rs8t5GQHU1z
-         fi7sKN3uRtXB6e/rIQ4Tw5kEuffn/cjMDItIJD5aj/WROF/kYv2PJS++B8u+Ka9U3K+p
-         HX3ttn45v5xSeFahpRMDeOZnbEyvnownL7Wxp9XRZxRjb02zfCn0WOy30/CS2jSVBpwP
-         8hnRiid0V2hN3qGQ/ihxhDD/qrsJoXLuA5YVl4DpgFbF/aMruTvofFMvavNO2v/ShiB0
-         h2apZ/0jXw3VKJmHpqlNJkQu4ZBaJININkmb7o+UIJXzFG7wXaWVa0J2IfOuXLTWdPjk
-         0ACw==
-X-Forwarded-Encrypted: i=1; AFNElJ8ouYHIbvcf7xhYssBfwOJZ1s2AaxdsZtrPXWj9nSApJ8j94OVZEoLKkMaeee4h1ffHn4BupBh1cNUx@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtJgTNlobtpT3/FrGpFZZGlPxzZ4jHG8q4Cw1d7H9EQOKNqEe+
-	7seuEgf/5Sa+NLsiH9ahyVR27yX3x1v3v2BQ5d3nsQLEAJyqkghyQiL647/IQwMEny3LSwqBSHY
-	eOVoIYOx13Xhw+bItyM2FoDbMHFE3Q2CuV4U9F2UWOr/JgfUYX4FbCl/evrP7f4SF
-X-Gm-Gg: AfdE7ckO8EKFwdx4UYng17dM/k3mDiQCrmIXrKUwVZB3R5QXFmJEoagUy4GydZNn8zS
-	pkyB0RM1nVgTBRPSM2HznYHrsimes8V34kkLrzvQFzomMH1bv0vSGw9/gmYeFYeUQBHLKbeKs8l
-	Ripmnyj/OT5V+wXma/dS63Bw0dl5y6xSS18g7XCcE8lY7cSayAaIBDw/Mu7Ja49cEPCzCzZ0EwC
-	UnCNSEexmWmUPpavJyf++2ykytVLy+P5kn4Kreg2clJ4WOA25AT14ya/lq12Ed5b4rGaNBvCB3c
-	HzBt2WfVdylrl6oe/vvhoQUiT+05q0kfFHaGX63DdOE9Dv/2m6N6aeKZGTopR/g/8mszCeampUB
-	+Pzp5cXQt75Po7pCgZwKZGAv242nqh0d4nUU=
-X-Received: by 2002:a05:6808:15a5:b0:496:9bf:c837 with SMTP id 5614622812f47-4a2f430ab1amr4762998b6e.0.1783688464654;
-        Fri, 10 Jul 2026 06:01:04 -0700 (PDT)
-X-Received: by 2002:a05:6808:15a5:b0:496:9bf:c837 with SMTP id 5614622812f47-4a2f430ab1amr4762978b6e.0.1783688464172;
-        Fri, 10 Jul 2026 06:01:04 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69acd1d32c6sm3595066a12.31.2026.07.10.06.01.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 06:01:03 -0700 (PDT)
-Message-ID: <bdb03f28-4f5c-44a5-b2d8-bb51ecdb377a@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 15:01:01 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="kl+P/qm1"
+ARC-Seal: i=1; a=rsa-sha256; t=1783688516; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ISZa+ManoF2nBvi4nTAyJ9DU4BKNlYwz03LQvMQkHYoUe0CwahrjMdN6U40+peTpQQ62bK6+WOGP17oT+XPbcLcrh8Hn1R6MOMRmn4J74SQnPKFKCxGUyo5QXKvWhVFZrYh0VfB/73o34hOVp8PEXIWG7wNrYskfac7SuNCJZzA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783688516; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=FDOpiS3Kf0XVsCPqWZd9Util7kCEb/QH0STMK5AmhRc=; 
+	b=QyeMUJQmgEDpJB8FNwljqg+k3ypIDZtIs/RdRCBtRNEK28Ciobf2XD4oogYedBz0PKHHvr2cHcd6No0X/6F3AXDZF3wMCqlCksRSxyAMqrlYXBzhoqkuUlrSgCSdkz55F19UAqu+pPi80OEfetVSqwxIyiKdpfyTVY9JpxBdODQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
+	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783688516;
+	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=FDOpiS3Kf0XVsCPqWZd9Util7kCEb/QH0STMK5AmhRc=;
+	b=kl+P/qm1h+PtSgnueLSQiYD9lJMQ0FTQXGx1Pu47QyxBVoGT416mmNHWriG4olj+
+	Yr8Fb2awyfmKajDd5G3P08ShGRUlUQdo7heCbwQImMDLmm82t4ZLm/by/Hv0CHLePS6
+	bQccwDOnwqPU0+euCr2nA2PGYxdWj6M8y1DdTYi8=
+Received: by mx.zohomail.com with SMTPS id 1783688513797335.15709494826183;
+	Fri, 10 Jul 2026 06:01:53 -0700 (PDT)
+Message-ID: <f85e08cf5e119e30ab4513e78ffa833fbe0832b7.camel@collabora.com>
+Subject: Re: [PATCH net-next 1/6] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, Biao Huang
+ <biao.huang@mediatek.com>,  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
+ kernel@collabora.com, 	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Date: Fri, 10 Jul 2026 15:01:46 +0200
+In-Reply-To: <6ea11726-8d50-411e-afab-da346e09ab9b@lunn.ch>
+References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
+	 <20260707-dwmac-mediatek-mt8189-v1-1-17f345eaaca3@collabora.com>
+	 <b810b9cd-8f5e-4c9d-8496-908aae55dac1@lunn.ch>
+	 <8304b0a704c8db697767584b8c34388f07ba401d.camel@collabora.com>
+	 <6ea11726-8d50-411e-afab-da346e09ab9b@lunn.ch>
+Organization: Collabora Ltd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: Add PMIC thermal support for
- Shikra CQ2390M SoM platform
-To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-References: <20260710-shikra_adc_support-v3-0-ddc840fca0a0@oss.qualcomm.com>
- <20260710-shikra_adc_support-v3-3-ddc840fca0a0@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260710-shikra_adc_support-v3-3-ddc840fca0a0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 8-d7WEG9nor6j_fsZQBPbT-B4_vriK-8
-X-Proofpoint-ORIG-GUID: 8-d7WEG9nor6j_fsZQBPbT-B4_vriK-8
-X-Authority-Analysis: v=2.4 cv=N7MZ0W9B c=1 sm=1 tr=0 ts=6a50ed11 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=s8hspuRcmIiiD5yHkK4A:9 a=QEXdDO2ut3YA:10
- a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDEyOSBTYWx0ZWRfX1tLdzMJM39/8
- o2SJXIvQoQoCnkFaxqaGEf64QS1sS0Vv3mLT9gDKztiBB3dl6lVx+xeXUq0nS5CV6Gz3XRk3+6l
- wMkLC5WA134YnkgcurESlNNPm6kSanE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDEyOSBTYWx0ZWRfXyCZtLyGhrD3L
- x0HQM8ypOldpx1KGBY2HsYtes4WOm5S8FWjszvbuPUs6o3zzrH+v4WmYo2NL0EVaisD5iH5F2ws
- nm9cIj1icAPn84bh0GFUSsHNH2sCKT5DWXf4rE/IwremQIKuSlGkqexwHP8Ys8eOfOaIH/74kYg
- 8YZTlIlpIKJOUFuprLOQ2gMq5OZO9fPKPQSU6pJwqptwXcTRwaF6JntwmzPQNDvUUMFI3EzlmH8
- SDokABRUa27q+KsabyzlMDBXJyKYC0N/N3gUl6CPHATwb7KxAXh33lp0EhKATBieBBJJAsp/cTC
- BQ0GNLr74+WJC+Rf0Rp+WTDV20vYLn0Ydm+V9nEZEU0nmwc1qm9zjQBoCh477qKemys838zKpX4
- 53TstuFqRhnw7z0PJBm6dNTLlAhFRg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_03,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 adultscore=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2606150000 definitions=main-2607100129
+X-ZohoMailClient: External
 
-On 7/10/26 8:52 AM, Jishnu Prakash wrote:
-> Add ADC channels for pa, quiet and msm thermistors along with
-> their ADC thermal bridge nodes and thermal zones for PMIC
-> thermal mitigation.
-> 
-> Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-> ---
+Hi Andrew,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Wed, 2026-07-08 at 16:35 +0200, Andrew Lunn wrote:
+> > On Tue, 2026-07-07 at 14:42 +0200, Andrew Lunn wrote:
+> > > > +=C2=A0 - if:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ enum:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 - mediatek,mt8189-gmac
+> > > > +=C2=A0=C2=A0=C2=A0 then:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: MAC Main clock
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: PTP clock
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ - description: RMII reference clock provided by
+> > > > MAC
+> > >=20
+> > > Since this is a MAC, it sounds like it is consuming its own
+> > > clock?
+> >=20
+> > In the driver ([1]), this clock is described as being only used and
+> > needed in RMII when MAC provides the reference clock, and useless
+> > otherwise (RGMII/MII or RMII when PHY provides the reference
+> > clock).
+>=20
+> So it sounds like this is a clock output, going to the PHY, as its
+> reference clock input. So ideally, the PHY should consume this clock,
+> not the MAC.
+>=20
+> > Its use and configuration also depends on the "mediatek,rmii-clk-
+> > from-
+> > mac" vendor property ([2]) presence in devicetree.
+>=20
+> This makes it sounds like it is historically wrong, and the patch is
+> just extending this to the new device.
+>=20
+> Do you have a board using RMII? Can you list the clock in the PHY
+> node, not the MAC, and see if it still works?
+>=20
 
-Konrad
+I don't.=C2=A0
+All the MTK Genio boards (510, 520, 720, 1200 EVK) I have are using
+RGMII only.
+
+> Ideally, for a new device, we should not repeat past errors.
+
+So, do you want I remove this clock from mt8189 clocks list for v2?
+
+Regards,
+Louis-Alexis
+
+>=20
+> 	 Andrew
