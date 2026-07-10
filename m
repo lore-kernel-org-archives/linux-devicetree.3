@@ -1,160 +1,95 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA312421F07
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:38:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5264195D5
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783683497; cv=none; b=f3aGC+UoBTU3tX8GYVBKAopwvnGvw8N1kGBgGe3mh7a15TUtZcgVCgLxzazZ/pbaMJjDk0I3e7dSWxlUifQvpFG5hDnQ1qFdcYugBzZ9oswPX05jcYU7I9xWm2fw/C2qzjakiNQGgJeyknNaxTD/mBs3WWklyzsIx5M8Jn2qep8=
+	t=1783683714; cv=none; b=Bfemywf6dezbnacGPl1iXWXe7btG6ojQll6y9lUhKZCZ68R8PhzPf+X0CkB/IpbSf7y/r5qTpPDeQLun5y+rtbLd4aoxupI+ARgq3hmNsqQMZMGuSim5+y7M4lKE4IQG90G1LOCrVx8nX0fjbNdtb8NPIL/cYPXaKYTsovnycJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783683497; c=relaxed/simple;
-	bh=X7pq3PyhM1o+IcurE1qdIIJe71ZzKZqVhCOunB17O7w=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=XgsrbxGl7Vm4vAGuLfoachxryP5yZ/cFaZkhBOQsU0Hbn0lh9w2mcP/2lq8ztwFZjCxtUwiNK48rviTxrtYWJYyjdBz2gyY3i4JDk7D7Dbk0r+PfNIlRD0m6TLdRmJfVQFcuiB9eW9NVzIE5GwNWHAywGQbaGBRblJksdqw+Spc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=mgJlBoez; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="mgJlBoez"
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260710113802epoutp03bd3b456aeb90134e3793d122a35f09d9~A6q1ciXcS2636926369epoutp03i
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:38:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260710113802epoutp03bd3b456aeb90134e3793d122a35f09d9~A6q1ciXcS2636926369epoutp03i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1783683482;
-	bh=BfsfxWnMvDHbHaU5VleFMtOa5AisCyr1aIft1Ku+Wz4=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=mgJlBoezVDK93yp3oAvOl+5PQ18Edl33ssGWuA4AvO4GPIa6xarv1+gzmlffDsbCn
-	 VE/oiHgUbHP/A/EA6X0OCYxy2LAP4ic59DkfjjR6M69LawDG3yTwhVFxfJW2I7AOqq
-	 v75HmHzVlAKfRBMw77BqMg6C9z8uoCZCipWvZXhU=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260710113802epcas5p391861cea9a4c63274e786b6e52bad052~A6q00Vt0c2132921329epcas5p3M;
-	Fri, 10 Jul 2026 11:38:02 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.94]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4gxVFP0dzGz2SSKY; Fri, 10 Jul
-	2026 11:38:01 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260710113800epcas5p2a5461c3d10e8c69add826fc62806d6e3~A6qy-C7ya0882308823epcas5p2x;
-	Fri, 10 Jul 2026 11:38:00 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260710113758epsmtip17831fbbbe17cf8bbc0feeb897f44aeee~A6qxpCEm20474004740epsmtip1f;
-	Fri, 10 Jul 2026 11:37:58 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, "'Peter Griffin'"
-	<peter.griffin@linaro.org>
-Cc: <robh@kernel.org>, <conor+dt@kernel.org>, <linusw@kernel.org>,
-	<linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
-	<hajun.sung@samsung.com>
-In-Reply-To: <54c419d0-b0cb-4add-8d74-94a40804f33e@kernel.org>
-Subject: RE: [PATCH v3 5/6] arm64: dts: exynos: add initial support for
- Samsung Exynos8855 smdk
-Date: Fri, 10 Jul 2026 17:07:57 +0530
-Message-ID: <152801dd1060$8f3baae0$adb300a0$@samsung.com>
+	s=arc-20240116; t=1783683714; c=relaxed/simple;
+	bh=cRN3DIVjjRem1Qh5/ryc/Kj1OzVUK/3+j5as2jsZXeg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YIUDxkaNZmTDDnOuHgo2xQz2UVWVLSJtaDFcZmTd2zcsF8eQv3kTeKPTxEhp67Kwqit2UUu6qIeDG3JpkSsY9j0YtVlM3KWNH5zQletH/1RaJriQLhKeeJ6OKqPSRT6EAHpbZH2GBFoWMb54Js3TRBuctp4ecNQH+vc2/WW66ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-9691bfc9f81so470854241.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:41:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783683705; x=1784288505;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sWZY8wb8dQToSEMAHOYY209Fxx7jwySHPe7FkR9+aYI=;
+        b=jq2fh/is5HCd/iITnQ+xI57iA9+tSCyeKv315kzGX0lOJrRoc13kcMq+y2KrGEdSZN
+         ZpSfE3Y7IvVbAOA91d/tw3v/fRcf2oJsF4jg9UxMH/wNoUq7t9Pqzn9gXrtPNLHF8vuz
+         3Tu4LYuKeMp/NM8ESf4q+ZQGQwkzKyuwBXfGdeg+08fijPUfD3nI7X8hMBfqSLvKrQ6T
+         yxdtG/wQZAy4OAiU+WK9QTUJaZxAR/Kd9rfdQ3UV61n5erMvaZQejaXHcn/fH6J552QB
+         x3FbgN4gLbjPjihQ8nUvh5COLV2LRRBwNcnJh6cumTqPKA4gpkuQ+R+KbSWkSTj+kZF7
+         Dh6g==
+X-Forwarded-Encrypted: i=1; AHgh+RpljeAyk9eyeOqER3s40j+FtTHSuPCXbaNX8OmFnnKcnzBnMGUgVHuC8iR07cFtH2S5KIeMf7QKqcPP@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5qprrFmYfZqEbckJRTIfEGfgwHmp1FWOTp28Cn/FsOPvm8Jyt
+	Ed/+ZBM1wR+bq3CUj8zC4HOWpS+A+brFF2e7Yx9IgC3EH515KgnwUq4bvUdEPZ69X8I=
+X-Gm-Gg: AfdE7cnnqz/D1Lf1ilRK6D6E0CGW4r2oMdrAWe8rHAJvCXIPDNdpkeIbDL/FNGXAm7B
+	LkDO4vyYJKUEwW4QStriaBZgxeual8dFUlAWenoqoigk30X0YNzArpdKbah20ENeTETeCYRLmMa
+	JHk//zoz5rGRnPih/PJZI3iqdOv3ImCtneUFvnoNWnQ8FKpLSwpJH9Svr46kYQ6RKNw3CN/giJq
+	asicLOYpvFsX3mwpKVK+7L+ss+1SRJxYWOOe9E9f2TmhWgHb4/Kjh6wovIWLQrlplYmIvs/ItwQ
+	kFjB/KpP4KnY0Xmw9Zq3oEbAucfOAzxY5mYmWwmMvogKMqWzF/sZsx74IwU6fG3vo+3tr3hSlUu
+	onpe3UtFBiaTzDwhgEzHpZ6YZ7/YIrh7EJbQz32PIcqM9hu8yhm/vN1JKnEyJjsM0IXJkdbeAUZ
+	OimjZOyW2OlRBxJVFaS2/YwNPu5oQYjNOhmn9YSJoZJ/17X5202NQjYg==
+X-Received: by 2002:a05:6102:1628:b0:737:80f0:7885 with SMTP id ada2fe7eead31-744e00f6d8cmr7447816137.28.1783683704993;
+        Fri, 10 Jul 2026 04:41:44 -0700 (PDT)
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com. [209.85.221.173])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-744d6771d49sm5348696137.0.2026.07.10.04.41.44
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 04:41:44 -0700 (PDT)
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5bfb3347dc4so201962e0c.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:41:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro2xJ3s2AHlFMzU9UoHYqLcEuPkdVEwEg+NvHVHp5+mwsCgRaylDV7xS4qk8fw6EjeMmsbc/mn6c+Gu@vger.kernel.org
+X-Received: by 2002:a05:6122:793:b0:5bd:fb78:5461 with SMTP id
+ 71dfb90a1353d-5bf75a9d4ffmr6525009e0c.0.1783683703846; Fri, 10 Jul 2026
+ 04:41:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQCQM7wiCxtRwyhZTDec7lkhalOHFwIex+rgAd5cQHMByjDVPgF/2VxQAn303Q8By1kGcQFci0CruJjxDHA=
-Content-Language: en-us
-X-CMS-MailID: 20260710113800epcas5p2a5461c3d10e8c69add826fc62806d6e3
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260627165422epcas5p4e4c6bce0e2daa6d08a9ec18afde9ce0e
-References: <CGME20260627165422epcas5p4e4c6bce0e2daa6d08a9ec18afde9ce0e@epcas5p4.samsung.com>
-	<20260627171228.2687857-1-alim.akhtar@samsung.com>
-	<20260627171228.2687857-6-alim.akhtar@samsung.com>
-	<CADrjBPqYSTDExrBrYYf2z=23Ci8VqF9zXvbc+njDm1d4Ojrjrg@mail.gmail.com>
-	<14cf01dd1052$4de88670$e9b99350$@samsung.com>
-	<9eb6b0ef-cbc1-4b2f-b607-986f28ec46ee@kernel.org>
-	<14e201dd1055$b7173940$2545abc0$@samsung.com>
-	<54c419d0-b0cb-4add-8d74-94a40804f33e@kernel.org>
+References: <20260707145135.247565-1-biju.das.jz@bp.renesas.com> <20260707145135.247565-3-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260707145135.247565-3-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 10 Jul 2026 13:41:32 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXJP0tw3bOiPzEg42pS_cXgH-cknYRK+LM6oJODubGsVg@mail.gmail.com>
+X-Gm-Features: AUfX_mxls9AoCaoJG5OMri9gWtJ-eSjx5f-xCDGMN1hXVtUnNc89fbMo53qNAh8
+Message-ID: <CAMuHMdXJP0tw3bOiPzEg42pS_cXgH-cknYRK+LM6oJODubGsVg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] arm64: dts: renesas: r9a08g046: Add USB2.0 function
+ device nodes
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
+On Tue, 7 Jul 2026 at 16:51, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Add USB2.0 function device nodes to the RZ/G3L (r9a08g046) SoC DTSI.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski <krzk=40kernel.org>
-> Sent: Friday, July 10, 2026 3:55 PM
-> To: Alim Akhtar <alim.akhtar=40samsung.com>; 'Peter Griffin'
-> <peter.griffin=40linaro.org>
-> Cc: robh=40kernel.org; conor+dt=40kernel.org; linusw=40kernel.org; linux-=
-samsung-
-> soc=40vger.kernel.org; linux-kernel=40vger.kernel.org;
-> devicetree=40vger.kernel.org; linux-gpio=40vger.kernel.org;
-> hajun.sung=40samsung.com
-> Subject: Re: =5BPATCH v3 5/6=5D arm64: dts: exynos: add initial support f=
-or Samsung
-> Exynos8855 smdk
->=20
-> On 10/07/2026 12:20, Alim Akhtar wrote:
-> >
-> >
-> >> -----Original Message-----
-> >> From: Krzysztof Kozlowski <krzk=40kernel.org>
-> >> Sent: Friday, July 10, 2026 3:30 PM
-> >> To: Alim Akhtar <alim.akhtar=40samsung.com>; 'Peter Griffin'
-> >> <peter.griffin=40linaro.org>
-> >> Cc: robh=40kernel.org; conor+dt=40kernel.org; linusw=40kernel.org;
-> >> linux-samsung- soc=40vger.kernel.org; linux-kernel=40vger.kernel.org;
-> >> devicetree=40vger.kernel.org; linux-gpio=40vger.kernel.org;
-> >> hajun.sung=40samsung.com
-> >> Subject: Re: =5BPATCH v3 5/6=5D arm64: dts: exynos: add initial suppor=
-t
-> >> for Samsung
-> >> Exynos8855 smdk
-> >>
-> >> On 10/07/2026 11:55, Alim Akhtar wrote:
-> >>>>> ---
-> >>>>>  arch/arm64/boot/dts/exynos/Makefile           =7C   1 +
-> >>>>>  .../boot/dts/exynos/exynos8855-pinctrl.dtsi   =7C 574
-> ++++++++++++++++++
-> >>>>>  .../arm64/boot/dts/exynos/exynos8855-smdk.dts =7C  32 +
-> >>>>>  arch/arm64/boot/dts/exynos/exynos8855.dtsi    =7C 204 +++++++
-> >>>>>  4 files changed, 811 insertions(+)  create mode 100644
-> >>>>> arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi
-> >>>>>  create mode 100644 arch/arm64/boot/dts/exynos/exynos8855-smdk.dts
-> >>>>>  create mode 100644 arch/arm64/boot/dts/exynos/exynos8855.dtsi
-> >>>>> +       =7D;
-> >>> =5Bsnip=5D
-> >>>>> +
-> >>>>> +       oscclk: clock-oscclk =7B
-> >>>>> +               compatible =3D =22fixed-clock=22;
-> >>>>> +               clock-output-names =3D =22oscclk=22;
-> >>>>> +               =23clock-cells =3D <0>;
-> >>>>> +       =7D;
-> >>>>
-> >>>> Small nit, but I believe oscclk node should be ordered
-> >>>> alpha-numerically by the node name. See
-> >>>> https://docs.kernel.org/devicetree/bindings/dts-coding-
-> >>>> style.html
-> >>>>
-> >>> Thanks, will update in v4
-> >>
-> >>
-> >> The node feels ordered, no? clock before cpu?
-> >>
-> > Right, =22 ordered alpha-numerically by the node name=22
-> >
-> > Krzysztof, do you want to send v4 with all the reviewed-by tag collecte=
-d?
->=20
-> No need, there are no changes planned, right? I just give it a day or two=
- if Peter
-> or someone wants to review this one in such case.
->=20
-Sure, no changes for now.=20
-Thanks=21
+Gr{oetje,eeting}s,
 
-> Best regards,
-> Krzysztof
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
