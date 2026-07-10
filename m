@@ -1,155 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916E53E6398;
-	Fri, 10 Jul 2026 22:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72A3407CD0
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 22:51:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783723624; cv=none; b=bW7tz7sx6CP+SVF5e4Seqtaipz3tz1F9JFSTWoC26si4Vwuj8Xml110+DuL69WQFiKv80NUi+nG+wd28lRwW02KUNkFS1f13x9t4ei5+W9AxbdnZA1LKnASzdXI60TRYxrQKkT9eDTaIeWJBdS9MDHIqapWifpUxP3u3rMStV+A=
+	t=1783723910; cv=none; b=aMbPeCQvyzNsRRke9AT4kBwgs3gS7PKm8rEx77QY7ixSGaLlE94VgDqW1WbH8KMF8xUZF1eD1uGlBrkI3PkQLci+YGK0dhvpIHa6RlGnsWLLj0Hzae5hyTYQrn8s4b7ntYWx+f9DzBFUs956sIRxGF8vtB2p9mfksGy3wRPnRkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783723624; c=relaxed/simple;
-	bh=NimeqggcOy84sPZGIqQcP3Qxa7Ey1uP/p0eOORACkCU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YNo0k8XFPNIb/teeA7itIG0fiNz98+EgErukVkh5o/BpHp8FDOwb5YFIoedSCaJbXcpnG4p1/w4//AEDOCRucxx8l26ECEmNqODzYix2oIEqA2Cv/qN+ldD9ARwogCng8Z5s/RBZq/7TDKqE0g0uYyU1X2ELe80jtMM5SuQzTLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fE4uogoL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783723910; c=relaxed/simple;
+	bh=RnEeNLsDjzbIUPZgBVMLV9uT02qwSArfn96hepB2oIU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bJSPzZZNwHBwke7iGaTk2ifQHiiwYrjqxj5CVnAoq+/BulYvwt7lC9p2+R+Z3Y1ZdPSouuXr1itilhoTHyzYr5zL/cUxeNZvSUwb6snBw5QnFjRM6Fe/w5Z3jQcNWSiU89kBvz/2ZQW3MB7rtXYMLOxuWqY4K8ERTil5/hrcMXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Pkq8ea4e; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fE4uogoL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF441F00A3D;
-	Fri, 10 Jul 2026 22:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783723623;
-	bh=FgFvniYBK8vDGLtPIx4BCHD74yzF4yY17gWq7XVt4RY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fE4uogoLpX0KIjnaIakvou7bqbvo/vkR1mtvPThSRqOhg7tE6fsKv2V8eMr25raPL
-	 qy6O19WsZ+l2btioUE/MiH2kF51AIplfIgbY+DTtmL+v7criXXkVtj8kKz8eFGPa0R
-	 O9hVaqGGldg3ooZtSgb3UUksmIuuvMnunimxnceLHXRU6k0KvTNr5tB5zWRkTf1mdS
-	 Ko+yo9WYD7w6S57v5LjgFlBaPMVgEhSdjUwhV1u0Pmb8Q/7emoPQQTic3eiJWmUZ6G
-	 U57OOn6PqPUsZNl+9fDOTNsDwKghR5TIIZj1gqsRa4jjUeDJUHBPnuAYjnQAGL61hL
-	 D7Vsv31hbsWJg==
-Message-ID: <5c8af0d5-2477-48ca-bd7c-0f2475a9dd62@kernel.org>
-Date: Fri, 10 Jul 2026 23:46:58 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Pkq8ea4e"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e9ecb1e13cso1247270a34.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 15:51:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783723907; x=1784328707; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yXdpdsUvKArizv655xhgVkdyjwHO++6Kx2TieGSX5WU=;
+        b=Pkq8ea4e0o04NVjukEhK/15l79oAuZsnXu43nBqdZ7HKYY/GUL/OW8ZBuqBRseUTml
+         LDeGZ6czP97kn7XOTK9RsANSlNOCmGg5OFGeNGoLCFD+SRenz6tNeLo9nTk6uxsi6Q3p
+         3qnelV1BzF7YWNnbL3n2EjRyciWAUnmLNOex3TB7E3QMcYc/qVoCy57hrxO5yBdCkVZb
+         fO+RTnj2n8ek+9y4mDdOMuEk3m94uI3jNLXZhXX/ZimgwLFTUA10JkdQlHACo1+UGu7X
+         QM80gZi36bf3u7GtIh49g83VVo2jOmPEILb5uywlV8rISr0OBIyGBmEJv7cFVqMPREZH
+         lvlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783723907; x=1784328707;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yXdpdsUvKArizv655xhgVkdyjwHO++6Kx2TieGSX5WU=;
+        b=Iz2T/qQ2oF9DU1ocFiccgwRBX2HPSezJ3kab66zr7sjW5mMbT+VuOtxbIhKFqrCYR7
+         0k8dSq4sWwzxFamyE9uJa/4Ef3A4y1QaawX7VOT3gVpt3jDROfvHnCJ8w/zjRdW7UYCC
+         JMG3VBfG8RsHVlYJicoup85z/jd8v84fGXk98z1wMA38QNbod4Zez59CMvgyMnPBPupD
+         crKZ3asAc84OzM/NpgfuxzKV+kga3Ah2sFdSfJwLWyQWsO0yC0PPS7V2tKmzFM4OMuaT
+         qpjMQbBb7oWz79E9BjSiatGuHgRofwAJGh99podjgn+oUrxHwXMPv76T8R7DYSoNfyfy
+         quQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/t7StGvC6Yg7Q1CGya81dNxtZ6KsKGC2AagnKqcT15E3ANDlVgVDCStJEdcCqUVzyI7HwUFsDPlT4k@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKcSO2B/xvf4lXTNsXtoDeGT6YtwEA5fLPT1nwa5ukwtl6rI0Y
+	Mt2HYL852O35Fp5k2CXys9oCvVgRJWoZsXXQqGNESr3LIT+dD21w6+IjmdfgrWCGM08=
+X-Gm-Gg: AfdE7cl4N7lYJIH6RObbFZqIPg+OEeY0U40rg5Ykhv5/YwyHF3cSMQR3REiw3cWhhq1
+	+BpsISM8AAgL3Eyjapi9g9Dwe0A/pb3F5UYqBE6mcNrBaSdBD5qBUPH5DeKJoaSWrTOBEN4rDWs
+	URjD5u2CiY9+RLW1O5/uVUNyUrH8tk9E3ehTctqxrDx4nBFiUZsjRoFn+/IhoUAe12UjbrYblRU
+	nuXEv6JT0mtgpxjGuhSRTYAIulhY2BHXoWqH9ZD6jxAyj4mXVoGHkJriNxsrsp57FEPGR4GVpVu
+	he/zxO+DB4VKzRI6TRZG2ZnOiQ4jp9PRP8t4tJ6hOqJqNHMBSWVPfVLwJ8TKO7nSnapcBUpvhfd
+	VgdANSs7Zl67OdEiKmxYuc4boZxeaRgbpIbBTTr7K59l/zyICZspco8nFc49BgBDS9GTfMb3p0a
+	rMDqNkX93FNiUk4AFp80rB8y4evsQ=
+X-Received: by 2002:a05:6830:378a:b0:7e9:cf6f:aef8 with SMTP id 46e09a7af769-7ec096241b1mr600426a34.11.1783723906879;
+        Fri, 10 Jul 2026 15:51:46 -0700 (PDT)
+Received: from [127.0.1.1] ([2600:8803:e7e4:500:1b03:95c:fbd4:4d00])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcae177c5sm7613512a34.5.2026.07.10.15.51.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 15:51:46 -0700 (PDT)
+From: David Lechner <dlechner@baylibre.com>
+Subject: [PATCH v3 0/8] iio: adc: new ti-ads112c14 driver
+Date: Fri, 10 Jul 2026 17:50:33 -0500
+Message-Id: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 07/11] arm64: dts: qcom: hamoa: Move Iris IOMMUs to
- sub nodes
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
- <63t_fLehIKEom4-JPN9kAGFEjUG4_yFoHMhB2aEAppwPHb2oPbK666eGkGgXxEAHRJnfTRRUwuf2EqNRYe_gjA==@protonmail.internalid>
- <20260709-vpu_iommu_iova_handling-v1-7-72bb62cb2dfd@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-7-72bb62cb2dfd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V0bU07vIIr/8O4YNpBxig1LRIJ4
+ d8tsDFGV5M7ufecSQTyTEEckkl4Gjiw62JId4kwbd1dSLKNWYCCQuU6k8xO1tbInuMJGsDEp1V
+ YQVZWaZqRiNOHp4ZfK/Z03nJ44pVMv7CWRsuhd35cvYNeepui0PlvxaClklSgrW1TGgQ8Yj3eG
+ D3tjbuLxTLABwf+cSByDGGFCvNCm2/OPM9vZfyvmhUBAAA=
+X-Change-ID: 20260514-iio-adc-ti-ads122c14-d0b92479334e
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
+ Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6234; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=RnEeNLsDjzbIUPZgBVMLV9uT02qwSArfn96hepB2oIU=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqUXdDhLmLQPHSn9FksZkouFlAk48lqYUTuHopQ
+ aEUlBTcljqJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCalF3QwAKCRDCzCAB/wGP
+ wIwhCACXJ/oDn982bPo8L/fU2t4G+yspBCJjRHBhG7GBpiUW7ua+vPjzUioPscTYsnBZW6XuliL
+ pH/L6YU17kx29RDCG+YcoKY3t8t25SlHDHylprreLORqBHSa80zzzXkNdY+9YrKIpv2GkFyjMiq
+ F8C5frFWk7uyDd9p0P6COCHIVg/GLn3gfbncnHY+7LqmTal1zWd6Yi0A1H0koKL9HtkNfdYwC8m
+ RNylGslDdxr70ruZBxOtfLx0R/OS1pwnaO1fTT9ZwkFx8okt374arpQL88otfKMtYkIUAbgwSKs
+ ySQ89F5XMCEULjYaLWko10nMD6KCNfhaAssPjAD1OmPaMpBY
+X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
+ fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-On 09/07/2026 13:35, Vikash Garodia wrote:
-> The Iris VPU has separate streams with different IOVA constraints. The
-> non-pixel stream must be limited to the 0-600 MB IOVA range, while the
-> pixel stream can use the full IOVA space.
+This adds support for TI ADS112C14 and ADS122C14 ADC chips.
 
+The closest thing we've seen to this in the kernel already is ads124s08.
+However, that has a completely different register map and the DT
+bindings are incomplete and the driver is extremely basic. So I've just
+started from scratch here.
 
-> Using a single set of IOMMU entries for the Iris node does not describe
-> these per-stream limits and can allow accesses outside the supported
-> range, which may lead to device crashes. One such issue was reported at:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> Add non-pixel and pixel child nodes, move each stream ID to its
-> corresponding child node, and add a reserved IOVA range for the
-> non-pixel stream.
-> 
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-The thing of it is, this _is_ a bugfix - perhaps its not one that can be 
-backported, actually scratch that, this isn't possible to land in 
--stable realistically.
+We've also had a similar submission recently for ADS1220 [1]. That chip
+is in a similar situation to ads124s08 in that it has a different
+register map (but the submitted DT bindings are better than the ones for
+ads124s08, even if still a bit incomplete). And literally as I was
+writing the previous sentence, another series [2]  was sent for yet
+another similar family of chips (ADS1262). That one is even more complex
+in the feature set than the ones I am working on.
 
-So what is needed here is a strategy for fixing -stable.
+[1]: https://lore.kernel.org/linux-iio/20260610151342.44274-1-zizuzacker@gmail.com/
+[2]: https://lore.kernel.org/linux-iio/20260612-ads126x-v1-0-894c788d03ed@gmail.com/
 
-That could be apply Daniel's patch and backport it with Fixes: - with 
-mainline then say applying this change and reverting Daniel's patch
+All of these chips have in common that they are designed for use with
+RTDs and thermocouples and so they look very similar to each other in
+terms of wiring and feature set, even if the register maps are
+different. They are in the gray area where we could either keep them
+separate because they are just different enough, or we could do like
+we've done before with ad_sigma_delta and have a bit of an abstraction
+layer for the register differences and otherwise try to share as much
+code as possible. Normally, I would lean towards keeping them separate,
+but in this case, I'm considering trying to share code because the
+devicetree bindings for the inputs is complex and is going to be mostly
+the same across all of these chips.
 
-or
+After seeing Kurt's v2 though (that doesn't attempt to share code), it
+seems like the chips are different enough that sharing code might be
+more complicated/messy than I initially thought. So I'm happy to keep
+going that route.
 
-That could mean some other solution for -stable - up for debate - what's 
-not up for debate is this series needs to _address_ what happens to 
-stable for all of the target platforms - and then transition mainline to 
-the new and shiny way.
+This series includes just basic support for reading single measurements
+from the ADC and gain selection via the scale attribute. I plan to
+follow this up with additional series to add support for buffered reads,
+filtering/oversampling configuration, event support, gpio controller
+support and perhaps a few other things that are slipping my mind right
+now.
 
-That could mean
+The most interesting part about this (that I alluded to above) is the
+way channels are handled. These are multipling ADCs with differential
+and single-ended inputs. But what sets them apart from other similar
+chips is that since they are designed for use with RTDs, there can also
+be a current output required to excite the RTD and this current output
+might be different for different channels. So the way I conceptualized
+the channels is that the devicetree specifies the conditions needed
+to take a particular measurement rather than being purely a physical
+channel.
 
-- Applying Daniel's fix with Fixes: and cc-stable
-- That patch needs to be extended to _each_ Iris platform containing
-   this bug... all of them I think.
-- Updating bindings
-- Updating DT with new method simultaneously reverting Daniel's fix
+This makes things more flexible, but does make the driver a bit more
+complex. For example, knowing when the current output needs to be
+enabled or disabled. For now, I have chosen a lazy-enable where they
+are not turned on until the first measurement is taken that requires
+them, but then they stay on until another measurement is taken that
+doesn't require them. This can lead to some oddness with the diagnostic
+channels that may be measuring something that indirectly requires the
+current output (i.e. the external reference voltage when it is connected
+to a resistor rather than a power supply). This means you need to take
+a measurement that requires the current output to be enabled before the
+diagnostic channels will give accurate readings.
 
-And I do mean doing that in one progressive series - a fixup for 
-mainline alone isn't enough.
+I have also pushed a branch to [3] that contains the start of some
+documentation for this driver that can give some more insight into how
+the implementation works. It still needs some work and also documents
+some things that haven't been implemented yet, so I haven't included it
+in this series yet.
 
-So we backport a fix from mainline and then make mainline better still. 
-Or whatever something like that.
+[3]: https://github.com/dlech/linux/blob/b4/iio-adc-ti-ads122c14/Documentation/iio/ads112c14.rst
 
-Either way just fixing in mainline is not good enough for each of the 
-targeted upstream DTS we need a solution for -stable too, keeping in 
-mind new kernels need to work with old bindings.
+Signed-off-by: David Lechner <dlechner@baylibre.com>
+---
+Changes in v3:
+- Mostly cosmetic changes and a few bug fixes to address review feedback.
+- See individual patches for details of changes.
+- Link to v2: https://patch.msgid.link/20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com
+
+Changes in v2:
+- Added patches for adding properties to adc.yaml.
+- Some of these are coming from: https://lore.kernel.org/linux-iio/20260622-new-channel-props-v2-0-aafd5369f253@gmail.com/
+- For now, I have stuck with one channel per single-channel pin or
+  diff-channels pin pair rather than some of the other ideas that were
+  discussed. Handling burn out current enable will be handled in a later
+  series. I'm leaning towards something like the _burnoutraw attribute
+  that Jonathan suggested.
+- See individual patches for details of changes (mostly renaming DT
+  properties, fixing some driver bugs and style issues).
+- Link to v1: https://patch.msgid.link/20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com
 
 ---
-bod
+David Lechner (TI) (5):
+      dt-bindings: iio: adc: add input-chopping property
+      dt-bindings: iio: adc: add ti,ads122c14
+      iio: adc: add ti-ads112c14 driver
+      iio: adc: ti-ads112c14: implement gain on internal short SYS_MON channel
+      iio: adc: ti-ads112c14: add measurement channel support
+
+Kurt Borja (3):
+      dt-bindings: iio: adc: Add reference-sources property
+      dt-bindings: iio: adc: Add excitation current sources properties
+      dt-bindings: iio: adc: Add burn-out current properties
+
+ Documentation/devicetree/bindings/iio/adc/adc.yaml |   40 +
+ .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  |  207 ++++
+ MAINTAINERS                                        |    7 +
+ drivers/iio/adc/Kconfig                            |   12 +
+ drivers/iio/adc/Makefile                           |    1 +
+ drivers/iio/adc/ti-ads112c14.c                     | 1203 ++++++++++++++++++++
+ 6 files changed, 1470 insertions(+)
+---
+base-commit: 093239070573637ad2b4cb56abc9c4c7ee109294
+change-id: 20260514-iio-adc-ti-ads122c14-d0b92479334e
+
+Best regards,
+--  
+David Lechner (TI) <dlechner@baylibre.com>
+
