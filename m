@@ -1,108 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC74E360EC9
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 23:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F8A2C3257
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 23:04:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783724449; cv=none; b=SvUSTuzjV7LOrdMey5YZyoJWQ4rLWo1LRb1albVCc+/yV4SiE6BMwhcejUxLYAbHm5YXEZtJk7DRh8TrQGcmJV/PFkDpfU5DhtH0C01ipKq+4tSrAV1ThqM1xkMieATdiJn6BtLHCh5z9SRtITVt+24VyPQluYfBCXFX4tuByCY=
+	t=1783724660; cv=none; b=DSQcpkQgLdZdA0gfGZIctT+PF1BGKFaRuBZgeGHvRV7sAz+1CcTg4J7/AC92knVDK8IwYFXEHm75DaYFBlUKJgpyifxF8GZ9qTeijHXytONDFYpAi6rzhEqrCWGblgFLZ/h2N5b5RWQAVpZvKkgsrl4UtErkMTHuJ5u1WMkd/Fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783724449; c=relaxed/simple;
-	bh=Dfo6U05ujz2t3fKBinUdN6VXsL2iw/n70h6/qYo+thA=;
+	s=arc-20240116; t=1783724660; c=relaxed/simple;
+	bh=CinSyIaGV5EaSPqXG6OkjA6YQin24ox/ppVZAJ0PvpI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MZwA1oJzp6ds+niihvkCTVYHE1HlEu8sqwJLDvueOyVCyZo9sm0BCQu+pZGRiAqT9509arfpfGj0VZQLlqPCptD23RP2Cz8Ti1TdRErltWmCQO1d8seriK0p77/gGN2LluOzv8YqMTSUDEdEHH3UHkleje6dbaiosa8cFy2XHk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8uPP9MI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WYHChxnKjBVdlRHacO+Odlh8i5J2c9XSh4PQvlgJAypOFh9hkvteYdO/6bm58LYFKiUWl9GxJHRRrH6o/x3ZcB2v27lN7eJx2y5WJNNiAy3Adzgw5Uz4EjxyEa9gwMBNl6U8+swxaGoDU/ZS7MYiposE57s13Su7auN82LA8dpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxhEhxxj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8uPP9MI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8781F000E9;
-	Fri, 10 Jul 2026 23:00:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxhEhxxj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E3B1F000E9;
+	Fri, 10 Jul 2026 23:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783724447;
-	bh=bTs4JSmUsarQu5KDPTOWTiGRgcAsGpYEC0XC8Rm3Jto=;
+	s=k20260515; t=1783724659;
+	bh=JKcG9Z9tLmRz+JzofZOuSpNYNEc8AzQBQXQBRZvxc7I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H8uPP9MIMzQXOaL7Ap2EXySP50Z3vaVMhYkZQRzx35yV+o2BHUePq+aS5RLPVwTEr
-	 /KMhhAjY8JrSxB7xqPqNl813LP6NqUeMdblHSAcnfdrItml2SDkRPg9gJqPKSq3DlE
-	 ElXEBk+E1rlKBNhBmcXTpHXGIXCOV4wGQouplwpWXhFHLm3FeaexODYkuW3umKH6LQ
-	 D7GKXIto8e1Gi5UlHjpiaTbEXjFrv7TzfLsN85WH15Gs9lX9QX9bUDzBNatcq4b4eA
-	 /G2nvb/8GSGplBpiVEfVFo04JqEXz8WqAwa9VxvHdoB3SF4HGN6YGvTyByYkxMajrA
-	 ZrBwDrgmOXhgw==
+	b=bxhEhxxj0IH4uy9FMCdCpYvv2fgsBGylw1S0FTGdnaMlZjbapg+Q1efxhoH6QP408
+	 QVrQ8YeL0GNROZtRXp+dH74Psj5QCbabNqvJfqRAKDmeimv2Zq13l8FLzcxYThAcjk
+	 bYC56h6PggxPNycGRkqZoIBRuCbOhMrcKij3rM18pJzT45XeW8WIxjc3oL6gDAEv70
+	 mHvjJEN0rnAPT0AXIW5ZIxKR0ayAtMZAWo90qHC+GJ8IlHp89qhJ7TH7YFvDwUMvBr
+	 8cBrJe8rwbqqr6QlwJDLAq+8qWRvSgSbaw4nftOMBSF4R6wpqdFW7vLmPc+k3K4feA
+	 tcWgQ4I/8YNyw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/8] iio: adc: add ti-ads112c14 driver
+Subject: Re: [PATCH v3 7/8] iio: adc: ti-ads112c14: implement gain on
+ internal short SYS_MON channel
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?RGF2aWQgTGVjaG5lciAoVEkp?= <dlechner@baylibre.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
 References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
- <20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
+ <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 23:00:46 +0000
-Message-Id: <20260710230047.5F8781F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 23:04:18 +0000
+Message-Id: <20260710230419.12E3B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] ADC is incorrectly configured in continuous conversion mode inst=
-ead of single-shot mode.
-- [Low] Typographical error in device ID mismatch format string.
+- [Medium] The `read_avail` callback incorrectly casts a native `s64` array=
+ to `const int *` for the IIO core, which corrupts scale values on big-endi=
+an architectures.
 --
 
---- Patch [6]: [PATCH v3 6/8] iio: adc: add ti-ads112c14 driver ---
-commit 38cae330f1112ca57db5aaa7a3a80adecc45b5cb
+--- Patch [7]: [PATCH v3 7/8] iio: adc: ti-ads112c14: implement gain on int=
+ernal short SYS_MON channel ---
+commit 6c0e6ddc837dab31f5440831baff3fcb1a43f658
 Author: David Lechner (TI) <dlechner@baylibre.com>
 
-iio: adc: add ti-ads112c14 driver
+iio: adc: ti-ads112c14: implement gain on internal short SYS_MON channel
 
-Add a new driver for the TI ADS112C14/ADS122C14 ADC chips, adding basic
-support for power on/reset and reading the system monitor channels.
+This commit implements support for the programmable gain amplifier on the
+internal short SYS_MON channel. The scale_available table is populated
+during probe to allow the PGA to be set to the same gain as external
+channels.
 
 > diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c1=
 4.c
-> new file mode 100644
-> index 0000000000000..4d2e7d37be829
-> --- /dev/null
+> index 4d2e7d37be829..2ce4411a0d86f 100644
+> --- a/drivers/iio/adc/ti-ads112c14.c
 > +++ b/drivers/iio/adc/ti-ads112c14.c
-
 [ ... ]
-
-> +	ret =3D regmap_read(data->regmap, ADS112C14_REG_DEVICE_ID, &reg_val);
-> +	if (ret)
-> +		return ret;
+> @@ -402,6 +430,69 @@ static int ads112c14_read_raw(struct iio_dev *indio_=
+dev,
+>  	}
+>  }
+> =20
+> +static int ads112c14_read_avail(struct iio_dev *indio_dev,
+> +				const struct iio_chan_spec *chan, const int **vals,
+> +				int *type, int *length, long mask)
+> +{
+> +	struct ads112c14_data *data =3D iio_priv(indio_dev);
 > +
-> +	if (FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val) !=3D info->device_id)
-
-[Severity: Low]
-This isn't a bug, but there is a typo in the format string (0xX%X) which wi=
-ll
-cause malformed log output like "0xX0E".
-
-> +		dev_info(dev, "device ID mismatch, expected 0xX%X, got 0x%lX\n",
-> +			 info->device_id,
-> +			 FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val));
-> +
+> +	if (chan->channel =3D=3D ADS112C14_SYS_MON_CHANNEL_SHORT) {
+> +		*vals =3D (const int *)data->sys_mon_chan_short_scale_available;
+> +		*length =3D 2 * ARRAY_SIZE(data->sys_mon_chan_short_scale_available);
+> +		*type =3D IIO_VAL_DECIMAL64_PICO;
 
 [Severity: Medium]
-The comment here says "Place in single-shot conversion mode", but does using
-regmap_set_bits() actually place the device in continuous mode instead?
+Does casting a native s64 array to a const int pointer corrupt the scale
+values on big-endian architectures?
 
-Setting the ADS112C14_DEVICE_CFG_CONV_MODE bit to 1 enables continuous
-conversion mode on these chips.
+When the IIO core processes these values as 32-bit pairs, vals[0] becomes
+the most significant 32 bits and vals[1] the least significant on big-endian
+systems. If the core later composes this via iio_val_s64_compose(vals[0],
+vals[1]), the halves will be swapped, resulting in a mangled 64-bit scale
+value.
 
-Could this cause race conditions in ads112c14_single_conversion() where a D=
-RDY
-signal is asserted for a previous conversion while we expect a result for a
-newly selected channel?
+Should the driver explicitly decompose the 64-bit values into an integer
+array before handing them to the IIO core to avoid endianness issues?
 
-> +	/* Place in single-shot conversion mode to make ready for raw read. */
-> +	ret =3D regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
-> +	if (ret)
-> +		return ret;
+> +		return IIO_AVAIL_LIST;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-iio-adc-ti=
--ads122c14-v3-0-746d52cbf1d0@baylibre.com?part=3D6
+-ads122c14-v3-0-746d52cbf1d0@baylibre.com?part=3D7
