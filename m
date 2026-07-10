@@ -1,125 +1,84 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877373B2AA;
-	Fri, 10 Jul 2026 13:35:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D3119DF4F;
+	Fri, 10 Jul 2026 13:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783690525; cv=none; b=VopLgL2QnhxawIUDVd+ZWQe2Kv7DRkYSQsztPg/MGq3PAR/s+BVn372Qd24SULQFvRSUw5FLdgsz+AtQRFpKl5XgEWJxrQHzr39OIomSLtndr3zmAwEC43mNSl0rNzN5X5AzwrtPU4zbG2I56QdZkJ4a016YXGL7+Kz6YFWXa9M=
+	t=1783690541; cv=none; b=s5ntTcNIU8TziYy/ylJiQY9zdZZd5oAF7ksWI5bbY8dtMk8qVa3rbsh3Y3fZnmg22QmV9hwzEjfLJBFbt4BXCf6/aFFORSc/S9xmk4rnFqEAVzlgMUDEoes2cYzfFAeKmukl3gexD1cNZD5myLJT+GXSkjvKYeiweMq3rq1+c9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783690525; c=relaxed/simple;
-	bh=qfIZLF+bh/b40e3fxtqo0rkYJysVYWbXTttsLuuzEFo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OpXUm8eFPNqAZtMILgkRie9Peynq4Z8Pz/PHjZ41SJn9/jStbn72LC3b9hetAK7PaDd9xQAXW9gn8721m2Er/vN5pQfU2SVH9ARNff0bScDf2cpP6woV9hLM3mmDNbQwsacrID7hpl0m5lN1nvJ3DEnWitrRv638ECNZNQi4cS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FJJxmCIV; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1783690541; c=relaxed/simple;
+	bh=cOGvnj5Q/utsbCzda0NpafgVuUu/B4SczZbnDIHiPWg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LIWh07aak5jmzjueXe85MVrkINlUd735PBTpOtixLojEYMmfHYBRJZo8+u5JrlSDM0V1Vc+hZO83KBhsrFMgKUhyFYx5s23h+1wwrz+GadGGlmw6ui4SkqR7dWTLTW/X2Vngb79j/6xJC+G0mCawQ3lD9zsfN0QlaWNxgeqBDuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=QG36ZvFH; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FJJxmCIV"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gxXrj5TZ7z8txZ;
-	Fri, 10 Jul 2026 15:35:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783690517;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zlKLNJPOGiDKqWlVl/uUtpjI3Xr5vwkpin4+jwj51A4=;
-	b=FJJxmCIVt4hbz0GcuAzOD5mSpmcsjTnSJgrxCHghbGivf1Dkcd3M4z9rFhJWFg20UWKD39
-	mArdJWRl/y32FYiRJQcatQdN091jZQoC7Paz6gweqie3AqfP8b6Hp4l78nu5krwcRynQwB
-	4zegO5t8mrZbHwC4YIpuMZfrrw/tAOfbJFyWOa0af5cIGCXt3egqU7eCBQGOr70+rJa4hV
-	gKVylEMRpUk3b6H63tA8q6QuhGvLnvHZIwWDCclCxm/A7KSmn7v7xf0jgjI4khnE+8O4Ew
-	PauB/VmiEs60KqqKfk88beChhnqUwcN8Mq/q0Ry67f685oyQY4bl7WYxSDW+3Q==
-Message-ID: <2cb03029-0957-4ed8-98bd-9b3e0e0bce2d@mailbox.org>
-Date: Fri, 10 Jul 2026 15:35:10 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="QG36ZvFH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=1zpxir8kPjpVYUNzqhODBD4/GTqr/OadsQZ2UHLHZvw=; b=QG
+	36ZvFHiIJjY4iZpgzBPn4sD/3LNBfbSrTlVSxZguEOBGvjVpJsLEoDeLwaWS0FFf7i06H6y/X+s9M
+	vTI4ayoY6WKZOW57/dqwlNzmLGoFWmomn+GR7HvTqCLovAZM/F29KvDcyNW/ixt19o+tCWH4KW2+G
+	AQlQYrdWrrTFmV0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wiBO4-00BeAD-W4; Fri, 10 Jul 2026 15:35:28 +0200
+Date: Fri, 10 Jul 2026 15:35:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Biao Huang <biao.huang@mediatek.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
+	kernel@collabora.com, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next 1/6] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
+Message-ID: <b7dc2135-e6c8-4b1d-a03b-c5258cbd7dc8@lunn.ch>
+References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
+ <20260707-dwmac-mediatek-mt8189-v1-1-17f345eaaca3@collabora.com>
+ <b810b9cd-8f5e-4c9d-8496-908aae55dac1@lunn.ch>
+ <8304b0a704c8db697767584b8c34388f07ba401d.camel@collabora.com>
+ <6ea11726-8d50-411e-afab-da346e09ab9b@lunn.ch>
+ <f85e08cf5e119e30ab4513e78ffa833fbe0832b7.camel@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] PCI: rcar-gen4: Inline GIC_TRANSLATER offset macro
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-pci@vger.kernel.org, kernel test robot <lkp@intel.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260709201103.90162-1-marek.vasut+renesas@mailbox.org>
- <87qzlb5jsl.wl-maz@kernel.org>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <87qzlb5jsl.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 39334qfx7t74yz6t7hkn76hnui4r95h5
-X-MBO-RS-ID: c43d4b05b532b168186
+In-Reply-To: <f85e08cf5e119e30ab4513e78ffa833fbe0832b7.camel@collabora.com>
 
-On 7/10/26 10:30 AM, Marc Zyngier wrote:
-> On Thu, 09 Jul 2026 21:10:03 +0100,
-> Marek Vasut <marek.vasut+renesas@mailbox.org> wrote:
->>
->> Instead of pulling in the whole linux/irqchip/arm-gic-v3.h , copy the
->> one GITS_TRANSLATER register offset macro directly into the driver.
->> This repairs the ability to build the driver on non-ARM non-GIC targets
->> the way it was possible until now, which retains good build test coverage.
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202607100310.iQw5m9Uo-lkp@intel.com/
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> ---
->> Cc: "Krzysztof Wilczy≈Ñski" <kwilczynski@kernel.org>
->> Cc: Bjorn Helgaas <bhelgaas@google.com>
->> Cc: Catalin Marinas <catalin.marinas@arm.com>
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
->> Cc: Manivannan Sadhasivam <mani@kernel.org>
->> Cc: Marc Zyngier <maz@kernel.org>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
->> Cc: devicetree@vger.kernel.org
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-doc@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-pci@vger.kernel.org
->> Cc: linux-renesas-soc@vger.kernel.org
->> ---
->> Note: The alternative I could think of would be ifdeffery which
->>        is not nice and thwarts the build coverage, or limit the
->>        driver to ARM/ARM64 in Kconfig which also thwarts the build
->>        coverage. I could also split off the register macros in
->>        linux/irqchip/arm-gic-v3.h into some separate header
->>        linux/irqchip/arm-gic-v3-regs.h and include that which
->>        might be OKish and avoids duplication. Thoughts ?
+> I don't.†
+> All the MTK Genio boards (510, 520, 720, 1200 EVK) I have are using
+> RGMII only.
 > 
-> No, I'm not hacking something that is purely architecture specific for
-> the purpose of a bizarre integration quirk that should be handled by
-> the boot firmware, and not Linux.
+> > Ideally, for a new device, we should not repeat past errors.
+> 
+> So, do you want I remove this clock from mt8189 clocks list for v2?
 
-The PCIe controller is fully controlled by Linux. I don't think this can 
-be handled by the boot firmware. The GIC ITS TRANSLATER address could be 
-derived from the DT compatible string of the PCIe controller (I had that 
-implemented before), but that is the less generic option.
+Yes, lets remove it, until somebody actually has an RMII device, and
+we can figure out the correct way to do it.
 
-> Add whatever you want to the PCI glue code, limit this to arm64 (which
-> is the only architecture this can ever be used on, and the build
-> coverage argument really doesn't hold), but please leave the GIC code
-> alone.
-So in the end, it is either this patch or limit the build to arm/arm64 . 
-At least this patch still allows building this driver with more 
-compilers on the various build bots, so I would opt for this patch here.
-
-Thank you for your help !
+   Andrew
