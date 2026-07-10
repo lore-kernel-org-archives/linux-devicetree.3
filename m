@@ -1,171 +1,110 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22A13F9298
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EAA3F1AB9;
+	Fri, 10 Jul 2026 09:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783677015; cv=none; b=nFLmhil6uQCMbRrIcM5EoFaW9aMkV3wRBKggKoELttnIBrnK5n8vci8fy8cQeySCqtZpAXD2WEs4BG++u4iSfMFkSL9N0kshg8ZJ/hLp/3GntWNA/5yfrVHKTma3DSVD6NrHZ1byBCiJcPH9KPJR2kl59u00Lo8i2X/mUxRz5mc=
+	t=1783677133; cv=none; b=Vpl++99T+EFdhMUgj8WIoGjiA1M7Y9cg3WpDAQ9BNsdXJoZmdonTIhxSzMgAu08DOYvB3HsxXOtf0xE6SS6WVOjcT925MJR0ql7QmFPbgl9SIkqpz9TiOh40F6u7UtxFBc4X0nA8ZE7K2FQyv5o5MY4sVQIKBLqriYDQJwPsp/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783677015; c=relaxed/simple;
-	bh=QKMu5NmGaOO2W0KX69/PxFjkByiQoEj+2qxAeN2oiLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NrdwHjYuzLp4Yn/LFmxfn4OuqnzvVEZvg5PTwirI5+rMlbt9aJclD/xXqCeTe3f/BrwKVWMFoaaTWnv/OodEy5VlNKG6fquZb4OGLaEU2wG3OFc1qbT/qQ9VwTgd50nGPOdG5TElrskQKfytfnO5BZ4xeqgOULOg3uFMXmiq9LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TCjeYyxt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A/eGUARl; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783677133; c=relaxed/simple;
+	bh=NUFjCk3oqw2dSbEAvpZcxPw/anPdbxhEKmmXwYdepmk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gHv3zOeds8ordqrr/65S+RPF76P6EIWUTZ67LqsHrBkFI+VDvplbz3btBetgbL3wbH746ghifGkmLafSVDVgYJ3OSI5kONh7vv5wQIOuPT8qQdMzBooRGcHGdh5EiGmYOWIpLIHkrNSRtIVgkj92GHqrcB1qmBF4BEhTx27QkuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hi7N51qn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TCjeYyxt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A/eGUARl"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66A7dNo5182280
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:50:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yLjfNKn8LnSz2XFrVVI8/j3tvyUWqMbqdwNr8lAk6oE=; b=TCjeYyxt2uUJ2vtw
-	/UbmyqltkiGL0af9Zu9Gy6NDi2J8vmczKisc4AlHagWo7sIUOB+wwEu536JCwyGy
-	LrQ/fFVJ3zj0XCvYkkFxvkMOwQMQyR50Lx5JZF+kJJvw8yEuB++TxqAvWDNaszJa
-	Bh9Z7+8DQdSQX3UZ3Z8jU15d3RFkJWp99Cy84Qq8/9hLDWJaHhyiS6wo1G+AgdC0
-	F/mCRQfN2Y1iu2m+5H5mU3INESUf7p4cMR6io2edev+3qc7N/9GKROOEVIfObAJZ
-	M9Mv2JhXitdeNmyrPzKK11X307epV6K7F9HhoLG6b+qzk6AYYXuo2U8rEB19McZk
-	rCoeQA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fajte2gm4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:50:13 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8fd356ee3a4so2322026d6.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:50:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783677012; x=1784281812; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yLjfNKn8LnSz2XFrVVI8/j3tvyUWqMbqdwNr8lAk6oE=;
-        b=A/eGUARlR8mZ5XolISG2ul4HPqND5iIor56MjEOxA6lTNTcRGHhmq9/nq7FDErjL2G
-         OYYKKj+jDmjV3FtkH2XX4jGXoxkX70/YpNMACZYqm2ISjHCqPu5TttnsaTGsDvG72vuq
-         AfH66hgP9ywqshZ2s3XjdKbRCRXYak7nRIBrq3hOmI+hnG2L2XdwMBFdozV0TAgsc+BG
-         bDHdI77xaBaJ+zIwyP1wPYt9lkWGfvoF0o+MtH8YZu2uEWRycUXahEiiezLkX3CbRr8c
-         eXuGH4qFC9e0KiM2EkXmMFjYU84MihgQ5MSmn1r4ABT06xXtz0pYva0xu9TvGZn35E4m
-         wMWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783677012; x=1784281812;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yLjfNKn8LnSz2XFrVVI8/j3tvyUWqMbqdwNr8lAk6oE=;
-        b=hn20xeKLMsuK4FQOHPo3tdMDQZeL+xdl7qJEO5a4RUg/ZPK5Rc6W2bVLQ5tgG93zoe
-         pJnEesiQbINcupm32XlaDdlEM19mid2R3TUCYP8w4jO0zgKu2t4rnk1In4wU0pRunRzs
-         qpijEIGRhZDHpsxh1+Pk37sdiUk5VNlXGjj6SvfqL0j8b0k99choz3rmoJ6q411sGckX
-         a6diQXTDRGweXIkGihy5bA0IWl9Vm23bLxmB1WgM/tnAZ4uZCX8V0kSvF8qVpG5ruxBV
-         1GAJkM/d3+ou/cMGWX+czqBi2ya0AXjX62w3oJkPSbZNLHrw7Hv/99HxUJWPocK1tTS6
-         bCNQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rra0s1RHaIMTVIL6pUTww3+gheGi49VgYdYTcO5UtMSDOnSNYE5qBUCa427MLXFUnVx2Qon9ye3l8+u@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzf9jSXOfeW9tqypL8z93vMi0eYBCC2gnCtYQrKk5fwZo++2dzt
-	/fxt0mxipp7/gBzUukDwK8o2uFLIWnoY7uCDLVLkqm2ec0LCaJz9wALdftBD6l18MGASetROa8/
-	290Qfle/cAD99FMHQtv0WOqWgqV2Gx/dW1RujSboWDi5ZtbAUCQN2MZc79SjCvTOj
-X-Gm-Gg: AfdE7ck4bapFb9CGPdg2unQwfNKYnG9P6l8sT2skGw1JxVAgu+60AwhcTpTdRY/+Pr0
-	Sw0bCsBTm20diAgGGIvQWRKJ6Pa9QE6CrvYCbZqh/CR/uAbQgrF3863VGv31uTp6Sg8lc84yRK2
-	aVwpHfn2fqsp7229OtzLNA3dP/3QY6u3NnZOUhyFQHW24dJK8lwKMOirolT3H7lTv0Gn7z3Dp0H
-	2AbUHlDRCsT3w3jqDkIiE3ctLirDrmseKkktmd5nAmuN2stpwuH86R6JRYlbsnQwPO/q04Vwlf6
-	a8L1uMKAoE1KvF4Rh9UD7qnSuMRExtpJxHY4/BsozOS57w/NiUDBSvT5eXwMIJzv+u/MQMyMjRB
-	ApFgybs5SPeWdTYaKnBKBjPvTJWk9M1FKh20=
-X-Received: by 2002:a05:6214:40e:b0:8cb:e65c:e527 with SMTP id 6a1803df08f44-8fec5b45e37mr97535866d6.1.1783677012139;
-        Fri, 10 Jul 2026 02:50:12 -0700 (PDT)
-X-Received: by 2002:a05:6214:40e:b0:8cb:e65c:e527 with SMTP id 6a1803df08f44-8fec5b45e37mr97535656d6.1.1783677011733;
-        Fri, 10 Jul 2026 02:50:11 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19ce4b4fsm10518512a12.10.2026.07.10.02.50.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 02:50:10 -0700 (PDT)
-Message-ID: <31905a48-54eb-4693-8725-71f065a8bc92@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 11:50:08 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hi7N51qn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BE9D1F000E9;
+	Fri, 10 Jul 2026 09:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783677131;
+	bh=fgkoZDvu/KpucpdsDgHoaFyN8Y5VW/QxCC6OVX1+Fjw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hi7N51qnB8QJDHp6gR4UakKIlNGbnNcoNEeHRr1zran5Pr+zA8cL+wJzG+0OGSHLE
+	 Og9OvK7564NWLi3EhSJIv245NXsSgMisWD3xFatoa4Ht1GPu4adLqs+YyLZ7up+llL
+	 ltvze1+bpA3u61/GMWkp6DOxM0IEJQQplzBP9koDBHWk9mfHQWIOkF2OP7gRqNQS/D
+	 /bejW8sQOW6eSDTF2kGaexmJjMARLVuBMrqD/a6Rut8LqOky9B2DC/uNuHQ5BOkP+n
+	 zUa7n91vHqyL/RdRZWtrQSZyyqca0SxpFUtYMQ4tyw6YaNQK0Xh+dFlZK6iU1HESrP
+	 5edGulHUciI7w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: imx8mq: Add dcss node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260710-imx8mq-dcss-device-tree-node-v1-1-fc724dfd574e@geanix.com>
+References: <20260710-imx8mq-dcss-device-tree-node-v1-1-fc724dfd574e@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 09:52:10 +0000
+Message-Id: <20260710095211.6BE9D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/5] arm64: dts: qcom: glymur: use Aggregator TNOC
- compatible
-To: Jie Gan <jie.gan@oss.qualcomm.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
-        Leo Yan <leo.yan@arm.com>,
-        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
-        linux-arm-kernel@lists.infradead.org
-References: <20260710-fix-tracenoc-probe-issue-v6-0-41eb36fef8d9@oss.qualcomm.com>
- <20260710-fix-tracenoc-probe-issue-v6-5-41eb36fef8d9@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260710-fix-tracenoc-probe-issue-v6-5-41eb36fef8d9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: NZ7aOAALRUaHWrAY-arpG0WJVBwpMXVh
-X-Proofpoint-ORIG-GUID: NZ7aOAALRUaHWrAY-arpG0WJVBwpMXVh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDA5NiBTYWx0ZWRfX4KnivUKf0sYD
- mDQ4Gf5TsN1iBcio4qbp3mRnSLmU3Pp+U+NHMzm31H0EaPEKtP3MklRKvWi4x+Tn+uBCRSqDoyc
- ujkG/B+ouPI/F4OKtSr4f3tT/i5PqTtb88kzXw8K29S6Yuhm4i7pvKeCJj9FwFwj7+DZ7s/c3Lk
- jHJhAtedXbO7DKipyZTsBMezn+eGrVsze2CuEF+WSS8nPyXh0RBofpz4cnbxbd7fZtIMyrECD6g
- rchAJ7TPBfORdv0T7VVayyTsaKqtvOCVkUnXzxNLQ3FMQRWpWiKGIqBoOsfuUWo2agDZ4m2o1HB
- nXIRejwzYOYfgd1CZU3j0Q/UgLOIz2qDcJtpog/Ix+u5hVDZVJEoSfoCmiCoII+I3MIu4Xnv2YS
- +vVnADGOaE6JHyTtansADxI63DLcDGLtHUzXzfN877z+AnPqsOfUdjNsFTxO2D5LayxPD1hUA0U
- jMGIzmhlHo835HsUJKA==
-X-Authority-Analysis: v=2.4 cv=N7MZ0W9B c=1 sm=1 tr=0 ts=6a50c055 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=HHMlELgPwHXHAMwrrFEA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDA5NiBTYWx0ZWRfX8+25A08E5atP
- ZJ0vVy9wblq8d5XdELVBuesli5BlLKBuP/2+jMnQhG4KNAk2ZNLDhqpzBKypRTepXZawsRwlG20
- U4tDoUEaVyjbVREMr79kRLacbrVdUiQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_02,2026-07-09_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 suspectscore=0 adultscore=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100096
 
-On 7/10/26 4:39 AM, Jie Gan wrote:
-> The traceNoC node is the system-level Aggregator TNOC, so it must own a
-> valid ATID that tags the whole aggregation path. It was marked compatible
-> with "qcom,coresight-itnoc", an Interconnect TNOC, which is never assigned
-> an ATID. As a result the aggregator had no trace ID and could not tag the
-> merged trace.
-> 
-> An Interconnect TNOC is a subsystem-level aggregator: it merges trace from
-> the ATB sources within its subsystem (TPDMs and other ATB masters) and
-> forwards the combined stream to the system-level Aggregator TNOC. It
-> carries no ATID of its own, because the Aggregator TNOC downstream in the
-> path already owns the ATID.
-> 
-> Switch the node to "qcom,coresight-tnoc" so it is described as the
-> Aggregator TNOC it is and is assigned a system trace ID. Rename the node
-> to "tn" and use the "apb_pclk" clock name as required by the Aggregator
-> TNOC binding.
-> 
-> Fixes: 1f7d0c42a08d ("arm64: dts: qcom: glymur: add coresight nodes")
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `dcss` device node is missing the `power-domains =3D <&pgc_dis=
+p>;` property, which will cause a bus hang when the driver accesses its reg=
+isters.
+- [Low] The `dcss` node is placed at the `soc` level, outside of the `aips4=
+` bus node, causing an overlapping `reg` region and violating the hardware =
+bus topology.
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+--- Patch [1]: [PATCH] arm64: dts: imx8mq: Add dcss node ---
+commit 014c87fe4bc51f0ac006bc4660c8f156f9a40538
+Author: Esben Haabendal <esben@geanix.com>
 
-Konrad
+arm64: dts: imx8mq: Add dcss node
+   =20
+Add DCSS node for i.MX8MQ based on the example in the bindings documentatio=
+n.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mq.dtsi b/arch/arm64/boot/=
+dts/freescale/imx8mq.dtsi
+> index e60872aeeb49e..fb99bd3ad7c92 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+> @@ -1611,6 +1611,27 @@ irqsteer: interrupt-controller@32e2d000 {
+>  			};
+>  		};
+> =20
+> +		dcss: display-controller@32e00000 {
+
+[Severity: Low]
+The aips4 bus explicitly claims the 0x32c00000 - 0x33000000 address range:
+
+		aips4: bus@32c00000 { /* AIPS4 */
+			compatible =3D "fsl,aips-bus", "simple-bus";
+			reg =3D <0x32c00000 0x400000>;
+			ranges =3D <0x32c00000 0x32c00000 0x400000>;
+
+Placing the dcss node at the soc level with address 0x32e00000 creates an
+overlapping reg region and violates the hardware bus topology, which can
+cause structural devicetree warnings about overlapping ranges.
+
+Should this node be placed as a child of the aips4 bus instead?
+
+> +			compatible =3D "nxp,imx8mq-dcss";
+> +			reg =3D <0x32e00000 0x2d000>, <0x32e2f000 0x1000>;
+> +			interrupts =3D <6>, <8>, <9>;
+
+[Severity: High]
+If power-domains =3D <&pgc_disp>; is omitted, the generic PM domain framewo=
+rk
+won't track the dependency between this device and the DISP domain.
+
+If no other active devices claim pgc_disp, the PM core may disable the
+domain during late_initcall.=20
+
+If a board enables this node and the driver subsequently tries to access the
+memory-mapped registers of the unpowered peripheral, it will trigger a
+synchronous external abort and panic the kernel.
+
+Is this node missing the power-domains property?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-imx8mq-dcs=
+s-device-tree-node-v1-1-fc724dfd574e@geanix.com?part=3D1
