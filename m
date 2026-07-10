@@ -1,142 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C8C3D1AA0
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8760C3EF0AC;
+	Fri, 10 Jul 2026 09:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783676125; cv=none; b=P1S8ZYxWH7+L2IiAVRZwyCfN4YpSryIeHrkpSoxF2UjYS1eSu4eEX5R0mc8aUtP4GE7iaIxVzpmMe47seBNTqC0dd6OIXGGcHFrUmeoTNB/iePnv87Dq0GHR5Ul2tZhGqtAnKtNPIGcJ4AUckn/wP9KVIjLkiy+Ubx/wpnoQ7v0=
+	t=1783676133; cv=none; b=utuVTK8oTUME6dZaCR0Y91Il+59u+5Pd7T1VViCZ3pUHLcAtjEdqesaX1ZHizWnRyoAykDViifia9Ie5UkfWbDpsSCBaT3Ld9vcFq/azHeVYL4NuG4Jt4u2M3O74oda8BuHcAReF5O7yRmmKgIn1KcFYIdVM0fVsI4Xzu0oMG4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783676125; c=relaxed/simple;
-	bh=2RDSBNbYh/LHDm6yzRDgbu1brhQt2WRjqswQLhQvrCE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bHmDnlXqFfGqQ9T+v5qp0OOKwFNvHB4PlF+LSC74rSeK/yvAp4xgHILXFwFCcqaBX21wmdixADSCGZDtXzki8p/nDcgRvMSX6zFa4/ecgaht2PtiJ+Z+io1mGq+/GR63FcRWACmD6XGm3dKnJ8pdTJ0iGkxzjmVH+iGtTg+Qza8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FO9TF+w8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783676133; c=relaxed/simple;
+	bh=Y7o2uOQnU0O45QUBV45x3iTyOBBL2VrU2Fr3Mt5Lnm4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TJeprdZZpCTs+HlfaGmi1llSASJnH7B77GIUYczm48JAj6P5vr4G6wz/y+kU7JIE/v31PThKPvJ9XydZYP//vXdbCo6AG9NEDVJl4gpJRnfMp3lzkVJgAUMLSFFL1wo2El0AYdUV7NEvLWYtWu8rN7Yk8gGRVnUaevcqVphZWfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=gv9PQac6; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FO9TF+w8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D7AD1F000E9;
-	Fri, 10 Jul 2026 09:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783676123;
-	bh=53F+ZQyXoz6Um2mqXo+PzRlaC5XPaxb8nvGCLggiSGg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FO9TF+w8yfGRZ0I5vAGpRn2UMJw+UZg61/vwsUu/guy9Rr3Y3mbsgAlnKbd+pNTaq
-	 I51HcXL+r8SMhfYqiobCpbnZ4r0eEYAveeOKMMQJTjN+HFxQEz8fzkr5vWdXR1yUiJ
-	 TcNa2F6sPekueOOTBumdC9bxWcZu7TN9MLrCgB2Ml3MRfPheYMgoab1lRNWUDtV6BB
-	 rKWUezHYkAKGPpPJnbv0YigZNYWgDOiHBwx265fXuGmMM8u70oZ7skLJiYcNyEPGqc
-	 iuEMdy4EnrqOvroswGQfVhDLgd9QBNPlaozdhVoDlfkqTvH8qysYTD4To124xT9V2m
-	 mYHkLJTzP0UBQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/7] arm64: dts: qcom: agatti: Add OPE node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260710-camss-isp-ope-v4-7-51207a0319d8@oss.qualcomm.com>
-References: <20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com>
- <20260710-camss-isp-ope-v4-7-51207a0319d8@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 09:35:23 +0000
-Message-Id: <20260710093523.9D7AD1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="gv9PQac6"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 71AB0C2F4FE;
+	Fri, 10 Jul 2026 09:35:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B30B560341;
+	Fri, 10 Jul 2026 09:35:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF11811BD18F0;
+	Fri, 10 Jul 2026 11:35:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783676128; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=04Ye3yuYTISol3ighYQm4DeZ4Ndw6daOs3zln0ZTqVc=;
+	b=gv9PQac6Cswbuf/VoBnruoDjQWwYMTlucUsqx40kUWzZ5ktNrgRd+MPtfW/9l7ubHyUmYZ
+	8u3jkWgGbTY1PfgQM3jRJFJfP8F5AAzafDkptKGIqPzgIeaK2GYk43SUlnxmoUGuEEkY3Z
+	ozRpF3pKamd/OztCVZVQhIb9rir1TtnbS/m8JCL51rdVN0FNNNY8W0TKgQa6rgc/HzMwZU
+	6YObTMvFrC3PIg9gjFy9/znDIb9ciiZ9oAhsUjtOFm4GwOoWyAPi3ZjAW8PouL+cOR3iJQ
+	fJBmYhE9Z4XSNJkuLfMgoIt6bVaTh/aTAATG5PA0H/5jscF/A7q/JM4rTsBqWg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
+ <sboyd@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
+ Dooley <conor+dt@kernel.org>,  Thomas Gleixner <tglx@kernel.org>,  Olivia
+ Mackall <olivia@selenic.com>,  Herbert Xu <herbert@gondor.apana.org.au>,
+  Jayesh Choudhary <j-choudhary@ti.com>,  "David S. Miller"
+ <davem@davemloft.net>,  Christian Marangi <ansuelsmth@gmail.com>,  Antoine
+ Tenart <atenart@kernel.org>,  Geert Uytterhoeven
+ <geert+renesas@glider.be>,  Magnus Damm <magnus.damm@gmail.com>,  Thomas
+ Petazzoni <thomas.petazzoni@bootlin.com>,  Pascal EBERHARD
+ <pascal.eberhard@se.com>,  Wolfram Sang
+ <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 01/16] dt-bindings: clock: Introduce nexus nodes
+In-Reply-To: <20260407192900.GA3531350-robh@kernel.org> (Rob Herring's message
+	of "Tue, 7 Apr 2026 14:29:00 -0500")
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+	<20260327-schneider-v7-0-rc1-crypto-v1-1-5e6ff7853994@bootlin.com>
+	<20260407192900.GA3531350-robh@kernel.org>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Fri, 10 Jul 2026 11:35:23 +0200
+Message-ID: <874ii7i3vo.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hello Rob,
 
-New issues:
-- [High] Mismatch in power domain and OPP configurations leading to missing=
- performance state scaling.
-- [Medium] The device tree node for `isp_ope` is missing the `status =3D "d=
-isabled";` property, causing it to probe unconditionally.
+>> +title: Clock Nexus
+>> +
+>> +description: >
+>> +  A nexus node allows to remap a phandle list in a consumer node throug=
+h a
+>> +  container or a connector node in a generic way. With this remapping,
+>> +  the consumer node needs to know only about the nexus node. Resources
+>> +  behind the nexus node are decoupled by the nexus node itself.
+>> +
+>> +maintainers:
+>> +  - Miquel Raynal <miquel.raynal@bootlin.com>
+>> +
+>> +select: true
+>> +
+>> +properties:
+>> +  '#clock-cells': true
+>
+> No need for this.
 
-Pre-existing issues:
-- [High] Unchecked return value of `devm_pm_domain_attach_list` masking `-E=
-PROBE_DEFER`.
---
+I wasn't sure, I'll drop it.
 
---- Patch [7]: [PATCH v4 7/7] arm64: dts: qcom: agatti: Add OPE node ---
-commit fe76d36b157aaeb53ae7054b89db58abbc4862b7
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>> +  clock-map:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+>> +
+>> +  clock-map-mask:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +
+>> +  clock-map-pass-thru:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>
+> I think this can be omitted because there aren't common cell definitions=
+=20
+> for clocks like there are for GPIO and PWM.
 
-arm64: dts: qcom: agatti: Add OPE node
+I agree, same here I wanted to mimic the existing nexus, but I agree it
+is not super useful for clocks. It can be added later anyway, if ever
+needed. I assume you mean here that we must drop both clock-map-mask and
+clock-map-pass-thru, but obviously not clock-map.
 
-This commit adds the Offline Processing Engine (OPE) device tree node for
-the Agatti platform (QCM2290). The node describes the register regions,
-clocks, interrupts, interconnects, IOMMU mappings, and the OPP table.
-
-> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
-com/agatti.dtsi
-> index 8a7337239b1eb..8c1ebf82509f9 100644
-> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
-> @@ -1931,6 +1931,80 @@ port@1 {
->  			};
->  		};
-> =20
-> +		isp_ope: isp@5c42400 {
-> +			compatible =3D "qcom,qcm2290-camss-ope";
-
-[Severity: Medium]
-Should this node include a status =3D "disabled"; property?
-
-Without it, the device probes unconditionally on all QCM2290 boards, even
-those without camera hardware, which might consume interconnect bandwidth,
-power domains, and clock resources unnecessarily on boot.
-
-> +
-> +			reg =3D <0x0 0x5c42400 0x0 0x200>,
-
-[ ... ]
-
-> +			power-domains =3D <&gcc GCC_CAMSS_TOP_GDSC>,
-> +					<&rpmpd QCM2290_VDDCX>;
-> +			power-domain-names =3D "camss",
-> +					      "cx";
-> +
-> +			ope_opp_table: opp-table {
-> +				compatible =3D "operating-points-v2";
-> +
-> +				opp-19200000 {
-> +					opp-hz =3D /bits/ 64 <19200000>;
-> +					required-opps =3D <&rpmpd_opp_min_svs>;
-
-[Severity: High]
-Does this correctly map the multiple power domains to the OPP table?
-
-The node specifies two power domains (GCC_CAMSS_TOP_GDSC and QCM2290_VDDCX),
-but only provides a single phandle per required-opps rather than an array
-matching the multiple domains.
-
-Since the OPP core drops the performance state request when the main
-device has no power domain (due to being attached as virtual devices),
-could the hardware clock scale up without the required VDDCX voltage and
-cause a system hang?
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but adding this device tree node
-actively triggers a pre-existing issue in the driver's power initialization:
-
-drivers/media/platform/qcom/camss/camss-ope.c:ope_init_power() {
-    ...
-    devm_pm_domain_attach_list(dev, NULL, &pmdomains);
-    ...
-}
-
-Is it safe to ignore the return value of devm_pm_domain_attach_list()?
-
-The function can fail, notably with -EPROBE_DEFER if power domains
-aren't ready.
-
-Ignoring the return value masks the error and proceeds with probing,
-which will lead to the device not powering up correctly at runtime and
-bringing the camera subsystem down.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-camss-isp-=
-ope-v4-0-51207a0319d8@oss.qualcomm.com?part=3D7
+Thanks,
+Miqu=C3=A8l
