@@ -1,103 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E03D2DCF74
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14123D6CB7
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:13:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783674694; cv=none; b=RbXELNQLl5JAynmFhobU1/LkK5tCkvGLqw6blUQnMtlnnnB4gvERdDUmZVt8Y3uLdeVsvKLZ0ap6m0Ya+pLCEAVPKP3uuZTNTG5oWJOBAFye7O+hCc+w9s5LKD3LThLTlsB3ic5yhp/QpMzKg1leFw2UmjHyenqQUY3vcrpwYYs=
+	t=1783674798; cv=none; b=dBoHHK7nCmIcRUYBzowiLm/8+fXJvjV0eR0D/WYfFb/gnA0+8/maJkntM5EfwaZVx1jdHrG1OePayEVtVcZk+Zq6FHswwvkxdj5QcGosfWHxWwD1LIiioDSb/F32EFB/q38AwY40zguWctBn/Q3bW84QIPQBNa32ddjJkwatC2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783674694; c=relaxed/simple;
-	bh=3Xaft/Teh2oRxmKiBVH+xyCq9ODNKbP0ooOcqHX07QU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cXUflGDpKR68rwUpV7StFABG4hSEw7xZhsYOHw+4MJJbfpprBbTAQgkNyAm6IotZbgLag83igNVXVSQ9wZX/7CGjAmKHzwkxdFBgDMMkRKXUxtvDJmUDFBxybE8Dq5SeInm/eYyj3WfOVG0ZJs8ongj1YWtkvkT9jl9z4kPI2V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kc/Onadb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783674798; c=relaxed/simple;
+	bh=Bi7jdPhoSijk8fMT1+N9Z3GA8k77oLKhSuPKJu++n9A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=XPQ3wscEMbiPuI17xGw5L2MkDAXwnjTgF2pDi8dJ9kBImhE5RIB3Ra+iBfyEufymHcHLm/EeSBqUizhJtVrLAEou67mxI8CLkejzyoIQL1YtQ8eyXqLouXiSnNEz3mFX5AG7+QeYjwjMbkWOEwVNYpwFaSp7dKSQlDifEOJUyYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=aCOsNMFN; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kc/Onadb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC661F000E9;
-	Fri, 10 Jul 2026 09:11:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783674692;
-	bh=/p5g85+b002/OkpMpPL15/D/dGh+mLo4nAaoluyWLBw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kc/OnadbMp3fHyJnOpImCQvBFTqQ+uIy1obnMc09l99knCbC7LP7b5eWUfTK3+azF
-	 qdwB2hgGTDbG2RXbDZXtMnmcm6MUru143t+gTtJetWOrcHlmNQLxW8+ohagCY9UYPB
-	 /U1GibltGgra1HuQveG6Ni1m+qRqx48HhNjHTH4/ejbrun3Q8o3/y4MAOHTdCvWkAW
-	 CEDGhzrJAwL4x4oYHYb1Oc/gY27/KFCNQ3yC8sSjaedpo+lb/Hu0uqe5TXvPCTjpy8
-	 fUGbQGC2nU7xPwFwJrni7TcHg0vC7V6MLjyb+9nqS++XpPuMbQwLvB6OekUuRRAD3S
-	 w3w6Q3KuF6CAA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/7] media: qcom: camss: Add V4L2 meta format for
- CAMSS ISP parameters
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260710-camss-isp-ope-v4-3-51207a0319d8@oss.qualcomm.com>
-References: <20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com>
- <20260710-camss-isp-ope-v4-3-51207a0319d8@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 09:11:32 +0000
-Message-Id: <20260710091132.8AC661F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="aCOsNMFN"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2CC7A4E40D42;
+	Fri, 10 Jul 2026 09:13:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F008A60341;
+	Fri, 10 Jul 2026 09:13:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 37D8211BD144F;
+	Fri, 10 Jul 2026 11:13:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783674792; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=+hnMtueO5HvdeOz/acHZQ5idFrOiiproNtY+oH5bOPM=;
+	b=aCOsNMFNwJCz+pqwsKb34jscePr8UTAlP3OTCYZhqZDfpn5Xp2bcz7eM8z71Lebx0Y4Tbr
+	9MqwpZsw8MSn5iqblwJc/tvpxlE/UtDOOv5R+5abHAmfQruyPYGjXjboo8AuGUQv9XE42j
+	3yEYBatBS3YIbd5gQoaU80LSdTbENZ8Es1Nd9SuJTgfSEh2FxB3aeOn+IFbIEXhkF4yBpK
+	GB84ttbxLOtTikvPShhlgJxtaUkWiucn4VMmeF9n4TUAww4qo2vvC0ZdetAdgjnSxtxzRC
+	nDS63qfIatYMgGfnpymBc4f3YTHHeHOUcBcOfgubCit3aLNfWxAsEhKEbeGX+w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
+ <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Thomas
+ Gleixner <tglx@kernel.org>,  Olivia Mackall <olivia@selenic.com>,  Herbert
+ Xu <herbert@gondor.apana.org.au>,  Jayesh Choudhary <j-choudhary@ti.com>,
+  "David S. Miller" <davem@davemloft.net>,  Christian Marangi
+ <ansuelsmth@gmail.com>,  Antoine Tenart <atenart@kernel.org>,  Geert
+ Uytterhoeven <geert+renesas@glider.be>,  Magnus Damm
+ <magnus.damm@gmail.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+  Pascal EBERHARD <pascal.eberhard@se.com>,  Wolfram Sang
+ <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org,
+  Chen-Yu Tsai <wenst@chromium.org>
+Subject: Re: [PATCH 06/16] clk: tests: Add clk_parse_clkspec() Kunit testing
+In-Reply-To: <ac0j5401vyjIvjCo@redhat.com> (Brian Masney's message of "Wed, 1
+	Apr 2026 09:55:51 -0400")
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+	<20260327-schneider-v7-0-rc1-crypto-v1-6-5e6ff7853994@bootlin.com>
+	<acqNRVLrPxABvecZ@redhat.com> <87mrzn6opj.fsf@bootlin.com>
+	<ac0j5401vyjIvjCo@redhat.com>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Fri, 10 Jul 2026 11:13:03 +0200
+Message-ID: <87fr1ri4ww.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The patch series introduces a new V4L2 meta format `V4L2_META_FMT_Q=
-COM_ISP_PARAMS` but fails to include the required UAPI header (`include/uap=
-i/linux/camss-config.h`).
-- [Low] The newly introduced V4L2 meta format `V4L2_META_FMT_QCOM_ISP_PARAM=
-S` lacks required UAPI documentation.
---
 
---- Patch [3]: [PATCH v4 3/7] media: qcom: camss: Add V4L2 meta format for =
-CAMSS ISP parameters ---
-commit 83fc58abbbf229c34d9df1193ba64e7a8a63b269
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>> >> +	of_node_put(ctx->prov1_np);
+>> >> +	of_node_put(ctx->prov2_np);
+>> >
+>> > Is there a double free of prov1_np and prov2_np? If this is dropped fr=
+om
+>> > the test exit, then they should't need to be in the ctx struct.
+>>=20
+>> These two calls increment the refcount on the node:
+>> - of_find_compatible_node()
+>> - of_clk_add_hw_provider()
+>>=20
+>> However this makes me realize maybe I should call of_clk_del_provider()
+>> in the exit() function. In any case, I believe keeping a reference over
+>> the nodes during the test is correct and if there is an of_node_put()
+>> call to remove, it should be the on in the _init().
+>
+> Take a look at drivers/clk/clk_kunit_helpers.c.
+> of_clk_add_hw_provider_kunit() will call of_clk_del_provider() for you
+> via of_clk_del_provider_wrapper.
 
-media: qcom: camss: Add V4L2 meta format for CAMSS ISP parameters
+Nice, I didn't found that helper myself. Thanks for the pointers.
 
-This commit adds a V4L2 meta format code (V4L2_META_FMT_QCOM_ISP_PARAMS)
-for the Qualcomm CAMSS ISP parameter buffer. It allows carrying per-frame
-ISP tuning data such as white balance, color correction, and chroma
-enhancement settings.
-
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
-2.h
-> index eda4492e40dc1..ee3a56f379d40 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -889,6 +889,9 @@ struct v4l2_pix_format {
->  #define V4L2_META_FMT_MALI_C55_PARAMS	v4l2_fourcc('C', '5', '5', 'P') /*=
- ARM Mali-C55 Parameters */
->  #define V4L2_META_FMT_MALI_C55_STATS	v4l2_fourcc('C', '5', '5', 'S') /* =
-ARM Mali-C55 3A Statistics */
-> =20
-> +/* Vendor specific - used for Qualcomm CAMSS offline ISP */
-> +#define V4L2_META_FMT_QCOM_ISP_PARAMS	v4l2_fourcc('Q', 'C', 'I', 'P') /*=
- Qualcomm CAMSS ISP */
-
-[Severity: Low]
-Is the UAPI header defining the payload for this format missing from the pa=
-tch
-series?
-
-The driver code appears to rely on structs like camss_params_wb_gain that
-would normally be defined in include/uapi/linux/camss-config.h. Without this
-header, including the definitions in camss-params.h will lead to undefined
-type errors during compilation.
-
-[Severity: Low]
-Should this new format be accompanied by V4L2 UAPI documentation?
-
-The V4L2 subsystem requires new formats to have their purpose, layout, and
-semantics documented, but there doesn't appear to be an update to the media
-documentation for V4L2_META_FMT_QCOM_ISP_PARAMS.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-camss-isp-=
-ope-v4-0-51207a0319d8@oss.qualcomm.com?part=3D3
+Thanks,
+Miqu=C3=A8l
