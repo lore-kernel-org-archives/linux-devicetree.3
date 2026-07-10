@@ -1,143 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECC928373
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67512882D6
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783708611; cv=none; b=SXJklCnEsehpCXCasC63W3jt3aDm22SzRJJJzKDr+AHkgvpEcPszspotHHNycPqzzHyeYiPDHgG4kBU/hOnhQWDoN732HFZ3s5wcAXLE3nvx1CdKbyZEBC38L3baNo5BJgMZQyLXkV20J4S0ap7PDKbp1aL8FGrgKygbnjudGng=
+	t=1783709609; cv=none; b=d0Kwz2uNIq38veNu/DHOlxN6E3Lnny9JhduqTODNXNwoxmf+h3Xj0ovMaCOEPDEdw8rALlnUsOSeG+gW/CtlX09sO6j0opXCihXjGdfwzth8gDtbnQ+YdmYV4gxW5UysLAsw0bsx6f+1crOJaRHymXEXWVMGN0QYatVoL0kDMl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783708611; c=relaxed/simple;
-	bh=fNirNZxYJzntpDdZ8X9U7M9S8Sci2eui249KxQQMgxg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FYl3AyCRMX+JVo2KOPJBRoH8gVGhyiAenMFnTTHfhjdw2Ls4bery8rD5BOkDpZTcOCqBIfcUWP7Oh+26lBlp6I+zdPIEgMGshGOvMkmqe28SNc+caGq8Z87lj1Dsit93eVJ0xm1FXL3tx/N4EM9bJiAxYZ97Hm0cXA1GYWJwZ3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KbM3Vs73; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783709609; c=relaxed/simple;
+	bh=mS485fOgIvhcuepZ3Oku5/wDYi5YVAtYod06IGUO/W8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DlVS6Rfbqo1bibt2eM1ANZCjQ4XFdQc5AY4X4vB+jJlyhD2wlKZeN46eeMI4zvS2FLfzsV6h57dicI8G4oplQBskE9Z2x4T0wJRc503K2rKcsI1TlYwGVvDSCOaLNh8oL+XR2v7qhfSPMN6WvpLDb2geSOrdmaqcyFEttHFuP4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nC1gZkZG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KbM3Vs73"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6331F000E9;
-	Fri, 10 Jul 2026 18:36:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nC1gZkZG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB621F00ADB
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:53:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783708610;
-	bh=vVqbAzVbh+kgU3SAyfix9WIp8PXZsk0zkZBzbpIAAG0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KbM3Vs73ndEXSyE0d7fpVYSXumPBgl6r1h8hO01DjDwAPv+vcWQL2H4nLfLmUI4uJ
-	 3RYPh5erE9UUHMQfRsBg+dzdyNPVPTratflAxTDaITc5ZqDWkj633KKVMiXPeoXmhQ
-	 +mzi5O28NRhIzXCsiIlGXdycD6f5ZIA5px0jex7flFU2a6tIpLHm2Hy6y38N+t2iu1
-	 t7Ner2VJyYqnTlKodivq/WEKKYnbULNH8J1tfb4gHSGh1GCWmTkhVj1RYUpeeQdGYT
-	 Hevtd5fh/c5xan+1SP9W17JB/9vi101eGyQIQ+0e6q3Ntd8x0rSrAS9nHDAotsYxdA
-	 5Dh3/0Gb1Js3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/7] clk: Use the generic OF phandle parsing in only
- one place
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-5-b4680787377e@bootlin.com>
-References: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
- <20260710-schneider-v7-2-rc1-eip201-upstream-v2-5-b4680787377e@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 18:36:49 +0000
-Message-Id: <20260710183649.DE6331F000E9@smtp.kernel.org>
+	s=k20260515; t=1783709608;
+	bh=mS485fOgIvhcuepZ3Oku5/wDYi5YVAtYod06IGUO/W8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nC1gZkZGUu1c+ijRrCKUlcDODg0wDdbTfE/l8HAx67EYodxhv5NUpCETx43W1TTkU
+	 6bDmYUu3pjoHfW8d2SifUOq7ef+JQ2k7es4ev27hYVTTZKTUID62MenQ2qHU9p6Q/I
+	 zshxisfohZVOFnwJOtkapzZXGeHFRn0EW8McOD4z/5N0bWb83eNFd5SGxk7fyh7Rmu
+	 MSWB4cyXgFLPcAbRCO4i/8frv/c0YYd5dRipH5fhIQDqUj0UqnPhcSi5hhsj+qBk2Q
+	 R2kNF9ITFd5pqJ6qFZwzWBY8QqJQNQpRjmrA68EfbzPlDGKbgw78ngCZ7RxgkGmbx3
+	 qwqeIi/pPifQg==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b01146b205so905261e87.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:53:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrYBOAPklOi0VeMuTaJ2r5oWi0geUKM6fnIY6E+9DtVbS0CZCJhvii2xXaZjBTBeWOkEqjTlbgUfcTH@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVj13li0+mteL1LEm4o54YB+mx1g2AOhz1HfAvCkU7xt2HINg1
+	VFtwbw+bqgq/QyJsrcC3QFiySHKfYvAlJFe1oUV0rSIIaeo11JpztxtZwvUusp4k9HYV05Z+Nq4
+	UAxegtKmIGngj+VsgWcWGuKVKd9cEBO0=
+X-Received: by 2002:a05:6512:6699:20b0:5ae:b629:4517 with SMTP id
+ 2adb3069b0e04-5b0236de948mr44182e87.63.1783709607271; Fri, 10 Jul 2026
+ 11:53:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260706101823.341230-3-krzysztof.kozlowski@oss.qualcomm.com> <20260706101823.341230-4-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260706101823.341230-4-krzysztof.kozlowski@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 10 Jul 2026 20:53:15 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkQPHfq=_D_TPMbmmA4JFwbhhtTC+3Dj+uD2P6LFNtfUg@mail.gmail.com>
+X-Gm-Features: AUfX_myNLzbgrTSqqqiX6xG1do6m36L6LA1SqCR-RLu3gRQM6LPnA90pLzI98Wc
+Message-ID: <CAD++jLkQPHfq=_D_TPMbmmA4JFwbhhtTC+3Dj+uD2P6LFNtfUg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ARM: dts: st: ste: Correct indentation
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Viresh Kumar <vireshk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Switching to `of_parse_clkspec` breaks out-of-bounds indexed clock=
- lookups on nodes with `clock-ranges`, causing infinite loops and topology =
-corruption.
-- [High] API mismatch between `of_clk_get_parent_name` and `of_clk_get_pare=
-nt_count` regarding `clock-ranges` support.
---
+On Mon, Jul 6, 2026 at 12:18=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
 
---- Patch [5]: [PATCH v2 5/7] clk: Use the generic OF phandle parsing in on=
-ly one place ---
-commit bc84db19056243e06a72beb625e47749500a0824
-Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
-
-clk: Use the generic OF phandle parsing in only one place
-
-This patch refactors of_clk_get_parent_name() to use of_parse_clkspec()
-instead of of_parse_phandle_with_args(). The stated goal is to consolidate
-Device Tree parsing and ensure consistent handling, particularly to support
-the parsing of the clock-ranges property.
-
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 7d63d81ebc096..dad4bac10ad45 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -5364,8 +5364,7 @@ const char *of_clk_get_parent_name(const struct dev=
-ice_node *np, int index)
->  	int count;
->  	struct clk *clk;
-> =20
-> -	rc =3D of_parse_phandle_with_args(np, "clocks", "#clock-cells", index,
-> -					&clkspec);
-> +	rc =3D of_parse_clkspec(np, index, NULL, &clkspec);
-
-[Severity: High]
-Does this change break out-of-bounds indexed clock lookups on nodes with
-clock-ranges?
-
-When falling back to the parent node, of_parse_clkspec() unconditionally
-resets the index:
-
-drivers/clk/clk.c:of_parse_clkspec() {
-	...
-	np =3D np->parent;
-	if (np && !of_property_present(np, "clock-ranges"))
-		break;
-	index =3D 0;
-	...
-}
-
-Iterators like of_clk_parent_fill() rely on of_clk_get_parent_name()
-returning NULL to terminate when they exceed the available clock indices:
-
-drivers/clk/clk.c:of_clk_parent_fill() {
-	...
-	while (i < size && (parents[i] =3D of_clk_get_parent_name(np, i)) !=3D NUL=
-L)
-		i++;
-	...
-}
-
-Because the index is reset to 0 upon fallback, when the iterator exceeds
-the child's valid clock indices, won't this successfully return the
-parent's 0-th clock instead of failing?
-
-If so, this could fill the array with duplicate copies of the parent's
-0-th clock and corrupt the clock tree topology.
-
-[Severity: High]
-Does this create an API mismatch with of_clk_get_parent_count() regarding
-clock-ranges support?
-
-of_clk_get_parent_count() strictly counts the elements in the immediate
-child node's clocks property and returns 0 if absent:
-
-drivers/clk/clk.c:of_clk_get_parent_count() {
-	...
-	count =3D of_count_phandle_with_args(np, "clocks", "#clock-cells");
-	...
-}
-
-Since of_clk_get_parent_name() now falls back to the parent node via
-clock-ranges, what happens if a node relies entirely on clock-ranges to
-inherit clocks?
-
-If drivers dynamically allocate parent arrays based on the count, won't
-they size them to 0 and skip clock initialization entirely, rendering
-clock-ranges inheritance ineffective?
-
->  	if (rc)
->  		return NULL;
+> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
+> No functional impact (same DTB).
 >
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-schneider-=
-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com?part=3D5
+This patch 2/2 applied to my ux500 tree, thanks!
+
+Yours,
+Linus Walleij
