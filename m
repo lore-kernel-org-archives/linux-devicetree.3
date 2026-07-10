@@ -1,92 +1,139 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC63D3CA49A;
-	Fri, 10 Jul 2026 11:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7138A40F8D6
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783683081; cv=none; b=tplX/876h8DKwDON46E0jtJkhqFlrzo7SE4ErKVGf7+RZHB5pm5LYk2kuICN5BRfOsK4PTEQ1FbSbkH4bFiQvUHtBE6zH9U8lEeGZDyZExSClE0cqFQpE87AjKY2wiHtflZIOCGs6Rk3HHt/074Zxa6lTt/0qwYNF82MNgnbVrM=
+	t=1783683118; cv=none; b=c/C0u/LPJUEvfSIGmznmk2ODhGBumYHs95Oscy3fX7Nw9fhR3y760u2oMobYikFkmopzRlK9oLP7ZaHh0iJsam58Ui4P2uG65FvtvCdPXkUBV7mxyjwPCzE2XjDHESskD/qtwJQN0QRPWrFub1mz+/peoNtGGJZCB5yJ8KoKvXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783683081; c=relaxed/simple;
-	bh=tGPfE6qKuA+vlOgrYeOKM12QStYUc80MBZhiTokpJiY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jsG9uXjXdvSqmtMG1bpIrYbiycCscDfAyxikkRydL7Qgck+qq3dv98O+qFjxoC0Gi4ulaAulojl06PnF22ZIo04A6GlyF5SUEuFOn3zNFextm6rw/xF108UKB8+zD/IP5WBAC/N5c6KUmyimWnvguGnOgDm/LmXsaqR6dJZQbEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Y/DMUIyx; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=cct4uoRu; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1783683118; c=relaxed/simple;
+	bh=TlueALM1QniMcpcWV1t8La7BW85wcp5nJk1dBIJ0p2k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GSokW0U0+dRFyvX9AMjpZTp1uMNE5GTx7HvgVuT2ukTSuhPEMTYt0xiBfpKV+NpzQ1MDhjYt8vAGJCOEfuNUXQ2WmKUBo8yY60SMyl53R1/ZXIH0tqlfWi7QG77mlKSiO/7iAQo0O9hM003NgIzaYxELjrZyCGHrlZ9qdXAp0b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JS8ya6Mm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Y/DMUIyx";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="cct4uoRu"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gxV5M2hnVz8tvK;
-	Fri, 10 Jul 2026 13:31:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783683063;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=E0cvBCWOSMbGwMP2ewHHGiksfp4JHwRC4Wz6rZ4DvQQ=;
-	b=Y/DMUIyxs4wOlhbanKBtphfpX+AMZrYoH0Xrtoi567IscZTpc0Bybx6Rc7UFYRlytDVoHx
-	zSho24SmW9rVugGXQhqXwRxa2y8M2omZMv1wvdQ1g9artoCIjrZ2+Qf4Eds+/8tcJGzTWU
-	zoM1rVapmlIylC/cTny1oV0ZtAV95spOxWf0K9avppvH5WFQ0pwjPmqWKEku1v088rgWU0
-	4Kppj+FYp8Q0OXMbqaztOz9GkDlgYlDAvGFsU/u8fIZDOvDWqUqGWiEbGjolpOGEIRHaev
-	ZbYPJyWgIp3k4jR9FSFprsJ39Gl46q29UQxJ2Zg2KEOVejPQq01mlVyrrxoyWw==
-From: Manuel Ebner <manuelebner@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783683062;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=E0cvBCWOSMbGwMP2ewHHGiksfp4JHwRC4Wz6rZ4DvQQ=;
-	b=cct4uoRugBRvfRFa+hcsKo5XydDVHWDioptl4mRCckn2geJFI5JnNcSamyqSiUeMW9f24q
-	/fbdtkGjRx5CxiQjL+yz4lOlO0mpW+YAMx9f9O4Ab0KZP2X4kucQ/daYPUdRvbfrkW9s/X
-	eh9yIvW2x8HNu2qUbRPK888zoJ3WehAxW2vkM8/glWpWTlSgJxx7AOIzf8z/i0QqH9Fjqk
-	0LZkpNt7eEW3IiHQZsMZHNP+DGAIdGAaeRmudZqA31mcGJ2jTWe9Ov1FaYxgg2iXdT3coE
-	ST3WOXYmKQVcqt0iiHJ59RkH0T5ASJ2DhWUZHGXguKl14nkpmEZBgzSxr17kJg==
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Manuel Ebner <manuelebner@mailbox.org>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH] dt-bindings: memory-controllers: renesas,dbsc: fix bracket
-Date: Fri, 10 Jul 2026 13:30:29 +0200
-Message-ID: <20260710113029.436415-2-manuelebner@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JS8ya6Mm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EC51F000E9;
+	Fri, 10 Jul 2026 11:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783683109;
+	bh=iIimHaYhyTG+YVu/mMDt3SkSOFmqp1BwxLP9K7WRQd0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JS8ya6Mmea0wMLj2ZiZNB9K6TmKH5jEpSxGF6DKBAT8F+XeWOnbtbbMbo1i0e22rN
+	 FlxRlbJah2nsFsy+tmojckGlFdDf8Wj2gtKT32rH9+P3fb9BWZ09KDc/2WvbFyHr88
+	 arBzljVaB5dAWo7c4U/BwXAbH+sxprGD+ceG+daMmGlndNtRoUBQGKkQqgJJDtqWqX
+	 Q/9cANWBB7DJTljPw/Hytyklcyjsq3cuQPFh8b5UqiCqZfghAPEFUdx/o/x7+eGPd3
+	 sktBA0Tjs5f8QuQL6kGskRsfmdESbxGM1aChxJnUGLkTj6W/+CAbHPF14Au58Bbugv
+	 M49h9qeSmlBrw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/7] iio: dac: ad5696: properly check i2c_transfer()
+ return value
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260710-ad5686-new-features-v7-1-1bcc8c280e4d@analog.com>
+References: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
+ <20260710-ad5686-new-features-v7-1-1bcc8c280e4d@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 11:31:48 +0000
+Message-Id: <20260710113149.53EC51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: d4o19nfdker7p7zkwidqgfkq76fstzjd
-X-MBO-RS-ID: f0c29b116a1dbcc3dd0
 
-Remove needless ')'.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
----
- .../devicetree/bindings/memory-controllers/renesas,dbsc.yaml    | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pre-existing issues:
+- [High] The I2C read transaction uses overlapping transmit and receive buf=
+fers, causing a DMA mapping violation and potential cacheline corruption.
+- [High] Missing NULL check for `chip_info` during driver probe when bound =
+via sysfs.
+--
 
-diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml b/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
-index 8e3822314b25..30ad2a858844 100644
---- a/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
-+++ b/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
-@@ -13,7 +13,7 @@ description: |
-   Renesas SoCs contain one or more memory controllers.  These memory
-   controllers differ from one SoC variant to another, and are called by
-   different names, e.g. "DDR Bus Controller (DBSC)", "DDR3 Bus State Controller
--  (DBSC3)", or "SDRAM Bus State Controller (SBSC)").
-+  (DBSC3)", or "SDRAM Bus State Controller (SBSC)".
- 
- properties:
-   compatible:
--- 
-2.54.0
+--- Patch [1]: [PATCH v7 1/7] iio: dac: ad5696: properly check i2c_transfer=
+() return value ---
+commit 7918e0fc4a2bf3dec679b7e0bd608081aff01ef3
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
+iio: dac: ad5696: properly check i2c_transfer() return value
+
+Verify that the expected number of i2c messages were transferred when
+ad5686_i2c_read() is called.
+
+Closes: https://lore.kernel.org/all/20260705114746.1485F1F000E9@smtp.kernel=
+.org/
+
+> diff --git a/drivers/iio/dac/ad5696-i2c.c b/drivers/iio/dac/ad5696-i2c.c
+> index 279309329b64b..6f726e6301a6e 100644
+> --- a/drivers/iio/dac/ad5696-i2c.c
+> +++ b/drivers/iio/dac/ad5696-i2c.c
+> @@ -40,8 +40,8 @@ static int ad5686_i2c_read(struct ad5686_state *st, u8 =
+addr)
+>  				      0x00);
+> =20
+>  	ret =3D i2c_transfer(i2c->adapter, msg, 2);
+> -	if (ret < 0)
+> -		return ret;
+> +	if (ret !=3D 2)
+> +		return ret < 0 ? ret : -EIO;
+
+[Severity: High]
+This is a pre-existing issue, but does this I2C read transaction use
+overlapping transmit and receive buffers?
+
+Looking at the msg array initialization earlier in ad5686_i2c_read():
+
+    struct i2c_msg msg[2] =3D {
+        {
+            ...
+            .buf =3D &st->data[0].d8[1],
+        },
+        {
+            ...
+            .buf =3D (char *)&st->data[0].d16,
+        },
+    };
+
+The transmit buffer and the receive buffer are mapped to the same
+st->data[0] union, meaning they overlap and share the same cacheline.
+
+When the I2C controller uses non-cache-coherent DMA, mapping overlapping
+buffers for both DMA_TO_DEVICE and DMA_FROM_DEVICE within the same
+cacheline violates the DMA API.
+
+Could the cache invalidation for the receive buffer clobber the dirty
+cacheline containing the transmit buffer's data, leading to corrupted data
+being sent to the DAC or corrupted readback?
+
+>  	return be16_to_cpu(st->data[0].d16);
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a missing NULL
+check for chip_info during driver probe when bound via sysfs?
+
+In drivers/iio/dac/ad5696-i2c.c:ad5686_i2c_probe():
+
+    return ad5686_probe(&i2c->dev, i2c_get_match_data(i2c), ...);
+
+If a user binds the driver using driver_override via sysfs with a device
+name not present in the driver's id_table or of_match_table,
+i2c_get_match_data() will return NULL.
+
+This NULL pointer is then passed to ad5686_probe() in
+drivers/iio/dac/ad5686.c:
+
+    st->vref_mv =3D st->use_internal_vref ? st->chip_info->int_vref_mv : re=
+t / 1000;
+
+Will this unconditionally dereference chip_info and cause a kernel panic
+during device probe?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-ad5686-new=
+-features-v7-0-1bcc8c280e4d@analog.com?part=3D1
