@@ -1,41 +1,86 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6E6315D43
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DC8371D07
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783713617; cv=none; b=Y3Jd6GmwzmV8JtcmXRjRAEDL/iX25wJqzlWwBanr6MBW+J9sCs//wrJSlc+JLg2ohOOG0UFbl3cvMBJbeGNwaXMx9VvDrmvOi3Al2iWWSvMo2GHcUE4+p0e2ydJays7T5sinahmC9fxeyrooSwJZfcWBXCrP580GAvndCNf92UI=
+	t=1783713709; cv=none; b=CZP67NZdX8nqZjdEKji9ZhqJFL1GKTnK6zxey8TKR+mtqTH1urohSg4XzHSXaiOmURpZTBh4UOtZ3U0AVrpUlKPmf/7SCWdcYsRRfMGX89RWe6u77gqs8sVS9hujyQjdgl9kpzUjW65beTPT2risVGhBcSL0o6se5rODp3B72r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783713617; c=relaxed/simple;
-	bh=xH/B71YU9s67bC9FMdI+WyfQ8AX8QhCJH/Yfl0FJQls=;
+	s=arc-20240116; t=1783713709; c=relaxed/simple;
+	bh=Wpj7biINABXruyl7S8E64d6S+aIPAP+SvchHl1VAxwI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=goJTVUuz4778/1rkEPXXDiLi9degqBF3gJc0Vl5ZQyqPDvrljX691amIS1FojIqQrl/nD0tGYHnhQ0QxP6w36S/HtVe9shyb9+9enqvksqkTjaEeWBC/ztBKXsEW4iQp5EcJ8jfLVQoQI/jsxvR85CuIG8BxOhJ3GhBQtIhW/lY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=FRNIpVX1; arc=none smtp.client-ip=121.127.44.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	 In-Reply-To:Content-Type; b=Q3N+lAqaSv/b70BNhHjIbaov+vP8Itb0xaGg+5cIOoQ7LsCtcxIqCZkmnB1VLjt9ezbIqYnaDj0L1dn1hkK9d1j1a3R/dHsLU/RJ+NgC+EbxKA27Gg8Gr88DzOOpqrUH3CPWmjbtumN5NE1Z3F5FLB/NRtKlaf4dKbuoNhReGrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ekx/Ir9K; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RtJLyEIg; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="FRNIpVX1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-e1b5cab7be; t=1783713614;
- bh=ulVUgfNYT2lEH0MbdG1dD+8MEdmaDjbz4xf8uzzuOTQ=;
- b=FRNIpVX1OfkXzYVIG6mVWbzSB+5Eyz7WVTVN9vKvfOeG3t1PKAPCt/QMEn7pS117XQKBsYqGc
- b8y4A5hg4gjOM8luz3fMIKUQ/FQlqkBhwKnl6ssbsbKUQteAJqU4h4fgkxNsxj3nVT1QSB8xgqa
- nfeAF7U0uJUM1OHvC2mRyxTTWf3rVJVLFbMLevwgzMUTHpeEQOkNXWThtnJ8nfCkQqq7VgIHJ+D
- Z2oYK7RSwfQ/DHu+RjgLBxNJNxOzg8dd2FfzU76PwjHIQwZTCt4R9+rD4TTpZFJQTpfPZARPNxl
- qEFCuSCx7e/NA6aGDpddUxFz3o1Y8rRNe3HidF2Osx8w==
-X-Forward-Email-ID: 6a514f4df640ad60663f1f38
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.10.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <1abc6880-c131-404d-a521-5b5063e408f1@kwiboo.se>
-Date: Fri, 10 Jul 2026 22:00:09 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ekx/Ir9K";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RtJLyEIg"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AH3gOZ1453112
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:01:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6TauvJkutb2hiYeXYH72NLc7gaplt5eyXb6hMmwHelw=; b=ekx/Ir9KisQqT+sO
+	S+dKYkRjkjB89OmCaMF97bUAQTE4ze415+U13BgRp71chl9J8OEjUDfECg6839Yc
+	nrHU8OXQkaA3HRIHSAsV8zu4b9FSDGXSVoYE3+JqrgU63WAXQo7Y+LXc0Qn2dbNZ
+	212MK8O2wSik+3XE3fyIz8kqOILZi9bFNmrGti4fH90kNAuOWbthXc1f5nzxXi3Z
+	i3SUAjXVjvtmqxsJsvxaQjH7BE46ROkkYC942Ci3GUBi7ZxKgprf/NNh+C4N9Moi
+	KcwsOwgJ4eWEKmHL0/2w+8WpmOwVO7wPVFc8npsdtlae8mdoAPVb52lzhb7gw2wn
+	ZmWaaw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fb3xn0t2q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:01:47 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c6bbd0afffso23417195ad.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:01:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783713702; x=1784318502; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6TauvJkutb2hiYeXYH72NLc7gaplt5eyXb6hMmwHelw=;
+        b=RtJLyEIgqnNad7be2CYn6VXWOjk31k/W+zXl/1132uS53TFuElau2+U6ngDlo4KaZ8
+         uBN4fCmesPQuIVvtrS+WM8jO2dwESugErk01lemvx/YGw6h8/5NMFMlCMArVCnU7vl/X
+         SNtyIVMKi0aILFHbu/HJxHOzAKQhHpPf/4ae75o+ftIPvT0ivva9q3D3O4N8kWTczWoP
+         SPfLBDMyKp82zDYtRrcBgFuAWfLcI5ZwIVXTaIBSlGcghnBL5UJzynavxmKwq2sn1ZPQ
+         XBX+ksYWuEgB62UteUjZNDrMGuVFstdETycwYrN8AHRdtjzHyhDxjHizobuqcVNw8tJ/
+         Cpwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783713702; x=1784318502;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6TauvJkutb2hiYeXYH72NLc7gaplt5eyXb6hMmwHelw=;
+        b=XRQEOjxUVTpeUysQq7wZyHzzfvMYW1U/cJB/2BX0sYofP2ivmHXJtjz4amSK56nye+
+         nspp1JroIa1+UtBv67FTaiNdX8VLywFicsz61owrF+uP6XFXbW3Ka+mUjlLhcG+hhCWJ
+         2aOG2tFMmk5CiaxYSCrYL0No+g+obqpB+fr/wPGNFpzDTGF32mmhyZV02WSsh0Y4x/79
+         /UBX9MZABK1BvRvyzP+VIGSMMeOsuc/J3nuQGavJZM4C6v5v8W6O/w8/+sCVCKmwZqb4
+         E/DpAGKDSxUgRLmVOkNZwixxUXbsqfCsdN6YoO5WfFPs5h481zKqeMBQxfK811xzH1jc
+         +l+g==
+X-Forwarded-Encrypted: i=1; AHgh+RqTIIXjh8CkX5RpfPHC2cN2hOukSUy0wYYV4FQ+IKlcsNCoAMu/Neohm+UFBVasw27BKevGkN5A2wYd@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLX8b5NvLcVkVfkcx0xx+yIIHOsWWffd4GtePhetjGJgaLcvIb
+	geB1vEdbWwFe55PW/te1+HB/8ngt/OkFk+K6BXq0YTNmqysdQWH9x1n92Q0Tpyel4UNf6GNy7l2
+	YP0kgEpgeHIbI5V/K3CEfW37WY4lyLAYRo+iUJZVz7lvmLWscx1BlQoYCo7H8g2yr
+X-Gm-Gg: AfdE7cka0yi9TXKQPC5OV5WkM5GgQy+jPF2LZqT0JIXgOC4BkaUODF+GrNKUCBnHPOx
+	GxWzopuIaeDXsGoaTxam24bNEDtEGgUb8XHObQPwhvysiCb3HiBM1s8YSXfLnWqfkAnymDGGGn7
+	TATUBT2wFoamIgjiE4OSwJ6sr19ijQ7D6MlXsDauziDEvheL9f4YcDFHWX7y2+P1EUO4BOFMVZh
+	JE2/xmOiD6s9646+fSUcGhg4GCtaYJgF5dcmDPIBFLifDKiqPnaGtv2FULn/f6B6A061MTl4aS3
+	D4aIE8e981FUThFDMpi64umUXmWPU0kZyN/LvlhneMHYvMcTvlTRiH9i2T8fAVFUj3+vD7aFTwA
+	KduxQShUHd0SRhz4NSg1juAKWJaMdmo+9Iyb3KAL3QMR+7Otx1IBP3VmLwE7oQJJV6JRe
+X-Received: by 2002:a05:6a20:258e:b0:3c0:42c0:702e with SMTP id adf61e73a8af0-3c110ba2a31mr439252637.52.1783713702120;
+        Fri, 10 Jul 2026 13:01:42 -0700 (PDT)
+X-Received: by 2002:a05:6a20:258e:b0:3c0:42c0:702e with SMTP id adf61e73a8af0-3c110ba2a31mr439205637.52.1783713701649;
+        Fri, 10 Jul 2026 13:01:41 -0700 (PDT)
+Received: from [192.168.1.11] (15.sub-75-218-246.myvzw.com. [75.218.246.15])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b659666e7sm50819545c88.7.2026.07.10.13.01.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 13:01:40 -0700 (PDT)
+Message-ID: <3f399cac-d82d-4d52-8a52-45cd9a0e31d8@oss.qualcomm.com>
+Date: Fri, 10 Jul 2026 13:01:37 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,127 +88,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/12] dt-bindings: soc: rockchip: grf: Add RV1106
- compatibles
-To: Simon Glass <sjg@chromium.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- Fabio Estevam <festevam@nabladev.com>, linux-arm-kernel@lists.infradead.org,
- Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jeffy Chen <jeffy.chen@rock-chips.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Michael Riesch <michael.riesch@collabora.com>, Rob Herring
- <robh@kernel.org>, Yao Zi <ziyao@disroot.org>, huang lin
- <hl@rock-chips.com>, linux-kernel@vger.kernel.org
-References: <20260706195818.3906949-1-sjg@chromium.org>
- <20260706195818.3906949-6-sjg@chromium.org>
+Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service
+ support
+To: Bjorn Andersson <andersson@kernel.org>, konradybcio@kernel.org,
+        Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-media@vger.kernel.org, netdev@vger.kernel.org,
+        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+        akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+        jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+        airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+        bod@kernel.org, mchehab@kernel.org, elder@kernel.org,
+        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, jjohnson@kernel.org,
+        mathieu.poirier@linaro.org, trilokkumar.soni@oss.qualcomm.com,
+        mukesh.ojha@oss.qualcomm.com, pavan.kondeti@oss.qualcomm.com,
+        jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+        vignesh.viswanathan@oss.qualcomm.com,
+        srinivas.kandagatla@oss.qualcomm.com,
+        amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
+        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+        skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
+ <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <20260706195818.3906949-6-sjg@chromium.org>
+In-Reply-To: <178362521364.2422497.1305957434056184382.b4-ty@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=JJYLdcKb c=1 sm=1 tr=0 ts=6a514fab cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=6VQYfvmiyQ8t40WkS/mQdw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=G7o58nB-JDmhE5M--eMA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: kxV_Ue264sA-W96qdCxMbpUCs0HHFjjP
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDIwMCBTYWx0ZWRfXy/D1DmnnDj2u
+ 8ykkyWMdoUHOFBp/CvrWffa7HiPrzPSqNCFNjOSmPpUfAB+SSMFISNCZe8yVir8norSUdfLL5Dl
+ nR4orV/YohIs6LDfJ/1HHlYTz2aMEoU=
+X-Proofpoint-GUID: kxV_Ue264sA-W96qdCxMbpUCs0HHFjjP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDIwMCBTYWx0ZWRfX7CsJjEB5T1Yr
+ /2RcWWghhPW55nhIcRQ3drm3Ycu8o+R0XqLQSECdIqJwFL4kCs1zhffU2+Rm02md9xQHwQMml4H
+ OzYc0d55OyzcKC6gdAlS2rJLqyCtVECyUv+ZlB0wXiVe8pWhHCDK+LDfqb0sY0XNsvVd+pazxQl
+ sLeWOApE/6/yzDNrp9sMNTOYb1iq1hI0H5qse884PQRfHWUPm8yTjeNFXwLB5sVPG850M7FukQV
+ gVQkFk6/6TOozm7WjPsnankwYgPHgCeiIFoH/mWO3MUII004CjG5IUSksX1R3gcjqTnEDU38PdM
+ MgdszzYEW38KESsb9gMaNeagfy13ljacQ3xxfg5LL4ra/ThGTVppYGdn0/DkSXZK35g3u5RiAZc
+ xszQJcK/ygqptjKI2uV1BaeNmk5wxclHoaUfPi8oUdCuWHaooCOpfl61LH8MjLHMBvWosTCAZT2
+ rjmiHN7AeQ06CxINeLg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-10_05,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100200
 
-Hi Simon,
-
-On 7/6/2026 9:58 PM, Simon Glass wrote:
-> Add the compatibles for the general register files of the Rockchip
-> RV1106: the main GRF with its clock-controller child, which provides
-> the MMC drive and sample phase clocks, and the IOC and PMU IOC blocks
-> used by the pin controller.
+On 7/9/2026 12:32 PM, Bjorn Andersson wrote:
 > 
-> Signed-off-by: Simon Glass <sjg@chromium.org>
-> ---
+> On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
+>> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+>>
+>> Qcom platforms has the legacy of using non-standard SCM calls
+>> splintered over the various kernel drivers. These SCM calls aren't
+>> compliant with the standard SMC calling conventions which is a
+>> prerequisite to enable migration to the FF-A specifications from Arm.
+>>
+>> [...]
 > 
->  .../devicetree/bindings/soc/rockchip/grf.yaml | 30 +++++++++++++++++++
->  1 file changed, 30 insertions(+)
+> Applied, thanks!
 > 
-> diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> index 2cc43742b8e3..349fd3393ac4 100644
-> --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> @@ -64,6 +64,8 @@ properties:
->                - rockchip,rk3588-vo1-grf
->                - rockchip,rk3588-vop-grf
->                - rockchip,rv1103b-ioc
-> +              - rockchip,rv1106-ioc
+> [01/14] firmware: qcom: Add a generic PAS service
+>         commit: 08314e7c2c38b9ae6a5e01c58ed10a950859404d
+> [02/14] firmware: qcom_scm: Migrate to generic PAS service
+>         commit: 5c1a2975d23c51c01aca51945d0f10a4ee4c9020
+> [03/14] firmware: qcom: Add a PAS TEE service
+>         commit: b6f7978da0c4d26fe465aa6634f5a0b48f900de0
+> [14/14] MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+>         commit: 6701259025d49139131a0eb2257659a066dcca22
+> 
+> This is available as an immutable branch, for other subsystems to pull at:
+>   https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260702115835.167602-2-sumit.garg@kernel.org
 
-Do we possible need a different compatible for each GPIO IOC?
+I've merged this branch into ath/ath-next so it is available for ongoing
+ath12k support.
 
-GRF address mapping table over all different GRF regs used by this SoC:
-
-  Name		Address Base 
-  PERI_GRF	0xFF000000 
-  VENC_GRF	0xFF010000 
-  NPU_GRF	0xFF018000 
-  PMU_GRF	0xFF020000 
-  DDR_GRF	0xFF030000 
-  CORE_GRF	0xFF040000 
-  VI_GRF	0xFF050000 
-  VO_GRF	0xFF060000 
-  GPIO0_IOC	0xFF388000 
-  GPIO1_IOC	0xFF538000 
-  GPIO2_IOC	0xFF548000 
-  GPIO3_IOC	0xFF558000 
-  GPIO4_IOC	0xFF568000 
-
-> +              - rockchip,rv1106-pmuioc
->                - rockchip,rv1108-usbgrf
->            - const: syscon
->        - items:
-> @@ -100,6 +102,7 @@ properties:
->                - rockchip,rk3576-usb2phy-grf
->                - rockchip,rk3588-usb2phy-grf
->                - rockchip,rv1103b-pmu-grf
-> +              - rockchip,rv1106-grf
-
-What GRF in the table above is this referring to?
-
-Vendor kernel went the easy route and declared a single mega GRF block.
-Mainline should probably declare each GRF individually to correctly
-describe HW?
-
->                - rockchip,rv1108-grf
->                - rockchip,rv1108-pmugrf
->                - rockchip,rv1126-grf
-> @@ -244,6 +247,33 @@ allOf:
->  
->            unevaluatedProperties: false
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: rockchip,rv1106-grf
-> +
-> +    then:
-> +      properties:
-> +        clock-controller:
-> +          type: object
-> +          additionalProperties: false
-> +
-> +          properties:
-> +            compatible:
-> +              const: rockchip,rv1106-grf-cru
-> +
-> +            "#clock-cells":
-> +              const: 1
-> +
-> +          required:
-> +            - compatible
-> +            - "#clock-cells"
-> +
-> +          description:
-> +            Clock provider for the MMC drive and sample phase clocks,
-> +            whose control registers live in the GRF region.
-
-As mentioned in CRU patch, please take a look at RK3528, it exposes
-similar similar 'GRF' clocks from the CRU. Do not blindly follow what
-has been done in the vendor kernel.
-
-Regards,
-Jonas
-
-> +
->    - if:
->        properties:
->          compatible:
-
+/jeff
