@@ -1,106 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547FF3E0255;
-	Fri, 10 Jul 2026 08:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6484F3EF0D0;
+	Fri, 10 Jul 2026 08:25:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783671671; cv=none; b=OyVtwvYMSjEZyn0GRmz3aq4WpD+0TutH0DFcuPLogtmV7nEvNCwJsvAd7tDZ+K4gGAGS743DDfv0Qc9KPekLgXBJnnlliOU8YHv4gHWsOmxpU3Xc2GD8sYw6gON/pHu1QT2F3uPXfLpuIcMCuACKfvYAwW3AvPnU86kKeTaVlnQ=
+	t=1783671924; cv=none; b=HqagVzpDCs8838mkpck2pygQ7lw0rjGep/yQGraiDMCx7G4OLPCabJm6KxTh0g6pH6Hh6KwIG7D84k7Hr/XaAE1Ry98FOLT+BsuH8AIbftD5CkBkcPIYRuVosC0y5+qv0u13yBRBs8XdUqyevzuJxzL19WzHDVQlkwdv15CwaEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783671671; c=relaxed/simple;
-	bh=pBrycRR6DWm1J7z2nRQaGxJWAsRmCbxjaFUKGUDaepE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JEnSMlxiUzy2kynk/XFMMiyCeyH5iACc3aMzwwm8fAEJPRHdleTdHNpP7Ui/8UVSnd90anlVsDdwbvRAwqh/xXP8TqSK3gUzhSspPFBROU4lq4byPp8n9jTldqtMrl42JPGa5QFd1DYu2byGkVRusBaPqYeojfb/m8XIBKQWH/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nky/z5Z/; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nky/z5Z/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783671670; x=1815207670;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pBrycRR6DWm1J7z2nRQaGxJWAsRmCbxjaFUKGUDaepE=;
-  b=Nky/z5Z/kmmp0pchISAtl56rONTTb2sCRNrWSfxDY9mbQ1cUE/CaUxt2
-   bUhWRuwewt1+KqEZ7PJrJej6M0qrlk0tbApmBpG8r28SxULqYBJe//ckZ
-   0cy7Iax14UZI+VWSYb5HdWaEgf3YWsRGie1CwXJhDGIflOCkrSI25KUMX
-   jjfKaKw7WqbHiKuY5ey7ptwb2zUuZnWgvfwxHJYUhifYDVskCp1gsJmsl
-   Ilw/f12TH4ieqT1lzuwdj1CXZVCf9a8HLIDWsd7N5eegQ3w/pEC8Oac1O
-   FQwtmip6S3q3rmZlbif83kjp1ZGtDsnYQNuQ6Qwjk0ClEbAw+2EkCNk37
-   g==;
-X-CSE-ConnectionGUID: KGFtGL0RQm6OAKey756qBg==
-X-CSE-MsgGUID: pu/qCCSYR1KqKLuoa+A6Wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88197535"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="88197535"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 01:20:55 -0700
-X-CSE-ConnectionGUID: 7VSVUrYUQYqP2c81jnBTpw==
-X-CSE-MsgGUID: tLeIWpBvR2203uq7ve0tgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="254328183"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jul 2026 01:20:51 -0700
-Date: Fri, 10 Jul 2026 11:20:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	s=arc-20240116; t=1783671924; c=relaxed/simple;
+	bh=xd3KDzAqTgFAcVfNE91ziMvZZ4Kkugvet6hKeLO7NV8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n3jbwDq2UpK6t1gUBYU+Hcg09zZOkUyiDG1+vSXA3xRljDQWlOsxzKBNkRkVJ+4JRxwVd/4db1Dfij1+URVI/z1+sruQZwK7gjxQdPVc23G1/PAZ5FT99KObo3ht7aLmudPJgOh4cTJyW53dpAXE0tK40lda5Ws79p41bhRX3b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.155])
+	by gateway (Coremail) with SMTP id _____8Bx1+pxrFBqETQCAA--.9220S3;
+	Fri, 10 Jul 2026 16:25:21 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.155])
+	by front1 (Coremail) with SMTP id qMiowJBxEuRtrFBqEx4IAA--.24690S2;
+	Fri, 10 Jul 2026 16:25:19 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	John Ogness <john.ogness@linutronix.de>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	Gerhard Engleder <eg@keba.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Lukas Wunner <lukas@wunner.de>, Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH 2/4] serial: 8250: export serial8250_get_baud_rate()
-Message-ID: <alCrYPnk-0FmDnqw@ashevche-desk.local>
-References: <20260709205656.319531-1-ansuelsmth@gmail.com>
- <20260709205656.319531-3-ansuelsmth@gmail.com>
- <alAT4QMOi8U2ITho@ashevche-desk.local>
- <6a501516.a1b3dc3f.1e550b.96ea@mx.google.com>
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>
+Subject: [PATCH 0/2] thermal: loongson2: Add support for Loongson-2K0300 SoC
+Date: Fri, 10 Jul 2026 16:24:58 +0800
+Message-ID: <cover.1783670011.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a501516.a1b3dc3f.1e550b.96ea@mx.google.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxEuRtrFBqEx4IAA--.24690S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEECGpQcs0EugAAs3
+X-Coremail-Antispam: 1Uk129KBj93XoWxJrW5CFy7JFy5Kr48GF13Jrc_yoW8JFWxpa
+	yY9343Wr1DGFW7AwnxJr4UJrs0vr9avayDXF4fGw15uwn8GFy7trWUtF4Yyr97Gry0gFWj
+	vr1DKr4DCF1kurXCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8XTm3UUUUU==
 
-On Thu, Jul 09, 2026 at 11:39:32PM +0200, Christian Marangi wrote:
-> On Fri, Jul 10, 2026 at 12:35:02AM +0300, Andy Shevchenko wrote:
-> > On Thu, Jul 09, 2026 at 10:56:50PM +0200, Christian Marangi wrote:
-> > > Some driver might need to access the current baud rate to correctly
-> > > configure it.
-> > > 
-> > > Export the serial8250_get_baud_rate() function to limit code duplication.
-> > 
-> > Why?
-> > 
-> > We have _get_divisor() / _set_divisor() for exactly that purpose, no?
-> 
-> I can only see set and I'm not following how that helps with any driver
-> that needs to get the baud_rate?
+Hi all:
 
-You operate on the divisor settings instead of baud rate. Otherwise, can
-you elaborate why no other (out of dozens!) driver needs this? What do
-you try to achieve with the baud rate settings exactly?
+This patch series adds thermal zone support for the Loongson-2K0300 SoC.
 
+The Loongson-2K0300's thermal sensor is generally compatible with the
+existing Loongson-2K series, but it features several key differences:
+1. It has an independent CPU ID register for reading chip version
+information.
+2. The raw temperature output field has been extended from 8 bits to 11
+bits.
+3. The temperature calculation formula has been updated to incorporate a
+correction factor based on the version information.
+
+To ensure robustness on older hardware revisions, a fallback mechanism
+is included: if the calculated temperature falls outside the valid range
+(-55 TO 125),  the driver falls back to a simpler calculation and prints
+a warning.
+
+The patches have been validated on the Loongson-2K0300 development board.
+
+Thanks.
+Binbin
+
+Binbin Zhou (2):
+  dt-bindings: thermal: loongson,ls2k-thermal: Add compatible for
+    Loongson-2K0300
+  thermal/drivers/loongson2: Add thermal driver support for
+    Loongson-2K0300
+
+ .../thermal/loongson,ls2k-thermal.yaml        | 68 +++++++++++----
+ drivers/thermal/loongson2_thermal.c           | 83 +++++++++++++++++--
+ 2 files changed, 127 insertions(+), 24 deletions(-)
+
+
+base-commit: 795f1b1a91ae13ebc012a364075e42f486a1cafe
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.52.0
 
