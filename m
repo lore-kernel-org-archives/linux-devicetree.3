@@ -1,104 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0424425CD2;
-	Fri, 10 Jul 2026 11:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA312421F07
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783683476; cv=none; b=dgzMMQVnCwK5xnQnuRSE23TqUhgDlrvwqO5AAceAQUgScT4s0ta8mKsfUOBtjPdmpkVslQDrqxu3N/7kZVQSOGTdKaR3HtZpLFpbK1Uy5GY4QEspEr1jJFCCfnxcw+UR/kbs3xHDMb1bO0nIq/430vfgcBfC1oIo0j8DFXyFjqg=
+	t=1783683497; cv=none; b=f3aGC+UoBTU3tX8GYVBKAopwvnGvw8N1kGBgGe3mh7a15TUtZcgVCgLxzazZ/pbaMJjDk0I3e7dSWxlUifQvpFG5hDnQ1qFdcYugBzZ9oswPX05jcYU7I9xWm2fw/C2qzjakiNQGgJeyknNaxTD/mBs3WWklyzsIx5M8Jn2qep8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783683476; c=relaxed/simple;
-	bh=uxnAIAl9SGxVhnZzvEDquJsmPGKtMCjV43oRxTHe0T4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jqI04wIK04c46c5IQDvJZk2L4Y7j+6Nu9AhZ+DgVTtGtnn/Rvv7PXd6b1eSvkTzD3MQ02HIYOgPlzeI3Z0btSXwQbWUCwu4sZGEPY34znS4AK5Qn6evBZC6TONfTy/MMIPoqDcVLSrLqgOtjNXIm7YZt9RPNupwf1V0TFiNiV+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6dpMGPX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783683497; c=relaxed/simple;
+	bh=X7pq3PyhM1o+IcurE1qdIIJe71ZzKZqVhCOunB17O7w=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=XgsrbxGl7Vm4vAGuLfoachxryP5yZ/cFaZkhBOQsU0Hbn0lh9w2mcP/2lq8ztwFZjCxtUwiNK48rviTxrtYWJYyjdBz2gyY3i4JDk7D7Dbk0r+PfNIlRD0m6TLdRmJfVQFcuiB9eW9NVzIE5GwNWHAywGQbaGBRblJksdqw+Spc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=mgJlBoez; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6dpMGPX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082901F000E9;
-	Fri, 10 Jul 2026 11:37:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783683461;
-	bh=sDqV/QHYlLg9egTpISu9bxulcOMfxJFggqq1fNJBv4E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h6dpMGPXNKgtGPYL/Dx/7u+Ao+JtqLrNBqGbvnolv5g99LN70NTa26w2kOyAFlMoP
-	 7FsM6qhOmKwV1FVSHqfPPY3xjGxQidxcTzmJSLcCdNvG3+FkAipvLKwpJ6lK7LXvPO
-	 ohpxx0o52EDRKIWmGvh3PVnRYOdmEKstBFyuS6VpBiKZBVjiGFE4ilOElGbg7aAkOs
-	 Jdg/DUd67+4UxPSi4czz7zQWyLyraJVwXZrGQBokLlxjozbWdROuEK7XnMFgaNh1xN
-	 5zJgY7Vm7lqIg9coFVIDn3cviIoNWWmfSZuS7ALkNCHV73hCXgB5bHjcSnVQY2IocQ
-	 I5Q/5IOuKFqQw==
-Message-ID: <8ad5043e-0d5e-486d-80eb-87168d9ede87@kernel.org>
-Date: Fri, 10 Jul 2026 13:37:35 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="mgJlBoez"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260710113802epoutp03bd3b456aeb90134e3793d122a35f09d9~A6q1ciXcS2636926369epoutp03i
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 11:38:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260710113802epoutp03bd3b456aeb90134e3793d122a35f09d9~A6q1ciXcS2636926369epoutp03i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1783683482;
+	bh=BfsfxWnMvDHbHaU5VleFMtOa5AisCyr1aIft1Ku+Wz4=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=mgJlBoezVDK93yp3oAvOl+5PQ18Edl33ssGWuA4AvO4GPIa6xarv1+gzmlffDsbCn
+	 VE/oiHgUbHP/A/EA6X0OCYxy2LAP4ic59DkfjjR6M69LawDG3yTwhVFxfJW2I7AOqq
+	 v75HmHzVlAKfRBMw77BqMg6C9z8uoCZCipWvZXhU=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260710113802epcas5p391861cea9a4c63274e786b6e52bad052~A6q00Vt0c2132921329epcas5p3M;
+	Fri, 10 Jul 2026 11:38:02 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.94]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4gxVFP0dzGz2SSKY; Fri, 10 Jul
+	2026 11:38:01 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260710113800epcas5p2a5461c3d10e8c69add826fc62806d6e3~A6qy-C7ya0882308823epcas5p2x;
+	Fri, 10 Jul 2026 11:38:00 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260710113758epsmtip17831fbbbe17cf8bbc0feeb897f44aeee~A6qxpCEm20474004740epsmtip1f;
+	Fri, 10 Jul 2026 11:37:58 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Krzysztof Kozlowski'" <krzk@kernel.org>, "'Peter Griffin'"
+	<peter.griffin@linaro.org>
+Cc: <robh@kernel.org>, <conor+dt@kernel.org>, <linusw@kernel.org>,
+	<linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-gpio@vger.kernel.org>,
+	<hajun.sung@samsung.com>
+In-Reply-To: <54c419d0-b0cb-4add-8d74-94a40804f33e@kernel.org>
+Subject: RE: [PATCH v3 5/6] arm64: dts: exynos: add initial support for
+ Samsung Exynos8855 smdk
+Date: Fri, 10 Jul 2026 17:07:57 +0530
+Message-ID: <152801dd1060$8f3baae0$adb300a0$@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: memory-controllers: renesas,dbsc: fix
- bracket
-To: Manuel Ebner <manuelebner@mailbox.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260710113029.436415-2-manuelebner@mailbox.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260710113029.436415-2-manuelebner@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQCQM7wiCxtRwyhZTDec7lkhalOHFwIex+rgAd5cQHMByjDVPgF/2VxQAn303Q8By1kGcQFci0CruJjxDHA=
+Content-Language: en-us
+X-CMS-MailID: 20260710113800epcas5p2a5461c3d10e8c69add826fc62806d6e3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260627165422epcas5p4e4c6bce0e2daa6d08a9ec18afde9ce0e
+References: <CGME20260627165422epcas5p4e4c6bce0e2daa6d08a9ec18afde9ce0e@epcas5p4.samsung.com>
+	<20260627171228.2687857-1-alim.akhtar@samsung.com>
+	<20260627171228.2687857-6-alim.akhtar@samsung.com>
+	<CADrjBPqYSTDExrBrYYf2z=23Ci8VqF9zXvbc+njDm1d4Ojrjrg@mail.gmail.com>
+	<14cf01dd1052$4de88670$e9b99350$@samsung.com>
+	<9eb6b0ef-cbc1-4b2f-b607-986f28ec46ee@kernel.org>
+	<14e201dd1055$b7173940$2545abc0$@samsung.com>
+	<54c419d0-b0cb-4add-8d74-94a40804f33e@kernel.org>
 
-On 10/07/2026 13:30, Manuel Ebner wrote:
-> Remove needless ')'.
-> 
 
-You sent multiple patches like that and that's unnecessary effort to
-handle. These are trivial - one patch for all bindings should be enough.
 
-Best regards,
-Krzysztof
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk=40kernel.org>
+> Sent: Friday, July 10, 2026 3:55 PM
+> To: Alim Akhtar <alim.akhtar=40samsung.com>; 'Peter Griffin'
+> <peter.griffin=40linaro.org>
+> Cc: robh=40kernel.org; conor+dt=40kernel.org; linusw=40kernel.org; linux-=
+samsung-
+> soc=40vger.kernel.org; linux-kernel=40vger.kernel.org;
+> devicetree=40vger.kernel.org; linux-gpio=40vger.kernel.org;
+> hajun.sung=40samsung.com
+> Subject: Re: =5BPATCH v3 5/6=5D arm64: dts: exynos: add initial support f=
+or Samsung
+> Exynos8855 smdk
+>=20
+> On 10/07/2026 12:20, Alim Akhtar wrote:
+> >
+> >
+> >> -----Original Message-----
+> >> From: Krzysztof Kozlowski <krzk=40kernel.org>
+> >> Sent: Friday, July 10, 2026 3:30 PM
+> >> To: Alim Akhtar <alim.akhtar=40samsung.com>; 'Peter Griffin'
+> >> <peter.griffin=40linaro.org>
+> >> Cc: robh=40kernel.org; conor+dt=40kernel.org; linusw=40kernel.org;
+> >> linux-samsung- soc=40vger.kernel.org; linux-kernel=40vger.kernel.org;
+> >> devicetree=40vger.kernel.org; linux-gpio=40vger.kernel.org;
+> >> hajun.sung=40samsung.com
+> >> Subject: Re: =5BPATCH v3 5/6=5D arm64: dts: exynos: add initial suppor=
+t
+> >> for Samsung
+> >> Exynos8855 smdk
+> >>
+> >> On 10/07/2026 11:55, Alim Akhtar wrote:
+> >>>>> ---
+> >>>>>  arch/arm64/boot/dts/exynos/Makefile           =7C   1 +
+> >>>>>  .../boot/dts/exynos/exynos8855-pinctrl.dtsi   =7C 574
+> ++++++++++++++++++
+> >>>>>  .../arm64/boot/dts/exynos/exynos8855-smdk.dts =7C  32 +
+> >>>>>  arch/arm64/boot/dts/exynos/exynos8855.dtsi    =7C 204 +++++++
+> >>>>>  4 files changed, 811 insertions(+)  create mode 100644
+> >>>>> arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi
+> >>>>>  create mode 100644 arch/arm64/boot/dts/exynos/exynos8855-smdk.dts
+> >>>>>  create mode 100644 arch/arm64/boot/dts/exynos/exynos8855.dtsi
+> >>>>> +       =7D;
+> >>> =5Bsnip=5D
+> >>>>> +
+> >>>>> +       oscclk: clock-oscclk =7B
+> >>>>> +               compatible =3D =22fixed-clock=22;
+> >>>>> +               clock-output-names =3D =22oscclk=22;
+> >>>>> +               =23clock-cells =3D <0>;
+> >>>>> +       =7D;
+> >>>>
+> >>>> Small nit, but I believe oscclk node should be ordered
+> >>>> alpha-numerically by the node name. See
+> >>>> https://docs.kernel.org/devicetree/bindings/dts-coding-
+> >>>> style.html
+> >>>>
+> >>> Thanks, will update in v4
+> >>
+> >>
+> >> The node feels ordered, no? clock before cpu?
+> >>
+> > Right, =22 ordered alpha-numerically by the node name=22
+> >
+> > Krzysztof, do you want to send v4 with all the reviewed-by tag collecte=
+d?
+>=20
+> No need, there are no changes planned, right? I just give it a day or two=
+ if Peter
+> or someone wants to review this one in such case.
+>=20
+Sure, no changes for now.=20
+Thanks=21
+
+> Best regards,
+> Krzysztof
+
