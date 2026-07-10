@@ -1,477 +1,196 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3983DDB18
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B533DF00B
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783675382; cv=none; b=FRJbhEy300bzMbCwmLh1tOBvyvvuE4A9ntvG4y/xL6oJNFpCV0sNeKxTKju0LF3JVGZ7CbMw9ekMIJM+Ujgg5/TndpyRSqPgq8Lb+5w8rBnHOuWSmBMcbVzCR4+cy4Jqk2MOiIHbyjqC8c5EQ1uPgKq9v3YCbImB5cDC6NHUWuw=
+	t=1783675439; cv=none; b=B9uWPvbgvNI/Nl/FlaQ1zBFCBQxuIllji8xs2f73dESQ+csMkuYNt4IGxQCXCIZ1vqeMmN0+hLrYyxS0f9cPqXMLYJf5oHvExoZYgcjpIbdLUU8rq30f5yvhOAsEDylMGCITIwywMiGmR2jn6H5elYLh9TTDK3L9DS+n5wthpW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783675382; c=relaxed/simple;
-	bh=6vvvoS+Br7JM4+bO6PoXZDcYhJ0TxtZIz5yf5h8lYBI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=p7U3aUcv1nk9ZHl4S3GeYnoPGZ8PldpA8YmEuIt3UqwtzmZ3AuXurhxBWMuz1POhTMLRl0Iogq5hUTvUhfEGfZG1GtfdraGqSIsp+aSn7XPM0ZP3G20jJdrcVdBkU5J3G0VeH285oMmquvuZ+1cTBUovmYJjpemBZP608P4vCAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=jjUNeS9/; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1783675439; c=relaxed/simple;
+	bh=YoVUDj0VmVAC2jmbVX6pbD6bZIFZCdW/Q0ywRUHMsJ4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gvmak6wYAXyOJPmx6dNpVMoc1AOtqsv4qTa0ytbXm0RsIn4yebDqKC0lC+6B7bi1u36WG5AfxSsyibmAt+6vnksm0/DBCARJDOmI/V1ghOhV+FL4o32Np3aU3MwOJqiMANq6ovycysDIwPM0EzO9o0jJ+tnX3MxrQyRw4b2DGX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Uh5zxbbw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AvPYxgXH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="jjUNeS9/"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-69531108f25so1120512a12.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:22:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Uh5zxbbw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AvPYxgXH"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66A7dXQn4194213
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:23:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	66CNho0zRKeJhcUQz19hKeeEOAaD98LvwCXadn+4LsM=; b=Uh5zxbbwI1VKccuM
+	b93P9bjn0BjqDmDT9Pj3cSoLHYNPkJEjf8fhIM0AyitIMR7cDabw7zPz3djCM6cx
+	9X6KO3cT2D9jFVoSzRCLBnXSOVHeed/YyMjobcCqR9nptteX79LsvnNXeJN6lNn5
+	Crz+8J8Jl72+ByJR/ZD3qvPwAEinjoYmKdzMvAOWROWmtuGxyiH9gXA5Bw3fHl5b
+	n9vMkMKe6MGRThvPsgKj5yUbsL6GqRZt+dOl9EfOiktolWLY5O6Bw8txwiyUtGcM
+	mSZ4QpoulhBQE8emu0KfDJUI5HhQIoW1LK82sZUkEPcIZpGBS4nfQU1ms7mrmO6s
+	93PCqw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4faf24uk5e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:23:56 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92eb5f54b6dso19192485a.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:23:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1783675378; x=1784280178; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yg7ioh22XhaJVGdlXVxo6srFg4mbOi5uMGV4uuYdkyg=;
-        b=jjUNeS9/hfWAi9hAA0YlXGQp5Cz7gFKWy/Ne7FzGYNLMi33sudxUlGYS2EtPs01nl6
-         cGIYxfPK0+d17zg6pScVd2aONuSJrIlukGpKrK6iDlbyJXxf6vWqKsBk6R9sbqxEApDG
-         51yPiXCa0q1WzlgiUC9SznzG4IplD/Yt1+P9Eju0fjbyoba+nnXd0+sJtK/AB6FTffuA
-         7LnMkFaqCQ0GgxfIEVE2ZT1NN1hCkNdrsvnC9gFI3jHWm2IWhG74QxRGl8MBqbrlsXNV
-         sVgdxxjDKQsWmVkTf9lJgyoHtsUyc6rCJJEg7iRKKYfClbTey++8xqPRI+eIKrBPC0FL
-         VcTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783675378; x=1784280178;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1783675435; x=1784280235; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yg7ioh22XhaJVGdlXVxo6srFg4mbOi5uMGV4uuYdkyg=;
-        b=VDVZIgNd1MK+r/ksEdEiRVU4KHk6vuAR52MbUbNwjMdmiZMT250jzEVcBctKP4Aqoj
-         K9ShKqwu2XJcMlwFYev4Oz/rS0mpP0u++tYbAsJ1qNhbvueg0WVbfGhXdCz2tRXktbea
-         sbaFsC2H7xaKUFncWioi0l2Gch37dTj62ceXRSrg6xlvWg1tRzSf8h9jV8IWUvz6pvkn
-         STAj0PaIqx1ZT2a0jFTxIhLCy8GozEUhW4oyFlRWNdNu8oAqZ0Z2QIx/oshARZiFVLEy
-         NrgLT5BJOyJJQzw/IqzfdQHHJeYJZZDeMdKuWZ2zMdVn9/9yXCtTBnVVKlmYzxS7POsH
-         SH8A==
-X-Forwarded-Encrypted: i=1; AHgh+RqTxpjeVNerZt8djOx/M84sPjd66aGZJT93VeRnxH09b+1/2lAIEZR00od0qJzfA5wDinS6R1vOlwRj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8/wwGlo0AsFjwMZSXhIRZXUT0idqyELQbYwqoXinYhm1nhQpo
-	0YDBaO2QMB+fLGlYCxGtuAKgEedP7cYu978S4UcsZO9WDMRmd65UZgDyqe0I8yWrLh4=
-X-Gm-Gg: AfdE7ckbav+wsKkJOc0cb4REV2PDpPgTuvsUMsw4F0skaUWRb/nO8svrZ581gEqGW/x
-	yZoxPMdGL0KA6iZYprugt2MhqV0iklb1dYYyWajj+ZhdKRt0Bt4PwrxhBR57988/KYxudkzdUiI
-	sLMdFiOaV5N8pHsoqv7E45B0Mm02WnkzYHBuKOO3dfnPP+RcatONTsPuiLX8MCRqMRsyGdCAXiH
-	eLs7AXGjlTkf1/NaBWmok/Cu3sJ/i65FvQb5PWv43je87WgjDxVdna3Vtlc3ldS/4GsTA6F0AIq
-	pl9CUZVgNkBC6XU0D+0hH0QgEGcWXe7NzbpF76xGPNehpXgKliF9qF32DCqYdehUfNO2MfUFrZL
-	OTb76jrkUtWocdSqnUJ6hhue8B4KPDd0YFVD3ypuIBuAbgDVY2iGakrbqP58SMYbfo6Ac1vAl/u
-	TNcXQYk7CGdXc3ZXrQUHVl6JQmFVTTz95PCNvzxT28nniscVK6lSTlzlptPBfECcHt9bs=
-X-Received: by 2002:a17:907:76f3:b0:c12:330e:ea76 with SMTP id a640c23a62f3a-c15ce18c17amr333319866b.37.1783675378323;
-        Fri, 10 Jul 2026 02:22:58 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15dfda815dsm261785566b.36.2026.07.10.02.22.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 02:22:57 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 10 Jul 2026 11:22:42 +0200
-Subject: [PATCH 4/4] arm64: dts: qcom: milos: add CPU OPP table with DDR &
- L3 bandwidths
+        bh=66CNho0zRKeJhcUQz19hKeeEOAaD98LvwCXadn+4LsM=;
+        b=AvPYxgXHH7HIZre96xpaZPYA5DMHZCO9jvagOmyOv3TP5rUZKdjNC3qVHTjNFxiTzM
+         3cmhWxxCF1O9zSINRJtfXPbu7vNpSIxrrkCpfO5qW/mXV8u3HwNbpLL012Fn8R+6EVNG
+         VA7rSMcoiNuJlojTUzAkltJMNXEaFQwrXdA4cf+ZL4SIy/qfMJOy+Qc64foxsG7p8Scf
+         H1fi9J7GQGmckaXJBmWTyGPQBX10eslUunArus0Lk7KC9sHh6rh41E2jFREBsXEwgiY/
+         dgNbWleqFM8aMYxbBgQWQZpiNemo7W0zzNKO1ZlbxSfg2pTALF2ZIwOLXMBpACHiL7F5
+         mxLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783675435; x=1784280235;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=66CNho0zRKeJhcUQz19hKeeEOAaD98LvwCXadn+4LsM=;
+        b=cvGSdPaoadmBwSmUODQdZ3UGAMiNTbHyltLkGQkl5BboHz4tBDMD6SevILAc7PRapC
+         i0DsRk+Qk5EGkyfLV6ZkBvKSoR24TYPAqbBWF3duzIVWn4aZ5iN+UnzOD5S9RHk7bPBM
+         5JlL8cWBw+Q29INj5G2myGPMMQ69SshgP2uK+tA3KTnjwjlIjQCRcNV/34gSxb2gDdKt
+         xHIY1vsjiuCiQuVL7nmIxnSa65F/bplaKa/HgNmXBOVakBZaVp6o8xOS1Y19/y8sVGjL
+         NWHia8Ff5RD0guJBeRRs+rhablm4LeEIeK5/IsgQdOvU0S/Feyy2HAnPnKvVrWCyE6RS
+         76LQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrgdgznYM78Wuo5eu8wDcnKo4dtdhf/dDeF1+HObpShmCsYwPGmISPoz4cfKmK+8JjSNE74n1t4xUDW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx04h022FewuhIJ2Kp4YLofsqLtEm+wgpY35rGEnbchj7QP4yL1
+	NamhkOIqLk3DUa381tropDAf1BEsdl3BvXa0PgwT5T2ctJLUPPN8BFGEchhFACp/eMw8fv61FN2
+	aiLAdfFMD+KbzUvJdbRYR3MnZwU1lKNvYHwblMXjR52V4giebekmN5L1+aco9Ohax
+X-Gm-Gg: AfdE7ck5eMOxqSCqHS3I4jG5mC9QvOpNR4uslv/PbdTWGTyHAXET5YXKrJHyfFAfbac
+	JBv9KJEl+hayEB1XaEwiIKMwFitVwuoulKnld/RhW8USfu0SBivdN7dzWCwTDCBDZpE4v3THj7Q
+	12Dv+y8BQNfzJmIXXjoaoDtVK253gRdtppxF/oWYA+fW1furAHGhDzxRqzails2vWLi70I76rjQ
+	L7X7TIaWn8JAYY8Fksh4W9glyT95Vzn6F23x5yi13w77/kNAdI/IwFwt/+ZfsGLSXoywMTLfkef
+	FsAC1gbqsVV3mf+xIAxIuPnnDctthsh3XXreVtymSvuuBSuMtTrUyVNHc4x7lXlL5OiaQkuum+G
+	ANP7lZU53emu6S7MOTwVYRwKuNfcBmoD6kLM=
+X-Received: by 2002:a05:620a:444a:b0:92e:72a4:f283 with SMTP id af79cd13be357-92ed7a3d1fdmr672201185a.8.1783675435393;
+        Fri, 10 Jul 2026 02:23:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:444a:b0:92e:72a4:f283 with SMTP id af79cd13be357-92ed7a3d1fdmr672199285a.8.1783675434826;
+        Fri, 10 Jul 2026 02:23:54 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15c38c164asm436634766b.3.2026.07.10.02.23.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 02:23:53 -0700 (PDT)
+Message-ID: <c75c88bc-3aba-44cb-a530-1d994bcd8954@oss.qualcomm.com>
+Date: Fri, 10 Jul 2026 11:23:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/6] arm64: dts: qcom: ipq5018: add node required for
+ Bluetooth support
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        George Moussalem <george.moussalem@outlook.com>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+References: <20260709-ipq5018-bluetooth-v5-0-e476c41f03b8@outlook.com>
+ <20260709-ipq5018-bluetooth-v5-5-e476c41f03b8@outlook.com>
+ <11796dd7-11c8-45e3-8f9e-1dc27da0b229@oss.qualcomm.com>
+ <SN7PR19MB673648D6C15A8E15D35F1E5E9DFE2@SN7PR19MB6736.namprd19.prod.outlook.com>
+ <fab734fd-adfe-45b6-a10f-a8a25f7affb1@oss.qualcomm.com>
+ <CAMRc=MccvtBxJaddbX0PjjMpV+6iwZeYf2ebq953msbMeVN=Aw@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAMRc=MccvtBxJaddbX0PjjMpV+6iwZeYf2ebq953msbMeVN=Aw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-milos-cpu-opp-v1-4-ae7f4b09bc77@fairphone.com>
-References: <20260710-milos-cpu-opp-v1-0-ae7f4b09bc77@fairphone.com>
-In-Reply-To: <20260710-milos-cpu-opp-v1-0-ae7f4b09bc77@fairphone.com>
-To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Alexander Koskovich <akoskovich@pm.me>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783675372; l=10846;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=6vvvoS+Br7JM4+bO6PoXZDcYhJ0TxtZIz5yf5h8lYBI=;
- b=Yb7cyVD/7L9tLGDe6hKl9sNaOsQlKvBsiS9fkifLaKpyqyWG+flOdZL2RtSne7+2XIIDwbEAf
- icPmeNZ27FKCLt4BEeFtjzeN+6c6M5/YxtfWI2SO1Q+8lsYzXotXcy2
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-Proofpoint-GUID: G1eWzC0_soHx-kTaSscqc0kDRmKYSlRl
+X-Proofpoint-ORIG-GUID: G1eWzC0_soHx-kTaSscqc0kDRmKYSlRl
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDA5MSBTYWx0ZWRfX7ACA6WVR6sNi
+ MMhVhCPmH9fmHLGQa8XuaHUmBOt2gzmaTUH1S1IZTvCFCyuSem7tCx+1Ql6s70MGGtzJjfKz4qK
+ La4YTDiRpVZtKYYdxB5B0PR97YvkelM=
+X-Authority-Analysis: v=2.4 cv=daKwG3Xe c=1 sm=1 tr=0 ts=6a50ba2c cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=UqCG9HQmAAAA:8 a=0aS1VzSqY7UWMrxkMG8A:9
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDA5MSBTYWx0ZWRfX0M5a2RciJHZy
+ bHtqdemN+yB9xX/xX2tdopr4/CO03tAnldX6jGOcbwS4TsRAKG17MNZOKFpms6cD0KaUzrEfO9c
+ yL4lSlshHv/ddqDew4Xozxw3F2DpNS9krpsvbvwc2NoLWImT0U/9pkFl1jiGVXqpnxuZJlwHmNH
+ 7JN4HVyonju1I1pjDuDFz5BftCpWt2VByZEUYnkdXGW/tzdGsAWEjkFtD7NBpNzTv2guyPes8w9
+ HTLdm+Jsk3OEXW9zc7AvQTgsfeWZxcnW3Vlu40rYeJJvYHQv7r1S9D8hP0jttW7IWB5ti0Juzzl
+ Vtx9ZZ/mlLk67hAWd2LpsKs8mjH5V5hYHLcWm7O2bgPteLDomY9a4fB0C3T72/Hkx1EkPuf5erB
+ sqPZRALHcSxdJhsmTNc1ScUt8JJi9o061l69oR6oKRbznW+NNOWQLJJdzBTaoIt8+kA/5muH/bp
+ BRspTgsniN5d3U7zV2Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-10_02,2026-07-09_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100091
 
-Add the OPP tables for each CPU clusters (cpu0-3, cpu4-6 & cpu7) to
-permit scaling the DDR and L3 cache frequency by aggregating bandwidth
-requests of all CPU core with reference to the current OPP they are
-configured in by the LMH/EPSS hardware.
+On 7/10/26 11:14 AM, Bartosz Golaszewski wrote:
+> On Thu, 9 Jul 2026 20:40:04 +0200, Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> said:
+>> On 7/9/26 8:25 PM, George Moussalem wrote:
+>>> On 7/9/26 22:17, Konrad Dybcio wrote:
+>>>> On 7/9/26 11:18 AM, George Moussalem via B4 Relay wrote:
+>>>>> From: George Moussalem <george.moussalem@outlook.com>
+>>>>>
+>>>>> Add node to enable Bluetooth support on the IPQ5018 platform.
+>>>>>
+>>>>> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>>>>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>>>>> ---
+>>>>>  arch/arm64/boot/dts/qcom/ipq5018.dtsi | 16 ++++++++++++++++
+>>>>>  1 file changed, 16 insertions(+)
+>>>>>
+>>>>> diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+>>>>> index 6f8004a22a1f..8c252fa3ff5b 100644
+>>>>> --- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+>>>>> +++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+>>>>> @@ -453,6 +453,22 @@ tcsr: syscon@1937000 {
+>>>>>  			reg = <0x01937000 0x21000>;
+>>>>>  		};
+>>>>>
+>>>>> +		bluetooth: bluetooth@7000000 {
+>>>>> +			compatible = "qcom,ipq5018-bt";
+>>>>> +			reg = <0x07000000 0x58000>;
+>>>>> +
+>>>>> +			firmware-name = "qca/bt_fw_patch.mbn";
+>>>>
+>>>> Hm, rethinking this, it must have ipq5018 somewhere in the name
+>>>
+>>> I agree but all QCA BT firmware and rampatches are published in the
+>>> /lib/firmware/qca directory, see:
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/ath/linux-firmware.git/tree/qca
+>>
+>> +Jeff, Bartosz?
+>>
+> 
+> I'm not sure what the question is. This particular blob doesn't seem to exist
+> anywhere in linux-firmware yet. I agree, ideally the platform name should be in
+> the firmware name so let's upstream it to linux-firmware as such? Am I missing
+> something?
 
-The effect is a proper caches & DDR frequency scaling when CPU cores
-change frequency.
+That's what I'd like to happen - just wanted to make sure you're in the
+loop, so that a platform-specific MBN doesn't end up with such a generic
+name in case that was the plan.
 
-The OPP tables were built using the downstream memlat ddr & l3 tables
-for each cluster type with the actual EPSS cpufreq LUT tables from
-running devices. Note, that higher frequencies than SM7635 are available
-on QCS6690, those have been added here as far as possible but may not be
-fully complete. Additional OPPs may need to be added for that SoC.
-
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- arch/arm64/boot/dts/qcom/milos.dtsi | 291 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 291 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
-index 8e288b5dfc58..974afd7a582e 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -66,6 +66,8 @@ cpu0: cpu@0 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 
-+			operating-points-v2 = <&cpu0_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -104,6 +106,8 @@ cpu1: cpu@100 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 
-+			operating-points-v2 = <&cpu0_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -129,6 +133,8 @@ cpu2: cpu@200 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 
-+			operating-points-v2 = <&cpu0_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -161,6 +167,8 @@ cpu3: cpu@300 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 
-+			operating-points-v2 = <&cpu0_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -186,6 +194,8 @@ cpu4: cpu@400 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 
-+			operating-points-v2 = <&cpu4_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -218,6 +228,8 @@ cpu5: cpu@500 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 
-+			operating-points-v2 = <&cpu4_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -250,6 +262,8 @@ cpu6: cpu@600 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 
-+			operating-points-v2 = <&cpu4_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -282,6 +296,8 @@ cpu7: cpu@700 {
- 
- 			qcom,freq-domain = <&cpufreq_hw 2>;
- 
-+			operating-points-v2 = <&cpu7_opp_table>;
-+
- 			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
- 					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
- 					<&epss_l3 MASTER_EPSS_L3_APPS
-@@ -435,6 +451,281 @@ memory@0 {
- 		reg = <0 0 0 0>;
- 	};
- 
-+	cpu0_opp_table: opp-table-cpu0 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-441600000 {
-+			opp-hz = /bits/ 64 <441600000>;
-+			opp-peak-kBps = <(547000 * 4) (364800 * 32)>;
-+		};
-+
-+		opp-595200000 {
-+			opp-hz = /bits/ 64 <595200000>;
-+			opp-peak-kBps = <(547000 * 4) (556800 * 32)>;
-+		};
-+
-+		opp-787200000 {
-+			opp-hz = /bits/ 64 <787200000>;
-+			opp-peak-kBps = <(547000 * 4) (710400 * 32)>;
-+		};
-+
-+		opp-902400000 {
-+			opp-hz = /bits/ 64 <902400000>;
-+			opp-peak-kBps = <(547000 * 4) (806400 * 32)>;
-+		};
-+
-+		opp-1017600000 {
-+			opp-hz = /bits/ 64 <1017600000>;
-+			opp-peak-kBps = <(547000 * 4) (998400 * 32)>;
-+		};
-+
-+		opp-1113600000 {
-+			opp-hz = /bits/ 64 <1113600000>;
-+			opp-peak-kBps = <(547000 * 4) (998400 * 32)>;
-+		};
-+
-+		opp-1228800000 {
-+			opp-hz = /bits/ 64 <1228800000>;
-+			opp-peak-kBps = <(768000 * 4) (1094400 * 32)>;
-+		};
-+
-+		opp-1344000000 {
-+			opp-hz = /bits/ 64 <1344000000>;
-+			opp-peak-kBps = <(768000 * 4) (1209600 * 32)>;
-+		};
-+
-+		opp-1497600000 {
-+			opp-hz = /bits/ 64 <1497600000>;
-+			opp-peak-kBps = <(768000 * 4) (1363200 * 32)>;
-+		};
-+
-+		opp-1593600000 {
-+			opp-hz = /bits/ 64 <1593600000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (1363200 * 32)>;
-+		};
-+
-+		opp-1708800000 {
-+			opp-hz = /bits/ 64 <1708800000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (1497600 * 32)>;
-+		};
-+
-+		opp-1804800000 {
-+			opp-hz = /bits/ 64 <1804800000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (1516800 * 32)>;
-+		};
-+
-+		opp-2054400000 {
-+			opp-hz = /bits/ 64 <2054400000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (1804800 * 32)>;
-+		};
-+	};
-+
-+	cpu4_opp_table: opp-table-cpu4 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-480000000 {
-+			opp-hz = /bits/ 64 <480000000>;
-+			opp-peak-kBps = <(547000 * 4) (364800 * 32)>;
-+		};
-+
-+		opp-633600000 {
-+			opp-hz = /bits/ 64 <633600000>;
-+			opp-peak-kBps = <(547000 * 4) (556800 * 32)>;
-+		};
-+
-+		opp-787200000 {
-+			opp-hz = /bits/ 64 <787200000>;
-+			opp-peak-kBps = <(547000 * 4) (556800 * 32)>;
-+		};
-+
-+		opp-940800000 {
-+			opp-hz = /bits/ 64 <940800000>;
-+			opp-peak-kBps = <(547000 * 4) (556800 * 32)>;
-+		};
-+
-+		opp-1056000000 {
-+			opp-hz = /bits/ 64 <1056000000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 768000 */
-+			opp-peak-kBps = <(768000 * 4) (710400 * 32)>;
-+		};
-+
-+		opp-1190400000 {
-+			opp-hz = /bits/ 64 <1190400000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 768000 */
-+			opp-peak-kBps = <(768000 * 4) (710400 * 32)>;
-+		};
-+
-+		opp-1286400000 {
-+			opp-hz = /bits/ 64 <1286400000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (902400 * 32)>;
-+		};
-+
-+		opp-1401600000 {
-+			opp-hz = /bits/ 64 <1401600000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (1209600 * 32)>;
-+		};
-+
-+		opp-1497600000 {
-+			opp-hz = /bits/ 64 <1497600000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (1209600 * 32)>;
-+		};
-+
-+		opp-1612800000 {
-+			opp-hz = /bits/ 64 <1612800000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 1555000 */
-+			opp-peak-kBps = <(1555000 * 4) (1363200 * 32)>;
-+		};
-+
-+		opp-1708800000 {
-+			opp-hz = /bits/ 64 <1708800000>;
-+			opp-peak-kBps = <(1708000 * 4) (1363200 * 32)>;
-+		};
-+
-+		opp-1824000000 {
-+			opp-hz = /bits/ 64 <1824000000>;
-+			opp-peak-kBps = <(1708000 * 4) (1497600 * 32)>;
-+		};
-+
-+		opp-1920000000 {
-+			opp-hz = /bits/ 64 <1920000000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 2092000 */
-+			opp-peak-kBps = <(2092000 * 4) (1497600 * 32)>;
-+		};
-+
-+		opp-2016000000 {
-+			opp-hz = /bits/ 64 <2016000000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 2092000 */
-+			opp-peak-kBps = <(2092000 * 4) (1497600 * 32)>;
-+		};
-+
-+		opp-2073600000 {
-+			opp-hz = /bits/ 64 <2073600000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 2092000 */
-+			opp-peak-kBps = <(2092000 * 4) (1497600 * 32)>;
-+		};
-+
-+		opp-2208000000 {
-+			opp-hz = /bits/ 64 <2208000000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 2092000 */
-+			opp-peak-kBps = <(2092000 * 4) (1516800 * 32)>;
-+		};
-+
-+		opp-2400000000 {
-+			opp-hz = /bits/ 64 <2400000000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1516800 * 32)>;
-+		};
-+
-+		opp-2707200000 {
-+			opp-hz = /bits/ 64 <2707200000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1804800 * 32)>;
-+		};
-+	};
-+
-+	cpu7_opp_table: opp-table-cpu7 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-480000000 {
-+			opp-hz = /bits/ 64 <480000000>;
-+			opp-peak-kBps = <(547000 * 4) (364800 * 32)>;
-+		};
-+
-+		opp-633600000 {
-+			opp-hz = /bits/ 64 <633600000>;
-+			opp-peak-kBps = <(547000 * 4) (556800 * 32)>;
-+		};
-+
-+		opp-787200000 {
-+			opp-hz = /bits/ 64 <787200000>;
-+			opp-peak-kBps = <(547000 * 4) (806400 * 32)>;
-+		};
-+
-+		opp-960000000 {
-+			opp-hz = /bits/ 64 <960000000>;
-+			opp-peak-kBps = <(547000 * 4) (806400 * 32)>;
-+		};
-+
-+		opp-1094400000 {
-+			opp-hz = /bits/ 64 <1094400000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 768000 */
-+			opp-peak-kBps = <(768000 * 4) (998400 * 32)>;
-+		};
-+
-+		opp-1209600000 {
-+			opp-hz = /bits/ 64 <1209600000>;
-+			/* TODO: ddr4 = 1017000, ddr5 = 768000 */
-+			opp-peak-kBps = <(768000 * 4) (998400 * 32)>;
-+		};
-+
-+		opp-1324800000 {
-+			opp-hz = /bits/ 64 <1324800000>;
-+			opp-peak-kBps = <(1555000 * 4) (998400 * 32)>;
-+		};
-+
-+		opp-1459200000 {
-+			opp-hz = /bits/ 64 <1459200000>;
-+			opp-peak-kBps = <(1555000 * 4) (1209600 * 32)>;
-+		};
-+
-+		opp-1651200000 {
-+			opp-hz = /bits/ 64 <1651200000>;
-+			opp-peak-kBps = <(1708000 * 4) (1209600 * 32)>;
-+		};
-+
-+		opp-1766400000 {
-+			opp-hz = /bits/ 64 <1766400000>;
-+			/* TODO: ddr4 = 1708000, ddr5 = 2092000 */
-+			opp-peak-kBps = <(2092000 * 4) (1363200 * 32)>;
-+		};
-+
-+		opp-1900800000 {
-+			opp-hz = /bits/ 64 <1900800000>;
-+			/* TODO: ddr4 = 2092000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1497600 * 32)>;
-+		};
-+
-+		opp-2208000000 {
-+			opp-hz = /bits/ 64 <2208000000>;
-+			/* TODO: ddr4 = 2092000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1497600 * 32)>;
-+		};
-+
-+		opp-2304000000 {
-+			opp-hz = /bits/ 64 <2304000000>;
-+			/* TODO: ddr4 = 2092000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1516800 * 32)>;
-+		};
-+
-+		opp-2496000000 {
-+			opp-hz = /bits/ 64 <2496000000>;
-+			/* TODO: ddr4 = 2092000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1516800 * 32)>;
-+		};
-+
-+		opp-2707200000 {
-+			opp-hz = /bits/ 64 <2707200000>;
-+			/* TODO: ddr4 = 2092000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1804800 * 32)>;
-+		};
-+
-+		opp-2918400000 {
-+			opp-hz = /bits/ 64 <2918400000>;
-+			/* TODO: ddr4 = 2092000, ddr5 = 3196000 */
-+			opp-peak-kBps = <(3196000 * 4) (1804800 * 32)>;
-+		};
-+	};
-+
- 	pmu-a520 {
- 		compatible = "arm,cortex-a520-pmu";
- 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW &ppi_cluster0>;
-
--- 
-2.55.0
-
+Konrad
