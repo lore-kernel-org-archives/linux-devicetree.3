@@ -1,392 +1,183 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349D6435ED6
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 16:01:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC6883DEFFA
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 16:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783699314; cv=none; b=gE3KH8zEg9gDDFTRGmkjflgH09AfjgJ6eOOk2yzvkk7eXBP0fYcsGHX6BMw3dNsPXnGhVc9UXGrknsZtN3d+98cXJcW17p5/cZA92BWtTcienc37nyXlKYWSoFWEHNDjlArTdQ8zBIbuwOnyJKDMxMBBkcAtxrPveX2YzuZysZk=
+	t=1783699405; cv=none; b=g23nSqNzZM4pNo4vtd4HKlFJNyR1nkfszMAKlPxtWk01rqyctEJVEEKq1qsViUWVdnMm0HRDXrGEq9OdqUl9SptLJ1Min30W79XOu6vC4KnKQ8aup/Fk+MNFGhrgm48JJWpztyva0FyEFlKSXYMcwmvoRYvW0HZraa9ly0J+TIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783699314; c=relaxed/simple;
-	bh=BuusjmyLM9llTrQ0v7SsMQLhFi2DSB/Rbltw114e7q8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aDqwUWoj1eCiFr5wftP13zqA36+uSBwm3nskm/D+Ikt30z7FHZSp6hHCj8SaOt2ztvh2TgGEcgOULE4CnRK3ksHiwrZiCcxv/rs8RNYwqIOY4H62rowr3NG67cKLBSnKPVjBOqUAbu3ZnqW9QhaPuG3U2nlGnWHsVNOpqyCDAwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=WVfTkQFr; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1783699405; c=relaxed/simple;
+	bh=e7DCAnD4zqMePx7mlR9J2kZH6Kezcd4NX1x8vpun4C0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j+n+PT3ZERE4aTk6grBkT2Hnp+Tajb4etgypqiLqJ6iuWKTvUJNB0IlcPE7isD4UKWYt5h9XsfRXO6bZbUZ0cvYPqtcqAFmSXUgOGt2bh5UL7aQcepIw33ooDBrdFNvEbBP5IvlJqof4QqXbpxwV/5RIXQy1INYWPLk3W7055p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XrfhNpm2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ShnsW9Qh; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="WVfTkQFr"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-51c0ecfaee7so6664021cf.0
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:01:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XrfhNpm2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ShnsW9Qh"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66AEcOu81127533
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 16:03:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=qNBbsusWm+Zk0082oioVL0lk
+	a3JQOjO15f2DW+3iN/w=; b=XrfhNpm27rY0jJ+iCcxVMi6F50HrE912MByNj+3x
+	BC0bZ98BMfvFbv8J3VOXIgkEpcbz35+lE75UJWlupT6095Io/IWwUsWVriE6BOM2
+	AxE6vt++sITsl0WY3NKT3iBoio+dpcW2vflQHA7F+gjnIBJqsWFnV6IBJWzh/yu1
+	5XGcdDB6o30wxIdZcl67VIwgCEi//Hl10VECrhwXBB1LoR+LlBJXLPEBR3szxy87
+	RZrmH5OdR9ou+j9UhrcK3XXNypsdaB3O7BJ3/FNcIpdcin7jy17aGc4TxWqR+2m0
+	ymbjqZp+Aqr3P1iY/pK9W9Liqy+54wGijDBw3jV8wcTRHg==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fajte3wq2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 16:03:23 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7e9ee20bde0so732154a34.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:03:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1783699307; x=1784304107; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fWNfOaNlHk0GiFu1v0JlG7D8WzjWj+a5Z4WDgZZuLZs=;
-        b=WVfTkQFryPTxxSKAcydrbbPIgMgu6WNWcYBDaCBbthdjDweh/GWw9fZ3crX93krmBP
-         WkPcEV1n3toUm7FExw+imV4j/nrUFbNzHCdBmrCbKJFMZEqby5P4hgU5BFc0JVXt4N8B
-         Rooq1C3FGspxPnXORAFWmrHKOENEHCDPBigVGq1igsEh9zhoSQOI9cWHj7AgEXkqM0g1
-         +jQOv/9nrBuJYfcOBOE5X/xoRt/Dl8LWVjGxGJirYySgE4ntnnpbiamuru+FXVfNn0OK
-         s4chFoQLi9bIpHkqEyE7gXvELk54d0FNC57yMQsuQncQuVFwB7Jaqc7JiU5IaWxZ0hpA
-         7xFA==
+        d=oss.qualcomm.com; s=google; t=1783699402; x=1784304202; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qNBbsusWm+Zk0082oioVL0lka3JQOjO15f2DW+3iN/w=;
+        b=ShnsW9QhFKXymyKy2+7hHIMu09xsOGbpqMvzuTfJnGuVDP6fqUPndi4gaUb+3c/jaI
+         ntJzhhnxwQgII3prb71Q7SZeT98hWa2h6yTd76cxCt2xQ+dyJiyoJquFPaZsOrk9sPDM
+         iDCnuuH+xfiz6M7Tn2H9YAjRa4zA7rwjLSvJeUWX8pNuRW9XOpk8JiVm5exr+FjWv10+
+         J4GZNstI3pbEBQOWNmWXT+enuRJZukgkj9VdBai3vwMed9dp5AA6zJgbJ9xYtv6jgspg
+         bfzHP9fu9ay8ysfbFvUl3zbRkEolAYJPiizBX0yVld5KXkgSoXcVKZsl83g24FEJeoPy
+         D+bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783699307; x=1784304107;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fWNfOaNlHk0GiFu1v0JlG7D8WzjWj+a5Z4WDgZZuLZs=;
-        b=g3QM6VtWwfyUuYOWTW9vcMJYNUtDqPeETQXP358S5MSpQicC/i0YKb9ibww9PpIfFM
-         0EsvGb3zykF2pqv527R8OqQIXlD3q7Kj4Nhj0DNq+vormBrrMUfsqoqiRphw1YIcyqP4
-         hRZctmb/0HkjI+/YEN4uZjUh0i/WRZUAE8Ci8Y7pmPGyqDuicxJx2egFtDURjGUpfN4I
-         oI8Ha/suVPGsxIVdlm1q/q0SGFNBFZf4QJA5AO51Hk4n6/54jAf6bde2grU+AkxVKBSF
-         jbnckvywb7Sg/lkDYRkzV8UM71UkTy0cvlW+RVhQ3vAA3q8yurUMzZX2xdL9JuXoRDyY
-         NUqw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpwp1zghKSPIo+snmk/QwLB/MeLvuGCQCS59m1YmDaNZW5J2MiE+knqHEdRHmrrqDgCZrLBA0WpD3Kg@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTkUCCnB0U3IvCAtQGZnjHNXx+/Kt0rqUi9yGcs5O+zAciMi7v
-	AVtMV+oywZVGeCeKR0p3qwL6o/SVSZSZj6YyWKJcWUsMGrWfVs2tQVC9kip1YEqEhMA=
-X-Gm-Gg: AfdE7cnzDxBfm+7GFCLIbTnUns/4s1cp+TrJct2iawGB+zqwdlm17L3VSemV+P80eUM
-	H6HWiZ2BpeyDKMxbllbqTa7iuLUVEKa82UESDICHYBmnIwnRqIgO5CKvSvex8OSHzIzGcx9BUCn
-	gE5f19EQsdb3UB3DfQQnDr3yDO0srFkk9h0hRGE0YpEcpSE4lP/YixDjBJ6Y0A31nsOjfBlx6ec
-	Zoz8/OWi/+h5e7Eo1TT0r7p+0f61jrAlw3r2luWlLqOoQCQe5pc82YlIXALxrlgMDRFJy4FV2K9
-	bImJ/kIYglasToPDVGalU6EXdOyapnXhXmyZ3ZMAgd9PvLk3DK4rzq7lQeOl4mhNPZRmrFaogo4
-	7LQTmvq1ueddQT9yLRukT0KWKA0mQl09NJjRs2/Wg/WnMRnCOgVc+EjDZK8VaYN9kGj6jzzJ+SB
-	IL598GI7iI94gn
-X-Received: by 2002:a05:622a:1aa5:b0:51c:7b12:5fff with SMTP id d75a77b69052e-51c8b57c8e8mr126511541cf.75.1783699306855;
-        Fri, 10 Jul 2026 09:01:46 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51caaf5f61csm18644921cf.22.2026.07.10.09.01.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 09:01:46 -0700 (PDT)
-Message-ID: <900e6239-bc00-46b6-aa9f-abe219c039d2@riscstar.com>
-Date: Fri, 10 Jul 2026 11:01:44 -0500
+        d=1e100.net; s=20251104; t=1783699402; x=1784304202;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qNBbsusWm+Zk0082oioVL0lka3JQOjO15f2DW+3iN/w=;
+        b=VmFNfMoCknRgGh5KgEv5Y/4pyXs91M42W9GKZ/sU035oXMY140lDL1GajhyWrZOwXh
+         opH8jVF3ZViQDxbt/Qpu0dwJnjkXYJsiP7Ci3b612tfAhPdPJ3TrLY5ANKo59cVX0cNY
+         66AFThZazznz2J0na63PTSefM7sNcGuTztE8v25rhnt+VjdhLs8hs5WbCUMCk0yHIC49
+         k6uR1kd8TX1VdaXLibwOa7VaNIA3YUUO7FhTpiAr0oFmeLhkd7HkeiGmdv0/5alOYM3o
+         bUoWttisVnYN4EtxjZA5ZbfU4djxFd+voL/PS3dZzX3zk+EuPyYPUDI7Hvqs9Rv3iowe
+         67DQ==
+X-Forwarded-Encrypted: i=1; AFNElJ93rfy5y/pwr0f9dbxqPHijuEHHDwgzJrAa7r5esswMpMr9sixK22CAu925KSDUuiUnMfui7cS5SCSf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3u0Xur4yULtONzVKKOPU5ATBpwYPrveq1AZyV2t7w9OQOl5F7
+	BoJEFhJf+AiJxkaCwtmnFFKKmvCDDuT8DfYLqiG1Tee7b/tOAxJGwtd2Xf6Npd9jV7Kuv4fn+HL
+	DEQdEXb2yqmmG38k1Hq+5UYNJ/mquGtK28n21OiFgAd3Yf3Ei0W1CNkBvQbSvw/HZ
+X-Gm-Gg: AfdE7clgkZoi3zy2KBY2Aa0UtHCs8jdnlBzRyrrb2rPrGU0o2actDx+bMwABQ9UYTMT
+	xQqlD5h++l3igifO/YMe8GqY848JfFoqZnk3Go3mVmhtzt9iGQ82mCoQZRYBzcTWLL4v3dxJcTB
+	r2VmxGGorSwKmQIun5zHhxbXRI4r0MdUZL1HvLj054HqIlJV5IOiHnmyisuGnGWbqxU1uA/Xzkp
+	YL0pe3/1r5vd1fwOlBuH0padK7o6IIsg5G6W7ojrzUeuyNqRoQ0RaDSTqgSpgWS8aAK95O4reyP
+	Z8aHnDuymfAxR6iNUTV/T9XnUiZvK+XQVlAw63oEtuQBjzaR0gLr+fquToztDoPyFdm9Gc4tAy1
+	dxJHz3iYekk0JYB8+8LJ5I1LuWuJpGbU/r3w9IPhDf2Lsrad7Y7c9t8SDexTo04Tml54LgpQJ3m
+	dl6N70Nld8tvMriB7SZwbw/05Z
+X-Received: by 2002:a05:6820:202:b0:6a1:5acb:e954 with SMTP id 006d021491bc7-6a36d972ba9mr8270221eaf.19.1783699401864;
+        Fri, 10 Jul 2026 09:03:21 -0700 (PDT)
+X-Received: by 2002:a05:6820:202:b0:6a1:5acb:e954 with SMTP id 006d021491bc7-6a36d972ba9mr8270179eaf.19.1783699401281;
+        Fri, 10 Jul 2026 09:03:21 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39c84bacb22sm9899921fa.38.2026.07.10.09.03.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 09:03:19 -0700 (PDT)
+Date: Fri, 10 Jul 2026 19:03:16 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [RFC PATCH 06/11] media: iris: Add hooks for pixel and non-pixel
+ context banks
+Message-ID: <b5nydlpsjbvycbhu42wl3tqhprpr7cckz6rv7vo6phxbfdink4@fzp4yrrtalsx>
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+ <20260709-vpu_iommu_iova_handling-v1-6-72bb62cb2dfd@oss.qualcomm.com>
+ <osurkrrhqgkxtgv6lkose2n7ll5f3ofydl2gnjenogtyxaohvm@7ccuyiaeg2nm>
+ <409c36d5-d445-4ce3-aa39-34bcb859f74f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-To: Inochi Amaoto <inochiama@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Christian Bruel <christian.bruel@foss.st.com>, Frank Li <Frank.Li@nxp.com>,
- Nam Cao <namcao@linutronix.de>, Qiang Yu <qiang.yu@oss.qualcomm.com>,
- Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Xincheng Zhang <zhangxincheng@ultrarisc.com>,
- Siddharth Vadapalli <s-vadapalli@ti.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vidya Sagar <vidyas@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
- Longbin Li <looong.bin@gmail.com>
-References: <20260709040027.958400-1-inochiama@gmail.com>
- <20260709040027.958400-7-inochiama@gmail.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260709040027.958400-7-inochiama@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <409c36d5-d445-4ce3-aa39-34bcb859f74f@oss.qualcomm.com>
+X-Proofpoint-GUID: dhmvwqNLqMO8MYIEV7Cy1ZX9bQ4gCxRy
+X-Proofpoint-ORIG-GUID: dhmvwqNLqMO8MYIEV7Cy1ZX9bQ4gCxRy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDE1OSBTYWx0ZWRfXw7c+r6d9J8T2
+ jQwIiVVWJj0yLud0BOz2o7EDNPdtyWFtSYLoPw5EmBbUsj62cmxUZXCmJp939JPWQKcGWOF6XF9
+ 2HQle6Vk6CEJzuYHNY2lkn9oDlwOpnsVqrpzorzxOWAb0opAHoJLq3N2GcIHw+sRL+KKDurKFH1
+ aZ/ZZHCLUm5oTlGmrImUjNoTUIduZiLAc1+wp1Gtf7SBiT6XgP0WxJXv7uxvKfq3Ow7MKVI6H4q
+ TE2nEbWz63bgYvqLo4s0/qJolc7XCOGasrGVfXNJoz7Ff3wwuCcVFygzw3DznjHb5tKX7r3rLK5
+ WCXu/0erwjRFE6uISXF47jYEtvbZimf7FTtXfjZz31mqkkMmY/crfgu7AYQJBfJllqEcdf7viVI
+ lN9uIk9gOcgwvkaF3sIAbAh6KKPLuR7dLH4tzLOMb+UhSxMJOqo6qGVxlNufCycW9pR/Ep4lSHK
+ 6uM/EN7uYsscPBw/5zA==
+X-Authority-Analysis: v=2.4 cv=N7MZ0W9B c=1 sm=1 tr=0 ts=6a5117cb cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=vZaFuzaNU0UfsOUG0jcA:9 a=CjuIK1q_8ugA:10 a=eYe2g0i6gJ5uXG_o6N4q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDE1OSBTYWx0ZWRfX0yMo3H9YS0WX
+ xAC8BIjOndiqjjha81xu9NI5xzRkgp834xpRzeXO55SrDcyH8e/Mhz1RK51IptOITktR0vADGu4
+ UfciOkbc05TL4Uxmt2t5ZrNkOa2lwa8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-10_04,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 suspectscore=0 adultscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100159
 
-On 7/8/26 11:00 PM, Inochi Amaoto wrote:
-> The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> DesignWare PCIe IP with extra link and reset control. Unlike
-> the PCIe controller on K1, this controller supports external MSI
-> interrupt controller and can use multiple PHYs at the same time.
+On Fri, Jul 10, 2026 at 12:02:46PM +0530, Vikash Garodia wrote:
 > 
-> Add driver to support PCIe controller on Spacemit K3 PCIe.
-
-I think it would be good to summarize how the K3 differs from
-the K1 here as well, since they're sharing code.  It looks
-like it supports up to 6 PHYs, not just 1 (as the K1 does).
-
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->   drivers/pci/controller/dwc/Kconfig            |   4 +-
->   drivers/pci/controller/dwc/pcie-spacemit-k1.c | 126 ++++++++++++++++++
->   2 files changed, 128 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-> index aa0b784c85b4..dacbac5cc35c 100644
-> --- a/drivers/pci/controller/dwc/Kconfig
-> +++ b/drivers/pci/controller/dwc/Kconfig
-> @@ -440,7 +440,7 @@ config PCIE_SOPHGO_DW
->   	  Sophgo SoCs.
->   
->   config PCIE_SPACEMIT_K1
-> -	tristate "SpacemiT K1 PCIe controller (host mode)"
-> +	tristate "SpacemiT PCIe controller (host mode)"
->   	depends on ARCH_SPACEMIT || COMPILE_TEST
->   	depends on HAS_IOMEM
->   	select PCIE_DW_HOST
-> @@ -448,7 +448,7 @@ config PCIE_SPACEMIT_K1
->   	default ARCH_SPACEMIT
->   	help
->   	  Enables support for the DesignWare based PCIe controller in
-> -	  the SpacemiT K1 SoC operating in host mode.  Three controllers
-> +	  the SpacemiT SoC operating in host mode. Three controllers
->   	  are available on the K1 SoC; the first of these shares a PHY
->   	  with a USB 3.0 host controller (one or the other can be used).
->   
-> diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> index 31aac056b68e..680acc93f539 100644
-> --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> @@ -23,6 +23,7 @@
->   
->   #define PCI_VENDOR_ID_SPACEMIT		0x201f
->   #define PCI_DEVICE_ID_SPACEMIT_K1	0x0001
-> +#define PCI_DEVICE_ID_SPACEMIT_K3	0x0002
->   
->   /* Offsets and field definitions for link management registers */
->   #define K1_PHY_AHB_IRQ_EN			0x0000
-> @@ -32,8 +33,18 @@
->   #define SMLH_LINK_UP			BIT(1)
->   #define RDLH_LINK_UP			BIT(12)
->   
-> +#define INTR_STATUS				0x0010
+> On 7/9/2026 6:44 PM, Dmitry Baryshkov wrote:
+> > On Thu, Jul 09, 2026 at 06:05:52PM +0530, Vikash Garodia wrote:
+> > > Iris platforms use separate context-bank devices for the pixel and
+> > > non-pixel domains. Add platform hooks to create and destroy those
+> > > subdevices, and wire them up for the affected platforms.
+> > > 
+> > > Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> > > Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> > > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > > ---
+> > >   drivers/media/platform/qcom/iris/Makefile          |  1 +
+> > >   .../platform/qcom/iris/iris_platform_sm8550.c      | 71 ++++++++++++++++++++++
+> > >   .../platform/qcom/iris/iris_platform_sm8550.h      | 24 ++------
+> > >   .../media/platform/qcom/iris/iris_platform_vpu3x.c |  4 ++
+> > >   4 files changed, 80 insertions(+), 20 deletions(-)
+> > > 
+> > > +const struct iris_context_bank_ops sm8550_cb_ops = {
+> > 
+> > For a long time I have been asking to fix name prefixes. Now you are
+> > adding one more. No. Please write it as a rule of thumb. All new symbols
+> > in the iris driver should start with iris_.
+> 
+> Ack
+> 
+> > 
+> > Moreover, there is nothing sm8550-specific in these hooks. Enable them
+> > for all VPU3.x platforms uniformly.
+> 
+> Good observation, will change this something like below;
+> .cb_ops = &vpu3x_cb_ops,
 
-This register offset should probably be named K3_PHY_INTR_STATUS
-(or maybe it's just K3_INTR_STATUS?).  I see that INTR_ENABLE
-doesn't have a prefix, and I don't know why--that should have
-a similar name.  (Please fix that in your next version as well;
-I think it's OK to included it with this patch with a simple
-mention in the patch description.)
+Please see few lines above, that's a bad name.
 
-> +
->   #define INTR_ENABLE				0x0014
->   #define MSI_CTRL_INT			BIT(11)
-> +#define RDLH_LINK_UP_INT		BIT(20)
-> +
-> +#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
+Also, is there a reason to introduce a separate struct for those
+callbacks? Can we fit them into the existing iris_vpu_ops?
 
-So is this enabling INTX support?  If so, you should do that
-first in a separate patch that only applies to K1 (and that
-should be verified to work correctly).  If all you're doing
-is ensuring the status is cleared, that's OK here, but if
-you don't enable it I'm not sure it matters.
+> and the callbacks can be added in iris_platform_vpu3x.c
 
-> +
-> +#define K3_ADDR_INTR_STATUS1			0x0018
-> +
-> +#define K3_CACHE_MSTR_AWCACHE_MODE	GENMASK(14, 11)
-> +#define K3_CACHE_MSTR_AWCACHE_BEHAVIOR	0xf
->   
->   /* Some controls require APMU regmap access */
->   #define SYSCON_APMU			"spacemit,apmu"
-> @@ -48,6 +59,9 @@
->   
->   #define PCIE_CONTROL_LOGIC			0x0004
->   #define PCIE_SOFT_RESET			BIT(0)
-> +#define PCIE_PERSTN_OE			BIT(24)
-> +#define PCIE_PERSTN_OUT			BIT(25)
-> +#define PCIE_IGNORE_PERSTN		BIT(31)
->   
->   struct k1_pcie;
->   
-> @@ -340,6 +354,109 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
->   	return ret;
->   }
->   
-
-I ask a few questions in this function; I'm basically
-asking "are you *sure* this must be different for K3
-than K1?"  Because for the most part this function looks
-very similar to k1_pcie_init().
-
-> +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> +{
-> +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> +	struct k1_pcie *k1 = to_k1_pcie(pci);
-> +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
-> +	u32 val;
-> +	int ret;
-> +
-> +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
-
-Would it be OK to clear this bit in the reset control
-register for K1 as well?
-
-> +
-> +	k1_pcie_toggle_soft_reset(k1);
-> +
-> +	ret = k1_pcie_enable_resources(k1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
-> +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
-> +
-> +	ret = k1_pcie_enable_phy(k1);
-> +	if (ret) {
-> +		k1_pcie_disable_resources(k1);
-> +		return ret;
-> +	}
-> +
-
-The handling of PERSTN looks different for K3 than K1.  Could you
-implement a helper function that abstracts the differences?
-
-I don't really understand what's happening here, but if it's
-comparable to this for K1:
-
-         /* Deassert fundamental reset (drive PERST# high) */
-         regmap_clear_bits(k1->pmu, reset_ctrl, PCIE_RC_PERST);
-
-...then a callback function (similar to parse_port) in the device
-data might be able to be called for both platforms, allowing
-the init function to be common for both.
-
-> +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
-> +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> +			PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT);
-> +	usleep_range(1000, 2000);
-> +	regmap_clear_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC, PCIE_PERSTN_OUT);
-> +
-> +	msleep(PCIE_T_PVPERL_MS);
-> +
-> +	/*
-> +	 * Put the controller in root complex mode, and indicate that
-> +	 * Vaux (3.3v) is present.
-
-Here too, you could abstract what's happening and that might
-allow the init function to be common for both (all) platforms.
-
-> +	 */
-> +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-> +
-> +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> +	val = u32_replace_bits(val, BIT(7),
-> +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
-> +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-> +
-> +	k1_pcie_set_device_id(k1);
-
-This is done earlier in k1_pcie_init().  Could it be done at the
-same time for both platforms?
-
-> +
-> +	/* Finally, as a workaround, disable ASPM L1 */
-> +	k1_pcie_disable_aspm_l1(k1);
-> +
-> +	return 0;
-> +}
-> +
-> +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-
-Why is this needed for K3, but not for K1?  Does this
-enable any functionality that K1 could use and benefit
-from?
-
-> +{
-> +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> +	u32 val;
-> +
-> +	dw_pcie_dbi_ro_wr_en(pci);
-> +
-> +	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-> +	val = u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
-> +			       K3_CACHE_MSTR_AWCACHE_MODE);
-> +	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
-> +
-> +	dw_pcie_dbi_ro_wr_dis(pci);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dw_pcie_host_ops k3_pcie_host_ops = {
-> +	.init		= k3_pcie_init,
-> +	.deinit		= k1_pcie_deinit,
-> +	.msi_init	= k3_pcie_msi_host_init,
-> +};
-> +
-> +static const struct dw_pcie_ops k3_pcie_ops = {
-
-This is identical to k1_pcie_ops, so isn't needed.
-
-> +	.link_up	= k1_pcie_link_up,
-> +	.start_link	= k1_pcie_start_link,
-> +	.stop_link	= k1_pcie_stop_link,
-> +};
-> +
-> +static void k3_pcie_clear_irq_status(struct k1_pcie *k1,
-> +				     u32 *status0, u32 *status1, u32 *status2)
-
-I don't see any value in this helper function, at
-least not based on how it's used now.  It is used
-exactly once, to clear (by writing) three interrupt
-status registers.  Just do that inline.
-
-Even if you want to use this helper function in a
-second place (when handling the itnerrupt), don't
-pass in these status arguments, they're not needed
-in the caller.  Just define them here.
-
-Also you could read/write each register, and use
-a single local variable (status) to hold the value
-read and written.
-
-> +{
-> +	*status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> +	*status1 = readl_relaxed(k1->link + INTR_STATUS);
-> +	*status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-> +
-> +	writel_relaxed(*status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> +	writel_relaxed(*status1, k1->link + INTR_STATUS);
-> +	writel_relaxed(*status2, k1->link + K3_ADDR_INTR_STATUS1);
-> +}
-> +
-> +static int k3_pcie_parse_port(struct k1_pcie *k1)
-> +{
-> +	u32 status0, status1, status2;
-> +
-> +	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
-
-Is it really necessary to clear the IRQ status *only* for K3?
-It seems like it would be a good idea (or at least harmless)
-to do it for K1 as well.  And in that case, it should just be
-added to the existing k1_pcie_parse_port() function.
-
-> +
-> +	return k1_pcie_parse_port(k1);
-> +}
-> +
->   static int k1_pcie_probe(struct platform_device *pdev)
->   {
->   	const struct k1_pcie_device_data *data;
-> @@ -417,8 +534,17 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
->   	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
->   };
->   
-> +static const struct k1_pcie_device_data k3_pcie_device_data = {
-> +	.host_ops	= &k3_pcie_host_ops,
-> +	.ops		= &k3_pcie_ops,
-
-I think ops could just point to k1_pcie_ops here.
-
-					-Alex
-
-> +	.parse_port	= k3_pcie_parse_port,
-> +	.max_phy_count	= 6,
-> +	.device_id	= PCI_DEVICE_ID_SPACEMIT_K3,
-> +};
-> +
->   static const struct of_device_id k1_pcie_of_match_table[] = {
->   	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data},
-> +	{ .compatible = "spacemit,k3-pcie", .data = &k3_pcie_device_data},
->   	{ }
->   };
->   
-
+-- 
+With best wishes
+Dmitry
