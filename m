@@ -1,118 +1,83 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC60543B488
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 16:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5194A2EEE91
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 16:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783700833; cv=none; b=k/kRBfLqzavv7tMqV2tsUI6qLXM1j+6uU+hpyo7ECo5R7NbDYTlcvjFHj2xUdJ8sFUM0uwUnKqyIdsomF2GihtnsJSI1u1lir8YgV0eMw/S3c+q2yFetIk0ZfI9ZlhVAmf3u8mdM5tnFVxKDxwjWpcnzFiPzuoA3X+AzL6Z8dUA=
+	t=1783700952; cv=none; b=oHGVMVGMls+KRKoY1NvF2q5x66Le8HrsHxsrQG3Tpb6JVXSq7y/DLQZ5zT1y8+C69oMYhZcbhK8fjoy7vxrBGfMwZp+gecdrssCLPAbVk8Wy9sBN8AYm2omjNpT8Hbxj6G8fMl7zFQSaOwGIsRlmGSLDfn1UkpGaFfc3XvrAOhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783700833; c=relaxed/simple;
-	bh=OzoQmwdUBVBNXx6CxTr+OoAC+AVVuunAXnfmy76Y4Wg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LbKPhGCjvrZ+g6RMcK3++KWqGj53pc/wKu10h+c54wRz2wFIcfRkt171UA0dowB6/0gweVqwzeFoxuwW0PoxKYAYeiz9gYDdWhq+9IXljWp5jn3HVU5L+z8OA+QzZs+c/3b03Gx5HP/8EZe0QgLYaFmn9397j+q9EBkoKnMg0uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fkdLrEgx; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783700952; c=relaxed/simple;
+	bh=Rq8YqJ9NLgqyqvPj7LxjHzQuMLhKjn3Vj1369U1QOUs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eX401Vt08UTXJBZC9e5CBUcrZXNckyDbTneQ8H26kaGfeZfclI1Z0LUazhyNnkaDxT1KG8hoomoi1UUXmnl993zSjeOXlicAan+ZY8sARxTiXy5Iy7QcY7Z5HT2xA68kGekKazXwu+2ITXVwabOWUlmnFAz3+P8QQmP2RwWNXNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ytr13lpG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fkdLrEgx"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so9521575e9.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:27:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783700824; x=1784305624; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IE6Q272bNim0vHtTn2AJvVI/2/qzN6dtTCS1g37160s=;
-        b=fkdLrEgxgNVDBfcnNmoXa4AEsP4H6KnKrdJCulI9EoIX5OU0qpMFtQ+AZmR1/3uwnM
-         czmlG47lWASAXbKHIfXOZVftmJ/v32dnSDZVVPbCDV61Ic2G1BJdBE9Nzuk6RuN/hG4g
-         8uw0iVVnuo+I+ivF55wjWiZ9b+wJw+WPvH6IDb0655+0nF0ZPlaEuoA22D6oQsfPYLgs
-         +actfkRcxTocoijPMZ3EcMKZ4t192/J+aKYAzQZ7t0O0+nkH5LIVzD5VryQz6bTFB+Nu
-         3uwSarSa5r9smoD4MJEFhqfM0ynJe2aTySg8ZNJKol/aF0VBR0ZYLNPsZ9tUdXq0GLDp
-         jWWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783700824; x=1784305624;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=IE6Q272bNim0vHtTn2AJvVI/2/qzN6dtTCS1g37160s=;
-        b=NN37yn4dVIhRLLtZ2uTJ8+O/RIvCsh6LjRft5S2eUWU8Vw4I4GBy85acrfg8irhxJ6
-         zbQZbAMyhc+2SEsDorCd9cPIJYscDL7hjGLvrEvDP+ArpBlTJX/kuypPzbTmZ81Ept3L
-         JemZWGecWbCeVXwjb2FUovFp7+eQuMVT1W3wJNB7PhhfAUuGK79HdyHsC1BVjGGx+7HJ
-         uihLGUCK44u8VSzEdw94A4UISITjENhNMBa7WVVdAoIcu0mZOx62kapc8iA8aKYT2+VT
-         YBZPVy6j1mVs1Rk+thtrs5+NmGiHYE+21gCZXKQBaWrqKaRYM/pKv3cmFmQc0/Xp+443
-         YnYA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqi6Ch6AOtJORPVXecZ29fZUVmWaxhfYR8zh65wPwULN4t0H5yR5SooM8+MCzSreo9JJh+nU2czcSUW@vger.kernel.org
-X-Gm-Message-State: AOJu0YxndytJavE3JhaRDyS/5/2JaudUrQlduxzQVQF5tuWmvWXRsfqS
-	ikZL1XfAW70FtSHB2V0Zgv4/Sc9toXx330ecSEZpfop0it3tkwIciDiWNEGZcmsw/30=
-X-Gm-Gg: AfdE7clylBKQqA3chALXQHv8Ap9HSf94uJMhfRC3seCoipIHZfxTShxqjHOyQDjy6cm
-	p9LNBGsEJZG7T3If2P82WT7oHymHwhn3IMMNTgJkVFxomxGuc2xnlzXosUfliPoKaOTMZ/Cxvay
-	nnpM6Q2bj3HfRxaBv2vBcQO0/wX+oiLz/Uyk9Os5Rm8t6zLip07eRiFz5F4i7iljooex4ZHPvOq
-	goi94aZudD+ch9W1X7wvYfS1HyAomfp3fHLB6hZxELsUhDpgR2Vg4/LMy9CKKRHXLjFWVxEu7Z9
-	EHv/svQoJ26+H/+xbxDQ04eAJKcNuQHoai3UVi2hZv4m4Rmmjfwzy4+Q76nBNFefpVC1AkhfhqX
-	sI99e4HzJ/tv/TNeer2uK7gfjpLOEom0mUIBElSWrMTHZUw4iL5RdJives6QhV/iBoEjqJ0n7XB
-	0U7Wy6qY2PfiOIwToh76dZlA==
-X-Received: by 2002:a05:600c:6291:b0:493:f442:3dd4 with SMTP id 5b1f17b1804b1-493f44241d5mr34964145e9.39.1783700824480;
-        Fri, 10 Jul 2026 09:27:04 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:5e43:31e8:5645:d4e0])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f25b23b7esm6577463f8f.18.2026.07.10.09.27.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 09:27:03 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>,  Liam Girdwood <lgirdwood@gmail.com>,  Mark Brown
- <broonie@kernel.org>,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  Andre Przywara <andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ytr13lpG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAA851F000E9;
+	Fri, 10 Jul 2026 16:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783700950;
+	bh=BBSF3xuI4V+SsSwLMWr9XrtOkQIQVUAXohExu11eHEE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ytr13lpGZjZU19duyoZgw67JnPe4RlrVHlSRzS94DNVNdwfuA8H8AxhUdWig1GK1v
+	 y0kn4H1kcHnBhnKtHN3gP95EOYkl/Dbm5mnuqmOq64zBc4vDwd6EOg10/w8kj0kcfA
+	 ypAR4oqIk/TUWOoGvBmFes5N63zhPB4/ojRJaoWp7nsr1D+pWceeEJxlOMgDfmnuAk
+	 SAxAMgm+ghGX/bcON/cqWThqd6M7Z698zXDYv4vJXwoGZZf8C/zmcCqJKdxEgGbjMH
+	 ZlOFHXDnd4JMoNX2BpVgoLCw4A3mTiwf2ej6+KbHNlVPN/P8piVIQefhe8YJrL48b0
+	 qkgnpq7TXkh6A==
+From: sashiko-bot@kernel.org
 Subject: Re: [PATCH v2 3/3] regulator: axp20x: add support for the AXP318W
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
 In-Reply-To: <20260710-axp318-regulator-v2-3-ee5f1c56b49f@baylibre.com>
-	(Jerome Brunet's message of "Fri, 10 Jul 2026 18:19:27 +0200")
 References: <20260710-axp318-regulator-v2-0-ee5f1c56b49f@baylibre.com>
-	<20260710-axp318-regulator-v2-3-ee5f1c56b49f@baylibre.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Fri, 10 Jul 2026 18:27:02 +0200
-Message-ID: <1j33xqhktl.fsf@starbuckisacylon.baylibre.com>
+ <20260710-axp318-regulator-v2-3-ee5f1c56b49f@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 16:29:10 +0000
+Message-Id: <20260710162910.AAA851F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
 
-On ven. 10 juil. 2026 at 18:19, Jerome Brunet <jbrunet@baylibre.com> wrote:
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The macro `AXP_DESC_RANGES_DELAY_OPS` ignores its `_ops` parameter=
+, discarding custom regulator operations.
+- [Medium] In `axp318_threshold_check`, negative error codes from `is_enabl=
+ed` are incorrectly treated as false (enabled).
+- [Low] Spelling error in the minimum dropout comment block.
+- [Low] Unused defined constants for the number of DCDC voltages.
+--
 
-> From: Andre Przywara <andre.przywara@arm.com>
->
-> The X-Powers AXP318W is a typical PMIC from X-Powers, featuring nine
-> DC/DC converters and 28 LDOs, on the regulator side.
->
-> Describe the chip's voltage settings and switch registers, how the
-> voltages are encoded, and connect this to the MFD device via its
-> regulator ID.
-> We use just "318" for the internal identifiers, for easier typing and
-> less churn. If something else other than the "AXP318W" shows up, that's
-> an easy change, externally visible strings carry the additional letter
-> already.
->
-> Reviewed-by: Mark Brown <broonie@kernel.org>
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Co-developed-by: Jerome Brunet <jbrunet@baylibre.com>
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
->  drivers/regulator/axp20x-regulator.c | 298 ++++++++++++++++++++++++++++++++++-
->  include/linux/mfd/axp20x.h           |  43 +++++
->  2 files changed, 333 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp20x-regulator.c
-> index da891415efc0..bc8d3aa2bd67 100644
+--- Patch [3]: [PATCH v2 3/3] regulator: axp20x: add support for the AXP318=
+W ---
+commit f7b8096eeee3c9cefed0efe26a8d34e4c6a08d5a
+Author: Andre Przywara <andre.przywara@arm.com>
+
+regulator: axp20x: add support for the AXP318W
+
+The patch introduces regulator support for the X-Powers AXP318W PMIC,
+describing the chip's voltage settings, switch registers, and how the
+voltages are encoded.
+
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Co-developed-by: Jerome Brunet <jbrunet@baylibre.com>
+
+> diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp=
+20x-regulator.c
+> index da891415efc0b..bc8d3aa2bd672 100644
 > --- a/drivers/regulator/axp20x-regulator.c
 > +++ b/drivers/regulator/axp20x-regulator.c
+[ ... ]
 > @@ -138,6 +138,31 @@
 >  #define AXP313A_DCDC_V_OUT_MASK		GENMASK(6, 0)
 >  #define AXP313A_LDO_V_OUT_MASK		GENMASK(4, 0)
->  
+> =20
 > +#define AXP318_DCDC1_V_OUT_MASK		GENMASK(4, 0)
 > +#define AXP318_DCDC2_V_OUT_MASK		GENMASK(6, 0)
 > +#define AXP318_LDO_V_OUT_MASK		GENMASK(4, 0)
@@ -121,22 +86,89 @@ On ven. 10 juil. 2026 at 18:19, Jerome Brunet <jbrunet@baylibre.com> wrote:
 > +#define AXP318_DCDC6_NUM_VOLTAGES	128
 > +#define AXP318_DCDC7_NUM_VOLTAGES	103
 > +#define AXP318_DCDC8_NUM_VOLTAGES	119
-
-Silly me. I was sure I removed this and missed it - will be removed in v3
-
 > +#define AXP318_THRESHOLD_VOLTAGE	1540000
 > +/*
 > + * FIXME:
 > + * Some LDOs of the AXP318 may be fed by different supplies and
 > + * the documentation repeatidly warns that output voltage must
+
+[Severity: Low]
+This isn't a bug, but there's a typo here ("repeatidly" instead of
+"repeatedly").
+
 > + * be less than the supply, which is the case for any LDO really.
-> + *
-> + * The best way to let the framework handle this is to set the
-> + * min_dropout_uV field. However the AXP318 documentation
-> + * does not provide any information about this.
-> + *
-> + * Realistically, it can't be less than 1uV so use this
-> + * for all LDOs until we know more.
-> + */
-> +#define AXP318_LDO_MIN_DROPOUT		1 /* uV */
+[ ... ]
+> -#define AXP_DESC_RANGES_DELAY(_family, _id, _match, _supply, _ranges, _n=
+_voltages,	\
+> -			_vreg, _vmask, _ereg, _emask, _ramp_delay)	\
+> +#define AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges=
+,	\
+> +				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
+> +				  _ramp_delay, _ops)				\
+>  	[_family##_##_id] =3D {							\
+>  		.name		=3D (_match),					\
+>  		.supply_name	=3D (_supply),					\
+> @@ -436,10 +481,23 @@
+>  		.enable_mask	=3D (_emask),					\
+>  		.linear_ranges	=3D (_ranges),					\
+>  		.n_linear_ranges =3D ARRAY_SIZE(_ranges),				\
+> -		.ramp_delay =3D (_ramp_delay),					\
+> +		.ramp_delay	=3D (_ramp_delay),				\
+> -		.ops		=3D &axp20x_ops_range,				\
+> +		.ops		=3D &axp20x_ops_range,				\
+
+[Severity: High]
+Is it intentional that the .ops field is hardcoded to &axp20x_ops_range her=
+e,
+rather than using the _ops macro parameter?
+
+This appears to silently discard the custom axp318_threshold_ops_range pass=
+ed
+in by AXP_DESC_RANGES_THRESHOLD, which would cause the protective voltage
+threshold checks to be ignored when configuring the regulator.
+
+>  	}
+[ ... ]
+> +static int axp318_threshold_check(struct regulator_dev *rdev,
+> +				  unsigned int sel)
+> +{
+> +	int old_sel, old_uV, new_uV;
 > +
+> +	/* Only applicable if the regulator is enabled */
+> +	if (!rdev->desc->ops->is_enabled(rdev))
+> +		return 0;
+
+[Severity: Medium]
+Could this check inadvertently ignore I2C or regmap errors?
+
+If regulator_is_enabled_regmap() fails and returns a negative error code li=
+ke
+-EIO, !(-EIO) evaluates to false. This means the function will continue
+executing instead of propagating the error or returning early, potentially
+leading to incorrect state transitions.
+
+> +
+> +	old_sel =3D rdev->desc->ops->get_voltage_sel(rdev);
+[ ... ]
+> +static const struct regulator_desc axp318_regulators[] =3D {
+> +	AXP_DESC(AXP318, DCDC1, "dcdc1", "vin19", 1000, 3400, 100,
+> +		 AXP318_DCDC1_CONTROL, AXP318_DCDC1_V_OUT_MASK,
+> +		 AXP318_DCDC_OUTPUT_CONTROL1, BIT(0)),
+> +	AXP_DESC_RANGES(AXP318, DCDC2, "dcdc2", "vin23",
+> +			axp318_dcdc2_ranges, 88,
+
+[Severity: Low]
+Should these newly defined constants be used here?
+
+The AXP318_DCDC2_NUM_VOLTAGES (and similar) macros were defined earlier in
+this patch, but the array initialization seems to use hardcoded integers li=
+ke
+88 and 128 instead.
+
+> +			AXP318_DCDC2_CONTROL, AXP318_DCDC2_V_OUT_MASK,
+> +			AXP318_DCDC_OUTPUT_CONTROL1, BIT(1)),
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-axp318-reg=
+ulator-v2-0-ee5f1c56b49f@baylibre.com?part=3D3
