@@ -1,199 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8205B2E413;
-	Fri, 10 Jul 2026 03:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB1E346E4E
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 03:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783653325; cv=none; b=nfR0cXzHTAAVQG7IK7m8Jqrf3HkoMYvv6IRWTqK2THHP9cvLArIqu0ouPCtBNRsmgzR1tQNgIfUabHVNy4WLtI2zXs8LSOU3uVPhrp56HAnaQQ8Ztj8LcvZuQEdpfA34DK6iH68OHgCZuWkEDuKjhzwyBmXdm6ALqEz2TgZ7Huw=
+	t=1783654235; cv=none; b=kULkI+iqtMr525KGcyGJ0LPGnsKtJ6OywGrdWKiTfwVNqL8AsI16GcGW/7aNk0kPxcNOTtYj6ytcPnXsNQ6gdcwN8qUOwcyEhvG9yxxnKCzDFrxqTDeWUgC1PVUxb+ZjRdZ/xtylv7Upxu1XFIgqVD310g7kWsEl+jcVSEHx5K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783653325; c=relaxed/simple;
-	bh=B9PeC5OZ9gkvfuD6X3PWNLBhhaAvzuSZBwYabGIVX+0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H383icpTUENnPXZ9YapvUF2uQsBq+OKF+zhHlWHxSI4LjG++SfDt6PiqLTuV7pCm0haV/5LzfAW6Vu6s7bFEzDsTyIICfeiwtxTUHLlN6rmCzYvpJrlmmq4i0Tlp0H+IK1juRVduuKLgzxVug2fZ8Wpkg9N9ZgI1BxAbkO+e6yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5/ISWmO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783654235; c=relaxed/simple;
+	bh=Xq7d/FsWXftgTpuwlB9p6ZlGor24rvZyf5nAekp4QLU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wwlei9VVivTgcBM7SM4NL1mIKARSCVn3VvdzixLQ3sk1gOB8Ngh80h6prMdUsypBBlGyeZkLltQer+ChSca5+ItYmEJvphYwSgK16PQkUScrFXUbhEqckm1/kGnimyYbGMwgnsgHbCaCAJczE+N9ayXy62wBuVJHFusHydJtVMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i2w2tnKg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QMOKXoc1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5/ISWmO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF5D01F000E9;
-	Fri, 10 Jul 2026 03:15:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783653324;
-	bh=6Mdu3H1efRBkZm3WQ0fxlKQcKZKN6mjGw1y4g6q5EgU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l5/ISWmO2/cLPLuwxM6C+lPDnyL5Fbr+sSIy5nRV/6ob4hLVVRmivWoaLNd0/UU8F
-	 AaNWQMOAsTAjsCHOfilUQyYtxP/LdypVqznP4fvMidqgnVaqL50rF+vQ1KKgeQpo1s
-	 xhaXCdKuIs88G6vOZI8I2Rsv4mekHnUIj4mTZYw1DjGu8MqQjvLil6VYjT2ND2NOkg
-	 Qp0sinFzBEv/XWU62Mq/aPiPYaaOBUhKg6kfl1okiyWTZZSfqtYokbdUhaMB8kahze
-	 tVmHu7r9dDs29oMLYoObkiiQ4ovj3uMi85XuWO5f33O+6S4+nevtM5mZP+8e3/0S0A
-	 vBNkCp4Ct2Cuw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] thermal/drivers/imx: Add calibration offset
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "HaoNing Cheng" <Haoning.CHENG@cn.bosch.com>
-Cc: robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-2-1fef97d1c750@cn.bosch.com>
-References: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com>
- <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-2-1fef97d1c750@cn.bosch.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 03:15:23 +0000
-Message-Id: <20260710031523.AF5D01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i2w2tnKg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QMOKXoc1"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 669JUl1B2556966
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 03:30:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VX8a8JResP8XCSCJbfEz2gGZ3th51SS7z/g4qLfLxKc=; b=i2w2tnKgEyl4Mlfj
+	U8enrOZFpMvtR5iuVS8YP4x4kmO+Sf2rp5UA8hnuAS/yvqekipGk63VufHhquwMf
+	oTTNAoHg9jt3t9wdranPm7MV+Ceh+DiSJspimHkFa6p2iWa5mAoMQhXzJ/aIKJlT
+	XlvS7Bs/6J1acZ9ZxnvLGs04ADrP8jrD8HeJQ6GDuezV6P1vC18w1opLReMRJxfD
+	i3dJJZVI1xVdfloS/ryqrc5r9zKADfUoXd4M7ZlQ9KDf3kwWFehgscLOqtZHniAR
+	a9xtzfZGlvKhsTLnHUxyQv7GJ/SIUjq6E1Sotu/9RAMXRsRkiYgIsXukQWltO52h
+	GJU/JA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fahv8hc5m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 03:30:32 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-848693daa20so1051756b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 20:30:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783654231; x=1784259031; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VX8a8JResP8XCSCJbfEz2gGZ3th51SS7z/g4qLfLxKc=;
+        b=QMOKXoc1PcRIV9EtUqbJ1LS57RB+QjgS7ZvryWjlKochIlbJRMljyHT3DBMKp3sANU
+         9TqKiYU8f0DCGhihTAtZq+E6rEv7uDVXY20ZudzV/iO1ruCrCTq9UdjOnqb1/GIZYzXy
+         m87Zqq0HV8kYmirkZrNKVCXFVJjvkrsB2j5YTs71gmsmDIPhskrxrHxG4EPdUVCmg33W
+         t4dc9HhPzIqx64QJWG6TR5G3z6gq7bPPYtY+rkZ31YLp5gTApCqi2IBonB4I8lnx3SAw
+         NcD0tKcMj8N0MHAzN2uoSNn/OBc328OQhw6Fq43iuTHQXBszCsr4FHfPEEafeL3iI492
+         VdEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783654231; x=1784259031;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VX8a8JResP8XCSCJbfEz2gGZ3th51SS7z/g4qLfLxKc=;
+        b=mmLsiId7r6rBPNu6wg1dGPxM2eHZkekvVOWzrYDnkXxUfqyyN6jSKHabAAcw+QlBJd
+         Ms1kz+oWD0rGNCLbtZ8REEUHYG27UjULmUBQe4FgEJz1KZP37WCv/Ywaz0yfvYo55wXF
+         a//tVdHWqOqJnANeV5cwca0+aGNv9iXs3ZsqnohfJBb3+aQak4f14dqm1yZqSa+Xx5M+
+         Ysc9W0VYzRN7MdGifAMEmC/iDSI+VjLz1yu9hGsLwDEE+tbJV1vDKma+11X6jQtdSZKf
+         QMLljcV/pvBaR8KR8aq3dBao/SY84mg5Bs0QhJMv4JbKFzwaF3+VMDU6MAKdyFLxxMfY
+         pLWw==
+X-Forwarded-Encrypted: i=1; AHgh+Roo80lyzemBrG3poOjLpSOEw2RWrnHbwaL4Ee6xJAM7Qy5DN77YHvYKRs9Z7VQzWoZnI/d8ox6yHyLd@vger.kernel.org
+X-Gm-Message-State: AOJu0YypibYQb2vZOx5bXlR93CwHsxRsM5WuVBiFs+Vlg4gyPGlRuPnI
+	fE6GMrQKjQiiSj6ObWgXDbyQr2GUFakQmCNR2LsYflsDrnCI+AW07RbaRQjwmGEK4NiuSWSeUIW
+	3USzbd9A/4Awrj05r8vIXWgDWieYDkhn6HI247GFXVzbv/RAfkfptp2Nv3XqcNpuV
+X-Gm-Gg: AfdE7cmllRqLz0s8f2NQVU12JPiFkVoz9oE9P/373VGE+2CTcwC2cQBH9Bq4NA7ns6z
+	hmG13m0dgZX9jYV+PAd0tqG6dVzRoDWexZOl/6LK5dXok8k3SeU4RyZp7ARdEqTmGNjOi9Py4Ne
+	x6RpQL9tNurwZBLEMBKLUgmvk/Xb3u1ES0jhkTjzBK8lcAZ8xllpk5hoUP+dvd2e28TpKSJazH+
+	u2uT8VF1ZbWAQmfXeX02clPl+Sc45owkLq/v4POZbw5JhvW629Ajp2c5xcvEivAEac+2hkhJeeZ
+	MQStOsY1c+WRBBaDdFaCgptzncWdYRI++IzRlM6CruVcCWCpoBFyHimSAtSKHEDC3lciT4Ss38F
+	cFKQCEIesYKBptP/DlxjykpH+Hov9u6Oo4z6Y71JF
+X-Received: by 2002:a05:6a00:22d4:b0:848:788a:e7f9 with SMTP id d2e1a72fcca58-848788aecacmr543849b3a.18.1783654231430;
+        Thu, 09 Jul 2026 20:30:31 -0700 (PDT)
+X-Received: by 2002:a05:6a00:22d4:b0:848:788a:e7f9 with SMTP id d2e1a72fcca58-848788aecacmr543829b3a.18.1783654231035;
+        Thu, 09 Jul 2026 20:30:31 -0700 (PDT)
+Received: from [10.204.79.106] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8483262a17dsm4980282b3a.4.2026.07.09.20.30.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 20:30:30 -0700 (PDT)
+Message-ID: <1dcbc6e1-7b78-467f-b39d-eec4aecbf577@oss.qualcomm.com>
+Date: Fri, 10 Jul 2026 09:00:25 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Document Nord FastRPC
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260709082040.4070711-1-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260709082040.4070711-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: vXWepJN5ys7b3tHw0bN4yWfas4O60rR-
+X-Proofpoint-ORIG-GUID: vXWepJN5ys7b3tHw0bN4yWfas4O60rR-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDAyOSBTYWx0ZWRfX9Yzck1+ERltS
+ WXoYPdoz9TEp1KK8KvCSgwXeaPYSc06fTiFCjoipf3+yZoj57CoMs2WOpueVMdfzB+GUUnbrKNH
+ RVT7TmpueNnbxFssGf8yVy91oB8LUPk=
+X-Authority-Analysis: v=2.4 cv=funsol4f c=1 sm=1 tr=0 ts=6a506758 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=LFGRwP0lTeoBuEiPW_EA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDAyOSBTYWx0ZWRfX/wMTqMmIJm2J
+ QY37u5c+Mx40jjqrHXefj92ITk43M9NWlRQ9CdvHU4ABSYAF6Eszkyj3/t3E5IEbJP3U9NVad1E
+ Ud6Yp+o3+3g1FPQNaZ0CJ+nRCIr6KyOT2EFnyXRpKYBooVp3nz7f+ppjH5K/u5sdLA9lO1niYLv
+ y1SrqHya0BwNI5CHlgfD0mJxi7NZqAGNzztFsAb/8GzJcceVATrhKf5bgpkhUza8hmY7MkpoE+h
+ Z8zhhijky9+UgIG4DBu+L+0Chfwav5yn/5p5jUiLMY2ckZFH1yHq85aNRnXEcqU38zJ+fNngJYF
+ lWB/NEKp7xPth55ZoVCuh0pVdb3olshtKZ7xw+Zu3N+BqrlUQfZqLxsCGYH4St7VT3lMRyjm7Xj
+ uXyyd8/BdzyAaAZsGtBnXKY0tb46RnS0nnmSF8nQerFIQrW6lHLCsT1mFu87kvrMJkhkxZylsbY
+ SAgV5xqUC9CYLAfBUEw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100029
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 09-07-2026 13:50, Shawn Guo wrote:
+> Add compatible for Qualcomm Nord FastRPC which is compatible with
+> Kaanapali FastRPC.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+> index 2876fdd7c6e6..24fc0752c11a 100644
+> --- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+> +++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+> @@ -26,6 +26,7 @@ properties:
+>            - enum:
+>                - qcom,glymur-fastrpc
+>                - qcom,hawi-fastrpc
+> +              - qcom,nord-fastrpc
+>            - const: qcom,kaanapali-fastrpc
+>  
+>    label:
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-New issues:
-- [High] The new `calibration_offset` is added to `data->c2`. This unvalida=
-ted offset can cause `alarm_value` and `critical_value` in `imx_set_alarm_t=
-emp()` and `imx_set_panic_temp()` to exceed the 12-bit hardware mask for i.=
-MX6. Since these values are left-shifted and written using `REG_SET` withou=
-t clamping, it will corrupt adjacent register fields (e.g., powering down t=
-he sensor unintentionally). Additionally, negative values left-shifted trig=
-ger Undefined Behavior.
-- [Medium] The macro `DIV_ROUND_UP(n, d)` expands to `((n) + (d) - 1) / (d)=
-`. Because C integer division truncates towards zero, this macro produces m=
-athematically incorrect results when the numerator is negative. In `imx_set=
-_alarm_temp`, if `alarm_temp` is smaller than `data->calibration_offset` (e=
-.g., a low trip threshold combined with a large DT offset), the numerator b=
-ecomes negative. This results in an off-by-one error (1=C2=B0C) when calcul=
-ating the hardware alarm threshold for i.MX7D. A safe division approach tha=
-t handles negative values should be used.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but both `imx_get_te=
-mp()` and `imx_set_trip_temp()` acquire a runtime PM reference using `pm_ru=
-ntime_resume_and_get()`. However, if an early return condition is met (e.g.=
-, the sensor measurement is not yet valid returning `-EAGAIN`, or the trip =
-temperature is out of bounds returning `-EINVAL`), the functions return dir=
-ectly without dropping the runtime PM reference. This permanently leaks the=
- reference.
-- [High] This problem wasn't introduced by this patch, but the thermal cloc=
-k `data->thermal_clk` is successfully prepared and enabled in `imx_thermal_=
-probe()`. However, the driver's removal function, `imx_thermal_remove()`, c=
-ompletely lacks the corresponding `clk_disable_unprepare()` call. This lead=
-s to a clock reference leak every time the driver module is unloaded.
---
-
---- Patch [2]: [PATCH v4 2/2] thermal/drivers/imx: Add calibration offset s=
-upport ---
-commit 0856324278f99d619114b6ca18250e57e7dbf3ca
-Author: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
-
-thermal/drivers/imx: Add calibration offset support
-
-Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements. Read the optional
-fsl,temp-calibration-offset-millicelsius property from DT and apply it to
-the i.MX6/6SX/7D calibration formulas.
-
-> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-> index 5aaacbc534786..971d6b4737c68 100644
-> --- a/drivers/thermal/imx_thermal.c
-> +++ b/drivers/thermal/imx_thermal.c
-
-[ ... ]
-
-> @@ -240,10 +241,13 @@ static void imx_set_alarm_temp(struct imx_thermal_d=
-ata *data,
-> =20
->  	data->alarm_temp =3D alarm_temp;
-> =20
-> -	if (data->socdata->version =3D=3D TEMPMON_IMX7D)
-> -		alarm_value =3D alarm_temp / 1000 + data->c1 - 25;
-> -	else
-> +	if (data->socdata->version =3D=3D TEMPMON_IMX7D) {
-> +		alarm_value =3D DIV_ROUND_UP(alarm_temp - data->calibration_offset,
-> +					   1000) + data->c1 - 25;
-
-[Severity: Medium]
-Since C integer division truncates toward zero, does DIV_ROUND_UP() produce
-mathematically incorrect results if alarm_temp is smaller than
-data->calibration_offset and the numerator becomes negative?
-
-> +		alarm_value =3D clamp(alarm_value, 0, 0x1ff);
-> +	} else {
->  		alarm_value =3D (data->c2 - alarm_temp) / data->c1;
-> +	}
-
-[Severity: High]
-With the unvalidated calibration_offset now added to data->c2, can
-alarm_value exceed the hardware mask for i.MX6 or become negative?
-
-If so, does the left-shift and REG_SET occurring just below this block:
-
-	regmap_write(map, soc_data->high_alarm_ctrl + REG_SET,
-		     alarm_value << soc_data->high_alarm_shift);
-
-corrupt adjacent register fields? A similar sequence exists in
-imx_set_panic_temp() with critical_value.
-
-[ ... ]
-
-> @@ -274,7 +278,7 @@ static int imx_get_temp(struct thermal_zone_device *t=
-z, int *temp)
-> =20
->  	/* See imx_init_calib() for formula derivation */
->  	if (data->socdata->version =3D=3D TEMPMON_IMX7D)
-> -		*temp =3D (n_meas - data->c1 + 25) * 1000;
-> +		*temp =3D (n_meas - data->c1 + 25) * 1000 + data->calibration_offset;
->  	else
->  		*temp =3D data->c2 - n_meas * data->c1;
-
-[Severity: High]
-This is a pre-existing issue, but does this function leak the runtime PM
-reference if the sensor measurement is not yet valid?
-
-Earlier in imx_get_temp(), pm_runtime_resume_and_get() is called, but the
-error path returns without dropping the reference:
-
-	ret =3D pm_runtime_resume_and_get(data->dev);
-	if (ret < 0)
-		return ret;
-
-	regmap_read(map, soc_data->temp_data, &val);
-
-	if ((val & soc_data->temp_valid_mask) =3D=3D 0)
-		return -EAGAIN;
-
-This same pattern also appears in imx_set_trip_temp() when returning -EINVA=
-L.
-
-[ ... ]
-
-> @@ -629,6 +633,10 @@ static int imx_thermal_probe(struct platform_device =
-*pdev)
-> =20
->  	platform_set_drvdata(pdev, data);
-> =20
-> +	of_property_read_s32(dev->of_node,
-> +			     "fsl,temp-calibration-offset-millicelsius",
-> +			     &data->calibration_offset);
-> +
->  	if (of_property_present(dev->of_node, "nvmem-cells")) {
->  		ret =3D imx_init_from_nvmem_cells(pdev);
->  		if (ret)
-
-[Severity: High]
-This is a pre-existing issue, but does the driver leak the thermal clock
-reference when removed?
-
-imx_thermal_probe() prepares and enables data->thermal_clk:
-
-	ret =3D clk_prepare_enable(data->thermal_clk);
-	if (ret) {
-		dev_err(dev, "failed to enable thermal clk: %d\n", ret);
-
-However, imx_thermal_remove() does not appear to call clk_disable_unprepare=
-()
-when the driver module is unloaded.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-b4-symana2=
-1-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com?pa=
-rt=3D2
