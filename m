@@ -1,119 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D87435836A;
-	Fri, 10 Jul 2026 03:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8205B2E413;
+	Fri, 10 Jul 2026 03:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783652624; cv=none; b=LeZBcWonFPA8qCsgPv+kOUmPUneEQQx1dH8Olu41vnpVOuGDYCRTzlHsa6EfWe9TXNBjsApTtWy0CCGc0hxaKpKqm3x2et0CMWwUcDLFsCfx7zrqhBGn15JLWzBWxG50tUNd/KuBXwIi1APgfRncPO9dtkZSlDIhGxCsy/9zauM=
+	t=1783653325; cv=none; b=nfR0cXzHTAAVQG7IK7m8Jqrf3HkoMYvv6IRWTqK2THHP9cvLArIqu0ouPCtBNRsmgzR1tQNgIfUabHVNy4WLtI2zXs8LSOU3uVPhrp56HAnaQQ8Ztj8LcvZuQEdpfA34DK6iH68OHgCZuWkEDuKjhzwyBmXdm6ALqEz2TgZ7Huw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783652624; c=relaxed/simple;
-	bh=6affpFqvBOofjMEf10HVi7Yae4GpotoCzw2sYvxUCXE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KsJTD6R4Q5S4C+6K6uQfFQ40WMwz/Z4RwFwsnTJl0EvavBdN831ZcEwUrrootyom7fIuEL1ygmMaEmsl0LH68YyLMy/rvq5oR3S5twHohq6Ig2if+TqFVIy3HLgC5wEKYGtLjCsOrEi7UPlX4lRQ+Nk8tCpi+CuBtcahHPsY8U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=guuDVMBt; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783653325; c=relaxed/simple;
+	bh=B9PeC5OZ9gkvfuD6X3PWNLBhhaAvzuSZBwYabGIVX+0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=H383icpTUENnPXZ9YapvUF2uQsBq+OKF+zhHlWHxSI4LjG++SfDt6PiqLTuV7pCm0haV/5LzfAW6Vu6s7bFEzDsTyIICfeiwtxTUHLlN6rmCzYvpJrlmmq4i0Tlp0H+IK1juRVduuKLgzxVug2fZ8Wpkg9N9ZgI1BxAbkO+e6yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5/ISWmO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="guuDVMBt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 323C3C2BCC6;
-	Fri, 10 Jul 2026 03:03:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783652624;
-	bh=6affpFqvBOofjMEf10HVi7Yae4GpotoCzw2sYvxUCXE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=guuDVMBtR79Q5esTBHVfj1k0DMDJYPms2wdN/4ZFD4k7PmllXRQYfkO6xECWCFCNA
-	 9uR3W2lPkjmPbaP/XoqeNtheXnAhjFM4ykLS9WZhjqN0Wxad/0PnkVy0bRFNQZFW7U
-	 D94yTbPReOeA1W2E95ksyZHIN4mypoQ3dFpgX7+Ap+uj3ANI+MkDLiTnM/e6akPTpS
-	 oCP2YroCrQcIOKQg7D/B0KULgPfDv1ukFk9+3wU7pxWSNG95RemtrsPyVeVejocAsp
-	 lIpp8veal2NOurvItEKD/QFG5IfWcbVLDL/FLuYVgBrGeWOlafaCMde8tvaNixaFFi
-	 bhjQjeuk5zXMg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 142ABC44506;
-	Fri, 10 Jul 2026 03:03:44 +0000 (UTC)
-From: HaoNing Cheng via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Date: Fri, 10 Jul 2026 11:03:36 +0800
-Subject: [PATCH v4 1/2] dt-bindings: thermal: imx: Document calibration
- offset property
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5/ISWmO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF5D01F000E9;
+	Fri, 10 Jul 2026 03:15:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783653324;
+	bh=6Mdu3H1efRBkZm3WQ0fxlKQcKZKN6mjGw1y4g6q5EgU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l5/ISWmO2/cLPLuwxM6C+lPDnyL5Fbr+sSIy5nRV/6ob4hLVVRmivWoaLNd0/UU8F
+	 AaNWQMOAsTAjsCHOfilUQyYtxP/LdypVqznP4fvMidqgnVaqL50rF+vQ1KKgeQpo1s
+	 xhaXCdKuIs88G6vOZI8I2Rsv4mekHnUIj4mTZYw1DjGu8MqQjvLil6VYjT2ND2NOkg
+	 Qp0sinFzBEv/XWU62Mq/aPiPYaaOBUhKg6kfl1okiyWTZZSfqtYokbdUhaMB8kahze
+	 tVmHu7r9dDs29oMLYoObkiiQ4ovj3uMi85XuWO5f33O+6S4+nevtM5mZP+8e3/0S0A
+	 vBNkCp4Ct2Cuw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] thermal/drivers/imx: Add calibration offset
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "HaoNing Cheng" <Haoning.CHENG@cn.bosch.com>
+Cc: robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-2-1fef97d1c750@cn.bosch.com>
+References: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com>
+ <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-2-1fef97d1c750@cn.bosch.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 03:15:23 +0000
+Message-Id: <20260710031523.AF5D01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-1-1fef97d1c750@cn.bosch.com>
-References: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com>
-In-Reply-To: <20260710-b4-symana21-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783652619; l=1680;
- i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=no3c9/RAYmA7IHQlD5VdRWEadY5z+AzLg4/XdlxjFiY=;
- b=Qlj5ctN0QxfDIe27Zxs2YnRlhA05aquZhbwuwEOEVYV8U06Y28X+sNOBnx3rnTSy0eaepDfC7
- oJh3ffBKitCB3W3+O/nQiB4blT9a1TrWPVi+nmQPlsqxTLzM0be0qTz
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
- pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
-X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
- with auth_id=860
-X-Original-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
-Reply-To: Haoning.CHENG@cn.bosch.com
 
-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+
+New issues:
+- [High] The new `calibration_offset` is added to `data->c2`. This unvalida=
+ted offset can cause `alarm_value` and `critical_value` in `imx_set_alarm_t=
+emp()` and `imx_set_panic_temp()` to exceed the 12-bit hardware mask for i.=
+MX6. Since these values are left-shifted and written using `REG_SET` withou=
+t clamping, it will corrupt adjacent register fields (e.g., powering down t=
+he sensor unintentionally). Additionally, negative values left-shifted trig=
+ger Undefined Behavior.
+- [Medium] The macro `DIV_ROUND_UP(n, d)` expands to `((n) + (d) - 1) / (d)=
+`. Because C integer division truncates towards zero, this macro produces m=
+athematically incorrect results when the numerator is negative. In `imx_set=
+_alarm_temp`, if `alarm_temp` is smaller than `data->calibration_offset` (e=
+.g., a low trip threshold combined with a large DT offset), the numerator b=
+ecomes negative. This results in an off-by-one error (1=C2=B0C) when calcul=
+ating the hardware alarm threshold for i.MX7D. A safe division approach tha=
+t handles negative values should be used.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but both `imx_get_te=
+mp()` and `imx_set_trip_temp()` acquire a runtime PM reference using `pm_ru=
+ntime_resume_and_get()`. However, if an early return condition is met (e.g.=
+, the sensor measurement is not yet valid returning `-EAGAIN`, or the trip =
+temperature is out of bounds returning `-EINVAL`), the functions return dir=
+ectly without dropping the runtime PM reference. This permanently leaks the=
+ reference.
+- [High] This problem wasn't introduced by this patch, but the thermal cloc=
+k `data->thermal_clk` is successfully prepared and enabled in `imx_thermal_=
+probe()`. However, the driver's removal function, `imx_thermal_remove()`, c=
+ompletely lacks the corresponding `clk_disable_unprepare()` call. This lead=
+s to a clock reference leak every time the driver module is unloaded.
+--
+
+--- Patch [2]: [PATCH v4 2/2] thermal/drivers/imx: Add calibration offset s=
+upport ---
+commit 0856324278f99d619114b6ca18250e57e7dbf3ca
+Author: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
+
+thermal/drivers/imx: Add calibration offset support
 
 Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements.
+temperature with board-level measurements. Read the optional
+fsl,temp-calibration-offset-millicelsius property from DT and apply it to
+the i.MX6/6SX/7D calibration formulas.
 
-Document the optional fsl,temp-calibration-offset-millicelsius property,
-a signed offset in millicelsius that is added to the calculated sensor
-temperature. The property is optional and the existing behaviour is kept
-when it is omitted.
+> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
+> index 5aaacbc534786..971d6b4737c68 100644
+> --- a/drivers/thermal/imx_thermal.c
+> +++ b/drivers/thermal/imx_thermal.c
 
-Update the binding example to show its usage.
+[ ... ]
 
-Signed-off-by: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
----
- Documentation/devicetree/bindings/thermal/imx-thermal.yaml | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> @@ -240,10 +241,13 @@ static void imx_set_alarm_temp(struct imx_thermal_d=
+ata *data,
+> =20
+>  	data->alarm_temp =3D alarm_temp;
+> =20
+> -	if (data->socdata->version =3D=3D TEMPMON_IMX7D)
+> -		alarm_value =3D alarm_temp / 1000 + data->c1 - 25;
+> -	else
+> +	if (data->socdata->version =3D=3D TEMPMON_IMX7D) {
+> +		alarm_value =3D DIV_ROUND_UP(alarm_temp - data->calibration_offset,
+> +					   1000) + data->c1 - 25;
 
-diff --git a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-index 949b154856c5..b9afffd98f84 100644
---- a/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/imx-thermal.yaml
-@@ -59,6 +59,14 @@ properties:
-   clocks:
-     maxItems: 1
- 
-+  fsl,temp-calibration-offset-millicelsius:
-+    minimum: -28580
-+    maximum: 28580
-+    description:
-+      A signed calibration offset, in millicelsius, added to the calculated
-+      sensor temperature to compensate for board-level measurement
-+      differences. When absent, no offset is applied.
-+
-   "#thermal-sensor-cells":
-     const: 0
- 
-@@ -109,6 +117,7 @@ examples:
-             nvmem-cells = <&tempmon_calib>, <&tempmon_temp_grade>;
-             nvmem-cell-names = "calib", "temp_grade";
-             clocks = <&clks IMX6SX_CLK_PLL3_USB_OTG>;
-+            fsl,temp-calibration-offset-millicelsius = <(-6400)>;
-             #thermal-sensor-cells = <0>;
-         };
-     };
+[Severity: Medium]
+Since C integer division truncates toward zero, does DIV_ROUND_UP() produce
+mathematically incorrect results if alarm_temp is smaller than
+data->calibration_offset and the numerator becomes negative?
 
--- 
-2.43.0
+> +		alarm_value =3D clamp(alarm_value, 0, 0x1ff);
+> +	} else {
+>  		alarm_value =3D (data->c2 - alarm_temp) / data->c1;
+> +	}
 
+[Severity: High]
+With the unvalidated calibration_offset now added to data->c2, can
+alarm_value exceed the hardware mask for i.MX6 or become negative?
 
+If so, does the left-shift and REG_SET occurring just below this block:
+
+	regmap_write(map, soc_data->high_alarm_ctrl + REG_SET,
+		     alarm_value << soc_data->high_alarm_shift);
+
+corrupt adjacent register fields? A similar sequence exists in
+imx_set_panic_temp() with critical_value.
+
+[ ... ]
+
+> @@ -274,7 +278,7 @@ static int imx_get_temp(struct thermal_zone_device *t=
+z, int *temp)
+> =20
+>  	/* See imx_init_calib() for formula derivation */
+>  	if (data->socdata->version =3D=3D TEMPMON_IMX7D)
+> -		*temp =3D (n_meas - data->c1 + 25) * 1000;
+> +		*temp =3D (n_meas - data->c1 + 25) * 1000 + data->calibration_offset;
+>  	else
+>  		*temp =3D data->c2 - n_meas * data->c1;
+
+[Severity: High]
+This is a pre-existing issue, but does this function leak the runtime PM
+reference if the sensor measurement is not yet valid?
+
+Earlier in imx_get_temp(), pm_runtime_resume_and_get() is called, but the
+error path returns without dropping the reference:
+
+	ret =3D pm_runtime_resume_and_get(data->dev);
+	if (ret < 0)
+		return ret;
+
+	regmap_read(map, soc_data->temp_data, &val);
+
+	if ((val & soc_data->temp_valid_mask) =3D=3D 0)
+		return -EAGAIN;
+
+This same pattern also appears in imx_set_trip_temp() when returning -EINVA=
+L.
+
+[ ... ]
+
+> @@ -629,6 +633,10 @@ static int imx_thermal_probe(struct platform_device =
+*pdev)
+> =20
+>  	platform_set_drvdata(pdev, data);
+> =20
+> +	of_property_read_s32(dev->of_node,
+> +			     "fsl,temp-calibration-offset-millicelsius",
+> +			     &data->calibration_offset);
+> +
+>  	if (of_property_present(dev->of_node, "nvmem-cells")) {
+>  		ret =3D imx_init_from_nvmem_cells(pdev);
+>  		if (ret)
+
+[Severity: High]
+This is a pre-existing issue, but does the driver leak the thermal clock
+reference when removed?
+
+imx_thermal_probe() prepares and enables data->thermal_clk:
+
+	ret =3D clk_prepare_enable(data->thermal_clk);
+	if (ret) {
+		dev_err(dev, "failed to enable thermal clk: %d\n", ret);
+
+However, imx_thermal_remove() does not appear to call clk_disable_unprepare=
+()
+when the driver module is unloaded.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-b4-symana2=
+1-11221-imx-thermal-support-upstream-6-18-v4-0-1fef97d1c750@cn.bosch.com?pa=
+rt=3D2
