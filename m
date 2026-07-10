@@ -1,110 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EAA3F1AB9;
-	Fri, 10 Jul 2026 09:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B8D3F58CA
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783677133; cv=none; b=Vpl++99T+EFdhMUgj8WIoGjiA1M7Y9cg3WpDAQ9BNsdXJoZmdonTIhxSzMgAu08DOYvB3HsxXOtf0xE6SS6WVOjcT925MJR0ql7QmFPbgl9SIkqpz9TiOh40F6u7UtxFBc4X0nA8ZE7K2FQyv5o5MY4sVQIKBLqriYDQJwPsp/w=
+	t=1783677313; cv=none; b=oDdKNsJi+q28YeoGSgMQ2vDLbkp00YoKcjvFfBCHXPtdHxu8284X5h+gbElvZyyoFMtlXSCpVFUeHWjO8n1fyzcvb2XX/Qa9ZkHlt93RlvA4jIZfnVY+QRHzp1aRl1AMrfZpPNvwVi3J8BUnWHCa8ue/NxNGZW7X4dFAXCO4Wjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783677133; c=relaxed/simple;
-	bh=NUFjCk3oqw2dSbEAvpZcxPw/anPdbxhEKmmXwYdepmk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gHv3zOeds8ordqrr/65S+RPF76P6EIWUTZ67LqsHrBkFI+VDvplbz3btBetgbL3wbH746ghifGkmLafSVDVgYJ3OSI5kONh7vv5wQIOuPT8qQdMzBooRGcHGdh5EiGmYOWIpLIHkrNSRtIVgkj92GHqrcB1qmBF4BEhTx27QkuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hi7N51qn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783677313; c=relaxed/simple;
+	bh=PYaQlk7YAPrQ041M/bvdqcr1+tAUHuw1nB/hxRtlWPQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ALGDRJ/XJLLUrwkGgW7oY6vNfYTMcBCouZn5qE0AsJfXqk+r6H7WgAzr2HyZagaOrpfYFVaz2Y7LU4W0i+aMaF76slVUWXM9GedpaKZraKRZPvR1K646XFCIhhFI74WLIqfkTRqmf7c3WF3XmG67UT6OZ4oqt41ZQYsq1I/W4/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=oJ1OwsRU; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hi7N51qn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BE9D1F000E9;
-	Fri, 10 Jul 2026 09:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783677131;
-	bh=fgkoZDvu/KpucpdsDgHoaFyN8Y5VW/QxCC6OVX1+Fjw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hi7N51qnB8QJDHp6gR4UakKIlNGbnNcoNEeHRr1zran5Pr+zA8cL+wJzG+0OGSHLE
-	 Og9OvK7564NWLi3EhSJIv245NXsSgMisWD3xFatoa4Ht1GPu4adLqs+YyLZ7up+llL
-	 ltvze1+bpA3u61/GMWkp6DOxM0IEJQQplzBP9koDBHWk9mfHQWIOkF2OP7gRqNQS/D
-	 /bejW8sQOW6eSDTF2kGaexmJjMARLVuBMrqD/a6Rut8LqOky9B2DC/uNuHQ5BOkP+n
-	 zUa7n91vHqyL/RdRZWtrQSZyyqca0SxpFUtYMQ4tyw6YaNQK0Xh+dFlZK6iU1HESrP
-	 5edGulHUciI7w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: imx8mq: Add dcss node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260710-imx8mq-dcss-device-tree-node-v1-1-fc724dfd574e@geanix.com>
-References: <20260710-imx8mq-dcss-device-tree-node-v1-1-fc724dfd574e@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 09:52:10 +0000
-Message-Id: <20260710095211.6BE9D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="oJ1OwsRU"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-698aa7ba3e6so1330462a12.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:55:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1783677309; x=1784282109; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Au4v6cU7MBsP2sPvCvHMdLpV1qE/Ythj9i6e9ev27jE=;
+        b=oJ1OwsRUV46RFfdUQBdY1bFjrXlxV/DcYyafzidK7UlvZnEUC9TMJKqmwLy6iV7Ho9
+         I8jflLJjnC7mVyIVQOQCfATIQTjzTXg+vXQ32O0p8afiYWzBEhoVgUL+KPspRGRbjtVf
+         J6LOYQ+EXSZX0UcX8bTmjar5497jKhtWAqelMi8Ns5MU5j8ZsKWDHhCJ6mPh5iAZxCN5
+         g/Fnc3kSa3+N777cSRfm+vuUIWVXQpH3/FJg3Txb238wZk+3FhZa0bqk5mQlnngA1BXF
+         E8WIjMSlfRBGExVgQZuPT36FZ+1M4nYHNBXvMulV0dRGyqBKir6FR0xNqZShjYGraxjE
+         +rvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783677309; x=1784282109;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Au4v6cU7MBsP2sPvCvHMdLpV1qE/Ythj9i6e9ev27jE=;
+        b=ZglfgBqAd9asgBkJg2mZ4Lj1YcKvbu1MqI0+JC8c285ZRbuMwNPCwupBQc20xwAt5s
+         LZjA1I5eXbfneFJyS+D3jxhEgj0dLKkOS2gIyz6HGW5SgnKmH2/dNdtPty91dL+loRd6
+         OsMEKb8+OC4XqIqZlzf/YLrinoPbbBgJ7zKva4ePocP88nz9br6ohzUD5al8ADwqCEPp
+         U3D51Eta7QWyY2OuieUxoBc5rufa/s1FYYC/s7EDc2NiD7rmCs1ODyIS6oRcEQENMUT2
+         w8PGKeFznaiJle7kSpsfKWcvTu68uMAG3rTuHI+ZJg+v8s2B4t3m5padi6tai8wxjhxY
+         ZSUw==
+X-Forwarded-Encrypted: i=1; AHgh+RqLpbtGvRoXhB00WAJDkpk9ttqdj9uP7BOkg/yUwaWm+cMJ7jg038bk7+BBrHD7uYcZuKFYy80vzvZe@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzjm+BmAttIWK+NfWXKEZ7LWqoF6RY/QBTm6sGzsdiXkn9Y9frt
+	0vPf/zI4Hxeb2b9iLt+QTIgZzDmxs+dycpaWxmIeQWWvtZKB76ABd2CGIL4uo+fOPBI=
+X-Gm-Gg: AfdE7cl8IIpPIt034a03QTPse2yxOrfQqJRikm+SpV44oOEypzTAocPv5rBjVnTxP+f
+	h+ce8z69N88UU59vBhDg+R5tjzT3ZpDj3hUTeza9bC9nYnSeU9enJLg6+8jGyqAtU55PvdI8rrB
+	S3871dTdbqgb3lEVlt5rAb44t4hh2TprYMkMH+o7wDYGDeVQhxVJIh8I3WhxT3V0/px9nnxjhCq
+	7Yt+PaAAhM++Z7rfk02MntrJTGsI+N2wPqbnZSYrEAd7V/NzafMVpmUD6vyI+krvA6YqksXK/Wq
+	OOGn0pV79rHOwsODVC/2Jn45nrQuNWBtLtxdhxBk07/fkWY4I7Kh0wWwCPAewMzvwdkylXMbxQG
+	RY9ZGkqZEcDorFzwmr2BdUph0jHstrL6/hyPC74UTCLuu6MR+yZcLDvEc1humYGzwOJJnplD/Ej
+	8KLMiF7FOhoPoGAD269PHFc+rEuRjTtIBn0leK1cSKMclBtAT4LvNp0HWcNeRFlmPWRlQ=
+X-Received: by 2002:a17:907:a2cb:b0:c06:f67e:ed9 with SMTP id a640c23a62f3a-c15ce06fb21mr479808066b.10.1783677309069;
+        Fri, 10 Jul 2026 02:55:09 -0700 (PDT)
+Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15bb51af39sm502892966b.29.2026.07.10.02.55.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 02:55:08 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Fri, 10 Jul 2026 11:53:57 +0200
+Subject: [PATCH] arm64: dts: qcom: milos: Add reset for sdhc_2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-milos-sdhc2-reset-v1-1-c7a155a517ba@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrDuQBEylVyld1PG3TmlVMiqCe
+ Hdju/wW721kSAqjW7FRwqKmQ5/hLwVJ9+xfYG2yKbgQ3dU7/upnMLamk8AJhokrRO9jKVLWFeV
+ uTGh1/T3vj79trt+Q6RzRvh/v8YP/dQAAAA==
+X-Change-ID: 20260710-milos-sdhc2-reset-8e61165cc5b8
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783677308; l=848;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=PYaQlk7YAPrQ041M/bvdqcr1+tAUHuw1nB/hxRtlWPQ=;
+ b=tBUxYIBAa0gg6mhoBBDXd7hHoXWxfEi7SSUfj8X/YkiBcJKxuJwdW6iSBv023QxwCayIGFH8I
+ dmYEDZooJ8cDoA9dMOQgOhPC9SQ2bLu2B8Nr3kg6izhXLzS9N4BAP88
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `dcss` device node is missing the `power-domains =3D <&pgc_dis=
-p>;` property, which will cause a bus hang when the driver accesses its reg=
-isters.
-- [Low] The `dcss` node is placed at the `soc` level, outside of the `aips4=
-` bus node, causing an overlapping `reg` region and violating the hardware =
-bus topology.
---
+Add the missing reset (BCR) for sdhc_2.
 
---- Patch [1]: [PATCH] arm64: dts: imx8mq: Add dcss node ---
-commit 014c87fe4bc51f0ac006bc4660c8f156f9a40538
-Author: Esben Haabendal <esben@geanix.com>
+Fixes: d9d59d105f98 ("arm64: dts: qcom: Add initial Milos dtsi")
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/milos.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-arm64: dts: imx8mq: Add dcss node
-   =20
-Add DCSS node for i.MX8MQ based on the example in the bindings documentatio=
-n.
+diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
+index 8c9232988953..262fa8801256 100644
+--- a/arch/arm64/boot/dts/qcom/milos.dtsi
++++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+@@ -1724,6 +1724,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+ 
+ 			iommus = <&apps_smmu 0x540 0>;
+ 
++			resets = <&gcc GCC_SDCC2_BCR>;
++
+ 			bus-width = <4>;
+ 
+ 			qcom,dll-config = <0x0007442c>;
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mq.dtsi b/arch/arm64/boot/=
-dts/freescale/imx8mq.dtsi
-> index e60872aeeb49e..fb99bd3ad7c92 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mq.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
-> @@ -1611,6 +1611,27 @@ irqsteer: interrupt-controller@32e2d000 {
->  			};
->  		};
-> =20
-> +		dcss: display-controller@32e00000 {
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260710-milos-sdhc2-reset-8e61165cc5b8
 
-[Severity: Low]
-The aips4 bus explicitly claims the 0x32c00000 - 0x33000000 address range:
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
-		aips4: bus@32c00000 { /* AIPS4 */
-			compatible =3D "fsl,aips-bus", "simple-bus";
-			reg =3D <0x32c00000 0x400000>;
-			ranges =3D <0x32c00000 0x32c00000 0x400000>;
-
-Placing the dcss node at the soc level with address 0x32e00000 creates an
-overlapping reg region and violates the hardware bus topology, which can
-cause structural devicetree warnings about overlapping ranges.
-
-Should this node be placed as a child of the aips4 bus instead?
-
-> +			compatible =3D "nxp,imx8mq-dcss";
-> +			reg =3D <0x32e00000 0x2d000>, <0x32e2f000 0x1000>;
-> +			interrupts =3D <6>, <8>, <9>;
-
-[Severity: High]
-If power-domains =3D <&pgc_disp>; is omitted, the generic PM domain framewo=
-rk
-won't track the dependency between this device and the DISP domain.
-
-If no other active devices claim pgc_disp, the PM core may disable the
-domain during late_initcall.=20
-
-If a board enables this node and the driver subsequently tries to access the
-memory-mapped registers of the unpowered peripheral, it will trigger a
-synchronous external abort and panic the kernel.
-
-Is this node missing the power-domains property?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-imx8mq-dcs=
-s-device-tree-node-v1-1-fc724dfd574e@geanix.com?part=3D1
