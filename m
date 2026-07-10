@@ -1,66 +1,33 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDAA40BCBD
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 10:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928A2257435;
+	Fri, 10 Jul 2026 10:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783680298; cv=none; b=eoWIgm9TmDr8bZ8WkBmuZqqFMSduN1TJysVD7eegVDDKygHETr5tLax1dp8KQXoTOKKuUi91fD1wz9y4gN5yAG7DkRTKeB//bUpbqocvKtKSLRqlQc8nnW2Yh84sBbPRdIaw9V8aJXtminsKr2b3lSvA1B8eX8rP+WyYJhB2xlw=
+	t=1783680543; cv=none; b=mBBW1kekcboHQpPqLQVkpUhhuYEavfN1vhPPvhzIDTP7Aeg7YlQ1UnEdRDWZD+en4/IIbp5f8N3shp+F9ZhSQW98ijjDTowD8KbhCHe2Q/eOuAI2VM1zeoBlID+q5XVo0fc2GdnPpxhygLX36ysHcgsJTLIOd+1+cyRoUtFCVmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783680298; c=relaxed/simple;
-	bh=w+wGRAZeX7QLyoy91j3GSV4L9xJhSn7RrLgxxW7Bjzk=;
+	s=arc-20240116; t=1783680543; c=relaxed/simple;
+	bh=iTBMDHLyZCEAk+JRPZKWjg9y2gILfuDMUO1/QTd9vuc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SO7eUAEHKGgL3cwhbnclqyACk/8xckerx7s3nXp2NfTsnGTTgbG419X++X/r2vxe64qfyb0RC+n2oOoy1ICvPTNonNQSKtNj4YAUA3XuFI7TBnkFkQj4cAUKEdhECCfmhAvDxEWG2f2yfDKMjVrh+orIW4Sl+uH4sLLFiKauoS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lMANLxrB; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=cMqQFuXeZmNL4gsFzs4wzGQaUcpwViu6CLu1XfZkxZZhQXLtBPRpg6YdEoHrTABE3IZclT2MWZ1WnLSoYcMYBAOSAIXTQsLpPt8O1OfPFqnrPrTzK4GdzwQgqPEn+z1lmI2075eCbaQ+sb/j8NmtWl48HVZEh/CwK6AasczpaTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=grkY1gR3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lMANLxrB"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493f45e206dso2196465e9.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 03:44:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783680295; x=1784285095; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eoyDGwp3qtW9jL5dYVqhKVgocL99cZP1Cm9KAwZE1z4=;
-        b=lMANLxrB4GC0Jh7Dw7JVWLNLf1xtASm3pCwtfiwdVtpvlqGoRESQa7ZNwpwDdms/zc
-         Cp8oC9PKk4qFqotFDRbdbTprnvfnwxj1FnoStEbZUvi7WpGaZ57plyTF3QKS9PD7j8Fx
-         yvTN+cv6mgD8cBYdnc3gjTQvN0qqRJcZ2qGksTe+8AzJ5BmtAsY0JFwzKu6W4BjSaYvQ
-         B0J0FC2eJuVueJYNIHYtD6QiOa9sH74TAydrBxvz2Ifu2C0VZOnM9f/dxaWAqKYNdrvO
-         4339P3JHIHpw01GcylKagcPWP6rieh+1ywt6sgykySeQSpz3gUQAjibSlfgQykUi8o0I
-         EGPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783680295; x=1784285095;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eoyDGwp3qtW9jL5dYVqhKVgocL99cZP1Cm9KAwZE1z4=;
-        b=lvdj50GPtimIYlDh/XTNxCN6JxHAL//ThDNHzCqgqGKDlkgbaf6YXHyXz7lIKZhyU/
-         MNjjsNypvlLhnxGY+bOFCxWbhum8hl0VFsNWGIzByOaMM1nS8Kg1sTeYvDy1LxUyrOx/
-         lVv7GY3uQ1gwqK1paq9MwND23jsYJxB1WVCcXxp3TAnwcvJ5RTp6+f957QrDbI18RkRN
-         8cXxJ6zUlYeCtzHPJijRivvDFUmGyuKAB3voQTraSjWHUup9B/zuNVhC0l5nkFcQUX7J
-         afgEw3+MBo9ptLrI2SG9XJGbMxoX2l1kgiYFmlC2MkU+AWMgNDU89Qv+PKBSW0nLBmyc
-         GvFQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqx97CZvHEracUaQnPkkKwJOVyHdULTyzcau9i6WjfmutFAXrOgK7UHiwS75JK/yCv3yBjVXeMZ7FuY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6eLUyoEUUNILIYITslLgGdOYXlHbHkzIxUZ6WMvxouDnCnbpT
-	2j28CD3mUoPovJuzM79T+7FtNozVc/YapfKFIplgu2XXjj5dodwZOUuiPweXp9H+RZE=
-X-Gm-Gg: AfdE7cmYQvh7oY+YbN0ZQ9gwk+BU/jJEkUw2PdpnfkSg08J6aYZOP8gQDQa1LnBDGPB
-	SQFXzs7LVWK4XiyyfmsWsqtwtwPDdAeLyuQWp59yo+dJBgOXsWKCh+1Nj/8UpU6zD9PU9ncUr0H
-	2nJ8U1MtL7ZDhIVyC5Gkq0A6rXPdBFGCt9u7Rl9MfU3mNeurtndrMcAo08TRZPf7tA44wpxdeLA
-	VaQRGi2ld8M2Sr+Imjn1Ugge5qBa5EG2ZA4oqiBYrHz001SQqChYxhnwJTnyOeoJeBpTV+hpAZ8
-	cqMtH7AxRM/ukGyBl2J+2kLOUA13GH7cYwJy8VSsqcUIo/KNV6JYqynE2Z6UnPqMDhhyd7/jdjR
-	FiCLqRmNZU4XkX/E12TVbIhuQRC9juHEV78UsFrVZ8dNbtMHEHnZM6ttPOKuTs3V4aenJTSVzyP
-	1Vg9taDB642t8SO9p4Oa6D+Mmb
-X-Received: by 2002:a05:600c:56d3:b0:493:e2c3:af25 with SMTP id 5b1f17b1804b1-493f2b37187mr16432975e9.12.1783680295345;
-        Fri, 10 Jul 2026 03:44:55 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.243.23])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb73b161sm116251275e9.9.2026.07.10.03.44.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 03:44:54 -0700 (PDT)
-Message-ID: <916f8a0b-4ef5-4c2e-833a-aa8d2ef13543@linaro.org>
-Date: Fri, 10 Jul 2026 11:44:53 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="grkY1gR3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9539F1F000E9;
+	Fri, 10 Jul 2026 10:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783680542;
+	bh=a4E8F4XzXtYr9gOUicBTBa1hnzZXJhrbIu2eN/CY118=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=grkY1gR3L7UkFJ6h8wwhO20lJjE3syn/+pChOjNp1HjbQLKLYhQfB8K9I/IwEApGm
+	 WhaFj6B7eeEIRTqCZ+lOcCPnMQsBZkw9CSmPlk4+z0Su6lA13gYzjEa9klyE+uR3fK
+	 /NXGfa4w4XSmxGmyThkgy2y7qms33vACG8KuUgvdpuQWeeG5SsCMmLYGocp+TyIAD0
+	 ckzwb7ud5BRjNH71Igs/Rt0sD9Byb//LM6iNFTTGQk2QsSl96AWLVW3OufeP2A7Pzt
+	 2dQhI+v0iYoU+9TzRyStRawgcBqeI6OLiicGuQSXK/OVQIjjqkPLjygbBOtChemRcQ
+	 UHiVeOfleeO8Q==
+Message-ID: <6c7a7788-d000-4f86-9999-f2cfc147ed14@kernel.org>
+Date: Fri, 10 Jul 2026 11:48:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,60 +35,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/7] dt-bindings: media: qcom: Add CAMSS Offline
- Processing Engine (OPE)
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com>
- <20260710-camss-isp-ope-v4-4-51207a0319d8@oss.qualcomm.com>
- <d5475ff0-1296-437a-89f4-1d3d6e9ac637@linaro.org>
- <CAFEp6-1j=kA=3=wxWOrn_A_=Ugj-kgxRgKzN=a=3UsAef9YiTA@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: [RFC PATCH 07/11] arm64: dts: qcom: hamoa: Move Iris IOMMUs to
+ sub nodes
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+ <63t_fLehIKEom4-JPN9kAGFEjUG4_yFoHMhB2aEAppwPHb2oPbK666eGkGgXxEAHRJnfTRRUwuf2EqNRYe_gjA==@protonmail.internalid>
+ <20260709-vpu_iommu_iova_handling-v1-7-72bb62cb2dfd@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-US
-In-Reply-To: <CAFEp6-1j=kA=3=wxWOrn_A_=Ugj-kgxRgKzN=a=3UsAef9YiTA@mail.gmail.com>
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-7-72bb62cb2dfd@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10/07/2026 11:38, Loic Poulain wrote:
-> On Fri, Jul 10, 2026 at 12:20 PM Bryan O'Donoghue
-> <bryan.odonoghue@linaro.org> wrote:
->> On 10/07/2026 10:04, Loic Poulain wrote:
->>> +        reg = <0x5c42400 0x200>,
->>> +              <0x5c42600 0x200>,
->>> +              <0x5c42800 0x4400>,
->>> +              <0x5c46c00 0x190>,
->>> +              <0x5c46d90 0xa00>;
->>> +        reg-names = "top", "qos", "pipeline",
->>> +                    "bus_read", "bus_write";
->>> +
->> Does this register space cover the entire OPE i.e. where are the CDM
->> registers ?
->>
->> We should map those upfront even if they are not included in your first
->> drop, we map CDM regs in the IFE even when not used.
-> My initial thought, especially when we first moved to the CAMSS
-> subnode model, was that CDM would be represented as a separate node
-> and referenced from OPE through a phandle. However, CDM may not be
-> generic enough to justify that level of abstraction/complexity.
-> Therefore, I'll reintroduce the CDM resources here instead.
+On 09/07/2026 13:35, Vikash Garodia wrote:
+> The Iris VPU has separate streams with different IOVA constraints. The
+> non-pixel stream must be limited to the 0-600 MB IOVA range, while the
+> pixel stream can use the full IOVA space.
+> Using a single set of IOMMU entries for the Iris node does not describe
+> these per-stream limits and can allow accesses outside the supported
+> range, which may lead to device crashes. One such issue was reported at:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
 > 
-> Thanks,
-> Loic
-
-There's no harm in mapping the CDM regs here.
-
-Worst case is we have a generic CDM driver and the regs appear here 
-unused as well as in a CDM node right before OPE.
-
-Not the end of the world.
+> Add non-pixel and pixel child nodes, move each stream ID to its
+> corresponding child node, and add a reserved IOVA range for the
+> non-pixel stream.
+> 
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In light of this patch, we should put a pause on Daniel's workaround.
 
 ---
 bod
