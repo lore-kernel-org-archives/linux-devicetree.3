@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE3643E4BE;
-	Fri, 10 Jul 2026 16:46:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B9136F8F1;
+	Fri, 10 Jul 2026 16:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783701995; cv=none; b=HAD0zii8UKOVkXq/6ajqIt0q+5Veuyg5rdUP8GXd83i8QUn48AblGWdOMtS4HgWV2pidkuGvwh7+NIzfzmW+8ft2G+GlN7cXA+0cCxWVeIa/YRrzvAfDYOmYEA4CHg7oLixLozvN+QX+DVWtxkG4gIKex+qdrHWWJai1WL5Qkes=
+	t=1783701994; cv=none; b=JjEFlYvef219TmUOhTVuQzJwzbEWClf441iQWWBsrFVsxyA6nc6vXVJU5qHewlIpZzM3thP5gVwnMuRaa74LZxQz/njafLRPH5PGZem35H1h4YYEiUC3b4Vf56kfJYmCC94DX8jjHSgPcll31W3lIZtdpGce584m1nxPRL8L250=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783701995; c=relaxed/simple;
-	bh=FzxdooW9D7IYkJPvtynhOqwEPTbYTO3x1SBymELs+Bc=;
+	s=arc-20240116; t=1783701994; c=relaxed/simple;
+	bh=Adf3D9AnAkHrC/YlGvt/hjXUbv43xmuTB0FhRy7nf74=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o5Oi3APFzq/okW3JDHcyYl8ia5YkITTDzZls6hZpX6pUAcZmcYRivGr87iRkHrY0jftuwWgnOlVDRyOo1wGtYqVWbrD1hz1zZG4U6HsfTe+4ClU/qw5l3f2T/G0SVXzdw0Am6cO7yki3u4159eh7NB8KTqmNWwWHoVTGUwbgU1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=GxJUQV4m; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=Nj7VwMP9Ic8EcuZ8gvxv7bzmWOBvHmCrq0BZWRI2qpghH7ypLfKuk8pSrdDyA6PuB0yv6eDjNVWIlDSN8wjtFQtrQiumMxlrYrQdex3+mcxVQuNdC6XAB8yN4cW3KU07foFMTX8h8u+kf7voXt0NO+JMja1l4hjXrmxT8dBgYtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kbfsxRrk; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="GxJUQV4m"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kbfsxRrk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1783701979;
-	bh=FzxdooW9D7IYkJPvtynhOqwEPTbYTO3x1SBymELs+Bc=;
+	bh=Adf3D9AnAkHrC/YlGvt/hjXUbv43xmuTB0FhRy7nf74=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=GxJUQV4mEv63qejlRcOX6cIOJyBCnUgt6WAp1kqfYXCRFibxsGRHNo5ZM2LmNsQU0
-	 Wb4YYZ7Pg1B1HiDgh78P18LOYqRIywvR+Cnpb7yzbLIi4Xwm60a0EjCbT2TUJiljte
-	 VokcpdEtWeLU5XMyG7OcnZb/GO4tDqn6hVEkq4Slg41ZHHAuEqsSoWAGz7Jcf9h1o1
-	 Bs5QjFIXrvTjm6CrJOr+6o89f9pnayDRR6G38N7MRugGnO1LAJk3zPgAYMDF+VsRHh
-	 H1c4R4YCl5viMKmkaFR0n50FiVRnzeejgbJDZPomF5qwTKJAz1l9mB9VSauoILSUcA
-	 nM/8W5v1//T7Q==
+	b=kbfsxRrkDJ/By4IFU2kaeEAVXDq5KERD/hj0zKyTpUp3oil6LIv7YuAiWtT0h1QhW
+	 AS3vqCs+Qqu2h3GQoTjSHOdbOoJkdaiSHW5NFR3wOJuAQ4h9Rp9ONbl1+jMMM9sf7m
+	 cHkP3Q0oTRoBuS6Ia8lhmEun7lVovXuXAD1/isQaVJyB1vlGRYR4pXvnWMC9Zng93N
+	 GzRZ7VAmQq5RENY+PQdcexahYb+hpqB3TgiQBihs49WmsfVSfb6K7oXQeO03yBhMwH
+	 E8sFHRTo8jTNcUCZC1e99MFUQ4True4DfBZTsTNibqPaS1GJOZxxBO620wkFtnXO+4
+	 WI0Z6LCYpe4wg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CB7B117E1025;
-	Fri, 10 Jul 2026 18:46:18 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2947917E127F;
+	Fri, 10 Jul 2026 18:46:19 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id F3A2E480061; Fri, 10 Jul 2026 18:46:17 +0200 (CEST)
+	id 105E748006E; Fri, 10 Jul 2026 18:46:18 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 10 Jul 2026 18:44:54 +0200
-Subject: [PATCH v12 16/36] phy: rockchip: usbdp: Register DP aux bridge
+Date: Fri, 10 Jul 2026 18:45:05 +0200
+Subject: [PATCH v12 27/36] phy: rockchip: usbdp: Handle
+ rk_udphy_reset_deassert errors
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-rockchip-usbdp-cleanup-v12-16-8b41a9a9bef0@collabora.com>
+Message-Id: <20260710-rockchip-usbdp-cleanup-v12-27-8b41a9a9bef0@collabora.com>
 References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
 In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -63,112 +64,88 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3189;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2365;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=FzxdooW9D7IYkJPvtynhOqwEPTbYTO3x1SBymELs+Bc=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpRIdndfN8ksRClf6fj7cmJ+kNQiM+l8TQWZ
- lRarEtpJE7IJ4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqUSHZAAoJENju1/PI
- O/qaKtsP/0Ay6hPd8htwWr/CfaNpJp7U/leRjPnfOYBN3n2aAN5j44xWj7PCOGKyfK30Lqw5Spa
- B6l1bX+gyyKX0mqUJjYs2cSOVCXmXfdLU+lFF5kBlaGtI+x0dyOpt5+JkjfilEwMOt4hjwHcmKy
- 5ByWNAnPKuxOT65y0MP5H47IJGtjPig0Ye1ZyAgIZNKr8B3i15C1HLFdZtJAteMhJkT9IyBr+bO
- dGaRxuwgx2Zra+TmbsEFyp7imwJ8FuHWL/LNHcX7ZmNmgeaPhCVoo4vbDHFy0us01mLQFdUIaN3
- RiUizACmqpf384TRMowB8nn+jSuJiOxD2b0XJa0PgQIYaAUl9Fk20RsEQWDWj9bC1fd5EdzEfyp
- LhAjhTEox8jqsMvrKQGgecIZNiwT/9NpJSHQiNd1w5H/JJGNPbfZC8wmVbFxhymp7EvdDrN+Li1
- 52qZEEGKZeybgf5iuSGETJynBU4hBsD8WZsAlIijxFwZPeFEt0EvA1JSo2an90c878JLvWC8C14
- HwY34Qxh8FGkDVnLdVnssrnm4l4mGUbqa90/0ozk6b+XQI/8oMu4+HxbvaZ/LqU3fe1QLlW/P9C
- wn02+WZXTt1dEljs6R6eX5Ze17BJo9rrUUtCEIdr0PuC+B5eaVrPiV13YU1hy3lpTuK5+kDSf+y
- 9JtMfABDFrnhn84rq7FEwWg==
+ bh=Adf3D9AnAkHrC/YlGvt/hjXUbv43xmuTB0FhRy7nf74=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpRIdkklZx5EIMfvsZqKr8/+swrXpeTuekXU
+ vTJ+GjYVOqoyYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqUSHZAAoJENju1/PI
+ O/qaB7sP/ArLanC+QhP0ztEzeBU3ZeSO2fQS90p8TYlt7bzQmS3xb+PEB5EQ9wl27SIj0oScndP
+ PeD7r/E5B7NpkkubID1E5HKnLn4fUbTzYX0r4i1oLAOMyZoGQXjfT1RZOucBW2GU98LpVyCS5jD
+ N6uvmNrpgDOJ9uQg2/dotQfDrLCOsGIyj9iagRn/WR5cil8cHs9QEKOZhyWUbrbavn0j7MyWkjP
+ WWFkhBQsgcgBnBi0ceZhxqh350fXGWQIGFufGm+Zl+2vp7W1o7H88JCQJt5KEeF6AgqJTcJ+RHP
+ Kyy/W3wvwNU3G7Quki/khqGN5MISpPqf6SOHwt3GiZ4F66PBbUiy2one+8DZk98qC9QnzeBWNlq
+ 36nWvoEvayvcaM5LBmshwNlI6TFRI+GrJTNJyt8q7veYAFGCJV4bJwYvXo6ghJPdCJuC8vmKUhu
+ D4XK1+3FR9csXG5aXnqaT4X4jOqojpbIMf24sHUTwEulutEbH0Ok/VW/aEnlQyIFhonszNNekp2
+ 9aujUIA9LfjT/1Lld6wVdkHnFdizb4S6WVba+zqxIdmMC0RDFT9OGxihYPGSAVrfStqYy7VkmVd
+ SFDna/X4M6ny7wY3zJz0g/vLYKrEHSIZeimVY0tMQKmOUoODrfqpdOaOjWTM8JynP0+gATKsFu5
+ zB8v0+CIxtQ+XZMZTy0U8SQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add support to use USB-C connectors with the DP altmode helper code on
-devicetree based platforms. To get this working there must be a DRM
-bridge chain from the DisplayPort controller to the USB-C connector.
-E.g. on Rockchip RK3576:
+Handle rk_udphy_reset_deassert returning errors to avoid theoretical
+(Rockchip reset controller driver does not return errors) SError.
 
-root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-bridge[0]: dw_dp_bridge_funcs
-        refcount: 7
-        type: [10] DP
-        OF: /soc/dp@27e40000:rockchip,rk3576-dp
-        ops: [0x47] detect edid hpd
-bridge[1]: drm_aux_bridge_funcs
-        refcount: 4
-        type: [0] Unknown
-        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
-        ops: [0x0]
-bridge[2]: drm_aux_hpd_bridge_funcs
-        refcount: 5
-        type: [10] DP
-        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
-        ops: [0x4] hpd
-
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/message/20260626211151.2332F1F000E9%40smtp.kernel.org
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/Kconfig              |  2 ++
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 17 +++++++++++++++++
- 2 files changed, 19 insertions(+)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-index 14698571b607..39759bb2fa1d 100644
---- a/drivers/phy/rockchip/Kconfig
-+++ b/drivers/phy/rockchip/Kconfig
-@@ -136,8 +136,10 @@ config PHY_ROCKCHIP_USBDP
- 	tristate "Rockchip USBDP COMBO PHY Driver"
- 	depends on ARCH_ROCKCHIP && OF
- 	depends on TYPEC
-+	depends on DRM || DRM=n
- 	select GENERIC_PHY
- 	select USB_COMMON
-+	select DRM_AUX_BRIDGE if DRM_BRIDGE
- 	help
- 	  Enable this to support the Rockchip USB3.0/DP combo PHY with
- 	  Samsung IP block. This is required for USB3 support on RK3588.
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index eda3f7a1e267..8ac6a83b0b2a 100644
+index ff768e5b43ca..2099ae2e51d1 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -6,6 +6,7 @@
-  * Copyright (C) 2024 Collabora Ltd
-  */
+@@ -803,8 +803,12 @@ static int rk_udphy_init(struct rk_udphy *udphy)
+ 	/* Step 1: power on pma and deassert apb rstn */
+ 	rk_udphy_grfreg_write(udphy->udphygrf, &cfg->grfcfg.low_pwrn, true);
  
-+#include <drm/bridge/aux-bridge.h>
- #include <dt-bindings/phy/phy.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-@@ -1414,6 +1415,7 @@ static int rk_udphy_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct phy_provider *phy_provider;
-+	struct fwnode_handle *dp_aux_ep;
- 	struct resource *res;
- 	struct rk_udphy *udphy;
- 	void __iomem *base;
-@@ -1468,6 +1470,21 @@ static int rk_udphy_probe(struct platform_device *pdev)
- 			return ret;
+-	rk_udphy_reset_deassert(udphy, "pma_apb");
+-	rk_udphy_reset_deassert(udphy, "pcs_apb");
++	ret = rk_udphy_reset_deassert(udphy, "pma_apb");
++	if (ret)
++		goto assert_resets;
++	ret = rk_udphy_reset_deassert(udphy, "pcs_apb");
++	if (ret)
++		goto assert_resets;
+ 
+ 	/* Step 2: set init sequence and phy refclk */
+ 	ret = regmap_multi_reg_write(udphy->pma_regmap, rk_udphy_init_sequence,
+@@ -830,8 +834,11 @@ static int rk_udphy_init(struct rk_udphy *udphy)
+ 			   FIELD_PREP(CMN_DP_LANE_EN_ALL, 0));
+ 
+ 	/* Step 4: deassert init rstn and wait for 200ns from datasheet */
+-	if (udphy->mode & UDPHY_MODE_USB)
+-		rk_udphy_reset_deassert(udphy, "init");
++	if (udphy->mode & UDPHY_MODE_USB) {
++		ret = rk_udphy_reset_deassert(udphy, "init");
++		if (ret)
++			goto assert_resets;
++	}
+ 
+ 	if (udphy->mode & UDPHY_MODE_DP) {
+ 		regmap_update_bits(udphy->pma_regmap, CMN_DP_RSTN_OFFSET,
+@@ -843,8 +850,14 @@ static int rk_udphy_init(struct rk_udphy *udphy)
+ 
+ 	/*  Step 5: deassert cmn/lane rstn */
+ 	if (udphy->mode & UDPHY_MODE_USB) {
+-		rk_udphy_reset_deassert(udphy, "cmn");
+-		rk_udphy_reset_deassert(udphy, "lane");
++		ret = rk_udphy_reset_deassert(udphy, "cmn");
++		if (ret)
++			goto assert_resets;
++
++		ret = rk_udphy_reset_deassert(udphy, "lane");
++		if (ret)
++			goto assert_resets;
++
  	}
  
-+	/*
-+	 * Only register the DRM bridge, if the DP aux channel is connected.
-+	 * Some boards use the USBDP PHY only for its USB3 capabilities. The
-+	 * aux bridge itself will be registered using port 0, endpoint 0, which
-+	 * is fine as that is the actual superspeed data connection shared by
-+	 * USB3 and DP based on the mux config.
-+	 */
-+	dp_aux_ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 3, 0, 0);
-+	if (dp_aux_ep) {
-+		ret = drm_aux_bridge_register(dev);
-+		fwnode_handle_put(dp_aux_ep);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	udphy->phy_u3 = devm_phy_create(dev, dev->of_node, &rk_udphy_usb3_phy_ops);
- 	if (IS_ERR(udphy->phy_u3)) {
- 		ret = PTR_ERR(udphy->phy_u3);
+ 	/*  Step 6: wait for lock done of pll */
 
 -- 
 2.53.0
