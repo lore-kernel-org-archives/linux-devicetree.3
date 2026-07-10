@@ -1,288 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D601BD9D0
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:15:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006BA3B42C7
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 21:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783718135; cv=none; b=qxSOMTyHZYERYpsdTCZ0Hr4g7DHQsZl0064xx4E0MilJZk4hJF/tY9LRFG9ThtH2MmcEiAEvRwMoTrXgDB41nPPNucZHXfkb21esJZLOIg1vb14nUUT0NfqhHgsKS4HU9lnU0Et9Zg+uC0EYFRBxiYkM/zCArbnT8PfAPxivWDE=
+	t=1783718153; cv=none; b=qYohTOR3/yBMBvSZTtbEzcqRE45IsZ/85liabgZdEU3DvpFjAu7mZacSYPdiQ/V5UPd123/cwNtV7QnBY533DCxcmspFoDDiR/L5rgTHve2eA2H7ohn6Bvijs8lRmnwcp5d4FurR3UBFHAAwr4oaReTUhskSCMOFembuDZK0vh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783718135; c=relaxed/simple;
-	bh=Oakaw5s3yHwNbZPAfk1YImztPtmz55AJx/848z+G2Mg=;
+	s=arc-20240116; t=1783718153; c=relaxed/simple;
+	bh=KekjYWrvHsyyFrfwRPkNMqJv9lT9xl0+lnZ6hkbiJ/M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AqckAY9x19L57bLCC8p/q+7ycIVR0eceW+1a6LvLIuqe9VP7t5vlSghrBAOmItzCtkBXJKTvYgshcMEVA9TGNyxJWGJbs4qg8PU0v/LavHas1b61PFRrikSJiwG3MPfpaoZlvuHQvfTGkjHM1epyKXUaDLKRLMQ/76pKWN7XNg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ji/gZ+Nv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Edq239gus81TSRu3JnN4lQgyxkg/RsMfwob2DF53iUrndXdJoq+3t7u0Tz01BtFag1PnMA6h4BqbTmxIhzpQTP1gi1WdNUWjlsSmQp6+jBW3C1+F49iPv8CqJyONkcgKH4PPLAUIYD5GJ28a9oLNx+wX6Obga1Hoo7zEnclNwc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bW1nQwT8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ji/gZ+Nv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460201F000E9;
-	Fri, 10 Jul 2026 21:15:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bW1nQwT8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002EC1F000E9;
+	Fri, 10 Jul 2026 21:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783718133;
-	bh=mSMn8ktTR1mf/DKEwlzAsknkClUSx+l2ubdqBKejdFQ=;
+	s=k20260515; t=1783718150;
+	bh=S4w/WzBaC7XVHQOu7BfUI05BFXtmiNaIGkXXpWGnD8Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ji/gZ+NvlGKnZEG1wlrriS0LSF1cIzsQvOXTkQzq7CEQrWHs/gi683wZ3vbKctxA0
-	 QFQ9R3qfc6yOuEZXKAUyNtm6o14O6DF+FXVnTti/Bwyw4U50xD6SgGNTS8dxKcsqSw
-	 V/3d6HtRO0sYnt0jALXuaWympDnSBJdXiXZsX5FN/FBfBzpAOCwzRam8Gpr7ukPjNK
-	 RjUzbBe4bwyAzTWeZVZxYdEMxWIQvmvsmsddtCYI0Q8s2zZ2KYD/VCNS8JFEvcD3aq
-	 aQUblbqlyVBdldQ2sRH/tXPDlb2xp4jfTIFnSzGsI42nBcgLlEd/AvDZk/Th9Mh0Va
-	 B2TghSBSlsR4w==
+	b=bW1nQwT867HW/ulHPL3M9leiG9e+sWZtus+lPvDFb1ttCR43sjNI7sBbnrb7r/NsC
+	 BC390hqYIC70H1NYocMiVJEFXyEuP3G9i10v4sFtYK+9i0tnliiOTJaTdlvKJIjeWs
+	 757dAEtU28PqfmKU48az24/x1Ma5Eh+AWdvXH7yVfJ3hQFuFEZ8EISOnF8WshNYThe
+	 /g2DT8t45X9KGDbeLN71ZZH0YwtKnPFiyDoauNYkYCwawMZYiVNKHmGnGuxYqavpcQ
+	 T1G38GcZqvgdJ1QIRhg1Tja/X3kO9Z43c+TpgorOA50C22caSCLBGBzeb0TVTwojAZ
+	 UogJQQxoBY2KA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 02/36] phy: rockchip: usbdp: Update mode_change
- after error handling
+Subject: Re: [PATCH v12 19/36] phy: rockchip: usbdp: Re-init the PHY on
+ orientation change
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-2-8b41a9a9bef0@collabora.com>
+Cc: robh@kernel.org, vkoul@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org
+In-Reply-To: <20260710-rockchip-usbdp-cleanup-v12-19-8b41a9a9bef0@collabora.com>
 References: <20260710-rockchip-usbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com>
- <20260710-rockchip-usbdp-cleanup-v12-2-8b41a9a9bef0@collabora.com>
+ <20260710-rockchip-usbdp-cleanup-v12-19-8b41a9a9bef0@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 21:15:32 +0000
-Message-Id: <20260710211533.460201F000E9@smtp.kernel.org>
+Date: Fri, 10 Jul 2026 21:15:49 +0000
+Message-Id: <20260710211550.002EC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Asynchronous PHY mode changes while USB is active cause fatal =
-SErrors (kernel panics) because PHY clocks are disabled without notifying t=
-he active DWC3 controller.
-- [High] `rk_udphy_power_on()` incorrectly drops active consumer tracking i=
-n `udphy->status` during a mode change, potentially causing the PHY to be d=
-isabled while still in use.
-- [High] The U3 (USB3) port is not re-enabled when transitioning from DP-on=
-ly mode to DP+USB mode, causing USB3 to remain broken.
-- [High] `rk_udphy_clk_init()` shadows the error code from `devm_clk_bulk_g=
-et_all()`, breaking deferred probing.
-- [High] The driver leaks clock enable counts and hardware reset states on =
-probe error paths if the initial hardware status is active.
-- [High] The `rk_udphy_dp_phy_configure` function accesses shared arrays an=
-d modifies hardware registers without acquiring `udphy->mutex`, leading to =
-race conditions.
-- [High] Non-DP Alternate Mode events corrupt the PHY lane mux configuratio=
-n, silently breaking USB3 functionality.
-- [High] DisplayPort HPD (Hot Plug Detect) events received before the DP PH=
-Y is initialized are permanently lost, preventing display detection.
+- [High] Deferred hardware initialization via `phy_needs_reinit` fixes Disp=
+layPort but leaves USB-only replugs broken if the USB PHY remains powered o=
+n.
+- [Medium] The function `rk_udphy_dp_phy_configure` accesses shared states =
+locklessly, leading to a data race with concurrent orientation switches.
 --
 
---- Patch [2]: [PATCH v12 02/36] phy: rockchip: usbdp: Update mode_change a=
-fter error handling ---
-commit 44a3e651748d53a497e7bb21061bf3cb86d67fbd
+--- Patch [19]: [PATCH v12 19/36] phy: rockchip: usbdp: Re-init the PHY on =
+orientation change ---
+commit c45d3419a6f4b9509b416ffd7965a918e7fad8e4
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Update mode_change after error handling
+phy: rockchip: usbdp: Re-init the PHY on orientation change
 
-If rk_udphy_init() or rk_udphy_setup() fails, the reinit will not be
-tried again. Fix this by only updating the variable after all potential
-errors have been handled.
-
-Link: https://lore.kernel.org/linux-phy/20260612163835.8D5471F000E9@smtp.ke=
-rnel.org/
+Changing the cable orientation reconfigures the lane muxing, which requires
+re-initializing the PHY. The patch introduces a flag to trigger PHY
+re-initialization upon orientation change.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index fba35510d88ce..a5ffdf7a6e76b 100644
+> index e44d19c9d1193..4b454798c4ed4 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1000,15 +1000,14 @@ static int rk_udphy_power_on(struct rk_udphy *udp=
-hy, u8 mode)
->  	}
+> @@ -620,6 +620,7 @@ static int rk_udphy_orien_sw_set(struct typec_switch_=
+dev *sw,
+>  				 enum typec_orientation orien)
+>  {
+>  	struct rk_udphy *udphy =3D typec_switch_get_drvdata(sw);
+> +	bool flipped =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
 > =20
->  	if (udphy->status =3D=3D UDPHY_MODE_NONE) {
-> -		udphy->mode_change =3D false;
->  		ret =3D rk_udphy_setup(udphy);
->  		if (ret)
->  			return ret;
+>  	mutex_lock(&udphy->mutex);
 > =20
->  		if (udphy->mode & UDPHY_MODE_USB)
->  			rk_udphy_u3_port_disable(udphy, false);
-> -	} else if (udphy->mode_change) {
->  		udphy->mode_change =3D false;
-> +	} else if (udphy->mode_change) {
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this mode change block
-neglect to conditionally re-enable the U3 port for USB modes?
-
-If the PHY is active in DP-only mode and transitions to DP+USB, this
-else if (udphy->mode_change) block is taken. Unlike the initialization
-block, it fails to evaluate if (udphy->mode & UDPHY_MODE_USB) and call
-rk_udphy_u3_port_disable(udphy, false).
-
-Does this cause USB 3.0 to fail to initialize when plugged into an already
-active DisplayPort?
-
->  		udphy->status =3D UDPHY_MODE_NONE;
-
-[Severity: High]
-This is a pre-existing issue, but does this forcefully erase the tracking
-of all currently active consumers without transferring them to the new
-state?
-
-If DP is active, udphy->status holds UDPHY_MODE_DP. When a USB device is
-plugged in, rk_udphy_power_on is called for UDPHY_MODE_USB with mode_change
-true. The code clears udphy->status to UDPHY_MODE_NONE here.
-
-Does this permanently lose the previously active UDPHY_MODE_DP bit? When
-USB is later unplugged, power_off clears the USB bit, dropping status to 0,
-which might prematurely disable the PHY despite DP still needing it.
-
->  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
->  			rk_udphy_u3_port_disable(udphy, true);
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does the asynchronous
-disabling of PHY bulk clocks around here cause fatal SErrors?
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_on() {
-    ...
-    } else if (udphy->mode_change) {
-        udphy->status =3D UDPHY_MODE_NONE;
-        if (udphy->mode =3D=3D UDPHY_MODE_DP)
-            rk_udphy_u3_port_disable(udphy, true);
-        rk_udphy_disable(udphy);
-    ...
-}
-
-If DWC3 is actively transferring USB data and a DisplayPort Alternate Mode
-event arrives, rk_udphy_typec_mux_set triggers a mode change. The code
-unconditionally calls rk_udphy_disable(udphy) which abruptly severs the
-PHY clocks.
-
-Since the DWC3 driver isn't notified, could its next register access hang
-the system bus?
 
 [ ... ]
 
-> @@ -1017,6 +1016,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
->  		ret =3D rk_udphy_setup(udphy);
->  		if (ret)
->  			return ret;
-> +		udphy->mode_change =3D false;
+> @@ -631,7 +632,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch=
+_dev *sw,
+>  		goto unlock_ret;
 >  	}
 > =20
->  	udphy->status |=3D mode;
+> -	udphy->flip =3D orien =3D=3D TYPEC_ORIENTATION_REVERSE;
+> +	if (udphy->flip !=3D flipped)
+> +		udphy->phy_needs_reinit =3D true;
 
 [Severity: High]
-This is a pre-existing issue, but does setting the status bit here only
-register the consumer that triggered the function call, leaving previous
-consumers untracked?
+This is a pre-existing issue, but does this deferred initialization handle
+USB-only replugs correctly if the USB PHY remains powered on?
 
+When a user unplugs and replugs a Type-C cable, this sets
+udphy->phy_needs_reinit =3D true. However, in configurations where the DWC3
+controller remains active (e.g., fixed host mode) or during rapid replugs,
+the USB controller doesn't restart and thus never calls phy_init() again.
 
-There are a few other pre-existing issues in this file that might be worth
-looking into:
+Because rk_udphy_usb3_phy_ops only implements .init and has no .power_on
+callback, rk_udphy_power_on() is never invoked to process the deferred
+initialization flag:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this logic shadow the
-error code from devm_clk_bulk_get_all and break deferred probing?
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_clk_init() {
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_on() {
     ...
-    if (udphy->num_clks < 1)
-        return -ENODEV;
-    ...
-}
-
-If devm_clk_bulk_get_all returns -EPROBE_DEFER when clock providers aren't
-ready yet, this explicitly checks if udphy->num_clks < 1 and returns a
-hardcoded -ENODEV. Will this cause the PHY driver to fail to probe
-permanently if clocks are not immediately available during early boot?
-
-
-[Severity: High]
-This is a pre-existing issue, but does the driver leak clock enable counts
-and hardware reset states on probe error paths if the initial hardware
-status is active?
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_probe() {
-    ...
-    udphy->phy_u3 =3D devm_phy_create(dev, dev->of_node, &rk_udphy_usb3_phy=
-_ops);
-    if (IS_ERR(udphy->phy_u3)) {
-        ret =3D PTR_ERR(udphy->phy_u3);
-        return dev_err_probe(dev, ret, "failed to create USB3 phy\n");
-    }
+	} else if (udphy->phy_needs_reinit) {
+		...
+		ret =3D rk_udphy_init(udphy);
     ...
 }
 
-rk_udphy_get_initial_status calls clk_bulk_prepare_enable. If it detects
-active DP hardware, it leaves the clocks enabled and sets udphy->status to
-UDPHY_MODE_DP.
+Will this cause the USB SuperSpeed connection to fail to train if the
+cable is inserted in reverse orientation?
 
-If any subsequent step in rk_udphy_probe fails, the driver returns the error
-without disabling the clocks. Without a devm-action registered to clean this
-up, does this clock enable refcount leak prevent the system from ever
-powering down the clock?
+> +
+> +	udphy->flip =3D flipped;
+>  	rk_udphy_set_typec_default_mapping(udphy);
 
+[Severity: Medium]
+This is a pre-existing issue, but can this lead to a data race with concurr=
+ent
+orientation switches?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does rk_udphy_dp_phy_configu=
-re
-access shared arrays and modify hardware registers without acquiring
-udphy->mutex, leading to race conditions?
+While rk_udphy_orien_sw_set() acquires udphy->mutex and updates the shared =
+lane
+and mux selections here via rk_udphy_set_typec_default_mapping(),
+rk_udphy_dp_phy_configure() iterates over and accesses the shared lane state
+locklessly:
 
 drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
     ...
-    lane =3D udphy->dp_lane_sel[i];
+		for (i =3D 0; i < udphy->lanes; i++) {
+			lane =3D udphy->dp_lane_sel[i];
+    ...
+						   udphy->lane_mux_sel[lane]));
     ...
 }
 
-This reads a shared array that is actively modified by Type-C event
-handlers. At the same time, Type-C orientation switch callbacks like
-rk_udphy_typec_mux_set or USB initialization can modify these exact same
-structures or registers.
+Could this cause rk_udphy_dp_phy_configure() to read partially updated arra=
+ys
+if the DP controller triggers link training concurrently with an orientation
+change?
 
-Could this concurrent access corrupt hardware registers or result in
-inconsistent lane mappings?
-
-
-[Severity: High]
-This is a pre-existing issue, but do non-DP Alternate Mode events corrupt
-the PHY lane mux configuration and silently break USB3 functionality?
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_typec_mux_set() {
-    ...
-    switch (state->mode) {
-    case TYPEC_DP_STATE_C:
-    case TYPEC_DP_STATE_E:
-        udphy->lane_mux_sel[0] =3D PHY_LANE_MUX_DP;
-    ...
-}
-
-This executes the switch block and overwrites udphy->lane_mux_sel before
-verifying state->alt->svid =3D=3D USB_TYPEC_DP_SID.
-
-Because TYPEC_DP_STATE_C is defined as TYPEC_STATE_MODAL, any other
-Alternate Mode that transitions into its modal state will inadvertently
-match this case. Will this erroneously route all PHY lanes to DisplayPort
-if a non-DP Type-C Alternate Mode device is attached?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but are DisplayPort HPD events
-received before the DP PHY is initialized permanently lost, preventing
-display detection?
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_init() {
-    ...
-    udphy->dp_in_use =3D true;
-    ...
-}
-
-rk_udphy_dp_hpd_event_trigger caches the HPD state in
-udphy->dp_sink_hpd_cfg if udphy->dp_in_use is false. Later, when the DP
-DRM driver calls rk_udphy_dp_phy_init, udphy->dp_in_use is set to true.
-
-However, the function fails to write the cached HPD configuration out to
-the hardware registers. Does this result in an attached DisplayPort monitor
-not being detected by the system?
+>  	rk_udphy_usb_bvalid_enable(udphy, true);
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-rockchip-u=
-sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D2
+sbdp-cleanup-v12-0-8b41a9a9bef0@collabora.com?part=3D19
