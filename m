@@ -1,42 +1,42 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B942DCC1F;
-	Fri, 10 Jul 2026 15:32:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D384195A4
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 15:32:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783697527; cv=none; b=lIQ8raavPXz2cGuWcj/G9MzjAjsp/V/eLO69hNWfi3dDiz7x0asa+kf4vAU0bPvEGOB3h1q8jzqrvCZtxcy7s+AtyHDkFoOdI8QpfKwLLkGYqu8XHqZzZhKC0dmRdoPVhU8cLW20px0M3+UCYk+xu9OZqRdobdXsZzhgwaOOglI=
+	t=1783697536; cv=none; b=IUf8KYuY5Ui2fPQJUe+0JqlUt5oX8sNywHyKz7bgEimMR5uwcv2u4XaD9fPG9fx4YXsWgzSWxtkaxbHxcA1hMN5g8fgGInZKnGx7KDD3CimmZAuYGMMhPXWLjxDFkrK473tMvcHYpSvsvpFhQvvnGRdaMJMhR7yn7xe6GJjXp30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783697527; c=relaxed/simple;
-	bh=tMINuLjLJ6HDyHzWHhXF+F/0+DLwvl+f1K67mHj7CM8=;
+	s=arc-20240116; t=1783697536; c=relaxed/simple;
+	bh=bQvA7RaITKm0leFu4CsMz36juYaBIh9nm8WiAQHba6s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WQWeZuBJktyh3a7bUKCrpdnNo9rAV9gnEq+2UQvpeUR6qoPPcB7gg80jDRxUBAdDxbnQaL/qnns5rxS8DzhWe6z6JuI25E3O0OQaRZg1zFEkn5hur65LGuBJJwpidnRLmcmQyva3sOM2FR9Y7UZ+nMP9iHkbnaqIjCbXX5yT0oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JweXbF0p; arc=none smtp.client-ip=185.246.84.56
+	 In-Reply-To:To:Cc; b=COkZMPcHzVUO3PsOhL8CJGEBDA+L/TMXicP9BfWxe0c2XqzM2Sh49jkG+JIAkVA1Rb+Z0HA5CTMx9zXTwphTfp9uc1OBzajvCndis+lSBS6XL+msyrqMpWgUXTGKJ5lFU3YCiaOtw2+lU7YoDnSszcDMTRVe2gAeAq6ftUQGF8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZqfRHd86; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JweXbF0p"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZqfRHd86"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E8A01A0F44;
-	Fri, 10 Jul 2026 15:32:04 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id F00AB1A0F48;
+	Fri, 10 Jul 2026 15:32:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0A30960345;
-	Fri, 10 Jul 2026 15:32:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5CB8111BD1A6A;
-	Fri, 10 Jul 2026 17:31:59 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C2B3C60349;
+	Fri, 10 Jul 2026 15:32:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2ED1D11BD1C3A;
+	Fri, 10 Jul 2026 17:32:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1783697522; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1783697529; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=f5fTdgEeWJWIqqdOx484hH91tnkn5FQXkKW5S5qABMo=;
-	b=JweXbF0pcF3lJ16gDTz5t6xkecvGbda8586WSisqEmVbjC0kOq89RTi8EdxKqd49s2iAwa
-	l6Te3WhMJl9y9KUgzHOaokgWDbhQWPEKTSbzbRRcphvjDA+c2Z6RJ7BUwAaIYlSDwTcz2N
-	hLy+iBZy2cs/BqZIKnI2VZbnFjOf54+MvtQ/Jg+21ULeKlNx8pKdbqb+KNdbKAhxEnnqL6
-	jX/p8JpWNbBOtiaQ7dGhdXqB220VVRsdkiPECmWBpB7OtKo/flD8N2s+8dC22Yy4TSmX8E
-	DyyvRjtV7RqMzcDD9EVfruerACQUk4mTrbKw8Y4p79tzuCqsNmIbv/ltLEOVGQ==
+	bh=a9IuIIWMF3nn6MhJn3nVioRG/vLkyDShB0IZOzPkMNg=;
+	b=ZqfRHd86BxzR2ZmpA+iEZqyUSwZ4jKH7irfqT/PLD/Z3wNaT14yrk/8uGu+fqQy4TnV+/w
+	CQxcEwnpJUx0dz/adEgEMoHKYi0htAmh5WfQtMIN8EBfQ2SZs4/oMEbhGLR8TS6zp4lFe1
+	KC1629eorzgZwZyxBZmqbWDKIaZ4J8990+RMjECCsCzwnCMaQYtiznf+2vIzvgVIMUxujM
+	ejZfj6Pw9mp9pDQZ1A3GwfKXGYpuBUGVnZMtQgHSjDnGrZMw1pGJTXJceaGeaouTSrSG8+
+	wjS2edXdd9rSyZx7RJ1LDIUrt5iUOd1MHNIMTAsaL3mnb70hbcz78a/RImkflw==
 From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-Date: Fri, 10 Jul 2026 17:31:34 +0200
-Subject: [PATCH 1/5] arm64: dts: freescale: Import optee node from u-boot
- device trees
+Date: Fri, 10 Jul 2026 17:31:36 +0200
+Subject: [PATCH 3/5] arm64: dts: hisilicon: hi3798cv200-poplar: Import
+ optee node from u-boot device tree
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260710-mathieu-uboot-dts-import-v1-1-ffe0210e50c9@bootlin.com>
+Message-Id: <20260710-mathieu-uboot-dts-import-v1-3-ffe0210e50c9@bootlin.com>
 References: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
 In-Reply-To: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -66,185 +66,31 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Tom Rini <trini@konsulko.com>, Peter Robinson <pbrobinson@gmail.com>, 
  Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783697511; l=7005;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783697511; l=911;
  i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
- bh=tMINuLjLJ6HDyHzWHhXF+F/0+DLwvl+f1K67mHj7CM8=;
- b=p4TnV3T1XPtN3EsK55Xihkn4CYcplvwLwi+99X+LyT+PDsy/6wBOXSJ+NaY9Vqk9nb95sCpg2
- M+1n8ELDbKFBBoxX0YKkL6Qw8ASb26OKyxfNSxTw36WxhB0Kt/JhiKx
+ bh=bQvA7RaITKm0leFu4CsMz36juYaBIh9nm8WiAQHba6s=;
+ b=Oqct+rYQmFQ9UaEQYPTA/h45y/vpgN4kx9+02R3tfwH61DyYi/90YdCukwryl/7UV/W/o4He2
+ c5uJcIP/MmfDIvDbxx3YziqtaedaIjLApZQNcodt2GfUJaXvWPDqjyL
 X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
  pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
 X-Last-TLS-Session-Version: TLSv1.3
 
-U-Boot is importing kernel device trees for these platforms, but adding
-a firmware node to enable communication with OP-TEE. Importing
-changes here will allow to remove these additions in U-Boot.
+U-Boot is defining its own device tree for this platform. Among all
+differences, a firmware node to enable communication with OP-TEE is
+added. Importing this node here will reduce these differences.
 
 Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
 ---
- arch/arm64/boot/dts/freescale/imx8mm.dtsi                | 7 +++++++
- arch/arm64/boot/dts/freescale/imx8mn.dtsi                | 7 +++++++
- arch/arm64/boot/dts/freescale/imx8mp.dtsi                | 7 +++++++
- arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts        | 7 +++++++
- arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts       | 7 +++++++
- arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts   | 7 +++++++
- arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts        | 7 +++++++
- arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts          | 7 +++++++
- arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts | 7 +++++++
- arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts   | 7 +++++++
- arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts | 7 +++++++
- 11 files changed, 77 insertions(+)
+ arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm.dtsi b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
-index 5cf2998d396d..4a55464e8a6f 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
-@@ -233,6 +233,13 @@ timer {
- 		arm,no-tick-in-suspend;
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	thermal_zones: thermal-zones {
- 		cpu-thermal {
- 			polling-delay-passive = <250>;
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn.dtsi b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
-index 79b169b07c4f..c3b4560ec9b4 100644
---- a/arch/arm64/boot/dts/freescale/imx8mn.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
-@@ -265,6 +265,13 @@ timer {
- 		arm,no-tick-in-suspend;
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	soc: soc@0 {
- 		compatible = "fsl,imx8mn-soc", "simple-bus";
- 		#address-cells = <1>;
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-index 5ce2825182fd..285b98384255 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-@@ -404,6 +404,13 @@ timer {
- 		arm,no-tick-in-suspend;
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	soc: soc@0 {
- 		compatible = "fsl,imx8mp-soc", "simple-bus";
- 		#address-cells = <1>;
-diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
-index 5716febb5a50..c7050bafacae 100644
---- a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
-@@ -110,6 +110,13 @@ linux,cma {
- 		};
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	sound-wm8962 {
- 		compatible = "fsl,imx-audio-wm8962";
- 		model = "wm8962-audio";
-diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
-index c25561574d3f..c0156921414f 100644
---- a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
-+++ b/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
-@@ -152,6 +152,13 @@ linux,cma {
- 		};
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	soc@0 {
- 		bootph-all;
- 		bootph-pre-ram;
-diff --git a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
-index 022e9c6841ef..62b6eff013f1 100644
---- a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
-+++ b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
-@@ -35,6 +35,13 @@ chosen {
- 		stdout-path = &lpuart1;
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	flexcan1_tc: can-phy0 {
- 		/* TI SN65HVD234D CAN-CC 1MBit/s */
- 		compatible = "ti,tcan1043";
-diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-index c6db9c85f2ac..0bea169d7029 100644
---- a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-@@ -42,6 +42,13 @@ reg_usdhc3_vmmc: regulator-usdhc3 {
+diff --git a/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts b/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
+index 579d55daa7d0..f20fbfc1c954 100644
+--- a/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
++++ b/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
+@@ -70,6 +70,13 @@ reg_pcie: regulator-pcie {
+ 		gpio = <&gpio6 7 0>;
  		enable-active-high;
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	usdhc3_pwrseq: usdhc3_pwrseq {
- 		compatible = "mmc-pwrseq-simple";
- 		reset-gpios = <&pcal6524 12 GPIO_ACTIVE_LOW>;
-diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
-index 01c11c517986..6b99c0594125 100644
---- a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
-@@ -147,6 +147,13 @@ reg_usdhc3_vmmc: regulator-usdhc3 {
- 		enable-active-high;
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	sound-bt-sco {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,name = "bt-sco-audio";
-diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
-index 4620c070f4d7..b8fa0cda33b2 100644
---- a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
-@@ -62,6 +62,13 @@ reg_vcc_panel: regulator-vcc-panel {
- 		regulator-min-microvolt = <3300000>;
- 		regulator-name = "VCC_PANEL";
  	};
 +
 +	firmware {
@@ -255,43 +101,7 @@ index 4620c070f4d7..b8fa0cda33b2 100644
 +	};
  };
  
- &eqos { /* Second ethernet (OSM-S ETH_B) */
-diff --git a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
-index d929aa9ff255..e96b8437f922 100644
---- a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
-@@ -36,6 +36,13 @@ chosen {
- 		stdout-path = &lpuart1;
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	flexcan1_tc: can-phy0 {
- 		compatible = "ti,tcan1043";
- 		#phy-cells = <0>;
-diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-index 409c7e74ffe3..20eaabc23b49 100644
---- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-+++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-@@ -125,6 +125,13 @@ ele_reserved: ele-reserved@87de0000 {
- 		};
- 	};
- 
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
-+
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
+ &ehci {
 
 -- 
 2.47.3
