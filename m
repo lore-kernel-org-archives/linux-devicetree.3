@@ -1,106 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4CA395AE6
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1193EEAF4
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 09:43:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783676236; cv=none; b=TgDUpBmYsAb/Usrl9nS3EmWH5plz7dQ2tHoixj6VDgWIaV8bhC31q/WbJezTgWxqujNl8blaUUEemqOG8KuHh7uZdo24LztW3crXHSWPgjCO1B00eh6+OqqRC2zEGiscSAyyjMffydn6OF2fezZCBLo6xKRKbZ4SmMT5cIPva4c=
+	t=1783676599; cv=none; b=rdxRLXEunbHvKi8RLX7ui8gwsmtsoefPWv8QvrbOg2j+mtvhtO/6SRXtlh1oaICj+8lq5BmoBV0Qv6G+e1aow1/rzE0kWhgVX501EqrYsFTCfbS9OozwRP+7Aozo6TdU6/F29mRzHDpcTMfi0VpjhtOjg9cM7rxiHqgq+3hM4qI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783676236; c=relaxed/simple;
-	bh=EjOQVVSJfAD0kphK/x0VeZzVZRWtIFDua9OmDIfNRe4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F5IcAXg/mhPf9AhlGk9NqycS+BjczVv7B+rzDvPY8ZZ3xTLMs5yK77o3bvR18Akm1Wh+srlhDKaMm48s0OJF4nhGiIBcHqE3wgepReRRoL8DZRJhvPv5jP7qM5d6KE+ir2zeXfIDvE1gEI3q5PiNET8tDSblR2p84i8gZ3LOG2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZVci02s; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZVci02s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175431F000E9;
-	Fri, 10 Jul 2026 09:37:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783676235;
-	bh=wGjyppKkpgrBkChxl7Kj2cnptRgBFa0mc9YJRyf8MfA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RZVci02sMEgZOoOehHHwEUPl02j/mVbXTjrFiyWC+8YcJDTMVKnkWr1Ga1n35vCG1
-	 0QCrJWaL6npCdxOeThOYSe23w87N8IDl5D1aHXie53DtXHPgY20AjJ6/mEfalWNYi+
-	 NQHVZxiRVW3WC8B3yrwEOs+bK4dQnyRnw4Pu6lhLLNloXpD5U7qhzNlZXlaWVuTcI2
-	 NJckTO4oUZNEQvW9ZrqS/uM0osd2zjbjsfu8iJ71y2yIEC0BLrxv3JdPJTSJPWtpOL
-	 XhbNs8Gj4gMWj6USULsZrgFaKVLYeqL5PQPFVlCUY6QyHtup49S7xDFTSXZ8Zhkcoz
-	 t8QSrhU4qiIpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: milos: add CPU interconnect
- properties
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260710-milos-cpu-opp-v1-3-ae7f4b09bc77@fairphone.com>
-References: <20260710-milos-cpu-opp-v1-0-ae7f4b09bc77@fairphone.com>
- <20260710-milos-cpu-opp-v1-3-ae7f4b09bc77@fairphone.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Jul 2026 09:37:14 +0000
-Message-Id: <20260710093715.175431F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1783676599; c=relaxed/simple;
+	bh=g8x9dhwFyyvlvTkxK6+R/6CliWApPEOeK/YoKDP+uMY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sGCu6/8mODuLkjrULL1ogM8dwKNvoj6dXP0/DbIok8sqBvxWtuEShwGo9iA+SXQtssRlm4X3D8+DOJ/C7LfVDMAbu3oajApCMWRc00ukq0DNBPiAYIJA/AULy5d5El6el3/lqWpERNS906uc1eDKs/ZazBV77/TpuZAOIX7mRik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-966e7380109so107186241.3
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:43:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783676594; x=1784281394;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OJUbLwMEIOBZTFEvOkGzQdLJGFR8K38bCJj4Tk6Zpnk=;
+        b=adUKrKuMCMqEBEXm2kUCsGXZU1+YsypZLXvxKH7Rb7Kz945+b7VgY3pX1XlQfKYgtu
+         qS8QxK7kVUZUPue5jr+CtrKVCCiPuFSB69fRt/SIF7hqJwTZEzRKkYBvGU/nF8ZwQEjM
+         XuqceGcqGbG7wiaInsnyy3VaeruotCdNPPdVxGcUQNP8Aiv5i688UcRAX+Md20IvypCI
+         7DDqv9mq42ZXswUk0PqSse4PnycaAIIaQuWZuNf7C8cswLe7ltcTgNkxYQdu9vYYfR0X
+         DBIkbliEEcL/vt0Z8hwGtQVhM+62NL+yFvQN+Kr68uIgvMmgeg7awpiR9wV/ZSvthOYE
+         13nQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoF/F52k5wE/m44/6f0+SmYAHaxPIsnramjb2UIlQJbmlMrCq53me5xjWqAHsLYbP5lw+t/Xr1AIYKf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyz59X/QPssnAX9OIB/oWID9eQnwwjmjCL5zqraUiSCs1s/oBH9
+	GAyBqlJmpfS1+PHEyei5HTxCIqj7cI8Aefq6WktLJk3RKatzdXzjXmwurkfXEq8Htug=
+X-Gm-Gg: AfdE7cmyBYtHWnw9yQN93MxuKYgO1UzCaq67MgrDNMMEiUS667psH5vN9lwxhFzHlt4
+	aIarUx4P0Gs7gD9Au0NAeIlPGy/ML83itkAARJ4ckkTsyEsrvyUI+/N+YbFdg/KPDsm9Cxd2Cgl
+	2xwe/h5xVEy+q/SoFmwGKFXIUYU6pZxD/xYndnsbXtPFh4ZhMSmyxZedSy3xd0HFxu5QTWYh5Bz
+	7Y/Iu0DLil7hLqog02frAiyOaoQME46mi26zIIOV0av+zlFZinavy8PKHrJX2/x0opbnNu6sZON
+	p/+mpGKea1ITfzfoGr2hs4nuSOtHlcIrxt/fVA7NhFd1AvpttzIxfDmOAKexn7HfPMWHm40Dja6
+	3lus1XXhPeswuCshuHWWz7bz9zahubBRrQUE19wBOQFNkLT6XsFz9vegJ9Rx2VwbJrzRk0RCxEZ
+	AFMS3vV0uCYyA1u6cRdSULA+FTv5Ez5PIKvu6nE13TNrJa32lI3w==
+X-Received: by 2002:a05:6102:390a:b0:738:fa95:fb5f with SMTP id ada2fe7eead31-744e01c13b0mr6999518137.17.1783676593839;
+        Fri, 10 Jul 2026 02:43:13 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-744d6deb2a3sm4942554137.8.2026.07.10.02.43.13
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 10 Jul 2026 02:43:13 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-735f73287e2so546238137.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 02:43:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RouXbXrHRR/rDtaSRFB0dQh6DScQQr4wCW0VAnLUMRdFlZpcAZ9b+3jZ6Bnfq2T3ItOGg1N1dm7LMX/@vger.kernel.org
+X-Received: by 2002:a05:6102:5494:b0:738:3525:43ff with SMTP id
+ ada2fe7eead31-744e01c148dmr7640472137.13.1783676593488; Fri, 10 Jul 2026
+ 02:43:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260710085744.430340-2-manuelebner@mailbox.org>
+In-Reply-To: <20260710085744.430340-2-manuelebner@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 10 Jul 2026 11:43:02 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVZeNfzsN5=b_v4ociTYYxLUFT8YM0nLZ6FZE2y198U_Q@mail.gmail.com>
+X-Gm-Features: AUfX_mwSwZvpHCNyboZJL6Dr0sUh2j3LLuURj3GixHiR77P7hS7W9LcUOCBov34
+Message-ID: <CAMuHMdVZeNfzsN5=b_v4ociTYYxLUFT8YM0nLZ6FZE2y198U_Q@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: arm: qcom,coresight-tpdm: fix bracket
+To: Manuel Ebner <manuelebner@mailbox.org>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Adding `interconnects` properties to the CPU nodes without providi=
-ng an `operating-points-v2` table causes the interconnect paths to be reque=
-sted but never scaled, potentially hanging the system when sync_state drops=
- the boot bandwidth to 0.
---
+On Fri, 10 Jul 2026 at 10:58, Manuel Ebner <manuelebner@mailbox.org> wrote:
+> Add ')' and fix sentence structure.
+>
+> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
 
---- Patch [3]: [PATCH 3/4] arm64: dts: qcom: milos: add CPU interconnect pr=
-operties ---
-commit dee7f3bb2bc8dddd64b4e3fb79a167672d8b6301
-Author: Luca Weiss <luca.weiss@fairphone.com>
+With the patch subject fixed:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-arm64: dts: qcom: milos: add CPU interconnect properties
+Gr{oetje,eeting}s,
 
-This commit adds the interconnect entries for each CPU. It defines two
-different paths: CPU to DDR, and L3 Cache from CPU to DDR interface.
+                        Geert
 
-> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qc=
-om/milos.dtsi
-> index 243210e6cb6eb..63dbd03512975 100644
-> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[ ... ]
-
-> @@ -65,6 +66,11 @@ cpu0: cpu@0 {
-> =20
->  			qcom,freq-domain =3D <&cpufreq_hw 0>;
-> =20
-> +			interconnects =3D <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
-> +
-
-[Severity: High]
-Will this cause the system to hang when the interconnect driver's sync_state
-callback is executed?
-
-Since there is no operating-points-v2 table defined for the CPU nodes in th=
-is
-device tree, qcom-cpufreq-hw will fail dev_pm_opp_of_add_table() with -ENOD=
-EV
-and will not enable interconnect scaling.
-
-However, because the interconnects property is present, a Device Link is
-created that defers the interconnect provider's sync_state until
-qcom-cpufreq-hw probes. Once it probes successfully without ever making a
-bandwidth vote, sync_state will run and drop the initial boot bandwidth to =
-0.
-
-Does this inadvertently throttle or disable the CPU interconnects by enforc=
-ing
-a 0 vote on the CPU-to-DDR and L3 paths?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-milos-cpu-=
-opp-v1-0-ae7f4b09bc77@fairphone.com?part=3D3
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
