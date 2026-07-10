@@ -1,132 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CE230F7FF;
-	Fri, 10 Jul 2026 10:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95025407CF4;
+	Fri, 10 Jul 2026 10:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783679763; cv=none; b=Bnj0Td+97Jf7FbgDMsMFUVRp08sgA2aSVHpYNxJGlv7yGgjy34U9tg0KeICm/xhK+l0Od3InyE861KH+C/qFmfMktzs1Cp30974P6YJiiUzUESM/d1FipO+/zOd8NeDyKtWoaD0IF8oNRoLFXvZhAAOVBy6/SHrkNSbVtlEeLVI=
+	t=1783679773; cv=none; b=m3Hbrg2VzY8mevOFxGJfdvwK2oX98ZkkTWFq1wnCH3qWWWVi7tZFdrfjwxhuHCtifT360bR0vjK4QK9BrhTj4tXPNC2RVwie1jFZZAzcy4fqkAwJDsPAk4Ml07luAlT28GxLSxMyHLTWh9NHjV5zUG3WY1SCATnsM/592m8gMc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783679763; c=relaxed/simple;
-	bh=3vcjY2oxw4SFIwjdVT0NU2H1M1Li/bHdUJVTc/OTiD4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qvyS+zrrdmdDfsDFsOkIjpWkPKz06DQY7tS/EvdvdCUn8w+a+h87QVtHJYJgZpUUN27/Ls06eHrYglPQiuE+KpqQgAykGHSx+RcDDgvBWG3fNMUT+wrrRBxFO1rBAtuJ39wP3gJAfmiuPIhXfwaYfbqZ2z3o6IlNuhkxZ5Sv7o0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5dZYInk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783679773; c=relaxed/simple;
+	bh=s8e719fI1lh4iwu6ag1ePU0Hg7fs4+ScAlrOQK5mJEY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=etXf0ZDNjYHPepmSZi/ezlc+LEpZXogDCayzO0OcugQmuqTR/yJVLIbSaSx8iH80gp4N9lqNrfZhZ7hF04clUTC4mlbj7eIkLnbrUV5yrS7Ccxg4FHp7qqvkRGwi68baput2dm+FjorFRKlCvE6QjfT7xuTMXwVgpN6lerQTbyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ivn/hFi6; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5dZYInk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F1DC1F000E9;
-	Fri, 10 Jul 2026 10:35:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783679761;
-	bh=prNlqSEvzCFjtktGE6ai2RnqxB/VdJvJpEgmZTwnQJc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=G5dZYInkT5O1bzF5hs4RyapFu+5B2hpxe14HweSpSHXEBZW6gZc4ksYSvuf3KVlfB
-	 HNIiXK9ZDPBQx/dhaSISQnc1+MQg+K65msa9qRbIUqz37QQXFoT3tc1Z5nWTyBSNhR
-	 I5FBdvragiLa2gNMSg4w7vePainRWpbuYIQHzMWD5XkkNG2UJN4MC6WBfawAoUyZQs
-	 tp4JSCdnRqGCLAFYLH2e4rnzUlI4X/IDbpXTWLL26h7rarmSqAR20P9pboYcn3IuTS
-	 KOBH1pS/kpYR4C+wpsmgjpVeplI6zw8FlBNa2mu6Zloenuz5qeuo91p+A4X8pmafYH
-	 l7tkFYXWR5KzA==
-Message-ID: <c5d190dc-1ba8-4cdf-ad8d-2f86fef4c93f@kernel.org>
-Date: Fri, 10 Jul 2026 11:35:57 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ivn/hFi6"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DC77E4E40D46;
+	Fri, 10 Jul 2026 10:36:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A5AC560342;
+	Fri, 10 Jul 2026 10:36:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 61FA011BD295D;
+	Fri, 10 Jul 2026 12:35:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783679766; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=6+ULItnJf1sGBisnEhPjjWTOmY5NUXBuwBhmcIC8+UQ=;
+	b=ivn/hFi6a/lBi80O3yMvQB+B5mpswIxbNWWE0pYlbkVMWfvJ0d53+YTLfaOeqhKHYWy1Lv
+	IsOt5buug5pmXbjNeNF/MTreiCyObz2CGX2MhHx1i/34ziBh73lVxNvc0OOVdW2bF7k9jh
+	mAQ7grUpbxuTFL5Q3Em+P2MfzyCNoJxXVeXtlypBY4aMBNHCJZXoSfR+VnMQo8m/8iIC1F
+	OLt0pP5DlOs7wKDSQzWCNDPMyig2+5dli64tvbJ8L+oOteUTjVV95+9+Xo+BADYmzXipJL
+	YLV1ForjqpmWJgDfcjxSBKiEV2r2yvRJBCZNCfG7TwQZ0Far/7ghqNcJOxWglQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Antoine Tenart <atenart@kernel.org>,  Christian Marangi
+ <ansuelsmth@gmail.com>,  Conor Dooley <conor+dt@kernel.org>,  David S.
+ Miller <davem@davemloft.net>,  Geert Uytterhoeven
+ <geert+renesas@glider.be>,  Herbert Xu <herbert@gondor.apana.org.au>,
+  Jayesh Choudhary <j-choudhary@ti.com>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Magnus Damm <magnus.damm@gmail.com>,  Michael
+ Turquette <mturquette@baylibre.com>,  Olivia Mackall <olivia@selenic.com>,
+  Rob Herring <robh@kernel.org>,  Thomas Gleixner <tglx@kernel.org>,
+  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,  Pascal EBERHARD
+ <pascal.eberhard@se.com>,  Wolfram Sang
+ <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 11/16] clk: tests: Add Kunit testing for nexus nodes
+In-Reply-To: <177595802905.5403.1342882536380309490@lazor> (Stephen Boyd's
+	message of "Sat, 11 Apr 2026 18:40:29 -0700")
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+	<20260327-schneider-v7-0-rc1-crypto-v1-11-5e6ff7853994@bootlin.com>
+	<177595802905.5403.1342882536380309490@lazor>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Fri, 10 Jul 2026 12:35:57 +0200
+Message-ID: <87se5rgmia.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/11] : media: iris: Migrate iommus to iris sub nodes
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <7GAZnP6jPoRrcDnaVzeaB98cONLhtvbiEXV1yD5MJJrA9pCnC9lmlSiCGA8vlDezSXADjmFiqo3ZdClO5SxCFA==@protonmail.internalid>
- <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 09/07/2026 13:35, Vikash Garodia wrote:
-> Mapping a stream outside its expected range can cause unintended
-> behavior, including device crashes, as reported at:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> Daniel, who reported the crash issue, have also raised a patch to workaround
-> the issue. While the patch partially handles the limitation, it is inefficient
-> in a way that it keep iris hardwares away from using the 600MB address space
-> for all the different streams.
-> 
-> To address this limitation, the subset of stream/s are now represented as
-> sub nodes, so that they can be associated to the respective addressable
-> range.
-> In the past, this limitation was tried with iommu-map approach, with iris
-> driver dynamically creating the devices. The approach was later concluded
-> as an hack to avoid having sub nodes. It was discussed in detail in the
-> discussionhttps://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
-> 
-> It was agreed by maintainers to proceed with sub node approach to address
-> the VPU hardware limitation.
+Hi Stephen,
 
-What's the addressable range with sub-nodes ?
+On 11/04/2026 at 18:40:29 -07, Stephen Boyd <sboyd@kernel.org> wrote:
 
-The original problem you were trying to solve was the total addressable 
-size - this other problem here segmenting the linear allocation space is 
-adjacent but not the same thing.
+> Quoting Miquel Raynal (Schneider Electric) (2026-03-27 13:09:33)
+>> Add a nexus node with a child requesting a mapped clock in the fake DT
+>> overlay to verify that the parsing is also correctly working.
+>>=20
+>> Suggested-by: Stephen Boyd <sboyd@kernel.org>
+>> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin=
+.com>
+>> ---
+>>  drivers/clk/clk_test.c                   | 20 ++++++++++++++++++++
+>>  drivers/clk/kunit_clk_parse_clkspec.dtso | 10 ++++++++++
+>>  2 files changed, 30 insertions(+)
+>>=20
+>> diff --git a/drivers/clk/clk_test.c b/drivers/clk/clk_test.c
+>> index 8a17ad0d185f..cb0071955146 100644
+>> --- a/drivers/clk/clk_test.c
+>> +++ b/drivers/clk/clk_test.c
+>> @@ -3660,10 +3660,30 @@ static void clk_parse_and_get_parent_name(struct=
+ kunit *test)
+>>                            clk_parse_clkspec_1_init_data.name);
+>>  }
+>>=20=20
+>> +static void clk_parse_and_get_nexus(struct kunit *test)
+>
+> of_clk_get_hw_maps_thru_nexus()
+>
+>> +{
+>> +       struct clk_parse_clkspec_ctx *ctx =3D test->priv;
+>> +       struct clk_hw *hw1, *hw2;
+>> +       struct device_node *np;
+>> +
+>> +       /* Get clocks by index */
+>> +       np =3D of_find_node_by_name(NULL, "kunit-clock-nexus-child");
+>> +       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, np);
+>> +       hw1 =3D of_clk_get_hw(np, 0, NULL);
+>> +       KUNIT_EXPECT_NOT_ERR_OR_NULL(test, hw1);
+>> +
+>> +       hw2 =3D of_clk_get_hw(ctx->cons_np, 1, NULL);
+>> +       KUNIT_EXPECT_NOT_ERR_OR_NULL(test, hw2);
+>> +       KUNIT_EXPECT_PTR_EQ(test, hw1, hw2);
+>
+> I think hw2 is expected? Rewrite it like this?
 
-Without digging through all of the patches here - my question is does 
-the original sub-node addressable space problem get resolved in your 
-proposal here ?
+Correct.
 
----
-bod
+> 	struct clk_parse_clkspec_ctx *ctx =3D test->priv;
+> 	struct clk_hw *expected;
+> 	struct device_node *np;
+>=20=09
+> 	np =3D of_find_node_by_name(NULL, "kunit-clock-nexus-child");
+> 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, np);
+> 	expected =3D of_clk_get_hw(ctx->cons_np, 1, NULL);
+> 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, expected);
+>
+> 	KUNIT_EXPECT_PTR_EQ(test, expected, of_clk_get_hw(np, 0, NULL));
+
+I took your proposal.
+
+> We're also leaking the of_node if an assert triggers so we need to use a
+> kunit wrapper version of of_find_node_by_name() or do a hand code
+> version of putting the node when kunit asserts.
+
+Indeed, I just create the _kunit() variant to handle it. I see most
+other similar cases in the test file are handled like that and it looks
+pretty neat afterwards.
+
+Thanks for the suggestions,
+Miqu=C3=A8l
