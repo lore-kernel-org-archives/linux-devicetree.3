@@ -1,115 +1,64 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E39224677B
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 13:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E293E24BBF0;
+	Fri, 10 Jul 2026 13:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783691922; cv=none; b=ak4kFISpINnwnxXhstvAC20rsSiFmtSO1mUP2W7zl7BL2PS5ifj9qNI2Bm8wye1uOz3dVPPdEoHXeUKFUgwzUfgNi16nIb/pDYDCEME+ESUnZ0XQYkSuPN1t1IZWzilSjXzPuwyc7wOcyPDLM/vzA7ikVwkAD0xZDDS+Yvu6wP4=
+	t=1783691953; cv=none; b=onE/cZbkb8GazfUIvxrMjhcJ60hcx8AR/LrhhhQrYem8ZcysHE61JQYSn6gcGDbem/xprDKzsZDpWX8hkHHezOlwldoRNbcATXktSFddr2339S+UhmdUvk4mnNw+x9VDfLlvQO26viKEMcncGJ1+9trdHcofps2A2YtBjY1l8is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783691922; c=relaxed/simple;
-	bh=oDMFkzxjs/KXUSaVb8duhkY5CEnHTeJPvE9VzQ6FDQc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=VfLgOcuQWkc1gg1nzkmdSwSge7ikIugd5We870cZaAIc0VVyUDhiCpLyII4amXSoPtYaSV9Sd+dN74VzmXelpem7guRoDjK78AfZn4wr3W4KXV6tDXoWjNqeLuXISBwTNRIxzflS03ZPy7JyKjZNV0pVnWDih/bjlTlM3hwhfgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=HHVfu76P; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1783691953; c=relaxed/simple;
+	bh=h1WnDKre/t4mGpCGkFt2BZ1V0yd3ja35U+G1FhXXyaI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UUXdJciAheGgl+4UyVyPsYOxRXpJgFRnlmGBUs8h3zJa2P6y2R/WqNMs7PD1HaVTWLz+LocSCVrBCtIsIBVuIpYnns32v72qnd1nycWV54inhK8jtTelpLt8BQWTyboe2I7bAGCb9xaeQghxyLw2DuYcG6L1CY387EUAHir9oDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mWOOoSMR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="HHVfu76P"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c15e0c3f395so111831566b.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 06:58:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1783691917; x=1784296717; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oDMFkzxjs/KXUSaVb8duhkY5CEnHTeJPvE9VzQ6FDQc=;
-        b=HHVfu76PljNItpbRCBn4egmQy6/B4UiN8P92zrc5eGS0B0Q65poEDe3B2DnA7Z6Omj
-         TRLYt4zjm7+5inPC/IUfNvo//2eI5r69qMPEjguJsqgWCz0/oqUm0c3NrdqfYuX/ULk2
-         KkBgXb/3Fk+qsAEF0xXvZ/6cpluqpHOdwJ8/jxUa5Aa6t3zw/F/7mgJSHK+gLGs/IUfZ
-         2hF+DhfL9i5fU3Tf6lYwSsn0vroM86DXkbciETq8JhqFW/45D6CbeC7wAEUTIKuNktYd
-         6V6IHuCITuCDgPxye6L4kDBBwpgQRO07k3FXBQCVSbaPCAoPvg1aNvS/tNygqakVAKXv
-         yHTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783691917; x=1784296717;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oDMFkzxjs/KXUSaVb8duhkY5CEnHTeJPvE9VzQ6FDQc=;
-        b=j9zLzXj9fRbHEi8A28fkob3XwH5He1BR1VR8RheAYtUo3OHnsAdJDjuXwZit7Joa6/
-         CQ4/HmtUVZsCzC63AkMbsb4dfyPzEqREn3z/LNu3Ee0jyQlKBaIiq6JvKmbBB7ZAQBWV
-         AMsmp0ipmaaLicw+pZNnOBGrPTrs3DJA+qFdhrpWjX+IEpeeHu3Gk6oexIUCnovjA0ph
-         MSxv/KfvCIwpE9/vv6Pr3rApHqdB+XRMstCACJHYqaXljj766MqWIcIGHUV3e0VpFLn+
-         /oIepZhN1Bbw7n+QlZLhUzQkZr2acwfmO0r9j54LGlyCRcyvQ0+iwDqBOlRdItC0dh6q
-         xn6A==
-X-Forwarded-Encrypted: i=1; AHgh+RrpLgLGVG9UlFfjXV/4SZLFlbEWUKT2FQou9roucg9bq4lOteu88xW2Z31K/WDWkA8jJcuxmONkq6oU@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRtBI4OkNvorCGi0gJMgOeCtARJ6rij22FLxGZLhMfIzYnvvrN
-	0jEdFC4lDsNR6aX4BaWKu55cktJkelRgrdLdmG1/xj1gg/R6WYGHMVLl3it9vrBYp4g=
-X-Gm-Gg: AfdE7ckFygQsJscegzyl0uqkz4/Uh18qac3lMRnNAxJb0m65nU7qKUTP6MDnc1vEi6Q
-	kvPKkrUffjonNDRe3qc0vzi1+Q++9rOa8b/9FFUgzXIo2JujvtkLIXOuTWtiPhaL6lE6KC//Yev
-	kfxfcvaqrcES8Rhng2oB7E2RQ8CuDQ8kcTxHcApvl0ihqxUKXeHryd4dFjZVWOUH8iCtW7+oyZz
-	y9znJu4CS9w7GyzZ1tcRPF479kiMq9r1b83nilxfxNSrdfYsXUso7wdlXtQq5vDAJ32S5CTe+e1
-	HZtJelI5RnDXyv+3QGlF9BXMVIk0WIH90uSZUg9pqT9iWGYtyFcaYWucYghJ3SkzhAI0yMs0q9d
-	O5RwkMbs8JwyYstIyX/ZrMe0e5ZxBxXtVpPakl5a1UxWATiJYYtKUVzqRXVjn5XpWAYx+x9Vuiq
-	7Cv0bYQpCfdQa0afNZaXtb6N3EA8KWoo+TYnB7liVQ2ibVyJWDQ3j532yMcg==
-X-Received: by 2002:a17:907:990f:b0:c12:695b:8876 with SMTP id a640c23a62f3a-c15cded1355mr392545366b.5.1783691917105;
-        Fri, 10 Jul 2026 06:58:37 -0700 (PDT)
-Received: from localhost (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15d3859f69sm407039066b.27.2026.07.10.06.58.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 06:58:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mWOOoSMR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E64F1F000E9;
+	Fri, 10 Jul 2026 13:59:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783691952;
+	bh=h1WnDKre/t4mGpCGkFt2BZ1V0yd3ja35U+G1FhXXyaI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mWOOoSMRt9aYfq40dFCG15mU7aCwdJukkkF9v6Wsul5Cab9+Kk62s1NIJVJn4xV2m
+	 G13xSy01g3HruJ17T4faLcFS+N7ZdpRw3JeRuIvBmbB2HMeY6DTet0O7rhIJyrOXhx
+	 a5tJDKsZidON2e8vjjmRBjZ8YVsv5HrVgehw9fTTyHyPHAH9i6qvjMNLcrYER090UJ
+	 PVC3/S1ub3gakow1UYiFy685j0JiPF1yx3xW1gOGxio1P3E1aElN9zKREvVxdJDMzl
+	 MpRr++H1a26SrOL7i1y2S7gZPA+SPIN0QQeUK954qcaV/8P3TGRDJdbusB2MjigaTJ
+	 Y6jL2d7YNDuSw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/4] dt-bindings: leds: nxp,pca963x: add multicolor
+ LED support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, lee@kernel.org, robh@kernel.org, linux-leds@vger.kernel.org
+In-Reply-To: <20260710-monza-leds-v5-2-a8972d28c28f@oss.qualcomm.com>
+References: <20260710-monza-leds-v5-0-a8972d28c28f@oss.qualcomm.com>
+ <20260710-monza-leds-v5-2-a8972d28c28f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 13:59:11 +0000
+Message-Id: <20260710135912.2E64F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 10 Jul 2026 15:58:35 +0200
-Message-Id: <DJUY0I0R3DGG.1YC9D7H4AAI0J@fairphone.com>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: milos: add OSM L3 node
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Georgi Djakov" <djakov@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Sibi Sankar"
- <sibi.sankar@oss.qualcomm.com>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Alexander Koskovich"
- <akoskovich@pm.me>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260710-milos-cpu-opp-v1-0-ae7f4b09bc77@fairphone.com>
- <20260710-milos-cpu-opp-v1-2-ae7f4b09bc77@fairphone.com>
- <bf766035-54fa-4e98-8abe-22cf0a229ffa@oss.qualcomm.com>
-In-Reply-To: <bf766035-54fa-4e98-8abe-22cf0a229ffa@oss.qualcomm.com>
 
-Hi Konrad,
+> Add support for grouping individual PCA963x channels into a multicolor
+> LED by introducing a multi-led@N node pattern. This follows the
+> convention established by other multicolor LED drivers such as
+> kinetic,ktd202x.
+>=20
+> This is necessary to support and model hardware setups where multiple
+> PWM channels drive a single physical RGB LED.
+>=20
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-On Fri Jul 10, 2026 at 3:44 PM CEST, Konrad Dybcio wrote:
-> On 7/10/26 11:22 AM, Luca Weiss wrote:
->> Add the OSC L3 Cache controller node.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->
-> I'd suggest to squash this series into 1 big patch, without patch
-> 3 applied the OSM driver will engage and perform sync_state (with
-> 0 requests, so it will vote for 0/lowest) and the system
-> performance will be tragic
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Fair point I think, I took the structure of the patches from sm8650
-which had it split this way but yes, it doesn't make too much sense in
-terms of keeping system performance alive through bisection.
-
-Will do so in v2.
-
-Regards
-Luca
-
->
-> Konrad
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710-monza-leds=
+-v5-0-a8972d28c28f@oss.qualcomm.com?part=3D2
 
