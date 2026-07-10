@@ -1,281 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902383AFCFB;
-	Fri, 10 Jul 2026 22:03:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D218A3D0923
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 22:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783720984; cv=none; b=QibEmqKSr8y5S5nzhPOdM5M+Y1eKK0bOHSwUuHJ7CqMtZz3B4lhH5G+6+uNTckh09swX0bH6xi5Psj43yBERUjH3NxcvarDx1pnvZrvRvgqLw61B6ykAw4+nfsHnAaF3zh73vguXDbqPewBt+HMV7K32MS/4uxJKEap5kTCFBRo=
+	t=1783721532; cv=none; b=D/sEbimGfsfgRu/oJnr8kKjMEYyKWn1NW31MO6vuhZExwq0hQtqnBiktpTg69d+tbyFucdCcdEpTpowPdyC4GNRwgmAnQxtJbpdKx8a5karrt7c266i2itQ9qQwYLiBMouq+XjSiggKjJnKoRWpR6LEIa07n1Hwv4OrtY57WFes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783720984; c=relaxed/simple;
-	bh=Wd7fOBY40a0FP8KsidhXb923nh0EHd30+YuTlOmvqIk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rZbDs41gOE3HmsrgaFkUc3HH6E2x8VqT/cV5mFmecCYfvTx5UuPFXfWnSSvB5wKB1eiukIG6sL0C2vT7XrRpWkzYaIuuvz44ZA1OaGDQ4VYffuZs/csGc/BISy9kFJHkTk3i/yx0HrAbNeuRUQ3B0Q7OXOqqIGCnVMxAfV8PNC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jv6+Yk25; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783721532; c=relaxed/simple;
+	bh=ott/e/PsVQ7ftOVMoDZvH/I1/494RVUTk6InVE/vBKQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Gzf7thLFGpS+NDzUPTky9YqdZMzmHa3jFK/uQhy5r9m13h8mrcL09jLJoGq5PQcpToQH3vmueEzbI4jQ5kFXT0AaU+fXtM8g5GSBo/MTPKDfI/1mXq+z87D2cuFmUcaadp3MMsxuR2F5HZqrRg8yvc1JBCIjNVKTJKlOMsG/uq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sEQXZLWq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jv6+Yk25"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999431F000E9;
-	Fri, 10 Jul 2026 22:03:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783720983;
-	bh=PR6FVUy7G9X2JCn+H6wUFl4EuCX3pvjSBTjWpHYfoXM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jv6+Yk25cOJ8DFaQPFdcJ4g/ED6zIFgcsObjr6frhNhBQlr+e9Qikx68sDgbq0/JX
-	 zN8fMkiRGvcJthNCmUXLo9GKy4eOQxg6f9iHOTh4OXtWJcxSWM5r+YNVS2k1SrPyes
-	 tC9fvpoHC3tLBjYWJqZ4vQJKARq/HNGlQJpzTdcIKGUTgLD9NC5QUNOJNjsJ4Tc9y8
-	 opWPPTTP5SgSAnGmYSBQasprbQlM+SAX2iSDLev1+4jCdoBRliCuY33PLDec6Tz57U
-	 dv/oM0qoSIurXRrKHIu1d35EAPLzFfxHyJi/LtZJE3r37o8SMd79dytIgxm56xAHTC
-	 fAT2m1aZ3wZ9Q==
-Message-ID: <f0702aaf-e9c1-4751-a6bc-53cb8c14b816@kernel.org>
-Date: Fri, 10 Jul 2026 23:02:58 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sEQXZLWq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A54ECC2BCFB;
+	Fri, 10 Jul 2026 22:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783721532;
+	bh=ott/e/PsVQ7ftOVMoDZvH/I1/494RVUTk6InVE/vBKQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=sEQXZLWqLW5vYRDAWn84S/o7AoYejDbMbC24tsv0i1RNnUkwzGTW/myv8o1xklpCC
+	 kdvXNr1HYGFOufYRKMi5q1DmoFFwpqSFcoBQ0nU70LjNCiVQxLO809uI4qN/SzSKak
+	 TTnH3Mqw5/RiDJpywkKthfZ1xN/90wRKm2lUk5NXJCMyTVweaqXUAOEgH6JZsOVkdc
+	 Abfu/T4HspmETMW2vQ1SNCZsL9C0jopOtsk+nbW8hpUA3sS5BuRjIYg8O3+OGA/nOQ
+	 uLMF7HUKGM1CzI5ALNWsjuJe5/RC1lT9eNKa0IAhtGtskohytZn6WDkbqi+1e1/3Vj
+	 ajEE0BLr3k8CA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B263C44509;
+	Fri, 10 Jul 2026 22:12:12 +0000 (UTC)
+From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
+Date: Sat, 11 Jul 2026 00:11:53 +0200
+Subject: [PATCH v2 04/12] arm64: dts: rockchip: rk3588s-nanopi: add missing
+ sdmmc cd pinctrl
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 01/11] dt-bindings: media: qcom,sm8550-iris: Add vpu
- sub nodes
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
- <QTAfKx1NmPjRiGUjeFzXwz5mq4-tUMYwv32b6yMsJg0KOmHhs9ML07AzvbuCQ6fv9piZvnYT7Uko1JkPgUbPPA==@protonmail.internalid>
- <20260709-vpu_iommu_iova_handling-v1-1-72bb62cb2dfd@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-1-72bb62cb2dfd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260711-nanopi-m6-v2-4-422675a65402@gmail.com>
+References: <20260711-nanopi-m6-v2-0-422675a65402@gmail.com>
+In-Reply-To: <20260711-nanopi-m6-v2-0-422675a65402@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, diederik@cknow-tech.com, 
+ Joachim Eastwood <joachim.eastwood@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783721530; l=1037;
+ i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
+ bh=RwYpiB/RtND/z6LPjHWK2wsSxC8Q0Qs9K3NgIPhkNgo=;
+ b=vf/Y8zLgiYl3go5kstqi32Zq0hQTDbxjmUtlU+j5TfU7hIRJiITMKwB+iApmAdzaIupgsCO4q
+ 0UsbMNg3MpJCwLxbnmNqfgtkb05cAOLwUHCNpaDuzOTx8wlWL0waNOE
+X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
+ pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
+X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
+ with auth_id=846
+X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
+Reply-To: joachim.eastwood@gmail.com
 
-On 09/07/2026 13:35, Vikash Garodia wrote:
-> VPU hardwares have a limitation where VPU streams are associated with
+From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-VPU hardware has
+The cd (card detect) pin is used, but not reserved through pinctrl.
 
-> dedicated addressable address range, as illustrated below
-> 
->      +-----------------------------------------------------------+
->      | Stream A reserved region (600 MB)                         |
->      | 0x00000000 - 0x25800000                                   |
->      +-----------------------------------------------------------+
->      | Stream B reserved region (3.5 GB)                         |
->      | 0x00000000 - 0xe0000000                                   |
->      +-----------------------------------------------------------+
->      | Other reserved regions                                    |
->      +-----------------------------------------------------------+
-> 
-> Mapping a stream outside its expected range can cause unintended
-> behavior, including device crashes, as reported at:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> To address this limitation, the subset of stream/s are now represented as
-
-To address this bug surely - to me this is a bugfix we are introducing a 
-change to stop a crash that leads to a hard reset. Its not a limitation 
-its a bug.
-
-> sub nodes, so that they can be associated to the respective addressable
-> range.
-
-> The limitation could be exposed when running usecase like concurrent
-> video sessions. 
-
-"The bug is readily reproduced when running concurrent video sessions"
-
-The binding have been validated with higher concurrent
-> sessions across the SOCs supported under this schema.
-
-The bindings have been
-
-or
-
-The binding has been
-
-> 
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->   .../bindings/media/qcom,sm8550-iris.yaml           | 66 +++++++++++++++++++++-
->   1 file changed, 63 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 0400ca1bff05dcef6b742c3fbf77e38adca9f280..bf4d24ce90bd38666704274390b98be450f708c0 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> @@ -91,6 +91,51 @@ properties:
->     opp-table:
->       type: object
-> 
-> +  '#address-cells':
-> +    const: 2
-> +
-> +  '#size-cells':
-> +    const: 2
-> +
-> +  non-pixel:
-> +    type: object
-> +    description:
-> +      Non pixel context bank is needed when video hardware have distinct iommus for non pixel
-> +      buffers. Non pixel buffers are compressed and internal buffers.
-
-Don't describe when it is needed - describe what it is and what it does.
-
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +      memory-region:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +      - memory-region
-> +    additionalProperties: false
-> +
-> +  pixel:
-> +    type: object
-> +    description:
-> +      Pixel context bank is needed when video hardware have distinct iommus for pixel buffers.
-> +      Pixel buffers are uncompressed buffers.
-
-Same comment on the necessity of the binding. You're in "justification" 
-space here but should be in "information" space i.e. inform the reader 
-what as opposed to justify to the reviewer why, which is how these two 
-descriptions read.
-
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +    additionalProperties: false
-> +
-> +  firmware:
-> +    type: object
-> +    description:
-> +      Firmware context bank represents the firmware processing domain of the VPU. Required to boot
-> +      VPU when no hypervisor is present.
-
-Yes, this is information not justification.
-
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +    additionalProperties: false
-> +
->   required:
->     - compatible
->     - power-domain-names
-> @@ -98,9 +143,15 @@ required:
->     - interconnect-names
->     - resets
->     - reset-names
-> -  - iommus
->     - dma-coherent
-> 
-> +oneOf:
-> +  - required:
-> +      - iommus
-> +  - required:
-> +      - non-pixel
-> +      - pixel
-> +
->   allOf:
->     - if:
->         properties:
-> @@ -177,12 +228,21 @@ examples:
->           resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
->           reset-names = "bus";
-> 
-> -        iommus = <&apps_smmu 0x1940 0x0000>,
-> -                 <&apps_smmu 0x1947 0x0000>;
->           dma-coherent;
-> 
->           operating-points-v2 = <&iris_opp_table>;
-> 
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +        iris_non_pixel: non-pixel {
-> +            iommus = <&apps_smmu 0x1940 0x0000>;
-> +            memory-region = <&iris_resv>;
-> +        };
-> +
-> +        iris_pixel: pixel {
-> +            iommus = <&apps_smmu 0x1947 0x0000>;
-> +        };
-> +
->           iris_opp_table: opp-table {
->               compatible = "operating-points-v2";
-> 
-> 
-> --
-> 2.34.1
-> 
-
-Personally I think this describes a real system behaviour - the question 
-is, is it a fixed behaviour - i.e. we _always_ expect to see firmware 
-operate this way - if so it should be represented in DT, if not it 
-should be represented in a platform descriptor in the driver.
-
-The SIDs are fixed and mean specific things.
-
-It would be possible to encode the SIDs in platform code but, that would 
-be unusual.
-
-I think this is a good solution TBH.
-
+Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
 ---
-bod
+ arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
+index d41c49716fa2..a8f32b994b10 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
+@@ -336,6 +336,10 @@ rtc_int: rtc-int {
+ 	};
+ 
+ 	sdmmc {
++		sdmmc_det_pin: sdmmc-det-pin {
++			rockchip,pins = <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
+ 		sd_s0_pwr: sd-s0-pwr {
+ 			rockchip,pins = <4 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
+@@ -407,6 +411,8 @@ &sdmmc {
+ 	no-mmc;
+ 	no-sdio;
+ 	sd-uhs-sdr104;
++	pinctrl-names = "default";
++	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc_det_pin>;
+ 	vmmc-supply = <&vcc_3v3_sd_s0>;
+ 	vqmmc-supply = <&vccio_sd_s0>;
+ 	status = "okay";
+
+-- 
+2.55.0
+
+
