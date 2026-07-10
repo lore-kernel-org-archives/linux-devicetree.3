@@ -1,107 +1,71 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709984071F5;
-	Fri, 10 Jul 2026 10:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1EA4071CD;
+	Fri, 10 Jul 2026 10:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783679018; cv=none; b=OyqCVLkAPAqsMCg/7gciAq58TL3kG7d10ckntxXVDRf0J5KOjesS4ZiuLcXRGy4YBpVdpTviUqWXXDoK5shhFxS0MMI/n9A41w2fB/eR+2sWOoG6h0JbtDb9qU30PgZAwCu1fPgiR1AclTMAIF0yhxMiG/xwpjJ4Hl/H67iEDrs=
+	t=1783679040; cv=none; b=MPMI133mq8Y51Rw5UnJXzou5I2ktJ4WERLv7SLx5cLRfAxDFadWHCFkAPHeVbasd5HjDog9F4Ni+Yo2xrN92hVCyxZLtqDP1qt71m/WW+g/yPf7OnA/AqUxAoKWDqgZRt8V2DXTwl2kHIYuwDrOXbD2FzDX4FKrOPAVB7kjAAqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783679018; c=relaxed/simple;
-	bh=RAKTEeSeoLlrKHDBTc7eBUZQFZK/4GACdcbJhsXeJfk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=baKVX4SuWNchOVNHBoJCUlD6yWyF0EnQtcnijANJmxwkBlnBjAcwsp17i868TmaH/Sws/4veqzLJRLAZQQbPl7WbjvzRoXKAYqWhg3WXeoISPE6nKCs/X2b9JEKH87wQwxS1COX4/rSUAUmoUmTyy5yAmxTZm60CQCshCRHfJJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AAfHbqfT; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Pm10hKbV; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1783679040; c=relaxed/simple;
+	bh=YWdwOv/FECcuwbuvCl/6H70RS+kLkiN4S24Y4v3LDQ0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jfDjHohQHZhu/tEEEsdCaHN7AJxzEC1TcBY9C4NPU5Nlj9U4Ru4mXHfOHf8dlfQwAfqCK/PBKFxeWOQvu6SCkoGwAjv1BgB+HDxCshGAOqrIpLVGvK2dHMaqY9CiI2uo4PsjGa2+zn9+d2QzcPoCzwa9vc3gi1s0ur3DC4Tb53g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYHONvDB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AAfHbqfT";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Pm10hKbV"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gxSbN4YDrzKvvq;
-	Fri, 10 Jul 2026 12:23:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783679008;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=IE88QkjLby3ju5RANsjgYMee3nrOo4fYiqaFhPyeHpY=;
-	b=AAfHbqfThkPL4tBU9AE1v4dA7cCWLKCR4P8IOdm8qbVkUqhBsq5xG3msrOC5Hr1cImHwPZ
-	lIpcvPM79UYhoaW3XFCEJ10twj59mzMsJtjss9Yui/kHg19Si/TVbM/2eExugzpd0mIUcK
-	38YHY0UFPzsOpYxzR4kJjpzMf4Jxd9rkGp03RLV0ia4E2GeEGMxWatXyE5pH0v8pMj3f90
-	Mg/NP9Z+mxyaUkoFfcS2Sn8l2rkX78ZxJjSz9YxPUamOu12VrQjAS6QBoXX6hAN2JzoL4i
-	TyNgpeiki3T7fbwgEvjuh4xvGtjyuE2dHCf+frVGlI3zfWbLc2YceJRKx6rrLA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=Pm10hKbV;
-	spf=pass (outgoing_mbo_mout: domain of manuelebner@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=manuelebner@mailbox.org
-From: Manuel Ebner <manuelebner@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783679007;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=IE88QkjLby3ju5RANsjgYMee3nrOo4fYiqaFhPyeHpY=;
-	b=Pm10hKbVAKtYgQ6WeIzozwuhHbDVUlowk+Y09dNQJpvTrIg0nGTAGtHzgsnBYOG//s+VBN
-	JQ1+KIoHGUntfTVDwKHChCRZ2fqMyE7fIE+lSj55g8g0H0Svdrdg6j0kqcLzB/+xK1bp2j
-	zxOUBp8lZm9Ljgb1hUPTtadRtkwSi/1l5z3A7bIjDeHHDOG7qAJ0xswbfvoqdmvnraBoHh
-	o8UVB5tO3AUsawZzVl2pHcjvgImxwrbac0aTHtETGns1M4XjNmesOGfJieXX047K0I6vUH
-	/87alyURHtOFvW/C+W4sifXNLd1Pi7am3WEqivkVLacBzwEJWn91wChRdEVjZQ==
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: Manuel Ebner <manuelebner@mailbox.org>,
-	linux-renesas-soc@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] dt-bindings: clock: fix bracket
-Date: Fri, 10 Jul 2026 12:21:33 +0200
-Message-ID: <20260710102132.433276-3-manuelebner@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYHONvDB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7F21F000E9;
+	Fri, 10 Jul 2026 10:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783679038;
+	bh=VG0DEz5PkOQ3kpIr0Daidr5wsf5H5nodEeYA3iGfdOY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dYHONvDBnoonc8pmbHYgkIledSlv5QOTZAiIml2mKtPI4vH6p5kdhx/rr3SCr17pe
+	 5uB9Bh0H/YzG3sHEYRZ1RWxZhN1We7PwTOOAxnuNu7uLHUctF4RJssjHUpVHUhqd+S
+	 DmxRjIIKaq9vB4PU2IjZ57CjxyUimme8seRiP4GW5iHtrfBRY3YeS27kZABcPLbz9y
+	 l/FRgBmnfmyK2v3Gm8qJgx6TvnboR6vC5TrAdfY/nD/NhBN8ga8jDxjkW4u0r2v+OA
+	 2rPZeGVM4nckKFvepm8PmV0o+gJuDGiIp5pR87eSAg4U/v1xCpPdd+LgJyb7hkj38Y
+	 xOl5KRYRliTHA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 5/6] hwmon: add NXP MC33978/MC34978 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oleksij Rempel" <o.rempel@pengutronix.de>
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260710101358.2606941-6-o.rempel@pengutronix.de>
+References: <20260710101358.2606941-1-o.rempel@pengutronix.de>
+ <20260710101358.2606941-6-o.rempel@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Jul 2026 10:23:57 +0000
+Message-Id: <20260710102358.0D7F21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 8e4a3f9aa7bd5e8cac1
-X-MBO-RS-META: 78r3bbajkkmqs1r8sf1pu53udmw4bqro
-X-Rspamd-Queue-Id: 4gxSbN4YDrzKvvq
 
-Add ')' and fix sentence structure.
+> Add hardware monitoring support for the NXP MC33978/MC34978 Multiple
+> Switch Detection Interface (MSDI).
+>=20
+> The hardware utilizes a clear-on-read FAULT register, but physical
+> faults remain asserted as long as the underlying condition exists. This
+> asserts a global FAULT_STAT bit on the SPI bus. To handle this without
+> trapping the CPU in an interrupt storm, this driver implements the
+> following architecture:
+> - Requests a rising-edge nested IRQ (IRQF_TRIGGER_RISING) from the MFD
+>   core to catch the initial 0 -> 1 transition of the global fault state.
+> - Caches hwmon-specific alarm bits and calculates state edges (XOR) to
+>   isolate alarm transitions from system integrity faults.
+> - Implements a 1Hz delayed workqueue that polls the hardware as long as
+>   any alarm is active. This compensates for the edge-triggered IRQ by
+>   discovering secondary faults that occur without a rising edge, and
+>   detecting when the hardware clears.
+>=20
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
-[v2]
- fix subject
- add reviewed-by
- .../bindings/clock/renesas,rcar-usb2-clock-sel.yaml           | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-diff --git a/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml b/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
-index c84f29f1810f..a14be249fa33 100644
---- a/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
-+++ b/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
-@@ -13,8 +13,8 @@ description: |
-   If you connect an external clock to the USB_EXTAL pin only, you should set
-   the clock rate to "usb_extal" node only.
-   If you connect an oscillator to both the USB_XTAL and USB_EXTAL, this module
--  is not needed because this is default setting. (Of course, you can set the
--  clock rates to both "usb_extal" and "usb_xtal" nodes.
-+  is not needed because this is default setting (Of course, you can set the
-+  clock rates to both "usb_extal" and "usb_xtal" nodes).
- 
-   Case 1: An external clock connects to R-Car SoC
-     +----------+   +--- R-Car ---------------------+
--- 
-2.54.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260710101358.2606=
+941-1-o.rempel@pengutronix.de?part=3D5
 
