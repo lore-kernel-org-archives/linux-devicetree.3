@@ -1,137 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315203F54DD;
-	Fri, 10 Jul 2026 12:08:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40ED34071DC;
+	Fri, 10 Jul 2026 12:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783685329; cv=none; b=D+whY46jW3rrVQKp4k43dK2untdLnFs9tjCH0wBJLQLa5RqL5tzf2KRa892cvVpaMoAcs9ShUsIu8gT1UgEAzzGjc6GnCAp5Lb9o+1mmcIsrvj84fhL/ETHtYwQRDLVXoDQhgLRryjaNAfazAjvsJuJof8s7/7fP+FMCA5HxIfc=
+	t=1783685406; cv=none; b=R0XqmkeDuKEE2itrIbaQrGCYWqxk3wDVS2RUr4PLLNUJM3GeES+Pr9IfkfK2BTG2//mA/vxafd3qIeRxvh28jIYfZ9nt+NNfPR+DrvzwP0gbRE6i/IjDyEABrxvieIipqxtPTl0VpZPEMVRlB26RnAXWK5gBphPqtUxCVLat2m4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783685329; c=relaxed/simple;
-	bh=KyUG5kxcreVEYKHZB9sbcDpNVdD9NPuLy0cq/Y4XGes=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hPFeyZWkIGh+blR6O1FPpwmwptxzdNYagEZ5d4av8FaQO0KDZj/9NnUPz7rSU+VdrN7NhcjgUlRe9yfZV4rWgtyoI2TLGG+JYf5V/s3vFS5s/soiuLolak7kqIVR8v2KywTsq7DacZA4bJOkzRRJnSr9N6mTm9/0kcZLce/H0dY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vo0O6UI6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783685406; c=relaxed/simple;
+	bh=aQwcX9XYj4VW0rglRN9smWthALe2etv1kQSIKdoKzCE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=PGCofu+SkFWZezToD+jrjAG8QwZ3d/YchuLRfrwAHkpwesNs5Ob3XrS13U1yDArWk+bdS7f+3ThZdhX5RP3iBp1AD6m/XfLg9ZVD5ChDRuygZoQPFYHs7ql1wo8q7N5QPJHzET4kUkkVrMYakaYyXX9acwWpTJN+yaTQ4YnKUZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qBXCa+db; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vo0O6UI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B5D1F000E9;
-	Fri, 10 Jul 2026 12:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1783685327;
-	bh=hKXVaY4pvzXF0DTi5PsRgZDNYnOewnDAIVksiSk+weg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vo0O6UI6tlXkw70wVEdUQEWW//hMh6zTJywnktib0C5FMEMvvxkfZFTr73frfzKvp
-	 al80t2ZNngkuBry7bMS9zNzmmXYC969dWSUdj5McEqcglWY4l689gjtJk07VlzhQIz
-	 VGXg9askrhybgI4+MBAARgkRyuYG7LEPZRVzTY3s=
-Date: Fri, 10 Jul 2026 14:08:43 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 05/14] usb: hub: Associate port@ fwnode with USB port
- device
-Message-ID: <2026071025-diffused-jersey-0d94@gregkh>
-References: <20260709095726.704448-1-wenst@chromium.org>
- <20260709095726.704448-6-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qBXCa+db"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D10F91A0F3A;
+	Fri, 10 Jul 2026 12:10:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9A00A60342;
+	Fri, 10 Jul 2026 12:10:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 685E411BD0BCF;
+	Fri, 10 Jul 2026 14:09:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783685402; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=gk9jwtLF3KGI28XFf4LplvEp5Vfvp7PmyBj6FTbwmKM=;
+	b=qBXCa+dbAg0BNoCZk3+hs+XRRziKjwAkvc4JhGgW5DNe5/RJIBfvLG7PIV9YVJ40wWu327
+	HwlDB6D6x6OAvhHiGXr5LdSSGbdnVAvwI2oozlhWDK4jX5Libs1WZqKCB/NX1OqKeX/qvj
+	/JgoCoRzLITcujEVYb75FmyyDBuMF+jNxpOL+pM9YoO7NStT1WQ9deuM4RBUVw+1HufR7P
+	QoXJQfuP7mQ0oxSuDOEqKEw3vIxcpCU/2SG4TMU8PHbwSnLF2Bme6b0altUu8FzzGBGP6l
+	ITuhPTj+bYbZD0FFGJCMpOqGrDNidsELwyq5ggS51pqW576QB7qdwcP89awUjQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Cc: Antoine Tenart <atenart@kernel.org>,  Christian Marangi
+ <ansuelsmth@gmail.com>,  Conor Dooley <conor+dt@kernel.org>,  David S.
+ Miller <davem@davemloft.net>,  Geert Uytterhoeven
+ <geert+renesas@glider.be>,  Herbert Xu <herbert@gondor.apana.org.au>,
+  Jayesh Choudhary <j-choudhary@ti.com>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Magnus Damm <magnus.damm@gmail.com>,  Michael
+ Turquette <mturquette@baylibre.com>,  Olivia Mackall <olivia@selenic.com>,
+  Rob Herring <robh@kernel.org>,  Thomas Gleixner <tglx@kernel.org>,
+  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,  Pascal EBERHARD
+ <pascal.eberhard@se.com>,  Wolfram Sang
+ <wsa+renesas@sang-engineering.com>,  linux-clk@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  linux-crypto@vger.kernel.org,  linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 07/16] clk: tests: Add Kunit testing for
+ of_clk_get_parent_name()
+In-Reply-To: <177595738949.5403.11279360430887628318@lazor> (Stephen Boyd's
+	message of "Sat, 11 Apr 2026 18:29:49 -0700")
+References: <20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com>
+	<20260327-schneider-v7-0-rc1-crypto-v1-7-5e6ff7853994@bootlin.com>
+	<177595738949.5403.11279360430887628318@lazor>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Fri, 10 Jul 2026 14:09:53 +0200
+Message-ID: <87echbgi5q.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260709095726.704448-6-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Jul 09, 2026 at 05:57:10PM +0800, Chen-Yu Tsai wrote:
-> When a USB hub port is connected to a connector in a firmware node
-> graph, the port itself has a node in the graph.
-> 
-> Associate the port's firmware node with the USB port's device,
-> usb_port::dev. This is used in later changes for the M.2 slot power
-> sequencing provider to match against the requesting port.
-> 
-> To avoid potential conflicts with ACPI firmware nodes and then causing
-> power management issues, only assign the firmware node if the hub's
-> firmware node is not an ACPI firmware node.
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> ---
-> Changes since v3:
-> - Added missing fwnode_handle_put()
-> 
-> Changes since v2:
-> - Skip assignment if hub firmware node is ACPI node
-> ---
->  drivers/usb/core/port.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/drivers/usb/core/port.c b/drivers/usb/core/port.c
-> index b1364f0c384c..e8fb2acd77be 100644
-> --- a/drivers/usb/core/port.c
-> +++ b/drivers/usb/core/port.c
-> @@ -7,6 +7,7 @@
->   * Author: Lan Tianyu <tianyu.lan@intel.com>
->   */
->  
-> +#include <linux/acpi.h>
->  #include <linux/kstrtox.h>
->  #include <linux/slab.h>
->  #include <linux/string_choices.h>
-> @@ -358,6 +359,11 @@ static void usb_port_device_release(struct device *dev)
->  {
->  	struct usb_port *port_dev = to_usb_port(dev);
->  
-> +	/*
-> +	 * At this point ACPI nodes and swnodes have been removed by
-> +	 * device_platform_notify_remove() in device_del().
-> +	 */
-> +	fwnode_handle_put(dev_fwnode(dev));
->  	kfree(port_dev->req);
->  	kfree(port_dev);
->  }
-> @@ -780,6 +786,13 @@ int usb_hub_create_port_device(struct usb_hub *hub, int port1)
->  	port_dev->dev.driver = &usb_port_driver;
->  	dev_set_name(&port_dev->dev, "%s-port%d", dev_name(&hub->hdev->dev),
->  			port1);
-> +	/*
-> +	 * ACPI FW nodes are associated later when device_register() happens.
-> +	 * Skip assigning one here to avoid potential conflicts.
-> +	 */
-> +	if (!is_acpi_node(dev_fwnode(&hdev->dev)))
-> +		device_set_node(&port_dev->dev,
-> +				fwnode_graph_get_port_by_id(dev_fwnode(&hdev->dev), port1));
->  	mutex_init(&port_dev->status_lock);
->  	retval = device_register(&port_dev->dev);
->  	if (retval) {
-> @@ -852,6 +865,7 @@ int usb_hub_create_port_device(struct usb_hub *hub, int port1)
->  
->  void usb_hub_remove_port_device(struct usb_hub *hub, int port1)
->  {
-> +	struct usb_device *hdev = hub->hdev;
->  	struct usb_port *port_dev = hub->ports[port1 - 1];
->  	struct usb_port *peer;
+Hi Stephen,
 
-Is this last variable addition not needed here?  It's not used.
+On 11/04/2026 at 18:29:49 -07, Stephen Boyd <sboyd@kernel.org> wrote:
 
-thanks,
+> Quoting Miquel Raynal (Schneider Electric) (2026-03-27 13:09:29)
+>> diff --git a/drivers/clk/clk_test.c b/drivers/clk/clk_test.c
+>> index b814b45f1f7e..8a17ad0d185f 100644
+>> --- a/drivers/clk/clk_test.c
+>> +++ b/drivers/clk/clk_test.c
+>> @@ -3651,9 +3651,19 @@ static void clk_parse_clkspec_with_incorrect_inde=
+x_and_name(struct kunit *test)
+>>         KUNIT_EXPECT_TRUE(test, IS_ERR(hw));
+>>  }
+>>=20=20
+>
+> Add a comment here to tell us what the test is expecting.
 
-greg k-h
+Yep, done.
+
+>> +static void clk_parse_and_get_parent_name(struct kunit *test)
+>> +{
+>> +       struct clk_parse_clkspec_ctx *ctx =3D test->priv;
+>> +
+>> +       KUNIT_EXPECT_STREQ(test,
+>> +                          of_clk_get_parent_name(ctx->cons_np, 0),
+>> +                          clk_parse_clkspec_1_init_data.name);
+>> +}
+>
+> Reading this test is pretty hard because all the context is in the
+> common setup. Maybe the common setup is too broad in this case and
+> should be simplified so that tests can show more setup and assert code
+> for the things it wants to do. For example, if the name can be passed
+> from this test directly it would clarify by moving context into test
+> function scope.
+>
+> 	const char *pname =3D "expected-name";
+>
+> 	KUNIT_ASSERT_EQ(test, 0, setup_parent(pname));
+>
+> 	KUNIT_EXPECT_STREQ(test, pname,
+> 			   of_clk_get_parent_name(ctx->cons_np, 0));
+
+While I understand the feeling, provider 1 and 2 are shared with other
+test cases which would require restructuring quite a bit the whole test
+suite for IMHO little benefit. I can however make more obvious the string
+that is actually expected by redefining it in plain sight at the call
+site.
+
+>>  static struct kunit_case clk_parse_clkspec_test_cases[] =3D {
+>>         KUNIT_CASE(clk_parse_clkspec_with_correct_index_and_name),
+>>         KUNIT_CASE(clk_parse_clkspec_with_incorrect_index_and_name),
+>> +       KUNIT_CASE(clk_parse_and_get_parent_name),
+>
+> Better to call the test something like
+> of_clk_get_parent_name_gets_parent_name to indicate what we're
+> testing.
+
+Fine by me.
+
+Thanks,
+Miqu=C3=A8l
