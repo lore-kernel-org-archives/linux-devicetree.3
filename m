@@ -1,163 +1,316 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14433349CE2
-	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 14:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7D223D7C2
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 14:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783693818; cv=none; b=ZN3MzY5jVkGZOLykuPaFgns4x831ZAjOrFNdcgYuhV77kCr9jn+4OssIxOZYXtKdVBt/Xf09tpq+NGGXHIqV+cl3w3jPgkSfFuMw87QF9my2EuJX5zYssB8pEoMElrMxVsTZelmn9hEvusLap6HnR/Td+ASSrhNp1fm8ryuNfC8=
+	t=1783693949; cv=none; b=Af2qm+r2gnhI0C+xRR5eNZIm1ZYqQVs0dE/I57mFFRiPZ8+9fHZyTqAzNMAnFH+khqrDG9ATX3QNiUnuKAdGDzjbV+yJuyl0Cvdrn4kKUNSLeaTyW/PJ3kZMvBPkAq+LPmVUlpdlwRkTnlpR3RpwFy8aPoRnoo4BXke9NsZy1PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783693818; c=relaxed/simple;
-	bh=QbIprqUJhBFIuepNWkO4kN5miXRoPAViL44TdYA8PTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WmQINda2G5ATCotNPNpTKHnb/XjGF/Zbz0JL5A2+8IJ5ludNYqDiUBxOGV1YcJ8rCGqG1NkXmY4kIeiKLTcsER6qVjq6SKnEkMt5tvU5RocyPd1tqFszyxETtTAhRDuzXM4ADs6PdSBrZTs+GH8NyLzbjjF0Y2yQ2hndsmyQsjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ju3LOh6k; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783693949; c=relaxed/simple;
+	bh=34Q8CPQ8Lo61DRCeyTpcD9vOwlejaU/j1ICNvnMwO+g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZOfEFcZ4ticq6ymp8CNq4bxI+Qx83wnlnfZc/PSIInbY0LS/KpNLpKDkBOOYISkaXmOEzrW2VYe+xWIkcLXzDi4Zhldc0K3zlwunEGV3s1JX7vOSNKrz/oyLKn6NESOcj77DN7oB++OvJwbA6p42hvmzz/Tdnl0+AFcU/xWJdPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlhUiSOS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ju3LOh6k"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493b27c7451so26044305e9.0
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 07:30:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783693815; x=1784298615; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VI6XbHCkQw0BYyxRAEJxXVAGqyrCldWfR9mQ71QbnBw=;
-        b=Ju3LOh6kmVcq3bIcXdw+8GnFA37/pfmKAUg5iJoTeB9bO+k+cqgMzoqe9yfnVrwIAb
-         4G7OV/Qaiji4fhG+EsIAjnpxJSa7k5f7NLUlKU8a3/Tx+WoZq/E//Puzr/G9Znhl4o3A
-         govQXcvjuPDvZ34MCJdbzYR41ekglvJGdM65Ifh+MppzbkhcuxAX6FpZ+v/vDdNbnX/b
-         39H+TE3bqTpuh3yAxQTYmwuHNg+LeZ4VRDnks7oxAVdty2qoVgijogY4E3bhEtDH/rqa
-         nI/2IGolKrpT8UBHPtxiofMDwJ3dh3MaPKs65aEMrtvYbgesJ+jYgzPyFQQRfm8fWGg7
-         vqQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783693815; x=1784298615;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VI6XbHCkQw0BYyxRAEJxXVAGqyrCldWfR9mQ71QbnBw=;
-        b=WH27CUMTZQE31nmdZc/JizdbEbND214aScDMnqwa3Vz8S1bJUHiEtmQMFloFjahtbg
-         2zou02uOcz65S8jFGO3iktIg6EDWwEZqw1sB0nPtx0vzVafZy82OyHpkyyC0PdBfSrNo
-         KRDCmcD1//jK4Tf/sVq/O1LVFDFGwei/CnRpZf2/VOls7tY5Soyj3fCerP4N+0G3dSIZ
-         3UjUJxRAfrTDM9+0IQS05DJm+YLwMGqQAN2QSQD4W4sEA28TmKxlm4nTjL/6ujqBkJIO
-         rr18ty5ThZYOtecCMgUvyI/KJ4P6zYQ+ViZt58ww2/9SsXkjDUPDhWE3UypUBB4Q7hx+
-         on/Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoQxnJvPdwewt9w2mUAhUzACsc3UhwTr1DODwdWeWMdfweTljBB0e97bKQq9MDzWwRH2yKWO3JKyC7G@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfRJzPRiegHKyVurv8wOP0UxoBl7lj8UhxAmbgqEUUi8+jTJ7y
-	F9asOIrRYpktkE6SccEPGV+iYbp6ZPdUGZg4VZB2gzvfwoIZtVSMED04
-X-Gm-Gg: AfdE7cmoUP7LucCfcmXJNiRtrd/c+revkfVwxyDwIGgvQwLtvBEIUH4LHMAHX+XfC2q
-	aP/Y5V8e1L35VJctHVWj7qykk+fsyz8jQkZybTBgIEP1sca7X/BFJ8G8j4HVVe3KYatX4NQg5gb
-	MkXIG7lmfpIHP3Qwuh3G1fR3WJfeLPGhJ+U9mMJR1+zliJwDP1m1lUAEF3vTCRzHzg0LIlhNdZc
-	CE6DDljmq2ZqUsH4fYb/+5EcoypjqE/TOiYTDRpUZ8cjudnNERoT7FSWGzbrZcuMll0iEfAlPKt
-	dX2JcxzlIzIH2jNB6qdHAQd8qjjSz5qAoyoUVzzwLLt9Isp0zzUKR4RQa3NSLJDkN/nyLjmcr8f
-	bVYlyhplsJqET5gAkCaMKd9qQGty22BL5lS22Rr1jx1GLklC72rDZjdp5NmCeCIxU9J1Ovj69i1
-	X4QQ==
-X-Received: by 2002:a05:600c:1908:b0:493:c566:7bd6 with SMTP id 5b1f17b1804b1-493f2b4baa1mr35892515e9.18.1783693814906;
-        Fri, 10 Jul 2026 07:30:14 -0700 (PDT)
-Received: from enyo ([2a0a:ef40:ea3:3f01:ca44:4cd5:cfae:605b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f2d88698sm65315605e9.1.2026.07.10.07.30.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Jul 2026 07:30:14 -0700 (PDT)
-Date: Fri, 10 Jul 2026 15:30:12 +0100
-From: Dawid Olesinski <dawidro@gmail.com>
-To: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Corentin Labbe <clabbe@baylibre.com>,
- linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] arm64: dts: rockchip: Add crypto node to
- rk356x-base
-Message-ID: <20260710153012.0a840512@enyo>
-In-Reply-To: <4011768.FjKLVJYuhi@diego>
-References: <20260708175837.1718437-1-dawidro@gmail.com>
-	<20260708175837.1718437-4-dawidro@gmail.com>
-	<ak7jEYTAGgeDdi1W@venus>
-	<4011768.FjKLVJYuhi@diego>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlhUiSOS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2140B1F00A3F
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 14:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783693948;
+	bh=tyJsuc9PaPdLgORfT3uiTThaK4L4eJX6fQzE7ImmQXc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YlhUiSOSzGmf+rSOaKj0ZiAEFOTKU943wfmGijsjdjeUx9xne3kICWyWgBvyJZYR3
+	 rlaqAlw1hg8myKy/Ni6IrqqasyD433iiRaUIHKNrjTxi/23j9luXFDRtTM4TX3CH7i
+	 5eJRin/f/mLxksjKGGIfTZGYvRfVVzsEoSbRL/4VrQp0LWFUcoQhzLSvRGHm5CEV6h
+	 MB0ji3+FvCpRKDi3iqQd3nKqwgLCmlIrfQIRKyPpz5veAwoyAaIy9D+EjXSZbKJUg1
+	 aKwslhcXEcegGFiV2HN7Hso2dDMqpzANeczvSHlisf+e+P39d6fSwH3FKzHu8erNl5
+	 OHIuCFOf81evA==
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-69531108f25so1634118a12.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 07:32:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rqr/bfCnFHRp7GuAEg20+YFKXtmb7vjc3ngIOTEJmXHUv4d3vmmtPxupTs3X/WR/B4FudK0v4PphSbf@vger.kernel.org
+X-Gm-Message-State: AOJu0YzC3AJLjqDa0kDJjrSWF8Eaf9SITFyCKyKqSrI3hpnqldM8HlEE
+	JccCP5sPNreMiKOSdt3LJVrcqJZkbv42E4z22RwwLWKS7uB49AM6twzvdl2dczFRhMJrrDnXmZp
+	4f7pbObDBHxYuz5ZsMEaRwrMenwU5g4g=
+X-Received: by 2002:a05:6402:254a:b0:698:be17:3790 with SMTP id
+ 4fb4d7f45d1cf-69ab44c57e4mr4834940a12.37.1783693946694; Fri, 10 Jul 2026
+ 07:32:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <cover.1783670011.git.zhoubinbin@loongson.cn> <e5a574b2ae0e5e0ec32fe81c0ccd03eb3ad5a164.1783670011.git.zhoubinbin@loongson.cn>
+In-Reply-To: <e5a574b2ae0e5e0ec32fe81c0ccd03eb3ad5a164.1783670011.git.zhoubinbin@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Fri, 10 Jul 2026 22:32:14 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6Ae=J9a6y6C9WE-sfUJnrypWpc8e01VHJ3ndVt-F+RXA@mail.gmail.com>
+X-Gm-Features: AUfX_mziIzRPDFM4jEXixCD6AJpuR4HyI52Kf5Ge1o84mQHZXbLbTaz_oreouGE
+Message-ID: <CAAhV-H6Ae=J9a6y6C9WE-sfUJnrypWpc8e01VHJ3ndVt-F+RXA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] thermal/drivers/loongson2: Add thermal driver support
+ for Loongson-2K0300
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 09 Jul 2026 09:07:23 +0200
-Heiko St=C3=BCbner <heiko@sntech.de> wrote:
+Hi, Binbin,
 
-> Am Donnerstag, 9. Juli 2026, 01:56:10 Mitteleurop=C3=A4ische Sommerzeit
-> schrieb Sebastian Reichel:
-> > Hi,
-> >=20
-> > On Wed, Jul 08, 2026 at 06:58:24PM +0100, Dawid Olesinski wrote: =20
-> > > Add the device tree node for the V2 cryptographic hardware
-> > > accelerator on RK356x SoCs (RK3566, RK3568).
-> > >=20
-> > > The IP block sits in the non-secure peripheral domain. Its three
-> > > clocks (core, aclk, hclk) and reset line are accessible directly
-> > > through the main non-secure CRU, so no firmware intermediary is
-> > > required.
-> > >=20
-> > > The node is disabled by default; board files that wish to use
-> > > hardware crypto offload must enable it. =20
-> >=20
-> > Why is it disabled by default? It doesn't seem to be board specific
-> > at all to me (the same question applies to the RK3588 DT). =20
->=20
-> You're definitly right about that ... there are no board specific
-> resources needed, so Dawid please drop the status from both nodes.
->=20
->=20
-> Heiko
->=20
+On Fri, Jul 10, 2026 at 4:25=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.cn=
+> wrote:
+>
+> The Loongson-2K0300 SoC uses a new thermal sensor that requires reading
+> a separate CPU ID register to obtain hardware version information. This
+> version info is used as a correction factor (fix_data) in the
+> temperature calculation formula.
+>
+> Its thermal sensor requires the following hardware-specific handling:
+>  - Read chip ID register (offset 0x0 and 0x4) to get the compensation
+>    value (comp_val). The value is stored in either bits [31:20] of the
+>    ID0 register or bits [15:0] of the ID1 register, depending on the
+>    EXTERN_ID bit.
+>
+>  - The compensation value is a signed 15-bit field; extract the value
+>    and apply sign accordingly.
+>
+> Additionally, some early Loongson-2K0300 chips may have an old fuse that
+> yields invalid temperature readings outside the -55 to 125 range. In
+> such cases, the driver falls back to a simplified formula (raw * 569 -
+> 394700) and logs a warning, ensuring the system can still function
+> without crashing.
+>
+> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> ---
+>  drivers/thermal/loongson2_thermal.c | 83 ++++++++++++++++++++++++++---
+>  1 file changed, 77 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongs=
+on2_thermal.c
+> index ea4dd2fb1f47..a7eb87070aa9 100644
+> --- a/drivers/thermal/loongson2_thermal.c
+> +++ b/drivers/thermal/loongson2_thermal.c
+> @@ -2,9 +2,11 @@
+>  /*
+>   * Author: zhanghongchen <zhanghongchen@loongson.cn>
+>   *         Yinbo Zhu <zhuyinbo@loongson.cn>
+> - * Copyright (C) 2022-2023 Loongson Technology Corporation Limited
+> + *         Binbin Zhou <zhoubinbin@loongson.cn>
+> + * Copyright (C) 2022-2026 Loongson Technology Corporation Limited
+>   */
+>
+> +#include <linux/bitfield.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/io.h>
+>  #include <linux/minmax.h>
+> @@ -23,27 +25,44 @@
+>  #define LOONGSON2_THSENS_CTRL_LOW_REG  0x8
+>  #define LOONGSON2_THSENS_STATUS_REG    0x10
+>  #define LOONGSON2_THSENS_OUT_REG       0x14
+> +#define LOONGSON2_THSENS_CFG_REG       0x18
+>
+>  #define LOONGSON2_THSENS_INT_LO                BIT(0)
+>  #define LOONGSON2_THSENS_INT_HIGH      BIT(1)
+>  #define LOONGSON2_THSENS_INT_EN                (LOONGSON2_THSENS_INT_LO =
+| \
+>                                          LOONGSON2_THSENS_INT_HIGH)
+>  #define LOONGSON2_THSENS_OUT_MASK      0xFF
+> +#define LS2K0300_THSENS_OUT_MASK       GENMASK(10, 0)
+The naming is a little strange, maybe use LOONGSON2_THSENS_OUT_8B_MASK
+and LOONGSON2_THSENS_OUT_10B_MASK?
 
-I'll drop the `status =3D "disabled";`=20
-lines from both the RK356x and RK3588 device trees in v3.
+> +
+> +#define LS2K0300_CHIP_ID1              0x4
+Also define LS2K0300_CHIP_ID0 here?
 
-Thanks for the review!
+> +#define LS2K0300_EXTERN_ID             BIT(4)
+> +#define LS2K0300_ID0_VAL_MASK          GENMASK(31, 20)
+> +#define LS2K0300_ID1_VAL_MASK          GENMASK(15, 0)
+> +
+> +#define LS2K0300_COMP_VAL_MASK         GENMASK(14, 0)
+> +#define LS2K0300_COMP_SIGN_BIT         BIT(15)
+> +
+> +#define LS2K0300_LOWEST_VALID_TEMP     (-55000)
+> +#define LS2K0300_HIGHEST_VALID_TEMP    (125000)
+>
+>  /*
+>   * This flag is used to indicate the temperature reading
+>   * method of the Loongson-2K2000
+>   */
+>  #define LS2K2000_THSENS_OUT_FLAG       BIT(0)
+> +#define LS2K0300_CHIP_ID_FLAG          BIT(1)
+>
+>  struct loongson2_thermal_chip_data {
+>         unsigned int thermal_sensor_sel;
+>         unsigned int flags;
+> +       const struct thermal_zone_device_ops *thermal_ops;
+>  };
+>
+>  struct loongson2_thermal_data {
+> +       struct device *dev;
+>         void __iomem *ctrl_reg;
+>         void __iomem *temp_reg;
+> +       void __iomem *id_reg;
+>         const struct loongson2_thermal_chip_data *chip_data;
+>  };
+>
+> @@ -71,6 +90,38 @@ static int loongson2_thermal_set(struct loongson2_ther=
+mal_data *data,
+>         return 0;
+>  }
+>
+> +static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz, int=
+ *temp)
+> +{
+> +       struct loongson2_thermal_data *tdata =3D thermal_zone_device_priv=
+(tz);
+> +       int calib_data, calib_offset, temp_mc, raw_adc;
+> +       u32 chip_id0, chip_id1;
+> +
+> +       raw_adc =3D FIELD_GET(LS2K0300_THSENS_OUT_MASK,
+> +                           readl(tdata->ctrl_reg + LOONGSON2_THSENS_OUT_=
+REG));
+> +       chip_id0 =3D readl(tdata->id_reg);
+> +       chip_id1 =3D readl(tdata->id_reg + LS2K0300_CHIP_ID1);
+> +
+> +       if (chip_id0 & LS2K0300_EXTERN_ID)
+> +               calib_data =3D FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id1)=
+;
+> +       else
+> +               calib_data =3D FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id0)=
+;
+> +
+> +       calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
+> +       if (calib_data & LS2K0300_COMP_SIGN_BIT)
+> +               calib_offset =3D -calib_offset;
+> +
+> +       temp_mc =3D (raw_adc + calib_offset) * 570 - 394700;
+> +
+> +       /* For old fuse which can not read right thermal data */
+> +       if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K0300_HI=
+GHEST_VALID_TEMP) {
+Is there a better way to detect the old fuse? Because I think temp_mc
+between LS2K0300_LOWEST_VALID_TEMP and  LS2K0300_HIGHEST_VALID_TEMP is
+also not valid for the old fuse.
 
-Dawid
+Huacai
 
-> > >=20
-> > > Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
-> > > ---
-> > >  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 12 ++++++++++++
-> > >  1 file changed, 12 insertions(+)
-> > >=20
-> > > diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> > > b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi index
-> > > a5832895bd39..9de7e7487ca1 100644 ---
-> > > a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi +++
-> > > b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi @@ -1112,6
-> > > +1112,18 @@ sdhci: mmc@fe310000 { status =3D "disabled";
-> > >  	};
-> > > =20
-> > > +	crypto: crypto@fe380000 {
-> > > +		compatible =3D "rockchip,rk3568-crypto";
-> > > +		reg =3D <0x0 0xfe380000 0x0 0x2000>;
-> > > +		interrupts =3D <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-> > > +		clocks =3D <&cru CLK_CRYPTO_NS_CORE>, <&cru
-> > > ACLK_CRYPTO_NS>,
-> > > +			 <&cru HCLK_CRYPTO_NS>;
-> > > +		clock-names =3D "core", "aclk", "hclk";
-> > > +		resets =3D <&cru SRST_CRYPTO_NS_CORE>;
-> > > +		reset-names =3D "core";
-> > > +		status =3D "disabled";
-> > > +	};
-> > > +
-> > >  	/*
-> > >  	 * Testing showed that the HWRNG found in RK3566
-> > > produces unacceptably
-> > >  	 * low quality of random data, so the HWRNG isn't
-> > > enabled for all RK356x =20
-> >  =20
->=20
->=20
->=20
->=20
-
+> +               dev_warn_once(tdata->dev, "It's an old fuse, thermal %d i=
+s not right\n", temp_mc);
+> +               temp_mc =3D raw_adc * 569 - 394700;
+> +       }
+> +       *temp =3D temp_mc;
+> +
+> +       return 0;
+> +}
+> +
+>  static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int=
+ *temp)
+>  {
+>         int val;
+> @@ -112,6 +163,11 @@ static int loongson2_thermal_set_trips(struct therma=
+l_zone_device *tz, int low,
+>         return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
+>  }
+>
+> +static const struct thermal_zone_device_ops loongson2_2k0300_of_thermal_=
+ops =3D {
+> +       .get_temp =3D loongson2_2k0300_get_temp,
+> +       .set_trips =3D loongson2_thermal_set_trips,
+> +};
+> +
+>  static const struct thermal_zone_device_ops loongson2_2k1000_of_thermal_=
+ops =3D {
+>         .get_temp =3D loongson2_2k1000_get_temp,
+>         .set_trips =3D loongson2_thermal_set_trips,
+> @@ -124,7 +180,6 @@ static const struct thermal_zone_device_ops loongson2=
+_2k2000_of_thermal_ops =3D {
+>
+>  static int loongson2_thermal_probe(struct platform_device *pdev)
+>  {
+> -       const struct thermal_zone_device_ops *thermal_ops;
+>         struct device *dev =3D &pdev->dev;
+>         struct loongson2_thermal_data *data;
+>         struct thermal_zone_device *tzd;
+> @@ -134,6 +189,7 @@ static int loongson2_thermal_probe(struct platform_de=
+vice *pdev)
+>         if (!data)
+>                 return -ENOMEM;
+>
+> +       data->dev =3D dev;
+>         data->chip_data =3D device_get_match_data(dev);
+>
+>         data->ctrl_reg =3D devm_platform_ioremap_resource(pdev, 0);
+> @@ -145,10 +201,13 @@ static int loongson2_thermal_probe(struct platform_=
+device *pdev)
+>                 data->temp_reg =3D devm_platform_ioremap_resource(pdev, 1=
+);
+>                 if (IS_ERR(data->temp_reg))
+>                         return PTR_ERR(data->temp_reg);
+> +       }
+>
+> -               thermal_ops =3D &loongson2_2k2000_of_thermal_ops;
+> -       } else {
+> -               thermal_ops =3D &loongson2_2k1000_of_thermal_ops;
+> +       /* The chip id register is needed for Loongson-2K0300 */
+> +       if (data->chip_data->flags & LS2K0300_CHIP_ID_FLAG) {
+> +               data->id_reg =3D devm_platform_ioremap_resource(pdev, 1);
+> +               if (IS_ERR(data->id_reg))
+> +                       return PTR_ERR(data->id_reg);
+>         }
+>
+>         irq =3D platform_get_irq(pdev, 0);
+> @@ -160,7 +219,7 @@ static int loongson2_thermal_probe(struct platform_de=
+vice *pdev)
+>         loongson2_thermal_set(data, 0, 0, false);
+>
+>         for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+> -               tzd =3D devm_thermal_of_zone_register(dev, i, data, therm=
+al_ops);
+> +               tzd =3D devm_thermal_of_zone_register(dev, i, data, data-=
+>chip_data->thermal_ops);
+>
+>                 if (!IS_ERR(tzd))
+>                         break;
+> @@ -181,17 +240,29 @@ static int loongson2_thermal_probe(struct platform_=
+device *pdev)
+>         return 0;
+>  }
+>
+> +static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k03=
+00_data =3D {
+> +       .thermal_sensor_sel =3D 0,
+> +       .flags =3D LS2K0300_CHIP_ID_FLAG,
+> +       .thermal_ops =3D &loongson2_2k0300_of_thermal_ops,
+> +};
+> +
+>  static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k10=
+00_data =3D {
+>         .thermal_sensor_sel =3D 0,
+>         .flags =3D 0,
+> +       .thermal_ops =3D &loongson2_2k1000_of_thermal_ops,
+>  };
+>
+>  static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k20=
+00_data =3D {
+>         .thermal_sensor_sel =3D 0,
+>         .flags =3D LS2K2000_THSENS_OUT_FLAG,
+> +       .thermal_ops =3D &loongson2_2k2000_of_thermal_ops,
+>  };
+>
+>  static const struct of_device_id of_loongson2_thermal_match[] =3D {
+> +       {
+> +               .compatible =3D "loongson,ls2k0300-thermal",
+> +               .data =3D &loongson2_thermal_ls2k0300_data,
+> +       },
+>         {
+>                 .compatible =3D "loongson,ls2k1000-thermal",
+>                 .data =3D &loongson2_thermal_ls2k1000_data,
+> --
+> 2.52.0
+>
