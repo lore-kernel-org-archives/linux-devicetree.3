@@ -1,306 +1,536 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EC635E1D8;
-	Fri, 10 Jul 2026 04:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783656651; cv=fail; b=AjKUaDraBiog7Ws6oOrSz51Wv7zkx9L/oI2eu4iiPvvzBiJdNDdB8oV620U+hN6DE8nsqnc4y+Pliyj5XKMzzLjNN3Mu1ZlG3VoILkllCY5W8qf9fCCHqV9KCLNP/hRfgb/vf22cZV/rrlXYxUhysdONfElb2zm6K49jPlSAU0s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783656651; c=relaxed/simple;
-	bh=/wEbLOLe4C52PfAhUMAiBbNDoLk6JY5YYCZ991GIe0c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=maeOtae2ZQw0/Oo3sMaOBXJU/f694ONK5ZPCgrS987b0ifnij+nZa86Gxw3SyInF5IPEWMK5e1KKcxomowSIYH/reT+n5dDXi8Np+1XbaQKH4GVkvHm1tQsCL8FL5JBuMycChlSJELijC/bWjOe1CyxQfydzR1lkCoqw7dreQa8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=K+bdS9lT; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=uWK5Fy8w; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36522C0261
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783657432; cv=none; b=fneMxmj8uQUgF4tIC6jKnpvYhMq2aUaA9zZrV5WNZDiK4xvSu3cIrWGaczYEZleuJlV8BYXp7xcobbPciC6NzdVHM7s/4z1F/xH8JrKB0mXDhcefINZyu69ueOJqjti8jDppTn3OD25qKTrBCGM3aWQHF7VsiLnJ0wrx6CnzsD8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783657432; c=relaxed/simple;
+	bh=q+GdnQAxL/KhJDXHLDPS8BYkN104mPLRh/AML/oTlNw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Lpz/DP7RkmfJDOG00+KAdh5pRaFb8WKPBbjJJt3K2en0NSjLF5MS0+MpY+XBonCz8e4bs9rUnifheLYUJ34aF/NL53sS6iZenG/Gw2cNIkEVYoQC5IZX4Ozb5CQTFh5RkaEk4NSC3h4o/8zcCd1ss2zSpRPI/9rf/4f4Ut3SOP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QJ10hBEZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FcjDPdxL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="K+bdS9lT";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="uWK5Fy8w"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66A3n37E2857319;
-	Thu, 9 Jul 2026 23:10:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=bSkIq6ddZGCSVCTAMW2gbU0vdWoVYLjmQH0ICpXhV
-	Ls=; b=K+bdS9lT2XEq4Thk2PCwqvMxLkbqQYgG7s9PdXvG0bPKJ1SE0lEO2jvBU
-	yICcnzloTwIptpvTMhXpGp4sZ4klIqIgrchZbgBcXbfKuzOpmtVLD3qYl1vGBi2J
-	1mZ5XCdS2i6y0hpWlzfas5XtJxU4llZe+QRbO3U1fTszz7SZmEcwovl0NyhA8rZq
-	bK8f0hNHssCym0+YdN2vt8O7Zs+SAAXGQF0kGNWN0pqi5PWHqnh7FLd0445pNImR
-	p1Y53AX4ooIthK7zlCXyP2lzZ+m60bSGihazI5DTcB/SN5ENH9pzajydfnTiT5Nv
-	7h0j8+f8Z1uFQG0WqSXh0ZH9RwFcQ==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012053.outbound.protection.outlook.com [52.101.53.53])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4fab73wdvv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 09 Jul 2026 23:10:30 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gr0GsJRPqGEBMyZYzK7puqshxeh6o0lFl7aQhAfUH5sh1sH9/Ic5lUopnqs6axeyPtDV375+HyH+QE70tQA7Pt1cfrPMY/uzY5joDiFaY7azVWfxA6DlGaj8IzvpLsuKtWMLq8hW90MWVK4ndeQIu4uatdQej+R3VTgC70MV7bupGTjFDyy99a/+rRbjptGrLDn4X5KRyUlr6WSaXb17m9uj05Vi164Z/HwitVJZ65dtNjjwikytwP2ANHL6WZqZ+LpdUn+aROPdBFU7iGDc0J8PfQT52dpwz6gAATyJszyDV8c3aNzZxCpSbpIVsNNEyIoeRAq+3R3QKdduIZBXIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bSkIq6ddZGCSVCTAMW2gbU0vdWoVYLjmQH0ICpXhVLs=;
- b=bAzroVi/WVbxyYxBQqwNN7yJhnYqQ9q79rZ6UWD4Xo0eJMjtJ0koZ+s6xfAOAjpxjBzaDQBizFg6cq2ktBDfG/JnhVMk80zn8wQWYBtAv/ceox9hjfPFRZ0kQ9HUz4+1RAhHhyPynWIGtkVUdGTYF6N49LQ+TnGIiPMIUXrmtc0f7YLplAbrveQmj75IkECxiJI3eKOzo3ZTi/d6Dhdj+8sX1Zq6w81YXIbEDF0DvQW9KwWlQdaQ/KKjTPQUqasJVCjXkOQxYpMnQfCOlToiqrLdlm9UfT6UXSvP+Ivll+hEYtnrGIYZsPfuPCa0C61zU/LeiLEviL7629xM3abISQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bSkIq6ddZGCSVCTAMW2gbU0vdWoVYLjmQH0ICpXhVLs=;
- b=uWK5Fy8wLmBY6jwUEiDZLnuybLLIJJVgfjPaWdjpZsbR/fS5ykicpXR3M2orH9i/hF0p61G9EeJPoukeGAyXRGgUbXLo63cXHI5qFLRluwtWBMDqcuaxkKxc2K+wpT2iGb/Su2EvC+wWkGu777oIvSjlEIArY8BYBRH9IM7sNro=
-Received: from SA1PR03CA0011.namprd03.prod.outlook.com (2603:10b6:806:2d3::23)
- by CYXPR10MB7898.namprd10.prod.outlook.com (2603:10b6:930:dd::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.16; Fri, 10 Jul
- 2026 04:10:26 +0000
-Received: from SA2PEPF00003AEB.namprd02.prod.outlook.com
- (2603:10b6:806:2d3:cafe::43) by SA1PR03CA0011.outlook.office365.com
- (2603:10b6:806:2d3::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.12 via Frontend Transport; Fri,
- 10 Jul 2026 04:10:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SA2PEPF00003AEB.mail.protection.outlook.com (10.167.248.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Fri, 10 Jul 2026 04:10:26 +0000
-Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 9 Jul
- 2026 23:10:26 -0500
-Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 9 Jul
- 2026 23:10:26 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 9 Jul 2026 23:10:26 -0500
-Received: from [10.249.72.86] ([10.249.72.86])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66A4APYR2808243;
-	Thu, 9 Jul 2026 23:10:25 -0500
-Message-ID: <f814faf1-bfbe-42e4-ae0e-e34c7b2aad7d@ti.com>
-Date: Thu, 9 Jul 2026 23:10:25 -0500
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QJ10hBEZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FcjDPdxL"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66A3mXF63838038
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:23:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	l9h9Iz/a5W8eF88pzYnVKouzL+ejaGHBujqlpMHXUZ8=; b=QJ10hBEZo70qBIFe
+	v2WpbknWqUi1T7fgCwCMH+Cjg/iG+O3k/9IW9Nffe624W4zANpOkQ5Pu96U+7hr3
+	HSdi1d6cP6BmIvaMcOaDTkz+O9uEogfBMa9FpTajwO8vL1g3OCGs0G96LU1yurEM
+	tZXLnt7/zGl3U5MNBFF5KJTYYsy/qurYHEWAjNycLJ3LXv1j0yBWncT4lPvDsN/L
+	H0u/cgBryodu0KJo4Crqrv/1legAbKIRx3eAlzalSnIPvamxdgMLRuWMUykKhnaF
+	acanIOQ7hy+yC1zHytXMj902K5bWwCG98k7eoXK5dancs4DvpLZP7Q8tsW4LX8yQ
+	4iaCwA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fanwe8pcx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 04:23:48 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-381ed6616f7so823736a91.1
+        for <devicetree@vger.kernel.org>; Thu, 09 Jul 2026 21:23:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783657427; x=1784262227; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l9h9Iz/a5W8eF88pzYnVKouzL+ejaGHBujqlpMHXUZ8=;
+        b=FcjDPdxLlFdbdEFTkfJ3QBhY/QSY4moPFC/89alFpdaCmwrPOZm5sVV/+K7GajnJJg
+         OcBpXy/ePiNgKm1GF4fN3QLtWqcvcjbYQR83bNRiQhQfQg7/wfEWYYa4Qa3F8i5gZnl1
+         W+J7K+uAiwLjotLsKeuCeExSOwgEXeRbTuvCzMPtCCJ4tZAZAasRNMEIHGEa6N5sr57V
+         zmfUH27xt5ZW5uSwTe4AjBNGnmg0+xGfwFeoC/rahTN81gakLaNjZFgG+8/fxP4/EMwt
+         eyt2l+ESJLpN4ioNobQ1a5F3lhDazzL2JepPnzodceyykrGmMtpo+TnzL0+3Z1ALBqYs
+         hRKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783657427; x=1784262227;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l9h9Iz/a5W8eF88pzYnVKouzL+ejaGHBujqlpMHXUZ8=;
+        b=FzZ3lIT6Ymqy1y1j46upzeOwmNNSMYhzLXTFgOgTueuqS0s8bMqcBWxDEB42lFVjNb
+         5PYrrBMFjtTdnPLH2i4mr6s8mb/N2wvsU0GOTEv2IAVgd0MjLgah5/pX8dxBqJWv4TDg
+         /Z+n2P+y0wLW7Drm0ahM2AHOe3M3qDdkb7OvXSoFTipDXdfpiD81G+sLYyFi3Y3zYIbC
+         QZfqFPBGjMv/YY/8M8zVr1ZKqaA6tCXY2CUUdLjH/rSy2W+Au7RXN+MAQT3VHJ9frLVb
+         +fpG6te2v1+wGVOpm7VhLpmqocYaFONts9Y4qpbeOHnmSN0KyqcA7b94Zp8gvi8/9lRG
+         4/hQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrKbWvYOjlKQtqjoYhfkY18+oWhk7JggsY5xn4QymbMm0PxFBUizveqkQIZRBZDMfZuQUrnuOBHq8Nr@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkMqKtW1u4neXkZeY894RZNtPsDRg/DoBqgpEQ5EyX9mDJn5Xy
+	tI8UAJst8emNmloshVI1VcQP3kVZqXmvpUZCPA1fg6niUPN/gQCMfGrCqRr8zoa9EuAWSkAs2rU
+	TrFM5eAZBwS1GfOrIraXq8Jh3EkSej2xI8hPbsZNQqlZxbSO1FzgPGTv3ikYwP7Zl
+X-Gm-Gg: AfdE7clVvqIzYUZNStvODBWaCJPF/c1APOknpTBiygbZwq3BKqdDjROQ9KWEnKocNCD
+	Eq5bj3+zdlEL6oo0c7rqcLiw/+a+GTeUwJQA0XwERIwz1Ve96tD4GgCfFI8zvTOrXOYWLM+WHjY
+	P5wHvocWdF8AXnKqBvGY4pJoS6Dygo6YgRsoHqVB0UUOqa+lplPkTnqY+SDtcyKjTNqLbRT0xFb
+	0OD0kETKKXggUbXcaTtWGrCxAtC1x2dxntNV+O/D+OHPJBOglF+H8pdz6THUuPtNjA5ur82+KfR
+	u4r4sPP3QpmeYV9gQuCpgazJZtMbiDPj+t6f4pDwx0mbMOvC1kmP3G5ITZelgh4ZA+FkhdwU0X7
+	uKXlw+uE1E2nwedfLIAggoAbbY13Q6XMonTeCV7f28mI=
+X-Received: by 2002:a17:90b:1fd0:b0:37f:9ce2:348c with SMTP id 98e67ed59e1d1-389434633b8mr10372758a91.29.1783657427317;
+        Thu, 09 Jul 2026 21:23:47 -0700 (PDT)
+X-Received: by 2002:a17:90b:1fd0:b0:37f:9ce2:348c with SMTP id 98e67ed59e1d1-389434633b8mr10372726a91.29.1783657426778;
+        Thu, 09 Jul 2026 21:23:46 -0700 (PDT)
+Received: from [10.206.105.200] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174accae5sm56586238eec.29.2026.07.09.21.23.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 09 Jul 2026 21:23:46 -0700 (PDT)
+Message-ID: <f1c0469c-b20c-b828-43f2-0f46dc76e8bd@oss.qualcomm.com>
+Date: Fri, 10 Jul 2026 09:53:38 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] dt-bindings: sound: add Texas Instruments TAS2557
-To: Gianluca Boiano <morf3089@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        "Jaroslav Kysela" <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>
-CC: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        "Baojun
- Xu" <baojun.xu@ti.com>, <linux-sound@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260709221331.989109-1-morf3089@gmail.com>
- <20260709221331.989109-2-morf3089@gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v7 01/18] media: iris: Add Gen2 firmware autodetect and
+ fallback
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260709-iris-ar50lt-v7-0-76af9dd4d1f6@oss.qualcomm.com>
+ <20260709-iris-ar50lt-v7-1-76af9dd4d1f6@oss.qualcomm.com>
 Content-Language: en-US
-From: "Wang, Sen" <sen@ti.com>
-In-Reply-To: <20260709221331.989109-2-morf3089@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AEB:EE_|CYXPR10MB7898:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4aecf5a8-6d80-46e4-c028-08dede392bff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|7416014|1800799024|376014|82310400026|3023799007|6133799003|4143699003|56012099006|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	r3+hYlN4aX59bhcJBW73EnDpuyUWmRsLF2+1yB6tQgxGvK4zW6nLrIJIsVAwr1bMv2cdsJydlzLQ5bYKf/oSOsnZoSPULcqVijP2jdwDebx7u/DU8KTIvIAopF5+2OF9vvgZ4S9OWMgmJ9AcGUOYsB1RkLWWPcnRLwaiJk+uVRtnwVb934AXz1UtkTw2WdTNf6b1OPGLD4lIB0WjnUNwSd8s2VAC08VRKd+fKKWwqzhlp0iED2sVQR80RT4iSM+ceVpYJdlXd+G8N31MReBxm9KDPjVe2vsPoyxjAYsXjRadat7vMfis9XWc+gV0sinOX2oNnA5MP1Tfej55Mh1l17vJ23w9N8N2TCCxI2l9KXVqh5DmIu3KiQCmcY8voKDkKsdzCex3tCDfBh/45fDnFukn9YL39+4M0KKlb1cLf8x14A9bgyHRVmwOThkvUyIKK0TD1sZ01h9yhFHb24sgYxJchE43Gpg0NBzfa3f/1xxAgtEy7xS/u63sbnBQ3H+Uz6+pslYB6RFeWvyh9+Boapg+B3EDU455nILBhnm/OEP5pKGn04WWsmEffKIWXDNYbc0qlYDrS6rdzD8z+G+UJRHs5mJqzRz4pWF8uiepsz6Tn41AlD9RJTv4HY1+NGE0Kk7W7RaFTzU6xAIs5EM9Nw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(7416014)(1800799024)(376014)(82310400026)(3023799007)(6133799003)(4143699003)(56012099006)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xhfyJdCTwsR7YttLq0Gri/hYzpxFthJc4snoGNENWbRiyxv1F77hsIpsnSg13xKTb9mSMb/hvzBsa486/5sm+xcJt9XT5YDYUuzaJFxyILYS066aPWXx+j6BzJOi4vBtVbLddRymBpHku1WTK4LKmbTQN2EzaawJ8ZbW2+fCBLOuUE+jin3J1Y33X/e8jBthUMYj9j20H7Lw6bmFVoYp1UGEFEe7aGtMzUnAlmprUYlzkoMyuy8X1BVphiwTPKx/quhI+sJbhget7bm0NNmoXpd6vsOvBT1TUBgJtln8d0ZnzBGmqMQa9T2UwP+a5SG7Gz/qs38J736H1uqYaTsW+XfUuN3FSVb4B6ZsqMnoOTG3EW7jvsnrNTpuKclnGmKQ5qKRNNBB2Xzglpvr8Y6LPjWpmSUdyEPRmrdYeIogZkv3TIYi0iFBUDC+sMUJTHjz
-X-Exchange-RoutingPolicyChecked:
-	huOmhPD+3dsjs39ZlBnymwSsyGSXpzzDHZoli48mPGEwo9ZNOPvUgmrdjREy61PI78JbXL4A7Q49iV9dx5TXkF5WM41EUwtmcyF6Mk/nHn4wMI6+rlnpcWSBEh6v/y+Gt1SPzjfHRXEE+BzpFZImFCOD1lR2l/+q1lB13m2GFSWbgsY3TfWtJvxb4NpHZvvXKpB8caKF2bgAHet2HMWljMgb+VfFjz4N9rrhxd/9rcaFonp3yIp95DyneGlQwc/+dcQ76UCcRgqrl9IZPVzpk1uYcxgbyjG2qREH6JjRNwVYLeayNpcINjQWY4rKVWGVj4EZVRqIlEsnwn5o8pwFIg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 04:10:26.4993
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4aecf5a8-6d80-46e4-c028-08dede392bff
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AEB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR10MB7898
-X-Proofpoint-ORIG-GUID: zzRHJvWgBNmmgmswa_hjWVecss3LYgCf
-X-Proofpoint-GUID: zzRHJvWgBNmmgmswa_hjWVecss3LYgCf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDAzNCBTYWx0ZWRfX4SBLmo3LODDe
- U/o5gmlOAv/I6DjpwXvmcuPMWvrCol7CJOA99B3JO0IWHlO6P5nPkfuYPuKqsLc+t4yS+pe0b2C
- I6KZYDo8G4d2UQp6VC1siOV4fH9YJU0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDAzNCBTYWx0ZWRfX0ZDawgyZmkHj
- GAelEruAH7xjA+ajigNfomfzyJW6Bh9Uy+7b+UgRJx0+/eB+Fl91wW74s0LyTe+VV2MyZ9/EEnv
- tN99+xU/JRgVIBP1HnKClkmG9BIagEskOA6xZDL3wQ4oHIqOHTu8Jd+Cbrm0mWjVG9GkeUzQnEE
- wdwTIvbZf71i1JEbPmh6Di44lXGfBPf1/jz1jet34IExEsEqDp4YrPPB1Xn9emLBYiYc3+wVj37
- 4IWUZdJRntQfjfs+PG6FmvekGn+VlvNRMmJFq+uBbBLA9zeQcNfCfO7Ck6OJYlJhVelJAo6p/8r
- w8xug7GVS0cBoLDQLFZ4nGEHgwkk6lrJsO4XoXa+6zZes7jIfUqCugbVCyDp2Nd5Y+UzuiRnO6a
- QLFV5ZSEBUvzF/hSdfjpu3UHsIIBuSr66kYRzIwxcqqKsqLoQj2u4TLlv0IZY9Mc5pAx2U/SnRQ
- tCGszwuUP+I2kG17tZw==
-X-Authority-Analysis: v=2.4 cv=Ovt/DS/t c=1 sm=1 tr=0 ts=6a5070b6 cx=c_pps
- a=IWYRGtMsEs392uQhKf0YYg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=gEfo2CItAAAA:8
- a=sozttTNsAAAA:8 a=pGLkceISAAAA:8 a=mymKJ--Q_5a40qPTBV4A:9 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260709-iris-ar50lt-v7-1-76af9dd4d1f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=LbIMLDfi c=1 sm=1 tr=0 ts=6a5073d4 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=uDXHxCxWII9kAjgowtcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDAzNyBTYWx0ZWRfX3vlrh5/U8htB
+ 7EjvuCO8KsYOqmfgKRgK21hbFgU3HRRU4KEFkZP1Dx1Rj43ljq6127ivWIKvqEHT7rArCy9gdCC
+ LRGQrQZSVOOMOwkZZdij0RPd4XyMMxYXXxuWLRT4YL8ZLYymd0B8IEaXnPloQ0/u5kq3ix75a1m
+ lpJGuXWHq9ElFjY3mf6MuYbTo8hL2OvR7iEwq6imXSDvQT/r5FG06W2s474Pf6OFN+GsPX57wGs
+ A35Owfphvr/Hv702leh27z9jopyYArOmdO2s5mfPHv6JS1Cd5s+pR9e9iLyJfyK0uVSjRBuL9i7
+ PgbPfQWJQX263zThxyfEGr/MgCUBVgv2uCDaFvUXDQd2/S3qTbzaE1v++y7uTbRTTLPrPk8REdh
+ AkzWpv6ybVz+5pb1+8QnyGCdH60KXln0g6L0iYxsHxWT5K3z7uZyEIZeyRqcVFy1bpkS48NgwdC
+ Llx1s7UyD1ciykKnv0Q==
+X-Proofpoint-ORIG-GUID: siuBYq0tWcF_cYdKZdb2tL44MTMhX0kS
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDAzNyBTYWx0ZWRfXzZegrppD6Zgl
+ wph0ZX6SIvrxk4vnIXud/4TamIE2Ck4Myju2d+0Q/ZwoTHlIzxY8d/JatDWgL4oriBN8aaeavkH
+ LF0EiB7uo2CIofSLcLommUrn8XvFsHw=
+X-Proofpoint-GUID: siuBYq0tWcF_cYdKZdb2tL44MTMhX0kS
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-10_01,2026-07-09_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 adultscore=0 spamscore=0
- clxscore=1011 impostorscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100034
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100037
 
-On 7/9/2026 5:13 PM, Gianluca Boiano wrote:
-> Document the TAS2557 mono Class-D smart amplifier with an integrated
-> DSP for speaker protection. The device is controlled over I2C and
-> receives audio over I2S/TDM (ASI). It can drive a single mono speaker
-> or, as two devices, a stereo pair; in that case the ti,channel
-> property selects the audio slot each device reproduces and the
-> per-device tuning it applies.
-> 
-> The on-chip DSP boots from a firmware image generated per speaker
-> design with the TI PurePath Console tuning tools; the optional
-> firmware-name property selects a board-specific image.
-> 
-> Signed-off-by: Gianluca Boiano <morf3089@gmail.com>
 
-Hi Gianluca, thanks for the patch.
-
+On 7/9/2026 7:11 PM, Dmitry Baryshkov wrote:
+> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+>
+> Some Iris platforms support both Gen1 and Gen2 HFI firmware images.
+> Update the firmware loading logic to handle this generically by
+> preferring Gen2 when available, while safely falling back to Gen1
+> when required.
+>
+> The firmware loading logic is updated with the following priority:
+> 1. Device Tree (`firmware-name`): If specified, load unconditionally.
+> 2. Gen2 default : If no DT override exists, select the Gen2 firmware
+>    descriptor when present and attempt to load the corresponding
+>    firmware image.
+> 3. Gen1 Fallback: If loading the Gen2 firmware fails and a Gen1
+>    descriptor is available, retry with the Gen1 firmware image.
+>
+> When a platform provides both Gen1 and Gen2 firmware descriptors and the
+> firmware is loaded via a DT override, the driver detects the
+> firmware generation at runtime before authentication by inspecting
+> the firmware data. The firmware is classified as Gen2 if the
+> QC_IMAGE_VERSION_STRING starts with "vfw" or matches the
+> "video-firmware.N.M" format with N >= 2.
+>
+> If a Gen1 firmware image is detected in this case, the driver switches
+> to the Gen1 firmware descriptor and associated platform data so that
+> the correct HFI implementation is used.
+>
+> This change makes firmware generation detection platform‑agnostic,
+> preserves DT overrides, prefers newer Gen2 firmware when available,
+> and maintains compatibility with platforms that only support Gen1.
+>
+> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> Co-developed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   .../devicetree/bindings/sound/ti,tas2557.yaml | 123 ++++++++++++++++++
->   MAINTAINERS                                   |   1 +
->   2 files changed, 124 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2557.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/ti,tas2557.yaml b/Documentation/devicetree/bindings/sound/ti,tas2557.yaml
-> new file mode 100644
-> index 000000000000..b1d1183c4a79
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/ti,tas2557.yaml
-> @@ -0,0 +1,123 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2026 Gianluca Boiano <morf3089@gmail.com>
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/ti,tas2557.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>  drivers/media/platform/qcom/iris/iris_core.c       |   2 +
+>  drivers/media/platform/qcom/iris/iris_firmware.c   | 146 ++++++++++++++++++---
+>  .../platform/qcom/iris/iris_platform_common.h      |   6 +-
+>  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  11 +-
+>  .../media/platform/qcom/iris/iris_platform_vpu3x.c |  10 +-
+>  drivers/media/platform/qcom/iris/iris_probe.c      |   4 -
+>  drivers/media/platform/qcom/iris/iris_vidc.c       |   1 +
+>  7 files changed, 147 insertions(+), 33 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
+> index 52bf56e517f9..6dbe18be5b49 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.c
+> +++ b/drivers/media/platform/qcom/iris/iris_core.c
+> @@ -6,6 +6,7 @@
+>  #include <linux/pm_runtime.h>
+>  
+>  #include "iris_core.h"
+> +#include "iris_ctrls.h"
+>  #include "iris_firmware.h"
+>  #include "iris_state.h"
+>  #include "iris_vpu_common.h"
+> @@ -79,6 +80,7 @@ int iris_core_init(struct iris_core *core)
+>  		goto error_unload_fw;
+>  
+>  	core->iris_firmware_data->init_hfi_ops(core);
+> +	iris_session_init_caps(core);
+>  
+>  	ret = iris_hfi_core_init(core);
+>  	if (ret)
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+> index 1a476146d758..a3aa41aa1e66 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -16,20 +16,138 @@
+>  
+>  #define MAX_FIRMWARE_NAME_SIZE	128
+>  
+> -static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+> +/* Detect Gen2 firmware by scanning the blob for:
+> + *   QC_IMAGE_VERSION_STRING=<version>
+> + * and then checking:
+> + *   - version starts with "vfw", OR
+> + *   - version matches "video-firmware.N.M" with N >= 2
+> + */
 > +
-> +title: Texas Instruments TAS2557 Mono Smart Amplifier
+> +static bool iris_detect_gen2_from_fwdata(const u8 *data, size_t size)
+> +{
+> +	static const char *marker = "QC_IMAGE_VERSION_STRING=";
+> +	const size_t mlen = strlen(marker);
+> +	static const char *vfw = "vfw";
+> +	const size_t vfwlen = strlen(vfw);
+> +	static const char *vf = "video-firmware.";
+> +	const size_t vflen = strlen(vf);
 > +
-> +maintainers:
-> +  - Gianluca Boiano <morf3089@gmail.com>
+> +	for (size_t i = 0; i + mlen < size; i++) {
+> +		const char *found;
 > +
-> +description: |
-> +  The TAS2557 is a mono, digital-input Class-D amplifier with an
-> +  integrated DSP for speaker protection. Audio is carried over I2S/TDM
-> +  (ASI). The on-chip DSP boots from a firmware image that is generated
-> +  for a specific speaker design using the TI PurePath Console tuning
-> +  tools.
+> +		if (memcmp(data + i, marker, mlen))
+> +			continue;
 > +
-> +  Stereo playback is built from two devices, each reproducing one audio
-> +  slot selected through the ti,channel property and applying the
-> +  matching per-device tuning contained in a stereo-tuned firmware
-> +  image.
+> +		found = data + i + mlen;
+> +		size -= i + mlen;
 > +
-> +  Datasheet: https://www.ti.com/lit/gpn/tas2557
+> +		/* vfw => Gen2 */
+> +		if (size > vfwlen && !memcmp(found, vfw, vfwlen))
+> +			return true;
 > +
-> +allOf:
-> +  - $ref: dai-common.yaml#
+> +		if (size < vflen ||
+> +		    memcmp(found, vf, vflen))
+> +			return false;
 > +
-> +properties:
-> +  compatible:
-> +    const: ti,tas2557
+> +		found += vflen;
+> +		size -= vflen;
 > +
-> +  reg:
-> +    maxItems: 1
+> +		/*
+> +		 * video-firmware.1.x is Gen1.
+> +		 * video-firmware.2.x and video-firmware.10.x are Gen2.
+> +		 */
+> +		return size >= 2 &&
+> +			(*found >= '2' || (*found == '1' && found[1] != '.'));
+> +	}
 > +
-> +  '#sound-dai-cells':
-> +    const: 0
+> +	return false;
+> +}
 > +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: GPIO connected to the active-low RESET pin.
+> +static const struct firmware *iris_detect_firmware(struct iris_core *core,
+> +						   const char **fw_name)
+> +{
+> +	const struct iris_firmware_desc *desc;
+> +	const struct firmware *firmware;
+> +	bool has_both_gens;
+> +	int ret;
 > +
-> +  interrupts:
-> +    maxItems: 1
-> +    description: Fault interrupt output (INT).
+> +	*fw_name = NULL;
+> +	ret = of_property_read_string_index(dev_of_node(core->dev), "firmware-name", 0, fw_name);
 > +
-> +  vbat-supply:
-> +    description: Battery/boost input supply (VBAT), 2.9 V to 5.5 V.
+> +	/*
+> +	 * A platform may support both Gen1 and Gen2 firmware; which one is used
+> +	 * depends on the firmware image installed on the system, not on the
+> +	 * hardware. That installed image does not change while the device is
+> +	 * bound, so detect the generation only once and reuse the chosen
+> +	 * descriptor on later core bring-ups (e.g. after a system error
+> +	 * recovery). Besides avoiding the redundant probing, this ensures
+> +	 * core->iris_firmware_desc and iris_firmware_data are published exactly
+> +	 * once, before any session exists, so the lockless readers in the ioctl
+> +	 * paths never observe a reassignment.
+> +	 */
+> +	if (core->iris_firmware_desc) {
+> +		if (ret)
+> +			*fw_name = core->iris_firmware_desc->fwname;
+> +		ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		return ret ? ERR_PTR(ret) : firmware;
+> +	}
 > +
-> +  iovdd-supply:
-> +    description: Digital I/O supply, 1.62 V to 3.6 V.
+> +	has_both_gens = core->iris_platform_data->firmware_desc_gen2 &&
+> +		core->iris_platform_data->firmware_desc_gen1;
 > +
-> +  avdd-supply:
-> +    description: Analog supply, 1.65 V to 1.95 V.
+> +	if (core->iris_platform_data->firmware_desc_gen2)
+> +		desc = core->iris_platform_data->firmware_desc_gen2;
+> +	else if (core->iris_platform_data->firmware_desc_gen1)
+> +		desc = core->iris_platform_data->firmware_desc_gen1;
+> +	else
+> +		return ERR_PTR(-EINVAL);
 > +
-> +  dvdd-supply:
-> +    description: Digital core supply, 1.65 V to 1.95 V.
+> +	if (ret) {
+> +		/* No firmware-name in DT: select by probing Gen2 then Gen1. */
+> +		*fw_name = desc->fwname;
+> +		if (has_both_gens)
+> +			ret = firmware_request_nowarn(&firmware, *fw_name, core->dev);
+> +		else
+> +			ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		if (ret && has_both_gens) {
+> +			desc = core->iris_platform_data->firmware_desc_gen1;
+> +			*fw_name = desc->fwname;
+> +			ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		}
+> +		if (ret)
+> +			return ERR_PTR(ret);
+> +	} else {
+> +		/* firmware-name given: load it and detect its generation. */
+> +		ret = request_firmware(&firmware, *fw_name, core->dev);
+> +		if (ret)
+> +			return ERR_PTR(ret);
 > +
-> +  ti,imon-slot-no:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: TDM TX time slot for current-sense data.
-> +    default: 0
-> +    minimum: 0
-> +    maximum: 7
+> +		if (has_both_gens &&
+> +		    !iris_detect_gen2_from_fwdata((const u8 *)firmware->data, firmware->size)) {
+> +			dev_info(core->dev, "Gen1 FW detected in %s\n", *fw_name);
+> +			desc = core->iris_platform_data->firmware_desc_gen1;
+> +		}
+> +	}
 > +
-> +  ti,vmon-slot-no:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: TDM TX time slot for voltage-sense data.
-> +    default: 2
-> +    minimum: 0
-> +    maximum: 7
+> +	/* Publish iris_firmware_data first, then iris_firmware_desc (the guard). */
+> +	core->iris_firmware_data = desc->firmware_data;
+> +	core->iris_firmware_desc = desc;
 > +
-> +  ti,channel:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Audio slot of the stereo stream reproduced by this device (0 =
-> +      left, 1 = right). With stereo firmware this also selects which
-> +      per-device tuning set is applied.
-> +    enum: [0, 1]
-> +    default: 0
+> +	return firmware;
+> +}
 > +
-> +  firmware-name:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: |
-> +      Name of the DSP firmware image to load. Defaults to a name
-> +      derived from the silicon revision. Stereo systems typically use
-> +      a stereo-tuned image shared by both devices.
+> +static int iris_load_fw_to_memory(struct iris_core *core)
+>  {
+>  	const struct firmware *firmware = NULL;
+>  	struct device *dev = core->dev;
+>  	struct resource res;
+>  	phys_addr_t mem_phys;
+> +	const char *fw_name;
+>  	size_t res_size;
+>  	ssize_t fw_size;
+>  	void *mem_virt;
+>  	int ret;
+>  
+> -	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
+> -		return -EINVAL;
+> -
+>  	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
+>  	if (ret)
+>  		return ret;
+> @@ -37,9 +155,9 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>  	mem_phys = res.start;
+>  	res_size = resource_size(&res);
+>  
+> -	ret = request_firmware(&firmware, fw_name, dev);
+> -	if (ret)
+> -		return ret;
+> +	firmware = iris_detect_firmware(core, &fw_name);
+> +	if (IS_ERR(firmware))
+> +		return PTR_ERR(firmware);
+>  
+>  	fw_size = qcom_mdt_get_size(firmware);
+>  	if (fw_size < 0 || res_size < (size_t)fw_size) {
+> @@ -66,18 +184,12 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>  int iris_fw_load(struct iris_core *core)
+>  {
+>  	const struct tz_cp_config *cp_config;
+> -	const char *fwpath = NULL;
+>  	int i, ret;
+>  
+> -	ret = of_property_read_string_index(core->dev->of_node, "firmware-name", 0,
+> -					    &fwpath);
+> -	if (ret)
+> -		fwpath = core->iris_firmware_desc->fwname;
+> -
+> -	ret = iris_load_fw_to_memory(core, fwpath);
+> +	ret = iris_load_fw_to_memory(core);
+>  	if (ret) {
+> -		dev_err(core->dev, "firmware download failed\n");
+> -		return -ENOMEM;
+> +		dev_err(core->dev, "firmware download failed %d\n", ret);
+> +		return ret;
+>  	}
+>  
+>  	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
+> @@ -99,7 +211,7 @@ int iris_fw_load(struct iris_core *core)
+>  		}
+>  	}
+>  
+> -	return ret;
+> +	return 0;
+>  }
+>  
+>  int iris_fw_unload(struct iris_core *core)
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index c9256f2323dc..55a4fa356985 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -289,11 +289,7 @@ struct iris_firmware_desc {
+>  };
+>  
+>  struct iris_platform_data {
+> -	/*
+> -	 * XXX: replace with gen1 / gen2 pointers once we have platforms
+> -	 * supporting both firmware kinds.
+> -	 */
+> -	const struct iris_firmware_desc *firmware_desc;
+> +	const struct iris_firmware_desc *firmware_desc_gen1, *firmware_desc_gen2;
+>  
+>  	const struct vpu_ops *vpu_ops;
+>  	const struct icc_info *icc_tbl;
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> index 6e06a32822bb..961dce2e6aa9 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> @@ -22,6 +22,12 @@ static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc = {
+>  	.fwname = "qcom/vpu/vpu20_p1.mbn",
+>  };
+>  
+> +static const struct iris_firmware_desc iris_vpu20_p1_gen2_s6_desc = {
+> +	.firmware_data = &iris_hfi_gen2_data,
+> +	.get_vpu_buffer_size = iris_vpu33_buf_size,
+> +	.fwname = "qcom/vpu/vpu20_p1_gen2_s6.mbn",
+> +};
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - '#sound-dai-cells'
+>  static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
+>  	.firmware_data = &iris_hfi_gen1_data,
+>  	.get_vpu_buffer_size = iris_vpu_buf_size,
+> @@ -65,7 +71,8 @@ static const struct tz_cp_config tz_cp_config_vpu2[] = {
+>  };
+>  
+>  const struct iris_platform_data sc7280_data = {
+> -	.firmware_desc = &iris_vpu20_p1_gen1_desc,
+> +	.firmware_desc_gen1 = &iris_vpu20_p1_gen1_desc,
+> +	.firmware_desc_gen2 = &iris_vpu20_p1_gen2_s6_desc,
+>  	.vpu_ops = &iris_vpu2_ops,
+>  	.icc_tbl = iris_icc_info_vpu2,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+> @@ -94,7 +101,7 @@ const struct iris_platform_data sc7280_data = {
+>  };
+>  
+>  const struct iris_platform_data sm8250_data = {
+> -	.firmware_desc = &iris_vpu20_p4_gen1_desc,
+> +	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
+>  	.vpu_ops = &iris_vpu2_ops,
+>  	.icc_tbl = iris_icc_info_vpu2,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> index 2c63adbc5579..74626b35d9cb 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> @@ -90,7 +90,7 @@ static const struct tz_cp_config tz_cp_config_vpu3[] = {
+>   * - inst_caps to platform_inst_cap_qcs8300
+>   */
+>  const struct iris_platform_data qcs8300_data = {
+> -	.firmware_desc = &iris_vpu30_p4_s6_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu30_p4_s6_gen2_desc,
+>  	.vpu_ops = &iris_vpu3_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -119,7 +119,7 @@ const struct iris_platform_data qcs8300_data = {
+>  };
+>  
+>  const struct iris_platform_data sm8550_data = {
+> -	.firmware_desc = &iris_vpu30_p4_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu30_p4_gen2_desc,
+>  	.vpu_ops = &iris_vpu3_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -154,7 +154,7 @@ const struct iris_platform_data sm8550_data = {
+>   * - controller_rst_tbl to sm8650_controller_reset_table
+>   */
+>  const struct iris_platform_data sm8650_data = {
+> -	.firmware_desc = &iris_vpu33_p4_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu33_p4_gen2_desc,
+>  	.vpu_ops = &iris_vpu33_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -185,7 +185,7 @@ const struct iris_platform_data sm8650_data = {
+>  };
+>  
+>  const struct iris_platform_data sm8750_data = {
+> -	.firmware_desc = &iris_vpu35_p4_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu35_p4_gen2_desc,
+>  	.vpu_ops = &iris_vpu35_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -220,7 +220,7 @@ const struct iris_platform_data sm8750_data = {
+>   * - different num_vpp_pipe
+>   */
+>  const struct iris_platform_data x1p42100_data = {
+> -	.firmware_desc = &iris_vpu30_p1_gen2_desc,
+> +	.firmware_desc_gen2 = &iris_vpu30_p1_gen2_desc,
+>  	.vpu_ops = &iris_vpu3_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index c2dcb50a2782..7fe31136df21 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -251,8 +251,6 @@ static int iris_probe(struct platform_device *pdev)
+>  		return core->irq;
+>  
+>  	core->iris_platform_data = of_device_get_match_data(core->dev);
+> -	core->iris_firmware_desc = core->iris_platform_data->firmware_desc;
+> -	core->iris_firmware_data = core->iris_firmware_desc->firmware_data;
+>  
+>  	core->ubwc_cfg = qcom_ubwc_config_get_data();
+>  	if (IS_ERR(core->ubwc_cfg))
+> @@ -271,8 +269,6 @@ static int iris_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	iris_session_init_caps(core);
+> -
+>  	ret = v4l2_device_register(dev, &core->v4l2_dev);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+> index 14d63dc76c9b..33edbc5cab8f 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+> @@ -9,6 +9,7 @@
+>  #include <media/v4l2-mem2mem.h>
+>  #include <media/videobuf2-dma-contig.h>
+>  
+> +#include "iris_ctrls.h"
+>  #include "iris_vidc.h"
+>  #include "iris_instance.h"
+>  #include "iris_vdec.h"
 
-+	ret = devm_regulator_bulk_get_enable(dev, 	ARRAY_SIZE(tas2557_supplies),
-+					     tas2557_supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to get/enable supplies\n");
-
-Looks like all supplies listed above is mandatory in the driver, please 
-make sure you list them here in the required as well.
-
-Best,
-Sen Wang
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
