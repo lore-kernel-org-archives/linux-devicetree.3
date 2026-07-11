@@ -1,80 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D0023E342;
-	Sat, 11 Jul 2026 19:35:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D10C523E342;
+	Sat, 11 Jul 2026 19:42:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783798539; cv=none; b=odJNirPLBUAg/u5hvSKMgEScuNanClkurTPHPqjc+DmJPgw0alQWX/p+TTkX8ol0ukUO9RrIgY3gsA8AEZ76UQjMzf00P0DFEpBsRTb+Ca4ww1lC0QYpZYbB1nWJ1DeGiktujG5FtecEk94nBh5TkBsH7b5RyNqkAMUg06tut1k=
+	t=1783798923; cv=none; b=rKOO33sa1P3k1NP1u1nNzd1R6sS8wd7F8IWVuqm+xWdhH/JktL+hwWBLWqYvDKK6jiga/3tO6+EpLIKqE1vkI5e3KEUVzs1XbtAOM2exbGV7Kgc1bdI2jbQdEJPFvCDDP0ARPP3r87JNJQvnQOoecmPuf9cmOsc17/Kn3ilxCxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783798539; c=relaxed/simple;
-	bh=2OV8TB8g2+oN/5mLaW9hd8Ozk0CrOkzDs9x8O7zuUOs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u41OiQouNqlExYk5RTtjdDnVBKXdO4nVVFfDzp2WOOkzcI9YdaGG+RijQObs4rABpLb4cJG7SLh3dpdPKAjZrvU/U2Zs22osfyd6fWw/HdvHjh6DdJtmCB+fpk8K2h5WmG+ehNhc9VCl2pqK8Y+f9OluORmRQBzjVg+keBat8MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5Hzvgcw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783798923; c=relaxed/simple;
+	bh=5FrZAplXQGM4oZiVrQ30pqsmSa4NcA93A0NvdHzbBZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gsd0Dn3zQrnrO3kTloZVPLym5G56j0RKGiv5qSiwLH+yc+QcZhLhtGPgFxCby3zrt7FWQAiJ4rIZL3o8PsvxxqBnGwRpNgER2EHqGdcJHdiUTIDmb9ZKvuwuyNvpoKCWI4Co7p7IKiwqjxlJ0l9xrDdqFCw/Rxx4556iHzGeUJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WtrKFXyc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5Hzvgcw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0971A1F000E9;
-	Sat, 11 Jul 2026 19:35:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WtrKFXyc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30FF1F000E9;
+	Sat, 11 Jul 2026 19:42:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783798538;
-	bh=1orBI4Ww2rbzPjR4SRblEH+KTqshWA/0dZfgnAYA22Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V5HzvgcwkozwpUDeK9HQLzmlKZlEhqvwb0ytp4t4bTnRxiQ9nPnglMHijG4K8eL0I
-	 mqzVAgFCO4FtWOufFjdFNPNHZSKTEQtKAGdE+I89wlepjkQE6wyE77GT9wr0Qz27i5
-	 iB636J4JQxQ6ZlpLtGyen7jG9fgJDunZAF58y/HG/11yLSSVG9ZnJCI+jBOdnCT8qf
-	 /UkICRYwader8n2FQMOm1+cHon1Q7OL6zOtj7OVwGKVdjJV+za/JTn0BMYitYpL7IM
-	 T+Hsf6iOdAp9zNSjLQsGoT/VnCnodLwYaHa7ALDhKF1n8O5mq3XHiXd0Iwkhbs/liz
-	 IRGyfl/83xAIg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] arm64: dts: rockchip: Add LincStation E1
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Samuel Holland" <samuel@sholland.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-leds@vger.kernel.org, lee@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260711192842.845048-5-samuel@sholland.org>
-References: <20260711192842.845048-1-samuel@sholland.org>
- <20260711192842.845048-5-samuel@sholland.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 19:35:37 +0000
-Message-Id: <20260711193538.0971A1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783798921;
+	bh=Sm5ZTDa73Hao2D2pFku+zRQxRO5Zct8747XqElzDyX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WtrKFXycHVFBFQ1Nk+D5WCfFSLl965T3DYtnr7hVNaBhJcsjS1L+oj1KdDGZ1oyk+
+	 UrZqEs4NAUzt0Fy7/X4ArMPQ5/gZvxIJ3emWMXErI5EnJMnU0e86qvU/9BnOSlWbB0
+	 weRU7Rsu3segxdKRoIsU1siDq5g79ASntKIfsuLt2yyFKluFXVYcxV0P4Zwb9x163X
+	 xA3dEk45/PCcvegJzssG4wNySFlUAQKLrdiaFwpzrmO6X4+FaeezZmOi26MXYIUKnn
+	 kWjDI33eF52Tk6BgMQKlfphHTbcPPzin0tiPrSe6njVTdyfKdmqZCSs535l1VWuCGw
+	 1HjNKfSr8M4tQ==
+Date: Sat, 11 Jul 2026 14:41:58 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC support
+Message-ID: <alKYqD6yp97DV6R-@baldur>
+References: <20260614-adc5_gen3_dt-v2-0-32ec576c5865@oss.qualcomm.com>
+ <20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com>
 
-> LincStation E1 is an entry-level NAS device powered by the RK3568B2 SoC
-> with two 3.5" HDD slots (behind a SATA port multiplier) and two m.2 2280
-> slots for SSDs (each PCIe 3.0 x1). Other major features include:
->  - 4 GiB DRAM / 64 GB eMMC
->  - RTL8125 2.5 Gb Ethernet
->  - Fn-Link 6222B-SRC Wi-Fi 5 / Bluetooth module
->  - 1 USB 5 Gbps + 2 USB high speed ports
->  - HDMI output
->=20
-> Each HDD slot provides a GPIO input for disk presence detection and an
-> output for power control. Since the disks are behind a port multiplier,
-> there is no way to describe them in the devicetree, so the disk power
-> is enabled at all times by GPIO hogs, and the detection inputs are used
-> only as LED triggers.
->=20
-> The board contains several pairs of amber/white LEDs for power, disk,
-> m.2 slot, and network status. These are configured to use triggers when
-> possible. The PWM fan uses a relatively aggressive fan curve to keep
-> the hard disks within a safe temperature range. It may benefit from
-> further tuning.
->=20
-> The pinhole reset button is multiplexed between the SoC reset pin and
-> an ADC input. The mux is configured here to drive the SoC reset pin, as
-> this works reliably without polling by software. The adc-keys
-> description is included for use by a devicetree overlay if desired.
->=20
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
+On Sun, Jun 14, 2026 at 01:35:11PM +0530, Jishnu Prakash wrote:
+> From: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
+> 
+> Add ADC node and define channels for:
+> - Die temperature for PMK8550, PM8550VE* and PMC8380* PMICs.
+> - PM8550: Die temperature, VPH power, and system thermistors.
+> 
+> Define thermal zones 'sys-0-thermal' through 'sys-6-thermal' which
+> correspond to the off-PMIC system thermistors connected via
+> PM8550 AMUX/GPIO lines.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+These are connected to thermistors on the PCB, which would make them
+board-specific. In fact, you specify all 7 thermal-zones, but at least 2
+of those are not connected on my board according to the schematics.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711192842.8450=
-48-1-samuel@sholland.org?part=3D4
+So, I think the thermal-zones definitions should be deferred to
+board-specific dts.
 
+> 
+> Also,add io-channels and io-channel-names properties to the
+> temp_alarm nodes so that they can get temperature reading
+> from the ADC die_temp channels.
+> 
+> Signed-off-by: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
+> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi | 250 ++++++++++++++++++++++++++++++
+>  1 file changed, 250 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
+> index 6a31a0adf8be..2e746ede850f 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
+> @@ -6,7 +6,9 @@
+>  #include <dt-bindings/input/input.h>
+>  #include <dt-bindings/input/linux-event-codes.h>
+>  #include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/spmi/spmi.h>
+> +#include "qcom-adc5-gen3.h"
+>  
+>  / {
+>  	thermal-zones {
+> @@ -189,6 +191,90 @@ trip1 {
+>  				};
+>  			};
+>  		};
+> +
+> +		sys-0-thermal {
+> +			polling-delay-passive = <0>;
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+
+As I said above, this doesn't match my board.
+
+> +			trips {
+> +				active-config0 {
+> +					temperature = <125000>;
+> +					hysteresis = <1000>;
+> +					type = "passive";
+> +				};
+> +			};
+> +		};
+> +
+> +		sys-1-thermal {
+> +			polling-delay-passive = <0>;
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> +			trips {
+> +				active-config0 {
+> +					temperature = <125000>;
+> +					hysteresis = <1000>;
+> +					type = "passive";
+> +				};
+> +			};
+> +		};
+> +
+> +		sys-2-thermal {
+
+This provides the temperature of my keyboard, so I'd certainly want to
+override the properties within - and perhaps use this for throttling
+things.
+
+> +			polling-delay-passive = <0>;
+> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+> +			trips {
+> +				active-config0 {
+> +					temperature = <125000>;
+> +					hysteresis = <1000>;
+> +					type = "passive";
+> +				};
+> +			};
+> +		};
+> +
+[..]
+> @@ -277,6 +363,142 @@ pmk8550_pwm: pwm {
+>  
+>  			status = "disabled";
+>  		};
+> +
+> +		pmk8550_vadc: adc@9000 {
+[..]
+> +			channel@14a {
+> +				reg = <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
+
+I guess per my own argument, you don't know that this channel has a 100K
+resistor...
+
+But that said, people have waited forever for this to be ready to allow
+thermal throttling of overheating laptops. So please just drop the
+thermal-zones, address Konrad's other comment and resubmit this.
+
+Regards,
+Bjorn
