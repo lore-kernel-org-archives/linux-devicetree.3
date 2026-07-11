@@ -1,32 +1,32 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9DB3242BE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CCA3264F9;
 	Sat, 11 Jul 2026 21:01:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783803720; cv=none; b=ZRk/U8d+YAeECkCIgT8BjglfFxFE3AWuN23U8LFK1QE4tdVaDQ0YxSGLBs2j2oR+Y8MPsSC1e2hYrGw8lwmJLJTZRtUU/FjU012UWT4goZ9CXpK8nhELw23d1iIT1E5sSY9IOtNEk16znWyANSa9tCLJ81YZEHKcxhyJZi+mLl8=
+	t=1783803723; cv=none; b=NyTpGroQORBPuAdN4YoWoMc9bcNWtINBvY9PwB/brKAOWYJDOco38xtUo6PTRoVloQYTYV3HiRJmwiUtvnP6Dd71msabHD5rpxqOq/RNyAB9EP9CEkTGCqMC7K/FUPLctmpa266CAmi/AImv6Uq5BjjmeggSsI15A8Erm08JMxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783803720; c=relaxed/simple;
-	bh=s0dEhrOCQrtcXpiGq1CCSSLYUMnExIP36w9JRaVSwEM=;
+	s=arc-20240116; t=1783803723; c=relaxed/simple;
+	bh=fiGGP7+boZ5fNArVDsQpxEAyNpeG7J8n7rk6dbd2UU8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mRGpZJaFGKfNs4iraqigyXiDycKZrSgLTSX90OsVJ6LbN7LHehxUH47ln/r6K8bkvlyOTGnH20mdbrjn64Ff4Ha9RL5KHwqQn6qfGfL2fQLnjYCa1rpv25Bt3brODZV3U3sGNQC9+YcwuPVFb0lRT5KlEW56oTYfN5TjmngiO+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Nmt32673; arc=none smtp.client-ip=178.251.229.89
+	 MIME-Version; b=pLWTZt6EgfkD7DqHk70eXpfrag4Iqbjb5JzbqlBkyIukTCeuu/5yU+eD8YsrR43oTZRg/lDiYR6YGFasozi+eDQZ+5pdNVOcVSrIu/e3QSFgR60U7K1d8FLCVUFYC9tusOMmURMbqMF56nYgxuN20OrizFprNYHyWw1tnvmU+ZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=RdIv06CH; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Nmt32673"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E2117119846;
-	Sat, 11 Jul 2026 23:01:49 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="RdIv06CH"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD60C11984A;
+	Sat, 11 Jul 2026 23:01:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1783803710; h=from:subject:date:message-id:to:cc:mime-version:
+	s=dkim; t=1783803712; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=YxKx3is/yCeVSwU3UhNrLTwlQPWlNmb1dz/uD0wRxXw=;
-	b=Nmt32673ywguMRBqEVI498ph9uGH3f01nXTPRFB2E2pb5njYXYCnLc6sJKfdMPjDPlNTJC
-	W+kKpPEBZnDeZ2E9GIkCv2E88lfg7dVZ3dnzhNnhBeRdsOPB7/ZRd/GAWvf+nDpAWrcP1V
-	8EZfuabofjtadEeGIbzkuLq2skXrU3m4Yj1QIDYBlDuQDQXTZaMPPFqBujk5jn6XbC27SI
-	WHi1P6/rQoyUbyqBWYzqpEa+a81U8tMNo72GV1LUAehYirKUYuEnZFuer2DruNxujBZe/r
-	CaGw04XUOVA6Kecw3u/JdWKfskErUQtjPp7vL4ygxSlYtDTLpCLCXN3rAMh0MA==
+	bh=t0igColYo8lf+okIQ7LIWkFdSL6QQu6yk+YXD+uc4qQ=;
+	b=RdIv06CHjXkGHg4lVtdHGd5P8wnNDCQNQba4sFYO5e/XXVW8O90bcJup672QCDCHUf+okz
+	qULDII9zXOPSHtSr3wDsDqKeAyHTjHHQ5uzTmksq9KEOye3IujAebG0CRYj6Y1y+5Qx779
+	kv96adXO+pg1q1Ho4vLzRCmhGVHW2Hqo9zvuznTnhMoSzL+812Q8ndYsSqXHxPvwR16EXD
+	S6EzENnzBLiQSmc3gWVVYM6o00KzOFyr0EFWUoijAz2PFzgL9dlWQlH06s0xn2hqz/P+pq
+	CPzQNsDnAkzi7K3u318VAuXkLAgN9oTLM8lRy0EHxSFYAT0DNcUf2wyr/j3HPg==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Marek Vasut <marex@nabladev.com>,
@@ -41,9 +41,9 @@ Cc: Marek Vasut <marex@nabladev.com>,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH 04/10] arm64: dts: st: Fix SDMMC1 indent on stm32mp251
-Date: Sat, 11 Jul 2026 22:59:33 +0200
-Message-ID: <20260711210131.236025-5-marex@nabladev.com>
+Subject: [PATCH 06/10] arm64: dts: st: Add SDMMC2 and SDMMC3 nodes on stm32mp251
+Date: Sat, 11 Jul 2026 22:59:35 +0200
+Message-ID: <20260711210131.236025-7-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260711210131.236025-1-marex@nabladev.com>
 References: <20260711210131.236025-1-marex@nabladev.com>
@@ -56,7 +56,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Drop bogus space. No functional change.
+Add DT nodes for the remaining SDMMC controllers 2 and 3.
 
 Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
@@ -73,22 +73,50 @@ Cc: linux-gpio@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 ---
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 30 ++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 9c63fdb5a885a..66f3f83b8731f 100644
+index 66f3f83b8731f..6e985f115b195 100644
 --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
 +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1657,7 +1657,7 @@ sdmmc1: mmc@48220000 {
- 				arm,primecell-periphid = <0x00353180>;
- 				reg = <0x48220000 0x400>, <0x44230400 0x8>;
- 				interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&rcc CK_KER_SDMMC1 >;
-+				clocks = <&rcc CK_KER_SDMMC1>;
- 				clock-names = "apb_pclk";
- 				resets = <&rcc SDMMC1_R>;
- 				cap-sd-highspeed;
+@@ -1667,6 +1667,36 @@ sdmmc1: mmc@48220000 {
+ 				status = "disabled";
+ 			};
+ 
++			sdmmc2: mmc@48230000 {
++				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
++				arm,primecell-periphid = <0x00353180>;
++				reg = <0x48230000 0x400>, <0x44230800 0x8>;
++				interrupts = <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&rcc CK_KER_SDMMC2>;
++				clock-names = "apb_pclk";
++				resets = <&rcc SDMMC2_R>;
++				cap-sd-highspeed;
++				cap-mmc-highspeed;
++				max-frequency = <166000000>;
++				access-controllers = <&rifsc 77>;
++				status = "disabled";
++			};
++
++			sdmmc3: mmc@48240000 {
++				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
++				arm,primecell-periphid = <0x00353180>;
++				reg = <0x48240000 0x400>, <0x44230c00 0x8>;
++				interrupts = <GIC_SPI 214 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&rcc CK_KER_SDMMC3>;
++				clock-names = "apb_pclk";
++				resets = <&rcc SDMMC3_R>;
++				cap-sd-highspeed;
++				cap-mmc-highspeed;
++				max-frequency = <166000000>;
++				access-controllers = <&rifsc 78>;
++				status = "disabled";
++			};
++
+ 			ethernet1: ethernet@482c0000 {
+ 				compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
+ 				reg = <0x482c0000 0x4000>;
 -- 
 2.53.0
 
