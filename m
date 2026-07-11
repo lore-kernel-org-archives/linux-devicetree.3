@@ -1,168 +1,241 @@
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AED2D5A19
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 15:09:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E27D2DB78C
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 15:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783782597; cv=none; b=lJC0yMmYVEnRBgjjBeOtk+T5ubHFytAggxKtF0WDKp16LgX9WIA41YzWPbC0J9Lumwck07CvnXfzrXeGClIlpuwnVosOD2kwIp6lVQ7ZAeyiAM7cSmD+v8LmdF85ZuD0mA7PC/gVXtqYu3LhCgkInNjEZaP/SjLIhI/X/yyS1JA=
+	t=1783782604; cv=none; b=uDt9eIFWE4xnEhAfYrFTlZji251bQHALm8d26Ck8WnOz4Lg/l973gjjryhtzTKQncOSJNo0uXC/I/MSj57RyJyyqzJbtC94ap4DroH3jMC6vb16SAcQ7L4JEoIrMo1+u88KMYLGrCTcvCe/JwEug4i34SsdwHw+fAI/ruifg4NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783782597; c=relaxed/simple;
-	bh=u656KmwHS2NuwcwmZgMH2DXucDEuVNMw+znBt3qpx2Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u4Rg/d6w5XdX19bWrsb0Jg16IMhDkcoqqCq9dPpjrWnInxPiK1gXyWBBnGxIe1GIABmopC1EsRDf2dbllfIIzpUsbMGx+TmYPze0jCe2F/0MtH2dHjH8rkbw+gyuTn9VRq+sWNsLGgjA5kuyuUdOon0c+E7OHx87qEOqsbVSk50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BesgDaNj; arc=none smtp.client-ip=209.85.210.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783782604; c=relaxed/simple;
+	bh=g8LMexC9djXxUGRy+ytEljS+W7jIQ9MN5Dz7U8FPuJw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=M0dafm2Oc64vFOPLjh+0AR1P6jlxEVd61/uZcMClTLNjcDp4iMgdUYEK/XUaz3NJ/98Oev+CnOBqUMNckcqzOnjSUs4VN28U3YbPbvtsihp282wRF3oUYNVdaFOATgp26X+48bO4fbI2gKcqU7XaLMpRgrF8cZOolA/vlIRLjUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9iSsXsy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BesgDaNj"
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7e9ecb1e13cso1598907a34.3
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 08:09:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783782595; x=1784387395; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nr0soaAtqthPp2U17XEZK/Vr4kfG1VMxAbHUIXSh0Dc=;
-        b=BesgDaNjNQYR+jKIUeO95DXLO7HZIlzux01aKseMB+0HxqCGKgU+74uGM9z1QDPA6A
-         C9C/D6ZKcjQslnOp3+ONoVHoNVIScnRNiUKZMHRhbiGclV+woARoyTuAJ6U4rYo/PMYz
-         54Dk4ql8ihuxIg69M69LwFW0Sl4AviGoTXgCXnwA5vdFEEVpHUSsJozLT+BAdRD/nSAN
-         rh1Of8Yul+Bc6Uvq1Ee3qMlpbOLfTVSn7rz85xC0k1oU5O87r8XocBptL69BQQJMqBFk
-         6eBTQV5vqSQkuEW8fP3cWY2pLp+WeWhH5VXzmbsH3kP/GArcv6RI2rJlY7TpBrOQgx8z
-         ngPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783782595; x=1784387395;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nr0soaAtqthPp2U17XEZK/Vr4kfG1VMxAbHUIXSh0Dc=;
-        b=NQxtlL3MNiy+n7G4i3hxXXCba0IpWvVsbHSBfCRp15dw8iDKUOfPf5ZhNS2mfAJrjl
-         cFFGYzauZw0HeKYm3s+6mZN53UBoxEHr9TcuYtRPQWBwqFceyjM+ZGietUEZdqUxjaQ3
-         YkcxWX7iyzM4olm3Z6ybqW6ulQsh/p6LMLold4v91nuZGuKlO5tEZgG8ACaHXYKLqIaG
-         kZGIUPr509IfbqvWDgssk6cNC4/YPlqigBTFHfDWQBoitAd39G6F2+Il9nK1RFHQvIfL
-         KZgPiB8g0o70hKbvhPuz6Hi9RcAmXf6VzE9qLXx9wG3upg20OdQnroofk3mwZ2lZnq66
-         dVIQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9QBZv0AKo5na3kvqxDHmXL5kQXp6xDo07S3MztJgoj4nAA53pbbmppV6tuk4tItLEvydntafFhxN4T@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIm0y/NLmRqpWC07YkmE+KJqsTMTsFNcLl5iXXbl8jtNIUldWf
-	St2ggxOtXA1Q356vlo++jM+IODbqR/wnXGtgWREIZ5aRYraBHRLO7SBkHN5tcuN44/c=
-X-Gm-Gg: AfdE7cm3QBygacRvd03zQkAIxG2+Qfzc3m7o/zqVuY11asPSVAqpoKC9PrW0VlcBdpY
-	iaWimysl1znzyanlhD27mPLn6aw6JihqBIwd7q2PsPv5OZqs32ZCxKXdtgUszNXCZTnygpPUPY+
-	5C2SObKbxkctoa/Yn6/IDe/cmnl0MbPVk/irf4PnsY20a2Y2VCvRcHlnEk51cUvtmQ9SRUgZ1Bk
-	tiYuudT1VSzgbgHZseCmPE61qpUMtmJZQzECDjidUpyY5PVEx6+wr6nLxv8HwOjVFzNeZSZM4Q8
-	moNkx4gabP5/k55xB6VaVHWvrpjeenKkh9dLOjiZ1A/aybJXk9MbVUa1Jw8BlzSXPibYgLeqPxN
-	QziahF3uVvhh7GHiDqSE8cPHi2IlxmyA/8K5P9hTNo93h/Rfi+0exgpN0Hvy/eGW0/uS0Ymgbuh
-	LTTa4dvpvhC4n6o8gqlw0csBw6OrN0wZ7cJEAVLZBjeH4wREN/aGUhmHEE/ylYUtYtWvcNaMXM/
-	Q==
-X-Received: by 2002:a05:6830:2309:b0:7e9:e5c0:e0a with SMTP id 46e09a7af769-7ec095c68cdmr2096634a34.5.1783782595189;
-        Sat, 11 Jul 2026 08:09:55 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:a950:74e5:81f2:8c89? ([2600:8803:e7e4:500:a950:74e5:81f2:8c89])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcae1dddbsm8558095a34.1.2026.07.11.08.09.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Jul 2026 08:09:53 -0700 (PDT)
-Message-ID: <0b513d21-31e5-497a-9332-7efc3fd3e010@baylibre.com>
-Date: Sat, 11 Jul 2026 10:09:51 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9iSsXsy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C7E1F00A3D;
+	Sat, 11 Jul 2026 15:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783782603;
+	bh=BD7JWnzu0kKWZL/jdYkykH8874e0P84JpCAZxLVxysM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Y9iSsXsy3KTxMgb+YiFuZcs1lgYzZMZ0Y4z/hEENMAz4KSi+T05Gakz71sb7AMG9H
+	 GnTLuo0yTryhio4LRCYZiUfL3Yypdv9F49COLBLCmjIg6wQ36aCU9eknxRfT/On1JM
+	 K1GSjTX8zp2bRV2Z5z1ALisFoVHfxE1SMyvk6O3EnXfo7IiAmMRWJeP+d07MCaTTH2
+	 lq50W9r8JkrvbVEt9J9QPgGjEnYwydDzMR+famag6/Iqic0pNk4sl1FX4PSMj9ZyHI
+	 F2iiZd0uji9uZQDdpvpn6zLiMstG+NEKL0RarZDjQjtARQaR6fGTzGle5ImNLsoIjt
+	 /3jk9lzH7E+tg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] ASoC: codecs: add TAS2557 mono smart amplifier
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gianluca Boiano" <morf3089@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260711145722.188556-3-morf3089@gmail.com>
+References: <20260711145722.188556-1-morf3089@gmail.com>
+ <20260711145722.188556-3-morf3089@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 11 Jul 2026 15:10:01 +0000
+Message-Id: <20260711151002.C0C7E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/7] iio: dac: ad5686: read_raw/write_raw: use
- guard(mutex)()
-To: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Cc: Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Maxwell Doose <m32285159@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>
-References: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
- <20260710-ad5686-new-features-v7-5-1bcc8c280e4d@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260710-ad5686-new-features-v7-5-1bcc8c280e4d@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 7/10/26 6:20 AM, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Use guarded mutex lock to facilitate code review when adding new
-> attributes. This will allow for early returns, avoiding error-prone
-> locking and unlocking in error paths. This also adds missing include
-> linux/cleanup.h. Gain-control support will allow the scale attribute
-> to be configurable.
-> 
-> Reviewed-by: Maxwell Doose <m32285159@gmail.com>
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> ---
->  drivers/iio/dac/ad5686.c | 19 ++++++++-----------
->  1 file changed, 8 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> index 316f9ccf54d9..df32f46db81e 100644
-> --- a/drivers/iio/dac/ad5686.c
-> +++ b/drivers/iio/dac/ad5686.c
-> @@ -8,6 +8,7 @@
->  #include <linux/array_size.h>
->  #include <linux/bitfield.h>
->  #include <linux/bitops.h>
-> +#include <linux/cleanup.h>
->  #include <linux/delay.h>
->  #include <linux/dev_printk.h>
->  #include <linux/errno.h>
-> @@ -177,11 +178,11 @@ static int ad5686_read_raw(struct iio_dev *indio_dev,
->  	struct ad5686_state *st = iio_priv(indio_dev);
->  	int ret;
->  
-> +	guard(mutex)(&st->lock);
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Incorrect ASI data-slot offset calculation for the right channel s=
+kips the correct audio slot.
+- [Medium] Missing SNS_CTRL_REG configuration when enabling ISENSE/VSENSE A=
+LSA controls at runtime.
+- [Medium] `tas2557_failsafe_recovery` unintentionally unmutes the capture =
+path upon fault recovery.
+- [Medium] `tas2557_set_dai_fmt()` updates DAC format registers but fails t=
+o update ADC format registers.
+- [Medium] `tas2557_startup_data` hardcodes ASI2 DAC format but omits ASI1 =
+DAC format configuration.
+--
 
-The commit message should explain why the location we are taking the lock
-has moved. Although, I don't see a reason to move it.
+--- Patch [2]: [PATCH v2 2/2] ASoC: codecs: add TAS2557 mono smart amplifie=
+r driver ---
+commit d1471370278591a7f73ca18bb2ac75981e6b8a92
+Author: Gianluca Boiano <morf3089@gmail.com>
+Subject: ASoC: codecs: add TAS2557 mono smart amplifier driver
+
+The TAS2557 is a mono Class-D smart amplifier with an on-chip DSP for
+speaker protection. It uses I2S/TDM and requires board-specific firmware
+loaded per speaker design. Amplifier power is managed through DAPM and
+includes fault interrupt recovery and volume controls.
+
+> diff --git a/sound/soc/codecs/tas2557.c b/sound/soc/codecs/tas2557.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/sound/soc/codecs/tas2557.c
+[ ... ]
+> +static const unsigned int tas2557_startup_data[] =3D {
+> +	TAS2557_GPI_PIN_REG,              0x15,	/* enable DIN, MCLK, CCI */
+> +	TAS2557_GPIO1_PIN_REG,            0x01,	/* enable BCLK (ASI1) */
+> +	TAS2557_GPIO2_PIN_REG,            0x01,	/* enable WCLK (ASI1) */
+> +	/* ASI2 GPIO wiring; arm the BCLK source (GPIO5) before its dividers */
+> +	TAS2557_GPIO6_PIN_REG,            0x01,	/* GPIO6 =3D ASI2 WCLK input */
+> +	TAS2557_GPIO8_PIN_REG,            0x02,	/* GPIO8 =3D ASI2 DIN */
+> +	TAS2557_GPIO5_PIN_REG,            0x01,	/* GPIO5 =3D ASI2 BCLK input */
+> +	TAS2557_ASI2_DAC_FORMAT_REG,      0x18,	/* ASI2: 32-bit I2S */
+
+[Severity: Medium]
+Is it intentional to omit the equivalent formatting register for ASI1 here?
+
+The comment above mentions both ASI interfaces are enabled and configured
+identically, but if the board wiring uses ASI1, it looks like it would be l=
+eft
+at its reset default word length while ASI2 is explicitly set to 32-bit.
+
+> +	TAS2557_ASI2_BDIV_CLK_SEL_REG,   0x01,
+[ ... ]
+> +static int tas2557_failsafe_recovery(struct tas2557_priv *tas2557)
+> +{
+[ ... ]
+> +	if (tas2557->powered) {
+> +		ret =3D tas2557_load_data(tas2557, tas2557_startup_data);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		ret =3D tas2557_apply_runtime_state(tas2557);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		ret =3D tas2557_load_config_post_power(tas2557);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		if (!tas2557->dac_muted) {
+> +			ret =3D tas2557_load_data(tas2557, tas2557_unmute_data);
+> +			if (ret < 0)
+> +				return ret;
+> +		} else {
+
+[Severity: Medium]
+Does this sequence inadvertently unmute the capture path upon fault recover=
+y?
+
+When the DAC is unmuted but the capture stream is muted, calling
+tas2557_load_data with tas2557_unmute_data clears the mute bits for both the
+DAC and ISENSE paths.
+
+Should this check tas2557->sense_muted and re-assert the capture mutes like
+it does in tas2557_enable?
+
+> +			/* Muted: clocks not guaranteed, keep detection off */
+> +			ret =3D tas2557_clk_err_detect(tas2557, false);
+[ ... ]
+> +static int tas2557_hw_params(struct snd_pcm_substream *substream,
+> +			     struct snd_pcm_hw_params *params,
+> +			     struct snd_soc_dai *dai)
+> +{
+[ ... ]
+> +	if (!tas2557->tdm_configured) {
+> +		width =3D tas2557->tdm_slot_width > 0 ?
+> +				tas2557->tdm_slot_width :
+> +				params_physical_width(params);
+> +		offset =3D (tas2557->channel =3D=3D 0) ? 1 : 1 + width * 2;
+
+[Severity: High]
+Can this offset calculation skip the correct audio slot for the right chann=
+el?
+
+For a 32-bit word, 1 + width * 2 evaluates to 65 BCLKs, which falls complet=
+ely
+outside the standard 64-bit stereo I2S frame where the right channel is
+expected at offset 33.
+
+> +		tas2557->asi_offset =3D offset;
+> +	}
+[ ... ]
+> +static int tas2557_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+> +{
+[ ... ]
+> +	mutex_lock(&tas2557->lock);
+> +	tas2557->dai_fmt =3D asi_fmt;
+> +	ret =3D tas2557_dev_update_bits(tas2557, TAS2557_ASI1_DAC_FORMAT_REG,
+> +				      TAS2557_FORMAT_MASK, asi_fmt);
+> +	if (ret >=3D 0)
+> +		ret =3D tas2557_dev_update_bits(tas2557,
+> +					      TAS2557_ASI2_DAC_FORMAT_REG,
+> +					      TAS2557_FORMAT_MASK, asi_fmt);
+
+[Severity: Medium]
+Should the ADC format registers be updated here as well?
+
+This currently updates the DAC format registers (TAS2557_ASI1_DAC_FORMAT_REG
+and TAS2557_ASI2_DAC_FORMAT_REG) but leaves the corresponding ADC format
+registers unmodified at their reset defaults. Could this cause the capture
+stream to use the wrong ASI data format?
+
+> +	mutex_unlock(&tas2557->lock);
+[ ... ]
+> +static int tas2557_isense_put(struct snd_kcontrol *kc,
+> +			      struct snd_ctl_elem_value *ucontrol)
+> +{
+[ ... ]
+> +	tas2557->isense_enabled =3D en;
+> +
+> +	if (tas2557->powered)
+> +		ret =3D tas2557_dev_update_bits(tas2557, TAS2557_POWER_CTRL2_REG,
+> +					      TAS2557_ISENSE_ENABLE,
+> +					      en ? TAS2557_ISENSE_ENABLE : 0);
+
+[Severity: Medium]
+If the amplifier powers up with ISENSE and VSENSE disabled, does enabling
+them later via this control miss updating TAS2557_SNS_CTRL_REG?
+
+In tas2557_apply_runtime_state, the slot routing is only written if at least
+one sense line is already enabled. If the ALSA switches are turned on later,
+the hardware might transmit on the default slot instead of the DT-configured
+slot.
 
 > +
->  	switch (m) {
->  	case IIO_CHAN_INFO_RAW:
-> -		mutex_lock(&st->lock);
->  		ret = ad5686_read(st, chan->address);
-> -		mutex_unlock(&st->lock);
->  		if (ret < 0)
->  			return ret;
->  		*val = (ret >> chan->scan_type.shift) &
-> @@ -202,23 +203,19 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
->  			    long mask)
->  {
->  	struct ad5686_state *st = iio_priv(indio_dev);
-> -	int ret;
+> +	mutex_unlock(&tas2557->lock);
+[ ... ]
+> +static int tas2557_vsense_put(struct snd_kcontrol *kc,
+> +			      struct snd_ctl_elem_value *ucontrol)
+> +{
+[ ... ]
+> +	tas2557->vsense_enabled =3D en;
 > +
-> +	guard(mutex)(&st->lock);
->  
->  	switch (mask) {
->  	case IIO_CHAN_INFO_RAW:
->  		if (val >= (1 << chan->scan_type.realbits) || val < 0)
->  			return -EINVAL;
->  
-> -		mutex_lock(&st->lock);
-> -		ret = ad5686_write(st, AD5686_CMD_WRITE_INPUT_N_UPDATE_N,
-> -				   chan->address, val << chan->scan_type.shift);
-> -		mutex_unlock(&st->lock);
-> -		break;
-> +		return ad5686_write(st, AD5686_CMD_WRITE_INPUT_N_UPDATE_N,
-> +				    chan->address, val << chan->scan_type.shift);
->  	default:
-> -		ret = -EINVAL;
-> +		return -EINVAL;
->  	}
-> -
-> -	return ret;
->  }
->  
->  static const struct iio_info ad5686_info = {
-> 
+> +	if (tas2557->powered)
+> +		ret =3D tas2557_dev_update_bits(tas2557, TAS2557_POWER_CTRL2_REG,
+> +					      TAS2557_VSENSE_ENABLE,
+> +					      en ? TAS2557_VSENSE_ENABLE : 0);
 
+[Severity: Medium]
+Similarly, does toggling VSENSE power at runtime need to configure the
+SNS_CTRL_REG routing if it wasn't done during startup?
+
+> +
+> +	mutex_unlock(&tas2557->lock);
+[ ... ]
+> +static int tas2557_i2c_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	/*
+> +	 * Seed the cached ASI data-slot offset before any hw_params() or
+> +	 * set_tdm_slot() call arrives; 32 is the fixed ASI word length
+> +	 * used by tas2557_startup_data.
+> +	 */
+> +	tas2557->asi_offset =3D (tas2557->channel =3D=3D 0) ? 1 : 1 + 32 * 2;
+
+[Severity: High]
+Does this seed the same incorrect right channel offset mentioned earlier in
+tas2557_hw_params?
+
+> +
+> +	ret =3D devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(tas2557_supplies=
+),
+> +					     tas2557_supplies);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711145722.1885=
+56-1-morf3089@gmail.com?part=3D2
