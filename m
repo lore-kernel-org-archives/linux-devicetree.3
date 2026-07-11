@@ -1,110 +1,168 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B10E625
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 00:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEE035893
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 00:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783728724; cv=none; b=V1vdUe5h9jdTOknuK4uosW+Lc9LqZxjKxe6vswn+tYvfLB23cIYQ38XYlBWr26dxA1RHWfKyiCzzGWriZGTeTJtgtBqOvdyPqVxOepbQvPdFIqLj/J+Z0dAkoA27OISWoniUSDGu8X3mkPBy+yirPLVoQ9EdcZgG/6svmo05RPE=
+	t=1783730822; cv=none; b=P+BAbNiGfRxEvJiK5dAPXKtl+FecPau6YyAC/djyDTOVCxAW0XWHhpGE3lhhI3BM8XArmHQTVwC/S0XvxXS7Bk1vD/BVdlhPKPQ8fa5f6qGHUbqv56W09asIK2LvcghCx18ji3h3tPx/S4TLbNtGAKUMUWXyvYz6GYMAs2Vsl4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783728724; c=relaxed/simple;
-	bh=0gQX7P1oIprqISCIJfxao//qb8rkST6dWjOV8CvC9Hc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OMtA4ue2zFRZCbbq85oRYCw42Uz7+H4Va4/ytgWMJ1Vpy0Rk1OWEw0x9+xF9GZwvOpDU68W36EBJWMLFyAELqOHZ0vE6llVsqGnw0v8EjSCCRgFGAM+MJcA/wsrL5cBFIqlXq7ZSSgtGqzhAeIuwHTfJIWn+wU/bzoo41N/K/yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B2KzOsZc; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783730822; c=relaxed/simple;
+	bh=R4Rs7xhFZTU3mb0GIkP2MXoGgKeVejhFo/bw1Rws8YE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d91usRvQ6MLOif2K9KA1+eqmrYBf+Jb4qqU1oieIgGCfxkF/tP8Wilpw74c4+Rv8VoFrl3ZnYdPutwoG4wPOG4P6x4fjdjf0YNFb0y7fy3KULxNCE823pESaCcc7vXCdF2sMfP8hdRyhIS64hQPHeDDXe+4JmEf2XcZww7ojLzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FZoeEOOm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I6bhVVye; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B2KzOsZc"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493c5220cb7so10869555e9.3
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 17:12:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FZoeEOOm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I6bhVVye"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66ANIFfW2104539
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 00:46:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BNLAaq8lMnoNaNFRUGiCyDQLbXvyZcNLq3BCSpGo7dM=; b=FZoeEOOmNynVMum+
+	nV4KrR2QfX2XayduYDoh4AhrWBCR1zJtO9RFpdaeSA7ME1r5dhzGLgyNRYe4RLxo
+	NCXhRF1Aq6WZnMkiJOHgJsVAnMqNxkAUlTjLlTp7e1tksejD6TI3q2zLcE2eGWQg
+	rOgYlG0Bmfr3bjCkGYtaMHiU7GH7koMu366I3QI0lz5WFKSDyGsqSZ7GHXFe3uZ/
+	cfwfj0A7/pFEioUo15A6BPPf3aN5LfJcVJiq+N+EaJngGHSd/0/Nr/qcg1rP6HX4
+	jBAZUoXgyrMqtG57GV7J4jjN0ZG3gtZ394lkDQR0Ku7sKOXpYZgB4vRYiui9QELT
+	9siV8A==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fax5djvrg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 00:46:59 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cc640dfde3so19535275ad.1
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 17:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783728722; x=1784333522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rb6ZPHPRfJJScY1Dh9Z5eLNSwZMQUx12yLpL0PFajyc=;
-        b=B2KzOsZccRWk99krGrVs7b5o3qMWKoj5KdOzOUCERukm20mjXwNfBZYwnRxs7DV6c7
-         5tUsIWB1A7JnOOSItZSDzutPq0rGSpqjmd7G3tkMVypb6WErIfnYu/RQpacEjOJ7e7Yj
-         nF3/AENCEOciapOaDsmsoW2ZHbTLGVF9cTZWChmgA+M/ZVss4ac/2vDW4uNkkOePk7Sn
-         uB9UbpC/NGGEEYBkys+TJSlaLJQt8XiSHcRu1hLGyw00GJgOmXega6N6fKBTEwGUp2R0
-         l8arCgodhcA3rbOd6FuAXk+wAjO7dzA/nZDNPtFLy8fK2Z/fiX6Bh3Nbzllic5pELp7b
-         5eeA==
+        d=oss.qualcomm.com; s=google; t=1783730819; x=1784335619; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BNLAaq8lMnoNaNFRUGiCyDQLbXvyZcNLq3BCSpGo7dM=;
+        b=I6bhVVyePat+HzAUsEu1I8Aw2rw5QneesGI42AdwvoYY1XFuQQ+/SQqGmvqS3b6mg0
+         SON5dZlmVKx01Wm8+3crtIuq49iUi5G4QcEQrFELjzM61FrDpaHAgaHA9pzs4CYVJe7H
+         nvMogyEF79u26/H/XeWH4lMgwZFbb2n1UGcSUoYmmWFrRH+ZtPbvnZfIdRUJ73xPcJ77
+         NQd/ITBX7U5ZT4vUBvQLp3LWsRXu3X/ee0w+huavLmjM3BLhSl6F2lxM3vJeXmv7hEy/
+         vnoYCwU96EtKzPF0PedALs391qxb782Vm2U1XGWaCcBFUQbyzETHMcqU7ETW/FdRA1jR
+         /PPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783728722; x=1784333522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783730819; x=1784335619;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rb6ZPHPRfJJScY1Dh9Z5eLNSwZMQUx12yLpL0PFajyc=;
-        b=ptaK5SYOQnnjYXC3JnfgRja+z2E5ftgf7VbQoz7ai8A+T0BcjNLqq/QQxt5uj+4XoM
-         a4b8VMp3EM4ZrUQ04GQA6ynLlMdSQVsStxMEzaO79leb7Pn3oXEVOTTnQVDl6L3b1h8s
-         wl5Pzl2GYMwH8vrfoctcwCHG3P6tUkjxft1DQdT2tVPXb1ZiDLaT/uAZbaVwDtf9bCk/
-         R5S7FPryYrZRf2eQxXh0dyCuPl4l6SBj3k8NAwjp5SrX6OPkEdN4wfBdgSx9ksmnlj8L
-         lVcQr2sQPR5RIISw5b/y0b8GQ+1Bswak91TYpKKb0DNaChkgfmm41zFLaavnuRJSnOAu
-         yhGg==
-X-Forwarded-Encrypted: i=1; AHgh+RrZ+gqorywDB58MmDWOySP7Bwp+qCU6k9Eq+cT0qXo4WHvG7QEc7Ft3t3SlczM+xuv3A8m1rNFE7GSk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6BC9AWkLEM71zd/j5chv+9xqQBXz8jFo8uPzHig+semKx1Rw6
-	vo5eneEopXtmn6S4m9HyAzE5199FCqAcrubDVsgqwr/UKyYFf6Bz/IsSV62kfKA=
-X-Gm-Gg: AfdE7cmkMxXB/sL7C+pbfyRqBPuQ1qWPPJZQMNbGpXdgmnv5Rb70/sRsXuBe72Zjenk
-	lY4ZpGCYZsBCcVKsjddA4u+btADi3VCY28WPmzdERcpENPaDYtJxAv6HEo60O5ynYUqndNZXVaj
-	vPRtbV2HS/OGNCQg2TucUhbRmCbp9bdXABy69ftSW1Qa7OkQWImjTLMYvLECrkYqsuBXM+gmX0V
-	c0nDtnE93FdwoSxDr9goDAiGIW1hIZzblpjXBgG82UvJ68QwFmtB+PZsb+QjYq7sgrscK0Xfmfn
-	zIEgTwvHoiI2GGQ+Kv9bTfWvl8otq7QVnSz6RZfEHnAwMWVmVRvfUi41XwbIGFHRBsEA2YlTZDv
-	KeQ3MYATXYVhI2Hihri8EzDmWAd/uFnqVZsq2G/Qm1vmd9vtIFSrKE0CRVBQVJ+bemdzWQSLjVY
-	Y9dV/zFwhV6IhfBbadJIjCFcx78Uw+rEcMJZm3DPhxzG2z36XxmAtAhGL90912B/SkEinRfQ==
-X-Received: by 2002:a05:600c:8718:b0:492:7101:3d88 with SMTP id 5b1f17b1804b1-493f881d4bfmr6762835e9.24.1783728721622;
-        Fri, 10 Jul 2026 17:12:01 -0700 (PDT)
-Received: from localhost ([2a02:810d:4a94:b300:9b34:9074:3c44:455f])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493eb73ae14sm170168835e9.11.2026.07.10.17.12.00
+        bh=BNLAaq8lMnoNaNFRUGiCyDQLbXvyZcNLq3BCSpGo7dM=;
+        b=oSLlXlDuaHXB8u9r9bHzTq2tNsusCKB3l//MDPvfL67t4nExquFC3ilu/1mLVwunpD
+         r4ItGGzZJciSsyKP5hmZiB84UHGjlmXxznUkzR5TOSC3OyEcgVpZCu9EvySLZl1U0ny8
+         59nmEYiycw0sM7QjkNfcnjuRvCY1lZtgugNLe7iFntkiFcbGBWAwGa5GTXhAW5XPyQfZ
+         EicXFCcUkYWztn4553NM2z8fV9CFXBfLR/QYDlODEqkt1sar9ljZ1EKnC6zcVDLx5IPB
+         GFCL9aEbLec/1bswzeIiHLfuwlLuddHtkbXJbtggd2YyNG/3TdZt8Q0m0VY3SqOyP1je
+         aEbw==
+X-Forwarded-Encrypted: i=1; AHgh+RqHQ/5eEW/X3a9aDG0v6AGTvWOU/48ZXflCBJqEn9HlKMCOp3caxakvmYMzlcUCR4vuYOdn08FurCfJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHs/JZChXb4IVbPa+YtTQpHVkitqAEJTslalbOEsM+VvpcPYE0
+	Dn8/3CirnHWQfd4LazPLxnM5d6mTb28EBo4nNsNNVGmV8Ihg++LYtb/+KHVYvnrQfWkz6ye0XWr
+	copyPGMSxaGkQGzaIp+t7nXmAW3Sh6gHIrDNanNXT5fKmSHhk+9jSiYsu72XVXcEp
+X-Gm-Gg: AfdE7cnuHBzQlSKbAL7m7HuMGHXMkcSnnFoClUAQfrntq9Yos45qbVaEfE8s15vshUu
+	tYOE1LabIn1S0Oyn3GUGvRZankykuawTE86e/eOcx0V/E55YBJz6D60mLb3+EbagjolXC8wLsal
+	L7B1ztRFLX2JK/YI0SmMTcnVS4e2AMU5FuPzNdPMLeHkD0cLR58PFFoFVA4xTtFE9dbCsvUgWYc
+	dgcOJg8EUT/Ubd+KcIEtxcRjlW9CbhTcHbq+70a1xu63FoGNXy8TbNlD30ScVriTEfvxckUh7Nq
+	jayKyAly2Imut/XjmXSWpx6DY7zXhr4jsCdjiuzdMGgoy8Z/PpLPDtKE0OGh0XgO26uSDuS+4iz
+	w8H+kIthYHrEjhoUEDm51x3DRW7Zd4rtADtHEXfQ5zjYVtWUDuSOBlchY74I8YpI8oIkTduQn7O
+	Rw
+X-Received: by 2002:a17:902:ef07:b0:2c9:c952:6e9 with SMTP id d9443c01a7336-2ce9eae29e5mr14108365ad.2.1783730819008;
+        Fri, 10 Jul 2026 17:46:59 -0700 (PDT)
+X-Received: by 2002:a17:902:ef07:b0:2c9:c952:6e9 with SMTP id d9443c01a7336-2ce9eae29e5mr14107995ad.2.1783730818551;
+        Fri, 10 Jul 2026 17:46:58 -0700 (PDT)
+Received: from [10.133.33.249] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf92bfsm67000665ad.28.2026.07.10.17.46.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 17:12:01 -0700 (PDT)
-From: Florian Fuchs <fuchsfl@gmail.com>
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-sh@vger.kernel.org
-Cc: Rich Felker <dalias@libc.org>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Florian Fuchs <fuchsfl@gmail.com>
-Subject: [PATCH] sh: Fix built-in DTB build with generic rule
-Date: Sat, 11 Jul 2026 02:01:46 +0200
-Message-ID: <20260711000146.3348854-1-fuchsfl@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 10 Jul 2026 17:46:58 -0700 (PDT)
+Message-ID: <a34905bf-7f93-46bc-a9b7-ec44f36aa0e6@oss.qualcomm.com>
+Date: Sat, 11 Jul 2026 08:46:52 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: arm: qcom,coresight-tpdm: fix bracket
+To: Manuel Ebner <manuelebner@mailbox.org>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+        Leo Yan <leo.yan@arm.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mao Jinlong <jinlong.mao@oss.qualcomm.com>,
+        Tao Zhang <tao.zhang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260710080523.428548-2-manuelebner@mailbox.org>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <20260710080523.428548-2-manuelebner@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzExMDAwNCBTYWx0ZWRfX7IAbzqbez98J
+ tk/fkUCZjOFXU6lwuO8qjDQE9Uz2O7yGCT3T3cK/L4kBZ+ChrOlbn0Iib41uGiKZdzZj2GBDpQn
+ ZRkDV15UUiU7Fy/qyaWLRQRS9N9SPoA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzExMDAwNCBTYWx0ZWRfX97l9jYsqAcjB
+ TG667asN6EFRsXI6issl8Oa7l4fdRfSZ/BdRHwRRUZm0vz2qqo79H10e54O/Q0nAn48NBBjgmiY
+ FLlxiGgdAHNlqgijcb8+MEN8uPRMKPOwOSipFgKOpoJ+c3wGPwKY8z2dnIg5/BcIpj427nLxKL5
+ a95FUtbV9c0pzE3lQkM5/hIC3YUFLAIEQt1h1anan5yQ9P23o4ZHUAqM4AWfllcpKPGgBAzG8pH
+ eTcrs9pfRIYDhWkHN4nvz7asw7u4nvgBmmttvtk8+QNMfh2Ahq7GbLddkJ3/atc61Lu8QYzxhl5
+ FRocoDepc5N8fL6K1m4DRsDWdrXixsVnqo1p5Wk1QOdMvr5LymcUQ4DUDoEddY7hms0yglDViwr
+ frPz+SxFUAKwZp5qiK/egbEk1p0qgIFsXgrjIbOabsic3N3toMDnJ0FMMPG41N6IJyMgbULA2YK
+ /l5r8KX49JQhSO1XfCA==
+X-Proofpoint-GUID: 4dXWRWB7W_pDglWSvvqts1_etEa6bv4z
+X-Proofpoint-ORIG-GUID: 4dXWRWB7W_pDglWSvvqts1_etEa6bv4z
+X-Authority-Analysis: v=2.4 cv=M/x97Sws c=1 sm=1 tr=0 ts=6a519283 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=b3CbU_ItAAAA:8 a=EUspDBNiAAAA:8 a=tyIhYoOGzA4zFAWON2wA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=Rv2g8BkzVjQTVhhssdqe:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-10_07,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607110004
 
-Commit 21bcc49974c2 ("sh: Migrate to the generic rule for built-in DTB")
-selected GENERIC_BUILTIN_DTB and renamed the Kconfig symbols, but left
-arch/sh/boot/dts/Makefile using the old obj-y form. So convert them as
-well, to fix the build error when using CONFIG_BUILTIN_DTB.
 
-Fixes: 21bcc49974c2 ("sh: Migrate to the generic rule for built-in DTB")
-Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
----
-The fix is the same like at other places like openrisc or nios.
-Without that, the build fails, when building with builtin device tree:
-CONFIG_BUILTIN_DTB=y
-CONFIG_BUILTIN_DTB_NAME="j2_mimas_v2"
-with an error like:
-.builtin-dtbs.S:6: Error: file not found: arch/sh/boot/dts/j2_mimas_v2.dtb
----
- arch/sh/boot/dts/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/sh/boot/dts/Makefile b/arch/sh/boot/dts/Makefile
-index d109978a5eb9..16e281b859ae 100644
---- a/arch/sh/boot/dts/Makefile
-+++ b/arch/sh/boot/dts/Makefile
-@@ -1,2 +1,2 @@
- # SPDX-License-Identifier: GPL-2.0-only
--obj-$(CONFIG_BUILTIN_DTB) += $(addsuffix .dtb.o, $(CONFIG_BUILTIN_DTB_NAME))
-+dtb-y += $(addsuffix .dtb, $(CONFIG_BUILTIN_DTB_NAME))
--- 
-2.43.0
+On 7/10/2026 4:05 PM, Manuel Ebner wrote:
+> Remove needless '('.
+> 
+> Fixes: 6c781a35133d ("dt-bindings: arm: Add CoreSight TPDM hardware")
+> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
+
+Thanks for fixing the typo.
+
+Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
+
+> ---
+>   Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
+> index 152403f548c3..c7301f1b28c1 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
+> @@ -9,7 +9,7 @@ title: Trace, Profiling and Diagnostics Monitor - TPDM
+>   
+>   description: |
+>     The TPDM or Monitor serves as data collection component for various dataset
+> -  types specified in the QPMDA spec. It covers Implementation defined ((ImplDef),
+> +  types specified in the QPMDA spec. It covers Implementation defined (ImplDef),
+>     Basic Counts (BC), Tenure Counts (TC), Continuous Multi-Bit (CMB), and Discrete
+>     Single Bit (DSB). It performs data collection in the data producing clock
+>     domain and transfers it to the data collection time domain, generally ATB
 
