@@ -1,67 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from freeshell.de (freeshell.de [116.202.128.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8B5279DAF;
-	Sat, 11 Jul 2026 06:19:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF6D1A0BF3;
+	Sat, 11 Jul 2026 07:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783750779; cv=none; b=pLCwonWDYHeQcDooxHpM7QCNZ1JQVsDCvc5cYSeiBNkS6IzrkpftsT2yrzmFUh0DVZZosX93lSAPaWGnXGz+lvZRZHJDDeKjXdBgYIF1rgpMxgDRQKY2uWwwggg2uq+qWu9hLo+aEeH27BsUWg0Lvm7au4T9CCzrw4GuIR7fmOY=
+	t=1783754421; cv=none; b=RJOw21/KXQX/u39vjqjaT1ml5Abxv6nIfSp3kuAu5CJPmkg3icob+2RumeM1BH7tPTUThUOY7lsswpnlAaTZ08V9/IR2i0uov38HBKsYeurf5xocVart7frMJdMsmhqGCd69IsuvUNLHJIuxVybk80JKSM2W3X89jMBOwsFFJBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783750779; c=relaxed/simple;
-	bh=l0grfuKIsTMvbS8uTCzoVrty33M9dgrc7k+SKyobfJE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WDF0B8RvY153k3dZCRRxMMwTofHJO0gB+LMnqpP2RhbT6t5so7gmzLYVi1ItajMwBlJEXgUoPGWDzIPcQNDzryCTbjxFGkcmeyia550G6asMwNDEC2rTrA+eevbn5JKtnUFNwvR4CO/UkxLpbYglbKkFVh6I/JfDqRPtZv91Yio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbniBfay; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783754421; c=relaxed/simple;
+	bh=5/IVMg7m+YUeqqaYrkeep9Y4dUU+S0uzEjToK5eYRHY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t+meOnyM3+Hl56tC8/XIAuXnR/jI3NwXxpYlZxKr9xk1dW70w5krudR4IE5i2w5ZOAMmVMe4z8bqgHV4ZDDuP5rT1CMTSU9ElBBJztBPvrpWBrOJZDFBMQeFcap1htOHR+a2Q3/fmwvuPqj6IOv4UBusEXCzDNu1WSyM6erf9EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=iQSoRTtQ; arc=none smtp.client-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbniBfay"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4C091F000E9;
-	Sat, 11 Jul 2026 06:19:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783750778;
-	bh=l0grfuKIsTMvbS8uTCzoVrty33M9dgrc7k+SKyobfJE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WbniBfaycZ/AgZ2+lEqbtChQz2/kTlypNABFrAgczNZFc/Tj/926phBLVRhzf6uXy
-	 IChZMsZRIBJQN5InQIMjW8Nsg50f2nmOxKNpAE1zS0LeAq+IxRsR7Q9kORNjdHnJWH
-	 NZUxBEyw+fgg/ApEimIfbhC3i5c3R6u+l2OHhFtfYHYZIdJtBPSNA4/j9BZYiMB1Wj
-	 lhB/LpmJcLw0gFdfApwNUfygooL1HfD3j+lU58ZoR+Zm3FvjoOJRhCr7UOeFPh04Ov
-	 LZJkywt2Fd3X9TDi6rmTFsUAPUYDd0+piRoBdFLfqN/1SFDGsUuNIKwR422DBFS+AW
-	 kh65xP96ZfnGA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/16] arm: dts: omap3pandora: Populate DT data for the
- TWL4030's REGEN regulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: lee@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <d0b2a73c7c208f33784eae4219ff3981800ae6f9.1783749722.git.hns@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
- <d0b2a73c7c208f33784eae4219ff3981800ae6f9.1783749722.git.hns@goldelico.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 06:19:37 +0000
-Message-Id: <20260711061937.E4C091F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="iQSoRTtQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
+	s=s2025; t=1783754367;
+	bh=ngWbz8DrOWdmcWpLkZogRY7ab+fCnSeo75BW8o2EQes=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iQSoRTtQZRu/nW1sc6xNC538QoXSWRk9gIIv9Cp3eRJ9B2AIb+II9nmI2QYNYcGJZ
+	 nATa6FvHJO86pldUgN2951/HhzAw6O5l3h2RKu6gsWvoNdDC3kWLt74trNQL3w4/6j
+	 dWhG/bcZ2VxuQYPlkBBILuPsCrOpjDHlgXprU4Y6B/BU/vcxuoZs7eOPeOnIY8Taap
+	 lRk09eUVROo+3p0S91KVd0UaQrz9IH/c5fzz4IGXvbHC15fBfWuflAtwfd+owb5cXB
+	 ZpAxTcMkpOFhpeeaVAUdTKVFkwwJoZtrS9hBPjC9zwaJtoNL8Wg46WFlAnDfSVA6zC
+	 mDgdgi/kjvA6g==
+Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
+	(Authenticated sender: e)
+	by freeshell.de (Postfix) with ESMTPSA id DFDCCB2215A9;
+	Sat, 11 Jul 2026 09:19:24 +0200 (CEST)
+Message-ID: <65498313-582e-4891-9468-a38a76cb4626@freeshell.de>
+Date: Sat, 11 Jul 2026 00:19:15 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] riscv: dts: spacemit: Add enough deassert time for
+ the PHY on PICO ITX
+To: Inochi Amaoto <inochiama@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+References: <20260710063314.1030249-1-inochiama@gmail.com>
+Content-Language: en-US
+From: E Shattow <e@freeshell.de>
+In-Reply-To: <20260710063314.1030249-1-inochiama@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> From: Grond <grond66@riseup.net>
->=20
-> On the Pandora, REGEN is used to enable TPS61029DRC external regulator
-> which runs a 5V power rail. The 5ms startup delay is taken from Pandora's
-> 3.2 kernel, where it is labeled as a "guess". So it may be possible to
-> activate the regulator faster.
->=20
-> On Pandora CC units, this regulator is used as the input to the LCD power
-> supply. Therefore, problems are likely to arise if the regulator is ever
-> disabled, so we add the regulator-always-on property to compensate.
->=20
-> Signed-off-by: Grond <grond66@riseup.net>
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+Hello Inochi,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On 7/9/26 23:33, Inochi Amaoto wrote:
+> RTL8211F require at least 50ms deassert to guarantee the register
+> access, 10ms is only enough for the PHY reset.
+> 
+> Fixes: 74657a376960 ("riscv: dts: spacemit: Add ethernet device for K3")
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> index 1eb5abbc61f9..b2a7d2d0d3a8 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> @@ -200,7 +200,7 @@ phy0: phy@1 {
+>  			reg = <1>;
+>  			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
+>  			reset-assert-us = <10000>;
+> -			reset-deassert-us = <10000>;
+> +			reset-deassert-us = <50000>;
+>  		};
+>  	};
+>  };
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1783749722.gi=
-t.hns@goldelico.com?part=3D4
+applying this as vendor pre-installed u-boot runtime command modifying
+Fdt as...
 
+load usb 0:1 $fdt_addr_r
+/debian-installer/device-tree-custom/spacemit/k3-pico-itx.dtb
+load usb 0:1 $kernel_addr_r /debian-installer/riscv64/linux-custom
+load usb 0:1 $ramdisk_addr_r /debian-installer/riscv64/initrd-custom.gz
+fdt addr $fdt_addr_r
+fdt resize
+fdt rm /soc/ethernet@cac80000/mdio/phy@1 reset-deassert-us
+fdt set /soc/ethernet@cac80000/mdio/phy@1 reset-deassert-us <50000>
+env set bootargs 'initrd='$ramdisk_addr_r',0x'$filesize'
+console=ttyS0,115200'
+ping 127.0.0.1; bootefi $kernel_addr_r $fdt_addr_r
+
+...before booting 7.2-rc2 and debian-installer initrd is successful to
+allow debian-installer hardware probe to continue with the network
+device, on Sipeed K3 Pico ITX. I don't know if that is a full fix for
+the problem I observed with rmmod/modprobe cycle of network module but
+at least it is resolving this trouble observed from debian-installer
+usage with K3 Pico ITX.
+
+Non-functional values are 10000 25000 30000 35000 39000 39750 39700
+39600 39585 39581.
+Functioning values are 39582 39583 39580 39575 39550 39500 40000 50000.
+
+For this particular hardware I have thus observed an exact minimum
+required delay value of 39582.
+
+Tested-by: E Shattow <e@freeshell.de>
