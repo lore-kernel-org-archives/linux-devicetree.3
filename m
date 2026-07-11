@@ -1,167 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A471307492
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 20:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009161D95A3;
+	Sat, 11 Jul 2026 21:01:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783803296; cv=none; b=b4nKT7AhJWFa0v+xBMri1umM1vZRahCAtObGW3K7INVDcgdSjCGuRZqlejAjZee+ulY/L2EZ41qEmonO4ZGqMBG5Vg/GyZMt5FP5HB/bIhYKG1cUgEPwsTjRZVn6aqr/dtNDsYjZp/qGwcmjKzLu88lT8BdbItRuPREXMY78Boo=
+	t=1783803717; cv=none; b=q5LR4WJCWnReTqQ/zHyygM0CuAei+kdl656PJV+xnXPA6XwRUByct3ncREumJnfvo07/HVztGX9Ehhsx90eAuc456Aqmb3rSpohTjsTJGtI5YQone8q7ZP3CROP4b1FKBxpKvbjHiqO5L2T8UEL5ILbeCdu9BM3uTt4zkMDzWj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783803296; c=relaxed/simple;
-	bh=gf9xNQV+r2taFIZNVTSHGW/t8IBeAG0lNNBowK6/3gw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KFJ9GMVXzhnqfsQxDVcB6uew3rpjJALKo/pZbVdnh+kx6iy9tP7qWlhJD8orZdRzJDvSPp059qxLvz2vDkRLnRbSQwvA9e1cuPex80xWz3R24RHjJgbmXBcuSPwmORdsfaYHIDADt+HQVC6X5zUgT3zfVSqMCsTZb8xeD9IpnAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsMhuGRv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783803717; c=relaxed/simple;
+	bh=d2TbjcNG+rAGinbwS7nExGx6R+2yw7dFXBna0/jmTW4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T6cQbI4WdUQPdp3zP0bH6UVW3bsubBa9gXpSaPeI3aaKX7HAGLT4ZffjCb7wtlPVw/LDU/BdeNxM4FYO30ug55bggxIBSk52qqFBUvz3vfIs+rVws532KD57G0+8+zpg5SjNMzGYhBkAb7yMLeTvq4/zMD2iNzjCau26LjoQzls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=caKqo02X; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsMhuGRv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A691F000E9;
-	Sat, 11 Jul 2026 20:54:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783803294;
-	bh=BLc2TeOzuwwz6G4okBR4+1TV+SOCbTR5Sy6nyFfG2rU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DsMhuGRvS5ELN8y7MfBvXqT+OWG97J2D+MCS7xNI+/LXjjrBXVZiRcZ0nl3Vro0yd
-	 a4OasoztmuDD50hgQ4AGq2xQudnNPyg/u7MOfpWrn3tO7SI+PQFsLZRRbYSgK49MLk
-	 dfc8EZ2GZU8QJqHe7jFH6ZyFYZqKGZd143zW5uhExr+bBMgFjbh++yoPZgsX1Mo9HC
-	 0PjNSDuaQg9gD4G9P2hh0ZX1mVVR6WbarL5wP8QY8o/O9COPh+KR9olbo0GRq06zWM
-	 I2KKCuo6RM+47TiMhj9QX0/xFoX+7/4OmFaUlvFxugvzdpbeb6jh3lN0WbsoSg2vo9
-	 ntLxfeuvlgi5A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/7] phy: cpcap-usb: add DCP detection and make UART
- idle mode optional
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
-Cc: vkoul@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260711204210.197144-5-ivo.g.dimitrov.75@gmail.com>
-References: <20260711204210.197144-1-ivo.g.dimitrov.75@gmail.com>
- <20260711204210.197144-5-ivo.g.dimitrov.75@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 20:54:53 +0000
-Message-Id: <20260711205454.48A691F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="caKqo02X"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B0EDA11955F;
+	Sat, 11 Jul 2026 23:01:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1783803706; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=Rj799asYESt2ZmvriKsA91s4jrkLenTh+VOfuk6Qwy8=;
+	b=caKqo02Xhwa5z3geI79f/1mpYhZ8RaxILEV+m24lrur9xhFIWkYGbtXT4N2ZDOi2WEihi1
+	/eT3e4HNKMxb8p5u19XO0y0YQ/JCH8axaTWfEB+b8PWbIXHY7FgcNNg9qsjT880iVGupwj
+	b7riLwpThRoOXlpF2ZaXBU+ZjKV8obL/lqBtQsyiD8DNlZLdbu5u7z6ej3EDqBZ8v0wQGE
+	bkL9PvjjFUow6Gs9DNVVVMCTm44vKenFMxgC8GId2NH2UsYrUaT1woqq4Rf06cH6MLXhii
+	gRqZGMOQfLjA3rlRIuOhhlfpB/3kE6cHXjC9mBdkXl5vu/+SrrS+q0a6AgZ0Zw==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH 00/10] arm64: dts: st: Add support for DH electronics STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and DHSBC
+Date: Sat, 11 Jul 2026 22:59:29 +0200
+Message-ID: <20260711210131.236025-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The new charger detection logic introduces an infinite connect/dis=
-connect flapping loop for active USB peripheral connections and an infinite=
- polling loop for proprietary chargers.
-- [High] Transitioning from idle mode to USB mode leaves the PHY transceive=
-r improperly suspended because CPCAP_BIT_USBSUSPEND is not cleared.
---
+This stm32mp25xx-dhcos-bb board is a stack of DHCOS SoM based on
+STM32MP25xx SoC (1200MHz / crypto capabilities) populated on SoM
+Breakout Board, the stm32mp255c-dhcos-dhsbc is the SoM populated
+on DHSBC carrier board. The stm32mp23xx-dhcos-bb is a stack with
+STM32MP23xx SoC.
 
---- Patch [4]: [PATCH v5 4/7] phy: cpcap-usb: add DCP detection and make UA=
-RT idle mode optional ---
-commit a10ef479eac91f75ee1175abda606fb7eaa3fb70
-Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+The SoM contains the following peripherals:
+- STPMIC (power delivery)
+- 4GiB LPDDR4 memory
+- eMMC and SDIO WiFi module
 
-phy: cpcap-usb: add DCP detection and make UART idle mode optional
+The Breakout Board carrier board contains the following peripherals:
+- USB-C peripheral port, power supply plug
 
-Handle DCP separately from USB host connections using CPCAP charger
-detection status. Make the existing idle UART mode optional via the
-"enable_uart" module parameter. Initialize the PHY into the baseline
-configuration required for reliable charger detection during probe.
+The DHSBC carrier board contains the following peripherals:
+- Two RGMII Ethernet ports
+- MicroSD slot
+- LVDS connector
+- MIPI CSI2 connector
+- USB-A Host port, USB-C power supply plug
+- USB-C / DP port
+- Expansion connector
 
-> diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/=
-phy-cpcap-usb.c
-> index 741145c89e5bb..2d770ff19e934 100644
-> --- a/drivers/phy/motorola/phy-cpcap-usb.c
-> +++ b/drivers/phy/motorola/phy-cpcap-usb.c
+Marek Vasut (10):
+  dt-bindings: arm: stm32: Document STM32MP23xx/STM32MP25xx DHCOS SoM
+    and Breakout Board and DHSBC
+  dt-bindings: gpio: pca95xx: Document Kinetic KTS1622
+  arm64: dts: st: Fix SDMMC1 indent on stm32mp231
+  arm64: dts: st: Fix SDMMC1 indent on stm32mp251
+  arm64: dts: st: Add SDMMC2 and SDMMC3 nodes on stm32mp231
+  arm64: dts: st: Add SDMMC2 and SDMMC3 nodes on stm32mp251
+  arm64: dts: st: Add OMM node on stm32mp231
+  arm64: dts: st: Add pinmux nodes for DH electronics
+    STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board
+  arm64: dts: st: Add support for DH electronics STM32MP23xx/STM32MP25xx
+    DHCOS SoM and Breakout Board and DHSBC
+  MAINTAINERS: Add DH electronics DHCOS SoM entry and fix email address
 
-[ ... ]
+ .../devicetree/bindings/arm/stm32/stm32.yaml  |  18 +
+ .../bindings/gpio/gpio-pca95xx.yaml           |   3 +
+ MAINTAINERS                                   |   3 +-
+ arch/arm64/boot/dts/st/Makefile               |  10 +
+ arch/arm64/boot/dts/st/stm32mp231.dtsi        |  86 ++-
+ arch/arm64/boot/dts/st/stm32mp23xc.dtsi       |   7 +
+ .../boot/dts/st/stm32mp23xx-dhcos-bb.dts      |  15 +
+ .../boot/dts/st/stm32mp23xx-dhcos-som.dtsi    |  51 ++
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 564 ++++++++++++++++++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  32 +-
+ ...mp255c-dhcos-dhsbc-overlay-imx219-x10.dtso | 111 ++++
+ .../boot/dts/st/stm32mp255c-dhcos-dhsbc.dts   | 189 ++++++
+ arch/arm64/boot/dts/st/stm32mp25xc.dtsi       |   7 +
+ .../boot/dts/st/stm32mp25xx-dhcos-bb.dts      |  15 +
+ .../boot/dts/st/stm32mp25xx-dhcos-som.dtsi    |  51 ++
+ .../boot/dts/st/stm32mp2xxx-dhcos-som.dtsi    | 442 ++++++++++++++
+ 16 files changed, 1601 insertions(+), 3 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp23xc.dtsi
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp23xx-dhcos-bb.dts
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp23xx-dhcos-som.dtsi
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp255c-dhcos-dhsbc-overlay-imx219-x10.dtso
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp255c-dhcos-dhsbc.dts
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp25xc.dtsi
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp25xx-dhcos-bb.dts
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp25xx-dhcos-som.dtsi
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp2xxx-dhcos-som.dtsi
 
-> @@ -292,38 +301,74 @@ static void cpcap_usb_detect(struct work_struct *wo=
-rk)
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
 
-[ ... ]
+-- 
+2.53.0
 
-> -	/* Otherwise assume we're connected to a USB host */
-> -	if (vbus) {
-> -		dev_dbg(ddata->dev, "connected to USB host\n");
-> -		error =3D cpcap_usb_set_usb_mode(ddata);
-> +	/* Check if we're connected to a USB host or charger */
-> +	if (vbus && ddata->mode !=3D CPCAP_USB_HOST) {
-> +		enum cpcap_mode new_mode;
-> +
-> +		if (s.se1)
-> +			new_mode =3D CPCAP_CHARGER;
-> +		else if (!s.dm && !s.dp)
-> +			new_mode =3D CPCAP_USB;
-> +		else {
-> +			error =3D regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
-> +						   CPCAP_BIT_USBXCVREN |
-> +						   CPCAP_BIT_UARTMUX0 |
-> +						   CPCAP_BIT_EMUMODE0, 0);
-> +			if (error)
-> +				goto out_err;
-> +
-> +			schedule_delayed_work(&ddata->detect_work,
-> +					      msecs_to_jiffies(100));
-> +			return;
-> +		}
-
-[Severity: High]
-Does this else block create a regression with an infinite connect/disconnect
-flapping loop for active USB peripheral connections?
-
-When the device successfully enters CPCAP_USB mode, normal USB pull-ups or
-traffic will assert D+ high (s.dp =3D=3D 1). Any subsequent interrupt trigg=
-ers
-detect_work(), and if s.se1 is false, it falls into this else block. It then
-disables the transceiver (USBXCVREN =3D 0) and reschedules itself in 100ms,
-repeatedly dropping standard PC connections or proprietary chargers.
-
-[ ... ]
-
-> @@ -424,43 +469,84 @@ static int cpcap_usb_gpio_set_mode(struct cpcap_phy=
-_ddata *ddata,
-
-[ ... ]
-
-> +static int cpcap_usb_set_idle_mode(struct cpcap_phy_ddata *ddata)
-> +{
-
-[ ... ]
-
-> +	val =3D CPCAP_BIT_USBSUSPEND;
-> +
-> +	if (enable_uart)
-> +		val |=3D (CPCAP_BIT_UARTMUX0 | CPCAP_BIT_EMUMODE0);
-> +
-> +	error =3D regmap_update_bits(ddata->reg, CPCAP_REG_USBC2, 0xffff, val);
-> +	if (error)
-> +		goto out_err;
-
-[ ... ]
-
-> @@ -503,11 +578,23 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_=
-ddata *ddata)
->  		goto out_err;
-> =20
->  	error =3D regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
-> -				   CPCAP_BIT_USBXCVREN,
-> +				   CPCAP_BIT_USBXCVREN |
-> +				   CPCAP_BIT_UARTMUX0 |
-> +				   CPCAP_BIT_EMUMODE0,
->  				   CPCAP_BIT_USBXCVREN);
-
-[Severity: High]
-When transitioning back to USB mode, does this cause a regression where the
-PHY transceiver is left improperly suspended?
-
-In cpcap_usb_set_idle_mode(), CPCAP_REG_USBC2 is updated with a 0xffff mask=
- to
-explicitly set CPCAP_BIT_USBSUSPEND. When returning to USB mode here, the m=
-ask
-is limited to CPCAP_BIT_USBXCVREN | CPCAP_BIT_UARTMUX0 | CPCAP_BIT_EMUMODE0.
-Since this mask does not include CPCAP_BIT_USBSUSPEND, it looks like it fai=
-ls
-to clear the suspension state, which could cause communication failures.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711204210.1971=
-44-1-ivo.g.dimitrov.75@gmail.com?part=3D4
