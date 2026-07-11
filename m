@@ -1,144 +1,155 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF482BE7BA
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 20:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A484308F39
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 20:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783800099; cv=none; b=A6VYv1dUBNMlDUI1iFOqUJgme3SU23sdBPd4Io6zdrpPzlulwEuwAc5WlpOBe/FsbnYq6PaV1d3eC6SFlmclgckuFaAQwpy3jJ57sT/L270dLsLFFItpYNWlK/RdFShTjNCf8/Rmpxpq3V7MnRef8pYf6GUsjGC/6bDec+vlXBw=
+	t=1783802561; cv=none; b=ZOshzleLQj1u9BMwgPSN1hWshPZnuHw1IhUsc53u7KRdJ0NY98cderDhWlKQG+XjYOn7WhTLl0zTLo07GdfS/Tr8Gsv0V1Tdkxoy2Nqi5+at32MzaeKpsyARrARLWwera+uMr5F31RG5pIbX2zFy6DXa4/nmuyJp48NSaxmcffQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783800099; c=relaxed/simple;
-	bh=JzoMDD2e3Y4x2L1JcFpRtMyDd6mKB7mJBIKd7hy+L4Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MHzX+eeMdQqcEtRpsv8Z1cxxZv2+7C1BZLnlF73VMHU5fbYBS38DSJGidjDkeMbdn4gUo4kJJOopyydeYt369jEaU7wufJiCrZoLTrv91ny+wmzVG9k2GWJzXlI2ZQYwDlfDc4h5hLFPiKiHX8copQZscP8GDy7k5PwMLJDFTdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=W8k6hboz; arc=none smtp.client-ip=209.85.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783802561; c=relaxed/simple;
+	bh=L2sb5cET0wjT1JgD/AHsjf7HpJ891Sy1hzT2Y5sI8FI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bFIVLSA54OtcCJ28bpBYbWLcv6JPCfGIRAc6q7WDbHrl9g7hTXUUAVIy/4OyIbag9/jcAWtFTyf0g6q2aLhb1qlINRjhxGnI9terAsy243XW9RbiEev6AHzvMMBbTSPCAHFnkQ9GoWWQZYqCs3BZN4lPxrsouo9cbKyoBq1+LWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KKFbcQyq; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="W8k6hboz"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7e9ed64d490so882499a34.3
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 13:01:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KKFbcQyq"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493f140ca8eso12816205e9.1
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 13:42:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783800096; x=1784404896; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iaMlNBgFwvBYNiy0diMEqTdJ9KdbFMiBAP5QZKJLpH8=;
-        b=W8k6hbozQCOoqqGJT39fh9HWevpTRRD1U2PWAHW9phCRLW4wI7J/ZO69j++YCyPNEu
-         VmUF3ON3566fWLvMlyoRTc/LFpiHIzoJjUwvlqpql12SAmNO3iftrBCaFb7Ov2ZBu4VX
-         GYyg3MBR0+s1pH9f4P9l0MobPPJubW1nQIjVtEfF4+M6rW34LGXGjrkO2S2bXnXDybvU
-         nu1VcA6TdD99yHU9GAC9DsaQXbXUCvk/hiLX0OtGboX/AuvyApmBCf5GCfzoqeKjHg4M
-         F70Df1EWWjFuf6anyUfKAg7e8cKWa/go522CSALi8NGMxiskwdXJyWR8ajf/grleDSKU
-         WGQw==
+        d=gmail.com; s=20251104; t=1783802559; x=1784407359; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PnttK4V5N2RbdGmmP/+gvD/lecbvQoerec0w3s7gRKw=;
+        b=KKFbcQyqnwjTAexocsEcTztm2/hp9ai65jm8Du/U0VVFFxyzx8D9fTbOrNNFVho+eT
+         laSFVCAd6tBbkLB3VbdNCltvmjWUbMizz1/RY0KlWnkVmMvPdvq5c8b++5HGkQig9+Hq
+         u3vFgNWrU/vHNaeuJf/kV5T8dmK3aBq/qqmUC0iXR/8ETZfuiSXjni9bIraQKu2YqfV/
+         ZdzZEeMf/8WW/7UZJUgdreXSCHsuSajGiRMSibV02Ysjq4f0K9x5s4f8ZxEUYm+7u9J+
+         RmTs7uJ5Cgos4Vc2zuVWeU2b63vRW43ILTQU3n7mJRRpDOU7fjwp7WLjAm42bRB6Hs8G
+         8vEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783800096; x=1784404896;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1783802559; x=1784407359;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iaMlNBgFwvBYNiy0diMEqTdJ9KdbFMiBAP5QZKJLpH8=;
-        b=fEA6t/iybmghHmO9SN71RFPeljYYCK9FStlJ4QbQvHJfZzRLs/XVf6gYFJwCdc6p5x
-         Ba+qLhM8F/366ywldflxVDS3xYwpOBB7lsZgM3D1iAxM1n3Jo7lYaA7Txil2mB2CfwfL
-         Y/FTpNOICuhAIB+cJQ3pB+GXoTcVBnqDIZVKdQT9Sy6WF22jwe50gmRQweQ/m6NdC5TE
-         4DsJGRebgvCKoHXzeUJKNsZ3EyKuwQPY0VPziMrdLdKNdw8FmfUmEapvdnVPIAg9Mdck
-         pivtyyPh5NV7mgo5FaGN4AHabclUoEUj/zkDDP3ry9zhftqHvZpD6hSG6oJqMFMgYjwt
-         YJCQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8QeH2FIqxyDTsLmh33QNLYAtutwBFgoh4c3qAo3AlGLys+nkvt++b86H9qEqGG+HngksoFN5siFs21@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0ag7/8edp9Z3AVEReLVvrO91OeVexi3g6nc0zo5uwTPOPX2x1
-	6C4lZvP/BQ0WbQgJxZpZ76nKu2RyfoHM/Mm0AswZeeeBIpgZtPOgqoPFMAUj731zcSk=
-X-Gm-Gg: AfdE7ckVarIlPaXgd9syrOL5KZb2iIsYddHo1nZtrBHzk9AnR5Z9+OY2DFXlLQAzMUe
-	2QHOuifND56sKdFFFzYzPa6BWcZMtKirqMVcoEpGyCHlEVlS+WhEfJXQmpd1s45zYMeI7m8+Svk
-	mskgRr0Dvt1r6RRCWfZzZaZbqaan+T/BhYHP8tYC9uyJktFaJi243rrFiF2xV3JIvn1hk/5tRds
-	aF4ihht+SUvOAXJs08LvBbbhhCa6yq/WgjSgFSUgv5aejFj+6QyolcGm8i4fLILSrCipPCRHIDe
-	Gyd+1kxdsGhZhc3z99ysc76duOdnw3WMKApKTy4LWj8gXcaryBdMXDvu0KVVtfZkuKJqYLRChFL
-	K4tuS9E+AEskoNkxWGYiwSiDBJCk6PRS6I8XrgLpWsRGmL/YWSZIxcSGJ7l1jMH0Bn4ejH5wgrV
-	7sYeBF9D3mMe2xhj4XD2/NZmA0uHBLLfUH433Aafxb3LQB6/mohaKgwetK1VH16Uc=
-X-Received: by 2002:a05:6830:449f:b0:7d7:ea9f:c0f9 with SMTP id 46e09a7af769-7ec0931d959mr2172652a34.0.1783800095775;
-        Sat, 11 Jul 2026 13:01:35 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:a950:74e5:81f2:8c89? ([2600:8803:e7e4:500:a950:74e5:81f2:8c89])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ec2183a28fsm44317a34.24.2026.07.11.13.01.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Jul 2026 13:01:34 -0700 (PDT)
-Message-ID: <35c47ff5-0a8b-4c99-8e5b-d86c04039e17@baylibre.com>
-Date: Sat, 11 Jul 2026 15:01:33 -0500
+        bh=PnttK4V5N2RbdGmmP/+gvD/lecbvQoerec0w3s7gRKw=;
+        b=dSlwpnUEHYBGD7AR6XV5DmjBBJo/8MwOVByWLzBiDJz+GdVdbyEqRRY/6WYUGo30zd
+         PTfyIv87rk6aLYIggn3Nsax4w02w2/WsNfCSCWlC3DGLNw1HVPo2MtfkyYfUKhsIGzKc
+         /STfxZ7HgaRT/iKVnQhUrDFSkXD9iK8kWmGHYQXZRS6qNbaDwxAcdU4bidY5N2TDob+j
+         dGWd9sRPmLIkIpI4BkalQXCvmaA5OwrqiRSvOK4YVBbZxqYpo7uLdS6t17uLx7XkEe37
+         jM58L2OkLto8M4OqPtcdJ9d80GwqDMK2oFHMIvjVryf1ayq+blyXOCVl9HnV6IaZcaVz
+         tjvQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpQ6x3t5uRfjUDNV3yw+BPGym/o/jEB+3kgE7dFdf9OOg49eGbm1jy96RHJ0NXODn6NlptEt9xrM/XE@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCX0K6PSoo2qeK1u4tADom/0VpOwI3StvsA9DEjNBvWwzthTUE
+	fZ2d5tElAEI71Uu6crRb/gwWXBKK4XpvBJXZhr11TRaE+c8hasRMuX9A
+X-Gm-Gg: AfdE7clghrOSGxutPBQHK/VzQf+gRW4znd0avNoNFLv1vZUNzodqHY0qkw3ayjfnqY8
+	uGIq9BRmkkLr6OLZGCfK/v0VrTsRCVZdWXinG5/yNgrIBKcOQuPUBvmMskYexxmqCU5bcG6N75l
+	WOPb9ho0hnQthVRQvYSJOzDpDHKisK6AMGHKDTvehh369HNxWZlClhwNdmHrv+/9FXLJLOS1m3B
+	HodRKdaM+85gM5cwGTqLfWX/6rnxwlf5X+v3hmcRkVJtNwT2XNOsb5PfSu0Uei8cf1axhJE6OQy
+	L7viuuuFI8pkEDzg3jmIpuhHXcqHCA1kvkM7ehnyIMYHYAAUvnC1IAyT3Mtsbe8ab+f6xC7wjmn
+	X951AY9Isq0SYG4xWnD+6LDGfq8ejo3GL45tH+0rLRkSew8BkDe6a01gWCBDbIXxnYvKXGwD2u7
+	DNZ1IrfSEI5BWhwGfWuuwU5LuQqVF4V1aztQ==
+X-Received: by 2002:a05:600c:608e:b0:490:b8c0:d470 with SMTP id 5b1f17b1804b1-493f881f934mr35888195e9.19.1783802558744;
+        Sat, 11 Jul 2026 13:42:38 -0700 (PDT)
+Received: from localhost.localdomain ([95.43.220.235])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f2d97527sm172704725e9.2.2026.07.11.13.42.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 13:42:38 -0700 (PDT)
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	--cc=linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Cc: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Subject: [PATCH v5 0/7] phy: cpcap-usb: improve charger detection and export cable state
+Date: Sat, 11 Jul 2026 23:42:03 +0300
+Message-Id: <20260711204210.197144-1-ivo.g.dimitrov.75@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100
- driver
-To: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org
-Cc: andy@kernel.org, antoniu.miclaus@analog.com, conor+dt@kernel.org,
- devicetree@vger.kernel.org, duje@dujemihanovic.xyz, jic23@kernel.org,
- jishnu.prakash@oss.qualcomm.com, jorge.marques@analog.com,
- joshua.crofts1@gmail.com, krzk+dt@kernel.org, linusw@kernel.org,
- marcelo.schmitt@analog.com, mazziesaccount@gmail.com,
- mike.looijmans@topic.nl, nuno.sa@analog.com, robh@kernel.org,
- sakari.ailus@linux.intel.com, wens@kernel.org
-References: <20260711184414.1013686-1-jakubszczudlo40@gmail.com>
- <20260711184414.1013686-4-jakubszczudlo40@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260711184414.1013686-4-jakubszczudlo40@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/11/26 1:44 PM, Jakub Szczudlo wrote:
-> Add ADS1110 support that have faster datarate than ADS1100, it also uses
-> internal voltage reference of 2.048V for measurement.
-> 
+The Motorola CPCAP USB PHY contains the hardware state machine used for
+USB cable detection. Besides distinguishing USB peripheral and host
+connections, it can also detect dedicated charging ports (DCP).
 
-...
+This series extends the CPCAP USB PHY driver to detect DCP connections
+and export the detected cable state through the Extcon framework. It also
+makes the idle UART mode optional, allowing the PHY to remain in its
+default USB detection configuration unless UART support is explicitly
+requested.
 
-> +static int ads1100_get_vref_milivolts(struct ads1100_data *data)
-> +{
-> +	int voltage_uV;
-> +
-> +	if (data->ads_config->has_internal_vref_only)
-> +		return ADS1110_INTERNAL_REF_mV;
-> +
-> +	voltage_uV = regulator_get_voltage(data->reg_vdd);
-> +	if (voltage_uV < 0)
-> +		return voltage_uV;
-> +
-> +	return voltage_uV / (MICRO / MILLI);
-> +}
-> +
+The series updates the Device Tree binding for the optional charger
+detection interrupt and the optional "safe" pinctrl state. Corresponding
+mapphone Device Tree entries are added to describe the charger detection
+interrupt and enable the safe pinctrl state.
 
-...
+The charger detection interrupt is not currently used by the driver.
+However, it is added to the binding and Device Tree because it describes
+a hardware capability of the CPCAP USB PHY.
 
-T;
-> @@ -276,6 +310,7 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
->  			    int *val2, long mask)
->  {
->  	int ret;
-> +	int data_rate_index;
->  	struct ads1100_data *data = iio_priv(indio_dev);
->  
->  	guard(mutex)(&data->lock);
-> @@ -292,12 +327,12 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
->  		return IIO_VAL_INT;
->  	case IIO_CHAN_INFO_SCALE:
->  		/* full-scale is the supply voltage in millivolts */
-> -		*val = ads1100_get_vdd_millivolts(data);
-> +		*val = ads1100_get_vref_milivolts(data);
+The series has been tested on Motorola Droid 4 hardware.
 
-Obviously, the existing code was getting away without checking for
-error here. Since the ads1100_get_vref_milivolts() function handles
-the error case now, seems like we should be checking the return value
-here as well.
+Changes in v5:
+- fix race in remove()
+- fix commit message of PATCH 2
+- re-schedule detect_work if DCP/SDP modes cannot be reliably detected
+- fully configure PHY registers in DCP mode
+- fix extcon intermediate cable states
 
->  		*val2 = 15 + FIELD_GET(ADS1100_PGA_MASK, data->config);
->  		return IIO_VAL_FRACTIONAL_LOG2;
->  	case IIO_CHAN_INFO_SAMP_FREQ:
-> -		*val = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK,
-> -						   data->config)];
-> +		data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
-> +		*val = data->ads_config->available_data_rate_hz[data_rate_index];
->  		return IIO_VAL_INT;
->  	default:
->  		return -EINVAL;
+Changes in v4:
+- make charger detection interrupt optional
+- make driver functional without charger detection interrupt
+- add bindings and Device Tree for 'safe' pinctrl mode
+- use 'safe' pinctrl state before switching PHY modes
+
+Changes in v3:
+- Drop "phy: cpcap-usb: Prevent line glitches from triggering sysrq"
+- Fix DT schema interrupts order
+- Fix boot cable detection
+
+Changes in v2:
+- add chrg_det interrupt instead of replacing se1
+- Fix remove() race by cancelling detect_work before hardware teardown
+- Restore SysRq state on all error paths
+- Introduce CPCAP_UNKNOWN initial mode
+- Snapshot enable_uart module parameter
+
+Ivaylo Dimitrov (7):
+  dt-bindings: phy: motorola,cpcap-usb: add chrg_det interrupt
+  dt-bindings: phy: motorola,cpcap-usb-phy: add optional safe pinctrl
+    state
+  phy: cpcap-usb: fix IRQ teardown race
+  phy: cpcap-usb: add DCP detection and make UART idle mode optional
+  phy: cpcap-usb: add extcon support
+  ARM: dts: ti: cpcap-mapphone: add charger detection interrupt for
+    CPCAP USB PHY
+  ARM: dts: ti: cpcap-mapphone: add USB safe pinctrl state
+
+ .../bindings/phy/motorola,cpcap-usb-phy.yaml  |  13 +-
+ .../dts/ti/omap/motorola-cpcap-mapphone.dtsi  |   9 +-
+ .../dts/ti/omap/motorola-mapphone-common.dtsi |  19 +
+ drivers/phy/motorola/phy-cpcap-usb.c          | 386 +++++++++++++++---
+ 4 files changed, 357 insertions(+), 70 deletions(-)
+
+-- 
+2.39.5
+
