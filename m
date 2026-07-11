@@ -1,150 +1,199 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7B13CAE76
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 16:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90D22C21DD;
+	Sat, 11 Jul 2026 16:58:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783788519; cv=none; b=a3kiitzCHX2sqS4ivS2Hg47qIRQoKPusmRnbGwu70wVl/F2E1x3aLSDa7fqcNXzia2oVKL0LjeQzvkVHffL81HsB1Aa657LTXXORalLkPH/CRJuE4+KJ4zRu6JnXdiW07g/8gZH+IYzukUGOORxso48CUrWBDbtedEGS6cgWO6E=
+	t=1783789102; cv=none; b=aZpYy6r6/uKIgnBDatsjl8Wkt8O5hzHOxrWoH1u9h9fnphoblFw3/YK2EvXV6hrmGEqNX+VXptZBvVx9Q6ond6ndafESFmzo8W3kcBVVQZ5ObY/MQD9iOSnjHw/xa+C5VCp4s7xSAdpEQBmV/+xcoVsKQQPuMHCD4PRCxq+YsXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783788519; c=relaxed/simple;
-	bh=yVMP8UAtXlu981/AZfXfuu6ntdCZq3l09RETxP3vnIQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WS1VeGpp9incUuYPxd/IxOzGZr0lbHMWDrEoTl7GxHiH/3+BUoFZzoZGnJTRuG4IWrMYvZehKsOl/31ru8L35IkpiKraN/k0UP14Sh12wsb23c8ajxyyXz8dcnoiCm6yffN4wcHrw+Fm+WYbm5dxaqAEUiQS0lP/5LNYYMcxem0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnb2V/4B; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783789102; c=relaxed/simple;
+	bh=M19w4Ry8fPHhwy/D225jwY/+QrbYkrRhysz9x2SVmY0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KNaZspEqIi8rUHhpfXmwXHNKFDaHSvSkjULPs3f3Js1JMD7fVPPh92hSF2ekCUoq8SLnIol6Y2V/A9ep22KyazoiP9gVesTfiJmlg8wFXsH6xxE9GZMnUYplAhVOKByMfr1H02K2BOlwbTEL90K/Nmo/1UDM1tbKUMh32kkozsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvCp3ikg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnb2V/4B"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-493f4638f4aso18370555e9.3
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 09:48:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783788516; x=1784393316; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VDpn6H9slILEKuaZA30ay5+GU6mS2ER9t41k8f7Sm/c=;
-        b=qnb2V/4BHecTg/Bstd2nMyetg96JxjdqwwEPGpBQV5kC4m6oim5hvw2ownjnEQoxYH
-         EM13pqUiExGCOUWveiovV5Pg48IAbgut8sqqnJT1ALmvnN2KD87IcZCFd9ImEvkfXxmn
-         Doi5wQsapjWOtcNS9F8g1TKg8Pyi1wllbLirUo2oHlNM/nli0n97PJydxOhtrLmE8wed
-         hdCSoFHJBZWA2Zo0IDzpfwIi9CgJStbrG4wfrHeYTtW3TPyYJbZhXEhJ5SJgWmChmn03
-         II5dudICvCtO3WqRhour/Sp9RQ/Apou673hl1XN0cR7SJPXMEnuGTo9+3d/XHS4k/ZAi
-         +G8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783788516; x=1784393316;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VDpn6H9slILEKuaZA30ay5+GU6mS2ER9t41k8f7Sm/c=;
-        b=WcHDWV01bxxp3MX0U41BlcO6J08zfHlMItLl/oZoI3W1Htxljkl4nSnE/WrI7f9Ra0
-         /4Pduyiw+/uf7AMnTWkxjzKOr1gfs/3z9Pea3R2PeRCvBj2X2HnEBmRe83xK6vsKCMOO
-         N4FwRlGiyunQgpTXaGkq1B+IhNHL1Qefx1XprGJXRO5v0bLWsfgFF3LUSVk2epQKdnQV
-         ++yuEPje6hF1oDj3uRMPuJZZKk3zzXYk1WkYf9iGe3BP2RKskj+ObDLXOdfJ8toWPeTg
-         x/gucoDwgq5vbu0OE7NcjISpTTbFDHG/2xADmDtvUX07NotW6kIfwiGGBaDIeh9xb0xL
-         8Q6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoCdfkkc/Utoz3nLGhHJC9R+xahvv7rs0CowvX8zdT7J8x1iS9b8LqX2FQmhg9E0nW+82oCVQAiMSWg@vger.kernel.org
-X-Gm-Message-State: AOJu0YwA/mVVHMZgjg9VN1aNLUKXo/j7AWrAEnhKh3KcHb7X+tmXFgj1
-	MRjFreGQhpm07gqbazgOLyx/gQUmRqDIEjzJJm2F+5biqIETuUihJahE
-X-Gm-Gg: AfdE7cl4Iv/SmprFWMhKIiGRIinrpTTK+HDwQ4tngzx8gDj1oPcOBWFKvMEGZk3HYvg
-	2sRRRMdGTGsubi65VOrZlatKAG9H5VxqmufaHSEwFiqc4yTEk8sKb9yFH59/aY0NZROJzKFyoVt
-	Wa4hNv+KeNWz0Xk4OLHWG2c0pKEq4hkrbEnh9/Muw6NsnQgRrU4cwVkjslZJNK7yllOR0QJHBgA
-	7iopkUm2iEBoozs5vfIsskV+H8m3VuUWWYwSzyYxqW8DnDyvwmPY50jz4TW3NoWTFxo1UytUGAa
-	EYNlOsT1nGIK5KWi7XUHGv6ofZyWQikxdVvVWbru0NYF09dUP25jRlXCTDA1g7zrqabowxm7dGd
-	dP+uWO2ntP3gDCVK98BIHvuaD0ZSJZeK7PPrGo3NFxIc4g4liCLcjJewcGQl/lDU+boqI6r6qNz
-	WGcI2+h+RDfvUzDptXaprYC5XxSSpemNsOmQ==
-X-Received: by 2002:a5d:5c89:0:b0:476:cfa0:a976 with SMTP id ffacd0b85a97d-47f2dcb60fcmr3613474f8f.5.1783788515836;
-        Sat, 11 Jul 2026 09:48:35 -0700 (PDT)
-Received: from localhost.localdomain ([95.43.220.235])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm69152875f8f.13.2026.07.11.09.48.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 09:48:35 -0700 (PDT)
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	--cc=linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Cc: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Subject: [PATCH v4 6/6] ARM: dts: ti: cpcap-mapphone: add USB safe pinctrl state
-Date: Sat, 11 Jul 2026 19:47:54 +0300
-Message-Id: <20260711164754.185565-7-ivo.g.dimitrov.75@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260711164754.185565-1-ivo.g.dimitrov.75@gmail.com>
-References: <20260711164754.185565-1-ivo.g.dimitrov.75@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvCp3ikg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE0AA1F000E9;
+	Sat, 11 Jul 2026 16:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783789101;
+	bh=8LVWF0zRZFBT7ZHQPnyxfEExZ0tbS7bYRRc3O2NjxU0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fvCp3ikgIQBcbIo2L9bcLzPHTW/8sJz1E3vDMGgsRx+jNzNHeTMqJEHEW7L8rcgWg
+	 89luY1JaPosu9YH3amb0LyzxNXs+iDAJXtEsHYN9wPDecqZs+OD1JLIgDOjxZUUhyM
+	 aJ6kQqB685TxLKoog7qgH7UJBQmNxnS8LIIjnjVzwN5jhCF9rAhTCrFicV51tbQFDZ
+	 Vqe9xEaauuxvRs81gOe+b3chSQ55bjts7xvYVo2m3aiqtuk+fI2qXabTJqJEfkLdfL
+	 c0L/OgRkwGYccc/Sdru+qRIOf8CitdFyLk/WXgtSCUybXlMavNnEFuW6eW6bvX0tyc
+	 Mj35FsW9JtbIQ==
+Message-ID: <68630192-970b-4b1c-9dc5-d4145d3eb15f@kernel.org>
+Date: Sat, 11 Jul 2026 18:58:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] dt-bindings: net: microchip,lan78xx: convert to DT
+ schema
+To: Mikhail Lukianchikov <avermoal@gmail.com>, Rengarajan.S@microchip.com
+Cc: andrew+netdev@lunn.ch, conor+dt@kernel.org, davem@davemloft.net,
+ devicetree@vger.kernel.org, edumazet@google.com, krzk+dt@kernel.org,
+ kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ pabeni@redhat.com, robh@kernel.org
+References: <20260711105537.11065-2-avermoal@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260711105537.11065-2-avermoal@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add a pinctrl state that configures the USB interface pins into a safe
-GPIO configuration. This allows the CPCAP USB PHY driver to place the
-pins into a defined state whenever the USB interface is not active.
+On 11/07/2026 12:55, Mikhail Lukianchikov wrote:
+> The conversion adds proper validation for the 'microchip,led-modes'
+> property inside the MDIO node.
 
-Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
----
- .../dts/ti/omap/motorola-cpcap-mapphone.dtsi  |  3 ++-
- .../dts/ti/omap/motorola-mapphone-common.dtsi | 19 +++++++++++++++++++
- 2 files changed, 21 insertions(+), 1 deletion(-)
+It was in the old binding, so I don't understand this part. You list
+here changes done to the binding during conversion. I see no change, so
+what does this refer to?
 
-diff --git a/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi b/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
-index 51a858021541..368cb539997f 100644
---- a/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
-@@ -120,7 +120,8 @@ cpcap_usb2_phy: phy {
- 			pinctrl-1 = <&usb_ulpi_pins>;
- 			pinctrl-2 = <&usb_utmi_pins>;
- 			pinctrl-3 = <&uart3_pins>;
--			pinctrl-names = "default", "ulpi", "utmi", "uart";
-+			pinctrl-4 = <&usb_safe_pins>;
-+			pinctrl-names = "default", "ulpi", "utmi", "uart", "safe";
- 			#phy-cells = <0>;
- 			interrupts-extended =
- 				<&cpcap 15 0>, <&cpcap 14 0>, <&cpcap 28 0>,
-diff --git a/arch/arm/boot/dts/ti/omap/motorola-mapphone-common.dtsi b/arch/arm/boot/dts/ti/omap/motorola-mapphone-common.dtsi
-index acac3c243c7a..475ffe678e76 100644
---- a/arch/arm/boot/dts/ti/omap/motorola-mapphone-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/motorola-mapphone-common.dtsi
-@@ -352,6 +352,25 @@ OMAP4_IOPAD(0x1c8, PIN_INPUT_PULLUP | MUX_MODE7)
- 		>;
- 	};
- 
-+	usb_safe_pins: usb-safe-pins {
-+		pinctrl-single,pins = <
-+		OMAP4_IOPAD(0x196, MUX_MODE7)
-+		OMAP4_IOPAD(0x198, MUX_MODE7)
-+		OMAP4_IOPAD(0x1b2, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1b4, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1b6, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1b8, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1ba, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1bc, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1be, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1c0, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1c2, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1c4, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1c6, PIN_INPUT_PULLUP | MUX_MODE7)
-+		OMAP4_IOPAD(0x1c8, PIN_INPUT_PULLUP | MUX_MODE7)
-+		>;
-+	};
-+
- 	/*
- 	 * Note that the v3.0.8 stock userspace dynamically remuxes uart1
- 	 * rts pin probably for PM purposes to PIN_INPUT_PULLUP | MUX_MODE7
--- 
-2.39.5
+> 
+> Signed-off-by: Mikhail Lukianchikov <avermoal@gmail.com>
+> ---
+> Changes in v3:
+>  - Added $ref to ethernet-phy.yaml for PHY node to use standard PHY properties.
+>  - Dropped redundant PHY description and manual 'reg' property definition.
+>  - Dropped root node and fake compatibles in the example.
+> 
+> Link to v2: https://lore.kernel.org/netdev/20260709181724.24682-2-avermoal@gmail.com
+> 
+>  .../bindings/net/microchip,lan7800.yaml       | 96 +++++++++++++++++++
+>  .../bindings/net/microchip,lan78xx.txt        | 53 ----------
+>  MAINTAINERS                                   |  3 +-
+>  3 files changed, 97 insertions(+), 55 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/net/microchip,lan78xx.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/net/microchip,lan7800.yaml b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+> new file mode 100644
+> index 000000000000..730999d11e8a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+> @@ -0,0 +1,96 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/microchip,lan7800.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Microchip LAN7800/LAN7801/LAN7850 Gigabit Ethernet controller
+> +
+> +maintainers:
+> +  - Rengarajan Sundararajan <Rengarajan.S@microchip.com>
+> +
+> +description:
+> +  The LAN7800/LAN7801/LAN7850 devices are usually configured by
+> +  programming their OTP or with an external EEPROM, but some
+> +  platforms (e.g. Raspberry Pi 3 B+) have neither. The Device Tree
+> +  properties, if present, override the OTP and EEPROM.
+> +
+> +allOf:
+> +  - $ref: /schemas/usb/usb-device.yaml#
+> +  - $ref: /schemas/net/ethernet-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - usb424,7800
+> +      - usb424,7801
+> +      - usb424,7850
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: USB port number
+> +
+> +  local-mac-address:
+> +    $ref: /schemas/types.yaml#/definitions/uint8-array
+> +    minItems: 6
+> +    maxItems: 6
+> +    description:
+> +      MAC address to use if not stored in OTP or EEPROM. If present,
+> +      overrides OTP/EEPROM.
 
+Drop local-mac-address, already coming from network-class schema.
+
+> +
+> +  mdio:
+> +    $ref: /schemas/net/mdio.yaml#
+> +    unevaluatedProperties: false
+
+
+...
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f37a81950e25..157a677a284f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27928,10 +27928,9 @@ F:	drivers/usb/isp1760/*
+>  USB LAN78XX ETHERNET DRIVER
+>  M:	Thangaraj Samynathan <Thangaraj.S@microchip.com>
+>  M:	Rengarajan Sundararajan <Rengarajan.S@microchip.com>
+> -M:	UNGLinuxDriver@microchip.com
+
+I don't understand this change. No one requested this. Not explained in
+commit msg at all.
+
+>  L:	netdev@vger.kernel.org
+>  S:	Maintained
+> -F:	Documentation/devicetree/bindings/net/microchip,lan78xx.txt
+> +F:	Documentation/devicetree/bindings/net/microchip,lan7800.yaml
+>  F:	drivers/net/usb/lan78xx.*
+>  F:	include/dt-bindings/net/microchip-lan78xx.h
+>  
+
+
+Best regards,
+Krzysztof
