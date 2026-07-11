@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C82226B2AD;
-	Sat, 11 Jul 2026 15:37:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5EA2EC0B0;
+	Sat, 11 Jul 2026 15:37:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783784261; cv=none; b=NcQL4MkejSMdttYfYDLk+3eSe6j5ahNobVVMde/1m73ZWYpIN5UbPXFsu8JeWaePRtawMi//5hA83lzLu8PMob3aIcKknmis+RXcrZwzofvV6EtxTpmQ/1tRVnsdKerps0g3QdU2Dx25qIXN1CnkgqK8k5BUzXmCQcRfqIpp19k=
+	t=1783784262; cv=none; b=IPdJ6rM+94E1SP9fvbxITC6vzjvAAzAMaTljl3OnuzRKZBjJXQXPdxs/J+ncBjtzrsTrG/BTvHJiC6jBhfr6TUqMZmvvPUxp0ygHkO8iF+jb2G3D1CYies8dpNEuHoKphZ66TRZess9CqGDXO2rnsvB2VjhcIeiC3jrrnBJ8RH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783784261; c=relaxed/simple;
-	bh=2GAXUAzX31wM46cq0fS2iWhFTrtOYhqfd2V1TdjApTo=;
+	s=arc-20240116; t=1783784262; c=relaxed/simple;
+	bh=Gwk4MqOiZuno8RVKDGCnAiwzmgO4alI+1vadXh3OQ9k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pv9LjfAJd5rHgj6pZAR35qM6twet4oUbRlKFhkDOWTirDgc/l1GN7H67yb4u3jOti2MeYsau7k+3piHHi5A7ymHqu/bNCs/PbYx35E6uBQjA3iZR0FQPLywOOK70BNf0sGawN9+WMoi3jjwBUumBtqCffOemKkz6vC3Q3PA6YIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vo8HfXbY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=aRnOctQvvkdh+PT55Ct2mJTfZmmUpbw4fWx1mHoO03OzScpCq7V6xTK3S4xl1gkxCnYafhOK20oHkSgaHiCN1vpH03p1pPAMeBzHj/wIORsMldPW0z+6tzd/AzQW/db3tDi4O4EoRRxoLtYNhanUDsPXbTsOYqtS7jUBL4BVZwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=klt0HVcv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vo8HfXbY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E571F000E9;
-	Sat, 11 Jul 2026 15:37:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="klt0HVcv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D483B1F00A3A;
+	Sat, 11 Jul 2026 15:37:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783784260;
-	bh=YIQwZIjSH6JLjyeNDUha8teupTqbDrlrCcrcp+PqVVU=;
+	s=k20260515; t=1783784261;
+	bh=GezeGbZCPMTOh06fDLpr9vil2pYkSBZnWAH/WAcU7HU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vo8HfXbYqZxID8tTe6ZZacwYSWuqf/Axf1y5xv0EXPzC4DCREi1W3sFZ2tQGt+t22
-	 OiBt1jqOMAVEL2pYWLfcbg73FeHAUb1edVmScjle3wcvD+eoVyFOGf//SWLgfpHfA6
-	 ugca8JVOOlV41dra13E6I/SBuaOylblvIV0XCavfW/LfP5oAuLC1IObLiesyeMqqnP
-	 tEzt8ECK0DmhbRhCKP20yYOuK9mHM/7jPwGkVhe2aJCz1QI555sW4VcrsFNlMjcS5Y
-	 tPUiPEOtjHqtYgyWx1K+TmrsvOPy+0ITOGj94JXTDJkqJY39DM5y1x83NgyvNfMPLL
-	 uOoy77pcTHWgA==
-Date: Sat, 11 Jul 2026 10:37:34 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Xin Liu <xin.liu@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/2] Add psci_sys_reset2 reboot modes for Qualcomm
- boards
-Message-ID: <alJh-ez0MepsuCT9@baldur>
-References: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-0-1964ebf1924c@oss.qualcomm.com>
- <CAFEp6-2-n1L8rLv9zV142D_Q7io1G1ZuFgLHowsf8sObQt6iLw@mail.gmail.com>
- <aivBcGQgeKGW45Is@lpieralisi>
- <9a2f95e1-f01e-4956-9e84-23f0a5f26298@oss.qualcomm.com>
+	b=klt0HVcvdBp7QMBY+ohSExuKjhTiBL52q9OJNLgOmkikXYbhPI7JlPwf97sb4S8Za
+	 1Y9S97cSYX3swhEf0GwmtHWbvdzuEIJtIv3H2zj4e0oy0Ee4Vkd93mHwd1h4r6kBkN
+	 oqk8BhwmK6NoV8wOHktOv18xNGOmgJuvQ+zxnUtWp2JBLcr9X+FvcYffjn7cfmBcGo
+	 IrvH+o/PUm2CNreHTU9RPQb0gpN9N0vmotQ4sr+I1bh+KMY+QXliZUIyx2PtO3VUW1
+	 8Ecs1qjnQBcKhwq4JDVzM+8pOZRsv5JRntHPZ9n/9cKRQ7gDU5I0sCQhT3+GysW5mf
+	 acZMqJZPna9ew==
+Date: Sat, 11 Jul 2026 17:37:38 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Charan Pedumuru <charan.pedumuru@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] ASoC: dt-bindings: sound: nvidia,tegra30-ahub:
+ Convert to DT schema
+Message-ID: <20260711-ecstatic-industrious-manticore-f35bb4@quoll>
+References: <20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,126 +46,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9a2f95e1-f01e-4956-9e84-23f0a5f26298@oss.qualcomm.com>
+In-Reply-To: <20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com>
 
-On Mon, Jun 15, 2026 at 06:38:59PM +0530, Shivendra Pratap wrote:
-> 
-> 
-> On 12-06-2026 13:51, Lorenzo Pieralisi wrote:
-> > On Wed, Jun 10, 2026 at 02:57:19PM +0200, Loic Poulain wrote:
-> > > Hi Anurag,
-> > > 
-> > > On Fri, May 29, 2026 at 4:29 PM Anurag Pateriya
-> > > <anurag.pateriya@oss.qualcomm.com> wrote:
-> > > > 
-> > > > Adding PSCI SYSTEM_RESET2 reboot-modes for sm8750 and
-> > > > kaanapali based boards.
-> > > 
-> > > I would like to highlight that when Linux/EFI is enabled, which is a
-> > > common config, efi_reboot is used as the primary reboot path (see
-> > > machine_restart).
-> 
-> Yes but, only if EFI RESET RUNTIME service is enabled by UEFI.
-> 
-> efi_reboot(...) {
-> ..
->          if (!efi_rt_services_supported(EFI_RT_SUPPORTED_RESET_SYSTEM))
->                   return;
-> ..
-> 
-> > > As a result, the PSCI reboot hook is not invoked in
-> > > this scenario, assuming Qualcomm firmware provides EFI runtime
-> > > services.
-> 
-> Currently EFI RUNTIME RESET service is not enabled on these firmware.
-> 
+On Sun, Jul 05, 2026 at 06:32:32AM +0000, Charan Pedumuru wrote:
+> +  resets:
+> +    minItems: 11
+> +    maxItems: 21
+> +
+> +  reset-names:
+> +    minItems: 11
+> +    maxItems: 21
+> +
+> +  dmas:
+> +    minItems: 8
+> +    maxItems: 20
+> +
+> +  dma-names:
+> +    minItems: 8
+> +    items:
+> +      - const: rx0
+> +      - const: tx0
+> +      - const: rx1
+> +      - const: tx1
+> +      - const: rx2
+> +      - const: tx2
+> +      - const: rx3
+> +      - const: tx3
+> +      - const: rx4
+> +      - const: tx4
+> +      - const: rx5
+> +      - const: tx5
+> +      - const: rx6
+> +      - const: tx6
+> +      - const: rx7
+> +      - const: tx7
+> +      - const: rx8
+> +      - const: tx8
+> +      - const: rx9
+> +      - const: tx9
+> +
+> +  "#address-cells":
+> +    enum: [1, 2]
 
-We have every intent to align with these standards, so this will become
-a valid concern.
+That's a change - old binding was specific and set 1. You need to
+explain that in commit msg with reason why.
 
-> > > As a follow-up, it would therefore be beneficial to also
-> > > improve the EFI path to support such custom mode(s)...
-> 
-> Yes, and potentially linux should also have some control, if it wants to
-> go via efi reset path or the PSCI reset path.
-> 
+Value of 2 suggests children need or want 64-bit addressing, which feels
+wrong. DTS might not be accurate here.
 
-Please stop thinking in terms of embedded system. Things like this
-should just work, it should not rely on userspace to tinker with every
-available knob.
+Best regards,
+Krzysztof
 
-
-That said, I think Loic's concern should be considered feedback on the
-implementation - and specifically the DT binding in that series. Given
-those bindings, I think these patches looks good - but the version of
-the dependency that is being linked to has change requests, so please
-resubmit this once it's possible to merge.
-
-Regards,
-Bjorn
-
-> thanks,
-> Shivendra
-> 
-> > 
-> > I have not checked but we should probably put in a place a way for user
-> > space to check that PSCI is _not_ the reboot method that will be
-> > used, lest it would be allowed to send commands to the kernel that
-> > would be duly ignored.
-> > 
-> > Need to go through the whole thing again before commenting any further.
-> > 
-> > Thanks,
-> > Lorenzo
-> > 
-> > > Regards,
-> > > Loic
-> > > 
-> > > 
-> > > 
-> > > > 
-> > > > These DT patches depend on PSCI SYSTEM_RESET2 support introduced in:
-> > > > https://lore.kernel.org/all/20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com/
-> > > > 
-> > > > To: Bjorn Andersson <andersson@kernel.org>
-> > > > To: Konrad Dybcio <konradybcio@kernel.org>
-> > > > To: Rob Herring <robh@kernel.org>
-> > > > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > > > To: Conor Dooley <conor+dt@kernel.org>
-> > > > Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> > > > Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> > > > Cc: linux-arm-msm@vger.kernel.org
-> > > > Cc: devicetree@vger.kernel.org
-> > > > Cc: linux-kernel@vger.kernel.org
-> > > > 
-> > > > Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> > > > ---
-> > > > Changes in v2:
-> > > > - Fixed subject lines.
-> > > > - Link to v1: https://lore.kernel.org/r/20260529-psci_sys_reset-dt-changes-for-pakala-v1-0-7c32161cf50b@oss.qualcomm.com
-> > > > 
-> > > > ---
-> > > > Anurag Pateriya (1):
-> > > >        arm64: dts: qcom: sm8750: add reboot-mode support
-> > > > 
-> > > > Xin Liu (1):
-> > > >        arm64: dts: qcom: kaanapali: add reboot-mode support
-> > > > 
-> > > >   arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 7 +++++++
-> > > >   arch/arm64/boot/dts/qcom/kaanapali-qrd.dts | 7 +++++++
-> > > >   arch/arm64/boot/dts/qcom/kaanapali.dtsi    | 2 +-
-> > > >   arch/arm64/boot/dts/qcom/sm8750-mtp.dts    | 7 +++++++
-> > > >   arch/arm64/boot/dts/qcom/sm8750-qrd.dts    | 7 +++++++
-> > > >   arch/arm64/boot/dts/qcom/sm8750.dtsi       | 2 +-
-> > > >   6 files changed, 30 insertions(+), 2 deletions(-)
-> > > > ---
-> > > > base-commit: 6ee02bbf328be8a8586487e3af73b65a906cce58
-> > > > change-id: 20260529-psci_sys_reset-dt-changes-for-pakala-a09fc0e2a8a8
-> > > > 
-> > > > Best regards,
-> > > > --
-> > > > Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> > > > 
-> > > > 
-> 
