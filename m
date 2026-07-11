@@ -1,56 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3A03CAA54;
-	Sat, 11 Jul 2026 16:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1493C9EDD;
+	Sat, 11 Jul 2026 16:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783788051; cv=none; b=EdA1BuUprt0f4UySdcViU/t8L0OguuY2NtIXf139rzxKJYTx+LZlJXs52lj3pjydTbXfNO/WgvCia1PuSfEUgqnV7GoNICDLdwWOX3CXhiwFeBn7v0FL28OLNWHCMWKtO8NlsGOPWwCb8An2pqcz5TACnRnd4pD96O6URL85+qY=
+	t=1783788057; cv=none; b=TyaWlsIuhNa2bRh/+Ahfn42tUUjQ690TKdK0/MrsSUHiQeUDoIMPQbqbAGp5CB78dyDRgS3y7ciL7QoXqcFyBUPyROwOKtkTK1Da1k7SF/t0vH2k8m8Ae9PQ0gXjpE9JcTjH3hJ+5khrJ+fKhQebpVBTaUvzHno2LN75o0owO34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783788051; c=relaxed/simple;
-	bh=AJTBzz1seoXPE7X19l9bOj98BnrfotS6pXLG/JYE4JM=;
+	s=arc-20240116; t=1783788057; c=relaxed/simple;
+	bh=pKnBYKLyHuSf6ETsbZ3BteL3TvQpQYOhO3QY8f3bkw4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dz5y9KY+oP+h3ni4kft1KtAsHwh3Mq8xdMPVSW4IxvQ7zh1VH2WxzChs/pz845r9JzgkWCQZ8a+BBLfCOB2B0pHkSl0TpHRfyW9IrXCmDknH5T1ny4gys1heUNW87qlVUEG/XOaBIioWzpLIqANN6b8vH2vGjNTDOD5bVbIUWXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YEQVHrVd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qz8BI3Z2g/TXJMJeaYMm6WuOq6fYUSexU67jkS7bf7j5PrCY5OX4nGs2uvdOqC+aoyJ8Id5UxXyfH0SfTQWe5ZuM2nRmV0u/QDKJJu4Kbpi+oyuydfyqpkFm0P/91K/E37TEE1kYEuIhCqD3/GUUto3+4ZsFrKOLVqPrQ1r5rx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VzfPEDoR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YEQVHrVd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A8D1F00A3E;
-	Sat, 11 Jul 2026 16:40:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VzfPEDoR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5101C1F000E9;
+	Sat, 11 Jul 2026 16:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783788049;
-	bh=yVw5mffjnIlZHE4iDxRvoUQvwFWcH1yBdkxrebziRVQ=;
+	s=k20260515; t=1783788053;
+	bh=kU8eAldMUt6BsxSC1s1flabEKxNcK0QCEFn9gZa0Cxk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YEQVHrVd11nlZpECX6vCnMb7RudmJv30BvInh6+88kn0iVanvmX5eHBHVXWExGHoc
-	 6OEHfiAslurz6q7OQIRX/Agn0GAXZtneoDjbm95l8O9bQOkGCq0PnQqkL5mwUds3II
-	 oCmzXUZ0SPAeGJ2Gc5t/Evsz1k06vPAHqLMs/Gkej2BQ/tVGsiAVe6eefmjTBXOZZG
-	 CVhm8RiF8RoYBL6sIXJjvEv0DvQUCU7I9enCYgOjopEPSWy8K6gB192XYtakMZ/oBg
-	 SQZJWzs87JOY4IENCErr6Wx93MlGzqkVWRagMD5Md8WAq1RtXks3mT45Teghh8WZ5p
-	 MaInSlzd9T1OQ==
+	b=VzfPEDoR2W4YKDB+Z3cwXFJ7WVkvy0WZoya5EnwkNzrHapNrGf/0kazq2g1N6YOFI
+	 N6gcd9IbbGt7WS1/cZvElgqKqW052NEdYL7XwlGk3bkgbP6JU42H2Rso05yeb4PB+b
+	 SuRD9uDwOUsxuEXj5pmfRqDKsrLTL67mayxhD4Wren9xXemSklwC05ldMweBpiiVXj
+	 jIrVQfnE8AeZQ+l83txCSJMxwNzW/4xW7/3qEItXuOsutIaPEVb/c5tlQ6/wmTYD4Q
+	 kE8hkZnOZ9FyZugQkq6OZuGk4onPYzonIvm7efmNxhqVss0E74G8osASL2/5OKASDM
+	 0BcJ/z1TH5O7A==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+To: konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Konstantin Shabanov <mail@etehtsea.me>
 Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/3] Add camera clock controller support on Glymur platform
-Date: Sat, 11 Jul 2026 11:40:36 -0500
-Message-ID: <178378800448.138068.15504604554748644272.b4-ty@kernel.org>
+	valentin.manea@mrs.ro
+Subject: Re: (subset) [PATCH v6 0/4] Introduce HONOR MagicBook Art 14 Snapdragon device tree
+Date: Sat, 11 Jul 2026 11:40:39 -0500
+Message-ID: <178378800441.138068.1778239842219741466.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260624-glymur_camcc-v5-0-a321df74b1a1@oss.qualcomm.com>
-References: <20260624-glymur_camcc-v5-0-a321df74b1a1@oss.qualcomm.com>
+In-Reply-To: <20260629154812.9066-1-mail@etehtsea.me>
+References: <20260629154812.9066-1-mail@etehtsea.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,16 +52,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 24 Jun 2026 20:20:28 +0530, Jagadeesh Kona wrote:
-> Add support for camera clock controller on Glymur platform
-> for camera clients to be able to request for camcc clocks.
+On Mon, 29 Jun 2026 22:48:08 +0700, Konstantin Shabanov wrote:
+> Introduce support for the HONOR MagicBook Art 14 Snapdragon laptop.
+> This version is based on the initial work by Kirill A. Korinsky [1]
+> and Valentin Manea [2].
 > 
+> I'm using it with two external displays connected to the HDMI port and
+> DP<->USB-C (over external hub) as a daily driver.
 > 
+> [...]
 
 Applied, thanks!
 
-[3/3] arm64: dts: qcom: glymur: Add camera clock controller support
-      commit: 7df7325ffc4b959cabedb2e41827c1b9a39c8dab
+[4/4] firmware: qcom: scm: Allow QSEECOM on Honor Magicbook Art 14
+      commit: cfe9b47ef18bdb737be480f3e539e9561ef74078
 
 Best regards,
 -- 
