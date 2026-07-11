@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5EA2EC0B0;
-	Sat, 11 Jul 2026 15:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2623225B090;
+	Sat, 11 Jul 2026 15:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783784262; cv=none; b=IPdJ6rM+94E1SP9fvbxITC6vzjvAAzAMaTljl3OnuzRKZBjJXQXPdxs/J+ncBjtzrsTrG/BTvHJiC6jBhfr6TUqMZmvvPUxp0ygHkO8iF+jb2G3D1CYies8dpNEuHoKphZ66TRZess9CqGDXO2rnsvB2VjhcIeiC3jrrnBJ8RH8=
+	t=1783784481; cv=none; b=OSpsrBdki41IuUHljASH2peEDvmrpRfDSVXFN63iiXauNqt5KPV+qjtdOOYHHBk05a46qk80lO3QGWhQw3nO2xXnEGm9MAVhb2q4exK+H9m9ueh2kZ6L6M7LZodw1MXW218Sdq+q2isCaXvBcSg09XYX+CRkt+lPs9B0F2USCQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783784262; c=relaxed/simple;
-	bh=Gwk4MqOiZuno8RVKDGCnAiwzmgO4alI+1vadXh3OQ9k=;
+	s=arc-20240116; t=1783784481; c=relaxed/simple;
+	bh=+ZNTNfMCsKyNLI3wg4wgr7kWDUvrTdjDAslsze8XDE8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aRnOctQvvkdh+PT55Ct2mJTfZmmUpbw4fWx1mHoO03OzScpCq7V6xTK3S4xl1gkxCnYafhOK20oHkSgaHiCN1vpH03p1pPAMeBzHj/wIORsMldPW0z+6tzd/AzQW/db3tDi4O4EoRRxoLtYNhanUDsPXbTsOYqtS7jUBL4BVZwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=klt0HVcv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RQSMktxr99ILBilNflliXCcX7g3cuyOzZXrHLmFrTCMX/sNLdjTos7OiMn/vlNOmHZGXVmhyWUMha6C0lfAfPIFGSQp0YAB/hyRmcc1KG+pK2QEAYfQvKlfTvl6sQIwX/duIH7lbT38IkTknjMJANuXp0YzlU+XaeJXfzVnIeFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIIKj/4Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="klt0HVcv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D483B1F00A3A;
-	Sat, 11 Jul 2026 15:37:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIIKj/4Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05CD1F000E9;
+	Sat, 11 Jul 2026 15:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783784261;
-	bh=GezeGbZCPMTOh06fDLpr9vil2pYkSBZnWAH/WAcU7HU=;
+	s=k20260515; t=1783784479;
+	bh=BScecOlitLDYz10/Pf4DyteBIAZlmTyE+E+GTseRLyI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=klt0HVcvdBp7QMBY+ohSExuKjhTiBL52q9OJNLgOmkikXYbhPI7JlPwf97sb4S8Za
-	 1Y9S97cSYX3swhEf0GwmtHWbvdzuEIJtIv3H2zj4e0oy0Ee4Vkd93mHwd1h4r6kBkN
-	 oqk8BhwmK6NoV8wOHktOv18xNGOmgJuvQ+zxnUtWp2JBLcr9X+FvcYffjn7cfmBcGo
-	 IrvH+o/PUm2CNreHTU9RPQb0gpN9N0vmotQ4sr+I1bh+KMY+QXliZUIyx2PtO3VUW1
-	 8Ecs1qjnQBcKhwq4JDVzM+8pOZRsv5JRntHPZ9n/9cKRQ7gDU5I0sCQhT3+GysW5mf
-	 acZMqJZPna9ew==
-Date: Sat, 11 Jul 2026 17:37:38 +0200
+	b=JIIKj/4Z/c0vfipK5zYFpxj1IzCMO+3hbKqyDa5e+9Ge3sh08vK5zkM1n4Xx1fFB7
+	 r65JP9oAi+j6RLofHTRFShoffxbzRbQpUabAhtDsOZrm+YkECMPbSP7XRYDzehA+Si
+	 SsiRc7wajwOOgq4I6SpNaWZPm0U3mjabRPsrthqPjaWnf5v0O5gumzQr6KQ3445j8c
+	 jDQGKHYj3w4kwCabyRdwV4lbDUt1n3qcmIQgcpSpHQMzQ7i8vXHEa0RIEDgTMXLGga
+	 355wp/6EnWrJ0odjl89DWq4cSptNQ5m6uQLf3fqtf9hNC5eBG8pTaYNgs+b3ytQQzz
+	 zqDk0cNwM4xcg==
+Date: Sat, 11 Jul 2026 17:41:15 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Charan Pedumuru <charan.pedumuru@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ASoC: dt-bindings: sound: nvidia,tegra30-ahub:
- Convert to DT schema
-Message-ID: <20260711-ecstatic-industrious-manticore-f35bb4@quoll>
-References: <20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v3 01/12] dt-bindings: phy: Document MT8195 and MT8196
+ DisplayPort PHYs
+Message-ID: <20260711-spiritual-wildebeest-from-uranus-0fce41@quoll>
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,53 +48,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com>
+In-Reply-To: <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
 
-On Sun, Jul 05, 2026 at 06:32:32AM +0000, Charan Pedumuru wrote:
-> +  resets:
-> +    minItems: 11
-> +    maxItems: 21
-> +
-> +  reset-names:
-> +    minItems: 11
-> +    maxItems: 21
-> +
-> +  dmas:
-> +    minItems: 8
-> +    maxItems: 20
-> +
-> +  dma-names:
-> +    minItems: 8
-> +    items:
-> +      - const: rx0
-> +      - const: tx0
-> +      - const: rx1
-> +      - const: tx1
-> +      - const: rx2
-> +      - const: tx2
-> +      - const: rx3
-> +      - const: tx3
-> +      - const: rx4
-> +      - const: tx4
-> +      - const: rx5
-> +      - const: tx5
-> +      - const: rx6
-> +      - const: tx6
-> +      - const: rx7
-> +      - const: tx7
-> +      - const: rx8
-> +      - const: tx8
-> +      - const: rx9
-> +      - const: tx9
-> +
-> +  "#address-cells":
-> +    enum: [1, 2]
+On Tue, Jul 07, 2026 at 05:42:34PM +0200, AngeloGioacchino Del Regno wrote:
+> This adds bindings for the DisplayPort and Embedded DisplayPort
 
-That's a change - old binding was specific and set 1. You need to
-explain that in commit msg with reason why.
+"Add binding"
 
-Value of 2 suggests children need or want 64-bit addressing, which feels
-wrong. DTS might not be accurate here.
+
+> PHYs found in the MediaTek MT8195 SoC (and variants of) and for
+> the Embedded DisplayPort found in the MT8196 SoC (and variants).
+> 
+> This PHY supports varying impedance calibrations for the various
+> signals to reach an optimal EYE signal pattern for any specific
+> board(s), especially useful for very high bitrates such as HBR3
+> and higher, depending on board design.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../bindings/phy/mediatek,mt8195-dp-phy.yaml  | 77 +++++++++++++++++++
+
+I guess this answers my question about deprecated nvmem which I sent
+some minutes ago. I did not see any lore link in that cover letter,
+which would be nice in that case.
+
+Anyway,
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
