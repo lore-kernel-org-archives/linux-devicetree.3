@@ -1,73 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8401D370AC1;
-	Sat, 11 Jul 2026 07:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783755897; cv=none; b=sZcGBPu/xXgq21JWtfK5o15Wl8nXkF3euW2vZI/42qKCeLA2qXXqKTXqwLUGXiK9uBM3oLykA8S+MTzetavhUsDaDMAGJ1NvjiUVJksv1+UX6BePANigz3+Mpoj7wxcjJfmnG5t80AqF3YzTbJBQzvrUHyoHjtx4mQonGgSdSNU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783755897; c=relaxed/simple;
-	bh=d1wJBJqnREdRO7uXVxi9cJLsD9w8TM/w6IYXPOaXiVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X3oC6MjNGGsFPrcvKUxaf1VItLDksF94O110/nTLh0Dzcl/q8Hk0owRmUt0BWEiZQHA8f793j9K3eJk8V1xZxVJ30UPiEHUtckbpUqOFDXbbzqhLf+XJMxESRPv9xXrrgf9hdS5aTSUh5REA9c9nORUteCk/MEneTSriikphNmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ek28vN3I; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D652FD694;
+	Sat, 11 Jul 2026 08:11:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783757507; cv=pass; b=cgFIRu/JmPuFol/r5/7w+atMOaNxRQ0Xqm0GQpkZKDLupf4vxFxNLd2843FDrkYKcUchteCLMoRcVdmPZ5CRNcfjFJb0CRL6vSqGR7SmDEYFk083gEI7+el16mrUsVw9iKK6lb1cvHTTWHKIkeNWOMWbf3dT+FHr03TI65fRkNY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783757507; c=relaxed/simple;
+	bh=C4/qzNHgAQL8cgNF9m01gDg70Z4cEsgSM7Av3F+071A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aT0FTzWl5PJY53hLTkiRltbOOn7Mcq7bCDGkHhHl7X9Y/V8f05KDVYXITGD358e+ZLg5JQD1IDtVmh+SgCNhy4uJm3HZNDLKjs8P/Q8q8Q7AJfgeoji21RAI+u+y6Uaz/L+yxhp4MYgc4msvHKLtaG98ItwwHddrSh/7EjKj8JA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=m8Y2rSDv; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ek28vN3I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3ED61F000E9;
-	Sat, 11 Jul 2026 07:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783755896;
-	bh=b0CpmOWLm2vb+ALVgOzFuf2ikhKbi8vr3l51aLzsp4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ek28vN3IHp2WFK7uen+eCu8vrfSzkYl6XFS2Rgqux3Rwn3djoDjd+uFzkKG6FPo+7
-	 PxeDmXVumlVj7ghYyfjp4i5Kq+n+Qg/rcRq0pd3YQ1tXUl25x87uvRgfGnd5yJ5v9t
-	 Vk0uGNFeFlRKtN8PaFNCykAhv1Hq3XL3AvGdeH3cdr/dyXnAqTVbA6ZViyStlTsCE6
-	 0IsWM2TSev3ruqOuFIpihZTiBT7edbqkdhpPN6gPjsYAA2sStd5CfR2r2RjWa6PG/7
-	 TK8T37e1P1aRUF/KQxyirmS0smYjrftZEBJG5/FB+U1uXMp6D5Hh+aQlrjXoeYeMI5
-	 b+/eeiBJCKGcg==
-Date: Sat, 11 Jul 2026 07:44:52 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Shuwei Wu <shuwei.wu@mailbox.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
-Message-ID: <20260711074452-GKB36656@kernel.org>
-References: <20260626-shadow-deps-v4-0-bba9831f2f1d@mailbox.org>
- <20260626-shadow-deps-v4-2-bba9831f2f1d@mailbox.org>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="m8Y2rSDv"
+ARC-Seal: i=1; a=rsa-sha256; t=1783757468; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Vp84AO56jRRT0ZQ9JWyaymHr1uGFyI/D7Vj31wvH1Rz+js/bE1WcoB5nBKEI4n+pFeJF0nH1LnenHxjHTymeBFUZLWEfyw6Pi4G0eKBnie7xojv4DPhhdPLqil9nwMIHMnI8vIdqhFcJTMfw4QsjpvMc7NFV3evVaJXdHMZ2sAQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783757468; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jyzBEPuIilIp5vlpq1+O3NegYQSfadwH2sc1+j1+Ngg=; 
+	b=W4dbxzu89yigXajnMtawGCTizlPgz61Ew2O5Da/8k4UOES4wXsrhyiXa5lTmxfBVp3rXNKG5LrJUAd4E9Pa7fcvltGltzUGxD1eTqB06k+nLMj4ONuw56J98/F7iCbpRCU1yfwYMr4HEU9SyNTafDjA/oPY2aeL4R/dMo9vjZ8k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783757468;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=jyzBEPuIilIp5vlpq1+O3NegYQSfadwH2sc1+j1+Ngg=;
+	b=m8Y2rSDvrdU4Iw2dpCtIEo/BycS6EHwBz6R641v9p9WDf7GQZLMdNoGNAjbgB1gb
+	kzQNUAv39v4MWKyP6US2Ko8xxXSlH1GmlqM8DAc47FifSFLxivw1mWNtLVTDiIpZxQv
+	W0fvf5oSLX7Qz5GmJ7gFniaHZwTf2UzsMGPuIhP4=
+Received: by mx.zohomail.com with SMTPS id 1783757465990476.2860850817026;
+	Sat, 11 Jul 2026 01:11:05 -0700 (PDT)
+From: Junhui Liu <junhui.liu@pigmoral.tech>
+Subject: [PATCH v2 0/8] clk: sunxi-ng: Add support for Allwinner A733 CCU
+ and PRCM
+Date: Sat, 11 Jul 2026 16:10:26 +0800
+Message-Id: <20260711-a733-clk-v2-0-974d188cbe0c@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260626-shadow-deps-v4-2-bba9831f2f1d@mailbox.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/0XMQQ6CMBCF4auQWVsztBWCK+9hWJQypRORkpYQD
+ eHuVly4meSfvHwbJIpMCa7FBpFWThymHPJUgPVmGkhwnxskygrzEaZWStjxIbDXziKaxjUW8ny
+ O5Ph1UPc2t+e0hPg+5LX8fn+IKvGPrKVAoapOU9NJrS/1bebhGaIZzwtZD+2+7x+tk2VtpAAAA
+ A==
+X-Change-ID: 20260202-a733-clk-0d4fc00a9f9c
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Junhui Liu <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783757449; l=3794;
+ i=junhui.liu@pigmoral.tech; s=20251228; h=from:subject:message-id;
+ bh=C4/qzNHgAQL8cgNF9m01gDg70Z4cEsgSM7Av3F+071A=;
+ b=owef9gnwxUPldZnALee1bOMiT2P4HbKPi5VdAYR4Oyw8i/dhVZVODKcuh/PWpayDV07gjftiU
+ LJ8e/kSmDDiDFHenfID0+du6wCn8UFbdBU7o1blvMUJiKKZ/vgB2yyA
+X-Developer-Key: i=junhui.liu@pigmoral.tech; a=ed25519;
+ pk=3vU0qIPJAH8blXmLyqBhKx+nLOjcLwwYhZXelEpw7h4=
+X-ZohoMailClient: External
 
-Hi Shuwei,
+Add support for the main CCU and the PRCM module (R-CCU) found in the
+Allwinner A733 SoC. The clock architecture of the A733 is an evolution
+of the previous A523 design but introduces several significant changes.
 
-On 16:10 Fri 26 Jun     , Shuwei Wu wrote:
-> Add CPU clock properties and OPP tables for the two CPU clusters in the
-> SpacemiT K1 SoC. The OPP entries use voltage ranges because the CPU
-> supply is shared by both clusters.
-> 
-> Enable CPU DVFS on Banana Pi BPI-F3 by including the OPP tables and
-> wiring the CPU nodes to the CPU regulator supply.
-> 
-> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
+One of the key changes is the introduction of a "pll-ref" clock that
+normalizes the physical oscillator frequency (which can be 19.2MHz,
+24MHz, or 26MHz) into a consistent 24MHz reference for the entire clock
+tree. Additionally, while the A733 inherits many module clock structures
+from the A523, the MCU_CCU has been removed, and the overall clock tree
+has been expanded to support more new functional units.
 
-Looks good, thanks for working on this
+Also update the sunxi-ng SDM (Sigma-Delta Modulation) helper to support
+a new dual-pattern register design. On the A733, the SDM enable bit has
+been moved from the main PLL register to a second pattern register
+(PATTERN1). The driver is updated to handle this register layout to
+ensure accurate frequency synthesis for "pll-audio0".
 
-Reviewed-by: Yixun Lan <dlan@kernel.org>
+The parent clocks for several instances in the main CCU are difficult
+to determine as the user manual provides limited information on their
+specific clock sources. In these cases, the implementation follows
+vendor practices and previous SoC designs, generally defaulting to
+"hosc" where documentation is lacking. The bus clock gates in the PRCM
+(R-CCU) are explicitly defined based on the Memory Map in the manual,
+which clearly associates each module with its respective bus.
 
--- 
-Yixun Lan (dlan)
+---
+Changes in v2:
+- Rework the clocks property in DT bindings to source hosc directly from
+  the oscillator to adapt to the new RTC binding
+- Clean up the SDM dual-pattern helper macro and add the missing enable
+  parameter for pll-audio0
+- Number single-instance clocks with 0, e.g. GPU0, VE_ENC0/VE_DEC0,
+  DRAM0, NAND0, GPADC0, THS0, etc
+- Correct 8x PLL post-divider names to 12x for video and DE PLLs
+  (pll-videoX-12x, pll-de-12x)
+- Drop gic, cpu-peri, nsi clocks
+- Rename clocks: OWA -> SPDIF, USB_REF -> USB01_REF, HDMI_ESM -> HDCP_ESM,
+  PWMCTRL -> PWM
+- Mark bus-dram0, ahb-store and mbus-store critical to avoid DMA, MMC and
+  SPI NOR failures when unused clocks are disabled
+- Switch PRCM timer clocks to P-only helpers
+- Fix bus gate bit positions for UARTs and correct the sysdap register
+  address
+- Interleave bus clocks into function clocks
+- Link to v1: https://lore.kernel.org/r/20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech
+
+---
+Junhui Liu (8):
+      dt-bindings: clk: sun60i-a733-ccu: Add allwinner A733 support
+      clk: sunxi-ng: sdm: Add dual patterns support
+      clk: sunxi-ng: a733: Add PRCM CCU
+      clk: sunxi-ng: a733: Add PLL clocks support
+      clk: sunxi-ng: a733: Add bus clocks support
+      clk: sunxi-ng: a733: Add mod clocks support
+      clk: sunxi-ng: a733: Add bus clock gates
+      clk: sunxi-ng: a733: Add reset lines
+
+ .../bindings/clock/allwinner,sun60i-a733-ccu.yaml  |  107 +
+ drivers/clk/sunxi-ng/Kconfig                       |   10 +
+ drivers/clk/sunxi-ng/Makefile                      |    4 +
+ drivers/clk/sunxi-ng/ccu-sun60i-a733-r.c           |  273 +++
+ drivers/clk/sunxi-ng/ccu-sun60i-a733.c             | 2360 ++++++++++++++++++++
+ drivers/clk/sunxi-ng/ccu_sdm.c                     |   51 +-
+ drivers/clk/sunxi-ng/ccu_sdm.h                     |   29 +-
+ include/dt-bindings/clock/sun60i-a733-ccu.h        |  290 +++
+ include/dt-bindings/clock/sun60i-a733-r-ccu.h      |   39 +
+ include/dt-bindings/reset/sun60i-a733-ccu.h        |  129 ++
+ include/dt-bindings/reset/sun60i-a733-r-ccu.h      |   23 +
+ 11 files changed, 3289 insertions(+), 26 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260202-a733-clk-0d4fc00a9f9c
+
+Best regards,
+--  
+Junhui Liu <junhui.liu@pigmoral.tech>
+
