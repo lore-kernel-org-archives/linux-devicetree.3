@@ -1,63 +1,63 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D01C353A61
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 11:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0626E3BB9EF
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 11:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783770009; cv=none; b=Q67gHhY2S4Nhn4Ow93q82azuQl+c0Yd50BqNdk2C3aLShmlA9i36ERVqC0UigEIqwO9rO2V/eUOwbqeYvdvvfIQO0MU1wcQzQBoCTZNcwUAGofHfi65VDWhzHirlui9LwZW8HCCsG+dsPsPIx14hsXHD06UiYEGPLEro1YW4ChQ=
+	t=1783770022; cv=none; b=WDKh5fJmNZekPQv/SALPgPT5aOTmaVV7xeNImECJV+yXND1SsqUq0iQ54eZAPw7ZScv00TETfPAogEFHnLO4e4ptj4E957S5LB9KRPj6dnDH2IUd5r77R7ILbaYQY9DLuYbtADjB4I/tctw2Sl4EdFNf3AxnFwcJhmjzmgf1cqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783770009; c=relaxed/simple;
-	bh=3+bmWam2Mg+1DChzKEqedzrXK0RkseN6c6pm2NsFuGM=;
+	s=arc-20240116; t=1783770022; c=relaxed/simple;
+	bh=Fpes7pcL0dT5QgBd51qJa9xR8lBSeUN8H6ipD4qzk3U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lsxw5wYx4Qk6a51R34goEGqhxC47Lw2rasnQH7XS3lBUtlKaRf1UUPVJNBzIajHHdzZyFKFLDeyqzBU4d3Kf9tTS9wb0JNptIM5bdfk4D808EFacMjDiDw1PK0gbDYlW0xvnhSmm047DO0vveIRlNNEzmGnBHPlJOexSI0IW0H4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RXNd4KDH; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=DQtc9ktnm1xIw6zDlt+Bbqd698buldn7jq+9wunWuyepXbWMBN3dmydnzf5nHJVZJRtTFllVhlMAq3uJd3tQHpo2pAUigeTXxhBg/adrKu5HIKOuYkHEbGbTfDBUPxlsIteNRS4LPbPVWchkWh6x5gE7Ya6x/B+3Ftr/Kwpn978=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k5p8X0q7; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RXNd4KDH"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so8685475e9.0
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 04:40:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k5p8X0q7"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493ae59eca6so8386375e9.1
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 04:40:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783770007; x=1784374807; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783770019; x=1784374819; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3+bmWam2Mg+1DChzKEqedzrXK0RkseN6c6pm2NsFuGM=;
-        b=RXNd4KDHyCCwlLIbPBKVoD3jDiP4+EDcnZb5Zb3o8d0D5+AVh0p8GMskSLeBucoXzx
-         yGiQrso+de7I9d069g2br2zsM1r7jqYPLcXbTsFFjgKUrl/pY/5lBWqHntIk/G6CW1MX
-         /7R0jqj4T9BRkPo6kcA1r5Atuc2FxXceWKVWR4V5DfgCI3rtYIV4E15uTjwExlgDtEt0
-         SmGMw4G2nCQrXKLUcsuRU/MZ6aD2KRi+ptN3Und/yjqmJbFFxg3xKdhVU5Q6ukQkRI2x
-         Hmko5nJjk7cziXP5MsUF1dQB2uCCLQmWmxa0/fOpZxHJpU/l2AzlOzA0nUgCpYziv4uV
-         VBeQ==
+        bh=rvR4npbXyTtpSmH5FcrD0ZeaPU7ANDDEoSH1ljf/gl4=;
+        b=k5p8X0q7GWSKpGJbEYM3gnGqpwSZVYnOciQw8WCKF8uDkGQ6YvyvoBj3/Mr3/AEUx/
+         Xigq91MfGuXu1SLQXZSonNWiEPM8gVFgi0f0IGK29+eEnL20Iyf2qBwrEJ6p9447FqML
+         F0R4ySxjb94Fi+0qv4StRuQO1mDjAIJ6rfcwx92TJEXS3oikces+B+wcx38bXXoq493s
+         0/pMFtHRDPwKgJDIly/V5r897ilrUDDSoCrOyLoIpvTqV2GHoVN06XI7iqVGD0pl1vM3
+         NnjtJvNOvZjFYsxKtBc2Np9MY5j+3kOj1hE19HeshXQ/58cbIB5TzxQa72vFgfBDKCuC
+         RfVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783770007; x=1784374807;
+        d=1e100.net; s=20251104; t=1783770019; x=1784374819;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3+bmWam2Mg+1DChzKEqedzrXK0RkseN6c6pm2NsFuGM=;
-        b=mNnGe3E7sygf+fNyX0Ztrs3PXgsqBJhyrhaY1OGWJuOxvhCqNAn9FdJIOQeTFLVx3C
-         98GmxBMT+c42EHD0rloKdQjOSGfOZ1uQRpPK8ByghRgxEDgONOGCArCXYDSIYM5EMYKq
-         u13dAc3l5Se1JQ1LlzEeRXPE84WI849kkxjPFDE6azbCcMuh/vWI61wScb6WAdCwBHkN
-         vF+By5gjtM3Xuk84m6982yzzmp3vHfLaNsJNYc8EIaDom/vl5WzHWuuIIK/za7arZKXy
-         fYTzsmTM3/46qMH7kgsN5inRI4bfy8qNS6VHns9vDXTJ+m0vSdUztGg2x16Lmdc1rk3E
-         CHeA==
-X-Forwarded-Encrypted: i=1; AHgh+RqdSJbdeC80YooukXNxvnSQDOnGsNQrIG+5msHhEWkxYIK3XS9ISupLozijIsPpc09X/0NMn21odWk2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9rjkWiOCoe0BYMZrwb2J9zQgL02D3jJTTxwE0dP0jqIMmbEZT
-	WnNzZP67YLJvkthKImdEZgLKKk16QQ+bPQQjkz7sSRfFuU1UbDtfUTuPHQBAs8Ou9hs=
-X-Gm-Gg: AfdE7cmDjpY34P/ooCLI5cAHwlVAF69Zdr6SawbSY46075tx40wtp1FFtIX114bE9me
-	yIrLCXlJrHyqX7ohXIVyDWATWvyOKcl2KzBDYN4MG/IqAVbEcg360OBb6UoKPbVGZIBeMqS5qRd
-	pjTxwLqmgiQU6gIalCfXFfcfkAQPtGKsLRel2T6sj0G+8CKiZMLsWwxNZ7dvrsgeoE4FVvhKXJq
-	SKlFZ36dlCi5vto16lkc7mf048GIUYQyV+SA9CivztI/02NkjmLrBXK9kYf5+DVswa9xypOKyvw
-	6McfmPuClnodSISCdpWYYxAx+BZDxsKuMpaJ8s9lpFW7cnTvZTQiZl8poRg6ROYDYWz1Eha2igs
-	AaAd4o1mni/WhY2a9EOxOOMPFvr6rS7r8EeXdqOJJiINolUaBirSmaNdHDJ3iQyCxMBgK8P13j+
-	FaD1iu0N6+RUCxD1klVfS5qNTNP2Vo
-X-Received: by 2002:a05:600c:37cf:b0:493:c4e1:40a6 with SMTP id 5b1f17b1804b1-493f882e97fmr20363055e9.32.1783770006780;
-        Sat, 11 Jul 2026 04:40:06 -0700 (PDT)
+        bh=rvR4npbXyTtpSmH5FcrD0ZeaPU7ANDDEoSH1ljf/gl4=;
+        b=bin0IK8FyIejZtUew+42ktgfQmrv3hO7L8ZasN+nCVOazGd7eFyYDNqh2h2flTqeVM
+         pIzOacESdxtPa0cG4tkMv3AuIX8OitvRAM38BA9fcsUZ8NvjMZb3jQW8G/ljUBJ5VYud
+         vQIAF5dgDulcsJAqR8/d3YETYCBGFyt0Tblu06IOTXMN75Fosnklm3gnGCyNrDET7uOb
+         fKbOzbO1XRZjQo48qDVN2qc0fjdMDBKp4q9o+ct2TBQFUzeASPBj03JzOA3kcjZi0wV3
+         FI41h4avj4r+sSHALVkqyuIOzN3GjGtIUQHKgR/XztBonmH1SYAZOVvXroAOSpqFzNFZ
+         h1oQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq95K+AorxH1Rx6LIgqEOJX1MRqjfGV0lv+0HGoyrPuJqW92L7Vq8+VQChqb0R5jYK6eCRovvnfwF8H@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrKEdY01xOcLqXEA3kMUInzBiBie1zrl1UY0yjAL74WiaiGCU6
+	Xw23hRQCfTBGBhcqQP8tQc0d2U/mrh7NoT3NPjk9i+/dQnUDJtM0sqj4
+X-Gm-Gg: AfdE7ckWyqxi7kpsmiXU6w+oUiw0TH/KkY8m2HUGEuvCDBpMipQSadAuy8thYb0Iy2z
+	YV8JZpMSHsZsTZ+gK4kwuv+ojH+8P+3L0sUlk+ctwpCBiJtxYYG9ic0qBMTg6TvjXCfMwCDZ4i8
+	Wr5R5Pg9ucDUefh0fhMnihLsbbYqocrj9x1JPPSwJpPSJWZYQi0PZS7HaN1bMnce0krvTzLQwsX
+	3fzZ9k/2T5v6aWp3wg8bHEI+zSYJwGl9v85wSSNXNxQv75iI/+ToUTFGAfQVJ8YhZwyEcWy+7RE
+	UjU7KxlXW5FuL1mhk7vLthYJ4iJC9hAaHYveviJLH3FWFcljOMPpPv3UtEcBmaekhM4OkqzxXrl
+	YmLa63rnAcY5Ln7YsovE3epcYzQ14NBdZaRlYwPj+4/Od3ySmChE5bbs2dPXUrr3LDnn9dCvcdD
+	2GyEWWJ1G5o6vdB0kqpjT4E/NfONyD
+X-Received: by 2002:a05:600c:4e48:b0:490:bbc4:76a6 with SMTP id 5b1f17b1804b1-493f881ddedmr24187235e9.21.1783770019401;
+        Sat, 11 Jul 2026 04:40:19 -0700 (PDT)
 Received: from unknown.tail46804.ts.net ([2a02:b027:11:e106:f973:a70:bd1e:4000])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493f2e0eff1sm84510965e9.0.2026.07.11.04.40.03
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493f49755f9sm120859915e9.8.2026.07.11.04.40.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 04:40:04 -0700 (PDT)
+        Sat, 11 Jul 2026 04:40:17 -0700 (PDT)
 From: Gianluca Boiano <morf3089@gmail.com>
 To: Mark Brown <broonie@kernel.org>
 Cc: Gianluca Boiano <morf3089@gmail.com>,
@@ -73,12 +73,12 @@ Cc: Gianluca Boiano <morf3089@gmail.com>,
 	linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: sound: add Texas Instruments TAS2557
-Date: Sat, 11 Jul 2026 13:39:53 +0200
-Message-ID: <20260711113956.72582-1-morf3089@gmail.com>
+Subject: Re: [PATCH v1 2/2] ASoC: codecs: add TAS2557 mono smart amplifier driver
+Date: Sat, 11 Jul 2026 13:40:08 +0200
+Message-ID: <20260711114009.73094-1-morf3089@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <a79fe709-6949-4f73-8f97-6d02e1ee9d78@sirena.org.uk>
-References: <a79fe709-6949-4f73-8f97-6d02e1ee9d78@sirena.org.uk>
+In-Reply-To: <e1471661-cf25-4db4-9a77-48d726811a51@sirena.org.uk>
+References: <e1471661-cf25-4db4-9a77-48d726811a51@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,7 +87,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please submit patches using subject lines reflecting the style for the
-> subsystem [...] There's no need to resubmit to fix this alone.
+> +	TAS2557_GPIO6_PIN_REG,            0x01,	/* GPIO6 = ASI2 WCLK input */
+> +	TAS2557_GPIO8_PIN_REG,            0x02,	/* GPIO8 = ASI2 DIN */
+> +	TAS2557_GPIO5_PIN_REG,            0x01,	/* GPIO5 = ASI2 BCLK input */
+>
+> This looks suspicously board specific, it should probably come from
+> device tree.
 
-Noted, will match it from v2 onward.
+It's board specific, and it's not even a TI reference sequence -
+checked their Android driver, it never touches ASI2/GPIO5-8 at all,
+only ASI1/GPIO1-2. All four boards on this branch happen to share the
+same wiring, which is how it ended up hardcoded. Will add DT
+properties for the ASI2 pin assignment in a follow-up, defaulting to
+today's values.
+
+> +	TAS2557_ASI2_DAC_FORMAT_REG,      0x18,	/* ASI2: 32-bit I2S */
+>
+> This should be set_dai_fmt().
+
+Fixed in v2: the format is cached in set_dai_fmt() and reapplied in
+tas2557_enable() after the reset, so the startup_data write no longer
+wins.
+
+> +	TAS2557_ASI2_BDIV_CLK_SEL_REG,   0x01,
+> +	TAS2557_ASI2_BDIV_CLK_RATIO_REG, 0x01,
+> +	TAS2557_ASI2_BDIV_CLK_RATIO_REG, 0x81,	/* power up BDIV */
+> +	TAS2557_ASI2_WDIV_CLK_RATIO_REG, 0x40,
+> +	TAS2557_ASI2_WDIV_CLK_RATIO_REG, 0xc0,	/* power up WDIV */
+>
+> Can't these be worked out dynamically?
+
+No, not from anything the driver has. TI's own driver never writes
+these two registers on any board, and unlike every other multi-bit
+register in their header, there's no bitfield documentation for them.
+GPIO5/6 are wired as ASI2 BCLK/WCLK inputs here, so the chip is a
+clock slave on this interface; BDIV/WDIV sit next to the CLKOUT mux
+registers in the map, which points to them being master-mode
+clock-generation taps, not something a slave needs. Leaving them as
+fixed constants.
+
+> +	TAS2557_POWER_CTRL2_REG, 0xA3,		/* Class-D, Boost, IV-sense power up */
+>
+> tas2557_isense_put() also writes to this register, there's a
+> disconnect with blind writing.
+
+Fixed in v2: enable() now reasserts ISENSE/VSENSE from the cached
+switch state right after startup_data, so the mixer controls and the
+hardcoded 0xA3 don't fight anymore.
+
+> Is there any overlap with other TI firmware parsers?
+
+Checked tas2781-fmwlib.c. Same magic (0x35353532) but the formats
+diverge immediately after: tas2557's header has DDC-name/description
+fields tas2781's doesn't, tas2557 needs a PLL block loaded before
+power-up which none of tas2781's parser variants have, and tas2781's
+parser is built around its multi-amplifier device-index model that
+tas2557 doesn't use. Not sharing code between them.
+
+> +	if (!tas2557->fw || !tas2557->powered) {
+> +		mutex_unlock(&tas2557->lock);
+> +		return IRQ_HANDLED;
+> +	}
+>
+> We definitely didn't handle an IRQ in this case - this will break
+> sharing and debug features in the interrupt core.
+
+Fixed in v2, returns IRQ_NONE there.
+
+> +	tas2557_dev_write(tas2557, TAS2557_GPIO4_PIN_REG, 0x00);
+>
+> Is GPIO4 the only line that can be an interrupt source?
+
+No, any GPIO can be assigned INT via its own PIN_REG. Same situation
+as the ASI2 pins above - hardcoded because all four current boards
+use GPIO4, rolling it into the same DT-properties follow-up.
+
+Gianluca
