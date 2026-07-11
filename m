@@ -1,107 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A2F2C21DD;
-	Sat, 11 Jul 2026 16:58:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AE825393E
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 17:00:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783789131; cv=none; b=NY1oru+EK3HE5nIo6pNoisXTIreonejCDq/Es6vfY4WdczUkcG07VQVPbMFEYfXSlUfluTSKTYFtWkd+DN4s7nfSgNNYzp1IiRCNQmOeVvgaY3MiZvOHxSjJ9mFtH8GsvRVJsy81q1BQG/xBPG3QkyXI6sVH63z3SJVlBdy1YVE=
+	t=1783789256; cv=none; b=Z1OHwOqt7LdHo8DZMrHHvyNsOT/yaAfGwUeayas1KOElIT8UugpUapbjmPMnLlkkYyShybRWOLa/2Vz7YJzGP/jBCMMvZ6eIJ9arAUA+j8JgWTCFSpvczoxXdubqeTeMgBAb5E0FIkwZ5DlYkxQhRjYA0BIqzxKDsuOqoEQPMgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783789131; c=relaxed/simple;
-	bh=Q332TfGMszY4YqhvlmsBVuAgFQPSKMmj4sMy+oYviH8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d3Dm5IDIiVlSqr8O+CYgIT+v2Yh+hMQlwDuZegbaljBEHbPjyMfHGWisuvMGEUVt0x4XVbJifPpRa0fxGvxJRivFD5ZmdQ0i9cfy8V4wFPpngiKFkoDPidQqeyt5ixufLZc3dXQghUzNELJAjwPEy73bJH32uZlxd/fMSAFo3DI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U+5P7hSy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783789256; c=relaxed/simple;
+	bh=NYXr/Zymyb9NIOnymw6OygCU1gJWUA6GFpPDgwT8Z0E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qRZCvzCxtNmt6ZiMj6zJb1X7hvKKZ+kwDncVCnHlMsSLrPofmrmpcjazdKs91/+fU7H5og6piBkN6vGeNRbQiYY0yDbn6YzttLrj4GAqHNhk9jGKZVOEoDiKZ11gFOO6uJSTbZMYVGneKT5kt7hNQCKVCjHkEwcEP7l0MDqqE/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJiF+pTP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U+5P7hSy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C6A1F000E9;
-	Sat, 11 Jul 2026 16:58:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJiF+pTP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785A31F000E9;
+	Sat, 11 Jul 2026 17:00:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783789130;
-	bh=xJMk5wfqfmZ8Km+K3oUYO2vXzYnu5TIhfjfCYG6aJXw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U+5P7hSywsTiAsJxEmNblQnkreLzh//QvBfQVoqGeDPv9YhhOZtsMI1JwZkV6u6O4
-	 bC+6NNJkM0x8+E9m6xDDWuMmIVwLNuotSvuWcr+D5EjuAMT+Xh+77Wym/tszw5KmDn
-	 +ho4taDk06q2GHDiDD9HjNMLg0xWSGlyOHZXASpiuu8HBUFE+wjmiSBQDRP/Ush2Hz
-	 LLFXUkg73o0KMBKfA6N+/F2r+oigE+8Uj/0wGmxynlJnpId7lCAuNe3DwJh1pj2A+R
-	 lZY3xRP+d5UmnCJZsA4lpySmeLNkHOJpQxi1fR6/dtYSh7ov/gpFd7rBz+EC2lX/P5
-	 3s+YCvQPP2bvg==
-Date: Sat, 11 Jul 2026 11:58:46 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: esteuwu@proton.me
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-phy@lists.infradead.org
-Subject: Re: [PATCH 0/8] SM8450 QoL changes
-Message-ID: <alJ1EGIa8WM-iRRN@baldur>
-References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
+	s=k20260515; t=1783789254;
+	bh=NdtVT8Hj2MpX7its900+qFkj9HjahZIZyiXH+xTsg7k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BJiF+pTPL4obELx8Ts806003X3f6J1wzSFgOiS9XDQQxzI00wOIREzYtA/K/TmFsg
+	 dKOQjQohCwKk4y09xb6eydB9f+FwBteXxZtkU3cSRhxMLPyO98NUxtDMvGj4Ap3yod
+	 7NbaaX74pz17M/7qAf4OZtVJeAEpmnZf2146j3U5O9VyKj876jlLgq45+u325nBhwL
+	 lG9tse3ay2VQOvGw5yPZtVjDWBYkncKT1UKHQc6dWkiMi3mpTv3Rwgsxv4o9sWD6EQ
+	 xtpKAhm1dyMo2a8AD46K+LdbazK5zi7BulIltWRawSk3ftaQRT06is2uO5hAqrd7oR
+	 GvNrlc6mLYhLA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/6] dt-bindings: phy: motorola,cpcap-usb-phy: add
+ optional safe pinctrl state
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
+Cc: conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org
+In-Reply-To: <20260711164754.185565-3-ivo.g.dimitrov.75@gmail.com>
+References: <20260711164754.185565-1-ivo.g.dimitrov.75@gmail.com>
+ <20260711164754.185565-3-ivo.g.dimitrov.75@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 11 Jul 2026 17:00:52 +0000
+Message-Id: <20260711170053.785A31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
 
-On Mon, Jun 22, 2026 at 08:54:21PM -0400, Esteban Urrutia via B4 Relay wrote:
-> Hello. This is my first attempt at contributing to the Linux kernel.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message claims to document the 'safe' pinctrl state u=
+sed by the CPCAP USB PHY driver, but the driver itself never references or =
+uses this state.
+--
 
-Welcome! A very good first attempt, I hope you will keep doing this!
+--- Patch [2]: [PATCH v4 2/6] dt-bindings: phy: motorola,cpcap-usb-phy: add=
+ optional safe pinctrl state ---
+commit a9d2c62cbbf0fb6ec2341d2c0459bff90670c671
+Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-> 
-> I've been mainlining an SM8475 based device for quite some time now and
-> I feel now's the proper time to start submitting patches.
-> I'm starting with the smallest part which are mostly modifications
-> regarding the current support for the SM8450 SoC.
-> 
-> Regards,
-> Esteban
-> 
-> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
-> ---
-> Esteban Urrutia (8):
->       clk: qcom: dispcc-sm8450: Fix mdss clocks
->       arm64: dts: qcom: sm8450: Remove unneeded reserved memory nodes
->       arm64: dts: qcom: sm8450: Modify GPU operating points
->       arm64: dts: qcom: sm8450: Add missing PCM_OUT port
->       iommu/arm-smmu-qcom: Add SM8450 MDSS compatible
->       phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
->       phy: qcom: qmp-combo: Correct pre-emphasis table for QMP v4 DP PHYs
->       arm64: defconfig: Add SM8450 camcc
+dt-bindings: phy: motorola,cpcap-usb-phy: add optional safe pinctrl state
 
-Sending the patches as a single series implies that there's some sort of
-dependency/relationship between them, but as far as I can tell there
-isn't.
+This commit adds a new safe pinctrl state to the CPCAP USB PHY device tree
+bindings.
 
-The changes applies to 4 different maintainers/subsystems. If you group
-patches based on their dependencies and who is going to merge them, each
-group will be easier to review and merge.
+> Document the optional "safe" pinctrl state used by the CPCAP USB PHY
+> driver.
 
-Regards,
-Bjorn
+[Severity: Medium]
+Is this commit message accurate regarding the driver actually using this st=
+ate?
 
-> 
->  arch/arm64/boot/dts/qcom/sm8450.dtsi       | 50 ++++++------------------------
->  arch/arm64/configs/defconfig               |  1 +
->  drivers/clk/qcom/dispcc-sm8450.c           |  6 ++--
->  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c |  1 +
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c  | 33 +-------------------
->  5 files changed, 16 insertions(+), 75 deletions(-)
-> ---
-> base-commit: 948efecf22e49aa4bf55bb73ec79a0ddcfd38571
-> change-id: 20260622-sm8450-qol-466b8c07eb5f
-> 
-> Best regards,
-> --  
-> Esteban Urrutia <esteuwu@proton.me>
-> 
-> 
+Looking at the driver implementation in
+drivers/phy/motorola/phy-cpcap-usb.c:cpcap_usb_init_optional_pins(), it
+appears to only request the ulpi, utmi, and uart states:
+
+	ddata->pins_ulpi =3D pinctrl_lookup_state(ddata->pins, "ulpi");
+	if (IS_ERR(ddata->pins_ulpi))
+	...
+	ddata->pins_utmi =3D pinctrl_lookup_state(ddata->pins, "utmi");
+	...
+	ddata->pins_uart =3D pinctrl_lookup_state(ddata->pins, "uart");
+
+The safe state does not appear to be requested or used anywhere in the driv=
+er
+code.
+
+Does the driver still need to be updated to support this new state, or could
+the commit message be clarified to reflect that this is laying the groundwo=
+rk
+for future driver support?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711164754.1855=
+65-1-ivo.g.dimitrov.75@gmail.com?part=3D2
