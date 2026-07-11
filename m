@@ -1,122 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB2727A476
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 14:51:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181CB28CF6F;
+	Sat, 11 Jul 2026 14:57:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783781489; cv=none; b=EN3qFMK3AWr4UtU/Gem/0tbPQOB8+fMLMrPpyCEIlFrnryOliK+JmXlwaMGpD6i1rHSrW29cfAYefZuetaMqM6R2Tf4y2RMWFrx3b71sA55LdhlsscJpXAdQbanS64M0+2ncY0UcqAkQONDguQQmDDy0+rNP40f41MJIyL3Vt08=
+	t=1783781836; cv=none; b=Hinx/W5EJwnsYJkgdJTesIqFvmXZfFyxPhbsNIbQWQzyIB05/dkid4AGEjiFSXndDqice0Aj1Dp9cwMUCgXfod6XDRyUu8ksNbTRt+zNcYbYOvl6l42hnmcqEbgvqzicLp+gkNj+uIMqxASBSc7R8d4NkxH1gcmitsreFbD50+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783781489; c=relaxed/simple;
-	bh=4RFSGw+CDMd+5s86BtplX+kqnR5RCZVymWAUAsELbOY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eI7ZsixHX2clr8+tSx6YCiUfDkwk33mvTxLGqhP0tPgRSO4bM7abbeC/RZyIhCI3AmhqABacqNT83njCyASmc8ikHKSuv7g6ZUz5tQfqZ3aN4oWzEAGf4O7Vwtjat7ul8hRUmDCPaJd31BTPKqsPxESa2lfnQinCoaUHObLZPL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1e85wTy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783781836; c=relaxed/simple;
+	bh=Ynij4Jgo7pYvJ/6r83hvCfm/h9Amr6Dm3dEjTMIcqIs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uqWNogps872wW33SUTXsonPFdmnEMCb/5w3sp4XC/Z+SaBa0xOqLh2Ix9cdMWMn3xSRe0xLR6KrsbtMTBdwzieIHYYrlIYnVcE9cxDupbpUyD8IXwax906xyZl33/l8Lt8HiacSqgWAHZp2NqEcBcLoWTcbfLRca5bZFTG5Vn9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1uTYTzh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1e85wTy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA181F00A3E
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 14:51:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1uTYTzh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585691F000E9;
+	Sat, 11 Jul 2026 14:57:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783781488;
-	bh=YbdHo1fFhSGeC4vAMfWJlbQ9rrl/OoSLZE9a3JPg1ZY=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=K1e85wTy4bDfXVfOZKLTJKrHyY1vBQdrvQAC8QsI0+NZ0LbGCRd3NY3je0PCPk6tL
-	 zaUQ2dRYqdMuY/fBtxPH9X602WP1u5NMh6NLB5Kqe3SBSUBQdXM175a6FtvybmEu5J
-	 f6zatSIbWeFcU/cDs1Ba1kQKrQYy+OzROuPWNkV02T1RLbAGjHWF2Wehpe8eNGBSTb
-	 9vNZGro/w2cRUy26xOtaP2kYHTA9vot1+ZlskvJQyH+uhED+qK5JffW4nXxuwxbZdi
-	 3x4UEyDRrdNJl8WD6MIEBxkp3aXPrI7jb3CPIqp3FrCz5/8FHF+evnQYL+7/qrIk+8
-	 g0wnhcLBnr9rQ==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-39c908d6cb6so16294181fa.1
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 07:51:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpAqe0QAdApNESqPR2jRNXHTHVseH/1A14fbHCvdRuqWlLzYgzrMsBYOskzBiSUJ7BhhrFaL7vKp7AW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzej3n2n0BRalKfA0570t0FVk04HMyTqppu0wUX0NWzhPnpXFVk
-	eTlnU8sbi8LM5t06L1oqrQ1UOAIXMQ3Z+pB0MJvzarkhqMBnSLca1eYutgFugI5H/+WslNfsexT
-	JkAaeRNKlDW0++CqRvb5SLLpptoYa8uM=
-X-Received: by 2002:a05:651c:b08:b0:39b:180d:34f with SMTP id
- 38308e7fff4ca-39caa851bb8mr5565121fa.26.1783781486909; Sat, 11 Jul 2026
- 07:51:26 -0700 (PDT)
+	s=k20260515; t=1783781834;
+	bh=ZRu2C+pypTWNVGcW4Msl94QsEJjH8FM6FJdsgl5DJ/Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c1uTYTzhlSnLHRD1P7XP13WaSNP6htxBsJcrRMzP/U1wAExHj6OFEZwPMY/xgh2dl
+	 QC+ZTzvXnY2QqnnBwTBCWptDhte42E924JnxTS2c1+JETmACncBbPzvdZ95D8L2qBq
+	 5LNKKMC+Zo2w/9paHVlMglG4ZNNxEiD26HscUeFE53fjOe2zdQOX2hLxxulVmqmIEe
+	 fIz0tGIQCUMrEGxCGMfQF+I7nrhCkg3KNybEIG218MfCH1KQBP55cB+mTthNkuH7Wp
+	 a5HzeIV3yLDA5yEMnyiSWEImdA4L3FJ00qgwjcbsJ6mHCR2GYxYK9kUFxwfzYuFTLk
+	 05YZ3cF/ujyjg==
+Date: Sat, 11 Jul 2026 16:57:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
+	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/4] dt-bindings: remoteproc: qcom: move glymur SoCCP
+ pas to standalone
+Message-ID: <20260711-topaz-hippo-of-romance-3e8c09@quoll>
+References: <20260709-glymur-soccp-v6-0-16f70227547d@oss.qualcomm.com>
+ <20260709-glymur-soccp-v6-1-16f70227547d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260711135959.3616919-1-wens@kernel.org> <20260711135959.3616919-6-wens@kernel.org>
- <20260711140815.40CFF1F00A3A@smtp.kernel.org>
-In-Reply-To: <20260711140815.40CFF1F00A3A@smtp.kernel.org>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sat, 11 Jul 2026 22:51:10 +0800
-X-Gmail-Original-Message-ID: <CAGb2v675dr_rfT69LD33uEOtshjBZg8T3ioh9jWy-DEB17_8KQ@mail.gmail.com>
-X-Gm-Features: AUfX_mzNZXwHrrTYqh8_BgRVOxijgn9KAwskKoA2PS7BbrJpLry6SlCoGOivvNw
-Message-ID: <CAGb2v675dr_rfT69LD33uEOtshjBZg8T3ioh9jWy-DEB17_8KQ@mail.gmail.com>
-Subject: Re: [PATCH v2 5/7] arm64: dts: allwinner: sun50i-h6: Add missing SRAM
- region for video engine
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, linux-sunxi@lists.linux.dev, 
-	devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260709-glymur-soccp-v6-1-16f70227547d@oss.qualcomm.com>
 
-On Sat, Jul 11, 2026 at 10:08=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] Adding a second phandle to the `allwinner,sram` property has n=
-o effect at runtime because the sunxi_sram driver infrastructure hardcodes =
-parsing to only the first index.
-> --
->
-> --- Patch [5]: [PATCH v2 5/7] arm64: dts: allwinner: sun50i-h6: Add missi=
-ng SRAM region for video engine ---
-> commit 8b2bcf328faa458d85d11e3cef06ddda86e2e10e
-> Author: Chen-Yu Tsai <wens@kernel.org>
->
-> arm64: dts: allwinner: sun50i-h6: Add missing SRAM region for video engin=
-e
->
-> This commit adds a reference to the SRAM C region in the video engine nod=
-e
-> to prevent access through a partial alias window.
->
-> > diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi b/arch/arm64/=
-boot/dts/allwinner/sun50i-h6.dtsi
-> > --- a/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > +++ b/arch/arm64/boot/dts/allwinner/sun50i-h6.dtsi
-> > @@ -205,7 +205,7 @@ video-codec@1c0e000 {
-> >                       clock-names =3D "ahb", "mod", "ram";
-> >                       resets =3D <&ccu RST_BUS_VE>;
-> >                       interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
-> > -                     allwinner,sram =3D <&ve_sram 1>;
-> > +                     allwinner,sram =3D <&ve_sram 1>, <&de2_sram 1>;
->
-> [Severity: Medium]
-> Will the second phandle be silently ignored during runtime?
->
-> Looking at the cedrus driver, it calls sunxi_sram_claim() during probe.
-> However, the underlying infrastructure appears to hardcode index 0 when
-> parsing this property:
->
-> drivers/soc/sunxi/sunxi_sram.c:sunxi_sram_of_parse() {
->     ...
->     ret =3D of_parse_phandle_with_fixed_args(node, "allwinner,sram", 1, 0=
-,
->                                            &args);
+On Thu, Jul 09, 2026 at 11:39:42PM -0700, Ananthu C V wrote:
+> SHM bridge creation is required to enable memory protection for both
+> remoteproc metadata and its memory region on Qualcomm SoCs like Glymur
+> running non-Gunyah based Hypervisors, unlike Kaanapali.
+> 
+> Having Glymur fall back to the Kaanapali binding is therefore incorrect
+> and breaks subsystem restart on Glymur.
+> 
+> Fix this by decoupling Glymur SoCCP PAS from Kaanapali and registering
+> it as its own binding.
+> 
+> Fixes: 8b54bacadc0c ("dt-bindings: remoteproc: qcom: Document pas for SoCCP on Kaanapali and Glymur platforms")
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/remoteproc/qcom,kaanapali-soccp-pas.yaml        | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yeah, no. Sashiko's context needs to be updated. This was changed in
-commit be99eb936b4f ("soc: sunxi: sram: Support claiming multiple regions
-per device") in v7.2-rc1.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
->     ...
-> }
->
-> Does the driver infrastructure need to be updated to parse multiple indic=
-es
-> before this device tree addition takes effect?
->
-> >                       iommus =3D <&iommu 3>;
-> >               };
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711135959.36=
-16919-1-wens@kernel.org?part=3D5
+Best regards,
+Krzysztof
+
