@@ -1,33 +1,67 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3283A2D5A19;
-	Sat, 11 Jul 2026 15:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C4D3793CC
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 15:15:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783782835; cv=none; b=spOKdds1Xl+evZi3JMGZ+AcFNVRgtTFUn4rXUHrq6jcVe69x4+YNsljSwhP7vWDI+ClSI/SNYQ0+tsSadGae5BXMJdVxLtWqylNU0UJZKyKOgAoIjC9kxYJC8Lo2LMpBx2OscLxzALaPIGtA3Y5n+glcDIL6slazcrsp4JCykfA=
+	t=1783782917; cv=none; b=d9Gz4IFuUNhktItTTEdTRDUB5e7VnJCdcPkvasun/eONdybyNZys1NP0m4GSPqm/5QySKt+vZguxgdCNC2noUMDYhxWdzULzOpihCuOB1XL6z5FfTRqdtzOih55Xq+cxzFsXoPJSynPWNeavr7DYvUIlcXHxSvSdYDfZlDBf3Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783782835; c=relaxed/simple;
-	bh=sDXWQS6dOHId7445+Y/ZGN5y9lFGKjA7sUnzyFygZdE=;
+	s=arc-20240116; t=1783782917; c=relaxed/simple;
+	bh=7xqrjMGqzR9EHIB4uRKM9zPdLYD7l4XVQeSYGZXdoys=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WeXTSb40F47GYaNY2EZ6Z2RQ1Jegk4qYKPGegfS2GLOSUTdtIc3SrixPjBxtRKnu6QZ/PbfJajTOTljQVdsqFDC79uK0EnwyVVxR46q4tRf/bA5ALP+kC1wCvWA9CgAnByS1D3pemN+GtHMW3JdwPs9i2VUnCmXzbaeFeW/8TIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FFX7kGTD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=oP4gPpT3kC2ImDtorVuCAiKO+znrDV0vmmrhiLwkFnLJ0dlbrlf1Vgh314xpY4PaPIThPfQrVDC+lNOL0/NPRLF6NHGNvjW2XMoNrU0kxC6G+CgiNQYh+5gYr38V7dw1Fqj2asN8RQqupIgLpGDEL/oQ25T/ZxIUJkaYbBxXQOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LAp1Oqo0; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FFX7kGTD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E0B9A1477;
-	Sat, 11 Jul 2026 08:13:47 -0700 (PDT)
-Received: from [10.20.1.47] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A7053F85F;
-	Sat, 11 Jul 2026 08:13:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1783782832; bh=sDXWQS6dOHId7445+Y/ZGN5y9lFGKjA7sUnzyFygZdE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=FFX7kGTD7Dm5jT3f9oQBpF2GinvIozz2BLkJfOevHZOF93dKmhapKSP2oBd4ZVKKT
-	 ZNaed3qMVh0NXCsAclQ1gL3SyjgeomTEQYirlFPsIEb7dirRj2/bXiFYKpYPqkqTBU
-	 CBdySDNvnKzcgYTsdhpziU87bFo90FMy5BWgVBys=
-Message-ID: <da0f77df-80bc-4917-8892-e61da365454b@arm.com>
-Date: Sat, 11 Jul 2026 17:13:47 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LAp1Oqo0"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e9f69ee6f4so1635157a34.2
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 08:15:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783782913; x=1784387713; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OWYP02y3RjXkE4E/9yWYWof/7A/f0IuzrtUZZgCf/DU=;
+        b=LAp1Oqo0UJ1LTf4bGL/ztLgpDIJl+xYO2cEW7FA0ratTnkRyD/EUV5GMOLRJu1q95c
+         FGAoI2rolUEVZFh/T/8hGDb4rptJbLDXOFt+ywMnLaKAsj9v00eQsLXEexlxW1EuCIgd
+         tIKcPkOMOUvPcPBcSEI7LON/O4MT9+hPJn8v8bVJJAqiOO7ch3wfRd+6PbWgjP0JHu39
+         LFsMyiYrGYhNeP5eWyPJyJU8LJCimjOHuFGIAxks+6N/WwppIf7K5Mx+dFnDfN7Z3CgR
+         NnqWFqCHoMp/nv9JL4oWHiyoSLza3mm7gBzOskJPCUAXOtduqfw4ESnHJGgJvpGZWCu2
+         H6EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783782913; x=1784387713;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OWYP02y3RjXkE4E/9yWYWof/7A/f0IuzrtUZZgCf/DU=;
+        b=TRFRPQT5YB23I9uEIZ4zJJityS9lmVIoaCniplkM5w3dHr+LVeSZadvmkNQJO01H9Y
+         taBbBYiangqotmLcrvfSCXA2j3wFyBWQA6TUJ3B7hAN/CjsYW3znv4XEB+JyoxrIdQxw
+         N68SyN8H5xF3oBDarjkeJU7I9MuBS8gY6Oyv8OmRs0Eg2e4cPDjsniGrcEd4cwey0L4V
+         uHwO80XDJXPC0NuoHvfkmiDNsDN1o6BwOtqw6Dmx8BnXNoxLIhe0+2+dmR7UOpO/vBOM
+         N+2ixD13Pwgje4lTVsxme1COPlHbsJ8VVbzN0CS/bwaiaV4RYXBf6G38UH0+SsexHy9S
+         TaJQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9hMaMIYhkeTlfgtzZmz6SuDYuXeZ1LKUd90Fl0O2Y3iuhLdtlWGWZIgmGjXM2BOeJwTFWl50jQ8DPj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz4Fudttv7FBLpaH5utGxRaoWsMvare0EDGq+zk3kEgwJCn5AsY
+	mtHa7yyclLRz+D0tNSSunvBw6TkUL2E1Rd/u9+n6t93lnGy+qz8l0sXKBVgNELZgklQ=
+X-Gm-Gg: AfdE7ckeD/uaavj6NjE0YUTqMJvs0OC4yQBDcMCj46aVWcXL0FBeLJmCs/DY+aPGUg2
+	eU+Wykn2but1cTcYT8sl+AtOFDH9vOl1sJBeE6rn4qFsbpCwBfjZdmag5Dep7Y7h9hzKvkZdth/
+	fyqEwIGPLgqIgppU2M1mmSmcvc8qcXhdx0YipsDFRyXn5jaGqg9NFTCWwEJhXfTCpTrIrnXjAdv
+	vUloMGc3/H46ZMQmoEzL6kDGR2FQTnBb5EK0CSvslc02ybgencnVpdkNAL4DfmsLID4lXW9+7eR
+	9mlc0C9n7gus1frWzmHNKF1gUM3howBPI2oAE0C7Ul3LRUl5kxu1SHEADtcSzPtELCYZT+W7kPN
+	AGCNbYNzThiii9JLJgIWsewS/1Sim6mjyyz0GuJl8ApogTNgamrzoUwmv4gGOlBIt4nabbnu1sY
+	0Lzl63XxF2e0ZoYal8R4Kw3FqQ0m/8NQS5As+I6ODq0hzCLjFA4MmQ+2dcGMTh+TA=
+X-Received: by 2002:a05:6830:6588:b0:7e9:3765:79c2 with SMTP id 46e09a7af769-7ec096ee1cbmr2107611a34.12.1783782912878;
+        Sat, 11 Jul 2026 08:15:12 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:a950:74e5:81f2:8c89? ([2600:8803:e7e4:500:a950:74e5:81f2:8c89])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb2bda95sm8571375a34.24.2026.07.11.08.15.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Jul 2026 08:15:11 -0700 (PDT)
+Message-ID: <bbadaa66-2db1-4052-b161-39373cbe92c7@baylibre.com>
+Date: Sat, 11 Jul 2026 10:15:10 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,77 +69,121 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] arm64: dts: allwinner: sun50i-h616: Add video
- engine
-To: Chen-Yu Tsai <wens@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Paul Kocialkowski <paulk@sys-base.io>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+Subject: Re: [PATCH v7 6/7] iio: dac: ad5686: add triggered buffer support
+To: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
- devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260711135959.3616919-1-wens@kernel.org>
- <20260711135959.3616919-8-wens@kernel.org>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260711135959.3616919-8-wens@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+References: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
+ <20260710-ad5686-new-features-v7-6-1bcc8c280e4d@analog.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260710-ad5686-new-features-v7-6-1bcc8c280e4d@analog.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On 7/11/26 15:59, Chen-Yu Tsai wrote:
-> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+On 7/10/26 6:20 AM, Rodrigo Alencar via B4 Relay wrote:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> The H616 SoC has a video engine, and two SRAM regions needed by it.
+> Implement trigger handler by leveraging the LDAC gpio to update all DAC
+> channels at once when it is available. Also, the multiple channel writes
+> can be flushed at once with the sync() operation.
 > 
-> Add the video engine to the dtsi file.
-> 
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> [wens@kernel.org: Add VE SRAM region and commit message]
-> Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
-
-Checked against the binding and the manual: clocks, regs, interrupts and 
-reset matches. Also test-built the DTB: that worked fine, not sure what 
-Sashiko was complaining about.
-
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-
-Thanks,
-Andre
-
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > ---
-> Changes since v1:
-> - Corrected second IOMMU port
-> ---
->   arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
+>  drivers/iio/dac/Kconfig  |  2 ++
+>  drivers/iio/dac/ad5686.c | 66 ++++++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 68 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-> index 1598e86259ab..c6b3a3f8359a 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-> @@ -175,6 +175,18 @@ crypto: crypto@1904000 {
->   			resets = <&ccu RST_BUS_CE>;
->   		};
->   
-> +		video-codec@1c0e000 {
-> +			compatible = "allwinner,sun50i-h616-video-engine";
-> +			reg = <0x01c0e000 0x2000>;
-> +			clocks = <&ccu CLK_BUS_VE>, <&ccu CLK_VE>,
-> +				 <&ccu CLK_MBUS_VE>;
-> +			clock-names = "ahb", "mod", "ram";
-> +			resets = <&ccu RST_BUS_VE>;
-> +			interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>;
-> +			iommus = <&iommu 3>, <&iommu 2>;
-> +			allwinner,sram = <&ve_sram 1>, <&sram_c 1>;
-> +		};
+> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> index 17529509da9d..d6d560c09e25 100644
+> --- a/drivers/iio/dac/Kconfig
+> +++ b/drivers/iio/dac/Kconfig
+> @@ -243,6 +243,8 @@ config LTC2688
+>  
+>  config AD5686
+>  	tristate
+> +	select IIO_BUFFER
+> +	select IIO_TRIGGERED_BUFFER
+>  
+>  config AD5686_SPI
+>  	tristate "Analog Devices AD5686 and similar multi-channel DACs (SPI)"
+> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+> index df32f46db81e..eeeff5c6cf38 100644
+> --- a/drivers/iio/dac/ad5686.c
+> +++ b/drivers/iio/dac/ad5686.c
+> @@ -21,7 +21,11 @@
+>  #include <linux/sysfs.h>
+>  #include <linux/wordpart.h>
+>  
+> +#include <linux/iio/buffer.h>
+>  #include <linux/iio/iio.h>
+> +#include <linux/iio/trigger.h>
+> +#include <linux/iio/trigger_consumer.h>
+> +#include <linux/iio/triggered_buffer.h>
+>  
+>  #include "ad5686.h"
+>  
+> @@ -243,6 +247,7 @@ static const struct iio_chan_spec_ext_info ad5686_ext_info[] = {
+>  		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
+>  		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),\
+>  		.address = addr,				\
+> +		.scan_index = chan,				\
+>  		.scan_type = {					\
+>  			.sign = 'u',				\
+>  			.realbits = (bits),			\
+> @@ -467,6 +472,60 @@ const struct ad5686_chip_info ad5679r_chip_info = {
+>  };
+>  EXPORT_SYMBOL_NS_GPL(ad5679r_chip_info, "IIO_AD5686");
+>  
+> +static void do_ad5686_trigger_handler(struct iio_dev *indio_dev)
+> +{
+> +	struct iio_buffer *buffer = indio_dev->buffer;
+
+Only used once and doesn't save a line wrap, so no need for a local variable.
+
+> +	struct ad5686_state *st = iio_priv(indio_dev);
+> +	u16 val[AD5686_MAX_CHANNELS] = { };
+> +	unsigned int scan_count, ch, i;
+> +	bool async_update;
+> +	u8 cmd;
 > +
->   		syscon: syscon@3000000 {
->   			compatible = "allwinner,sun50i-h616-system-control";
->   			reg = <0x03000000 0x1000>;
-
+> +	if (iio_pop_from_buffer(buffer, val))
+> +		return;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	scan_count = bitmap_weight(indio_dev->active_scan_mask,
+> +				   iio_get_masklength(indio_dev));
+> +	async_update = st->ldac_gpio && scan_count > 1;
+> +	if (async_update) {
+> +		/* use LDAC to update all channels simultaneously */
+> +		cmd = AD5686_CMD_WRITE_INPUT_N;
+> +		gpiod_set_value_cansleep(st->ldac_gpio, 0);
+> +	} else {
+> +		cmd = AD5686_CMD_WRITE_INPUT_N_UPDATE_N;
+> +	}
+> +
+> +	i = 0;
+> +	iio_for_each_active_channel(indio_dev, ch) {
+> +		if (st->ops->write(st, cmd, indio_dev->channels[ch].address, val[i++]))
+> +			break;
+> +	}
+> +
+> +	/*
+> +	 * If sync() is available, it is called here regardless of write
+> +	 * failure to allow bus implementation to reset. In that case, partial
+> +	 * writes are unlikely as the write operations would just queue up
+> +	 * the transfers.
+> +	 */
+> +	if (st->ops->sync)
+> +		st->ops->sync(st);
+> +
+> +	if (async_update)
+> +		gpiod_set_value_cansleep(st->ldac_gpio, 1);
+> +}
+> +
