@@ -1,106 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2E02EAB82;
-	Sat, 11 Jul 2026 07:41:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551CC37BE85;
+	Sat, 11 Jul 2026 07:42:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783755704; cv=none; b=l0vSNGW1KdjoEbOLQS8pyL03mCgiBuspW56u71+4t2UUDBUgzSWdwWOu3Dm59w0fTH8VyZv27kRl7ugi/86dZGpzClzVvTzIl1VS62EYOt9S00rzbnOnE1Wef8OwgbadfXZ0kHzIHRV2xSXH1twfN1+K/U6dy8vhICfv+xEuwiM=
+	t=1783755754; cv=none; b=HBLHENCGz/rXCWjNcSfJHzP7bUCeUK/VS8Rm0b2064AwDaDYRWGyDRyoFcMM+aQpMNZtu1JlYcBLe/0u+wDPYYbUsee2xJkwNqmFrwhcOcvZ9+eRhpVurLEa+DGzQ8lXlGfuXxT/g1NmttlKV8D43wy65fOHwactCYcF+bdYM6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783755704; c=relaxed/simple;
-	bh=CZkC0T0G0v3pRiguDz3Y2aIo1lPSidqNTLl9RM53Y+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KN8Enu+Tft1ON4tBRdqhC6REKiVuEZwJLBReoSDjG2xhAZ3l9+YZUpGHTPKK3Nz07I0TpqRzu7yEtXxo2aODqRXBPsdZC9Umug5umofwcYfVhJm0pPQoFfGrXjdamLNdVq6hzlz6ql2bEg6RKyTFarsiWGq9+JLbbztufJbLkcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KE1e5R5M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783755754; c=relaxed/simple;
+	bh=MD7Ovdbi7zeFFPqobxBvSfEfYvwBTEdLfEPQGfxVjIg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rvK3B9xX5k+zYGROolcN9OFZ5X/WUstm0XEz9nMzuwqe0VnPe7qASsoM2QxGqhveyR/XhguruEgYm5ljEXl3/CNqGY/C2UrblnPaDwMDJK/5zf3qdCMykbBp6hk563ye5Ia57OZgLLnLqsraZPqV+jJk8tMkp1plaIbr0i5N9LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6N/MBhh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KE1e5R5M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CE311F000E9;
-	Sat, 11 Jul 2026 07:41:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6N/MBhh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BC6B1F000E9;
+	Sat, 11 Jul 2026 07:42:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783755702;
-	bh=FfSritx/PtEBrsGP3lbGQMekJE8MmJCr9d3EgkR1zwo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KE1e5R5MLRMZ5mWs3Dpq4fi2fB/ZDPPgUTHy12YnFJdhMG9l4FWItXwYpe2hKDf9X
-	 SyP1C1klHJNrWx7NqlynSXTbvkrVo0Lz3DAqoxpnU71g6r/uTsDpfM+xlWY6849GfR
-	 qfuoYiBbeGk9bAr3/m9iWEb4MDb+4AOC+CTYkrGzamkhBSdyKBMRFEgKAio5lZ1FMJ
-	 xUZuhN8S24XxCVR6uny9gWtiIZYlJRebNoMGHNwt1TazQNcaHIQoea0ZQITPMCqjpj
-	 xYu/w4axLIUFOlJb4SpjwXVhx3CQ/HKPj0Z03126qxD+INTkI41wqGE2v5s+jFbzWK
-	 HKnDpxyjuAKog==
-Date: Sat, 11 Jul 2026 07:41:39 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Shuwei Wu <shuwei.wu@mailbox.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] cpufreq: dt-platdev: Add SpacemiT K1 SoC to the
- allowlist
-Message-ID: <20260711074139-GKA36656@kernel.org>
-References: <20260626-shadow-deps-v4-0-bba9831f2f1d@mailbox.org>
- <20260626-shadow-deps-v4-1-bba9831f2f1d@mailbox.org>
- <7x5mgpk3z3aiebifhxto2v7m5yrikj52lwf5pzegzhk5aiehhj@jqm6opm6nrub>
+	s=k20260515; t=1783755751;
+	bh=b0puPD2wKiSLhzZEA76rfLjsyQImjoRkwrjkEKhkDQw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=k6N/MBhh+2KzbM0y/HRTtyz4Vyy1BuTi2qS20UDUjP4ryim5Kv7xbUmR3wAqrJbLn
+	 giZl7PWeztD6GaAOTOnXGxBU3L6M32oNoubwEn61fuyQyC2N1fKTqNN2fSX/F/Ah1U
+	 jt9pWAIGlQCMgjWBG4kRG+NeOtKCvZNBRpgG7RtVt+7R+S1mJ2sdbJBK99mxKBwLCa
+	 qvGpdPJqbb6K3K4DGtFLKshqDvRalOltr/714URO/Xb7etRSDph0hfnVd7AM3m0h6W
+	 de831+it1itoLGteu5TcRz6ijXlqHQbw83X6d0VbtVWOXvA5uqNwNre6ENuyYAuPtW
+	 X6R5v05iOAsRw==
+Message-ID: <a5a70368-b1e9-43b6-be2b-ceaffe0ea9ef@kernel.org>
+Date: Sat, 11 Jul 2026 09:42:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7x5mgpk3z3aiebifhxto2v7m5yrikj52lwf5pzegzhk5aiehhj@jqm6opm6nrub>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: memory-controllers: renesas,dbsc: fix
+ bracket
+To: Manuel Ebner <manuelebner@mailbox.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260710113029.436415-2-manuelebner@mailbox.org>
+ <8ad5043e-0d5e-486d-80eb-87168d9ede87@kernel.org>
+ <a3723ad0ac56ca5d6986d2fec5a02386b423e207.camel@mailbox.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <a3723ad0ac56ca5d6986d2fec5a02386b423e207.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Viresh,
-
-On 10:28 Mon 29 Jun     , Viresh Kumar wrote:
-> On 26-06-26, 16:10, Shuwei Wu wrote:
-> > Add the compatible string for supporting the generic
-> > cpufreq driver on the SpacemiT K1 SoC.
-> > 
-> > Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
-> > ---
-> > Changes in v4:
-> > - Drop the K1-specific cpufreq driver and use cpufreq-dt again
-> > - Add spacemit,k1 back to the cpufreq-dt allowlist
-> > 
-> > Changes in v3:
-> > - Add a K1-specific cpufreq driver for the shared-rail, dual-clock topology
-> > - Add spacemit,k1 to the cpufreq-dt blocklist
-> > ---
-> > ---
-> >  drivers/cpufreq/cpufreq-dt-platdev.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/drivers/cpufreq/cpufreq-dt-platdev.c b/drivers/cpufreq/cpufreq-dt-platdev.c
-> > index 25fd3b191b7e..e262394b56f9 100644
-> > --- a/drivers/cpufreq/cpufreq-dt-platdev.c
-> > +++ b/drivers/cpufreq/cpufreq-dt-platdev.c
-> > @@ -81,6 +81,8 @@ static const struct of_device_id allowlist[] __initconst = {
-> >  		{ .have_governor_per_policy = true, },
-> >  	},
-> >  
-> > +	{ .compatible = "spacemit,k1", },
-> > +
-> >  	{ .compatible = "st-ericsson,u8500", },
-> >  	{ .compatible = "st-ericsson,u8540", },
-> >  	{ .compatible = "st-ericsson,u9500", },
+On 10/07/2026 18:55, Manuel Ebner wrote:
+>> These are trivial - one patch for all bindings should be enough.
 > 
-> Please take this via arch tree.
-> 
+> I made a unified patch for Documentation/devicetree/bindings/. It's
+> 18 files. get_maintainer returns 44 addresses for To= and 18 addresses
+> for Cc=. Should I just send it with all addresses?
 
-Ok, in this case, I will take it via SpacemiT SoC tree along with DT patch [2/2]
+No, send it only to DT maintainers and maybe a few lists.
 
-Reviewed-by: Yixun Lan <dlan@kernel.org>
-
-> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-> 
-> -- 
-> viresh
-
--- 
-Yixun Lan (dlan)
+Best regards,
+Krzysztof
