@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE83A288C81
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 03:48:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755AF1E1E12
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 03:56:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783741719; cv=none; b=nmpg05i4OAyGyirQMwj0kbQwcCHH3U3/WHRQ0LoU9ce7PUEjWC8khw2ISysXouUnCxgwVz7JfNxbdYQWo7LXzJxqmJIU0I+nWQF85sknpL9O34z1hAZj4WDrDMILdqy93x8F+0rekuebJHem4FOfQSia4eOmmgC7AyqSCRhzUvo=
+	t=1783742163; cv=none; b=q4Cb04YRu9GwSFSLBLFT3PQ03jLKNDUENvGfef4mb1jMO1MXsd9r74GZkxlt+cL1kJ5NatLa1W1wi+4RIoL6LQF63AZf/rUvwLVGwqh8qoXHwuI2iDsOVzW9vIM2o378lU18/2zYLDP9pY5mYLwS4PSQ/6+LdBadhxCiiJuqJO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783741719; c=relaxed/simple;
-	bh=Ei1ZcO1wvdACPMG6sL/wGcRy+ehAtulyMYsMK34GiK0=;
+	s=arc-20240116; t=1783742163; c=relaxed/simple;
+	bh=x9Pa4CWmIaRLB3MyBULfiCaneJwv7lLfh8snhiBC/Oo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f6fAhSSQyATchxF//buyRwRNFVN57tnsp3bEW9nUNEBswSQXtMfekNasSgfAo8tuv0f4YZM+VRQc/qz3bLlUWjmei9z36azVORT2UIZ5FzacEti/Y8DsIF4dHPA5olE915JLlTkfKBuml0Y21hbE/LBV6zKvyFPo1mkQIMZYRF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U39rOvfh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RTxkVKBt; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=H/zSyXFJEqG8tHD44yiPGYBkemoYM6t9s0gwpqgy8zNQMB2N4brQ+yLKsjBrCRS36jD7uKiwYT2OHg5Gi9kBRAK0znJKwiqhoHphgZ5RgTNvnMSkRvmM/DQcJI9RHGzyNBxRXmBxH4I7ehgR7Pz5d2MXnvM0L9i9i9HHTirBYzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MeFZfVra; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FijEtiKd; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U39rOvfh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RTxkVKBt"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66B3lZOw2793279
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 03:48:36 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MeFZfVra";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FijEtiKd"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66B3o24Q2687175
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 03:56:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zWp3h9IfShwVVthOqsYFNWjXLlqI8l6BavhKygxu5/o=; b=U39rOvfhQnVrppQC
-	LgDFYjY6PRHuxRL7tkS1RfhyuqJ/jK5ZyWvyzkKHcqeHvIQQviS2NCPrGurQ4hlo
-	wVsR8eLCg/rKguI59y175ymYubPvFEUzyfM1Y0jYKGv4lbd3HSPf0UCMMGhBNgoS
-	DHlZJEoV5Sd7e+MpfZFsrG/3W+3hDJNZ31AiTpg+e61MG4nLgMTELK8KRdfWvrCg
-	iPEiocigDg6hxwfu5L89LlQk6CJKcFW541WtmGAPZ99EVtNtKK0fk2jY1Xl5SXmy
-	0ah8heVsCKuh7gNyg7QDj1Jx5LnMa4/U5ElSeYQAseXThYlw22P88t2J3VnCPu4v
-	apGcDQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbbhdg9at-1
+	eJBGuOWmLf6hP0jureBA7oAb8Q7pc962h6NOyjWbd6Q=; b=MeFZfVraUDHGstkM
+	CuFXGdbiYvfqSJssyG5L/0FOToDtzJfODvzVn4PbjCY9NoKSARTP0RsVwal7oxLI
+	W3IeByHz+iBxkt/hMCQ2Bwf023Ic121gHjr7d7Dz5CJvYlUtzbEbz6Ucj7J7+9Hv
+	NNqPP6cPfR8W53D4WLwnnqhWYpRz3jfRl1q7ssn7GJpnajDz/JK+OYA4JcdmUg10
+	mOdfJYt/gSDNKCHp5vIPOanU0+JuCfVhol8agTF6hJ5mK4ByNdAWBZTUTxqJ1qPe
+	I868Zpa1EyftndfHnlpY8LP8oAkUljasFxz4iY1C0OLuCLRr2+T5SW4oTAdU+ibv
+	rfpn9w==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbe94g08s-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 03:48:35 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-381e93bfcacso817840a91.2
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:48:35 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 03:56:01 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-ca124bf0189so1785947a12.0
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 20:56:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783741715; x=1784346515; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783742161; x=1784346961; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zWp3h9IfShwVVthOqsYFNWjXLlqI8l6BavhKygxu5/o=;
-        b=RTxkVKBtSBfQ++fdlc86ESdaFVi6g1V37oXQvLbDjG3Br6Hg9DY7hNcVGq4sC7o4OT
-         t4LiiUS8PAsr2/x7j9q3PnTPh9pbjGg0XDGDnYeC04ZnLixjZHUD3JsVyc2Y3HpmS4/K
-         sh2PUptXs0ldqh4TN2mH9Gn68b6ANksXngEFkRWqKQV/FLhuaYtTvB6B9B/8kVCpPQ4m
-         G4nY/WAWAOYOj3r+1nQSmgjaCRT7jfFgvaYa+BycEC9WtYN8PwRDGRUzFFSIJfsvQiG4
-         9n5gI7v3XnF+KbeG5rXXTVIRB8cD2W+2CXcAt95nKu3o6mL1a6iKUkNrk4LSkqdBlGza
-         j8PA==
+        bh=eJBGuOWmLf6hP0jureBA7oAb8Q7pc962h6NOyjWbd6Q=;
+        b=FijEtiKdUse/UBxRNkRAFVVSW/9IpdKMTRqrn5s2Blf0iWg9ftEB8BxmEgJHFwJF7X
+         LmeSMzASAY3ghvCay8zZQPTsjFc2BZ2civBVt5wQKpg7nIGD6y4jqP4WIlApGfv6y4Iw
+         SubIESgPNpDlYO2qbN4lOfRQfwvuc3oAAjjzoX9vfmT3oo5l9MQpG7osAHrGsSGw7hq9
+         MM9QOCndc4+9sdVWsVTmETBsLEozM4cPcN0nPxVQKyod71ZBDbL9oLODwm7dymgTDovc
+         GISW9xBXWG9j9Q5pYIT+bxe2zwHlCsj3bepZzZIB9FgdkeWFnsQg/O70mVci+W1USHJp
+         DxpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783741715; x=1784346515;
+        d=1e100.net; s=20251104; t=1783742161; x=1784346961;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zWp3h9IfShwVVthOqsYFNWjXLlqI8l6BavhKygxu5/o=;
-        b=jeAh6TnuXcRyjj9MGXlVvL6afGz1dGKU8/T5bIpEc9J1jj6hZCc22KgL2gjiqdenZ/
-         PPzvQzkJFElAxHjZXD+2bM8xmVxjjHQ7Lh1Hy5rvCyXRccMQdQepqoWPoqvpK0HJH/c7
-         oU7M4Y14ZqaxOxJwA0OJkNoxSX5oEXWMOSugcqmIR6F8C54nvmKuMLD46e5kLETFpomX
-         L3CK71tWc5r5rM5weVfAyAL0YNTgSeDDi6XqD9B90SgVDmsLiwpW8gUSHRTDw2/se6wE
-         YGg88IP8HEMwbUART5PXECKXltt9gCQa9RNPj1wsgEz44BGWVicCn/rgws2URZwmrFe+
-         qXCA==
-X-Forwarded-Encrypted: i=1; AHgh+RoKGQvmaQjjKkTkEJ9LhGbzYo/CmGjouYIIZ1UbjU3Ih/QbMZyV86GS1H+j2gPO+t37d0muoCTf6ux3@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUeoft6T8i496D+iNcPApjKC4imi2y0/rPpfh3agaC6Ou9yoCu
-	J0KYi44cnakMGRQUddJrvgmZzmxZ9c5I9MjH3nDhrHzAiYrV30WotdLlTCwq0sXZoXSYYpHJSdV
-	bfm4U6yq84z1QNXnDOSa22IHLtcX3pRz/wbBbaeRC245uGtnkuNJw/8kom/iCq86E
-X-Gm-Gg: AfdE7cmyK+nQuBgQumDF6BMt329OxI0AXNNN7cYQTmsbgwvM4QxiZhxC45wcZtbZAsZ
-	zjqBOVFoPe90SYGisdr2XAzP5YZOH15SCt+Sh9hL9WI6hquGUSkBZUVElpvUpDtT/qLNv7NVrkY
-	G4SvvrwwnKZnVkEVZxhgFxtLODztJD1qhFlxMGOl8IHmRpgjZHIpyhyh7a3lRJnKTikDzB9r8cc
-	tlpm7559DpdR8pHY5p1XGq8l/aQp03VCw+k0eHy4OcwStFSRE15KuftzhvWQcuh2wseXBS8M+Vk
-	/ojYIioMj5wBIXuseLwIF1JwiogSf4+1i99AhHHohM+0f8xM3FcCZmmU25m6SQfGn6tXx17489h
-	Axk64kyCWWt+sH7coWHISKJKS8HnsM5nOXPnieCJP01EdDqk=
-X-Received: by 2002:a17:90b:3908:b0:384:a641:3fe with SMTP id 98e67ed59e1d1-38dc7737215mr1569964a91.21.1783741714681;
-        Fri, 10 Jul 2026 20:48:34 -0700 (PDT)
-X-Received: by 2002:a17:90b:3908:b0:384:a641:3fe with SMTP id 98e67ed59e1d1-38dc7737215mr1569933a91.21.1783741714165;
-        Fri, 10 Jul 2026 20:48:34 -0700 (PDT)
+        bh=eJBGuOWmLf6hP0jureBA7oAb8Q7pc962h6NOyjWbd6Q=;
+        b=V233DYpm/P/YcnPxuf6eDFIqfTl4YgAvy2HkChOGh17Mn3itobd3xDyDf0LZ2ZuuYN
+         lIT0jwPCGccOp541BIL23wkL8zCHUjPPgGU1hsO2XJT67sCItsxIDSKuXiQhk+vOiyCQ
+         ulaPzqMXABQs9s3aBF2eA4FnL7dThmAVjkkFbb0HB89nTNCgYHUj+7kI9YjziN7t4KXD
+         Q1onjd4Rcohj86+6e4PCNLwfg878rhCBYl6jaT4I1/SASFer4WjQYvkvFUR70MA87AEP
+         dQCNZ+U6IhXwLiwaoqmFcs7tq2GA3y7tZ+FHizJ7qMAHcAjIa2Cy1tak/F23xIXwhtuE
+         2yrQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqXCDmKvdgup4PUePwZSyCUkZJweD4ReXt782Uvq+8aAiMAsgDmZ68P/MJOvnf/NOc2iA5ZXQIkAVDA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4TZCUaaZ0PU3FzKzGrZYpVpA1moVrpM0p5RPusmNy7GnXxxM/
+	889H2aws00Oe8ROPpXD9zw2L1gMJnE3g0aKIegun1831Hu+vHqDu/QgacUM0Pv13prKeYWTZgd0
+	PYdiiXEz+SKthGh44tVaTXfC5f0chMCHhnlDLmYMM85TAUO+TcHj2TvZYwZ/BNQ78
+X-Gm-Gg: AfdE7ck3L2ZAh1Zyp80foLofWpqcOXKeHEcV1WAL49Svws2kNWsm2Yt+6sZaNbn85aK
+	bWCwHlvOm7i3xjtjv0/KXJpfziVOMs1Zop1fqF8nhc/il9EtRZqpi6/n72tEEiEmjaGIhNIHhml
+	YluDYe+ffza5TRCli2CPRPIGxmHDv+Y/eW226kS2pgzcogl144FnrCdqvf/8uycf/ohammH+DqV
+	QTWnDQZz7uBXXNor3VZyZWj6AdCwcZLSCfFm/FK7JmFK1wUV32IcYCr15WPY3k91F/kDENqty+i
+	neBa9/MTlJbFN0aoeIWgMDUb/a+rV39W7+B5MHA4MoZU9f53YGMaD8kIBgACOjZc/G0lxbLZ8yF
+	Hv38KX2uIihjEZtlmRdlk30uu6x3NwgBpR+5eQQr9xCOwT64=
+X-Received: by 2002:a05:6a21:d88:b0:3b3:a66e:3911 with SMTP id adf61e73a8af0-3c0f0ae84bbmr7014172637.19.1783742160695;
+        Fri, 10 Jul 2026 20:56:00 -0700 (PDT)
+X-Received: by 2002:a05:6a21:d88:b0:3b3:a66e:3911 with SMTP id adf61e73a8af0-3c0f0ae84bbmr7014136637.19.1783742160202;
+        Fri, 10 Jul 2026 20:56:00 -0700 (PDT)
 Received: from [192.168.0.116] ([124.123.151.85])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174accb0esm48880829eec.30.2026.07.10.20.48.30
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b658a99afsm43281978c88.0.2026.07.10.20.55.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 20:48:33 -0700 (PDT)
-Message-ID: <6b67c5e8-202e-42a1-a3fe-04a6d60e6083@oss.qualcomm.com>
-Date: Sat, 11 Jul 2026 09:18:28 +0530
+        Fri, 10 Jul 2026 20:55:59 -0700 (PDT)
+Message-ID: <a0ab70ff-ef62-42a0-b83d-be41ce8f64f2@oss.qualcomm.com>
+Date: Sat, 11 Jul 2026 09:25:54 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,162 +100,116 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
         bjorn.andersson@oss.qualcomm.com, chris.lew@oss.qualcomm.com
 References: <20260611-qcom-shikra-dts-bam-dmux-v1-1-43d0b43d41ef@oss.qualcomm.com>
  <aip3_fyE8tMtJZIW@linaro.org>
+ <17bfa853-d0a6-4f83-a164-a17fb02f67a6@oss.qualcomm.com>
+ <airpBYZ2pRdNaE1v@linaro.org>
 Content-Language: en-US
 From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <aip3_fyE8tMtJZIW@linaro.org>
+In-Reply-To: <airpBYZ2pRdNaE1v@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: TE4HmdO40QFOyPkYQdv2in6w6Zzs0PAo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzExMDAzMiBTYWx0ZWRfX6cwz7ZF7DaY2
- xayOfThLEikFDkyUX90tF5uF5s7gSVvHsmQ/yMgWSM2cUBxBqmkdxTiU241m8d26blKi19xL5Bb
- i8qpluqifcUdLc9uVVELt/XHm0gZuaQ=
-X-Authority-Analysis: v=2.4 cv=Rvr16imK c=1 sm=1 tr=0 ts=6a51bd13 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ziBI+Y3eO/H+UwYWWny9Hg==:17
+X-Proofpoint-ORIG-GUID: gIuhFVvZXYp_psX4xSHqQBRFej-7bYpv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzExMDAzNCBTYWx0ZWRfX1unCtI4CCxvE
+ 5Q2aSDp9dXaaDSHg/N7v46VV8COI/YARr321zqUcGll9Lm99owWP7hRTmIsbwEZ07j7GigfcxJU
+ iJmSIZb5AmMc/Zxeb3Pv/Co5sZkVYAXGW0QZ0EjJSq6MKVvSnrcYbMBmWfeQq+SxVKu12hohw3S
+ Ma+E016aNbWeszUm4ARSnl5ROMr7wuTh11gHPCkywYPL+SeEZTH6yIidruIIvKAzT3xNkyi+2Km
+ Av+o0BM5X15ybqsDxrYBc2NCV/S3jTiwYsvAc+r6w1oKrsL2MLyx7aR7UtFBoLFNp2k4064qkph
+ CXjVwTSSeEwOtScFSJ+/6cXaCi3Q1sUovSjY97iIO+2Ydc6RFIBO/PHu9hSoOPmCQoAXi8U8bux
+ LbOj5E/2n4xp3BXmR9rnJf7hnCdz+H2CcXSjg51kv7U/x1vdY59Y3Wa25Bj+vqqy9gouZvjlf4x
+ gOC4a5n99OoMRbsE1qw==
+X-Authority-Analysis: v=2.4 cv=TNV1jVla c=1 sm=1 tr=0 ts=6a51bed1 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ziBI+Y3eO/H+UwYWWny9Hg==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=qCRXIqyDeEQ_VX0ZX7wA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzExMDAzMiBTYWx0ZWRfX/Dz/pSapvE1U
- EqG1YYRWle6/K1SDk+L4L+VnL32ku19uWc85rglUWAYIcCRvVnLq8SnbtDtt7wCe1teN5mEDfa5
- 1WGPY9sF0/CA/y/iVvM7Y+fbXmyier7QxNMV4hRQqjpuTYxZHKP/fBonH7bxYuytPy6tnE0hlU3
- FXhCo+jdey6D8RyBffBJnJ7j0rSHNkZJ2zDP2Swyb9PV584W+LwpiYcgrwC/CipVTd6+gUhRncA
- MF+xyLcJivgZSR6trhOkStYnBWqoPVP96owFUm5a7Jmso2txNfLQetUa3669Qdi/APpEPA/3plM
- qOSCFOy8vmW3Tyn2EWPc27uds42bsxGpKgdLPCNWYep+RL7pqPTEwL/qem9F3doU7KYVrXM55J5
- pUwGIAEsLj9mG2NdGzR4ILcTZKVR6OSWzFQvrH41E8bFrDN3Ouh1xpDRTlxaC8QngYfAz4JsuTo
- +bIk5+ee6Cgw0EiGWZw==
-X-Proofpoint-ORIG-GUID: TE4HmdO40QFOyPkYQdv2in6w6Zzs0PAo
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KhpSxh-dhdghoZIDTE8A:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzExMDAzNCBTYWx0ZWRfX5oGhC8WWQ5BZ
+ 7fp+5vHB83z9iFq7kEyUtuvks4/ZQLV8rKdYTb718JcW9PxJX5w1ecQKBMp9dEVmrPaoag+u1Fr
+ pLfDQ0HPB45okbDBmxI+vXt+TycJB30=
+X-Proofpoint-GUID: gIuhFVvZXYp_psX4xSHqQBRFej-7bYpv
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-11_01,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 adultscore=0 impostorscore=0 priorityscore=1501
- malwarescore=0 phishscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607110032
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607110034
 
 
-On 11-06-2026 02:25 pm, Stephan Gerhold wrote:
-> On Thu, Jun 11, 2026 at 02:11:59PM +0530, Vishnu Santhosh wrote:
->> Add required nodes to enable the upstream BAM-DMUX WWAN driver on
->> Qualcomm Shikra SoC.
+On 11-06-2026 10:27 pm, Stephan Gerhold wrote:
+> On Thu, Jun 11, 2026 at 09:31:06PM +0530, Vishnu Santhosh wrote:
+>> On 11-06-2026 02:25 pm, Stephan Gerhold wrote:
+>>> On Thu, Jun 11, 2026 at 02:11:59PM +0530, Vishnu Santhosh wrote:
+>>>> +	bam_dmux: bam-dmux {
+>>>> +		compatible = "qcom,bam-dmux";
+>>>> +
+>>>> +		interrupts-extended = <&modem_smsm 1 IRQ_TYPE_EDGE_BOTH>,
+>>>> +				      <&modem_smsm 11 IRQ_TYPE_EDGE_BOTH>;
+>>>> +		interrupt-names = "pc",
+>>>> +				  "pc-ack";
+>>>> +
+>>>> +		qcom,smem-states = <&apps_smsm 1>,
+>>>> +				   <&apps_smsm 11>;
+>>>> +		qcom,smem-state-names = "pc",
+>>>> +					"pc-ack";
+>>>> +
+>>>> +		dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
+>>>> +		dma-names = "tx", "rx";
+>>>> +	};
+>>> This should be a child node of the modem remoteproc. See msm8916.dtsi
+>>> for example.
+>> Thanks for the context! We actually referenced msm8916.dtsi during bring-up
+>> and initially placed bam-dmux as a
+>> remoteproc child. We then hit the issue that the driver was not probing at
+>> all. After some digging, we realized
+>> that qcom_q6v5_mss.c (used by msm8916) explicitly calls
+>> of_platform_device_create() for its qcom,bam-dmux child,
+>> but qcom_q6v5_pas.c which Shikra uses has no such logic, so the platform
+>> device was never created.
 >>
->> The SMSM (Shared Memory State Machine) node provides the power
->> control signaling between the AP and modem for BAM-DMUX. The
->> BAM DMA controller node describes the A2 modem BAM hardware as a
->> standard DMA controller. The BAM-DMUX node references the DMA
->> channels and the pc/pc-ack interrupt lines from the modem SMSM
->> entry for power control signaling.
+>> There was a prior attempt to fix this generically by adding
+>> of_platform_populate() to qcom_q6v5.c
+>> (https://lore.kernel.org/all/20251223123227.1317244-3-gaurav.kohli@oss.qualcomm.com/),
+>> but it was blocked
+>> because GLINK/SMD edge child nodes would also get spurious platform devices
+>> registered for them.
+>> That series remains unresolved at v1.
 >>
->> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> I'm quite surprised to see this 15+ years(?) old hardware block being
-> brought back to a new SoC. Is Shikra not using IPA?
+>> Since your driver already manages modem lifecycle independently via SMSM
+>> state bits without remoteproc dependency,
+>> we moved it to the root level where of_platform_populate() picks it up at
+>> boot, and everything worked.
+>>
+>> Would love to get your suggestion on whether this approach is welcomed,
+>> since it needs zero driver changes.
+>>
+> Adding the bam-dmux node top-level makes it impossible for userspace to
+> associate it with a remoteproc (for this purpose: the "modem"). If you
+> add it below the remoteproc the udev/sysfs path will include the
+> remoteproc and you can tell that the network interfaces exposed by
+> bam_dmux belong to that remoteproc.
 >
->> ---
->>   arch/arm64/boot/dts/qcom/shikra.dtsi | 51 ++++++++++++++++++++++++++++++++++++
->>   1 file changed, 51 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
->> index a4334d99c1f35ee851ca8266ec37d4a200a07ee5..3e59d5f6323c0d857f376316faa26c503e67f6bc 100644
->> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
->> @@ -17,6 +17,23 @@ / {
->>   	#address-cells = <2>;
->>   	#size-cells = <2>;
->>   
->> +	bam_dmux: bam-dmux {
->> +		compatible = "qcom,bam-dmux";
->> +
->> +		interrupts-extended = <&modem_smsm 1 IRQ_TYPE_EDGE_BOTH>,
->> +				      <&modem_smsm 11 IRQ_TYPE_EDGE_BOTH>;
->> +		interrupt-names = "pc",
->> +				  "pc-ack";
->> +
->> +		qcom,smem-states = <&apps_smsm 1>,
->> +				   <&apps_smsm 11>;
->> +		qcom,smem-state-names = "pc",
->> +					"pc-ack";
->> +
->> +		dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
->> +		dma-names = "tx", "rx";
->> +	};
-> This should be a child node of the modem remoteproc. See msm8916.dtsi
-> for example.
+> As you noticed, having a generic of_platform_populate() for remoteproc
+> nodes is problematic, because usually subnodes are remoteproc subdevs.
+> Also, the cooling device use case in the thread you linked doesn't have
+> any resources attached, so the root complaint there was that you don't
+> need a separate subnode at all.
 >
->> +
->>   	clocks {
->>   		xo_board: xo-board {
->>   			compatible = "fixed-clock";
->> @@ -314,6 +331,28 @@ lmcu_dtb_mem: lmcu-dtb@b4702000 {
->>   		};
->>   	};
->>   
->> +	smsm {
->> +		compatible = "qcom,smsm";
->> +
->> +		#address-cells = <1>;
->> +		#size-cells = <0>;
->> +
->> +		mboxes = <0>, <&apcs_glb 13>;
->> +
->> +		apps_smsm: apps@0 {
->> +			reg = <0>;
->> +			#qcom,smem-state-cells = <1>;
->> +		};
->> +
->> +		modem_smsm: modem@1 {
->> +			reg = <1>;
->> +			interrupts = <GIC_SPI 69 IRQ_TYPE_EDGE_RISING 0>;
->> +
->> +			interrupt-controller;
->> +			#interrupt-cells = <2>;
->> +		};
->> +	};
->> +
->>   	soc: soc@0 {
->>   		compatible = "simple-bus";
->>   
->> @@ -640,6 +679,18 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
->>   			};
->>   		};
->>   
->> +		bam_dmux_dma: dma-controller@6044000 {
->> +			compatible = "qcom,bam-v1.7.0";
->> +			reg = <0x0 0x06044000 0x0 0x19000>;
->> +			interrupts = <GIC_SPI 74 IRQ_TYPE_EDGE_RISING 0>;
->> +			#dma-cells = <1>;
->> +			qcom,ee = <0>;
->> +
->> +			num-channels = <6>;
->> +			qcom,num-ees = <1>;
->> +			qcom,powered-remotely;
->> +		};
->> +
->>   		sram@c11e000 {
->>   			compatible = "qcom,shikra-imem", "mmio-sram";
->>   			reg = <0x0 0x0c11e000 0x0 0x1000>;
->>
->> ---
->> base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
->> change-id: 20260603-qcom-shikra-dts-bam-dmux-7fdcbb6fb662
->> prerequisite-message-id: <20260527-shikra-dt-v4-0-b5ca1fa0b392@oss.qualcomm.com>
->> prerequisite-patch-id: 3a689e8dda5fd2755b689d94d095806b3f2e6eed
->> prerequisite-patch-id: 2acc300a68ed8c5364fb5f2f7d28fc0d56ab07bf
->> prerequisite-patch-id: 2357cac636e019eaf14d6a493a1c72bca56fe405
->> prerequisite-patch-id: 2885f299e711582da312ca9d13983d296a3dd5dc
->> prerequisite-patch-id: 91af5f3c01e766a53ce8de69aa21847a2d6bbbf8
->>
-> If the DT isn't merged yet, you can also just squash that into the
-> existing series that adds the modem remoteproc.
+> I would just replicate the special qcom,bam-dmux logic inside
+> qcom_q6v5_pas.c. I think the motivation for BAM-DMUX explained in commit
+> 59983c74fc42 ("remoteproc: qcom_q6v5_mss: Create platform device for
+> BAM-DMUX") is still valid. Conceptually, BAM-DMUX is a subdevice of the
+> modem remoteproc, since the remoteproc is responsible for powering the
+> BAM-DMUX hardware on and off. The fact that BAM-DMUX is not a remoteproc
+> subdev in Linux is more an implementation detail of the current Linux
+> driver. This is independent from the model in the device tree.
 >
 > Thanks,
 > Stephan
 
-Since the existing series is already in a stable state, the author
-does not want to add any more patches to it. Therefore, I will
-update the current patch with the DT changes you suggested and
-submit a separate patch to incorporate the corresponding driver
-changes.
-
+Thanks for the guidance. This makes sense. I'm preparing an update to
+incorporate the DT changes and replicate the BAM-DMUX platform device
+creation logic in qcom_q6v5_pas.c as suggested.
 
 Thanks,
 Vishnu
