@@ -1,253 +1,110 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4ECA3C1091
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 11:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC0C2BDC28
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 12:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783770093; cv=none; b=LBXeaMFPw0bNITj16FrJkhUP70Uc2V7hyk//iGbqjGnoFZPv7Nh0O5BNdRAZkPUGMOIEXsuQXCwGhgqJ5p1MTJQRGHJvOc6EzomFJuEDMbjgsOo8xXiuzubP2H7QbWiD9ub/5z3As4bfcpAJgkCgBv5r+dPV8z/BnCg/JR3b6DM=
+	t=1783773438; cv=none; b=cB2OsOYdYxP1aax3eujo6+WFrXZ5tVskg23qNcY0F+t1ZvpMsdnqAnH+LEz9Xf9hd3yj87WzWRR+X+ENgA20MTi/LgTg+yZMKg7Eq9T5VoPpGkOPRjckoYt7OOoZQQ4N6Z83q9gQvisqO8amGNloXXXsxp4ubsqyNE6KaKJdnvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783770093; c=relaxed/simple;
-	bh=yty9WLIUjhx4aO4+deZv2mcG0G1/RFIWFovRaTjaN0g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rICYCeOh0KllkQtwbAZLf/66HdkAT26YJmw3o3OXVVwjlhuBf2yG6eYkNTqCpmWAYBu69TNDBwlDwf4YF0YsU2Ss5+So4dL8WlJ5naVydmaaciUZFgdk0N+9caeZfyrjrtgQng6ESLPV1MhmiIFynFxnhPe+Vhnz0bAFkd5G2/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TVvz/vkP; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783773438; c=relaxed/simple;
+	bh=ler0GzfWUTyNFlLtbWwwKBYDR6wTO+FQxowU5or1aQw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=tme/lxjI9eFsNhcvrYqdb9Ys+dI5g1xmzOAnSsz49mTMKFqg0zgljjOwxbr+raqAJ04uCPnwAcT/A+qplYsudhwp9vFKDcJECvJjp/3pB1GMuudEun9xFQmsOwZrx3ciAC1LICjIW3kP1I7UJiHKZAAju/zjoBXsVT0tuSsK9Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fxdcpi4i; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TVvz/vkP"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cacd69a9c0so18214865ad.1
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 04:41:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fxdcpi4i"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-493b1710405so8389855e9.2
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 05:37:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783770091; x=1784374891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q9JdVGG2sNfYkjr/rkIYVFcSLhYtKWGKRZRHailPGqU=;
-        b=TVvz/vkPnwhqGtYWJR9HdjyOuiBN9LIIcZ1yROn7i8/2w4XZAFRkZhz8kI3sDvBlp2
-         p0uswLU7WTaSoaV5VwekgJHFk12oBoad/3QHDmbUOFTXw0wRr/ibEViGUopgTMDkx1Vk
-         tn8yvSQ8cRiO5lLgxULDUd97KcXDtH5fiWmdJ0wSBnS38ojqNkzojUcM0euUINZ6rG9I
-         LAjhI/Uy5isVHnn/xLeN4OuAIRNi9cKt2PEqn+S4BKabw8eCa2BjLBykRd/koVA3fNVk
-         HOW2gRsLOX8F+uIYA7kF5/Ycgxe80mxnj8loujtv8oVDygpa56WXdttktiqOnnfnnKbT
-         rBKA==
+        d=baylibre.com; s=google; t=1783773434; x=1784378234; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=657uWlKxYcjOrN1ZXHDJlUFUQIWJmQtJufOMVNxlA+g=;
+        b=fxdcpi4i7FjwCmco+jnDh8SipaouenBpGGu0QHIlwVUxNpD3S/RzqwR5LW/CThwqf1
+         NQutWwt2M+X0Q/TaYpfr2QvRbnLHO43AedkRk5awaOR5R1CwxjY5+Ivp26hWXRv+11BP
+         LTuLXNoUUtqRHmx1pIujx6uTbiGxNlsnSwcx7wuNhvooFKbLnb/LfQf5Dnm0AqdGlIGG
+         uhDGyeoxV4CKdXFiVLEV9Cbbq5hSBhzsTp8kRPzlDNb4qNHmGENiQ789/aN9xJiGJnZi
+         /n0ZXvw3aEgYbAHsS8pK7d/iZ7gj0/fAx27okS94bxFknCY272R6aZPZGU6ijSlyR29t
+         QcOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783770091; x=1784374891;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q9JdVGG2sNfYkjr/rkIYVFcSLhYtKWGKRZRHailPGqU=;
-        b=U3hkJ7dbqIOVMrK0h/rc0ybIn4V1mO022UKm5KJnPJYBJPMhpJHdWtildy5Yj1nfjs
-         dUsMNhMrYo6wYazBW13A+uIy57N/A2eo1ltdgYiN9RmP49bigDQjzlWrHcYJTh+DUq4Y
-         +ZdpsMjQW5a7dkIk9CL2oQcw1lux5+LPAS2nbtXiq57ME2quOE1MzFnW2nNUcVwWABga
-         sr9H9UNSFSyKtbxvReur3KXENKLS6yTgf3EiqM03jfdYNjqofworY4f49KXahiYZ6Dhr
-         5QyWDkpaDux6eJEEeg78gOTD0FyPn5UrNOLQDPMkqorgLgBbspWumb9iPbDU/dgOwn+W
-         ARbA==
-X-Forwarded-Encrypted: i=1; AHgh+RrGNtLGiI+sSl7NO+PFUoxvoXukKppJSHeGlCaQYCM9Jl8ELn8T2fsglNjJw6zRBRcUSVUhE8IbNmKa@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuoWmshypoguDapp1/cRpcEtD1d5nZrNhnSdkOaDfdEKWwiedW
-	5O6lU5QR41ZBi6bL8kNpWfjL8/ReRpucoL99g0SwpFt9iFWkK8+4Ogn+
-X-Gm-Gg: AfdE7cm5Uxk+HxsAwvQb9I8bGqbL/YP+dn4uTi/T+TQVnKUoBXdvBYuxfLOAJcQqpkY
-	Kj2cMkeQdvHCRZrtlTfs/mJKIL7A6v7AW0kZjLF+RrOrFoDF/bOlvhB2O5gdFbDCTN+PQGKqiKe
-	r+HV3jI4gkhzdlFcVQNeO8Zy7hCjgz36rt3Gz8IVuD7/h14PNvR6qvNsMHlhmdO5mQ/fpKNpoCn
-	tVEaCW5OcPPUxny/SPfKjW0UVAWZDraklA78sBPPJ/1wEyb3EtyblBsrBSzXpPt6vJHDkKFdBcW
-	T+sAsKQljaY/CgFU5/4gZ1P324wHrf/ktj/wWmmlXZHQptEyD/IgRcNu+jQDEoof2XrnbjIO1qk
-	ldpSD5ingzeHzArJogsQgbd+jCeU/ZLxPACekCQExcYEo5I4FIxxxS1oWTYeq2K10KYQ0YxO60b
-	JWiRHdPbflaVG3W/Gy+jNt
-X-Received: by 2002:a17:90b:1fc8:b0:37e:2005:6507 with SMTP id 98e67ed59e1d1-38dc75f4cf5mr2500551a91.15.1783770091060;
-        Sat, 11 Jul 2026 04:41:31 -0700 (PDT)
-Received: from DESKTOP-TIT0J8O.dm.ae ([49.47.198.15])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311935fd091sm32390087eec.24.2026.07.11.04.41.23
+        d=1e100.net; s=20251104; t=1783773434; x=1784378234;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=657uWlKxYcjOrN1ZXHDJlUFUQIWJmQtJufOMVNxlA+g=;
+        b=CYxcL7CR1TC4qApkVqCGkwMeS1WiGyNLZrvkc+L+GXgglw8CVOhfp+HQ5oKDZclbHK
+         wchVR4WR8EZd/vxLAyStB+GfgdRBh8Mfho+XF6WKot+SqleKsfZSYvxayLNWgcgSp38v
+         Gm9rFjHx9W5FiL/Y0Apse3OWJMYYxiTwQ1kcGg7YMGUUqyN8GXr4P+lQjMq4MIXB/HOO
+         pRBWKZ25Gs3L3BMqS0T8IR2sKOUgJF4tbH4bXpJ77euwBJT47Mjtv2j/oDqK9dMAnMA2
+         /eVdCrgQ3wZDMOOv5KRH+1ipLsQ0uLXG0dDAEzUkRBD1V4A80O4TbUhW+CQ2IMHO4+g1
+         nNFw==
+X-Forwarded-Encrypted: i=1; AHgh+RryfCbQj/nvVLc5/4AclNMwqT/3Ax+0NcC1odUXTrTxhs1f0EazjueybJAT2WCW2S98a6vvHrMvLdvf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0FQdOgAbSz9ZGEW/tr6KW9VU/ph1sDjKZaV8ryPFOo12xQOJj
+	Tntnl9pE6j2wCj7x04JlttKhV0ibrpLJpLYdypY3vKdARLmiKUTO8zlrgm/pTVDa4pI=
+X-Gm-Gg: AfdE7cn2wvLyN7aWS7mLpAdPxzmTOWTj6Y6g96/XnFO1lcgPeMygKCcsFU8moqdMNfb
+	krNoijl8adwR231ADhBYP0uJfLaLuXVWWOer2LwV5n1xRk4eCh/cxNaM9nBqmqPz4igNFUvD4gj
+	YPUGqwfvzyV97aZ9S8uxvPtHd6c4U3zeYUaF56Alg5p236oxylrcPnxv1LUTDG/7KTumBXXOdlE
+	Y6x6yBaNTU495L4jyzhXDt2tNC4722AR3U+dOA98Uw2QYPjK2gxTAccCrCsvidUsN9VpU/fAq6P
+	ouH+JuHaoVqPcs1+xz6hmBZb7J7vwXqUZFaKjS1q1kLzpJ1GFYBP9GaaU7De2YrU2q8C1sessWC
+	igThD/Y+y82VLXyHgnF9HEtnKlpccA3IGCkB2IkkVjEpITTwO8/huG1k1jgCzXTGMZTeoL5iV0C
+	9hYgZ3oNzz8xc=
+X-Received: by 2002:a05:600c:a31c:b0:493:fd5b:2d5c with SMTP id 5b1f17b1804b1-493fd5b3043mr44175e9.22.1783773434236;
+        Sat, 11 Jul 2026 05:37:14 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:36f6:4178:92a5:91bf])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493f2dad65fsm87890305e9.1.2026.07.11.05.37.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 04:41:30 -0700 (PDT)
-From: Ahmed Naseef <naseefkm@gmail.com>
-To: netdev@vger.kernel.org
-Cc: =?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew@lunn.ch>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	DENG Qingfang <dqfext@gmail.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Landen Chao <Landen.Chao@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	Ahmed Naseef <naseefkm@gmail.com>
-Subject: [PATCH net-next v2 2/2] net: dsa: mt7530: add EN7528 support
-Date: Sat, 11 Jul 2026 15:41:01 +0400
-Message-Id: <8c7dfabd860ab0a6dd771c2bac7b7599eb369a4f.1783770059.git.naseefkm@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1783770059.git.naseefkm@gmail.com>
-References: <cover.1783770059.git.naseefkm@gmail.com>
+        Sat, 11 Jul 2026 05:37:13 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Lee Jones <lee@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
+  Chen-Yu Tsai <wens@kernel.org>,  Liam Girdwood <lgirdwood@gmail.com>,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,  Andre
+ Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v2 3/3] regulator: axp20x: add support for the AXP318W
+In-Reply-To: <befcd3cb-3452-48f5-93e6-03210981bd76@sirena.org.uk> (Mark
+	Brown's message of "Fri, 10 Jul 2026 18:00:24 +0100")
+References: <20260710-axp318-regulator-v2-0-ee5f1c56b49f@baylibre.com>
+	<20260710-axp318-regulator-v2-3-ee5f1c56b49f@baylibre.com>
+	<befcd3cb-3452-48f5-93e6-03210981bd76@sirena.org.uk>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Sat, 11 Jul 2026 14:37:11 +0200
+Message-ID: <1jmrvxg0so.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The EcoNet EN7528 SoC integrates an MT7530 switch (the chip revision
-register reads 0x7530), memory-mapped in the SoC register space and
-reached through the same MMIO glue used for the built-in switches of the
-MediaTek MT7988 and Airoha EN7581/AN7583 SoCs. Its reset sequence and its
-PHY indirect access registers are the same as on those switches, so add
-an ID_EN7528 variant bound with the "econet,en7528-switch" compatible,
-reusing mt7988_setup() and the indirect PHY accessors.
+On ven. 10 juil. 2026 at 18:00, Mark Brown <broonie@kernel.org> wrote:
 
-The switch core, however, is an MT7530 and not an MT7531 derivative: the
-CPU port to trap frames to is set through the MT7530-style CPU_EN /
-CPU_PORT fields of the MFC register rather than the MT7531 CFC register,
-so add it to the MT7530 handling in mt753x_conduit_state_change(). For the
-same reason the MT7530 mirror and force-mode register layouts already
-apply to it as the default of the MT753X_*() macros.
+> On Fri, Jul 10, 2026 at 06:19:27PM +0200, Jerome Brunet wrote:
+>
+>> +#define AXP_DESC_RANGES_DELAY_OPS(_family, _id, _match, _supply, _ranges,	\
+>> +				  _n_voltages, _vreg, _vmask, _ereg, _emask,	\
+>> +				  _ramp_delay, _ops)				\
+>>  	[_family##_##_id] = {							\
+>>  		.name		= (_match),					\
+>>  		.supply_name	= (_supply),					\
+>> @@ -436,10 +481,23 @@
+>>  		.enable_mask	= (_emask),					\
+>>  		.linear_ranges	= (_ranges),					\
+>>  		.n_linear_ranges = ARRAY_SIZE(_ranges),				\
+>> -		.ramp_delay = (_ramp_delay),					\
+>> +		.ramp_delay	= (_ramp_delay),				\
+>>  		.ops		= &axp20x_ops_range,				\
+>
+> This macro takes but ignores an ops parameter.
 
-The four user ports (1-4) are connected to integrated Gigabit PHYs at
-MDIO addresses 9-12 of the switch internal MDIO bus. The CPU port (port
-6) is connected to the SoC Ethernet MAC at a fixed 1000 Mbps full duplex
-link, so the port capabilities cannot be shared with the MT7988 and
-EN7581 switches, whose CPU ports run at 10 Gbps.
+Indeed, completely messed up as noted in reply to the cover
+letter. Sorry about that. Tested something, sent something else (and
+other mistakes ...)
 
-The LAN GPHYs advertise EEE by default, but negotiating EEE with some
-link partners results in an unstable link with dropped frames. Leave the
-LPI capabilities empty for the EN7528 so that phylink disables EEE on
-these PHYs and refuses to enable it from userspace.
-
-Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
----
- drivers/net/dsa/mt7530-mmio.c |  1 +
- drivers/net/dsa/mt7530.c      | 58 ++++++++++++++++++++++++++++++-----
- drivers/net/dsa/mt7530.h      |  1 +
- 3 files changed, 52 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
-index 1dc8b93fb51a..1065671bcdd1 100644
---- a/drivers/net/dsa/mt7530-mmio.c
-+++ b/drivers/net/dsa/mt7530-mmio.c
-@@ -13,6 +13,7 @@
- static const struct of_device_id mt7988_of_match[] = {
- 	{ .compatible = "airoha,an7583-switch", .data = &mt753x_table[ID_AN7583], },
- 	{ .compatible = "airoha,en7581-switch", .data = &mt753x_table[ID_EN7581], },
-+	{ .compatible = "econet,en7528-switch", .data = &mt753x_table[ID_EN7528], },
- 	{ .compatible = "mediatek,mt7988-switch", .data = &mt753x_table[ID_MT7988], },
- 	{ /* sentinel */ },
- };
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 3c2a3029b10c..6c8ed00ee9e7 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -2912,6 +2912,30 @@ static void en7581_mac_port_get_caps(struct dsa_switch *ds, int port,
- 	}
- }
- 
-+static void en7528_mac_port_get_caps(struct dsa_switch *ds, int port,
-+				     struct phylink_config *config)
-+{
-+	switch (port) {
-+	/* Ports which are connected to switch PHYs. There is no MII pinout. */
-+	case 1 ... 4:
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_10 | MAC_100 | MAC_1000FD;
-+		break;
-+
-+	/* Port 6 is connected to SoC's GMAC at 1000 Mbps full duplex. There
-+	 * is no MII pinout.
-+	 */
-+	case 6:
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_1000FD;
-+		break;
-+	}
-+}
-+
- static void
- mt7530_mac_config(struct dsa_switch *ds, int port, unsigned int mode,
- 		  phy_interface_t interface)
-@@ -3101,17 +3125,24 @@ static void mt753x_phylink_get_caps(struct dsa_switch *ds, int port,
- 				    struct phylink_config *config)
- {
- 	struct mt7530_priv *priv = ds->priv;
--	u32 eeecr;
- 
- 	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE;
- 
--	config->lpi_capabilities = MAC_100FD | MAC_1000FD | MAC_2500FD;
--
--	eeecr = mt7530_read(priv, MT753X_PMEEECR_P(port));
--	/* tx_lpi_timer should be in microseconds. The time units for
--	 * LPI threshold are unspecified.
-+	/* The EN7528 GPHYs report EEE capability, but negotiating EEE with
-+	 * common link partners (e.g. Realtek GbE NICs) results in an unstable
-+	 * link with dropped frames. Leave the LPI capabilities empty so that
-+	 * phylink disables EEE on these PHYs and refuses to enable it from
-+	 * userspace.
- 	 */
--	config->lpi_timer_default = FIELD_GET(LPI_THRESH_MASK, eeecr);
-+	if (priv->id != ID_EN7528) {
-+		u32 eeecr = mt7530_read(priv, MT753X_PMEEECR_P(port));
-+
-+		config->lpi_capabilities = MAC_100FD | MAC_1000FD | MAC_2500FD;
-+		/* tx_lpi_timer should be in microseconds. The time units for
-+		 * LPI threshold are unspecified.
-+		 */
-+		config->lpi_timer_default = FIELD_GET(LPI_THRESH_MASK, eeecr);
-+	}
- 
- 	priv->info->mac_port_get_caps(ds, port, config);
- }
-@@ -3254,7 +3285,8 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
- 	 * forwarded to the numerically smallest CPU port whose conduit
- 	 * interface is up.
- 	 */
--	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
-+	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
-+	    priv->id != ID_EN7528)
- 		return;
- 
- 	mask = BIT(cpu_dp->index);
-@@ -3459,6 +3491,16 @@ const struct mt753x_info mt753x_table[] = {
- 		.phy_write_c45 = mt7531_ind_c45_phy_write,
- 		.mac_port_get_caps = en7581_mac_port_get_caps,
- 	},
-+	[ID_EN7528] = {
-+		.id = ID_EN7528,
-+		.pcs_ops = &mt7530_pcs_ops,
-+		.sw_setup = mt7988_setup,
-+		.phy_read_c22 = mt7531_ind_c22_phy_read,
-+		.phy_write_c22 = mt7531_ind_c22_phy_write,
-+		.phy_read_c45 = mt7531_ind_c45_phy_read,
-+		.phy_write_c45 = mt7531_ind_c45_phy_write,
-+		.mac_port_get_caps = en7528_mac_port_get_caps,
-+	},
- };
- EXPORT_SYMBOL_GPL(mt753x_table);
- 
-diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-index dd33b0df3419..5f1e841f42c0 100644
---- a/drivers/net/dsa/mt7530.h
-+++ b/drivers/net/dsa/mt7530.h
-@@ -21,6 +21,7 @@ enum mt753x_id {
- 	ID_MT7988 = 3,
- 	ID_EN7581 = 4,
- 	ID_AN7583 = 5,
-+	ID_EN7528 = 6,
- };
- 
- #define	NUM_TRGMII_CTRL			5
 -- 
-2.34.1
-
+Jerome
