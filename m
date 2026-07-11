@@ -1,79 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181CB28CF6F;
-	Sat, 11 Jul 2026 14:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333A02DC762
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 14:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783781836; cv=none; b=Hinx/W5EJwnsYJkgdJTesIqFvmXZfFyxPhbsNIbQWQzyIB05/dkid4AGEjiFSXndDqice0Aj1Dp9cwMUCgXfod6XDRyUu8ksNbTRt+zNcYbYOvl6l42hnmcqEbgvqzicLp+gkNj+uIMqxASBSc7R8d4NkxH1gcmitsreFbD50+Q=
+	t=1783781857; cv=none; b=dR/BD8bcPC9J1gKf0ml20IrLt7NA3L5wTthohELqjjp0Dy5Ok645ZL34yleAWjdSUktAvtQUqO/41DZNx0qVVQo/yAX6qiQeRwavl33Wqvq+jdDU/WBZlDxbhuRN5JBaf40iRG7TyBTEoX1DKIeQ78JBsqde16H6iSN7kj8yLZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783781836; c=relaxed/simple;
-	bh=Ynij4Jgo7pYvJ/6r83hvCfm/h9Amr6Dm3dEjTMIcqIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uqWNogps872wW33SUTXsonPFdmnEMCb/5w3sp4XC/Z+SaBa0xOqLh2Ix9cdMWMn3xSRe0xLR6KrsbtMTBdwzieIHYYrlIYnVcE9cxDupbpUyD8IXwax906xyZl33/l8Lt8HiacSqgWAHZp2NqEcBcLoWTcbfLRca5bZFTG5Vn9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1uTYTzh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783781857; c=relaxed/simple;
+	bh=WOZpH6ZzkiptQuYtsQ0HAkvuWu4GVUAox8tKUDQn1NE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LglkLBJu3e9In20oNxzzUrSUw2A5IP5+oSbkUWoOT/ndxSohaFIqQ+DYY3815hTymuALCB3sP5p6NLlGrcvyNswv09wZqV5JXBsgLrZSMx1fKV3guvZQLe2d/p9OmfaKKGuR7jnxcpcrVuBImB5KilXVxh71y9Yg4SPXIBX9VEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xu/RHE01; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1uTYTzh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585691F000E9;
-	Sat, 11 Jul 2026 14:57:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783781834;
-	bh=ZRu2C+pypTWNVGcW4Msl94QsEJjH8FM6FJdsgl5DJ/Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c1uTYTzhlSnLHRD1P7XP13WaSNP6htxBsJcrRMzP/U1wAExHj6OFEZwPMY/xgh2dl
-	 QC+ZTzvXnY2QqnnBwTBCWptDhte42E924JnxTS2c1+JETmACncBbPzvdZ95D8L2qBq
-	 5LNKKMC+Zo2w/9paHVlMglG4ZNNxEiD26HscUeFE53fjOe2zdQOX2hLxxulVmqmIEe
-	 fIz0tGIQCUMrEGxCGMfQF+I7nrhCkg3KNybEIG218MfCH1KQBP55cB+mTthNkuH7Wp
-	 a5HzeIV3yLDA5yEMnyiSWEImdA4L3FJ00qgwjcbsJ6mHCR2GYxYK9kUFxwfzYuFTLk
-	 05YZ3cF/ujyjg==
-Date: Sat, 11 Jul 2026 16:57:11 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
-	Abel Vesa <abelvesa@kernel.org>, Qiang Yu <qiang.yu@oss.qualcomm.com>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>, 
-	Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v6 1/4] dt-bindings: remoteproc: qcom: move glymur SoCCP
- pas to standalone
-Message-ID: <20260711-topaz-hippo-of-romance-3e8c09@quoll>
-References: <20260709-glymur-soccp-v6-0-16f70227547d@oss.qualcomm.com>
- <20260709-glymur-soccp-v6-1-16f70227547d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xu/RHE01"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-475cb71a4ebso1804453f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 07:57:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783781854; x=1784386654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O6hhLi0AmyezWNZX2hXWDH4NM39lEvmgcD954JqZzXM=;
+        b=Xu/RHE01oxlkCPkYuylwE6Xz/nbBRcM2mL34nv5DWsI+JWY8p92Rrzd55ldkNRYgdC
+         3SrBtg5gHPITzH/P2T6tNKtB881GFiUe0cVlMueVvcmzYNIDBIpTlh8FbG/2E/+LyFcy
+         J2XHOIDuPRAzm6TI8eur0hbGX+srFj66oWO/JuJoEizRIABHEzLUytDnmBOVOnTobzvB
+         Ntd2bQaUbRMcMThSjpO2dJNgkNYQqHXheaFOl5BoR+uIqWX+JtEJDe94ifozUHPBc4wr
+         JsvrZCEGj2WreygbfvTQTtyYLh0m+MSSPKrtirvUxuq/Czg+vhDprvlmQVNQTDmK7fLo
+         GdQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783781854; x=1784386654;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O6hhLi0AmyezWNZX2hXWDH4NM39lEvmgcD954JqZzXM=;
+        b=eoX+FknWjhDE6+U07QUeAvM/hOHxiUQOWspMYQE8ysEFV8Xpe2NYvtpmso+NJhD8Bx
+         Fi3pFmAc1TTrZMMll4AWrJ6VktT0ddCRoTUVbrqnySyGN8qvWeXu5zbzG/mI+YpLy6G+
+         vKikqZGU+7lkfzcqVuc7lQaQbbbzuHgCdh4ABR1e8aw77uD/VQReunUtYJ/r2Rx4gLln
+         eq7PmIs5kCsJd2ozyUixU+/Es5vuRgdK6VCs8LfXTnexLzI4PgjLkjFb4xvw2duw/dtY
+         b8IU44RUv0neZkWX18ncO86WUjceLSYpiony/WgjPvrtezYyc5Io20Lz7OXWZ37EwVAD
+         C1zw==
+X-Forwarded-Encrypted: i=1; AHgh+RqoVNRi3OkPnJjEhMeeXcdmXB/lyZtbbj/xMtQUwvbhjSFCqAO5/YIQ1PlYxEJaVcDMzoTDqT8rAcGJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPXBwe5dE/czcWODBZoYUT7ANbDU5Mg4R7EZoVOD3Ug7cWrxcu
+	v7oSrb7ourCrRX34DucC3Za9gcqfpD7yFsi1M+gPyDFuHLqlbOGu7vtM
+X-Gm-Gg: AfdE7ckwqn6aSRPvcUexZ3Y7X9tWUlS9HiwxlaR+hWu9/5K15228hJ7zIVjSVksx0Uh
+	5GPghIlTk2EkcILn6xgysNwg/ljPlNy0xTK0RrpVmbomXdF1C/3fSEWEpeH/CzVW+Zd6tuEul4W
+	IuoKEszKhK5tiAwkp1LYL/3mdeOsz4rWuKL4kZt1eMbqMwhDgrZVDtxfMjed3Ha3QhUCTyGLDu7
+	Qk2RKwmzk+WuoGKy6anqgz92M7VqsmUp/1wkWieVdDapzMmLC8+gFktpRf9iEO/0cWyxF2rdReP
+	f/s0zVGlAEVbbtdNmDc3GWiI9dhEbeoQM4yOTBgs0pBD0t0y2eoorb6HbcA3dPbVRTS24SgiU5g
+	peXgCMpyRp/k6717FWSGa+/xTrCxP+iTXPhoCQaKOTPhnw2A/x0b2IGj7R6RsOokrwlxmeLFCU+
+	g9hZ5oS3EsiDBAyQsq/3wImUzWjzBg
+X-Received: by 2002:a5d:64e4:0:b0:47d:f620:557a with SMTP id ffacd0b85a97d-47f2dca7e81mr2835354f8f.6.1783781854371;
+        Sat, 11 Jul 2026 07:57:34 -0700 (PDT)
+Received: from unknown.tail46804.ts.net ([2a02:b027:15:795f:9b40:189:2716:6c6b])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47aa039b126sm67213819f8f.24.2026.07.11.07.57.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 07:57:33 -0700 (PDT)
+From: Gianluca Boiano <morf3089@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Gianluca Boiano <morf3089@gmail.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	"Wang, Sen" <sen@ti.com>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] ASoC: codecs: add Texas Instruments TAS2557 smart amplifier driver
+Date: Sat, 11 Jul 2026 16:57:19 +0200
+Message-ID: <20260711145722.188556-1-morf3089@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260709-glymur-soccp-v6-1-16f70227547d@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 09, 2026 at 11:39:42PM -0700, Ananthu C V wrote:
-> SHM bridge creation is required to enable memory protection for both
-> remoteproc metadata and its memory region on Qualcomm SoCs like Glymur
-> running non-Gunyah based Hypervisors, unlike Kaanapali.
-> 
-> Having Glymur fall back to the Kaanapali binding is therefore incorrect
-> and breaks subsystem restart on Glymur.
-> 
-> Fix this by decoupling Glymur SoCCP PAS from Kaanapali and registering
-> it as its own binding.
-> 
-> Fixes: 8b54bacadc0c ("dt-bindings: remoteproc: qcom: Document pas for SoCCP on Kaanapali and Glymur platforms")
-> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/remoteproc/qcom,kaanapali-soccp-pas.yaml        | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+The TAS2557 is a mono Class-D smart amplifier with an on-chip DSP for
+speaker protection, controlled over I2C with audio carried over
+I2S/TDM. The DSP requires a board-specific firmware image generated
+with TI's PurePath Console tuning tools; without it the device passes
+no audio.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Patch 1 adds the devicetree binding. Patch 2 adds the ASoC codec
+driver: mono and dual-device stereo operation, per-device ti,channel
+tuning, and fault-interrupt recovery that reloads the firmware
+configuration on clock loss, over-current, brownout or
+over-temperature.
 
-Best regards,
-Krzysztof
+Tested in mono configuration on Xiaomi Mi A2 (SDM660, jasmine),
+Xiaomi Redmi Note 6 Pro (SDM636, tulip) and Xiaomi Redmi 5 Plus
+(MSM8953, vince), driving the top speaker, and in dual-device stereo
+configuration on Xiaomi Mi Pad 4 (SDM660, clover).
+
+Changes in v2:
+- add the four mandatory supplies (vbat/iovdd/avdd/dvdd) to the
+  devicetree binding's "required" list (Wang Sen)
+- propagate register-write failures out of hw_params() instead of
+  only logging them (Wang Sen)
+- return IRQ_NONE instead of IRQ_HANDLED from the fault interrupt
+  handler when the device isn't in a state to have raised it, so
+  shared-IRQ accounting stays correct (Mark Brown)
+- re-apply cached runtime state (DAI format, sense enables, DAC gain,
+  ASI slot offsets) after every device reset, including fault
+  recovery, instead of letting a hardcoded startup sequence silently
+  override set_dai_fmt()/the ISENSE/VSENSE mixer controls (Mark Brown)
+- honour explicit snd_soc_dai_set_tdm_slot() configuration in
+  hw_params, and restore TX (OFFSET2) slot offsets after reset
+- wait for the asynchronous firmware load on first stream start
+  instead of failing with -ENODEV
+- make mute_stream direction-aware so capture-only IV-sense streams
+  are unmuted and stopping playback no longer mutes a live capture
+- corrected a comment implying the ASI2/GPIO5-8 wiring in
+  tas2557_startup_data comes from a TI reference sequence; it does
+  not (TI's own driver never touches ASI2)
+
+Link to v1: https://lore.kernel.org/linux-sound/20260709221331.989109-1-morf3089@gmail.com/
+
+Gianluca Boiano (2):
+  dt-bindings: sound: add Texas Instruments TAS2557
+  ASoC: codecs: add TAS2557 mono smart amplifier driver
+
+ .../devicetree/bindings/sound/ti,tas2557.yaml |  127 +
+ MAINTAINERS                                   |    1 +
+ sound/soc/codecs/Kconfig                      |   11 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/tas2557.c                    | 2648 +++++++++++++++++
+ sound/soc/codecs/tas2557.h                    |  218 ++
+ 6 files changed, 3007 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/ti,tas2557.yaml
+ create mode 100644 sound/soc/codecs/tas2557.c
+ create mode 100644 sound/soc/codecs/tas2557.h
+
+
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+-- 
+2.55.0
 
