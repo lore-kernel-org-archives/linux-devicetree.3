@@ -1,63 +1,63 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F278D3CAE8F
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 16:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B81EF3C8184
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 16:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783788510; cv=none; b=ZUkd3xZyNyZ/OZ6NMQOlOTTgIGWEIwCzMrXMaXaU8bqL6XzdEZ1UpfI7ntxs7hRBidLKfucA7Wg1pTPprpzDlfhW8VIWMzLxpgnVMqR7sJvNDfx/U+Gqj5jaaBwbM2zXbEdsf9Ad3EceslOaxVqEVeeHEqQqGraigXNxelq2TKc=
+	t=1783788514; cv=none; b=QWSFM4XF8sI44ry3rkSyRgr4ypRgITD8MEFJTtQqyhwjZZYfD7cstqvQthfbEhlFstTTHnSOvs9S/3NNCfBIdLFsiAaz9V8zhcCD+FrV/9+c5O7SPEB45AXLIt39guRmwvNMbA5mRcBYiwVUMJ9kMJ+64haJJp0YzSsjdNn6MJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783788510; c=relaxed/simple;
-	bh=rrLo2METxAPvW/Kvl+v935lLmIy60Gg/5rsQY3LkAQI=;
+	s=arc-20240116; t=1783788514; c=relaxed/simple;
+	bh=vctX9KwwqmloP7foTyQPo3feQK/oPWLbCvXEnlHxCHU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EMNgJsPpJ2jpwigl5I8SRd1JMbEqRujcgov9DSg0LLpgZs+xKSM9rODlc4BGmqxMVZv0NOR9G5sxlgr4iqxdKnK2u4WWygtFwqpkvJhXQFcAkL66bcSSmdgrbXUVbN1uqDPMBVC9h4xrJ+ZHtFBv6cr3k6vJv/RRJ9zSjj7dEHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CTbo8JvV; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=eVKyNk+ODEDGrryimb60QvPnvNHHD0PafBEdoDfE9niFMHdb9ra6w3hYsr3Jz6hqVRUmyiLx8qIY9VCn82S1QNzM0PXnLzXuTAzH90aLlk2ZJJGq4YiRJrxGA9al6Qrkk3qR8pKcq/YGhrQkR09Rg5507hfr/P97x1Is3NkSYOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gp2nSyaK; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CTbo8JvV"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47122683cf3so1038373f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 09:48:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gp2nSyaK"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-476d8e647e9so2020642f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 09:48:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783788507; x=1784393307; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783788509; x=1784393309; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ovaR5Pw/la2QK7dtVGwmXlwaYYgjdR7NRcQLElGlwYM=;
-        b=CTbo8JvV/2tDtnkbraf1mKjiLGCdEj/uCPEo5msQ2fWddssinHzY1BCRdcoEiMzPet
-         hltcm/IWk1qdwXugx5gqzpsQju94Golx1+KfuXKUNnh6BSUU12SOC04HaX95sfiig+pE
-         zyyFXSiptkq+Tig0px/Lx8PfclHSRB9R78wsb6dO/jG8Kq9YvJ0Dq592q50tY+2DTjm1
-         M7+gPUPMgL8KBvM82DbLmvazEQtPAiHIGzsbeZh8iTkh3syl/sIgJ1Y5wZ2jP3Z1DEQK
-         rxjUN5swjkylue9OWc5Rp3o3kouHMGS0rpCgTAWR0QpZp8H4Z2v9nHmM5Ti9igEk1K6l
-         t5xA==
+        bh=UtuIacplhejTVgASevQDxobm7194RuV+jAzjBsHtT/s=;
+        b=gp2nSyaK1Urp4iPvXDIhcr5FQouJFhgmM70xr/TgmRoQlcrJcsMekjFWtoBJgr/ZVq
+         NwYM1oDBna6q9xR49ld2PZPMkdQLYfZHl4pnnTPP46PNY4Wft/yq6BJCC0fUj+sPrEdU
+         co/yRYCPezsk6xUE6Kk+U7T9YVE0vT5PZvzK50CbR2nur+qUZB3tCPlf6ZKUf43wTUQG
+         HYj6HfohoCQ98lz4KAddssPDJYMlYjhb2BmbOaj/ceMnkAZPxY0jkIVhaS0tBXpy2QHQ
+         UWzqllmjtc6OTWHML4KOqNdatmhzdRWAe7ovt24Gc0Wf/M4+AKF2k3CDCLEm265L/Zgt
+         GsHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783788507; x=1784393307;
+        d=1e100.net; s=20251104; t=1783788509; x=1784393309;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ovaR5Pw/la2QK7dtVGwmXlwaYYgjdR7NRcQLElGlwYM=;
-        b=lVAZe82XzrQbqX2/b58AGuKC3/WGTzZVC9jWptYdk8/YdQxX5HAIbpsX0hkijiRG+N
-         XifDWJnyjW9mzvA64CqGfutqWfzUN9uzCuWNv7s49kpS/Kc+SYL9qRP6EqGaA4uAHQ/d
-         B8/5GPFQBDvMFjfuj/EaxmAHxG1s5t8y5IPYLAnNeTX9NzR0NKA0mvufsxwayaGOT/JC
-         /Jg0zqeg46MsmcudbODXUO5ZBhKnd2DLlOsuJm3cQV1pb9b69EsILi/HhaP0Er1oClV/
-         OaTtH3oPDUfeT5/0UVagDZ684bZ8OFDzMhME2TEgkXhf2u8Ti4nx/8CDKL9sTtZIT6k7
-         QfeA==
-X-Forwarded-Encrypted: i=1; AHgh+RqifDOWbF7uco8GrNS32kkXcckmn2cbGKm0YB0Q+tVulyYgN3W+HplSxQjbiiIhLiMXeBI5vGItAaO8@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0NPXsxcxD23pmvCxP4IFnsTaVZZ9048l2ie1mLGXN06pHOrNk
-	KNR6mpS3zSJEltYVBfBM330aJdzeDxyS653Erj9rXaJRRb7Hszu6k8ga
-X-Gm-Gg: AfdE7cklALwxIHEh274YZ1R68Ec5ZNzz2eJ+dw9OOQTTf1R7QtQp5gkuLkrZTkL+8uT
-	WsdoxjCy+gtMuiX3DOSWx02bc108OMZxu6SM6HmvXiaxmInGnIWFz2kMvOSTMRIb5vcYieETRkg
-	DG8X8M85aBbDsFxISoI8mHbCn5Zwe84KuUhO+DveAAGy4k5mipVQuGuX2Tt8TWaC6QuuDscE2a7
-	51dckTNy0bSd1sIxq6+dcyqKpiv7VZdz12RWtiDtP9vqtYHSgqsuafbgOkl3PwMydWG5SxZ9xig
-	+bdIYRCnyvD06cBzLFiZ8628IgHLAFESuj0vE5p2mMB7DB8qfCjQC2GDhSViWiF8cC3dtwBdBIY
-	Pelgzx8YcCwA6ZNWo55cHOsFUDO2hjKOB5ykB/yBPAHzz5AIzX08EqS4AFBKlCh5c8nym9KhOdl
-	BGBhim/A0Pg1TQMxVTluSigvphDf8+eAE7fQ==
-X-Received: by 2002:a05:6000:24c9:b0:477:80fa:f474 with SMTP id ffacd0b85a97d-47f2dcf400fmr3364939f8f.38.1783788507031;
-        Sat, 11 Jul 2026 09:48:27 -0700 (PDT)
+        bh=UtuIacplhejTVgASevQDxobm7194RuV+jAzjBsHtT/s=;
+        b=rbeMCvvSH0AgkeQsmhIPNYV0xaX7Ow8MiCT7WmYLx/qvFvjqEbqiK3oFqkrxzsKOFq
+         o9yN68jXChLfwwz619w5TrxykUaLYpmq+9D2zf85sRjhNYmdvtbFY1vyH/OGkfDeZ9qS
+         r7h7rpZtoZbxPR/JDUrGFk5I0rKfjUeHLWOQeX+jrogI2aDh4P6Ec2rm/oVSdGsKzO4I
+         0k9skhes/MxOq3LQuN9VyNewGe/r+mDskmJRyZebSHXwvhiy1cpWn5bf1xuY6vNFEw7B
+         2f/G3oUwZMeHExExzmfQ+x0PkMas21vxrI3TrFpWCWvEPiswFuRTInVIinY1Udp/VNuO
+         sc/g==
+X-Forwarded-Encrypted: i=1; AHgh+Rogiuibn+hvp9AFTrFh/YWHSPnt7+ZPoyBSwGFlPk3z/zdOM/cjdXLGVqXiIfzBI8CUWn81dV1qoe1k@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBzAd/tBub2m3mUa/4wXuTf8Wz213AXybc7X6XbdtZl617ng2u
+	sQaPPJQM4smikP7OTIee8ATCNOWZCDFR/7FEkyjE1L9QfGI4+RNJGq/v
+X-Gm-Gg: AfdE7cnoD0e63/j6VBjWwwFpRYK7vuKYm/4F1e8vz2PomWD1ssL2nR3aQIKbd8FjjDq
+	i/W1G//RA8hkozOZg3pQ1U6bb2Km7ki8FydiKSy288/kzzt098XFc+KEXBMjC7GGFsSTUPpVU3d
+	YAxry+kGjVbDjg9tgJYha0l8+d7UD1THVnQIsc+4Zovo3lF7QZ5j6tNFKe89wzubtsVUa6jstut
+	AtQmDjJXbfccYfa4hm7Y9x1HIyyfbdcTcl66dphiDFlNkEbZT6GMfx3hWFCsOupLM+9GgrjO3hN
+	JuI2blSFkSjFnCIYYS9NZ/JrYR0f1Qef62GIAV0U+0npI29e8sz81Jwz5ogzEW1p1STQZ+6/kVu
+	zAQxn0rNfREdkf+rTCSsxIx845W2p93k3NOgg9+zlOTRLO4Zx1WdCo+/8nQGouQH7ftjGJ3rUaX
+	WR1TlSlBITLFzOqpWYA3PKUXK0kjnqQ5k1Kw==
+X-Received: by 2002:a5d:5c84:0:b0:478:65a8:6305 with SMTP id ffacd0b85a97d-47f2dcebd30mr3684315f8f.49.1783788509108;
+        Sat, 11 Jul 2026 09:48:29 -0700 (PDT)
 Received: from localhost.localdomain ([95.43.220.235])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm69152875f8f.13.2026.07.11.09.48.25
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47a9e4d83bdsm69152875f8f.13.2026.07.11.09.48.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 09:48:26 -0700 (PDT)
+        Sat, 11 Jul 2026 09:48:28 -0700 (PDT)
 From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 To: Vinod Koul <vkoul@kernel.org>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -77,9 +77,9 @@ To: Vinod Koul <vkoul@kernel.org>,
 	linux-omap@vger.kernel.org,
 	linux-gpio@vger.kernel.org
 Cc: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Subject: [PATCH v4 1/6] dt-bindings: phy: motorola,cpcap-usb: add chrg_det interrupt
-Date: Sat, 11 Jul 2026 19:47:49 +0300
-Message-Id: <20260711164754.185565-2-ivo.g.dimitrov.75@gmail.com>
+Subject: [PATCH v4 2/6] dt-bindings: phy: motorola,cpcap-usb-phy: add optional safe pinctrl state
+Date: Sat, 11 Jul 2026 19:47:50 +0300
+Message-Id: <20260711164754.185565-3-ivo.g.dimitrov.75@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260711164754.185565-1-ivo.g.dimitrov.75@gmail.com>
 References: <20260711164754.185565-1-ivo.g.dimitrov.75@gmail.com>
@@ -91,62 +91,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the optional CPCAP charger detection interrupt in the USB PHY
-binding.
-
-Update the example DTS to include the corresponding "chrg_det" interrupt
-name.
+Document the optional "safe" pinctrl state used by the CPCAP USB PHY
+driver.
 
 Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 ---
- .../devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml   | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml      | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
-index 0febd04a61f4..d6d52d21280c 100644
+index d6d52d21280c..25c36138bf66 100644
 --- a/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
 +++ b/Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
-@@ -20,6 +20,7 @@ properties:
+@@ -62,11 +62,13 @@ properties:
+   vusb-supply: true
  
-   interrupts:
-     description: CPCAP PMIC interrupts used by the USB PHY
-+    minItems: 9
+   pinctrl-names:
++    minItems: 4
      items:
-       - description: id_ground interrupt
-       - description: id_float interrupt
-@@ -30,9 +31,11 @@ properties:
-       - description: se1 interrupt
-       - description: dm interrupt
-       - description: dp interrupt
-+      - description: charger detection interrupt
+       - const: default
+       - const: ulpi
+       - const: utmi
+       - const: uart
++      - const: safe
  
-   interrupt-names:
-     description: Interrupt names
-+    minItems: 9
-     items:
-       - const: id_ground
-       - const: id_float
-@@ -43,6 +46,7 @@ properties:
-       - const: se1
-       - const: dm
-       - const: dp
-+      - const: chrg_det
- 
-   io-channels:
-     description: IIO ADC channels used by the USB PHY
-@@ -91,10 +95,10 @@ examples:
-         interrupts-extended = <
-             &cpcap 15 0 &cpcap 14 0 &cpcap 28 0 &cpcap 19 0
-             &cpcap 18 0 &cpcap 17 0 &cpcap 16 0 &cpcap 49 0
--            &cpcap 48 1
-+            &cpcap 48 1 &cpcap 13 0
-         >;
-         interrupt-names = "id_ground", "id_float", "se0conn", "vbusvld",
--                          "sessvld", "sessend", "se1", "dm", "dp";
-+                          "sessvld", "sessend", "se1", "dm", "dp", "chrg_det";
-         io-channels = <&cpcap_adc 2>, <&cpcap_adc 7>;
-         io-channel-names = "vbus", "id";
-         vusb-supply = <&vusb>;
+   mode-gpios:
+     description: Optional GPIOs for configuring alternate modes
+@@ -106,6 +108,7 @@ examples:
+         pinctrl-1 = <&usb_ulpi_pins>;
+         pinctrl-2 = <&usb_utmi_pins>;
+         pinctrl-3 = <&uart3_pins>;
+-        pinctrl-names = "default", "ulpi", "utmi", "uart";
++        pinctrl-4 = <&usb_safe_pins>;
++        pinctrl-names = "default", "ulpi", "utmi", "uart", "safe";
+         mode-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>, <&gpio1 0 GPIO_ACTIVE_HIGH>;
+     };
 -- 
 2.39.5
 
