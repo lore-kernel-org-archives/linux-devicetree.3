@@ -1,87 +1,175 @@
-Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2B63C108D
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 15:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C82226B2AD;
+	Sat, 11 Jul 2026 15:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783783813; cv=none; b=GGQX1AeDSqfOt6VA5dtENtoAqsI095WREZvelpxmM2cgsCK2sn+OfAW6XHKe9kxsEkXNIlX4VNrI1bZBmh/C8Rm+iVD/38aUk9EoYQNEUdNmZ55rgUWZIQHcRzxGB8m4t50ALZ9/zanl1zN6qMdkXc0/O/xHUJE4P9RxO90E3ms=
+	t=1783784261; cv=none; b=NcQL4MkejSMdttYfYDLk+3eSe6j5ahNobVVMde/1m73ZWYpIN5UbPXFsu8JeWaePRtawMi//5hA83lzLu8PMob3aIcKknmis+RXcrZwzofvV6EtxTpmQ/1tRVnsdKerps0g3QdU2Dx25qIXN1CnkgqK8k5BUzXmCQcRfqIpp19k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783783813; c=relaxed/simple;
-	bh=XfrnwkKA8RLxG11yXMzLXYbbGKJeu8aH/81XRsywFKM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=ArnV5vqPGfPtORUhXVlfDDaloO6EP7wpi+cTdbX1webKLs6KafD7kGxCII814kgT7rSNTFc9GVCme1NCNd4bJBntt7Ez2+xSxPPtX+5ZvOmwbqU9Ub/OwuaE/PMPHNPMafczRXyCxrlSHMiizWPqf7BVkiILJQ7wrhUgomOnYnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=IWykNoSp; arc=none smtp.client-ip=95.215.58.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1783784261; c=relaxed/simple;
+	bh=2GAXUAzX31wM46cq0fS2iWhFTrtOYhqfd2V1TdjApTo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pv9LjfAJd5rHgj6pZAR35qM6twet4oUbRlKFhkDOWTirDgc/l1GN7H67yb4u3jOti2MeYsau7k+3piHHi5A7ymHqu/bNCs/PbYx35E6uBQjA3iZR0FQPLywOOK70BNf0sGawN9+WMoi3jjwBUumBtqCffOemKkz6vC3Q3PA6YIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vo8HfXbY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="IWykNoSp"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vo8HfXbY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E571F000E9;
+	Sat, 11 Jul 2026 15:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783784260;
+	bh=YIQwZIjSH6JLjyeNDUha8teupTqbDrlrCcrcp+PqVVU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vo8HfXbYqZxID8tTe6ZZacwYSWuqf/Axf1y5xv0EXPzC4DCREi1W3sFZ2tQGt+t22
+	 OiBt1jqOMAVEL2pYWLfcbg73FeHAUb1edVmScjle3wcvD+eoVyFOGf//SWLgfpHfA6
+	 ugca8JVOOlV41dra13E6I/SBuaOylblvIV0XCavfW/LfP5oAuLC1IObLiesyeMqqnP
+	 tEzt8ECK0DmhbRhCKP20yYOuK9mHM/7jPwGkVhe2aJCz1QI555sW4VcrsFNlMjcS5Y
+	 tPUiPEOtjHqtYgyWx1K+TmrsvOPy+0ITOGj94JXTDJkqJY39DM5y1x83NgyvNfMPLL
+	 uOoy77pcTHWgA==
+Date: Sat, 11 Jul 2026 10:37:34 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Xin Liu <xin.liu@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/2] Add psci_sys_reset2 reboot modes for Qualcomm
+ boards
+Message-ID: <alJh-ez0MepsuCT9@baldur>
+References: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-0-1964ebf1924c@oss.qualcomm.com>
+ <CAFEp6-2-n1L8rLv9zV142D_Q7io1G1ZuFgLHowsf8sObQt6iLw@mail.gmail.com>
+ <aivBcGQgeKGW45Is@lpieralisi>
+ <9a2f95e1-f01e-4956-9e84-23f0a5f26298@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
-	s=key1; t=1783783798;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GzKdp7Hcvs6+zEuzXa7LVO8auZ6H7XjMLgYVqU0x/Zg=;
-	b=IWykNoSpjn7zW6CuDj+8yy6zrE53QZYDQY2TzlqVtj1c/WCfWhVl5oUwsq3Pld2XnFxavJ
-	OKeLDcV/KyN5suJ2aH1WQVEyg4gcRMhLCpT1prSSIOYp38kOvKYEXQhEcNHQjx0afWN+VX
-	+EdqGbLAfKwg33sq0+4BBveY2JjDcKK5IuF+Ncs8koPzsyU2lRxld5eD18854judDqrTo8
-	8cK21M6hgoN4iBwdB2b+1ENYTUpLRy6GVzi3CaoZfcMXqv3Drl7huNW2ppa4bjtVF358fy
-	v6OXN6B8Y1h0B6i6I9mpOvyaFxAl0ZRbXRpZs4LlfUeZq6Grs/KqXaowmLqR7w==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 11 Jul 2026 17:29:52 +0200
-Message-Id: <DJVUKXFUVH2Z.2O9IM7YHJOKYT@cknow-tech.com>
-Cc: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- "Jonas Karlman" <jonas@kwiboo.se>, "Marcin Juszkiewicz"
- <marcin@juszkiewicz.com.pl>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Fix USB hub phy-supply config
- for NanoPC-T6 LTS
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Diederik de Haas" <diederik@cknow-tech.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-References: <20260610081400.758687-1-diederik@cknow-tech.com>
- <20260610081400.758687-3-diederik@cknow-tech.com>
-In-Reply-To: <20260610081400.758687-3-diederik@cknow-tech.com>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9a2f95e1-f01e-4956-9e84-23f0a5f26298@oss.qualcomm.com>
 
-On Wed Jun 10, 2026 at 10:04 AM CEST, Diederik de Haas wrote:
-> The MTT USB 2.0 hub is connected to the SoC's USB20 HOST1, so the phy-sup=
-ply
-> belongs to u2phy3_host, not u2phy2_host as that is for USB20 HOST0.
->
-> Fixes: db1dcbe5f752 ("arm64: dts: rockchip: add NanoPC-T6 LTS")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts b/arch=
-/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
-> index 0ee67ee24f3c..0e15a2e1f2ff 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
-> @@ -38,6 +38,6 @@ usb20_host_pwren: usb20-host-pwren {
->  	};
->  };
-> =20
-> -&u2phy2_host {
-> +&u2phy3_host {
->  	phy-supply =3D <&vcc5v0_usb20_host>;
->  };
+On Mon, Jun 15, 2026 at 06:38:59PM +0530, Shivendra Pratap wrote:
+> 
+> 
+> On 12-06-2026 13:51, Lorenzo Pieralisi wrote:
+> > On Wed, Jun 10, 2026 at 02:57:19PM +0200, Loic Poulain wrote:
+> > > Hi Anurag,
+> > > 
+> > > On Fri, May 29, 2026 at 4:29 PM Anurag Pateriya
+> > > <anurag.pateriya@oss.qualcomm.com> wrote:
+> > > > 
+> > > > Adding PSCI SYSTEM_RESET2 reboot-modes for sm8750 and
+> > > > kaanapali based boards.
+> > > 
+> > > I would like to highlight that when Linux/EFI is enabled, which is a
+> > > common config, efi_reboot is used as the primary reboot path (see
+> > > machine_restart).
+> 
+> Yes but, only if EFI RESET RUNTIME service is enabled by UEFI.
+> 
+> efi_reboot(...) {
+> ..
+>          if (!efi_rt_services_supported(EFI_RT_SUPPORTED_RESET_SYSTEM))
+>                   return;
+> ..
+> 
+> > > As a result, the PSCI reboot hook is not invoked in
+> > > this scenario, assuming Qualcomm firmware provides EFI runtime
+> > > services.
+> 
+> Currently EFI RUNTIME RESET service is not enabled on these firmware.
+> 
 
-Please drop this patch.
-I was hoping to confirm this with an M.2 WiFi+BT card, but let's say the
-results were kinda disappointing (to put it mildly).
+We have every intent to align with these standards, so this will become
+a valid concern.
 
-Diederik
+> > > As a follow-up, it would therefore be beneficial to also
+> > > improve the EFI path to support such custom mode(s)...
+> 
+> Yes, and potentially linux should also have some control, if it wants to
+> go via efi reset path or the PSCI reset path.
+> 
+
+Please stop thinking in terms of embedded system. Things like this
+should just work, it should not rely on userspace to tinker with every
+available knob.
+
+
+That said, I think Loic's concern should be considered feedback on the
+implementation - and specifically the DT binding in that series. Given
+those bindings, I think these patches looks good - but the version of
+the dependency that is being linked to has change requests, so please
+resubmit this once it's possible to merge.
+
+Regards,
+Bjorn
+
+> thanks,
+> Shivendra
+> 
+> > 
+> > I have not checked but we should probably put in a place a way for user
+> > space to check that PSCI is _not_ the reboot method that will be
+> > used, lest it would be allowed to send commands to the kernel that
+> > would be duly ignored.
+> > 
+> > Need to go through the whole thing again before commenting any further.
+> > 
+> > Thanks,
+> > Lorenzo
+> > 
+> > > Regards,
+> > > Loic
+> > > 
+> > > 
+> > > 
+> > > > 
+> > > > These DT patches depend on PSCI SYSTEM_RESET2 support introduced in:
+> > > > https://lore.kernel.org/all/20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com/
+> > > > 
+> > > > To: Bjorn Andersson <andersson@kernel.org>
+> > > > To: Konrad Dybcio <konradybcio@kernel.org>
+> > > > To: Rob Herring <robh@kernel.org>
+> > > > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > > > To: Conor Dooley <conor+dt@kernel.org>
+> > > > Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> > > > Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> > > > Cc: linux-arm-msm@vger.kernel.org
+> > > > Cc: devicetree@vger.kernel.org
+> > > > Cc: linux-kernel@vger.kernel.org
+> > > > 
+> > > > Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> > > > ---
+> > > > Changes in v2:
+> > > > - Fixed subject lines.
+> > > > - Link to v1: https://lore.kernel.org/r/20260529-psci_sys_reset-dt-changes-for-pakala-v1-0-7c32161cf50b@oss.qualcomm.com
+> > > > 
+> > > > ---
+> > > > Anurag Pateriya (1):
+> > > >        arm64: dts: qcom: sm8750: add reboot-mode support
+> > > > 
+> > > > Xin Liu (1):
+> > > >        arm64: dts: qcom: kaanapali: add reboot-mode support
+> > > > 
+> > > >   arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 7 +++++++
+> > > >   arch/arm64/boot/dts/qcom/kaanapali-qrd.dts | 7 +++++++
+> > > >   arch/arm64/boot/dts/qcom/kaanapali.dtsi    | 2 +-
+> > > >   arch/arm64/boot/dts/qcom/sm8750-mtp.dts    | 7 +++++++
+> > > >   arch/arm64/boot/dts/qcom/sm8750-qrd.dts    | 7 +++++++
+> > > >   arch/arm64/boot/dts/qcom/sm8750.dtsi       | 2 +-
+> > > >   6 files changed, 30 insertions(+), 2 deletions(-)
+> > > > ---
+> > > > base-commit: 6ee02bbf328be8a8586487e3af73b65a906cce58
+> > > > change-id: 20260529-psci_sys_reset-dt-changes-for-pakala-a09fc0e2a8a8
+> > > > 
+> > > > Best regards,
+> > > > --
+> > > > Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> > > > 
+> > > > 
+> 
