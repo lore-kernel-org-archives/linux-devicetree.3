@@ -1,131 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DB41A268
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 18:54:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80022C21FF
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 18:57:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783796069; cv=none; b=fSKDzn23u+KcxGZLBAqH9pMMs17DRMFmwM8HGDnsyjzqlrZt3u5lGay1gqfTw4TCucvQzLR29k5E7Er2/JwZf6czICyVeDBsoxqJ/4aR9rJ7Zd/pLtDvSsFajs9tQUN/ilBUmW94hJidHvndtnfvGaryGksBKRYh7xFbHM2Oe2Y=
+	t=1783796227; cv=none; b=LvRs8OSExosX4VGbAacf7+oB29qmS1dArgRCLeE/j7PXqwjKAXEoDr3+vc3Y/8vYr15Ocu9aCKLmB6cfFlghs7TxPcuLhjmzPg4elWYx9HxUJ4ZpOc57XamoGBTvrMMU4yvAA77hOcdmsHDmDaqhs9I7dWSKR9IfjOtdRw0uK4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783796069; c=relaxed/simple;
-	bh=GvJNY/n5cgBsECNxrK4fV06AxgY/2EQ0DiPjG/ioH/8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FkJZouhRpRyj4dQ9sBDtpFRGUGQrm2JOwbqa4v8sx1CwxTszcukdcF5v/ZAAD3ydZ1/CKCGdr+LgMxGD927G4naREzPWsF03j7K7tknnzHhLH+tXLGFp4HPPXWOGXYm/DufAqLGBRhNHLc/69coJp5nt3IvsQsOMvoCPOk3j/eo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TjdZ0o1O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783796227; c=relaxed/simple;
+	bh=QjEEwtsO6GtUb5wxi3/uSRmeBBqn1mmEfY0J7eQAVsI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BowhAiYTCrXdR0F28xJWrJ0QWS3hU5y6WDD2aKe4uw5NZlDZA9VpV9IiuliitRgKccnQOw4Pha+kbl7N3xKc8BB4dmfZOywevDyIxfkXbfsp0W/G+26vvYsW+bblLfWqZn2ytI/HpZFt+kpfGROOQR3hrSjc7YJ1FEudxnesSPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LjBjh0vN; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TjdZ0o1O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AF51F000E9;
-	Sat, 11 Jul 2026 18:54:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783796067;
-	bh=VdJ8yWJU+95BSxXNoTJG2qiw+AzXOTcF2Ko+a3gaWBY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TjdZ0o1ONNZJ3b1si12xPfI+Byu0C8ejqHj5ranwaRoct2x9t/FTwCzIspdQv2MfU
-	 eZVhg6SGWPMzUOM800P3YxaY/eJVwmw1ZSNqwDQa0i+zUq0hYWpZmFaonJ++hv4B0P
-	 3FzfeLJjgnITKmtUHL/nLtnUaTSuqnfcDYF2aAiWBJ0RKYDMHPLXzetKPe9t0Kw1Te
-	 Mg17U75+JO9zCDtQxjtc+vQNAf8eKmaLaiYTU12NI420cQOVXoe1uxxCGlYVH7rnaY
-	 mdhc0RaWRf3eukdcMsxnaQcNr5tBPlt7KKHXZRZ8LTSiPm9d47gcAZMQ7FeI+Pki/p
-	 13sL8YC6s/zgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/3] iio: adc: Fix incorrect reading when datarate
- changed in single mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260711184414.1013686-2-jakubszczudlo40@gmail.com>
-References: <20260711184414.1013686-1-jakubszczudlo40@gmail.com>
- <20260711184414.1013686-2-jakubszczudlo40@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 11 Jul 2026 18:54:27 +0000
-Message-Id: <20260711185427.A2AF51F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LjBjh0vN"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47ddf7b09aaso1240618f8f.3
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 11:57:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783796224; x=1784401024; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4wKAi8gITG7GEkjFdEuXvc1WgB/hnQthAXmnHmDeYZs=;
+        b=LjBjh0vN2tlu49T/6w/h1i2yDrvIK/PvJuSdv0sO9qo5MDzyPH/cr/vB2RkMNx5ayt
+         DHGICuQ7qSjz5IxM/GMqD+GlwhyTPE/+paP4G4cXxrNXyIqa9f8h/hI+XtNkauqOllS/
+         wLWLlGSRQbx32EzH89oS5fKf2poLBaLxNKG2a8aPq1OzbA3M4n6+gmfqdrAQtGtvUWUv
+         Bx3RseGLtfX/MQ9J7amfdhCHNvOFzhFYks1UuW5UubIrS+FPu98NLPDkc3cKDqZWNQ1m
+         eCF5NG8VFDli3oENh0grhLuCpQUS+YurwpG+fJOOBZ8cOeBpvrmVG6IHqDjICVmLMS37
+         36Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783796224; x=1784401024;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4wKAi8gITG7GEkjFdEuXvc1WgB/hnQthAXmnHmDeYZs=;
+        b=TvS4ts7zECnDCeuf8aGhdHVeMx7mbmEmfsSh3oydi9XTjwjmWrAI/X31xUkKWWm6I0
+         VhyyLByqxMzZtBU9Nd1LSfNeY1VEiNTr+xJ7I/BsC5B7YUjnstEVf8D6wfYxmN/1HXg3
+         wrXL9CJMPLIDY7tAqi1s6Th7a5ejAei2NNaeIGyzaY4TDBuKEz/pTnRkDMnQqk/mjgLF
+         tBrwqDk1QLFxYy/wNLiiWe1+AcPw0PrU5jm7Rc+8iumU2TpfgxTkGVnjBnZgD82Unxln
+         SipsBW7+YIKcXcrfBwUBqhNJxVTjWpXv319cwIAWnJ69CKjr5wsWAEsDXK2bpdujGjXb
+         W+Jw==
+X-Forwarded-Encrypted: i=1; AHgh+RoOBVaUhnvpjowvoUomcRlR02S/uj922dl2zo+mtJ6B6QE2EdwM1RMAvHl/0L6EEbw0tup61xBfsj0k@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5hrhy4HJ6owL4LPVAI2QNzji5TULL/d1ZMH/oM6MirsQHRP/8
+	F9Vp8Djov8NFZkZu1HknnIJvKn/Cif+XAJls1Kf+PRd6O9xELWcffJ7Y
+X-Gm-Gg: AfdE7clV8kVn82niZyoBSz8I5JJb094WTHP1NslYoTPzjZ/fCu92Dm3AjYA4qjfY+x1
+	qNgIMWpQr0DAfNmrYPhHkA4mWwGY4a9XnbzAuUyeQRVFrZ2JK12TeQ+/Y/r7btE+zCj49Q9jKZv
+	5AaJWLTpBTt/tTsO5zWmccyjAGUgXGSBX4OUsE2EPxpUJoZLtk4HnivE1tWSlAs0cu/6uQcHg+h
+	IKEF1aMwdqxaqDPIPKV5oT7ZZ2V+2xIC/w4Xy7/GvnTeCxPBlwJ+1WJZhn2LaDCqfugRcSBr9Sj
+	eaYibYEGiZr1r9MsKhbz79mUDLV/XpOlB6T/l65pM8gsHstCIqlHNp0Lzu7DwkPLylI9sgctk7h
+	4we5KOCeS3cumEyD3R6btp2F4Hri+Hd5XDpkd6MiElGMrTur3zCsdcQybCIAOmu3cmHvqmyQ/aG
+	YS0wsWRPwbpPpgG/Dpn1h5bKbxORkWcHsQoJ+4iMli
+X-Received: by 2002:a05:6000:1867:b0:475:f0f0:9ef0 with SMTP id ffacd0b85a97d-47f2dd0c40amr3701536f8f.53.1783796224006;
+        Sat, 11 Jul 2026 11:57:04 -0700 (PDT)
+Received: from localhost.localdomain ([151.27.210.52])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa039afacsm66905647f8f.19.2026.07.11.11.57.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 11 Jul 2026 11:57:03 -0700 (PDT)
+From: Oleksii Onchul <oleksiionchul@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Oleksii Onchul <oleksiionchul@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: qcom: Add Xiaomi 11 Lite 5G NE
+Date: Sat, 11 Jul 2026 20:49:32 +0200
+Message-ID: <20260711184934.55701-1-oleksiionchul@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The newly introduced polling mechanism in `ads1100_poll_data_ready=
-` uses an inverted wait condition that guarantees failure, silently swallow=
-s I2C errors, and incorrectly relies on a status bit that is always zero in=
- continuous mode.
---
+Add initial device tree support for the Xiaomi 11 Lite 5G NE,
+codenamed lisa, which is based on the Qualcomm SM7325 SoC.
 
---- Patch [1]: [PATCH v6 1/3] iio: adc: Fix incorrect reading when datarate=
- changed in single mode ---
-commit 9efe89d3c5acb6ee87bd34da568f0f0c50cd6e20
-Author: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+The first patch documents the board compatible and the second adds the
+board DTS with support for regulators, storage, USB, GPU, remote
+processors, wireless connectivity, touchscreen, flash LED, thermal
+sensors and hardware buttons.
 
-iio: adc: Fix incorrect reading when datarate changed in single mode
+Oleksii Onchul (2):
+  dt-bindings: arm: qcom: Add Xiaomi 11 Lite 5G NE
+  arm64: dts: qcom: Add Xiaomi 11 Lite 5G NE
 
-When device is suspended and it is in single mode then changing
-datarate doesn't make it actual wait for new measurement, so to
-be sure that read after change is correct functions that changes
-datarate and gain will wait for new data.
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../boot/dts/qcom/sm7325-xiaomi-lisa.dts      | 1138 +++++++++++++++++
+ 3 files changed, 1140 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7325-xiaomi-lisa.dts
 
-> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-> --- a/drivers/iio/adc/ti-ads1100.c
-> +++ b/drivers/iio/adc/ti-ads1100.c
-
-[ ... ]
-
-> +static bool ads1100_new_data_not_ready(struct ads1100_data *data)
-> +{
-> +	u8 buffer[3];
-> +	int ret;
-> +
-> +	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-> +		return true;
-
-[Severity: High]
-If an I2C read error occurs, this returns true. Since the polling condition
-below checks for non-zero, won't this cause the poll to exit immediately and
-silently treat the hardware failure as a successful wait?
-
-> +	}
-> +
-> +	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
-> +}
-> +
-> +static int ads1100_poll_data_ready(struct ads1100_data *data)
-> +{
-> +	int data_rate_Hz =3D ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data-=
->config)];
-> +	/* To be sure we wait 5 times more than data rate */
-> +	unsigned long wait_time_us =3D DIV_ROUND_CLOSEST(USEC_PER_SEC, 5 * data=
-_rate_Hz);
-> +	bool data_ready;
-> +	u8 buffer[3];
-> +	int ret;
-> +
-> +	/* To be sure that polled value will have value after config change */
-> +	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return readx_poll_timeout(ads1100_new_data_not_ready, data,
-> +				 data_ready, data_ready !=3D 0,
-> +				 wait_time_us, ADS1100_MAX_DRDY_TIMEOUT_US);
-
-[Severity: High]
-Is this condition inverted? The readx_poll_timeout macro stops polling when
-the condition evaluates to true. With data_ready !=3D 0, it stops immediate=
-ly
-if the device is busy, and spins until timeout if the device is ready.
-
-Additionally, because acquiring PM runtime resumes the device into continuo=
-us
-mode, the ST/BSY bit is always 0. Does this mean every write to the scale or
-data rate attributes will hang for 7.5 seconds and return -ETIMEDOUT?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711184414.1013=
-686-1-jakubszczudlo40@gmail.com?part=3D1
+-- 
+2.55.0
