@@ -1,168 +1,268 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEE035893
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 00:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FC92DCBF4
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 01:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783730822; cv=none; b=P+BAbNiGfRxEvJiK5dAPXKtl+FecPau6YyAC/djyDTOVCxAW0XWHhpGE3lhhI3BM8XArmHQTVwC/S0XvxXS7Bk1vD/BVdlhPKPQ8fa5f6qGHUbqv56W09asIK2LvcghCx18ji3h3tPx/S4TLbNtGAKUMUWXyvYz6GYMAs2Vsl4c=
+	t=1783733948; cv=none; b=pIZXPMvNofHyh5jjaX1rlhDMlOW165qukdvCIr1avU+Jlr7sMWKxzQxBWQNmGUYoX2oMfxb/ILVhhn92yzu//qMQFBwf4ZsdJ9JDQ3nE9lf/Rv7jUU2ugmn2H0k8c3O/Abs/zLjLmw1eTUrtc0XsDhKpvM8F1ZqWV4sVimovOPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783730822; c=relaxed/simple;
-	bh=R4Rs7xhFZTU3mb0GIkP2MXoGgKeVejhFo/bw1Rws8YE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d91usRvQ6MLOif2K9KA1+eqmrYBf+Jb4qqU1oieIgGCfxkF/tP8Wilpw74c4+Rv8VoFrl3ZnYdPutwoG4wPOG4P6x4fjdjf0YNFb0y7fy3KULxNCE823pESaCcc7vXCdF2sMfP8hdRyhIS64hQPHeDDXe+4JmEf2XcZww7ojLzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FZoeEOOm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I6bhVVye; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783733948; c=relaxed/simple;
+	bh=XpzDsD4EXMx2JkQDtGh7s6GqPeOccP/wJkLH4H3nCIk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EhK/9dOQfH8oUJOYIjWQBJHqOTaafu67U4TVigVEwOdOtw6jnUmL3OMP75sCKvglcwsVghcQc2lXgo4po4E/+wV3/cW3akev683b1daWrn1wWENG340N4TpiUbzFnnJ9ot7nWfZR7HhbgYTEk6aRlWsChiBDKHF3pDGYIgoqLIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQZHo8xh; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FZoeEOOm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I6bhVVye"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66ANIFfW2104539
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 00:46:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BNLAaq8lMnoNaNFRUGiCyDQLbXvyZcNLq3BCSpGo7dM=; b=FZoeEOOmNynVMum+
-	nV4KrR2QfX2XayduYDoh4AhrWBCR1zJtO9RFpdaeSA7ME1r5dhzGLgyNRYe4RLxo
-	NCXhRF1Aq6WZnMkiJOHgJsVAnMqNxkAUlTjLlTp7e1tksejD6TI3q2zLcE2eGWQg
-	rOgYlG0Bmfr3bjCkGYtaMHiU7GH7koMu366I3QI0lz5WFKSDyGsqSZ7GHXFe3uZ/
-	cfwfj0A7/pFEioUo15A6BPPf3aN5LfJcVJiq+N+EaJngGHSd/0/Nr/qcg1rP6HX4
-	jBAZUoXgyrMqtG57GV7J4jjN0ZG3gtZ394lkDQR0Ku7sKOXpYZgB4vRYiui9QELT
-	9siV8A==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fax5djvrg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 00:46:59 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cc640dfde3so19535275ad.1
-        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 17:46:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQZHo8xh"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc8e87f29bso10932015ad.2
+        for <devicetree@vger.kernel.org>; Fri, 10 Jul 2026 18:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783730819; x=1784335619; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BNLAaq8lMnoNaNFRUGiCyDQLbXvyZcNLq3BCSpGo7dM=;
-        b=I6bhVVyePat+HzAUsEu1I8Aw2rw5QneesGI42AdwvoYY1XFuQQ+/SQqGmvqS3b6mg0
-         SON5dZlmVKx01Wm8+3crtIuq49iUi5G4QcEQrFELjzM61FrDpaHAgaHA9pzs4CYVJe7H
-         nvMogyEF79u26/H/XeWH4lMgwZFbb2n1UGcSUoYmmWFrRH+ZtPbvnZfIdRUJ73xPcJ77
-         NQd/ITBX7U5ZT4vUBvQLp3LWsRXu3X/ee0w+huavLmjM3BLhSl6F2lxM3vJeXmv7hEy/
-         vnoYCwU96EtKzPF0PedALs391qxb782Vm2U1XGWaCcBFUQbyzETHMcqU7ETW/FdRA1jR
-         /PPw==
+        d=gmail.com; s=20251104; t=1783733947; x=1784338747; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EPEx0OGzOEwToO7NlEWG4WETIyrNl/GbYjEC6n6Sa/M=;
+        b=XQZHo8xhag4+ykbE3t2UOMlHcDC1bNhfvkXcC55mfdQr30+xkISTbGGma7a0/F7T/1
+         BOBM+p/Zuq9ihBryijTAn2KZeOTsMA+CSmNwV7mNDwBjnqgmIqJEpzpNxwENbNUVrimE
+         EUe9B7iENUD7x7l1ILfsH1vuPbj2EdmUZ3sr6JTF9hfvd9/+NWEcIZbLJmCp+fz9POQf
+         IdLzla4NBRUgz726y5vsL92nheqxo3hhuVvnjrmNDBsk+XuSZf5Ep9pM8rOQRd+/wUO3
+         z24xRe1wJmOVhxjA1UjEPT6LfXNbEBGFVXgZg0Ttht7Q+zVVznmwy9i7MT0JspFrAU/1
+         EAUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783730819; x=1784335619;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BNLAaq8lMnoNaNFRUGiCyDQLbXvyZcNLq3BCSpGo7dM=;
-        b=oSLlXlDuaHXB8u9r9bHzTq2tNsusCKB3l//MDPvfL67t4nExquFC3ilu/1mLVwunpD
-         r4ItGGzZJciSsyKP5hmZiB84UHGjlmXxznUkzR5TOSC3OyEcgVpZCu9EvySLZl1U0ny8
-         59nmEYiycw0sM7QjkNfcnjuRvCY1lZtgugNLe7iFntkiFcbGBWAwGa5GTXhAW5XPyQfZ
-         EicXFCcUkYWztn4553NM2z8fV9CFXBfLR/QYDlODEqkt1sar9ljZ1EKnC6zcVDLx5IPB
-         GFCL9aEbLec/1bswzeIiHLfuwlLuddHtkbXJbtggd2YyNG/3TdZt8Q0m0VY3SqOyP1je
-         aEbw==
-X-Forwarded-Encrypted: i=1; AHgh+RqHQ/5eEW/X3a9aDG0v6AGTvWOU/48ZXflCBJqEn9HlKMCOp3caxakvmYMzlcUCR4vuYOdn08FurCfJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHs/JZChXb4IVbPa+YtTQpHVkitqAEJTslalbOEsM+VvpcPYE0
-	Dn8/3CirnHWQfd4LazPLxnM5d6mTb28EBo4nNsNNVGmV8Ihg++LYtb/+KHVYvnrQfWkz6ye0XWr
-	copyPGMSxaGkQGzaIp+t7nXmAW3Sh6gHIrDNanNXT5fKmSHhk+9jSiYsu72XVXcEp
-X-Gm-Gg: AfdE7cnuHBzQlSKbAL7m7HuMGHXMkcSnnFoClUAQfrntq9Yos45qbVaEfE8s15vshUu
-	tYOE1LabIn1S0Oyn3GUGvRZankykuawTE86e/eOcx0V/E55YBJz6D60mLb3+EbagjolXC8wLsal
-	L7B1ztRFLX2JK/YI0SmMTcnVS4e2AMU5FuPzNdPMLeHkD0cLR58PFFoFVA4xTtFE9dbCsvUgWYc
-	dgcOJg8EUT/Ubd+KcIEtxcRjlW9CbhTcHbq+70a1xu63FoGNXy8TbNlD30ScVriTEfvxckUh7Nq
-	jayKyAly2Imut/XjmXSWpx6DY7zXhr4jsCdjiuzdMGgoy8Z/PpLPDtKE0OGh0XgO26uSDuS+4iz
-	w8H+kIthYHrEjhoUEDm51x3DRW7Zd4rtADtHEXfQ5zjYVtWUDuSOBlchY74I8YpI8oIkTduQn7O
-	Rw
-X-Received: by 2002:a17:902:ef07:b0:2c9:c952:6e9 with SMTP id d9443c01a7336-2ce9eae29e5mr14108365ad.2.1783730819008;
-        Fri, 10 Jul 2026 17:46:59 -0700 (PDT)
-X-Received: by 2002:a17:902:ef07:b0:2c9:c952:6e9 with SMTP id d9443c01a7336-2ce9eae29e5mr14107995ad.2.1783730818551;
-        Fri, 10 Jul 2026 17:46:58 -0700 (PDT)
-Received: from [10.133.33.249] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf92bfsm67000665ad.28.2026.07.10.17.46.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Jul 2026 17:46:58 -0700 (PDT)
-Message-ID: <a34905bf-7f93-46bc-a9b7-ec44f36aa0e6@oss.qualcomm.com>
-Date: Sat, 11 Jul 2026 08:46:52 +0800
+        d=1e100.net; s=20251104; t=1783733947; x=1784338747;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=EPEx0OGzOEwToO7NlEWG4WETIyrNl/GbYjEC6n6Sa/M=;
+        b=T/NaRTZxguX2CqsG+Qjcc3gY0WBvSokyr6VDl9jXoIInvSyOezcScPYMs5yluRiKWB
+         b7ZyxxTH7IZHu9osWrHteLMPd8pujmz/+J4WUgfVcIAx371uP5LhoK2tc9wUahDotxsg
+         krMtbC00z7TladqOO7CGPuZiqOH7caEc5aZBxn645Bh6qtjV0sRcIAcYK3z4F5rvBR71
+         UhrCN33V4X2DJNnMJ8/sdEZPGtyNASMlIGG24E0iSfHdVLrKeO5A597kkwe7JO+qbrm4
+         vkSx5CNBrSFmcqY0ZLnr4Clbjmr+uFZhlbC+OHWnn0z/Xrn4O2F00xq3F2FHoAvpy3LL
+         VglA==
+X-Gm-Message-State: AOJu0Yy/bUuIpbHW0AY7mbaHvEyFEZRvC2qlzmAdaNpRj8/qfWlKma10
+	ZEQ//NFtURJfIMF4Hnm6KV5avnjjMpeySNYch9tARcSLt5p4oI+0NxBn
+X-Gm-Gg: AfdE7cl4aLD3Jvh+fGFATr5r8uXV0X9v8D1HkLanUbSzZGTBZJ16r+nJkR5hyH1LYzR
+	dS/VKwCzMZ+EmcE9FgzF/JxW2hO8HODLnGjYR33Kykur/y/bZDmwFmNUKc5p1weRe0WKBdNX+TD
+	A19wUVPf4hzIkgtiPt8H03Yn6cTyOhXvx4lyURJ3YRTmfwSuuskPLi2rYOFRzzeUfnEIj1TG46Z
+	4NPmhE80j+r9RabUawyrXOZbfd+ULeTpCzmUf9saluXzQBo1sv5o88JOhWqF8mjAo8FMu8mlxHd
+	iz33EF3lRs4BuvTMEH21pr+I9lS/vl5yD5UqjSf4KrXB21I81beiuwg6Ij5jnWR4m13yIxYFUeE
+	k7QGEzMZV+VDNgyH0tTITW4kP7+YrVHPPvEyabwQoyG0MUnv2sXFtLTlQ6tvheHlVjQ9aDCXN41
+	xEiAEJq6aN3RVTJnTJTp8=
+X-Received: by 2002:a17:903:2a8d:b0:2ca:ecf6:910e with SMTP id d9443c01a7336-2ce9e1d907bmr13544725ad.0.1783733946772;
+        Fri, 10 Jul 2026 18:39:06 -0700 (PDT)
+Received: from [10.240.146.115] ([2.27.148.101])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d5bdf5sm67268535ad.73.2026.07.10.18.39.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 10 Jul 2026 18:39:06 -0700 (PDT)
+From: Zhengyu He <hezhy472013@gmail.com>
+Date: Sat, 11 Jul 2026 09:38:52 +0800
+Subject: [PATCH v3] riscv: dts: spacemit: k3: Add QSPI support for Pico-ITX
+ board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: arm: qcom,coresight-tpdm: fix bracket
-To: Manuel Ebner <manuelebner@mailbox.org>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
-        Leo Yan <leo.yan@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mao Jinlong <jinlong.mao@oss.qualcomm.com>,
-        Tao Zhang <tao.zhang@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260710080523.428548-2-manuelebner@mailbox.org>
-Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260710080523.428548-2-manuelebner@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzExMDAwNCBTYWx0ZWRfX7IAbzqbez98J
- tk/fkUCZjOFXU6lwuO8qjDQE9Uz2O7yGCT3T3cK/L4kBZ+ChrOlbn0Iib41uGiKZdzZj2GBDpQn
- ZRkDV15UUiU7Fy/qyaWLRQRS9N9SPoA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzExMDAwNCBTYWx0ZWRfX97l9jYsqAcjB
- TG667asN6EFRsXI6issl8Oa7l4fdRfSZ/BdRHwRRUZm0vz2qqo79H10e54O/Q0nAn48NBBjgmiY
- FLlxiGgdAHNlqgijcb8+MEN8uPRMKPOwOSipFgKOpoJ+c3wGPwKY8z2dnIg5/BcIpj427nLxKL5
- a95FUtbV9c0pzE3lQkM5/hIC3YUFLAIEQt1h1anan5yQ9P23o4ZHUAqM4AWfllcpKPGgBAzG8pH
- eTcrs9pfRIYDhWkHN4nvz7asw7u4nvgBmmttvtk8+QNMfh2Ahq7GbLddkJ3/atc61Lu8QYzxhl5
- FRocoDepc5N8fL6K1m4DRsDWdrXixsVnqo1p5Wk1QOdMvr5LymcUQ4DUDoEddY7hms0yglDViwr
- frPz+SxFUAKwZp5qiK/egbEk1p0qgIFsXgrjIbOabsic3N3toMDnJ0FMMPG41N6IJyMgbULA2YK
- /l5r8KX49JQhSO1XfCA==
-X-Proofpoint-GUID: 4dXWRWB7W_pDglWSvvqts1_etEa6bv4z
-X-Proofpoint-ORIG-GUID: 4dXWRWB7W_pDglWSvvqts1_etEa6bv4z
-X-Authority-Analysis: v=2.4 cv=M/x97Sws c=1 sm=1 tr=0 ts=6a519283 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=b3CbU_ItAAAA:8 a=EUspDBNiAAAA:8 a=tyIhYoOGzA4zFAWON2wA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22 a=Rv2g8BkzVjQTVhhssdqe:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-10_07,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 malwarescore=0 suspectscore=0
- phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607110004
+Message-Id: <20260711-k3-pico-itx-qspi-v3-v3-1-d6b37fc86c39@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBswhayuEi1qGmsIyjQkiO6et
+ HyL/x+IHIQjdMUDgZNEOfYMUxZA67gvjDJng1a6Vla1uBn0QgfKdeMZvWAyaF1TTZqUNkSQSx/
+ Yyf1f++F9P8ikJQ1lAAAA
+X-Change-ID: 20260709-k3-pico-itx-qspi-v3-7f81b2c023cc
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, wefu@redhat.com, 
+ Aurelien Jarno <aurelien@aurel32.net>, Cody Kang <cody.kang.hk@outlook.com>, 
+ Zhengyu He <hezhy472013@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4490; i=hezhy472013@gmail.com;
+ h=from:subject:message-id; bh=XpzDsD4EXMx2JkQDtGh7s6GqPeOccP/wJkLH4H3nCIk=;
+ b=owEBbQKS/ZANAwAKAc32nDaAuA3YAcsmYgBqUZ60HQKomjcD5WHgnMkKuhF0OaZzaLilmVWI+
+ 7OxoFqRj3WJAjMEAAEKAB0WIQS9XD2kxy1NmfC2u/XN9pw2gLgN2AUCalGetAAKCRDN9pw2gLgN
+ 2JLmD/9suwc0BL1mkz5u6f0XUVMQ7pgvXVmwhRzxTXJr5ZH8S20ubHZSf0dnhwNpBtvRaoEQpRR
+ BXl8WX/ZXWi7JhAE77huOI+4A0jS+J5+Mc4+8Sf+l/IHMCO9M0PlmcpZqwFN9mpEERpLq7Jz9SB
+ 2fPl457P1u3kdjcKuSiVTADSzduYYFAZnOBMlLALyRG0XiRlrG2Tu/PcUe7tWn8LKeJWDdiyVF/
+ ThnaXv2sV9FVUpknnK70F6mnp+ST9hLj7SvNTTkDDlcxoDBCsylFluHjpNUHVpamFkZNqJcm01q
+ ct8sJ8vZzhVIMPOSmdlE5cPj8UNsjcPqsjkSgDP723i9UoR8BASKt28WtOr2cJkgIojkbbu+91X
+ 3Kc4s2S7TBNbsBRgom2n4b0okKSt9Dts6RdbZDZv7PLWs7ffcvTKjVGdneZ2pE8nFnBI0Cn9NX0
+ CSauirlxmX/HFh5Tk0ef1qcYM1v7rRjjjViWOP42MlN0h9LHMWpMA0gPNmqy/LwQDVRgg3RUETR
+ aunmN3zRO/1E8mkjQgko1TXuVLbupT4XqVzLuiwaKh67KGzEhLk/2YALOWI0jsDhcHoZSpEhvdg
+ rxZ9yEilv56hT2HEQLmCI4S+1fSGH7++zGK/CPidNe4lPKaxPYlbdwLMaLAQl8k3FsmTN1I7rq1
+ FB12tR/E9glhkZg==
+X-Developer-Key: i=hezhy472013@gmail.com; a=openpgp;
+ fpr=26CA97B1A229C229822278F254AF850165158959
 
+Enable QSPI with proper pinmux on the Pico-ITX board, and describe the
+NOR flash wired to it.
 
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+Signed-off-by: Cody Kang <cody.kang.hk@outlook.com>
+Signed-off-by: Zhengyu He <hezhy472013@gmail.com>
+---
+Changes in v3:
+- Drop the already applied binding patch.
+- Update the subject and simplify the commit message.
+- Use the existing qspi_cfg label for the Pico-ITX pinctrl override.
+- Rebase onto v7.2-rc2.
 
-On 7/10/2026 4:05 PM, Manuel Ebner wrote:
-> Remove needless '('.
-> 
-> Fixes: 6c781a35133d ("dt-bindings: arm: Add CoreSight TPDM hardware")
-> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
+Changes in v2:
+- Add "spacemit,k1-qspi" fallback to the K3 QSPI compatible.
+- Reordered Signed-off-by trailers.
 
-Thanks for fixing the typo.
+Base: v7.2-rc2
 
-Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
+Here is version 2:
+  https://lore.kernel.org/all/20260521-k3-pico-itx-qspi-v2-for-next-20260521-v2-0-52bce26e5fd8@gmail.com/
 
-> ---
->   Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
-> index 152403f548c3..c7301f1b28c1 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
-> @@ -9,7 +9,7 @@ title: Trace, Profiling and Diagnostics Monitor - TPDM
->   
->   description: |
->     The TPDM or Monitor serves as data collection component for various dataset
-> -  types specified in the QPMDA spec. It covers Implementation defined ((ImplDef),
-> +  types specified in the QPMDA spec. It covers Implementation defined (ImplDef),
->     Basic Counts (BC), Tenure Counts (TC), Continuous Multi-Bit (CMB), and Discrete
->     Single Bit (DSB). It performs data collection in the data producing clock
->     domain and transfers it to the data collection time domain, generally ATB
+Here is version 1:
+  https://lore.kernel.org/r/20260519-k3-pico-itx-qspi-v1-v1-0-c32afeeaf741@gmail.com
+---
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 56 ++++++++++++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 21 +++++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 17 +++++++++
+ 3 files changed, 94 insertions(+)
+
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index b89c1521e664..fd2b154f275a 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -200,6 +200,62 @@ phy0: phy@1 {
+ 	};
+ };
+ 
++&qspi_cfg {
++	qspi-pins {
++		power-source = <1800>;
++	};
++
++	qspi-cs0-pins {
++		power-source = <1800>;
++	};
++};
++
++&qspi {
++	pinctrl-names = "default";
++	pinctrl-0 = <&qspi_cfg>;
++	status = "okay";
++
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <26500000>;
++		spi-rx-bus-width = <4>;
++		spi-tx-bus-width = <4>;
++		vcc-supply = <&aldo2>; /* PMIC_VCC1V8_QSPI */
++		m25p,fast-read;
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			bootinfo@0 {
++				reg = <0x0 0x20000>;
++			};
++
++			fsbl@20000 {
++				reg = <0x20000 0x80000>;
++			};
++
++			env@a0000 {
++				reg = <0xa0000 0x10000>;
++			};
++
++			esos@b0000 {
++				reg = <0xb0000 0x100000>;
++			};
++
++			opensbi@1b0000 {
++				reg = <0x1b0000 0x60000>;
++			};
++
++			uboot@210000 {
++				reg = <0x210000 0x5f0000>;
++			};
++		};
++	};
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_0_cfg>;
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index 3ee1471f3798..846d5e8cc783 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -679,6 +679,27 @@ pwm19-2-pins {
+ 		};
+ 	};
+ 
++	/omit-if-no-ref/
++	qspi_cfg: qspi-cfg {
++		qspi-pins {
++			pinmux = <K3_PADCONF(138, 0)>,	/* qspi dat0 */
++				 <K3_PADCONF(139, 0)>,	/* qspi dat1 */
++				 <K3_PADCONF(140, 0)>,	/* qspi dat2 */
++				 <K3_PADCONF(141, 0)>,	/* qspi dat3 */
++				 <K3_PADCONF(144, 0)>;	/* qspi clk */
++
++			bias-disable;
++			drive-strength = <25>;
++		};
++
++		qspi-cs0-pins {
++			pinmux = <K3_PADCONF(142, 0)>;	/* qspi cs0 */
++
++			bias-disable;
++			drive-strength = <25>;
++		};
++	};
++
+ 	/omit-if-no-ref/
+ 	uart0_0_cfg: uart0-0-cfg {
+ 		uart0-0-pins {
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index 19fc9b49668e..9a49dd8032bf 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -1099,6 +1099,23 @@ pll: clock-controller@d4090000 {
+ 			#clock-cells = <1>;
+ 		};
+ 
++		qspi: spi@d420c000 {
++			compatible = "spacemit,k3-qspi",
++				     "spacemit,k1-qspi";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x0 0xd420c000 0x0 0x1000>,
++			      <0x0 0xb8000000 0x0 0xc00000>;
++			reg-names = "QuadSPI", "QuadSPI-memory";
++			clocks = <&syscon_apmu CLK_APMU_QSPI_BUS>,
++				 <&syscon_apmu CLK_APMU_QSPI>;
++			clock-names = "qspi_en", "qspi";
++			resets = <&syscon_apmu RESET_APMU_QSPI>,
++				 <&syscon_apmu RESET_APMU_QSPI_BUS>;
++			interrupts = <117 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++		};
++
+ 		syscon_apmu: system-controller@d4282800 {
+ 			compatible = "spacemit,k3-syscon-apmu";
+ 			reg = <0x0 0xd4282800 0x0 0x400>;
+
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260709-k3-pico-itx-qspi-v3-7f81b2c023cc
+
+Best regards,
+-- 
+Zhengyu He <hezhy472013@gmail.com>
 
