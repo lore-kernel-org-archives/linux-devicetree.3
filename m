@@ -1,147 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95F31FBEBC;
-	Sat, 11 Jul 2026 09:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7718B39DBFD;
+	Sat, 11 Jul 2026 10:19:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783761080; cv=none; b=g6Ld6u4z3iSlP3bGGMFIu1ShjD8Gr5X7ArE1d+aAItGO6JL/vAnqFl7q4vqTGAwZoUtrg3WrAn0YiWBSHpI20UE0SlMNMHHuzGZmMUeReEVmGB8WDXdkdIZRUzIfukDJs1jGoT3dRJUXXwKl9ntyggUj39ZzdbCzDSyEmDnwd3k=
+	t=1783765145; cv=none; b=Zdqjgg1Kgu3Uqg5dz4g8XzSw4TAA9NX9LbgPjsxIf5EfCLFqzmnTyO0YgtfSL75uH5lBdldHl1ggNZpfzuzCQxV9f2mZWzGidbSZcQIMxCSXEeEbeoJTtvJEVyyno5KVqk8xCgH8vJ2WpJWGTTK/0PDGxpjvldoygW3c5nP9ELg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783761080; c=relaxed/simple;
-	bh=DLU0VljP47k1ayhxXZUHOSl0sZpL+INYQwxLX+uBxYs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uTBLOuHFE1lguy29ttIon70gP9lqX3vT/AyrLOCy6ME0g5huGcj5fsMFraZQMJhad2Px2TrITONgJxTtVW6hC1M8YOnDepMq/le0hVna2eulowycHcr+Pf8XdiGXhOu22hXO26v6u7aTAbmKSwJvaAdDpOMHl8Y7ur657q/X1vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hEGA/ILX; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783765145; c=relaxed/simple;
+	bh=ZwdDjcy0Qsgh7vMnudFHGZ1Kq3qz28u3fyIoUAPg3h0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aRkwshpCpzPbYbkTjCyA4FkFQcH7HgSZ2kfcdNj7smb4ujZG/iGmWYHSBw2OUZqDyY5YZxmkcLDdgcI8RzWu5acFUdPr6Zm7nJAVD8pJ22+b8e1de6itR7UVi5d1f3DyEIjMx/ug5CnWJqdev2/RygXUo0H3aoYOViqggwenNQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=U9wlEeCc; arc=none smtp.client-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hEGA/ILX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783761079; x=1815297079;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DLU0VljP47k1ayhxXZUHOSl0sZpL+INYQwxLX+uBxYs=;
-  b=hEGA/ILXzxjAsF72t51u7wFkVrIPiaMhAngUP6jGWdaMRdsDzoTK/Hqx
-   fbr7CYmQdPof0iu8LNCNtlsG8Z3sVxzIvhWRzrUy2KtkHHeDgcTojpnYX
-   gmSL9EcoJb0WRiL/bbcEfXNV+mfNqDvvRMXbvbN8jokrJDWGiUcnsgzU4
-   MAmzejYK7+gCi8MpuxbJTSgNKCxCAkcYAIYGEKUxcsDPM8ed+klXv8NSd
-   W2rV/Zp8QO4aFx9bUbKf/8x80Flf4qJvrc1PJ6f5/wI7takgQoXFY6DcV
-   maoUitD3+n0ziRI7PV9u68KtQdOnYmodUg0R1gTbKxacvL/8z4zR6G7/q
-   A==;
-X-CSE-ConnectionGUID: NNSeK3B9Tj6dFDXmFouMrw==
-X-CSE-MsgGUID: KuLmrzzvQjiq+CzMClR8GQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="95598331"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="95598331"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jul 2026 02:11:19 -0700
-X-CSE-ConnectionGUID: g5XBNJjqSgiA2CzRl3/8rQ==
-X-CSE-MsgGUID: REk/VTNnRI6DyUO+2f4WYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="253357246"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.254])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jul 2026 02:11:14 -0700
-Date: Sat, 11 Jul 2026 12:11:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
-	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
-	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 7/8] iio: adc: ti-ads112c14: implement gain on
- internal short SYS_MON channel
-Message-ID: <alIIsFyoxYLKKmab@ashevche-desk.local>
-References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
- <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="U9wlEeCc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1783765137; x=1784024337;
+	bh=uwZcD9oCcJmUYi50fgjUwSiBvuGKxzR2NWxkF73vgDs=;
+	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=U9wlEeCcjarsPOAFv1o7FvFOs3pX1ydKaSsOZ/HmOkpKKVAJbwOsVREvDdUa7wtiu
+	 1gOby98rul/HORO72xYs+yjzA+zxzzvDoCMyy6WGzrWQM6wHaX+YQLFQhe1TA+Xaxs
+	 qo4AUkSWsJP6SOgm+P0VZ12ISs8rLBPd4ucJvCXDyCMJLVSKwO+viJCF+w0nDGLxP6
+	 LSFGr3/iLCf7QT+ev9GhiHsGVaJxSmXDqSInL/TuuwBDfzlzde9f9/oBk+DRV2lNUK
+	 SIlpK1d0VvQmRUI6Ws7ntovMQJe91CmpJHfeEDjtfEIZklvAQGkJjj4qT8ED0lZjSc
+	 U6vof3GXvkB1Q==
+X-Pm-Submission-Id: 4gy4Rh2ndZz1DDLC
+From: Esben Haabendal <esben@geanix.com>
+Date: Sat, 11 Jul 2026 12:18:42 +0200
+Subject: [PATCH v2] arm64: dts: imx8mq: Add DCSS node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260711-imx8mq-dcss-device-tree-node-v2-1-037026d45c21@geanix.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0K6dkzbgKAr72FYYGcKY0KrLRIM6
+ d0teAGXL3n//VVECkxRXIpVBJo5sncZ9KEQZuhcT8CYWWipT7JWEnhcmvEFaGIEzANDMAUicB4
+ JzmirBkk2FXUiJ56BLC97/tb+OL7vDzLT1tyMgePkw2f/n9Xm/Xk1K1BgTa1LtFjVJV176hwvR
+ +NH0aaUvj5CT1TbAAAA
+X-Change-ID: 20260710-imx8mq-dcss-device-tree-node-9df58de085ea
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Esben Haabendal <esben@geanix.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783765135; l=2865;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=ZwdDjcy0Qsgh7vMnudFHGZ1Kq3qz28u3fyIoUAPg3h0=;
+ b=9U+FP+B+sI5+Yy4IN4c6goXeFARPD6bIzJ8A5UAwiafpOJEx4yZQ38pPfGaP8b822Cc1/A2aH
+ GYjRXapxi1ZDSx1ujuG1oytgbLoGxVKnTc2Rb/iZcxWN8NdivQ4iZ1Q
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-On Fri, Jul 10, 2026 at 05:50:40PM -0500, David Lechner (TI) wrote:
-> Implement support for the programmable gain amplifier on the internal
-> short SYS_MON channel. This channel is used for calibration, so it is
-> useful to be able to set the PGA to the same gain as the external
-> channels. The gain setting is implemented via the `_scale` attribute.
-> 
-> In the future, we may want to support different reference voltages for
-> this channel, so the scale_available table is populated during probe
-> rather than being a static table.
+Add node for iMX8MQ Display Controller Subsystem.
 
-...
+Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+This is basically a resend of a patch from 2020 [1], which seems to have
+fallen through the cracks.
 
-> +/*
-> + * Available gains as tenths (e.g. value 5 == 0.5 gain). Indexes correspond to
-> + * ADS112C14_GAIN_CFG_GAIN values.
-> + */
-> +static const u32 ads112c14_pga_gains_x10[] = {
-> +	5, 10, 20, 40, 50, 80, 100, 160,
-> +	200, 320, 500, 640, 1000, 1280, 2000, 2560,
+I did not notice that patch before sending my v1. As of v2, this patch is
+identical to the old patch, so I have added the Reviewed-by tag from that.
+If that is not proper, please remove it before merging it.
 
-Since the line lengths are quite different, I would add tail comments with
-indices.
+[1] https://lore.kernel.org/all/20201125103909.16548-1-laurentiu.palcu@oss.nxp.com/
+---
+Changes in v2:
+- Moved dcss node under aips4 bus.
+- Link to v1: https://patch.msgid.link/20260710-imx8mq-dcss-device-tree-node-v1-1-fc724dfd574e@geanix.com
 
-	5, 10, 20, 40, 50, 80, 100, 160,		/* 0 -  7 */
-	200, 320, 500, 640, 1000, 1280, 2000, 2560,	/* 8 - 15 */
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ arch/arm64/boot/dts/freescale/imx8mq.dtsi | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-(or in hexadecimal, depending on the datasheet).
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq.dtsi b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+index e60872aeeb49..d75710cdb5b4 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
+@@ -1598,6 +1598,29 @@ aips4: bus@32c00000 { /* AIPS4 */
+ 			#size-cells = <1>;
+ 			ranges = <0x32c00000 0x32c00000 0x400000>;
+ 
++			dcss: display-controller@32e00000 {
++				compatible = "nxp,imx8mq-dcss";
++				reg = <0x32e00000 0x2d000>, <0x32e2f000 0x1000>;
++				interrupts = <6>, <8>, <9>;
++				interrupt-names = "ctxld", "ctxld_kick", "vblank";
++				interrupt-parent = <&irqsteer>;
++				clocks = <&clk IMX8MQ_CLK_DISP_APB_ROOT>,
++					 <&clk IMX8MQ_CLK_DISP_AXI_ROOT>,
++					 <&clk IMX8MQ_CLK_DISP_RTRM_ROOT>,
++					 <&clk IMX8MQ_VIDEO2_PLL_OUT>,
++					 <&clk IMX8MQ_CLK_DISP_DTRC>;
++				clock-names = "apb", "axi", "rtrm", "pix", "dtrc";
++				assigned-clocks = <&clk IMX8MQ_CLK_DISP_AXI>,
++						  <&clk IMX8MQ_CLK_DISP_RTRM>,
++						  <&clk IMX8MQ_VIDEO2_PLL1_REF_SEL>;
++				assigned-clock-parents = <&clk IMX8MQ_SYS1_PLL_800M>,
++							 <&clk IMX8MQ_SYS1_PLL_800M>,
++							 <&clk IMX8MQ_CLK_27M>;
++				assigned-clock-rates = <800000000>,
++						       <400000000>;
++				status = "disabled";
++			};
++
+ 			irqsteer: interrupt-controller@32e2d000 {
+ 				compatible = "fsl,imx8m-irqsteer", "fsl,imx-irqsteer";
+ 				reg = <0x32e2d000 0x1000>;
 
-> +};
+---
+base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+change-id: 20260710-imx8mq-dcss-device-tree-node-9df58de085ea
 
-...
-
->  static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
->  					     const struct iio_chan_spec *chan)
->  {
-> +	u32 gain_val;
->  	int ret;
->  
-> -	/* TODO: GAIN is useful for shorted PGA inputs. */
-> -	/* All SYS_MON channels use GAIN of 1 to keep it simple. */
-> +	/*
-> +	 * All SYS_MON channels use GAIN of 1 to keep it simple. Other than
-> +	 * the internal short channel, where it is useful in practice.
-> +	 */
-> +	gain_val = chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT ?
-> +		   data->sys_mon_chan_short_gain_val : 1;
-
-Hmm... What about
-
-	if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT)
-		gain_val = FIELD_PREP(ADS112C14_GAIN_CFG_GAIN, data->sys_mon_chan_short_gain_val);
-	else
-		gain_val = FIELD_PREP_CONST(ADS112C14_GAIN_CFG_GAIN, 1);
-
->  	ret = regmap_update_bits(data->regmap, ADS112C14_REG_GAIN_CFG,
->  				 ADS112C14_GAIN_CFG_SYS_MON |
->  				 ADS112C14_GAIN_CFG_GAIN,
->  				 FIELD_PREP(ADS112C14_GAIN_CFG_SYS_MON, chan->address) |
-> -				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN, 1));
-> +				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN, gain_val));
-
-				 gain_val);
-
-On the second thought this might require to have a separate mon_val to make
-this consistent. Up to you.
-
->  	if (ret)
->  		return ret;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
