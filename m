@@ -1,210 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A95A13A244;
-	Sat, 11 Jul 2026 15:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E5F3B47FF
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 15:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783784942; cv=none; b=Km7fVqEiDXqYSl8pwWyGBfLiek7FJWl8gUgrzDFvSP7A7hOvGlVl/tR5odPMc9daVnv81dWMW8H5ptRIkx3Kc5Sq693gUTyCl09O1VfWoBMvJWc9aJgL+wOmQNjv1qLHsGFLaH/h081nkRLMK1w/gN9sXIvN6v0AjDmgEE3MHOY=
+	t=1783784947; cv=none; b=aa3tSRP+I/1NRJIaebcwkVFZ9891Vlj7mvF4zMr5tgc/+MqO7TG/opvTsvCzQf+wNQmywbDl4sWZznC663sg3An4CkWVou/jz+fgUlyraok4W6JNHrnGlUOWEEE40o86mFvKOKzI3Nk9JXcL6uoX4F+bH9Xb0ewJAhhZR61Iwwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783784942; c=relaxed/simple;
-	bh=KmwCPx82KOYHBGETQZ8/htKDzb6iDy048lxiArJhQNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r5TzM/N4KDtHqKCXa4JzD3bERb9Skov6/S8QAhRG2EEQq2RG1MNd5aX1RVMMPZJZNILE65/ZDmEtDkBI3z07BxxEAKxVrp0VMum5xykggcGB5aBLDV4Gm+Xm+1tZaDcboWI4ItvgxgcKsacxnbzdxKuDZ39UP8iejgNMkdxDVGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cw6EgObb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783784947; c=relaxed/simple;
+	bh=cNxVYmciaGx0HxZhzCE6dp9hIUsKTjqHkSJazoMby5I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HjWM+IfjjHXpniTAcp79VfD0B0Y05EaZIPQmX+eDo6B/a/gc85+OkJogdhpp+O6HVJwhBemG3I+r6OXBuzHisxef17dIxIDZ93zqJeczPxAnFNCistFT84YpEs7FJUV+shcgvE/O5sFoFEui3ZbtXjFxL/6R1vgqIJ6Bd2huxn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=PV1kHeUZ; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cw6EgObb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0831F000E9;
-	Sat, 11 Jul 2026 15:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783784940;
-	bh=W/JMotw3LvtbBXA7r3zclPn97kmCOpc9B2PhvRUjNw0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Cw6EgObb6GO+QRTmHZ9Way21C9iMltiuc0xFt0eNBUiXoHw/SVel9mwwHOAsefYEx
-	 C49U5No9VYEQJq4V81/JM8fqEhxRPTnc3qJcdSJTDZSgMNarUv7Ey9PvTuvQkvWarl
-	 CP1sADS/sGG43sHS0U/owOiwirdGlTznfiy13WLu2AKmsCqE6n3qv6vNlG6YfNMR6U
-	 BtUzkmIi6qCoiojc586RVoSRFPCTmGntDw7YyCFcjg6mOAaUf7VJ9vxAAu1vQWCacy
-	 ry+Do2RvqxWYjZtATNaKplwgg1PwJcnIsHVIcGRZ44cMej6L0DmYpxwDW3BwolhGhP
-	 sjbk4dRZtJ6lw==
-Date: Sat, 11 Jul 2026 10:48:57 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bjorn.andersson@oss.qualcomm.com, chris.lew@oss.qualcomm.com, stephan.gerhold@linaro.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: shikra: Add BAM-DMUX support
-Message-ID: <alJkSuke2B2SqP9e@baldur>
-References: <20260711-qcom-shikra-dts-bam-dmux-v2-1-d5b33ee32138@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="PV1kHeUZ"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e9eaf04bfaso779195a34.1
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 08:49:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783784945; x=1784389745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qBNOQnmDXwx/WMHGnaOrdiEo9LQa60JbMecTtADGoTo=;
+        b=PV1kHeUZCweRq5mgDup4P++nr8R8A/ao+OgSrW8uJ8qyvrpCa0G2FALhS+ViqjI0qA
+         F47YktZ1+Bv0UsczXggpfVY0ZAWxkRQWUbM9VbAeFKSFGhWLZXSebNhB8wnsOy4XD3rY
+         9Dzogte8lJ5S6Hu96jin0+ZnLX3K/YEm/d70YOqeR7gy5OGscN0UMjd2lfc1vBwH2v1C
+         moLlqQklHCGroUUEwaT/TDg0HwOZF42lLvMqUqc0nNlVa5ai9bUchxa0RPMUf1dbeOGt
+         YFebizaCHFkeK6PjlyERxNBc3gFC6tCsuHsrBN7QqaDRtAtxvpxCMclneB2vJp1KvyU5
+         jS8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783784945; x=1784389745;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qBNOQnmDXwx/WMHGnaOrdiEo9LQa60JbMecTtADGoTo=;
+        b=XUnNTwzStZjMRmSGTA58pYBD0IFknfR7OP/MIOIwb5EOvFRHOAN/p/8h0A5xqu7sx8
+         Di4R2jUURKQJzTOaBFuKZuzW8RAcNNgu5yytQ2dzbXLmgGbUW6y36Y1e9cEFzYiu3T1c
+         gVYA5j8EQacxsK8wahxjn7hBzM9BzqeMz8m4/fySrel5IZzX4UXgKlTOLf8LvVwlIFgQ
+         7eXgRUj5vAG3kSLK1gQvO7Hm6gilw3/eW079tlxL8GhVjrWnUzE+xSKXu/4XReiGi9y+
+         2BTU9yt8Ml17v4LU6cjeTlRXkLDVc1E6iqNF7NepiPQL2kw0As+WDoiySP2/Ri3eDx+A
+         9cIA==
+X-Forwarded-Encrypted: i=1; AFNElJ/pd+TBm4fXkHE63/3PILJGCKbg/IrssMmPvd7lJpcgAOrbgogQg5jRhlTc+9UJG9bfxjfqPSINUseK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhMl//8oYIGMEbIpJwcEhN7ZYtQmOs1GPJnHuGZSwKHDiEF6SI
+	VQpTi19GbW1XhqdZTb4/d0CiNZz7P0sTLvlC5b3prKSTYVJNnx95H5QWjVCV+sSonAw=
+X-Gm-Gg: AfdE7cmddYdgkgvM8r21AvV2ZtQoD2VxG8bkxeown3uUnwbqTsj7WZE9tvqYwiAFHsS
+	4hDTce82/F+csH+1xLWGIo3bWNlQYcWGUlhmOIj0kYax7wuttIXWCGH6AIV8Qvd1PKHhrahVIhH
+	xDqJycfOhPuY45Bli0aMCnn4GmcYwaeHzrf5VodUPyOU6QFlv8ESf6q83ZO7n7HjzGLcVdc76sF
+	tAaOiDwfA0gvafjaVMmMC9DmDDAtwTRECNdZoy7diLs9E13GCv+EAIUFQdmR1wmjbiGWfLEgS6F
+	pmeFqznwUs4nOs/LgU26SXs22ZWT5PXffYJB+ypxVeRf4UE6j8ruuibkoxHPVCO/r93AwXgc7Ut
+	1wgPS40S280TDNqZUybKFSwQMoAK4/LZaYkkS+TsN9l/aZDJBW88il1g/+RE4Useoh5Q7tQ0aPE
+	6lHOM6pY5oOTbhKSf/bwCe+bbwEQi+xlrqhrE/LZ9zFQdvKwlNhIN2N0xkdGrTPu8=
+X-Received: by 2002:a05:6830:3e03:b0:7e6:c819:22e9 with SMTP id 46e09a7af769-7ec097acbe7mr1938308a34.17.1783784944833;
+        Sat, 11 Jul 2026 08:49:04 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:a950:74e5:81f2:8c89? ([2600:8803:e7e4:500:a950:74e5:81f2:8c89])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcab8efc3sm8657965a34.0.2026.07.11.08.49.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Jul 2026 08:49:03 -0700 (PDT)
+Message-ID: <d0d6e0f6-2b6b-427b-96be-84acd49bbac7@baylibre.com>
+Date: Sat, 11 Jul 2026 10:49:02 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260711-qcom-shikra-dts-bam-dmux-v2-1-d5b33ee32138@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/4] iio: adc: Add support for LTC2378 and similar ADCs
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+ andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ julianbraha@gmail.com, marcelo.schmitt1@gmail.com
+References: <cover.1783629101.git.marcelo.schmitt@analog.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <cover.1783629101.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Jul 11, 2026 at 09:50:17AM +0530, Vishnu Santhosh wrote:
-> Add required nodes to enable the upstream BAM-DMUX WWAN driver on
-> Qualcomm Shikra SoC.
+On 7/9/26 3:49 PM, Marcelo Schmitt wrote:
+> This patch series adds support for LTC2378 and similar low noise, low power,
+> high speed, successive approximation register (SAR) ADCs. These ADCs are similar
+> among each other, varying mainly on the amount of precision bits, maximum sample
+> rate, and input configuration (either fully differential or pseudo-differential).
 > 
-> The SMSM (Shared Memory State Machine) node provides the power
-> control signaling between the AP and modem for BAM-DMUX. The
-> BAM DMA controller node describes the A2 modem BAM hardware as a
-> standard DMA controller. The BAM-DMUX node references the DMA
-> channels and the pc/pc-ack interrupt lines from the modem SMSM
-> entry for power control signaling.
+> Patch 1 adds device tree documentation for LTC2378.
 > 
-> The BAM-DMUX node is placed below the modem remoteproc so that
-> userspace can associate the resulting network interfaces with the
-> owning remoteproc via udev/sysfs, matching how qcom_q6v5_mss.c
-> already handles the equivalent node on older SoCs.
+> Patch 2 enables single-shot sample read with a GPIO connected to the LTC2378 CNV pin.
 > 
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> ---
-> This depends on the "arm64: dts: qcom: Extend Shikra device tree
-> with CDSP, LPAICP, MPSS remoteproc PAS and peripherals" series [1],
-> which is still under review and adds the "remoteproc_mpss" node this
-> series now attaches to.
+> Patch 3 enables high-speed data captures with SPI offloading.
+> The setup is similar to AD4030, with a specialized PWM generator being used both
+> for SPI offload triggering and conversion start signaling.
 > 
-> The corresponding qcom_q6v5_pas.c change that makes the nested
-> "qcom,bam-dmux" node actually probe is being sent separately, since
-> it has no device tree dependency.
+> Patch 4 enables running buffered data captures without SPI offloading.
 > 
-> [1] https://lore.kernel.org/all/20260702-shikra-dt-m1-v5-0-f911ac92720c@oss.qualcomm.com/
+Nice to have this split into reasonable-sized patches. Makes it easier/faster
+to review.
 
-Patch looks reasonable, if you get no other feedback, please rebase,
-retest, and resubmit once the dependencies has landed.
+Reviewed-by: David Lechner <dlechner@baylibre.com>
 
-Regards,
-Bjorn
-
-> 
-> Changes in v2:
-> - Move the "bam-dmux" node below the modem remoteproc
->   ("remoteproc_mpss"), instead of at the root, so that userspace can
->   associate the resulting network interfaces with the owning
->   remoteproc via udev/sysfs (Stephan)
-> - Add the "shikra-dt-m1" series as a declared prerequisite, since it
->   introduces the "remoteproc_mpss" node this series now depends on
-> - Link to v1: https://lore.kernel.org/r/20260611-qcom-shikra-dts-bam-dmux-v1-1-43d0b43d41ef@oss.qualcomm.com
-> ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 51 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> index 205814c4b349ae19b605688357c6bd71e1ee61e9..246ea74d1fb1e293f0428d342301886dc52cb179 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -498,6 +498,28 @@ modem_smp2p_in: slave-kernel {
->  		};
->  	};
->  
-> +	smsm {
-> +		compatible = "qcom,smsm";
-> +
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		mboxes = <0>, <&apcs_glb 13>;
-> +
-> +		apps_smsm: apps@0 {
-> +			reg = <0>;
-> +			#qcom,smem-state-cells = <1>;
-> +		};
-> +
-> +		modem_smsm: modem@1 {
-> +			reg = <1>;
-> +			interrupts = <GIC_SPI 69 IRQ_TYPE_EDGE_RISING 0>;
-> +
-> +			interrupt-controller;
-> +			#interrupt-cells = <2>;
-> +		};
-> +	};
-> +
->  	soc: soc@0 {
->  		compatible = "simple-bus";
->  
-> @@ -1864,6 +1886,23 @@ glink-edge {
->  				qcom,remote-pid = <1>;
->  				label = "mpss";
->  			};
-> +
-> +			bam_dmux: bam-dmux {
-> +				compatible = "qcom,bam-dmux";
-> +
-> +				interrupts-extended = <&modem_smsm 1 IRQ_TYPE_EDGE_BOTH>,
-> +						      <&modem_smsm 11 IRQ_TYPE_EDGE_BOTH>;
-> +				interrupt-names = "pc",
-> +						  "pc-ack";
-> +
-> +				qcom,smem-states = <&apps_smsm 1>,
-> +						   <&apps_smsm 11>;
-> +				qcom,smem-state-names = "pc",
-> +							"pc-ack";
-> +
-> +				dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
-> +				dma-names = "tx", "rx";
-> +			};
->  		};
->  
->  		remoteproc_cdsp: remoteproc@b300000 {
-> @@ -1990,6 +2029,18 @@ glink-edge {
->  			};
->  		};
->  
-> +		bam_dmux_dma: dma-controller@6044000 {
-> +			compatible = "qcom,bam-v1.7.0";
-> +			reg = <0x0 0x06044000 0x0 0x19000>;
-> +			interrupts = <GIC_SPI 74 IRQ_TYPE_EDGE_RISING 0>;
-> +			#dma-cells = <1>;
-> +			qcom,ee = <0>;
-> +
-> +			num-channels = <6>;
-> +			qcom,num-ees = <1>;
-> +			qcom,powered-remotely;
-> +		};
-> +
->  		sram@c11e000 {
->  			compatible = "qcom,shikra-imem", "mmio-sram";
->  			reg = <0x0 0x0c11e000 0x0 0x1000>;
-> 
-> ---
-> base-commit: 6e845bcb78c95af935094040bd4edc3c2b6dd784
-> change-id: 20260603-qcom-shikra-dts-bam-dmux-7fdcbb6fb662
-> prerequisite-change-id: 20260429-shikra-gcc-rpmcc-clks-2094edfff3b0:v5
-> prerequisite-patch-id: 59bb0a7828e41f546f734f127d81da83c0adcda9
-> prerequisite-patch-id: 197da6bcb15cadc47869dba88c8020987b25c335
-> prerequisite-patch-id: 8ec9c1eb03f052ae232ed54117abed38672c23f6
-> prerequisite-patch-id: 350db4f4bcdfc0fad9ed57cd5b1723f85ad44f5d
-> prerequisite-change-id: 20260524-shikra_epss_l3-522afe4fb8f5:v3
-> prerequisite-patch-id: b5d7f75df02fde56181f576a936baf09d0a72276
-> prerequisite-patch-id: 3ce52e07ae57139c2e2b71a29ed7d7250f6fcc87
-> prerequisite-change-id: 20260511-shikra-dt-d75d97454646:v7
-> prerequisite-patch-id: aa4ff7fbddd4c8836ce69aab89f2f91430194fcf
-> prerequisite-patch-id: ac83151a889855498d36288ddd36216d451340c8
-> prerequisite-patch-id: 2357cac636e019eaf14d6a493a1c72bca56fe405
-> prerequisite-patch-id: 2885f299e711582da312ca9d13983d296a3dd5dc
-> prerequisite-patch-id: 91af5f3c01e766a53ce8de69aa21847a2d6bbbf8
-> prerequisite-change-id: 20260525-shikra-dt-m1-082dec382e7f:v5
-> prerequisite-patch-id: 48ecd66c06c4fad81f91283c26ec57d95bbde29d
-> prerequisite-patch-id: 7d92e5a301d09616840e54dc9e4a81f30a64383c
-> prerequisite-patch-id: be1a16f53e23dd5ab90210a056c9da3559c6186d
-> prerequisite-patch-id: 3eff04500c55100c763aeac1f1f8c5768d500500
-> prerequisite-patch-id: ab22c5fdb2fa65b78ffef76bbe4459c8d5ffe7b2
-> prerequisite-patch-id: cb24efedb648271ef5c60ace96e2366d89254e8f
-> prerequisite-patch-id: 8be7df0395c5847a988c7e814c7db878b5932b11
-> prerequisite-patch-id: 0510992d022cef7317b6efee6765ac78c0225356
-> prerequisite-patch-id: de4327fcbe81f92a337f429b74e8220969a5b79f
-> prerequisite-patch-id: 968bffc36646412f8289b917f37e762a4297bcc8
-> prerequisite-patch-id: 35944403bd4480caad12657342da15ea71c6afbd
-> 
-
-
-
-> Best regards,
-> -- 
-> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> 
