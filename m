@@ -1,66 +1,57 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC3C28F5;
-	Sat, 11 Jul 2026 13:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D2C2877DA;
+	Sat, 11 Jul 2026 14:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783777743; cv=none; b=jtR1m7jYmZaSb5akx+7elP429i1ffqLlNG70n8Y39xzOC3iplqvgK7vUUY9GfFGMW3mURzfkuqmlzfB9S02nlK6k0d7juT8evsVyfq59rrKTj7se3om2unE9ZnNInAFqM85RDuuyPSDmAPdcxZdLIpzYi6ip4Kw50hanxaFQx+Y=
+	t=1783778411; cv=none; b=Enl07gLIj5ELCX/mt0RA8evsDxhHz9p3CEeO8WrAeMPV7gyYUGYAmabhYpRBYOBwDu9i28jxZBIXIF0hBcOgUxH+FbHAB11FuBkf4kZPy7mXmxfdLsRvTQ/XvzrHZXiDbHA0GQs/VF9a+Q+IIxLY98croQ2WxAQTe9HsIMnIfZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783777743; c=relaxed/simple;
-	bh=MotKtUbfKurNBepPQM1L3zQfVATLvjAa+t/D9/N0mHw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t+UBueO2jkw0Hu+hIkzQBzIhdSGhFjD21H4nRxoHme1ceWqfgZpFnvLSg3/es3Waovb9ZvF1tNr/xvQ/BlF3bdWm5diGNQavsYGrCBFR/JeMSw7qRmcMDv4wDl7ZRy+fJV4NQd7wetdd/DXcA2AZ0jgL2wQRoPK6GqY4T0BZ70Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=JvDir8OW; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=KSYAeQE9; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1783778411; c=relaxed/simple;
+	bh=Q7sOoB3VrXS4zjRLNEjueSh8nOAfFRmn+saoy9jpSTU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h6zRDVQyPsMce4c5uHaCNUsSvjl/FbWoytYEmaApAGU3QXNsOoaKUZMy5ZRecxZBNClniciG/Dz45lqu6VK0MJnitxWQeW3IG61QJqVVNeC/rsUn0Tt79P7zVMJV1ZrDnmgqI2j4TkTfI0JhZAIV+zQttQyTVOx9JbNoPV2Me/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iN2TDt0S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="JvDir8OW";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="KSYAeQE9"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gy9632ZdFz8tx5;
-	Sat, 11 Jul 2026 15:48:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783777739;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=R/Fp82DdwdsdjuZNuHQ6xGSMhLCpNkimKrPid5jFkVI=;
-	b=JvDir8OW7qN7rNtkuZ9AmiD0P1ybb1bGg4XuvQIk/Uw1Yat9jtoGPKda1S80e5oDoCTReB
-	f/0PrL4DqtMT3ftXGnU7fbXYrnkSsgg9bnTb1WS5bOGHSOpO9pd0NUQq+CMYMh7oqyukId
-	RyLqWMBV1xfT+gCm+Rn+XwDGZM2y6cXldvUlqQPOvds+93WeXAk5EjgUC6dcl+Xm/0DBu9
-	4019rW/ZjAKUGA8xAflOs4oQbdBLDe+brlJ6b2tE7rf8/xOvBnVRNyJ7nnjOOltP6MnFOE
-	kGXQ5s9TUxDcqbPHfJaDwghnNHpiM9tFeNZcUQFjL+sH8VHOR4Gy9PP1vsfgXg==
-From: Manuel Ebner <manuelebner@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1783777738;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=R/Fp82DdwdsdjuZNuHQ6xGSMhLCpNkimKrPid5jFkVI=;
-	b=KSYAeQE9futuTg1FvFV1gHjII+0df3Uti7JxwICV5HxWu4+F4Fhdhr2ww4bpZZ/x4Juz0u
-	5FcAg+yb+4Uhw8jiuGGBKxreOA4HhR1CgA1R+Lqw/d+HZ5tDhdtzTyUTOxNT0iF7isf6BU
-	jLA4r/5OH2b+tYaQclHRMqECT99DHH+rk1975tyFsXEj9mQs22E8KSswssky5l8CEf0nNX
-	sMAMlv1Ht6L8jw0j5sxvC7dqIeOJJCse8a63zrJdLBkWdtr3inpWxH/7CT9CDN7LiUrSzh
-	e5UgUAWqFPy81tmJL6dlrBTgUZ9JHaz1sv2Lijmwmkpp5vm5XTsXxC6K3xc/5Q==
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iN2TDt0S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469F81F00A3D;
+	Sat, 11 Jul 2026 14:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783778409;
+	bh=68XIjv3oMF74stzxvIJ/Qs/DZ1vupGwuNZ5/TScVAvA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iN2TDt0S4biyCk8WOcxwnVlb7psB5khRO/3zJd+1StlxchyMgu6w81SUhBVK0H168
+	 P+cAljV3Kqzc8Rt5TOZf1kx8Z9g2RGBdWsYtcmiDP4tSU5QDRzUfetPRaqWuroYqbD
+	 1NpdXbB20qsJG0kBGzplXT8KS95iGzA1dDGqn4mDVO9Zu3b456D5RnG83IIIUB7I4c
+	 0voVYyvaOzL5ti1iDPR7mz7yaj79ULglU28/PeMg9H/GsMpkP/L5f+UjnIcND4dwJl
+	 +qil9nxOTI59bWE7pOeMibs53l3DuQki0WdOSV7jly46oZwybUxPZtfq7153iWXJYl
+	 G7wIwrNaDw3Ew==
+Received: by wens.tw (Postfix, from userid 1000)
+	id 20A725FBBD; Sat, 11 Jul 2026 22:00:06 +0800 (CST)
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Manuel Ebner <manuelebner@mailbox.org>,
-	netdev@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: net: microchip: fix bracket
-Date: Sat, 11 Jul 2026 15:42:09 +0200
-Message-ID: <20260711134204.472841-7-manuelebner@mailbox.org>
+	linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH v2 3/7] dt-bindings: media: sun4i-a10-video-engine: Add H616 compatible
+Date: Sat, 11 Jul 2026 21:59:54 +0800
+Message-ID: <20260711135959.3616919-4-wens@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260711135959.3616919-1-wens@kernel.org>
+References: <20260711135959.3616919-1-wens@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,32 +59,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: onhap5gzpm4h3e6w3mdrb36rygxocstr
-X-MBO-RS-ID: 2e1503e32c96732c293
 
-Remove needless ')'
+The H616 contains a video engine similar to past SoCs.
 
-Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
+Add a new compatible for it.
+
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
 ---
-I send this in a seperate patch, because there's a change the maintainers
-wants a bracked added instead of removed.
----
- Documentation/devicetree/bindings/net/microchip,lan95xx.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/media/allwinner,sun4i-a10-video-engine.yaml       | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan95xx.yaml b/Documentation/devicetree/bindings/net/microchip,lan95xx.yaml
-index b9c394009040..f4d0929616a5 100644
---- a/Documentation/devicetree/bindings/net/microchip,lan95xx.yaml
-+++ b/Documentation/devicetree/bindings/net/microchip,lan95xx.yaml
-@@ -35,7 +35,7 @@ properties:
-           - usb424,9906   # SMSC9505A USB Ethernet Device (HAL)
-           - usb424,9907   # SMSC9500 USB Ethernet Device (Alternate ID)
-           - usb424,9908   # SMSC9500A USB Ethernet Device (Alternate ID)
--          - usb424,9909   # SMSC9512/9514 USB Hub & Ethernet Device  ID)
-+          - usb424,9909   # SMSC9512/9514 USB Hub & Ethernet Device ID
-           - usb424,9e00   # SMSC9500A USB Ethernet Device
-           - usb424,9e01   # SMSC9505A USB Ethernet Device
-           - usb424,9e08   # SMSC LAN89530 USB Ethernet Device
+diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
+index 818d815d4732..20c430795134 100644
+--- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
++++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
+@@ -24,6 +24,7 @@ properties:
+       - allwinner,sun50i-a64-video-engine
+       - allwinner,sun50i-h5-video-engine
+       - allwinner,sun50i-h6-video-engine
++      - allwinner,sun50i-h616-video-engine
+ 
+   reg:
+     maxItems: 1
+@@ -96,6 +97,7 @@ allOf:
+           contains:
+             enum:
+               - allwinner,sun50i-h6-video-engine
++              - allwinner,sun50i-h616-video-engine
+     then:
+       properties:
+         iommus:
+@@ -111,6 +113,7 @@ allOf:
+           contains:
+             enum:
+               - allwinner,sun50i-h6-video-engine
++              - allwinner,sun50i-h616-video-engine
+     then:
+       properties:
+         allwinner,sram:
 -- 
-2.54.0
+2.47.3
 
