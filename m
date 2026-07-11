@@ -1,114 +1,136 @@
-Received: from freeshell.de (freeshell.de [116.202.128.144])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF6D1A0BF3;
-	Sat, 11 Jul 2026 07:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12263603C9;
+	Sat, 11 Jul 2026 07:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783754421; cv=none; b=RJOw21/KXQX/u39vjqjaT1ml5Abxv6nIfSp3kuAu5CJPmkg3icob+2RumeM1BH7tPTUThUOY7lsswpnlAaTZ08V9/IR2i0uov38HBKsYeurf5xocVart7frMJdMsmhqGCd69IsuvUNLHJIuxVybk80JKSM2W3X89jMBOwsFFJBE=
+	t=1783755564; cv=none; b=figbmxlYmNac40EIKmFKzzolAa0HU2nsyiQGJXhSpl3mcJHF6BBZXZRBdFF40od0F+gCheeNWzp/XxE/BU375UCtFxcYxPpZr65PYIMh16tyCdEvUeLohGfsNNkVVPGlVrmyznv1nCz2xgJbfx02M4sK0VoSDg7SgFVgTVeROtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783754421; c=relaxed/simple;
-	bh=5/IVMg7m+YUeqqaYrkeep9Y4dUU+S0uzEjToK5eYRHY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t+meOnyM3+Hl56tC8/XIAuXnR/jI3NwXxpYlZxKr9xk1dW70w5krudR4IE5i2w5ZOAMmVMe4z8bqgHV4ZDDuP5rT1CMTSU9ElBBJztBPvrpWBrOJZDFBMQeFcap1htOHR+a2Q3/fmwvuPqj6IOv4UBusEXCzDNu1WSyM6erf9EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=iQSoRTtQ; arc=none smtp.client-ip=116.202.128.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	s=arc-20240116; t=1783755564; c=relaxed/simple;
+	bh=EwEusek1czoOpXHbaygqhpMtyKAbqtWqGBgOiD2R2ME=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=ufH57enqNjMmhf+uXbYftrSubVQbJvc2ZbMFSzJbsMLdQsiZ7uApTi9ZLOxhoZ3VrXoT3WNflPlHsuNyT6rH/x++Br7H9EXCWyph7NsPPv8iUnCFmNLs3trzkTJjgNJG3r8MU1x4g4sVbDnU0209f/IGjwolQfezXLltS7cFPLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfw1unyu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="iQSoRTtQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1783754367;
-	bh=ngWbz8DrOWdmcWpLkZogRY7ab+fCnSeo75BW8o2EQes=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iQSoRTtQZRu/nW1sc6xNC538QoXSWRk9gIIv9Cp3eRJ9B2AIb+II9nmI2QYNYcGJZ
-	 nATa6FvHJO86pldUgN2951/HhzAw6O5l3h2RKu6gsWvoNdDC3kWLt74trNQL3w4/6j
-	 dWhG/bcZ2VxuQYPlkBBILuPsCrOpjDHlgXprU4Y6B/BU/vcxuoZs7eOPeOnIY8Taap
-	 lRk09eUVROo+3p0S91KVd0UaQrz9IH/c5fzz4IGXvbHC15fBfWuflAtwfd+owb5cXB
-	 ZpAxTcMkpOFhpeeaVAUdTKVFkwwJoZtrS9hBPjC9zwaJtoNL8Wg46WFlAnDfSVA6zC
-	 mDgdgi/kjvA6g==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id DFDCCB2215A9;
-	Sat, 11 Jul 2026 09:19:24 +0200 (CEST)
-Message-ID: <65498313-582e-4891-9468-a38a76cb4626@freeshell.de>
-Date: Sat, 11 Jul 2026 00:19:15 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfw1unyu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308CA1F000E9;
+	Sat, 11 Jul 2026 07:39:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783755562;
+	bh=TYtjAVPyiyVCs7rEX4PjUS/qYasF91VWIyzMuMsClWc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=mfw1unyuyde0ALrJe/zfiLZV52Hf0qQbPaw+v/si5t6SCNDG+XDDrpRyzh4VfeRR3
+	 PFkxRkHui1szF8apGh0eXyqKpWrtX/+h1xHkgpNha6Kqe7VfPJSgswBIGohK1t/Qy1
+	 XS56RLqs4XmG1GENPccTJVaXXqajFIYGcKDpoWsztu37CxAw5raopZPOBSKu62msBm
+	 J008e0O1weHW8gBfv8rQZGmkqETkt3qs9p6Zo7zgVwMnknuTCOgFM/6YIgHR4iIxBB
+	 gJyJBaIhWl0aipIst8kQhZGIP7a+JrSt7nLr2rGd4O9EEcOXj+DhDcBWZto7L/DHKg
+	 l9GYOiIPrY96w==
+Date: Sat, 11 Jul 2026 02:39:21 -0500
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] riscv: dts: spacemit: Add enough deassert time for
- the PHY on PICO ITX
-To: Inochi Amaoto <inochiama@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-References: <20260710063314.1030249-1-inochiama@gmail.com>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20260710063314.1030249-1-inochiama@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-omap@vger.kernel.org, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, kernel@pyra-handheld.com, 
+ Lee Jones <lee@kernel.org>, linux-fbdev@vger.kernel.org, 
+ Jaroslav Kysela <perex@perex.cz>, Roger Quadros <rogerq@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Stefan Leichter <sle85276@gmx.de>, Arnd Bergmann <arnd@arndb.de>, 
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+ Takashi Iwai <tiwai@suse.com>, Niranjan H Y <niranjan.hy@ti.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Jarkko Nikula <jarkko.nikula@bitmer.com>, 
+ Grazvydas Ignotas <notasas@gmail.com>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ linux-arm-kernel@lists.infradead.org, letux-kernel@openphoenux.org, 
+ Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+ dri-devel@lists.freedesktop.org, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Kevin Hilman <khilman@baylibre.com>, Sen Wang <sen@ti.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Helge Deller <deller@gmx.de>, 
+ Andreas Kemnade <andreas@kemnade.info>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Grond <grond66@riseup.net>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+ devicetree@vger.kernel.org, mfd@lists.linux.dev
+To: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com>
+Message-Id: <178375556058.2516925.10169600172051423562.robh@kernel.org>
+Subject: Re: [PATCH 09/16] ASoC: dt-bindings: add OpenPandora Sound Card
 
-Hello Inochi,
 
-On 7/9/26 23:33, Inochi Amaoto wrote:
-> RTL8211F require at least 50ms deassert to guarantee the register
-> access, 10ms is only enough for the PHY reset.
+On Sat, 11 Jul 2026 08:01:56 +0200, H. Nikolaus Schaller wrote:
+> The OpenPandora audio subsystem describes the routing links between the
+> OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 audio
+> codec, alongside amplifiers and power supplies.
 > 
-> Fixes: 74657a376960 ("riscv: dts: spacemit: Add ethernet device for K3")
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 > ---
->  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../sound/openpandora,omap3pandora-sound.yaml | 94 +++++++++++++++++++
+>  1 file changed, 94 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml
 > 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> index 1eb5abbc61f9..b2a7d2d0d3a8 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> @@ -200,7 +200,7 @@ phy0: phy@1 {
->  			reg = <1>;
->  			reset-gpios = <&gpio 0 15 GPIO_ACTIVE_LOW>;
->  			reset-assert-us = <10000>;
-> -			reset-deassert-us = <10000>;
-> +			reset-deassert-us = <50000>;
->  		};
->  	};
->  };
 
-applying this as vendor pre-installed u-boot runtime command modifying
-Fdt as...
+My bot found errors running 'make dt_binding_check' on your patch:
 
-load usb 0:1 $fdt_addr_r
-/debian-installer/device-tree-custom/spacemit/k3-pico-itx.dtb
-load usb 0:1 $kernel_addr_r /debian-installer/riscv64/linux-custom
-load usb 0:1 $ramdisk_addr_r /debian-installer/riscv64/initrd-custom.gz
-fdt addr $fdt_addr_r
-fdt resize
-fdt rm /soc/ethernet@cac80000/mdio/phy@1 reset-deassert-us
-fdt set /soc/ethernet@cac80000/mdio/phy@1 reset-deassert-us <50000>
-env set bootargs 'initrd='$ramdisk_addr_r',0x'$filesize'
-console=ttyS0,115200'
-ping 127.0.0.1; bootefi $kernel_addr_r $fdt_addr_r
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml:10:2: [warning] wrong indentation: expected 2 but found 1 (indentation)
+./Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml:13:2: [warning] wrong indentation: expected 2 but found 1 (indentation)
+./Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml:18:2: [warning] wrong indentation: expected 2 but found 1 (indentation)
+./Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml:56:2: [warning] wrong indentation: expected 2 but found 1 (indentation)
+./Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yaml:62:2: [warning] wrong indentation: expected 2 but found 1 (indentation)
 
-...before booting 7.2-rc2 and debian-installer initrd is successful to
-allow debian-installer hardware probe to continue with the network
-device, on Sipeed K3 Pico ITX. I don't know if that is a full fix for
-the problem I observed with rmmod/modprobe cycle of network module but
-at least it is resolving this trouble observed from debian-installer
-usage with K3 Pico ITX.
+dtschema/dtc warnings/errors:
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-doc-validate", line 8, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
+    ret |= check_doc(f)
+           ~~~~~~~~~^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 29, in check_doc
+    for error in sorted(dtsch.iter_errors(), key=lambda e: e.linecol):
+                 ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 167, in iter_errors
+    self.validator = self.DtValidator(registry.contents(meta_schema_id), registry=registry)
+                                      ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 488, in contents
+    return self[uri].contents
+           ~~~~^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 338, in __getitem__
+    raise exceptions.NoSuchResource(ref=uri) from None
+referencing.exceptions.NoSuchResource: 'http://devicetree.org'
+Lexical error: Documentation/devicetree/bindings/sound/pcm1773.example.dts:20.37-52 Unexpected 'GPIO_ACTIVE_LOW'
+FATAL ERROR: Syntax error parsing input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/sound/pcm1773.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1705: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Non-functional values are 10000 25000 30000 35000 39000 39750 39700
-39600 39585 39581.
-Functioning values are 39582 39583 39580 39575 39550 39500 40000 50000.
+doc reference errors (make refcheckdocs):
 
-For this particular hardware I have thus observed an exact minimum
-required delay value of 39582.
+See https://patchwork.kernel.org/project/devicetree/patch/7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com
 
-Tested-by: E Shattow <e@freeshell.de>
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
