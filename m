@@ -1,84 +1,90 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0626E3BB9EF
-	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 11:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7D03C0A1D
+	for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 11:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783770022; cv=none; b=WDKh5fJmNZekPQv/SALPgPT5aOTmaVV7xeNImECJV+yXND1SsqUq0iQ54eZAPw7ZScv00TETfPAogEFHnLO4e4ptj4E957S5LB9KRPj6dnDH2IUd5r77R7ILbaYQY9DLuYbtADjB4I/tctw2Sl4EdFNf3AxnFwcJhmjzmgf1cqg=
+	t=1783770077; cv=none; b=TGabeChTTJBJP3r2RBA4o0fqeThT8r9Bj1jyxiBFst3zz+v1AUvxPDupuNxS/OY4tVs1TkLo6s7r3Mssf9gskQPS3MElKwK0BtjzwShWFYZD37A2lKCxJkvn7SUZdcTyj5Pdf4ZwuhSUofdxnGixsLkPltI/JI1MSW2vtDB14Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783770022; c=relaxed/simple;
-	bh=Fpes7pcL0dT5QgBd51qJa9xR8lBSeUN8H6ipD4qzk3U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DQtc9ktnm1xIw6zDlt+Bbqd698buldn7jq+9wunWuyepXbWMBN3dmydnzf5nHJVZJRtTFllVhlMAq3uJd3tQHpo2pAUigeTXxhBg/adrKu5HIKOuYkHEbGbTfDBUPxlsIteNRS4LPbPVWchkWh6x5gE7Ya6x/B+3Ftr/Kwpn978=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k5p8X0q7; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1783770077; c=relaxed/simple;
+	bh=ps7Y8E1rqhqXka4OPhnxSUyrSRb7cOLI+m5xwLf14hM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ca9BYWTyVqo/V8OFpPgR7i2MHjWLG+IOekF4KCoAOM31+veoxMg7mnb0TZYq4JzQC76XrPqxT2eEJ2L9QRp7mdkoBiMAzgGeitHhS0iSVcCJEc5hrUw9Hp43C1WwNc4DexzIrzMPAOpjRJ7ZmZ9u5e8gl0PyKYLxJI0SZjTzems=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XX4KHHFD; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k5p8X0q7"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-493ae59eca6so8386375e9.1
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 04:40:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XX4KHHFD"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3811f512167so2256662a91.3
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 04:41:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783770019; x=1784374819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rvR4npbXyTtpSmH5FcrD0ZeaPU7ANDDEoSH1ljf/gl4=;
-        b=k5p8X0q7GWSKpGJbEYM3gnGqpwSZVYnOciQw8WCKF8uDkGQ6YvyvoBj3/Mr3/AEUx/
-         Xigq91MfGuXu1SLQXZSonNWiEPM8gVFgi0f0IGK29+eEnL20Iyf2qBwrEJ6p9447FqML
-         F0R4ySxjb94Fi+0qv4StRuQO1mDjAIJ6rfcwx92TJEXS3oikces+B+wcx38bXXoq493s
-         0/pMFtHRDPwKgJDIly/V5r897ilrUDDSoCrOyLoIpvTqV2GHoVN06XI7iqVGD0pl1vM3
-         NnjtJvNOvZjFYsxKtBc2Np9MY5j+3kOj1hE19HeshXQ/58cbIB5TzxQa72vFgfBDKCuC
-         RfVg==
+        d=gmail.com; s=20251104; t=1783770075; x=1784374875; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zLQoqPPcfbSVabfiloqaQboxTOY5hjDi7McFC+NKIs8=;
+        b=XX4KHHFDcFCXqgsR24L3YPmr0Yfcw7bxmS9PrxX718TzsUZJXZ1s8p50twEJiKSOGx
+         rYBCa3e0N+GDVZ7WadyVKO4Wz5KmEMjhAcVur8pys3/JNF5jXwhoIq8/6iCCHApLCDgz
+         wmwU4+3j0H/T29j696HL7znNau+lG3FViKyU1y9lEUijYvslgxMUx7kaELZ/Xdux/Lkz
+         ifxtvCFMXwYCb2vxv3nzypbL9X47237p6GaGcILYifPr2J2ciGAzS/Rt42kT4uwBltoZ
+         oe+W3u0HPKqNNKDR3D6ecMDOwt4wWV3qhCr6vgVrtsdMzxuLFW9jrQCXEemE+hUuyiJ4
+         5ZFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783770019; x=1784374819;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rvR4npbXyTtpSmH5FcrD0ZeaPU7ANDDEoSH1ljf/gl4=;
-        b=bin0IK8FyIejZtUew+42ktgfQmrv3hO7L8ZasN+nCVOazGd7eFyYDNqh2h2flTqeVM
-         pIzOacESdxtPa0cG4tkMv3AuIX8OitvRAM38BA9fcsUZ8NvjMZb3jQW8G/ljUBJ5VYud
-         vQIAF5dgDulcsJAqR8/d3YETYCBGFyt0Tblu06IOTXMN75Fosnklm3gnGCyNrDET7uOb
-         fKbOzbO1XRZjQo48qDVN2qc0fjdMDBKp4q9o+ct2TBQFUzeASPBj03JzOA3kcjZi0wV3
-         FI41h4avj4r+sSHALVkqyuIOzN3GjGtIUQHKgR/XztBonmH1SYAZOVvXroAOSpqFzNFZ
-         h1oQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq95K+AorxH1Rx6LIgqEOJX1MRqjfGV0lv+0HGoyrPuJqW92L7Vq8+VQChqb0R5jYK6eCRovvnfwF8H@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrKEdY01xOcLqXEA3kMUInzBiBie1zrl1UY0yjAL74WiaiGCU6
-	Xw23hRQCfTBGBhcqQP8tQc0d2U/mrh7NoT3NPjk9i+/dQnUDJtM0sqj4
-X-Gm-Gg: AfdE7ckWyqxi7kpsmiXU6w+oUiw0TH/KkY8m2HUGEuvCDBpMipQSadAuy8thYb0Iy2z
-	YV8JZpMSHsZsTZ+gK4kwuv+ojH+8P+3L0sUlk+ctwpCBiJtxYYG9ic0qBMTg6TvjXCfMwCDZ4i8
-	Wr5R5Pg9ucDUefh0fhMnihLsbbYqocrj9x1JPPSwJpPSJWZYQi0PZS7HaN1bMnce0krvTzLQwsX
-	3fzZ9k/2T5v6aWp3wg8bHEI+zSYJwGl9v85wSSNXNxQv75iI/+ToUTFGAfQVJ8YhZwyEcWy+7RE
-	UjU7KxlXW5FuL1mhk7vLthYJ4iJC9hAaHYveviJLH3FWFcljOMPpPv3UtEcBmaekhM4OkqzxXrl
-	YmLa63rnAcY5Ln7YsovE3epcYzQ14NBdZaRlYwPj+4/Od3ySmChE5bbs2dPXUrr3LDnn9dCvcdD
-	2GyEWWJ1G5o6vdB0kqpjT4E/NfONyD
-X-Received: by 2002:a05:600c:4e48:b0:490:bbc4:76a6 with SMTP id 5b1f17b1804b1-493f881ddedmr24187235e9.21.1783770019401;
-        Sat, 11 Jul 2026 04:40:19 -0700 (PDT)
-Received: from unknown.tail46804.ts.net ([2a02:b027:11:e106:f973:a70:bd1e:4000])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493f49755f9sm120859915e9.8.2026.07.11.04.40.16
+        d=1e100.net; s=20251104; t=1783770075; x=1784374875;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zLQoqPPcfbSVabfiloqaQboxTOY5hjDi7McFC+NKIs8=;
+        b=Pe2yvkm+QIgLWFlh3C7VSxpKgVwn21jnw0QTpO5mMcfN7YqFp8fikqjU2cMmksvHhi
+         iMy08NkR7JJ5EQqrlmvBV/ookvdcNPZUq/8a5hKOvc0k5EI8HI7Hev+JcRKkulgD/Z10
+         aCSfdq2fBZ8gGXJNyU0BMyn44Hhia/ITQ/zuBtVJO1tWz2LO8wNmUFZkct/OIDkrS8V7
+         Lmo0NkrGo62DPfWCYQnzEGHQrvcFKNoTsQSQi5M1OxWVT5KP4ZtVeH2w5NANrfiimBQ5
+         2Saz/8A1/0ZTJ2BEIvdXNMzGktlWkNvcdPo5ZkTmOiusisQvEUFGn6YWZVfmqSPd5Gxf
+         Bf3g==
+X-Forwarded-Encrypted: i=1; AHgh+RoafhpB3EmR3QcFY9dV0hU5Wc7lvAerZyaydSfL50XtjeocY6ofDcFtdK7Y7YDWY3C1vSwkyWHZwPxg@vger.kernel.org
+X-Gm-Message-State: AOJu0YwAy7tA0UlNcGq7hKs3hPK+vBAXNW8ZL+Q/onSDFsaEEaLS1BfH
+	MDvJNwH5bekUmO1EX3fvpz/Pph9I2563kikBVtpTH3pNnrL18ixnEfnm
+X-Gm-Gg: AfdE7cla4Ggj9WJJCuZQGfChDDmIN5Vh9XQqXUKMPfqGfU3D3hVanfWwcGEZUS10BtL
+	P2et4nfvQVMGqmFsn5l4qgGRGFdPHWMWSwncMfRgebKAgLVqzOQJfFqUJnCKMb0nulIe5XwxJEv
+	IjEjx/pyOZBIdMJ0eveJ1kwoYbX84KnD/7lrQ0OY7lSYC9rohFGaGaUgHcJ8Tef/b6zpV72+jt1
+	1v5PzMZbm2/W2kLSvvIrxjl2wYi9dpYlXkxt+MxJHf7QFGKFiGyFB9gFe3kCpfaByUmtbMVEhrY
+	QnAFerqc8A4zgO85N37fCub20javyzAHJZjF0IOpIA9eeFnXX5Of9aeAq6t5mN0TUhQ3YMieRmL
+	DiUySgPickOzmfCeW1X0F783TkQw86u9HcjgOJS95sz2fGwDMkV+c1W1+KvzyGVuvxhVMwojVPF
+	SdeL7nOw6JoNEUdkBgU9rc
+X-Received: by 2002:a17:90b:2241:b0:37c:6975:2e3d with SMTP id 98e67ed59e1d1-38dc73c330fmr2515609a91.8.1783770075031;
+        Sat, 11 Jul 2026 04:41:15 -0700 (PDT)
+Received: from DESKTOP-TIT0J8O.dm.ae ([49.47.198.15])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311935fd091sm32390087eec.24.2026.07.11.04.41.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 04:40:17 -0700 (PDT)
-From: Gianluca Boiano <morf3089@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Gianluca Boiano <morf3089@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Sat, 11 Jul 2026 04:41:14 -0700 (PDT)
+From: Ahmed Naseef <naseefkm@gmail.com>
+To: netdev@vger.kernel.org
+Cc: =?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew@lunn.ch>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	linux-sound@vger.kernel.org,
+	DENG Qingfang <dqfext@gmail.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Landen Chao <Landen.Chao@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] ASoC: codecs: add TAS2557 mono smart amplifier driver
-Date: Sat, 11 Jul 2026 13:40:08 +0200
-Message-ID: <20260711114009.73094-1-morf3089@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <e1471661-cf25-4db4-9a77-48d726811a51@sirena.org.uk>
-References: <e1471661-cf25-4db4-9a77-48d726811a51@sirena.org.uk>
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Ahmed Naseef <naseefkm@gmail.com>
+Subject: [PATCH net-next v2 0/2] net: dsa: mt7530: add EcoNet EN7528 built-in switch support
+Date: Sat, 11 Jul 2026 15:40:59 +0400
+Message-Id: <cover.1783770059.git.naseefkm@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,79 +93,164 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> +	TAS2557_GPIO6_PIN_REG,            0x01,	/* GPIO6 = ASI2 WCLK input */
-> +	TAS2557_GPIO8_PIN_REG,            0x02,	/* GPIO8 = ASI2 DIN */
-> +	TAS2557_GPIO5_PIN_REG,            0x01,	/* GPIO5 = ASI2 BCLK input */
->
-> This looks suspicously board specific, it should probably come from
-> device tree.
+The EcoNet EN7528 is a MIPS SoC whose platform support is already
+upstream. It integrates an MT7530 switch, memory-mapped like the built-in
+switches of the MediaTek MT7988 and Airoha EN7581/AN7583 SoCs, but with a
+true MT7530 core, four Gigabit PHYs on ports 1-4 and a CPU port at a fixed
+1000 Mbps full duplex link.
 
-It's board specific, and it's not even a TI reference sequence -
-checked their Android driver, it never touches ASI2/GPIO5-8 at all,
-only ASI1/GPIO1-2. All four boards on this branch happen to share the
-same wiring, which is how it ended up hardcoded. Will add DT
-properties for the ASI2 pin assignment in a follow-up, defaulting to
-today's values.
+Patch 1 documents the compatible, patch 2 adds the driver support.
 
-> +	TAS2557_ASI2_DAC_FORMAT_REG,      0x18,	/* ASI2: 32-bit I2S */
->
-> This should be set_dai_fmt().
+Changes in v2:
+- patch 1: reword the commit message to explain what distinguishes the
+  EN7528 from the other built-in switches and why it cannot fall back to
+  one of their compatibles (Conor Dooley).
+- patch 2: drop the setup-time EEE advertisement register writes. Instead
+  leave lpi_capabilities empty for the EN7528, so phylink disables EEE on
+  its PHYs via phy_disable_eee() and rejects enabling it from userspace
+  (Andrew Lunn).
+- Link to v1:
+  https://lore.kernel.org/netdev/cover.1783680864.git.naseefkm@gmail.com/
 
-Fixed in v2: the format is cached in set_dai_fmt() and reapplied in
-tas2557_enable() after the reset, so the startup_data write no longer
-wins.
+Ahmed Naseef (2):
+  dt-bindings: net: dsa: mediatek,mt7530: add econet,en7528-switch
+  net: dsa: mt7530: add EN7528 support
 
-> +	TAS2557_ASI2_BDIV_CLK_SEL_REG,   0x01,
-> +	TAS2557_ASI2_BDIV_CLK_RATIO_REG, 0x01,
-> +	TAS2557_ASI2_BDIV_CLK_RATIO_REG, 0x81,	/* power up BDIV */
-> +	TAS2557_ASI2_WDIV_CLK_RATIO_REG, 0x40,
-> +	TAS2557_ASI2_WDIV_CLK_RATIO_REG, 0xc0,	/* power up WDIV */
->
-> Can't these be worked out dynamically?
+ .../bindings/net/dsa/mediatek,mt7530.yaml     |  5 ++
+ drivers/net/dsa/mt7530-mmio.c                 |  1 +
+ drivers/net/dsa/mt7530.c                      | 58 ++++++++++++++++---
+ drivers/net/dsa/mt7530.h                      |  1 +
+ 4 files changed, 57 insertions(+), 8 deletions(-)
 
-No, not from anything the driver has. TI's own driver never writes
-these two registers on any board, and unlike every other multi-bit
-register in their header, there's no bitfield documentation for them.
-GPIO5/6 are wired as ASI2 BCLK/WCLK inputs here, so the chip is a
-clock slave on this interface; BDIV/WDIV sit next to the CLKOUT mux
-registers in the map, which points to them being master-mode
-clock-generation taps, not something a slave needs. Leaving them as
-fixed constants.
+Range-diff against v1:
+1:  68e85666b6df ! 1:  2133035bb22e dt-bindings: net: dsa: mediatek,mt7530: add econet,en7528-switch
+    @@ Commit message
+         are connected to integrated Gigabit PHYs and its CPU port is connected
+         internally to the SoC Ethernet MAC.
+     
+    +    Those three switches are MT7531-based, whereas the EN7528 has a genuine
+    +    MT7530 switch core (its chip revision register reads 0x7530). The two
+    +    generations differ in their register programming - for example the CPU
+    +    port is selected through the MT7530-style MFC register rather than the
+    +    MT7531 CFC register - so the EN7528 is not compatible with the existing
+    +    switch compatibles and cannot fall back to one of them.
+    +
+         Add the econet,en7528-switch compatible, with the same constraints as
+         the other built-in switches.
+     
+2:  1865eaedef97 ! 2:  8c7dfabd860a net: dsa: mt7530: add EN7528 support
+    @@ Commit message
+         an ID_EN7528 variant bound with the "econet,en7528-switch" compatible,
+         reusing mt7988_setup() and the indirect PHY accessors.
+     
+    -    The switch core, however, is an MT7530 and not an MT7531 derivative: it
+    -    has no MT7531 CFC register, and the CPU port to trap frames to is set
+    -    through the MT7530-style CPU_EN / CPU_PORT fields of the MFC register, so
+    -    add it to the MT7530 handling in mt753x_conduit_state_change(). For the
+    +    The switch core, however, is an MT7530 and not an MT7531 derivative: the
+    +    CPU port to trap frames to is set through the MT7530-style CPU_EN /
+    +    CPU_PORT fields of the MFC register rather than the MT7531 CFC register,
+    +    so add it to the MT7530 handling in mt753x_conduit_state_change(). For the
+         same reason the MT7530 mirror and force-mode register layouts already
+         apply to it as the default of the MT753X_*() macros.
+     
+    @@ Commit message
+         EN7581 switches, whose CPU ports run at 10 Gbps.
+     
+         The LAN GPHYs advertise EEE by default, but negotiating EEE with some
+    -    link partners results in an unstable link with dropped frames. Disable
+    -    EEE advertisement on them at setup time, like mt7531_setup() does for the
+    -    MT7531 switch PHYs.
+    +    link partners results in an unstable link with dropped frames. Leave the
+    +    LPI capabilities empty for the EN7528 so that phylink disables EEE on
+    +    these PHYs and refuses to enable it from userspace.
+     
+         Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
+     
+    @@ drivers/net/dsa/mt7530.c: static void en7581_mac_port_get_caps(struct dsa_switch
+      static void
+      mt7530_mac_config(struct dsa_switch *ds, int port, unsigned int mode,
+      		  phy_interface_t interface)
+    +@@ drivers/net/dsa/mt7530.c: static void mt753x_phylink_get_caps(struct dsa_switch *ds, int port,
+    + 				    struct phylink_config *config)
+    + {
+    + 	struct mt7530_priv *priv = ds->priv;
+    +-	u32 eeecr;
+    + 
+    + 	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE;
+    + 
+    +-	config->lpi_capabilities = MAC_100FD | MAC_1000FD | MAC_2500FD;
+    +-
+    +-	eeecr = mt7530_read(priv, MT753X_PMEEECR_P(port));
+    +-	/* tx_lpi_timer should be in microseconds. The time units for
+    +-	 * LPI threshold are unspecified.
+    ++	/* The EN7528 GPHYs report EEE capability, but negotiating EEE with
+    ++	 * common link partners (e.g. Realtek GbE NICs) results in an unstable
+    ++	 * link with dropped frames. Leave the LPI capabilities empty so that
+    ++	 * phylink disables EEE on these PHYs and refuses to enable it from
+    ++	 * userspace.
+    + 	 */
+    +-	config->lpi_timer_default = FIELD_GET(LPI_THRESH_MASK, eeecr);
+    ++	if (priv->id != ID_EN7528) {
+    ++		u32 eeecr = mt7530_read(priv, MT753X_PMEEECR_P(port));
+    ++
+    ++		config->lpi_capabilities = MAC_100FD | MAC_1000FD | MAC_2500FD;
+    ++		/* tx_lpi_timer should be in microseconds. The time units for
+    ++		 * LPI threshold are unspecified.
+    ++		 */
+    ++		config->lpi_timer_default = FIELD_GET(LPI_THRESH_MASK, eeecr);
+    ++	}
+    + 
+    + 	priv->info->mac_port_get_caps(ds, port, config);
+    + }
+     @@ drivers/net/dsa/mt7530.c: mt753x_conduit_state_change(struct dsa_switch *ds,
+      	 * forwarded to the numerically smallest CPU port whose conduit
+      	 * interface is up.
+    @@ drivers/net/dsa/mt7530.c: mt753x_conduit_state_change(struct dsa_switch *ds,
+      		return;
+      
+      	mask = BIT(cpu_dp->index);
+    -@@ drivers/net/dsa/mt7530.c: static int mt753x_setup_tc(struct dsa_switch *ds, int port,
+    - 	}
+    - }
+    - 
+    -+/* The EN7528 LAN ports are integrated GPHYs at MDIO addresses 9..12 (switch
+    -+ * ports 1..4) on the switch internal MDIO bus, reachable only through the PHY
+    -+ * indirect access registers. There is no mdiodev to derive the addresses from.
+    -+ */
+    -+#define EN7528_GPHY_BASE		9
+    -+#define EN7528_NUM_GPHYS		4
+    -+
+    - static int mt7988_setup(struct dsa_switch *ds)
+    - {
+    - 	struct mt7530_priv *priv = ds->priv;
+    -+	int i;
+    - 
+    - 	/* Reset the switch */
+    - 	reset_control_assert(priv->rstc);
+    -@@ drivers/net/dsa/mt7530.c: static int mt7988_setup(struct dsa_switch *ds)
+    - 	/* Reset the switch PHYs */
+    - 	mt7530_write(priv, MT7530_SYS_CTRL, SYS_CTRL_PHY_RST);
+    - 
+    -+	/* The EN7528 LAN GPHYs advertise EEE by default, but negotiating EEE
+    -+	 * with common link partners (e.g. Realtek GbE NICs) results in an
+    -+	 * unstable link with dropped frames. Disable EEE advertisement on
+    -+	 * them.
+    -+	 */
+    -+	if (priv->id == ID_EN7528)
+    -+		for (i = EN7528_GPHY_BASE;
+    -+		     i < EN7528_GPHY_BASE + EN7528_NUM_GPHYS; i++)
+    -+			mt7531_ind_c45_phy_write(priv, i, MDIO_MMD_AN,
+    -+						 MDIO_AN_EEE_ADV, 0);
+    -+
+    - 	return mt7531_setup_common(ds);
+    - }
+    - 
+     @@ drivers/net/dsa/mt7530.c: const struct mt753x_info mt753x_table[] = {
+      		.phy_write_c45 = mt7531_ind_c45_phy_write,
+      		.mac_port_get_caps = en7581_mac_port_get_caps,
 
-> +	TAS2557_POWER_CTRL2_REG, 0xA3,		/* Class-D, Boost, IV-sense power up */
->
-> tas2557_isense_put() also writes to this register, there's a
-> disconnect with blind writing.
+base-commit: fe3e786ef4eb6e47d2901f568a27bd920477bbe9
+-- 
+2.34.1
 
-Fixed in v2: enable() now reasserts ISENSE/VSENSE from the cached
-switch state right after startup_data, so the mixer controls and the
-hardcoded 0xA3 don't fight anymore.
-
-> Is there any overlap with other TI firmware parsers?
-
-Checked tas2781-fmwlib.c. Same magic (0x35353532) but the formats
-diverge immediately after: tas2557's header has DDC-name/description
-fields tas2781's doesn't, tas2557 needs a PLL block loaded before
-power-up which none of tas2781's parser variants have, and tas2781's
-parser is built around its multi-amplifier device-index model that
-tas2557 doesn't use. Not sharing code between them.
-
-> +	if (!tas2557->fw || !tas2557->powered) {
-> +		mutex_unlock(&tas2557->lock);
-> +		return IRQ_HANDLED;
-> +	}
->
-> We definitely didn't handle an IRQ in this case - this will break
-> sharing and debug features in the interrupt core.
-
-Fixed in v2, returns IRQ_NONE there.
-
-> +	tas2557_dev_write(tas2557, TAS2557_GPIO4_PIN_REG, 0x00);
->
-> Is GPIO4 the only line that can be an interrupt source?
-
-No, any GPIO can be assigned INT via its own PIN_REG. Same situation
-as the ASI2 pins above - hardcoded because all four current boards
-use GPIO4, rolling it into the same DT-properties follow-up.
-
-Gianluca
