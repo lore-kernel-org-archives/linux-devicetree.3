@@ -1,68 +1,68 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD4A39EB40
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05853A1685
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:45:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783849500; cv=none; b=p/mRJUngoz0TqWYZUz1XMMs7/R+tNfNZi/Q0lkxU2//GdP0yLMheSqeCm00es1e7sUQL62X4/uo19J3/dalc462v3g+/zzXmqlojby0cfI5r2l1rarVBcmiuPXFHEWQRZijupMnk9n7zQUUtvWr1mOvWKqJTblRQDoh4OpJs8gI=
+	t=1783849505; cv=none; b=Bw+FVGmV4gaEP6HesVjh6JIN6SwTiz5ev3M0Zl0EGXfm/sJjXQcf8M9eiUTzcWTNPgCjuejYk3HmdeirKy8xJKy1LcAyxMiIHra8BO+5j69zlsKUR1cNKVS51Y2FB+N1es1sst8n/FWG6oEUcbmfzhbTVUz2i1QnAEn/6dPf2Js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783849500; c=relaxed/simple;
-	bh=b5cJQbI2rPQBqmyd+tyRrl79csKGqBEcw6hZJ4ZNy20=;
+	s=arc-20240116; t=1783849505; c=relaxed/simple;
+	bh=x8Grz8Kqtnr/cWgyc/taQbax1eaDHX8U8ipxLd2qWVQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OAI2Tresb0ZHcp8p8NPlJhwcEIi6coVS2r9gy2HD4IpF6mh9p1dASSofUEIB7ucA//CIU0hFePPJy28+Aadz6uqqSCP1BpGHjvDFZtzXGmTsqgv0pc1fUD88JFbIzkAGH4fndkItBSvcuvm6mmqyd033N5kAkpz40WuWLaOImY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d0RC+7JX; arc=none smtp.client-ip=209.85.216.41
+	 In-Reply-To:To:Cc; b=VtH2DWx92X0ukNDdTXtBChUWjnBT6KC4XuXAqdlLdUqGxxGxQOjZjS4Rp8p9Ki2U+MsyFuVVDP8YyPP0vJNazfiUWxorE+2r42Y+aLEkBPstzxS/syR8M3OzOCMJaB1VHDCJYBY0SQliQT1XottGcXWeuCFH4nnJk+PbbJol0Bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfhgD+f/; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d0RC+7JX"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38df94d4dd8so6557a91.2
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 02:44:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfhgD+f/"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38df94d4dd8so6585a91.2
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 02:45:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783849499; x=1784454299; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783849503; x=1784454303; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8XZtIIseDB8jd5vi9+iZWbpGqG/Pge6b+zJURkaj8iQ=;
-        b=d0RC+7JXSkeBLj6Nbb0zNpWu6rG1oKt1TqNRpka1SjKS+xgSJuFWW38c875TCANAhs
-         SGGeo7dBfTh1jQpekcGneZxg7y+fG0RbI1NoR5d+vlm6MYsYEu+oCzbTSAFpw8p3qPWq
-         MHW/kBLsTiGOxPFs8bz96i+mTFWMyMCR0aHVTG03jNtnxWbkG0G569vTTF6lCwWmwcA7
-         aJ3lsljLjYhRlblQz1A5ZSs+T7a2lG5bNqwpURcsHytfhZl0DhtzilqwsqVJWm8+/33P
-         nfjM3CD5t6hMF5/aljoPXSS6wuvWhiYuNXqKMWK1Kr606yM1dYr6GU0ZpcRQryGUlfAd
-         JYow==
+        bh=EvzgOVO6jhm4u4fWUb2VkpKCzhTp79gobTgqrCwBTWQ=;
+        b=FfhgD+f/ZXQm9LSyjsDYHMvT6/VdWU7shqDx9LX3p1TCpeA7Em9mvPkmamGz2fL5y0
+         qnFY0ObXzKJlx2Nb9/aG3OUM1LoQm+MFWg2cUKcyD4n8CLv+76Fb4n0CubHM+T0jkqbN
+         yMJVNaB42TtdN0saO+GV5V7AFaQxxcmCb2HR551iO8L3zuEFkgRsuMiKkbWrHAXaXLox
+         XROU0tWvMKo16DWtHOExk8qQNhLtnXOCF6yVv5mD6GFiQYZ90sdTvyZac/tlRsQQ54oc
+         c9kbfeio6pmrAWOxotI2az3cDENiLHEH8/HehUgoGtOY6ZnmR9UkckIgP1dDN35+Wrzz
+         dpcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783849499; x=1784454299;
+        d=1e100.net; s=20251104; t=1783849503; x=1784454303;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8XZtIIseDB8jd5vi9+iZWbpGqG/Pge6b+zJURkaj8iQ=;
-        b=Uj+8WhpfTpwHS7eUl0TUu0bVOdDDhBBojPx/ryGGHH5iHoAJnUewPWxKcbgppsA+GF
-         fEBPVkPQoyGjvYtE6DByzWttieYjPMl2yYI2YAFecNv2/xV8FMKvFHja5oHPjg1jfdoF
-         e701fz2NDZn2BvLJiCOmSwVdGyRH7Kfz/4g9/D6xZUj64QBZb52vPyaXmzB8vjanxxPT
-         coWYk0653Q73CSH1zQqm0jcxf4Ez65YS2/b86Cz0rSWPPZAfOnjaKFkNxPj9UTJG0yhN
-         fksV7a6zB2pfWlI88Bzqo/oL2IbdcXpDj1o/dlGFwcDPAP8mSUL/GVYoSQQqmJLDyHrN
-         HYpA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr7ZISv4N1dH6nr2xptrZoSJP2ePvwaAHfWxWsOlZihl4Rnl+ocaMVUttE0qZ392jmusnmb0kamSmWq@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNbzeR5w+j/cBrxq2bgZ2vVX89TD3U6DJ6h8mTTFyUevqZLQwU
-	8Ng1LEogm81Nr/W3qdwNH14IqjzTTvcXB5NkCA311YYfPj+KcJenJikg
-X-Gm-Gg: AfdE7cnUBvDKmIZBR1/cb+eZwVlHorM78Zs2jTp2Oy7AmgUxnkw416qIVOi8AuxWzGS
-	76W1K2ddI6G7P3vfym89eQRbgkK9blkC+ovdtEpfWQwnr04PK4fHYyV+j6yAFNZu+juuA9o/Sjb
-	C+4cZ96rKnPCOdz2QnCsV+tsiJMR42Uz4fFDguPzq34AIab7S2bMwJKfWaFbI/EW3NkHa+ZMnw4
-	Xk66FMmdOjlTB0pEV+lXoFpzKCHFDt3VmaNB3TdI7RNzz26wtZOZoWqzbymFdANJq2xE0SeOri7
-	ojmapqCQ0JgCfvtBRlTRpxYbRANzAo3Z8riKOsUqB9jKtltXOo9XyJp1upBEQM6EQQQsBX/MJoW
-	RlmQ+51naMdfbZOlVCs65MoXRV/V5HK02lQicTzS2rqfYHdzioKE3o0y6vFaZNVKfI36untZY0T
-	PfQAg+Ars27olvDhYZHNsdqmZU02xHCi11N590KBq6678xDUycqtJeqJqtyIscp1jFAcgGwxPfk
-	62Hh7rDeaBCU8dDPTJfkiLSIqPJeBCpgOuZn0eeIIUMJhU5sW0Uoz+7+06xO28l
-X-Received: by 2002:a17:90b:3b89:b0:381:5a08:6291 with SMTP id 98e67ed59e1d1-38dc7779d6cmr4445784a91.20.1783849498894;
-        Sun, 12 Jul 2026 02:44:58 -0700 (PDT)
+        bh=EvzgOVO6jhm4u4fWUb2VkpKCzhTp79gobTgqrCwBTWQ=;
+        b=OolPH9sngLWntbDfkspIfZihl1QcsvSp6+BqkJQxmOquAHQ5MFPcyN8ofhXUGbnZ/g
+         OOokL1kYRnRlP4Ua7Od+vRaI23ub0OSdRwj7lGX3Rl3EHwXu23tDaNw2a+fLtUGQ/DOT
+         ZdNWOVGYSo+7LYqo6N2fQTtKpsQ0ipQZTq7fLyYeZ3Jns9Mvd78Y39wnlDqunLQKvdNF
+         ras8j3hszLEr9jyMrNGiEKydYctFvzStt26xrPkdVEXDnYvBxEBRDlpnemFe93Lp0auY
+         2F6ffCzVd/G6t8R1t0AMQQO0wTMmaaVFgO2Uyyt3t5qsqz6nuo3hdE/G8WchpGjbbUav
+         XMFA==
+X-Forwarded-Encrypted: i=1; AHgh+RpiAmGbRvDiXZrF606HOvrZtt80UZPA2lCbmuUGHPeslKTljbED+jlIXkGE0TP7ewJW4wxFGwzj4FwO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxf+Zw66AJ2GBKslaatCGgBg8ov2J8kJC1qQOvk5DUDYBmndkPN
+	8GVO29jsnTdEjQ0HWYQIftd85CJDlDv6zPuJGoB1PoguRMLaBmCcVq3x
+X-Gm-Gg: AfdE7clU0dDHCMadH9hOD0Mam1rKWER9G1ctA2d/uqcUmk71uXRACw8YctwuoBtyTEe
+	BLvNlVJVEK1wKfGFXUtCSxYX9uXk5im6f2FD0GNhA4axPAldtOnpW8VsHaZEdz7jhWeOKa6lK7Y
+	Rl4/XK9fRy/7PpVWxL34sBLZAVqhLYdvRWJPrRuubSwi+e+D8/fQ3aVivbVqFpYygo5EPjxsL3s
+	DCswNObdUHwk1xHqsn13V8wIQzOtxXqbhkMqlBsb6p+5j4RA/MSc1F+wpDGJ99AZ79a45rmlS0G
+	fDCW+FpgrZTMrF+f5dUPhti2ORZQgvhnwUXIMP3Oz58M/pqVI1Q+NAjG2pS1aSaw3OlVJatvs9Q
+	aARgITQRccTwusZzu6Ifvk1aw9gAOWm+qyHx3RGy6MjJwr8G3EGvxWq1e7FCcZQwTUGcpD1PJIS
+	F+mDse72mlNVQLybESjMrXEOx+EFFeU5InMv+KJS/pIm/znCtWzypd3/QcAvaDMpQnDX1XGiNQi
+	n/NEMGVzKcgpKUYvS0acgauuKSXvKSLQX6/ce5sHAlts9lWjZ9Nt5fkVwLlt9hq
+X-Received: by 2002:a17:90b:514e:b0:387:e0db:bc28 with SMTP id 98e67ed59e1d1-38dc77cf117mr4925674a91.40.1783849503296;
+        Sun, 12 Jul 2026 02:45:03 -0700 (PDT)
 Received: from [10.160.6.73] ([119.17.57.186])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313c50c70c9sm15268919eec.29.2026.07.12.02.44.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313c50c70c9sm15268919eec.29.2026.07.12.02.44.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 02:44:58 -0700 (PDT)
+        Sun, 12 Jul 2026 02:45:02 -0700 (PDT)
 From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 12 Jul 2026 19:43:30 +1000
-Subject: [PATCH 11/12] arm64: dts: apple: t8112: jxxx: Add device-specific
+Date: Sun, 12 Jul 2026 19:43:31 +1000
+Subject: [PATCH 12/12] arm64: dts: apple: t60xx: jxxx: Add device-specific
  SMC hwmon sensors
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260712-smc-subdev-dt-v1-11-7763006d57c7@gmail.com>
+Message-Id: <20260712-smc-subdev-dt-v1-12-7763006d57c7@gmail.com>
 References: <20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com>
 In-Reply-To: <20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -83,67 +83,94 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  James Calligeros <jcalligeros99@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1778;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2858;
  i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=b5cJQbI2rPQBqmyd+tyRrl79csKGqBEcw6hZJ4ZNy20=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnBiU/XXn4VvKanw7kqSsbi77ETk/afz7nt27dXzWhWY
- oRC+teKjoksDGJcDJZiiiwbmoQ8Zhux3ewXqdwLM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6xgxcHEKwFRPj2P4n8l+4XNXcXJ8Do/WB630KceKm8/HHfzCW/nkms2Onbue32T4w3PSjIl
- 5gtbbmDn/VzwpK+35cbxOMY6n9mGuiU7l2c9TGAA=
+ bh=x8Grz8Kqtnr/cWgyc/taQbax1eaDHX8U8ipxLd2qWVQ=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnBiU/3dR4qK5p210l/pqS3Vv7mW7v7f6a3pPXXqx/VN
+ NhzM2Bmx0QWBjEuBksxRZYNTUIes43YbvaLVO6FmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ jXSMdYwYuDgFYKqPH2H4p/mTUfXNvp1bmnnO8ZfNF2XfMTfIIE8nf0KO8IfHMRJzGxgZOuR3r5H
+ uuX197szpeboFmqt5+zey2S1qsSyYfvZDi9V6LgA=
 X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
  fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-Add the device-specific hwmon sensors for select T8112-based devices
+Add the device-specific hwmon sensors for select T60xx-based devices
 
 Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- arch/arm64/boot/dts/apple/t8112-j413.dts | 2 ++
- arch/arm64/boot/dts/apple/t8112-j415.dts | 2 ++
- arch/arm64/boot/dts/apple/t8112-j473.dts | 2 ++
- arch/arm64/boot/dts/apple/t8112-j493.dts | 3 +++
- 4 files changed, 9 insertions(+)
+ arch/arm64/boot/dts/apple/t6001-j375c.dts      | 2 ++
+ arch/arm64/boot/dts/apple/t6002-j375d.dts      | 2 ++
+ arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi | 2 ++
+ arch/arm64/boot/dts/apple/t6020-j474s.dts      | 2 ++
+ arch/arm64/boot/dts/apple/t6021-j475c.dts      | 2 ++
+ arch/arm64/boot/dts/apple/t6022-j475d.dts      | 2 ++
+ 6 files changed, 12 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/apple/t8112-j413.dts b/arch/arm64/boot/dts/apple/t8112-j413.dts
-index 1a08a41f369b..7ccfceb08093 100644
---- a/arch/arm64/boot/dts/apple/t8112-j413.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j413.dts
-@@ -91,3 +91,5 @@ &i2c4 {
- &fpwm1 {
- 	status = "okay";
+diff --git a/arch/arm64/boot/dts/apple/t6001-j375c.dts b/arch/arm64/boot/dts/apple/t6001-j375c.dts
+index 2e7c23714d4d..08276114c1d8 100644
+--- a/arch/arm64/boot/dts/apple/t6001-j375c.dts
++++ b/arch/arm64/boot/dts/apple/t6001-j375c.dts
+@@ -24,3 +24,5 @@ &wifi0 {
+ &bluetooth0 {
+ 	brcm,board-type = "apple,okinawa";
  };
 +
-+#include "hwmon-laptop.dtsi"
-diff --git a/arch/arm64/boot/dts/apple/t8112-j415.dts b/arch/arm64/boot/dts/apple/t8112-j415.dts
-index e37c56d9fb4d..fdc3409d2e07 100644
---- a/arch/arm64/boot/dts/apple/t8112-j415.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j415.dts
-@@ -91,3 +91,5 @@ &i2c4 {
- &fpwm1 {
- 	status = "okay";
++#include "hwmon-fan-dual.dtsi"
+diff --git a/arch/arm64/boot/dts/apple/t6002-j375d.dts b/arch/arm64/boot/dts/apple/t6002-j375d.dts
+index a2a24d028cbb..e6eb6b6c386d 100644
+--- a/arch/arm64/boot/dts/apple/t6002-j375d.dts
++++ b/arch/arm64/boot/dts/apple/t6002-j375d.dts
+@@ -184,6 +184,8 @@ atcphy5_usb3: endpoint {
+ 	};
  };
+ 
++#include "hwmon-fan-dual.dtsi"
 +
+ /* delete unused USB nodes on die 1 */
+ 
+ /delete-node/ &dwc3_2_dart_0_die1;
+diff --git a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+index fee84f809a9c..caded1636f3d 100644
+--- a/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi
+@@ -367,3 +367,5 @@ &atcphy3 {
+ };
+ 
+ #include "spi1-nvram.dtsi"
 +#include "hwmon-laptop.dtsi"
-diff --git a/arch/arm64/boot/dts/apple/t8112-j473.dts b/arch/arm64/boot/dts/apple/t8112-j473.dts
-index 438f972546b8..105a9d118980 100644
---- a/arch/arm64/boot/dts/apple/t8112-j473.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j473.dts
-@@ -84,3 +84,5 @@ &typec0 {
- &typec1 {
- 	label = "USB-C Back-right";
++#include "hwmon-fan-dual.dtsi"
+diff --git a/arch/arm64/boot/dts/apple/t6020-j474s.dts b/arch/arm64/boot/dts/apple/t6020-j474s.dts
+index 7c7ad5b8ad18..e3c2635d84fa 100644
+--- a/arch/arm64/boot/dts/apple/t6020-j474s.dts
++++ b/arch/arm64/boot/dts/apple/t6020-j474s.dts
+@@ -45,3 +45,5 @@ &pcie0 {
+ 			<0x200 &pcie0_dart_2 1 1>,
+ 			<0x300 &pcie0_dart_3 1 1>;
  };
 +
 +#include "hwmon-mini.dtsi"
-diff --git a/arch/arm64/boot/dts/apple/t8112-j493.dts b/arch/arm64/boot/dts/apple/t8112-j493.dts
-index ec116da3e4dd..7cea5c594810 100644
---- a/arch/arm64/boot/dts/apple/t8112-j493.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j493.dts
-@@ -146,3 +146,6 @@ touchbar0: touchbar@0 {
- 		touchscreen-inverted-y;
- 	};
+diff --git a/arch/arm64/boot/dts/apple/t6021-j475c.dts b/arch/arm64/boot/dts/apple/t6021-j475c.dts
+index 533e35774874..82689c380cdf 100644
+--- a/arch/arm64/boot/dts/apple/t6021-j475c.dts
++++ b/arch/arm64/boot/dts/apple/t6021-j475c.dts
+@@ -35,3 +35,5 @@ &port01 {
+ &pcie0_dart_1 {
+ 	status = "okay";
  };
 +
-+#include "hwmon-laptop.dtsi"
 +#include "hwmon-fan.dtsi"
+diff --git a/arch/arm64/boot/dts/apple/t6022-j475d.dts b/arch/arm64/boot/dts/apple/t6022-j475d.dts
+index 31f24bbda968..f50a6d56f3d8 100644
+--- a/arch/arm64/boot/dts/apple/t6022-j475d.dts
++++ b/arch/arm64/boot/dts/apple/t6022-j475d.dts
+@@ -44,6 +44,8 @@ &typec5 {
+ 	label = "USB-C Front Left";
+ };
+ 
++#include "hwmon-fan.dtsi"
++
+ /* delete unused USB nodes on die 1 */
+ /delete-node/ &dwc3_2_dart_0_die1;
+ /delete-node/ &dwc3_2_dart_1_die1;
 
 -- 
 2.55.0
