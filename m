@@ -1,38 +1,45 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D5E35F5E0;
-	Sun, 12 Jul 2026 03:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783825963; cv=none; b=bq4DgPTnX9IVUcC9oAFtgFyr0G32+jZGOksjdNdpcIVVpi0DGt7+ldKw4S7I0IPl93CjVUotpWsC+BqmLXzhZXDjV2+b/LDsygygoW66kYriPZmysBog9h7lJGkpX2EB8GhGnT2H29Y5/IPxE90epVBpdiICv9j3VOFwOTUmUPQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783825963; c=relaxed/simple;
-	bh=uypZPYFNrzVPlbgo3JFazgpwIcp9nk1xnzIGuAXrb5A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CH4MnSYaMJQN98OqxEuUgCP8P4MZRHNYwviMvWiKhYkGOPViucN7IQqceSsXWPCtQZo2JTRv11j4wV98d6kPwRi6Xyz6koUBc2FTwSfrl2Fj+qjpvBLZlifU+WEVEHeQbP0tGmliUcRddMhfyKjP+ti/c/JIDuK9aYaoKxQjKl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibWQii7J; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F72621255A;
+	Sun, 12 Jul 2026 04:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783828872; cv=pass; b=HqXn3u8wR1qn94fo8AcQ4gDq20OVz/EvDE+6CkO5rNXDCp4LnO7PV81WudTdI12ELSl4QsMqZ9/HfHgGm0/EkijmDHwhMmnQ3Uf2vSXurimxyzp/ggc4z1Rdl+ahmSjmGqe9iS6TCokNHGSHrk4bdPcckC6a7I0nxwD+KuHB+UA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783828872; c=relaxed/simple;
+	bh=O03rd95rLTU1Dxveo4k6sEWLV/W7qWnJWqsuUvJW/Zk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Jy2jUhOLIqo9VgOwA4Fv6a2HJo6eG3LOikXEMk5MlMep0lz4AK3wVGc8iUfnP3nDqIuKETausv8qcaLwvBToj4BoLXKXVHIZiz5YmvRkY+zfd9KaU0XJTA554u0bfN93T2gOzIkUCearCdqclAO2qRi1gAul+T5HZgizNjssF5s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=l2S7Hmft; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibWQii7J"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19AB8C2BCF4;
-	Sun, 12 Jul 2026 03:12:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783825963;
-	bh=uypZPYFNrzVPlbgo3JFazgpwIcp9nk1xnzIGuAXrb5A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ibWQii7JDUG6EDE7cokuu+dyGUqdt8TBaj31klj9vFDmB3OKZOQHj4pQavBiNIuRt
-	 zAsoQi5cTjrBLUDTjbU9mKdnnrgFiN0yO20fiRMQFDxrt/1qGpTZspTvE53VDZQV6k
-	 zecE0ROAhuc2HIaYLaov2KhCHeLr57BYqPxmvCDtAaiii6iqtb9jN86bmUBXtfAECA
-	 wVZFTNzIXkHAwFNP6UheA1PsKoumSCMugmtzGwznVUDMm1LEmtHFfgePWbyC8SiK/K
-	 RL/z+oXs0B8FiextvRxCnKDKPH4dJyPBcMliPB6UQk8rwIu2dvxbm4kCKBa5z0zw7a
-	 ShjNlCWwWLIRg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0349FC44506;
-	Sun, 12 Jul 2026 03:12:43 +0000 (UTC)
-From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
-Date: Sat, 11 Jul 2026 23:12:27 -0400
-Subject: [PATCH v2 1/2] arm64: dts: qcom: sm8450: Remove unneeded reserved
- memory nodes
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="l2S7Hmft"
+ARC-Seal: i=1; a=rsa-sha256; t=1783828839; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AoIicxmLV6OUnyp0cFxOOjHslEVx3rB07tTxvdFjhw74lx720FeqKYjocfzFE/ujdL4urHG38iq12LMt4shTGflGuN+G7c7xLuir4Ek/rTf2m+W04hVwWf+//YyTUDhv3bZuZp2ObR8/WCfG/njL6sj8Aq0CB9e57SgKMwoGm78=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1783828839; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sxgMUK4leE9QWcjxVwljumsqOPffhM1uKVFIxXk15jM=; 
+	b=LHyh7drvGCjYnFXK15mBzkP88TC4qu5dyTfLR7E8xTUVsYomU5/HSm+ZY6ECD0CPGtq1UPqf4eHRYdQT9o6rmlFqhIC33qOdmSclWimFZ3cw9Di7XvVx+tItu4qEGu+KK/EdUbYEbKzj+TIKiE6nlMsWh+WL/GIme9y2TtuEfg4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783828839;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=sxgMUK4leE9QWcjxVwljumsqOPffhM1uKVFIxXk15jM=;
+	b=l2S7Hmft+4LQBWykqqWShcAXyzlWZI0Glx5oWLGMajMmGONhMlLYRuZzdrlYnlcR
+	WkgWXIHh/l67Ajy/FnJ6HBxe7z1/Vif8/oqi/tbO/F0uOdfugLp/xolSr5qgBrShXD9
+	pZwWtn8yaHLWh+d+ApFKdjj09MLvskaq2sHbyF0c=
+Received: by mx.zohomail.com with SMTPS id 1783828837085345.73913355068294;
+	Sat, 11 Jul 2026 21:00:37 -0700 (PDT)
+From: Junhui Liu <junhui.liu@pigmoral.tech>
+Subject: [PATCH v3 0/3] spacemit: k1: Add support for Banana Pi BPI-CM6 IO
+ board
+Date: Sun, 12 Jul 2026 12:00:00 +0800
+Message-Id: <20260712-bpi-cm6-v3-0-8d1e2045179d@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,77 +48,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-sm8450-qol-dts-v2-1-5eb2e86468c5@proton.me>
-References: <20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me>
-In-Reply-To: <20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- Esteban Urrutia <esteuwu@proton.me>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNyw6CMBBFf4XM2po+Ig9X/odxUcoUJpFXi42G8
+ O8WXGB0eW7mnJnBoyP0cE5mcBjIU99FUIcETKO7GhlVkUFymfKTlKwciJk2ZZVRuS0EKosG4vX
+ g0NJzK11vH3Y4PmJw2seG/NS71/YtiHX9DwfBOMt4hlYUItOKXwaq297p+3FC08DaCfLbzXdXR
+ rfiWCorVWpQ/7rLsrwByFNphPMAAAA=
+X-Change-ID: 20260522-bpi-cm6-dc38f91e3fec
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Guodong Xu <guodong@riscstar.com>, Yangyu Chen <cyy@cyyself.name>, 
+ Vivian Wang <wangruikang@iscas.ac.cn>, Paolo Abeni <pabeni@redhat.com>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Junhui Liu <junhui.liu@pigmoral.tech>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Michael Opdenacker <michael.opdenacker@rootcommit.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783825961; l=1232;
- i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
- bh=f6mm6bP5cP/VdfADQcuVdSA9XTjnVcdOZJRex2sxwV0=;
- b=TcIlcP7ncJW4UTVFJGgshY/59oDIvuuhLqZRG+qXZfwBKb2XPfoB6I8mkK7K5ngv4SZaLpm9D
- b7akfWYyzlaCxCAXlFd4dEkcJSVpvlmnzy2ApXKKooXSHkiPc+h1dlq
-X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
- pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
-X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
- auth_id=835
-X-Original-From: Esteban Urrutia <esteuwu@proton.me>
-Reply-To: esteuwu@proton.me
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783828822; l=2474;
+ i=junhui.liu@pigmoral.tech; s=20251228; h=from:subject:message-id;
+ bh=O03rd95rLTU1Dxveo4k6sEWLV/W7qWnJWqsuUvJW/Zk=;
+ b=xx0DNzPTLuQ1kJQCbT8D2D8FunRl9hCmDJtpOmAD4JmJjRaB56Pcf22rOu2beVES1uAKHqrLo
+ /CS2qpMvJxqB0c+zMnNMsf0IEsK6mIjFJ/bw8V9ddqMg/7BV7hSm1yb
+X-Developer-Key: i=junhui.liu@pigmoral.tech; a=ed25519;
+ pk=3vU0qIPJAH8blXmLyqBhKx+nLOjcLwwYhZXelEpw7h4=
+X-ZohoMailClient: External
 
-From: Esteban Urrutia <esteuwu@proton.me>
+This adds initial support for the Banana Pi BPI-CM6 IO board. The
+BPI-CM6 is an industrial-grade RISC-V compute module powered by the
+SpacemiT K1 SoC, featuring board-to-board connectors similar to the
+Raspberry Pi CM4 form factor. For evaluation and development, the module
+is paired with a companion IO carrier board.
 
-These nodes are not present on downstream device trees and only take memory
-away from the AP.
-No crashes occur without these nodes, so remove them.
+During the board bring-up, GPIO45 and GPIO46 were found to be used by
+the BPI-CM6 hardware as Ethernet PHY reset GPIOs, while the common K1
+GMAC pinctrl groups currently mux them as optional GMAC reference clock
+pins. Since the reference clock pins are not required on all K1 boards,
+the second patch separates them into independent pinctrl groups so board
+DTS files can select them only when the signal is actually wired.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
+Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 ---
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 15 ---------------
- 1 file changed, 15 deletions(-)
+Changes in v3:
+- Remove uncontrolled always-on intermediate fixed regulators to
+  reduce device tree bloat
+- Rebase to v7.2-rc1
+- Link to v2: https://lore.kernel.org/r/20260528-bpi-cm6-v2-0-d0eb3f236cea@pigmoral.tech
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 7ddd0f5f539c..cf7c8f831fb0 100644
---- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -752,11 +752,6 @@ oem_vm_mem: memory@bb000000 {
- 			no-map;
- 		};
- 
--		mte_mem: memory@c0000000 {
--			reg = <0x0 0xc0000000 0x0 0x20000000>;
--			no-map;
--		};
--
- 		qheebsp_reserved_mem: memory@e0000000 {
- 			reg = <0x0 0xe0000000 0x0 0x600000>;
- 			no-map;
-@@ -806,16 +801,6 @@ qtee_mem: memory@e9b00000 {
- 			reg = <0x0 0xe9b00000 0x0 0x500000>;
- 			no-map;
- 		};
--
--		trusted_apps_mem: memory@ea000000 {
--			reg = <0x0 0xea000000 0x0 0x3900000>;
--			no-map;
--		};
--
--		trusted_apps_ext_mem: memory@ed900000 {
--			reg = <0x0 0xed900000 0x0 0x3b00000>;
--			no-map;
--		};
- 	};
- 
- 	smp2p-adsp {
+Changes in v2:
+- Keep gmac_clk_ref pinctrl groups referenced on existing boards where
+  the pins are routed to optional PHY refclk paths
+- Remove duplicate vpcie3v3-supply property from pcie1 and pcie2 nodes
+- Collect tags
+- Link to v1: https://lore.kernel.org/r/20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech
 
--- 
-2.55.0
+---
+Junhui Liu (3):
+      dt-bindings: riscv: spacemit: Add Banana Pi BPI-CM6 compatible
+      riscv: dts: spacemit: k1: Split gmac_clk_ref into independent pinctrl groups
+      riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board
 
+ .../devicetree/bindings/riscv/spacemit.yaml        |   5 +
+ arch/riscv/boot/dts/spacemit/Makefile              |   1 +
+ .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 177 +++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 217 +++++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    |   4 +-
+ arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts  |   4 +-
+ arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts     |   2 +-
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts   |   4 +-
+ arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi       |  24 ++-
+ 9 files changed, 427 insertions(+), 11 deletions(-)
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260522-bpi-cm6-dc38f91e3fec
+
+Best regards,
+--  
+Junhui Liu <junhui.liu@pigmoral.tech>
 
