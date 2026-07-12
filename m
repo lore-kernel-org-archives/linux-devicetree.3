@@ -1,207 +1,122 @@
-Received: from out13-173.antispamcloud.com (out13-173.antispamcloud.com [185.201.17.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40550384CF0;
-	Sun, 12 Jul 2026 22:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.17.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DA11E7C03;
+	Sun, 12 Jul 2026 23:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783896072; cv=none; b=mfbM+vruJVTJSCHaf7t703wi5s5H4dPTfwrJ/D6wSKLN+3wlduZ4Yi6jWrPNF4DYCncgYj2HQvGY3df9CnmqJFEt3/OySGQfD7N5OL7+Ale1ocDUxqW/0BblP8UhIMdxLDLib0OHsnne1/jthLn9H4jSLvY8N1nkSes4FLIa7JE=
+	t=1783898309; cv=none; b=mtu2p/g2iUngqYl2HoB5K0AQ1YqtlySpzHdLDVHblv1iYQKrb9i08ZYV7/kkPEIBd8dO0pJPBO76m4DwSi3EAuZ71zqZBi7Czca5j8vVHqiwGjtOiZZd+4Ux7ED2JgiYVE1dJ7TDq0y0yPBznZcdreN9HPMs3NWuWSPoBqX5aW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783896072; c=relaxed/simple;
-	bh=miEDg0CZsfHPnHjA+ZUjMb9OSGcKFHtdWhiZyEEFe60=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CZk9ygLVDdEY/aAjpD3ZNTTQv3h8qDx4SkSNY7817OZWU1uut9XXsw3ItbnqQeCkZtEPzJnKu7h5asta997vAHEe2M08lFwQvFHOZ+Lp5+gArxW7vaJNgiGCxQm7vyaxyhyWcFIUb6tN6q5cqlCKrHxhGHYn0AVMrrCSqgwRDD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=gZ5xC8nT; arc=none smtp.client-ip=185.201.17.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1783898309; c=relaxed/simple;
+	bh=WnPEE0SGAMn9Z2MTCEIscpiDdfZJzAidUruArhmc1iE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gaYK5h3mWz4m8e61rquOYg1o3jzSK/a4rjJjZCzJuhz8ft+vmy8rvfFz6OdJdnJ0e0grIMyyvL19baoE6yg3XQHKQKrOk0u/ynKPKcF2Eqc2oKjTv8oKKmWAEIctzpvrylF5+iFieaxWNguljGX5zar4OCJ2udS+LsXsQ6kxknQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWUBTDR9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="gZ5xC8nT"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx195.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1wj1Zt-00GoOi-3N; Sun, 12 Jul 2026 23:19:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DDNXuZBAqjn/E8x//VWR9RhMVgZnkLggONWA/HHqhig=; b=gZ5xC8nTiujbtnalGoOBB6xjLB
-	Dfm8Lq/kZRnPstVeYqFgWGLMJi+AXdUxvKU3JaraQ8MmzEHc8ElMHRmsJ4OLgVDQi91L7uN160glM
-	bxxguiQEmUG5qEJW9NpY4tGHcDug5U375z9DixRzwzhNwbXg4kZWd/iSHsMZhZ0c1JmkGzZLTH/5E
-	ZN/bYnX05JlT8zMcW7XuD9RIiCS+9mg6dYSdFxKVgNzhJv891IqCB/shb6zdybw67WmGULXDoEHQP
-	KD+Wze9dWrVrMxqzdbdNLC0XzkXih1oDr1+M4wIkBAWYH6OYiYQ/dkdO5WfnvqBgqV4gcGmj/jor/
-	qmc+41QQ==;
-Received: from [188.251.249.2] (port=43526 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.4)
-	(envelope-from <dan@reactivated.net>)
-	id 1wj1Zq-0000000D6jk-0raK;
-	Sun, 12 Jul 2026 21:19:06 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Sun, 12 Jul 2026 22:18:52 +0100
-Subject: [PATCH 2/6] iommupt: allow full-table contiguous leaves in unit
- tests
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWUBTDR9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C1B1F000E9;
+	Sun, 12 Jul 2026 23:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783898307;
+	bh=rTlYHywSSe1JW/4ZUHDEtADzXwkNUAhTONlo3vqR1fA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hWUBTDR9AXlc4xr69BJP5vBW9CWxapXBqIPUDnrVYC3ovfd9YJw3rSTtBkPHGcaUP
+	 e2lslI0aR+/4Wb7KtpHNbvp+jsuwvFYupWfHgd/4ajiY0U+FfYHk4aGybRCDRctpWA
+	 zMs33tVfMOAIWh0dPD7eivmHEWItm5IxFddxD48z9J5a7zHAEMQe+JgWMlCfzWS0iL
+	 L2K+CZTSPTSxHEYoDApIDeQjz4TyR2gwBfeKuO0Fuo06kpSW4+dDMdSN0fX34uWc4y
+	 8O3VD4fM+djtGH9ZUA25kCEx7nEa8I3/CfUmKimnuIJ/N45uR0wbliBPOM78qjrpUr
+	 IxDAJ0clwr8tA==
+Message-ID: <4d7a0e59-7c34-4557-a475-8cd7fd2ad2d9@kernel.org>
+Date: Mon, 13 Jul 2026 00:18:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260708-x1e-csi2-phy-v9-0-0210b90c04cf@linaro.org>
+ <20260708-x1e-csi2-phy-v9-1-0210b90c04cf@linaro.org>
+ <YSunV_lNJ8xW_y-Aa2psZavniF6mcHJlJipuj1RYWMB8Zb8yLC-gb7eEnk0XMjfwQOneMGsZM5foFKutCNhYqw==@protonmail.internalid>
+ <b7baffda-b97c-4b83-8d9e-e381d0289682@linaro.org>
+ <3ab676ac-919b-4a80-8dd6-71dd7f6fe06c@kernel.org>
+ <-iN0mG5nS2joxEn49UrxFlORE3R6Ji3HRebfOMNMGnupMIobTBdRDvnwjRHAXHeLmGf6O4JJENVauduwZXwhiA==@protonmail.internalid>
+ <b834e9a0-a61c-4912-b57c-36d571938b75@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <b834e9a0-a61c-4912-b57c-36d571938b75@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260712-bcm2712-iommu-submit-v1-2-80e10cdde2ea@reactivated.net>
-References: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
-In-Reply-To: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Daniel Drake <dan@reactivated.net>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
- Jason Gunthorpe <jgg@ziepe.ca>
-X-Mailer: b4 0.14.3
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: Combined (0.01)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuVJ1hybdgXAyR4gyvwoLberAVSXKZ1AHPG6
- BTrVnKc75yu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIMl6kNTi5f5Ljs8M8nl33UbGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWCulNo0fvnzmZPW3MC2/ZtQeB7itP8hgjDRserKv4bhb3RyZlCL9i3kc+ehInPHgYZWBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKclZzoe+TZdeH39wA4E
- grA4pE2PuLHIFQdBY9qb1rRWgyz0f29FZkQs6Ir87R/YNAtVzCPMWB8YiCVMyNt8jc1XYCTwuapY
- HJC4Tg2AsI28yi/dAa2TOnnczQuRE5msdQvx7x6TyzQygoCqslGluZauEuYXMjE4hTY0I3yya8U2
- jiBi1+p615Zso12vM2KCXe+L+BWU3diRaOYz9oc1tEKKEEfmr+ndqHTRP8aRGVatgmq6HzuQCGnn
- Tr3mO80I+WGf3He7jw4SoVhmTJ/3eP9OK8gYxuf4cLtZNp2k2WPcLin5ZMVYU7yNzdI5xqOV/A3g
- I76KIb/qJBMhevARlsatJqEylk1bBhjIWUVQpiEaCSJav4VkFrk/gqlx5FextQtEBRpnK9diwaq6
- f6CydGvDt3K1cl7mca7sWC/TjRz/cJYxsQRt/d4lhqv4oGXrB8ohU2BXFG8+WkvtZVo+JtxTPVht
- kelGIuyBfLEgNwn2D8zbg4Paoa3pNVQ0zl7t/+UIhlD770gsG4NDLnuybwGB6H1bOhFowpwrz0y/
- WpAnxs5pZJhOUQY/VSc1PV9silww77YaJhiT+NFWJZPoD/NF86TgtruyOWQA4kTJivF4YMLqzhpS
- 0znDaGCPRF8atS6+/IVQTbUJupnRiHmHNLRPMKbVSbsDMLsDJjzehgqGk6S9HXdEGxiktrX59Amx
- O5gvPpyylyRksDtvh9EglVwlXarBbY/5t7CstIBQE8o/YSFDpQ3A7hHzYZTDTFQbY0uqoOhT9kj8
- 8PvWZJaonRQv++DuIQUs/5JJj4C/n4CILhif+3TxP9sd7y15THR2QZyGg3EQOEtB6O5zAxbwt8f8
- OMYGUgbNMUWTOHN+J/NrZnOVLbMF4pTjWB0otgBwB1GjG9/7eW4VzmKFOpkivUGpcgYFRrqmiqIy
- cv2/2+nkpYsEMysPur9wmiDBurOy6iR92AkV20DuvQ+xF0HoW5AQikKYGfM1Wxpi+aM7bRAnIOLo
- KQ0J9yQ0dfrf1qMUYpnxHriJz7Z9ZB5zQq6r8umW4yWfyKeLns0rLmGoFmUivONn/VZF/HyORicl
- 1WGsneIWpF1Xu3oZ/FZQiE2Ny7dG9R/2gMGq0KWAzmMf+ibVDnUBndNaXaq/kyxZOii4y6zwY127
- 8R9pzC31fkjBqL4nASEz1JNCESIPL2LJqBM7qaqIrXo0c6G6fvFF//i6zRUhEWyJzIkwSFAW0Pw8
- uiKeSByqtznmWyRPJzMvReGPtOJKZj6+qwdjWpxBAv2JzzLwY1278R9pzC31fkjBqL4n6ihrjW1z
- DU0jv8+sl3B5Xg==
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
 
-The generic_pt tests currently assume that a format should never support
-a contiguous page size that spans the entire mapping range of the table
-it resides in.
+On 09/07/2026 08:40, Vladimir Zapolskiy wrote:
+>> As explained in the cover letter: I'm following guidance from Rob on that.
+> Pehaps you've misread a given review comment, because Rob's guidance is
+> to remove 'phy-type' property,
 
-This assumption breaks for BCM2712, which has a 2-level page table.
-Level 1 entries cover 4MB of memory via their corresponding Level 0
-table pages. There is a concept of a 4MB largepage, but that is
-represented as a Level 1 entry pointing at a Level 0 table with the 1024
-usual PTEs with an additional largepage hint applied (for TLB
-optimization purposes). Unlike typical IOMMUs, it is not possible to have
-the Level 1 entry point directly at a 4MB chunk without the need for
-Level 0 mapping.
+I'll just quote verbatim "Perhaps putting this in phy cells would be 
+better because the consumer decides on the mode."
 
-This BCM2712 format is well supported by generic_pt: SZ_4M can be
-advertised as a possible size at Level 0 (so that the iommu core feeds
-it 4MB-aligned mapping requests where possible), and drivers can also
-advertise that *all* leaf entries are installed at Level 0. This indicates
-that the tests are overly strict.
+That is not "remove phy-type" - it's "move the mode into the cell". I'm 
+shifting this back to the DT schema maintainers since, I take their 
+feedback literally, seriously and canonically.
 
-Transform the test to become a validation of the driver's routing intent:
-for every advertised page size, check that pt_pgsz_lg2_to_level() maps that
-size back to the table level under test. This is roughly what the original
-tests were doing, but also allows the BCM2712 case to pass.
+Any of the triumvirate will do, Rob, Krzysztof or Conor.
 
-Signed-off-by: Daniel Drake <dan@reactivated.net>
+Absent a different answer from the DT schema guys, v10 ships with the 
+consumer deciding the mode as per Rob's original guidance.
+
 ---
- drivers/iommu/generic_pt/kunit_generic_pt.h | 39 +++++++++++------------------
- 1 file changed, 14 insertions(+), 25 deletions(-)
-
-diff --git a/drivers/iommu/generic_pt/kunit_generic_pt.h b/drivers/iommu/generic_pt/kunit_generic_pt.h
-index ef2c90b6d6af..7f4e172ef08b 100644
---- a/drivers/iommu/generic_pt/kunit_generic_pt.h
-+++ b/drivers/iommu/generic_pt/kunit_generic_pt.h
-@@ -419,40 +419,35 @@ static void test_table_radix(struct kunit *test)
- 	}
- }
- 
--static unsigned int safe_pt_num_items_lg2(const struct pt_state *pts)
--{
--	struct pt_range top_range = pt_top_range(pts->range->common);
--	struct pt_state top_pts = pt_init_top(&top_range);
--
--	/*
--	 * Avoid calling pt_num_items_lg2() on the top, instead we can derive
--	 * the size of the top table from the top range.
--	 */
--	if (pts->level == top_range.top_level)
--		return ilog2(pt_range_to_end_index(&top_pts));
--	return pt_num_items_lg2(pts);
--}
--
- static void test_lvl_possible_sizes(struct kunit *test, struct pt_state *pts,
- 				    void *arg)
- {
--	unsigned int num_items_lg2 = safe_pt_num_items_lg2(pts);
- 	pt_vaddr_t pgsize_bitmap = pt_possible_sizes(pts);
- 	/* Matches get_info() */
- 	pt_vaddr_t limited_pgsize_bitmap =
- 		log2_mod(pgsize_bitmap, pts->range->common->max_vasz_lg2 - 1);
- 	unsigned int isz_lg2 = pt_table_item_lg2sz(pts);
-+	unsigned int sz_lg2;
- 
- 	if (!pt_can_have_leaf(pts)) {
- 		KUNIT_ASSERT_EQ(test, pgsize_bitmap, 0);
- 		return;
- 	}
- 
--	/* No bits for sizes that would be outside this table */
-+	/* A page size cannot be smaller than the span of a single entry. */
- 	KUNIT_ASSERT_EQ(test, log2_mod(pgsize_bitmap, isz_lg2), 0);
--	KUNIT_ASSERT_EQ(
--		test,
--		fvalog2_div(limited_pgsize_bitmap, num_items_lg2 + isz_lg2), 0);
-+
-+	/*
-+	 * Ensure every page size claimed to be supported at this level
-+	 * actually routes back to this level
-+	 */
-+	for (sz_lg2 = 0; sz_lg2 < PT_VADDR_MAX_LG2; sz_lg2++) {
-+		if (limited_pgsize_bitmap & log2_to_int(sz_lg2)) {
-+			KUNIT_ASSERT_EQ(test,
-+				pt_pgsz_lg2_to_level(pts->range->common, sz_lg2),
-+				pts->level);
-+		}
-+	}
- 
- 	/*
- 	 * Non contiguous must be supported. AMDv1 has a HW bug where it does
-@@ -463,12 +458,6 @@ static void test_lvl_possible_sizes(struct kunit *test, struct pt_state *pts,
- 		KUNIT_ASSERT_TRUE(test, pgsize_bitmap & log2_to_int(isz_lg2));
- 	else
- 		KUNIT_ASSERT_NE(test, pgsize_bitmap, 0);
--
--	/* A contiguous entry should not span the whole table */
--	if (num_items_lg2 + isz_lg2 != PT_VADDR_MAX_LG2)
--		KUNIT_ASSERT_FALSE(
--			test, limited_pgsize_bitmap &
--					log2_to_int(num_items_lg2 + isz_lg2));
- }
- 
- static void test_entry_possible_sizes(struct kunit *test)
-
--- 
-2.55.0
-
+bod
