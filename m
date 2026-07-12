@@ -1,175 +1,174 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DE32D739C
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 10:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783850722; cv=none; b=GVW//mAgNZYkZ5TmAOcie2d1EThkbJrHHJEbH+V9oBwnl6BRJMsKmSS9t50lH0oXOjqEHH1JAus2KFXevRniPD2QvtwW0XJRrYoev5uU4bGOEO2rNAcP/IWXwbZd2jGgrVNoEXkUZXBwtc1+2qsDcj4HX2BDdNlTSOPZ/+aS+Pw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783850722; c=relaxed/simple;
-	bh=mtNrxxMixLSJ5IBYSZLOCEDNhvuQ+B9NEif7MbnZofM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TonEn9amzOuPySSPcYwb1d8dkVn/e0nxCuFWXN7JacbqxVnJvX5u2W3LwP5wHHbU6Twgtm/zW11HB3NAxVGsHzj49oogjScYOpnjJ4V6hxzO0nO2SXre15gUsxlg63lBEJGGExnTBAWEKXE9SCtSiERjGilLYv8tHPx4prgjmdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dQHff5z/; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13E71917FB
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 10:16:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783851391; cv=pass; b=S48Ljb4E17QMy71lu06qtHNZnOs4NBh4yEBVTHg0oymRHHMuZVduccwi1fvI9IRkXQsTYJ68UFsecYNlapakZbqd+/M5tpkOKEygIC/RNgF1D6nBknJHxir1AwrpMvLXD++mYfiqBhOwnFKT8ZQ/Mx0XV5MPCZoAXKVFbka46Qo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783851391; c=relaxed/simple;
+	bh=CkFv28+JxLuiDYyVGVUBnuoNV0qPyEi3cMALyJp88Bo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=c2TeBbv3xHycYSQL6QPqHIUoR/TxTo+GhwkD59gFoACastSZ3bG7fqGn9lmS4nFFlMo4/77Ya9G/zZWkDHIjEaqz7sAUcBvvrK5x4MblG8/SLC4C5PDYSEugR1rBXeBdlvE9/ihjt/f3DrIxbMep41R+jQ7MBfKjADJKcSIB39g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lDofYl5b; arc=pass smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dQHff5z/"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cc891373e0so22225295ad.2
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 03:05:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lDofYl5b"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84847482584so1509651b3a.0
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 03:16:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783851389; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SQsYefa9t/PVg3c8g/MbFIQEzdSH4XRjv+CeV7FjJz0hhT51V8AI62JMdoI5W33xO1
+         82Xp/Am1G/9O+9Jby445yrX+bs0HW+eLhCXkby1i34mqDAI5gHEu8mRWy+pWnzkpByXW
+         WIr82psOdzrksJOrgtD7UVDWMDlRteX9v6IhS1Jv4itPwBHPBfbY5jAKlYSSYPQOAtXG
+         lkFr0v+beOeCjhaggv2wSyxqWe8brWLuIlpWPUskxiBdzF5pnCmBGCJyDoEw1cjeyqxw
+         L0ZkGSPybXcKamEmTJDWddq+joIfyZfs9HNY4HbLEpEctLCX3Pr7CfgTuPRKn9kpVmY7
+         kC9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tMianh5edCr8euLIfheCzNHGjdZcQsdz0PWxBLB0Dl8=;
+        fh=lfI3nAGyLB33/TP+j8yeVCrSWMifH2E81XvEuio7RZ4=;
+        b=U5K7J3gXtE06BYwMVxm7A+z3K1N+8gtE8DZs/KjIx1WcLEi2Xr6vhwt1Wf1TSe0Cyv
+         UlikiONX2eWrIsMDLjKlmmDUgNFSDzDD/ZrJ0HmfIhuh2Nm4s8CBf7qrVMUVMkUyRLHK
+         yO/6p9tvtWOcJlVWjQNSyCcG+P1V/yfk6zVbsELrsjVsmYJDkUHagiCHo8zJHn8i4u+K
+         kt5zgRiRmWvhuYXbC9569shS16LKIyW1iHHgLQ8HN6tGL3ptC/HuLhrlygnWNl8DdqQf
+         hY7J1cw+oizPkn5AAEXg/u/byzBwyCkjy7PfCk4xhmbT+XeUTOJLsnVHpkUHo+rB8AAb
+         WjjQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783850720; x=1784455520; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1783851389; x=1784456189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vtBVbtAq8/J9WfLZAmtmwFvAK1PPs6W2XE0Zv0PL61A=;
-        b=dQHff5z/H3bHMzRewQ0dlp6gDitHW8Zd75KBRsfTr7P/u4qAA2ekwyb8+47w1zc4Ai
-         Yl7ej/B1ghM5RrF9YDkBkM9NaBcytk+89SnKUhK+iWuT7+QdoAG1HAh5SsU/hHC2tvjF
-         +62vR23J8Pb6F/bs+57bqCmuzHRL/w+ZEB4sAseTLaVDmuqtFpyE7mo7XJG20fbcGqQw
-         3fyN2vPcIs3iloX9JzSimTTXdLEyBSSg9TPMWOHAb1vKf3Qg5Riu9Odj5AJ+sFao6GVc
-         3Lbbh0ygdRJBqAdB+UVOICLbant29cZQ+jAl6hhpDg9R88y9lBKIXnvyrziqg3ySMla6
-         JT6A==
+        bh=tMianh5edCr8euLIfheCzNHGjdZcQsdz0PWxBLB0Dl8=;
+        b=lDofYl5bawhX3upFX/aNGRp8gE6wH/RQPcO07G2eJEjB8+T4hEuHTNw8/uNJHDy7I9
+         y/mWkrS1YdYDBtGXUtXLe0M75+4d2Zfy+7j5vMOvADOf6NNfj9bsnway4ENd+SVVPrdv
+         ToEspRIk5nwEtchA0hi2dXqxj/6G6PN1u6uM8ofRqiRqmfA6FUze1TXW1jfK6U5AeZwh
+         EgojTy1uN84ikoPsllpOBgfXHMXZFHybam0wI9GyzMPAfHg7HDH+/7ElCOzMoan7lM2a
+         ED4OD8Ieb9gums/SeJMuJTve6ltuKU9MgGj2in2QAjKaij50IJe5k7Qra43Qr4OndRtk
+         VFsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783850720; x=1784455520;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1783851389; x=1784456189;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vtBVbtAq8/J9WfLZAmtmwFvAK1PPs6W2XE0Zv0PL61A=;
-        b=XmTpJVGV5vWJJUWXczsMCQFhNtL978XHF5xihz/LLNsqUHDiHU/8tpX5V64Ic5aQ4B
-         MESEojGcSa+zUrC8zNiANg1/zH0YLlBpBTtTQdRlGoPoLtCv8rpJ1W8mfl1ErKZs3mC0
-         lpw5LvkooQfwaqDGCnrgGT5AeUAQ07HqtYSF31YDnL1uqyZW1OIzrc7us/Qxp8tlI7JH
-         MRa2j9+6+aSszmEcCfdBNZ//LUBuf+/ZGmW8kssXbzrW06slvw7dMmovDNaniY7hovEI
-         6h5WnIZlvcLzXr/6M3Q/u+Fj9GPVmY32Q2C3wA8GIpP/LEsHXwWh2bq6WSf6wX47V+Is
-         zOYg==
-X-Forwarded-Encrypted: i=1; AHgh+RpoH54pW/1LO5XLvixNpQ/96v+JcE0MZBc9r1lZJn6vAAjYtwODe0S1DMRV90kjlc02A4NHMCoRFcMh@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiuCq0ahlCJtgT+j7ebiI32BoCV2j33EGtwwjMS3yVzuSdGhc4
-	4wDPmra1AwYpwAnTxT3yvLkVUCtEnaarFtpApB9FsNi6cL8cJnqzdUdP
-X-Gm-Gg: AfdE7cnii+L77tiQ5/K5LCPPjKrKBc5mj6KiI7KXrcUFz0wttVyEj0TNielM6folmi6
-	HShRByYaZPh83jSZP3dvdcP+pYDRJ+Quq9WHJJYLIUWQTjsi/XwphtwdLZLWWW70AD4RVCqph9g
-	NqWtgw3aCDvzX0DxiFbKnUg1Gay0TuRXrJDoJz/ijrf9r1phQVpFCoGGQg5wPRs1hdqhW/oZIsi
-	bZtN31+Fi5Keh6JAizYlgaW0JPp8yG3ETik7AwWK4RvHL5R1sKzDvFAptjLJF9AEXwNJVxpbLkR
-	pxWnSioZFfAtDJnN/bU4S1ipxumoBRo62LR+Ef2H1hkd8fvM14zZ7GOnkRb7WNqY/fLrbiJ57/r
-	A9PKjsXA8Rq74k1C5dOFiXAuS09wXybZjaD6SiWeb3VJkPmUyJyUZkP9o2YnEYkdK
-X-Received: by 2002:a17:902:d987:b0:2cc:ae2b:b6d2 with SMTP id d9443c01a7336-2ce9eac1d98mr54983735ad.15.1783850720120;
-        Sun, 12 Jul 2026 03:05:20 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf77e4sm83401535ad.22.2026.07.12.03.05.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 03:05:19 -0700 (PDT)
-Date: Sun, 12 Jul 2026 18:04:35 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Christian Bruel <christian.bruel@foss.st.com>, 
-	Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>, 
-	Qiang Yu <qiang.yu@oss.qualcomm.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Alex Elder <elder@riscstar.com>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Vidya Sagar <vidyas@nvidia.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>, 
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v4 2/6] PCI: spacemit-k1: Add multiple PHY handles support
-Message-ID: <alNjykt9ERnMXTZ7@inochi.infowork>
-References: <20260709040027.958400-1-inochiama@gmail.com>
- <20260709040027.958400-3-inochiama@gmail.com>
- <ak9KzNFF26B0Kttz@ashevche-desk.local>
- <alBNXgMAwXPKwiJ2@inochi.infowork>
- <alCoTEDUY8AO9OzD@ashevche-desk.local>
- <alDNlfb0_T9g-ATO@inochi.infowork>
- <alI6ml4xQboFOgxG@ashevche-desk.local>
- <alMmkHrfgWoN8RqS@inochi.infowork>
- <alNf1OoBtscauPXV@ashevche-desk.local>
+        bh=tMianh5edCr8euLIfheCzNHGjdZcQsdz0PWxBLB0Dl8=;
+        b=bmMBFUN1heuqP7NP2RgbkHlWSH9srYcsxyuyU1fEP18jVKabnfNaLirihxaecpNse7
+         Xw5z75pvzVLWf1EbyyIXZqZMxemvanE6+RDF+A7uu3YPNCL+F0V3dpglycp3zGycL6qx
+         jFJ4rw+bJ5jJWlSESh41Z2s3Npf1ZL7/c2LchKYC+WdaR8J7np8J4LuhZAfbyt6Wxbwj
+         DyJlu8y4od+oCm/w+P3iQjfXradNGUAbWvIsITCXt31DoiWub93xyCw25eoPDiKR0t/1
+         4z/i0/TiJgMrzSe6JopQli5lGi49mHNAlu9wCuP+Kmf4fVt2/Thfk7usEqAIylNBnGlt
+         XRqQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpNFLPzoDKJ+6uY0Riphm/wB7Raus6nPCkWbkkmfQgcpjNcrzwTyaEpN5i8Xg65wloeZXtUjiImENq/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKnvkv4q3I9YKMJLhGbOzP8BqLzwY5MjvjNGVSRn7IP779sJ+I
+	w0td5Vp901YWktKHQMKAJNhMZR0UzhITHh25lvBFfnuVmYYbibw5erV9iLZ3bozVFAMQFzXUS5F
+	Q7j8VziuK4gw5OdWvFLnsfYMe/ErSAoY=
+X-Gm-Gg: AfdE7cm3/lakUR74UK4MmEoSK7CVBMPZ7FXapYRyQWcTQZcaw/pNufL8QVj8bpFduIz
+	uIk6Xcq5rSGmM2rSfMjcq5bKa15rHS7WTcvluM0uR/pl0wS128bxWfa2QAFhjUuG+gHhYGIiLaD
+	OwpQ0mpfg5rd/CBQXTFCa8/5JUZXonabsjQO50Y4HU2XfTQy8MP6JgfCHZ06oY+ImdzloWGZ82U
+	Xmb/Etyf6NciC480jHkIPi/FiRaapl6DL9sZ0bvMPGwT+vFfH8efL1B0ofFO8/KuBjrafJPXZl9
+	axFs//3rzvkwV2BCBlGAT3W1r5iw
+X-Received: by 2002:a05:6a00:8b8e:b0:84a:30be:7909 with SMTP id
+ d2e1a72fcca58-84a30be7d02mr595985b3a.17.1783851389183; Sun, 12 Jul 2026
+ 03:16:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alNf1OoBtscauPXV@ashevche-desk.local>
+References: <20260711184414.1013686-1-jakubszczudlo40@gmail.com>
+ <20260711184414.1013686-4-jakubszczudlo40@gmail.com> <35c47ff5-0a8b-4c99-8e5b-d86c04039e17@baylibre.com>
+In-Reply-To: <35c47ff5-0a8b-4c99-8e5b-d86c04039e17@baylibre.com>
+From: =?UTF-8?Q?Jakub_Szczud=C5=82o?= <jakubszczudlo40@gmail.com>
+Date: Sun, 12 Jul 2026 12:16:17 +0200
+X-Gm-Features: AVVi8Cez6I1jTDfxtg1MHCxEwED0k6HkZlinYACuuAAlx3AjbW48A9xsrF1chvw
+Message-ID: <CA+gq5JjrNzZHFhPeSM=AEpevHgStV2T6dEGHTUpnvzAbSeO1FQ@mail.gmail.com>
+Subject: Re: [PATCH v6 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100 driver
+To: David Lechner <dlechner@baylibre.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, antoniu.miclaus@analog.com, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, duje@dujemihanovic.xyz, 
+	Jonathan Cameron <jic23@kernel.org>, jishnu.prakash@oss.qualcomm.com, 
+	jorge.marques@analog.com, joshua.crofts1@gmail.com, krzk+dt@kernel.org, 
+	linusw@kernel.org, marcelo.schmitt@analog.com, 
+	Matti Vaittinen <mazziesaccount@gmail.com>, mike.looijmans@topic.nl, nuno.sa@analog.com, 
+	robh@kernel.org, sakari.ailus@linux.intel.com, wens@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jul 12, 2026 at 12:35:16PM +0300, Andy Shevchenko wrote:
-> On Sun, Jul 12, 2026 at 01:41:25PM +0800, Inochi Amaoto wrote:
-> > On Sat, Jul 11, 2026 at 03:44:10PM +0300, Andy Shevchenko wrote:
-> > > On Fri, Jul 10, 2026 at 06:55:10PM +0800, Inochi Amaoto wrote:
-> > > > On Fri, Jul 10, 2026 at 11:07:40AM +0300, Andy Shevchenko wrote:
-> > > > > On Fri, Jul 10, 2026 at 09:57:05AM +0800, Inochi Amaoto wrote:
-> > > > > > On Thu, Jul 09, 2026 at 10:16:28AM +0300, Andy Shevchenko wrote:
-> > > > > > > On Thu, Jul 09, 2026 at 12:00:22PM +0800, Inochi Amaoto wrote:
-> 
+sob., 11 lip 2026, 22:01 u=C5=BCytkownik David Lechner
+<dlechner@baylibre.com> napisa=C5=82:
+>
+> On 7/11/26 1:44 PM, Jakub Szczudlo wrote:
+> > Add ADS1110 support that have faster datarate than ADS1100, it also use=
+s
+> > internal voltage reference of 2.048V for measurement.
+> >
+>
 > ...
-> 
-> > > Then the counted_by will be incorrect as it may access valid memory, but
-> > > unused by the driver.
-> > 
-> > After some search I found a requirement in GCC patch:
-> > https://gcc.gnu.org/pipermail/gcc-patches/2024-May/653123.html
-> > 
-> > It seems like the array can have more elements than the counter.
-> > Some I guess the reallocation is not necessary and the counter
-> > is still correct. Correct me if I am wrong.
-> 
-> There will be no problem from memory accesses point of view, but there are two
-> disadvantages:
-> - the waste of memory for unused items
-> - the memory accesses beyond used items, which may lead to or show the subtle
->   issues in the code elsewhere
-> 
-> Better to be correct. It might help debugging as well in some other cases.
-> 
-For correct number, I guess using "fwnode_property_get_reference_args"
-is a idea, it is kind of ugly, but it does provide some function for
-use to get the phy numbers. It is more like "of_clk_get_parent_count"
-and "reset_control_get_count" in the clk/reset subsystems. 
-
-I think adding a function like the above one is a good start point for
-the phy array/bulk. At least this phy function is implementable for me,
-since it is quite simple and straightforward.
-
-Regards,
-Inochi
-
+>
+> > +static int ads1100_get_vref_milivolts(struct ads1100_data *data)
+> > +{
+> > +     int voltage_uV;
+> > +
+> > +     if (data->ads_config->has_internal_vref_only)
+> > +             return ADS1110_INTERNAL_REF_mV;
+> > +
+> > +     voltage_uV =3D regulator_get_voltage(data->reg_vdd);
+> > +     if (voltage_uV < 0)
+> > +             return voltage_uV;
+> > +
+> > +     return voltage_uV / (MICRO / MILLI);
+> > +}
+> > +
+>
 > ...
-> 
-> > > > > > > > +	for (i = 0; i < k1->phy_count; i++)
-> > > > > > > 
-> > > > > > > 	for (unsigned int i = 0; i < k1->phy_count; i++)
-> > > > > > 
-> > > > > > I agree with the unsigned int, but I guess this definition is not
-> > > > > > allowed in linux.
-> > > > > 
-> > > > > It's allowed and it's encouraged even by Linus. As long as iterator is local,
-> > > > > use this syntax sugar and reduce its scope. It hardens the code.
-> > > > 
-> > > > Could you give me a reference url to check,
-> > > 
-> > > Sure, there are two (one for integers and one for pointers)
-> > > https://lore.kernel.org/lkml/CAHk-=wiCOTW5UftUrAnvJkr6769D29tF7Of79gUjdQHS_TkF5A@mail.gmail.com/
-> > > https://lore.kernel.org/lkml/CAHk-=wgy8p4is8ApEQCT5NS7XFb+NXeo-TKz7jRRZVksLLBSrQ@mail.gmail.com/
-> > > 
-> > > > I have not found this on the coding-style.
-> > > > https://www.kernel.org/doc/html/latest/process/coding-style.html
-> > > 
-> > > Feel free to update the documentation.
-> > 
-> > Good to know thanks.
-> 
-> Are you going to update documentation? I can review it.
-> 
-> > > > > > > > +		phy_exit(k1->phy[i]);
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+>
+> T;
+> > @@ -276,6 +310,7 @@ static int ads1100_read_raw(struct iio_dev *indio_d=
+ev,
+> >                           int *val2, long mask)
+> >  {
+> >       int ret;
+> > +     int data_rate_index;
+> >       struct ads1100_data *data =3D iio_priv(indio_dev);
+> >
+> >       guard(mutex)(&data->lock);
+> > @@ -292,12 +327,12 @@ static int ads1100_read_raw(struct iio_dev *indio=
+_dev,
+> >               return IIO_VAL_INT;
+> >       case IIO_CHAN_INFO_SCALE:
+> >               /* full-scale is the supply voltage in millivolts */
+> > -             *val =3D ads1100_get_vdd_millivolts(data);
+> > +             *val =3D ads1100_get_vref_milivolts(data);
+>
+> Obviously, the existing code was getting away without checking for
+> error here. Since the ads1100_get_vref_milivolts() function handles
+> the error case now, seems like we should be checking the return value
+> here as well.
+>
+> >               *val2 =3D 15 + FIELD_GET(ADS1100_PGA_MASK, data->config);
+> >               return IIO_VAL_FRACTIONAL_LOG2;
+> >       case IIO_CHAN_INFO_SAMP_FREQ:
+> > -             *val =3D ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK,
+> > -                                                data->config)];
+> > +             data_rate_index =3D FIELD_GET(ADS1100_DR_MASK, data->conf=
+ig);
+> > +             *val =3D data->ads_config->available_data_rate_hz[data_ra=
+te_index];
+> >               return IIO_VAL_INT;
+> >       default:
+> >               return -EINVAL;
+
+
+I'm thinking about next patchset where I will address voltage
+regulator stuff, adding it to struct and taking it voltage just once
+in probe. Can we leave it as it is for now?
+
+Best regards,
+Jakub Szczudlo
