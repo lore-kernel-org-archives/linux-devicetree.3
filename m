@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2F336D9EC
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 04:09:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2794F3090C4
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 04:11:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783829345; cv=none; b=hjeM3owkJSZ6S1NYj8M2MxBbGDXSpldDAE+zy7mAiWUFdk4SKzppkoAiMUbgNP590FTVpHf9yq2FsyCks7wIHX4IAmpknyL7d/1ytI5fvWsiaGircPthglADNa5sQqobtxcwRYhXWt5Z/eqFt9B0hXwE5IzVvFJFvny1lRyrs74=
+	t=1783829463; cv=none; b=S0OFsu/sPifUyyde/UCq282ObEVp9crKbxF7ISgjzQgzhpKxKY32nh3M2asrdlAMRS/G40I+x4YEHRQLItm1qjSJluqGVQkjQ0QLwHn5LSiOn/UbLFEDzVEEawCWeLLNujwgcr9iapVnN3RRw1K6Yzj9qcH2ffENQKKjnOPMUXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783829345; c=relaxed/simple;
-	bh=gszjc3uUmXLgc6l5C1XKWkb+1NQqp98fqfH28w9jLLE=;
+	s=arc-20240116; t=1783829463; c=relaxed/simple;
+	bh=znqQm7DT7UcFPnnSBrZXl3aYwdcTU4QGT+ILe1Ni9YA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=W4RouIXvYJqCqayLcFz5Wrg8ZHxx12EBDdMGqIWliL34KmFcMpw4zU78aalklCcslb4sU/hlXd7ow6NHlcLDFOZ0hEjPjsgJ2oPHAdKLg6C/TqQfZhvf2wH9z/8QQyXTWM048VB4UxBDwJgnU2Vj+luWQtvTiNZwT1VG2OefIFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/zAelrb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bR+9QQbkguKJRaMxx1nAhjdOUP0fWkFEbkwwwdMTbMY4hKtHg/ea4XLhQWy78fISf8uS1QcqnzEjTNsbXHwVOX206Aje3WcueFTc5Ii1yeqzEtqK3nHX9mVJuNf3kV/3epBnTPEa6gdz034xXGvEK2Vsbd63LTqBzdZWOpkinRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5kegDpL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/zAelrb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA7411F000E9;
-	Sun, 12 Jul 2026 04:09:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5kegDpL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627391F000E9;
+	Sun, 12 Jul 2026 04:11:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783829343;
-	bh=sduC4Fq5P51fth7XVV8ymXizkvyzzZkroYj/10qjpOo=;
+	s=k20260515; t=1783829461;
+	bh=qdv64XW4FNPe2w8tib+gld1wLd7cHM0tvo+i/wPUJ/E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M/zAelrbTnL1vMgyVe3yEf24tSiqIgNFdOemI0Dbl+1OT4fIcLrBt7NIgPd1yPtOd
-	 bKWAMGKnhGCX8uofvdgmJDFiHb1Rp+m5JSGSfLS9FCpv9Rcv1XC0DBGf8gSNo8GpS5
-	 3b+4N+BGL8DPkGMTHibnW/WC3laqr1O3SIvoEdratBP93ijX4DQXsJORwBGKcJXQ4/
-	 QaYO/xLwDmaSmzpFe0K3ajea/eJoO4WCN97mEMqg8dhNRoUgCOHFS6oj7+OplsR+x5
-	 RR5+IS7up1f2QuOROOZ7c4sgDPVkyWwQPJPGqcTyOpRc4WsTIhI35Wgn3X2a5ndSL7
-	 Y+73N+aIaK5IA==
+	b=F5kegDpLXqMXJsCckp1nfK6PBSs/K6phu+QxsYhpniQ+7y/AqsjbPcJuHKjhqLDLH
+	 649Go56DDHZDJq1Uk+GHLQzRndh761OCUCf96b5fbts1vVkDQ/c3VKV4XExS8HawH0
+	 HnINWNy0LeEIcdM60FW47YgzXjQUPK3ju2AfxyuVncoqz/FEBc5G59uNbDUAbCrfly
+	 xHN21iPn3I0yiPCgzMvoj6ysBEqk0FHDPvX+ZK5GN/E95FovM2xmxAGxlu72w1lOlT
+	 C8xr9OJHnSlNNgIDoROEu5LCaYJc/2TqWdJ2BDJpvKgpAaqks4r0pdCxdY5AUYcdXM
+	 wm3sKOiov8AVQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] riscv: dts: spacemit: k1: Split gmac_clk_ref
- into independent pinctrl groups
+Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6
+ IO board
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Junhui Liu" <junhui.liu@pigmoral.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260712-bpi-cm6-v3-2-8d1e2045179d@pigmoral.tech>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260712-bpi-cm6-v3-3-8d1e2045179d@pigmoral.tech>
 References: <20260712-bpi-cm6-v3-0-8d1e2045179d@pigmoral.tech>
- <20260712-bpi-cm6-v3-2-8d1e2045179d@pigmoral.tech>
+ <20260712-bpi-cm6-v3-3-8d1e2045179d@pigmoral.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 04:09:02 +0000
-Message-Id: <20260712040902.CA7411F000E9@smtp.kernel.org>
+Date: Sun, 12 Jul 2026 04:11:00 +0000
+Message-Id: <20260712041101.627391F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,78 +47,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The patch splits the `gmacX_clk_ref` pins into independent pinct=
-rl groups but fails to update `k1-orangepi-rv2.dts`, silently breaking its =
-Ethernet pinmux configuration.
+- [Low] The LED nodes omit the `function` property, preventing standard sys=
+fs naming.
 --
 
---- Patch [2]: [PATCH v3 2/3] riscv: dts: spacemit: k1: Split gmac_clk_ref =
-into independent pinctrl groups ---
-commit 093c0ef49e1b8bcf37cbcb0a97a5e5bcd2242b3c
+--- Patch [3]: [PATCH v3 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-C=
+M6 IO board ---
+commit eca00d20544419594bdbc975c29f6586b94b4fd3
 Author: Junhui Liu <junhui.liu@pigmoral.tech>
 
-riscv: dts: spacemit: k1: Split gmac_clk_ref into independent pinctrl groups
+riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board
    =20
-The gmac_clk_ref signal is optional for the GMAC controller and is not
-strictly required for all hardware designs. Split the refclk pins into
-independent pinctrl groups so boards can request them only when needed.
+The Banana Pi BPI-CM6 IO board combines the BPI-CM6 compute module with
+an IO carrier board. The core module integrates the SpacemiT K1 SoC,
+PMIC, DDR, eMMC, the eth0 PHY, and wireless connectivity. The companion
+IO carrier board extends it by providing the eth1 PHY and exposing
+standard interfaces, including dual Gigabit Ethernet, MicroSD, two USB-A
+ports, a USB Type-C port, two PCIe M.2 slots, and a serial console.
+   =20
+Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv=
-/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 72f77e9edd63d..e6ab43be301a3 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -101,7 +101,7 @@ &eth0 {
->  	phy-handle =3D <&rgmii0>;
->  	phy-mode =3D "rgmii-id";
->  	pinctrl-names =3D "default";
-> -	pinctrl-0 =3D <&gmac0_cfg>;
-> +	pinctrl-0 =3D <&gmac0_cfg>, <&gmac0_clk_ref_cfg>;
->  	rx-internal-delay-ps =3D <0>;
->  	tx-internal-delay-ps =3D <0>;
->  	status =3D "okay";
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts b/arch/r=
+iscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
+> new file mode 100644
+> index 0000000000000..2c2d78aee98aa
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
+> @@ -0,0 +1,177 @@
 
 [ ... ]
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv/bo=
-ot/dts/spacemit/k1-pinctrl.dtsi
-> index 4e9a62d0e85b5..8c57ca05dabdb 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-> @@ -27,8 +27,16 @@ gmac0-pins {
->  				 <K1_PADCONF(11, 1)>,	/* gmac0_tx_en */
->  				 <K1_PADCONF(12, 1)>,	/* gmac0_mdc */
->  				 <K1_PADCONF(13, 1)>,	/* gmac0_mdio */
-> -				 <K1_PADCONF(14, 1)>,	/* gmac0_int_n */
-> -				 <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
-> +				 <K1_PADCONF(14, 1)>;	/* gmac0_int_n */
+> +	leds {
+> +		compatible =3D "gpio-leds";
+> +
+> +		led0 {
+> +			color =3D <LED_COLOR_ID_RED>;
+> +			gpios =3D <&gpio K1_GPIO(96) GPIO_ACTIVE_LOW>;
+> +		};
 
-[Severity: Medium]
-Will this change break networking on the OrangePi RV2 board?
+[Severity: Low]
+This isn't a bug, but should the led0 node in k1-bananapi-cm6-io.dts includ=
+e a
+function property to indicate its hardware role?
 
-The eth0 and eth1 nodes in arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-request gmac0_cfg and gmac1_cfg respectively, but this file was not updated
-to include the newly separated refclk pinmux configuration:
-
-arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts:&eth0 {
-    ...
-	phy-mode =3D "rgmii-id";
-	pinctrl-names =3D "default";
-	pinctrl-0 =3D <&gmac0_cfg>;
-    ...
-}
-
-If the OrangePi RV2 hardware relies on these external clock reference pins
-for its physical Ethernet interfaces, removing them from the default group
-might leave the pinmux incomplete. Should k1-orangepi-rv2.dts also be
-updated to include gmac0_clk_ref_cfg and gmac1_clk_ref_cfg?
+Without it, the LED subsystem cannot construct the standard color:function
+sysfs name (e.g., red:status) during the gpio-leds driver probe, and will
+fall back to legacy or incomplete naming.
 
 > +
-> +			bias-pull-up =3D <0>;
-> +			drive-strength =3D <21>;
+> +		led1 {
+> +			color =3D <LED_COLOR_ID_BLUE>;
+> +			gpios =3D <&gpio K1_GPIO(97) GPIO_ACTIVE_LOW>;
 > +		};
+
+[Severity: Low]
+This isn't a bug, but should the led1 node also include a function property?
+
+Like led0, omitting it prevents the LED subsystem from generating standard
+user-space sysfs paths for this LED during device tree parsing.
+
 > +	};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712-bpi-cm6-v3=
--0-8d1e2045179d@pigmoral.tech?part=3D2
+-0-8d1e2045179d@pigmoral.tech?part=3D3
