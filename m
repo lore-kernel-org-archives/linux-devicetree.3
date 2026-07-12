@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB81D36654C;
-	Sun, 12 Jul 2026 03:00:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37D21E0E14;
+	Sun, 12 Jul 2026 03:00:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783825221; cv=none; b=ADvmvfFH5AGR+d4ffv7jxyl963dpg6BgExojqemmbGo7695XRQRCKFD/4O/v+ElFkD3cbQopTI2ntDETelZDUweq+UnnX3FijqKrlmuzxWyjn4pC2J1mHvTD9CnpSRQ9RMK1ymKqLmqAOku21VvT8WmJurJbJvIwwa1h2tTjrco=
+	t=1783825225; cv=none; b=YE8YI8kC7HxnUHcLiUbKkprlBuFZWidCcoxUhSPAXCkWU77JEN+eEAQ5XT2LTpXRFPRy1J54mD5PO5h4iyWhs6PHedduawxkwBJ1cV56CjJmaBFgk+7oWmlIFUmJlHD+NImKImz4HDl4xr07QfuaWoQymZOXhdV5OkOZ7rcCnqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783825221; c=relaxed/simple;
-	bh=Cc3iXIe7vA6bWvZE/goaLJXnEVxUk1J4/yD+9CVPv6c=;
+	s=arc-20240116; t=1783825225; c=relaxed/simple;
+	bh=Vsplpc8zh8LJvWm986vVSNt4N+Il8O2d2af6uSuHqCE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ctEliKPc/AqAXHdoz3ubXXopFaCCBaK5qHQCO1uI4gYrJTwl56Vbz1S+CZ1XsRIV0GGwIsr9/CJbmfmrvm3Ot8suwDggVlFVg7HukDws5UvZCfDgn/ifhLjpZcYqMWj+OHwjgREXZSX65udv9kkafDObweL2sKSJTOrDWhICotc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3ViGUJD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Szt96tKRcZfGqdsAMhOlOs8qYdfvwdpwEGCsk8/cCDO/Nk1Z2QTV9xA/Kjqxh75hqTqUHIcv+LnDjJk9WCa3W19yXqvgyOuy4QGYlt8FduRfpg69ethvq9nXzU3zG1zkhvx54t18lY7lRqMaLS24BZQQefZLbbWhHgNhuQ5vPsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkARuxZy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3ViGUJD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1097D1F00A3D;
-	Sun, 12 Jul 2026 03:00:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkARuxZy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1150E1F00ACF;
+	Sun, 12 Jul 2026 03:00:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783825215;
-	bh=4OuezE/moo5Tppqmye8t2PqCkPAk1kmw20Fa1p80Uak=;
+	s=k20260515; t=1783825217;
+	bh=dLNyCbS1Qr51ll3Io/f0Su8Vsd8z8WzVVb12Br+N0SA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M3ViGUJDdOiDRTiVtWE163GhjLsJEZern531YSS1D5os1zFDHYIvLNbuqrR2Ev8PP
-	 RAEOpFlhoxoWnZvZWEMGKj1lfMbM+WbhqgfZ8fNpN5kr8mid/ABCNeOCMB+Q5Hb8Mo
-	 RFmEW7NRCjPNhVXH3I+Bg4cbGESorTC/GXDFrHMgvG3Y+2Qgmb4yUxkK5URber0DFY
-	 F8wT9k0tB0pd5MkP5i3xquo1ZlmzvD9+lRdGfEP06GHHgeyDy/E22GifI17e/BL5yb
-	 CKkLrUm9/T1DyQuFvNJyEWnVGrhXyl359afP5EqyeMBwaRYw26d8cgkRMAulPJzgss
-	 tlXGLCKPEcCuA==
+	b=EkARuxZyse0llGypKEzJKuSEfsbA29DP/ZzpQFqgxawUc1L5xAM/ZCt9n6qRlzgT2
+	 DNaoR9nqihZcx0x4g7zfdBppHgiudJ1itdU/hVHGNb1Fr5mTERqQ7lOmn458jFAM4q
+	 aJtkMJ/ndBtiR5MqxCqR/4+tkbM/Rbhvet41LntyITFR9yQFWt/O1JbUSZO8yRno9h
+	 14vDehaQ+3OEH2q7znowLawvzqUnB2DzTUipANPRFOHxfH204fh7p3wkkcqtb8EHRf
+	 HZgxrX6CObBNmXywW6znUFaxw9DfZoY/HjwRSX3C9h9zU55EInl6EADkfVB4ZYxDvq
+	 8zrFSnlEfFesA==
 Received: by wens.tw (Postfix, from userid 1000)
-	id E2AB55FE73; Sun, 12 Jul 2026 11:00:12 +0800 (CST)
+	id 290AA6019F; Sun, 12 Jul 2026 11:00:13 +0800 (CST)
 From: Chen-Yu Tsai <wens@kernel.org>
 To: Maxime Ripard <mripard@kernel.org>,
 	Paul Kocialkowski <paulk@sys-base.io>,
@@ -38,17 +38,18 @@ To: Maxime Ripard <mripard@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-media@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-sunxi@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH v3 2/7] dt-bindings: media: sun4i-a10-video-engine: Fix SRAM count for H6
-Date: Sun, 12 Jul 2026 11:00:05 +0800
-Message-ID: <20260712030011.3778169-3-wens@kernel.org>
+	Andre Przywara <andre.przywara@arm.com>
+Subject: [PATCH v3 7/7] arm64: dts: allwinner: sun50i-h616: Add video engine
+Date: Sun, 12 Jul 2026 11:00:10 +0800
+Message-ID: <20260712030011.3778169-8-wens@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260712030011.3778169-1-wens@kernel.org>
 References: <20260712030011.3778169-1-wens@kernel.org>
@@ -60,62 +61,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On the H6, the SRAM C region includes an alias of part of the VE SRAM
-used by the video engine. This region should also be claimed so that no
-access happens through the alias window.
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Add a second SRAM region phandle to the video engine for the H6.
+The H616 SoC has a video engine, and two SRAM regions needed by it.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Add the video engine to the dtsi file.
+
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+[wens@kernel.org: Add VE SRAM region and commit message]
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
 ---
- .../allwinner,sun4i-a10-video-engine.yaml     | 21 ++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+Changes since v1:
+- Corrected second IOMMU port
+---
+ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
-index 932043d7f0cc..818d815d4732 100644
---- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
-+++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-video-engine.yaml
-@@ -48,11 +48,15 @@ properties:
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+index 1598e86259ab..c6b3a3f8359a 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -175,6 +175,18 @@ crypto: crypto@1904000 {
+ 			resets = <&ccu RST_BUS_CE>;
+ 		};
  
-   allwinner,sram:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-+    minItems: 1
-     items:
-       - items:
-           - description: phandle to SRAM
-           - description: register value for device
--    description: Phandle to the device SRAM
-+      - items:
-+          - description: phandle to SRAM alias
-+          - description: register value for device
-+    description: Phandle to the device SRAM(s)
- 
-   iommus:
-     minItems: 1
-@@ -101,6 +105,21 @@ allOf:
-         iommus:
-           maxItems: 1
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - allwinner,sun50i-h6-video-engine
-+    then:
-+      properties:
-+        allwinner,sram:
-+          minItems: 2
-+    else:
-+      properties:
-+        allwinner,sram:
-+          maxItems: 1
++		video-codec@1c0e000 {
++			compatible = "allwinner,sun50i-h616-video-engine";
++			reg = <0x01c0e000 0x2000>;
++			clocks = <&ccu CLK_BUS_VE>, <&ccu CLK_VE>,
++				 <&ccu CLK_MBUS_VE>;
++			clock-names = "ahb", "mod", "ram";
++			resets = <&ccu RST_BUS_VE>;
++			interrupts = <GIC_SPI 93 IRQ_TYPE_LEVEL_HIGH>;
++			iommus = <&iommu 3>, <&iommu 2>;
++			allwinner,sram = <&ve_sram 1>, <&sram_c 1>;
++		};
 +
- additionalProperties: false
- 
- examples:
+ 		syscon: syscon@3000000 {
+ 			compatible = "allwinner,sun50i-h616-system-control";
+ 			reg = <0x03000000 0x1000>;
 -- 
 2.47.3
 
