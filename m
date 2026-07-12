@@ -1,164 +1,166 @@
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFBD364934
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 16:32:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01A233F5B3;
+	Sun, 12 Jul 2026 17:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783873981; cv=none; b=WvaH+NToVHsnPAMcBC2UXKaTJM/E69745EPC0HBtLOs/FHNbAvWjIISTpk/SOMsj0XeGZad+fxf+Sz5A8n2+MCvXFGGhIBySKwfSOjfBRRIBg/kxm4ms4Xdd21T1x7RqBCXvpJOCUEOo9eEK1CchNhA+WG69UY3GOQQLw6Py7zo=
+	t=1783875638; cv=none; b=b9rSanoylX0cfJFRk025ocLHTm6DX2LeDU53ZNNVtFiuhxCPlZvC/TjfgS7skPaYwJpN3xSWUqW4COO1kSQgFeaBxB/3VE9vS1l8WFjz3ogQFJCfT1iPUsgCc0b9unDVZXuxP8UE/zgmDs+OBhs4sIWmJBiQegl5mx2++UIim4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783873981; c=relaxed/simple;
-	bh=+dTi5tf4M1Cu35CMA/uejmB9UH7tBrnqtx64FToKziY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OWhGf/omExDMvF2BgwdiszPCa08TgOvDmrl+KIKJDHmczV1OUYaC+e1pEtKZKRlf32jKwk38Uy4ykaP1R86zjc9AKAfCAEuL22utohLWmq0y1bRsu5BRc8ycoPEnuuK5zuy2FvO2hW8yvA9VFCmfZHn0PCuM/WtkMM0JINqbbFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=U07GY39O; arc=none smtp.client-ip=209.85.161.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1783875638; c=relaxed/simple;
+	bh=/PLqj/FIB5HTtSo6gizl6/u5i+tTV2Mi1tQ/3VWekJE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WV5srMksEL1k3TUSSyAATf6DV5AXxHW35RUSb401xZtEa8IVh89lHy7UnMuIAhGE5+oO5uhmNVMsakvddx5K5koUP1y4wTF1mmNqFfMvSCirsEFQwzcXK0ABjC+awDUtdDhiT2kePaJwqR28jEN7ZSqJHEKamUXnonF7AVNX8Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Gt1Rprs4; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="U07GY39O"
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6a31b9a492aso1612450eaf.1
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:32:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1783873978; x=1784478778; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bhv8nBZOSQkij2eTvBP/0gy+hNIJSzm9ajAyaRKMo/s=;
-        b=U07GY39OtTx7LRnWyW5F2yktEjKs605PVditFSCiw1xxtG2YCM95pCUEXU8AiAAjjN
-         zpFO1R3NdJAHgjIJTQWzzzpf3HHL0SGm0U+5GTFY2T8L/P8Xcn4aoZQ+UQ2YwjVTL5hI
-         +2qxe3dLuajgbjSUf1DcrWwSVSG1tEKpJNOpcJixUEQ/eiGorrCFa22utJpKzaFmjz08
-         ckl3JsNJAYnIU6Kzab2R0zEGe7ffbLN7t51S4t4tdcG13xq4dTO3kBQ3zxmnQsk7yFVp
-         8YyDx60uJfJVVr1bbFolyvURhKhcyzcxgEncsodGdS8sjFVSSy7Q8Jtli0/BXJdxBDet
-         HbKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783873978; x=1784478778;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bhv8nBZOSQkij2eTvBP/0gy+hNIJSzm9ajAyaRKMo/s=;
-        b=T3ezg8jUhMzoHTIg1TuxR0h+t/tv3Fno5lwjL/JEDRaGcO4DZEjWAnHJ6smJP5Zpj2
-         thcs4JjQJ2iXLVzfvvknIEfMOzd2pt360pCG4DRRX9qY4JjRIoYYRg1tdvRX7FKrnXA0
-         TfSfJXkQCmTble40Fq3P9+MlAszVv+SGaf6Y5ZpT1Re+N2KeEEi5Ozp2dUVZJ8/0r7Th
-         Ed+INab2BYEt5OtXfAOWGtrX2FR8t51nk6zzUyW2hihr5rZESJriLeP1WYftIadm0KOJ
-         V0t0I+WXrhWNzw05b305Dt2Vu8dt9W07x9GJBvnuHZYRinL5O7ANHqWJU4sSo0SibUT8
-         MjsQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9627UO3ame81PSgZRbyrH3QhZAEx5bU8ejXpjTwCfmUF0EWnl2P8E2kmlOi4Ko/MmL4a2/nsp0dbJt@vger.kernel.org
-X-Gm-Message-State: AOJu0YxH855yHtnhkLZrtk2sMMNqegAZSqdeKlkuwkQg4TyBW4Rc5nw8
-	W+OMqHgm9ubuD4tyIHdhcZ4pxO/3YVeqhovRzcmCT7ivuhT1VfBJLJbK6E6U31Q9g0U=
-X-Gm-Gg: AfdE7ck1nWlkD/EENX+tNgaD9stNBB07r3lDQn/O0R5k8a97hBNPdDtc12f/2gJF99R
-	8iUuJ30upjqfnZNEOtyc/plVMnMpwsMhped72N+OJxlTMYHRWz1rhDVNgCGMn/4DWCuID+QH7SY
-	owodajw4c0T/ab5aN832QHiUWQQ3GidaqdwfjY5nMC/nAMbtwkj8ZyaCtixWvDwO7+9d4VMWSY7
-	nm2wtOL+E1eWtzoY3n5pvKamBCZckKFsBBV8/sTCTIZs7Gkd0ohkCxXSdC5qq0RdpNQgEk8Qpdq
-	S3UJsxdoWkM9N25jvxP6JR2k+hnUSQLJ6RQB/CZUwdmDGO4owLAA7CjzebXENxV73c3oKLltXXJ
-	LxOQa6A0ZRiATgJ/4qR8pUfmKEEl5HtOMK1IHWqEOih+29Mhe29J8RsesJKHQC1NAdTwL710Ur6
-	S7ooQXptSC3XOmOMugXLa9zGag0qW8B5E+zBdVuQDnJ3Pm9DKL1RxFpeOwc0MBjrM=
-X-Received: by 2002:a05:6820:81d3:b0:6a1:18f3:ed40 with SMTP id 006d021491bc7-6a39a6cee93mr3262976eaf.44.1783873978654;
-        Sun, 12 Jul 2026 09:32:58 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:3af7:75b0:bf02:8cf8? ([2600:8803:e7e4:500:3af7:75b0:bf02:8cf8])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a38e9bc8casm5178034eaf.2.2026.07.12.09.32.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Jul 2026 09:32:58 -0700 (PDT)
-Message-ID: <08e3f5de-3dd7-4578-8036-f3c14a77b537@baylibre.com>
-Date: Sun, 12 Jul 2026 11:32:56 -0500
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Gt1Rprs4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=EYmNQeN1MMv3XCMLlgvSMjuvdlpxNtGkNTF/uC1tgH4=; b=Gt1Rprs4T9rS1j+zsV8bvuaMOJ
+	t7HxPBa1j1m0JItJ5WHAaWmlGPpF6gFPbEzako2YaWKDyPn6RpFFl4wPFmJ1G2cHh/cWOFXV0pDy+
+	7665P+rXo5HJU+a3PhPpKTFetM0t/Sa8R+4diZkHEP6hE1gveOaDX+bV/sKq6dazewNDTq8zDAvND
+	gUrbd7EdSaUWOX1CMI34fTuWJRq1ENfwlklPur7u/lGYipW6uo+xYUVCTbBt2dGwB7W1/6Y4yOUUX
+	m31AslFuztVTIFfri4hisKAwxoxiKZI/VKR9FTzI8FUf1R02FbZskhoHiVUbPb9ts/qLgc4If5Cif
+	I0jf13Ig==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Simon Glass <sjg@chromium.org>
+Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ Fabio Estevam <festevam@nabladev.com>, linux-arm-kernel@lists.infradead.org,
+ Simon Glass <sjg@chromium.org>, Jeffy Chen <jeffy.chen@rock-chips.com>,
+ Linus Walleij <linusw@kernel.org>, huang lin <hl@rock-chips.com>,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/12] pinctrl: rockchip: Add RV1106 pinctrl support
+Date: Sun, 12 Jul 2026 19:00:13 +0200
+Message-ID: <13316226.iMDcRRXYNz@diego>
+In-Reply-To: <20260706195818.3906949-5-sjg@chromium.org>
+References:
+ <20260706195818.3906949-1-sjg@chromium.org>
+ <20260706195818.3906949-5-sjg@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100
- driver
-To: =?UTF-8?Q?Jakub_Szczud=C5=82o?= <jakubszczudlo40@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, antoniu.miclaus@analog.com,
- conor+dt@kernel.org, devicetree@vger.kernel.org, duje@dujemihanovic.xyz,
- Jonathan Cameron <jic23@kernel.org>, jishnu.prakash@oss.qualcomm.com,
- jorge.marques@analog.com, joshua.crofts1@gmail.com, krzk+dt@kernel.org,
- linusw@kernel.org, marcelo.schmitt@analog.com,
- Matti Vaittinen <mazziesaccount@gmail.com>, mike.looijmans@topic.nl,
- nuno.sa@analog.com, robh@kernel.org, sakari.ailus@linux.intel.com,
- wens@kernel.org
-References: <20260711184414.1013686-1-jakubszczudlo40@gmail.com>
- <20260711184414.1013686-4-jakubszczudlo40@gmail.com>
- <35c47ff5-0a8b-4c99-8e5b-d86c04039e17@baylibre.com>
- <CA+gq5JjrNzZHFhPeSM=AEpevHgStV2T6dEGHTUpnvzAbSeO1FQ@mail.gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <CA+gq5JjrNzZHFhPeSM=AEpevHgStV2T6dEGHTUpnvzAbSeO1FQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On 7/12/26 5:16 AM, Jakub Szczudło wrote:
-> sob., 11 lip 2026, 22:01 użytkownik David Lechner
-> <dlechner@baylibre.com> napisał:
->>
->> On 7/11/26 1:44 PM, Jakub Szczudlo wrote:
->>> Add ADS1110 support that have faster datarate than ADS1100, it also uses
->>> internal voltage reference of 2.048V for measurement.
->>>
->>
->> ...
->>
->>> +static int ads1100_get_vref_milivolts(struct ads1100_data *data)
->>> +{
->>> +     int voltage_uV;
->>> +
->>> +     if (data->ads_config->has_internal_vref_only)
->>> +             return ADS1110_INTERNAL_REF_mV;
->>> +
->>> +     voltage_uV = regulator_get_voltage(data->reg_vdd);
->>> +     if (voltage_uV < 0)
->>> +             return voltage_uV;
->>> +
->>> +     return voltage_uV / (MICRO / MILLI);
->>> +}
->>> +
->>
->> ...
->>
->> T;
->>> @@ -276,6 +310,7 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
->>>                           int *val2, long mask)
->>>  {
->>>       int ret;
->>> +     int data_rate_index;
->>>       struct ads1100_data *data = iio_priv(indio_dev);
->>>
->>>       guard(mutex)(&data->lock);
->>> @@ -292,12 +327,12 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
->>>               return IIO_VAL_INT;
->>>       case IIO_CHAN_INFO_SCALE:
->>>               /* full-scale is the supply voltage in millivolts */
->>> -             *val = ads1100_get_vdd_millivolts(data);
->>> +             *val = ads1100_get_vref_milivolts(data);
->>
->> Obviously, the existing code was getting away without checking for
->> error here. Since the ads1100_get_vref_milivolts() function handles
->> the error case now, seems like we should be checking the return value
->> here as well.
->>
->>>               *val2 = 15 + FIELD_GET(ADS1100_PGA_MASK, data->config);
->>>               return IIO_VAL_FRACTIONAL_LOG2;
->>>       case IIO_CHAN_INFO_SAMP_FREQ:
->>> -             *val = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK,
->>> -                                                data->config)];
->>> +             data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
->>> +             *val = data->ads_config->available_data_rate_hz[data_rate_index];
->>>               return IIO_VAL_INT;
->>>       default:
->>>               return -EINVAL;
-> 
-> 
-> I'm thinking about next patchset where I will address voltage
-> regulator stuff, adding it to struct and taking it voltage just once
-> in probe. Can we leave it as it is for now?
+Am Montag, 6. Juli 2026, 21:58:00 Mitteleurop=C3=A4ische Sommerzeit schrieb=
+ Simon Glass:
+> Add pinctrl support for the Rockchip RV1106, taken from the vendor
+> kernel in the Luckfox Pico SDK [1] at commit 824b817f8 (a Linux
+> 5.10.160 kernel tree). The IOC registers are spread across several
+> blocks, addressed through per-bank offsets, with the GPIO0 block in the
+> PMU. The drive strength uses the RK3568-style exponential encoding.
+>=20
+> The RV1103 is a package variant of the RV1106 with fewer pins and uses
+> the same pin controller.
+>=20
+> [1] https://github.com/LuckfoxTECH/luckfox-pico
+>=20
+> Signed-off-by: Simon Glass <sjg@chromium.org>
+> ---
+>=20
+>  drivers/pinctrl/pinctrl-rockchip.c | 208 +++++++++++++++++++++++++++++
+>  drivers/pinctrl/pinctrl-rockchip.h |   1 +
+>  2 files changed, 209 insertions(+)
+>=20
+> diff --git a/drivers/pinctrl/pinctrl-rockchip.c b/drivers/pinctrl/pinctrl=
+=2Drockchip.c
+> index 7e0fcd45fd26..f9cbcb955853 100644
+> --- a/drivers/pinctrl/pinctrl-rockchip.c
+> +++ b/drivers/pinctrl/pinctrl-rockchip.c
 
-Sure. Just mention that again in the cover letter if you
-do a v7 to remind us.
+[...]
 
-> 
-> Best regards,
-> Jakub Szczudlo
+> @@ -3310,6 +3470,7 @@ static int rockchip_set_drive_perpin(struct rockchi=
+p_pin_bank *bank,
+>  		ret =3D strength;
+>  		goto config;
+>  	} else if (ctrl->type =3D=3D RV1103B ||
+> +		   ctrl->type =3D=3D RV1106 ||
+>  		   ctrl->type =3D=3D RK3506 ||
+>  		   ctrl->type =3D=3D RK3528 ||
+>  		   ctrl->type =3D=3D RK3562 ||
+> @@ -3482,6 +3643,7 @@ static int rockchip_get_pull(struct rockchip_pin_ba=
+nk *bank, int pin_num)
+>  				: PIN_CONFIG_BIAS_DISABLE;
+>  	case PX30:
+>  	case RV1103B:
+> +	case RV1106:
+>  	case RV1108:
+>  	case RK3188:
+>  	case RK3288:
+> @@ -3547,6 +3709,7 @@ static int rockchip_set_pull(struct rockchip_pin_ba=
+nk *bank,
+>  		break;
+>  	case PX30:
+>  	case RV1103B:
+> +	case RV1106:
+>  	case RV1108:
+>  	case RV1126:
+>  	case RK3188:
+> @@ -3843,6 +4006,7 @@ static bool rockchip_pinconf_pull_valid(struct rock=
+chip_pin_ctrl *ctrl,
+>  		return pull ? false : true;
+>  	case PX30:
+>  	case RV1103B:
+> +	case RV1106:
+>  	case RV1108:
+>  	case RV1126:
+>  	case RK3188:
+> @@ -4623,6 +4787,48 @@ static struct rockchip_pin_ctrl rv1103b_pin_ctrl _=
+_maybe_unused =3D {
+>  	.schmitt_calc_reg	=3D rv1103b_calc_schmitt_reg_and_bit,
+>  };
+> =20
+> +static struct rockchip_pin_bank rv1106_pin_banks[] =3D {
+> +	PIN_BANK_IOMUX_FLAGS(0, 32, "gpio0",
+> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU,
+> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU,
+> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU,
+> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU),
+
+sashiko is correct here,
+only pins 0-6 have drive-strength registers.
+
+Some different setting starts at the 0x30 mark.
+
+This should be easy to handle in rv1106_calc_drv_reg_and_bit()
+
+
+
+> +	PIN_BANK_IOMUX_FLAGS_OFFSET(1, 32, "gpio1",
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+> +				    0, 0x08, 0x10, 0x18),
+> +	PIN_BANK_IOMUX_FLAGS_OFFSET(2, 32, "gpio2",
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+> +				    IOMUX_WIDTH_4BIT,
+> +				    0x10020, 0x10028, 0, 0),
+
+in theory only the first offset should be necessary here - same for the
+other bank's offsets.
+
+=46or offset-values of 0, the driver will automatically create the right,
+offset increments. 8 for 4bit wide iomuxes.
+
+See
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dri=
+vers/pinctrl/pinctrl-rockchip.c#n4344
+
+
+So with the drive-strength thing fixed
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+
+
+Heiko
+
 
