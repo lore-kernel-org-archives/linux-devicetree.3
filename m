@@ -1,326 +1,122 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245AE3B42EB
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 19:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931BA242D84
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 20:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783884195; cv=none; b=LTd9huTuqi9bLrqTQbN9aMBItXLINaT2hfGi0bbVjEuX8Z+rPRCkcjBBDezvXZnzLIbyPUfLCgtEcjr9YiZH8fEqlK8uRGfK4NbNO/ttXCF365wW9sk7ug8kgN8iu7eH0n6a0uAQM2MB39e1slxY5ggc76E13FfpXHPSRJYhDWI=
+	t=1783887408; cv=none; b=ZvtNF6Mw5Cdozff+1DrnOfGOLfBnOIOFGM9JI3Ja0c2NXwPpR0gI9sJiR3va6jQqcJTTFA3qLGCkgRSFh/tJc4Lua+fmfk91r9eeWAbd9zX4iaGqbwNiDgUTyYWhkopGfSs0LiQTPMcpchkPTbV5dN3qWonKPl1pf8PSGTVHgko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783884195; c=relaxed/simple;
-	bh=5q6YxEVN0KzzheLgKA2Qge1J12BftADl1Dbt7PBWTOQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J3cdDYG8Yp0Rw7weNKf9S6WgB7C908yrTvDljFYSxAjVNBVVvjN3x8mnJz33U52VYwhtZw7tTppbDYM+SROZLaEewSZSc0wnUDZvstaoQ/LBk6x+RqPsPrPId3utstOG7EGxK3UV77vj+m2O3ydEcv0oEYG2aquHGSgDqcCTsGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G4uFEeAI; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783887408; c=relaxed/simple;
+	bh=3QLR3KK8Id6mI23Kry/sbc3hYjkLOFnlNehgggqEwkk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aiC+ZQIIBrx4aayB/XcZUaLDB1OioRcJUXswYiZ5srdOnw/4QttImEZvmbaOATbBC2qe0sp8FmkwWD1ESMwVJBwu5DXh0YosMgrLj8oYnV7zPSlhb/135SiEGQslOySaDLcVNNcen+vSH98W7U+xOBVgISoe6MFrBSgAM9b3l4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=WiNtvB6V; arc=none smtp.client-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G4uFEeAI"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47d70879764so1481069f8f.2
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 12:23:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="WiNtvB6V"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81e86df8987so24107237b3.3
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 13:16:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783884190; x=1784488990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mBzQa8/wWXh8hBSAwcelh3Dx/UuRSdQbfC9fcdyS2MQ=;
-        b=G4uFEeAIsUWTaHhCjXTWoyn8Hx2pFMkakfHxNlsSYX5Djn0XNLLlc7OI5vYkdM8Tsg
-         e+YcBfF+YJfajNqxa95QAxabwjV8/CI1HfoeKKEiPEL5VWA0r4hvoY05LlZNUhSERNAE
-         wxv1oUW6qtBlcZJW3wuZS/tSyGLfsb0STQJRLJilY5JMbst9rcpvwR1G5VzaVYw8Q+Nn
-         9ggpwCZYux9UVhX7OUEYY7G9nWWNqlt6Gb++S3vcwDOMfGkwaf7aEjZKFfQA/lipK9Nc
-         sLYMyjd6VAoITuVnw1lbUEQsm98sRj5sCVPnxLFG5It0gjDb439qMDWhr6RliQKKldhL
-         yd9A==
+        d=tenstorrent.com; s=google; t=1783887404; x=1784492204; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sexe2OJDiMkFGhURClJc1NsMoa58P5WaL0Byl520pbw=;
+        b=WiNtvB6VOqUyBMNBFIfKB7RbXWlRSxzqtOwrhRon4lL7K8XxCApY+/SJ7ba0nxDLIC
+         lozPBy/7nEqv41IuNdpht84WFu1S0SmgtopoWXtdShRV8szRnwKzHBNmVglVU7K5ODnv
+         7CKt41No6cvWST0+1ZMlYjoy0auu+FWQVuYwlIHHkDlaBMfNQeNnYGiOWI1uMxieKrrq
+         oFbyRt4MWZ5tpi8WVK1RWbYJHGCYwhflkKImif7K5Ez8TazAE/7L6Azb4RObxD947/nn
+         GUnBSZ8ldoXcQLTNyufvy5bX4/Xsc7p6cwgKp1l6RUtUmnqHxzbvdL/QTSE3P2iupsY+
+         NSMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783884190; x=1784488990;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mBzQa8/wWXh8hBSAwcelh3Dx/UuRSdQbfC9fcdyS2MQ=;
-        b=Rlbfrh4xf4y6KsAAXm4Tz6SPAILTxe/BDPUp5bTCfSkotwtyXEyQ2FJq3xp9wzYpl9
-         zO6BeVeLJIZYYb2CmV7gb5e2KHe0RPg+fqGb66BJpUWZAdNDs7B0j05zhv8deHbg8FOs
-         U2zkUWC7GT1oBaXCYzPcmO3OWiHy508U7sujbgKMrm9VefKccSb0JpNFeiv4b2sEioOP
-         JoPCb1TZ60TCsnfQzd9iXZgrTd4zgkfqQLeLsaSCAmkKF9669+Qfrqb7d3htk1lbFRCK
-         kCH+iDw9qDchPE6ne032lvkAkZhHCGEdRd5N4mC7gu6uQpH3qJrpKSBecMjtbCkDTWbU
-         IO/Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqXzvSuhnnSr5YKYg7fULkEPTYUTZfMk47KplsW7r5saVXBQFN3yS2WRfHs+FHJpQ/X9RAZPtdZrFW5@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVrY/VKmz4CQPYzmuaTtxO/Zji+74o2hCd7BbSVlxmgUNOhiz1
-	0p+gMmkf3M2EiboHdCX/CN9uH0ZRjD2AO8UuUFduBleh/dGX0iHd7ZIa
-X-Gm-Gg: AfdE7ckwUBFVSUu46ddDY+IQpdl+nWeN0p96JAA1hH4br16CXzrI+4fyR5kXsNbOQMM
-	C3K5tbpAo2RQKDn3nxcDzRRsWrgvQuEb/aYS4LY749qp/huCJJ3bFy7NTUnH3IcJNDus+bCT8bn
-	wlzyU2ghrbgpb4rUt8HabZhlp1674kRot70XN+ISi9Ft/kHcKU+W0avyXOOPWaSowm3rScbzAL1
-	pAM6RVzq6oK4JhCqlP5DUnajd20XxgvJ99p+eEPHy60CRnrhIbxloJ1H+8PtirjgFqcZTLK7cnK
-	pZuUsjkXdYW6iRgEphXb/5z51vlXVB0L0k5kBdQAGScFD7LzFZoWMw/+KgMtElr6R6GcZHD1Y5o
-	AErqlGZrghXcUG+VWeY70CIomQzn/TpFdY9Mw5WemzqTlHF17sYi/TLJovmpfD72C+UnUvY1fG3
-	BxsNW/M9y79N1rgVY=
-X-Received: by 2002:a05:6000:200b:b0:472:7dce:d8c7 with SMTP id ffacd0b85a97d-47f2dceb401mr6445872f8f.36.1783884190327;
-        Sun, 12 Jul 2026 12:23:10 -0700 (PDT)
-Received: from builder ([2001:9e8:f120:f516:be24:11ff:fe30:5d85])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47df6a31dd5sm34883190f8f.16.2026.07.12.12.23.09
+        d=1e100.net; s=20251104; t=1783887404; x=1784492204;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sexe2OJDiMkFGhURClJc1NsMoa58P5WaL0Byl520pbw=;
+        b=i8H0K02Zn35kHrF8dRIt9vATs7I3mzZ3AocZL1h7OYH17YWWNZHZg2YPYPtZkCJoUr
+         ZvURwJ54hK1SxlFwIw6cWT/uY3OuMUH1ktsx6xzocyHcPu0xnxm9efRwt5UxqguVc4C9
+         3b/sqrC+t2fLDYWZG4Zlh2Yy4xG77Itg77bbY/GueubIj+9l9q9XTh48IKCyGjGgMVk9
+         vlPy3k5xOPUrGE82R37aQ87pZiJy2oIKG9kAye5z14K1Rp+fJpYlXyeN9rNthWUDwS0+
+         iNJ9yud+F3Pmx+CEg4Ikk0MbDF6A2sWDXWDpDV7eWoF6mr8b+ARE9bA9gIR2XAj0W5TB
+         RiTA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpl9EyMdY1JyFGu321UWyBRSI71uFENF02AXmnNjSRqz/JCw3BJE4dOGku7ACFEWvIjf7CUE5Mc3fq3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yztv2xhljsOGXfNFa8lhi9DocMAgKyR70NLiFhGOvFKfTbzN8NC
+	12MAeul0CxoB/Ra5QyE/Mm+AewhKlIFPpiRDIMTvwB2P7UsuYrIVKsZhMNeG0kZqYz0=
+X-Gm-Gg: AfdE7ckJEpzyT0jSeYWH5h9mMNvnef+gwq426z7ZU7Lu3h/ESCoX3Y1zJNM3IIOAG1u
+	kpe4LhD2BWuGdII+EWErwoUjnkZsLcOHnBGPSvEOorR152zACRhheiqykGxQjG+ovPcZuqJU+Ry
+	G5DuiRaQ3CbzkyP9bgqIUbEWE0BAgOlSbxUTtmqdO4SFfYp8FWZINxhAz5crOaGhnj4CRECKf4r
+	WcbEd0/il5AiNhFJBDQml/tJhDHXKTa4AIyGi4xtGDsPD/qDh/57b6ICiuNJ0N3nFqVT4PYzmIe
+	XBFvqPaKNzb95TzexVAMXabT+zo8N6NcGTRrGGysB7lj3SPceo7nsoFtPdObIaEInB8BuyCE8vV
+	G53cEBlEdDoJDZeBbSd9IYm0jWCsKgaPMn7QWHCVBAQ3p69KBJ97vjwR99ockVSttHX68PfL90X
+	SOb/33r7HnCFSGbjCV1OsMj6Eu37a6pNsyaSHrWAFyjHlwlrqqvyRNTenhWhklMMjtMEAW
+X-Received: by 2002:a05:690c:250a:b0:81e:68a2:89d5 with SMTP id 00721157ae682-81e901b3d89mr51627807b3.55.1783887404652;
+        Sun, 12 Jul 2026 13:16:44 -0700 (PDT)
+Received: from toolbox ([2600:1700:220:59e0:5e9b:73c6:ee82:165e])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81e6c1f11bbsm98699367b3.35.2026.07.12.13.16.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 12:23:10 -0700 (PDT)
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-To: Oleksij Rempel <o.rempel@pengutronix.de>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>,
-	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
-	Jonas Jelonek <jelonek.jonas@gmail.com>
-Subject: [PATCH net-next v7 3/4] net: pse-pd: realtek-pse-mcu: add I2C transport
-Date: Sun, 12 Jul 2026 19:22:49 +0000
-Message-ID: <20260712192251.1413279-4-jelonek.jonas@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260712192251.1413279-1-jelonek.jonas@gmail.com>
-References: <20260712192251.1413279-1-jelonek.jonas@gmail.com>
+        Sun, 12 Jul 2026 13:16:43 -0700 (PDT)
+Date: Sun, 12 Jul 2026 15:16:40 -0500
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, linux-scsi@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <7x3b4sttnc4oxkuvxmpkihfi76lkapjcigo7khgcgfytvol7w2@v5ykuyrk2z3m>
+References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
+ <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260702-08-k3-ufs-support-v1-2-1a64a3ab128f@kernel.org>
 
-Add the I2C/SMBus transport for the Realtek PSE MCU core. It registers
-the MCU on an I2C bus and provides the send/recv callbacks the core
-uses to exchange the 12-byte frames.
+On Thu, Jul 02, 2026 at 02:31:36AM +0000, Yixun Lan wrote:
+> SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
+> which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
+> M-PHY v3.0 standard.
+> 
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
+> ---
+>  drivers/ufs/host/Kconfig        |  12 +
+>  drivers/ufs/host/Makefile       |   1 +
+>  drivers/ufs/host/ufs-spacemit.c | 931 ++++++++++++++++++++++++++++++++++++++++
+>  drivers/ufs/host/ufs-spacemit.h |  90 ++++
+>  4 files changed, 1034 insertions(+)
+> 
+> diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+> index ff170c0b6da0..4f53b7f7688f 100644
+> --- a/drivers/ufs/host/Kconfig
+> +++ b/drivers/ufs/host/Kconfig
+> @@ -132,6 +132,18 @@ config SCSI_UFS_VARIABLE_SG_ENTRY_SIZE
+>  	bool
+>  	default y if SCSI_UFS_EXYNOS && SCSI_UFS_CRYPTO
+>  
+> +config SCSI_UFS_SPACEMIT
+> +	tristate "SpacemiT UFS controller driver"
+> +	depends on SCSI_UFSHCD_PLATFORM && ARCH_SPACEMIT
 
-The MCU firmware expects one of two framings on the I2C bus, and which one
-is part of the compatible: '-smbus' (reads carry a leading command byte
-and a repeated start) or raw '-i2c' (bare block writes and reads). The
-match data flags the raw-I2C case; SMBus is the default because that's
-what the majority of devices uses.
+Can you add SCSI_UFSHCD_PLATFORM and SCSI_UFS_SPACEMIT as modules to
+riscv defconfig (or just add the former and add a default y if
+ARCH_SPACEMIT in this Kconfig entry). This will let defconfig kernels
+to boot with persistant rootfs on these devices.
 
-Because i2c_master_send()/i2c_master_recv() may DMA, the raw-I2C path
-bounces each frame through a heap buffer rather than the core's stack
-buffers; the SMBus path is unaffected.
-
-Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
----
- drivers/net/pse-pd/Kconfig               |  11 ++
- drivers/net/pse-pd/Makefile              |   1 +
- drivers/net/pse-pd/realtek-pse-mcu-i2c.c | 170 +++++++++++++++++++++++
- 3 files changed, 182 insertions(+)
- create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-
-diff --git a/drivers/net/pse-pd/Kconfig b/drivers/net/pse-pd/Kconfig
-index 3b0c245a2bc7..6d14c8832e8b 100644
---- a/drivers/net/pse-pd/Kconfig
-+++ b/drivers/net/pse-pd/Kconfig
-@@ -19,6 +19,17 @@ config PSE_REALTEK_MCU
- 	  Shared core for the Realtek PSE MCU driver. This is selected
- 	  automatically by the transport options below.
- 
-+config PSE_REALTEK_MCU_I2C
-+	tristate "Realtek PSE MCU driver (I2C transport)"
-+	depends on I2C
-+	select PSE_REALTEK_MCU
-+	help
-+	  Driver for the microcontroller (MCU) that fronts the PSE
-+	  hardware on various Realtek-based managed switches, attached
-+	  via I2C/SMBus. The MCU exposes a message-based protocol; the actual
-+	  PSE silicon is not accessed directly. To compile this driver as a
-+	  module, choose M here: the module will be called realtek-pse-mcu-i2c.
-+
- config PSE_REGULATOR
- 	tristate "Regulator based PSE controller"
- 	help
-diff --git a/drivers/net/pse-pd/Makefile b/drivers/net/pse-pd/Makefile
-index bf35e2a5b110..ef869bba5ed9 100644
---- a/drivers/net/pse-pd/Makefile
-+++ b/drivers/net/pse-pd/Makefile
-@@ -4,6 +4,7 @@
- obj-$(CONFIG_PSE_CONTROLLER) += pse_core.o
- 
- obj-$(CONFIG_PSE_REALTEK_MCU) += realtek-pse-mcu-core.o
-+obj-$(CONFIG_PSE_REALTEK_MCU_I2C) += realtek-pse-mcu-i2c.o
- obj-$(CONFIG_PSE_REGULATOR) += pse_regulator.o
- obj-$(CONFIG_PSE_PD692X0) += pd692x0.o
- obj-$(CONFIG_PSE_SI3474) += si3474.o
-diff --git a/drivers/net/pse-pd/realtek-pse-mcu-i2c.c b/drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-new file mode 100644
-index 000000000000..e10f8c633b68
---- /dev/null
-+++ b/drivers/net/pse-pd/realtek-pse-mcu-i2c.c
-@@ -0,0 +1,170 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/pse-pd/pse.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+
-+#include "realtek-pse-mcu.h"
-+
-+/*
-+ * The core has already waited RTPSE_MCU_RESPONSE_MS before calling us, so
-+ * the response is normally ready on the very first read. For commands the
-+ * MCU produces more slowly, keep polling at the typical response cadence
-+ * up to the worst-case ceiling.
-+ */
-+#define RTPSE_MCU_I2C_RETRY_MS	RTPSE_MCU_RESPONSE_MS
-+#define RTPSE_MCU_I2C_MAX_TRIES	(RTPSE_MCU_RESPONSE_MAX_MS / RTPSE_MCU_I2C_RETRY_MS)
-+
-+static int rtpse_mcu_i2c_smbus_send(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+
-+	/* Send opcode as SMBus command byte; remaining 11 bytes as block data */
-+	return i2c_smbus_write_i2c_block_data(client, req->opcode, RTPSE_MCU_MSG_SIZE - 1,
-+					      (u8 *)req + 1);
-+}
-+
-+static int rtpse_mcu_i2c_smbus_recv(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req,
-+				    struct rtpse_mcu_msg *resp)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+	int tries, ret;
-+
-+	for (tries = 0; tries < RTPSE_MCU_I2C_MAX_TRIES; tries++) {
-+		if (tries > 0)
-+			msleep(RTPSE_MCU_I2C_RETRY_MS);
-+
-+		/* MCU needs 0x00 as command byte for read */
-+		ret = i2c_smbus_read_i2c_block_data(client, 0x00,
-+						    RTPSE_MCU_MSG_SIZE,
-+						    (u8 *)resp);
-+		if (ret < 0)
-+			return ret;
-+		if (ret == RTPSE_MCU_MSG_SIZE && rtpse_mcu_resp_is_final(req, resp))
-+			return 0;
-+	}
-+
-+	return -ETIMEDOUT;
-+}
-+
-+static const struct rtpse_mcu_transport_ops rtpse_mcu_i2c_smbus_ops = {
-+	.send = rtpse_mcu_i2c_smbus_send,
-+	.recv = rtpse_mcu_i2c_smbus_recv,
-+};
-+
-+static int rtpse_mcu_i2c_native_send(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+	void *buf;
-+	int ret;
-+
-+	/* i2c_master_send() may DMA, so the buffer must not be on the stack. */
-+	buf = kmemdup(req, RTPSE_MCU_MSG_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	ret = i2c_master_send(client, buf, RTPSE_MCU_MSG_SIZE);
-+	kfree(buf);
-+	if (ret < 0)
-+		return ret;
-+	return ret == RTPSE_MCU_MSG_SIZE ? 0 : -EIO;
-+}
-+
-+static int rtpse_mcu_i2c_native_recv(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req,
-+				     struct rtpse_mcu_msg *resp)
-+{
-+	struct i2c_client *client = to_i2c_client(pse->dev);
-+	int tries, ret;
-+	u8 *buf;
-+
-+	/* i2c_master_recv() may DMA, so read into an off-stack buffer. */
-+	buf = kmalloc(RTPSE_MCU_MSG_SIZE, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	for (tries = 0; tries < RTPSE_MCU_I2C_MAX_TRIES; tries++) {
-+		if (tries > 0)
-+			msleep(RTPSE_MCU_I2C_RETRY_MS);
-+
-+		ret = i2c_master_recv(client, buf, RTPSE_MCU_MSG_SIZE);
-+		if (ret < 0)
-+			goto out;
-+		if (ret == RTPSE_MCU_MSG_SIZE) {
-+			memcpy(resp, buf, RTPSE_MCU_MSG_SIZE);
-+			if (rtpse_mcu_resp_is_final(req, resp)) {
-+				ret = 0;
-+				goto out;
-+			}
-+		}
-+	}
-+	ret = -ETIMEDOUT;
-+out:
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static const struct rtpse_mcu_transport_ops rtpse_mcu_i2c_native_ops = {
-+	.send = rtpse_mcu_i2c_native_send,
-+	.recv = rtpse_mcu_i2c_native_recv,
-+};
-+
-+static int rtpse_mcu_i2c_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	const struct rtpse_mcu_match_data *match;
-+	struct rtpse_mcu_ctrl *pse;
-+	bool use_native;
-+
-+	match = device_get_match_data(dev);
-+	if (!match)
-+		return dev_err_probe(dev, -ENODEV, "missing match data\n");
-+
-+	/* The framing (raw I2C vs SMBus) is carried by the match data. */
-+	use_native = match->native_i2c;
-+	if (use_native) {
-+		if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+			return dev_err_probe(dev, -EOPNOTSUPP,
-+				"plain-I2C MCU protocol requires I2C-capable adapter\n");
-+	} else {
-+		if (!i2c_check_functionality(client->adapter,
-+					     I2C_FUNC_SMBUS_WRITE_I2C_BLOCK |
-+					     I2C_FUNC_SMBUS_READ_I2C_BLOCK))
-+			return dev_err_probe(dev, -EOPNOTSUPP,
-+				"SMBus MCU protocol requires SMBus I2C-block support\n");
-+	}
-+
-+	pse = devm_kzalloc(dev, sizeof(*pse), GFP_KERNEL);
-+	if (!pse)
-+		return -ENOMEM;
-+
-+	pse->dev = dev;
-+	pse->pcdev.owner = THIS_MODULE;
-+	pse->transport = use_native ? &rtpse_mcu_i2c_native_ops : &rtpse_mcu_i2c_smbus_ops;
-+
-+	return rtpse_mcu_register(pse);
-+}
-+
-+static const struct of_device_id rtpse_mcu_i2c_of_match[] = {
-+	{ .compatible = "realtek,pse-mcu-gen1-smbus", .data = &rtpse_mcu_gen1_data },
-+	{ .compatible = "realtek,pse-mcu-gen2-smbus", .data = &rtpse_mcu_gen2_data },
-+	{ .compatible = "realtek,pse-mcu-gen2-i2c", .data = &rtpse_mcu_gen2_i2c_data },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, rtpse_mcu_i2c_of_match);
-+
-+static struct i2c_driver rtpse_mcu_i2c_driver = {
-+	.driver = {
-+		.name		= "realtek-pse-mcu-i2c",
-+		.of_match_table	= rtpse_mcu_i2c_of_match,
-+	},
-+	.probe		= rtpse_mcu_i2c_probe,
-+};
-+module_i2c_driver(rtpse_mcu_i2c_driver);
-+
-+MODULE_AUTHOR("Jonas Jelonek <jelonek.jonas@gmail.com>");
-+MODULE_DESCRIPTION("Realtek PSE MCU driver (I2C transport)");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
-
+> 
+> -- 
+> 2.54.0
+> 
