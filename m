@@ -1,166 +1,185 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01A233F5B3;
-	Sun, 12 Jul 2026 17:00:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07B02FE042
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 17:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783875638; cv=none; b=b9rSanoylX0cfJFRk025ocLHTm6DX2LeDU53ZNNVtFiuhxCPlZvC/TjfgS7skPaYwJpN3xSWUqW4COO1kSQgFeaBxB/3VE9vS1l8WFjz3ogQFJCfT1iPUsgCc0b9unDVZXuxP8UE/zgmDs+OBhs4sIWmJBiQegl5mx2++UIim4Q=
+	t=1783878532; cv=none; b=Jptj5pk0FwWhfIElzkKxLSUC38UWJR4lWMljTlE79wF2k1W/byoE09VUcHROlw5o4zhQJaqle4gyNrrP+emUdegv5lFkpiMrK0ego9hjx6sohyt3kk7xDWuTWkWtXkLLjmrRp8iDSBdcEJb8zERKvLO8f0inVvaWi3CwhCxa7VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783875638; c=relaxed/simple;
-	bh=/PLqj/FIB5HTtSo6gizl6/u5i+tTV2Mi1tQ/3VWekJE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WV5srMksEL1k3TUSSyAATf6DV5AXxHW35RUSb401xZtEa8IVh89lHy7UnMuIAhGE5+oO5uhmNVMsakvddx5K5koUP1y4wTF1mmNqFfMvSCirsEFQwzcXK0ABjC+awDUtdDhiT2kePaJwqR28jEN7ZSqJHEKamUXnonF7AVNX8Ak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Gt1Rprs4; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1783878532; c=relaxed/simple;
+	bh=VJcjUXbtX3f4WSQdzSuuHqAJhBkkCn09H/VEJXL+J0M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rw2i2s7C3dbwsPKyGjA7FWhuY6nceURkrtmPKyK6pr85TdnHiYcj24gN3GQVZPhpdTHwqsHArZSlUkEUXPoPMIe+Gs3xIyM7gZlBJJ+w7zb5pXaEg8KA9Poa/S7yFnQBO91+E1+9pDi3UG9nPgV2hTD4dZ5qWPF4iCnsKJHZD1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bPHzvXwW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NX/Lygjt; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Gt1Rprs4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=EYmNQeN1MMv3XCMLlgvSMjuvdlpxNtGkNTF/uC1tgH4=; b=Gt1Rprs4T9rS1j+zsV8bvuaMOJ
-	t7HxPBa1j1m0JItJ5WHAaWmlGPpF6gFPbEzako2YaWKDyPn6RpFFl4wPFmJ1G2cHh/cWOFXV0pDy+
-	7665P+rXo5HJU+a3PhPpKTFetM0t/Sa8R+4diZkHEP6hE1gveOaDX+bV/sKq6dazewNDTq8zDAvND
-	gUrbd7EdSaUWOX1CMI34fTuWJRq1ENfwlklPur7u/lGYipW6uo+xYUVCTbBt2dGwB7W1/6Y4yOUUX
-	m31AslFuztVTIFfri4hisKAwxoxiKZI/VKR9FTzI8FUf1R02FbZskhoHiVUbPb9ts/qLgc4If5Cif
-	I0jf13Ig==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Simon Glass <sjg@chromium.org>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- Fabio Estevam <festevam@nabladev.com>, linux-arm-kernel@lists.infradead.org,
- Simon Glass <sjg@chromium.org>, Jeffy Chen <jeffy.chen@rock-chips.com>,
- Linus Walleij <linusw@kernel.org>, huang lin <hl@rock-chips.com>,
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 04/12] pinctrl: rockchip: Add RV1106 pinctrl support
-Date: Sun, 12 Jul 2026 19:00:13 +0200
-Message-ID: <13316226.iMDcRRXYNz@diego>
-In-Reply-To: <20260706195818.3906949-5-sjg@chromium.org>
-References:
- <20260706195818.3906949-1-sjg@chromium.org>
- <20260706195818.3906949-5-sjg@chromium.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bPHzvXwW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NX/Lygjt"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66CGrnbd3105593
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 17:48:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=uLI6dtiwQ0bBLx8SDV3mto
+	Bn+506m8hldEGF6Ztdkm0=; b=bPHzvXwWiaAKVPDv4ta2X8s+7mZHmGqHl1mNAW
+	sNuFOsZt6vXR5ArVIUJGgLE/npraVV56Puf0N5SahII4H61d+Hivg7w9Z8lYYzHp
+	kwO1OIkhVGTwxK8K5Cze9irDIoVpFjnIU3RlUosxEL56+8TQjnRQldu9SakfIOP5
+	rwFLAfU/gLdpj7miQUeJMwqqkiirpdDDIeZI+ymrx+nmacoYC3xjAhK5mDvt8mJK
+	wJu62x7NmW2gSPJweNaPeAnhvEII2T/Br0PXPH+A2AGHRFMyLW1FidB+QQqiMiew
+	iypx92G7eB+nh0TkZf2UCx8L3aHRDiSGRHPt1jHKVWi5RR1A==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbeamu9aj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 17:48:49 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c894c1c4aa9so3400609a12.0
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 10:48:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783878529; x=1784483329; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uLI6dtiwQ0bBLx8SDV3mtoBn+506m8hldEGF6Ztdkm0=;
+        b=NX/LygjtITSMRU8iAYCDoXIaCR3VoyfLMBP7R5SlpZtJBoUUnVoXX2sEcvegZBn0G/
+         ixzfPj1Z4ZevW455Q9wrqVNgAmTFqpOiAQPES7OK8/MYaEXW6hFcRQLM8anF3V4eodE/
+         fCHkRN2cuWkIXmHYBz36NXmuV0KX2KU82LfKC0+vx+LSciq2SZpVhYvuAy2gWcvWzrFe
+         nDbTLR5RDHJ7HNhJRqroZRlVkprez/9McBLKpQSB9WfGpFAdWTOl8iZgPXBVTOENxB6W
+         KQi+vF4ewQC6kRK1P5ZysC5N+YyrTiXDf5ayg5aVZmpjkJv3MUZlnpUx89xO6wU+fpZ+
+         6eBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783878529; x=1784483329;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=uLI6dtiwQ0bBLx8SDV3mtoBn+506m8hldEGF6Ztdkm0=;
+        b=OiVlPdE6uz22do8e81YuSNoTkQDFCDQCuufbFizGlzUI2aDK6FBbeNMptqkHBsTBgI
+         FG1QUiEqBZdQnhRLvCQdrobdxuU7y2GVXx35xoc++1RvW8Dr2ll9ZM2TWQt+hxSrEHwl
+         ZevhWAfOA3eaSyTPhWmxD9KLCRlxTKI+wvIWdpQbs3NITG0kXwiTU6QC7vvXJR2RboLO
+         8St99w53++Y+wG5bIt4QiencJmZtZ65flZRxEOch40Nz6LD4yu878HeU0t2TNPdfm8WG
+         eUTP5h5ImF9/H72N3iEdnNiMDmyXxp+QZzF9Ljblh6u98qGgCqQ7fr6hbObVQupRmyig
+         8mFw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqg9HSjUY7O0c6yi8/ywrzPEiB0NRVofcUsDqwI7Xy8af4L4vpyUMqkAChtMupxNBgnVoY6g18Kw0g8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxn7p29Ba5PENjm/MqnwTArzAWOJB6LRydgJX4rjxziY2r0bFQr
+	Vf8ClO7ar9kW2Z2zTz3V584mdcCZejV1uN6Z0NHWbCGWfzLuEg6k8XWw49eGdP6IS1F7Y5O2s5E
+	r8p+hHVQi08e9mjxiGz4mogl2c5wqrJsH3bX2e+8oHwUdOA0qGGcQBf3V9T2ly9rU
+X-Gm-Gg: AfdE7cm1l9IFrrKdF0evGaVJy7pxoJqbzLMbwM5LRT5/kC7tG/MlpmrHAeSHHfYpJwq
+	xW+p8zTbkZSYqXbVfBEFvqxieEdYcx4v8gIN6CyPFV6XZE/nfg6IHa+cVy3O9PRGZhBqbr8W0we
+	1pgOyEZHrI7z9z/cEisss9glUwfNeNwZvckRv3yFCaRZGXGT1+iaZhYU8RbxdLF8RXhioYgo5lS
+	h2w84BvPtMwHQP+LvykEE4qa9UmAUrdd8DKnkwjjzf2EcQN+mmHEugQZ+ljbB+Mhb7K+qYEKxJ/
+	ttGyTWMaYStwv4nJg0Eq+GZayD8JRIyydwrMOydDpc3wy84AANhc3HESV/269bttDU75z94OLeU
+	WFkVO7gWHMa6a6hJAfDYS83Db2ouOztPCAKKg9OIFNJNGkSKJS3k8Y4ngVADU/bJCfkI+BOk5n5
+	UcfKfR
+X-Received: by 2002:a05:6a21:e584:b0:3b4:8880:2089 with SMTP id adf61e73a8af0-3c110a47008mr6050710637.16.1783878528659;
+        Sun, 12 Jul 2026 10:48:48 -0700 (PDT)
+X-Received: by 2002:a05:6a21:e584:b0:3b4:8880:2089 with SMTP id adf61e73a8af0-3c110a47008mr6050699637.16.1783878528239;
+        Sun, 12 Jul 2026 10:48:48 -0700 (PDT)
+Received: from hu-kriskura-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b987fc629sm10369954c88.0.2026.07.12.10.48.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 10:48:47 -0700 (PDT)
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Date: Sun, 12 Jul 2026 23:18:35 +0530
+Subject: [PATCH] dt-binding: qcom,snps-dwc3: Add Maili compatible to
+ supported device list
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260712-maili-usb-dwc3-binding-v1-1-fd6697fa1e21@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAHLTU2oC/yXMQQ6CMBBG4auQWTtJKSjBqxgXTDvib7SajigJ4
+ e5WXX6L9xYyzVCjfbVQ1hcM91RQbyoK5yGNyojF5J3fua72fBtwBU8mHN+hYUGKSCP3wcdWOtd
+ vG6ESP7KeMP/Gh+PfNslFw/N7o3X9AFp4o1F6AAAA
+X-Change-ID: 20260712-maili-usb-dwc3-binding-9c2d4b70953b
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783878524; l=1581;
+ i=krishna.kurapati@oss.qualcomm.com; s=20260707; h=from:subject:message-id;
+ bh=VJcjUXbtX3f4WSQdzSuuHqAJhBkkCn09H/VEJXL+J0M=;
+ b=kinRlM8Q7KyFXC9K6ofEAUKJd+qvlawCj0u78m9N4+eSav+8r9Lm5D5HhISbJqmQiXoDsRsu9
+ CqMxIbUPN+OBWwPTsH3Xr7Rh5m8YuLLtcWXehZNfC3gqmEFIEcaIUS2
+X-Developer-Key: i=krishna.kurapati@oss.qualcomm.com; a=ed25519;
+ pk=6PmiuwGCdov3wRO+bdmRlRxRtmJyDKz3ED57LLPVgds=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDE5MSBTYWx0ZWRfXyYhF/ZB4rYY+
+ ogufH4325seBZBCCzTZgtK+LpugrB8T6ph7FSDPk15hHkl6UVHIkK/saALfvIJVIIYN/DNjP5dQ
+ Lubly67Xowbht+cGHjWr46SMGcf9CC0=
+X-Proofpoint-GUID: WicNr3uLNIzoZ024_aeFnWSrAeSerTPV
+X-Proofpoint-ORIG-GUID: WicNr3uLNIzoZ024_aeFnWSrAeSerTPV
+X-Authority-Analysis: v=2.4 cv=dJSWXuZb c=1 sm=1 tr=0 ts=6a53d381 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=-cuiU98Imdfp90X4gAkA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDE5MSBTYWx0ZWRfXxTmy5iQcHXjq
+ WJHJeFEo8eQ8hjecY4fz0ZNA2o3nyJ88FrV6Jf6tVEfldV8XmvcrCCF9c0F54zsLydI5ZYUh3TE
+ 3mmNxkEj3gwrzESLDT6gHBBc47yb2Cg5Ix/zoyHVgt0Msd9CkWduhDpV81FIe2kE+L717QsTEqX
+ YCWjSce8rflueR/qvcixcUdXyU5yotxxezDaufqb8LCEmkD/yAcwEPH/d0as/hUxzHyBWqpZWhN
+ 7Q9MOqDYj3pkwjC1auzKxoAJ9mcwvppn43TpUmBrRS/k+D4VOeJV/2qIBhSkdi3A9/4fJ5MV6Cg
+ 9Sb9puwxU2QOZHT7mayOn7KNaJ8jCye6WdjauCruaelWT9qaUKm/k56INneyXlpAH31iqt+/xP+
+ m+KpLuOW31I1tLb/K71NabSXxGHOPDAnyGE4Oh2ACX3YUsXkYSo1+Tfde74DFYhCQzDk1WYXmDg
+ Pawi85oUy/EPf+J6oKw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-12_06,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120191
 
-Am Montag, 6. Juli 2026, 21:58:00 Mitteleurop=C3=A4ische Sommerzeit schrieb=
- Simon Glass:
-> Add pinctrl support for the Rockchip RV1106, taken from the vendor
-> kernel in the Luckfox Pico SDK [1] at commit 824b817f8 (a Linux
-> 5.10.160 kernel tree). The IOC registers are spread across several
-> blocks, addressed through per-bank offsets, with the GPIO0 block in the
-> PMU. The drive strength uses the RK3568-style exponential encoding.
->=20
-> The RV1103 is a package variant of the RV1106 with fewer pins and uses
-> the same pin controller.
->=20
-> [1] https://github.com/LuckfoxTECH/luckfox-pico
->=20
-> Signed-off-by: Simon Glass <sjg@chromium.org>
-> ---
->=20
->  drivers/pinctrl/pinctrl-rockchip.c | 208 +++++++++++++++++++++++++++++
->  drivers/pinctrl/pinctrl-rockchip.h |   1 +
->  2 files changed, 209 insertions(+)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-rockchip.c b/drivers/pinctrl/pinctrl=
-=2Drockchip.c
-> index 7e0fcd45fd26..f9cbcb955853 100644
-> --- a/drivers/pinctrl/pinctrl-rockchip.c
-> +++ b/drivers/pinctrl/pinctrl-rockchip.c
+Add Maili compatible to supported device list. Maili has one SuperSpeed
+USB controller.
 
-[...]
+Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> @@ -3310,6 +3470,7 @@ static int rockchip_set_drive_perpin(struct rockchi=
-p_pin_bank *bank,
->  		ret =3D strength;
->  		goto config;
->  	} else if (ctrl->type =3D=3D RV1103B ||
-> +		   ctrl->type =3D=3D RV1106 ||
->  		   ctrl->type =3D=3D RK3506 ||
->  		   ctrl->type =3D=3D RK3528 ||
->  		   ctrl->type =3D=3D RK3562 ||
-> @@ -3482,6 +3643,7 @@ static int rockchip_get_pull(struct rockchip_pin_ba=
-nk *bank, int pin_num)
->  				: PIN_CONFIG_BIAS_DISABLE;
->  	case PX30:
->  	case RV1103B:
-> +	case RV1106:
->  	case RV1108:
->  	case RK3188:
->  	case RK3288:
-> @@ -3547,6 +3709,7 @@ static int rockchip_set_pull(struct rockchip_pin_ba=
-nk *bank,
->  		break;
->  	case PX30:
->  	case RV1103B:
-> +	case RV1106:
->  	case RV1108:
->  	case RV1126:
->  	case RK3188:
-> @@ -3843,6 +4006,7 @@ static bool rockchip_pinconf_pull_valid(struct rock=
-chip_pin_ctrl *ctrl,
->  		return pull ? false : true;
->  	case PX30:
->  	case RV1103B:
-> +	case RV1106:
->  	case RV1108:
->  	case RV1126:
->  	case RK3188:
-> @@ -4623,6 +4787,48 @@ static struct rockchip_pin_ctrl rv1103b_pin_ctrl _=
-_maybe_unused =3D {
->  	.schmitt_calc_reg	=3D rv1103b_calc_schmitt_reg_and_bit,
->  };
-> =20
-> +static struct rockchip_pin_bank rv1106_pin_banks[] =3D {
-> +	PIN_BANK_IOMUX_FLAGS(0, 32, "gpio0",
-> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU,
-> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU,
-> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU,
-> +			     IOMUX_WIDTH_4BIT | IOMUX_SOURCE_PMU),
+diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+index 932d7aea43c5..9eec07dd33de 100644
+--- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
++++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
+@@ -37,6 +37,7 @@ properties:
+           - qcom,ipq8074-dwc3
+           - qcom,ipq9574-dwc3
+           - qcom,kaanapali-dwc3
++          - qcom,maili-dwc3
+           - qcom,milos-dwc3
+           - qcom,msm8953-dwc3
+           - qcom,msm8994-dwc3
+@@ -208,6 +209,7 @@ allOf:
+               - qcom,ipq5424-dwc3
+               - qcom,ipq9574-dwc3
+               - qcom,kaanapali-dwc3
++              - qcom,maili-dwc3
+               - qcom,msm8953-dwc3
+               - qcom,msm8996-dwc3
+               - qcom,msm8998-dwc3
+@@ -546,6 +548,7 @@ allOf:
+               - qcom,ipq4019-dwc3
+               - qcom,ipq8064-dwc3
+               - qcom,kaanapali-dwc3
++              - qcom,maili-dwc3
+               - qcom,qcs615-dwc3
+               - qcom,qcs8300-dwc3
+               - qcom,qdu1000-dwc3
 
-sashiko is correct here,
-only pins 0-6 have drive-strength registers.
+---
+base-commit: 1db5c6b0b9834aee2f14e39764becfcc29d09ccf
+change-id: 20260712-maili-usb-dwc3-binding-9c2d4b70953b
 
-Some different setting starts at the 0x30 mark.
-
-This should be easy to handle in rv1106_calc_drv_reg_and_bit()
-
-
-
-> +	PIN_BANK_IOMUX_FLAGS_OFFSET(1, 32, "gpio1",
-> +				    IOMUX_WIDTH_4BIT,
-> +				    IOMUX_WIDTH_4BIT,
-> +				    IOMUX_WIDTH_4BIT,
-> +				    IOMUX_WIDTH_4BIT,
-> +				    0, 0x08, 0x10, 0x18),
-> +	PIN_BANK_IOMUX_FLAGS_OFFSET(2, 32, "gpio2",
-> +				    IOMUX_WIDTH_4BIT,
-> +				    IOMUX_WIDTH_4BIT,
-> +				    IOMUX_WIDTH_4BIT,
-> +				    IOMUX_WIDTH_4BIT,
-> +				    0x10020, 0x10028, 0, 0),
-
-in theory only the first offset should be necessary here - same for the
-other bank's offsets.
-
-=46or offset-values of 0, the driver will automatically create the right,
-offset increments. 8 for 4bit wide iomuxes.
-
-See
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dri=
-vers/pinctrl/pinctrl-rockchip.c#n4344
-
-
-So with the drive-strength thing fixed
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-
-
-Heiko
-
+Best regards,
+--  
+Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
