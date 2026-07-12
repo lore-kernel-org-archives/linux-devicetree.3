@@ -1,87 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEF5338936
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 15:07:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315F833F5B6;
+	Sun, 12 Jul 2026 15:07:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783868829; cv=none; b=OYr1Timvv0CtSkHePXR9bfaX7DawWNO/lrUO8h0CEFmz9EtqFG56UHYN355+f2f3B9/WtRfLRjAxIPDeHCAZFt5Mjlyl5HHJHQv4ErqsL6qfs+hxcfUOX//uPH1oR5sNPDF3UcE7XjWSQZfWk/t1TtqxsuspJFHmhutoy04IyH4=
+	t=1783868875; cv=none; b=usr9h5aA4eKBtlTjpjWgEgf2DL9FdA3LCUc1Dyv4wm3dAcVsTlohg7PwSwqAB8BtzEFcBX/v0IYFpawXrIXmffVnx7S6UXdKNQ8/Ymzcw14pxXB46TlK5C39QZdIOpnRYa29U1gCYNNIQZnpfYq/h5bJvMmUNaThKpTO8plyzT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783868829; c=relaxed/simple;
-	bh=MpwmTm9lpYiSebNgqs15AcemjrEKdUu/uHtzGTc1WZM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pkYpbA1TM7HTc606fwnsd+AbORTjAsAuaxE1h7hBoy2RdqaqAPrS2EMpUtE1mjoluNGEZglTSCKk/m7Rf9iXHyDEUWxdcyC/zPVtt1nGyOXIXi24sv2kVSUHG6tLbzqw/eNXSwwWedrcKSmfBNteXIgwPcKIsJ2zkw2j1hP61Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kslMz+NK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783868875; c=relaxed/simple;
+	bh=Ki92rlySzJj0H+WmmjjeITvq6BF017pW6876DOtGDdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KiCtw01+2ysk7RNexYnIZvGjog5khqa6QuCKeAWdnxynAsPudnl2C8MTW0u72c+rGLIxmmytGYHiFsfJYItdnP432sqQFtTZfkIKUU7tthOOxAFolwnzQ5xlwSgKdVvMlFztE77J+wYqc8ONoUwb17XMJBlNGFx9np8qMrsOEdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkhexDtu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kslMz+NK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A411F000E9;
-	Sun, 12 Jul 2026 15:07:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkhexDtu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63B81F000E9;
+	Sun, 12 Jul 2026 15:07:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783868827;
-	bh=PexZsrIw8yZcaT2J/RBRrQI4KwQuXyWhnitzYNjbA4g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kslMz+NKm64orvSxs3RVhWXXix9rcN/tW8jWNNr/RYPidf1MsiyDT0EH1eO6CPfls
-	 fX2FLfV78IMY8k7cY/8MxhblpBYmzzTPAoK/gyNUY0xTNfmXPyAcz1jewvmcroiERo
-	 q5ST49vxNsck825c5OKU/r5AwTBnlT8os+aXCcIaRYz0ZvuxSo09bz5lnThQ73Nza1
-	 3refVksGL3d78HFunp1SyPunwKlKUrvj2GvEzgRQNvSFjW9Rj6EMTnZ6NlkBArzfmf
-	 T6Ju6YxN+aPagB22vAGJwAz85arkKLi2L5JkxVOkDJ98acVRW+DvxugKqEtk5QzLaH
-	 L8/mF+O3dPiWw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: soc: qcom,wcnss: Drop redundant $ref of
- firmware-name property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260712145654.126171-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260712145654.126171-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 15:07:06 +0000
-Message-Id: <20260712150707.83A411F000E9@smtp.kernel.org>
+	s=k20260515; t=1783868873;
+	bh=101y6LiGHfX9NEhSyMTD995wgFcFQDJmnqIAzlV7K4M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kkhexDtuikZisA1jceTancKKfISLEIypMvoCVn9HRbmne2CabM8r77HcHM9THO/BK
+	 2xqjvfgAVh2D3gxnH3nTbXJ3PdYb/1FWiitZTiQM5DEhGQKEitf60RWXSbsim3tKps
+	 lBk3TvmQkAQp8ikYhpJBpPzS1FEMHeTvPm3JufAr76IV8ua5F+0AiqTiFw4IeBR3UN
+	 GlxVrp4WAQExN+invJYsc2GGuDQOGfXdBCZL0X0Z/mFGf20yQuFMnBsqdjxljNSlnq
+	 t6ViDTBnBYA8L5eY3n8E39iyqtj4wnZ33P90D3w4wHoa32l66RYTzG2ZAfqdbt1VXl
+	 POKQFTIQgJNBA==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: milos: Add reset for sdhc_2
+Date: Sun, 12 Jul 2026 10:07:49 -0500
+Message-ID: <178386886745.278077.16422029437667124931.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260710-milos-sdhc2-reset-v1-1-c7a155a517ba@fairphone.com>
+References: <20260710-milos-sdhc2-reset-v1-1-c7a155a517ba@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Schema validation error: `default` value for `firmware-name` is a s=
-calar string but should be a string array.
---
 
---- Patch [1]: [PATCH] dt-bindings: soc: qcom,wcnss: Drop redundant $ref of=
- firmware-name property ---
-commit ee3e2676da46575844622ab43164871fd3c8d4ab
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Fri, 10 Jul 2026 11:53:57 +0200, Luca Weiss wrote:
+> Add the missing reset (BCR) for sdhc_2.
+> 
+> 
 
-dt-bindings: soc: qcom,wcnss: Drop redundant $ref of firmware-name property
+Applied, thanks!
 
-This commit removes the explicit string reference for the firmware-name
-property and replaces it with maxItems: 1, implicitly adopting the
-string-array type from the core schema.
+[1/1] arm64: dts: qcom: milos: Add reset for sdhc_2
+      commit: ab07ee0b1b29ce2672ae3b9ca208033c3ada12c2
 
-> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,wcnss.yaml b=
-/Documentation/devicetree/bindings/soc/qcom/qcom,wcnss.yaml
-> --- a/Documentation/devicetree/bindings/soc/qcom/qcom,wcnss.yaml
-> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,wcnss.yaml
-> @@ -19,7 +19,7 @@ properties:
->      const: qcom,wcnss
-> =20
->    firmware-name:
-> -    $ref: /schemas/types.yaml#/definitions/string
-> +    maxItems: 1
->      default: wlan/prima/WCNSS_qcom_wlan_nv.bin
-
-[Severity: Low]
-Will this cause dt_binding_check to fail? Since the property type is now
-implicitly a string-array due to maxItems, should the default value be
-updated to an array format like [ wlan/prima/WCNSS_qcom_wlan_nv.bin ] to
-avoid a JSON schema validation error?
-
->      description:
->        Relative firmware image path for the WLAN NV blob.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712145654.1261=
-71-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+Best regards,
+-- 
+Bjorn Andersson <andersson@kernel.org>
