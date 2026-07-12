@@ -1,248 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4583A4F4A;
-	Sun, 12 Jul 2026 12:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C043AB5B7
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 12:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783858393; cv=none; b=hZ13HiB2+9Tk72PVyxKY2/ov9GVN8jYW1NA5fg61TDpJMc/F3FyLylMS1WcPEI0erdHTNC4utlzZEqt5kI3M3j6YnOGXBQ5hJmlGT8SK4AXQnDG07akzdbM+U7kg7nE424ss09REThp2GKsOcNFeaMznvkXnlc6XuFxoa2jZIA8=
+	t=1783858471; cv=none; b=m5G4QuTiyVHdB/mDNslHvMZHhSQk43ygWzo9o6yaxeIeTNk56hUz1T9XbGvMZVzuFGuvDyKfJbYR+KaUEVx6kbb3fIUHAO/SShWxzFiVhKj+9tpMVVBwc2CwTNI8Yho/9wgbUsv0TcFrZkWNwqWFazX+ai2aI1ytbTAXn7Ras88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783858393; c=relaxed/simple;
-	bh=D+X0O0chaY+dxk73/+5x15hGDZcG8k3ueF8xdzcT7Sw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H952usa5wDviiUw5s3Le9zfK37WHUvxUckjOM23u9px/ShcJc4CpEJ866qsrSFXA0wzyAhoDz67qGJ0P6AQQWgEhnwUDy63l1bhdrEQpmn2sgUixEs8b0eoG7uI2xLMLCV9fy6YnAvKWPeivBoYcxFC0cWqwI90pdI6MLF/Hf5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWydNVvN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783858471; c=relaxed/simple;
+	bh=/InVEEvL2BDFOHfqag5PBcB5YAbkZtlMQjkqKfb3u/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qGKsgYD8r0t6wZDTNw/6AOE20x8XDFmx0kuDkOVw2f697o60NQ/RezLlW+ObI6NIxgkZZok0azZx7NAu2KLCn0oBYrrCtf5d7UbMsdv3Uzx9VRO68445DmjR1iLOiqr1T+GPCQf7s9hi6Y4ZxQZruENV5T0khE2K1HkLMXemDes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DD0kkFjt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O3GuHJiG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWydNVvN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23F771F000E9;
-	Sun, 12 Jul 2026 12:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783858391;
-	bh=bwifOs3ARdMGHT87KJ+xGdNEjJ/ce/EhL8WqDfk2fN4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AWydNVvNuSVtau77GHGBTr7WnKtsDnmxElUT1rgAWJmReJUNK9DyuZvqy7mN7OfiE
-	 SAhuUy4YvVdUwDYRSfMWdZ7LJeGRf0sjDzYNYX7xWjWmw/sIxJ2gkWqRvPpI3wfxyf
-	 q26ifXjKTe9KQrELiy4DMT7vJ5elgUA8cPdb99o2A/bFfaMWr691JrU+xBuRJMVtAI
-	 23qd3NcPQFMd+iiQ/uYL0OxWzeRG5ML2I2xmVJwAbCLX4PeOaZhARGgHzlPF1xdsG8
-	 SbJ75e+mvZfsQisLS7FonQnk+fOhet0c4Y5H2uI7GudNfhBx/5+1EYxXfmdNVDEMMS
-	 r+ltD6d6rDqaA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/5] media: hi846: Add 6MP and 8MP modes support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pengyu Luo" <mitltlatltl@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260712115012.91600-5-mitltlatltl@gmail.com>
-References: <20260712115012.91600-1-mitltlatltl@gmail.com>
- <20260712115012.91600-5-mitltlatltl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 12:13:10 +0000
-Message-Id: <20260712121311.23F771F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DD0kkFjt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O3GuHJiG"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66CAemm22391997
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 12:14:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=HfwZ/Ch0hmCLwy9ZofNn28jc
+	v2cqQx6opUokqQoHzlQ=; b=DD0kkFjtoZArhuSik/sHzOWP+iDteAm1clFv6Ujj
+	VtvFP6OGrPIEVz/pCMHrCQdeSwCIN1w8tNSjDYiQucU2Q8wvdxdinhU6rQVbNlP3
+	Xq2YYTrrJOXmUJgTM7yQQYqRnucX9dN/m1ZqKrbZ2myX7aFZ6hJvHDyJFOTEyl+n
+	JWiSyV20zzt+KqmSQnixiTNpEHCZH+DIVU8Z287m3jrfqqLPERygvcR1yPAI778o
+	fc41bngUh/jQQ0y4Q/wzW3CzwfrOvzPbgHm8PqFP8DS2K1j/YxAscFFsJE7hFC8Y
+	FqVZeLRthBxB238HvrWWbR643TDQNVh6Yw6Up9qZCiEMwQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbe8vapq8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 12:14:18 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8ec3314f65fso32873036d6.3
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:14:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783858457; x=1784463257; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HfwZ/Ch0hmCLwy9ZofNn28jcv2cqQx6opUokqQoHzlQ=;
+        b=O3GuHJiG5E5olREM3CtRGf7+3oSdsx9TkTJS9bf1XETYxvfQf1lH6iPV14udj5LEFI
+         WcivMN8ckAMMqECik6G95ZobEIErwiDcFF+hT5Lz5jPQPQsU0LC+8YfG+RDeSiycEs8D
+         utv0bsSxW0ttdftGC3dQx22MGGGQ0+DGew06MG2Yd9GWopycbwskJRJCNKuybJwYr3c4
+         yhE8UGoDzIgsrlg/nX7JOtxZ/Uopy+t8M0hnxQvT4jaJDwiu4DKu+TyuMnnDE6gvkIG+
+         AbC/mqM7Oyf4A4bOvayRTFsCdLjceks7SFA8v1Oc0Smv6lCOk7/vGwZDB1yFV2H3r66u
+         EHcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783858457; x=1784463257;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HfwZ/Ch0hmCLwy9ZofNn28jcv2cqQx6opUokqQoHzlQ=;
+        b=Xzx9N7pDHAZ1Nw07C7Ck4g8Fuv+nzAOmIfZhFx3E/n1fbaI6iJsJVq4cg1JbYV6C8B
+         R4xdUCUpOQ4pxalGkb/NP5P7ktCLS2ogUMnC2QQIO59rzVXoSAuUH6hDyYOc8YYMqGfG
+         6E5mWLz2HDQ6PLHl83o2142J24L00zEqnm8bNtxagli3EEkLw2jqLJEBqW3XL4hJ/Qyb
+         nfrqQUbtlEzk8uULRh3+iCfL1M33FUFEpCip6B1Z10rk6TWyV2IXFq6RY5giFUUcy85Z
+         EQ252HQxnmjkOnru9hnCwU2Tt9rQQpMm6AswfqYOQI+7hyJjhvCJeHJDrtzMxpLwOHCO
+         tyGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpLQkqGE28R4GZrWcJFL/roMQADnv91bfbGTQpl+dm1WJ8LGAqt1e8nlzHMqjeT+QuaqkjpuzFEP0QI@vger.kernel.org
+X-Gm-Message-State: AOJu0Yypaj3XEpmorSRlYxv/8ZrdCvO8kbvjLYnOcZn8+ZY9sL9K7CMH
+	lhKvyjHJRqoPj7kzI3Yb9yO0Ev4+1t0YnY9H3AhR6th+TdhfngtXusi/yiJuNjrdcgg6xDzEaHO
+	rSrRYryB0beq0HAYZQLnsnqzRtdDIbMwuRRGZlq8XBPb5l65A4i6IWlGFxQYs5ICL
+X-Gm-Gg: AfdE7cnSEDi5nt+5YY0BB7RiAqzmzJ+v1sNToEja6LQRm7GoAjiDcYFc+0Y7Ub2ffP1
+	3n2gDkiXRphE7nQiwN3XnFt9UMH1aTd7K3fCCoIgAVu0iu/VYJYTNWvPZhioozbkLa4H5S4pKhp
+	P+9pRoKqWw6R0RjHqnQc7OUl3etUl9P7AEUIXVjz2b2ejse6KsnWlWjXgaF7Z/LQuU83BCYyrWs
+	Bi1S+ftxjmcLWjSAK6yVzqrrz+v9v1XRBAJYxw/51uPCA/lVAZOp7KZYDxJlvZPJVW2FG3sHEag
+	OUQmVTVer5YLfCcCtxW4VBtl/lLQ0Vrk6M2zA5Tor7vVBsR74+5pnqe4DikCtfKyRbc4gM/FI1j
+	AabQaO3JE5D/+CfFccS9Vs/kEverkva56+tE24vOjbt8lCXSm2Vk2JWENTXcnyutGUfM297VUl5
+	gflgPG/ARq5waHao6VLIKN4cbX
+X-Received: by 2002:a05:6214:468a:b0:8f0:a2c5:9d59 with SMTP id 6a1803df08f44-90402369c1fmr71343956d6.21.1783858457540;
+        Sun, 12 Jul 2026 05:14:17 -0700 (PDT)
+X-Received: by 2002:a05:6214:468a:b0:8f0:a2c5:9d59 with SMTP id 6a1803df08f44-90402369c1fmr71343576d6.21.1783858457034;
+        Sun, 12 Jul 2026 05:14:17 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b01ca4f901sm2091705e87.23.2026.07.12.05.14.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 05:14:15 -0700 (PDT)
+Date: Sun, 12 Jul 2026 15:14:12 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Val Packett <val@packett.cool>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Daniel J Blueman <daniel@quora.org>,
+        Vikash Garodia <quic_vgarodia@quicinc.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Bryan O'Donoghue <bod@kernel.org>
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+Message-ID: <zaigjwjpldnsrzsfbyolnlvblteav5esfstoib4m3eusc67a26@jotedakvvo7m>
+References: <20260601041336.9497-1-daniel@quora.org>
+ <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
+ <20260601041336.9497-2-daniel@quora.org>
+ <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
+ <CAMVG2ssnyH=KUKrdfnUOtPYU7p17inyzcYWcKhT4EAZxDzDjfg@mail.gmail.com>
+ <cb37e7cc-4fb0-4c24-8f89-f6f9eb08a107@oss.qualcomm.com>
+ <ff3748ef-cf75-42b3-850c-b8742a814920@packett.cool>
+ <519CAAC5BE344EB7+e6d7f90a-e481-468c-a987-dac3c69d7362@radxa.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <519CAAC5BE344EB7+e6d7f90a-e481-468c-a987-dac3c69d7362@radxa.com>
+X-Proofpoint-ORIG-GUID: tO27jXSCUFm3rWevsMsKy6GqA5Rd5sdz
+X-Proofpoint-GUID: tO27jXSCUFm3rWevsMsKy6GqA5Rd5sdz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDEyNyBTYWx0ZWRfX7I68jCC/tzS4
+ J/mPoeZ9ICllFgDMbeEOqYVXrnS0xMa+2PUCHUXpInrZL3qLLQWUy72US0cpSjnLfTmr5xVSLTc
+ XKBjQFYmbgdQWNvmyXgFUZGlfD5sjDo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDEyNyBTYWx0ZWRfX+156TYfNiXjY
+ MNaGoqNuUkKo6VROm0BitCJ61eNz/bJ60Tf2CNBBKhCkBwzLKb5jnyR527I3jfKOnsmkycowIdk
+ jcyD1EqNR+XR+oepyu/ilQiHLYYPUSsSa/XHn5QXOaXuiNepEjsQxrSvXCRkR/6UHJH8+Jdskn5
+ yelEbs5Pc1UX8fj+tb/FhYtjF1PYCwPol25QjEkyTphlboJxK5S4FaIucw2arYNon/ofcnYmkZR
+ Ivgkb3R0mDrDnISo/P8quBbijgQ+ovjjh0Sy06jFA55KKlZjVBlU8cve2L1mSE33haVi/q457F0
+ VTxs26Yi2GF8WwvoWup4L95yp7zehA6h3liqkQcIJbPIQGKii5w/pen8MzrYlBwhYMxjTC2H0fI
+ oeehi4at7+d/lNc+V00gbGObZRYGW8SjqbfRmUaqM4UeuXS0uz8h5l5rDhCKiuhvPxr3+Lg5OTQ
+ 9k6egkD+a1JDAoPjDaQ==
+X-Authority-Analysis: v=2.4 cv=WONPmHsR c=1 sm=1 tr=0 ts=6a53851a cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=NEAV23lmAAAA:8
+ a=nl5WK0wFAAAA:20 a=VwQbUJbxAAAA:8 a=pLiI7BJ3y60Ur7kopoMA:9 a=CjuIK1q_8ugA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-12_04,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120127
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Mon, Jun 08, 2026 at 12:17:57PM +0800, Xilin Wu wrote:
+> On 6/8/2026 11:48 AM, Val Packett wrote:
+> > 
+> > On 6/4/26 3:38 AM, Vikash Garodia wrote:
+> > > 
+> > > 
+> > > On 6/2/2026 9:05 PM, Daniel J Blueman wrote:
+> > > > On Tue, 2 Jun 2026 at 18:27, Bryan O'Donoghue <bod@kernel.org> wrote:
+> > > > > 
+> > > > > On 01/06/2026 05:13, Daniel J Blueman wrote:
+> > > > > > On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
+> > > > > > triggers unhandled SMMU page faults
+> > > > > 
+> > > > > How do we know that is a correct address - does it come from qcom
+> > > > > documentation or trial and error ?
+> > > > 
+> > > > @Vikash, beyond your comment I linked in the patch [1] kindly cite a
+> > > > source for the different stream-ID <600MB behaviour, and share
+> > > > specifics, eg if silicon, firmware, or driver and constraint, defect
+> > > > or otherwise, so I can include a definitive description.
+> > > > 
+> > > > Also good to know if my workaround is good for long-term, or on the
+> > > > other hand handling streams <600MB is important/useful.
+> > > > 
+> > > 
+> > > Thanks Daniel for raising this patch. Did you also try the memory
+> > > fix i mentioned in the bug [1] discussion ?
+> > > 
+> > > Coming to 600MB, this have been the VPU hardware restriction all the
+> > > while since venus days, and since address could not go deeper all
+> > > the way lower than 600MB, the issue never popped up earlier.
+> > > 
+> > > Consider the memory layout split as below (Iris device range is
+> > > capped to 0xe0000000)
+> > > 
+> > > |-----600MB-----|-----(0xe0000000 - 600MB)-----|----IO reg--|
+> > > 
+> > > 0-600MB range, VPU hardware would reserve this to generate different
+> > > stream-IDs primarily for internal (non-pixel) buffers.
+> > > 
+> > > 0-600 --> VPU would generate *secure* stream ID for non-pixel buffers
+> > > 601 - 0xe0000000 --> VPU would generate non-secure stream ID for
+> > > non- pixel buffers.
+> > > 
+> > > When many concurrent sessions were tried, non-pixel buffers were
+> > > mapped into 0-600MB range, and VPU generated secure ID for those.
+> > > Since those were not associated with the iommus configured for iris
+> > > node, it led to USF (un-identified stream fault) and device would
+> > > crash.
+> > 
+> > Umm.. is anything *actually* preventing us from adding the "secure" SID
+> > to the iommu node?
+> > 
+> > I just saw a patch for sc8280xp that did just add an "extra" SID for iris:
+> > 
+> > https://github.com/strongtz/linux-radxa-qcom/commit/
+> > e92850f792498c3a72d72d667503a29bf6bb0a31
+> > 
+> > and I'm wondering if that's about the same exact issue.. (Adding sophon@
+> > to Cc: here)
+> > 
+> 
+> I'm not sure if we're having the same issue. Without adding that SID on
+> sc8280xp (HFI Gen2 FW), it fails to decode anything and crashes instantly.
+> From the trustzone log inside the crashdump, I can see that the buffer isn't
+> actually in the 0-600MB range.
 
-New issues:
-- [High] Unconditional link frequency validation fails probe on 2-lane hard=
-ware for modes with dummy frequencies.
-- [High] Dynamic link frequency calculation breaks backward compatibility w=
-ith existing device trees.
-- [Medium] The active crop rectangles for the new 6MP and 8MP modes exceed =
-the sensor's native crop bounds.
-- [Low] The patch author failed to address reviewer feedback requesting the=
- use of separated fields for PLL configuration.
+Hmm. The decoding is working on Lenovo X13s ([1]). It says 6.18, but it
+was the Iris driver patched to support SM8350 / SC8280XP, which I posted
+some time ago. For the reference, the firmware reports the version to
+be: video-firmware.1.1-b158087140355883dc40b004032856a8feb5d565.
 
-Pre-existing issues:
-- [High] The default active mode lacks a 4-lane register configuration, lea=
-ding to missing MIPI setup and streaming failures on 4-lane hardware.
---
+[1] https://github.com/lumag/fluster-tests/blob/trunk/iris-sc8280xp.md
 
---- Patch [4]: [PATCH v5 4/5] media: hi846: Add 6MP and 8MP modes support -=
---
-commit 3cb5bb77cc3eceb92db3158280dae51e0e69e655
-Author: Pengyu Luo <mitltlatltl@gmail.com>
-
-media: hi846: Add 6MP and 8MP modes support
-   =20
-Hi846 is an 8MP sensor, but the upstream driver has only supported 2MP
-mode for years. This patch adds 6MP and 8MP modes to maximize sensor
-utilization.
-
-Note that these modes require 4-lane MIPI CSI-2, as the downstream
-driver only exposes 2MP, 6MP, and 8MP configurations in 4-lane
-operation on the target device. The register sequences are extracted
-from the downstream Windows driver.
-
-> diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
-> index df7ea3ecf0d82..0fc27545eec8b 100644
-> --- a/drivers/media/i2c/hi846.c
-> +++ b/drivers/media/i2c/hi846.c
-> @@ -1028,6 +1028,106 @@ static const struct hi846_reg mode_1632x1224_mipi=
-_4lane[] =3D {
-[ ... ]
-> +static const struct hi846_reg mode_3264x1836_mipi_4lane[] =3D {
-[ ... ]
-> +	{HI846_REG_UNKNOWN_095A,		0x9240},
-> +	{HI846_REG_PLL_CFG_MIPI2_H,		0x4124},
-
-[Severity: Low]
-Does this still use raw register values instead of separated fields?
-
-The v5 changelog states: "Use separated fields instead of raw register valu=
-es
-for PLL cfg (Sakari)".=20
-
-However, this newly added array defines the PLL configuration using a raw 1=
-6-bit
-payload (0x4124) rather than using field preparation macros (FIELD_PREP) or
-separated fields.
-
-Was this reviewer feedback missed?
-
-> +	{HI846_REG_TG_ENABLE,			0x0100},
-> +};
-> +
-[ ... ]
-> +static const struct hi846_reg mode_3264x2448_mipi_4lane[] =3D {
-[ ... ]
-> +	{HI846_REG_UNKNOWN_095A,		0x9240},
-> +	{HI846_REG_PLL_CFG_MIPI2_H,		0x4124},
-
-[Severity: Low]
-Does this still use raw register values instead of separated fields?
-
-As mentioned above, the v5 changelog indicates this should use separated fi=
-elds
-rather than a raw 16-bit payload.
-
-> +	{HI846_REG_TG_ENABLE,			0x0100},
-> +};
-> +
-[ ... ]
-> @@ -1136,7 +1236,59 @@ static const struct hi846_mode supported_modes[] =
-=3D {
->  			.width =3D 1632 * 2,
->  			.height =3D 1224 * 2,
->  		},
-> -	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the default active mode
-lack a 4-lane register configuration, leading to missing MIPI setup?
-
-During probe, the driver sets the default format in hi846->cur_mode to
-&supported_modes[0] (640x480). This mode has an empty 4-lane MIPI configura=
-tion.
-
-If a userspace application running on 4-lane hardware starts streaming with=
-out
-explicitly setting a supported format via VIDIOC_S_FMT, hi846_start_streami=
-ng()
-will attempt to apply the empty 4-lane register list.=20
-
-Will this silently leave the sensor's MIPI interface unconfigured, resultin=
-g in
-capture hangs or deadlocks?
-
-> +	},
-> +	{
-> +		.width =3D 3264,
-> +		.height =3D 1836,
-> +		.mipi_clk_div_2lane =3D 1, /* dummy */
-
-[Severity: High]
-Does this dummy frequency break probe on 2-lane hardware?
-
-During probe, hi846_check_link_freqs() iterates over all elements in
-supported_modes, calculating their link frequencies and verifying they exist
-in the device tree endpoint.
-
-Since this dummy frequency is not present in the 2-lane device tree's
-link-frequencies property, will the check unconditionally fail and abort dr=
-iver
-probe, breaking 2-lane hardware configurations?
-
-> +		.mipi_clk_div_4lane =3D 2,
-
-[Severity: High]
-Does this dynamic link frequency calculation break backward compatibility w=
-ith
-existing device trees?
-
-Prior to this series, the driver hardcoded acceptable link frequencies (80M=
-Hz
-and 200MHz), and existing device trees list these specific values in their
-link-frequencies property.=20
-
-Since patch 2 ("media: hi846: Fix link frequency handling") replaced these
-hardcoded values with a dynamic calculation based on mclk and lane count,
-calculating it here yields 187.5MHz and 375MHz when driven by the previously
-standard 25MHz external clock.=20
-
-Because hi846_check_link_freqs() requires the exact calculated frequencies =
-to
-exist in the device tree, will probe fail on existing platforms using the l=
-egacy
-mandated values, violating Device Tree backward compatibility rules?
-
-> +		.fps =3D 30,
-[ ... ]
-> +		.crop =3D {
-> +			.left =3D 0x46,
-> +			.top =3D 0x172,
-> +			.width =3D 3264,
-> +			.height =3D 1836,
-> +		},
-
-[Severity: Medium]
-Do these active crop rectangles exceed the sensor's native crop bounds?
-
-The V4L2 selection API strictly requires that any active crop rectangle mus=
-t be
-fully contained within the native bounds (V4L2_SEL_TGT_CROP_BOUNDS), which =
-are
-hardcoded to 3264x2448 in hi846_get_selection().
-
-However, this crop rectangle is defined with a width of 3264 and a left off=
-set
-of 0x46 (70), positioning the rightmost edge at X =3D 3334, which exceeds t=
-he
-3264 width limit.
-
-Can this API violation cause v4l2-compliance test failures and confuse
-userspace applications?
-
-> +	},
-> +	{
-> +		.width =3D 3264,
-> +		.height =3D 2448,
-> +		.mipi_clk_div_2lane =3D 1, /* dummy */
-> +		.mipi_clk_div_4lane =3D 2,
-[ ... ]
-> +		.crop =3D {
-> +			.left =3D 0x46,
-> +			.top =3D 0x40,
-> +			.width =3D 3264,
-> +			.height =3D 2448,
-> +		},
-
-[Severity: Medium]
-Similarly, does this crop rectangle exceed the sensor's native bounds?
-
-With a top offset of 0x40 and height of 2448, the bottom edge is at Y =3D 2=
-512,
-which exceeds the 2448 native height limit, in addition to exceeding the wi=
-dth
-limit as seen in the previous mode.
-
-> +	},
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712115012.9160=
-0-1-mitltlatltl@gmail.com?part=3D4
+-- 
+With best wishes
+Dmitry
