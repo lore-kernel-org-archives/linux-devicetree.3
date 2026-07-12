@@ -1,145 +1,151 @@
-Received: from out13-173.antispamcloud.com (out13-173.antispamcloud.com [185.201.17.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0473522D792
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 22:10:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.17.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10BB37A82F
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 22:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783894216; cv=none; b=kRs0e1dM0syk2twNDYWDMvRoz0Sc1YYeciqF7qLpm1MO/nHAdCaqhaXzY3udjZ02P/TIlp1by40hYgNNyMo1qCyISLKOwoEfdCWPPFpp4pmBPIeYMWVaUpPtOgD7HT0yRIiUz1VWTBytQCR6twKjyXSB4P4KMxJhMCEKCA9EUaQ=
+	t=1783894289; cv=none; b=AUcyCFcxJ14yHNs/XPMpHh6ZSIn5bwp0pxJZvHx/MX3tVFdJNttvlrDdaQl/blKhJm7xRrJyRZtpQFQ+DE5pzSp8dZwUd+PLr2XRq9aQpUn/Rd2tVMVDtlxFYp8xfMOdS9ETJBJHPItgf1/jDJmtPfSdY8a1XTIq/GZw9yZbOv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783894216; c=relaxed/simple;
-	bh=C0N49oshx87g0IoRZILja8XZbKFzwzuAxoXJeIhvICo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FvR07ZO/0ACULxYI0UpZCjeGzwlEijLKXOsXfCHMPwSPU+A+DuWNm7QjB0mWKvNKUkq7FAb4FJScLM0sL+T1EkOUIYThILyyq053f29Q/dJBTzGS/pqQWBPvzPw6l4q6NPfbHUyZzY1qKVHLPF2OnJ6HaX0sNaqRH8BI//hZuak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=aoKcojZR; arc=none smtp.client-ip=185.201.17.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1783894289; c=relaxed/simple;
+	bh=vICjuJZMyL8ox/LroketggeEi023fKRGGXjlLd3/YVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BZctkeKo8flFsubtFnTkyBOX0nENjuDaTcbU9r6Xh1aN1zLVR11a97oQYAvuBzEu6a+Srbpb/MQnqb01cBUfcyjlj8dnn3yAlaKHUlIlEYJy5rkVwKZUUbr78jDyUSyoK0qciszd0KMyyIsIcihzj5k2itEFtNUk+cAh3KVNf/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=ZTfD/Az3; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="aoKcojZR"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx195.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1wj1aB-00GoYA-RE; Sun, 12 Jul 2026 23:19:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=U67P9sBZlm1TqULX82yliNZyk22cqhSD+9K5qcqcVzs=; b=aoKcojZRMHjYSWcWF3g2pBV4ck
-	iCRmjNOyAHKLrIfHDC2QkNH8Upd09B+PPuv+rzwrIDWzBpVRJ/1SjfgDArkqnHi7atxH1PeWGqI32
-	RB89Oj8XnXCTuch36L7GPKIAeSg4N/G6wuN+fO8ePf+DKnTiwDDxviPBb+ZS4l2Xl1N2TV/DiGHyi
-	lf6XcVuFWAJgDy5WgKN4mpfq2PhcD8Lto/C9/zdyk3lsVtZbjLMcf7Hw1e/l2CsILGK8bQFVwE7vI
-	F5zCpg1L1haJuA+oWpCCQwqps8L9D6FSF0n+9fXz9UCvGRuic2MkYPYR6vO5bOl6Rv6J0W4U+ai4x
-	LSGBIjkw==;
-Received: from [188.251.249.2] (port=43526 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.4)
-	(envelope-from <dan@reactivated.net>)
-	id 1wj1a9-0000000D6jk-0Cl5;
-	Sun, 12 Jul 2026 21:19:25 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Sun, 12 Jul 2026 22:18:56 +0100
-Subject: [PATCH 6/6] arm64: dts: broadcom: bcm2712: Add GPU IOMMU and IOMMU
- cache nodes
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="ZTfD/Az3"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-8ff5d1b0f91so14637356d6.2
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 15:11:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1783894286; x=1784499086; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=egnmCxbrpH7UR+MZJeffNbFqc9tcIYQZ6W/rYZyeos8=;
+        b=ZTfD/Az33NRTsDpAMPJkFousSSL5hVhynBEYuyfStFhCaqzRx3fuTQ0Oocle9uK0Df
+         Q0RE/ILH4ZpwnKbtvNIywkMfj3ZUw0U/g38lKHr2Wh1rRGhGj4yFxQ/SXgsDxPJPmGFQ
+         wl6BFvTW7VVsh3HxhLjYTXAawHHlDgO0o+Ftnkw9TKyGVz6eGIzcrYH810N4AWkhKBFi
+         dN92zfY9AlRrSvOjizjgcAw+EpNNqfq1ipo1k44jCOTGf0CSBnIQXownnwOXAnoi+a8W
+         S/lWyT0g618Gtw/LZwVBvclRCqL20XNGsu8fEoZcTcRJ2snBubX6ieiArjOk33FNqg6V
+         e/Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783894286; x=1784499086;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=egnmCxbrpH7UR+MZJeffNbFqc9tcIYQZ6W/rYZyeos8=;
+        b=kQrop+L7RBkwXi9u5dCti387QvuxcRGoA604pSKUKpVRxs85O/5WYW8G/sPhE7g6Ri
+         +pdfgM+NK0PEjiyLPMXOdi7ViI0iPVMarLhCitvJWcp+MdrbVGBLL2IbAmM8ZUT2+d1f
+         FTCmDZ5u6420PnE08lgzCyiZgMm8z7yYq6kpwXX7Z6wpCNkFJyxYe7MUP7W9RSTNpeur
+         Bx3Agt9b3sPWCFTQSuOcGWNJj2wb0uHo3zqrUlPkQu4PFkEvduB7zoOfHcrFSF2PJJKK
+         87ezsWcFsYAGNZ54IXEDhyjiSLutd5LnXn0xHiCvPmwO3Hl+phCjPNEbEbul3BM8vsVm
+         3g3A==
+X-Forwarded-Encrypted: i=1; AHgh+RoLzeaAHCBZ9nui62u93M8j+75jNPTP4pDdttPiWvuajYF5dhHUp1v8/TVfL5wqaILXIxgn7lrkCukJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywgxo3/mvRzCGR3e/pLyjrjFG8vO/cRtKXB8rjIA5u7jxscTvgl
+	fSutcKZJlActyjtebaic2I8kIXH5h46IbBIPsO6Swu9Eqw1Cd4oZDYBR0pFU0Wm+OZI=
+X-Gm-Gg: AfdE7cko40Z627XlFP2KbupDGgIlluuoeB6RnQIrlrXUKG79ZV3DGDMFJs0XFb05E7o
+	xo61oeYcNAiWivPZOAFTy4JJKyYmCqelpWkQoXnf3lXxgZoOXl2zqn++osBhgox7Ju6Joar3CLK
+	kao+XXtpBsfnh/UGaVPMZum3I+2mtiebwB7p4/2Pldy/87u+sgp4aUhB3LvKVJS+afvMjMNapkv
+	g/IM1Lp5p91rptYRhq7jR6W7bSbP/syrmBzotcR4GrUb350KVu8tiTF69kyVMSJVJ6qiq6eC+lc
+	aQALjXg3i/aoyF5TVPaDImRSDgTKeht+W3xmp9f6eW5MK8UNomJ281V4DU4ghgoDg+GiHqddaIs
+	CwpNt1altKQmcLVphxwPo9LChNjngTbqFDv0fvgptMlFHMAHott0UMqpxuuWE
+X-Received: by 2002:ad4:5dc3:0:b0:8f1:440c:7f81 with SMTP id 6a1803df08f44-903fe450e71mr71838966d6.4.1783894286578;
+        Sun, 12 Jul 2026 15:11:26 -0700 (PDT)
+Received: from ziepe.ca ([159.2.72.92])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8ffd50e10f4sm113814616d6.1.2026.07.12.15.11.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 15:11:26 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wj2OT-0000000Bo42-2Ctj;
+	Sun, 12 Jul 2026 19:11:25 -0300
+Date: Sun, 12 Jul 2026 19:11:25 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Daniel Drake <dan@reactivated.net>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	nick.hollinghurst@raspberrypi.com
+Subject: Re: [PATCH 5/6] iommu: Add Broadcom BCM2712 IOMMU driver
+Message-ID: <20260712221125.GD1835788@ziepe.ca>
+References: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
+ <20260712-bcm2712-iommu-submit-v1-5-80e10cdde2ea@reactivated.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260712-bcm2712-iommu-submit-v1-6-80e10cdde2ea@reactivated.net>
-References: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
-In-Reply-To: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Daniel Drake <dan@reactivated.net>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
- Jason Gunthorpe <jgg@ziepe.ca>
-X-Mailer: b4 0.14.3
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (0.00641948596857)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuWWEV0H0VbEBODIAEhSA0udvbRtahqg13i7
- QMqll20EHiu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIOrsK9eXVzfCzGPGPoMTsaCGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWCulNo0fvnzmZPW3MC2/ZtQeB7itP8hgjDRserKv4bhb3RyZlCL9i3kc+ehInPHgYZWBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AygJMVWPun
- 1fB37VxVhASG8u+8DUiUO0BRfqxBojlKdxvQMvgrc1wie1AEvvcTmPTyXHf33UIZCAvni7mq+8YD
- f/ci2htloVR93L1bEU+C8xTxJtcVJProrT987X1VDPOqsTEJQ3xb4EkisAQaGZWETxKpCwD+gvjq
- +Q7Wu6n87Y4MiQvIq8yaIH0NAY0jdAFlJGgHOL37bgI/Ye2LcH+K95UvkJc1KT8DOaInKwXx0sdH
- KvLDzn+sBlvbv5VnduIaPR3/go1dqCkoGvLjLeADawo9dvH5wp0vjpaZ/24Ettv0enVxkZCWZZos
- zd8URU/+6gTEGu/XK6Vc8KHdrhOgCII0Dp+U5wepL0lELB73ipSCX8p9JtlqF62roO5JiUZgqswn
- FU+jNZMmXc3nfiJ1alJRK6f8TBthmwt0M3h5WX2oEmyuRHoHPkE1+Gh9C7bskVWClPVvbW5lVyQa
- nRxw5iVtN5vpnmvYZxjapDr5MMFO+3DFFwGQuwP4V68B1nbUsN3BaZE/M3vqEARlo6jh54IQgFgl
- 8tJcBEI2oXRkv4Iq0TbZY5Mm+5NMqdAvsw5HrZmlTUVqJrMrRLBBPtFloQeYUOp7A73HI6oJg7w/
- Vocp0WgjUq2yqBKYrhCRRStKrAx+Bg3qYIuMjbgPkQEaCetx7/KNryWPVf2yZ8u9fIwWpUkRCVjr
- Nj2/S44UBGxi1cOBGfNGA0CkKkDTg1FNU79hrLNHG9rNMgmamto3lONnlRzBE3R5i4uebX/RTSir
- gQBo28VIgg+9sqTaGzvsONXl1Kc2a+wlKs+ogYIxcMmuAU5uo7azNF03eV6f4TPl2dZQgUDiy7ci
- lnWekKC8VmKaHtj/paE3bCmsCJBpqx690UKzG0uTc7QOvVpVcWtqyseL5vwFpocRzFu6jUSO++En
- 3CbgQ6oseMzSFVJnnE7wBTL1+6vDOMemz/4I88NDD/MfU27nhrax/VmrMyT0HqhWaY+lwFo/KdWd
- 3HxTsq690UKzG0uTc7QOvVpVcWtqAHg7h2md1+NSEL2kBRKSQw==
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260712-bcm2712-iommu-submit-v1-5-80e10cdde2ea@reactivated.net>
 
-Define the IOMMU and IOMMUC nodes for the Broadcom BCM2712 SoC found in
-the Raspberry Pi 5. Enable use of the IOMMU for the graphics/display
-block.
+On Sun, Jul 12, 2026 at 10:18:55PM +0100, Daniel Drake wrote:
+> +static int bcm2712_iommu_of_xlate(struct device *dev,
+> +				  const struct of_phandle_args *args)
+> +{
+> +	struct platform_device *iommu_dev = of_find_device_by_node(args->np);
+> +	struct bcm2712_iommu *mmu = platform_get_drvdata(iommu_dev);
+> +
+> +	dev_iommu_priv_set(dev, mmu);
+> +	return 0;
+> +}
 
-Signed-off-by: Daniel Drake <dan@reactivated.net>
----
- arch/arm64/boot/dts/broadcom/bcm2712.dtsi | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Any chance this could work the way that smmuv3 does? I view it as the
+more modern example..
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-index 761c59d90ffc..ed3178db8acb 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-@@ -626,6 +626,20 @@ pcie2: pcie@1000120000 {
- 			status = "disabled";
- 		};
- 
-+		iommu4: iommu@5200 {
-+			/* IOMMU for VC4 (HVS & MPL/TXP), Unicam, PISP-FE, MiniBVN */
-+			compatible = "brcm,bcm2712-iommu";
-+			reg = <0x10 0x5200 0x0 0x80>;
-+			#iommu-cells = <0>;
-+			brcm,iommu-cache = <&iommuc>;
-+			brcm,iova-window = /bits/ 64 <0xa00000000 0x100000000>;
-+		};
-+
-+		iommuc: iommuc@5b00 {
-+			compatible = "brcm,bcm2712-iommuc";
-+			reg = <0x10 0x5b00 0x0 0x80>;
-+		};
-+
- 		mip0: msi-controller@1000130000 {
- 			compatible = "brcm,bcm2712-mip";
- 			reg = <0x10 0x00130000 0x00 0xc0>,
-@@ -667,6 +681,7 @@ v3d: gpu@1002000000 {
- 
- 	vc4: gpu {
- 		compatible = "brcm,bcm2712-vc6";
-+		iommus = <&iommu4>;
- 	};
- 
- 	timer {
+> +static int bcm2712_iommu_map_pages(struct iommu_domain *domain,
+> +				   unsigned long iova, phys_addr_t paddr,
+> +				   size_t pgsize, size_t pgcount, int prot,
+> +				   gfp_t gfp, size_t *mapped)
+> +{
+> +	struct bcm2712_iommu_domain *mydomain = to_bcm2712_domain(domain);
+> +	struct pt_iommu *pt = &mydomain->pt.iommu;
+> +
+> +	return pt->ops->map_range(pt, bcm2712_iova_to_offset(mydomain, iova),
+> +				  paddr, pgsize * pgcount, prot, gfp, mapped);
+> +}
 
--- 
-2.55.0
+These ops should not be present, the iommpt provides the ops directly
+through a macro;
 
+> +static const struct iommu_ops bcm2712_iommu_ops = {
+> +	.identity_domain = &bcm2712_identity_domain,
+> +	.domain_alloc_paging = bcm2712_iommu_domain_alloc,
+> +	.probe_device = bcm2712_iommu_probe_device,
+> +	.device_group = generic_single_device_group,
+> +	.of_xlate = bcm2712_iommu_of_xlate,
+> +	.default_domain_ops = &(const struct iommu_domain_ops) {
+> +		.attach_dev	 = bcm2712_iommu_attach_dev,
+> +		.iotlb_sync      = bcm2712_iommu_sync,
+> +		.iotlb_sync_map  = bcm2712_iommu_sync_map,
+> +		.flush_iotlb_all = bcm2712_iommu_sync_all,
+> +		.free		 = bcm2712_iommu_domain_free,
+> +		.map_pages       = bcm2712_iommu_map_pages,
+> +		.unmap_pages     = bcm2712_iommu_unmap_pages,
+> +		.iova_to_phys    = bcm2712_iova_to_phys,
+> +	},
+
+"default_domain_ops" should ideally be split out to a "paging domain
+ops" static and set directly during alloc_paging. They are not really
+"default" anymore if the driver has unique ops for every domain type.
+
+Then use something like:
+
+		IOMMU_PT_DOMAIN_OPS(bcm2712),
+
+To define all the page table related ops automatically.
+
+Any chace the HW can do a blocking_domain, or is the only way to do
+that with an empty paging domain?
+
+Jason
