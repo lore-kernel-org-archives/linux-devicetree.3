@@ -1,46 +1,60 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CC33A16AB;
-	Sun, 12 Jul 2026 20:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B84334040A;
+	Sun, 12 Jul 2026 20:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783888486; cv=none; b=MUQgZrX8qmg5P+zZI0H66Cky7skKbBw8K/wnI9ntEXDNEzp4IxPt2fEADgrb/o9CrUHEKNO/TizQxriNi5AiZDbSHeKTjG/J/QYRoF+bzKs0XkKUKFxDS3cXXbgooHOXuNIkF0W3D7Bytt53DF96elMQlIzaLTPp2rq3WIleG1o=
+	t=1783888496; cv=none; b=kDqx6roGagFRWnXRw2NKZUapi962KPKzJjLTWtZbBMDrmetV788C5L1464XlF/VDFMoivITCo7k4Q90e2Z9AXh1omgePY65s1rozYSxNe6sQNkFGLK0+M00hMoErEk+ZvQ7QX6gVbE2JcV7COVkZ+GRoCQSmY//u6ztOHpVjamw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783888486; c=relaxed/simple;
-	bh=bnBi/J5DvZ+dW/ubf9xUSg4sRCfvky+IZTXuwMxwQ94=;
+	s=arc-20240116; t=1783888496; c=relaxed/simple;
+	bh=acDJnTd5MEKvTipUGPLMCNBOBwkkCVfP0RZS48esP/U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L7J3NQak2dJt/lWaKqrsi3yR2GFFTPIcaSnqRV2wSakXohN+F3GaeB2v0I3XwsncrRANqNNtQ6/v5ltPwCmF2O3dxuajxSjEKWRnbscGhl3DdEpalx6thdw2LJcXbDhnwYdHD5iCgl/LEN3GVWCOhxLYwa75icClpz7UwnRZNms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=uewt+Db+; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=tCUGFfZzVphMsl2cPITKqYycCm95yeEPdkCEcGmZNM5OxlVuztoKUGbqM2dp1QDrQc2vXeC/kV+xhVnad7VeG9qa2E8ymCpE1pSXCBMtO/lILVkuQvbKxoICEk47zBUeRRnwYUA4VkzW++w2RyIJRNNmI9/N2efzPrKnYzkV9Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ctJpl8nT; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="uewt+Db+"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ctJpl8nT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=RdRuHzdXq91B4Ck5zEM60mSrg0JXF70TNB6D0dYPrtY=; b=uewt+Db+AXf5pcMwAPqVJ1Fvep
-	9q6dbRiHNLbISblseRryVfgqRMoXiOH9YLvwrNMGvt/fjR2sAFOuzX82Rc0GJAsx2SiUiVQ4zm8em
-	o+FbSrAv5eSJl2cHYS5qWgPNj/MWnBCgezbkbg+5cT/ooUhBia2GV9s7kY9GhvbqNPKHLWd4LYLn/
-	xjPeJzhtdzlt3dxcwNhQiXzy7AvmqZVFjUMIVWLIbJUju2So+Rig3coEvKAWVCJHWv+0Nc9M7Hzu9
-	0SpW3Sx590zvUoyIeMxh3CRFNFnL+pbRutWBQaICE65/4aeqkKEnIxF4US3E+FsTeHQpuPB/7pfOx
-	8qRq77Ow==;
+	bh=Mv2WgGTz6WKIqtoJnLFA34PaD05R6doIbVvqCh8lFG4=; b=ctJpl8nTmjSPbLdy7AePVUSEcT
+	4SU8EprP9Zha+ttcLt3cuQ6gy3de/Nx2IcCVXn+Ur2u9z3rvkl0k85qyLgLVY3Isde/CeUCrsd4Ib
+	ZAGsRB5w4feaOa1KpOapEuzihotjFf4UAmebxw8jth2ErWFcLeLdICBSs/HxLxu2KT0bd2x1bhxgg
+	kpH4XNgIxuS3CrTuDcD+ixXLw0+mOhmX5xqlIHxbMm3SO6YH9aSsJWzGv0yIRh+LfTPiJOofmOqCZ
+	JkrEQUEinoNIaL5LVIdgrMSih1NbP47hsBTnsMKfF99I/HNZvJ/kFVEWuFx8sSe4knQanm+KgzRJ9
+	jwHO712Q==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Daniele Briguglio <hello@superkali.me>
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	David Wu <david.wu@rock-chips.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Frank <Frank.Sae@motor-comm.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Yanan He <grumpycat921013@gmail.com>
 Cc: Heiko Stuebner <heiko@sntech.de>,
 	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: yy3588: fix HDMI-RX signal detect GPIO
-Date: Sun, 12 Jul 2026 22:33:58 +0200
-Message-ID: <178388833969.1396294.14102109354699035035.b4-ty@sntech.de>
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: (subset) [PATCH v2 0/5] ARM: rockchip: rv1126: Add support for Alientek ATK-DLRV1126
+Date: Sun, 12 Jul 2026 22:33:57 +0200
+Message-ID: <178388833980.1396294.8103967667500299878.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260709-yy3588-hdmirx-d5-fix-v1-1-900a6790386c@superkali.me>
-References: <20260709-yy3588-hdmirx-d5-fix-v1-1-900a6790386c@superkali.me>
+In-Reply-To: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
+References: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,24 +65,34 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 09 Jul 2026 08:58:38 +0200, Daniele Briguglio wrote:
-> The YY3588 declares the HDMI-RX signal detect on GPIO1_C6, but the
-> receiver never sees an attached source there and cannot capture any
-> input.
+On Mon, 06 Jul 2026 17:14:40 +0800, Yanan He wrote:
+> The ATK-DLRV1126 board consists of a CLRV1126F core module and a
+> DLRV1126 carrier board. The core module contains the Rockchip RV1126
+> SoC, eMMC and RK809 PMIC. The carrier board provides Gigabit Ethernet,
+> SD card, AP6212 WiFi and Bluetooth, PCF8563 RTC, ADC keys, GPIO LEDs and
+> audio connectors.
 > 
-> That value was copied from the vendor device tree and is wrong. The
-> core-board schematics are not available and the SoM documentation does
-> not clearly show where this signal is routed, so the correct pin was
-> read from the device tree in the board's Android image: GPIO1_D5. With
-> GPIO1_D5 the receiver detects a connected source and locks, and v4l2
-> reports the input timing (1920x1080p60).
+> This series adds the Alientek vendor prefix and board compatible, updates
+> the Motorcomm PHY driver to consume an optional external PHY reference
+> clock, adds missing RV1126 SoC description pieces, and finally adds the
+> CLRV1126F core module and DLRV1126 carrier board device trees.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: yy3588: fix HDMI-RX signal detect GPIO
-      commit: 3cb7054789d1babe484dcd58a921609ee5a687a2
+[1/5] dt-bindings: vendor-prefixes: add alientek
+      commit: 068a6bd57167cb97058b08f22db0584fabdaab95
+[2/5] dt-bindings: arm: rockchip: Add Alientek DLRV1126
+      commit: f1522feb72aa5231532c9f69e7f5cc91972697e1
+[4/5] ARM: dts: rockchip: Add RV1126 I2C5
+      commit: 17bee9ee734e56d512ec7803eb7948adb56d1d9c
+[5/5] ARM: dts: rockchip: Add Alientek DLRV1126
+      commit: 44045aa7a9a9e6484617f44f77a3efb2d8e78565
+
+Please double-check the sorting on future patches :-) .
+The dtsi was perfect, but I did some re-sorting on the carrier-dts.
+
 
 Best regards,
 -- 
