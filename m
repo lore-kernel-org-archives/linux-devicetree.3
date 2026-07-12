@@ -1,424 +1,197 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97898370D55
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:22:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA0630EF77
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783840971; cv=none; b=kYE9YTwfyl/86NC2LV7CFU77M+kOhzyv4Ld9zTAMfbat+NQl/vl0esqqaXyOoIs73LR9TvA7H2i7WA7cthB5G3RmFALEvzuIjTXPWaU2lvfEIQYPqGw4gb/sGO+CdD7s4LvwaUEx1xjhmx+3sf/v/GSbSs2GNM/9WHsugpbs7xY=
+	t=1783841029; cv=none; b=DyuQrqgwYQtEQpO8ArX5VaK408zwuPqd15kVrs0vgBj43PBOfSCaIK8jV94AP4HNrTQvfrLnz+BmCSKWY7G1S6kwg5+FnBsf5BPVj3SlUJLo3W3KYVK5AVF1TSw4sr6/J9jIrU4ZXGrBMEe2c2U2O6Eg5uFWx7zQ3pL3bFWBW68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783840971; c=relaxed/simple;
-	bh=kXEn1jR7t/PsbVa4mS0/vjK8RikIIYOpEAcxhMVtPss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lbP+Qg0+zAP9THftF0eZd0G2sDe4pne1iqA8L7ZktfTZOY1zGHAHxhE94WaqGsIXLeWvt3uNziMGW+OfJHOgZLmXS4Lkv5nU1oVg5i5NADL2s+dstSmXXyb8jTcX0X367DwqMasckqM2KzLYSaqPXlsjysmpp+XyqNiwPeeh/yU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRhxO/Ks; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783841029; c=relaxed/simple;
+	bh=zzaSQvQ6qUTdo/1ge2G22s62C8xOROBZH0f069/U//k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jKH6RafrTvTR8SWIl27BEu+aqqHa+n5KwCKA1o1iaSWBLjWHZpq/ERqORYbbCMyA8rWxsNBbbosfzgqQz5Cu9vKLf1rbwE1K6sZjfzudct0P1vevj4sjLmh3XKMnUxPha8hLsU7djWNAdmM7irWeLQpminy12+FBXajeGQEWdUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f4piwR+8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dR02JWbP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRhxO/Ks"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ccdb73f0e1so18402675ad.3
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 00:22:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f4piwR+8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dR02JWbP"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66C3wsdl1558846
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:23:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TS/dzdJ2RihXa75Xbm87Mn0assdfINSB12mbBx4lBiQ=; b=f4piwR+8wjzMOTAw
+	f/uEFmPsEAnDLmfweP2dYPyhSS1syT6N3JFijAcphDFztMe5UMGvXHvl9rRntdD/
+	Du37yAsl4/o9PrR7dcurrlkOwMcCLBUBMauOQj1GuYbxCj2e2yjkLXAAVFrqfkHk
+	q26AWAu3pBMLUH790VdC5wCvEF9ORqTwV2FiKLe9zJCOq5iKr9I+9g9gydhLlQ13
+	8SPTMMxAGHiql9ERI5MpnK1DnFhdS2AIXGI1qksxP7C/4Vmpbi40SiGwpzrbvMbf
+	SmiMEiTv8//SRr0W6GEaNuw12AiJfDUeSd84buPPzbxkzQqA/3hjkAQjjwLqk3ss
+	xEQkww==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbebr29we-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:23:47 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-ca860baea9fso2561030a12.2
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 00:23:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783840968; x=1784445768; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1YVff9t5wehszsbuc81mT3z1iJBzopqdoQscWyTxBF8=;
-        b=pRhxO/Ks1H2ZPree3OG3dz+yBS4En6nx7xUgVsISCvhb89h/0C97Taor50cTT3ajhY
-         WusTtr4C6nD6FLZifxUZr/ksaC4KDfKFeUnxQIM2UCDYKElXRTHrzcNCsZuf9NY01WUL
-         9Fta7ECIgovOOYSHGU4JXbwVoYzGxGKaGLr3ySj7UMOL8B9M2OcB1C/1UDayCKp/alCv
-         mmNEuYTDSCXUxO8WmCFGGks0JyqJkNKNMuEPFpqh5dCFQpSQhCuzSUtsCZQyK7Rx2VZE
-         DO6BkjvT/c2IPSGYbHmiYgXGlAAxIHypXWWDF7ZimYFNFtzDQv95p2aLZsF2/0y8b8PA
-         8+XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783840968; x=1784445768;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1783841026; x=1784445826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1YVff9t5wehszsbuc81mT3z1iJBzopqdoQscWyTxBF8=;
-        b=Zmv5FeTUJx0s7vpsgPSiWkOTZ8zluh4tGFuiuIZlcKf2fQ/tiQxrDwGpWSaFoAjxGs
-         AMQ+hYwyro+TMACRojOpHXGM268+OGMRiDLl/R8T7p6ulFdck3FYH5mRYYK65Wym2O06
-         kVIKGkkTICvvsQt5C1XLF/CEkDNGgyieQjmxtcgcrrly5ncqbNoQQ9DEglzXp689ujRU
-         yaH0tkDz2lVLK4L5PT3Stj4DLEXcaklDQlaLrSsxFYtx5ohFqfhOFuLFXiix6Agg+Qdp
-         bdoplm/QwiJgc4+zHxLrlTiDkuU8+ia3ns//tjtql20qh6Q8UmfsfsJDBVx5Qord8EDZ
-         wXUg==
-X-Forwarded-Encrypted: i=1; AHgh+RqFCbwahEC53eOWgM63bAaxJ2VGwXAo+U9EGmHBKw0jGwT4xSRibqjwiGmeFMnakVGz9xp2gfrP7Eqs@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKBgQftHPJ99r8arGbz8dgaoq5dsFTfosCg4c4IZbZkl4D+iUb
-	Y5TetrkxwdHcw/JNdK6qABRo4XIJM1gh3PS433Bh30yeBsmtZgnGYbz2
-X-Gm-Gg: AfdE7cnrm30LePp5iCymkoeaJKsmSeN93EP21Tspkrt572ulFZ3GY2MowWAUXH9V9/5
-	jnK4r1hl6z03Ot1u9MCRjD8j5g0YqVPHwiJX2qmJH6j58BubYTEiYsymppJhUZTRq2REmNAihzQ
-	YQZ2vlLPsesTT5amXMHN0tyRSlgSYr2TiWbEwEN5vHiun6Oh/k5Bn87GRI0Bq6OuxMaItVFXo0u
-	Z4BwsoXYOkT3QQ77jrwZxijrbRVIiH5C6YL8ObiVLYpwEhsu+A/7bs14yTq+xiloltMw5r1SWur
-	CTOh/QyJZORULq8wrInXREUyBsy8FzETEt4kwcZHYwiwD7b2cE8SCnALTgiky9ctm3VMAVW3qoU
-	iR7T6OYVuhUP18NONMq6HSnrpP/wzGZHVjMuCACEX7ylPad/1yHgwtGFYijjOUOhH
-X-Received: by 2002:a17:903:1aeb:b0:2c9:97a8:aff5 with SMTP id d9443c01a7336-2ce9f4d41acmr56801705ad.46.1783840967850;
-        Sun, 12 Jul 2026 00:22:47 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3d451sm82121015ad.65.2026.07.12.00.22.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 00:22:47 -0700 (PDT)
-Date: Sun, 12 Jul 2026 15:22:03 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Alex Elder <elder@riscstar.com>, Inochi Amaoto <inochiama@gmail.com>, 
-	Jingoo Han <jingoohan1@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Christian Bruel <christian.bruel@foss.st.com>, Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>, 
-	Qiang Yu <qiang.yu@oss.qualcomm.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Vidya Sagar <vidyas@nvidia.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v4 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Message-ID: <alM8oPEsZ1lJU0DM@inochi.infowork>
-References: <20260709040027.958400-1-inochiama@gmail.com>
- <20260709040027.958400-7-inochiama@gmail.com>
- <900e6239-bc00-46b6-aa9f-abe219c039d2@riscstar.com>
+        bh=TS/dzdJ2RihXa75Xbm87Mn0assdfINSB12mbBx4lBiQ=;
+        b=dR02JWbPsn+UkRybL/Jsos4hi0pIIX/ilXm1ptc9DONk0tmd8gy9+dYFoZBuoWuQuh
+         EC44qzbatr21jwxe5G8TPgyILuN74shc059TsfZckphhg2/WAVVnQMTDUgnxabyiXzWz
+         LIRRguCl5F5D5eBhE8V3wiQ+0OjZw7xqvu/JHrShL7OwbzsohiIcFOxfIwUtJIc9Mecr
+         l2VL7u+lJOFk8IQ34VS0b0kIhwc75EYYTOsE+ZkYcaBSAS2m5O2iuDxx2McP0IxqHqNk
+         KDERI8Lx26Yv0ACDIcqbC55HvbJFLIdIM6GpAuGZasSwJVqzTEZfhM7c1q7klFOxmiNw
+         5+2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783841026; x=1784445826;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TS/dzdJ2RihXa75Xbm87Mn0assdfINSB12mbBx4lBiQ=;
+        b=XtGDbQlCp4893hRxVKj2xA36Ye9JRgpJ7tM3GsSkWVPmoUUOBmOzmxkQggBgHwX1yZ
+         WD50A2Vp49Rof9yBx7wQM8ZiDtyecx+U+GoS/1XP2EA4iiNKh8Dre7E/UllFdGsB8XF3
+         gTKHF9OMlUps/Ar1R+Oj8gYmFgfgAaUVYwk5FGSCJJ1Qp1oQUzoRQ4Ou0v+a2SZLLv2m
+         7Nex9Y3M2XfM8CRLz8+2Y4SDeEwMxL5gf2icCUF1EyOFXHhzdG8r05HVtX77PXINW/TE
+         OEnN4qdEzA9cVvUMcyfdW30dLN+AtonmGxPXtKoDZGUfqULpxoLqT86llPn3cAfB7Xzc
+         z4dQ==
+X-Gm-Message-State: AOJu0Yyh5Hhhhn+/YDRUazGg+2t8riawrv7z/sCgopmNSw3nT+LbBOV3
+	7M55EFNLfLLrQ/dyj5b5Q9Cis209Xh05/570dBDZhwzvTbzyITT/GRIvGv1qmgVKETxVQQ6LytG
+	kQTzliMWeoNToXysNKQMb42pElAwBe4Ow59GnALDEByC7T3wbVaFevSUt10Kjpfrn
+X-Gm-Gg: AfdE7clZXdRPnQUAibJFNY/wMChvNFPChgFbHcGODp7r1Ad74nGBQ7TXZvD1nN34b5l
+	bKVPkCZg076BDGn4ODtAS1jiJzWCKwBN2BpKL8FX/tpkXpx1Zzt4apEtReYLIHdh5iox1FlTjFr
+	nkO7u0Gl7mX4p5E0gVklVkkdxLrPJeAWe5+zhxnDL0GXZDnIXkYFtlra1oqRJHav8GMIOtR6iC7
+	+1Wlpn5VouB7pqUQvoefEEoMjX68+awtB4P82NWZuHX8qmtyJ5vZUEiaxExZ9JNCFnBHd/MGB8x
+	m1MdSgK3aKjPZun64wm66fZii0DJ04ps5+A3NTB4oLwHtvYHlGmnDYXiDXzYIAVZIEYUyr7Zn6E
+	SKYfxLw7gMkuKKNPEAD+HqDvFiMXklz2RiYZufOPGOOTx2A==
+X-Received: by 2002:a05:6a20:a124:b0:3b3:be05:2b73 with SMTP id adf61e73a8af0-3c11015a232mr5858411637.18.1783841026472;
+        Sun, 12 Jul 2026 00:23:46 -0700 (PDT)
+X-Received: by 2002:a05:6a20:a124:b0:3b3:be05:2b73 with SMTP id adf61e73a8af0-3c11015a232mr5858394637.18.1783841026070;
+        Sun, 12 Jul 2026 00:23:46 -0700 (PDT)
+Received: from [192.168.0.106] ([49.204.17.188])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b9a67c217sm1483652c88.8.2026.07.12.00.23.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Jul 2026 00:23:45 -0700 (PDT)
+Message-ID: <9d830e54-a9bc-4498-8799-2dd7e6d9aa00@oss.qualcomm.com>
+Date: Sun, 12 Jul 2026 12:53:41 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <900e6239-bc00-46b6-aa9f-abe219c039d2@riscstar.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/4] ASoC: dt-bindings: qcom: add LPASS LPR vote clock
+ ID
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20260708114924.1069239-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260708114924.1069239-2-prasad.kumpatla@oss.qualcomm.com>
+ <20260708120022.963171F00A3A@smtp.kernel.org>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260708120022.963171F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDA3NCBTYWx0ZWRfX+DNVBKoawCJn
+ cRPvptX4K4VdTb6qBjcvEyA5XWapYpaax2HNWKt3kaCsXhJ/Y+1sli6c1C4MiHmQhwrLbkjhMGw
+ /7Huapqh3XlEUyAvCpuYPJf4A8MxFiY=
+X-Authority-Analysis: v=2.4 cv=OK8XGyaB c=1 sm=1 tr=0 ts=6a534103 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=/JTPBhwEQko7YaD0RKblyA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=6DnBdPXkYeQUWTBryLMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: uYLen5KOsLYf6KxJAwEAxqmOwWedJXJG
+X-Proofpoint-ORIG-GUID: uYLen5KOsLYf6KxJAwEAxqmOwWedJXJG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDA3NCBTYWx0ZWRfXyH3R5Nw+eTVl
+ VDMZUWMbKBemeZaIcR9gG1n2ZIR7YXQSeOIREnHCDe9qe8TjbSw3YyJS6W3l3sC/I42WYAP6gs7
+ GxCNHRQE9HlNFrPl7/Pa+xo7YW2JKn3CnbFcGy1HWFX/k3jWUOxCU+wYhLp9fzF9tjE5WzhW0mK
+ qJ5qSuGKqW3Bl12HtTurC8ge+ytEidIy+X/29gQKuMJ07KJpqMkilSstqQGorHT+OXS2YR+wWCN
+ hS3Fqw73nXybX+O7qJpyOHa6bj4bybGcty6cTPlaqfPle0Voh3Han6PrORnPQH3B1W/ES5xot/k
+ e2ZN7PPlMEmbJm0XKjyJzb5FevSqYtxIFcvGQTYpgKYRh2md49gzcPbDhk64optlHyT70roaVpv
+ 8kTjczUqYuJfofCemqq04mqQL18g2ZlaUCH/969vDncyPqz6kZW+k0gUyWxK9zh3ljZ8KCyMUl9
+ 2wRXCtXoJGnPYa0fHPA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-12_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 phishscore=0 spamscore=0 adultscore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120074
 
-On Fri, Jul 10, 2026 at 11:01:44AM -0500, Alex Elder wrote:
-> On 7/8/26 11:00 PM, Inochi Amaoto wrote:
-> > The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> > DesignWare PCIe IP with extra link and reset control. Unlike
-> > the PCIe controller on K1, this controller supports external MSI
-> > interrupt controller and can use multiple PHYs at the same time.
-> > 
-> > Add driver to support PCIe controller on Spacemit K3 PCIe.
-> 
-> I think it would be good to summarize how the K3 differs from
-> the K1 here as well, since they're sharing code.  It looks
-> like it supports up to 6 PHYs, not just 1 (as the K1 does).
-> 
 
-Thanks
+On 7/8/2026 5:30 PM, sashiko-bot@kernel.org wrote:
+>> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+>> index 45850f2d43425..06ca2c287ab2f 100644
+>> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+>> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+>> @@ -236,8 +236,9 @@
+>>   #define LPASS_HW_AVTIMER_VOTE		101
+>>   #define LPASS_HW_MACRO_VOTE		102
+>>   #define LPASS_HW_DCODEC_VOTE		103
+>> +#define LPASS_HW_LPR_VOTE		104
+> [Severity: High]
+> Is the corresponding driver implementation missing for this new clock ID?
+>
+> Looking at the clock provider in sound/soc/qcom/qdsp6/q6prm-clocks.c, the
+> q6prm_clks array doesn't appear to have an entry for LPASS_HW_LPR_VOTE,
+> which means the clock would never be registered when a client device attempts
+> to request it.
+>
+> [Severity: High]
+> Will the hardcoded limit in the driver reject lookups for this new ID?
+>
+> In sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c, Q6DSP_MAX_CLK_ID is hardcoded
+> to 104. When a client device requests the new clock ID 104, it looks like it
+> would be rejected here:
+>
+> sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c:q6dsp_of_clk_hw_get() {
+>      ...
+>      if (idx >= Q6DSP_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
+>          ...
+>          return ERR_PTR(-EINVAL);
+>      }
+>      ...
+> }
+>
+> Could this result in -EINVAL being returned instead of the expected clock?
+>
+> Also, if the clock is later added to the initialization array without updating
+> the Q6DSP_MAX_CLK_ID macro, is there a risk of an out-of-bounds write during
+> driver initialization since the array size remains 104?
 
-> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > ---
-> >   drivers/pci/controller/dwc/Kconfig            |   4 +-
-> >   drivers/pci/controller/dwc/pcie-spacemit-k1.c | 126 ++++++++++++++++++
-> >   2 files changed, 128 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-> > index aa0b784c85b4..dacbac5cc35c 100644
-> > --- a/drivers/pci/controller/dwc/Kconfig
-> > +++ b/drivers/pci/controller/dwc/Kconfig
-> > @@ -440,7 +440,7 @@ config PCIE_SOPHGO_DW
-> >   	  Sophgo SoCs.
-> >   config PCIE_SPACEMIT_K1
-> > -	tristate "SpacemiT K1 PCIe controller (host mode)"
-> > +	tristate "SpacemiT PCIe controller (host mode)"
-> >   	depends on ARCH_SPACEMIT || COMPILE_TEST
-> >   	depends on HAS_IOMEM
-> >   	select PCIE_DW_HOST
-> > @@ -448,7 +448,7 @@ config PCIE_SPACEMIT_K1
-> >   	default ARCH_SPACEMIT
-> >   	help
-> >   	  Enables support for the DesignWare based PCIe controller in
-> > -	  the SpacemiT K1 SoC operating in host mode.  Three controllers
-> > +	  the SpacemiT SoC operating in host mode. Three controllers
-> >   	  are available on the K1 SoC; the first of these shares a PHY
-> >   	  with a USB 3.0 host controller (one or the other can be used).
-> > diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> > index 31aac056b68e..680acc93f539 100644
-> > --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> > +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> > @@ -23,6 +23,7 @@
-> >   #define PCI_VENDOR_ID_SPACEMIT		0x201f
-> >   #define PCI_DEVICE_ID_SPACEMIT_K1	0x0001
-> > +#define PCI_DEVICE_ID_SPACEMIT_K3	0x0002
-> >   /* Offsets and field definitions for link management registers */
-> >   #define K1_PHY_AHB_IRQ_EN			0x0000
-> > @@ -32,8 +33,18 @@
-> >   #define SMLH_LINK_UP			BIT(1)
-> >   #define RDLH_LINK_UP			BIT(12)
-> > +#define INTR_STATUS				0x0010
-> 
-> This register offset should probably be named K3_PHY_INTR_STATUS
-> (or maybe it's just K3_INTR_STATUS?).  I see that INTR_ENABLE
-> doesn't have a prefix, and I don't know why--that should have
-> a similar name.  (Please fix that in your next version as well;
-> I think it's OK to included it with this patch with a simple
-> mention in the patch description.)
-> 
+Thanks for the review.
 
-I suggest not adding prefix here, as you have added a INTR_ENABLE,
-I guess they are a pair. The thing I am sure is the INTR_STATUS1,
-it should be K3 specific.
+This is addressed in patch 2 of the series.
 
-> > +
-> >   #define INTR_ENABLE				0x0014
-> >   #define MSI_CTRL_INT			BIT(11)
-> > +#define RDLH_LINK_UP_INT		BIT(20)
-> > +
-> > +#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
-> 
-> So is this enabling INTX support?  If so, you should do that
-> first in a separate patch that only applies to K1 (and that
-> should be verified to work correctly).  If all you're doing
-> is ensuring the status is cleared, that's OK here, but if
-> you don't enable it I'm not sure it matters.
-> 
+Patch 1 only adds the new binding ID (LPASS_HW_LPR_VOTE = 104) and 
+updates Q6AFE_MAX_CLK_ID to 105.
 
-No, it is just cleared.
+Patch 2 adds the corresponding driver support by:
 
-> > +
-> > +#define K3_ADDR_INTR_STATUS1			0x0018
-> > +
-> > +#define K3_CACHE_MSTR_AWCACHE_MODE	GENMASK(14, 11)
-> > +#define K3_CACHE_MSTR_AWCACHE_BEHAVIOR	0xf
-> >   /* Some controls require APMU regmap access */
-> >   #define SYSCON_APMU			"spacemit,apmu"
-> > @@ -48,6 +59,9 @@
-> >   #define PCIE_CONTROL_LOGIC			0x0004
-> >   #define PCIE_SOFT_RESET			BIT(0)
-> > +#define PCIE_PERSTN_OE			BIT(24)
-> > +#define PCIE_PERSTN_OUT			BIT(25)
-> > +#define PCIE_IGNORE_PERSTN		BIT(31)
-> >   struct k1_pcie;
-> > @@ -340,6 +354,109 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
-> >   	return ret;
-> >   }
-> 
-> I ask a few questions in this function; I'm basically
-> asking "are you *sure* this must be different for K3
-> than K1?"  Because for the most part this function looks
-> very similar to k1_pcie_init().
-> 
+   - registering LPASS_HW_LPR_VOTE in q6prm_clks[]
+   - adding Q6PRM_HW_LPR_VOTE
+   - handling it through PARAM_ID_RSC_CPU_LPR
+   - replacing the hardcoded Q6DSP_MAX_CLK_ID with Q6AFE_MAX_CLK_ID
 
-Actually I was told from the vendor, and I had limit detail
-about the regsiter. So I have to treat them as different
-chip. And there is no public evidence that show they share
-a similar design.
+So clock ID 104 will not be rejected, and there is no out-of-bounds 
+access because the array size is updated to cover IDs 0..104.
 
-In my personal view, the common part of the IP should be
-the same as they are both desingware IP, but for the vendor
-specific part, I think the vendor does change something
-heavily.
+Thanks,
+Prasad
 
-By checking your following advice, I found you stepped into
-a bad design that reuse everything without checking its logic.
-I agree with the common function point should be abstracted
-and reused. But I do not think it is a good way to reuse the
-a logic sequence as it improve nothing and make the reader
-confused.
-
-Also, Improving K1 is beyond this patchset , this patchset
-only add the K3 support and reuse some obvious things. This
-will following the minimal change. And since I know nothing
-about K1 PCIe and you, as the author of this driver, should
-know more details about K1 than me. Stop asking me for 
-anything about improving K1. It is not the part of this
-patchset ane make you silly.
-
-> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> > +{
-> > +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> > +	struct k1_pcie *k1 = to_k1_pcie(pci);
-> > +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
-> > +	u32 val;
-> > +	int ret;
-> > +
-> > +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
-> 
-> Would it be OK to clear this bit in the reset control
-> register for K1 as well?
-> 
-> > +
-> > +	k1_pcie_toggle_soft_reset(k1);
-> > +
-> > +	ret = k1_pcie_enable_resources(k1);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
-> > +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
-> > +
-> > +	ret = k1_pcie_enable_phy(k1);
-> > +	if (ret) {
-> > +		k1_pcie_disable_resources(k1);
-> > +		return ret;
-> > +	}
-> > +
-> 
-> The handling of PERSTN looks different for K3 than K1.  Could you
-> implement a helper function that abstracts the differences?
-> 
-> I don't really understand what's happening here, but if it's
-> comparable to this for K1:
-> 
->         /* Deassert fundamental reset (drive PERST# high) */
->         regmap_clear_bits(k1->pmu, reset_ctrl, PCIE_RC_PERST);
-> 
-> ...then a callback function (similar to parse_port) in the device
-> data might be able to be called for both platforms, allowing
-> the init function to be common for both.
-> 
-> > +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
-> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> > +			PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT);
-> > +	usleep_range(1000, 2000);
-> > +	regmap_clear_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC, PCIE_PERSTN_OUT);
-> > +
-> > +	msleep(PCIE_T_PVPERL_MS);
-> > +
-> > +	/*
-> > +	 * Put the controller in root complex mode, and indicate that
-> > +	 * Vaux (3.3v) is present.
-> 
-> Here too, you could abstract what's happening and that might
-> allow the init function to be common for both (all) platforms.
-> 
-
-The comment will be removed as it does not reflect on the real
-logic.
-
-> > +	 */
-> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-> > +
-> > +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> > +	val = u32_replace_bits(val, BIT(7),
-> > +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
-> > +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-> > +
-> > +	k1_pcie_set_device_id(k1);
-> 
-> This is done earlier in k1_pcie_init().  Could it be done at the
-> same time for both platforms?
-> 
-
-It can move, but I think it is necessary. See the consideration 
-above.
-
-> > +
-> > +	/* Finally, as a workaround, disable ASPM L1 */
-> > +	k1_pcie_disable_aspm_l1(k1);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-> 
-> Why is this needed for K3, but not for K1?  Does this
-> enable any functionality that K1 could use and benefit
-> from?
-> 
-> > +{
-> > +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> > +	u32 val;
-> > +
-> > +	dw_pcie_dbi_ro_wr_en(pci);
-> > +
-> > +	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-> > +	val = u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
-> > +			       K3_CACHE_MSTR_AWCACHE_MODE);
-> > +	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
-> > +
-> > +	dw_pcie_dbi_ro_wr_dis(pci);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static const struct dw_pcie_host_ops k3_pcie_host_ops = {
-> > +	.init		= k3_pcie_init,
-> > +	.deinit		= k1_pcie_deinit,
-> > +	.msi_init	= k3_pcie_msi_host_init,
-> > +};
-> > +
-> > +static const struct dw_pcie_ops k3_pcie_ops = {
-> 
-> This is identical to k1_pcie_ops, so isn't needed.
-> 
-
-OK for me.
-
-> > +	.link_up	= k1_pcie_link_up,
-> > +	.start_link	= k1_pcie_start_link,
-> > +	.stop_link	= k1_pcie_stop_link,
-> > +};
-> > +
-> > +static void k3_pcie_clear_irq_status(struct k1_pcie *k1,
-> > +				     u32 *status0, u32 *status1, u32 *status2)
-> 
-> I don't see any value in this helper function, at
-> least not based on how it's used now.  It is used
-> exactly once, to clear (by writing) three interrupt
-> status registers.  Just do that inline.
-> 
-> Even if you want to use this helper function in a
-> second place (when handling the itnerrupt), don't
-> pass in these status arguments, they're not needed
-> in the caller.  Just define them here.
-> 
-> Also you could read/write each register, and use
-> a single local variable (status) to hold the value
-> read and written.
-> 
-
-It fine for me. I will merge it in to the probe function.
-
-> > +{
-> > +	*status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	*status1 = readl_relaxed(k1->link + INTR_STATUS);
-> > +	*status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-> > +
-> > +	writel_relaxed(*status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	writel_relaxed(*status1, k1->link + INTR_STATUS);
-> > +	writel_relaxed(*status2, k1->link + K3_ADDR_INTR_STATUS1);
-> > +}
-> > +
-> > +static int k3_pcie_parse_port(struct k1_pcie *k1)
-> > +{
-> > +	u32 status0, status1, status2;
-> > +
-> > +	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
-> 
-> Is it really necessary to clear the IRQ status *only* for K3?
-> It seems like it would be a good idea (or at least harmless)
-> to do it for K1 as well.  And in that case, it should just be
-> added to the existing k1_pcie_parse_port() function.
-> 
-> > +
-> > +	return k1_pcie_parse_port(k1);
-> > +}
-> > +
-> >   static int k1_pcie_probe(struct platform_device *pdev)
-> >   {
-> >   	const struct k1_pcie_device_data *data;
-> > @@ -417,8 +534,17 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
-> >   	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
-> >   };
-> > +static const struct k1_pcie_device_data k3_pcie_device_data = {
-> > +	.host_ops	= &k3_pcie_host_ops,
-> > +	.ops		= &k3_pcie_ops,
-> 
-> I think ops could just point to k1_pcie_ops here.
-> 
-> 					-Alex
-> 
-> > +	.parse_port	= k3_pcie_parse_port,
-> > +	.max_phy_count	= 6,
-> > +	.device_id	= PCI_DEVICE_ID_SPACEMIT_K3,
-> > +};
-> > +
-> >   static const struct of_device_id k1_pcie_of_match_table[] = {
-> >   	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data},
-> > +	{ .compatible = "spacemit,k3-pcie", .data = &k3_pcie_device_data},
-> >   	{ }
-> >   };
-> 
+>>   
+>> -#define Q6AFE_MAX_CLK_ID			104
+>> +#define Q6AFE_MAX_CLK_ID			105
+>>   
+>>   #define LPASS_CLK_ATTRIBUTE_INVALID		0x0
+>>   #define LPASS_CLK_ATTRIBUTE_COUPLE_NO		0x1
