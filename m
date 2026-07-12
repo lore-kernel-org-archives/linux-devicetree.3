@@ -1,113 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2794F3090C4
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 04:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF1C35B62F
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:13:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783829463; cv=none; b=S0OFsu/sPifUyyde/UCq282ObEVp9crKbxF7ISgjzQgzhpKxKY32nh3M2asrdlAMRS/G40I+x4YEHRQLItm1qjSJluqGVQkjQ0QLwHn5LSiOn/UbLFEDzVEEawCWeLLNujwgcr9iapVnN3RRw1K6Yzj9qcH2ffENQKKjnOPMUXc=
+	t=1783833196; cv=none; b=agbuK9wwxPPEGn+nO3Wn2D34WbqTVgOiWnzLRDORHvFxsmVr7PWf4oR8DdRaek+VXE5rDhPutTlA/QkHE4Kz7cWvKG14fJ72c5aRG975oGz6e2PluGOmaVDM36mC9eLiPegKN6GzSmXcxJ1H5JEKmw+XJ5U3GF6yvRnThowy9uQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783829463; c=relaxed/simple;
-	bh=znqQm7DT7UcFPnnSBrZXl3aYwdcTU4QGT+ILe1Ni9YA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bR+9QQbkguKJRaMxx1nAhjdOUP0fWkFEbkwwwdMTbMY4hKtHg/ea4XLhQWy78fISf8uS1QcqnzEjTNsbXHwVOX206Aje3WcueFTc5Ii1yeqzEtqK3nHX9mVJuNf3kV/3epBnTPEa6gdz034xXGvEK2Vsbd63LTqBzdZWOpkinRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5kegDpL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783833196; c=relaxed/simple;
+	bh=uqygXZPSLZQO0SRlxM+UGSn3H6OXnYQPC0oJsol+Kmc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GW/ZYu9EtsHw+WdgWd+7bunaHFK6POzHTGHd64zUWaz5SWTg3R1qlMfe0LbY0jknPdVFw1fRiyowBPFybAw+wC10Z4quWVmUXARS5/iQy1lmSy8bFcvVuGcBHs5wL07P6+zsyvBOKk3UgYN2dFIVOZSdvKnnXF3wZyxrwwCdYmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PD90buyW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5kegDpL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627391F000E9;
-	Sun, 12 Jul 2026 04:11:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PD90buyW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD88A1F00ACA
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:13:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783829461;
-	bh=qdv64XW4FNPe2w8tib+gld1wLd7cHM0tvo+i/wPUJ/E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F5kegDpLXqMXJsCckp1nfK6PBSs/K6phu+QxsYhpniQ+7y/AqsjbPcJuHKjhqLDLH
-	 649Go56DDHZDJq1Uk+GHLQzRndh761OCUCf96b5fbts1vVkDQ/c3VKV4XExS8HawH0
-	 HnINWNy0LeEIcdM60FW47YgzXjQUPK3ju2AfxyuVncoqz/FEBc5G59uNbDUAbCrfly
-	 xHN21iPn3I0yiPCgzMvoj6ysBEqk0FHDPvX+ZK5GN/E95FovM2xmxAGxlu72w1lOlT
-	 C8xr9OJHnSlNNgIDoROEu5LCaYJc/2TqWdJ2BDJpvKgpAaqks4r0pdCxdY5AUYcdXM
-	 wm3sKOiov8AVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6
- IO board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Junhui Liu" <junhui.liu@pigmoral.tech>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260712-bpi-cm6-v3-3-8d1e2045179d@pigmoral.tech>
-References: <20260712-bpi-cm6-v3-0-8d1e2045179d@pigmoral.tech>
- <20260712-bpi-cm6-v3-3-8d1e2045179d@pigmoral.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 04:11:00 +0000
-Message-Id: <20260712041101.627391F000E9@smtp.kernel.org>
+	s=k20260515; t=1783833194;
+	bh=rLTCb96hFjM2FfPbsAHnO1f3U06p3l/uWtkaSYyB/bQ=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=PD90buyWcLDuUV/b7DNrnqmFNFfpaxzYNFbWdbGWa/ycjBz2RGTqmzrB1kW4lnWKi
+	 vbvdrARrRZ5wvwGNqpQmCxI9lzaX3OTZCWtI4jjPKqJax9DvhhtlZLT+u8lXisDyRV
+	 r5UOn1D/5OKv2EF3l6eY8v55pkYnBO1pgrVuwMjdfQiH4QXQUx2dieJvruUHEkZAVz
+	 iasBuIp75IK10Y4ebhs/lczxIVDg/7LfIuDIfH3SDYJt6108U5rqUSruFp6JoiLVHB
+	 GsLEr2IzPUFfCLKAVYfRQQV0/j1ekc8Ay9vdT0xaR7YJbNbtf/i9u1pPioplysezC6
+	 mDxfrZeJyx4Qw==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b011edaf7dso1934028e87.2
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 22:13:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqarkajuzMCdv2gRFvI1xqQUfEWQk1i8BWp1An/SEmUcilZWLBPMDCoV5qHgRHnUdDYghhEOpjkVU6L@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEUnwNLJnDET1eIchWQCE7qCiIGMwAzJFANOW88vsdzHGD+usZ
+	nSs02uBolCzSN6BXLBweNhQIpfdTFbLaqB85XTI7KEaZ/7B60Eatdo4fce0lp/h7KTaCV+ERzZP
+	IU1/hw3zNi9hn+BeoiVG6hXfdIlWgAiA=
+X-Received: by 2002:ac2:5284:0:b0:5ae:c636:5c with SMTP id 2adb3069b0e04-5b0236de96dmr689800e87.47.1783833193266;
+ Sat, 11 Jul 2026 22:13:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260702214750.3428694-1-utilityemal77@gmail.com>
+ <20260702214750.3428694-2-utilityemal77@gmail.com> <20260703-versed-locust-of-agility-d76fda@quoll>
+ <akgR7N1LmqEmPSLy@suesslenovo>
+In-Reply-To: <akgR7N1LmqEmPSLy@suesslenovo>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 12 Jul 2026 13:13:00 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64dEj_M+LvCok91EuH6uq3ivutMRqU8-XUno2_ag5p+tg@mail.gmail.com>
+X-Gm-Features: AUfX_mwTG0Ej3M8TCZ8CoQWahuofQ1shmnD3lKfX2hOd7HU_ITVHuXMr_RVFxTM
+Message-ID: <CAGb2v64dEj_M+LvCok91EuH6uq3ivutMRqU8-XUno2_ag5p+tg@mail.gmail.com>
+Subject: Re: [PATCH 1/4] media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sean Young <sean@mess.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The LED nodes omit the `function` property, preventing standard sys=
-fs naming.
---
+On Sat, Jul 4, 2026 at 3:50=E2=80=AFAM Justin Suess <utilityemal77@gmail.co=
+m> wrote:
+>
+> On Fri, Jul 03, 2026 at 12:56:00PM +0200, Krzysztof Kozlowski wrote:
+> > On Thu, Jul 02, 2026 at 05:47:47PM -0400, Justin Suess wrote:
+> > > The A523 (sun55i) contains a newer revision of the sunxi CIR receiver=
+.
+> > > It is not backwards-compatible with the A31 programming model: the
+> > > control register has a pulse capture mode field (bits [7:6]) that
+> > > resets to a value which captures no pulses at all, and the sample
+> > > clock divider is now selectable via SPLCFG bits [1:0] instead of
+> > > being fixed at the old module clock / 64.
+> > >
+> > > Since a kernel driving it as an A31 CIR receives nothing, add the
+> > > compatible as a standalone entry rather than under the
+> > > allwinner,sun6i-a31-ir fallback.
+> > >
+> > > Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+> > > ---
+> > >  .../devicetree/bindings/media/allwinner,sun4i-a10-ir.yaml        | 1=
+ +
+> > >  1 file changed, 1 insertion(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-=
+a10-ir.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-i=
+r.yaml
+> > > index 42dfe22ad5f1..06656058ce91 100644
+> > > --- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.=
+yaml
+> > > +++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.=
+yaml
+> > > @@ -19,6 +19,7 @@ properties:
+> > >        - const: allwinner,sun4i-a10-ir
+> > >        - const: allwinner,sun5i-a13-ir
+> > >        - const: allwinner,sun6i-a31-ir
+> > > +      - const: allwinner,sun55i-a523-ir
+> >
+> > I assume you are adding it in expected order that Allwinner is
+> > following, not just randomly at the end of any list.
+> >
+> I did it in product generation order, is that what is expected?
+> I know that the a523 series succeeded a31, so that's what I put for
+> ordering.
 
---- Patch [3]: [PATCH v3 3/3] riscv: dts: spacemit: k1: Add Banana Pi BPI-C=
-M6 IO board ---
-commit eca00d20544419594bdbc975c29f6586b94b4fd3
-Author: Junhui Liu <junhui.liu@pigmoral.tech>
+Yes it is.
 
-riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board
-   =20
-The Banana Pi BPI-CM6 IO board combines the BPI-CM6 compute module with
-an IO carrier board. The core module integrates the SpacemiT K1 SoC,
-PMIC, DDR, eMMC, the eth0 PHY, and wireless connectivity. The companion
-IO carrier board extends it by providing the eth1 PHY and exposing
-standard interfaces, including dual Gigabit Ethernet, MicroSD, two USB-A
-ports, a USB Type-C port, two PCIe M.2 slots, and a serial console.
-   =20
-Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts b/arch/r=
-iscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
-> new file mode 100644
-> index 0000000000000..2c2d78aee98aa
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
-> @@ -0,0 +1,177 @@
-
-[ ... ]
-
-> +	leds {
-> +		compatible =3D "gpio-leds";
-> +
-> +		led0 {
-> +			color =3D <LED_COLOR_ID_RED>;
-> +			gpios =3D <&gpio K1_GPIO(96) GPIO_ACTIVE_LOW>;
-> +		};
-
-[Severity: Low]
-This isn't a bug, but should the led0 node in k1-bananapi-cm6-io.dts includ=
-e a
-function property to indicate its hardware role?
-
-Without it, the LED subsystem cannot construct the standard color:function
-sysfs name (e.g., red:status) during the gpio-leds driver probe, and will
-fall back to legacy or incomplete naming.
-
-> +
-> +		led1 {
-> +			color =3D <LED_COLOR_ID_BLUE>;
-> +			gpios =3D <&gpio K1_GPIO(97) GPIO_ACTIVE_LOW>;
-> +		};
-
-[Severity: Low]
-This isn't a bug, but should the led1 node also include a function property?
-
-Like led0, omitting it prevents the LED subsystem from generating standard
-user-space sysfs paths for this LED during device tree parsing.
-
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712-bpi-cm6-v3=
--0-8d1e2045179d@pigmoral.tech?part=3D3
+> > Also, please change all above entries to one enum, can be the same
+> > commit.
+> >
+> No problem, I'll do that for v2.
+> >
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> >
+> > Best regards,
+> > Krzysztof
+> >
