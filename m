@@ -1,181 +1,191 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835C3194A6C;
-	Sun, 12 Jul 2026 09:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096AB399357
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783849386; cv=none; b=oON+qiygkHx1pw6UlNpXhMH2kDxqRV0F0C8vT/Wy9sIptXKcf1MekYhVzbuHFKLL6eh1zGMOIX7Hd4dMgMBImSjBLy46RAxL1PL/ZERhmleNZDdMQO+v8qBQMDSqKi+5JhVXmRJKzJrF1VVk2PX8DQRljIM3gKE4YfSPWde3c0U=
+	t=1783849453; cv=none; b=f8kBpGetzIsesL6gP+EwGpYIRgCwZ56Mc4BmQUBvJeftZzBHaLaoZUpYZPilLUp1YLmlLEEN1llO5kc+7HV3L5Yi3CLz1AER444yfBicgleBDp/ETKKoQPjKGyokCtT5pG3WbpbwdRuTaL5H8ApH1+lRFvd/k9lIvEPG11q6ReY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783849386; c=relaxed/simple;
-	bh=TKxKr0MygzhI1nHZzXrAwCedHsz3xYd9YHH+NSnVEGo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LO2TGQeT9c2RCsDUQPlH6wlrzSEjhdLmBsMOpuIViLpTDSahw97+HRJoq0i/63WbxsTM1WA1dK8IwVk2ARBiuLhYbJNpvnY3Bv12vmwcoaG4CK+bmVmLtG54WK3HWJfuLDJzpEGK4PR7KvIDQ9iONEXL8IHztH53Yiwv+EYyfLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LCGEw4sy; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783849453; c=relaxed/simple;
+	bh=YNi+KaL09fSqJUFhYIm9Pv1YZHlYeYppyCtgEVXaTS0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sI1P/+KGMe6lzwjlcWHXCQpC7fzM9SeBOwKOn/b/hT5k3uYDnAc3wqJ3pfGvsEprZUHnhYI9AY/Du9ziae1wWeMYugKDTRfZRTGwU6Z3h6/plivIlzofoHgpKGc9k2CPuv3+g1MGSbnz8vy6lx9h+JPl1DYk1shQp4mh7LJblnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=leL8fud7; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LCGEw4sy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783849385; x=1815385385;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TKxKr0MygzhI1nHZzXrAwCedHsz3xYd9YHH+NSnVEGo=;
-  b=LCGEw4sy8D5uQvQ8+Q12SPYe3CEkNMRtkIh9Be03fm+MJIIIEdFstOCO
-   rjdOqFKHzBoFC1PYiAnHcKC+LorialKQHr002GfCwbd8mePwPe8LuFeim
-   +QExcfqSr5xID2pLpJ0Y27WUyFLlBI1OL6MCSkQW2Pu0YTk0KItUGAHUk
-   xafaF1pDaApE6YK2XMZyBV4j03AdNfmhiYuujnW9M/jTBqPjviF222ly1
-   am/abz1YrJGSNoiQr/cgILcUaXQKbJLkBH3ub4oB/asAo7kRtyHMfBDWH
-   55cQWPK9ILX8UAX4QBebStdbLjZoSPmTrZIL8MMaTXj+UwnwSdfxaU4zI
-   w==;
-X-CSE-ConnectionGUID: 8Q32t2KZRP2ljZdIoF2OEg==
-X-CSE-MsgGUID: nQx/eGAvS/OxwDPW3AHyng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="87030408"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="87030408"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:43:04 -0700
-X-CSE-ConnectionGUID: 4U2/jy8DRd+OGl2bNCvJ0w==
-X-CSE-MsgGUID: ZEbinDOlRRuvvHxCv45JGQ==
-X-ExtLoop1: 1
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:43:01 -0700
-Date: Sun, 12 Jul 2026 12:42:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
-	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
-	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 6/8] iio: adc: add ti-ads112c14 driver
-Message-ID: <alNhom1_o1hZgEnz@ashevche-desk.local>
-References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
- <20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="leL8fud7"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3825c406ffeso2150732a91.0
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 02:44:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783849450; x=1784454250; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rPmXWzvpcr2U5us8E3wSwDjB0cnRDNPHHdHK0WpIwuA=;
+        b=leL8fud7FAHp4yEx0rgtBnnvsc/WKud3ZcJceqv3gIU7ySeY3lk6Xn+7zkeREOd80s
+         wS7AJfiUlFKKaEBIU4IAA27E+w9PCoaHJqRmDbqf4Ihme+wBFxmpRltEqbHpSocvXzSg
+         luhYK2lm6AfalkWkYyet/+1szQgGsgqULcO09lPCNot6B3jfAMcL3rn3holPRYp13DeU
+         /bAngQC3fMdw6kHTYsCAU6e4EIPuNPgXxratMRiKFnkva3zF9osr14RN5hby4lGdVSXG
+         ohxiX7bz62N2402f+9nswhi9og1bSu8J2WkjffuKAIrpeSy3h7nlCWaYQi0cxw+qXLnV
+         OdTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783849450; x=1784454250;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rPmXWzvpcr2U5us8E3wSwDjB0cnRDNPHHdHK0WpIwuA=;
+        b=qygYH1Rju8hfg1XAXdhvVNLIhLGAbsPLX3BU1MH/xHkIl+UqZw2UgtLPPXmufL8eLv
+         q6UAsTTkt/XzF0uTAJG1vfC+HCbIc2ovCxoGkiH8hbDr9f1yhnG8QNiswEmK4Xh7lFKq
+         XH1cEezZIJuY6mOHAhf75E0oBbknL8Y9u45hBtPnaT2HFC4w6OzoKVD9bNZ7AAxj0HEE
+         4O4qS0FlBWsE1b/c0XpYla9XPjCUoyi4AUi6UWhC021kjtVtgkA0rQKHUdyeBCjWhUv3
+         RRyB+9bM/gAYDAXtTSJn+lSyr+3LRNwSPRJtFLH7OohUlFriVBcek6VohpadltTPwNcl
+         ZOKw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro6xps2qP516INFNG85d+/9ALVYlGIwjMM/KoM8F0BojiT6CC9t/oG5aEGW+aeAgArVQzCKwpzYFy1k@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywby85Mai6QggHsRcQfciefIakvOZiytIqFJju3odyWbQFaxfFN
+	/Sz6UN4+4lxt0DUbLo+9y8Q+fZZy5PQpMQ362PkvogGMNUT5qfVhYQN2
+X-Gm-Gg: AfdE7cnnig5BVmijm5Pn+qb35XOXMqYUwmmSBSpeH3Hq9846ilsfr2slnm5g3E6dawZ
+	46OirhbY2Ih0IFLYseNZR5XO3Ad2+uceWDUwxlIZJrE0h0EpA0J1ubfIF7xJiW/yIhnCJCe6Q3i
+	gwMRTHaI9lAMkysK8I/0FXfUJCDLUd43qR20OARPb5EaSGI0KcbtEuABYRrpkGOto3o/Zv4TAki
+	d4yjQU8ZRe0GIsjYbRnPYDmkHh4cyGFqX1PyCGq15eosu9U1Avt5x4quvKnMN0ApT5TVpYDAA3w
+	sbQEHF0Gfhwy08QymG8dV5BoIlF/JkhMjCfyJ5OkDmNt/T/agmumD3EavyFFJhd3Jkv6BtiDbVa
+	NHinuQYTcomtYHP9iWXq2pNw2usA8xyvpqOCu/KxoXx/9MDUlgNQro0Zhf65s6924VwvxYbobh3
+	h4Us0fkuoVjsc45E3DkSPulL5/TWP6yBYN3mEsaDVXs6T/ifwE2hoWkPV+Jg8gDayMo6XSQi0zD
+	YC2igUtz9JN30EIHOxkZ2hy+7NuKhiNsIOV9koaZ+FuCq5yT23fmxzxIragn89O
+X-Received: by 2002:a17:90b:3911:b0:369:7f25:cec0 with SMTP id 98e67ed59e1d1-38dc72b44c6mr5259932a91.0.1783849450298;
+        Sun, 12 Jul 2026 02:44:10 -0700 (PDT)
+Received: from [10.160.6.73] ([119.17.57.186])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313c50c70c9sm15268919eec.29.2026.07.12.02.44.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 02:44:09 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Subject: [PATCH 00/12] arm64: dts: apple: Add SMC hwmon nodes
+Date: Sun, 12 Jul 2026 19:43:19 +1000
+Message-Id: <20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDc0Mj3eLcZN3i0qSU1DLdlBJdg+REE3MDMyNTI8M0JaCegqLUtMwKsHn
+ RsRA+UHFWanIJyBCl2loAYoy1bXEAAAA=
+X-Change-ID: 20260712-smc-subdev-dt-0ca47062521f
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Calligeros <jcalligeros99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4957;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=YNi+KaL09fSqJUFhYIm9Pv1YZHlYeYppyCtgEVXaTS0=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnBiU/eKAhPs7t7/lyq706ND7fYvWe6iLJu0/t0bjtTj
+ 2HezxeqHRNZGMS4GCzFFFk2NAl5zDZiu9kvUrkXZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
+ NNIx1jFi4OIUgKlmX8jI0HxEMYLHwVl16YH/Rd2nXkemhFX5r1Wcxe67+Ml6T88XxxkZ5hg4vev
+ jrbwWlvhNxD6le3fgZ0Hu0rP+IT7/zm57sOU+JwA=
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-On Fri, Jul 10, 2026 at 05:50:39PM -0500, David Lechner (TI) wrote:
-> Add a new driver for the TI ADS112C14/ADS122C14 ADC chips.
-> 
-> This first step is adding a very basic driver that only supports power
-> on/reset and reading the system monitor channels.
-> 
-> ADS112C14_SYS_MON_CHANNEL_SHORT is the last channel rather than being in
-> logical order by address to keep the voltage channels together and in
-> case we find we need to add variants of this channel with different
-> voltage reference later.
+Hi folks,
 
-...
+Following on from the series which added SMC hwmon driver[1], this
+series spins out and adds the Devicetree nodes required for the hwmon
+driver to operate. These were missed back in December.
 
-> +static int ads112c14_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	const struct ads112c14_chip_info *info;
-> +	struct iio_dev *indio_dev;
-> +	struct ads112c14_data *data;
-> +	u32 reg_val;
-> +	int ret;
-> +
-> +	info = i2c_get_match_data(client);
-> +	if (!info)
-> +		return dev_err_probe(dev, -EINVAL, "missing match data\n");
+The System Management Controller on Apple Silicon devices exposes
+the temperature, voltage, power and fan speed data from numerous
+(potentially hundreds) of sensors scattered about the SoC and
+device at large. Unfortunately there is very little rhyme or reason
+to how Apple expose these using the SMC firmware's FourCC key-value
+system. Some sensors are reliably common across all devices and
+all SoCs, like PSTR which measures the total platform power consumption.
+Others are specific to a class of device, like the fan control
+keys, which are only present on devices with fans. Some are specific
+to a single SoC, and others still are specific to a single device.
+To complicate matters further, some SoCs are not even consistent
+across devices; the application core temperature sensors for a
+given SoC are read from different keys depending on the device
+that SoC is in...
 
-I think -ENODEV suits better here.
+Trying to express all of this in every device's Devicetree is a fool's
+errand. To eliminate duplication, we instead use .dtsi files to
+compose a set of sensors for each device in a saner way:
+    - Sensors empirically proven to exist on all SoCs for all devices
+      go in hwmon-common.dtsi
+    - Sensors empirically proven to exist on all devices with a given
+      SoC can go in a SoC-specific hwmon-${soc}.dtsi file, much as we
+      do with PMGR and GPIO currentlyo
+    - Sensors empirically proven to exist on all devices of a specific
+      class go in hwmon-${class}.dtsi (e.g. hwmon-laptop.dtsi)
+    - Fan control endpoints are reliably common across all devices
+      with fans, which will #include hwmon-fan-*.dtsi
+    - Sensors specific to one device only can be expressed in that
+      device's specific .dts file
 
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->chip_info = info;
-> +
-> +	ret = devm_regulator_get_enable(dev, "dvdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get dvdd regulator\n");
-> +
-> +	ret = devm_regulator_get_enable(dev, "avdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
-> +
-> +	data->regmap = devm_regmap_init_i2c(client, &ads112c14_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> +				     "failed to init regmap\n");
+This series introduces some basic sensors we know about to get the ball
+rolling. As you can imagine trying to find every valid sensor on every
+device and figure out what it's actually measuring is a tedious and
+labour intensive process, so expect more sensors at some point in
+the future.
 
-Do we have a guarantee that device is powered on here?
+Regards,
+James
 
-> +	/* Write magic reset value (0x16) to ensure known state. */
-> +	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-> +			   FIELD_PREP(ADS112C14_CONVERSION_CTRL_RESET, 0x16));
-> +	/*
-> +	 * The reset may cause an -EREMOTEIO error because of failing to get the
-> +	 * I2C ACK at the end of the message. The device still gets reset so it
-> +	 * is safe to ignore this error.
-> +	 */
-> +	if (ret == -EREMOTEIO)
-> +		ret = 0;
-> +	if (ret)
-> +		return ret;
-> +
-> +	fsleep(ADS112C14_DELAY_RESET_US);
-> +
-> +	ret = regmap_read(data->regmap, ADS112C14_REG_STATUS_MSB, &reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (FIELD_GET(ADS112C14_STATUS_MSB_RESETN, reg_val))
-> +		return dev_err_probe(dev, -EIO, "reset failed\n");
-> +
-> +	/*
-> +	 * Clear reset bit to prepare for next probe. And clear AVDD fault since
-> +	 * that happens on every reset.
-> +	 */
-> +	ret = regmap_write(data->regmap, ADS112C14_REG_STATUS_MSB,
-> +			   ADS112C14_STATUS_MSB_RESETN |
-> +			   ADS112C14_STATUS_MSB_AVDD_UVN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(data->regmap, ADS112C14_REG_DEVICE_ID, &reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val) != info->device_id)
-> +		dev_info(dev, "device ID mismatch, expected 0xX%X, got 0x%lX\n",
-> +			 info->device_id,
-> +			 FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val));
-> +
-> +	/* Place in single-shot conversion mode to make ready for raw read. */
-> +	ret = regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name = info->name;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = ads112c14_sys_mon_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(ads112c14_sys_mon_channels);
-> +	indio_dev->info = &ads112c14_info;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
+[1] https://lore.kernel.org/asahi/20251112-macsmc-subdevs-v5-0-728e4b91fe81@gmail.com/
 
--- 
-With Best Regards,
-Andy Shevchenko
+---
+James Calligeros (12):
+      arm64: dts: apple: t8112: Add SMC hwmon node
+      arm64: dts: apple: t8103: Add SMC hwmon node
+      arm64: dts: apple: t600x: Add SMC hwmon node
+      arm64: dts: apple: t602x: Add SMC hwmon node
+      arm64: dts: apple: Add common SMC hwmon infrastructure
+      arm64: dts: apple: t8103: Add common SMC hwmon sensors
+      arm64: dts: apple: t8112: Add common SMC hwmon sensors
+      arm64: dts: apple: t600x: Add common SMC hwmon sensors
+      arm64: dts: apple: t602x: Add common SMC hwmon sensors
+      arm64: dts: apple: t8103: jxxx: Add device-specific SMC hwmon sensors
+      arm64: dts: apple: t8112: jxxx: Add device-specific SMC hwmon sensors
+      arm64: dts: apple: t60xx: jxxx: Add device-specific SMC hwmon sensors
 
+ arch/arm64/boot/dts/apple/hwmon-common.dtsi    | 38 ++++++++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-fan-dual.dtsi  | 23 +++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-fan.dtsi       | 17 +++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-laptop.dtsi    | 38 ++++++++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-mini.dtsi      | 16 ++++++++++++++++
+ arch/arm64/boot/dts/apple/t6001-j375c.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6001.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t6002-j375d.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6002.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t600x-die0.dtsi      |  4 ++++
+ arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi |  2 ++
+ arch/arm64/boot/dts/apple/t6020-j474s.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6021-j475c.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6021.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t6022-j475d.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6022.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t602x-die0.dtsi      |  4 ++++
+ arch/arm64/boot/dts/apple/t8103-j274.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8103-j293.dts       |  3 +++
+ arch/arm64/boot/dts/apple/t8103-j313.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8103.dtsi           |  5 +++++
+ arch/arm64/boot/dts/apple/t8112-j413.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8112-j415.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8112-j473.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8112-j493.dts       |  3 +++
+ arch/arm64/boot/dts/apple/t8112.dtsi           |  5 +++++
+ 26 files changed, 186 insertions(+)
+---
+base-commit: 44696aa3a489d2baf58efa61b37833f100072bee
+change-id: 20260712-smc-subdev-dt-0ca47062521f
+
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
 
