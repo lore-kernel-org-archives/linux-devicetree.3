@@ -1,157 +1,245 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1336FCA6F
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B457836E488
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 06:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783835160; cv=none; b=nz2rygikhU6TYd0H4D0u6jad1sKhuh7J3jliK7d6sAXUyzPgQYCmja/LlYpsiKIv18HDLy/3hdgmFh8tmOD5hvzgHe8NngpFvDUp2Wk0tAsSfTPPXIXz3mmwJqXyBGKb4/kPfvG13L3u9qeK9uIsnzYwuy/0eV/NG2BRUN7WKns=
+	t=1783838678; cv=none; b=JHWqGfOp7nojzZvKsB9yGnnxzlA816HmQm0vnpflCVBgfVoFmIhTda1i0zRvyw+0uFIhdN+P/6G21U4rmqEnEZhhEb4Y9oq0zCoXZvpU5hOejERj7a8DBypIPrj+loQc2BxJKO/lRdwX7d2Qv3UF2eUc5LWn9ocuIsVyBF5px24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783835160; c=relaxed/simple;
-	bh=NO1wVHhYcEvuN+Lhqd6k/I8yI3Bz4oGZnZ8lkUJdfvM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e62kEHGWd8N3tV56hkgm3X0BqJarVJzs97/P6bEYsp9WtwKe82dZnoPfOpn0y2EUbfxG1NwlJ+mwA87JTMngIfvK21Bd5owZ8KbaIgoJCZie50JzVHJ58vzA60SPcaH9Ibio8HO6pxJH2WbmuTtfGlxaATi3MQgbehTGtE/WKZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahpOpNT/; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783838678; c=relaxed/simple;
+	bh=K+KhjlKpEQaSBSeWKaWZOuXn7jb+3z6ScwiGkkbU8/E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TQKPpirfrFsnFw8VmHW9u1UGxlX3WdL1izee3+jYnwddAB238rRGZqJkLEtb8yejHEt1jprsCd1dLu9ahOpu7UayUkAF+xn5AfJaulDL46mupboZojd+HdKc/qYpoOk5FFGFFKvNuZLttgLvSrY9R3CEBSsVsTNeDhqO+pIP5P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kX6VRgrb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JMqfN979; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahpOpNT/"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso2070747a91.3
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 22:45:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kX6VRgrb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JMqfN979"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66C3wPth1572535
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 06:44:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8MFG9unhRrvg7GeuVPVdKkz/kvu28Nz5klqNArkBW8o=; b=kX6VRgrbnvyE/nP2
+	Ym2FoYZa5ksphGrGd8OnsONEmCUl8IQJACEwkBRDQbYYoye8OdSu86PcrQhy5mj2
+	MhWL6klBCMIUwrfFaqidVoP5yqba3SFa/XHY2S+P0K0+Zh2T6fasnvhJcnw+SFaJ
+	UkenkM9BQEcGj/4S95BIZ0xXdLNsMmGBhRJvxMIGRldKYZnfHCQZna7vmY7RjJ6X
+	01vKAuRQ3oDYDS6d+SkTPdBgmOIFT2BARqZfnYBJV9tX/IO0/5jUTP45XzvIN29n
+	mLho94y21EzhWRrX+Ek58w52dytAKjk+dRy2hFQOk3GDdMhbLaeZMb0x3ZKovEdE
+	gQbj1Q==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbe8va9m3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 06:44:33 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38db4fa2e25so2459679a91.1
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 23:44:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783835158; x=1784439958; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=p5T9DanspdTbxdaM1wq6G9SRiLHrncHsKrVHDW8gIgM=;
-        b=ahpOpNT/tJWp/tfFo6LgMqjV2IdUYTjcLs2+MitXrE33ESi+AHJeO6pqtb9QnzX8gd
-         b8X9OJyAW0M7LHEqxgsr3bLDJG0ApxB0Nb7NSVZ+1tf8JD0zbMOz8OJVseC0hT5+X2q9
-         kPtsMoHU0nzLKrxMJa6XIGlTkEtnta/8xgoP7qnajr3AU1Ix8Ar6oso+w4SXnA/pDkif
-         ZTxtIh7z0ALV1lVgr16RNwrgNoBJbiS6xMjq8yQaLiBe9QNgqeB7PIfrF/8aXWyQ6hxx
-         jHTz93UGuuYoWgBZuhVcDSx0fBwlcLvPbgYRnBdKFVy3icjSmBd4dleThzV9SEefw65S
-         mTiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783835158; x=1784439958;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1783838672; x=1784443472; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p5T9DanspdTbxdaM1wq6G9SRiLHrncHsKrVHDW8gIgM=;
-        b=CHWtlR/w0ygo3hGC4j4SJl0amFZgMXkGf7BkQjihZ0krN7kH0qXuy1J2KOIvDKSQoV
-         6reWsGSpkvU2+I+JRVmINXBt/hpYdkUXVNkdpuYXpW85MoF9bXpXB6uRbJp7r8cALU/N
-         Ib61BhVmkIYKNbPahXrR1BBd+7ot8/AnHcVKU4rES6Ui6WfBcUgcCcy1ZIaHWUK10bWH
-         55BXJZJp4IYSFcRh2QBIZ0ueUtvBsHtXLr6AUnPhOaW7rpZChhhKInRSL5+0mvnxxjKw
-         qHpMcf1bctFYR68Xw5CdXf+f1X7jDbTz6rVMpx50b/+HryW4wGAc1MXz/3ofV9/gseEA
-         9pgg==
-X-Forwarded-Encrypted: i=1; AHgh+RouyWKA0eZqiOqKNAlUcSNJVi2EHuGzLAQBT3o9A233K4lEf2YyWqKzDNgFl8/qAnEY1usfpoL5su+U@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxzxkw+GG5eLfO7WP9eJdt9AcsA1RF0QyWS0ABTdWjg9mX7d07f
-	FCvNMZORLMM/kQ26fs/pU9aJsK+2E50X6opegULm5rlIQNn77cQJ6l/Q
-X-Gm-Gg: AfdE7clkxBjq2IvJz5s4MrZO6mBryRkHEMfTgHkYyKewESh1LLnjuHnFfG3LNvvudz0
-	ER6aMRAK6WNoToeUgunrQ6XHqhFiAp2mIDWUNPt6p8djBHt8zQNIb8/1IpfUAYQYp6Kux1F0Etg
-	nf7OsR6/yWt6nj7dtCRCobcwjZBMduinbWZ1pDzx4V7sr32bHpd6vilw5rvMRul4oY4R9Cx7Odp
-	9K3aA4aUkNl2O06wWbmz8SZB3q1aB/M7kfkWllH2G+4eVt7dpBWpnD33tMnZOnx6lV39u3SQ05t
-	ssrJYEyU55N2v9AD0VkxidMJxlPNWtejQEopCIpXiDkZEyQWyIvl5GlNLW9Bet1Fattdpd5TGxH
-	Iz7QPZkfeGDgPtdmWTQE/yQSqREWMRoMB9fdtDpAql+eN1nlIBjCph7h4HLFiJJME
-X-Received: by 2002:a17:90b:4a43:b0:37f:9ce1:cda4 with SMTP id 98e67ed59e1d1-38dc773bf14mr5210607a91.26.1783835158527;
-        Sat, 11 Jul 2026 22:45:58 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38d11b82d32sm1866372a91.0.2026.07.11.22.45.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 11 Jul 2026 22:45:58 -0700 (PDT)
-Date: Sun, 12 Jul 2026 13:45:15 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Christian Bruel <christian.bruel@foss.st.com>, 
-	Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>, 
-	Qiang Yu <qiang.yu@oss.qualcomm.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Alex Elder <elder@riscstar.com>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Vidya Sagar <vidyas@nvidia.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>, 
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v4 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Message-ID: <alMpuGY3z1DTmqez@inochi.infowork>
-References: <20260709040027.958400-1-inochiama@gmail.com>
- <20260709040027.958400-7-inochiama@gmail.com>
- <ak9L7k-_aivk1_Uu@ashevche-desk.local>
+        bh=8MFG9unhRrvg7GeuVPVdKkz/kvu28Nz5klqNArkBW8o=;
+        b=JMqfN979jXoUnaNbQLTMs+YPPLY1+i8hUN43kv6sic2TFskyK2KqFW4+JCsurhzce7
+         53aX+iBXU/CZHRWaVFHY6Nx5t/AFrmxtO4y0VrOd5t1QqHcmFADjve33vVH+GMjVlc2J
+         1vo2QPdxpiio2r4zrmojvmJ7Vh/Gwu5jSkwmWobPVsCuPYDmmKlpL/hB6SDFKsJyH2fR
+         DZKkWXO5lEL895RyadcaePvRdwigxn0TH6WHr+4nmIjlpp1t6SfQj+8fgorqQFK1Wphg
+         Nxu1qWC+3CVf0lU9HC0dDem40CMCjAvD3tzBBtqKbJclpfhSzJ1VwmW3JvtJlwMZnvYG
+         bu2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783838672; x=1784443472;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8MFG9unhRrvg7GeuVPVdKkz/kvu28Nz5klqNArkBW8o=;
+        b=JOGavO5JkT4Tu0gzRwI4tEy8jnHV6HOOHKQ5Wm+bbpRQxfzAEBMFR1jjL2POzOJM/c
+         EQNnKZtBO2Vs/TG0p+zYyXm1bND1i6YCCaasN7wz+WkSOevncf48oQ5lFoazUJvC1GDC
+         RDqsHM8N/4N6qeZCnIgsI8KumVhHyr9lIpGTt6etuyiZ7V4+cIOSxjZXXTGhms61CZay
+         GaThTFNeVtkdHzNztq2/enR1PSAnaCrQYtfPbiTb2BBF+yfV/YDOkuoBzs5AjV2YhsDz
+         6NrBhQ25eQUK2gl/VbVihpB+Uzk8SgFc1RqYHCat+B9Ou6bmYnshrFuG0rdyWlUZgTV+
+         w7KQ==
+X-Forwarded-Encrypted: i=1; AHgh+RopMruNM4RqNRHoTdVVpqDe7zmoHoupvUv30aloEAvqhcvCzLyjQPa6gmCW4W4WO13eRHvdImoGJfn0@vger.kernel.org
+X-Gm-Message-State: AOJu0YxO961OKc7nSqQcbrlW+9KjOmXerllnheoYBG+9t5pVFL0duSUB
+	oh2BTtQI4rydTlv/xU/COuwgC1DuZLw5JGuKVBkJx8QCx3dlcj9GzPlr/393deIHmFYzs4AMubW
+	QAOlIhM/2AC8gGUiA6zSCs1e8JL67kQs7wpfJhGNi9Nop29o9l8PL7Ed6tPS0Cj0bO83vtFEK
+X-Gm-Gg: AfdE7cmhsTNOXFaHG9figYG91qmqcVxNfDNipB0lAhYX+oLqMjtAVzGTCCkZ87G5AmF
+	Ludlw1v9qAwWhRmIb9ME7GyFNRYDOz5NIMQqZicbt3Jo/vrBdaH9r+afBc0uAPaglSoO6tpjqru
+	A9taGFvyf77YDo3XR7e+sxwKkoGuk0lCqJoiW0RdR/AuFKShmIIklbgwA+tFdMH20HNLkFs2/iV
+	V4HdImv+Te5D+OUPS5Qd5YbxFKyL+shni9Jqlhley+33GoH/tv56Qa8dINhfSZiNri43FhAC4Hg
+	sf7o0YiVlKQ6DYdUSv5yFCdeQZzMMThlKUGu5YmOGifWTBlqc2RFAUVlfI3kZ2oQ8d7vMdWFmT+
+	JuHnMaqr7/yo6srcEyt/J06VG0d5XVTA51fFbh0r2N6S6j948Sw==
+X-Received: by 2002:a17:90b:53c6:b0:381:fa5:521f with SMTP id 98e67ed59e1d1-38dc74b9530mr4799487a91.3.1783838672271;
+        Sat, 11 Jul 2026 23:44:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:53c6:b0:381:fa5:521f with SMTP id 98e67ed59e1d1-38dc74b9530mr4799475a91.3.1783838671780;
+        Sat, 11 Jul 2026 23:44:31 -0700 (PDT)
+Received: from [192.168.1.5] ([122.164.92.133])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311a6115e61sm38644234eec.22.2026.07.11.23.44.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 11 Jul 2026 23:44:30 -0700 (PDT)
+Message-ID: <6438237f-ccb4-4143-9ac7-43f5dcca955b@oss.qualcomm.com>
+Date: Sun, 12 Jul 2026 12:14:23 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ak9L7k-_aivk1_Uu@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document
+ DAI subnode
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260711125740.3083236-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260711125740.3083236-2-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260711-mauve-skunk-of-contentment-f51be0@quoll>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <20260711-mauve-skunk-of-contentment-f51be0@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 16w60uy3iRuIicC9z_yfUyexfdsCynfA
+X-Proofpoint-GUID: 16w60uy3iRuIicC9z_yfUyexfdsCynfA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDA2NyBTYWx0ZWRfX/k7+cm2LNsGC
+ DaR0I8hSpZyVMlruUhmgfdycxoI0h3N+NZgb5HaLK42LZRB4hwORN6neJG1QxRoeqlws8Tnj3Bu
+ +DtJGl0Y+bQFlr0obqeSGM5Yg/lsL2g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDA2NyBTYWx0ZWRfX4wHyv6kFrDiI
+ /7R1FO+fq/eyR4t4SkfaSMWJCbrPBNKl7W/QeXbSy0DbJ5bvKRz5yyzAhoSYlPtgfQ1zRsAoljJ
+ PonH7gucsWmt1GiHLvEI5pbXy8d/nx0so7wDSxIENbVbUQXL+W8HF4AXDFbgF7OvJkIFXxiq2y3
+ /tkx9cSI5pkjONeUxPIiFlHEcHc3Q81uW/V5m7137M0BQRVc3lyfwnTO2v8CQo/MVgxwuP/RllD
+ YIdOleh7pG5X37dxd0IvGO3toVLNThoQbAMsGL8zpG/1iW0qResHEDaEtWhVA5t9o0of2VOi18C
+ eehTDE8eVcXnk7kyfUSEa7dEqbQngCFqu01joB3oa2aNGBxzkK2a5S/M8HyfcrTv5IeDQP7kETp
+ DOiJ4erHBluf8nBW/u8SyWajXTWVXexXBGqR4N4Ks9bYnPonR/SJ6uIRMgKFwIKm7NdQl0HeiH5
+ KAElGkrn0RRfiF/GWiA==
+X-Authority-Analysis: v=2.4 cv=WONPmHsR c=1 sm=1 tr=0 ts=6a5337d1 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=tlK9sNgGSfv7srgBb5RqhA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=LJDSKmyOq5XDa4FDNxEA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-12_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120067
 
-On Thu, Jul 09, 2026 at 10:21:18AM +0300, Andy Shevchenko wrote:
-> On Thu, Jul 09, 2026 at 12:00:26PM +0800, Inochi Amaoto wrote:
-> > The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> > DesignWare PCIe IP with extra link and reset control. Unlike
-> > the PCIe controller on K1, this controller supports external MSI
-> > interrupt controller and can use multiple PHYs at the same time.
-> > 
-> > Add driver to support PCIe controller on Spacemit K3 PCIe.
+
+
+On 7/11/2026 8:41 PM, Krzysztof Kozlowski wrote:
+> On Sat, Jul 11, 2026 at 06:27:38PM +0530, Mohammad Rafi Shaik wrote:
+>> Extend the qcom,q6apm-lpass-dais device tree binding to explicitly
+>> describe Digital Audio Interface (DAI) child nodes.
+>>
+>> Add #address-cells and #size-cells to allow representation of multiple
+>> DAI instances as child nodes, and define a dai@<id> pattern to document
+>> per-DAI properties such as the interface ID and associated clocks.
+>>
+>> On platforms such as Monaco and Lemans, third-party codecs are hardware
+>> wired to the SoC and do not always have an in-tree codec driver to manage
+>> their clocks. For these designs, clock line enablement must be driven
+>> from the platform side, and this series provides the necessary support
+>> for that.
+>>
+>> On QAIF-based platforms such as Shikra and Hawi, responsibility for voting
+>> I2S MCLK and BCLK has moved from the DSP to the kernel. This series
+>> introduces the required device tree binding support to represent and
+>> vote for these clocks from the kernel.
+>>
+>> Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > 
-> ...
-> 
-> > +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
-> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> > +			PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT);
-> > +	usleep_range(1000, 2000);
-> 
-> fsleep(1 * USEC_PER_MSEC)
-> 
-> > +	regmap_clear_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC, PCIE_PERSTN_OUT);
-> > +
-> > +	msleep(PCIE_T_PVPERL_MS);
-> 
-> If PCIE_T_PVPERL_MS is too small, msleep() maybe not a good choice,
-> perhaps
-> 
-> fsleep(PCIE_T_PVPERL_MS * USEC_PER_MSEC)
-> 
-> ...
-> 
-> > +	val = u32_replace_bits(val, BIT(7),
-> > +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
-> 
-> It's perfectly a single line.
-> 
-> ...
-> 
-> >  static const struct of_device_id k1_pcie_of_match_table[] = {
-> >  	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data},
-> > +	{ .compatible = "spacemit,k3-pcie", .data = &k3_pcie_device_data},
-> 
-> Missed space.
-> 
-> >  	{ }
-> >  };
-> 
-> I don't see (and haven't checked) the context, do you have
-> MODULE_DEVICE_TABLE() for this?
+> Drop my tag, you made a important change to ABI.
 > 
 
-IIRC there is already a patch for adding this, so I won't add
-MODULE_DEVICE_TABLE there.
+Ack
 
-I will take other advice, thanks.
-
-> -- 
-> With Best Regards,
-> Andy Shevchenko
+>> Tested-by: Neil Armstrong <neil.armstrong@linaro.org>
 > 
+> Drop, you cannot test a binding (in the meaning of Tested-by tag).
+
+Ack, will drop Tested-by tag.
+
+> 
+>> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+>> ---
+>>   .../bindings/sound/qcom,q6apm-lpass-dais.yaml | 58 +++++++++++++++++++
+>>   1 file changed, 58 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
+>> index 2fb95544db8b..f3a8b12d7fc8 100644
+>> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
+>> @@ -21,6 +21,49 @@ properties:
+>>     '#sound-dai-cells':
+>>       const: 1
+>>   
+>> +  '#address-cells':
+>> +    const: 1
+>> +
+>> +  '#size-cells':
+>> +    const: 0
+>> +
+>> +# Digital Audio Interfaces
+>> +patternProperties:
+>> +  '^dai@[0-9a-f]+$':
+>> +    type: object
+>> +    description:
+>> +      Q6DSP Digital Audio Interfaces.
+>> +
+>> +    properties:
+>> +      reg:
+>> +        maxItems: 1
+>> +        description:
+>> +          Digital Audio Interface ID
+>> +
+>> +      clocks:
+>> +        minItems: 1
+>> +        items:
+>> +          - description: MI2S master clock
+>> +          - description: MI2S bit clock
+>> +          - description: MI2S external bit clock
+>> +
+>> +      clock-names:
+>> +        minItems: 1
+>> +        maxItems: 3
+>> +        items:
+>> +          enum:
+> 
+> That wasn't here and that's also not correct, usually. Especially that
+> it does not fit your clocks property.
 > 
 
-Regards,
-Inochi
+The reason for changing this to enum was that some hardware may expose 
+only a single clock, which can be bclk or eclk instead of mclk. With the 
+previous positional const definition, such configurations fail schema 
+validation because the first entry is always expected to be mclk.
+
+I agree that using enum makes the validation less strict and does not 
+ensure the correct clocks and clock-names mapping.
+
+I'll check this and look for a better solution.
+
+Thanks & Regards,
+Rafi.
+
+> Best regards,
+> Krzysztof
+> 
+
