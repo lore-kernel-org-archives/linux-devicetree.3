@@ -1,120 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF1C35B62F
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:13:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33ECD305699
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:21:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783833196; cv=none; b=agbuK9wwxPPEGn+nO3Wn2D34WbqTVgOiWnzLRDORHvFxsmVr7PWf4oR8DdRaek+VXE5rDhPutTlA/QkHE4Kz7cWvKG14fJ72c5aRG975oGz6e2PluGOmaVDM36mC9eLiPegKN6GzSmXcxJ1H5JEKmw+XJ5U3GF6yvRnThowy9uQ=
+	t=1783833677; cv=none; b=ZUFQbPK+32r2dueIg2TK2c0kdH1VcIClX2Ur3WByz2zQfUP6aipnNVMl6azkq7l2tA/CP3/aUUob/qIGStIW3EQ3vHHBI8Yx+Tat33/K9/4lH7PNrdWFwIkyxWRhDrlHGj3uK36G/HizBfiOa05PXwKwxrwZDSGmYEEFp14eWws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783833196; c=relaxed/simple;
-	bh=uqygXZPSLZQO0SRlxM+UGSn3H6OXnYQPC0oJsol+Kmc=;
+	s=arc-20240116; t=1783833677; c=relaxed/simple;
+	bh=gOChh1ohTaPrZ+Y1GE41WGbMTNjpPj91qb2GtVmX2R0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GW/ZYu9EtsHw+WdgWd+7bunaHFK6POzHTGHd64zUWaz5SWTg3R1qlMfe0LbY0jknPdVFw1fRiyowBPFybAw+wC10Z4quWVmUXARS5/iQy1lmSy8bFcvVuGcBHs5wL07P6+zsyvBOKk3UgYN2dFIVOZSdvKnnXF3wZyxrwwCdYmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PD90buyW; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=m+zRK5D2VRTCRhKjLDkHQrPdhSn7PpLoDqlr0ra8J8KvKtj6+V1yFcgbyMFtBbj5mJVYpLqoH6qdCPM88LiCGHM46jJ/YTNg64pWp/afKymScxr6Pfam0yjBXQrEPJFep0DBtTPaNN+7DwY4wIb6eWgAPgy/OUs31i0PRhL/mwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZYjivwv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PD90buyW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD88A1F00ACA
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:13:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZYjivwv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCA4E1F00ADB
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 05:21:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783833194;
-	bh=rLTCb96hFjM2FfPbsAHnO1f3U06p3l/uWtkaSYyB/bQ=;
+	s=k20260515; t=1783833675;
+	bh=gOChh1ohTaPrZ+Y1GE41WGbMTNjpPj91qb2GtVmX2R0=;
 	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=PD90buyWcLDuUV/b7DNrnqmFNFfpaxzYNFbWdbGWa/ycjBz2RGTqmzrB1kW4lnWKi
-	 vbvdrARrRZ5wvwGNqpQmCxI9lzaX3OTZCWtI4jjPKqJax9DvhhtlZLT+u8lXisDyRV
-	 r5UOn1D/5OKv2EF3l6eY8v55pkYnBO1pgrVuwMjdfQiH4QXQUx2dieJvruUHEkZAVz
-	 iasBuIp75IK10Y4ebhs/lczxIVDg/7LfIuDIfH3SDYJt6108U5rqUSruFp6JoiLVHB
-	 GsLEr2IzPUFfCLKAVYfRQQV0/j1ekc8Ay9vdT0xaR7YJbNbtf/i9u1pPioplysezC6
-	 mDxfrZeJyx4Qw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b011edaf7dso1934028e87.2
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 22:13:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqarkajuzMCdv2gRFvI1xqQUfEWQk1i8BWp1An/SEmUcilZWLBPMDCoV5qHgRHnUdDYghhEOpjkVU6L@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEUnwNLJnDET1eIchWQCE7qCiIGMwAzJFANOW88vsdzHGD+usZ
-	nSs02uBolCzSN6BXLBweNhQIpfdTFbLaqB85XTI7KEaZ/7B60Eatdo4fce0lp/h7KTaCV+ERzZP
-	IU1/hw3zNi9hn+BeoiVG6hXfdIlWgAiA=
-X-Received: by 2002:ac2:5284:0:b0:5ae:c636:5c with SMTP id 2adb3069b0e04-5b0236de96dmr689800e87.47.1783833193266;
- Sat, 11 Jul 2026 22:13:13 -0700 (PDT)
+	b=eZYjivwv6VxAxWDT4CG10n7zgNfpl+yGBRHvlv+VwU8uXLyn1wc+PO5/iRDBxzHEp
+	 9KERussY+0ce6BWxHPRqoemDGX6IuPvUd3Ih2HNqrgMdj67+8sUdKVVRgav1JTa+YX
+	 EDha5Q+TqABhsIXaAEklbmTLoWflCd0PRwGn7XAgNUGeUV2YmVaiJQfvUrVeqVeohW
+	 A20033eiVAXlsMW6vDjhh0/N3CbLB/FZNnmhuIrERosMXXNFm4RzA3qbWS6TNrbrXk
+	 lHlxAfOC79bdb47Orlsx77kb6H1ka6RqU0CLyQL/lrSGy1acr7Dg2fnT6PVtc/DRk1
+	 bcnnV44Nt5zvA==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aeb11c7347so1844095e87.0
+        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 22:21:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro+aFCtT/LFaD5iL2ZWII7wBPZc093HX71q1bvJLMsznJfX2iIjHgMU9xneDp6zqpr9KbuCntfhq1cb@vger.kernel.org
+X-Gm-Message-State: AOJu0YzJc7785iNZxdobfBg2TV8tRCVYQZC7jRIVmvgdpDEO0geg6nNW
+	z13HgyTvBzPls9qvXFD+M0KsuoVeDi5IAps4jp17UKCS9lpDtutYEhVCRRN097MvXZqOQPnmind
+	2K+dOWNvy5q2C13QTRMML/m7syUCnFuM=
+X-Received: by 2002:a2e:a54a:0:b0:39b:1e0f:5805 with SMTP id
+ 38308e7fff4ca-39caa80ec19mr9352491fa.24.1783833674238; Sat, 11 Jul 2026
+ 22:21:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702214750.3428694-1-utilityemal77@gmail.com>
- <20260702214750.3428694-2-utilityemal77@gmail.com> <20260703-versed-locust-of-agility-d76fda@quoll>
- <akgR7N1LmqEmPSLy@suesslenovo>
-In-Reply-To: <akgR7N1LmqEmPSLy@suesslenovo>
+References: <20260704171411.1413349-1-iuncuim@gmail.com> <20260704171411.1413349-4-iuncuim@gmail.com>
+In-Reply-To: <20260704171411.1413349-4-iuncuim@gmail.com>
 Reply-To: wens@kernel.org
 From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 12 Jul 2026 13:13:00 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64dEj_M+LvCok91EuH6uq3ivutMRqU8-XUno2_ag5p+tg@mail.gmail.com>
-X-Gm-Features: AUfX_mwTG0Ej3M8TCZ8CoQWahuofQ1shmnD3lKfX2hOd7HU_ITVHuXMr_RVFxTM
-Message-ID: <CAGb2v64dEj_M+LvCok91EuH6uq3ivutMRqU8-XUno2_ag5p+tg@mail.gmail.com>
-Subject: Re: [PATCH 1/4] media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
-To: Justin Suess <utilityemal77@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sean Young <sean@mess.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+Date: Sun, 12 Jul 2026 13:21:01 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64V9fXrEZD-mB8cLs0hwp6WbpKhhkDzBqLmnZe5DQBtUQ@mail.gmail.com>
+X-Gm-Features: AUfX_mw9aYjn22Umh3bpOaSqB39rYIPvYv_r-wBdphks-YmEqPaE5LTT0cIaXBI
+Message-ID: <CAGb2v64V9fXrEZD-mB8cLs0hwp6WbpKhhkDzBqLmnZe5DQBtUQ@mail.gmail.com>
+Subject: Re: [PATCH v5 3/5] thermal/drivers/sun8i: get calibration data from
+ two nvmem cells
+To: Mikhail Kalashnikov <iuncuim@gmail.com>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-pm@vger.kernel.org, 
 	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Jul 4, 2026 at 3:50=E2=80=AFAM Justin Suess <utilityemal77@gmail.co=
-m> wrote:
+On Sun, Jul 5, 2026 at 1:15=E2=80=AFAM Mikhail Kalashnikov <iuncuim@gmail.c=
+om> wrote:
 >
-> On Fri, Jul 03, 2026 at 12:56:00PM +0200, Krzysztof Kozlowski wrote:
-> > On Thu, Jul 02, 2026 at 05:47:47PM -0400, Justin Suess wrote:
-> > > The A523 (sun55i) contains a newer revision of the sunxi CIR receiver=
-.
-> > > It is not backwards-compatible with the A31 programming model: the
-> > > control register has a pulse capture mode field (bits [7:6]) that
-> > > resets to a value which captures no pulses at all, and the sample
-> > > clock divider is now selectable via SPLCFG bits [1:0] instead of
-> > > being fixed at the old module clock / 64.
-> > >
-> > > Since a kernel driving it as an A31 CIR receives nothing, add the
-> > > compatible as a standalone entry rather than under the
-> > > allwinner,sun6i-a31-ir fallback.
-> > >
-> > > Signed-off-by: Justin Suess <utilityemal77@gmail.com>
-> > > ---
-> > >  .../devicetree/bindings/media/allwinner,sun4i-a10-ir.yaml        | 1=
- +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/media/allwinner,sun4i-=
-a10-ir.yaml b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-i=
-r.yaml
-> > > index 42dfe22ad5f1..06656058ce91 100644
-> > > --- a/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.=
-yaml
-> > > +++ b/Documentation/devicetree/bindings/media/allwinner,sun4i-a10-ir.=
-yaml
-> > > @@ -19,6 +19,7 @@ properties:
-> > >        - const: allwinner,sun4i-a10-ir
-> > >        - const: allwinner,sun5i-a13-ir
-> > >        - const: allwinner,sun6i-a31-ir
-> > > +      - const: allwinner,sun55i-a523-ir
-> >
-> > I assume you are adding it in expected order that Allwinner is
-> > following, not just randomly at the end of any list.
-> >
-> I did it in product generation order, is that what is expected?
-> I know that the a523 series succeeded a31, so that's what I put for
-> ordering.
+> The A523 processor has calibration data in two nvmem cells. To be able to
+> add support, the ability to add data from two cells into one array must b=
+e
+> added.
+>
+> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
 
-Yes it is.
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 
-> > Also, please change all above entries to one enum, can be the same
-> > commit.
-> >
-> No problem, I'll do that for v2.
-> >
-> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> >
-> > Best regards,
-> > Krzysztof
-> >
+Some of the variables could be moved into the of_property_for_each_string()
+loop, but it works either way.
