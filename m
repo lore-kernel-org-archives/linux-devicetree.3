@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197762F39B5
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:52:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFB82F39B5
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783849941; cv=none; b=A38o3xa4ZnbNNDcdrGqwccH4zPeoBshBknlOQBB8WdL69Tw0mVi70uxK3VvQvuRFRC3t96wjlbbGwl24e9hhqsL/PDEi+tdIrZ3DP2EN0zRTr/QF6HlIe9Ni7dyXuHexxLZ1i85d6rkluEQisBBV6I8Fn8x+7KZOS6KVhCpkFgk=
+	t=1783849987; cv=none; b=GZOdOwXYCDI06jWm6AMMEsD5gjE61+u1l5vRJSIaEbRT44LLS2fH+FY1bspHeS5S5pXxwuz8y4YMwLV/lTdpC1FtBsifvwU+C1s/D2apwzf0NbpabSREFLbXk6LLqkP9j/fgNgT2QjEkAsQBGhRuvrrJTO6uKjjFS2Fs3nUUKcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783849941; c=relaxed/simple;
-	bh=MrzkTauUQCr6sN8d+/BSKqJaYDRaFlC9T5n/NsxGx64=;
+	s=arc-20240116; t=1783849987; c=relaxed/simple;
+	bh=oYwcdM+FW7H4Ym9GEN20MESRtKTVs/HAvOI0waX8Ktg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JCqwnaLyOYb31emQNGseJ/X5VDlaFtqBGVP1qWSg8m6bmdmvp6hr0I/rHTh3qRoUhntvtHaZbrcILfcOfmbYbMnIKtwwA4KNddSvZ7dW6Hi3KPqmhh8ISHA+hqlLO/xnf+v24h3Q6fzp31TjDzg/dAMhkQpB7k04/Xf73431oNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WxLGXV14; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TRVKC4lYpP2ntDUezhzuT1kvfB838HcdxQ2L/dzJjLo4hgEOS/seWcriEBLDxRbybMegjjKr6rEyrEQ3vR2e6RyzfIeU2kKLqEGyDqXV5lC0H4PzrUtc0BXSnG2EE4z7kf3e9gPTW8lGhCXBN3fnxxzBMcQcQgNRn5A1ENe9ZMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2OnnNkb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WxLGXV14"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965CD1F000E9;
-	Sun, 12 Jul 2026 09:52:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2OnnNkb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011D21F000E9;
+	Sun, 12 Jul 2026 09:53:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783849939;
-	bh=Ofxh8Rp0hgB2Nimi6uutsUDrPGmS7KganYLRaNWqfV4=;
+	s=k20260515; t=1783849986;
+	bh=M4pmzuZiQ2iGlTf1I5rCLAUvTv4hVD9Fig0TepluapI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WxLGXV14BFzs9B8EfHcg0fUW+9BHnQhtQMU+rm5erkqfqmYuvi3OVl7TOqoc4/U3S
-	 kQaV4IBBgFy7FEi6llMxV1ZX3pmB/lGj/PxvyJbTUOUSGHk/QkBIb9PDpUbkBEVcML
-	 W9TLxEOA2TFXsJf/rQlDe2wdtpVCRjSiLgM/ho/avgjt++FKbcrQmsY2sfkBZjInjV
-	 vnGMyRR32DIaTvQDyWFMdV4KUb7ydsvcYhkYBzptD2KxJVIl/nDCQu5HVXatwoxlWJ
-	 iOZPU4kQssU8N0ZHfI3qYWJKJtoyOi6pS5rhT8IlS078r16ipBu5JjnAqME6uSbhvL
-	 PTuKykx48+b7A==
+	b=e2OnnNkbkEV5n0g9jAPj0HmTP1azHWgvOcRpkigrP+oZY6a3tp4Lr9KHVY1bj7Aiz
+	 V9OomAJ76fvXIZyH1NvZpaVFj5h6E56B9kueIrJNIqEQvcrpFuuVlAlcxvhzsj4KO2
+	 Ja7+L9PWPfFdTOw2iVqWJKO6g4qeCuh6n0K4d/ZV2DIyCL5u6H5HdsJAnNC2GHwuvy
+	 2S0HFJ03b4+WDqwu4ZTZFQWHeAmY8BSOUGja06o3PiUkohe2TRWNE6Oqsf3J6m8SCU
+	 1CD52ReeVLYrrLx40aKq8E7s+5DFWTVRvqD2pdomRMSwkHvS8wM3ePjxPP2nxcPFZx
+	 ccqQsC5+pOSFg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/12] arm64: dts: apple: t60xx: jxxx: Add
- device-specific SMC hwmon sensors
+Subject: Re: [PATCH 01/12] arm64: dts: apple: t8112: Add SMC hwmon node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "James Calligeros" <jcalligeros99@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260712-smc-subdev-dt-v1-12-7763006d57c7@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260712-smc-subdev-dt-v1-1-7763006d57c7@gmail.com>
 References: <20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com>
- <20260712-smc-subdev-dt-v1-12-7763006d57c7@gmail.com>
+ <20260712-smc-subdev-dt-v1-1-7763006d57c7@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 09:52:19 +0000
-Message-Id: <20260712095219.965CD1F000E9@smtp.kernel.org>
+Date: Sun, 12 Jul 2026 09:53:05 +0000
+Message-Id: <20260712095306.011D21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +46,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] M2 Mac Studio models incorrectly include the single-fan hwmon co=
-nfiguration instead of the dual-fan configuration.
+- [Medium] Adding an unconditionally enabled `smc_hwmon` node without child=
+ sensors triggers a spurious `dev_err` on boot on all T8112 platforms.
 --
 
---- Patch [12]: [PATCH 12/12] arm64: dts: apple: t60xx: jxxx: Add device-sp=
-ecific SMC hwmon sensors ---
-commit 9b6661d8907736a04d8f29e1718ac346ff51ced8
+--- Patch [1]: [PATCH 01/12] arm64: dts: apple: t8112: Add SMC hwmon node -=
+--
+commit 98dce99825d4d377b6a5ac4bb63591402516eb04
 Author: James Calligeros <jcalligeros99@gmail.com>
 
-arm64: dts: apple: t60xx: jxxx: Add device-specific SMC hwmon sensors
+arm64: dts: apple: t8112: Add SMC hwmon node
 
-Add the device-specific hwmon sensors for select T60xx-based devices.
+This commit adds the SMC hwmon subdevice node to the Apple T8112 device tre=
+e.
 
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/apple/t6021-j475c.dts b/arch/arm64/boot/=
-dts/apple/t6021-j475c.dts
-> index 533e357748746..82689c380cdf2 100644
-> --- a/arch/arm64/boot/dts/apple/t6021-j475c.dts
-> +++ b/arch/arm64/boot/dts/apple/t6021-j475c.dts
-> @@ -35,3 +35,5 @@ &port01 {
->  &pcie0_dart_1 {
->  	status =3D "okay";
->  };
-> +
-> +#include "hwmon-fan.dtsi"
-
-[Severity: Medium]
-Should this M2 Max Mac Studio use hwmon-fan-dual.dtsi instead of
-hwmon-fan.dtsi?
-
-Using the single-fan configuration might cause hardware monitoring telemetry
-to miss the second fan on this device, leading to incomplete fan statistics
-in userspace.
-
-> diff --git a/arch/arm64/boot/dts/apple/t6022-j475d.dts b/arch/arm64/boot/=
-dts/apple/t6022-j475d.dts
-> index 31f24bbda9689..f50a6d56f3d8e 100644
-> --- a/arch/arm64/boot/dts/apple/t6022-j475d.dts
-> +++ b/arch/arm64/boot/dts/apple/t6022-j475d.dts
-> @@ -44,6 +44,8 @@ &typec5 {
->  	label =3D "USB-C Front Left";
->  };
+> diff --git a/arch/arm64/boot/dts/apple/t8112.dtsi b/arch/arm64/boot/dts/a=
+pple/t8112.dtsi
+> index 85c47422d4e8e..a3241c816c26b 100644
+> --- a/arch/arm64/boot/dts/apple/t8112.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t8112.dtsi
+> @@ -921,6 +921,10 @@ smc_reboot: reboot {
+>  					"boot_error_count", "panic_count";
+>  			};
 > =20
-> +#include "hwmon-fan.dtsi"
+> +			smc_hwmon: hwmon {
+> +				compatible =3D "apple,smc-hwmon";
+> +			};
+> +
 
 [Severity: Medium]
-Does this M2 Ultra Mac Studio also need hwmon-fan-dual.dtsi rather than
-hwmon-fan.dtsi?
+Will this unconditionally enabled node trigger a spurious error on boot?
 
-Similar to the M2 Max model, using the single-fan configuration could cause
-hardware monitoring to miss the second fan's telemetry.
+Because this node is added without any child sensors and lacks a
+status =3D "disabled" property, the SMC MFD core will instantiate the
+macsmc-hwmon platform device.
+
+When the probe function runs, it won't find any sensors, and will print an
+error message to the kernel log before returning -ENODEV:
+
+drivers/hwmon/macsmc-hwmon.c:macsmc_hwmon_probe() {
+    ...
+	if (!hwmon->curr.count && !hwmon->fan.count &&
+	    !hwmon->power.count && !hwmon->temp.count &&
+	    !hwmon->volt.count) {
+		dev_err(hwmon->dev,
+			"No valid sensors found of any supported type\n");
+		return -ENODEV;
+	}
+    ...
+}
+
+Should this node be added with status =3D "disabled" to prevent the
+macsmc-hwmon driver from probing and polluting dmesg on platforms
+without sensors?
+
+>  			rtc {
+>  				compatible =3D "apple,smc-rtc";
+>  				nvmem-cells =3D <&rtc_offset>;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712-smc-subdev=
--dt-v1-0-7763006d57c7@gmail.com?part=3D12
+-dt-v1-0-7763006d57c7@gmail.com?part=3D1
