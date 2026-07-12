@@ -1,197 +1,326 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA0630EF77
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D18370D55
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783841029; cv=none; b=DyuQrqgwYQtEQpO8ArX5VaK408zwuPqd15kVrs0vgBj43PBOfSCaIK8jV94AP4HNrTQvfrLnz+BmCSKWY7G1S6kwg5+FnBsf5BPVj3SlUJLo3W3KYVK5AVF1TSw4sr6/J9jIrU4ZXGrBMEe2c2U2O6Eg5uFWx7zQ3pL3bFWBW68=
+	t=1783841313; cv=none; b=Z1hPSzgPJXrSGMkqHj9xrb1g2xBxLbhM1MvPf57zSmeBZSUud1EZEabl/YtBrhoznUhE5xbfAT4ERZdfso4pWVbeX314QDkkaBAS5x8J9qmIDPMBEYp4otYCn3whqlLKC/j3ABMn3iGTPt1lx6HQ1Sfus8f+drVioQSgnFqD4cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783841029; c=relaxed/simple;
-	bh=zzaSQvQ6qUTdo/1ge2G22s62C8xOROBZH0f069/U//k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jKH6RafrTvTR8SWIl27BEu+aqqHa+n5KwCKA1o1iaSWBLjWHZpq/ERqORYbbCMyA8rWxsNBbbosfzgqQz5Cu9vKLf1rbwE1K6sZjfzudct0P1vevj4sjLmh3XKMnUxPha8hLsU7djWNAdmM7irWeLQpminy12+FBXajeGQEWdUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f4piwR+8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dR02JWbP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783841313; c=relaxed/simple;
+	bh=PENQv930pgF3/GZ3y57oKUkMIVU5lq28nO0YYnhTHQ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BJzGxOTlkCUIN6ZvRhq53pBOuMRkZUkv725+06fm2rcmMrkx5pCL3bkG+MDOxZyW7YQ46DwMn+a7i4XRiF/Iit8qbc1jPNAlMqyX8mdcLCIVaw7o2DZ6l6g+L5p+lnnBmAOfhWlWSo+vSBMckZZcqf9z5dYPLKu35rrq8relpBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lkiQnNTQ; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f4piwR+8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dR02JWbP"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66C3wsdl1558846
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:23:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TS/dzdJ2RihXa75Xbm87Mn0assdfINSB12mbBx4lBiQ=; b=f4piwR+8wjzMOTAw
-	f/uEFmPsEAnDLmfweP2dYPyhSS1syT6N3JFijAcphDFztMe5UMGvXHvl9rRntdD/
-	Du37yAsl4/o9PrR7dcurrlkOwMcCLBUBMauOQj1GuYbxCj2e2yjkLXAAVFrqfkHk
-	q26AWAu3pBMLUH790VdC5wCvEF9ORqTwV2FiKLe9zJCOq5iKr9I+9g9gydhLlQ13
-	8SPTMMxAGHiql9ERI5MpnK1DnFhdS2AIXGI1qksxP7C/4Vmpbi40SiGwpzrbvMbf
-	SmiMEiTv8//SRr0W6GEaNuw12AiJfDUeSd84buPPzbxkzQqA/3hjkAQjjwLqk3ss
-	xEQkww==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbebr29we-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 07:23:47 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-ca860baea9fso2561030a12.2
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 00:23:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lkiQnNTQ"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cacb8416a1so18702835ad.1
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 00:28:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783841026; x=1784445826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TS/dzdJ2RihXa75Xbm87Mn0assdfINSB12mbBx4lBiQ=;
-        b=dR02JWbPsn+UkRybL/Jsos4hi0pIIX/ilXm1ptc9DONk0tmd8gy9+dYFoZBuoWuQuh
-         EC44qzbatr21jwxe5G8TPgyILuN74shc059TsfZckphhg2/WAVVnQMTDUgnxabyiXzWz
-         LIRRguCl5F5D5eBhE8V3wiQ+0OjZw7xqvu/JHrShL7OwbzsohiIcFOxfIwUtJIc9Mecr
-         l2VL7u+lJOFk8IQ34VS0b0kIhwc75EYYTOsE+ZkYcaBSAS2m5O2iuDxx2McP0IxqHqNk
-         KDERI8Lx26Yv0ACDIcqbC55HvbJFLIdIM6GpAuGZasSwJVqzTEZfhM7c1q7klFOxmiNw
-         5+2A==
+        d=gmail.com; s=20251104; t=1783841310; x=1784446110; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lJkGlW1PNIgDL2QJ4YXVngoWTLt4PyzuUrEHmd42bds=;
+        b=lkiQnNTQq6V4RLT+pnjGSCy7ooSaj7y3PCYOh91wlqOlJMnWq9pq9mf7h/u2IcoaqR
+         bOFiSTssGHTZ43LDee0CxwANGJFqhJS9FOZx+56M85ntCpNMhfBv+sf7hkhBPLutBpRT
+         7p5dNH6ppGXAmx0W4/4VusScFSK99/oj3wsmNj4xJgV0tMVxHDbxXELAvWt+Gv0HU1Ws
+         u23v034mC9PzQEtBfzbPk+H3+Ol5DvforzmWCOOiowASYCATZDCsUWMWYKb0LvPjGlAz
+         bE/g+VcPUpFm3F1wOsSGXzf49K0+OVI7tACEb5WBBR77qZM380MFbhZEO5F6QFx9Bdg7
+         ZzWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783841026; x=1784445826;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TS/dzdJ2RihXa75Xbm87Mn0assdfINSB12mbBx4lBiQ=;
-        b=XtGDbQlCp4893hRxVKj2xA36Ye9JRgpJ7tM3GsSkWVPmoUUOBmOzmxkQggBgHwX1yZ
-         WD50A2Vp49Rof9yBx7wQM8ZiDtyecx+U+GoS/1XP2EA4iiNKh8Dre7E/UllFdGsB8XF3
-         gTKHF9OMlUps/Ar1R+Oj8gYmFgfgAaUVYwk5FGSCJJ1Qp1oQUzoRQ4Ou0v+a2SZLLv2m
-         7Nex9Y3M2XfM8CRLz8+2Y4SDeEwMxL5gf2icCUF1EyOFXHhzdG8r05HVtX77PXINW/TE
-         OEnN4qdEzA9cVvUMcyfdW30dLN+AtonmGxPXtKoDZGUfqULpxoLqT86llPn3cAfB7Xzc
-         z4dQ==
-X-Gm-Message-State: AOJu0Yyh5Hhhhn+/YDRUazGg+2t8riawrv7z/sCgopmNSw3nT+LbBOV3
-	7M55EFNLfLLrQ/dyj5b5Q9Cis209Xh05/570dBDZhwzvTbzyITT/GRIvGv1qmgVKETxVQQ6LytG
-	kQTzliMWeoNToXysNKQMb42pElAwBe4Ow59GnALDEByC7T3wbVaFevSUt10Kjpfrn
-X-Gm-Gg: AfdE7clZXdRPnQUAibJFNY/wMChvNFPChgFbHcGODp7r1Ad74nGBQ7TXZvD1nN34b5l
-	bKVPkCZg076BDGn4ODtAS1jiJzWCKwBN2BpKL8FX/tpkXpx1Zzt4apEtReYLIHdh5iox1FlTjFr
-	nkO7u0Gl7mX4p5E0gVklVkkdxLrPJeAWe5+zhxnDL0GXZDnIXkYFtlra1oqRJHav8GMIOtR6iC7
-	+1Wlpn5VouB7pqUQvoefEEoMjX68+awtB4P82NWZuHX8qmtyJ5vZUEiaxExZ9JNCFnBHd/MGB8x
-	m1MdSgK3aKjPZun64wm66fZii0DJ04ps5+A3NTB4oLwHtvYHlGmnDYXiDXzYIAVZIEYUyr7Zn6E
-	SKYfxLw7gMkuKKNPEAD+HqDvFiMXklz2RiYZufOPGOOTx2A==
-X-Received: by 2002:a05:6a20:a124:b0:3b3:be05:2b73 with SMTP id adf61e73a8af0-3c11015a232mr5858411637.18.1783841026472;
-        Sun, 12 Jul 2026 00:23:46 -0700 (PDT)
-X-Received: by 2002:a05:6a20:a124:b0:3b3:be05:2b73 with SMTP id adf61e73a8af0-3c11015a232mr5858394637.18.1783841026070;
-        Sun, 12 Jul 2026 00:23:46 -0700 (PDT)
-Received: from [192.168.0.106] ([49.204.17.188])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b9a67c217sm1483652c88.8.2026.07.12.00.23.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 12 Jul 2026 00:23:45 -0700 (PDT)
-Message-ID: <9d830e54-a9bc-4498-8799-2dd7e6d9aa00@oss.qualcomm.com>
-Date: Sun, 12 Jul 2026 12:53:41 +0530
+        d=1e100.net; s=20251104; t=1783841310; x=1784446110;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lJkGlW1PNIgDL2QJ4YXVngoWTLt4PyzuUrEHmd42bds=;
+        b=oFrXNfhSBRpYfArYNioUfoKiSNKIKopF5sat49kt5+XBxVKlaRcqCQhHvRer5LaUMX
+         VnpQQCrMDCCWfpDRIUvA69dR0JuEMOLsHsLGDIEMctcg/yNBdPg4TBq1ScudWtvn0RqG
+         2lYXNvFmJcGYb7n+Y1NVVlwsiEs70Q3mrk6dqSdlhz6/oHwRI1BKUwGmonRI9Ws4bXGC
+         AxRIBJ33iiY+FNLc4/GqNddtvIaHoIAtyjaE1QNh/JlT3U251bGssQRfwL4wtZB+kJ8u
+         2WZvNGmCFpo7Qv4HuMiNiyU9FHpvit0BQjugNamoXSnjG9gmCHr8FjkFvjP+cLrFRUwe
+         Ffpg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/Et9SX9nhRjootWleZy5A81CvnpCrN76gWdoteXsKWMedZ5T9hD6uZy6ftmWs275mpFn3CCqgY4Uh@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6+FyemheDjkKdq2LaxMIrNHee9zICknF22bDhYCbGRXGFfnLm
+	5ioy6berL+m8yF7GYsTiWdIocjoNIkzXaYvyKkD994Jn3dYPOWxh6V6W
+X-Gm-Gg: AfdE7cnc19pkDM87g3ETnsiFEKVmEQ9P85l8r9m7Nr/dbhkPyUULWMu+PSn2sga1bR2
+	kiqhTOv1v6ehYNah0RDQ3YPXPHlaOOQmN5aNtA01jbTjFvcva/YbyVmtXnOeF6BpMjnneP6aKQT
+	OhR/Xab5qiLGxU3y4AQbfLwcWA8AsvrTYGP7f2o5WvovlWmFvEmuliueL+KaJ9bHZt6cIFznXGp
+	M656CUnwoIzj9mHXEDN323WpAyMxBwvcWRcULejgLnP4ZxzbjItpFcfY2fYXt3jycbi3QkUoDly
+	0kcD6QiW26y4yQm57TytAHJ2LnaL/WXwWA6170edzPA+bZCjKrI3PQu+oUkmhZpXnu778SA6ITK
+	fCQFFl2RVZc0qZ38w0L3WU/1MiOnGWbx4qK4KOdPtdUiQTxqW8/bkzkZYh9NQdKUZ
+X-Received: by 2002:a17:903:1b08:b0:2ca:17a8:cfce with SMTP id d9443c01a7336-2ce9f2852b2mr53150225ad.29.1783841310195;
+        Sun, 12 Jul 2026 00:28:30 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9c25fc0sm82771295ad.36.2026.07.12.00.28.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 00:28:29 -0700 (PDT)
+Date: Sun, 12 Jul 2026 15:27:46 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Alex Elder <elder@riscstar.com>, Inochi Amaoto <inochiama@gmail.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Christian Bruel <christian.bruel@foss.st.com>, Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>, 
+	Qiang Yu <qiang.yu@oss.qualcomm.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Siddharth Vadapalli <s-vadapalli@ti.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Vidya Sagar <vidyas@nvidia.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v4 2/6] PCI: spacemit-k1: Add multiple PHY handles support
+Message-ID: <alNA03enTCy0RNAt@inochi.infowork>
+References: <20260709040027.958400-1-inochiama@gmail.com>
+ <20260709040027.958400-3-inochiama@gmail.com>
+ <7e8cc486-8d0c-4bb0-ada9-fb4dd53e53e8@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] ASoC: dt-bindings: qcom: add LPASS LPR vote clock
- ID
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260708114924.1069239-1-prasad.kumpatla@oss.qualcomm.com>
- <20260708114924.1069239-2-prasad.kumpatla@oss.qualcomm.com>
- <20260708120022.963171F00A3A@smtp.kernel.org>
-Content-Language: en-US
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-In-Reply-To: <20260708120022.963171F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDA3NCBTYWx0ZWRfX+DNVBKoawCJn
- cRPvptX4K4VdTb6qBjcvEyA5XWapYpaax2HNWKt3kaCsXhJ/Y+1sli6c1C4MiHmQhwrLbkjhMGw
- /7Huapqh3XlEUyAvCpuYPJf4A8MxFiY=
-X-Authority-Analysis: v=2.4 cv=OK8XGyaB c=1 sm=1 tr=0 ts=6a534103 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=/JTPBhwEQko7YaD0RKblyA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=6DnBdPXkYeQUWTBryLMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: uYLen5KOsLYf6KxJAwEAxqmOwWedJXJG
-X-Proofpoint-ORIG-GUID: uYLen5KOsLYf6KxJAwEAxqmOwWedJXJG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDA3NCBTYWx0ZWRfXyH3R5Nw+eTVl
- VDMZUWMbKBemeZaIcR9gG1n2ZIR7YXQSeOIREnHCDe9qe8TjbSw3YyJS6W3l3sC/I42WYAP6gs7
- GxCNHRQE9HlNFrPl7/Pa+xo7YW2JKn3CnbFcGy1HWFX/k3jWUOxCU+wYhLp9fzF9tjE5WzhW0mK
- qJ5qSuGKqW3Bl12HtTurC8ge+ytEidIy+X/29gQKuMJ07KJpqMkilSstqQGorHT+OXS2YR+wWCN
- hS3Fqw73nXybX+O7qJpyOHa6bj4bybGcty6cTPlaqfPle0Voh3Han6PrORnPQH3B1W/ES5xot/k
- e2ZN7PPlMEmbJm0XKjyJzb5FevSqYtxIFcvGQTYpgKYRh2md49gzcPbDhk64optlHyT70roaVpv
- 8kTjczUqYuJfofCemqq04mqQL18g2ZlaUCH/969vDncyPqz6kZW+k0gUyWxK9zh3ljZ8KCyMUl9
- 2wRXCtXoJGnPYa0fHPA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-12_02,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 phishscore=0 spamscore=0 adultscore=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120074
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e8cc486-8d0c-4bb0-ada9-fb4dd53e53e8@riscstar.com>
+
+On Fri, Jul 10, 2026 at 11:01:23AM -0500, Alex Elder wrote:
+> On 7/8/26 11:00 PM, Inochi Amaoto wrote:
+> > The PCIe controller on Spacemit K3 may use multiple PHYs at the
+> 
+> s/use/uses/
+> 
+> > same time. The feature is not support by the current driver.
+> 
+> s/support/supported/
+> 
+> > So extend the PHY definition to support multiple PHY handles.
+> > 
+> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > ---
+> >   drivers/pci/controller/dwc/pcie-spacemit-k1.c | 70 ++++++++++++++++---
+> >   1 file changed, 59 insertions(+), 11 deletions(-)
+> > 
+> > diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+> > index f6ae8ff3589a..e22ecbd09579 100644
+> > --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+> > +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+> > @@ -55,12 +55,14 @@ struct k1_pcie_device_data {
+> >   	const struct dw_pcie_host_ops *host_ops;
+> >   	const struct dw_pcie_ops *ops;
+> >   	int (*parse_port)(struct k1_pcie *k1);
+> > +	unsigned int max_phy_count;
+> 
+> Is the name "max_phy_count" meant to suggest that there
+> could be fewer "actual" PHYs than the number provided in
+> this field?  If not--if it is simply "the number of PHYs
+> this platform uses"--then just call this phy_count.
+> 
+
+Yes.
+
+> >   };
+> >   struct k1_pcie {
+> >   	struct dw_pcie pci;
+> >   	const struct k1_pcie_device_data *data;
+> > -	struct phy *phy;
+> > +	struct phy **phy;
+> > +	unsigned int phy_count;
+> 
+> If this is always the same as what's in data->max_phy_count,
+> you don't need to replicate the value here (since you're
+> also keeping the data pointer in this structure).  (But it
+> looks like it might be less than max_phy_count.)
+> 
+> I believe I suggested making this structure use a flexible
+> array member for the PHYs.  If that's possible, it should
+> go at the end of the structure, and the way you allocate
+> it needs to change.
+> 
+> >   	void __iomem *link;
+> >   	struct regmap *pmu;	/* Errors ignored; MMIO-backed regmap */
+> >   	u32 pmu_off;
+> > @@ -119,6 +121,54 @@ static void k1_pcie_disable_resources(struct k1_pcie *k1)
+> >   	clk_bulk_disable_unprepare(ARRAY_SIZE(pci->app_clks), pci->app_clks);
+> >   }
+> > +static int k1_pcie_get_phy_handle(struct k1_pcie *k1, struct device_node *node)
+> 
+> I would call this k1_pci_get_phy_handles() (or perhaps
+> just k1_pci_get_phys()).  Or even k1_pci_phy_get_all().
+> The name you have seems like you're just getting one handle.
+> 
+
+OK, it is good for me.
+
+> > +{
+> > +	const struct k1_pcie_device_data *data = k1->data;
+> > +	struct device *dev = k1->pci.dev;
+> > +	unsigned int i;
+> > +
+> > +	k1->phy = devm_kmalloc_array(dev, data->max_phy_count,
+> > +				     sizeof(*k1->phy), GFP_KERNEL);
+> 
+> Use kzalloc not kmalloc.  Even if you're initializing all fields
+> now, a future change might not (and in that case having it zeroed
+> is safest).
+> 
+
+Thanks.
+
+> Also, if you find fewer than max_phy_count PHYs, I think it
+> would be better to only allocate as many needed.  If you
+> used a flexible array size, you would need to count the
+> number of entries before allocating it.  It would require
+> changing the structure a bit--providing a single function
+> that would allocate the k1_pcie structure after doing that,
+> and most likely initializing the phy array within the same
+> function.
+> 
+
+Currently, it does not know the phy number before parsing,
+the only thing we can is to parse this twice. I think it is
+kind of unnecessary.
+
+> > +	if (!k1->phy)
+> > +		return -ENOMEM;
+> > +
+> > +	for (i = 0; i < data->max_phy_count; i++) {
+> > +		k1->phy[i] = devm_of_phy_get_by_index(dev, node, i);
+> > +		if (IS_ERR(k1->phy[i])) {
+> 
+> If this returns -ENODEV, you are done getting PHYs.  So
+> max_phy_count could be more than the "actual" number.
+> 
+> Is that reasonable?  You indicate that at least one PHY
+> must be found below, but is it OK for a platform to
+> define fewer than some expected number of PHYs?
+> 
+> (Maybe it is.)
+> 
+
+Yes
+
+> > +			if (PTR_ERR(k1->phy[i]) == -ENODEV)
+> > +				break;
+> > +
+> > +			return PTR_ERR(k1->phy[i]);
+> > +		}
+> > +	}
+> > +
+> > +	k1->phy_count = i;
+> > +	if (k1->phy_count == 0)
+> > +		return -EINVAL;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int k1_pcie_enable_phy(struct k1_pcie *k1)
+> 
+> I would call this k1_pcie_enable_phys().  But actually,
+> because what you're calling within this is phy_init(),
+> I'd probably call it k1_pcie_init_phys(), or possibly
+> k1_pcie_phy_init_all().
+> 
+
+I will take care of this in the next version.
+
+> > +{
+> > +	unsigned int i;
+> > +	int ret;
+> > +
+> > +	for (i = 0; i < k1->phy_count; i++) {
+> > +		ret = phy_init(k1->phy[i]);
+> > +		if (ret)
+> > +			goto err_phy;
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +err_phy:
+> > +	while (i--)
+> > +		phy_exit(k1->phy[i]);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> >   /* FIXME: Disable ASPM L1 to avoid errors reported on some NVMe drives */
+> >   static void k1_pcie_disable_aspm_l1(struct k1_pcie *k1)
+> >   {
+> > @@ -174,7 +224,7 @@ static int k1_pcie_init(struct dw_pcie_rp *pp)
+> >   	 */
+> >   	regmap_set_bits(k1->pmu, reset_ctrl, DEVICE_TYPE_RC | PCIE_AUX_PWR_DET);
+> > -	ret = phy_init(k1->phy);
+> > +	ret = k1_pcie_enable_phy(k1);
+> >   	if (ret) {
+> >   		k1_pcie_disable_resources(k1);
+> > @@ -194,12 +244,14 @@ static void k1_pcie_deinit(struct dw_pcie_rp *pp)
+> >   {
+> >   	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+> >   	struct k1_pcie *k1 = to_k1_pcie(pci);
+> > +	int i;
+> >   	/* Assert fundamental reset (drive PERST# low) */
+> >   	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CLK_RESET_CONTROL,
+> >   			PCIE_RC_PERST);
+> > -	phy_exit(k1->phy);
+> > +	for (i = 0; i < k1->phy_count; i++)
+> > +		phy_exit(k1->phy[i]);
+> 
+> Please create an inverse of k1_pcie_enable_phy(), like
+> k1_pcie_disable_phy(), to encapsulate this code.
+> 
+
+Sound reasonable.
+
+> >   	k1_pcie_disable_resources(k1);
+> >   }
+> > @@ -266,23 +318,18 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
+> >   {
+> >   	struct device *dev = k1->pci.dev;
+> >   	struct device_node *root_port;
+> > -	struct phy *phy;
+> > +	int ret;
+> >   	/* We assume only one root port */
+> 
+> Maybe you could get and put the root_port within
+> k1_pcie_get_phy_handle(), since that's the only
+> place it's needed.
+> 
+
+I think it is better to not do that, it is better to keep the function
+do the thing as it claims.
 
 
-On 7/8/2026 5:30 PM, sashiko-bot@kernel.org wrote:
->> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
->> index 45850f2d43425..06ca2c287ab2f 100644
->> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
->> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
->> @@ -236,8 +236,9 @@
->>   #define LPASS_HW_AVTIMER_VOTE		101
->>   #define LPASS_HW_MACRO_VOTE		102
->>   #define LPASS_HW_DCODEC_VOTE		103
->> +#define LPASS_HW_LPR_VOTE		104
-> [Severity: High]
-> Is the corresponding driver implementation missing for this new clock ID?
->
-> Looking at the clock provider in sound/soc/qcom/qdsp6/q6prm-clocks.c, the
-> q6prm_clks array doesn't appear to have an entry for LPASS_HW_LPR_VOTE,
-> which means the clock would never be registered when a client device attempts
-> to request it.
->
-> [Severity: High]
-> Will the hardcoded limit in the driver reject lookups for this new ID?
->
-> In sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c, Q6DSP_MAX_CLK_ID is hardcoded
-> to 104. When a client device requests the new clock ID 104, it looks like it
-> would be rejected here:
->
-> sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c:q6dsp_of_clk_hw_get() {
->      ...
->      if (idx >= Q6DSP_MAX_CLK_ID || attr > LPASS_CLK_ATTRIBUTE_COUPLE_DIVISOR) {
->          ...
->          return ERR_PTR(-EINVAL);
->      }
->      ...
-> }
->
-> Could this result in -EINVAL being returned instead of the expected clock?
->
-> Also, if the clock is later added to the initialization array without updating
-> the Q6DSP_MAX_CLK_ID macro, is there a risk of an out-of-bounds write during
-> driver initialization since the array size remains 104?
+> 					-Alex
+> 
+> >   	root_port = of_get_next_available_child(dev_of_node(dev), NULL);
+> >   	if (!root_port)
+> >   		return -EINVAL;
+> > -	phy = devm_of_phy_get(dev, root_port, NULL);
+> > +	ret = k1_pcie_get_phy_handle(k1, root_port);
+> >   	of_node_put(root_port);
+> > -	if (IS_ERR(phy))
+> > -		return PTR_ERR(phy);
+> > -
+> > -	k1->phy = phy;
+> > -
+> > -	return 0;
+> > +	return ret;
+> >   }
+> >   static int k1_pcie_probe(struct platform_device *pdev)
+> > @@ -358,6 +405,7 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
+> >   	.host_ops	= &k1_pcie_host_ops,
+> >   	.ops		= &k1_pcie_ops,
+> >   	.parse_port	= k1_pcie_parse_port,
+> > +	.max_phy_count	= 1,
+> >   };
+> >   static const struct of_device_id k1_pcie_of_match_table[] = {
+> 
 
-Thanks for the review.
-
-This is addressed in patch 2 of the series.
-
-Patch 1 only adds the new binding ID (LPASS_HW_LPR_VOTE = 104) and 
-updates Q6AFE_MAX_CLK_ID to 105.
-
-Patch 2 adds the corresponding driver support by:
-
-   - registering LPASS_HW_LPR_VOTE in q6prm_clks[]
-   - adding Q6PRM_HW_LPR_VOTE
-   - handling it through PARAM_ID_RSC_CPU_LPR
-   - replacing the hardcoded Q6DSP_MAX_CLK_ID with Q6AFE_MAX_CLK_ID
-
-So clock ID 104 will not be rejected, and there is no out-of-bounds 
-access because the array size is updated to cover IDs 0..104.
-
-Thanks,
-Prasad
-
->>   
->> -#define Q6AFE_MAX_CLK_ID			104
->> +#define Q6AFE_MAX_CLK_ID			105
->>   
->>   #define LPASS_CLK_ATTRIBUTE_INVALID		0x0
->>   #define LPASS_CLK_ATTRIBUTE_COUPLE_NO		0x1
+Regards,
+Inochi
