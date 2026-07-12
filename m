@@ -1,96 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE835374E74;
-	Sun, 12 Jul 2026 08:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43E01A680F
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 08:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783844026; cv=none; b=mq/Vvr3lbq2GL3+GBUq8/u7eUYLs9GQD/KPbo7g42LXhE7vpAYYSPLreYi/Ga0zTsOsd7D2LbcsiRxP2H0ag+9F969GhEo/+MBwiqu2vYrMKFHjObK953qY4fp7lBmA1yucaJrsImCqOuFJY+urkuNmTH2p34KB4DH5mP5g5QnQ=
+	t=1783844330; cv=none; b=pPxmi1ihzXd534yC/BdQGzSeU878JxwoB3FSG8chctvZ/OxvnN6a5oCQPzHfWjAwraO1mCH+WctB52OwAPQ5ptLSUGb6aN00P+Bs7OGw6fgNgrBYtBc2u3AivEAyVuFqc+nImxL7yvmWMftQpC1KvrPvM/JV+q0kgpEoCBSv/sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783844026; c=relaxed/simple;
-	bh=5DU46VdZLpGnjfeYvbn0hDNYHhkgzgsf/Dehu/HAXW0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r8QLxXXFpYjrJkizHQNIg90Dl4FHROVAhvKU/Gmk7OcmO/+Kc1XwNuqHo0xn/Jtc6jEngdt6js/Qxtf6Qj4/62tyrsUKs8b29SRloZKHyA0vlTJ+A5EKdNHqA1if9t1A+Flk6sp1NcWz9siwvXNOUOGVHr0yisNrbwTE4ZLWku4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8+zjsSC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783844330; c=relaxed/simple;
+	bh=C0pyjdZQVqwifoHGIzoK0dwOSIun05ofQhgr9y/iY4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lsQd32jgL7yju+gBX4TN0v498nYnnEIFHlpu3qugeL0ljgY/IDDv1qvQlHjMON0ZQ/R7IgGX+xlwyYrLsEUYpCkE8eiuiNGlc5yj15x/kQxuzuwLPy+DIOPZDYVfEUjg+rO6Fj44wBD0AZyJ7xq/eJ9pSgQfSesMTtAcZLC1HjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=MEWiPyFZ; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8+zjsSC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7533A1F00A3A;
-	Sun, 12 Jul 2026 08:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783844024;
-	bh=TnJaVAAMP7e6GtzzDzJCm35DMXPxdXgOG3RpeUfryv4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e8+zjsSC2XHSELDPwjv4lNHpOEp/oYOLIKIP8obAvxzE04D7+jC2HNHjUMrjyhEY/
-	 uCA3haWCe9MJX/JDh60kyP8TspTxdK8l5/THSZZ0zYLF2Ivd90QfWEkuJcWThOL8x+
-	 2QJOQtr2ty4QPNZfD5nSdwyVjqt/98BIsvOe0Z5/YeFS5hKU6cuaoEzROpkffxVTXu
-	 HQtBuO2JMAraYqeODkvesNSfDoEvuV84QoxwTBY9U0RfwcAQtIL7ql8Gw2FMUnKkAH
-	 h+MLwyI+0uA7LshAgIDN543RL0OfkdqoA1bssLizaZyVu0gATT1/sGug/d0N91ry0+
-	 qi4P0jPVKiD2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/8] clk: sunxi-ng: a733: Add reset lines
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Junhui Liu" <junhui.liu@pigmoral.tech>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260711-a733-clk-v2-8-974d188cbe0c@pigmoral.tech>
-References: <20260711-a733-clk-v2-0-974d188cbe0c@pigmoral.tech>
- <20260711-a733-clk-v2-8-974d188cbe0c@pigmoral.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 12 Jul 2026 08:13:44 +0000
-Message-Id: <20260712081344.7533A1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="MEWiPyFZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=75ub
+	1ZjyI5OqaXxEVT5ISZjS26avsE+iZDfgKAY2wmI=; b=MEWiPyFZReTMXRGm7PFx
+	UAN7gc7KMbteSgPEbjknxZb0LxdTJfKcaEdeG/tgDSGFMppT27TlRwK9cwUY1kCc
+	NGonQ64FNlF1J7BLQfWDyMiRjHEG1fpQcFIxKDLz3/sm0oKMttv/KmYzxI6km0Yz
+	UOvWtRw0SbCRJXPXULRzCX2ZZ6q5iggbrmgMg2I3EDviohXYq89JBMmQc+nXx/79
+	4rYtvtbLjZGnSZa9w2HWetUNOWFkWipRA5/+dzzMxwI44Zz+Ut8xlJg3Faxhyre+
+	j3hZh7RZlcaPa8u0YCyJA1kzmB53uVHRb0nOCvVrau3FSCB7RQQpbxPumiyilfJo
+	TA==
+Received: (qmail 2160944 invoked from network); 12 Jul 2026 10:18:46 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 12 Jul 2026 10:18:46 +0200
+X-UD-Smtp-Session: l3s3148p1@w/lmn2VWvskujnun
+Date: Sun, 12 Jul 2026 10:18:46 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Pascal EBERHARD <pascal.eberhard@se.com>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH v2 0/7] clk: Add support for clock nexus
+Message-ID: <alNN5qxBJ4EsB3Li@shikoro>
+References: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ZVqbSNm8t340mGQs"
+Content-Disposition: inline
+In-Reply-To: <20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `sun60i_a733_ccu_resets` array is missing the `const` qualifier.
---
 
---- Patch [8]: [PATCH v2 8/8] clk: sunxi-ng: a733: Add reset lines ---
-commit 4ea86ec36599a9ad729bf576a38c2f6cad725b56
-Author: Junhui Liu <junhui.liu@pigmoral.tech>
+--ZVqbSNm8t340mGQs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-clk: sunxi-ng: a733: Add reset lines
+Hi Miquel,
 
-This patch adds the reset lines for the Allwinner A733 SoC. The reset contr=
-ol
-bits are integrated into the main CCU driver using the sunxi-ng ccu_reset
-framework, enabling the CCU to function as a reset controller.
+> Then there has been a bigger series (including patches for other
+> subsystems) to show the big picture, but let's split again and focus on
+> one subsystem at a time:
 
-> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-n=
-g/ccu-sun60i-a733.c
-> index 48d7c0395ae83..ff64c35206d2d 100644
-> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+This is a good idea IMO. Sadly, for this series, I won't have time for
+review. If you have a branch available for testing, I could provide
+test-tags, though.
 
-[ ... ]
+Happy hacking,
 
-> @@ -2156,11 +2157,136 @@ static struct clk_hw_onecell_data sun60i_a733_hw=
-_clks =3D {
->  	.num	=3D CLK_FANOUT3 + 1,
->  };
-> =20
-> +static struct ccu_reset_map sun60i_a733_ccu_resets[] =3D {
+   Wolfram
 
-[Severity: Low]
-Is it possible to add the const qualifier to the sun60i_a733_ccu_resets arr=
-ay?
 
-Without the const qualifier, this reset map array is placed in the mutable
-.data section instead of the read-only .rodata section. Because it is later
-assigned to the .resets member of sunxi_ccu_desc which expects a const poin=
-ter,
-adding const here would save mutable memory and slightly improve security
-hardening.
+--ZVqbSNm8t340mGQs
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +	[RST_BUS_ITS_PCIE0]		=3D { 0x574, BIT(16) },
-> +	[RST_BUS_IOMMU0_SYS]		=3D { 0x58c, BIT(16) },
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpTTeYACgkQFA3kzBSg
+KbYtZg/+On4LkPUnhbxowGKevVHFnDhdpxRu9+Dthux7ECfGg1j+ojbarCC1oSQ6
+igQgK4wFWWN3sjYUykr3lvwaEovz6/nlRKK8Gg3XGF6VBKJaIr2XEom0NucteEKb
+NEWztJ6SXfg2s9osPXrheMjBAFPC514tOEzHKa6zSkNY3szh5PyNa2kkt2nf7+yq
+elV7uwKnbGn7jqhvGa1bsKG47y6IcnTMva8BFfXPJHfGeoNOp03ZjsuBLbBoIT4h
+QdUxz5Za4tbcLAl12EqAAMgw/as0T9XyAGAs5PCD6d+3QS9BAYLhSrICm+IB4a75
+HZJP2CQhaBTYvbKgcPK8tWxENUN0F/Go+Duu1BJqyQLsnL1tPYxd7CkY2goNX5fe
+4oWOPsArOyD62/LH2shDesXE6nIyG+49Ku3sz4DK2BckOXkNnTRGEhtdHs9x8y3G
+Cb7y+bOq7CEv3NeS21pw8g8ob9JjXdyPS4kFKqgTUn3FAgV/BaoJ6wtQZ1NXULKo
+z3en5KXa7pg9V68G6qUPOGZNydNpFB1lyqXEGX6dQcwzIYCTbHc6AJNUTQZbiibd
+PYmnknRdhR2eZVqPQHpk1m0zC+YYuDHggZpo+gSeYE1ka7YV5DIDJE12EPdZaoVj
+pT3/0Hzm89T9SonggBakW9PbhpVqQjOX3CCH4VtDKOe/cpv9yWg=
+=3krj
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260711-a733-clk-v=
-2-0-974d188cbe0c@pigmoral.tech?part=3D8
+--ZVqbSNm8t340mGQs--
