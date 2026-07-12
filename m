@@ -1,93 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50750369D71;
-	Sun, 12 Jul 2026 09:51:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197762F39B5
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783849893; cv=none; b=g97C+wdqks5mgnHZo7cB036mTusGcvG0eldW9l3A8tFDCyfPHWkrAZWbhX8KWU743OvGCgFEX5fbynmFSrLPGQGiC8n53wK6zhHrFyCh0TE2VnHgA/PJpwM5TYnXV5G5OXtr95wepP+AfgEMVoG87LjA4dxyvbf5mL2z1iFrsdY=
+	t=1783849941; cv=none; b=A38o3xa4ZnbNNDcdrGqwccH4zPeoBshBknlOQBB8WdL69Tw0mVi70uxK3VvQvuRFRC3t96wjlbbGwl24e9hhqsL/PDEi+tdIrZ3DP2EN0zRTr/QF6HlIe9Ni7dyXuHexxLZ1i85d6rkluEQisBBV6I8Fn8x+7KZOS6KVhCpkFgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783849893; c=relaxed/simple;
-	bh=UUTPrVk9MPoWQl5qgG7RoPAhAuxqhxAdTplAK3yIO5w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hTTUnVfRtwv4wK11UjsOGWsYHZpD9U/UZ8GsxkxxlPYJoNxDOW3Xs3/pFkG3wlZbUC0+RV9PAtXRj8PjFZtjgailheWfUoUwcerE1H6OQcJu3Gy+Y9q0bAn+ZK5rUh0XmvuvFkHVUOrbHc+l4ZsF8UZ0tNAKWhMKriaEt07fytk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JS0rhk09; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783849941; c=relaxed/simple;
+	bh=MrzkTauUQCr6sN8d+/BSKqJaYDRaFlC9T5n/NsxGx64=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JCqwnaLyOYb31emQNGseJ/X5VDlaFtqBGVP1qWSg8m6bmdmvp6hr0I/rHTh3qRoUhntvtHaZbrcILfcOfmbYbMnIKtwwA4KNddSvZ7dW6Hi3KPqmhh8ISHA+hqlLO/xnf+v24h3Q6fzp31TjDzg/dAMhkQpB7k04/Xf73431oNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WxLGXV14; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JS0rhk09"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783849893; x=1815385893;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UUTPrVk9MPoWQl5qgG7RoPAhAuxqhxAdTplAK3yIO5w=;
-  b=JS0rhk09rEP0g8PeFENFHx3DKgyiCioYM4n0A5y7csI34DdZM4B8yYlJ
-   l1ect9rb2FNpZyDgNTEOIxKytvBM9e1MPRrJi1kWoT3aoarUwVCl8YIBD
-   xIEUNaHcskyiY+agIYA2LrxHVMX2rFSGdiIcBEMUwUxeOhXjbHZsGGGdx
-   2T0yfY5CuUtR0KD9KJyxcFy7pf7jYGkd87/LhsX/odAVleD0U3gXvfaLl
-   PZK3SNWoLvUt7mnmaJ6DAUrXjM5iGhr0BlZ4DSxJ0G8M1Jy+xk55Cx23U
-   FvJmKqYessBsI16vMY7lN0R/VrPyab536Oe75c4pKSdESs8ShIwHXxJYR
-   w==;
-X-CSE-ConnectionGUID: kr0RTc1KR9mwbfKh2OYA1A==
-X-CSE-MsgGUID: Pd6RJHoaTnyKq61q987vhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88170047"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="88170047"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:51:32 -0700
-X-CSE-ConnectionGUID: bbqStwH/QtW4X7FAHnfr+w==
-X-CSE-MsgGUID: FyBeK+vATgmoXHljqIdUMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="251315259"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:51:29 -0700
-Date: Sun, 12 Jul 2026 12:51:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kim Jinseob <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/5] iio: osf: add authenticated stream parser
-Message-ID: <alNjnjAlLRr8Q23k@ashevche-desk.local>
-References: <20260707014525.1015-1-kimjinseob88@gmail.com>
- <20260707014525.1015-5-kimjinseob88@gmail.com>
- <ak0cVeEUhNP1wTkQ@ashevche-desk.local>
- <CALMSewLACs7+QEq=3Pp=Wo6dvmEu0hFjmuOx8oe0AGoZHPmADw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WxLGXV14"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965CD1F000E9;
+	Sun, 12 Jul 2026 09:52:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783849939;
+	bh=Ofxh8Rp0hgB2Nimi6uutsUDrPGmS7KganYLRaNWqfV4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WxLGXV14BFzs9B8EfHcg0fUW+9BHnQhtQMU+rm5erkqfqmYuvi3OVl7TOqoc4/U3S
+	 kQaV4IBBgFy7FEi6llMxV1ZX3pmB/lGj/PxvyJbTUOUSGHk/QkBIb9PDpUbkBEVcML
+	 W9TLxEOA2TFXsJf/rQlDe2wdtpVCRjSiLgM/ho/avgjt++FKbcrQmsY2sfkBZjInjV
+	 vnGMyRR32DIaTvQDyWFMdV4KUb7ydsvcYhkYBzptD2KxJVIl/nDCQu5HVXatwoxlWJ
+	 iOZPU4kQssU8N0ZHfI3qYWJKJtoyOi6pS5rhT8IlS078r16ipBu5JjnAqME6uSbhvL
+	 PTuKykx48+b7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 12/12] arm64: dts: apple: t60xx: jxxx: Add
+ device-specific SMC hwmon sensors
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Calligeros" <jcalligeros99@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260712-smc-subdev-dt-v1-12-7763006d57c7@gmail.com>
+References: <20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com>
+ <20260712-smc-subdev-dt-v1-12-7763006d57c7@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 12 Jul 2026 09:52:19 +0000
+Message-Id: <20260712095219.965CD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALMSewLACs7+QEq=3Pp=Wo6dvmEu0hFjmuOx8oe0AGoZHPmADw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Jul 11, 2026 at 12:24:12AM +0900, Kim Jinseob wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] M2 Mac Studio models incorrectly include the single-fan hwmon co=
+nfiguration instead of the dual-fan configuration.
+--
 
-What happened to your email? Regular MUAs add the line to see the quoting legend,
-and in your email it's gone?
+--- Patch [12]: [PATCH 12/12] arm64: dts: apple: t60xx: jxxx: Add device-sp=
+ecific SMC hwmon sensors ---
+commit 9b6661d8907736a04d8f29e1718ac346ff51ced8
+Author: James Calligeros <jcalligeros99@gmail.com>
 
-...
+arm64: dts: apple: t60xx: jxxx: Add device-specific SMC hwmon sensors
 
-> > Seems like reinvention of min() from minmax.h.
-> 
-> Agreed. The open-coded minimum calculations are now replaced with min().
+Add the device-specific hwmon sensors for select T60xx-based devices.
 
-You too eagerly removed the context... But okay, it seems you agreed on
-the suggested changes.
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/apple/t6021-j475c.dts b/arch/arm64/boot/=
+dts/apple/t6021-j475c.dts
+> index 533e357748746..82689c380cdf2 100644
+> --- a/arch/arm64/boot/dts/apple/t6021-j475c.dts
+> +++ b/arch/arm64/boot/dts/apple/t6021-j475c.dts
+> @@ -35,3 +35,5 @@ &port01 {
+>  &pcie0_dart_1 {
+>  	status =3D "okay";
+>  };
+> +
+> +#include "hwmon-fan.dtsi"
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: Medium]
+Should this M2 Max Mac Studio use hwmon-fan-dual.dtsi instead of
+hwmon-fan.dtsi?
 
+Using the single-fan configuration might cause hardware monitoring telemetry
+to miss the second fan on this device, leading to incomplete fan statistics
+in userspace.
 
+> diff --git a/arch/arm64/boot/dts/apple/t6022-j475d.dts b/arch/arm64/boot/=
+dts/apple/t6022-j475d.dts
+> index 31f24bbda9689..f50a6d56f3d8e 100644
+> --- a/arch/arm64/boot/dts/apple/t6022-j475d.dts
+> +++ b/arch/arm64/boot/dts/apple/t6022-j475d.dts
+> @@ -44,6 +44,8 @@ &typec5 {
+>  	label =3D "USB-C Front Left";
+>  };
+> =20
+> +#include "hwmon-fan.dtsi"
+
+[Severity: Medium]
+Does this M2 Ultra Mac Studio also need hwmon-fan-dual.dtsi rather than
+hwmon-fan.dtsi?
+
+Similar to the M2 Max model, using the single-fan configuration could cause
+hardware monitoring to miss the second fan's telemetry.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260712-smc-subdev=
+-dt-v1-0-7763006d57c7@gmail.com?part=3D12
