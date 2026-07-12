@@ -1,261 +1,307 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C13D3B3C0F;
-	Sun, 12 Jul 2026 19:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F173563DD
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 19:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783883705; cv=none; b=MWppHIb1TX+OUuBMmUErSuimNL6g6bYYKmXbnFOKZhH/GDD16xgIAb2EiOjO4sKWQndxp06tG99Ghvl6KOk1vepEoeI/r+PvpaK7j0eUDQykvXLbP/EnH8ETBPjKLQJLHX8WHo0BP0/55xiHNBdu5VBFC3xSgyLB9CdQxCX7jlI=
+	t=1783884191; cv=none; b=HvRlB8eSUqF2RwMyO87MvHsiZbFzNvtrRRGKHtH1Fada1VTx/zbjK2jFHsjfTTcToMYpMzQs4tJyrdZD8Rm6gg/L0O77pT5Yw1u67pGcS2oD3VDZnZwFCzYY0pTUkFlu7ns52GQ0qjwqI3kjC5rACZhBGR3bZ0pq/fCCnXuNBLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783883705; c=relaxed/simple;
-	bh=ikd+TViXq28E5vHcA0r9IRmr5s/Pv4K7YRHMB6XfEAE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GzScFC9YK672L+lb1nwyc0xhxTdO7DiXAnMXOftMbYDf1d2L8ckcbszuZTMnjJPw7mRTCi+YR51XVR613h8EzXOnTBdDZ3khTCn8nM43y3dilCTWfGFYeu4a9XJGheO1F59QGLmZQECcrSnVz20kocyjKzUEUdhlbd4PIKyzpug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+1O9GP1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783884191; c=relaxed/simple;
+	bh=f44w1Qb66VXvZ7aENOxpRg5+03jFXGl5u1+SwIgIDb0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=M+z53eAVJtVpbeB5itc237xiJdkZomPp3ZgG1V+SVeIw9asPX2rVRGHB6qo3vXSDe+PGagEEv/c3YJRXXW9F7sknxbrtOQUmKYZSGpKcbYFyHKvoUBuiGBuj/Zs17+chDAATdMacYjMATWyiXEN7CjMLQHwC5MbPpePWojcWvZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BcoG73FW; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+1O9GP1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8B0A1F000E9;
-	Sun, 12 Jul 2026 19:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783883704;
-	bh=73b4pL2XQtnec2/Fy5ja53Ba+xumzUzAkyQQn/NfjQc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A+1O9GP1ucy3KjYEern4zyQU/VnyDWPh8PtiWqJT8ty6GYQZqbKu1DkSIavsJncpD
-	 y3RZOJt5cI+dOZnoZefjzOrN+aUrcYds6YmyMBOdD8ssSPDV63Qs7o22SDqmlSGLjp
-	 umHQkoGwuBXkG2XG/EBnZ5+nkhIVtfYEXUtgGxWSatDlouhoNvsxnqqwrANc4Ppo4Q
-	 XmcRRIf8VIiN5HosFT/oTtM3/zjkNmI/IapPKXbFOfWY2+Dan3wVUw1AqY0v6nEmZt
-	 bGtHO4VTdUx30RXwrWDrLT7NgTHC47U+uf//4DgQpir0YXJ9Ho+XxNYaTEiUEu1h6b
-	 fwbdSyh1O4DQA==
-Date: Sun, 12 Jul 2026 12:15:02 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BcoG73FW"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-472326ca506so1912216f8f.2
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 12:23:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783884188; x=1784488988; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vxdq/uhXL6csJR9SPTwCd0QBGvP6WfjC0Zo32lhxE/0=;
+        b=BcoG73FWSwKLUqYGbvSwSd/ejJSvpTFnAsg3VEBTTlbW/9WWzneWb9FSQLr+MF8lyH
+         8SVB7HAb/99uIyvsq8/u7c8UPcKafnVqOLiRvKDhdFk7XEU6lZSvZLcDUofYBdaCFxOc
+         cRKmHqDwp1gXo36vqd2HnFw9C5cpTYiM5XPdwFzNvzjwoGhLkcrar0O0kYpCRW3bfHrf
+         nEYVQ4j61YEY6i1tNNRAmVDh/ViGqf+DIDIeDm+gB9YhIiAbEE4lT1VMxdunIhb4grm2
+         SGQmwvCX8QC0tI2qH13BZCaN3iyzS8WjMhXPpXu3jjPdlm7t/oPXOAMs+11ATbirNEgp
+         BBqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783884188; x=1784488988;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vxdq/uhXL6csJR9SPTwCd0QBGvP6WfjC0Zo32lhxE/0=;
+        b=VCSKNB8GyUKjSR+bcl1LXJBpQyNGHs+QkXcmdu4qCX4UTL9Z8chClBJPrfeyiXB7We
+         OlaH7Z5wEJ2BInNtddASlorMnrKSIc0EMbua5SvYVyFrhBgaqnM0njdcg25gYVeNJEqA
+         NH/n+6LyhT7V4JVYyPiWH03y/usrrEbkuDZ/nPBmpZJuAccY2VrmvwZtiPRWUJUsWI+p
+         ms/AvF11aHSnUBvMwicWxXEcgGBpivrrjbzBfH3JjQq63yCxBDySManLmxBFVo1uTHic
+         nTzodUrvSVGlQNwjo8XmR4NrVOsr0vAP9vNaCIar5KiMlFgGHwVzRkoYxV3SNR3a2RVS
+         R7mw==
+X-Forwarded-Encrypted: i=1; AHgh+RpdfCV05KixKD3TSq1/fsprsjlRKIt8D3Qln6ULBUYMBbdqOH28DNwz1XQ8t8c5LvEcJxjfqAqSqbNQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz3X85KbSN0IQZzw/mkUoDXIWqetSQVRN0KENzmV+wqwuUAmkF2
+	TpYeaGBkbW0ckJJcl8Uk6u6g2e0Mn6Um2VVa/G0ynh847pHN3nrhr8jn
+X-Gm-Gg: AfdE7cn4NXikTI+o7NmGjisRGMHiHDTyV3utkh/3up5ddQ/SX/t/W/yzriW+CayHmsl
+	marLsA5m/wFiMymFe/KgRO7Iew8xleoV3DjgXZe5VU3cid6utj5paAYJSJhDDV3O6kpB/a/WNWV
+	fNQFSBP1Fgx6Y43tSRY21U66pxICcU1kHhpQFjXrjCcXhMeK0Hj3NYsZ3aB3YNR8ndSAnnCz0e6
+	P/Xd64tLGJNYsygDd2MlROfO6eBJ5gqppOgJVphPmuCVF3k3xKYK9kguveISCRUuEAY7KXEHgV/
+	XT8JMoYsAfeWW8n/WkCg+KJifY3JjTRuzH7g4C2aDY5S781ZSO2DJP4Glt3V0e0fezomMPkxwZ5
+	5w7shHBXaK+UBjGK0QeW6rxvq68dewIy0cIpS5IIHXLg+rV4CcweKi70tsxG7O1VCNOiiTRQo33
+	e+/ADR6zIqGOZdIeM=
+X-Received: by 2002:a05:6000:22c9:b0:46b:cab9:f697 with SMTP id ffacd0b85a97d-47f2dcc9239mr6838982f8f.24.1783884187613;
+        Sun, 12 Jul 2026 12:23:07 -0700 (PDT)
+Received: from builder ([2001:9e8:f120:f516:be24:11ff:fe30:5d85])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47df6a31dd5sm34883190f8f.16.2026.07.12.12.23.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 12:23:07 -0700 (PDT)
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+To: Oleksij Rempel <o.rempel@pengutronix.de>,
+	Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 5/8] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <alPntkIPbl17bEiD@x1>
-References: <20260706-dfustini-atl-sc-cbqri-dt-v4-0-e75c20201d64@kernel.org>
- <20260706-dfustini-atl-sc-cbqri-dt-v4-5-e75c20201d64@kernel.org>
- <3e7070fa-16f3-453e-9f0e-9c1a2ef38f9f@intel.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
+	Jonas Jelonek <jelonek.jonas@gmail.com>
+Subject: [PATCH net-next v7 0/4] net: pse-pd: add Realtek PSE MCU support
+Date: Sun, 12 Jul 2026 19:22:46 +0000
+Message-ID: <20260712192251.1413279-1-jelonek.jonas@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3e7070fa-16f3-453e-9f0e-9c1a2ef38f9f@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 07, 2026 at 11:17:14AM -0700, Reinette Chatre wrote:
-> Hi Drew,
+This series adds a PSE-PD driver for the microcontroller (MCU) that
+fronts the PSE silicon on a range of managed switches, together with its
+DT binding.
 
-Thanks for reviewing and your suggestions.
+Hardware model
+==============
 
-> On 7/6/26 4:06 PM, Drew Fustini wrote:
-> 
-> ...
-> 
-> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
-> > new file mode 100644
-> > index 000000000000..cb12a868561b
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_resctrl.c
-> 
-> ...
-> 
-> > +
-> > +/*
-> > + * fs/resctrl unconditionally references the symbols below before checking
-> > + * mon_capable. They are stubs for features CBQRI does not yet support.
-> > + */
-> 
-> resctrl should not access monitoring related arch functions if the arch
-> does not support monitoring. Could you please highlight which ones are causing
-> problems? From what I can tell, the first one below, resctrl_arch_is_evt_configurable(),
-> is indeed only called via resctrl_l3_mon_resource_init() if the L3 resource is
-> mon_capable.
+These boards do not expose the PSE chips to the host directly. A small
+microcontroller sits on an I2C/SMBus or UART bus and manages one or more
+PSE chips behind it; the host CPU only ever talks to that MCU, using a
+fixed 12-byte request/response protocol with a trailing checksum. The
+PSE silicon never appears on the bus.
 
-You are right, none of the monitoring stubs run for the allocation-only
-CBQRI implementation in this series. The stubs exist only so fs/resctrl
-resolves the symbols at link time. I'll drop the comment.
+Two generations of the protocol exist, both Realtek's: an older one on
+boards with Broadcom PSE silicon (BCM59111, BCM59121) and a newer one
+used with Realtek's own PSE silicon (RTL8238B, RTL8239, RTL8239C). They
+diverge in opcode numbering and a few response layouts; the driver
+abstracts that behind a per-dialect opcode table and parser hooks,
+selected by the compatible. The specific PSE chip behind the MCU is
+detected at runtime and only influences per-chip constants (power scaling
+and the per-port cap).
 
-> > +bool resctrl_arch_is_evt_configurable(enum resctrl_event_id evt)
-> > +{
-> > +	return false;
-> > +}
-> > +
-> > +void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
-> > +				 enum resctrl_event_id evtid)
-> 
-> Similarly, this should only be called when reading monitoring data which should only be
-> possible if the resource is capable of monitoring.
+The compatibles
+===============
 
-Agreed, same as above.
+The protocol compatibles name two generations of the Realtek protocol,
+with the I2C framing folded in:
 
-> > +/*
-> > + * Walk cbqri_controllers and pick one capacity controller (CC) per cache
-> > + * level (L2/L3) to back the corresponding RDT_RESOURCE_L*. When more than
-> > + * one CC sits at the same level (e.g. one per socket), they must agree on
-> > + * rcid_count / ncblks / alloc_capable. A level whose controllers disagree
-> > + * is dropped, since resctrl exposes a single set of caps per rid, but the
-> > + * other level is still picked. The first matching controller wins.
-> > + */
-> 
-> It works but I find it to be a potentially confusing approach (just a personal opinion!).
+  realtek,pse-mcu-gen1        gen1, UART
+  realtek,pse-mcu-gen1-smbus  gen1, I2C/SMBus
+  realtek,pse-mcu-gen2        gen2, UART
+  realtek,pse-mcu-gen2-smbus  gen2, I2C/SMBus
+  realtek,pse-mcu-gen2-i2c    gen2, raw I2C
 
-Good point. I'll restructure it to pick per cache level instead of per
-controller, which removes the separate dropped[] array and the
-overloaded NULL that made it confusing.
+and each board carries a device-specific compatible that falls back to one
+of these, e.g.
 
-> > +static struct rdt_ctrl_domain *cbqri_create_ctrl_domain(struct cbqri_controller *ctrl,
-> > +							struct rdt_resource *res,
-> > +							unsigned int cpu, int dom_id)
-> > +{
-> > +	struct rdt_ctrl_domain *domain;
-> > +	struct list_head *pos = NULL;
-> > +	int err;
-> > +
-> > +	domain = cbqri_new_domain(ctrl);
-> > +	if (!domain)
-> > +		return ERR_PTR(-ENOMEM);
-> > +
-> > +	cpumask_set_cpu(cpu, &domain->hdr.cpu_mask);
-> > +	domain->hdr.id = dom_id;
-> > +	domain->hdr.type = RESCTRL_CTRL_DOMAIN;
-> 
-> Please also initialize domain->hdr.rid that is referenced by the often-used 
-> domain_header_is_valid() helper.
+  compatible = "zyxel,xs1930-12hp-pse", "realtek,pse-mcu-gen2-smbus";
 
-Okay, I will set 'domain->hdr.rid = res->rid'.
+The naming is the part most likely to raise questions, so the reasoning up
+front (the binding documents it too):
 
-> > +
-> > +	err = cbqri_init_domain_ctrlval(res, domain);
-> > +	if (err) {
-> > +		kfree(container_of(domain, struct cbqri_resctrl_dom,
-> > +				   resctrl_ctrl_dom));
-> > +		return ERR_PTR(err);
-> > +	}
-> > +
-> > +	/* Insert sorted by id so user-visible ordering is deterministic. */
-> > +	resctrl_find_domain(&res->ctrl_domains, dom_id, &pos);
-> > +	list_add_tail(&domain->hdr.list, pos);
-> 
-> The domain list became an RCU list when resctrl started supporting MPAM. 
-> commit fb700810d30b ("x86/resctrl: Separate arch and fs resctrl locks") contains
-> a great description of the motivation and the different accesses that the list
-> should support. Historically resctrl always accessed the list with CPU hotplug lock
-> held for which above is ok but there are some planned changes as part of a fix
-> that accesses the list via an RCU read-side critical section. Even with this addition
-> there is no immediate impact to this enabling since it is related to the
-> MBA software controller but I think it is best for archs and resctrl to agree on
-> how the domain list can be accessed safely.
-> 
-> For reference to the upcoming resctrl usage see
-> https://lore.kernel.org/lkml/4c88e01e29df638d9ecad71b2ee3b411e24067bd.1783377598.git.reinette.chatre@intel.com/
->
-> > +
-> > +	resctrl_online_ctrl_domain(res, domain);
-> 
-> With the transition to RCU list the domain should only be added to the list after it is
-> fully initialized.
+  - The node describes the MCU together with its Realtek firmware, not a
+    PSE chip and not the microcontroller silicon. The PSE chips sit behind
+    the MCU, never appear on the bus, and are reported by the MCU and
+    detected at runtime; the microcontroller itself is a general-purpose
+    part (GigaDevice, Nuvoton, ...) that varies across boards. What is
+    fixed and Realtek's is the firmware and its host protocol - hence the
+    'realtek' prefix.
 
-Thanks for the explanation. I will adopt the RCU list convention. Fully
-initialize the domain, online it, and then publish it.
+  - gen1 and gen2 are two generations of that protocol, both Realtek's:
+    gen1 on older boards fronting Broadcom PSE silicon, gen2 the altered
+    protocol used once Realtek shipped their own PSE silicon. The
+    generation is fixed per board and is all the driver needs at DT-parse
+    time, so the compatible encodes it.
 
-> > +static void cbqri_detach_cpu_from_ctrl_domains(struct rdt_resource *res,
-> > +					       unsigned int cpu)
-> > +{
-> > +	struct rdt_ctrl_domain *domain, *tmp;
-> > +
-> > +	list_for_each_entry_safe(domain, tmp, &res->ctrl_domains, hdr.list) {
-> > +		if (!cpumask_test_cpu(cpu, &domain->hdr.cpu_mask))
-> > +			continue;
-> > +		cpumask_clear_cpu(cpu, &domain->hdr.cpu_mask);
-> > +		if (cpumask_empty(&domain->hdr.cpu_mask)) {
-> > +			resctrl_offline_ctrl_domain(res, domain);
-> > +			list_del(&domain->hdr.list);
-> 
-> (also related to switch to RCU list, remove domain from list before
-> starting to offline it)
+  - On I2C the MCU firmware expects one of two framings - SMBus or raw
+    I2C - which is a genuine programming-model difference, so it is part
+    of the compatible ('-smbus' / '-i2c'). A UART attachment carries no
+    framing suffix; the transport is given structurally by the parent
+    'serial' node.
 
-Will do, thanks.
+  - Each board additionally carries a device-specific compatible that
+    falls back to the protocol one. The driver only ever binds on the
+    protocol compatible; the device-specific string keeps the binding
+    specific and reserves a place for a future per-board quirk without
+    having to retrofit device trees already deployed in the field.
 
-> > +			kfree(container_of(domain, struct cbqri_resctrl_dom,
-> > +					   resctrl_ctrl_dom));
-> > +		}
-> > +	}
-> > +}
-> 
-> How CPUs are associated with control domains are not clear to me. Above appears to
-> be consequence of how platform driver initializes so I will comment more there (patch #8).
-> Just for above, it is unexpected that a CPU needs to be tested against cpu_mask
-> of all control domains. Would a direct query that uses the CPU's cache ID not be
-> quicker? Also, above creates impression that a CPU may belong to multiple control
-> domains which should not happen.
+Testing
+=======
 
-Thanks for the suggestion. I will change it to lookup the domain up directly by
-the cache id.
+ - Linksys LGS328MPCv2     (RTL8238B, I2C)
+ - Zyxel GS1900-10HP A1    (BCM59121, UART)
+ - Zyxel GS1900-10HP B1    (RTL8238B, UART)
+ - Zyxel GS1920-24HPv2     (BCM59121, SMBus)
+ - Zyxel XMG1915-10EP      (RTL8239C, UART)
+ - Zyxel XS1930-12HP       (RTL8239, SMBus)
 
-> > +/*
-> > + * Attach a CPU to every controller that claims it. On failure, detach the
-> > + * CPU from everything attached so far: the cpuhp core does not run this
-> > + * state's offline teardown when its startup fails, so a partial attach
-> > + * would otherwise leak into the domain cpu_masks. Caller holds
-> > + * cbqri_domain_list_lock.
-> > + */
-> > +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
-> > +{
-> > +	struct cbqri_controller *ctrl;
-> > +	int err = 0;
-> > +
-> > +	lockdep_assert_held(&cbqri_domain_list_lock);
-> > +
-> > +	/*
-> > +	 * Hold cbqri_controllers_lock across the walk so a controller
-> > +	 * registered after boot cannot corrupt it. The register path takes
-> > +	 * it as a leaf and never cbqri_domain_list_lock, so this nesting
-> > +	 * cannot invert.
-> > +	 */
-> > +	guard(mutex)(&cbqri_controllers_lock);
-> > +	list_for_each_entry(ctrl, &cbqri_controllers, list) {
-> > +		if (ctrl->type != CBQRI_CONTROLLER_TYPE_CAPACITY)
-> > +			continue;
-> > +		if (!cpumask_test_cpu(cpu, &ctrl->cache.cpu_mask))
-> > +			continue;
-> 
-> What will happen if @cpu was offline when cbqri_capacity_probe() ran? From what
-> I can tell @cpu will not be in ctrl->cache.cpu_mask in this scenario?
+---
+v6 -> v7:
+ - dt-bindings: rename file to 'realtek,pse-mcu-gen1.yml', using
+   specific compatible as file name (Conor)
+ - dt-bindings: added Conor's Reviewed-by
+ - core: replaced some leftover 'BCM/RTK' dialect framing in comments
+ - core: use rolling sequence number instead of always hardcoded 0xff,
+   adressing the issue that stale data might be accepted for new
+   requests (Sashiko)
+ - core: reordered MODULE_ calls to keep consistent across all driver
+   parts
+ - i2c: replaced some leftover 'BCM/RTK' dialect framing in comments
+ - slight commit message adjustments
+v6: https://lore.kernel.org/netdev/20260709194125.2784507-1-jelonek.jonas@gmail.com/
 
-Yes, this is a problem. I will drop the probe-time cpu_mask and associate cpus
-with domains the way you suggest, from the cpu's own cache id at hotplug time.
+v5 -> v6:
+ - dt-bindings: reworked the compatibles per DT-maintainer feedback
+    - name the two protocol generations -gen1 / -gen2 (both Realtek's)
+      instead of the -rtk / -brcm dialect suffix (Conor)
+    - encode the I2C framing in the compatible (-smbus / raw -i2c) and
+      drop the realtek,i2c-protocol property (Rob)
+    - add device-specific (switch) compatibles that fall back to the
+      protocol compatibles, with the board↔protocol pairing enforced in
+      the schema (Conor)
+    - rewrite the description accordingly
+ - driver: track the binding rework
+    - match on realtek,pse-mcu-gen{1,2}[-smbus|-i2c]; the I2C transport
+      selects SMBus-vs-raw framing from a native_i2c match-data flag
+      instead of reading the property (drops rtpse_mcu_needs_i2c_proto)
+    - rename the internal dialect and parser symbols rtk/brcm → gen1/gen2
+      (chip identifiers like RTL8238B/BCM59121 kept)
+ - i2c: DMA-safe raw-I2C path — bounce each frame through a heap buffer,
+   since i2c_master_send()/i2c_master_recv() may DMA and the core's
+   frame buffers are on the stack (SMBus and UART paths unaffected)
+   (sashiko-nipa)
+ - includes: drop unused linux/mod_devicetable.h (core) (Uwe)
+ - includes: drop unused linux/delay.h (uart); add
+   linux/regulator/consumer.h (core) and linux/slab.h + linux/string.h
+   (i2c)
+ - commit messages — update the binding, core, and I2C messages to
+   match (generations, framing-in-compatible, DMA note)
+v5: https://lore.kernel.org/netdev/20260706112425.3149226-1-jelonek.jonas@gmail.com/
 
-Thanks,
-Drew
+v4 -> v5:
+ - split the single driver patch into three — core / I2C transport / UART
+   transport. Binding stays patch 1, unchanged in shape. (Paolo)
+   Please give guidance on how to if I should split more.
+ - core: set_pw_limit: guard divide-by-zero on pw_set_lsb_mW; cap the
+   programmed value with U8_MAX instead of a bare 0xff; prg_val is now u8.
+   (Oleksij, Sashiko)
+ - core: discover: also retry transient boot-time frames (-EBADMSG / -EBADE)
+   within the bounded window, not just silence/NAK/not-ready (Sashiko).
+ - core: pw_status: report Broadcom 0x3 → TEST and 0x5 → OTHERFAULT
+   (new STS_TEST/STS_OTHER_FAULT); pw_class comment corrected (0x3/0x5
+   aren't "other fault" on RTL; class-0-vs-fault note). (Sashiko)
+ - core: dropped unused decoded fields — function_mode, cls_type,
+   disconnect_type, pair_type, inrush_mode, limit_type, chip_addr,
+   channel. (Oleksij)
+ - core: removed forward declarations by moving the response structs above
+   the dialect struct. (Oleksij)
+ - core: get_pw_limit_ranges: reverse-Christmas-tree local ordering.
+   (Oleksij)
+ - core: dialect comment clarified (only divergent responses are hooked);
+   commit message "parser hooks" tightened to "…for the responses that
+   differ." (Sashiko)
+ - core: made parse_system_info hook void, both implementations return
+   hardcoded 0. (Paolo)
+ - core: dropped GFP_KERNEL from kzalloc_obj. (Paolo)
+ - core: dropped unneeded u32 cast
+ - kept probe dev_info() for now deliberately, due to different opinions
+   on whether a probe might print or not
+ - NOT included Acked-by from Oleksij, due to several changes
+v4: https://lore.kernel.org/netdev/20260630105651.756058-1-jelonek.jonas@gmail.com/
+
+v3 -> v4:
+ - move owner setting from core to transport, mitigating possible
+   use-after-free (Sashiko)
+ - resend because net-next was still closed
+v3: https://lore.kernel.org/netdev/20260628222705.4052815-1-jelonek.jonas@gmail.com/
+
+v2 -> v3:
+ - dt-bindings: using brcm instead of bcm for Broadcom
+ - rename the driver files and Kconfig symbols to realtek-pse-mcu-* /
+   PSE_REALTEK_MCU* for consistency with the realtek,pse-mcu-* compatibles
+ - rename driver-internal prefix from 'rtpse_' to 'rtpse_mcu' to
+   emphasize this targets the MCU-centric setup (and leaves room open
+   for eventual directly addressable PSE chips)
+ - rework the vendor-prefix rationale (binding + commit message): the
+   prefix names the protocol/firmware owner (Realtek documents the protocol
+   and supplies the firmware), and -rtk/-brcm select the Realtek or Broadcom
+   protocol dialect
+ - core: reject zeroed/echo-mismatched responses via the echoed seq_num
+   (a BCM PORT_ENABLE on port 0 was otherwise accepted from an all-zero
+   frame)
+ - core: enable the PoE supply before global-enabling the MCU, and roll
+   back the global enable on probe failure or driver removal
+ - core: drop inline from helpers (flagged by automated check)
+ - uart: update the completion under rx_lock too, so a late frame can no
+   longer make the next transaction fail spuriously with -EIO
+v2: https://lore.kernel.org/netdev/20260612132944.460646-1-jelonek.jonas@gmail.com/
+
+v1 -> v2:
+ - all points flagged by Sashiko addressed:
+ - uart: drop frame overflow (return count, not the stored length) so
+   serdev retains no leftover bytes that would misalign the next response
+ - uart: guard rx_buf/rx_len with a spinlock to close a data race between
+   the async receive_buf callback and send/recv
+ - i2c: return terminal MCU error opcodes (0xfd/0xfe) to the core
+   immediately instead of polling to the 1 s timeout
+ - core: cap BCM59121 at 30 W (802.3at) — the basic 8-bit set command
+   can't program the advertised 60 W (it silently clamped to 51 W)
+v1: https://lore.kernel.org/netdev/20260608205758.1830521-1-jelonek.jonas@gmail.com/
+
+---
+Jonas Jelonek (4):
+  dt-bindings: net: pse-pd: add bindings for Realtek PSE MCU
+  net: pse-pd: add Realtek PSE MCU core
+  net: pse-pd: realtek-pse-mcu: add I2C transport
+  net: pse-pd: realtek-pse-mcu: add UART transport
+
+ .../net/pse-pd/realtek,pse-mcu-gen1.yaml      | 176 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/net/pse-pd/Kconfig                    |  28 +
+ drivers/net/pse-pd/Makefile                   |   3 +
+ drivers/net/pse-pd/realtek-pse-mcu-core.c     | 995 ++++++++++++++++++
+ drivers/net/pse-pd/realtek-pse-mcu-i2c.c      | 170 +++
+ drivers/net/pse-pd/realtek-pse-mcu-uart.c     | 155 +++
+ drivers/net/pse-pd/realtek-pse-mcu.h          |  91 ++
+ 8 files changed, 1625 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-core.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-i2c.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu-uart.c
+ create mode 100644 drivers/net/pse-pd/realtek-pse-mcu.h
+
+
+base-commit: f6f3b36c15ed44de1fbb44e645e4fae8c4a4453e
+-- 
+2.53.0
+
