@@ -1,277 +1,124 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE06239E9DD
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 11:38:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783856337; cv=none; b=e2Y64XyAFhRh0XuE8ld1SMt3r3UFqZpT0QupmO5KptUy/dbbeNlTIhsroqlDQN181XnYMqwiQybh8BdB9QD6qsoySiQCVJgElLzPTAfQ2lu/CT6BinTmy6AH/Z/eMJjjCoo3u6Juu7tfX6Un6WgpgCaxX3CCaH2EykgYZjbZdLI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783856337; c=relaxed/simple;
-	bh=p4ux/JOtLVj+8Spq10nglexIKmCAq+as35tOKbOSNLw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rFIrlGhrZ56kpN5/3zWQQUkoYQCtl30Qg3EkeHfztVJsoiUf4nA5JjSD0V32+VtO2PMYH54GFOOd2bf/h4+cfqCNuFRicJYmiqEhhJKvV2IKQYmi8qGYLut2aIX2VGSykJCGtm/12vnm+vpaxpSaNsdt/vAKu9vWmfgJkxsAPdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHFgC2SH; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED754399013
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 11:51:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783857116; cv=pass; b=p03pXZk5JmM6WdUj1O5ej/QkkBdYOVphDUgsXB4dc1bHzjbQD7kkgBGQXCt8B/1Q2TE13ghHU/jqmqwFOoeN0LpszGSVLJVFf5QiEcZpLzz9MSn/Hq/U6H/BJuLBWlfCGyflYeCj/X5+SVA2UcqNribIY1kMgiIbCDG33gtdRRM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783857116; c=relaxed/simple;
+	bh=Vq61pPu6R8RhFxhzO6MCMoN7B8JnjWnfrnKR8iKrLVo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s+1Ux35GZGQCYOjkZ3k9TJ/PslodU4DpjI3Q06W19kjvub1gCkZeJypF1dZdIUm0v5ATSjqoAdzzCQCFeHvkhUc2hxp759kG7rl0FRaHI9KBZPPla0rHkt5dCyFtE3cBedUMu1ggZ7v4CY5/H/ufVp4XIcWZYA7SUTd5wyqTDng=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=URUmaZ9U; arc=pass smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHFgC2SH"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-493f25d47dcso17188525e9.1
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 04:38:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="URUmaZ9U"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84874b52eabso2858581b3a.0
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 04:51:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783857114; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IMeuoUIrSVsryMHkzSrHf2v5wXnw1JH87SCkQzWWCOk1I8OAIbc/lPOxygcErdvGtQ
+         /p/5u7FrLRIUrC3cArhmL/iV9UHOsu1yB0bDRH1YHuRPhdQmP6iS3/CJCeAb7UZv4TMN
+         F3Rv+d487dkjBg6XJgzKg1dbGDLIKT60MNo57MXB4Un1Xq80LB9A3OsXKX0dEs8Jg4+7
+         LZ0Obts2ZJMFL+vhJaXRJ1rL7A5N3jYBuA2GJQIHlfQJwiTkvmLuses76uBMFGkbf8j3
+         0dG/IdpC7ggob6JDE89f2xyVGeUWFjNcMqYmR2eJPcxqWld5tkk1T9Aa/yOQNFJiHFxy
+         NFLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
+        fh=pNbOmpD35P2/qs4lYXLp4S07cZXZhEf+fP6DLBYjsS4=;
+        b=rOE5Ypz7rJnXzvBFY7fV9VnQAxZcQizpC/HqPI111bwi+dxVa5IaaBIc+IaMujMXGz
+         2IPyBdEk6vSFLmfxWD430b5BFz/O2THoCdbpcZdKZSi5fp3Owxp5EOYcM7MBrnRWfjf+
+         FunliZMRR31VAw/dzqZMoGjUMBwqAztQbhDDdQYA0Sy8KdTaqUcLGozR10G7s3yMBb47
+         uQJmS1iglEMMwXN2SS/d7MDU2NyJmN/oTqxDjgxohiMXHHxRlG6OEbMm26V4AoFhLMDT
+         Qf4gVjWvbNIhBTpbFeSfHD6mxaNrT8fWJVUZJapvomTmCYjypTn31HvBUlgaclhD2paP
+         m13g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783856334; x=1784461134; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WWPMJKQKJ9jSlDsOvT4j32pSDv2XKOE/cyJYUajvG3Y=;
-        b=UHFgC2SH3kUYx8zDS+G7d8whjEWgLiQbrOeYLd8Et/SD7R78m2XbmpRtuW20xMXCuX
-         E4fDFE+O+4PCzStWrjADHI95/+J8YzwSEUPpJMVognLd0Rj7UbsS5RJnCqw0giaPELsf
-         alU8j7Y4WQg/dnCL/IQkexQOP7lb7vZoWr92AfI7xwRVOyQnI6OFKR6Cyd4SAVePHGWk
-         ithTycrvkOqG7OuqJrzm3iZMJfpuWTseynuraC3xKzCohfRE/Ia6T7TvfH1bfkeG8G6D
-         xvbAsuZCtzo186aRYpGWw18H4xVCWWKyByXrr5MNRmWWsFzPCAbypL+0W9tujcb3dQH2
-         pzgg==
+        d=quora.org; s=google; t=1783857114; x=1784461914; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
+        b=URUmaZ9UW7ebsoLPmv2ZwO+NMA/F/cdUeLiUqXEHvG7svopSwPCAh2vYO8eKQx9+Uq
+         qIHblZvsk0rX4E3NZ5TVXxD941gvWnFAmHodF0VYobDRHdLxLkftPV4gzn1z/DEbX8la
+         WR0e3xpTmTybNyRCJN6NPBqgRiYhey1vgPKa4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783856334; x=1784461134;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WWPMJKQKJ9jSlDsOvT4j32pSDv2XKOE/cyJYUajvG3Y=;
-        b=TzSj/GxNvCvxQRLZdDxhdyU7PqJ0U3zdVyMlLOtFGzDr5cJqwgufUk6YCNcc56xZk8
-         Sx4Fv2EGahpX1HtRgMVeUfAGAyL+w7DA8RKbGoXmJngDsCHhKI6x6Cc2yqke3CzXI9GH
-         gBYyeQoJFLnwm2cXnEAXJKtsUrcRBlo+VOEEa0whHOyZHFHnXORG0oCHuhBSjThzhN9w
-         7eP88gyg0uUKbFOSuivGVNs00PiEcgUuoYq57XKMWe99e1hXdwuuQ2YNzricQavFeTgi
-         1v3FdrBQZ8MORMPYEA1xy4bT8BvjZszeRd6xwtjm7jDIMV2g0FrnVkJ9jlFQKqMynyQ7
-         jPoA==
-X-Forwarded-Encrypted: i=1; AHgh+RpA34ST9FH6LIctWguPSgtNEuGV1Z6GqvsB1SuLPy3o2oQfo4SiFkVEVMNqNoCs62d7g96uPeOPw1uT@vger.kernel.org
-X-Gm-Message-State: AOJu0YyammEKeZXqagGBFhpq44hhEtMoKiwf8FxXwznyjNyuxNivrjqY
-	akHiSEqWtqfKlKWxy1Y/rEAn6UtYpXounJgN1EgbktXMBIILKnHC5gSZ
-X-Gm-Gg: AfdE7ckWzxnk0jQMkcEX6IUmFB/3Hg60M81vqM4D3GG0KV8v0avYBg1/C4sfkVvPlhw
-	cfCBynlUPCcvKJE0iC2pyN89KO2NXasZV94LpNYrBRpn3VCszejhAOQ/K+td6lv3WaBJktijvEG
-	ldxr1cb/tT/PRSw7lEntqcAnPpM/gbB+UuzAXDYZsY4Xd9CgbRASqufZmDdXNbMgEdYm72Oq6Es
-	J2c7okcdEosulJ2enP/F3pQEV+35Rz50sZWqzyXHR+D84dbMv17uVMdGft/AvwFMMDk+ovbVhWf
-	Np6SBYaOtc+lsr31BbFn6bNnyQUD8vGU54c7VtTnqYkuyxtBbphYr0HCSbqg6PlQJ8OFFWh4n7m
-	6aqduLC9XUywimBXV3EdroqbjFf0cwxR7zfFuoKO/q+iYGYJkKL/YQBP5WbezKjUZPadp+jfO+6
-	BrbZdP8Q==
-X-Received: by 2002:a7b:c019:0:b0:493:aab3:c09c with SMTP id 5b1f17b1804b1-493f8828e20mr33926235e9.28.1783856333825;
-        Sun, 12 Jul 2026 04:38:53 -0700 (PDT)
-Received: from avermoal ([185.13.178.252])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb74b3edsm329219065e9.15.2026.07.12.04.38.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 04:38:53 -0700 (PDT)
-From: Mikhail Lukianchikov <avermoal@gmail.com>
-To: Thangaraj.S@microchip.com,
-	Rengarajan.S@microchip.com
-Cc: avermoal@gmail.com,
-	andrew+netdev@lunn.ch,
-	conor+dt@kernel.org,
-	davem@davemloft.net,
-	devicetree@vger.kernel.org,
-	edumazet@google.com,
-	krzk+dt@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org
-Subject: [PATCH v4] dt-bindings: net: microchip,lan78xx: convert to DT schema
-Date: Sun, 12 Jul 2026 17:38:21 +0600
-Message-ID: <20260712113821.12543-1-avermoal@gmail.com>
-X-Mailer: git-send-email 2.52.0
+        d=1e100.net; s=20251104; t=1783857114; x=1784461914;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YsQpUC4iSbhz2nXUUh9/l1xqUNQEcKgCsyiqdbNE7Cc=;
+        b=jTxu/o7lG7adzSpbYPSXTAz0qQ9ym+3Gfa8eoiKqnTW9z+Bwm8OBmVto6p8qjyfgp1
+         fiBkLI+9M1ZmOShRJ0OPeGWCNAoFuX0RX8ypxefuWbSDIiyXxQDPdFDGf3RuOpv4aoEm
+         pvso8ISEpMJtW3EEsidYkt8r8D1ZaD/VoV0M6e8yLiBTKTqcnGDc2Lsnvcu2A0IdcA9F
+         hdaJMiW4KJ7hy/cKnI2CPKmSkxone9oR7NozIKTYTd9mEQRc53ICBeM65N7XC/8IQ/HM
+         +T803pGBx/AneTBEaNRkyUzk2SDHAVJ7UGxi+dFa43F7APtYgLq/zT4YZD52WoI0tmfX
+         Fh+g==
+X-Forwarded-Encrypted: i=1; AHgh+RptvVnMWrFI9wWBmfWB6X/SV+M72oDQIKXHDzXstrniYT6DjhxGkEwMENDXVhkSyrL2kIL/lvKrkZ+t@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWd20E4ZAhAE7AOC5db2N98q8XeCFB5RJMNNiiw4l+0lCaZ3y0
+	jl69DQexcNoUa/lGl197KFJmqoY+3id4TcJnq14CdCFfqPDoUVachYk3Ndj3aYGDpOit2UOWiJt
+	yKGE4Wf2JKTlgnQedlKIRDcTzMdR3Tn+/C8/R8531/g==
+X-Gm-Gg: AfdE7ckRlqmFrLyzEci85vn+BU7cHpObMl8aIO5mvOe2eEkoZ4S3sQnIv/c/zWICf71
+	qxMm9WbZRClofI1II5KoNNKeepcXZzMB8+xAQUuHR3qncYLmIlKquAgqK0xcuCjhwQ3JkKC8tr+
+	IHv7c94xXEmKtmX9qu09eTaISCTCSgbGZ7snXCXjRxUD7WDFoZVs6yzrdntZxrgNIPRHsviin38
+	bbJzzvps8JYtD3qfho6LS2j7/FBkWavTqeTrhhx3dWt4kfUPLpBbhu4Q332jzQOCdPSX28U7OCg
+	+yagyjxzmTHrLQ/fZLqohMQezs5DLt7Y52+EtAUrt8lQunkGAAXYcGA9WwoOfKtbMvPYYdV3eDp
+	Zl19E+NznHSC2ctgbbXrkww5jVVsxNDuIemcYm4krinM24oEmcH4c4XG/cNT3CXfrbeeSgSldWy
+	XdgaXLw+bSp0Y6VD+m7vpSwnGv+tJYKi3cKljHgecrtnOWwannFoEUkqNp1fycAdFgdsNO7Ng=
+X-Received: by 2002:a05:6a00:c88:b0:848:2f77:e2dd with SMTP id
+ d2e1a72fcca58-848897a7553mr5221254b3a.70.1783857114306; Sun, 12 Jul 2026
+ 04:51:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+In-Reply-To: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sun, 12 Jul 2026 19:51:43 +0800
+X-Gm-Features: AVVi8CfIxi4WIpFkevKCP00_7Hn3fE6sIEYaOzLrzMtk6xLs3rWmXH2GtZ7E-hM
+Message-ID: <CAMVG2stqOscN2CB5Uq4qVvb3vXOze35-JzqH4GpS8z4R2dr+Mw@mail.gmail.com>
+Subject: Re: [RFC PATCH 00/11] : media: iris: Migrate iommus to iris sub nodes
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Convert the Microchip LAN78xx family (LAN7800, LAN7801, LAN7850) binding
-documentation from plain text to DT schema.
+On Thu, 9 Jul 2026 at 20:35, Vikash Garodia
+<vikash.garodia@oss.qualcomm.com> wrote:
+> VPU hardwares have a limitation where VPU streams are associated with
+> dedicated addressable address range, as illustrated below
+...
+> Mapping a stream outside its expected range can cause unintended
+> behavior, including device crashes, as reported at:
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+...
+> To address this limitation, the subset of stream/s are now represented as
+> sub nodes, so that they can be associated to the respective addressable
+> range.
 
-Restoring a mistakenly deleted email in MAINTAINERS file and fixing
-microchip,lan7800.yaml.
+Amazing work Vikash and team! This patch series applied on 7.2-rc2
+resolves spontaneous rebooting with parallel streams eg when opening
+https://ui.com in one or more browser tabs, resolving this platform
+usability blocker. As such, this is absolutely relevant for -stable.
 
-Signed-off-by: Mikhail Lukianchikov <avermoal@gmail.com>
----
-Changes in v3:
-  - Restoring an erroneously deleted email in a MAINTAINERS file.
-  - The local-mac-address was deleted.
-  - The missing email was added to the maintainers section.
+Tested-by: Daniel J Blueman <daniel@quora.org>
 
-Link to v3: https://lore.kernel.org/netdev/20260711105537.11065-2-avermoal@gmail.com
-
- .../bindings/net/microchip,lan7800.yaml       | 89 +++++++++++++++++++
- .../bindings/net/microchip,lan78xx.txt        | 53 -----------
- MAINTAINERS                                   |  2 +-
- 3 files changed, 90 insertions(+), 54 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/microchip,lan7800.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan7800.yaml b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
-new file mode 100644
-index 000000000000..cb3927215dfc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/microchip,lan7800.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/microchip,lan7800.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip LAN7800/LAN7801/LAN7850 Gigabit Ethernet controller
-+
-+maintainers:
-+  - Thangaraj Samynathan <Thangaraj.S@microchip.com>
-+  - Rengarajan Sundararajan <Rengarajan.S@microchip.com>
-+
-+description:
-+  The LAN7800/LAN7801/LAN7850 devices are usually configured by
-+  programming their OTP or with an external EEPROM, but some
-+  platforms (e.g. Raspberry Pi 3 B+) have neither. The Device Tree
-+  properties, if present, override the OTP and EEPROM.
-+
-+allOf:
-+  - $ref: /schemas/usb/usb-device.yaml#
-+  - $ref: /schemas/net/ethernet-controller.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - usb424,7800
-+      - usb424,7801
-+      - usb424,7850
-+
-+  reg:
-+    maxItems: 1
-+    description: USB port number
-+
-+  mdio:
-+    $ref: /schemas/net/mdio.yaml#
-+    unevaluatedProperties: false
-+
-+    patternProperties:
-+      "^ethernet-phy(@[0-9a-f]+)?$":
-+        $ref: /schemas/net/ethernet-phy.yaml#
-+        unevaluatedProperties: false
-+        type: object
-+
-+        properties:
-+          microchip,led-modes:
-+            $ref: /schemas/types.yaml#/definitions/uint32-array
-+            minItems: 1
-+            maxItems: 4
-+            description:
-+              Array of LED mode values for each of up to 4 LEDs.
-+              Omitted LEDs are turned off. Allowed values are defined
-+              in include/dt-bindings/net/microchip-lan78xx.h.
-+
-+        required:
-+          - reg
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/net/microchip-lan78xx.h>
-+
-+    usb {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet@1 {
-+            compatible = "usb424,7800";
-+            reg = <1>;
-+            local-mac-address = [00 11 22 33 44 55];
-+
-+            mdio {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+                ethernet-phy@1 {
-+                    reg = <1>;
-+                    microchip,led-modes = <
-+                        LAN78XX_LINK_1000_ACTIVITY
-+                        LAN78XX_LINK_10_100_ACTIVITY
-+                    >;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt b/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-deleted file mode 100644
-index 11a679530ae6..000000000000
---- a/Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-+++ /dev/null
-@@ -1,53 +0,0 @@
--Microchip LAN78xx Gigabit Ethernet controller
--
--The LAN78XX devices are usually configured by programming their OTP or with
--an external EEPROM, but some platforms (e.g. Raspberry Pi 3 B+) have neither.
--The Device Tree properties, if present, override the OTP and EEPROM.
--
--Required properties:
--- compatible: Should be one of "usb424,7800", "usb424,7801" or "usb424,7850".
--
--The MAC address will be determined using the optional properties
--defined in ethernet.txt.
--
--Optional properties of the embedded PHY:
--- microchip,led-modes: a 0..4 element vector, with each element configuring
--  the operating mode of an LED. Omitted LEDs are turned off. Allowed values
--  are defined in "include/dt-bindings/net/microchip-lan78xx.h".
--
--Example:
--
--/* Based on the configuration for a Raspberry Pi 3 B+ */
--&usb {
--	usb-port@1 {
--		compatible = "usb424,2514";
--		reg = <1>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		usb-port@1 {
--			compatible = "usb424,2514";
--			reg = <1>;
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--			ethernet: ethernet@1 {
--				compatible = "usb424,7800";
--				reg = <1>;
--				local-mac-address = [ 00 11 22 33 44 55 ];
--
--				mdio {
--					#address-cells = <0x1>;
--					#size-cells = <0x0>;
--					eth_phy: ethernet-phy@1 {
--						reg = <1>;
--						microchip,led-modes = <
--							LAN78XX_LINK_1000_ACTIVITY
--							LAN78XX_LINK_10_100_ACTIVITY
--						>;
--					};
--				};
--			};
--		};
--	};
--};
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f37a81950e25..5de154167b33 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27931,7 +27931,7 @@ M:	Rengarajan Sundararajan <Rengarajan.S@microchip.com>
- M:	UNGLinuxDriver@microchip.com
- L:	netdev@vger.kernel.org
- S:	Maintained
--F:	Documentation/devicetree/bindings/net/microchip,lan78xx.txt
-+F:	Documentation/devicetree/bindings/net/microchip,lan7800.yaml
- F:	drivers/net/usb/lan78xx.*
- F:	include/dt-bindings/net/microchip-lan78xx.h
- 
+Thanks again,
+  Dan
 -- 
-2.52.0
-
+Daniel J Blueman
