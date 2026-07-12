@@ -1,85 +1,61 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D932248F73;
-	Sun, 12 Jul 2026 09:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835C3194A6C;
+	Sun, 12 Jul 2026 09:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783848929; cv=none; b=lh0fWxhKGojkDxhK96q+zqt2klCF5OOZtM5Xw0qztQbd5KVn/AhTJrb9vNX0RQREFBlh4m2vkc+Hpdl0urdg0e8B/aMSq3x4sZzDYGYklomeFnTHQQuz3IK6uPD4UEIyiiHnNe3yfc1NsXM9xB/G1ZiwDXuFfRdRfNtA205Ihu4=
+	t=1783849386; cv=none; b=oON+qiygkHx1pw6UlNpXhMH2kDxqRV0F0C8vT/Wy9sIptXKcf1MekYhVzbuHFKLL6eh1zGMOIX7Hd4dMgMBImSjBLy46RAxL1PL/ZERhmleNZDdMQO+v8qBQMDSqKi+5JhVXmRJKzJrF1VVk2PX8DQRljIM3gKE4YfSPWde3c0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783848929; c=relaxed/simple;
-	bh=mGp1bq6AA1K85gaOp9+XDByvUL2SultskddshE44Syk=;
+	s=arc-20240116; t=1783849386; c=relaxed/simple;
+	bh=TKxKr0MygzhI1nHZzXrAwCedHsz3xYd9YHH+NSnVEGo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Do62rfIeLVMNglI6qgSST+x27WFXww3dwqyPyi9EX9JaC7mp64qLsuvls9r3pkLodumielPPSkirjCrOxlf8oiv690SnAaWuX4c46tqWbZWV9iljwtTwI0srvuoMVTXJqzrDujo4UAKC75md006G0JXAh6eLIU5u8hW7nv5H4WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fMBNjoPn; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LO2TGQeT9c2RCsDUQPlH6wlrzSEjhdLmBsMOpuIViLpTDSahw97+HRJoq0i/63WbxsTM1WA1dK8IwVk2ARBiuLhYbJNpvnY3Bv12vmwcoaG4CK+bmVmLtG54WK3HWJfuLDJzpEGK4PR7KvIDQ9iONEXL8IHztH53Yiwv+EYyfLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LCGEw4sy; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fMBNjoPn"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LCGEw4sy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783848928; x=1815384928;
+  t=1783849385; x=1815385385;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=mGp1bq6AA1K85gaOp9+XDByvUL2SultskddshE44Syk=;
-  b=fMBNjoPnwxgVuxXOYNLMbPEfaTGGPHn38BhktDWNkZzHsTtt1y5W9lfr
-   x22OfgafT0ltAXeZ+BIdyD1ObyAVCTLt6Xzjz9fxabBuH607k0ajHQRIe
-   IYYKWy/yoiQPKvzCtlNJFMYQ3q9DJCzDf93LosjDX0DUtW6pw2yV6jJU8
-   UMfrMEXMwl09+IuftKVnuj2xhdVUSYwPuVn9nQ8zVNR6PZMmJ5sKwVxYz
-   IIhlqi4Uh1po+XOjqquHAMpn8YUhaByMn+9sBg8vy9f+2eINUtH+JorNT
-   UKYh2/VBEkourxrCKFW2DhZjUHSwhLJFMKnDDFidZBecooQhOzzEUJl81
+  bh=TKxKr0MygzhI1nHZzXrAwCedHsz3xYd9YHH+NSnVEGo=;
+  b=LCGEw4sy8D5uQvQ8+Q12SPYe3CEkNMRtkIh9Be03fm+MJIIIEdFstOCO
+   rjdOqFKHzBoFC1PYiAnHcKC+LorialKQHr002GfCwbd8mePwPe8LuFeim
+   +QExcfqSr5xID2pLpJ0Y27WUyFLlBI1OL6MCSkQW2Pu0YTk0KItUGAHUk
+   xafaF1pDaApE6YK2XMZyBV4j03AdNfmhiYuujnW9M/jTBqPjviF222ly1
+   am/abz1YrJGSNoiQr/cgILcUaXQKbJLkBH3ub4oB/asAo7kRtyHMfBDWH
+   55cQWPK9ILX8UAX4QBebStdbLjZoSPmTrZIL8MMaTXj+UwnwSdfxaU4zI
    w==;
-X-CSE-ConnectionGUID: z75NNL6kTVSOMK86JBfheg==
-X-CSE-MsgGUID: iXf+9jT6SjaylLiMNFKM8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="102038664"
+X-CSE-ConnectionGUID: 8Q32t2KZRP2ljZdIoF2OEg==
+X-CSE-MsgGUID: nQx/eGAvS/OxwDPW3AHyng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="87030408"
 X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="102038664"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:35:26 -0700
-X-CSE-ConnectionGUID: 9iJqSNd8TrO9jHI70RXUgg==
-X-CSE-MsgGUID: yangtqhOTzKX89W8YnrRww==
+   d="scan'208";a="87030408"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:43:04 -0700
+X-CSE-ConnectionGUID: 4U2/jy8DRd+OGl2bNCvJ0w==
+X-CSE-MsgGUID: ZEbinDOlRRuvvHxCv45JGQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="259587848"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:35:19 -0700
-Date: Sun, 12 Jul 2026 12:35:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2026 02:43:01 -0700
+Date: Sun, 12 Jul 2026 12:42:58 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Frank Li <Frank.Li@nxp.com>, Nam Cao <namcao@linutronix.de>,
-	Qiang Yu <qiang.yu@oss.qualcomm.com>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v4 2/6] PCI: spacemit-k1: Add multiple PHY handles support
-Message-ID: <alNf1OoBtscauPXV@ashevche-desk.local>
-References: <20260709040027.958400-1-inochiama@gmail.com>
- <20260709040027.958400-3-inochiama@gmail.com>
- <ak9KzNFF26B0Kttz@ashevche-desk.local>
- <alBNXgMAwXPKwiJ2@inochi.infowork>
- <alCoTEDUY8AO9OzD@ashevche-desk.local>
- <alDNlfb0_T9g-ATO@inochi.infowork>
- <alI6ml4xQboFOgxG@ashevche-desk.local>
- <alMmkHrfgWoN8RqS@inochi.infowork>
+	Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
+	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
+	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 6/8] iio: adc: add ti-ads112c14 driver
+Message-ID: <alNhom1_o1hZgEnz@ashevche-desk.local>
+References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
+ <20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,66 +64,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alMmkHrfgWoN8RqS@inochi.infowork>
+In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Jul 12, 2026 at 01:41:25PM +0800, Inochi Amaoto wrote:
-> On Sat, Jul 11, 2026 at 03:44:10PM +0300, Andy Shevchenko wrote:
-> > On Fri, Jul 10, 2026 at 06:55:10PM +0800, Inochi Amaoto wrote:
-> > > On Fri, Jul 10, 2026 at 11:07:40AM +0300, Andy Shevchenko wrote:
-> > > > On Fri, Jul 10, 2026 at 09:57:05AM +0800, Inochi Amaoto wrote:
-> > > > > On Thu, Jul 09, 2026 at 10:16:28AM +0300, Andy Shevchenko wrote:
-> > > > > > On Thu, Jul 09, 2026 at 12:00:22PM +0800, Inochi Amaoto wrote:
+On Fri, Jul 10, 2026 at 05:50:39PM -0500, David Lechner (TI) wrote:
+> Add a new driver for the TI ADS112C14/ADS122C14 ADC chips.
+> 
+> This first step is adding a very basic driver that only supports power
+> on/reset and reading the system monitor channels.
+> 
+> ADS112C14_SYS_MON_CHANNEL_SHORT is the last channel rather than being in
+> logical order by address to keep the voltage channels together and in
+> case we find we need to add variants of this channel with different
+> voltage reference later.
 
 ...
 
-> > Then the counted_by will be incorrect as it may access valid memory, but
-> > unused by the driver.
-> 
-> After some search I found a requirement in GCC patch:
-> https://gcc.gnu.org/pipermail/gcc-patches/2024-May/653123.html
-> 
-> It seems like the array can have more elements than the counter.
-> Some I guess the reallocation is not necessary and the counter
-> is still correct. Correct me if I am wrong.
+> +static int ads112c14_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	const struct ads112c14_chip_info *info;
+> +	struct iio_dev *indio_dev;
+> +	struct ads112c14_data *data;
+> +	u32 reg_val;
+> +	int ret;
+> +
+> +	info = i2c_get_match_data(client);
+> +	if (!info)
+> +		return dev_err_probe(dev, -EINVAL, "missing match data\n");
 
-There will be no problem from memory accesses point of view, but there are two
-disadvantages:
-- the waste of memory for unused items
-- the memory accesses beyond used items, which may lead to or show the subtle
-  issues in the code elsewhere
+I think -ENODEV suits better here.
 
-Better to be correct. It might help debugging as well in some other cases.
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->chip_info = info;
+> +
+> +	ret = devm_regulator_get_enable(dev, "dvdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get dvdd regulator\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "avdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
+> +
+> +	data->regmap = devm_regmap_init_i2c(client, &ads112c14_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "failed to init regmap\n");
 
-...
+Do we have a guarantee that device is powered on here?
 
-> > > > > > > +	for (i = 0; i < k1->phy_count; i++)
-> > > > > > 
-> > > > > > 	for (unsigned int i = 0; i < k1->phy_count; i++)
-> > > > > 
-> > > > > I agree with the unsigned int, but I guess this definition is not
-> > > > > allowed in linux.
-> > > > 
-> > > > It's allowed and it's encouraged even by Linus. As long as iterator is local,
-> > > > use this syntax sugar and reduce its scope. It hardens the code.
-> > > 
-> > > Could you give me a reference url to check,
-> > 
-> > Sure, there are two (one for integers and one for pointers)
-> > https://lore.kernel.org/lkml/CAHk-=wiCOTW5UftUrAnvJkr6769D29tF7Of79gUjdQHS_TkF5A@mail.gmail.com/
-> > https://lore.kernel.org/lkml/CAHk-=wgy8p4is8ApEQCT5NS7XFb+NXeo-TKz7jRRZVksLLBSrQ@mail.gmail.com/
-> > 
-> > > I have not found this on the coding-style.
-> > > https://www.kernel.org/doc/html/latest/process/coding-style.html
-> > 
-> > Feel free to update the documentation.
-> 
-> Good to know thanks.
-
-Are you going to update documentation? I can review it.
-
-> > > > > > > +		phy_exit(k1->phy[i]);
+> +	/* Write magic reset value (0x16) to ensure known state. */
+> +	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
+> +			   FIELD_PREP(ADS112C14_CONVERSION_CTRL_RESET, 0x16));
+> +	/*
+> +	 * The reset may cause an -EREMOTEIO error because of failing to get the
+> +	 * I2C ACK at the end of the message. The device still gets reset so it
+> +	 * is safe to ignore this error.
+> +	 */
+> +	if (ret == -EREMOTEIO)
+> +		ret = 0;
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(ADS112C14_DELAY_RESET_US);
+> +
+> +	ret = regmap_read(data->regmap, ADS112C14_REG_STATUS_MSB, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (FIELD_GET(ADS112C14_STATUS_MSB_RESETN, reg_val))
+> +		return dev_err_probe(dev, -EIO, "reset failed\n");
+> +
+> +	/*
+> +	 * Clear reset bit to prepare for next probe. And clear AVDD fault since
+> +	 * that happens on every reset.
+> +	 */
+> +	ret = regmap_write(data->regmap, ADS112C14_REG_STATUS_MSB,
+> +			   ADS112C14_STATUS_MSB_RESETN |
+> +			   ADS112C14_STATUS_MSB_AVDD_UVN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(data->regmap, ADS112C14_REG_DEVICE_ID, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val) != info->device_id)
+> +		dev_info(dev, "device ID mismatch, expected 0xX%X, got 0x%lX\n",
+> +			 info->device_id,
+> +			 FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val));
+> +
+> +	/* Place in single-shot conversion mode to make ready for raw read. */
+> +	ret = regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
+> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name = info->name;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = ads112c14_sys_mon_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(ads112c14_sys_mon_channels);
+> +	indio_dev->info = &ads112c14_info;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
 
 -- 
 With Best Regards,
