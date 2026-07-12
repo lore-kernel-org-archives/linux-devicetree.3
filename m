@@ -1,245 +1,107 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B457836E488
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 06:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7485F294A10;
+	Sun, 12 Jul 2026 06:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783838678; cv=none; b=JHWqGfOp7nojzZvKsB9yGnnxzlA816HmQm0vnpflCVBgfVoFmIhTda1i0zRvyw+0uFIhdN+P/6G21U4rmqEnEZhhEb4Y9oq0zCoXZvpU5hOejERj7a8DBypIPrj+loQc2BxJKO/lRdwX7d2Qv3UF2eUc5LWn9ocuIsVyBF5px24=
+	t=1783839501; cv=none; b=TPC+vUPG8jQzyJo9YNJ1KQChW7aVGmc1mu+RyPrtq3pbNK9XB1GM0zWNUiUVbl3Fz32hKXp4XVWjgf7YUTpXtvMWs1tW6XO/RHwNJCim7TjTz+OabJbiwhsYKw9pY4LegBJH3yh61VkMR3Px1KsrgLLDU/lMLcdSXJAC+ohJw60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783838678; c=relaxed/simple;
-	bh=K+KhjlKpEQaSBSeWKaWZOuXn7jb+3z6ScwiGkkbU8/E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TQKPpirfrFsnFw8VmHW9u1UGxlX3WdL1izee3+jYnwddAB238rRGZqJkLEtb8yejHEt1jprsCd1dLu9ahOpu7UayUkAF+xn5AfJaulDL46mupboZojd+HdKc/qYpoOk5FFGFFKvNuZLttgLvSrY9R3CEBSsVsTNeDhqO+pIP5P4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kX6VRgrb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JMqfN979; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783839501; c=relaxed/simple;
+	bh=rgDOrAsS86/dLcVCS9PYTZAKJLYdoNb2JKbq3HQwBsk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CpS8tcqGobC5zkty2u3UreohFss+dLWF98/Q0VYGHSmdGCMVZOEKX1fA0lWcOTwZUVO6dfUa5z5eLGV6Y5+1eWu2YIXJ52RzEe5sjwSgVfjp5kvRLQgUw1H/ZqEbj69gLH45p1GFpS9OnkoAGxJ/Z23sigQPUyuB3sb3iGbS0KU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hAtiZkaf; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kX6VRgrb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JMqfN979"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66C3wPth1572535
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 06:44:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8MFG9unhRrvg7GeuVPVdKkz/kvu28Nz5klqNArkBW8o=; b=kX6VRgrbnvyE/nP2
-	Ym2FoYZa5ksphGrGd8OnsONEmCUl8IQJACEwkBRDQbYYoye8OdSu86PcrQhy5mj2
-	MhWL6klBCMIUwrfFaqidVoP5yqba3SFa/XHY2S+P0K0+Zh2T6fasnvhJcnw+SFaJ
-	UkenkM9BQEcGj/4S95BIZ0xXdLNsMmGBhRJvxMIGRldKYZnfHCQZna7vmY7RjJ6X
-	01vKAuRQ3oDYDS6d+SkTPdBgmOIFT2BARqZfnYBJV9tX/IO0/5jUTP45XzvIN29n
-	mLho94y21EzhWRrX+Ek58w52dytAKjk+dRy2hFQOk3GDdMhbLaeZMb0x3ZKovEdE
-	gQbj1Q==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbe8va9m3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 06:44:33 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38db4fa2e25so2459679a91.1
-        for <devicetree@vger.kernel.org>; Sat, 11 Jul 2026 23:44:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783838672; x=1784443472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8MFG9unhRrvg7GeuVPVdKkz/kvu28Nz5klqNArkBW8o=;
-        b=JMqfN979jXoUnaNbQLTMs+YPPLY1+i8hUN43kv6sic2TFskyK2KqFW4+JCsurhzce7
-         53aX+iBXU/CZHRWaVFHY6Nx5t/AFrmxtO4y0VrOd5t1QqHcmFADjve33vVH+GMjVlc2J
-         1vo2QPdxpiio2r4zrmojvmJ7Vh/Gwu5jSkwmWobPVsCuPYDmmKlpL/hB6SDFKsJyH2fR
-         DZKkWXO5lEL895RyadcaePvRdwigxn0TH6WHr+4nmIjlpp1t6SfQj+8fgorqQFK1Wphg
-         Nxu1qWC+3CVf0lU9HC0dDem40CMCjAvD3tzBBtqKbJclpfhSzJ1VwmW3JvtJlwMZnvYG
-         bu2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783838672; x=1784443472;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8MFG9unhRrvg7GeuVPVdKkz/kvu28Nz5klqNArkBW8o=;
-        b=JOGavO5JkT4Tu0gzRwI4tEy8jnHV6HOOHKQ5Wm+bbpRQxfzAEBMFR1jjL2POzOJM/c
-         EQNnKZtBO2Vs/TG0p+zYyXm1bND1i6YCCaasN7wz+WkSOevncf48oQ5lFoazUJvC1GDC
-         RDqsHM8N/4N6qeZCnIgsI8KumVhHyr9lIpGTt6etuyiZ7V4+cIOSxjZXXTGhms61CZay
-         GaThTFNeVtkdHzNztq2/enR1PSAnaCrQYtfPbiTb2BBF+yfV/YDOkuoBzs5AjV2YhsDz
-         6NrBhQ25eQUK2gl/VbVihpB+Uzk8SgFc1RqYHCat+B9Ou6bmYnshrFuG0rdyWlUZgTV+
-         w7KQ==
-X-Forwarded-Encrypted: i=1; AHgh+RopMruNM4RqNRHoTdVVpqDe7zmoHoupvUv30aloEAvqhcvCzLyjQPa6gmCW4W4WO13eRHvdImoGJfn0@vger.kernel.org
-X-Gm-Message-State: AOJu0YxO961OKc7nSqQcbrlW+9KjOmXerllnheoYBG+9t5pVFL0duSUB
-	oh2BTtQI4rydTlv/xU/COuwgC1DuZLw5JGuKVBkJx8QCx3dlcj9GzPlr/393deIHmFYzs4AMubW
-	QAOlIhM/2AC8gGUiA6zSCs1e8JL67kQs7wpfJhGNi9Nop29o9l8PL7Ed6tPS0Cj0bO83vtFEK
-X-Gm-Gg: AfdE7cmhsTNOXFaHG9figYG91qmqcVxNfDNipB0lAhYX+oLqMjtAVzGTCCkZ87G5AmF
-	Ludlw1v9qAwWhRmIb9ME7GyFNRYDOz5NIMQqZicbt3Jo/vrBdaH9r+afBc0uAPaglSoO6tpjqru
-	A9taGFvyf77YDo3XR7e+sxwKkoGuk0lCqJoiW0RdR/AuFKShmIIklbgwA+tFdMH20HNLkFs2/iV
-	V4HdImv+Te5D+OUPS5Qd5YbxFKyL+shni9Jqlhley+33GoH/tv56Qa8dINhfSZiNri43FhAC4Hg
-	sf7o0YiVlKQ6DYdUSv5yFCdeQZzMMThlKUGu5YmOGifWTBlqc2RFAUVlfI3kZ2oQ8d7vMdWFmT+
-	JuHnMaqr7/yo6srcEyt/J06VG0d5XVTA51fFbh0r2N6S6j948Sw==
-X-Received: by 2002:a17:90b:53c6:b0:381:fa5:521f with SMTP id 98e67ed59e1d1-38dc74b9530mr4799487a91.3.1783838672271;
-        Sat, 11 Jul 2026 23:44:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:53c6:b0:381:fa5:521f with SMTP id 98e67ed59e1d1-38dc74b9530mr4799475a91.3.1783838671780;
-        Sat, 11 Jul 2026 23:44:31 -0700 (PDT)
-Received: from [192.168.1.5] ([122.164.92.133])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-311a6115e61sm38644234eec.22.2026.07.11.23.44.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 11 Jul 2026 23:44:30 -0700 (PDT)
-Message-ID: <6438237f-ccb4-4143-9ac7-43f5dcca955b@oss.qualcomm.com>
-Date: Sun, 12 Jul 2026 12:14:23 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hAtiZkaf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783839499; x=1815375499;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rgDOrAsS86/dLcVCS9PYTZAKJLYdoNb2JKbq3HQwBsk=;
+  b=hAtiZkaf7HPmQGFSeiE4kIxP5o35pIaCTc2dgkdDTH7QpEwmVOgZe+IC
+   MEqOZnRnoh6s3EIwNnC3wCZng1cmD0csCNWnNRbTPu6Yxw4A2i8/IkqUw
+   KyBag6uNM+qVdNnRBm32LHorDJvyb/ZLYj/LGTqCTtuL1IIxVWAiIFvn2
+   TTdzRlkx0J88Qh1brjkRROwdbtqNk3R7NTRZRGMLpMDUGtRyU6S6s9qPD
+   AKVshNiX7ywzySX07JzT2Davf1G3T16KrYfcvADGv9vmG4aOm5P/GpA+t
+   OxmKHBcUoZnjJr0lRDf1Tp1FJ6ISsYP2Y37/fpHZCHd8pH9eLXQYpP1Ib
+   g==;
+X-CSE-ConnectionGUID: vPrpqp2mRY2fIvNnuYf1GA==
+X-CSE-MsgGUID: pUDzhoKQRdOp9+p2Js5vSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="102034113"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="102034113"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jul 2026 23:58:18 -0700
+X-CSE-ConnectionGUID: SamUlIaaQsSiV9rq/wnGLg==
+X-CSE-MsgGUID: 2T14nhQ+S3mYbjtqSwlj8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="253511955"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jul 2026 23:58:14 -0700
+Date: Sun, 12 Jul 2026 09:58:11 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: rodrigo.alencar@analog.com
+Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/7] iio: dac: ad5696: properly check i2c_transfer()
+ return value
+Message-ID: <alM7A8m85ncku2VR@ashevche-desk.local>
+References: <20260710-ad5686-new-features-v7-0-1bcc8c280e4d@analog.com>
+ <20260710-ad5686-new-features-v7-1-1bcc8c280e4d@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document
- DAI subnode
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-References: <20260711125740.3083236-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260711125740.3083236-2-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260711-mauve-skunk-of-contentment-f51be0@quoll>
-Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <20260711-mauve-skunk-of-contentment-f51be0@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 16w60uy3iRuIicC9z_yfUyexfdsCynfA
-X-Proofpoint-GUID: 16w60uy3iRuIicC9z_yfUyexfdsCynfA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEyMDA2NyBTYWx0ZWRfX/k7+cm2LNsGC
- DaR0I8hSpZyVMlruUhmgfdycxoI0h3N+NZgb5HaLK42LZRB4hwORN6neJG1QxRoeqlws8Tnj3Bu
- +DtJGl0Y+bQFlr0obqeSGM5Yg/lsL2g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEyMDA2NyBTYWx0ZWRfX4wHyv6kFrDiI
- /7R1FO+fq/eyR4t4SkfaSMWJCbrPBNKl7W/QeXbSy0DbJ5bvKRz5yyzAhoSYlPtgfQ1zRsAoljJ
- PonH7gucsWmt1GiHLvEI5pbXy8d/nx0so7wDSxIENbVbUQXL+W8HF4AXDFbgF7OvJkIFXxiq2y3
- /tkx9cSI5pkjONeUxPIiFlHEcHc3Q81uW/V5m7137M0BQRVc3lyfwnTO2v8CQo/MVgxwuP/RllD
- YIdOleh7pG5X37dxd0IvGO3toVLNThoQbAMsGL8zpG/1iW0qResHEDaEtWhVA5t9o0of2VOi18C
- eehTDE8eVcXnk7kyfUSEa7dEqbQngCFqu01joB3oa2aNGBxzkK2a5S/M8HyfcrTv5IeDQP7kETp
- DOiJ4erHBluf8nBW/u8SyWajXTWVXexXBGqR4N4Ks9bYnPonR/SJ6uIRMgKFwIKm7NdQl0HeiH5
- KAElGkrn0RRfiF/GWiA==
-X-Authority-Analysis: v=2.4 cv=WONPmHsR c=1 sm=1 tr=0 ts=6a5337d1 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=tlK9sNgGSfv7srgBb5RqhA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=LJDSKmyOq5XDa4FDNxEA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-12_02,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 phishscore=0
- clxscore=1015 malwarescore=0 bulkscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607120067
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710-ad5686-new-features-v7-1-1bcc8c280e4d@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Fri, Jul 10, 2026 at 12:20:45PM +0100, Rodrigo Alencar via B4 Relay wrote:
 
+> Verify that the expected number of i2c messages were transferred when
+> ad5686_i2c_read() is called. This issue exists since the support for I2C
+> devices where first introduced.
 
-On 7/11/2026 8:41 PM, Krzysztof Kozlowski wrote:
-> On Sat, Jul 11, 2026 at 06:27:38PM +0530, Mohammad Rafi Shaik wrote:
->> Extend the qcom,q6apm-lpass-dais device tree binding to explicitly
->> describe Digital Audio Interface (DAI) child nodes.
->>
->> Add #address-cells and #size-cells to allow representation of multiple
->> DAI instances as child nodes, and define a dai@<id> pattern to document
->> per-DAI properties such as the interface ID and associated clocks.
->>
->> On platforms such as Monaco and Lemans, third-party codecs are hardware
->> wired to the SoC and do not always have an in-tree codec driver to manage
->> their clocks. For these designs, clock line enablement must be driven
->> from the platform side, and this series provides the necessary support
->> for that.
->>
->> On QAIF-based platforms such as Shikra and Hawi, responsibility for voting
->> I2S MCLK and BCLK has moved from the DSP to the kernel. This series
->> introduces the required device tree binding support to represent and
->> vote for these clocks from the kernel.
->>
->> Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> Drop my tag, you made a important change to ABI.
-> 
+...
 
-Ack
+>  	ret = i2c_transfer(i2c->adapter, msg, 2);
+> -	if (ret < 0)
+> -		return ret;
 
->> Tested-by: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> Drop, you cannot test a binding (in the meaning of Tested-by tag).
+No need to touch this.
 
-Ack, will drop Tested-by tag.
+> +	if (ret != 2)
+> +		return ret < 0 ? ret : -EIO;
 
-> 
->> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
->> ---
->>   .../bindings/sound/qcom,q6apm-lpass-dais.yaml | 58 +++++++++++++++++++
->>   1 file changed, 58 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
->> index 2fb95544db8b..f3a8b12d7fc8 100644
->> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
->> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
->> @@ -21,6 +21,49 @@ properties:
->>     '#sound-dai-cells':
->>       const: 1
->>   
->> +  '#address-cells':
->> +    const: 1
->> +
->> +  '#size-cells':
->> +    const: 0
->> +
->> +# Digital Audio Interfaces
->> +patternProperties:
->> +  '^dai@[0-9a-f]+$':
->> +    type: object
->> +    description:
->> +      Q6DSP Digital Audio Interfaces.
->> +
->> +    properties:
->> +      reg:
->> +        maxItems: 1
->> +        description:
->> +          Digital Audio Interface ID
->> +
->> +      clocks:
->> +        minItems: 1
->> +        items:
->> +          - description: MI2S master clock
->> +          - description: MI2S bit clock
->> +          - description: MI2S external bit clock
->> +
->> +      clock-names:
->> +        minItems: 1
->> +        maxItems: 3
->> +        items:
->> +          enum:
-> 
-> That wasn't here and that's also not correct, usually. Especially that
-> it does not fit your clocks property.
-> 
+Make it use standard pattern:
 
-The reason for changing this to enum was that some hardware may expose 
-only a single clock, which can be bclk or eclk instead of mclk. With the 
-previous positional const definition, such configurations fail schema 
-validation because the first entry is always expected to be mclk.
+	ret = i2c_transfer(i2c->adapter, msg, ARRAY_SIZE(msg));
+	if (ret < 0)
+		return ret;
+	if (ret != ARRAY_SIZE(msg))
+		return -EIO;
 
-I agree that using enum makes the validation less strict and does not 
-ensure the correct clocks and clock-names mapping.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-I'll check this and look for a better solution.
-
-Thanks & Regards,
-Rafi.
-
-> Best regards,
-> Krzysztof
-> 
 
