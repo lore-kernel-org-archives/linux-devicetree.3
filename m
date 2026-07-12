@@ -1,68 +1,68 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705A139D6D4
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD783988FB
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 09:44:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783849478; cv=none; b=JLlmzhxZS6PmG+GSqiUs7RdHfgVEGsvGmw4AxNY1pA529xy8FSkY0sD3M281obhZ7rWxbCdzY/Ic0RWdiK+OAHkOoOxvP/E2xdKWogRpiqIAbaW0T5laWQ6B5iU8QpxSRJZraHYTGZixytZgqNHmRj3BX3OzlE8MipVFoEJcI5k=
+	t=1783849483; cv=none; b=blGaXFJuKaQuBV3kaknNUPDUO92L1DINhG+DNb7VDkNiGg61e1BiN4M9Y7kK/IO+YsIjDTa5X9+0kmO89luhfZllltZwInizhQGyV1+cq9OcdQ2SPvrcHWxIz04SHgFB/sDD0m/ju2RJ9mKoQkoLep1AaW9wdfda7QWres4zW4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783849478; c=relaxed/simple;
-	bh=7u1MxAF7Cm+8Fvpmgb0ZciAKGCBJ6Tnc1FxGjq6e2jU=;
+	s=arc-20240116; t=1783849483; c=relaxed/simple;
+	bh=uEOX/VWb2IzaqOqmoZJ5LrpiOfc1OnKwSpPs8c3o0oI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JMw3rpbCyZXPXtnv++ZPIuhTkasZ+dpsM99sIAZz5z3T8AkapJ2XD2CEwAifakVC14aE+WlE7FfxpvtwW5G4J08g2tOe3cLIZ9w8hPHUqAB7XlYLVXi9auYxPsxnrVS2llJg5oUiiRu3NVCWqEU2IYsgHnfKm3nXTNCG4WXlycE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JM5zwf8D; arc=none smtp.client-ip=209.85.215.181
+	 In-Reply-To:To:Cc; b=SaKl5a1C1SOaF6Ek7gCcoAljPfsgPbIdiUnIDRuwQQ2JlZUgTXxJiylBwiFFY17nyVaKCmfpWVWqKr7Pjfw1NmlRAL+C/TpGXhR6n2PC6Haxwz0VOhHLNRWATzkVuCg382589hfFj8nxnffr7PeXovtajVHknF5RJQ56Ell4bMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iTlfFdET; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JM5zwf8D"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9eefcf9175so1903118a12.3
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 02:44:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iTlfFdET"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38df0038497so99877a91.3
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 02:44:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783849477; x=1784454277; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1783849481; x=1784454281; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NsJU27Z561y3XTmKXQzrI5pSnWmaE5x+UzAWrjuTKgQ=;
-        b=JM5zwf8Doyq5ovy4eA2lfR8VAieZpGm/t3HvX6YBPqmOofa5zjQpZCicAeTQOF8ZW9
-         n/mmE2rdSa30G/0Jz2OdTv78okxMahPsJZmTv6mqxsP/rtvUnTHbygiNoeHLnl+WJ/aJ
-         GJJktRu0i61SSVofmCNzcr7C32w3AXzClE4Nf3HalrLY3UNBgFNUMG4neWpMY7r1CHbr
-         lG26eicwW1nyrqE30YYXdu/VuUCa+mVDV+ifXpJSCPIziPzbl0JG5CAQT+OQ/rqsZ5rr
-         dxELZDJo4TDcqsAnHlWcD6hzvl4ZiWp9NJdWzPhZG/SSk17fHAp9UAlSVLFsqtoKYx8q
-         fkzA==
+        bh=52kZejFtRxHWJh8aWpxhVLVG7ppdIETUdLQgRUaIxpA=;
+        b=iTlfFdETI0tD7JBlU06pp9TzE1mymbAdwrdbu6dcOgTAK+HNKgthFIKF00yDlkodwX
+         gjyD7wDTxkHhybWJJRjJHBuzgXhIPnAj9q/ixdP5YbEnp3bijICGaiEXTkAEw4h4HMEZ
+         QEl1PfHVTsDxtKmgr4JzfHeYDTXki6BEBoks1ZpxIOfOxKXhnohuL0qFsxABFRCDp+zK
+         Q90gyBsBmc4qDjFEh0rqUfZQBn452fVEyFdvwZRoSYMeUKYtv+pE1EmOxZmxatCTYxl9
+         1T2ZPkzodQ+7YRGoGg/U3Qklkqz04JSWj1rsQqFlFJJmS5eDQ7rlEfxYTFZcSNlgJ6bW
+         xmNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783849477; x=1784454277;
+        d=1e100.net; s=20251104; t=1783849481; x=1784454281;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NsJU27Z561y3XTmKXQzrI5pSnWmaE5x+UzAWrjuTKgQ=;
-        b=XjOrYHUpf/h0GISlbKuZtJPD75aXd3GPWp7rcuHmioM090+4nxElBHFAUdNssaj5cI
-         8awqD+XAj9jCZZgZGj/7maZ88iZdUiqLfXTRap52au0AaqzR/4NP11tKlvHRnqja1iDo
-         vC3GqYGR9bBB+HKeuYxJepBoQvNZMmgeM1cUnh8Suh/cyyLMZ2GGauqPwX6dEKwfuIX0
-         3R77xm2TsliCJG9AabK8JySjUclgZyFWS1Be5yrJuu4DHwuX5X6OwkRPtc/vozj1yJ6H
-         UdCszDMNU5+dGiDPFn15wsuPfqFG5oZ4ZpvUYBc0FJprGLSksja3B0FYovWYAuowJyR5
-         i6CA==
-X-Forwarded-Encrypted: i=1; AHgh+RrPQN4AqKEI9jvcw7eCaKlML3vt0mFp3K9fs6bigf6Fc6ETKL2RYu+Rtj3fdCuEg95j7sNqbbMcTKD2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWygNRbfPp2ERYOUCKw4Mteov5YsO1LrcLK3feHppZyA9k/4Ri
-	nIhhobYUq1UVdUgTXWolvEgmHvTghPm2n+slAUqG/hEi77AmaeX4vqV77+5tMA==
-X-Gm-Gg: AfdE7ckKY51Cm5iebAPvHzHirRC9Yo2n+3h4Gd6iWk+IV+chE+6blwYDMTnROp8Ofje
-	btDkaOKP3oFAh+b6bSu/UWcXPiHvd4RV9W5H8OvQ6wDLphPdaGCT06qPZpRv+46gna24tsuJbYJ
-	7sY94zRgWfXxAOeP7ZMbFB4drCO8R0YZPoIBZmq3fBVUsKhZxFQM1mbE/2bPQIcSiaMi09zXn3i
-	M57FnUX1ZTOup86iZpl3ryjto5hgW9ODIG87yXJlwHMFWIsxbcfnRIrhWn9y6NFrOThFjHfWk3g
-	earxsDsKIhZRVUI7bDuIDBjrTrUbVDeuKI2HA6cabgApZB4uhBRYmLLPGkfsJWBBZ+LBhi7SgYj
-	Cpudy94V7cwlTXb4/OGQPBJs09kfr3Y1EdYItVWRZMKmAAPdEMfmYR82l4sHd1TFmz0850fGr05
-	JJtIbOn6kaNFL0hSXdFsEZLJk2cRfutBqxx4Os6FulfCFfFgh5vuIolquo3CT26VwE5wnxM1fzU
-	XaQ3SNJpFnPpsnPoEiDRckDYfZlOvtVQMS+CKkxhhu12apbhrfY9L2uKRWePOYN
-X-Received: by 2002:a05:6a21:3991:b0:3bf:6363:11ec with SMTP id adf61e73a8af0-3c1103cf75amr5286669637.34.1783849476910;
-        Sun, 12 Jul 2026 02:44:36 -0700 (PDT)
+        bh=52kZejFtRxHWJh8aWpxhVLVG7ppdIETUdLQgRUaIxpA=;
+        b=LqeqlpQjeTDLZvBw/e+n8bQ5N8yPvAUYNn4KFIP8h4jzFfLSLMYC2VqjREWe1SlX51
+         lL3bOnRQv1lH8562k/y8ThPhneQjSKhUg3dHrWm4gDJ7ZFrQo0yh9q5JlrJd2cWgPcfb
+         hnAzOyC31iw4U9cZKEpFnBWZbjDrbHXpf9GpDlT845UsVVXghInwTTuxOmcHHN6v6HLO
+         BSJ04nQgq6jmwexPcFqy9N06QFZBqpMI9jpyVvi0Fcr/lm4F5/gmitz8rayJRZsqybsB
+         YTurmYCgH/K/EsJRUE4EgjTQdp8WVvIEIPrTFKZJFxTkCZclz937c9s1ufh/4Zwfgo0r
+         cm+w==
+X-Forwarded-Encrypted: i=1; AHgh+RpS4axtYhK5PLwxgziAth7EawKqIE4bwU7cBCNjyZheSPtT6nAtqfpheWeNORDyPlzzKuBUuoz/oFXC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3+rxxQ3HUg3uJntqj9x4PQsHc3Ba6atUItdUds1DimQriR0ZI
+	TcRbVcroIyeMTGEhpzFywrMQTani+D9gx6J/3impXngQ3b5I28XTbC8d
+X-Gm-Gg: AfdE7clnwP+K/7tN+BpJ06F6qOarE3l8WpST17t4SkIDUyGPpq3lyUJTP2LYr5BQdZv
+	B+nIBacvZJOiZbO2B5obQEXSbxsUw9mFu0JXEPfm8slJ/zc9FE59DwFn4WrYzdHAkuGDrAPJ5TF
+	GHNsbmk1GC5icLu8/txnx1nv+9Gyi5j3jvg2uVMyiTD1+ebclE1kWTetRblkyF+wu0WyL8WPVDj
+	RpwrpAMU9BUMF+R5tiSeR0akeL9jo3Kz4ZurT6kGqeJM4KpC/aB9CHOfa90PGGwc8IB/jVyrkd0
+	MhOHQSVU74drFFaSBK0ekkwIq6vl0zW4bb3cjXY0xCqyfFN1yb6qIkQVNpQWoZT3I5cmvJyXwoO
+	PHxME3fLbPmSYyMUqhcwwdSaxt4OvuUFY3PSvUk74ZeimYofvLf7yksdGLzfvcSjlOm+j5qC91E
+	FC5VxvPBiH6rO9dREUqAtGfK/j6xmZKERfTrlxm3oF7ORRUV55p1erd1zv7TDil8G8BO9IL+1q2
+	0v/hKopIEtQEUkhOa29eO65t+OoCgG3DrV1duy+pobleazUI8itpZQGpZMeumlZ7DWk/uDnNmQ=
+X-Received: by 2002:a17:90b:4c49:b0:36a:fcf5:64d2 with SMTP id 98e67ed59e1d1-38dc7746cc8mr4828993a91.16.1783849481403;
+        Sun, 12 Jul 2026 02:44:41 -0700 (PDT)
 Received: from [10.160.6.73] ([119.17.57.186])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313c50c70c9sm15268919eec.29.2026.07.12.02.44.32
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313c50c70c9sm15268919eec.29.2026.07.12.02.44.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 02:44:36 -0700 (PDT)
+        Sun, 12 Jul 2026 02:44:40 -0700 (PDT)
 From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 12 Jul 2026 19:43:25 +1000
-Subject: [PATCH 06/12] arm64: dts: apple: t8103: Add common SMC hwmon
+Date: Sun, 12 Jul 2026 19:43:26 +1000
+Subject: [PATCH 07/12] arm64: dts: apple: t8112: Add common SMC hwmon
  sensors
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260712-smc-subdev-dt-v1-6-7763006d57c7@gmail.com>
+Message-Id: <20260712-smc-subdev-dt-v1-7-7763006d57c7@gmail.com>
 References: <20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com>
 In-Reply-To: <20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -85,11 +85,11 @@ Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
 X-Mailer: b4 0.15.2
 X-Developer-Signature: v=1; a=openpgp-sha256; l=535;
  i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=7u1MxAF7Cm+8Fvpmgb0ZciAKGCBJ6Tnc1FxGjq6e2jU=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnBiU9ucqn7PBXrmNx968SE4F87GWuiFKomiFjozJK/0
- nV/ZsPOjoksDGJcDJZiiiwbmoQ8Zhux3ewXqdwLM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6xgxcHEKwFRHHWb4Kzfrg2/M32lJtzr3Scty7dX5f63uzFltiROa8y5u2Z5zXY3hn5lN3Z6
- vaX2H1wvwJX7p2tvj++X7loumW6u3nNrzXn3qNG4A
+ bh=uEOX/VWb2IzaqOqmoZJ5LrpiOfc1OnKwSpPs8c3o0oI=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnBiU83XUyxXtrjffrOH4blFz3+dJ5itpSIbfHf774jK
+ N62Ib++YyILgxgXg6WYIsuGJiGP2UZsN/tFKvfCzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
+ RjrGOkYMXJwCMNUN2YwM16bLi4su1ty1Ni9+9pLDthrMhvNd9qctL29X2lXz6ofZNYb/odfNpv9
+ gnC2TskDzzcKgr5c1p+3ddSrM4g8r84KUne9vcwAA
 X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
  fpr=B08212489B3206D98F1479BDD43632D151F77960
 
@@ -97,17 +97,17 @@ Add the SMC hwmon sensors common to all SoCs
 
 Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- arch/arm64/boot/dts/apple/t8103.dtsi | 1 +
+ arch/arm64/boot/dts/apple/t8112.dtsi | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/boot/dts/apple/t8103.dtsi b/arch/arm64/boot/dts/apple/t8103.dtsi
-index 4d6a0411f086..5b68bf0df4e6 100644
---- a/arch/arm64/boot/dts/apple/t8103.dtsi
-+++ b/arch/arm64/boot/dts/apple/t8103.dtsi
-@@ -1250,3 +1250,4 @@ port02: pci@2,0 {
+diff --git a/arch/arm64/boot/dts/apple/t8112.dtsi b/arch/arm64/boot/dts/apple/t8112.dtsi
+index a3241c816c26..ec248ca052cb 100644
+--- a/arch/arm64/boot/dts/apple/t8112.dtsi
++++ b/arch/arm64/boot/dts/apple/t8112.dtsi
+@@ -1289,3 +1289,4 @@ port03: pci@3,0 {
  };
  
- #include "t8103-pmgr.dtsi"
+ #include "t8112-pmgr.dtsi"
 +#include "hwmon-common.dtsi"
 
 -- 
