@@ -1,130 +1,131 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11B8369208
-	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 17:55:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783878918; cv=none; b=r/snhs4NHMHERT3WxIfcEcNUs/Il63GXhsMAPl7CoVkVro8h2vLa53C8iQ0qtdruvczkL+ni/7GYx3HMTiQGbrGgvOKu20C7XgIWM/KhKte8D/4tbZAz3qRfEH5D+P/hUXeWJZD39WCmuB0A3AgyLf+osSTNIEjSYKazIDYvvuA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783878918; c=relaxed/simple;
-	bh=I45Jwk9+2vfqWVLFvIPP2Gr62VVGBw+PMOyqtfLWmaA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KrRlOPcIiYcJ7DwdFZJf4aApp1UDV13ZmBrwdVYGWE1AAUIoTdCAm4RbQA3xtKDcGveGqU7kaaq0JDuS66YI4alwnF/EZAmjrsrwecuzi2nJPvyJfy7AyaTRdyNKT7y1YAfNwczSdQrHBdvX9lvm9oHP4hoPSLUm8yj4RAqK/24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=DNHGo0Pf; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C34233F5BE
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 17:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783879181; cv=pass; b=RFAY33Yuwb132VAAXwR4UxvMsKOwu/QvluuDmaIB/m1BKpJIP/RO77FTiHEquyP7qjcUJy5T/6Kexg1bLPo73Wu/BC/KE1te1QHjfDZckb4zixuwvKv8iY1IxaIB4fmgDX3HPwX4Upof3RXwMU7x3KCOSV2I9k3CHkpbiCqECEc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783879181; c=relaxed/simple;
+	bh=0NoL6KL8oSMCqAbK70KGT1wmrl62Pu8TBmf12FJBq4s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DROOs85DCNWgf0ehp3/NJ0mul/aXrmzgEgX7/Bqi50PY3B07H6td9uzPjpcvrbRZfLXofR8g381TPnHKgZJQuFIen/lc4W3LUSVVEBOGEf5kALwVeaWASNE2i6lu4MDzcsovWAXSCcgkiDNTAclfAyxzkKGa3OxIwPi6hap4dX4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jau6VmWQ; arc=pass smtp.client-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="DNHGo0Pf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-e1b5cab7be; t=1783878909;
- bh=+cz4TC7FYuAA1MNLgolPmcFRysJt6pzD3nfMB9W3q7M=;
- b=DNHGo0Pf3IxE/au/Zj2MUyDlK36qOPDhbz0bPTt4/NqdHcAP/kPVAZx3x+/sj/hid8+eL35Ya
- 67YcojP4kicQvp+1YtJu5tiDbHkO9gyOdGDFMVNafO907fgZFEhXJJDmaY43dh5eRCHmoQZ+8bs
- e1OQtgQ4lQx/caFlIzXZ4sT+6J/xzehKh3iFCMHrOFwJggghZqWxy8J+NL23PrLTbvwhHpBw/tu
- FpzsrzJ2xDHJlJx73d2FBsqpMjVcrv/er0C/V974kh/KHe+yQSYwOJSmOMmMXpCssSQ5A2AmXMU
- YxVhhQzQD75w6DhCfAztqQRJnoPSgGkcv6Z+jZyMvfYQ==
-X-Forward-Email-ID: 6a53d4f81f631853be4f2d47
-X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.10.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <e2ed95ee-8044-4a44-9775-9f36b10e727f@kwiboo.se>
-Date: Sun, 12 Jul 2026 19:55:01 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jau6VmWQ"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8453427d3f4so2013441b3a.3
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 10:59:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783879180; cv=none;
+        d=google.com; s=arc-20260327;
+        b=euFqqqofYiAXEuXW2y9Wo82QDw0s+qHGxVSaFEDpPCbMk6MwKBggJiq8HyAnw0SHy+
+         WxyMxBsj/yoC3Q83Ak6I2LNynzXgw5ZWQFLI9pbkvhdj9to/4iYDgIIUYeLcm/HekbBA
+         SbLEzgAhtBjdidtDzlzB8fQ6CZE0IZx7KqXCafRJ3cYajAsRWYe01YL8eFrcIt7ZESNC
+         AcNuEH0KXyYf9JRdkSdZL4J+ka6CvqDKEURqPyakLz2ndpOCvCwAbs6awX3My349DeS7
+         NOymqLf7r8w/VCBfDBM+GTNp2KGDlL8/qeYN6YweojvkfVh7MrWjRaIB8Yt8WN8XyQzs
+         TN0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0NoL6KL8oSMCqAbK70KGT1wmrl62Pu8TBmf12FJBq4s=;
+        fh=VoKQRrJGloHT0/A1rAXFtcjwdUvTJb78DJ0S2nZdVoE=;
+        b=BKFp3m8hTHtfB9anYkkZacAaSDkReMwgEI7M8wsfaOmEYOpOSufr2qRLUZvGHkvCRB
+         osFE1M9jENURMNyHOlPQUkynl4N0WsHdiX1BYDdbiCxqylUFmdjYqSMCcdS457WthIsi
+         4o4CLTXLsfFSL8ELajUVXdHBrbHGtuv8UHga/qjp7DhJIB/P3vHODQGiYTJu1CchKZ/p
+         G3oIQ7NqfACUV4ppWDNhbGv9t8M15u+KDkdDQsoD1bRzBaTA3vi6hM+5CW/67Ceb+k0a
+         jdG5H5wbhxGnaWtZEBHH/7iX5cVu9ixvSoQbRwZ/2aZOcYv3fqBcc5wP7LhiI9YV8QFi
+         EvhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783879180; x=1784483980; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0NoL6KL8oSMCqAbK70KGT1wmrl62Pu8TBmf12FJBq4s=;
+        b=Jau6VmWQCcnJEaq/puQkAU4NtZlB/4deZZ0XcBYn6RSlaJUmFqo6lebVbHi0KEviuF
+         NRkAxJvhhla0v74lcGBpxYEFYVqPPsCD60JvN6qlSLdwkxOzOKpJcjCeWAZMB5cFb/Hy
+         t1c5wHVVO8pCKTCcYi9Mg42BFhXZpdem32EU1OLRLfJnbyBkKq4UhH22MsHfenKwMc+O
+         MvGmO0NQotQV+V43+GbDCtVeQCW4VJaOq4m+pELqJBKTh4cI3aqWwnOSMIYhUCrUSDIE
+         VCY4fSvlQImfy6b8YEhmQY5A9qoFsy40Jw+GdY1tfxTx+MZ9Uc5Fda8k9GMAfKFRm7yK
+         IVqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783879180; x=1784483980;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0NoL6KL8oSMCqAbK70KGT1wmrl62Pu8TBmf12FJBq4s=;
+        b=bumqJtfyO1b0XvXJ3I4Vyw9fJz7tPdEgAzfgBP+T9ONZ0pZbfbX+Erszl0hYC6B0eJ
+         cOvyXc50u3CIxxh+e6Z5TC07MEkgYJhN6o65ZrFpfsKLSwqWVuY5/Esf3H3twW7aJ0Yb
+         NZhXJpK3tSCZxxGoGMcDi9F7WVdq4jkzsKaMeUjLFWOl0vwgTVXO8eP0NZXJ0yPGnVqG
+         yUms6KlKxtG3GEA4FwdOg8qtAaqKhwAYHtxvlKUnyvM9HzD+P9UL8RPjLCT7KefJ1Tz8
+         UIXPTkRl0IesnoiqIhw1yewbkB3ZW3hi0Uh23Y4cJAgk8AVdppQLZVei+8u7Jwv8FwkY
+         VniA==
+X-Forwarded-Encrypted: i=1; AHgh+RpYDnNHMPz0FX9z/mgVqe4R1u6K+rR1EKcf3GUh2wzqDnXIvLRr1StY5JRENS2j9im5wYSkIcuXOfLT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxro0Lc7aUupbMVJt5RxZESHRBogsa9JYss+rw624/JFSQZzg8t
+	VhUh6c7rn/Pk03TtXHkgdmddnLdLGPpwwCMhV4kriWP1+TRAVE1JCYtDX+8SQKt6TaEo7jPhzyN
+	24kBUSzbvaG2KdH/pGF7Dva3SfxPT750=
+X-Gm-Gg: AfdE7cmdiUibskNVkLxfJXr5/YceKNMi37Y+aNFxNRXVFAsvU45E4IooIBla35l5sPG
+	Aj0ErnLOPW4aiMEfpm6zxbz6kbv1S9H8wplAbQL1TJDRrhcj/P4j9oG/3cadZolXewM2GHZcXwH
+	48GnJCXbwxcSFyDYRK+0kzcStyxhA4pkpwB2aSpyuN5pFJoxcs1gOfAWkWmaC5/xK5nQfRzRIxk
+	awqdkG6bEd601IQIfYbg+Ef+SooHFi1XZRK7lXaCtfZeX/dLNGuKJlTSiXrnA48CmuDF82tsR/g
+	pVQcVu9Ul5tZghhFyKlOF+qIOPySi5b7D9KTh8Slrazp/i5XPHI3ZZ8RgukEcfFye+i7ldRVuj/
+	4edoHaK8JxvS6kbaGa1IE
+X-Received: by 2002:a05:6a00:4486:b0:848:804d:9c5c with SMTP id
+ d2e1a72fcca58-848896dd3c0mr5554442b3a.38.1783879179743; Sun, 12 Jul 2026
+ 10:59:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] pinctrl: rockchip: Add RV1106 pinctrl support
-To: Simon Glass <sjg@chromium.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- Fabio Estevam <festevam@nabladev.com>, linux-arm-kernel@lists.infradead.org,
- Jeffy Chen <jeffy.chen@rock-chips.com>, Linus Walleij <linusw@kernel.org>,
- huang lin <hl@rock-chips.com>, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260706195818.3906949-1-sjg@chromium.org>
- <20260706195818.3906949-5-sjg@chromium.org>
-Content-Language: en-US
-From: Jonas Karlman <jonas@kwiboo.se>
-In-Reply-To: <20260706195818.3906949-5-sjg@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260711-nanopi-m6-v2-0-422675a65402@gmail.com>
+ <20260711-nanopi-m6-v2-4-422675a65402@gmail.com> <84467f61-9902-4dea-abda-6e8cb31e0238@kwiboo.xyz>
+In-Reply-To: <84467f61-9902-4dea-abda-6e8cb31e0238@kwiboo.xyz>
+From: Joachim Eastwood <joachim.eastwood@gmail.com>
+Date: Sun, 12 Jul 2026 19:59:28 +0200
+X-Gm-Features: AVVi8CdXhh6gKGuHTJ0a2hd15-RSpJMz5r5Gy7rN4XSVonKwOhD1LFSXZ8VR_Fc
+Message-ID: <CAPSPb=t33bHfuEAMLWPM5=2fSyJXv5vjYD=_pSNRq6GcUz-X_w@mail.gmail.com>
+Subject: Re: [PATCH v2 04/12] arm64: dts: rockchip: rk3588s-nanopi: add
+ missing sdmmc cd pinctrl
+To: Jonas Karlman <jonas@kwiboo.xyz>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	diederik@cknow-tech.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Simon,
+Hi Jonas,
 
-On 7/6/2026 9:58 PM, Simon Glass wrote:
-> Add pinctrl support for the Rockchip RV1106, taken from the vendor
-> kernel in the Luckfox Pico SDK [1] at commit 824b817f8 (a Linux
-> 5.10.160 kernel tree). The IOC registers are spread across several
-> blocks, addressed through per-bank offsets, with the GPIO0 block in the
-> PMU. The drive strength uses the RK3568-style exponential encoding.
-> 
-> The RV1103 is a package variant of the RV1106 with fewer pins and uses
-> the same pin controller.
-> 
-> [1] https://github.com/LuckfoxTECH/luckfox-pico
-> 
-> Signed-off-by: Simon Glass <sjg@chromium.org>
-> ---
-> 
->  drivers/pinctrl/pinctrl-rockchip.c | 208 +++++++++++++++++++++++++++++
->  drivers/pinctrl/pinctrl-rockchip.h |   1 +
->  2 files changed, 209 insertions(+)
-> 
-> diff --git a/drivers/pinctrl/pinctrl-rockchip.c b/drivers/pinctrl/pinctrl-rockchip.c
-> index 7e0fcd45fd26..f9cbcb955853 100644
-> --- a/drivers/pinctrl/pinctrl-rockchip.c
-> +++ b/drivers/pinctrl/pinctrl-rockchip.c
-> @@ -1725,6 +1725,166 @@ static int rv1103b_calc_schmitt_reg_and_bit(struct rockchip_pin_bank *bank,
->  	return 0;
->  }
->  
-> +#define RV1106_DRV_BITS_PER_PIN		8
-> +#define RV1106_DRV_PINS_PER_REG		2
-> +#define RV1106_DRV_GPIO0_OFFSET		0x10
-> +#define RV1106_DRV_GPIO1_OFFSET		0x80
-> +#define RV1106_DRV_GPIO2_OFFSET		0x100C0
+On Sat, 11 Jul 2026 at 01:18, Jonas Karlman <jonas@kwiboo.xyz> wrote:
+>
+> Hi Joachim,
+>
+> On 7/11/2026 12:11 AM, Joachim Eastwood via B4 Relay wrote:
+> > From: Joachim Eastwood <joachim.eastwood@gmail.com>
+> >
+> > The cd (card detect) pin is used, but not reserved through pinctrl.
+>
+> Maybe this and some/most of the other DT changes that fixes some missing
+> bits should put first in this series and with Fixes tags?
 
-This, and remaining offsets, should likely be from the related GPIOx IOC
-base and not from GPIO1 IOC base.
+I can of course put them first in the series. So we have the option to do so.
 
-The regmap_base should likely only cover GPIO1 IOC, else it would cross
-boundary into the GPIOx+1 controller regmap space.
+But what is the policy regarding "fixes"?
+I don't think they fix any critical issues, but they do make the DT
+more correct.
+So do we want to backport these to stable?
 
-See my review comment on pinctrl dt-bindings, we likely need to define
-the IOC reg space for each GPIO controller for this SoC and adjust this
-driver accordingly.
+Maybe the following changes qualify:
+arm64: dts: rockchip: rk3588s-nanopi: add missing pcie rst pinctrl
+arm64: dts: rockchip: rk3588s-nanopi: remove pull up on rtc int pin
+arm64: dts: rockchip: rk3588s-nanopi: add missing sdmmc cd pinctrl
 
-Possible something like following:
+But I don't any others should be considered fixes.
 
-  gpio2: gpio@ff540000 {
-	reg = <0xff540000 0x10c>, <0xff548000 0x8000>;
-	reg-names = "base", "ioc";
-  };
 
-or
-
-  gpio2: gpio@ff540000 {
-	reg = <0xff540000 0x10c>;
-	rockchip,grf = <&gpio2_ioc>;
-  };
-
-  gpio2_ioc: syscon@ff548000 {
-	reg = <0xff548000 0x8000>;
-  };
-
-Regards,
-Jonas
-
-> +#define RV1106_DRV_GPIO3_OFFSET		0x20100
-> +#define RV1106_DRV_GPIO4_OFFSET		0x30020
-
-[snip]
+best regards,
+Joachim Eastwood
