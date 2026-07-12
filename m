@@ -1,172 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D4AE56A;
-	Sun, 12 Jul 2026 13:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783862144; cv=none; b=PI/GVTtH93zRZJYfmlgPE/IPYyeQAfSEW/SpUcD4YS6BlFV/G+qsru23QTHFqEjmRkNeAbTGMKDyDZjKgLaxayhsahR42tTb6Zu5Eu2KBJcWXyLBiJ99tS9bTMy4JyJjfdWNfcGMNXBrSnGj3gv95aGKwUyOyVEyoadVd8QGGYA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783862144; c=relaxed/simple;
-	bh=Nh88LM8tcn4ASu2ZHG0sNKD7t6K3lGnx5oaEMxt0uO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a6+aNsdaNJRfyXo5YywUGhi45NcZbY6n8OQuGXn1HWQWzv5rotvomX4fJxhKzNf2t0ZDaQtIrXoERY8tu7gazfJpZtsxUtcHr6ADLOqdWXHCqrB68BuKiVX3aZnnU9j7n5ExpLul4e3cTVcON1q/bf2s8jXIPFUM6FsT9XoaC9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNEtcsuL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBB8194AE6
+	for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 13:26:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783862779; cv=pass; b=PNWb+7rF+UY7yPwGKvMzwZCY8FjU6QPC4NiJAVHg1puViM9RZlPdha1UsV+pM5AMtNGoFi8ymOvscC7JzWotpHDHAUQpZLg5hCDuVxsejMzIZXqoq0CTYOWcAdnuBsUPfOcI+I9FvtzHymM121UcTumjU+kAH5LnndNDBWspmwA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783862779; c=relaxed/simple;
+	bh=UGBqnk9ZujtuXQRWO/BbSzUobhHpE2AFBXipHVxZCWw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gwfVmlYQcn6DN78+gyNQsLWP9rAxLwRsho/SN745u++9QCu/HgNXW/GELF9ar0paGpVU8qfZDUM24V8yTvPatdVlUUuy9uNgTcdr7dupvFirXg3vMxqYRRaVOjiN7oFqAbbP8Q/mkiYkLha21BuDJYDoc96eI62SQDMK/4C2Llc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=ldYDzpyB; arc=pass smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNEtcsuL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923901F000E9;
-	Sun, 12 Jul 2026 13:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783862142;
-	bh=Nh88LM8tcn4ASu2ZHG0sNKD7t6K3lGnx5oaEMxt0uO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VNEtcsuLTmU2ucIIDm9TU0aOrgLG0PmCJHk9PDUon1AljI1F9FSR9LpQDVRUf+7qk
-	 mgoU55c86qZCVDWkmdFQ8EMVU9zzS+lyg39dHwDfuEt0lyiZnIZN1ln2xyKpgaenGB
-	 1Y2727IZNQLM6VZGXxCQ61q4lq4S7Lhw8TJAPrzGVverjXFvff/WoZBPjKCiqSd8AB
-	 PzO2NVD8dVg2RkiBjK3Ps9x/u8HE9LkND7+WE21L/Zzx5p2saUMs7W5bdC2yyL5AyN
-	 QfRmoMiFqPmlhSDsF1SJs8Fa3LmWQlgD+YMkIHm2TPCdqKy1fM9X/zs/nekbo1cyxa
-	 9RoBKqvGPRffw==
-Date: Sun, 12 Jul 2026 14:15:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "Ousherovitch, Alex" <aousherovitch@rambus.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
-	"Krishnamoorthy, Saravanakrishnan" <skrishnamoorthy@rambus.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Rob Herring <robh@kernel.org>, Shuah Khan <shuah@kernel.org>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Nguyen, Thi" <thin@rambus.com>
-Subject: Re: [PATCH v2 01/19] dt-bindings: crypto: add Rambus CryptoManager
- Hub
-Message-ID: <20260712-washable-clapping-5dfb79d1bdef@spud>
-References: <20260709203037.1884436-1-skrishnamoorthy@rambus.com>
- <20260709203037.1884436-2-skrishnamoorthy@rambus.com>
- <20260710-siding-unmatched-5e066fbe4c01@wendy>
- <SA3PR04MB9001E7DC9B2D4788EDCE2390D7FD2@SA3PR04MB9001.namprd04.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="ldYDzpyB"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cacd69a9c0so23301145ad.1
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 06:26:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783862777; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NDVNoRJtQNVVmLFP+X2cOO/MPffxN7Vece/TZWpjJRk8YJRliohs6AicF4c7cyUWKt
+         LNTq6DrS83F8sJgA06PNxdVzamiOnM+DbjWvNPsYBmv1oy0wYGvBw0pjtY3eQf+a5o1u
+         lh7zQ6O9GIyK0XyqlYblhHvGhjQpB3Q5GbhCM0KStmhmwgsC+n50h9sYJNQhlnaHNCJd
+         YDS0X71E3tIcv1xbGB2kyom4e8yv2jhnLzeBpo4mo0YKdQiRFi+8WLC0YK6hh23HGLen
+         DDSH7qJAflVraE6FBE2KrF9JLKWtBJ2Vc2cSLok+gCB179nIeXvrUK+p8VbFz85ysS3/
+         R9eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=UqNR7SXdW+p4t3J+3mUvjv0aIUfzr0u5I/hDQk2FBRE=;
+        fh=ngNcvxM3beWWBou4TONqcwBA7Ik8zlNx/jojhmFKUf0=;
+        b=aZXYdd6TmHCPYLvzMiJfHZgjDwZQa1HY7NAnx+KkS34AhHors0x+UMzPka+T+P+3i0
+         9rtfP1DSKca2WNkcu1LZ6WMXhep+q1GC9ayPJ9w43tUCatWvZgEJFe4kZjcPwDZH7qNN
+         tcG9vq9J6n5sAEADsOrfqN3odOlckLNeb1dILE1mmpqEtsge766190Q/GJVLJ0kR7yz8
+         hv26k2SK6ees6XoX78/pK75OVhP/ob2TkuidW5IipCizUERf3v9nU7CG5kI9VQ899jrO
+         MIoWlAeg//iPeZu1MdNtF1KOaKnbac4gCOEz/5Jb9ioyxwFExPy9YzT3WN1FM2Yp6H7p
+         EVig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=quora.org; s=google; t=1783862777; x=1784467577; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UqNR7SXdW+p4t3J+3mUvjv0aIUfzr0u5I/hDQk2FBRE=;
+        b=ldYDzpyBagaYSrXVfDwRS9Bws7LXfvBmSf4bKdluuV+jef9fUY+VxYB/41AbqZWeCo
+         N3/OO4CCrq/sTEyHeiI+nP2x19Yjat7z0kIRWNSHe350pBRpP7gdS6sXzySowM1OfzTo
+         OIPTOTxV4SJ95adQnUIUZ40PT7HixJ5u2Mf/A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783862777; x=1784467577;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UqNR7SXdW+p4t3J+3mUvjv0aIUfzr0u5I/hDQk2FBRE=;
+        b=jWG6CF3RFJJ/+np2TqwMpcu247VBoM9yQSc/ABPLlwh7UMqtHCMr/OsXZjZ1unYXQj
+         WQkD5d32oMWCHlpg+RS9xzXHfk6ZOFK36ykhEVEFL+w/iXXpSbUIVNYyUFUx4ltiQoJ0
+         dCgp6H2/y3pJtVGZup4+ScSCPO8fJW/u5T4ohjrUfleWxxAuG/19L708F2LYV8JMOGT+
+         6cz/4Eo+CyIUHfy99jxgdTHLthiTyWoRx2hYOXFEKtj5roVkoPXhPjECkBTvF8yQFScI
+         Ew8uuCbsSDDg0EuNfO7aT9woBRbvBsIshGp7tVIGIuOH7QNT35YGvtO6uc+jo1zpCQNh
+         mP1Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrgriH745l5KBE5+c452PBQhYdoFLTu8sys/eAB6inRLHoEMro7SBn0zWrW4dBUwjeSVqK0thL6MiA0@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7RWwIARUC1WZUTMEyByqnk2R051WZhKin3YK0wuFyRRZqF5ZV
+	g7lPInW8nSZ2Mz49fjJccZeTdiv9Jiu/bPtydUCz97jlMO61xHlIf2xiCot/rOJYYOG+FJ8dw28
+	vR6YAzhgxoCL+xjaXR449nAuJpeFoSHJvxADV/9pKWw==
+X-Gm-Gg: AfdE7cm55sLaQzOgiakvGWlGwL1y3hS5MfVa07QXSn42L213xXq8ZFglfIG2J6mmVWH
+	dtzBYIe7nBq+g9+CIbBQLYzuzMCmeZVeA6tYGP0l8OsrFc9vADdYqSUo1ZEZI5q/JKTOvLwVX0C
+	R8GkWXV2J3meQfxFtNaC4NJmOJMWJtPIn+oVsdAhCz5S5K6u60Z5Zv8JIzi92IwQIfTchAT9H2g
+	AqCyh4c4Hm453Mbasv1iawF178Dmpikvwqb+o1+g1MIbaytWcVheJRIdzgIn3SXpv9W+nSnhILc
+	KDJWJR+v011wtaYI3JSmkkCo85zyKVznFQ2VGSsvQKSvZ6cYE4pphzFPzt0LwWtNxF8raF63+fR
+	+HvfYoonVms+ibtT73zp7EjX136NInZDsKEv23+wBGP0sWsKfZqLZ/Vup7T8jH36vURfS5SDM0Q
+	WUlXPMpnpMeTniYi2ypQjW1P+hPEBfMybddffgL7lzBUbEtISYhdFjqOq527IPq5F6ydH/f8w=
+X-Received: by 2002:a17:902:f68e:b0:2c2:cf20:213 with SMTP id
+ d9443c01a7336-2ce9ee1142emr64188895ad.29.1783862777565; Sun, 12 Jul 2026
+ 06:26:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pwarKFrPpjCIAVeL"
-Content-Disposition: inline
-In-Reply-To: <SA3PR04MB9001E7DC9B2D4788EDCE2390D7FD2@SA3PR04MB9001.namprd04.prod.outlook.com>
+References: <20260707-hamoa_pdc_v3-v4-0-dfd1f4a3ae89@oss.qualcomm.com>
+In-Reply-To: <20260707-hamoa_pdc_v3-v4-0-dfd1f4a3ae89@oss.qualcomm.com>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sun, 12 Jul 2026 21:26:05 +0800
+X-Gm-Features: AVVi8CcSrRWGUCKgP-qOLOT7aAQyJKXDMD-z2g8-SgHYdx-u7MOSLDSuRtVid9w
+Message-ID: <CAMVG2supxy4H5L7xV52HzA6JLsAyTLa8PixmK7p9HOyZRPpyig@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] x1e80100: Enable PDC wake GPIOs and deepest idle state
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Sneh Mankad <sneh.mankad@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Stephan Gerhold <stephan.gerhold@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
---pwarKFrPpjCIAVeL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, 7 Jul 2026 at 17:21, Maulik Shah <maulik.shah@oss.qualcomm.com> wrote:
+>
+> There are two modes PDC irqchip can work in
+>         - pass through mode
+>         - secondary controller mode
+>
+> Secondary mode is supported depending on SoC using PDC HW Version v3.0
+> or higher.
+>
+> +------------------------------------------------------------------------+
+> | SoC             |  SM8350, SM8450  | SM8550, Hamoa   | SM8650, SM8750  |
+> |----------------------------------------------------------- ------------|
+> | Version         |        v2.7      |       v3.0        |       v3.2    |
+> |------------------------------------------------------------------------|
+> | Pass through    |        Yes       |       Yes         |       Yes     |
+> |------------------------------------------------------------------------|
+> | Secondary       |        No        |       Yes         |       Yes     |
+> +------------------------------------------------------------------------+
+>
+> All PDC irqchip supports pass through mode in which both Direct SPIs and
+> GPIO IRQs (as SPIs) are sent to GIC without latching at PDC, PDC only does
+> inversion when needed for falling edge to rising edge or level low to level
+> high, as the GIC do not support falling edge/level low interrupts.
+>
+> Newer PDCs (v3.0 onwards) also support additional secondary controller mode
+> where PDC latches GPIO IRQs and sends to GIC as level type IRQ. Direct SPIs
+> still works same as pass through mode without latching at PDC even in
+> secondary controller mode.
+>
+> All the SoCs defaulted to pass through mode with the exception of some x1e.
+>
+> x1e PDC may be set to secondary controller mode for builds on CRD boards
+> whereas it may be set to pass through mode for IoT-EVK boards. The mode
+> configuration is done in firmware and initially shipped windows firmware
+> did not have SCM interface to read or modify the PDC configuration.
+> Later only write access is opened up for non secure world.
+>
+> Using the write access available add changes to modify the PDC mode to
+> pass through mode via SCM write. When the write fails (on older firmware)
+> assume to work in secondary mode.
+>
+> As the deepest idle state as the PDC can now wake up SoC from GPIOs and
+> revert commit 602cb14e310a ("pinctrl: qcom: x1e80100: Bypass PDC wakeup
+> parent for now").
+>
+> The series has been tested on x1e80100 CRD with both old and new firmware
+> and also on kaanapali. Test conducted with tlmm-test module after
+> applying [3] as test module needed to be fixed first.
 
-On Fri, Jul 10, 2026 at 11:14:11PM +0000, Ousherovitch, Alex wrote:
-> On Fri, Jul 10, 2026 at 1:59 AM, Conor Dooley <conor.dooley@microchip.com=
-> wrote:
->=20
-> > This company no longer exists, you should probably introduce a rambus
-> > vendor prefix instead.
+Great work Maulik!
 
-Please fix your quoting, you need to retain context beyond what I said
-so that people who get 100s of mails per day (me) remember what it was
-in response to.
+This patch series has been verified on a Lenovo Slim 7x (BIOS NHCN62WW
+12/02/2025) with X1E80100 successfully on 7.2-rc2.
 
->=20
-> Cryptography Research, Inc. does still exist -- it's now a wholly-owned
-> subsidiary of Rambus (our co-maintainer is @cryptography.com). The
-> prefix names the IP originator, which is consistent with existing
-> subsidiary/acquired-vendor prefixes in the tree (e.g. al =3D Annapurna
-> Labs under Amazon, mstar noted as acquired by MediaTek, fsl, cavium,
-> xlnx). We'd prefer to keep "cri" on that basis, and can annotate the
+Tested-by: Daniel J Blueman <daniel@quora.org>
 
-I'm not sure that these examples actually aid your cause.
-al has been replaced by amazon, fsl is not used for new devices, new xlnx
-devices use amd (only example for now is the riscv stuff I think),
-cavium has had nothing added in donkey's years etc. mstar I don't see
-anything new in years either.
-
-> description as "Cryptography Research, Inc. (a Rambus company)" to make
-> the ownership explicit. Happy to switch if you feel strongly.
->=20
-> > This property seems like it could be replaced by having a reg entry
-> > for each mailbox.
->=20
-> Agreed -- v3 will make each mailbox a subnode with its own reg window
-> and drop cri,mbx-instances.
->=20
-> > This looks like it should be deducible from a device-specific
-> > compatible. [slots/strides]
->=20
-> These aren't fixed per silicon -- they're the per-mailbox layout of the
-> VCQ rings in host DMA memory, chosen at platform integration and
-> programmed by the driver into the mailbox QUEUE/SLOTS/STRIDE registers.
-> They can differ per mailbox on the same silicon, so a compatible can't
-
-I'm not sure. Unless there's more than one instance, this definitely
-sounds like something that you can determine from the compatible.
-Generally these kinds of accelerators tend not to have multiple
-instances though, so each platform will have a different compatible,
-and the driver can store an array of mailbox configurations.
-
-
-> encode them. v3 will keep them as optional, defaulted properties on the
-> per-mailbox subnodes.
->=20
-> > This whole subnode thing seems like it is only required because you
-> > don't have device-specific compatibles [cores].
->=20
-> Core presence is actually discoverable at runtime from the CORE_ENABLE
-> register, so v3 will drop the per-core child nodes entirely and probe
-> for enabled cores -- no per-variant compatible needed.
-
-No, per-variant compatibles (for the devices/socs that this IP is
-integrated into) are a requirement. While it would have been handy for
-detecting capabilities, it's a requirement for other reasons:
-differences between integrations be that functional or enforcing the
-correct constraints on properties, issues only present on select
-devices, etc.
-
-On that note, I see there's no clocks or resets properties added by your
-patch. While the IP may not have a reset (although I suspect it
-probably does) there's no way it functions without a clock.
-
-Cheers,
-Conor.
-
->=20
-> > this could probably be handled via reg-names? [affinity]
->=20
-> Yes -- v3 will express affinity per mailbox (a "role" of a specific core
-> type for a dedicated mailbox, or "generic" for the round-robin pool),
-> which is the subnode analog of your reg-names idea. One caveat: this
-> cleanly covers 1:1 core-to-mailbox dedication plus a shared pool; a
-> mailbox dedicated to several specific cores would need multiple role
-> tokens.
->=20
-> Thanks -- this restructures nicely.
-
---pwarKFrPpjCIAVeL
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCalOTdAAKCRB4tDGHoIJi
-0lBLAQCfKTJZqqNJen0s99xi2ILKiuhHavFoxTEtPcq0kWgfegEAhX1S0vi0KgKV
-HVl4wR7EAY3dKcF5wQElXIiRRSMQVgM=
-=gP2T
------END PGP SIGNATURE-----
-
---pwarKFrPpjCIAVeL--
+Thanks,
+  Dan
+-- 
+Daniel J Blueman
