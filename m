@@ -1,612 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187C638CFE4;
-	Mon, 13 Jul 2026 11:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D4239B943
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 11:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783941444; cv=none; b=N/AD4eshUP1GBEO/Jkp0ylW0aBBHFg60q50LLofQYlvMRNmDhid2T+6UdU89xGXhIvuEC3WpboZzUlBFPIJV1TbYip6loRmLtQ/o+Qpdde7eSWgwedDbMPF/URUS7+77aP7CA7JsO0Xom4mCt0xiuk8ik0ewZnF7rErm1MdkEh0=
+	t=1783941983; cv=none; b=Ko6PYf0H/SPdyN3frJy21mKmt2uIirrgquLEAo00rdxkqPDFmaosJYRQSoTszMtefkr5MHLZme0yMu0u6FjTKDMmGzRA4m52bGvnqaff+ELUsoh++NfMN3VNqHByMH+auXvlq8GgDRJiU7t52PIyr9yfyoTPpFlVBxwmZ2IQh3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783941444; c=relaxed/simple;
-	bh=iHS/mqFD8C2vBjNlpNkajl8s8GppsnHj6jRwqvH5M/k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bpUvQiek3kE0/6E0Mog9MQ6/oWyuDU9r0Y+Pc0GBPxuy4SDQNU7Yz0LSDVcwo6dZdYebMUPkYlmWmIArPMSq72uvwEA0Ml2V35VN6XaA2Gjy3aOMSaHRdkaU59oEHvgXefY7SUN+9Bye27HBBRU6o5PXRutTNIO+MCKI0A5XfH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=doLTLB0p; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783941983; c=relaxed/simple;
+	bh=xEJl9tPGfPCqk+CBkolb/mvH6ltxmH83HP843lDCGR4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i9Dbff8lQQOdto2CHCQRoOxpJq5hOTQ+XCyGNLuMnWwYRgIFCX3NHlUs5ahOIBLR+djYOKkIeocJPR6VM0IeM1SPBPngYl66B8kbOnXCXadUUqhuyU3oksWHkNouJD8YTGO4oglexEHTY+e7IsFkLMc4jXPBay2QhKcsuvzILlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VfKkSOWS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J8htx/JL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="doLTLB0p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783941442; x=1815477442;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=iHS/mqFD8C2vBjNlpNkajl8s8GppsnHj6jRwqvH5M/k=;
-  b=doLTLB0pckypX8Z5lsSyJKyXB/zYN3J10AaxPlFsGlvY1cr3oXa88XCC
-   qteXGa3/xTZvEjcxVjx0zKOB3szz/X7a/Nq9aBmv4Vjvlf8vgLRLc4UyA
-   2Tgk5UHax1pQU3/JzYmmp1RLnObfaCRJlmDamO9c4EpUA4zzu4dmhPdJv
-   qIyPiD1Jww+R/mhfStaUp6I3PuILZN8lXPAYAFcl+sOvA+LCsfL5eqXuR
-   GOX5Ml8gVwvQwYGlh/slo0NdvMBIs7d6rtn7EIxOvu9K4vEv3E4a8BOGu
-   TPkcPC95YBQvZtZRB+5wTp24xk/NuDsiVXCNyIVMf4zUnO3P3cB4etbu4
-   w==;
-X-CSE-ConnectionGUID: o0E9j/ZWSjCfc63yOzfuUA==
-X-CSE-MsgGUID: jbnN+76CTA6qXqz+oJB+dQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="72071052"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="72071052"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 04:17:21 -0700
-X-CSE-ConnectionGUID: EbCMWskkSeq/rP0qgjYf6g==
-X-CSE-MsgGUID: aenXfxB+TgKtETWRwtU20w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="260416437"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.88])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 04:17:18 -0700
-Date: Mon, 13 Jul 2026 14:17:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v2 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <alTJPExu9b3lRtx_@ashevche-desk.local>
-References: <20260713081127.115197-1-cwweng.linux@gmail.com>
- <20260713081127.115197-3-cwweng.linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VfKkSOWS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J8htx/JL"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D7KmWk775721
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 11:26:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xEJl9tPGfPCqk+CBkolb/mvH6ltxmH83HP843lDCGR4=; b=VfKkSOWSLtabfyGx
+	pBXVACq3Bk/eBuD3eEOqwYcEegaLnYMdpa8oUbCe2nS1cl0ORDFg3iRQh4EEp8XA
+	SiEuczpi+kM9VnceNEUfiYqVDsRLX5twmVias+MbOq6n56b6FkfSOo5I4yo3JSx6
+	rpFfIJJ0yQ06oM9SMcMTpB+QgxWuNGS/fa9NgCCRlaLI94qQpxv9OlRyBdDYnWAM
+	PW2EdZtTGuwO0QjsML2wjPrmcGG1zIwnSPt1c4qor3E/3TaIfnYC9rNwJ5aV1oE0
+	3jDrwCBh3shKry3sKSWBAdUfh6FPUhk7bfKplb4DEvs00lMfuzMPDy4wQPyhdj98
+	83A/BA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcuj00wj9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 11:26:21 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51cab6f7517so5529751cf.0
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 04:26:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783941980; x=1784546780; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xEJl9tPGfPCqk+CBkolb/mvH6ltxmH83HP843lDCGR4=;
+        b=J8htx/JLTO1cP51S7uAbhVsSbFoMsJcVjg2Ku0eUt98vljhlyf0qs6evl2WrgtTiAt
+         lw3TD5ZQ+aux1ydVRmJSE2kiWvlC+f/iYr+Y8dhLFJcEgIgPHrqgfpG/nHQ8x4TKOZWb
+         fzWB0KebnaMVZ9fNl6j532q9CQBorACovrFwpk9zYCGxREVpHb3yjPiJ7KUVo4ATLO90
+         Zp9QKCRGijWKPLI9Vtyg+kjpOowWGWWRxNINqD4TWaCzP+A7MDFZ0dsA1bHpMHK78Cjg
+         whbmMi0S8h78tcomEkyiMGReJ3Mv+BDxOxoXsEL792ysXX9uoKSdFF3kZGSi2SAPjy1f
+         rH9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783941980; x=1784546780;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xEJl9tPGfPCqk+CBkolb/mvH6ltxmH83HP843lDCGR4=;
+        b=TbEJ9IvFcklmaDItMrSjyLenmB/WcO3rIfZ5B6BLbEMZtTzfClR77dXFeSlVCZWKX1
+         fvgUAqSuN8GfuzH3k+fnBUOiNbqWfhA+BAbdpvBXO1Rci52c4AXU4ggtQ75uuPB5uJZI
+         LMUNskvvmQ0KobiOuW+uZTz6joCmB4TsTBhhXBTKAf3DxwGU0DHYh9a4KWKBFKVL5mS4
+         IY6vqpuw3k2IF2F4dZp38OncjmwpF77UzWgOvi7L6LmJwHPFF6YEvuSLioPWnBXNcvYi
+         li/4mnIY3OyjdwujRB7QKdH74CPLfg/Hw/DYU1FjwKSotg6BSX0AHLeSZLAnxKyvbo8a
+         77qQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/LF5sMgoWTfoZt42R8/WYzStYzg4ZihrEvEUDIjkUfAtpBoQ9pe+SzEv7PnAZGOeGFzs3JzuGi0Kc@vger.kernel.org
+X-Gm-Message-State: AOJu0YyFwy2fJHmWelllY7aTssMTwEmyd9EZgvAYwtqVFgjr/Zt91iH9
+	lk4KoaoL7SSHjJQtCCjgY4O5wzg2cbrPmbZqjuIOtCbQ3ydseNA2l3uWdiyALGpaxjfL5PC9umQ
+	pY2IGw1+Ar7Y6IKXLMANfHpL8sX4tJIU1S213e51OhPnisxCl7H8l2jZlALnrHNGo
+X-Gm-Gg: AfdE7clffMGnQV8TdNf0sWtaTUHRR8Q3Tb+/EjJyp8z7/VdRyGheFm39Q1fjoFe+OZS
+	33pmJAA0K/+mvzLfszkNRp969crmDcnLlmFkx0fFr6v8QFPUIdnSRyM5sOV3MqSW5aCcSxPygYD
+	zYirnsge+DL/dF4XCve0My8lKYcKS2vpWewfF88e8Ig6/hpwhAWS+tcnT7mjv9WldqPkbhspJev
+	D4uHJ00WZjrGRM04YOeIRTv+tYOCGmjHF7QQo2VAeJiV9LChBpVTSQf6ExbR+CZFhQ/C4LkyRbs
+	b+zkiQp90gEKWk0Ks77lrocAdRlKaYxMn2+jDisGMCitb0CbQLnxicQsa0rk9J4rTAQSi2MG5dr
+	IO725qUnBdkdeQkLDY5+OGYulF571SofWHcs=
+X-Received: by 2002:ac8:5fd0:0:b0:51c:d16:b498 with SMTP id d75a77b69052e-51cbf30e92fmr64404291cf.10.1783941980567;
+        Mon, 13 Jul 2026 04:26:20 -0700 (PDT)
+X-Received: by 2002:ac8:5fd0:0:b0:51c:d16:b498 with SMTP id d75a77b69052e-51cbf30e92fmr64404151cf.10.1783941980178;
+        Mon, 13 Jul 2026 04:26:20 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c165a9b7c73sm8359266b.9.2026.07.13.04.26.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 04:26:19 -0700 (PDT)
+Message-ID: <2bec0856-4d51-447e-97bc-13917c11a985@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 13:26:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713081127.115197-3-cwweng.linux@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Mon, Jul 13, 2026 at 04:11:27PM +0800, Chi-Wen Weng wrote:
-
-> Add an IIO driver for the Nuvoton MA35D1 Enhanced ADC controller.
-> 
-> The driver supports interrupt-driven direct raw reads and triggered
-> buffered capture paced by an external IIO trigger. Buffered capture is
-> limited to a single enabled voltage channel per scan in this initial
-> implementation.
-> 
-> Channels are described by firmware child nodes. Single-ended external
-> channels and the fixed hardware differential input pairs are supported.
-> The driver reports IIO scale from either an optional external reference
-> supply or the internal 1.6 V reference.
-> 
-> The driver also handles the functional clock and optional reset line.
-> DMA support is not used by this initial driver.
-
-...
-
-> +#include <linux/bitfield.h>
-> +#include <linux/bitmap.h>
-
-bitmap.h implies bitops.h...
-
-> +#include <linux/bitops.h>
-
-...so you may drop this one.
-
-> +#include <linux/cleanup.h>
-> +#include <linux/clk.h>
-> +#include <linux/completion.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/jiffies.h>
-
-> +#include <linux/mod_devicetable.h>
-
-Uwe made a series to get rid of this header. The platform_device.h seems
-the one which will provide the thing.
-
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/reset.h>
-> +#include <linux/types.h>
-
-...
-
-> +#define MA35D1_EADC_DAT(n)		(0x00 + (n) * 0x04)
-> +#define MA35D1_EADC_CTL			0x50
-> +#define MA35D1_EADC_SWTRG		0x54
-> +#define MA35D1_EADC_SCTL(n)		(0x80 + (n) * 0x04)
-> +#define MA35D1_EADC_INTSRC0		0xd0
-> +#define MA35D1_EADC_STATUS2		0xf8
-> +#define MA35D1_EADC_SELSMP0		0x140
-> +#define MA35D1_EADC_REFADJCTL		0x150
-
-Please, make all register offsets fixed width, exempli gratia
-
-define MA35D1_EADC_STATUS2		0x0f8
-
-...
-
-> +#define MA35D1_EADC_INTSRC0_SPLIEN(n)	BIT(n)
-
-Useless? Can't BIT() be used directly? (Note, I don't know
-if it's good or bad suggestion, wanting to understand a bit more.)
-
-...
-
-> +#define MA35D1_EADC_MAX_EXT_CHANNELS	8
-> +#define MA35D1_EADC_INTERNAL_VREF_MV	1600
-
-_mV (yes, as per SI).
-
-> +#define MA35D1_EADC_TIMEOUT		msecs_to_jiffies(1000)
-> +#define MA35D1_EADC_RESET_DELAY_US	10
-> +#define MA35D1_EADC_REF_STABLE_US	1000
-
-(1 * USEC_PER_MSEC) ?
-If go this way, include time.h for the multiplier definition.
-
-...
-
-> +struct ma35d1_adc {
-> +	struct regmap *regmap;
-> +	struct clk *clk;
-> +	struct reset_control *rst;
-> +	struct regulator *vref;
-> +	struct completion completion;
-> +	/* Protects conversion state and register accesses from PM transitions. */
-> +	struct mutex lock;
-> +	const struct iio_chan_spec *scan_chan;
-> +	unsigned int vref_mv;
-
-_mV
-
-> +	int irq;
-> +	bool suspended;
-> +};
-
-...
-
-> +static const struct regmap_config ma35d1_adc_regmap_config = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = 4,
-> +	.max_register = MA35D1_EADC_REFADJCTL,
-
-No cache?
-
-> +};
-
-...
-
-> +static bool ma35d1_adc_valid_diff_pair(unsigned int vinp, unsigned int vinn)
-> +{
-> +	return (vinp == 0 && vinn == 4) ||
-> +	       (vinp == 1 && vinn == 5) ||
-> +	       (vinp == 2 && vinn == 6) ||
-> +	       (vinp == 3 && vinn == 7);
-
-Wondering if this is just
-
-	return (vinp >= 0 && vinp < 4 && (vinn == vinp + 4));
-
-But I'm fine with the original, perhaps compiler may optimise that.
-
-> +}
-
-...
-
-> +static int ma35d1_adc_set_bits(struct ma35d1_adc *adc, unsigned int reg,
-> +			       unsigned int bits)
-> +{
-> +	return regmap_set_bits(adc->regmap, reg, bits);
-> +}
-> +
-> +static int ma35d1_adc_clear_bits(struct ma35d1_adc *adc, unsigned int reg,
-> +				 unsigned int bits)
-> +{
-> +	return regmap_clear_bits(adc->regmap, reg, bits);
-> +}
-
-What's the point in these wrappers?
-
-...
-
-> +static int ma35d1_adc_disable_irq(struct ma35d1_adc *adc)
-> +{
-> +	return ma35d1_adc_clear_bits(adc, MA35D1_EADC_CTL,
-> +				     MA35D1_EADC_CTL_ADCIEN0);
-
-I would make it one line (*yes, 84 characters).
-
-> +}
-
-...
-
-> +static int ma35d1_adc_setup_reference(struct ma35d1_adc *adc)
-> +{
-> +	int ret;
-> +
-> +	if (adc->vref) {
-> +		ret = regmap_set_bits(adc->regmap, MA35D1_EADC_REFADJCTL,
-> +				      MA35D1_EADC_REFADJCTL_PDREF);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		ret = regmap_clear_bits(adc->regmap, MA35D1_EADC_REFADJCTL,
-> +					MA35D1_EADC_REFADJCTL_PDREF);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = regmap_update_bits(adc->regmap, MA35D1_EADC_CTL,
-> +					 MA35D1_EADC_CTL_VREFSEL_MASK,
-> +					 MA35D1_EADC_CTL_VREFSEL_1V6);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-Add a short comment with reference to a datasheet table/section/et cetera.
-
-> +	fsleep(MA35D1_EADC_REF_STABLE_US);
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ma35d1_adc_hw_init(struct ma35d1_adc *adc)
-> +{
-> +	int ret;
-> +
-> +	ret = ma35d1_adc_disable_irq(adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ma35d1_adc_setup_reference(adc);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_SELSMP0,
-> +				 MA35D1_EADC_SELSMP0_SMPT0_MASK,
-> +				 MA35D1_EADC_SELSMP_LONG);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-> +			   MA35D1_EADC_STATUS2_ADIF0);
-
-With
-
-	static regmap *map = adc->regmap;
-
-this becomes
-
-	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
-
-exactly one line. Apply this trick everywhere and it might help reduce
-amount of LoC.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return ma35d1_adc_set_bits(adc, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-> +}
-
-...
-
-> +static int ma35d1_adc_config_channel(struct ma35d1_adc *adc,
-> +				     const struct iio_chan_spec *chan)
-> +{
-> +	unsigned int ctl;
-> +	int ret;
-> +
-> +	ctl = chan->differential ? MA35D1_EADC_CTL_DIFFEN |
-> +					  MA35D1_EADC_CTL_DMOF : 0;
-> +
-> +	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_CTL,
-> +				 MA35D1_EADC_CTL_DIFFEN |
-> +				 MA35D1_EADC_CTL_DMOF, ctl);
-> +	if (ret)
-> +		return ret;
-
-regmap_assign_bits()
-
-> +	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_SCTL(0),
-> +				 MA35D1_EADC_SCTL_CHSEL_MASK |
-> +				 MA35D1_EADC_SCTL_TRGSEL_MASK,
-> +				 FIELD_PREP(MA35D1_EADC_SCTL_CHSEL_MASK,
-> +					    chan->channel));
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(adc->regmap, MA35D1_EADC_INTSRC0,
-> +				  MA35D1_EADC_INTSRC0_SPLIEN(0),
-> +				  MA35D1_EADC_INTSRC0_SPLIEN(0));
-> +}
-
-...
-
-> +static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
-> +				       const unsigned long *scan_mask)
-> +{
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	const struct iio_chan_spec *scan_chan = NULL;
-> +	unsigned long bit;
-> +	unsigned int count;
-> +
-> +	count = 0;
-> +	for_each_set_bit(bit, scan_mask, indio_dev->masklength) {
-> +		scan_chan = &indio_dev->channels[bit];
-> +		count++;
-> +	}
-> +
-> +	if (count != 1 || scan_chan->type != IIO_VOLTAGE)
-> +		return -EINVAL;
-
-
-This is interesting check. First of all, it checks if the only a single bit is
-set in the whole mask, then it checks the type of the *last* listed channel.
-The latter seems fragile to me, as it depends on ordering (yes, the limitation
-to a single enabled channel helps).
-
-With that being said, the both checks can be unrolled to the find_next_bit().
-
-	/* Find the first enabled channel to scan */
-	bit = find_next_bit(scan_mask, indio_dev->masklength, 0);
-	if (bit >= indio_dev->masklength)
-		return -EINVAL;
-
-	/* Check that the type of the channel is what we are looking for */
-	scan_chan = &indio_dev->channels[bit];
-	if (scan_chan->type != IIO_VOLTAGE)
-		return -EINVAL;
-
-	/* Check that this is the only enabled channel */
-	bit = find_next_bit(scan_mask, indio_dev->masklength, bit);
-	if (bit < indio_dev->masklength)
-		return -EINVAL;
-
-Not sure that this will generate less code, though. So up to you.
-One also might argue that the original code is easier to understand.
-
-> +	adc->scan_chan = scan_chan;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static irqreturn_t ma35d1_adc_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf = p;
-> +	struct iio_dev *indio_dev = pf->indio_dev;
-> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
-> +	IIO_DECLARE_BUFFER_WITH_TS(u16, scan, 1) = { };
-> +	u16 raw;
-> +	int ret;
-> +
-> +	guard(mutex)(&adc->lock);
-> +	if (adc->suspended || !adc->scan_chan)
-> +		goto done;
-
-This is usually leads to a mess in the compiler. This is written in the top of
-cleanup.h that goto should be avoided while using guard()() or similar macros.
-
-> +	ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &raw);
-> +	if (ret)
-> +		goto done;
-> +
-> +	scan[0] = raw & MA35D1_EADC_DAT_RESULT_12BIT;
-> +	iio_push_to_buffers_with_timestamp(indio_dev, scan, pf->timestamp);
-> +
-> +done:
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-...
-
-> +static void ma35d1_adc_init_channel(struct iio_chan_spec *chan, u32 vinp,
-> +				    u32 vinn, unsigned int scan_index,
-> +				    bool differential)
-> +{
-> +	chan->type = IIO_VOLTAGE;
-> +	chan->indexed = 1;
-> +	chan->channel = vinp;
-> +	chan->scan_index = scan_index;
-> +	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +					 BIT(IIO_CHAN_INFO_SCALE);
-
-Broken indentation, better to have
-
-	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
-
-OR
-
-	chan->info_mask_separate =
-		BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
-
-> +	chan->scan_type.format = differential ? IIO_SCAN_FORMAT_SIGNED_INT :
-> +					      IIO_SCAN_FORMAT_UNSIGNED_INT;
-> +	chan->scan_type.realbits = 12;
-> +	chan->scan_type.storagebits = 16;
-> +	chan->scan_type.endianness = IIO_CPU;
-> +
-> +	if (differential) {
-> +		chan->differential = 1;
-> +		chan->channel2 = vinn;
-> +	}
-> +}
-
-...
-
-> +static struct iio_chan_spec
-> +ma35d1_adc_timestamp_channel(unsigned int scan_index)
-> +{
-> +	struct iio_chan_spec chan = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
-> +
-> +	return chan;
-> +}
-
-Useless wrapper. Just put _SOFT_TIMESTAMP() in place.
-
-...
-
-> +static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
-> +				     struct device *dev)
-> +{
-> +	DECLARE_BITMAP(used_channels, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +	struct iio_chan_spec *channels;
-> +	unsigned int scan_index;
-> +	int num_channels;
-> +	int ret;
-> +
-> +	bitmap_zero(used_channels, MA35D1_EADC_MAX_EXT_CHANNELS);
-> +
-> +	num_channels = device_get_child_node_count(dev);
-> +	if (!num_channels)
-> +		return dev_err_probe(dev, -ENODATA,
-> +				     "no ADC channels configured\n");
-
-I would return -ENOENT, as it's usual error code for 0 count in counting APIs
-in the kernel. Also you can put it on a single line.
-
-> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-> +		return dev_err_probe(dev, -EINVAL, "too many ADC channels\n");
-> +
-> +	channels = devm_kcalloc(dev, num_channels + 1, sizeof(*channels), GFP_KERNEL);
-
-size_add() ?
-
-> +	if (!channels)
-> +		return -ENOMEM;
-> +
-> +	scan_index = 0;
-> +	device_for_each_child_node_scoped(dev, child) {
-> +		u32 diff[2];
-> +		u32 reg;
-> +		u32 vinn;
-> +		bool differential;
-> +
-> +		ret = fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing channel reg property\n");
-> +
-> +		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "invalid ADC channel %u\n", reg);
-> +
-> +		if (test_and_set_bit(reg, used_channels))
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "duplicate ADC channel %u\n", reg);
-
-> +		differential = false;
-> +		vinn = 0;
-
-Make it an 'else' branch.
-
-> +		if (fwnode_property_present(child, "diff-channels")) {
-> +			ret = fwnode_property_read_u32_array(child, "diff-channels", diff,
-> +							     ARRAY_SIZE(diff));
-> +			if (ret)
-> +				return dev_err_probe(dev, ret,
-> +						     "invalid diff-channels for channel %u\n",
-> +						     reg);
-> +
-> +			if (diff[0] != reg ||
-> +			    !ma35d1_adc_valid_diff_pair(diff[0], diff[1]))
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid differential ADC channel %u-%u\n",
-> +						     diff[0], diff[1]);
-> +
-> +			if (test_and_set_bit(diff[1], used_channels))
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "ADC channel %u already used\n",
-> +						     diff[1]);
-> +
-> +			vinn = diff[1];
-> +			differential = true;
-> +		}
-> +
-> +		ma35d1_adc_init_channel(&channels[scan_index], reg, vinn,
-> +					scan_index, differential);
-> +		scan_index++;
-> +	}
-> +
-> +	channels[scan_index] = ma35d1_adc_timestamp_channel(scan_index);
-> +
-> +	indio_dev->channels = channels;
-> +	indio_dev->num_channels = scan_index + 1;
-> +	indio_dev->masklength = indio_dev->num_channels;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
-> +{
-> +	int ret;
-
-> +	adc->vref = devm_regulator_get_optional(dev, "vref");
-> +	if (IS_ERR(adc->vref)) {
-> +		if (PTR_ERR(adc->vref) != -ENODEV)
-> +			return dev_err_probe(dev, PTR_ERR(adc->vref),
-> +					     "failed to get VREF supply\n");
-> +
-> +		adc->vref = NULL;
-> +		adc->vref_mv = MA35D1_EADC_INTERNAL_VREF_MV;
-> +
-> +		return 0;
-> +	}
-
-It can be unnested:
-
-
-	if (PTR_ERR(adc->vref) == -ENODEV) {
-		adc->vref = NULL;
-		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
-		return 0;
-	}
-	if (IS_ERR(adc->vref))
-		return dev_err_probe(dev, PTR_ERR(adc->vref),
-				     "failed to get VREF supply\n");
-
-> +	ret = regulator_enable(adc->vref);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable VREF supply\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, ma35d1_adc_vref_disable, adc->vref);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regulator_get_voltage(adc->vref);
-> +	if (ret <= 0)
-> +		return dev_err_probe(dev, ret ?: -EINVAL,
-> +				     "failed to get VREF voltage\n");
-
-> +	adc->vref_mv = ret / 1000;
-
-(MICRO / MILLI)
-
-instead of plain 1000.
-
-> +	return 0;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document
+ power-domains property
+To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
+ <20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDExOSBTYWx0ZWRfX6ajiCmzFbkFn
+ fZSSAzWr5WUWvBG+YA3VTXaMmsW95/pFx209MI0ioZS0YcK7payGmKTl/13DZUf+A/n56GRsjsv
+ Ttn3N05iu60dgCeaMIgNpCU01KIxIcs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDExOSBTYWx0ZWRfXytj1ktg7RQGO
+ epR9PAM7CZUkchVWeuerfJDMLJPMRDGGGQChHFuJ/FF8wnyWZw2bNX4n4Lol5stvbY1Os4I8G/g
+ UKnki5Hmus97Yqw9Fp3yWOoPE1HwifHmrSlO6woekX5O7C8UtUdPmieDjqU8nL/K4dMBqhtNOoD
+ B7ph4D8A/b9+NI5Lve0hrqdyWqCJ/UaXLKQBnih85O3y+moe64QuPZM5Zo15WKYpxcBRI6B8/HJ
+ wJQhmVE8ibDC/4STLBAXTc8hWhEd1SUIWXoWmn+GQs+gqzDqiPBXu0rvCsUYZd5ixy6RZhqCGb+
+ crRHMTymZ2KeNvXH1T65sXRGyYIBXRf1Abz7926womDsL+TELxJI7urGVMWhOn4thVSKqrnq26G
+ tRI9pggMZ3uI9EsD5tR5MK/41QmgmGsDfdKUGu18cWvnYFRyeulyttiKZqkPMlzo2xkpJR3vvzW
+ c8QAYO0Hcesf31f9SJQ==
+X-Proofpoint-ORIG-GUID: sFM8G7hv9cKmWLPL8JLyHllLpLY9nnGP
+X-Authority-Analysis: v=2.4 cv=DbcnbPtW c=1 sm=1 tr=0 ts=6a54cb5d cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=qFC8wAhaXB78bAukjjYA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: sFM8G7hv9cKmWLPL8JLyHllLpLY9nnGP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
+ phishscore=0 suspectscore=0 bulkscore=0 adultscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607130119
+
+On 7/13/26 12:25 PM, Sneh Mankad wrote:
+> Remove #power-domain-cells property and add power-domains property for
+> MPM device.
+
+"why"?
+
+Konrad
