@@ -1,107 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964293845D3
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:18:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F32376481
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783981124; cv=none; b=C3HgoEfL8JaSesYpDw4N5SFfsVuvy7IleZ7dlKb15K9ZH9dywP5k4be0pXikxcnwaIwl4xMPjnke17OiizM3Q3ki1n8UXy/b6LAcDsdyAw4Mhki6OuWgYYnJ5Hi47oOZsSYPjSqx8OrbZGBgx2gH13SUyYgUi0kWQLfla6Ma2sk=
+	t=1783981331; cv=none; b=R9Tnt1IgdF9TBFshp8D4lwnynuwM1y7c84Cb4GkZoeR2ma4q/AHzT0tPz2uWAmiVKZZ314lRd05tCQIjLTEq6DS1ZKVnAnunuGIif3VpFJ4So3/Bszu5qHWqlNvym0Jcg8SVHWJ00YUWvGyQzPPevOx8JIwo33dfpODUnCbj9cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783981124; c=relaxed/simple;
-	bh=HAu9jIF8qOhojgRQy4Ih9DKc6g56paguR89AFj4SEFM=;
+	s=arc-20240116; t=1783981331; c=relaxed/simple;
+	bh=RuV/TRMb6emchXetbiEkP09UACprWPK37hkpGEH/w+k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hIsFWjRry/nmyPzXAxOHSOqSNHLA0S3kXYWbN0E4OKUBla0mZA8JBWhDU4un8/e05HesnITIwr3zzpODI2VdROSe8DdDiroKPTJouHln1rKZXWrSPDZKMJ1YokBAXCAYLkFlG7y+SievGH/kjTBWSM9C2VDpQdhkjRYSofw0go4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/DEsnzY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dNF71LDyTXDThd9tf9y7mPwAEw5iUJzKdp1pYbnzFh8nV64O761hJjigN51nlasAdHYy7UwoYowO2Ctbk0mWBARFIpLslGWSQL3e0rfGJdifvMsW/seIKse6NG9YWL0wN6Kl+pdiXZrOIXe9JcSuCGqk3kaA2y9xkwXbdlXd7+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZK1H5uUe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/DEsnzY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9741F000E9;
-	Mon, 13 Jul 2026 22:18:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZK1H5uUe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8C31F000E9;
+	Mon, 13 Jul 2026 22:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783981123;
-	bh=T+cE5D/0CASZiImePFWTAfG470NLvPtBGpnsrSCnheo=;
+	s=k20260515; t=1783981330;
+	bh=Cpy2rqNe7dD4ldtvduPmIXfzt/sdzFIpwY0hVLE8KLQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R/DEsnzY+9/TegMOORKjIDF86PuLM0Ca3JWo5LUebqBVuvIv/kPv7wBTNtIwtmdVd
-	 n8maSrWuwxjFUvCF35fUSYoZEhYILEYNUrTj5n3dhFa8z97+9O70aQwROagCP3zph2
-	 3fJSsW6mh3mQYA+lXaPayuRdbXdwwNGecbbJ2g4aHs7KlknUelEQ4T+xdNbsozbRRl
-	 wifCFQyXtfHAZcrP1oC1EzH4nkwyZyLwaOEC+PEi0X+VevW0OTJwtIQJ5CTJMDeyGD
-	 y007ndRe3a6tz0HnqlFYhzgQZnsM0Dy4yHLSJ2fSfseusX2PH7COsNwqeDAmHI1vJ/
-	 zMNujiAfwyMsA==
+	b=ZK1H5uUe0u9G3Lx2ZknlsDs++gO1LqCWLZg3DeBWDdipbBddWzrDmruma/+lJwPRI
+	 SlC5EBITEcp2xJwPn8yaTDN/c282++uZv5MDZUKPyq20SyhVRhxyqT5gnd8BGKCc0O
+	 Iwq4/AJM7BfZWyy0Nzj9MnDPntcVVUb/1eypdry7INrnnEx8Pq7jalPxHByoXTKCqB
+	 nm4kWTJHSLq9oDpeqS/yArUiZnc5GjMN0bNurx2F6jB9v8v7EfJUzaCZSs01Nfjhy7
+	 CccYzKQQUFXMQynuP6a/fnGFNUrRY0BVigJ9aOLBYNDmF2MQDHvI2HrvoovLJPVYLc
+	 FHbuCZCasqj8A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 04/10] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
+Subject: Re: [PATCH v16 06/10] iio: imu: inv_icm42607: Add PM support for
+ icm42607
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260713215842.69097-5-macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260713215842.69097-7-macroalpha82@gmail.com>
 References: <20260713215842.69097-1-macroalpha82@gmail.com>
- <20260713215842.69097-5-macroalpha82@gmail.com>
+ <20260713215842.69097-7-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 22:18:42 +0000
-Message-Id: <20260713221842.DC9741F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 22:22:09 +0000
+Message-Id: <20260713222209.AA8C31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Configuration registers `FIFO_CONFIG2` and `FIFO_CONFIG3` are in=
-correctly marked as volatile, preventing them from being cached and restore=
-d by `regcache_sync()`.
+- [Low] Bypassing explicit platform workaround for 0-delays
+- [Low] Incompatible pointer type for enum parameter
 --
 
---- Patch [4]: [PATCH v16 04/10] iio: imu: inv_icm42607: Add inv_icm42607 C=
-ore Driver ---
-commit bb558c6dbdd036d405cccb1f326025519297d967
+--- Patch [6]: [PATCH v16 06/10] iio: imu: inv_icm42607: Add PM support for=
+ icm42607 ---
+commit 2cc6ce210d26cf1a702e03730729ef340784c90f
 Author: Chris Morgan <macromorgan@hotmail.com>
 
-iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
-
-This commit adds the core component of a new inv_icm42607 driver. It includ=
-es
-setup functions, register definitions, and the initial functionality necess=
-ary
-to compile and probe the device over an i2c bus.
+iio: imu: inv_icm42607: Add PM support for icm42607
+   =20
+Add power management support for the ICM42607 device driver.
 
 > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
 io/imu/inv_icm42607/inv_icm42607_core.c
-> new file mode 100644
-> --- /dev/null
+> index b90e578c3fb2c..303a6a0b1b21e 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+
 [ ... ]
-> +static bool inv_icm42607_is_volatile_reg(struct device *dev, unsigned in=
-t reg)
+
+> @@ -102,6 +106,90 @@ const struct inv_icm42607_hw inv_icm42607p_hw_data =
+=3D {
+>  };
+>  EXPORT_SYMBOL_NS_GPL(inv_icm42607p_hw_data, "IIO_ICM42607");
+> =20
+> +int inv_icm42607_get_pwr_mgmt0(struct inv_icm42607_state *st,
+> +			       enum inv_icm42607_sensor_mode *gyro,
+> +			       enum inv_icm42607_sensor_mode *accel)
 > +{
-> +	switch (reg) {
-> +	case INV_ICM42607_REG_MCLK_RDY:
-> +	case INV_ICM42607_REG_SIGNAL_PATH_RESET:
-> +	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_APEX_DATA5:
-> +	case INV_ICM42607_REG_APEX_CONFIG0:
-> +	case INV_ICM42607_REG_FIFO_CONFIG2 ... INV_ICM42607_REG_FIFO_CONFIG3:
 
-[Severity: Medium]
-Should INV_ICM42607_REG_FIFO_CONFIG2 and INV_ICM42607_REG_FIFO_CONFIG3 be
-marked as volatile here?
+[ ... ]
 
-These registers hold the FIFO watermark threshold, which is static
-configuration. Marking them as volatile causes any value written to them to
-bypass the regmap cache.
+> +}
+> +
+> +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
+> +				      enum inv_icm42607_sensor_mode gyro,
+> +				      enum inv_icm42607_sensor_mode accel)
+> +{
+> +	unsigned int oldaccel, oldgyro;
+> +	unsigned int sleepval_us;
+> +	unsigned int val;
+> +	s64 disable_wait;
+> +	int ret;
+> +
+> +	ret =3D inv_icm42607_get_pwr_mgmt0(st, &oldgyro, &oldaccel);
 
-If future functionality utilizes these registers, they will not be restored
-during a regcache_sync() (such as after a soft reset or resume from
-suspend), which would cause the device to lose its watermark configuration.
+[Severity: Low]
+Will this cause an incompatible pointer type compiler warning or error?
+inv_icm42607_get_pwr_mgmt0() expects enum inv_icm42607_sensor_mode pointers,
+but oldgyro and oldaccel are declared as unsigned int.
 
-> +	case INV_ICM42607_REG_FIFO_LOST_PKT0 ... INV_ICM42607_REG_APEX_DATA3:
-> +	case INV_ICM42607_REG_INT_STATUS_DRDY:
-> +	case INV_ICM42607_REG_INT_STATUS ... INV_ICM42607_REG_FIFO_DATA:
-> +		return true;
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (gyro =3D=3D oldgyro && accel =3D=3D oldaccel)
+> +		return 0;
+> +
+> +	/*
+> +	 * Datasheet on page 14.26 says we need to ensure the gyro sensor is on
+> +	 * for a minimum of 45ms. So if we transition from an on state to an
+> +	 * off state make sure at least 45ms have passed before power off and
+> +	 * wait if it hasn't.
+> +	 */
+> +	if (!gyro && oldgyro) {
+> +		disable_wait =3D ktime_us_delta(st->conf.gyro_stop, ktime_get());
+> +		disable_wait =3D clamp(disable_wait,
+> +				     0, INV_ICM42607_GYRO_STOP_TIME_US);
+> +		fsleep(disable_wait);
+
+[Severity: Low]
+Can disable_wait evaluate to 0 here and cause issues on certain platforms?=
+=20
+
+The comment later in this function mentions that some platforms have
+issues with a 0 delay, but this fsleep() is called unconditionally even if
+disable_wait is clamped to 0.
+
 > +	}
 > +
-> +	return false;
-> +}
+> +	val =3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro) |
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713215842.6909=
-7-1-macroalpha82@gmail.com?part=3D4
+7-1-macroalpha82@gmail.com?part=3D6
