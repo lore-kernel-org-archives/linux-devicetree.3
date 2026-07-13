@@ -1,158 +1,152 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C03437440;
-	Mon, 13 Jul 2026 14:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83124357CF4
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 14:55:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783954530; cv=none; b=qA/vPMww8QmUjpauleUa/VY8x+i8JrTW7mRi0uDl3D0vSev8ubtnU3TLch+DtItGUTK5OjHZZSmKvIkW5ZRARwwNSF6WgIDv0cZTcxRToPPEIagSWXMTBkWWcGKNv3er4ZYSvapcL9cRW3fTvzlWDWWlj/3mDRgfd/KPTI+h1hg=
+	t=1783954560; cv=none; b=WXNNyntimLTdl8mgDoIppCrc0Qmx0QZ36CT0PhHpksndeEf3S4XYGn+as4LhDxoUIq2lueFa+LG037iAvNHHxe5Npa2yn4X2uXLYCEnJReBFN/u+KBXeFgpX+UR527kLS8jLAT6MmZ9TrA7jW2BTIA2hsY9Ao/CB356hT1ZooOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783954530; c=relaxed/simple;
-	bh=ezOWvH/osRE6H/cXFkg9H9smMaW9rStaT6bb3eJPa3Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hcNimcUbBNB5cw9ifiVN/0W9qZrnYULioNryFJb9de8cugAq8dZXK5LFIiFMXqFLi/iDI1d5fSTszxTzfjINIKyjmMMmK4KemN32qZqCuYrRL8D7ZIMSyNJeLxowr1cam2ZlhI4qUXemxxWeiOIDi7C0mlmdWI2ZJv9rNEEQXZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=IAF9RlYR; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1783954560; c=relaxed/simple;
+	bh=YELl1y3J0mGPUhcgSqbaaf3tbHR8Imjyjm4zvt2BTb4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k6WbJVsvUvi/1Tq3qNuOW1NHloJksBFRCpPaphHobYRrxdSiNQfRJBp4JQ4MZJPf/h3LXhXbsz0KszFPcW3LbeXmmww9HXH9jFQyU4RdhfFQDqqMiiJw+X2ifgGXMq1w70qtfaPiNNsWS7BEy9o89V1A1k9in7+NO0lg8RvLIHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=d7xaOHiW; arc=none smtp.client-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="IAF9RlYR"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1783954517;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hg5tW1Rb6Nt7cG6Ff89MFT0HTZsA91xkclD1Vy8H15c=;
-	b=IAF9RlYRY32TgRdGT9RUVAxp8kZ+ISAA2djU9dBRkpEcG9FaNaKr9whnLDozCgy0seIGa6
-	U5yICggsp6HBXPFGYOprdnY6FEQxihmgmE9Ti4KsqJpdc29NKTlePtZtUNfRzKACXWgKQ5
-	M5GyPCZ6N2Q1JWDxYf1zcQRyAzSfLczT97j8wdS1RLQTkLZvfa31oD65V5nC0LofckDhHZ
-	x2qLdC4AB5s5n6Y2oUzy3v8I4DV0re7fnhIoyBsrZ4toumES5fUP+EFGhg0uAPPPUuFNFo
-	QvejdVnIiPIpu8ilBuKBmCvATk7MIubpoeXZGX6jZ2j7ODtkKIs5G3/cLTayGg==
-Date: Mon, 13 Jul 2026 16:53:44 +0200
-Subject: [PATCH v2 08/10] nvmem: imx-ocotp-ele: Remove the FUSE_ELE type
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="d7xaOHiW"
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so479753241.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:55:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783954555; x=1784559355; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h85/e4FosMhyyW2A5K8lpjg8Eb2pk4okTuj+ceX0Hik=;
+        b=d7xaOHiWL+u0VKSs6dQuhCTLOVtoFhc7fWD4NjASNttxn5U4PqN8/OZGAASBEe/QAo
+         njNFmWhLxo/r21AbflFt5C62U8DnMuTKzUsVmlFV6dh+KgFkJRyprfxzJU/v6XF9Ll81
+         7UeY1puwsXXnvYTo+lz4DI/R4THEbb+HwkEPYIxpzUZdn8NdjFgQJmPwCvZRFoOYg5pI
+         791GccvKbodjbpnCDJ35PFjW4nJYD882PjaD8XD0HoMoZ1YAQvuOJWru/UMJS9UEvVZV
+         IN8LiMdXUFXrT6VPSLmqJZcy7aT3/e6RAkqSWYXi8xJ6AxJWHbXS3y+PT1E+NvzgYSQz
+         /isw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783954555; x=1784559355;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h85/e4FosMhyyW2A5K8lpjg8Eb2pk4okTuj+ceX0Hik=;
+        b=GGITmEX295TXdVOf4k3z8ol1cyveHOUbd8VPO1CGzcs48zUSaGuj8QZa9kqLB2fz46
+         XVO7iJzShVKlcH5Mc3XoqUrFM+CWsWyehH4SWe+IDglDhNAOQeV2WZpSTMPlkAaARL2t
+         yJkWW5zB/nTJyXn3eqo66ORWlIpNhf0854sWUOhXEH7TJpu0nmkHhIkyl9sOnuFNjSLI
+         LojVjHnYvmMB2NfB4kb1YF+e1V0J1jiwhJf5fwSEguzgkrNKudPyOxLC6FHrPtp3cmmh
+         qXTm9Ohk5XT+AISEGJ9wj4usF4+waaVZxmhHmkG0g1K72m+1zc8RIzzCWIrHS7XsYco3
+         VvdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpUHhptyPp8CJmnn5rStdsRiQgSk91mjv+b2W4ileLFok7EDQoJ08jru7HGXPBVqN06ZXZ72BWiptk0@vger.kernel.org
+X-Gm-Message-State: AOJu0YyntNhKoDF/yX/I7Z9Nvr73STt4VPD7w8PoCh4Q2GEKgF046ILu
+	J+5AkvLYJa3tnIj3T0O7o2i9PmG8bIuUBIRXbq0kmWSJOHHkUfhKpmNncucIngN9U4o=
+X-Gm-Gg: AfdE7cnUy4MmSM9i9Y1mdG0qk40GK2fvYjwJMq5m/Q/0YjQXdYJSRqLc13qOIpCoFHg
+	FPwf9dIWG3hi0p118GymxjweZewZ/Kntb6w3NmIJ7ABELxP/+z+k7EnxBSyyfc0eJzHvURZkvXK
+	IizQ2Fp5be+MPsDJxL18n4p02rghbA1CQQNa3qVhUrmoJF9mkii3ZUMy3XxDyGAPMZCwuh1NGn0
+	0DRrwtNifIAK767JwFLqPJaPIlOCgAPDsKpUpdvOipd3OdDwb3IiRakMPv/3KfuTj/7PlfDrFK7
+	ml09LWzPsCzlPE1fkZj5vhDSbu4W5p38FRLTp2lUcTxRgIBrZw+rIhb4jSBSFCa70cghZh3GvB6
+	zEA8T6OcVIq8WE4Vtnh/X3wTpIPUKbbE3Hb3qkmcsd4cGTn/Xst9JSjecUTUA4a3f1bht9ztEpy
+	O8fzUPqXPbtk1Gfcb56I6MN0MSsrelz1fkZHhum2YaS1bkKvS2IefBCcoipLKCDbU=
+X-Received: by 2002:a05:6102:f12:b0:729:1a8d:b2d9 with SMTP id ada2fe7eead31-74533e17d5amr5917697137.22.1783954555481;
+        Mon, 13 Jul 2026 07:55:55 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:610b:e45c:5e0c:e14b? ([2600:8803:e7e4:500:610b:e45c:5e0c:e14b])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96ed25847e5sm7785373241.2.2026.07.13.07.55.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 07:55:55 -0700 (PDT)
+Message-ID: <1700ed07-47b5-4831-87c5-a6115928baab@baylibre.com>
+Date: Mon, 13 Jul 2026 09:55:53 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] dt-bindings: iio: adc: add input-chopping property
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
+ Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
+ Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
+ <20260710-iio-adc-ti-ads122c14-v3-4-746d52cbf1d0@baylibre.com>
+ <20260713023443.1a7a9acb@jic23-huawei>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260713023443.1a7a9acb@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-8-b8266d93514b@kontron.de>
-References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
-In-Reply-To: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
- Pankaj Gupta <pankaj.gupta@nxp.com>, 
- "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2820;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=CqKbLWJEprAuY0A/3w0FIvWFGg+83f0jb6ih5HsLxAE=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvkTxCb6Ecx23P9bN8iv/GeaXfd3LRl4au9x4pMfkdJn
- dnI8+51RykLgxgXg6yYIosUv8VrW7NYH/lj1VEwc1iZQIYwcHEKwESYPzEynLpcPIm37Jje82n8
- 3BYJGe8vnVrXGmZg/O7I+9MOQRJrjzIy3LvEOKm3duX/KWKmKyd9X+ht4fumNF1noe+/228nuh4
- 7zgMA
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+On 7/12/26 8:34 PM, Jonathan Cameron wrote:
+> On Fri, 10 Jul 2026 17:50:37 -0500
+> "David Lechner (TI)" <dlechner@baylibre.com> wrote:
+> 
+>> Add a generic input-chopping property to adc.yaml. This is a feature
+>> seen frequently in ADCs that are designed to measure resistive loads,
+>> such as RTDs and strain gauges. Enabling this can reduce offset errors
+>> by swapping the positive and negative input channels on every other
+>> conversion. This can have side-effects in timing and filter response, so
+>> it is not always desirable to enable this feature in some applications.
+>> Therefore, it is best to make this a property that can be enabled or
+>> disabled in the device tree.
+>>
+>> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+>> ---
+>> v3 changes:
+>> * Renamed property to input-chopping to reflect more common terminology.
+>> * Removed "allowed" from the description.
+>> * Extended description to explain when it should not be used.
+>>
+>> v2 changes:
+>> * New patch.
+>> ---
+>>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 8 ++++++++
+>>  1 file changed, 8 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>> index 308857f11220..c408feebd46d 100644
+>> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>> @@ -80,6 +80,14 @@ properties:
+>>        ADCs usually allow choosing between internal reference sources or a pair
+>>        of external pins.
+>>  
+>> +  input-chopping:
+>> +    type: boolean
+>> +    description:
+>> +      If set, the positive and negative input channels are swapped on every
+>> +      other conversion to reduce offset error. This generally comes at the
+>> +      expense of added settling time between conversions, so should be omitted
+>> +      on systems with high-frequency signals or high data rate requirements.
+> 
+> I'm lazy so I didn't check back, but in my mental model of this, the DT is simply
+> saying that the analog circuitry is suitable for doing chopping.  Driver decision
+> on whether to do it.  Perhaps we can reword it for that?
 
-There is no use in tracking the fuses that are only accessible via
-ELE API and the current lists are incomplete. If the ELE API is
-available it will be used as primary access method anyway, otherwise
-the fuses not listed as accessible through the FSB can be considered
-invalid.
+Heh, that was the "allowed" part that I removed.
 
-No functional changes intended.
+I think this is really more of a design decision between the tradeoff
+of less noise vs. data rate. By setting this property, we are saying
+we should favor less noise. So I think it is more about the expected
+signal than the circuitry.
 
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- drivers/nvmem/imx-ocotp-ele.c | 19 +++++--------------
- 1 file changed, 5 insertions(+), 14 deletions(-)
+So not sure that I would add anything here.
 
-diff --git a/drivers/nvmem/imx-ocotp-ele.c b/drivers/nvmem/imx-ocotp-ele.c
-index 6ac7d588c4bd..f07565c0a02d 100644
---- a/drivers/nvmem/imx-ocotp-ele.c
-+++ b/drivers/nvmem/imx-ocotp-ele.c
-@@ -19,8 +19,7 @@
- 
- enum fuse_type {
- 	FUSE_FSB = BIT(0),
--	FUSE_ELE = BIT(1),
--	FUSE_ECC = BIT(2),
-+	FUSE_ECC = BIT(1),
- 	FUSE_INVALID = -1
- };
- 
-@@ -215,7 +214,7 @@ static int imx_ocotp_reg_read(void *context, unsigned int offset, void *val, siz
- 		}
- 
- 		type = imx_ocotp_fuse_type(context, i);
--		if (type == FUSE_INVALID || type == FUSE_ELE) {
-+		if (type == FUSE_INVALID) {
- 			*buf++ = 0;
- 			continue;
- 		}
-@@ -365,13 +364,9 @@ static const struct nvmem_keepout imx93_ocotp_keepout[] = {
- static const struct ocotp_devtype_data imx93_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 2048,
--	.num_entry = 6,
-+	.num_entry = 2,
- 	.entry = {
- 		{ 0, 52, FUSE_FSB },
--		{ 63, 1, FUSE_ELE},
--		{ 128, 16, FUSE_ELE },
--		{ 182, 1, FUSE_ELE },
--		{ 188, 1, FUSE_ELE },
- 		{ 312, 200, FUSE_FSB }
- 	},
- 	.keepout = imx93_ocotp_keepout,
-@@ -381,7 +376,7 @@ static const struct ocotp_devtype_data imx93_ocotp_data = {
- static const struct ocotp_devtype_data imx94_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 3296, /* 103 Banks */
--	.num_entry = 10,
-+	.num_entry = 9,
- 	.entry = {
- 		{ 0, 1, FUSE_FSB | FUSE_ECC },
- 		{ 7, 1, FUSE_FSB | FUSE_ECC },
-@@ -389,7 +384,6 @@ static const struct ocotp_devtype_data imx94_ocotp_data = {
- 		{ 12, 24, FUSE_FSB },
- 		{ 36, 2, FUSE_FSB  | FUSE_ECC },
- 		{ 38, 14, FUSE_FSB },
--		{ 59, 1, FUSE_ELE },
- 		{ 525, 2, FUSE_FSB | FUSE_ECC },
- 		{ 528, 7, FUSE_FSB },
- 		{ 536, 280, FUSE_FSB },
-@@ -399,7 +393,7 @@ static const struct ocotp_devtype_data imx94_ocotp_data = {
- static const struct ocotp_devtype_data imx95_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 2048,
--	.num_entry = 12,
-+	.num_entry = 9,
- 	.entry = {
- 		{ 0, 1, FUSE_FSB | FUSE_ECC },
- 		{ 7, 1, FUSE_FSB | FUSE_ECC },
-@@ -407,9 +401,6 @@ static const struct ocotp_devtype_data imx95_ocotp_data = {
- 		{ 12, 24, FUSE_FSB },
- 		{ 36, 2, FUSE_FSB  | FUSE_ECC },
- 		{ 38, 14, FUSE_FSB },
--		{ 63, 1, FUSE_ELE },
--		{ 128, 16, FUSE_ELE },
--		{ 188, 1, FUSE_ELE },
- 		{ 317, 2, FUSE_FSB | FUSE_ECC },
- 		{ 320, 7, FUSE_FSB },
- 		{ 328, 184, FUSE_FSB }
 
--- 
-2.55.0
+>> +
+>>    excitation-channels:
+>>      $ref: /schemas/types.yaml#/definitions/uint32-array
+>>      description:
+>>
+> 
 
