@@ -1,102 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010025.outbound.protection.outlook.com [52.101.84.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D421640DFD5
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783959954; cv=none; b=EM2JVpZpL4svm87NEzY9aN4J5gNRb1a2uOfTYmMfBEUES6CvXG2Md8wYvQCX0GsqbuRI4MF4s9l3Uct+vX+OSK+MfVNXav67D4j8X6aR10/i9tzbmDlxTtBxduYVeNYYPVmrrjH2GDBegzNcycp2+JdZkRklGzy1OTyiyI2TBjU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783959954; c=relaxed/simple;
-	bh=GOoX3I4hotF/mhbriVQXW6tIxy+aIb7uKf7/REWVr8o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cfn501AVJAf978uUw4oWMffUCVk1WOwrRG1zrMP126hNFmVQF2BOarCeag2fwuykP2dhrO321cjHFURNFWEkkbo6+d0yXXD554EUN9tCwcmPaLHUI/NVeZbSHBaithvfdbEey22Ndhyutb+GGU8HGV2iPMxt7BANeCRJ4rgMagM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QypSqzo3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8ECA30D3EF;
+	Mon, 13 Jul 2026 16:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783960030; cv=fail; b=UZPHu1fdmIOAJ1SglUhQH1euSzKkfaSXmM+bkQeXxP3ZnTzKNjgVhGtO+VcPhz4041JB/icoFqe6P5mK1MnfDh+yTeTvaMEjlBkyIqrZFR4t/LxIdfwe7E5vjM/BiFciq9oy99EetWbor6RwWhhzfonnrj3NLYcBooFpdpbXEAU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783960030; c=relaxed/simple;
+	bh=Y7O8s5K4Qp0mOPkaUGwJ9A2/FxlglPYARXyRYVUF7O0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Pvbk1VCkFEdBFQFyAG1mfE1Z7TcV1GYxco1VzU9uxLGGEP+Mhfi0xjnT6mgpnEVScLOzIlsQCBKIaQRMlprFM0g1W4yRWzbAfD/pPefaLK/HzmjYRniNdJn+1p1ATX6nrtX5OvvZ/ZHyicNCDbmso/U1z9k/L3x9WZwUeOKjBtc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=mq8GSj3D; arc=fail smtp.client-ip=52.101.84.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QypSqzo3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6C31F000E9;
-	Mon, 13 Jul 2026 16:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783959952;
-	bh=44oiwCbH52v9WBPZhOBKZAhe4bcTgCcc/JPoSO+/+GY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QypSqzo3/8XYF8GZSTue65ScNfmYyrQipW5vXZxrXV4T1foBMjpRgSd9pPuxYPFCi
-	 usMtksCpn5FR6Yw6BlGkKu/jMl9cUhq+byukoveDG7kaqX6qdW2pJEbenS21UUxflX
-	 N5VbK6WVq/OgQHPPkLaIWFS06t6UgPOxjlc0iYHTZhQiosQjydTQN3SQfI30Bg4Nbn
-	 WlJOBRxRkzkAd1gpdyeaWlSMgAtTJuAjJF+XIua6USpA5pMIjp5cp4WdLrSXSq08Nh
-	 lYcflk68Xrd1PoyUPGynfmqHOM9L3X6Ojj+AWKeBufuiwbz2Kc7idXWlJbxD90fY2m
-	 iJx6moLgPuoKQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 10/11] clk: realtek: Add RTD1625-ISO clock
- controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260713155630.3054636-11-eleanor.lin@realtek.com>
-References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
- <20260713155630.3054636-11-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 16:25:51 +0000
-Message-Id: <20260713162552.2A6C31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mq8GSj3D"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=crhzKYw9SVttlrLW8kVIuyjztpJ2CSHtbJlNWidxSLc46v8jH593nrNnxoou98t1mRLDx/rJHB4zkVgTRubVT0tq7uQKcDfkM0lZfvQFWtIFf/gF4clKCbI2wjB+BO2VFX168itIzA3dN81owfbKjw2ywDCSdxIBfBJzXaa/GQ2yLovcckPTRgVwDKf985vBKTtkAu3Au3wP3kxTh8waI6RV5WTeu40A5wcAhBbDni2Ttc+LJYjZqKECp6llk8FtyNfvSFhaY6kn+PeIUju0P8UXJze0Xd4xFK4kKL1cRgeO4++GE33sp9Sl+gVSBROQwWl9ptFJ9GKqeSOdlNj6vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ErE/YwIm24Dywx/my/YNPgjaigFFhYsHNj1m7R7XElo=;
+ b=wG3VlPwYJTAeqcvjkYiwvHU1vPZDiaVS4UPzkSpVPfPJUkf0lCIQFqq97VHUQeHZoEydbJmE986pwZNHVLyKW/L1Nm+ns/+ejZY+3FrC379vdXPtoi1Kv5ZnQ8cUFS/Z3RVFccsc6Y5JQhfGLU1kfi4i8M1uUr1UbAohouUrRhH8exg2aqNaIZ06yYX+CBh36pl3InsNwWuZYCxCE975wVuneMarkhi4ccyxqo2fvtWD6FgusphdjgygDZSggdWDmaSt4okhAu+T+iYirONLU5wMssJqMrxeAKlcvuHnA/nIkCU/nDHzVevdAwBNFBaxfelRTdpCKnvTU0m5Q1mpag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ErE/YwIm24Dywx/my/YNPgjaigFFhYsHNj1m7R7XElo=;
+ b=mq8GSj3DtDxsbFbcj1/fU3OAlQXg8R1cQf0n0I6ALB5eLuR2zzc55xIOzLCImewAt1nzWPdulQE6k8w612YWy+oTHMt0prCk5QyJJ9lfKTNZCUf8cK/QSZRx5+WqCnX23lCSZX13oJNIy4l5MtwCyBg61KK6ON2oQ7oF4zozqgR6QSepYDiVRw21dM8ykS4mGktWr41Kjx7hx7X54z9lBvbrL6KvU9I+pbN3TK4FY/ziR7Wm1do4vZfSvxyls6Evdd7/txmz625nBo7ALmY8GzT/p2PUFGz1xLnE/dS61wpdtZ1b2Yipazmse7Bzx/bTFjZc0FRy3IkqLgCz0cSO9Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DUZPR04MB10016.eurprd04.prod.outlook.com (2603:10a6:10:4dd::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Mon, 13 Jul
+ 2026 16:27:06 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0181.019; Mon, 13 Jul 2026
+ 16:27:06 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	linux@ew.tq-group.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Small fixes for TQMa91xx
+Date: Mon, 13 Jul 2026 12:26:58 -0400
+Message-ID: <178396001431.451755.10982551750390998514.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260707085551.1683462-1-alexander.stein@ew.tq-group.com>
+References: <20260707085551.1683462-1-alexander.stein@ew.tq-group.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH5P222CA0005.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DUZPR04MB10016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c789180-b674-4198-7eff-08dee0fb945e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|19092799006|366016|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	QOGgC4Z1+Ox6PrFq8NwYOewBylGZaFW+IaBk2cAUvQutrJCf6ilmAsKDYd0wuTGZu4uE+096RlcXj/wKACWmRyeYc7kaytLHWAYNXXzRiIL0btf7mANQSZqkuP07yjaywvqqpEgXyUcW6zdcirjqWvwkV2Pnl6q7gQvJ0aD4xSiUG0vhXPzGFs3YcbixR6o1VQWgreU/s87yefiKij/Wf2DRti3zlXCwYlH7b6TCTlk7V0g1Ka0oqCZbBm+liXAJRpdV95ef+h9y01yXUDh2Hj5ShgNXSz+afGG20ph9mhRg/7QEc+8cBXt930hW93PkRt4bz6fSa6gDqAbBx+/mGCrWm6CLnJPkOQ65b46pESL7qyvxo/I03ep/ti5TmMMK4XbwW44lfqWvye5uxCvBW/2KWflHlMgPDjUWJNLP5LSe75C7mycEOzt/S1sor1scz4luc7t77+7xhZeryo3HC6njY2G7my8OLnsgxrXaQTSBUpxCGs+Xo8Vsa81T02k/w205imsNlkf4CpBMZapwcNyr9ITEtqDUwimazpoZEsEYVGfuTUgYHfj8vh/kwJlz1i8TC2nNmN3KAXsRNY/SuSrLqg+gTATq5cK68cj2/6RA1fZ2Ny1GF8PnNUo1rtWjOdsqCO/IMD8yMeN8N8tPn16Aw8VZHBkeRWaNefS+GUk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(19092799006)(366016)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q2ExTzFBbkNaR2xvd0JFbFRvY2wzTy92bEE5UW1yNGNINWJaS0thNTFId3lM?=
+ =?utf-8?B?ekpHQjFvYThzeGd4TFpUeENrYVpkd1llQzFZZ1F3WG1KUVB5NnEvNlR4SzJG?=
+ =?utf-8?B?VHZ6RHFoOW1ZMWxlQTZHODZub0RkeGs3NzVUTTl5amk5eGJoRVNJV1lEZEZq?=
+ =?utf-8?B?emI1eGtRWUhRdFJqRmc5QTNwTVJZZ3VlNDB2VWxjVFBRL3RXdVNvVnpTdzVT?=
+ =?utf-8?B?ZEdZdkhYTXgxbGplZW9Zd2lueFJVcFluaXNDYnAvRFhkSGswUHlqR3pLQ2Vv?=
+ =?utf-8?B?N1c0LzQyVEtwa1VDVXlGd0MwcnZtN1lOT282YmhuaGpKUVBVVzVBb2VGa1Jq?=
+ =?utf-8?B?YU1aWWRQVzd0by9STFRVSzJ3TUluWm9CeFUwQzRkMjlsclFIdS9ONmdvSDFi?=
+ =?utf-8?B?R1owOUUzMWJ6ZE9Td01Za3E1NjVZUytvYWR6RlliYzRPMmRxNlN5dnB0RE1i?=
+ =?utf-8?B?Q3BLNGFDVlMyZmh2MUVqeTM2dDgwL29MRXd4bkllbFAxOTg4UzFqT2JwTnp2?=
+ =?utf-8?B?OGRqbzhoS1A2MDJxaFUyTmc1UWF5NFFLY3RRdEZzazZFVUtmVzk3UitWUHp4?=
+ =?utf-8?B?SzMxdHEraFJjcXdPSU0yQkxSWEV5ZS8xdURVd0JDRS9xYVJvb0xVS0E3dWlM?=
+ =?utf-8?B?b3FaVHJHU3NhdFVBNFZib3l0a1BEdzZKTmZLbnJxV2R1clprYnJWUFdFSGZ5?=
+ =?utf-8?B?SGZFRVhta3dLYkNIbmJlVVpXMk9MUnVPTWR2MUgwSEdtVmpxbDRSRGFuK2pY?=
+ =?utf-8?B?cXQyMDBSZnNWempmckd1ZVZ5WHVQM283UjFTa3VkRlVsWXBxaTZVR0RQS3hW?=
+ =?utf-8?B?R0pTMnBlYjFTUy8yeERRMG9XU3NVeGlUa0IxY3VCakJ2aUhEeWlOOGloLzdV?=
+ =?utf-8?B?T2k2Q0xyVFVqcEVad1prbWNmdFBCK084bCswRHFTTHZ2MzFSMExjTk80VjU4?=
+ =?utf-8?B?ZGc1SHlVb1hiTERXZ2VqOWJNNTlQUWxhVnEzV0dZQ1JFNDkvTUhiaUgvYktk?=
+ =?utf-8?B?N0JiUjExV1dTVHNGckJ2UmdjSytXaGZVTjJtY0VNL1FIeEhtc1ZUb3EwWHZP?=
+ =?utf-8?B?VWZUZDBQUllraTFsbWdYdVFoMWYwUnpGb1dCWG04STNxdHdaOWJQNU9oQkpB?=
+ =?utf-8?B?MzlLN2dLR0VFdEI4NHdDOVNJZEhzVFkwR3hYTlo5ZmwzNFNyWDVyUmFxVFdk?=
+ =?utf-8?B?OTd2T0N2UTZXVFBlLzZJN1hUdEtBZGRUaHBFbzI0clVxTjNUSXBOV1VnTFZF?=
+ =?utf-8?B?VWdDaU1oSjUzV2h4VlM4ZVArditnWUQxblVzOTlGdy9zM2lwYUpJb0o4KzBZ?=
+ =?utf-8?B?djZmdlNKWXRUakEvT05KUEpqS1RTQkVucFdIcnBHYmR3NFdDV0duTGNBSnhj?=
+ =?utf-8?B?aldmLzdiQ0tsZW1CbGtRdTJKS21wSHVnT0JWdDAyTFl3bkpxRTRzSzUySFlZ?=
+ =?utf-8?B?S3d2eitDVkY3YWVndnhlSWJXckkyemVzMGp2WjJEWHQ2ZUVDWUVUcUV6ZHo2?=
+ =?utf-8?B?VTBPY1pKM3FFQzVvTFFBVURFREFoNjdQQ2NVZXI0bVlDVWJxUzBjNWVvaG1r?=
+ =?utf-8?B?WFlldWpEZ3RjYnN0RUJQL0ZNNkZRZnhucHYwSkdieU02RlE3Z1ExMjBJQ1kv?=
+ =?utf-8?B?bHU1RXo5OXhXWDVmajJaSk9JNld2djdORDFGNXJlMlJvdUgrb1hxb0tjR0FD?=
+ =?utf-8?B?L0taa3dTdW5tZzZCeitiSjk5UVQwcmFENm9jRW1ZTWZ1Q0xuWGk0OUo3YTE1?=
+ =?utf-8?B?ZDNJbkZ5STlQL0hqUXNQZExUU1hCck1OUnpjdW9uTFZuYVR1eGRhT1ZHN0k0?=
+ =?utf-8?B?c1FNNDFTTzd3b2M1TVBNL0J1UW55R2NDZFg3TGpVQis0ZkkyYnNoZ2lDZ0dw?=
+ =?utf-8?B?RGF5eDB2dnd6RlA0TDVrSEpzeDNyRzA0OWttNkZNK1BHNXE3bURmOHJHUzRV?=
+ =?utf-8?B?UytuWGNWWFNwM3FQVUxkNkpOMDZzY2JSNXVJczJvcW1uNGhkZ2Fzc0ZXSXQr?=
+ =?utf-8?B?Lzl5U3VGbVNNMnZnK3Nudmdub2hCeXcyNVc2a28yYUJPTlBMeTJsTWUrOHlo?=
+ =?utf-8?B?REVlQ2FVYmRpbGVFL2NWUjdHaUoyNjJTaVF4cTVTSW9NQk5pSFVhc3RrQkRx?=
+ =?utf-8?B?Q2lJR1JYQjJicG90L0w4Unk0Mll6NUlJNWh0ckhnbXdYVkEvcFFZeHltRjNX?=
+ =?utf-8?B?YitJVmJPenRPWWlXZkNtcU9HZCthNFdtYlRjSFYrN3lndkZFeDRpRDZKSXI5?=
+ =?utf-8?B?L2R1ZlRqZVgzeDIzRmV3c3g5Mllnak1PN3A5ZDNnKzBVWkV6UXM4d3lKWmFG?=
+ =?utf-8?B?TWVEci9iYnZZUUF0cG8vR1lseTBGY0VvN0Rnam91RFIxZkw3OGpyVk8yd0t0?=
+ =?utf-8?Q?RecxgmaZKiXKRc8jSqRM5wgMeJA0W0XYgOD1N?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c789180-b674-4198-7eff-08dee0fb945e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 16:27:06.6029
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RGy62a3jOxdF0lHTn3+9w64S5GIdCh1tkiUNV9swQbzQJgbp1fmZBEJ8WhvBGGoGkX8CxmNm3GGXg2bqYz0aHHsIllA0qbYjD9ECZtj4O48EhXFFuj11Fs0E2NixkOlM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB10016
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Unused macros RTD1625_ISO_RSTN_MAX and RTD1625_ISO_S_RSTN_MAX are d=
-efined in the clock driver.
---
+From: Frank Li <Frank.Li@nxp.com>
 
---- Patch [10]: [PATCH v10 10/11] clk: realtek: Add RTD1625-ISO clock contr=
-oller driver ---
-commit c492e99cbe50d13329cfaeaed02f38be0c5245e8
-Author: Cheng-Yu Lee <cylee12@realtek.com>
 
-clk: realtek: Add RTD1625-ISO clock controller driver
+On Tue, 07 Jul 2026 10:55:41 +0200, Alexander Stein wrote:
+> here are two small fixes for TQMa91xx.
+> One adds the USB PHY settings similar to other TQ mainboards.
+> The other one fixes the reserved memory for EdgeLock Enclave to be suitable
+> for 512MiB variants as well.
+> 
+> Best regards,
+> Alexander
+> 
+> [...]
 
-This commit adds support for the ISO domain clock controller on the Realtek
-RTD1625 SoC. It manages clocks in the always-on power domain and acts as a
-parent device to register the shared reset controller as an auxiliary devic=
-e.
+Applied, thanks!
 
-> diff --git a/drivers/clk/realtek/clk-rtd1625-iso.c b/drivers/clk/realtek/=
-clk-rtd1625-iso.c
-> new file mode 100644
-> index 0000000000000..07ff8b95db3e9
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtd1625-iso.c
-> @@ -0,0 +1,147 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2024-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#include <dt-bindings/clock/realtek,rtd1625-clk.h>
-> +#include <linux/array_size.h>
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include "clk-regmap-gate.h"
-> +
-> +#define RTD1625_ISO_CLK_MAX	19
-> +#define RTD1625_ISO_RSTN_MAX	29
-> +#define RTD1625_ISO_S_CLK_MAX	5
-> +#define RTD1625_ISO_S_RSTN_MAX	5
+[1/2] arm64: dts: imx91-tqma9131-mba91xxca: USB phy adjustments
+      commit: b463d4de9d365690d44fac9b8136190332639de1
+[2/2] arm64: dts: imx91-tqma9131: move ele-reserved memory into 512MB range
+      commit: 96927ebe2610849ebdd78635b2e63a7af7a94eae
 
-[Severity: Low]
-This isn't a bug, but are the RTD1625_ISO_RSTN_MAX and RTD1625_ISO_S_RSTN_M=
-AX
-macros intended to be used in this file? They appear to be defined locally
-here but are never referenced anywhere within the driver.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713155630.3054=
-636-1-eleanor.lin@realtek.com?part=3D10
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
