@@ -1,196 +1,183 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852131E5714
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 04:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159C62750FB;
+	Mon, 13 Jul 2026 04:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783916382; cv=none; b=BWWe3XbkL/Qw0GE69tGFmEZt+ztSZEJs9IQpWp9Z3vgLb4N40+Y8Elj6aXEq/mkYW5tJRf+AXM1Me9LNHizrpFHhBM/eu0sMfK8+hIFzb/atab36mY88VtfOMeHS0tZGqW2tQ628XtCqPXZkCPiyi63P5WGOOC/lWPEzhsU24GI=
+	t=1783918619; cv=none; b=olXsU4+51/XJIcMlh2VfWKrmVzjXzGB2s/8W8eWrz/4nJy4LGkRMGV4QOZ/y/XXYBap9z2HE9E52Bjk+i6e58m9dtzSNuc9C8QcL80kU7zO/FblB1rhX6SVUpFBhSDvegGi/yGbV6tK1YjgV2r5abOMjjN9h6sH4CELB7tnzcoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783916382; c=relaxed/simple;
-	bh=IxfDQyfKPrGzX5OCPSzHwmJBzwrnlzrD4tLJ1tiunh0=;
+	s=arc-20240116; t=1783918619; c=relaxed/simple;
+	bh=/94lvdcimq2Roxo5Vqv88vv9tLT99AmeMn/ihS83wuM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZK8fbJagsZgldiVQ6BQvKk/BkLge2N+sEPRLNo/7NJhtmSjg7+CKCTEPqnnhGSLtpkedVTPkMJGFAMwGc2FI2A0s8bMrTBonAJ4L/qxUkyPhjX9CpJqEe0sOBF09Hob7dWKlYl1HTeIQ5Bp9lC8Eli5NcveHwLEvm7Y0Rjlpv0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFVA6XR9; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qP9Zhlgk16+hS3otkqA638WAAEopzfmhcJh1BriZ2I2zEQEh4u3LDC0hbbHCn5kEtvMArl/n+y228rbr5giKruniF9MT9T2pdhftNbCmQdB6fpD15TdfF/So9Ikee2gTzgk17B71WQzTBI38cQ1rqUjHvmJSaJki6blyhoBoc8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBY+E11j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFVA6XR9"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e07ebd263so108524a91.1
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 21:19:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783916379; x=1784521179; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rgv4FYkRaN7PLX5rljI9fT7G1HxI9jDppUCYHF4loYE=;
-        b=AFVA6XR9hZWl2w03arw/Eq87PFxNmG4/2Fo6pjISQExx22ULnpTj5XXJjcoqxsllkf
-         oOBxyWRzpnE+T7JjfIziJrdDfy5s0wXH3aAokI0O7ZrCetLglGwOchMT5K4EFn6Wq95t
-         Ur/6MMsUSzNY7/+i4jnyr86fLrDz2WNTVxzM62qulzDw8p9XWeLY5Vh+5ux8Ew7iG/5s
-         t9DlEhz3SXaZN1l8p+iu+ftG68U/HPlIfW/h0O2KMQVKVW4tvrsuQefKCeJ1O7SUb1MF
-         Hzs0vGs/ew73vdL6wLs96+Tv9q7FzyYeE6NXIO9tuKZnu2dptnr46j1vva4Hz1ot7o3Y
-         kWzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783916379; x=1784521179;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rgv4FYkRaN7PLX5rljI9fT7G1HxI9jDppUCYHF4loYE=;
-        b=BL1JgRILjpGNX/eljCc5RkQFuFavdGLnOsmIcCC4WpUVlwdf42VKPPSp/FX2C4glJg
-         K31ZDqZ3zT2f0R8l+TFNQFNDi3xRBMG4LGet4bpOWqLyWgTESIWpfB24Q95BLSEYwm3D
-         e/sgi3zkPFyT0qiSyon6dpERihm+qYS8I/OTxEm/YFyUBwCL1/2fjwkr3BDRDzWqjXV4
-         0dy0IyHhaX437tbLPGLs0HDOYkfckleG5TGNPQECKg3QcBBczw0kelyQqbf8Vvv/F9xx
-         3DMdMXV0VzGQZQ/i1VnhmFywMPyMinuGchnwcB1r2Zm2ZhuQRFoJlXZr3dMRb4l3skd1
-         j8BA==
-X-Forwarded-Encrypted: i=1; AHgh+RoiJuec6fBuLKvCP8Yv2mkgOkevVUvIxnkterf5ZDYbx0yw3mUcKR2lU58McsYePCVjexhoXqYQW3Ww@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPPJ9KVCqv6ubQ37EEBk2bYJmRx+rSXS8VCuXZG7zTxC0VJ2Ml
-	Vky0MrzNYfBzueHPf7AnO/KozT2a7aK3rrJHBuK9vDHFI0X5iK40mK6o
-X-Gm-Gg: AfdE7cmSJakYqEZo/5GNvs2eOKvGmUm80MHjGSUukGfyEL0uvKcdjKXn/d+5hGlrfCr
-	uHd24xSny8TFyUZykKQbOZJiAuD9a7cYXL0FrsF7lwbMlUHnBieK9awoWOvTB+sTeDoOwDxJcJ+
-	o+bwnbBa2RxXQFeF1xFEKF4ritAcn+VnWuEsRppKIZ3z+rGsaP3uV9c9H9tHixqcqvFjlP1BAvT
-	ItGECDCccjleGYvvAtAOtwMyjwkncPdyh/vQoeeskuz2mmlaT1OOMTL69bH62EEnYOokY9O0m34
-	UeRLMDA43Pu7wOTN5IWsCK73fTt/0PCpN2Zds6LG5+xGaakuP4kJcmNUinsxDGzeMkx1E2sAzAZ
-	7DqgPKWpYZrjdItm0saQC2+b+WEMuzww+N3nV6/EQ7rl/LsCtrDVYAZZtZihbQeBf
-X-Received: by 2002:a17:90b:560f:b0:389:8f6c:4d59 with SMTP id 98e67ed59e1d1-38dc7779d1bmr7680081a91.24.1783916378749;
-        Sun, 12 Jul 2026 21:19:38 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38d11280409sm2565175a91.0.2026.07.12.21.19.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Jul 2026 21:19:38 -0700 (PDT)
-Date: Mon, 13 Jul 2026 12:18:53 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: k3: Add PCIe device node
-Message-ID: <alRmA-X4xbQ9zPFn@inochi.infowork>
-References: <20260709040415.977784-1-inochiama@gmail.com>
- <20260709040415.977784-3-inochiama@gmail.com>
- <2ml6mcgwkf4eidwjetmd75henrkig4zzugzfww7buirucddho7@qrs4gasurnv3>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBY+E11j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520441F000E9;
+	Mon, 13 Jul 2026 04:56:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783918617;
+	bh=jJKBYEa9rmr3kvyqLbAs5Ywz97Hji7oACJ4jFgIyWhw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PBY+E11jlqgQQIDZUU5NB9ily54ng2B7A0IQ+x0NPi3w7IQmtXvMM+0UwvlBndEZ0
+	 U7IRy2Zmfp/d2Q01FJuhFhlk7q3eKOffl+0iWGSaalhP7lyaepNkO9/1ZUe8AMBs01
+	 Vousxc+DyINtJgVKHFZaNoUyJ1oLHWxyP4zFF6peyuFyNBCnG9Nk33Z8ol3Xj+pqQ8
+	 eAPwklqg/O4gC5VAprHX1ofLAAOR8m5bLsHOBNy4x6wmkoLqpwm9IyI9Lbft7CvNAU
+	 GKgANzx6p3Rfs+aFcYreUOj5Q7vVvsF7Kl4NOLXaGCd5KNvG3zJguTMvNgiFx+fP0F
+	 Jb0+zqqfMSSiw==
+Date: Mon, 13 Jul 2026 06:56:45 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+	festevam@gmail.com, amitkumar.karwar@nxp.com, neeraj.sanjaykale@nxp.com, 
+	marcel@holtmann.org, luiz.dentz@gmail.com, hongxing.zhu@nxp.com, 
+	l.stach@pengutronix.de, lpieralisi@kernel.org, kwilczynski@kernel.org, 
+	bhelgaas@google.com, brgl@kernel.org, imx@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org, sherry.sun@nxp.com
+Subject: Re: [PATCH V6 3/4] Bluetooth: btnxpuart: Add M.2 Bluetooth device
+ support using pwrseq
+Message-ID: <mow4vuf6zf6c7uzb7zbvwuw3b5p5q5rfghw266f2eiesvhssle@7jzavek52rt7>
+References: <20260713023435.235765-1-sherry.sun@oss.nxp.com>
+ <20260713023435.235765-4-sherry.sun@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <2ml6mcgwkf4eidwjetmd75henrkig4zzugzfww7buirucddho7@qrs4gasurnv3>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260713023435.235765-4-sherry.sun@oss.nxp.com>
 
-On Sun, Jul 12, 2026 at 11:13:07PM -0500, Anirudh Srinivasan wrote:
-> Hi Inochi,
+On Mon, Jul 13, 2026 at 10:34:34AM +0800, Sherry Sun (OSS) wrote:
+> From: Sherry Sun <sherry.sun@nxp.com>
 > 
-> On Thu, Jul 09, 2026 at 12:04:14PM +0800, Inochi Amaoto wrote:
-> > Add all PCIe device node for Spacemit K3.
-> > 
-> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > ---
-> >  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  38 ++++
-> >  arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi |  33 ++++
-> >  arch/riscv/boot/dts/spacemit/k3.dtsi         | 195 +++++++++++++++++++
-> >  3 files changed, 266 insertions(+)
-> > 
+> Power supply to the M.2 Bluetooth device attached to the host using M.2
+> connector is controlled using the 'uart' pwrseq device. So add support
+> for getting the pwrseq device if the OF graph link is present.
 > 
-> I see some warnings printed during probe
+> Once obtained, pwrseq_power_on() is called to power up the M.2 Bluetooth
+> card. The power sequencer descriptor is obtained via pwrseq_get() with
+> the UART controller device (serdev->ctrl->dev), since the OF graph
+> link is defined on the UART controller node.
 > 
-> [   10.842955] r8169 0002:01:00.0: of_irq_parse_pci: failed with rc=-22
+> Also add the explicit pwrseq_put() call in all exit paths, pwrseq_put()
+> already calls pwrseq_power_off() internally, so no separate
+> pwrseq_power_off() call is needed.
 > 
-> [   10.937754] rtw89_8852be 0004:01:00.0: of_irq_parse_pci: failed with rc=-22
+> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+
+- Mani
+
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> Hi Frank and Bartosz, this V6 patch using pwrseq_put() in all exit paths to
+> fix the power sequencer reference leak issue during BT driver unload and
+> reload as reported by sashiko. I'm keeping your Reviewed-by tag. I can
+> remove it if you think it's inappropriate.
+> ---
+>  drivers/bluetooth/btnxpuart.c | 34 ++++++++++++++++++++++++++++++----
+>  1 file changed, 30 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/bluetooth/btnxpuart.c b/drivers/bluetooth/btnxpuart.c
+> index 0bb300eef157..81a11ac05114 100644
+> --- a/drivers/bluetooth/btnxpuart.c
+> +++ b/drivers/bluetooth/btnxpuart.c
+> @@ -9,6 +9,8 @@
+>  
+>  #include <linux/serdev.h>
+>  #include <linux/of.h>
+> +#include <linux/of_graph.h>
+> +#include <linux/pwrseq/consumer.h>
+>  #include <linux/skbuff.h>
+>  #include <linux/unaligned.h>
+>  #include <linux/firmware.h>
+> @@ -211,6 +213,7 @@ struct btnxpuart_dev {
+>  
+>  	struct ps_data psdata;
+>  	struct btnxpuart_data *nxp_data;
+> +	struct pwrseq_desc *pwrseq;
+>  	struct reset_control *pdn;
+>  	struct hci_uart hu;
+>  };
+> @@ -1872,11 +1875,26 @@ static int nxp_serdev_probe(struct serdev_device *serdev)
+>  		return err;
+>  	}
+>  
+> +	if (of_graph_is_present(dev_of_node(&serdev->ctrl->dev))) {
+> +		struct pwrseq_desc *pwrseq;
+> +
+> +		pwrseq = pwrseq_get(&serdev->ctrl->dev, "uart");
+> +		if (IS_ERR(pwrseq))
+> +			return dev_err_probe(&serdev->dev, PTR_ERR(pwrseq),
+> +					     "failed to get pwrseq\n");
+> +
+> +		nxpdev->pwrseq = pwrseq;
+> +		err = pwrseq_power_on(pwrseq);
+> +		if (err)
+> +			goto err_pwrseq_put;
+> +	}
+> +
+>  	/* Initialize and register HCI device */
+>  	hdev = hci_alloc_dev();
+>  	if (!hdev) {
+>  		dev_err(&serdev->dev, "Can't allocate HCI device\n");
+> -		return -ENOMEM;
+> +		err = -ENOMEM;
+> +		goto err_pwrseq_put;
+>  	}
+>  
+>  	reset_control_deassert(nxpdev->pdn);
+> @@ -1907,13 +1925,16 @@ static int nxp_serdev_probe(struct serdev_device *serdev)
+>  	if (bacmp(&ba, BDADDR_ANY))
+>  		hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY);
+>  
+> -	if (hci_register_dev(hdev) < 0) {
+> +	err = hci_register_dev(hdev);
+> +	if (err < 0) {
+>  		dev_err(&serdev->dev, "Can't register HCI device\n");
+>  		goto probe_fail;
+>  	}
+>  
+> -	if (ps_setup(hdev))
+> +	if (ps_setup(hdev)) {
+> +		err = -ENODEV;
+>  		goto probe_fail_unregister;
+> +	}
+>  
+>  	hci_devcd_register(hdev, nxp_coredump, nxp_coredump_hdr,
+>  			   nxp_coredump_notify);
+> @@ -1925,7 +1946,10 @@ static int nxp_serdev_probe(struct serdev_device *serdev)
+>  probe_fail:
+>  	reset_control_assert(nxpdev->pdn);
+>  	hci_free_dev(hdev);
+> -	return -ENODEV;
+> +err_pwrseq_put:
+> +	if (nxpdev->pwrseq)
+> +		pwrseq_put(nxpdev->pwrseq);
+> +	return err;
+>  }
+>  
+>  static void nxp_serdev_remove(struct serdev_device *serdev)
+> @@ -1952,6 +1976,8 @@ static void nxp_serdev_remove(struct serdev_device *serdev)
+>  	ps_cleanup(nxpdev);
+>  	hci_unregister_dev(hdev);
+>  	reset_control_assert(nxpdev->pdn);
+> +	if (nxpdev->pwrseq)
+> +		pwrseq_put(nxpdev->pwrseq);
+>  	hci_free_dev(hdev);
+>  }
+>  
+> -- 
+> 2.50.1
 > 
 
-This is an expected error because the driver does not support INTx
-but the hardware claims it supports. Since the vendor does not want
-to support it, so there is no way for the upstreamer to add this.
-
-> I see that all the 3 rc nodes are missing an interrupts node and an
-> interrupt parent (saplic). The vendor DT seems to have this. Not sure if
-> this is related.
-> 
-> The 10G ethernet probes fine, but the wifi card fails to probe. Seems
-> like the card is trying to request 32 bit DMA addresses and we're
-> failing cause we have 64 bit memory only.
-> The vendor kernel seems to have a patch to enable 36 bit DMA in
-> the rtw89 driver. That'll probably fix this.
-> 
-
-This warning is also found on my test, it is not related to
-the PCIe driver, but a lack of the RTL phy driver. :(
-
-You may also noticed a bad performance on this 10G ethernet,
-it is caused by the single queue used by the RTL driver.
-IIRC, even 9800 X3D can not achieve the max speed.
-
-Regards,
-Inochi
-
-> [   10.937754] rtw89_8852be 0004:01:00.0: of_irq_parse_pci: failed with rc=-22
-> [   10.987983] rtw89_8852be 0004:01:00.0: loaded firmware rtw89/rtw8852b_fw-2.bin
-> [   10.988151] rtw89_8852be 0004:01:00.0: enabling device (0000 -> 0003)
-> [   10.988215] (udev-worker): page allocation failure: order:2, mode:0xcc4(GFP_KERNEL|GFP_DMA32), nodemask=(null),cpuset=/,mems_allowed=0
-> [   10.988243] CPU: 5 UID: 0 PID: 503 Comm: (udev-worker) Not tainted 7.2.0-rc1-00034-gc57907b4459d #1 PREEMPT(lazy)
-> [   10.988249] Hardware name: SpacemiT K3 Pico-ITX (DT)
-> [   10.988252] Call Trace:
-> [   10.988255] [<ffffffff8001f2b8>] dump_backtrace+0x28/0x48
-> [   10.988265] [<ffffffff80002612>] show_stack+0x3a/0x58
-> [   10.988269] [<ffffffff80016432>] dump_stack_lvl+0x5a/0x88
-> [   10.988274] [<ffffffff80016478>] dump_stack+0x18/0x22
-> [   10.988277] [<ffffffff803984da>] warn_alloc+0x102/0x120
-> [   10.988283] [<ffffffff80398b7a>] __alloc_frozen_pages_noprof+0x682/0x1470 
-> [   10.988288] [<ffffffff80399980>] __alloc_pages_noprof+0x18/0x38
-> [   10.988292] [<ffffffff80113494>] __dma_direct_alloc_pages.isra.0+0x26c/0x428
-> [   10.988298] [<ffffffff801137a8>] dma_direct_alloc+0x78/0x3d0
-> [   10.988301] [<ffffffff8011282c>] dma_alloc_attrs+0x74/0x240
-> [   10.988309] [<ffffffff031a6bb6>] rtw89_pci_probe+0x20e/0xc90 [rtw89_pci]
-> [   10.988375] [<ffffffff8087cd1c>] local_pci_probe+0x3c/0x90
-> [   10.988381] [<ffffffff8087def6>] pci_device_probe+0xde/0x298
-> [   10.988385] [<ffffffff80a80f3e>] really_probe+0x9e/0x3e0
-> [   10.988390] [<ffffffff80a81308>] __driver_probe_device+0x88/0x190
-> [   10.988393] [<ffffffff80a814f8>] driver_probe_device+0x38/0xc0
-> [   10.988396] [<ffffffff80a81796>] __driver_attach+0xbe/0x208
-> [   10.988399] [<ffffffff80a7e22c>] bus_for_each_dev+0x6c/0xd0
-> [   10.988404] [<ffffffff80a806ce>] driver_attach+0x26/0x40
-> [   10.988407] [<ffffffff80a7fcac>] bus_add_driver+0x15c/0x298
-> [   10.988410] [<ffffffff80a82a82>] driver_register+0x52/0x118
-> [   10.988413] [<ffffffff8087c44c>] __pci_register_driver+0x4c/0x70
-> [   10.988417] [<ffffffff02fbc038>] rtw89_8852be_driver_init+0x30/0xff8 [rtw89_8852be]
-> [   10.988422] [<ffffffff80017b2a>] do_one_initcall+0x5a/0x2d0
-> [   10.988427] [<ffffffff8011d7b6>] do_init_module+0x96/0x2c0
-> [   10.988430] [<ffffffff8011f6c6>] load_module+0x19a6/0x2078
-> [   10.988434] [<ffffffff80120046>] init_module_from_file+0xce/0x138
-> [   10.988437] [<ffffffff801202d0>] __riscv_sys_finit_module+0x220/0x398
-> [   10.988441] [<ffffffff81010c40>] do_trap_ecall_u+0x108/0x588
-> [   10.988446] [<ffffffff81022a14>] handle_exception+0x16c/0x178
-> [   10.988455] Mem-Info:
-> [   10.988483] active_anon:5773 inactive_anon:0 isolated_anon:0
->                 active_file:0 inactive_file:30149 isolated_file:0
->                 unevictable:0 dirty:222 writeback:0
->                 slab_reclaimable:3461 slab_unreclaimable:8595
->                 mapped:5588 shmem:115 pagetables:949
->                 sec_pagetables:0 bounce:0
->                 kernel_misc_reclaimable:0
->                 free:4028911 free_pcp:0 free_cma:0
-> [   10.988493] Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=1048576kB
-> [   10.988497] Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=64kB
-> [   10.988501] Node 0 hugepages_total=0 hugepages_free=0 hugepages_surp=0 hugepages_size=2048kB 
-> [   10.988505] 30300 total pagecache pages
-> [   10.988508] 0 pages in swap cache
-> [   10.988511] Free swap  = 0kB
-> [   10.988514] Total swap = 0kB
-> [   10.988516] 4186368 pages RAM
-> [   10.988519] 0 pages HighMem/MovableOnly
-> [   10.988522] 86381 pages reserved
-> [   10.988525] 0 pages cma reserved
-> [   10.988528] Memory cgroup min protection 0kB -- low protection 0kB
-> [   10.988532] rtw89_8852be 0004:01:00.0: failed to alloc dma tx rings
-> [   10.994421] rtw89_8852be 0004:01:00.0: failed to alloc pci trx rings
-> [   11.000734] rtw89_8852be 0004:01:00.0: failed to setup pci resource
-> [   11.007088] rtw89_8852be 0004:01:00.0: probe with driver rtw89_8852be failed with error -12
-> 
-> Regards
-> Anirudh Srinivasan
+-- 
+மணிவண்ணன் சதாசிவம்
