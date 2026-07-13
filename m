@@ -1,88 +1,449 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E8B1DED5B;
-	Mon, 13 Jul 2026 19:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE68357CE5;
+	Mon, 13 Jul 2026 19:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783971768; cv=none; b=grjMT19w6HghzZgVytFcUpg3EiJT3+S9z0Le5RGo9Ci9WYNSAUKDDgIy3yYLD+fLXmWs0NVp9IAA8weu7y4Fg33NAFmGfo7WtZFb89HXUklQEgGgYlQkCd6BcCBnOiIijNgwYiei0qAi+5Lom6A6RlUpKPv2IQfJ5zkTpY9vNpc=
+	t=1783971802; cv=none; b=FbCIz+oKKwDIze0HFIVhO0EhLV6ZO41DbMquSGSHp6N5jyKPAtPQ6xnX/QrOuMMCxsarqz/njXQ1nrfsQznOx/KCPrWF38rqP1sHAG8LdAWZl1hsKwofzY/PY3cy9GroG8q71FQp+w2Wb2EAC1OdW38oYLrg6RPciO8NsH9rh/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783971768; c=relaxed/simple;
-	bh=/vYHS96BW+9vTUzU2bvVGFdcdxyli4EPs943INPCeHI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VKHmjOjvw9tyajmQDEwrSOoImjfBnkAncEwyJHQFbR5RWZogdDhxFinmB5xgGpaIPm5c6+eWLWTylO+RJYsX9ay87xGnq/GI8+x/eCmHnzzYpE8kzewwhQqtezwFdJ2QE7Su19hY74Hu3Mojf9w0i5YTdoVSIv7Glg0INUF2XWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/3eATsc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783971802; c=relaxed/simple;
+	bh=ORKrp2apu4uI4yF4r9MjF5WOFCY4SwCjKAksybb1N14=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OUymjtS1OAEYVmJ3Ns1vmRp7NoXZsp1A0qZsypS8pf9f+bIOJNcz+09wRFDUP0tssN6WGTS+gkN9mHYVfEMCofB6giw4ZaYJz9tO13IJJgg/F5JUL1YhaSn6f93zgNzrySOlaTrME0AJOGLlyT8JklthGMABW2okMuDVaFrPMNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oMQMsVqE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/3eATsc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67CA1F000E9;
-	Mon, 13 Jul 2026 19:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783971767;
-	bh=elXTeEAGkdpcwI97nGR5SmwcDg8hTQbyL2nyh9ZsNes=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U/3eATsc6K98u3BI2GdPqvZTII1yKFse+0pC1Wjbq9ca3r6uUFl2jhUCl1c2xzdw4
-	 x7T5+hTAfPoXKJAkSaQOo0dGo0gGlnpAJn4MLcb+A8eCAAc4BgqulRI3vHS9E66o1D
-	 7kFRq3gZ8anUeqvnenxdaTG2kDjXUX7AaEguZTBWxHWFcQvV5gVhiYLvBTJOUOwgtF
-	 +oE7xV1wSMeEV5q6D02dt+8mMqcpz+dBHwqM1dsiTTyET8ppnjWfCKDyyzHG9SYsZU
-	 QiaXErvvtPPM6fhE0N3EFhCuoKYE6TVypleojjSvdmCnBVRh66+gaRfPUNrDm/dx2b
-	 aE5y8ZSwM3CxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/11] arm64: dts: qcom: shikra: Enable CDSP, LPAICP
- and MPSS on EVK boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: dmaengine@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260714-shikra-dt-m1-v6-7-bee265d3499b@oss.qualcomm.com>
-References: <20260714-shikra-dt-m1-v6-0-bee265d3499b@oss.qualcomm.com>
- <20260714-shikra-dt-m1-v6-7-bee265d3499b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 19:42:46 +0000
-Message-Id: <20260713194246.A67CA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oMQMsVqE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783971799;
+	bh=ORKrp2apu4uI4yF4r9MjF5WOFCY4SwCjKAksybb1N14=;
+	h=Subject:From:To:Date:In-Reply-To:References:From;
+	b=oMQMsVqE8LhMKyC476GoOvqojvnCeyvjot7GnEcYmHu3lHE1y42Puh0RRcszwyXjI
+	 uQF6oZLUZ62eZA5pZLZ2t1QwwmYyD4F0iZPwqehsIdQjOgcs0MpV4JUpkOMoaVs+cz
+	 80Ju7NiVvQDlPrb2UNOcceeHE8o/Xx7IE+z/lxYUQ/06/+mjH/ujDN+cq6VK0C2I6d
+	 qVGwwogfsvjhKtIxv7hSwFhlwSCNa6DUpHkooC0TGlsGZ8tw5ojDtQMZLZmiePBUyh
+	 CylYPSQq9WgmDpsBEZlAcVqVFS2mCmVGKvdtVEgCUHLMHkA3vYrslgLPDxu9qvmPPG
+	 s1PjmYJUBX0HA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 886FF17E07A2;
+	Mon, 13 Jul 2026 21:43:16 +0200 (CEST)
+Message-ID: <30e207833eb9ed55bf1fb924d9c5e8bb3302c2e6.camel@collabora.com>
+Subject: Re: [PATCH v15 05/12] media: mediatek: jpeg: Fix multi-core clk
+ suspend and resume setting
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Kyrie Wu <kyrie.wu@mediatek.com>, Hans Verkuil
+ <hverkuil-cisco@xs4all.nl>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger	
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Date: Mon, 13 Jul 2026 15:43:14 -0400
+In-Reply-To: <20260702072614.10373-6-kyrie.wu@mediatek.com>
+References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
+	 <20260702072614.10373-6-kyrie.wu@mediatek.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-MsJEsU/3g1tPPkLip8P2"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The MPSS firmware path for the IQS EVK board incorrectly uses th=
-e CQS board's firmware directory due to a likely copy-paste error.
---
 
---- Patch [7]: [PATCH v6 07/11] arm64: dts: qcom: shikra: Enable CDSP, LPAI=
-CP and MPSS on EVK boards ---
-commit c0f88c4032c0357d309d8548cec707d24e9ad614
-Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+--=-MsJEsU/3g1tPPkLip8P2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: qcom: shikra: Enable CDSP, LPAICP and MPSS on EVK boards
+Hi,
 
-This commit enables the CDSP, LPAICP, and MPSS remote processors for the
-Qualcomm Shikra CQM, CQS, and IQS EVK boards.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boo=
-t/dts/qcom/shikra-iqs-evk.dts
-> index 3003a47bd7594..727809430fd15 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-[ ... ]
-> +&remoteproc_mpss {
-> +	firmware-name =3D "qcom/shikra/cqs/qdsp6sw.mbn";
-
-[Severity: Medium]
-Does this firmware path incorrectly point to the cqs directory instead of i=
-qs
-for the IQS EVK board? It looks like this might cause the modem remoteproc =
-on
-the IQS board to load the wrong firmware intended for the CQS board.
-
+Le jeudi 02 juillet 2026 =C3=A0 15:26 +0800, Kyrie Wu a =C3=A9crit=C2=A0:
+> The suspend/resume callback function is defined in the dev_pm_ops
+> structure, which is defined in platform_driver. For multiple-core
+> architecture, each hardware driver will register a platform_driver
+> structure, so it is necessary to add a suspend/resume callback
+> function for each hardware to support this operation.
+>=20
+> Fixes: 934e8bccac95 ("mtk-jpegenc: support jpegenc multi-hardware")
+> Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware"=
+)
+> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+> ---
+> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_core.c=C2=A0=C2=A0=C2=A0 | 28 +=
+++------
+> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_dec_hw.c=C2=A0 | 62 +++++++++++=
+++++++--
+> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_enc_hw.c=C2=A0 | 60 +++++++++++=
++++++--
+> =C2=A03 files changed, 121 insertions(+), 29 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index 76a5b49b7f43..89048aba8dca 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1115,6 +1115,9 @@ static void mtk_jpeg_clk_on(struct mtk_jpeg_dev *jp=
+eg)
+> =C2=A0{
+> =C2=A0	int ret;
+> =C2=A0
+> +	if (jpeg->variant->multi_core)
+> +		return;
 > +
-> +	status =3D "okay";
-> +};
+> =C2=A0	ret =3D clk_bulk_prepare_enable(jpeg->variant->num_clks,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jpeg->variant->clks);
+> =C2=A0	if (ret)
+> @@ -1123,6 +1126,9 @@ static void mtk_jpeg_clk_on(struct mtk_jpeg_dev *jp=
+eg)
+> =C2=A0
+> =C2=A0static void mtk_jpeg_clk_off(struct mtk_jpeg_dev *jpeg)
+> =C2=A0{
+> +	if (jpeg->variant->multi_core)
+> +		return;
+> +
+> =C2=A0	clk_bulk_disable_unprepare(jpeg->variant->num_clks,
+> =C2=A0				=C2=A0=C2=A0 jpeg->variant->clks);
+> =C2=A0}
+> @@ -1647,13 +1653,6 @@ static void mtk_jpegenc_worker(struct work_struct =
+*work)
+> =C2=A0		goto enc_end;
+> =C2=A0	}
+> =C2=A0
+> -	ret =3D clk_prepare_enable(comp_jpeg[hw_id]->venc_clk.clks->clk);
+> -	if (ret) {
+> -		dev_err(jpeg->dev, "%s : %d, jpegenc clk_prepare_enable fail\n",
+> -			__func__, __LINE__);
+> -		goto enc_end;
+> -	}
+> -
+> =C2=A0	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+> =C2=A0	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
+> =C2=A0
+> @@ -1750,20 +1749,13 @@ static void mtk_jpegdec_worker(struct work_struct=
+ *work)
+> =C2=A0	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
+> =C2=A0
+> =C2=A0	mtk_jpegdec_set_hw_param(ctx, hw_id, src_buf, dst_buf);
+> -	ret =3D pm_runtime_get_sync(comp_jpeg[hw_id]->dev);
+> +	ret =3D pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
+> =C2=A0	if (ret < 0) {
+> =C2=A0		dev_err(jpeg->dev, "%s : %d, pm_runtime_get_sync fail !!!\n",
+> =C2=A0			__func__, __LINE__);
+> =C2=A0		goto dec_end;
+> =C2=A0	}
+> =C2=A0
+> -	ret =3D clk_prepare_enable(comp_jpeg[hw_id]->jdec_clk.clks->clk);
+> -	if (ret) {
+> -		dev_err(jpeg->dev, "%s : %d, jpegdec clk_prepare_enable fail\n",
+> -			__func__, __LINE__);
+> -		goto clk_end;
+> -	}
+> -
+> =C2=A0	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+> =C2=A0	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
+> =C2=A0
+> @@ -1773,7 +1765,7 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+> =C2=A0				 &dst_buf->vb2_buf, &fb)) {
+> =C2=A0		dev_err(jpeg->dev, "%s : %d, mtk_jpeg_set_dec_dst fail\n",
+> =C2=A0			__func__, __LINE__);
+> -		goto setdst_end;
+> +		goto set_dst_fail;
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	schedule_delayed_work(&comp_jpeg[hw_id]->job_timeout_work,
+> @@ -1794,9 +1786,7 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+> =C2=A0
+> =C2=A0	return;
+> =C2=A0
+> -setdst_end:
+> -	clk_disable_unprepare(comp_jpeg[hw_id]->jdec_clk.clks->clk);
+> -clk_end:
+> +set_dst_fail:
+> =C2=A0	pm_runtime_put(comp_jpeg[hw_id]->dev);
+> =C2=A0dec_end:
+> =C2=A0	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> index 4534caeb104f..9a8dbca6af00 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> @@ -533,13 +533,12 @@ static void mtk_jpegdec_timeout_work(struct work_st=
+ruct *work)
+> =C2=A0	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+> =C2=A0
+> =C2=A0	mtk_jpeg_dec_reset(cjpeg->reg_base);
+> -	clk_disable_unprepare(cjpeg->jdec_clk.clks->clk);
+> -	pm_runtime_put(cjpeg->dev);
+> =C2=A0	cjpeg->hw_state =3D MTK_JPEG_HW_IDLE;
+> =C2=A0	atomic_inc(&master_jpeg->hw_rdy);
+> =C2=A0	wake_up(&master_jpeg->hw_wq);
+> =C2=A0	v4l2_m2m_buf_done(src_buf, buf_state);
+> =C2=A0	mtk_jpegdec_put_buf(cjpeg);
+> +	pm_runtime_put(cjpeg->dev);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
+> @@ -547,7 +546,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq=
+, void *priv)
+> =C2=A0	struct vb2_v4l2_buffer *src_buf, *dst_buf;
+> =C2=A0	struct mtk_jpeg_src_buf *jpeg_src_buf;
+> =C2=A0	enum vb2_buffer_state buf_state;
+> -	struct mtk_jpeg_ctx *ctx;
+> =C2=A0	u32 dec_irq_ret;
+> =C2=A0	u32 irq_status;
+> =C2=A0	int i;
+> @@ -557,7 +555,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq=
+, void *priv)
+> =C2=A0
+> =C2=A0	cancel_delayed_work(&jpeg->job_timeout_work);
+> =C2=A0
+> -	ctx =3D jpeg->hw_param.curr_ctx;
+> =C2=A0	src_buf =3D jpeg->hw_param.src_buffer;
+> =C2=A0	dst_buf =3D jpeg->hw_param.dst_buffer;
+> =C2=A0	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+> @@ -580,12 +577,11 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int i=
+rq, void *priv)
+> =C2=A0	buf_state =3D VB2_BUF_STATE_DONE;
+> =C2=A0	v4l2_m2m_buf_done(src_buf, buf_state);
+> =C2=A0	mtk_jpegdec_put_buf(jpeg);
+> -	pm_runtime_put(ctx->jpeg->dev);
+> -	clk_disable_unprepare(jpeg->jdec_clk.clks->clk);
+> =C2=A0
+> =C2=A0	jpeg->hw_state =3D MTK_JPEG_HW_IDLE;
+> =C2=A0	wake_up(&master_jpeg->hw_wq);
+> =C2=A0	atomic_inc(&master_jpeg->hw_rdy);
+> +	pm_runtime_put(jpeg->dev);
+> =C2=A0
+> =C2=A0	return IRQ_HANDLED;
+> =C2=A0}
+> @@ -668,15 +664,69 @@ static int mtk_jpegdec_hw_probe(struct platform_dev=
+ice *pdev)
+> =C2=A0
+> =C2=A0	platform_set_drvdata(pdev, dev);
+> =C2=A0	pm_runtime_enable(&pdev->dev);
+> +	ret =3D devm_clk_bulk_get(dev->dev,
+> +				jpegdec_clk->clk_num,
+> +				jpegdec_clk->clks);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-shikra-dt-=
-m1-v6-0-bee265d3499b@oss.qualcomm.com?part=3D7
+clk_num and clks have been set by a call to devm_clk_bulk_get_all() few lin=
+es
+above. So this seem both redundant, and possibly take one too many referenc=
+e on
+the clock.
+
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Failed to init clk\n");
+> +		return ret;
+> +	}
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> +static int mtk_jpegdec_pm_suspend(struct device *dev)
+> +{
+> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +
+> +	clk_bulk_disable_unprepare(jpeg->jdec_clk.clk_num,
+> +				=C2=A0=C2=A0 jpeg->jdec_clk.clks);
+> +
+> +	return 0;
+> +}
+> +
+> +static int mtk_jpegdec_pm_resume(struct device *dev)
+> +{
+> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +
+> +	return clk_bulk_prepare_enable(jpeg->jdec_clk.clk_num,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jpeg->jdec_clk.clks);
+> +}
+> +
+> +static int mtk_jpegdec_suspend(struct device *dev)
+> +{
+> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +
+> +	v4l2_m2m_suspend(jpeg->master_dev->m2m_dev);
+> +
+> +	return pm_runtime_force_suspend(dev);
+> +}
+> +
+> +static int mtk_jpegdec_resume(struct device *dev)
+> +{
+> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_force_resume(dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	v4l2_m2m_resume(jpeg->master_dev->m2m_dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops mtk_jpegdec_pm_ops =3D {
+> +	SYSTEM_SLEEP_PM_OPS(mtk_jpegdec_suspend, mtk_jpegdec_resume)
+> +	RUNTIME_PM_OPS(mtk_jpegdec_pm_suspend, mtk_jpegdec_pm_resume, NULL)
+> +};
+> +
+> =C2=A0static struct platform_driver mtk_jpegdec_hw_driver =3D {
+> =C2=A0	.probe =3D mtk_jpegdec_hw_probe,
+> =C2=A0	.driver =3D {
+> =C2=A0		.name =3D "mtk-jpegdec-hw",
+> =C2=A0		.of_match_table =3D mtk_jpegdec_hw_ids,
+> +		.pm=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 =3D &mtk_jpegdec_pm_ops,
+> =C2=A0	},
+> =C2=A0};
+> =C2=A0
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> index 2765dafab4ad..5d1c217fea0f 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> @@ -264,13 +264,12 @@ static void mtk_jpegenc_timeout_work(struct work_st=
+ruct *work)
+> =C2=A0	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+> =C2=A0
+> =C2=A0	mtk_jpeg_enc_reset(cjpeg->reg_base);
+> -	clk_disable_unprepare(cjpeg->venc_clk.clks->clk);
+> -	pm_runtime_put(cjpeg->dev);
+> =C2=A0	cjpeg->hw_state =3D MTK_JPEG_HW_IDLE;
+> =C2=A0	atomic_inc(&master_jpeg->hw_rdy);
+> =C2=A0	wake_up(&master_jpeg->hw_wq);
+> =C2=A0	v4l2_m2m_buf_done(src_buf, buf_state);
+> =C2=A0	mtk_jpegenc_put_buf(cjpeg);
+> +	pm_runtime_put(cjpeg->dev);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static irqreturn_t mtk_jpegenc_hw_irq_handler(int irq, void *priv)
+> @@ -304,12 +303,11 @@ static irqreturn_t mtk_jpegenc_hw_irq_handler(int i=
+rq, void *priv)
+> =C2=A0	buf_state =3D VB2_BUF_STATE_DONE;
+> =C2=A0	v4l2_m2m_buf_done(src_buf, buf_state);
+> =C2=A0	mtk_jpegenc_put_buf(jpeg);
+> -	pm_runtime_put(ctx->jpeg->dev);
+> -	clk_disable_unprepare(jpeg->venc_clk.clks->clk);
+> =C2=A0
+> =C2=A0	jpeg->hw_state =3D MTK_JPEG_HW_IDLE;
+> =C2=A0	wake_up(&master_jpeg->hw_wq);
+> =C2=A0	atomic_inc(&master_jpeg->hw_rdy);
+> +	pm_runtime_put(jpeg->dev);
+> =C2=A0
+> =C2=A0	return IRQ_HANDLED;
+> =C2=A0}
+> @@ -390,15 +388,69 @@ static int mtk_jpegenc_hw_probe(struct platform_dev=
+ice *pdev)
+> =C2=A0
+> =C2=A0	platform_set_drvdata(pdev, dev);
+> =C2=A0	pm_runtime_enable(&pdev->dev);
+> +	ret =3D devm_clk_bulk_get(dev->dev,
+> +				jpegenc_clk->clk_num,
+> +				jpegenc_clk->clks);
+
+Same.
+
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "Failed to init clk\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int mtk_jpegenc_pm_suspend(struct device *dev)
+> +{
+> +	struct mtk_jpegenc_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +
+> +	clk_bulk_disable_unprepare(jpeg->venc_clk.clk_num,
+> +				=C2=A0=C2=A0 jpeg->venc_clk.clks);
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> +static int mtk_jpegenc_pm_resume(struct device *dev)
+> +{
+> +	struct mtk_jpegenc_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +
+> +	return clk_bulk_prepare_enable(jpeg->venc_clk.clk_num,
+> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 jpeg->venc_clk.clks);
+> +}
+> +
+> +static int mtk_jpegenc_suspend(struct device *dev)
+> +{
+> +	struct mtk_jpegenc_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +
+> +	v4l2_m2m_suspend(jpeg->master_dev->m2m_dev);
+> +
+> +	return pm_runtime_force_suspend(dev);
+> +}
+> +
+> +static int mtk_jpegenc_resume(struct device *dev)
+> +{
+> +	struct mtk_jpegenc_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_force_resume(dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	v4l2_m2m_resume(jpeg->master_dev->m2m_dev);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops mtk_jpegenc_pm_ops =3D {
+> +	SYSTEM_SLEEP_PM_OPS(mtk_jpegenc_suspend, mtk_jpegenc_resume)
+> +	RUNTIME_PM_OPS(mtk_jpegenc_pm_suspend, mtk_jpegenc_pm_resume, NULL)
+> +};
+> +
+> =C2=A0static struct platform_driver mtk_jpegenc_hw_driver =3D {
+> =C2=A0	.probe =3D mtk_jpegenc_hw_probe,
+> =C2=A0	.driver =3D {
+> =C2=A0		.name =3D "mtk-jpegenc-hw",
+> =C2=A0		.of_match_table =3D mtk_jpegenc_drv_ids,
+> +		.pm =3D &mtk_jpegenc_pm_ops,
+> =C2=A0	},
+> =C2=A0};
+> =C2=A0
+
+Nicolas
+
+--=-MsJEsU/3g1tPPkLip8P2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalU/0gAKCRDZQZRRKWBy
+9FSSAQCKCUjM+JlpkKmot4q1SiwPxzw55mwNt61fkiPPhdo6DgEAyWp1h/38fon9
+X+MwCSNNkNWGGooneIgGf5vD1Tf2gwI=
+=58nN
+-----END PGP SIGNATURE-----
+
+--=-MsJEsU/3g1tPPkLip8P2--
