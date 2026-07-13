@@ -1,157 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3F4385519;
-	Mon, 13 Jul 2026 09:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D695385519
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783935780; cv=none; b=N+kDx765Fxtt4t8md5sQQ1+IJiHevrpHPsI2djdRvjg5zSaE9A15TZd4w8oilVdr4h38idEcdX/5vTDC3PuPcBAi+Vcc1y/V5rOQQXhMSw5uK2QahoM2qMUzE6PRInioU4Re6aAzcNSKLv6Fpl03Qw6cFDtZ1paoRnhP7WKq90A=
+	t=1783935819; cv=none; b=b1DrNE48i3gomxYptQ7w6Z4nY7b/IBZK4Bz/WkT7h4EZUnmP/nhdvCAJoQKmV2l/7fbHtxsCwVM7LWF/oWmMhZfKWQU6s6nprWYGSjb84QrgLo0xii69hDkXgkgg63Zjjlanv4CJ14Yw6mnAmv7HLk+jn2TS3KVh4P0VoaViyEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783935780; c=relaxed/simple;
-	bh=KpGTbwVrV07M/ON5Blc+NfYMvyXGUiwxd5jRPdUSpLQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JWwOZktkLs5C7LqEVoTzDgypF4Br5gJtPQefZhL02Im/o4Y0zltDZSatll/wilp1eWJs98uX3Ek/Z4u+279Mf76RKIEZQDSuYroWrXgLqFqe1QK1DbwhaxcANLtaw5+Gee2ksf9tWASUKGtjWYwzRJnQXq4Tvnz/5KjoYKRnJGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUvkTzB6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783935819; c=relaxed/simple;
+	bh=1d1gIgKd/rxGakwIfoQkZDJqlQDsvXgB5BX3doT1Uzk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lLS+7UEKrpMzr93oyG2EZPe1S4pgI9yfaiqG9any6AyTxAoGIppKS7YL+P9/lZXJw00roOT/SoyNPFQnIm8PIBhXjB7X8ORxheA2MdRjW8QoUopGMQhkTGVa54DZpaD6mppRd2AJOjmkJSgrJFMR6aVaF4OoHFgio0SdQUEz7ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y8Vpn6+X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZRaJNsRw; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUvkTzB6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9321F000E9;
-	Mon, 13 Jul 2026 09:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783935779;
-	bh=N/NEsg97ESxWviKB3N8M2VOUIX1MYSodWT+/FDsMwVc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZUvkTzB6DzrS7C/pL/ThRvqAycIXRupKAOhccO88GKDdKKpefs2N+SHt9uFFdNZCo
-	 w2l4BouVRhLJoDRvLmD3l0wCDiBdSWnMkUhVxEC8+HHshlfv4uyhkgvduvMnyxvrp9
-	 P3p6v1rgWnRMSkXxroCGB/RprqCuSSrBm/fM7caWLZqjCVyMECH38/nwhPc24OApHx
-	 qxmHKVot8h+6wfJ1tTIKn5modem0JzLchLUiwX91Jr5iA6FXlWEvLbEE196lcJNBUV
-	 TS/nUDmqL7TaYNVx+nshUZ4r4LYtLwSmwDr+6JwMihRJNbU+HnziPHD36+v7hGnoYB
-	 rnYDoMxeagx1w==
-Message-ID: <741706c6-e6ff-4bc2-8ea1-28ebada6032c@kernel.org>
-Date: Mon, 13 Jul 2026 11:42:44 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y8Vpn6+X";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZRaJNsRw"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6O3Qs732794
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:43:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	E09LB8FttLtJXfseyW8i4L083+99GbXlC7bLX0eDPNY=; b=Y8Vpn6+XDg1v3UVs
+	ifJVSOVnJCK9iNSdhYFo/MtAVTPoxOgcZc8sfLmOylqkBIRGMnO2w46/2H81dmQq
+	UI5wdNAZCI5EVeNea6H1A2HBb+e3nUomuojBiODBpWEvoBqrG12i8U96KeN5d3PD
+	xe/9fKq9TIgoG8hxGNzf1lDDC6x9OtoDdnLC9pNDAxpvVECVmS0I6p1wpS/8nROZ
+	5Wy40eKFg/ULSV8scDUj9VDslMpsukGcgTDHK3jbd81GDMnAJPi5ZRUS6Lez4RRf
+	s1R8wuSuVhm7V+wYIobJ/mpCy2QsgIKS700mKTfWLqAuDOlZbiaYJaU7nDzx3oha
+	PJdreg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcjn39wkq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:43:37 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38de4c60f0eso328924a91.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 02:43:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783935817; x=1784540617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E09LB8FttLtJXfseyW8i4L083+99GbXlC7bLX0eDPNY=;
+        b=ZRaJNsRwW/zguBharFpaG5zTDNpxrabdFaafPy3fGn/I4V3XQgemDSjSiAF6Ofq/rl
+         aSOAitvcPzXeyUMJHGACQXgHoqa52+a73tMQxvQmQ95pk4l4LBWeO1mHsCgZ6rRTLzio
+         FPqOC2raoJEulmm+GuvwQpBtFfBr5Bj3YC7TsrrudcK2cvioOVZXlLWLd8/byKZ3dD52
+         sSj9L0h2kxokLnECV5Z+t/lPT4NosZ2zOv+Xq/IFo1Ju/KI/4pntt45s7/OAe+EaNJX5
+         5VUAq5WdzndpegCstXYXMzR2JOsnkAUTA39zUJsA1HXf+d/MjKMllh7FUmhCheLDLzfr
+         VgUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783935817; x=1784540617;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E09LB8FttLtJXfseyW8i4L083+99GbXlC7bLX0eDPNY=;
+        b=DYlZqfJsO6EC8jZMLUfM3p60fEmfpSdYsAcbiWUWvZAam2Wl2AJKP6X54vtSRlqrlm
+         8GhbO1vmDLIrcjLb96OnU+2F/edM9rK0s0RxU4i4mdcCS4eYwAGF4WjJUI8558OAX/+D
+         SONsprZY2KDFSgH/fJfNPmXaWJZi9IWTdIkiRE+bjHfy8yb8jHhwH+oOPSJSHz2hWQvB
+         zXsrMocLz6FRVXWDniKG/91FWSisyP0rM3h0nrjulfM0tp0h2KidR8ay+7dEnjqEWasG
+         J0kk2aYx8IKh9T2uyF+eq5FlDKhtZ9fhMy8EYLElG5PKF00pdlULnTI0cqEM4BxCghIC
+         u34A==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5dvahqgY5nBi+DsBPDvHeXGA7v4Si101m8yl607ofBK+Y0J5nYqV2PPRdVT1pB/hnq7MOuMdIY8sq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1jNmmPDcYbNa+kJS14As0XiJG5fMY6xdH4GYq6Nx3tBJN8orX
+	3K14OawuRxgg18mht9ikI7AYZFRn51d/oszCHYvg+KlIR8DyFVS8Zb4Y4O4j/48/nbXzx3s0Q0V
+	SNrdBtwQroWzpII6scJZt8HKDXKntGosHPoQf7d43NPqSFGHXH4qizt8Zz0xRmfzS
+X-Gm-Gg: AfdE7cn/1fc+qoAsdWMsh40nAS19Fmd6uAkTnmTLMRXU9NgPe/LmLsTW6Bua2d4K8bT
+	/XGYxTBaXM4JZL62wFfZbF1gRIkM0hqw5QnopOGcEsQWU5eN+5qqFuSDkL2KCMiaArKTjxpEpfy
+	my6NWOK65NEAB9UVIL600jidOIEzMItCK8EBXL4yg3wOLjI81Axtk3ekG3efUMqzvbYtIIpjsSM
+	e/iiW7i132N3yePYPhw/qxBp2I976BDSjphOSvXhmksc4+t35lz/3JJDrj4gGjeGduORmXYUidU
+	DKFTgwfVd8jzQwpB2JdVMpsSOb4EMtp81ruba1Dg5LKUJivrF6kXBp3iy5aFrlfxC6uE+6sH9eY
+	AKjqlbNV13M8Av9xPdlaAvfZS0PANLK1m2cVA5vQjcFcXl2UOacYxoAComcdvUA==
+X-Received: by 2002:a17:90b:2b4b:b0:37f:fc3a:382d with SMTP id 98e67ed59e1d1-38dc7b7063dmr6317613a91.6.1783935816653;
+        Mon, 13 Jul 2026 02:43:36 -0700 (PDT)
+X-Received: by 2002:a17:90b:2b4b:b0:37f:fc3a:382d with SMTP id 98e67ed59e1d1-38dc7b7063dmr6317583a91.6.1783935816051;
+        Mon, 13 Jul 2026 02:43:36 -0700 (PDT)
+Received: from hu-weiden-sha.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313af819732sm37848388eec.16.2026.07.13.02.43.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 02:43:35 -0700 (PDT)
+From: Wei Deng <wei.deng@oss.qualcomm.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Alan Stern <stern@rowland.harvard.edu>, linux-pm@vger.kernel.org,
+        linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mengshi.wu@oss.qualcomm.com, quic_chezhou@quicinc.com,
+        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
+        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com
+Subject: Re: [PATCH v4 12/14] power: sequencing: pcie-m2: Add usb and sdio targets for E-key connector
+Date: Mon, 13 Jul 2026 15:13:29 +0530
+Message-Id: <20260713094329.4105208-1-wei.deng@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260709095726.704448-13-wenst@chromium.org>
+References: <20260709095726.704448-13-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/16] ASoC: dt-bindings: add OpenPandora Sound Card
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Grond <grond66@riseup.net>, Stefan Leichter <sle85276@gmx.de>,
- Grazvydas Ignotas <notasas@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Andreas Kemnade
- <andreas@kemnade.info>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Sen Wang <sen@ti.com>, Richard Fitzgerald <rf@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Niranjan H Y <niranjan.hy@ti.com>, letux-kernel@openphoenux.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, kernel@pyra-handheld.com, mfd@lists.linux.dev
-References: <cover.1783749722.git.hns@goldelico.com>
- <7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com>
- <20260713-infallible-capable-dormouse-aaaebe@quoll>
- <BF2B6C4A-A4CC-48D7-9854-DC014950184B@goldelico.com>
- <5667350d-cc3f-421d-899f-f353b05c5ea1@kernel.org>
- <8A0C119B-7885-4538-8D4F-AC60E5C91B7E@goldelico.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <8A0C119B-7885-4538-8D4F-AC60E5C91B7E@goldelico.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDEwMSBTYWx0ZWRfX0mLKR022OqOU
+ 5MZWBN5CnVA2y+/vjFdhakRInY6YBD+tvZEWQ2DK+aDI9oXHZMlRprqXh2Nk3qTRC8JHxYTP8UB
+ A1p1Nbagg/lCjBpK+yBbV1+yasc/XGAKclVC/JQQ1tSjR1Ga5JtSixtkTnTWnrhBz82Tbc711jI
+ 5a/1d0uVtP029VWKZ53TNLXZNcXxNlYNbnci3Yvu4WLtqCSFH00skpwikUrMw6S+9XuJ7vdPrbd
+ DYeS/odupPoXznvElFWI7Yh2YfouUYcgRLbE1w4LWtwo3CTIv50Ox/TlUFbPvsf1TfG/2yt1HBQ
+ 0yGUzLLHxuBw2qMsoSOLL8e1baUuHsyrvLK2XQDaTqjvvU/AijbnDcXYSH797Befjoyyf32XJTV
+ /q85kPlfCIaEeA0XLabcKq+r323hiD8YlmhTbZqGG1yqjJ6n4FPaPRq+BbadPY+ggxOh1X1sgaZ
+ hLqg2m11FoYsECQfucA==
+X-Proofpoint-ORIG-GUID: sLp4UMZ8QbSvLll0z2Z4fBvekm7gZhkj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDEwMSBTYWx0ZWRfXzuahSVtCMs1b
+ z3Z9yU4giBUSdN4v/ogavIJHeoIw2EJpj5umHg82A5wHzbwbohbChn+HnQkl9UTfABzvesDh9DJ
+ T272RoNVdH3W8O1AiJyFHqIQTM8damE=
+X-Proofpoint-GUID: sLp4UMZ8QbSvLll0z2Z4fBvekm7gZhkj
+X-Authority-Analysis: v=2.4 cv=aaJRWxot c=1 sm=1 tr=0 ts=6a54b349 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=cm27Pg_UAAAA:8 a=AJ_gLjkuB4Bcd2vTZOEA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ adultscore=0 malwarescore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130101
 
-On 13/07/2026 11:38, H. Nikolaus Schaller wrote:
+On Thu, 9 Jul 2026, Chen-Yu Tsai wrote:
+> The M.2 E-key connector allows either PCIe or SDIO for WiFi and USB or
+> UART for BT. Currently the driver only supports PCIe and UART.
 > 
+> Add power sequencing targets for SDIO and USB. To avoid adding a
+> complicated dependency tree, rename the existing power sequencing units
+> "pcie" and "uart" to "wifi" and "bt". The existing target names are left
+> untouched. The new "sdio" and "usb" targets just point to the renamed
+> "wifi" and "bt" units.
 > 
->> Am 13.07.2026 um 11:21 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
->>
->> On 13/07/2026 10:27, H. Nikolaus Schaller wrote:
->>> Hi Krzysztof,
->>>
->>> Thank you for the feedback.
->>>
->>>
->>> It does not emit any C compiler issues or runtime problems so it remained unnoticed.
->>
->> I do not believe.
->>
->> There is a clear warning from Rob's bot.
->>
->> You just did not follow the process of building the code (compiler has
->> nothing to do here). Read submitting patches in DT dir and then writing
->> schema for further instructions. This is ABSOLUTE MINIMUM. We are not
->> your build test service.
->>
->>>
->>> It was notified by the sahiko-bot and will be fixed in v2.
->>
->> Sashiko has nothing to do with that.
->>
->> You DID NOT BUILD the code.
+> The "unit" names are internal to the power sequencing framework, and
+> should be confined to a single provider. The names are only
+> informational. Dependencies are tracked with pointers to other units.
 > 
-> Hm. You are confusing me. I did "make" and did not get any errors...
-> And the resulting code works as intended.
+> The "target" names are the strings that the consumer uses to acquire a
+> descriptor with. As these remain the same, existing users will continue
+> to work.
+> 
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+> Changes since v2:
+> - Expand commit message
+> ---
+>  drivers/power/sequencing/pwrseq-pcie-m2.c | 41 +++++++++++++++--------
+>  1 file changed, 27 insertions(+), 14 deletions(-)
+> 
 
-'make' alone does not build that, just like other pieces of code they
-have own - well documented and always expected - build processes.
+Hi Chen-Yu,
 
-I don't know what is confusing in my message, since I pointed you to
-SPECIFIC guide telling you EXACTLY what to do (and which you did not do).
+We tested this series on the Qualcomm Hamoa IoT EVK with both USB BT
+and UART BT M.2 cards and found an issue with UART BT power cycling
+when the USB hub is active.
 
-Best regards,
-Krzysztof
+The "uart" and "usb" targets in this patch share the same bt_unit_data.
+The USB hub acquires the "usb" target in hub_activate() and never releases
+it, so the bt_unit enable_count never reaches zero when hci_qca calls
+pwrseq_power_off("uart"). As a result bt_disable() is never called,
+W_DISABLE2# stays deasserted, and the BT chip cannot be properly reset.
+
+Observed on Hamoa with a UART BT card (WCN6855, sub 0xe105):
+
+  With your patches:
+    lsmod: pwrseq_pcie_m2 ... 3   (provider + uart + usb)
+    btmgmt power off -> GPIO116 stays HIGH (bt_unit ref 2->1, no callback)
+    btmgmt power on  -> "hci0: command 0xfc00 tx timeout" -> failed
+
+  Without your patches:
+    lsmod: pwrseq_pcie_m2 ... 2   (provider + uart only)
+    btmgmt power off -> GPIO116 goes LOW  ✓
+    btmgmt power on  -> hci0 UP RUNNING  ✓
+
+USB BT card (WCN6855, sub 0x3374) tested separately works correctly with
+your patches.
+
+The testing was done with the following Hamoa-specific patches on top of
+this series:
+  [PATCH 1/3] arm64: dts: qcom: hamoa-iot-evk: Describe the PCIe M.2 Key E connector
+    https://lore.kernel.org/all/20260709-fix-hamoa-m2-w-disable2-v1-1-5e725091266a@oss.qualcomm.com/
+  [PATCH 2/3] power: sequencing: pcie-m2: Match WCN6855 and WCN7851 UART BT variants by subdevice ID
+    https://lore.kernel.org/all/20260709-fix-hamoa-m2-w-disable2-v1-2-5e725091266a@oss.qualcomm.com/
+
+The fix we verified is to give "usb" its own independent unit so its
+enable_count is tracked separately from "uart":
+
+  static const struct pwrseq_unit_data pwrseq_pcie_m2_e_usb_bt_unit_data = {
+  	.name = "usb-bt-enable",
+  	.deps = pwrseq_pcie_m2_unit_deps,
+  	.enable = pwrseq_pci_m2_e_bt_enable,
+  	.disable = pwrseq_pci_m2_e_bt_disable,
+  };
+
+  /* change usb target to point to the independent unit */
+  static const struct pwrseq_target_data pwrseq_pcie_m2_e_usb_target_data = {
+  	.name = "usb",
+  	.unit = &pwrseq_pcie_m2_e_usb_bt_unit_data,
+  };
+
+With this change, uart_bt_unit reaches ref=0 on UART BT power_off and
+bt_disable() is called correctly. Since a M.2 slot can only carry one
+card variant at a time, the two units do not interfere in practice.
+
+Would this be an acceptable fix, or do you have a better approach in mind?
+
+-- 
+Best Regards,
+Wei Deng
