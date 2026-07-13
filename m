@@ -1,134 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D3A4189CD
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 13:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742294189D9;
+	Mon, 13 Jul 2026 13:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948264; cv=none; b=O5aMviBOAJG+KlbJ8IecW3VAFHae88KIrcHTcb4DD9xNMnYDxLbQB1qQnCuwIW/DUChmAt8+YdAsIDfOZBfT5zgltl2LTNQt3nkwhEtqUR9Bi8yA5UVLIn4KYtLcF3sxNGu0M0wAs4Ad+K40qhmDiMNt3D2IZU/bJ0tC4+hvmnw=
+	t=1783948302; cv=none; b=f1XIFKytH1v5Y45hnXWvbNSw6C863r6Yehj0KGKJp7mIeMIOWBfpHD08ALF8i+rDdh1LmG8K+L5N84czYxnHVW/5S/0mn6sRevFm09+kVXqj/Ld6SHwBtRKQ2A7la484cBCBP1fK8jCLtKv1BIoDvXwuJ8LPZWmLX0VMx4HqNH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948264; c=relaxed/simple;
-	bh=L5IB1Ul101waovoahMoprgTlycFD1QPeFEHNiAg1ShU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gVPYL8Rm0l3HrpK55oOLQZ5OJedIJJiHbTV9d1S2LVYt/syZvWDDXj8B0xtIhNukOO08pMmgbr3OvxQeI/V+UhMJjVi/MVuSu7KhaOkFqAIH5DLsyGLhRtv2Qy4fQ8uDmF2xAkfzsVN/D31ovY1ZYZ6FO278kFQ4kH5oa+LIgjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VJspJBMN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783948302; c=relaxed/simple;
+	bh=794YbEXyzIorMyKoNEFQ6cQ/F/QQjKG1DMjHHg8ga20=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eaHugZe7aQbeX+om5kzLgLfj2qswgKL/uq/jMvZK6SljqgtHlR/OPCYOIqiFbRCVXwppe2ovWzMAZdx0zMfwVR6Cu6eCOfCBCqdaIXs6J2Vo+bPi8YodfB2RE6wLvn4OS720TCWj0MscoiTdYStX8pP7t1a4TCdGQVnYCYIPRHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nvas8LQI; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VJspJBMN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11C21F00A3A;
-	Mon, 13 Jul 2026 13:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783948263;
-	bh=Rx34yiMHP3dtMokDvLG+d6m0CB0mXQweyMxiFGb19VE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VJspJBMNKJGHM9OilSAAIgNQwAHhCAgi1z8b8BFHWSWcz/xYLnrfgiey+HgQYPsir
-	 g+1Yq4FQzTMGoByw3gcTVjqvw71VvSpC88grbJhzikLyFHWa6d7itzkU+T20tPQ+Gx
-	 s12D7N+eOdxFpMmGFDkDdUR6TmXKit8+qJhgWiOEVKcXhdIQV2JzhymHO5jFfFXzZ6
-	 //KsofN2K4cEPBjMk0j6t18VN1a0xOmAYipNpl1aOvXd302HVQdhuHMGLvKcNXuCWa
-	 ztets/uNngJxpRJBRipNN+BdzrhTHKX08A5zgL9ZR++D6ZhQpU7WUhSrTD7SvKEZz8
-	 NDFUana+uoMUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/10] drm/mediatek: mtk_dsi: Add support for MT8196
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713130103.34654-8-angelogioacchino.delregno@collabora.com>
-References: <20260713130103.34654-1-angelogioacchino.delregno@collabora.com>
- <20260713130103.34654-8-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 13:11:02 +0000
-Message-Id: <20260713131102.A11C21F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nvas8LQI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783948299;
+	bh=794YbEXyzIorMyKoNEFQ6cQ/F/QQjKG1DMjHHg8ga20=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nvas8LQIvvJDhQizpfs1AArtRbGcWBZKnvqebRXJGr7BQPAl0DYTfd5ENLJO5pyvU
+	 CU/OqUGLCIP1aGEd3AXR7wW6Dhz4O4uLvRgBYgZa3KrQYgEOovc9JTBxF6b9N+l9Yg
+	 zmr0436PoWjX7UK/l0zyurnom0LzXsVPtNKQGvYCKCv7YK32yOevPz6ICGHkAfx3vA
+	 rsYkuFU2jISdeVsummOH2689WSoDlW1uQn6Wgbu+V22iySHQRczPi/L6qVwmEjnpgN
+	 xCx5uPXADO/d/o7rwvHWjvbauMvZIpkxGdZVM9REwO1eAi/j4G2wedNOIF87vbSdaH
+	 5IFXzjbC0F5KA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 40E1D17E010F;
+	Mon, 13 Jul 2026 15:11:39 +0200 (CEST)
+Message-ID: <298f5835-d607-41d7-b8da-7b19b8e8abdc@collabora.com>
+Date: Mon, 13 Jul 2026 15:11:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] pinctrl: mediatek: Add driver for MT6858
+To: Nikolai Burov <nikolai.burov+review@abscue.de>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, nikolai.burov@jolla.com,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Sean Wang <sean.wang@kernel.org>
+References: <20260710-mt6858-pinctrl-v1-0-f75ab558f0df@jolla.com>
+ <20260710-mt6858-pinctrl-v1-2-f75ab558f0df@jolla.com>
+ <89e4eb3d-a61c-410e-8ad5-e845b07f8029@collabora.com>
+ <2d34c3f6-5f66-4b60-b9a2-180163964552@abscue.de>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <2d34c3f6-5f66-4b60-b9a2-180163964552@abscue.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Unit mismatch between DSI data rate (Hz) and pixel clock rate (MHz=
-) leads to integer underflow and incorrect QoS hardware buffer configuratio=
-n.
-- [High] 64-bit division by a non-constant variable causes a build error on=
- 32-bit platforms.
---
+On 7/13/26 14:51, Nikolai Burov wrote:
+> On 7/13/26 10:01 AM, AngeloGioacchino Del Regno wrote:
+> [...]
+>>> +    [PINCTRL_PIN_REG_MODE] = MTK_RANGE(mt6858_pin_mode_range),
+>>> +    [PINCTRL_PIN_REG_DIR] = MTK_RANGE(mt6858_pin_dir_range),
+>>> +    [PINCTRL_PIN_REG_DI] = MTK_RANGE(mt6858_pin_di_range),
+>>> +    [PINCTRL_PIN_REG_DO] = MTK_RANGE(mt6858_pin_do_range),
+>>> +    [PINCTRL_PIN_REG_SR] = MTK_RANGE(mt6858_pin_dir_range),
+>>
+>> This is Slew Rate, not Direction... And I think this is wrong.
+>>
+>> If you don't know where the slew rate registers are, or if that is an unsupported 
+>> operation, just omit PINCTRL_PIN_REG_SR.
+> 
+> Thanks for noticing this! This seems to be a mistake in the downstream driver that 
+> I unintentionally copied over. I will remove the slew rate.
+> 
 
---- Patch [7]: [PATCH v3 07/10] drm/mediatek: mtk_dsi: Add support for MT81=
-96 ---
-commit 92e543d518b805c7b9129880068f5a6955059779
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: mtk_dsi: Add support for MT8196
+No worries, it happens.
 
-This commit adds support for the new DSI IP in the MT8196 SoC. It
-implements hardware buffer configuration and initializes QoS parameters
-required by this newer hardware.
+>>
+>>> +    [PINCTRL_PIN_REG_SMT] = MTK_RANGE(mt6858_pin_smt_range),
+>>> +    [PINCTRL_PIN_REG_IES] = MTK_RANGE(mt6858_pin_ies_range),
+>>> +    [PINCTRL_PIN_REG_PU] = MTK_RANGE(mt6858_pin_pu_range),
+>>> +    [PINCTRL_PIN_REG_PD] = MTK_RANGE(mt6858_pin_pd_range),
+>>> +    [PINCTRL_PIN_REG_DRV] = MTK_RANGE(mt6858_pin_drv_range),
+>>> +    [PINCTRL_PIN_REG_PUPD] = MTK_RANGE(mt6858_pin_pupd_range),
+>>> +    [PINCTRL_PIN_REG_R0] = MTK_RANGE(mt6858_pin_r0_range),
+>>> +    [PINCTRL_PIN_REG_R1] = MTK_RANGE(mt6858_pin_r1_range),
+>>> +    [PINCTRL_PIN_REG_DRV_ADV] = MTK_RANGE(mt6858_pin_drv_adv_range),
+>>> +    [PINCTRL_PIN_REG_RSEL] = MTK_RANGE(mt6858_pin_rsel_range),
+>>> +};
+>>> +
+>>> +static const char * const mt6858_pinctrl_register_base_names[] = {
+>>> +    "base", "lm", "rb", "bm2", "bm", "bm1", "lt", "lt1", "rt", "rt1",
+>>
+>> Fix ordering:
+>>
+>> "base", "lm", "rb", "bm", "bm1", "bm2", "lt", "lt1", "rt", "rt1",
+> 
+> The bases are already in ascending address order. I don't know what the 1 and 2 
+> suffixes in the names of the iocfg regions mean, they may just be a historical 
+> leftover. Are the names more important than the addresses here?
+> 
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index dffb6befc749e..573299f0e63b6 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-[ ... ]
-> @@ -776,6 +872,91 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *ds=
-i)
->  	return drm_dsc_compute_rc_parameters(dsc);
->  }
-> =20
-> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
-> +{
-[ ... ]
-> +	tmp =3D (u64)dsi->data_rate * dsi->lanes;
-> +	data_rate_per_buf =3D tmp / 8 / buffer_unit;
+Eh, fair point. I guess it's fine then.
 
-[Severity: High]
-Does this 64-bit division break builds on 32-bit platforms?
+For the numbers, that's because the registers for the same region of the chip
+(meaning physical region, really) are scattered all around... but bm2, bm, bm1
+refer to the same physical region (again, really physical, look at the bga array).
 
-Since tmp is a u64 and buffer_unit is a non-constant u32, this will likely
-cause an undefined reference to __udivdi3 or __aeabi_uldivmod when compiling
-for 32-bit architectures. Should this use div_u64() instead?
+> [...]
+>>> +static const struct of_device_id mt6858_pinctrl_of_match[] = {
+>>> +    { .compatible = "mediatek,mt6858-pinctrl", .data = &mt6858_data },
+>>> +    { }
+>>
+>>      { /* sentinel */ }
+> 
+> Thanks!
+> 
+> [...]
+>>> +    MTK_EINT_PIN(119, 0, 72, 0),
+>>> +    MTK_EINT_PIN(120, 0, 73, 0),
+>>> +    MTK_EINT_PIN(121, 0, 74, 0),
+>>
+>> Looks like you're missing ~70 pins here?
+>>
+>> If those have no EINT support, you can declare them as
+>>
+>>      MTK_EINT_PIN(122, EINT_INVALID_BASE, 0, 0),
+>>
+>> ...or you can add a macro to add a (sequential) range of pins with no EINT support.
+> 
+> Adding a variable number of mtk_eint_pin structs (with a different pin number 
+> inside each struct) doesn't seem possible using a single macro, so I'll just 
+> manually add all of them to the list.
+> 
+> While writing this, I was looking at the mt6878 driver, which also omits a range of 
+> pins. Should that be fixed as well?
+> 
 
-> +
-> +	/* Calculate valid threshold and avoid exceeding FIFO size */
-> +	out_valid_thresh =3D MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_=
-buf;
+If there are holes in between, yes, that wouldn't work.
 
-[Severity: High]
-Are there unit mismatches in these rate calculations?
+Honestly though, this is starting to be a problem - as in - up until now,
+practically all SoCs had EINTs for each pin, or no holes in between... but
+I can see that this is changing, as MT6991, MT6993 and now MT6858 all have
+those holes.
 
-Since dsi->data_rate is in Hz, data_rate_per_buf is calculated
-as buffers per second (e.g., ~15,000,000). Multiplying it by
-MTK_DSI_DEFAULT_QOS_VALID_FIFO_US (25) will result in a huge value
-that will always over-saturate the FIFO limit.
+This is a note and I'm not asking you to do this but, at some point, we should
+really add some logic to the mtk-eint driver so that it doesn't forcefully (and
+at this point in time, even stupidly) map/expect pin data at the same array
+index as the pin number.
 
-> +	out_valid_thresh =3D min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
-> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON1], BUF_OUT_VALID_THRESH, out_=
-valid_thresh);
-> +
-> +	/* Enable ULTRA signal trigger between SOF and VACT */
-> +	mtk_dsi_mask(dsi, data->reg_adv[DSI_VDE], VDE_BLOCK_ULTRA, 0);
-> +
-> +	/* Calculate fill rate with line counter mode for DSI Video Mode */
-> +	if (dsi->format =3D=3D MIPI_DSI_FMT_RGB565)
-> +		dsi_buf_bpp =3D 2;
-> +	else
-> +		dsi_buf_bpp =3D 3;
-> +
-> +	pclk_mhz =3D dsi->vm.pixelclock / HZ_PER_MHZ;
-> +	fill_rate =3D pclk_mhz * data->pixels_per_iter * dsi_buf_bpp / buffer_u=
-nit;
-> +
-> +	/* Calculate QoS Anti-Latency parameters */
-> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
-> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
+That's probably more important than fixing mt6878, but well, I understand that
+this stuff would take a bit more time than adding just a few entries in arrays
+right now, and I also understand that time may be lacking, so I am definitely
+not blocking the addition of 6858 for this (of course, as long as you fill up
+the holes there)
 
-Similarly, here fill_rate is computed using pclk_mhz and results in
-buffers per microsecond (e.g., ~40). Subtracting the much larger
-buffers-per-second value of data_rate_per_buf will cause an integer
-underflow, resulting in incorrect hardware buffer configurations.
-
-Could data_rate_per_buf be converted to a per-microsecond rate to align
-with fill_rate and the microseconds constant?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713130103.3465=
-4-1-angelogioacchino.delregno@collabora.com?part=3D7
+Cheers,
+Angelo
