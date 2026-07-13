@@ -1,77 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C401A6806;
-	Sun, 12 Jul 2026 23:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F28E17C203
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 00:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783899344; cv=none; b=OfU/2cI3XVD5CPuAi1Z5a66aCNHlipPyv6a/rV5NHbkaSKHn11RPe8e0Do1IPAk0LEAwiQ9nFXOOiP7qcCfZLgXMT6+A3oLydj0PuQRRJKtFbxS1tgUQ0Oaa7uNpMWk8S0r91UGB4/GabxuBrsRkGGy8A9nEHdiQBrmyu6ljlrA=
+	t=1783904250; cv=none; b=LziDQi7ONSixHpLZ3OspgPTBh+CDB5dh9jGfJaL1wkiKqwtNcY8jp4D9o1ZDQx2RWPHcy+ZaNwbiqKhQxzoH/vsFU6l/DVDVLccHlNj09oCWZXU3x7h8L0vaRZywkqyUdLUPrzvuzR8ESQ+7RIp0a8NCI/7h14fWrYJUtnCG89U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783899344; c=relaxed/simple;
-	bh=cVNbrT4DiZgPuENaNtsaO8FkHokq+L9DX7daSloVt+U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j23fme5HLVSaWYqLwTjv0zdl7wwTw/xd5sO1pq9dH6XwhH2UgRYD7KVJH2quuCZ55vnQaCWan4NpEqExobeP9eIeTjI+LehL9AXPRQ+euaBiMLYq8nTPe+SK78XfNHxt4P7ETZS9vhw5QgJRuGrdFk2so34S9nnanBTiLFee5dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IP2JFGcH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783904250; c=relaxed/simple;
+	bh=Xo6EyzqNrckhHCa4x6TirXmUCwy921YsGGy25SBUVdI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S66+TOeQKdYnXc9WhUEvIf1NdN4ci5LUnrha/duLim9Rs8BxFOXQLzoRT2U0fmHPKHyNdBExNikePJUrzNjXKromtOePpUmECja2xZySl6ydQBmEClAqrqOfwWYiA6LSFCMZWdhxoNweyNamM5VSjzidFkL10aDZPmgZrnh8yzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XKGDhHek; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IP2JFGcH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354A11F000E9;
-	Sun, 12 Jul 2026 23:35:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783899343;
-	bh=Kztp/pK0ZeXMTwVMng3BJPkLjmG5qsM2tXuuwHmx3Zc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IP2JFGcHBU9QkzjPR8p4m8aBvmgLzSPE6ElwZTZPYxw4009EczTAh+7wpiIpjsfsq
-	 fuV/daSBMhiepb2NoARP6t4ofY40nxlZqcRav16PsstJ+POtr1SETLmOnZkn85VdYw
-	 cpOJwZUAlshXarc1LJG/H0r3mNT/aXPFHGCJ4ag1lL80XtuRQTQYVI2bxqD3ufk7mm
-	 PwfypHh0b6vex20LlNXmlme5IVl5tM1gr7BcSR07bs6qTjYNEJYGui7n+qBK4A8Peo
-	 Xjs1VOzweUShpyT583GjU7w2R8XASsNYgd7Dylv0TCQhqLQ6AbLWMAPJS096YioggB
-	 7bm0HkB+4xpGg==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: aiqun.yu@oss.qualcomm.com,
-	tingwei.zhang@oss.qualcomm.com,
-	trilok.soni@oss.qualcomm.com,
-	yijie.yang@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] arm64: dts: qcom: kaanapali: Add SoCCP
-Date: Sun, 12 Jul 2026 18:35:39 -0500
-Message-ID: <178389933575.327930.11442336206634868553.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260709-knp-soccp-dt-v2-0-6e2bfca96088@oss.qualcomm.com>
-References: <20260709-knp-soccp-dt-v2-0-6e2bfca96088@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XKGDhHek"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cad8076b01so30513875ad.2
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 17:57:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783904247; x=1784509047; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rcAmTvO8VZf1EU8sxDKdiXNrU6FxGa8pq7WzxSsB/Lc=;
+        b=XKGDhHekwxUZktoTz9KMZ50//hoS4zdPy+pxvVTov6A3jI4ne+s++zRR/Oqao51at0
+         8u5y9+GGFcGWXjYyfW2UpO9ahbeSmTnd11uc5BTmD1I2XGLGHMEdpaVtCVwU7LTPJHwp
+         c1SC/Ozs5+38Q3SCo4mtMWOEzEReKJ17CDSrxXJV6WS6paRMtUt4sFfPV02WOmshJYYJ
+         cyOUEDSLkLk9lXeXp8/eMpX10kg3Zhq0+kh0KuwKTWeZPjp+nzp2nVJl2m7GaiHwkVPF
+         9zcd3Yg4xu+Of28pLJb+1AdmZmJ6T28aKBKzJ8UetncGowvmhUnPc4XZWfLS3SHph7V/
+         WFDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783904247; x=1784509047;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rcAmTvO8VZf1EU8sxDKdiXNrU6FxGa8pq7WzxSsB/Lc=;
+        b=LCwr0tafc/hk/5O/7+XHzv1swDWTGJ66zylC/gPIcgz+yQu5yBRGKQ+FEpBziCU5Zl
+         BbX/1U/wjrZ0m3lynKehy16iugh8MQ/NkkekCdvH3KtrMunJoeV7CCUb7Z31Yamqyue7
+         PM5q9JxjiBuz0gW4yI0hce/bbKCkxiiBIPRP8MtWNMzeAscpVEBREZaPc0PWzCh0n2Ht
+         M0h+4OhNK6JvmwacqreMC9pAy00IrqAuhg/86hOGZvOYP35SKCWa6liwGLSnn7Crwd7k
+         yrceRBRRurKTAZGfG4tMKWF1EPPEWToC9kXZ8GWxNb1YCoCAknyfCH52t/+dCNDO85OC
+         oqPw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1YSAMbNSEFWkSeAOwDSxaeElrVGtmg79/TYFEi/816ZK04HaFrjLlzStUPWQDJ88UkLkYqDZ2rbyb@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYV9aWjzl02a7tssO6LMMSEiYh/GEUThq459rwQhMKpO5G23FP
+	2W9vQbxCCi/ByU0SZKGFcrg78Ot6E+R8a4XtfkCDA6qe45EPyBjydyTYqZD5ciM7JEc=
+X-Gm-Gg: AfdE7cmqCZENPDDwiDKn/H1ycyGgHMc7ca0wfpOCXG6GZgpYEiF3X7JYnkGzXgebg7a
+	u2xGaqH7SFcPdGSvwC+pVKAr2JCwtz8+fNbPq3po4joVQbSYjVyL0vj/WWd3vm2238y6JpMfOhG
+	IVKU977RJgvymy0A+jUZCFTB6nyPZijVCDRvtx9NoZ+RG/yNCFuWdQE+7rBPP0Nqdw8Azocmvu3
+	VSokQ0FgP5Weh5P1PqTA9Ul/iqMQbXYeIUu6f6dt+quuJlDo0Qi5WDTbkyVjaR/YQOk9FEIkLwr
+	I8GFZQn0Pqqbnm1tkD9VP+GUofSAWOBjFK0t4g2jSPmMTIxeRgpnRLPnyXm54c9LK1HcXlgh1sS
+	dfFIs8YwNWBhvgPJt4a3xgHwRT/D7gmW8RPD7mtdR71gmJzfgY/LsFv3ELaUrfZKn
+X-Received: by 2002:a17:902:d2c8:b0:2ca:ecfa:1308 with SMTP id d9443c01a7336-2ce9ead153emr69863775ad.20.1783904246723;
+        Sun, 12 Jul 2026 17:57:26 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bf92bfsm90539215ad.28.2026.07.12.17.57.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 17:57:26 -0700 (PDT)
+Date: Mon, 13 Jul 2026 08:56:41 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>, 
+	Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>
+Cc: Inochi Amaoto <inochiama@outlook.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] riscv: dts: sophgo: cv180x: Add PWR_GPIO
+ controller
+Message-ID: <alQ3mqUPItCP2CVT@inochi.infowork>
+References: <20260710075917.159969-1-chenyou910331@gmail.com>
+ <20260710075917.159969-3-chenyou910331@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260710075917.159969-3-chenyou910331@gmail.com>
 
-
-On Thu, 09 Jul 2026 01:14:22 -0700, Jingyi Wang wrote:
-> Add device tree support for SoCCP on Kaanapali platform. The SoC Control
-> Processor (SoCCP) is small RISC-V MCU that controls USB Type-C, battery
-> charging and various other functions on Qualcomm SoCs. On Kaanapali,
-> SoCCP is brought up by bootloader by default.
+On Fri, Jul 10, 2026 at 03:59:16PM +0800, Chen-Yu Yeh wrote:
+> The CV180x/CV181x family has an additional DesignWare APB GPIO
+> controller (PWR_GPIO) located in the always-on power domain at
+> 0x5021000. Add the node so that boards can reference GPIOs in this
+> bank, such as status LEDs.
 > 
+> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
+> ---
+> The base address and interrupt number match the vendor SDK device
+> tree (cv181x_base_riscv.dtsi: gpio@05021000, PLIC interrupt 70,
+> i.e. SOC_PERIPHERAL_IRQ(54)). Verified on Milk-V Duo 256M hardware
+> via the onboard status LED on porte 2.
 > 
+>  arch/riscv/boot/dts/sophgo/cv180x.dtsi | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/sophgo/cv180x.dtsi b/arch/riscv/boot/dts/sophgo/cv180x.dtsi
+> index 06b0ce5a2db7..25ad2bd265d7 100644
+> --- a/arch/riscv/boot/dts/sophgo/cv180x.dtsi
+> +++ b/arch/riscv/boot/dts/sophgo/cv180x.dtsi
+> @@ -160,6 +160,24 @@ portd: gpio-controller@0 {
+>  			};
+>  		};
+>  
+> +		gpio4: gpio@5021000 {
+> +			compatible = "snps,dw-apb-gpio";
+> +			reg = <0x5021000 0x1000>;
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			porte: gpio-controller@0 {
+> +				compatible = "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				ngpios = <32>;
+> +				reg = <0>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				interrupts = <SOC_PERIPHERAL_IRQ(54) IRQ_TYPE_LEVEL_HIGH>;
+> +			};
+> +		};
+> +
 
-Applied, thanks!
+You should follow the device address order. not by the device name.
 
-[1/3] arm64: dts: qcom: kaanapali: Add SoCCP for Kaanapali SoC
-      commit: 8e1d8b4102b536f0b0e0c0c2f3dc390c5887c2a1
-[2/3] arm64: dts: qcom: kaanapali-qrd: Add SoCCP node
-      commit: 71f17efc405a5edf882b1aeb760cc777f1599af4
-[3/3] arm64: dts: qcom: kaanapali-mtp: Add SoCCP node
-      commit: 1c553b3d0cfca9cac2186daea6e2f81808ce7d8b
-
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+>  		saradc: adc@30f0000 {
+>  			compatible = "sophgo,cv1800b-saradc";
+>  			reg = <0x030f0000 0x1000>;
+> -- 
+> 2.43.0
+> 
