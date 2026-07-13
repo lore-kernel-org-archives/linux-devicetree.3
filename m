@@ -1,88 +1,37 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A661543746A
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 14:55:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98C3438FE7;
+	Mon, 13 Jul 2026 14:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783954524; cv=none; b=JzVJo5qecN3YDeJtZY/7bfjJbJgYeS7fHT6mR0IyOeogu9ccrVFl6nD0GklpTuypIrrcPDvdiZpNHCAXRsi7tzHvNeoMRHWZH9DqHmRM2zhb7RJr0vWWhCgdC3Y0U28ksCsLYWg3O8gNuH/SzmxvxaXNU2BDhb83/UQHYCjj+r0=
+	t=1783954529; cv=none; b=lAYbjdL4Ms2rAeeKGzAXXvRFOVV7mUIiI6RVBHofiKbqQWgGdXGwLnzaAdCNxJVDtSh2yNBveFD9yESxK9T0e6X/16A6E+kapQn5ia0xaTdFd5648muVkKOKUYTrJ2DKG1FWtuGMgdtReRlI5Xalgyw/J8ZNs5ONw5rpd2u/GsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783954524; c=relaxed/simple;
-	bh=3RYoy3NwCnlF9xpy5kV6jgraHpowonDh8P0V9h6Z3hg=;
+	s=arc-20240116; t=1783954529; c=relaxed/simple;
+	bh=RMKccsJdmORllu7mAeK9CUY0zo7lNV6Gza5XaIwj5hE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Lqr/QsQXymX3rZIcAbVmvA97LREvC6yOStLSiwB/ZEa5RjvB8iTl6WefTdVW7guGHjCSLf+ooK35FnxM5CEN6djUGwLdex+GrbPaDAf/PLiP5wLd8juyZ0ZSctCx5t8Nenx6ijW6G1h6F4jSOi3wokk24UbhUYHnp4CJCGdIXfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hnVlKmxn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ATF1k2px; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=O0Iq0lHuyyLudSbRQ+ygER0E3A8BtIjCH/mAEQT14GwNwmrWcWAHhHBN9d7O/g+fStqHdOydW0GB8BhQjy8OORLviC4NjVSDQ4jbIHvI8gwCOMCASVfdb3aihzVh9kdSViQkDsnHDcBexDOSbvjBalzmF3K/M9ItAvr9sh2/doI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=lZfY5KeE; arc=none smtp.client-ip=116.203.77.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hnVlKmxn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ATF1k2px"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66DCDvMZ1428318
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 14:55:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+RBNDWpZ0ECEPwpAEHCXeSOceBEtakk936rxO1jOWpw=; b=hnVlKmxnXPMktPQm
-	yk+j1bTsKNGPKreQoVJyWZI/ztaKVl+Ut8GfBihC5lBvInp+KDtkC2twuPxM6qXP
-	KCP8vKxoAzeYtn9k8ajpbo2hYYSU7W1ZnL9pME2qWyV0SgZHoBv5obpTE9t3WJVs
-	N79RNddngnMcn+/UNmdcOBZanpXOPEqZw1FsscxRGGH9gi4m9VMnErj1C0TbhJeV
-	q25dyT0/VhNThOUFN8ntuYiQY92PdtrrbQxLd4EvdqETLmLAX02QUD0WonTP9Cqd
-	Pq48ZODrm9HvvVB0Dr3k/2UzB778ujlRLhuQnMPt3AGekDMNpY6/D9wIcA7xCBcM
-	Nmz6sw==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcurn1p15-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 14:55:21 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e6b73b3920so2957393a34.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:55:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783954521; x=1784559321; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+RBNDWpZ0ECEPwpAEHCXeSOceBEtakk936rxO1jOWpw=;
-        b=ATF1k2pxhfYdVKErt4tKwri+F31Y1u2wKo8sZf3TKTwTwZe8BidA6iDTFmX15cmxiA
-         sXxSsq2rbhBKnJ2Z6uExkWb9mBigxhiN9VbqG9A8n3zF4al7LUDeNmAU71527KzgcJKA
-         xtJfU1MF5OroZ5GXX9MWpOiBNyvInAdt4hAPi0KuYtPe6YHKv5afJxm7Fu76VL074fK9
-         PvgLX4BzYIw+AKvinRr9KWgmp4Va7Ka88QAOmH3rzThe3KBu/WiEEYR5gOTtLrn/lXsZ
-         lg0LdhWDNv5EO7qDqUNzmY5a/A+TcbGfOK8c9tGciKKDEDfzyKhxgkSO8MoTGiTzrTQ0
-         qhWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783954521; x=1784559321;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+RBNDWpZ0ECEPwpAEHCXeSOceBEtakk936rxO1jOWpw=;
-        b=XbdCyCOqudRN9FCdqrzuTVn87oZfhfwBO5n6scw+6fz6jxGJb1J+3k/7GofB/uPXO2
-         kg8zT+raKqe6jGPonpqJ+hUUo6TnqaRPfBgaRjzM3hdwdBv79YfgJ/HC8frQ+5Ro7CKS
-         fjP3aQJnLqH5BFha7QNVnvCwsyisc6q4rjRcUmLRGNE7HyCYr/HFHK25X0/ZNqpBHpdC
-         LU1cHvWqWfqVWgKch/ALKnAj3YiobWuZ1xVJSKljLse5/PCb+elxaq84ECoo8rbOeIcB
-         4ZTnFbVkzRxIyyOgbTHqZZu1CCX0ouvMxlysq/L6vvk6/b9NxXCNNTTEhYSKvp9OC1rH
-         Y+1Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8zHtE8nzLRVLNIjiBev7VQxjp3ywDvorDS4sbjgpA6+Clyxu2nZgfWVMMVH5U8k+09F2Iyzt9l8j7f@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAEfkJx9JgFe7t6wmOXmFayp04tq2BjqF44XcCU88VKjrUAg70
-	OW/sAV/Ti03GpYrHYVaz/JgRkUFKGhfptgTosPr64oNE5D5Rj0UadgC+9t6LLK9p3481z2IWIhs
-	vClBhIRt7Oe2F8S7sqKcQ1imvUvktD02ursBf0w+Uo1qVIVCZZ+vpGNONWn0MlyfP
-X-Gm-Gg: AfdE7cms8yHvfK1dHwWmfcLs4q25OG4aZ6nMfHgvzyM7jAe7eMKBfm2Ju0HXxCKGc02
-	iF0XAskqk0oxMGSu1huvMAtX+jI1ENWOb2uiC1uHRT2Nl9PTnYsCB+2zHbpWhEHW+V43dCxBMzb
-	/9pnV+LwV6OgLUyechk0TmsTDaSX2zZzB810as7+X47ut6gf2OfToCJT22zZxYTyhtmrcUaDnu0
-	xT0r+zxNy+Eu3aeYYfokJjG8ZxYrhMBFR8TtZTeTk5Jaw9yqGC2v//7M5OAxV97NYPndLz7r7La
-	RpC1iM0QQXg51p2Oxq/1E+jD5aQvSMf9LpG3KIvtmA4yaUFItmlAc6A9drHwZPfbiqqf7uDuh9f
-	QZVYOeoVk263+xYUmz2pQdkdJq5m4JUN4Nx0=
-X-Received: by 2002:a05:6820:134a:b0:6a3:c52b:b95a with SMTP id 006d021491bc7-6a3c52bbe58mr48661eaf.29.1783954520781;
-        Mon, 13 Jul 2026 07:55:20 -0700 (PDT)
-X-Received: by 2002:a05:6820:134a:b0:6a3:c52b:b95a with SMTP id 006d021491bc7-6a3c52bbe58mr48636eaf.29.1783954520268;
-        Mon, 13 Jul 2026 07:55:20 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a38e9bc8casm6728746eaf.2.2026.07.13.07.55.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 07:55:19 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Mon, 13 Jul 2026 20:23:48 +0530
-Subject: [PATCH v7 10/10] arm64: dts: qcom: eliza: Add support for MM clock
- controllers
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="lZfY5KeE"
+From: Frieder Schrempf <frieder@fris.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
+	t=1783954518;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XGD1udeeLySjuRpVfJ/v+jq6I8kxIY1T8PFHbdXiRnU=;
+	b=lZfY5KeEKoMKm+cYODOfvY2ifUEkYid7GRvxHJt8VMnmANsd8L27AlIRcLYCa66khtCUkh
+	qoSMi0XjGoclkdRXu5NM58jUAvsd8PNym7gipxzS4QFnlYv8lRWwCB1T1pNvGQBRJHG8Qo
+	VGaTrUNILWoL8Op4Yh6dLChWMPnyOT7G1HRXqnEzYdl5HEIqRB44r2vORB9OQzKzc/Sfyf
+	EagMfr7qJqLnZDytLyeG+Gu4CmwEe6hD7dVOydZKZHteeZ7+VIa7+sgvS1lVEhhp9XdIu4
+	hnMCfViPxC6TYpY/Iit8QQtjsj3jDCooyGoYsC++ViDBG8N31kAa+zLZnFMRBQ==
+Date: Mon, 13 Jul 2026 16:53:46 +0200
+Subject: [PATCH v2 10/10] arm64: dts: imx93-kontron: Enable ELE firmware
+ driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,173 +40,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260713-b4-eliza_mm_cc_v6-v7-10-4d91bcef50eb@oss.qualcomm.com>
-References: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
-In-Reply-To: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-ORIG-GUID: ZY-E-6ZL01J-fZffWCnoeNqNrSXm7jmo
-X-Authority-Analysis: v=2.4 cv=IcK3n2qa c=1 sm=1 tr=0 ts=6a54fc59 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=nFpjIs4uCRy3fSY36ugA:9 a=QEXdDO2ut3YA:10
- a=EXS-LbY8YePsIyqnH6vw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE1NSBTYWx0ZWRfXxVi/KJnrP2Sd
- DA9nCWW8uD7oCao+6tjcUvOoE0qSnlhoOS41cHzHmbXhC2pqK04Th/GMICw2K3jAZ6h0fv+B3sR
- HAFVJhAUy9VUAOWoIfHOvKNM/AK2CCQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE1NSBTYWx0ZWRfX8sMMlNWz8mWk
- ggqjLCDObUalCF2qL9yQiP2N+1JMC8PECvy7TpuxG7vWb8X8ggLUoMRhFqB25Z2qZ0MLQ/I3T4B
- 3DWHIugPmTZOXgpOo7zARHhIKLABdxIwo61P4EFKZrtoQaPxrBrbParE25OxGBT7g+UTt+g0rUD
- rghKKS0Jxt8Y424XlXLWV3FdrLx/NVAsTlWmJOQtGUvsiutV4x7L0DdVZwz4N/pomlw/tMX/MSV
- aKdGPS4mnVEIIoJ91bZlJiSluBlbvdcfS2nRrrUGveGXqT0ygdCsnOT7KA0yzjAKg6DkDwsnVM5
- vpj6FfmYqJpyWowVWVkOG3XdfQP1iEmmF40mqQpKSD9RW8wJomw9MjU29ubUgeoYxYfsUrvt+Wx
- WeLkpjNjnGxxkF+0O56dxx7+yHqrsfvxurOhJkEu1FQ1cOIR22uSGGhzQiQVk8K6AsLTfAk1Kyi
- QNvT3X2oBoZR/OaMvCg==
-X-Proofpoint-GUID: ZY-E-6ZL01J-fZffWCnoeNqNrSXm7jmo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-13_03,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130155
+Message-Id: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-10-b8266d93514b@kontron.de>
+References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
+In-Reply-To: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Pankaj Gupta <pankaj.gupta@nxp.com>, 
+ "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1625;
+ i=frieder.schrempf@kontron.de; h=from:subject:message-id;
+ bh=d5GCeuaUDxb0XmrK6obvF5ioCBnvWAlVOzfPbhm5HFo=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvkT9Ajp7zzUUenF6/ckPFzrpxm0sacdbNbMha/f+3+N
+ Eus2sOko5SFQYyLQVZMkUWK3+K1rVmsj/yx6iiYOaxMIEMYuDgFYCLxXxj+Ck09FZlUyq+Zry7d
+ fM1s3ku5CgalLo+oSgbdaItflcGXGRm2TGnfcsf8qfqFEOUcK19Tc3fF0J9GG++GN8ulqJ1tsOU
+ DAA==
+X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
+ fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-Add the device nodes for the multimedia clock controllers (cambistmclkcc,
-camcc, videocc, gpucc) for Qualcomm Eliza SoC.
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+Add the ELE firmware API node and pass its handle to the OCOTP
+driver. This allows us to gain read/write access to the OTP fuses.
+
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- arch/arm64/boot/dts/qcom/eliza.dtsi | 76 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+ .../boot/dts/freescale/imx93-kontron-osm-s.dtsi    | 26 ++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index 977de44b816e4295dba89ecb77c6df60f6f08d15..fed88a699fc264cc49e0bda79870a8dfb0b6c7f7 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -4,9 +4,13 @@
-  */
+diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi b/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
+index c79b1df339db..c1da4b52c878 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx93-kontron-osm-s.dtsi
+@@ -24,6 +24,15 @@ chosen {
+ 		stdout-path = &lpuart1;
+ 	};
  
- #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
-+#include <dt-bindings/clock/qcom,eliza-cambistmclkcc.h>
-+#include <dt-bindings/clock/qcom,eliza-camcc.h>
- #include <dt-bindings/clock/qcom,eliza-dispcc.h>
- #include <dt-bindings/clock/qcom,eliza-gcc.h>
-+#include <dt-bindings/clock/qcom,eliza-gpucc.h>
- #include <dt-bindings/clock/qcom,eliza-tcsr.h>
-+#include <dt-bindings/clock/qcom,eliza-videocc.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/gpio/gpio.h>
-@@ -1779,6 +1783,24 @@ aggre2_noc: interconnect@1700000 {
- 			#interconnect-cells = <2>;
++	firmware {
++		hsm0: secure-enclave {
++			compatible = "fsl,imx93-se-ele-hsm";
++			mbox-names = "tx", "rx";
++			mboxes = <&s4muap 0 0>, <&s4muap 1 0>;
++			memory-region = <&ele_memory>;
++		};
++	};
++
+ 	reg_usdhc2_vcc: regulator-usdhc2-vcc {
+ 		compatible = "regulator-fixed";
+ 		pinctrl-names = "default";
+@@ -57,6 +66,19 @@ regulator-state-disk {
+ 			regulator-off-in-suspend;
  		};
+ 	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		ele_memory: ele-memory {
++			compatible = "shared-dma-pool";
++			alloc-ranges = <0 0x80000000 0 0x40000000>;
++			size = <0 0x100000>;
++			no-map;
++		};
++	};
+ };
  
-+		cambistmclkcc: clock-controller@1760000 {
-+			compatible = "qcom,eliza-cambistmclkcc";
-+			reg = <0x0 0x01760000 0x0 0x6000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&sleep_clk>,
-+				 <&gcc GCC_CAM_BIST_MCLK_AHB_CLK>;
-+
-+			power-domains = <&rpmhpd RPMHPD_CX>,
-+					<&rpmhpd RPMHPD_MX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
- 		mmss_noc: interconnect@1780000 {
- 			compatible = "qcom,eliza-mmss-noc";
- 			reg = <0x0 0x01780000 0x0 0x7d800>;
-@@ -2657,6 +2679,60 @@ mdss_dp0_out: endpoint {
- 			};
- 		};
+ &flexcan1 { /* OSM-S CAN_A */
+@@ -253,6 +275,10 @@ &lpuart7 { /* OSM-S UART_A */
+ 	pinctrl-0 = <&pinctrl_lpuart7>;
+ };
  
-+		gpucc: clock-controller@3d90000 {
-+			compatible = "qcom,eliza-gpucc";
-+			reg = <0x0 0x03d90000 0x0 0xa000>;
++&ocotp {
++	secure-enclave = <&hsm0>;
++};
 +
-+			clocks = <&bi_tcxo_div2>,
-+				 <&gcc GCC_GPU_GPLL0_CPH_CLK_SRC>,
-+				 <&gcc GCC_GPU_GPLL0_DIV_CPH_CLK_SRC>;
-+
-+			power-domains = <&rpmhpd RPMHPD_MX>,
-+					<&rpmhpd RPMHPD_CX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		videocc: clock-controller@aaf0000 {
-+			compatible = "qcom,eliza-videocc";
-+			reg = <0x0 0xaaf0000 0x0 0x10000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&bi_tcxo_ao_div2>,
-+				 <&sleep_clk>,
-+				 <&gcc GCC_VIDEO_AHB_CLK>;
-+
-+			power-domains = <&rpmhpd RPMHPD_CX>,
-+					<&rpmhpd RPMHPD_MX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		camcc: clock-controller@ade0000 {
-+			compatible = "qcom,eliza-camcc";
-+			reg = <0x0 0x0ade0000 0x0 0x20000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&sleep_clk>,
-+				 <&gcc GCC_CAMERA_AHB_CLK>;
-+
-+			power-domains = <&rpmhpd RPMHPD_CX>,
-+					<&rpmhpd RPMHPD_MX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
- 		dispcc: clock-controller@af00000 {
- 			compatible = "qcom,eliza-dispcc";
- 			reg = <0x0 0x0af00000 0x0 0x20000>;
+ &tpm3 { /* OSM-S PWM_0 */
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_tpm3>;
 
 -- 
-2.34.1
+2.55.0
 
