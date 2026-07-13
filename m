@@ -1,69 +1,37 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6393441CB4B
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 15:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB37F34029E;
+	Mon, 13 Jul 2026 15:07:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783955228; cv=none; b=uxSTXHvTZL/d6CiS+W0ruBNeaFAucSSYjDIdqkFdMIEpw+AblSruLs6lDr3W/B/WHAj/ssL5lMQlDmGQxp0W21Mdj5zzb1iD7jCtvspLnbA8OFH+Z/Ph3jOqkZ45hcfDgXBvqzKqqeHpj4ZYcayLOYzR+x+tMfpr3Mmxzh0j/6o=
+	t=1783955273; cv=none; b=rxqhSoyNKZ188cO3yGU/TWliYGrZHFCPPiihRWCDch1RWC5mq2pdJJfnOaysI1rmpo4AQe7YPGa3cVZgOFoNYzU3wvoQz4lgcjQgIG3NK25itKIa13rEPYL8BLiQ7yutMk9XjHzV7rz7p/cq3gw6MBPB3Uvm1vGQquy2JU1lAYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783955228; c=relaxed/simple;
-	bh=3181rxI7RMc/ENmXtWxGxojMovVD/zC4nX94sor5K1I=;
+	s=arc-20240116; t=1783955273; c=relaxed/simple;
+	bh=pWuRmK/lvCohXgAZnOXGTEEgVS8UJF27uDGMTJ9a2Nc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LUmZKE05SsKG7Gmi1PPnOvtg04zX6KUgHQzpgpZbk0tEqX9q5fWfuysvLT2S/HHzTbbdXQbaUnWImAgFMWHwuDhRHatzkbZ28pOdY6gihWcHMY2gRgMiqeGfuoTaGrlInSvdL5eVdypAkkn0ZCYrPtaE63MM8gvuhBRHgLmiA+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m715yh6o; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:To:Cc; b=B1K/O7GfDnu0TiEVDRwWGS48g2Oxhr5rpbV5qM/Tr7jd9PwLKpBxHsxXJl164VIHhVKNOD+7oNSWbswdd3CkFMwEIta4J3XYa6CtuTOPHklwHHp4xYFgxg2pSxiWNMu4HU0BoCME9rjCh/mYdDZtcEqDs9OAP2dANOoNhMy3Vd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GABsGShK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m715yh6o"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so2992559f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:07:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783955221; x=1784560021; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pfh4lLbCVK5LG8yB3IA/+fVz0G2PykpCGfs0ou1iHvM=;
-        b=m715yh6oMoneUtmkk/VgDfiKD2tzqLdcVojXjvbcTLbFBAFfbZO3pNnlsX2/SqVe+A
-         CmYStyQ9OcBpt2OYG8JzltFZh41Gx9b8tTre+r2/zxAm/KwoSXEAc8h29Lqcj0WFvrhO
-         IPANUgzOk7xiLee0Ws03fVokYCP+H80M/IwGPt0mS5jBRFZDJ/BIGuhJbz5S1iNii76/
-         ivtctOm+MXQ6+OzZG5ko9xmXT08iDXOWRuMNSzI7Q/qONcJd1zx38YjEV4qg88Lp4db5
-         h3IPEsR7uB8+1CfjwN7VJe4Ez8df3QLA7tzQHNBMSaollUR4h2M2JRcZKxiwDPaBPtOZ
-         R9Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783955221; x=1784560021;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pfh4lLbCVK5LG8yB3IA/+fVz0G2PykpCGfs0ou1iHvM=;
-        b=N8iTW+n4fD7hNSwCdFwJSL8FMu8PklIfGOhXrUGi8M98k3kEs2qQ9QQBMXF0jnCy3C
-         SiJ0StqyI+5W8e7bfEYenR6JmnBm/aSTOhtHT6yUFPdySGT2Yb3P6MlngtgysquxSxWt
-         MZt6m4rXqu+stECQIgTpFrlLMy8Rxgeu1CEtQSOAqT3+kfKBZObqwe4cdOH954gcuPp0
-         nI9Ty1Zb4Zb2FHt6rrzYgxKN86ZbjSEibDopgansGrVjF9+dqlnJriioz69rOZya8ZkF
-         NiAylJWXS0FJZHlp803U0FpmKYNrvEl7J1ohKIPRwIx1oyLwJb4dXnupfOeI1jL+uHz5
-         qjbg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro03P2cLmit1GSCxwMDzWe5SYBf4RyIaNjuzNjuJBcq1bemzcLYaDDPH1nGw+qOR3Yh81S+zMr0bH9X@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPewG0l72nC86PzqFJDSuCK0uWGaTcnMP4j/vllwnXsbsMY0DW
-	LYxLRbrp9LuwqJsiiThKFTVlVp/w9IPZaJ/hXvd2t6W1gq2uK8dO4U8/
-X-Gm-Gg: AfdE7ck/4ONcskAGKlenEUSHcZVoY9AGba/uY9MwJ3RCDheWRSsElkPWPC5L13yCbig
-	EYXbT75MhTRtB32LSgSVwjvk909gj0cF2NXgzFwEvdqzb+fnwIq8+x7zBIoIy3DuYnXoET5/gxr
-	Zvi2CaQHIIxo2xZXCCpyaXIywoVaOG4N9GonYI5i6m7RAt48fD+9bftoUzsGLhmMAOEX9FEPMBO
-	EJsRH3S0aJ4ZwZYTZ6ZyIAb7JlrVR66gTQ2/Bvq/XpEtIon15c8L/sQ5KHuHWiOXjfM8YofpR2F
-	I8qf2/S6iTYiZ0mLwPW384yvbQauS6/L49OiP4cPO/qiKxaHiT5Nw3aI84EK9tgZA5lwUwfoe/g
-	YQQ+8VpAWo/fF/VwdgtUIRtErqRyLCEG0l3Krm8b75WmABV+hn8UzBDSMwZdSBDApsbDBBC/Avs
-	tQXJO4kmSvU3gdHbqgzHng81x+/ol0Bg/akC8UVk6ycE0CsPJCH7ZJndqpNJ6Slg2tlT9yhnVsz
-	bRNYbv8ugu8gMWb
-X-Received: by 2002:a05:6000:4381:b0:47d:eedb:ee62 with SMTP id ffacd0b85a97d-47f2dcb50f2mr11326337f8f.14.1783955220701;
-        Mon, 13 Jul 2026 08:07:00 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f4635a5d7sm19389f8f.10.2026.07.13.08.06.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 08:07:00 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Mon, 13 Jul 2026 17:06:29 +0200
-Subject: [PATCH 8/8] arm64: dts: freescale: imx8mm-verdin: Add Cortex-M4F
- UART_4 overlay
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GABsGShK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 54C65C2BCB9;
+	Mon, 13 Jul 2026 15:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783955273;
+	bh=pWuRmK/lvCohXgAZnOXGTEEgVS8UJF27uDGMTJ9a2Nc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=GABsGShKY9RyB+crazCaCxFiTyJyvOLdU7zOdxwilN+9SkJEgrEOmxCIO+VoQiL/o
+	 mHWOzsdTy6CTdGwAETi3WaMA0mSIidRRj/KC27wsuQo52hxd294S0jZDr7m506XGzs
+	 f5/HR8AuIpCDahQ3psd6JhRaNNHZtnLKOHadAj4M9tzYdAolNrzsdW5cqsM0y2Xhvc
+	 49BKpWzExT+WwLUVh2SZ0nLeZB6jza3Y2famF52WUHYMkmvaBGMMLv3kHw6GVrN1Ns
+	 MK+tb6nHwydY1emRh2SB6PDD+BBuxo2yasmuFu+bOCeD56HeyNFJ2miauJQQXbe32w
+	 81qqEaX7NB7wQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C05AC44501;
+	Mon, 13 Jul 2026 15:07:53 +0000 (UTC)
+From: Nikolai Burov via B4 Relay <devnull+nikolai.burov.jolla.com@kernel.org>
+Date: Mon, 13 Jul 2026 18:06:21 +0300
+Subject: [PATCH v2 1/3] dt-bindings: pinctrl: mediatek: Add MT6858
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,84 +40,242 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260713-v1-verdin-imx8mm-dtbos-v1-8-4acd63db4504@toradex.com>
-References: <20260713-v1-verdin-imx8mm-dtbos-v1-0-4acd63db4504@toradex.com>
-In-Reply-To: <20260713-v1-verdin-imx8mm-dtbos-v1-0-4acd63db4504@toradex.com>
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+Message-Id: <20260713-mt6858-pinctrl-v2-1-1bd072e3206c@jolla.com>
+References: <20260713-mt6858-pinctrl-v2-0-1bd072e3206c@jolla.com>
+In-Reply-To: <20260713-mt6858-pinctrl-v2-0-1bd072e3206c@jolla.com>
+To: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-X-Mailer: b4 0.13.0
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sean Wang <sean.wang@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Nikolai Burov <nikolai.burov@jolla.com>, 
+ Nikolai Burov <nikolai.burov+review@abscue.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783955270; l=6302;
+ i=nikolai.burov@jolla.com; s=20260707; h=from:subject:message-id;
+ bh=TxSc8fJL7HQZpyDdZ/01rMbgxyEamqNF+r+0Zh0YQ4s=;
+ b=Zzq7ZEcY/26R8jSsDZTbjJKeEeDgJLQJSj6ogHIxBeLq25+vbLGu9tcfZEQe1Q+ge6FjZfujh
+ zmmV/SpCGJ2B90dThTIZ0bLAs6ajtBlz+0lsBseVINPBeyqdjHNHycP
+X-Developer-Key: i=nikolai.burov@jolla.com; a=ed25519;
+ pk=yzpa+PD+ovHUFMIOBA9o2QqGwI110jM6hdGHLc7jtoQ=
+X-Endpoint-Received: by B4 Relay for nikolai.burov@jolla.com/20260707 with
+ auth_id=859
+X-Original-From: Nikolai Burov <nikolai.burov@jolla.com>
+Reply-To: nikolai.burov@jolla.com
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+From: Nikolai Burov <nikolai.burov@jolla.com>
 
-Verdin UART_4 can be assigned to Cortex-M4F firmware. Add an overlay
-that marks the UART as reserved so Linux does not claim the port.
+Add new DT bindings for the pin controller found in the MT6858
+(MediaTek Dimensity 7100) SoC.
 
-The overlay is also combined with the Verdin iMX8M Mini Development
-Board device tree to provide a ready-to-use DTB for the WiFi SoM
-variant.
-
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Nikolai Burov <nikolai.burov@jolla.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile                     |  3 +++
- arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso | 14 ++++++++++++++
- 2 files changed, 17 insertions(+)
+ .../bindings/pinctrl/mediatek,mt6858-pinctrl.yaml  | 190 +++++++++++++++++++++
+ 1 file changed, 190 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index ed3d678e7c5e..605008d7fe6e 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -193,6 +193,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-ov5640-24mhz.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-ov5640.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-uart4-mcu.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dahlia.dtb
-@@ -202,6 +203,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-nau8822-btl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-ov5640-24mhz.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-ov5640.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-panel-cap-touch-7inch-dsi.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-uart4-mcu.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-mallow.dtb
-@@ -225,6 +227,7 @@ imx8mm-verdin-wifi-dev-ov5640-24mhz-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-ve
- imx8mm-verdin-wifi-dev-ov5640-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-verdin-ov5640.dtbo
- imx8mm-verdin-wifi-dev-panel-cap-touch-7inch-dsi-dtbs := imx8mm-verdin-wifi-dev.dtb \
- 	imx8mm-verdin-panel-cap-touch-7inch-dsi.dtbo
-+imx8mm-verdin-wifi-dev-uart4-mcu-dtbs := imx8mm-verdin-wifi-dev.dtb imx8mm-verdin-uart4-mcu.dtbo
- imx8mm-verdin-wifi-yavia-dsi-to-hdmi-dtbs := imx8mm-verdin-wifi-yavia.dtb imx8mm-verdin-dsi-to-hdmi.dtbo
- 
- imx8mm-tqma8mqml-mba8mx-lvds-g133han01-dtbs += imx8mm-tqma8mqml-mba8mx.dtb imx8mm-tqma8mqml-mba8mx-lvds-g133han01.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso
+diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6858-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6858-pinctrl.yaml
 new file mode 100644
-index 000000000000..8dbecffe9e7b
+index 000000000000..9b834e87afde
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin-uart4-mcu.dtso
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Verdin iMX8M Mini UART_4 for Cortex-M4F
-+ */
++++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6858-pinctrl.yaml
+@@ -0,0 +1,190 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/mediatek,mt6858-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/dts-v1/;
-+/plugin/;
++title: MediaTek MT6858 Pin Controller
 +
-+/* Verdin UART_4 */
-+&uart4 {
-+	status = "reserved";
-+};
++maintainers:
++  - Nikolai Burov <nikolai.burov@jolla.com>
++
++description:
++  The MediaTek's MT6858 Pin controller is used to control SoC pins.
++
++properties:
++  compatible:
++    const: mediatek,mt6858-pinctrl
++
++  reg:
++    items:
++      - description: gpio base
++      - description: lm group IO
++      - description: rb group IO
++      - description: bm2 group IO
++      - description: bm group IO
++      - description: bm1 group IO
++      - description: lt group IO
++      - description: lt1 group IO
++      - description: rt group IO
++      - description: rt1 group IO
++      - description: eint south group IO
++      - description: eint west group IO
++      - description: eint east group IO
++      - description: eint center group IO
++
++  reg-names:
++    items:
++      - const: base
++      - const: lm
++      - const: rb
++      - const: bm2
++      - const: bm
++      - const: bm1
++      - const: lt
++      - const: lt1
++      - const: rt
++      - const: rt1
++      - const: eint0
++      - const: eint1
++      - const: eint2
++      - const: eint3
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  '#interrupt-cells':
++    const: 2
++
++  gpio-controller: true
++
++  '#gpio-cells':
++    const: 2
++
++  gpio-ranges:
++    maxItems: 1
++
++  gpio-line-names: true
++
++# PIN CONFIGURATION NODES
++patternProperties:
++  '-pins$':
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      '^pins':
++        type: object
++        $ref: /schemas/pinctrl/pincfg-node.yaml
++        additionalProperties: false
++        description:
++          A pinctrl node should contain at least one subnodes representing the
++          pinctrl groups available on the machine. Each subnode will list the
++          pins it needs, and how they should be configured, with regard to muxer
++          configuration, pullups, drive strength, input enable/disable and input
++          schmitt.
++
++        properties:
++          pinmux:
++            description:
++              Integer array, represents gpio pin number and mux setting.
++              Supported pin number and mux varies for different SoCs, and are
++              defined as macros in arch/arm64/boot/dts/mediatek/mt6858-pinfunc.h
++              for this SoC.
++
++          drive-strength:
++            enum: [2, 4, 6, 8, 10, 12, 14, 16]
++
++          bias-pull-down:
++            oneOf:
++              - type: boolean
++                description: normal pull down.
++              - enum: [100, 101, 102, 103]
++                description: PUPD/R1/R0 pull down type. See MTK_PUPD_SET_R1R0_
++                  defines in dt-bindings/pinctrl/mt65xx.h.
++              - enum: [200, 201, 202, 203]
++                description: RSEL pull down type. See MTK_PULL_SET_RSEL_ defines
++                  in dt-bindings/pinctrl/mt65xx.h.
++
++          bias-pull-up:
++            oneOf:
++              - type: boolean
++                description: normal pull up.
++              - enum: [100, 101, 102, 103]
++                description: PUPD/R1/R0 pull up type. See MTK_PUPD_SET_R1R0_
++                  defines in dt-bindings/pinctrl/mt65xx.h.
++              - enum: [200, 201, 202, 203]
++                description: RSEL pull up type. See MTK_PULL_SET_RSEL_ defines
++                  in dt-bindings/pinctrl/mt65xx.h.
++
++          bias-disable: true
++
++          output-high: true
++
++          output-low: true
++
++          input-enable: true
++
++          input-disable: true
++
++          input-schmitt-enable: true
++
++          input-schmitt-disable: true
++
++        required:
++          - pinmux
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-controller
++  - '#interrupt-cells'
++  - gpio-controller
++  - '#gpio-cells'
++  - gpio-ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/pinctrl/mt65xx.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #define PINMUX_GPIO149__FUNC_SCL5 (MTK_PIN_NO(149) | 1)
++    #define PINMUX_GPIO150__FUNC_SDA5 (MTK_PIN_NO(150) | 1)
++
++    pio: pinctrl@10005000 {
++        compatible = "mediatek,mt6858-pinctrl";
++        reg = <0x10005000 0x1000>,
++              <0x11b20000 0x1000>,
++              <0x11c10000 0x1000>,
++              <0x11d10000 0x1000>,
++              <0x11d30000 0x1000>,
++              <0x11d40000 0x1000>,
++              <0x11e20000 0x1000>,
++              <0x11e30000 0x1000>,
++              <0x11ed0000 0x1000>,
++              <0x11ee0000 0x1000>,
++              <0x11b00000 0x1000>,
++              <0x11e60000 0x1000>,
++              <0x11e80000 0x1000>,
++              <0x1c01e000 0x1000>;
++        reg-names = "base", "lm", "rb", "bm2", "bm", "bm1", "lt", "lt1",
++                    "rt", "rt1", "eint0", "eint1", "eint2", "eint3";
++        gpio-controller;
++        #gpio-cells = <2>;
++        gpio-ranges = <&pio 0 0 197>;
++        interrupt-controller;
++        interrupts = <GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH 0>;
++        #interrupt-cells = <2>;
++
++        i2c5-pins {
++            pins {
++                pinmux = <PINMUX_GPIO149__FUNC_SCL5>,
++                         <PINMUX_GPIO150__FUNC_SDA5>;
++                bias-disable;
++            };
++        };
++    };
 
 -- 
-2.43.0
+2.54.0
+
 
