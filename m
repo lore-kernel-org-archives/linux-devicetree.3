@@ -1,112 +1,172 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [85.215.255.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EEF3ADBA4
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783931297; cv=none; b=UQhowsw08dEWMBxxljQnDcemDOfiKn/vjiMJDpT5+kcZCOAYs/FAnZdJBTeaXW5gEsZnH+2azGrLbiJpo8qlP1cZkdmcluGsE7Fo8TWL1OR+z0kR2Zifr4LdM2XuELl39U/vAfg3OxeMroLw8crLPz/OvLZ59KWTq3cSqOTl+CY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783931297; c=relaxed/simple;
-	bh=1bdQxZ+KT2IXwA3Ltsi7cQksVnEt6y9F8PnZupL8F5A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IG+vUtaDx6el03BW4TLvJ0zgqLkLCTefvI5hlI5SPvtLyDlMG3uNiReZqUhA4q5BstRn2vu1hkm2BWZLRUroTr9neSlGKgDpVIwKxqjG5jc6WJcEmMNodnRxAMQH21QvbBfbC7lApgYb38qi4d50e5eOCDoyUABn9QumOrNW3QI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SqLWaAts; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05FC3AE1BD;
+	Mon, 13 Jul 2026 08:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.100
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783931308; cv=pass; b=nE+0jFLqzD3NDW6lveGc1GuwoM/XoMLengRuZGvnm1qS++HVsJeztMgNeXCwRCXlRNRHoUa7CyZZFSeuOXmt7JigOzrp7zIq/4HKsR84jT2E0xQHzJvbwzOmb2AEycnFbnholSeEo8qm5mR0w07Vy5svVeV6R/1IU4/YNOa/s5Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783931308; c=relaxed/simple;
+	bh=hU0sagAME1G1zZIH0RQbZV4EmEHwkgt1Op5N1vS/zfo=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=EXLFEQzYUtvXH5d4CEAF1x6vD010Xuzej7vUDkIuLnKdtYFyH/FPtbstNJhUnohjJyEf59Dj/TcRFuCtG3Onq1rcdjFY6KbxoQsivMs/XYoYlKg8y5GAi+1lix1JD6GuqSSDhYI8ajZ6NS2WGI8xdF6SoPRpc7mZYubjYxzuvN0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=Vwx2oTP7; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=qtblV6pg; arc=pass smtp.client-ip=85.215.255.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SqLWaAts"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8484a0b998fso4381516b3a.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:28:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783931295; x=1784536095; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1bdQxZ+KT2IXwA3Ltsi7cQksVnEt6y9F8PnZupL8F5A=;
-        b=SqLWaAtsjqjybIBxzEryU00C3b9VOTarSGplovshQTcRxU7LquegJaK0+44qfD+90X
-         yncXbWQAbDmzqsHp/TR5c2I1s9wi4WaCPOEIRuLHxoHzrkUv7W/8dRiFopBQBwSYT5tI
-         WBog20AvVGYHfg9eZibsLi7BJ7U/xLQQceYiF04VVH1azFuy86TLSDqauzDZ7BwOH50C
-         HPj4wmdhIZ2hmOCalmzInfHeJO8cNwUlFIl6tn9nqP40fQA/sDXIXQT+7SSTWvxU9otm
-         wbBTvKS821eLgFG7IgDdbvpwaHsNGHlEIPPrhD+2dcjVj0NpJpAoOjOrlCbMSMU9+U7O
-         GlLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783931295; x=1784536095;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1bdQxZ+KT2IXwA3Ltsi7cQksVnEt6y9F8PnZupL8F5A=;
-        b=BPsXQTZ0Dlc8rKy+F5Ig9tor57xFBsB3Xw7osLjK/SqEMXBdFezZxpwdBDRIY2PDSS
-         Ogm9xrTBtuANpYxfL6AD5JUV8lhGyKVphEYkNJA8qmCWfr3jJmLMpYsgmsyQFtBmwbX4
-         srvNpvFNSC+EiuNX7ItsZOeXEPXgfcio0pKUL68dUtvJkhdrRXpxblT5eK2it5IVjRZv
-         CFE8JAjJ9LoK0YV7RmZiuhN9eLh8tQsrH2J1T5xyFmv/i3YX4lvMgvHQEgi98ljR68SH
-         K9JVB8JBO9Gv8B5vhIMs7mXyp17tsC6pm/IFxbPbjVocZua0f71kL9klWPugeDVDvDLH
-         92eA==
-X-Forwarded-Encrypted: i=1; AHgh+RpQ4DRlyt9d2k/gqYuHLmc16R68H1EaBcQckZqqSC33Apg9mrHIM3zow5fTBzbNa/hI6VhShKaaLYJi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3hFD+/gdKPPGDu2BSdznp2r5ow24IYsycFjoZaHPlflpNWUeg
-	A7ej8D5LFgVly0+MZBFe2aDM1oeK04zpLWqq/ytTeUe0+bz+jfVFeOfglCVZZNNQ
-X-Gm-Gg: AfdE7clwUN3w3Ie6rE2ZWqbXMKijJfK93YFDgldWcMx0sNw/7PTIo/S9dbqW5QiP3Jh
-	IZaLCsKg6lvCVYwBGGBkdWu7+TE2fbfab+75ma48Qp04DHzM5IezmU01Nej7ayzNxKRbBHi1lKx
-	TfGi28yehhCTKPKGp/4B7WjcPBjrEiyqDGqEPIVyhXW5adEa72Dm/P7j21TYoBdp1PSVmjSJcyl
-	y8WYHQndmN+mi/5bo6Mrn4jzUyYoZQc2rKDulYBwDOGlAIaYHnbjZF5w/z2B1Yk1uozdbFuBVpv
-	hdzE38ta4bJSYYG56042oYDSqkBY+nSVF/wjrjG4Mhjj6/xjb8sZEvKhQszdE/88cJTQG2McX49
-	Uzy9/PsrqLZs4LIFKJ9VOa3FyIbUmRIac8j3sauKg1EEk95fSWa7swFiwE2rhbAP5+h6M3gK50z
-	6EpzrouIH5GB0hpsQ+Ww7F5Q==
-X-Received: by 2002:a05:6a00:3306:b0:847:8dec:141e with SMTP id d2e1a72fcca58-848897569e9mr7818491b3a.54.1783931295613;
-        Mon, 13 Jul 2026 01:28:15 -0700 (PDT)
-Received: from HP.localdomain ([27.217.83.168])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8494b279e8bsm2691284b3a.33.2026.07.13.01.28.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 01:28:15 -0700 (PDT)
-From: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-To: linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	Zaixiang Xu <zaixiang.xu.dev@gmail.com>
-Subject: Re: [PATCH v7 3/4] hwmon: (sht3x) Add devicetree support
-Date: Mon, 13 Jul 2026 16:28:09 +0800
-Message-Id: <20260713082809.24184-1-zaixiang.xu.dev@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260713080129.D8A8E1F00A3D@smtp.kernel.org>
-References: <20260713080129.D8A8E1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="Vwx2oTP7";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="qtblV6pg"
+ARC-Seal: i=1; a=rsa-sha256; t=1783931231; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Oka9nCCkM+WZsnC/UNUFXjjaf3XwBpi/Oav9a/hVi0pB8MRxssrukHul6GEWznHmPM
+    ESuqm0fBKdqPFempxtFxM3J6oqurPdAN0xkNajC7tnfKB87JmOP28ytTzrT4rCcb5E0Y
+    lDLmYq4epC7eTkSONqsvQ5ts/WdO8PD/lU1dGrx0TIBFfd2qN11ISGgOTmta0ies3oyf
+    GIrudUva1NnndTVf+19+KN4zAEDD1b6IeoB0FgLhmqcoZlXh/+2YLgDnZGtFEhb3yq5c
+    tYKdnPJRPylyoLu2ajTe3eXlYbR8QLF7Jqt5uPEu56g4QQyvBK+vTKJ7NbDoPFU7+nI0
+    cuUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783931231;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Ib9mcRTAy1oPoZKxfhyC8Zte5eIn/Pz6JIUrDWg1aW4=;
+    b=D6jlrtCzML6mCSrVPwQjtXWqErpA5Jd47PDLQF00O/HrZwutL85UKj2K29XaNYs0SP
+    2YlkrJYN3XuQAw2iHRbBog4RFUlgpRAvlG65hkDFQ0JQdyQO2bUASmVz7ElyHlkbo8I8
+    dyXLYMVWohedYQGdxl9dgW4KDO6XIL8B62v5vlpu5uoxOgXiwPdkrMTG/VMRwAPB/tnj
+    NW4kK83Nl4UPPYHxhuG8NS+PFAaqhOrc4qbLNIRwLVLuEwygsEWF5d15vJDjtHPDAyax
+    0YiD376xYpuCZ/Xv1MOpoa8t7UTiEBRUtCMNkfSOZMktFizmgZZC4NdBvxzKi/854QqO
+    HjXw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo03
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783931231;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Ib9mcRTAy1oPoZKxfhyC8Zte5eIn/Pz6JIUrDWg1aW4=;
+    b=Vwx2oTP7GlXOMiikEv8RAjkcfTCZdI39w67GqKlHM4pRVbZNnftH6RbItr/nTaWaOy
+    p8RMzS7WI6acw58Z9T4pO+HtcqBvmtikn6DKE2F1nEip8hRo3bg8mAlJ9TfhbCQfAAUb
+    Og9gqA/oIzReRDaji0ii19RwxjkcRK315ISN3lwarVZcICTb2GwMCh8LJdh0wGFHR+oJ
+    6Ea0cs4mdlIAd0kTfdeRvSk/ZaoFjq+ldOba9I6iqqlHJH/qJLRsGXiAy7TqE2drO2YO
+    MmQyQyW/iYaIvHj7NRmgqO1dpB0rNEbwFT9Kut812dd+pRcGbgy3Mhe3APaC613UpzBK
+    fP/w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783931231;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=Ib9mcRTAy1oPoZKxfhyC8Zte5eIn/Pz6JIUrDWg1aW4=;
+    b=qtblV6pgFh3CET9boKnJ88eVlzy7oA3DhyC0d8mqPA3sunBkBdF/us2HHoQf+7FQSw
+    SdfBRHhUlBUtefoh7pBQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQi5pZlciNgDl2kEp5oHJ2/c57N2Mc49IfXTKd"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.5.6 AUTH)
+    with ESMTPSA id Q4b76426D8RAMvQ
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Mon, 13 Jul 2026 10:27:10 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH 07/16] ASoC: dt-bindings: add TI PCM1773
+From: H. Nikolaus Schaller <hns@goldelico.com>
+In-Reply-To: <20260713-abiding-jumping-ape-7ce8ff@quoll>
+Date: Mon, 13 Jul 2026 10:27:00 +0200
+Cc: linux-fbdev@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Tony Lindgren <tony@atomide.com>,
+ dri-devel@lists.freedesktop.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Niranjan H Y <niranjan.hy@ti.com>,
+ Sen Wang <sen@ti.com>,
+ Rob Herring <robh@kernel.org>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Helge Deller <deller@gmx.de>,
+ Lee Jones <lee@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ linux-omap@vger.kernel.org,
+ Daniel Thompson <danielt@kernel.org>,
+ Grazvydas Ignotas <notasas@gmail.com>,
+ devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ mfd@lists.linux.dev,
+ linux-sound@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Roger Quadros <rogerq@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ kernel@pyra-handheld.com,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E7BB0C31-9C19-4A9F-BBD9-746B94177B07@goldelico.com>
+References: <cover.1783749722.git.hns@goldelico.com>
+ <a02383ea5907a677f4c61066d423efde2b9de48b.1783749722.git.hns@goldelico.com>
+ <20260713-abiding-jumping-ape-7ce8ff@quoll>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 
-On Mon, 13 Jul 2026 08:01:29 +0000, sashiko-bot@kernel.org wrote:
-> While reviewing this patch, I noticed a few pre-existing regressions
-> in this file that might be worth addressing.
->
-> [Severity: Critical]
-> This is a pre-existing issue, but does this unaligned memory access
-> crash strict-alignment architectures?
-[...]
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this integer
-> arithmetic overflow?
+Hi Krzysztof,
 
-Thanks for the report. All five findings are in pre-existing code and
-are not touched by this series, so I would prefer to keep them
-separate from the devicetree support here.
+Thank you for the feedback.
 
-I checked the first two: the unaligned access in sht3x_update_client()
-(buf + 3 is an odd offset into a byte buffer, so it needs
-get_unaligned_be16()), and the limit_write() overflow (temperature is
-clamped to 130000, and (130000 + 45000) * 24543 = 4295025000 just
-exceeds U32_MAX, so writing the maximum limit wraps the raw
-temperature field to 0). Both look real.
+> Am 13.07.2026 um 09:38 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
+>=20
+> On Sat, Jul 11, 2026 at 08:01:54AM +0200, H. Nikolaus Schaller wrote:
+>> PCM1771/3 is a simple audio codec that can be enabled through an
+>> enable-gpio.
+>>=20
+>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> ---
+>> .../devicetree/bindings/sound/pcm1773.yaml    | 32 =
++++++++++++++++++++
+>> 1 file changed, 32 insertions(+)
+>> create mode 100644 =
+Documentation/devicetree/bindings/sound/pcm1773.yaml
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/sound/pcm1773.yaml =
+b/Documentation/devicetree/bindings/sound/pcm1773.yaml
+>> new file mode 100644
+>> index 0000000000000..f3e640705bf70
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/pcm1773.yaml
+>> @@ -0,0 +1,32 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/bindings/sound/pcm1773.yaml#
+>=20
+> You need to use latest existing bindings as starting point and test =
+your
+> code.
 
-I plan to go through all five and send fixes as a separate series
-after this one.
+Resulting code from compiler was runtime tested.
 
-Thanks,
-Zaixiang
+Actually, we used the latest bindings of some other audio dac as a =
+starting point.
+However, we introduced errors into the finally submitted file.
+We will verify and test the schema next time.
+
+Regarding the checks: both the rob herring bot and the sashiko bot also =
+reported several issues directly to us,
+so we are already aware of some other remaining errors.
+
+We are currently working on a v2 to clean everything up.
+
+Thanks and BR,
+Nikolaus=
