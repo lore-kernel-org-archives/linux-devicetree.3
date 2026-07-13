@@ -1,75 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D95369208;
-	Mon, 13 Jul 2026 07:21:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CFA3546C6;
+	Mon, 13 Jul 2026 07:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783927267; cv=none; b=J026giuZV8ag1XjyasCJiRFtZu+E8rIWGdWYbGcfuidntBePkHWbRWIlX9Q6H4GEfj99xPhqn+7FG6a5qZHUL3NJxfvfZAN2hFNqiWxxJJFBizueaNfHULwQvUbuwaVSajnW++AR9Vakj0lICscutPW57ELJVoyUw56nYlNd8g4=
+	t=1783927622; cv=none; b=c1QeNZ3e9jnAybEPCUa4BDbaYyv+iv35XvcfOzQQ8Jw60sRElt7UN/k6EgstMZEkDPJAMeoVTdcQD+ZXe1o1tqZvpbGg1bN82lp1q5wBVcv9DRxWLlKTdOpBe9fKpq8ufxZbC72bLXXO3nF5wegnF3JGRVWBneWRqTKeMlEzJaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783927267; c=relaxed/simple;
-	bh=bh+yWpaolJOY4sNtQpKR1RIVMCXF1XcI2rvHN1xdAFE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=F0S6+6rwao0cX2WAngDMw/21WYDF4AxvWH8FxtxRisKxusSIchO0ECNnSLYCJ5vQ0bItCZukJD6mC5QKLxS0NftVFYao9BJOcPaLKY+jgClf46Du81MJ6JxqPCND0M/osXenkggkEEeUA4qoELISV+O8/tafNBZYhrIUuwT+Yyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WDUzqBkr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783927622; c=relaxed/simple;
+	bh=uSZcqEKbqPyot+IKzNnU7hzmxT0JoaBbII4zxAy3kFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lMkR1XuuR4BgVlrm0KnpNT+0HrG4dVM5eDIoebfg43Lacj3Pd1M7TunGRpQMxeUbcwA9xuiYNuhFy46NTLZcOc5wI8oTDhEGXnjCXsoKqRlTL1mbKmFivaqZDJSW47DvZfsnt3IOGtjJIQRqLvjsb/LxOfZmbRSeYa6ZRbGuq1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3ton2aG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WDUzqBkr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11DFA1F00A3A;
-	Mon, 13 Jul 2026 07:21:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3ton2aG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87721F000E9;
+	Mon, 13 Jul 2026 07:27:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783927265;
-	bh=9kh43brSP66vzmTm95XDdhXt8cQARCKIA1zAbg8pOVM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=WDUzqBkrtCpK6dx62PadWwp7PdY5wC7lf0VjbjmJK4tvqJx75MzyAy0mZqQOcOjdI
-	 aCn7dPFajLxErrr+E9spI5pjB4T8pE8nNrqjP0c/Bwv4Ky3f37mhUu/rikPQ6tzWKM
-	 WDU0JAU4t4AJSzjSGFEm/y5uekRIs5mwyGhPQFqUivv1ED97uD8VaJeRlZzTR6/mv3
-	 yFy2oBa9iB/ufr+aGIplCjWMumy6f1qHDS7EySrxExjixdVCABjq0+Y/OOc2pmkfXQ
-	 mazTF43ahrtGVU5DJA3YnNii5uCWbgi8ZhrcRchZY/HUqXbpzq04atSsniG9pkl6oi
-	 q7VTkZyLPCX+g==
+	s=k20260515; t=1783927621;
+	bh=E372M33xfbBlxY96rpMILM58r6QIxHS+6Mzjsgps5Wc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G3ton2aGo8UP6tslQcS7Wf1uzCZLPkA0gMMsOPLTIrantiXEqm7TMCVKLhylRDPlF
+	 XJfjADxNpgBP3y0bRogsdCoS1aoD9VBOtm0zg8lVtmLpv/vH9q59VDNz4hR99HyQMe
+	 JViYlBji3/YRYS5N/J97KblnwHUoOYTwt3x9Qv00UjNBCUzj4kMBJdLQ2ER8PEmGps
+	 bYZq53qWEY2SCfh59r91BH3bhYBys53GqJ5pEj1eVK6cx7GlfxYe2d1OctOxygo7py
+	 2KGWTCPkHGfB0PZCaGaTCLyt/z8kNT3BT4rpFs9KxOjP/Oz60lP7gAIcssJkd3kycD
+	 OCCy4Om8Thsxw==
+Date: Mon, 13 Jul 2026 09:26:57 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: peter.griffin@linaro.org, robh@kernel.org, conor+dt@kernel.org, 
- linusw@kernel.org, Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
- hajun.sung@samsung.com
-In-Reply-To: <20260627171228.2687857-1-alim.akhtar@samsung.com>
-References: <20260627171228.2687857-1-alim.akhtar@samsung.com>
-Subject: Re: (subset) [PATCH v3 0/6] Add minimal Exynos8855 SoC support
-Message-Id: <178392726162.27536.18104050175290327938.b4-ty@b4>
-Date: Mon, 13 Jul 2026 09:21:01 +0200
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: will@kernel.org, mark.rutland@arm.com, devicetree@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/2] dt-bindings: perf: Add Arm Bus Monitor Unit
+Message-ID: <20260713-noble-jade-wapiti-20ba9d@quoll>
+References: <cover.1783439341.git.robin.murphy@arm.com>
+ <1cd17d9c07e9695e1dffdeaa5409f0a1db8ccb81.1783439341.git.robin.murphy@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1cd17d9c07e9695e1dffdeaa5409f0a1db8ccb81.1783439341.git.robin.murphy@arm.com>
 
+On Thu, Jul 09, 2026 at 08:22:07PM +0100, Robin Murphy wrote:
+> +required:
+> +  - compatible
+> +  - reg
+> +  - label
+> +
+> +additionalProperties: false
 
-On Sat, 27 Jun 2026 22:42:22 +0530, Alim Akhtar wrote:
-> This series adds initial support for the Exynos8855 SoC and also
-> initial SMDK board support.
-> 
-> Exynos8855 is octa-core CPUs, a combination of Cortex-A720 and Cortex-A520,
-> arranged in 3 clusters. And other peripheral for mobile application.
-> 
-> This initial support consists of CPUs, pinctrl and related nodes
-> needed for initial kernel boot.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/6] dt-binding: ARM: samsung: Add Samsung Exynos8855
-      https://git.kernel.org/krzk/linux/c/4b4a2ce19af5badef165c109d0d6d9f7c102914a
-[5/6] arm64: dts: exynos: add initial support for Samsung Exynos8855 smdk
-      https://git.kernel.org/krzk/linux/c/f03058d3768c3ec4af0fab7a36d0631423cb3cf5
-[6/6] MAINTAINERS: Add entry for Samsung Exynos8855 SoC
-      https://git.kernel.org/krzk/linux/c/a87d503a0ab077b0d9892290ab7dbec29f922eb1
+You need an example DTS, unless this is a subdevice and part of other device as
+subschema.
 
 Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+Krzysztof
 
