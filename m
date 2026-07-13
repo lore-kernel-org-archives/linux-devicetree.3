@@ -1,60 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3873B7759;
-	Mon, 13 Jul 2026 08:55:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6332A3DC4CF;
+	Mon, 13 Jul 2026 09:02:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783932957; cv=none; b=Hz4rZ3os8siupgtGeev2N6zsfkfFrkGcgdabjM/0gwsqUFMWJ4BMCkla1NAnczp8blivzPAlrhksJSPdReBAmX3GrQ94VE+tEXUt/H4vc0qQHz+NNQVxwcBSSp4FVgE5l4MMJQE5ybqg8kDDoBrF1QiK9tgCYIje3YbxM3agG/4=
+	t=1783933376; cv=none; b=Xh9wO1Zyq9GmqzxWl0QXs0gxmWA5+FwE4dNfqgWMkR/I1qYhpA805RYOnbPpna6LBkYzfifqUUeGv7pn17+JwOTTTa+aTzQVMdAz8FJzayCacpL27fsXVKkRavptshdgNzI6urDXTU2dgNiNvCBf9jSD3SfsuRgYPDbN8rbH2/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783932957; c=relaxed/simple;
-	bh=PxR3IYrOGaie1GzmTU3gAuPgCpTpDEmZgCF1YiD4c5g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GFwp18cRM6CNZQVj5PLpI7JzUw9qbCUm2tmKO/SAJSy7ZBfd5J7pW+4WHijBAIggqdk45RCAbUSwYDHVIc8G5acHvQDLddXo3ZXcwtibDPTMhF7jyS80OZtZgCiyXB51aITFh2bO1UN+nH3WMW3pt5QU0oxlyYZ9yIPaGDjVG6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LsvxHcLe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783933376; c=relaxed/simple;
+	bh=hv+BmMFQI7uxtEd6z3IljolVMm1yVXKHdzUxd1mtwME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MRpeQaLSHl0gC9M0aexKNFvjG/UssvrEmTOwEFwJVYUl9gZImRklcAXnN74+DruJCMBoHY1BPhKisiqlnUZV9UW1yX7/7q14qgTOSat6IeCj7GwSfiz5xqDdBK0ycpdu2JvGdC4qkb9eo072Y68G+6WJfIa7XOX5NLSGww/kihc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWVi4JWa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LsvxHcLe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ACAB1F000E9;
-	Mon, 13 Jul 2026 08:55:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWVi4JWa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD941F000E9;
+	Mon, 13 Jul 2026 09:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783932955;
-	bh=PxR3IYrOGaie1GzmTU3gAuPgCpTpDEmZgCF1YiD4c5g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LsvxHcLe4v+E9tNIL6Gyy3bsWy8PTDoDweZSYxrFWP3MzN/bUIabmap0qzuLQLOaC
-	 r9Mmpi0rZPUBCtv7rUsqYDSsu4h15KsEcZ+N5yamn2P7hv0+dzpcC3GK0xtNDSf8t0
-	 0lm/CXC+bDUnqZ2I9GOPfSG06YaH5qvwtX1E79itysuREejzM9DO+9kyQYGZstyo3p
-	 c9/A17SxgRmTA4PDiztLb2qS1Jw46sKNHAqYGOhYLa8oYn9JAqBBvtvLBAeTeOYYZt
-	 pdqgw4D0oajxs0EOOtEhqDepXlCdB0BR2nUfhVYpoQjBUvlq7Sy2VgVAx1eYsFFRws
-	 UY73nOd50x4iA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v3] dt-bindings: leds: Add default-intensity
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jonas Rebmann" <jre@pengutronix.de>
-Cc: linux-leds@vger.kernel.org, lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713-multicolor-default-v3-1-fb43f3f789cf@pengutronix.de>
-References: <20260713-multicolor-default-v3-1-fb43f3f789cf@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 08:55:55 +0000
-Message-Id: <20260713085555.6ACAB1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783933375;
+	bh=LxyKwQaktf9OsCYvofn84dtPjQPJZPN114SMIhyidto=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UWVi4JWaOponQfliAEHWGQ6JCVxBBXWS0ecLl7ObsdKTl6l1/juz1vSHtpFr77bML
+	 Ju7ynySFyIMfXDDRhxKD/VUIctTc+Gy7Jk7ue2lGbGgCEiGOdBGrxvP0xXnMkVMUsE
+	 m1MQPXixVhSjXlCxjm6HSFHbZR5BN2v7pg3HefuquEy+RK0atRc9tD5p7XNRGRJyRY
+	 P83u3xaH2Wk5RTjcvxeAWRgoCpUxVolLGKBCuoYQXtZpoCTdtYGtDFtfTMDzBRy6OE
+	 LIw/NExfkvzkQ2vqP/fwMH+rzrgY+qIJxtjm9UmzelMCF/CYZ+7UXoabw75Sg7H8sO
+	 X3RX8Ip73U4Pw==
+Message-ID: <4b70d37b-20c6-4216-b2a3-20f525d5ca93@kernel.org>
+Date: Mon, 13 Jul 2026 10:02:50 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] ASoC: codecs: wcd9378: add TX/capture codec driver
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+ Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor+dt@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260706192229.144137-1-jorijnvdgraaf@catcrafts.net>
+ <20260706192229.144137-4-jorijnvdgraaf@catcrafts.net>
+ <d643de20-50db-4f5c-a803-f1737da253fe@linux.dev>
+ <f484f295-f454-4a19-bd3a-cd0db5d5f970@oss.qualcomm.com>
+ <439a96fe-9fe1-4052-8e35-f442d7f857ad@linux.dev>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <439a96fe-9fe1-4052-8e35-f442d7f857ad@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> Document the default-intensity property to set a default color on
-> multicolor LEDs.
->=20
-> Update pwm-multicolor to support it and update the example to turn the
-> LED red on boot.
->=20
-> Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-multicolor=
--default-v3-1-fb43f3f789cf@pengutronix.de?part=3D1
+On 7/13/26 9:16 AM, Pierre-Louis Bossart wrote:
+> On 7/13/26 09:28, Srinivas Kandagatla wrote:
+>>
+>> On 7/7/26 12:42 PM, Pierre-Louis Bossart wrote:
+>>>> + *
+>>>> + * Qualcomm WCD9378 audio codec driver.
+>>>> + *
+>>>> + * The WCD9378 pairs a WCD937x-compatible analog core with SDCA-style
+>>> SDCA-style or SDCA-compliant?
+>>
+>> This codec is SDCA compliant and used on X2 Elite Windows laptops.
+>>
+>> This Codec can be configured in two modes, Mobile and Compute, and this
+>> configuration is fused out.
+> 
+> How would you the drivers know which configuration is used? read from platform firmware?
+We can read fuse registers to get this info. this is pretty much fixed
+for each SoC, so the device tree description would also have to reflect
+that topology.
+> 
+>> The codec IP is the same in both modes; what changes is how the
+>> host-side SoundWire master setup.
+>>
+>> The codec itself has two modes of working.
+>> 1. mobile mode
+>> 	in this mode the codec is enumerated as two slaves(tx and rx) on two
+>> different soundwire masters (tx and rx), like any other wcd codecs.
+>>
+>> 2. compute mode
+>> 	In this mode, where the codec is enumerated as single slave on primary
+>> soundwire master. Two Soundwire controllers(primary and dependent i.e tx
+>> and rx) are aggregated and they act as one logical SoundWire bus with
+>> four data lanes. The primary alone runs the SCP control channel,
+>> enumerates the slave, drives the bus clock, the secondary follows. The
+>> secondary drives some of the data lanes. There is a hardware sync
+>> between these two. This is a new configuration on Qualcomm Soundwire
+>> controllers called multi-master.
+> 
+> Very useful explanation, thanks.
+> 
+> In this configuration, I guess each lane is really dedicated to specific traffic?
+Exactly, on X2 Elite lane 0 and 1 are for TX traffic and Lane 2 and Lane
+3 are for RX traffic.
+
+> In theory the LaneCtrl port register allows a stream to be dynamically moved to a different lane, but I am not sure how this would work in such a 'multi-master' implementation. Along the same lines, I'd guess the non-zero data lanes remain enabled while the clock toggles, even if there's no traffic?
+This is pretty much fixed, frame shapping and lane mapping is hardcoded
+in device tree.
+
+> 
+> Management and optimization of multi-lane systems isn't straightforward, I've heard two theories:
+> - one where it's better to only enable multi-lane when the bandwidth on lane0 is exceeded.
+> - and a second where it's better to spread traffic on separate lanes and lower the clock.
+> It probably depends on a number of factors, and in the end on how codecs are wired to the different lanes...
+
+This is case is pretty much fixed due to how the lanes are wiredup
+internally.
+
+--srini
+> 
+>> From Codec pov, its exactly same IP, I have now SDCA drivers working for
+>> both playback and capture, so Am hoping that we could use the same SDCA
+>> driver for both of these modes. I still have to give it a try on a
+>> mobile platform to verify this.
+>>
+>> Am hoping to send a version of this driver sometime this week.
+> 
+> Sounds good.
 
