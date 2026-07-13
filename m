@@ -1,209 +1,114 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EDF3F4DEB;
-	Mon, 13 Jul 2026 11:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783943988; cv=pass; b=lK3ifxxPSSQVaCOmNZb7JCASdFfIzfyVPBiRIRAxEi2WPKJbg0V3EJfAUP2w8Xhy+17CNBFb7+F2Pv+i9eGXueCUrzRzolCJGc3WTuF794g4Jma1G4NdX9jBRQCitvSDKbLbK8J1HlWrcUCgmvMVrthp5GCvu6Fq7AlMNq+NbbA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783943988; c=relaxed/simple;
-	bh=i3ds+ZfPgSmMxk9w62eeDN6HWFjTVsxsr0xp5kuGCo0=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=OO8wnJFNQDDzwl+lURPPTazvQx3Jq7Fx4SnHRzEg7sfKju488xxYEJUUaB7EywL4rqjj5hIQ9bBJGiJYog87cbgatMhlWiE7n/SEd71gtFFky/jeJ0WNH4pZM8hVQiq8FUPGbsi72+IyQBr4EpUvvUA494YByRQaEKnQ20qgn3I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=Y+mVFkcz; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=s5oUxzPz; arc=pass smtp.client-ip=81.169.146.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3053FF89F
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 12:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783944058; cv=none; b=S+sAjFMmuIBzaxWVA5RDfcyjGXfr+WMVX3vJh7b9W3RpLLZhRmfMHxyB4Bq712chQf6C60inoK4GbOua/he5HIW1GP0fotzB3fQdtc1Krl5RlwwFjgK9Qhw50P/mgP90NKi2N1sUOvuc2TkXYn0JAhj47hvHF0ynTUYyUr/YINU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783944058; c=relaxed/simple;
+	bh=cw4aY6+xvzrYm0iCO2mGlo5F7FyS7T8m2XSxQSLnD5Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R44eIi+qOfcXO0b1ZWJ7tHIZXAZU8jAU/veA18wh4JhdlRn44FO2qUZbpEMwFStdzUcqY1x7wgF5vJ6nvPKs0337N/bo2zsNvtK+1+D0k1FHBEkD3R1cgek8WnG3Onp9FukXNBMwDeby6KkHJBGdeLaJVOctGLf5kjGAtAviOmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=kBBd9Vdh; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="Y+mVFkcz";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="s5oUxzPz"
-ARC-Seal: i=1; a=rsa-sha256; t=1783943621; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Kx1wuMGhNx1H1qyfH20/px3rarhlIIZQ+JjJo0CEpux60nBDZPSSrKgs9Rl3tQiiv6
-    0l0dKIVzgcjkdC3daT6DTHReUrAge2lS4LW7dM4khoLYId08yYBqLVzE1l5J6wBWMpH8
-    Z9EKVYSrbNd1ti3fQ8QLOb3Gv+e+XkFK96rSLufhJeeYCIRWK65kErEhJA2uI4N64NjH
-    JYSz8Sn6nZ5H52RQdUFyCUCbhgdybWcihOBibDK90RNM5bcsxZ71wwF406c4ytvZT3In
-    Jmfs6IOFCUNNXe4kTJbT6bMATZ+WUR8O3jLEfZRx5UHgEo1lrh2NyIzmi2jqKLw22ZXr
-    uAgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783943620;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=i3ds+ZfPgSmMxk9w62eeDN6HWFjTVsxsr0xp5kuGCo0=;
-    b=BGXfZQIZ3SaQrA5X07mjvAtyo/KMJXmohUec/pZZWOecujXRZ34ILOkWUzK+DTpm19
-    DnpguzbL1Z0SCC3Hpgm/18BSBg1BUOyrgDyO7vWh76TBoIxvViomlPgRdOZ2QVUU4HYJ
-    9MnaMHd5KOuuqTngGz2RsP1yw3WZXZYIMWeZ4mFAuJqNK8eiiCW8p7lsgvjwiESjK51O
-    CPH9DVJh5ImrcAWh/khAd7tG3GbgFouS5hc5XVRw9jo2Ln5FSuy0ML7nLcdmYFGdvT3r
-    R43lS5IAIwKYUfF7w6e/7VOy2rLBLnJm7Ve0Od7qnIVFb2QhXsSPXw8SkmrsjC/GoGeM
-    QLOw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783943620;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=i3ds+ZfPgSmMxk9w62eeDN6HWFjTVsxsr0xp5kuGCo0=;
-    b=Y+mVFkczigTwHh07i5RU3dZ4pxUtVVhWXaI+p5c5AuX4Ed3wFswQZy7pu7aGlrJMG1
-    FBOO2pYQMlDx3CJBFf33GdHpPyDq1MlQdZiKOkP9d3deI3MUqXWAt7ei92bTojyXs1W1
-    +luDZjQbt02BL4qKEod75NByenN/O2d9h78LoyQmDKJg1cmhUNdKVrH18UxMrNgsE3qU
-    lxDmX3AeDOyw33C7ZsKCdbNSFmDJB481hWSDhvS9ew4kZtFwMWys2mWiY8aV3XJ1eMh5
-    Z44CypUzRk/gNuUvXICD9kW/AkreJKPPPMJr1hGp01t11GWAMRgt5E0gycK3VwVa6b97
-    Muyg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783943620;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=i3ds+ZfPgSmMxk9w62eeDN6HWFjTVsxsr0xp5kuGCo0=;
-    b=s5oUxzPzsKSduKARr3lcDfEnRpESmipObP6NRDu3IJDlm6uuVQYxwV1+P6l65C1tdO
-    QuCLZy3VdSu64X4cJwCw==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQi5pZlciNgDl2kEp5oHJ2/c57N2Mc49IfXTKd"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.5.6 AUTH)
-    with ESMTPSA id Q4b76426DBrcOAG
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Mon, 13 Jul 2026 13:53:38 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="kBBd9Vdh"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-92e57a753f9so235304885a.2
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 05:00:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1783944055; x=1784548855; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5HCZAcclosWUynw+gIE6OLmOTVWR8tes+S5wt04CaM8=;
+        b=kBBd9Vdhg890iVSFO/ipreoQLU4SeBg/IxXv9g/41ObcTY7Mx3pARN74hoyR7NzaVW
+         LkyxQMcAVksjeCm/4qvsEiB4SqBOMro7FMdPbNNG5X2k98BVKxJ+1Ch2jbtXnApX45eL
+         TGNBjYFbxsd2ha+BqueCWkz+dxjYhbSgwYekhIfNt/nL/5VxghIvW3gmE9NsV6Aj8Qo/
+         +zPeK/B+LcdnHK6rkjYpBwF1BMgiPu98RPJuNNoPWA4FS2SNB5GSA1AoafYOt0XrVmy/
+         9u2mMLV8ogfbKSxmRPnFlAvkAMbLSQkUintOvkFtdZjhN+cSE+2lJoCk+3K7I8aLna09
+         BzZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783944055; x=1784548855;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5HCZAcclosWUynw+gIE6OLmOTVWR8tes+S5wt04CaM8=;
+        b=JG7JZ4yxW6tdAB6NBFFtNUWPruRWGOWWPQhjfsSCK/wayvTHdBmXSYgPimh7R5tHap
+         1EcI7HHFVIcTgFvi3L2qhPl10leWntUzgrcBwbQwJGCYEJfX0QmvMu9lBATDJ6EqiEA2
+         7JLztBsDlGGbX/8ORsCzw/WKcEaAhFs51mwBCwROCG7AAj2PiGdQSE5ofG2VoQNbsgtA
+         wlAtF79dqMrmSt0Nh4TvLpu/Qfe2Q2L0AmrI4mXwJ2AQAiKG7bPOw1IWLgkCO1veg4eI
+         sN2ZL8XEyOuMQWAyHDgZ1w1dI/Hk94DmhJ8e/sQwrmR+WYfPtkfJO7GbJhisLq3MOmxV
+         l+TA==
+X-Forwarded-Encrypted: i=1; AHgh+RqGqPUpWcctMgcGQPUhSZxiz2KNcNujJMrLPSU0yAZaRAxvpQEGGdJP3ZRGv4i1pYVDShTaavfR+CxE@vger.kernel.org
+X-Gm-Message-State: AOJu0YzyhokwFi36q9u/volnFKvKVU35L7b8Igz0h+FBrm0BD8PUoKOS
+	d4eUF87lTa8W4gKlxqZOoqn8YQJwKZH2Jq2kyBLXu6vPeeiejHoXmTbIzbo2g4TMtEA=
+X-Gm-Gg: AfdE7cnM90jQ8pJUZf2vw3EpFZCzoYOZQkBbZbPbAVQ/qAVckR48nTYOpZYRb6EeLyG
+	bsO/7MshVF6yehwYMR/8CNV/DXBlZysLnA286yE8JueCD1kKw2K4mIhUz14g7J/lEtefZBYfyn6
+	EBL5AfN1EVb1gixboEfn9+MaaFSC+21moDciY+0t2vu3k81W8DutzbPyWG1Eyuv2LqDL+WYAp1R
+	rpiEXfWfFm2SMwepCGvo1X+355uDCO5idQTCN/a46BL/h37dvzTTUruw9YvQV44AIz/KllG4F6x
+	Zao+fNiGT/mWg8ymGa6RF8W1WAjr5wbXY8ufNvpzew9lGdPgKkgwXP6xK5+durtKzrLfFxW1Nct
+	gY8xDg/woO4HE8CTePVKPPMHXtYp30DwW5WoNGXJxxwXwCA+9QYMJ5TAgGM9Kkak8o5frp6c=
+X-Received: by 2002:a05:620a:1712:b0:92e:5612:ba39 with SMTP id af79cd13be357-92ef2cb1651mr868484785a.44.1783944055161;
+        Mon, 13 Jul 2026 05:00:55 -0700 (PDT)
+Received: from ziepe.ca ([159.2.72.92])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-92ee5cf9b7dsm1066306685a.23.2026.07.13.05.00.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 05:00:54 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wjFLB-0000000Cu4e-38Ps;
+	Mon, 13 Jul 2026 09:00:53 -0300
+Date: Mon, 13 Jul 2026 09:00:53 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Nick Hollinghurst <nick.hollinghurst@raspberrypi.com>
+Cc: Daniel Drake <dan@reactivated.net>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 4/6] iommu/generic_pt: Add Broadcom BCM2712 page table
+ format
+Message-ID: <20260713120053.GE1835788@ziepe.ca>
+References: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
+ <20260712-bcm2712-iommu-submit-v1-4-80e10cdde2ea@reactivated.net>
+ <CAPhyPA5CqCzsDZg1_Sfr=EP5G6uLnnvDmdd_REZPX_VpwS=VJA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH 09/16] ASoC: dt-bindings: add OpenPandora Sound Card
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <741706c6-e6ff-4bc2-8ea1-28ebada6032c@kernel.org>
-Date: Mon, 13 Jul 2026 13:53:28 +0200
-Cc: Grond <grond66@riseup.net>,
- Stefan Leichter <sle85276@gmx.de>,
- Grazvydas Ignotas <notasas@gmail.com>,
- Tony Lindgren <tony@atomide.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Andreas Kemnade <andreas@kemnade.info>,
- Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>,
- Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Sen Wang <sen@ti.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Niranjan H Y <niranjan.hy@ti.com>,
- letux-kernel@openphoenux.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org,
- kernel@pyra-handheld.com,
- mfd@lists.linux.dev
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9E796FCB-F393-48F9-A8D4-6E433EFB6876@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
- <7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com>
- <20260713-infallible-capable-dormouse-aaaebe@quoll>
- <BF2B6C4A-A4CC-48D7-9854-DC014950184B@goldelico.com>
- <5667350d-cc3f-421d-899f-f353b05c5ea1@kernel.org>
- <8A0C119B-7885-4538-8D4F-AC60E5C91B7E@goldelico.com>
- <741706c6-e6ff-4bc2-8ea1-28ebada6032c@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPhyPA5CqCzsDZg1_Sfr=EP5G6uLnnvDmdd_REZPX_VpwS=VJA@mail.gmail.com>
 
+On Mon, Jul 13, 2026 at 11:02:15AM +0100, Nick Hollinghurst wrote:
+> Hi Daniel,
+> 
+> On Sun, 12 Jul 2026 at 22:19, Daniel Drake <dan@reactivated.net> wrote:
+> >
+> > The BCM2712 IOMMU implements a 2-level page table format. It is relatively
+> > simple, with one unusual aspect: leaf entries can only be installed at
+> > Level 0.
+> 
+> I should admit that a single-level huge page mapping is possible, but
+> I was too lazy to implement it (and haven't much tested it).
+> 
+> It can be done by setting bits 31, 30 and 28 of the top-level entry
+> (all other combinations of bits 31, 30 will point to a  next-level
+> table). The page number is in 4K units but must be 4MB aligned.
 
+Let's do that instead of the weird full level contiguation page thing
+please
 
-> Am 13.07.2026 um 11:42 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
->=20
-> On 13/07/2026 11:38, H. Nikolaus Schaller wrote:
->>=20
->>=20
->>> Am 13.07.2026 um 11:21 schrieb Krzysztof Kozlowski =
-<krzk@kernel.org>:
->>>=20
->>> On 13/07/2026 10:27, H. Nikolaus Schaller wrote:
->>>> Hi Krzysztof,
->>>>=20
->>>> Thank you for the feedback.
->>>>=20
->>>>=20
->>>> It does not emit any C compiler issues or runtime problems so it =
-remained unnoticed.
->>>=20
->>> I do not believe.
->>>=20
->>> There is a clear warning from Rob's bot.
->>>=20
->>> You just did not follow the process of building the code (compiler =
-has
->>> nothing to do here). Read submitting patches in DT dir and then =
-writing
->>> schema for further instructions. This is ABSOLUTE MINIMUM. We are =
-not
->>> your build test service.
->>>=20
->>>>=20
->>>> It was notified by the sahiko-bot and will be fixed in v2.
->>>=20
->>> Sashiko has nothing to do with that.
->>>=20
->>> You DID NOT BUILD the code.
->>=20
->> Hm. You are confusing me. I did "make" and did not get any errors...
->> And the resulting code works as intended.
->=20
-> 'make' alone does not build that, just like other pieces of code they
-> have own - well documented and always expected - build processes.
->=20
-> I don't know what is confusing in my message, since I pointed you to
-> SPECIFIC guide telling you EXACTLY what to do (and which you did not =
-do).
-
-Confusing was the phrase "building the code". For my understanding
-"building the code" is the process of building ("translating the code")
-to get vmlinux or similar and a DTB and kernel modules.
-
-As far as I understand the bindings they are used to check the DTS =
-source
-files against. So here is no translation of bindings into a real DTB =
-that
-finaly runs on a device. So I had assumed that schemas are "validated"
-(not "built") by dt_binding_check.
-
-This made me confused.
-
-Back to topic:
-
-It finally turned out that our script to run the required checks =
-automatically
-was no longer operational and silently ignored the validations. =
-Therefore
-nobody noticed before the bots did. Good to have a second and =
-independent
-check.
-
-So sorry for the confusion we have introduced...
-
-v2 will be checked as it previously was.
-
-BR and thanks,
-Nikolaus
-
+Jason
