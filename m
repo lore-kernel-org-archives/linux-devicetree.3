@@ -1,176 +1,112 @@
-Received: from mo4-p03-ob.smtp.rzone.de (mo4-p03-ob.smtp.rzone.de [85.215.255.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD6C3AD52B;
-	Mon, 13 Jul 2026 08:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.102
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783931285; cv=pass; b=CjMjIR6VLct7jM1qnEEYiCrxhogBfKZqiAjc7s5IPFZOVa05YATsK+ACkJA+3mriTLqDKQbOCnNZrBrIA6jadHEAMY/xOH586EYIn3/dMNkGc4ft0QKqV74ty5jsRhTSf+2uGmlKqnx4fMXu/cTG8B+THjOqm9tcLdhCDzJQKvw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783931285; c=relaxed/simple;
-	bh=TmBCGJ40zcqiObxb5WI0YMQUk3XkQJfcOkD4AdtSdTw=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=eME8g0jXQX5Le1wNsHjKAd2QchRvl/T+MKK2EjDqJV3nhgeMR3knbqa7A6JxUuHbE4vhrVxAmoTLhcz1UmWlRoDykub1D8iOuKoEMIXMwDei788+CBRkQtEkicvcq3r8cBWtgYZAE2vhA7yXhS1ApdSzATOw/+AUYxffqCGRYIY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=cNlzCSfH; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=aEHftVVv; arc=pass smtp.client-ip=85.215.255.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EEF3ADBA4
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783931297; cv=none; b=UQhowsw08dEWMBxxljQnDcemDOfiKn/vjiMJDpT5+kcZCOAYs/FAnZdJBTeaXW5gEsZnH+2azGrLbiJpo8qlP1cZkdmcluGsE7Fo8TWL1OR+z0kR2Zifr4LdM2XuELl39U/vAfg3OxeMroLw8crLPz/OvLZ59KWTq3cSqOTl+CY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783931297; c=relaxed/simple;
+	bh=1bdQxZ+KT2IXwA3Ltsi7cQksVnEt6y9F8PnZupL8F5A=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=IG+vUtaDx6el03BW4TLvJ0zgqLkLCTefvI5hlI5SPvtLyDlMG3uNiReZqUhA4q5BstRn2vu1hkm2BWZLRUroTr9neSlGKgDpVIwKxqjG5jc6WJcEmMNodnRxAMQH21QvbBfbC7lApgYb38qi4d50e5eOCDoyUABn9QumOrNW3QI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SqLWaAts; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="cNlzCSfH";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="aEHftVVv"
-ARC-Seal: i=1; a=rsa-sha256; t=1783931244; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Wv45c5Xu0HYQjDS/lmDFwfn2fEfWOvgX4BPfwjcUKhsruzOtt0odkWxXhGCgnxZxlc
-    uXfafRFGCj3vcFTjiZ6T1z/dGvU5B6+gC6RFXfS17KIN4mzxwvFXyns0F9+8RLwTj8xI
-    BMNrR2LJebjh7lD8lvZGQQ0oPEGhE/RsPZmLamVpuxmBpyC5qpqAlSO/qlVGGjLVYt/H
-    3K9JaNNbaLZLg10nr/BxZy8XEyPeS56/NEGUTp6mxtIYY9qyb8nhCZ9fwubYBZWGLkuh
-    5Ds5CwR4VD3JCEEyBNlIw/9QEG2RUnneaxHwZgnwTSgW8gnC5hX/iK/ZMf1SPVcDV5oU
-    2saw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1783931244;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=TmBCGJ40zcqiObxb5WI0YMQUk3XkQJfcOkD4AdtSdTw=;
-    b=jH+QUmeOlR+Mx9H+3gfmgwtrQYJhI1wYw+IVVAmWm2VTLL5dEnyflCQ8/T9BiyShIQ
-    +ccKvt7xofP0znuilBHpfAhg1pwwJvt4xuap6ZrJ4nrftMyLFmrHMqMpPViyj4KJ/zGj
-    Jx21fwlqxJlRbMNAT3r1F7RJHUfJfaQtb0EJb+tnG/3JT7Vs8IOOHUaGKEsYsk5Dq7Cb
-    57gGiWNnOUjE81seZKIGiUugMvrJtyFqNLKRPAvAK9XYWgoXqvciio9izoy6KQHZKWkr
-    ISPnmmTlBoTJz60v4vsTRG0y2uH+f2xf/vxYW9AhvAhRF8Hg2F5Mb3Ga8cv4chHhLbYF
-    LeKQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo03
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1783931244;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=TmBCGJ40zcqiObxb5WI0YMQUk3XkQJfcOkD4AdtSdTw=;
-    b=cNlzCSfH/qGgSOVYmvr4SlrYtitUckKYoycdOVJ45Z2cdoggvfTW75ItQpML3uBmj+
-    FgGLYHB+d6WmwPQpbHktKOWatlcEDECp9Vu5G6dZ+xfw5uyffES0Z7hYy9ptz/JS5t5e
-    1M6O7kReFaS5PZgRJwmun7lStZl2pGkVubgUYxKw1yC1hT/KNO/riSkRQ8kF2s4pXrXj
-    tWU4t/Vf38RKciodN1NfbdKfK9CRxfy1Neo2AR2TkK/x+s5TKd9NRDhC8GcfHiU3ffAH
-    rb9qjC3i5BLndXd1rL5HuwCWprS8ewL/cw9mWrP4yfurCvogLcm7nWF1bs+0QXt1/dH/
-    IhAw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1783931244;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=TmBCGJ40zcqiObxb5WI0YMQUk3XkQJfcOkD4AdtSdTw=;
-    b=aEHftVVvhVUeYGE73TJxXZmN8r3wQfDudi6nEy0VUJj9TMQ5kjkML/3V51KhioACDx
-    mUrJEl7Ek3h+k7oqjrCg==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQi5pZlciNgDl2kEp5oHJ2/c57N2Mc49IfXTKd"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.5.6 AUTH)
-    with ESMTPSA id Q4b76426D8RNMvV
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Mon, 13 Jul 2026 10:27:23 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SqLWaAts"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8484a0b998fso4381516b3a.2
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:28:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783931295; x=1784536095; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1bdQxZ+KT2IXwA3Ltsi7cQksVnEt6y9F8PnZupL8F5A=;
+        b=SqLWaAtsjqjybIBxzEryU00C3b9VOTarSGplovshQTcRxU7LquegJaK0+44qfD+90X
+         yncXbWQAbDmzqsHp/TR5c2I1s9wi4WaCPOEIRuLHxoHzrkUv7W/8dRiFopBQBwSYT5tI
+         WBog20AvVGYHfg9eZibsLi7BJ7U/xLQQceYiF04VVH1azFuy86TLSDqauzDZ7BwOH50C
+         HPj4wmdhIZ2hmOCalmzInfHeJO8cNwUlFIl6tn9nqP40fQA/sDXIXQT+7SSTWvxU9otm
+         wbBTvKS821eLgFG7IgDdbvpwaHsNGHlEIPPrhD+2dcjVj0NpJpAoOjOrlCbMSMU9+U7O
+         GlLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783931295; x=1784536095;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1bdQxZ+KT2IXwA3Ltsi7cQksVnEt6y9F8PnZupL8F5A=;
+        b=BPsXQTZ0Dlc8rKy+F5Ig9tor57xFBsB3Xw7osLjK/SqEMXBdFezZxpwdBDRIY2PDSS
+         Ogm9xrTBtuANpYxfL6AD5JUV8lhGyKVphEYkNJA8qmCWfr3jJmLMpYsgmsyQFtBmwbX4
+         srvNpvFNSC+EiuNX7ItsZOeXEPXgfcio0pKUL68dUtvJkhdrRXpxblT5eK2it5IVjRZv
+         CFE8JAjJ9LoK0YV7RmZiuhN9eLh8tQsrH2J1T5xyFmv/i3YX4lvMgvHQEgi98ljR68SH
+         K9JVB8JBO9Gv8B5vhIMs7mXyp17tsC6pm/IFxbPbjVocZua0f71kL9klWPugeDVDvDLH
+         92eA==
+X-Forwarded-Encrypted: i=1; AHgh+RpQ4DRlyt9d2k/gqYuHLmc16R68H1EaBcQckZqqSC33Apg9mrHIM3zow5fTBzbNa/hI6VhShKaaLYJi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3hFD+/gdKPPGDu2BSdznp2r5ow24IYsycFjoZaHPlflpNWUeg
+	A7ej8D5LFgVly0+MZBFe2aDM1oeK04zpLWqq/ytTeUe0+bz+jfVFeOfglCVZZNNQ
+X-Gm-Gg: AfdE7clwUN3w3Ie6rE2ZWqbXMKijJfK93YFDgldWcMx0sNw/7PTIo/S9dbqW5QiP3Jh
+	IZaLCsKg6lvCVYwBGGBkdWu7+TE2fbfab+75ma48Qp04DHzM5IezmU01Nej7ayzNxKRbBHi1lKx
+	TfGi28yehhCTKPKGp/4B7WjcPBjrEiyqDGqEPIVyhXW5adEa72Dm/P7j21TYoBdp1PSVmjSJcyl
+	y8WYHQndmN+mi/5bo6Mrn4jzUyYoZQc2rKDulYBwDOGlAIaYHnbjZF5w/z2B1Yk1uozdbFuBVpv
+	hdzE38ta4bJSYYG56042oYDSqkBY+nSVF/wjrjG4Mhjj6/xjb8sZEvKhQszdE/88cJTQG2McX49
+	Uzy9/PsrqLZs4LIFKJ9VOa3FyIbUmRIac8j3sauKg1EEk95fSWa7swFiwE2rhbAP5+h6M3gK50z
+	6EpzrouIH5GB0hpsQ+Ww7F5Q==
+X-Received: by 2002:a05:6a00:3306:b0:847:8dec:141e with SMTP id d2e1a72fcca58-848897569e9mr7818491b3a.54.1783931295613;
+        Mon, 13 Jul 2026 01:28:15 -0700 (PDT)
+Received: from HP.localdomain ([27.217.83.168])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8494b279e8bsm2691284b3a.33.2026.07.13.01.28.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 01:28:15 -0700 (PDT)
+From: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
+To: linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	Zaixiang Xu <zaixiang.xu.dev@gmail.com>
+Subject: Re: [PATCH v7 3/4] hwmon: (sht3x) Add devicetree support
+Date: Mon, 13 Jul 2026 16:28:09 +0800
+Message-Id: <20260713082809.24184-1-zaixiang.xu.dev@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260713080129.D8A8E1F00A3D@smtp.kernel.org>
+References: <20260713080129.D8A8E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH 09/16] ASoC: dt-bindings: add OpenPandora Sound Card
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20260713-infallible-capable-dormouse-aaaebe@quoll>
-Date: Mon, 13 Jul 2026 10:27:12 +0200
-Cc: Grond <grond66@riseup.net>,
- Stefan Leichter <sle85276@gmx.de>,
- Grazvydas Ignotas <notasas@gmail.com>,
- Tony Lindgren <tony@atomide.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Andreas Kemnade <andreas@kemnade.info>,
- Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>,
- Helge Deller <deller@gmx.de>,
- Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Sen Wang <sen@ti.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Niranjan H Y <niranjan.hy@ti.com>,
- letux-kernel@openphoenux.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org,
- kernel@pyra-handheld.com,
- mfd@lists.linux.dev
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <BF2B6C4A-A4CC-48D7-9854-DC014950184B@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
- <7989e699de400c0fe3f0cb7af77a54077784df78.1783749722.git.hns@goldelico.com>
- <20260713-infallible-capable-dormouse-aaaebe@quoll>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+On Mon, 13 Jul 2026 08:01:29 +0000, sashiko-bot@kernel.org wrote:
+> While reviewing this patch, I noticed a few pre-existing regressions
+> in this file that might be worth addressing.
+>
+> [Severity: Critical]
+> This is a pre-existing issue, but does this unaligned memory access
+> crash strict-alignment architectures?
+[...]
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does this integer
+> arithmetic overflow?
 
-Thank you for the feedback.
+Thanks for the report. All five findings are in pre-existing code and
+are not touched by this series, so I would prefer to keep them
+separate from the devicetree support here.
 
-> Am 13.07.2026 um 09:37 schrieb Krzysztof Kozlowski <krzk@kernel.org>:
->=20
-> On Sat, Jul 11, 2026 at 08:01:56AM +0200, H. Nikolaus Schaller wrote:
->> The OpenPandora audio subsystem describes the routing links between =
-the
->> OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 =
-audio
->> codec, alongside amplifiers and power supplies.
->>=20
->> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
->> ---
->> .../sound/openpandora,omap3pandora-sound.yaml | 94 =
-+++++++++++++++++++
->> 1 file changed, 94 insertions(+)
->> create mode 100644 =
-Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.yam=
-l
->>=20
->> diff --git =
-a/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.y=
-aml =
-b/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.y=
-aml
->> new file mode 100644
->> index 0000000000000..d3c747e5c58d6
->> --- /dev/null
->> +++ =
-b/Documentation/devicetree/bindings/sound/openpandora,omap3pandora-sound.y=
-aml
->> @@ -0,0 +1,94 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org
->> +$schema: http://devicetree.org
->=20
-> This wasn't ever tested. Why?
+I checked the first two: the unaligned access in sht3x_update_client()
+(buf + 3 is an odd offset into a byte buffer, so it needs
+get_unaligned_be16()), and the limit_write() overflow (temperature is
+clamped to 130000, and (130000 + 45000) * 24543 = 4295025000 just
+exceeds U32_MAX, so writing the maximum limit wraps the raw
+temperature field to 0). Both look real.
 
-It does not emit any C compiler issues or runtime problems so it =
-remained unnoticed.
+I plan to go through all five and send fixes as a separate series
+after this one.
 
-It was notified by the sahiko-bot and will be fixed in v2.
-
-Thanks and BR,
-Nikolaus=
+Thanks,
+Zaixiang
