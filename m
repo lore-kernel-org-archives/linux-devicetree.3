@@ -1,35 +1,66 @@
-Received: from srv01.abscue.de (abscue.de [89.58.28.240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C99E416CE2;
-	Mon, 13 Jul 2026 13:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.28.240
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4E3413D86
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 13:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783947700; cv=none; b=AlSFtCeiZHpsCMH2D0vyhLTVWMNUrnvi74mJdidNSVva5Z3fiZGATgGBRygYLVli29LWN3NYzZ65SJVTpPOikkxFCe7AB14S9jJ53XrFYZdfSFiuKhStJaMFNa5/pwTJ4oC+Dctuj2pmkZ3/NvIYm38X2Akd8epKIqF3r2Pnmcc=
+	t=1783947935; cv=none; b=do2TsgnH5KQmCc+ZdYx3dUzWj1/s4S2eS29hMkdx48MnWg5HD7Id2qpvO901ocrFBqXH/DMp6zLoEI2mb7cnlQS/nb2iHcdv7E53hsyAMbqqB1JxozNq9eUkRxWDkQ6KqccBR3N4yRxHxCYOVx0OuCG78Un1nSKePyViengELHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783947700; c=relaxed/simple;
-	bh=BwrO3/MsLOx0N0sI+Mj+GfChy3yrdeQ+2EJMwPhwp2s=;
+	s=arc-20240116; t=1783947935; c=relaxed/simple;
+	bh=LOLjznPspC1I6dtqAHg1MsPIrAzR512HbwBbzv+G9xg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rs7fCJvN7YaTzvSDklDWlAsMXp2TApsvQWudE9iPyySiJp57XGtuqwYCC45/+ETyK5di9otO7JqpxApCexjo9Xp6/Wz6AF++aWYJnGzNCPX7dtvfik6OhGpd670ZhZMBplNryU1cy6nCj5DU2ZatxhBF3/uoyOyb8EAryCzteCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de; spf=pass smtp.mailfrom=abscue.de; dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b=TfnRqYCj; arc=none smtp.client-ip=89.58.28.240
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=abscue.de
+	 In-Reply-To:Content-Type; b=LO8gaihuQpbaIxOq0FBbwLhws7x6aY4H0zP0bPh/RKzrmVog1tYJBeOaOFNCuDE5rO4RKRO/CZ/Paqn2+J1dTMeNFS78tJ/q+qPm4RVWSVYFO2bj194Wz/LD/qUqj4ZIMm+cJDiK0F90QyJQGoQtZl/DZUo6gjJ1oQIPLD49Ieg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=iDvbb1Ze; arc=none smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b="TfnRqYCj"
-Message-ID: <2d34c3f6-5f66-4b60-b9a2-180163964552@abscue.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abscue.de; s=dkim;
-	t=1783947103;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jzVe8atkrU+j+S9mStRrtWyJtCiaN5tTvQ4xvIGKY4g=;
-	b=TfnRqYCjfBvrXj255IPTjN/a+2WqhfzYlNYRwwgkTzsAZghsBX+j+IFD3Sm0Jm1J253j8C
-	LIFgZHSnhERrtO5gD1FtHfosFOl217I05vxwWIjmR1ereLDLyLq2rgkdVDF1r2Pc1WoaXS
-	8phx60lWlBl8U7HmgzV9b0HzZVB3Tdv8GdzHwWF5YcFXkGAB/CN4vVLFLcKtvPCi63Uq50
-	KqcmE/hMF05vOd3Fqm81umPnyewCDTJTxAqukIiOJ06c2wE8KaAaxb16H5qYQ/tQR+CLth
-	1SzGtzdImvS/B2sG8uANcSpQsk0UK1nvZ4hTlKjA/b1foUCa8SiPjQCL0LhOTQ==
-Date: Mon, 13 Jul 2026 14:51:40 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="iDvbb1Ze"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-69c19a37eeaso6163203a12.2
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:05:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1783947932; x=1784552732; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i1I9AnCFa8eH6fsCvMzP+tR/LftoRmjX+2dMhPeaMT8=;
+        b=iDvbb1Ze+M+KacQPFmdPkWfnmNs+Jekyf9FohTnP5RTyM2DzFiXh19oXUpB8a5e/wl
+         tkVZbMpa3T2fQRa17U8Wporvang7SevgbqMpCesGO1dn4+pOhlHqszLtPTtM04opCZWR
+         QzOcAA/rnw+xdSjQ1+dNXI8M+49PoKTDFDaCgCzmPrpm5SUNdNrYmfGAa6fKDp5HMigY
+         zO3J5laMfgqXQZZdtfbnSZmN9EGvwa3Hu0sz0KSijgRj6CFMj1OLuPDNV0ssjQUhROtK
+         X0hk2m2s0SS1aTDx5+EH4x4zeSSRUIVk4sNe9Jx8zAouLApo9yjUkgIaQi6Sq3cLGZ9i
+         I68g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783947932; x=1784552732;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i1I9AnCFa8eH6fsCvMzP+tR/LftoRmjX+2dMhPeaMT8=;
+        b=khgkdC7Gs4ClI9q1lc8PZqZ/A+rF9ibIWpMcFOFTevnMsK2FUJG5aqgud7CrpI6w3u
+         AqXI4Ijchf+YbYZyBMvyCyaJNB+trKMu135WoRvf0tUWljeEYSGZqZ5CPt4X9QYWrOT/
+         RckGZ2OOTgQzj3apG2l2iAELCwZRqwIhxNZZDX15TSQchwRJtm+KHTaB+DL9S/eCsIfb
+         bn29t35VbSaNe5s6EzOXkX/DNTAvMVY7pObsfrtE6tvCh+UaAnO+HIkbTryZKAUVjFBi
+         UvV5YA5ZKMdqJs5KWk/nfrJy29DzXotiYZMgimbGQ+lMeo97X8FQUL5W/S3c6ATg1nyu
+         kcdg==
+X-Forwarded-Encrypted: i=1; AHgh+RoRi0fv8/Q2tIkzNyURnHKxzaptW3IC/FFFhonxU0ZGpi4BrLZQnO1RWnS+uh3St/ZSfjxU4T9kMMBX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8hh2GNMERzBfMT7R8DBfYSWriIz3H1gZDvgO6gEYFzQoNMipr
+	5x6IsSOvifJOxL7ODnhW4i1HcTYIFrBOfjdEX+EDdkqJcENrAzORNIeEHYa8qxTmWAY=
+X-Gm-Gg: AfdE7claz8AceMDuHH2a9VEwfZrBq6YbB+NDBrBZV7XjrO8Gm9hdiVjzpbC4guTZZ/C
+	OV09JBSt4vGyTonECzwDuOVvUuCtJeC35cYK5UFHGGwTk3sOKysDFbsLX7jHJcYbylL+oHnMinE
+	p1OOyi/4Dbl958rmZVjA3ShfCiBssOvxozGbdY+ggnMuHP4qugBd80hU7vdB6eVwbAOfsunFP8K
+	or26nOzg/48VNZdjwpYfNP0qfznoJB0tOpuBn8W2AswIH0dED8gTETdfC+jovKKYyGHwSNpS/h+
+	e0yRDQZ+oOkkGQqWkiXnGGw/kN9Drmm0Rrl4Tdaw7Oyqr+FZOnhkOOY+9OKFg38k0rdHJRZx6Sl
+	QwJfFe7t2HTTwRL021YWyK+QPp0N/aFJKUhuywQcaYFB1o9RQ6iclM/fQqe23vR0jBPzhIR5IYV
+	/KMqJHaqpxzFpT+Iq6kOxsbZc=
+X-Received: by 2002:a05:6402:2b8c:b0:698:a9e0:4386 with SMTP id 4fb4d7f45d1cf-69c5f12dc29mr3676164a12.29.1783947931935;
+        Mon, 13 Jul 2026 06:05:31 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.2.191])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19ce4b4fsm14880852a12.10.2026.07.13.06.05.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 06:05:30 -0700 (PDT)
+Message-ID: <da70ed94-fd76-4105-8071-1ed8d8e41d84@linaro.org>
+Date: Mon, 13 Jul 2026 14:05:29 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,95 +68,301 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] pinctrl: mediatek: Add driver for MT6858
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, nikolai.burov@jolla.com,
- Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Wang <sean.wang@kernel.org>
-References: <20260710-mt6858-pinctrl-v1-0-f75ab558f0df@jolla.com>
- <20260710-mt6858-pinctrl-v1-2-f75ab558f0df@jolla.com>
- <89e4eb3d-a61c-410e-8ad5-e845b07f8029@collabora.com>
-Content-Language: en-US
-From: Nikolai Burov <nikolai.burov+review@abscue.de>
-In-Reply-To: <89e4eb3d-a61c-410e-8ad5-e845b07f8029@collabora.com>
+Subject: Re: [PATCH v4 6/7] media: qcom: camss: Add CAMSS Offline Processing
+ Engine driver
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ devicetree@vger.kernel.org, Hans de Goede <johannes.goede@oss.qualcomm.com>
+References: <20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com>
+ <20260710-camss-isp-ope-v4-6-51207a0319d8@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260710-camss-isp-ope-v4-6-51207a0319d8@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 7/13/26 10:01 AM, AngeloGioacchino Del Regno wrote:
-[...]
->> +	[PINCTRL_PIN_REG_MODE] = MTK_RANGE(mt6858_pin_mode_range),
->> +	[PINCTRL_PIN_REG_DIR] = MTK_RANGE(mt6858_pin_dir_range),
->> +	[PINCTRL_PIN_REG_DI] = MTK_RANGE(mt6858_pin_di_range),
->> +	[PINCTRL_PIN_REG_DO] = MTK_RANGE(mt6858_pin_do_range),
->> +	[PINCTRL_PIN_REG_SR] = MTK_RANGE(mt6858_pin_dir_range),
+On 10/07/2026 10:04, Loic Poulain wrote:
+> Add an image processing driver for the Qualcomm Offline Processing Engine
+> (OPE). OPE is a memory-to-memory ISP block that converts raw Bayer
+> frames to YUV, performing white balance, demosaic, chroma enhancement,
+> color correction and downscaling.
 > 
-> This is Slew Rate, not Direction... And I think this is wrong.
+> The hardware architecture consists of Fetch Engines and Write Engines,
+> connected through intermediate pipeline modules for pix processing.
 > 
-> If you don't know where the slew rate registers are, or if that is an 
-> unsupported operation, just omit PINCTRL_PIN_REG_SR.
+> The driver exposes three video nodes per pipeline instance:
+>    - ope_input: Bayer RAW input (V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+>    - ope_disp_output: YUV output     (V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
+>    - ope_params: ISP parameters (V4L2_BUF_TYPE_META_OUTPUT)
+> 
+> Hardware features:
+>    - Stripe-based processing (up to 336 pixels wide per stripe)
+>    - White balance (CLC_WB)
+>    - Demosaic / Bayer-to-RGB (CLC_DEMO)
+>    - RGB-to-YUV conversion (CLC_CHROMA_ENHAN)
+>    - Color correction matrix (CLC_CC)
+>    - MN downscaler for chroma and luma planes
+> 
+> Default configuration values are based on public standards such as BT.601.
+> 
+> Processing Model:
+> OPE processes frames in stripes of up to 336 pixels. Therefore, frames must
+> be split into stripes for processing. Each stripe is configured after the
+> previous one has been acquired (double buffered registers). To minimize
+> inter-stripe latency, stripe configurations are generated ahead of time.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Co-developed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/camss/Kconfig     |   18 +
+>   drivers/media/platform/qcom/camss/Makefile    |    4 +
+>   drivers/media/platform/qcom/camss/camss-ope.c | 3245 +++++++++++++++++++++++++
 
-Thanks for noticing this! This seems to be a mistake in the downstream 
-driver that I unintentionally copied over. I will remove the slew rate.
+I think this should be in a sub-directory.
 
+>   3 files changed, 3267 insertions(+)
 > 
->> +	[PINCTRL_PIN_REG_SMT] = MTK_RANGE(mt6858_pin_smt_range),
->> +	[PINCTRL_PIN_REG_IES] = MTK_RANGE(mt6858_pin_ies_range),
->> +	[PINCTRL_PIN_REG_PU] = MTK_RANGE(mt6858_pin_pu_range),
->> +	[PINCTRL_PIN_REG_PD] = MTK_RANGE(mt6858_pin_pd_range),
->> +	[PINCTRL_PIN_REG_DRV] = MTK_RANGE(mt6858_pin_drv_range),
->> +	[PINCTRL_PIN_REG_PUPD] = MTK_RANGE(mt6858_pin_pupd_range),
->> +	[PINCTRL_PIN_REG_R0] = MTK_RANGE(mt6858_pin_r0_range),
->> +	[PINCTRL_PIN_REG_R1] = MTK_RANGE(mt6858_pin_r1_range),
->> +	[PINCTRL_PIN_REG_DRV_ADV] = MTK_RANGE(mt6858_pin_drv_adv_range),
->> +	[PINCTRL_PIN_REG_RSEL] = MTK_RANGE(mt6858_pin_rsel_range),
->> +};
->> +
->> +static const char * const mt6858_pinctrl_register_base_names[] = {
->> +	"base", "lm", "rb", "bm2", "bm", "bm1", "lt", "lt1", "rt", "rt1",
-> 
-> Fix ordering:
-> 
-> "base", "lm", "rb", "bm", "bm1", "bm2", "lt", "lt1", "rt", "rt1",
+> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
+> index 4eda48cb1adf049a7fb6cb59b9da3c0870fe57f4..895fc57a679655fcb6f308be1565dc6b77bbbd67 100644
+> --- a/drivers/media/platform/qcom/camss/Kconfig
+> +++ b/drivers/media/platform/qcom/camss/Kconfig
+> @@ -7,3 +7,21 @@ config VIDEO_QCOM_CAMSS
+>   	select VIDEO_V4L2_SUBDEV_API
+>   	select VIDEOBUF2_DMA_SG
+>   	select V4L2_FWNODE
+> +
+> +config VIDEO_QCOM_CAMSS_OPE
+> +	tristate "Qualcomm Offline Processing Engine (OPE) driver"
+> +	depends on VIDEO_QCOM_CAMSS
+> +	depends on V4L_PLATFORM_DRIVERS
+> +	depends on VIDEO_DEV
+> +	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
+> +	select V4L2_ISP
+> +	select VIDEOBUF2_DMA_CONTIG
+> +	select VIDEOBUF2_VMALLOC
+> +	help
+> +	  Enable support for the Qualcomm Offline Processing Engine (OPE).
+> +	  OPE is a memory-to-memory ISP block that converts raw Bayer frames
+> +	  to YUV, performing white balance, demosaic, chroma enhancement and
+> +	  downscaling. Found on QCM2290 and related SoCs.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called qcom-camss-ope.
+> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+> index 5678621efb6780b67a043ec8a2e914cce02d9b98..422eebc0a86301de3f39c743fbc06c437b17ac9a 100644
+> --- a/drivers/media/platform/qcom/camss/Makefile
+> +++ b/drivers/media/platform/qcom/camss/Makefile
+> @@ -31,3 +31,7 @@ qcom-camss-objs += \
+>   		camss-params.o \
+>   
+>   obj-$(CONFIG_VIDEO_QCOM_CAMSS) += qcom-camss.o
+> +
+> +qcom-camss-ope-objs := camss-ope.o
+> +
+> +obj-$(CONFIG_VIDEO_QCOM_CAMSS_OPE) += qcom-camss-ope.o
+> diff --git a/drivers/media/platform/qcom/camss/camss-ope.c b/drivers/media/platform/qcom/camss/camss-ope.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..2c0d68cf1a637c998ebe4d3afb1fa6dbdb68f029
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-ope.c
+> @@ -0,0 +1,3245 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * camss-ope.c
+> + *
+> + * Qualcomm MSM Camera Subsystem - Offline Processing Engine
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/*
+> + * This driver provides driver implementation for the Qualcomm Offline
+> + * Processing Engine (OPE). OPE is a memory-to-memory hardware block
+> + * designed for image processing on a source frame. Typically, the input
+> + * frame originates from the SoC CSI capture path, though not limited to.
+> + *
+> + * The hardware architecture consists of Fetch Engines and Write Engines,
+> + * connected through intermediate pipeline modules:
+> + *   [FETCH ENGINES] => [Pipeline Modules] => [WRITE ENGINES]
+> + *
+> + * Current Configuration:
+> + *     Fetch Engine: One fetch engine is used for Bayer frame input.
+> + *     Write Engines: Two display write engines for Y and UV planes output.
+> + *
+> + * Only a subset of the pipeline modules are enabled:
+> + *   CLC_WB: White balance for channel gain configuration
+> + *   CLC_DEMO: Demosaic for Bayer to RGB conversion
+> + *   CLC_CC: Color Correct, coefficient based RGB correction
+> + *   CLC_CHROMA_ENHAN: for RGB to YUV conversion
+> + *   CLC_DOWNSCALE*: Downscaling for UV (YUV444 -> YUV422/YUV420) and YUV planes
+> + *
+> + * Default configuration values are based on public standards such as BT.601.
+> + *
+> + * Processing Model:
+> + * OPE processes frames in stripes of up to 336 pixels. Therefore, frames must
+> + * be split into stripes for processing. Each stripe is configured after the
+> + * previous one has been acquired (double buffered registers). To minimize
+> + * inter-stripe latency, the stripe configurations are generated ahead of time.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/delay.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/interconnect.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_clock.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/pm_opp.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/slab.h>
+> +#include <linux/units.h>
+> +
+> +#include <media/v4l2-device.h>
+> +#include <media/media-device.h>
+> +#include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-event.h>
+> +#include <media/v4l2-fh.h>
+> +#include <media/v4l2-ioctl.h>
+> +#include <media/v4l2-rect.h>
+> +
+> +#include "camss-pipeline.h"
+> +
+> +#include <media/videobuf2-dma-contig.h>
+> +#include <media/videobuf2-vmalloc.h>
+> +
+> +#include <uapi/linux/camss-config.h>
+> +
+> +#include "camss-params.h"
+> +
+> +#define OPE_NAME	"qcom-camss-ope"
+> +
+> +/* Format descriptor */
+> +struct ope_fmt {
+> +	u32		fourcc;
+> +	unsigned int	depth;
+> +	unsigned int	align;
+> +	unsigned int	num_planes;
+> +	u32		mbus_code;
+> +	unsigned int	c_hsub;
+> +	unsigned int	c_vsub;
+> +};
+> +
+> +/* Per-queue format state */
+> +struct ope_fmt_state {
+> +	const struct ope_fmt	*fmt;
+> +	unsigned int		width;
+> +	unsigned int		height;
+> +	struct v4l2_rect	crop;
+> +	unsigned int		bytesperline;
+> +	unsigned int		sizeimage;
+> +	enum v4l2_colorspace	colorspace;
+> +	enum v4l2_xfer_func	xfer_func;
+> +	enum v4l2_ycbcr_encoding	ycbcr_enc;
+> +	enum v4l2_quantization	quantization;
+> +	unsigned int		sequence;
+> +	struct v4l2_fract	timeperframe;
+> +};
+> +
+> +/* -------- Register layout -------- */
+> +
+> +#define OPE_TOP_HW_VERSION					0x000
+> +#define		OPE_TOP_HW_VERSION_STEP		GENMASK(15, 0)
+> +#define		OPE_TOP_HW_VERSION_REV		GENMASK(27, 16)
+> +#define		OPE_TOP_HW_VERSION_GEN		GENMASK(31, 28)
+> +#define OPE_TOP_RESET_CMD					0x004
+> +#define		OPE_TOP_RESET_CMD_HW		BIT(0)
+> +#define		OPE_TOP_RESET_CMD_SW		BIT(1)
+> +#define OPE_TOP_IRQ_STATUS					0x014
+> +#define OPE_TOP_IRQ_MASK					0x018
+> +#define		OPE_TOP_IRQ_STATUS_RST_DONE	BIT(0)
+> +#define		OPE_TOP_IRQ_STATUS_WE		BIT(1)
+> +#define		OPE_TOP_IRQ_STATUS_FE		BIT(2)
+> +#define		OPE_TOP_IRQ_STATUS_VIOL		BIT(3)
+> +#define		OPE_TOP_IRQ_STATUS_IDLE		BIT(4)
+> +#define OPE_TOP_IRQ_CLEAR					0x01c
+> +#define OPE_TOP_IRQ_CMD						0x024
+> +#define		OPE_TOP_IRQ_CMD_CLEAR		BIT(0)
+> +#define OPE_TOP_VIOLATION_STATUS				0x028
+> +
+> +/* Fetch engine */
+> +#define OPE_BUS_RD_INPUT_IF_IRQ_MASK				0x00c
+> +#define OPE_BUS_RD_INPUT_IF_IRQ_CLEAR				0x010
+> +#define OPE_BUS_RD_INPUT_IF_IRQ_CMD				0x014
+> +#define		OPE_BUS_RD_INPUT_IF_IRQ_CMD_CLEAR	BIT(0)
+> +#define OPE_BUS_RD_INPUT_IF_IRQ_STATUS				0x018
+> +#define OPE_BUS_RD_INPUT_IF_CMD					0x01c
+> +#define		OPE_BUS_RD_INPUT_IF_CMD_GO_CMD		BIT(0)
+> +#define OPE_BUS_RD_CLIENT_0_CORE_CFG				0x050
+> +#define		OPE_BUS_RD_CLIENT_0_CORE_CFG_EN	BIT(0)
+> +#define OPE_BUS_RD_CLIENT_0_CCIF_META_DATA			0x054
+> +#define		OPE_BUS_RD_CLIENT_0_CCIF_MD_PIX_PATTERN GENMASK(7, 2)
+> +#define OPE_BUS_RD_CLIENT_0_ADDR_IMAGE				0x058
+> +#define OPE_BUS_RD_CLIENT_0_RD_BUFFER_SIZE			0x05c
+> +#define OPE_BUS_RD_CLIENT_0_RD_STRIDE				0x060
+> +#define OPE_BUS_RD_CLIENT_0_UNPACK_CFG_0			0x064
+> +
+> +/* Write engines */
+> +#define OPE_BUS_WR_INPUT_IF_IRQ_MASK_0				0x018
+> +#define OPE_BUS_WR_INPUT_IF_IRQ_MASK_1				0x01c
+> +#define OPE_BUS_WR_INPUT_IF_IRQ_CLEAR_0				0x020
+> +#define OPE_BUS_WR_INPUT_IF_IRQ_STATUS_0			0x028
+> +#define		OPE_BUS_WR_INPUT_IF_IRQ_STATUS_0_RUP_DONE	BIT(0)
+> +#define		OPE_BUS_WR_INPUT_IF_IRQ_STATUS_0_BUF_DONE	BIT(8)
+> +#define		OPE_BUS_WR_INPUT_IF_IRQ_STATUS_0_CONS_VIOL	BIT(28)
+> +#define		OPE_BUS_WR_INPUT_IF_IRQ_STATUS_0_VIOL		BIT(30)
+> +#define		OPE_BUS_WR_INPUT_IF_IRQ_STATUS_0_IMG_SZ_VIOL	BIT(31)
+> +#define OPE_BUS_WR_INPUT_IF_IRQ_CMD				0x030
+> +#define		OPE_BUS_WR_INPUT_IF_IRQ_CMD_CLEAR	BIT(0)
+> +#define OPE_BUS_WR_VIOLATION_STATUS				0x064
+> +#define OPE_BUS_WR_IMAGE_SIZE_VIOLATION_STATUS			0x070
+> +#define OPE_BUS_WR_CLIENT_CFG(c)				(0x200 + (c) * 0x100)
+> +#define		OPE_BUS_WR_CLIENT_CFG_EN		BIT(0)
+> +#define		OPE_BUS_WR_CLIENT_CFG_AUTORECOVER	BIT(4)
+> +#define OPE_BUS_WR_CLIENT_ADDR_IMAGE(c)				(0x204 + (c) * 0x100)
+> +#define OPE_BUS_WR_CLIENT_IMAGE_CFG_0(c)			(0x20c + (c) * 0x100)
+> +#define OPE_BUS_WR_CLIENT_IMAGE_CFG_1(c)			(0x210 + (c) * 0x100)
+> +#define OPE_BUS_WR_CLIENT_IMAGE_CFG_2(c)			(0x214 + (c) * 0x100)
+> +#define OPE_BUS_WR_CLIENT_PACKER_CFG(c)				(0x218 + (c) * 0x100)
+> +#define OPE_BUS_WR_CLIENT_MAX	4
+> +
+> +/* Pipeline modules */
+> +#define OPE_PP_CLC_WB_GAIN_MODULE_CFG				(0x200 + 0x60)
 
-The bases are already in ascending address order. I don't know what the 
-1 and 2 suffixes in the names of the iocfg regions mean, they may just 
-be a historical leftover. Are the names more important than the 
-addresses here?
+Can you just map the individual blocks so that we can interrogate 
+HW_VERSION HW_STATUS and friends ? Those regs usually come first. I can 
+see useful debugfs and/or dev_dbg() usages of those data.
+> +#define		OPE_PP_CLC_WB_GAIN_MODULE_CFG_EN	BIT(0)
+> +#define OPE_PP_CLC_WB_GAIN_WB_CFG(ch)				(0x200 + 0x68 + 4 * (ch))
+> +#define		OPE_PP_CLC_WB_GAIN_WB_CFG_GAIN		GENMASK(14, 0)
+> +#define OPE_PP_CLC_WB_GAIN_WB_SUB_CFG(ch)			(0x200 + 0x74 + 4 * (ch))
+> +#define		OPE_PP_CLC_WB_GAIN_WB_SUB_CFG_VAL	GENMASK(31, 20)
+> +#define OPE_PP_CLC_WB_GAIN_WB_ADD_CFG(ch)			(0x200 + 0x80 + 4 * (ch))
+> +#define		OPE_PP_CLC_WB_GAIN_WB_ADD_CFG_VAL	GENMASK(31, 20)
+> +
+> +#define OPE_PP_CLC_CC_BASE					0x400
 
-[...]
->> +static const struct of_device_id mt6858_pinctrl_of_match[] = {
->> +	{ .compatible = "mediatek,mt6858-pinctrl", .data = &mt6858_data },
->> +	{ }
-> 
->      { /* sentinel */ }
+Is this actually the correct register base for CCM ?
 
-Thanks!
+I think you should check again.
 
-[...]
->> +	MTK_EINT_PIN(119, 0, 72, 0),
->> +	MTK_EINT_PIN(120, 0, 73, 0),
->> +	MTK_EINT_PIN(121, 0, 74, 0),
-> 
-> Looks like you're missing ~70 pins here?
-> 
-> If those have no EINT support, you can declare them as
-> 
->      MTK_EINT_PIN(122, EINT_INVALID_BASE, 0, 0),
-> 
-> ...or you can add a macro to add a (sequential) range of pins with no 
-> EINT support.
+Same comment for each of these blocks HW_VERSION should be the first 
+register.
 
-Adding a variable number of mtk_eint_pin structs (with a different pin 
-number inside each struct) doesn't seem possible using a single macro, 
-so I'll just manually add all of them to the list.
-
-While writing this, I was looking at the mt6878 driver, which also omits 
-a range of pins. Should that be fixed as well?
-
--- 
-Best regards,
-Nikolai
+---
+bod
