@@ -1,112 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50BE3DBD77
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783939718; cv=none; b=GoFhTtmf9mJvvRDaygXY/+ymV0CYfsZonjCUmz4qwWCLytklmuqN3TUsg9nQf3xYUdcaQPWypVOr6vrHXSy0CF1qTdxOK2shrNG2QGL4OR1aJwjoQiWa5w8oQlTnT7kWVGTg30DCi8PVCJHTGFm9A6c6RNMng/c9dl7Nni2/wT8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783939718; c=relaxed/simple;
-	bh=ca04SHVGrGf9srV2cq7jOJ6Ck74o6PMKz777drQj78s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bL6z9Z/tgTr8u5Xmn+HpyywKWlR3z2ip354SWv2S9VxvBXsYR7/P/1oJT+z4B0bizDnKhiUK96TveDuoE1MPS2kdBR1qs1ymKNVAoCsgdsrM9ffokbtukwIeY4wsD0enbGiNiD3vZOJj+FdF1M5Cdq0x8aV3xm8asWiWfP4yaK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQXKinrI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F053128B8
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:54:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783940043; cv=pass; b=KhydsZp61Cij6he7ImQi6SOFwKbhD7iaYidIcDV3hA+uj5Z+fnop16Odo/cnZft763D5acNu+HvYcgZXJEe1kGkVqpYrWZyq27vbSi8rjSNaKlSoydqsPnRJ6MC5oGteCuKFCw4IdRnHdVI5rPhsNpwEqKYppOLIGKaElmFQ908=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783940043; c=relaxed/simple;
+	bh=MPpL8aJbh6rGft7gt536Q0irErU9Ud0HQNDuTuQ0krY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h7eClaMVwV1v7szF9/qFXaO3dX20+Wf7PvmQwBqkiMQZ6ixQVCdk4CtJxN1RsQqRZDVFGbecSjrW6I1yzsiwkQ5NMjow1Zhu87w7aN9XWw1WDhNqHyunxBOSkZXLs2cmvs3yY3ZPpLmNHLdfNq5n97sEHd9p5wgtdPJGQ9PcHCI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P/KgXebs; arc=pass smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQXKinrI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14401F000E9;
-	Mon, 13 Jul 2026 10:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783939716;
-	bh=joM5xgBMc4RGmzMrirARnsAMqCbi+hseeTpklEeWnqo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NQXKinrIg9//o0fJBswvaUnIFClXlbvufjwxhxiQzNiUN+VETRDFM+7g5gdvzDQ6O
-	 9E/IjbbdeM/Qk4P4xEk68XBBPQkFM7pUlk+STlyXZLaNY6McVVm2f//w5QriwD4bJm
-	 1NAga6WZLWuFHzfhVbT6YwQRAUmGOkDLVfjGdbDnklZqy23of59R+2tKeTQr8uGnh4
-	 29uVQzOQaeveYE2RNSWh0sfVqTqiC1caWZmBcEEIqxxG3RADDCGmdOUwqK9xi2I7Fd
-	 jzRtGNYrJFLEVb4IqRA/NViBACFFYFg+g6y5RSF0daOJVS5CZc/v325MZyYHGqe1GL
-	 +oyFUnnAyq7zA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DSI
- PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260713103805.23030-3-angelogioacchino.delregno@collabora.com>
-References: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
- <20260713103805.23030-3-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 10:48:35 +0000
-Message-Id: <20260713104835.B14401F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P/KgXebs"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84864086bfeso2962727b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 03:54:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783940041; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lmpns/BWYt50rTbYhAcnOvM0CUl9XQAvUDM5X9iPK5NUeVWlCXjyOYVFrfMHb1T5Bd
+         xDsINNG+KRZEjWZtS57t24LJa1x4OFyP/9HZ3tUy6prPLbS9K6TI9gz+EPnTmCqo4ECd
+         URapbFq7EfxZtdgbLYBgBBCgUQ0r8BvsRfB9nq+jPn25Rug6NefkHcSFcjikWHMNaj6P
+         iZzFuOAr8tMowL+0F6RurwnRAVcAx9rsZYgIrh0eDxw7b6YaOnvCyfsc2Q+n+KbY2Z3O
+         q0dqr3P89UMTITnu/mvjWv7JG11YldQxXJwK1IEYxfl1kHyxW7r2cfsS6LI+EjNfaK37
+         ZgrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wLoRAsmgBc3HjY+oKSwmfO1A8rQKD/ew09Cgkua8Ydk=;
+        fh=7XSFgkb5et7DGs/Gff1K/8RJIK3A9sThvKY9lkwmSmg=;
+        b=Fct2UP9SaMLnEVL0sERBnuNqWEUusem2xJYjv29CuNmo8P3d00exyRDSaNN1kkGI55
+         ZzwqSPHmfbzTK2dn0EXgtdURCjZuQxkOws4kVnhi78xt8DL/M08izwNHW+pHjwHIUSM+
+         AK5XrE6KTfEdS3ArwV5rOAMCfiKzf7zP+Sjz8EqymacHmqs+aRzje3InJsSAPdf5CzW2
+         Fo37A7AYpk9jAfUGOlQ3LI+vDWvuqQnRqhsrIuqleWkXzdSXc5dybZOxMzwOjIkVkDSf
+         omZg6H9+683/oHqjxxdRPs0gVX4W8Dy9OhqISeCIgQU8RXUbLOtMTnh9rI98Cpo1iQUt
+         NVRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783940041; x=1784544841; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wLoRAsmgBc3HjY+oKSwmfO1A8rQKD/ew09Cgkua8Ydk=;
+        b=P/KgXebsjKlChYmtDTWFLpQZuRQ9BlHDCSQjyq2SoFVZlcCTY/SLIEtLZWMSSRRBpn
+         9T6pG/VUlQuXRBbGlJX2uVsVi3nHUJ2jpivYvE+BpxJBkS8UpGWE0KfpMvFUv0bguOJU
+         bhNXALb2oYfRJE8KdMGDS9dU5BjBPJylUH6vAGMOfvsr/NVUSdy0YJAblUj+OpQw/lMC
+         7Zr61/ohbbitOD7URGbfclj7i9gjdGaCKPo+aTd7rvZmijB91X4jrx4F78nzkL6kMos/
+         JALv22Vsli3KFt/4poayb1McCpdebssE2innWf5YowxRiV5O4xgbeqFBrAO92h5EPrc4
+         vJZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783940041; x=1784544841;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wLoRAsmgBc3HjY+oKSwmfO1A8rQKD/ew09Cgkua8Ydk=;
+        b=k4ZvK4BzGYet+0/jNcOJm1+eq6uYqbCZBxCzubVdJjDfTkI8kOPief9e5LH83SU30Z
+         o+sT5U2taq9p2TPvecSwh/w/35TsXA3fpxvZAUWJSAeVnxf1BGiVZ0Kc5MDgyWJjKf6W
+         B49DFKawcTfhov/L40sxWKdMzMOyfX4U6Roio83U2f8UTVo6myy4uVNQBTLDMg28NtKo
+         B5oywSq11AdVXvL+JpchsJpCkIL4TK+vPoWE/VBymS64ZqvwLF97sRvr5wbkKJcj8GEf
+         ohSNYUmsPUoANXoFGWnU2MB95FeBantHWwawVlgMRN9WFGO31wL5i7R5qWvDrpvVlXQs
+         oXag==
+X-Forwarded-Encrypted: i=1; AHgh+RqOFV6aMVUsuvDklx0uDxD88d2D6JEpTSOfCT3h3jV0dVSYLQLErLs22EPMs70/aAMoZN8JQgc1X9ue@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzu/k7o9TZo4akeLfqiSNnIfSWI14obDIQ7bnZ9p/5vTbyPjbWA
+	85JICZr1HBRM6Yf3qnxWhT3/mlZ+UX/A94X3qNe06YOdWlcpq5yrFL0wWc44g6ZpHCAUwoeFIvZ
+	SzM/nI7rNBT5yLJOTeTutLodYugZbJEc=
+X-Gm-Gg: AfdE7cnxqxBqA18DwMxQBDAv+5gX/ka8XRHdKW7CV5cEvQrQOZTd8hbI34zUvCYPVLP
+	K6KOyJcQYqsi+RabrJXyZCITaJGXROrN5abrhIIxKQViLH3QGp/XG3oXKHAKDa9RC7mzjgS9S9B
+	N5vJGWgDVqOGymTpU4TaqXvLDwGuDNG2kFqf4IV7Pd8aDeTw3hLng29HINiUjBL/0fXiUd9Ee9D
+	v7bmfjZx6dlDXvQbzPQ+DJF99ZTrSv4aljlihBdglQ8hzQHQWcF9ykbPcBOaDJ+Bi0B07VA93C/
+	y8rjCtauO+k0JJf2Qzpiue4xo4mOhA==
+X-Received: by 2002:a05:6a00:9289:b0:848:4f04:87ed with SMTP id
+ d2e1a72fcca58-848897ecbcdmr7873269b3a.34.1783940041523; Mon, 13 Jul 2026
+ 03:54:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260711184414.1013686-1-jakubszczudlo40@gmail.com>
+ <20260711184414.1013686-2-jakubszczudlo40@gmail.com> <20260713022040.146555b6@jic23-huawei>
+In-Reply-To: <20260713022040.146555b6@jic23-huawei>
+From: =?UTF-8?Q?Jakub_Szczud=C5=82o?= <jakubszczudlo40@gmail.com>
+Date: Mon, 13 Jul 2026 12:53:49 +0200
+X-Gm-Features: AVVi8CdwuJDAG48hIUCurbuFyZaaszwmaBxv3-w_PLpCvhWZpNwFgYRLvD7ocjE
+Message-ID: <CA+gq5JjOV2J87Ycm6bjpa1o=+eKELt6FZBk_KSdEt1zLiQs4MQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/3] iio: adc: Fix incorrect reading when datarate
+ changed in single mode
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, antoniu.miclaus@analog.com, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, dlechner@baylibre.com, 
+	duje@dujemihanovic.xyz, jishnu.prakash@oss.qualcomm.com, 
+	jorge.marques@analog.com, joshua.crofts1@gmail.com, krzk+dt@kernel.org, 
+	linusw@kernel.org, marcelo.schmitt@analog.com, mazziesaccount@gmail.com, 
+	mike.looijmans@topic.nl, nuno.sa@analog.com, robh@kernel.org, 
+	sakari.ailus@linux.intel.com, wens@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Signaling voltage boost is exclusively tied to the absolute maxi=
-mum clamped frequency, preventing high data rates from receiving the boost.
---
+> > +     ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+>
+> In theory this can return short (generally reflects a misbehaving device).
+>
+> > +     if (ret < 0) {
+> > +             dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
+> > +             return true;
+> > +     }
+>
+>         if (ret < sizeof(buffer))
+>                 return -EIO;
+>
+I have checked the source code for i2c_master_recv and it should
+return sizeof(buffer)
+or errno code. Also David and Andy in v4 told me to delete such check.
+> > +
+> > +     return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
+> > +}
+> > +
+> > +static int ads1100_poll_data_ready(struct ads1100_data *data)
+> > +{
+> > +     int data_rate_Hz = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data->config)];
+> > +     /* To be sure we wait 5 times more than data rate */
+> > +     unsigned long wait_time_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, 5 * data_rate_Hz);
+> > +     bool data_ready;
+> > +     u8 buffer[3];
+> > +     int ret;
+> > +
+> > +     /* To be sure that polled value will have value after config change */
+> > +     ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+> > +     if (ret < 0) {
+> > +             dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
+> > +             return ret;
+> > +     }
+>         if (ret < sizeof(buffer))
+>                 reutrn -EIO;
+> > +
+> > +     return readx_poll_timeout(ads1100_new_data_not_ready, data,
+> > +                              data_ready, data_ready != 0,
+>
+> Kind of related to David's question: sashiko doesn't like this.
+> https://sashiko.dev/#/patchset/20260711184414.1013686-1-jakubszczudlo40%40gmail.com
+> I think I agree with it.  Generally need to check for errors in the polling
+> routing as well and return those if seen (in data_ready I think at the end?)
+>
+> > +                              wait_time_us, ADS1100_MAX_DRDY_TIMEOUT_US);
+> > +}
+>
+sure I will update the function to return int instead of bool and
+check for errors
 
---- Patch [2]: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DS=
-I PHY ---
-commit a6b40caad1ac266a0481ef7b26baffceb672008c
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-phy: mediatek: Add support for MT8196 MIPI DSI PHY
-
-This commit adds support for the MIPI DSI PHY found in the MediaTek MT8196
-SoC and its variants. It introduces a new register layout and basic D-PHY
-functionality needed to drive MIPI DSI displays.
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c b/drivers/phy=
-/mediatek/phy-mtk-mipi-dsi-mt8196.c
-> new file mode 100644
-> index 0000000000000..eac3db9922dba
-> --- /dev/null
-> +++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
-
-[ ... ]
-
-> +static int mtk_mipi_tx_pll_enable(struct clk_hw *hw)
-> +{
-> +	struct mtk_mipi_tx *mipi_tx =3D mtk_mipi_tx_from_clk_hw(hw);
-> +	void __iomem *base =3D mipi_tx->regs;
-> +	u32 voltage =3D RG_DSI_PRD_REF_MINI;
-> +	u32 pres =3D MIPITX_PRESERVED_MINI;
-> +	unsigned long long pcw_calc;
-> +	unsigned int txdiv, txdiv0;
-> +	u32 pcw;
-> +
-> +	dev_dbg(mipi_tx->dev, "enable: %u bps\n", mipi_tx->data_rate);
-> +
-> +	if (mipi_tx->data_rate >=3D DSI_PHY_PLL_MAX_RATE_HZ) {
-> +		/* Select higher signaling voltage for fast data rates */
-> +		voltage =3D RG_DSI_PRD_REF_DEF;
-> +		pres =3D MIPITX_PRESERVED_DEF;
-> +		txdiv =3D 1;
-> +		txdiv0 =3D 0;
-> +	} else if (mipi_tx->data_rate >=3D 1000000000) {
-
-[Severity: Medium]
-Does this logic unintentionally restrict the higher signaling voltage to on=
-ly
-exact matches of the maximum PLL rate?
-
-Since mtk_mipi_tx_pll_determine_rate() clamps the clock rate to
-DSI_PHY_PLL_MAX_RATE_HZ (2.0 GHz), mipi_tx->data_rate can never exceed this
-value. Consequently, panels requesting data rates slightly below 2.0 GHz
-(for example, 1.99 GHz) will fall through to the 1.0 GHz branch instead of
-receiving the voltage boost and correct PLL dividers intended for fast data
-rates.
-
-Could this conflation between the PLL octave band threshold and the maximum
-frequency clamp macro also break the PLL divider logic if the maximum
-supported rate limit is increased in the future?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713103805.2303=
-0-1-angelogioacchino.delregno@collabora.com?part=3D2
+-- 
+Best regards,
+Jakub Szczudlo
