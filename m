@@ -1,201 +1,297 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazolkn19012052.outbound.protection.outlook.com [52.103.20.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6C630567D
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 15:54:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783958055; cv=none; b=n/emyZzKlaYjfoMNe3X5sMWdotTR1keIiyfHysBAKkpGZmhIZml5joYS4Z98aFNB4DWsJlxPbBMlq234d6pW8qb5v9BfJEtZV8Ql2PEkCE6hLDPF9V+/jGZCBM+ytD3QSsjJ57RAu4JyR3U2dMUvh7eUc8Vwxm35MtWbu+erdtI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783958055; c=relaxed/simple;
-	bh=m2bCXYj8AWrMF/1laWCVCT5bKqmKjFJ215Tf8K6H5u0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OWVvq9efJtKASRbJnoDWVNhL9YeVfatNZp3VG00TXG8QS3z1bUcNIV+0hnBP6EBfDVAzTfjNHm3JGW1j4IfpBa8ZHSYTj7HJDDBxMvfCxobtxXrODSgq/TXZhfzPYntReV+atZem1aJHh6ilycOin0G00qpfi6se1h4UNihqC7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5bfbbe5220dso9953e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:54:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783958053; x=1784562853;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qzEerLqOaw9Z3GkpXKkc+Ohu/zTEKX/5jHpFuADj7Ho=;
-        b=ansSnYSYpWWHmGJBq+3hYShgmSHfh4jsXFiDjowN9rPJA5IsbhA5k3sqx3gqsQfJX8
-         8b1WyCV1d+4y6AWNOUah2yL38QsU+qtsZMn/5w2LlviUheKjjIdaKu0HWJxN+/BmXbUu
-         RzuNGh4zLTMS17o+V1FZLeNtJfqmoy3Teq/5MpuHReKe+afUhMK573XfNG+mQ4RidWAz
-         q5H/akN+xrrtRNvQ6Ev/euXj8ATWzOQez1qpXBd4bnw2V2djSv6iK3Z8CkR2v7NfFFmw
-         07yVxutmR2Uy1wr3ApQcUexwJtXPDMm/wXVbZfb0SjkcNfF6Tt3XhwVvQNNw0c/ngqFx
-         UTXg==
-X-Forwarded-Encrypted: i=1; AHgh+RqQc7BTKgspt9N7NYyJVp0ZD/sMrAWf/sjy58fEui0g8ZvSeLuXWodxdW/MPzp2ZETZ99F0jOPVmKDY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyvre7iKVEDIDaRriQdMX06MkWAxyHkBxKneYQmcVbqx0dtxIOJ
-	MB9fvBpNJH2KSOjFnO4UYtvK/gKdJRUxO+hmZJhtAcfGb/xRveBSho72MOg0bf4uMVo=
-X-Gm-Gg: AfdE7cnFBghyq5WxeUnf09LS0TccC5msFgfmx6fm9A1CNOgWrr9xXgfoBRPuPyBxvem
-	PmKw417f+Q1jnOchNjZ/DGw2BH2qToZtY4WokSOKDTfjjaHsNKnGu9vuwDmFribY/+pDaPy2aIf
-	UQNqQO77i7QfT9kyowuB2jnyRcsEILh1sJKv4C+NYN11ZlngeT5ZDtZymuoMsQ/Us99fdCPo+VD
-	9X4L68xoe0i3hh6iyvN9ftnG9wpGDDbXRnhaRIbjWJd/b1SNxRsS6cCr8EnkDrIGYEX5tueXPzv
-	JbU0o4W1c8oMnMPQHC/utRBhIRw8a/HvNg10KGcdpezkHAKbI+uJChlE98wLZEwPxrk1Myr/b6N
-	SVsZJgBgmAUDgkAA7Drt17dPYFzwdWCq/Eyy/uetRYoP/qMbuc4h92SNjQYwvffz7K2ngdD4ly3
-	PDfL5bYyz1+mg7Oc5/bzfyHvY3od391G1Ia9mlwG0F3haW1GwSJw==
-X-Received: by 2002:a05:6122:8b17:b0:575:f155:8cd4 with SMTP id 71dfb90a1353d-5bfc1dbda0emr5287277e0c.0.1783958052920;
-        Mon, 13 Jul 2026 08:54:12 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bfd0b319cesm3270844e0c.11.2026.07.13.08.54.08
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 08:54:09 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-73a8ac9cd52so23065137.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:54:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpRiild94j/80RE/Da9XPD9nkS1936oJiOOk8RBjdzKI2dQHh0EatNf3yF3E2r5etjW6DOAZF01uYRz@vger.kernel.org
-X-Received: by 2002:a05:6102:610f:20b0:738:8b5c:a41a with SMTP id
- ada2fe7eead31-7450cb34f7dmr6282037137.18.1783958048566; Mon, 13 Jul 2026
- 08:54:08 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F18305968;
+	Mon, 13 Jul 2026 15:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783958121; cv=fail; b=cAJNYLh/yh6quEcWVbs39x7ouEW80GfzWrErEq3ePTTU2FZ+leKFo8JTkriVkiHm+E94d8bhce3queE5jxX7Jq3n/v0jof71gPAcyf8ywJCc/5UQIjdln2Y74D2wxPf3JI5J07kF6NBsTV/F2MA2ePFT67020h6H3hAHsarUUVc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783958121; c=relaxed/simple;
+	bh=QvU94gL6xtGzbTUZf4QSw0A9e18w4pFlwaOCuMlyYVU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=RhQmiIKaH61RkVUhXPvyaQd+nWgOtYEv0k4TkwMM6i1dzqLgbbmOiVLcV/oejwABL45F8QcGDeCXB2Kf/b0fZT+oPVgRM2uzeMox2KVAopFa8I7G2hm4fUfBfyQoSjAV0Un8dLvOsk4m4nN3vmwFMSmZCDRC8nRwP06VyvkAwVE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=n41SLhQd; arc=fail smtp.client-ip=52.103.20.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="n41SLhQd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DSJ80cn2ICs1MnmBIyXLJTOEXfGfTAhLw1UHUB49avbQ1G+2dy+As6JZ4o6n5DSQOho5CSnAEi78iNi9eDJHK/3usmmnNUbPJwbOWpiwtcPbNMVt3haZoSf9HoXF+yJVg5w+8FzG213jxzJwxXTXeDftOb43VUYS/aCx3N5ipggGyh/lRM/RXITCom06zX74dBUg1kVczXmO3MQ9mazPhM0j/ecLZBRDAcZBgaMHBGiUVNzfriXOH0eIZdPfxQE8kZqVxp3NrGme1uZniLnr0+WJD4ILYF00M4SejgF0JG896rgB8IOYIeHYDzAqejjP+Z2Gdraa7UXLNrr1FhvOQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XQTRuq4ADeD4EATf7KLsrBIR/Ak/YO0f0K4dY6xJ+Zg=;
+ b=DJFEMDq3rtHDQBWZzOW9LNRCQKKE1IqzY9VvjXXjkkQiDb7/Pf9ZewFl7fdoTGR21A0H0qMShYX0a0nc3QS4563r9kOcaXDH0XDuh/G22d6Aueb9rAyIgfm2czf1bSvKeRd/y7UrsAkVZLCjzZjMmV/HjYjDCXF6LKE4TjhHGQaSkrgjMy8ycErn4kQNJSgXpCUEZXnTcTMq8E1sOlngZwuF8Er0S656R+R0hrHpCMFI0ab3vNi1ExjeCs/FiXkOoPmuK1nI1Ra3vTFA+AZaNxSZprulGwL4w4dZ2b66LxAq/LPyKRYwicfMapJKUA1T3gM6TIcSq3zs/ujS/fjHMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XQTRuq4ADeD4EATf7KLsrBIR/Ak/YO0f0K4dY6xJ+Zg=;
+ b=n41SLhQd3uZ6AV/KEJMhrN+rCJ4uCoBM1Vu0tyQ8sGacnTNUQVng+usCe75ddEHjJRfZgfaEFmuamUYpHB73dVO18XggoKBchQPZD9F7t0BjcO0QSM/K0p6mVJF/UwsY0mlPRWmc4DZmjQG/hTetJRMuEpx4z26jq92v8tBaAAr8iwib8vw5aclsVURcMXfhiklvrpPQ4YCXUxJACh9OJicdsIWYmfBbTvllVjJD3TE9lPW3+2REeHg4TaNnkQgkDd2O3/L+Gf1tPZ6bhQ/UXt8pUsEdMonNRkVPrkeSiUcHUioT7mBnnN2OHM01Mho8OSgk63uyXtPlbaO0gVIH1g==
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18) by DSVPR19MB997311.namprd19.prod.outlook.com
+ (2603:10b6:8:38b::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.18; Mon, 13 Jul
+ 2026 15:55:14 +0000
+Received: from PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
+ ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.21.0202.014; Mon, 13 Jul 2026
+ 15:55:14 +0000
+Date: Mon, 13 Jul 2026 10:55:11 -0500
+From: Chris Morgan <macromorgan@hotmail.com>
+To: Juan Manuel <juanmanuellopezcarrillo@gmail.com>
+Cc: heiko@sntech.de, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] arm64: dts: rockchip: fix Li-Po overcharge on
+ Powkiddy RGB10 Max 3 / X55
+Message-ID:
+ <PH0PR19MB997338EC336BDD4A0B14F968F7A5FA2@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <CA+c=wxVGQM9HvjB6OR=+yznr5mW5+7SY8i=37y8y9qEkf6c=rA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+c=wxVGQM9HvjB6OR=+yznr5mW5+7SY8i=37y8y9qEkf6c=rA@mail.gmail.com>
+X-ClientProxiedBy: SA9PR13CA0099.namprd13.prod.outlook.com
+ (2603:10b6:806:24::14) To PH0PR19MB997338.namprd19.prod.outlook.com
+ (2603:10b6:510:3b1::18)
+X-Microsoft-Original-Message-ID: <alUKX0Pi2telrtH6@wintermute.localhost.fail>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260702123112.161160-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260702123112.161160-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 13 Jul 2026 17:53:57 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdViSFTZZMe0SsC_aYmyZqTHCFNN0NxPVoNx5OBfwi4MLw@mail.gmail.com>
-X-Gm-Features: AUfX_mxFOjb_ZRaEJnQ5ujkHKlta3EMpWEatCZQZcSke1bOSWzSUjDpkmkvLviw
-Message-ID: <CAMuHMdViSFTZZMe0SsC_aYmyZqTHCFNN0NxPVoNx5OBfwi4MLw@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 2/9] clk: renesas: r9a09g077: Add SYSC regmap support
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|DSVPR19MB997311:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30deaf5d-d209-41ce-6eb2-08dee0f72055
+X-MS-Exchange-SLBlob-MailProps:
+	laRBL560oLSPhlJ95/U7v6W/AahuugGadQ9OLAeQmj0mvrngWDcpldt2IMUW2HMZpbu/eLoc/VGSwPED2L9wV46Sc2S2Id9RvVZCNgoOKfst6mDBSZd3HYyj4qcWS0t0uO22rRe0TL3TwvBtXIUqaLzI51lQM0+j1J5/xzMsUEO8ooVieHV0BxmZI+/1y6BGEgpXzwTdH++93poGyUWdCJk8rzew5iHHVcchxjrbo5DgWQvpoy1fvJURaU9+LLIeAX0AjXMXSNNRhrnFvvYrtXfeOTQ1RhCe9cpMKw4uD3YF+hbH7drW6aKr/+KalnNGKNnM4+jp+7klrQ1yQW3qPGyEoG6ySLPF039as9gcwU9+5HdipJ5EgKYExpLo+VvSdQ503LqFmMUOkGXwY9dU30axq6zmMuI0i85aqmA2xK6CeY8eyWUJE/RMVq+npbL/V/TH9GkiSGYd1SNrAK2pG2xCIVeCyVbD+U+aphA2dDGLexuIMaAiWO3xSZuFk1VGzUIqRX0D1yVFpo09Az0KbFc+fG1rc4UXfpY7wpAEdTSM/ovc5CpnNmjVH87dkNlF5gbjzLnOCn/nzjbmbjTv4mbbfGdOfjm6G0YIgjeF7RPmvwZCW3cUtvXCh/rzfxQeJo8BKg1UCZvGrrIwGB3OClmlFTkLiBKEJsQNByz7uGfFDqp3VDvOlDlkGQnJt5ixxSrx7aTO77ZjkYAe6WRTCIXj+OBWH1xpo8esuCPxV7WIC0ur5PaGSg3D+DjqWBkAyQL1w31zW50J6659bGf2ySwuIT5A9EVV
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|4140399003|24021099003|55001999006|25010399006|37011999003|23021999003|5072599009|25031999004|8060799015|10092599007|15080799012|19110799012|22141099003|6090799003|39105399006|440099028|3412199025|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?MERMK2tzVSs5S0lTSHBmRWRVdjJxN2pHQ05kRlR4QS9KamZDTXVrRWVseFVW?=
+ =?utf-8?B?bU1qWlRrZVYvZVFQdEFwa0p6bGMyYkNyRjg5VHZxS2dDNzZIM0s4K1o3NGNr?=
+ =?utf-8?B?dTNIMUVoYmpPMzZFRlNTejRaakU3ZHJCNHhLUVJYelJJMVYxNUQ5YjY5NlRy?=
+ =?utf-8?B?bDJxWU1lUm5iOEN2TlFscGQrSHVveHV5V2RQOFVySkpZRlZQSE1Ha21nT1hx?=
+ =?utf-8?B?YVQ3WGVYUDY5Z3JSUGIwaGJTV2ZwVVNjeVZWdEl5R3pONVJ0eWtrU3EwcnYw?=
+ =?utf-8?B?NG5tRm1xZXVMdVpkTGtwb3dOT1lPLzhxZ1pZdFVWYzRMWnRHMnpZcHNXb1U4?=
+ =?utf-8?B?L1FZSFcva0tiZWg0VUxoVjhLRXdLMmlqdzJhOVVadXNjNmJFWVdkblNQRkdS?=
+ =?utf-8?B?NjR0Y0hPTkh6cEZCK0F3NWFiekIrbVFPVlZzZ2lJS2xKeVdNSUNUMSt3dEMw?=
+ =?utf-8?B?anZHWDBnQWwrakIwbVJIdGlhTXpJMFBqNlhKZ0pSKzVvSFppaktBeGF1UG1H?=
+ =?utf-8?B?WUFDVUxic2hhVWgwRHltdlM5ZW5NbSs4aE1ZZUtEWVAzbUJOMk1kREVRMzJD?=
+ =?utf-8?B?SVJ6N3hMWkwwRy9DN25jVzYrMmRUNHc1OTBVNC9jbm5RZ25XUWRYOEJOb1dH?=
+ =?utf-8?B?MkVIbGorZllFNXZYaHE1elFVRmhsNHJTaW80dDZsNHZFM2oxWXVqQ0JXOUwy?=
+ =?utf-8?B?N041cGdSZHZ0RFEyVnlWMDk0U0FpWS9kaUNsVURnaC9UN0JHUDlJK2hsNDNR?=
+ =?utf-8?B?NnhEL2RwVnNrN0dNUDhJWjRhYXJBWlhqMmozSDFidzhwbnNDdmFJSnFjcEd1?=
+ =?utf-8?B?ajhSUWJSWVFSdE5sN2dOVjBTUnBtaStIbWNNWW9lMWdOSWtibmEwSlR2MU1W?=
+ =?utf-8?B?VURpNjdYbmVUb0xOQ0JCUUxOVWJIR25RQ0FBeHdqb2YwYURhUVQ1NzJXbno3?=
+ =?utf-8?B?Nk1VNWxBK3NXdzA0UEdOekpUeXhhOEVlWS94ZFhKek9vYnZLb09qQTdMTnlF?=
+ =?utf-8?B?dTgxMCt1Z2QvSCtBSHUzNXhEODdCaUJveEEzZStoWVRES25ZTnIybTQveUtO?=
+ =?utf-8?B?U05hYThuVVl2Yk9MbEsyNEdrbVBBNTBxVzVBeWxIOWRqOTE5Kzk2MWpsdDg5?=
+ =?utf-8?B?ODdFVG5IOUJid3Q0c0I2RHZya0VodUxXMDR3dGU4bzM0Z1pxVXpXd3lZQXIr?=
+ =?utf-8?B?UThkSEpMOGpMYlMwVG1SZjREUk1OZ1NIem1IWXZaeStxdjQ1VHNHWGxyelFS?=
+ =?utf-8?B?MFJ2US9USEJtU0tiUXpLK0JEbmJaOWxOZjU2NkdDTGVwa1Q4ZXEwLzltbW1G?=
+ =?utf-8?B?c0hzSW1GM0dobE5tOWdNVkg5NGFMWnUrYU1NMThxa1NZVkZyUlRseWMxOWg5?=
+ =?utf-8?B?T084eXRkTEY1bVJhSWpsbnhzRGx3YWJzTnJlOWFwTDJFc0k5ZXBPbDZPRWVY?=
+ =?utf-8?B?b0RYeTVWbUUwQXZNK1FvcmtJNDE5OUdrVDEyODJrTk5Cc0dJZ0E5UUE4NnNT?=
+ =?utf-8?Q?nn5wytnpXFUpvfPv3FpSfhd3Hop?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L3FjUW1Fb0VMTkVEdVNmdDhiSElLSXlkY1B5NGFjUUszOWQ1Tkl2T2MvYjRn?=
+ =?utf-8?B?TmdpbzNpamUweWFaTDRycnd0UDYrMnlTazVwcXdRS1dKNi94UFo2THNoa3U4?=
+ =?utf-8?B?K3Z2YW5MT1BtRHFFamlsdXZhNWJLeFNyelNxOGZaVU1HR0xEOG5wdkM0ZjM0?=
+ =?utf-8?B?b3ZkUTh1TlZxZEh3L2h5d3phU2dBZ0ZFNmZNWlVSYm5NM21kcjh3bE9aKzdn?=
+ =?utf-8?B?elhuWmtMSGNscFVlRSt3bjMzNjFPUVFHZUsrdmRyUk5WVzhmbnN3anMxcCtz?=
+ =?utf-8?B?SUx2SFd4SnBYSUM4VDFpYnVVZFQ0ck91cGpGQnJTR3lxeUtSZEt1eHc1Zzhj?=
+ =?utf-8?B?UjBqZXowUTFodE9HR0hLamVpZCtpM01nOWo5OWNaVUZ3K0ppREREVTQzUWdk?=
+ =?utf-8?B?cW5rUU5Hd3NkZWpUSjFSUE9OTzMvcUx4ZVl0SDhxTmh4Wmp4MTJyQWl1MHNG?=
+ =?utf-8?B?eDBja2hSbWdxWlRJdnBvMEtXWmZBd28xYzJIYWlKUWpMWnFPRW5mU0ZibDh0?=
+ =?utf-8?B?NTBtLzJSakIyak0wQm1xT2huZnFnUGtrUFg2Qk9pd2VZQ2VrTkJpME0rNldL?=
+ =?utf-8?B?a3FnZUM2Qk9la1Zuc3VFV21NWjNmS2ZhZUt6YitocFU4aXJhZ1JrdlJEUUhE?=
+ =?utf-8?B?N2RmYURGYVpQWnp1bG83VmdrUTJCbUx6ajA5RzRwTEtnMWZDZEVHd2NtVUMx?=
+ =?utf-8?B?TVF6RWRGQmhkMmZYcjJGN2dhWkpKVE1Hb0tPZ2djdFdERitoWE5YN0Q3OHBP?=
+ =?utf-8?B?NnZWdkp3TUdFaEF1UDRRWXNid1RBL0VyTG10WmZJM2RJNjR5N1RGNDhaN05P?=
+ =?utf-8?B?K2lJc1RESnhENEhwWi84QWN2NHF5WlRDL3I1V25ocGlTM3JHY2tCd1lIMEEy?=
+ =?utf-8?B?Y0x2aTl0ak1YakVVbFVDR0VEUDFUNUo4MW5WbldiMHFVd0NCNDNNTmJ6d1RO?=
+ =?utf-8?B?Q1Rka3dOcDFFWEV3RXZ1N01ESFVlYjNOb21GQWJwWEI2UVdjMFplWHNsZTdJ?=
+ =?utf-8?B?bHNYUTNrci93V01JMWlSMkhpUjNpd1ovaE1qWmdjMjRTUGl0MEJaTkJmWk1G?=
+ =?utf-8?B?aC90d2E3WHpYQTZkVENTL0RMb0FEcUZaK0RjYUpVaGVHMlQyUFhGb25jMUdv?=
+ =?utf-8?B?UUJ3OVpHSlE0dmlIcWNMYVFOc1ZUcTJwWitEWHFmZjVWc0lsaWZwREFOZHJR?=
+ =?utf-8?B?bWlzWklnRC9BUlU1em9taGFIZ2VRaGlSYWovTEVEMDh0d0pLSHgvdndmdEtx?=
+ =?utf-8?B?QlNJcVFJZmIrdU1Cb3J0dTVaWHMrTUNyREo0dllKM2hFUnJRYXVGTkU5cE1n?=
+ =?utf-8?B?K1VBL2FPR2ZSK094RERoU0h2UDRvZlQ2VWc0TjFRTHVzanNsY1RuNFF0TXlQ?=
+ =?utf-8?B?MytNeVZIalgvdE94T0U4REpuUG56ZXVwNExhNFR6TGdCNy83WktDVVJaRUpu?=
+ =?utf-8?B?RU9hcFlqbWhiRzR4dkMxaWRxMWpCSW1OYzgrWkV2ZjllelZXeVRYSEtld2k5?=
+ =?utf-8?B?b3RrOUhDbHlRNGhJSFV3clRMZmpNL21yTXMxeGJSSFgwZkIxeGpoM1h3OVF6?=
+ =?utf-8?B?ZThnWEczMHhjRHNvNFc1bkFHblRuVExxeXhMTzJrZUs2TVRxNld5MGdSOEhG?=
+ =?utf-8?B?b2x6bk1EM2xkSzJIRldSaHFGenNFRXRYVXAvV1Jkb2FTSUV4YnpPakdnRFAv?=
+ =?utf-8?B?Z1k2U0g3aEtCaERWYUVEeWJCTldrYjduUDNjZTJnZndFdUlqY1NVOHU2ZE5H?=
+ =?utf-8?B?RmpFS1AzeEFDa1g0L1A2NHlsdEFpcWxpQWFGUERFZ0JLZnludnNrRWdmYXhh?=
+ =?utf-8?B?bmUzUDh4SDl5K1hjWm9CMUNhcEgxSGY4Z2k1ZmNCSWVBbFBFaXh1amtJWHpC?=
+ =?utf-8?B?dUdYd2dkUjZvUHc4ZGxNaUE1TjFvSTI3Q3I3NUZJL1lpZnV4WWhDK0JOWHNB?=
+ =?utf-8?Q?iatZs+u7+86dxM9rO6s6I+lGsaB93H8j?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30deaf5d-d209-41ce-6eb2-08dee0f72055
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 15:55:13.9903
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR19MB997311
 
-Hi Prabhakar,
+On Mon, Jun 29, 2026 at 12:20:49PM +0200, Juan Manuel wrote:
+> Hi Chris, Heiko,
+> 
+> While bringing up a couple of Powkiddy RK3566 handhelds I ran into a
+> battery problem that turns out to be in the device trees, and it has
+> already cost me two packs, so I'd like to get it fixed for everyone.
+> 
+> Both battery nodes charge the cell above its own declared full voltage:
+> 
+> rk3566-powkiddy-rk2023.dtsi (inherited by the RGB10 Max 3):
+> constant-charge-voltage-max-microvolt = 4250000 (4.25 V),
+> but voltage-max-design-microvolt and the ocv-capacity-table-0 100% point
+> are both 4172000 (4.172 V).
+> 
+> rk3566-powkiddy-x55.dts:
+> constant-charge-voltage-max-microvolt = 4300000 (4.30 V),
+> but voltage-max-design-microvolt and the ocv-capacity-table-0 100% point
+> are both 4138000 (4.138 V).
+> 
+> So the charger drives each cell ~80–160 mV past its own OCV-100% point on
+> every cycle. On a standard 4.2 V Li-Po that is an overcharge: it raises the
+> cell's internal resistance and kills the pack early. The symptom is
+> textbook — the pack reads a normal voltage/SoC while on the charger but
+> collapses under load and shuts the device off the moment it's unplugged. I
+> lost two packs to this before tracing it to the DT; capping the charge
+> voltage at 4.2 V (verified at the rk817 CHRG_OUT register) stopped the
+> damage, and a third, already-degraded pack stabilised.
+> 
+> Patch 1 also corrects the RGB10 Max 3 design capacity: it ships a 4000 mAh
+> cell but inherits the 3151 mAh value from rk2023.dtsi. I did this as a
+> per-board override so I don't touch the shared profile, which may well be
+> correct for the RGB30 and other rk2023 users.
+> 
+> One thing worth a look on your side: the shared rk3566-powkiddy-rk2023.dtsi
+> default itself (4.25 V against a 4.172 V OCV-100% point) looks like it
+> would overcharge any device using it, not just the RGB10 Max 3 — but I only
+> have the two units above to test on, so I've kept the fix scoped to what I
+> can verify.
+> 
+> Thanks a lot for all the handheld DT work; none of these devices would run
+> mainline without it.
+> 
+> Juan Manuel Lopez Carrillo
 
-On Thu, 2 Jul 2026 at 14:31, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Add System Controller (SYSC) regmap support for the RZ/T2H SoC.
->
-> The RZ/T2H SoC features two System Controller (SYSC) blocks that handle
-> low-power management and access control. These blocks are defined as child
-> nodes within the Clock Pulse Generator (CPG) address space in the device
-> tree. Implement support for creating regmaps for these SYSC blocks.
->
-> Register the regmap using of_syscon_register_regmap() against the CPG
-> device node so that consumers can access SYSC registers via the existing
-> syscon phandle.
->
-> Add a sysc_init() callback to the CPG/MSSR core to allow SoC-specific
-> initialization of the SYSC regmap.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+> From: Juan Manuel Lopez Carrillo <juanmanuellopezcarrillo@gmail.com>
+> Date: Sun, 29 Jun 2026 12:00:00 +0200
+> Subject: [PATCH 1/2] arm64: dts: rockchip: powkiddy-rgb10max3: fix battery
+>  profile
+> 
+> The Powkiddy RGB10 Max 3 ships with a 4000 mAh pack, but it inherits its
+> battery node from rk3566-powkiddy-rk2023.dtsi, which describes a 3151 mAh
+> cell and, more importantly, sets constant-charge-voltage-max-microvolt to
+> 4250000 (4.25 V).
+> 
+> That charge voltage is above this pack's declared full voltage: the
+> inherited voltage-max-design-microvolt and the ocv-capacity-table-0 100%
+> point are both 4172000 (4.172 V). The charger therefore drives the cell
+> ~78 mV past its own declared "full" on every cycle.
+> 
+> For a standard 4.2 V Li-Po this is an overcharge. It raises the cell's
+> internal resistance and kills the pack prematurely. The failure mode seen
+> in the field is characteristic: the pack reads a plausible voltage/SoC
+> while on the charger but collapses under load (and shuts the device off)
+> as soon as it is unplugged. Two packs were lost this way before the cause
+> was traced to the DT.
+> 
+> Override the node for this board with the correct 4000 mAh design capacity
+> and a safe 4.2 V charge ceiling, at/below the cell design max and the
+> OCV-100% point. The charge current limit (2 A = 0.5C) and the OCV curve
+> are left unchanged.
+> 
+> Signed-off-by: Juan Manuel Lopez Carrillo <juanmanuellopezcarrillo@gmail.com>
 > ---
-> v1->v2:
-> - Made use of for_each_child_of_node_scoped
-> - Moved sysc_init() to the end of the probe function
-
-Thanks for the update!
-
-> --- a/drivers/clk/renesas/r9a09g077-cpg.c
-> +++ b/drivers/clk/renesas/r9a09g077-cpg.c
-
-> +static bool rzt2h_writeable_readable_sysc0(struct device *dev, unsigned int reg)
-> +{
-> +       switch (reg) {
-> +       case 0x0000 ... 0x0008:
-> +       case 0x1000 ... 0x1164:
-> +       case 0x2000 ... 0x2024:
-> +       case 0x2030 ... 0x2054:
-> +       case 0x2060:
-> +       case 0x3000 ... 0x300C:
-> +       case 0x3100 ... 0x310C:
-> +       case 0x4100:
-> +       case 0x4200:
-> +               return true;
+>  arch/arm64/boot/dts/rockchip/rk3566-powkiddy-rgb10max3.dts | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-rgb10max3.dts b/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-rgb10max3.dts
+> --- a/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-rgb10max3.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-rgb10max3.dts
+> @@ -12,6 +12,11 @@
+>  	compatible = "powkiddy,rgb10max3", "rockchip,rk3566";
+>  };
+> 
+> +&battery {
+> +	charge-full-design-microamp-hours = <4000000>;
+> +	constant-charge-voltage-max-microvolt = <4200000>;
+> +};
 > +
-> +       default:
-> +               return false;
-> +       }
-> +}
-> +
-> +static bool rzt2h_writeable_readable_sysc1(struct device *dev, unsigned int reg)
-> +{
-> +       switch (reg) {
-> +       case 0x000C:
-> +       case 0x0034 ... 0x0038:
-> +       case 0x0048 ... 0x007C:
-> +       case 0x0100 ... 0x017C:
-> +       case 0x0200 ... 0x027C:
-> +       case 0x0308 ... 0x030C:
-> +       case 0x0320 ... 0x037C:
-> +       case 0x0480 ... 0x0484:
-> +       case 0x0580 ... 0x0584:
-> +       case 0x0680 ... 0x0684:
-> +       case 0x0780 ... 0x0784:
-> +       case 0x0880:
-> +       case 0x0980 ... 0x098C:
-> +       case 0x1100 ... 0x1118:
-> +       case 0x1200 ... 0x1204:
-> +       case 0x1400 ... 0x1484:
-> +       case 0x1500 ... 0x1584:
-> +       case 0x1600 ... 0x1680:
-> +       case 0x1700 ... 0x1780:
-> +       case 0x1800 ... 0x1884:
-> +       case 0x1900 ... 0x1984:
-> +       case 0x1A00 ... 0x1A84:
-> +       case 0x1B00 ... 0x1B8C:
-> +       case 0x1C00 ... 0x1C8C:
-> +       case 0x1D00 ... 0x1D8C:
-> +       case 0x3000:
-> +       case 0x3010:
-> +       case 0x3020:
-> +       case 0x3030:
-> +       case 0x4000:
-> +       case 0x5008 ... 0x500C:
-> +       case 0x5020 ... 0x503C:
-> +       case 0x5100 ... 0x5114:
-> +       case 0x6000:
-> +               return true;
-> +
-> +       default:
-> +               return false;
-> +       }
-> +}
+>  &bluetooth {
+>  	compatible = "realtek,rtl8723ds-bt";
+>  };
+> --
+> 2.43.0
 
-This exposes a lot of dangerous registers.  Aren't they also exported
-to userspace through drivers/base/regmap/regmap-debugfs.c?
+> From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+> From: Juan Manuel Lopez Carrillo <juanmanuellopezcarrillo@gmail.com>
+> Date: Sun, 29 Jun 2026 12:05:00 +0200
+> Subject: [PATCH 2/2] arm64: dts: rockchip: powkiddy-x55: cap battery charge
+>  voltage at 4.2V
+> 
+> The x55 battery node sets constant-charge-voltage-max-microvolt to
+> 4300000 (4.30 V), but the same node declares voltage-max-design-microvolt
+> and an ocv-capacity-table-0 100% point of 4138000 (4.138 V). The charger
+> therefore drives the pack ~162 mV above its own declared full voltage on
+> every cycle.
+> 
+> This overcharges the standard 4.2 V Li-Po, raising its internal resistance
+> and killing it early - it reads fine on the charger but collapses under
+> load once unplugged. Cap the charge voltage at the standard, safe 4.2 V.
+> Design capacity (4000 mAh) and charge current (2 A) are already correct.
+> 
+> Signed-off-by: Juan Manuel Lopez Carrillo <juanmanuellopezcarrillo@gmail.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3566-powkiddy-x55.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-x55.dts b/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-x55.dts
+> --- a/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-x55.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3566-powkiddy-x55.dts
+> @@ -77,7 +77,7 @@
+>  		charge-full-design-microamp-hours = <4000000>;
+>  		charge-term-current-microamp = <300000>;
+>  		constant-charge-current-max-microamp = <2000000>;
+> -		constant-charge-voltage-max-microvolt = <4300000>;
+> +		constant-charge-voltage-max-microvolt = <4200000>;
+>  		factory-internal-resistance-micro-ohms = <91000>;
+>  		voltage-max-design-microvolt = <4138000>;
+>  		voltage-min-design-microvolt = <3400000>;
+> --
+> 2.43.0
 
-> --- a/drivers/clk/renesas/renesas-cpg-mssr.h
-> +++ b/drivers/clk/renesas/renesas-cpg-mssr.h
-> @@ -178,6 +178,7 @@ struct cpg_mssr_info {
->
->         /* Callbacks */
->         int (*init)(struct device *dev);
-> +       int (*sysc_init)(struct device *dev);
+While I cannot confirm definitively that the x55 has a 4.2v max charge
+voltage, based on your symptoms it's likely that the factory BSP
+was wrong and it should be 4.2v not 4.3v.
 
-I would rather call it "late_init" or "post_init", as it might become
-useful for other purposes, too.
+The battery itself does not appear to have many helpful markings on it,
+I see "-YN 606090 4000mAH/+3.7V 2308 14.8wH" written on it. A quick
+DDG/Google doesn't turn anything up, but batteries just like it have a
+max charge of 4.2v.
 
->         struct clk *(*cpg_clk_register)(struct device *dev,
->                                         const struct cpg_core_clk *core,
->                                         const struct cpg_mssr_info *info,
-Gr{oetje,eeting}s,
+It might just be safest for the moment to set all the Powkiddy's to
+4.2v max charge voltage until we can confirm with a datasheet it is
+otherwise.
 
-                        Geert
+Please submit these as a "bug" so we can backport the fix.
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thank you, and good catch on finding this,
+Chris
