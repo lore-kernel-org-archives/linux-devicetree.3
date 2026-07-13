@@ -1,181 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5A1352C52;
-	Mon, 13 Jul 2026 20:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8822F745D
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 20:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783973134; cv=none; b=aYGvnpBG0b+RUwnQNP3UDwpQjahBOwgXNa6k8Dfe0/8vmX2o4dWg9BxuXZSWJRFWFuVpf+HE+D2oyJvfQWc8Y640gzUBxoADZlXvSl1b02jCFTQ7m7cLfEWP1Iv7IjHm0rNuS1YfmWZ6rZ9zccO58rwt4IzgpzuulPMxMsAlfYc=
+	t=1783973586; cv=none; b=j4FchNufr6+LSjSBUL7IB8iDi14RqdG/E+3CdiHKHGnsxPBehfIkTLdLWx5Nb/RRiCJEfS9xsdwJnf7Zyf9Jez6kh/OT8Twp6NwJ4pWqhwwpY8s8IOBNr/MI8LPc6m2nTO4MihnR1ev0XwSpOX5ov1gs5WGCeWzQ9SRMyf30lJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783973134; c=relaxed/simple;
-	bh=J4U5ckGUKDpq/URapFQppuBePtObl8xHnE3TqwFFM6Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nkhflz6ELW9Kiv6M7hDUM065hHt6lzIihKHCMXnjXCdlCNfLyL0Mw0OlWUhik1u1YEqeQVjrdK//MyF7hpEKSmXXt4pSDat3qYobLae5uxZULnYICmv9MRqR0cTsWUKK6OFw6FIp8BDbhUozq3nIsrXr27QKdwvQVnSPf4zmZo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxtzzwDR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783973586; c=relaxed/simple;
+	bh=DRSTSZKlzjAFcQ1iHSI6JYo8sUBwYj7h89w8FoHR7S8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uAN0Jg0czkIPwD5YsnZPUSTwVzLvTKHcj55qbGOH4WF/G6qDnXeOYocbNyFpBk532ZFjEmiyN2/qqR2ttzH1tuUxGS9MRTYtbW6EkOtbQBmOT6qjBMWmD0pGOMlQoURdKs1mocuDHh2TyRBkQFaG2LTrdSvQqiky8Qmoc5JnXzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/0oYJaK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxtzzwDR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8F66AC2BCF4;
-	Mon, 13 Jul 2026 20:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783973133;
-	bh=J4U5ckGUKDpq/URapFQppuBePtObl8xHnE3TqwFFM6Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bxtzzwDRJuZKs3HqAv3B5Ti5c5CgPtq0U1qiFhXQkT1qmWOj6d67DBUdYTLCDJlGo
-	 7muKa27lKjopyHNU/PN5Zr3saigt0jiwsxf4aOOg9jGO5avlcGPzk4V1ZbKeYTnS4Y
-	 2yPahQc4MTeEtC5ylaXviFslKPjdb2ECrq9uJkSJGqc5ZznRUqCHpWMFXi9jbI809n
-	 U5eC1o1UfcM/2yhip9BKx/vyaqZO8AUas1GxPz6W79pEXsC6PYtLSLXC35ie0ExDzL
-	 r88Y6Pd7ITfMXFpTbiEczoTlJdz4AsEe66hAQVOxMUtVK8R9KEJNp1td+6cW73wNZ3
-	 /a/NXJOiIUVyg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EFF3C44507;
-	Mon, 13 Jul 2026 20:05:33 +0000 (UTC)
-From: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>
-Date: Tue, 14 Jul 2026 01:35:32 +0530
-Subject: [PATCH 1/2] ASoC: dt-bindings: qcom,lpass-va-csr: Add HeartBeat
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/0oYJaK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D22A1F000E9;
+	Mon, 13 Jul 2026 20:13:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783973583;
+	bh=J1m5xnj1VNsVr1XwV3+zZ+xpCOqqiWa2ClFJlsla8Oc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=V/0oYJaKWOV3SrNH7/dNI6o1CkAC5T1tGFtOLnAtT9ZQ//fbWuAG7YCQ1xHR8p9nq
+	 6AelUjCawWZxbxn3/6fGBnxJ/7bL9/x3svcY5MolKMKF+WT/48u0EFf0naVPFGBChg
+	 knz3K6SrLmeNuYr96gSz9cUKpC3+F4LMu7fWCHAusELZh0JRFds0OM7AEvcCGDxbrl
+	 0YHwkzT00wz2LFuWpHwQYfThAB477l/aZCWJmAHKWgSJk5Xtv1S2jZRw1iEJB0kSAz
+	 6RYBhdNhe3Db1pEBG0Cop4cHfa+loYfPncvjq5dLwu21tZq6hJnJDYC8FZR2LFHKqg
+	 h8GqN1iPc1xTg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: qcom,lpass-va-csr: Add HeartBeat
  pulse clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sarath Ganapathiraju" <sarath.ganapathiraju@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260714-master-v1-1-1ebe5993225e@oss.qualcomm.com>
+References: <20260714-master-v1-0-1ebe5993225e@oss.qualcomm.com>
+ <20260714-master-v1-1-1ebe5993225e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 20:13:02 +0000
+Message-Id: <20260713201303.3D22A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-master-v1-1-1ebe5993225e@oss.qualcomm.com>
-References: <20260714-master-v1-0-1ebe5993225e@oss.qualcomm.com>
-In-Reply-To: <20260714-master-v1-0-1ebe5993225e@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- prasad.kumpatla@oss.qualcomm.com, 
- Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783973132; l=3495;
- i=sarath.ganapathiraju@oss.qualcomm.com; s=default;
- h=from:subject:message-id;
- bh=RbD5mg4ILVqZOMn1H2IVY7wxyZAxnDGJwjZKThdsa64=;
- b=h3h+596bSMJnpGEJ84mEFcm+pQkY7CCeRfkm8dGQ24+MDwGMQ+Q1j/rhGLSiF1S6Ex07exWgr
- z3yrEBKvxqMASu4TBX0yutnTs3PWaOdG9ELJHnO5UzTRVgThETZXSpw
-X-Developer-Key: i=sarath.ganapathiraju@oss.qualcomm.com; a=ed25519;
- pk=4p2FWGXM+F2sir13Lu5stw5aKX5trUymK/ttESvgxQg=
-X-Endpoint-Received: by B4 Relay for
- sarath.ganapathiraju@oss.qualcomm.com/default with auth_id=870
-X-Original-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-Reply-To: sarath.ganapathiraju@oss.qualcomm.com
 
-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Schema validation failure in example due to missing #address-cells =
+and #size-cells parent node
+--
 
-Add Qualcomm LPASS VA CSR rate generator node that exposes
-the lpass_heartbeat_pulse clock on hawi. Also extend the
-qcom,lpass-va-macro binding to add qcom,hawi-lpass-va-macro with
-its four-clock constraint (mclk, macro, dcodec, heartbeatpulse).
+--- Patch [1]: [PATCH 1/2] ASoC: dt-bindings: qcom,lpass-va-csr: Add HeartB=
+eat pulse clock ---
+commit 9f770d5091cc6e0fe9a0f15696b43becc2db0bc2
+Author: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+ASoC: dt-bindings: qcom,lpass-va-csr: Add HeartBeat pulse clock
 
-The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
-start of the DMAs and Codec Interfaces for the audio usecase
-and can serve as a periodic wakeup source for the DSP.
+This commit adds the Qualcomm LPASS VA CSR rate generator node binding to
+expose the heartbeat pulse clock. It also extends the qcom,lpass-va-macro
+binding to incorporate this new clock as a constraint.
 
-Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
----
- .../bindings/sound/qcom,lpass-va-csr.yaml          | 47 ++++++++++++++++++++++
- .../bindings/sound/qcom,lpass-va-macro.yaml        | 18 +++++++++
- 2 files changed, 65 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.ya=
+ml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml
+> new file mode 100644
+> index 0000000000000..794da92adcf88
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml
-new file mode 100644
-index 000000000..794da92ad
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.yaml
-@@ -0,0 +1,47 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/qcom,lpass-va-csr.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm LPASS VA CSR heartbeat pulse clock provider
-+
-+maintainers:
-+  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-+  - Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-+
-+description:
-+  The LPASS VA CSR block contains the rate generator hardware which
-+  produces the heartbeatpulse consumed by the Bolero codec macros
-+  (rx, tx, wsa, va). It is modelled as a clock provider
-+  so consumers can reference it by name in their clocks list.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,hawi-lpass-va-csr
-+
-+  reg:
-+    maxItems: 1
-+    description: Must cover the full VA CSR block (base 0x7EE0000, size 0xE000).
-+
-+  "#clock-cells":
-+    const: 0
-+    description:
-+      Single clock output "lpass_heartbeat_pulse". Consumers reference
-+      it by clock-name "heartbeatpulse" in their clocks list.
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#clock-cells"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    va-csr@7ee0000 {
-+      compatible = "qcom,hawi-lpass-va-csr";
-+      reg = <0x0 0x07ee0000 0x0 0xe000>;
-+      #clock-cells = <0>;
-+    };
-diff --git a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
-index aea31fbda..ae4df8967 100644
---- a/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,lpass-va-macro.yaml
-@@ -19,6 +19,7 @@ properties:
-           - qcom,sm8450-lpass-va-macro
-           - qcom,sm8550-lpass-va-macro
-           - qcom,sc8280xp-lpass-va-macro
-+          - qcom,hawi-lpass-va-macro
-       - items:
-           - enum:
-               - qcom,eliza-lpass-va-macro
-@@ -168,6 +169,23 @@ allOf:
-             - const: macro
-             - const: dcodec
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,hawi-lpass-va-macro
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 4
-+          maxItems: 4
-+        clock-names:
-+          items:
-+            - const: mclk
-+            - const: macro
-+            - const: dcodec
-+            - const: heartbeatpulse
-+
- unevaluatedProperties: false
- 
- examples:
+[ ... ]
 
--- 
-2.34.1
+> +examples:
+> +  - |
+> +    va-csr@7ee0000 {
+> +      compatible =3D "qcom,hawi-lpass-va-csr";
+> +      reg =3D <0x0 0x07ee0000 0x0 0xe000>;
 
+[Severity: Low]
+Will this example fail dt_binding_check validation?
 
+By default, the root node in DT schema examples assumes #address-cells =3D =
+<1>
+and #size-cells =3D <1>. Because of this, the 4-cell reg property here pars=
+es
+as two items (two address/size pairs of 1 cell each).
+
+Since the schema explicitly constrains reg with maxItems: 1 earlier in the
+file, does this need a dummy parent node specifying #address-cells =3D <2>
+and #size-cells =3D <2> to pass validation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-master-v1-=
+0-1ebe5993225e@oss.qualcomm.com?part=3D1
