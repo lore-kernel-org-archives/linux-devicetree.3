@@ -1,124 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA25305695
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0166037A835;
+	Mon, 13 Jul 2026 10:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783938967; cv=none; b=uT0YiGboL3950h9AL7P9JfvfLMqaURqNGX3p+kNjUpA2OBrPM6mvMVKipVY09la5fT1pOWrLEwkrmk4H1HXDLgKAPatzMwKz4zdKwNFhQ0pMeNLEXoJJUNVpDLzRT0X2fnB97gwmzEknVg8Z+HEOdGYPHIu7WowiIcLG9NrAcXM=
+	t=1783939095; cv=none; b=s+md/oHTGtSzfL5o1UhhjDyfXA0IlD1CRTYhDKp+cJNcQEGKMa3rjK/BqhgoAG7xMWSx2dRIFMOxmfmm4PJZw5eRby1F0etWkLt06estQhBul8Dtmqx9mQyZ4cZU69TRuz9EgqNGkx4W5mfa8BR/5dbLWG2U/sePGodpXMjrjag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783938967; c=relaxed/simple;
-	bh=EZRWkBHJvfwOkatt9ry4B1VLUgpQHZMSxGUTdhTewfQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gMab6PVRUtBVTmm4/MlGT3ZahGVsD4mkLW31Py2dOORsfFy44oJSgk0apSuUXV4cB52BY9kKEJVTzxfrc0MCjzbEaoyg0nSx/GN+17RMgYQtF5PKTHL+JqqdR5tW3LFSh+5QxUlqAjocR3Rv4/iqHEuB2vPNPZMwJX3ssJjtlCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZyFtOLTA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783939095; c=relaxed/simple;
+	bh=4E+jdeyxHU72SDz0s7k3Q69ptccQSHWPz/W0Q42mOCY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VdnOmQI5KB/UhCEx0RBX/NvCbB3N2Iqd+vunTVLuD8X3PuXeKiQ7CKPb42GbSOBIeHsRvOC5X9pDHL43RmJhDDpcn2ea6fSGwr1dyee+cQOpi9G4kTjfCbaU339z1fKqhRs8FqjxGhCeAhZI6yHmA+8uDCxV3TtUiQ6puh/tdV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XADnlWxA; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZyFtOLTA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6DF41F000E9;
-	Mon, 13 Jul 2026 10:36:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783938966;
-	bh=letGyiOJDx3Ww5kDXdAcn6tL1RnS5hrMBVL2Mr+Qbg0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZyFtOLTA2jG9saKuC/10Lpokyd51ENwOtdtHtCYcHpLowa99Rb7DHdluEtvvx180B
-	 r9YaWirjbNWB97M6zhvvXfrbJIfh/Smwlk6BAWx65qtxY/lakpIOfVj70zCt4Gedj5
-	 dedwNcn+Jf0x5pZfAjuzm80y296GA0Zo/Q7hHN9vx13SipXQ4aq0PKZw7ORFIBZBtP
-	 ymjJ2sEiZhag11TA437Ec4KvgXYxb09f9OtsXlaUboyd7k4cXwgh3FP3XhLu5oRlt6
-	 CQAseAZ6krfUYzj5Oj43zDTJxEoDqWVJ6+UpspaItSOUUzngjZUYTwNnrGygGGDZNO
-	 LOSmSHD2z/9Iw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document
- power-domains property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sneh Mankad" <sneh.mankad@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
-References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
- <20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 10:36:05 +0000
-Message-Id: <20260713103605.D6DF41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XADnlWxA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783939092;
+	bh=4E+jdeyxHU72SDz0s7k3Q69ptccQSHWPz/W0Q42mOCY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XADnlWxANguGJN7bl+NRzpLu1SRZZIU6um8d4jvJq6Sneksd0SUAmz1YhyvMqRHyQ
+	 zdQ1JI1iP8aENu2q1GsS/WT+qfgENxK9OqH6JWjxV1Dt67+K8FZS2NGILxc+achbDr
+	 oUjdJPxqi2sSjjGI8b3LuLsaPTt50zTDkMw+bFacMZ+ddJZpKWuPy9VPATLICGk1DU
+	 hwR0nRXdzZfAfD4xu9/DaAziNJAiJRfBEG9anUTUZ72k0kFXz5hW2FRSMw6KY5YGpa
+	 J8xTL9cjtVX4/v/VKG6FkbHwbatsWOWCE8XB4c2m59OQbrlEA788KXpEWErRRmCq+Q
+	 fGByR+Cx9fpVQ==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A900C17E05D3;
+	Mon, 13 Jul 2026 12:38:11 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	justin.yeh@mediatek.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	kernel@collabora.com
+Subject: [PATCH v3 0/2] PHY: Add support for MT8196 DSI PHY
+Date: Mon, 13 Jul 2026 12:38:03 +0200
+Message-ID: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The commit incorrectly removes the `#power-domain-cells` provide=
-r property and replaces it with a consumer property (`power-domains`), brea=
-king schema validation for existing device trees and misrepresenting the ha=
-rdware architecture.
-- [Low] The modified example code introduces an unresolved phandle (`&clust=
-er_pd`), which causes `make dt_binding_check` to fail.
---
+Changes in v3:
+ - Actually sent the correct patch series (sorry, I had messed up v2)
+ - Added definitions for minimum and maximum PLL rates
 
---- Patch [1]: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document=
- power-domains property ---
-commit eb530c220bf421a5d64eb53cfa4eaaad646e6a1d
-Author: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Changes in v2:
+ - Added a few comments and fix scheduling while atomic issue in clk
+   enable ops by waiting with udelay() instead
+ - Removed one unnecessary delay after clk/pwr isolation disablement
 
-dt-bindings: interrupt-controller: mpm: Document power-domains property
+This series adds support for the DSI PHY found in the newer MediaTek
+Dimensity 9400 (MT6991), Genio Pro 5100 (MT8894) and Kompanio Ultra
+(MT8196) SoCs.
 
-This commit removes the #power-domain-cells property and replaces it with a
-power-domains property for the MPM device binding schema.
+AngeloGioacchino Del Regno (2):
+  dt-bindings: phy: mediatek,dsi-phy: Add support for MT8196
+  phy: mediatek: Add support for MT8196 MIPI DSI PHY
 
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,=
-mpm.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.=
-yaml
-> index ebb40c48950ab..3f9645fbc3c20 100644
-> --- a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
-[ ... ]
-> @@ -68,8 +68,8 @@ properties:
->          - description: MPM pin number
->          - description: GIC SPI number for the MPM pin
-> =20
-> -  '#power-domain-cells':
-> -    const: 0
-> +  power-domains:
-> +    maxItems: 1
+ .../bindings/phy/mediatek,dsi-phy.yaml        |   1 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ .../phy/mediatek/phy-mtk-mipi-dsi-mt8196.c    | 201 ++++++++++++++++++
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.c       |   1 +
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.h       |   2 +-
+ 5 files changed, 205 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
 
-[Severity: Medium]
-Does this change accurately reflect the hardware architecture?
+-- 
+2.54.0
 
-Looking at the driver implementation in drivers/irqchip/irq-qcom-mpm.c,
-qcom_mpm_probe() registers a PM domain provider:
-
-    ret =3D of_genpd_add_provider_simple(np, genpd);
-
-This driver natively implements a PM domain provider, which relies on the
-#power-domain-cells property being present in the device tree.
-
-Additionally, existing in-tree device trees (such as agatti.dtsi) currently
-declare #power-domain-cells =3D <0>; in their mpm nodes. Removing this
-provider property and replacing it with a consumer property will likely cau=
-se
-dtbs_check to fail for those existing boards.
-
-> =20
->  required:
->    - compatible
-[ ... ]
-> @@ -113,6 +113,6 @@ examples:
->                                 <24 79>,
->                                 <86 183>,
->                                 <91 260>;
-> -            #power-domain-cells =3D <0>;
-> +            power-domains =3D <&cluster_pd>;
-
-[Severity: Low]
-Is the cluster_pd phandle defined in this example block?
-
-Adding an unresolved phandle reference to the examples section typically
-causes the dtc compiler to fail with a 'Reference to non-existent node
-or label' error when running make dt_binding_check.
-
->          };
->      };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-b4-shikra_=
-lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com?part=3D1
