@@ -1,164 +1,265 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742294189D9;
-	Mon, 13 Jul 2026 13:11:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F152741C2E4
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 13:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948302; cv=none; b=f1XIFKytH1v5Y45hnXWvbNSw6C863r6Yehj0KGKJp7mIeMIOWBfpHD08ALF8i+rDdh1LmG8K+L5N84czYxnHVW/5S/0mn6sRevFm09+kVXqj/Ld6SHwBtRKQ2A7la484cBCBP1fK8jCLtKv1BIoDvXwuJ8LPZWmLX0VMx4HqNH0=
+	t=1783948354; cv=none; b=Y5lo6hOTEKptblZLFH4FF7kfb5eDRHCvzfe2857BxXVMyOe5YEn1ijljQiU3yzG1rbRqa4zV1DsxCjaj9ijufyGwSBR6zOVI/CtrMIMZ2e97pnns9zFPKbWidWgqmlDCrM2GtgQLbbmE+obpxtojg/gEoQ+6knGRqs3KnTRH2v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948302; c=relaxed/simple;
-	bh=794YbEXyzIorMyKoNEFQ6cQ/F/QQjKG1DMjHHg8ga20=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eaHugZe7aQbeX+om5kzLgLfj2qswgKL/uq/jMvZK6SljqgtHlR/OPCYOIqiFbRCVXwppe2ovWzMAZdx0zMfwVR6Cu6eCOfCBCqdaIXs6J2Vo+bPi8YodfB2RE6wLvn4OS720TCWj0MscoiTdYStX8pP7t1a4TCdGQVnYCYIPRHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nvas8LQI; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783948354; c=relaxed/simple;
+	bh=eOXs1SKrQwk11D0Um+Ni+sRdoOwMo07YqSbXEUA/+1E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s4izKyWfdZyaWirw09ajPPq2o3BG9BWZri1KMthrogEUMx80qTlCGJmzauxrg0f86RNqDLvhuZNrgycUPRwtAgevGmUSqZyrqh7cQTrE53wflv3QKGo5VP1BFIGgOE7ys4QVOaVKhpltX15bllljUShKjmgumqp6b12rmvn8pdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RNI1qXYy; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nvas8LQI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783948299;
-	bh=794YbEXyzIorMyKoNEFQ6cQ/F/QQjKG1DMjHHg8ga20=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=nvas8LQIvvJDhQizpfs1AArtRbGcWBZKnvqebRXJGr7BQPAl0DYTfd5ENLJO5pyvU
-	 CU/OqUGLCIP1aGEd3AXR7wW6Dhz4O4uLvRgBYgZa3KrQYgEOovc9JTBxF6b9N+l9Yg
-	 zmr0436PoWjX7UK/l0zyurnom0LzXsVPtNKQGvYCKCv7YK32yOevPz6ICGHkAfx3vA
-	 rsYkuFU2jISdeVsummOH2689WSoDlW1uQn6Wgbu+V22iySHQRczPi/L6qVwmEjnpgN
-	 xCx5uPXADO/d/o7rwvHWjvbauMvZIpkxGdZVM9REwO1eAi/j4G2wedNOIF87vbSdaH
-	 5IFXzjbC0F5KA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 40E1D17E010F;
-	Mon, 13 Jul 2026 15:11:39 +0200 (CEST)
-Message-ID: <298f5835-d607-41d7-b8da-7b19b8e8abdc@collabora.com>
-Date: Mon, 13 Jul 2026 15:11:38 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RNI1qXYy"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493c733f15aso30047365e9.0
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:12:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783948349; x=1784553149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7QjD1+Kfbgq2XrbSxv8Jp+hCC17bDU4edXaLS0HJTto=;
+        b=RNI1qXYyVbWkKDlF35SukhLpwTyZ1OxlejTdiyyzGW48zXKI3cY1Qgp1nkZlG5+rWN
+         ME2xXu8o4UbPCAezrbKXLCJGsdjAkX7u7N3iQnmhuq4Vcfof1PHqvYBf3RK8ZO7aGVR6
+         234C59s9qk4f0t4BZnTiM9ytIiGz8qWGrqDeedLUKfekab+08VvsyX7h5cFQc7EiyNXJ
+         Y+SS7LX0cDvCOQQOt0pA8c8BVexE3iQ3LsozLc3ymCpwqtcAezNQ15zSBY/Yx8JCOV8e
+         utTkIfPF232EcVXL1N+uKg9v5R/gPkY2WftIiV7u66+WpE/fDtTqIjWoAAeMXHfkuZfF
+         Dc7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783948349; x=1784553149;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7QjD1+Kfbgq2XrbSxv8Jp+hCC17bDU4edXaLS0HJTto=;
+        b=kbKeIZ9z7muoX/LfSAX9mM9v1XLvlSk9fdTA1fQNsBAZ9QARtFk3/YQJniEYJEn05D
+         8e4ddQjhe/Jz+iIaL0J0Z5Elmj7Go5b8P6EjiR478oLnjOZ83I5A23j0H+cflyermVBZ
+         TJdOyuXi/CiHg2EBJjMVBHpHAe1qDvIB3VUbPwsegICC9u64uHeZ7AwzaH2nn/cIt8tl
+         qMggoqgtGln0denqrJrHPhTNIhkr9ie+3fMxrd7TU3kFDaEyrpjJ6FtWhNvDn/Wdn4aR
+         gQ18afoMSAovSh+7ZJ3T8TZQSMqREhRUc0zhAxfTaLljU6Mxm6grY25m9k3aBKRK8Yux
+         2ljQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrfoYia7XYgITTzorYhpOLWmlHU6Mg6/tNTOdpvZdKErXLpG1fOiee9nklNtyd74f7xOuZEdsypnlxE@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQjfoMXJyGw6CwOKdJJw+eVxibHv9q0yOoXH/D/+28bCKr5LN9
+	hdned2YGJ4G5esxMX30oo3Y+t7kODiFDhawkKsh3mIZDIckqUYS/piUr
+X-Gm-Gg: AfdE7ck50K4cQLv5VhKtO9PjQkSokFJ6PQEuUbE+3hcioDY/bfrwpuP5wA17ys53A6+
+	zJKdFcQFtDsdsPUnJZ+eNes58RSdTsA+WmFby1N+eop4HZET58uWZZiiKlkYlQpRW0xid1AHF1c
+	rkRW5t3DoFqO08By6Xl38VyMpouN24TwkyVWta8KB5G0Ex0JmVm7gBBUYGjPz/crfiSzGiwnNi6
+	wm/doTx5NmfmizwG4k7RZq76qGyC8Dh8CpUZ9rA0CQExlaSs8gCyOKfbPYUBLfc7I51xmv0YuvJ
+	Es1hrRBdwWEWBQ9CVW2ojbk81l9PUnKq/Pbb+3+BwntX9T/fm2wY6CIlTK8Mrhnd793kmk87ZnH
+	vv6TgRLR9SXgJjR7zZuTTqPzPD01PK+tcx9nPnZfNlFQ86tk5uh8uWdbFJNeN4xrVRP9DpM8rZO
+	JmRO9qrtmLsvRB
+X-Received: by 2002:a05:600c:858e:b0:493:be08:c372 with SMTP id 5b1f17b1804b1-493f88b5d6amr87585035e9.17.1783948349019;
+        Mon, 13 Jul 2026 06:12:29 -0700 (PDT)
+Received: from NB-6746.. ([188.243.183.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493eb6f3dcdsm354106345e9.3.2026.07.13.06.12.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 06:12:28 -0700 (PDT)
+From: Artem Shimko <a.shimko.dev@gmail.com>
+To: netdev@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Artem Shimko <a.shimko.dev@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH net-next 0/2] Add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+Date: Mon, 13 Jul 2026 16:12:21 +0300
+Message-ID: <20260713131223.279555-1-a.shimko.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] pinctrl: mediatek: Add driver for MT6858
-To: Nikolai Burov <nikolai.burov+review@abscue.de>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, nikolai.burov@jolla.com,
- Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Sean Wang <sean.wang@kernel.org>
-References: <20260710-mt6858-pinctrl-v1-0-f75ab558f0df@jolla.com>
- <20260710-mt6858-pinctrl-v1-2-f75ab558f0df@jolla.com>
- <89e4eb3d-a61c-410e-8ad5-e845b07f8029@collabora.com>
- <2d34c3f6-5f66-4b60-b9a2-180163964552@abscue.de>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <2d34c3f6-5f66-4b60-b9a2-180163964552@abscue.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 7/13/26 14:51, Nikolai Burov wrote:
-> On 7/13/26 10:01 AM, AngeloGioacchino Del Regno wrote:
-> [...]
->>> +    [PINCTRL_PIN_REG_MODE] = MTK_RANGE(mt6858_pin_mode_range),
->>> +    [PINCTRL_PIN_REG_DIR] = MTK_RANGE(mt6858_pin_dir_range),
->>> +    [PINCTRL_PIN_REG_DI] = MTK_RANGE(mt6858_pin_di_range),
->>> +    [PINCTRL_PIN_REG_DO] = MTK_RANGE(mt6858_pin_do_range),
->>> +    [PINCTRL_PIN_REG_SR] = MTK_RANGE(mt6858_pin_dir_range),
->>
->> This is Slew Rate, not Direction... And I think this is wrong.
->>
->> If you don't know where the slew rate registers are, or if that is an unsupported 
->> operation, just omit PINCTRL_PIN_REG_SR.
-> 
-> Thanks for noticing this! This seems to be a mistake in the downstream driver that 
-> I unintentionally copied over. I will remove the slew rate.
-> 
+Hello,
 
-No worries, it happens.
+This series adds support for the DAPU Telecom DAP8211R(I) Gigabit
+Ethernet PHY, commonly used in enterprise and industrial networking
+applications. The PHY supports 10/100/1000 Mbps operation with RGMII
+interface and includes features such as IEEE 802.3az Energy Efficient
+Ethernet, IEEE 1588 SyncE, and an internal packet generator for
+diagnostics.
 
->>
->>> +    [PINCTRL_PIN_REG_SMT] = MTK_RANGE(mt6858_pin_smt_range),
->>> +    [PINCTRL_PIN_REG_IES] = MTK_RANGE(mt6858_pin_ies_range),
->>> +    [PINCTRL_PIN_REG_PU] = MTK_RANGE(mt6858_pin_pu_range),
->>> +    [PINCTRL_PIN_REG_PD] = MTK_RANGE(mt6858_pin_pd_range),
->>> +    [PINCTRL_PIN_REG_DRV] = MTK_RANGE(mt6858_pin_drv_range),
->>> +    [PINCTRL_PIN_REG_PUPD] = MTK_RANGE(mt6858_pin_pupd_range),
->>> +    [PINCTRL_PIN_REG_R0] = MTK_RANGE(mt6858_pin_r0_range),
->>> +    [PINCTRL_PIN_REG_R1] = MTK_RANGE(mt6858_pin_r1_range),
->>> +    [PINCTRL_PIN_REG_DRV_ADV] = MTK_RANGE(mt6858_pin_drv_adv_range),
->>> +    [PINCTRL_PIN_REG_RSEL] = MTK_RANGE(mt6858_pin_rsel_range),
->>> +};
->>> +
->>> +static const char * const mt6858_pinctrl_register_base_names[] = {
->>> +    "base", "lm", "rb", "bm2", "bm", "bm1", "lt", "lt1", "rt", "rt1",
->>
->> Fix ordering:
->>
->> "base", "lm", "rb", "bm", "bm1", "bm2", "lt", "lt1", "rt", "rt1",
-> 
-> The bases are already in ascending address order. I don't know what the 1 and 2 
-> suffixes in the names of the iocfg regions mean, they may just be a historical 
-> leftover. Are the names more important than the addresses here?
-> 
+The driver implements extended register access via indirect addressing
+(registers 0x1E/0x1F) and provides comprehensive device tree support
+for RGMII delay configuration. The rx-internal-delay-ps and
+tx-internal-delay-ps properties allow precise tuning of clock delays
+in 150 ps steps from 0 to 2250 ps, with automatic selection of the
+nearest supported value if an exact match is not specified. The
+optional tx-inverted-clk flag enables 180-degree TX clock phase shift
+for boards where signal integrity or MAC requirements necessitate
+clock inversion.
 
-Eh, fair point. I guess it's fine then.
+The driver also includes a debugfs interface for diagnostics, exposing
+PHY status registers (info) and providing runtime control over the
+internal packet generator (pkg_gen), CRC corruption, and loopback
+functionality. This interface is particularly useful for development
+and field diagnostics without requiring external test equipment.
 
-For the numbers, that's because the registers for the same region of the chip
-(meaning physical region, really) are scattered all around... but bm2, bm, bm1
-refer to the same physical region (again, really physical, look at the bga array).
+This PHY is used on the NDA platform with 1G Ethernet tile and has
+been tested on that hardware with successful link establishment and
+RGMII delay tuning.
 
-> [...]
->>> +static const struct of_device_id mt6858_pinctrl_of_match[] = {
->>> +    { .compatible = "mediatek,mt6858-pinctrl", .data = &mt6858_data },
->>> +    { }
->>
->>      { /* sentinel */ }
-> 
-> Thanks!
-> 
-> [...]
->>> +    MTK_EINT_PIN(119, 0, 72, 0),
->>> +    MTK_EINT_PIN(120, 0, 73, 0),
->>> +    MTK_EINT_PIN(121, 0, 74, 0),
->>
->> Looks like you're missing ~70 pins here?
->>
->> If those have no EINT support, you can declare them as
->>
->>      MTK_EINT_PIN(122, EINT_INVALID_BASE, 0, 0),
->>
->> ...or you can add a macro to add a (sequential) range of pins with no EINT support.
-> 
-> Adding a variable number of mtk_eint_pin structs (with a different pin number 
-> inside each struct) doesn't seem possible using a single macro, so I'll just 
-> manually add all of them to the list.
-> 
-> While writing this, I was looking at the mt6878 driver, which also omits a range of 
-> pins. Should that be fixed as well?
-> 
+Due to the specific PCB layout of the platform and FPGA configuration,
+the default RGMII timing configuration was insufficient, causing packet
+loss during normal operation. Tuning the TX/RX line delays and enabling
+clock inversion restored proper signal timing, resulting in zero packet
+loss and stable link performance.
 
-If there are holes in between, yes, that wouldn't work.
+$ make dt_binding_check
+  SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+...
+DTEX    Documentation/devicetree/bindings/net/dapu,dap8211r.example.dts
+DTC [C] Documentation/devicetree/bindings/net/dapu,dap8211r.example.dtb
+...
 
-Honestly though, this is starting to be a problem - as in - up until now,
-practically all SoCs had EINTs for each pin, or no holes in between... but
-I can see that this is changing, as MT6991, MT6993 and now MT6858 all have
-those holes.
+grep -i "dap8211r" Documentation/devicetree/bindings/processed-schema.json
+chema.json
+    "http://devicetree.org/schemas/net/dapu,dap8211r.yaml": {
+        "$filename": ".../devicetree/bindings/net/dapu,dap8211r.yaml",
+        "$id": "http://devicetree.org/schemas/net/dapu,dap8211r.yaml#",
+        "title": "DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY",
 
-This is a note and I'm not asking you to do this but, at some point, we should
-really add some logic to the mtk-eint driver so that it doesn't forcefully (and
-at this point in time, even stupidly) map/expect pin data at the same array
-index as the pin number.
+Working with xgmac.
 
-That's probably more important than fixing mt6878, but well, I understand that
-this stuff would take a bit more time than adding just a few entries in arrays
-right now, and I also understand that time may be lacking, so I am definitely
-not blocking the addition of 6858 for this (of course, as long as you fill up
-the holes there)
+Board side not pkc_gen mode (normal):
 
-Cheers,
-Angelo
+$ arping -I eth0 192.168.5.100
+ARPING 192.168.5.1 from 192.168.5.100 eth0
+Unicast reply from 192.168.5.1 [board.mac.addr]  8.543ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  3.295ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  4.301ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  4.096ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  2.872ms
+...
+
+$ Unfortunately, there is a dependence on the axibus speed here
+$ iperf3 -c 192.168.5.1
+Connecting to host 192.168.5.1, port 5201
+[  5] local 192.168.5.100 port 58936 connected to 192.168.5.1 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  7.88 MBytes  65.8 Mbits/sec    0    150 KBytes
+[  5]   1.00-2.00   sec  8.50 MBytes  71.4 Mbits/sec    0    165 KBytes
+[  5]   2.00-3.00   sec  8.25 MBytes  69.2 Mbits/sec    0    165 KBytes
+[  5]   3.00-4.01   sec  8.50 MBytes  71.1 Mbits/sec    0    165 KBytes
+[  5]   4.01-5.00   sec  8.38 MBytes  70.3 Mbits/sec    0    165 KBytes
+[  5]   5.00-6.00   sec  8.50 MBytes  71.5 Mbits/sec    0    165 KBytes
+[  5]   6.00-7.01   sec  8.62 MBytes  72.0 Mbits/sec    0    174 KBytes
+[  5]   7.01-8.00   sec  8.62 MBytes  72.8 Mbits/sec    0    174 KBytes
+[  5]   8.00-9.00   sec  8.62 MBytes  72.2 Mbits/sec    0    174 KBytes
+[  5]   9.00-10.04  sec  8.62 MBytes  69.9 Mbits/sec    0    174 KBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-10.04  sec  84.6 MBytes  70.7 Mbits/sec    0 sender
+[  5]   0.00-10.12  sec  84.8 MBytes  70.3 Mbits/sec receiveriperf Done.
+
+$ ethtool -t eth0
+...
+The test extra info:
+ 1. MAC Loopback                 0
+ 2. MAC Loopback (diff. queues)  0
+ 3. PHY Loopback                 0
+...
+
+ELP side not pkc_gen mode (normal):
+...
+17:29:11.974973 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:12.975199 ARP, Request who-has ELP (elp.mac.addr(oui Unknown)) tell 192.168.5.100, length 46
+17:29:12.975217 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:13.975022 ARP, Request who-has ELP (elp.mac.addr(oui Unknown)) tell 192.168.5.100, length 46
+17:29:13.975035 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:14.974837 ARP, Request who-has ELP (elp.mac.addr(oui Unknown)) tell 192.168.5.100, length 46
+17:29:14.974849 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:15.975026 ARP, Request who-has ELP (elp.mac.addr(oui Unknown)) tell 192.168.5.100, length 46
+...
+
+Accepted connection from 192.168.5.100, port 58932
+[  5] local 192.168.5.1 port 5201 connected to 192.168.5.100 port 58936
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-1.00   sec  7.12 MBytes  59.7 Mbits/sec
+[  5]   1.00-2.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   2.00-3.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   3.00-4.00   sec  8.38 MBytes  70.3 Mbits/sec
+[  5]   4.00-5.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   5.00-6.00   sec  8.38 MBytes  70.3 Mbits/sec
+[  5]   6.00-7.00   sec  8.62 MBytes  72.4 Mbits/sec
+[  5]   7.00-8.00   sec  8.62 MBytes  72.3 Mbits/sec
+[  5]   8.00-9.00   sec  8.62 MBytes  72.4 Mbits/sec
+[  5]   9.00-10.00  sec  8.62 MBytes  72.4 Mbits/sec
+[  5]  10.00-10.12  sec   896 KBytes  62.3 Mbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-10.12  sec  84.8 MBytes  70.3 Mbits/sec receiver
+
+Board side pkc_gen mode:
+
+To send pck_gen patern frame to ELP
+$ echo N > pkg_gen_loopback
+$ echo 1 > pkg_gen
+
+To send pck_gen patern frame to MAC
+$ echo Y > pkg_gen_loopback
+$ echo 1 > pkg_gen
+
+ELP side pkc_gen mode:
+$ Ther is expected patern
+$ tcpdump -i ens16
+17:27:18.993518 5a:a5:5a:a5:5a:a5 (oui Unknown) > 5a:a5:5a:a5:5a:a5, ethertype Unknown (0x5aa5), length 60:
+        0x0000:  5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5  Z.Z.Z.Z.Z.Z.Z.Z.
+        0x0010:  5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5  Z.Z.Z.Z.Z.Z.Z.Z.
+        0x0020:  5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5       Z.Z.Z.Z.Z.Z.Z.  
+17:27:18.995522 5a:a5:5a:a5:5a:a5 (oui Unknown) > 5a:a5:5a:a5:5a:a5, ethertype Unknown (0x5aa5), length 60:
+        0x0000:  5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5  Z.Z.Z.Z.Z.Z.Z.Z.
+        0x0010:  5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5  Z.Z.Z.Z.Z.Z.Z.Z.
+        0x0020:  5aa5 5aa5 5aa5 5aa5 5aa5 5aa5 5aa5       Z.Z.Z.Z.Z.Z.Z.
+...
+
+DTS node example:
+&ethernet_1g_tile {
+  ...
+  phy-mode = "rgmii-rxid";
+  phy-handle = <&phy1>;
+  ...
+
+  mdio: mdio {
+    phy1: ethernet-phy@1 {
+      ...
+      compatible = "ethernet-phy-ieee802.3-c22";
+      rx-internal-delay-ps = <1050>;
+      tx-use-inverted-clk;
+      ...
+    };
+  };
+};
+
+--
+Best regards,
+Artem Shimko
+
+Artem Shimko (2):
+  dt-bindings: net: add DAPU Telecom DAP8211R(I) PHY binding
+  net: phy: add DAPU Telecom DAP8210R(I) Gigabit Ethernet PHY driver
+
+ .../bindings/net/dapu,dap8211r.yaml           |  78 +++
+ drivers/net/phy/Kconfig                       |  10 +
+ drivers/net/phy/Makefile                      |   1 +
+ drivers/net/phy/dap8211r.c                    | 544 ++++++++++++++++++
+ 4 files changed, 633 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
+ create mode 100644 drivers/net/phy/dap8211r.c
+
+-- 
+2.43.0
+
