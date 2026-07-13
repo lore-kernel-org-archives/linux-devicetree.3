@@ -1,37 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA59437134;
-	Mon, 13 Jul 2026 14:27:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C6E42EED6;
+	Mon, 13 Jul 2026 14:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783952875; cv=none; b=t1qoG5wR4Ca3UhCt9zg7hlxnUL6JMO99mIBLyamTMDRxQg9RLbd6S9ToCw1oKQPfiZ/+645QJxwU9cNZPypBTrfhIdaDSkCJVFmj0QcnMJoQ8VyUu+IBzWyy8d7Y3Q+X+7hLRHxK1nkpAa4ApXI6uehSNd+pXfMOxFUIAq+xHX4=
+	t=1783952876; cv=none; b=js0/tO392OKnBXQkhyI7k1QOEqDvxJ5dZ07v4+DVF+bCVH6C9/El2kd8MfF9P1HAtXV/nNtgcY0SDmm+xXKZjVU4MDmaHXrt2yW9P2/mEFpsR8nE9WCu9pFa1PnkmsAklzYw1ZZ46RWYmwJsEXJLJ/R7jyXbH7wbAWQZimcU2Yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783952875; c=relaxed/simple;
-	bh=Npx/orxONC+U2Qw/Hg1SfG0cpM+DWzLfcxEEfKhRItg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XdH9AbMKNrL722qFAHikxDZHrFrkZYe+AIRaXwtlQOHcXtXkUSao7XnrrW3pntanEECjRf1iLx+Iwt7rH9/eWLJrOJnzeoPQ7bw45KnQtd2VsI9tGtJ2khRb3eqte10P4BPu6YFmaD0edqxMEW8REkvLNuapXZLOx83z2waw3v0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=P4Z0zQDw; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1783952876; c=relaxed/simple;
+	bh=CRTgzEIiCGF3Q0P2KDt3LTOIuTWsDk2Q75L0QVm3KT8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FYHOvBmMP8gZMc6qMxU9jpHZgr1ghYqZg45GvTG/jMEdHzKabMJq/CWyo8E+EgKx6FWDVCAksBwHG9Ir2YP1vjq9Hz4YzdW8LYpzRK4WYVX2Sl7rt8XId3S1GE9dUreVizzqFMKNTNVExD4IM4RPFM+rMg2gVcbr+LNCrZG333c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hW69CgJ0; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="P4Z0zQDw"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hW69CgJ0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783952872;
-	bh=Npx/orxONC+U2Qw/Hg1SfG0cpM+DWzLfcxEEfKhRItg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=P4Z0zQDwSXxmOZsF+TNClXAbZ0zdXsLSsdMGMf/PkCt/szRXD303nMZ7xJGH7KHJi
-	 6yRyHTH0FuU28D+GSP6DtQXpICYcxhpsAkSru4DWkx+MUetfi0IkJFNB/f1zNWd0jF
-	 EEcNDGT+6us8jOdSJG8LlESPQdLcyfHveLfUjn6auTfscebtcEwIItSpxdLqAvSwE/
-	 g95TrxpAYVd/30dIvg/cibHDgf8maMeP2nW5IhpuAs8eK/ghuJcOKmE9Keq0K2EBQl
-	 pMbUyWR/CDa8XT2ZFfATKU68ZV4oCpjlxCp9mDvass8ljwpy7bz8FBbaASvddpGlZx
-	 A+FIdRQdmqzXg==
+	s=mail; t=1783952873;
+	bh=CRTgzEIiCGF3Q0P2KDt3LTOIuTWsDk2Q75L0QVm3KT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=hW69CgJ0E2xqiwgTM0Mz+jn5CE9OICeKQEJopihKmeGK7OZQhFavADhQT6EidGfkB
+	 YHVMehqU6qPu0cY8VQupg7NsOeBYQvM2NfZNjflb6ozc65JPgJodlITbIjRynJxGZM
+	 8KJVfoHD+ZBjnTmSeIU6nY0hacfMpXXK09wv2Il7o3OlqW+gYuv5pVkrF9/mwoVwg4
+	 YcCGaxh3ASiOw24holHD6cJR0j3TZ2E+o9wTcmKv2OChzfz7YmPxDSZ5+igi4r1EPA
+	 6Fu+k3SqW0WLAYF+dCCl1hOOaVxHysrLT15Z4Vu+7s5Rtolaqut7LZEbvv48abWCa5
+	 ZuNQ+vedBF7pg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E03E217E0720;
-	Mon, 13 Jul 2026 16:27:51 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D024117E07A2;
+	Mon, 13 Jul 2026 16:27:52 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -54,10 +55,12 @@ Cc: p.zabel@pengutronix.de,
 	kernel@collabora.com,
 	justin.yeh@mediatek.com,
 	jason-jh.lin@mediatek.com
-Subject: [PATCH v4 00/10] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
-Date: Mon, 13 Jul 2026 16:27:36 +0200
-Message-ID: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v4 01/10] dt-bindings: display: mediatek: dsc: Add MT8196 compatible
+Date: Mon, 13 Jul 2026 16:27:37 +0200
+Message-ID: <20260713142746.40259-2-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,78 +69,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes in v4:
- - WDMA: Delete the .remove() callback from WDMA as not needed anymore
- - WDMA: Add comments explaining no bus errors will happen if writing
-   to INT_ENABLE, INT_STATUS registers while unpowered or unclocked
- - Return error in mtk_wdma_wb_atomic_check() error conditions, oops!
- - DSC: Fix dsc_pad_num calculation (missing parenthesis...)
- - DSI: Change dsc slice check error to dev_dbg instead to avoid spam
- - DSI: Correctly cleanup dsi->dsc upon component_add failure
- - DSI: Make sure the CKTX_CKL_WC register is correctly programmed in
-   DSI w/DSC case
+Add compatible for the Display Stream Compression (DSC) IP found
+in the display controller of the MT8196 SoC.
 
-Changes in v3:
- - Changed mtk_dsi DSC implementation to use a different DSI_PS
-   setting function for compressed or uncompressed, as the dsc one
-   is way simpler than the regular one and becomes way shorter
- - DSC: Fixed missing PPS 19 register write
- - DSI: Anticipated call to devm_pm_runtime_enable() to before
-   registering the DSI Host interface
- - DSI: Anticipated installing IRQ handler before registering the
-   dsi host interface, which wasn't a problem before, but now it
-   would be one because the interrupt is being enabled when binding!
- - DSI: Fixed some possible calculation overflows that may happen in
-   MT8189 and MT8196 because of the higher supported resolutions
- - WDMA: Use devm variant of pm_runtime_enable()
- - Change WDMA interrupt handler to allow signaling WB complete even
-   if there is no specific vblank callback installed to avoid very
-   long timeouts (in any case, WB is complete for real even if there
-   is no vblank_cb, just a bit useless without, but still complete)
- - Fixed WDMA register writes as register id was in function signature
-   for mtk_wdma_ddp_write_dst_addr() but the function itself never
-   used it in DISP_REG_WDMA_DST_ADDRX() macro
+This IP is compatible with the one found in MT8195.
 
-Changes in v2:
- - Rebased on next-20260706
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../devicetree/bindings/display/mediatek/mediatek,dsc.yaml    | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-This series adds support for:
- - Display Stream Compression (DSC) for DSI and DisplayPort for both
-   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
- - Write DMA (WDMA) Engine (for legacy only at this time) as a step
-   to enable Writeback support (coming later with a restructuring of
-   the entire mediatek-drm driver)
- - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
-
-AngeloGioacchino Del Regno (10):
-  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
-  drm/mediatek: Implement Display Stream Compression support
-  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
-  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
-  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
-  drm/mediatek: mtk_dsi: Add support for MT8189
-  drm/mediatek: mtk_dsi: Add support for MT8196
-  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
-  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
-  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
-
- .../display/mediatek/mediatek,dsc.yaml        |   4 +-
- .../display/mediatek/mediatek,dsi.yaml        |   2 +
- .../display/mediatek/mediatek,wdma.yaml       |   5 +
- drivers/gpu/drm/mediatek/Makefile             |   2 +
- drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
- drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
- drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  29 +
- drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 455 ++++++++++
- drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 622 ++++++++++++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |   8 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
- drivers/gpu/drm/mediatek/mtk_dsi.c            | 799 ++++++++++++++----
- 13 files changed, 1832 insertions(+), 190 deletions(-)
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
+index a5b88eb97e3b..c8b3e86943e4 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
+@@ -23,7 +23,9 @@ properties:
+       - enum:
+           - mediatek,mt8195-disp-dsc
+       - items:
+-          - const: mediatek,mt8188-disp-dsc
++          - enum:
++              - mediatek,mt8188-disp-dsc
++              - mediatek,mt8196-disp-dsc
+           - const: mediatek,mt8195-disp-dsc
+ 
+   reg:
 -- 
 2.54.0
 
