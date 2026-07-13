@@ -1,116 +1,330 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72A3293C4E;
-	Mon, 13 Jul 2026 13:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452E2433BAB;
+	Mon, 13 Jul 2026 13:49:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783950333; cv=none; b=Sv22oooKMD0YtjOvQ2WZk0pnqHQJ7NoJGXL0m3snXYaSk2fVEGQQwWaNisoG5YaLhgEDcUn1o/N3xKVuaW7pCCCyLMEw3+wutvshhaBakw7eFLcSrZEMvAC0hyCl9/FndVFSjjlKx34liA2ov1r8SpzhLqKblrKBEk+tzLZwv8k=
+	t=1783950588; cv=none; b=FptsisUgSxHTLXUvsRiiKTUUuGMDJTuelqlrdwggak707gLFa7qvLkfXcUtnchbqdTMFn34ha9FRHuogfZUTI8C4c2rMWkg5a0X7JnqsoLsmsbC/HImE4e2y82yu4miSflSP1YSNS3IoWk79eI6vwMQIPdB6FvsY2nBjQieBCpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783950333; c=relaxed/simple;
-	bh=CLw+GfWalaqRTqQEN1lmKbqQEcE9zv0T01PiUlPI5p0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gkIRdfSEgtxwTgvzFJkGj0dXLdW2lPBUpWdRZsyl4rC45mcDs1ySWs5kLQTBcAznKKYkr45aGR6ATZMyqNBuQhjvw5aqedPKitHN9K2vTFnrwc/U4T5MWwXnhUjj/HJr/h2GsKKg6bgseye1uQDmSq89N0dNesUN/Znk/KtrtNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioRcJ6s0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783950588; c=relaxed/simple;
+	bh=ZHAXhAB/Nmyfq3sWDdK5q297ggBfC78pdvC3bWLISNI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nlkq4jxSSab5AFtrGOQRYnVZWrQXCXLyWseLF0BGKitew6FEMBwFSw+FfJWlpsanfljYPS6D+C6uOZlAGrVs0PP/NiAEYpg13Az+J27Dgkodo2wBTDjggXVFnbUYzy+4L76sxeeVRxAcQvxHQXN0mE8GDBg093KhHfRqtKYuyTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=pv/nTXIh; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=WonTAe4+; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioRcJ6s0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44D4F1F00AC4;
-	Mon, 13 Jul 2026 13:45:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783950332;
-	bh=MRDagbM5fwAoOkt0oU+vdJEE61/MdxvO8BiZ2FXKP28=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ioRcJ6s07gPloBx8pL7WrNWIyuASqa+PZfoHbaTjuYEyWuq1JHoFgbmfxgWb+5nbe
-	 qzFP/NKVCL9ll/C/yAkHJuSaGRs2tiBir9I+Lg5sBibOnfhEAQ2JXx5OLU+rc2WEm2
-	 a9DhMD1+MOeNPvqADG7oZo+SPEDzedg1IdcbiNZ92if9FgaqTz5FRNYd7iA8+3XyxP
-	 Q0Vr7k/EONQFTBzvCdt01DGcjuVMEx+ecdDCiqTMb/h8rsiiS1XDRORkGU/RVragzh
-	 Rc1CuIosLyQyl+1bHV4GYZlHEi6L9MpjqVuHhxYNC2hheDXeTUGp1UJbyLfdZHGrKc
-	 PSFgxt0YvXX7w==
-Message-ID: <94b39146-2921-4c2e-90f3-179b7e1b38a6@kernel.org>
-Date: Mon, 13 Jul 2026 15:45:25 +0200
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="pv/nTXIh";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="WonTAe4+"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gzP1s64llzKn7K;
+	Mon, 13 Jul 2026 15:49:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783950577;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=GLe5ZWC2BODKaSwkrw/e68lOSJ3dCQp5mLBoWS0DVVA=;
+	b=pv/nTXIhqAfTPnPTR6rOXi3YsoKa7vTWortN9LYC7EdHLiuFVcONZnEcUGWQKTct1U+ibD
+	Le1QOz/oZrzJFVjN3O80443C9j7xNwcallbH5GyR8JD3FWtDJx0mXoroekuVmi54JTOW3V
+	GOE/LXVGCBpS+AV/hHuc7Q4umKdjbFgpm2xL6C8hPOoLAWg4Ej4MAWZHSRSC1Upypeqr8Z
+	Rff6uAAm2fzbCYzd+HmZf1B0z8uz0tgQ/w1HDFeDtSgdb28E34h8E/5z0p6aSH7PXTn0B2
+	yXo4DKpb/Nv8qEbc+SI4Pzg0YNXiDkIvhqHIPYUMiMmS8Gk8BzLAQiLE2I6aOQ==
+From: Manuel Ebner <manuelebner@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1783950576;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=GLe5ZWC2BODKaSwkrw/e68lOSJ3dCQp5mLBoWS0DVVA=;
+	b=WonTAe4+/eUIhGfZo7F9eTqVuMv6y9xU/G+0xxD+SlsNbZcazKpqdfWFPWeF3nvD+d0zZH
+	54fU0exZr870IEYCeNSxv6Z5UiZ54HRCC7V8uh0bJlON/UDvpFLy93Nz8vb6+h35zlYswY
+	qtAOPAIcy8iHAn8FkLHxadnSIHValYnT+cBq4OxZYvUR0abk0YcUbfOhPaclyPEiaMy2WL
+	RMNj0HUgpII2Nn2hTlZ4ld6Hl7bCumNe8GRf8rnNgYeml+T0jC85iZutVEfC5ZPzDqRN6k
+	d8RAMvCESOSJ9KqNafNHVCZ7m3Yomb46UT5RQnBADKwRQn2/fSgd1QidtqV4MQ==
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Manuel Ebner <manuelebner@mailbox.org>
+Subject: [PATCH] dt-bindings: fix typos and brackets
+Date: Mon, 13 Jul 2026 15:47:52 +0200
+Message-ID: <20260713134751.498891-2-manuelebner@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/10] MAINTAINERS: Add DH electronics DHCOS SoM entry and
- fix email address
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260711210131.236025-1-marex@nabladev.com>
- <20260711210131.236025-11-marex@nabladev.com>
- <20260713-rousing-transparent-mongrel-ee18c3@quoll>
- <21311e49-6132-48f4-8c5a-d321c14dc8e9@nabladev.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <21311e49-6132-48f4-8c5a-d321c14dc8e9@nabladev.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: a5b33c15717d24ea883
+X-MBO-RS-META: jw3mkywjuuysba6eoireywyga58m15zm
 
-On 13/07/2026 15:25, Marek Vasut wrote:
-> But since you brought this up -- what about the mail address used in 
-> copyright headers (comments) in various drivers, shall I simply remove 
-> it and be done with it (I think yes, but again, separate patchset) ?
+Add missing '(', ')', '}'
+Remove needless '(', ')', '{', '}'
+'lover voltage' -> 'lower voltage'
 
-1. In non-personal copyright headers: tricky to say, maybe using company
-email gave some attributions which now could be changed. I don't know...
-but I did update mine to @korg back in 2016 :)
+Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
+---
+Sorry for the noise earlier.
+---
+ Documentation/devicetree/bindings/arm/mediatek.yaml           | 2 +-
+ .../devicetree/bindings/arm/qcom,coresight-tpdm.yaml          | 2 +-
+ .../bindings/clock/renesas,rcar-usb2-clock-sel.yaml           | 4 ++--
+ .../devicetree/bindings/input/gpio-charlieplex-keypad.yaml    | 2 +-
+ Documentation/devicetree/bindings/leds/backlight/88pm860x.txt | 1 +
+ .../devicetree/bindings/memory-controllers/renesas,dbsc.yaml  | 2 +-
+ .../devicetree/bindings/memory-controllers/ti-aemif.txt       | 4 ++--
+ Documentation/devicetree/bindings/mips/brcm/soc.txt           | 2 +-
+ Documentation/devicetree/bindings/mmc/sdhci-st.txt            | 1 +
+ Documentation/devicetree/bindings/phy/phy-miphy365x.txt       | 2 +-
+ Documentation/devicetree/bindings/powerpc/ibm,vas.txt         | 2 +-
+ Documentation/devicetree/bindings/regulator/max8907.txt       | 1 -
+ .../bindings/regulator/mediatek,mt6358-regulator.yaml         | 2 +-
+ .../devicetree/bindings/regulator/pbias-regulator.txt         | 1 +
+ .../devicetree/bindings/regulator/rohm,bd71837-regulator.yaml | 4 ++--
+ .../devicetree/bindings/regulator/rohm,bd71847-regulator.yaml | 4 ++--
+ .../devicetree/bindings/sound/mikroe,mikroe-proto.txt         | 1 -
+ Documentation/devicetree/bindings/usb/iproc-udc.txt           | 1 +
+ 18 files changed, 20 insertions(+), 18 deletions(-)
 
-2. In personal copyright headers, comments, MODULE_AUTHOR() etc: up to
-you, it's perfectly fine to update it so people can reach you with
-questions. Therefore some people update it, some people don't.
+diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
+index 382d0eb4d0af..cd4040ad3437 100644
+--- a/Documentation/devicetree/bindings/arm/mediatek.yaml
++++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
+@@ -314,7 +314,7 @@ properties:
+           - const: google,steelix-sku196608
+           - const: google,steelix
+           - const: mediatek,mt8186
+-      - description: Google Squirtle (Acer Chromebook Spin 311 (R724T)
++      - description: Google Squirtle (Acer Chromebook Spin 311 (R724T))
+         items:
+           - const: google,squirtle
+           - const: mediatek,mt8186
+diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
+index 152403f548c3..c7301f1b28c1 100644
+--- a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
+@@ -9,7 +9,7 @@ title: Trace, Profiling and Diagnostics Monitor - TPDM
+ 
+ description: |
+   The TPDM or Monitor serves as data collection component for various dataset
+-  types specified in the QPMDA spec. It covers Implementation defined ((ImplDef),
++  types specified in the QPMDA spec. It covers Implementation defined (ImplDef),
+   Basic Counts (BC), Tenure Counts (TC), Continuous Multi-Bit (CMB), and Discrete
+   Single Bit (DSB). It performs data collection in the data producing clock
+   domain and transfers it to the data collection time domain, generally ATB
+diff --git a/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml b/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
+index c84f29f1810f..a14be249fa33 100644
+--- a/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
++++ b/Documentation/devicetree/bindings/clock/renesas,rcar-usb2-clock-sel.yaml
+@@ -13,8 +13,8 @@ description: |
+   If you connect an external clock to the USB_EXTAL pin only, you should set
+   the clock rate to "usb_extal" node only.
+   If you connect an oscillator to both the USB_XTAL and USB_EXTAL, this module
+-  is not needed because this is default setting. (Of course, you can set the
+-  clock rates to both "usb_extal" and "usb_xtal" nodes.
++  is not needed because this is default setting (Of course, you can set the
++  clock rates to both "usb_extal" and "usb_xtal" nodes).
+ 
+   Case 1: An external clock connects to R-Car SoC
+     +----------+   +--- R-Car ---------------------+
+diff --git a/Documentation/devicetree/bindings/input/gpio-charlieplex-keypad.yaml b/Documentation/devicetree/bindings/input/gpio-charlieplex-keypad.yaml
+index c085de6dab85..c6842c017934 100644
+--- a/Documentation/devicetree/bindings/input/gpio-charlieplex-keypad.yaml
++++ b/Documentation/devicetree/bindings/input/gpio-charlieplex-keypad.yaml
+@@ -11,7 +11,7 @@ maintainers:
+   - Hugo Villeneuve <hvilleneuve@dimonoff.com>
+ 
+ description: |
+-  The charlieplex keypad supports N^2)-N different key combinations (where N is
++  The charlieplex keypad supports (N^2)-N different key combinations (where N is
+   the number of I/O lines). Key presses and releases are detected by configuring
+   only one line as output at a time, and reading other line states. This process
+   is repeated for each line. Diodes are required to ensure current flows in only
+diff --git a/Documentation/devicetree/bindings/leds/backlight/88pm860x.txt b/Documentation/devicetree/bindings/leds/backlight/88pm860x.txt
+index 261df2799315..9e17807d2ce5 100644
+--- a/Documentation/devicetree/bindings/leds/backlight/88pm860x.txt
++++ b/Documentation/devicetree/bindings/leds/backlight/88pm860x.txt
+@@ -13,3 +13,4 @@ Example:
+ 		};
+ 		backlight-2 {
+ 		};
++	};
+diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml b/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
+index 8e3822314b25..30ad2a858844 100644
+--- a/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
++++ b/Documentation/devicetree/bindings/memory-controllers/renesas,dbsc.yaml
+@@ -13,7 +13,7 @@ description: |
+   Renesas SoCs contain one or more memory controllers.  These memory
+   controllers differ from one SoC variant to another, and are called by
+   different names, e.g. "DDR Bus Controller (DBSC)", "DDR3 Bus State Controller
+-  (DBSC3)", or "SDRAM Bus State Controller (SBSC)").
++  (DBSC3)", or "SDRAM Bus State Controller (SBSC)".
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt b/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt
+index 190437a0c146..3ec0a43d4e67 100644
+--- a/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt
++++ b/Documentation/devicetree/bindings/memory-controllers/ti-aemif.txt
+@@ -111,7 +111,7 @@ Optional child cs node properties:
+ 
+ - ti,cs-read-hold-ns:		read hold width, ns
+ 				Time between the deactivation of the read
+-				strobe and the end of the cycle (which may be
++				strobe and the end of the cycle which may be
+ 				either an address change or the deactivation of
+ 				the chip select signal.
+ 				Minimum value is 1 (0 treated as 1).
+@@ -128,7 +128,7 @@ Optional child cs node properties:
+ 
+ - ti,cs-write-hold-ns:		write hold width, ns
+ 				Time between the deactivation of the write
+-				strobe and the end of the cycle (which may be
++				strobe and the end of the cycle which may be
+ 				either an address change or the deactivation of
+ 				the chip select signal.
+ 				Minimum value is 1 (0 treated as 1).
+diff --git a/Documentation/devicetree/bindings/mips/brcm/soc.txt b/Documentation/devicetree/bindings/mips/brcm/soc.txt
+index 3a66d3c483e1..70cd69a4f173 100644
+--- a/Documentation/devicetree/bindings/mips/brcm/soc.txt
++++ b/Documentation/devicetree/bindings/mips/brcm/soc.txt
+@@ -45,7 +45,7 @@ each of which may have several associated hardware blocks, which are versioned
+ independently (control registers, DDR PHYs, etc.). One might consider
+ describing these controllers as a parent "memory controllers" block, which
+ contains N sub-nodes (one for each controller in the system), each of which is
+-associated with a number of hardware register resources (e.g., its PHY.
++associated with a number of hardware register resources (e.g., its PHY).
+ 
+ == MEMC (MEMory Controller)
+ 
+diff --git a/Documentation/devicetree/bindings/mmc/sdhci-st.txt b/Documentation/devicetree/bindings/mmc/sdhci-st.txt
+index ccf82b4ee838..5927abf0c634 100644
+--- a/Documentation/devicetree/bindings/mmc/sdhci-st.txt
++++ b/Documentation/devicetree/bindings/mmc/sdhci-st.txt
+@@ -71,6 +71,7 @@ mmc0: sdhci@fe81e000 {
+ 	clock-names	= "mmc";
+ 	clocks		= <&clk_s_a1_ls 1>;
+ 	bus-width	= <8>
++};
+ 
+ /* Example SD stih407 family configuration */
+ 
+diff --git a/Documentation/devicetree/bindings/phy/phy-miphy365x.txt b/Documentation/devicetree/bindings/phy/phy-miphy365x.txt
+index 8772900e056a..e36fac92f0fa 100644
+--- a/Documentation/devicetree/bindings/phy/phy-miphy365x.txt
++++ b/Documentation/devicetree/bindings/phy/phy-miphy365x.txt
+@@ -31,7 +31,7 @@ Required properties (port (child) node):
+ 
+ Optional properties (port (child) node):
+ - st,sata-gen	     :	Generation of locally attached SATA IP. Expected values
+-			are {1,2,3). If not supplied generation 1 hardware will
++			are (1,2,3). If not supplied generation 1 hardware will
+ 			be expected
+ - st,pcie-tx-pol-inv :	Bool property to invert the polarity PCIe Tx (Txn/Txp)
+ - st,sata-tx-pol-inv :	Bool property to invert the polarity SATA Tx (Txn/Txp)
+diff --git a/Documentation/devicetree/bindings/powerpc/ibm,vas.txt b/Documentation/devicetree/bindings/powerpc/ibm,vas.txt
+index bf11d2faf7b8..80ea975697ac 100644
+--- a/Documentation/devicetree/bindings/powerpc/ibm,vas.txt
++++ b/Documentation/devicetree/bindings/powerpc/ibm,vas.txt
+@@ -10,7 +10,7 @@ Required properties:
+ - reg : Should contain 4 pairs of 64-bit fields specifying the Hypervisor
+   window context start and length, OS/User window context start and length,
+   "Paste address" start and length, "Paste window id" start bit and number
+-  of bits)
++  of bits
+ 
+ Example:
+ 
+diff --git a/Documentation/devicetree/bindings/regulator/max8907.txt b/Documentation/devicetree/bindings/regulator/max8907.txt
+index 371eccd1cd68..b04c9edd3dcd 100644
+--- a/Documentation/devicetree/bindings/regulator/max8907.txt
++++ b/Documentation/devicetree/bindings/regulator/max8907.txt
+@@ -66,4 +66,3 @@ Example:
+ ...
+ 			};
+ 		};
+-	};
+diff --git a/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml b/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml
+index c50402fcba72..4eb635179b6a 100644
+--- a/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/mediatek,mt6358-regulator.yaml
+@@ -145,7 +145,7 @@ allOf:
+     then:
+       patternProperties:
+         # Old regulator node name scheme (with prefix and underscores) only
+-        # ([^y-] is used to avoid matching -supply
++        # ([^y-]) is used to avoid matching -supply
+         "^(?<!buck_)(?<!ldo_)v.*[^y-](?!-supply)$": false
+         "^ldo_vsram-": false
+         # vsram_core regulator doesn't exist on MT6358
+diff --git a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt b/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
+index acbcb452a69a..09b07f7ab94a 100644
+--- a/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
++++ b/Documentation/devicetree/bindings/regulator/pbias-regulator.txt
+@@ -30,3 +30,4 @@ Example:
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <3000000>;
+ 			};
++		};
+diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml
+index 29b350a4f88a..9942ee6c60f3 100644
+--- a/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/rohm,bd71837-regulator.yaml
+@@ -108,8 +108,8 @@ patternProperties:
+       # Setups where regulator (especially the buck8) output voltage is scaled
+       # by adding external connection where some other regulator output is
+       # connected to feedback-pin (over suitable resistors) is getting popular
+-      # amongst users of BD71837. (This allows for example scaling down the
+-      # buck8 voltages to suit lover GPU voltages for projects where buck8 is
++      # amongst users of BD71837. This allows for example scaling down the
++      # buck8 voltages to suit lower GPU voltages for projects where buck8 is
+       # (ab)used to supply power for GPU.
+       #
+       # So we allow describing this external connection from DT and scale the
+diff --git a/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml b/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml
+index 7ba4ccf723d8..158d749edaa3 100644
+--- a/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/rohm,bd71847-regulator.yaml
+@@ -103,8 +103,8 @@ patternProperties:
+       # Setups where regulator (especially the buck8) output voltage is scaled
+       # by adding external connection where some other regulator output is
+       # connected to feedback-pin (over suitable resistors) is getting popular
+-      # amongst users of BD71837. (This allows for example scaling down the
+-      # buck8 voltages to suit lover GPU voltages for projects where buck8 is
++      # amongst users of BD71837. This allows for example scaling down the
++      # buck8 voltages to suit lower GPU voltages for projects where buck8 is
+       # (ab)used to supply power for GPU.
+       #
+       # So we allow describing this external connection from DT and scale the
+diff --git a/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt b/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt
+index 912f8fae11c5..d6fdcf457926 100644
+--- a/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt
++++ b/Documentation/devicetree/bindings/sound/mikroe,mikroe-proto.txt
+@@ -20,4 +20,3 @@ Example:
+ 		audio-codec = <&wm8731>;
+ 		dai-format = "i2s";
+         };
+-};
+diff --git a/Documentation/devicetree/bindings/usb/iproc-udc.txt b/Documentation/devicetree/bindings/usb/iproc-udc.txt
+index 272d7faf1a97..6a701ce29ff1 100644
+--- a/Documentation/devicetree/bindings/usb/iproc-udc.txt
++++ b/Documentation/devicetree/bindings/usb/iproc-udc.txt
+@@ -19,3 +19,4 @@ Example:
+ 		reg = <0x664e0000 0x2000>;
+ 		interrupts = <GIC_SPI 424 IRQ_TYPE_LEVEL_HIGH>;
+ 		phys = <&usbdrd_phy>;
++	};
+-- 
+2.54.0
 
-
-Best regards,
-Krzysztof
