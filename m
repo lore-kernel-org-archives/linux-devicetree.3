@@ -1,71 +1,71 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07382282F2A
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474B1328B61
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783958452; cv=none; b=hMcNP1mNQStnkyHbhF6zWX/2uL+FiszzUwcf3rUndMA/pVT/kf4QhCns5auqDFIIYt3kSBgxTGrw/Uw4d+rpYPp3MFRwoRNKLD8eAbQNW+Qi1AzOI4vRdAxl0p5W3tve/eks54QU5QKC5R0HlkbUHAHlXO+oq824op2nTo+QzOg=
+	t=1783958511; cv=none; b=IwV07XOpWUQ01y403RiIQkvP164zCVGUwque0fYGyCP1xCy9Pg9DPUr/H3WXdLhe7/VSMsVNtD15WHkJAGwN7PAu1f5eghuyL9BbMBlCgr90d4kfXIe8Vcigo6aD9Miz9vEagVDVMBLODnZs5xAoBUYUpxYTjuwuCnuZTKYarXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783958452; c=relaxed/simple;
-	bh=SsOh1enJoELJHzfIclkKXerzvf46Ll/w8xxgwM0UOnc=;
+	s=arc-20240116; t=1783958511; c=relaxed/simple;
+	bh=O5pyFLw83Ql+8EIFjSrZ0kqwUIJfbEiI35BjR/8WVDQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=REbCmmHHfkkLCbgN2SXsAQHYDMRH5BMHHZ2rrEp2fiRfZHjbMmIleFppaXULGF+cx8YtNuIF+j56aX8aPyEhhJkSgkjSW+ko9aoCF8hQFPRKJf6Af5UTgRfVpIuEGbt7pe3YeSDOGIcW3IHkY+N38/jbnMOVVElxjzeWzSoYKtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.169
+	 To:Cc:Content-Type; b=Vqyxo4vE+LNWlftt1m6NxbN62kMlOrX9k2Z9KVWrDPM+f82mrGAyk/bfVuZG9v2KNQ3hgodECzgXUoMhvhmA85kHEsSbKdkq33Xj1rDc3xj1eEgMJI/PKYKGRwkgMT1tkP+keuhobA+4eLxkqDA04x83UdAefbSHZvkyXZrfYjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5bfdd59df9bso13345e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:00:50 -0700 (PDT)
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-44caeb973b3so1932930fac.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:01:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783958450; x=1784563250;
+        d=1e100.net; s=20251104; t=1783958509; x=1784563309;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=674QbDTihSeDJzkwbUpD4t11m/0pIrH8HDq4q33BUPk=;
-        b=o6dnI1diC/iwnJEd2SFw1G7VmyGET+ia/6dLWXE22lBXuWfO+g33n837AjV0jj+x1S
-         3zhLn/hXsrOy7YP6qfNC/6Khvjxigzpu3WNhW44eaSSK65lO6oROfdVkA9E2V0V1jVHY
-         RfII+7StsXkHF/LLNt6IsvKs2Xz1IvATv/kN+fj3Zkh5+7M6hl3w7nePOLS4+NjgL5xu
-         UWuEkprD5n9TNFUtv2goKqWcFcP8ht00mnNtAeWoegRHqEPHdJLeJXY9lOEquKlNcRgh
-         nX9wAx6LMYtGV9YYuwisTgsDWUmo3lWoi/cyGQQvg6fvNqW5XWL1rBmBqg24ZGQfwjAz
-         zgeA==
-X-Forwarded-Encrypted: i=1; AHgh+RpnesY1kcEk2+AcGP0NSDZaGt5h0H+HLp323NjTIRicgNavFp9VuS0pZG47DUwRBTeXJMHpj3djt7jB@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIa10CstPOla7QsQFJtn7YReV+WzdEJ4Q+223zKXVKiSv2HAXS
-	gMMFbatj/B2lHm3GiRHCFXrVBFMIpyOQIpZjHtrPsVDduXqIZSKtHeGTe46RRSymgrY=
-X-Gm-Gg: AfdE7ckNciLm4LJ3ts5IgkP7U6YLH+ojHXkX2ERQwup3wXL8HWhFTXph1MwSFWDridB
-	2qostLrwSqQyendLSyYMZgZFXvvoKEGhVmx9dYmwUKghMmna5DxCvDtJOy4XQkiSJDfOPd5DH0N
-	Opocsn1bUCbLmG0LTpXNWAV6HLt2zgK2yMcjx61fQgYBoieWHmN19uUOy4jyGlTer9jgM0ejNwz
-	V6iZWtx9HHO4EW78dzoUwzgVfrUvLba2FBM6TYWPIdSpDUzYCh0bRJrskFe0MkTbCm910fcMRJo
-	7J1eNtHjq2gASMoFIUWNFjnvQ6lvdFK76bqQCo9n1YAU42j8pmBsjKcsdsjiWZykSXZ7bMA1tRm
-	gGkgl/3gnhfdR1Qryu5a3v2d2QV6W7U7pywDd4xIiVkZQPXpE+/GXNTksk5GK90iLzcwf9Lxze/
-	WdkybpJCFiLtAWvdsYrsEo9I5TMvy2RO/yVJu/fPl8iy13FfY5eX1pTA==
-X-Received: by 2002:a05:6123:5c2:20b0:5bb:e5dd:d93d with SMTP id 71dfb90a1353d-5bfa42f0ae1mr5536508e0c.0.1783958449852;
-        Mon, 13 Jul 2026 09:00:49 -0700 (PDT)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com. [209.85.221.171])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bf6f68d099sm10009517e0c.8.2026.07.13.09.00.47
+        bh=dGAf88p06+MskhwY7uBe/JNJCrwrqcblSzHwwgSV5+w=;
+        b=baMTBrX4eMhlND9IXNrNztu7Djfjx9ffwcSffKdPYzyTJhjTplh/hpb9eMdJcxaVPF
+         6pJICmy45kCihuozTwkeZJCNjJrXv31yACyjexivpeoPk3amURcO3LeXwcsltU4FQ2GA
+         vKEC79qfoFN5VF+b8+MllUnyNQwU2GjJtV5FpbvrdBzGyifcjgkteLJjtvqOeBhnRTJZ
+         buxE3UEzPjJpeYG26UFGlsGcHTVRQD1nqK9/7XNcESZpk7eVrRFEKb2r5ZJ1WUjhW5zc
+         51hl+RPcW8oKaoEoNh+hvJCbMwAWgWl8AdFYPuRC9MoiUb+VU0/DnI0TdGmyZb17r+fI
+         Xh9w==
+X-Forwarded-Encrypted: i=1; AFNElJ8uy7pzYvB0eBrBfPZLn+9N2h+rjDuqP8a452ZW5My68Yvy00kSSudXQbBW5XRRN9h/LgcWLW6Xe521@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxg0QB/2BHn1baqhNhund0xor18ahby9TRh9/+YkCwL6QvA05F/
+	0X9VT+Gvn1clWILLKjBSpVnAyPAxNlD+VNcZ+Kg1wAqsaL8NVNI0H5sh4MuaMsmwMBE=
+X-Gm-Gg: AfdE7cmUwAOKNR2jH3ArYBkU9oTPl3uK0Nt2cdpm/wfZGRd8vSM5CXtQo8UwuDTyfId
+	vuH3MEBFCsgjev0ZtG8JK+0voFmld91/CN7zDRymDeRUdGxOJujC8WLLIAU1sZRI1LeZSIUt08C
+	Iz9ETGaLfEBYVFyi5Ktds1R5mWkdkBfkFFDfxmfwCuCUJFKm5N8sfhvTzc3Q3+7wwWYeC4oUn3m
+	gc7Qo+SBctM9Ii65ZYEH6kUg3VXXW6ZkkHcsPGg5c96jlAyTCC4ILFpe/8wFVndAd/KWqnoO6XO
+	wDYuFkjRxL8tls4UfPkgg1E57D53hSi8HCrLOL4locpgDdfLly/XJJF2hOgNvGRB2jqjb3hir0P
+	idYdnx2Bik/PjB+qin3P1xobpmpWLcWslsOJDmAGN5za8DMcuEEEqzLGRv9zDYkScz8xyjOwQEZ
+	jvBVLmNLV6hqw93ZlhLgbWZ4HCMbs/IPZgkNrNnz6SjVjpGryKdQ==
+X-Received: by 2002:a05:6870:5390:b0:448:558c:d848 with SMTP id 586e51a60fabf-455f80ea62bmr27979fac.35.1783958508993;
+        Mon, 13 Jul 2026 09:01:48 -0700 (PDT)
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com. [209.85.160.42])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-451ff78897asm7107380fac.17.2026.07.13.09.01.48
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 09:00:48 -0700 (PDT)
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bfbbe5220dso12814e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:00:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RphHNMutUVeuxLbniSIPzhqaSz+beBSPjMNpRkv4evwjPYMHacBBlSjFZajqam4TmtBwvHO8TX+qOBZ@vger.kernel.org
-X-Received: by 2002:a05:6122:6310:b0:5bd:a2dd:60ee with SMTP id
- 71dfb90a1353d-5bfa470c003mr6470720e0c.3.1783958447155; Mon, 13 Jul 2026
- 09:00:47 -0700 (PDT)
+        Mon, 13 Jul 2026 09:01:48 -0700 (PDT)
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-448de0cc236so1872440fac.2
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:01:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+JD8P+CyN3ehAu7Sx3WvJJVeCGkOUw9HlSMjvQ6VrqEJ5UqwV6bqUVuymZeKh4jRSFrEvXv5hev58Q@vger.kernel.org
+X-Received: by 2002:a05:6102:1626:b0:739:8c52:f2b with SMTP id
+ ada2fe7eead31-7457e8e369cmr48584137.18.1783958102735; Mon, 13 Jul 2026
+ 08:55:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260702123112.161160-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260702123112.161160-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 13 Jul 2026 18:00:36 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUhiBAcJ6P7j0ZxL+0AbVqz88PMo7YX9UiYOK8jM61D1Q@mail.gmail.com>
-X-Gm-Features: AUfX_myKEIDnT9gmvoSHxK3o8Be_bh5PlIka-qGq00orZWkHqkcXT9vOA0tXJpw
-Message-ID: <CAMuHMdUhiBAcJ6P7j0ZxL+0AbVqz88PMo7YX9UiYOK8jM61D1Q@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 0/9] Add System Controller support for RZ/T2H and
- RZ/N2H SoCs
+Date: Mon, 13 Jul 2026 17:54:51 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
+X-Gm-Features: AUfX_mxzgD_hAyuoiso0jWBOVR76LgHMAUSKVimBZKTOAwoA2LG95DcPvI9LrPM
+Message-ID: <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 5/9] dt-bindings: watchdog: renesas,r9a09g057-wdt:
+ Add SYS syscon support
 To: Prabhakar <prabhakar.csengg@gmail.com>
 Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
 	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
@@ -84,54 +84,95 @@ Hi Prabhakar,
 
 On Thu, 2 Jul 2026 at 14:31, Prabhakar <prabhakar.csengg@gmail.com> wrote:
 > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> This series adds support for the System Controller (SYSC) blocks found on
-> the Renesas RZ/T2H and RZ/N2H SoCs. These blocks handle critical low-power
-> management and access control functions.
 >
-> Hardware Architecture & Dependency Challenges:
-> ----------------------------------------------
-> The SYSC in these SoCs is a multi-functional block responsible for:
->     - Clock & Reset Control
->     - Low Power Management
->     - Clock Monitor (CLMA)
->     - Access Control
+> On the Renesas RZ/T2H SoC, the Watchdog Timer Control Register (WDTDCR)
+> resides within the System Controller (SYS) block rather than the WDT
+> address space itself.
 >
-> A key architectural detail is that these SYSC blocks are physically located
-> within the CPG/MSSR (Clock Pulse Generator / Module Standby Software Reset)
-> address space. While the CPG/MSSR driver is already implemented and
-> functional for these SoCs, the integration of SYSC adds a layer of
-> complexity due to a cyclic dependency:
->     - SYSC requires CPG: The system controller needs a clock to operate.
->     - CPG requires SYSC: Access control registers within the SYSC contain
->       bits necessary to control the PLLs managed by the CPG.
+> Previously, this was handled by including a second register range in the
+> "reg" property. However, this is architecturally incorrect as the SYS
+> block consists of two distinct regions (0x80290000 and 0x81290000) that
+> contain registers for multiple peripheral blocks.
 >
-> If implemented as a completely separate top-level system controller node, we
-> would face a cyclic dependency between the CPG and SYSC drivers during the
-> boot process.
+> Now that the SYS driver provides a unified syscon regmap, introduce the
+> "renesas,sys" phandle-array property to allow the WDT driver to
+> access its control register via the system controller.
 >
-> Proposed Implementation
-> ----------------------------
-> To resolve this, the SYSC blocks are represented as child nodes of the
-> CPG/MSSR controller in the device tree. The SYSC regmap is registered
-> directly against the CPG device node. This hierarchy correctly models the
-> hardware address space while allowing the drivers to share resources
-> without deadlock.
+> Mark the use of a second "reg" entry as deprecated in favor of the
+> new phandle-array approach for SoCs that require WDTDCR access.
 >
-> I am sending this as an RFC specifically to get feedback on the
-> implementation of the SYSC as child nodes of the CPG to resolve the
-> dependency cycle.
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v1->v2:
+> - No change.
 
-Personally, I am not a big fan of subnodes.  I assume you are using
-subnodes because you can register only a single regmap per syscon node?
-Would it be possible to just extend the existing clock-controller
-node with two more reg entries, and expose them through a single
-combined regmap?
+Thanks for the update!
+
+> --- a/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.yaml
+> @@ -48,6 +48,17 @@ properties:
+>    resets:
+>      maxItems: 1
+>
+> +  renesas,sys:
+
+In Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml,
+the similar property is called "renesas,sysc".
+
+> +    description:
+> +      System controller registers control the start/stop of the WDT, and halt debug.
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    items:
+> +      - items:
+> +          - description: phandle to system controller
+> +          - description: watchdog IP instance index
+> +            minimum: 0
+> +            maximum: 5
+> +
+>    timeout-sec: true
+>
+>  required:
+> @@ -73,15 +84,29 @@ allOf:
+>            minItems: 2
+>          clock-names:
+>            minItems: 2
+> +        renesas,sys: false
+>      else:
+>        properties:
+>          clocks:
+>            maxItems: 1
+>          clock-names:
+>            maxItems: 1
+> -        reg:
+> -          minItems: 2
+>          resets: false
+> +      allOf:
+> +        - if:
+> +            required:
+> +              - renesas,sys
+> +          then:
+> +            properties:
+> +              reg:
+> +                maxItems: 1
+> +          else:
+> +            properties:
+> +              reg:
+> +                description: Deprecated. Use renesas,sys to pass the offset
+> +                             of WDTDCR register instead.
+
+the index of the watchdog IP instance?
+
+> +                minItems: 2
+> +                deprecated: true
+>
+>  additionalProperties: false
 
 Gr{oetje,eeting}s,
 
                         Geert
 
--- 
+
+--
 Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
 In personal conversations with technical people, I call myself a hacker. But
