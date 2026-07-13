@@ -1,146 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEAB360EDC;
-	Mon, 13 Jul 2026 05:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2B9360EE1
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 05:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783921899; cv=none; b=XT0wQpUjiAEcOW3TmIhY6d4GfrlExVP+/mAstQ/XpMt6tlzeMldYKjhPIyRoPg3AVUeFmYLo+a0UagxGzBQVVEGFA0O2JBCZpMFmRQQRjvZ0aPW1wuUF6zSo9PwJgqpTrzkpnFUjqRf+4UXh/3vfp5oK8/VfgOXA9v+qEa/ETcI=
+	t=1783922029; cv=none; b=faVhN9WoVgvjCFXdgzHdO13kTB0nWXqFfWBsTxN1LdWsK0QptWpgZcHQuCBaFniuENgvEm36qcrscomJRdcjkWg/5vA+/TXlqLyorV5nMKErqxbzaDjDu1t0asBZ8IaFYXterCkkXT5N64s8Iwoms6frwPbTotZspflxnBC1/QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783921899; c=relaxed/simple;
-	bh=NqsYvoPObx4tRY5M+T/QipNFYfyhGBpP8fWEUfWIYlg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ndi+Z71NV3OkARVTq9v0CInJXYpHqa7L2oaE0MF0g7qfzsXcq72iLFeCQNfBUaiqt437G82wpAalO/DfUyDd7uECY3cdgAtWZUHuB+/1B54xigHu7JatJoVrogSplklkjgmwDM1BlR5C/aL+v9hleFEWHm4Xw1QVvJXzaPl28WI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLj/25Cc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783922029; c=relaxed/simple;
+	bh=CBNzd4b4CuEfF2oBe8C69ZGM92jDCQh/5ebA7XMBxt0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MTN6yUunq9/q+aYMuEteiTCCFUwiWJHpj2T5JWNf8LN7tOg3jOKZu0R91W7sk4JhXe+fP19xZhpuGh5o2EHPGcaJarG6khAU87OfL7mwkfGfihtbKL+kofVi6dD4xXU6vQ7jzpV7wJD6lvzEWcSNEg2Zn58tQ5pCDPjBh0d9WiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EkBfB4zj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VnJBtS8+; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLj/25Cc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E9AECC2BCC7;
-	Mon, 13 Jul 2026 05:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783921899;
-	bh=NqsYvoPObx4tRY5M+T/QipNFYfyhGBpP8fWEUfWIYlg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=aLj/25Ccl0GQJEgDbb31uT/LJ7oOzGanRf/0RWWSE2eczhhj07Ly9hzg1fouozQQb
-	 Uz1jqt/I8XHiP8lMB/y28eed1s4NTgoCPgmDP9jIp/WcyFXDMo7ZFU5Mz8VjhpJBXM
-	 kSeZE31Tr6ISdSOsmyytKo6/1nA0RHqCkT6Co3DALFqAaZnNXM2lmZ0KV6jH1cAKEv
-	 5BBOXdUDv5DMX+lOPY172ncRVQvRiZbDIXCme18uzOnqFTqyYZ5dQWpSfhTSEetIp4
-	 7n2YwsseqcnMZp21RlqzWDwSVnGACCIZCpthiilPjR39rbEJVL8YnUrI0juLLoxxyX
-	 hr6/e3lDWm+/Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC384C44501;
-	Mon, 13 Jul 2026 05:51:38 +0000 (UTC)
-From: HaoNing Cheng via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Date: Mon, 13 Jul 2026 13:51:34 +0800
-Subject: [PATCH v5 2/2] thermal/drivers/imx: Add calibration offset support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EkBfB4zj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VnJBtS8+"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D3AXn3137039
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 05:53:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xxYALtCRQn2rR6VAzJLApMBLItQAsRmuuR+Ks9gEj2Q=; b=EkBfB4zjYtqoVFRi
+	hvVB8K+pZU4XsQmsMV4drnJZWywKygyXXUVGURFDQWOp9ZsVIL0SPGWnOmwfvqZr
+	BxYgBzrQtnVpQPzB4+0kDS/AXag3ppHsSeSW5IYKj/3thaLGMGd4Df8L3lHk6eOQ
+	m0m1w6mGjn1PCel7d7BNcwI6/4Q5thsL6e1SXUMmh4CUPSGkUBGkILtBQIPCG1OJ
+	EYCmVC0a+A/HeFqNWW6cMELFg7mz5b5phJoDNyrqAhSD3Cldi7I71T1bAyrkVIde
+	9EJ4jrW+QCLSbUQQDVcAnyN++qrN/QEeCDgQRAAWCC+Plgrh1XBsBKZQByvXVRvS
+	UZfjbg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbe914hg4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 05:53:46 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c88e0d11a3fso2466650a12.0
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 22:53:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783922026; x=1784526826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xxYALtCRQn2rR6VAzJLApMBLItQAsRmuuR+Ks9gEj2Q=;
+        b=VnJBtS8+GkAOMNadEmLEgcl3yJSWk18ILbHWMhcRrrCSOv5ZdVjbJ74ufkuwRXOEp+
+         KeD8tbSyUnftfHbdKtjwk+OhvCR4GHQofAfXOngOFHm36Zgyb1m3AetcXThMC6bSgDGz
+         2GjLDXpxl5tpCNuf8g8idPbjnKXTaBAQTIFtyYRLaAqFN0/Zt5Q+iEyzlv7+KOb3YUcr
+         BvNWV/OSE6ucuoXJn8EoVnYI1y/msri32qL273qRV92M6icDuDlMoY1+k62i/CktYZyx
+         Vt0jCSqi/5zoUGOZ0wuDgpothxZbEhLJ9A7DnDPjP65BSB1inPsgS7Co43mmQLtYNsdr
+         lp8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783922026; x=1784526826;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xxYALtCRQn2rR6VAzJLApMBLItQAsRmuuR+Ks9gEj2Q=;
+        b=QF33gVeaKHOFhxTsdiV0771IcnLGEbE8x5+W1Ixhv9H8i0syvyS+NSmWDeMzEy3Ofm
+         x8CO7aWGKZyvvI8EJNQnWzybx0p6uj7eZg/zvJ1AxKJexqql4oKRhO0BYKZDykuZTRFa
+         uQ7JEiGEGPxFM+nXo1LOjY/oU+Fl5Cjy+XgaE6nhtrIM9CJwTjB+2Nc66UlL99iSTgp6
+         M4jI2OlIvNghYDZaPOBGG+qhsHEeS8xe2xuFy02Puind4Y6mXvca26raQ+RP5yVGyw8U
+         tvuPxGFDXkYEPegkaYrcpGpS9bXgGPTnTq4X6Yh35NRkGURU9ojOGf1aJJroNqRJEcfK
+         NYVA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrt6SfzwlpJXpWWx5Mcec/iaB6N8Ov8wHNnQjlCo5r7e6poW570rF7dRfzaaqDVajATP6dmaIohg/EW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzGZ1cRQVgQerlQccRSEIRSCpN6jw5vJlfhhag/lbAzuyU6p8p
+	Fz4aV376b9VbAW+G+0LUa15AUanIM+vrOuRPWg1oTs6YrLelvQHWyiLM+pPx/+RytGztrDtH+4S
+	WUp/2gMRfhxH6NAJYL6aJfOEqkW0YlL7EquQJmTYkRFz8h+kbDeDi7CDn61SqFDzr
+X-Gm-Gg: AfdE7ck0Ut3kwqi0dwNErWQwpo5FlLBXFfok7WM9UXliMte7/+hn3Uh2Nti+oSx61ZD
+	jGMS6KQK+QtbOwrysDh0jF3m4t+lEKH7109j6Oap6hSH8p4bL3GClCfR618/L81jE1wrHMGWdkV
+	IvPH0jB3Qe5R5LpZB81exMH8YtlStq/ECtNOd2yuxqJmXoxMvAM4dl9Q9hgIS5qlMxXRByQ92e7
+	O9k8hElscWhvFcjugVNoi0b/0DKHUrXyvdAv7YXhlB1OndBWhJEKdW5+pbAQWcnMmeXwO4cSCqA
+	Y08MnWz4ATPuCevqIZEBhkS14qdoLMTlemBdiO+eT9YNfcx6w6ifJDZVmCv8tajLv4z2n0mj4po
+	VIENNdi0nGFA6iG+uvBDRbkGeboE6g2EW1vfYmhdYtn0i
+X-Received: by 2002:a05:6a20:3d11:b0:3bd:4698:e7c4 with SMTP id adf61e73a8af0-3c110b166e1mr8007170637.42.1783922026057;
+        Sun, 12 Jul 2026 22:53:46 -0700 (PDT)
+X-Received: by 2002:a05:6a20:3d11:b0:3bd:4698:e7c4 with SMTP id adf61e73a8af0-3c110b166e1mr8007156637.42.1783922025614;
+        Sun, 12 Jul 2026 22:53:45 -0700 (PDT)
+Received: from [10.204.101.214] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174839f89sm66569596eec.10.2026.07.12.22.53.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 12 Jul 2026 22:53:45 -0700 (PDT)
+Message-ID: <d2c537cd-081a-4a89-b74a-76b8424ae84a@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 11:23:38 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/11] : media: iris: Migrate iommus to iris sub nodes
+To: Daniel J Blueman <daniel@quora.org>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+ <CAMVG2stqOscN2CB5Uq4qVvb3vXOze35-JzqH4GpS8z4R2dr+Mw@mail.gmail.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <CAMVG2stqOscN2CB5Uq4qVvb3vXOze35-JzqH4GpS8z4R2dr+Mw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v5-2-69405c306c6b@cn.bosch.com>
-References: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v5-0-69405c306c6b@cn.bosch.com>
-In-Reply-To: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v5-0-69405c306c6b@cn.bosch.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783921893; l=2618;
- i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=4RI3KwRlC8Yl5nDcFypymQ95vC8TXe4NB1RjWrUCQYE=;
- b=PE28GS7jCEZkFmW2gN2/FX2Qk8TCsqJlffhYSmDjpOmN7A8hOepF5Lqh2WHKJMXriDwxz+Dva
- RW61JO6wgsOAKfEEMneU9s0MonXBId7yhMbxCSpzckRtjNRCtDN31Wk
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
- pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
-X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
- with auth_id=860
-X-Original-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
-Reply-To: Haoning.CHENG@cn.bosch.com
+X-Authority-Analysis: v=2.4 cv=TbymcxQh c=1 sm=1 tr=0 ts=6a547d6b cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=e5mUnYsNAAAA:8 a=KFtyBvXnAAAA:8 a=EUspDBNiAAAA:8 a=t9ty7G3lAAAA:8
+ a=CFlqIJIDefiTY8DqsWkA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=CsAS6f0m0zARWR-uHzm3:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA1OSBTYWx0ZWRfX862gqS1P+sQU
+ sOdURavV952VeBrX64pDN61kBriT/yH49p2wHeVjU4Oh8k+tzkxFP2zgZqcVhkmERDhO4LXQxXe
+ bPUJdZx6c6sWnR6a6stomponYh6GpSQ=
+X-Proofpoint-GUID: 2o0Wy7wAQMAlXY-IB2QE5-S_nXXjTe24
+X-Proofpoint-ORIG-GUID: 2o0Wy7wAQMAlXY-IB2QE5-S_nXXjTe24
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA1OSBTYWx0ZWRfX+H9LgvgH90aB
+ uvfmh9p/8OfIkI6QZFvUcUljd77aqxPcaugyy7LM5j+DWWv/Ow0NMKwSh/TIbPrylL+Xuqho60Z
+ mHyE5Mq+I69QSgD/JsOuosmYiGaVh38cfmGhejOTIVmZA7JdES7IbYwvTbXmyG26MqdRii5ppit
+ yoewO45YMBtpA2fraMWxd/uYR8DAv+7/r6HuAgBlLOQEXSfHTjfhMh4h5UWEIWacqthtP0jj4m9
+ wnCa27NfAMPClxjWJqsXI+sVjG88y+CGR/1xvQ+EMUBpMHGFyXv3zOQLPaETSFPLZtHtp0raMcc
+ 3zO2AdvsYlp3lq3lCgCvi0/S/K8YdboFtwUG69qiPNj5o/YmoQy/sAtJwmtEulR6NRDfkbnt3dQ
+ xyGxY/hP8u4S2NrXUR39qCPgwTciGjl1wUA097JLiB0nAMlHRQbdDYwtyVakwWsmgVDT7/oGEW3
+ bPHJ/qWir9sj9zPDbnA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_01,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130059
 
-From: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
 
-Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements.
+On 7/12/2026 5:21 PM, Daniel J Blueman wrote:
+> On Thu, 9 Jul 2026 at 20:35, Vikash Garodia
+> <vikash.garodia@oss.qualcomm.com> wrote:
+>> VPU hardwares have a limitation where VPU streams are associated with
+>> dedicated addressable address range, as illustrated below
+> ...
+>> Mapping a stream outside its expected range can cause unintended
+>> behavior, including device crashes, as reported at:
+>> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> ...
+>> To address this limitation, the subset of stream/s are now represented as
+>> sub nodes, so that they can be associated to the respective addressable
+>> range.
+> 
+> Amazing work Vikash and team! This patch series applied on 7.2-rc2
+> resolves spontaneous rebooting with parallel streams eg when opening
+> https://ui.com in one or more browser tabs, resolving this platform
+> usability blocker. As such, this is absolutely relevant for -stable.
+> 
+> Tested-by: Daniel J Blueman <daniel@quora.org>
+> 
 
-Read the optional fsl,temp-calibration-offset-millicelsius property from
-DT and apply it to the i.MX6/6SX/7D calibration formulas. When the
-property is not present, the default offset remains 0, preserving the
-current behaviour.
+Appreciate your efforts in trying out this. Also it took a while to 
+formalize the design.
 
-Signed-off-by: HaoNing Cheng <Haoning.CHENG@cn.bosch.com>
----
- drivers/thermal/imx_thermal.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Stable - Yes, but the driver handling have gone through a lot, and i am 
+quite confident :( , that the series would not apply to stable.
 
-diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-index 38c993d1bcb3..0a443e608957 100644
---- a/drivers/thermal/imx_thermal.c
-+++ b/drivers/thermal/imx_thermal.c
-@@ -207,6 +207,7 @@ struct imx_thermal_data {
- 	struct regmap *tempmon;
- 	u32 c1, c2; /* See formula in imx_init_calib() */
- 	int temp_max;
-+	s32 calibration_offset;
- 	int alarm_temp;
- 	int last_temp;
- 	bool irq_enabled;
-@@ -223,6 +224,7 @@ static void imx_set_panic_temp(struct imx_thermal_data *data,
- 	struct regmap *map = data->tempmon;
- 	int critical_value;
- 
-+	panic_temp -= data->calibration_offset;
- 	critical_value = (data->c2 - panic_temp) / data->c1;
- 
- 	regmap_write(map, soc_data->panic_alarm_ctrl + REG_CLR,
-@@ -239,11 +241,14 @@ static void imx_set_alarm_temp(struct imx_thermal_data *data,
- 	int alarm_value;
- 
- 	data->alarm_temp = alarm_temp;
-+	alarm_temp -= data->calibration_offset;
- 
--	if (data->socdata->version == TEMPMON_IMX7D)
--		alarm_value = alarm_temp / 1000 + data->c1 - 25;
--	else
-+	if (data->socdata->version == TEMPMON_IMX7D) {
-+		alarm_value = DIV_ROUND_UP(alarm_temp, 1000) + data->c1 - 25;
-+		alarm_value = clamp(alarm_value, 0, 0x1ff);
-+	} else {
- 		alarm_value = (data->c2 - alarm_temp) / data->c1;
-+	}
- 
- 	regmap_write(map, soc_data->high_alarm_ctrl + REG_CLR,
- 		     soc_data->high_alarm_mask);
-@@ -277,6 +282,7 @@ static int imx_get_temp(struct thermal_zone_device *tz, int *temp)
- 		*temp = (n_meas - data->c1 + 25) * 1000;
- 	else
- 		*temp = data->c2 - n_meas * data->c1;
-+	*temp += data->calibration_offset;
- 
- 	/* Update alarm value to next higher trip point for TEMPMON_IMX6Q */
- 	if (data->socdata->version == TEMPMON_IMX6Q) {
-@@ -629,6 +635,10 @@ static int imx_thermal_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, data);
- 
-+	of_property_read_s32(dev->of_node,
-+			     "fsl,temp-calibration-offset-millicelsius",
-+			     &data->calibration_offset);
-+
- 	if (of_property_present(dev->of_node, "nvmem-cells")) {
- 		ret = imx_init_from_nvmem_cells(pdev);
- 		if (ret)
+As Bryan is suggesting, we can think of applying your suggested 
+workaround to stable, and pick the sub node design to mainline and 
+forward. Open for suggestions here, if anyone have anything better.
 
--- 
-2.43.0
+Regards,
+Vikash
 
+> Thanks again,
+>    Dan
 
