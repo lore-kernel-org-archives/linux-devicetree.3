@@ -1,129 +1,157 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 828F7145B3F;
-	Mon, 13 Jul 2026 09:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7CB368D4B;
+	Mon, 13 Jul 2026 09:16:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783934034; cv=none; b=gfZMQYqtoSSGejpiRxyuhph0+ng9LEdbq33jwN7hcKmBiyX6id8Y+rMF2L7Rm8WvxwyoERGDB/fYHD9FE95wnrCuQ4fdK5OYvwn+BKxNflVJ/Vks8yMSfPR6OG3U/MWk89XWyrm/Vfazhj+6Hpq8zlzyzUUJzJ1mCwbcXblxRD0=
+	t=1783934171; cv=none; b=hfe7jewNPVCr5tOLoRfBRrKYzERzj98qu09RmFpH3W2bF4fIdCew5K4/2MesL22XGrpyh6f4N2ZQmBiDdRODVVVCUviYbSdgv9t15j4IhWydKVRxV2Pl91Hbuy+Xsq24zSbsoQ0YwCdQ8YGA+K1KMIke9NNeT8HGUEprWJqUVgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783934034; c=relaxed/simple;
-	bh=dcCDLxbyJUIXwfhBT64SAsExYyiIGV2LF8cYyZrekEI=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=IKyHRJr0uwX+wLnnwg2EhkdQMPiSxxRJEgFkWScz0b/lOQWIqTLm4XgoAkYTtrYvHlBWOMhW0X+lWzvhbSDiiSosWeWoB5WCasGCnDd43mY+uoy41UB0c+nykSvZcXrE/rVlEw8UkaKsY2soLDcYc9WCEvt+79RYjS8RReBF8ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=IUuGB3GK; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1783934171; c=relaxed/simple;
+	bh=qy4epiyYjdSjOA+l6Z5k+6LYOxC7LsuckhtI65J+MXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Onmuc7eqF7mtzf4m7aYH1WuSu/35P4F5GZ5CgpTbRJ4b2GZ196KXeP9UfaDuiGTWecb9E5uKbzqkLsc8ZfgrFB1brV32THMqPEHRnOZIDTMGypaaGuZog/q0R2Gar7LfznrTVmnETqwPfcECubGklGNC5Sx8VR3hReyCyXKkXp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7FwN/Jv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="IUuGB3GK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=VPrIFSTxqSlGbcvuQoKbhlpKcFEI6JaSI
-	349NQx+Zgk=; b=IUuGB3GKPqgYvkjowh7DX5Zzu4C3USSYRQjbvO1VX9f9DDCI0
-	oi/fbYjO093ziDVtCiTG7iQmizpBk+AhCXBUmFTZ9w6bJH/COQVze/uJQVj5kSEg
-	xinhwYaEDv5LKc7lhvcXh7abbxhjjDnfTuXGhMg2IhSblKdTxGHtCDLSKc=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUJcrFRqA48QAA--.16585S2;
-	Mon, 13 Jul 2026 17:14:05 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7FwN/Jv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A02E1F000E9;
+	Mon, 13 Jul 2026 09:16:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783934169;
+	bh=N30vr1xrRftm2nMobVAtxbwff06D+Jf4XX9jZoAnGTU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E7FwN/Jv6m1e69kx632GqJLog3RwP12tN0ucav26FktzwqnDd4kBGbNenuLYwevaG
+	 1BGaAYWSOPpXQRSOjYHhBVIcbF6c6745HuTPWIJSEk8DBaXcYiJiRhiQHM0PuxFF6P
+	 BwYbJSu9iMhhF+DNNLmVWpQSpv2YXboLZUCWFoTXiDPKBMPB5Kbs7XTiLQtafM8HCh
+	 PNnPj9dcL0ZH08/cBg+D0N2/m6AGaFNxwZfAKu9PvpgM4thZA2L6/kvTerKA11bcS4
+	 O4pi77LeTOqxqk29h93wNbDV6E+GB/6u5CSeTYHY3YOHUOPR191DfJ6oc4ZrkSO5RK
+	 M/S7j7bXcZacQ==
+Date: Mon, 13 Jul 2026 11:16:05 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Daniel Drake <dan@reactivated.net>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
+	Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH 3/6] dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
+Message-ID: <20260713-corgi-of-striking-science-4afbdc@quoll>
+References: <20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net>
+ <20260712-bcm2712-iommu-submit-v1-3-80e10cdde2ea@reactivated.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/2] clk: ultrarisc: add DP1000 clock driver
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Jia Wang <wangjia@ultrarisc.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <ak5fGAp2NMPgW77M@redhat.com>
-References: <20260617-ultrarisc-clock-v2-0-9cb16083e15e@ultrarisc.com>
- <20260617-ultrarisc-clock-v2-2-9cb16083e15e@ultrarisc.com>
- <ak1Zc7uSoqx-F_7Q@redhat.com>
- <178349718662.2043299.5991323028483371285.b4-reply@b4>
- <ak5fGAp2NMPgW77M@redhat.com>
-Date: Mon, 13 Jul 2026 17:13:33 +0800
-Message-Id: <178393401383.3197075.7283325660001879501.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783934014; l=1815;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=dcCDLxbyJUIXwfhBT64SAsExYyiIGV2LF8cYyZrekEI=;
- b=mPIF9TaQ0styqNJX6Lj462n06oarXZ44l+TmRuyZeJLmhi2BOM5OAcjSiPW90B1wbclFFBNYM
- UtV9cdLSWemBz5fAFFeuYa96UwhAVlE/aKxEvQqU1efVY+jIdfbaItU
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnYUJcrFRqA48QAA--.16585S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7trWDWr4UCw13WF15tw4kXrb_yoW8WrWfpF
-	WrGa4jkrW0qF13Zw42v3WqyF9xtw18tayjk3srJw1SvrnIqrySka1fJas8CF1rZry8WFyj
-	vF4jvFyxWw1FyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
-	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb8hL5UUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWpUYNAAJgAMsz
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260712-bcm2712-iommu-submit-v1-3-80e10cdde2ea@reactivated.net>
 
-On 2026-07-08 10:30 -0400, Brian Masney wrote:
-> On Wed, Jul 08, 2026 at 03:53:06PM +0800, Jia Wang wrote:
-> > On 2026-07-07 15:54 -0400, Brian Masney wrote:
-> > > On Wed, Jun 17, 2026 at 02:02:55PM +0800, Jia Wang wrote:
-> > > > +static struct clk_hw *
-> > > > +ultrarisc_clk_hw_register_composite(struct device *dev, const char *name,
-> > > > +				    const char * const *parent_names,
-> > > > +				    int num_parents, struct clk_hw *mux_hw,
-> > > > +				    const struct clk_ops *mux_ops,
-> > > > +				    struct clk_hw *rate_hw,
-> > > > +				    const struct clk_ops *rate_ops,
-> > > > +				    struct clk_hw *gate_hw,
-> > > > +				    const struct clk_ops *gate_ops,
-> > > > +				    unsigned long flags)
-> > > > +{
-> > > > +	struct clk_hw *hw;
-> > > > +	int ret;
-> > > > +
-> > > > +	hw = clk_hw_register_composite(dev, name, parent_names, num_parents,
-> > > > +				       mux_hw, mux_ops, rate_hw, rate_ops,
-> > > > +				       gate_hw, gate_ops, flags);
-> > > > +	if (IS_ERR(hw))
-> > > > +		return hw;
-> > > > +
-> > > > +	ret = devm_add_action_or_reset(dev, ultrarisc_clk_unregister_composite,
-> > > > +				       hw);
-> > > 
-> > > Use devm_clk_hw_register_composite_pdata()
-> > > 
-> > 
-> > I originally used clk_hw_register_composite() together with
-> > devm_add_action_or_reset() because devm_clk_hw_register_composite_pdata()
-> > is not currently exported, while this driver can be built as a module.
-> > 
-> > If exporting it is acceptable, I can add a preparatory patch in this series
-> > to export it and then switch the driver to use that helper.
+On Sun, Jul 12, 2026 at 10:18:53PM +0100, Daniel Drake wrote:
+> Add bindings for the Broadcom BCM2712 IOMMU and its shared TLB cache.
 > 
-> Yes, I think that exporting this makes sense.
->
+> Include compatibility with the cache phandle used in existing firmware
+> shipped on Raspberry Pi 5, and also allow the iova-window to be omitted,
+> which similarly will maintain compatibility with existing RPi5 firmware.
+> 
+> Signed-off-by: Daniel Drake <dan@reactivated.net>
+> ---
+>  .../bindings/iommu/brcm,bcm2712-iommu.yaml         | 65 ++++++++++++++++++++++
+>  .../bindings/iommu/brcm,bcm2712-iommuc.yaml        | 35 ++++++++++++
+>  2 files changed, 100 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
+> new file mode 100644
+> index 000000000000..0d91c513afc4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
+> @@ -0,0 +1,65 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iommu/brcm,bcm2712-iommu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Broadcom BCM2712 IOMMU
+> +
+> +maintainers:
+> +  - Daniel Drake <dan@reactivated.net>
+> +
+> +description: |
 
-Thanks. I'll add a preparatory patch to export the helper and update the
-driver to use it in the next version.
- 
-> Brian
-> 
->
+Do not need '|' unless you need to preserve formatting.
+
+> +  The BCM2712 IOMMU provides address translation for various hardware blocks
+> +  on the BCM2712 SoC, such as the VC6 display pipeline.
+> +
+> +properties:
+> +  compatible:
+> +    const: brcm,bcm2712-iommu
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#iommu-cells':
+> +    const: 0
+> +
+> +  brcm,iommu-cache:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle to the shared IOMMU cache (IOMMUC).
+
+You need to explain what for, the purpose in hardware.
+
+> +
+> +  cache:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Deprecated. Use brcm,iommu-cache instead.
+> +    deprecated: true
+
+Drop property, we do not take new bindings with deprecated properties.
+Existing FW is not an excuse, Raspberry 5 developers could reach out and
+ask if this is okay. They did not.
+
+> +
+> +  brcm,iova-window:
+> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+> +    description: |
+> +      An array of two 64-bit integers specifying the IOVA aperture start
+> +      address and the aperture size. IOMMU mappings will be created inside
+> +      this aperture. All preceding address space is in identity/bypass mode.
+> +      The aperture start address must be 4GB-aligned.
+> +      Should be considered a required property, but it is technically optional
+> +      in order to maintain compatibility with historical firmware versions.
+> +      If absent, defaults to a 4GB window at 40GiB (0xa00000000).
+> +    items:
+> +      - description: IOVA window start address
+> +      - description: IOVA window size
+
+This looks a lot like reserved region, so why do you need a new
+property? If this is not a reserved memory, then why compatible does not
+imply the value?
+
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#iommu-cells'
+> +  - brcm,iommu-cache
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    iommu@5200 {
+> +        compatible = "brcm,bcm2712-iommu";
+> +        reg = <0x5200 0x80>;
+> +        brcm,iommu-cache = <&iommuc>;
+> +        #iommu-cells = <0>;
+> +        brcm,iova-window = /bits/ 64 <0xa00000000 0x100000000>;
 
 Best regards,
-Jia Wang 
-
+Krzysztof
 
