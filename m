@@ -1,297 +1,240 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928AF33FE0A;
-	Mon, 13 Jul 2026 08:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D7A3A451F;
+	Mon, 13 Jul 2026 08:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783929677; cv=none; b=hj8p2qf2mGdawBI6dSUtR8w5NljGNF902NLnAN/Fbw1Yg3wG0XXasyxI7N1xiVfUla7vOlOYEg2sLQn4mAgnFvg9L3KElSqoAtATOCjAFPdtV/iog1QNDY6QxhKQ3HIZ/7iq5UYU8pthNqox4lTmbevA+CIehyJYL6dSLFWY2R0=
+	t=1783929691; cv=none; b=o7UrksydIxrnYGrR5KeWg8qUQigIEP0Y9n7Hk7LULW+9Dn1J3+CxGK0joxc3vcrPOeeW+qQtJtBIStBMXTes+67qYfaizrH2zi4u5gPMofvqrYMOUzGVnS5N5wfvwfP39MSvNGSKR1zl4mojGaE28kOdGvxy7XNHwOG91izUPAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783929677; c=relaxed/simple;
-	bh=boNSAPHabbNMFLaiiOKh1JEp4/UvbPj3aYE4dAGKnec=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AjbNrnC4ba1n9UPogsBC904kiVzqFyAYQgFeDHgS2f59/wqytC6uCHoG5+09panVBmqnBLrrZ0gYlU556ik8kF0c9jmgwqgAn/+GDEWmytRbKUHGx6dUeUcLxoXbZMkwWCMjdJw4e5+YZJbUIOGvf5V/s7l6DHGA1cUSWIV2KG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Q538i5cP; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783929691; c=relaxed/simple;
+	bh=NHwvlMeRCrVBhct+D3qfVvqEebwHNPmgjTzdsM+jelQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JIach0AO1c63McfpqxpNbOjXR9cylvI119BmhV3/G7RiKXIFUq2RuRUS2R9fTZZdvRy03mrkw8OUMlVnOKooxe27zPtNcNNXv2LO0ITN44J26v4oV1rTMrfRF14yMzE6Ifk5hutcJevd/54oT6nwNImhGAI3z6NxWKIerV4v7jY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OX5IEy2M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Q538i5cP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783929673;
-	bh=boNSAPHabbNMFLaiiOKh1JEp4/UvbPj3aYE4dAGKnec=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Q538i5cPbR+VD5oXM9u2/HO4AYtcZbmWXBWp2sJP5DYFBOSs1c+RrY7rGas1U62E2
-	 19IIHLUCTX8j383cf49dCNpXO2Wtcn4EJVBz+kXwIoxfY9+OdAbK5hWINPUGOvoI3e
-	 epL1LuZ0xzTaMlUej9MhdY//HuKv8eI6rzPvPwnIUekhywc8pabFr/5eKKzM7DK4va
-	 1ifDhoeFyP2qTb6jfPGLMD1t3XDuUqRPfe6ayK4idDeXNKEQFjzxjg6J8Qb2ouz8Kl
-	 8kywXXpZbUGAS9jqzVsJHKET8vqVQBJ6lrQL9TUXAWAEzNRgzHkFX9FpEZq+yePQCk
-	 wlIeQnkC2e01w==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B31E717E0076;
-	Mon, 13 Jul 2026 10:01:12 +0200 (CEST)
-Message-ID: <89e4eb3d-a61c-410e-8ad5-e845b07f8029@collabora.com>
-Date: Mon, 13 Jul 2026 10:01:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OX5IEy2M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A8E1F00A3D;
+	Mon, 13 Jul 2026 08:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783929690;
+	bh=82FI4U/Qgp3VJU1T2C9+3q81Tkk7bDT4BWyYRDWe9tE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OX5IEy2MfN72wwmtsF361CjdDfcLl4LX94G1yHg3szzUFErp8RyjzlFgDObBqcOQz
+	 budYI3Ygc2gam0Ssonu5behB6gZkuPYIxws0l1CSv+mhWT0TN//QgGeRwhYF6mikQ1
+	 9OUjrOP1eSk+MGd8Du9/BR7ndAO275kyiKon1CBvV2HqOQWZ9nLD3No3DrkasBFIXA
+	 V8fB3AzTxMWdlCf3VSGEXhdShPLKvmj0DrdMgtFN24NMck2P144TbwALol9rWMYEa4
+	 MYK+ZoUVOAdQnaaSRRohq49jcSmq2kFPiCW/tzvnE1qBtG61dHYMVJF49byFSyPaoB
+	 NMkDcY7aJeUPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/4] hwmon: (sht3x) Add devicetree support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zaixiang Xu" <zaixiang.xu.dev@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260713074559.12196-4-zaixiang.xu.dev@gmail.com>
+References: <20260713074559.12196-1-zaixiang.xu.dev@gmail.com>
+ <20260713074559.12196-4-zaixiang.xu.dev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 08:01:29 +0000
+Message-Id: <20260713080129.D8A8E1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] pinctrl: mediatek: Add driver for MT6858
-To: nikolai.burov@jolla.com, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Sean Wang <sean.wang@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- Nikolai Burov <nikolai.burov+review@abscue.de>
-References: <20260710-mt6858-pinctrl-v1-0-f75ab558f0df@jolla.com>
- <20260710-mt6858-pinctrl-v1-2-f75ab558f0df@jolla.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260710-mt6858-pinctrl-v1-2-f75ab558f0df@jolla.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 7/10/26 17:00, Nikolai Burov via B4 Relay wrote:
-> From: Nikolai Burov <nikolai.burov@jolla.com>
-> 
-> Add a pinctrl driver for the MT6858 (MediaTek Dimensity 7100) SoC.
-> 
-> Signed-off-by: Nikolai Burov <nikolai.burov@jolla.com>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Thanks for the patch!
+Pre-existing issues:
+- [Critical] Unaligned memory access when extracting the humidity value cau=
+ses a kernel panic on strict-alignment architectures.
+- [High] Integer overflow in `limit_write()` calculating raw limit values f=
+or temperature and humidity, resulting in limits wrapping around to 0.
+- [High] Missing `hwmon_lock()` synchronization for extra sysfs attributes =
+(`heater_enable_store`, `repeatability_store`).
+- [High] Changing the 'repeatability' sysfs attribute fails to update the a=
+ctive measurement command, rendering the change ineffective until the updat=
+e interval is toggled.
+- [High] `heater_enable_store()` returns the I2C transfer length instead of=
+ the consumed buffer length, breaking sysfs writes.
+--
 
-However, there are a few things to improve; check below.
+--- Patch [3]: [PATCH v7 3/4] hwmon: (sht3x) Add devicetree support ---
+commit 3205e8775fc638eb1ac86ddf6feacc8304401779
+Author: Zaixiang Xu <zaixiang.xu.dev@gmail.com>
 
-> ---
->   drivers/pinctrl/mediatek/Kconfig              |   10 +
->   drivers/pinctrl/mediatek/Makefile             |    1 +
->   drivers/pinctrl/mediatek/pinctrl-mt6858.c     | 1408 +++++++++++++++
->   drivers/pinctrl/mediatek/pinctrl-mtk-mt6858.h | 2301 +++++++++++++++++++++++++
->   4 files changed, 3720 insertions(+)
-> 
-> diff --git a/drivers/pinctrl/mediatek/Kconfig b/drivers/pinctrl/mediatek/Kconfig
-> index 97980cc28b9c..95c5250150d7 100644
-> --- a/drivers/pinctrl/mediatek/Kconfig
-> +++ b/drivers/pinctrl/mediatek/Kconfig
-> @@ -166,6 +166,16 @@ config PINCTRL_MT6797
->   	default ARM64 && ARCH_MEDIATEK
->   	select PINCTRL_MTK_PARIS
->   
-> +config PINCTRL_MT6858
-> +	bool "MediaTek MT6858 pin control"
-> +	depends on OF
-> +	depends on ARM64 || COMPILE_TEST
-> +	default ARM64 && ARCH_MEDIATEK
-> +	select PINCTRL_MTK_PARIS
-> +	help
-> +	  Say yes here to support pin controller and gpio driver
-> +	  on the MediaTek MT6858 SoC.
-> +
->   config PINCTRL_MT6878
->   	bool "MediaTek MT6878 pin control"
->   	depends on OF
-> diff --git a/drivers/pinctrl/mediatek/Makefile b/drivers/pinctrl/mediatek/Makefile
-> index 6dc17b0c23f9..6ee3833dc6e2 100644
-> --- a/drivers/pinctrl/mediatek/Makefile
-> +++ b/drivers/pinctrl/mediatek/Makefile
-> @@ -22,6 +22,7 @@ obj-$(CONFIG_PINCTRL_MT6765)		+= pinctrl-mt6765.o
->   obj-$(CONFIG_PINCTRL_MT6779)		+= pinctrl-mt6779.o
->   obj-$(CONFIG_PINCTRL_MT6795)		+= pinctrl-mt6795.o
->   obj-$(CONFIG_PINCTRL_MT6797)		+= pinctrl-mt6797.o
-> +obj-$(CONFIG_PINCTRL_MT6858)		+= pinctrl-mt6858.o
->   obj-$(CONFIG_PINCTRL_MT6878)		+= pinctrl-mt6878.o
->   obj-$(CONFIG_PINCTRL_MT6893)		+= pinctrl-mt6893.o
->   obj-$(CONFIG_PINCTRL_MT7622)		+= pinctrl-mt7622.o
-> diff --git a/drivers/pinctrl/mediatek/pinctrl-mt6858.c b/drivers/pinctrl/mediatek/pinctrl-mt6858.c
-> new file mode 100644
-> index 000000000000..eeb4a6bbc0fe
-> --- /dev/null
-> +++ b/drivers/pinctrl/mediatek/pinctrl-mt6858.c
-> @@ -0,0 +1,1408 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2025 MediaTek Inc.
-> + *               Alice Chao <alice.chao@mediatek.com>
-> + * Copyright (c) 2026 Jolla Mobile Ltd
-> + *               Nikolai Burov <nikolai.burov@jolla.com>
-> + */
-> +
-> +#include <linux/module.h>
-> +#include "pinctrl-mtk-mt6858.h"
-> +#include "pinctrl-paris.h"
-> +
+hwmon: (sht3x) Add devicetree support
 
-..snip..
+Add an of_device_id table to support devicetree based instantiation of the
+supported sensors. The match data distinguishes the humidity and temperature
+parts (SHT3x) from the temperature-only parts (STS3x). Enum sht3x_chips is
+started at 1 to prevent i2c_get_match_data() from falling back to device
+id matching on devicetree names.
 
-> +static const struct mtk_pin_reg_calc mt6858_reg_cals[PINCTRL_PIN_REG_MAX] = {
-> +	[PINCTRL_PIN_REG_MODE] = MTK_RANGE(mt6858_pin_mode_range),
-> +	[PINCTRL_PIN_REG_DIR] = MTK_RANGE(mt6858_pin_dir_range),
-> +	[PINCTRL_PIN_REG_DI] = MTK_RANGE(mt6858_pin_di_range),
-> +	[PINCTRL_PIN_REG_DO] = MTK_RANGE(mt6858_pin_do_range),
-> +	[PINCTRL_PIN_REG_SR] = MTK_RANGE(mt6858_pin_dir_range),
+> diff --git a/drivers/hwmon/sht3x.c b/drivers/hwmon/sht3x.c
+> index c2f6b73aa7f34..6d47cfd340f83 100644
+> --- a/drivers/hwmon/sht3x.c
+> +++ b/drivers/hwmon/sht3x.c
+> @@ -61,7 +61,7 @@ static const unsigned char sht3x_cmd_read_serial_number=
+[]      =3D { 0x37, 0x80 };
+>  #define SHT3X_MAX_HUMIDITY     100000
+> =20
+>  enum sht3x_chips {
+> -	sht3x,
+> +	sht3x =3D 1,
+>  	sts3x,
+>  };
 
-This is Slew Rate, not Direction... And I think this is wrong.
+[ ... ]
 
-If you don't know where the slew rate registers are, or if that is an unsupported
-operation, just omit PINCTRL_PIN_REG_SR.
-
-> +	[PINCTRL_PIN_REG_SMT] = MTK_RANGE(mt6858_pin_smt_range),
-> +	[PINCTRL_PIN_REG_IES] = MTK_RANGE(mt6858_pin_ies_range),
-> +	[PINCTRL_PIN_REG_PU] = MTK_RANGE(mt6858_pin_pu_range),
-> +	[PINCTRL_PIN_REG_PD] = MTK_RANGE(mt6858_pin_pd_range),
-> +	[PINCTRL_PIN_REG_DRV] = MTK_RANGE(mt6858_pin_drv_range),
-> +	[PINCTRL_PIN_REG_PUPD] = MTK_RANGE(mt6858_pin_pupd_range),
-> +	[PINCTRL_PIN_REG_R0] = MTK_RANGE(mt6858_pin_r0_range),
-> +	[PINCTRL_PIN_REG_R1] = MTK_RANGE(mt6858_pin_r1_range),
-> +	[PINCTRL_PIN_REG_DRV_ADV] = MTK_RANGE(mt6858_pin_drv_adv_range),
-> +	[PINCTRL_PIN_REG_RSEL] = MTK_RANGE(mt6858_pin_rsel_range),
-> +};
-> +
-> +static const char * const mt6858_pinctrl_register_base_names[] = {
-> +	"base", "lm", "rb", "bm2", "bm", "bm1", "lt", "lt1", "rt", "rt1",
-
-Fix ordering:
-
-"base", "lm", "rb", "bm", "bm1", "bm2", "lt", "lt1", "rt", "rt1",
-
-> +};
-> +
-> +static const struct mtk_eint_hw mt6858_eint_hw = {
-> +	.port_mask = 0xf,
-> +	.ports     = 3,
-> +	.ap_num    = 217,
-> +	.db_cnt    = 36,
-> +	.db_time   = debounce_time_mt6878,
-> +};
-> +
-> +static const struct mtk_pin_soc mt6858_data = {
-> +	.reg_cal = mt6858_reg_cals,
-> +	.pins = mtk_pins_mt6858,
-> +	.npins = ARRAY_SIZE(mtk_pins_mt6858),
-> +	.ngrps = ARRAY_SIZE(mtk_pins_mt6858),
-> +	.eint_hw = &mt6858_eint_hw,
-> +	.eint_pin = eint_pins_mt6858,
-> +	.nfuncs = 16,
-> +	.gpio_m = 0,
-> +	.base_names = mt6858_pinctrl_register_base_names,
-> +	.nbase_names = ARRAY_SIZE(mt6858_pinctrl_register_base_names),
-> +	.pull_type = mt6858_pull_type,
-> +	.bias_set_combo = mtk_pinconf_bias_set_combo,
-> +	.bias_get_combo = mtk_pinconf_bias_get_combo,
-> +	.drive_set = mtk_pinconf_drive_set_rev1,
-> +	.drive_get = mtk_pinconf_drive_get_rev1,
-> +	.adv_drive_get = mtk_pinconf_adv_drive_get_raw,
-> +	.adv_drive_set = mtk_pinconf_adv_drive_set_raw,
-> +};
-> +
-> +static const struct of_device_id mt6858_pinctrl_of_match[] = {
-> +	{ .compatible = "mediatek,mt6858-pinctrl", .data = &mt6858_data },
+> @@ -939,8 +939,19 @@ static const struct i2c_device_id sht3x_ids[] =3D {
+> =20
+>  MODULE_DEVICE_TABLE(i2c, sht3x_ids);
+> =20
+> +static const struct of_device_id sht3x_of_match[] =3D {
+> +	{ .compatible =3D "sensirion,sht30", .data =3D (void *)(uintptr_t)sht3x=
+ },
+> +	{ .compatible =3D "sensirion,sts30", .data =3D (void *)(uintptr_t)sts3x=
+ },
 > +	{ }
-
-	{ /* sentinel */ }
-
 > +};
 > +
-> +static struct platform_driver mt6858_pinctrl_driver = {
-> +	.driver = {
-> +		.name = "mt6858-pinctrl",
-> +		.of_match_table = mt6858_pinctrl_of_match,
-> +		.pm = &mtk_paris_pinctrl_pm_ops,
+> +MODULE_DEVICE_TABLE(of, sht3x_of_match);
 
-.pm = pm_sleep_ptr(&mtk_paris_pinctrl_pm_ops),
+While reviewing this patch, I noticed a few pre-existing regressions in this
+file that might be worth addressing.
 
-> +	},
-> +	.probe = mtk_paris_pinctrl_probe,
-> +};
-> +
-> +static int __init mt6858_pinctrl_init(void)
-> +{
-> +	return platform_driver_register(&mt6858_pinctrl_driver);
-> +}
-> +arch_initcall(mt6858_pinctrl_init);
-> +
-> +MODULE_DESCRIPTION("MediaTek MT6858 Pinctrl Driver");
-> diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-mt6858.h b/drivers/pinctrl/mediatek/pinctrl-mtk-mt6858.h
-> new file mode 100644
-> index 000000000000..f6d2ae2fd07e
-> --- /dev/null
-> +++ b/drivers/pinctrl/mediatek/pinctrl-mtk-mt6858.h
-> @@ -0,0 +1,2301 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (c) 2025 MediaTek Inc.
-> + *               Alice Chao <alice.chao@mediatek.com>
-> + * Copyright (c) 2026 Jolla Mobile Ltd
-> + *               Nikolai Burov <nikolai.burov@jolla.com>
-> + */
-> +
-> +#ifndef __PINCTRL_MTK_MT6858_H
-> +#define __PINCTRL_MTK_MT6858_H
-> +
-> +#include "pinctrl-paris.h"
-> +
-> +#define MTK_PIN_VEINT(_number)			\
-> +	MTK_PIN(				\
-> +		_number, "veint" #_number,	\
-> +		MTK_EINT_FUNCTION(0, _number),	\
-> +		DRV_GRP4,			\
-> +		MTK_FUNCTION(0, NULL)		\
-> +	)
-> +
-> +static const struct mtk_pin_desc mtk_pins_mt6858[] = {
+[Severity: Critical]
+This is a pre-existing issue, but does this unaligned memory access crash
+strict-alignment architectures?
 
-..snip..
+drivers/hwmon/sht3x.c:sht3x_update_client() {
+    ...
+		val =3D be16_to_cpup((__be16 *)buf);
+		data->temperature =3D sht3x_extract_temperature(val);
+		val =3D be16_to_cpup((__be16 *)(buf + 3));
+		data->humidity =3D sht3x_extract_humidity(val);
+		data->last_update =3D jiffies;
+	}
+    ...
+}
 
-> +
-> +static struct mtk_eint_pin eint_pins_mt6858[] = {
+Since buf is a stack-allocated byte array, buf + 3 is at an unaligned odd
+offset. Dereferencing this pointer triggers an alignment fault on strict
+alignment architectures like ARMv5 or SPARC.=20
 
-..snip..
+Since these sysfs attributes are world-readable, could an unprivileged local
+user repeatedly read them to trigger a denial of service?
 
-> +	MTK_EINT_PIN(119, 0, 72, 0),
-> +	MTK_EINT_PIN(120, 0, 73, 0),
-> +	MTK_EINT_PIN(121, 0, 74, 0),
 
-Looks like you're missing ~70 pins here?
+[Severity: High]
+This isn't a bug introduced by this patch, but does this integer arithmetic
+overflow?
 
-If those have no EINT support, you can declare them as
+drivers/hwmon/sht3x.c:limit_write() {
+    ...
+	/*
+	 * ST =3D (T + 45) / 175 * 2^16
+	 * SRH =3D RH / 100 * 2^16
+	 * adapted for fixed point arithmetic and packed the same as
+	 * in limit_read()
+	 */
+	raw =3D ((u32)(temperature + 45000) * 24543) >> (16 + 7);
+	raw |=3D ((humidity * 42950) >> 16) & 0xfe00;
+    ...
+}
 
-	MTK_EINT_PIN(122, EINT_INVALID_BASE, 0, 0),
+Writing the maximum allowed temperature or humidity limits, such as 130000
+for temp1_max, causes the expression ((u32)(temperature + 45000) * 24543)
+to become 175000 * 24543 =3D 4295025000.
 
-...or you can add a macro to add a (sequential) range of pins with no EINT support.
+This overflows the 32-bit unsigned integer maximum. Does this result in a
+calculated raw limit of 0, corresponding to the hardware's minimum bounds,
+and incorrectly trigger a spurious hardware alert?
 
-Cheers,
-Angelo
 
-> +	MTK_EINT_PIN(197, 3, 0, 0),
-> +	MTK_EINT_PIN(198, 3, 1, 0),
-> +	MTK_EINT_PIN(199, 3, 2, 0),
-> +	MTK_EINT_PIN(200, 3, 3, 0),
-> +	MTK_EINT_PIN(201, 3, 4, 0),
-> +	MTK_EINT_PIN(202, 3, 5, 0),
-> +	MTK_EINT_PIN(203, 3, 6, 0),
-> +	MTK_EINT_PIN(204, 3, 7, 0),
-> +	MTK_EINT_PIN(205, 3, 8, 0),
-> +	MTK_EINT_PIN(206, 3, 9, 0),
-> +	MTK_EINT_PIN(207, 3, 10, 0),
-> +	MTK_EINT_PIN(208, 3, 11, 0),
-> +	MTK_EINT_PIN(209, 3, 12, 0),
-> +	MTK_EINT_PIN(210, 3, 13, 0),
-> +	MTK_EINT_PIN(211, 3, 14, 0),
-> +	MTK_EINT_PIN(212, 3, 15, 0),
-> +	MTK_EINT_PIN(213, 3, 16, 0),
-> +	MTK_EINT_PIN(214, 3, 17, 0),
-> +	MTK_EINT_PIN(215, 3, 18, 0),
-> +	MTK_EINT_PIN(216, 3, 19, 0),
-> +};
-> +
-> +#endif /* __PINCTRL_MTK_MT6858_H */
-> 
+[Severity: High]
+This is a pre-existing issue, but do these attributes violate the hwmon core
+locking rules?
 
+drivers/hwmon/sht3x.c:heater_enable_store() {
+    ...
+	mutex_lock(&data->i2c_lock);
+
+	if (status)
+		ret =3D i2c_master_send(client, (char *)&sht3x_cmd_heater_on,
+				      SHT3X_CMD_LENGTH);
+    ...
+}
+
+drivers/hwmon/sht3x.c:repeatability_store() {
+    ...
+	if (val > 2)
+		return -EINVAL;
+
+	data->repeatability =3D val;
+
+	return count;
+}
+
+Attributes registered via the extra_groups parameter, such as heater_enable
+and repeatability, do not have automatic hwmon core serialization.
+
+The hwmon subsystem guidelines explicitly require drivers to implement
+locking for extra attributes using hwmon_lock(). Should these functions use
+hwmon_lock() to prevent concurrent state modifications?
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does repeatability_store()
+fail to update the active measurement command?
+
+drivers/hwmon/sht3x.c:repeatability_store() {
+    ...
+	if (val > 2)
+		return -EINVAL;
+
+	data->repeatability =3D val;
+
+	return count;
+}
+
+When a user writes to the repeatability attribute, this updates the internal
+data->repeatability variable but fails to call sht3x_select_command() or
+send the required I2C commands to the device.
+
+Does the driver continue to use the old command and wait time for all
+subsequent measurements in single-shot mode, rendering the change
+ineffective?
+
+
+[Severity: High]
+This is a pre-existing issue, but does heater_enable_store() break sysfs
+writes by returning the I2C transfer length?
+
+drivers/hwmon/sht3x.c:heater_enable_store() {
+    ...
+	if (status)
+		ret =3D i2c_master_send(client, (char *)&sht3x_cmd_heater_on,
+				      SHT3X_CMD_LENGTH);
+	else
+		ret =3D i2c_master_send(client, (char *)&sht3x_cmd_heater_off,
+				      SHT3X_CMD_LENGTH);
+
+	mutex_unlock(&data->i2c_lock);
+
+	return ret;
+}
+
+This returns the result of i2c_master_send(), which is 2 (the length of the
+I2C command) instead of the consumed buffer length expected by sysfs.
+
+If a user writes a string longer than 2 bytes, such as 'echo true', does
+the sysfs core assume a partial write and invoke the store function again
+with the remaining bytes, resulting in a spurious -EINVAL error?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713074559.1219=
+6-1-zaixiang.xu.dev@gmail.com?part=3D3
