@@ -1,88 +1,48 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB01A30F927
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 17:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33CF233927;
+	Mon, 13 Jul 2026 17:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783963019; cv=none; b=RqG5ia+ioKRULJK9NPMf0A6V3fa35dk7YewEUMZeSaCb9pfsPTWkDcuSs7CIPqDPVzUGgqa/5TthFmiaEmSDoGgXgqWrkrlZRNz9MwIkV4KsU9V419Bt5fsmpjTtWwMeRf7tDuNryFRtfOp2zNHANDU+eTkNXNLFGz2A7otxZ1A=
+	t=1783963367; cv=none; b=aBYUYSePecM2Pio8kcI71b99VF9U56Ui4LX8HbhFxBhTvzQKWeda0UpPJutGBbxq+1IRsk08f2sU1hg4zXYBmMQCyjHgS9jtH2rZRCR7Jv6/ikgLrh7aD6wJBvEvqwghxc2pV98zw0JUFFhADFkTEaQaF+WdZGXTIdLxmqTUKYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783963019; c=relaxed/simple;
-	bh=D2R8QizWQ1Oql3WPKOFAzvhJaMnvI8vie8NTAJWg3Yo=;
+	s=arc-20240116; t=1783963367; c=relaxed/simple;
+	bh=g+vhJSXwVVp0B1AdYaIbya2zpO3k0rRRtdsZQVc4uGQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DyA5zkaND6YMOh/Bvv6Byuwf8Ey61X0SP3AfIeGzlKPTkxbZaNSMQt6J4yqsNiJGdAf2DhpT8KAgV0+fMsqzxGW60eBcgWOb5rhJ4hteNCq0YCelezQBX9bpVB7olNOK8VKtrWChA6UMLYCe6Y9hdj5vNSmvXA0LaO8sHf55XzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xofpQroK; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=BP6wV6tuQkMKFh0l0uCZ8ybzwRzds/P39q88Q1V0QNggX1i33VsicLD0cbdbdJ8X5ejP2XVI4k9jzvsR/WIPmzL2Trz0Qv1mIdsJZTXp0vojWD2+hKP56WzhajCXl2iTq55B82XWCCCNw8fNtLpehpJpM+duoQaBYkEmFNRy1do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6CPcYBE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xofpQroK"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84867f07d63so3776710b3a.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:16:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1783963016; x=1784567816; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QMgQ2I83fSpv8VMH24bAJ52LUeteHATXzfSwUe6AnTM=;
-        b=xofpQroK4pwX9J6S9Vcf6aTb52C7dX8F49tJEuXn+7UCvrlGoSL5wOWiHE9AfQdA1F
-         kcxdtKzrKb7xgcD6IP+Tv2BSOU/ouqnDzk+tEurIhV6AKunMbxsiIc6bJWKnFjH3Ju7E
-         vnqi/8SDiV1thofzLe9w6sg+JwAxoBBByNbRUqKZgnTceVaGvqt9AzuhQVweFNbxJYir
-         hV7cCGOg8vHJKDkwyBk8AbibWMTQA3Z3/HiElK6WSU8I3f72RwhMrDOe4tB4Fuy41iCe
-         JnFm91Ky/R0uQxuUCaduXxgaJalnrD/IxIiHIrH2M3bUIW07M4Pv07XnIxEXIHkqc48Q
-         3JeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783963016; x=1784567816;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QMgQ2I83fSpv8VMH24bAJ52LUeteHATXzfSwUe6AnTM=;
-        b=aHcTYa9l48fnzV4Ks+qcgLNnZwTdkrklnFlCQAh9sCnAjLHYGrcA9f24uOmvK6bzc0
-         +l/CF5fMsljOjGSQuwA4R/6JiMYhrScRZsaJPF0FEBpiQVwEUpcMZY3bPeXQea4QDpfq
-         C8abDwn3fmg0M5p+srvi1mYxoLYSqbElptjs/XMX6RG9kD+rRLo9JzWE8yXH8T1iF63U
-         VqDuGGj1eAqwyPPWRVnK12+sRNq7Tj7iCjsoDoA0vfg/lptYNCkfqNPnrBOI5KsmqrXw
-         ydQF/jB6IiqtAh+bj6ClO2Ii7AW1DnfMYGVdtVc0I0dl9FGcHzM+SpLahzcJ/SPVJhLy
-         nlKA==
-X-Forwarded-Encrypted: i=1; AHgh+RoBbqZ7BzZfRx8LkJoWDjFXenF7yYfTOIuz12kA7lAIHl2EQdVPkdGOvTOi9XNBXKr8vvySOK0heFIs@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2RNvW8wdOpwpvzIY1EYNEV2mdqcu3oC+athg1/feTt05uLWjE
-	lwDGLzJ+TO34GYRLLkUsH4trzPP9febZokoqewa/YA9XqJZ+FYVTEKChcGc6Nksh/9A=
-X-Gm-Gg: AfdE7cnn6tNpOOC4kJCM94JIlxuQ95jkJ0HQFarzKOocGdSAhVVAzWFRyksh5f8Kfpg
-	2r2z7/O1CzfSLzKzqDwa1ntiUWcRKRahUCs0/cLKl6l9fKxmcFFr8FszppH/t1Mydet951j5mXf
-	ACcubgac8mi/chDUjtysBcIjvPte/4XWmJqoxgsoxAu+x8n39O6MCCVa/ZxhEMV1ijbX6EcOyiC
-	eswbB/VDaqNzg2aEpnIESo4uL1qbQoJV1wxcpXrK3JZ63RGn6IeV7bD1AhJZiRBCcRr4VU0ea4B
-	wYC71K9VGRo+LaPlBGq7xAh7AeeLPl+kOqeFViSvdq+eRFf0+WZAsSznjP97t5eOmJR6DGVfXZE
-	gOJJy8JiHBPV3TVsZaGG2GAM6K9E13np62iAnsxajNDwHYrZk8GB4Sc8aJrhZVV+5BI9Ri7iEnt
-	axIy+5Xv4p5MJliqc31wqwe9pL9rk=
-X-Received: by 2002:a05:6a00:4405:b0:848:2f7a:2e56 with SMTP id d2e1a72fcca58-84889753bcfmr8957113b3a.69.1783963016003;
-        Mon, 13 Jul 2026 10:16:56 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:3ead:2a56:27bf:77cb])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f819117sm137812b3a.59.2026.07.13.10.16.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 10:16:55 -0700 (PDT)
-Date: Mon, 13 Jul 2026 11:16:51 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Shenwei Wang <shenwei.wang@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6CPcYBE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B021F000E9;
+	Mon, 13 Jul 2026 17:22:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783963365;
+	bh=f64DKGw4L3GDO0y6c1glEqqaBeuOQTvvXS+WHu+RmSI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h6CPcYBEwzndAd4AElnUwOJ+aRCrfdQChsIzSoUabA2Q9F80bser4Hq3iV3Qbj+vI
+	 scEj+k2pGVCVW6g8EpC5VYaBtp8B30P7l5LQqVcrfh8o2DZWjAZijXG/otMyINVy9C
+	 7/LEVdBLZwzuh9WJYvHPPiths1qRMRDIIqB6QBITIX/5uGeb0g+Uw7f1HzU/Ci/PCT
+	 5Q+Z1AIuMGldFG0CJ51pm/8OB5v+mHMCIqyquFqBTZyaD7HqznDUHwM3AgE32iDCqT
+	 +vMAnFCo5jgWJdATx3NNiCinDdg1u2Aq+Ux74jcwO5EgubulQUe6DMIlhRq077mJjC
+	 X17gg5E8u5JPg==
+Date: Mon, 13 Jul 2026 12:22:44 -0500
+From: Rob Herring <robh@kernel.org>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-imx@nxp.com, Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
-	b-padhi@ti.com, Andrew Lunn <andrew@lunn.ch>
-Subject: Re: [PATCH v14 1/5] docs: driver-api: gpio: rpmsg gpio driver over
- rpmsg bus
-Message-ID: <alUdg9iTysXCFUa5@p14s>
-References: <20260625155432.815185-1-shenwei.wang@oss.nxp.com>
- <20260625155432.815185-2-shenwei.wang@oss.nxp.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: add DAPU Telecom
+ DAP8211R(I) PHY binding
+Message-ID: <20260713172244.GA2381778-robh@kernel.org>
+References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
+ <20260713131223.279555-2-a.shimko.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,354 +51,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260625155432.815185-2-shenwei.wang@oss.nxp.com>
+In-Reply-To: <20260713131223.279555-2-a.shimko.dev@gmail.com>
 
-On Thu, Jun 25, 2026 at 10:54:26AM -0500, Shenwei Wang wrote:
-> From: Shenwei Wang <shenwei.wang@nxp.com>
+On Mon, Jul 13, 2026 at 04:12:22PM +0300, Artem Shimko wrote:
+> Add device tree binding documentation for the DAPU Telecom DAP8211R(I)
+> Gigabit Ethernet PHY.
 > 
-> Describes the gpio rpmsg transport protocol over the rpmsg bus between
-> the remote system and Linux.
+> The PHY supports TX and RX clock delays in 150 ps steps from 0 to 2250 ps,
+> with a default of 1950 ps if not specified. The tx-inverted-clk flag
+> provides a vendor-specific extension for boards where PCB trace length or
+> MAC requirements necessitate 180-degree clock phase shift.
 > 
-> Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
+> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 > ---
->  Documentation/driver-api/gpio/gpio-rpmsg.rst | 271 +++++++++++++++++++
->  Documentation/driver-api/gpio/index.rst      |   1 +
->  2 files changed, 272 insertions(+)
->  create mode 100644 Documentation/driver-api/gpio/gpio-rpmsg.rst
+>  .../bindings/net/dapu,dap8211r.yaml           | 78 +++++++++++++++++++
+>  1 file changed, 78 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
 > 
-> diff --git a/Documentation/driver-api/gpio/gpio-rpmsg.rst b/Documentation/driver-api/gpio/gpio-rpmsg.rst
+> diff --git a/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
 > new file mode 100644
-> index 000000000000..7d351ff0adb0
+> index 000000000000..208a82f779d6
 > --- /dev/null
-> +++ b/Documentation/driver-api/gpio/gpio-rpmsg.rst
-> @@ -0,0 +1,271 @@
-> +.. SPDX-License-Identifier: GPL-2.0-or-later
+> +++ b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
+> @@ -0,0 +1,78 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/dapu,dap8211r.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +GPIO RPMSG (Remote Processor Messaging) Protocol
-> +================================================
+> +title: DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY
 > +
-> +The GPIO RPMSG transport protocol is used for communication and interaction
-> +with GPIO controllers on remote processors via the RPMSG bus.
+> +maintainers:
+> +  - Artem Shimko <a.shimko.dev@gmail.com>
 > +
-> +Message Format
-> +--------------
+> +description: |
+> +  The DAP8211R(I) is a Gigabit Ethernet PHY with RGMII interface,
+> +  supporting IEEE 802.3az Energy Efficient Ethernet, IEEE 1588 SyncE,
+> +  and an internal packet generator for diagnostics.
 > +
-> +The RPMSG message consists of a 8-byte packet with the following layout:
+> +  Specifications:
+> +    - 10BASE-Te, 100BASE-TX, 1000BASE-T
+> +    - RGMII with configurable TX/RX clock delays (150 ps steps, 0-2250 ps)
+> +    - IEEE 802.3az-2010 Energy Efficient Ethernet
+> +    - IEEE 1588 SyncE support
+> +    - Internal packet generator and checker for link diagnostics
 > +
-> +.. code-block:: none
+> +allOf:
+> +  - $ref: ethernet-phy.yaml#
 > +
-> +   +------+------+------+------+------+------+------+------+
-> +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
-> +   |     cmd     |    line     |           value           |
-> +   +------+------+------+------+------+------+------+------+
+> +properties:
+> +  compatible:
+> +    const: ethernet-phy-id0008.011b
 > +
-> +- **cmd**: Command code, used for GPIO_RPMSG_SEND messages.
+> +  reg:
+> +    maxItems: 1
 > +
-> +- **line**: The GPIO line (pin) index of the port.
+> +  rx-internal-delay-ps:
+> +    description:
+> +      RGMII RX clock delay in picoseconds. The PHY supports 150 ps steps
+> +      from 0 to 2250 ps. If not specified, defaults to 1950 ps. If the
+> +      requested value does not exactly match a supported step, the driver
+> +      selects the nearest supported value and issues a warning.
+> +    enum: [0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
+> +           1650, 1800, 1950, 2100, 2250]
+> +    default: 1950
+> +
+> +  tx-internal-delay-ps:
+> +    description:
+> +      RGMII TX clock delay in picoseconds. The PHY supports 150 ps steps
+> +      from 0 to 2250 ps. If not specified, defaults to 1950 ps. If the
+> +      requested value does not exactly match a supported step, the driver
+> +      selects the nearest supported value and issues a warning.
+> +    enum: [0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
+> +           1650, 1800, 1950, 2100, 2250]
 
-Here and throughout, please remove any mention of 'port'.  This is handled by
-the endpoint device, i.e one GPIO controller (port) per endpoint.
+This would also work:
 
-> +
-> +- **value**: See details in the command description below.
-> +
-> +
-> +GPIO Commands
-> +-------------
-> +
-> +Commands are specified in the **Cmd** field.
-> +
-> +The SEND message is always sent from Linux to the remote firmware. Each
-> +SEND corresponds to a single REPLY message. The GPIO driver should
-> +serialize messages and determine whether a REPLY message is required. If a
-> +REPLY message is expected but not received within the specified timeout
-> +period (currently 1 second in the Linux driver), the driver should return
-> +-ETIMEOUT.
-> +
-> +GET_DIRECTION (Cmd=2)
-> +~~~~~~~~~~~~~~~~~~~~~
-> +
-> +**Request:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+------+------+------+------+------+------+------+
-> +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
-> +   |      2      |    line     |             0             |
-> +   +------+------+------+------+------+------+------+------+
-> +
-> +**Reply:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+--------+--------+
-> +   | 0x00 |  0x01  |  0x02  |
-> +   |   1  | status | value  |
-> +   +------+--------+--------+
-> +
-> +- **status**:
-> +
-> +  - 0: Ok
-> +  - 1: Error
-> +
-> +- **value**: Direction.
-> +
-> +  - 0: None
-> +  - 1: Output
-> +  - 2: Input
-> +
-> +
-> +SET_DIRECTION (Cmd=3)
-> +~~~~~~~~~~~~~~~~~~~~~
-> +
-> +**Request:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+------+------+------+------+------+------+------+
-> +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
-> +   |      3      |    line     |           value           |
-> +   +------+------+------+------+------+------+------+------+
-> +
-> +- **value**: Direction.
-> +
-> +  - 0: None
-> +  - 1: Output
-> +  - 2: Input
-> +
-> +**Reply:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+--------+--------+
-> +   | 0x00 |  0x01  |  0x02  |
-> +   |   1  | status |    0   |
-> +   +------+--------+--------+
-> +
-> +- **status**:
-> +
-> +  - 0: Ok
-> +  - 1: Error
-> +
-> +
-> +GET_VALUE (Cmd=4)
-> +~~~~~~~~~~~~~~~~~
-> +
-> +**Request:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+------+------+------+------+------+------+------+
-> +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
-> +   |      4      |    line     |             0             |
-> +   +------+------+------+------+------+------+------+------+
-> +
-> +**Reply:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+--------+--------+
-> +   | 0x00 |  0x01  |  0x02  |
-> +   |   1  | status | value  |
-> +   +------+--------+--------+
-> +
-> +- **status**:
-> +
-> +  - 0: Ok
-> +  - 1: Error
-> +
-> +- **value**: Level.
-> +
-> +  - 0: Low
-> +  - 1: High
-> +
-> +
-> +SET_VALUE (Cmd=5)
-> +~~~~~~~~~~~~~~~~~
-> +
-> +**Request:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+------+------+------+------+------+------+------+
-> +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
-> +   |      5      |    line     |           value           |
-> +   +------+------+------+------+------+------+------+------+
-> +
-> +- **value**: Output level.
-> +
-> +  - 0: Low
-> +  - 1: High
-> +
-> +**Reply:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+--------+--------+
-> +   | 0x00 |  0x01  |  0x02  |
-> +   |   1  | status |    0   |
-> +   +------+--------+--------+
-> +
-> +- **status**:
-> +
-> +  - 0: Ok
-> +  - 1: Error
-> +
-> +
-> +SET_IRQ_TYPE (Cmd=6)
-> +~~~~~~~~~~~~~~~~~~~~
-> +
-> +**Request:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+------+------+------+------+------+------+------+
-> +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
-> +   |      6      |    line     |           value           |
-> +   +------+------+------+------+------+------+------+------+
-> +
-> +- **value**: IRQ types.
-> +
-> +  - 0: Interrupt disabled
-> +  - 1: Rising edge trigger
-> +  - 2: Falling edge trigger
-> +  - 3: Both edge trigger
-> +  - 4: High level trigger
-> +  - 8: Low level trigger
+multipleOf: 150
+maximum: 2250
 
-I'm in agreement with cmd 3, 4, 5 and 6.  
+> +    default: 1950
+> +
+> +  tx-inverted-clk:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      If present, the RGMII TX clock to the MAC is inverted (180 degree
+> +      phase shift relative to the data lines). This is a vendor-specific
+> +      extension for boards where PCB trace length or MAC requirements
+> +      necessitate clock inversion. Only use this property after hardware
+> +      signal integrity validation.
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    mdio {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        ethernet-phy@1 {
+> +            compatible = "ethernet-phy-ieee802.3-c22";
+> +            reg = <1>;
+> +            rx-internal-delay-ps = <1050>;
+> +            tx-internal-delay-ps = <1150>;
+> +            tx-inverted-clk;
+> +        };
+> +    };
+> \ No newline at end of file
 
-> +
-> +**Reply:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+--------+--------+
-> +   | 0x00 |  0x01  |  0x02  |
-> +   |   1  | status |    0   |
-> +   +------+--------+--------+
-> +
-> +- **status**:
-> +
-> +  - 0: Ok
-> +  - 1: Error
-> +
-> +SET_WAKEUP (Cmd=16)
-> +~~~~~~~~~~~~~~~~~~~
+With this fixed,
 
-I already commented on messages that are not part of the virtio-gpio
-specification.  
-
-> +
-> +**Request:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+------+------+------+------+------+------+------+
-> +   | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 |
-> +   |      1      |    line     |           value           |
-> +   +------+------+------+------+------+------+------+------+
-> +
-> +- **value**: Wakeup enable.
-> +
-> +  The remote system should always aim to stay in a power-efficient state by
-> +  shutting down or clock-gating the GPIO blocks that aren't in use. Since
-> +  the remoteproc driver is responsible for managing the power states of the
-> +  remote firmware, the GPIO driver does not require to know the firmware's
-> +  running states.
-> +
-> +  When the wakeup bit is set, the remote firmware should configure the line
-> +  as a wakeup source. The firmware should send the notification message to
-> +  Linux after it is woken from the GPIO line.
-> +
-> +  - 0: Disable wakeup from GPIO
-> +  - 1: Enable wakeup from GPIO
-> +
-> +**Reply:**
-> +
-> +.. code-block:: none
-> +
-> +   +------+--------+--------+
-> +   | 0x00 |  0x01  |  0x02  |
-> +   |   1  | status |    0   |
-> +   +------+--------+--------+
-> +
-> +- **status**:
-> +
-> +  - 0: Ok
-> +  - 1: Error
-> +
-> +Notification Message
-> +--------------------
-
-"Interrupt Messages"
-
-> +
-> +Notifications are sent by the remote core and they have
-> +**Type=2 (GPIO_RPMSG_NOTIFY)**:
-> +
-> +When a GPIO line asserts an interrupt on the remote processor, the firmware
-> +should immediately mask the corresponding interrupt source and send a
-> +notification message to the Linux. Upon completion of the interrupt
-> +handling on the Linux side, the driver should issue a
-> +command **SET_IRQ_TYPE** to the firmware to unmask the interrupt.
-> +
-> +A Notification message can arrive between a SEND and its REPLY message,
-> +and the driver is expected to handle this scenario.
-> +
-> +.. code-block:: none
-> +
-> +   +------+------+--------+
-> +   | 0x00 | 0x01 |  0x02  |
-> +   |   2  | line | trigger|
-> +   +------+------+--------+
-
-2 things here:
-
-1) You did not include messages that mask and unmask interrupts at the driver
-side.
-
-2) We are carrying virtio-gpio messages on top of RPMSG and as such, this whole
-protocol should be about thar:  
-
-+------+------+--------+--------
-| 0x00 |       payload         |          
-|  Q   |                       | 
-+------+------+--------+--------
-
-Q = 0 requestq
-Q = 1 eventq
-
-The "payload" part is simply the format of the messages as found in the
-virtio-gpio specification.  From there, the only thing left to mention is which
-messages are not supported, i.e get line names.
-
-> +
-> +- **line**: The GPIO line (pin) index of the port.
-> +
-> +- **trigger**: Optional parameter to indicate the trigger event type.
-
-Not part of the spec - remove.
-
-Given the refactoring work that is still needed, I will not look at the
-implementation.
-
-Thanks,
-Mathieu
-
-> +
-> diff --git a/Documentation/driver-api/gpio/index.rst b/Documentation/driver-api/gpio/index.rst
-> index bee58f709b9a..e5eb1f82f01f 100644
-> --- a/Documentation/driver-api/gpio/index.rst
-> +++ b/Documentation/driver-api/gpio/index.rst
-> @@ -16,6 +16,7 @@ Contents:
->     drivers-on-gpio
->     bt8xxgpio
->     pca953x
-> +   gpio-rpmsg
->  
->  Core
->  ====
-> -- 
-> 2.43.0
-> 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
