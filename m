@@ -1,165 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33CF233927;
-	Mon, 13 Jul 2026 17:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF5634BA28
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 17:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783963367; cv=none; b=aBYUYSePecM2Pio8kcI71b99VF9U56Ui4LX8HbhFxBhTvzQKWeda0UpPJutGBbxq+1IRsk08f2sU1hg4zXYBmMQCyjHgS9jtH2rZRCR7Jv6/ikgLrh7aD6wJBvEvqwghxc2pV98zw0JUFFhADFkTEaQaF+WdZGXTIdLxmqTUKYc=
+	t=1783965126; cv=none; b=bt+Ln5MbZpq8D/S8Zc9w+bhcacOKF/tZm5mWKvDUO4kvAT8/CvbDTppw8clUEJCrcRtVRXpdhzRI+yNBy6J/F4cbvgTVjkVIDFnDU2gNzXHG4gGKDpUAsWyMasgKfCvJjQd6bKELLUF5ucy5fBxcxcbwlZvp2TSwyuEmtJUtLCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783963367; c=relaxed/simple;
-	bh=g+vhJSXwVVp0B1AdYaIbya2zpO3k0rRRtdsZQVc4uGQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BP6wV6tuQkMKFh0l0uCZ8ybzwRzds/P39q88Q1V0QNggX1i33VsicLD0cbdbdJ8X5ejP2XVI4k9jzvsR/WIPmzL2Trz0Qv1mIdsJZTXp0vojWD2+hKP56WzhajCXl2iTq55B82XWCCCNw8fNtLpehpJpM+duoQaBYkEmFNRy1do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6CPcYBE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783965126; c=relaxed/simple;
+	bh=tqFTum8xzoiTwzEIEq11HF/yCjbkDK04uQ9G8LptZfQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MqUk2y+bBj7pQhME/s0j//eMBA/DWsFbOpmTTBh1GSZ8fES9EdDbuenaQTI/ynL7WrGcYfRocI5kRnCo5s2Wj5XU9YuAUGrBeGAt2nyLHHRC12qGvtf0DWmHZPFp7b+nmzySK543t1yNs53d47osdIGMf0h0zyFE4FsN9EXIMUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KBF+qj9g; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6CPcYBE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B021F000E9;
-	Mon, 13 Jul 2026 17:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783963365;
-	bh=f64DKGw4L3GDO0y6c1glEqqaBeuOQTvvXS+WHu+RmSI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h6CPcYBEwzndAd4AElnUwOJ+aRCrfdQChsIzSoUabA2Q9F80bser4Hq3iV3Qbj+vI
-	 scEj+k2pGVCVW6g8EpC5VYaBtp8B30P7l5LQqVcrfh8o2DZWjAZijXG/otMyINVy9C
-	 7/LEVdBLZwzuh9WJYvHPPiths1qRMRDIIqB6QBITIX/5uGeb0g+Uw7f1HzU/Ci/PCT
-	 5Q+Z1AIuMGldFG0CJ51pm/8OB5v+mHMCIqyquFqBTZyaD7HqznDUHwM3AgE32iDCqT
-	 +vMAnFCo5jgWJdATx3NNiCinDdg1u2Aq+Ux74jcwO5EgubulQUe6DMIlhRq077mJjC
-	 X17gg5E8u5JPg==
-Date: Mon, 13 Jul 2026 12:22:44 -0500
-From: Rob Herring <robh@kernel.org>
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KBF+qj9g"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47df43bfb07so758215f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:52:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783965123; x=1784569923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pAOIXtxwq93qyBcSiXjj47sdRqztMqiVwZYz/1dkMGk=;
+        b=KBF+qj9gyEsEzMPO1zfCme4Ao6+6LyyL5XcDxpva+3Ax72ZhHGQTWG56R37UpV1Tmc
+         mKyP0A9Y6l4MBHKievJUYhaDsM86wWKjqg1k9f4hwEGfXiKHbyoIxifQ7qBhstpFx5Bs
+         quWPYlR0ovkeUzZBctiOIRZEFPYK/b1ryNlyk3oJ25tk0hJR8fEl3BT9UTevbanLeQiL
+         v34Mhz6mJwSDQ7pCMjtnTpQZSGLb13i1xnZHuRmTSmEkQTQ0GDM86S9YMyK41YSj+Brb
+         7SHmrc5X/mBJGGEcJ1r2o6Lmkbn6r4Gc6iFI7LyjxnnKnm7B4ZctaAKdIIy43TxFcnZA
+         uEsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783965123; x=1784569923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pAOIXtxwq93qyBcSiXjj47sdRqztMqiVwZYz/1dkMGk=;
+        b=iswbcxR3itwqdL8f77l/lg3scpPIgCw/FD4gqlAfbQXORdAhUJ/d7V8LRvUadvicjh
+         7u31Zehj6+h2xesYc2YYkQKY/11QFsAZwE7aoXx1DhxvN8I37W94YSoON0eUJZLYaPdh
+         eV699H5pZ1GFgrymAvcmrMoFhqiaF3H+xIDbkkL7AAMoDmS8J9wEdcrSlCZmMP51T9u+
+         baw/0oceOqaXwAmE5w5ltMSBpPGv5Os3Xub8obsRILVMlcq5w9mgcQW8ccm8EnUl4YLB
+         jZi+pla6A8sCmlUA2HS/d42ACzdJjkqLysquGlreKDoIdnGhk4cC/HJRB9SWt/UNibhH
+         H6vw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3AxnY9hmCvLntRYcustWkVPrCPI54eclNLO/1cOjzA95avFFsn0Ph8ck9ScxXMc6j8o+rH8fP4pjc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzm49VbKlavf6yLkPfLA17HZ61jBrM5DbZu6E1pJuwt+ZGNeB5L
+	l+Rux6i+AjxEjbk2HYzeTm1NKkX+iK+w/ChaxKQbcJERXPmHaJ8zwxvs
+X-Gm-Gg: AfdE7clBQi5BJ+ZQtvE9vBjYnv8ECglrIjRo4hNjMopJeRr3WtKIEYERguflhKcmGWP
+	hopdF3FRMMzumjEgOGylCsa3GQ1JRC0OZschnSmApvknqLMLX7VaOeVeHY/3o3LdxwgnBxvtL2l
+	hXQwQg7jzBm9ygSEDUAWk2QNC4WJ1/iJp2O2DA5ckRFiiWS79nvPx27ft13GQGG6yZIZeVYYslH
+	sLDgBe/CcTzxE+Du7CPM+oXlie1NnFUAqVv8Yn6dX7XD3EugSPLK9RBW6Uqd0bNS2JzJPjLq7a6
+	2lDcPku+iJJxgIhBn2oBaVcYh+guAVQlRybFu182MxF6SLDKYjvvuB69s4JSbU8KMQbmVxFh9Ud
+	x5LphEZsbuKa3rKsKL6/KGK2JtdoiJOoY7jxwfUhEef5QdXg9HldyU+ZQt84DnhDY1EGwLkqGHF
+	XfworxS0Pf68LIuQFXQcMWTAQBjjz9FJB4Z0oaiQ==
+X-Received: by 2002:adf:f74c:0:b0:46d:d5db:98 with SMTP id ffacd0b85a97d-47f46386edcmr630296f8f.44.1783965122623;
+        Mon, 13 Jul 2026 10:52:02 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a702:d301:c899:4fec:2bdb:b719])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464d6fa7sm1011037f8f.37.2026.07.13.10.52.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 10:52:02 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: add DAPU Telecom
- DAP8211R(I) PHY binding
-Message-ID: <20260713172244.GA2381778-robh@kernel.org>
-References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
- <20260713131223.279555-2-a.shimko.dev@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v20 00/12] Add Renesas RZ/G3L SD/eMMC support
+Date: Mon, 13 Jul 2026 18:51:41 +0100
+Message-ID: <20260713175159.138334-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713131223.279555-2-a.shimko.dev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 13, 2026 at 04:12:22PM +0300, Artem Shimko wrote:
-> Add device tree binding documentation for the DAPU Telecom DAP8211R(I)
-> Gigabit Ethernet PHY.
-> 
-> The PHY supports TX and RX clock delays in 150 ps steps from 0 to 2250 ps,
-> with a default of 1950 ps if not specified. The tx-inverted-clk flag
-> provides a vendor-specific extension for boards where PCB trace length or
-> MAC requirements necessitate 180-degree clock phase shift.
-> 
-> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
-> ---
->  .../bindings/net/dapu,dap8211r.yaml           | 78 +++++++++++++++++++
->  1 file changed, 78 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
-> new file mode 100644
-> index 000000000000..208a82f779d6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
-> @@ -0,0 +1,78 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/dapu,dap8211r.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY
-> +
-> +maintainers:
-> +  - Artem Shimko <a.shimko.dev@gmail.com>
-> +
-> +description: |
-> +  The DAP8211R(I) is a Gigabit Ethernet PHY with RGMII interface,
-> +  supporting IEEE 802.3az Energy Efficient Ethernet, IEEE 1588 SyncE,
-> +  and an internal packet generator for diagnostics.
-> +
-> +  Specifications:
-> +    - 10BASE-Te, 100BASE-TX, 1000BASE-T
-> +    - RGMII with configurable TX/RX clock delays (150 ps steps, 0-2250 ps)
-> +    - IEEE 802.3az-2010 Energy Efficient Ethernet
-> +    - IEEE 1588 SyncE support
-> +    - Internal packet generator and checker for link diagnostics
-> +
-> +allOf:
-> +  - $ref: ethernet-phy.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: ethernet-phy-id0008.011b
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  rx-internal-delay-ps:
-> +    description:
-> +      RGMII RX clock delay in picoseconds. The PHY supports 150 ps steps
-> +      from 0 to 2250 ps. If not specified, defaults to 1950 ps. If the
-> +      requested value does not exactly match a supported step, the driver
-> +      selects the nearest supported value and issues a warning.
-> +    enum: [0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
-> +           1650, 1800, 1950, 2100, 2250]
-> +    default: 1950
-> +
-> +  tx-internal-delay-ps:
-> +    description:
-> +      RGMII TX clock delay in picoseconds. The PHY supports 150 ps steps
-> +      from 0 to 2250 ps. If not specified, defaults to 1950 ps. If the
-> +      requested value does not exactly match a supported step, the driver
-> +      selects the nearest supported value and issues a warning.
-> +    enum: [0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
-> +           1650, 1800, 1950, 2100, 2250]
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-This would also work:
+Hi All,
 
-multipleOf: 150
-maximum: 2250
+RZ/G3L SoC has:
 
-> +    default: 1950
-> +
-> +  tx-inverted-clk:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      If present, the RGMII TX clock to the MAC is inverted (180 degree
-> +      phase shift relative to the data lines). This is a vendor-specific
-> +      extension for boards where PCB trace length or MAC requirements
-> +      necessitate clock inversion. Only use this property after hardware
-> +      signal integrity validation.
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    mdio {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        ethernet-phy@1 {
-> +            compatible = "ethernet-phy-ieee802.3-c22";
-> +            reg = <1>;
-> +            rx-internal-delay-ps = <1050>;
-> +            tx-internal-delay-ps = <1150>;
-> +            tx-inverted-clk;
-> +        };
-> +    };
-> \ No newline at end of file
+Channel 0 supports SD and eMMC (including HS400/HS400ES).
+Channel 1 supports SD and eMMC (except for HS400).
+Channel 2 supports SD.
 
-With this fixed,
+The SoC supports a maximum frequency of 150 MHz. The SD0 interface does
+not support IOVS and PWEN in the SDHI register (no internal regulator),
+unlike SD1 and SD2. It has an internal divider for all modes except HS400.
+It also has a 2048-bit divider compared to 512 on others. Moreover
+RZ/G3L supports HS400 enhanced strobe mode.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+v19->v20:
+ * Replaced the check mmd->clk_mask with mmc_data->clk_mask and moved
+   the code after assignment of variable mmd, this ensures assigning
+   the default values for non-DT platforms and DT platforms with no
+   device data.
+ * Replaced the check mmd->max_divider with mmc_data->max_divider and
+   moved the code after assignment of variable mmd, this ensures
+   assigning the default values for non-DT platforms and DT platforms with
+   no device data.
+ * Fixed the ordering of resets in suspend/resume paths.
+ * Added bitfield.h header file.
+ * Reworked on renesas_sdhi_set_clock() to handle the 11-bit divider
+   case and the 32-bit register write.
+ * Updated resume() with scoped PM runtime call.
+ * SD_CLK_CTRL clk enable turned off before updating SCC_CKSEL_DTSEL
+   register.
+v18->v19:
+ * Updated commit description for patch#1,#2,#6,#8,#11 and #12
+ * Updated clock and reset description with AXI master and AXI slave
+ * Added else condition for reset and reset-names.
+ * Renamed aclk->aclkm and reordered the axi clocks similar to resets.
+ * Retained the tag got binding patch as the changes are trivial.
+ * Fixed the clk_mask for non-DT platforms.
+ * Fixed max-divider setting for non-DT platforms.
+ * Replaced the magic number '9' with ilog2 function in
+   renesas_sdhi_clk_enable().
+ * Dropped divider variable from struct renesas_sdhi.
+ * Updated renesas_sdhi_clk_update() to return rate for HS400 mode
+   and non HS400 mode(uses 1/2 internal divider).
+ * Updated handling for clk divider.
+ * Renamed TMIO_MMC_HWADJ2->TMIO_MMC_HWADJ to make it generic for
+   hardware tuning delays
+ * Dropped duplicate SH_MOBILE_SDHI_SCC_TMPPORT2 macro
+ * Updated suspend/resume with scoped runtime calls in suspend.
+ * Fixed extra space in HS400MODE2 comment block.
+ * Updated the comment HS400mode2->HS400MODE2.
+ * Dropped the updation of clk handling as it is taken care in
+   previous patches.
+ * HS400ES support is enabled based on of_data.
+ * Fixed the space in HS400ES comment block.
+
+v17->v18:
+ * Collected tag
+ * Merged patch #4 and #5 and updated commit description
+ * Annotated the empty sentinel entries in the OF match tables with a
+   "Sentinel." comment for clarity.
+ * Retained the tag as it is a trivial cleanup.
+ * New patches drop struct renesas_sdhi_hw_info, instead using
+   renesas_sdhi_of_data and tmio_mmc_data.
+ * Dropped clk, pinctrl, SoC, and board dtsi from this patch series;
+   will send later.
+v1->v17:
+ * Collected tag for binding patch.
+ * Resending the series as there is an issue with patch threading from
+   patch #14.
+
+Biju Das (12):
+  dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
+  mmc: renesas_sdhi: Clean up whitespace and add OF table sentinels
+  mmc: renesas_sdhi: Add clk_mask field to support flexible clock
+    divider widths
+  mmc: renesas_sdhi: Add max_divider field to support SoC-specific clock
+    ranges
+  mmc: renesas_sdhi: Add tuning delay support for RZ/G2L
+  mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
+  mmc: renesas_sdhi: Add optional axis/axim reset controls
+  mmc: renesas_sdhi: Add RZ/G3L SDHI support
+  mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
+  mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
+  mmc: renesas_sdhi: Add RZ/G3L HS400 support
+  mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
+
+ .../devicetree/bindings/mmc/renesas,sdhi.yaml | 108 +++++--
+ drivers/mmc/host/renesas_sdhi.h               |  11 +-
+ drivers/mmc/host/renesas_sdhi_core.c          | 274 ++++++++++++++----
+ drivers/mmc/host/renesas_sdhi_internal_dmac.c |  73 ++++-
+ drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  12 +-
+ include/linux/platform_data/tmio.h            |  18 ++
+ 6 files changed, 408 insertions(+), 88 deletions(-)
+
+-- 
+2.43.0
+
