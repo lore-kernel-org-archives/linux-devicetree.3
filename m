@@ -1,192 +1,105 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C7F3A48E4
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6662B3A6B8D
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783930543; cv=none; b=nmq94LGBsrYzzSjpi0JowER5VqObMYYW/qV6FRrZN7Hp1gyij3UQ7wJRhgCzLX6xQ6lGyhiWvSP+AYR/pvObmk5jRrLOx3MNDNK/yqQCM1KeavS+J5fYPmT9OosZ9v9ixV4iviJWA+JjlHxAnhIhxHk0SHja/kGGBxxGYahnxYk=
+	t=1783930615; cv=none; b=CqWH2vQFav9kJ+cBFv8fYZOvryXDMi7T3t8yrv/MuKtjNYLJL5bB5cm3OnwwvBo15kFxJ3hZpXZpxAytIcovmrgojQ1HexavzbaVqeEU6/6YY+dMgE/Cy5zEzImwcAlSLxKMSjX9mHeFBljSDRKdsk6cCFVm+6K2RqZzJcpq3I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783930543; c=relaxed/simple;
-	bh=EdjLsq9M6e7OqSkAmpQ+Nqs0l3gk1yzZXSScIFmIbhI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g4f86YKhmFim2ekXdcUTe7LRESldaFI5oWbw4xFe2WIe6FmAicQTN5wVWWKigEAOYPCI4NYQFb6XWYD1kU0NZNkNXMcyQsfgXGQ5wmLaHiNmyA8cf3R8jgpGUL503mulwoMXAYYeWjXpnuErlx98eiWAYHTisquzbhBFEekz/TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AzHn2qcV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TnzX3Eta; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1783930615; c=relaxed/simple;
+	bh=9+3Sww1C+uYKIwyUcbIIOb42X2ECv7xamrybHeNLRDQ=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CRWCI2HqYW3E3Rc4kAEvMy1xDU1Pqrbr6N0j4qdPGSRJLJYqNxK9emL0IJjn1JW40H6A6mMtqFMHwbi6FfkTHQBRJNMeg/58cnEPsZKqPKhJtdUmA+mTPcAQrZ52LNFpQlIFmdMM1mu54TQqlUDW9D9wqUUU16H9dTx8jRosyvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dvirtr+1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AzHn2qcV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TnzX3Eta"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6Nuwb568069
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:15:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PYHFbZGRRNFT4amkHvvjb5FMBYFszZHEW6vn0bAyOM8=; b=AzHn2qcVkagJU5OR
-	t6cv1tarXsnmnbbeHdvg9mMxYIfyJYmsD7EZTyS6TsRjmPvNqr/UadaC8kUPurf3
-	2ooWfwx0l6C8JMx6VlDVbjz2Bp2MERbPVuF9gs52QwOWW7HXEGFuvy1Bv/77FoKi
-	320vlf2PG+BYtGvMdahwCoLSrhzwGMmRFA9mjxDlYrli3p2yQTGVJdp4K0VpDDIR
-	F4H2GKqVyxRrNJ52oVijhppdFaBWddttDA48+z2jPoUAUZyUaiopbNBQQI4o+ohR
-	hgqNXE69A4g/36Z80sDlJCXMP4OWyurCqH/MeiMvwTx0ejQdd1X35qdnCtpBex+B
-	V58RtA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbe915517-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:15:41 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51a87ef9713so40215771cf.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:15:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783930541; x=1784535341; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PYHFbZGRRNFT4amkHvvjb5FMBYFszZHEW6vn0bAyOM8=;
-        b=TnzX3EtatCQcIP2iAcDb22ALt1Vtdbml8L0Gq+4S5mKxhxdy0iXSDbaWOdtz+AxPLA
-         CUjUCrFTqLxmLId9GSIgwsHpYzC+gV9UmGdo2qTn/l2REgDrTxaJpvTg/DY2IUXVEISJ
-         XJHo0rmR8jtaWgeeB1zAggKxOMvPuCpWQB7Vx2PETiDLmjESyFS6zdMH9lVnAhXWeeFM
-         r0MootYe86RBNBd2QCG7jIjYnfVAdi7ghEU3fiJeWnEaIuwf+JVUET5lbR88ttFTHMMD
-         PLgyHZI+DvnoncyJ7UKqsh6uRRBlh/U2JPLzOsLbfKdfqTIqJDHhbV9ynxUam7zw4/Jp
-         mvwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783930541; x=1784535341;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PYHFbZGRRNFT4amkHvvjb5FMBYFszZHEW6vn0bAyOM8=;
-        b=gojUHVfh01jtVOYcNEji5MRZg6FrmS40ZxuBfmYYV534KSO/eoU2FWHhjMxDhCJvtg
-         wYcE5sezZHVuhFCBHjRAZzRsoXM/uGD64+3YOg2OrrgDcUsLRc8s7XR1eBVystZ6Wokd
-         pqepcPdGrsb5KcnBdgR9We0glvc04WjaqipstJQT4QaeTuJyNjjMZs6rBd//L+RO8Ej0
-         1QBBHn9BkXdElpoSavwdeHjC58n2c+s3M6DfBwddxJZpy8jW7e2oghXnIIi2LfREsSzq
-         TGLMrEIupxkeJZVFDyTspe5UB5ca+BnmK5o6ueK+xUornjyyedQWAFDevhYTOmyfk8Bl
-         O/3g==
-X-Forwarded-Encrypted: i=1; AHgh+RpLHA35sNhXSahdjKtPK5u0BSxkIEtUGSoPbt1H6PzJ8hcFObKpxGSMkjpvEHnSIZtxF1+QOZ0BHvOj@vger.kernel.org
-X-Gm-Message-State: AOJu0YyL0mo4E+vXKtJND/v1mvjlR0RN/UXwNB9Au/88K8Rr35tT4+ys
-	zg6t5no2In4+SFlYSixZBnNF5DHLX9YuD4AyU/UDkVWtaZThFLJgMNvEbxS56DsDrVBG0Yv33Y8
-	Olv4SX+kbddaSaj6X4m5woqFQ1TO+GCHF5Os9mnfIJbVO8HwGjYu8wtOQ+wX3HRso
-X-Gm-Gg: AfdE7cl2etq6BlO/zYDu4URpB93tyZcHFo91laq4F0EG6jfFhuLhLAKUI49spJtV0N4
-	wZN/Orl3eOPAh+iFjJZ8dEvr0nbXljyQwQldBmwiVy/qVl4FSrc5FM31yekZDlZ4ZiD6AX8QMO6
-	esf1qHO0Q+NRfeZPsQDf/rKuLDRZMTBTKNmkMl4flJQE6vOnb2pysZ126n8W3Puklba4DeN4EqZ
-	3pycNcFZAWLh04LUtUx8/lYSAZjrBvvB4MAjYaYqj8ahHhybAcdqXbF+Ib4PqL/3pDyo5peZquF
-	CFE/EGa7ybNqrWnMRk/dKElJ47OpAerWmBOOdngX2zHN4baq8pxVZCZX/Vlr3OTYDf9OJOsUCQS
-	xBJIR5BkncsFZKk0P6EByLl/Qbjc+dA3m9/d5jvM8PkA=
-X-Received: by 2002:a05:622a:1813:b0:51a:8691:4427 with SMTP id d75a77b69052e-51ca9eb3ad7mr129267061cf.0.1783930540664;
-        Mon, 13 Jul 2026 01:15:40 -0700 (PDT)
-X-Received: by 2002:a05:622a:1813:b0:51a:8691:4427 with SMTP id d75a77b69052e-51ca9eb3ad7mr129266901cf.0.1783930540269;
-        Mon, 13 Jul 2026 01:15:40 -0700 (PDT)
-Received: from [192.168.1.73] ([92.247.57.178])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15e19cb6c0sm606414466b.26.2026.07.13.01.15.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 01:15:39 -0700 (PDT)
-Message-ID: <388c8f3c-ad60-46aa-9ade-042bcd148dac@oss.qualcomm.com>
-Date: Mon, 13 Jul 2026 11:15:38 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dvirtr+1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179951F00ADB
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:16:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783930614;
+	bh=m5F0084nQCC/QhRXj90Uv+t8Z3rbI8iJLW2IgXjNKdk=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Dvirtr+1Ru0jx55LjsZRFcmWDXDLldQ0A030RudZy6rYxe2N4W/UZ0UvwF4W9KDHm
+	 fJLxw6HyEQYLDhzML215WQo4PWKZdHRBuGgEYX4eViR9xDilYz/R9pvLNsmn5XDVFF
+	 OQZziqazFDqDRiohOECkNpqIGeFxKdOq36aKTQGpilxXpLluIHw2ffjwb8htvdpBsF
+	 Wxeh3/Vob3pS07O6toE0vsSOMgrNqxmCvgdVfvXFxGWq9dK+I/IeQ2BardntupAQqM
+	 p3peqmiViDs7PQgzN89DQ6ciQb33DZg0vIqAZhQ3/qVVhV1uf3nhXxy974dmT9acRT
+	 V8VpOe5XPcQlQ==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39c82d9f801so23182621fa.2
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:16:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoUOuEP/y1OFF4vn0cvkEb8wIpkD2ZysE1dKLHjhu/fXNzUCbuxyS1TJisPzQclLULgG3mm1vsOnLzT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuneFRlTQbOONrdqk53tN6YOX7hpaNzscstyER7DeMWu5NqrWR
+	jTs1cfTcoi3zZunbVTwxyX+Bky2WTGDb5HMmnushZn1dG/13CUeuGgMU4mMMgRC8beISPALjBnH
+	G/wU12Cy0sRkHFDNgpZBoebZUhJVkck4CSjpCsWVIew==
+X-Received: by 2002:a2e:a9a5:0:b0:39c:6f89:c9b3 with SMTP id
+ 38308e7fff4ca-39caa13ca2amr17346001fa.14.1783930612774; Mon, 13 Jul 2026
+ 01:16:52 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 13 Jul 2026 01:16:51 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 13 Jul 2026 01:16:51 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CANhJrGM9ciyBfgGWBwOM3kNmcXGSq4QVM6a6Js+wtbr9ANtSJA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: qcom: Add JPEG encoder binding
-To: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org
-Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260625133828.3221781-1-atanas.filipov@oss.qualcomm.com>
- <20260625133828.3221781-2-atanas.filipov@oss.qualcomm.com>
- <e65358b0-b978-4672-9691-705897bcf209@kernel.org>
-Content-Language: en-US
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <e65358b0-b978-4672-9691-705897bcf209@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TbymcxQh c=1 sm=1 tr=0 ts=6a549ead cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=zbDFh1kpPF1_w5UJdLoA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA4NSBTYWx0ZWRfX2NcBdjUV9rbw
- IcZWwYvu/H/UyA0YFVugpHAeG/BdvCV/Q/04WhgE0GXS60xdxvkq+ovaP2MWriJUJdih9ovUfhr
- DeVYUgHLsY2b+0yjYns12X9B9E3B+lY=
-X-Proofpoint-GUID: _R5JYJceze7hvM4Y7Ra-LXTWFOy8GjOx
-X-Proofpoint-ORIG-GUID: _R5JYJceze7hvM4Y7Ra-LXTWFOy8GjOx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA4NSBTYWx0ZWRfX9FE1osoh6biX
- bG3vnyLAxUYGHUa2YgnPiXrWqsrUmGeQn8FxkVyKQxZGmR7J81yBl+pa9gcsCCiEKmUeFEYAxXY
- nP2/E0rDDnzR7P8is95tdXhRExrjG4j/jRxfOp6hmju9uCQ6dsGX6IetcBlLZybu7KBFTGxHKD9
- cu7xdKmDBPDaDTJf0R7kiJftd2A1CvIXAKBc+hbP24C6yb+krldxqDwdh6O7o67d0sKA0r0Q1Yw
- jkRFjjrqI3UDZ/Fal9YF2G0/pJHk7rtYIzZhHDxK96x+XOey8REGFnDu59ji0sXRIUAbQMVBPfs
- XuOtnV6NEHIRdjFBARl2vtseBYza5nXPY28H7QHc2ulmRo66C3foSOgmGlIDPhf1YRewc0F0/75
- +7EolY6uLhconPXMrt6hTkzPNBZ1R/2WBAEjEx3UN0z11hrIogkinmp48yxcW+7jE2aaEV1zC0X
- hWXYnvyiTf2EsqX22jA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130085
+References: <cover.1782909323.git.mazziesaccount@gmail.com>
+ <27fb93d0e61704d495e3adf4ed614edac1642267.1782909323.git.mazziesaccount@gmail.com>
+ <CAMRc=MccLRKb8ZjChcR7WK3TqV3=waSnKX=UX9LR=5hOT=_tsg@mail.gmail.com> <CANhJrGM9ciyBfgGWBwOM3kNmcXGSq4QVM6a6Js+wtbr9ANtSJA@mail.gmail.com>
+Date: Mon, 13 Jul 2026 01:16:51 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MedLP3XBqoUv_zUr5gxBVc+gqwY3ozAyXagBhc_70Kykw@mail.gmail.com>
+X-Gm-Features: AVVi8CfyQ1TAFYvyEQ1X0jI6L1cKq7pX3giTRDhFSopr0iz61Po6th7LT6u3Xr0
+Message-ID: <CAMRc=MedLP3XBqoUv_zUr5gxBVc+gqwY3ozAyXagBhc_70Kykw@mail.gmail.com>
+Subject: Re: [PATCH 7/8] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 6/25/2026 4:55 PM, Krzysztof Kozlowski wrote:
-> On 25/06/2026 15:38, Atanas Filipov wrote:
->> Add device-tree binding for the Qualcomm JPEG encoder hardware block
->> present in SM8250 (Kona) SoCs.
+On Sun, 12 Jul 2026 17:42:17 +0200, Matti Vaittinen
+<mazziesaccount@gmail.com> said:
+> pe 3.7.2026 klo 16.11 Bartosz Golaszewski (brgl@kernel.org) kirjoitti:
+>> > +
+>> > +     if (!g->num_pins) {
+>> > +             /*
+>> > +              * The BD73800 may or may not have pins allocated for GPIO
+>> > +              * depending on the OTP used at manufacturing. Free the memory
+>> > +              * and go out if there is no pins as then we have nothing to do
+>> > +              */
+>> > +             dev_dbg(dev, "no GPIO pins\n");
+>> > +             devm_kfree(dev, g);
 >>
->> The JPEG encoder is a standalone hardware IP within the camera subsystem
->> that performs JPEG compression in memory-to-memory fashion.  It is
->> separate from the CAMSS ISP pipeline and has its own register space,
->> interrupt, clocks, power domain, IOMMU streams, and interconnect paths.
+>> No need for that, because...
 >>
->> Properties documented:
->> - compatible: qcom,sm8250-jenc
->> - reg / reg-names: single MMIO region named "jpeg"
->> - interrupts: single edge-triggered interrupt
->> - clocks / clock-names: Common clocks and JPEG core clock
->> - power-domains: TITAN_TOP_GDSC common domain
->> - iommus: two SMMU stream IDs for JPEG pixel and JPEG DMA processing
->> - interconnects / interconnect-names
->> - OPP table mapping performance levels to clock frequencies
-> 
-> Drop, since when commits have such text? Why are you describing diff?
-> 
-> 
+>> > +             return 0;
 >>
->> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->> ---
->>   .../bindings/media/qcom,jpeg-encoder.yaml     | 135 ++++++++++++++++++
->>   1 file changed, 135 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
->> new file mode 100644
->> index 000000000000..ab8d8951d21f
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
-> 
-> Nothing improved.
-> 
-> You actually ignored all the comments from me and at least one more
-> comment from other emails provided to you.
-> 
-> This is not acceptable.
-> 
-> NAK
-> 
-> 
-> Best regards,
-> Krzysztof
+>> ... this will still leave a bound device in the system, I'm not sure we want
+>> it? The correct error code in this case is -ENODEV.
+>
+> I am a bit uncertain. This isn't really an error. It should be very
+> much Ok to configure the support for PMICs with GPIOs to be compiled -
+> and also very much Ok to have a PMIC with no GPIOs. Returning an error
+> doesn't feel right. Furthermore, I am afraid that returning an error
+> might hurt the system start-up? Do you see some really problematic
+> consequences if we return Ok without registering the GPIOs. I'd assume
+> that wastes some bytes but I don't see other really severe
+> consequences.
 
-Acknowledged. v5 addresses all binding comments:
-- "Properties documented:" section dropped
-- clocks minItems dropped
-- interconnect-names renamed
-- power-domains added
-- binding renamed to qcom,sm8250-jpeg-enc.yaml
-- JPEG modelled as standalone peer node
+But -ENODEV/-ENXIO error codes are meant to do exactly that - tell the driver
+core to assume this device legitimately cannot be enabled on this system. There
+will be no error splat in the kernel log and the probe will not be deferred.
 
-Best regards,
-Atanas
+This really isn't the first device to need this behavior. :)
+
+Bart
