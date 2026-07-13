@@ -1,34 +1,34 @@
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BCC3093A6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A953090C2;
 	Mon, 13 Jul 2026 15:57:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783958267; cv=none; b=F2ViXprDUeI5UjX1pTQmJAbzoGbZVPwJr0PU63iSkWm5hxNR+KV6WFFowU7KDzJAaA1/xVrWG441L8Wtlh1RYmQ7satrftuub9SlihyLpIAPysl0AjWNVH2XAWm6RMfKv4E5QTCP0WfgNgOjef+kWHQfr8y3UX+72niGEBWyBsk=
+	t=1783958268; cv=none; b=au1o7Fja7se+kQw9O8QIXzRam0nlsoDVpIf9OPXNI5SjKxnkBZn8jELKq1p2V9OpmhpmPeI7IOEtShHVD/ouDrQ0Uv6iMgoglrNXnyGRboavg0MxPwn+epNUozxZQzRohmBZQxHw6vfRq5HImrrQEp3t/6ErK0qtvqkq9s3qcyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783958267; c=relaxed/simple;
-	bh=W0WdjMjuLDalJfP7tF+74aytLjmdK2Jj729pIQMirPA=;
+	s=arc-20240116; t=1783958268; c=relaxed/simple;
+	bh=GkMzHbL3z8WbZGDS0nuOcJY+BoSH1BiZflc2q6z4AWI=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BMTp8/BcLmg6pKR+y7kCr1AQgYaSUkKYReLCdJZjmrblVAhYNNdWk1ppZjMvN9WN8McvpozLhbCz7XEEOjBf6eoajAMpvaNZe83qfQZD0dqxquUtq+q7YiXQY7I/We5HvG7+yx9U22Ll+37Y6jXULvkmOI2IpptBr6JuekoXVnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=JkySU13u; arc=none smtp.client-ip=211.75.126.72
+	 MIME-Version:Content-Type; b=MhWkJWw2S8OCygGeNGvV9WF6KlWpZ9cRz3SRDV1FXOC+7RJPsdQIX+omJJLP6KPfsStFzN8vVqFPv/t+m0PuZg9FnJbMCODJjvwWCIJdNpiNE5w5Ve7x/oMXkUEtrT0xmeoQ7gUEPe0mLb3LNFihftn+7i/1YMfbeD+5HOUx5J4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=riiC9imU; arc=none smtp.client-ip=211.75.126.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="JkySU13u"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66DFuVYI11489883, This message is accepted by code: ctloc85258
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="riiC9imU"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66DFuVHL11489881, This message is accepted by code: ctloc85258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1783958191; bh=N1qy5FzrK/oDpJH8Scq5WyExFwCNZDgllhZpWmDlV3w=;
+	t=1783958191; bh=f6VZj+XggCu3byiwqkHK2FmnHJ2slCa2d6nya7SKEQo=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=JkySU13ug9QaFFWgrYJgK8Ze8qVowbPwas+bBIMWJw86MudDfVhkpy6Sz+C7nqaeP
-	 EEpRYt/3zRb31/EWHOhFdX9VbMeN+8+CPYgPhSKY7evRWyaYyz51myu7COUplxpr/T
-	 djw9YJJcyzYggigqbVv9yBUhLQW04L4MIMQic83TYw5hMaQF2z1a7VOj5tD/xnBcTK
-	 x7WYIY4DDqwaxLa+TqkOp9UQ24EuHERN6lujqBHl0lAgZdY9vhuO1Ph02MrCRYcUKU
-	 ZG+/UsaRLHJWOYdJ7D+YlxH7JZGB3woGHL5yCYDt8WIMKRDTGovThFVetbmtzNf8Wp
-	 DRyXUEWQTBduw==
+	b=riiC9imU9Dq0NovhQqQTJQ1d/cHOi3cCmUgc2vu5B8+PDHjmwcJwJYkqU7x6j6yXv
+	 PXqjA2kMHeDpTxEWtwWzW5q74oWD0p2ptyGp8729jdKTBnPsPv3qLkU0aT6hY1hAWg
+	 Q8CbVYkSd6b54r3ZVGKzndXdp5EPOiu7Ky9kRnaSqPAnxwiblJ0+wjfOYLKeo7Z0Um
+	 rFUjEFNWVY+KH4W8rWiQGDaqgOQNcP//nmX9ebVXlyDeyVUwrKgjICx++1wlknBZrn
+	 iMeR+q6zVJSq/kean/MRcRS7M0i++FGN8BKo0z4tDpAwNaXwBlVZJ48bruBX5dkbIR
+	 jiRqhFFpCep9A==
 Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66DFuVYI11489883
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66DFuVHL11489881
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
 	Mon, 13 Jul 2026 23:56:31 +0800
 Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
@@ -52,9 +52,9 @@ CC: <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
 	<linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
 	<cy.huang@realtek.com>, <stanley_chang@realtek.com>,
 	<eleanor.lin@realtek.com>
-Subject: [PATCH v10 07/11] clk: realtek: Add support for mux clock
-Date: Mon, 13 Jul 2026 23:56:26 +0800
-Message-ID: <20260713155630.3054636-8-eleanor.lin@realtek.com>
+Subject: [PATCH v10 06/11] clk: realtek: Add support for gate clock
+Date: Mon, 13 Jul 2026 23:56:25 +0800
+Message-ID: <20260713155630.3054636-7-eleanor.lin@realtek.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260713155630.3054636-1-eleanor.lin@realtek.com>
 References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
@@ -69,130 +69,181 @@ Content-Type: text/plain
 
 From: Cheng-Yu Lee <cylee12@realtek.com>
 
-Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
+Introduce clk_regmap_gate_ops supporting enable, disable, is_enabled, and
+for standard regmap gate clocks.
 
-The implementation supports parent selection and rate determination through
-regmap-backed register access.
+Add clk_regmap_gate_ro_ops as a read-only variant exposing only is_enabled.
 
 Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
 Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 ---
 Changes in v10:
-- None.
+- None
 ---
- drivers/clk/realtek/Makefile         |  1 +
- drivers/clk/realtek/clk-regmap-mux.c | 41 ++++++++++++++++++++++++++
- drivers/clk/realtek/clk-regmap-mux.h | 43 ++++++++++++++++++++++++++++
- 3 files changed, 85 insertions(+)
- create mode 100644 drivers/clk/realtek/clk-regmap-mux.c
- create mode 100644 drivers/clk/realtek/clk-regmap-mux.h
+ drivers/clk/realtek/Makefile          |  1 +
+ drivers/clk/realtek/clk-regmap-gate.c | 70 +++++++++++++++++++++++++++
+ drivers/clk/realtek/clk-regmap-gate.h | 65 +++++++++++++++++++++++++
+ 3 files changed, 136 insertions(+)
+ create mode 100644 drivers/clk/realtek/clk-regmap-gate.c
+ create mode 100644 drivers/clk/realtek/clk-regmap-gate.h
 
 diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-index 90c0658a83bf..3b014240a211 100644
+index 71edc18121c6..90c0658a83bf 100644
 --- a/drivers/clk/realtek/Makefile
 +++ b/drivers/clk/realtek/Makefile
-@@ -5,3 +5,4 @@ clk-rtk-y += clk-rtk-common.o
+@@ -4,3 +4,4 @@ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
+ clk-rtk-y += clk-rtk-common.o
  clk-rtk-y += clk-pll.o
  clk-rtk-y += freq_table.o
- clk-rtk-y += clk-regmap-gate.o
-+clk-rtk-y += clk-regmap-mux.o
-diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/clk-regmap-mux.c
++clk-rtk-y += clk-regmap-gate.o
+diff --git a/drivers/clk/realtek/clk-regmap-gate.c b/drivers/clk/realtek/clk-regmap-gate.c
 new file mode 100644
-index 000000000000..bdd579e1165d
+index 000000000000..0db0057215e3
 --- /dev/null
-+++ b/drivers/clk/realtek/clk-regmap-mux.c
-@@ -0,0 +1,41 @@
++++ b/drivers/clk/realtek/clk-regmap-gate.c
+@@ -0,0 +1,70 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
 + * Author: Cheng-Yu Lee <cylee12@realtek.com>
 + */
 +
++#include <linux/bits.h>
 +#include <linux/clk-provider.h>
 +#include <linux/export.h>
 +#include <linux/regmap.h>
-+#include "clk-regmap-mux.h"
++#include "clk-regmap-gate.h"
 +
-+static u8 clk_regmap_mux_get_parent(struct clk_hw *hw)
++static int clk_regmap_gate_enable(struct clk_hw *hw)
 +{
-+	struct clk_regmap_mux *clkm = to_clk_regmap_mux(hw);
-+	int num_parents = clk_hw_get_num_parents(hw);
-+	u32 val;
++	struct clk_regmap_gate *clkg = to_clk_regmap_gate(hw);
++	unsigned int mask;
++	unsigned int val;
++
++	mask = BIT(clkg->bit_idx);
++	val = BIT(clkg->bit_idx);
++
++	if (clkg->write_en) {
++		mask |= BIT(clkg->bit_idx + 1);
++		val |= BIT(clkg->bit_idx + 1);
++	}
++
++	return regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
++}
++
++static void clk_regmap_gate_disable(struct clk_hw *hw)
++{
++	struct clk_regmap_gate *clkg = to_clk_regmap_gate(hw);
++	unsigned int mask;
++	unsigned int val;
++
++	mask = BIT(clkg->bit_idx);
++	val = 0;
++
++	if (clkg->write_en) {
++		mask |= BIT(clkg->bit_idx + 1);
++		val |= BIT(clkg->bit_idx + 1);
++	}
++
++	regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
++}
++
++static int clk_regmap_gate_is_enabled(struct clk_hw *hw)
++{
++	struct clk_regmap_gate *clkg = to_clk_regmap_gate(hw);
 +	int ret;
++	u32 val;
 +
-+	ret = regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
-+	if (ret)
-+		return 0xff;
++	ret = regmap_read(clkg->clkr.regmap, clkg->gate_ofs, &val);
++	if (ret < 0)
++		return ret;
 +
-+	val = (val >> clkm->shift) & clkm->mask;
-+
-+	return val >= num_parents ? 0xff : val;
++	return !!(val & BIT(clkg->bit_idx));
 +}
 +
-+static int clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
-+{
-+	struct clk_regmap_mux *clkm = to_clk_regmap_mux(hw);
-+
-+	return regmap_update_bits(clkm->clkr.regmap, clkm->mux_ofs,
-+				  clkm->mask << clkm->shift, (u32)index << clkm->shift);
-+}
-+
-+const struct clk_ops rtk_clk_regmap_mux_ops = {
-+	.set_parent = clk_regmap_mux_set_parent,
-+	.get_parent = clk_regmap_mux_get_parent,
-+	.determine_rate = __clk_mux_determine_rate,
++const struct clk_ops rtk_clk_regmap_gate_ops = {
++	.enable     = clk_regmap_gate_enable,
++	.disable    = clk_regmap_gate_disable,
++	.is_enabled = clk_regmap_gate_is_enabled,
 +};
-+EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_mux_ops, "REALTEK_CLK");
-diff --git a/drivers/clk/realtek/clk-regmap-mux.h b/drivers/clk/realtek/clk-regmap-mux.h
++EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ops, "REALTEK_CLK");
++
++const struct clk_ops rtk_clk_regmap_gate_ro_ops = {
++	.is_enabled = clk_regmap_gate_is_enabled,
++};
++EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ro_ops, "REALTEK_CLK");
+diff --git a/drivers/clk/realtek/clk-regmap-gate.h b/drivers/clk/realtek/clk-regmap-gate.h
 new file mode 100644
-index 000000000000..3ab8dc5032fc
+index 000000000000..3f4c7a784eb0
 --- /dev/null
-+++ b/drivers/clk/realtek/clk-regmap-mux.h
-@@ -0,0 +1,43 @@
++++ b/drivers/clk/realtek/clk-regmap-gate.h
+@@ -0,0 +1,65 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
 + * Author: Cheng-Yu Lee <cylee12@realtek.com>
 + */
 +
-+#ifndef __CLK_REALTEK_CLK_REGMAP_MUX_H
-+#define __CLK_REALTEK_CLK_REGMAP_MUX_H
++#ifndef __CLK_REALTEK_CLK_REGMAP_GATE_H
++#define __CLK_REALTEK_CLK_REGMAP_GATE_H
 +
 +#include "clk-rtk-common.h"
 +
-+struct clk_regmap_mux {
++struct clk_regmap_gate {
 +	struct clk_regmap clkr;
-+	int mux_ofs;
-+	unsigned int mask;
-+	unsigned int shift;
++	int gate_ofs;
++	u8 bit_idx;
++	u32 write_en : 1;
 +};
 +
-+#define __clk_regmap_mux_hw(_p) __clk_regmap_hw(&(_p)->clkr)
++#define __clk_regmap_gate_hw(_p) __clk_regmap_hw(&(_p)->clkr)
 +
-+#define __CLK_REGMAP_MUX(_name, _parents, _ops, _flags, _ofs, _sft, _mask)   \
-+	struct clk_regmap_mux _name = {                                      \
-+		.clkr.hw.init =                                              \
-+			CLK_HW_INIT_PARENTS(#_name, _parents, _ops, _flags), \
-+		.mux_ofs = _ofs,                                             \
-+		.shift = _sft,                                               \
-+		.mask = _mask,                                               \
++#define __CLK_REGMAP_GATE(_name, _parent, _ops, _flags, _ofs, _bit_idx,     \
++			  _write_en)                                        \
++	struct clk_regmap_gate _name = {                                    \
++		.clkr.hw.init = CLK_HW_INIT(#_name, _parent, _ops, _flags), \
++		.gate_ofs = _ofs,                                           \
++		.bit_idx = _bit_idx,                                        \
++		.write_en = _write_en,                                      \
 +	}
 +
-+#define CLK_REGMAP_MUX(_name, _parents, _flags, _ofs, _sft, _mask)           \
-+	__CLK_REGMAP_MUX(_name, _parents, &rtk_clk_regmap_mux_ops, _flags, _ofs, \
-+			 _sft, _mask)
++#define CLK_REGMAP_GATE(_name, _parent, _flags, _ofs, _bit_idx, _write_en)    \
++	__CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
++			  _bit_idx, _write_en)
 +
-+static inline struct clk_regmap_mux *to_clk_regmap_mux(struct clk_hw *hw)
++#define CLK_REGMAP_GATE_RO(_name, _parent, _flags, _ofs, _bit_idx, _write_en) \
++	__CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ro_ops, _flags,    \
++			  _ofs, _bit_idx, _write_en)
++
++#define __CLK_REGMAP_GATE_NO_PARENT(_name, _ops, _flags, _ofs, _bit_idx,     \
++				    _write_en)                               \
++	struct clk_regmap_gate _name = {                                     \
++		.clkr.hw.init = CLK_HW_INIT_NO_PARENT(#_name, _ops, _flags), \
++		.gate_ofs = _ofs,                                            \
++		.bit_idx = _bit_idx,                                         \
++		.write_en = _write_en,                                       \
++	}
++
++#define CLK_REGMAP_GATE_NO_PARENT(_name, _flags, _ofs, _bit_idx, _write_en)    \
++	__CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
++				    _bit_idx, _write_en)
++
++#define CLK_REGMAP_GATE_NO_PARENT_RO(_name, _flags, _ofs, _bit_idx, _write_en) \
++	__CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ro_ops, _flags,    \
++				    _ofs, _bit_idx, _write_en)
++
++static inline struct clk_regmap_gate *to_clk_regmap_gate(struct clk_hw *hw)
 +{
 +	struct clk_regmap *clkr = to_clk_regmap(hw);
 +
-+	return container_of(clkr, struct clk_regmap_mux, clkr);
++	return container_of(clkr, struct clk_regmap_gate, clkr);
 +}
 +
-+extern const struct clk_ops rtk_clk_regmap_mux_ops;
++extern const struct clk_ops rtk_clk_regmap_gate_ops;
++extern const struct clk_ops rtk_clk_regmap_gate_ro_ops;
 +
-+#endif /* __CLK_REALTEK_CLK_REGMAP_MUX_H */
++#endif /* __CLK_REALTEK_CLK_REGMAP_GATE_H */
 -- 
 2.43.0
 
