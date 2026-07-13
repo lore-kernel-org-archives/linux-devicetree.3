@@ -1,35 +1,91 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1285425CD2;
-	Mon, 13 Jul 2026 13:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949701; cv=none; b=IIms9qcSysDs8CCoqMLU2p3bxNLTKN33DffpvegG126RwVVMtzxPX41Gws6sAKWVfu0FIVLm6eEotkyRDE2MKs1kym4syKt0l8Ouf/WKPE84vfvMS5pCMvUa6zn3CvD6u81YHQQ78oywAbHIHwbHvotjMQDCj1v5eWHzLG1muXk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949701; c=relaxed/simple;
-	bh=VSmDy/nXSV/1ss3m1t+2BbQQg7zGGeAjrSY7Kpl9H3c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PFtoOgF+ZHJ5qFsk/74c1klR5QtfBC3sZcDacOMI5oK8w/bzSJmslpgyXX/q0zjeHQDrRH+vr2Aq0qmBG84vQroygmFeuCsCn5YN6q5i1KFLLZWECbhCVNskV259H6F0s7WIsqMB5Wif6rZfxqk1sBpyjdmLb65OYZ2bU8+Tv5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=LulEUthV; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7749A42A796;
+	Mon, 13 Jul 2026 13:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783949752; cv=fail; b=MBVqOG76UL+GhB7aKV1XINEslTjgO8HQUol5ya9qpC3i6cCwlfNPV0E1xJk9p1OuCeUk31lRhYk4/+5vde/ZsHQ69Y7IJQOiQXu290wmXpMRF1bhvKiHBBP9uEF9UnMBIpUmWePo6ThhTZufdi1GqJ16KEF56+ocuY/KzDv1LBI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783949752; c=relaxed/simple;
+	bh=oFA/YX7UDr9t+y46/QA4AzfAUvVZoRp73xudLPGwKhM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=qh2Qbocc0IUwMaGjB6gfbhVlkc+EUkTPiZ4Y9zj6pqjE9I/8pbEi8SO10VUZXtCsayG5i2Lw8ZZ9NPMI7ipQwTo0ag5rBeDQE+DySBt/TH/hJlTRy6VPSmVfiNse3uFwDsS8bSDBu+++FW+KVPhu0Oj7xtfhIzeMseIq++FBuKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=N0XqD7/Y; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=CbeEP21r; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="LulEUthV"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1A7F11992F;
-	Mon, 13 Jul 2026 15:25:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1783949142;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=P8EGB7qAg+4ywsne5RyKCHvoiul9xzVt3YITDcP0YII=;
-	b=LulEUthVs8xG/zPIPifMnBISQJDzQ8qgMnOmJ+H5S1lL2pdNt/mlYPF0Cxa7YSyg1ZQ10f
-	kZ3gf96aI3e7i03cTJh5dRo/ndC8xWSx7vnAlrlcmgsT4Tu3RKxvwdq7h5jVackrlWf7Gt
-	qwLyEPZwaEETPI/e72tvmdALTOBOrHhyEaPfpikFVvNtF7fr7/bX5coSYXRhwwmVsgESrk
-	YkuYiykKe4U/0vetNxKCfwAbYdSUq1E3U/4n+IstYHKUHLj+kLjTMZLpaRCf4lPdLpBFKL
-	KNdmgWqNrh17BFDsz2iXXQ0ZX/X31yifCj/Nvub2TUXxdaNZqpliI6wBh+1E7w==
-Message-ID: <21311e49-6132-48f4-8c5a-d321c14dc8e9@nabladev.com>
-Date: Mon, 13 Jul 2026 15:25:40 +0200
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="N0XqD7/Y";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="CbeEP21r"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66DCDVsS3527146;
+	Mon, 13 Jul 2026 08:35:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=hUNSJ0MsLvYvCsee9DDBxXNWoAhSC66CI4Flh3U3/
+	0o=; b=N0XqD7/YI9fdSv6KJ1K8QBt5tTalTrPp6jjRDXFyybd+Cag0a8FU8l+tP
+	I+xQlGpHjl4J4wcG7VHK7mU9BCt0ElVnmgUALFdASX9QnuUUWE2jBHB9x8xEk9Ip
+	uXHOiFOweE3zzOyxA6YJ7YXV3GFQMakYNMujfndJE3U1Icz9UfBvfYyFg0pYTCQ3
+	nFRjRJ3KJjNvShIPePhPOGe5c0VZF/WN+IjPwxnMVBK1blkKn6z3K1z0DA5tXSYy
+	GgzujF0A6PrOumW1qFu1HhBP9mLbQMBxLLiqhkQlCrzDrxxT+0iDQoBHT46IEYOa
+	QK/1oqjoQv50UwlIlZxhdlOcJxT3Q==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011043.outbound.protection.outlook.com [40.93.194.43])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4fcxxegqs4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 08:35:34 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wqp8+GD0oOn++xgpAC6TyW2H3q8g3RsCZpaM+gXRgUEb6GrxudOptX/qqo9OKtRJhwdTUsLaY+M1TzhxGh0dEDWLhv6Hc3M5cAiKTSKmWlEWbdUnUISUzeXPRJGPKGUcZ/N+DrA3L7APxldNToHMPzuAqvvWj+FJSjA9h0J/wi1kiXxoZWNmevu/1Gmm2HDLqiupbSIKOzKNNKi9Ql/oY0RIZI8hWwy4a5qp41NuXOjY5NPqB/3DNZMVHDlTqasIhXAQ//h11lj+fzF1gkPA8Q5GjmcOVyYhbiGKWMo+aXUE6i9vnNxGmkG2zQs9X9W9Quv0r3ffoaGajX4jYuVmow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hUNSJ0MsLvYvCsee9DDBxXNWoAhSC66CI4Flh3U3/0o=;
+ b=xMMs3Vle95gFuHWPVmIjiYHWz7Ox59gJAejiXDE0dqRGR7a4fJ56sxbkO1Sngxy9V1NB+QRFTr5F67pyf7KrBjJx2GfJSFSE8lOVfEZOV9Gnt17AYyXadqGIsBisDunlAwjOLOCpR+ZJzN1RAfE1DE4iT+7vXPYRMhOS6syijnCNeimgdN68TXzlBImt6PF9yMWPHJF7k5/xyFmnuS2U8YMQKLPGs3md3+BEv2+x0TGYNI0fzr3YSl/LSREZt1HJBzV2KMo47EZxEfiUqAM51uL0SrpKaPQ3e+bZAFoeUu0JWJK3JqYx3mp+a3oo4jYqsb2o/Op03QKzcfxfrZ2NZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hUNSJ0MsLvYvCsee9DDBxXNWoAhSC66CI4Flh3U3/0o=;
+ b=CbeEP21rMR3VjuY2UGmaeTJCUbZiXrO+QD2QukE9lZvr9D/1VXIxKuMZiSunqV1l40Q0Yrdxg1G3tDMUPZehX+0phwjXM076Ea6t+fsey8OMr8E52CulXErfs0GPtbupa+/CCir8LJ92bYGAocu+9weXLicN3Ie7S5vZOpiasNg=
+Received: from BN9PR03CA0519.namprd03.prod.outlook.com (2603:10b6:408:131::14)
+ by MW4PR10MB5840.namprd10.prod.outlook.com (2603:10b6:303:18b::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.23; Mon, 13 Jul
+ 2026 13:35:29 +0000
+Received: from BL6PEPF00020E63.namprd04.prod.outlook.com
+ (2603:10b6:408:131:cafe::1f) by BN9PR03CA0519.outlook.office365.com
+ (2603:10b6:408:131::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.19 via Frontend Transport; Mon,
+ 13 Jul 2026 13:35:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BL6PEPF00020E63.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Mon, 13 Jul 2026 13:35:27 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 13 Jul
+ 2026 08:35:23 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 13 Jul
+ 2026 08:35:23 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 13 Jul 2026 08:35:23 -0500
+Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com [10.24.51.87])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66DDZIni2302399;
+	Mon, 13 Jul 2026 08:35:19 -0500
+Message-ID: <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+Date: Mon, 13 Jul 2026 19:05:18 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,67 +93,165 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/10] MAINTAINERS: Add DH electronics DHCOS SoM entry and
- fix email address
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260711210131.236025-1-marex@nabladev.com>
- <20260711210131.236025-11-marex@nabladev.com>
- <20260713-rousing-transparent-mongrel-ee18c3@quoll>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: LiangCheng Wang <zaq14760@gmail.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Wig
+ Cheng <onlywig@gmail.com>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        Tomi Valkeinen
+	<tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260713-rousing-transparent-mongrel-ee18c3@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <20260617020926.114947-1-zaq14760@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E63:EE_|MW4PR10MB5840:EE_
+X-MS-Office365-Filtering-Correlation-Id: aecb053d-e606-421c-85da-08dee0e399b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|7416014|36860700016|23010399003|22082099003|18002099003|4143699003|3023799007|13003099007|56012099006|921020;
+X-Microsoft-Antispam-Message-Info:
+	jE6Q47fw0Tl1VQvvA04P05WZJAxZdrW0BaBkVF44F2hRGIQTqRxcqE4qOhGt5NudFUcESW83/t/Bidpg3HttIR6/XXDE0QsiSNeSl6C3OqQpRSYRcp3q8n5EISwFhq90uaJ1alWY54yCn4W97pQ8C4ukCcwD/KJhSlLivydy8+u/CQV7dQWfdU09ez2Ndd94hPux6mhmdlNSXNV7Jrsn4Wwq/hfE7JKzD+2nsfejKxTxlRfSIQ6IDxoy3Thenz3Pvjc/loE8xMexYjYrhzqenHqaMgLQ9FTQbt8Kb0cXFUp8+enkPk0gULY0ZqTTxyhEURPrmIgZsSuhlfbjRCTrwOWh9BERIsbMOj+Y0jhyXYNgmwjtdR9EIWX+cADkyijISrS6zhp1N/axlDIjLKLBq49tSFWe1xmZHCyaP9U7rVuLPydP6qguxKtx6GTu4fELdctPD8XKRHG7mQtl0lXxh3eRZ2e5QcrR/5Jrf5GHyic36qvMXnFNF+j7rYdQ3WC5zFWCVdvZswcpmWUH00R4IN8eZfdrBQ9/5M3e6rex5guAXTHXiqBAKVPCo9fQKWYdzmhUhSwRbLklMQf7BfTZOCGcp/S+ufUJZ8eZ44dR/kPGAvNBzDFL5RFKvGCXgZJIEWDV4Ym08rsrkcl9x2GsSZ/9L9o0Sq6ZyGi9fZHINLlgM3NrsGpssrilZh8URc8QLnKfZzxsEmaIArUeL+SiKWpLCigJDtd8nEG9+71MnNqtvYtAwV0gOMbrE7lMQy0n
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(7416014)(36860700016)(23010399003)(22082099003)(18002099003)(4143699003)(3023799007)(13003099007)(56012099006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	7xHCebvVYY4SKI/jNmx7IdYXmV8vd/Lw45pLoo2qrEcjLxPH39iq+Ak3KIIFVIBYHuuO1TKxD+TbrsRKLGG6ksM5Gyv/A+pBJOAaexy+4Hm7D4YFHgMKruNEmmRr2jjO39S+33e7ENh8aE2oC5F0wOCbInTTcNTWATe2XLY5BFIYJkQwZFuQD+9mk47fKx1ypfaBQwf2PPYhYgR9PI4hGD06qWQ/Ui16o5SFxU+Fy6U3jHNr2IxL639dfjA2FGRvUYY9Gq0MbqPw4y2ra2gNtrnHbR+wNdXzqaSL0s8SKZqG9U19DSIOdsB3VpQrgBOzuQVrJnS74hwQtCggq6SDvMx+SyH8XEW5fEaPGudim2bq0P0HqlgJHxu5hKg79hbz50f25mD89W3CB8kb+Mrm42sQUvWQaq/Hv5Rv9UUlZDrihkyIvJyRQlQryacokjVH
+X-Exchange-RoutingPolicyChecked:
+	adMqmNfdpKqkQbRu+xLzaUS48ttIJP819pa6nRuhxfKisQ5A04JqUpOfgf7BsNMwI0AARbLJVygjKOPtBpwFgidP8s+90N/jCurNHlmz7it1v/m6x3Jm1Pz9oCCsdo904JIk4uoHT2lxHL/QVs9vmD0VYVQF/dgKjqjgEL/gStDJwNSDc4csTQ8EKYhbE41u/0w320yAmkrp4wmfDZpoh2IJn6dw0Ti++I7Ex7n29veiOeaOPhIiavWRrQf35WyTq5CMTuJHjkeRt2ILuBardQoYYfBjnBlTvkqcz8kADByaMYdor2LN8SEx0Vv+btdDvMCOoGOniGkL4PHI4pzJJg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 13:35:27.2639
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aecb053d-e606-421c-85da-08dee0e399b7
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB5840
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE0MiBTYWx0ZWRfX/p8mCFFkgJI8
+ zyu+ZbW4UUAIcw+3K6Uex/XI4sIIQGVevNDQi7wH9AbN/DB1SkhA28B+7r4d6rybm+GYOJsl4M8
+ wxEaMDPLGMBIjsg4DeAjyImso+bALMn9dDtqvBZj+PrA7k46cMM+VEFBXx5xDFQlfipBhdb6ofD
+ YUzG5FwFdxHKx4w/cy0uwKi1rtc8yyg39IMZpQuzMaUl3D0HKjo51I5X8ciNQMuNfZUkOAI0tsY
+ DtG+PJsgaGgne/VkcljLZbAAYTWGLOBIj7QRusW9E4jciaYNaK108zjNRQTdOSXX69EOMJ/0ygx
+ I5jUeHW+6kfkbVftM40I1pK6t1skwV0cUuVEoN0godQDZe8ZUaI1s/4Ix4tDTPVv/RuKJjS9EUf
+ O0l9V+tEBDFnnpgbJoCQfPzofPwbgoe61yQtUu7lR09dR0zyXBgecBTTt7veLIF5yF6uKF0R7Aa
+ 0eaY8sC2DlYytdVRwHw==
+X-Proofpoint-GUID: S_SlJAonwsRLHpSvTbzi8n3fupH9KnJc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE0MiBTYWx0ZWRfX4URuZYdP7bwo
+ 9bqJVnHwhgYoHFj447XCNX1KrZ2wbs2K8RbCmxOGyaJ5YJlrdfqXlcvM6Ol3zLjg23QSDaijPTG
+ 3q/NqXW5cXqpkgvDa9yHNAa39KFd43g=
+X-Proofpoint-ORIG-GUID: S_SlJAonwsRLHpSvTbzi8n3fupH9KnJc
+X-Authority-Analysis: v=2.4 cv=Frk1OWrq c=1 sm=1 tr=0 ts=6a54e9a6 cx=c_pps
+ a=CM6yQ3ajfX3ct242QRRZiw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=nB2TrFpfzR2c5x_Qo34A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_03,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ clxscore=1011 suspectscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607130142
 
-On 7/13/26 9:51 AM, Krzysztof Kozlowski wrote:
-> On Sat, Jul 11, 2026 at 10:59:39PM +0200, Marek Vasut wrote:
->> Add another SoM type N: match and update email address to an
->> up to date one in the process.
->>
->> Signed-off-by: Marek Vasut <marex@nabladev.com>
->> ---
->> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
->> Cc: Bartosz Golaszewski <brgl@kernel.org>
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Linus Walleij <linusw@kernel.org>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: devicetree@vger.kernel.org
->> Cc: kernel@dh-electronics.com
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-gpio@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-stm32@st-md-mailman.stormreply.com
->> ---
->>   MAINTAINERS | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 8729cea57c3dd..3532d425e41f1 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -7518,11 +7518,12 @@ F:	drivers/iio/chemical/sen0322.c
->>   
->>   DH ELECTRONICS DHSOM SOM AND BOARD SUPPORT
->>   M:	Christoph Niedermaier <cniedermaier@dh-electronics.com>
->> -M:	Marek Vasut <marex@denx.de>
->> +M:	Marek Vasut <marex@nabladev.com>
->>   L:	kernel@dh-electronics.com
->>   S:	Maintained
+Hi LiangCheng,
+
+On 17/06/26 07:39, LiangCheng Wang wrote:
+> Hi Devarsh,
 > 
-> Commit is fine, but, assuming old address stops working, please send a
-> patch changing address in other MAINTAINERS entry + mailmap entry, and
-> in all of dt-bindings (one patch for DT is enough)
-There is one more DRM entry, I will fix that up in a separate patch.
+> Thanks, that sounds great -- let's converge on panel-ssd16xx.c.
+> 
+>> Yes, I will be adding SSD1677 controller support in V2 of my series,
+>> hopefully that should help and after that it's just a matter of adding
+>> panel entry for your pixpaper panel. I can share you my branch with
+>> ssd1677 support once I have it ready.
+> 
+> That would be very helpful, please do share the branch once it's ready. I
+> have the PIXPAPER 4.26 hardware here, so I can validate the SSD1677 support
+> and the panel on real hardware and report back any quirks.
+> 
 
-But since you brought this up -- what about the mail address used in 
-copyright headers (comments) in various drivers, shall I simply remove 
-it and be done with it (I think yes, but again, separate patchset) ?
+Thank you for your patience. Please find my V2 staged branch [0], which 
+includes:
+   - SSD1677 controller support [1]
+   - PIXPAPER 4.26M panel support [2] (based on the SSD1677 datasheet 
+and your series [3])
+
+Please test it on your hardware and let me know if it works as expected 
+or if you encounter any issues then I’m happy to help with any 
+adjustments needed.
+
+>> additionally I can quickly add boilerplate pixpaper 4.26 panel entries on
+>> top of my V2 series referring from your patch so that it switches to using
+>> standard ssd16xx commands and ssd1677 quirks wherever necessary and you can
+>> then validate and modify.
+> 
+> Thanks for offering. If it's alright with you, I'd like to take the
+> pixpaper-426m panel entry through review myself on top of your series, using
+> your boilerplate as a starting point, since I can carry the validation on
+> real hardware. I'll credit your help with Co-developed-by/Suggested-by as
+> appropriate. Happy to arrange it whichever way is easiest for you.
+> 
+
+Certainly. I'll exclude the pixpaper-426m support patches from my V2 
+submission so you can handle the review and validation on your end.
+
+Please feel free to test, modify and  confirm it works on real hardware 
+with "mayqueen,pixpaper-426m" compatible from this series. Don't 
+hesitate to reach out if you need any assistance or have any questions 
+during the process.
+
+> I'll also follow up with the 0xF7/0xFF test result so we can capture the
+> correct SSD1677 update-sequence quirk.
+
+I will continue validating the remaining patches using my non-pixpaper 
+panels and plan to submit a V2 this week. Please feel free to send the 
+pixpaper patches on top of my planned V2 series.
+
+[0]:
+https://github.com/devarsht/linux-next/commits/ssd16xx_7_2/
+
+[1]:
+https://github.com/devarsht/linux-next/commit/f80210f9440234e8890d400e827b0f7a5cb2f6eb
+
+[2]:
+https://github.com/devarsht/linux-next/commit/fddef0b92a085845f07f51dbc7623c08cbad8c8e
+
+https://github.com/devarsht/linux-next/commit/c953e26d06e201dc523ed764ffba083bca49e922
+
+[3]:
+https://lore.kernel.org/all/20260529-bar-v3-0-5c2ac1c751ee@gmail.com/
+
+Regards
+Devarsh
+
+> 
+> Regards,
+> LiangCheng
+> 
+
