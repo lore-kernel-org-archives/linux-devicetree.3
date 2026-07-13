@@ -1,95 +1,182 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BE537A85E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD937F014;
 	Mon, 13 Jul 2026 10:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783939096; cv=none; b=cj9rI0n3hz7pNbE4gPHYEKPEZGkALX+0mOWJJoY9vUt7JYmOGyrbA7HQslhKpjpEcTQdfcZUjt506YmiBqth4TBq1+qgWoL9uAd8/+l4olUC/HgMN3xgeA0omx+ya6Gp331uKmHcZWQ8LHSoq5APzDy7rkypsCbmXMaWUY0cCUU=
+	t=1783939096; cv=none; b=f2kxtxz9w62uM/hKBEfeggLeAT4FyAEMRXAcHp12YwZH82xWJA8IzSZ6HonCO5EC2lMrycaERmSdxZOzo1FU5Gw3dJT3VQ1ZzKplRVMUC92wpKcFu/PvMsVgeRCrVzbhgT+2saDpkD9xuYZZiQ0tH5ijpo6PWM3mZYQjx3GZjnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783939096; c=relaxed/simple;
-	bh=j5lGbsuNrMuX2/MBNskiphqCbXX2IsyCVQqLudRvkx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZSp/620G/CuftuTeseXszCmEm8AWwEl7DpTXA/bIRegDAuZUEaNzYmbwxLuq2KUOhHtq9NK2tFq1lWqaQMBCvNoltJHAw5jWJjhcHHxhBklbS1WT7wwBKY6mUii9Dy6Ok+RDFF2mb7MpITgmbP05Uuf+5ZaYQYx1PQYEcpDxf3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ip+OlFxP; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	bh=x+v673bKrdgstSOS0sJiHKh2VJoMJZweqnnDh3JsuMM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=m41DAAnNT9MN/Kk4W4O1fC8PfTgf5DzMtxvnkbe6g3KgZvZ3H6Q92/c4oor73+jFkqIb65yyOUVjoVACpe/SJHOF6+z2Ai0lRujOWjrCV4y7psIpj8tWMkr0lnjoQRLR/++xVVCJLe6tNzFOARFUoAig2PBsR2k9eBEtk22OaQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgcxN4wj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ip+OlFxP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783939093;
-	bh=j5lGbsuNrMuX2/MBNskiphqCbXX2IsyCVQqLudRvkx8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ip+OlFxPewx/MeOw5CRAZNfD9gBfEHDjiwiVUpBB3PKns7El48CnNmZxaus4X4+o4
-	 PCq3cX9/B2rqMulQCnSO4OCfMKHzS/RmmsyVRrSRPLhyh9B8OTvijFfswPkUagItYU
-	 ne/Ua18idlN1Fw0eMM34xzJDEQVhn0dvS8jeK9TNp7cXB+gghStUGyUKRJSUiv6cY0
-	 DPj+I+shzwA/iPYwY1i+GSl/EF6HE5IWI4og+XSwz918rzaeQKHAMdo4A3kPzzXGev
-	 hy1krySs+UafcBXjN6RSFhPLwmEHb7HxadC8le1YHvL10eoLoG+LT0fAnJaHT5XJoN
-	 9OJaZe0gzNH9A==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 810B517E0DE6;
-	Mon, 13 Jul 2026 12:38:12 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunfeng.yun@mediatek.com
-Cc: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chunkuang.hu@kernel.org,
-	p.zabel@pengutronix.de,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	justin.yeh@mediatek.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	kernel@collabora.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 1/2] dt-bindings: phy: mediatek,dsi-phy: Add support for MT8196
-Date: Mon, 13 Jul 2026 12:38:04 +0200
-Message-ID: <20260713103805.23030-2-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
-References: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgcxN4wj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511071F00A3A;
+	Mon, 13 Jul 2026 10:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783939094;
+	bh=nkqspIWUgAzrrTdV947aloI+ENHvEkQkZlse1QuKFCg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mgcxN4wj9YdV9caDsMVretPOHZnOxLd3wGSEe2qDzHyxnZRqYqkmQknnQlXfkP+jD
+	 ovl5YxouXQC/nFIoQgVqg+qWP2X17vbQ65eX0vHF91w9r+GN4MiWoLKAjEHW1ZqLRS
+	 XKJSz2FGL7Jj2F1UdsXryNvoy3jbPWpH/sephxyzZ+NMGUldUOnEvM/59s87in6Ba/
+	 O5q59/FtVV+nJhiofe0kQ1Pvk4zqRUAmwR4QewFR0yihMf1SLFedl3HpcH0K40JQkw
+	 T3JJDS3dfoYLqGAc3nJgZ0bvzLJm8ZNxef/ZMAaC/9uOQDWzUQZeh0NFdyzjtbMHZ/
+	 7QaM6ZHpAlIMQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] thermal/drivers/imx: Add calibration offset
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Haoning CHENG" <Haoning.CHENG@cn.bosch.com>
+Cc: Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-2-09b6b7669be1@cn.bosch.com>
+References: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-0-09b6b7669be1@cn.bosch.com>
+ <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-2-09b6b7669be1@cn.bosch.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 10:38:13 +0000
+Message-Id: <20260713103814.511071F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for the MediaTek Kompanio Ultra (MT8196) SoC: this
-chip features a DSI PHY that is similar to the one found in the
-MT8183 SoC, but is a new (incremental) revision with a different
-register layout.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml | 1 +
- 1 file changed, 1 insertion(+)
+New issues:
+- [High] An unbounded DT property causes integer underflow in the alarm cal=
+culation, leading to out-of-bounds register bit manipulation.
 
-diff --git a/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml b/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml
-index c6d0bbdbe0e2..9df1dbe1253b 100644
---- a/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/mediatek,dsi-phy.yaml
-@@ -39,6 +39,7 @@ properties:
-       - const: mediatek,mt2701-mipi-tx
-       - const: mediatek,mt8173-mipi-tx
-       - const: mediatek,mt8183-mipi-tx
-+      - const: mediatek,mt8196-mipi-tx
- 
-   reg:
-     maxItems: 1
--- 
-2.54.0
+Pre-existing issues:
+- [High] Use-after-free of `data->tz` in the thermal alarm IRQ thread durin=
+g device removal.
+--
 
+--- Patch [2]: [PATCH v7 2/2] thermal/drivers/imx: Add calibration offset s=
+upport ---
+commit 09bf5f606220dc9c50fce508974c8440db8631c3
+Author: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+
+thermal/drivers/imx: Add calibration offset support
+
+This patch introduces support for a per-design temperature calibration
+offset to align reported CPU temperatures with board-level measurements.
+It reads the fsl,temp-calibration-offset-millicelsius property from the
+device tree and applies it to the calibration formulas.
+
+> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
+> index 5aaacbc534786..5e3cff69aced7 100644
+> --- a/drivers/thermal/imx_thermal.c
+> +++ b/drivers/thermal/imx_thermal.c
+
+[ ... ]
+
+> @@ -223,6 +224,7 @@ static void imx_set_panic_temp(struct imx_thermal_dat=
+a *data,
+>  	struct regmap *map =3D data->tempmon;
+>  	int critical_value;
+> =20
+> +	panic_temp -=3D data->calibration_offset;
+>  	critical_value =3D (data->c2 - panic_temp) / data->c1;
+> =20
+>  	regmap_write(map, soc_data->panic_alarm_ctrl + REG_CLR,
+
+[Severity: High]
+Does subtracting an unvalidated calibration_offset allow critical_value to
+exceed the register bitfield width?
+
+If the device tree provides an extremely large positive or negative value,
+critical_value could overflow or underflow. When shifted and written to
+REG_SET:
+
+    regmap_write(map, soc_data->panic_alarm_ctrl + REG_SET,
+                 critical_value << soc_data->panic_alarm_shift);
+
+Could this out-of-bounds value pollute adjacent register fields, since REG_=
+SET
+applies any bits that are 1? Should data->calibration_offset be clamped bef=
+ore
+use?
+
+> @@ -239,11 +241,14 @@ static void imx_set_alarm_temp(struct imx_thermal_d=
+ata *data,
+>  	int alarm_temp)
+>  	int alarm_value;
+> =20
+>  	data->alarm_temp =3D alarm_temp;
+> +	alarm_temp -=3D data->calibration_offset;
+> =20
+> -	if (data->socdata->version =3D=3D TEMPMON_IMX7D)
+> -		alarm_value =3D alarm_temp / 1000 + data->c1 - 25;
+> -	else
+> +	if (data->socdata->version =3D=3D TEMPMON_IMX7D) {
+> +		alarm_value =3D DIV_ROUND_UP(alarm_temp, 1000) + data->c1 - 25;
+> +		alarm_value =3D clamp(alarm_value, 0, 0x1ff);
+> +	} else {
+>  		alarm_value =3D (data->c2 - alarm_temp) / data->c1;
+> +	}
+> =20
+>  	regmap_write(map, soc_data->high_alarm_ctrl + REG_CLR,
+>  		     soc_data->high_alarm_mask);
+
+[Severity: High]
+Can alarm_value overflow the register bitfield for non-IMX7D variants?
+
+The IMX7D variant uses clamp(), but the else branch does not:
+
+    } else {
+        alarm_value =3D (data->c2 - alarm_temp) / data->c1;
+    }
+
+Since alarm_temp is adjusted by an unbounded calibration_offset, this could
+result in an out-of-bounds alarm_value that pollutes adjacent fields when
+written to soc_data->high_alarm_ctrl.
+
+[ ... ]
+
+> @@ -629,6 +635,10 @@ static int imx_thermal_probe(struct platform_device =
+*pdev)
+> =20
+>  	platform_set_drvdata(pdev, data);
+> =20
+> +	of_property_read_s32(dev->of_node,
+> +			     "fsl,temp-calibration-offset-millicelsius",
+> +			     &data->calibration_offset);
+> +
+>  	if (of_property_present(dev->of_node, "nvmem-cells")) {
+>  		ret =3D imx_init_from_nvmem_cells(pdev);
+>  		if (ret)
+
+[Severity: High]
+This is a pre-existing issue, but does this driver have a use-after-free
+during device removal?
+
+The driver requests its interrupt via devm_request_threaded_irq() in
+imx_thermal_probe(). Because it uses devres, the IRQ is freed after
+imx_thermal_remove() returns.
+
+However, imx_thermal_remove() manually unregisters the thermal zone:
+
+imx_thermal_remove()
+    ...
+    thermal_zone_device_unregister(data->tz);
+
+This frees data->tz. If the hardware thermal alarm triggers after this
+unregister but before the devres cleanup, the IRQ handler
+imx_thermal_alarm_irq_thread() will execute:
+
+imx_thermal_alarm_irq_thread()
+    ...
+    thermal_zone_device_update(data->tz, THERMAL_EVENT_UNSPECIFIED);
+
+Could this dereference the freed data->tz pointer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-b4-symana2=
+1-11221-imx-thermal-support-upstream-6-18-v7-0-09b6b7669be1@cn.bosch.com?pa=
+rt=3D2
