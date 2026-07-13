@@ -1,193 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF61337A85E
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:38:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39791DE8AE
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:39:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783939135; cv=none; b=n9a5s26N/gjZwvENW6GFjbkgCygFMRzP8FU3r1L3ezfTCHPPOtCyXavPsJg29TzrVmDUcNw0GOelHHB+dVV1l70fVwIa8VmqITmJ6Jd8ufhu4JEsXHwBlJKKvUKCVmwNVEvdGClGR25q490ynheaV9HMISPdfcVBKfFdY6Xf2pw=
+	t=1783939167; cv=none; b=qliMcq19nUP04bRSbr2QYSIaGUL1Ip662de9zsrrou6WLT+rwgO8xue8F2eDo2mYYHmkg6oWc6Uiyxll3TWinHJ+6nhyggU8Dbj7pVRlN4JlpCOuxNsf7UeOOFqmJCYPGs6GMbpouuRejT/x3DyBnTTSkwEWoC2XkpHpNe9L0UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783939135; c=relaxed/simple;
-	bh=apGXhsQgHfSypttIgKW6sHhOVtDZqyTu/JDHg6Gktbk=;
+	s=arc-20240116; t=1783939167; c=relaxed/simple;
+	bh=QqsdTC+pOrGH8S6rx7eCKn9toq/Hstqd1Nmymc1owR4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h3pFzz1amWZuHNIBPenYhCvBb+FWpLTvLE35OSHw594PgjKtQU7qmATd1B1p9UylmgnDZ8WfauO2NJ2mRXdEVMGSCIsBIsgwYXyfRGZZ3s9rrCdAlQWzYLeIoOiwiJNIGBURivFzEgg0Bg5YndEDyCi3mYuSzmqDzLRBLZ8XmJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfNcH83K; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Rhgld2JTS0Ho/Jo5XePIJ9S1/v9ykRc0kafQN7FZW51NH69YYUX+/Vn5pZ+jUDbTLAIYFWnVU1wMaxwKkpgmx2/B89HLpeeYq2tRQ/GqixwB7+XW01XzyLGt+TwMN7WP1oZb05tUIfaojvrGgarcqCX/i4V8tvfBdakzDQoQSS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAYiqIxj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfNcH83K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152831F000E9;
-	Mon, 13 Jul 2026 10:38:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAYiqIxj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557CE1F000E9;
+	Mon, 13 Jul 2026 10:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783939133;
-	bh=LNvrlMDi3TtasZKUw4zO6yNoevaQajY0oRiWmip4h/8=;
+	s=k20260515; t=1783939165;
+	bh=15Dhwh20XfweFeuR1h505sKF7tnS5xI1FovplSycQEU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EfNcH83KBrAoSl17If3r7mmtoV6qmzm7d+EmLaVR9VCApSA2RcujvM/f+q9EL7gnX
-	 LhRvK1CoUkfitw1LEhdArvnkQko7t4wdxf8EoCzYYe8wSTo9sCeoL5fW6+FrXqNUw+
-	 muopuc/3VAIhuAnKUP82iIKfn/etTlZhVQasCuwDIIUWlSIOnaxKQP1TntI1V3jtMx
-	 w6B3Zq8iWG1oL14Hoo0hS1VPLfO47OvxYf3VjrvL07sbvmudWr5b+fTmc91x7mda80
-	 gANXmkXQM/wUXFDTxqIY1THjc9RrgXfi+K+eP52w6J9Zul2LGLKEgCA4yrM+55gr1O
-	 f/N2tXzwc8hCQ==
+	b=VAYiqIxjL3daCyR+D+ETLGq41mNrhbgaGKn7ME2q4d8KPQYkA6jeYNTEYqj0Bcmpe
+	 jqOnw1gz383wgQ7PryrwzW9KoTe+5f8HW5gigVehgRcPxT5V/oB5NH+r1UziMp5E78
+	 icplkzFFW8k8uiCDDOJg5x2zJIU70DPaE2Fe6RXpouuG76zhi3jpRPRZV9WvJe0u2E
+	 +ou/itGBnTQAqCWqqyfyuov7eijDS7B5hbid+ZYoWCFp95nUTucwT7y91597Q4oE8a
+	 R1QfVzsPDfBgKYBAqi+C8IoPpa17yS7E6kP7QbdkeSO+CeE7Oj7rzcu3zauQ9XdY00
+	 LLMhXXK8coSHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/7] irqchip/irq-qcom-mpm: Program wakeup timer when CPU
- cluster goes to LPM
+Subject: Re: [PATCH 3/7] irqchip/irq-qcom-mpm: Prepare common access path
+ for timer and pin regs
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sneh Mankad" <sneh.mankad@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713-b4-shikra_lpm_addition-v1-4-3d858df2cbbf@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260713-b4-shikra_lpm_addition-v1-3-3d858df2cbbf@oss.qualcomm.com>
 References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
- <20260713-b4-shikra_lpm_addition-v1-4-3d858df2cbbf@oss.qualcomm.com>
+ <20260713-b4-shikra_lpm_addition-v1-3-3d858df2cbbf@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 10:38:52 +0000
-Message-Id: <20260713103853.152831F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 10:39:24 +0000
+Message-Id: <20260713103925.557CE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Data race between the AP and RPM processor due to incorrect orderi=
-ng of mailbox notification and timer programming.
-- [High] Unhandled KTIME_MAX from unscheduled timers causes massive integer=
- overflows and random hardware wakeups.
-- [High] Expired timers produce negative relative times that underflow when=
- cast to unsigned u64.
-- [High] Invalid USECS_TO_CYCLES conversion macro uses CPU delay loop calib=
-ration instead of arch timer frequency, and truncates to 32 bits.
+
+Pre-existing issues:
+- [High] The initialization loop in the probe function writes zeroes to reg=
+isters based on the device tree property `qcom,mpm-pin-count` without verif=
+ying if the calculated `reg_stride` fits within the mapped I/O memory regio=
+n.
+- [High] Lack of bounds checking on `d->hwirq` combined with signed integer=
+ conversion allows arbitrary out-of-bounds memory accesses when reading/wri=
+ting IRQ registers.
 --
 
---- Patch [4]: [PATCH 4/7] irqchip/irq-qcom-mpm: Program wakeup timer when =
-CPU cluster goes to LPM ---
-commit c68a3cdf8bf38bac4bbcdaf3ea878c066a1246a0
+--- Patch [3]: [PATCH 3/7] irqchip/irq-qcom-mpm: Prepare common access path=
+ for timer and pin regs ---
+commit 481c7b7ccc27a48778456542a65ce5c589dcaa00
 Author: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 
-irqchip/irq-qcom-mpm: Program wakeup timer when CPU cluster goes to LPM
+irqchip/irq-qcom-mpm: Prepare common access path for timer and pin regs
 
-This commit adds support for programming the next wakeup time into the MPM
-timer when the CPU cluster enters power collapse. This allows the RPM proce=
-ssor
-to set the hardware timer and wake up the SoC when the architectural timer
-interrupt cannot do so during deep low power states.
+This commit introduces a common addressing helper, qcom_mpm_offset(),
+to calculate memory offsets for both timer and pin registers. It also=20
+replaces the macro definitions for vMPM registers with an enum and=20
+updates the read/write accessor functions to use it.
 
 > diff --git a/drivers/irqchip/irq-qcom-mpm.c b/drivers/irqchip/irq-qcom-mp=
 m.c
-> index 763eddee99dc4..f43c4a1c35f78 100644
+> index 01fd1843172aa..763eddee99dc4 100644
 > --- a/drivers/irqchip/irq-qcom-mpm.c
 > +++ b/drivers/irqchip/irq-qcom-mpm.c
-
 [ ... ]
-
-> @@ -77,6 +80,13 @@ enum qcom_mpm_reg {
->  	MPM_REG_STATUS,
+> @@ -92,18 +97,36 @@ struct qcom_mpm_priv {
+>  	atomic_t cpus_in_pm;
 >  };
 > =20
-> +#define USECS_TO_CYCLES(time_usecs)	xloops_to_cycles((time_usecs) * 0x10=
-C7UL)
-> +
-> +static inline unsigned long xloops_to_cycles(u64 xloops)
+> -static u32 qcom_mpm_read(struct qcom_mpm_priv *priv, unsigned int reg,
+> -			 unsigned int index)
+> +static unsigned int qcom_mpm_offset(struct qcom_mpm_priv *priv, enum qco=
+m_mpm_reg reg,
+> +				    unsigned int index)
 > +{
-> +	return (xloops * loops_per_jiffy * HZ) >> 32;
+> +	unsigned int reg_offset;
+> +
+> +	/*
+> +	 * Per the vMPM register map, TIMER[0..1] starts at register index 0 an=
+d all pin-specific
+> +	 * registers start after the two TIMER regs. Pin-specific register IDs =
+start at
+> +	 * MPM_REG_ENABLE, so subtract it to convert to a zero-based pin-regist=
+er group index.
+> +	 */
+> +	if (reg =3D=3D MPM_REG_TIMER)
+> +		reg_offset =3D index;
+> +	else
+> +		reg_offset =3D MPM_TIMER_REGS +
+> +			 (reg - MPM_REG_ENABLE) * priv->reg_stride + index;
+> +
+> +	return reg_offset * sizeof(u32);
 > +}
 
 [Severity: High]
-Does this macro use the correct frequency for the conversion, and is there a
-risk of overflow?
+This isn't a bug introduced by this patch, but I'm wondering if
+priv->reg_stride is validated against the size of the mapped I/O memory reg=
+ion?
 
-In xloops_to_cycles(), loops_per_jiffy represents the CPU-specific delay
-loop iterations rather than the fixed frequency of the architectural timer.
+Looking at qcom_mpm_probe():
 
-Also, the calculation (xloops * loops_per_jiffy * HZ) can overflow a 64-bit
-integer for sleep times exceeding 25 seconds. Finally, returning an unsigned
-long truncates the result to 32 bits on 32-bit ARM systems, which would
-further cap the maximum sleep duration.
+	priv->reg_stride =3D DIV_ROUND_UP(pin_cnt, 32);
 
-[ ... ]
+If a very large qcom,mpm-pin-count is provided in the device tree, could the
+initialization loop later in qcom_mpm_probe():
 
-> @@ -320,6 +331,36 @@ static irqreturn_t qcom_mpm_handler(int irq, void *d=
-ev_id)
->  	return ret;
->  }
-> =20
-> +static void mpm_write_next_wakeup(struct qcom_mpm_priv *priv)
-> +{
-> +	ktime_t now, wakeup =3D KTIME_MAX;
-> +	u64 wakeup_us, wakeup_cycles =3D ~0;
-> +	u32 lo, hi;
-> +
-> +	/* Set highest time when system (timekeeping) is suspended */
-> +	if (system_state =3D=3D SYSTEM_SUSPEND)
-> +		goto exit;
-> +
-> +	/* Find the relative wakeup in kernel time scale */
-> +	wakeup =3D dev_pm_genpd_get_next_hrtimer(priv->dev);
-> +
-> +	/* Find the relative wakeup in kernel time scale */
-> +	now =3D ktime_get();
-> +	wakeup =3D ktime_sub(wakeup, now);
+	for (i =3D 0; i < priv->reg_stride; i++) {
+		qcom_mpm_write(priv, MPM_REG_ENABLE, i, 0);
+		...
+
+write zeroes out of bounds into memory following priv->base?
 
 [Severity: High]
-Could this overflow if there are no pending timers?
+This is a pre-existing issue, but does this function safely handle the index
+parameter against malformed device tree inputs?
 
-If dev_pm_genpd_get_next_hrtimer() returns KTIME_MAX, subtracting now from
-KTIME_MAX in mpm_write_next_wakeup() yields a massive delta.
+In qcom_mpm_alloc(), pin is assigned as d->hwirq from the device tree
+interrupt specifier without bounds validation against domain->hwirq_max.
 
-When this large delta is converted to microseconds and passed to
-USECS_TO_CYCLES(), it seems it would overflow the 64-bit bounds during the
-multiplication, leading to a randomized or incorrect wakeup time being
-programmed into the hardware.
+Later in qcom_mpm_enable_irq():
 
-> +	wakeup_us =3D ktime_to_us(wakeup);
+	int pin =3D d->hwirq;
+	unsigned int index =3D pin / 32;
 
-[Severity: High]
-How does this handle expired timers where the scheduled wakeup is in the pa=
-st?
-
-If the scheduled wakeup is earlier than now, ktime_sub() will return a nega=
-tive
-time delta. When ktime_to_us() returns this negative value, assigning it to
-the unsigned u64 wakeup_us variable will cause it to wrap around to a massi=
-ve
-positive number, which then gets passed to the conversion macros.
-
-> +
-> +	/* Convert the wakeup to arch timer scale */
-> +	wakeup_cycles =3D USECS_TO_CYCLES(wakeup_us);
-> +	wakeup_cycles +=3D arch_timer_read_counter();
-> +
-> +exit:
-> +	lo =3D wakeup_cycles;
-> +	hi =3D wakeup_cycles >> 32;
-> +
-> +	qcom_mpm_write(priv, MPM_REG_TIMER, 0, lo);
-> +	qcom_mpm_write(priv, MPM_REG_TIMER, 1, hi);
-> +}
-> +
->  static int handle_rpm_notification(struct qcom_mpm_priv *priv)
->  {
->  	int i, ret;
-> @@ -332,6 +373,7 @@ static int handle_rpm_notification(struct qcom_mpm_pr=
-iv *priv)
->  	if (ret < 0)
->  		return ret;
-> =20
-> +	mpm_write_next_wakeup(priv);
-
-[Severity: High]
-Is there a data race here between notifying the RPM and writing the timer?
-
-In handle_rpm_notification(), the mailbox message is sent to the RPM
-via mbox_send_message() before mpm_write_next_wakeup() is called to program
-the new timer values into the shared registers.=20
-
-Because the notification is sent before the write occurs, the RPM could read
-the shared registers before the AP has actually written the updated wakeup
-time, causing it to use stale or uninitialized values.
-
->  	mbox_client_txdone(priv->mbox_chan, 0);
->  	return 0;
->  }
+If a sufficiently large d->hwirq (e.g., 0x80000000) is provided, would the
+signed integer conversion cause it to wrap into a negative number, resulting
+in a massive unsigned index being passed into qcom_mpm_offset() and allowing
+arbitrary out-of-bounds memory accesses?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-b4-shikra_=
-lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com?part=3D4
+lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com?part=3D3
