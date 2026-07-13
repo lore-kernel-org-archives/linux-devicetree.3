@@ -1,180 +1,299 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474B1328B61
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2CD2848A7
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783958511; cv=none; b=IwV07XOpWUQ01y403RiIQkvP164zCVGUwque0fYGyCP1xCy9Pg9DPUr/H3WXdLhe7/VSMsVNtD15WHkJAGwN7PAu1f5eghuyL9BbMBlCgr90d4kfXIe8Vcigo6aD9Miz9vEagVDVMBLODnZs5xAoBUYUpxYTjuwuCnuZTKYarXc=
+	t=1783958558; cv=none; b=c8E2v62uF3B7QrgUKIfjlSvfUKgPWOn7CYOD4BlNmZPSyeLlBqPIS9iJ+wGCoTuSX/sfhdjv2q7iePXOzLzGmAaM9iiha5gibnhux+jV4wOu06GLe5WNzbHHJAXSO2bg/kDxj8DEFnsm04lmvGwOf1gFoS8qjEb/Wz/n/aYAhGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783958511; c=relaxed/simple;
-	bh=O5pyFLw83Ql+8EIFjSrZ0kqwUIJfbEiI35BjR/8WVDQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vqyxo4vE+LNWlftt1m6NxbN62kMlOrX9k2Z9KVWrDPM+f82mrGAyk/bfVuZG9v2KNQ3hgodECzgXUoMhvhmA85kHEsSbKdkq33Xj1rDc3xj1eEgMJI/PKYKGRwkgMT1tkP+keuhobA+4eLxkqDA04x83UdAefbSHZvkyXZrfYjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-44caeb973b3so1932930fac.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:01:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783958509; x=1784563309;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dGAf88p06+MskhwY7uBe/JNJCrwrqcblSzHwwgSV5+w=;
-        b=baMTBrX4eMhlND9IXNrNztu7Djfjx9ffwcSffKdPYzyTJhjTplh/hpb9eMdJcxaVPF
-         6pJICmy45kCihuozTwkeZJCNjJrXv31yACyjexivpeoPk3amURcO3LeXwcsltU4FQ2GA
-         vKEC79qfoFN5VF+b8+MllUnyNQwU2GjJtV5FpbvrdBzGyifcjgkteLJjtvqOeBhnRTJZ
-         buxE3UEzPjJpeYG26UFGlsGcHTVRQD1nqK9/7XNcESZpk7eVrRFEKb2r5ZJ1WUjhW5zc
-         51hl+RPcW8oKaoEoNh+hvJCbMwAWgWl8AdFYPuRC9MoiUb+VU0/DnI0TdGmyZb17r+fI
-         Xh9w==
-X-Forwarded-Encrypted: i=1; AFNElJ8uy7pzYvB0eBrBfPZLn+9N2h+rjDuqP8a452ZW5My68Yvy00kSSudXQbBW5XRRN9h/LgcWLW6Xe521@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxg0QB/2BHn1baqhNhund0xor18ahby9TRh9/+YkCwL6QvA05F/
-	0X9VT+Gvn1clWILLKjBSpVnAyPAxNlD+VNcZ+Kg1wAqsaL8NVNI0H5sh4MuaMsmwMBE=
-X-Gm-Gg: AfdE7cmUwAOKNR2jH3ArYBkU9oTPl3uK0Nt2cdpm/wfZGRd8vSM5CXtQo8UwuDTyfId
-	vuH3MEBFCsgjev0ZtG8JK+0voFmld91/CN7zDRymDeRUdGxOJujC8WLLIAU1sZRI1LeZSIUt08C
-	Iz9ETGaLfEBYVFyi5Ktds1R5mWkdkBfkFFDfxmfwCuCUJFKm5N8sfhvTzc3Q3+7wwWYeC4oUn3m
-	gc7Qo+SBctM9Ii65ZYEH6kUg3VXXW6ZkkHcsPGg5c96jlAyTCC4ILFpe/8wFVndAd/KWqnoO6XO
-	wDYuFkjRxL8tls4UfPkgg1E57D53hSi8HCrLOL4locpgDdfLly/XJJF2hOgNvGRB2jqjb3hir0P
-	idYdnx2Bik/PjB+qin3P1xobpmpWLcWslsOJDmAGN5za8DMcuEEEqzLGRv9zDYkScz8xyjOwQEZ
-	jvBVLmNLV6hqw93ZlhLgbWZ4HCMbs/IPZgkNrNnz6SjVjpGryKdQ==
-X-Received: by 2002:a05:6870:5390:b0:448:558c:d848 with SMTP id 586e51a60fabf-455f80ea62bmr27979fac.35.1783958508993;
-        Mon, 13 Jul 2026 09:01:48 -0700 (PDT)
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com. [209.85.160.42])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-451ff78897asm7107380fac.17.2026.07.13.09.01.48
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 09:01:48 -0700 (PDT)
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-448de0cc236so1872440fac.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:01:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+JD8P+CyN3ehAu7Sx3WvJJVeCGkOUw9HlSMjvQ6VrqEJ5UqwV6bqUVuymZeKh4jRSFrEvXv5hev58Q@vger.kernel.org
-X-Received: by 2002:a05:6102:1626:b0:739:8c52:f2b with SMTP id
- ada2fe7eead31-7457e8e369cmr48584137.18.1783958102735; Mon, 13 Jul 2026
- 08:55:02 -0700 (PDT)
+	s=arc-20240116; t=1783958558; c=relaxed/simple;
+	bh=ClIEoMdepOT7JMzzsUOaM8m9cJgQZ4Pzk4xj2WOGatc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jLDsFaxc2UsH7XgXIZs+IYJnmpkAHmFTGRVCp+qWeN3rsfjTVTcuOfaiQw9mO0bZQRAQsi9ai8q8MQjNfbB+FKfQ4nVlXD26KUTEK/zpWL4a7EjymnkGPrijc/MYEuUHSwasmwLxe5GmhqSYEbml1ec27btECu/i9xzztkkGLUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kMVA4bcU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dcZw7hjA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FaH+x4J9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1sRd/hFC; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kMVA4bcU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dcZw7hjA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FaH+x4J9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1sRd/hFC"
+Received: from kunlun.suse.cz (unknown [IPv6:2a07:de40:b306:2000::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 910343DFC;
+	Mon, 13 Jul 2026 16:02:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783958555; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MGgu+CaOtcKoy1gxSjcO4Zf6uMbnGEq/XPb9LJCgoJk=;
+	b=kMVA4bcUNX22GtjClknA4KZ3fswlnAFGsZYKs0uwwH1VrgIL2+ORMYrArV9ujyIHjLC14k
+	SGzvcu7HbBhHWN3bF1cRKzrIUtBwRshU0nLnAUSCR4N93D05xfgHrEr3NmSSTo6/qlTgxx
+	vtdSZBsuWczRq9NBJphkoevwqZ5skDk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783958555;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MGgu+CaOtcKoy1gxSjcO4Zf6uMbnGEq/XPb9LJCgoJk=;
+	b=dcZw7hjAGevDvneRyQ1wY82SJEjy1wW1W8fPidRDgniuImvtEZ/Wrgnx6psFw+vUq4sEPB
+	WZrd8C20us+TxLBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FaH+x4J9;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="1sRd/hFC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783958553; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MGgu+CaOtcKoy1gxSjcO4Zf6uMbnGEq/XPb9LJCgoJk=;
+	b=FaH+x4J9MKhf1OgVVyTDE0Yl+c5P1Q7hpBjJ7kAFs0XsGN2gTO5a9BjxDXnL3r/gA5NsRj
+	oCLkzRFVhAk5DNDGmMYRazGe7bYWoTpftPK1DWs+1hxSs7mN9y0usho/1Xf2Xuenoev8yW
+	CaWVqK+NqdKRwSW1LUsivR1ZB5uBPgI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783958553;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MGgu+CaOtcKoy1gxSjcO4Zf6uMbnGEq/XPb9LJCgoJk=;
+	b=1sRd/hFCLT/gl1Z2ed/ali1OABoveak0agl2hPKbpsb6FYMjd5wsFLj8zcpuLkulfyZgfs
+	97P2c2Q7xYgWMOCA==
+Date: Mon, 13 Jul 2026 18:02:32 +0200
+From: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, vsethi@nvidia.com,
+	Salman Nabi <salman.nabi@arm.com>, Rob Herring <robh@kernel.org>,
+	linux-kernel@vger.kernel.org, Varun Wadekar <vwadekar@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, Nirmoy Das <nirmoyd@nvidia.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 0/8] Arm Live Firmware Activation (LFA) support
+Message-ID: <alUMGCJzVG6U3Ggm@kunlun.suse.cz>
+References: <20260706134455.132091-1-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260702123112.161160-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260702123112.161160-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 13 Jul 2026 17:54:51 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
-X-Gm-Features: AUfX_mxzgD_hAyuoiso0jWBOVR76LgHMAUSKVimBZKTOAwoA2LG95DcPvI9LrPM
-Message-ID: <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 5/9] dt-bindings: watchdog: renesas,r9a09g057-wdt:
- Add SYS syscon support
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260706134455.132091-1-andre.przywara@arm.com>
+X-Spam-Flag: NO
+X-Rspamd-Action: no action
+X-Spam-Level: ***
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [3.99 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
+	RDNS_NONE(2.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ONCE_RECEIVED(1.20)[];
+	HFILTER_HELO_IP_A(1.00)[kunlun.suse.cz];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[kunlun.suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b306:2000::2:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_ZERO(0.00)[0];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b306:2000::2:from];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:url,suse.de:dkim,kunlun.suse.cz:helo,kunlun.suse.cz:mid,opencompute.org:url]
+X-Spamd-Bar: +++
+X-Rspamd-Queue-Id: 910343DFC
+X-Spam-Score: 3.99
 
-Hi Prabhakar,
+On Mon, Jul 06, 2026 at 03:44:40PM +0200, Andre Przywara wrote:
+> Hi all,
+> 
+> this is version 3 of the Live Firmware Activation kernel support. The
+> device part of the code now relies on Aneesh's SMCCC bus patches[1],
+> which solves some problems rather nicely. I also added the formerly
+> missing sysfs ABI documentation. Based on v7.2-rc1, plus the first
+> two patches from Aneesh's series. More detailed changelog below.
+> ==============================
+> 
+> This series implements the kernel side support of the Arm Live
+> Firmware Activation (LFA) specification [2]. LFA enables the activation
+> of updated firmware components without requiring a system reboot,
+> reducing downtime and allowing quicker deployment of critical bug fixes
+> in environments such as data centers and hyperscale systems.
+> It requires explicit firmware support, both via an agent running in EL3
+> (for instance in TF-A, already merged), but also in the firmware
+> component to be activated. TF-RMM recently merged support for this.
+> 
+> Unlike the usual firmware update process (which may use tools like
+> fwupd), LFA focuses solely on the activation of an already updated
+> firmware component, called "pending activation" in LFA lingo. This works
+> by signalling the LFA agent (part of the EL3 runtime firmware) via an
+> SMC call, which then does the heavy lifting of the live update, in
+> cooperation with the to-be-updated firmware component.
+> 
+> Key features of the driver:
+> * Detects LFA support in system firmware (EL3).
+> * Lists all firmware components that support live activation, identified
+>   by their GUID.
+> * Exposes component attributes (e.g., activation capability, and
+>   activation pending) via sysfs under /sys/firmware/lfa/<GUID>/.
+> * Provides interfaces to:
+>   - Trigger activation of an updated firmware component.
+>   - Cancel an ongoing activation if required.
+> A more detailed list of features can be found in patch 2/8.
+> Based on v7.2-rc1.
+> 
+> This work is conceptually similar to Intel’s Platform Firmware Runtime
+> Update and telemetry (PFRUT) [3] and TDX module updates [4], but
+> targets Arm platforms. The driver has been used to successfully activate
+> a Realm Management Monitor (RMM) firmware image in a controlled test
+> environment. RMM is analogous to Intel’s TDX module.
+> 
+> There is effort on similar work from the OCP [5]. Future work may
+> include integration with utilities like fwupd to automatically select
+> the appropriate driver, based on platform architecture, for Live/Runtime
+> firmware updates.
+> 
+> Please have a look, test and comment!
 
-On Thu, 2 Jul 2026 at 14:31, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> On the Renesas RZ/T2H SoC, the Watchdog Timer Control Register (WDTDCR)
-> resides within the System Controller (SYS) block rather than the WDT
-> address space itself.
->
-> Previously, this was handled by including a second register range in the
-> "reg" property. However, this is architecturally incorrect as the SYS
-> block consists of two distinct regions (0x80290000 and 0x81290000) that
-> contain registers for multiple peripheral blocks.
->
-> Now that the SYS driver provides a unified syscon regmap, introduce the
-> "renesas,sys" phandle-array property to allow the WDT driver to
-> access its control register via the system controller.
->
-> Mark the use of a second "reg" entry as deprecated in favor of the
-> new phandle-array approach for SoCs that require WDTDCR access.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v1->v2:
-> - No change.
+Hello,
 
-Thanks for the update!
+booting a kernel with v2 of this patchset applied the module does not
+get autoloaded. Loading it manually I get
 
-> --- a/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.yaml
-> @@ -48,6 +48,17 @@ properties:
->    resets:
->      maxItems: 1
->
-> +  renesas,sys:
+[ 1972.957282] [   T5195] Arm LFA: Live Firmware Activation: detected v1.0
+[ 1972.958620] [   T5195] Arm LFA: registered LFA ACPI notification
 
-In Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml,
-the similar property is called "renesas,sysc".
+Is this expected?
 
-> +    description:
-> +      System controller registers control the start/stop of the WDT, and halt debug.
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      - items:
-> +          - description: phandle to system controller
-> +          - description: watchdog IP instance index
-> +            minimum: 0
-> +            maximum: 5
-> +
->    timeout-sec: true
->
->  required:
-> @@ -73,15 +84,29 @@ allOf:
->            minItems: 2
->          clock-names:
->            minItems: 2
-> +        renesas,sys: false
->      else:
->        properties:
->          clocks:
->            maxItems: 1
->          clock-names:
->            maxItems: 1
-> -        reg:
-> -          minItems: 2
->          resets: false
-> +      allOf:
-> +        - if:
-> +            required:
-> +              - renesas,sys
-> +          then:
-> +            properties:
-> +              reg:
-> +                maxItems: 1
-> +          else:
-> +            properties:
-> +              reg:
-> +                description: Deprecated. Use renesas,sys to pass the offset
-> +                             of WDTDCR register instead.
+I would expect the driver to load automatically.
 
-the index of the watchdog IP instance?
+I do not see anything in the v3 changelog obviously addressing
+autoloading but changing to using a bus might affect that.
 
-> +                minItems: 2
-> +                deprecated: true
->
->  additionalProperties: false
+I will try to update to v3 later.
 
-Gr{oetje,eeting}s,
+Thanks
 
-                        Geert
+Michal
 
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> 
+> Best regards,
+> Salman and Andre
+> 
+> Changes in v3:
+> - change node name in DT binding example
+> - move SMCCC function identifiers into generic SMCCC header
+> - rework to use the new SMCCC bus instead of a using a faux device
+> - add missing workqueue cleanup in probe() routine
+> - squash former patch v2 3/8 into base patch
+> - use get_image_name() more consistently
+> - also consider -LFA_BUSY return in activate call
+> 
+> Changes in v2:
+> - restrict build to arm64 (the LFA spec only supports AArch64)
+> - rename and extend central data structure to fw_image
+> - use separate GPR register sets for some SMC calls
+> - provide wrapper for error messages to prevent out-of-bound access
+> - return GUID in the "name" sysfs file when image is unknown
+> - fix wrong attribute in pending version number show function
+> - add missing include files and order them properly
+> - fix memory leaks in error cleanup paths
+> - handle lifetime using embedded kobjects and a kset
+> - drop global lfa_lock, use kset list lock and kobject refcount instead
+> - add DT binding documentation
+> - add timeout and watchdog re-arming (contributed by Veda)
+> - relax timeout period and do not block while waiting
+> - register ACPI notification (contributed by Veda) and DT interrupt 
+> - refactor ACPI notification code to allow sharing with DT code
+> - use faux device instead of platform driver
+> - add auto_activate file to control automatic activation
+> - introduce rwsem mutex to prevent using stale sequence ID
+> - use labels and goto instead of infinite loop when retrying activation
+> - initialise workqueue only once (thanks to Nirmoy)
+> - various cleanups on reported messages and code formatting
+> - rebase on top of v7.0-rc1
+> 
+> Changes in v1:
+> - Updated SMCCC version 1.1 to 1.2 per the LFA specification requirement.
+> - Changed "image_props" array to a linked list to support the dynamic
+>   removal and addition of firmware images.
+> - Added code to refresh firmware images following a successful activation.
+> - Added a work_queue to handle the removal of firmware image attribute
+>   from it's respective kobject "_store" handle.
+> - Refactored prime and activate into separate functions.
+> - Kernel config for LFA now defaults to "y" i.e. included by default.
+> - Added individual kernel attribute files removal when removing the
+>   respective kobjects using kobject_put().
+> - mutex_lock added to activate_fw_image() and prime_fw_image() calls.
+> - Renamed create_fw_inventory to update_fw_image_node.
+> - Renamed create_fw_images_tree to update_fw_images_tree.
+> - Added two more attributes due to specs update from bet0 to bet1:
+>   current_version: For retrieval of the current firmware's version info.
+>   pending_version: For retrieval of the pending firmware's version info.
+> - Minor changes such as, improved firmware image names, and code comments.
+> - do...while loops refactored to for(;;) loops.
+> 
+> [1] https://lore.kernel.org/linux-arm-kernel/20260611130429.295516-1-aneesh.kumar@kernel.org/
+> [2] https://developer.arm.com/documentation/den0147/latest/
+> [3] https://lore.kernel.org/all/cover.1631025237.git.yu.c.chen@intel.com/
+> [4] https://lore.kernel.org/all/20250523095322.88774-1-chao.gao@intel.com/
+> [5] https://www.opencompute.org/documents/hyperscale-cpu-impactless-firmware-updates-requirements-specification-v0-7-9-29-2025-pdf
+> 
+> Andre Przywara (5):
+>   dt-bindings: arm: Add Live Firmware Activation
+>   firmware: smccc: lfa: Add auto_activate sysfs file
+>   firmware: smccc: lfa: Register DT interrupt
+>   firmware: smccc: lfa: introduce SMC access lock
+>   firmware: smccc: lfa: add sysfs ABI documentation
+> 
+> Salman Nabi (1):
+>   firmware: smccc: Add support for Live Firmware Activation (LFA)
+> 
+> Vedashree Vidwans (2):
+>   firmware: smccc: lfa: Add timeout and trigger watchdog
+>   firmware: smccc: lfa: Register ACPI notification
+> 
+>  Documentation/ABI/testing/sysfs-firmware-lfa  | 106 ++
+>  .../devicetree/bindings/arm/arm,lfa.yaml      |  45 +
+>  drivers/firmware/smccc/Kconfig                |  10 +
+>  drivers/firmware/smccc/Makefile               |   1 +
+>  drivers/firmware/smccc/lfa_fw.c               | 988 ++++++++++++++++++
+>  drivers/firmware/smccc/smccc.c                |   5 +
+>  include/linux/arm-smccc.h                     |  15 +
+>  7 files changed, 1170 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/sysfs-firmware-lfa
+>  create mode 100644 Documentation/devicetree/bindings/arm/arm,lfa.yaml
+>  create mode 100644 drivers/firmware/smccc/lfa_fw.c
+> 
+> 
+> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+> prerequisite-patch-id: 64fa2209c9eee2084861ba13f0bdfdac312b19b0
+> prerequisite-patch-id: fe1ca1a9aeb94623c79bf66366c76bfb8645b581
+> -- 
+> 2.43.0
+> 
+> 
