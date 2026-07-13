@@ -1,87 +1,41 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F377F3A7F75
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9444E5695;
+	Mon, 13 Jul 2026 08:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783930887; cv=none; b=P8CTZMPbqqP3yKVnRPG+Ku/9djS6Vy6vzpArhVlUvGQpAG+Dl1UiNyd2h7/gfr6GfalYomn3oyQhh3zNkiGP4ef7iMWlNQTNWpV6w4Zu0crdhR2IIRRUwFiWVAtveWP0LrO8fV3ByvR4vtLURQNAusv0fYx1yf0Y73AmaeRzg7o=
+	t=1783930992; cv=none; b=IASGet7EQEa935JCPePQoWUQE2VVqoigEOoM3Z5xylUxgB6HWE7dGgudvgcy3O2qET3cTRW+T7qnWoSrwP4V3RTKIwUvbHFiI+WyQXiEwyIrjUjQfbe93qJRDXxLwIT+/00zERYilzLfceOd/JBo5OxRHmQ/ht7CYwoNmfpuqwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783930887; c=relaxed/simple;
-	bh=TnQKSM8MZA26ziuAwsidIQP/IBfrhCtujf4X8iIuakY=;
+	s=arc-20240116; t=1783930992; c=relaxed/simple;
+	bh=0ro1Q6uKoaV1AqgVKQo/JBWntyyV4TUCd8+LqPrfzwc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mddIFLk74yvC/l29UAs+aFsxzE32raAKbe9xXso9ubCsMowmrv5FfvpTlQ9W+a8Vm1+4/LRYtuSi8HOH4Gnknqe8pjTkjx3SleKT27AUbdV3IxQ0FGTgaxID2XkZWXe3Ws1RYnBYGnccbWwY5yVxwGZKodIInwZDpaK5t4voHMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=A1uWktGd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QbJXNsJp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Z5OSe/CiNxD/a8f43o1Ty2fLWs+SbhIUM/iR7ilysOVpQ4V0ghPaLyVuKOwXFubhyJ3k6VKKDK35dSv/8GdnCJH1EkKrgBGoWkMfL0NiQCCQAxg18IjfSnaInL/zkjhjykzJ0+pBEie+X3X5pVa89XGCrkeThtXIrF51Z727Efs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=GD3q8gD/; arc=none smtp.client-ip=212.227.15.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="A1uWktGd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QbJXNsJp"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6Nqj5648581
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:21:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qgHCt0baVbDw76HI7bLRH910zw1IT9kEwqe9LOXn8jk=; b=A1uWktGdfKXCBprB
-	02A8Ld+CVwDevHMURyhGwIg9bzLWDJGu8njDO+R473ofuo01WbSF077GLOwXOBRl
-	gjFEgYSLnGYUWAzXPaDX/WE7pbAitefMGiihtihfnWrXS83bjKJJ7rfXxq0d2izc
-	hWETrNqFGtCz4Fd2dH/09umjwLtNkb6ZxYUEkHhG8mY0U3HoMwwEFX+MhfwwaTB8
-	5MylOl1qFXBWNiibKUcnZktLHI+0gOaiLf9KJGaNcnwr8dabc07LpUkYmZDwPtuc
-	HQpNNhlo6tnU/Dsa3iMWeE+CIWCdEPfHlqn89N5lMwVAI+7PGINx6M9Nu4NqOeJn
-	jJPCJg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbebr526u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:21:23 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c01ff996dso29221271cf.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:21:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783930882; x=1784535682; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qgHCt0baVbDw76HI7bLRH910zw1IT9kEwqe9LOXn8jk=;
-        b=QbJXNsJpyhOLuM9m7eWRgYQTAi1xFFDHbMQFNMjPZP9FXiBsTjbPtsprvSHDkL3C32
-         W3faEy3bfRdPxq1/critJ/iz5aPzeMUerx6EFjVFGeIymKuiQIKGiFW31JqOuxWItgcp
-         FWqvH4nDz/v45geDsQq0x1mJesqZCmfs3MwX8QWnZeJzPI0F8rw90zlEVW8Hv2mHuRzl
-         8sjKXKCNEpNpma+O8+rla/RiSCNW7P4vnGGlJjyO+3IxWR+MCDHgfsrNY7Gsi58ugM/e
-         1zB9gXw3TDhWvRkGDaTu6O+Rkt72iHGhGwfbZH9VMBBGzUQg40ESk+82RPrZ2TB49qMO
-         VT1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783930882; x=1784535682;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qgHCt0baVbDw76HI7bLRH910zw1IT9kEwqe9LOXn8jk=;
-        b=nK59ohg0OtaIJdm4UkPwc8aDWKQA8WebOpigBn6gxyqbrSJW9Obc/jLHwLLzAocGLK
-         gEeuxO4cI3hYEzpsScDY1cBSEG3HYIZqdk7vjM3/UNTNUsJu/4LW38jOVVM5MD9tHBN2
-         fcCD9NTvbOfS27SXGhX3XLhPdTx6ns/caYFlBMB+1yrLnFlEPsrP4mTUq1HFqXKqKIB5
-         VvNhskCxCvzXiOL3ZGtdNGyvl1yFIl54Mb8u5SSikDTT9yzWhXxF1R/LNrS6AXIv3v1r
-         4OzIOquxOD/xOgC+aYXa/hEu4C3W5cwkIhBAxFrsoj/BwwQCYg2TniXlr7ngVP5zQCZC
-         9d/A==
-X-Forwarded-Encrypted: i=1; AHgh+RosvyDGmMWWhvcIuqaqUpe+H4g/oYBsk2zPeqaZtAXrvctwP3KSpzw5qQT1XuwBPTbdhazhqi6ZTd7M@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUp/WDwUe05N1xZhKEPHZN3adYnaVlvfHZdbV+GrU3FhMM9tUQ
-	ESf7vYu8gYbGYb7uQ4hCLeNZL/sl2KqyUAtTSfL+WUeCX/nyqSAgs/zswgYGQfAthzlQyZ7pkg3
-	t7Q+8c2yF3bN6+Lc87P0Gl0GvWbcHKP9TGO7M/kNcemsYogguN81KOAL0eROODwUW
-X-Gm-Gg: AfdE7cnDT3kJve3cUZKMPpcDrV88Ngtq0Vho0DcQAbpUzHsaYIbtgnR3fXUS6L47FaD
-	OMozl077AlLtfg6HdXr7J++r3MRhIFpht0C8gfl+xwITOlWuPW00+HUZsZKll4FNAMf+r8rAZkj
-	b7HlYXcIl95ckStoZe24hYO/HaoAHFlTqun5S0coAYZpa2YXMHtzXp7pYkeVEBf38TyDuZ+TTQW
-	8zdfaTyA41yDckB4/pV21/Jfna4B9DmsBSHkbCR5C0sX1QxCAiuZzqGTU0Y1ATFsSig96wdt2tr
-	oquv1HOX4SRbBOIbRdxxhB/EvHLyBt//AZLsfQhqrHplin15c/+HimFX7paVIQpee8oz6p6S5Wj
-	jXFa9FfytM0FyC8U+yWtD2DdqJ/RaS4hQ82wneEyd8SA=
-X-Received: by 2002:ac8:5d08:0:b0:51c:217d:d772 with SMTP id d75a77b69052e-51cbf0be5d9mr84321411cf.19.1783930882402;
-        Mon, 13 Jul 2026 01:21:22 -0700 (PDT)
-X-Received: by 2002:ac8:5d08:0:b0:51c:217d:d772 with SMTP id d75a77b69052e-51cbf0be5d9mr84321051cf.19.1783930881843;
-        Mon, 13 Jul 2026 01:21:21 -0700 (PDT)
-Received: from [192.168.1.73] ([92.247.57.178])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69ac41d7ceesm7586462a12.23.2026.07.13.01.21.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 01:21:21 -0700 (PDT)
-Message-ID: <6de0a8e6-591f-4526-b5c2-431711dde1db@oss.qualcomm.com>
-Date: Mon, 13 Jul 2026 11:21:19 +0300
+	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="GD3q8gD/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1783930983; x=1784535783; i=wahrenst@gmx.net;
+	bh=dEeMfNb7Cv9xmhJFzIpLa33FVfduvqtVRU1ZZEDXiaE=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=GD3q8gD/GQTDut6EXNx91CpBFEx2nuVQyDuYk/UzvWZEXcTZeLz3rg+kUGTvkOej
+	 sRMt20o6BIXmx0WB3X5QXk35ugOgAr6oWz0qhVI9MLNOpJy1jN1F9eGDf73vq0XQZ
+	 2LtUe3w0RbsixVUk1hu4uwXnr3cGlJQSQ/73nqX6p3FqsEOzPzGiuMfjSZv6wsCOg
+	 MkbF2Gf7k1bD3/i03ZFGwFADrfek/WCK+ZpeXir5dxftolzaQURNFLyLLRHVErZX1
+	 TgLaubc0UurdTuj/sBl78Q+ouGZDe2GOcj1K6jYzJGokzmTHVZ00hfneExfOHyZi5
+	 Y+MGovQ28A7Ec6/lKQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MacSe-1xL0rk3xJS-00o2DZ; Mon, 13
+ Jul 2026 10:23:03 +0200
+Message-ID: <cacecf1f-3074-4768-825b-bf143fd36ce2@gmx.net>
+Date: Mon, 13 Jul 2026 10:23:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,69 +43,185 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/5] media: qcom: camss: Populate CAMSS child devices
- via DT
-To: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org
-Cc: bryan.odonoghue@linaro.org, vladimir.zapolskiy@linaro.org,
-        loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <20260706071113.383215-2-atanas.filipov@oss.qualcomm.com>
- <389ff33a-b319-4f2e-9410-8ae962f2e844@kernel.org>
+Subject: Re: [PATCH RFC 1/2] dt-bindings: leds-group-multicolor: Introduce
+ default-intensity
+To: Conor Dooley <conor@kernel.org>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Jean-Jacques Hiblot <jjhiblot@traphandler.com>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, Jonas Rebmann <jre@pengutronix.de>
+References: <20260708224652.106632-1-wahrenst@gmx.net>
+ <20260708224652.106632-2-wahrenst@gmx.net>
+ <20260709-outsell-undamaged-6c8045d6115f@spud>
 Content-Language: en-US
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <389ff33a-b319-4f2e-9410-8ae962f2e844@kernel.org>
+From: Stefan Wahren <wahrenst@gmx.net>
+Autocrypt: addr=wahrenst@gmx.net; keydata=
+ xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
+ IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
+ NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
+ JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
+ TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
+ f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
+ V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
+ aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
+In-Reply-To: <20260709-outsell-undamaged-6c8045d6115f@spud>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA4NiBTYWx0ZWRfX8LEvsUdIaTGS
- u5bGkFoLBDo0P7JbDiF1/2qfeHBZrvlotqW0wHqMtrgrTlmCkwLBOYb+VriQ9DIZxWEGdoO9LPR
- tYhTOH3+NFp6Tx72pcgnaU4iAUUyTvY=
-X-Authority-Analysis: v=2.4 cv=OK8XGyaB c=1 sm=1 tr=0 ts=6a54a003 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=KKAkSRfTAAAA:8 a=ka1dcg31Si149idUFP4A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: QTrB_pyQLzxvlR-jICfPBHxFuHZsCl1T
-X-Proofpoint-ORIG-GUID: QTrB_pyQLzxvlR-jICfPBHxFuHZsCl1T
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA4NiBTYWx0ZWRfX+1uwnQtQDljX
- JaPYcs4BTicyqdavtcwr82T1ZfXLrE3Sed1EspmR0Togg5MqMkdOiT/tk1U/F/ZHJ05EwfhWfkG
- NmzylKvHhR85OYp8moN2XSzoHmVCOjOL/WkaVSUSrH5fZyr9i7/FrsUxbavh2Za8vZSRc1jsJrS
- MeclhLybVh3cbpluVqGNhemMjKyW2KIRJNwDpaS07lwNPqWJNUwgaoEZ422G6Wm1BhmHEiGZVVV
- e2oYWuVbgytirQT7CebuI7rq3tTfHPrM7uCOBgiC0c59dfsowdoNDq2vG3iA2oKuk1BsESCND8+
- kQQyidPYyzMMuP05bUHFH+yJlCwflAGxUryln+2EBt6cWKebYNjcYxuuPCK6leMPppqWjZPzOsk
- MIXBBtGaUW0JbZfUHQ4NjF1t64xX79Knuli2oLJruLcyeY2NI1SrRzlpLziQZgOkA4Y+bhEXF46
- DvZlwdIn5V2nBWCK2Xg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 phishscore=0 spamscore=0 adultscore=0
- clxscore=1015 impostorscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130086
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:G8p4x0y6KRHcJ/DOBqhSoHCP9ZkodN5A2Ytcv7RBM/1P8Dd1V38
+ 84TNF4oH2UmvAZBlW2R+AsmXbK9CU6zh9H2gClt/Vgi7T1K94Xqsu8iO4+5S3+hAiM9eX7o
+ FVwcWBXeL/qTi5ABODlT3sevpsjc2dHw169kKLl1wqAoiYlRPeywU52X9Wh0wV9XNo4goLV
+ Iz77I0Ftl47EiLgKi2cmA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:ju/Sk2E5WKo=;xYLlzcn7AdcyHFHBcOH41yKNogo
+ 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
+ =
 
-On 7/6/2026 3:09 PM, Krzysztof Kozlowski wrote:
-> On 06/07/2026 09:11, Atanas Filipov wrote:
->> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Hi all,
+
+Am 09.07.26 um 20:03 schrieb Conor Dooley:
+> On Thu, Jul 09, 2026 at 12:46:51AM +0200, Stefan Wahren wrote:
+>> Currently it's not possible to specify the initial color of a LED group
+>> during boot. So introduce a new property similar to default-brightness,
+>> which specifies the intensity of each LED in the group.
 >>
->> Use devm_of_platform_populate() so that child nodes declared under the
->> CAMSS device tree node (e.g. OPE) are automatically instantiated as
->> platform devices. This is required now that CAMSS is modelled as a
->> simple-bus and ISP blocks such as OPE are described as child nodes.
-> 
-> I do not understand this rationale. How is this required now? Are
-> existing DTS broken and do not work? Then this needs to be explained.
-> 
-> Best regards,
-> Krzysztof
+>> Signed-off-by: Stefan Wahren <wahrenst@gmx.net>
+>> ---
+>>   .../devicetree/bindings/leds/leds-group-multicolor.yaml    | 7 ++++++=
++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/leds/leds-group-multicol=
+or.yaml b/Documentation/devicetree/bindings/leds/leds-group-multicolor.yam=
+l
+>> index 5c9cfa39396b..18b722b807ba 100644
+>> --- a/Documentation/devicetree/bindings/leds/leds-group-multicolor.yaml
+>> +++ b/Documentation/devicetree/bindings/leds/leds-group-multicolor.yaml
+>> @@ -19,6 +19,12 @@ properties:
+>>  =20
+>>     leds: true
+>>  =20
+>> +  default-intensity:
+>> +    description:
+>> +      Intensity to be set for each individual LED. Used only during
+>> +      initialization. If the property is not set then max intensity is=
+ used.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> Hmm, there's already a property proposed and applied for this:
+> https://lore.kernel.org/linux-leds/20260605-multicolor-default-v2-1-ed07=
+271df6b0@pengutronix.de/
+sorry, I missed this. Thanks for pointing to this patch. In general i'm=20
+fine with this approach, but there is something which confuses me.
+Looking at the description, there is the statement: [default-intensity]=20
+"Defaults to 0".
+This seems to be correct for the Linux implementation of=20
+leds-pwm-multicolor, but is this really an expectation along all (multi=20
+color) LEDs (at least for Linux)?
 
-You are correct. Existing DTS are not broken. This patch is dropped
-in v5. JPEG is modelled as a standalone peer node, not a child of
-camss.
+E.g. leds-group-multicolor init the intensity with the maximum. So all=20
+users of leds-group-multicolor should specify default-intensity for each=
+=20
+sub LED to achieve a defined behavior without breaking existing behavior.
 
-Best regards,
-Atanas
+Best regards
+
+> It only supports a single value, I suspect you'll have to rework this so
+> as not to conflict with existing property?
+> leds-group-multicolour imports the common leds properties after all.
+> Probably the one in common.yaml needs to become an array?
+>
+>> +
+>>   required:
+>>     - leds
+>>  =20
+>> @@ -56,6 +62,7 @@ examples:
+>>           color =3D <LED_COLOR_ID_RGB>;
+>>           function =3D LED_FUNCTION_INDICATOR;
+>>           leds =3D <&led0>, <&led1>, <&led2>;
+>> +        default-intensity =3D <1 0 0>;
+>>       };
+>>  =20
+>>   ...
+>> --=20
+>> 2.43.0
+>>
 
