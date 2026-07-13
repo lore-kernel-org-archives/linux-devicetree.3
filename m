@@ -1,182 +1,331 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD937F014;
-	Mon, 13 Jul 2026 10:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B966A3806C4;
+	Mon, 13 Jul 2026 10:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783939096; cv=none; b=f2kxtxz9w62uM/hKBEfeggLeAT4FyAEMRXAcHp12YwZH82xWJA8IzSZ6HonCO5EC2lMrycaERmSdxZOzo1FU5Gw3dJT3VQ1ZzKplRVMUC92wpKcFu/PvMsVgeRCrVzbhgT+2saDpkD9xuYZZiQ0tH5ijpo6PWM3mZYQjx3GZjnc=
+	t=1783939097; cv=none; b=ZZVsQUw8LT3FdczC0xZFNsRLwB7YJvrTp4WqZn6QyO73iEIiey4keVgPHp6T/BXbTYSWu8YAEmFdRLlkWR/XJA0mBQghxzRajG86kltBOfMkvI6N3uyAyEMSKB0kqB+fMMjoeKCrXCZU1eNbSijCkvlhpNvryXkv34GLvYrs0PY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783939096; c=relaxed/simple;
-	bh=x+v673bKrdgstSOS0sJiHKh2VJoMJZweqnnDh3JsuMM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m41DAAnNT9MN/Kk4W4O1fC8PfTgf5DzMtxvnkbe6g3KgZvZ3H6Q92/c4oor73+jFkqIb65yyOUVjoVACpe/SJHOF6+z2Ai0lRujOWjrCV4y7psIpj8tWMkr0lnjoQRLR/++xVVCJLe6tNzFOARFUoAig2PBsR2k9eBEtk22OaQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgcxN4wj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783939097; c=relaxed/simple;
+	bh=vSaLwTxwvF2SlDcyfPwVEj3OClsBegI8OCTI30PtJQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d4tJp61JpVTR4YsxGMM8kj5V5oZveUCkX++uskavISL4A3CzKPrklXxTw+CQBTNWR3XNk5UXA/5OpSXQXnUdyKreZlZMBqVFRUoPumn2sgGhlsKclizz2OqKmU84UCZXFPxIcQegClFqvL7LYxrszjiaw1R/T81HJQ6iR0uKJe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jiZj5bf1; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgcxN4wj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511071F00A3A;
-	Mon, 13 Jul 2026 10:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783939094;
-	bh=nkqspIWUgAzrrTdV947aloI+ENHvEkQkZlse1QuKFCg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mgcxN4wj9YdV9caDsMVretPOHZnOxLd3wGSEe2qDzHyxnZRqYqkmQknnQlXfkP+jD
-	 ovl5YxouXQC/nFIoQgVqg+qWP2X17vbQ65eX0vHF91w9r+GN4MiWoLKAjEHW1ZqLRS
-	 XKJSz2FGL7Jj2F1UdsXryNvoy3jbPWpH/sephxyzZ+NMGUldUOnEvM/59s87in6Ba/
-	 O5q59/FtVV+nJhiofe0kQ1Pvk4zqRUAmwR4QewFR0yihMf1SLFedl3HpcH0K40JQkw
-	 T3JJDS3dfoYLqGAc3nJgZ0bvzLJm8ZNxef/ZMAaC/9uOQDWzUQZeh0NFdyzjtbMHZ/
-	 7QaM6ZHpAlIMQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] thermal/drivers/imx: Add calibration offset
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Haoning CHENG" <Haoning.CHENG@cn.bosch.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-2-09b6b7669be1@cn.bosch.com>
-References: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-0-09b6b7669be1@cn.bosch.com>
- <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-2-09b6b7669be1@cn.bosch.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 10:38:13 +0000
-Message-Id: <20260713103814.511071F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jiZj5bf1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783939094;
+	bh=vSaLwTxwvF2SlDcyfPwVEj3OClsBegI8OCTI30PtJQw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=jiZj5bf1OJWHue23ld6e8uzXr9/nKOPbupVih+j/auQ3Oa2xhuVEa1bflkrrrWd97
+	 w4oii8VWHwdCk4FqLNzQVZowUFcoNg2yyXgUAhXZ0BmJrzkOMfPw+O4aO3vp8AKy+P
+	 NwJ8hC3qa3RuzeFeeKB8+/rjaNhfNiaA1mJmC5jMh3F3DxNM0JzedK1T5W0j00u6w6
+	 lZHDThd+99U5d+HW50hJxsEBW48m3JVS2w35sHOvJ2YUBCIJPB4eFShjMvCD3m1T1q
+	 8yOeBmjQDxpcHkt9ryCF1vG7ftpxhW+8Yzgd1YAuTJjp2/Qa1qbT96mC2qiMM2T+je
+	 AxbbswI7YlGfw==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5EE9F17E0E1C;
+	Mon, 13 Jul 2026 12:38:13 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	justin.yeh@mediatek.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	kernel@collabora.com
+Subject: [PATCH v3 2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY
+Date: Mon, 13 Jul 2026 12:38:05 +0200
+Message-ID: <20260713103805.23030-3-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
+References: <20260713103805.23030-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Add support for the MIPI DSI PHY found in the MediaTek MT8196 SoC
+and its variants.
+This PHY has a different register layout and provides support for
+more hardware features compared to the previous generation.
 
-New issues:
-- [High] An unbounded DT property causes integer underflow in the alarm cal=
-culation, leading to out-of-bounds register bit manipulation.
+This initial driver only adds support for basic functionality that
+is necessary to drive MIPI DSI displays as a D-PHY.
 
-Pre-existing issues:
-- [High] Use-after-free of `data->tz` in the thermal alarm IRQ thread durin=
-g device removal.
---
+Feature additions like lane-swap, DPHY/CPHY switching, dual-port,
+and others, may be done in the future.
 
---- Patch [2]: [PATCH v7 2/2] thermal/drivers/imx: Add calibration offset s=
-upport ---
-commit 09bf5f606220dc9c50fce508974c8440db8631c3
-Author: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/phy/mediatek/Makefile                 |   1 +
+ .../phy/mediatek/phy-mtk-mipi-dsi-mt8196.c    | 201 ++++++++++++++++++
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.c       |   1 +
+ drivers/phy/mediatek/phy-mtk-mipi-dsi.h       |   2 +-
+ 4 files changed, 204 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
 
-thermal/drivers/imx: Add calibration offset support
+diff --git a/drivers/phy/mediatek/Makefile b/drivers/phy/mediatek/Makefile
+index 1b8088df71e8..ed0da708759b 100644
+--- a/drivers/phy/mediatek/Makefile
++++ b/drivers/phy/mediatek/Makefile
+@@ -21,4 +21,5 @@ obj-$(CONFIG_PHY_MTK_MIPI_CSI_0_5)	+= phy-mtk-mipi-csi-0-5.o
+ phy-mtk-mipi-dsi-drv-y			:= phy-mtk-mipi-dsi.o
+ phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8173.o
+ phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8183.o
++phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8196.o
+ obj-$(CONFIG_PHY_MTK_MIPI_DSI)		+= phy-mtk-mipi-dsi-drv.o
+diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
+new file mode 100644
+index 000000000000..eac3db9922db
+--- /dev/null
++++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
+@@ -0,0 +1,201 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2019 MediaTek Inc.
++ * Author: jitao.shi <jitao.shi@mediatek.com>
++ *
++ * Copyright (c) 2026 Collabora Ltd.
++ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++ */
++
++#include "phy-mtk-io.h"
++#include "phy-mtk-mipi-dsi.h"
++
++#define MIPITX_LANE_CON		0x0004
++#define RG_DSI_CPHY_T1DRV_EN		BIT(0)
++#define RG_DSI_ANA_CK_SEL		BIT(1)
++#define RG_DSI_PHY_CK_SEL		BIT(2)
++#define RG_DSI_CPHY_EN			BIT(3)
++#define RG_DSI_PHYCK_INV_EN		BIT(4)
++#define RG_DSI_PWR04_EN			BIT(5)
++#define RG_DSI_BG_LPF_EN		BIT(6)
++#define RG_DSI_BG_CORE_EN		BIT(7)
++#define RG_DSI_PAD_TIEL_SEL		BIT(8)
++
++#define MIPITX_VOLTAGE_SEL	0x0008
++#define RG_DSI_HSTX_LDO_REF_SEL		GENMASK(9, 6)
++#define RG_DSI_PRD_REF_SEL		GENMASK(5, 0)
++#define RG_DSI_PRD_REF_MINI		0
++#define RG_DSI_PRD_REF_DEF		4
++#define RG_DSI_PRD_REF_MAX		7
++
++#define MIPITX_PRESERVED	0x000c
++#define MIPITX_PRESERVED_DEF		0xffff0040
++#define MIPITX_PRESERVED_MINI		0xffff00f0
++
++#define MIPITX_PLL_PWR		0x0028
++#define AD_DSI_PLL_SDM_PWR_ON		BIT(0)
++#define AD_DSI_PLL_SDM_ISO_EN		BIT(1)
++#define MIPITX_PLL_CON0		0x002c
++#define MIPITX_PLL_CON1		0x0030
++#define RG_DSI_PLL_EN			BIT(0)
++#define RG_DSI_PLL_POSDIV		GENMASK(10, 8)
++#define MIPITX_PLL_CON2		0x0034
++#define MIPITX_PLL_CON3		0x0038
++#define MIPITX_PLL_CON4		0x003c
++#define RG_DSI_PLL_IBIAS		GENMASK(11, 10)
++
++#define MIPITX_D2_SW_CTL_EN	0x015c
++#define MIPITX_D0_SW_CTL_EN	0x025c
++#define MIPITX_CK_CKMODE_EN	0x0320
++#define DSI_CK_CKMODE_EN		BIT(0)
++#define MIPITX_CK_SW_CTL_EN	0x035c
++#define MIPITX_D1_SW_CTL_EN	0x045c
++#define MIPITX_D3_SW_CTL_EN	0x055c
++#define DSI_SW_CTL_EN			BIT(0)
++
++#define DSI_PHY_XTAL_CLK_HZ		26000000
++#define DSI_PHY_PLL_MIN_RATE_HZ		125000000
++#define DSI_PHY_PLL_MAX_RATE_HZ		2000000000
++
++static int mtk_mipi_tx_pll_enable(struct clk_hw *hw)
++{
++	struct mtk_mipi_tx *mipi_tx = mtk_mipi_tx_from_clk_hw(hw);
++	void __iomem *base = mipi_tx->regs;
++	u32 voltage = RG_DSI_PRD_REF_MINI;
++	u32 pres = MIPITX_PRESERVED_MINI;
++	unsigned long long pcw_calc;
++	unsigned int txdiv, txdiv0;
++	u32 pcw;
++
++	dev_dbg(mipi_tx->dev, "enable: %u bps\n", mipi_tx->data_rate);
++
++	if (mipi_tx->data_rate >= DSI_PHY_PLL_MAX_RATE_HZ) {
++		/* Select higher signaling voltage for fast data rates */
++		voltage = RG_DSI_PRD_REF_DEF;
++		pres = MIPITX_PRESERVED_DEF;
++		txdiv = 1;
++		txdiv0 = 0;
++	} else if (mipi_tx->data_rate >= 1000000000) {
++		txdiv = 2;
++		txdiv0 = 1;
++	} else if (mipi_tx->data_rate >= 500000000) {
++		txdiv = 4;
++		txdiv0 = 2;
++	} else if (mipi_tx->data_rate > 250000000) {
++		txdiv = 8;
++		txdiv0 = 3;
++	} else if (mipi_tx->data_rate >= 125000000) {
++		txdiv = 16;
++		txdiv0 = 4;
++	} else {
++		return -EINVAL;
++	}
++
++	pcw_calc = ((u64)(mipi_tx->data_rate / 2) * txdiv) << 24;
++	pcw_calc = div_u64(pcw_calc, DSI_PHY_XTAL_CLK_HZ);
++
++	if (pcw_calc > U32_MAX) {
++		dev_err(mipi_tx->dev, "Calculated PCW=%llu overflow!\n", pcw_calc);
++		return -EINVAL;
++	}
++	pcw = (u32)pcw_calc;
++
++	mtk_phy_update_field(base + MIPITX_VOLTAGE_SEL, RG_DSI_PRD_REF_SEL, voltage);
++	writel(pres, base + MIPITX_PRESERVED);
++
++	/* Enable the SDM and wait for power to stabilize */
++	mtk_phy_set_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_PWR_ON);
++	mtk_phy_clear_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
++	udelay(30);
++
++	/* Disable isolation and program PLL's PCW and dividers */
++	mtk_phy_clear_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_ISO_EN);
++	writel(pcw, base + MIPITX_PLL_CON0);
++	mtk_phy_update_field(base + MIPITX_PLL_CON1, RG_DSI_PLL_POSDIV, txdiv0);
++
++	/* Enable the PLL and wait for the clock output to stabilize */
++	mtk_phy_set_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
++	udelay(30);
++
++	return 0;
++}
++
++static void mtk_mipi_tx_pll_disable(struct clk_hw *hw)
++{
++	struct mtk_mipi_tx *mipi_tx = mtk_mipi_tx_from_clk_hw(hw);
++	void __iomem *base = mipi_tx->regs;
++
++	mtk_phy_clear_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
++
++	mtk_phy_set_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_ISO_EN);
++	mtk_phy_clear_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_PWR_ON);
++}
++
++static int mtk_mipi_tx_pll_determine_rate(struct clk_hw *hw,
++					  struct clk_rate_request *req)
++{
++	req->rate = clamp_val(req->rate,
++			      DSI_PHY_PLL_MIN_RATE_HZ, DSI_PHY_PLL_MAX_RATE_HZ);
++
++	return 0;
++}
++
++static const struct clk_ops mtk_mipi_tx_pll_ops = {
++	.enable = mtk_mipi_tx_pll_enable,
++	.disable = mtk_mipi_tx_pll_disable,
++	.determine_rate = mtk_mipi_tx_pll_determine_rate,
++	.set_rate = mtk_mipi_tx_pll_set_rate,
++	.recalc_rate = mtk_mipi_tx_pll_recalc_rate,
++};
++
++static void mtk_mipi_tx_power_on_signal(struct phy *phy)
++{
++	struct mtk_mipi_tx *mipi_tx = phy_get_drvdata(phy);
++	void __iomem *base = mipi_tx->regs;
++
++	/* BG_LPF_EN / BG_CORE_EN */
++	writel(RG_DSI_PAD_TIEL_SEL | RG_DSI_BG_CORE_EN, base + MIPITX_LANE_CON);
++	/* Wait for MIPI core to enable */
++	usleep_range(30, 100);
++	writel(RG_DSI_BG_CORE_EN | RG_DSI_BG_LPF_EN, base + MIPITX_LANE_CON);
++
++	/* Switch OFF each Lane */
++	mtk_phy_clear_bits(base + MIPITX_D0_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_clear_bits(base + MIPITX_D1_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_clear_bits(base + MIPITX_D2_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_clear_bits(base + MIPITX_D3_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_clear_bits(base + MIPITX_CK_SW_CTL_EN, DSI_SW_CTL_EN);
++
++	/*
++	 * The MIPI TX drive strength is in the range of 3000 ~ 6000 microamps:
++	 * RG_DSI_HSTX_LDO_REF_SEL expresses an offset from the minimum drive
++	 * strength (3000uA) and can add a maximum offset of 3000uA, reaching a
++	 * maximum drive strength of 3000+3000=6000uA.
++	 */
++	mtk_phy_update_field(base + MIPITX_VOLTAGE_SEL, RG_DSI_HSTX_LDO_REF_SEL,
++			     (mipi_tx->mipitx_drive - 3000) / 200);
++
++	mtk_phy_set_bits(base + MIPITX_CK_CKMODE_EN, DSI_CK_CKMODE_EN);
++}
++
++static void mtk_mipi_tx_power_off_signal(struct phy *phy)
++{
++	struct mtk_mipi_tx *mipi_tx = phy_get_drvdata(phy);
++	void __iomem *base = mipi_tx->regs;
++
++	/* Switch ON each lane one by one */
++	mtk_phy_set_bits(base + MIPITX_D0_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_set_bits(base + MIPITX_D1_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_set_bits(base + MIPITX_D2_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_set_bits(base + MIPITX_D3_SW_CTL_EN, DSI_SW_CTL_EN);
++	mtk_phy_set_bits(base + MIPITX_CK_SW_CTL_EN, DSI_SW_CTL_EN);
++
++	writel(RG_DSI_PAD_TIEL_SEL | RG_DSI_BG_CORE_EN, base + MIPITX_LANE_CON);
++	writel(RG_DSI_PAD_TIEL_SEL, base + MIPITX_LANE_CON);
++}
++
++const struct mtk_mipitx_data mt8196_mipitx_data = {
++	.mipi_tx_clk_ops = &mtk_mipi_tx_pll_ops,
++	.mipi_tx_enable_signal = mtk_mipi_tx_power_on_signal,
++	.mipi_tx_disable_signal = mtk_mipi_tx_power_off_signal,
++};
+diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi.c b/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
+index 065ea626093a..46f0cb3ac096 100644
+--- a/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
++++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
+@@ -183,6 +183,7 @@ static const struct of_device_id mtk_mipi_tx_match[] = {
+ 	{ .compatible = "mediatek,mt2701-mipi-tx", .data = &mt2701_mipitx_data },
+ 	{ .compatible = "mediatek,mt8173-mipi-tx", .data = &mt8173_mipitx_data },
+ 	{ .compatible = "mediatek,mt8183-mipi-tx", .data = &mt8183_mipitx_data },
++	{ .compatible = "mediatek,mt8196-mipi-tx", .data = &mt8196_mipitx_data },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, mtk_mipi_tx_match);
+diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi.h b/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
+index 5d4876f1dc95..e6f967078e3b 100644
+--- a/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
++++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
+@@ -42,5 +42,5 @@ unsigned long mtk_mipi_tx_pll_recalc_rate(struct clk_hw *hw,
+ extern const struct mtk_mipitx_data mt2701_mipitx_data;
+ extern const struct mtk_mipitx_data mt8173_mipitx_data;
+ extern const struct mtk_mipitx_data mt8183_mipitx_data;
+-
++extern const struct mtk_mipitx_data mt8196_mipitx_data;
+ #endif
+-- 
+2.54.0
 
-This patch introduces support for a per-design temperature calibration
-offset to align reported CPU temperatures with board-level measurements.
-It reads the fsl,temp-calibration-offset-millicelsius property from the
-device tree and applies it to the calibration formulas.
-
-> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-> index 5aaacbc534786..5e3cff69aced7 100644
-> --- a/drivers/thermal/imx_thermal.c
-> +++ b/drivers/thermal/imx_thermal.c
-
-[ ... ]
-
-> @@ -223,6 +224,7 @@ static void imx_set_panic_temp(struct imx_thermal_dat=
-a *data,
->  	struct regmap *map =3D data->tempmon;
->  	int critical_value;
-> =20
-> +	panic_temp -=3D data->calibration_offset;
->  	critical_value =3D (data->c2 - panic_temp) / data->c1;
-> =20
->  	regmap_write(map, soc_data->panic_alarm_ctrl + REG_CLR,
-
-[Severity: High]
-Does subtracting an unvalidated calibration_offset allow critical_value to
-exceed the register bitfield width?
-
-If the device tree provides an extremely large positive or negative value,
-critical_value could overflow or underflow. When shifted and written to
-REG_SET:
-
-    regmap_write(map, soc_data->panic_alarm_ctrl + REG_SET,
-                 critical_value << soc_data->panic_alarm_shift);
-
-Could this out-of-bounds value pollute adjacent register fields, since REG_=
-SET
-applies any bits that are 1? Should data->calibration_offset be clamped bef=
-ore
-use?
-
-> @@ -239,11 +241,14 @@ static void imx_set_alarm_temp(struct imx_thermal_d=
-ata *data,
->  	int alarm_temp)
->  	int alarm_value;
-> =20
->  	data->alarm_temp =3D alarm_temp;
-> +	alarm_temp -=3D data->calibration_offset;
-> =20
-> -	if (data->socdata->version =3D=3D TEMPMON_IMX7D)
-> -		alarm_value =3D alarm_temp / 1000 + data->c1 - 25;
-> -	else
-> +	if (data->socdata->version =3D=3D TEMPMON_IMX7D) {
-> +		alarm_value =3D DIV_ROUND_UP(alarm_temp, 1000) + data->c1 - 25;
-> +		alarm_value =3D clamp(alarm_value, 0, 0x1ff);
-> +	} else {
->  		alarm_value =3D (data->c2 - alarm_temp) / data->c1;
-> +	}
-> =20
->  	regmap_write(map, soc_data->high_alarm_ctrl + REG_CLR,
->  		     soc_data->high_alarm_mask);
-
-[Severity: High]
-Can alarm_value overflow the register bitfield for non-IMX7D variants?
-
-The IMX7D variant uses clamp(), but the else branch does not:
-
-    } else {
-        alarm_value =3D (data->c2 - alarm_temp) / data->c1;
-    }
-
-Since alarm_temp is adjusted by an unbounded calibration_offset, this could
-result in an out-of-bounds alarm_value that pollutes adjacent fields when
-written to soc_data->high_alarm_ctrl.
-
-[ ... ]
-
-> @@ -629,6 +635,10 @@ static int imx_thermal_probe(struct platform_device =
-*pdev)
-> =20
->  	platform_set_drvdata(pdev, data);
-> =20
-> +	of_property_read_s32(dev->of_node,
-> +			     "fsl,temp-calibration-offset-millicelsius",
-> +			     &data->calibration_offset);
-> +
->  	if (of_property_present(dev->of_node, "nvmem-cells")) {
->  		ret =3D imx_init_from_nvmem_cells(pdev);
->  		if (ret)
-
-[Severity: High]
-This is a pre-existing issue, but does this driver have a use-after-free
-during device removal?
-
-The driver requests its interrupt via devm_request_threaded_irq() in
-imx_thermal_probe(). Because it uses devres, the IRQ is freed after
-imx_thermal_remove() returns.
-
-However, imx_thermal_remove() manually unregisters the thermal zone:
-
-imx_thermal_remove()
-    ...
-    thermal_zone_device_unregister(data->tz);
-
-This frees data->tz. If the hardware thermal alarm triggers after this
-unregister but before the devres cleanup, the IRQ handler
-imx_thermal_alarm_irq_thread() will execute:
-
-imx_thermal_alarm_irq_thread()
-    ...
-    thermal_zone_device_update(data->tz, THERMAL_EVENT_UNSPECIFIED);
-
-Could this dereference the freed data->tz pointer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-b4-symana2=
-1-11221-imx-thermal-support-upstream-6-18-v7-0-09b6b7669be1@cn.bosch.com?pa=
-rt=3D2
