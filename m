@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939C832D0F5
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:08:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6331C2F7EFC
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:09:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783958901; cv=none; b=KHtuOIncEBj/Jj8Aa8a9yFv8uTRT/0RXO6Z/WzdfeWlbQRS78nWt4l/Dq+fk6C94V/UcW4tGfOtXbafCCT9cuGaQLCOU6YuP8kxBFyAlWNZQllcIeNBROrFZg6jtfh38pwbw0EiMKdgil4VwxEqXSRrDtoU7k089cYBYozzWCWo=
+	t=1783958996; cv=none; b=Mf1VAhu6RyvjnQtbfKQZkkY1wVeZMlyp1/jmGhmktbYX08VsfY61rm3yVE4DAXqlu397UoqdBSjQWAIwPYffOeSnDlPlkSsk5wy5HU+yX84mYOftKWUjEKKta6Amp7qzAgGZv/sEylYEySOPcJaemcduoAfIQRX8vgsirGUX75Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783958901; c=relaxed/simple;
-	bh=iUSzrCry9jLNIVCTjyFBTm+Ynq3XPhsdNVC5i0vG948=;
+	s=arc-20240116; t=1783958996; c=relaxed/simple;
+	bh=RhJGfDOWJDOBHpdJj3A1MAntdco//8nqgNugxHOtBk0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bAAxi7IruNM9sthedUHeaWX7KM0Mr4xNz0dTx6U56N+2tCA73BMeuy9+FpqMizlhAd9wzVB+cn9xGwlu+ejH53v122UN6r+NQaXwux22ksBxRxK1FcFDhc9CTsX3Jv09oKVFdLR1+DXh6sFscx9TgFk0QaAye3Ng6FMgfiQcjbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kdf57cjS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ia3SGAaHKdI7s0Zjt7caVu5PlEEZ/3NBHnscJFTm/aNjMzI8TuH1h+UBcAd5p4VNKEv5F5lwe47KwdO053BmviOYNPaUHBb1uKRs3x7Zsm+WJ48EojfKPtCkgE4x99kt0z7MrBBwGPIRgSf4z0v1J/CHgCVjmwxku6l4ADOLBdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J92Qgz3a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kdf57cjS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0594B1F000E9;
-	Mon, 13 Jul 2026 16:08:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J92Qgz3a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66331F000E9;
+	Mon, 13 Jul 2026 16:09:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783958900;
-	bh=CtnWfWnBdnUp4wmQc2uCUdnsMA4K1e3AqQQnD2k9fns=;
+	s=k20260515; t=1783958995;
+	bh=OO3AMpKb9rhYvd4kT/uYewvA8rC8L5SPhVG2BUMDlvU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kdf57cjSN7CdKHhSdVv3UkzTAQS+HLVdR0ffdZp9sevxWqIi/UFlJJDY7m0uqVDsj
-	 ZQMUb2/LO/7c1cZjswkF7pVTiadA9wQ1ICCRzW8LVwQ3xnTN/0FaBp7/EJa+8LXSS1
-	 lMuNc+bgmxuyVZ/P9pS+r2EUTWBqoOlChiUteFlOU7QZ0+3emhQYWNwUdq0Lwlaf0p
-	 adVyws1Adi+CfAiuwQyy1sqSN+CYsxEhQ6QzMmQlqD65DqHnXzRj/gkriwwqztLhcz
-	 U6hbAmdTrizArHc5DFWcZ9z/benYlI/tspyL6tQBHXqowlsNWBuGKRtCL4OOwJd7MV
-	 m2Xw5it5eM+ag==
+	b=J92Qgz3aNeUxjf+jLHtxLFPzRmNef0DalvYt499OilUKPfQYYEpYK8D+E1lQw3gtA
+	 6fc+h0ay/7w2yJ5A4cJhxPBPpCdZest9AC7LJTZno0LGVfq8jUGLfxYIxfp9DzoOkh
+	 1xsetPfCaCfDsY1jqRL8fosEnbXHE9z6TPOAqXOUx+zltaFPTIDKu1A6VCdsu+fQET
+	 lk7Jhiv0ltnBcE2entyIszLzWQG+/9VL/epWNMNZqa58D1gV50kGVNCUq2xmLbzfZT
+	 hFxpiqY2b2YmscTvDQqmQ+S9aWBG5hvbtvYveXK4To6VgziGLuHLHTKSeeAinipT7o
+	 0rzPN2pG0FnuA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 02/11] reset: Add Realtek basic reset support
+Subject: Re: [PATCH v10 05/11] clk: realtek: Add support for phase locked
+ loops (PLLs)
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713155630.3054636-3-eleanor.lin@realtek.com>
+In-Reply-To: <20260713155630.3054636-6-eleanor.lin@realtek.com>
 References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
- <20260713155630.3054636-3-eleanor.lin@realtek.com>
+ <20260713155630.3054636-6-eleanor.lin@realtek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 16:08:19 +0000
-Message-Id: <20260713160820.0594B1F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 16:09:54 +0000
+Message-Id: <20260713160954.B66331F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,92 +47,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The Kconfig help text and commit message incorrectly claim the d=
-river provides a registration helper function to extract the regmap and dev=
-ice tree node.
-- [Low] Unnecessary inclusion of `<linux/device.h>` and `<linux/of.h>`.
+- [High] Asymmetry in enable/disable logic permanently bricks PLLs that lac=
+k a readable power status register.
+- [Low] The header file `freq_table.h` lacks include guards.
 --
 
---- Patch [2]: [PATCH v10 02/11] reset: Add Realtek basic reset support ---
-commit 231fee7f5cf687d120e12d9c11d120d53d5aa54d
+--- Patch [5]: [PATCH v10 05/11] clk: realtek: Add support for phase locked=
+ loops (PLLs) ---
+commit 1e05dd1885eded463b663e611cd68c039c2be096
 Author: Cheng-Yu Lee <cylee12@realtek.com>
+clk: realtek: Add support for phase locked loops (PLLs)
 
-reset: Add Realtek basic reset support
+This commit provides a full set of PLL operations for programmable PLLs
+and a read-only variant for fixed or hardware-managed PLLs.
 
-This commit defines reset operations backed by a regmap-based register
-interface for Realtek SoCs. It exports the reset control operations to allow
-callers to manually assign their own reset controller data structures.
-
-> reset: Add Realtek basic reset support
->=20
-> Define the reset operations backed by a regmap-based register interface
-> and prepare the reset controller to be registered through the reset
-> framework.
->=20
-> Since the reset controllers on Realtek SoCs often share the same register
-> space with the clock controllers, this common framework is designed to
-> extract the regmap and device tree node from the parent device
-> (e.g., an auxiliary device parent).
-
-[Severity: Medium]
-Is this description still accurate?
-
-The changelog notes that in v10, the wrapper function was removed to allow
-callers to assign the regmap, ops, dev, and of_node individually. It seems =
-the
-common framework no longer extracts the regmap and device tree node from the
-parent device.
-
-[ ... ]
-
-> diff --git a/drivers/reset/realtek/Kconfig b/drivers/reset/realtek/Kconfig
+> diff --git a/drivers/clk/realtek/clk-pll.c b/drivers/clk/realtek/clk-pll.c
 > new file mode 100644
-> index 0000000000000..bb6dd856a64a5
+> index 0000000000000..54c284070e47a
 > --- /dev/null
-> +++ b/drivers/reset/realtek/Kconfig
-> @@ -0,0 +1,8 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +config RESET_RTK_COMMON
-> +	tristate "Realtek common reset driver" if COMPILE_TEST
-> +	help
-> +	  This option enables the common reset controller library for
-> +	  Realtek SoCs. It provides shared reset control operations
-> +	  (assert, deassert, status) and a registration helper function
-> +	  that other Realtek-specific reset drivers can use.
-
-[Severity: Medium]
-Should the Kconfig help text be updated to reflect the v10 changes?=20
-
-It explicitly claims a registration helper function is provided, which appe=
-ars
-to no longer be true since rtk_reset_ops is exported directly instead.
-
+> +++ b/drivers/clk/realtek/clk-pll.c
 [ ... ]
+> @@ -173,20 +173,19 @@ static int clk_pll_set_rate(struct clk_hw *hw, unsi=
+gned long rate,
+>  static int clk_pll_enable(struct clk_hw *hw)
+>  {
+>  	struct clk_pll *clkp =3D to_clk_pll(hw);
+>  	unsigned long flags;
+>  	int ret =3D 0;
+> =20
+>  	if (!clkp->seq_power_on)
+>  		return ret;
+> =20
+>  	spin_lock_irqsave(&clkp->lock, flags);
+> =20
+>  	if (is_power_on(clkp))
+>  		goto unlock;
 
-> diff --git a/drivers/reset/realtek/reset-rtk-common.c b/drivers/reset/rea=
-ltek/reset-rtk-common.c
-> new file mode 100644
-> index 0000000000000..4d5ec2b0416d1
-> --- /dev/null
-> +++ b/drivers/reset/realtek/reset-rtk-common.c
-> @@ -0,0 +1,75 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2019-2026 Realtek Semiconductor Corporation
-> + */
+[Severity: High]
+If a PLL has power on/off sequences but no readable status register,
+is_power_on() unconditionally returns true. Will this cause the enable path
+to permanently skip the power-on sequence if the clock was previously
+disabled?
+
+When clk_pll_disable() is called, it executes the power-off sequence:
+
+static void clk_pll_disable(struct clk_hw *hw)
+{
+        ...
+        regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_power_off, ...);
+        ...
+}
+
+But when clk_pll_enable() is subsequently called, is_power_on() returns true
+because power_reg is 0. Does this cause the power-on sequence to be skipped,
+leaving the PLL permanently disabled despite the clock core believing it is
+enabled?
+
 > +
-> +#include <linux/device.h>
-> +#include <linux/export.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
+> +	ret =3D regmap_multi_reg_write(clkp->clkr.regmap, clkp->seq_power_on,
+> +				     clkp->num_seq_power_on);
+> +	if (ret)
+> +		goto unlock;
+[ ... ]
+> diff --git a/drivers/clk/realtek/freq_table.h b/drivers/clk/realtek/freq_=
+table.h
+> new file mode 100644
+> index 0000000000000..78215aee33007
+> --- /dev/null
+> +++ b/drivers/clk/realtek/freq_table.h
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +struct freq_table {
 
 [Severity: Low]
-Since the registration helper function was removed, are linux/device.h and
-linux/of.h still necessary?=20
+Is it intentional to omit the standard include guards here? If this header
+is included multiple times in the future, could it lead to redefinition
+errors for struct freq_table?
 
-It looks like these headers were used to interact with struct device and
-of_node, and could now be safely dropped.
+> +	u32 val;
+> +	unsigned long rate;
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713155630.3054=
-636-1-eleanor.lin@realtek.com?part=3D2
+636-1-eleanor.lin@realtek.com?part=3D5
