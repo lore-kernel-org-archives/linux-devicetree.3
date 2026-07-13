@@ -1,109 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4479F299A82;
-	Mon, 13 Jul 2026 19:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41037355F46;
+	Mon, 13 Jul 2026 19:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783970552; cv=none; b=pP/klD2ib5VwBfCN57+DnZLASXVzgNlHDlVzuDJaSVO4WHt+sOwn9IiTmDYyanKIlAXFPgfqbAJ/BeH01P+yNPvNvkJ3CZMHNA6e655C0AwQmHItCZ2hQ1UXeYo+kxEAZUsmmmI4MPYITUmkFaPs7mmBvh6XVf41E6hlPP9+YVY=
+	t=1783970773; cv=none; b=n9wGk4UY6vq8wZEsDhk7hYpaVgZ/IyMAgxs+UI5RNu4dMA1JxwbdubqRoN1e+Pne1Q5HIfm5Z2+avhfOzLwE1j3pBB/gt34+/elMP6o6Vi3wotQpMmQ9bEJr+eb/MqFQfwm0R6Ryj/jaWxosU8OecJIWYl914JbHOsW7XvZWgfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783970552; c=relaxed/simple;
-	bh=bXvmOut/ctOyR959ryDP5h2xIp017nMV1fl/jdEcENM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OANP4cgEcwf6qQBl6HaHZBDgAiITkjImxCgXk25MPwKEcAwdlCDzH3oMLqtd2LkyclgORkiCZz9PxG+BBFfxpvChL3ENMORG1to7fRl766G9GG4R5vhgbiUlVaLegqOnBVn/1QZEsugyWzfEr0P24sSWIlXTdXqdFOi0RVkHn+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qp7zwLje; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783970773; c=relaxed/simple;
+	bh=RcxFrzM4fXb6ommCnOiNc6tEa78VsTytrJHLMEScxm4=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cdAkZODy6WlhFfIohPdlXvGsYKlMv3/dzJr0hw0UxGgmjQJramjDuKdVYdoDOE/YRi/fBU+sNBMhuwrl3TGy2WfRYVtrR2ow9osfDeD6k7slWeP8dxia6zzGPSMFfG6RPRmq0le4xwiYoMYyFDyJSvh8fO1kD5WKQ7SG1GcQV+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=W/n0NHB7; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qp7zwLje"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651721F000E9;
-	Mon, 13 Jul 2026 19:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783970550;
-	bh=DdYDy61PUBDg/LvoP88MA6bl3H3oRni09BbhpewRm5s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qp7zwLjeMktYaYfpjbkRC1hur9h27LDqPV3skU4E/Qa4HnLDTdahoo83zsM2+9IHA
-	 +gYfpue6BsGguPa1Mhl8dZgnd3ghxvglvZf2New2+oFFXZgkMg+z4Ng5L0VWcspHID
-	 rm24zR3Otnu7SvH2NCbhrDib5x6i1wSIulGEeXOo/1dk0LCD9VsQbQ4HfqPX8sLGFc
-	 BbrCUOsHZhMT9l/DkRYoeVUSwI0En54HfCOS9iNklnmletAAh9/dg5wOGXtnO4rXPT
-	 /QE0cKczvmIj58kPVuzF9RidvsrNf80Ek4kJyjKaH9koTopFKMtlaUJcUgnGzRqqLD
-	 gnYbd0rPZIQaA==
-Date: Mon, 13 Jul 2026 20:22:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] ASoC: dt-bindings: qcom,sm8250: Add Hawi sound
- card
-Message-ID: <d67a4f47-82b4-49d5-b851-d3388651e660@sirena.org.uk>
-References: <20260713180907.874954-1-prasad.kumpatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="W/n0NHB7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783970770;
+	bh=RcxFrzM4fXb6ommCnOiNc6tEa78VsTytrJHLMEScxm4=;
+	h=Subject:From:To:Date:In-Reply-To:References:From;
+	b=W/n0NHB7zpdXppS10/AVeJ2AI6xwRXLIm/akQboL82x9GxlSAgWWg4QuHRSrUVpLO
+	 55kHkhTXFVYSz3DWH0C9G0TBVzJAFQJG186aMIT4VvGD3BnzjT8nI/xs/2wdlxlRc+
+	 h5YWPQR7eFb0yZVn1Mn5LgO2tn/nK5dCMwMFblpzv8pRlMk3f9Mb/notJNEf4mITrn
+	 0kpusqlXBqS1ZMcKzWDMPYuvCrUp8UCLbQMdsJ7F9xrEU7Xze7bhC67mMKjr55M+PU
+	 rry5Kt5BALb5nxiAyiarbcNb/5zcjwfn5JK1ewctu/8clOVJWphg5PV1FXl+auN8a5
+	 IeMwVvUWDqWAQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 48DF317E0956;
+	Mon, 13 Jul 2026 21:26:08 +0200 (CEST)
+Message-ID: <a92d3ece26722bded7a71373e190b12fccbd0396.camel@collabora.com>
+Subject: Re: [PATCH v15 02/12] media: mediatek: jpeg: fix jpeg buffer
+ payload size setting
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Kyrie Wu <kyrie.wu@mediatek.com>, Hans Verkuil
+ <hverkuil-cisco@xs4all.nl>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger	
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Date: Mon, 13 Jul 2026 15:26:05 -0400
+In-Reply-To: <20260702072614.10373-3-kyrie.wu@mediatek.com>
+References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
+	 <20260702072614.10373-3-kyrie.wu@mediatek.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-3sVKmjtuPNin0J4FoPlf"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JPGbq8e6OWeXaboP"
-Content-Disposition: inline
-In-Reply-To: <20260713180907.874954-1-prasad.kumpatla@oss.qualcomm.com>
-X-Cookie: Courage is grace under pressure.
 
 
---JPGbq8e6OWeXaboP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-3sVKmjtuPNin0J4FoPlf
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 13, 2026 at 11:39:05PM +0530, Prasad Kumpatla wrote:
-> This series add support for sound card on Qualcomm Hawi boards.
+Le jeudi 02 juillet 2026 =C3=A0 15:26 +0800, Kyrie Wu a =C3=A9crit=C2=A0:
+> For multi-core jpegdec, if one core gets resolution change event,
+> the payload size, representing the size of Y/C data, needs to change.
+> But others are decoding at the same time and it can not be changed
+> immediately, which results in the payload size to not match the real
+> buffer length.
+> The payload size must less than the real buffer length to remove
+
+                   must be less
+
+> the warnning logs.
 >=20
-> This series depends on:
-> 	- https://lore.kernel.org/all/20260712134110.3306763-1-prasad.kumpatla@o=
-ss.qualcomm.com/
+> Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware"=
+)
+> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
 
-Which is a not directly legible link to "ASoC: qcom: add AudioReach TDM
-backend support" which itself has a dependency on some further in flight
-stuff also specified as a link to some random message ID with whatever
-pile of problems that has.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-This isn't directed at you specifically, this is a general problem which
-seems to be getting worse and worse with the Qualcomm patches.  There's
-multi-level stacks of dependencies, the dependencies are hard to follow
-and nothing seems to be moving at any great pace so I'm ending up with
-my review queue clogged with things which don't even apply due to the in
-flight stuff and it's hard to figure out what's going on.  Can you all
-please coordinate with each other and try to get whatever is at the
-bottom of these stacks of dependencies in?  If you have to send changes
-based on some in flight things specify those dependencies in so they're
-readable from the email.  Right now it just seems like there's a
-constant stream of stuff being thrown over the wall without any review
-going on.
+> ---
+> =C2=A0.../platform/mediatek/jpeg/mtk_jpeg_core.c=C2=A0=C2=A0=C2=A0 | 19 +=
++++++++++++++-----
+> =C2=A01 file changed, 14 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index 1e014fd698ae..3960ad21d7f0 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -702,6 +702,7 @@ static int mtk_jpeg_buf_prepare(struct vb2_buffer *vb=
+)
+> =C2=A0	struct mtk_jpeg_ctx *ctx =3D vb2_get_drv_priv(vb->vb2_queue);
+> =C2=A0	struct mtk_jpeg_q_data *q_data =3D NULL;
+> =C2=A0	struct v4l2_plane_pix_format plane_fmt =3D {};
+> +	size_t max_size;
+> =C2=A0	int i;
+> =C2=A0
+> =C2=A0	q_data =3D mtk_jpeg_get_q_data(ctx, vb->vb2_queue->type);
+> @@ -710,12 +711,20 @@ static int mtk_jpeg_buf_prepare(struct vb2_buffer *=
+vb)
+> =C2=A0
+> =C2=A0	for (i =3D 0; i < q_data->fmt->colplanes; i++) {
+> =C2=A0		plane_fmt =3D q_data->pix_mp.plane_fmt[i];
+> +		max_size =3D plane_fmt.sizeimage;
+> +
+> =C2=A0		if (ctx->enable_exif &&
+> -		=C2=A0=C2=A0=C2=A0 q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG)
+> -			vb2_set_plane_payload(vb, i, plane_fmt.sizeimage +
+> -					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MTK_JPEG_MAX_EXIF_SIZE);
+> -		else
+> -			vb2_set_plane_payload(vb, i,=C2=A0 plane_fmt.sizeimage);
+> +			q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG) {
+> +			max_size +=3D MTK_JPEG_MAX_EXIF_SIZE;
+> +
+> +			vb2_set_plane_payload(vb, i,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MIN(vb->planes[i].length,
+> +						=C2=A0 max_size));
+> +		} else {
+> +			vb2_set_plane_payload(vb, i,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MIN(plane_fmt.sizeimage,
+> +						=C2=A0 vb->planes[i].length));
+> +		}
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	return 0;
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
-
---JPGbq8e6OWeXaboP
+--=-3sVKmjtuPNin0J4FoPlf
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpVOvEACgkQJNaLcl1U
-h9CZiQf7BfLAxdZHPaiwXuoNwmBy+sqGTW/KvMArSVThg2AoTNivLEpSdrO+Kr9F
-EGcM4xVOnJT6MpHCxJZRGf1xstv9whka5VftgUy2UOww28GZ7Usvm8i9NvnuZ0yf
-Krj3S0tjNZY9Q0tRmFsp3Z3ErazTW6FOf0RdqqjZTyte0jW+EItFW5nTC6GLfqC4
-BncIq/5luBiy14JmMDL1QvmuDeancnXy518OvpzGpFTsOL42xTHnJMs88BfINp37
-jP6WPqjzNBg1c6+C+DhSzxlPPjlboFtt0adA2ZpQfrHAKdF2sWueZN3phE1aH6SV
-ZbSy3mUy2xbygJDzXPjFKSRNvzxYDA==
-=lHC/
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalU7zQAKCRDZQZRRKWBy
+9KLBAQC3VQew+lWIFYFAv9fg5BqMa9IRHChznBJwWMns6YzGrgD/WYdaWpblGdWI
+WFr3vCtL4w9cR0i7UPjjJ20jXFBktAQ=
+=dgdq
 -----END PGP SIGNATURE-----
 
---JPGbq8e6OWeXaboP--
+--=-3sVKmjtuPNin0J4FoPlf--
