@@ -1,165 +1,612 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B71D385D6C
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 11:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187C638CFE4;
+	Mon, 13 Jul 2026 11:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783941290; cv=none; b=cOvU2/IIRcoMGl76nFBsFRryq5H9tWaZq3Uv/OOCxC/6L8sH9kpnaItpcURewqHPC22OEm9W5+YjSnV7thMQhAu6i0lEXxOcWMnbTiO25grmcc4yuf6y0bjFnhrnp4Xp6MeqCuE+vU+MwTID7PiackdzUrE3lJYoCLpNweyvLV0=
+	t=1783941444; cv=none; b=N/AD4eshUP1GBEO/Jkp0ylW0aBBHFg60q50LLofQYlvMRNmDhid2T+6UdU89xGXhIvuEC3WpboZzUlBFPIJV1TbYip6loRmLtQ/o+Qpdde7eSWgwedDbMPF/URUS7+77aP7CA7JsO0Xom4mCt0xiuk8ik0ewZnF7rErm1MdkEh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783941290; c=relaxed/simple;
-	bh=zAetDQromy2N8RZpHM74SaWCREepLFBCH0p5HhPOOoc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=otpgFUyHvJ+1bn7hRGI6iXruVxZwJIjZisbwcqa4lH2Bek7XMAWDzSzLeFZXt7mVqxS5AAmKFqP9Ln2nruSymrVLZRyT+8AqydC5eOuNLYVCUYWwSICuiN7BwObvl+RooRjuxWqmtldNaHjHhIe86YUA9CsO7SrPAls5AhKE1n4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FtySJ19h; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783941444; c=relaxed/simple;
+	bh=iHS/mqFD8C2vBjNlpNkajl8s8GppsnHj6jRwqvH5M/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bpUvQiek3kE0/6E0Mog9MQ6/oWyuDU9r0Y+Pc0GBPxuy4SDQNU7Yz0LSDVcwo6dZdYebMUPkYlmWmIArPMSq72uvwEA0Ml2V35VN6XaA2Gjy3aOMSaHRdkaU59oEHvgXefY7SUN+9Bye27HBBRU6o5PXRutTNIO+MCKI0A5XfH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=doLTLB0p; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FtySJ19h"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc61541f8cso45270095ad.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 04:14:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783941289; x=1784546089; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qy05wQX9tQW4cKDrF9CYFi6hXbTRcwSo4hY7x3uhFf0=;
-        b=FtySJ19hZBI4tdywwYcBsPGpfz42JiVbkyBy+NR+1n7oqF7m+Y2Lt0KepaaXjLa2oX
-         rePVoB7fqJjPFiXfq1kbi39ELlEpOXmjk1E8E0sMGk+6eThEwxnFNLl+XczNX8gsDwTh
-         LT21FaGS+HfUuQ/MSLk6OoZnirWwgULqiee/LVE65T7OQJSEsYD+JPh/pZueL8Dvl6Bq
-         GqzPr+9afm0t9DUyLp2xm9RYnFLj6NpMfOsnPzwePReehcHfsTY+XBAQjIOQw7053+l1
-         8QXJkLXSHFQm+T8fRnnpg3w0tA0BNx4M1nTJxSRGBVfsWaIy0gjnjvqq7l3wrFZoKLpq
-         9aYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783941289; x=1784546089;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qy05wQX9tQW4cKDrF9CYFi6hXbTRcwSo4hY7x3uhFf0=;
-        b=pGb+YGlZAoEkq1Vvt9AxmWqpduhrG45gvTgLf82qe1qe8fj/Cl9E3CE978nsBp3okk
-         Al+0eFG84pRONxRxnnL4v8JjKperA4zzm9Z/kMXz165khTCVu+jhYAXmVy5scYKrwJqs
-         i//er0JY1/jK4sotIRbiBTh3sdlhyXQfgXrpWOYpiU0+CzqRUjFkicgTZdSYaOScIUsv
-         UvE4XcdShJuR3A2itWs3SgRrzhDgnj+8hqhZ15Q9YG/o5Ha7/w26ZVqnPHVqR9++GOX0
-         rydEHUjw1aS5QDr9nRTiku02qwkEwOLrkz0HSErqg1UEBwf6aUsnhDmASv17+XMD5O9+
-         x7+A==
-X-Forwarded-Encrypted: i=1; AHgh+RpZKFa7hfmK/JudL7qfaC2sKomWEJK8NxBUv84Fw8g9lgEzisnKSB238MnfKnBNII9yBaAWQ4JZoMDJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKoujpZZhcedIvetEtDrJiKAHkQwxQekE/LIZql0dbAumzCuON
-	quNV4ThM9T1UvVtzkeFeT2KZGa+KloFXaHDaplFnZsFAYMmbzw3deGE8
-X-Gm-Gg: AfdE7cmdL+x7nX3ua6VkW1AwKuhTmm98+W9NNYPTOAa4NYU3fKcfGo39SDpo+7qWcw0
-	lYYUIRKldwg2bt8xW4/fU3MvxMS7h3PvPevEgQVP/9yKlN8/2K/Eu0tbw/5mVeJoGeEvtusVKTD
-	55rToSxIhrS6E/ut6+NVkZMlFgvUPDlq58F9TD9JrFdXSbktIqhCW6TO6pyg0nwaNWQeXRRWL88
-	iM/dFsqLrRd083N1I4hGk/cytBeMsEzJajrKmd54A5ze2KO2Fqbsa9zAPMGkJsSmdDPpFRTOuRq
-	DIs50hLwzytS17QTJXrO2ZnOJdYV/PAlaa9VSphspZr0UHeqa6MJvocvSCJ+wD+HYZhXNjKIQjX
-	n9X+SEWsOIqhrQJbeTMP8Zf1ggIFt32I4RNuUWPlu5rKsi71OmFSTwDY5+GzpgINwX5lccWMrmL
-	Ow9q8org8yUZrOfr2602S2NeWav2OUUnp5uaCiM7ggnYvjJvhxK/ZE6s0DB4Y4lfl/Ibs=
-X-Received: by 2002:a05:6a20:cf85:b0:3c0:b598:4983 with SMTP id adf61e73a8af0-3c0f0bc744dmr14145797637.30.1783941288539;
-        Mon, 13 Jul 2026 04:14:48 -0700 (PDT)
-Received: from [192.168.68.63] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b87b92b27sm27749509c88.6.2026.07.13.04.14.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 04:14:48 -0700 (PDT)
-Message-ID: <fe802ea0-fa1d-415c-bc9c-1f534e9df26a@gmail.com>
-Date: Mon, 13 Jul 2026 04:14:47 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="doLTLB0p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1783941442; x=1815477442;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iHS/mqFD8C2vBjNlpNkajl8s8GppsnHj6jRwqvH5M/k=;
+  b=doLTLB0pckypX8Z5lsSyJKyXB/zYN3J10AaxPlFsGlvY1cr3oXa88XCC
+   qteXGa3/xTZvEjcxVjx0zKOB3szz/X7a/Nq9aBmv4Vjvlf8vgLRLc4UyA
+   2Tgk5UHax1pQU3/JzYmmp1RLnObfaCRJlmDamO9c4EpUA4zzu4dmhPdJv
+   qIyPiD1Jww+R/mhfStaUp6I3PuILZN8lXPAYAFcl+sOvA+LCsfL5eqXuR
+   GOX5Ml8gVwvQwYGlh/slo0NdvMBIs7d6rtn7EIxOvu9K4vEv3E4a8BOGu
+   TPkcPC95YBQvZtZRB+5wTp24xk/NuDsiVXCNyIVMf4zUnO3P3cB4etbu4
+   w==;
+X-CSE-ConnectionGUID: o0E9j/ZWSjCfc63yOzfuUA==
+X-CSE-MsgGUID: jbnN+76CTA6qXqz+oJB+dQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="72071052"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="72071052"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 04:17:21 -0700
+X-CSE-ConnectionGUID: EbCMWskkSeq/rP0qgjYf6g==
+X-CSE-MsgGUID: aenXfxB+TgKtETWRwtU20w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="260416437"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.88])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 04:17:18 -0700
+Date: Mon, 13 Jul 2026 14:17:16 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+Subject: Re: [PATCH v2 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+Message-ID: <alTJPExu9b3lRtx_@ashevche-desk.local>
+References: <20260713081127.115197-1-cwweng.linux@gmail.com>
+ <20260713081127.115197-3-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: opp: Allow optional -vN suffix in
- opp-microvolt property name
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Ilia Lin <ilia.lin@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260527-expressatt_cpufreq-v2-0-b9b7726ccb6d@gmail.com>
- <20260527-expressatt_cpufreq-v2-1-b9b7726ccb6d@gmail.com>
- <wwzqpnkhdepkgl6bdmcuwep7v5m4rb6h3vfdbqmphxvmw4ao2m@efgv7wvm6cty>
-Content-Language: en-US
-From: Rudraksha Gupta <guptarud@gmail.com>
-In-Reply-To: <wwzqpnkhdepkgl6bdmcuwep7v5m4rb6h3vfdbqmphxvmw4ao2m@efgv7wvm6cty>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713081127.115197-3-cwweng.linux@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 5/27/26 23:35, Dmitry Baryshkov wrote:
-> On Wed, May 27, 2026 at 08:39:28PM -0700, Rudraksha Gupta wrote:
->> The qcom-cpufreq-nvmem driver generates prop_name as
->> "speed%d-pvs%d-v%d" for Krait SoCs, resulting in property names like
->> opp-microvolt-speed0-pvs0-v0. The existing schema regex only allows
->> opp-microvolt-speed[0-9]+-pvs[0-9]+ without the trailing version
->> suffix.
->>
->> Extend the regex to optionally match a -v[0-9]+ suffix so that
->> devicetrees using the full prop_name pass schema validation.
->>
->> Assisted-by: Claude:claude-opus-4.6
->> Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
->> ---
->>   Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml b/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml
->> index fd04d060c1de..846f49a99484 100644
->> --- a/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml
->> +++ b/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml
->> @@ -81,7 +81,7 @@ patternProperties:
->>         required-opps: true
->>   
->>       patternProperties:
->> -      '^opp-microvolt-speed[0-9]+-pvs[0-9]+$': true
->> +      '^opp-microvolt-speed[0-9]+-pvs[0-9]+(-v[0-9]+)?$': true
-> I think this should be fixed differently. There is no version for
-> MSM8960 / APQ8064, per design. It is only applicable to MSM8974 /
-> APQ8084. You also need to scale the core voltages.  Would you consider
-> picking up the relevant parts of [1]? (also see [2] and [3])?
->
-> I got stuck because I couldn't implement L2 plumbing properly and never
-> pushed the series further. On both MSM8960 and APQ8064 we can scale L2
-> cache to follow the CPU frequency. I tried adding the driver for it, but
-> RobH requested using cpu_subsys, but there each cache device gets
-> created multiple times. Maybe I should fix that in the end, then we can
-> scale the L2 too.
->
-> [1] https://lore.kernel.org/linux-arm-msm/20231002185940.1271800-1-dmitry.baryshkov@linaro.org/
->
-> [2] https://lore.kernel.org/linux-arm-msm/20230827115033.935089-1-dmitry.baryshkov@linaro.org/
->
-> [3] https://lore.kernel.org/linux-arm-msm/20230702175045.122041-1-dmitry.baryshkov@linaro.org/
+On Mon, Jul 13, 2026 at 04:11:27PM +0800, Chi-Wen Weng wrote:
 
-Hi Dmitry,
+> Add an IIO driver for the Nuvoton MA35D1 Enhanced ADC controller.
+> 
+> The driver supports interrupt-driven direct raw reads and triggered
+> buffered capture paced by an external IIO trigger. Buffered capture is
+> limited to a single enabled voltage channel per scan in this initial
+> implementation.
+> 
+> Channels are described by firmware child nodes. Single-ended external
+> channels and the fixed hardware differential input pairs are supported.
+> The driver reports IIO scale from either an optional external reference
+> supply or the internal 1.6 V reference.
+> 
+> The driver also handles the functional clock and optional reset line.
+> DMA support is not used by this initial driver.
+
+...
+
+> +#include <linux/bitfield.h>
+> +#include <linux/bitmap.h>
+
+bitmap.h implies bitops.h...
+
+> +#include <linux/bitops.h>
+
+...so you may drop this one.
+
+> +#include <linux/cleanup.h>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/jiffies.h>
+
+> +#include <linux/mod_devicetable.h>
+
+Uwe made a series to get rid of this header. The platform_device.h seems
+the one which will provide the thing.
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/reset.h>
+> +#include <linux/types.h>
+
+...
+
+> +#define MA35D1_EADC_DAT(n)		(0x00 + (n) * 0x04)
+> +#define MA35D1_EADC_CTL			0x50
+> +#define MA35D1_EADC_SWTRG		0x54
+> +#define MA35D1_EADC_SCTL(n)		(0x80 + (n) * 0x04)
+> +#define MA35D1_EADC_INTSRC0		0xd0
+> +#define MA35D1_EADC_STATUS2		0xf8
+> +#define MA35D1_EADC_SELSMP0		0x140
+> +#define MA35D1_EADC_REFADJCTL		0x150
+
+Please, make all register offsets fixed width, exempli gratia
+
+define MA35D1_EADC_STATUS2		0x0f8
+
+...
+
+> +#define MA35D1_EADC_INTSRC0_SPLIEN(n)	BIT(n)
+
+Useless? Can't BIT() be used directly? (Note, I don't know
+if it's good or bad suggestion, wanting to understand a bit more.)
+
+...
+
+> +#define MA35D1_EADC_MAX_EXT_CHANNELS	8
+> +#define MA35D1_EADC_INTERNAL_VREF_MV	1600
+
+_mV (yes, as per SI).
+
+> +#define MA35D1_EADC_TIMEOUT		msecs_to_jiffies(1000)
+> +#define MA35D1_EADC_RESET_DELAY_US	10
+> +#define MA35D1_EADC_REF_STABLE_US	1000
+
+(1 * USEC_PER_MSEC) ?
+If go this way, include time.h for the multiplier definition.
+
+...
+
+> +struct ma35d1_adc {
+> +	struct regmap *regmap;
+> +	struct clk *clk;
+> +	struct reset_control *rst;
+> +	struct regulator *vref;
+> +	struct completion completion;
+> +	/* Protects conversion state and register accesses from PM transitions. */
+> +	struct mutex lock;
+> +	const struct iio_chan_spec *scan_chan;
+> +	unsigned int vref_mv;
+
+_mV
+
+> +	int irq;
+> +	bool suspended;
+> +};
+
+...
+
+> +static const struct regmap_config ma35d1_adc_regmap_config = {
+> +	.reg_bits = 32,
+> +	.val_bits = 32,
+> +	.reg_stride = 4,
+> +	.max_register = MA35D1_EADC_REFADJCTL,
+
+No cache?
+
+> +};
+
+...
+
+> +static bool ma35d1_adc_valid_diff_pair(unsigned int vinp, unsigned int vinn)
+> +{
+> +	return (vinp == 0 && vinn == 4) ||
+> +	       (vinp == 1 && vinn == 5) ||
+> +	       (vinp == 2 && vinn == 6) ||
+> +	       (vinp == 3 && vinn == 7);
+
+Wondering if this is just
+
+	return (vinp >= 0 && vinp < 4 && (vinn == vinp + 4));
+
+But I'm fine with the original, perhaps compiler may optimise that.
+
+> +}
+
+...
+
+> +static int ma35d1_adc_set_bits(struct ma35d1_adc *adc, unsigned int reg,
+> +			       unsigned int bits)
+> +{
+> +	return regmap_set_bits(adc->regmap, reg, bits);
+> +}
+> +
+> +static int ma35d1_adc_clear_bits(struct ma35d1_adc *adc, unsigned int reg,
+> +				 unsigned int bits)
+> +{
+> +	return regmap_clear_bits(adc->regmap, reg, bits);
+> +}
+
+What's the point in these wrappers?
+
+...
+
+> +static int ma35d1_adc_disable_irq(struct ma35d1_adc *adc)
+> +{
+> +	return ma35d1_adc_clear_bits(adc, MA35D1_EADC_CTL,
+> +				     MA35D1_EADC_CTL_ADCIEN0);
+
+I would make it one line (*yes, 84 characters).
+
+> +}
+
+...
+
+> +static int ma35d1_adc_setup_reference(struct ma35d1_adc *adc)
+> +{
+> +	int ret;
+> +
+> +	if (adc->vref) {
+> +		ret = regmap_set_bits(adc->regmap, MA35D1_EADC_REFADJCTL,
+> +				      MA35D1_EADC_REFADJCTL_PDREF);
+> +		if (ret)
+> +			return ret;
+> +	} else {
+> +		ret = regmap_clear_bits(adc->regmap, MA35D1_EADC_REFADJCTL,
+> +					MA35D1_EADC_REFADJCTL_PDREF);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_update_bits(adc->regmap, MA35D1_EADC_CTL,
+> +					 MA35D1_EADC_CTL_VREFSEL_MASK,
+> +					 MA35D1_EADC_CTL_VREFSEL_1V6);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+Add a short comment with reference to a datasheet table/section/et cetera.
+
+> +	fsleep(MA35D1_EADC_REF_STABLE_US);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int ma35d1_adc_hw_init(struct ma35d1_adc *adc)
+> +{
+> +	int ret;
+> +
+> +	ret = ma35d1_adc_disable_irq(adc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ma35d1_adc_setup_reference(adc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_SELSMP0,
+> +				 MA35D1_EADC_SELSMP0_SMPT0_MASK,
+> +				 MA35D1_EADC_SELSMP_LONG);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
+> +			   MA35D1_EADC_STATUS2_ADIF0);
+
+With
+
+	static regmap *map = adc->regmap;
+
+this becomes
+
+	ret = regmap_write(map, MA35D1_EADC_STATUS2, MA35D1_EADC_STATUS2_ADIF0);
+
+exactly one line. Apply this trick everywhere and it might help reduce
+amount of LoC.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return ma35d1_adc_set_bits(adc, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
+> +}
+
+...
+
+> +static int ma35d1_adc_config_channel(struct ma35d1_adc *adc,
+> +				     const struct iio_chan_spec *chan)
+> +{
+> +	unsigned int ctl;
+> +	int ret;
+> +
+> +	ctl = chan->differential ? MA35D1_EADC_CTL_DIFFEN |
+> +					  MA35D1_EADC_CTL_DMOF : 0;
+> +
+> +	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_CTL,
+> +				 MA35D1_EADC_CTL_DIFFEN |
+> +				 MA35D1_EADC_CTL_DMOF, ctl);
+> +	if (ret)
+> +		return ret;
+
+regmap_assign_bits()
+
+> +	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_SCTL(0),
+> +				 MA35D1_EADC_SCTL_CHSEL_MASK |
+> +				 MA35D1_EADC_SCTL_TRGSEL_MASK,
+> +				 FIELD_PREP(MA35D1_EADC_SCTL_CHSEL_MASK,
+> +					    chan->channel));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(adc->regmap, MA35D1_EADC_INTSRC0,
+> +				  MA35D1_EADC_INTSRC0_SPLIEN(0),
+> +				  MA35D1_EADC_INTSRC0_SPLIEN(0));
+> +}
+
+...
+
+> +static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
+> +				       const unsigned long *scan_mask)
+> +{
+> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
+> +	const struct iio_chan_spec *scan_chan = NULL;
+> +	unsigned long bit;
+> +	unsigned int count;
+> +
+> +	count = 0;
+> +	for_each_set_bit(bit, scan_mask, indio_dev->masklength) {
+> +		scan_chan = &indio_dev->channels[bit];
+> +		count++;
+> +	}
+> +
+> +	if (count != 1 || scan_chan->type != IIO_VOLTAGE)
+> +		return -EINVAL;
 
 
-Sorry for responding back so late.
+This is interesting check. First of all, it checks if the only a single bit is
+set in the whole mask, then it checks the type of the *last* listed channel.
+The latter seems fragile to me, as it depends on ordering (yes, the limitation
+to a single enabled channel helps).
 
-I'm not too sure I follow what is required for the CPU frequency patch, 
-but I can attempt it using AI. Would you have more information and any 
-specific patches from the patch series that I should take a look at?
+With that being said, the both checks can be unrolled to the find_next_bit().
 
-I'm also considering putting CPU frequency in the backlog.
+	/* Find the first enabled channel to scan */
+	bit = find_next_bit(scan_mask, indio_dev->masklength, 0);
+	if (bit >= indio_dev->masklength)
+		return -EINVAL;
 
-Currently Antony has Wi-Fi/bluetooth working (Which is depending on 
-https://lore.kernel.org/all/20260527-expressatt_camera_flash-v6-0-de0f150024e4@gmail.com. 
-Waiting for Lee Jones's review and I will send my Wi-Fi/bluetooth 
-enablement patch afterwards) and I've also separately gotten display 
-fully working and cameras partially working. Currently I'm trying to get 
-audio working and recently I was able to hear a click and pop. However, 
-I seem to be struggling to get Q6/hexagon working. This seems to be 
-required for the modem as well so directly controlling audio seems to be 
-a temporary solution. Would you have any tips? My source code repo is 
-here: https://codeberg.org/LogicalErzor/linux/src/branch/expressatt
+	/* Check that the type of the channel is what we are looking for */
+	scan_chan = &indio_dev->channels[bit];
+	if (scan_chan->type != IIO_VOLTAGE)
+		return -EINVAL;
 
-I feel these subsystems will be more important getting in compared to 
-CPU frequency. Unless I'm misjudging CPU frequency work and it's simpler 
-than expected.
+	/* Check that this is the only enabled channel */
+	bit = find_next_bit(scan_mask, indio_dev->masklength, bit);
+	if (bit < indio_dev->masklength)
+		return -EINVAL;
+
+Not sure that this will generate less code, though. So up to you.
+One also might argue that the original code is easier to understand.
+
+> +	adc->scan_chan = scan_chan;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static irqreturn_t ma35d1_adc_trigger_handler(int irq, void *p)
+> +{
+> +	struct iio_poll_func *pf = p;
+> +	struct iio_dev *indio_dev = pf->indio_dev;
+> +	struct ma35d1_adc *adc = iio_priv(indio_dev);
+> +	IIO_DECLARE_BUFFER_WITH_TS(u16, scan, 1) = { };
+> +	u16 raw;
+> +	int ret;
+> +
+> +	guard(mutex)(&adc->lock);
+> +	if (adc->suspended || !adc->scan_chan)
+> +		goto done;
+
+This is usually leads to a mess in the compiler. This is written in the top of
+cleanup.h that goto should be avoided while using guard()() or similar macros.
+
+> +	ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &raw);
+> +	if (ret)
+> +		goto done;
+> +
+> +	scan[0] = raw & MA35D1_EADC_DAT_RESULT_12BIT;
+> +	iio_push_to_buffers_with_timestamp(indio_dev, scan, pf->timestamp);
+> +
+> +done:
+> +	iio_trigger_notify_done(indio_dev->trig);
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+...
+
+> +static void ma35d1_adc_init_channel(struct iio_chan_spec *chan, u32 vinp,
+> +				    u32 vinn, unsigned int scan_index,
+> +				    bool differential)
+> +{
+> +	chan->type = IIO_VOLTAGE;
+> +	chan->indexed = 1;
+> +	chan->channel = vinp;
+> +	chan->scan_index = scan_index;
+> +	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +					 BIT(IIO_CHAN_INFO_SCALE);
+
+Broken indentation, better to have
+
+	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
+
+OR
+
+	chan->info_mask_separate =
+		BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
+
+> +	chan->scan_type.format = differential ? IIO_SCAN_FORMAT_SIGNED_INT :
+> +					      IIO_SCAN_FORMAT_UNSIGNED_INT;
+> +	chan->scan_type.realbits = 12;
+> +	chan->scan_type.storagebits = 16;
+> +	chan->scan_type.endianness = IIO_CPU;
+> +
+> +	if (differential) {
+> +		chan->differential = 1;
+> +		chan->channel2 = vinn;
+> +	}
+> +}
+
+...
+
+> +static struct iio_chan_spec
+> +ma35d1_adc_timestamp_channel(unsigned int scan_index)
+> +{
+> +	struct iio_chan_spec chan = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
+> +
+> +	return chan;
+> +}
+
+Useless wrapper. Just put _SOFT_TIMESTAMP() in place.
+
+...
+
+> +static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
+> +				     struct device *dev)
+> +{
+> +	DECLARE_BITMAP(used_channels, MA35D1_EADC_MAX_EXT_CHANNELS);
+> +	struct iio_chan_spec *channels;
+> +	unsigned int scan_index;
+> +	int num_channels;
+> +	int ret;
+> +
+> +	bitmap_zero(used_channels, MA35D1_EADC_MAX_EXT_CHANNELS);
+> +
+> +	num_channels = device_get_child_node_count(dev);
+> +	if (!num_channels)
+> +		return dev_err_probe(dev, -ENODATA,
+> +				     "no ADC channels configured\n");
+
+I would return -ENOENT, as it's usual error code for 0 count in counting APIs
+in the kernel. Also you can put it on a single line.
+
+> +	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
+> +		return dev_err_probe(dev, -EINVAL, "too many ADC channels\n");
+> +
+> +	channels = devm_kcalloc(dev, num_channels + 1, sizeof(*channels), GFP_KERNEL);
+
+size_add() ?
+
+> +	if (!channels)
+> +		return -ENOMEM;
+> +
+> +	scan_index = 0;
+> +	device_for_each_child_node_scoped(dev, child) {
+> +		u32 diff[2];
+> +		u32 reg;
+> +		u32 vinn;
+> +		bool differential;
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &reg);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "missing channel reg property\n");
+> +
+> +		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "invalid ADC channel %u\n", reg);
+> +
+> +		if (test_and_set_bit(reg, used_channels))
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "duplicate ADC channel %u\n", reg);
+
+> +		differential = false;
+> +		vinn = 0;
+
+Make it an 'else' branch.
+
+> +		if (fwnode_property_present(child, "diff-channels")) {
+> +			ret = fwnode_property_read_u32_array(child, "diff-channels", diff,
+> +							     ARRAY_SIZE(diff));
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "invalid diff-channels for channel %u\n",
+> +						     reg);
+> +
+> +			if (diff[0] != reg ||
+> +			    !ma35d1_adc_valid_diff_pair(diff[0], diff[1]))
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "invalid differential ADC channel %u-%u\n",
+> +						     diff[0], diff[1]);
+> +
+> +			if (test_and_set_bit(diff[1], used_channels))
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "ADC channel %u already used\n",
+> +						     diff[1]);
+> +
+> +			vinn = diff[1];
+> +			differential = true;
+> +		}
+> +
+> +		ma35d1_adc_init_channel(&channels[scan_index], reg, vinn,
+> +					scan_index, differential);
+> +		scan_index++;
+> +	}
+> +
+> +	channels[scan_index] = ma35d1_adc_timestamp_channel(scan_index);
+> +
+> +	indio_dev->channels = channels;
+> +	indio_dev->num_channels = scan_index + 1;
+> +	indio_dev->masklength = indio_dev->num_channels;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
+> +{
+> +	int ret;
+
+> +	adc->vref = devm_regulator_get_optional(dev, "vref");
+> +	if (IS_ERR(adc->vref)) {
+> +		if (PTR_ERR(adc->vref) != -ENODEV)
+> +			return dev_err_probe(dev, PTR_ERR(adc->vref),
+> +					     "failed to get VREF supply\n");
+> +
+> +		adc->vref = NULL;
+> +		adc->vref_mv = MA35D1_EADC_INTERNAL_VREF_MV;
+> +
+> +		return 0;
+> +	}
+
+It can be unnested:
 
 
-Thanks,
-Rudraksha
+	if (PTR_ERR(adc->vref) == -ENODEV) {
+		adc->vref = NULL;
+		adc->vref_mV = MA35D1_EADC_INTERNAL_VREF_mV;
+		return 0;
+	}
+	if (IS_ERR(adc->vref))
+		return dev_err_probe(dev, PTR_ERR(adc->vref),
+				     "failed to get VREF supply\n");
+
+> +	ret = regulator_enable(adc->vref);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable VREF supply\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, ma35d1_adc_vref_disable, adc->vref);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regulator_get_voltage(adc->vref);
+> +	if (ret <= 0)
+> +		return dev_err_probe(dev, ret ?: -EINVAL,
+> +				     "failed to get VREF voltage\n");
+
+> +	adc->vref_mv = ret / 1000;
+
+(MICRO / MILLI)
+
+instead of plain 1000.
+
+> +	return 0;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
