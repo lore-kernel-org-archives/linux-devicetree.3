@@ -1,128 +1,130 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012021.outbound.protection.outlook.com [52.101.66.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AFB426D22;
-	Mon, 13 Jul 2026 13:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783949213; cv=fail; b=X8UCllSFRKalIAnN97neoVDVq+Lu8uTLYOfj3Q5AS96AgXGI9/xlxK5mb/BKbVWDWo++nonNGftH+zvukrp+8W/ZwFVa3Qem9WLLQmKrbJ/BjtVSyGB5i7YKAX6JCvEEaFn1BoGZDYfY5d6ssJ8oblXgBvWAv4gGRpMNTcNGRXs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783949213; c=relaxed/simple;
-	bh=9Z3kQ9vCjc4srWJUISIgs67SfeveO4L6IGaaZQrwSeA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=kLt6XgNAbohzV7sEBop7bPtXN1AfCZLWp9Atm/Bf77Tk/L8ALM2jMe5RT9ct+RtDn8O1uL26s58/ESzwjdYxyTSN+9r/IxZMwdYav+Fd7kXRzDa9NebRqyc9/WxpTNuxQGTk/9y5EqkZVNthG1fRy6h6D138apNTuWKmQcPHhMA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=LcT4syvL; arc=fail smtp.client-ip=52.101.66.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A9523C8A0
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 13:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783949526; cv=none; b=AaLOI7hvb1B96EIYXHeXcDp3shjiB0aiE9Cb6b4l256+1tQDHClMq1QDNK5XXY5Bf3vHQ3b/+Vy1cwk8G2PNdHGNdsFFTIY3S8drPoxrb19asZt+SUb0arz+wqv/5R3Z+jV71n8Sq0f2fZISEzNNdMq0aEUQGNOmCnTEs12KxwU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783949526; c=relaxed/simple;
+	bh=FP0go0C300hY8/zamc0Nf6T4qT0JVws31uk8TsY9USg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tQTfPgcTNT6V10z0wznhFlB5sOVROZrniFk3DMQ12W0jo4n2EekMYCV3aplR9Rm9+3B6h9M1GQY9o8FUhpBpECzwGm4mtHTqwItyZEsNU3I0NI8b/v2kMlcO7fxLkx4HBWx+pn332l3/VJC4+qUY9AReGhkUStMiY3mXE1K6M5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J7oMrZJ6; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="LcT4syvL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tNhRF8RwX9PBMYvZfEsFBKce0QqdMP0pXZ1DosjJP2TTMmRm2eijOKnNuqsAFsGTXihQzRiXt9JwZPOS1tHMBvK+3rtETx6JgMLR3hAhDnt7k8hlcBDznLIsuI3M4i+uWwF65ho69OKMPeEqtLHVD2Wae1+2mQBxAuqJqKoRBxfh7yCfMC2C9Pjpp6tgZWHERhwAxlbF+icIzXXXsAwd8JhByNN2TPm/H1SInc5WpM1FoHtxuwEu22n5O4o7F7ysXz/5EQtRT5/liU75VbvS5jBxtuisQA7EsKjwmBwoV89LDrAOVnNtqRryioeN9Qi7UryHjd/gdPUH08gQcks6lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VfIRfyFQx/yoXow3poK5Lo93RA6eb5b39EpwCRxyaRE=;
- b=f9DZNnynA4r9UKZYESvqNhphjNCUOyi/I9MNtWC3pw83mhRNTc9v/rfE8viB8FqUSwFcWVICHaVIhvdGVsM/9df3Ebl4NxSJ/NZNyyjF0m5FPqr5ooXVALODCVDCLlSB+vgdAJ7edtbX1OmLtEfzNs71a+blbY90eeJnSMkdxKdFoBfYoqzvS3fLsV/DrPDsVb2OIYcKKAwEsiFvjLM9NZbJI5dY07oNh9pmJ/6Djv4qTbEz/6/PK4YEN8iVlov0MQB965TrhM8U9aeRP6JHYewZuuksbF0D4Tml2/EVAUQ7Rt06I8dgJzrXVLYh9TkmIx30Isbscqu7EM0SqL+/Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VfIRfyFQx/yoXow3poK5Lo93RA6eb5b39EpwCRxyaRE=;
- b=LcT4syvLnFvbyd9/aOKYh+4Z590eRHSvAyKJXiV7Uj2jpbuH51B9LagXnt4RwFV2+LeSBp6fwIYTUA1ZvdeyD32ne7I5TQ4WIgfMt5e+GKibPnYGeVOKRStLhVTPjTNqKjRtmiHqwoBW3Yqyx8AClWquweNbUdEYD39ACp5HgAgwm8r2H6ipzFzfsc+qn5Dfl0BSl0VqxrAe16EA8jAjGvpeUusYvyAV9/7nfRILNHGAgsgbSOnD0L8ray8aCgqF3XIoJZ5W0FHxnZ5PYMuYlghvU/6ctq8rzlXDWYYoUmiqwO7lNQ4KO3xVTexDz5spY16QFmwkCX+P+ZfL1oOO6Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13) by DU2PR04MB8936.eurprd04.prod.outlook.com
- (2603:10a6:10:2e3::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Mon, 13 Jul
- 2026 13:26:48 +0000
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd%6]) with mapi id 15.21.0181.014; Mon, 13 Jul 2026
- 13:26:48 +0000
-Date: Mon, 13 Jul 2026 16:26:43 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, vladimir.oltean@nxp.com, 
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH 0/2] ARM: dts: ls: cleanup fpga related CHECK_DTBS warning
-Message-ID: <ppfaynhqproyiqrkqvltfsxyroirqcf7ikcvbo7apr24uspm2f@ovoryolfw76a>
-References: <20260708-ls-fpga-v1-0-06c8a099b2a5@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708-ls-fpga-v1-0-06c8a099b2a5@nxp.com>
-X-ClientProxiedBy: AM8P190CA0013.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:219::18) To GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J7oMrZJ6"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6986578d8c0so4630975a12.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:32:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783949523; x=1784554323; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7l1aqdorv8dNx2XXvch+nk0kVc1JB63/bFJ2ZS4jLGw=;
+        b=J7oMrZJ6qwfFtf2rzKtuJvQoyG1Mp/o3Pogql6w7RqLvoe9IsWrvnTCjm5Py8lrlJl
+         UJgo4hKfiB+TLbA68fuUTFWkj4TYRF2e+U/zwoOlJ+7qe+55Gg+uqz3FrUjOPDwXz6R0
+         kRU76oezcKg9ilpcK5gHn/oc9fxJtD+c0wxEhVbfsNmQts1oQWJjfAt7oqZYXmyFoaAZ
+         lWkWcHbPgkgqH5FzqrfD80iV39wAO5oZTKYFeLJbed/gko/3UYRs+I0rdAEQAjv6b0h+
+         fNFKU6dY4YgKNAV4j0vP1tqryI1rIC/mo2wHQRgL8BZegEO6nwovMoIwFj7XhxXoxiC9
+         VImg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783949523; x=1784554323;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7l1aqdorv8dNx2XXvch+nk0kVc1JB63/bFJ2ZS4jLGw=;
+        b=DKjIR8zvPpx04kQaFTKuEXXHQ53Th2j9BdHedZw98KADnLbeVJkjOiEiR7SQ0o4Sks
+         6rBAVcvaZ0iibJ44a3E1AszlTL5fs1CT2DI/ZKYXlUGDFy+D2EiQ01odItM6gaW4+4U6
+         YKevMdzdrU5IEVsUrHUh/07/NarGaspL2I6pSuMGEDvVjXYlzy8WWw6iUxo+wpfqMN2g
+         F2QKV0MtpoEYjYAM3OuXrTymrMUzgaUOYurjEqPFKgohqT6lsgk2sLVdEqgaFfXuh+3W
+         gZ1K0yuh3d1oYeuClbNsXfgDohPf+W+hmXfupjPBtLszgTGm8sJJYrA4mDexTauTingN
+         t39A==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0L3tlYOOmpiXJx0QeSFInkmORE3VNWAtoJvrAydSu6GsoxVsZDspck3K5eigY1gvCSoOgK1PWAc1R@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlG3FfkuviJEBdLiAtOfhcDxUitCzoKGOkFYbaVUHwQPempXto
+	knskpOz96S2kqXpf1cTh0qGiz/ftLoO0pKViAQqxISW+3chz92sY/fEV
+X-Gm-Gg: AfdE7cnXvSm67ZPiaNLx6KZk4CNfzSTmmNaL+kxRZYeqCZXmF+OMvl6v8K7qh/x0AOh
+	1+4pEsKrY/wifgP4lqx4QAMooIQXt55CdzxLktSrU+yU6Upx9FUOo/0F9REJ58BqQ4klqMwjhcb
+	AP31b2rWRnrcAIEO5cQFVeZbnQC4CIO3knqxYBZ0tF2E6FLurlmjq7RUtj2k4W1PfzjMJCzjwI4
+	RnLsvbfMDa0Mu/O0fTa7N4bgIHaQszp7Tro22cTEjckeVFh8MsK12hnMmlLvSDk68cBTWiOq0Jj
+	OSQHoMi0Xp0nz/5DiUeswTQw9vSyNaKQn8WF6gYyne9OAHxaV+EC5/mLLhBKAFwOIfMsP7TSoTz
+	x5ESJrR8O2dh4yzDf0wVAswE2fYfMYA6QOEQvdrbDNtwQSyMz6SmTRP73goY4TbNK2PVZxAumkP
+	DNg9Up5A9a0MOOedFqYxFJ1fHV2yLZJR40jjgZokhGbGFuqWPfAOw5yfJmptunQEz9
+X-Received: by 2002:a05:6402:40c5:b0:69c:eca:3bd1 with SMTP id 4fb4d7f45d1cf-69c5f102cbemr3782153a12.24.1783949523149;
+        Mon, 13 Jul 2026 06:32:03 -0700 (PDT)
+Received: from Lord-Beerus.station ([93.144.65.248])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69a19cd8971sm14840303a12.5.2026.07.13.06.32.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 06:32:02 -0700 (PDT)
+Date: Mon, 13 Jul 2026 15:32:00 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	matthias.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 1/4] arm64: dts: ti: var-som-am62p: fix Ethernet PHY
+ configuration
+Message-ID: <alTo0KGWAixkK0i8@Lord-Beerus.station>
+References: <cover.1782680023.git.stefano.r@variscite.com>
+ <4d1ba0d1b9bd4957224213cf17dca93392788e03.1782680023.git.stefano.r@variscite.com>
+ <531d7396-c581-4b5d-8008-db5e9ee5e7d6@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|DU2PR04MB8936:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e01a403-d737-473a-8c23-08dee0e263d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|7416014|23010399003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	UiE3EPN6vbf03oWOQscJ8mc8OeI/Z0/EuLjd90wZjRW0p10rSTk8bd2N7Go/8NUew/0YFw4y8MDvCI0BeXET7e7eo0+qn6sBU/ortI60cH/wxypGvvzEPusfRT3vV5KCKMQdOv21y9wPgRQmS+Jom1zFK6aL48KrWsBXA8Gidhpg39WAHUHH0urvgRv6gzfa8Xhb8wE6P7Q0n4VEwehZxvWanodUTyQUM8y3BJFoDgtCoD4FuogmTfjgrqXqRHcIP+UidrX02kjF0SvPP2r5WjECen6PeUvYGELiQn3OPuId5780EusZENeRd2kXyM8rXaK9OPl7vkrMoQIGByJ7TIM7PODaVoWBj9OKhZwnBQIu0xOKB9RWvTQV0JGaVkjTz4NG9H+1nWausegBb+j1tVEqxOawtaSqIin8tCVusUkcBgRjWwGcb0nuuZ7Nap9MhGpiduRL0v7tOe/Rqx1QV67NyDuFpT2qBIGe1B8li0kOAbsKk2k8nxbbzOgR0JqismxldwX6zocTkmejh5gtxKHno1E2ferc60q6rKlsgdyDcxxfU6T8VF9MNVRo1XamHN0sgXKUbOt2TBeQZFs/7oi3QBKQGE08fRyvA/7MboljLuRY5RQaFjkbB0T4iWym08PH/yR1OW75deUukhvLRSMpmQpXTNd8Zp46vGy83ik=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(7416014)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tcRpMlZrAXmS8q44gUYOxQ0TbwBnkCXYltPN/3U4DDmpJaAFbpcpRA1F5eas?=
- =?us-ascii?Q?Ap+Q41jxLrt8KWY26C/AJEe5q1oGH5Lxfp7Jh9Tbtn2dlFF8uSSkalIgHarh?=
- =?us-ascii?Q?IH3QhlmKlq5LsbaFzNSNhn//PWuqnwGfiLb9H3J1yDtO+0U9/GP0RO+lipNH?=
- =?us-ascii?Q?xZux0LSpcsEy64iuuNFp0Jas/IrInckxSjyHj1q4UVB8LGku/h6fiEEDmDIp?=
- =?us-ascii?Q?gaA2lC/vStsudsuFVEO3C1tVo8TWTONxS/BqUSTMbrA00MdbQ1zJWygbxe95?=
- =?us-ascii?Q?E2CtSx8iZLhOKLalYV/GsgK3L1kBegz52i91/t5KrtGBUw9R2T2tqNwx4Oe5?=
- =?us-ascii?Q?KSVEPzUPDlu6BVhhmW0v/7vb0psCZzGJ5+jCZXmISkcYQq6AMFtiYGK2Fkqo?=
- =?us-ascii?Q?S2iU1ZYRybxmYLgPWcbM3UMivBDLmDz8K/XRNO4PaKZsj9dAnud0c2FtT8Bz?=
- =?us-ascii?Q?vxBxJ5smoznbO/anjnvFggTuDzp0PrlO5pqy8kezIA5MRX/BPYx5WxEC+keS?=
- =?us-ascii?Q?oIR7LxRTuDJwKv7UXSuce6XNnp53fd22MCMmQ6XVcEaTdkobbiJ3truT/8CG?=
- =?us-ascii?Q?kOCZBHpQhRzhIeoHdWj7LfUzeX1ZBf+bLo9/0CtKMAl5tlRmACYfJgNdsF1x?=
- =?us-ascii?Q?fIDoAw5ZW3Ed+VUuLPm0d3yQkgJ7oG4hAtVhI0brJg6CD4fj7Cn9qkPfTfWn?=
- =?us-ascii?Q?M18lPQQAd9MVtPJaknJdbBYFJGw1t/DnCghBA6q1ow2i2mJhDayBiro6NOfo?=
- =?us-ascii?Q?deuKIoPJlUo7RdKdydssBxt2uIZ4S/STm5tghzDG+AJmmSERs/ZY00ceehCF?=
- =?us-ascii?Q?NtC/NlzNV4hJmn46ptQ7SrOW7iLcl92WGWHziytlqlgD2Pzqk/WaGOATMArA?=
- =?us-ascii?Q?pP789MVXOUrQ+VuaVcuWqbTgBMzOtKXIyIsIGyPwQlPGW/HI9YUte/+ByD4S?=
- =?us-ascii?Q?f7wSfXOExS8DdHoz1Ilil/EHBZN8M58ZyrSSbr3ybTjzYcS7624XVwI5g8Xk?=
- =?us-ascii?Q?iFaMvxPgs+ukvmOstr8rPAbmVS3fVufCV3hA8wm+TxIu3fopr+eLaiQ0q4bK?=
- =?us-ascii?Q?r8YfzgKxQNTzkg8gJpiCk01wnlrxYDJczev60oObvqLV/GJzs3RxN+4BPmiZ?=
- =?us-ascii?Q?Z/Zx4xQh7t+jNUEfjpR1iZ5CJXQ953bY7mVvuW7c8Xf6gnPstLfYifkrD9wr?=
- =?us-ascii?Q?8SWaS+NBFfXL3Q9jVAoJ4U2LgkezT3w0qgDQkEt7ApD0Dc7sSs84qZFGsXtb?=
- =?us-ascii?Q?46VoK74gZebOCQlmJucMJMvKfUY89OWtuVByH+ZeFkz/T4nMH+NX1FJ7Ws5/?=
- =?us-ascii?Q?tOrcCLNkPOsteWC+/v9biGy72pPNU+RiaC63D0Xc+Xgf7T6nBcaRd0oAtrgq?=
- =?us-ascii?Q?N/QDfoTcBAr4qPBbhPp/QxuiF2G/jxnuFAyZPFMsVsw0kNujPVyn+m6Ty+fr?=
- =?us-ascii?Q?lKKI0/4OCP0F7f1Y60Q0xvSCFO1LRXwSjP1xlPuZHxS2apgUUScPKT2q9dh5?=
- =?us-ascii?Q?gb6tLYUCVjwWrFqqUNamEwu0p0iIqnS40shW7BACO/jZybDt7aMzSSQKISTT?=
- =?us-ascii?Q?bHTAUHrla37Wagoud9d4ihb8z95dNeXjf+NEyULQoIQhgu8fojTr5DE90/J/?=
- =?us-ascii?Q?dZUkraIt6J916oaKLXVQbsSK3soAPJnEFsK7JpdpSjGNQVLURk2JRgJgroSy?=
- =?us-ascii?Q?i6cDQl+kkJiyRAfif8r//Jcf29MYGjkLg+obaS+PMFTn5Fd6C40xdelX07pq?=
- =?us-ascii?Q?NZ2ejQLg2w=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e01a403-d737-473a-8c23-08dee0e263d1
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 13:26:47.6699
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4SFbH+tkUnSuiu/Kf1fZTuTc8OFhWhDAI0VOlvKCvxXZXVgcYAxwtVRUTDe9/PtMTccHCJgyWNX+mTRiTx+jpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8936
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <531d7396-c581-4b5d-8008-db5e9ee5e7d6@ti.com>
 
-On Wed, Jul 08, 2026 at 02:55:12PM -0400, Frank.Li@oss.nxp.com wrote:
-> Cleanup oneboard fpga related CHECK_DTBS warning.
+On Mon, Jul 13, 2026 at 04:02:34PM +0530, Vignesh Raghavendra wrote:
+> >  
+> >  &cpsw3g_mdio {
+> > @@ -159,9 +169,9 @@ &cpsw3g_mdio {
+> >  	cpsw3g_phy0: ethernet-phy@4 {
+> >  		compatible = "ethernet-phy-id0283.bc30";
+> >  		reg = <4>;
+> > -		reset-gpios = <&main_gpio0 46 GPIO_ACTIVE_LOW>;
+> > -		reset-assert-us = <10000>;
+> > -		reset-deassert-us = <100000>;
 > 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> So are the reset delays no longer required? Or they taken care of
+> somewhere else?
+> 
+> > +		bootph-all;
+> > +		enet-phy-lane-no-swap;
+> > +		vdd-supply = <&reg_eth_phy_vdd>;
+> >  	};
+> >  };
+> >  
+> 
+> -- 
+> Regards
+> Vignesh
+> https://ti.com/opensource
+> 
 
-Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Hi Vignesh,
+
+No, because this GPIO actually is not used as a PHY reset.
+
+After reviewing the hardware, it turned out that this signal is a
+board-level enable signal required for the PHY to operate, rather than
+a reset line.
+The previous reset-assert-us and reset-deassert-us values were
+associated with the incorrect modelling of this GPIO as a reset, and
+are not longer needed.
+
+Thank you!
+
+Best Regards,
+Stefano
