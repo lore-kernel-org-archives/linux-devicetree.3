@@ -1,180 +1,123 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023083.outbound.protection.outlook.com [40.107.44.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9A53546C9;
-	Mon, 13 Jul 2026 07:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.83
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783926553; cv=fail; b=CVBHXnpi9xha0lbUDZXyP85aoregsdu51k+mevzvegb+Vn5xrzxsl5I7OEGFMufwOlamZFbp9S5I6BzCuOe3aHYzPzjnmVk6mipDlwb/f3sgWip5uG0Btp06FVC31K536D/BLPgtVBhFrpeVKcbpAcEozzFYMajFPVfutTQukNY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783926553; c=relaxed/simple;
-	bh=j8zqGlLSBUjVuasN+OM06JdfC2joRIDI0Cw8I1JSC80=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=S4u9oiEWbrJQnW9BkFjchmXaH4GBnCaGDPchSj3ZvtEBzig/ccmKIDMu+Uh5spJh4/ZHz3o1KoDTf7YI9dEgbVwR50pTGuEYmcr6oW1EOi8XNwi9OaUJwn2uosuFyssQDVJ4blrZo4++vOGgX7kVeE7czMHfcnQiU0huHyaqTKE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=diK4D0Vo; arc=fail smtp.client-ip=40.107.44.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39060369D4A
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783926581; cv=none; b=bgXmpbYVtTjrdcBBc/4LE/qbWU2deIKgkl8ohpFbA3frNFkietJLXVt6IT9O+tUGIffHZl1myV3lKCaI3WBnQNBNdBZeEWEk/ortrVmtp15S84dMpFWvHvffDC1HQ1wxWtirJI5ScueReY4UAVkFCpTpglVeB5mQ85pFHEHNUBk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783926581; c=relaxed/simple;
+	bh=K7I9cS0TN9s/To4oPapsBLIuxMeq3baSFVQFvdOJtr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QoTdRybAarxtX2bse2R3xosAWMwPwl5PGrDOfzR/Xw+AJWPbKK26VCi0xNzHhdyistdn+ImMc+2/6lngbjthkTjXzXZK7kQvKPTYanLIsReT7o5MTdyHi2lxg9s2cALDwz2DsZi0CUGx0UhvD1U0kPyDzYcDjKAFMjJttaVqxnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BW0BM6L4; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="diK4D0Vo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b9XCc1+Jpd8PltD9tY7LlSAqu7usjt5WK8pI4AkIbRyhJTIzDM3Z7nvzpFAbhDOTbYBJC3h35DRs1uZqkHFxZLJJ6O+FdzlzzEfl+7cqcawp7Vx21V/yDZfGq7vJpGbMNH6dPWn+IKxU1uGqpV8R6HOvydb0to2esu1tNwFV7411gPpkEx4GOTSkf1MHzrVfYGEyLa2GbsSNh8x6Ae54WPisPFqDeKPOfL5QVrmWSNoTQMiS6SN+rmis1lugGs8QdyKlZnXio0pGj01WDz7ctPFGAN1+1VmtLocl7w/KLRndKH7irtEvk9tt09U7WVcOfHAT6X+3C/zPiZeEedxh9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j8zqGlLSBUjVuasN+OM06JdfC2joRIDI0Cw8I1JSC80=;
- b=i9eSQqltc4AR5s/biqdigEu5KJ5y5rivQE5LkN9olq/8vygVTSO6xtwYtnEcrJy5wLL6zIGToLTV0VW9J4LUONiaKmtx9HLTyhw6Jd6cotkrvzg5D1Eqrgds7qqmxuCmpW9zauSClPF7Wikaz/7cDS8iukqzJdwg0B97WsCUzL5h/qAvrDSx04bu2raJpXUDcWFmgLkNiKwyFhM5OYzjVyz7quZ0YY+MLz1hJFjJKRjtx0swvhUske2UzWO8C2hoQs0iMQTavUhEitnxl7pOgftysYXaa8DvrPYsra1Esd/UpCHM9EeS46eoO+6sXOmoLpbOENVa2jRZvGeCUpPuow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j8zqGlLSBUjVuasN+OM06JdfC2joRIDI0Cw8I1JSC80=;
- b=diK4D0VonKhZEMYCMjgmbaQtjfsK3OywjKaxy2hcyH0fKq46JqR2eI/4N/vN9pWI2ECdtFTreNChVgRlXakwSFeGq/o8eW/2pm402DqB83VVwg4vQ6S7F9XS+IkIVrHd1RJcwXlortWaQtxeY0N2P0WG75DonyCR/2Qf95DJxEhm5GFrtaoIxIXTvnGOWiJiPzlfNzR5vL6jTf3Fv9jCaXbC3vdS+NTFa0bSR9jD9D2V3LYfp6l9nL90xJ/Vu/JegnRDhvwmFBguvbJG3AG8/rkRvpRO+VYmjxQSjDS9NsmvyAZoAacZFB2P6jo5aHvB/EYI/PmPP5AgMae1ZCqMAw==
-Received: from TY0PR06MB6855.apcprd06.prod.outlook.com (2603:1096:405:13::10)
- by JH0PR06MB7198.apcprd06.prod.outlook.com (2603:1096:990:98::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.23; Mon, 13 Jul
- 2026 07:09:01 +0000
-Received: from TY0PR06MB6855.apcprd06.prod.outlook.com
- ([fe80::9405:99c0:aadd:7e05]) by TY0PR06MB6855.apcprd06.prod.outlook.com
- ([fe80::9405:99c0:aadd:7e05%6]) with mapi id 15.21.0181.017; Mon, 13 Jul 2026
- 07:09:01 +0000
-From: YC Hsieh <yc_hsieh@aspeedtech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Corey Minyard <corey@minyard.net>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew
- Jeffery <andrew@codeconstruct.com.au>
-CC: "openipmi-developer@lists.sourceforge.net"
-	<openipmi-developer@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>
-Subject:
- =?big5?B?pl7C0Dogpl7C0DogW1BBVENIIDMvNF0gZHQtYmluZGluZ3M6IGlwbWk6IEFkZCBv?=
- =?big5?Q?ptional_LPC_properties_to_ASPEED_BT_devices?=
-Thread-Topic:
- =?big5?B?pl7C0DogW1BBVENIIDMvNF0gZHQtYmluZGluZ3M6IGlwbWk6IEFkZCBvcHRpb25h?=
- =?big5?Q?l_LPC_properties_to_ASPEED_BT_devices?=
-Thread-Index: AQHdB5N07GOCG0yUdU+n8UrPxJS92rZWn3MAgBRgtcCAAAlHAIAAEoW7
-Date: Mon, 13 Jul 2026 07:09:01 +0000
-Message-ID:
- <TY0PR06MB68558AD7FBBCEBB09DFAFCF593FA2@TY0PR06MB6855.apcprd06.prod.outlook.com>
-References:
- <20260629-aspeed-bt-bmc-multichannel-v1-0-fc23ee337f7a@aspeedtech.com>
- <20260629-aspeed-bt-bmc-multichannel-v1-3-fc23ee337f7a@aspeedtech.com>
- <35a8e3b3-7725-4d1b-8667-84e6fa24b2ca@kernel.org>
- <TY0PR06MB6855F4F499246CD5C44DB23893FA2@TY0PR06MB6855.apcprd06.prod.outlook.com>
- <31df2c13-9c31-4a78-975f-b0152ad3356d@kernel.org>
-In-Reply-To: <31df2c13-9c31-4a78-975f-b0152ad3356d@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY0PR06MB6855:EE_|JH0PR06MB7198:EE_
-x-ms-office365-filtering-correlation-id: 898386bc-aac8-4f18-ed6d-08dee0ad9d9c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|18002099003|22082099003|38070700021|56012099006|6133799003|4143699003|3023799007;
-x-microsoft-antispam-message-info:
- co75iRvIRF/oTJjNvj5uxoBNkwYZhSvzu5PgOd1y/L7jLoZa2TOF63+JDwQIWCWDBRV5Y17xTQ8/x6iESSbbbUfZuB6zIO0WtQuB3Z8mW9qYZDxSkzSnxFytIKjMJOq0JjLU3WECummhWwNjsbN414Ac7ch67McpNuBewlGyRMX33ENajDWOa9BEyD9/pU+qA/UxK7WLGq1kIYIAE3gwsK7GS3U9g5mcx0EP8HaLF9WQUsyTU1nogrD28XStVzjpaJECZrmyFE8UyCQS1Nq97grAC129BcdJZEkIfGWzBqqr3hhGPkZcNhCjMabD0GkyMymDdrq+iQLGKSh0L0KwsL/vEMUn5UK0yJCHMK02UCWrGXCctn5dRX1jFX7ylqmy4qhniWcpAilaQxsXjKtP2x7TluxQJEI4cYZVfzf3/xnnbeucJ7ZnY2cMdoYN+9U9FwhcxsZT+RBVSTPMI2QXzkUs+faFXfe67iCpxfsjmeh37sjQ80VvpEFGYoTSFb/BSN9dwv1QwGZ8DUFLX0nPrzXt4B8SQqQ5Zh/P660v4B/sdNhb2kpdbTGXPNVZlY5bcSjaewalkOF3eOq5VZKZ9EUd5+XZly8KHwZWaEl6L/savAD511VKV5T0nuZclSvxainfsO7amIUdjarDH6+xvWE9CvuJW9fFbpsgZ4ah7+LWwY296S22MfyA6miL9RuM8QmI1SLD9eZ4DWY4I5o6Lovsn/BK+raiUQ7ohIKEo+A=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY0PR06MB6855.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(18002099003)(22082099003)(38070700021)(56012099006)(6133799003)(4143699003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?big5?B?c09oanpOK29JVGI4ajlrMVkvYmsrSVR1Z1M1cGNxeUhsNFdCNVQ3UUg1bUJJUnBO?=
- =?big5?B?QmRsUjRTVS9aL0dsLzBVaHVMS1E4aFJFTUJ5RmJDT2xzbVJJVko2TEtwTjVYam5o?=
- =?big5?B?RzRuNE5EbVNsb1AyejFRc2ZvV3JWeFdZMkY4bGlvU09TaFVHeWxrUUxKdmlvaVY1?=
- =?big5?B?R2JDendxU2R5YytGbmVMWnd4OWdTR1hoQmxpS3V4Q1o4UTdWNEpKY1NldjlWcXgv?=
- =?big5?B?YjE4SmVsanY1OTcrV0F0djZucWQxY2l1M0FpR3IxZFpqR0lTSFNyT1FReVFTVmw0?=
- =?big5?B?TVZwNzRVbVJtd2NtQTZFMUJ3cFNLSmlGLzJteEF6cDFMTDF1ZkI3eGpycExlYnIv?=
- =?big5?B?S0pWM2VtWldUOHJPRnhydzhjN085ZkMyWHpFQnpIZWhxTzZadEhkTk0vWGFnK0Zz?=
- =?big5?B?cjlGcjJGRVJxRFNvNjBKZHdlSDcrSjdHeVE3T3BFQ3RKemtINjdTKy84eFZlYmZq?=
- =?big5?B?SGE5ektUak1mWEg4V1lwM216cE0zemN3eXJtZmFPRWJFRU8wcHBvWmRVcUdTN1Rz?=
- =?big5?B?ajhWbFAzV2VSSnlSUVJRTWt1cWRVTzJweXpnb3R3VjU0WHBDaVNxbVpiMCt0bTkz?=
- =?big5?B?dFhuZFdmaTNCVjdHbEdYeFdNU0xOZmNUaW9vRXh6MkdQczkvSlpsMlhGMkxrclhl?=
- =?big5?B?RXdObDdxbUo3cnJSQ1g1SGZBSXFTMjg0b2Jvc1pnczRMZHozeUJRNklDUm1BUjdy?=
- =?big5?B?RkwvSFJlUFFiRjhOS2dmdlJGbjdhMXdiRVNCUkhYdnVmWmJmczNmTm4ralZQeEtn?=
- =?big5?B?V2R2OXZSNWhvWGxhMlhRZVhtcHJwY2ZEMVBIZFdoVW50eXNCUU44S25FcGdZaXRw?=
- =?big5?B?MmU1YnQ3ai9IOFY5cEZDREgyRmROT0pRRjhtWklmRmJ0YkNIdEVWVmRIYmVIR3Ja?=
- =?big5?B?K3FwaUZaZVlQdEV1YkZJdXJhK2V1SGJhR2dTY1ZUcmdReWwvaktWcm1meVFxd2NL?=
- =?big5?B?SHRBc2RQOEVWRktxakZySjhkbmhnbmgxOG5UT1lOb2drL0g5azBzUFBGYmh0MWg5?=
- =?big5?B?NTFuSTRERnNlMXV5TXBEZ09mamUrczMzckN2NGZ4dnRBTStWRnQ2VVdBakw3TzVL?=
- =?big5?B?WXU1MmxtMkFBYzdpSU9aMjAxNjU4a21FK04wdFQ1T0NJMnZ0RkRGQ29oMERYd3pT?=
- =?big5?B?WnV2aWNKVDJFWWtXMUZTSW5jaFJjc3hlbi9Sb3RaWm5icGNRc1BIYlZjSnRnR3ha?=
- =?big5?B?bHJ6YUNKR3loVU1XT1UwYUdwbFlIVjJ5dUtYTXJtNm9hSjZaU2d1NE5KeHBMNHYr?=
- =?big5?B?Y3dNVzJYZ3pQYUpUN0VYVUh1dFl0RlJYYU9MUDhYMVg4Y0ZWOW5aQm92cEJBdi9G?=
- =?big5?B?OGFMazQ2cEZ6dVlXbGFoSFMwcThWTXNpeStJM0Z2SFZQZHE0VUJBVEI3cU1GT2M0?=
- =?big5?B?TnVIdzhSRzB4b2VKaG5uK0xYeGVWT3hLV2d1M2pjZldtcm16UHZGV3Z1cHJGUHU4?=
- =?big5?B?bVpTR29uQlN5ZnllSDFJak54RU1aUzNORzN3a1l1NFduN3dXdFNCZkxLSUpHalBZ?=
- =?big5?B?Y0NrUUo1RkJWdWQ1dVJ0c1cvUTd3eUQ3MlVQNEpjNXhyMmtpUzdERWhtR25RUnpr?=
- =?big5?B?VjkvS2NXZ2JTOWhqeFpHQmJuUHJzNXJNNlh1cjBMbUFzYnhKSFJLM2xYQkIwYnpU?=
- =?big5?B?MXh6YkY5aHROSlU2SmYvZ2lvanU4NFU0QXQ3QUZVMStMeVNWd1BqTkJOR3B2WFRH?=
- =?big5?B?eGJ5c01rRFlxQm05Y3NWNUxlT2ZqbUliNVdGUFpxcVhpN2t6WkFhZ3JEa2lBRmNM?=
- =?big5?B?OUtPN2ZFYzE5NFUyaU5ELzQvYzR3aXBWNC9oaW5JWEljY1hTVU1tRkFQL2I3ZVIy?=
- =?big5?B?cWlDdC9YOGhCYWdFUllYeWVpUE9qRUJIOExuVVNoeTUyZU1XT2J1UysvQVpVdkl2?=
- =?big5?B?RGp1N0kzOU5PTGJDUWlqNGFteWNIOUNwa0h0ZldOdkROczRjb1c4dDVwWGVrZ01E?=
- =?big5?B?K1ZFb0ZPZzgwUUtiU2dIVjh3WEZML3laUkVUangwK2hKblN2NXo0RzFFNDJJemFR?=
- =?big5?B?UmtKMVR1ZmZWd0xHVGFMbHVyaTVrVDA0NzErdCtva0JZaFNRKzRjNjk5dklKZnpq?=
- =?big5?B?ZWtVRkdUUlpkSDRsbnhJdVNzN2xXeFJSVEIrdkFyQ3RzUldmWmJEOWJRUGRQRmpI?=
- =?big5?B?czRqNEc5UUdCYTZqYXlzUU1BRHgrRTkvYVJUdHBWNEp5WjZKVmp3R05QeWgrcVFX?=
- =?big5?B?SkR3TlhFWEI1QmxXTHZWTEs1QnJjUT09?=
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BW0BM6L4"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493c733f15aso27051815e9.0
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 00:09:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1783926578; x=1784531378; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K7I9cS0TN9s/To4oPapsBLIuxMeq3baSFVQFvdOJtr8=;
+        b=BW0BM6L4wKsNbG/k9f11BG3Qf0i3+7angAsHpTGk7L7kbrUUBmInCvp1SDlGIhstDB
+         KCAgvQ0Vs0lNgsE09PECRkDVtMwEJa6Ro43k6F2oScwGS7lkC8kaaYK+RCFrsVts5S5F
+         tYOp1ofXNMEorkRqQrulwjlI4f5zZXWcdirsVtNxrRMPu+UKQp/Ik4BGdFZegd4VDXOH
+         UFMBs5Un61nC9ArYqWBq8lP25GR9P+WGzLy/cqldUcSkH0bSlAloQprklimw4HOOjqqg
+         sCOpNbQSApjPm7mptF26pxbmewzz5tu/GxYsVoapsbCc1NnBcBrocXQF8K43sAJeCMz/
+         od0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783926578; x=1784531378;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K7I9cS0TN9s/To4oPapsBLIuxMeq3baSFVQFvdOJtr8=;
+        b=g7pbm2u9nYp0QcrZ89CKwACMR0wBhAc/D2X7Z7vCi2kDmFQ8roSTnE4uwJ5GH9MbOs
+         UhYdz6mVkAo1z/pRB2eQIUzA2FdZ2tKG50it8iH1K2kYlFoUILQySN5pMW3C0X3XTvf3
+         HPFTBgkooYZdanVOZCC1CnrAzJoSCbWpoNPrxTzDUVcEChX5Md5s1BjSHyxHwWVzIIrS
+         DikGvpKD28pGGoMGHT2Np1nESTU/v615TumyEBPM4dB4ilidjtNXzrwyMPgG+661McW5
+         174M7XxqeBAkbbuv7oqXyN99zqxHNiSJaGZnsZ4olSHuRK9Dfhz2p5ZCnV1KybHsFA5Z
+         x38g==
+X-Forwarded-Encrypted: i=1; AHgh+RorhXJbxI/HkFaJCOE39ZR5sIjVcSjh8TnlFdOjHOgcrN0STljqNZIXE9ecOvRDn705sqyXLtNJEyn8@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywc67GlXgmubLgHXXRqZeLoibD6apmZKKVKppBuWea7CzDosobG
+	OXvRQWe+P7xMM99PgDQuxHr5cEx659gV1GjJ2+6zqmY08e4zC7PGUGQ1wvm0fVk8Mnw=
+X-Gm-Gg: AfdE7cnaDuhjf5U5m9vwK0LKJPQY0+cPrW+l+n7/q1Iu7Y53cNlP1MRfKvkNeTw9ABY
+	YtYi1IUI+Njep7V9aurgLe//+D0Z3UKrsvrWjttCvt1I0DLuZGk98ivNNPnldB5c1X5UWEfqfCp
+	thVZwm/odYtaCvT5EoOORN5ZMnj0PmNi12Rb16nD8pi5/kQPNoo11cD2+PhciOrYBMShpWS5PGd
+	7hfAIZzVHo9i2e+r3K4JmchfeVO48zURQY8T9Vg98wUtbNa7jRpg4j5w6/7brqnd/EqnUloGKfs
+	ESR1C2p4guVIiimdVCYrhTGonqC4uI4a9xUY06OxUF6i8azFh/AbWL/ZprY0XgyS3cBW7rT6weZ
+	wbs5pRxOn/H3WXP4AyufFOXDILEA6njwuXFsrFiv7k1wMyBRn8Pp6G4nRz6QTpKThSO9xU7Oo/V
+	rhq/MWcYKDYmU+XXpOb9pvofX0zXFl9kEGeI7F9/B+h2HACfDen9xNewFlnv40flAeuySp4XdLO
+	cjx
+X-Received: by 2002:a05:600c:6d8c:b0:493:ad1b:b38d with SMTP id 5b1f17b1804b1-493f8839381mr50015695e9.37.1783926577642;
+        Mon, 13 Jul 2026 00:09:37 -0700 (PDT)
+Received: from localhost (p200300f65f47db04289d3be78de882c5.dip0.t-ipconnect.de. [2003:f6:5f47:db04:289d:3be7:8de8:82c5])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-493eb6df6d9sm403230675e9.7.2026.07.13.00.09.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 00:09:36 -0700 (PDT)
+Date: Mon, 13 Jul 2026 09:09:35 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"DavidS. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v4 2/3] ptp: Add driver for R-Car Gen4
+Message-ID: <alSO_-xODO9gWXKn@monoceros>
+References: <20260702125525.2230427-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY0PR06MB6855.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 898386bc-aac8-4f18-ed6d-08dee0ad9d9c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jul 2026 07:09:01.0986
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OUdH3BaHV6D3TpX5jpEhAsttVPobtCmYENx97au9fBg6+OklM+5UuE2FmiHIOjDB1HHeXVa384znsyBJwDmVdg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB7198
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xjkwq43klqevuzkt"
+Content-Disposition: inline
+In-Reply-To: <20260702125525.2230427-3-niklas.soderlund+renesas@ragnatech.se>
 
-PiBJIGRvbid0IHVuZGVyc3RhbmQgd2hhdCB5b3UgYXJlIHJlZmVycmluZyB0bywgZW50aXJlIGNv
-bnRleHQgaXMgZ29uZQo+IGJlY2F1c2UgZXNzZW50aWFsbHkgeW91IHRvcC1wb3N0ZWQuCgpTb3Jy
-eSBhYm91dCB0aGF0LiBJIG1pc3VuZGVyc3Rvb2QgdGhlIG1haWxpbmcgbGlzdCBldGlxdWV0dGUu
-CklubGluZSByZXBseSBiZWxvdy4KCk9uIDI5LzA2LzIwMjYgMDg6NDksIFl1LUNoZSBIc2llaCB2
-aWEgQjQgUmVsYXkgd3JvdGU6Cj4+IEZyb206IFl1LUNoZSBIc2llaCA8eWNfaHNpZWhAYXNwZWVk
-dGVjaC5jb20+Cj4+Cj4+IEFsbG9jYXRpbmcgSU8gYW5kIElSUSByZXNvdXJjZXMgdG8gTFBDIGRl
-dmljZXMgaXMgaW4tdGhlb3J5IGFuIG9wZXJhdGlvbgo+Pgo+PiBmb3IgdGhlIGhvc3QsIGhvd2V2
-ZXIgQVNQRUVEIHN5c3RlbXMgZGVzY3JpYmUgdGhlc2UgcmVzb3VyY2VzIHRocm91Z2gKPj4KPj4g
-Qk1DLWludGVybmFsIGNvbmZpZ3VyYXRpb24sIGFzIGFscmVhZHkgc3VwcG9ydGVkIGJ5IHRoZSBB
-U1BFRUQgS0NTIEJNQwoKPiBXaGF0Cj4KPiBpcwo+Cj4gd2l0aAo+Cj4gdGhpcwo+Cj4gbGluZSBi
-cmVha3M/CgpBcG9sb2dpZXMgZm9yIHRoZSBicm9rZW4gZm9ybWF0dGluZyBpbiB0aGUgY29tbWl0
-IG1lc3NhZ2UuCkkgd2lsbCBmaXggaXQgaW4gdGhlIG5leHQgcmV2aXNpb24uCgo+PiArICBhc3Bl
-ZWQsbHBjLWlvLXJlZzoKPj4gKyAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0
-aW9ucy91aW50MzItYXJyYXkKPj4gKyAgICBtYXhJdGVtczogMQo+PiArICAgIGRlc2NyaXB0aW9u
-OiB8Cj4+ICsgICAgICBUaGUgaG9zdCBDUFUgTFBDIElPIGFkZHJlc3MgZm9yIHRoZSBCVCBkZXZp
-Y2UuCgo+IE5vLCB5b3UgZG8gbm90IGdldCBzZWNvbmQgcmVnIHByb3BlcnR5LgoKPj4gKwo+PiAr
-ICBhc3BlZWQsbHBjLWludGVycnVwdHM6Cj4+ICsgICAgJHJlZjogL3NjaGVtYXMvdHlwZXMueWFt
-bCMvZGVmaW5pdGlvbnMvdWludDMyLWFycmF5Cj4+ICsgICAgbWluSXRlbXM6IDIKPj4gKyAgICBt
-YXhJdGVtczogMgo+PiArICAgIGRlc2NyaXB0aW9uOiB8Cj4+ICsgICAgICBBIDItY2VsbCBwcm9w
-ZXJ0eSBleHByZXNzaW5nIHRoZSBMUEMgU2VySVJRIG51bWJlciBhbmQgdGhlIGludGVycnVwdAo+
-PiArICAgICAgbGV2ZWwvc2Vuc2UgZW5jb2RpbmcgKHNwZWNpZmllZCBpbiB0aGUgc3RhbmRhcmQg
-ZmFzaGlvbikuCj4+ICsKPj4gKyAgICAgIE5vdGUgdGhhdCB0aGUgZ2VuZXJhdGVkIGludGVycnVw
-dCBpcyBpc3N1ZWQgZnJvbSB0aGUgQk1DIHRvIHRoZSBob3N0LCBhbmQKPj4gKyAgICAgIHRodXMg
-dGhlIHRhcmdldCBpbnRlcnJ1cHQgY29udHJvbGxlciBpcyBub3QgY2FwdHVyZWQgYnkgdGhlIEJN
-QydzCj4gKyAgICAgZGV2aWNldHJlZS4KCj4gTm8sIHlvdSBkbyBub3QgZ2V0IHNlY29uZCBpbnRl
-cnJ1cHRzIHByb3BlcnR5LgoKVW5kZXJzdG9vZC4KClRoZXNlIHZhbHVlcyBhcmUgbm90IGFkZHJl
-c3NhYmxlIHJlc291cmNlcyBvZiB0aGUgQk1DIG5vZGUgaXRzZWxmOwpyYXRoZXIsIHRoZXkgZGVz
-Y3JpYmUgaG93IHRoZSBCTUMncyBMUEMgZW5naW5lIGlzIGV4cG9zZWQgb24gdGhlIGhvc3QKTFBD
-IGJ1cy4gSSBhbSBub3Qgc3VyZSBob3cgdGhleSBzaG91bGQgYmUgcmVwcmVzZW50ZWQgaW4gRFQs
-IHNpbmNlCnRoZXkgZG8gbm90IHNlZW0gdG8gZml0IHRoZSB1c3VhbCBzZW1hbnRpY3Mgb2YgZWl0
-aGVyICJyZWciIG9yICJpbnRlcnJ1cHRzIi4KCkRvIHlvdSBoYXZlIGEgcHJlZmVycmVkIHdheSB0
-byByZXByZXNlbnQgdGhpcyBraW5kIG9mIGhvc3QtZmFjaW5nIExQQwpjb25maWd1cmF0aW9uIGlu
-IHRoZSBiaW5kaW5nPwoKVGhhbmtzLApZdS1DaGU=
+
+--xjkwq43klqevuzkt
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net-next v4 2/3] ptp: Add driver for R-Car Gen4
+MIME-Version: 1.0
+
+Hello,
+
+On Thu, Jul 02, 2026 at 02:55:24PM +0200, Niklas S=F6derlund wrote:
+> +#include <linux/mod_devicetable.h>
+
+Please don't add new users for this header file. Only use those
+<linux/device-id/*.h> that you actually need (if any).
+
+Thanks
+Uwe
+
+--xjkwq43klqevuzkt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpUjy0ACgkQj4D7WH0S
+/k6ieAgAn3mJQxB/eBe2Ki3MlZIFHBx61XeC105jZWwo3SSq6JqGgR3kl0XvKplq
+Xg726DbN7gDKX6pg1/izvDD4zlsXSH2BRDBpLgX6cxAe7d82Rzig8kMOqoTzKtk0
+QxVEJjjv/sduwXP19oRU1VjArqV3Fy5ZvlWAKccPOU4T3emO2sbO7KOwaaEeDfmM
+lB1YChaR+7vJ5F4NAJPdt6d6RD/OzGChWYGgEnNFY25oo5XQT0QnOxhcErxnxe5G
+PNKmolGobV2eD2HoXSX0j1Ijp8Nz2p4tGGQ9U6LGFKXbKuPBcX1rC6/voZh+rZbz
+jX0KK9L+RwZYEEl2BRU4AVFV7c8z7g==
+=p4c0
+-----END PGP SIGNATURE-----
+
+--xjkwq43klqevuzkt--
