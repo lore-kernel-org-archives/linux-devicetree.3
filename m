@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA7635AC03
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:16:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964293845D3
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:18:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783980968; cv=none; b=E1r4596xkrF0hSV9A/BVRUTFW8xJC9romuCN5lj5VFtsHnQHC6js3CqJJDNfpTymncAnm3+SmJA8TIekg0g0Mg6xXqeZhQTfaxEU0uEwzvvyUsfhPyBa7Sxykgf1l3UoZlYGqDODp+VQ7DTYRYdJVC/XCw8m5JO7O5IubKy5JaE=
+	t=1783981124; cv=none; b=C3HgoEfL8JaSesYpDw4N5SFfsVuvy7IleZ7dlKb15K9ZH9dywP5k4be0pXikxcnwaIwl4xMPjnke17OiizM3Q3ki1n8UXy/b6LAcDsdyAw4Mhki6OuWgYYnJ5Hi47oOZsSYPjSqx8OrbZGBgx2gH13SUyYgUi0kWQLfla6Ma2sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783980968; c=relaxed/simple;
-	bh=KsyXintrISJEOngcSl0cfE4Bpv9xZEfGJcahHh7aQ+c=;
+	s=arc-20240116; t=1783981124; c=relaxed/simple;
+	bh=HAu9jIF8qOhojgRQy4Ih9DKc6g56paguR89AFj4SEFM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E5zM272kE1Z4ItceH8XS7/D9+0+/RwjDtGF6n1gAep76wB09ryK0Gc+GN0VbKyBLqEMcDqRR6Edtuw9rrvVGf6u78AYJnUrcByBELZc1DeUfo3iiw8GF12pEFSuMGAVl94YSwtvK4JU6btyqOGwkmUfsFYG9Q4KksQpclJJikA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcBYaGca; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hIsFWjRry/nmyPzXAxOHSOqSNHLA0S3kXYWbN0E4OKUBla0mZA8JBWhDU4un8/e05HesnITIwr3zzpODI2VdROSe8DdDiroKPTJouHln1rKZXWrSPDZKMJ1YokBAXCAYLkFlG7y+SievGH/kjTBWSM9C2VDpQdhkjRYSofw0go4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/DEsnzY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcBYaGca"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685F21F000E9;
-	Mon, 13 Jul 2026 22:16:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/DEsnzY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9741F000E9;
+	Mon, 13 Jul 2026 22:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783980966;
-	bh=5Yv8FYcp0SyiQJCb0zpZqXobsfe+9M+2VQQo0yvWkI8=;
+	s=k20260515; t=1783981123;
+	bh=T+cE5D/0CASZiImePFWTAfG470NLvPtBGpnsrSCnheo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YcBYaGcaXphobCzJGqr4v7x5dAslN4ODRF+YKmw0VR5l3fHUS4rxnEBmepj/a+mRm
-	 stu7x1rkgU5sbRnouQyLZ05MiTzBTsqNlx8BAqqgzpxnL6RV4e2UHw6E3xoSQcS7X3
-	 6ewA6XkNe53FD0bOVpPYJtnv73r/BUrfYxtmqlHKXGEF6D3svA+pvWXm+MfEj42DLe
-	 1n+6D5CLFFZdQF/cxNC3L9YspRZm68GY4XypNCNYETj9aD22iPpTdYNlIX3A7Ic99i
-	 laXwr4MQaZfaE2eoP6pJHpLfVa1XQPMIKrbATfYvQB7SGuooGdP3Is0lFLygreGPXa
-	 xsUyN7LTs0ZUw==
+	b=R/DEsnzY+9/TegMOORKjIDF86PuLM0Ca3JWo5LUebqBVuvIv/kPv7wBTNtIwtmdVd
+	 n8maSrWuwxjFUvCF35fUSYoZEhYILEYNUrTj5n3dhFa8z97+9O70aQwROagCP3zph2
+	 3fJSsW6mh3mQYA+lXaPayuRdbXdwwNGecbbJ2g4aHs7KlknUelEQ4T+xdNbsozbRRl
+	 wifCFQyXtfHAZcrP1oC1EzH4nkwyZyLwaOEC+PEi0X+VevW0OTJwtIQJ5CTJMDeyGD
+	 y007ndRe3a6tz0HnqlFYhzgQZnsM0Dy4yHLSJ2fSfseusX2PH7COsNwqeDAmHI1vJ/
+	 zMNujiAfwyMsA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 07/10] iio: imu: inv_icm42607: Add Accelerometer for
- icm42607
+Subject: Re: [PATCH v16 04/10] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260713215842.69097-8-macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260713215842.69097-5-macroalpha82@gmail.com>
 References: <20260713215842.69097-1-macroalpha82@gmail.com>
- <20260713215842.69097-8-macroalpha82@gmail.com>
+ <20260713215842.69097-5-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 22:16:05 +0000
-Message-Id: <20260713221606.685F21F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 22:18:42 +0000
+Message-Id: <20260713221842.DC9741F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,78 +47,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing update of cached sensor state `mode` causes configuratio=
-n changes to inadvertently power off the sensor and breaks suspend/resume s=
-tate tracking.
+- [Medium] Configuration registers `FIFO_CONFIG2` and `FIFO_CONFIG3` are in=
+correctly marked as volatile, preventing them from being cached and restore=
+d by `regcache_sync()`.
 --
 
---- Patch [7]: [PATCH v16 07/10] iio: imu: inv_icm42607: Add Accelerometer =
-for icm42607 ---
-commit 599d6ae3a9166a30d7aae587e26cd1fe820357f4
+--- Patch [4]: [PATCH v16 04/10] iio: imu: inv_icm42607: Add inv_icm42607 C=
+ore Driver ---
+commit bb558c6dbdd036d405cccb1f326025519297d967
 Author: Chris Morgan <macromorgan@hotmail.com>
 
-iio: imu: inv_icm42607: Add Accelerometer for icm42607
-   =20
-Add icm42607 accelerometer sensor for icm42607.
+iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+
+This commit adds the core component of a new inv_icm42607 driver. It includ=
+es
+setup functions, register definitions, and the initial functionality necess=
+ary
+to compile and probe the device over an i2c bus.
 
 > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
 io/imu/inv_icm42607/inv_icm42607_core.c
-> index 303a6a0b1b21e..45e031cefd4ae 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> new file mode 100644
+> --- /dev/null
 > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-
 [ ... ]
-
-> +static void inv_icm42607_update_config(struct inv_icm42607_sensor_conf *=
-conf,
-> +				       struct inv_icm42607_sensor_conf *oldconf,
-> +				       bool *config0, bool *config1)
+> +static bool inv_icm42607_is_volatile_reg(struct device *dev, unsigned in=
+t reg)
 > +{
-> +	if (conf->mode < 0)
-> +		conf->mode =3D oldconf->mode;
-
-[ ... ]
-
-> +int inv_icm42607_set_sensor_conf(struct inv_icm42607_state *st,
-> +				 struct inv_icm42607_sensor_conf *conf,
-> +				 enum iio_chan_type chan_type)
-> +{
-[ ... ]
-> +	if (config0) {
-[ ... ]
-> +		oldconf->fs =3D conf->fs;
-> +		oldconf->odr =3D conf->odr;
-> +	}
-> +
-> +	if (config1) {
-[ ... ]
-> +		oldconf->filter =3D conf->filter;
-> +	}
-> +
-> +	switch (chan_type) {
-> +	case IIO_ACCEL:
-> +		return inv_icm42607_set_pwr_mgmt0(st, gyro_mode, conf->mode);
-> +	case IIO_ANGL_VEL:
-> +		return inv_icm42607_set_pwr_mgmt0(st, conf->mode, accel_mode);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
+> +	switch (reg) {
+> +	case INV_ICM42607_REG_MCLK_RDY:
+> +	case INV_ICM42607_REG_SIGNAL_PATH_RESET:
+> +	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_APEX_DATA5:
+> +	case INV_ICM42607_REG_APEX_CONFIG0:
+> +	case INV_ICM42607_REG_FIFO_CONFIG2 ... INV_ICM42607_REG_FIFO_CONFIG3:
 
 [Severity: Medium]
-Does this code miss updating the cached mode (e.g., oldconf->mode =3D conf-=
->mode)?
+Should INV_ICM42607_REG_FIFO_CONFIG2 and INV_ICM42607_REG_FIFO_CONFIG3 be
+marked as volatile here?
 
-It looks like fs, odr, and filter are properly cached, but mode is not. If =
-the
-cached mode is never updated, it could permanently stay OFF.
+These registers hold the FIFO watermark threshold, which is static
+configuration. Marking them as volatile causes any value written to them to
+bypass the regmap cache.
 
-When a configuration parameter like scale or ODR is written via sysfs,
-inv_icm42607_update_config() merges the requested change with the cached
-mode. If the cached mode is incorrectly seen as OFF, it could inadvertently
-power off the sensor despite an active runtime PM reference. This might also
-break suspend/resume state tracking which relies on this cache.
+If future functionality utilizes these registers, they will not be restored
+during a regcache_sync() (such as after a soft reset or resume from
+suspend), which would cause the device to lose its watermark configuration.
+
+> +	case INV_ICM42607_REG_FIFO_LOST_PKT0 ... INV_ICM42607_REG_APEX_DATA3:
+> +	case INV_ICM42607_REG_INT_STATUS_DRDY:
+> +	case INV_ICM42607_REG_INT_STATUS ... INV_ICM42607_REG_FIFO_DATA:
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713215842.6909=
-7-1-macroalpha82@gmail.com?part=3D7
+7-1-macroalpha82@gmail.com?part=3D4
