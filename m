@@ -1,128 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011051.outbound.protection.outlook.com [52.101.70.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CE131A07F
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 15:33:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783956787; cv=none; b=HoPh7UWTF6dTMoQLrpa6VU/QUFf1neojFCtGIinmvF0qkr+nnrCvMfHaQKebP+Smd1Eus+pHAwAPoVCYYrreovavJZg+Zhj8zMHGiBZt/iL2d8FeVuP3NbYtLgbfE7jS0b+AnWjPhxVTJFey+bM3UOA+jFiJhjHrle+px39xvGM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783956787; c=relaxed/simple;
-	bh=/G69A7Uh2kxd3aSB0Cbj1WDdxfbkuVsT0DuwUjNCbvo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=reAHooXfneguKsxMen9qxD2N7CyMYuO7X8ZirCz2RKuiMcg99tgF311y2ud0IaQ13HJQhCxhtaxJBfBrHUq0du9r7dZV1K6zMDkiSXDvK9r73BDbNVSsLRjEz5lZRGxkCNf7x8TF9f0xPD1ArTvC7TC7XgQzeltEH3p4K779oBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHFSLObL; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE172D24B7;
+	Mon, 13 Jul 2026 15:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783956805; cv=fail; b=TbweGBvJMN1b5W+sWzEb/UUFbGaIu9pcDiKe9VIhEqS7hbPsIX2qqhtMEKVESCrMfhgrcrDVzxyHj5PCHZFywFoyed6Q1m2u2qyQqOk9wEHlSkusm8Y4FNphNPY4TjcY30ih2ZMV1jurqm8+UGtmuIN50/mi5aeD6eCfYGyDnbo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783956805; c=relaxed/simple;
+	bh=2EJ4KhAjPQrgWu5cI5JwZexEFsDA3hoqPeyFO2Xxkb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EufMLnYBsdbpYMjpEoUpYoT/OTUusM4NRkcfhLqVk/Nm1gLAl0Tmpon/MujhxOg6qpsskjI5Sjo9Kh7iXnjIHSeOynY9H+WH+1dDl2yFdaqTcvwDHZoVZcdbDI5nD3s68W6zX3HOUxfs7fGg8pRaJF74xERNiDfYbufl9UWMMPk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=DmS3z5is; arc=fail smtp.client-ip=52.101.70.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHFSLObL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6278B1F000E9;
-	Mon, 13 Jul 2026 15:33:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783956785;
-	bh=FLO33FKUbF6LAcJmb2g3zYshINIkFS18krvXSDtzPI0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LHFSLObLA8fnh3rmkBkfXyxdysXErLE9bDQpnnreOyltg5krGVtBPBkegNmzxHJej
-	 c5Da5/9iAbqhBxmnUhCNuJikpCcKlFoT57E3XzndCeMC/2mjJTD7nnEuCV+qwO6vxH
-	 PIu1fN4k1SUFMLYOMMJItoJlDiwtPkrxJeB9O31mVWDn/alcM144o0u2GxAeX0l4M4
-	 x+34reEPbX/Uq/2xOAcbS27Oz4Tx+FW/Oflem5yyvSV1KlKlnNMFN3mvdEAx6gAv5x
-	 KIo1XZ8MvtSdoIz13v0rFdA9fuldjNQb1x4J07d8E4HgHH47Od8o6P/FNVPrrHuLVR
-	 uF1Gdvk7o00vA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] pinctrl: mediatek: Add driver for MT6858
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nikolai Burov" <nikolai.burov@jolla.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260713-mt6858-pinctrl-v2-2-1bd072e3206c@jolla.com>
-References: <20260713-mt6858-pinctrl-v2-0-1bd072e3206c@jolla.com>
- <20260713-mt6858-pinctrl-v2-2-1bd072e3206c@jolla.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 15:33:04 +0000
-Message-Id: <20260713153305.6278B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="DmS3z5is"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bXJlk4N+REE6Qs4p6k3hZI196+1k6HPE8VlVMy2BZqweE9y2Zih3iQstxRqJfkfH3JunC86qOylI8fmk0mpgand/bBG9vyFMrhonu4xjOegzR4+ZpOCktEPAI5EVrovvbrFQ7PBvgvGfkfVymugqG8pNjKm4LomjqZmeNYkRqcy1v59Jpxk41LYSaTc74bEgzLDMDH2EgcwIqiYs6MO1P6o3g2T7S0DnZv4CgnIlQym/HsvzQbvfpNTbvJBB0vDUNOEBtfIWE3EHDnv7C3hhNJLqPCwJQZPkjnFCPH4GaYSyQdH/b8lghGKSh0VkgOszz6itiU4nppajunz939D3Xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eGUnimUVmw/IW6hyDI/e/1VIVCj1FWo4tmeVoEy3LWg=;
+ b=YJQP1XtiYt8EcNnPWvc5z59AetrfFlIKQGA8UuBiHWoOA1t4ceCo9pZuLiDOBCEorU4BASYWRpQ5fagcSE6loKsCK2Uy5eoHbECgUP6OvAeLsu1Z45YxNsbddJL27qWKY4eIMaAQTOWoUcFZ5mw3KS5lgV9A/tH6MbsKD5z7t9uSVmqHyRHLqAeCPWcEjAasEfzKSqP7VYxvAE0fcIf75HxdBHI1XLAf4dPAWibGWfrVXE+ppyEir4s3rA+hK8x8Tj2JkBf2Vnm+1p2fOxMHi5v+Ut2mD1YS2TWilfSmvDPq3wwjq4V+HUKkOmyGjI5hGLnp6c+vCB85Y1gb7AJHUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eGUnimUVmw/IW6hyDI/e/1VIVCj1FWo4tmeVoEy3LWg=;
+ b=DmS3z5isuckjuEmcYG3RE7KmB4loNknARkJp38p2O9DLfpdV3imbW75BKeLKbfCr0Y5MJ8VelQYPs8katvV7p5JIZxnYQioCuncUpDFvYVMT8E6SNtClSVKJtk1FlaD6umTBR5CG+ItWkL1UHjcby1/i6mCNxpVLsIKE0eNJtdlhWYH9GyewWxWS6xdxgpHeARHcaBixHa2o68oqhSQSF8HD/VObos5xpnk/DWwPBi7co3pxMs55gfw7Nx9SwYW3fg1cXSD02crIauFytce5gtCU3qO0TeoOFRy3vXA5Il6bCDcmEofZ1AbRhtSX3bCupB0Sf9olTBvf8S7Yh+IggQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7361.eurprd04.prod.outlook.com (2603:10a6:20b:1d2::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Mon, 13 Jul
+ 2026 15:33:20 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0181.019; Mon, 13 Jul 2026
+ 15:33:20 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/2] arm64: dts: imx8: Correct indentation and whitespace
+Date: Mon, 13 Jul 2026 11:33:12 -0400
+Message-ID: <178395678837.411982.12697408544791228359.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260706093430.273703-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260706093430.273703-3-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7PR17CA0020.namprd17.prod.outlook.com
+ (2603:10b6:510:324::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7361:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fdf6ec0-1e9b-4d4c-b7ea-08dee0f4113e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|19092799006|23010399003|921020|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	OmUt4qbKMdV+AnIjuXiufkx9XpeznT3z5DuYWHnWpI6qzbNdowcWdixy0l5/ErpwxN6pCFUCoV2tkzeYbAUTWCH/znkotWzVzVFPg4HXj3KqSg/Xc29RboGEj+A0aJLxY3wgK4OgkiiK6YY7hQ7N6f6QH8jRgMC9CSEp/UYtBx0qqApUccQ0S9m1xpXTIybnULV0hFEKiDN5WObAstDYpauFOgNhpohjkNOAvgh/6EwE0o1pY+7DdJ8zDXX/BCAu6ociLCBrGKOGtbTPwAdeXnvw3/9lZCqgTfPu8M/ftt/EwWTLn9WFvaiO07rpw60AyrAVki+T6esoLZ2nkLMMPhnOOu+u2mrBin0axuTT9MNXo7AKFQQtfKKbNLH1QflJ47z7odG1Hy6YWi06ePGMZIBqr18yWk6T3RRkgjEn7AoWlzMG97SmZZqL7+GBdVyCh+oFB32O6vH7zoPWvZsLXGyZ0HqWPSCUFkmpDnf9cHMzWwyl9/KvQsZsfMR4W+22opiGAkOcX3NF/mYyo5K5m0hZ7JgIyVTojcVKKRLGJSAlBUXS/fbqaqp+w/ffCk08CuGlnL/TgjTvBSLiOvKsH0XGfBHfTXSIO5+bQ7Ogl19le2/ggffhVOkQ3x5hNNZ+lV/H8nbwmXgGw3yJIjSVIvSOBi0zHvbfLSPIchQZ3R4EyjFQEo3O1dGsTMr/rt0EAa91Xj0W7YbSAeN12SgRAQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(19092799006)(23010399003)(921020)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dyt4aEZIdFZoNkFlbUVwZTVGQmZmelAzR2VCOXdCRHhGdytKNmt6YlkrT3h0?=
+ =?utf-8?B?ODdWdnNKMExUK1NQN01WNFdoSm93NjY2dkZBQjU3MXNKWlZ0VDRkUDRrVk5m?=
+ =?utf-8?B?RDcwYXBnYUM5USs2bVRKWnFaZVFSdVNFdXk5b28rbU1iTFl2L1dXRC9aMjZi?=
+ =?utf-8?B?a2I4azR6NEpRMnY1Vmc2dDRtVUYwY21hbVc1dWE4YndXaGtpd05wUk51UjNq?=
+ =?utf-8?B?bXBkWEIzL3pSQXhnMXMvaTJWRGIyR2dmYjBFOEk0SWdUdTRuRS9yQ3NsYTZB?=
+ =?utf-8?B?WXcrN3UxV0Q3L2xJZVN2Kyt1NUU5U2Q2VUJQSXEvWU1zSEZ0bnBZWGYwTTU3?=
+ =?utf-8?B?SWprVzJuTVdaUXhjSGkwZ1NicXpESU51bkM3c1BSUFVzakpaLzlXQUZ4V253?=
+ =?utf-8?B?R0gyTThSTHZ1WW5FUDUwbXNIMWpab1grb0FBUVNoZWZ3RWZRS3dHWTNhU0lT?=
+ =?utf-8?B?dllZcStFOWwxWnkyY2NrSEVFdk82Q1BxeVFMZzZZRmpDcU41SGFvNEY1NENZ?=
+ =?utf-8?B?OWtkRks1blJ5Z3d5Q1VBbmh5Z0J6TjRPMk1XWUVIby9OdlRNc1psa0dtcEgy?=
+ =?utf-8?B?U1luSEdiUXNNM3hsODZtMEI4YUFJTEtpZFJqKytEblJkT1pJZ1NRa3FRT1lj?=
+ =?utf-8?B?KzFDcGp5SnZsREhWUHlhYzFxN0U2eG1LMUJDNVlXeUhUTGR0VktFc2gzM01t?=
+ =?utf-8?B?dkRnM0dETzVVK3E0bnp5ejJ0TVpXSzQ0ekRkZzRDOHBLQmlQeno4dDZGOW4w?=
+ =?utf-8?B?K3hXN0VNK004OWlIaE85UXgxZkRoaDNndGVTS1JYN1B3T1M4TUI0bjVqY2NM?=
+ =?utf-8?B?K0NOUUZDcitCVXo3UDRjNjJoU2V3ZWxqR2g4RS9YVkYyOU5JdHcvcUZmajc5?=
+ =?utf-8?B?QnBJVlRRTDJhZWJ1MUp2UmQ1cCtJOW5mcFhZU0ZIZkdHVXI0RXVFZUFwYm5F?=
+ =?utf-8?B?Y3pDNXI4NGdDNWdIeXB3WlV3Qmg3UTJWU0RCdmFmREVoNVpTOW9BVVB3MzNX?=
+ =?utf-8?B?aXZOM3lyN0JvNmw3MGJyaWlNaVpMR3EvVlNqUjErd2VHbE0zdnFXK3NBZnlT?=
+ =?utf-8?B?MG0zd0kxa1VVZGt2TWNTUGdOZnZSbEJWdjZWc1VLcmJBblhBTlBnU3BmUXlE?=
+ =?utf-8?B?czIrdVNGTWtvNkFrUGNuRkM4aWVCL1VMRHRvUUVBN3hQY0Fjc3RRVGZEcE84?=
+ =?utf-8?B?K1NmbENwMmNodVd0eEthZzVMTkN1MUcyWDZQVUt5TjR2ME5IeTFEaU9idTd5?=
+ =?utf-8?B?SDZCa1NieUliNXh4VEZPcTBkenpOcVd4ZFJ4by9tdkJWeTNSZEdxTUcyZFNs?=
+ =?utf-8?B?Q2hFZEEyUGJQbmcvODg2Q3loSGdCNi85SDBsTW1Da0QzdWFsVFRxb3Q0Q2RE?=
+ =?utf-8?B?RjAyVHNVSGpBeERqaXgzMlZiK2JMR2xFWlA4VlRpa3Q3cEtWTEc5QWpCcS9R?=
+ =?utf-8?B?aUVsTVdGUktZV2lYQTN5ZUZhUllObHh4UWdQUnV1NjdJQmc3YjRjQjU4RjNP?=
+ =?utf-8?B?c0dQYVUvb0JJNHNXZER5c0d0T0tBOFI3ZC9PMFdxT0tLWkZZYW5oQWszc3RR?=
+ =?utf-8?B?ZFFMMWJ2UU9keSt6SVAvZFVGZnY5MkdTZ3Z1dmxPNnM2ek8yNzY2YThXb2h6?=
+ =?utf-8?B?WVpiTXlsNEdxeDdGOUJiUjNSVm1CNHpaTS9kb3NGWUVRL2xRak16TjVUMmNG?=
+ =?utf-8?B?TVVqSVdXMVgzNVV0R2RwUmwwY1JkUHhMUTBMbG9TekRlNXhZK1FrWmdjUkZN?=
+ =?utf-8?B?Z3hic29FbzFMb094YTJHWDAzM0hsMDBFS3phNGZCUm14R2UwTDE3NTZxdGI4?=
+ =?utf-8?B?eUF2YkxNaENkcUFRaWpPZ3UzaVZ6UEJUei9NTWdUcTNQVXl1MXJSd2pSSGZD?=
+ =?utf-8?B?WTV4SXlTUFZ2VGlidndXcWNPclM5a3RXVWp5MERMSEpLRVo3RlNBaVAyMi9G?=
+ =?utf-8?B?Q1lYMG9MdjVyVFJMaGR2L2dSOXJFQ2JLMnNPWnI2UXNISVQrUDJJR3J3dmZJ?=
+ =?utf-8?B?UmdFQU1hUzU1UVNNQUl5VDZuNmlSVzFRTi95ZSttQlZrY093clpURktZd3JO?=
+ =?utf-8?B?SjU5bkx4eFpNWFpFQXZYcTJSRDRWWVRneHlJUW9sT1pCekpjeWkzN2dhWG5h?=
+ =?utf-8?B?YU1ycnBSaDhwT0dPa2E1SVFMQS8wM0VZZzNFVy9oTlVyck5DdHRnSlBMc3I1?=
+ =?utf-8?B?OS9VbHlNZ3lGNnRmNGhmUnRybnR1a1oxOWppQ0dDdmQ5TWFWVml3RUptcVlT?=
+ =?utf-8?B?OU0yV1VRaGlXcmZuZ3BuMnJOaDM5OUZROXJxWm9BZkp1b20xM0RJV1p2a1B1?=
+ =?utf-8?B?R2F1OWhsL3FLNWV3V3pHTzZCZmhuNE4rRlVJYnN0YzhEUVlJM3RCVFRzMG9r?=
+ =?utf-8?Q?bVr2ZKkIquft7wmLyF8F1rKKxTTqrHJfDsDeG?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fdf6ec0-1e9b-4d4c-b7ea-08dee0f4113e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 15:33:20.1049
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZSyasB+iBHpe7J0y2U96/H+smkuiggQHGmgrFT3GEr3Ow9UFds/69UoH4rdeHWwFk7ESCnOUCeP96sdcVESCviZl1YbVWdYXMpgU6aL3/QrNjnVTx21GLHbyjReZXxYe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7361
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Out-of-bounds array read in `mt6858_pull_type` due to missing VEIN=
-T pins.
-- [High] NULL Pointer Dereference in `mtk_hw_pin_rsel_lookup` when `mediate=
-k,rsel-resistance-in-si-unit` is used.
---
+From: Frank Li <Frank.Li@nxp.com>
 
---- Patch [2]: [PATCH v2 2/3] pinctrl: mediatek: Add driver for MT6858 ---
-commit 77e15ce1c7cb0516ec8722df8f1589a541d7a5b7
-Author: Nikolai Burov <nikolai.burov@jolla.com>
 
-pinctrl: mediatek: Add driver for MT6858
+On Mon, 06 Jul 2026 11:34:31 +0200, Krzysztof Kozlowski wrote:
+> Correct spaces or mix of tabs+spaces into proper tab-indented lines and
+> remove other whitespace violations.  No functional impact (same DTB).
 
-This commit adds a pin controller and gpio driver for the MediaTek MT6858
-(Dimensity 7100) SoC.
+Applied, thanks!
 
-> diff --git a/drivers/pinctrl/mediatek/pinctrl-mt6858.c b/drivers/pinctrl/=
-mediatek/pinctrl-mt6858.c
-> new file mode 100644
-> index 0000000000000..07f72d9d531f7
-> --- /dev/null
-> +++ b/drivers/pinctrl/mediatek/pinctrl-mt6858.c
-[ ... ]
-> +static const unsigned int mt6858_pull_type[] =3D {
-> +	MTK_PULL_PU_PD_TYPE, /* 0 */
-> +	MTK_PULL_PU_PD_TYPE, /* 1 */
-[ ... ]
-> +	MTK_PULL_PU_PD_TYPE, /* 195 */
-> +	MTK_PULL_PU_PD_TYPE, /* 196 */
-> +};
+[1/2] arm64: dts: imx8: Correct indentation and whitespace
+      commit: c8cb123cde467117f69ae57f83bf02d374f81609
+[2/2] arm64: dts: s32g3: Correct indentation
+      commit: 972e858b01fbc724947f8ec825e0897e545b380f
 
-[Severity: High]
-This array is sized to 197 elements, but the mtk_pins_mt6858 array defines =
-217
-pins, which includes the virtual EINT pins at indices 197-216. When generic
-pinconf operations evaluate the bias configuration for these VEINT pins (su=
-ch
-as mtk_pinconf_bias_get_combo() during a debugfs read), won't this result in
-an out-of-bounds memory read?
-
-[ ... ]
-> +static const struct mtk_pin_soc mt6858_data =3D {
-> +	.reg_cal =3D mt6858_reg_cals,
-> +	.pins =3D mtk_pins_mt6858,
-> +	.npins =3D ARRAY_SIZE(mtk_pins_mt6858),
-> +	.ngrps =3D ARRAY_SIZE(mtk_pins_mt6858),
-> +	.eint_hw =3D &mt6858_eint_hw,
-> +	.eint_pin =3D eint_pins_mt6858,
-> +	.nfuncs =3D 16,
-> +	.gpio_m =3D 0,
-> +	.base_names =3D mt6858_pinctrl_register_base_names,
-> +	.nbase_names =3D ARRAY_SIZE(mt6858_pinctrl_register_base_names),
-> +	.pull_type =3D mt6858_pull_type,
-
-[Severity: High]
-The mt6858_pull_type array configures several pins with the
-MTK_PULL_PU_PD_RSEL_TYPE attribute, but the .pin_rsel and .npin_rsel fields
-are not initialized in this structure.
-
-If the Device Tree uses the mediatek,rsel-resistance-in-si-unit property,
-could this cause a NULL pointer dereference?
-
-The common code in mtk_hw_pin_rsel_lookup() iterates with:
-
-    for (check =3D 0; check <=3D hw->soc->npin_rsel - 1; check++)
-
-Since npin_rsel defaults to 0, 0 - 1 underflows to UINT_MAX. The loop would
-then immediately evaluate rsel[check].s_pin, resulting in a kernel panic as
-rsel is NULL.
-
-> +	.bias_set_combo =3D mtk_pinconf_bias_set_combo,
-> +	.bias_get_combo =3D mtk_pinconf_bias_get_combo,
-> +	.drive_set =3D mtk_pinconf_drive_set_rev1,
-> +	.drive_get =3D mtk_pinconf_drive_get_rev1,
-> +	.adv_drive_get =3D mtk_pinconf_adv_drive_get_raw,
-> +	.adv_drive_set =3D mtk_pinconf_adv_drive_set_raw,
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-mt6858-pin=
-ctrl-v2-0-1bd072e3206c@jolla.com?part=3D2
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
