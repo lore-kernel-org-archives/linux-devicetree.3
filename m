@@ -1,71 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3845D390217;
-	Mon, 13 Jul 2026 07:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C9A2750FB
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783928502; cv=none; b=ogUxu/a4lr2WSLrL7DbB+JCrZXJTBAlF7jBFDxb+BCRewdaVmCXk4c9mnUzVQCLfuWoK8yMcEiY3lZRpDw/+VozCnF32cy8pn0mhhEi9ABNOrbtJNtjCPD2/rqmS0OawT1yXAJLZdYQ3oZDQs2QRiFAwCgbaMmE2xCO6wPClfA8=
+	t=1783928541; cv=none; b=sRCL8PPKueOnhCdUwKX6DJhtqD1jGRbT1X5AOsTw4jw3dwgvna1s2SEwc1R6Iy2GroRRbzKagw++3C06tx92mFJRSWFUACSITIKBzHb1MdNVBFtSqjy9qC5NXZnfxCCyRz6Ku4yTwMg/zzWHmG146NpQRntRFzuDg8Ea0M8R+Pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783928502; c=relaxed/simple;
-	bh=bAXVi8oYiUqAEBLabA5/ZzO9kOe53frHGuluLex3qGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=knCH0uiWnUmUUUyuG7tFxU4I0SF7mUuEa0v4RzjgRzQQ8kf3K8p8IUUgW6wqEZQJAIPpOk67Wf0kzpFCOhXfYoie4N+P7V2XF+CW3BMW14pQwqCgbl4GwDrG7zGwPQn1yi5s+uslCLQ3ivn00E7ziyriqibFYO+Gb4idL716Mhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ezciMQaU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783928541; c=relaxed/simple;
+	bh=lDVfV0skgc/ApNInDKtUBUGTmyRgFFC24S0LVIk+hgU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=JA+YO25rTCSkJEgCkYCtry/Ikl5bZrK8avxGT32zi+Fyakfh24rW3kwrgIe4SJTdMJP1ndS0d5IduB8Pp5mHuyExhbWyCjVNIBePB5hgDbweYl5prp2MVG90vHKzbmjFpc5rqLznikmqS/JNs4Gaiws+5cu19GK2JNJkj31eGwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rwZx25YC; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ezciMQaU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD321F000E9;
-	Mon, 13 Jul 2026 07:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783928498;
-	bh=A3ntnML7IBlzf0c0DB9qQw01XNoLMs7pMdvAj3IbSe0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ezciMQaUImIs/DLBfNxGTmxmj9i8LQ9uBXU2eYBkFBzlgmAuuvKQ6jyqh3+0H5DI3
-	 5tns3TmMVQ/5rUFpRNaq/upl36U+2L+T0T6iIOQSPhDHLLriFkGX2l0OgZO6IrGkm7
-	 79tnqfQPA+Ftiox2MfUsFEjI7cJBiw9ziElXHGFP9dTWUfaAwWdWdbOXL5D+1lyqJK
-	 6LsK3QgiJVnqhswA4yDIkvnioQyE1DiKdBWqE+zKbMK4V46WlX1iw4dWdlkDpQdN/e
-	 bU0rl3TyHAzOkI/As9FCQkeNaId0h3KfTRyP0KZWg9VZZVcvQ3/ly+uI5XH/AxvsGu
-	 NlKSpJmsQZtHw==
-Date: Mon, 13 Jul 2026 09:41:34 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Manuel Ebner <manuelebner@mailbox.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [Resend PATCH] dt-bindings: fix typos and brackets
-Message-ID: <20260713-industrious-thick-hyena-13ac0d@quoll>
-References: <802ebebbf204cbcec5cd73b6b0f19fc8ed10e86e.camel@mailbox.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rwZx25YC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9D345C2BB0F;
+	Mon, 13 Jul 2026 07:42:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9FB2460341;
+	Mon, 13 Jul 2026 07:42:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5C3BB11BD3A38;
+	Mon, 13 Jul 2026 09:42:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783928536; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Oo4rIyniLa3IrOryYngEBRNx17hUDRIHRdfHv96/rA8=;
+	b=rwZx25YCNBbEgGMtX75PvBzTlm1s61DtQzrE3ZeCtVUl+HzTfcVlC1R3kee22hR6JxcP4E
+	S3NHkHLMPJkNknT6TwRDk8lYb4JH7a1Gdt1aeoUKgZdr8pu6BKAzBxidM8F5cVbGcq5+7k
+	sBHcdsSB3CSzMIehKZC2UhNhCuFMt5mrMe38z8O//+6o7W0BYRgTBrB08dKDhhVO3FMlRs
+	lvZiq1KqYKZPN1TYbDcDrG2ReR90cWcSpHcDMr1qND8rUhSB0k6qIbt55eV+gS0JZrfimE
+	mMqD4zYxC3rJjeF0zrGAf5Pv8MhPZy8xWXc1dZwt2LxqIGaHiLW6uL3CLbRkXA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <802ebebbf204cbcec5cd73b6b0f19fc8ed10e86e.camel@mailbox.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 13 Jul 2026 09:42:05 +0200
+Message-Id: <DJX9VUXFJBJ1.3SPE0QKF0528B@bootlin.com>
+Subject: Re: [PATCH 1/5] arm64: dts: freescale: Import optee node from
+ u-boot device trees
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
+ <alexandre.torgue@foss.st.com>, "Wei Xu" <xuwei5@hisilicon.com>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, "Avi Fishman"
+ <avifishman70@gmail.com>, "Tomer Maimon" <tmaimon77@gmail.com>, "Tali
+ Perry" <tali.perry1@gmail.com>, "Patrick Venture" <venture@google.com>,
+ "Nancy Yuen" <yuenn@google.com>, "Benjamin Fair" <benjaminfair@google.com>,
+ "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>, <openbmc@lists.ozlabs.org>,
+ "Tom Rini" <trini@konsulko.com>, "Peter Robinson" <pbrobinson@gmail.com>
+From: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
+To: "Frank Li" <Frank.li@oss.nxp.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com> <20260710-mathieu-uboot-dts-import-v1-1-ffe0210e50c9@bootlin.com> <alFfeOFz2UA7hAbK@SMW015318>
+In-Reply-To: <alFfeOFz2UA7hAbK@SMW015318>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, Jul 11, 2026 at 03:38:43PM +0200, Manuel Ebner wrote:
-> Add missing '(', ')', '}'
-> Remove needless '(', ')', '{', '}'
-> 'lover voltage' -> 'lower voltage'
-> 
-> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
-> ---
-> Sorry for the resend - e-mail clients ...
-> Sorry for the noise the last days. When sending Documentation/ABI/ patches I got
-> the advice to send each change in a seperate patch. For ABI it worked very
-> well. That's why I did it.
+On Fri Jul 10, 2026 at 11:09 PM CEST, Frank Li wrote:
+> On Fri, Jul 10, 2026 at 05:31:34PM +0200, Mathieu Dubois-Briand wrote:
+>> [You don't often get email from mathieu.dubois-briand@bootlin.com. Learn=
+ why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>>
+>> U-Boot is importing kernel device trees for these platforms, but adding
+>> a firmware node to enable communication with OP-TEE. Importing
+>> changes here will allow to remove these additions in U-Boot.
+>>
+>> Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+>> ---
+>>  arch/arm64/boot/dts/freescale/imx8mm.dtsi                | 7 +++++++
+>>  arch/arm64/boot/dts/freescale/imx8mn.dtsi                | 7 +++++++
+>>  arch/arm64/boot/dts/freescale/imx8mp.dtsi                | 7 +++++++
+>
+> Please split soc dts change to new patch.
+>
+> Frank
+>
 
-Checkpatch points to errors. As expected, patch does not apply, because
-it is corrupted.
+Sure, I will split the changes.
 
-Please carefully follow beginners guide for sending a patch:
-https://www.linaro.org/blog/becoming-a-kernel-developer-part1-posting-your-first-patch/
-(all series of above blog)
+Thanks,
+Mathieu
 
-Best regards,
-Krzysztof
+--=20
+Mathieu Dubois-Briand, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
