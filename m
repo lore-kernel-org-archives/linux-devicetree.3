@@ -1,169 +1,253 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BD7643DA25
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 14:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783954590; cv=pass; b=rrYvNgaKzG1FamucoZLpBtVN6hQVNYXgaCdw5A0P0OMeaztwp+u6kMSZx4qM1wQ7J9Z2juWqUe5XQGOzeqp7EwpzyH8iA3d3EYL+iDb3560Ggcr1UIzR9xcD5OElfsEz3dwajVi3C2QcWDkgtCB97HB0UO0hTDv1hlTEVo87n9w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783954590; c=relaxed/simple;
-	bh=HdjriIlxFJNKIiAn7v0KH2Y3CfAyVlV91876yNBmwGs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a1JTQ7tKyZvl6Go4SZdaHwMtq3OMTLyruHLBH0AzenhqprI+zHzoNWVz60zsTMXzcAOnwzEmAiURsOLaiPa8LzHKSvTMPEqJvhREQEj6Su5AGy5JjrhRekHa3Ne3tPh7nvzjUpJv+BDHjq+7FCCXDY5tRh7SMgCeigLDfulTTfQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=U1+7jsNP; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756283254A0
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 14:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783954623; cv=none; b=eHsVJht4Fd2C9Ovm+puefqRibKGibDZzrAgrU5OWQhRgVMKax2dwzHgWkWpviFg09PqAVgTcPINLNfHZ/59YujL7HkfVpmIkuO/4faidrkbuW81/JYjg/xob5AV8BjaISwUgYuEPOdv+8VK1/wR/Qm6/UZxHgHtZkT4AqGkJ3H4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783954623; c=relaxed/simple;
+	bh=GvbPec253HtmUZcFYN5kEFBWuyCLl3ll6NkcMmhhp04=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UzDA3tRjA7h5EcAG2HkKpKXgPygHqPRZ13M4YwlSh2O8H0x4vIs86bNoXRXlMQlrwTN/9xy7O5f+7RTtAH0ytUdEmYEh78UNOP6E26wQyb4+3QIxu9/DKfmoM524jmjYVexSD5JsUXcouY/sr+NroqMKw5BYKpqKhE2JJlZNxrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=gl/BwKPJ; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="U1+7jsNP"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-664c6304683so3025227d50.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:56:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783954586; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a7iRbG8VcNuhfkBDraKbvdDcFlu3cRS+NFYIRD7RliywzPzU7hth3Fn7a/kPgqheOp
-         caab7ztRfNRhsMRLcDUHNoOY5JJtnb0QfxW6ruUBewZPj2fs+9DkrsV0EJM3+z9YuOA2
-         FoJaSx4/ls1iJ0AuOXA44CXUo95H+dql8et82l59rJ0zs4sNXgYJNh6sLnGp+WAFNs3N
-         +T7PFEWaej+hLumSqDT4ivuUrguHszUGtJ8Ig9ubkS12sTndhWrzdLfbPaUBnH2Yh8i1
-         Ilwly6lJTGXBu2gnJ5XVZTBfICrV1gC1ZhjGoSdTACTpGExhl1zlpNeeP3AXBJOu8OhO
-         ckBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8ryOTMNwVpU4ujGUky6ot1LLCqvzzEx6/bFp2CC3uos=;
-        fh=2oWUdq455HEKdh80ljBop2iboeo7+3DBpQxxmiJ12CQ=;
-        b=KmzW2ScACiNIHB8vdz5nmx5asVA8LSrWjyrdbQZipMIqFq5UJ16ouRyXoMQhNcdJ12
-         ozBsadykjyMYCoO/IIP9Hr1sT4dsdtH9A6fa6PXfY08ZHavTVvLOJRaB/Ru9SUoTR9e4
-         OTX83COZRpPTL/AWCf99iObzVZiWcwyNoPCiChp79w99ZqlpFcvKQBwnHk/4mcDYyxk+
-         Poed96oHu9g0ruFAQ8cm2+u8Cm9g8wPtkvuKxB639iKxZ4T8n82xBXI05b887P3J4Lsn
-         GlKSYeTi32Ms64u2QTqxtTBn7pnH/NuYWoWi06Zzo5RTtUbnYpdRvFxogYHSgDjAXJ5x
-         FgdA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="gl/BwKPJ"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-493f45e206dso15997875e9.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:57:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1783954586; x=1784559386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8ryOTMNwVpU4ujGUky6ot1LLCqvzzEx6/bFp2CC3uos=;
-        b=U1+7jsNPnl9UGN/7xW1243BKTycOBzsfZq+fjoB4Y5VcrBsf4Jx9HjpaDe/hTbt7bp
-         Q4ueTbCUKUjheUjjc+Y3BnxQ/3rx2tA0SoRHuTryFISsMbPS3D5dx0BOdtuxa9MwiDCs
-         FxJaIv85j/OmYV0LG6NezFnW8MQqzpa1Q73/1ZfH7AN6pN/8XbJcx6vXwrke8f4YjU6C
-         qP0g3jyGhRGM46KyKmteRPl2cF9MdUnvvzDpLgjmYLeU24L0rwH5PDLO3ENR3R9bwGP2
-         nDtGpTeg+BWVhrSBfIx39q+msZONegxVS7BGM/eF5SSOvAjZnJ5K9UnyCdRS0h26iMQn
-         ++Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783954586; x=1784559386;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=tuxon.dev; s=google; t=1783954620; x=1784559420; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8ryOTMNwVpU4ujGUky6ot1LLCqvzzEx6/bFp2CC3uos=;
-        b=YGb/3411y/0k2aeElQGO/zoGlN/PDND0YVH7fy1cyhsZQ2RB138JkU8/cnMXNDuFvm
-         PF3evlJ+ufreI/pHCj8lOIIUGFMmG8+F4/gjGrwSSlUHweZoaslV143HY4YhdJTCYBDf
-         IW0t2x4w5RMe/OJrvvkG0awi2gyTpJLE1y+BVatJBp7qKiStPbVqyi2fw8mb5Hd/T/DK
-         glS/NDXI+iYqxkS4Fi+3OAjNyad3ptjcK36tQfU4PKfUjZF3wMFBQXJKoaHZgpvXN6rw
-         CQoyKHyim0tptHv/D4L9p/qVLNwhVsz9HaKE6/5LgF+c36KZ9LjQnL4jFe5K9ZMuvKdM
-         i9/g==
-X-Forwarded-Encrypted: i=1; AHgh+Rqpm2B/o9OUrPdgU6iW6T/nFa3eSVzDGGux/6vGU4sQSRVcPyKY4XWOckmT5KzAfohgt0a8A3SEkEWM@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYGRWcSSe8HV3Og4gtRfNJwmeRejDMgtlON2fTDVA+y3MZhMM+
-	SYhoR03zQtbcJ4C/E5QCOlbnqvEbSC0crwbytO0LWVaG+H3jkR6PPX8/2TBzmVdLEwRfxd1zQ3H
-	yj9651W7LsJsSEra30VKhMZX0WnBZsc9QNXPbRmz+Lg==
-X-Gm-Gg: AfdE7cm9WMHbkvshOF/FPnHEt0+ckzfccTUSyF+TOSta7DwLysFdjkvkusQDAMYyhRF
-	Ky56U4sG+RLf8irG00PubSdplgerVgJ3GrXG03ECcWmgoaPuszq4/tLK1/wx+EhDFmVv0KOgSHd
-	wck/3P7EVO1QqUCBNLJeh4eCAb/KAzsx5MAjsA5z6L2a0TUuBHI8EjlWuxBmS0eIQD1EZcaZyQx
-	zybEDGcBj2h3xTv3xEaBovZgkdruraOjfOWHA+JRkHfwSglbtW2TAKwz0CY9KOFjTBjoc4bf3CM
-	stAISdqJimrZ7yn0tHGwJ8PV1dw=
-X-Received: by 2002:a05:690e:210d:b0:664:8e4e:66fe with SMTP id
- 956f58d0204a3-667d7b003e7mr4788212d50.12.1783954586457; Mon, 13 Jul 2026
- 07:56:26 -0700 (PDT)
+        bh=zhGPgrCiAKM0klE9Xgt0VhiaixjcmpUvU0wtA/aA2BE=;
+        b=gl/BwKPJM5xOREEfNKIcF5gpfOnvWc52gh22OJRGHL9qXk9pU5H6+k+r4HFFSuNXZ2
+         oy2CnbBjrsuzOQT8U8QpRaU0hzMidyoxvI2H6sFn2FWZeXMowPyb8DtokuKLBJ5O9VQu
+         ZFQUgjO+sIGe2fjsgYOoB5plJed0JSAJ47RexQMH8edm0V2GP7r6mTlbD4XgqzHFJJ1n
+         YkLXB/DW1C8h3V8InUc1wYmZ6R1KzHqkTT4gKwZFOANv4z3GrtQB0rOlr22u/4cZ9bar
+         dn02CBC8rDVXskHUl9zO1rRz9/sFXDL79PCzfv2VoWByf8XkxcEiULjyz+Pb0Nh61Q9M
+         VKDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783954620; x=1784559420;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zhGPgrCiAKM0klE9Xgt0VhiaixjcmpUvU0wtA/aA2BE=;
+        b=cemZtiry/Emo242831AMztdIGOF9YtMIAT+SErhs0RRoRAmeUN0HT0DAiZqyGCDypU
+         Ykmmvm09qP9bUQBy5V2LWTmtONYn7qoiZ+gq0QiJAg1VQsWywjpPelVm4dap/XFpLAHi
+         yFI9CKbmh2P4vTpuo5zK/J5R1bRBx/naY1vVH1bc099TAK9QS/1cuirxTfy3nvSu6uCc
+         w4mq8A1CIZ6Ggsqb2HuSpspMaBVXLmEXGU+2HnWVo8RQzzSQhZjqjlbY9bl+5kYjEO4X
+         SYvX3wCUnHC/ecDRQk8dmTQt0FiIZ9AmHOCF3ZoqNu2TGAL2C9PdyuXzHcHm3v62PkYz
+         RoXw==
+X-Forwarded-Encrypted: i=1; AHgh+RpWkBFfaVGP5kWJ5KA1oobVSyEYPLRkPGmJIu0YB4E43bUTZRn9+SRMnYmAd58qSmyl63yUb3HRtCeq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/9XGWysZwJUug8Gvf5uRb7ZgFr2o5euhCog5Fei+NgY0P3+qC
+	WfeiU9z0f3ZgF5jJddXhDJ97itZDUglHsxKWatU5akrOoZ1txbLBDXNWEy0mBJ5z76E=
+X-Gm-Gg: AfdE7cn9WwpplXDS+sgxpcGjkZhcVJYkm0tkH17Kj6G9mFk+ME0oJqziWvCW6uSX+e7
+	rThXyRO6HZEZrsyUN6BHi4A2TELhBZwwXYkwVyaafo27zRg9YgJ5anAUIMX26aP8mmF6uRTb4+x
+	YWsm4xKblIAJBAtcla0rNlziM7PUJ0VAsyfWPG5OOqzW469BNqRROEnFIvkixNRPk09CtrTCnez
+	25oGFvTyJU10N8i5PFtUgW+Rh4MszBe9is9OjyDxIZR6nNrVEmqRKC0qh3eqPvE7nx3aWAOnIY9
+	kO1MtvOoEgU2f1PzxbR6P9yoyPJZSILO51zYQR8fdLY50WefzMftDGvStpeurIrwbFFTA8AVPp9
+	o4E6NS/MLQ9CjO0PpOf8NeIbEZaze1s9KpoW5NChElnx5DZA9OoHvXth6gfDpBH7kkLYp3h2HCF
+	UQX2KKPFmJXNi1Igchh/KWYm2QMINpyitjrBlPx9zkXkUKcNoWkMyP4X13/3HVDII=
+X-Received: by 2002:a05:600c:8b32:b0:493:c566:7bd6 with SMTP id 5b1f17b1804b1-493f88db5a9mr98448365e9.18.1783954619544;
+        Mon, 13 Jul 2026 07:56:59 -0700 (PDT)
+Received: from ?IPV6:2a02:2f04:6402:500:e91e:fe5e:857b:d0c? ([2a02:2f04:6402:500:e91e:fe5e:857b:d0c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a32b9f3sm1035545e9.13.2026.07.13.07.56.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 07:56:58 -0700 (PDT)
+Message-ID: <7cd113ad-3673-4f2b-97f3-aa1df4259a53@tuxon.dev>
+Date: Mon, 13 Jul 2026 17:56:56 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org>
- <wjbz5tp7vjrsjwjaiu3n7du5ksbrlsduuxhwg2wriyxshkrqd5@t3sdxr6ua2sg> <20260713123759-GKD106000@kernel.org>
-In-Reply-To: <20260713123759-GKD106000@kernel.org>
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-Date: Mon, 13 Jul 2026 09:56:15 -0500
-X-Gm-Features: AUfX_mxXZbxq8-VPSYzKHw4Bcqse0ZCXB00LCsca2IM_XGbO21zHzHAHbEujGR4
-Message-ID: <CAEev2e-g3bZcohFf_7b5CaVyi0BeWi5uwLGj6MuhQXp16jiyEQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Add UFS Host driver support for SpacemiT K3 SoC
-To: Yixun Lan <dlan@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
+ selecting the I3C power source
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+ Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>,
+ "geert+renesas@glider.be" <geert+renesas@glider.be>,
+ "linusw@kernel.org" <linusw@kernel.org>, "robh@kernel.org"
+ <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "magnus.damm" <magnus.damm@gmail.com>
+Cc: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+ wsa+renesas <wsa+renesas@sang-engineering.com>
+References: <20260710113637.1328000-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260710113637.1328000-5-claudiu.beznea+renesas@tuxon.dev>
+ <TY3PR01MB113469434A4393A02DAA45DDF86FB2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <f5b7441a-d72a-41c1-b67d-5225d8e9ced0@tuxon.dev>
+ <TY3PR01MB113468890DC8B12E1E43A54A986FA2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <TY3PR01MB113468890DC8B12E1E43A54A986FA2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Yixun,
 
-On Mon, Jul 13, 2026 at 7:38=E2=80=AFAM Yixun Lan <dlan@kernel.org> wrote:
->
-> Hi Anirudh,
->
-> On 22:40 Sun 12 Jul     , Anirudh Srinivasan wrote:
-> > Hi Yixun,
-> >
-> > On Thu, Jul 02, 2026 at 02:31:34AM +0000, Yixun Lan wrote:
-> > > This series try to add UFS support for SpacemiT K3 SoC, the controlle=
-r
-> > > components consists of System Bus Interface Unit, UFS Host Controller
-> > > Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
-> > > Management Entity (DME), Transport Layer, Network Layer, Data Link
-> > > Layer, PHY Adapter Layer, and M-PHY Interface. A more detail function=
-al
-> > > block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
-> > >
-> > > Please note, in order to test this driver, the UFS clock driver[2] he=
-re
-> > > should be applied first as a prerequisite patch.
-> > >
-> > > One known issue is that the device will occasionally raise BKOPS inte=
-rrupt
-> > > when doing some high load test, log from dmesg shows
-> > >
-> > > [  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception=
-_event_handler: device raised urgent BKOPS exception for bkops status 1
-> > >
-> > > Link: https://spacemit.com/community/document/info?nodepath=3Dhardwar=
-e/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=3Den [1]
-> > > Link: https://lore.kernel.org/all/20260630-06-clk-ufs-support-v1-0-cf=
-7521d1d0fe@kernel.org/ [2]
-> > > Signed-off-by: Yixun Lan <dlan@kernel.org>
-> >
-> > I see this during probe on a k3-pico-itx. Does the UFS chip on board
-> > have an RPMB block on it? Is this error of any concern.
-> >
-> It's probably true of having a RPMB block, but not used in K3 platform, s=
-o can ignore
->
-> > [    5.957864] ufshcd-spacemit c0e00000.ufshc: ufshcd_scsi_add_wlus: BO=
-OT WLUN not found
-> > [    5.963319] bus_add_device: cannot add device 'ufs_rpmb0' to unregis=
-tered bus 'ufs_rpmb'
-> > [    5.971155] ufshcd-spacemit c0e00000.ufshc: Failed to register UFS R=
-PMB device 0
-> >
-> Maybe disable CONFIG_RPMB to silent this? I've not tested this option loc=
-ally
 
-I'm testing on a distro defconfig, so it has this option enabled.
+On 7/13/26 16:56, Biju Das wrote:
+> Hi Claudiu,
+> 
+>> -----Original Message-----
+>> From: claudiu beznea <claudiu.beznea@tuxon.dev>
+>> Sent: 13 July 2026 14:19
+>> Subject: Re: [PATCH v4 4/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C power
+>> source
+>>
+>> Hi, Biju,
+>>
+>> On 7/12/26 17:55, Biju Das wrote:
+>>> Hi Claudiu,
+>>>
+>>> Thanks for the patch.
+>>>
+>>>> -----Original Message-----
+>>>> From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+>>>> Sent: 10 July 2026 12:37
+>>>> Subject: [PATCH v4 4/5] pinctrl: renesas: rzg2l: Add RZ/G3S support
+>>>> for selecting the I3C power source
+>>>>
+>>>> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>>>
+>>>> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V.
+>>>> The pin controller provides a register to select between these two options.
+>>>> Update the Renesas RZ/G2L pin controller driver to allow selecting the I3C power source on RZ/G3S SoC.
+>>>>
+>>>> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+>>>> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+>>>> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>>> ---
+>>>>
+>>>> Changes in v4:
+>>>> - none
+>>>>
+>>>> Changes in v3:
+>>>> - collected tags
+>>>>
+>>>> Changes in v2:
+>>>> - none
+>>>>
+>>>>    drivers/pinctrl/renesas/pinctrl-rzg2l.c | 73 +++++++++++++++++++++++--
+>>>>    1 file changed, 68 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+>>>> b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+>>>> index b52a85066f63..9a0706fea220 100644
+>>>> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+>>>> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+>>>> @@ -69,6 +69,7 @@
+>>>>    #define PIN_CFG_PVDD1833_OTH_AWO_POC	BIT(19) /* known on RZ/G3L only */
+>>>>    #define PIN_CFG_PVDD1833_OTH_ISO_POC	BIT(20) /* known on RZ/G3L only */
+>>>>    #define PIN_CFG_WDTOVF_N_POC		BIT(21) /* known on RZ/G3L only */
+>>>> +#define PIN_CFG_IO_VMC_I3C		BIT(22)
+>>>>
+>>>>    #define RZG2L_SINGLE_PIN		BIT_ULL(63)	/* Dedicated pin */
+>>>>    #define RZG2L_VARIABLE_CFG		BIT_ULL(62)	/* Variable cfg for port pins */
+>>>> @@ -186,6 +187,9 @@
+>>>>    #define PVDD_3300		0	/* I/O domain voltage >= 3.3V */
+>>>>    #define PVDD_MASK		0x3
+>>>>
+>>>> +#define PVDD_I3C_1200		1	/* I3C I/O domain voltage 1.2V */
+>>>> +#define PVDD_I3C_1800		0	/* I3C I/O domain voltage 1.8V */
+>>>> +
+>>>>    #define PWPR_B0WI		BIT(7)	/* Bit Write Disable */
+>>>>    #define PWPR_PFCWE		BIT(6)	/* PFC Register Write Enable */
+>>>>    #define PWPR_REGWE_A		BIT(6)	/* PFC and PMC Register Write Enable on RZ/V2H(P) */
+>>>> @@ -257,6 +261,7 @@ static const struct pin_config_item renesas_rzv2h_conf_items[] = {
+>>>>     * @oen: OEN register offset
+>>>>     * @qspi: QSPI register offset
+>>>>     * @other_poc: OTHER_POC register offset
+>>>> + * @i3c_set: I3C_SET register offset
+>>>>     */
+>>>>    struct rzg2l_register_offsets {
+>>>>    	u16 pwpr;
+>>>> @@ -265,6 +270,7 @@ struct rzg2l_register_offsets {
+>>>>    	u16 oen;
+>>>>    	u16 qspi;
+>>>>    	u16 other_poc;
+>>>> +	u16 i3c_set;
+>>>
+>>>
+>>>>    };
+>>>>
+>>>>    /**
+>>>> @@ -272,6 +278,7 @@ struct rzg2l_register_offsets {
+>>>>     * @other_poc_pvdd1833_oth_awo_poc: PVDD1833_OTH_AWO_POC mask
+>>>>     * @other_poc_pvdd1833_oth_iso_poc: PVDD1833_OTH_ISO_POC mask
+>>>>     * @other_poc_wdtovf_n_poc: WDTOVF_N_POC mask
+>>>> + * @i3c_set_poc: I3C_SET_POC mask
+>>>>     */
+>>>>    struct rzg2l_register_masks {
+>>>>    	union {
+>>>> @@ -281,6 +288,11 @@ struct rzg2l_register_masks {
+>>>>    			u8 other_poc_pvdd1833_oth_iso_poc;
+>>>>    			u8 other_poc_wdtovf_n_poc;
+>>>>    		};
+>>>> +
+>>>> +		/* RZ/G3S masks */
+>>>> +		struct {
+>>>> +			u8 i3c_set_poc;
+>>>
+>>> How this POC is different from Ethernet, SDHI and XSPI POC?
+>>
+>> Different bit mask and offset for I3C SET_POC compared with ETH, SDHI, XSPI.
+> 
+> RZ/G3L has i3c_set_poc, which has same bitmask as other_poc_wdtovf_n_poc.
+> Maybe create register specific masks??
+> 
+> struct other_poc and struct i3c_set instead of union. So that both RZ/G3L and
+> RZ/G3S can share the same struct for i3c.
 
-Is there anything we can do in the driver to have it ignore the RPMB?
-If the error is a red-herring, we shouldn't be displaying it at all in
-the first place.
+When RZ/G3L I3C POC support will be added the i3c_set_poc member of struct 
+rzg2l_register_masks could be moved as common member:
 
-Regards
-Anirudh Srinivasan
+Current code base allows for this extension. You can have:
 
->
-> --
-> Yixun Lan (dlan)
+struct rzg2l_register_masks {
++       /* Common masks. */
++       u8 i3c_set_poc;
+         union {
+                 /* RZ/G3L masks */
+                 struct {
+                         u8 other_poc_pvdd1833_oth_awo_poc;
+                         u8 other_poc_pvdd1833_oth_iso_poc;
+                         u8 other_poc_wdtovf_n_poc;
+                 };
+-               /* RZ/G3S masks */
+-               struct {
+-                       u8 i3c_set_poc;
+-               };
+         };
+};
+
+// ...
+
+const struct rzg2l_hwcfg rzg3l_hwcfg = {
+         // ...
+
+         .masks = {
+                 .other_poc_pvdd1833_oth_awo_poc = BIT(0),
+                 .other_poc_pvdd1833_oth_iso_poc = BIT(1),
+                 .other_poc_wdtovf_n_poc = BIT(2),
++               .i3c_set_poc = BIT(x),
+         },
+
+         // ...
+};
+
+The rest of configuration and initialization code remains the same.
+
+Thank you,
+Claudiu
