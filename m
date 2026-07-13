@@ -1,171 +1,127 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3BA2E88BD;
-	Mon, 13 Jul 2026 02:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2340921FF2A;
+	Mon, 13 Jul 2026 02:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783909049; cv=none; b=mq3kNMr5P28g0givzNZovWocHITT+B3LIhHej3mZwXwNGPMAqftNcPEoEkaeo9VoqPwoGDBBS/EbYZNJczLK9YMGgBlZqvN98m58ATRQVvySrkD2Fb7bDH8aI4Xapc+o8vc/jtu2BlhnW46tHdRzskBCM8WB9p0MCf7CIJNzb/E=
+	t=1783909303; cv=none; b=WxM4bBfD+CaEtbt9WCEvhFTIWydgPg+7Btel8atDTnz6cfGBeDiAf2Moqna5qSlU62n1DdhyrUxlVphqzupRWJG0Bpsm6C8H8ft7wUduMoradfHl6hK7F6bvYt/i0cc3fhMMP8xh+QmuPls9pFT2k8LA110hJn+dUV6R7scFAiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783909049; c=relaxed/simple;
-	bh=Vo6qXaWIgYI3ZRUQbU2cnuu7EWkNnP5CnTfZKKKxX5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AepDrZ2dFhQ7j/T/Vi37ngFW8GCYzXXZszlo5Bjoo28yiH8gfNf9ErwWICX0SlwX9EJBDRyBWqoCMLHz9ZojybwmMdgw6Celyyam6cnkYQWmqUuEk+Zn9x2Zf7dISQE9GXx+3qoYRrPjDeaf4gF3Cux2Spx0XdG0GNCv5Ug/rQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=ITF/MhAH; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1783909303; c=relaxed/simple;
+	bh=8UESDvAkrO514OqIn4izrogITvCCWdhzN/uXpG1HbkA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NP021oWLhnG0lexiFIsRxXoAmiC/HCutgLrySL3pwQqkLeAvTX5ZtyreEPdwyiVzvENKHwBHJTiWo25iMc4zp/qvqaPonoQnhBflHMzAoTDTLj2smRlakmKQM02vLuYJZxilmgSwh5Vomx90O3G0V9RP+A+mSgmjdjES2qxCvHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwyS8HT2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="ITF/MhAH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=CsPnhuG7mLz7rW6biY+1V2wsrMAO4aQiJoxry/qq97Y=; 
-	b=ITF/MhAHfKQsoKmbobGBmZtyLXKyyS7w/71188mMyV17Ui8w1mElfR+fN1FdRcNlDdPfPwZSter
-	uEh25YHEJh3/8I3EWJV2VcZqU/5+FNJoOVZ7y2nZNsUGNZ6XsURPKBCdISsyZvLrY+4q/dAkUKVEf
-	XMIg/g89nValMIkWf+PalE7HtvIrqO5bq48Vp46q69qTHetVOKU49quFKD5afYTSd9tnuO1l3EBNb
-	7UL39ASx5JMJnbt4n6JSAiEeVgDSmLCD6AVWAVgrlEen4i7SA3f7zWZtNylFNMdDdQHst6JsXVFi9
-	w1lspcToDKZT5BzsPpL0a0fmCJ/ZQNDOdAwA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1wj6EL-0000000CxI6-3AF6;
-	Mon, 13 Jul 2026 10:17:14 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 13 Jul 2026 12:17:13 +1000
-Date: Mon, 13 Jul 2026 12:17:13 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-Cc: Olivia Mackall <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-Message-ID: <alRKqXXaEJBvx2Dv@gondor.apana.org.au>
-References: <20260629083658.300191-1-lianfeng.ouyang@starfivetech.com>
- <20260629083658.300191-3-lianfeng.ouyang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwyS8HT2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD091F000E9;
+	Mon, 13 Jul 2026 02:21:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783909301;
+	bh=nF38DvsKXqNNodzfkULGLA2jJ8dENmbEM56IGHlbNhg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jwyS8HT2GB3qyw2xBzKQZe9ytcX+LTSP3dxl2jNkwftjYosYR5EQfF5hy8HImRzFp
+	 8dJmHKhnIjRXpuqjTEuoWcb74LjqWjnhpmZbjecoNBEozEsprfm8aU8BV1jeZj3JjE
+	 sNjrwPNT/3nl7acqBsQ7UYYJ9Odqk7EQK29R7tYjbH1ybSa6vgy0HsJP9p38uHFb9s
+	 g0jQ65wOpmEZ5zL6k6iX7qKgu7ljcE3lVU4I/WzVtWEUGnQVX1uL9Zc+MALdLFW5HK
+	 qSfaUsQ8RIAQ9Q8TNNwUodswE09gQ2fA0CZxR70/2kmFNNrrXlVgFdmstIPmYqk7oH
+	 KvV+Njf4Qk3EQ==
+Date: Mon, 13 Jul 2026 03:21:35 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chris Hall
+ <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, Kurt Borja
+ <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 7/8] iio: adc: ti-ads112c14: implement gain on
+ internal short SYS_MON channel
+Message-ID: <20260713032135.09429678@jic23-huawei>
+In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
+References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
+	<20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260629083658.300191-3-lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 29, 2026 at 04:36:58PM +0800, lianfeng.ouyang wrote:
-> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+On Fri, 10 Jul 2026 17:50:40 -0500
+"David Lechner (TI)" <dlechner@baylibre.com> wrote:
+
+> Implement support for the programmable gain amplifier on the internal
+> short SYS_MON channel. This channel is used for calibration, so it is
+> useful to be able to set the PGA to the same gain as the external
+> channels. The gain setting is implemented via the `_scale` attribute.
 > 
-> Rework the StarFive TRNG driver to address hardware-specific requirements
->   for JHB100 SoC. To avoid reset-domain crossing glitches, the driver now
->   ensures clocks are gated before asserting reset during teardown for
->   JHB100, while JH7110 retains the original reset-first sequence.
+> In the future, we may want to support different reference voltages for
+> this channel, so the scale_available table is populated during probe
+> rather than being a static table.
 > 
-> Add per-compatible match data (struct starfive_trng_data) describing the
->   clock/reset teardown order, a new "starfive,jhb100-trng" compatible, and
->   select the ordering from it.
-> 
-> Fix the runtime-PM get/put balancing across the init/read/reseed/cleanup
->   paths, manage PM and the clk/reset teardown via devm so all error paths
->   unwind correctly, run the SEU-triggered reseed from a workqueue instead
->   of hard IRQ, and serialise the command sequences with a mutex.
-> 
-> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 > ---
->  MAINTAINERS                          |   2 +-
->  drivers/char/hw_random/jh7110-trng.c | 312 +++++++++++++++++++++------
->  2 files changed, 245 insertions(+), 69 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d3a6b3f6b6a0..729b20ecc697 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25280,7 +25280,7 @@ F:	Documentation/devicetree/bindings/perf/starfive,jh8100-starlink-pmu.yaml
->  F:	drivers/perf/starfive_starlink_pmu.c
->  
->  STARFIVE TRNG DRIVER
-> -M:	Jia Jie Ho <jiajie.ho@starfivetech.com>
-> +M:	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
->  S:	Supported
->  F:	Documentation/devicetree/bindings/rng/starfive*
->  F:	drivers/char/hw_random/jh7110-trng.c
-> diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_random/jh7110-trng.c
-> index 9776f4daa044..1434dcb6efed 100644
-> --- a/drivers/char/hw_random/jh7110-trng.c
-> +++ b/drivers/char/hw_random/jh7110-trng.c
-> @@ -92,22 +92,44 @@ enum mode {
->  	PRNG_256BIT,
->  };
->  
-> +/*
-> + * For JHB100, assert reset after disabling clocks to avoid
-> + * reset-domain crossing (RDC) induced glitches that can affect
-> + * downstream IPs.
-> + */
-> +enum seq_rst_clk {
-> +	SEQ_RST_FIRST,
-> +	SEQ_CLK_FIRST,
-> +};
-> +
-> +struct starfive_trng_data {
-> +	enum seq_rst_clk	seq_rst_clk;
-> +};
-> +
->  struct starfive_trng {
-> -	struct device		*dev;
-> -	void __iomem		*base;
-> -	struct clk		*hclk;
-> -	struct clk		*ahb;
-> -	struct reset_control	*rst;
-> -	struct hwrng		rng;
-> -	struct completion	random_done;
-> -	struct completion	reseed_done;
-> -	u32			mode;
-> -	u32			mission;
-> -	u32			reseed;
-> -	/* protects against concurrent write to ctrl register */
-> -	spinlock_t		write_lock;
-> +	struct device			*dev;
-> +	void __iomem			*base;
-> +	int				irq;
-> +	struct clk			*hclk;
-> +	struct clk			*ahb;
-> +	struct reset_control		*rst;
-> +	struct hwrng			rng;
-> +	struct completion		random_done;
-> +	struct completion		reseed_done;
-> +	struct work_struct		work;
-> +	const struct starfive_trng_data *data;
-> +	u32				mode;
-> +	u32				mission;
-> +	u32				reseed;
-> +	u32				cleanup;
-> +	struct mutex			lock; /* protect trng cmd seq */
+> v3 changes:
+> * Use IIO_VAL_DECIMAL64_PICO for scale.
 
-Doing a white-space change at the same time as a substantial change
-makes things hard to review.  Please split this up or just drop the
-white-space change until later.
-  
->  static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
-> @@ -247,7 +358,13 @@ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wai
->  	struct starfive_trng *trng = to_trng(rng);
->  	int ret;
+Sashiko (I think rightly) raised endian concerns on the read_avail
+side of things.  It think you need to do the decompose to fill that
+that rather than relying on placement of bytes in the 64 bit int.
+
+
+Jonathan
+
+> ---
+>  drivers/iio/adc/ti-ads112c14.c | 128 ++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 125 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
+> index 4d2e7d37be82..2ce4411a0d86 100644
+> --- a/drivers/iio/adc/ti-ads112c14.c
+> +++ b/drivers/iio/adc/ti-ads112c14.c
+
 >  
-> -	pm_runtime_get_sync(trng->dev);
-> +	ret = pm_runtime_resume_and_get(trng->dev);
-> +	if (ret < 0) {
-> +		dev_warn(trng->dev, "Failed to wake device for read: %d\n", ret);
-> +		return ret;
+> +static int ads112c14_read_avail(struct iio_dev *indio_dev,
+> +				const struct iio_chan_spec *chan, const int **vals,
+> +				int *type, int *length, long mask)
+> +{
+> +	struct ads112c14_data *data = iio_priv(indio_dev);
+> +
+> +	if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
+> +		*vals = (const int *)data->sys_mon_chan_short_scale_available;
+
+Sashiko is mean about this and it may have a point.. Definitely needs
+a comment as you are forcing a u64 to be interpreted as an array of ints and
+on big endian systems the top and bottom half will get swapped.
+
+> +		*length = 2 * ARRAY_SIZE(data->sys_mon_chan_short_scale_available);
+> +		*type = IIO_VAL_DECIMAL64_PICO;
+> +		return IIO_AVAIL_LIST;
 > +	}
 > +
-> +	mutex_lock(&trng->lock);
+> +	return -EINVAL;
+> +}
+> +
 
-What happens when a non-waiting read call ends up spinning here
-waiting for a wait read call?
+>  
+> +static void ads112c14_populate_scale_available(s64 *scale_avail, u32 full_scale,
+> +					       u32 fsr_bits)
+> +{
+> +	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
+> +		u64 gain_x10 = ads112c14_pga_gains_x10[i];
+> +
+> +		scale_avail[i] = div64_u64((u64)PICO * 10U * full_scale,
+> +					   gain_x10 * BIT(fsr_bits));
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+I think this needs to happen into a local variable that is then decomposed
+into two int elements of scale_avail[]. I.e. type of that needs to change.
+
+> +	}
+> +}
+
+
