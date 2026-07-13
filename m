@@ -1,123 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC7F34C83C
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 20:41:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFE529ACC5;
+	Mon, 13 Jul 2026 21:22:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783975293; cv=none; b=lgQ2vMC69DdWdWr84CWELQSfv8CXoXVRVWkO5W3Im8iUdCS/oaNwFtC4drzdn+YGzXDk7Fo0In3ZfUP8d3gPOrgRA5jrvt8gC4r5Vru/xiTuuUYZo9WkFeBm2+K6O63NlgZ36I6EYeR6JTVNbFTzxYLBQsNsyU8bon0JR+hWDRQ=
+	t=1783977779; cv=none; b=KBHJcRmAL+lEUZenHDXiaOVObjbztVvz/Jd97TbXTP05R3q55jVmIIMUhfcJzTuFELFKQX5J+6K4dD2V3zekymaEPHrfvQngNVQjJ0xOPU4bDFdTrwXr4+B6jn/u8OhRiJV/CWvwxT0unH+hxd+XLd7geKFJi7Eh6ypXxvgqhJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783975293; c=relaxed/simple;
-	bh=hDw34zVvk19w5qHb9M9MAnt3oIrHDw+zR2/b6i4teVM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D7SMbDeNOAcUtoEwvqzhlVZG7pRHw+prDbQJN4YRNTkgfHquH9OlmolCrI0Lt41HAR530eLMI0xlczwhOhvwcAXC7wwJ3aqwCbqL8Ub3LMUBCfd5OgkHuZaAJfD+boKB8HNug9g8aSVRKag4CY/FyFjz1zsX1IbiAguB38CWOfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LG6o2J1K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783977779; c=relaxed/simple;
+	bh=DtMAoPkaZZ/TOwAv+N+0avcFzt9PPbgv2ZN0LuHdpqs=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=eBk6F4hZ+gvI/W1IYghvdnVhp1qzjG5EGk+V3FN2cDzJPn8IgLGLm6u41JtpnTABIWuv7fpWz5XzTTGr0lKvXy1+kh/2ceI9BMJKeBFklfd6eOl0Oj8yovWYSeHg09szfszdKew1Lie2TQTUmH9pvFO3r+gW3BjzqgwEBku6788=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XjHDV3q/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LG6o2J1K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58091F000E9;
-	Mon, 13 Jul 2026 20:41:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XjHDV3q/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8709E1F000E9;
+	Mon, 13 Jul 2026 21:22:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783975292;
-	bh=teZZEVclWNNYd7wtnW4Bey3Jh1JUF+6GQ1lGT3IKG7Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LG6o2J1KvVbOHSHkX/HyZvWucg/iNEXg8WimphMl2Z7lOcBPUzDnQjWFKw5+RQqE6
-	 YA2Sl4Uymym5VBom9t9q0X/zyt2IlEpPGaDurR73vUdugr50Q5+iPqsj1G8lCIzdRx
-	 G6zTu38Vj3bb8KEbRkjJm6rb/6h8nPzMw+BCJrDsSBnhoYDNTd/5In7YqzuY/LwOo0
-	 HBtafR6aOi/MXJskp8yWY3ZHk2fmshSCd6aLUePDzy39t8EgXEFNWfmeheNI8z3jtY
-	 z4+Q+mPpJ13z0dottnNHauS6ZZUWmIhiNrPCM/cx8wxsf+pkcsdMhLGaxOh4jRbkOB
-	 UE56yPxndWogw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/12] arm64: dts: rockchip: rk3588s-nanopi-r6:
- refactor to support M6 boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joachim Eastwood" <joachim.eastwood@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260713-nanopi-m6-v3-11-227567ffc5dc@gmail.com>
-References: <20260713-nanopi-m6-v3-0-227567ffc5dc@gmail.com>
- <20260713-nanopi-m6-v3-11-227567ffc5dc@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 20:41:31 +0000
-Message-Id: <20260713204131.C58091F000E9@smtp.kernel.org>
+	s=k20260515; t=1783977777;
+	bh=jWG0/rB6xvK8ubb2dgXTEYCJoQiVYSZPHeWSP24sv5E=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=XjHDV3q/o3y2O7ADrG/mJ7ILKj/XbnAsAY8MRtW1MDghH+ZN3cgusyX8uKt7K+AO3
+	 ejUOvsa+RVzCm4KajFtYakiWo1qhCn9F/1HHlvGJBc0cpB2HPemvTny+BfqMdJryc1
+	 4XOrum0jmJZCS/LAjuSzzRhjn5YjKgRBX0tZujGy9BMWrgy27qHfGYSWYAU56CAmsh
+	 2ZYwGqfqy9jp6dFCBph7dJ1SDn8S1p6fdg6VzkWTdlklKrhA/3bD174rNBfWNuy+qX
+	 6YnIj4CB5mhLs82J9ztfyjp+HZeqU9Yj1TdA0tEsdAoNEdkbR4R8diQY71zZrV2CAg
+	 PJG1buZvPxstA==
+Date: Mon, 13 Jul 2026 16:22:56 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-sound@vger.kernel.org, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ linux-arm-msm@vger.kernel.org, prasad.kumpatla@oss.qualcomm.com, 
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org, 
+ Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla <srini@kernel.org>, 
+ devicetree@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>
+To: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+In-Reply-To: <20260714-master-v1-1-1ebe5993225e@oss.qualcomm.com>
+References: <20260714-master-v1-0-1ebe5993225e@oss.qualcomm.com>
+ <20260714-master-v1-1-1ebe5993225e@oss.qualcomm.com>
+Message-Id: <178397777689.3016926.7029134483948462437.robh@kernel.org>
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: qcom,lpass-va-csr: Add
+ HeartBeat pulse clock
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Unintentional restoration of `regulator-boot-on` for `vdd_npu_s0=
-` during refactoring.
-- [Low] Dangling phandle reference `&vcc5v0_usb_otg0` in the common `.dtsi`=
- file.
---
 
---- Patch [11]: [PATCH v3 11/12] arm64: dts: rockchip: rk3588s-nanopi-r6: r=
-efactor to support M6 boards ---
-commit 056adff75ec08989b96f09adc0efff6c3a5d662f
-Author: Joachim Eastwood <joachim.eastwood@gmail.com>
+On Tue, 14 Jul 2026 01:35:32 +0530, Sarath Ganapathiraju wrote:
+> Add Qualcomm LPASS VA CSR rate generator node that exposes
+> the lpass_heartbeat_pulse clock on hawi. Also extend the
+> qcom,lpass-va-macro binding to add qcom,hawi-lpass-va-macro with
+> its four-clock constraint (mclk, macro, dcodec, heartbeatpulse).
+> 
+> The HeartBeat Pulse (also known as RateGen Pulse) synchronizes the
+> start of the DMAs and Codec Interfaces for the audio usecase
+> and can serve as a periodic wakeup source for the DSP.
+> 
+> Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> ---
+>  .../bindings/sound/qcom,lpass-va-csr.yaml          | 47 ++++++++++++++++++++++
+>  .../bindings/sound/qcom,lpass-va-macro.yaml        | 18 +++++++++
+>  2 files changed, 65 insertions(+)
+> 
 
-arm64: dts: rockchip: rk3588s-nanopi-r6: refactor to support M6 boards
+My bot found errors running 'make dt_binding_check' on your patch:
 
-FriendlyElec NanoPi6 series consists of four distinct boards; R6S, R6C,
-M6 and M6V2. Refactor FriendlyElec NanoPi R6 base dtsi in preparation
-for adding NanoPi M6 support.
+yamllint warnings/errors:
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi b/arch/arm6=
-4/boot/dts/rockchip/rk3588s-nanopi.dtsi
-> new file mode 100644
-> index 0000000000000..a8e532ad8b7a8
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/sound/qcom,lpass-va-csr.example.dtb: va-csr@7ee0000 (qcom,hawi-lpass-va-csr): reg: [[0, 133038080], [0, 57344]] is too long
+	from schema $id: http://devicetree.org/schemas/sound/qcom,lpass-va-csr.yaml
 
-[ ... ]
+doc reference errors (make refcheckdocs):
 
-> +&i2c2 {
-> +	status =3D "okay";
-> +
-> +	vdd_npu_s0: regulator@42 {
-> +		compatible =3D "rockchip,rk8602";
-> +		reg =3D <0x42>;
-> +		fcs,suspend-voltage-selector =3D <1>;
-> +		regulator-name =3D "vdd_npu_s0";
-> +		regulator-min-microvolt =3D <550000>;
-> +		regulator-max-microvolt =3D <950000>;
-> +		regulator-ramp-delay =3D <2300>;
-> +		regulator-boot-on;
+See https://patchwork.kernel.org/project/devicetree/patch/20260714-master-v1-1-1ebe5993225e@oss.qualcomm.com
 
-[Severity: Medium]
-Is the addition of regulator-boot-on here intentional?
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-This appears to accidentally revert a prior fix that removed the boot-on
-property for vdd_npu_s0 to save power during early boot.
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-> +		vin-supply =3D <&vcc5v0_sys>;
-> +
-> +		regulator-state-mem {
-> +			regulator-off-in-suspend;
-> +		};
-> +	};
-> +};
+pip3 install dtschema --upgrade
 
-[ ... ]
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-> +&u2phy0_otg {
-> +	phy-supply =3D <&vcc5v0_usb_otg0>;
-
-[Severity: Low]
-Does this create a dangling phandle reference in the common dtsi file?
-
-Since the vcc5v0_usb_otg0 regulator was left in the board-specific
-rk3588s-nanopi-r6.dtsi file, it looks like compiling a new board (like the =
-M6)
-that includes this common dtsi will fail to build if it doesn't also define=
- a
-regulator with this exact label.
-
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-nanopi-m6-=
-v3-0-227567ffc5dc@gmail.com?part=3D11
