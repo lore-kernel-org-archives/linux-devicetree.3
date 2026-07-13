@@ -1,852 +1,372 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B617343C061;
-	Mon, 13 Jul 2026 14:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD20913D8B1;
+	Mon, 13 Jul 2026 14:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783952889; cv=none; b=lsMGcdmCEDTjMHNtUARYupHBYX+ykSD8BiNFIVJaJd5GN1xdciYmf16VDJZbWJt6WdLGjUjbVwIFZPJYNDDyWYpREZyafDwXFEX241tKkeAc6q2hHP2wUH9v04KcdIWROGKdxL2tW4OnYrWdkSu2j5F2+AQxi5H1fnV5QUeKQSE=
+	t=1783953479; cv=none; b=hnHWoTUy3vstaFrUhMu3jjFSP2E4bNLTNc5ix7enlbAFQe5Rmr+SWsbV/AheYcIG2HjgRre/f5Al6o2DoLupECv7cuhomw1zYZ3NaFxd4vInsyXva0m4NcMWe7hPpFOPSJ5/HduemvI6PoCdaKZCqIGSIq5OECdxcsFfAI/ZJ7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783952889; c=relaxed/simple;
-	bh=rDs+kzSOyiWSLVf3ZHxy8cJcbpOmHOaUif5lSI2FwRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fpJitvWiD+3deR186VpBtP2u9ZSsXnRthGC4s+PSYQPrihmitlmFLpCmQHp8R5RgXN0AXEp3NRI0cO0xKZhOWUjilW5kE3x8Rd4JLgJMA+J7/vOkBi0gAoieIwhtno3CtUbsJT9OhoP208Uzp2r2NlYI00VaeAnj/900IuxxD7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RmMRI4B6; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783953479; c=relaxed/simple;
+	bh=z8jofWVqSmA2Orj/yJRmn3cZE0xy1nwemcYPjGfmvNw=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=IY/OGWBviv2LG5LiE30pOCOjuy8ROWp70H4CV5YAmiQMSdmGKsesaGN2Y71sLOhO5zP4k5qeHFeFu0K03I5/MvbDgSVATALnh2HOedHEt5vGDmqM4WW6qKGTJ0efl3VfxxQy9xPQlHpcq6DzPBIFUUiJ5HN3tfypdG38biL6wN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=RPo+y7+Z; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RmMRI4B6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783952885;
-	bh=rDs+kzSOyiWSLVf3ZHxy8cJcbpOmHOaUif5lSI2FwRw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RmMRI4B67GyfiXHx+meGAjG+SnnAJ/1aZdPCyhUhYJZupgPDXLOSHvySOB4hmn3Tt
-	 C6S/DFrxMkcps5gwmNmJz67X8ZaqDxnwNMgq/gcj9D9zIhBEl8NhYjNpddcHklJyQK
-	 6AmLTVOflDHfh8Jwy+oX/xI52FPSF9+X1iRJ0oHNAIOj8ZVzt6AiCUpgao6G/5SgSI
-	 hUzpCzWDiXb/Ai/HZKa4x9vlx+qj7U8lB+JtYw4ifIsd2LtYRg9M3FCUOfLsDTCRj7
-	 0Mzdf/sciwqzVB99iG5tWyaIGs5NjAox/F41P80EwAODuou+Pqh5KY9cud+sX0770K
-	 dWxDXrcjNXYkA==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B0ADB17E0DE6;
-	Mon, 13 Jul 2026 16:28:03 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	jitao.shi@mediatek.com,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kernel@collabora.com,
-	justin.yeh@mediatek.com,
-	jason-jh.lin@mediatek.com
-Subject: [PATCH v4 10/10] drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
-Date: Mon, 13 Jul 2026 16:27:46 +0200
-Message-ID: <20260713142746.40259-11-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
-References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="RPo+y7+Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1783953478; x=1815489478;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=z8jofWVqSmA2Orj/yJRmn3cZE0xy1nwemcYPjGfmvNw=;
+  b=RPo+y7+ZVhQYL84CS934XZLNzz7kq5KMwl1AxK8eyoQkSVefQv5/0GJz
+   VOsbG9Fox5a/y06JA5u90b8zJ8nWBmnL/s+KZRZnkhjcDk7snqd7WLHwm
+   PY9ieGsvkgi7TbhRv5jBAJ9vI8WreUL56s/iCI4ldE2kYeOn/FYX/ofLy
+   t33zOz4gs1CMc+644HV30AIClkGNraOZktBHNdfYpDT3ayTMMMld98wrT
+   xvMP0XzQbRQKaSCu1CWLDIQ2kNTnv+1dekItKjBQ6umrJXeeM1pGvBv5/
+   z0NV8pKgquDx9FdQqNa3gAO7iT96zi0JhAZRrUGsy35VMGIPsn/7EHill
+   w==;
+X-CSE-ConnectionGUID: N/nXhWcyRYS8MvjxvFIJtA==
+X-CSE-MsgGUID: HVb5t6cGRk2j4/BhuYWz0Q==
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
+   d="scan'208";a="60508748"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Jul 2026 07:37:52 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 13 Jul 2026 07:37:50 -0700
+Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 13 Jul 2026 07:37:47 -0700
+From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+Subject: [PATCH net-next v10 0/9] net: dsa: add DSA support for the
+ LAN9645x switch chip family
+Date: Mon, 13 Jul 2026 16:32:35 +0200
+Message-ID: <20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAP3VGoC/43Ry2qEMBQG4FcZsq7l5J501fcoRXKtgY4OiVjLM
+ O/ejBuFCrpMDnz/udxRCTmFgt4ud5TDlEoa+vrA8HJBrjP9V2iSrx+IABFAMDS+mPbb9FowPrf
+ lJ42ua31OU8itNSU0FBNro6MyeIuqcsshpnmJ+EB9GJs+zCP6rJUulXHIv0v2hJf6kkKBHqZMu
+ IHGxqicwVSLyN+vyeXBden26obr4k9kYxJ2bJJqRsmBBWpBKLxn0tVkJ7Yx0Woa453imlMQfs9
+ kG5OeMNmzT2wFAI9GWbln8tXkWB2bvJpaqGgjZTEaumeKjUnksSmqyTwDbYJgkbo9U66mOHN3+
+ bw7iRqCkELC7uxqNSWQY1M9ZwdClFfWGq72TL01T+xTVxM85pgYSoT/1+fj8fgDfkKGkH0DAAA
+ =
+To: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
+ Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Woojung Huh <woojung.huh@microchip.com>, Russell King
+	<linux@armlinux.org.uk>, Steen Hegelund <Steen.Hegelund@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>
+CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
+	<jensemil.schulzostergaard@microchip.com>
+X-Mailer: b4 0.15-dev
 
-Add a basic driver for the Write DMA Engine and initial compatible
-for the MediaTek MT8173 and MediaTek Dimensity 1200 MT6893, and
-hook it up to the mtk_ddp_comp and mtk_drm_drv in order for it to
-probe.
+This series provides the Microchip LAN9645X Switch driver.
 
-This display controller component is used to enable the writeback
-engine that can be used for faster display image capturing in the
-userspace (for example, screenshots and screen recording).
+The LAN9645x is a family of chips with ethernet switch functionality and
+multiple peripheral functions. The switch delivers up to 9 ethernet
+ports and 12 Gbps switching bandwidth.
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+The switch chip has 5 integrated copper PHYs, support for 2x RGMII
+interfaces, 2x SGMII and one QSGMII interface.
+
+The switch chip is from the same design architecture family as ocelot
+and lan966x, and the driver reflects this similarity. However, LAN9645x
+does not have an internal CPU in any package, and must be driven
+externally. For register IO it supports interfaces such as SPI, I2C and
+MDIO.
+
+The chip supports a variety of network features such as
+
+* Mactable for MDB/FDB functionality
+* Bridge forwarding offload
+* VLAN-aware bridging
+* IGMP/MLD snooping
+* Link aggregation
+* PTP timestamping
+* FRER (802.1CB)
+* Media Redundancy Protocol
+* Parallel Redundancy and High-Availability Seamless Redundancy
+  (HSR/PRP) in DANH/DANP mode
+* Per stream filtering and policing
+* Shapers such as Credit Based Shaping and Time Aware Shaing
+* Frame preemption
+* A TCAM (VCAP) for line-rate frame processing
+
+The LAN9645x family consists of the following SKUs:
+
+LAN96455F
+LAN96457F
+LAN96459F
+LAN96455S
+LAN96457S
+LAN96459S
+
+The difference between the SKUs is the number of supported ports (5, 7
+or 9) and features supported. The F subfamily supports HSR/PRP and TSN,
+while the S subfamily does not.
+
+The intended way to bind this driver is using a parent MFD driver,
+responsible for the register IO protocol, and distributing regmaps to
+child devices. The goal is to use the same approach as the MFD driver in
+drivers/mfd/ocelot-spi.c.
+
+This driver expects to request named regmaps from a parent device. This
+approach is similar to the DSA driver
+
+drivers/net/dsa/ocelot/ocelot_ext.c
+
+which supports being driven by an external CPU via SPI with parent
+device drivers/mfd/ocelot-spi.c.
+
+The MFD driver will come in a later series, because there are
+requirements on the number of child devices before a driver qualifies as
+a MFD device.
+
+Development is done using the LAN966x as a host CPU, running the lan966x
+swichdev driver, using the EVB-LAN9668 EDS2 board.
+
+The datasheet is available here:
+https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/LAN9645xF-Data-Sheet-DS00006065.pdf
+
+This series will deliver the following features:
+
+* Standalone ports
+* Bridge forwarding and FDB offloading
+* VLAN-aware bridge
+* Stats integration
+
+More support will be added at a later stage. Here is a tentative plan of
+future patches for this DSA driver:
+
+* Add LAG support.
+* Add MDB support.
+* Add TC matchall mirror support.
+* Add TC matchall police support.
+* Add DCB/qos support.
+* Add simple TC support: mqprio, cbs, tbf, ebf.
+* Add TC flower filter support.
+* Add HSR/PRP offloading support.
+* Add PTP support.
+* Add TC taprio support.
+
+For completeness I include tentative plan of planned patches for
+LAN9645x peripherals:
+
+* Extend pinctrl-ocelot for LAN9645x:
+  https://lore.kernel.org/linux-gpio/20260119-pinctrl_ocelot_extend_support_for_lan9645x-v1-0-1228155ed0ee@microchip.com/
+* Add driver for internal PHY:
+  https://lore.kernel.org/netdev/20260123-phy_micrel_add_support_for_lan9645x_internal_phy-v1-1-8484b1a5a7fd@microchip.com/
+* MFD driver for managing register IO protocol and child device
+  initialization.
+* Extend pinctrl-microchip-sgpio for LAN9645x support.
+* Extend i2c_designware for LAN9645x support.
+* Add driver for outbound interrupt controller.
+* Add serdes driver for lan9645x.
+
+Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
 ---
- drivers/gpu/drm/mediatek/Makefile        |   1 +
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c  |  21 +-
- drivers/gpu/drm/mediatek/mtk_disp_drv.h  |  20 +
- drivers/gpu/drm/mediatek/mtk_disp_wdma.c | 622 +++++++++++++++++++++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c   |   4 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.h   |   1 +
- 6 files changed, 667 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
+Changes in v10:
+- Individual patches mention specific v10 changes
+- Update tag driver after skb ownership model change in DSA taggers.
+- Link to v9: https://lore.kernel.org/r/20260708-dsa_lan9645x_switch_driver_base-v9-0-0d1512a326d7@microchip.com
 
-diff --git a/drivers/gpu/drm/mediatek/Makefile b/drivers/gpu/drm/mediatek/Makefile
-index 03b3470ea5b5..8079962597c8 100644
---- a/drivers/gpu/drm/mediatek/Makefile
-+++ b/drivers/gpu/drm/mediatek/Makefile
-@@ -11,6 +11,7 @@ mediatek-drm-y := mtk_crtc.o \
- 		  mtk_disp_ovl.o \
- 		  mtk_disp_ovl_adaptor.o \
- 		  mtk_disp_rdma.o \
-+		  mtk_disp_wdma.o \
- 		  mtk_drm_drv.o \
- 		  mtk_dsi.o \
- 		  mtk_dpi.o \
-diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-index 13aaf12ecbe5..94b356da6de7 100644
---- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-@@ -357,6 +357,22 @@ static const struct mtk_ddp_comp_funcs ddp_rdma = {
- 	.get_num_formats = mtk_rdma_get_num_formats,
- };
- 
-+static const struct mtk_ddp_comp_funcs ddp_wdma = {
-+	.clk_enable = mtk_wdma_clk_enable,
-+	.clk_disable = mtk_wdma_clk_disable,
-+	.config = mtk_wdma_config,
-+	.start = mtk_wdma_start,
-+	.stop = mtk_wdma_stop,
-+	.register_vblank_cb = mtk_wdma_register_vblank_cb,
-+	.unregister_vblank_cb = mtk_wdma_unregister_vblank_cb,
-+	.enable_vblank = mtk_wdma_enable_vblank,
-+	.disable_vblank = mtk_wdma_disable_vblank,
-+	.layer_nr = mtk_wdma_layer_nr,
-+	.layer_config = mtk_wdma_layer_config,
-+	.get_formats = mtk_wdma_get_formats,
-+	.get_num_formats = mtk_wdma_get_num_formats,
-+};
-+
- static const struct mtk_ddp_comp_funcs ddp_ufoe = {
- 	.clk_enable = mtk_ddp_clk_enable,
- 	.clk_disable = mtk_ddp_clk_disable,
-@@ -460,8 +476,8 @@ static const struct mtk_ddp_comp_match mtk_ddp_matches[DDP_COMPONENT_DRM_ID_MAX]
- 	[DDP_COMPONENT_RDMA2]		= { MTK_DISP_RDMA,		2, &ddp_rdma },
- 	[DDP_COMPONENT_RDMA4]		= { MTK_DISP_RDMA,		4, &ddp_rdma },
- 	[DDP_COMPONENT_UFOE]		= { MTK_DISP_UFOE,		0, &ddp_ufoe },
--	[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, NULL },
--	[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, NULL },
-+	[DDP_COMPONENT_WDMA0]		= { MTK_DISP_WDMA,		0, &ddp_wdma },
-+	[DDP_COMPONENT_WDMA1]		= { MTK_DISP_WDMA,		1, &ddp_wdma },
- };
- 
- static bool mtk_ddp_comp_find(struct device *dev,
-@@ -642,6 +658,7 @@ int mtk_ddp_comp_init(struct device *dev, struct device_node *node, struct mtk_d
- 	    type == MTK_DISP_OVL_2L ||
- 	    type == MTK_DISP_PWM ||
- 	    type == MTK_DISP_RDMA ||
-+	    type == MTK_DISP_WDMA ||
- 	    type == MTK_DPI ||
- 	    type == MTK_DP_INTF ||
- 	    type == MTK_DSI)
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_drv.h b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-index 5e2d8748120a..e0c30c6c7cc8 100644
---- a/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_drv.h
-@@ -181,6 +181,26 @@ void mtk_mdp_rdma_config(struct device *dev, struct mtk_mdp_rdma_cfg *cfg,
- const u32 *mtk_mdp_rdma_get_formats(struct device *dev);
- size_t mtk_mdp_rdma_get_num_formats(struct device *dev);
- 
-+int mtk_wdma_clk_enable(struct device *dev);
-+void mtk_wdma_clk_disable(struct device *dev);
-+void mtk_wdma_config(struct device *dev, unsigned int width,
-+		     unsigned int height, unsigned int vrefresh,
-+		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt);
-+unsigned int mtk_wdma_layer_nr(struct device *dev);
-+void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
-+			   struct mtk_plane_state *state,
-+			   struct cmdq_pkt *cmdq_pkt);
-+void mtk_wdma_start(struct device *dev);
-+void mtk_wdma_stop(struct device *dev);
-+void mtk_wdma_register_vblank_cb(struct device *dev,
-+				 void (*vblank_cb)(void *),
-+				 void *vblank_cb_data);
-+void mtk_wdma_unregister_vblank_cb(struct device *dev);
-+void mtk_wdma_enable_vblank(struct device *dev);
-+void mtk_wdma_disable_vblank(struct device *dev);
-+const u32 *mtk_wdma_get_formats(struct device *dev);
-+size_t mtk_wdma_get_num_formats(struct device *dev);
-+
- int mtk_padding_clk_enable(struct device *dev);
- void mtk_padding_clk_disable(struct device *dev);
- void mtk_padding_start(struct device *dev);
-diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-new file mode 100644
-index 000000000000..7c3df4c1445d
---- /dev/null
-+++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-@@ -0,0 +1,622 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2021 MediaTek Inc.
-+ * Copyright (c) 2025 Collabora Ltd
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ */
-+
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_edid.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_writeback.h>
-+
-+#include <linux/align.h>
-+#include <linux/clk.h>
-+#include <linux/component.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/soc/mediatek/mtk-cmdq.h>
-+#include <linux/wordpart.h>
-+
-+#include "mtk_crtc.h"
-+#include "mtk_ddp_comp.h"
-+#include "mtk_disp_drv.h"
-+#include "mtk_drm_drv.h"
-+
-+#define DISP_REG_WDMA_INT_ENABLE		0x000
-+ #define WDMA_FRAME_COMPLETE_INT		BIT(0)
-+#define DISP_REG_WDMA_INT_STATUS		0x004
-+#define DISP_REG_WDMA_EN			0x008
-+ #define WDMA_ENGINE_EN				BIT(0)
-+#define DISP_REG_WDMA_CFG			0x014
-+ #define WDMA_CFG_OUT_FMT			GENMASK(7, 4)
-+  #define WDMA_OUT_FMT_RGB565			0
-+  #define WDMA_OUT_FMT_RGB888			1
-+  #define WDMA_OUT_FMT_RGBA8888			2
-+  #define WDMA_OUT_FMT_ARGB8888			3
-+  #define WDMA_OUT_FMT_UYVY			4
-+  #define WDMA_OUT_FMT_YUY2			5
-+  #define WDMA_OUT_FMT_P010			6
-+  #define WDMA_OUT_FMT_Y_ONLY			7
-+  #define WDMA_OUT_FMT_I420			8
-+  #define WDMA_OUT_FMT_ARGB2101010		11
-+  #define WDMA_OUT_FMT_NV12			12
-+ #define WDMA_CT_EN				BIT(11)
-+ #define WDMA_CFG_SWAP				BIT(16)
-+ #define WDMA_UFO_DCP_ENABLE			BIT(17)
-+ #define WDMA_INT_MTX_SEL			GENMASK(27, 23)
-+  #define WDMA_CT_COEF_RGB_TO_JPEG		0
-+  #define WDMA_CT_COEF_JPEG_TO_RGB		4
-+#define DISP_REG_WDMA_SRC_SIZE			0x018
-+#define DISP_REG_WDMA_CLIP_SIZE			0x01c
-+ #define WDMA_HEIGHT_PX				GENMASK(29, 16)
-+ #define WDMA_WIDTH_PX				GENMASK(13, 0)
-+#define DISP_REG_WDMA_CLIP_COORD		0x020
-+ #define WDMA_CLIP_Y_COORD			GENMASK(29, 16)
-+ #define WDMA_CLIP_X_COORD			GENMASK(13, 0)
-+#define DISP_REG_WDMA_SHADOW_CTRL		0x024
-+ #define WDMA_FORCE_COMMIT			BIT(0)
-+ #define WDMA_BYPASS_SHADOW			BIT(1)
-+#define DISP_REG_WDMA_DST_W_IN_BYTE		0x028
-+#define DISP_REG_WDMA_DST_UV_PITCH		0x078
-+ #define WDMA_UV_DST_W_IN_BYTE			GENMASK(15, 0)
-+#define DISP_REG_WDMA_DST_ADDR_LSB		0xf00
-+#define DISP_REG_WDMA_DST_ADDR_MSB_MT6893	0xf20
-+#define DISP_REG_WDMA_DST_ADDRX(r, x)		(r + (x * 0x4))
-+
-+static const u32 mtk_wdma_wb_output_formats[] = {
-+	DRM_FORMAT_RGB888
-+};
-+
-+static const u32 mt6893_formats[] = {
-+	DRM_FORMAT_XRGB8888,
-+	DRM_FORMAT_ARGB8888,
-+	DRM_FORMAT_BGRX8888,
-+	DRM_FORMAT_BGRA8888,
-+	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_XBGR8888,
-+	DRM_FORMAT_RGB888,
-+	DRM_FORMAT_BGR888,
-+	DRM_FORMAT_RGB565,
-+	DRM_FORMAT_YUV420,
-+	DRM_FORMAT_YVU420,
-+	DRM_FORMAT_UYVY,
-+	DRM_FORMAT_YUYV,
-+};
-+
-+struct mtk_disp_wdma_data {
-+	u32 reg_wdma_dst_addr0_msb;
-+	const u32 *formats;
-+	size_t num_formats;
-+};
-+
-+struct mtk_disp_wdma {
-+	struct device			*dev;
-+	struct clk			*clk;
-+	void __iomem			*regs;
-+	struct cmdq_client_reg		cmdq_reg;
-+	const struct mtk_disp_wdma_data	*data;
-+	void				(*vblank_cb)(void *data);
-+	void				*vblank_cb_data;
-+	int				irq;
-+	struct drm_writeback_connector	wb_connector;
-+	bool				wb_pending;
-+};
-+
-+static inline struct mtk_disp_wdma *connector_to_wdma(struct drm_connector *connector)
-+{
-+	return container_of(connector, struct mtk_disp_wdma, wb_connector.base);
-+}
-+
-+static irqreturn_t mtk_disp_wdma_irq_handler(int irq, void *dev_id)
-+{
-+	struct mtk_disp_wdma *wdma = dev_id;
-+
-+	/* Clear frame completion interrupt */
-+	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-+
-+	if (wdma->vblank_cb)
-+		wdma->vblank_cb(wdma->vblank_cb_data);
-+
-+	/* TODO: Move completion signaling to CMDQ interrupt callback */
-+	if (wdma->wb_pending) {
-+		drm_writeback_signal_completion(&wdma->wb_connector, 0);
-+		wdma->wb_pending = false;
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void wdma_update_bits(struct device *dev, unsigned int reg,
-+			     unsigned int mask, unsigned int val)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+	unsigned int tmp = readl(wdma->regs + reg);
-+
-+	tmp = (tmp & ~mask) | (val & mask);
-+	writel(tmp, wdma->regs + reg);
-+}
-+
-+void mtk_wdma_register_vblank_cb(struct device *dev,
-+				 void (*vblank_cb)(void *),
-+				 void *vblank_cb_data)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	wdma->vblank_cb = vblank_cb;
-+	wdma->vblank_cb_data = vblank_cb_data;
-+}
-+
-+void mtk_wdma_unregister_vblank_cb(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	wdma->vblank_cb = NULL;
-+	wdma->vblank_cb_data = NULL;
-+}
-+
-+void mtk_wdma_enable_vblank(struct device *dev)
-+{
-+	wdma_update_bits(dev, DISP_REG_WDMA_INT_ENABLE, WDMA_FRAME_COMPLETE_INT,
-+			 WDMA_FRAME_COMPLETE_INT);
-+}
-+
-+void mtk_wdma_disable_vblank(struct device *dev)
-+{
-+	wdma_update_bits(dev, DISP_REG_WDMA_INT_ENABLE, WDMA_FRAME_COMPLETE_INT, 0);
-+}
-+
-+const u32 *mtk_wdma_get_formats(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	return wdma->data->formats;
-+}
-+
-+size_t mtk_wdma_get_num_formats(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	return wdma->data->num_formats;
-+}
-+
-+int mtk_wdma_clk_enable(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	return clk_prepare_enable(wdma->clk);
-+}
-+
-+void mtk_wdma_clk_disable(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	clk_disable_unprepare(wdma->clk);
-+}
-+
-+void mtk_wdma_start(struct device *dev)
-+{
-+	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN,
-+			 WDMA_ENGINE_EN);
-+}
-+
-+void mtk_wdma_stop(struct device *dev)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	if (wdma->wb_pending) {
-+		drm_writeback_signal_completion(&wdma->wb_connector, 0);
-+		wdma->wb_pending = false;
-+	}
-+
-+	wdma_update_bits(dev, DISP_REG_WDMA_EN, WDMA_ENGINE_EN, 0);
-+}
-+
-+void mtk_wdma_config(struct device *dev, unsigned int width,
-+		     unsigned int height, unsigned int vrefresh,
-+		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
-+	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
-+}
-+
-+static u32 wdma_fmt_convert(unsigned int fmt)
-+{
-+	switch (fmt) {
-+	default:
-+	case DRM_FORMAT_RGB565:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB565);
-+	case DRM_FORMAT_BGR565:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB565) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_RGB888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB888);
-+	case DRM_FORMAT_BGR888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGB888) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_RGBX8888:
-+	case DRM_FORMAT_RGBA8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGBA8888);
-+	case DRM_FORMAT_BGRX8888:
-+	case DRM_FORMAT_BGRA8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_RGBA8888) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_XRGB8888:
-+	case DRM_FORMAT_ARGB8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_ARGB8888);
-+	case DRM_FORMAT_XBGR8888:
-+	case DRM_FORMAT_ABGR8888:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_ARGB8888) | WDMA_CFG_SWAP;
-+	case DRM_FORMAT_UYVY:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_UYVY);
-+	case DRM_FORMAT_YUYV:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_YUY2);
-+	case DRM_FORMAT_YUV420:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_I420);
-+	case DRM_FORMAT_YVU420:
-+		return FIELD_PREP(WDMA_CFG_OUT_FMT, WDMA_OUT_FMT_I420) | WDMA_CFG_SWAP;
-+	}
-+}
-+
-+unsigned int mtk_wdma_layer_nr(struct device *dev)
-+{
-+	return 1;
-+}
-+
-+static void mtk_wdma_ddp_write_dst_addr(struct cmdq_pkt *cmdq_pkt, u64 val,
-+					u8 reg_id, struct mtk_disp_wdma *wdma)
-+{
-+	mtk_ddp_write(cmdq_pkt, lower_32_bits(val), &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_DST_ADDRX(DISP_REG_WDMA_DST_ADDR_LSB, reg_id));
-+
-+	if (wdma->data->reg_wdma_dst_addr0_msb == 0)
-+		return;
-+
-+	mtk_ddp_write(cmdq_pkt, upper_32_bits(val), &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_DST_ADDRX(wdma->data->reg_wdma_dst_addr0_msb, reg_id));
-+}
-+
-+static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
-+				   struct mtk_plane_pending_state *pending,
-+				   const struct drm_format_info *fmt_info,
-+				   struct cmdq_pkt *cmdq_pkt)
-+{
-+	unsigned int u_off, u_stride, u_size, v_off;
-+	u32 val;
-+
-+	/*
-+	 * For RGB formats, this sets the image destination address;
-+	 * For YUV formats, this sets the Y component destination address.
-+	 */
-+	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr, 0, wdma);
-+
-+	if (!fmt_info->is_yuv) {
-+		/* Disable color transform matrix and data compression */
-+		mtk_ddp_write_mask(cmdq_pkt, 0, &wdma->cmdq_reg, wdma->regs,
-+				   DISP_REG_WDMA_CFG,
-+				   WDMA_UFO_DCP_ENABLE | WDMA_CT_EN);
-+		return;
-+	}
-+
-+	/* Additional format config required only for 420 sampling */
-+	if (!drm_format_info_is_yuv_sampling_420(fmt_info))
-+		return;
-+
-+	u_off = pending->pitch * pending->height;
-+	u_stride = pending->pitch / 2;
-+
-+	if (drm_format_info_is_yuv_planar(fmt_info)) {
-+		/* YUV420 or YVU420 */
-+		u_stride = ALIGN(u_stride, 16);
-+		u_size = u_stride * pending->height / 2;
-+		v_off = u_off + u_size;
-+	} else {
-+		/* NV12 or NV21 */
-+		u_size = u_stride * pending->height / 2;
-+		v_off = 0;
-+	}
-+
-+	/* Set U and V components destination addresses */
-+	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + u_off, 1, wdma);
-+	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr + v_off, 2, wdma);
-+
-+	mtk_ddp_write(cmdq_pkt, FIELD_PREP(WDMA_UV_DST_W_IN_BYTE, u_stride),
-+		      &wdma->cmdq_reg, wdma->regs, DISP_REG_WDMA_DST_UV_PITCH);
-+
-+	/* Color transform coefficient selection */
-+	val = FIELD_PREP_CONST(WDMA_INT_MTX_SEL, WDMA_CT_COEF_JPEG_TO_RGB);
-+	mtk_ddp_write_mask(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+			   DISP_REG_WDMA_CFG, WDMA_INT_MTX_SEL);
-+
-+	/* Enable color transform matrix, disable data compression */
-+	mtk_ddp_write_mask(cmdq_pkt, WDMA_CT_EN, &wdma->cmdq_reg, wdma->regs,
-+			   DISP_REG_WDMA_CFG, WDMA_UFO_DCP_ENABLE | WDMA_CT_EN);
-+}
-+
-+void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
-+			   struct mtk_plane_state *state,
-+			   struct cmdq_pkt *cmdq_pkt)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+	struct mtk_plane_pending_state *pending = &state->pending;
-+	unsigned int pitch = pending->pitch & 0xffff;
-+	unsigned int fmt = pending->format;
-+	unsigned int con = wdma_fmt_convert(fmt);
-+	const struct drm_format_info *fmt_info = drm_format_info(fmt);
-+	u16 clip_sz_h = pending->height;
-+	u16 clip_sz_w = pending->width;
-+	u32 val;
-+
-+	val = FIELD_PREP(WDMA_HEIGHT_PX, pending->height);
-+	val |= FIELD_PREP(WDMA_WIDTH_PX, pending->width);
-+	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_SRC_SIZE);
-+
-+	val = FIELD_PREP(WDMA_HEIGHT_PX, pending->y);
-+	val |= FIELD_PREP(WDMA_WIDTH_PX, pending->x);
-+	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_CLIP_COORD);
-+
-+	if (fmt_info->is_yuv) {
-+		if ((pending->y + pending->height) % 2)
-+			clip_sz_h--;
-+
-+		if ((pending->x + pending->width) % 2)
-+			clip_sz_w--;
-+	}
-+	val = FIELD_PREP(WDMA_HEIGHT_PX, clip_sz_h);
-+	val |= FIELD_PREP(WDMA_WIDTH_PX, clip_sz_w);
-+	mtk_ddp_write(cmdq_pkt, val, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_CLIP_SIZE);
-+
-+	mtk_ddp_write(cmdq_pkt, con, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_CFG);
-+	mtk_ddp_write(cmdq_pkt, pitch, &wdma->cmdq_reg, wdma->regs,
-+		      DISP_REG_WDMA_DST_W_IN_BYTE);
-+
-+	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
-+
-+	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.state);
-+}
-+
-+static enum drm_connector_status
-+mtk_wdma_wb_connector_detect(struct drm_connector *connector, bool force)
-+{
-+	return connector_status_connected;
-+}
-+
-+static const struct drm_connector_funcs mtk_wdma_wb_connector_funcs = {
-+	.detect = mtk_wdma_wb_connector_detect,
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.destroy = drm_connector_cleanup,
-+	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+};
-+
-+static int mtk_wdma_wb_atomic_check(struct drm_encoder *encoder,
-+				    struct drm_crtc_state *crtc_state,
-+				    struct drm_connector_state *conn_state)
-+{
-+	const struct drm_display_mode *mode = &crtc_state->mode;
-+	struct drm_framebuffer *fb;
-+	int i;
-+
-+	if (!conn_state->writeback_job || !conn_state->writeback_job->fb)
-+		return -EINVAL;
-+
-+	fb = conn_state->writeback_job->fb;
-+	if (fb->width != mode->hdisplay || fb->height != mode->vdisplay)
-+		return -EINVAL;
-+
-+	for (i = 0; i < ARRAY_SIZE(mtk_wdma_wb_output_formats); i++) {
-+		if (fb->format->format == mtk_wdma_wb_output_formats[i])
-+			return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static const struct drm_encoder_helper_funcs mtk_wdma_wb_encoder_helper_funcs = {
-+	.atomic_check = mtk_wdma_wb_atomic_check,
-+};
-+
-+static int mtk_wdma_wb_connector_get_modes(struct drm_connector *connector)
-+{
-+	struct drm_device *dev = connector->dev;
-+
-+	return drm_add_modes_noedid(connector, dev->mode_config.max_width,
-+				    dev->mode_config.max_height);
-+}
-+
-+static enum drm_mode_status
-+mtk_wdma_wb_connector_mode_valid(struct drm_connector *connector,
-+				 const struct drm_display_mode *mode)
-+{
-+	struct drm_device *dev = connector->dev;
-+	struct drm_mode_config *mode_config = &dev->mode_config;
-+	int w = mode->hdisplay, h = mode->vdisplay;
-+
-+	if (w < mode_config->min_width || w > mode_config->max_width)
-+		return MODE_BAD_HVALUE;
-+
-+	if (h < mode_config->min_height || h > mode_config->max_height)
-+		return MODE_BAD_VVALUE;
-+
-+	return MODE_OK;
-+}
-+
-+static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *connector,
-+						struct drm_atomic_commit *state)
-+{
-+	struct drm_connector_state *conn_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+	struct mtk_disp_wdma *wdma = connector_to_wdma(connector);
-+	struct drm_framebuffer *fb;
-+	struct drm_gem_object *gem;
-+	struct drm_gem_dma_object *dma_obj;
-+	dma_addr_t addr;
-+
-+	if (WARN_ON(!conn_state->writeback_job))
-+		return;
-+
-+	fb = conn_state->writeback_job->fb;
-+	if (!fb)
-+		return;
-+
-+	gem = fb->obj[0];
-+	dma_obj = to_drm_gem_dma_obj(gem);
-+	addr = dma_obj->dma_addr;
-+
-+	/* Store writeback pending state before queuing the job */
-+	wdma->wb_pending = true;
-+
-+	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
-+	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
-+}
-+
-+static const struct drm_connector_helper_funcs mtk_wdma_wb_connector_helper_funcs = {
-+	.get_modes = mtk_wdma_wb_connector_get_modes,
-+	.mode_valid = mtk_wdma_wb_connector_mode_valid,
-+	.atomic_commit = mtk_wdma_wb_connector_atomic_commit,
-+};
-+
-+static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
-+			      void *data)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+	struct drm_device *drm_dev = data;
-+	int crtcs, ret;
-+
-+	crtcs = mtk_find_possible_crtcs(drm_dev, wdma->dev);
-+	if (crtcs < 0)
-+		return crtcs;
-+
-+	drm_connector_helper_add(&wdma->wb_connector.base,
-+				 &mtk_wdma_wb_connector_helper_funcs);
-+
-+	ret = drm_writeback_connector_init(drm_dev, &wdma->wb_connector,
-+					   &mtk_wdma_wb_connector_funcs,
-+					   &mtk_wdma_wb_encoder_helper_funcs,
-+					   mtk_wdma_wb_output_formats,
-+					   ARRAY_SIZE(mtk_wdma_wb_output_formats),
-+					   crtcs);
-+	if (ret)
-+		return ret;
-+
-+	ret = pm_runtime_get_sync(dev);
-+	if (ret)
-+		dev_warn(dev, "Could not get PM Runtime!\n");
-+
-+	/*
-+	 * Disable and clear pending interrupts - write unconditionally as no
-+	 * crash (SError, etc) will happen as if unpowered/unclocked this is
-+	 * simply going to be ignored (and the registers will be 0 at reset).
-+	 */
-+	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
-+	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-+
-+	/* Put RPM only if refcount was incremented before to avoid unbalancing */
-+	if (ret == 0)
-+		pm_runtime_put(dev);
-+
-+	enable_irq(wdma->irq);
-+	return 0;
-+}
-+
-+static void mtk_disp_wdma_unbind(struct device *dev, struct device *master,
-+				 void *data)
-+{
-+	struct mtk_disp_wdma *wdma = dev_get_drvdata(dev);
-+
-+	disable_irq(wdma->irq);
-+}
-+
-+static const struct component_ops mtk_disp_wdma_component_ops = {
-+	.bind	= mtk_disp_wdma_bind,
-+	.unbind = mtk_disp_wdma_unbind,
-+};
-+
-+static int mtk_disp_wdma_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct mtk_disp_wdma *priv;
-+	struct resource *res;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = dev;
-+
-+	priv->irq = platform_get_irq(pdev, 0);
-+	if (priv->irq < 0)
-+		return priv->irq;
-+
-+	priv->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(priv->clk))
-+		return dev_err_probe(dev, PTR_ERR(priv->clk),
-+				     "failed to get wdma clk\n");
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	priv->regs = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(priv->regs))
-+		return dev_err_probe(dev, PTR_ERR(priv->regs),
-+				     "failed to ioremap wdma\n");
-+#if IS_REACHABLE(CONFIG_MTK_CMDQ)
-+	ret = cmdq_dev_get_client_reg(dev, &priv->cmdq_reg, 0);
-+	if (ret)
-+		dev_dbg(dev, "get mediatek,gce-client-reg fail!\n");
-+#endif
-+
-+	priv->data = of_device_get_match_data(dev);
-+	platform_set_drvdata(pdev, priv);
-+
-+	ret = devm_request_irq(dev, priv->irq, mtk_disp_wdma_irq_handler,
-+			       IRQF_NO_AUTOEN, dev_name(dev), priv);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to request irq\n");
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = component_add(dev, &mtk_disp_wdma_component_ops);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to add component\n");
-+
-+	return 0;
-+}
-+
-+static const struct mtk_disp_wdma_data mt6893_wdma_driver_data = {
-+	.reg_wdma_dst_addr0_msb = DISP_REG_WDMA_DST_ADDR_MSB_MT6893,
-+	.formats = mt6893_formats,
-+	.num_formats = ARRAY_SIZE(mt6893_formats),
-+};
-+
-+static const struct mtk_disp_wdma_data mt8173_wdma_driver_data = {
-+	.formats = mt6893_formats,
-+	.num_formats = ARRAY_SIZE(mt6893_formats),
-+};
-+
-+static const struct of_device_id mtk_disp_wdma_driver_dt_match[] = {
-+	{ .compatible = "mediatek,mt6893-disp-wdma", .data = &mt6893_wdma_driver_data },
-+	{ .compatible = "mediatek,mt8173-disp-wdma", .data = &mt8173_wdma_driver_data },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, mtk_disp_wdma_driver_dt_match);
-+
-+struct platform_driver mtk_disp_wdma_driver = {
-+	.probe		= mtk_disp_wdma_probe,
-+	.driver		= {
-+		.name	= "mediatek-disp-wdma",
-+		.of_match_table = mtk_disp_wdma_driver_dt_match,
-+	},
-+};
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 9a4c59849c4b..e54f0654f2f9 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -796,6 +796,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DISP_RDMA },
- 	{ .compatible = "mediatek,mt8173-disp-ufoe",
- 	  .data = (void *)MTK_DISP_UFOE },
-+	{ .compatible = "mediatek,mt6893-disp-wdma",
-+	  .data = (void *)MTK_DISP_WDMA },
- 	{ .compatible = "mediatek,mt8173-disp-wdma",
- 	  .data = (void *)MTK_DISP_WDMA },
- 	{ .compatible = "mediatek,mt2701-dpi",
-@@ -1173,6 +1175,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
- 		    comp_type == MTK_DISP_OVL_2L ||
- 		    comp_type == MTK_DISP_OVL_ADAPTOR ||
- 		    comp_type == MTK_DISP_RDMA ||
-+		    comp_type == MTK_DISP_WDMA ||
- 		    comp_type == MTK_DP_INTF ||
- 		    comp_type == MTK_DPI ||
- 		    comp_type == MTK_DSI) {
-@@ -1281,6 +1284,7 @@ static struct platform_driver * const mtk_drm_drivers[] = {
- 	&mtk_disp_ovl_adaptor_driver,
- 	&mtk_disp_ovl_driver,
- 	&mtk_disp_rdma_driver,
-+	&mtk_disp_wdma_driver,
- 	&mtk_dpi_driver,
- 	&mtk_drm_platform_driver,
- 	&mtk_dsi_driver,
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.h b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-index 43aac2d956e7..8b5c51d93f72 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.h
-@@ -77,6 +77,7 @@ extern struct platform_driver mtk_disp_merge_driver;
- extern struct platform_driver mtk_disp_ovl_adaptor_driver;
- extern struct platform_driver mtk_disp_ovl_driver;
- extern struct platform_driver mtk_disp_rdma_driver;
-+extern struct platform_driver mtk_disp_wdma_driver;
- extern struct platform_driver mtk_dpi_driver;
- extern struct platform_driver mtk_dsi_driver;
- extern struct platform_driver mtk_ethdr_driver;
+Changes in v9:
+- Individual patches mention specific v9 changes
+- Drop RGMII muxing to port 4.
+- Link to v8: https://lore.kernel.org/r/20260702-dsa_lan9645x_switch_driver_base-v8-0-90228d8bba58@microchip.com
+
+Changes in v8:
+- Individual patches mention specific v8 changes
+- Do not use the name CPU_PORT for the chips internal CPU port module,
+  as it collides with the DSA CPU port (the NPI front port). Drop the
+  CPU_PORT macro and reference the module as lan9645x->num_phys_ports,
+  mirroring ocelot/felix.
+- Reword the port map and related comments to distinguish the chip CPU
+  port modules (indices 9-10) from the DSA CPU port.
+- Add a port_mux_lock mutex to serialize port mux arbitration in
+  the phylink mac_prepare path.
+- Link to v7: https://lore.kernel.org/r/20260603-dsa_lan9645x_switch_driver_base-v7-0-b2f90e676707@microchip.com
+
+Changes in v7:
+- Individual patches mention specific v7 changes
+- Do not mark the BPDU range 01:80:C2:00:00:0X as offloaded in the tag driver.
+- Refactor cpu queue based frame classification to use categories default, trap
+  and copy, which mirrors usage instead of being based on frame types.
+- Add registers ANA:COMMON:CPUQ_8021_CFG for bpdu cpu queue configuration.
+- Use cpu queue LAN9645X_CPUQ_TRAP for bpdu frames.
+- Refactor IGMP/MLD/IPMC_CTRL to use new LAN9645X_CPUQ_DEF,
+  LAN9645X_CPUQ_TRAP and LAN9645X_CPUQ_COPY queues.
+- Add __aligned(2) to mac variable in lan9645x_mdb_update_dest.
+- Link to v6: https://lore.kernel.org/r/20260527-dsa_lan9645x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com
+
+Changes in v6:
+- Individual patches mention specific v6 changes
+- Rebased on net-next, bumping DSA_TAG_PROTO_LAN9645X_VALUE to 34
+- Link to v5: https://lore.kernel.org/r/20260518-dsa_lan9645x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com
+
+Changes in v5:
+- Individual patches mention specific v5 changes
+- Undo offset fix in postpull_rcsum. The original logic was correct for
+  CHECKSUM_COMPLETE host NICs
+- Use __always_inline in lan9645x_ifh_{get,set}
+- remove double space after = in set_merge_mask
+- remove unused fields dd_dis and tsn_dis, and add SKU supported port validation
+  during setup
+- phylink: remove MAC_2500FD
+- phylink: add comment about empty supported_interfaces for port 5-6.
+- phylink: fix 2:1 rgmii port muxing for port module 4 and 7 to be fully
+  dynamic and validate requested mux settings.
+- phylink: add comment about 2:1 rgmii port muxing for port module 4
+  and 7.
+- rx/tx-internal-delay-ps checked against supported 2ns value
+- init lan9645x->npi = -1 at probe and check port < 0 in npi_deinit
+- use ds->ageing_time_max
+- use packed p->host_flood_req for atomic r/w
+- fix typo in set_ageing_time comment
+- include lan9645x->bridge deref under lock in brige_join
+- switch -EBUSY to -EINVAL for vlan add/del in the reserved range.
+- remove reserved HSR vlan
+- lan9645x_mac_init returns error on table init timeout
+- add comment about skipping LOCKED entries on fdb dump
+- skip igmp/mld redir for npi port
+- make lan9645x_stats_init void
+- add SCNT_TX_BUFDROP to tx_dropped
+- change rmon range {0,64} -> {64, 64}. Runt frames counted elsewhere.
+- remove rx_crc, rx_symbol_err from rx_packets, as they are already
+  counted in SZ_* buckets.
+- add defensive cancel_delayed_work_sync in stats_free
+- Link to v4: https://lore.kernel.org/r/20260430-dsa_lan9645x_switch_driver_base-v4-0-f1b6005fa8b7@microchip.com
+
+Changes in v4:
+- v3 was deferred, but I made some changes based on the Sashiko review
+- Individual patches mention specific v4 changes
+- Fix offset in postpull_rcsum so prefix eth header is cleared, not
+  actual eth header, so tag driver works with CHECKSUM_COMPLETE host
+  NICs
+- Fix untagged rx on vlan aware port with pvid
+- Add comment to QSYS_RES_CFG configuration
+- Phylink_mac_prepare: fix to make sure we can dynamically change rgmii
+  on port 4
+- Move ports allocation to probe
+- tag_npi_setup: reject cascaded setups
+- Skip WARN_ON in lan9645x_to_port
+- set_host_flood changed to per port work to coalesce values and skip
+  atomic allocations
+- Fix clear HOST_PVID vlan membership when a port joins a bridge.
+- Explicit default value write to tag type register for untagged frames
+- Use lan_rmw for ANA_DROP_CFG
+- Add comment for error path in lan9645x_vlan_hw_wr
+- Remove mac_entries list and just do direct IO to mac table from
+  fdb_add/fdb_del.
+- Clean up fresh mdb when hw mac table write fails.
+- Remove rx_uc and tx_uc from ethtool stats list, as they are derivable
+  from the eth-mac group
+- Split stats_init into stats_alloc and stats_init, use alloc in probe
+  and init in dsa_setup
+- Link to v3: https://lore.kernel.org/r/20260410-dsa_lan9645x_switch_driver_base-v3-0-aadc8595306d@microchip.com
+
+Changes in v3:
+- Individual patches mention specific v3 changes.
+- Add guard before vlan_remove_tag on xmit
+- Add pskb_may_pull checks on rx
+- Remove additionalProperties: true in bindings
+- Remove unnecessary | from description in bindings
+- Change top level $ref to dsa.yaml#/$defs/ethernet-ports
+- Use ethernet-ports and ethernet-port
+- Move ethernet-ports under properties instead of patternProperties
+- Move unevaluatedProperties: false after $ref
+- Update bindings example to use ethernet-ports and ethernet-port
+- Move DEV_MAC_TAGS_CFG to port setup, instead of vlan config, so vlan
+  overhead is always included in port frame maxlen calculation.
+- Remove code disabling ipv6 on conduit
+- Use of_property_read_u32 for {rx,tx}-internal-delay-ps
+- Use dsa_user_ports(ds) instead of
+  GENMASK(lan9645x->num_phys_ports - 1, 0) as base flood mask.
+- Add comment explaining obey vlan
+- Allow disabling aging with explicit zero parameters.
+- Fix non-forwarding STP states in bridge fwd calculation.
+- Restore host flood state on bridge leave.
+- Avoid mac_entry dealloc when mac table writes fail.
+- Avoid mdb_entry dealloc when mac table writes fail.
+- Dealloc mac_entries on deinit.
+- Dealloc mdb_entries on deinit.
+- Link to v2: https://lore.kernel.org/r/20260324-dsa_lan9645x_switch_driver_base-v2-0-f7504e3b0681@microchip.com
+
+Changes in v2:
+- Individual patches have specific v2 changes.
+- Ran DSA, and std counters, selftests, which prompted several changes.
+  The following selftests pass, except for some expected failures:
+    - bridge_vlan_aware.sh
+    - bridge_vlan_unaware.sh
+    - bridge_vlan_mcast.sh
+    - no_forwarding.sh
+    - bridge_mdb.sh
+    - bridge_mld.sh
+    - test_fdb_stress_test.sh
+    - .../drivers/net/hw/ethtool_rmon.sh
+    - .../drivers/net/hw/ethtool_std_stats.sh (from Ioana's series)
+- Added new patch for MDB management, as this was required for selftests.
+- Added port_set_host_flood to enable unknown traffic to standalone during
+  promisc/ALL_MULTI (selftests).
+- Remove the dubugfs.
+- Link to v1: https://lore.kernel.org/r/20260303-dsa_lan9645x_switch_driver_base-v1-0-bff8ca1396f5@microchip.com
+
+---
+Jens Emil Schulz Østergaard (9):
+      net: dsa: add tag driver for LAN9645X
+      dt-bindings: net: lan9645x: add LAN9645X switch bindings
+      net: dsa: lan9645x: add autogenerated register macros
+      net: dsa: lan9645x: add basic dsa driver for LAN9645X
+      net: dsa: lan9645x: add bridge support
+      net: dsa: lan9645x: add vlan support
+      net: dsa: lan9645x: add mac table integration
+      net: dsa: lan9645x: add mdb management
+      net: dsa: lan9645x: add port statistics
+
+ .../net/dsa/microchip,lan96455s-switch.yaml        |  111 ++
+ MAINTAINERS                                        |   10 +
+ drivers/net/dsa/Kconfig                            |    2 +
+ drivers/net/dsa/microchip/Makefile                 |    1 +
+ drivers/net/dsa/microchip/lan9645x/Kconfig         |   11 +
+ drivers/net/dsa/microchip/lan9645x/Makefile        |   12 +
+ drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c  |  307 ++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.c | 1038 +++++++++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_main.h |  439 +++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_mdb.c  |  398 ++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_npi.c  |   85 +
+ .../net/dsa/microchip/lan9645x/lan9645x_phylink.c  |  382 ++++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_port.c |  226 +++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_regs.h | 1937 ++++++++++++++++++++
+ .../net/dsa/microchip/lan9645x/lan9645x_stats.c    |  929 ++++++++++
+ .../net/dsa/microchip/lan9645x/lan9645x_stats.h    |  279 +++
+ drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c |  403 ++++
+ include/linux/dsa/lan9645x.h                       |  144 ++
+ include/net/dsa.h                                  |    2 +
+ net/dsa/Kconfig                                    |   11 +
+ net/dsa/Makefile                                   |    1 +
+ net/dsa/tag_lan9645x.c                             |  316 ++++
+ 22 files changed, 7044 insertions(+)
+---
+base-commit: f6f3b36c15ed44de1fbb44e645e4fae8c4a4453e
+change-id: 20260210-dsa_lan9645x_switch_driver_base-312bbfc37edb
+
+Best regards,
 -- 
-2.54.0
+Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
 
