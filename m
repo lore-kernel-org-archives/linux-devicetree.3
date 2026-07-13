@@ -1,200 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16323E2AA1
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C0D3E2AA1;
+	Mon, 13 Jul 2026 10:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783937512; cv=none; b=Y1y4eQBArvftVc/fc+TIik2cYrd/AeyAmFkmCpeE3KBQMb/uW+ua0BuaSmLL07/8Wvu9Oc0arheoI5f/9KgPm5ggh8WH46DD4yDPxEUQqNk1F0eFNi8F8uM4by1srRp4cwVKdJh6AuUWfS4JZd+/aWa+TldkHaZ902j1+R8NxcA=
+	t=1783937515; cv=none; b=T3TglJnE7OdYeiukO3dTziiEI1KpIE+kODhfOaqLwfj6Jxz2QasERDUrXjWQrCUJqPH3lz7stL00fj4qij7ObBglMvAcG3wuG/lHox1nicW20fRXzD85QVrKWtF19PukavteZppNL3Y+g8i/OGUVAzcRuLMCwrHkH7zEVimRtJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783937512; c=relaxed/simple;
-	bh=nCczL1KgHWC55OYX1r4EXXcAlfHRK73cNlh78u6kx+8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c80B3HdzQhovZPBCvTgo/zFzaKO/2oqoX+AzIOwQjfPiGE31lk2p/2ude3IF9kRiu1fl4/n2SE9RE3PfEV5Hv5UiD0E4SL3kCsgS3M45MP9QQ9shwMFzLkV/F6mmN4nB6RiKAkPai7RkdOPVzAvzyeg/pXsRn7E5t850WZITz9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F10EcXTg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783937515; c=relaxed/simple;
+	bh=hk2jdpzy7aPtSs8hu1w9Jn6wfl+BdndDSqR/5Ad3YJE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=u7npZ2TgmUoyp7IQStZF/tKh2zGhrUqaGPCUjEyoYRQDoREdZwqhuakoUtrq+5GWfoZyX8tGvT6egnJMPvUGIyQkuUGdwW7wm16slnt0dh5Z8W0ReKi7E7LE7MKTkwZPmR5G+kh5oy8kGVdAOZfOD3W6zhwspTlGks7xxO8TkoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeHOsFpS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F10EcXTg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B131A1F00A3A;
-	Mon, 13 Jul 2026 10:11:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783937511;
-	bh=z0cA5q51bXw9VlmvO3E3YfQZz9L7jLWesCBtAsfOthM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F10EcXTgFQZUSUGcK6gmGIhKFzxbhrFJeeh7NxStMlnu/z/+ZCi0MOeWbi7OUuNCb
-	 GDMNW/lzljoSXKjelkUNmuZWib+IKruHKYbfsTdhLh9882B2cYJaupgk2k2SDjzyud
-	 KuvpfnfCYMFdp0GpJDHS2R+MN7nUzlFF4IpxIfS2T0S5McXUoV7qf3lxf3pW1rAF2s
-	 +zvxugIOG6T7bBM3qYNWKvDhmVH0sgWK1uXE8oEMJXCQmAKvYipgShzLShVM7GZmFE
-	 x+9H9cTUCbS+t2uZUmvX28TistVgMav/yDEJS01rzh+eBUhfPG547++1XlROOCnD0I
-	 aHIUcRKuH3xvA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/10] drm/mediatek: mtk_dsi: Enable interrupt at
- component bind time
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260713095837.16590-5-angelogioacchino.delregno@collabora.com>
-References: <20260713095837.16590-1-angelogioacchino.delregno@collabora.com>
- <20260713095837.16590-5-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 10:11:50 +0000
-Message-Id: <20260713101150.B131A1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeHOsFpS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A77E0C2BCF6;
+	Mon, 13 Jul 2026 10:11:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783937514;
+	bh=hk2jdpzy7aPtSs8hu1w9Jn6wfl+BdndDSqR/5Ad3YJE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=AeHOsFpSORaJl6i8MaDbEUsHC8j1pNLnOMg6J0IMbnHjATle3mn4n1v+S/5FZznTA
+	 jIBxgII1GYi+iZiJsP9wb+0XQ/XL4XJre8sZ4AZggQxUXAG28TPt6fZL8+qME3IUyK
+	 Y8PzF3SvYMNTaEVPVrLmcxRv4cMUnaq3+0jPomftZWhE4U9hrCiRefriDKPM1Yrdqx
+	 5O1sOBPutj3ViNdEtSyI3guzFnlp49Ssq0J5mnIvAx4NNy4Tj/GNewgM44XfUlMMeB
+	 RecZxKaTq/6HuX8Y4vK6vJ1x6hbzmc8g0oikt9PwL9x132gzONwxA4755D5rvNgp+M
+	 UpAA3rec1fDJA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87B4AC44508;
+	Mon, 13 Jul 2026 10:11:54 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Mon, 13 Jul 2026 13:11:36 +0300
+Subject: [PATCH v3 2/3] nvmem: add mt6323 PMIC EFUSE driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260713-mt6323-nvmem-v3-2-205c39267a24@protonmail.com>
+References: <20260713-mt6323-nvmem-v3-0-205c39267a24@protonmail.com>
+In-Reply-To: <20260713-mt6323-nvmem-v3-0-205c39267a24@protonmail.com>
+To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
+ Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Roman Vivchar <rva333@protonmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Ben Grisdale <bengris32@protonmail.ch>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783937511; l=4976;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=QqR4V2cdfPax2GcLJjMwpk7K48wgvgcpGejQfDKaxcI=;
+ b=qE5XG8vqXSEI0yOYEk0N5qSPz6BXCDwxM4nzucUwWB/sXMq8TjOlyZUr1D7HBIOkBepFGosDI
+ WSBkaQi83OUBU+DQtx3XUyktGDQOfWegXMzjT6u6dicURLog0YP9xLS
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+From: Roman Vivchar <rva333@protonmail.com>
 
-New issues:
-- [High] Calling `enable_irq()` in `mtk_dsi_bind()` executes before the IRQ=
- is requested, leaving the interrupt permanently disabled.
+Add support for the EFUSE controller found in the Mediatek MT6323 PMIC.
+The MT6323 EFUSE stores 24 bytes of hardware-related data, such as
+thermal sensor calibration values.
 
-Pre-existing issues:
-- [High] Data race on `dsi->irq_data` between process and hardirq context l=
-eads to dropped interrupts.
-- [High] `mtk_dsi_host_send_cmd()` incorrectly interprets `-ERESTARTSYS` as=
- success, causing the driver to process stale hardware memory.
-- [High] Unbounded busy-wait loop in `mtk_dsi_irq()` hard-locks the CPU if =
-hardware stalls.
---
+Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ MAINTAINERS                  |  5 +++
+ drivers/nvmem/Kconfig        | 11 ++++++
+ drivers/nvmem/Makefile       |  2 ++
+ drivers/nvmem/mt6323-efuse.c | 85 ++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 103 insertions(+)
 
---- Patch [4]: [PATCH v2 04/10] drm/mediatek: mtk_dsi: Enable interrupt at =
-component bind time ---
-commit ab0ed7e073fb408fbb00443f437ebcc970005f69
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 47cfe6531719..372cc3244236 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16578,6 +16578,11 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/mmc/mtk-sd.yaml
+ F:	drivers/mmc/host/mtk-sd.c
+ 
++MEDIATEK MT6323 PMIC NVMEM DRIVER
++M:	Roman Vivchar <rva333@protonmail.com>
++S:	Maintained
++F:	drivers/nvmem/mt6323-efuse.c
++
+ MEDIATEK MT6735 CLOCK & RESET DRIVERS
+ M:	Yassine Oudjana <y.oudjana@protonmail.com>
+ L:	linux-clk@vger.kernel.org
+diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+index e10f7ff725ff..a6b5b3e13b4e 100644
+--- a/drivers/nvmem/Kconfig
++++ b/drivers/nvmem/Kconfig
+@@ -240,6 +240,17 @@ config NVMEM_MTK_EFUSE
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called efuse-mtk.
+ 
++config NVMEM_MT6323_EFUSE
++	tristate "Mediatek MT6323 PMIC EFUSE support"
++	depends on ARCH_MEDIATEK || COMPILE_TEST
++	depends on MFD_MT6397
++	help
++	  This is a driver to access hardware related data like sensor
++	  calibration, etc.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called efuse-mt6323.
++
+ config NVMEM_MXS_OCOTP
+ 	tristate "Freescale MXS On-Chip OTP Memory Support"
+ 	depends on ARCH_MXS || COMPILE_TEST
+diff --git a/drivers/nvmem/Makefile b/drivers/nvmem/Makefile
+index f6f2bc51dee1..23b7552634d1 100644
+--- a/drivers/nvmem/Makefile
++++ b/drivers/nvmem/Makefile
+@@ -50,6 +50,8 @@ obj-$(CONFIG_NVMEM_MICROCHIP_OTPC)	+= nvmem-microchip-otpc.o
+ nvmem-microchip-otpc-y			:= microchip-otpc.o
+ obj-$(CONFIG_NVMEM_MTK_EFUSE)		+= nvmem_mtk-efuse.o
+ nvmem_mtk-efuse-y			:= mtk-efuse.o
++obj-$(CONFIG_NVMEM_MT6323_EFUSE)		+= nvmem_mt6323-efuse.o
++nvmem_mt6323-efuse-y			:= mt6323-efuse.o
+ obj-$(CONFIG_NVMEM_MXS_OCOTP)		+= nvmem-mxs-ocotp.o
+ nvmem-mxs-ocotp-y			:= mxs-ocotp.o
+ obj-$(CONFIG_NVMEM_NINTENDO_OTP)	+= nvmem-nintendo-otp.o
+diff --git a/drivers/nvmem/mt6323-efuse.c b/drivers/nvmem/mt6323-efuse.c
+new file mode 100644
+index 000000000000..41678915d5b6
+--- /dev/null
++++ b/drivers/nvmem/mt6323-efuse.c
+@@ -0,0 +1,85 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (c) 2026 Roman Vivchar <rva333@protonmail.com>
++ */
++
++#include <linux/device-id/of.h>
++#include <linux/err.h>
++#include <linux/module.h>
++#include <linux/nvmem-provider.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++
++#include <linux/mfd/mt6323/registers.h>
++
++#define MT6323_EFUSE_DOUT_BASE	MT6323_EFUSE_DOUT_0_15
++#define MT6323_EFUSE_SIZE	24
++
++static int mt6323_efuse_read(void *context, unsigned int offset, void *val,
++			     size_t bytes)
++{
++	struct regmap *map = context;
++	u16 *buf = val;
++	u32 tmp;
++	int ret;
++
++	/*
++	 * A manual loop using regmap_read is required because PWRAP is not
++	 * a continuous MMIO space, but rather a FSM that doesn't implement the
++	 * necessary read callback for the regmap_read_raw and regmap_read_bulk
++	 * functions.
++	 */
++	for (size_t i = 0; i < bytes; i += sizeof(*buf)) {
++		ret = regmap_read(map, MT6323_EFUSE_DOUT_BASE + offset + i, &tmp);
++		if (ret)
++			return ret;
++
++		*buf++ = tmp;
++	}
++
++	return 0;
++}
++
++static int mt6323_efuse_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct nvmem_config config = {
++		.name = "mt6323-efuse",
++		.stride = 2,
++		.word_size = 2,
++		.size = MT6323_EFUSE_SIZE,
++		.reg_read = mt6323_efuse_read,
++	};
++	struct nvmem_device *nvmem;
++	struct regmap *regmap;
++
++	/* efuse -> mfd -> pwrap */
++	regmap = dev_get_regmap(dev->parent->parent, NULL);
++	if (!regmap)
++		return dev_err_probe(dev, -ENODEV, "failed to get regmap\n");
++
++	config.dev = dev;
++	config.priv = regmap;
++
++	nvmem = devm_nvmem_register(dev, &config);
++	return PTR_ERR_OR_ZERO(nvmem);
++}
++
++static const struct of_device_id mt6323_efuse_of_match[] = {
++	{ .compatible = "mediatek,mt6323-efuse" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, mt6323_efuse_of_match);
++
++static struct platform_driver mt6323_efuse_driver = {
++	.probe = mt6323_efuse_probe,
++	.driver = {
++		.name = "mt6323-efuse",
++		.of_match_table = mt6323_efuse_of_match,
++	},
++};
++module_platform_driver(mt6323_efuse_driver);
++
++MODULE_DESCRIPTION("MediaTek MT6323 PMIC EFUSE driver");
++MODULE_LICENSE("GPL");
 
-drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+-- 
+2.54.0
 
-This patch changes the DSI interrupt to be requested with IRQF_NO_AUTOEN
-and enables it later during the component bind phase. This aims to prevent
-interrupt storms and artifacts caused by interrupts arriving before the
-display controller is fully ready.
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index 3e22553ca990f..284dae372c7c2 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-
-[ ... ]
-
-> @@ -1052,7 +1053,13 @@ static int mtk_dsi_bind(struct device *dev, struct=
- device *master, void *data)
->  	if (ret)
->  		return ret;
-> =20
-> -	return device_reset_optional(dev);
-> +	ret =3D device_reset_optional(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	enable_irq(dsi->irq);
-> +
-> +	return 0;
->  }
-> =20
->  static void mtk_dsi_unbind(struct device *dev, struct device *master,
-> @@ -1060,6 +1067,8 @@ static void mtk_dsi_unbind(struct device *dev, stru=
-ct device *master,
->  {
->  	struct mtk_dsi *dsi =3D dev_get_drvdata(dev);
-> =20
-> +	disable_irq(dsi->irq);
-> +
->  	drm_encoder_cleanup(&dsi->encoder);
->  }
-
-[ ... ]
-
-> @@ -1338,8 +1346,8 @@ static int mtk_dsi_probe(struct platform_device *pd=
-ev)
->  	if (ret < 0)
->  		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
-> =20
-> -	ret =3D devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
-> -			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
-> +	ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
-
-[Severity: High]
-Does mipi_dsi_host_register() trigger component binding synchronously before
-the IRQ is actually requested here?
-
-If mtk_dsi_probe() invokes mipi_dsi_host_register() before devm_request_irq=
-():
-1. mipi_dsi_host_register() synchronously probes child panel devices
-2. The child devices invoke component_add() for the DSI component
-3. If the aggregate device is ready, this synchronously triggers mtk_dsi_bi=
-nd()
-4. mtk_dsi_bind() then calls enable_irq(dsi->irq)
-
-Since devm_request_irq() hasn't run yet, will enable_irq() encounter an
-unrequested IRQ descriptor and abort without unmasking the hardware? When
-devm_request_irq() subsequently runs with IRQF_NO_AUTOEN, it seems the IRQ
-might remain disabled forever, completely breaking display operation.
-
-[Severity: High]
-This is a pre-existing issue, but can this code drop interrupts due to a da=
-ta
-race on dsi->irq_data?
-
-Process context uses a load-modify-store to clear flags:
-
-mtk_dsi_irq_data_clear()
-    dsi->irq_data &=3D ~irq_bit;
-
-While hardirq context uses a non-atomic operation to set flags:
-
-mtk_dsi_irq_data_set()
-    dsi->irq_data |=3D irq_bit;
-
-If an interrupt fires between the load and store in process context, the
-interrupt handler will set its status flag, but the process context's store
-will overwrite dsi->irq_data with its stale value, destroying the newly set
-flag and potentially causing wait_event polling timeouts.
-
-[Severity: High]
-This is a pre-existing issue, but does mtk_dsi_host_send_cmd() incorrectly
-interpret -ERESTARTSYS as success?
-
-mtk_dsi_wait_for_irq_done() returns -ERESTARTSYS if interrupted by a signal:
-
-mtk_dsi_wait_for_irq_done()
-    ret =3D wait_event_interruptible_timeout(...);
-
-However, mtk_dsi_host_send_cmd() evaluates the return value as a boolean:
-
-mtk_dsi_host_send_cmd()
-    if (!mtk_dsi_wait_for_irq_done(dsi, flag, 2000))
-        return -ETIME;
-    else
-        return 0;
-
-Since -ERESTARTSYS is non-zero, its negation evaluates to false, causing
-execution to bypass the error path and return 0. The caller then assumes the
-hardware operation completed successfully and might proceed to read stale
-memory from the hardware RX registers.
-
-[Severity: High]
-This is a pre-existing issue, but can the busy-wait loop in mtk_dsi_irq()
-cause a hard lockup?
-
-The mtk_dsi_irq() interrupt handler runs in hardirq context and contains
-a polling loop without a timeout:
-
-mtk_dsi_irq()
-    do {
-        mtk_dsi_mask(dsi, DSI_RACK, RACK, RACK);
-        tmp =3D readl(dsi->regs + DSI_INTSTA);
-    } while (tmp & DSI_BUSY);
-
-If the DSI hardware encounters an error, loses its clock, or gets stuck in a
-busy state, the DSI_BUSY bit will never clear and the CPU will spin
-indefinitely.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713095837.1659=
-0-1-angelogioacchino.delregno@collabora.com?part=3D4
