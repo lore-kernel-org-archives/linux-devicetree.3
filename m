@@ -1,171 +1,124 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F46838F629
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7761D89EF
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783928137; cv=none; b=BC5hvMy29JbIWV0acpKwn3ktbf9ve6Xq/Dxc9eTG7W/wb8OwS+POBfDL+d01UKvtEZwYNqxxPUsTRywd9xv4k1QfqJ3XUzgc8lV2TyVHTRRyOmLIJh0op7fNQ2EqesaU/Tmcf0o0n4x/T7jUteN9I/8fuqaF4z5QjccA+JXEh9k=
+	t=1783928196; cv=none; b=hdZXjMxHvCWeHL2qv5AmQsC3XHUBA6r0tGvbvj0Cj4YufN/7RFwIwqTdeIPZy9/D0Yvjm7RLXvlNVnxVA5Ojo2ZHxbiVZAWsppnUTYWLamYUIlfZ+AjwmAspTwIh6jeS6XM8DQ82dpMxGK7R2nu/k19aO5DlGNNG9fc4cJGWMcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783928137; c=relaxed/simple;
-	bh=j3iXbUN7X38CtPh55ZrfNLaGKlxQ42GqqFzmSaMRuVw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AGr1JO3texeCn/cegdKnORAyWI02YjmzMCRa/6b7DJqbzx63k46XnDv+1k05eq5QgeKZpR/1jHVaiw459yk+zp8KIBIKIVPStNuA4UVo3dKpRQmsnXGxZOuB/2r/lC2tGQihOI1np07jTWFcZZuIUp27oLjSSU3E0x8MIEDyfKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e6gKizxr; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783928196; c=relaxed/simple;
+	bh=+xwh1bLsQTbStbbo2bW1BoxK6WTRt+1SRdIq3Cn6tLg=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=Z8rGVqAX0iIiKcwN9uVMrQrjGsUxCXEWVJOlU/eXKEM02O4EFt95x3D6yZTNLSz/MnMy/VIEBQgHMqxz2O6/9y/gtFLOfazsYJtSNdESvFyqvGV2Az8bQ8bmqWnfA7ecC3zrbrJSRlxUUwcYe9Oz7bhnll9TAmZQEiBC4G3w5Ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=dGGEsD/S; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e6gKizxr"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c15e03c2763so561307966b.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 00:35:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783928134; x=1784532934; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JDyxGNSCBkTJpX/wOqxXPgGado3YyxU+X+mfbWev/Sg=;
-        b=e6gKizxrkBIVI+Y7xLrFOtC2RPNn9ij2ZzpEecskzrVcXW9qq1JRxwJDt9CHpAbGFm
-         WCjj3ljTluBBxyXnPoXBsIKrRswJEAwEluJsfgrL0Kv6nBgpk5Ydnlo3u+YHFeeCrCHs
-         mN496P3gjsyA1MJenKgwrE4oY5oPJ9Bzr6UVs88Jm1r9M4xpR+4ACK3kC0FzGfLAV5Cf
-         /ztQsXHmNKGPaLj7gLoCFlZI2YdNrkQfn3ZrrUvfeDNqqsCQX7e6nqsCxeR3+/WR8kk3
-         juEf4NsOI7PgowKKEm6j4kiR/EmoDO90E45cm57omQ/KMFzSIGH4zvqHcLWg0kvrH3UV
-         cJRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783928134; x=1784532934;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JDyxGNSCBkTJpX/wOqxXPgGado3YyxU+X+mfbWev/Sg=;
-        b=Co9NC6vQCjh9zQVNKja02FX9kkbXKXH9xALjAeWDq3OuK3ZfbIOABXMonTqGoikAaJ
-         x0edhiLxb7Ol0MxLCQRPyrhU+IlBet6rgjnuudgtEei9J4TArQJ+qvAeZrNaihKgW1dk
-         mWr5HER3byw5rBtCNBUpkN/0u7U8csccBDtXadPTIQF9tKm+j6+Dta2UxNpta1Qjd/kl
-         IgKmWYGAVqPjY68sPOJUnDv6JuWQJWTil39/uwQKe4UKQ+9hw/yT363i3LnhEUKedvMV
-         xT80kthwig4iIJTONdtqJJ62DfRQKfTmABDjCJZnSIRgCrpZHY24Vp+pj/BVOD2mKpUr
-         7Ygw==
-X-Forwarded-Encrypted: i=1; AHgh+RqHv6uZYgscvUwvzBre3ysgK02vcGQKucY47NXoovw6gahbbMfrfEgiUM9Z3Rg4h4DuxsbrZwB+8Lcy@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzlu++deaTatiKA60N+4LTCXPkU3uLjFOF2L2XfhkM4BrgGEbad
-	BnaNr+PFt1XW7PQOtMV97AwoG8/w4/ldjcwoV0mSJiBmiFURbdaM3UY6
-X-Gm-Gg: AfdE7clSylT3nufMzf4vZL8tP9P/zVaMky679rtux9bBBWsOuqdYPJxaDK0NV/B/zcS
-	VoEiyBu9RwzCJSLpmFr4o14PamtumZH9iSeRa9GPlEZLs1wcEm2syE9j5RbM/kNuLOi4+7JktJW
-	8cC7V5SEgBtxdrwa0PO8Y4Hp0Oj8KnFlqZpsS0ShkKQo5hSIGM1vZt10PikAAtQdPI6IpY3/Ry4
-	fkYKRQ9jjmOcEAL1/b+KDY4k1IGSUn6xilUCMNWxex94GVuRtbg3/BgfXveshlkcxQuXoQgCENJ
-	BIIxtteU3+7AfZSCJvQ5pXvs+cHwXgG4IHzYsDJnlOYtFUjZs67wnvOiXfJCoQv6T/Svy7I4s+3
-	5ex5MJ2FTBOuWTShfa2POM8lWGneLAu5fX6CetPksdr7hhCdp6hNnXfIisjvvkUzXGeSRn4oTyd
-	WIW9rUg7MnvSzTPOMjzDtvgzD/P3E=
-X-Received: by 2002:a17:907:9610:b0:c12:4133:39ba with SMTP id a640c23a62f3a-c161ea2ad17mr405476966b.26.1783928133448;
-        Mon, 13 Jul 2026 00:35:33 -0700 (PDT)
-Received: from NSA-L02.ad.analog.com ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15ad844889sm973820766b.15.2026.07.13.00.35.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 00:35:33 -0700 (PDT)
-Date: Mon, 13 Jul 2026 09:35:29 +0200
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Fred Chen <fredchen.openbmc@gmail.com>, 
-	"Torreno, Alexis Czezar" <AlexisCzezar.Torreno@analog.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>, 
-	Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>, 
-	Brian Chiang <chiang.brian@inventec.com>, Cosmo Chou <chou.cosmo@gmail.com>, 
-	Dixit Parmar <dixitparmar19@gmail.com>, Eddie James <eajames@linux.ibm.com>, 
-	Antoni Pokusinski <apokusinski01@gmail.com>, Thorsten Blum <thorsten.blum@linux.dev>, 
-	Ashish Yadav <ashish.yadav@infineon.com>, Syed Arif <arif.syed@hpe.com>, 
-	ChiShih Tsai <tomtsai764@gmail.com>, Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
-	"Paller, Kim Seer" <KimSeer.Paller@analog.com>, Colin Huang <u8813345@gmail.com>, 
-	Yuxi Wang <Yuxi.Wang@monolithicpower.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, 
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 2/2] hwmon: (pmbus) Add driver for Analog Devices
- MAX20912 and MAX20916
-Message-ID: <v3ixq2zcw6xpleoc67zslmhcfgj2irljzjjakzbetcn5nvpj7g@5fnwkvfdkj6i>
-References: <ak4QO9uhKOt68dl1@nsa>
- <20260708-true-carp-of-champagne-a0dcca@quoll>
- <ak41BRQBNdsQrYww@nsa>
- <b2a5e99c-6d4d-454e-8ecd-8638e4dc0ddb@roeck-us.net>
- <PH0PR03MB63512A19C32B7722D17D0FD4F1FE2@PH0PR03MB6351.namprd03.prod.outlook.com>
- <CABOy65_GqKiZLM+soZUK_34T8MYZS3dRX38-CMf_Bd1EmG0jhA@mail.gmail.com>
- <ak9gFKkfEgkU_q1G@nsa>
- <5b865eed-ae58-47fc-8d80-e14a76a93050@roeck-us.net>
- <ak_G4_eAUYflt9M3@nsa>
- <94010bec-7921-4fac-ba48-755e51c59bcb@roeck-us.net>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="dGGEsD/S"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 05A78C2BB0F
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 07:36:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E311560341;
+	Mon, 13 Jul 2026 07:36:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DBDA11BD05B6;
+	Mon, 13 Jul 2026 09:36:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783928191; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=xrtYLNpKgFt+k+yed+P/AI4r+fYgn9QYhB8AabFAesQ=;
+	b=dGGEsD/STE+fwBKsByWSWBdV5cdo1K/rWN9MsNYVh9Nhga6tUGN6TzfUn8ReqgMzId/kho
+	h9UPdCPBAih/AQm4fJ6ei6pJnbrQstAU5ApbxNe/hAkNrXTeRXlWqqU8FP1V8KM6Oo+UvI
+	vVV83vnRhoJZstm5LEhXo8hK0UTO2q1T7JlTcmmGbw7R9wL+gVmzmsJdDPRy/uO8tvXX1O
+	4beqSA3xN/r4QZGFrzQ+yrrPFz2iI1i1J9m5xVrCSpFvKOdLNzBQfjREjW6ULsiJDb9BUs
+	ILS0O4kw4+tsmH4KKylZQ5EbBqANe0bSS2U96bryTt5U93BGmR5Zlq8bB/nFTA==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <94010bec-7921-4fac-ba48-755e51c59bcb@roeck-us.net>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 13 Jul 2026 09:36:29 +0200
+Message-Id: <DJX9RKO8ROIP.1JOJVXZ11PANJ@bootlin.com>
+Subject: Re: [PATCH 2/5] arm: dts: st: Import optee node from u-boot device
+ trees
+Cc: <imx@lists.linux.dev>, <robh@kernel.org>, <conor+dt@kernel.org>,
+ <devicetree@vger.kernel.org>, <Frank.Li@kernel.org>
+From: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
+To: <sashiko-reviews@lists.linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com> <20260710-mathieu-uboot-dts-import-v1-2-ffe0210e50c9@bootlin.com> <20260710153944.BFC9B1F000E9@smtp.kernel.org>
+In-Reply-To: <20260710153944.BFC9B1F000E9@smtp.kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Jul 09, 2026 at 04:39:36PM -0700, Guenter Roeck wrote:
-> On 7/9/26 09:09, Nuno Sá wrote:
-> > On Thu, Jul 09, 2026 at 08:54:09AM -0700, Guenter Roeck wrote:
-> > > On Thu, Jul 09, 2026 at 09:54:22AM +0100, Nuno Sá wrote:
-> > > > > 
-> > > > > Based on the MAX20912/16 specs on my hand, these chips do not support
-> > > > > PMBUS_PHASE (0x04). Furthermore, the spec only indicates support for VID mode
-> > > > > and does not provide m/b/r. Therefore, some of the features you mentioned might
-> > > > > be specific to the MAX20826 series.
-> > > > 
-> > > > I see, phases are not supported using standard PMBUS.
-> > > > 
-> > > 
-> > > As mentioned in my other e-mail, it can still be supported by the driver.
-> > > That is what the chip drivers are for, after all.
-> > > 
-> > > > > 
-> > > > > Regarding enabling VOUT via GPIO, our platform handles this via the CPLD as
-> > > > > part of the hardware power sequencing. Managing this pin through the driver is
-> > > > > not a requirement for our system.
-> > > > 
-> > > > But we cannot assume all systems will behave like the above. But now i
-> > > > do wonder about controlling the GPIOs in the driver. In your system you
-> > > > clearly did not need to do it. In mine (testing with a rpi) I had to
-> > > > use a GPIO (well I could have used hogs or pinctrl). But if you control the pin
-> > > > you do gain the ability to turn off the regulator. If you don't it's always on
-> > > > (which might be indeed the bulk of the real usecases for these systems).
-> > > > 
-> > > Agreed. I don't really like it, but if the chip and some specific hardware
-> > > mandate it, it should be supported. However, that code also needs to be
-> > > tested - an untested implementation would be worse than no implementation.
-> > 
-> > That's how I tested it :). So from what I understand the preferred way
-> > is to support these pins as optional? If they are not there we just
-> > assume the pins are always enabled by some other means? In contrast to
-> > what I have today which makes these pins mandatory!
-> > 
-> 
-> I had to go back a bit in mental history .... actually, the regulator code
-> in the PMBus core doesn't touch the ON_OFF_CONFIG register. It uses the
-> OPERATION command to enable/disable outputs. The reason is that the enable
-> pin and ON_OFF_CONFIG typically affect the entire chip, while the OPERATION
-> command only affects a single channel.
-> 
+On Fri Jul 10, 2026 at 5:39 PM CEST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] Missing `bootph-pre-ram` property in the newly added `optee@fe00=
+0000` reserved memory node for `stm32mp157c-ed1.dts`, which will cause U-Bo=
+ot to strip the reservation during SPL and pre-relocation, leading to memor=
+y corruption.
+> --
+>
+> --- Patch [2]: [PATCH 2/5] arm: dts: st: Import optee node from u-boot de=
+vice trees ---
+> commit e001824900768a597c1390aaf3fe0b9e2c46bdd1
+> Author: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+>
+> arm: dts: st: Import optee node from u-boot device trees
+>
+> U-Boot is importing kernel device trees for these platforms, but adding
+> a firmware node to enable communication with OP-TEE. Importing
+> changes here will allow to remove these additions in U-Boot.
+>
+> [ ... ]
+>
+>> diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts b/arch/arm/boot/dt=
+s/st/stm32mp157c-ed1.dts
+>> index 49dd555cc228c..7da7260350869 100644
+>> --- a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
+>> +++ b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
+>> @@ -70,6 +70,18 @@ retram: retram@38000000 {
+>>  			reg =3D <0x38000000 0x10000>;
+>>  			no-map;
+>>  		};
+>> +
+>> +		optee@fe000000 {
+>> +			reg =3D <0xfe000000 0x02000000>;
+>> +			no-map;
+>> +		};
+>
+> [Severity: High]
+> Does this optee reserved memory node also need the bootph-pre-ram propert=
+y
+> like the one added for stm32mp157a-dk1.dts?
+>
+> Without the bootph-pre-ram property, U-Boot's fdtgrep utility strips the
+> optee reserved-memory node from the SPL and pre-relocation device trees.
+>
+> Because U-Boot typically relocates itself to the top of available RAM (wh=
+ich
+> on this platform overlaps with 0xfe000000), omitting this reservation cou=
+ld
+> allow U-Boot to allocate over OP-TEE's secure memory region, potentially
+> causing data corruption or TrustZone violations.
 
-Yes. The only thing I do is to read the ON_OFF_CONFIG register at probe
-to check if I need to check the enable bit in OPERATION. So that
-vout state becomes gpio && OPERATION. 
+I'm a bit torn on this point.
 
-> So far PMBus drivers typically don't touch ON_OFF_CONFIG. The ibm-cffps
-> driver supports writing it, but only through a debugfs file. The tda38640
-> driver supports writing it, but only because it does not (or not correctly)
-> support the OPERATION command. ON_OFF_CONFIG (if it is modified at all)
-> is normally set by the firmware or even in production (if the chip supports
-> non-volatile configuration). It is one of the "hairy" PMBus commands
-> which should be left alone if at all possible.
-> 
-> You can not make the property mandatory since most systems will neither
-> support nor need it since it is handled by hardware/firmware.
-> In many if not almost all cases there won't even _be_ a GPIO pin that
-> can be set by software.
+So first, this commit only imports existing code, so I was not planning
+to modify the device tree. But looking at the docs, and the
+stm32mp157a-dk1.dts file, I suspect bootph-pre-ram is also needed here.
 
-Understood.
+I will probably add a separate commit, adding bootph-pre-ram tag.
 
-- Nuno Sá
-> 
-> Guenter
-> 
+Thanks,
+Mathieu
+
+--=20
+Mathieu Dubois-Briand, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
