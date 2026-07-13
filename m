@@ -1,193 +1,217 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047973A6B99
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783936388; cv=none; b=QvMMz5OVIoVGih65iUor7D2W7URm8Ee4OCWaRdJIcfazUayzaN0+B5eRDTUyPhCmsbkIbHwnbYA4vyhJZj1zDSXRzUTu5O3kUW0MQkobNUBVZnIf7DKXOthuY+slh0U5hoexoROOVJtYb4hkvTmD3p4gew8+ZYfI1ohNo5qFytI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783936388; c=relaxed/simple;
-	bh=ij2M2kwiOeKDbVQfgMoEAJNmqYl0Dpypsxx7+TfCsrQ=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uc1CzCcR9BVJWQlRWwMMDwE8vX/8TrJIBlfjoo3wnpd2vcG7ba0qJU16ip6+Cd4BCik4LCt60SHeFpICwai8qMhK+mf6kFBCwJtrMY1Dx5M4UJHG/LkihgJ7evrGWla8vbvC4G0mXM4akE1Zo1R6O+RVW2mYCCOOKuVFzRmiNhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A0JFgexU; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1A03C81A9
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 09:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783936652; cv=pass; b=Zascc1n/gB9qDvvNiNE74e/ixYgEfnwLF9dnGnqyeCf8S3qgqn1CX0ag/ZLV82lD2cFs4e943H8Xi61/to/P0+mRDS2clUEboG4pWYzIyhN1B6OfrArtAkkRuiRQC/hkt9OlJMePpWBacUJc3MJxQHkizTqtbObZzLspClMc1EA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783936652; c=relaxed/simple;
+	bh=+iOLSTgUanaRtm9A0v0TMBC0fmd4CqVE5DXXexLAS18=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u8YfFp8cepq8esN1219Ueo8XEh4HnyXg4UQ+pwt9RAhuzCYF3x9vAasozYVJNrWVUmJowhK7wQAh+V+PAuBIzgsfXKnDzGCq7za46DbjUGQcjeGD8bUWGBa0DYlf6/nGbQYabVoyMHJqyhtoKPzMwXYShlUvKpqUqcb8SkSEwNY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=PqxXwVQK; arc=pass smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A0JFgexU"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69c7ab350e9so1828964a12.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 02:53:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="PqxXwVQK"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-664d4478a64so3855272d50.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 02:57:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1783936649; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JkIdco5uVbBKpmcN2TR2xB96sypDBx9Bd2UpaxUCT/vXvZh5S/KeMPppb4Dxy9bi4i
+         XmLIeI0ptRb7728ztTZQA3IA4ohH1BqQ64/OVIsk0nTk/eNFVcyyNtwam6B5gQXjNxXw
+         Ow5XfA5FsSeK6qagzHgAgvW/+xExMqYYTibTtRds1EZDyGlhWggkGEP1XpLKdy5jhCVf
+         X9wjaKfc3ghtaPs7pFuRyB+iOqCxb/iw8/UfnViopgIs3O3AQKd63uKmkpLW1aO/NlLL
+         R819yrICYygPTUQZyZ5x9cw4uVSGjUuLGHU56u+aWaV/zBHZY5S4UP8dFZarG3thp2qu
+         GAkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4QXt7p8Vwl3VHBbUurRh8OkWPo7b1yKApjJfQ8E1MKc=;
+        fh=UIURDnsZ8cIUbxdCLnKdS84nU+EcWmA5aHTNcy83wyA=;
+        b=s3whb11vlCw6b3GXKcggP+x01jhQ3jgjIFfEb0deOd6Md+BXkdmvLdq6m6oxzRmAll
+         AqmgKIuLkENNFjntecG5Jy+4nXQu2yq/+DpeyyDxJQhlun9J7oP+zVdyu4Ss/UpQXr8y
+         WsGGZqXwF4fRzJJPilvyJY7q1z1X3YmDws6xWURmnxmZKsQ6/cTBb2AQgAP/oqQ5jLui
+         ZLaxFzk+AtnmgcprP4atDXsvCDDT5+L4kaiZ6u73rbpjRs+0JSfDGhAEqFkFIZAl4t7T
+         1k0PmB4dS6c98UHhKogZy9m5OO3jRUt5R8qLW8+0Z9dexhVfLZMnTBInxh4LYlodlych
+         4tBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783936385; x=1784541185; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+        d=chromium.org; s=google; t=1783936649; x=1784541449; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XkoqjiJgvj0fIc6sWXvWxf3IczQwvql9N4c4357BiFs=;
-        b=A0JFgexUNYl7pPyM4pRup8Pl7+UFV6eQiII/8P0CfTFVryFg1uQaM7YAnk0kVfem8F
-         MnIrHXSo+PovyVwN273k+6K63OQOKPusMb08D0atM593GnFLFrX0Ow1zRci3B50ys/+k
-         wb8raIcmrpwdy+enh1nLJ/yAVpDklLevUAbMiUOhb4EBeSF8zTGc2LLtDMaCsowa0aCK
-         8ig955ObQ0Rtbm01PvE8ZBoBG9d4rsUnbB78r2Wv7o8BHlNSwsAxRQgDlsuU3acfMXqA
-         RbN52ZE6r1BimAIH934w61WK5ehL60mnmhJBb/rrhzMAfzw3Rf3Y9b+lQxVJ2WINAr1p
-         Hh5Q==
+        bh=4QXt7p8Vwl3VHBbUurRh8OkWPo7b1yKApjJfQ8E1MKc=;
+        b=PqxXwVQKgtRheNYg0aWlQYypQcATVDKQUMy+sTy96noJ+RogxJ/HwH/MbdaVXX65iH
+         G0G4PDW1MxUNZwqpxnupk7GABlpx3hpN+ns/ae1BPh0zwZMNp7nh8mTENWF741BSela/
+         Ny7Fzi0Rn/Gia+0LKRt5dxJC4QFcpVPRnSZTM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783936385; x=1784541185;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1783936649; x=1784541449;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XkoqjiJgvj0fIc6sWXvWxf3IczQwvql9N4c4357BiFs=;
-        b=roQr3BrziJVnqLyUV4R6VNyAT6bOPPCC1AnKQA8wgzygB2y96S15oyHxI+SdHx1Qtl
-         0vTNfdbc2DdW3VKCW0x9rNtUKMzglEVlTW3xSgORchj1rbfYZgFaXq/l+RmrJkB05qMr
-         Is9jzpOFLqAiCdUah4Dara54H2VQxb7a0SqtOfVZwHXnbwOAlPW/GEzYPIV5kStt3LPY
-         xhZZE1SGcMEeXA9lvBumDqjRXWmHTonVgWWENiLoYBdTklsv65LU0++zFpHrxbvOgXK5
-         d7RZfrQm0CTyhn/1uaDsB1ikiAvQfbWb9mAFNkNW/5EUDw9TMUZnuZ9eA6yBvHnBdDYd
-         zwmQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpF2lBbgJ/RCDrdzYf7MSNvEX3Ww+mYl78bg7VI6UE44ZAtcPanxtSoxlA1Qj8GGW4iQAqH+SKZ3GfW@vger.kernel.org
-X-Gm-Message-State: AOJu0YxroI9mgqGBjbCRgSAzP36JkeHjeCDL6EN970yd56BjH7rVNSkY
-	MCkAOmTMuDXDcYJdD1lTFtxfzuh5/DX9/96NqRHdWL2konvA19VFnxMS
-X-Gm-Gg: AfdE7cnlbTUYuXjxvdUmn4QAoHwpZ+cdnu9s94OHFYQlCwTsK9Oct3KT3JoPh4jkYdh
-	cWQHb1PzTGf1PzEt1YxajzmPWVeOtrpl2L6IzJPEHbTn3BSNwPURCi2VgLX6TIQCoyb35JKIJgY
-	eIw2vAGJm43fEaNxa891CeQAXAWEu3+PeVHo3aJT4Y8GEhGyNfCiCZ3u4MsyWyyHHBo0fPlUdKu
-	x0ihCbvPlWij0eMjK5Qzk+br9SdNfdBsYi5eB/PgJwXuwnRUoiMOP/39juwQvYhfhUn8RfRLrqb
-	/ec2AXMhUJ+4Pe5JGNX523SLsAgZ7HGJ+2L5jOFvXFuBXrPGKnid+xl4XXPqzol0iwNO264KvEt
-	VNaaYLk6O9Dhs4WP/Cwu6ZyWsTY2Dt1FUZMq9FFlPjHaFi+QLnr0ukJF44bU9I4APtzgxZKabMe
-	TCCxZIJQb+Asc6q8AJyMi/ETxxO3LCnD+WVrdegaHp6bTrxpUKwE+Jju3SO5Q0wzInaHwLR/x4E
-	I+TqS67KJj1dP0rboC0YR3qBzE=
-X-Received: by 2002:a05:6402:1e8c:b0:698:7485:3f12 with SMTP id 4fb4d7f45d1cf-69c5f0eafb7mr3910232a12.24.1783936385138;
-        Mon, 13 Jul 2026 02:53:05 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69ac41d7ceesm7759429a12.23.2026.07.13.02.53.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 02:53:04 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Mon, 13 Jul 2026 10:52:56 +0100
-To: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v7 07/17] iio: test: add kunit tests for channel prefix
- naming generation
-Message-ID: <egyms7ulkxsgu4pvfkoruelec3sf6ca4bndcuqkvxljrdluqwu@edlqne7oy3xs>
-References: <20260707-ad9910-iio-driver-v7-0-a4ec30f63700@analog.com>
- <20260707-ad9910-iio-driver-v7-7-a4ec30f63700@analog.com>
- <20260712020928.2c8d1667@jic23-huawei>
+        bh=4QXt7p8Vwl3VHBbUurRh8OkWPo7b1yKApjJfQ8E1MKc=;
+        b=lnZbuy+z8O8oXgSDqkxfg9/ETQ6Z0Rtrk7r2raxowBStU/hF/aU1Do/SifS+tbJLei
+         VS4sdd5FyxA1LsUOScDSmW9OdT5fkhrugtmEE1iIQVASLdfRVCcC8WS9E6DIlvDsOg/3
+         5LkDH7nI/DGbaD7W1yiNbxeMJT045Hrbrm2ROwQ8tu6/65RLOaT4Tj/mvaLj9ejufujq
+         fTh5E2DUuBtxXKsK7l6G/qTco2CRb6L8eW89p3aNRohgr1a5NVTmDy5eKdtMYJBr7IA7
+         MzdoKwpTUrYfHtwnJNlFIKaPYGNWAU9uo1A36j9xXly/xVtuHZ7ySgBzrA9GAKP4i54B
+         7VqQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrtOYsZgrNgjFNPIkL8klANGrYk9WPq1Vg8OIVsdRF7vWNkpn3fy3mD80NBjHONGmHR8xy6gY5bP5FP@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0PyKcG+lWZU3JGykx3LB+sVWIdOrckHXoDlbrCiJ9GJ9QaCmD
+	4wbsf+iVVCLF8cTyhjVssXkCd9Xytym3xQNJU0UnSasq3NF6LHDW2woase0bodbGuycvmJROB5M
+	7MI8HKGShL8Uno587wOuA1MROQq2RppAd+oBiZYXT
+X-Gm-Gg: AfdE7cmqdPkS6NstiQv9hahjEf1qc0RvXCeKN9PQxvArlMfxSyKq7dnZJnf1y7pgq00
+	ogu8sDUvannIdch3UiukTz17VBJCx9PqATgNvaAQjTn4M/Yxlxm7KB9w1iF9j4196JI7SbnRE6M
+	reN8ZJI2fXNA01iQnz3rSWafxypbstdu9bCMuMrZ3Y5WGATngGBbWqgXfjj+v+AapoCIRSEFZPA
+	XvcHUYcWlIkBwjCeQe0QKYE0jbSMkKSesTsXUUA8EDqF+MyrFaKgO26x6pZVpjOi4qdQHDqJFWZ
+	4dOlkc5XbDN3qewLAc7ruqJSWpU=
+X-Received: by 2002:a05:690e:c48:b0:667:f1d5:b364 with SMTP id
+ 956f58d0204a3-667f1d5b81bmr2295373d50.63.1783936649263; Mon, 13 Jul 2026
+ 02:57:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260712020928.2c8d1667@jic23-huawei>
+References: <20260709095726.704448-13-wenst@chromium.org> <20260713094329.4105208-1-wei.deng@oss.qualcomm.com>
+In-Reply-To: <20260713094329.4105208-1-wei.deng@oss.qualcomm.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 13 Jul 2026 17:57:17 +0800
+X-Gm-Features: AUfX_mwq5Qa8EaAFziCQqQmKzQg2wnKp5lbTV4kofMKUdyLtgA0yJkFs72KLWb8
+Message-ID: <CAGXv+5Ew-_y4Ui8LF6sbges-nVi7mgB0HjQtZAUTHzPh6Vwk=w@mail.gmail.com>
+Subject: Re: [PATCH v4 12/14] power: sequencing: pcie-m2: Add usb and sdio
+ targets for E-key connector
+To: Wei Deng <wei.deng@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Alan Stern <stern@rowland.harvard.edu>, 
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mengshi.wu@oss.qualcomm.com, 
+	quic_chezhou@quicinc.com, cheng.jiang@oss.qualcomm.com, 
+	shuai.zhang@oss.qualcomm.com, jinwang.li@oss.qualcomm.com, 
+	xiuzhuo.shang@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 12/07/26 02:09, Jonathan Cameron wrote:
-> On Tue, 07 Jul 2026 15:04:28 +0100
-> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> 
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Add a KUnit test suite covering __iio_chan_prefix_emit(), the helper
-> > that builds IIO sysfs attribute name prefixes from an iio_chan_spec.
-> > The suite groups cases by the enum iio_shared_by mode it exercises:
-> > 
-> >   - IIO_SHARED_BY_ALL: produces an empty prefix.
-> >   - IIO_SHARED_BY_DIR: emits direction only ("in" / "out").
-> >   - IIO_SHARED_BY_TYPE: emits "<dir>_<type>" and the differential
-> >     "<dir>_<type>-<type>" variant.
-> >   - IIO_SEPARATE: covers the full matrix of indexed, differential,
-> >     modified, output and extend_name combinations, plus the two
-> >     documented error paths (differential without indexed, differential
-> >     with modifier).
-> > 
-> > A final case exercises the seq_buf overflow path by passing an
-> > undersized buffer and expects -EOVERFLOW.
-> > 
-> > Because __iio_chan_prefix_emit() is static, the test translation unit
-> > is pulled into industrialio-core.c.
-> 
-> Isn't there some magic route cases like this that makes it non static
-> only when self tests are enabled? 
-> Claude tells me to look at include/kunit/visibility.h
-
-There is, Although I think that using
-
-	#if IS_ENABLED(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST)
-		#include "test/iio-test-channel-prefix.c"
-	#endif
-
-was more straight forward, less invasive and easier to change than..
-
-	/* In "drivers/iio/industrialio-core.c" */
-
-	#include <kunit/visibility.h>
-	...
-	VISIBLE_IF_KUNIT ssize_t __iio_chan_prefix_emit(...)
-	{
-	...
-	}
-	EXPORT_SYMBOL_IF_KUNIT(__iio_chan_prefix_emit);
-
-	/* In "iio_core.h" */
-
-	#if IS_ENABLED(CONFIG_KUNIT)
-		ssize_t __iio_chan_prefix_emit(...);
-	#endif
-
-	/* In "drivers/iio/test/iio-test-channel-prefix.c" */
-
-	#include <kunit/visibility.h>
-	#include <iio_core.h>
-	...
-	MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-	...
-	// Use __iio_chan_prefix_emit() in tests
-
-> 
-> Very nice.  A couple of really small additions requested inline.
-> I might well have missed where you exercised the corners requested though!
-> + I'll need an Ack from Lars for that maintainers entry. I'll guess that
-> Lars won't give one as not very active at the moment in this area.
-> 
-> Jonathan
-> 
-> > 
-> > Also, an entry is created under MAINTAINERS dedicated to tests for IIO
-> > core helpers.
-> > 
-> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Mon, Jul 13, 2026 at 5:43=E2=80=AFPM Wei Deng <wei.deng@oss.qualcomm.com=
+> wrote:
+>
+> On Thu, 9 Jul 2026, Chen-Yu Tsai wrote:
+> > The M.2 E-key connector allows either PCIe or SDIO for WiFi and USB or
+> > UART for BT. Currently the driver only supports PCIe and UART.
+> >
+> > Add power sequencing targets for SDIO and USB. To avoid adding a
+> > complicated dependency tree, rename the existing power sequencing units
+> > "pcie" and "uart" to "wifi" and "bt". The existing target names are lef=
+t
+> > untouched. The new "sdio" and "usb" targets just point to the renamed
+> > "wifi" and "bt" units.
+> >
+> > The "unit" names are internal to the power sequencing framework, and
+> > should be confined to a single provider. The names are only
+> > informational. Dependencies are tracked with pointers to other units.
+> >
+> > The "target" names are the strings that the consumer uses to acquire a
+> > descriptor with. As these remain the same, existing users will continue
+> > to work.
+> >
+> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 > > ---
-> >  MAINTAINERS                                |   8 +
-> >  drivers/iio/industrialio-core.c            |   4 +
-> >  drivers/iio/test/Kconfig                   |  14 ++
-> >  drivers/iio/test/iio-test-channel-prefix.c | 246 +++++++++++++++++++++++++++++
-> >  4 files changed, 272 insertions(+)
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 2b1ec46c5919..57ffc0dcfdb6 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -12634,6 +12634,14 @@ F:	include/dt-bindings/iio/
-> >  F:	include/linux/iio/
-> >  F:	tools/iio/
-> >  
-> > +IIO CORE KUNIT TESTS
-> > +M:	Lars-Peter Clausen <lars@metafoo.de>
-> 
-> I'd need an Ack from Lars for this entry.   If we don't get one are you
-> fine looking after this without Lars listed?  
+> > Changes since v2:
+> > - Expand commit message
+> > ---
+> >  drivers/power/sequencing/pwrseq-pcie-m2.c | 41 +++++++++++++++--------
+> >  1 file changed, 27 insertions(+), 14 deletions(-)
+> >
+>
+> Hi Chen-Yu,
+>
+> We tested this series on the Qualcomm Hamoa IoT EVK with both USB BT
+> and UART BT M.2 cards and found an issue with UART BT power cycling
+> when the USB hub is active.
+>
+> The "uart" and "usb" targets in this patch share the same bt_unit_data.
+> The USB hub acquires the "usb" target in hub_activate() and never release=
+s
+> it, so the bt_unit enable_count never reaches zero when hci_qca calls
+> pwrseq_power_off("uart"). As a result bt_disable() is never called,
+> W_DISABLE2# stays deasserted, and the BT chip cannot be properly reset.
+>
+> Observed on Hamoa with a UART BT card (WCN6855, sub 0xe105):
+>
+>   With your patches:
+>     lsmod: pwrseq_pcie_m2 ... 3   (provider + uart + usb)
+>     btmgmt power off -> GPIO116 stays HIGH (bt_unit ref 2->1, no callback=
+)
+>     btmgmt power on  -> "hci0: command 0xfc00 tx timeout" -> failed
+>
+>   Without your patches:
+>     lsmod: pwrseq_pcie_m2 ... 2   (provider + uart only)
+>     btmgmt power off -> GPIO116 goes LOW  =E2=9C=93
+>     btmgmt power on  -> hci0 UP RUNNING  =E2=9C=93
+>
+> USB BT card (WCN6855, sub 0x3374) tested separately works correctly with
+> your patches.
 
-That is fine, will drop his name.
+Thanks for testing. I haven't gotten around to doing the UART based BT
+in our stuff yet. Though today I had been thinking about how to reconcile
+this with the MMC pwrseq stuff, if the SDIO stuff isn't moving over to
+this. Still no idea whether that would happen.
 
--- 
-Kind regards,
+> The testing was done with the following Hamoa-specific patches on top of
+> this series:
+>   [PATCH 1/3] arm64: dts: qcom: hamoa-iot-evk: Describe the PCIe M.2 Key =
+E connector
+>     https://lore.kernel.org/all/20260709-fix-hamoa-m2-w-disable2-v1-1-5e7=
+25091266a@oss.qualcomm.com/
+>   [PATCH 2/3] power: sequencing: pcie-m2: Match WCN6855 and WCN7851 UART =
+BT variants by subdevice ID
+>     https://lore.kernel.org/all/20260709-fix-hamoa-m2-w-disable2-v1-2-5e7=
+25091266a@oss.qualcomm.com/
+>
+> The fix we verified is to give "usb" its own independent unit so its
+> enable_count is tracked separately from "uart":
+>
+>   static const struct pwrseq_unit_data pwrseq_pcie_m2_e_usb_bt_unit_data =
+=3D {
+>         .name =3D "usb-bt-enable",
+>         .deps =3D pwrseq_pcie_m2_unit_deps,
+>         .enable =3D pwrseq_pci_m2_e_bt_enable,
+>         .disable =3D pwrseq_pci_m2_e_bt_disable,
+>   };
+>
+>   /* change usb target to point to the independent unit */
+>   static const struct pwrseq_target_data pwrseq_pcie_m2_e_usb_target_data=
+ =3D {
+>         .name =3D "usb",
+>         .unit =3D &pwrseq_pcie_m2_e_usb_bt_unit_data,
+>   };
+>
+> With this change, uart_bt_unit reaches ref=3D0 on UART BT power_off and
+> bt_disable() is called correctly. Since a M.2 slot can only carry one
+> card variant at a time, the two units do not interfere in practice.
+>
+> Would this be an acceptable fix, or do you have a better approach in mind=
+?
 
-Rodrigo Alencar
+I think it's acceptable in that it works, but it needs to be properly
+documented, like "this only works because on the M.2 slot only one of
+the two interfaces is used; do not use this pattern in other drivers."
+
+It's also up to Bartosz and Mani, since I believe this is a slight abuse
+of what looks like a shared resource. I'm sure the AI review bot is going
+to complain a bunch.
+
+If it's acceptable to the maintainers, I assume you want me to fold the
+fix into my series.
+
+
+Thanks
+ChenYu
