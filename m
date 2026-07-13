@@ -1,326 +1,258 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1C93E7BB6;
-	Mon, 13 Jul 2026 10:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621773E44E4
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783938210; cv=none; b=BC183Dg+RadMcFeEFwbqyGNhqLx/eR+acRrcwGBEbZdwTTIUzEjt7xLUDJnLyWMIfwvn1zWpUx8Pa8w7bFb1md7TsY6979MhZymi8e+iHt6kxNW+YxWaGhQMQjQqL0oxbmyrULz1qAfuQuUDz7C6HMOUnCAQ1DF6eQA9wgdeETs=
+	t=1783938366; cv=none; b=qbbGm9NBHFsQXaYVyH+POum18uZQu590zATcAQ6e8ckxTaO8Mgx2maqpB92ncF+u053sJoOuKLdQujbNKDrF7aZ+/lO/p+6VUaSvbjl2L+LNEmsQrBBghxuyMYIl7YRw2kYTVLHUMfvUz/BqlqA8jyYZLVnH7i0m4UPox19JLXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783938210; c=relaxed/simple;
-	bh=e6EW3G1noluvUbsf4mXKsPJ8a0ez3clxF+2eHH/FFqg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CIjA8pXWOWUMwAX3Q9oB00T5VNuLvmzoPYzllk/PSvbFPLaew1u5u1q7hFUjulRr2o5vJ9vIlTsXpq/PlrBXLrMNkJWJUhX8V/7xtlChJQALk2UAS2b8FlG9lf5rGPWq/ffdXzBf4a/SWU4W5W7nBz+SWH31UAu+VJBgkjqgicY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZvZvIn/K; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783938366; c=relaxed/simple;
+	bh=WvCg1zYylDOwQ0hqrWZk3Fnkj74lOE1ILJ1fp/Cq0Fk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lxmUZoAS8wSW9VM4TAL4REtCM91h8GioQxSywrDzdtgYAWJpq/5G0rS6W3b20p51dQcVor5mr2jdWf5nuVKSsfNMqGmE0TpD4IP5NMw+AhHluwOfjMdcNhyQZ+i36SDtJJz6VGJcvXYi8WysUy9dNY/+zVMhjhpdrjMiXes13BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EpFc6CcB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iy9iilsS; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZvZvIn/K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783938207;
-	bh=e6EW3G1noluvUbsf4mXKsPJ8a0ez3clxF+2eHH/FFqg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ZvZvIn/K20LMUklJ5R2g85ND+bvgYQRUr6X1Kahvy6RsateTMQbNPTNdkySXFIOLq
-	 DU5m0jIoWgPko7AfNhJwbfSVjqR358RAzxaSl/WiMxW3mX5wGA80IBZozpp3H7G7no
-	 J2wykpuXVraFpr08UWD9eKtFS7eAulLmqW/qv7QWyLM79tKUIGwla3c8+oJEznEH0p
-	 0jfLKtqNyk+KHVaSSOaUkTLPHfJ0jeagwlrS7/VWIzdJer5NXKukcxPcIvI8xddrBr
-	 +xFZpAAzPZOXYTPGHtu3gJ3sqtPVipxwnm4vFVOrM8lB2gvBAS4hOo0l+nIQDgB9yp
-	 jdtVet+n8d1XQ==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AFF4F17E023C;
-	Mon, 13 Jul 2026 12:23:26 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunfeng.yun@mediatek.com
-Cc: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	chunkuang.hu@kernel.org,
-	p.zabel@pengutronix.de,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	justin.yeh@mediatek.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	kernel@collabora.com
-Subject: [PATCH v2 2/2] phy: mediatek: Add support for MT8196 MIPI DSI PHY
-Date: Mon, 13 Jul 2026 12:23:22 +0200
-Message-ID: <20260713102322.21782-3-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713102322.21782-1-angelogioacchino.delregno@collabora.com>
-References: <20260713102322.21782-1-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EpFc6CcB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iy9iilsS"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6Nkll507299
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:26:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=dvxFWpBIUKl297MMvlXgvj
+	gG2qnWL6hrJmi3MQ7wPJA=; b=EpFc6CcBgSP9T3Zgrli4pbhUqfUk1Zrv/J4XiV
+	oBJWJclpDAVVFojxPCkcGY4ULWi8/XbbEETfCP96qyAgrC/lFNqbq75DX8RUAfXR
+	BzCGZNOFpuPtWmDT0KhWKqyMdfQEeYZ4YeRJd6S4g87EOM0YxnNclNMQBLGPwORi
+	qTY5q5AoKE6Dzt6Dxg79/2A5CGHjQKbhr6zX/93Qeaa0ZIjykckRNEC9JCLgblCn
+	DRTG1Vc7swuZ9l7J6lGNpbyBpiA6bsXjCR5iOnJbPXEZcP+F6L89Gp7YvIvXKb2I
+	k9a+H1BfMje0EtbSI8p7P1LMsQ73L79+o17NZmCnK3dZ1w3A==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fctc8h1nd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:26:04 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-ca8aee88725so4265619a12.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 03:26:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783938364; x=1784543164; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dvxFWpBIUKl297MMvlXgvjgG2qnWL6hrJmi3MQ7wPJA=;
+        b=iy9iilsSc+P0tGEyn30W3dHdVUfnMagagrAq0ITsLqzIPekDgNhmMSdgH+q+Ee8Zvi
+         WtVJHZ/C60eQWj3EwNZkEG9MpYV5ww8KIajR+v6z3lO12u9wxBnSiOOixZn31pO2Miti
+         6o8UGYQgPaMGrgMQI0rsrCdDf+hFr/CNiY+vPXfLwGr9/5bnf32TiBzTuNaFoT8IJGUc
+         q6+0okude3tZ2g2Mi3iIShRRnBSZITdR5tQDDS/WL7tL59xZ9XrVIRNMUppTdwPQC2zo
+         RkVGMvTEH5HbgKLdoVd+fpJlTrX2H4YI4lLKfujShGqbG4X8YT+qoFlwumMs8K4JFYXT
+         5syw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783938364; x=1784543164;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dvxFWpBIUKl297MMvlXgvjgG2qnWL6hrJmi3MQ7wPJA=;
+        b=l8J7SwvXdzpgZWMsP76r3IvJiLq1YFzq1/c8c/YxLgB8pBRJSxsNkXpiLbQYB+PPLy
+         ZeMgw+xsYzrUNr5xdXraO3PBH6C4TRjaUNEmYknPS/DawmzrL8AVavsRhdSr+SemcKAV
+         j/oSmDTPFvifKeVRXTnawyCm3G99sYd6DiCroQwvdr8ZCVMBF0kvR9eF6Lp2/nARB/cc
+         GRgGz7it1QdYatfxtpga1A7G/T1ubk0j6oIfY1vhFdXrnZlGMxQm5z/EnHbZV/Vy47l1
+         n/qR6EZ0kygEOD3xkvvCKoEDB+xz6R37JAMnznXumv5MI4ejFaEjUXk7k8WX7JN9x2F0
+         ja9w==
+X-Forwarded-Encrypted: i=1; AHgh+Rrp8MY+/X4hicIOZdp5qS6ZVnWv2zTTC0x+1Sn2qv2WZ5umZNu4NuWoG++r9QwyT+0h0syARtLmeY+4@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy19YThzFnUgeBQ+oscGU/iK8vK5SypgXpAMFT91MI1IaZV2gNM
+	OK8ws44GCNxqR6KALU6C6mBJoKPAD8RUfqD0TC2B09QraJWxxdFBXHLlkja1eXKMMoSB5J6ohsa
+	leXAZguHtpKtwLlEFpRgRuHLZKgoCCTGp3PRkyiF+SFuwJjcplcjiOHuESQAvVXrH
+X-Gm-Gg: AfdE7cn5vFFEOvR5u/S0KiwN3kx2mLkle2FMs6rr8ePf/2+E+Gn2hDlwHPFGcl+GAMg
+	zDha18DbyadB/yXKmdKniTTn/rppjlCr5dvh7wXtIWVZ6++5Uc9OL3T9xxTcT/+MTEoZtw4NyE7
+	ITyQ6hpK5IlyCCIE2jHHUaCurNQFXqZus5ySzunaSqzExUy6BanPuY5WWoBGudchXZ9U5K2b3Rw
+	mamaWuUxRLDyX5ko4VJNyy9rDzI4ER2l76qOGe0xKeH2oSCb0++81TCBF8t/CyfQ21zuJtfftM7
+	l7FoKNj0aRsxL/0P6zjO++gNJnCp+pSHsUSJWX7MY+itsG7zcucy4Avqusfn1wWzoNzmwpoGnFC
+	43pNonbKV8NDjT9znfrmb1gjweT3s2zsndt1Fb6wp
+X-Received: by 2002:a05:6a21:9f17:b0:3bf:e2f1:1b14 with SMTP id adf61e73a8af0-3c110a619c2mr10200339637.16.1783938363745;
+        Mon, 13 Jul 2026 03:26:03 -0700 (PDT)
+X-Received: by 2002:a05:6a21:9f17:b0:3bf:e2f1:1b14 with SMTP id adf61e73a8af0-3c110a619c2mr10200308637.16.1783938363337;
+        Mon, 13 Jul 2026 03:26:03 -0700 (PDT)
+Received: from hu-smankad-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b924258a2sm49010603c88.1.2026.07.13.03.25.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 03:26:02 -0700 (PDT)
+From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Subject: [PATCH 0/7] Register MPM under CPU cluster power domain to manage
+ RPM notification
+Date: Mon, 13 Jul 2026 15:55:40 +0530
+Message-Id: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACS9VGoC/x3MywqAIBBA0V+JWSeUhD1+JSJGnWroiUYE4r8nL
+ e/i3ACeHJOHLgvg6GHP55GizDMwCx4zCbapQRZSFaqsha6EX3h1OG7XPqK1fCciKmy1aaTGiQg
+ SvhxN/P7jfojxA273/XNoAAAA
+X-Change-ID: 20260617-b4-shikra_lpm_addition-4a9bc82bafee
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783938358; l=4971;
+ i=sneh.mankad@oss.qualcomm.com; s=20250818; h=from:subject:message-id;
+ bh=WvCg1zYylDOwQ0hqrWZk3Fnkj74lOE1ILJ1fp/Cq0Fk=;
+ b=Zh+KYJtqq22v5gJg4D9UBcr+AoShv/hjkNuuX0iIBaLMDLasPPNxyDg54DZX+b+8o6IP6Z8Ij
+ 9CmencsD3tSD+AGGm1TPBpQCZOqW/x393OYcj+/anOdSd4k9NxgnGZg
+X-Developer-Key: i=sneh.mankad@oss.qualcomm.com; a=ed25519;
+ pk=sv57EGwdcfnp6xJmoBCIT1JFSqWI+gawRHkJWj/T2B0=
+X-Proofpoint-GUID: _VP4SEkl4xbm7UY-N_asVVeEmoLhz_SV
+X-Proofpoint-ORIG-GUID: _VP4SEkl4xbm7UY-N_asVVeEmoLhz_SV
+X-Authority-Analysis: v=2.4 cv=UtRT8ewB c=1 sm=1 tr=0 ts=6a54bd3c cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=qNkiBxRVe5u3VoiZqJoA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDEwOCBTYWx0ZWRfX8uhX6AlIEUQW
+ puO7QzG9Fb2KVwn5QbTKtGlpDOcxFmQMsG4dDvpLEvBsqPLTc28g4eyxGxpwSEe41f6eJEEYj0m
+ qiDZn8co45SOdUSGCXSFMShIIsQCSRE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDEwOCBTYWx0ZWRfX9ukC+UWJxSf6
+ ncesi4cpwk7RoF9P+bgrYGNXx6+MjZoRmc9zp2E9FZnH+M7dI6Hll34VuZwEHykVt5ZrjGioZZ8
+ 4WvIDx4YPAifJLPcNNA70CJXwfkUEY73oRZOqRs/7me9rQsnwQuXypsnfTZve36Na0izN3sEnDz
+ SO0L1xoIzUojSSbi1S22D6zcj9q/slkJJMAbcsfAI1ljAJQElZMxMnEc6hllRXQgBIt6ueTvNcM
+ Z9XcMeRmN9QxK7Z4WAkquZM6g/mbllW7K7qq9YFwcVV4eODQgOHZ35g1HnZ+qnv/3+3+qoySXRB
+ +P/6lLHmNt/Ni1R0TmOsjzClsfYe8171aEOl3KLgsTDRUI67M8hoV5KbsEey1Qqov4KmCM3B+VQ
+ blCAhFC4H7vmABBtcjFDP3zrw4qT/8po80aEPCNwo3DE5Rko3uGo3+mzqPn6LxEmtz0nXhUMN1v
+ 6Ilk+2/2s9KugOobwNQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 suspectscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130108
 
-Add support for the MIPI DSI PHY found in the MediaTek MT8196 SoC
-and its variants.
-This PHY has a different register layout and provides support for
-more hardware features compared to the previous generation.
+MPM irqchip needs to notify RPM (Resource Power Manager) processor to read
+the latest wake up capable interrupts when the CPU cluster is entering the
+deepest idle state. This is done by sending IPC interrupt to RPM and is
+implemented as .power_off() callback by registering MPM as parent power
+domain to CPU cluster.
 
-This initial driver only adds support for basic functionality that
-is necessary to drive MIPI DSI displays as a D-PHY.
+Such implementation introduces a hard probe dependency between MPM irqchip
+and CPU cluster power domains. That is MPM irqchip needs to finish probe
+before PSCI power domains are probed. MPM irqchip can be build as module
+and can get later inserted where as PSCI power domains is not a module.
 
-Feature additions like lane-swap, DPHY/CPHY switching, dual-port,
-and others, may be done in the future.
+For in-built driver cases too PSCI domain gets probed first and later MPM
+irqchip leading to failure of CPUidle states.
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Detailed flow of the non-working scenario:
+
+psci-cpuidle-domain.c probe
+--> dt_idle_pd_init_topology()
+    --> of_genpd_add_subdomain()
+        --> genpd_get_from_provider()
+            --> fails to find parent MPM genPD provider
+                --> returns -EPROBE_DEFER.
+
+irq-qcom-mpm.c probe
+--> of_genpd_add_provider_simple()
+    --> genpd_add_provider()
+        --> MPM added as a genPD provider.
+
+Now when psci_cpuidle_probe() is called to probe the CPU idle states, it
+tries to map the states to the mentioned power-domains.
+
+But since power domains probe has been deferred, psci_cpuidle_probe() too
+will return -EPROBE_DEFER.
+
+commit af5376a77e87 ("cpuidle: psci: Transition to the faux device
+interface") transitioned cpuidle-psci to a faux device interface.
+
+faux_device_create() calls faux_device_create_with_groups(), which ignores
+the probe return value, and destroys the device if dev->driver is not set.
+
+This will lead to psci_cpuidle_probe() not being called again, resulting in
+all idle-state devices failing to init in SoCs setting MPM as a parent
+power domain to CPU cluster.
+
+cpuidle-psci.c init
+--> faux_device_create()
+        ...
+        --> psci_cpuidle_probe()
+            --> psci_idle_init_cpu()
+                ...
+                --> psci_dt_cpu_init_topology()
+                ...
+                -> dev_pm_domain_attach_by_name()
+                   --> __genpd_dev_pm_attach()
+                       --> genpd_get_from_provider()
+                           --> fails to find CPU genPD provider
+                               --> returns -EPROBE_DEFER
+                                   --> return value ignored and device
+                                       destroyed
+psci-cpuidle-domain.c probe
+--> dt_idle_pd_init_topology()
+    --> of_genpd_add_subdomain()
+        --> genpd_get_from_provider()
+            --> finds MPM power domain
+                --> power-domains topology init successful
+
+Below are the logs from shikra SoC:
+
+[    1.035164] CPUidle PSCI: failed to create CPU PM domains ret=-517
+
+[    3.651715] PM: Added domain provider from
+               /remoteproc/interrupt-controller
+
+[    4.129563] CPUidle PSCI: CPU 0 failed to PSCI idle
+[    4.149294] CPUidle PSCI: Failed to create psci-cpuidle device
+
+[    4.743389] CPUidle PSCI: Initialized CPU PM domain topology using OSI
+               mode
+
+Currently only 2 SoCs follow this method - Agatti and sm6375. Agatti has
+CPU cluster power domain disabled, which is why idle-states are allowed to
+function there.
+
+Move the RPM notification handling to the GENPD_NOTIFY_PRE_OFF callback and
+register MPM under the CPU cluster power domain.  Use runtime PM to report
+the default RPM_SUSPENDED state to genPD so that the CPU cluster power
+domain can enter low power mode.
+
+This will remove the dependency on probe ordering and allow individual CPU
+idle states, CPU cluster idle states and RPM notification to function
+properly.
+
+Also enable CPU and CPU cluster LPMs for Shikra.
+
+Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 ---
- drivers/phy/mediatek/Makefile                 |   1 +
- .../phy/mediatek/phy-mtk-mipi-dsi-mt8196.c    | 196 ++++++++++++++++++
- drivers/phy/mediatek/phy-mtk-mipi-dsi.c       |   1 +
- drivers/phy/mediatek/phy-mtk-mipi-dsi.h       |   2 +-
- 4 files changed, 199 insertions(+), 1 deletion(-)
- create mode 100644 drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
+Sneh Mankad (7):
+      dt-bindings: interrupt-controller: mpm: Document power-domains property
+      irqchip/irq-qcom-mpm: Register MPM under CPU cluster power domain
+      irqchip/irq-qcom-mpm: Prepare common access path for timer and pin regs
+      irqchip/irq-qcom-mpm: Program wakeup timer when CPU cluster goes to LPM
+      arm64: dts: qcom: sm6375: Make MPM device as part of CPU cluster domain
+      arm64: dts: qcom: agatti: Do not mark MPM as power domain
+      arm64: dts: qcom: shikra: Add CPU idle states
 
-diff --git a/drivers/phy/mediatek/Makefile b/drivers/phy/mediatek/Makefile
-index 1b8088df71e8..ed0da708759b 100644
---- a/drivers/phy/mediatek/Makefile
-+++ b/drivers/phy/mediatek/Makefile
-@@ -21,4 +21,5 @@ obj-$(CONFIG_PHY_MTK_MIPI_CSI_0_5)	+= phy-mtk-mipi-csi-0-5.o
- phy-mtk-mipi-dsi-drv-y			:= phy-mtk-mipi-dsi.o
- phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8173.o
- phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8183.o
-+phy-mtk-mipi-dsi-drv-y			+= phy-mtk-mipi-dsi-mt8196.o
- obj-$(CONFIG_PHY_MTK_MIPI_DSI)		+= phy-mtk-mipi-dsi-drv.o
-diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
-new file mode 100644
-index 000000000000..273f236fa7e9
---- /dev/null
-+++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi-mt8196.c
-@@ -0,0 +1,196 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019 MediaTek Inc.
-+ * Author: jitao.shi <jitao.shi@mediatek.com>
-+ *
-+ * Copyright (c) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ */
-+
-+#include "phy-mtk-io.h"
-+#include "phy-mtk-mipi-dsi.h"
-+
-+#define MIPITX_LANE_CON		0x0004
-+#define RG_DSI_CPHY_T1DRV_EN		BIT(0)
-+#define RG_DSI_ANA_CK_SEL		BIT(1)
-+#define RG_DSI_PHY_CK_SEL		BIT(2)
-+#define RG_DSI_CPHY_EN			BIT(3)
-+#define RG_DSI_PHYCK_INV_EN		BIT(4)
-+#define RG_DSI_PWR04_EN			BIT(5)
-+#define RG_DSI_BG_LPF_EN		BIT(6)
-+#define RG_DSI_BG_CORE_EN		BIT(7)
-+#define RG_DSI_PAD_TIEL_SEL		BIT(8)
-+
-+#define MIPITX_VOLTAGE_SEL	0x0008
-+#define RG_DSI_HSTX_LDO_REF_SEL		GENMASK(9, 6)
-+#define RG_DSI_PRD_REF_SEL		GENMASK(5, 0)
-+#define RG_DSI_PRD_REF_MINI		0
-+#define RG_DSI_PRD_REF_DEF		4
-+#define RG_DSI_PRD_REF_MAX		7
-+
-+#define MIPITX_PRESERVED	0x000c
-+#define MIPITX_PRESERVED_DEF		0xffff0040
-+#define MIPITX_PRESERVED_MINI		0xffff00f0
-+
-+#define MIPITX_PLL_PWR		0x0028
-+#define AD_DSI_PLL_SDM_PWR_ON		BIT(0)
-+#define AD_DSI_PLL_SDM_ISO_EN		BIT(1)
-+#define MIPITX_PLL_CON0		0x002c
-+#define MIPITX_PLL_CON1		0x0030
-+#define RG_DSI_PLL_EN			BIT(0)
-+#define RG_DSI_PLL_POSDIV		GENMASK(10, 8)
-+#define MIPITX_PLL_CON2		0x0034
-+#define MIPITX_PLL_CON3		0x0038
-+#define MIPITX_PLL_CON4		0x003c
-+#define RG_DSI_PLL_IBIAS		GENMASK(11, 10)
-+
-+#define MIPITX_D2_SW_CTL_EN	0x015c
-+#define MIPITX_D0_SW_CTL_EN	0x025c
-+#define MIPITX_CK_CKMODE_EN	0x0320
-+#define DSI_CK_CKMODE_EN		BIT(0)
-+#define MIPITX_CK_SW_CTL_EN	0x035c
-+#define MIPITX_D1_SW_CTL_EN	0x045c
-+#define MIPITX_D3_SW_CTL_EN	0x055c
-+#define DSI_SW_CTL_EN			BIT(0)
-+
-+#define DSI_PHY_XTAL_CLK_HZ		26000000
-+
-+static int mtk_mipi_tx_pll_enable(struct clk_hw *hw)
-+{
-+	struct mtk_mipi_tx *mipi_tx = mtk_mipi_tx_from_clk_hw(hw);
-+	void __iomem *base = mipi_tx->regs;
-+	u32 voltage = RG_DSI_PRD_REF_MINI;
-+	u32 pres = MIPITX_PRESERVED_MINI;
-+	unsigned long long pcw_calc;
-+	unsigned int txdiv, txdiv0;
-+	u32 pcw;
-+
-+	dev_dbg(mipi_tx->dev, "enable: %u bps\n", mipi_tx->data_rate);
-+
-+	if (mipi_tx->data_rate >= 2000000000) {
-+		/* Select higher signaling voltage for fast data rates */
-+		voltage = RG_DSI_PRD_REF_DEF;
-+		pres = MIPITX_PRESERVED_DEF;
-+		txdiv = 1;
-+		txdiv0 = 0;
-+	} else if (mipi_tx->data_rate >= 1000000000) {
-+		txdiv = 2;
-+		txdiv0 = 1;
-+	} else if (mipi_tx->data_rate >= 500000000) {
-+		txdiv = 4;
-+		txdiv0 = 2;
-+	} else if (mipi_tx->data_rate > 250000000) {
-+		txdiv = 8;
-+		txdiv0 = 3;
-+	} else if (mipi_tx->data_rate >= 125000000) {
-+		txdiv = 16;
-+		txdiv0 = 4;
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+	pcw_calc = ((u64)(mipi_tx->data_rate / 2) * txdiv) << 24;
-+	pcw_calc = div_u64(pcw_calc, DSI_PHY_XTAL_CLK_HZ);
-+
-+	if (pcw_calc > U32_MAX) {
-+		dev_err(mipi_tx->dev, "Calculated PCW=%llu overflow!\n", pcw_calc);
-+		return -EINVAL;
-+	}
-+	pcw = (u32)pcw_calc;
-+
-+	mtk_phy_update_field(base + MIPITX_VOLTAGE_SEL, RG_DSI_PRD_REF_SEL, voltage);
-+	writel(pres, base + MIPITX_PRESERVED);
-+
-+	mtk_phy_set_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_PWR_ON);
-+	mtk_phy_clear_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-+	usleep_range(30, 60);
-+
-+	mtk_phy_clear_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_ISO_EN);
-+	writel(pcw, base + MIPITX_PLL_CON0);
-+	mtk_phy_update_field(base + MIPITX_PLL_CON1, RG_DSI_PLL_POSDIV, txdiv0);
-+	usleep_range(30, 60);
-+
-+	mtk_phy_set_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-+	usleep_range(30, 60);
-+
-+	return 0;
-+}
-+
-+static void mtk_mipi_tx_pll_disable(struct clk_hw *hw)
-+{
-+	struct mtk_mipi_tx *mipi_tx = mtk_mipi_tx_from_clk_hw(hw);
-+	void __iomem *base = mipi_tx->regs;
-+
-+	mtk_phy_clear_bits(base + MIPITX_PLL_CON1, RG_DSI_PLL_EN);
-+
-+	mtk_phy_set_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_ISO_EN);
-+	mtk_phy_clear_bits(base + MIPITX_PLL_PWR, AD_DSI_PLL_SDM_PWR_ON);
-+}
-+
-+static int mtk_mipi_tx_pll_determine_rate(struct clk_hw *hw,
-+					  struct clk_rate_request *req)
-+{
-+	req->rate = clamp_val(req->rate, 125000000, 1600000000);
-+
-+	return 0;
-+}
-+
-+static const struct clk_ops mtk_mipi_tx_pll_ops = {
-+	.enable = mtk_mipi_tx_pll_enable,
-+	.disable = mtk_mipi_tx_pll_disable,
-+	.determine_rate = mtk_mipi_tx_pll_determine_rate,
-+	.set_rate = mtk_mipi_tx_pll_set_rate,
-+	.recalc_rate = mtk_mipi_tx_pll_recalc_rate,
-+};
-+
-+static void mtk_mipi_tx_power_on_signal(struct phy *phy)
-+{
-+	struct mtk_mipi_tx *mipi_tx = phy_get_drvdata(phy);
-+	void __iomem *base = mipi_tx->regs;
-+
-+	/* BG_LPF_EN / BG_CORE_EN */
-+	writel(RG_DSI_PAD_TIEL_SEL | RG_DSI_BG_CORE_EN, base + MIPITX_LANE_CON);
-+	/* Wait for MIPI core to enable */
-+	usleep_range(30, 100);
-+	writel(RG_DSI_BG_CORE_EN | RG_DSI_BG_LPF_EN, base + MIPITX_LANE_CON);
-+
-+	/* Switch OFF each Lane */
-+	mtk_phy_clear_bits(base + MIPITX_D0_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_D1_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_D2_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_D3_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_clear_bits(base + MIPITX_CK_SW_CTL_EN, DSI_SW_CTL_EN);
-+
-+	/*
-+	 * The MIPI TX drive strength is in the range of 3000 ~ 6000 microamps:
-+	 * RG_DSI_HSTX_LDO_REF_SEL expresses an offset from the minimum drive
-+	 * strength (3000uA) and can add a maximum offset of 3000uA, reaching a
-+	 * maximum drive strength of 3000+3000=6000uA.
-+	 */
-+	mtk_phy_update_field(base + MIPITX_VOLTAGE_SEL, RG_DSI_HSTX_LDO_REF_SEL,
-+			     (mipi_tx->mipitx_drive - 3000) / 200);
-+
-+	mtk_phy_set_bits(base + MIPITX_CK_CKMODE_EN, DSI_CK_CKMODE_EN);
-+}
-+
-+static void mtk_mipi_tx_power_off_signal(struct phy *phy)
-+{
-+	struct mtk_mipi_tx *mipi_tx = phy_get_drvdata(phy);
-+	void __iomem *base = mipi_tx->regs;
-+
-+	/* Switch ON each lane one by one */
-+	mtk_phy_set_bits(base + MIPITX_D0_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_D1_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_D2_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_D3_SW_CTL_EN, DSI_SW_CTL_EN);
-+	mtk_phy_set_bits(base + MIPITX_CK_SW_CTL_EN, DSI_SW_CTL_EN);
-+
-+	writel(RG_DSI_PAD_TIEL_SEL | RG_DSI_BG_CORE_EN, base + MIPITX_LANE_CON);
-+	writel(RG_DSI_PAD_TIEL_SEL, base + MIPITX_LANE_CON);
-+}
-+
-+const struct mtk_mipitx_data mt8196_mipitx_data = {
-+	.mipi_tx_clk_ops = &mtk_mipi_tx_pll_ops,
-+	.mipi_tx_enable_signal = mtk_mipi_tx_power_on_signal,
-+	.mipi_tx_disable_signal = mtk_mipi_tx_power_off_signal,
-+};
-diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi.c b/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
-index 065ea626093a..46f0cb3ac096 100644
---- a/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
-+++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi.c
-@@ -183,6 +183,7 @@ static const struct of_device_id mtk_mipi_tx_match[] = {
- 	{ .compatible = "mediatek,mt2701-mipi-tx", .data = &mt2701_mipitx_data },
- 	{ .compatible = "mediatek,mt8173-mipi-tx", .data = &mt8173_mipitx_data },
- 	{ .compatible = "mediatek,mt8183-mipi-tx", .data = &mt8183_mipitx_data },
-+	{ .compatible = "mediatek,mt8196-mipi-tx", .data = &mt8196_mipitx_data },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mtk_mipi_tx_match);
-diff --git a/drivers/phy/mediatek/phy-mtk-mipi-dsi.h b/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
-index 5d4876f1dc95..e6f967078e3b 100644
---- a/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
-+++ b/drivers/phy/mediatek/phy-mtk-mipi-dsi.h
-@@ -42,5 +42,5 @@ unsigned long mtk_mipi_tx_pll_recalc_rate(struct clk_hw *hw,
- extern const struct mtk_mipitx_data mt2701_mipitx_data;
- extern const struct mtk_mipitx_data mt8173_mipitx_data;
- extern const struct mtk_mipitx_data mt8183_mipitx_data;
--
-+extern const struct mtk_mipitx_data mt8196_mipitx_data;
- #endif
+ .../bindings/interrupt-controller/qcom,mpm.yaml    |   6 +-
+ arch/arm64/boot/dts/qcom/agatti.dtsi               |   2 -
+ arch/arm64/boot/dts/qcom/shikra.dtsi               |  94 ++++++++++-
+ arch/arm64/boot/dts/qcom/sm6375.dtsi               |   3 +-
+ drivers/irqchip/irq-qcom-mpm.c                     | 185 ++++++++++++++++-----
+ 5 files changed, 243 insertions(+), 47 deletions(-)
+---
+base-commit: 7777cc195ca1301a28008ca5cdb98bdb2a9d0def
+change-id: 20260617-b4-shikra_lpm_addition-4a9bc82bafee
+
+Best regards,
 -- 
-2.54.0
+Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 
