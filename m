@@ -1,213 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D173358379;
-	Mon, 13 Jul 2026 19:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308CB31283E;
+	Mon, 13 Jul 2026 19:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783972632; cv=none; b=fnO0AYqAKUb/Rs2BrzGgKNmOXOBnnf+l7AZDpUrB1cbJPwWGt/pQlmq/klhLvLIgOSQfMRMpl+wuf9Jmb/cgOdoR56BJI1bQFdCyMRIokBY3pkcVVy91Mc6St0k3ikbLMX9rygc19Bh5pHJgS1Fg+5sstHQWLRHbmctnvQ3DJGQ=
+	t=1783972695; cv=none; b=QRBDrz6KflO2/Mz37zYV3KdXL3G5+I7GQsrg9b0+U9ADG1eaBtlhGjIJpiInfK4XOGfOi1KuVMEywBo71KIbkVavVh9e+yNLZkuE/DGTcjukg0sKSj6U1ao249l+jirTkZlN9MUDiBBt3wd98e/fiP/cFfNxY1uMGa1v7LJ3OT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783972632; c=relaxed/simple;
-	bh=7HBr9bx16WNpztiZ+imRF+Iuppqc6u1b3CX8c0GjIlc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KtTVy/HfaRES4d5fotJwKQs/8dBWJ9PpF0ON48vJXjHqBx4rHZKPJ9aEagRVazr8FWLNKOjBMJa6nkX8KburwLODjW8uzIgDrxPWIYfIl/nGr7kz0PHxjYW4KJbI1Nnm9aiH4nvMTEDIwmXMhKwLaqxbSYjBBuXzcft4C11rpfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTzJGmjX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783972695; c=relaxed/simple;
+	bh=YWJDCyT186dHX81KVVE+O5xBOZa9fYqrWM9YYEL3dk0=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aUX4JNIa7Fjr6cypfd0M8FSYNiWe1qrQ7LyytUHIlkOC/1QmAgpjpWibPBOjYK9wqCQ8XHIfx06GqakfheAOLSFSli3T7T+QsSthXdWu38rhaB7FJIwkMSPkMA0MgDsHYGhyvP621oJnxlFQBwE17M293czO7Z9K8OZcjt+IQ8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=O6etSBjV; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTzJGmjX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D5241F000E9;
-	Mon, 13 Jul 2026 19:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783972630;
-	bh=s1OhJA6QAkINroSZ4Je9QlXJbHB576JiAJRMdWngvTw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QTzJGmjXtyozHYBX0KqfpAGK7dz3LC+QFGQqHFKM1Ats1eoGGs8Bkn3exLh6Rp9Eh
-	 SS96kp6joifcB2KuP1cb1nG6A5I3r1m4SNV4HPyqm4bkopgVM/Gsj1+StO3cKhMTwH
-	 IBnD5rgcAI/9Cc3MH8UKJZ5OpsFSyWIs+Bew9n35k7WFo5NJKWIz5KRHAgdiHoE772
-	 5vkQ4fzZZ4uPgGaUFYTwQcw2Dr/0OwFjOxo7xSVZ0ugHqV245c7Vhak6g/ikafm6jj
-	 4azBEWajBkXJc57AGpVV8CEpXzFxaSvZ7OrSRX251rcvNkEjQ99IJD/FJ9ohd81JGW
-	 nul11J0Eo3RbQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 10/11] arm64: dts: qcom: shikra: Enable WiFi/BT on
- SoMs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260714-shikra-dt-m1-v6-10-bee265d3499b@oss.qualcomm.com>
-References: <20260714-shikra-dt-m1-v6-0-bee265d3499b@oss.qualcomm.com>
- <20260714-shikra-dt-m1-v6-10-bee265d3499b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 19:57:09 +0000
-Message-Id: <20260713195710.5D5241F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="O6etSBjV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1783972692;
+	bh=YWJDCyT186dHX81KVVE+O5xBOZa9fYqrWM9YYEL3dk0=;
+	h=Subject:From:To:Date:In-Reply-To:References:From;
+	b=O6etSBjVtAmdzcSxXi/mkCykAKcecNb3kPZtUgRfa628X6uT+6uvaZgXFuH8uu6PG
+	 954tufeuMi5vJz9jl9JO/gFQoVA2TzGIC5AgLbP76FqcMcrRlOCQ+0s1PcqczhnoSs
+	 bzRbAq4l79Ok8eVXa3MeOwm4+zN9SEV8BfciT3r/SnBPsBe5e5ikoirtEqjM4RKcfS
+	 5M2kInrA5nur0gRlcipsacU2af7FZcjzVZ3JBkNntiE16ZSencGlgn8JZfVbZl3Z1t
+	 kmaR6xjeJcIBgzwLXL0Y4V/RjV8apS0rzchDnws3KIVrUdP09MJ1EdyvSY/0m3zvMP
+	 rGPQ7RT3uDoTw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 94AB017E02BA;
+	Mon, 13 Jul 2026 21:58:10 +0200 (CEST)
+Message-ID: <cf949589ca13c1206724c5dbaaa441bed4e163e9.camel@collabora.com>
+Subject: Re: [PATCH v15 06/12] media: mediatek: jpeg: fix decoding buffer
+ number setting timing issue
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Kyrie Wu <kyrie.wu@mediatek.com>, Hans Verkuil
+ <hverkuil-cisco@xs4all.nl>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger	
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Date: Mon, 13 Jul 2026 15:58:08 -0400
+In-Reply-To: <20260702072614.10373-7-kyrie.wu@mediatek.com>
+References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
+	 <20260702072614.10373-7-kyrie.wu@mediatek.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-+eCo3b9gsBb1UHx9JQhS"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] Critical under-voltage and over-voltage hazards due to incorre=
-ct regulator assignments for the WCN3988 PMU and WiFi nodes.
-- [High] Missing `vddch1-supply` causes power sequencing driver probe failu=
-re on constrained systems.
-- [Medium] Spurious definition of `vreg_pmu_ch1` (ldo4) for a 1x1 WiFi chip.
-- [Low] Incorrect indentation of properties inside the pinctrl node.
---
 
---- Patch [10]: [PATCH v6 10/11] arm64: dts: qcom: shikra: Enable WiFi/BT o=
-n SoMs ---
-commit a8e0b18d5ed43960802fc198b1e54e52d1ff11d0
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+--=-+eCo3b9gsBb1UHx9JQhS
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: qcom: shikra: Enable WiFi/BT on SoMs
-   =20
-Shikra SoM cards include WCN3988 WiFi/Bluetooth chip, with supplies
-provided by on-card PMICs. Enable both interfaces and provide the
-required supply and calibration data.
+Le jeudi 02 juillet 2026 =C3=A0 15:26 +0800, Kyrie Wu a =C3=A9crit=C2=A0:
+> The src buffer doesn't need set information and dst buf parameters
+> only need to set when the power set succussed and protect the
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-cqm-som.dtsi
-> index dc3861489f64d..8e30d451ab410 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-[ ... ]
-> @@ -27,6 +31,42 @@ key-volume-up {
->  			linux,can-disable;
->  		};
->  	};
-> +
-> +	wcn3988-pmu {
-> +		compatible =3D "qcom,wcn3988-pmu";
-> +
-> +		pinctrl-0 =3D <&sw_ctrl_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		swctrl-gpios =3D <&tlmm 88 GPIO_ACTIVE_HIGH>;
-> +
-> +		vddio-supply =3D <&pm4125_l7>;
+Can you rework this, I'm not sure I understand what you are trying to say.
 
-[Severity: Critical]
-Does this correctly assign the voltage rail for the VDDIO supply?
-pm4125_l7 appears to be a 664mV LDO, but VDDIO requires 1.8V. This assignme=
-nt
-could result in severe undervoltage and failure to power the PMU.
+> setting by spinlock ensuring that any later operations acting
+> on this buffer reflect accurate state and frame data.
+>=20
+> Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interfac=
+e")
+> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+> ---
+> =C2=A0drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c=C2=A0=C2=A0 | =
+9 +++------
+> =C2=A0drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c | 1 +
+> =C2=A0drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c | 1 +
+> =C2=A03 files changed, 5 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index 89048aba8dca..4dc574e03bd5 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1734,7 +1734,6 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+> =C2=A0
+> =C2=A0	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
+> =C2=A0	jpeg_src_buf =3D mtk_jpeg_vb2_to_srcbuf(&src_buf->vb2_buf);
+> -	jpeg_dst_buf =3D mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
+> =C2=A0
+> =C2=A0	if (mtk_jpeg_check_resolution_change(ctx,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 &jpeg_src_buf->dec_param)) {
+> @@ -1743,11 +1742,6 @@ static void mtk_jpegdec_worker(struct work_struct =
+*work)
+> =C2=A0		goto getbuf_fail;
+> =C2=A0	}
+> =C2=A0
+> -	jpeg_src_buf->curr_ctx =3D ctx;
+> -	jpeg_src_buf->frame_num =3D ctx->total_frame_num;
+> -	jpeg_dst_buf->curr_ctx =3D ctx;
+> -	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
+> -
+> =C2=A0	mtk_jpegdec_set_hw_param(ctx, hw_id, src_buf, dst_buf);
+> =C2=A0	ret =3D pm_runtime_resume_and_get(comp_jpeg[hw_id]->dev);
+> =C2=A0	if (ret < 0) {
+> @@ -1772,6 +1766,9 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 msecs_to_jiffies(MTK_JPEG_HW_TIME=
+OUT_MSEC));
+> =C2=A0
+> =C2=A0	spin_lock_irqsave(&comp_jpeg[hw_id]->hw_lock, flags);
 
-> +		vddxo-supply =3D <&pm4125_l13>;
-> +		vddrf-supply =3D <&pm4125_l10>;
-> +		vddch0-supply =3D <&pm4125_l22>;
-> +
-
-[Severity: High]
-Does this node also need a vddch1-supply?
-
-Although omitting the vddch1-supply correctly models the 1x1 WCN3988 hardwa=
-re,
-the qcom,wcn3988-pmu driver hardcodes vddch1 as a strictly required regulat=
-or.
-Without it, devm_regulator_bulk_get() will fail with -ENODEV on systems with
-full constraints enabled, which disables Wi-Fi/Bluetooth initialization ent=
-irely.
-
-A dummy regulator supply might be needed here to bypass the driver bug until
-it is fixed.
-
-> +		regulators {
-[ ... ]
-> +			vreg_pmu_ch0: ldo3 {
-> +				regulator-name =3D "vreg_pmu_ch0";
-> +			};
-> +
-> +			vreg_pmu_ch1: ldo4 {
-> +				regulator-name =3D "vreg_pmu_ch1";
-> +			};
-
-[Severity: Medium]
-Is it correct to define vreg_pmu_ch1 for this chip?
-
-The WCN3988 is a 1x1 WiFi module and physically lacks a second RF chain.
-Exposing a non-existent hardware LDO to the regulator core misrepresents
-the hardware capabilities of the PMU.
-
-> +		};
-> +	};
->  };
-[ ... ]
-> +&tlmm {
-> +	sw_ctrl_default: sw-ctrl-default-state {
-> +	pins =3D "gpio88";
-> +	function =3D "gpio";
-> +	bias-pull-down;
-> +	};
-> +};
-
-[Severity: Low]
-Are these properties properly indented? Standard device tree formatting req=
-uires
-properties inside a node to be indented by an additional level relative to =
+I didn't dig very deep, but in extreme case, the timeout worker (hidden abo=
+ve)
+could be called concurrently to the remaining of this code, which gives me =
 the
-node name.
+impression everything would be left in a unstable state since that spinlock=
+ is
+not being held by the timeout worker. Perhaps something to improve further =
+?
 
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-iqs-som.dtsi
-> index 73945bf42112d..62e37409ac8f6 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-[ ... ]
-> +	wcn3988-pmu {
-[ ... ]
-> +		regulators {
-[ ... ]
-> +			vreg_pmu_ch0: ldo3 {
-> +				regulator-name =3D "vreg_pmu_ch0";
-> +			};
-> +
-> +			vreg_pmu_ch1: ldo4 {
-> +				regulator-name =3D "vreg_pmu_ch1";
-> +			};
+This is a step in the right direction for sure, so for this patch:
 
-[Severity: Medium]
-Is it correct to define vreg_pmu_ch1 here as well? The WCN3988 is a 1x1 WiFi
-module, so exposing this non-existent hardware LDO misrepresents the actual
-hardware capabilities.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-> +		};
-> +	};
->  };
-[ ... ]
-> +&tlmm {
-> +	sw_ctrl_default: sw-ctrl-default-state {
-> +	pins =3D "gpio88";
-> +	function =3D "gpio";
-> +	bias-pull-down;
-> +	};
-> +};
+> +	jpeg_dst_buf =3D mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
+> +	jpeg_dst_buf->curr_ctx =3D ctx;
+> +	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
+> =C2=A0	ctx->total_frame_num++;
+> =C2=A0	mtk_jpeg_dec_reset(comp_jpeg[hw_id]->reg_base);
+> =C2=A0	mtk_jpeg_dec_set_config(comp_jpeg[hw_id]->reg_base,
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> index 9a8dbca6af00..e4d2c5d4ec73 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> @@ -513,6 +513,7 @@ static void mtk_jpegdec_put_buf(struct mtk_jpegdec_co=
+mp_dev *jpeg)
+> =C2=A0				v4l2_m2m_buf_done(&tmp_dst_done_buf->b,
+> =C2=A0						=C2=A0 VB2_BUF_STATE_DONE);
+> =C2=A0				ctx->last_done_frame_num++;
+> +				break;
+> =C2=A0			}
+> =C2=A0		}
+> =C2=A0	}
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> index 5d1c217fea0f..2adea3aca50b 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> @@ -242,6 +242,7 @@ static void mtk_jpegenc_put_buf(struct mtk_jpegenc_co=
+mp_dev *jpeg)
+> =C2=A0				v4l2_m2m_buf_done(&tmp_dst_done_buf->b,
+> =C2=A0						=C2=A0 VB2_BUF_STATE_DONE);
+> =C2=A0				ctx->last_done_frame_num++;
+> +				break;
+> =C2=A0			}
+> =C2=A0		}
+> =C2=A0	}
 
-[Severity: Low]
-Could we indent these properties by an additional level to follow standard
-device tree formatting guidelines?
+--=-+eCo3b9gsBb1UHx9JQhS
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-[ ... ]
-> +&wifi {
-> +	vdd-0.8-cx-mx-supply =3D <&pm8150_s4>;
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Critical]
-Does this correctly assign the supply for the 0.8V CX/MX digital core?
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalVDUAAKCRDZQZRRKWBy
+9ErRAQCeOKVNMHSoVQWdtAOdSHr7nFSY8kQ3qswexzAWQS4Y+gD9GGe9PN7D0YKg
+lSbELCzmu3axHR6kr7PSTY6wQqhezAg=
+=PL/X
+-----END PGP SIGNATURE-----
 
-pm8150_s4 is a 1.08V - 2.04V SMPS. Assigning it here will severely over-volt
-the 0.8V rail and risks permanently damaging the Wi-Fi/BT silicon.
-
-> +	vdd-1.8-xo-supply =3D <&vreg_pmu_xo>;
-> +	vdd-1.3-rfa-supply =3D <&vreg_pmu_rf>;
-> +	vdd-3.3-ch0-supply =3D <&vreg_pmu_ch0>;
-> +
-> +	qcom,calibration-variant =3D "Shikra_EVK";
-> +	firmware-name =3D "shikra";
-> +
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-shikra-dt-=
-m1-v6-0-bee265d3499b@oss.qualcomm.com?part=3D10
+--=-+eCo3b9gsBb1UHx9JQhS--
