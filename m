@@ -1,101 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7252F35A387
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 11:11:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B889385D6C;
+	Mon, 13 Jul 2026 11:12:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783941065; cv=none; b=tQ5LCpagToR+6yB4zbBIZU6gSXeV7raUb9uopAcnRtwXhcBRkVaZBHvKRqGdPQzu3fw8BMo74D2d7y4/5WUnUtatjGf5xyOtkTWT8hW+kCHRHuOLD7kDQW5gsFRnYQA3Il6C6IJNuHsG4XEnCtOklgTYVNw7J1+6aYBqXNIS6Q8=
+	t=1783941160; cv=none; b=STlZUBb58HnHNL4Owd7H5I8+r0TsJ3wptJra2WsWSgEWBuDvoEd9ADZ2mDNp9n2R2mLL2EhNrsW6FBzGllQdKmXEt0z1ga3DAkaYM3BdbzO/4SYdYZzY48wdZ1mHnvdMs6lebqPRLcbU2ANzycLwmOmpzyzCOCgATNuRQTueL+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783941065; c=relaxed/simple;
-	bh=EGXB8yeRUQ2J3HxM+M5MB8tUDKfhobvzBsKP0GAaj8I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Rcr3AoB+KWCNis6+r6XvkwP90dbRkfm1MP7Fvk10ZW7Pvmnn0OMccMkSJU6KS6Pr3vzAGvPoIhjF5793ze/dzidLb//jx3rB8nHWnMGg/MMqT2k4Y/GK3mHRgbNGoo8aU9bi6vL2xfrcwdlouFH+QN/4J9vnqE37Y+jQpgWI9Ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alJrUFVk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783941160; c=relaxed/simple;
+	bh=zzMt6c4IrEDxrQ0gOf5Jyjlrkqcm2LRwTZccZACl8R4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EdaZaCYWqSLvUP1PC8P4jXdeov2nqZ2acs3gzg98nzwf5LggMRzcGXhdefF6UpyBpjwZRWYu9w2QehE0NGZ3qkVG/cVaPO6QgNAat8gZqKLc+kGqyahsyx0gWhhwVc5572n6PbH3Lc0j79/2xiKijIlmeOSKU7MakZGY2MvEOCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMDpN4mj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alJrUFVk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 177231F000E9;
-	Mon, 13 Jul 2026 11:11:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMDpN4mj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8F41F000E9;
+	Mon, 13 Jul 2026 11:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783941064;
-	bh=I6TgTscz1ajlxOShBQNvYClMe1K2o+viguudEWs7jp4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=alJrUFVkUvMC8xZax1roK9AXSwzZPj2JAq8ZwwXBGGuCRxWHWjpPtlyf1glkiMDVG
-	 4yzAZot461xTQS/ma2HU5JS3Gz9QE7iYAB+Ie+RA/29V6QrQ5iB8dkx0vj7mrA1Mpa
-	 HrZ1Lgk0azI1vzzOgt7QgZ/PiZ182uCLNifeysZmfMZs+7CN6D2jmua8Q3HtqCQXeW
-	 2GHVhM9Dz1kw0W0Bfja9OD/YYW57q7kamp0g0mtk6/cn8u93f/xeslG+VpXsuIMBVw
-	 ++1Zqv8g1z9FkrKDz4HfruBWmjdPwgKm2I6OY1cQxD6CWRFNAgzCSkBU0is5ELogKN
-	 kpqHFfU9wsFpg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 8/8] ARM: dts: mstar: ssd201htv2: Add SD card supply
- regulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Palmer" <daniel@thingy.jp>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260713105950.1346962-9-daniel@thingy.jp>
-References: <20260713105950.1346962-1-daniel@thingy.jp>
- <20260713105950.1346962-9-daniel@thingy.jp>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 11:11:03 +0000
-Message-Id: <20260713111104.177231F000E9@smtp.kernel.org>
+	s=k20260515; t=1783941157;
+	bh=+itPATlxhTbhN7l81/OGgYUotwlHoDMlh3YsBI1rLuY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LMDpN4mjsABMx6a9b/8YHkgELyGWi8x5/IMBb/CpNiZVulzJzrRippKl5PEtGhVKB
+	 L4qC2SKg4U6zbAcGfQ60SWArIjNtPvq09E9h00HVQdmEaG9H3lfq0C0tdP82ZlSy8V
+	 Y6H2SkWIwhgSCcMAP4xH9Fq/Nu5R3qxPvxNKZ7VSAwE+S38laXRoF79GGhQHkdVYzr
+	 pM826rvmwjDDLl6/+a63D12osQUmRy+kOH6FBkFhe+h6H40shlEywP/AjuMfXmf4lC
+	 6+CkOSb+zUPiGBXo2sv4wfK+E1jmFaHOnCfO9iMh6Mh0bjIkad2JIyOWfCRPZL84C5
+	 U4/RNS9v3sF7g==
+Date: Mon, 13 Jul 2026 13:12:28 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: vkoul@kernel.org, Ronak Raheja <ronak.raheja@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, 
+	neil.armstrong@linaro.org, gregkh@linuxfoundation.org, dmitry.baryshkov@oss.qualcomm.com, 
+	konrad.dybcio@oss.qualcomm.com, abel.vesa@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com, 
+	krzysztof.kozlowski@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] phy: qcom: Introduce USB support for Hawi
+Message-ID: <chf57j2dkhhjzigpguldadfld5utepa4sxwbo7fjxk5nq37bhp@yci5agzh46ly>
+References: <20260508213234.4643-1-ronak.raheja@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260508213234.4643-1-ronak.raheja@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The fixed regulator node `reg_sd_vdd` is missing the `enable-act=
-ive-high;` property, causing the GPIO subsystem to silently override the po=
-larity to active-low despite the `GPIO_ACTIVE_HIGH` flag.
---
+On Fri, May 08, 2026 at 02:32:30PM -0700, Ronak Raheja wrote:
+> This series adds USB PHY support for the Hawi SoC. It documents the
+> QMP USB3-DP combo PHY and M31 eUSB2 PHY bindings, adds the Hawi
+> compatible to the DWC3 USB binding, and adds the PHY initialization
+> sequences to the qmp-combo driver.
+> 
 
---- Patch [8]: [PATCH 8/8] ARM: dts: mstar: ssd201htv2: Add SD card supply =
-regulator ---
-commit 54af4e7814b68ef5327152ebd2b9e1372991e4d5
-Author: Daniel Palmer <daniel@0x0f.com>
+Vinod, does this series look good to you?
 
-ARM: dts: mstar: ssd201htv2: Add SD card supply regulator
+- Mani
 
-Add the fixed regulator that supplies the SD card slot on the ssd201htv2.
+> ---
+> Changes in v3:
+> - Fix missing version tag in individual patch subjects
+> - Link to v2: https://lore.kernel.org/all/20260427214217.2735240-1-ronak.raheja@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Clarify in the QMP PHY binding commit message why Hawi needs a
+>   dedicated compatible string vs previous targets
+> - Remove stray blank line in hawi_usb3_rx_tbl
+> - Link to v1: https://lore.kernel.org/all/20260425070002.348733-1-ronak.raheja@oss.qualcomm.com/
+> 
+> Ronak Raheja (4):
+>   dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy: Add Hawi QMP PHY
+>   dt-bindings: phy: qcom,m31-eusb2-phy: Document M31 eUSB2 PHY for Hawi
+>   dt-bindings: usb: qcom,snps-dwc3: Add Hawi compatible
+>   phy: qualcomm: qmp-combo: Add support for Hawi SoC
+> 
+>  .../bindings/phy/qcom,m31-eusb2-phy.yaml      |   1 +
+>  .../phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml    |   2 +
+>  .../bindings/usb/qcom,snps-dwc3.yaml          |   3 +
+>  .../phy/qualcomm/phy-qcom-qmp-com-aon-v10.h   |  15 ++
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c     | 231 +++++++++++++++++-
+>  .../phy/qualcomm/phy-qcom-qmp-dp-phy-v10.h    |  15 ++
+>  .../phy/qualcomm/phy-qcom-qmp-pcs-aon-v10.h   |  13 +
+>  .../phy/qualcomm/phy-qcom-qmp-pcs-usb-v10.h   |  19 ++
+>  drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10.h   |  34 +++
+>  .../qualcomm/phy-qcom-qmp-qserdes-com-v10.h   |  89 +++++++
+>  .../qualcomm/phy-qcom-qmp-qserdes-txrx-v10.h  |  89 +++++++
+>  drivers/phy/qualcomm/phy-qcom-qmp.h           |   5 +
+>  12 files changed, 512 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-com-aon-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-dp-phy-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-aon-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-usb-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v10.h
+>  create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v10.h
+> 
+> -- 
+> 2.34.1
+> 
 
-> diff --git a/arch/arm/boot/dts/sigmastar/mstar-infinity2m-ssd202d-ssd201h=
-tv2.dts b/arch/arm/boot/dts/sigmastar/mstar-infinity2m-ssd202d-ssd201htv2.d=
-ts
-> index 5d81641414a21..9f0ce16a08748 100644
-> --- a/arch/arm/boot/dts/sigmastar/mstar-infinity2m-ssd202d-ssd201htv2.dts
-> +++ b/arch/arm/boot/dts/sigmastar/mstar-infinity2m-ssd202d-ssd201htv2.dts
-[ ... ]
-> @@ -18,6 +20,14 @@ aliases {
->  	chosen {
->  		stdout-path =3D "serial0:115200n8";
->  	};
-> +
-> +	reg_sd_vdd: regulator-sd-vdd {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "sd_vdd";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		gpio =3D <&gpio SSD20XD_GPIO_GPIO0 GPIO_ACTIVE_HIGH>;
-
-[Severity: Medium]
-Is the enable-active-high; property missing here?
-
-For regulator-fixed nodes, the GPIO subsystem applies a legacy quirk in
-drivers/gpio/gpiolib-of.c:of_gpio_set_polarity_by_property() where the
-absence of enable-active-high forces an active-low override. This ignores
-the GPIO_ACTIVE_HIGH flag.
-
-Will this cause the regulator framework to drive the GPIO low instead of
-high, failing to power the SD card on this board?
-
-> +	};
->  };
-> =20
->  &pm_uart {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713105950.1346=
-962-1-daniel@thingy.jp?part=3D8
+-- 
+மணிவண்ணன் சதாசிவம்
