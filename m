@@ -1,106 +1,131 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from srv01.abscue.de (abscue.de [89.58.28.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4719841226D;
-	Mon, 13 Jul 2026 13:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C99E416CE2;
+	Mon, 13 Jul 2026 13:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.28.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783947692; cv=none; b=foj3TUpEDPRK3OmZrHowAosKnqmiPhZjHI9y4JzpuC4NbZo0s2bi8MwbCSI1YQqL38KkOLTptiO3kuloUVaSCWUhlr3/rf1q5T2VuQyV/u+xNM+hoCi11HqmCKjknJFbtdj2QSNOJPOfr+7IU1OSLZwkE29ry3QAPM8VOgRIiiw=
+	t=1783947700; cv=none; b=AlSFtCeiZHpsCMH2D0vyhLTVWMNUrnvi74mJdidNSVva5Z3fiZGATgGBRygYLVli29LWN3NYzZ65SJVTpPOikkxFCe7AB14S9jJ53XrFYZdfSFiuKhStJaMFNa5/pwTJ4oC+Dctuj2pmkZ3/NvIYm38X2Akd8epKIqF3r2Pnmcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783947692; c=relaxed/simple;
-	bh=+1IMus2mrgKgBZBYS1iIfAgpNfuoFnLk9RiPJiZi4LU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e9Kb0SHsbrDnKiMef2yXQhZ3Z9m3lV/Vfxtyw+82M1jxjd90leUZDnf4x3HUhpfZJKFQ+jOpbX1mFcHHnXKO+CZsmJTmYS+7WxNesU9E7p7lMxpbADx4cottm0qBgPN82kcmK4NCQhYhnUq5U3eg25npOxDULl3aiGTzPxJxWSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=UAettHYB; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783947700; c=relaxed/simple;
+	bh=BwrO3/MsLOx0N0sI+Mj+GfChy3yrdeQ+2EJMwPhwp2s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Rs7fCJvN7YaTzvSDklDWlAsMXp2TApsvQWudE9iPyySiJp57XGtuqwYCC45/+ETyK5di9otO7JqpxApCexjo9Xp6/Wz6AF++aWYJnGzNCPX7dtvfik6OhGpd670ZhZMBplNryU1cy6nCj5DU2ZatxhBF3/uoyOyb8EAryCzteCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de; spf=pass smtp.mailfrom=abscue.de; dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b=TfnRqYCj; arc=none smtp.client-ip=89.58.28.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=abscue.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="UAettHYB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783947681;
-	bh=+1IMus2mrgKgBZBYS1iIfAgpNfuoFnLk9RiPJiZi4LU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UAettHYByFQove0+jVA34GRP4stBlXGOdfj9XBIZy13qmQGrWS9XWEWxw/mj838H1
-	 UdHiEV1/M2Edx72X+DWEBLuVmGz4yW2pbH4kT/IGLYoEDMwotWTJB69LqppTs68pUr
-	 TBpIld5u2hGVg0soui0ZnIayg3pfd0n8M0Q8S5n8ts7xWusZGR5kbHTfglIrfjWUIV
-	 ZE25jmF6BzdWvLMcWv1RJmJohiN0YlpZLs72AhHhjUljLhv02w9QPr6GAP2VNg3rI9
-	 laH6oikNWkGPsS3IERkpmyvkOnpSNkfZvcQ87qB4oyIgvV3huXi7anw6sWLAWD/bOJ
-	 Ne/rFEy/fTHMA==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0ACE617E0DE6;
-	Mon, 13 Jul 2026 15:01:21 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: chunkuang.hu@kernel.org
-Cc: p.zabel@pengutronix.de,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	jitao.shi@mediatek.com,
-	dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kernel@collabora.com,
-	justin.yeh@mediatek.com,
-	jason-jh.lin@mediatek.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 09/10] dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
-Date: Mon, 13 Jul 2026 15:01:02 +0200
-Message-ID: <20260713130103.34654-10-angelogioacchino.delregno@collabora.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260713130103.34654-1-angelogioacchino.delregno@collabora.com>
-References: <20260713130103.34654-1-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b="TfnRqYCj"
+Message-ID: <2d34c3f6-5f66-4b60-b9a2-180163964552@abscue.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abscue.de; s=dkim;
+	t=1783947103;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jzVe8atkrU+j+S9mStRrtWyJtCiaN5tTvQ4xvIGKY4g=;
+	b=TfnRqYCjfBvrXj255IPTjN/a+2WqhfzYlNYRwwgkTzsAZghsBX+j+IFD3Sm0Jm1J253j8C
+	LIFgZHSnhERrtO5gD1FtHfosFOl217I05vxwWIjmR1ereLDLyLq2rgkdVDF1r2Pc1WoaXS
+	8phx60lWlBl8U7HmgzV9b0HzZVB3Tdv8GdzHwWF5YcFXkGAB/CN4vVLFLcKtvPCi63Uq50
+	KqcmE/hMF05vOd3Fqm81umPnyewCDTJTxAqukIiOJ06c2wE8KaAaxb16H5qYQ/tQR+CLth
+	1SzGtzdImvS/B2sG8uANcSpQsk0UK1nvZ4hTlKjA/b1foUCa8SiPjQCL0LhOTQ==
+Date: Mon, 13 Jul 2026 14:51:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] pinctrl: mediatek: Add driver for MT6858
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, nikolai.burov@jolla.com,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Sean Wang <sean.wang@kernel.org>
+References: <20260710-mt6858-pinctrl-v1-0-f75ab558f0df@jolla.com>
+ <20260710-mt6858-pinctrl-v1-2-f75ab558f0df@jolla.com>
+ <89e4eb3d-a61c-410e-8ad5-e845b07f8029@collabora.com>
+Content-Language: en-US
+From: Nikolai Burov <nikolai.burov+review@abscue.de>
+In-Reply-To: <89e4eb3d-a61c-410e-8ad5-e845b07f8029@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Multiple MediaTek SoCs have the Write DMA hardware in their Display
-Controller: add the missing compatibles for Dimensity 1200 (MT6893)
-and for Kompanio 500/520/820/1200 (MT8183/MT8186/MT8192/MT8195).
+On 7/13/26 10:01 AM, AngeloGioacchino Del Regno wrote:
+[...]
+>> +	[PINCTRL_PIN_REG_MODE] = MTK_RANGE(mt6858_pin_mode_range),
+>> +	[PINCTRL_PIN_REG_DIR] = MTK_RANGE(mt6858_pin_dir_range),
+>> +	[PINCTRL_PIN_REG_DI] = MTK_RANGE(mt6858_pin_di_range),
+>> +	[PINCTRL_PIN_REG_DO] = MTK_RANGE(mt6858_pin_do_range),
+>> +	[PINCTRL_PIN_REG_SR] = MTK_RANGE(mt6858_pin_dir_range),
+> 
+> This is Slew Rate, not Direction... And I think this is wrong.
+> 
+> If you don't know where the slew rate registers are, or if that is an 
+> unsupported operation, just omit PINCTRL_PIN_REG_SR.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../devicetree/bindings/display/mediatek/mediatek,wdma.yaml  | 5 +++++
- 1 file changed, 5 insertions(+)
+Thanks for noticing this! This seems to be a mistake in the downstream 
+driver that I unintentionally copied over. I will remove the slew rate.
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-index 97d052b0fb61..c3ed867d058d 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
-@@ -22,11 +22,16 @@ properties:
-   compatible:
-     oneOf:
-       - enum:
-+          - mediatek,mt6893-disp-wdma
-           - mediatek,mt8173-disp-wdma
-       - items:
-           - enum:
-               - mediatek,mt6795-disp-wdma
-               - mediatek,mt8167-disp-wdma
-+              - mediatek,mt8183-disp-wdma
-+              - mediatek,mt8186-disp-wdma
-+              - mediatek,mt8192-disp-wdma
-+              - mediatek,mt8195-disp-wdma
-           - const: mediatek,mt8173-disp-wdma
- 
-   reg:
+> 
+>> +	[PINCTRL_PIN_REG_SMT] = MTK_RANGE(mt6858_pin_smt_range),
+>> +	[PINCTRL_PIN_REG_IES] = MTK_RANGE(mt6858_pin_ies_range),
+>> +	[PINCTRL_PIN_REG_PU] = MTK_RANGE(mt6858_pin_pu_range),
+>> +	[PINCTRL_PIN_REG_PD] = MTK_RANGE(mt6858_pin_pd_range),
+>> +	[PINCTRL_PIN_REG_DRV] = MTK_RANGE(mt6858_pin_drv_range),
+>> +	[PINCTRL_PIN_REG_PUPD] = MTK_RANGE(mt6858_pin_pupd_range),
+>> +	[PINCTRL_PIN_REG_R0] = MTK_RANGE(mt6858_pin_r0_range),
+>> +	[PINCTRL_PIN_REG_R1] = MTK_RANGE(mt6858_pin_r1_range),
+>> +	[PINCTRL_PIN_REG_DRV_ADV] = MTK_RANGE(mt6858_pin_drv_adv_range),
+>> +	[PINCTRL_PIN_REG_RSEL] = MTK_RANGE(mt6858_pin_rsel_range),
+>> +};
+>> +
+>> +static const char * const mt6858_pinctrl_register_base_names[] = {
+>> +	"base", "lm", "rb", "bm2", "bm", "bm1", "lt", "lt1", "rt", "rt1",
+> 
+> Fix ordering:
+> 
+> "base", "lm", "rb", "bm", "bm1", "bm2", "lt", "lt1", "rt", "rt1",
+
+The bases are already in ascending address order. I don't know what the 
+1 and 2 suffixes in the names of the iocfg regions mean, they may just 
+be a historical leftover. Are the names more important than the 
+addresses here?
+
+[...]
+>> +static const struct of_device_id mt6858_pinctrl_of_match[] = {
+>> +	{ .compatible = "mediatek,mt6858-pinctrl", .data = &mt6858_data },
+>> +	{ }
+> 
+>      { /* sentinel */ }
+
+Thanks!
+
+[...]
+>> +	MTK_EINT_PIN(119, 0, 72, 0),
+>> +	MTK_EINT_PIN(120, 0, 73, 0),
+>> +	MTK_EINT_PIN(121, 0, 74, 0),
+> 
+> Looks like you're missing ~70 pins here?
+> 
+> If those have no EINT support, you can declare them as
+> 
+>      MTK_EINT_PIN(122, EINT_INVALID_BASE, 0, 0),
+> 
+> ...or you can add a macro to add a (sequential) range of pins with no 
+> EINT support.
+
+Adding a variable number of mtk_eint_pin structs (with a different pin 
+number inside each struct) doesn't seem possible using a single macro, 
+so I'll just manually add all of them to the list.
+
+While writing this, I was looking at the mt6878 driver, which also omits 
+a range of pins. Should that be fixed as well?
+
 -- 
-2.54.0
-
+Best regards,
+Nikolai
