@@ -1,127 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012054.outbound.protection.outlook.com [52.101.66.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2340921FF2A;
-	Mon, 13 Jul 2026 02:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783909303; cv=none; b=WxM4bBfD+CaEtbt9WCEvhFTIWydgPg+7Btel8atDTnz6cfGBeDiAf2Moqna5qSlU62n1DdhyrUxlVphqzupRWJG0Bpsm6C8H8ft7wUduMoradfHl6hK7F6bvYt/i0cc3fhMMP8xh+QmuPls9pFT2k8LA110hJn+dUV6R7scFAiE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783909303; c=relaxed/simple;
-	bh=8UESDvAkrO514OqIn4izrogITvCCWdhzN/uXpG1HbkA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NP021oWLhnG0lexiFIsRxXoAmiC/HCutgLrySL3pwQqkLeAvTX5ZtyreEPdwyiVzvENKHwBHJTiWo25iMc4zp/qvqaPonoQnhBflHMzAoTDTLj2smRlakmKQM02vLuYJZxilmgSwh5Vomx90O3G0V9RP+A+mSgmjdjES2qxCvHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwyS8HT2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EAD21FF2A;
+	Mon, 13 Jul 2026 02:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783909380; cv=fail; b=HCgI9CsRJ5/UtO6Ze/8jaWDogJSZK5Nhk/+ygPP8KeMJOcwrK0oM3fWL3z+IvK8tDdqjFACqXprQrVmI33ta4Wz+XrtEc0Lt6kh1k9JYPTvB07H14AsPO5lZ9aGBQ1cIvNxibDUrZh8XPGUN9aNxan+oZeJQTE8RsvYoIiZ++gM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783909380; c=relaxed/simple;
+	bh=7RMK/clXP3UYYOLegcyQpa2c3SeN651V1FfsmIfvofI=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=E5uUKxE7b9rlcxCTssHooNkkJvb/oW3DWtra1PIuxbR8QAVlDE4Ad6u8l40SRqofaKpm8bX2vDQmosy9/3jxMg8tBUKlqNJigrhO5NXXlIIXPUL2kVA7adA+1UdZexxxfpfM5VbDroBMssXFKsv3iDSzCB4E4Avh5PO2NC9lvyw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=PTr45gxE; arc=fail smtp.client-ip=52.101.66.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwyS8HT2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD091F000E9;
-	Mon, 13 Jul 2026 02:21:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783909301;
-	bh=nF38DvsKXqNNodzfkULGLA2jJ8dENmbEM56IGHlbNhg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jwyS8HT2GB3qyw2xBzKQZe9ytcX+LTSP3dxl2jNkwftjYosYR5EQfF5hy8HImRzFp
-	 8dJmHKhnIjRXpuqjTEuoWcb74LjqWjnhpmZbjecoNBEozEsprfm8aU8BV1jeZj3JjE
-	 sNjrwPNT/3nl7acqBsQ7UYYJ9Odqk7EQK29R7tYjbH1ybSa6vgy0HsJP9p38uHFb9s
-	 g0jQ65wOpmEZ5zL6k6iX7qKgu7ljcE3lVU4I/WzVtWEUGnQVX1uL9Zc+MALdLFW5HK
-	 qSfaUsQ8RIAQ9Q8TNNwUodswE09gQ2fA0CZxR70/2kmFNNrrXlVgFdmstIPmYqk7oH
-	 KvV+Njf4Qk3EQ==
-Date: Mon, 13 Jul 2026 03:21:35 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chris Hall
- <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, Kurt Borja
- <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 7/8] iio: adc: ti-ads112c14: implement gain on
- internal short SYS_MON channel
-Message-ID: <20260713032135.09429678@jic23-huawei>
-In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
-References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
-	<20260710-iio-adc-ti-ads122c14-v3-7-746d52cbf1d0@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="PTr45gxE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VC0IJn1PMhYaTYJI8N2KivYsRFDSJJVcAfHonerUSKSKVYOouS0BjIIP2ALElurEhBQjrRJHWUMxaHAf+49qtZdjJ9uSepd4yYdWck1I4ydhYI+w08pzEm82pN6PRv6qrka7Zj/QuiEYRG1XcgBlxL2Ba/FszU130yWO0pSPzqz92GBcRXy/Opcmu+06QEpEZ06+vAldGZ9EFAvM9uuAi2Xw7C1JLR3BBedFRiyhhh3ZnAMAXCKRmMdBfoBxZ2gWT6W19U2piVKYemIrGAC2Qtt+GkSQjNrg2FqyzdsRL4qIM3lnYFJ+h96HgadN5taxBBhkbQG0ED2rqs97t2qEgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d4oyeDWMt6CBanCw6VXXqlsGUyPT/+N1aOa2QLsUGZY=;
+ b=fiGT8ie9lXegIkHzr5+voQGvmMkq0sMGbpuQP0xfbKpJXTq+nuO0Nj5A1YaULa05i5j2r6c1UfOPe2FMzCCqwc5ymtG29NtI6F1C71DtvCtxEbnNe9BPSpGxd3J8K2BIxBVqzT+8AbhsEpWAk+/rF3EqAcMMW4poOUeG6bgWNE3m49Mutx8jQquVljsUzTw3mcpoOsvnD4kb2O8IbFuvE+jViPzByUxCbusf0DQkRsYNEwqfQ3hAw6mkx2YPvHHHe5r5RIvh9721L7wcvczUROz2YpEEdl9KhvfMcw+HTJ5PZ+ysViVo0kUHHY2S8SFywLVaTBW+JkGs3/JvJqqFCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d4oyeDWMt6CBanCw6VXXqlsGUyPT/+N1aOa2QLsUGZY=;
+ b=PTr45gxEc0fuJ+yWijcQz0ote+I/ewxHcG06hg8YAcxUiwS8wxWKFnrli4Wod4yUR1S+zk20Ipj4DDvo9QVug5jYrKibeFSlZJOFGuBuC4W91sMAPtHAni095CYAocJcRoYsXayV/XOfvYdRo94uETbn5xH9vcovrGbOibMpTkqleOYy9aMl0fsgvOtB0vx7w+G9ok8/EK+u/Rx8kO5cOvXnsYp3j5wI5bNtdrpeUxh/b/cNK6jOb9fl0mZ44sNT+Ny1mahjWlQP6hk6pClIizh0Q9wnCsHLpc2fIwHsQpP5LDd+GT0d+oxmPa/XF+3sMh4yr6Zou0MmVNGw/8vF6g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20) by DBBPR04MB7659.eurprd04.prod.outlook.com
+ (2603:10a6:10:209::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
+ 2026 02:22:56 +0000
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0181.014; Mon, 13 Jul 2026
+ 02:22:56 +0000
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de
+Cc: kernel@pengutronix.de,
+	festevam@gmail.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 0/3] Add audio support on i.MX91 9x9 QSB
+Date: Mon, 13 Jul 2026 11:22:45 +0900
+Message-ID: <20260713022248.1262123-1-chancel.liu@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2P216CA0207.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:19::8) To GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|DBBPR04MB7659:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20612298-fa31-448f-d5f5-08dee085a61b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|23010399003|7416014|376014|3023799007|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	7VMAAegn5jN0YU10JgdHtgCwo0CIXrcWZILFd0wYaE0/u0voDKyQeFkdYi1MIGWzVswWwY3ydibmmmsN76nZXIh+LcaSRd6wmwXntJg9o9ff9oQtTN/nxXObUUBBSGLZWx2ZL5o2pHyXgHqLLUtofxMKIHFn0tGQGYRiltRGP0kVc4vk+pfs9ZF8a5n/SyKhvkTc4ltNHPp8Cl9F3/Bg23Yi4kwoIelPeThNSH+tPWZzBqKnJAiqPTHobONWgtD6pi+MVGfLv/hAMYKbLagHmdGmcwBSCM1iKZegJtEBCZxIENBL1SitWLb54yiwkTWe/+qk6fKSv47A0Kay83YK50eKtxQOsy7WVXtGc6YOfaiczDoNZDvJPDfoCRARs8imdcqAmIpxuFQZ0t5E9C24nOd2NVwfoLnuZ8UtrpNS8QUk3yd9xXFaaYW2FgqqWCHib85sr5VH+GNb15ZX/MCsDMT2mUnSFTpWtHi2RS0y3avR2We6klmvCAcLy2jm8eEV9Y2tpRsnvZNg9ZMuO9A26/yfYn74FrtFa/50rshAEFI5uczMbR/zN+UBJcrdKkTcG2T7J1xnsRAdBidedJYwaBNmBS7iWe6M/a4pnW20acWM8SSuwGUGpXRiuPZ7qqw8sRN2HC0kNAnxbFo5QC8aGVGcAZ3JgyGTxNvv7vlCAUc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(23010399003)(7416014)(376014)(3023799007)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?YNAbCflmbpexlxXlW2XNoZDQqjkXdZro5RaEzlB55nqD6vCmVBecNAAoEz1V?=
+ =?us-ascii?Q?rYcMwN5amzCoVptR/d8zQnkVH7VIqu3Cq8sLIGtNRBjgDlIOKqJ6KWHsH3Jw?=
+ =?us-ascii?Q?KC32bSJnFtvq9OBpGyPdb3yuRGKBuAwItG16kqQAEL8xPCK9vMkl9wWDqnPq?=
+ =?us-ascii?Q?Mc66OdliH7sgbSAR8ZoqsTmknC3raV6AEkd4fb3PIA10j6t+fVrjYk4HDtiZ?=
+ =?us-ascii?Q?zord8hB5KVBrByFXeYYYMHvL54EoTJlkgalUGGZ8JFT7FsyRcRzSWjCYSK0k?=
+ =?us-ascii?Q?RVqkHtrEU8RmN7d9fcCqSioMclaP4j33gC9HYQmG69e3+Xj32UAl8ZEk+rF4?=
+ =?us-ascii?Q?4t9R2Xo6QZbQiWvllMmj7etmQjhFEuNGw2Dah0W5EPoAnRJQvkChk6ktKFDm?=
+ =?us-ascii?Q?NVxAVP8a96zREskSCFjfssc9l85QVwA+qf0MAJbIEDd4qFp0p0JlfLkRhutQ?=
+ =?us-ascii?Q?YaDKaMC0fcnfOI8EZvlF6SDdx0CcXfyPSvGyIiAEXjNDKYVGokm7Gr/LRWG+?=
+ =?us-ascii?Q?bLExIza1feRIu2/+Ntu3EFuO52m3+uv8q2yLovzuNd5fZ2tsnETGGWFcKHZy?=
+ =?us-ascii?Q?6YVSxxFcRQrWSjwmFxq9ExdWfLUEoTfechYbsKHqxY8+z1xCNMzLrXv1vkdg?=
+ =?us-ascii?Q?1SXfQGVbxOFh+J0YvxcXxCjF9c53ZhoItbXt5uF82dA7LpGq/tdpqZG3udlz?=
+ =?us-ascii?Q?lyYrvw0r0vTifQi1A8y7dmj14Iyww3ulYMqF+DzTdG18Tnb+NyjlOuL8W9yR?=
+ =?us-ascii?Q?Gp73Mep3lWInGvoPNqyGetfQ5pi/dY2t7kg+5wfLAM6TuVoAuUcXCj7vQ7bj?=
+ =?us-ascii?Q?DKKy4Qx98D4fcpB9Ip+uf5iie8zsaH11VX0ZX/grAEUDt+cQhpq6Qb0WhD9V?=
+ =?us-ascii?Q?w7undsmeMXXRxySvw/mfE3R/9h3FkSk4g/HuBMRk/g6Z77O4iYXZqPefdig+?=
+ =?us-ascii?Q?yI8F2XBytTn4clnxpyXK+nI631J8jJqkF+Ssm+4RQBpKvMPHkvhwHy+qAusF?=
+ =?us-ascii?Q?/dyDLwTA3PYrQAmw/WW1vKfH22z1NBLIHxGHLGJluQc1RLSZKsBSWHyuya70?=
+ =?us-ascii?Q?R9E1Q2YUwp54YH26YiHMhVBwenEW7Yf8vwi4DV4zzLNpfTlKr++oscwr9QIz?=
+ =?us-ascii?Q?wvddJemQ3fKxN8XKY9TnASdiklGe+Z7YRvCQI5ffMBvI90wQ3rxYCDVvGaKn?=
+ =?us-ascii?Q?EeTtC+3egeD4bPLIpqnTfomFRYm96us1uRLGInqdyybSsWT3UPIb1A2aJEk7?=
+ =?us-ascii?Q?h2Oz8M3j1EgN7h3yhKplfDxpaY1qsteiwFAwlk9QC7ZtMCql5inUV0TOeugd?=
+ =?us-ascii?Q?K3AZ7bPiEuxiSBBCISCHxgI4AfUfisIqLiUEp5Gk4L4Z+87HP9sgY6b9hPYB?=
+ =?us-ascii?Q?pXp5Tym/aJzgDEeKhQKFbx8LolRJhR4dYDZJX1j5FtfHAbyqCc+PD2mcDN+G?=
+ =?us-ascii?Q?LZGUJkJ+NnOF6eSHykzBXy6yCqgY+W423QplWogMGfCTstxlrURbkIyFhf/E?=
+ =?us-ascii?Q?R7N8y/gA486+wBDv9OBkUXEIXeBWFFKx+0OOW11SiuwWBhXTem3n+udVImTS?=
+ =?us-ascii?Q?anhVA6h5ogzDJboQ0xZ63efMPyrjrbK5FTmqE0IVSnu5No24OUdT0rSW+eQG?=
+ =?us-ascii?Q?7s7YRx1wIfZYgdg1xWWZfF/arm6ppyPUI9mEOTSUxvk4GHdmND83OWIl184X?=
+ =?us-ascii?Q?co25oimt7PNdgGyEbilgt5rcZzZXq1+pMyqlB7DUF0jVwmjKCmKKiG17N1f+?=
+ =?us-ascii?Q?1EzFjI6wmgeoSaMK4T6Bs80cqDOe1ezGG57yi3hRkhPhqX9lLKxN?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20612298-fa31-448f-d5f5-08dee085a61b
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 02:22:55.9176
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N9FcUHW8rechxlXaZB+hOa9HAqN3J7iINe1SAIH48cP1hjweeNDeWfZWJoGZDcN2FwhZ+PIfAr+WSx+xWBT2NqPPJXWTwSK+FnHa2chp+Lrou19yQhAi/8SroymuhoO6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7659
 
-On Fri, 10 Jul 2026 17:50:40 -0500
-"David Lechner (TI)" <dlechner@baylibre.com> wrote:
+From: Chancel Liu <chancel.liu@nxp.com>
 
-> Implement support for the programmable gain amplifier on the internal
-> short SYS_MON channel. This channel is used for calibration, so it is
-> useful to be able to set the PGA to the same gain as the external
-> channels. The gain setting is implemented via the `_scale` attribute.
-> 
-> In the future, we may want to support different reference voltages for
-> this channel, so the scale_available table is populated during probe
-> rather than being a static table.
-> 
-> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
-> ---
-> v3 changes:
-> * Use IIO_VAL_DECIMAL64_PICO for scale.
+The board routes audio related signals through on-board muxes controlled
+by a GPIO expander. Add the mux states required by SAI1 playback and PDM
+capture. Add support for WM8524 and PDM microphone sound cards in DT.
 
-Sashiko (I think rightly) raised endian concerns on the read_avail
-side of things.  It think you need to do the decompose to fill that
-that rather than relying on placement of bytes in the 64 bit int.
+Changes in v3:
+- Fix node ordering: sort root nodes alphabetically by node name, including
+  Move wm8524: audio-codec before mux-controller nodes in patch 2
+  Move dmic: dmic before mux-controller nodes in patch 3
+Link to v2: https://lore.kernel.org/imx/20260710024204.3462444-1-chancel.liu@oss.nxp.com/
 
+Changes in v2:
+- Bindings have been applied, remove from this series
+- Reorder pinctrl-gpiomux children alphabetically
+- Move compatible to be the first property in the wm8524 codec node
+- Move vendor property fsl,sai-mclk-direction-output after clock-names
+  and before status in the sai1 node
+Link to v1: https://lore.kernel.org/imx/20260707065725.312450-1-chancel.liu@oss.nxp.com/
 
-Jonathan
+Chancel Liu (3):
+  arm64: dts: imx91-9x9-qsb: Add audio-related board muxes
+  arm64: dts: imx91-9x9-qsb: Add WM8524 sound card support
+  arm64: dts: imx91-9x9-qsb: Add PDM microphone sound card support
 
-> ---
->  drivers/iio/adc/ti-ads112c14.c | 128 ++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 125 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-> index 4d2e7d37be82..2ce4411a0d86 100644
-> --- a/drivers/iio/adc/ti-ads112c14.c
-> +++ b/drivers/iio/adc/ti-ads112c14.c
+ .../boot/dts/freescale/imx91-9x9-qsb.dts      | 160 ++++++++++++++++++
+ 1 file changed, 160 insertions(+)
 
->  
-> +static int ads112c14_read_avail(struct iio_dev *indio_dev,
-> +				const struct iio_chan_spec *chan, const int **vals,
-> +				int *type, int *length, long mask)
-> +{
-> +	struct ads112c14_data *data = iio_priv(indio_dev);
-> +
-> +	if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
-> +		*vals = (const int *)data->sys_mon_chan_short_scale_available;
-
-Sashiko is mean about this and it may have a point.. Definitely needs
-a comment as you are forcing a u64 to be interpreted as an array of ints and
-on big endian systems the top and bottom half will get swapped.
-
-> +		*length = 2 * ARRAY_SIZE(data->sys_mon_chan_short_scale_available);
-> +		*type = IIO_VAL_DECIMAL64_PICO;
-> +		return IIO_AVAIL_LIST;
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-
->  
-> +static void ads112c14_populate_scale_available(s64 *scale_avail, u32 full_scale,
-> +					       u32 fsr_bits)
-> +{
-> +	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
-> +		u64 gain_x10 = ads112c14_pga_gains_x10[i];
-> +
-> +		scale_avail[i] = div64_u64((u64)PICO * 10U * full_scale,
-> +					   gain_x10 * BIT(fsr_bits));
-
-I think this needs to happen into a local variable that is then decomposed
-into two int elements of scale_avail[]. I.e. type of that needs to change.
-
-> +	}
-> +}
-
+--
+2.50.1
 
