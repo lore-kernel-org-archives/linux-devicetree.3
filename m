@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79BE3B14AF
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6473B19B1
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:32:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783931458; cv=none; b=cdPPnwG2tQq8+nUX2cCtGhUe6AMQP27UcDoj+VlJSjVXFZekBUX6fTdYOnR77KXEWvjRPncVMqy9aUvWq6r3BtCeOPiDaeEAvRUy4X1Ll+zKAoBYLPH7klCOpzwSJ43gFt/g6qk5ZZ0N+gooxxpHx2G2yB0fyAmF8teZZ999vcw=
+	t=1783931573; cv=none; b=g8YmjmPbZz0JNMGS8f/+YPJAZ8K9rHMqDOM3yb3rBPhQ3rclMFPrBsuCqe5afriVz0xiPdzkw/Xdsh83HWwwr+OOx72nGZe7doUyXWfvbVjyaY6oFvkT1bezhfDGG//iOqkvi3sHrF6Ccf3WWuayCgjA7WnYsRqYCqViOM9WEgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783931458; c=relaxed/simple;
-	bh=ox6Z94BZRgLqASrZyKkY5G6KpcMeLAUyU7fdgaJxuKo=;
+	s=arc-20240116; t=1783931573; c=relaxed/simple;
+	bh=izT7iG+kaH0m4tu0+8NdueVzy/iX/EoTNiE5/rPw5JY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AffgMfRgP4WAqieDZR1YgusTeqsp2VX8Zzeb/WnweqNZFLFSbRx+XZmRxmqEA1Mnmy+x1ZDGFMOdRmLPEmhHM4M7cHuzQCU917QUSTierMX3tDVpXdmqEiJqollnE1TFqfKbafsYLLB1dt6dMazcBx9GeRQj8YbKesyJBGAPP/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WNzN2v5b; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EyoOZH61; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=ojqI9cOurWBoLFlxkH580aRg1OnadMfyPilVIU68Eae5FdO5Gm6ZCkRVw0umr7/fVcR0o3Q0lFkj47KCW8hUIVJkd+8MdmmT75Rmwkh+fqBBV1zu/IpYZJNkkyl+Rq2QrLv0QDo14TnGtlSETMvpbJHkIXBnqMWcBABdGYXYIeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oHw0H6+J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CygGUTYw; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WNzN2v5b";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EyoOZH61"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6NxhY674494
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:30:55 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oHw0H6+J";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CygGUTYw"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D7YmXP794265
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:32:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+dtBJLacOGGttlAIKQe354mVWyqsRLsF0Nl3YOfEBx8=; b=WNzN2v5bhN69YL/9
-	ky/gO34vBXIlAV1Evbp5dsfLonGY36gh7xKfxuh242cO7i2mnZgVUju6/7SZI5Wu
-	Yk9yBX3JqntlgGXaDnL61gjL65X0z0mHQ2kGZSFWPuMdtL0b6iDDimPXA4+vQrpo
-	u0WS48z2BqpeK2xlSo6uHsQlOoWiGKc5KSWxoeaD/XkBxsxSCdCnatSnXs6fxeDG
-	y+kC8EdVN+BCqShzei3lSFbZdqZMOeL4+AMrXL6HCqH3D03CROPoxrlSyAk+cYnD
-	Hy4vGVlIz+XafPI0tnFz+9s6DChwn6i40E4Mfs/nLJSK8W7q/poMZ5gh5bmBxglC
-	gcDTZw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbecgn7ac-1
+	orA8N+rUfuLziWiAdmDsk+WxJbTynnYWZ3oIdn7j9VA=; b=oHw0H6+J5xZGv9/H
+	cYcjHa9QkeP6GovccH1Im00OpuN2zO2QZqbmUty7t0bcfod0fATzhPRkxGOaJluZ
+	hSncl3RP84NXmP3QuVXOCVSLydo0nVawL9QgU+VEL/LxgsQvjA9hVWzwiwi6xcop
+	9fWbCIwmscuPBQwP+w0zQL86A2egMhXtiT77aF2hQM//tnk5GxBfWCeguPAbQ2td
+	Y5p92RpyFWZLJAbzC33iBy4g4ocLkODhi84WnoxHmGnlzIpteIiyCf4YLqYEA+6s
+	4DCBpp0kLOJSu3Y5Z/lZesngIuC/e6CuA6rfl2rcxOd2vPE7s6mCRnJ+OUxxJnhI
+	RMAiHQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcurn06mf-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:30:55 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c0ab07320so35625071cf.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:30:55 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:32:51 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8f0ed4fe79aso68567206d6.0
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:32:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783931454; x=1784536254; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1783931571; x=1784536371; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+dtBJLacOGGttlAIKQe354mVWyqsRLsF0Nl3YOfEBx8=;
-        b=EyoOZH61rAib0VRGf/774NWqSgLRnG9h9ybT+jB3g+65eC7kHeVO6TtKHRGB6ctxRz
-         T2w8fneM7I1/plkqOAV/EhOcmQjJtZYcrZiXa85xQyrWEvXMnorAiY35RxBZzZSi7mfS
-         Waq7TIRs2NiFYkv+4NF2vHelGOWx4ROLsohTWHBVOYqjo2sRfRc6uuUnrrlxAROM21GQ
-         Rx6LIhaoXi9lEtButvV1Fe3e6KxNKt29LEKBLf+6Lpuv7JO2hL41brAeXFFZgNpvby/N
-         g9yUFrrzxi7M4pZnpE0i1YqM5Uy/KjYl654G+/fD9S5gzmNxVq8VkGsRLuUQEtVpwUHD
-         ny9A==
+        bh=orA8N+rUfuLziWiAdmDsk+WxJbTynnYWZ3oIdn7j9VA=;
+        b=CygGUTYwOLXTWaHIPdpd60eKRw5/2KHxXhOIXtbD7hld9d8KhwW7LBFiJ412nDXHUO
+         m2kzXGsB8deVT1x0cnYZT0/EBr6OARNluMqXtONFw9ege+1tzBYqj4VVYBJ7R1odgNdg
+         RXAj0SQC8wYqM5+4Q4n6oCHkHmJ0EbUBAmpFmmytR4aEir3ykg9SDCgvjMkK7Sqi0PzR
+         yV4BjcOnGTJic+Z9n385bll4PN7eqUeOPe8TuR97ff/FcCDJk3K6XW+jPiJnstIX0NB4
+         2SUdowMHA2mDt49NxvDwEXDk6TyFA99nWoBDJl3b6FBinyP+VyrB3CZMs9d8NzVX2A8S
+         BbUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783931454; x=1784536254;
+        d=1e100.net; s=20251104; t=1783931571; x=1784536371;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+dtBJLacOGGttlAIKQe354mVWyqsRLsF0Nl3YOfEBx8=;
-        b=jR92C+XGjCee3h80ljpygCrU6voQDNqLxzRb4540gwX1LIcbJSkrG0q8wwT3Mf+W3v
-         oV34B1cvidjYsKBPmS8FeyKN8vHa/3rG5hB6rZ4121RVu2/ChQxbOjm78gWXB5LYAYi9
-         pFBsytkmMrdtdn6OWOMia3wO9WdrKeZ45ndiTHE0a8QJE9Omv4w6OURDNejlsjHyrgUH
-         srtFeFBP6WsMWOkw2YeiP1iHWTzkja6ITq7p9uJrme6te0VI8ru7axl6rHgD3JmDFSWI
-         lC7UpEJzwIrfOAAKVxOziGi7dzXL8SiHSw3U2HDpzOiGE0wfNJW5YykmjI1enfInhmD2
-         zOZA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq7qarJj1YLd8GTSBkqKOWu/FmvJ236WBXGZMZJ1RU1SAOkRzA+CiaeM40kKbtPcEGn6GAwoxEvh5ZK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yygg8a/3AxYAKLkYXhFk+MlwQUT8/1XrAhmGdX9xYdtJRUVRyZy
-	3CR0IHzKRt/k4c6Ef/CDSpwKVJfRXk+d5EwpxcOZDoeGkiqWcqMFp7bqZxZX37AgV1GYbCSODmA
-	tcOZj5ucN++O6g+5xp+zX5bkgRBCiw1Rn6biZvBxwBStKqjD0MttpJ6ReuQEK+cU0
-X-Gm-Gg: AfdE7cn4g+ciWf7apjRDy77m+d2VXaIT0FXBNtXxOW63FdvMRLWUcCoBw5hxei+PBAy
-	Y5wegaWzp5kLski5JtyscrhsO/+h5wcwaEXZxSi4j8O+has/wPEORtWSvv2qaYZ69hP649IAmpO
-	uEUeAhbUPNiXPB1faEUwu8m/hHhAlsiyopJHAjPso/IZw3sLjIG+4EYwK+6uu9So3/tJ0zhXb1E
-	X55iZzuJI0et2U8kjrkjkH5tN6eWf8/iOpMOQITltIlELPIPXS+IilJIDoPp/80olbOfdxOz/bs
-	vgX0OLGJG5sItZtJMQaUtQgE/AIejNsMRIfPBzqzE78iEWp34kV6B5QVNow9tq3n7zS4CO1HU4m
-	hCtY3zFYByjSVmPg8EUYU/gQvZQkKjMbllyIwPAWVNaw=
-X-Received: by 2002:a05:622a:5c0b:b0:51c:7d0:7ed7 with SMTP id d75a77b69052e-51cbf24a901mr81763781cf.39.1783931453364;
-        Mon, 13 Jul 2026 01:30:53 -0700 (PDT)
-X-Received: by 2002:a05:622a:5c0b:b0:51c:7d0:7ed7 with SMTP id d75a77b69052e-51cbf24a901mr81763651cf.39.1783931452962;
-        Mon, 13 Jul 2026 01:30:52 -0700 (PDT)
+        bh=orA8N+rUfuLziWiAdmDsk+WxJbTynnYWZ3oIdn7j9VA=;
+        b=eF/Pfn7VJcBEEjKu3FeerCT7dW3JAKtyzEjuvKgfBGh1xVxvq4gyMJNWo+NeZiJ/7/
+         pyA+3FWXo2TJuweHeik71NngxGTLV6dzOAu58EwXL+rhw6T3xr/7qntqfzGf6pOKBHPX
+         pO08xs3RUxPHA4VkP01bTNyAnIfe+0CtYYdVxPDfSRsRjR5K9Nf/rfNeLVce/A7s4Aw3
+         HqigJF3uTz9N72Gcbo0p05e8FCDNFf0uEz7yuqPs0IpwcmiqaED+TPIETlFTGvWUA4Zy
+         owvt0OxXpf3v+qaTP6GwchXyCdVnr64A8U+GyxTCftwxUMw4MxO/ap9Am/uDz85NZm5t
+         z+dg==
+X-Forwarded-Encrypted: i=1; AHgh+RoYxyF7p6zoX5SZFhD12F0OO8gE7eDgxQgVRv4aIvrlnq5RygsxoWJtMKrtVFZaDdamdP82e/ZJJqlm@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyf8/pdRiLktOs7CZR6G/mAbBU5tpeZ2fxXFRxbJoC9PCX1Y0Lq
+	sdTZLtJOzfY6l6c2V+4MIHzHLwH9KyKzP38rRVuEIIT0TmIIJVO2F4HYRBsBfdH3kUIHiYWrqVc
+	j+ZJmfmAFw3ub8My9vppnwFUV+YJx4jUC2ZBR17NXhpMVLhLxT5cy5XDwb8WvNfZk
+X-Gm-Gg: AfdE7cmbrd7i3O9cgvw2M/hWG9TCeM13rTD5If+PXiYB6tmuKsf5YhicYwmKOeDMloH
+	UEc5t7SCYYLai46qebD+6sy0lDBgtUDRO0m4woam+3pzYEgvq68sl5wQ2cPCTSwGHcH0L+Ijmrz
+	agn1mFCshZi9qnRTT0Na7tg2B3HoFSz5+/7YUqBBOaJppq8+01GPFJAWdxugxLLPImh1nF+U/dI
+	Xe2Q7pWqjOv81qwF5OOrdc66U2DqI6joVFkZS5ZTFM9TBTEXaky/D/fhb+e3brxBxQBnkYGQcI4
+	ACxmmo/SA42bsKcG3zXRjcw2YomkFqbMSWZ8f+x+/JAiDH01IPJc/cE3uY6wkG4oIGvACjfwJBN
+	/QwLx/f+syIg5AaUicdPo/eqiPMGF9mTbVVj3skHMEOA=
+X-Received: by 2002:a05:622a:34b:b0:51c:88b:d7e3 with SMTP id d75a77b69052e-51cbf0c4b4cmr79278261cf.3.1783931570536;
+        Mon, 13 Jul 2026 01:32:50 -0700 (PDT)
+X-Received: by 2002:a05:622a:34b:b0:51c:88b:d7e3 with SMTP id d75a77b69052e-51cbf0c4b4cmr79278101cf.3.1783931570178;
+        Mon, 13 Jul 2026 01:32:50 -0700 (PDT)
 Received: from [192.168.1.73] ([92.247.57.178])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15eb1dbdc9sm569475766b.10.2026.07.13.01.30.51
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15bb51af39sm858900666b.29.2026.07.13.01.32.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 01:30:52 -0700 (PDT)
-Message-ID: <e97424f4-d9aa-4f6a-84d0-2ba849bd7536@oss.qualcomm.com>
-Date: Mon, 13 Jul 2026 11:30:50 +0300
+        Mon, 13 Jul 2026 01:32:49 -0700 (PDT)
+Message-ID: <30a35954-4d0c-479e-8918-9f7a3a049a5c@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 11:32:48 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,7 +89,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+Subject: Re: [PATCH v4 0/5] Add Qualcomm JPEG V4L2 encoder for SM8250
 To: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org
 Cc: bryan.odonoghue@linaro.org, vladimir.zapolskiy@linaro.org,
         loic.poulain@oss.qualcomm.com, mchehab@kernel.org, robh@kernel.org,
@@ -97,166 +97,74 @@ Cc: bryan.odonoghue@linaro.org, vladimir.zapolskiy@linaro.org,
         konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
- <20260706071113.383215-6-atanas.filipov@oss.qualcomm.com>
- <06834dd6-1221-463f-9543-600814c8fc83@kernel.org>
+ <7479fb60-e14a-4c00-94bd-ecd5a493bec8@kernel.org>
 Content-Language: en-US
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <06834dd6-1221-463f-9543-600814c8fc83@kernel.org>
+In-Reply-To: <7479fb60-e14a-4c00-94bd-ecd5a493bec8@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA4NyBTYWx0ZWRfX24pTX/1AkS+l
- PqpuGualkZgqcS2RiL65GVNYBDnKpgdCZsTsdhn4Pbl16JoRWqAL/hdFmFqduOy+bgbqsA26Uyx
- Vi6dboX6XOmiwfhI9LBGb9WoEXqT2h8=
-X-Proofpoint-ORIG-GUID: 5yrm_gpYyAh5yZZ_vOfAnU8xqhnSib5y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA4NyBTYWx0ZWRfX7x/RsqcCXhnD
- lN3O/nOzlCGOrQBuClTldnu6BIk88TDKqp16Cpe4PPXW5ZCqB9UsxjVIIvR/bNQnAlzDDdwTin0
- B8ffuVChZDCMj2I17+4cE+Jmvh/163CRlwBuW04CTHzuQDhVdnFt73G+tF9Ye1lWzYUayY7ujzy
- boLSf9CAYX5K/V3YEONW2JqOOAgB/lNNb0/YCqfuKODYvck6U/OyxeVU3RogiTufitL2IOgfvZO
- Au5VRdbhjtpl6H8SaCz/PlHfZu0abYCz9FEH06uip2mJe7+d3+sxwTYMJr+wLTJpCR0mH2qtjAl
- eR2a9s/FP1T/Ng3CoQVZLIElZFCwnSEELuy8gph8oKwR9nJ196Z2a25yNLGCMnetZ5P2pEuGmeK
- d6JoTZItFHT+CNRdqo4XUhf9Szjqs8iAeScu3DNU+qBe3zX4VmguJrxxP+IJurdZFoLWexEaS+R
- yz1HM3fPbnot070IDSw==
-X-Proofpoint-GUID: 5yrm_gpYyAh5yZZ_vOfAnU8xqhnSib5y
-X-Authority-Analysis: v=2.4 cv=KM9qylFo c=1 sm=1 tr=0 ts=6a54a23f cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
+X-Proofpoint-ORIG-GUID: bMSQMAJybO-HjAE-jMoLXPThduIPvRFJ
+X-Authority-Analysis: v=2.4 cv=IcK3n2qa c=1 sm=1 tr=0 ts=6a54a2b3 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=TB4z-ivqILPobOqkYRMA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=-YhuI8MAAc7Bk1R6834A:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA4NyBTYWx0ZWRfX+rEZ+sLWdspW
+ aQ9rLC0fRFv0AlsK2OCKSMhxLezPW2FQTSMvE849VS30KNnX6EJeUox+XXrlyHH2en8uNL8F2wW
+ ZyKjSUQWPrRxIzhsGI0XLXUrPrbwf0g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA4NyBTYWx0ZWRfX8vVUkuSvrRkt
+ j2298iqtPwHIF36444jhpsixyr9PA6snfYjwz2r5DwxtXMRqYy9oNGD0ndoJzpDLXRgVS4JDi0K
+ 7TmkVVBgapf6+8US3LNkQQXhgW76e41YFyoyaL8O7GB28YaTfWrAXuUKkL/TRorqMB+Y71Iyqj7
+ m9lAMweTdhmSTtIEGvpY0e4+MLigvMhYjBIQnxtCKj0fUfWG/daLeh2wLAmoM+8qgmVyhygdkIq
+ pHawAhQLfPplzxh0SF0qSNbaxtE0I9NLd4RcK/yjSbHQHkZCpV2n6IyY5RXoT5enTgf84+Vg9ba
+ ISDCcF3XeXykYBRt/3HD2JI2juXkVKGkhebQHW5mgwB1bZtPR7zrA3LXThHQCk5yx4V7oe2FEBI
+ /kq5JMRK2YhJBh8KPI82sR1wrGAk9LWrQvxJTF9ZotWZXSm47UBwup+gANVdG9POQlSMqMxonEM
+ e6rL+sHwzfnFV7Zzxiw==
+X-Proofpoint-GUID: bMSQMAJybO-HjAE-jMoLXPThduIPvRFJ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130087
 
-On 7/6/2026 3:19 PM, Krzysztof Kozlowski wrote:
+On 7/6/2026 3:24 PM, Krzysztof Kozlowski wrote:
 > On 06/07/2026 09:11, Atanas Filipov wrote:
->> Add a Qualcomm JPEG encoder driver implemented on top of the
->> V4L2 mem2mem framework.
+>> This series adds support for the Qualcomm JPEG V4L2 mem2mem encoder on SM8250.
 >>
->> The driver wires vb2 queue handling, format negotiation, JPEG header
->> handling, interrupt-driven job completion, and runtime PM/clock/ICC
->> integration for the standalone JPEG encode hardware block.
+>> The goal is to upstream a standards-based JPEG encode path using the V4L2 M2M
+>> framework, with DT-described hardware resources and SoC DTS integration.
 >>
->> This series targets SM8250 (Kona) platforms.
->>
->> The jpeg-encoder node is described as a child node of the CAMSS block
->> and is probed automatically via of_platform_populate() in camss_probe().
->>
->> Usage examples:
->>
->> - Check of related video node: v4l2-ctl --list-devices
->>    The expected result:
->>     qcom-jpeg-enc (platform:qcom-jpeg-enc):
->>          /dev/videoX
->>
->> V4L2 Examples:
->>
->> v4l2-ctl -d /dev/video14 \
->> --set-fmt-video-out=width=1920,height=1080,pixelformat=NM12 \
->> --stream-mmap --stream-out-mmap
->>
->> v4l2-ctl -d /dev/video14 \
->> -c compression_quality=100 \
->> --set-fmt-video-out=width=1920,height=1080,pixelformat=NM12 \
->> --stream-mmap --stream-out-mmap \
->> --stream-count=100
->>
->> v4l2-ctl -d /dev/video14 \
->> --set-fmt-video-out=width=1920,height=1080,pixelformat=NM12 \
->> --stream-mmap --stream-out-mmap \
->> --set-ctrl=perf_level_auto=1 \
->> --set-ctrl=fps_target=30 \
->> --stream-count=100
->>
->> v4l2-ctl -d /dev/video14 \
->> --set-fmt-video-out=width=8192,height=8192,pixelformat=NM12 \
->> --stream-mmap --stream-out-mmap \
->> --stream-count=1 \
->> --stream-to=8192x8192_NM12.jpg
->>
->> v4l2-ctl -d /dev/video14 \
->> --set-fmt-video-out=width=8192,height=8192,pixelformat=GREY \
->> --stream-mmap --stream-out-mmap \
->> --stream-count=1 \
->> --stream-to=OUT_8192x8192.jpg
->>
->> v4l2-ctl -d /dev/video14 \
->> -c compression_quality=100 \
->> --set-fmt-video-out=width=1920,height=1088,pixelformat=NM12 \
->> --stream-mmap=4 --stream-out-mmap=4 \
->> --stream-count=100 \
->> --stream-out-pattern=21 \
->> --stream-to=OUT_1920x1088_100F.mjpg
->>
->> GStreamer examples:
->>
->> gst-launch-1.0 videotestsrc \
->> is-live=false pattern=ball num-buffers=50 ! \
->> video/x-raw,format=NV12,width=1920,height=1080 ! \
->> videoscale ! videoconvert ! \
->> video/x-raw,format=NV12,width=1920,height=1088 ! \
->> v4l2jpegenc ! \
->> fakesink sync=false
->>
->> gst-launch-1.0 videotestsrc is-live=true pattern=smpte ! \
->> video/x-raw,format=NV12,width=1920,height=1088 ! \
->> v4l2jpegenc extra-controls="controls,compression_quality=85" ! \
->> fpsdisplaysink -v sync=false
->>
->> Performance measurements on SM8250
->> (NV12, quality=100, GStreamer v4l2jpegenc vs jpegenc):
->>
->> +------------+-----------------------------+-------------------+
->> | Resolution |    HW v4l2jpegenc (q100)    | SW jpegenc (q100) |
->> |            | Execution | avrFPS | maxFPS | Execution |  FPS  |
->> +------------+-----------+--------+--------+-----------+-------+
->> |   512x512  | 2.2332    | 1139.1 | 1195.4 | 7.1055    | 358.0 |
->> |  1280x720  | 1.7300    |  418.5 |  457.2 | 5.0585    | 143.1 |
->> | 1024x1024  | 1.6991    |  374.3 |  397.4 | 4.7304    | 134.4 |
->> | 1920x1088  | 1.6596    |  192.8 |  193.8 | 3.7913    |  84.4 |
->> | 2048x2048  | 1.7277    |   92.0 |   91.6 | 3.6343    |  43.7 |
->> | 4096x4096  | 1.5887    |   25.2 |   25.3 | 4.2163    |   9.5 |
->> | 8192x8192  | 1.3104    |    7.6 |    8.0 | 2.9987    |   3.3 |
->> +------------+-----------+--------+--------+-----------+-------+
->>
->> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->> ---
->>   .../bindings/media/qcom,jpeg-encoder.yaml     |  143 +-
 > 
+> 1. Here was NAK for v2:
+> https://lore.kernel.org/all/20260625133828.3221781-1-atanas.filipov@oss.qualcomm.com/
 > 
-> NAK
+> When I asked to implement previous comments.
 > 
+> Did you implement them? No.
 > 
-> ...
+> 2. At v2-1 version I already asked you to implement comments:
+> https://lore.kernel.org/all/c9006b67-aa43-41d3-8b13-f20dd2e544c6@kernel.org/
 > 
+> Basically now, THIRD TIME, you send the same and you still do not
+> implement the comments I asked you at v1.
 > 
->> diff --git a/drivers/media/platform/qcom/Kconfig b/drivers/media/platform/qcom/Kconfig
->> index 4f4d3a68e6e5..f33d53a754a0 100644
->> --- a/drivers/media/platform/qcom/Kconfig
->> +++ b/drivers/media/platform/qcom/Kconfig
->> @@ -5,3 +5,4 @@ comment "Qualcomm media platform drivers"
->>   source "drivers/media/platform/qcom/camss/Kconfig"
->>   source "drivers/media/platform/qcom/iris/Kconfig"
->>   source "drivers/media/platform/qcom/venus/Kconfig"
->> +source "drivers/media/platform/qcom/jpeg/Kconfig"
+> I treat it as deliberate action to ignore review. Me asking the same for
+> the third time and expecting different results goes towards insanity, so
+> let's avoid me becoming insane and consider all future submissions also
+> NAK-ed:
 > 
-> Just like for other patch, you ignored reviewers' feedback.
-> 
-> I already asked you to go through previous comments around v3. I do not
-> see improvements, so I assume you do it deliberately.
-> 
-> NAK
+> Nacked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > 
 > Best regards,
 > Krzysztof
 
-Acknowledged. Inline replies to all previous comments have been sent.
-v5 will address all outstanding items.
+Apologies for the repeated failures. It was not deliberate. Inline
+replies to all your v1, v2 and v4 comments have now been sent. v5
+will address all of them without exception.
 
 Best regards,
 Atanas
-
