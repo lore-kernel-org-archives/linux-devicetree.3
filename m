@@ -1,898 +1,159 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82B33B0ADB
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A065A3A6B6A
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783930345; cv=none; b=rREEe853nvxJKiFNlFI5pesr9lCnLQUOzHULZin35u0P6DLZo7RuE8nd+7VaabuXKQJ8/arYLDxZos9rdGP6AGd3uBLmFyYbpTXn5ayRa74O/+jhCJZD4p+tyX+lFqId+XIUwMZtvlsbNCZKY2h3GQzjsBnTKbxmIxWPEg7LPKE=
+	t=1783930492; cv=none; b=kYwYWcBZnO+Yd8FfuYMh8XVNrUxWwQ0ctEpev9YIKLO11jkMqv6IqHcVHetmY+aF7xXSKu/lSaSmyHj93w0Em3RrJ3JIkCYSr/gLmlnBn51p6y/kWGtu2S2g8D+xtmFdwMX8o0AJIKd6OSTIneuQk1O2TDqBNssdY5Fn0D/jIVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783930345; c=relaxed/simple;
-	bh=dkYR4nc6krKwFAPYh3kFdw+u58OK7fbrBXpQoH0PCVc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=U68SToOSnURruP8oIORwVwWhvBr4+LSoINd6ppoUMTpGgwnFJajyjqrFOJ4YWUVFUTnhrCirvcNijXXFp1Jp7iN6JsmU8u9mSYmn4rfxrb3dI+jA1RxYiNOndy7spR/w1XYhPj+vhIEKRMV8eAzsGW/eVBo2cbFnsUsO8n/feqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FdV6c6XJ; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1783930492; c=relaxed/simple;
+	bh=I7iM8du2AcgwXflxNlwNtNuq54CpRR4WVNvb8Odgl2w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=erRNysltU8lMsxn1C3bkT2QUuQEKf1Q1eF9vuxOVwoE94nwHKNehcw71UxdbtbFN9rAcT1C8moBYMVyKzi8fBZolGS9A+YepSbYg1rF4kU6B5y1XYA95ytvxwcPGIBe7EZSuLcdJjQguluuyrc81mbZ1GTnu+jgzOjHD8kas6IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o22EbOPM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WMNRTSJM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FdV6c6XJ"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-383cb94f742so2451230a91.3
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:12:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o22EbOPM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WMNRTSJM"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6O2au391141
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:14:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Sa5gwV4FuV45W/DVPi3OpoAJltQZRv63LVhO/gAPcEs=; b=o22EbOPMM/dJPX4m
+	VwHbm2eM16tbHLpf+3jrLFY3OQ1d9GYFA9Kw2gJTzp0xtaHE2ojDDUR9zVeyRDe5
+	/dsGnO5Mwghfamfw5cf2E9bOMHn5Chyh7SiebatvxPDRSOPeGqpZTNX+qY1kTEYF
+	hJAuRxK3sohdvqaP6pptnZXKui55lhRIWWrjuBGYHiUufLXNMXFaWHA4PKwn+CrO
+	8eDZ16NQ5dP0rmyDLJDsIZ5IJkWRh/j+z0BU2PrTBYxbgG6SY/iz/EPcXfI0m6eU
+	bX/7DLTgsrpy9ftow8tL+zV94ooSRFBqjhts8BxZI5L6UOHpMpLH9D/Mo9fiBQjV
+	iJVoAw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbf0gn0uc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 08:14:49 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-ca8aee88725so4090463a12.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:14:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783930341; x=1784535141; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xKgxKCWrar3l4e+Y6xInmD7AMTeWU1vfBzWTKqdgZ8M=;
-        b=FdV6c6XJ301g27o1LUPd9Y1THO0keeLmF0DCCKwieDAHkGqATfr2oTGJqjoU2DLai+
-         74R9sRMa1Cb4f1rt4uQGHE9pBX07EAyumodX+rhXiZF/O9bFY91hnqEdpXUeAR/mw2NF
-         Dh+2ouYpKjZmhbma2hYFJmjDleu/R8NSPIrH9nhHwHazm26lxaQsuCovF0fY2m5hRwsF
-         uNBDoeAwYcYaozWiQhuT09vs8y4zsJvfiCCEceHysRycPPgmch9kcaR9drPOdVWB+hf1
-         oN/8H7TSENmKCMZkAtqXvNOKnCyrfcTBdzcG6wZ8o3LB4FW9t/ADtNspXmPAZjULc/ZE
-         0myQ==
+        d=oss.qualcomm.com; s=google; t=1783930489; x=1784535289; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sa5gwV4FuV45W/DVPi3OpoAJltQZRv63LVhO/gAPcEs=;
+        b=WMNRTSJMMwUB7W3lJUQliA+TGKxXcO1WQH249oNg91fNm2Z7SFDCf9rWLoAbMUpI2m
+         mU7e3jWcHFuhRXynH/3pO5Ihb8kkIBKyo0ioUf/tYu75vfhPIRtvUKVtnWPeeOA9Dvdd
+         bAJFfLGswpOvmbPW8nm+aZljQJYF16S+M2ebkzZ4m8eSHWqKHPwFHysUJfPpnYatXy9h
+         sP02DoDEIxaxhRRhsxrcD/XZvOcHmmI5a5FCtTT1vG19rirOmTS7cJanBE66b/n3Y/9n
+         MNeRfAp9b933sQ8VAYGCOjtFttJAMI8saffjvqc0xA/WoW4diUB89ZLOa73giEjk5mgn
+         Cj9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783930341; x=1784535141;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xKgxKCWrar3l4e+Y6xInmD7AMTeWU1vfBzWTKqdgZ8M=;
-        b=nHzWzJzULj5PZLKdHOHkcG660cTsLhu4UNCvi/g+HpjmDH81hVeAmFrpTEQNeyXnK8
-         0EfI09M/FyOcCsNVtGL/R5ADE4k/jJwKUfp09Her7TSFi4UoNupsdJF9mKMLhb93cnd2
-         tLZn5EPQfUa0xQUSjA4Y3u3KsJ4S302/a9cUdA6W8O8Qf7jMmyvfHyf/g0oF51uGueYs
-         jPIlhAxldh7eu6NSlOmbDENkxgqS9Vea3yO2DjxUo2F/ccf0aC09O3z/4+gyWYBTHE9h
-         jHH+YVJQNeNExyi3qDvGfrfO9qSNoNfJToRGtFAMF6fTrtnIvlsjaySONjJ1K/MIv3wk
-         QgiQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7DXQnqVwjxG6GWb9Ty3nGHkDMxFY55nOLfRCZIS+NoVqfmZhUoRldxFUCt8HaDDUpSl80kBtKUv38@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVxW/8vXf1Wb2SndvWPUQiy/KGv4PL61lVKuP1WEme4LByIGGw
-	8+Me+sL6bAH32tV8rawHpeBwQ+yuE+DXuleApRmsDoJhfpfpz7/FEvry
-X-Gm-Gg: AfdE7cmQ0dshditR6APbWg9ibVMHmaHTcnQUC+wPEpM6nFykZtX5gN+zXDQji2S1ICg
-	sIdR/9wJ7RwV2X9N3qS4cp2cZYZ0HiY0bOru4002fdz0+sCltCTY0DTEm9RfPB/5s3CysBMMuH8
-	iimZ56Hqu1jBW83XWnHMQsugVbJsuSk/M8NzKQUkZNW06hRs520pAo6Cd1Qvb08wB8Z0q4IJqJf
-	pCqwyP6ygH7He4tpNK7GwsxCaQ+X5cOkJzF+YLmYSdsQaZP7MIM3Y4KUjj0MHV6Vt3d5lPkgkf9
-	vDDSE+P0DRD4P3G53MTUNwc0OnGl05aSBay6UHfqC1ENl8jXLkiLPeECQ9bRDsIezGQVVIHGzCA
-	ozI9Uy8hGDDA0LHS8fk/tvx+kyr7NWMcbQ1lxKsEZSJ0vz8iZ/prbuA1UDqVNBriqAMU3CLe2Ks
-	b4OIN+NPGhPYQRtGkEhWZy0Mq/M+v1ljY+JalzFLblapFdv1JZiMYQz6mRF6PDkZG0O3rlPp8PH
-	nE=
-X-Received: by 2002:a17:90b:510a:b0:36a:c4b:76cf with SMTP id 98e67ed59e1d1-38dc7b37b5emr8139235a91.23.1783930341019;
-        Mon, 13 Jul 2026 01:12:21 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e0e033de6sm269636a91.13.2026.07.13.01.12.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 01:12:19 -0700 (PDT)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: jic23@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH v2 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Date: Mon, 13 Jul 2026 16:11:27 +0800
-Message-Id: <20260713081127.115197-3-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260713081127.115197-1-cwweng.linux@gmail.com>
-References: <20260713081127.115197-1-cwweng.linux@gmail.com>
+        d=1e100.net; s=20251104; t=1783930489; x=1784535289;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sa5gwV4FuV45W/DVPi3OpoAJltQZRv63LVhO/gAPcEs=;
+        b=A78+hLF0Woas5aIgIwxYcm/A7C//QeAJ9oDkeCq51dCJZ5gFJzsUsAZFKCp5wn5C7V
+         +jH6x51mmFW8u4PsppJsVscRK67Htobdhcr31KWTrvp4NSulq6ve7UAl7itQpzi978IF
+         1melcLVu0hs/bTPx1ET81uI84Lw1inM881O+SEYYRktmp+I8nBD137iXKWw6ANKDpxjq
+         LE7o0FcEE1bKtTltMjPoTiRi29IEDplYPZpBBjmjU1AgXw1AQmL8FbBxsieu0HZvQn/Y
+         qyWdns2yj9uczwNGoHJQO4PRPdWCBdoCOhT8sl6t/QvaZ2Mzu8qgsp/9OcKaFPrrjBXF
+         Ih5g==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3PMzjk3nbrKXmncFeB+V8xChjtrtYbe/fR+t9nj13XNGkMgFaBvTfvghnQx62fsfVZDy1F++bdwQc@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCG4tg/uuQmU7R94tJcUljUhl444QVbMurlw4WR4ZYtM63XCiL
+	qywe80kuhmPKaBlrmo3IFfkBGZRhIhEElqruzSDXoqLHOf3xIvNt98xgGHTFodK3wwmESo3JQ+H
+	dAZsMsFRQEGz1S4mmV2XFJiBz0hr/JCVwfmNyhOIFUVKNPZvXSqN6Mx5gY/klMGbu
+X-Gm-Gg: AfdE7ck2Ba2xNKz5Wm/Y6hCJMjo86MspKIMczdOgPwpsogL5o0+wOmv4SAxdIP+2ksn
+	kcIiNJXilGEgPYzvPU3erQkg/nCc8pLWVyNIZ1DmXpEX+/b/zj6/5SgxDgEda3xPqvP1iqtCCzG
+	kq5iyaD7TbzwwFRvpVs3jj8ri+HTKI03Fe9qS1sty2rauAlJ5ialLPM5yOj6vDQr+xBieM23yWJ
+	8fW84afE1CKrF5jIf11ofHssaPIqf5iU7vC8chYK6Zlz0Gtq+dUOX915WUUDEw6LdcuXoJW2ZI3
+	eotJcGoWjTljeMLtwXtsm0Rx+eZxpyWWxrts4hKHioIc8c7YNycPniBDN097ziYM6C3h2Hl0YpR
+	nzuPts/ari9AAtsf2+1rh5lsFwI/oYxhIUhgYc30=
+X-Received: by 2002:a05:6a21:b84:b0:3c0:ad2e:753d with SMTP id adf61e73a8af0-3c110a1280cmr8438568637.7.1783930489184;
+        Mon, 13 Jul 2026 01:14:49 -0700 (PDT)
+X-Received: by 2002:a05:6a21:b84:b0:3c0:ad2e:753d with SMTP id adf61e73a8af0-3c110a1280cmr8438541637.7.1783930488748;
+        Mon, 13 Jul 2026 01:14:48 -0700 (PDT)
+Received: from [10.218.15.172] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b8a5992c9sm23762094c88.4.2026.07.13.01.14.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 01:14:47 -0700 (PDT)
+Message-ID: <5def8e49-dcf6-4a79-9a4c-b851483ad1e0@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 13:44:42 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: shikra: Update rpm-stats
+ compatible to SoC specific
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Maulik Shah <quic_mkshah@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260708-shikra_stats-v2-0-beb52f24f1fd@oss.qualcomm.com>
+ <20260708-shikra_stats-v2-3-beb52f24f1fd@oss.qualcomm.com>
+ <qvegfsqxrtfucwf4imq34a37im4wailbw4atk4ixrcoqedbl4s@ztdd7su5nmzp>
+Content-Language: en-US
+From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+In-Reply-To: <qvegfsqxrtfucwf4imq34a37im4wailbw4atk4ixrcoqedbl4s@ztdd7su5nmzp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Nq3htcdJ c=1 sm=1 tr=0 ts=6a549e79 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=JafrABjVyvUhwVX8spQA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: XVd2hh-9NjHPT0N82CjXW5Du3m9gtc8O
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA4NSBTYWx0ZWRfX8VIU/tY2l+p2
+ 35iXzp1cZi9aiPKn5+ntsTlMXR+pZ3rEsW3dLFQL4TNjVsA5NNYdfAlJn5YLwKMobUjSbgkfmHL
+ kesoB1WxGalopxMX06BT6IjSx7YZxlGEPQ9WBSdZzDezPP59K13Vna8P8lTDrtgvn82Qv4U5FwD
+ 16LTFVOqxoiJUE9bAkVdcciE7ldvdn+R77frs+A2Lj8wStDFATIHWHCHil6js8OlB5qoFPodX8U
+ 3JIiyWKZ95OvoR0trmKzsvWaXrptDGlxA78ZWhIcErHGPI8ubUesgDKtbhnJjz5Sa8vsHkH3Obc
+ r2U9EQT5ewD6xiXtLmOLai0GO71k0IYl6LaYl5cmBA3xZtg6mjVjJArQEV7YEWQRiGpyMtM/vDl
+ /bDh3rjht75TxhY0UeR82zz5jjfkTQje8TbbNgumOp+16ilEcvHMrxTs+XuN2GA0k4dOrY2q233
+ oBVLt5VUvX/tcHWXzuQ==
+X-Proofpoint-GUID: XVd2hh-9NjHPT0N82CjXW5Du3m9gtc8O
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA4NSBTYWx0ZWRfXwLMWTOR7JLgd
+ VHUqNk4hTRt3FGMAWAykanju1/3RE3pxS4dh1nzHgUNW+lWYKapMX+fXDB1TR31nTgWfyfmwbHC
+ 9+pmKOTn7skXlj8r7i8QN/ydopjGT6A=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607130085
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-Add an IIO driver for the Nuvoton MA35D1 Enhanced ADC controller.
 
-The driver supports interrupt-driven direct raw reads and triggered
-buffered capture paced by an external IIO trigger. Buffered capture is
-limited to a single enabled voltage channel per scan in this initial
-implementation.
+On 09-Jul-26 3:20 PM, Dmitry Baryshkov wrote:
+[...]
+> 
+> Is it compatible with the generic rpm-stats format? If so,
+> qcom-rpm-stats should be a fallback compatible.
+> 
+Agreed Dmitry, thanks for pointing out. Will send out v3 with "qcom,rpm-stats"
+as fallback compatible.
 
-Channels are described by firmware child nodes. Single-ended external
-channels and the fixed hardware differential input pairs are supported.
-The driver reports IIO scale from either an optional external reference
-supply or the internal 1.6 V reference.
-
-The driver also handles the functional clock and optional reset line.
-DMA support is not used by this initial driver.
-
-Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
----
- drivers/iio/adc/Kconfig       |  12 +
- drivers/iio/adc/Makefile      |   1 +
- drivers/iio/adc/ma35d1_eadc.c | 740 ++++++++++++++++++++++++++++++++++
- 3 files changed, 753 insertions(+)
- create mode 100644 drivers/iio/adc/ma35d1_eadc.c
-
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 1c663c98c6c9..509118dc5643 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -981,6 +981,18 @@ config LTC2497
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called ltc2497.
- 
-+config MA35D1_EADC
-+	tristate "Nuvoton MA35D1 EADC driver"
-+	select IIO_BUFFER
-+	select IIO_TRIGGERED_BUFFER
-+	select REGMAP_MMIO
-+	help
-+	  Say yes here to build support for the Nuvoton MA35D1
-+	  Enhanced Analog to Digital Converter.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called ma35d1_eadc.
-+
- config MAX1027
- 	tristate "Maxim max1027 ADC driver"
- 	depends on SPI
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index 707dd708912f..7b9b38688223 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -85,6 +85,7 @@ obj-$(CONFIG_LTC2471) += ltc2471.o
- obj-$(CONFIG_LTC2485) += ltc2485.o
- obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o
- obj-$(CONFIG_LTC2497) += ltc2497.o ltc2497-core.o
-+obj-$(CONFIG_MA35D1_EADC) += ma35d1_eadc.o
- obj-$(CONFIG_MAX1027) += max1027.o
- obj-$(CONFIG_MAX11100) += max11100.o
- obj-$(CONFIG_MAX1118) += max1118.o
-diff --git a/drivers/iio/adc/ma35d1_eadc.c b/drivers/iio/adc/ma35d1_eadc.c
-new file mode 100644
-index 000000000000..b2733e816c49
---- /dev/null
-+++ b/drivers/iio/adc/ma35d1_eadc.c
-@@ -0,0 +1,740 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Nuvoton MA35D1 EADC driver
-+ *
-+ * Copyright (c) 2026 Nuvoton Technology Corp.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitmap.h>
-+#include <linux/bitops.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/jiffies.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
-+#include <linux/types.h>
-+
-+#include <linux/iio/buffer.h>
-+#include <linux/iio/iio.h>
-+#include <linux/iio/trigger.h>
-+#include <linux/iio/trigger_consumer.h>
-+#include <linux/iio/triggered_buffer.h>
-+
-+#define MA35D1_EADC_DAT(n)		(0x00 + (n) * 0x04)
-+#define MA35D1_EADC_CTL			0x50
-+#define MA35D1_EADC_SWTRG		0x54
-+#define MA35D1_EADC_SCTL(n)		(0x80 + (n) * 0x04)
-+#define MA35D1_EADC_INTSRC0		0xd0
-+#define MA35D1_EADC_STATUS2		0xf8
-+#define MA35D1_EADC_SELSMP0		0x140
-+#define MA35D1_EADC_REFADJCTL		0x150
-+
-+#define MA35D1_EADC_CTL_ADCEN		BIT(0)
-+#define MA35D1_EADC_CTL_ADCIEN0		BIT(2)
-+#define MA35D1_EADC_CTL_DIFFEN		BIT(8)
-+#define MA35D1_EADC_CTL_DMOF		BIT(9)
-+#define MA35D1_EADC_CTL_VREFSEL_MASK	GENMASK(11, 10)
-+#define MA35D1_EADC_CTL_VREFSEL_1V6	FIELD_PREP(MA35D1_EADC_CTL_VREFSEL_MASK, 0)
-+
-+#define MA35D1_EADC_SCTL_CHSEL_MASK	GENMASK(3, 0)
-+#define MA35D1_EADC_SCTL_TRGSEL_MASK	GENMASK(21, 16)
-+
-+#define MA35D1_EADC_DAT_RESULT_MASK	GENMASK(15, 0)
-+#define MA35D1_EADC_DAT_RESULT_12BIT	GENMASK(11, 0)
-+#define MA35D1_EADC_DAT_OV		BIT(16)
-+#define MA35D1_EADC_DAT_VALID		BIT(17)
-+
-+#define MA35D1_EADC_INTSRC0_SPLIEN(n)	BIT(n)
-+#define MA35D1_EADC_STATUS2_ADIF0	BIT(0)
-+#define MA35D1_EADC_REFADJCTL_PDREF	BIT(0)
-+#define MA35D1_EADC_SELSMP0_SMPT0_MASK	GENMASK(1, 0)
-+#define MA35D1_EADC_SELSMP_LONG		FIELD_PREP(MA35D1_EADC_SELSMP0_SMPT0_MASK, 3)
-+
-+#define MA35D1_EADC_MAX_EXT_CHANNELS	8
-+#define MA35D1_EADC_INTERNAL_VREF_MV	1600
-+#define MA35D1_EADC_TIMEOUT		msecs_to_jiffies(1000)
-+#define MA35D1_EADC_RESET_DELAY_US	10
-+#define MA35D1_EADC_REF_STABLE_US	1000
-+
-+struct ma35d1_adc {
-+	struct regmap *regmap;
-+	struct clk *clk;
-+	struct reset_control *rst;
-+	struct regulator *vref;
-+	struct completion completion;
-+	/* Protects conversion state and register accesses from PM transitions. */
-+	struct mutex lock;
-+	const struct iio_chan_spec *scan_chan;
-+	unsigned int vref_mv;
-+	int irq;
-+	bool suspended;
-+};
-+
-+static const struct regmap_config ma35d1_adc_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = MA35D1_EADC_REFADJCTL,
-+};
-+
-+static bool ma35d1_adc_valid_diff_pair(unsigned int vinp, unsigned int vinn)
-+{
-+	return (vinp == 0 && vinn == 4) ||
-+	       (vinp == 1 && vinn == 5) ||
-+	       (vinp == 2 && vinn == 6) ||
-+	       (vinp == 3 && vinn == 7);
-+}
-+
-+static int ma35d1_adc_set_bits(struct ma35d1_adc *adc, unsigned int reg,
-+			       unsigned int bits)
-+{
-+	return regmap_set_bits(adc->regmap, reg, bits);
-+}
-+
-+static int ma35d1_adc_clear_bits(struct ma35d1_adc *adc, unsigned int reg,
-+				 unsigned int bits)
-+{
-+	return regmap_clear_bits(adc->regmap, reg, bits);
-+}
-+
-+static int ma35d1_adc_disable_irq(struct ma35d1_adc *adc)
-+{
-+	return ma35d1_adc_clear_bits(adc, MA35D1_EADC_CTL,
-+				     MA35D1_EADC_CTL_ADCIEN0);
-+}
-+
-+static int ma35d1_adc_setup_reference(struct ma35d1_adc *adc)
-+{
-+	int ret;
-+
-+	if (adc->vref) {
-+		ret = regmap_set_bits(adc->regmap, MA35D1_EADC_REFADJCTL,
-+				      MA35D1_EADC_REFADJCTL_PDREF);
-+		if (ret)
-+			return ret;
-+	} else {
-+		ret = regmap_clear_bits(adc->regmap, MA35D1_EADC_REFADJCTL,
-+					MA35D1_EADC_REFADJCTL_PDREF);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_update_bits(adc->regmap, MA35D1_EADC_CTL,
-+					 MA35D1_EADC_CTL_VREFSEL_MASK,
-+					 MA35D1_EADC_CTL_VREFSEL_1V6);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	fsleep(MA35D1_EADC_REF_STABLE_US);
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_hw_init(struct ma35d1_adc *adc)
-+{
-+	int ret;
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_adc_setup_reference(adc);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_SELSMP0,
-+				 MA35D1_EADC_SELSMP0_SMPT0_MASK,
-+				 MA35D1_EADC_SELSMP_LONG);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-+			   MA35D1_EADC_STATUS2_ADIF0);
-+	if (ret)
-+		return ret;
-+
-+	return ma35d1_adc_set_bits(adc, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-+}
-+
-+static int ma35d1_adc_hw_disable(struct ma35d1_adc *adc)
-+{
-+	int ret;
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	return ma35d1_adc_clear_bits(adc, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCEN);
-+}
-+
-+static void ma35d1_adc_hw_disable_action(void *data)
-+{
-+	ma35d1_adc_hw_disable(data);
-+}
-+
-+static void ma35d1_adc_vref_disable(void *data)
-+{
-+	regulator_disable(data);
-+}
-+
-+static int ma35d1_adc_reset(struct ma35d1_adc *adc)
-+{
-+	int ret;
-+
-+	if (!adc->rst)
-+		return 0;
-+
-+	ret = reset_control_assert(adc->rst);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(MA35D1_EADC_RESET_DELAY_US);
-+
-+	return reset_control_deassert(adc->rst);
-+}
-+
-+static int ma35d1_adc_config_channel(struct ma35d1_adc *adc,
-+				     const struct iio_chan_spec *chan)
-+{
-+	unsigned int ctl;
-+	int ret;
-+
-+	ctl = chan->differential ? MA35D1_EADC_CTL_DIFFEN |
-+					  MA35D1_EADC_CTL_DMOF : 0;
-+
-+	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_CTL,
-+				 MA35D1_EADC_CTL_DIFFEN |
-+				 MA35D1_EADC_CTL_DMOF, ctl);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(adc->regmap, MA35D1_EADC_SCTL(0),
-+				 MA35D1_EADC_SCTL_CHSEL_MASK |
-+				 MA35D1_EADC_SCTL_TRGSEL_MASK,
-+				 FIELD_PREP(MA35D1_EADC_SCTL_CHSEL_MASK,
-+					    chan->channel));
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(adc->regmap, MA35D1_EADC_INTSRC0,
-+				  MA35D1_EADC_INTSRC0_SPLIEN(0),
-+				  MA35D1_EADC_INTSRC0_SPLIEN(0));
-+}
-+
-+static int ma35d1_adc_read_conversion(struct ma35d1_adc *adc,
-+				      const struct iio_chan_spec *chan, u16 *raw)
-+{
-+	unsigned int val;
-+	long timeout;
-+	int ret;
-+
-+	reinit_completion(&adc->completion);
-+
-+	ret = regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-+			   MA35D1_EADC_STATUS2_ADIF0);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_adc_config_channel(adc, chan);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_adc_set_bits(adc, MA35D1_EADC_CTL, MA35D1_EADC_CTL_ADCIEN0);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(adc->regmap, MA35D1_EADC_SWTRG, BIT(0));
-+	if (ret)
-+		goto disable_irq;
-+
-+	timeout = wait_for_completion_timeout(&adc->completion,
-+					      MA35D1_EADC_TIMEOUT);
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	if (!timeout)
-+		return -ETIMEDOUT;
-+
-+	ret = regmap_read(adc->regmap, MA35D1_EADC_DAT(0), &val);
-+	if (ret)
-+		return ret;
-+
-+	if (!(val & MA35D1_EADC_DAT_VALID))
-+		return -EIO;
-+
-+	if (val & MA35D1_EADC_DAT_OV)
-+		return -EOVERFLOW;
-+
-+	*raw = FIELD_GET(MA35D1_EADC_DAT_RESULT_MASK, val);
-+
-+	return 0;
-+
-+disable_irq:
-+	ma35d1_adc_disable_irq(adc);
-+
-+	return ret;
-+}
-+
-+static irqreturn_t ma35d1_adc_isr(int irq, void *data)
-+{
-+	struct iio_dev *indio_dev = data;
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	unsigned int status;
-+	int ret;
-+
-+	ret = regmap_read(adc->regmap, MA35D1_EADC_STATUS2, &status);
-+	if (ret || !(status & MA35D1_EADC_STATUS2_ADIF0))
-+		return IRQ_NONE;
-+
-+	regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-+		     MA35D1_EADC_STATUS2_ADIF0);
-+	complete(&adc->completion);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int ma35d1_adc_sign_extend(u16 raw)
-+{
-+	return sign_extend32(raw & MA35D1_EADC_DAT_RESULT_12BIT, 11);
-+}
-+
-+static int ma35d1_adc_read_raw(struct iio_dev *indio_dev,
-+			       const struct iio_chan_spec *chan,
-+			       int *val, int *val2, long mask)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	u16 raw;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW: {
-+		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+
-+		if (IIO_DEV_ACQUIRE_FAILED(claim))
-+			return -EBUSY;
-+
-+		guard(mutex)(&adc->lock);
-+		if (adc->suspended)
-+			return -EBUSY;
-+
-+		ret = ma35d1_adc_read_conversion(adc, chan, &raw);
-+		if (ret)
-+			return ret;
-+
-+		if (chan->differential)
-+			*val = ma35d1_adc_sign_extend(raw);
-+		else
-+			*val = raw & MA35D1_EADC_DAT_RESULT_12BIT;
-+
-+		return IIO_VAL_INT;
-+	}
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = adc->vref_mv;
-+		*val2 = chan->differential ? 11 : 12;
-+		return IIO_VAL_FRACTIONAL_LOG2;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ma35d1_adc_update_scan_mode(struct iio_dev *indio_dev,
-+				       const unsigned long *scan_mask)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	const struct iio_chan_spec *scan_chan = NULL;
-+	unsigned long bit;
-+	unsigned int count;
-+
-+	count = 0;
-+	for_each_set_bit(bit, scan_mask, indio_dev->masklength) {
-+		scan_chan = &indio_dev->channels[bit];
-+		count++;
-+	}
-+
-+	if (count != 1 || scan_chan->type != IIO_VOLTAGE)
-+		return -EINVAL;
-+
-+	adc->scan_chan = scan_chan;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_buffer_postenable(struct iio_dev *indio_dev)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+
-+	guard(mutex)(&adc->lock);
-+
-+	if (adc->suspended)
-+		return -EBUSY;
-+
-+	return adc->scan_chan ? 0 : -EINVAL;
-+}
-+
-+static int ma35d1_adc_buffer_predisable(struct iio_dev *indio_dev)
-+{
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	int ret;
-+
-+	guard(mutex)(&adc->lock);
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_write(adc->regmap, MA35D1_EADC_STATUS2,
-+			    MA35D1_EADC_STATUS2_ADIF0);
-+}
-+
-+static irqreturn_t ma35d1_adc_trigger_handler(int irq, void *p)
-+{
-+	struct iio_poll_func *pf = p;
-+	struct iio_dev *indio_dev = pf->indio_dev;
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	IIO_DECLARE_BUFFER_WITH_TS(u16, scan, 1) = { };
-+	u16 raw;
-+	int ret;
-+
-+	guard(mutex)(&adc->lock);
-+	if (adc->suspended || !adc->scan_chan)
-+		goto done;
-+
-+	ret = ma35d1_adc_read_conversion(adc, adc->scan_chan, &raw);
-+	if (ret)
-+		goto done;
-+
-+	scan[0] = raw & MA35D1_EADC_DAT_RESULT_12BIT;
-+	iio_push_to_buffers_with_timestamp(indio_dev, scan, pf->timestamp);
-+
-+done:
-+	iio_trigger_notify_done(indio_dev->trig);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static const struct iio_buffer_setup_ops ma35d1_adc_buffer_ops = {
-+	.postenable = ma35d1_adc_buffer_postenable,
-+	.predisable = ma35d1_adc_buffer_predisable,
-+};
-+
-+static const struct iio_info ma35d1_adc_info = {
-+	.read_raw = ma35d1_adc_read_raw,
-+	.update_scan_mode = ma35d1_adc_update_scan_mode,
-+};
-+
-+static void ma35d1_adc_init_channel(struct iio_chan_spec *chan, u32 vinp,
-+				    u32 vinn, unsigned int scan_index,
-+				    bool differential)
-+{
-+	chan->type = IIO_VOLTAGE;
-+	chan->indexed = 1;
-+	chan->channel = vinp;
-+	chan->scan_index = scan_index;
-+	chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+					 BIT(IIO_CHAN_INFO_SCALE);
-+	chan->scan_type.format = differential ? IIO_SCAN_FORMAT_SIGNED_INT :
-+					      IIO_SCAN_FORMAT_UNSIGNED_INT;
-+	chan->scan_type.realbits = 12;
-+	chan->scan_type.storagebits = 16;
-+	chan->scan_type.endianness = IIO_CPU;
-+
-+	if (differential) {
-+		chan->differential = 1;
-+		chan->channel2 = vinn;
-+	}
-+}
-+
-+static struct iio_chan_spec
-+ma35d1_adc_timestamp_channel(unsigned int scan_index)
-+{
-+	struct iio_chan_spec chan = IIO_CHAN_SOFT_TIMESTAMP(scan_index);
-+
-+	return chan;
-+}
-+
-+static int ma35d1_adc_parse_channels(struct iio_dev *indio_dev,
-+				     struct device *dev)
-+{
-+	DECLARE_BITMAP(used_channels, MA35D1_EADC_MAX_EXT_CHANNELS);
-+	struct iio_chan_spec *channels;
-+	unsigned int scan_index;
-+	int num_channels;
-+	int ret;
-+
-+	bitmap_zero(used_channels, MA35D1_EADC_MAX_EXT_CHANNELS);
-+
-+	num_channels = device_get_child_node_count(dev);
-+	if (!num_channels)
-+		return dev_err_probe(dev, -ENODATA,
-+				     "no ADC channels configured\n");
-+
-+	if (num_channels > MA35D1_EADC_MAX_EXT_CHANNELS)
-+		return dev_err_probe(dev, -EINVAL, "too many ADC channels\n");
-+
-+	channels = devm_kcalloc(dev, num_channels + 1, sizeof(*channels), GFP_KERNEL);
-+	if (!channels)
-+		return -ENOMEM;
-+
-+	scan_index = 0;
-+	device_for_each_child_node_scoped(dev, child) {
-+		u32 diff[2];
-+		u32 reg;
-+		u32 vinn;
-+		bool differential;
-+
-+		ret = fwnode_property_read_u32(child, "reg", &reg);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "missing channel reg property\n");
-+
-+		if (reg >= MA35D1_EADC_MAX_EXT_CHANNELS)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "invalid ADC channel %u\n", reg);
-+
-+		if (test_and_set_bit(reg, used_channels))
-+			return dev_err_probe(dev, -EINVAL,
-+					     "duplicate ADC channel %u\n", reg);
-+
-+		differential = false;
-+		vinn = 0;
-+		if (fwnode_property_present(child, "diff-channels")) {
-+			ret = fwnode_property_read_u32_array(child, "diff-channels", diff,
-+							     ARRAY_SIZE(diff));
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "invalid diff-channels for channel %u\n",
-+						     reg);
-+
-+			if (diff[0] != reg ||
-+			    !ma35d1_adc_valid_diff_pair(diff[0], diff[1]))
-+				return dev_err_probe(dev, -EINVAL,
-+						     "invalid differential ADC channel %u-%u\n",
-+						     diff[0], diff[1]);
-+
-+			if (test_and_set_bit(diff[1], used_channels))
-+				return dev_err_probe(dev, -EINVAL,
-+						     "ADC channel %u already used\n",
-+						     diff[1]);
-+
-+			vinn = diff[1];
-+			differential = true;
-+		}
-+
-+		ma35d1_adc_init_channel(&channels[scan_index], reg, vinn,
-+					scan_index, differential);
-+		scan_index++;
-+	}
-+
-+	channels[scan_index] = ma35d1_adc_timestamp_channel(scan_index);
-+
-+	indio_dev->channels = channels;
-+	indio_dev->num_channels = scan_index + 1;
-+	indio_dev->masklength = indio_dev->num_channels;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_init_vref(struct ma35d1_adc *adc, struct device *dev)
-+{
-+	int ret;
-+
-+	adc->vref = devm_regulator_get_optional(dev, "vref");
-+	if (IS_ERR(adc->vref)) {
-+		if (PTR_ERR(adc->vref) != -ENODEV)
-+			return dev_err_probe(dev, PTR_ERR(adc->vref),
-+					     "failed to get VREF supply\n");
-+
-+		adc->vref = NULL;
-+		adc->vref_mv = MA35D1_EADC_INTERNAL_VREF_MV;
-+
-+		return 0;
-+	}
-+
-+	ret = regulator_enable(adc->vref);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable VREF supply\n");
-+
-+	ret = devm_add_action_or_reset(dev, ma35d1_adc_vref_disable, adc->vref);
-+	if (ret)
-+		return ret;
-+
-+	ret = regulator_get_voltage(adc->vref);
-+	if (ret <= 0)
-+		return dev_err_probe(dev, ret ?: -EINVAL,
-+				     "failed to get VREF voltage\n");
-+
-+	adc->vref_mv = ret / 1000;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct iio_dev *indio_dev;
-+	struct ma35d1_adc *adc;
-+	void __iomem *regs;
-+	int irq;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*adc));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	adc = iio_priv(indio_dev);
-+	init_completion(&adc->completion);
-+
-+	ret = devm_mutex_init(dev, &adc->lock);
-+	if (ret)
-+		return ret;
-+
-+	regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(regs))
-+		return dev_err_probe(dev, PTR_ERR(regs),
-+				     "failed to map registers\n");
-+
-+	adc->regmap = devm_regmap_init_mmio(dev, regs, &ma35d1_adc_regmap_config);
-+	if (IS_ERR(adc->regmap))
-+		return dev_err_probe(dev, PTR_ERR(adc->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	adc->clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(adc->clk))
-+		return dev_err_probe(dev, PTR_ERR(adc->clk),
-+				     "failed to get and enable ADC clock\n");
-+
-+	adc->rst = devm_reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(adc->rst))
-+		return dev_err_probe(dev, PTR_ERR(adc->rst),
-+				     "failed to get reset control\n");
-+
-+	ret = ma35d1_adc_reset(adc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to reset ADC\n");
-+
-+	ret = ma35d1_adc_init_vref(adc, dev);
-+	if (ret)
-+		return ret;
-+
-+	indio_dev->name = "ma35d1-eadc";
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+	indio_dev->info = &ma35d1_adc_info;
-+
-+	ret = ma35d1_adc_parse_channels(indio_dev, dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_adc_hw_init(adc);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize ADC\n");
-+
-+	ret = devm_add_action_or_reset(dev, ma35d1_adc_hw_disable_action, adc);
-+	if (ret)
-+		return ret;
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	adc->irq = irq;
-+	ret = devm_request_irq(dev, irq, ma35d1_adc_isr, 0, dev_name(dev),
-+			       indio_dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
-+					      iio_pollfunc_store_time,
-+					      ma35d1_adc_trigger_handler,
-+					      &ma35d1_adc_buffer_ops);
-+	if (ret)
-+		return ret;
-+
-+	platform_set_drvdata(pdev, indio_dev);
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static int ma35d1_adc_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	int ret;
-+
-+	guard(mutex)(&adc->lock);
-+
-+	ret = ma35d1_adc_disable_irq(adc);
-+	if (ret)
-+		return ret;
-+
-+	synchronize_irq(adc->irq);
-+
-+	ret = ma35d1_adc_hw_disable(adc);
-+	if (ret)
-+		return ret;
-+
-+	clk_disable_unprepare(adc->clk);
-+	adc->suspended = true;
-+
-+	return 0;
-+}
-+
-+static int ma35d1_adc_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct ma35d1_adc *adc = iio_priv(indio_dev);
-+	int ret;
-+
-+	guard(mutex)(&adc->lock);
-+
-+	ret = clk_prepare_enable(adc->clk);
-+	if (ret)
-+		return ret;
-+
-+	ret = ma35d1_adc_hw_init(adc);
-+	if (ret) {
-+		clk_disable_unprepare(adc->clk);
-+		return ret;
-+	}
-+
-+	adc->suspended = false;
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(ma35d1_adc_pm_ops,
-+				ma35d1_adc_suspend, ma35d1_adc_resume);
-+
-+static const struct of_device_id ma35d1_adc_of_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-eadc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ma35d1_adc_of_match);
-+
-+static struct platform_driver ma35d1_adc_driver = {
-+	.probe = ma35d1_adc_probe,
-+	.driver = {
-+		.name = "ma35d1-eadc",
-+		.of_match_table = ma35d1_adc_of_match,
-+		.pm = pm_sleep_ptr(&ma35d1_adc_pm_ops),
-+	},
-+};
-+module_platform_driver(ma35d1_adc_driver);
-+
-+MODULE_AUTHOR("Chi-Wen Weng <cwweng@nuvoton.com>");
-+MODULE_DESCRIPTION("Nuvoton MA35D1 EADC driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+Thanks,
+Sneh
+>>  			reg = <0x0 0x04690000 0x0 0x14000>;
+>>  		};
+>>  
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
