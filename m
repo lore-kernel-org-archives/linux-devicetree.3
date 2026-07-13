@@ -1,161 +1,263 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705B335677E;
-	Mon, 13 Jul 2026 19:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AD6356754
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 19:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783971010; cv=none; b=lmu6Nh96WYD5yJ18y1Uiy+mXSzFV+LpM4PgtNyS+keyDztvRWnImdwL3yddHnOB9yUphp3wSzoQ6VNn24UQKfb+MsnhDqcOV2rIxDzUloEyU0qBiqk2fFjzJsMyUmzf8bdb3AoU4S4qEt7jdMiVfMFzEhsJm3z0T5mz9JpMhoR8=
+	t=1783971434; cv=none; b=itSSDulTmCKa5PJxkkKm7adTGOpCLqvONZKTYcEWRUpBOq/WnWFZou+bKR+i6tyNqondxD1UOF9rLt3F+t4Am1AL6/28SLPeNCmIdjcNowDQY4bM4FY/nipx5+J8VT5G5jdcBhphcoUdnk/jORIYwhDHOH2BUeEV13ZsomTi7Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783971010; c=relaxed/simple;
-	bh=YaEH+sl/++U2KbZvN4eiZqs9bHWOU336+JmOrpgozYQ=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=N1vy23DC+41yfRhRpCCYVJBrzP6Yc0xKyO67Dp8+Qqr9Pjw17BJ4bX6ammrxAJHyAOvqyw3OhJCfYJapmlA2UTOjYwVaE5jdj/FCjOuVv3j9JsBeFDgS6NJurJfVgUoSanqiuO3lfQItkZASU248uM0DppoAqHgZjHcpd4pkrqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LFT6WccO; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783971434; c=relaxed/simple;
+	bh=VzRE+mW6bIFbzTSbJl62fZ0E1L4ZozEW46P/80rxb0o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=H7V9/T8bs2tNUfPcBkz5vYTl0ZPuDhi1b1erKYiUpAQekyawAQ2rRcph0UECnk3i9LsF2UuCsELQGhbY8iC80slRCTp+Mhw6Pp9UmNe9tHWXRZZUab7b2CheuG5LXeo7CsH842bFaloWYzBWMYSDaCYMmN1nf5LbnCgmZEttJyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KsrVT58A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I5ZrecXX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LFT6WccO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783971006;
-	bh=YaEH+sl/++U2KbZvN4eiZqs9bHWOU336+JmOrpgozYQ=;
-	h=Subject:From:To:Date:In-Reply-To:References:From;
-	b=LFT6WccO0ftRGWJ9jGraUGIKoDH4M7Rdo+hbethvPXdu9vANpNXZQQTyBUVWrmeiq
-	 8aEYb/WNDwQMr0XUwzfipZLO4B7y+Cuq2l8fD4nKpgUM0zLiJpPl6A7oAVbXVo2rT4
-	 QBwiddJ44BUvrFLnDdv9ARuw2WB02dskycB2h6cnxtlKj5GHm6gfVcQsrVioOHnmUD
-	 zlMyDFPGDJ4kRNPfjc3HK2H10VNxvAhHdni9EEyq0Gf8kCegAZgmAYpJT/gXO1tY2+
-	 cFqgsRfJggeW1P3Jb79RluJZFjrqmNnH2wcZH3Fip/J6tqmSDqTriEwymekVzWBY8o
-	 pf4XnYlLAcvTA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1A77A17E07A2;
-	Mon, 13 Jul 2026 21:30:04 +0200 (CEST)
-Message-ID: <6ddf0799abbd5f61cca887d8474357cd9ec6b904.camel@collabora.com>
-Subject: Re: [PATCH v15 04/12] media: mediatek: jpeg: Fix buffer completion
- on multi-core streaming stop
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Kyrie Wu <kyrie.wu@mediatek.com>, Hans Verkuil
- <hverkuil-cisco@xs4all.nl>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger	
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Date: Mon, 13 Jul 2026 15:30:03 -0400
-In-Reply-To: <20260702072614.10373-5-kyrie.wu@mediatek.com>
-References: <20260702072614.10373-1-kyrie.wu@mediatek.com>
-	 <20260702072614.10373-5-kyrie.wu@mediatek.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-sAK8CIaYG2enlEegvh5c"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KsrVT58A";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I5ZrecXX"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66DJ9Ybq2356009
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 19:37:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=hLZiCfxmYB7bwAfCoP9oXf
+	Q7q5N7blEMsw29C0ndjAc=; b=KsrVT58A3vyj+5jef5IiPl0i6m8qDgl/iNXQSW
+	F3Ev5mFrF3Zv0r6KykFnSlFdvSqPogXRq/+/dVmHJNOe0BfYWphp2R5kzAZV0sAq
+	DAHalhYBwgiI+w5cpsogw6LEqmATD2+RKNBZ/7sWSYWh1ZeBme0zjIq8pQ3tqBwQ
+	FKWjQU5r1yx66R/96fvRTbj2M9kpjZ6rie001SbqxLEk1xTwJzIEJIzdKYSb8aHz
+	QwyJlOSSLF8zIUkw4KI6LPmAdkWxtFwOTTtQ5D4a3g6l7jrBmnvariHb9Silo61N
+	2av5kJhNQCA6KkGiILoFnkR7hgn+fnF8HfolkXSR+odJ/b1Q==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwu4t9k7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 19:37:09 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-37d4f23eb37so5743702a91.0
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 12:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783971428; x=1784576228; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hLZiCfxmYB7bwAfCoP9oXfQ7q5N7blEMsw29C0ndjAc=;
+        b=I5ZrecXXx17Zd+nzANwRpYQQAAHbhO+fBcIZCAnSsHGX8kwDEucglUOaPdrva0yC8r
+         thxVIZ7nvN6q/uB4LcrFgitpqxLWxhKApYty2YrIdibOuP/rrvUCKUQirfO/zTI16luB
+         X2rPE72P4F5eLr6r2qeBf2HMoo22lCnV4SWlD8HGn5Bpk1zkeuhMC5CYCqKS+diUTR0m
+         aFYsyMxRWCicwnG/noJGOha+lJ69IQsCPrJllaHgxNs+fEkJ8hD8DT47xAI3MlaRIGD/
+         7DV4xORxTvsnjdalD5Dpy7x2XUx5YWE02vzFhE8UsAAKDmFHYGVm/eK7/AFrC0/5igWc
+         F3EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783971428; x=1784576228;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hLZiCfxmYB7bwAfCoP9oXfQ7q5N7blEMsw29C0ndjAc=;
+        b=LuAni5SwtCU9/1pvXjFUqwuHKyP4Q16bpfwHXN0M/j/gQT/ESaWf4QiOEnmVOxGPOq
+         RDw7m5CJ8cDxqxyx3eU6rjt4JZVJEL1rYFjjpvNjcuJG9w62yurThJ7SsQt4y+EbCOuV
+         BqawubHukslSqYo7y2NuC6GGmBpZJ6y9gn6OsAHuO9w+z8LFDf+CPZ3dXTIJPUmHqLpb
+         OO8UT66rxIZ31dvbjDR9FvYthvOXhhiNnK/tYRSq/EE/dU6+ESNUs1SYHYh9fHDgHEwc
+         Vn2I89In6lApZShN8F2Z1Gshi5t9Oqx0JTTV8sxUSIibwL0Qo+QEdv20W9D0640op+Kx
+         8Plw==
+X-Forwarded-Encrypted: i=1; AHgh+RpCnNr4xGfpRLLiTdSzN/DxqLsBXbMqWLz8q7N7xVoxM56AJAfMMLZH6v6k7Wfb2TSA/6a5ZX9PYSgy@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKCQUy8C34kuH470YTRuGp1G+7RRrmfAjXOAES6PH+RSluJbGM
+	ueA42iJjEiLq22oHzG/nqZ2jLQaCuN+Kt/mHtPzJo8pbGBttcTlvVwfw9SRT6XExNd+Dv+hV1nt
+	cjHdsEgz/B+1Lhtsrn4gL0SKJDIIDOjgtIv2Yi2iP4B2F2Iu+BMvUEkQ4DivX7B+0
+X-Gm-Gg: AfdE7cmFEDANvYd4Vk6Uzp4ugVksj5knZwMUj98QTuBa+3EmjRv0slaLcByx7QegP9e
+	xhsrJpDAng9gnFRZovO/EvzY7/Lho0Pg296lGa1qtHS0uE3gOjSxU1xfvI/h0nyzqeOefp90QnA
+	Vthvt2tXgkrt9Maf+kANDte/QYWyQ2HdwGGJymUmLP0F2GkK0bTNlnSrm5S1XbVQEdPAbmxIDQ9
+	PP8AphD21ulDDMrJnafK1Eej2AiXCZNgAicTHrstyAVmQdglrrDIIVPnSTRMLRAP7UT+wDqkFBQ
+	mdD8gUoHuysIa6ekvbt0eG0/adlLgu4i/f7vMTqF8XNvAkOJ5PVN4YaQIerkDTIO/gUUTpL/Ww8
+	o3u6nWW3jeGi38fsuPxixBEKFLQ==
+X-Received: by 2002:a17:90b:5590:b0:38d:a8be:a592 with SMTP id 98e67ed59e1d1-38dc75e6dd8mr9410766a91.19.1783971428215;
+        Mon, 13 Jul 2026 12:37:08 -0700 (PDT)
+X-Received: by 2002:a17:90b:5590:b0:38d:a8be:a592 with SMTP id 98e67ed59e1d1-38dc75e6dd8mr9410732a91.19.1783971427801;
+        Mon, 13 Jul 2026 12:37:07 -0700 (PDT)
+Received: from [10.213.101.118] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313f3ea883asm207540eec.29.2026.07.13.12.36.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 12:37:07 -0700 (PDT)
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Subject: [PATCH v6 00/11] arm64: dts: qcom: Extend Shikra device tree with
+ peripheral and subsystem support
+Date: Tue, 14 Jul 2026 01:06:49 +0530
+Message-Id: <20260714-shikra-dt-m1-v6-0-bee265d3499b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-sAK8CIaYG2enlEegvh5c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le jeudi 02 juillet 2026 =C3=A0 15:26 +0800, Kyrie Wu a =C3=A9crit=C2=A0:
-> Enhances the Mediatek JPEG driver's stability and reliability by ensuring
-> that all queued buffers are processed before stopping the streaming in
-> multi-core environments. It introduces a call to
-> `vb2_wait_for_all_buffers()` in the `mtk_jpeg_enc_stop_streaming()` and
-> `mtk_jpeg_dec_stop_streaming()` functions when the `multi_core` variant
-> is enabled. This change ensures that no buffers are left unprocessed,
-> preventing potential data loss or corruption during multi-core flow.
->=20
-> Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware"=
-)
-> Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interfac=
-e")
-> Fixes: 934e8bccac95 ("mtk-jpegenc: support jpegenc multi-hardware")
-> Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
-> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collaboraa.com>
-
-> ---
-> =C2=A0drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 8 ++++++++
-> =C2=A01 file changed, 8 insertions(+)
->=20
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index 6d6a999a22fc..76a5b49b7f43 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -850,8 +850,12 @@ static struct vb2_v4l2_buffer *mtk_jpeg_buf_remove(s=
-truct
-> mtk_jpeg_ctx *ctx,
-> =C2=A0static void mtk_jpeg_enc_stop_streaming(struct vb2_queue *q)
-> =C2=A0{
-> =C2=A0	struct mtk_jpeg_ctx *ctx =3D vb2_get_drv_priv(q);
-> +	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
-> =C2=A0	struct vb2_v4l2_buffer *vb;
-> =C2=A0
-> +	if (jpeg->variant->multi_core)
-> +		vb2_wait_for_all_buffers(q);
-> +
-> =C2=A0	while ((vb =3D mtk_jpeg_buf_remove(ctx, q->type)))
-> =C2=A0		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
-> =C2=A0}
-> @@ -859,6 +863,7 @@ static void mtk_jpeg_enc_stop_streaming(struct vb2_qu=
-eue
-> *q)
-> =C2=A0static void mtk_jpeg_dec_stop_streaming(struct vb2_queue *q)
-> =C2=A0{
-> =C2=A0	struct mtk_jpeg_ctx *ctx =3D vb2_get_drv_priv(q);
-> +	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
-> =C2=A0	struct vb2_v4l2_buffer *vb;
-> =C2=A0
-> =C2=A0	/*
-> @@ -866,6 +871,9 @@ static void mtk_jpeg_dec_stop_streaming(struct vb2_qu=
-eue
-> *q)
-> =C2=A0	 * Before STREAMOFF, we still have to return the old resolution an=
-d
-> =C2=A0	 * subsampling. Update capture queue when the stream is off.
-> =C2=A0	 */
-> +	if (jpeg->variant->multi_core)
-> +		vb2_wait_for_all_buffers(q);
-> +
-> =C2=A0	if (ctx->state =3D=3D MTK_JPEG_SOURCE_CHANGE &&
-> =C2=A0	=C2=A0=C2=A0=C2=A0 V4L2_TYPE_IS_CAPTURE(q->type)) {
-> =C2=A0		struct mtk_jpeg_src_buf *src_buf;
-
---=-sAK8CIaYG2enlEegvh5c
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFE+VWoC/3XQy2rDMBAF0F8JWldhNHpY6qr/UbKQ9ahF67iRH
+ JMS/O+V04WDqTcD98KcgbmTEnIKhbwe7iSHKZU0nGtQLwfiOnv+CDT5mgkCKpAoaenSZ7bUj7R
+ nFDT64LjG0ERSV75ziOn24N5PfzmHy7Wq41p2qYxD/nmcnNjS7uhTPUCjZNZorn1r7dtQyvFyt
+ V9u6PtjHWTxJnwyOGwMrIZqW6kZcOkZ3zH4aihgG4NXA2LgUXsTnNA7hng29MYQ1UDGBAeQRli
+ 1Y8jVaAA3hlz+YRizzmCD4P4x5nn+BQdED63UAQAA
+X-Change-ID: 20260525-shikra-dt-m1-082dec382e7f
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Georgi Djakov <djakov@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Xueyao An <xueyao.an@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Aastha Pandey <aastha.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
+        Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>,
+        Anurag Pateriya <apateriy@qti.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783971418; l=4797;
+ i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
+ bh=VzRE+mW6bIFbzTSbJl62fZ0E1L4ZozEW46P/80rxb0o=;
+ b=5CblA/c4Gwk5lkwo72Dup0WlNN4P9wxPg5gycbri4vZAkzBLE1OasX4GSb2BXTcsQuZPvhqo4
+ hZ2+Kx0nK3IDjgPfKRvsk/JeAOAxyJqzAZuLnQnRYnqdxflqWojVpmL
+X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
+ pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
+X-Authority-Analysis: v=2.4 cv=FMErAeos c=1 sm=1 tr=0 ts=6a553e65 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_oGjjxQr57uqCMXUvsYA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDIwMiBTYWx0ZWRfXxwyJA3CLxN5e
+ xwNEJUwKzoXwiqa2ie5WcXjuTWCM8uBnDgvUZWoLRNAq2wDmeAaNzgKLU70lcuTh/558zDFoC9C
+ JCs7ViYjIbH9UUGCkHHNwagVm6IHCOg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDIwMiBTYWx0ZWRfX2gars85AbTOl
+ bSg6MuTyjj9Q3MU+ZOJ9lu5JXyxaUKAKHCE2l65e6ZwVdQxCBV8XXd01GZqIoA+Q+/cFrHiuhbu
+ H+Iw6i6ghVGHvPg4OmjJnN4C8PX5inAbgn7vgNYOmhKPSEgvr9Pivu/C1YonyI3d0pbFHwaK0U+
+ 0RuIvnZ+axWZqfF30GBLLEd2omWt8KlFO80ivs6wqzq7ZI1wWvBJI7OPtutyameM7TCEvIZ/3lp
+ E5dJ0vIWjwIxHPJHgdguzYkdLteMSCrE/TjGl/SMR2d1c6rc31WzpDYxKTQTcxJQtUhgW3I7OjI
+ mSsNx/jIBXiOMGcKvhbY81uDfMmCQ2MUpJWZr+Ps7kIofYxyJ/XQQNYXky7VLIoUzc88RO2hzem
+ LKFEMHy3XBPKkjV3ToZH5nld2TLPOoBygmIyC4MVRgiDE5SxDkzVNRs4w6/ALq0Dicg8R3fIfC5
+ ZXiGucJ1kQoxz4VHNnA==
+X-Proofpoint-ORIG-GUID: Am3JoTw3jb6daB-AMmpubwhMxG76txBm
+X-Proofpoint-GUID: Am3JoTw3jb6daB-AMmpubwhMxG76txBm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_05,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ suspectscore=0 priorityscore=1501 phishscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130202
 
------BEGIN PGP SIGNATURE-----
+Extend Shikra DT with peripheral and subsystem support across all SoM
+variants (CQ2390M, CQ2390S, IQ2390S) and their EVK boards.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCalU8vAAKCRDZQZRRKWBy
-9Cy5AP9n42DuX4zEUCFgIslkPa3bEp3mdcOqxJM4I+Y0Pg/aoQEAyxC9bVWM44W5
-n2FCQ95QPy/I0qU84CiPfIsGgikv8Q8=
-=TU2N
------END PGP SIGNATURE-----
+The series adds:
 
---=-sAK8CIaYG2enlEegvh5c--
+- QUPv3 serial engine configuration
+- cpufreq-hw node for hardware-assisted CPU frequency scaling
+- DDR bandwidth monitor (BWMONv5) nodes with OPP tables for dynamic
+  DDR frequency scaling
+- EPSS L3 interconnect provider node for L3 cache frequency scaling
+- CPU OPP tables to drive DDR and L3 scaling per frequency domain
+- SMP2P nodes for CDSP, modem and LMCU inter-processor signalling
+- Remoteproc PAS nodes for CDSP, LPAICP and MPSS subsystems
+- TSENS instance with 14 thermal sensors and thermal zone definitions
+- Bluetooth (WCN3988) node with board-specific regulator supplies on
+  all three EVK variants
+- WiFi node in the SoC DTSI with board-specific power supply and
+  calibration variant selection on all three EVK variants
+- Gpio-reserved-ranges to tlmm to mark GPIOs used by the SoC
+  internally and not available for general use
+
+This series depends on:
+- https://lore.kernel.org/all/20260612-shikra-dt-v6-0-6b6cb58db477@oss.qualcomm.com/
+- https://lore.kernel.org/all/20260524-shikra_epss_l3-v1-0-b1528a436134@oss.qualcomm.com/
+- https://lore.kernel.org/linux-clk/20260608-shikra-gcc-rpmcc-clks-v5-0-94cefe092ee3@oss.qualcomm.com/
+
+Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+---
+Changes in v6:
+- Collected Reviewed-by tags from Konrad
+- Reworked WiFi/BT enablement into SoM dtsi files, including WCN3988
+  PMU/regulator supplies, Bluetooth and WiFi enablement
+- Updated gpio-reserved-ranges to document reserved GPIO functions and
+  drop GPIO115/GPIO116 from the EVK reserved list
+- Link to v5: https://lore.kernel.org/r/20260702-shikra-dt-m1-v5-0-f911ac92720c@oss.qualcomm.com
+
+Changes in v5:
+- Split the WiFi hardware description into a separate shikra.dtsi patch (Konrad)
+- Moved common WCN3988 PMU, Bluetooth and WiFi properties into
+  shikra-evk.dtsi, leaving board files with board-specific supplies and
+  status updates (Konrad)
+- Added missing CPU OPP entries for 768 MHz and 2208 MHz
+- Added gpio-reserved-ranges for TLMM on CQM, CQS and IQS EVK boards
+- Collected tags fron Dmitry and Konrad
+- Link to v4: https://lore.kernel.org/r/20260608-shikra-dt-m1-v4-0-2114300594a6@oss.qualcomm.com
+
+Changes in v4:
+- Updated commit message for first commit of the series (Krzysztof)
+- Collected tags from Dmitry and Krzysztof
+- Updated wifi fimmware name (Dmitry)
+- Link to v3: https://lore.kernel.org/r/20260601-shikra-dt-m1-v3-0-0fe3f8d9ec48@oss.qualcomm.com
+
+Changes in v3:
+- Add missing interrupt affinity cell (0) to GPI DMA interrupts
+- Link to v2: https://lore.kernel.org/r/20260530-shikra-dt-m1-v2-0-6bb581035d13@oss.qualcomm.com
+
+Changes in v2:
+- Collected Reviewed-By tags from Dmitry and Konrad
+- Squashed cpufreq_hw, EPSS and OPP tables into single commit (Dmitry)
+- Removed labels from CPU OPP table entries (Dmitry)
+- Squashed CQM, CQS and IQS remoteproc-enable patches into one commit (Dmitry)
+- Added WCN3988 PMU support (Dmitry)
+- Squashed Bluetooth and Wifi changes into one commit (Dmitry)
+- Link to v1: https://lore.kernel.org/r/20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com
+
+---
+Bibek Kumar Patro (2):
+      arm64: dts: qcom: shikra: Add CDSP, LPAICP, MPSS remoteproc PAS nodes
+      arm64: dts: qcom: shikra: Enable CDSP, LPAICP and MPSS on EVK boards
+
+Gaurav Kohli (1):
+      arm64: dts: qcom: shikra: Enable TSENS and thermal zones
+
+Komal Bajaj (4):
+      arm64: dts: qcom: shikra: Add cpufreq-hw, EPSS L3 interconnect and OPP tables
+      arm64: dts: qcom: shikra: add WiFi node support
+      arm64: dts: qcom: shikra: Enable WiFi/BT on SoMs
+      arm64: dts: qcom: shikra: Add gpio-reserved-ranges to tlmm
+
+Sayantan Chakraborty (2):
+      dt-bindings: interconnect: qcom-bwmon: Add Shikra cpu-bwmon compatible
+      arm64: dts: qcom: shikra: Add DDR BWMON support
+
+Vishnu Santhosh (1):
+      arm64: dts: qcom: shikra: Add SMP2P nodes
+
+Xueyao An (1):
+      arm64: dts: qcom: Add QUPv3 configuration for Shikra
+
+ .../bindings/interconnect/qcom,msm8998-bwmon.yaml  |    1 +
+ arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts        |   27 +
+ arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi       |   74 +
+ arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts        |   27 +
+ arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts        |   27 +
+ arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi       |   82 +
+ arch/arm64/boot/dts/qcom/shikra.dtsi               | 1682 +++++++++++++++++++-
+ 7 files changed, 1906 insertions(+), 14 deletions(-)
+---
+base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
+change-id: 20260525-shikra-dt-m1-082dec382e7f
+
+Best regards,
+-- 
+Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+
