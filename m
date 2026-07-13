@@ -1,67 +1,68 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1EB042253A
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 13:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311A9425CFC
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 13:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783948774; cv=none; b=q05+H2r0k5aWbjm/AIZSY2Zo+2qfrGDpB1+FNyvkkyp8vrG75/h6JBZLVCpGBf+vncI9irBkqFgzL4fKsXCjR5gYS9ni8U84HFB73Zb5rBu7ZIp6AQwMIjFM4TaNZ+131dyc2UN7ai91ByA6XRpB4B6Wyw3HFSFc//DNT2MWdZQ=
+	t=1783948852; cv=none; b=Em0/89wW/G1OmEb/WCB3UrW6kTNV3Umyl26NiF38Buc5dNOW/wiqhjdmSfSgOxV+JzVwvOfhXLxUGZFPECxyt8oGYwcXuScw5VUronmL/PqFn/40XDCAphTKAQVqCRdDhZbZEDZUn++U1IeWyn47h2GR1fb8+AXQAn3gSwjCeNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783948774; c=relaxed/simple;
-	bh=3Wr4e31xsL5FxE1yKBLHPMDVMdK7LAWRj9VzDWkA7xQ=;
+	s=arc-20240116; t=1783948852; c=relaxed/simple;
+	bh=P2vvOyZkL+jf80/fIZMA882X28alDrHZQdeMXmZ2tI4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gxlVaoBKxlqx/Zay6Z/c/mF/dO7ITbzN+3zdIES/2iEt19Azpp/o7ohQqprDljzKYybXwwHJ1tSAMRmR+Sv4pazDu2aG+F8AwSCz5pK6gIpkgM17isGg6TxkDW0S5+DH2REYH8cJ/iudroCTS9p0zIURbE3LVxYzNRfD3yWD8sE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=pdGeRzlp; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	 In-Reply-To:Content-Type; b=DgFN6be3TcV3OhoBHCi9yMgeS7gC2Dwc1fjOuJGvggOmGPETX0hrem77akLQY57e78yWbIhe9ZvQ+MbWWmj9YIS3efbeOqLyluqhjau2z5BynLVvxG5uWIFSrkvLDqpMDrG4Zz685fn3RBroWB/Iqb8iAZZQSiisPbbE0JwNpJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rh/5+Ni6; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="pdGeRzlp"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493ec555a26so20575345e9.0
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:19:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rh/5+Ni6"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cedda2ce6fso3840555ad.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:20:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1783948771; x=1784553571; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=gmail.com; s=20251104; t=1783948850; x=1784553650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KTbNJLihYo7bkMewNpvZJfJ0V7h5dxKS3F/GHCAlNdU=;
-        b=pdGeRzlpM/B4egrGVhmKf4IvfSiuuOXlaavRDiSvx8lLY/ejSsh1w7L6HdYjQsOJzl
-         VzmeRGAsvirPbWz9jHTpQdEDNAKLQUdvjtgHosbwB1bhYwfdQ91p+c9BL4roSez/WPk7
-         LGDh2EZg0GXZl0fqip+bdXzit978GHNaQiHpo2L6P/FSpIwbp8A7BDY+xLzxA+OwozSx
-         RtPx8dzIdvGMMmkJlTw4QhxBKca+iAkI4dyJXNR63zar18A5iadQ4FitkIKR7/6ALBoS
-         jo6bXDRtC65htHeNmdIKcv88HXB0xL3IEbh0rJZVU4mxeSZg1mkMS0fMq3QnmAzRfPTq
-         ufMQ==
+        bh=rleYOhAKH3uUT9lCvkQY+3JSxKjGwklq7TceF0agbqc=;
+        b=Rh/5+Ni6Vns1HhiMeozYbV7ilY28hOeMLjcXaOPt1ZPn5IzVoh+6TWWWIOSEg006ZT
+         81bhaqI7WfHBIpAMDnVD3SnJcaxarFx14d4rF6DVreOGuu2HZQFyAHBobF2J4NzgTxgo
+         uVl0xaocw3WyAXS5zNjrInPd+kTsdOTbPjauAHxuVTBwePwASATh5K671qmI9Ciq6IG6
+         dfDCgHmJRr5dkP+2ighEINKz7kar8F+0L/q2xGlkbsHSnpTEFzR2iQcWOHxZo+uM4Zrv
+         PO/Qs6yd/6i09mF9U1bS9TQgBGuhFrTd2b00iTEwuk+Xv0NMkAH6kbwjCVj8fLhgDOsL
+         6GlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783948771; x=1784553571;
-        h=content-transfer-encoding:content-type:in-reply-to:from
+        d=1e100.net; s=20251104; t=1783948850; x=1784553650;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KTbNJLihYo7bkMewNpvZJfJ0V7h5dxKS3F/GHCAlNdU=;
-        b=LFwmLIsjVo4gSzES77aFk0VxaECC5NB2waxK9GAn1sMZwc0ajwACpTYLD4S4FGpFGQ
-         o8UMxstppxeQ0wTFtUsIGtTKlXOB2bLcITF7N9anEkuv6ejsRKMw3GcrfKX0wZeTjl6H
-         LCyNCg5cLzUWuTMTfM87oI5/U9saDWCGZrxC8k799nX2XPISErNRwZq2Z7Bw3MZIXIuv
-         Uox3zjscxkLU4nFM23+gSeLnevgCcDwRkf0tEsDVFri94AJqD14kWj0kgYuv2UbTxGS/
-         wMegslfD8KdHujfLk4VnIW9qr99SJHxCtL9tMbRnQznDjnPrb6Iqb4J2GR+Rwd8qR8GJ
-         IALA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7hzV/fVzvmRi9kjN1pytkgDOvhGV33NaBzIbrxlb2UUgRsn5zwy5mK8LrKTPEMgqkH3k/3J2nUmmo@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/6SJ+7bbsdWqurr8oLk9J+9sG6kYTpMpuKSCdtEHHHsPDJhh6
-	YaFDXz2JXiarxVmy782Nr4I+tQBrAS9UYWjtzsghP79zSaBaC8icIw+SqPQY+b6cb04=
-X-Gm-Gg: AfdE7cmc8k/ehn1c03QeimR+wDOj12zUx2CBHUVY3lWEcPCOMLFzUQH5S58OZhBwZ8C
-	teqeZvLO8hdQNxg7/+LQc6xRAAqNfrM8c5QicsjfhkiqqyfCXOj/P2+Pnq03LtxFM1onmQ6JKg+
-	5AWnM41/Iky2jE1NQ+Kw5cNmfqG1xxXm2HrNIYF/UJSxsV/x3GEAIHb5lf2XSRWt2+okrmGwigK
-	sR5JPtlhM3pX4l/YN+OUKBO1L70j0lic5yEe/u9ckMiQnE5uCkup7af8x2T89O2XdztgHBSz0ll
-	xKZwsJlJHS6RVe5y9PXJlLg9BT6wwBcXreL66Qq1tzXcq7v7BkzVrb55MvcdQ5d9f5uRKY+6o6r
-	FFNlTTZvrc5v3Kg202oHueIXDgxoBNOnCfb9Eh34U1pk/eZvVrdwjECH227CliF1s2gS6FEDKRx
-	NDIlI13xD2ThfRJaKIU+WgYsKYXi789v2dAZfdrP19kk+MtYRoTNSapxwNiFWEVlo=
-X-Received: by 2002:a05:600c:5307:b0:493:f278:ba2f with SMTP id 5b1f17b1804b1-494033f4fd2mr26419545e9.9.1783948771139;
-        Mon, 13 Jul 2026 06:19:31 -0700 (PDT)
-Received: from ?IPV6:2a02:2f04:6402:500:e91e:fe5e:857b:d0c? ([2a02:2f04:6402:500:e91e:fe5e:857b:d0c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493fd3ccfd4sm120499685e9.2.2026.07.13.06.19.29
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rleYOhAKH3uUT9lCvkQY+3JSxKjGwklq7TceF0agbqc=;
+        b=sKnO3jHmf6VkKr8WSfxf3c4hVzepsf/5zNlbFzRydxnAgDo+eiQU7lnH4iPyqxEvGk
+         mRPT1YFBH0Habt6c0hDJEQmkJjevdrT8OTKVoGZvelDaAQGrz0V3lTOdQ7OSIFGbNx+8
+         d7/tlnOFaE3ClFgzhyV9HVwl0/kkDviOXrMFHe4zwa9DPC6KRixELWqhBv/2aiS7KthX
+         RuFy2GOJNMsxpHdWHbfONQIkW08Dwd0xg9zZVB5eNyqfebXnZ8xqmh18z+hXGBMGxHXw
+         kGfYkwD9X8/+0u0d/3SEwtV1GsIbfgf1PtW5ARsrIWwnTpICttPgtz82kEkmXT5CFo4A
+         6CQg==
+X-Forwarded-Encrypted: i=1; AHgh+RrEd479PIClDCTv/FmS9wa+ywaWea7rl5VNYH9YPN88MbTwTc/QnpjGfTG7mcUnf+nQaK1uZQ+WrrB4@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywi1dA/hLXCZMUewmmK8uy0QFu+JjwW1xn9ls0qJ5RnGs+jMOPk
+	WskW0klXXXPBMeunzkoGHq8VezgDZmYH4S7pkAbxOcRALrGkeIKsJqEdhqpkHg==
+X-Gm-Gg: AfdE7cmSns801W30G1obGu8f7zxYEkvqx6aV9vUXprLKYDSMFBtNFulDod/pDyTcszx
+	ZxHzv2tIIdNBnJR9XoccrlyyouseZH9DMLIUlwvqIp/xMIPGulYtbzJTchAYO9AZwp0LTYwhyeo
+	l+QFV20NPGZq4/MwtzT47PBdY3EUwMEmlvxGOd2zPbHy+A3BwVn82srdW5Aub7cw/Ny7u24zYPZ
+	RZvOYok+NtG+yI9fjeeUNx8EqVa5ZX9gaT2pJQl5cXMNMsIz80zCBlUmahvFFbu+HN14nL1T745
+	oeFHYchsuWlt3WWMghYnkPu8Ipp/+U4AgKHkZDV/k2ZLOplaUSuF+z7W7vjK2y1IOuIn8L9RtdE
+	HccEUPlBy7gCgsmaPlP9oOcMb5OCHiB2A/XqaAv142Ad2o55h/LWkK6TMEg9IPnwa6fh/twgbXn
+	MJ19cylsPXUYgSJUDPOeaCDHTzfz7cZZKpBmbCu9M75i0bF6+z/S1X26tkRIPfZuAVTjyHPq0Y
+X-Received: by 2002:a17:903:2f90:b0:2c6:8d95:fd6d with SMTP id d9443c01a7336-2ce9eae3af3mr80679435ad.21.1783948850322;
+        Mon, 13 Jul 2026 06:20:50 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9bdb76asm102435025ad.12.2026.07.13.06.20.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 13 Jul 2026 06:19:30 -0700 (PDT)
-Message-ID: <f5b7441a-d72a-41c1-b67d-5225d8e9ced0@tuxon.dev>
-Date: Mon, 13 Jul 2026 16:19:28 +0300
+        Mon, 13 Jul 2026 06:20:49 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <6fa34460-7753-42cc-b88c-4e5aa58a8e90@roeck-us.net>
+Date: Mon, 13 Jul 2026 06:20:48 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,129 +70,80 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
- selecting the I3C power source
-To: Biju Das <biju.das.jz@bp.renesas.com>,
- Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>,
- "geert+renesas@glider.be" <geert+renesas@glider.be>,
- "linusw@kernel.org" <linusw@kernel.org>, "robh@kernel.org"
- <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "magnus.damm" <magnus.damm@gmail.com>
-Cc: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
- wsa+renesas <wsa+renesas@sang-engineering.com>
-References: <20260710113637.1328000-1-claudiu.beznea+renesas@tuxon.dev>
- <20260710113637.1328000-5-claudiu.beznea+renesas@tuxon.dev>
- <TY3PR01MB113469434A4393A02DAA45DDF86FB2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Subject: Re: [PATCH v15 5/6] hwmon: add NXP MC33978/MC34978 driver
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Lee Jones <lee@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>,
+ kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-gpio@vger.kernel.org, David Jander <david@protonic.nl>
+References: <20260710101358.2606941-1-o.rempel@pengutronix.de>
+ <20260710101358.2606941-6-o.rempel@pengutronix.de>
+ <alQS61NF-jIPf9c3@monoceros>
 Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <TY3PR01MB113469434A4393A02DAA45DDF86FB2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <alQS61NF-jIPf9c3@monoceros>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi, Biju,
+On 7/12/26 15:20, Uwe Kleine-König wrote:
+> Hallo again,
+> 
+> On Fri, Jul 10, 2026 at 12:13:54PM +0200, Oleksij Rempel wrote:
+>> +#include <linux/mod_devicetable.h>
+> 
+> As for patch 6/6: Please use the <linux/device-id/*.h> you actually need
+> only instead of this catch-all header that I want to get rid of.
+> 
 
-On 7/12/26 17:55, Biju Das wrote:
-> Hi Claudiu,
-> 
-> Thanks for the patch.
-> 
->> -----Original Message-----
->> From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
->> Sent: 10 July 2026 12:37
->> Subject: [PATCH v4 4/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for selecting the I3C power source
->>
->> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->>
->> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The pin controller provides a register
->> to select between these two options.
->> Update the Renesas RZ/G2L pin controller driver to allow selecting the I3C power source on RZ/G3S SoC.
->>
->> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
->> Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
->> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->> ---
->>
->> Changes in v4:
->> - none
->>
->> Changes in v3:
->> - collected tags
->>
->> Changes in v2:
->> - none
->>
->>   drivers/pinctrl/renesas/pinctrl-rzg2l.c | 73 +++++++++++++++++++++++--
->>   1 file changed, 68 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
->> index b52a85066f63..9a0706fea220 100644
->> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
->> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
->> @@ -69,6 +69,7 @@
->>   #define PIN_CFG_PVDD1833_OTH_AWO_POC	BIT(19) /* known on RZ/G3L only */
->>   #define PIN_CFG_PVDD1833_OTH_ISO_POC	BIT(20) /* known on RZ/G3L only */
->>   #define PIN_CFG_WDTOVF_N_POC		BIT(21) /* known on RZ/G3L only */
->> +#define PIN_CFG_IO_VMC_I3C		BIT(22)
->>
->>   #define RZG2L_SINGLE_PIN		BIT_ULL(63)	/* Dedicated pin */
->>   #define RZG2L_VARIABLE_CFG		BIT_ULL(62)	/* Variable cfg for port pins */
->> @@ -186,6 +187,9 @@
->>   #define PVDD_3300		0	/* I/O domain voltage >= 3.3V */
->>   #define PVDD_MASK		0x3
->>
->> +#define PVDD_I3C_1200		1	/* I3C I/O domain voltage 1.2V */
->> +#define PVDD_I3C_1800		0	/* I3C I/O domain voltage 1.8V */
->> +
->>   #define PWPR_B0WI		BIT(7)	/* Bit Write Disable */
->>   #define PWPR_PFCWE		BIT(6)	/* PFC Register Write Enable */
->>   #define PWPR_REGWE_A		BIT(6)	/* PFC and PMC Register Write Enable on RZ/V2H(P) */
->> @@ -257,6 +261,7 @@ static const struct pin_config_item renesas_rzv2h_conf_items[] = {
->>    * @oen: OEN register offset
->>    * @qspi: QSPI register offset
->>    * @other_poc: OTHER_POC register offset
->> + * @i3c_set: I3C_SET register offset
->>    */
->>   struct rzg2l_register_offsets {
->>   	u16 pwpr;
->> @@ -265,6 +270,7 @@ struct rzg2l_register_offsets {
->>   	u16 oen;
->>   	u16 qspi;
->>   	u16 other_poc;
->> +	u16 i3c_set;
-> 
-> 
->>   };
->>
->>   /**
->> @@ -272,6 +278,7 @@ struct rzg2l_register_offsets {
->>    * @other_poc_pvdd1833_oth_awo_poc: PVDD1833_OTH_AWO_POC mask
->>    * @other_poc_pvdd1833_oth_iso_poc: PVDD1833_OTH_ISO_POC mask
->>    * @other_poc_wdtovf_n_poc: WDTOVF_N_POC mask
->> + * @i3c_set_poc: I3C_SET_POC mask
->>    */
->>   struct rzg2l_register_masks {
->>   	union {
->> @@ -281,6 +288,11 @@ struct rzg2l_register_masks {
->>   			u8 other_poc_pvdd1833_oth_iso_poc;
->>   			u8 other_poc_wdtovf_n_poc;
->>   		};
->> +
->> +		/* RZ/G3S masks */
->> +		struct {
->> +			u8 i3c_set_poc;
-> 
-> How this POC is different from Ethernet, SDHI and XSPI POC?
+This was only introduced in v7.2-rc2. Not all contributor branches
+(including my hwmon-next branch, which is based off v7.2-rc1)
+are synchronized to that release candidate.
 
-Different bit mask and offset for I3C SET_POC compared with ETH, SDHI, XSPI.
+Guenter
 
-> For consistency, can't we handle like others?
-Everything is handled the same way for all functionalities in 
-rzg2l_caps_to_pwr_reg() from patch 1.
-
-Thank you,
-Claudiu
