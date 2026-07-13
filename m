@@ -1,294 +1,161 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC5336897C;
-	Mon, 13 Jul 2026 08:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C21493A4F5B;
+	Mon, 13 Jul 2026 08:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783930097; cv=none; b=nT6Zec71TGkdRCj+hOjXWUlGbks58GkKcKGwI/AWAyZLVj8lb7O0o6JR44dQwJSdBUxwcBzq0116opRcPfRfYL55eGv+ZqoMW46bXaolJlLdGnnHvu79Jpeek1LRBTqG/zLvFMcteB8M56J1NBOTynXiDAcWHg4P5YtMI7Ldzj0=
+	t=1783930102; cv=none; b=V/cXBWk6pkfx8GDFnAQwBRtVUBlcSLUfQ9Ki3V1dO1wWvSi5SbhdvU1Ln5b857TlKROV2vJ2Ac0h0G1jY87r7awDWFprR4/1Y8qhyrr6IgaBKguDptlqC8srDaZPQoxi5K0L0OOXovbVCQU3PB4gaYmQsR2/dwG09r7JyY9zJ4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783930097; c=relaxed/simple;
-	bh=5Gulp6YHmUD9b3fvimUkpa5ZWbQVBzBtsKiZATPO1D4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tQyLF1yKic8cxj4gVuMOlHzjPVANP/bqEfyTKt8rZ17+QnQ2IgRT1xplHwx+P5zv67iNLoTyZXEYVHU6XJDJjJ07P7KB4ZGUIvSfZYbkIrlS4eAIvlnI6EqatILH6rBFBSWtijDmwYnY9U2YaOGcx8JQtTXXIHTlFFIhBdTLgC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ks9TfYWc; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1783930102; c=relaxed/simple;
+	bh=UZApS2edS3SSOM+33WEWbFeln7ja49nPlyAsMIHUXp0=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=L8DhA0yurOKZ8+XUoBib5TroODtPzs5DUG0hhjQPoFsmjspOhXfdQczfImt+ZL05Z072pv07ginq+hp9VSWjds8xwM/HrAkyriM9m51pZmGYVl8JE76EaJxcxzQi+xWGdOZfikJt/AosKHtmg9PZwuiYc8I7KtD8CwzkyVi2840=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=ISb09sNl; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ks9TfYWc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1783930094;
-	bh=5Gulp6YHmUD9b3fvimUkpa5ZWbQVBzBtsKiZATPO1D4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ks9TfYWcOMNtwHAMq9y2TshVKSqsPnTrzZLVu1MdLLeTHQhN2SD9OQ7jRtkwzMYO2
-	 ernmPMaCIpBClv0WD5UNggmoRK7FkNXXJSchLPQpH2DVZiu+4mMjpUFaMWH9P2O4Kz
-	 emLNvqkYYieQCrXPug3DIaeZhnS3R8AuE573trGH7vwjMepbGKeSCAz8EZB3oOM6Fy
-	 HwVsqquKTuYgSi/RxKQxdMIBOmm3tq91tlxQ7RY/YnOjVDjF6n8kqRNoH+POANw3F/
-	 2EF3WXoaiNyxJqi6PCQ/8kNw/sE2OoQznhXOg8MWWgjtoAJ+rld37FnZNB3APQjA4B
-	 qAZq2iyUALtHQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 722CE17E05D3;
-	Mon, 13 Jul 2026 10:08:13 +0200 (CEST)
-Message-ID: <91800497-a452-40fb-9520-a9926b437eed@collabora.com>
-Date: Mon, 13 Jul 2026 10:08:12 +0200
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="ISb09sNl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=5HSRZYpzw686Gi3jE+bqow4FMeu78S17L
+	wEmfrBMKi0=; b=ISb09sNlFehG1pO+ZyPh3jmBO/qRH03wQaIrEGoTYHsyyiz8w
+	tT8oYcXpF6iEGU5kmKc6nTFmv3YyzJk4z0AIJXM/ZVpPC0xEwp64fS24Udz5WPjh
+	japzfcathctHDxcMMgl7QhL+lfoFPQzZb8Lfj64kCoomF0lx4B0ipqC+IU=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDXEEIKnVRqNYYQAA--.16652S2;
+	Mon, 13 Jul 2026 16:08:43 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: mediatek: Add MT6858
-To: nikolai.burov@jolla.com, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Sean Wang <sean.wang@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- Nikolai Burov <nikolai.burov+review@abscue.de>
-References: <20260710-mt6858-pinctrl-v1-0-f75ab558f0df@jolla.com>
- <20260710-mt6858-pinctrl-v1-1-f75ab558f0df@jolla.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260710-mt6858-pinctrl-v1-1-f75ab558f0df@jolla.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 2/3] PCI: ultrarisc: get and enable DP1000 PCIe
+ clocks
+From: Jia Wang <wangjia@ultrarisc.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Jia Wang <wangjia@ultrarisc.com>, linux-pci@vger.kernel.org, 
+ conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260706101114.129681F000E9@smtp.kernel.org>
+References: <20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com>
+ <20260706-ultrarisc-pci-clk-v2-2-2f3fb6fba66b@ultrarisc.com>
+ <20260706101114.129681F000E9@smtp.kernel.org>
+Date: Mon, 13 Jul 2026 16:08:11 +0800
+Message-Id: <178393009191.2317413.11810474348602616541.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783930092; l=3045;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=UZApS2edS3SSOM+33WEWbFeln7ja49nPlyAsMIHUXp0=;
+ b=HY+p46CO4RmVZUfgUsP5pOE9FpfH/FO8Itkx/yzvGOikh7pZJPmPek+3CUUqaDIcbFrgbSNd3
+ H5OACgbvAhWC/i1KSV6jAeWT/vxTnP8YoO6zTRnktJgF8aF9gKV/LOa
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDXEEIKnVRqNYYQAA--.16652S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxurykZFW3tFyxZryxGFyfWFg_yoW5AFWxp3
+	yUKayFkF4DJryY9rsIvw18ZF1YvrnIkry3Aa97Kr12vw1a9rykGrWrW34aq3Wvkr4j9wnF
+	kF4UC3WxCw1j9FDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUva14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1lc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
+	uYvjfU8miiUUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAHEWpUYNAAJgACs9
 
-On 7/10/26 17:00, Nikolai Burov via B4 Relay wrote:
-> From: Nikolai Burov <nikolai.burov@jolla.com>
+On 2026-07-06 10:11 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Unconditional register access in suspend after a prior resume failure causes kernel panic.
+> --
 > 
-> Add new DT bindings for the pin controller found in the MT6858
-> (MediaTek Dimensity 7100) SoC.
+> commit 91b0a79d0e5b5b1e0d3c9731fd011273f668f0a9
+> Author: Jia Wang <wangjia@ultrarisc.com>
 > 
-> Signed-off-by: Nikolai Burov <nikolai.burov@jolla.com>
-> ---
->   .../bindings/pinctrl/mediatek,mt6858-pinctrl.yaml  | 190 +++++++++++++++++++++
->   1 file changed, 190 insertions(+)
+> PCI: ultrarisc: get and enable DP1000 PCIe clocks
 > 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6858-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6858-pinctrl.yaml
-> new file mode 100644
-> index 000000000000..263830a6e9db
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6858-pinctrl.yaml
-> @@ -0,0 +1,190 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pinctrl/mediatek,mt6858-pinctrl.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: MediaTek MT6858 Pin Controller
-> +
-> +maintainers:
-> +  - Nikolai Burov <nikolai.burov@jolla.com>
-> +
-> +description:
-> +  The MediaTek's MT6858 Pin controller is used to control SoC pins.
-> +
-> +properties:
-> +  compatible:
-> +    const: mediatek,mt6858-pinctrl
-> +
-> +  reg:
-> +    items:
-> +      - description: gpio base
-> +      - description: lm group IO
-> +      - description: rb group IO
-> +      - description: bm2 group IO
-> +      - description: bm group IO
-> +      - description: bm1 group IO
-
-bm group io
-bm1 group io
-bm2 group io
-
-> +      - description: lt group IO
-> +      - description: lt1 group IO
-> +      - description: rt group IO
-> +      - description: rt1 group IO
-> +      - description: eint-s group IO
-> +      - description: eint-w group IO
-> +      - description: eint-e group IO
-> +      - description: eint-c group IO
-
-description: eint-south group io
-eint-west
-eint-east
-eint-center
-
-> +
-> +  reg-names:
-> +    items:
-> +      - const: base
-> +      - const: lm
-> +      - const: rb
-> +      - const: bm2
-> +      - const: bm
-> +      - const: bm1
-
-Obviously, same comment applies here.
-
-> +      - const: lt
-> +      - const: lt1
-> +      - const: rt
-> +      - const: rt1
-> +      - const: eint-s
-> +      - const: eint-w
-> +      - const: eint-e
-> +      - const: eint-c
-
-eint0
-eint1
-eint2
-eint3
-
-P.S.: Don't forget to update the example too!
-
-Cheers,
-Angelo
-
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  interrupt-controller: true
-> +
-> +  '#interrupt-cells':
-> +    const: 2
-> +
-> +  gpio-controller: true
-> +
-> +  '#gpio-cells':
-> +    const: 2
-> +
-> +  gpio-ranges:
-> +    maxItems: 1
-> +
-> +  gpio-line-names: true
-> +
-> +# PIN CONFIGURATION NODES
-> +patternProperties:
-> +  '-pins$':
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    patternProperties:
-> +      '^pins':
-> +        type: object
-> +        $ref: /schemas/pinctrl/pincfg-node.yaml
-> +        additionalProperties: false
-> +        description:
-> +          A pinctrl node should contain at least one subnodes representing the
-> +          pinctrl groups available on the machine. Each subnode will list the
-> +          pins it needs, and how they should be configured, with regard to muxer
-> +          configuration, pullups, drive strength, input enable/disable and input
-> +          schmitt.
-> +
-> +        properties:
-> +          pinmux:
-> +            description:
-> +              Integer array, represents gpio pin number and mux setting.
-> +              Supported pin number and mux varies for different SoCs, and are
-> +              defined as macros in arch/arm64/boot/dts/mediatek/mt6858-pinfunc.h
-> +              for this SoC.
-> +
-> +          drive-strength:
-> +            enum: [2, 4, 6, 8, 10, 12, 14, 16]
-> +
-> +          bias-pull-down:
-> +            oneOf:
-> +              - type: boolean
-> +                description: normal pull down.
-> +              - enum: [100, 101, 102, 103]
-> +                description: PUPD/R1/R0 pull down type. See MTK_PUPD_SET_R1R0_
-> +                  defines in dt-bindings/pinctrl/mt65xx.h.
-> +              - enum: [200, 201, 202, 203]
-> +                description: RSEL pull down type. See MTK_PULL_SET_RSEL_ defines
-> +                  in dt-bindings/pinctrl/mt65xx.h.
-> +
-> +          bias-pull-up:
-> +            oneOf:
-> +              - type: boolean
-> +                description: normal pull up.
-> +              - enum: [100, 101, 102, 103]
-> +                description: PUPD/R1/R0 pull up type. See MTK_PUPD_SET_R1R0_
-> +                  defines in dt-bindings/pinctrl/mt65xx.h.
-> +              - enum: [200, 201, 202, 203]
-> +                description: RSEL pull up type. See MTK_PULL_SET_RSEL_ defines
-> +                  in dt-bindings/pinctrl/mt65xx.h.
-> +
-> +          bias-disable: true
-> +
-> +          output-high: true
-> +
-> +          output-low: true
-> +
-> +          input-enable: true
-> +
-> +          input-disable: true
-> +
-> +          input-schmitt-enable: true
-> +
-> +          input-schmitt-disable: true
-> +
-> +        required:
-> +          - pinmux
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-controller
-> +  - '#interrupt-cells'
-> +  - gpio-controller
-> +  - '#gpio-cells'
-> +  - gpio-ranges
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/pinctrl/mt65xx.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #define PINMUX_GPIO149__FUNC_SCL5 (MTK_PIN_NO(149) | 1)
-> +    #define PINMUX_GPIO150__FUNC_SDA5 (MTK_PIN_NO(150) | 1)
-> +
-> +    pio: pinctrl@10005000 {
-> +        compatible = "mediatek,mt6858-pinctrl";
-> +        reg = <0x10005000 0x1000>,
-> +              <0x11b20000 0x1000>,
-> +              <0x11c10000 0x1000>,
-> +              <0x11d10000 0x1000>,
-> +              <0x11d30000 0x1000>,
-> +              <0x11d40000 0x1000>,
-> +              <0x11e20000 0x1000>,
-> +              <0x11e30000 0x1000>,
-> +              <0x11ed0000 0x1000>,
-> +              <0x11ee0000 0x1000>,
-> +              <0x11b00000 0x1000>,
-> +              <0x11e60000 0x1000>,
-> +              <0x11e80000 0x1000>,
-> +              <0x1c01e000 0x1000>;
-> +        reg-names = "base", "lm", "rb", "bm2", "bm", "bm1", "lt", "lt1",
-> +                    "rt", "rt1", "eint-s", "eint-w", "eint-e", "eint-c";
-> +        gpio-controller;
-> +        #gpio-cells = <2>;
-> +        gpio-ranges = <&pio 0 0 197>;
-> +        interrupt-controller;
-> +        interrupts = <GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH 0>;
-> +        #interrupt-cells = <2>;
-> +
-> +        i2c5-pins {
-> +            pins {
-> +                pinmux = <PINMUX_GPIO149__FUNC_SCL5>,
-> +                         <PINMUX_GPIO150__FUNC_SDA5>;
-> +                bias-disable;
-> +            };
-> +        };
-> +    };
+> Add the required core, dbi, and aux clocks for the DP1000 PCIe
+> controller and enable them before initializing the DesignWare host.
+> Also manage the clocks across system suspend and resume.
 > 
+> > diff --git a/drivers/pci/controller/dwc/pcie-ultrarisc.c b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > index 6ee661ceff67a..6ed244770d538 100644
+> > --- a/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> > +++ b/drivers/pci/controller/dwc/pcie-ultrarisc.c
+> [ ... ]
+> > @@ -135,14 +174,31 @@ static int ultrarisc_pcie_probe(struct platform_device *pdev)
+> >  
+> >  static int ultrarisc_pcie_suspend_noirq(struct device *dev)
+> >  {
+> > -	struct dw_pcie *pci = dev_get_drvdata(dev);
+> > +	struct ultrarisc_pcie *ultra = dev_get_drvdata(dev);
+> > +	struct dw_pcie *pci = &ultra->pci;
+> > +	int ret;
+> > +
+> > +	ret = dw_pcie_suspend_noirq(pci);
+> 
+> [Severity: High]
+> What happens here if a previous resume attempt failed to enable the clocks?
+> 
+> Looking at ultrarisc_pcie_resume_noirq() below, if clk_bulk_prepare_enable()
+> fails, the function returns an error while the clocks remain disabled and
+> pci->suspended remains true.
+> 
+> If the system then undergoes another suspend cycle, this function will call
+> dw_pcie_suspend_noirq(), which accesses hardware registers via
+> dw_pcie_link_up().
+> 
+> Since the clocks are disabled, could this register access cause a bus error
+> and subsequent kernel panic?
+> 
+> Should we check if the device is already suspended (or if the clocks are
+> already off) before calling dw_pcie_suspend_noirq()?
+> 
+
+Thanks.
+
+This will be fixed in the next version by handling the already-suspended
+case before calling dw_pcie_suspend_noirq(), so no register access is made
+with the clocks disabled.
+
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	if (pci->suspended)
+> > +		clk_bulk_disable_unprepare(ARRAY_SIZE(ultra->clks), ultra->clks);
+> >  
+> > -	return dw_pcie_suspend_noirq(pci);
+> > +	return 0;
+> >  }
+> >  
+> >  static int ultrarisc_pcie_resume_noirq(struct device *dev)
+> >  {
+> > -	struct dw_pcie *pci = dev_get_drvdata(dev);
+> > +	struct ultrarisc_pcie *ultra = dev_get_drvdata(dev);
+> > +	struct dw_pcie *pci = &ultra->pci;
+> > +	int ret;
+> > +
+> > +	if (pci->suspended) {
+> > +		ret = clk_bulk_prepare_enable(ARRAY_SIZE(ultra->clks), ultra->clks);
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> >  
+> >  	return dw_pcie_resume_noirq(pci);
+> >  }
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260706-ultrarisc-pci-clk-v2-0-2f3fb6fba66b@ultrarisc.com?part=2
+>
+
+Best regards,
+Jia Wang 
+
+
