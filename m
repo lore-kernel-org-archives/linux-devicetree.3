@@ -1,139 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEE028B4FA
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 14:43:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9C0643900E;
+	Mon, 13 Jul 2026 14:44:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783953822; cv=none; b=ZCwUUPJqxH1956CSon7kkiJSTPJMWlEsWgf6J+4dsKkapafsCYLcvLvbYABqIzzWT+v6ea/Fd/VVc0fNkFjFZ2yQbIKqdIWxGItqsmNaEyB/at8UwOiKn7aC/CkpZnSRzSIsHDDQDVi2ewyN712lCXGfARPQ2fT0r1ex3A2Wb+E=
+	t=1783953845; cv=none; b=YGBD56lqc+iWEGNou7g4bJkw6wVnfbTHLX4zvnd19A6m4PMQEdqMz/CEY6HdidegVDwwHhl4s8saVBdiR4tvhb1QkEsZ/bBI22F0YTiewd14afHY9QjYv8nhCWgvPnomYlniLapEMkVBRf53bjOLo5zxrl8mh6wOaq9NkTSq6cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783953822; c=relaxed/simple;
-	bh=rmC790qnIZ32EslBJHZLzm9GsJY0sN1qQe8j6pHWf2w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kN3mV2lpznsf5C/i8PcUxnb7tVq7SyACj0p22DEOCXLlfRj0XMdT8oJHQorz9Gf5h/cj9m6Sf9WdwSTXJP8lg/MYi3ADKaI/Ju52IRUpUPWmrw72Xia57XUOq9y+Ovr8hpMGxNAwPymTByBravZ8fyK3WRYq7Eej1AkNrwtXC0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ei0dlKKU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783953845; c=relaxed/simple;
+	bh=jXWZ8N81s562nbqm4nTLQDKQENpJOc0VxLLomCZS08s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QKFe/JAWS0/uKl/KMCfMTtuvE/KTSKrtXfkeKwrrAkLXHXcJzVkZ2veMOUaXbCkvpMYH4NiRwEIKLVYGtxxwrq5Lln6yaSqDi7PWiudrui+pxR6dV1ka7ctptufb6+VmeEf8AH4c1GlCoto2HtK0hciZBJbJkQOhNfoECUWI96M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=a9C2LSD8; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ei0dlKKU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736B11F000E9;
-	Mon, 13 Jul 2026 14:43:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783953820;
-	bh=t/uW7Ax2+UyvYsNj4DEF0DxvIrvF+3VrzqbEwGASQPE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ei0dlKKU+xOS52awl31Vj44IZjocKd6JB3r15dNVcc772Z71aTKXdQMFO50gJBqWb
-	 5jfDSpto1Bz9tKIWK171rcBgsqL/dcn9CNxccbDlsulN0W7/6PuKRgk6lpIAEjar3I
-	 VTPHDMjHXsSFdOlOqAQdbHLeJ/UY/gl+VEnRwdWfMiOzfZKYgRFCinw7j/HEsD/FMu
-	 k38tyJKnrHOcEMZLfUHmObl1D9gi4HLMlKo91n6jEp6nXmhMHQ/jzsZ9BT5kgW/6Ks
-	 HCG3YAFlWSSuhrFTf1tFAzblkT2tG2LcZOnpcmjAdVYyf+pJowktJPOEMhDgLEmxno
-	 R6bqXVxDQQqXQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at
- component bind time
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713142746.40259-5-angelogioacchino.delregno@collabora.com>
-References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
- <20260713142746.40259-5-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 14:43:40 +0000
-Message-Id: <20260713144340.736B11F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="a9C2LSD8"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B8F4152B;
+	Mon, 13 Jul 2026 07:43:57 -0700 (PDT)
+Received: from [10.57.2.209] (unknown [10.57.2.209])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 85E653F7B4;
+	Mon, 13 Jul 2026 07:43:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1783953841; bh=jXWZ8N81s562nbqm4nTLQDKQENpJOc0VxLLomCZS08s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=a9C2LSD8X8yHmHN+D+GlT2sIPTq2ZJUvevUK6QFmr/5dDC17Ad7pnQzrO+GRNMKDQ
+	 T9tIEJ/00jdXBuHyT+gPWjGwlj1geWItx40qXWv0bDyUB/0RibtkVuwdFkhb6XI4vP
+	 UbdjGdMltTuVOsrIwOTBZKpv0pfK2JF8IcvB9+EY=
+Message-ID: <046d89e6-9837-4b59-bda8-070c6366b6fe@arm.com>
+Date: Mon, 13 Jul 2026 15:43:55 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/2] thermal/drivers/imx: Add calibration offset
+ support
+To: Haoning.CHENG@cn.bosch.com
+Cc: linux-pm@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-0-09b6b7669be1@cn.bosch.com>
+ <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-2-09b6b7669be1@cn.bosch.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <20260713-b4-symana21-11221-imx-thermal-support-upstream-6-18-v7-2-09b6b7669be1@cn.bosch.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Missing cleanup of DRM encoder when device_reset_optional() fails =
-in mtk_dsi_bind().
-- [High] Read-modify-write data race on `dsi->irq_data` between process con=
-text and hardirq context.
---
 
---- Patch [4]: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at =
-component bind time ---
-commit 0607d3868a389c4103df3225d2bc7a47d44df3b0
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+On 7/13/26 11:22, Haoning CHENG via B4 Relay wrote:
+> From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+> 
+> Some boards need a small per-design correction to align the reported CPU
+> temperature with board-level measurements.
+> 
+> Read the optional fsl,temp-calibration-offset-millicelsius property from
+> DT and apply it to the i.MX6/6SX/7D calibration formulas. When the
+> property is not present, the default offset remains 0, preserving the
+> current behaviour.
 
-drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+s/behaviour/behavior/
 
-This patch requests the DSI interrupt with IRQF_NO_AUTOEN and enables it on=
-ly
-when binding the DSI to its display controller component master. This preve=
-nts
-interrupt storms and delays caused by timeouts during probe.
+Also, you can add a description in this patch header with an example
+how this is going to be calculated. The full mechanism is split
+into two components: this driver and the thermal framework.
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index 8ab5c3431dbbc..e24e7b91a3618 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-[ ... ]
-> @@ -1090,7 +1091,13 @@ static int mtk_dsi_bind(struct device *dev, struct=
- device *master, void *data)
->  	if (ret)
->  		return ret;
-> =20
-> -	return device_reset_optional(dev);
-> +	ret =3D device_reset_optional(dev);
-> +	if (ret)
-> +		return ret;
+When the IRQ (which was programmed for e.g. 'panic temp' value)
+is triggered then thermal fwk is kicked. In that the 'get_temp'
+will be called.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this error path leak
-the DRM encoder?
+What this change effectively does is:
+- program the IRQ firing temp level higher (based on dt example)
+- provide the temp value lower to thermal fwk
+then you don't touch other stuff which is generic in this
+thermal scope (like trip points).
 
-If device_reset_optional(dev) fails, it returns without calling
-drm_encoder_cleanup(&dsi->encoder). Because the component bind operation
-fails, the component framework will not invoke mtk_dsi_unbind(), meaning
-the encoder is never cleaned up.
+It's kind of tricky to grasp and I would suggest to describe it
+somewhere. These are popular chips and many boards use them,
+so many engineers might miss this bit.
 
-If the DSI driver is subsequently unbound or removed, its locally managed
-memory is freed while the encoder is still linked in the DRM core's list,
-which could lead to a use-after-free or kernel panic when the list is
-traversed.
+> 
+> Signed-off-by: Haoning Cheng <Haoning.CHENG@cn.bosch.com>
+> ---
+>   drivers/thermal/imx_thermal.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
+> index 38c993d1bcb3..0a443e608957 100644
+> --- a/drivers/thermal/imx_thermal.c
+> +++ b/drivers/thermal/imx_thermal.c
+> @@ -207,6 +207,7 @@ struct imx_thermal_data {
+>   	struct regmap *tempmon;
+>   	u32 c1, c2; /* See formula in imx_init_calib() */
+>   	int temp_max;
+> +	s32 calibration_offset;
+>   	int alarm_temp;
+>   	int last_temp;
+>   	bool irq_enabled;
+> @@ -223,6 +224,7 @@ static void imx_set_panic_temp(struct imx_thermal_data *data,
+>   	struct regmap *map = data->tempmon;
+>   	int critical_value;
+>   
+> +	panic_temp -= data->calibration_offset;
+>   	critical_value = (data->c2 - panic_temp) / data->c1;
+>   
+>   	regmap_write(map, soc_data->panic_alarm_ctrl + REG_CLR,
+> @@ -239,11 +241,14 @@ static void imx_set_alarm_temp(struct imx_thermal_data *data,
+>   	int alarm_value;
+>   
+>   	data->alarm_temp = alarm_temp;
+> +	alarm_temp -= data->calibration_offset;
+>   
+> -	if (data->socdata->version == TEMPMON_IMX7D)
+> -		alarm_value = alarm_temp / 1000 + data->c1 - 25;
+> -	else
+> +	if (data->socdata->version == TEMPMON_IMX7D) {
+> +		alarm_value = DIV_ROUND_UP(alarm_temp, 1000) + data->c1 - 25;
+> +		alarm_value = clamp(alarm_value, 0, 0x1ff);
 
+This doesn't belong to the $subject. Needs extra patch.
+
+> +	} else {
+>   		alarm_value = (data->c2 - alarm_temp) / data->c1;
+> +	}
+>   
+>   	regmap_write(map, soc_data->high_alarm_ctrl + REG_CLR,
+>   		     soc_data->high_alarm_mask);
+> @@ -277,6 +282,7 @@ static int imx_get_temp(struct thermal_zone_device *tz, int *temp)
+>   		*temp = (n_meas - data->c1 + 25) * 1000;
+>   	else
+>   		*temp = data->c2 - n_meas * data->c1;
+> +	*temp += data->calibration_offset;
+>   
+>   	/* Update alarm value to next higher trip point for TEMPMON_IMX6Q */
+>   	if (data->socdata->version == TEMPMON_IMX6Q) {
+> @@ -629,6 +635,10 @@ static int imx_thermal_probe(struct platform_device *pdev)
+>   
+>   	platform_set_drvdata(pdev, data);
+>   
+> +	of_property_read_s32(dev->of_node,
+> +			     "fsl,temp-calibration-offset-millicelsius",
+> +			     &data->calibration_offset);
 > +
-> +	enable_irq(dsi->irq);
-> +
-> +	return 0;
->  }
-[ ... ]
-> @@ -1375,17 +1383,15 @@ static int mtk_dsi_probe(struct platform_device *=
-pdev)
-> =20
->  	platform_set_drvdata(pdev, dsi);
-> =20
-> +	ret =3D devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
-> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
 
-[Severity: High]
-This is a pre-existing issue, but is there a read-modify-write data race on
-dsi->irq_data between process context and hardirq context?
 
-mtk_dsi_irq_data_clear() modifies dsi->irq_data using &=3D in process conte=
-xt
-(from mtk_dsi_host_transfer()) without disabling interrupts or using atomic
-bitwise operations. Concurrently, the hardirq handler mtk_dsi_irq() modifies
-the same variable using |=3D.
+No bounds check here or debug message?
+Playing with raw registers which handle thermal safety net it's kind of
+risky IMO (a typo by one digit and the board dies).
+Done once in the setup code won't harm performance and something which
+goes to the DT schema is quite stable to reuse.
 
-If a DSI interrupt fires during the process-context read-modify-write
-sequence, won't the flag set by the interrupt handler be silently
-overwritten and lost when the process context stores its computed value?
+Regards,
+Lukasz
 
-This could lead to hardware interrupt events being lost, causing timeouts
-in mtk_dsi_wait_for_irq_done() and potentially breaking display
-initialization or frame updates.
 
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713142746.4025=
-9-1-angelogioacchino.delregno@collabora.com?part=3D4
