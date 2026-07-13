@@ -1,21 +1,21 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AD134029E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6590342538;
 	Mon, 13 Jul 2026 15:04:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783955091; cv=none; b=P9jdgpLjCk1+RIpQ1Hs8kJfk6+sh4XRi6cnVDu3NaCL0AlJvsI/Vdf9pVKF9AGJx5DR8K9X3JCUmBJtLuUAHOMWym/3W4en2HUktEk4H50go84mmDHRTQzHj4FUZ+9VW9Zfbl1Zm4iDcqSpfWx/SozTEI0XSag7dlGmpZMhz6kQ=
+	t=1783955091; cv=none; b=oCW8KfuzDAmwniR4RTJsE1ALtDHCAn6TVPATBHrasVx3+lOO00RNCIv3PeK9o/o2pYJTMx7lwkg5gEaxPNbNHampBy7sBLZf+AWEJTd1CW667PACnhiGSpJc9MeFBby8er+VmGLYt2ni9/WvxrZ28nMMXMtrvRDa4g58UusPlnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783955091; c=relaxed/simple;
-	bh=q7d5KK4Tkj9nN5q6BGakd8ongm8BNq/e1S/qiFgCVDg=;
+	bh=jiQwK8y1yhLUjo4j7t5N6iCSymryvu3If63SnojuyR8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ascbdpYmVVQWF5+fLP/ZMQllhpO+y2jrCXcD9NpDwMZYpVbN0t/Scd32TRftHUW+p2IjhJefkLLppy9h/ROpRJo4gMMIwmacSmXpcLa5V9UZBjsgJxQ49RV9fXN2kz/iBMkbq1Bho/3ZSYtzYVD8MbAznLCT8z+BsR1S284uU04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=Vyk9s0tH; arc=none smtp.client-ip=116.203.77.234
+	 In-Reply-To:To:Cc; b=WB8mPuHAZaf96HMqz5owm+B15BgQeKarqrSNfluxJR9RaaBARwprEoWrcb2r4pcNwVXPIaLU4ZgsBMCU1/Ye5bCK7QIIV/VyMG1IcNjMwQr9OceLuLu9eYjGQ2xhhnTrUQLuBsZEJ2OoqJhbQcFwVTj7hUkyAbLa5HTt5ZpmUYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=q/sqPrGE; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="Vyk9s0tH"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="q/sqPrGE"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
 	t=1783954516;
@@ -23,15 +23,15 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=c6iF9XDEbaIplAtmrsCBBxY1vgXUOaIijCD0bkF3jCo=;
-	b=Vyk9s0tHAYfyOa2Kab+MzsLNfE6QrJDFb9FMln3P6l0Zc6yENjya9hATh2402sLf6FdDvo
-	2ZFAVDAXSpXdtOrjCMI+cFoaHqmwg5SIGksTLanUUWhPGJ6sbhp2G/qcqtMWuDVD/xVvok
-	r0Xdcw1SRslgZooDi1p6BfELyDqtzTXy76M7aQ2vcX2R0Rhk/3q8Wn4ZKsMZF8FiRSCxYK
-	i+JdM68jbWHs7ysu1TytSlLsSc/13vdml8YPu+k0TrD9h26pGjRJCcas45f0da6mp/i5Qs
-	SOUNqLfyK0gwL9JV7s4zCQk9wcfntx3cD/NEtKQF2H+s0sPNrNOrcqQftsPrvg==
-Date: Mon, 13 Jul 2026 16:53:37 +0200
-Subject: [PATCH v2 01/10] dt-bindings: nvmem: imx-ocotp: Add support for
- secure-enclave
+	bh=Z3WRQgH3u5bb1sg/UIkuyiCQpHZzLzXfUoy8toBIe7A=;
+	b=q/sqPrGE22EwiScsb94tifwGXslrOiY09SzqQ+/yTlNlvHB7Y/7sxpxgzeuYRBMAd7GKFb
+	jjykGZetSHE80D7azgr+BNR+Q+Jy0d3K7qUeEVv3luDEFpU7BbBvkg9T6Wrts4U3Kwf3/7
+	ocXBlpKvShIbEwgVifflaYGp7LiEP7iDbUCH7KxZVKoZ99skQLt2A2NoH5aNgXTQ6oEhd2
+	JhQabnGoE7O+pa8dX30Qq26Bg9t7+eV4nZmpJqKWsqYh+tzGTdo1e8Qt1N7khhJ6ORKBRi
+	Ng5eePFw9cP+Nn8RnA3oYfysdCHV7gNpxN/rBg5rHijU4+riWuIDsU8BAmmoRg==
+Date: Mon, 13 Jul 2026 16:53:38 +0200
+Subject: [PATCH v2 02/10] firmware: imx: ele: Fix indentation in
+ ele_base_msg.h
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-1-b8266d93514b@kontron.de>
+Message-Id: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-2-b8266d93514b@kontron.de>
 References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
 In-Reply-To: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -54,53 +54,57 @@ To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1378;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1529;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=Ll3DwEtNXqNyJE9cnd67/HZkEW9Unihh2hJcAMhBqO4=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvkT6B68qcTVm9497jpMDmUujy463Xx2Bypy3NNPn1es
- Mu3f1ZzRykLgxgXg6yYIosUv8VrW7NYH/lj1VEwc1iZQIYwcHEKwETeHmJkWPd7z5ScL24bF3xY
- +UNx/7zti5Quryy603vR7KPvpOK8+WcY/ultO+i6xNu2xk99bYPwx7cbXtn8sDhcHfVtxeI/CyM
- F5jIAAA==
+ bh=64Z8RnfUiT82ClmtKrj06sc+zV8FVPoGFC47Pu8B+Ek=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvkT2DjPaXQXRdvHrCKFHi4OkKR111mx98EqVPdAiJHp
+ JqDKiQ6SlkYxLgYZMUUWaT4LV7bmsX6yB+rjoKZw8oEMoSBi1MAJhLdy/DfW2Bt+KuMIH5dbTGn
+ KVce5f7zvVxunV388XbA1HOrxM/9Z/hfcHHH8+MHGffGvnspHi4Yv1/8iZfY7duMR9+HCU7Z/86
+ dHwA=
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
 From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-The driver currently uses the limited MMIO (FSB) interface to access the
-OTPs. The intention is to support the firmware interface alongside the
-MMIO interface so the driver can pick the interface that is available
-(firmware might not be loaded) and fallback to MMIO.
-
-Some SoCs like the i.MX9 family allow full access to the fuses only
-through the secure enclave firmware API. Add a property to reference
-the secure enclave node and let the driver use the API.
+The file uses mixed indentation characters. Use tabs everywhere.
 
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/firmware/imx/ele_base_msg.h | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
-index a8076d0e2737..70901218871e 100644
---- a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
-@@ -20,6 +20,16 @@ description: |
- allOf:
-   - $ref: nvmem.yaml#
-   - $ref: nvmem-deprecated-cells.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - fsl,imx93-ocotp
-+    then:
-+      properties:
-+        secure-enclave:
-+          $ref: /schemas/types.yaml#/definitions/phandle
-+          description: A phandle to the secure enclave node
+diff --git a/drivers/firmware/imx/ele_base_msg.h b/drivers/firmware/imx/ele_base_msg.h
+index 75e65e279193..1c5d6791b323 100644
+--- a/drivers/firmware/imx/ele_base_msg.h
++++ b/drivers/firmware/imx/ele_base_msg.h
+@@ -27,19 +27,19 @@
+ #define ELE_GEN_KEY_BLOB_REQ		0xaf
+ #define ELE_GET_FW_STATUS_REQ		0xc5
+ #define ELE_XIP_DECRYPT_REQ		0xc6
+-#define ELE_WRITE_FUSE                  0xd6
+-#define ELE_DEV_ATTEST_REQ              0xdb
+-#define ELE_WRITE_SHADOW_FUSE_REQ       0xf2
+-#define ELE_READ_SHADOW_FUSE_REQ        0xf3
++#define ELE_WRITE_FUSE			0xd6
++#define ELE_DEV_ATTEST_REQ		0xdb
++#define ELE_WRITE_SHADOW_FUSE_REQ	0xf2
++#define ELE_READ_SHADOW_FUSE_REQ	0xf3
  
- properties:
-   compatible:
+ #define ELE_GET_INFO_REQ		0xda
+ #define ELE_GET_INFO_REQ_MSG_SZ		0x10
+ #define ELE_GET_INFO_RSP_MSG_SZ		0x08
+ 
+-#define MAX_UID_SIZE                     (16)
+-#define DEV_GETINFO_ROM_PATCH_SHA_SZ     (32)
+-#define DEV_GETINFO_FW_SHA_SZ            (32)
+-#define DEV_GETINFO_OEM_SRKH_SZ          (64)
++#define MAX_UID_SIZE			(16)
++#define DEV_GETINFO_ROM_PATCH_SHA_SZ	(32)
++#define DEV_GETINFO_FW_SHA_SZ		(32)
++#define DEV_GETINFO_OEM_SRKH_SZ		(64)
+ #define DEV_GETINFO_MIN_VER_MASK	0xff
+ #define DEV_GETINFO_MAJ_VER_MASK	0xff00
+ #define ELE_DEV_INFO_EXTRA_SZ		0x60
 
 -- 
 2.55.0
