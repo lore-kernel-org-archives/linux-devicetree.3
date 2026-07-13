@@ -1,36 +1,37 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C92438036;
-	Mon, 13 Jul 2026 14:55:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9F143900D;
+	Mon, 13 Jul 2026 14:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783954529; cv=none; b=ueFSzR1P+e7fl/2oRBP95Pb0466Cg5Ddd6Eku+WqDLlaCe0Kv+oOJbrDuTg/jlRdgr/8Gx/aBt2MeHRlh7Y6hMhpzK4mYhSwYi0YPTOmf61cMAGC8E1gqmhdDCbnDZPzeS6j1aHmEsQGVZOKo5dGlHI3sjJedBSP97Y2gLjPkTA=
+	t=1783954529; cv=none; b=LcozjYk2rfl1Yx8sjqo4dzpdJp/G/W9q3F2WuY6hTWQ5zxTXkOdaZPEVDn/JJ3KcuC3SuQSCObL9JRnitcsrQWw2PTrAQQIQWQDXFS72FU+3gl+m0n3h2tgwJCPFBoJYATARD+noTw50YiI5WYrFCWU8PqfwaXNAFNePdCuJVJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1783954529; c=relaxed/simple;
-	bh=hguiKqe0Uuyua2AX1GYt1cNVLRmZaSGClWVkNI+fC/I=;
+	bh=wKij38HGAAt7YISA6FyqC9dlADCJpzJDlZ/LQ1v14os=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LuUWX8R8QI+wq3aYNtXxr/Yk7zwCza9XMbTeWzVh6qs4xIDpJ1YMsIpXD2DbwC2Sx+/JlNk3TlwB0+gauGQymoALN1hT2LS2wuPRuLxJc8l9HJ2dYxArstaLvrfpULDbQ7XFRdq/0ODLt1vmRYKYfd+dxurFZOCfiszrD3dq/d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=1r+6GHEa; arc=none smtp.client-ip=116.203.77.234
+	 In-Reply-To:To:Cc; b=ecJuhAkPvb6hktDivViqtPXok4BsrcycZvNaYWDp4azuroeHqqqRYZrN5BeaUlfPe54ymiSXNMBw9bpMA/2aQU/aoRDKOKJpsbv0wUwJ3FyUv2/oby71xNQwNZ6sC0/3sqvO9qWHlmcqHhcjcTW+SAItrntimyMEACDVkUn76pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=skQF9Imu; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="1r+6GHEa"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="skQF9Imu"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1783954518;
+	t=1783954517;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mnjH8bUvLNMs032Y3RxCllB4beQC3Ai/Gw/n6qJweSY=;
-	b=1r+6GHEaUzeW7ARL5A1y4cF89AgFbIyWmXz3gysj4C8Lo1wZ5x1/ZcSeakLGgRT1wtQsVV
-	YDiQ6o1s1OY5aAbKQuaYeqgicH2EfUrdZE7x8TQOwYRg5ZVhC4jL0V2Eaydm8C/MJ7E4PO
-	PPBaAw006VKx7z1B92ZErkma0gbnjWJ1IlYMgHjfMwlZKtk3DNvXtbsuf8sZg0s53YYgmw
-	6X+nK8WAt5RMrWTgz1UVyrXQbXcBhDS59fetYRkkBo9js4hZAushUFtgq3gEj0EVf6ZRfd
-	ddgGL7DCdOi1ICx8Tc3YE9qei0OctQYZ8E+9aqGXuUpdX6jOgOcVARdPjSgkaA==
-Date: Mon, 13 Jul 2026 16:53:45 +0200
-Subject: [PATCH v2 09/10] nvmem: imx-ocotp-ele: Rename FSB access map
+	bh=AWfpNOMblUSFgxMlfiBcTi/hJKFn8YKP25mru4Aw2gA=;
+	b=skQF9ImuH3EaUvyvpt70hO3k391ONHcif/lrEXSUecp1IMKzBL9KNEh7DsTXllTc79a409
+	qwtLbxlKx+xAV9cdI+fmwRgvOE1bPfg3n9ISPVowyIu8yMrbvlBX+IU3bD1bapG5qdggI+
+	/V3wNb3eqgdOzZKzVzSaSlExecTsw/qh1OpgLHmNMa8hsEqI8qMUQ8ffbS8CnpfawFi2LW
+	1u2lB9OKBDOGhyuRLq8tQLJstNHAScxko9T+PDLdiXiAT0uSoNGQYkRXlc/IJVWF31/z9N
+	aCOrNIr9S+99q46WGQqmCE3JX5cY+I/4HeWwnDTW7+/otXhTUkVzEhjuh8ji0w==
+Date: Mon, 13 Jul 2026 16:53:42 +0200
+Subject: [PATCH v2 06/10] nvmem: imx-ocotp-ele: Use __free(kfree) in
+ imx_ocotp_reg_read()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-9-b8266d93514b@kontron.de>
+Message-Id: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-6-b8266d93514b@kontron.de>
 References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
 In-Reply-To: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -53,97 +54,59 @@ To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2464;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1174;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=Ui1yqAl2SncRGvJ6Cd8lkM+A+lQmMiIxti+ManRJv8M=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvkT1C3w/beB9E9Z2xvtbTFXdtnvVh5WsCH8LwKq4xJE
- 6eV/37UUcrCIMbFICumyCLFb/Ha1izWR/5YdRTMHFYmkCEMXJwCMBF5TUaGXR+frjmv+OWmI+eT
- r1tunniavijj7ZYph850/HBYOkuQ4S7DP631XGy3/7w1Sc47IRs8SaN+7VWno1vbOexnstv37u+
- dygMA
+ bh=tw7aokEcvh90MWTeMqjklR+YyN0xvrsJL5lNb7B2Txg=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JISvkTxDz99krF/51zTb/Fn5ixo5NZ4807/iwK+NWbfqxT
+ Ce2iqU6HaUsDGJcDLJiiixS/Bavbc1ifeSPVUfBzGFlAhnCwMUpABNR6GVkOBPRU7P49vM/jnXC
+ HVuWMoedvHvfSznMZKOTfuuv+1Z5Dgz/Aw1CwvaelzvYxxXxWOvOs5WB/CKh8vUif6MvaYcVO4T
+ xAwA=
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
 From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-The table is used to declare which fuse registers are accessible
-through the FSB block. Name it accordingly to make this clearer for
-the reader.
-
-No functional changes intended.
+This is useful to make sure the buffer is always freed when
+its scope ends and makes the code slightly easier to read.
 
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- drivers/nvmem/imx-ocotp-ele.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/nvmem/imx-ocotp-ele.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/nvmem/imx-ocotp-ele.c b/drivers/nvmem/imx-ocotp-ele.c
-index f07565c0a02d..1a125f9c5b1d 100644
+index 9d3f94e35508..47ee6bd176a3 100644
 --- a/drivers/nvmem/imx-ocotp-ele.c
 +++ b/drivers/nvmem/imx-ocotp-ele.c
-@@ -33,11 +33,11 @@ struct ocotp_devtype_data {
- 	u32 reg_off;
- 	char *name;
- 	u32 size;
--	u32 num_entry;
-+	u32 num_fsb_map;
- 	u32 flag;
- 	const struct nvmem_keepout *keepout;
- 	unsigned int nkeepout;
--	struct ocotp_map_entry entry[];
-+	struct ocotp_map_entry fsb_map[];
+@@ -5,6 +5,7 @@
+  * Copyright 2023 NXP
+  */
+ 
++#include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
+@@ -68,10 +69,10 @@ static int imx_ocotp_reg_read(void *context, unsigned int offset, void *val, siz
+ {
+ 	struct imx_ocotp_priv *priv = context;
+ 	void __iomem *reg = priv->base + priv->data->reg_off;
++	void *p __free(kfree) = NULL;
+ 	u32 count, index, num_bytes;
+ 	enum fuse_type type;
+ 	u32 *buf;
+-	void *p;
+ 	int i;
+ 	u8 skipbytes;
+ 
+@@ -108,8 +109,6 @@ static int imx_ocotp_reg_read(void *context, unsigned int offset, void *val, siz
+ 
+ 	mutex_unlock(&priv->lock);
+ 
+-	kfree(p);
+-
+ 	return 0;
  };
  
- struct imx_ocotp_priv {
-@@ -160,12 +160,12 @@ static enum fuse_type imx_ocotp_fuse_type(void *context, u32 index)
- 	u32 start, end;
- 	int i;
- 
--	for (i = 0; i < data->num_entry; i++) {
--		start = data->entry[i].start;
--		end = data->entry[i].start + data->entry[i].num;
-+	for (i = 0; i < data->num_fsb_map; i++) {
-+		start = data->fsb_map[i].start;
-+		end = data->fsb_map[i].start + data->fsb_map[i].num;
- 
- 		if (index >= start && index < end)
--			return data->entry[i].type;
-+			return data->fsb_map[i].type;
- 	}
- 
- 	return FUSE_INVALID;
-@@ -364,8 +364,8 @@ static const struct nvmem_keepout imx93_ocotp_keepout[] = {
- static const struct ocotp_devtype_data imx93_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 2048,
--	.num_entry = 2,
--	.entry = {
-+	.num_fsb_map = 2,
-+	.fsb_map = {
- 		{ 0, 52, FUSE_FSB },
- 		{ 312, 200, FUSE_FSB }
- 	},
-@@ -376,8 +376,8 @@ static const struct ocotp_devtype_data imx93_ocotp_data = {
- static const struct ocotp_devtype_data imx94_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 3296, /* 103 Banks */
--	.num_entry = 9,
--	.entry = {
-+	.num_fsb_map = 9,
-+	.fsb_map = {
- 		{ 0, 1, FUSE_FSB | FUSE_ECC },
- 		{ 7, 1, FUSE_FSB | FUSE_ECC },
- 		{ 9, 3, FUSE_FSB | FUSE_ECC },
-@@ -393,8 +393,8 @@ static const struct ocotp_devtype_data imx94_ocotp_data = {
- static const struct ocotp_devtype_data imx95_ocotp_data = {
- 	.reg_off = 0x8000,
- 	.size = 2048,
--	.num_entry = 9,
--	.entry = {
-+	.num_fsb_map = 9,
-+	.fsb_map = {
- 		{ 0, 1, FUSE_FSB | FUSE_ECC },
- 		{ 7, 1, FUSE_FSB | FUSE_ECC },
- 		{ 9, 3, FUSE_FSB | FUSE_ECC },
 
 -- 
 2.55.0
