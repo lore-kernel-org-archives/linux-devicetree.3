@@ -1,91 +1,87 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9F9305695;
-	Mon, 13 Jul 2026 10:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783938776; cv=fail; b=uuDRRSN4g2zo3gvKYLKy3Gj8ZQNRdOYSwmSK4XjIMs8moX1vHZOBXC9mVd/j0jHE4WceUG9lI2p27xgpMm3+MWv9WfZVAMI52NLP4rnLSSrftjtmZNUrrESDRUrfMOl+ptyDSNK952tGASrGVZveTQsGPU2DVnltQdSa5osgc1c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783938776; c=relaxed/simple;
-	bh=ORExIGjYv5vzBABChiDTk+NqAnN19dAVmA0KdTNoj8A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Uk94VQrP5yYOZZtQncfbXHp9Prec8s7mNMPtGpFMLXw2JDiufu41+8zVDNfQjLO2yEm+J/YKX2/Lg4i8qdG8LhCiu8vxqoAwmH7CS9HrMxN7rvu66rLw5AS9ifLteN0H0tSls2ifgqsmHRMi1pZ/RW0t21l+cJDXAec/sxa6co4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=m4kM+YaX; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=s8wAucDk; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102F637A835
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783938862; cv=none; b=s2ReeveTYWTc1xRxrzSdP6AbiV2QqwgJ9O18VErH5dP1V0LCbFEsJlUuXgMHd5Kj+TypwqjPB5FCUG6YC1A5GE1LtaNKPHKF5UTkZ7VQI/9gqipK+VazPQtpTKvkkAE35eoOfASyIEjQbZKiVxGMZM6jdNGlxMFeCZp+siowRd4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783938862; c=relaxed/simple;
+	bh=80uvDt5MU1fMdxcH8e+Lh30RDkAELmAtxtlNNHoW8+E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JUsVz5y1Gwl147HGWoNSdFKOI02w/iLxORDyKRr/VrmSfnjE/cUeqtBwG8jFBy0q60yYiPn/NzpKFkEmNCJEU95e+/GCtZE8zK7ZFhD4SYX7tibeVamISv5M/FlIMTfr94CoovKDzkAVPwc0ouh95VjHe4Tnz3+bnCWij3sV69E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V+gCeISA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ts0T2PH2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="m4kM+YaX";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="s8wAucDk"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6PVWa2802156;
-	Mon, 13 Jul 2026 05:32:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=tQyOqp1+kIZAnn0vO/JmBO2ZIcBlzCsfDwGxPiU9y
-	qo=; b=m4kM+YaXaFm5GRdLfa421aYFHeIpFVwj81QbAAbjIfjnnEShj03nSj8Zx
-	sbS6P1WumjsxcoXS57M0iZumVSMmJETYqAJSWgkUqHhexyjsAYrILGHi/SkSG7p3
-	in6feJWunoTN4aU9IelEUWS8UNXf6bZyiwq6Qy6qr/awyhcOPmpbPlmE/JJgr6VW
-	n+0pwbJjIdbH9Hwyb2IWJzTwWIyMXJmk9rl5svSp0yj/mYWvStoQLzk5vq1rfH/I
-	yJK6udAIEPZuoslIFuVBwCtQChu303jkXW9LLYTDstezJHeGv9O8a7T3oKa3Jnup
-	fKzsppru9aGWiKQSFktI7P4FNGdtA==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fc4ypwfm4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 13 Jul 2026 05:32:44 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XCuW4dBi4gJ5h8sbmWtpyyPF4qyqULfBOcih86TbjtkgM3TqHgUiz9TrMIPbDpzm0a2oEbcXIY8CfZIOKgcjY4OWh4yRyC3L/JpzpVHPbdyIE8gkAoSreBUDjN/9cJEzNtpMiXWyGfsXMpHE4aGB3NRfyBW/0hF5IyqomOZWj0Xy/cSDuA+B8coxSKsfbt2Lypzw3TdR4MXFnb9bblgJ2wOfPLOgRHILcs6LBN2oApgsTSYkpl6dAlJAR7UcNVPYx67SYAd8A89Lk65uFsw7emSl/zfWlV0edwczsh+P0nJvpqJX0jqRsZXanqiLJcMsckNJUGPfNXIzLkwWDIoIoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tQyOqp1+kIZAnn0vO/JmBO2ZIcBlzCsfDwGxPiU9yqo=;
- b=jaZTtiV2QR4cX1ujOoSgBVd5bxZUu0n75C6rnIF68i3X4f9ldyrT3Dkip6SHoFZVw5nYhqei9k3XHUiohfAI/eBAb1qPNc3bzBGBhybIQ0njjFUNEiqwSpUBFOhsQbEZAqOJWDz/OHjEM4zrRsth036eg/+iF4EPi1yAueTsFsUb+7fMzo0tD5CgTu7rpXFuLCvJZjkpQnNduWEZoXFV0U5nIjelZVLx4pNHwKbRiTP6zchhivZkWe2yAh2XstNNiZQ8kUkDZWO2h5wthGNWQOLuXluM5taCi9LJUpWWRJKzeonbNa5GpzJhVGM2er8XwBEfO/5kv6RTzYGZ9MPY+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tQyOqp1+kIZAnn0vO/JmBO2ZIcBlzCsfDwGxPiU9yqo=;
- b=s8wAucDkAmkAq8SD0f/+L8UxnZfvjhth5GlTyKqigfHcdsQ2odNAbHEWt5HfM3QMOCocBkD/J+X3Zu2kjWsL+iDcqAA9CVOufHU9exp62106Kk8qHzwI09L3dfhafdvVhPmoQRa2XKn8OEl2PW/lUZMcmZUyX6kt2iKwofYr+5I=
-Received: from MW4PR04CA0249.namprd04.prod.outlook.com (2603:10b6:303:88::14)
- by SA6PR10MB8040.namprd10.prod.outlook.com (2603:10b6:806:447::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Mon, 13 Jul
- 2026 10:32:41 +0000
-Received: from CO1PEPF000066E9.namprd05.prod.outlook.com
- (2603:10b6:303:88:cafe::41) by MW4PR04CA0249.outlook.office365.com
- (2603:10b6:303:88::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.19 via Frontend Transport; Mon,
- 13 Jul 2026 10:32:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CO1PEPF000066E9.mail.protection.outlook.com (10.167.249.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Mon, 13 Jul 2026 10:32:39 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 13 Jul
- 2026 05:32:39 -0500
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 13 Jul
- 2026 05:32:38 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Mon, 13 Jul 2026 05:32:38 -0500
-Received: from [10.24.50.130] (uda0132425.dhcp.ti.com [10.24.50.130])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66DAWZ4s1946246;
-	Mon, 13 Jul 2026 05:32:35 -0500
-Message-ID: <531d7396-c581-4b5d-8008-db5e9ee5e7d6@ti.com>
-Date: Mon, 13 Jul 2026 16:02:34 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V+gCeISA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ts0T2PH2"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D9M4Sm1090535
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:34:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hStT8qpaedXjiHKccL1ATtGNxSXRj2aYF7INvKg5ScQ=; b=V+gCeISAvfz1jB1z
+	zjcsdfJMqSC8J9qKGLfLRi7G7QlXsrHxw0GteUuJDKtCcoyugYbWufARqcQ845y6
+	D0Em2KCROztDRovkWvTsnKpwPLTTF8ZvVLJvmgfQ+EYgDGnGLybk1pMvheCosQZI
+	H2OdfBSavI1FSZu7slnxEekGwINhbAIQfFspf6KoYloGchjEacDYJy+kSLcIVzwn
+	lJUveFzMUGelHx9iAgSIdNOuedCGXG3rz8cec+PY//P4U7eGNb4veuvEMuorigIF
+	rlP1rMdqSKQac748gSJa0x0toM188gKucmezY33huD8tHU8YRMKBqG4KPqg6xILX
+	dWsoJQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwavr8te-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 10:34:20 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c110a3b6aso45766861cf.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 03:34:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783938859; x=1784543659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hStT8qpaedXjiHKccL1ATtGNxSXRj2aYF7INvKg5ScQ=;
+        b=Ts0T2PH2DpVlkkhqCAijdswi6oNnu8jgJHfnVHZrRCJwp7ZLFRUynpTMN7A9anyQ+i
+         vuHLSdADr4Lcz1MiC+EgR92nH8ZwrNrl8ZC5WCqaRpbVTCUP1xSt9EYQIiNzDwKdqGRP
+         JTBjFVgAJ11Kt2RL2o7jfOnXTfG17+gNSIPaYwraceSeDmByQhLPAhZm/0nIA1EbebjN
+         MnsugcCJtTeh0EUCp1Aol1v4L1R09RgFivU+peQO/iMq3LpSNEeoPrt6kwsWyBTvruoK
+         P3jbj2qNNsgr8o6SaYRf6+SX/MyWKJ4VypLWBLjhwALbcldi2nuZ0mTrJa5sPbDW9O62
+         U1TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783938859; x=1784543659;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hStT8qpaedXjiHKccL1ATtGNxSXRj2aYF7INvKg5ScQ=;
+        b=O2/OXOL51UXD7m1FsRXcZw8AlzlRznS6b2IKIQn4KVsKbRE0dkDEM7JG3n16PlIVEI
+         EyM6S6DFhOripOSs1sO/8CNjB/uRrKZs0m5WG0BgIJ6YM7Uq50qflCw16nrqYeIujrll
+         m4XpoMZF7tRarBBy35feBZXwFZ7U2dgcdQXMSVGn1I+Sw6b6y6v3/AgZ4/pGUH5sC9Ok
+         VahOPuN5QKKfJNDlI6qX7T+aVneYOczpBiJwlruMzT15hvioiYUU2H51LfPyrmWEGhwf
+         RDUfc6a0VDerUpeeXRcfH+Hg8D6u+e8YGT86kKYelt1eqtUic1IKzsgATaoWBKUO69I6
+         QhAw==
+X-Forwarded-Encrypted: i=1; AHgh+RrWA7/fuUkHOF4s7r5fmVZi19J6f4Xqd6KkkPUW8sn4rdS6qJ6gv/pYpRgG2P4Gam7C4xUv7GkbfxIF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxwKy2el+SB/1g02etJI4pJ19syve0vUkflZqZrR/9V24VidSj
+	JrDmeIMHscYtzjFPfbClsgZ5X4tdCLHVdNB7SsvEJiqKKiHt2TGcOtZp+1xA5jQ1S5+muHXWHON
+	fAPUNKsqdNX0TBgpAGkj752nNoFaJYyaz5xDsim9rf85/xl2kbGMa3zDo/O7Gms/E
+X-Gm-Gg: AfdE7ckHPW6JTfFn2XzJCjC94XUeVL6n1YLXPMICzV/DK6lrTE6LwGb/TgcSsvsbwMB
+	CmOTHixPBz8L6IfcEKm/4/sfyubBN1xs0x34WxFzmyPFiERWUlFen3/anpVo6H0ldSNfFjdhTen
+	DcKUP4dzg5P4CgNaNGztgalOAsD7V7nuoKKYAbfcwUs1dM0XJis1guW5z6cBI+EAi3Ah7qU0+uB
+	5pp4XA7+De2+GGueoyBc/1Y3Ije7fgoavz/TIAIYXsnlD3nlDIhHRv07AfU+bP8T75Cubj4ksgm
+	1d4mT63n0TywP1fPLuQzg95vvFYtflbeu0hPmkLrET4hyRv6X1HkwtdohWVbRUuOdz0da9WSP6B
+	rmpI7qQaN+ltuOtkxOvxXh4t4dl+M1J5fNlKPdkmI0PQ=
+X-Received: by 2002:a05:622a:95:b0:51a:8c97:fb9b with SMTP id d75a77b69052e-51cbf2feb65mr80671251cf.68.1783938859128;
+        Mon, 13 Jul 2026 03:34:19 -0700 (PDT)
+X-Received: by 2002:a05:622a:95:b0:51a:8c97:fb9b with SMTP id d75a77b69052e-51cbf2feb65mr80670781cf.68.1783938858362;
+        Mon, 13 Jul 2026 03:34:18 -0700 (PDT)
+Received: from [192.168.1.73] ([92.247.57.178])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15de6c565fsm662932066b.2.2026.07.13.03.34.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 13 Jul 2026 03:34:17 -0700 (PDT)
+Message-ID: <b2f62e42-b909-481a-8aab-07aa5e866665@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 13:34:15 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,152 +89,212 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] arm64: dts: ti: var-som-am62p: fix Ethernet PHY
- configuration
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>,
-        <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>
-CC: <pierluigi.p@variscite.com>, <matthias.p@variscite.com>,
-        Stefano Radaelli
-	<stefano.r@variscite.com>,
-        Nishanth Menon <nm@ti.com>, Tero Kristo
-	<kristo@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-References: <cover.1782680023.git.stefano.r@variscite.com>
- <4d1ba0d1b9bd4957224213cf17dca93392788e03.1782680023.git.stefano.r@variscite.com>
-From: Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [PATCH v4 4/5] arm64: dts: qcom: sm8250: Add JPEG encoder node
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, bryan.odonoghue@linaro.org,
+        vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+        mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260706071113.383215-1-atanas.filipov@oss.qualcomm.com>
+ <20260706071113.383215-5-atanas.filipov@oss.qualcomm.com>
+ <h2fskxtlb6wusoz7o5pw34ii5n2il4jltcrogmt36676ioq5nd@klwft4s3mzgk>
 Content-Language: en-US
-In-Reply-To: <4d1ba0d1b9bd4957224213cf17dca93392788e03.1782680023.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E9:EE_|SA6PR10MB8040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95e14a9d-4f78-4eb7-bb3c-08dee0ca107f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700016|82310400026|1800799024|23010399003|13003099007|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	YY+h3J6GrgQQYKBiTITnPcEY56T6HzpkhE6TKBzK1l/ngV/lWH1A0CfCnhJ5YAsBemY22l508Gn60nqxrbZR41suQe+Nl9vaSCYxGnqGt4iLK2gyBaCoXx9e5kRzUA3LWWeHqWYsrcV/YPM2S1hTBOFhbzqFTDxofwYZwLJggPGRyAWCrBDufvs72yNNY4+d/CtzPK4XkzlyXR0YDFLgK/t7BNePu8sjurC1Mfx9BkPBHDRQlSrhfHWpx4TznxwT4t1JOAaH45iNWjQfYwZtlBH+kMtRl573FgIlNSpuaY5hAEtxBbve/6yFSVQv5E3Bb4tneUOnucU+9TTgU2viBUVAGJaT2ULoqAP+RqucgzRLf56f9gQs3BMdqc8heRLWy4Wz2L7g8+tV+/sZNSZjCJD5JoMQ+tzvYNVe894vijdFu1sONMbfLi/FDseUSiN4MezhXqDre+EYSVLSkfwWS2lD2t4Ir2q6W8qD1rkCtLWF31sO26RZP8qCcdB5HtlNuUnCFLlEhpGKCj4QjhyYMhc8IB22U09nTctdd5kVAq+H+Kd4Gqx59Y7l90iTWgfj7/te0aeS0+AWlEqy7abjry4jswDc2dXhkbKbCUIXr/Iv1cOF2CWWv+tt+1dwReWn6/r2D/9Dgql89utunQPbRSKCIA1cZYBzKII9hyfLi4qLBo+oGaYtARZlihWdhJaVg8ZhgPT5wrMZ910RE0UFyA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(82310400026)(1800799024)(23010399003)(13003099007)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uUY7HO3YHkuqh/n5hbtO2o4DMjNE1IJ5tvKE3UjD4CItUVk5Szpkv6uf9cZwO9ZTa3MpsmmgCGpmriJXem2L72T6gGS2JZBaQMJ3s4PgVEhF6lsYecU1Wt5emJg3IxVIxLZ2WzzTECnkWURz5Ckh5o0HAtiechhRiED8muKD31UHTVVvNce8L97ZfaYsPEd9+488qm6BTT/tfcqLFkzeYX73hMG5TlK9x9nA8uLLJ/zevnYeRzxnnq1RzRK7xoZv6u28N4J5F2GVqJH3cTkUGHHb5UGxdatYrznLGntKUR6vrvuff2IVkUN+GwV/zs9nhnwujj9UvWGfLJDQsUfxHloaYaOWNha9hdn46j/At2xwI95Mggw/2rPrBMrqOzHN8c5BCkqpHl7t4xMqkWxEcW/1DgUTILu1YHsFZTzslzL7fsTXO2EAIuO+xXLi4sVe
-X-Exchange-RoutingPolicyChecked:
-	YAVhYHv6/mwwrzMfYXxqBPLxA5QiBvWeJqeIK0C8oOx2fg2nOXdwRtjhTcL5oKHU3o9XBwR4NAbV/lqXVuvI0KI7ogdDRsNgTxjmq503JJusXts5JumGnPMm0jZzzkdUbFJj0fCMPqjkbJeUMSirMch2CgO4KKl+/gnwZDKtl6YrsKCHhZpUGoWtfgNoDmVGlRtH/OvisUvcMlaCv3rneN/yqaXp8Sc9DS/cVDf8RFeguokI7T0u2/AGpF/i9mwQGugJQn/moJo/4eym05kvCET9mnxawqafgv9p4Gp3FSqUwQrZcwDGi6wSw3m/pLcFbxP+4AaWIoZiwk4B+0O0gw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 10:32:39.6611
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95e14a9d-4f78-4eb7-bb3c-08dee0ca107f
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000066E9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR10MB8040
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDEwOSBTYWx0ZWRfX8H6QwDvQsuNL
- AaLFtSj0g4pbr8LyPd5RshzJs1o2hBfTg9OQwpLgH2O4BYDSlSAbRc6gHB4KXMzzCXNaPpvrdn2
- Dcnzctu+tWn1qlcjrL69G39IVBGDN1LYqhyplhMoIrw1G/u5h2N5ig8KXJAzYpFzHDblEiBbM1y
- juNmMzqyo1saU+QK4KugIFuGVUtjXPWs4vrV3onTfphtCGNdA5PAungpExczhy7vHPpPcSJtU6t
- E6QyuE5kOIRtwSfIRYdcV7W8mMb+lW9GKnamRiExa7Lcm//I/Ja5qgJsyIlEL2wFZNRVUDUI1yA
- YxzoOhv2nUvfWfVP7+eytBHmhwfc+zUb8BCk1zWpT7iUNSSeWIpNR/UatacR03o83gmibSdnDal
- YzSkgYJV/eB9iHpZ++h29VY09arCpF3WpP5qqkULyjojOwvnb2uvjz0nrijuVevqauPFlCB8hfI
- ASBYJeG5vd/W9oUdwuw==
-X-Proofpoint-ORIG-GUID: LNnKdTT3DQeT74D7zZ461ovxATl98rzO
-X-Authority-Analysis: v=2.4 cv=YaWNIQRf c=1 sm=1 tr=0 ts=6a54becc cx=c_pps
- a=uRUxjcjQKWf8PwUSRA6o1w==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=cMDUSdu-AAAA:8
- a=TZ_73hOvgUTWyP9239gA:9 a=QEXdDO2ut3YA:10 a=QRaI_VI5Kbc4sAalow4w:22
-X-Proofpoint-GUID: LNnKdTT3DQeT74D7zZ461ovxATl98rzO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDEwOSBTYWx0ZWRfX9dbno8fhWaV2
- m8WIhcxNoxWnV9ImSk1a+hdK9+JH8a+TbguHsbRkMVdJsHGKiK+Fyq/A2Yozr2c87BnL+3fEZWK
- 4AdQc1Os7wDtx5QdKZ0s7p4wB6hJx2c=
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <h2fskxtlb6wusoz7o5pw34ii5n2il4jltcrogmt36676ioq5nd@klwft4s3mzgk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: hbHjZW2uM0NbA-Ns4zS6FMaTVbb6RQY6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDEwOSBTYWx0ZWRfX3HeqxnKc65mf
+ iG8o82a6GwTcvSSVUGNgjC4xOva9uKMUodUomiPyAIzx1kuc2n4847JbwMPWWYqoEpMwbrK3jph
+ D9fjfq3omQH73G8Z9sYjyKBJYYLLofecdh0rSbypSoejOtyIaGrahX4T9C11UOT5OTMu64WzAHT
+ 1y84E9XObYrMo0GUMPqjFXgOSQwJEpKaOf4Yv+klTdkGIDj+YpzK/lF2sTzjYdxJfQMiI9wqGh5
+ Sr0asMsn+HASQ3Aa9JCQR3vJqUJ0nnBdKZ0bUXV0B4SLRYl8vhQzNfPP+3Jny6otEP6KCNTFgxq
+ BbyiQwElnTSKALX8RPptDwjZJEB3BPiUym0HQNe+lwYD5+bLa6L7FKOSeJEqusAVEvfxtCsmZKl
+ 7gP45KoqkWoFo2acyzlEtZTxknqB7qpehxuXdkOPCYY73cyrvznaJJbbjmXaZLqbi/1ZIxW7mJ/
+ bBkiq6GzkIsfX59L2wQ==
+X-Proofpoint-ORIG-GUID: hbHjZW2uM0NbA-Ns4zS6FMaTVbb6RQY6
+X-Authority-Analysis: v=2.4 cv=dZSwG3Xe c=1 sm=1 tr=0 ts=6a54bf2c cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=VDI__ZYCjcDFRWE0z6oA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDEwOSBTYWx0ZWRfX84jWrUn1r6S6
+ z6QBkN87DfGNjLdQ/hMsyMJD1H9QaaxfYP3nlt+21VKJiFDtuDu45dtRqsKJ/+OSbnNys9OrkzO
+ w8sMoanDpkVSpNaNURmYl7kn2LEMRMA=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1011 malwarescore=0 lowpriorityscore=0
- spamscore=0 adultscore=0 impostorscore=0 phishscore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607130109
+ bulkscore=0 priorityscore=1501 adultscore=0 malwarescore=0 spamscore=0
+ phishscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130109
 
-
-
-On 29/06/26 02:26, Stefano Radaelli wrote:
-> From: Stefano Radaelli <stefano.r@variscite.com>
+On 7/6/2026 3:45 PM, Dmitry Baryshkov wrote:
+> On Mon, Jul 06, 2026 at 10:11:12AM +0300, Atanas Filipov wrote:
+>> Add the JPEG encoder hardware node to the SM8250 device tree so the
+>> qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
+>>
+>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sm8250.dtsi | 81 ++++++++++++++++++++++++++++
+>>   1 file changed, 81 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> index 7076720413ab..a089b706f60c 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> @@ -12,6 +12,7 @@
+>>   #include <dt-bindings/dma/qcom-gpi.h>
+>>   #include <dt-bindings/gpio/gpio.h>
+>>   #include <dt-bindings/interconnect/qcom,osm-l3.h>
+>> +#include <dt-bindings/interconnect/qcom,icc.h>
+>>   #include <dt-bindings/interconnect/qcom,sm8250.h>
+>>   #include <dt-bindings/mailbox/qcom-ipcc.h>
+>>   #include <dt-bindings/phy/phy-qcom-qmp.h>
+>> @@ -4471,6 +4472,10 @@ cci1_i2c1: i2c-bus@1 {
+>>   
+>>   		camss: camss@ac6a000 {
+>>   			compatible = "qcom,sm8250-camss";
+>> +			#address-cells = <2>;
+>> +			#size-cells = <2>;
+>> +			ranges;
+>> +
+>>   			status = "disabled";
+>>   
+>>   			reg = <0 0x0ac6a000 0 0x2000>,
+>> @@ -4649,6 +4654,82 @@ port@5 {
+>>   					reg = <5>;
+>>   				};
+>>   			};
+>> +
+>> +			jpeg-encoder@ac53000 {
+>> +				compatible = "qcom,sm8250-jenc";
+>> +
+>> +				reg = <0 0x0ac53000 0 0x1000>;
 > 
-> Fix the Ethernet device tree description on the VAR-SOM-AM62P.
+> 0x0 instead of just 0
 > 
-> Enable the CPSW Ethernet controller and correct the Ethernet PHY
-> description by modelling the PHY power supply and adding the required
-> board-specific PHY properties.
+>> +
+>> +				interrupts = <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +				clocks = <&gcc GCC_CAMERA_HF_AXI_CLK>,
+>> +					 <&gcc GCC_CAMERA_SF_AXI_CLK>,
+>> +					 <&camcc CAM_CC_CORE_AHB_CLK>,
+>> +					 <&camcc CAM_CC_CPAS_AHB_CLK>,
+>> +					 <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+>> +					 <&camcc CAM_CC_JPEG_CLK>;
+>> +
+>> +				clock-names = "hf_axi",
+>> +					      "sf_axi",
+>> +					      "core_ahb",
+>> +					      "cpas_ahb",
+>> +					      "cnoc_axi",
+>> +					      "jpeg";
 > 
-> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
-> ---
-> v1->v2:
->  - Remove unused eth property
-> 
->  arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-> index fc5a3942cde0..ca2483a04b9d 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-> @@ -113,6 +113,15 @@ reg_3v3_phy: regulator-3v3-phy {
->  		regulator-always-on;
->  	};
->  
-> +	reg_eth_phy_vdd: regulator-eth-vdd {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "reg_eth_phy_vdd";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		gpio = <&main_gpio0 46 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
-> +
->  	sound {
->  		compatible = "simple-audio-card";
->  		simple-audio-card,bitclock-master = <&codec_dai>;
-> @@ -149,6 +158,7 @@ &audio_refclk1 {
->  &cpsw3g {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&pinctrl_rgmii1>;
-> +	status = "okay";
->  };
->  
->  &cpsw3g_mdio {
-> @@ -159,9 +169,9 @@ &cpsw3g_mdio {
->  	cpsw3g_phy0: ethernet-phy@4 {
->  		compatible = "ethernet-phy-id0283.bc30";
->  		reg = <4>;
-> -		reset-gpios = <&main_gpio0 46 GPIO_ACTIVE_LOW>;
-> -		reset-assert-us = <10000>;
-> -		reset-deassert-us = <100000>;
+> What are the clock _inputs_ on the JPEG core side?
+>
 
-So are the reset delays no longer required? Or they taken care of
-somewhere else?
+CAM_CC_JPEG_CLK is the JPEG-specific core clock. CAM_CC_CAMNOC_AXI_CLK
+gates the CAMNOC data path and directly affects encode throughput.
 
-> +		bootph-all;
-> +		enet-phy-lane-no-swap;
-> +		vdd-supply = <&reg_eth_phy_vdd>;
->  	};
->  };
->  
+>> +
+>> +				interconnects = <&gem_noc MASTER_AMPSS_M0
+>> +						 QCOM_ICC_TAG_ACTIVE_ONLY
+> 
+> Put tags on the previous line (even if it is longer than 80 chars).
+> 
+>> +						 &config_noc SLAVE_CAMERA_CFG
+>> +						 QCOM_ICC_TAG_ACTIVE_ONLY>,
+>> +						<&mmss_noc MASTER_CAMNOC_HF
+>> +						 QCOM_ICC_TAG_ALWAYS
+>> +						 &mc_virt SLAVE_EBI_CH0
+>> +						 QCOM_ICC_TAG_ALWAYS>,
+>> +						<&mmss_noc MASTER_CAMNOC_SF
+>> +						 QCOM_ICC_TAG_ALWAYS
+>> +						 &mc_virt SLAVE_EBI_CH0
+>> +						 QCOM_ICC_TAG_ALWAYS>;
+>> +				interconnect-names = "cpu-cfg",
+>> +						     "hf-mnoc",
+>> +						     "sf-mnoc";
+>> +
+>> +				iommus = <&apps_smmu 0x2040 0x400>;
+>> +
+>> +				operating-points-v2 = <&jpeg_opp_table>;
+>> +
+>> +				jpeg_opp_table: opp-table {
+>> +					compatible = "operating-points-v2";
+>> +
+>> +					opp-100000000 {
+>> +						opp-hz = /bits/ 64 <400000000>,
+>> +							 /bits/ 64 <100000000>;
+>> +						required-opps = <&rpmhpd_opp_min_svs>;
 
--- 
-Regards
-Vignesh
-https://ti.com/opensource
+In downstream there is a dedicated CPAS driver that aggregates AHB/AXI
+clock votes and bandwidth requests from all camera IP clients. No
+equivalent exists in upstream. So, IMO a few approaches are possible:
+1. A dedicated ICC provider that derives clock rates from bandwidth
+    requests — we have a successful experimental POC of this approach.
+2. A dedicated driver similar to downstream CPAS.
+3. The CAMSS-as-parent approach — trade-offs already discussed in this
+    thread.
+
+Having each client set camnoc_axi rate independently is not a good
+solution due to last-write-wins semantics. For JPEG specifically this
+is a performance issue only — the encoder functions even at the parked
+19.2 MHz — but it is a correctness problem in principle.
+
+Until a proper aggregation mechanism exists upstream, the OPP table is
+the only way to ensure camnoc_axi is at the correct frequency when JPEG
+runs standalone.
+
+> 
+> Inside the DT example i saw bandwidth votes. Why are they gone from the
+> DT?
+> 
+
+Same root cause — without a shared resource aggregation mechanism,
+opp-peak/avg-kBps bandwidth votes have no effect today. Will be
+revisited when such infrastructure is available upstream.
+
+Best regards,
+Atanas
+
+>> +					};
+>> +
+>> +					opp-200000000 {
+>> +						opp-hz = /bits/ 64 <400000000>,
+>> +							 /bits/ 64 <200000000>;
+>> +						required-opps = <&rpmhpd_opp_low_svs>;
+>> +					};
+>> +
+>> +					opp-400000000 {
+>> +						opp-hz = /bits/ 64 <400000000>,
+>> +							 /bits/ 64 <400000000>;
+>> +						required-opps = <&rpmhpd_opp_svs>;
+>> +					};
+>> +
+>> +					opp-480000000 {
+>> +						opp-hz = /bits/ 64 <400000000>,
+>> +							 /bits/ 64 <480000000>;
+>> +						required-opps = <&rpmhpd_opp_svs_l1>;
+>> +					};
+>> +
+>> +					opp-600000000 {
+>> +						opp-hz = /bits/ 64 <400000000>,
+>> +							 /bits/ 64 <600000000>;
+>> +						required-opps = <&rpmhpd_opp_nom>;
+>> +					};
+>> +				};
+>> +			};
+>>   		};
+>>   
+>>   		camcc: clock-controller@ad00000 {
+>> -- 
+>> 2.34.1
+>>
+> 
 
