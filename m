@@ -1,162 +1,179 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AB4288505
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 01:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783907797; cv=pass; b=m7j/4xfpxSCEv6OL5wyxjgGhyYJgW19Ru6/MGVGEewXJHmCzuKoTHpF5dj4VFQmQme1M5BQutBB/MQKbolsOGHQhm7UNHZ00B7okdq/U2/JbSt4wJd0y5T6lr+ByZffqcM1vJTVioerD7TOXck+Pzq04PsTEh69wWC9kmlLEPQ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783907797; c=relaxed/simple;
-	bh=gJ4WNWsxraY4gds4mU7edhwvBZ5gKQnfXCYxM9uPV/8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BlqyDZqvHzoOekdQgjtxzaV5v/eCtrgPy+Ibh4CnUlO2QI10aCBjsEppJNiTUzY9pX6q0WwILlsrorqUuoLx4HH3199yeWiNJCDWPyPwj/uea7Yt5GzL5/Bh6RWMCv+frhqiN0N0MJn4MPvYguz2uk3Lymbt6j7rczdwa/xPMis=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UBNOSB+i; arc=pass smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840D72D063E;
+	Mon, 13 Jul 2026 02:11:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783908679; cv=none; b=ShBKAQvpGwMbJxFL36VU2+OnWN1+sk4rcA5zUrMMz/YihBDhdw4OL/9gP23MGhEZVTDz+pTVMzgJC/9pCWJR7/ROaer96FQpZT3DtmnKFYofE6fTZmVT/G0vNj3xF4Nq1FOLVdMJAA72kHoH5SBT97FcI4lGk2GpaGxO6fcyi8k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783908679; c=relaxed/simple;
+	bh=Y65vyKKPqSwtunyQSND5GNT5eyI+7e3QSBaOXwpAESk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RsV8mcF2roB6mbEPd2+W1o1PdaRhXOcLbulkGA6ln+34vrcSqVBO4zcSw0G9Rcc8/1IHSYA0ov4+pn/FSQD520Lqki/GuQa2HWFA6+cYzrDLPB4Cc/KHrZ4tmyeZK+9dhtNXrQj1duUiGm3Og21UjPIXwrLeVOW7ucqC/wfbvts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjtMwS5K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UBNOSB+i"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aeb906d6c6so413099e87.2
-        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 18:56:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783907793; cv=none;
-        d=google.com; s=arc-20260327;
-        b=F78ZabCsL2D6YAvAuRx5eXhHuZ8FeGV53yaxD0JUuXCFaxlLz91lVqZ/cFH49p85ig
-         lopZglOtOPTKVWzjzlrPJehSA1+uaiskkTBIeuHOJnJSL30T5hGC8SXvs4rM52fmKlMU
-         LR/MABMbTBVncfFvWXmAJRdTy/9GRPdEi3bPYw+1TfuwTSbwK1p0uX5yXciCLZ+SF/6o
-         pB8xrM84fAQDpeBUUJXAy/Bee0x7ebynlcJwXKZ35H5BAiRPkbwoZjXJuHAQ01Oi+Hgp
-         StobdFbYLehkVHBM988fVFek+b4eEu1v9BO3BLyi9ySlSHjWBZi8bG6rNERaCiMiHuHN
-         8wdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TUItlZ1U8huwaHjPN09ycPTspoOfanWPZUQOpXtc2EQ=;
-        fh=3juEiafton7v81p2I5ENByagOhgqiNFpvLnqFyg7b74=;
-        b=s/WoUYF/glvwrvQ77Wu11gxNuvgzGcRYqqYvN9R1tp49fW3OZ8ve78tgu19pxJkmnt
-         kuCNdGIwWkVM0g4P0pqiozHWet4WZH0MCjsBFkraOU61spGpWIwCIe/Z4eJBy4R4oAA2
-         Zzv2Otve09bZ4ZSvPagd+NL8g9PDPONxkGFSa2oiXR1l9dLFcu53RFb89Exdnw7gqCUq
-         8pGistB0xzkBJFAi+al3t1n8vNhx4sqbaNNJ3ot246rzP1+zHwOkcxzmCpZI+sfbKqte
-         K8C1ur3PnpX/60K+3k1WzHflW+MSpS4g6rUDJYmQWTwfudpen9RL7+L94Y3QnMt7//Q2
-         g9lQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783907793; x=1784512593; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TUItlZ1U8huwaHjPN09ycPTspoOfanWPZUQOpXtc2EQ=;
-        b=UBNOSB+ilX6o7XjxkdWoZmFRkFAf+gXVP4yORxJKTbfsImSMnkB3zvxLR5/jyjvrBa
-         VmAb4X0Wbi8fE7Tu2stNgQ6MwX29lq0cJArqr9e5fL9NCFhE/Dpgy8QXJLomB7Gih76M
-         xYHqjRwIqa08VIqYwbU5E2O+1RPwQP48kProYe7QpDaSs1rB1sYTaaPatN0pmY5UAhVF
-         llLBLwAwu4Rge2JK+hIusNKo4qeTrFVCCh9O7qro2A3ALsOFR9YVM/D/I9AGPrkHGMNm
-         T21rTdw4gLzOjYQHqlOt5qvOBPG9QMtVX9QYHWd3hMgfeug0BcBP1jAj37E378thiDWW
-         tfMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783907793; x=1784512593;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TUItlZ1U8huwaHjPN09ycPTspoOfanWPZUQOpXtc2EQ=;
-        b=PWlT03RmZJwqZpek6qZ+LNwEyccjt6VvzsBqhLuhfSa8PcwXNO9bWnMJznAGVvNl3l
-         knf+7a9jo5osrmsf11sJz2PsHgdmrvgtvNejCgL02gPrcj7UqAasVMOrFtyCya7ifRhS
-         7WDf/D068iNw/rWk6X78BXrIPcqt2yLqB5b08deChL7AA95rgEtakvKcbM1nnteXzGjW
-         KrM0ZTunlE6N+WOKpfJpRIExfIx0Jq8/0rnqj0t0JudOF/7K3OymgBzNFeG6jkJngj8M
-         1v7FwT+RFvRkbc9HXtKn0vn2iPTQaLal7ucJNEYtjOzGX91z9qGDwKjikpb2dnOHjwvK
-         LDYQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoauJ8EYqzjdq7GRkiUD5PjODctK32z1NPwwbHJEANZf5U13XOIaPcXlWITckett8uXGsFAbouh+Pk7@vger.kernel.org
-X-Gm-Message-State: AOJu0YyapG3jBFKUULHWKs2OmVFcHJE11A+ZJCdQOqXooX5zQanfcN3I
-	5aGV6JFUpHRA8VPGaUQj3YYYjtV7ju/tgOVe42eVl8PMqni1lCmuhtB4mm6q/eWziYSercQcI5t
-	TT4r7ooKGiWSM3SRr/GaRP3cF0WqSNkM=
-X-Gm-Gg: AfdE7clCfU18TjIYoySpZhs4Lr9tNJXr45rNlpIdrRnGF5u7gEJyHT2H4bT64NP5pY0
-	ok9ahmV+G0Od3mn/lgcUbHa8KqXVVfMdGVl7K2R7eWpE/qv8EnCtO3xd6xEfwi0GkHjX+Gnq6Re
-	bp97Dl1WeTsj3aamar0MULqmhtTLjpOMUKEvanqrQVv+Nnkwwn5OSUEn+TxZXdjXv+/lX1Kjtm2
-	LAbqQ0rw1Gy+TFNo/7j4HgmFx2kIgSxlm3itzdaRfdd7mV1uuWRutPxdbB8S/Ylqaf/WskrslWl
-	ucGjAs4EG/r54QFFwXBM/Kn9GM+D/Sqozhvo42ZnUs32BP0AQnUD9NY=
-X-Received: by 2002:a05:6512:6690:20b0:5b0:312:21ca with SMTP id
- 2adb3069b0e04-5b0235618d0mr532700e87.2.1783907793142; Sun, 12 Jul 2026
- 18:56:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjtMwS5K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49AFF1F000E9;
+	Mon, 13 Jul 2026 02:11:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783908678;
+	bh=csfg5GWJDpJGK1VZz/p5xspVkMO6iPcKcSEX815Qc8Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HjtMwS5Kuk8hVuoASzXb5mEqSCC+XPLTZgkxig/nJr35fsAXN3MMrHmXxIklYGVls
+	 FRw4j/EbtXtr6QHTTebs2XgVnBZXiA82wXt3MCvjv6bQGUwo+xQsALi+aVB2Vb6KV7
+	 1EfT0LhJhSj7acrZB+YJh2mqtVo0fwH2DaipdwfjslSqjmPNw5zUSdiznfv211Ltyu
+	 w/ixcMF3zscRWoZIjx6/mhjf3tIv8oQ377BvQy8KuMT4RqwWfY6imznN0QrM8n7I5U
+	 570EkrkR9LTE0aCI3BPb36zU1Lqk2HB7E/hCOcHOZ0EvPlMgEMBGXQU0TMFAigTklS
+	 J3v9p8LZFMoAQ==
+Date: Mon, 13 Jul 2026 03:11:10 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chris Hall
+ <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, Kurt Borja
+ <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 6/8] iio: adc: add ti-ads112c14 driver
+Message-ID: <20260713031110.55ab2764@jic23-huawei>
+In-Reply-To: <20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
+References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
+	<20260710-iio-adc-ti-ads122c14-v3-6-746d52cbf1d0@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260710075917.159969-1-chenyou910331@gmail.com>
- <20260710075917.159969-3-chenyou910331@gmail.com> <alQ3mqUPItCP2CVT@inochi.infowork>
-In-Reply-To: <alQ3mqUPItCP2CVT@inochi.infowork>
-From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Date: Mon, 13 Jul 2026 09:56:21 +0800
-X-Gm-Features: AVVi8Cc9hd60uzXZYaT-84HPNgylmi-obZShd-I5Pge22kY3ToKnXYlACPAQfyQ
-Message-ID: <CAKspUhLzgYPAxTTnUPsPyoa0Pp3519qFpXxmjXEwCAOHkihFEA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] riscv: dts: sophgo: cv180x: Add PWR_GPIO controller
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@outlook.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-> You should follow the device address order. not by the device name.
+On Fri, 10 Jul 2026 17:50:39 -0500
+"David Lechner (TI)" <dlechner@baylibre.com> wrote:
 
-Right, I placed it next to the other GPIO nodes by type. Will move it
-to the correct position by unit address in v4.
+> Add a new driver for the TI ADS112C14/ADS122C14 ADC chips.
+>=20
+> This first step is adding a very basic driver that only supports power
+> on/reset and reading the system monitor channels.
+>=20
+> ADS112C14_SYS_MON_CHANNEL_SHORT is the last channel rather than being in
+> logical order by address to keep the voltage channels together and in
+> case we find we need to add variants of this channel with different
+> voltage reference later.
+>=20
+> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+> ---
+>=20
+> A few other notes for review that didn't seem worth putting in the
+> commit message:
+> * I intentionally did not use bulk regmap because later we may need to
+>   get the voltage of the avdd supply.
+> * I left some comments in the code where the code might look funny (e.g.
+>   to reduce future diff) or does not exactly match the datasheet, in
+>   which case later changes will address that.
+>=20
 
-Inochi Amaoto <inochiama@gmail.com> =E6=96=BC 2026=E5=B9=B47=E6=9C=8813=E6=
-=97=A5=E9=80=B1=E4=B8=80 =E4=B8=8A=E5=8D=888:57=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> On Fri, Jul 10, 2026 at 03:59:16PM +0800, Chen-Yu Yeh wrote:
-> > The CV180x/CV181x family has an additional DesignWare APB GPIO
-> > controller (PWR_GPIO) located in the always-on power domain at
-> > 0x5021000. Add the node so that boards can reference GPIOs in this
-> > bank, such as status LEDs.
-> >
-> > Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
-> > ---
-> > The base address and interrupt number match the vendor SDK device
-> > tree (cv181x_base_riscv.dtsi: gpio@05021000, PLIC interrupt 70,
-> > i.e. SOC_PERIPHERAL_IRQ(54)). Verified on Milk-V Duo 256M hardware
-> > via the onboard status LED on porte 2.
-> >
-> >  arch/riscv/boot/dts/sophgo/cv180x.dtsi | 18 ++++++++++++++++++
-> >  1 file changed, 18 insertions(+)
-> >
-> > diff --git a/arch/riscv/boot/dts/sophgo/cv180x.dtsi b/arch/riscv/boot/d=
-ts/sophgo/cv180x.dtsi
-> > index 06b0ce5a2db7..25ad2bd265d7 100644
-> > --- a/arch/riscv/boot/dts/sophgo/cv180x.dtsi
-> > +++ b/arch/riscv/boot/dts/sophgo/cv180x.dtsi
-> > @@ -160,6 +160,24 @@ portd: gpio-controller@0 {
-> >                       };
-> >               };
-> >
-> > +             gpio4: gpio@5021000 {
-> > +                     compatible =3D "snps,dw-apb-gpio";
-> > +                     reg =3D <0x5021000 0x1000>;
-> > +                     #address-cells =3D <1>;
-> > +                     #size-cells =3D <0>;
-> > +
-> > +                     porte: gpio-controller@0 {
-> > +                             compatible =3D "snps,dw-apb-gpio-port";
-> > +                             gpio-controller;
-> > +                             #gpio-cells =3D <2>;
-> > +                             ngpios =3D <32>;
-> > +                             reg =3D <0>;
-> > +                             interrupt-controller;
-> > +                             #interrupt-cells =3D <2>;
-> > +                             interrupts =3D <SOC_PERIPHERAL_IRQ(54) IR=
-Q_TYPE_LEVEL_HIGH>;
-> > +                     };
-> > +             };
-> > +
->
-> You should follow the device address order. not by the device name.
->
-> >               saradc: adc@30f0000 {
-> >                       compatible =3D "sophgo,cv1800b-saradc";
-> >                       reg =3D <0x030f0000 0x1000>;
-> > --
-> > 2.43.0
-> >
+A couple of really minor comments from a fresh read.
+
+> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c1=
+4.c
+> new file mode 100644
+> index 000000000000..4d2e7d37be82
+> --- /dev/null
+> +++ b/drivers/iio/adc/ti-ads112c14.c
+
+...
+
+> +static int ads112c14_read_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan, int *val,
+> +			      int *val2, long mask)
+
+I'd go with a logical split and bring val down a line.
+Trivial however. I don't care much!
+
+> +{
+> +	struct ads112c14_data *data =3D iio_priv(indio_dev);
+
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->type =3D=3D IIO_TEMP) {
+> +			/* TS_TC (typical) =3D 405 uV/=C2=B0C */
+> +			*val =3D MILLI * vref_uV / 405;
+> +			*val2 =3D fsr_bits;
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		}
+> +
+> +		*val =3D vref_uV / (MICRO / MILLI);
+> +		/*
+> +		 * Last 3 SYS_MON channels (ext ref, AVDD, DVDD) need to be
+> +		 * multiplied by 8 to account for internal attenuation of / 8.
+> +		 */
+
+I'd be tempted to make it an explicit match on those 3 channels.  A greater=
+ than
+when other channels might turn up later for whatever reason seems flaky.
+
+> +		*val2 =3D fsr_bits - (chan->address >=3D 3 ? 3 : 0);
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+
+...
+
+> +
+> +static int ads112c14_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	const struct ads112c14_chip_info *info;
+
+...
+> +	/* Write magic reset value (0x16) to ensure known state. */
+> +	ret =3D regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
+> +			   FIELD_PREP(ADS112C14_CONVERSION_CTRL_RESET, 0x16));
+> +	/*
+> +	 * The reset may cause an -EREMOTEIO error because of failing to get the
+> +	 * I2C ACK at the end of the message. The device still gets reset so it
+> +	 * is safe to ignore this error.
+
+Feels like a place where we might not always get the same error as it's sur=
+facing
+from each individual i2c controller.
+
+I couldn't immediately spot anything in regmap or i2c function docs about t=
+his.
+Where is that guarantee coming from?  In other cases we've simply not
+checked regmap_write() return values at all.
+
+> +	 */
+> +	if (ret =3D=3D -EREMOTEIO)
+> +		ret =3D 0;
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(ADS112C14_DELAY_RESET_US);
+
+...
+
+
+> +	ret =3D regmap_read(data->regmap, ADS112C14_REG_DEVICE_ID, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val) !=3D info->device_id)
+> +		dev_info(dev, "device ID mismatch, expected 0xX%X, got 0x%lX\n",
+0xX%X?  (sashiko)
+
+> +			 info->device_id,
+> +			 FIELD_GET(ADS112C14_DEVICE_ID_BITS, reg_val));
+> +
+> +	/* Place in single-shot conversion mode to make ready for raw read. */
+Writing a bit called conv mode puts it in single-shot?  (sashiko)=20
+
+> +	ret =3D regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
+> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
+
+Thanks,
+
+Jonathan
+
+
