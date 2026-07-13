@@ -1,156 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013058.outbound.protection.outlook.com [52.101.72.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD22DC8EB
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:30:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783960239; cv=none; b=MDktr6ddf67k4oKd+labrNdHTqxIVTmilMP9kO9EANJQvXLSud5aiH+u5F4aPpzUMXOwsb8O/I5o7BJMIUu9fRbnEUnEXZI3nl8U41PteU730G9E8jXee0TzqkRs0dl1TMD+Mx7y+6u/2ohn4uYvFtQB+qpD86Kd2VP0oh/YmYo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783960239; c=relaxed/simple;
-	bh=i72sKfmb4zGKElQBUTmEy9kxbid0WMZn26uKqgRxMLw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tMtzfmNkuazY8u2/RXPlvMrKSKVUeSQxuvvmRrpIF1ZGxnO40mooHMmwV6mZDOQe6bfn8HDrD44e5Czuyk5lG1tB9MMLTKGU2gF2rjWPJ5q6s9+K5z0CXph21UgMc05lAfL4vXLLHGZCVIunduAfSSZPWOBJaNREoEQdWDUHTCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GthFSqUw; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413A5285CA4;
+	Mon, 13 Jul 2026 16:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1783960261; cv=fail; b=pOZbg6+di+LMNG09p0XVewH5okD7s4nwKRnBcYm5ulDpJguRH5Qg9CI1Oh9Q3flObyvt4G+7UOcXT7X8b4S0Hj3V7G4aUgs++xbs5rlmrbFoKQsr9j+jKdaIhh5lGUqFAjObjmqcqgujjKJsBL7D4/lhkGgjtDDt6pKyo0Dz4+M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1783960261; c=relaxed/simple;
+	bh=Du0o1Y2hAktT5N4eS3gzoZHu9a9xxh/vhxfHlO5M36U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Tj1DBpTa5l6Z/wWCQB2TEbDqDKX7351mYjEVqUFNpIZ+Lf/xJXH1CzbJOPNVdpH4aDl3//eDMHGar0RPDd0OI1kX0NGa1hAAHSK+LJXMFd6jCGip2SgmN+sWCPzUvp2kwHqGHK8deePmw4Fs0IOMAWK6paQaSDfN/GXqPWZhz8Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=sb1nX/mp; arc=fail smtp.client-ip=52.101.72.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GthFSqUw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3071F000E9;
-	Mon, 13 Jul 2026 16:30:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783960238;
-	bh=VV1R1MSW7XvwKYv3e3Q82Wie4SxRk3sHo9nACKda5EU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GthFSqUw7EI2Je0nFDxFkiJ1SUibSWvez5D6ExzUYqUaQutWY14vfNdLMMEH8z0Ud
-	 eYWpWWFQ0unAV/ATHJSZ7vM1HEtDxz9jfUf8nR+kKzVFRL1DZPVBMcxtEUUdHVU6Qg
-	 8o59ciKC43seVKco04iLW6D+/AA1B3EYcDTsBwYVbrILC7JPUznPkStbZvU1QHpQzV
-	 RHqMTrVxmBbijlOA6TlMu2ZbHOP0bczDx/WsK2MLI8Y0TjsPGWxxYzUuWbaLyYb7jz
-	 Ub4RVE6ayN8mQXPAC7GQkofsvp+mgDekh4AX4ATDDfZFF8NpYRnc74VNDuHrjsjIk0
-	 erkHf89MBle8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 08/11] clk: realtek: Add support for MMC-tuned PLL
- clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260713155630.3054636-9-eleanor.lin@realtek.com>
-References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
- <20260713155630.3054636-9-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 16:30:37 +0000
-Message-Id: <20260713163038.1F3071F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="sb1nX/mp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iVodRlMTfwDyXf/OmOwv7T/Uajwg8C2lLt9RktwUXALiaAyMMM33oiPux208NaA5iKOAR7o2dTzPw76sAr9jY+6FejSCg9ybQbld3cW+qQtiLal2f8AaYdt2J1EJa4G8rLx4MykvjP45fx26/khEICqj3hBF+P3j/J/b7cAjKRxIhz9VLxU7SxP5Do+DUBHpNr6AtCQdbR+vrDIqh02wl5ytdfj4KdFzfdFgXoQsgVw02t9Wwy1TJ5Q4QIUNqntcxAVYS1PCL26N/e7tKoVwMzL7tst6bYpBFCsuYuTcKCPd9NqL8iJQ1zIz4h+F7wY3lxGTsKaPZ4VmOpIPgmMWjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vvnx6YeWFbVxZOO8PLoQEki2YPQ9SYyjGUWIRF/kJ5E=;
+ b=YD/bk9uuYtSABwuERsIDxrictRIy3qCpXUJKis1ooWOQCMn7CdWli3AoqxGg0W+rdTCeJwV/R0bzk7c+N5LtxV0azGfYRpjopfCWW5KWtpDZNKzCz4TotiiQtr4XXXV2FPJ9v28v7yrryRxNoZOt+vxeM73l5z7azIuIbtd9nzMzS3z1ikjHyg2tnaJ+Xv4kazV+GkmS233o5XmExTNb4ueSXfepIpnFhLlyUM438bKTzC2qg77dh8D8ksQeCJBHVFmhlzYaY3vuTbvC3NT/BR68U30wwNkiY8C7VXcbbzwb3KexCAF+ZZrS015afhb1wb67TjSnjKYS2nOZJUm51Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vvnx6YeWFbVxZOO8PLoQEki2YPQ9SYyjGUWIRF/kJ5E=;
+ b=sb1nX/mptCcgbLtkmnyHrWA5QZJXZo41m04h9S3axdPlJtxPt3rrlbLoGRVBNy0dmjH/WRm33gZGdQ6uIwoBCDcRmmqGa1FwlqR/6jeKOw9cV8SMytLa377UgPgU7MVbIJuGUZMbVyyKpN4HQUcAx6FnotKIPGqS/x3i+lcqQkw+ZsCC2Vy1XxzbV2gNhvgYC1hnLwErDBMUTz5TbsUKxTv8GYpl9x7hSG6qOnf54aYt0gBy7SYVyx/EfyCDw/C5nUY1FZ5Y/p2iV7CXmTLMa209KH19v2LZS5SSP9bmycBTHkn/3GkXcJCBOddYuY1ZxQ5G+m4Ys4hFDrS9h3ZSpw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB10854.eurprd04.prod.outlook.com (2603:10a6:800:25f::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Mon, 13 Jul
+ 2026 16:30:56 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0181.019; Mon, 13 Jul 2026
+ 16:30:56 +0000
+From: Frank.Li@oss.nxp.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	s.hauer@pengutronix.de,
+	Chancel Liu <chancel.liu@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 0/3] Add audio support on i.MX91 9x9 QSB
+Date: Mon, 13 Jul 2026 12:30:49 -0400
+Message-ID: <178396023704.454496.3835404584034007791.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260713022248.1262123-1-chancel.liu@oss.nxp.com>
+References: <20260713022248.1262123-1-chancel.liu@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8P221CA0022.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d8::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB10854:EE_
+X-MS-Office365-Filtering-Correlation-Id: 237deb3c-31d6-4f90-138e-08dee0fc1d6c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	5X7nsDXSCOjEyPq2wbSoa/odLhJMPxrT2+g9dvkTgJ+8i2bWOaUte3Z8tGm7oPsEXInrNf34tV0NE/1IJIVwD5sHz4VoHP0dzCZtsX9z+Kfk7fgIdmc+SSY5EZm5YRspzJiwqd5xX8Rpge0v956ingBnPhkV40XznDI47Wq6TA/en8ZZvpJDt99GPP3EUQ4nRV2vNV10lpyPpsJexza1I0JH6A2vg4Uo7m3bkU2dMI0PprSeiaNwbH8eBMEO3Ua05GzBmRfnDY0s+xmZfDBqkecxr7c3CLvCnRxv9aL+sRWDX3R0+yYr4AdwpBVaVnqvIbojlRdYtxHMDV+Ag8Z1VZQ6Z3rt3dc2ekWf2ni0dqWY9OBI2ezm8kcoupsAmfAMowOv7HdVaRNM+HBAi/XRSkXlHIvnlUvXRlm5gzBc/STnXeF/VAsul71gVl9r87FMmAJXUC0FTBltSJH8lFI+cb8KUqMO3EVBaYBjEIKvOBGofRFg1eVi63L+CKFeLvCMkOKTF/LSrN0iTfBt76dz5PFJwW8+6Fra6ZgdF+oLALyJTjz5mgyEEpbTEvPag1roTbumflTVVCL2gyhVzYdKoQixTzRwKFCTqziN0vdnA1vGvWNG1XksZeFOluPGd56u8BNbsHAEJu3qUkspCOCNRcdKirZhdp7EmPNnPsAhzeU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UUxZb3JlTGsyMmxHY1k2VXMxNGRMUzU2Nm1pRGk2SDhFREJ2QmQ5SlArdlBi?=
+ =?utf-8?B?NHdmNVA1R3NkODBscXNkYlJsR1AxZ2JFeXE1SytXQjFNRVU4MEVha1lIYUM4?=
+ =?utf-8?B?QVRXNU14MTRpcE5TV1hsR3A3RURVZzkyUTF2Tjk5MVM5VC8xOUNaR3hCbjdm?=
+ =?utf-8?B?dXdSL3IxZVhaU1BYbUhqTVFNcUptWC9ZdFZidUFNQnhrYkdVVDJsNU9TUGpO?=
+ =?utf-8?B?YWxFWFRuWjRoVHcvWXZNWWFQcHFpeEYyc2tSSmtpcUkvK05mOS9ZcEdBMHlP?=
+ =?utf-8?B?MXdpN1hicDI2OXJpT1lnZzZYU1JYK1h3c3g0cyt4Y3ozdGFOSkoySEV1NjFk?=
+ =?utf-8?B?Uy9sSGtkUGdOaFVxcHJ5WS9HR3g2THo1YThkWjRzaUZHQjIxUitYOVljSlB5?=
+ =?utf-8?B?YzJKc2E1czE3bDlEWm5FbHZGNGI1ZFV3aS9BVkNxcWpCaUlscnduRnNSY2FU?=
+ =?utf-8?B?MzFTVlRMQmUxMFFKZkowbCtFRDZEZGRmenRGN29aNTlkQmdCNUIzRTR2SlQy?=
+ =?utf-8?B?SzluWXJXcTlWd3pRVzJzbnhVdVVmS0NlQmFmTVhzRnhUN1ZuNHQzNUZiRXU2?=
+ =?utf-8?B?Q2hobWRaRFFuZUE3YWQ2MGE4VjAzUWJrQW9JVHlnYjhublZWcnpyWU5ZVUla?=
+ =?utf-8?B?Y045cmwvb2YvTzE4MVNMbkF5eU05SmZEZFFTSVFxajI4dGM2dExyeG1GN3A4?=
+ =?utf-8?B?M0xFL05nbUN2cHNOa1k3aGRiUHpjdWp3L2tzS0NiaEQvOGtMSytQVVNCcmll?=
+ =?utf-8?B?R2JLVFdkelpMRUlFQzcwRnAzbllTTkwrMVNTYXNHRlpEOW5yakxZSHBxaVZC?=
+ =?utf-8?B?VXB5REYwREpPclF2M3ZOemJwcWU0bDhmYkJldktOU3k3RzJHc1c0WTJMb01s?=
+ =?utf-8?B?MUl3eXhRbHY2dldiaXN4Y2VwYkFCZ05NT2Z0LzNrYXpsdTNMSnhIWHJYdC9p?=
+ =?utf-8?B?Zy9sVTJMRW1pdGRaR2xLeDBNbmhYSE90c25rbmN3SEpOL0ZKTmorRFMwV0la?=
+ =?utf-8?B?ZWFsT0RQYisxMVlQU0s4SkpyNk5PZDJ5TDl2TnFOVmY0RCtmTzZyZWFaKytU?=
+ =?utf-8?B?TTgyYTlkbWZ1L3JDUFYzZG13TXVaUGFxeEVqZlIydk90MHkxZEdyVHhqZHc1?=
+ =?utf-8?B?MTlMNG1kT3R6bGtCMXNMK2VQS3d3bkpXL21qcHduTlhGMU5oTG9Wb2RveWFT?=
+ =?utf-8?B?ZE90ZDQyeXA3Y0JobjJYS2RvbGplY2VwUGcxMjBFM2wrb1FEcjhPMkhZMmJK?=
+ =?utf-8?B?L2F4OEF6Ly9KdjFmQTV4akNGQ29FM1RDUDBNeW96UlBaUUpxZ3k0Wkp4S1R2?=
+ =?utf-8?B?dmc5RGVUUDgwTTh1MTIrTDROYmxZUjhXMnZ4U0dPdHNIVjRNcURXY3BkajJB?=
+ =?utf-8?B?MFR6YXZHUy9vSTZBYUF5OW0rb0JsQVB0WnUzVCt2K1pJUVI5K0M5UjZEYlVW?=
+ =?utf-8?B?NUVqSVJuRmlCZkN6OVFiK2VQelB2MHpIbGE4djdUOUVqaENRL2UrY0dDdDEw?=
+ =?utf-8?B?RGNLNFZvSUVKTkwybENFMFNZblh0K3BVelp4QVlFSk5haW0vditDbTA4ZTVt?=
+ =?utf-8?B?bUF4YVdLeVloc2hQb3NhVGo0OVAzMHlIbkMvMW5DclE2b2h0T0pKN3MrVUxU?=
+ =?utf-8?B?TWY0MUdvS202TnBiZjBCcE1peVF6bkpUbTE1VXBpMTkrUjVBb3ZXTU1XN1U0?=
+ =?utf-8?B?VjhlNDJORnhjeS9oc1RRMWhpaXZhcDdZWFR0cVQzUVBBQ3lrc0ErSGE0a29U?=
+ =?utf-8?B?dXh4M01ZdDN0cU1uRHFmdzA2MjBXZDRvK0ZjalFWMEl1bVBtbHFFZ2JoRllJ?=
+ =?utf-8?B?ajA4YXhLT29PbGt2bzBHSEp4bFZhR24yWWRTZmdhQmtpWjNZZDNxYmFVclRJ?=
+ =?utf-8?B?enFMZTVSaFdmNnIxMXZsMFBiUEtsWng2NFdPb0ZSYmUwRFBiNnIyZXJvQlYy?=
+ =?utf-8?B?VTAva1JHa0s4VUJPZWVKVngySjFvUnBaMXNsd3VRck45UmNqdUFRNllVREdx?=
+ =?utf-8?B?TTlCVWZMQVBpWWwxdTVkajZqSEVUamVRY2dPUCs2VEVwMTVBb0RTQkpzMDF3?=
+ =?utf-8?B?Q3ZtcnNEVitMNmlVNTRJUlIrZjFCSkR6UklGUm5iODBCOERYUGlSZnhHNklY?=
+ =?utf-8?B?MERpN1RxSVNHSmVqZmJFV1lCOWZMbkVwWXJyaGROVEc3Sk5wbk5PZ1dlRHpk?=
+ =?utf-8?B?YTJUdmw3WHd0OC80RkdhSVJ6TjYyZ2lXMlcxRGttOEo2a2lEQmpkZWdYTzgr?=
+ =?utf-8?B?NFFObVJ6WktTVS9LdHphOFlpZVcrUGc3bTIvM3JSdkQwbFVtd2ZOQm0zRmhw?=
+ =?utf-8?B?ell4THhxbWt4VHdDeWphN3NLeU5lY3ZxemROb3VPNEtrK2ZObEdPUzhVUGxR?=
+ =?utf-8?Q?n4HtZ1qce6WDd8XwqzpnIOt1Z71REg5B/J0c4?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 237deb3c-31d6-4f90-138e-08dee0fc1d6c
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2026 16:30:56.4740
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DbirMipx5cjY7Y8QZTEppyOfsPwmKHiMiQ4bmnP0BkqtxhyoZ4ujgLOgqzBUtVvu1BNGR2f9LUVLzPriWYIR2FQJ/+d8IMUd4HQqgXMohGYuCmkLuAR847UebBaC1PTE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10854
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] `clk_pll_mmc_determine_rate` and `clk_pll_mmc_set_rate` violate Co=
-mmon Clock Framework guarantees by computing mathematically inconsistent ra=
-tes and completely ignoring the requested rate.
-- [Medium] Integer overflow in `clk_pll_mmc_determine_rate()` causes severe=
-ly miscalculated clock rates on 32-bit platforms.
---
+From: Frank Li <Frank.Li@nxp.com>
 
---- Patch [8]: [PATCH v10 08/11] clk: realtek: Add support for MMC-tuned PL=
-L clocks ---
-commit 227763092de853595ae404163ed7dc1dfbbc5558
-Author: Cheng-Yu Lee <cylee12@realtek.com>
 
-clk: realtek: Add support for MMC-tuned PLL clocks
+On Mon, 13 Jul 2026 11:22:45 +0900, Chancel Liu wrote:
+> From: Chancel Liu <chancel.liu@nxp.com>
+> 
+> The board routes audio related signals through on-board muxes controlled
+> by a GPIO expander. Add the mux states required by SAI1 playback and PDM
+> capture. Add support for WM8524 and PDM microphone sound cards in DT.
+> 
+> Changes in v3:
+> - Fix node ordering: sort root nodes alphabetically by node name, including
+>   Move wm8524: audio-codec before mux-controller nodes in patch 2
+>   Move dmic: dmic before mux-controller nodes in patch 3
+> Link to v2: https://lore.kernel.org/imx/20260710024204.3462444-1-chancel.liu@oss.nxp.com/
+> 
+> [...]
 
-Add clk_pll_mmc_ops for enable/disable, prepare, rate control, and status
-operations on MMC PLL clocks.
+Applied, thanks!
 
-Also add clk_pll_mmc_phase_ops to support phase get/set operations.
+[1/3] arm64: dts: imx91-9x9-qsb: Add audio-related board muxes
+      commit: e5f7c88d3ad8c617db4c8bc381001d272b02ca21
+[2/3] arm64: dts: imx91-9x9-qsb: Add WM8524 sound card support
+      commit: de6ed1fd9b97ed143b10de7064c6d30a9b545379
+[3/3] arm64: dts: imx91-9x9-qsb: Add PDM microphone sound card support
+      commit: 25f7d6026e2549a73e529bef85c80579528ebb33
 
-> diff --git a/drivers/clk/realtek/clk-pll-mmc.c b/drivers/clk/realtek/clk-=
-pll-mmc.c
-> new file mode 100644
-> index 0000000000000..eefb0da04823d
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-pll-mmc.c
-
-[ ... ]
-
-> +static int clk_pll_mmc_determine_rate(struct clk_hw *hw, struct clk_rate=
-_request *req)
-> +{
-> +	u32 val;
-> +
-> +	if (!req->best_parent_rate)
-> +		return -EINVAL;
-> +
-> +	val =3D DIV_ROUND_CLOSEST_ULL((u64)req->rate * 4, req->best_parent_rate=
-);
-> +	val =3D clamp_t(u32, val, PLL_MMC_VAL_MIN, PLL_MMC_VAL_MAX);
-> +	req->rate =3D req->best_parent_rate * val / 4;
-
-[Severity: High]
-Could this formula contradict the one in clk_pll_mmc_recalc_rate()?
-
-clk_pll_mmc_recalc_rate() uses:
-
-	base =3D parent_rate / 4;
-	rate =3D base * (val + 2);
-	rate +=3D div_u64(base * ext_f, 8192);
-
-But here in clk_pll_mmc_determine_rate(), it predicts the rate as
-(parent_rate * val / 4).
-
-This mathematical inconsistency could cause the clock framework to record
-incorrect achievable rates, confusing consumer drivers like the eMMC contro=
-ller
-that rely on predictable clk_set_rate() and clk_get_rate() behavior.
-
-[Severity: Medium]
-Can this multiplication overflow on 32-bit platforms?
-
-req->best_parent_rate is an unsigned long, and val is a u32. On 32-bit
-architectures, their product will be truncated to 32 bits before the divisi=
-on
-by 4, which would result in a severely miscalculated clock rate if the pare=
-nt
-rate and requested rate are sufficiently high.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int clk_pll_mmc_set_rate(struct clk_hw *hw, unsigned long rate, u=
-nsigned long parent_rate)
-> +{
-> +	struct clk_pll_mmc *clkm =3D to_clk_pll_mmc(hw);
-> +	u32 val =3D PLL_MMC_SSC_DIV_N_VAL;
-> +	int ret;
-> +
-> +	/*
-> +	 * The 'rate' and 'parent_rate' are intentionally unused here.
-> +	 *
-> +	 * Despite receiving various rate requests (e.g., 26MHz, 52MHz, 200MHz),
-> +	 * this function consistently configures the hardware for 27MHz (0x1b).
-> +	 * This is because these settings reflect the input reference clock
-> +	 * frequency to the SSCPLL, not the final PLL output frequency.
-> +	 *
-> +	 * The actual frequency division to achieve the requested eMMC rate
-> +	 * is handled internally by the downstream eMMC host controller.
-> +	 */
-
-[Severity: High]
-Is it expected to completely ignore the requested rate and unconditionally
-program hardcoded values here?
-
-Since clk_pll_mmc_determine_rate() calculates a val, but
-clk_pll_mmc_set_rate() ignores it and always writes val=3D27 and ext_f=3D15=
-17, this
-violates Common Clock Framework expectations where clk_set_rate() should
-configure the hardware to match the rate negotiated during determine_rate().
-
-> +
-> +	ret =3D regmap_update_bits(clkm->clkr.regmap,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713155630.3054=
-636-1-eleanor.lin@realtek.com?part=3D8
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
