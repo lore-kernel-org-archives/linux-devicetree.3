@@ -1,101 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BD833C182
-	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 16:15:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895E030F92D;
+	Mon, 13 Jul 2026 16:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783959362; cv=none; b=QLGMa11zxFjPtLRDRY+e5H2mhuWGvugMbt/oWwqUeILn3Km9D5XzPNZ5bfk/q/R6ICAmC3X7r0pNFf2RcZRK9cFC5bS7BaMByYUbl61M5RQ9kOmCznYlIyLR2Oq1Sb+xJdJXyOblvpdwyABmNC+cjJNY6qadO2x4AL/ZPYWf0IE=
+	t=1783959477; cv=none; b=UyVa3voreW6i3XLSllHlXZdB042YSYtxEl0YEjLBF3ImIUd6YyCW3o6v4ZEFJ8GCEicjAY/W05L/cG7HXgXKoBbUHdIuUkyT5XldT/R5XXfSPxHmiyqdF80I2l30VblBiC3LaA8AKHxBVwkvA2vuZHZVhcaOQgWXH3sWW62yNfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783959362; c=relaxed/simple;
-	bh=bLBJJ8I72oyqkeYpYpo3256N+dT0edptuGdgw4G0GHk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YuLcquWL1Ms04wd4aipZKwMbar1R4C9iv6Wx51GlDJ5oQWlDCUVH4exEmQwLp+ZrNwo8tRxuBCIyZ0hn9z4T/FrRCEKWe0rsfjgfKZBX5Z4ubwec9zT1w6yHzqHqBgThB2DAo/v59oE16tTbcGuTjiEbn0Tv6eRuPUnNTsP8hls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=meg+i2ha; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783959477; c=relaxed/simple;
+	bh=tuwF9vwESMLqkD+bDFietU0mxhnReLF+5GhxbApRbqg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IPXh6cO+Txd0IpXKzKkPa/WAaRBWosP4uEFCVYv87wMHSNh9wLoeQDFZ8A1HNbHP/gx4/TRBOzXwHhOcrWJFLD6j55pemjapgsJaLHVAcBzU81zWRF/HVY5PvwQZGslJ9c4h7OkTk6Qe+GFgERA2RQrEndrhROSEo1MQwz0rNq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JledqyFq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="meg+i2ha"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695FA1F000E9;
-	Mon, 13 Jul 2026 16:15:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JledqyFq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED641F00A3F;
+	Mon, 13 Jul 2026 16:17:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783959352;
-	bh=V1TjLkS+6QW8UdC1X0uyNY0ZggZwLDw4bG2y2SXcvnc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=meg+i2haaOclTKSzs4AOVY1a8vbWAMUAs/rbTnkNupGiKbrKVG8lAX+Ep6Z/QnSAe
-	 pURE1UI3qCcMPEpmnwJ9S6xrGU1egK3CAb9TdQTO9iDTILv76T6bQRUGUOcYkm7iZE
-	 S7U08rKx8n1iEgpPRm8ybXnkuOlYCRuGlX7aNepmPcK4p4MkcuoydrGhcDj3kpNyfR
-	 VHCpZpd4buTynJvjZGHwINITg21vfLekEDONLYMpu8jMupcrF531PIQAJVx0df/+D1
-	 ZX5BxfeK8Sb+RYvEGOy223GDCkCATnsj+oY+l+97KV1oJSzbNMFiP13zfUn+SZB5cF
-	 9Vqb8a29u3tKQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 04/11] clk: realtek: Introduce a common probe()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260713155630.3054636-5-eleanor.lin@realtek.com>
-References: <20260713155630.3054636-1-eleanor.lin@realtek.com>
- <20260713155630.3054636-5-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Jul 2026 16:15:51 +0000
-Message-Id: <20260713161552.695FA1F000E9@smtp.kernel.org>
+	s=k20260515; t=1783959476;
+	bh=tuwF9vwESMLqkD+bDFietU0mxhnReLF+5GhxbApRbqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JledqyFqn3TcSRwAL0y2b2vcOAjaHitnZRcP5Cnu+4wadG9f8IDngb8YvUQ1mCoaO
+	 UDBx4imS2imCStDpgzCbZhTBtk/CbjSNLO4AMC2E4hz+bVAnBO4aN59rJTFvQfql4J
+	 2XAqa6kp5Yd32f47K0oJYnognME+dhe9H/a9OY9w4V3dmlRVvyFpxXjbXGcZnSzSFP
+	 X0ezjYLEE056P1qNRzN0dWOPq/zV1qVeFAJwDstbHW5dGByrRdr8gny9KVOEpkMK93
+	 ZLswKiCeGYfz190CT0rBCs8B3Fcm65MsxU9j8gdv2pRkaqBW0Vg7f+HBvC9W+mevST
+	 sABuQoRqCM+pA==
+Date: Mon, 13 Jul 2026 17:17:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonas Rebmann <jre@pengutronix.de>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Sven Schwermer <sven.schwermer@disruptive-technologies.com>,
+	Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel@pengutronix.de
+Subject: Re: [PATCH RESEND v3] dt-bindings: leds: Add default-intensity
+ property
+Message-ID: <20260713-preachy-tinderbox-5d73eef5f106@spud>
+References: <20260713-multicolor-default-v3-1-fb43f3f789cf@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s3WRRSQLhh5beZEZ"
+Content-Disposition: inline
+In-Reply-To: <20260713-multicolor-default-v3-1-fb43f3f789cf@pengutronix.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Failure to check for error pointers in the `clk_hw_onecell_data` a=
-rray leads to a potential kernel panic when registering clocks.
---
+--s3WRRSQLhh5beZEZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---- Patch [4]: [PATCH v10 04/11] clk: realtek: Introduce a common probe() -=
---
-commit 2ca4c07d930b1b3a9fa36b5d566c53f338efd00d
-Author: Cheng-Yu Lee <cylee12@realtek.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-clk: realtek: Introduce a common probe()
+--s3WRRSQLhh5beZEZ
+Content-Type: application/pgp-signature; name=signature.asc
 
-This commit adds rtk_clk_probe() to set up the shared regmap, register clock
-hardware, and add the clock provider. It also creates an auxiliary device f=
-or
-reset controllers if the #reset-cells property is present in the device tre=
-e.
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/drivers/clk/realtek/clk-rtk-common.c b/drivers/clk/realtek/c=
-lk-rtk-common.c
-> new file mode 100644
-> index 0000000000000..cea7d94313daa
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtk-common.c
-[ ... ]
-> +int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_des=
-c *desc)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < desc->clk_data->num; i++) {
-> +		struct clk_hw *hw =3D desc->clk_data->hws[i];
-> +
-> +		if (!hw)
-> +			continue;
-> +
-> +		ret =3D devm_clk_hw_register(dev, hw);
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCalUPrwAKCRB4tDGHoIJi
+0gqCAP98rL/t1xK7uPgwytUSDHlpe11BjbBYcqn4IJ8OVZlP9gD+JwzM7NsMDFfG
+4puEsdJDinSzumwRmPYHdNWbulqK/wM=
+=zS4X
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-If a clock array populates unused slots with an error pointer like
-ERR_PTR(-ENOENT) (which is a standard practice so of_clk_hw_onecell_get
-propagates the error to consumers), will devm_clk_hw_register() try to
-dereference it here since we only check for NULL?
-
-Should this condition be updated to handle error pointers as well, perhaps
-by using IS_ERR_OR_NULL(hw)?
-
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to register hw of clk%d\n", i);
-> +	}
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713155630.3054=
-636-1-eleanor.lin@realtek.com?part=3D4
+--s3WRRSQLhh5beZEZ--
