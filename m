@@ -1,190 +1,344 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B345863B9;
-	Mon, 13 Jul 2026 06:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB9937AA97
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783924027; cv=none; b=Voav6fSTD5jmGL+yHXHgXHqchwuT245IkEWIkka47gNyoUC6wfnYFSPrW3yqfB8hoXDAf2W9J0NoKyuXVlGX3eLsuqSk/1SqEa8utoyHBHYVuew84YIR6hKlxWpt0FEJRiolgrVn+Cd37lVIM8W2LNLjiKRn5sbDY2pS2YTLZD4=
+	t=1783924388; cv=none; b=ndLuu2X7MgJeO8o11HU5dr4yULbEw6n9OPuxYWsqggEfy/7o4L9cfp30wvUjdpn3UD6TicCbBjsk89JL1P+vC72JV7qMCVOu1Ys7cggtSiM71X0ae7MON18rjjqxBjd/mfOe+PcenkwH05cs3BttkZdaYFiLHf2BWrO46gpKPM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783924027; c=relaxed/simple;
-	bh=B7OjmiraTpJiGItRI7tVkbOD0fmA509CxKxIDx1KxFU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lvo9WI2xZX6s8g3C1c+pfzhMKBM8ZyX6jvD7HEOC32aNOpW5K74ERw5We3a52Azdq2ZC6nCZ/RdI79v7QdwkLoWGHC0Q+OVqjDu3EBVwZbqZgtQN9gVfiR0tZMOfSQwutXCDL/zOfv2inq+gQy8ZpnHo3ZcO6MaUK5EzHngESoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tka99AQX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783924388; c=relaxed/simple;
+	bh=27EaIAhqGp+mquHVB6kjkp0Z2doJh2GJOYZQSDehpyg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oBGN79dksNLXpDBTrgX9zteQwCyI6anIaQZ+2wu8ytm7jw6RgQqFccwD/dEiGCPffa+Eaez1DTiWWvI4HeBbFk4qYIu/f3fhTuTKAY6kw5tEFLEfIKdUBnZ//EnUiBE+Qh0K67kY5zjcOmbWai6P/l8wvbcYT9q+S/hGyO4bd+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TtMHN7Lk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F3wEtf33; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tka99AQX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 169A61F000E9;
-	Mon, 13 Jul 2026 06:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783924026;
-	bh=pImptldIHl5+8AWxqCqfjS2sSYB2Zs2oA3iRfqTWyBI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Tka99AQXx3i4K3jasBpkL1oilqzsgh/cTa22V1fcxvMIwK6/QkvhPXxYC1TWcxoF6
-	 JNaEhNfVGB9OVf6hXDUuFWBRZa5vcuOW90un8JI6A1YBgC6MitWLcTahflkYWSsS2Z
-	 gEJjxWAgLBMVFe7cM8jvQ4oNoTSdlNbZ8p/c3j8o62wFQiWGkZa48dN2j1lpKH8QYZ
-	 fceVSB6mOhiqNzLH+CId24kbLIjLRCAKuGIHbBjarO7c1X5q9pcAoQdyye2eaahKjH
-	 CR1N3fYGXQcq5MeOyGcZuBe4uwPmYvyfw4ErzZ84RPgyHEbmXH+HdpJR0dq2y/FpBk
-	 Q4SmSO5amGlZA==
-Message-ID: <b60b4d96-ea67-44d0-a627-c50ef0ed8615@kernel.org>
-Date: Mon, 13 Jul 2026 08:26:59 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TtMHN7Lk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F3wEtf33"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66D6O1hc472924
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:33:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qprFpyjG0X97ZmZqIX1N021KXVlLLLyX73couEvv2lg=; b=TtMHN7LkPIKiJb1W
+	T8Or4o+d02tJskQ+r7Gtnzgr7+v89b67hR/V8P1KOS8LN5cDrvhhhzDeGsafzE9e
+	HoUGUR6X+scfM0Y+7La72sZDRjTB0PVzXyLSCWG+l0Ze9/PZHqzyoaBqsU6HXVfJ
+	h100H1FEQ08F091PF8XlCP1E7p0SjW7r8qAFVCmB/JHdXpnKYhxTmxVSLDLiaK3V
+	HW9UApulTmxDu/JFn5Zv5ZP2oht6CB/Cb6EOJnK/kLqvw5u2Zx8kZT19PXfS1UOH
+	cFxevUeVakDEHu3O+tiLgZVfAie19CkqW45sN1EqSdrUbZgZC0vpxDG7NnzgikYB
+	sV0vgQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fbee9mqrh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 06:33:04 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8423f1fe39eso990140b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 12 Jul 2026 23:33:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783924370; x=1784529170; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qprFpyjG0X97ZmZqIX1N021KXVlLLLyX73couEvv2lg=;
+        b=F3wEtf33LVJ3+qYup22bAv5ee0E2InRQ+3VCHQwxaKWFxnTmyINd3H/1JTd8lCeMAi
+         k0mRGXZf8IrzbTxi44YKuFuNfj7MPuTKOcNtS9cRXTErT2XT+2xWTU/8cJQFM3dZ/Kh3
+         8K3LyWo2iX0vTpIZg2MjtIcBz1NSXKwZKerK3PQ0sIy34zW43vmUZ9bidqcSRKoLsDEC
+         csSa53LJHLGHOiaVdvTXcDGJs4hR5K4MkhUXtVke8UFauvWeSrt8PltOUFOCtMEB4TCr
+         BL4ImCM649NwSK4lmsZaRL+a0ONApUqiwAYAk4CcTngHBD4LfpSfC4ikU1lND5lbMj41
+         9JBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783924370; x=1784529170;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qprFpyjG0X97ZmZqIX1N021KXVlLLLyX73couEvv2lg=;
+        b=ET+S/vDtICVRYpNd0hvy3vAEaeDWqSYGJr41Mn3q6IGIlyAFwWRpY4HhHOCAdxmTX9
+         Ye6WxnYJJG76b3M4OIDXyuJhVRo+JwcflsxFx9Y+z3s7fGQL6n4dL3no2lBoaEubu1D0
+         n5c5n30v4V6AhvTLuUru6sdoBMStHQPMOMKE5aL70lWmk0oUoDwo3EU23to3AwKA8jHs
+         Ew6khnf+I7eZkY6HYKJsxcIAZoP7yJlDvguPE/KBrp/RlM0tJ69DluRwBdkzG96Q+UWT
+         awWw8o6TLE+uKPY8zEF2mwBqVfEio+Jp3R+L1ojjY+zRhZm89w/HJzA5z9e1oTW4hUB1
+         hAPg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpe/g40c0kE+kYzhDprmOtTI12FIkcZrbZuMifq2KxNmdbOe/31l7lSkwxHPlqkSbVDPx9gjgYmqaFg@vger.kernel.org
+X-Gm-Message-State: AOJu0YxawuJBlXTahtDMRrJD/0lh9KUUJGeyk9ixgxMSZspTGza/M8WH
+	QWPIeHeRwGf6Tt1tpcb21ya1u5ZpsJZ2Nkf403ZkzJTJUXIw70gCjdyIFfkKZkPZzmBpY1Tgxug
+	9ZsoOsPBL2uePz8y4WFNkDYLvBMDRkOJEaGZ17JBaLDcXcmUcqt6xHx4hLLI6wqk4
+X-Gm-Gg: AfdE7ck2tP+wBpJG0izBUV+cTWKTSy7I6Csm4KEiqdsXx4Z41MFbW2HKPyHLA1UwXuX
+	FAAhMCUDONB4N5oR4Gsjp3e99JoyqyYbxZi5q0PE3btsPqy6YqLpL6v+iCBaU4YjSpK2NSrY53X
+	f259zeYuYbrVAXDYjZcRoodoaXZiZWmAAenQJzrqu+qyVeuEUCKlBpN0RKG3jO6sG+XvvDvJmad
+	CiUjNRvqPOwrjFzG0GGDP1EAHUEl068ccCN873Ub5wkkhNV2N9K+6mAPykqTc0RKww/o4/8QvNH
+	k2JgnNIcKvAc9pLxrtCdz9/FajTk69JesAXo2vZw4VmAkbYOdVF1WL3vT0HAhK1k44CiZ7QPakD
+	RUA5r0WAtuTJpCaJ1ycENiwjzwd1lJEkc6/TIc30EBuuYSTQnlYI8qqE39pwGRCKMIj/EobMTf1
+	18fhSLqY5x2ZPGAcwE7yq+O+rnNmHeLpIZxeXdru2r
+X-Received: by 2002:a05:6a21:50b:b0:3c0:9c1b:d0b7 with SMTP id adf61e73a8af0-3c110a1213fmr8922188637.66.1783924370392;
+        Sun, 12 Jul 2026 23:32:50 -0700 (PDT)
+X-Received: by 2002:a05:6a21:50b:b0:3c0:9c1b:d0b7 with SMTP id adf61e73a8af0-3c110a1213fmr8922173637.66.1783924370005;
+        Sun, 12 Jul 2026 23:32:50 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b87b92b27sm25435361c88.6.2026.07.12.23.32.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Jul 2026 23:32:49 -0700 (PDT)
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 12:02:18 +0530
+Subject: [PATCH v13 2/6] dt-bindings: remoteproc: qcom: document hexagon
+ based WCSS secure PIL
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] dt-bindings: qcom,snps-dwc3: Add property
- indicating presence of eUSB2 phy
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260709-eusb2-interrupt-handling-v5-v4-0-d4f993925608@oss.qualcomm.com>
- <20260709-eusb2-interrupt-handling-v5-v4-1-d4f993925608@oss.qualcomm.com>
- <d742u7jrpm7gdoljgiwkfexc47qhprwoibk6fadpm3qilbdpgi@jrkbrwfmqmrp>
- <alBOC18CpkGDhM2m@vbox> <20260710-warping-resolute-wasp-e4b8ce@quoll>
- <7a099224-ea95-40ec-b279-f8834f261e23@kernel.org> <alFTxg0HLyke0gCK@vbox>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <alFTxg0HLyke0gCK@vbox>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260713-rproc-v13-2-41011cbcda3e@oss.qualcomm.com>
+References: <20260713-rproc-v13-0-41011cbcda3e@oss.qualcomm.com>
+In-Reply-To: <20260713-rproc-v13-0-41011cbcda3e@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>,
+        George Moussalem <george.moussalem@outlook.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDA2NiBTYWx0ZWRfXwU2V2t5+HBAA
+ 5pU1iXCVvHG37yhdgSYzzsqPLNvcdw0k38wX2OQcKech22A99TPTYvdR6z4xvhrdbOQGa0qWZbZ
+ MnnMeXeUtGQ0K4t4+6RdJv6ARhyZqdU=
+X-Proofpoint-GUID: 9sJ2gXaYseN5crH5P3LyT_4FdbSHmXFm
+X-Authority-Analysis: v=2.4 cv=a7UAM0SF c=1 sm=1 tr=0 ts=6a5486a1 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=UqCG9HQmAAAA:8 a=fvnyRN_YwKOm8-nVNuIA:9
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDA2NiBTYWx0ZWRfX21uhWQ1bsMJA
+ VFjlAN/DB+qgtNduFkJBlQwYJbJPED5t9Z1vMk6BlxKJmAH2Uf7CGHPyOy2rfUhSc6vvJOAi/he
+ nW7L+jgqP9Ituban0DIfOaI5Zi4D63mlwbbblHo6VJ8bIx3Gr1J2kAQ91eXEesicesxF4xIwXEQ
+ 4pJFPKKH8V0I/Gl2wDAkq5djm0UBobzB+fH/wicS8zZWHkuHRBtSwMDvvj8wix1RLBdfidH7oiK
+ p5xiij0wJy2efC2Nge2znHm5ecJTBdEB7A1RCz0hvsSwPVji6rELikuZLM8umIBYA6G1nLddOm3
+ +PMLxG7LJtNabUk6sTBsTjYlwCnNRQr4dDiTZBi+mnLnDR3XLB64Lztb+IQVlklzUXOY+cKd7YN
+ f4YSN1Xp7yYQulThdoJLMg3fCzqRsF9YB4nEBILiUKskgwXnnkiAIjvCqmZybrr75S5WObY48ED
+ gfSvABBvKHzFgIWKTBQ==
+X-Proofpoint-ORIG-GUID: 9sJ2gXaYseN5crH5P3LyT_4FdbSHmXFm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ clxscore=1015 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130066
 
-On 10/07/2026 23:02, Thinh Nguyen wrote:
-> On Fri, Jul 10, 2026, Krzysztof Kozlowski wrote:
->> On 10/07/2026 09:16, Krzysztof Kozlowski wrote:
->>> On Fri, Jul 10, 2026 at 01:52:45AM +0000, Thinh Nguyen wrote:
->>>> On Thu, Jul 09, 2026, Dmitry Baryshkov wrote:
->>>>> On Thu, Jul 09, 2026 at 02:22:36PM +0530, Krishna Kurapati wrote:
->>>>>> Add property "qcom,has-eusb2-phy" to indicate whether the SoC has eUSB2 phy
->>>>>> or not. This is used to modify dp/dm interrupts during host mode suspend.
->>>>>>
->>>>>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
->>>>>> ---
->>>>>>  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 7 +++++++
->>>>>>  1 file changed, 7 insertions(+)
->>>>>>
->>>>>> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->>>>>> index 8201656b41ed..0c6a839be82f 100644
->>>>>> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->>>>>> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
->>>>>> @@ -152,6 +152,13 @@ properties:
->>>>>>        HS/FS/LS modes are supported.
->>>>>>      type: boolean
->>>>>>  
->>>>>> +  qcom,has-eusb2-phy:
->>>>>> +    description:
->>>>>> +      If present, it indicates that the controller is working with eUSB2
->>>>>> +      phy. This property is used to modify dp/dm interrupt configurations
->>>>>> +      while entering suspend.
->>>>>> +    type: boolean
->>>>>
->>>>> I still have exactly the same concern. This information is already
->>>>> present in the DT.
->>>>>
->>>>
->>>> Could you clarify what you mean by "this information is already present
->>>> in the DT"? Are you suggesting we use the dwc3 node's compatible string
->>>> to infer the phy type?
->>>>
->>>> The dwc3 glue compatible describes the controller, not the phy. They are
->>>> separate IP blocks. A board variant could reuse the same dwc3 compatible
->>>> with a different phy attached, making that inference silently wrong.
->>>>
->>>> The phy type is described somewhere else in the DT (in the phy node
->>>> itself), referenced via the phy's phandle on the dwc3 core child node.
->>>> We could walk that phandle and check whether the phy node's compatible
->>>> contains "eusb2". However, that relies on a naming convention that isn't
->>>> enforced anywhere. All current eusb2 phy compatibles happen to follow it
->>>> (qcom,sm8550-snps-eusb2-phy, qcom,sm8750-m31-eusb2-phy,
->>>> samsung,exynos2200-eusb2-phy, etc.), but a future phy driver could break
->>>
->>> You have a fixed/finite list of phys which needs something special, so
->>> that information as Dmitry said is in DT already.
-> 
-> Are you referring to a fixed list of eusb2 phy compatibles, or a fixed
-> list of dwc3 node compatibles?
+From: Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
 
-The phys.
+Add new binding document for hexagon based WCSS secure PIL remoteproc.
+IPQ5018, IPQ5332 and IPQ9574 follow secure PIL remoteproc.
 
-> 
-> Either way, the list is not fixed. New eusb2 SoC variants are added
-> regularly, and there are already 12 eusb2 phy compatible strings in the
+Signed-off-by: Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
+Signed-off-by: Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+[ Dropped ipq5424 support ]
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+---
+ .../remoteproc/qcom,ipq5018-wcss-sec-pil.yaml      | 178 +++++++++++++++++++++
+ 1 file changed, 178 insertions(+)
 
-It is fixed. You have 12 compatible strings, so it is strictly defined.
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,ipq5018-wcss-sec-pil.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,ipq5018-wcss-sec-pil.yaml
+new file mode 100644
+index 000000000000..a6fc3a9db621
+--- /dev/null
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,ipq5018-wcss-sec-pil.yaml
+@@ -0,0 +1,178 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/remoteproc/qcom,ipq5018-wcss-sec-pil.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm WCSS Secure Peripheral Image Loader
++
++maintainers:
++  - Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
++
++description:
++  Wireless Connectivity Subsystem (WCSS) Secure Peripheral Image Loader loads
++  firmware and power up QDSP6 remoteproc on the Qualcomm IPQ series SoC.
++
++properties:
++  compatible:
++    enum:
++      - qcom,ipq5018-wcss-sec-pil
++      - qcom,ipq5332-wcss-sec-pil
++      - qcom,ipq9574-wcss-sec-pil
++
++  reg:
++    maxItems: 1
++
++  firmware-name:
++    maxItems: 1
++    description: Firmware name for the Hexagon core
++
++  interrupts:
++    items:
++      - description: Watchdog interrupt
++      - description: Fatal interrupt
++      - description: Ready interrupt
++      - description: Handover interrupt
++      - description: Stop acknowledge interrupt
++
++  interrupt-names:
++    items:
++      - const: wdog
++      - const: fatal
++      - const: ready
++      - const: handover
++      - const: stop-ack
++
++  clocks:
++    minItems: 1
++    items:
++      - description: sleep clock
++      - description: AHB interconnect clock
++
++  clock-names:
++    minItems: 1
++    items:
++      - const: sleep
++      - const: interconnect
++
++  mboxes:
++    items:
++      - description: TMECom mailbox driver
++
++  qcom,smem-states:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: States used by the AP to signal the remote processor
++    items:
++      - description: Stop Q6
++      - description: Shutdown Q6
++
++  qcom,smem-state-names:
++    description:
++      Names of the states used by the AP to signal the remote processor
++    items:
++      - const: stop
++      - const: shutdown
++
++  memory-region:
++    items:
++      - description: Q6 reserved region
++
++  glink-edge:
++    $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
++    description:
++      Qualcomm G-Link subnode which represents communication edge, channels
++      and devices related to the Modem.
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - firmware-name
++  - interrupts
++  - interrupt-names
++  - qcom,smem-states
++  - qcom,smem-state-names
++  - memory-region
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,ipq5018-wcss-sec-pil
++    then:
++      properties:
++        clocks:
++          items:
++            - description: sleep clock
++            - description: AHB interconnect clock
++        clock-names:
++          items:
++            - const: sleep
++            - const: interconnect
++      required:
++        - clocks
++        - clock-names
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,ipq5332-wcss-sec-pil
++    then:
++      properties:
++        clocks:
++          items:
++            - description: sleep clock
++        clock-names:
++          items:
++            - const: sleep
++      required:
++        - clocks
++        - clock-names
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,ipq9574-wcss-sec-pil
++    then:
++      properties:
++        clocks: false
++        clock-names: false
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    q6v5_wcss: remoteproc@cd00000 {
++        compatible = "qcom,ipq9574-wcss-sec-pil";
++        reg = <0x0cd00000 0x10000>;
++        firmware-name = "ath11k/IPQ9574/hw1.0/q6_fw.mbn";
++        interrupts-extended = <&intc GIC_SPI 325 IRQ_TYPE_EDGE_RISING>,
++                              <&smp2p_wcss_in 0 IRQ_TYPE_NONE>,
++                              <&smp2p_wcss_in 1 IRQ_TYPE_NONE>,
++                              <&smp2p_wcss_in 2 IRQ_TYPE_NONE>,
++                              <&smp2p_wcss_in 3 IRQ_TYPE_NONE>;
++        interrupt-names = "wdog",
++                          "fatal",
++                          "ready",
++                          "handover",
++                          "stop-ack";
++
++        qcom,smem-states = <&smp2p_wcss_out 1>,
++                           <&smp2p_wcss_out 0>;
++        qcom,smem-state-names = "stop",
++                                "shutdown";
++        memory-region = <&q6_region>;
++
++        glink-edge {
++            interrupts = <GIC_SPI 321 IRQ_TYPE_EDGE_RISING>;
++            label = "rtr";
++            qcom,remote-pid = <1>;
++            mboxes = <&apcs_glb 8>;
++        };
++    };
 
-> DT bindings but only 3 in the PHY driver of_match tables, they don't
-> land at the same time. As for what information is already in DT, I've
-> addressed this above and in my earlier response.
-> 
->>>
->>> Anyway, the commit msg and property field have insufficient description
->>> of actual hardware problem being represented by this property, so it
->>> looks way too much as SW policy.
-> 
-> That's fair feedback to raise with Krishna.
-> 
->>
->>
->> And Dmitry already said this at v3.
-> 
-> And I've already responded to his comment in v3:
-> https://lore.kernel.org/linux-usb/ahjYwJtiMsm0BcCh@vbox/
+-- 
+2.34.1
 
-It does not change the fact that type of phy is implied by compatible,
-thus you do not get a new property.
-
-
-Best regards,
-Krzysztof
