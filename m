@@ -1,442 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AB53546C7;
-	Mon, 13 Jul 2026 18:46:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78193322B8C
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 18:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783968370; cv=none; b=KUn7R3vBTG/6wdHA5mh8lYktjWxdEEAEHclzlrJ282fuNxVd82D8zd83qI8+QkmjzUJWd2TZNTVITpeOoJCnAmscZYcIfZdzzWy3NJ6lV5iOh99nO61exdasQQO/cw2JVF2i1CCNJv//MA8h39nataP6hCsITMOS62PzunjzsXk=
+	t=1783968951; cv=none; b=Fn6u19V6o9icAa/ohbq/t7c3YgohcD1zHVttUsZ51RWWHr+9qo59htRXCxFkFVLOcy2TevTYQ2JbHotqOIY8baw3uiQiSnY4u90vttN/l9yr3NqMVZ0FSU1g7nxr7aug72fWIy+ibnFVMLwzSjPsM24BbH7W4h0K/2e/goVmrw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783968370; c=relaxed/simple;
-	bh=wETEMVUUn3cqT0N5rzG+JWF3qRKrr0LvQm9ujivrpV0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=MAvWAXwCD3ItHfPAGE7zt1YCYTELpascP0rlyDw4xgYlbtnUTCY5uNCfGalGb8R0mslWi2qNb050zps8H1bOUXN2PE4sVSLjsyqEm8a26Rga/Agb/Ztm/Gbcjz3eRhX0Q7aqmBLp468utPeRdSBsaS6yQ7gVbZH4rPzKXDfZ7eE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CInUEMDt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1783968951; c=relaxed/simple;
+	bh=dswF48lkREAMgLDcHSSAS6xkgaZtnF6shAjn2m50X2E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=irMxXp5OEFNYMEXo2yQFri9N/tKlZfoh/RvMPhVWzm/ubvk7p3iLUZNmvoFlhZP0W5and3mSi8HYCDZ0tojEyLn9BvPRvW+6V1jbtcCkwwWQ8PZnJ/YR14V6sCHVKtJMMN2HYdlwT9bu06hrTCgp07gUWq2yEAD2k2ezgpT/iws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaPE1af8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CInUEMDt"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66DG5HjD2030823;
-	Mon, 13 Jul 2026 18:45:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=en7fkzazS5l
-	h29S+a3oR9DKE2ehDeoRw9xRNNFQCKr0=; b=CInUEMDtRh1tRnUXWTWLG2IMPr2
-	j42jpSYvS4CPIfvw1k/eID3a18hXOMZfJNDc0UdrwDirxtnHYI8STW2Yawjb7TRH
-	vcrvhKcrslkiggK3NHfWjex2zkNdO96Gf5XBxqgT+fFnfAocJfMRgsfVdKv+XVkO
-	UEaGR/+ryDRymcldfaf7P3tKcyz0J07FFLGc75ry23vy8p87vbTctrjnqiOn6Q3K
-	L3OyOxFU/g6Dzxs4hB18GkKei+Q0GpYv8q1ZbBKQHKaj3fzjR1lSv/elFIIMBOO2
-	kwTiBr8O5GVOm2fw1ZGssQYENJ6XMsQVR3ifFrYkX1iOhdJ3rSzU4vlCeuw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fd37x8m5y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Jul 2026 18:45:58 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66DIjtN2010089;
-	Mon, 13 Jul 2026 18:45:55 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4fbewjb430-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Jul 2026 18:45:55 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66DIjtuJ010083;
-	Mon, 13 Jul 2026 18:45:55 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 66DIjsaH010080
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 13 Jul 2026 18:45:55 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
-	id E6461641; Tue, 14 Jul 2026 00:15:51 +0530 (+0530)
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-sound@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v2 5/5] pinctrl: qcom: hawi-lpass-lpi: add Hawi LPASS LPI TLMM
-Date: Tue, 14 Jul 2026 00:15:49 +0530
-Message-Id: <20260713184549.929569-6-prasad.kumpatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260713184549.929569-1-prasad.kumpatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaPE1af8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD7A1F000E9;
+	Mon, 13 Jul 2026 18:55:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783968950;
+	bh=22Of06PYet1Sgwkr0+iVDAIHA9EgwlYzAN8jSlIfAEM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eaPE1af8vd2/gWV8yJSZYYuw2/2HdUzlIDGoGbIazuJGLyVGmu62/HmFMF/qqP8vi
+	 uEY09uRPNDWmCMww0gG7EfidWUswz7Kok/jhouLS8c4GFchRJscrm4ijfkeLRxKq5k
+	 0jU0Gwh9HpNWMbObp4GOo1eeIzLx/WnKfOcVbsvRcpWa6IafURO2SHJYb9xKCDhtDv
+	 Gq7o/4/ytORe2Gz88as39kltT+i7Gp/J5vFmRYdbZPvin9vhuNmCQBUteF8yfclrIg
+	 dvFj41EvoEaFPhDZedbDcFwPAwszot0za4Bxi+HIfFMZbcaYHpDeMaWphW6x7Gh0qi
+	 FEFRo7ZPWYgNw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/5] pinctrl: qcom: lpass-lpi: make mutex cleanup
+ devm-managed
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Prasad Kumpatla" <prasad.kumpatla@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260713184549.929569-2-prasad.kumpatla@oss.qualcomm.com>
 References: <20260713184549.929569-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260713184549.929569-2-prasad.kumpatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 13 Jul 2026 18:55:48 +0000
+Message-Id: <20260713185549.2AD7A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE5NCBTYWx0ZWRfXxJw1BwUu6W0v
- Tx9CXo/lj6vP4bB4SUS0hca29E79glkxjiKT9LDF7d74X6BB5ArPF6PJiipUulmcI8+KIWyJnsc
- Ib0baOTFd16wYMH2gt3RGAgt7O2gTzv7V0sPOG9J/DNVfbtzAO0iujENfvvs0cxeMoIqyhUOJcc
- OE6DaQYBIwn8HU9X90N68zORaiWVNYl+G4RCL/oWiSLrQOLusj7NAE3cVNM9G4vOtcRfQxdP6Rp
- /n7NM32ohGAPDQVlzWQgVPTl/HOqx50cs/03IcTwm8hg1MWUBjWAPqhusUIu3m4BuVh6nRMrstU
- PS+AMta7P/z8OfTN11wfaP2TCJBIKWdjbPOrz0NUGJZ/VH9aATMO4Vmm2c0GA3LVCyS9FmRnuA1
- 4y8qYVhZQCfjAQK7P7wQKCpaBw/cdY3EXEzQcZ/MoOPYXvR0GKamTTVcXokkz/o6GsKAzGasrMZ
- Hkl7WcrxA8XkZpbCvkg==
-X-Authority-Analysis: v=2.4 cv=BNWDalQG c=1 sm=1 tr=0 ts=6a553267 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=RGdtN6rq-GqljJF8V3QA:9
- a=O8hF6Hzn-FEA:10
-X-Proofpoint-ORIG-GUID: Z4W9qDw1T9eI2FKKIltomb4Gi5ak-9QT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE5NCBTYWx0ZWRfX8Bni5ah8jen5
- Zuc/L2GSD6n1euIYuNi+PNCX7Pqk3cimh3r3WBUukZJqNo2MyG+ITU3Dk0CvXjh236xKq7JcNE0
- /Lw5c7Ia7PcM5k4/n1aCOLsT6LtN210=
-X-Proofpoint-GUID: Z4W9qDw1T9eI2FKKIltomb4Gi5ak-9QT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-13_04,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130194
 
-Add pin controller driver for the Low Power Audio SubSystem (LPASS)
-Low Power Island (LPI) of Qualcomm Hawi SoC.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-The controller has 23 GPIOs with SoundWire, I2S, DMIC, VA I2S,
-ext_mclk1 and slimbus mux functions.
+Pre-existing issues:
+- [High] Data races and Use-After-Free (UAF) vulnerabilities due to early r=
+egistration and lockless mutation of generic pin groups.
+--
 
-Two pins (gpio13, gpio22) require 6 mux slots due to a test_bus
-entry occupying a middle hardware slot. Add LPI_PINGROUP6 macro
-to pinctrl-lpass-lpi.h to support pins with 5 alternate functions.
+--- Patch [1]: [PATCH v2 1/5] pinctrl: qcom: lpass-lpi: make mutex cleanup =
+devm-managed ---
+commit 808f67e14184e3ba9ce98d89331c2be909c075e0
+Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
----
- drivers/pinctrl/qcom/Kconfig                  |  10 +
- drivers/pinctrl/qcom/Makefile                 |   1 +
- drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c | 244 ++++++++++++++++++
- drivers/pinctrl/qcom/pinctrl-lpass-lpi.h      |  17 ++
- 4 files changed, 272 insertions(+)
- create mode 100644 drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c
+pinctrl: qcom: lpass-lpi: make mutex cleanup devm-managed
 
-diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
-index 18db35022..707067b92 100644
---- a/drivers/pinctrl/qcom/Kconfig
-+++ b/drivers/pinctrl/qcom/Kconfig
-@@ -62,6 +62,16 @@ config PINCTRL_LPASS_LPI
- 	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
- 	  (Low Power Island) found on the Qualcomm Technologies Inc SoCs.
- 
-+config PINCTRL_HAWI_LPASS_LPI
-+	tristate "Qualcomm Technologies Inc Hawi LPASS LPI pin controller driver"
-+	depends on ARM64 || COMPILE_TEST
-+	depends on PINCTRL_LPASS_LPI
-+	help
-+	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-+	  Qualcomm Technologies Inc LPASS (Low Power Audio SubSystem) LPI
-+	  (Low Power Island) found on the Qualcomm Technologies Inc Hawi
-+	  platform.
-+
- config PINCTRL_MILOS_LPASS_LPI
- 	tristate "Qualcomm Milos LPASS LPI pin controller driver"
- 	depends on ARM64 || COMPILE_TEST
-diff --git a/drivers/pinctrl/qcom/Makefile b/drivers/pinctrl/qcom/Makefile
-index 43ecd246a..987a79f9d 100644
---- a/drivers/pinctrl/qcom/Makefile
-+++ b/drivers/pinctrl/qcom/Makefile
-@@ -6,6 +6,7 @@ obj-$(CONFIG_PINCTRL_APQ8084)	+= pinctrl-apq8084.o
- obj-$(CONFIG_PINCTRL_ELIZA)	+= pinctrl-eliza.o
- obj-$(CONFIG_PINCTRL_GLYMUR)	+= pinctrl-glymur.o
- obj-$(CONFIG_PINCTRL_HAWI)	+= pinctrl-hawi.o
-+obj-$(CONFIG_PINCTRL_HAWI_LPASS_LPI) += pinctrl-hawi-lpass-lpi.o
- obj-$(CONFIG_PINCTRL_IPQ4019)	+= pinctrl-ipq4019.o
- obj-$(CONFIG_PINCTRL_IPQ5018)	+= pinctrl-ipq5018.o
- obj-$(CONFIG_PINCTRL_IPQ8064)	+= pinctrl-ipq8064.o
-diff --git a/drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c
-new file mode 100644
-index 000000000..7036bf4c6
---- /dev/null
-+++ b/drivers/pinctrl/qcom/pinctrl-hawi-lpass-lpi.c
-@@ -0,0 +1,244 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/gpio/driver.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_clock.h>
-+#include <linux/pm_runtime.h>
-+
-+#include "pinctrl-lpass-lpi.h"
-+
-+enum lpass_lpi_functions {
-+	LPI_MUX_dmic1_clk,
-+	LPI_MUX_dmic1_data,
-+	LPI_MUX_dmic2_clk,
-+	LPI_MUX_dmic2_data,
-+	LPI_MUX_dmic3_clk,
-+	LPI_MUX_dmic3_data,
-+	LPI_MUX_dmic4_clk,
-+	LPI_MUX_dmic4_data,
-+	LPI_MUX_ext_mclk1_a,
-+	LPI_MUX_ext_mclk1_b,
-+	LPI_MUX_ext_mclk1_c,
-+	LPI_MUX_ext_mclk1_d,
-+	LPI_MUX_ext_mclk1_e,
-+	LPI_MUX_i2s0_clk,
-+	LPI_MUX_i2s0_data,
-+	LPI_MUX_i2s0_ws,
-+	LPI_MUX_i2s1_clk,
-+	LPI_MUX_i2s1_data,
-+	LPI_MUX_i2s1_ws,
-+	LPI_MUX_i2s2_clk,
-+	LPI_MUX_i2s2_data,
-+	LPI_MUX_i2s2_ws,
-+	LPI_MUX_i2s3_clk,
-+	LPI_MUX_i2s3_data,
-+	LPI_MUX_i2s3_ws,
-+	LPI_MUX_lpass_lpi_dbg_clk,
-+	LPI_MUX_qca_swr_clk,
-+	LPI_MUX_qca_swr_data,
-+	LPI_MUX_slimbus_clk,
-+	LPI_MUX_slimbus_data,
-+	LPI_MUX_swr_rx_clk,
-+	LPI_MUX_swr_rx_data,
-+	LPI_MUX_swr_tx_clk,
-+	LPI_MUX_swr_tx_clk1,
-+	LPI_MUX_swr_tx_data,
-+	LPI_MUX_va_i2s0_clk,
-+	LPI_MUX_va_i2s0_data,
-+	LPI_MUX_va_i2s0_ws,
-+	LPI_MUX_wsa2_swr_clk,
-+	LPI_MUX_wsa2_swr_data,
-+	LPI_MUX_wsa_swr_clk,
-+	LPI_MUX_wsa_swr_data,
-+	LPI_MUX_gpio,
-+	LPI_MUX__,
-+};
-+
-+static const struct pinctrl_pin_desc hawi_lpi_pins[] = {
-+	PINCTRL_PIN(0, "gpio0"),
-+	PINCTRL_PIN(1, "gpio1"),
-+	PINCTRL_PIN(2, "gpio2"),
-+	PINCTRL_PIN(3, "gpio3"),
-+	PINCTRL_PIN(4, "gpio4"),
-+	PINCTRL_PIN(5, "gpio5"),
-+	PINCTRL_PIN(6, "gpio6"),
-+	PINCTRL_PIN(7, "gpio7"),
-+	PINCTRL_PIN(8, "gpio8"),
-+	PINCTRL_PIN(9, "gpio9"),
-+	PINCTRL_PIN(10, "gpio10"),
-+	PINCTRL_PIN(11, "gpio11"),
-+	PINCTRL_PIN(12, "gpio12"),
-+	PINCTRL_PIN(13, "gpio13"),
-+	PINCTRL_PIN(14, "gpio14"),
-+	PINCTRL_PIN(15, "gpio15"),
-+	PINCTRL_PIN(16, "gpio16"),
-+	PINCTRL_PIN(17, "gpio17"),
-+	PINCTRL_PIN(18, "gpio18"),
-+	PINCTRL_PIN(19, "gpio19"),
-+	PINCTRL_PIN(20, "gpio20"),
-+	PINCTRL_PIN(21, "gpio21"),
-+	PINCTRL_PIN(22, "gpio22"),
-+};
-+
-+static const char * const gpio_groups[] = {
-+	"gpio0", "gpio1", "gpio2", "gpio3", "gpio4", "gpio5", "gpio6", "gpio7",
-+	"gpio8", "gpio9", "gpio10", "gpio11", "gpio12", "gpio13", "gpio14",
-+	"gpio15", "gpio16", "gpio17", "gpio18", "gpio19", "gpio20", "gpio21",
-+	"gpio22",
-+};
-+
-+static const char * const swr_tx_clk_groups[] = { "gpio0" };
-+static const char * const i2s0_clk_groups[] = { "gpio0" };
-+static const char * const swr_tx_data_groups[] = { "gpio1", "gpio2", "gpio14" };
-+static const char * const i2s0_ws_groups[] = { "gpio1" };
-+static const char * const swr_rx_clk_groups[] = { "gpio3" };
-+static const char * const i2s0_data_groups[] = { "gpio2", "gpio3", "gpio4", "gpio5" };
-+static const char * const swr_rx_data_groups[] = { "gpio4", "gpio5" };
-+static const char * const ext_mclk1_c_groups[] = { "gpio5" };
-+static const char * const dmic1_clk_groups[] = { "gpio6" };
-+static const char * const va_i2s0_clk_groups[] = { "gpio6" };
-+static const char * const dmic1_data_groups[] = { "gpio7" };
-+static const char * const va_i2s0_ws_groups[] = { "gpio7" };
-+static const char * const dmic2_clk_groups[] = { "gpio8" };
-+static const char * const va_i2s0_data_groups[] = { "gpio8", "gpio9" };
-+static const char * const dmic2_data_groups[] = { "gpio9" };
-+static const char * const ext_mclk1_b_groups[] = { "gpio9" };
-+static const char * const i2s1_clk_groups[] = { "gpio10" };
-+static const char * const wsa_swr_clk_groups[] = { "gpio10" };
-+static const char * const i2s1_ws_groups[] = { "gpio11" };
-+static const char * const wsa_swr_data_groups[] = { "gpio11", "gpio21" };
-+static const char * const dmic3_clk_groups[] = { "gpio12" };
-+static const char * const i2s3_clk_groups[] = { "gpio12" };
-+static const char * const dmic3_data_groups[] = { "gpio13" };
-+static const char * const i2s3_ws_groups[] = { "gpio13" };
-+static const char * const ext_mclk1_a_groups[] = { "gpio13" };
-+static const char * const lpass_lpi_dbg_clk_groups[] = { "gpio13" };
-+static const char * const swr_tx_clk1_groups[] = { "gpio14" };
-+static const char * const ext_mclk1_d_groups[] = { "gpio14" };
-+static const char * const i2s1_data_groups[] = { "gpio15", "gpio16", "gpio21", "gpio22" };
-+static const char * const wsa2_swr_clk_groups[] = { "gpio15" };
-+static const char * const wsa2_swr_data_groups[] = { "gpio16", "gpio22" };
-+static const char * const dmic4_clk_groups[] = { "gpio17" };
-+static const char * const i2s3_data_groups[] = { "gpio17", "gpio18" };
-+static const char * const dmic4_data_groups[] = { "gpio18" };
-+static const char * const i2s2_clk_groups[] = { "gpio19" };
-+static const char * const slimbus_clk_groups[] = { "gpio19" };
-+static const char * const qca_swr_clk_groups[] = { "gpio19" };
-+static const char * const i2s2_ws_groups[] = { "gpio20" };
-+static const char * const slimbus_data_groups[] = { "gpio20" };
-+static const char * const qca_swr_data_groups[] = { "gpio20" };
-+static const char * const i2s2_data_groups[] = { "gpio21", "gpio22" };
-+static const char * const ext_mclk1_e_groups[] = { "gpio22" };
-+
-+static const struct lpi_pingroup hawi_groups[] = {
-+	LPI_PINGROUP(0, 11, swr_tx_clk, i2s0_clk, _, _),
-+	LPI_PINGROUP(1, 11, swr_tx_data, i2s0_ws, _, _),
-+	LPI_PINGROUP(2, 11, swr_tx_data, i2s0_data, _, _),
-+	LPI_PINGROUP(3, 11, swr_rx_clk, i2s0_data, _, _),
-+	LPI_PINGROUP(4, 11, swr_rx_data, i2s0_data, _, _),
-+	LPI_PINGROUP(5, 11, swr_rx_data, ext_mclk1_c, i2s0_data, _),
-+	LPI_PINGROUP(6, LPI_NO_SLEW, dmic1_clk, va_i2s0_clk, _, _),
-+	LPI_PINGROUP(7, LPI_NO_SLEW, dmic1_data, va_i2s0_ws, _, _),
-+	LPI_PINGROUP(8, LPI_NO_SLEW, dmic2_clk, va_i2s0_data, _, _),
-+	LPI_PINGROUP(9, LPI_NO_SLEW, dmic2_data, va_i2s0_data, ext_mclk1_b, _),
-+	LPI_PINGROUP(10, 11, i2s1_clk, wsa_swr_clk, _, _),
-+	LPI_PINGROUP(11, 11, i2s1_ws, wsa_swr_data, _, _),
-+	LPI_PINGROUP(12, LPI_NO_SLEW, dmic3_clk, i2s3_clk, _, _),
-+	LPI_PINGROUP6(13, LPI_NO_SLEW, dmic3_data, i2s3_ws, ext_mclk1_a, _, lpass_lpi_dbg_clk),
-+	LPI_PINGROUP(14, 11, swr_tx_data, swr_tx_clk1, ext_mclk1_d, _),
-+	LPI_PINGROUP(15, 11, i2s1_data, wsa2_swr_clk, _, _),
-+	LPI_PINGROUP(16, 11, i2s1_data, wsa2_swr_data, _, _),
-+	LPI_PINGROUP(17, LPI_NO_SLEW, dmic4_clk, i2s3_data, _, _),
-+	LPI_PINGROUP(18, LPI_NO_SLEW, dmic4_data, i2s3_data, _, _),
-+	LPI_PINGROUP(19, LPI_NO_SLEW, i2s2_clk, slimbus_clk, qca_swr_clk, _),
-+	LPI_PINGROUP(20, LPI_NO_SLEW, i2s2_ws, slimbus_data, qca_swr_data, _),
-+	LPI_PINGROUP(21, 11, i2s2_data, _, wsa_swr_data, i2s1_data),
-+	LPI_PINGROUP6(22, 11, i2s2_data, ext_mclk1_e, _, i2s1_data, wsa2_swr_data),
-+};
-+
-+static const struct lpi_function hawi_functions[] = {
-+	LPI_FUNCTION(gpio),
-+	LPI_FUNCTION(dmic1_clk),
-+	LPI_FUNCTION(dmic1_data),
-+	LPI_FUNCTION(dmic2_clk),
-+	LPI_FUNCTION(dmic2_data),
-+	LPI_FUNCTION(dmic3_clk),
-+	LPI_FUNCTION(dmic3_data),
-+	LPI_FUNCTION(dmic4_clk),
-+	LPI_FUNCTION(dmic4_data),
-+	LPI_FUNCTION(ext_mclk1_a),
-+	LPI_FUNCTION(ext_mclk1_b),
-+	LPI_FUNCTION(ext_mclk1_c),
-+	LPI_FUNCTION(ext_mclk1_d),
-+	LPI_FUNCTION(ext_mclk1_e),
-+	LPI_FUNCTION(i2s0_clk),
-+	LPI_FUNCTION(i2s0_data),
-+	LPI_FUNCTION(i2s0_ws),
-+	LPI_FUNCTION(i2s1_clk),
-+	LPI_FUNCTION(i2s1_data),
-+	LPI_FUNCTION(i2s1_ws),
-+	LPI_FUNCTION(i2s2_clk),
-+	LPI_FUNCTION(i2s2_data),
-+	LPI_FUNCTION(i2s2_ws),
-+	LPI_FUNCTION(i2s3_clk),
-+	LPI_FUNCTION(i2s3_data),
-+	LPI_FUNCTION(i2s3_ws),
-+	LPI_FUNCTION(lpass_lpi_dbg_clk),
-+	LPI_FUNCTION(qca_swr_clk),
-+	LPI_FUNCTION(qca_swr_data),
-+	LPI_FUNCTION(slimbus_clk),
-+	LPI_FUNCTION(slimbus_data),
-+	LPI_FUNCTION(swr_rx_clk),
-+	LPI_FUNCTION(swr_rx_data),
-+	LPI_FUNCTION(swr_tx_clk),
-+	LPI_FUNCTION(swr_tx_clk1),
-+	LPI_FUNCTION(swr_tx_data),
-+	LPI_FUNCTION(va_i2s0_clk),
-+	LPI_FUNCTION(va_i2s0_data),
-+	LPI_FUNCTION(va_i2s0_ws),
-+	LPI_FUNCTION(wsa2_swr_clk),
-+	LPI_FUNCTION(wsa2_swr_data),
-+	LPI_FUNCTION(wsa_swr_clk),
-+	LPI_FUNCTION(wsa_swr_data),
-+};
-+
-+static const struct lpi_pinctrl_variant_data hawi_lpi_data = {
-+	.pins = hawi_lpi_pins,
-+	.npins = ARRAY_SIZE(hawi_lpi_pins),
-+	.groups = hawi_groups,
-+	.ngroups = ARRAY_SIZE(hawi_groups),
-+	.functions = hawi_functions,
-+	.nfunctions = ARRAY_SIZE(hawi_functions),
-+	.flags = LPI_FLAG_SLEW_RATE_SAME_REG,
-+};
-+
-+static const struct of_device_id lpi_pinctrl_of_match[] = {
-+	{
-+		.compatible = "qcom,hawi-lpass-lpi-pinctrl",
-+		.data = &hawi_lpi_data,
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, lpi_pinctrl_of_match);
-+
-+static const struct dev_pm_ops lpi_pinctrl_pm_ops = {
-+	RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
-+};
-+
-+static struct platform_driver lpi_pinctrl_driver = {
-+	.driver = {
-+		.name = "qcom-hawi-lpass-lpi-pinctrl",
-+		.of_match_table = lpi_pinctrl_of_match,
-+		.pm = pm_ptr(&lpi_pinctrl_pm_ops),
-+	},
-+	.probe = lpi_pinctrl_probe,
-+	.remove = lpi_pinctrl_remove,
-+};
-+
-+module_platform_driver(lpi_pinctrl_driver);
-+MODULE_DESCRIPTION("Qualcomm Hawi LPI GPIO pin control driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-index 6ba0c4eba..056c4a774 100644
---- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-+++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.h
-@@ -92,6 +92,23 @@ struct pinctrl_pin_desc;
- 		.pin_offset = 0,				\
- 	}
- 
-+#define LPI_PINGROUP6(id, soff, f1, f2, f3, f4, f5)		\
-+	{							\
-+		.pin = id,					\
-+		.slew_offset = soff,				\
-+		.slew_base_spare_1 = false,			\
-+		.funcs = (int[]){				\
-+			LPI_MUX_gpio,				\
-+			LPI_MUX_##f1,				\
-+			LPI_MUX_##f2,				\
-+			LPI_MUX_##f3,				\
-+			LPI_MUX_##f4,				\
-+			LPI_MUX_##f5,				\
-+		},						\
-+		.nfuncs = 6,					\
-+		.pin_offset = 0,				\
-+	}
-+
- /*
-  * Slew rate control is done in the same register as rest of the
-  * pin configuration.
--- 
-2.34.1
+The driver registers its pin controller using devm_pinctrl_register(),
+which keeps the pinctrl device alive until devres teardown, after
+.remove() returns. This explicitly replaces mutex_init and
+mutex_destroy with devm_mutex_init to align the lifetime automatically.
 
+> diff --git a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c b/drivers/pinctrl/q=
+com/pinctrl-lpass-lpi.c
+> index 5fd4a4eba654d..b3e36547030f8 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-lpass-lpi.c
+> @@ -559,31 +559,25 @@ int lpi_pinctrl_probe(struct platform_device *pdev)
+>  	pctrl->chip.label =3D dev_name(dev);
+>  	pctrl->chip.can_sleep =3D true;
+> =20
+> -	mutex_init(&pctrl->lock);
+> +	ret =3D devm_mutex_init(&pdev->dev, &pctrl->lock);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	pctrl->ctrl =3D devm_pinctrl_register(dev, &pctrl->desc, pctrl);
+> -	if (IS_ERR(pctrl->ctrl)) {
+> -		ret =3D PTR_ERR(pctrl->ctrl);
+> -		dev_err(dev, "failed to add pin controller\n");
+> -		goto err_pinctrl;
+> -	}
+> +	if (IS_ERR(pctrl->ctrl))
+> +		return PTR_ERR(pctrl->ctrl);
+> =20
+>  	ret =3D lpi_build_pin_desc_groups(pctrl);
+
+[Severity: High]
+This is a pre-existing issue, but does this sequence leave the device
+vulnerable to data races via debugfs?
+
+When devm_pinctrl_register() is called, it fully registers the device and
+exposes it to userspace via debugfs.
+
+Afterward, lpi_build_pin_desc_groups() populates the groups via
+pinctrl_generic_add_group(). This modifies pctldev->pin_group_tree and
+num_groups without acquiring pctldev->mutex.=20
+
+If there is a concurrent debugfs read to the pingroups file, it takes the m=
+utex
+and iterates the tree, creating a data race.
+
+>  	if (ret)
+> -		goto err_pinctrl;
+> +		return ret;
+> =20
+>  	ret =3D devm_gpiochip_add_data(dev, &pctrl->chip, pctrl);
+>  	if (ret) {
+>  		dev_err(pctrl->dev, "can't add gpio chip\n");
+> -		goto err_pinctrl;
+> +		return ret;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but could this error path trigger a
+use-after-free?
+
+If devm_gpiochip_add_data() fails, devres unwinds in last-in first-out orde=
+r.
+It will free the group objects (allocated via devm_kzalloc) before executing
+devm_pinctrl_dev_release() to unregister the device.
+
+This leaves dangling pointers in the radix tree while debugfs is still acti=
+ve.
+
+> =20
+>  	return 0;
+> -
+> -err_pinctrl:
+> -	mutex_destroy(&pctrl->lock);
+> -
+> -	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(lpi_pinctrl_probe);
+> =20
+> @@ -592,8 +586,6 @@ void lpi_pinctrl_remove(struct platform_device *pdev)
+>  	struct lpi_pinctrl *pctrl =3D platform_get_drvdata(pdev);
+>  	int i;
+> =20
+> -	mutex_destroy(&pctrl->lock);
+> -
+>  	for (i =3D 0; i < pctrl->data->npins; i++)
+>  		pinctrl_generic_remove_group(pctrl->ctrl, i);
+
+[Severity: High]
+This is a pre-existing issue, but can this lockless removal also trigger a
+use-after-free?
+
+The driver locklessly calls pinctrl_generic_remove_group(), which deletes
+the group from the radix tree and frees it via devm_kfree().=20
+
+Since the device is not unregistered until devres teardown (after remove()
+returns), concurrent debugfs reads while this loop is running will
+dereference the freed group_desc.
+
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713184549.9295=
+69-1-prasad.kumpatla@oss.qualcomm.com?part=3D1
