@@ -1,78 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69186345CC0;
-	Mon, 13 Jul 2026 17:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F4913DBA0;
+	Mon, 13 Jul 2026 18:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783965243; cv=none; b=cqKWspL1aCtimJrOACjtJqfBEIvNSXxiMlo4EBvswXf6OFVsp8gkOOvvkr0xud9cbp//K88lHikwuj9GybDPAbZIoJEYwqDWXWNYziOJ84CKUjdzd1y4EAXKftxQC/QgX1/pUq37/Qhwta7y21atQ5Gn4LtJd3t8tTJudUjaK4s=
+	t=1783966166; cv=none; b=NE8EUhZIxz4pxVxIfaN4M3P06fglvPXe0gXlb3NI0e5S1HR7u3eK/rKzi3c+tVvfVXTtuQ2aDrLbPkRoR/GuQDY0cJ08j0ywDfLvU2YvcuxMzpghevs/uqxzE3JKZ4mBYdhQ6VkQZNZjHHG0pjl5IygtJxkaX+PmN87r5iAXNjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783965243; c=relaxed/simple;
-	bh=xpgHPT/JcnkDhaTFjmE+nZeO4XbztrxHgTdL/5lej04=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=bvFKrK/iUnOoZfuo38UDYN8bppZsJV1470aZO5mhtoat7QAh7USzrfCwIsq8/ZjPxcnfzdF2nyHJMidyjUJtehios45Y1LWjwqlwQQVkBKOyTnSqjduomgAlOSdlNGrkAwSicbtN5pAXkAYk+9XQzWEBlpvD3Qw9QDg8FFzO6oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIFnMeAW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1783966166; c=relaxed/simple;
+	bh=XLpvSMQJ8cUNd3OKXYoVJoQ4mJ52DRNorigDSHOQyDw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SxoztuEr3u/YJ1XjyQ9fgWmVGNDwOnrLNsIUxmEOt2uGfQt3hJW96EzKbqMHFijQiKmvOBRwgQzRZkR/8OWcKScZ1irNwpFUTqbXgRqWfCmIR+cMOBOUiM4wY6cmUdUTdiig4Ao40eiFNoHzQebtKweVK6viQQ7fJS25G5aIZKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GsxGMpSm; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIFnMeAW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E10EB1F000E9;
-	Mon, 13 Jul 2026 17:54:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783965242;
-	bh=5hmDkoykXyuPCNX5o4VG9nAOn2vOS+ZzIkyEv+1eQgQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=QIFnMeAWfUu5xUX6zoFQeRz6/U1yN51/WVkbP9f8XVzRUvQVcT1PnbYX012sRdGsu
-	 Yyal/hZB1vTsCmmRZ1bfV9/nK3hfKtCLBdKy6S/lOLRz1Oi6xaTlUo0xAJH3y5yvxM
-	 LF+DBgK79KTe3L40BkSYfaO9GEaxv0EosnBX1cz3wVSzqIt6k4wZKpttVTk6Blf79y
-	 l5DQy8Qg/eQRV85kTfyR1ZXpHugtN7H2fv/jsSbItz9sx+XylYKfvyjHwM9kZFH0Ov
-	 dqRv/ToS+zowvCFe6dUK0hqlP3fS9gS7EEOwmUmNOJYpLQmrIqhxrlv50iR7bml+nK
-	 mIwHXEWzlrz2w==
-Date: Mon, 13 Jul 2026 12:54:00 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Marc Zyngier <maz@kernel.org>, linux-pci@vger.kernel.org,
-	kernel test robot <lkp@intel.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH] PCI: rcar-gen4: Inline GIC_TRANSLATER offset macro
-Message-ID: <20260713175400.GA1258926@bhelgaas>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GsxGMpSm"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66DF85Un1701329;
+	Mon, 13 Jul 2026 18:09:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=6YqQOsEWJmLGjXf4bqRVcj3rCgTu5TsOBii
+	4lsv5t/w=; b=GsxGMpSmIv0shpPzouozMeAvWqDYNFBzQE1sTYG8JFAyKIkJu9x
+	xyzsI3xiwaAPWaM0nXT1iuseNvJ2/iiCdKTv2lV1eQwVYklUV9o7MWkkzLy0OE9g
+	foS35SWohcldM9+H+PScY8sxeXjhoj/VcW635UHug2BUv/MkHNhI9NVLhJHUaGWj
+	Q5HzsuF0CJn6pG6hBJriSzn7YPHWvFUrjU9ZAamAIQX9dFlK8mijaeq/AscFun7I
+	a2bPW1/BQ1FntG29stn+KG+Mjhj4H6TOFJK7Y6iNvivi6L4qVBApVkO9WZMFJDOi
+	P+UxevN//+bdgX8Z8M8bBljzOtbr/kG33iA==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwk3j1xu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 18:09:14 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 66DI9BBJ007200;
+	Mon, 13 Jul 2026 18:09:11 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fbewj8p3p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 18:09:11 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 66DI9A9I007185;
+	Mon, 13 Jul 2026 18:09:10 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 66DI9Aii007179
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 13 Jul 2026 18:09:10 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 7258E634; Mon, 13 Jul 2026 23:39:09 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: [PATCH v1 0/2] ASoC: dt-bindings: qcom,sm8250: Add Hawi sound card
+Date: Mon, 13 Jul 2026 23:39:05 +0530
+Message-Id: <20260713180907.874954-1-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2cb03029-0957-4ed8-98bd-9b3e0e0bce2d@mailbox.org>
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-ORIG-GUID: UHSbUhoMrjxroedv4j9AUoe8VpWMlPHq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE4NyBTYWx0ZWRfX00zyWRmA75rM
+ g+wJg5UdovKKISvte6OqP0c6tGyyQJcaBJunb+hh/4PicNC04WnYRTLQofCNTwt7nxibc5p3H94
+ mD069C/JuUVmmE5PQ+3oyGilqkokcB0=
+X-Authority-Analysis: v=2.4 cv=e6c2j6p/ c=1 sm=1 tr=0 ts=6a5529cb cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=eekZLy6OnP13HXqYzzAA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE4NyBTYWx0ZWRfX6p9MsQtgd79g
+ meu3jp/N55nWsnaedaFJztwT06GWltn137l7Thwf3Po0SJ/dJIjq3/P+9jWRq+DslkLcB1h+d0h
+ lAiomagY6vszVUHYNBln6u9j5TbWHLGOVCbngc9zFPRA+uTxduXzR25wmaODF1uNt5qq27jJIqx
+ jFz3n5MgEnt+byYytnNjMbwTsySdrCG79Zb1PFTnzIWUJVuEovc6oSIYfXWpixs/W3OU+8zEnDM
+ I6eC3fnMkv4/oIAQRzxEBrEaxtX/984YFdm0ZT9mOHzp9FqdBLrCa27VRzXCNB+EIFf0NvvgxvN
+ ne4U4Ra2EWfmREAq9nzQnki7i08vdyrrlDVbh/YWlRvno7OPRW56M6tg0mssexfVHjUSx5uUYYa
+ c3tZLjXHFMS1PX6kOdJ8X6wCOPdr0d7TIxjOIywlADqDLtx8/I8YwU4Q8nRBxBZk+4p13RzGZeL
+ SqdUO7usMyLPwaZoQ5w==
+X-Proofpoint-GUID: UHSbUhoMrjxroedv4j9AUoe8VpWMlPHq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_04,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 phishscore=0 lowpriorityscore=0 spamscore=0
+ adultscore=0 malwarescore=0 impostorscore=0 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130187
 
-On Fri, Jul 10, 2026 at 03:35:10PM +0200, Marek Vasut wrote:
-> On 7/10/26 10:30 AM, Marc Zyngier wrote:
-> > On Thu, 09 Jul 2026 21:10:03 +0100,
-> > Marek Vasut <marek.vasut+renesas@mailbox.org> wrote:
-> > > 
-> > > Instead of pulling in the whole linux/irqchip/arm-gic-v3.h ,
-> > > copy the one GITS_TRANSLATER register offset macro directly into
-> > > the driver.  This repairs the ability to build the driver on
-> > > non-ARM non-GIC targets the way it was possible until now, which
-> > > retains good build test coverage.
-> ...
+This series add support for sound card on Qualcomm Hawi boards.
 
-> So in the end, it is either this patch or limit the build to
-> arm/arm64 . At least this patch still allows building this driver
-> with more compilers on the various build bots, so I would opt for
-> this patch here.
+This series depends on:
+	- https://lore.kernel.org/all/20260712134110.3306763-1-prasad.kumpatla@oss.qualcomm.com/
 
-I like the build coverage, but duplicating the #define doesn't really
-seem good to me.  It makes readability worse because cscope/tags now
-sees two definitions without an obvious reason.
+Prasad Kumpatla (2):
+  ASoC: dt-bindings: qcom,sm8250: Add Hawi sound card
+  ASoC: qcom: sc8280xp: Add support for Hawi
+
+ .../devicetree/bindings/sound/qcom,sm8250.yaml         |  1 +
+ sound/soc/qcom/sc8280xp.c                              | 10 ++++++++++
+ 2 files changed, 11 insertions(+)
+
+
+base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
+prerequisite-patch-id: 28f571976819748d886ecdd32e1ea3976440374b
+prerequisite-patch-id: 1b00c4a50852a4058eb2e1e609769ba067fd8d4a
+prerequisite-patch-id: 6320a0e2ad587fa5c7fe999ae168689af724a4af
+prerequisite-patch-id: 8f084b1c85f92ad8c726a638ef9a28adb6fa517d
+prerequisite-patch-id: f34f221540acc83a62421cde5e5d0aeac7b4027e
+prerequisite-patch-id: 1025f3d247aff3470afec2790e09909987b94d6b
+prerequisite-patch-id: d9710a6c2297f5eabf3433b2763469e8e47c75e3
+prerequisite-patch-id: cd11059f673dcc38d9ccfc50f0ebd77d6646f1c6
+prerequisite-patch-id: 94805c836fd3766375a7110dfd90f94f48472b07
+prerequisite-patch-id: 3b98c7c5d3802ee5c5ad4a11004d05d969dc09a9
+-- 
+2.34.1
+
