@@ -1,35 +1,35 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A5B395ACB;
-	Mon, 13 Jul 2026 23:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379A23921E6
+	for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 23:27:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783985231; cv=none; b=kRVKHKWbU5fWlDTiXlJw8FsvjJWPde/RYOwNSgJWFWdNsdJKW6O+TTlAbiaGEWvJZj7U9Kqi1FWZuBfsQ4zu4dxeZdIbJlrN12mcDUbtdKSntZ8Fh9B478IRk3QyBRapMxVWXFOTy1Q9xZ35zwFegJSPn5XQ+dyw2734V9IMXjc=
+	t=1783985241; cv=none; b=mc4lOxqA/FzDhAI7owNY3PFWBSjMnusH0uFNL/s3NU3T07g9S845PiOC6/H/OA1oVE34ouLR5KQrymbare9fnHFtsXdW7dp2gZCfVRlS52Kjv57wKeGHLxtDu6dPPdy85ovlnDbxcXVxq+97+1K/EXYXaEXpGvcDXr5HyR8v9us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783985231; c=relaxed/simple;
-	bh=7qo4Fd1LcGckAE3slJyezM1uRHAPu9pnZY4Fz48b8ig=;
+	s=arc-20240116; t=1783985241; c=relaxed/simple;
+	bh=Wjug2qov7LRyqgr3Qse5dIMzwa/3KSun6rLl4rDLdII=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sgltQGY4hDg/4nyal1mr85knogcygYImW/6XY6aHlHu3Wth8lsDs9mQyQB54qdrJ4Iig9+CJi3VliMEycLwGafCXAuaJCmYauQGPhnSe2arIUGMf/AdcNzaI/cIbu7HsQnED0aoElUQ1myHiermJgmG+6g6c52p4Q5LRzGsrAsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=fUzXAIaS; arc=none smtp.client-ip=178.251.229.89
+	 In-Reply-To:Content-Type; b=JJqQLk0KQgNOnQ162VqbphnhSwTHCOQ24bMl8lCyC9iMV+UNe3Nhq7yW/NLR0E+B7++SjBs3/rrVqDbrBluDpdqFZ2DpU78dKGbAig2jg6jKEjWkSd/G1ByUyBYH1Ob5zywo80s3QaeMwcwac/yLVQla4h0ufpI6ZnJNg3a/RlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=KdzY9rKo; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="fUzXAIaS"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6C4A21199D6;
-	Tue, 14 Jul 2026 01:27:07 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="KdzY9rKo"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DC60C1199A0;
+	Tue, 14 Jul 2026 01:27:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1783985228;
+	s=dkim; t=1783985238;
 	h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=wkoq468eULIdSiAa93TheBL4sQoUuAbGk8pmYh3mGOs=;
-	b=fUzXAIaSuCh0oLPMva5wnofUcYh/u51JZN3FvET/4kCQJLdmKG3HlfRe7x0gCpHXzOogRX
-	15xvwUwAu3zbyLZto9isihoLwjwkb3NsO1R0qxFLsyYTYHBzioOy82PKkquo5O0nahn8ia
-	/H6Rhz37FuMchcDLUMZKCm78dZuZp3a/6dFdrGjlXUpyrFNvpFAlp3Khnekk8F4HLRFJwf
-	54kSvAOTIHjuSJJx+bMJwzLVMqsvgs/1Z2qXyJOEPOUoxHlDiTCD88rkTel5SrMQ9Yh9gu
-	vWg1bBFNXt2UWeqGaaLN//bfhV/n6PxulHNZCRcl71tBhwPzVLoQYoXPvc+wgg==
-Message-ID: <47178bf9-1fc7-4585-aa17-37ec07152b01@nabladev.com>
-Date: Mon, 13 Jul 2026 12:33:02 +0200
+	bh=dR7GHvB3UJZSmPkAEhG2QL9LbWKjbS7ctY0T+4ydKxM=;
+	b=KdzY9rKor+121zBdNVAQ6jYyjVy6OKscrIGF0ylwff+P849Bm4XP10tevzf51rTts7YEiL
+	KlYAoxXDEdKnV2qUyBIET/8PgxLphayTZSv5JA3kCLLgSThuFT5JyGtsOayEFSWkbKQUip
+	mLaI1FkJa7oAuKHYqBEUemj0Aac0O+Kz9BzNSmoHbK/nMt5d0+WthIUowH/CkBfFSHdBRK
+	3Ad+MlVsI5AjIzlv9+3zwUIASJnOVct2CO9DFKhgwkm1MJ+A5KsvZhS5DWNQxRwptPvtgT
+	GGZWpMUAVRWKfkHPlN4UXYgA6hGfru4YCOllhuCvINNFWlQUgGp8YpAEa39JMA==
+Message-ID: <f1e52327-42da-48e1-8e4a-dabf148ce216@nabladev.com>
+Date: Mon, 13 Jul 2026 18:33:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,102 +37,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/10] dt-bindings: gpio: pca95xx: Document Kinetic
- KTS1622
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260711210131.236025-1-marex@nabladev.com>
- <20260711210131.236025-3-marex@nabladev.com>
- <CAMRc=Mds7FAg=e-JGWxK=9vn5A0sdYDhpZ7Wvo3eCKV1tyNpKw@mail.gmail.com>
+Subject: Re: [PATCH v4 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data
+ Modul i.MX8M Mini and Plus eDM SBC
+To: Frank Li <Frank.li@oss.nxp.com>, sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ Frank.Li@kernel.org, imx@lists.linux.dev
+References: <20260705200534.151803-1-marex@nabladev.com>
+ <20260705200534.151803-4-marex@nabladev.com>
+ <20260705202439.3F5771F000E9@smtp.kernel.org> <alUICTI-24tREZO8@SMW015318>
 Content-Language: en-US
 From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <CAMRc=Mds7FAg=e-JGWxK=9vn5A0sdYDhpZ7Wvo3eCKV1tyNpKw@mail.gmail.com>
+In-Reply-To: <alUICTI-24tREZO8@SMW015318>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 7/13/26 10:36 AM, Bartosz Golaszewski wrote:
-> On Sat, 11 Jul 2026 22:59:31 +0200, Marek Vasut <marex@nabladev.com> said:
->> The Kinetic Technologies KTS1622 is a 16-bit general-purpose I/O
->> expander via the I2C bus for microcontrollers when additional I/Os
->> are needed while keeping interconnections to the minimum. Datasheet
->> comparison suggests that it is compatible with TCAL6416, add the
->> compatible string and TCAL6416 as a fallback compatible.
->>
->> Signed-off-by: Marek Vasut <marex@nabladev.com>
->> ---
->> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
->> Cc: Bartosz Golaszewski <brgl@kernel.org>
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Linus Walleij <linusw@kernel.org>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: devicetree@vger.kernel.org
->> Cc: kernel@dh-electronics.com
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-gpio@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-stm32@st-md-mailman.stormreply.com
->> ---
->>   Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
->> index 4f955f855e1ab..4631388a7d914 100644
->> --- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
->> +++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
->> @@ -22,6 +22,9 @@ properties:
->>         - items:
->>             - const: diodes,pi4ioe5v6534q
->>             - const: nxp,pcal6534
->> +      - items:
->> +          - const: kinetic,kts1622
->> +          - const: ti,tcal6416
->>         - items:
->>             - enum:
->>                 - exar,xra1202
+On 7/13/26 5:45 PM, Frank Li wrote:
+> On Sun, Jul 05, 2026 at 08:24:38PM +0000, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+>> - [Medium] The virtio device buffer node is named `vdevbuffer` instead of `vdev0buffer`, bypassing the driver's carveout exclusion logic.
 >> --
->> 2.53.0
 >>
+>> commit b1e78cbda66a659316ae8170db75a75bd2d9d9d2
+>> Author: Marek Vasut <marex@nabladev.com>
 >>
+>> arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
+>>
+>> This commit adds device tree overlays for the CM4/CM7 cores on the Data
+>> Modul i.MX8M Mini and Plus eDM SBCs. The overlays allow CM4/CM7 firmware
+>> to be used with remoteproc and rpmsg without imposing the overhead on
+>> every user of the platform.
+>>
+>> [ ... ]
+>>
+>>> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-cm4.dtso b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-cm4.dtso
+>>> new file mode 100644
+>>> index 0000000000000..8d681c0eff0d4
+>>> --- /dev/null
+>>> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-cm4.dtso
+>>> @@ -0,0 +1,56 @@
+>> [ ... ]
+>>> +		rsc_table: rsc-table@b80ff000 {
+>>> +			reg = <0 0xb80ff000 0 0x1000>;
+>>> +			no-map;
+>>> +		};
+>>> +
+>>> +		vdevbuffer: vdevbuffer@b8400000 {
+>>> +			compatible = "shared-dma-pool";
+>>> +			reg = <0 0xb8400000 0 0x100000>;
+>>
+>> [Severity: Medium]
+>> Will this node name bypass the driver's carveout exclusion logic?
+>>
+>> Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
+>> specifically for the name "vdev0buffer" to skip processing the vdev buffer:
+>>
+>> 	if (!strcmp(it.node->name, "rsc-table") ||
+>> 	    !strcmp(it.node->name, "vdev0vring0") ||
+>> 	    !strcmp(it.node->name, "vdev0vring1") ||
+>> 	    strstarts(res.name, "vdev0buffer"))
+>> 		continue;
+>>
+>> Because this node is named "vdevbuffer" instead of "vdev0buffer", it appears
+>> it will be mapped as a generic carveout via ioremap_wc() and unintentionally
+>> included in the remoteproc coredump.
+>>
+>> Could this node be renamed to "vdev0buffer" to avoid wasting vmalloc space
+>> and bloating the coredump?
 > 
-> I applied this. I would have sent a b4 notification but got this instead:
+> Look like make sense, please check it.
 > 
-> $ b4 ty -all
-> Auto-thankanating commits in gpio/for-next
-> Found 9 of your commits since 1.week
-> Calculating patch hashes, may take a moment...
->    Located: [PATCH 00/10] arm64: dts: st: Add support for DH
-> electronics STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and
-> DHSBC
-> ---
-> Generating 1 thank-you letters
->    Writing: ./marex_nabladev_com_patch_00_10_arm64_dts_st_add_support_for_dh_electronics_stm32mp23xx_stm32mp25xx_dhcos_som_and_breakout_board_and_dhsbc.thanks
-> Traceback (most recent call last):
->    File "/usr/bin/b4", line 8, in <module>
->      sys.exit(cmd())
->               ~~~^^
->    File "/usr/lib/python3/dist-packages/b4/command.py", line 417, in cmd
->      cmdargs.func(cmdargs)
->      ~~~~~~~~~~~~^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/command.py", line 113, in cmd_ty
->      b4.ty.main(cmdargs)
->      ~~~~~~~~~~^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/ty.py", line 681, in main
->      auto_thankanator(cmdargs)
->      ~~~~~~~~~~~~~~~~^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/ty.py", line 386, in auto_thankanator
->      send_messages(applied, wantbranch, cmdargs)
->      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/ty.py", line 452, in send_messages
->      with open(outfile, 'wb') as fh:
->           ~~~~^^^^^^^^^^^^^^^
-> OSError: [Errno 36] File name too long:
-> './marex_nabladev_com_patch_00_10_arm64_dts_st_add_support_for_dh_electronics_stm32mp23xx_stm32mp25xx_dhcos_som_and_breakout_board_and_dhsbc.thanks'
-B4 bug ?
+> It is not good to use node-name as ABI. Laurentiu is working on use
+> memory-region-namses.
+The memory regionss are referenced from imx8mm-cm4 { } node via the 
+memory-region property:
+
+memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>;
