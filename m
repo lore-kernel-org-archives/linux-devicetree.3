@@ -1,295 +1,209 @@
-Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com [115.124.28.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E22B35BDC7
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 11:46:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6A538A700
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 11:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784029620; cv=none; b=DZxr7pez+fFC+gNldxPqq9Hj0I4R9a5fHVJbsmRjNwpK3c8GpM4zZ4BBSSND/K5pKRrAzeJz1kFPo7LLvNM3Npo5lPCfLxOfEnerCmSqH1AyhLIbkLiMKZ+YCotS3lnz0Zegry63BX+7hyoK2DNVAvLb235m2PRnXkFf+rN2bk8=
+	t=1784029979; cv=none; b=sts85r2toZ3yR7Q0l+oz9AgFwViJ54HgKgjg3KNax7Ss8l/UKlCHoD7IhKcWmC2IFQacr1VKarAPWwejTHHR3PePTd1Cgm5oJnzLeJdhNgHqcyzXcpP7cvN3ZlVtyaNj4EyEVGxY++X1KV4jrtiHmZSusohdKTn84gI2O2QOv8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784029620; c=relaxed/simple;
-	bh=PpLrAeRhVpu1dWy+xVb8rUoHbuUV5k9Kd45x7IDUfsQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MAH+GRqk7hWt/IVqbjvNidctbCllwY2iqI2jiyjBSzhrvjPY6J+LhKl1u0UZZd263e9GkNT5Uo47DEhArnV3lw3flWWmz47AIWTC1OIRb2oTRn4fvmeQ7S/IDYsbsNAOZbupCgTxzJymWL/cUXdgnGG6A7Nuew3P1cWFZe43pOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=oMNNH0TX; arc=none smtp.client-ip=115.124.28.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1784029979; c=relaxed/simple;
+	bh=q62MG/KZnFtxq0b7Jy3yHW3PGTLF9Pt17ZkpVcdzoX0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HQcDH5MmH9cjFoS3F0fcINuoWKJuRTRjfyiVDJd3E/YuRIK3idb40cO835apNNx/j34Imtz7EqWsDGxzTUmyNsEXVTe19YT7uF//eA87bC09kp2wIDonQ4kFr3hZjKZ9tY3h305h+uHibFpUJntZM4jywr3ULUYvfbTeO/IjJZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1V5YCDK1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=72W64q08; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1V5YCDK1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=72W64q08; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="oMNNH0TX"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1784029608; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
-	bh=i7cCoPUbrub6B12htwmRFp15EcZoaERECpcXhtYclkw=;
-	b=oMNNH0TXja24JYXP1a0qxngjFf7ZjbfH8/Ghr7durSEnuTC//jfGYjDUG2WvqoSgsOectzzqenFedREQUczLpygChKB1WlXfvnk9gyHAEsyWGB3K305EltGa7L3EjQccVacfbet4OEkQiyFC08j4jTReemW3mrxNVrGquiWzmBXEjnFTDlp98zvb+W4Zr+Kh+joM0piv8gajtoeYVw0RiQi7tKYIvEgGy+cHJ2E1Jp94i5hONBdtcX5ARDAzTC4fUFw4iTjf6CUAoTTahWJF4tiOxqjTM0onVAwo/8PnSTEOmkROCR2bkwJgyVT+ijTD7OGvL9CGrzYDVMgNHjioxA==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437065|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0130186-0.00169102-0.98529;FP=3418604069976786166|3|1|3|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.iL-EyUt_1784029607;
-Received: from mail-oi1-f177.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.iL-EyUt_1784029607 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 14 Jul 2026 19:46:48 +0800
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-491bc1d4e6bso2903991b6e.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:46:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/MjJLbTNp8qQ11wt5PGOEU6G/s96+jkILTwekz+EUTdHOQJRcOHYBvWiJtLi6J0+yl7EHlTwiFCzAa@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxa5XKa62DPwf4GzNWZfIjje4M1PE63kiF1sGHx9xbLm6oqLNn1
-	HNVhLdBHTgR+brJEQLhE1/W2QNR/KRYRS7QpyIzCfXDYPQ+roioKDeJd2ZpuHtIbqVLouQOFqeF
-	2zzKr3STRKHxZkiv3UJ0nedJGShvZhBI=
-X-Received: by 2002:a05:6808:1b99:b0:4a3:d383:b3ea with SMTP id
- 5614622812f47-4a47a5e054dmr1059263b6e.27.1784029605960; Tue, 14 Jul 2026
- 04:46:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1V5YCDK1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="72W64q08";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1V5YCDK1";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="72W64q08"
+Received: from kunlun.suse.cz (unknown [IPv6:2a07:de40:b306:2000::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 27F0D77E49;
+	Tue, 14 Jul 2026 11:52:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1784029976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/arxFu0AfWl5VKJfwYtAIB0ze2CiMONt1SfavfBwTcc=;
+	b=1V5YCDK1E9WAmMcZbM4dTaBj5YSZQY0MdPJCDn05bnQi+scYeXcLmKPgJ50aU0gZMzFPPd
+	lEKHgSKoFTt9/1j3+I8cFgpefGOm14/hS1Mys2OE/QaxCYTDfrB6+HWLa0R4rOeRu7zkhQ
+	MxqP4LEqj8UdPYuFmHQJYWkp+VRY938=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1784029976;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/arxFu0AfWl5VKJfwYtAIB0ze2CiMONt1SfavfBwTcc=;
+	b=72W64q08AWUN8gzE3h+nMI8Xu2c5ClDSnYmLwAXd/4poFfEQeEJ15hkGSkvAZkFMqCA71J
+	ahS/STSnnltMr3Bw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=1V5YCDK1;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=72W64q08
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1784029976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/arxFu0AfWl5VKJfwYtAIB0ze2CiMONt1SfavfBwTcc=;
+	b=1V5YCDK1E9WAmMcZbM4dTaBj5YSZQY0MdPJCDn05bnQi+scYeXcLmKPgJ50aU0gZMzFPPd
+	lEKHgSKoFTt9/1j3+I8cFgpefGOm14/hS1Mys2OE/QaxCYTDfrB6+HWLa0R4rOeRu7zkhQ
+	MxqP4LEqj8UdPYuFmHQJYWkp+VRY938=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1784029976;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/arxFu0AfWl5VKJfwYtAIB0ze2CiMONt1SfavfBwTcc=;
+	b=72W64q08AWUN8gzE3h+nMI8Xu2c5ClDSnYmLwAXd/4poFfEQeEJ15hkGSkvAZkFMqCA71J
+	ahS/STSnnltMr3Bw==
+Date: Tue, 14 Jul 2026 13:52:55 +0200
+From: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, vsethi@nvidia.com,
+	Salman Nabi <salman.nabi@arm.com>, Rob Herring <robh@kernel.org>,
+	linux-kernel@vger.kernel.org, Varun Wadekar <vwadekar@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, Nirmoy Das <nirmoyd@nvidia.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 0/8] Arm Live Firmware Activation (LFA) support
+Message-ID: <alYjFwi0dnld-wP3@kunlun.suse.cz>
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <alUMGCJzVG6U3Ggm@kunlun.suse.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714105828.2763677-1-syyang@lontium.com> <20260714105828.2763677-3-syyang@lontium.com>
- <20260714111639.53ED11F000E9@smtp.kernel.org>
-In-Reply-To: <20260714111639.53ED11F000E9@smtp.kernel.org>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Tue, 14 Jul 2026 19:46:33 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNbYfMQO9EHm9Ym2ZPzHohNbkas9ThvLQmj=NLEe1bhi+A@mail.gmail.com>
-X-Gm-Features: AUfX_myp2kzOEm1DUx7Y224QGA5tgUgrUe_G0ESXBpXArFi_gt7X8ykS3UZ2jeU
-Message-ID: <CAFQXuNbYfMQO9EHm9Ym2ZPzHohNbkas9ThvLQmj=NLEe1bhi+A@mail.gmail.com>
-Subject: Re: [PATCH v16 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alUMGCJzVG6U3Ggm@kunlun.suse.cz>
+X-Spam-Flag: YES
+X-Rspamd-Action: add header
+X-Spam-Level: ***************
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [15.68 / 50.00];
+	SPAM_FLAG(5.00)[];
+	NEURAL_SPAM_LONG(3.50)[1.000];
+	BAYES_HAM(-3.00)[100.00%];
+	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
+	RDNS_NONE(2.00)[];
+	NEURAL_SPAM_SHORT(1.99)[0.665];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ONCE_RECEIVED(1.20)[];
+	HFILTER_HELO_IP_A(1.00)[kunlun.suse.cz];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[kunlun.suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	MISSING_XM_UA(0.00)[];
+	RCVD_COUNT_ZERO(0.00)[0];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b306:2000::2:from];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim]
+X-Spamd-Bar: +++++++++++++++
+X-Rspamd-Queue-Id: 27F0D77E49
+X-Spam-Score: 15.68
+X-Spam: Yes
 
-<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=8814=E6=97=A5=E5=91=
-=A8=E4=BA=8C 19:16=E5=86=99=E9=81=93=EF=BC=9A
->
-> Thank you for your contribution! Sashiko AI review found 5 potential issu=
-e(s) to consider:
-> - [High] Dynamic devm allocation and bridge registration in DSI host atta=
-ch/detach causes devres leaks and list corruption.
-> - [High] Asynchronous workqueue dereferences dangling `bridge.dev` if the=
- DRM display controller unbinds.
-> - [Medium] Failure to clear `output_bridge` in `dsi_host_detach` prevents=
- panel re-attachment.
-> - [Low] Mutating `pre_enable_prev_first` of a downstream bridge object vi=
-olates subsystem API layering.
-> - [Low] Unsynchronized reads of `lt7911exc->removed` in the asynchronous =
-workqueue.
-> --
->
-> --- Patch [2]: [PATCH v16 2/2] drm/bridge: Add Lontium LT7911EXC eDP to M=
-IPI DSI bridge ---
-> commit f0896e2dbabe50d3cbe793868df9c6d4afd6db5f
-> Author: Sunyun Yang <syyang@lontium.com>
->
-> drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
->
-> This commit adds support for the Lontium LT7911EXC bridge chip, which
-> converts eDP input to MIPI DSI output. It implements firmware upgrades,
-> GPIO reset handling, and DSI host interface attachment.
->
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/d=
-rm/bridge/lontium-lt7911exc.c
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
->
-> [ ... ]
->
-> > @@ -344,14 +344,14 @@ static void lt7911exc_firmware_upgrade_work(struc=
-t work_struct *work)
-> > +{
-> > +     struct lt7911exc *lt7911exc =3D container_of(work, struct lt7911e=
-xc, work);
-> > +     struct device *dev =3D lt7911exc->dev;
-> > +     const struct firmware *fw;
-> > +     u8 *buffer;
-> > +     size_t total_size =3D FW_SIZE - 4;
-> > +     u32 crc32, version;
-> > +     int ret;
-> > +
-> > +     mutex_lock(&lt7911exc->upgrade_lock);
-> > +     if (lt7911exc->removed)
->
-> [Severity: Low]
-> Should this read of the removed flag be protected by the ocm_lock? It
-> appears this can be evaluated concurrently with driver removal since the
-> lock isn't held here.
->
+On Mon, Jul 13, 2026 at 06:02:35PM +0200, Michal Suchánek wrote:
+> On Mon, Jul 06, 2026 at 03:44:40PM +0200, Andre Przywara wrote:
+> > Hi all,
+> > 
+> > this is version 3 of the Live Firmware Activation kernel support. The
+> > device part of the code now relies on Aneesh's SMCCC bus patches[1],
+> > which solves some problems rather nicely. I also added the formerly
+> > missing sysfs ABI documentation. Based on v7.2-rc1, plus the first
+> > two patches from Aneesh's series. More detailed changelog below.
+> > ==============================
+> > 
+> > This series implements the kernel side support of the Arm Live
+> > Firmware Activation (LFA) specification [2]. LFA enables the activation
+> > of updated firmware components without requiring a system reboot,
+> > reducing downtime and allowing quicker deployment of critical bug fixes
+> > in environments such as data centers and hyperscale systems.
+> > It requires explicit firmware support, both via an agent running in EL3
+> > (for instance in TF-A, already merged), but also in the firmware
+> > component to be activated. TF-RMM recently merged support for this.
+> > 
+> > Unlike the usual firmware update process (which may use tools like
+> > fwupd), LFA focuses solely on the activation of an already updated
+> > firmware component, called "pending activation" in LFA lingo. This works
+> > by signalling the LFA agent (part of the EL3 runtime firmware) via an
+> > SMC call, which then does the heavy lifting of the live update, in
+> > cooperation with the to-be-updated firmware component.
+> > 
+> > Key features of the driver:
+> > * Detects LFA support in system firmware (EL3).
+> > * Lists all firmware components that support live activation, identified
+> >   by their GUID.
+> > * Exposes component attributes (e.g., activation capability, and
+> >   activation pending) via sysfs under /sys/firmware/lfa/<GUID>/.
+> > * Provides interfaces to:
+> >   - Trigger activation of an updated firmware component.
+> >   - Cancel an ongoing activation if required.
+> > A more detailed list of features can be found in patch 2/8.
+> > Based on v7.2-rc1.
+> > 
+> > This work is conceptually similar to Intel’s Platform Firmware Runtime
+> > Update and telemetry (PFRUT) [3] and TDX module updates [4], but
+> > targets Arm platforms. The driver has been used to successfully activate
+> > a Realm Management Monitor (RMM) firmware image in a controlled test
+> > environment. RMM is analogous to Intel’s TDX module.
+> > 
+> > There is effort on similar work from the OCP [5]. Future work may
+> > include integration with utilities like fwupd to automatically select
+> > the appropriate driver, based on platform architecture, for Live/Runtime
+> > firmware updates.
+> > 
+> > Please have a look, test and comment!
+> 
+> Hello,
+> 
+> booting a kernel with v2 of this patchset applied the module does not
+> get autoloaded. Loading it manually I get
+> 
+> [ 1972.957282] [   T5195] Arm LFA: Live Firmware Activation: detected v1.0
+> [ 1972.958620] [   T5195] Arm LFA: registered LFA ACPI notification
+> 
+> Is this expected?
+> 
+> I would expect the driver to load automatically.
+> 
+> I do not see anything in the v3 changelog obviously addressing
+> autoloading but changing to using a bus might affect that.
+> 
+> I will try to update to v3 later.
 
-Valid point. Will fix by protecting the initial removed check with ocm_lock=
-:
-mutex_lock(&lt7911exc->upgrade_lock);
-scoped_guard(mutex, &lt7911exc->ocm_lock) {
-      if (lt7911exc->removed)
-          goto out_unlock_upgrade;
-}
+Hello,
 
-> > +             goto out_unlock_upgrade;
-> > +
->
-> [ ... ]
->
-> > +out_unlock_upgrade:
-> > +     scoped_guard(mutex, &lt7911exc->ocm_lock) {
-> > +             if (!lt7911exc->removed)
-> > +                     lt7911exc->upgrade =3D false;
-> > +     }
-> > +
-> > +     /* Notify DRM to re-trigger modeset after firmware upgrade */
-> > +     if (!lt7911exc->removed && lt7911exc->bridge.dev)
-> > +             drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
->
-> [Severity: High]
-> Could this dereference a freed drm_device if the upstream DRM display
-> controller unbinds before the firmware upgrade completes?
->
-> The I2C device has a lifecycle independent of the DRM display controller.
-> If the upstream DRM driver is unloaded, the drm_device is destroyed, but
-> the I2C device remains, leaving bridge.dev populated but dangling.
->
-> If a sysfs write triggers this asynchronous workqueue in that window,
-> it looks like it will pass a freed pointer to drm_kms_helper_hotplug_even=
-t().
->
-This is a known limitation of the DRM bridge framework, not specific
-to this driver. drm_bridge_remove() does not clear bridge.dev, and
-there is no mechanism to bind the bridge lifecycle to the drm_device
-lifecycle. All bridge drivers that call drm_kms_helper_hotplug_event()
-share this risk. A proper fix requires framework-level support for
-bridge-to-drm_device lifetime tracking. Additionally, this scenario
-requires root sysfs access to trigger firmware upgrade while
-simultaneously unloading the DRM driver, which is an administrator
-operation outside normal usage.
+updating to v3 of the patchset resolves the problem.
 
-> > +
-> > +     mutex_unlock(&lt7911exc->upgrade_lock);
-> > +}
->
-> [ ... ]
->
-> > +static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struc=
-t mipi_dsi_device *dev)
-> > +{
-> > +     struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> > +     struct drm_bridge *bridge;
-> > +
-> > +     /* currently do not support connecting several DSI devices to the=
- same host */
-> > +     if (lt7911exc->output_bridge)
-> > +             return -EBUSY;
-> > +
-> > +     if (dev->lanes > 4) {
-> > +             dev_err(lt7911exc->dev, "unsupported number of data lanes=
-(%u)\n", dev->lanes);
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     bridge =3D devm_drm_of_get_bridge(lt7911exc->dev, host->dev->of_n=
-ode, 1, 0);
->
-> [Severity: High]
-> Is it safe to dynamically allocate devm memory during panel attach?
->
-> If the downstream panel driver is repeatedly unbound and rebound by a
-> local administrator, this will repeatedly allocate devres memory without
-> freeing it, causing a memory leak.
->
-This is a false positive. The -EBUSY guard at the top of
-lt7911exc_dsi_host_attach() prevents re-attach when output_bridge is
-already set. After the first successful attach, any panel rebind
-attempt is rejected before reaching devm_drm_of_get_bridge() or
-drm_bridge_add(), so no devres leak or list corruption can occur. This
-follows the same pattern used in cdns-dsi-core.c (cdns_dsi_attach,
-line 1052).
+The driver is now autoloaded.
 
-> > +     if (IS_ERR(bridge)) {
-> > +             dev_err(lt7911exc->dev, "failed to add DSI device\n");
-> > +             return PTR_ERR(bridge);
-> > +     }
-> > +
-> > +     lt7911exc->output_bridge =3D bridge;
-> > +
-> > +     /*
-> > +      * Force panel-first enable order: the DSI output stream (0xe0b0)
-> > +      * must not be enabled before the panel is powered on.
-> > +      * This override is safe because LT7911EXC's transfer() is a stub=
- =E2=80=94
-> > +      * panel DCS commands are silently discarded and panel init is do=
-ne
-> > +      * by the chip's internal firmware. The panel driver's
-> > +      * prepare_prev_first preference is therefore irrelevant here.
-> > +      */
-> > +     lt7911exc->output_bridge->pre_enable_prev_first =3D false;
->
-> [Severity: Low]
-> Is it acceptable to modify the state of a downstream bridge object
-> that is owned and managed by another driver? Doing so bypasses the
-> subsystem API layering.
->
+Thanks
 
-This override is a hardware constraint. The DSI output stream
-(register 0xe0b0) must be enabled after the panel is powered on. The
-override is safe because transfer() is a stub =E2=80=94 panel DCS commands =
-are
-silently discarded and panel initialization is handled entirely by the
-chip's internal firmware. The panel driver's prepare_prev_first
-preference is therefore irrelevant for this chip. The comment above
-the assignment documents this rationale.
-
-> > +
-> > +     drm_bridge_add(&lt7911exc->bridge);
->
-> [Severity: High]
-> Does this corrupt the global bridge list if the panel driver is rebound?
->
-> When the downstream panel unbinds, lt7911exc_dsi_host_detach() calls
-> drm_bridge_remove(), which moves the bridge to the bridge_lingering_list
-> and destroys its mutexes.
->
-> If the panel binds again, this drm_bridge_add() will be called on the sam=
-e
-> bridge structure, invoking list_add_tail() on a node that is already trac=
-ked
-> in the lingering list.
->
-
-This is a false positive. The -EBUSY guard at the top of
-lt7911exc_dsi_host_attach() prevents re-attach when output_bridge is
-already set. After the first successful attach, any panel rebind
-attempt is rejected before reaching devm_drm_of_get_bridge() or
-drm_bridge_add(), so no devres leak or list corruption can occur. This
-follows the same pattern used in cdns-dsi-core.c (cdns_dsi_attach,
-line 1052).
-
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struc=
-t mipi_dsi_device *dev)
-> > +{
-> > +     struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> > +
-> > +     drm_bridge_remove(&lt7911exc->bridge);
->
-> [Severity: Medium]
-> Does this prevent the panel from re-attaching later?
->
-> The detach function does not set lt7911exc->output_bridge back to NULL.
-> If the downstream panel driver tries to attach again,
-> lt7911exc_dsi_host_attach() will check if output_bridge is set and return
-> -EBUSY, leaving the display pipeline permanently broken until the bridge
-> driver is reloaded.
->
-This is intentional and consistent with cdns-dsi-core.c, where
-cdns_dsi_detach() (line 1082-1091) does not clear output->dev either.
-Clearing output_bridge would allow re-attach, which would call
-devm_drm_of_get_bridge() again and leak the previous devm allocation.
-The DRM bridge framework does not currently support dynamic
-reconfiguration of the bridge chain. Panel rebind is not supported;
-reloading the bridge driver is required, matching the upstream
-convention.
-
-> > +
-> > +     return 0;
-> > +}
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714105828.27=
-63677-1-syyang@lontium.com?part=3D2
+Michal
