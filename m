@@ -1,239 +1,122 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245A0449ECA;
-	Tue, 14 Jul 2026 14:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784038661; cv=fail; b=LAw67Z11RoLzamgBV7fHpkZZHSO3o/qeMzcL0GaOWlxszZNk8gskNRyQA29hJIa/aWbcZiSlZ07WUl6kLzxaouBxoLAwGJxP4i201hyAVvsy447oT7ScG4RfKoR1Jv3Q9tQg/KywloluE6fXBP8tDJOw+n6hrZlBQvTVlXl5Ip0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784038661; c=relaxed/simple;
-	bh=qaB0zdGH22ULO5er+3wRIDaBU901TjSWgR/Ddgj009s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=oa13um1LVjb4MA9juJQgHO2Fyxv25zppx+CS13q2wu+6G4hEpX8+FrcgLngCGYtJONqZLxzZXovFjUSWEBJfx30LFkXnF9bJfEZPTIYKQgdasP7VS4Z1Po5Qm0Rdn8PNWCL0687oMSTimEjjm2MyMPRqLmY3rdXUeSA0ecIphGM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=cfQTqCtC; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=e7G2zEpc; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEE947CC82
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:18:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784038711; cv=none; b=jesQbHKXcXN7yF9FQMHd10Pxb83I/Sx1UPXoae+LGlWEVysNQONGeJ04tkBIjGNoeY+BkRVSIwH7zWC6wu51WDm7Sb9EOMPhNSSiGM74f59UGUSw6rCfyHB8aXdh5nXZIh9CwY9/drloQT1AkMYYt9qkAlHVbaedUP6ERHB0YyM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784038711; c=relaxed/simple;
+	bh=0DKG2To6jCVPnZRJ2L+oO8w7P5y+YqwjWTPKkHTL7CU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GUgukAG7aTsyXlvhEafAG+6gABuHLkaRtf71lgIgE8O3R4gJOlucxXHyFWqMDaby2LFZV5NdGvl2OhNZR6Lil4T6/mCGlfLZPuMcgSQxgcKbqvkETrPm5gYl1dB4yf2NbM00eZGXgC3zbb/QjBCTKBXAN9ph23bYaLbDRo3Nd4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rCNYjfqJ; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="cfQTqCtC";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="e7G2zEpc"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66EBPr4M695628;
-	Tue, 14 Jul 2026 09:17:34 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=dXsjY4ufCquIow6fx1lJzUWX4cQQwvlQ0g8uTNMCG
-	ZQ=; b=cfQTqCtCJBXIMNyQDiFDifBBurOMYT+2pfcXUOCcaQlbBt4DOpX1J1vQ5
-	hmV3vytK+aws04cb+cyKkE18nsg31UKM1ms5zaZt1gsrElqchBe9l5Ov1yDFfW/5
-	44tlWz277g6jmZOoq6uGSHDRHupFlBFNqwagRaV1fB/fnX0BHed8sHx+4ND8/3Zs
-	5nv/jfUxE8NQAMrXy2UucyewHH+kmvnD1GUFQ5nYShBQFiIn3DTaF2+E4udhHIzP
-	mUFVf+NeFpTXZauNKeBr5UA+6LCXQyDhJVy4xKQAmV6n6qPYnwGcUjYJ/mgne6od
-	lNOmuAkN9mqlKulQP0sfX2WwxtYFA==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013044.outbound.protection.outlook.com [40.93.196.44])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4fdm2dgxv6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 14 Jul 2026 09:17:33 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=acpnH+zWVUciPs1yzHuFeMHJfBlViXRq5Db3vpNecQonYcvzbAlFRW8nCs9FsGl5cBJHyWPCbKt2EzXfrWH5V6uzbPSlvzOVN4lkRLw2Frdj+P+pND2pSP5AOxMNz9u68S5ok+GHBM3n/Zzj5ZOWLRfis6qnRfmetdcCW4gbGG0KzQZVCIEYQIA8DHO8mvcna7EAgJpstyVxbsd4VmCgApQx3Wl0QrqpIRq/LCXYVpoZTfRaz8en88Fbq7IHKegPfvTZ0GxCTOCrOUfcOWTGkFUo+lM/7qF2SoJ7K/tOhpdhi1D/gfi/Z6krQLNoXk5RyknEkl+1hpQxyIQPARfoPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dXsjY4ufCquIow6fx1lJzUWX4cQQwvlQ0g8uTNMCGZQ=;
- b=hUpEYDuSgM34BUjeNhlaoeWZbZx8XkcalmmZsa6TzHpiTRfnd4FY4Sk7Z8dnWZMAidSw3cUaEZiTDMmYTiySz9hPrNv2rmSWibJ5yJImI9lmPTOaIPu8CeJaK4zASHm03WYfDDqCm+7VPVE93xR4r9tbmm/HwHaT0ztWcCbILBXyV4fooZ6xiazP0RDOIpHOQsEGMr+fFgVa0nVbD18Jwp2Z8AC+iAvRy3UTO1PfxIL2Aciij6DOmxK/60jG0qZsDF+I0AK+WEHlzGQIHv+kGxs07QYqvVmzFFkpnozr9RErhw3sRrzNG4zoO14Gxm94RmzaUIYCVea3QiekPLBfTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dXsjY4ufCquIow6fx1lJzUWX4cQQwvlQ0g8uTNMCGZQ=;
- b=e7G2zEpcZhJMycILMSUprz0zPqIrnP+5S0RwifOqbkfBmMEcTATTxRYYkRenH+5UI6YsQ9NJmk9acw9V8FoyOXVAdtOJxNE2ydVdJiMo6qfTg0G6sUdVCihVk2G5Sl4IPZI0PDcUTfJR7a2nUCHkCJiid9T+8TCiWX+Q9YHP7XY=
-Received: from DS1P223CA0010.NAMP223.PROD.OUTLOOK.COM (2603:10b6:8:453::7) by
- SA2PR10MB4730.namprd10.prod.outlook.com (2603:10b6:806:117::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
- 2026 14:17:28 +0000
-Received: from DS3PEPF0000C37B.namprd04.prod.outlook.com
- (2603:10b6:8:453:cafe::2a) by DS1P223CA0010.outlook.office365.com
- (2603:10b6:8:453::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10 via Frontend
- Transport; Tue, 14 Jul 2026 14:17:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS3PEPF0000C37B.mail.protection.outlook.com (10.167.23.5) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 14:17:27 +0000
-Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 14 Jul
- 2026 09:17:00 -0500
-Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 14 Jul
- 2026 09:17:00 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 14 Jul 2026 09:17:00 -0500
-Received: from [10.249.42.149] ([10.249.42.149])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66EEGxN2112972;
-	Tue, 14 Jul 2026 09:16:59 -0500
-Message-ID: <b05cc113-11a0-4d89-a45c-ed611b58167c@ti.com>
-Date: Tue, 14 Jul 2026 09:16:59 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rCNYjfqJ"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c12614b81c9so815474966b.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:18:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784038708; x=1784643508; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lZB9rfFkhOTFphdLGR6TyG9TjcpFUip/IJVahTcTdLg=;
+        b=rCNYjfqJEzBdbv652WV30QWwA2LgBr0pVAD1wzBiaswK7omi9pocA3wJjjcecykjC2
+         IHB2Xtqi6vIH5UoMxzAmV1VQs/VWLMsqCpJ/Eh2u3f/1eIIGIFfbOkKu22BvY57YbhPY
+         KL3EWDh4ZOl1Rosam/maNvWAUmYChjWAY84LonhCeltJ5qigSq+nqu0jKseqCI3TFmTo
+         x6Dlhm80cUzqpq2pIwqI/o70c/oEQWawZQVH/6eBOPWjJFCwEb/s6H/+HdjHSfgr9HK5
+         M338OIPwzRhuwWmGNhSzhDzVjs5s5JG2OCDAOf82nzPJd4ikbw4YKjWKEUlMh4hMyNwz
+         iQ7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784038708; x=1784643508;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lZB9rfFkhOTFphdLGR6TyG9TjcpFUip/IJVahTcTdLg=;
+        b=h3/xAWc4GK8K47EoM1jcsg5ITv/lZwJslGd7oJOTzQUOrbT4VqY0QkO5eYNzauzihT
+         m+/o3xjbAxKef0/Aokw+9xNEo9f9Y2+AP3wBrby5q6ViqOmhQBXA8wND+Wbgp1cBKnVt
+         U0qRY6zOpRCJh/9n2UUQ/ZneCT9eynfrbl7E3sDx9emijKcNOECMQSqzs20vtyrH9zv+
+         E2848WhnOkKVys9tdCQRHWmJ/GwKh0uOWXN7XANshf3EHSzHLP9LrF46XBbp8uuY39oQ
+         ffAruGsUGP9+odv2WBY6CQrmPb58sz0sNS4I7Lb6H75P2WIzmJ7hDKdHxijL/X0ykKte
+         Ke+g==
+X-Forwarded-Encrypted: i=1; AHgh+RoEeFGvYN0ZrbCZLqqutZBSxcvsCr8W9CZgt8O8DwRkZV0PTWAGrb2JSYkvKb3HqcwsfiUreaXKBMH6@vger.kernel.org
+X-Gm-Message-State: AOJu0YyyG0181h0gHa9oVWNte20xWZx5riZNN2oT+E96PKftYBZgbcL1
+	vUXqK+/c5z+3J9iJltxLtaJjCZ5CcK69tJrZGMJVjUHIn9JCgfqawbD1
+X-Gm-Gg: AfdE7cnl9Vw39jAd6o5BM2QTjArcL5riuAipyVlKgGx0kh1IBZ3mVDbJqYeJzPD9i17
+	h99v5UI87xlTAKMFiC7qgw7y1wOtlut5DQIXNcozu8Q6RD5CYZhl0oimUETS1tQ6wUXntijvUx3
+	wqoyH677JolWWIhWNrHpi3KpWRZvHonfmFurLD0lJXpTFbGSl0YZBGqrtK1EoeW86aQ4XT4YLHf
+	1vK7rIwsv1jggB1PdUfIuZLrlI7g7IzbAbHhXeGZiBuOzEMhSq74iEbOdQByxDeFia8ZeXsKVI3
+	Rq6oHy6fFCmyg6Zs3gINtgeTbeFJAfIU2v1AgNoEH4t0plBoyt5zh0YozMXQUuk4xYBAm2s02oJ
+	TSJD8LUETawmctLG9aC0wpV7yqU9l5RGUh4LTVpPpNXO+4/r0K0Eb7VxJXIfPgaCHiEMr5ZikQU
+	jWbnpKBujlWkGJAhjsx/aPL3J6feA=
+X-Received: by 2002:a17:907:d58c:b0:c15:c290:ca8c with SMTP id a640c23a62f3a-c161f58f09amr573359466b.39.1784038708083;
+        Tue, 14 Jul 2026 07:18:28 -0700 (PDT)
+Received: from NSA-L02.ad.analog.com ([137.71.226.102])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15deea5cf6sm853090966b.16.2026.07.14.07.18.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 07:18:27 -0700 (PDT)
+Date: Tue, 14 Jul 2026 16:18:24 +0200
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Janani Sunil <janani.sunil@analog.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, linux@analog.com, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org, jananisunil.dev@gmail.com
+Subject: Re: [PATCH 3/6] iio: adc: adi-axi-adc: Add support for CRC
+Message-ID: <ucrlt75xiwbv3rrc4gvgdop24u54eizhuqzf2av2qsa6ceymdp@kfkuiwuvakhl>
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
+ <20260709-ad7768-driver-v1-3-44e1194fd96a@analog.com>
+ <20260710014617.323acf6e@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: ti: k3-am62a7-sk: Add bootph-all property in
- cpsw_mac_syscon node
-To: Chintan Vankar <c-vankar@ti.com>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>, "Tero Kristo" <kristo@kernel.org>,
-        Vignesh Raghavendra <vigneshr@ti.com>, "Nishanth Menon" <nm@ti.com>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>
-References: <20260625113223.1711052-1-c-vankar@ti.com>
- <6eeecfb3-6d88-469c-b087-a4c87ade65a3@ti.com>
- <0abbdb79-bb80-4f9e-aaab-0292043472a3@ti.com>
-Content-Language: en-US
-From: Andrew Davis <afd@ti.com>
-In-Reply-To: <0abbdb79-bb80-4f9e-aaab-0292043472a3@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37B:EE_|SA2PR10MB4730:EE_
-X-MS-Office365-Filtering-Correlation-Id: faa71832-9986-4000-15e5-08dee1b2a20c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|56012099006|18002099003|4143699003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	iH4fMnzS65G9GTfSQRhWsctiuv+p6LyY/zsBnUNYPe7rnmg+nfnVTkQAf13bfEdoz4g+sjn2XZO4+QWE9u6nRcZmPePLai/iN1QXeZZ8c8sda17LwXSm2wgIt6Rk8AWMwIuJw5jY5bb05U/4sWCV/9/p45QeKx4PFOdVkTrVvpFCa5fFOSlT2buYNpQiuMabn9NDLoOYB1MmR7DKDLGBO+3N2I6BokIefpJpHZbwBebguZ9bBMumu8JI1wZW2eHKQuCChEv2jsfQHi+SUsWcsFD49wbYKvZhVK/2YoDFFJyuLHnYpbpdfLqEI+AMjIMQw6Vf2OPBknq7gpHbEb8esgRzRcSsCoWkOPy3XRKpaBdCtvAGhfWs2/vYS8lSbU986/z44Weaq1FGuduknfJ+FDvdNynWBJOLS2PVFXG6tzcj9+0ojB8c630YcsW5VJKr12858LmeJzou42MHMOoYD8i6x8T2NITzJeuCgc5SLjaJdeorhz8RaJKgD/5CgyA327I4+qg0EdKn7z9E9S1q1QjdfeLI0PxQOohmc8n2Us/hYY0B/xL6M56eRCLK4hrKEj+mtBMhmV1pq3fsFOzbXN+PeMPd7ZSVcTuLf6jJc3NEpf9OYSZtuhfzBnljQiETtFRYK+yDAMlSPPIKe+/89tGn4HbCAWe/kB25rC9A7x1/rgyZCDERLn3UIiUt53y8g7t1rqt1pxYawPbPA3tyJw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(56012099006)(18002099003)(4143699003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ikOVnEO6wIkLedmnkmrulLCNLLWg5UtaZcb0AB2IKUpJ7xznqDUS9NCBGOzkviwUacf9EUdDmT9wZvbkH0mqBYUr/Or6VoncQLIIWAr34hmgObfe2wm3r/WLP4kqj62I3CP9QVK6V4OD4Vy+QQ0AWMiFHdZ4X2a2/Mbb7mJ6KqYq7i3ZOjyWvlMJmQdvcv7cBWyj5ZcHMCfqGkB5Hkw661Z1z7uB2G1f2uFfB6d1X0EYN5mPKtVuHAoF09l0o7THFVKueV0YfpBaWxwvHzu76d1xjzNHCN24UHYeEtyOAnY5KbVN2TFCC/EKcieK4UMa/aWr7jDyOjWhHk94yrTUVwGvCek0bdk4oSIYa116cFhmZNptz1jE+kyD5K2Pls+EHbMj0+9reUStpNzBx7pH7qSW5OVTPSIY3T/kLiOH6DjybWBcmXGYGDyB/MlsArCN
-X-Exchange-RoutingPolicyChecked:
-	W4gVkoDrrGtVtp/MLGszBKFDi89XIWlyKQv0xrwAUMh+PmZ+1Szrx6askfzlLvEsiv7CkYILmwLyeraDHQyN7Zz3ynOLVompqcDQP3cyPTHHf0LF0tcDf3BSAcbRRN66uJGV0jB5+nE62dSjG9xuH+hZ1f4wkjGMp19Y4I88mN6E7ctkziro0kUPllNBP/nCaU5mLICyeGpbdGzucyraGT4v9yNMjS35MYkYHInxQohoVOSGGuANwO1+whWWVlLJzezoQHSn7yNJ7b893nWpTfnr4yBR7Ks4djssea95OeIAd6dL1RyZd00aT2y3e/i6l2qKDBG/77gaXqSOCLpOBQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 14:17:27.1276
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: faa71832-9986-4000-15e5-08dee1b2a20c
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF0000C37B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR10MB4730
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDE0OCBTYWx0ZWRfX2GOKMheaI+Gy
- IAtO6iUuxoxKhLZv1XVc88cOme8VOPzUIbbGcSsP6xxG1rvhlhAQ+3weaLTui/kb3ARwXlf6eGZ
- tGhgg78+IgNDNVjzGfl0IrYMGdbO6H0=
-X-Proofpoint-ORIG-GUID: ZrjwMerI5c88EKj07ZD7UOymsZ55a1hZ
-X-Authority-Analysis: v=2.4 cv=f+N4wuyM c=1 sm=1 tr=0 ts=6a5644fd cx=c_pps
- a=Ji2ygefkweamrNJ/4LFw0Q==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=apn0q0EWAAAA:20 a=sozttTNsAAAA:8
- a=UFh5uEqocThAmMhuJQgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bn7x_FpfJtc3yKQXRW3z:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-GUID: ZrjwMerI5c88EKj07ZD7UOymsZ55a1hZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDE0OCBTYWx0ZWRfX79sHpva4SiXg
- N4gNxyV33ukflieJBo01y/69QeGlYrFlojEkDCuxm1jjWHgxF4jFSqXWkC29hpeDYoC2dahkLhQ
- vkQoDuiEd6ksiJmjF3ehCEYi3gy0jY1k1z/k9xWYABaoFaNwGraeSNQD7aXF2Z+xBopBjgwvR7p
- ZTbmf9HQKl5gURouZW7lNceAVwhyDANujIpmcCEZWKOl1teMaX4o2MH7Sv8YLwgBpymNplbAWCU
- 5h0G/mECacvdmvXw8ixBGMtZNs2VZZh4GTpSRG6sTulFnbyVvayjZiIOK0mP4WvK/Oy0uBBRoCq
- 4CYSSb5ADfbvMKqHadZghlHyoCk4kQD1WEq0q1WFX6Iz5A+7vE+EJd6TDim1zABhudxBp/zGRGV
- TrJXplGMyc1kis5g90rvapGRpET3KyTljSUP87t33o8sbvfnp/KEDJepKC2iE9X0mFaauFlh994
- WmSF2gbqbCY+6kLChiA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-14_03,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 malwarescore=0 adultscore=0 spamscore=0
- suspectscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140148
+In-Reply-To: <20260710014617.323acf6e@jic23-huawei>
 
-On 6/30/26 1:54 PM, Chintan Vankar wrote:
-> Hello Andrew,
+On Fri, Jul 10, 2026 at 01:46:17AM +0100, Jonathan Cameron wrote:
+> On Thu, 9 Jul 2026 10:50:14 +0200
+> Janani Sunil <janani.sunil@analog.com> wrote:
 > 
-> On 26/06/26 02:18, Andrew Davis wrote:
->> On 6/25/26 6:32 AM, Chintan Vankar wrote:
->>> Ethernet boot requires CPSW node to be present starting from R5 SPL stage.
->>> Add "bootph-all" property in CPSW MAC's eFuse node "cpsw_mac_syscon" to
->>> enable this node during SPL stage along with later boot stage so that CPSW
->>> port will get static MAC address.
->>>
->>> Signed-off-by: Chintan Vankar <c-vankar@ti.com>
->>> ---
->>>
->>> Hello All,
->>>
->>> This patch is based on linux-next tagged next-20260623.
->>>
->>>   arch/arm64/boot/dts/ti/k3-am62a7-sk.dts | 4 ++++
->>>   1 file changed, 4 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/ boot/dts/ti/k3-am62a7-sk.dts
->>> index 821a9705bb7d..d3b3675e7a8f 100644
->>> --- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
->>> +++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
->>> @@ -230,6 +230,10 @@ AM62AX_MCU_IOPAD(0x0030, PIN_OUTPUT, 0) /* (C8) WKUP_UART0_RTSn */
->>>       };
->>>   };
->>> +&cpsw_mac_syscon {
->>> +    bootph-all;
->>
->> Seems you need this because cpsw_port1 uses it though a phandle reference.
->> cpsw_port1 has bootph-all, why is this property not transitive though
->> phandles? Would not having that cause missing references when the phandles
->> are resolved to nodes that get dropped for some given boot stage?
->>
-> 
-> Yes, the bootph-all property is not automatically transitive through phandle references in the U-Boot SPL DT. Nodes that are only referenced by phandle from a bootph-annotated node are not themselves retained
-> unless they also carry a bootph-* property. This is because the way
-> fdtgrep works[1], it only keeps node with the tags present and implies
-> that property to the parent nodes and not the nodes referenced by
-> "phandle".
+> > Add support for enabling and disabling Cyclic Redundancy Check (CRC)
+> > processing in the AXI ADC backend. CRC provides data integrity verification
+> > for high-speed ADC data streams, ensuring reliable data transfer between
+> > the ADC frontend and backend processing systems.
+> > 
+> > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> The 'other things' I found bit from Sashiko is interesting. Far as I can
+> tell it is right and [devm_]mutex_init() is missing for lock
+> in struct adi_axi_adc_state().  
 > 
 
-Okay then, sounds like something worth investigating to see if this
-can be handled automatically in the future, for now given the current
-state of fdtgrep scripting, this patch LGTM,
+Ouch! Yes, I was also wondering about the lock comment.
 
-Acked-by: Andrew Davis <afd@ti.com>
+> Nuno, looks like it was from:
+> 7ecb8ee5c93b ("iio: adc: adi-axi-adc: support digital interface calibration")
+> 
+> Which indeed adds the lock with a mutex_init()
 
-> Without bootph-all in cpsw_mac_syscon, the SPL device tree will drop
-> that node, leaving the phandle in cpsw_port1 unresolved. And the above
-> claim can be validated with the current conifguration where "bootph-all"
-> tag is not present in cpsw_mac_syscon, causing CPSW to fail retrieve MAC
-> address.
-> 
-> [1]: https://github.com/u-boot/u-boot/blob/master/scripts/Makefile.lib#L688
-> 
-> Regards,
-> Chintan.
-> 
->> Andrew
->>
->>> +};
->>> +
->>>   /* WKUP UART0 is used for DM firmware logs */
->>>   &wkup_uart0 {
->>>       pinctrl-names = "default";
->>
-> 
+You mean without :)?
 
+I'll send a patch fixing it!
+
+- Nuno Sá
+> 
+> Jonathan
+> 
+> >  static const struct iio_backend_info adi_axi_adc_generic = {
+> > 
+> 
