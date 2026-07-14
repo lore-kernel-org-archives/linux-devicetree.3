@@ -1,104 +1,234 @@
-Received: from ms1.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1492343FD11;
-	Tue, 14 Jul 2026 09:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D44634EF0F
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 10:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784022113; cv=none; b=GIlryM5ZP+Z7Y46VauTBVcxDyCjJvyc7/0ExABjf8c4zw3nA7kVi87xoXh4Zm89FuZKeWg3AYubSYWsoKsA48U+n5AumR3ZkNKZHjz0JK5NiLyOAamjXD/vhwGzAEyHOpTXPe8fUqRTftEnHbuAIguYrpTBV551ZRhzvEaQwiKY=
+	t=1784023404; cv=none; b=ZzNQL561kuy6hjCB1yK/YJ+wm/Th9kh+8rn7S6A5au4JzQNQETHXT0t/dBlMCTctVkj4EN7Tf5hkSlT8TX+CcMZ6ZrhVl6mbD3DOOWpMeFB5kFTA+KQr2JCQffRV8HF6e+FM4anDiAaiRNhNraW9+v3chsTWjqgk3iJ5nVhA5jM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784022113; c=relaxed/simple;
-	bh=lKr2kzuSeiAjC16p+wndtFIdffFzMSq8xCj4zQAyyyM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LuOG/b29VKeDK55EWdfBdrLfaNFch0KH9+qX2lcIfXUVjvg2MJJaE69owTr/PAMsafdKBTQTLhvoorW7iUBPyaiN+j5MuSgQpOAorrjbTMeqeG65dSz3QYPNdtel2cOiHZ8ateptsG1DpLYOEB6TA+sV0tfNm2ytf4Nyq7SJDr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=YDK+dE81; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1784023404; c=relaxed/simple;
+	bh=Cjw6/xr9+zb4QpcMMDxy9dloxL9jues8MbkzwJ+qzLs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NgHmWeQUWWmO4/OoN+HPUnQgES9WLTgSjZRMEDTwBKe8DWHtJHiZD35cnULfgpvIDtURnx5tfzBX6UkO3V6FODgDcOxqt/qGTK+ldh+chgu0UJutGEn1UdTIEZXqIeRQIg7mqs27l6eI/j9ShsiSdzz+U8MybeeZOQGVU4pFrfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sum6BDxI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="YDK+dE81"
-X-UUID: 3bc0d8e67f6811f181a149c3f3c08161-20260714
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=psN0kqo8uQkSysWusSvrifCMa9oTwBGcSyqXdNVrwLs=;
-	b=YDK+dE811h30HRDMsfWwU4oGBjQHlLeuCx9F6t1nbSMWisuIB0yfJqVIeXLNFoBn77hwzY5CX5MjV2mRTgIdda+P6IL/s9XmuUnRhbvfgGgWoTE7t+hsjkv1gYjPxWAZY6Op3GLZpUCvQkdvz3O3n6PwS7bqn7PVINRwP/dJD/4=;
-X-UUID: 3bc0d8e67f6811f181a149c3f3c08161-20260714
-Received: from spmgt1 [(172.20.13.10)] by ms1.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 707847343; Tue, 14 Jul 2026 17:41:48 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.13.160])
-	by spmgt1 (Postfix) with ESMTP id 1EF1B1A1E1C;
-	Tue, 14 Jul 2026 17:41:48 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id 883BDC600CC; Tue, 14 Jul 2026 17:41:45 +0800 (CST)
-From: Nina_Kuo@novatek.com.tw
-To: andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ben_huang@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	shihpei_hsu@novatek.com.tw
-Subject: Re: [PATCH v2 0/3] i2c: Add Novatek NT726xx SoC I2C controller
-Date: Tue, 14 Jul 2026 17:41:45 +0800
-Message-Id: <20260714094145.84387-1-Nina_Kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260714092504.82538-1-Nina_Kuo@novatek.com.tw>
-References: <20260714092504.82538-1-Nina_Kuo@novatek.com.tw>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sum6BDxI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F82A1F00A3A;
+	Tue, 14 Jul 2026 10:03:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784023402;
+	bh=3yM6X5ImRpI7LmJuL/Zfmy9fl8hjy0h3JuJHAr9Dqwo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Sum6BDxI9rWiHkFImL+HziN6jgk5hKvxTpL3KFCbfVemYkEcV0UD997Ds4kOwLFTn
+	 rpWQMe2Gfyqw8264t3/MDequID6+oL36AOxdxTLpCekDLZoVw/gOcHKT81224FAOqb
+	 5R3FxrXp+X1foXPISxVNKn0FSmUU93ji8Rt3yfzIYbJ3lvLRSpbCidhFZJiHwCEq0/
+	 cD8hTtt/mN8F8XIFPkoGjKueQ/23JwPfX2A/VFKwytRWi2LQR6qU3j3G5pgjThDvtS
+	 17CbNxoiwCkhlmOrA3uDeZ5Ly+pcS88kUeSIUh4Q+d2x4DPoluWoVjai8xqZjDgw0V
+	 sN54ooq2RgDdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 1/8] i3c: master: Add APIs for I3C hub support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: linux-i3c@lists.infradead.org, Frank.Li@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714092053.2461482-2-lakshay.piplani@nxp.com>
+References: <20260714092053.2461482-1-lakshay.piplani@nxp.com>
+ <20260714092053.2461482-2-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 10:03:22 +0000
+Message-Id: <20260714100322.7F82A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: multipart/mixed;
-	boundary="__=_Part_Boundary_001_1727655448.1529552306"
 
---__=_Part_Boundary_001_1727655448.1529552306
-Content-Type: text/html;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-PCEtLXR5cGU6aHRtbC0tPjwhLS17LS0+PHNwYW4gbGFuZz1FTi1VUw0Kc3R5bGU9J2ZvbnQtc2l6
-ZToxMC4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWYnPkNPTkZJREVOVElBTElU
-WSBOT1RJQ0U6IFRoaXMgbWVzc2FnZSwgaW5jbHVkaW5nIGF0dGFjaG1lbnRzLCBjb250YWlucyBp
-bmZvcm1hdGlvbiB3aGljaCBtYXkgYmUgY29uZmlkZW50aWFsIGFuZCBwcml2aWxlZ2VkLCBhbmQg
-aXMgaW50ZW5kZWQgb25seSBmb3IgdXNlIGJ5IHRoZSBhZGRyZXNzZWVzIGRlc2lnbmF0ZWQgYWJv
-dmUuIFVubGVzcyB5b3UgYXJlIHRoZSBpbnRlbmRlZCByZWNpcGllbnQsIGFueSB1c2UsIGNvcHlp
-bmcsIGRpc2Nsb3N1cmUsIG9yIGRpc3RyaWJ1dGlvbiBpcyBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2
-ZSByZWNlaXZlZCB0aGUgbWVzc2FnZSBpbiBlcnJvciwgcGxlYXNlIGltbWVkaWF0ZWx5IGRlbGV0
-ZSB0aGUgbWVzc2FnZSBhbmQgZGVzdHJveSBhbGwgY29waWVzIHRoZXJlb2YgYW5kIG5vdGlmeSB0
-aGUgc2VuZGVyIGJ5IHJlcGx5IGVtYWlsLjwvc3Bhbj48c3Bhbg0KbGFuZz1FTi1VUyBzdHlsZT0n
-Zm9udC1zaXplOjEwLjBwdCc+IDwvc3Bhbj48c3BhbiBzdHlsZT0nZm9udC1zaXplOjEwLjBwdCc+
-JiMyNjQxMjsmIzM3MTA5OyYjMjAyMTQ7JiMyMTQ1MDsmIzIwMjE5OyYjMjAzMDk7PHNwYW4NCmNs
-YXNzPUdyYW1FPiYjMzg0Njg7JiMyMDIxNDsmIzIyMzQzOyYjMjM2NjA7JiMyNzIzMTsmIzIzNDk0
-Ozwvc3Bhbj4mIzY1MjkyOyYjMjA2Nzc7JiMyMDM3OTsmIzIwODU0OyYjMTk5Nzg7JiMyNTM1MTsm
-IzIzNDUwOyYjMjIzMjA7JiMyMjMzNjsmIzIwMDQzOyYjMjU5MTA7JiMyMDIxNDsmIzIwMTU0OyYj
-MjAzNTE7JiMyOTk5MjsmIzEyMjkwOyYjMzg1MDA7JiMzODc1MDsmIzI0NzQ0OyYjMjYxNTk7JiMy
-NTM1MTsmIzIzNDUwOyYjMjAwNDM7JiMyNTkxMDsmIzIwMjE0OyYjMjAxNTQ7JiM2NTI5MjsmIzIx
-NTQyOyYjMjEwNjM7JiMzNTUzMTsmIzIxMjQ3OyYjMjAzNTE7JiMyOTk5MjsmIzEyMjg5OyYjMzUw
-Nzk7JiMzNTA2OTsmIzEyMjg5OyYjMjU1ODE7JiMzODcwNjsmIzI1MTEwOzxzcGFuDQpjbGFzcz1H
-cmFtRT4mIzI1OTU1OyYjMjQwNjc7JiMyNjQxMjsmIzM3MTA5OyYjMjAyMTQ7PC9zcGFuPiYjMjAw
-NDM7JiMyMDIxOTsmIzIwMzA5OyYjMzcwOTY7JiMyMDIyMTsmIzEyMjkwOyYjMzM1MDk7JiMyNDc0
-NDsmIzM3Njc5OyYjMzU0OTI7JiMyMjMyMDsmIzI1OTEwOyYjMjEwNDA7JiMyNzQ5MjsmIzM3MTA5
-OyYjMjAyMTQ7JiM2NTI5MjsmIzM1NTMxOyYjMzE0MzU7JiMyMTM2MzsmIzIyMjM4OyYjMzUyMDY7
-JiMzODY1MTsmIzIzMzc2OyYjMzcxMDk7JiMyMDIxNDsmIzM2ODkwOyYjMzA2OTM7JiMyMzQ5Mjsm
-IzIwMjE0OyYjMjAxNTQ7JiM2NTI5MjsmIzIwMDA2OyYjMzU1MzE7JiMyMzQzNjsmIzIwODQwOyYj
-MjEwMzQ7JiMzODUwMDsmIzE5OTg4OyYjMzc1NTk7JiMyNzU4NDsmIzI2NDEyOyYjMzcxMDk7JiMy
-MDIxNDsmIzIxNDUwOyYjMjA4NTQ7JiMzNTA3OTsmIzI2NDEyOyYjMTIyOTA7PHNwYW4NCmxhbmc9
-RU4tVVM+PG86cD48L286cD48L3NwYW4+PC9zcGFuPg0KPCEtLX0tLT4=
+New issues:
+- [High] Asymmetrical cleanup in `i3c_master_direct_detach_i3c_dev_locked` =
+leaks resources for unaddressed devices.
 
---__=_Part_Boundary_001_1727655448.1529552306
-Content-Type: 
-Content-Transfer-Encoding: base64
+Pre-existing issues:
+- [High] IDR entry deletion on `i3c_bus_init` failure causes ID corruption =
+and sysfs collisions.
+- [High] Missing NULL check for `dev->boardinfo` in `i3c_master_get_i3c_add=
+rs` leads to kernel panic.
+--
 
-RnJvbTogQmVuIEh1YW5nIDxCZW5fSHVhbmdAbm92YXRlay5jb20udHc+DQoNClNvcnJ5IGFib3V0
-IHNob3dpbmcgdGhlIGNvbmZpZGVudGlhbCBtZXNzYWdlcy4NCkkgc3RpbGwgZmluZCBpbnRlcm5h
-bCBzdXBwb3J0IHRvIHJlbW92ZSB0aGVzZSBtZXNzYWdlcy4NCg0KU2luY2VyZWx5LA0KQmVuIEh1
-YW5n
+--- Patch [1]: [PATCH v14 1/8] i3c: master: Add APIs for I3C hub support ---
+commit 1db519c7da22819d977429d77c0d05ba94daedf9
+Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
---__=_Part_Boundary_001_1727655448.1529552306--
+i3c: master: Add APIs for I3C hub support
 
+Add helpers for attaching and detaching I3C devices and CCC helpers
+to check CCC support and send CCC commands, address slot helpers to
+query and update I3C bus address slot state, registering virtual
+masters with an explicit firmware node, and exposing the bus maintenance
+lock helpers.
+
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index f1be38a640ca1..3b1c342be2bc5 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+
+[ ... ]
+
+> @@ -1775,6 +1792,83 @@ static int i3c_master_attach_i3c_dev(struct i3c_ma=
+ster_controller *master,
+>  	return 0;
+>  }
+> =20
+> +/**
+> + * i3c_master_direct_attach_i3c_dev_locked() - Attach an I3C device to a=
+ master
+> + * @master: I3C master controller to attach the device to
+> + * @dev: I3C device descriptor representing the device
+> + *
+> + * Attach an I3C device to its master controller after reserving the dev=
+ice
+> + * addresses on the bus. The device must belong to @master.
+> + *
+> + * The master device itself is not passed to the controller driver's
+> + * ->attach_i3c_dev() callback.
+> + *
+> + * Context: Caller must hold @master->bus.lock in write mode.
+> + *
+> + * Return: 0 on success, or a negative error code if address reservation=
+ fails
+> + * or if the master controller driver's ->attach_i3c_dev() callback fail=
+s.
+> + */
+> +int i3c_master_direct_attach_i3c_dev_locked(struct i3c_master_controller=
+ *master,
+> +					    struct i3c_dev_desc *dev)
+> +{
+> +	int ret;
+> +
+> +	if (WARN_ON(i3c_dev_get_master(dev) !=3D master))
+> +		return -EINVAL;
+> +
+> +	ret =3D i3c_master_get_i3c_addrs(dev);
+
+[Severity: High]
+This is a pre-existing issue, but does exposing this new API introduce a
+potential NULL pointer dereference?
+
+If a caller manually constructs a virtual I3C device without an OF node
+where dev->boardinfo is NULL, but it has a static_addr, calling this
+function will invoke i3c_master_get_i3c_addrs(). Inside that function,
+if the static address slot is not free:
+
+i3c_master_get_i3c_addrs() {
+    ...
+    status =3D i3c_bus_get_addr_slot_status(&master->bus,
+                                          dev->info.static_addr);
+    if (status !=3D I3C_ADDR_SLOT_FREE &&
+        dev->info.static_addr !=3D dev->boardinfo->init_dyn_addr)
+        return -EBUSY;
+    ...
+}
+
+Could this dereference dev->boardinfo without checking if it is NULL, leadi=
+ng
+to a kernel panic?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Do not attach the master device itself. */
+> +	if (master->this !=3D dev && master->ops->attach_i3c_dev) {
+> +		ret =3D master->ops->attach_i3c_dev(dev);
+
+[Severity: High]
+Could this cause an asymmetrical resource leak for unaddressed devices?
+
+The original i3c_master_attach_i3c_dev() function includes a check at the
+beginning to return early if the device has no static or dynamic address:
+
+if (!dev->info.static_addr && !dev->info.dyn_addr)
+    return 0;
+
+This new attach function lacks that check, meaning it invokes the master
+controller's attach_i3c_dev() hook even for unaddressed devices.
+
+However, the new i3c_master_direct_detach_i3c_dev_locked() function
+explicitly skips detach for unaddressed devices:
+
+if (!dev->info.static_addr && !dev->info.dyn_addr)
+    return;
+
+Will any resources allocated by the controller driver during the attach
+hook be permanently leaked when the device is detached?
+
+> +		if (ret) {
+> +			i3c_master_put_i3c_addrs(dev);
+> +			return ret;
+> +		}
+> +	}
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(i3c_master_direct_attach_i3c_dev_locked);
+
+[ ... ]
+
+> @@ -3195,34 +3342,31 @@ static int i3c_master_check_ops(const struct i3c_=
+master_controller_ops *ops)
+
+[ ... ]
+
+> +int i3c_master_register_fwnode(struct i3c_master_controller *master,
+> +			       struct device *parent,
+> +			       struct fwnode_handle *fwnode,
+> +			       const struct i3c_master_controller_ops *ops,
+> +			       bool secondary)
+> +{
+> +	unsigned long i2c_scl_rate =3D I3C_BUS_I2C_FM_PLUS_SCL_MAX_RATE;
+> +	struct i3c_bus *i3cbus =3D i3c_master_get_bus(master);
+> +	enum i3c_bus_mode mode =3D I3C_BUS_MODE_PURE;
+> +	struct device_node *np =3D NULL;
+> +	struct i2c_dev_boardinfo *i2cbi;
+> +	int ret;
+
+[ ... ]
+
+> +	ret =3D i3c_bus_init(i3cbus, master->dev.of_node);
+> +	if (ret)
+> +		goto err_put_dev;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does an error here cause
+global IDR corruption?
+
+If i3c_bus_init() fails during idr_alloc(), it returns an error with
+i3cbus->id still set to 0. Taking the err_put_dev path calls put_device() on
+master->dev, which invokes i3c_masterdev_release().=20
+
+i3c_masterdev_release() unconditionally calls i3c_bus_cleanup(), which runs:
+
+i3c_bus_cleanup() {
+    ...
+    idr_remove(&i3c_bus_idr, i3cbus->id);
+    ...
+}
+
+If i3cbus->id is uninitialized (0), does this mistakenly remove ID 0 from
+the global i3c_bus_idr? If a valid bus was already registered with ID 0, it
+seems it would lose its IDR entry, causing a subsequent bus registration to
+be assigned ID 0 again and triggering sysfs collisions (i3c-0).
+
+> +
+> +	dev_set_name(&master->dev, "i3c-%d", i3cbus->id);
+> +
+> +	ret =3D of_populate_i3c_bus(master);
+> +	if (ret)
+> +		goto err_put_dev;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714092053.2461=
+482-1-lakshay.piplani@nxp.com?part=3D1
