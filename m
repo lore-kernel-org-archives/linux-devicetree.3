@@ -1,617 +1,291 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202DC3FB055;
-	Tue, 14 Jul 2026 08:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99713FBED8;
+	Tue, 14 Jul 2026 08:22:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784017273; cv=none; b=Tn7KkFfRB0Hwu+YpGHftQNtPMWI1AzLoMXf7xu7ESkhVZJOnzMSGFWk7oI8YvI7i4ClH3WcqK6EHAXqFUbkJNnEyeTzhZA8AV5jTf0t3yfgu1JmSiROIp363ftqEMz8O1lDZfdi27YYY80EX68ygtLjm5CfBSYYQyLYPuvR81yM=
+	t=1784017348; cv=none; b=D8J3vRglrQ2LDhkr1isZlevJryQfscy78RFgZXx5pTrGCdt6l4IMjhVCm9xqJbWtje9gPsj/t12EXsvLiQLYk9l1JfyBQHjvq7e9oAZR5WIG3qFcqWq1DfAHrWuPzKIFNTfEXNLZDH4iyyr2s8a3bLEEXkXyZMRAtZp18mOweLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784017273; c=relaxed/simple;
-	bh=xVgwU56IXPjKPKcSTdUptUX53OdDqgELGCDvbL2TfO0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kGAjt2+Lg42U6pXcaVtjZDRudjAhnpSzWzakhzNFkqDz13ZQHOM+jEWHHpCzhto/m8Hs23UjTvUnWU7Rlaqd+SSHLZ5be67pzkBbW88Dkfw1Jr3vyDyMg4Cd0D3MpgXIvG9ZeZhCCxlGkNdTx52ZAO8390q/UL3u0+1vOZ+l1uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dwze69IR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784017348; c=relaxed/simple;
+	bh=2wmllSFtRM04qkBx6rOyomFUoGUsSeG5w4KKjMQgOus=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=m0NeUz1ezgWfwXn6SYXnX80d0Q0iT9kAHKlvNY6XUi3CYHHQcCxtedRM6jZ8j3WYskfTB0cjzWZAz8lVw/cqXgg7xDI5iPTGJ9qi3B1tSaCJFaKRhevnNXMGP8bzi2xBjC1WsqDFXZntcTDp0k6dFy9YU5lD1Fc7PTkStC04jK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IaJwc/2e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dwze69IR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 551BBC2BCC9;
-	Tue, 14 Jul 2026 08:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784017271;
-	bh=xVgwU56IXPjKPKcSTdUptUX53OdDqgELGCDvbL2TfO0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Dwze69IRyGhCf7N+YGyuWvH66zniv+eSOW/fVnRnTy8DsMKWu1wpDQQAm1/AJTMb4
-	 9eMMbMlj6PTx2WWBt9H2Ox93S+3D/Ga2cbEFuJXYHPgEXwJpBPL9OpAD+OkEOZx7Uk
-	 U2aUy7fTV6+m+HuZJbET5R3kqr5WkUG5wSk9cRaD713aLNkxC+6iY3nEk38x5Gsu1V
-	 wvCsNN373l2OpOx/JYMf4JOtBmJSpMJHUSN/iIFJL+UTIhsLkLv5bqh5oRyYr6uXcb
-	 sv/bSM1j1+5/tbVkeYNz6bVGlGVn0c6gMA/PZY75Tq8j7ZVr4w0evdDizqGGJTb1tI
-	 ajJYId8x/mXGw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37B61C44509;
-	Tue, 14 Jul 2026 08:21:11 +0000 (UTC)
-From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
-Date: Tue, 14 Jul 2026 16:19:34 +0800
-Subject: [PATCH 3/4] hwmon: (kb9002) Add driver for Kandou KB9002 retimer
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IaJwc/2e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F34A1F000E9;
+	Tue, 14 Jul 2026 08:22:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784017336;
+	bh=ZgCfN1XdYNEEHbdhzLqMbv1I7M4zFQsvLNwz9yYNGV0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IaJwc/2ec84qLtUX4arFfxSKhYY5gWM3olvcuIYy/3/J8ck3H5/ugafBDRIStsr7j
+	 ewN2X0MoB1DlzCx5pqBwBR634gBWvlkwqTBxp2jl0Ka/8NXVAi2++GdQ/0WlrMZp9F
+	 zrn4gtuxYxORYuh/hN8L2wQ7+AmZ7i2SeTFokCMjksTSv7fy1nYlUhXfPk77rdOjXC
+	 hYGZ8De+Ef11i9m4tzyjNkLJW0+5i72CwjUP6FbMJvLx9gCslYvg5lRka1q48zdIjX
+	 8HWBvR6cX/9LGbD/1QfeQ+szNY5qf/fupoH7g+0It4kxAs6lv0EeFqibPMfUltnn8a
+	 YEajG60lit0Cg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 2/3] dmaengine: amlogic: Add general DMA driver for
+ A9
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260714-amlogic-dma-v11-2-de79c2394282@amlogic.com>
+References: <20260714-amlogic-dma-v11-0-de79c2394282@amlogic.com>
+ <20260714-amlogic-dma-v11-2-de79c2394282@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 08:22:15 +0000
+Message-Id: <20260714082216.6F34A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-kb9002-upstream-v1-3-8fd2f0b135d8@amd.com>
-References: <20260714-kb9002-upstream-v1-0-8fd2f0b135d8@amd.com>
-In-Reply-To: <20260714-kb9002-upstream-v1-0-8fd2f0b135d8@amd.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Chung <andy.chung@amd.com>, 
- Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- Andy Chung <Andy.Chung@amd.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784017234; l=15621;
- i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
- bh=fOOEogfGsGauvHkZsj16I8kc/TQnGgYkoNVrArIxjrk=;
- b=efv05AnrYb2fUTEpbyXvm/C7u2FsIXky1mM9erC+r852QASiE8XhMWQXyuWND9o8mx3EISFOO
- Zbb9drDoVsLBngtEmQfOIRKKyEn8f849rh3D2WPCODpNmGVYapA5j4o
-X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
- pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
-X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
- auth_id=696
-X-Original-From: Andy Chung <Andy.Chung@amd.com>
-Reply-To: Andy.Chung@amd.com
 
-From: Andy Chung <Andy.Chung@amd.com>
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] aml_dma_tx_status falsely reports in-flight transfers as DMA_COMPL=
+ETE, causing data corruption.
+- [High] Data race and TOCTOU NULL pointer dereference in aml_dma_tx_status=
+ due to early lock release.
+- [High] Use-After-Free in devres-managed remove path due to tasklet schedu=
+led after tasklet_kill.
+- [High] Pending free_work items on the global workqueue cause a kernel pan=
+ic on module unload.
+- [High] aml_dma_terminate_all() masks interrupts but does not clear pendin=
+g interrupt status, potentially corrupting subsequent transfers.
+- [Medium] Missing src_addr_widths configuration prevents DMA_DEV_TO_MEM cl=
+ients from validating capabilities.
+- [Medium] DMA descriptors use host-endian fields, breaking hardware functi=
+onality on big-endian platforms.
+--
 
-The Kandou KB9002 is an 8-lane PCIe 5.0 retimer that exposes an SMBus
-target with mandatory PEC. Add a hwmon driver reporting the firmware
-aggregated maximum die temperature as temp1_input, with the firmware
-version and boot status under debugfs.
+--- Patch [2]: [PATCH v11 2/3] dmaengine: amlogic: Add general DMA driver f=
+or A9 ---
+commit 91d4c9c09e9b3baa0931dae1e37c022fae2b7447
+Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Signed-off-by: Andy Chung <Andy.Chung@amd.com>
----
- MAINTAINERS            |   8 +
- drivers/hwmon/Kconfig  |  11 ++
- drivers/hwmon/Makefile |   1 +
- drivers/hwmon/kb9002.c | 473 +++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 493 insertions(+)
+dmaengine: amlogic: Add general DMA driver for A9
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9b4b1575bdbd..1d80ac2660e2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13931,6 +13931,14 @@ S:	Maintained
- F:	Documentation/hwmon/k8temp.rst
- F:	drivers/hwmon/k8temp.c
- 
-+KANDOU KB9002 PCIE RETIMER HWMON DRIVER
-+M:	Andy Chung <andy.chung@amd.com>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/hwmon/kandou,kb9002.yaml
-+F:	Documentation/hwmon/kb9002.rst
-+F:	drivers/hwmon/kb9002.c
-+
- KASAN
- M:	Andrey Ryabinin <ryabinin.a.a@gmail.com>
- R:	Alexander Potapenko <glider@google.com>
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 08c29685126a..300329773e87 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -335,6 +335,17 @@ config SENSORS_K10TEMP
- 	  This driver can also be built as a module. If so, the module
- 	  will be called k10temp.
- 
-+config SENSORS_KB9002
-+	tristate "Kandou KB9002 PCIe retimer"
-+	depends on I2C
-+	help
-+	  If you say yes here you get support for the integrated
-+	  temperature sensor and firmware version readout on Kandou
-+	  KB9002 PCIe 5.0 retimers, accessed over SMBus.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called kb9002.
-+
- config SENSORS_KBATT
- 	tristate "KEBA battery controller support"
- 	depends on KEBA_CP500
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index 63809eeec2f4..0cad7e21634c 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -113,6 +113,7 @@ obj-$(CONFIG_SENSORS_IT87)	+= it87.o
- obj-$(CONFIG_SENSORS_JC42)	+= jc42.o
- obj-$(CONFIG_SENSORS_K8TEMP)	+= k8temp.o
- obj-$(CONFIG_SENSORS_K10TEMP)	+= k10temp.o
-+obj-$(CONFIG_SENSORS_KB9002)	+= kb9002.o
- obj-$(CONFIG_SENSORS_KBATT)	+= kbatt.o
- obj-$(CONFIG_SENSORS_KFAN)	+= kfan.o
- obj-$(CONFIG_SENSORS_LAN966X)	+= lan966x-hwmon.o
-diff --git a/drivers/hwmon/kb9002.c b/drivers/hwmon/kb9002.c
-new file mode 100644
-index 000000000000..2a3dffe52a62
---- /dev/null
-+++ b/drivers/hwmon/kb9002.c
-@@ -0,0 +1,473 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Kandou KB9002 PCIe 5.0 retimer hwmon driver.
-+ *
-+ * The retimer exposes a system management bus (SMBus 3.0 with PEC)
-+ * target for firmware-managed status registers. This driver assumes
-+ * the chip is strapped to SMBus mode and exports the aggregated
-+ * maximum die temperature as hwmon temp1_input (millidegrees Celsius)
-+ * plus the firmware version and boot status under debugfs.
-+ *
-+ * Datasheet: Kandou KB9002 PCIe retimer (KA-015171-PD).
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/debugfs.h>
-+#include <linux/err.h>
-+#include <linux/hwmon.h>
-+#include <linux/i2c.h>
-+#include <linux/iopoll.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/seq_file.h>
-+#include <linux/types.h>
-+#include <linux/unaligned.h>
-+
-+#define KB9002_DEV_NAME			"kb9002"
-+
-+/*
-+ * SMBus read command codes. Each read is a two-phase PEC-protected
-+ * transaction: prime writes the target address, data reads it back with
-+ * the register contents. FW reads use a 16-bit address, HW reads 32-bit.
-+ */
-+#define KB9002_CC_FW_READ_PRIME		0x82
-+#define KB9002_CC_FW_READ_DATA		0x81
-+#define KB9002_CC_HW_READ_PRIME		0x8a
-+#define KB9002_CC_HW_READ_DATA		0x89
-+
-+/* Firmware register offsets (16-bit). */
-+#define KB9002_FW_REG_VID		0x0004
-+#define KB9002_FW_REG_FW_VERSION	0x0500
-+#define KB9002_FW_REG_TEMP_MAXIMUM	0x0550
-+
-+#define KB9002_VID_MASK			GENMASK(31, 16)
-+#define KB9002_VID_KANDOU		0x1e6f
-+
-+/* Firmware boot status: 0xe8 in the top byte means init completed OK. */
-+#define KB9002_HW_REG_FW_BOOT_STATUS	0xe0090008
-+#define KB9002_FW_BOOT_STATUS_OK_MSB	0xe8
-+
-+/*
-+ * Hardware registers reached over raw I2C (32-bit addressing). The
-+ * host-interface bit selects SMBus (set) vs raw-I2C target; parts
-+ * strapped to raw I2C need it set before SMBus access works.
-+ */
-+#define KB9002_HW_REG_REVID		0x00480004
-+#define KB9002_HW_REG_HOST_IF		0x00480008
-+#define KB9002_HOST_IF_SMBUS		BIT(1)
-+
-+#define KB9002_REVID_MASK		GENMASK(7, 0)
-+#define KB9002_REVID_B0			0x10
-+#define KB9002_REVID_B1			0x11
-+
-+/* Retries to drain a stray leading 0xff from the raw-I2C FIFO. */
-+#define KB9002_REVID_READ_RETRIES	16
-+
-+/* Temperature: 32-bit Q16.16 absolute Kelvin. */
-+#define KB9002_TEMP_FRAC_BITS		16
-+#define KB9002_ABS_ZERO_MILLI_C		(-273150)
-+
-+/* Firmware takes up to ~2s to respond after a host-interface change. */
-+#define KB9002_FW_READY_POLL_US		(25 * USEC_PER_MSEC)
-+#define KB9002_FW_READY_TIMEOUT_US	(2 * USEC_PER_SEC)
-+
-+struct kb9002_data {
-+	struct i2c_client *client;
-+	struct mutex lock;	/* serialises register accesses */
-+};
-+
-+/* Raw-I2C read: write the 32-bit BE address, then read 4 BE data bytes. */
-+static int kb9002_i2c_read(struct i2c_client *client, u32 reg, u32 *val)
-+{
-+	u8 addr[4];
-+	u8 rbuf[4];
-+	struct i2c_msg msgs[2] = {
-+		{
-+			.addr = client->addr,
-+			.flags = 0,
-+			.len = sizeof(addr),
-+			.buf = addr,
-+		},
-+		{
-+			.addr = client->addr,
-+			.flags = I2C_M_RD,
-+			.len = sizeof(rbuf),
-+			.buf = rbuf,
-+		},
-+	};
-+	int ret;
-+
-+	put_unaligned_be32(reg, addr);
-+
-+	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-+	if (ret < 0)
-+		return ret;
-+	if (ret != ARRAY_SIZE(msgs))
-+		return -EIO;
-+
-+	*val = get_unaligned_be32(rbuf);
-+	return 0;
-+}
-+
-+/* Raw-I2C write: 4 BE address bytes followed by 4 BE data bytes. */
-+static int kb9002_i2c_write(struct i2c_client *client, u32 reg, u32 val)
-+{
-+	u8 buf[8];
-+	struct i2c_msg msg = {
-+		.addr = client->addr,
-+		.flags = 0,
-+		.len = sizeof(buf),
-+		.buf = buf,
-+	};
-+	int ret;
-+
-+	put_unaligned_be32(reg, &buf[0]);
-+	put_unaligned_be32(val, &buf[4]);
-+
-+	ret = i2c_transfer(client->adapter, &msg, 1);
-+	if (ret < 0)
-+		return ret;
-+	if (ret != 1)
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Read the silicon revision ID. A fresh FIFO may start with a stray
-+ * 0xff that shifts the result, so drain one byte between retries until
-+ * the top byte is no longer 0xff.
-+ */
-+static int kb9002_read_revid(struct i2c_client *client, u32 *revid)
-+{
-+	u8 dummy;
-+	int ret;
-+	int i;
-+
-+	for (i = 0; i < KB9002_REVID_READ_RETRIES; i++) {
-+		ret = kb9002_i2c_read(client, KB9002_HW_REG_REVID, revid);
-+		if (!ret && (*revid >> 24) != 0xff)
-+			return 0;
-+		/* Drain one byte from the chip to re-align the I2C FIFO. */
-+		i2c_master_recv(client, &dummy, 1);
-+	}
-+
-+	return ret ? ret : -EIO;
-+}
-+
-+/*
-+ * Read a 32-bit firmware register over SMBus: block-write the 16-bit LE
-+ * address, then block-read the echoed address plus 4 LE data bytes.
-+ */
-+static int kb9002_fw_read(struct kb9002_data *data, u16 reg, u32 *val)
-+{
-+	struct i2c_client *client = data->client;
-+	u8 addr[2];
-+	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
-+	int ret;
-+
-+	put_unaligned_le16(reg, addr);
-+
-+	mutex_lock(&data->lock);
-+
-+	ret = i2c_smbus_write_block_data(client, KB9002_CC_FW_READ_PRIME,
-+					 sizeof(addr), addr);
-+	if (ret < 0)
-+		goto out;
-+
-+	ret = i2c_smbus_read_block_data(client, KB9002_CC_FW_READ_DATA, rbuf);
-+	if (ret < 0)
-+		goto out;
-+	if (ret < (int)(sizeof(addr) + sizeof(*val))) {
-+		ret = -EIO;
-+		goto out;
-+	}
-+
-+	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
-+	ret = 0;
-+out:
-+	mutex_unlock(&data->lock);
-+	return ret;
-+}
-+
-+/* Like kb9002_fw_read but for a hardware register (32-bit LE address). */
-+static int kb9002_smbus_hw_read(struct kb9002_data *data, u32 reg, u32 *val)
-+{
-+	struct i2c_client *client = data->client;
-+	u8 addr[4];
-+	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
-+	int ret;
-+
-+	put_unaligned_le32(reg, addr);
-+
-+	mutex_lock(&data->lock);
-+
-+	ret = i2c_smbus_write_block_data(client, KB9002_CC_HW_READ_PRIME,
-+					 sizeof(addr), addr);
-+	if (ret < 0)
-+		goto out;
-+
-+	ret = i2c_smbus_read_block_data(client, KB9002_CC_HW_READ_DATA, rbuf);
-+	if (ret < 0)
-+		goto out;
-+	if (ret < (int)(sizeof(addr) + sizeof(*val))) {
-+		ret = -EIO;
-+		goto out;
-+	}
-+
-+	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
-+	ret = 0;
-+out:
-+	mutex_unlock(&data->lock);
-+	return ret;
-+}
-+
-+/*
-+ * Switch the host interface from raw-I2C to SMBus and wait for firmware
-+ * to come back up. Called only when SMBus access failed in probe, i.e.
-+ * the chip is strapped to raw-I2C mode. Confirms the revision, sets the
-+ * SMBus-mode bit, then polls until firmware responds again.
-+ */
-+static int kb9002_enable_smbus_target(struct kb9002_data *data)
-+{
-+	struct i2c_client *client = data->client;
-+	u32 revid;
-+	u32 val;
-+	int op_ret;
-+	int ret;
-+
-+	ret = kb9002_read_revid(client, &revid);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "revision ID read failed\n");
-+
-+	switch (FIELD_GET(KB9002_REVID_MASK, revid)) {
-+	case KB9002_REVID_B0:
-+	case KB9002_REVID_B1:
-+		break;
-+	default:
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "unsupported revision ID 0x%08x\n", revid);
-+	}
-+
-+	ret = kb9002_i2c_read(client, KB9002_HW_REG_HOST_IF, &val);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "host interface read failed\n");
-+
-+	val |= KB9002_HOST_IF_SMBUS;
-+
-+	ret = kb9002_i2c_write(client, KB9002_HW_REG_HOST_IF, val);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "host interface write failed\n");
-+
-+	/* Wait until firmware re-initialisation completes. */
-+	ret = read_poll_timeout(kb9002_fw_read, op_ret, op_ret == 0,
-+				KB9002_FW_READY_POLL_US,
-+				KB9002_FW_READY_TIMEOUT_US, true,
-+				data, KB9002_FW_REG_VID, &val);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "firmware not responding over SMBus\n");
-+
-+	return 0;
-+}
-+
-+/* Convert Q16.16 absolute Kelvin to millidegrees Celsius. */
-+static long kb9002_temp_to_milli_c(u32 raw)
-+{
-+	s64 milli_k = ((s64)raw * 1000) >> KB9002_TEMP_FRAC_BITS;
-+
-+	return (long)milli_k + KB9002_ABS_ZERO_MILLI_C;
-+}
-+
-+static int kb9002_read_temp(struct kb9002_data *data, long *val)
-+{
-+	u32 raw;
-+	int ret;
-+
-+	ret = kb9002_fw_read(data, KB9002_FW_REG_TEMP_MAXIMUM, &raw);
-+	if (ret)
-+		return ret;
-+
-+	*val = kb9002_temp_to_milli_c(raw);
-+	return 0;
-+}
-+
-+static umode_t kb9002_is_visible(const void *drvdata,
-+				 enum hwmon_sensor_types type,
-+				 u32 attr, int channel)
-+{
-+	if (type == hwmon_temp &&
-+	    (attr == hwmon_temp_input || attr == hwmon_temp_label))
-+		return 0444;
-+	return 0;
-+}
-+
-+static int kb9002_read(struct device *dev, enum hwmon_sensor_types type,
-+		       u32 attr, int channel, long *val)
-+{
-+	struct kb9002_data *data = dev_get_drvdata(dev);
-+
-+	if (type == hwmon_temp && attr == hwmon_temp_input)
-+		return kb9002_read_temp(data, val);
-+
-+	return -EOPNOTSUPP;
-+}
-+
-+static int kb9002_read_string(struct device *dev, enum hwmon_sensor_types type,
-+			      u32 attr, int channel, const char **str)
-+{
-+	if (type == hwmon_temp && attr == hwmon_temp_label) {
-+		*str = KB9002_DEV_NAME;
-+		return 0;
-+	}
-+	return -EOPNOTSUPP;
-+}
-+
-+static const struct hwmon_ops kb9002_hwmon_ops = {
-+	.is_visible = kb9002_is_visible,
-+	.read = kb9002_read,
-+	.read_string = kb9002_read_string,
-+};
-+
-+static const struct hwmon_channel_info * const kb9002_hwmon_info[] = {
-+	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_LABEL),
-+	NULL,
-+};
-+
-+static const struct hwmon_chip_info kb9002_chip_info = {
-+	.ops = &kb9002_hwmon_ops,
-+	.info = kb9002_hwmon_info,
-+};
-+
-+static int kb9002_fw_version_show(struct seq_file *s, void *unused)
-+{
-+	struct kb9002_data *data = s->private;
-+	u32 ver;
-+	int ret;
-+
-+	ret = kb9002_fw_read(data, KB9002_FW_REG_FW_VERSION, &ver);
-+	if (ret)
-+		return ret;
-+
-+	seq_printf(s, "%u.%02u.%02u.%u\n",
-+		   (ver >> 24) & 0xff, (ver >> 16) & 0xff,
-+		   (ver >>  8) & 0xff, (ver >>  0) & 0xff);
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(kb9002_fw_version);
-+
-+static int kb9002_fw_load_status_show(struct seq_file *s, void *unused)
-+{
-+	struct kb9002_data *data = s->private;
-+	u32 status;
-+	int ret;
-+
-+	ret = kb9002_smbus_hw_read(data, KB9002_HW_REG_FW_BOOT_STATUS, &status);
-+	if (ret)
-+		return ret;
-+
-+	seq_printf(s, "%s\n",
-+		   (status >> 24) == KB9002_FW_BOOT_STATUS_OK_MSB ?
-+		   "normal" : "abnormal");
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(kb9002_fw_load_status);
-+
-+static void kb9002_debugfs_init(struct kb9002_data *data)
-+{
-+	struct dentry *dir = data->client->debugfs;
-+
-+	debugfs_create_file("fw_ver", 0444, dir, data,
-+			    &kb9002_fw_version_fops);
-+	debugfs_create_file("fw_load_status", 0444, dir, data,
-+			    &kb9002_fw_load_status_fops);
-+}
-+
-+static int kb9002_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct kb9002_data *data;
-+	struct device *hwmon_dev;
-+	u32 vid;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_BLOCK_DATA |
-+				     I2C_FUNC_SMBUS_PEC | I2C_FUNC_I2C))
-+		return -ENODEV;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->client = client;
-+	mutex_init(&data->lock);
-+
-+	/* All firmware register accesses are PEC-protected. */
-+	client->flags |= I2C_CLIENT_PEC;
-+
-+	i2c_set_clientdata(client, data);
-+
-+	/*
-+	 * Try SMBus first. If the chip is strapped to raw-I2C mode it
-+	 * will not respond to SMBus framing, so fall back to switching
-+	 * the host interface over raw I2C and retry.
-+	 */
-+	ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
-+	if (ret) {
-+		dev_dbg(dev, "SMBus probe failed (%d), trying raw-I2C host-interface switch\n",
-+			ret);
-+		ret = kb9002_enable_smbus_target(data);
-+		if (ret)
-+			return ret;
-+		ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "VID read failed after host-interface switch\n");
-+	}
-+	if (FIELD_GET(KB9002_VID_MASK, vid) != KB9002_VID_KANDOU)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "unexpected VID 0x%08x\n", vid);
-+
-+	hwmon_dev = devm_hwmon_device_register_with_info(dev, KB9002_DEV_NAME,
-+							 data,
-+							 &kb9002_chip_info,
-+							 NULL);
-+	if (IS_ERR(hwmon_dev))
-+		return PTR_ERR(hwmon_dev);
-+
-+	kb9002_debugfs_init(data);
-+	return 0;
-+}
-+
-+static const struct i2c_device_id kb9002_id[] = {
-+	{ KB9002_DEV_NAME },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, kb9002_id);
-+
-+static const struct of_device_id kb9002_of_match[] = {
-+	{ .compatible = "kandou,kb9002" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, kb9002_of_match);
-+
-+static struct i2c_driver kb9002_driver = {
-+	.driver = {
-+		.name = KB9002_DEV_NAME,
-+		.of_match_table = kb9002_of_match,
-+	},
-+	.probe = kb9002_probe,
-+	.id_table = kb9002_id,
-+};
-+module_i2c_driver(kb9002_driver);
-+
-+MODULE_AUTHOR("Andy Chung <andy.chung@amd.com>");
-+MODULE_DESCRIPTION("Kandou KB9002 PCIe retimer hwmon driver");
-+MODULE_LICENSE("GPL");
+This patch introduces a new DMA engine driver for Amlogic A9 SoCs. The
+general-purpose DMA controller is used by multiple peripherals such as I2C,
+PIO, and I3C.
 
--- 
-2.34.1
+> diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
+> new file mode 100644
+> index 0000000000000..9de650a79abac
+> --- /dev/null
+> +++ b/drivers/dma/amlogic-dma.c
 
+[ ... ]
 
+> +struct aml_dma_sg_link {
+> +#define LINK_LEN		GENMASK(26, 0)
+> +#define LINK_IRQ		BIT(27)
+> +#define LINK_EOC		BIT(28)
+> +#define LINK_LOOP		BIT(29)
+> +#define LINK_ERR		BIT(30)
+> +#define LINK_OWNER		BIT(31)
+> +	u32 ctl;
+> +	u32 addr_low;
+> +	u32 addr_high;
+> +	u32 revered;
+> +} __packed;
+
+[Severity: Medium]
+Since this structure describes a hardware memory descriptor, should these
+fields use __le32 instead of u32 to ensure the driver functions correctly on
+big-endian architectures?
+
+[ ... ]
+
+> +static void aml_dma_free_desc(struct virt_dma_desc *vd)
+> +{
+> +	struct aml_dma_desc *aml_desc =3D to_aml_dma_desc(vd);
+> +
+> +	schedule_work(&aml_desc->free_work);
+> +}
+
+[Severity: High]
+Does scheduling memory cleanup on the system workqueue here introduce a pan=
+ic
+on module unload?
+
+If the driver module is unloaded while a work item is still pending, the
+module's text segment will be unmapped. When the workqueue executes
+aml_dma_free_desc_work(), it might jump to unmapped memory because
+aml_dma_remove() does not appear to flush this work.
+
+[ ... ]
+
+> +static enum dma_status aml_dma_tx_status(struct dma_chan *chan,
+> +					 dma_cookie_t cookie,
+> +					 struct dma_tx_state *txstate)
+> +{
+> +	struct aml_dma_chan *aml_chan =3D to_aml_dma_chan(chan);
+> +	struct aml_dma_dev *aml_dma =3D aml_chan->aml_dma;
+> +	struct aml_dma_desc *aml_desc =3D NULL;
+> +	struct virt_dma_desc *vd;
+> +	u32 residue =3D 0, done;
+> +	unsigned long flags;
+> +	enum dma_status ret;
+> +
+> +	ret =3D dma_cookie_status(chan, cookie, txstate);
+> +	if (ret =3D=3D DMA_COMPLETE)
+> +		return ret;
+> +
+> +	ret =3D aml_chan->status;
+
+[Severity: High]
+Could this overwrite the correct DMA_IN_PROGRESS return value from
+dma_cookie_status() with aml_chan->status?
+
+If aml_chan->status is usually set to DMA_COMPLETE during initialization,
+polling clients might mistakenly believe the transfer is finished before it
+actually is, leading to data corruption.
+
+> +	if (!txstate)
+> +		return ret;
+> +
+> +	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
+> +	vd =3D vchan_find_desc(&aml_chan->vchan, cookie);
+> +	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
+> +	if (vd) {
+> +		aml_desc =3D to_aml_dma_desc(vd);
+> +		residue =3D aml_desc->data_len;
+> +	} else if (aml_chan->cur_desc && aml_chan->cur_desc->vd.tx.cookie =3D=
+=3D cookie) {
+
+[Severity: High]
+Can releasing the lock before accessing aml_chan->cur_desc lead to a
+NULL pointer dereference?
+
+If a hardware interrupt completes the transfer concurrently, it sets cur_de=
+sc
+to NULL. A thread executing this code could check aml_chan->cur_desc (findi=
+ng
+it non-NULL), but if the interrupt handler clears the pointer right after,
+the subsequent aml_chan->cur_desc->vd.tx.cookie access would dereference NU=
+LL.
+
+Alternatively, aml_desc could be assigned NULL, causing a dereference when
+calculating the residue.
+
+> +		aml_desc =3D aml_chan->cur_desc;
+> +		regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &done);
+> +		residue =3D aml_desc->data_len - done;
+> +	} else {
+> +		dev_err(aml_dma->dma_device.dev, "cookie error\n");
+> +	}
+> +	dma_set_residue(txstate, residue);
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
+> +		(struct dma_chan *chan, struct scatterlist *sgl,
+> +		unsigned int sg_len, enum dma_transfer_direction direction,
+> +		unsigned long flags, void *context)
+> +{
+
+[ ... ]
+
+> +		while (avail > SG_MAX_LEN) {
+> +			/* set dma address and len to sglink*/
+> +			sg_link->addr_low =3D lower_32_bits(paddr);
+> +			sg_link->addr_high =3D upper_32_bits(paddr);
+> +			sg_link->ctl =3D FIELD_PREP(LINK_LEN, SG_MAX_LEN);
+
+[Severity: Medium]
+Should these assignments use cpu_to_le32() to ensure proper conversion of
+host-endian values before writing to coherent DMA memory? Without it, this
+could break hardware functionality on big-endian platforms.
+
+[ ... ]
+
+> +static int aml_dma_terminate_all(struct dma_chan *chan)
+> +{
+
+[ ... ]
+
+> +	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
+> +	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUS=
+E);
+> +	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEA=
+R);
+> +
+> +	if (aml_chan->direction =3D=3D DMA_MEM_TO_DEV)
+> +		regmap_set_bits(aml_dma->regmap, RCH_INT_MASK, BIT(chan_id));
+> +	else if (aml_chan->direction =3D=3D DMA_DEV_TO_MEM)
+> +		regmap_set_bits(aml_dma->regmap, WCH_INT_MASK, BIT(chan_id));
+
+[Severity: High]
+Does masking the interrupts here without also clearing the pending interrupt
+status (via CLEAR_RCH or CLEAR_WCH) risk corrupting subsequent transfers?
+
+If an interrupt is already pending, its status bit remains set. When
+aml_dma_start() is called later and unmasks the interrupt, it will fire
+immediately and falsely complete the new transfer.
+
+[ ... ]
+
+> +static int aml_dma_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	dma_dev->device_issue_pending =3D aml_dma_issue_pending;
+> +	/* PIO 4 bytes and I2C 1 byte */
+> +	dma_dev->dst_addr_widths =3D BIT(DMA_SLAVE_BUSWIDTH_4_BYTES) | BIT(DMA_=
+SLAVE_BUSWIDTH_1_BYTE);
+> +	dma_dev->directions =3D BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV);
+
+[Severity: Medium]
+Since this driver advertises DMA_DEV_TO_MEM support, is there a missing
+configuration for src_addr_widths?
+
+If omitted, client drivers validating source widths using
+dma_get_slave_caps() will see a width of 0 and might fail initialization.
+
+[ ... ]
+
+> +static void aml_dma_remove(struct platform_device *pdev)
+> +{
+> +	struct aml_dma_dev *aml_dma =3D platform_get_drvdata(pdev);
+> +	struct aml_dma_chan *aml_chan =3D NULL;
+> +	int i;
+> +
+> +	of_dma_controller_free((&pdev->dev)->of_node);
+> +
+> +	regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
+> +	regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
+> +
+> +	for (i =3D 0; i < MAX_CHAN_ID; i++) {
+> +		aml_chan =3D aml_dma->aml_rch[i];
+> +		if (aml_chan)
+> +			tasklet_kill(&aml_chan->vchan.task);
+> +		aml_chan =3D aml_dma->aml_wch[i];
+> +		if (aml_chan)
+> +			tasklet_kill(&aml_chan->vchan.task);
+> +	}
+> +}
+
+[Severity: High]
+Can a use-after-free occur during driver unbind if an interrupt fires
+concurrently?
+
+Since the devres-managed IRQ is not freed or synchronized before calling
+tasklet_kill(), an active interrupt handler on another CPU could schedule t=
+he
+tasklet again right after tasklet_kill() returns. Once the remove function
+finishes, devres frees the channel memory containing the tasklet, leading to
+execution on freed memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-amlogic-dm=
+a-v11-0-de79c2394282@amlogic.com?part=3D2
