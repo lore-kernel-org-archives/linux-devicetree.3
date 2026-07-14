@@ -1,118 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A9D3C8717
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D84342BC29
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784061571; cv=none; b=Q0oS8HnsKxSnaxOZ/bsjVh7kYfiqF0L2ldEWk00EPkT3yOkJUZcoRsoNxNpPecBYRfuE/WmoG7S8VrV9epJW8DP3rPFTpqgj44GyjmBOSvhkmabLTs3QseXhybCGR6v3ITFqqPBVDeDh3HhwwTmT9CaxpQvLWSUetWKSiwSy34k=
+	t=1784061740; cv=none; b=byASdEOGiGjJ5Wm74FlNoZJNGnCCetHmMSgF0VKPtOgpfzBuoaZxmlqhN2Umpy6naiQq96lYTOgkIDXLSa0ByRi87hmzp6On0WDtvlgewF8jHtgQBXEtcDE8yEiVbl/HPvBSAcq/kJ7ii65EOVh03co/vcgYJojAT0vAIeansRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784061571; c=relaxed/simple;
-	bh=CJq9th8fCOu7Xs8KDMR+eNqWqtgN+pr5jXFlYUeoOR0=;
+	s=arc-20240116; t=1784061740; c=relaxed/simple;
+	bh=fRzfpnejs3Cg40wARhIZvGtfkbSMGM8ZlUKl+RdTvfo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BYUOSrTOzsZA8ZxBmNdXOnWLNrLu1M0/Qrf8AgBCtWzXWcunQJ4u6H9Bg/UQcM46+jH1DJqrhN12hauzXYPCF5BhreqzE9SCL6MZhbPckk+CE8J+Wm9wEy1yQR4noe1nt15eFNQsS4UfGmJwOrk2Vn3GSlkZJw4SanhNGlHOx4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AsVQMpei; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=O6uVhews+Z2bWFieujHD5K9k6E44cBHxAKC2EmJW6GjYXuYOMWEPwTXEyFwoZTuiCi8/uAynOFCFNtVUkknQaZ5sD0tOpFlDDrWqK+q01Pf0iVquzIkwY/noz+uQkQl0y7mpB7vmOoVgb0Of3n7KrGphLqRQfLRFnlnKiJMCOyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsNQIeW9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AsVQMpei"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA671F00A3A;
-	Tue, 14 Jul 2026 20:39:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsNQIeW9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717BA1F000E9;
+	Tue, 14 Jul 2026 20:42:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784061569;
-	bh=pCp0jhOxizLfOHyjrRbKssw2hFbEiYsRp70qyWKbs0o=;
+	s=k20260515; t=1784061738;
+	bh=pCXb3BFN2d8LrQ9qH6L7KpuL+SH3Am5BaEWEloNWpG8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AsVQMpeiUvM8Dlfkn9c25Wja7u4V6VBYE0xRDe+ZW9EkR5jjF7ijw6pEEhZ6ipW77
-	 B0ev5agyODZdtzBGlpzJHzWPsfE1QYxlPyYmft1YFzPFNOeYMbRsrDp05J/B7uKCXs
-	 kdPKFNNZJ7jyv2CyeuAV9RFfpnMe8fHB9GaalnEHwbMDQpxsUc+M+KU4MN3ZQIa9g3
-	 MQMHmZN7mzu4W+/qkA0XvtpuHxea/+DmFz3pqmYFwOu8SZiuQEHGXBnvrVyxECUP8u
-	 2qQxnkLapbi4HJ7apaJePmupgU73sZmemlctpNtOKkt0QQ7j1iT/u/1EB73x9C24IT
-	 hRaG5fpUOIIfQ==
+	b=VsNQIeW9naVbPPFCGg0hilecuFcWGc+g4QvfYzsVs1MNsWkGj3OJe/YhSER9HL5fO
+	 8oHylymbtoH1MbdThQ7Ozlmmr0sUTGnhC9JACjd5oeaqYRNYikaUp9XW9zsgYSzrHR
+	 H+ilWj1KWX7mn0hmccYJ7nYjeau/aGIE3zhLzc6P9LpDYTpCgaSw8sjD5eREESOrOZ
+	 XCwHb0CPGTpSBM/tBoZW6RP6Q7NUpJl32DTFrBAJ9P38WTatxJ9DOvXScVsqS0zoFc
+	 RyWUM4XGOnmcd1JPBv8mqsIlreAUD7V+9hOt0teB/2/yoDmmEJc90khXu9ykO11CTg
+	 d5RiicDU3bo8Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 34/35] phy: rockchip: usbdp: Re-init PHY on mux
- change
+Subject: Re: [PATCH v2 4/6] ARM: dts: rockchip: Add support for RV1106 and
+ RV1103
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260714-rockchip-usbdp-cleanup-v13-34-6cb3e769d4c5@collabora.com>
-References: <20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com>
- <20260714-rockchip-usbdp-cleanup-v13-34-6cb3e769d4c5@collabora.com>
+To: "Simon Glass" <sjg@chromium.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714193656.2196447-5-sjg@chromium.org>
+References: <20260714193656.2196447-1-sjg@chromium.org>
+ <20260714193656.2196447-5-sjg@chromium.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 20:39:28 +0000
-Message-Id: <20260714203929.0DA671F00A3A@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 20:42:17 +0000
+Message-Id: <20260714204218.717BA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Forcing a PHY re-initialization during a dynamic mode switch perma=
-nently disables the DP lanes and leaves stale lane routing, breaking the DP=
- link.
+- [High] The DT defines distributed IOC blocks for each GPIO bank via `rock=
+chip,grf` properties, which violates the upstream dt-binding schema and cau=
+ses register corruption due to driver mismatch.
+- [Medium] The device tree relies on the 'rockchip,rv1106-pinctrl' compatib=
+le string, which is entirely unsupported by the upstream pinctrl-rockchip d=
+river and violates the dt-binding schema.
 --
 
---- Patch [34]: [PATCH v13 34/35] phy: rockchip: usbdp: Re-init PHY on mux =
-change ---
-commit 81cf1b50e4dbd6c92b948c08ec8401f3568e9429
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [4]: [PATCH v2 4/6] ARM: dts: rockchip: Add support for RV1106 an=
+d RV1103 ---
+commit e0d1bbbfe5826e8f7c17c9a0008a5c218538f589
+Author: Simon Glass <sjg@chromium.org>
 
-phy: rockchip: usbdp: Re-init PHY on mux change
+ARM: dts: rockchip: Add support for RV1106 and RV1103
 
-Ensure that the right part of the PHY are powered up when the mode changes.
-This ensures the PHY is re-initialized during cable orientation changes or
-switching from DP-only into a mode with USB support.
+Add the devicetree files for the Rockchip RV1106 and its RV1103 package
+variant. The pinctrl data comes from the vendor kernel in the Luckfox Pico
+SDK.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index e597cdfe8d790..87d6df6821760 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1392,7 +1392,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_=
-dev *mux,
-> =20
->  	rk_udphy_set_typec_state(udphy, state->mode);
-> =20
-> -	return 0;
-> +	return rk_udphy_update_power_state(udphy);
+Link: https://github.com/LuckfoxTECH/luckfox-pico
+
+> diff --git a/arch/arm/boot/dts/rockchip/rv1106.dtsi b/arch/arm/boot/dts/r=
+ockchip/rv1106.dtsi
+> new file mode 100644
+> index 0000000000000..7b2e6142a103f
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/rockchip/rv1106.dtsi
+> @@ -0,0 +1,321 @@
+[ ... ]
+> +	pinctrl: pinctrl {
+> +		compatible =3D "rockchip,rv1106-pinctrl";
+
+[Severity: Medium]
+Does this compatible string have accompanying dt-binding schema and driver
+support? The 'rockchip,rv1106-pinctrl' string appears to be missing from the
+upstream device tree schema and pinctrl driver, which could cause dtbs_check
+validation failures and prevent the driver from probing.
+
+> +		rockchip,grf =3D <&gpio1_ioc>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		ranges;
+> +
+> +		gpio0: gpio@ff380000 {
+> +			compatible =3D "rockchip,gpio-bank";
+> +			reg =3D <0xff380000 0x100>;
+> +			interrupts =3D <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cru PCLK_PMU_GPIO0>, <&cru DBCLK_PMU_GPIO0>;
+> +			gpio-controller;
+> +			#gpio-cells =3D <2>;
+> +			gpio-ranges =3D <&pinctrl 0 0 32>;
+> +			interrupt-controller;
+> +			#interrupt-cells =3D <2>;
+> +			rockchip,grf =3D <&gpio0_ioc>;
 
 [Severity: High]
-When a dynamic mode switch happens (such as connecting a USB 3 device to an
-active Type-C DP dock), rk_udphy_update_power_state() will call
-rk_udphy_init():
+Will the upstream pinctrl-rockchip driver parse these bank-specific syscons
+properly? The upstream driver typically only parses the parent pinctrl node=
+'s
+rockchip,grf property.
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_update_power_state() {
-	...
-	} else {
-		/* Mode change =3D> re-init */
-		ret =3D rk_udphy_init(udphy);
-	...
-}
+Could this cause register corruption when configuring pins? Since the parent
+pinctrl node points to gpio1_ioc, the driver might use gpio1_ioc for all
+banks. This would silently overwrite gpio1_ioc registers when attempting to
+configure pins for other banks like gpio0 or gpio2.
 
-rk_udphy_init() then explicitly clears CMN_DP_LANE_EN_ALL, physically disab=
-ling
-the DP lanes:
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_init() {
-	...
-	regmap_update_bits(udphy->pma_regmap, CMN_LANE_MUX_AND_EN_OFFSET,
-			   CMN_DP_LANE_MUX_ALL | CMN_DP_LANE_EN_ALL,
-			   ...
-			   FIELD_PREP(CMN_DP_LANE_EN_ALL, 0));
-	...
-}
-
-Since rk_udphy_update_power_state() does not restore the lane configuration=
- and
-the DRM driver does not call phy_power_on() again (it only retrains the link
-via phy_configure()), does this permanently disable the DP lanes and break =
-the
-DP link during a mode switch?
-
->  }
-> =20
->  static void rk_udphy_typec_mux_unregister(void *data)
+Also, does adding the rockchip,grf property to the gpio-bank child nodes
+violate the rockchip,gpio-bank.yaml schema which forbids additional
+properties?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-rockchip-u=
-sbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com?part=3D34
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714193656.2196=
+447-1-sjg@chromium.org?part=3D4
