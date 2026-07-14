@@ -1,136 +1,70 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E26144CAD0;
-	Tue, 14 Jul 2026 12:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CB7448CF7;
+	Tue, 14 Jul 2026 12:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784032445; cv=none; b=KFruaum0jVUWTrxwisb0JNXAAS6nMr3meLiNlufORtxIwjGCXIUgcRB6fgHpYttrj3mkSy+k5NfpUQa+EuXqPUqAVL4q/4f5ZKY2/2lM793CGPH7bjMmh5Zs40kT/vHDLfRCwEXvr9M5x7djWc2om5EltxK4hJ2a1WPXXnCVx1Q=
+	t=1784032573; cv=none; b=EY+AtC/BhDFnQw8SV3kj72tXC85/n6Dmah6UkQh2Yg4HSY40e7kyIuaCBZjIOurSHSEpzhgsqKg9o+cigl0ik6QJhxvtUGKzzdqpSudbt2fbkHE4kyz9jxIyLl98n5xPmaVjGbqmLhUMc/dBTdBGrPf3lRPvaGby0qrLvp/XTGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784032445; c=relaxed/simple;
-	bh=/BSX6xnz6AyluGspxS2z7y6Sbe4ysmU4pLabumaCCFg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LEd+SSjGoXd/nVwNCxixYl/y2X5QTtrdk2XFSCxpHb79VLDD69aQRD40Iu5EIkamrPkOnrU4sGBVY50x3AkVy8DKWNCUbifJ1dbEPd3L29QBYFQr6ZwMSxnSiYBFFgrhBoEmGovpmYsqXxmH/uiV+RdGWB+7DFlVKhTJpHF8BcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=NapJO2Ic; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784032573; c=relaxed/simple;
+	bh=b9TtgoyFYkHeVFTrJPUv3nguC7nq6LAuA+FDp2Tmqng=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ieWz/DAMmqCGTKT3vUOS6tWGGVdXhCXkqVHbT5zRoHZk8p+X5Ymf5SQuq0SZcVuVlwEkzcZuZHLJ5rr4qTYAi0+xQlrrn7RvpuO8WHuvDUjujBz0JO8vAzU4psjwC7gl5PrQHCV7JrgpWaxWVEDvphhmDlk4xgp3BWyiF9noxGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrPZZbTA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="NapJO2Ic"
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 71F251F8CF;
-	Tue, 14 Jul 2026 14:33:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784032432;
-	bh=MWvNBrHeXlEhZS8wQAuNy/d9zeBljXhXaKblZHhr78s=; h=From:To:Subject;
-	b=NapJO2IcmyttYRGBjttgER/rPTaXjCmBxw0Ev6BpdUafOmofqt8LTlow3QmmhovoF
-	 tmLrl6remRQzU+7mxgh9ZJjabrv9Yqu9151oziAJLmLrjnp3EmNI1YPBNCfpiNI871
-	 wZQlQqdkpqBuYG7zWoW4CGJBT5it0kSTzfKg/LsCkGXWxVd7dKVdx433z/hIkNROtf
-	 5PYZw25dwI0fTwf+nw2J8MT0WvuEWuYWlH1rM49ERitDLVW2uFeJDy5qUlit4qBX19
-	 IZqRL+80Xoee9SytrmFihy4CBbQYxCdSGgd8cl442c3flzsUIWkfMIUfsVgyKpAryc
-	 OMMRFCidWJrWw==
-Date: Tue, 14 Jul 2026 14:33:50 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Frieder Schrempf <frieder.schrempf@kontron.de>,
-	linux-arm-kernel@lists.infradead.org,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Frieder Schrempf <frieder@fris.de>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 10/10] arm64: dts: imx93-kontron: Enable ELE firmware
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrPZZbTA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7071F000E9;
+	Tue, 14 Jul 2026 12:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784032569;
+	bh=kZT5Z2ul6wC3iZrv0Nw2GcNpHjPbc7At9/edEnc7Qkg=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=UrPZZbTAEh6YGXKDalDrxg7NYFAnvD2XRpHhwlhezxIJrbgySiYm/4QfYSTX0l29u
+	 t9+6aYKFHKMISHFyEJ8GgUsp+Vq2TC19bnEyoasJZRrQRaoE058bMg1z5g8HPKkZTU
+	 KHK4+3A4VpPWdSBpG7ZNoN2sD3XlvNDRAmUh9ZVRhPwiN7FAlYVsXneo0b3C5XUOYU
+	 rb6gLX3KFiVD4kZSUCAvG93X2/VhAwpmfamx6oE2+gfN+/XbECIQ6/8ybY9ADYiqTV
+	 mTjduzXCdJqAeM9oRZMsV+8wIUrVWx49iYQL7l9EqY50bBLZq+HprCHWfyFexeGPxO
+	 9N9wI/sJrgYmQ==
+From: Vinod Koul <vkoul@kernel.org>
+To: Olivier Dautricourt <olivierdautricourt@gmail.com>, 
+ Stefan Roese <sr@denx.de>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, dmaengine@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+In-Reply-To: <addaf51275355667045ec300fc8d725e2e273807.1782911845.git.adrian.ho.yin.ng@altera.com>
+References: <addaf51275355667045ec300fc8d725e2e273807.1782911845.git.adrian.ho.yin.ng@altera.com>
+Subject: Re: [PATCH v2] MAINTAINERS: replace maintainer for Altera mSGDMA
  driver
-Message-ID: <20260714123350.GD22086@francesco-nb>
-References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
- <4b7b7823-00c5-4801-8ba4-19e5670f339d@kontron.de>
- <20260714093354.GC22086@francesco-nb>
- <2420855.ElGaqSPkdT@steina-w>
+Message-Id: <178403256654.822807.331281330806123127.b4-ty@kernel.org>
+Date: Tue, 14 Jul 2026 18:06:06 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2420855.ElGaqSPkdT@steina-w>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
 
-On Tue, Jul 14, 2026 at 02:06:38PM +0200, Alexander Stein wrote:
-> Am Dienstag, 14. Juli 2026, 11:33:54 CEST schrieb Francesco Dolcini:
-> > On Tue, Jul 14, 2026 at 10:43:56AM +0200, Frieder Schrempf wrote:
-> > > On 14.07.26 10:32, Francesco Dolcini wrote:
-> > > > On Tue, Jul 14, 2026 at 10:09:11AM +0200, Frieder Schrempf wrote:
-> > > >> Hi Francesco,
-> > > >>
-> > > >> On 14.07.26 08:59, Francesco Dolcini wrote:
-> > > >>> Hello Frieder,
-> > > >>>
-> > > >>> On Mon, Jul 13, 2026 at 04:53:46PM +0200, Frieder Schrempf wrote:
-> > > >>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
-> > > >>>>
-> > > >>>> Add the ELE firmware API node and pass its handle to the OCOTP
-> > > >>>> driver. This allows us to gain read/write access to the OTP fuses.
-> > > >>>
-> > > >>> This seems something we should have in the soc dtsi (imx93/imx91), it
-> > > >>> does not seems board specific.
-> > > >>
-> > > >> My original intention was to move as much as possible into the SoC dtsi.
-> > > >> The problem is that the memory node is somewhat board specific due to
-> > > >> the DDR. And I can't move the firmware node into the SoC dtsi and assign
-> > > >> the memory node in the board dts as the checks for all boards not
-> > > >> specifying a memory node would fail then.
-> > > > 
-> > > > What is the reason to have this memory address different on various
-> > > > boards? Can we have a default in the soc dtsi, and allow the board to
-> > > > override the address if needed?
-> > > 
-> > > There is no real point in having different addresses on different
-> > > boards. But the node describes memory that is physically on the board
-> > > and not on the SoC. And I think that is why DT maintainers want to have
-> > > it in the board DT. It's the same with the memory nodes for the
-> > > remoteproc drivers to communicate with the Cortex M-Cores in the i.MX.
-> > > But maybe I'm wrong and if there is a possibility to move this to the
-> > > SoC DT I will definitely take it.
+
+On Mon, 06 Jul 2026 10:23:11 +0800, Adrian Ng Ho Yin wrote:
+> Olivier Dautricourt has stepped down as maintainer of the Altera
+> msgDMA driver as he no longer has access to the hardware. Replace him
+> with Adrian Ng Ho Yin as the new maintainer and update the status
+> from "Odd Fixes" to "Maintained".
 > 
-> We are talking about reserved memory, so this is highly board-specific.
-> So for different hardware variants with different amount of RAM you have to
-> go for the minimum anyway.
 > 
-> > > > 
-> > > > Or can't you add the address in all the boards, and keep everything else
-> > > > in the soc dtsi?
-> > > This could be a possible way, yes. In that case maybe we could even
-> > > create a generic dtsi to contain such defaults for all boards.
-> > 
-> > I would go for this solution, we could have something like
-> > `k3-am62-ti-ipc-firmware.dtsi`, include it from all the boards, have a
-> > sane default memory address, and have an easy way to override the memory
-> > address from the board dts, if needed.
-> 
-> So what is a sane default? At the end of the minimal possible RAM?
-> I'm not really fond of something you have to make sure matches to your
-> hardware, but won't raise an error if you forgot.
-> 
-> How about providing defaults for the SoC part and users have to provide their
-> memory on board-level? Similar to the VPU nodes on imx8qm/imx8qxp. There you
-> have to specify memory-region in your board.
 
-I am personally ok with both solution.
+Applied, thanks!
 
-I think it is easy to have a sane default in this case. You cannot have
-less than 256MiB in practice, and this is just about the offset, is not
-that you are going to want more memory reserved if the board has more
-memory available.
+[1/1] MAINTAINERS: replace maintainer for Altera mSGDMA driver
+      commit: 49eee9b6c2b5646bd0cfd891bb7c0a218301aa7c
 
-At the same time, having the memory range in the board dts is also ok to
-me.
+Best regards,
+-- 
+~Vinod
 
-Francesco
 
