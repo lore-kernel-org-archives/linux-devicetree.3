@@ -1,210 +1,132 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71D613B584
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034920; cv=pass; b=L41wkDKDmMZoE85MgW91+ZgSESDRgxJDHmOFNiqKVkkOSIph0TWzLf/mdUxBJQnRual9uvbAi+yOBkdM/7S4j43rmzXjrgIgnv5xxAXXFP+9DiXUmWf1abwPfnt+BA241jb8+5zGu3dAvFBaZwGWFAr91oUYYRQioaryPnX8xaU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034920; c=relaxed/simple;
-	bh=XEp4xPrufFEiSkrjh9AXuD4jVVMbyf5wsJtN2q7RBEM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UrDDRHI7ji7xpUL7GLZK7HLVUB+xk77uWSdDmHWj/GS1OtCSOjA76SkPDdmty2x5eAsQiHCGMoA8vYiALzkGBNkZZH26poCX43xv8XqUv+2VZTdKg7CBmjWa0LzZtXbln1aleViNNnGycOaUlnFxOiIkoYeiMzXGNcUffGd3A6c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SaGz3NUB; arc=pass smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FC22135B8
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784035052; cv=none; b=J/3qm3544ye654dBoLHyOfHjZOSdLXeHsY1AKHuJXDyHtc6DYXSY9sjS9Y/LS2eT0HkoQSkjC6gRHL5G56IGFqLCPhwBNVAjqsOFkNll+Il6pjNWbfF50FQOKOX/WnVrrvV94ROg6OHpPdEmlouD5jMk7Y3a+eAviN4OK+FI8/c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784035052; c=relaxed/simple;
+	bh=VkNUZtm6+SIxNC5WL5Mse4ocUrh5R1BTXyAgWKhdHd8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=N72N78tCy7hfLLz3JZsFap8Ra/foeP7MCH0w4kUKatBnGYoveBHC+SNreQDN2AvH5C6GC9tqNt2ALrtmnGwDcENtxs50YGE2p62iKgxGgrTU6YUq8tgmYnsJW8nM82j5SkPktS4+8jIkxz+0jIphmYZpL8xjFel8o+K77jVXk2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1q9PEfr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SaGz3NUB"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so31464615e9.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:15:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784034916; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E/oECXUCwSe50KekBGj36ACY6VYctpuBbq836J+ZpbHalWI+rvd83eme3MSnCnQZQM
-         /yXL0+yKAehZceuTe5VBKyJM6o0uPMqZaGea4K6aDpQ0Cecp/G1c2G/4NlpmU6xfCa5n
-         LW3q3xAHppFR0Or+wIMmt6QJuZQne/FT1dBMen9Eme8FUHRsUiTgV/ct18AlYimmUx3E
-         ukkGcF5dPQfexSA+i/IWcxQmu2xC0MIkcflsr8S5KuFrMssaLyNODp7fjic2DbIFqJys
-         nIPNi/WDqNUWXHNOHRU6hkzYp2D1x1hbBwNu4N7F3guAbs2ut73+sux3ed/zL1xN5lKP
-         cHkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zYR8riHhwHFuYojsg/ml0oqHNKKCoDuF/KqtRlzn4Dg=;
-        fh=2KS9kKin+HEcEILnRMdaiNS3VGxDfkCQ/D4MoiOf6WU=;
-        b=LlIMEl0XnZ1x0DLyfkyTRAdQZM6ShFEnS6ybd7ufBAngr7joOcFnvqSRBM1kwm4r3m
-         wPg45f4asCpQ5/mI2lMWk8VqUezrJh7lVPNXsqr5bts50vycDNVSjc7/vsTA09LYwOr2
-         S+Kq10ieeHPfoUXPvUdZ9gd0vs9CJv/cKRYCjFz/9a/b7S+uJ/n5HAVbZZVkan/Wnz3U
-         pbE8jkHvASMxFbKo0s8YdcEFfxzqoJhAyeqbpjCENk+5gb2/5HE6VoP4GJNAlWcNLjWD
-         FppR7bOLzUjZ21T0tdFPjZ4NmcUK6kn9bOG/uKI4QmV2u8ee9SdaYgCVyzwD6vyQErfY
-         TgVA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784034916; x=1784639716; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zYR8riHhwHFuYojsg/ml0oqHNKKCoDuF/KqtRlzn4Dg=;
-        b=SaGz3NUBQ2GHG8xCmhlhOvvjGUghtG3Ipcsm6tfITrC8ZZnP7nTePufsvZ6cflZpod
-         QUizEVUcGU6d3lZddyIMOIv9O1IQh8dsIRjpP9mwPudguyeCdMMrrclFFNEtEBl+AVAx
-         gNKfvAEXdo0joezZNbM5vjDxpubz55O09Hq7NJ3t4sGR08aZSdMHP/c/inb9myiKPSdm
-         17NC6765bfaG2+JZuS+rXZOQ4WVUICc3rxVqNp+xviP/1lpldG66Be9oCvjI5yzHjtn3
-         0rAOq9sF66RKv2BkT/+ls8+LNyuEvHybhO6ch5QhudaEIvhozGg2zYqQfsnytjIhsH/C
-         mBLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784034916; x=1784639716;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zYR8riHhwHFuYojsg/ml0oqHNKKCoDuF/KqtRlzn4Dg=;
-        b=A1kFUWmLTJ2+oOqce2TsSkz3KIV27QtjIRhP1jry+e2LrMeZXdtYWWwkkKskkqP/9S
-         A6CUtqKqsynRK0dPVDqDStraafcvlPX4hKhpUHFUVZJz+cLOLOHXSCrNsC3HnOe2eBwH
-         z/rvJ02D1SQ8JygMw6uFfWQ76R4JcLD/Efm5RfWm8koA2wDCrpee8NBwtCw12Q+tjnwP
-         V1mPEdAF9PPhc8PM/PofBZ4hCf9sRw20pYqJ3D5t4PP6IZ+ubVoArcOsN62cOUMcVZkW
-         yc8SqguI6F2qIgPg3EwwZGzjegSHSCF9KPvoRA1URd3r4yz6pEE+6jUuO/S+vHkXmzBS
-         v2Bw==
-X-Forwarded-Encrypted: i=1; AHgh+RoYnE6R5ZjHBiew2XA1PSG9o9XGiEcq7Ukq81BUGBY7OAZIWdlBolGPmGtwpgObI55fwqrNsJ8CbTHi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw3B1xhHQQO/Vv1NKZm/Owot9RX/ozaQck3x5IWecVgysuKmggc
-	iixrv63XwqI+oIlWQu658LjPTIN55X1ATDWMlJTh862XSCIff0xDPaEyxiXawUWExMHgGePPYqh
-	PC/K7mw9VJIjE9hD55TggKUdH1Ddwopw=
-X-Gm-Gg: AfdE7clJWxryHr13iXj2TQ/w4vvNTohdoCxGTHLwcV1eRWmeMVuPwL9+Qe/zLzxrkBf
-	T6OuJKv1Ifb62UwZKArkfpcSJft8V2MaRVgnTzMMxJEF+OC4ZEzxpOBAX9401tZnfrrnnw5UjS/
-	n96ih1Z3SwJJl7uAtI/N5DB8kv+id8RAQy6IIAmTlB567YSkujqQF5UCSgunhaBjFlLsqWbGUPO
-	FfRQjGHpwtIpgqrbgOw5K9F4chrgtm4Em1Z9QNDspme7wQgD0mK21Tg67iJN7jlOLMF6VYdbJ72
-	eON1AKy+J+SEVhJpiBCK0g+eeRyUWl3pD5iM5iCM/dG1lKEJWwyyjsYiz8k=
-X-Received: by 2002:a05:600d:6413:10b0:494:1cdd:4f9e with SMTP id
- 5b1f17b1804b1-4941cdd5035mr50422985e9.31.1784034915742; Tue, 14 Jul 2026
- 06:15:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1q9PEfr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C94F1F000E9;
+	Tue, 14 Jul 2026 13:17:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784035048;
+	bh=AaoZ0yQzqnufE5jIG2CU4+zVt0hDRjKk/OV/AbFa0JU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a1q9PEfrJv1PK0md/2YcxKOYy9X79+R1FDcSJvK04W1+b9RaF+YdPX5MnJU+n6yoP
+	 gKuGykcCoD65spyBlNIW9nLtY97hPQJQjimCG9w1RDoEZQzdsTDHdyb3rjkyOdNTs0
+	 8GXEejQrNVVnTvbD2qHURAPokGo8mfEOL8LNDosp4h/R/DUgWP9lBUnK0IE+uD40Ib
+	 mp0OnXfeBCJDv9tT17Ow38oxHwyPF4DuPf/UTmvNSMzz2vUuujRMfGIPkhKGv4mN51
+	 0gwNbEmFvbe1IzBnBp5LqwKT0RLumHIhDQM4l8tyTONPClJPLVuGTRvXHDjbhiKzaD
+	 tTcFnVsXjtBng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: add DAPU Telecom
+ DAP8211R(I) PHY binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Artem Shimko" <a.shimko.dev@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260713131223.279555-2-a.shimko.dev@gmail.com>
+References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
+ <20260713131223.279555-2-a.shimko.dev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 13:17:27 +0000
+Message-Id: <20260714131728.6C94F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260702123112.161160-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
-In-Reply-To: <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 14 Jul 2026 14:14:48 +0100
-X-Gm-Features: AUfX_mxf9CoAWS1OaHlxkRnP3RC1vp9ZjYGgKTNfss75dU2ZLfsEhv632kdc6DM
-Message-ID: <CA+V-a8t1TbnD14s-d=UVTL58jWA9Sxcyb6mt9tfgAMBUkoJmRA@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 5/9] dt-bindings: watchdog: renesas,r9a09g057-wdt:
- Add SYS syscon support
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Geert,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The example's `compatible` string does not match the schema's re=
+quired `compatible` string, causing the example to silently bypass this sch=
+ema's validation.
+- [Medium] The example uses an invalid value for `tx-internal-delay-ps` tha=
+t violates the strict enum constraints.
+- [Medium] The vendor-specific property `tx-inverted-clk` lacks the require=
+d vendor prefix.
+--
 
-Thank you for the review.
+--- Patch [1]: [PATCH net-next 1/2] dt-bindings: net: add DAPU Telecom DAP8=
+211R(I) PHY binding ---
+commit acf143bd06413ea91d469e7f087d2e96207a1bec
+Author: Artem Shimko <a.shimko.dev@gmail.com>
 
-On Mon, Jul 13, 2026 at 4:55=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68=
-k.org> wrote:
->
-> Hi Prabhakar,
->
-> On Thu, 2 Jul 2026 at 14:31, Prabhakar <prabhakar.csengg@gmail.com> wrote=
-:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > On the Renesas RZ/T2H SoC, the Watchdog Timer Control Register (WDTDCR)
-> > resides within the System Controller (SYS) block rather than the WDT
-> > address space itself.
-> >
-> > Previously, this was handled by including a second register range in th=
-e
-> > "reg" property. However, this is architecturally incorrect as the SYS
-> > block consists of two distinct regions (0x80290000 and 0x81290000) that
-> > contain registers for multiple peripheral blocks.
-> >
-> > Now that the SYS driver provides a unified syscon regmap, introduce the
-> > "renesas,sys" phandle-array property to allow the WDT driver to
-> > access its control register via the system controller.
-> >
-> > Mark the use of a second "reg" entry as deprecated in favor of the
-> > new phandle-array approach for SoCs that require WDTDCR access.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v1->v2:
-> > - No change.
->
-> Thanks for the update!
->
-> > --- a/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.=
-yaml
-> > +++ b/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.=
-yaml
-> > @@ -48,6 +48,17 @@ properties:
-> >    resets:
-> >      maxItems: 1
-> >
-> > +  renesas,sys:
->
-> In Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml,
-> the similar property is called "renesas,sysc".
->
-Ok, I will rename this to "renesas,sysc".
+dt-bindings: net: add DAPU Telecom DAP8211R(I) PHY binding
 
-> > +    description:
-> > +      System controller registers control the start/stop of the WDT, a=
-nd halt debug.
-> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > +    items:
-> > +      - items:
-> > +          - description: phandle to system controller
-> > +          - description: watchdog IP instance index
-> > +            minimum: 0
-> > +            maximum: 5
-> > +
-> >    timeout-sec: true
-> >
-> >  required:
-> > @@ -73,15 +84,29 @@ allOf:
-> >            minItems: 2
-> >          clock-names:
-> >            minItems: 2
-> > +        renesas,sys: false
-> >      else:
-> >        properties:
-> >          clocks:
-> >            maxItems: 1
-> >          clock-names:
-> >            maxItems: 1
-> > -        reg:
-> > -          minItems: 2
-> >          resets: false
-> > +      allOf:
-> > +        - if:
-> > +            required:
-> > +              - renesas,sys
-> > +          then:
-> > +            properties:
-> > +              reg:
-> > +                maxItems: 1
-> > +          else:
-> > +            properties:
-> > +              reg:
-> > +                description: Deprecated. Use renesas,sys to pass the o=
-ffset
-> > +                             of WDTDCR register instead.
->
-> the index of the watchdog IP instance?
->
-I will update the description to "Deprecated. Use the renesas,sysc
-property along with the watchdog IP instance index instead."
+Add device tree binding documentation for the DAPU Telecom DAP8211R(I)
+Gigabit Ethernet PHY.
 
-Cheers,
-Prabhakar
+> diff --git a/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml b/D=
+ocumentation/devicetree/bindings/net/dapu,dap8211r.yaml
+> new file mode 100644
+> index 0000000000000..208a82f779d61
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
+
+[ ... ]
+
+> +  tx-internal-delay-ps:
+> +    description:
+> +      RGMII TX clock delay in picoseconds. The PHY supports 150 ps steps
+> +      from 0 to 2250 ps. If not specified, defaults to 1950 ps. If the
+> +      requested value does not exactly match a supported step, the driver
+> +      selects the nearest supported value and issues a warning.
+> +    enum: [0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
+> +           1650, 1800, 1950, 2100, 2250]
+> +    default: 1950
+> +
+> +  tx-inverted-clk:
+
+[Severity: Medium]
+Since this property is a vendor-specific extension, should it include a
+vendor prefix like dapu,tx-inverted-clk? Introducing custom properties
+without a prefix risks colliding with future standard properties.
+
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      If present, the RGMII TX clock to the MAC is inverted (180 degree
+> +      phase shift relative to the data lines). This is a vendor-specific
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    mdio {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        ethernet-phy@1 {
+> +            compatible =3D "ethernet-phy-ieee802.3-c22";
+
+[Severity: Medium]
+Will this compatible string cause the example to bypass validation for this
+schema? The schema requires the compatible string to be exactly
+"ethernet-phy-id0008.011b". If the example is not evaluated against this
+file's schema, it can hide other validation failures.
+
+> +            reg =3D <1>;
+> +            rx-internal-delay-ps =3D <1050>;
+> +            tx-internal-delay-ps =3D <1150>;
+
+[Severity: Medium]
+Will this value trigger a validation error when the compatible string
+mismatch is fixed? The tx-internal-delay-ps property enforces an enum with
+strict 150 ps steps, and 1150 is not in the list of allowed values.
+
+> +            tx-inverted-clk;
+> +        };
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713131223.2795=
+55-1-a.shimko.dev@gmail.com?part=3D1
