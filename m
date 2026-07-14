@@ -1,468 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19A633D4E8
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FD333ADA0
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784007257; cv=none; b=VuPB6BoIJqllkCZX6Yk8dzsBulYntSkwtgqInF44IbVTRrn7oOa/fLVNu3zffURamh+T/mbh8nPdAbDaj59tOuHDgc32KoSbXUN85t3xJDEe4GDsjmzk1OQCt6FzL4+obWkZK4j4rMDqR8z+Jtl35dJrFlp4S8JDt3zOsVDrOI0=
+	t=1784007272; cv=none; b=TuVgnluBSeTrUKpxyiOVS1oqSYtdX1/G+iFQtAjj7LtJXUDbsXxqvjKND/F7UG1tTBr+XxLt9JRrxOtAs63tuprXWWtGzCiKmp074BsoJzlA7gHzkiO/BUsWh1P3MrZzDX3vaHet/5Iyjr2eJxEiyCTLXAywz/kvSUxfP5YR6ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784007257; c=relaxed/simple;
-	bh=gmv99zqa1PVpdEbCQJDKuhLLk73XtCM4nYr1M8mwtO4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l5u2wBVpH98R1j2cyD+JJqQls0Fx6A/NVVEcFUeO9YPKwScca7ScAVSdcEH2/3SIdp9p6nbPxtAE2OJsgaJAXpOiKByt30E5gyAn5fENVr81hXBSdu2mGnj6U0JXWRiiE+t9oxF95n9KQkI19VhqPrzWRVx+GhfCe02COh/TykY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xx+QqDzz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BBk27tlv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784007272; c=relaxed/simple;
+	bh=8SEidWmBMJZw4ThA4G4JznuivXysAvp9/T05dl3c6/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YBuqUhQo9k2Z9ip7oQitkOl37wYT4GG3e/Dvli/tsF6oXyZv1sQz3bZPNkCgGDzIbUVSzuwLM9ePtzPE2kkovVVHTBumNIT1niwbeJKUVmjzNXbup04odVfyhQro9cg6pgnF9644n5dDIhzFEUZUDCXpss36nT9iTRt2JxYfDO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b17ZUTz7; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xx+QqDzz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BBk27tlv"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66E38P2w3483155
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:34:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fXVHWx0Zf5/xynoCpxYZ0QwwZNMBpb6VXl8Ewna+hEI=; b=Xx+QqDzz7dgapCAP
-	aFzfsuyqmx3jBkVvWlMhgA+QJd3uIzvFMNIh2955A0mFVR1PeUNpQAhD0fUr++uR
-	W6A1T3yoyAPBrx+brHdZm68xi0mS3FxsCGr8aIfMNkN4WLH3uUt6j7Fdl4IdKGXF
-	IypzC3FFDM2/gNKjYED1LSMn9YJhttZjosmNDWV4yUFo4OSPT/wjOH3T636fm5CA
-	lR0SK3da9ZVJbmn3H1ShsD4ZjNTGSnNB12gAzQUr9Sa3uVUWvZhmdQTimg5wD9l9
-	wk36VEBljKBA0iQbtBhNnoR3rcX32P3ENgO0x1IiaIUWZiwCBVmDtcikrPvpNtMh
-	dRIFvw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fd37xacuy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:34:14 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84857446424so8076077b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:34:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b17ZUTz7"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-848643382fcso4332481b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:34:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784007253; x=1784612053; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fXVHWx0Zf5/xynoCpxYZ0QwwZNMBpb6VXl8Ewna+hEI=;
-        b=BBk27tlvtKAkDFxPY0o8IZSXXaoeU7ybbnsXxiWHQIGG+cTskRoPuqrsxhA6NfxINC
-         N7QI3dEkgssBcJFhBMady1S9YDt1HOm/5aB10LcCvD55Tt0D6IWFyllpqWYqPf8zg+fM
-         Qq5r77YgH5Lf8Ozk6LZFmB/9pE8pNNvX7OCkn+k8wT+pvP1xhzBgp/UgKzSvG5iMEaMZ
-         EDjhx9gWjm0gZNjt3uoa0Dq0NmQwn+sU+qusfzRUOi9PHaD57Suna78tLpmwo/sbB4T3
-         K7ZdwMRes28QCreg/FmAEOUCzn5Xb/aXJQWZ0RAbu2Jj8CTAovLQTNaeQ8Nk2O6ZuIH1
-         nKWQ==
+        d=gmail.com; s=20251104; t=1784007270; x=1784612070; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pql5nZoyx4uigchL2F82l2cIvvuODWlbZIdBTSPz7E8=;
+        b=b17ZUTz7De9qFBR1vpwjjaNKzBLrvSF4WiDL0UIoV439SNqJBWYYa1Ebnv/pbULJ7X
+         8hdysoJBytwoRghSWQMAqixl5ETSqWUN5hIGZW0aLBNSCSwe52IikiKT5CwZGyhFnTbb
+         3kK4veSm5kATxYoQ69AkBhBJEcMWIzO0vUrblKv9V7bobPpZsv/gVpTrzNMUzl2W2toa
+         IEhdjLb1V0Z2/Za3sz9yh3yDVQ3atAF7iYHX/0VyHrgScAyu3PyCUPKoJ+e9FepkMMVk
+         Q18Ro3TaO1Q5MwFqFj03u8Avfx2sdCS8w9iKpoxezP6rvMttgsqnw2BtmShwSh12g54b
+         LNnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784007253; x=1784612053;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fXVHWx0Zf5/xynoCpxYZ0QwwZNMBpb6VXl8Ewna+hEI=;
-        b=g0hKD8cpznuH4BqVnOD9t7R7m4ItxkndVpY2BlNaqf4/90GiTsXSBO6Ny73Jv1R6Im
-         8ypgqFahBQMmdTa/w+2WjUtTMR9N2vqvmbVL/q9XKSOqN1MfJFXqfTNP7XZ+MqQLZ1Jo
-         Kxl6cPznWsG0wI0JaorDP1QrH5z3gdfzmGvbXfeGH5LYgVu2u9QyfTrO1JSmAWtJr1W1
-         UfuozzgzE1AcpnDgbCRMUc6hQWdJn6v19VSTBHfN7j/tlwN4zGi3uugeHWdynzVxeJrp
-         UlWnIjgvOaL63cAu9A0kJ1JojesuM6KIyCj/iA7gpGZMyCkmMJgFRbKwQb/tppYd06fo
-         orVA==
-X-Forwarded-Encrypted: i=1; AHgh+RrAliW9q4jrvfcDBfz8OZiKrUWOP+Tu/8pjUJftqPeWj67xSKn/YmZCqy4gzwXZyIqmknpcqk6Ln1C5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0OgoHVl04rkwck5/JuABNh5NdXleGeJ2g3gjJwmFng+wmMiTy
-	uBfW7fQMlJ1X33tw+h19q/wZ0bC7p9cwg5BhpNqJdqwwTp/jL4PqFswIqsrLTeGEx5ifR6o1i6+
-	1ewWSK8kB8O/CRegoB4PaKiYok+8A999CUmoOpavcVmUWMXvPjUh+/UIFcrCXDesv
-X-Gm-Gg: AfdE7cnu5n7nWndoptUBzT0omKAR9E0m/Xl8E/P9/LiigoZ/InGI5dnSUJsFNJkAHet
-	GZwrL3v4mxEL+F3IaE0x83q8PYYgi4xVQw/+p+biEhv+NrcUqeiRzsjRYewtiHt97HQuReOcMD3
-	NKW9mhPElvkd/pMOK4Xn+VWBuH06mDAhHIUYKfzyGP7bIXFxM/NJZfFCQ6wbmTxQCKSW7PO5imd
-	ckrOWPyAZ2jptr/Urq9TB1gjZi37MwsJ8gNswPTDQqhXYNYB9osvYxTrxBmVFZ1Q7BVoPKTHlSa
-	6XD0xGrxFsWNNhSl8E0/0muk2PCNhoyTPtnrCAUg4+IiDvkHTer/moQ+jglmWS5gyKJVAbhwbwj
-	R+gqRa1EX+k9A8TxQdbgAQEhNBOSPAMl6F2M648QGka/LDt4=
-X-Received: by 2002:a05:6a00:228f:b0:847:8250:2b2a with SMTP id d2e1a72fcca58-8488971d058mr10901890b3a.60.1784007253359;
-        Mon, 13 Jul 2026 22:34:13 -0700 (PDT)
-X-Received: by 2002:a05:6a00:228f:b0:847:8250:2b2a with SMTP id d2e1a72fcca58-8488971d058mr10901842b3a.60.1784007252826;
-        Mon, 13 Jul 2026 22:34:12 -0700 (PDT)
-Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f6bebcesm846227b3a.32.2026.07.13.22.34.07
+        d=1e100.net; s=20251104; t=1784007270; x=1784612070;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pql5nZoyx4uigchL2F82l2cIvvuODWlbZIdBTSPz7E8=;
+        b=JR5YeWvGXw8wLb7A+5VN2bJSk/Mzt+fYjOK/KUEcLlnas2xd2f0z910qvtZW9MxxiZ
+         sG4a/RJO8FsJHJrnMjPi1i83vG4+Xbc6zYPCXqXD/FGgkMbxLLElEwDZJj3hcGAi+BV/
+         A05ITIo5x6d1Mc9bp1ZDuKQC92s6ndMrcO8ihRaYjwr7pvAGMF6JUcgj0KnhGguMjRi4
+         hUVeoLzAdglUVSuA8q9wfVH/vw227O7C2TikP02Kg1sfdZm4lYpYOCUyI1/ZNuzQe8nl
+         IV9k5hN6NhhxTls+knPkDO7z3mVaH/239tKQLOLUehhPEaiZSE9GtBZxUjHNjLvrycZ3
+         ULaQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpPviAmq3oKiK5VuyD2cLAQCGLutNSs/SYbJ/ApY1Z0azg6Yj0pLArj1oYylFDtvMR3Da2yFqJILwmo@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrF9DFX16dF2yeehTANaWqMZukUm229N2Oxy7ZL3hwQ5v0JWTc
+	E2t4k07rq8g0s+iu/pm83RgISo87LEg+pIVgRSiur6nzii3M0eNfBskQwSc6rcTz
+X-Gm-Gg: AfdE7ckDxlgXyrbZtJ8GOEm6Lwd0RBtm97Mo7l7avv5Lk+PWW6Vnasdxh1+VDQQnTJa
+	3mrDJ4dTVgR/9ixW6XArNJ4fLx9Ar887grsO38wfKTAPoDV1e3MteKsigVeBtnD33LMB2KMyrrG
+	ivnRAcPt+rFYzR28wuyCfr0IZZwyVoaVI13i0HN9t658kpgMEhuS2d4EcBOpgzm4cN0hECmmIkN
+	1zdee29L5qD2mmpIK2sibGtgNs0CoyZ6YTlVlOERD/EEZz6O3F1rKMzk4LHjJ+9zPonZFNWtuB+
+	FUUgCrwYv60wZcUMvsq3B71tRrinaya49NAJdeM3xmnzWm2UDGO7DuuJuCPgSpKRuVQ0DVneFvr
+	wTyw0mNj2zkJrJvGvDh/qJ7vL0cXVVnk9ruYo+4SKbk0eiTM+bk2+j5qYG4K7FUrCD5sFuuXOUX
+	3fAsDgJESKW0Th5bLk2CPl
+X-Received: by 2002:a05:6a21:320b:b0:3c1:d78:6450 with SMTP id adf61e73a8af0-3c34d8bc7ccmr2897757637.66.1784007270055;
+        Mon, 13 Jul 2026 22:34:30 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b87b92b27sm33047165c88.6.2026.07.13.22.34.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 22:34:12 -0700 (PDT)
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 11:02:32 +0530
-Subject: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a single
- coherent block
+        Mon, 13 Jul 2026 22:34:29 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: heiko@sntech.de,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH v8 0/2] arm64: dts: rockchip: add Vicharak Axon board support
+Date: Tue, 14 Jul 2026 11:04:17 +0530
+Message-ID: <20260714053419.265523-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
-References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
-In-Reply-To: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
-To: Stephan Gerhold <stephan@gerhold.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        chris.lew@oss.qualcomm.com,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784007235; l=11718;
- i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
- bh=gmv99zqa1PVpdEbCQJDKuhLLk73XtCM4nYr1M8mwtO4=;
- b=MEW0ZkwIwTi0V3ad5+Op/2XUp9TTpSEit2BMVaoqj1TWLn7cSP2+P/9gTl/MXfZn1uIYgdoX6
- ZUaxDB5bd0tD/JgODWBA8fKrSOeP2Z+Vqj8DmeuTUK0phZ0Ul4Ezv1q
-X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
- pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDA1NSBTYWx0ZWRfX4J3xmr8YaE/D
- oSJIrIzRXgSmpmL6p6BZi/quSSSOPfBWf4RvuGafiZWcKL/Q+RZ4vNEOmU9Oq5So5/W9YNNx/Ld
- Z8e6+qEijSgTxNiSs4mCM+ePNAKgx+iwzt5TOwWCc7QJ04S7tTGBpKXURuP3Fg25Th2FPRHw38l
- NRNENA3zudHtUB7YOohoCMxEzgArhoAn8/4aS1f3r3iohuTIKucsu/8x711dOV6SQIGDraJlluc
- 0MH2saRVU0D18UktjkjMR9z5ck4McAJeCU9BsUFgajJUhTbyfbWAZuffq1vtjKiqAAoA+12mw59
- 0VvW7GFqrsO31Sip6BQiAwUpDkgmfLci3rIeMCDZYnVG08lChf0aqstHvue8w08GpzBtBN2kfZk
- X9VdsoLCEQHaPU6Gcws2XLGhlc6J1bkG8DAPIQkJFazDq87yzWiIYRmCZiXNQK3GwahCyvV3Q9u
- wbIXlwrM9e1AOMHWzzQ==
-X-Authority-Analysis: v=2.4 cv=BNWDalQG c=1 sm=1 tr=0 ts=6a55ca56 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=Yt_q4RW75Gh75vbNyMgA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-ORIG-GUID: EG0flYttTXtWM6RYqe4VOyUe2yiHiGFq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDA1NSBTYWx0ZWRfX1NV3nBgwoHwC
- OdXmo+HMlJaWDeJaPSaOfM+iCdqtESVbR4NWHptcTeVCTkbpzSBsZJ8U+n+qdPbWphxhOyZm+K7
- YAy5budLtCFNu8PxmglqcqYltOBQD7A=
-X-Proofpoint-GUID: EG0flYttTXtWM6RYqe4VOyUe2yiHiGFq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-14_01,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140055
+Content-Transfer-Encoding: 8bit
 
-On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
-NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
-per-region access control, each individually DMA-mapped RX buffer
-requires its own XPU resource group (RG). With ~16 RGs available, the
-32 per-buffer dma_map_single() calls exhaust the table and the first
-inbound transfer faults with an XPU violation.
+This series adds initial device tree support for the Vicharak Axon
+single-board computer, which is based on the Rockchip RK3588 SoC.
 
-BAM-DMUX is a singleton (exactly one instance per SoC), so the
-destination VMID does not need to be a DT property; it is looked up
-from the compatible string's match data instead. Add struct
-bam_dmux_data with a single vmid field, and a shikra_data instance
-hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
+The Vicharak Axon is a feature-rich SBC targeting developer and embedded
+use cases. It ships with:
 
-When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
-a single contiguous dma_alloc_coherent() block and SCM-assign that
-block to HLOS plus the VMID once at probe. This reduces RG consumption
-from 32 to 1. The block is never reclaimed across a modem power cycle
-(bam_dmux_power_off() does not touch it), so the probe-time assignment
-covers every subsequent restart without re-assigning or reclaiming. It
-is reclaimed to HLOS only once, at remove or on a probe error, and if
-that reclaim fails it is leaked rather than returned to the page
-allocator.
+  - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
+  - RK806 PMIC providing all SoC power domains
+  - eMMC 5.1 (on-board) and microSD slot
+  - Gigabit Ethernet via RGMII (RTL8211F)
+  - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
+  - PCIe 3.0 x4 and two PCIe 2.0 slots
+  - SATA 3.0
+  - USB 2.0 host ports (EHCI/OHCI)
+  - NXP PCA9554 I/O expander for status LEDs
+  - Haoyu HYM8563 RTC
 
-Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
-the block, so no per-buffer mapping is needed at power-on. Because the
-coherent block is not page-backed, received payload is copied into a
-regular netdev skb before handoff to the network stack; this is an
-unavoidable extra copy on the XPU-enforced RX path.
+Note on vendor prefix: the 'vicharak' prefix was submitted separately
+[1], and Krzysztof asked us to drop it from our series [2]. 
 
-Platforms without match data are unaffected: rx_virt stays NULL, no
-coherent memory is allocated, and the per-buffer dma_map_single() path
-is unchanged.
+[1] https://lkml.org/lkml/2026/6/24/929
+[2] https://lore.kernel.org/linux-rockchip/96c9b1eb-9f8e-430d-9c38-eb4d489d7d24@kernel.org/
 
-Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
----
- drivers/net/wwan/Kconfig         |   1 +
- drivers/net/wwan/qcom_bam_dmux.c | 134 ++++++++++++++++++++++++++++++++++++---
- 2 files changed, 125 insertions(+), 10 deletions(-)
+Changes since v7:
+- Renamed rk806 DVS pinctrl nodes to have '-pins' suffix to comply
+  with the rockchip,rk806.yaml binding (e.g. 'dvs1-null-pins').
+  Removed unused DVS pin state nodes (only the three dvs*-null-pins
+  states actively used in pinctrl-0 are kept).
+- Removed dangling pinctrl-1/pmic-power-off state after removing
+  the unused dvs1-pwrdn node.
+- Moved 'compatible' before 'reg' in the PMIC node per DT convention.
+- Dropped vendor-prefixes.yaml patch (handled separately, see above).
+- Verified with dtbs_check: no warnings.
 
-diff --git a/drivers/net/wwan/Kconfig b/drivers/net/wwan/Kconfig
-index 958dbc7347fa84ee869439bf8b503037faab8bef..1b133c56231615269698140187ca3141dfe48dbf 100644
---- a/drivers/net/wwan/Kconfig
-+++ b/drivers/net/wwan/Kconfig
-@@ -65,6 +65,7 @@ config MHI_WWAN_MBIM
- config QCOM_BAM_DMUX
- 	tristate "Qualcomm BAM-DMUX WWAN network driver"
- 	depends on (DMA_ENGINE && PM && QCOM_SMEM_STATE) || COMPILE_TEST
-+	select QCOM_SCM
- 	help
- 	  The BAM Data Multiplexer provides access to the network data channels
- 	  of modems integrated into many older Qualcomm SoCs, e.g. Qualcomm
-diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
-index cc6ace8d64371eb8d00c638a39b234ee540b83c9..247230b720e6011876d5c429badbb5a1f34fc576 100644
---- a/drivers/net/wwan/qcom_bam_dmux.c
-+++ b/drivers/net/wwan/qcom_bam_dmux.c
-@@ -9,10 +9,12 @@
- #include <linux/completion.h>
- #include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
-+#include <linux/firmware/qcom/qcom_scm.h>
- #include <linux/if_arp.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
- #include <linux/netdevice.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/soc/qcom/smem_state.h>
-@@ -62,6 +64,7 @@ struct bam_dmux_skb_dma {
- 	struct bam_dmux *dmux;
- 	struct sk_buff *skb;
- 	dma_addr_t addr;
-+	void *rx_virt; /* non-NULL: slot in the coherent RX block */
- };
- 
- struct bam_dmux {
-@@ -75,6 +78,10 @@ struct bam_dmux {
- 	struct completion pc_ack_completion;
- 
- 	struct dma_chan *rx, *tx;
-+	/* Single coherent block backing all RX buffers, NULL if unused */
-+	void *rx_buf;
-+	dma_addr_t rx_buf_dma;
-+	u64 rx_buf_perms; /* SCM source-VMID bitmask of rx_buf */
- 	struct bam_dmux_skb_dma rx_skbs[BAM_DMUX_NUM_SKB];
- 	struct bam_dmux_skb_dma tx_skbs[BAM_DMUX_NUM_SKB];
- 	spinlock_t tx_lock; /* Protect tx_skbs, tx_next_skb */
-@@ -92,6 +99,10 @@ struct bam_dmux_netdev {
- 	u8 ch;
- };
- 
-+struct bam_dmux_data {
-+	u32 vmid;
-+};
-+
- static void bam_dmux_pc_vote(struct bam_dmux *dmux, bool enable)
- {
- 	reinit_completion(&dmux->pc_ack_completion);
-@@ -111,6 +122,9 @@ static bool bam_dmux_skb_dma_map(struct bam_dmux_skb_dma *skb_dma,
- {
- 	struct device *dev = skb_dma->dmux->dev;
- 
-+	if (skb_dma->rx_virt) /* coherent RX slot: addr pre-assigned */
-+		return true;
-+
- 	skb_dma->addr = dma_map_single(dev, skb_dma->skb->data, skb_dma->skb->len, dir);
- 	if (dma_mapping_error(dev, skb_dma->addr)) {
- 		dev_err(dev, "Failed to DMA map buffer\n");
-@@ -124,6 +138,9 @@ static bool bam_dmux_skb_dma_map(struct bam_dmux_skb_dma *skb_dma,
- static void bam_dmux_skb_dma_unmap(struct bam_dmux_skb_dma *skb_dma,
- 				   enum dma_data_direction dir)
- {
-+	if (skb_dma->rx_virt) /* coherent RX slot: nothing to unmap */
-+		return;
-+
- 	dma_unmap_single(skb_dma->dmux->dev, skb_dma->addr, skb_dma->skb->len, dir);
- 	skb_dma->addr = 0;
- }
-@@ -468,9 +485,10 @@ static bool bam_dmux_skb_dma_submit_rx(struct bam_dmux_skb_dma *skb_dma)
- {
- 	struct bam_dmux *dmux = skb_dma->dmux;
- 	struct dma_async_tx_descriptor *desc;
-+	size_t len = skb_dma->rx_virt ? BAM_DMUX_BUFFER_SIZE : skb_dma->skb->len;
- 
- 	desc = dmaengine_prep_slave_single(dmux->rx, skb_dma->addr,
--					   skb_dma->skb->len, DMA_DEV_TO_MEM,
-+					   len, DMA_DEV_TO_MEM,
- 					   DMA_PREP_INTERRUPT);
- 	if (!desc) {
- 		dev_err(dmux->dev, "Failed to prepare RX DMA buffer\n");
-@@ -485,6 +503,10 @@ static bool bam_dmux_skb_dma_submit_rx(struct bam_dmux_skb_dma *skb_dma)
- 
- static bool bam_dmux_skb_dma_queue_rx(struct bam_dmux_skb_dma *skb_dma, gfp_t gfp)
- {
-+	/* Coherent RX slots have rx_virt and addr pre-assigned at probe. */
-+	if (skb_dma->rx_virt)
-+		return bam_dmux_skb_dma_submit_rx(skb_dma);
-+
- 	if (!skb_dma->skb) {
- 		skb_dma->skb = __netdev_alloc_skb(NULL, BAM_DMUX_BUFFER_SIZE, gfp);
- 		if (!skb_dma->skb)
-@@ -499,9 +521,10 @@ static bool bam_dmux_skb_dma_queue_rx(struct bam_dmux_skb_dma *skb_dma, gfp_t gf
- static void bam_dmux_cmd_data(struct bam_dmux_skb_dma *skb_dma)
- {
- 	struct bam_dmux *dmux = skb_dma->dmux;
--	struct sk_buff *skb = skb_dma->skb;
--	struct bam_dmux_hdr *hdr = (struct bam_dmux_hdr *)skb->data;
-+	struct bam_dmux_hdr *hdr = skb_dma->rx_virt ? skb_dma->rx_virt :
-+				   (struct bam_dmux_hdr *)skb_dma->skb->data;
- 	struct net_device *netdev = dmux->netdevs[hdr->ch];
-+	struct sk_buff *skb;
- 
- 	if (!netdev || !netif_running(netdev)) {
- 		dev_warn(dmux->dev, "Data for inactive channel %u\n", hdr->ch);
-@@ -514,10 +537,18 @@ static void bam_dmux_cmd_data(struct bam_dmux_skb_dma *skb_dma)
- 		return;
- 	}
- 
--	skb_dma->skb = NULL; /* Hand over to network stack */
--
--	skb_pull(skb, sizeof(*hdr));
--	skb_trim(skb, hdr->len);
-+	if (skb_dma->rx_virt) {
-+		/* Coherent block is not page-backed: copy out to a real skb */
-+		skb = netdev_alloc_skb(netdev, hdr->len);
-+		if (!skb)
-+			return;
-+		skb_put_data(skb, (u8 *)skb_dma->rx_virt + sizeof(*hdr), hdr->len);
-+	} else {
-+		skb = skb_dma->skb;
-+		skb_dma->skb = NULL; /* Hand over to network stack */
-+		skb_pull(skb, sizeof(*hdr));
-+		skb_trim(skb, hdr->len);
-+	}
- 	skb->dev = netdev;
- 
- 	/* Only Raw-IP/QMAP is supported by this driver */
-@@ -574,10 +605,14 @@ static void bam_dmux_rx_callback(void *data)
- {
- 	struct bam_dmux_skb_dma *skb_dma = data;
- 	struct bam_dmux *dmux = skb_dma->dmux;
--	struct sk_buff *skb = skb_dma->skb;
--	struct bam_dmux_hdr *hdr = (struct bam_dmux_hdr *)skb->data;
-+	struct bam_dmux_hdr *hdr;
- 
--	bam_dmux_skb_dma_unmap(skb_dma, DMA_FROM_DEVICE);
-+	if (skb_dma->rx_virt) {
-+		hdr = skb_dma->rx_virt; /* coherent RX: no skb to unmap */
-+	} else {
-+		bam_dmux_skb_dma_unmap(skb_dma, DMA_FROM_DEVICE);
-+		hdr = (struct bam_dmux_hdr *)skb_dma->skb->data;
-+	}
- 
- 	if (hdr->magic != BAM_DMUX_HDR_MAGIC) {
- 		dev_err(dmux->dev, "Invalid magic in header: %#x\n", hdr->magic);
-@@ -644,6 +679,9 @@ static void bam_dmux_free_skbs(struct bam_dmux_skb_dma skbs[],
- 	for (i = 0; i < BAM_DMUX_NUM_SKB; i++) {
- 		struct bam_dmux_skb_dma *skb_dma = &skbs[i];
- 
-+		if (skb_dma->rx_virt) /* coherent block freed at remove */
-+			continue;
-+
- 		if (skb_dma->addr)
- 			bam_dmux_skb_dma_unmap(skb_dma, dir);
- 		if (skb_dma->skb) {
-@@ -762,6 +800,71 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
- 	return 0;
- }
- 
-+static int bam_dmux_alloc_coherent_rx(struct bam_dmux *dmux)
-+{
-+	struct device *dev = dmux->dev;
-+	const struct bam_dmux_data *data = of_device_get_match_data(dev);
-+	size_t size = BAM_DMUX_NUM_SKB * BAM_DMUX_BUFFER_SIZE;
-+	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
-+	struct qcom_scm_vmperm dst[2];
-+	int i, ret;
-+
-+	if (!data)
-+		return 0;
-+
-+	if (!qcom_scm_is_available())
-+		return -EPROBE_DEFER;
-+
-+	dst[0].vmid = QCOM_SCM_VMID_HLOS;
-+	dst[0].perm = QCOM_SCM_PERM_RW;
-+	dst[1].vmid = data->vmid;
-+	dst[1].perm = QCOM_SCM_PERM_RW;
-+
-+	dmux->rx_buf = dma_alloc_coherent(dev, size, &dmux->rx_buf_dma, GFP_KERNEL);
-+	if (!dmux->rx_buf)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < BAM_DMUX_NUM_SKB; i++) {
-+		dmux->rx_skbs[i].rx_virt = dmux->rx_buf + i * BAM_DMUX_BUFFER_SIZE;
-+		dmux->rx_skbs[i].addr = dmux->rx_buf_dma + i * BAM_DMUX_BUFFER_SIZE;
-+	}
-+
-+	ret = qcom_scm_assign_mem(dmux->rx_buf_dma, size, &src, dst, ARRAY_SIZE(dst));
-+	if (ret) {
-+		dev_err(dev, "SCM assign RX block failed: %d\n", ret);
-+		dma_free_coherent(dev, size, dmux->rx_buf, dmux->rx_buf_dma);
-+		dmux->rx_buf = NULL;
-+		return ret;
-+	}
-+	dmux->rx_buf_perms = src;
-+
-+	return 0;
-+}
-+
-+static void bam_dmux_free_coherent_rx(struct bam_dmux *dmux)
-+{
-+	struct qcom_scm_vmperm hlos = {
-+		.vmid = QCOM_SCM_VMID_HLOS,
-+		.perm = QCOM_SCM_PERM_RW,
-+	};
-+	size_t size = BAM_DMUX_NUM_SKB * BAM_DMUX_BUFFER_SIZE;
-+
-+	if (!dmux->rx_buf)
-+		return;
-+
-+	if (dmux->rx_buf_perms) {
-+		if (qcom_scm_assign_mem(dmux->rx_buf_dma, size, &dmux->rx_buf_perms,
-+					&hlos, 1)) {
-+			dev_err(dmux->dev, "SCM reclaim RX block failed; leaking\n");
-+			return;
-+		}
-+		dmux->rx_buf_perms = 0;
-+	}
-+
-+	dma_free_coherent(dmux->dev, size, dmux->rx_buf, dmux->rx_buf_dma);
-+	dmux->rx_buf = NULL;
-+}
-+
- static int bam_dmux_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -809,6 +912,10 @@ static int bam_dmux_probe(struct platform_device *pdev)
- 		dmux->tx_skbs[i].dmux = dmux;
- 	}
- 
-+	ret = bam_dmux_alloc_coherent_rx(dmux);
-+	if (ret)
-+		return ret;
-+
- 	/* Runtime PM manages our own power vote.
- 	 * Note that the RX path may be active even if we are runtime suspended,
- 	 * since it is controlled by the remote side.
-@@ -845,6 +952,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
- err_disable_pm:
- 	pm_runtime_disable(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
-+	bam_dmux_free_coherent_rx(dmux);
- 	return ret;
- }
- 
-@@ -879,13 +987,19 @@ static void bam_dmux_remove(struct platform_device *pdev)
- 	disable_irq(dmux->pc_irq);
- 	bam_dmux_power_off(dmux);
- 	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
-+	bam_dmux_free_coherent_rx(dmux);
- }
- 
- static const struct dev_pm_ops bam_dmux_pm_ops = {
- 	SET_RUNTIME_PM_OPS(bam_dmux_runtime_suspend, bam_dmux_runtime_resume, NULL)
- };
- 
-+static const struct bam_dmux_data shikra_data = {
-+	.vmid = QCOM_SCM_VMID_NAV,
-+};
-+
- static const struct of_device_id bam_dmux_of_match[] = {
-+	{ .compatible = "qcom,shikra-bam-dmux", .data = &shikra_data },
- 	{ .compatible = "qcom,bam-dmux" },
- 	{ /* sentinel */ }
- };
+Hrushiraj Gandhi (2):
+  dt-bindings: arm: rockchip: add Vicharak Axon board
+  arm64: dts: rockchip: add Vicharak Axon board
+
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3588-vicharak-axon.dts     | 860 ++++++++++++++++++
+ 3 files changed, 866 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts
 
 -- 
-2.34.1
+2.47.3
 
