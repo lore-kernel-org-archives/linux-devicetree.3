@@ -1,205 +1,252 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013002.outbound.protection.outlook.com [52.101.83.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0726417BC3
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 18:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784055209; cv=none; b=AGNrSO4pdUZm7y7EhusxB6sEs2X/NU32vW2adLIjlK55pi2F1C0cwZ/D2w9wmMjFLGBz3YTEPt4EX4UcqHrXjV9tCNomkyYQbHR8Mk8NOZY0sBZ8r6T6zWqvSoOKK3QClsv9woIFXPzW1TwAEduwGocAfHjWkHiYmsJ1cmjpOHc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784055209; c=relaxed/simple;
-	bh=Y9FJBI04v0b5TlI5275Tjuzdsyze3l17kCBKDrC4yME=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=RIQoImxzryyg5HeXE4gaihwzpJstqIocjlbUqcz2tnpzQGCF2zT3sJYevZcsBR1KhO31qIcnUvIIp3RbOlR/fxto/ubh7J0ExYQzliDQimLZyW22TSO8cPn4UKqgP3fH+ThPWruo2HESdH4jbve3r86bGox54r/4sQS2VGhyZKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=L8neElKB; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BF7445AFC;
+	Tue, 14 Jul 2026 19:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784055863; cv=fail; b=TZRpprJCfieZm/kmRdE+UGhlBaYRP5qiozRpC4SZ6jzN2nwqVLHKTziVj8W/v80zvTnBKJggcvRO3/MxENDj8Cr3oY9ou+u/mlamc53WyHagRGwD2uQI6yfnifxFCI6weXAtNO0vviHp5BgPLV1YOvqeo9iKYQ6phzZdSTu6Qx4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784055863; c=relaxed/simple;
+	bh=d2q+awOc96mR/+WZiGLFt8owLdiHE3pVyFNFajLWHmg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=aBXTvtBZwMf+QqmignF+/UqtImR8Lwb05zsiGWZvxHS5jGRWFWyPoBJA99zYYRv7h2b8UXeMMjoVW9ODapQQw73DEnjUk94KALpiUvvk8sqtbVO5f47MNRGIcRlvb3zRVA0zyp2O8IwLRIYe8TRwT5T1t8lNwHEPiuvCIODY57Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=VzuQ3YrS; arc=fail smtp.client-ip=52.101.83.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="L8neElKB"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4938d5f86f3so8935665e9.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 11:53:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1784055189; x=1784659989; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pcNBWSk81aXJRf1HEe9CIzvLtrqcVP1uAiQM4+26Yvg=;
-        b=L8neElKBI+1EN3FDHmnDBLqzeOoM/f9EBfl0XM1QrahWy26HivYXWvng4AntAPVKxF
-         wjPKPljlFjgHISLymbKO2xKaYC6rFC5ISeF5mDaLiSFAdeUUqSKqXKDK3XKrGLg06iaJ
-         tlIPUIA5UJb7kN0BcYyJs4Kl/IH7EVFBk47130zHCUjIp0EeQCWDJNMn9j6Wr2N11W6a
-         rtffwNbHnirLJOYdxf26rMzu7rpxEt85iAgKes4TpCGjUjomg/ZVYTmXu1Tuo4lYAXpH
-         7USrky6TBgX1yQYGJ8nY3DEuulq78Suwvy8V5Agx1U53tEWU6QR6My+87K9ocSK2rKP5
-         mZYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784055189; x=1784659989;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pcNBWSk81aXJRf1HEe9CIzvLtrqcVP1uAiQM4+26Yvg=;
-        b=jhh54Nmhu0IINJLE4Dd9lpcpL9T40adnF6kMLi8ig47lDPBdcie32r9NUhb3vHMPFW
-         tVfFMTPsd+hgKYHyUjFhontCmNrFOrY/dJ+1cHHyyTuJ84amBXC8KLyYVob/3vLA4MEU
-         DovCU/ElUUL2DPwU86CXNh784f0fP9f6QtJ+AAU0h5mdnsarquZJRSS6aWreSOiVSel/
-         mJKpXCuQH47gW5lWnTkd2nbMJRPaTR2P2lEj7+bPbakiLZIbh1eGcXu/lazaM+76dndo
-         f4oLh+qS+08z9E3zFzSp299auQySuOCiKbt0JVMGYXUnZtYHz7Unfi36/g+QbtXDvolW
-         ZL2w==
-X-Forwarded-Encrypted: i=1; AHgh+RrsvX85wkPYKYECZKEt7VgQZD5WQ+qg6V5PdaiKX6873GM7100DzwTMWkD01cmlFtPdW1iOJKkHCQFd@vger.kernel.org
-X-Gm-Message-State: AOJu0YyqBavQFaqtuwihJy3yPvC4iC2+ih06gLq+AxTDE8CQUkYXMtO8
-	xlUPsgf6HSGv+DUoIWy1Yole66weF+ApFFQYUAwdcq+u2vj2tya9v5zMiveIjEJpHn8=
-X-Gm-Gg: AfdE7clofFR9B865seffCID8JLemRabojN+f7cVgVOiFleeeI8mTPsAqWecm7tucqKZ
-	yT91TbqptKy3no+rLf9nigT4bX9BAztfymsuVYZbnHu9/BmBN1JNIKgW//CBKZ8PvaEt5hbgAi3
-	l38M8plqKcLrByQh6p+lShd6IVd7sGa98WhQCZqzCVPi5L6tWQhoz3lymsBYMNzEp1w2SwK4+Eb
-	B+d7xEnmOyFJKRqALjZMxh0UWOqF5bQERbOsiOlFBNBetLHAZ0UbTE8cM0p9vQfrQY9eBBd7HRG
-	irZCTFcXJajAcN8MGG+Sz2BFaUi1LtsZmVpZlQXyMBI2xwcTLOXmT0rEhRpYob7rPMJ4IbLdwcM
-	kja3c0XA0iU61gnJ16g9IuZkDU+zXffADePOZa2et75FdqKNIpXWctRmOSpdXqsBYsJomFhq865
-	gqiusiIStLWaSenNB2LjENZUx5cexBvK1iW5z+LIu4
-X-Received: by 2002:a05:600c:6749:b0:493:edde:54c8 with SMTP id 5b1f17b1804b1-493f8885b92mr156957465e9.8.1784055188747;
-        Tue, 14 Jul 2026 11:53:08 -0700 (PDT)
-Received: from [192.168.254.124] ([2001:9e8:2fb:8201:c26a:83ef:161a:409b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49508725c0bsm94908715e9.2.2026.07.14.11.53.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 11:53:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="VzuQ3YrS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xsZ/yWDRb3bNf2JZvDRcNraztLZRvthx8Gf/qlobCrAkgSou0Qs8JFV8zWCAa3/ibd8dZgShUOjsx9VsPozHT/TdjnUZjo+gHgGObXhXylC5UPncPYJz8Ednj5Rf6U8CoseredPXiYFsRJCOy96/94bbnFkFoIBHeS5Lj6dmlo0zbvCfl+/adFEv37wTNytocvkfGUruxTFSVJG1h1XXizXakW1Lg2yPuMDZXdt9fv2xqOgJpHPA8dxOyCdz0V7HQbCSEzdku3aSvALfM2H9uCYorCSV35OOSseYElZqjiChRs0kuFVRI9fEOGf+WBqXbBf54zwmtIB7IKTdF1gjhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uWc34plD7LITbpAEnDxcw/AuXqrg6UcPptcYyu0lPAc=;
+ b=nC2BJqlN0qKYh9afH5P97OIPKI0omuvDzHgcqrEd1pWEtMNaFtzITlxnTflkQKIQLmdLjssZ3KKPq4OmMU8Iw99cvyQFD4SeZdmxEIkW5sF+HIW6cozq3IGgY8d4wAvIWx1owSLlFwwdeFGZFGJAcHn6n2H6RwcwIPYPyNZG4/ErK7OXWQ+pSUhCZgZsP03ujAVszVOhd+i34wHld9L8CBc4/Y8dSFdwM8bPfYrazCXgAVDuTKICAz0gU6ZJhckWboGOZZ8XzyWWmQlAkgKkj6pjUmrdeAy70ENts/g7q76SVuyRqHK69a5HQOhOpd6rIzhO95EwkShasfC9r7qzJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uWc34plD7LITbpAEnDxcw/AuXqrg6UcPptcYyu0lPAc=;
+ b=VzuQ3YrSI2w6MUSCu9r8XPLjrL5Bz0OTrbc7/62Nv3Vx8nl38TXKTPhT6p3QB0X2ZmPN9Ri7NI+EDi/myd38dm4nmgKK/5nZFzdyfcb9NUv1BrtvxEtcqYE06FaIlY1Pgj8TAK9ShXEV3FmXRDFgti0cy7TTvxJB2CpKCrBhtnETMVLpJIuvzvmnWSmU5sfGF/iCsVI5/eZhN4MSnh+cwdqVXSjPX66RgMxCufA3mF/Q1KpVl3EdU1ZVK44C1xE4MaSEiDtezQbF5gyGlSEUln4BtFAEuzQdewO5Ev+t25Dv78y2yUH7Wd9+HIfaeO9SsiI/Gn/FbhJHoxpC4sr3Dw==
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
+ by AM9PR04MB8619.eurprd04.prod.outlook.com (2603:10a6:20b:43a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.9; Tue, 14 Jul
+ 2026 19:04:09 +0000
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::b4c0:6119:2228:2ceb]) by PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::b4c0:6119:2228:2ceb%5]) with mapi id 15.21.0181.016; Tue, 14 Jul 2026
+ 19:04:09 +0000
+From: "Shenwei Wang (OSS)" <shenwei.wang@oss.nxp.com>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>, "Shenwei Wang (OSS)"
+	<shenwei.wang@oss.nxp.com>
+CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
+ Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, dl-linux-imx <linux-imx@nxp.com>,
+	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, "b-padhi@ti.com"
+	<b-padhi@ti.com>, Andrew Lunn <andrew@lunn.ch>
+Subject: RE: [PATCH v14 1/5] docs: driver-api: gpio: rpmsg gpio driver over
+ rpmsg bus
+Thread-Topic: [PATCH v14 1/5] docs: driver-api: gpio: rpmsg gpio driver over
+ rpmsg bus
+Thread-Index: AQHdE8OM5Pma2BJDKkCxecbC057kzQ==
+Date: Tue, 14 Jul 2026 19:04:08 +0000
+Message-ID:
+ <PAXPR04MB918568AE7B2364EC9D16427689F92@PAXPR04MB9185.eurprd04.prod.outlook.com>
+References: <20260625155432.815185-1-shenwei.wang@oss.nxp.com>
+ <20260625155432.815185-2-shenwei.wang@oss.nxp.com> <alUdg9iTysXCFUa5@p14s>
+In-Reply-To: <alUdg9iTysXCFUa5@p14s>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM9PR04MB8619:EE_
+x-ms-office365-filtering-correlation-id: 81f697b2-6ebf-47ed-4b0b-08dee1daaf12
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|19092799006|23010399003|1800799024|38070700021|18002099003|22082099003|6133799003|4143699003|11063799006|56012099006|3023799007;
+x-microsoft-antispam-message-info:
+ q2fOOLnnfCik6wDK8HNfIOvYT8Kg/7Wipaz5GoqOiBNjsrZ78jGhel32YmyCIoH1Z6tGjSnMdH8cX4eNabA/WiKQ4caaeWGRLXRe3euMmKRYVKpNJTHhPvjfWcRa3Iu4TWmHF9u4N7w1SL6WRYSqcGZPZc/thMhfksYpOzuNESToM8UBaruBBlY7CIiFZq9o3G4pJaLRZwSd8EgsxNJfIL28kc40hhripNQhg/IZh6mjtidmVvZEGqUWHKOV5ifKZvcfSvshE3x1kSWk2mvdrAEs3Qfdes3V+dJJXlgXac60vd+8GfYe8Ww1prfiQusIpegptB7qwzhwbm9ICMdYEjLfpStutOD91LzxMhl+Qwh+y2emYT9jwDGe0MHXfPrw4D3kOvliJHqF0HoKRxm/OjiWcXWgfB4QkO9PelMRAwhWt+Clknc087UQdOrfTg+Q/TDOli8G/nUfejknbB3Zpsp4jE/4zFamvgJJR230q6h54GAdljcv2kmGs+Q6ggTTgGC1FRdO9lsj9bgUvIgFHz3aPOtlCtiWHs7RSKWND8yV2P6xtHhSzN5zLznOPkxcW8+nWV/LSLlOqnPtDlCPqxQsUpwLXqMdPFw01apKJfsymN6dtlORHrSSUOE1bg3AfKXfNFLDv5gHZJhdjT5MlNG1enDlah42MnvUQOPJ29pIvxoLKqlrgwTzRaSxNzzWPCF3vhPz5tg3+R+9ZPKsVuLbfVr0yrcSbPqBarLcxBo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9185.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(19092799006)(23010399003)(1800799024)(38070700021)(18002099003)(22082099003)(6133799003)(4143699003)(11063799006)(56012099006)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?1N9FwYfVJRePMqYbI8cUdofuFpOQJNiIGoa9Vv91nP6X+b86UyXdEqkKMvGk?=
+ =?us-ascii?Q?wY2ikyuWHydUJAZ6TzTHSU/m+GJ9UlcWaM+3su2DX6DoTBYdiZMZTNqWsuLe?=
+ =?us-ascii?Q?gBdn90c5QOEsWFyDUBjijsqsA02TUrXX0pEUouhYqGmxd+vd1UyIEbBIdRa6?=
+ =?us-ascii?Q?fpfwL+PkH8tqhNUqoQJGBEBkZ8wQun2me2exc77r5iSAPhMO1j0kNl0eD48Z?=
+ =?us-ascii?Q?UP7Vm07woULaLoxQ57xzZcL4XJoDIy0NMxioQgi59VXBUsQ47o2kRpveaMJj?=
+ =?us-ascii?Q?s196PCti4Mk/kTcGk7p8oyxOaiB6AN5Ajc7FXLgR3Sv4fV+HyNn9/5hd7UbS?=
+ =?us-ascii?Q?Er3jN1YAnW6hGaiicCIiUiUCTGYZVVPcu5Pa+SpUTXWwRMvtozOGGJKBunbG?=
+ =?us-ascii?Q?v8K2VwpNIzR2XSTtKA9fo0mAxQk5oGCWodjBCLJq9ZYgQYZp8j0l7uKd+dw2?=
+ =?us-ascii?Q?K51Ru3dc+5sWmBj6CgZRA/Qpc44uAl0jb3LO+9ey6CIuSFW2GRDrmPcG1hW4?=
+ =?us-ascii?Q?XL4RBJzNQEIfMstOIvNqvVEu1zvUs2HHP4vT/W3m/86RsAUi6UMqT6n0pkHA?=
+ =?us-ascii?Q?3osmtRlX8dqOpqKQagH9b4E7LFAiyPD6j3HAiXHsinUsQ/v859PDPrlub+CT?=
+ =?us-ascii?Q?o1WvHArXzyoT5/MSen15kPDLoR2BJDoaoav7pGmr1+Ocy9U/m4n1MFdC9xjw?=
+ =?us-ascii?Q?reZpDqw6UHvAf18OQhJtvX8tRvvjxIi1UOGzFWR76f/DuYzow2eiVLyxzhsc?=
+ =?us-ascii?Q?1DPadaMmgLr+tilgHHHFr3wx7jPkWzIrEExN07x2Utq4OGK7amyNmz4uwaPW?=
+ =?us-ascii?Q?AzNv0bjOqupsS0uvFxF2FjDPUvJa/4BMu+1o4ZW0WxyaAp4GqGviRSrHAwFP?=
+ =?us-ascii?Q?TWDhqOs0NIIVhzCmuhI3IPZJAgqMHkQD/p1/pNx+peZZNcK6KrC4w7ekHmJp?=
+ =?us-ascii?Q?lBPAc9gfw3QgVZG4BioHuJXIGwrTJx8Dq1lPqL8ypf3vIyGS82o7sn8Eug8n?=
+ =?us-ascii?Q?qyT+yA9BT77ngskru5a6On/IExNFJ07MAXTCqO0iIDmc0wMaWRlTPK66KQgp?=
+ =?us-ascii?Q?jJ+AtNJucR/UON9dWk7r3ndgD/Uq5mcTcoXShJMmpkhKt3XHZY1T4hYEjPNV?=
+ =?us-ascii?Q?to6tp8NNVlvadjJyb9v2MN7lDEKY4oLhtnh4Iq8ugPL18sOVv8/zSJoxS9m9?=
+ =?us-ascii?Q?9ryqJIi2mQKqdBpH0EUdl+VEUR7+GyldHnol/S6mgPDCPGQG/w32Iv1tO8FZ?=
+ =?us-ascii?Q?IlYkreT4ywoPQLkHdzCUCmqKWpULAqklQMgdW1ojahDwOhLRsoG/uk/odzoD?=
+ =?us-ascii?Q?0UGA1CxbKQ3R5jJLGjvHUVcszMp10vMDgLpjTlLV9jyuRvMtJbRI7a7vJ6ow?=
+ =?us-ascii?Q?+e0qCVszp3DOVVqpK2zUsC7mY0Tfiyf/RwSImD7DLgVslJOF+WLDnmuCD3dn?=
+ =?us-ascii?Q?ndcKxcpFGwFbuxLAtqVA8Qy0+nmbe8nZBrF6Flm0XXW0jW8iwYviPsKWO589?=
+ =?us-ascii?Q?c9agzM411vMkrgqPCMIQBPQwklzdrZ1Y5ms3S1Qt78nF/QuI3swPP2ZOyvzR?=
+ =?us-ascii?Q?U9xdS3xXAE0z/8z9vdgQDOs1z206Y5OqCDcbPDOTPgurRn6KeuNqMWGYaBTQ?=
+ =?us-ascii?Q?ywg+ZigE7XfaCxOC3YMsbNKGSa5w2GFXZTHlkJpvZm6NayaEpv2a0grrCzQA?=
+ =?us-ascii?Q?sDqPkY9KF8j/3VK8NCjPBhTu20JTo9C2nb+vtyg02qoN57X2qK4p2FKfxP5T?=
+ =?us-ascii?Q?YCKgyICY9g=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 5/7] soc: aspeed: add host-side PCIe BMC device
- driver
-From: Tan Siewert <tan.siewert@9elements.com>
-To: =?utf-8?q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
- devicetree@vger.kernel.org, gregkh@linuxfoundation.org, 
- jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, andrew@lunn.ch, jacky_chou@aspeedtech.com, 
- yh_chung@aspeedtech.com, ninad@linux.ibm.com, anirudhsriniv@gmail.com, 
- linux-serial@vger.kernel.org, linux-aspeed@lists.ozlabs.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <51e455417bdcfe608270c6cb2806b1fd971fb998.1783524645.git.gregoire.layet@9elements.com>
-References: <cover.1783524645.git.gregoire.layet@9elements.com>
- <51e455417bdcfe608270c6cb2806b1fd971fb998.1783524645.git.gregoire.layet@9elements.com>
-Date: Tue, 14 Jul 2026 20:53:03 +0200
-Message-Id: <178405518338.194693.10884980497331757324.b4-review@b4>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784055186; l=3719;
- i=tan.siewert@9elements.com; s=20260527; h=from:subject:message-id;
- bh=Y9FJBI04v0b5TlI5275Tjuzdsyze3l17kCBKDrC4yME=;
- b=jjkhqaKHO+0KwEYLlPkLAmN+G/4gp2YBj1bgs+ajAChgEUNu9rY2W3prwusboACuGjyMx6z22
- H/kuiBmepnRCk9sHRrP1SCBIKVLrvkpvhwkwVi4bUWnB5HrF/Z7N5kF
-X-Developer-Key: i=tan.siewert@9elements.com; a=ed25519;
- pk=ORQd/zQf+LsAvJGXP1CjQwVO6t6iEOGq/eGUsmRVTG4=
-
-> Add support for VUART over PCIe between BMC and host.
-> Add the host side driver.
-> Support only the AST2600.
-> 
-> Taken from ASPEED 6.18 Kernel SDK and trimmed down.
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81f697b2-6ebf-47ed-4b0b-08dee1daaf12
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 19:04:08.9275
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fcHfkZAHCi4UMv+H3KhovtF8UQtlpG7qHUmpXt0swtXDOiXeO2KHc/uFC42y0ZKxYcdUycU1o6HJC6wlUtakzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8619
 
 
-> 
-> The host can't detect the VUART addresses, so force them to
-> 0x3f8 and 0x2f8, as in the initial ASPEED driver.
-> 
-> Change the MSI vector index of VUART2 from 15 to 17.
-> The index 15 used in the initial driver was not working.
-> 
-> Data path in both direction is tested on both VUART.
-> 
-> This module is added in soc/aspeed as it's very soc specific.
-> This is not added as a PCI 8250 UART device as this host module can
-> be expanded upon for IPMI over KCS. It can also be used in the
-> future for custom BMC<->host communication with shared memory and doorbell.
 
-While I understand that this driver could be expanded with more features, it is
-still not fitting `soc/aspeed` as it is not for the ASPEED SoC, but for systems
-that communicate with an ASPEED SoC.
+> -----Original Message-----
+> From: Mathieu Poirier <mathieu.poirier@linaro.org>
+> Sent: Monday, July 13, 2026 12:17 PM
+> To: Shenwei Wang (OSS) <shenwei.wang@oss.nxp.com>
+> Cc: Linus Walleij <linusw@kernel.org>; Bartosz Golaszewski <brgl@kernel.o=
+rg>;
+> Jonathan Corbet <corbet@lwn.net>; Rob Herring <robh@kernel.org>; Krzyszto=
+f
+> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Bjorn
+> Andersson <andersson@kernel.org>; Frank Li <frank.li@nxp.com>; Sascha Hau=
+er
+> <s.hauer@pengutronix.de>; Shuah Khan <skhan@linuxfoundation.org>; linux-
+> gpio@vger.kernel.org; linux-doc@vger.kernel.org; linux-kernel@vger.kernel=
+.org;
+> Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> <festevam@gmail.com>; Shenwei Wang <shenwei.wang@nxp.com>; Peng Fan
+> <peng.fan@nxp.com>; devicetree@vger.kernel.org; linux-
+> remoteproc@vger.kernel.org; imx@lists.linux.dev; linux-arm-
+> kernel@lists.infradead.org; dl-linux-imx <linux-imx@nxp.com>; Arnaud
+> POULIQUEN <arnaud.pouliquen@foss.st.com>; b-padhi@ti.com; Andrew Lunn
+> <andrew@lunn.ch>
+> Subject: Re: [PATCH v14 1/5] docs: driver-api: gpio: rpmsg gpio driver ov=
+er rpmsg
+> bus
+>=20
+> > +
+> > +The RPMSG message consists of a 8-byte packet with the following layou=
+t:
+> > +
+> > +.. code-block:: none
+> > +.. code-block:: none
+> > +
+> > +   +------+------+--------+
+> > +   | 0x00 | 0x01 |  0x02  |
+> > +   |   2  | line | trigger|
+> > +   +------+------+--------+
+>=20
+> 2 things here:
+>=20
+> 1) You did not include messages that mask and unmask interrupts at the dr=
+iver
+> side.
+>=20
+> 2) We are carrying virtio-gpio messages on top of RPMSG and as such, this=
+ whole
+> protocol should be about thar:
+>=20
+> +------+------+--------+--------
+> | 0x00 |       payload         |
+> |  Q   |                       |
+> +------+------+--------+--------
+>=20
+> Q =3D 0 requestq
+> Q =3D 1 eventq
+>=20
+> The "payload" part is simply the format of the messages as found in the v=
+irtio-
+> gpio specification.  From there, the only thing left to mention is which =
+messages
+> are not supported, i.e get line names.
+>=20
+> > +
+> > +- **line**: The GPIO line (pin) index of the port.
+> > +
+> > +- **trigger**: Optional parameter to indicate the trigger event type.
+>=20
+> Not part of the spec - remove.
+>=20
 
-Maybe `drivers/misc` is more fitting for this?
+The two fields above are required for rpmsg-gpio, but not for virtio-gpio.
 
-> 
-> This host module should be the entry point for setting up all features
-> related to an AST2600 present on the PCI bus.
-> 
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-> Signed-off-by: aspeedyh <yh_chung@aspeedtech.com>
-> Signed-off-by: Grégoire Layet <gregoire.layet@9elements.com>
->
-> diff --git a/drivers/soc/aspeed/Kconfig b/drivers/soc/aspeed/Kconfig
-> index f579ee0b5afa..147a9033bdc4 100644
-> --- a/drivers/soc/aspeed/Kconfig
-> +++ b/drivers/soc/aspeed/Kconfig
-> @@ -55,3 +55,18 @@ config ASPEED_SOCINFO
->  endmenu
->  
->  endif
-> +
-> +menu "ASPEED host-side drivers"
-> +	depends on PCI
-> +
-> +config ASPEED_HOST_BMC_DEV
-> +	tristate "ASPEED host-side BMC PCIe device"
+In the rpmsg-gpio case, interrupt detection and handling occur on the remot=
+e processor. The=20
+interrupt information (such as the GPIO line and trigger type) must therefo=
+re be sent to Linux=20
+through this notification message.
 
-"device driver" would be more fitting instead of "host-side driver" I'd say.
+In contrast, for virtio-gpio, interrupt handling is performed on the local =
+processor. Since Linux already=20
+has all the necessary interrupt context, the information is not needed.
 
-> +	depends on SERIAL_8250
-> +	help
-> +	  Host-side driver for the ASPEED AST2600 BMC PCIe device found on
-> +	  BMC expansion cards. Exposes two 8250-compatible VUART
-> +	  ports.
+Shenwei
 
-In the commit message you're stating that the device driver can be expanded for
-e.g. IPMI over KCS. Should the user be able to disable features selectively, or
-do they have to always have 8250 serial support active?
-
-> +
-> +	  If unsure, say N. Choose M to build aspeed-host-bmc-dev.
-> +
-> +endmenu
-> diff --git a/drivers/soc/aspeed/Makefile b/drivers/soc/aspeed/Makefile
-> index b35d74592964..c515e163eab7 100644
-> --- a/drivers/soc/aspeed/Makefile
-> +++ b/drivers/soc/aspeed/Makefile
-> @@ -1,4 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0-only
-> +obj-$(CONFIG_ASPEED_HOST_BMC_DEV)	+= aspeed-host-bmc-dev.o
->  obj-$(CONFIG_ASPEED_LPC_CTRL)		+= aspeed-lpc-ctrl.o
->  obj-$(CONFIG_ASPEED_LPC_SNOOP)		+= aspeed-lpc-snoop.o
->  obj-$(CONFIG_ASPEED_UART_ROUTING)	+= aspeed-uart-routing.o
-> diff --git a/drivers/soc/aspeed/aspeed-host-bmc-dev.c b/drivers/soc/aspeed/aspeed-host-bmc-dev.c
-> new file mode 100644
-> index 000000000000..e586d0505577
-> --- /dev/null
-> +++ b/drivers/soc/aspeed/aspeed-host-bmc-dev.c
-
-*snip*
-
-> +static int aspeed_pci_host_setup(struct pci_dev *pdev)
-> +{
-> +	struct aspeed_pci_bmc_dev *pci_bmc_dev = pci_get_drvdata(pdev);
-> +	int rc = 0;
-> +
-> +	pci_bmc_dev->message_bar_base = pci_resource_start(pdev, 1);
-> +
-> +	if (pdev->revision == 0x27) {
-> +		pr_err("AST2700 detected but not supported");
-> +		return -ENODEV;
-> +	}
-> +
-> +	rc = aspeed_pci_bmc_device_setup_vuart(pdev, 0);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = aspeed_pci_bmc_device_setup_vuart(pdev, 1);
-> +	if (rc)
-> +		goto out_free_VUART0;
-
-This goto seems unnecessary. There's no specific cleanup that should be needed
-before.
-
-	Tan
-
--- 
-Tan Siewert <tan.siewert@9elements.com>
+> Given the refactoring work that is still needed, I will not look at the
+> implementation.
+>=20
+> Thanks,
+> Mathieu
+>=20
+> > +
+> > diff --git a/Documentation/driver-api/gpio/index.rst
+> > b/Documentation/driver-api/gpio/index.rst
+> > index bee58f709b9a..e5eb1f82f01f 100644
+> > --- a/Documentation/driver-api/gpio/index.rst
+> > +++ b/Documentation/driver-api/gpio/index.rst
+> > @@ -16,6 +16,7 @@ Contents:
+> >     drivers-on-gpio
+> >     bt8xxgpio
+> >     pca953x
+> > +   gpio-rpmsg
+> >
+> >  Core
+> >  =3D=3D=3D=3D
+> > --
+> > 2.43.0
+> >
