@@ -1,65 +1,256 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A301A423E8F;
-	Tue, 14 Jul 2026 22:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C061F423E8F
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 22:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784069075; cv=none; b=egvV0XMjTNn1AZqwcZ+18fyGtJ+xJnsbYRrUrL9Wm1CJN0WkiqCobQFqQtiFdQBxN77xoAnua7nP60YhRoZKPX+4hELFH4bfUDI+wBIJk3Fvl0wGKPfUrIsH1lcMM51usxvRbjgLTW1fVhkBnEMrVmn85fxnwWX8LWgbZPuTnCs=
+	t=1784069096; cv=none; b=K6TCIPqx64EXmq67Tg7nQ/IH8O92unTKNGxuVThwaEE97UGn6Knfo4DcwR3TQSuvJ/bIFDbjPMkZEG/QmYmOayVQptSBVoezv8A9D1B8hTnzTcarBdgH4nJQJCDGVhYj82SsqFy+hK7BA6QbCJRWcTQr01oXtdzOLpNWBnfY99c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784069075; c=relaxed/simple;
-	bh=7sSNu+JVL5JbFf/nTSwy1UCi3y3uyNXH7XtkW2AQ6WY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LmITMnnAq1ZH0xDLDsNcx/yf0PyjOk+BLXIlWEnAO2qAAoovA88PWma0a+RL0lQRqDPeqDdQA+IYq51rM6PmfH9CnNFzxAY6u1WZ2L61GHO1y1qXqIE0GqEGqFFYGPvIYGrUB5aJETUMTSbHTG/3gPjkEoYkybJRE0L1X2PIuys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kFoAi3hQ; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1784069096; c=relaxed/simple;
+	bh=IWg7h/nT9ksI40PAZL2tVSUITPB/X+Xz/LaQbTYLczY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xovwsl6lRJsNDSxQhWnKsQjBe0dTPG5QGNTY9TKdXp9BYdo7u8GC116N/knE6FGzF4rb2NhBd6nkzYEYjLuNpKcGXuC/4RJUsb3/YBqkiEAoWjN+DRWPEGgzStBTA4vrt8js4NZoMwz05FsBRMyNJgHpEr8khKyEJw7M/xb57RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=b6sPPMWh; arc=none smtp.client-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kFoAi3hQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=msQsONzw5o/yMkbC/i1/jrHLiW0z7BfiinQ4NyKa5wQ=; b=kFoAi3hQmzxNwiJL33pGWZ2uyg
-	pFtj7bkHrUVDSbAy6SZNLBAU360iI1pPJXgduH9vKNpekFhlv+ohsyV5c5Yk+3wV+GyeQqhOFM8ta
-	Y9ZuiCv7e5SZJ7JdaVGumtRPw/c0gubnK7LSznsvMotK7U9KSvuo9hjFyJHo//q5gryw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wjlrP-00CGLo-Fq; Wed, 15 Jul 2026 00:44:19 +0200
-Date: Wed, 15 Jul 2026 00:44:19 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: kuba@kernel.org, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, andrew+netdev@lunn.ch, robh@kernel.org,
-	krzk+dt@kernel.org, heiko@sntech.de, netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org
-Subject: Re: [RFC PATCH 06/10] net: pcs: xpcs: improve SGMII AN state
- handling for Rockchip RK3568
-Message-ID: <464cbdf3-2e9e-43ea-b30a-75b3d1b8a188@lunn.ch>
-References: <20260714191341.690906-1-coiaprant@gmail.com>
- <20260714191341.690906-7-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="b6sPPMWh"
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6a3d9aded38so149076eaf.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:44:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1784069088; x=1784673888; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bwb2dneFZMtuZJko5tDWoxwvXN4zsuxJo4rgCNZwx1w=;
+        b=b6sPPMWhGBw7MQHZYm2ghYZdKY1hL3kkYH7/TIWqlbQUXVnfI2v+RkYOVJN61AgOd8
+         sY29psEjY2Vh7eRM5l/Hd5Wbm6dyX08TWW5t4sIWfqxgBcHnbZMFoJlCrann5C+IXe7r
+         mkkz9IVXKCvaRi/aF6bQTWi+FR2yFhbYg+n9zxqGRz+QqIJkwpiixWiXmMykGlECzR7M
+         uEOkaSU92DZUhfmw4cmAj7kR/aV8beWhGrm9zwB/GwGSHhsBGzcuZGtV/HO4jVkm3u5x
+         flJM2hEYvIsP4HCIA+mmhIXD9XP5JwncssdlNP07g+ZeD4Sw0bphhHpCW865Ff+4y0cV
+         GcMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784069088; x=1784673888;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bwb2dneFZMtuZJko5tDWoxwvXN4zsuxJo4rgCNZwx1w=;
+        b=h8LdlBgpgH+Awh0LdCJu6WsOgXYacKzlD0HhUaCpRow12GS28kt4CYad7BwX8t2T/X
+         wCzAH1vbDPWgcBwCeoDOG5l772jAPzjyi6QPdm0l2Ud4DB1dkbLxWxnAU5zfNgzPSDxz
+         7KzMNV3BAa63vY++EdKG8IzaAU+Odcm3opFPJAdHJjBp+sNI+ZwF661gwf+3iVsZCzEB
+         RhMIlVL78z2ADo79LawWNLA/l4uw2PPx87p2v8FDCNMY2GIgkudo2poGZWltXsgevw4X
+         i+uasim1Vk+REBZ9xAKNhJuworw9CUMklNiEKwm7NyLUwMNZnNvpp2C1kFgebaLGPJjK
+         t2UQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+XMYasO0XK9JStc62B0UnpB6xtgV3fpGCSHYbmJ9gjyCFytc4m/ckeIb9WUOY+GuzzEv7QJUUXFMX4@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjV3Gkt9iNTcXbBLMHA36e8GaCY8iGQIayTlrrWh9gImWLICCB
+	i7HElmj2JSjQhrTHDFc1/s4uAHJRgnMK1Ouffb8/0GNsrDICmXxLBLR2/KbJUhbVr/Q=
+X-Gm-Gg: AfdE7ck6C06jixmaZJgvMGXRoK7vcRJP7m0G2jZl3ZAZmkqVd+3nSlMPa2NqczYYpLu
+	geAzaUwNISLpEMyFdsMCzXDYyMyx9BXpFmWzhh0vZ7RO6sRoezWlefuEnwHX6IX9VKopxwav1tj
+	mXOjC3dwOVmUOVnZIFJDRvYlHF5VSJuE3QED/McElISYwV9bvnRc8rsNOwRputzXecxsVoJACjo
+	rj6SyUSIoZK4M8XJrB8AzZLkwCmEVULHL9CbeTrxC7eOV7eNhjDCJ+7vty1x/i/LJdRcrNDJijz
+	kSpM0KNJinzkMDatLThv5UyT0IPKjhkuY51yx3uzeNV24sUweyqqV/DU+CJfgYUVDiv4lMW3edn
+	cX84scYTJE7di7678O6tGUG9ncopUJQ97UYrRi1WMzeBVE7EqOt0s+W0skgEbMwXG77+Gcs+QYx
+	B33URR5Hsce2Hg+pV/auVIlY6lMnAKmlC6fjJUcQOmiy2R5cWsJoi34DrVIh7qMd8=
+X-Received: by 2002:a4a:e90c:0:b0:6a1:60cd:9860 with SMTP id 006d021491bc7-6a39bc3ec33mr7163339eaf.10.1784069088561;
+        Tue, 14 Jul 2026 15:44:48 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:280e:69fd:7612:d5a9? ([2600:8803:e7e4:500:280e:69fd:7612:d5a9])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcb2bc0d0sm16137864a34.19.2026.07.14.15.44.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 15:44:48 -0700 (PDT)
+Message-ID: <7b8973fd-385d-4532-8213-bb0a811081ae@baylibre.com>
+Date: Tue, 14 Jul 2026 17:44:47 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714191341.690906-7-coiaprant@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] dt-bindings: iio: proximity: move LIDAR-Lite out of
+ trivial-devices
+To: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, jic23@kernel.org,
+ nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mranostay@gmail.com
+Cc: ~lkcamp/patches@lists.sr.ht, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kernel-mentees@lists.linux.dev
+References: <20260714215433.41259-1-rodrigo.gobbi.7@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260714215433.41259-1-rodrigo.gobbi.7@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 15, 2026 at 03:08:34AM +0800, Coia Prant wrote:
-> Commit 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
+On 7/14/26 4:30 PM, Rodrigo Gobbi wrote:
+> The PulsedLight LIDAR-Lite v2 is currently described as a trivial device,
+> but it is not one: besides the I2C interface it exposes a power-enable pin
+> and a mode-control pin (the latter also used for the PWM distance output).
 
-You do not appear to Cc: the Wangxun NIC people. It would be good to
-have there comments on this change.
+IIRC, we are not adding the mode-control pin to the DT bindings because
+it would be an alternative to the I2C bus and not likely to be used (would
+require something like a PWM controller with a non-cyclic, bidirectional
+channel).
 
-> Fixes: 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode")
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
+We should explain that in the commit message.
 
-Please don't mix fixed and new code. Is this a real fix? Should it be
-back ported to stable?
+> 
+> Move it to a dedicated binding file.
 
-     Andrew
+And add we are adding the missing properties, so should mention that too.
+
+
+> While at it, document the LIDAR-Lite
+> v3: it is sold by Garmin, which acquired PulsedLight, and is
+> pin-compatible with the v2, so add it with "pulsedlight,lidar-lite-v2"
+> as a fallback compatible.
+
+This is a separate change, so deserves a separate patch.
+
+The complaint in v3 was just that the removing .txt and adding .yaml should
+be in the same patch.
+
+> 
+> Signed-off-by: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>
+> ---
+> Hi, all,
+> This was on my plate and I didn't have a chance to send this before.
+> 
+> The vendor change is not a typo: see the discussion at [1].
+> Tks and regards.
+
+Ideally, this would be explained well enough in the commit message that
+we don't need the link.
+
+> 
+> [1] https://lore.kernel.org/all/c39a2980-f5e5-44aa-9fd3-20e0658f62dc@gmail.com/
+> 
+> Changelog:
+> v4: unify patches rather than using a series to keep the tree bisectable;
+>     rewrite the commit msg, naming the devices explicitly;
+
+We lost the IIO driver patch though. The change adding a new compatible
+won't be accepted without it.
+
+> v3: https://lore.kernel.org/all/20251102221643.9966-1-rodrigo.gobbi.7@gmail.com/
+> v2: https://lore.kernel.org/all/20250801224112.135918-1-rodrigo.gobbi.7@gmail.com/
+> v1: https://lore.kernel.org/all/20250701223341.36835-1-rodrigo.gobbi.7@gmail.com/
+> ---
+>  .../proximity/pulsedlight,lidar-lite-v2.yaml  | 54 +++++++++++++++++++
+>  .../devicetree/bindings/trivial-devices.yaml  |  2 -
+>  2 files changed, 54 insertions(+), 2 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml b/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml
+> new file mode 100644
+> index 000000000000..60e60b7769ba
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/proximity/pulsedlight,lidar-lite-v2.yaml
+> @@ -0,0 +1,54 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/proximity/pulsedlight,lidar-lite-v2.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Pulsedlight LIDAR-Lite v2 range-finding sensor
+
+Could make the title more general:
+
+	Pulsedlight/Garmin LIDAR-Lite range-finding sensors
+
+> +
+> +maintainers:
+> +  - Matt Ranostay <mranostay@gmail.com>
+> +
+> +description: |
+
+> +  Support for LIDAR-Lite v2 and v3 laser rangefinders. These devices
+
+The title already says this.
+
+> +  can use a simple I2C communication bus or can operate in a PWM mode using a
+> +  mode control pin to trigger acquisitions and return the measured distance.
+
+Probably worth mentioning the bindings are just for I2C usage for now.
+
+Links to datasheets are also useful.
+
+> +  They also have a power enable pin, which can be used to shut off the device.
+
+We can see this in the properties, so don't need to say it here.
+
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - grmn,lidar-lite-v3
+> +          - const: pulsedlight,lidar-lite-v2
+> +      - const: pulsedlight,lidar-lite-v2
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  powerdown-gpios:
+> +    description: GPIO that can be driven low to shut off power to the device.
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+
+interrupts:
+  description: 
+    Mode control pin can be used as a status output to provide interrupt.
+  maxItems: 1
+
+Mode control pin can also be clock output, so we could add:
+
+'#clock-cells':
+  const: 0
+
+if:
+  required:
+    interrupts
+then:
+  '#clock-cells': false
+
+I only checked Lidar Lite v3 docs, so we should see if these are available
+on v2 as well.
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        lidar@62 {
+> +            compatible = "grmn,lidar-lite-v3", "pulsedlight,lidar-lite-v2";
+> +            reg = <0x62>;
+> +            vdd-supply = <&vdd_5v0>;
+> +        };
+> +    };
+> +...
+> diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+> index 435c4baab436..74b640c48598 100644
+> --- a/Documentation/devicetree/bindings/trivial-devices.yaml
+> +++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+> @@ -396,8 +396,6 @@ properties:
+>            - onnn,adt7462
+>              # 48-Lane, 12-Port PCI Express Gen 2 (5.0 GT/s) Switch
+>            - plx,pex8648
+> -            # Pulsedlight LIDAR range-finding sensor
+> -          - pulsedlight,lidar-lite-v2
+>              # Renesas HS3001 Temperature and Relative Humidity Sensors
+>            - renesas,hs3001
+>              # Renesas ISL29501 time-of-flight sensor
+
