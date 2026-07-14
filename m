@@ -1,131 +1,120 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC20348A2DB
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784041674; cv=none; b=O+AzbtXauBYTBJnDH4a78nnICVzNL8SX+ixNLqiKDAJgiirXVVUMpLV8JX8eDaMwgQzlkp3PoLq+zWK0R0yWZ1iFyCm/KX8kdWx4QbEXcYErOzVuZzWvboy4qNMaSDSFk2BuDIsbnKqkJZAEgUV/I+h9n/TRWlnOkua7KXOXlYo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784041674; c=relaxed/simple;
-	bh=EydTAVFmfsnxHYlpbg8UU22Qc+XHEBpnj2CpvQQHEJ0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40492478846
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784041875; cv=pass; b=aRIIVqS6cYZ9gH10Y2+d8+Ok9nYas0Didez/2E6jtZFBuHEZA7laU8J9HR2LrpyleIOsQfEm9/pDCh/QHlFTHiRakyTUI4ckjuprz8JRI9MDXSoGNqqKHjrTNncm7L7umxv+ukMY4OqQxClk7Xt5DA8YV5raSyk+WwcK3KYoQ08=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784041875; c=relaxed/simple;
+	bh=CeOe8BytLTsWfGvljuYZIJXqQAXY5yHjtMlbwzQHhfY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Spr1bF+3jalF+1Yj2YKrwswhD34BPUtX9VsjVM93JkCqAhfTBWEihTW62OVaN+/myG9rORnbFjsF5dAhTHP2a1meLkJTfqs2wzWqq5nPwhlawMVFKm2lI47vajnomxgaQKiX+IVrIKE3KOa9xCR0YDJXNSApLzeeacylCeYnyhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	 To:Cc:Content-Type; b=darSRmtF7w3H4di3S40qY1l8rKIxbb+ZIkYmlX0/v1Ok1DrcoKzTBjsqVf/CZbnG8T+HuFocGIyn64ljYy680u9wfc3FwKlbkyyIFGP2pPNZocjkxWdWEa8pNjgEeOzGsx8N8CZTZKDAAwLasAjJls5pjTiTipQUyPOSzNpQMTw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C1O0uUsg; arc=pass smtp.client-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15e592da74so540074066b.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:07:52 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C1O0uUsg"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c15b509c323so578320566b.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:11:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784041872; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z1Mwv4gfIt/8+dAW+Ynd2BSyF4HbQp2M4XRVFxE0x59nsr/oBCsE4kTRlPyyA4Oayt
+         CsJK+ZGc13SS4A9iOX5at6X2p+tQ+dAUBwKj7MnIwU5KlW2y3bBMyPaJFj4Tv2OjoAA4
+         rNrvyIXmvOavjKPukCQWZNCt5ZkF+myPBT7hwCfGaBFHT9hR64Lrt+JaBfc4Y68NyNKz
+         OeXzS9sqdAks0m4xx+YK0gdrFnc84nhS3UwXHahqmnE66TG0Q6qY+7suGFoYF5yHXlmv
+         xZmNqgmy9FhWMk3lYpO3hk4su6OWXqGDlQqOyCCYM6RKz7ESoyxktKq6MBAIRpxs2qAe
+         jVaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CeOe8BytLTsWfGvljuYZIJXqQAXY5yHjtMlbwzQHhfY=;
+        fh=2jat/5KF9c02/v2DR+m6Kzzd73O3mzDToBHRxw5cQig=;
+        b=mOBypRbAYrWieEUZWeK2NoA1PBP2e4BfgQ2ntpoWAmHpQw/gdZvtvXbvy2MOu5VaZf
+         noEgCOAtEMYY8Vw5n84k3Y5Nf5vR7ulHmrFS/hs1h+vqrbBS5d+iePEntMzHbRk/K6Zb
+         W+kfTsgcTw2llkHf5I3zH2bbCopWjZAkaSNa3vqqqAwGC26Yf7KMLNyvphyGYbAp6BoW
+         l5BGB6w4zPQvH8G7bAjZb7/xkxa1Iu9giSo2YWzVo14njuJ9l5m5bm6Oxb08mgzcNSma
+         car1lQtUr50K2VBTHNYSUJNfdB1iZSMYvfD8amuxkdESB4XjrTGLWP647T5Y7oxv9N25
+         vEMQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784041872; x=1784646672; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CeOe8BytLTsWfGvljuYZIJXqQAXY5yHjtMlbwzQHhfY=;
+        b=C1O0uUsghwCYJIIdSsHxw8OmnumXHl1hYeBIWGtoE/hBPGRj9906j6nS0AXSfHEQpK
+         rwutTtbgeqRKql3Sc7/4AEqe5KatxhCJeHwxwprH9DQDXvyaA5vBeYqZ2TIj9SFB2aJu
+         tKVw8AGy/104nv1g/k/jB49Kq3ppIvh5UaKzIhn0pIk/pgcOUJC0KgM0sK6EQyGnPArG
+         agu7zRZ0RNp+YvmSUF9mNwgbItGfGbEKNEyOM2RK7JIVskhrvYRHfauNDEFyr3xyYhpC
+         01fcZLR9si8PyqRQmu29Knpl2OCHmVakqJdyqSQck14GhzqFANEoPnw2q58HtKX3UATN
+         fN4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784041671; x=1784646471;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Jo5VGLZCIAx58XGGknenbn6fKSICDfYV+/5FruvF+xY=;
-        b=doN3iXDex7+AhZWI4TQcWqfBODHd/v9+dZKvQGsSBwEXWkc9X1HX16CZgoScCtQjAq
-         AVnk08CNbuuatkhVa/GX53UpdGT53nUDifLv3M8EintHv/jl5F40Aor4ebEHriLIPuG7
-         n5t3bbNu5tZXPe8vutnIJLHptSJV1ZOD9KmvdQy5mtxZL6IsucpSe4yEpH7h89J8dE3P
-         2pRnehs1INqV1xnQCunCZdiHhBWAwAwSlgEk78lK1l4piYIijdJOMdZD3BmmjpzOqhBN
-         QD5GQT0/goJcrWpqP9qPm4NSKysjxiwqKVHWnmxfJToSAHNAhpyBaJi3dgHgof2vK6Wu
-         WaWA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/SMaPFIKxS3Qc8BxXBGlNSFpD3M0dyN8FHLyprJ4SqGRNSmZqlhiH2urLaNFrDrp1YuJmVzbTI/86@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPH+D0NPk7zrOxA33iRyUDMeQTwbkyKYdFkPh+VEtVfk4YmSFS
-	GgenkbVm5cc1IO5JiMEOh+Q+zEvGcbB9fh9fr/EiIImj8485ekjBsVL3xdvDbDaWUo4=
-X-Gm-Gg: AfdE7cmqXH6awIcy7qSYsZyGZK+/JGuYuu3B5QqiOcQKHRaFdxdkR5DVNoJyV+INqGV
-	HE7PfMEUZbENT5HxNZqVM5vcoMRKqiCzeuvHbcCK9YWKKbjsV57FdMC4zH7Drf3pmkyzAVfpFQJ
-	i82DEwHDJB6I1Hq0cdIutg5xbh1X0MJP1d0/4gfAvKsHoKfdZrxsIvGeYJuL7bMOF6Qgjy/0PxO
-	wbfEe044jXGbBBfD0mDJ4dUH7VuUpOfMmZHGWZxmIcg1Xnn7rGa6j0XTeV8RX7GJJPyufLpsEai
-	RwHL9peZWVk8InUT9f7ZRH86DOrve38dHNWyX2m3031oqDcoDADT67cSKOowTzGoBkQbRE5/iVJ
-	z8fqUL5wpW7aUBVw7sfd+ocChopa0OqfwMg1bOb243Cpxrzw5OS86vCbZcaGQv2npNRJMUKDkJs
-	NPR3ua8qzyBno3zfu8BTKmKdt1SJb93uBXJr1Iy3H8eB8sRSbnAQ==
-X-Received: by 2002:a17:907:c510:b0:c12:8c41:3beb with SMTP id a640c23a62f3a-c161eaa5c2bmr640942466b.50.1784041670927;
-        Tue, 14 Jul 2026 08:07:50 -0700 (PDT)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15da821c58sm879659966b.48.2026.07.14.08.07.48
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 08:07:49 -0700 (PDT)
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-69a50189d25so7725994a12.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:07:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqHW9VP7WnMcG5NLQCEKqL4R3iLiJA8lS6NzmUBIY7/Sbu54wmdHcXSaDXt3GdbmxvsfwbOSmbC3J+x@vger.kernel.org
-X-Received: by 2002:a05:6402:5518:b0:698:1504:e3db with SMTP id
- 4fb4d7f45d1cf-69c5f12584bmr5921618a12.29.1784041668249; Tue, 14 Jul 2026
- 08:07:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784041872; x=1784646672;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CeOe8BytLTsWfGvljuYZIJXqQAXY5yHjtMlbwzQHhfY=;
+        b=U2BvzuR22eRpaW+s3OHA6rRl/1NRzG8fCUrAQmh0mPrngPHUSZE35DtK/yKRP0Y/aE
+         hB2cOvMQyOSiXRBLQmbsZZPRJq+I4K7f7aieUDVM1OdDu+kLvus++xC4Ow2hp6hn1aq/
+         4mBOF6V1H26ZrqLNVSlcDGOg5PCdGg5UFcaptbluc7/8skwbSzDwhlgy+DqYTZFaeqrt
+         qfpx/gPilzdR0nNew8R1IVcZpl/hgnz32XYpk2baoIjCP+YrRec5DkZIAWKcKRzQMWFx
+         Cl5R0SdGW0laeYPiZlo7bvlQ6432W46YQjZZpOa8cSdYi6dm/FZ3CeZiZDEY3rCLMGQp
+         42sA==
+X-Forwarded-Encrypted: i=1; AHgh+RqV2nvM2pY0xD215aHEfSM8BtwAOLDtVGJnQn3n9w3JDMebM+RMxjRbonjiX3I12j1nWpa0AFDkJaCo@vger.kernel.org
+X-Gm-Message-State: AOJu0YxWTtwFWdZurdPS/OG/Q8k7Btj3LHJcsBcO8ExCCvf4tQfWtNn6
+	hez5rlvlyMKa1CizlLqbVxNCDY6w47FSHW8RRFIpH+2zG7l/kVUrTyuVrUw2plTRaPm4yYOpIDG
+	4fvIA8tgiWxr2I9lkd8sb612MdjPaYUc=
+X-Gm-Gg: AfdE7ckSHOuszaeNRzZ3c5F9WtRsHkqP2pEkkK91mX0dOBCQ8PTftWIAN6jjnsRnmcT
+	WAFDomO0yMqrPOuP2qB7o+lod8PTcvt6uXLiCliSWXzIfXhFo9PUVZ10CT2q5VWuM45uUm4rBvF
+	UnK5h0tjm+4KrQwTPfe5fajs91Z6mV7TjsSi66QYbzH94OrPzb+M1ePevou7nYRM62fIvHIN4LD
+	7wc4wwSw19zme1bIDNi+LYPgvePACdPJJe3nxjxqcuYoL3rgVBAU0YXwcNBrGcdF9uqHCLWZw==
+X-Received: by 2002:a17:907:c01c:b0:c15:cc30:6c74 with SMTP id
+ a640c23a62f3a-c1667a934e3mr152071166b.44.1784041872289; Tue, 14 Jul 2026
+ 08:11:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704202748.355708-1-marek.vasut+renesas@mailbox.org> <20260704202748.355708-5-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260704202748.355708-5-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 14 Jul 2026 17:07:35 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUVqw-gqydVg5N7WiMj04rVAPuLjJjzgrk+eEgJpbzS2g@mail.gmail.com>
-X-Gm-Features: AUfX_mzNY37K7gCxxfwbxm0n7Y10BRypx8qySLz8CYFaayTElsV73S_ymVmDRtU
-Message-ID: <CAMuHMdUVqw-gqydVg5N7WiMj04rVAPuLjJjzgrk+eEgJpbzS2g@mail.gmail.com>
-Subject: Re: [PATCH 4/5] PCI: dwc: rcar-gen4: Handle PERST via reset subsystem
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
+ <20260713131223.279555-2-a.shimko.dev@gmail.com> <20260713172244.GA2381778-robh@kernel.org>
+In-Reply-To: <20260713172244.GA2381778-robh@kernel.org>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Tue, 14 Jul 2026 18:11:00 +0300
+X-Gm-Features: AUfX_mx7lE_nN8ekhGaYC-4WK9SqZefZ5Wc8omCFMKu7jWCwLuuVZoL2ZJ8_4RM
+Message-ID: <CAOPX744QmBpZvQgA7Om_1DKOZeKCF3FdVc5XaaF8mCFJnQ4QYA@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: add DAPU Telecom
+ DAP8211R(I) PHY binding
+To: Rob Herring <robh@kernel.org>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Marek,
+Hi Rob,
 
-On Sat, 4 Jul 2026 at 22:28, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Handle PERST via both GPIO and reset subsystem. On R-Car Gen4, the
-> PERST signal is operated as a GPIO, on R-Car Gen5 it might only be
-> accessible via SCMI reset via reset subsystem. Support both options.
-> This is a preparatory patch for R-Car Gen5 support.
+On Mon, Jul 13, 2026 at 8:22=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
+
+> This would also work:
 >
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> multipleOf: 150
+> maximum: 2250
+Yeah, great
 
-Thanks for your patch!
+> With this fixed,
+It will be fixed in v2.
 
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-
-> @@ -299,10 +300,27 @@ static void rcar_gen4_pcie_unprepare(struct rcar_gen4_pcie *rcar)
->
->  static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
->  {
-> +       struct device *dev = rcar->dw.dev;
-> +       struct reset_control *perst;
-> +
->         rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
->         if (IS_ERR(rcar->phy_base))
->                 return PTR_ERR(rcar->phy_base);
->
-> +       rcar->perst = NULL;
-> +       for_each_available_child_of_node_scoped(dev->of_node, of_port) {
-> +               perst = of_reset_control_get(of_port, "perst");
-> +               if (IS_ERR(perst)) {
-> +                       if (PTR_ERR(perst) != -EPROBE_DEFER)
-> +                               dev_err(dev, "Failed to get PERST#\n");
-> +                       return PTR_ERR(perst);
-
-return dev_err_probe(...)?
-
-This error condition is triggered on Sparrow Hawk and White Hawk,
-as their DTS does not have perst:
-
-    pcie-rcar-gen4 e65d0000.pcie: Failed to get PERST#
-    pcie-rcar-gen4 e65d0000.pcie: probe with driver pcie-rcar-gen4
-failed with error -2
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks for your review!
+--
+Best Regards,
+Artem
