@@ -1,104 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 060264657C4;
-	Tue, 14 Jul 2026 13:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035877; cv=none; b=t/qNb7WhlU+5KUDh6oLNRHUKqoQ4WEwl7wT8vjGKeVIXIhwO8NrMz4pIOpmNG+7QzAgXzOeGAaYk8LtklqqumpDjVdvp27Fa1NmaA0smeat4zrP4e39RtPPowmTmtSq4g86EHf1bJ0cFJCbmfkQ6sqa2Bx3SSkCdfTLzX5Ru99E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035877; c=relaxed/simple;
-	bh=LdF+nU+hATjvIGDGTg9m2t2mP+j2nDdQe/luswhgH2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sDOXWyo/nFYpbNPxP6KkDKGIqLF1WSW3wqpYBRCvIlmA2B//eaTas+t0+knBBD4qpT4D4xCQJVkHAindP0YJpIolXPhBopQ0QUWa5wPlCWNsYh526UX5vcEg0mqUlGui8MLrh0lFkZzep+zrl6DeS5RFE8cT9vGJjPndxjrKpr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kD1GWa0+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C3946AEF5
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784035882; cv=pass; b=nN5H27u+QrVQKvF+kc9QoixTwSRIfcGYoAlo1pHGdT7GCpvVoS4scun+Dj9IuGyhe3LouhzdoGdvFqX+i1IhWOjGAz/wFaygFjJUReg8SPN+9/YRFUkpscervTKSz2ui3BH1JLemjPJdD07l/vF/kwlBwWp55uir2YHtZ0zxx4Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784035882; c=relaxed/simple;
+	bh=6DZv1K0DlUi+ti2Ixfzbo+SkZOzrPzgNcj+8JfhDZTE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mwft9WiudHh+nBLEqdI/dJ4dLySqJfYnUV9MnMPLF5XZu+moWy3CRAGvJs5rz+Vc+9ZB5abdN/ERUt6VGVHFqTm2ePQVqGmA1PVp7ZdNHMAEfg3ZBHgHYwch6KYtY5LMazEiTfQGmKGOSmaTnfYOGaQW84PzTFbACAQ10Bo0Loc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adtRORoK; arc=pass smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kD1GWa0+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669761F000E9;
-	Tue, 14 Jul 2026 13:31:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784035875;
-	bh=z5ME5/deI8bCwm6fHaOLJ29ggEdhfjTEw1poP7U+uck=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kD1GWa0+c0AOQBt3Rz60TsUykToFhDFi9cV+nPCNjGHznfn6yXISclXJ1A5Xgweu5
-	 eAHCevXgdHOxWs7IhUocegeTT0BAraioKdKMGWwN2q8vOoLI0TPcIzgRB3NJi6oPAz
-	 KhZkQyQ8xD7yTh+wcdWUOCbAZfs3nEAE0PVmMxrSgnudY/VB91d57Lzl2HBRWAjjHe
-	 aR3p0Bb164AcsTb3bIVFxq8+0U7zSWgoCPg5SUW85YvonpxLH/cfX1IgCbWZwwoiCQ
-	 pJubv3soYftCrxlqVmET95bG1CNqJmstEGs/xXxs47Wq6dFbMQz8SxFVu4iwVn5D/M
-	 UeRrQ7Tay1FFg==
-Date: Tue, 14 Jul 2026 15:31:07 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: remoteproc: qcom,sm8550-pas: Add Hawi and
- Maili MPSS compatible
-Message-ID: <azywskdjwlthflnjnmtbb7dfaisvxhqer3capwttbnvjlmjwqy@opkoermevz57>
-References: <20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adtRORoK"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38101f85591so726100a91.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:31:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784035880; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OsAsya9tC1n3OEMu9HF6OUpGDlsTNM9jB3h8jmyhhvhBFrnMwZd8rF/sr9ZHsaNx+q
+         sX0AHSpFYQhWLws2fXwmpwtCgqfSfX3+T5hK8FvA9pH6szIP0z2hL/oae+uO+jolfxuX
+         8HiaMRnpqA9jE2QdY4LXI7jMOwJ81lxROnI6+sG/e0+P14Id0ZIVuf5E7SHcOFo/Yke0
+         qZGl6dMXE4/oybEi8olEvWrK42QfHb/GO+dp5x/xZzYXLdR6KQypTE9lFNvg5AI9xg5I
+         OjV84+W4rUZKlzJRSU9nFUyxVW20jYjwas8EPPZ9gcd7U5cCJrOKYOhERx4+rnGrT87c
+         4tng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kLfW8NpBLmGd5rRr/q7P+WdrGpDQQoBNPKO5OnQCHQk=;
+        fh=kDNCzz0H1k2PgXpeuICWvV18Zur0HdIszMLVOPHJRNo=;
+        b=G4MRwWoFOi6ONvMD+Oq/YvEdGwBwozzSdFHk+t+JLdhiQUmMHtZ7S4yGsw2LnhvKxU
+         6IYsjkl1EuQG0HnizOckkJ9lNEXz9po/Xhg3ld3jlD2WnRA6v312Au95U07EMffK11Qi
+         jcR6B68UX+D2n/IcAwbpNtm8nP/j+FiTtPRySZupuDdRRoVkMafT8DO6U/sEVghvPeHf
+         Z9iAmR35BRyQuRVfkmNi4Le/u86ILF3WE0/7vKX/huG9gJGMknanU21gynAmS2LYyUSS
+         KuobFglB/f8dPg9EXEL/mkv1OqzxXrd8jQQlhAXcglEtbqIpCOjNZ50NXwRbZHkZSWrY
+         9w9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784035880; x=1784640680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kLfW8NpBLmGd5rRr/q7P+WdrGpDQQoBNPKO5OnQCHQk=;
+        b=adtRORoK6ykURV4MpPqfrnTXyFhgyraH2fPjJ0S7zI+Kwx7knp9zoE890+UYb+j00y
+         bFiN9z5SSPD8qzVBXDWlV5SlrMQbkjEPvlDpqIz1kmHac6uHt49DQ93YNWJQfdi5EQHk
+         475uVtuqDXE2WWrNE7/ik48QuATe0RyrQUbWMxyxEj9KdpndUMc9EO3fPKh/seREI0ql
+         //DrLBaWIMGG0cjP3+D5fNXmM/AIXH05XyLQawLfUa820ELjaK2iJiPlBqzjJ35GHXmI
+         D9sKHXvALthnn958hN4yPWlnY+H2pBMvmeGysDo4boFy80Y/Zwozmr8Tvp6DryTrOpwS
+         AT/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784035880; x=1784640680;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kLfW8NpBLmGd5rRr/q7P+WdrGpDQQoBNPKO5OnQCHQk=;
+        b=OFIPf0CWsdTRZ3Oe6lPoJKw9QdEHQNN5dxjdOGMRUfIPLpW3gebU/gyt8vnNIUkPR5
+         pCn/mANQz4LWABbBjuTIjipPsUT9EaL/JTDpj4IqB3OOvvzUEcLVewYCqV/xt8d+bY7u
+         wfMX09YMXfs+BewUzXqoPi7lT1JNGXZxaVxLqbOMlYPhMSxMo8KTHm0zEcGegGyBfFFV
+         Zrp4q2qYlPN/kj2G98JjiziMvRZAxQrlyKY/yqxRf4Y6OeEWHqGPqom5U1XeMQ3HtQBq
+         n6naguX0/srMsK6Ro1jZjw0EIZmKXUyMSqBWA+KMam+ZY0RSvk438hes0xbT/Gr68d5Y
+         omVQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr2AznwkmjcyvqVGNv73qjDfzIN/XTaBGKWmv8G4PiTQke9IRoo37m/EK9YhBq/G1IT4iZEhykVdUcJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLLIGBsT/OnNb/pmsrfTv2PjftX535ZErbS7OurRdptU3KilhX
+	/yNbblsiusYCvgLlviU1pxdTH9efQVVozcEJ1oXxysw6w1se4CRI7WyLStKWgcHRJKj6ZJDqF8d
+	ySetFxxjAhgJRgvkB3Qa+okt19t+y5O0=
+X-Gm-Gg: AfdE7clqHglM7d+Ak6Eu8TH2fGZanqOMKVlfD7pVx/a1mIJDa9KLPS2hpRV2TtWXuk6
+	+Xhb0x4tDSvySJuWBqxFwxRfhvoeGURLR1ix+lHzk4AKxPFTuz4eq3/J0zv0JGKL6cXfuopBih3
+	jVghnwUtKscSQwdGJ0lcmwijyIM3rgiyvHCdrrJ8qmPGYhPhXJCkOafFXbOB+gD6op2PjKfuShL
+	OzMegRSuOBiHNrYmIB9dW3+q9YGRjADovpq14WsiJOxxCv1cuVQrPJcz7DrgTCtjorhDvaUA9AT
+	2jB3Iv5xuYL1JMitaPoVn0aanGOHpc/BUdplyoPg
+X-Received: by 2002:a17:90b:5607:b0:37f:e5b1:ec4b with SMTP id
+ 98e67ed59e1d1-38d13c60530mr18215292a91.5.1784035880304; Tue, 14 Jul 2026
+ 06:31:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260617080031.99156-1-clamor95@gmail.com> <20260617080031.99156-6-clamor95@gmail.com>
+ <akeHC-OA8tqM941f@hovoldconsulting.com>
+In-Reply-To: <akeHC-OA8tqM941f@hovoldconsulting.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 14 Jul 2026 16:31:08 +0300
+X-Gm-Features: AUfX_mxzYxEuGLMctIZqZIdW8wmxIrFK1WcO0C4FctuVUcu9qYtJIaIs5OSxe4o
+Message-ID: <CAPVz0n2DPia=nfvd3W-rHy91OvZNO6jdSczT7kyvH-G138KJyg@mail.gmail.com>
+Subject: Re: [PATCH v5 05/14] iio: light: lm3533-als: Remove redundant pdata helpers
+To: Johan Hovold <johan@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 13, 2026 at 03:02:37PM +0530, Mukesh Ojha wrote:
-> Document compatible string for the MPSS Peripheral Authentication
-> Service on the Hawi and Maili SoCs. The Hawi and Maili MPSS is
-> compatible with the SM8650 MPSS (six interrupts, CX and MSS power
-> domains, memory region).
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+=D0=BF=D1=82, 3 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:55 Johan=
+ Hovold <johan@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Jun 17, 2026 at 11:00:22AM +0300, Svyatoslav Ryhel wrote:
+> > The lm3533_als_set_input_mode() and lm3533_als_set_resistor() functions
+> > are used only in lm3533_als_setup(). Incorporate their code into
+> > lm3533_als_setup() directly to simplify driver readability.
+>
+> That's a debatable claim.
+>
 
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Adding helpers to wrap custom regmap wrappers seems redundant twice.
 
-- Mani
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/iio/light/lm3533-als.c | 56 ++++++++++------------------------
+> >  1 file changed, 16 insertions(+), 40 deletions(-)
+> >
+> > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-=
+als.c
+> > index a9af8e2b965f..69bac1b202f1 100644
+> > --- a/drivers/iio/light/lm3533-als.c
+> > +++ b/drivers/iio/light/lm3533-als.c
+>
+> > -static int lm3533_als_setup(struct lm3533_als *als,
+> > -                         const struct lm3533_als_platform_data *pdata)
+> > -{
+> > -     int ret;
+> > -
+> > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
+> > +                        pdata->r_select);
+> >       if (ret)
+> > -             return ret;
+> > -
+> > -     /* ALS input is always high impedance in PWM-mode. */
+> > -     if (!pdata->pwm_mode) {
+> > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
+> > -             if (ret)
+> > -                     return ret;
+> > -     }
+> > +             return dev_err_probe(dev, ret, "failed to set resistor\n"=
+);
+> >       return 0;
+> >  }
+>
+> There's nothing hard to read about the above. To the contrary the logic
+> is more obvious this way.
+>
+> You also remove the high-impedance comment for no good reason.
+>
 
-> ---
->  .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml     | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> index faf7b2890de8..0d9fd1598b5b 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> @@ -17,6 +17,8 @@ properties:
->    compatible:
->      oneOf:
->        - enum:
-> +          - qcom,hawi-mpss-pas
-> +          - qcom,maili-mpss-pas
->            - qcom,sdx75-mpss-pas
->            - qcom,sm8550-adsp-pas
->            - qcom,sm8550-cdsp-pas
-> @@ -196,6 +198,8 @@ allOf:
->        properties:
->          compatible:
->            enum:
-> +            - qcom,hawi-mpss-pas
-> +            - qcom,maili-mpss-pas
->              - qcom,sdx75-mpss-pas
->              - qcom,sm8650-mpss-pas
->      then:
-> @@ -246,6 +250,8 @@ allOf:
->        properties:
->          compatible:
->            enum:
-> +            - qcom,hawi-mpss-pas
-> +            - qcom,maili-mpss-pas
->              - qcom,sdx75-mpss-pas
->              - qcom,sm8550-mpss-pas
->              - qcom,sm8650-mpss-pas
-> -- 
-> 2.53.0
-> 
+Removing one level of indentations without obscuring readability is
+always a good idea.
 
--- 
-மணிவண்ணன் சதாசிவம்
+> Johan
