@@ -1,265 +1,208 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010056.outbound.protection.outlook.com [52.101.193.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65073033E6;
-	Tue, 14 Jul 2026 06:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784009934; cv=fail; b=LqiY0RaLzTJgCqjDDB9ibQ11cl5DPXAPG162g+Za9WAXqsKW80De3HAJ/OxVDI/JVlf/q0lORpq7y7Fe0S8OIR0cGifxOeA/f1qVNY2ueKlgRrkhEnb1LHSW+GDwDZO8twzzOU0u+TtEyLFnRjScz/zZ3d68UaHJ9Qsu8Zzcp0A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784009934; c=relaxed/simple;
-	bh=wlKQefAHTXuOPslDybQRufCCjG5Ok+jeBG1R0uy239s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Kp6a6SvuSfOYOheiZe3wlhuXWaPwHhWY/ouBM2nE1sUF/OE8Y45hbZwlzAhHs9nlspY8YFdbhmEcvG5ct8p+rRpgC+pPWp04VW8RtyvOijlx8dUkGQuPqeeFzY34kK6YhkMVtLKQv3gYzctcFDOsrUi0/z6Gi53YzN49nohW/pk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2QZKaU4x; arc=fail smtp.client-ip=52.101.193.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F188527E049
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784010504; cv=none; b=dFFp7R0Oe5U0SQSVJjTtPkv9sB+90UTakTyk4AkuvaSm+lNQLtGO54ZBvXkXBpRzFD4hNqDQx2ZxusmM1/W/1EHHvJn14JtlQmv5T7aEEQP9NJ2NnP7vtaUX9fyPPWh7g5/SmDFXngxe7764CRihM0ISim0lCnqyHHD5ztFQcq8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784010504; c=relaxed/simple;
+	bh=M0eRETR/rM4kRQsJzoAQ0bq/TtjH3de46IG5ZXvH01A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=s5G1W9URvp0jjC4+DO9TDbSSOp8pIscJEBHZe4GyuW7rpzumOsY/naZ6y0WkaoNSsNDMIgnMp1qt4BT/CLP3L+BLwnxii0bfxU3PX2r7kKCKhpoMnZv7TTVIQWd+zXZdatQ/T3uwanjZADiCZO7gssnJoITbjkOSPFO7r32w1ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HBSmBhYD; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2QZKaU4x"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cS/3pKICJlQL6rRP5s38/9xqWt6bF1Hkx8g1leNn7FV2uaVNqrBI1BAK9ShbbBK1S9n6rBInvRWRJbe1IC20dz9dxNilPh1UZxfaXqm+F2d06fjipk5Yplbi/gtXNNUHuI6ssE+X+/xAOMNcnvWyL8ytywjsvo231UxxIa/EWQKQfmvVT3tdqng5MmrzQ/7iv/8IzmxcJf2k99y5O/c0FDbEfy/cVigT80PzilTderxXxWlUWl6IRdOURiQRifR3GhA5fSSmprZNOlT5f9ypVB8Ki1BXl1XI7cNMwU+DT71a0DAfx55v04UaZHCEQkNz31Db1FXNFRJdezDdH7wkgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9K0YpmS4dE4BF+6oS+fQ6oAmmaedPOgiPHr6NHW1xMQ=;
- b=YuNJUajtJrGsrEI6zzeaaawO/IDhMX1DhNIS06W8yDmIE9p8xtNgRm/yl3eO4l3lx+FcdtsYlLk9LDyddaKLv5cqjWbnp14WesgMNTK7SS1kAlWEGTKZRLrJabzJkmtkWJoNCfwGo/1sT90cODX7lMsVrpWPW3/wSRxwS4cJ1XR2QQUVY4PUK4chz50nnWg/ehse48eu2+vEzNSZLsORqHM/rEbX4gsjoHC1gyY0/RrM3WCDPYivwFhk2ZnuDRJEdf0//tepsq/K0yV5LRuGjoT+PPwvrH5h0TA0FtbpUm30DSTEkVI/MJKJC6lsi2RSwysPBa8ZGARe6Zvg01/ppg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9K0YpmS4dE4BF+6oS+fQ6oAmmaedPOgiPHr6NHW1xMQ=;
- b=2QZKaU4xxXbJaMGTe1GhX4Q43jdet9Fq3YIwMVER4rdES3AG2O8P2hUUjA1qNIPtSvPkGRK4HV6+XomC+GGkEzI+QyzGBYr+F0HWD7aBh9NHYHaJjs+Zb0PuinGUno6pEBwXWnz9yWLG1ZsFb9ilLYEN1o2SokAYSOME0KgJG1o=
-Received: from BN9PR03CA0752.namprd03.prod.outlook.com (2603:10b6:408:13a::7)
- by IA0PR12MB8982.namprd12.prod.outlook.com (2603:10b6:208:481::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 06:18:48 +0000
-Received: from BN1PEPF00006000.namprd05.prod.outlook.com
- (2603:10b6:408:13a:cafe::a1) by BN9PR03CA0752.outlook.office365.com
- (2603:10b6:408:13a::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.9 via Frontend Transport; Tue, 14
- Jul 2026 06:18:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 06:18:47 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 14 Jul
- 2026 01:18:45 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 13 Jul
- 2026 23:18:44 -0700
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 14 Jul 2026 01:18:42 -0500
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <gregkh@linuxfoundation.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <heikki.krogerus@linux.intel.com>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <git@amd.com>, Radhey Shyam Pandey
-	<radhey.shyam.pandey@amd.com>
-Subject: [PATCH v3 3/3] usb: typec: tipd: add TPS66993 support
-Date: Tue, 14 Jul 2026 11:48:19 +0530
-Message-ID: <20260714061820.537792-4-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.49.1
-In-Reply-To: <20260714061820.537792-1-radhey.shyam.pandey@amd.com>
-References: <20260714061820.537792-1-radhey.shyam.pandey@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HBSmBhYD"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2caed617615so43678235ad.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 23:28:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784010502; x=1784615302; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KN+zGCwqnRr77YLBHNGCvv6ivP6Fw2MCgfq05HPwV4M=;
+        b=HBSmBhYD2ozJcD9NJmsY1qBDxrXQqS5uXA6VJ2torDroaisKqgCtAKF9Hxck9wsrR1
+         scjbxZy47suoSPkSPeLS9ynWdKEX6lc5ITJEdz7qjtVbku2vuhRUCg+wXqPBzZQw9E2E
+         XffBukUmq0WKki6jeDdp3ybNdnA5chRyoVC1ZsBcmjGPE4WchWBccm4CP3c0ifyMJexY
+         beUXxX0rAKSo6YtFThNIiBk14qtUD0/38pSO3izJ0SOjx5AhyVCH0r/EzqxpYjKv8Wvp
+         LaGCkMlTIDZjVtawKhnJNAxzRk9LQOJmcBEaqvt3Y4zikpZnZ7YvfsroGicBa0D1qo+5
+         QtOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784010502; x=1784615302;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KN+zGCwqnRr77YLBHNGCvv6ivP6Fw2MCgfq05HPwV4M=;
+        b=JH+Fk3cXxvrWL963D5PziuslDdc66iRkTrHMCwSt8KFr1V8zRsnQ0pecVhsJKAG5Mt
+         /MMR53P2mt1qPrTrBqHLe1duPuaXPCjOr7gPXlDWi0GCqg54gm3IfhYGU4YdhzVV1w9H
+         pFudQ/1G2ZDKoo4MV5Uj9t25c+tpdtcfg5N9KOwNGdKZ5Qz/VTnkx+EWfJFSIjkA975n
+         IWNRq85HFUFyDzKxMhYKWlaH7VvT+kopJAUhJUjXWkmhIVz/KW39qs/bKoj7LsnkYKpD
+         PP5MFjOb1S66JL2deN2Fc4t0TBD+KISJSPr34DdcoDEjzU32cVp2VZK0vnifJuozgHt6
+         N4OA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpe6r4l25bbaXt/PqlJlWLv0OLxCQq0LGcgfhm+C+lLNm3ZcmjB8Yt1r3SUl25cjgAxOHEEZJ8KqFOD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnrFzcIAjfiovCegHoeN504WE3wwX5HYDt1VsHN5l6l0mS+Rwf
+	3v2RCaMqsEIziJn3p1LLIgCZ9Wh3BgsXhHv6wYjmnQ1rlvtW/ThsQdQidP/YOw==
+X-Gm-Gg: AfdE7cmjxd+o0LyYxsiipZoa6eESnyLMzHZzRH3GHucfwCEwHtYp1PPZbYtKR6fpSMO
+	LGx00WxSrrcE+nGWK+6OEmxL5xlxK0Ws8ckT0cTEPo5jxuloxu1+EYqMyqH+pq7awEYpBDk5Frg
+	UnUGbtkPxn5FQdWr1QMXpRdcf1Btfk4iTYN5WUOlASEofgPJSnLQAgUVazWKaJP6Hxloc0z0FYO
+	ukVEPS2TlbiRqJXKs1krnQHyjLWaUeQvzyiV66rHLeVHVBcfsADxeCkcjGfQz/ZXkp1matPNwds
+	w/+1We9vzTQvCpYRsu172igvtOVQI0dxcTab7/9faOZWyuh82dx3RLAjkxrhRYcvXeYTCG/smyq
+	OYBYhr8fehNvXnTc9hW6IPtsoKU5GO0mHgNWPe3pOAnlgtoVqxQJ13EOdjoQ2Op83W7pkWRRLMw
+	zKHmHvvHAIkCgujn8S3zrON1981NY55wsIoeOVhk2ZnWoowcop/Qr8rzniuNuZjQtExiY4xMaeL
+	KXJma4sRKlWVsfx0wH6f+Ifc93MXlc/K729NrYp7jRWmsnx/dmNDhJsAW2zl96j
+X-Received: by 2002:a17:902:f605:b0:2c9:a5e9:c26e with SMTP id d9443c01a7336-2ce9eab85f7mr116798135ad.13.1784010502236;
+        Mon, 13 Jul 2026 23:28:22 -0700 (PDT)
+Received: from [10.160.5.76] ([119.17.57.186])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc99cc5aasm110915985ad.0.2026.07.13.23.28.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 23:28:21 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Subject: [PATCH v2 00/12] arm64: dts: apple: Add SMC hwmon nodes
+Date: Tue, 14 Jul 2026 16:28:07 +1000
+Message-Id: <20260714-smc-subdev-dt-v2-0-13fa78873121@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|IA0PR12MB8982:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3e3affe-0bf6-41f5-52bb-08dee16fc3e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|3023799007|56012099006|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	qQInE45B41Azi/Mh5T21DT86dcd+NXwLaW89p1vCwF45JqxvJ0bg+RNgLYVItWDPcoJwKOsyg4EpNR2ggLYHZ/lo1t3wg8hCYIgWaHQaXRvtm2YKpv/RTNVM0yA8aoGM7DP2sGXV6loqGWTf9huT08uB5Wwynm5FtW4hFzFAWIufus43fM9KUksmuCQ5bpXiHE53WBdllwmZPKlCi9+t9dXD/5/0v0cwfu8zihPWJx85cTT9tVHAf75qf/oEJ3cGNy67s2ZKhCLN6k4+BkajmaIi1KJ13ardDd+q7U4KiP2KQKzZ+gGV076MjqsrTZ12y86BqgTjDcV74GG5WRpoXRrY72HZc3NTQwADcKmI8rKfQIv68K6IvSXuoUlZs/3xBTKxxAxp2ccHhhj3ZZJFWfpF3t+YnmxsCgjo0bd8DGxdjnL4KvZkEut7GnolupJ5/1dyMCNfj/rMoTuqQSGg2Rn/zlJ5swYmNmzr3Bp4euhJORHRqMkwSos6cHZ5x+E8c9xJ2ugcxn2mteYXs6l3TpZPUhnsmTy7fJI2s0QnehsGm5GLHzVG58jAV3bc4BXmUIP8ZNS85Xv7qmiO3WzrPMemqhTCAgUVXi4NJMenSlVmmei0F3kJbEyGUQb/07/DacNZWiu4dX8JuI2MzBrODcA6TdsQFwFB6/8iLiJXRg0sDVIeNDRgnZbgV84C6JZIfQ7qesuiEPt0zu599AzsuQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(3023799007)(56012099006)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	snZ6VXv7rIO1VT4SbCDqBUbsfD5ult4QbjH100KIOcMZuepzFefeNWh4Ab19XVo3NCZGcuVJcq6rVFskRDwJkoun7DTCNsqmP4QatLlv4Fn/AEg3KayG6BZc0rkJa85SGwtYZZDzzqlzrgCIeYcRUtf5NcMozLnKgU7nPkyZARCpWOCDj4rR6lzLZYlQRspP1IcNTX+P7kr+YH9z4TE1DI/8qmPcmro1JsQQRPWaR4qrm4WtXedBetpOxv6Uzhc+1wta4L4Lsm02JejuOkPXyvrAbLUBDo29q8tkhEfC79+eB1PQgqS/9khmtWlHLNi04+aGq1qOzm30PYjY8bsKxoLRw3YeBV/uHB5aN+elkjujK6dGhMN2A+nqDArjZHJEE1lTAyfxX5B4zudbjSRWMOLY+egbGCjUJMOV473R9arAvcnsXz7T4xgCsBhFg6I9
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 06:18:47.7096
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3e3affe-0bf6-41f5-52bb-08dee16fc3e7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00006000.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8982
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jHTKm3iyv8wLLAdYIw80mKjI
+ fy7BdcuT3LuuQtEDsIRLsUCgZNEGYcM+lCA6+qhZRSfGTRpQ1ZpjL3D+Lp7TuhnJFefLRldatV
+ A3kyBG3nvvVv14yw/2M1bZDM6ifMYPvthUpv3r50UElprTkTGl9bZa9vX8jy6sYdqXdcvU+5WB
+ 7wAAAA=
+X-Change-ID: 20260712-smc-subdev-dt-0ca47062521f
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Calligeros <jcalligeros99@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5470;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=M0eRETR/rM4kRQsJzoAQ0bq/TtjH3de46IG5ZXvH01A=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFmh1/7wfGyQCeixe5ykE2YjmPf+GPu3ZPHj13K8VsQ8n
+ VD3VPhBx0QWBjEuBksxRZYNTUIes43YbvaLVO6FmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ jXSMdYwYuDgFYKoZ2Bn++2jMU27IMtfi+56cPKHKJdSc+em3U+Z1Mx3kN6jf/yezleGf6bfj39b
+ lNC+/vtttxaaV9x+xf75jfCMuXti+ZEWzhcsENgA=
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-Derive power status from the STATUS register (0x1A) now that TPS66993
-deprecates the Power_Status register (0x3F). Add support for the "APP1"
-mode string. TPS66993 controller is configured in polling mode and only
-type-c flip orientation feature is supported on AMD Versal AI Edge Gen 2
-VEK385 Evaluation Kit.
+Hi folks,
 
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Following on from the series which added SMC hwmon driver[1], this
+series spins out and adds the Devicetree nodes required for the hwmon
+driver to operate. These were missed back in December.
+
+The System Management Controller on Apple Silicon devices exposes
+the temperature, voltage, power and fan speed data from numerous
+(potentially hundreds) of sensors scattered about the SoC and
+device at large. Unfortunately there is very little rhyme or reason
+to how Apple expose these using the SMC firmware's FourCC key-value
+system. Some sensors are reliably common across all devices and
+all SoCs, like PSTR which measures the total platform power consumption.
+Others are specific to a class of device, like the fan control
+keys, which are only present on devices with fans. Some are specific
+to a single SoC, and others still are specific to a single device.
+To complicate matters further, some SoCs are not even consistent
+across devices; the application core temperature sensors for a
+given SoC are read from different keys depending on the device
+that SoC is in...
+
+Trying to express all of this in every device's Devicetree is a fool's
+errand. To eliminate duplication, we instead use .dtsi files to
+compose a set of sensors for each device in a saner way:
+    - Sensors empirically proven to exist on all SoCs for all devices
+      go in hwmon-common.dtsi
+    - Sensors empirically proven to exist on all devices with a given
+      SoC can go in a SoC-specific hwmon-${soc}.dtsi file, much as we
+      do with PMGR and GPIO currentlyo
+    - Sensors empirically proven to exist on all devices of a specific
+      class go in hwmon-${class}.dtsi (e.g. hwmon-laptop.dtsi)
+    - Fan control endpoints are reliably common across all devices
+      with fans, which will #include hwmon-fan-*.dtsi
+    - Sensors specific to one device only can be expressed in that
+      device's specific .dts file
+
+This series introduces some basic sensors we know about to get the ball
+rolling. As you can imagine trying to find every valid sensor on every
+device and figure out what it's actually measuring is a tedious and
+labour intensive process, so expect more sensors at some point in
+the future.
+
+Regards,
+James
+
+[1] https://lore.kernel.org/asahi/20251112-macsmc-subdevs-v5-0-728e4b91fe81@gmail.com/
+
 ---
-Changes for v3:
--  Remove the unnecessary if (tps->data->trace_power_status) guard and
-   call the trace callback unconditionally, since every tipd_data entry
-   always provides it.
+Changes in v2:
+- Fix M2 series Mac Studio fan includes
+- Link to v1: https://patch.msgid.link/20260712-smc-subdev-dt-v1-0-7763006d57c7@gmail.com
 
-Changes for v2:
-- New patch to add TPS66993 driver support.
+To: Sven Peter <sven@kernel.org>
+To: Janne Grunau <j@jannau.net>
+To: Neal Gompa <neal@gompa.dev>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
 ---
- drivers/usb/typec/tipd/core.c | 64 +++++++++++++++++++++++++++++++++--
- 1 file changed, 62 insertions(+), 2 deletions(-)
+James Calligeros (12):
+      arm64: dts: apple: t8112: Add SMC hwmon node
+      arm64: dts: apple: t8103: Add SMC hwmon node
+      arm64: dts: apple: t600x: Add SMC hwmon node
+      arm64: dts: apple: t602x: Add SMC hwmon node
+      arm64: dts: apple: Add common SMC hwmon infrastructure
+      arm64: dts: apple: t8103: Add common SMC hwmon sensors
+      arm64: dts: apple: t8112: Add common SMC hwmon sensors
+      arm64: dts: apple: t600x: Add common SMC hwmon sensors
+      arm64: dts: apple: t602x: Add common SMC hwmon sensors
+      arm64: dts: apple: t8103: jxxx: Add device-specific SMC hwmon sensors
+      arm64: dts: apple: t8112: jxxx: Add device-specific SMC hwmon sensors
+      arm64: dts: apple: t60xx: jxxx: Add device-specific SMC hwmon sensors
 
-diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-index 9097b0d40a71..522f56742aa9 100644
---- a/drivers/usb/typec/tipd/core.c
-+++ b/drivers/usb/typec/tipd/core.c
-@@ -130,6 +130,7 @@ enum {
- 	TPS_MODE_BIST,
- 	TPS_MODE_DISC,
- 	TPS_MODE_PTCH,
-+	TPS_MODE_APP1,
- };
- 
- static const char *const modes[] = {
-@@ -138,6 +139,7 @@ static const char *const modes[] = {
- 	[TPS_MODE_BIST]	= "BIST",
- 	[TPS_MODE_DISC]	= "DISC",
- 	[TPS_MODE_PTCH] = "PTCH",
-+	[TPS_MODE_APP1]	= "APP1",
- };
- 
- /* Unrecognized commands will be replaced with "!CMD" */
-@@ -631,6 +633,34 @@ static bool tps6598x_read_power_status(struct tps6598x *tps)
- 	return true;
- }
- 
-+/*
-+ * TPS66993 deprecated Power_Status register (0x3F). BC1.2 is not supported
-+ * and the remaining bits are redundant with STATUS register (0x1A).
-+ * Synthesize pwr_status from the already-read STATUS register.
-+ */
-+static bool tps66993_read_power_status(struct tps6598x *tps)
-+{
-+	u16 pwr_status = 0;
-+
-+	/* Same masks as TPS_POWER_STATUS_CONNECTION() / SOURCESINK() / PWROPMODE() in tps6598x.h */
-+	if (tps->status & TPS_STATUS_PLUG_PRESENT)
-+		pwr_status |= FIELD_PREP(TPS_POWER_STATUS_CONNECTION_MASK, 1);
-+
-+	/* SOURCESINK: 1=sink; STATUS.PortRole 1=source, opposite convention */
-+	if (!TPS_STATUS_TO_TYPEC_PORTROLE(tps->status))
-+		pwr_status |= FIELD_PREP(TPS_POWER_STATUS_SOURCESINK_MASK, 1);
-+
-+	if (TPS_STATUS_VBUS_STATUS(tps->status) == TPS_STATUS_VBUS_STATUS_PD)
-+		pwr_status |= FIELD_PREP(TPS_POWER_STATUS_TYPEC_CURRENT_MASK,
-+					 TPS_POWER_STATUS_TYPEC_CURRENT_PD);
-+
-+	tps->pwr_status = pwr_status;
-+
-+	tps->data->trace_power_status(pwr_status);
-+
-+	return true;
-+}
-+
- static void tps6598x_handle_plug_event(struct tps6598x *tps, u32 status)
- {
- 	int ret;
-@@ -1026,6 +1056,8 @@ static irqreturn_t tps6598x_interrupt(int irq, void *data)
- 	if (!tps6598x_read_status(tps, &status))
- 		goto err_unlock;
- 
-+	tps->status = status;
-+
- 	if ((event1[0] | event2[0]) & TPS_REG_INT_POWER_STATUS_UPDATE)
- 		if (!tps->data->read_power_status(tps))
- 			goto err_unlock;
-@@ -1034,9 +1066,15 @@ static irqreturn_t tps6598x_interrupt(int irq, void *data)
- 		if (!tps->data->read_data_status(tps))
- 			goto err_unlock;
- 
--	/* Handle plug insert or removal */
--	if ((event1[0] | event2[0]) & TPS_REG_INT_PLUG_EVENT)
-+	/*
-+	 * Refresh power status before connect - needed for TPS66993 which
-+	 * synthesizes pwr_status from STATUS and never gets POWER_STATUS_UPDATE.
-+	 */
-+	if ((event1[0] | event2[0]) & TPS_REG_INT_PLUG_EVENT) {
-+		if (!tps->data->read_power_status(tps))
-+			goto err_unlock;
- 		tps6598x_handle_plug_event(tps, status);
-+	}
- 
- err_unlock:
- 	mutex_unlock(&tps->lock);
-@@ -1072,6 +1110,7 @@ static int tps6598x_check_mode(struct tps6598x *tps)
- 
- 	switch (ret) {
- 	case TPS_MODE_APP:
-+	case TPS_MODE_APP1:
- 	case TPS_MODE_PTCH:
- 		return ret;
- 	case TPS_MODE_BOOT:
-@@ -1813,6 +1852,8 @@ static int tps6598x_probe(struct i2c_client *client)
- 		goto err_clear_mask;
- 	}
- 
-+	tps->status = status;
-+
- 	/*
- 	 * This fwnode has a "compatible" property, but is never populated as a
- 	 * struct device. Instead we simply parse it to read the properties.
-@@ -2007,6 +2048,24 @@ static const struct tipd_data tps6598x_data = {
- 	.connect = tps6598x_connect,
- };
- 
-+static const struct tipd_data tps66993_data = {
-+	.irq_handler = tps6598x_interrupt,
-+	.irq_mask1 = TPS_REG_INT_DATA_STATUS_UPDATE |
-+		     TPS_REG_INT_PLUG_EVENT,
-+	.tps_struct_size = sizeof(struct tps6598x),
-+	.register_port = tps6598x_register_port,
-+	.unregister_port = tps6598x_unregister_port,
-+	.trace_data_status = trace_tps6598x_data_status,
-+	.trace_power_status = trace_tps6598x_power_status,
-+	.trace_status = trace_tps6598x_status,
-+	.apply_patch = tps6598x_apply_patch,
-+	.init = tps6598x_init,
-+	.read_data_status = tps6598x_read_data_status,
-+	.read_power_status = tps66993_read_power_status,
-+	.reset = tps6598x_reset,
-+	.connect = tps6598x_connect,
-+};
-+
- static const struct tipd_data tps25750_data = {
- 	.irq_handler = tps25750_interrupt,
- 	.irq_mask1 = TPS_REG_INT_POWER_STATUS_UPDATE |
-@@ -2028,6 +2087,7 @@ static const struct tipd_data tps25750_data = {
- 
- static const struct of_device_id tps6598x_of_match[] = {
- 	{ .compatible = "ti,tps6598x", &tps6598x_data},
-+	{ .compatible = "ti,tps66993", &tps66993_data},
- 	{ .compatible = "apple,cd321x", &cd321x_data},
- 	{ .compatible = "ti,tps25750", &tps25750_data},
- 	{}
--- 
-2.49.1
+ arch/arm64/boot/dts/apple/hwmon-common.dtsi    | 38 ++++++++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-fan-dual.dtsi  | 23 +++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-fan.dtsi       | 17 +++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-laptop.dtsi    | 38 ++++++++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/apple/hwmon-mini.dtsi      | 16 ++++++++++++++++
+ arch/arm64/boot/dts/apple/t6001-j375c.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6001.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t6002-j375d.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6002.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t600x-die0.dtsi      |  4 ++++
+ arch/arm64/boot/dts/apple/t600x-j314-j316.dtsi |  2 ++
+ arch/arm64/boot/dts/apple/t6020-j474s.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6021-j475c.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6021.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t6022-j475d.dts      |  2 ++
+ arch/arm64/boot/dts/apple/t6022.dtsi           |  2 ++
+ arch/arm64/boot/dts/apple/t602x-die0.dtsi      |  4 ++++
+ arch/arm64/boot/dts/apple/t8103-j274.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8103-j293.dts       |  3 +++
+ arch/arm64/boot/dts/apple/t8103-j313.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8103.dtsi           |  5 +++++
+ arch/arm64/boot/dts/apple/t8112-j413.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8112-j415.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8112-j473.dts       |  2 ++
+ arch/arm64/boot/dts/apple/t8112-j493.dts       |  3 +++
+ arch/arm64/boot/dts/apple/t8112.dtsi           |  5 +++++
+ 26 files changed, 186 insertions(+)
+---
+base-commit: 44696aa3a489d2baf58efa61b37833f100072bee
+change-id: 20260712-smc-subdev-dt-0ca47062521f
+
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
 
