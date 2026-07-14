@@ -1,133 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F4F12C534;
-	Tue, 14 Jul 2026 01:04:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30B935CB87;
+	Tue, 14 Jul 2026 01:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783991087; cv=none; b=RI9fs7sNIhkO2HltvZLQEhQFITwr2QhQL+i8x3zbbuaCDZRn1UPk8Fh9f7LuH4qN2lHoKsFD3P9IC7HeVOes9Gp8SRvVBiCZEDSFypEUAZ14nSbhHUciTgS3Nt0zIsIcPdydwppGByGsJ7A4n70NVtgR3neqQsDC8hFT8tiWSBg=
+	t=1783991484; cv=none; b=MwfnXA8l9ZFrFygzF94bLmiZ33glI/ZMJUezMzXa0DnSiz0O3MgMxQROO33iygGt3th8PAX5573WR7Q0i7SG1eSaba6shSVTfs23W1Z1eobgEMswgTCatrp8+IxYU2EE6vk6l2Gd6fBSV7eGlHX5+q5NzRdFJxusZP7/n8JjhUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783991087; c=relaxed/simple;
-	bh=ghnA79c0myfQmm1tLT8G1Q7k9znQt4izz53sCHLn+p4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CAf/HfAFftNCmWNHyBtarRTZeJ8m79Kbuu0Wc5Pxm777I4BKN6eywRBRk4dH7UfAe+UTaQu/ndA2eOLkPD5V9fxMweld7Eb3aUyZzN2leqbZL9AnA0CaPpLSJuMgYm8JrQIAI+g4gVi0lxx7ODNfPp4AyWNffYnEupcDfK03clU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dMdvXX+Y; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1783991484; c=relaxed/simple;
+	bh=664nbVN/z/Nh13dTvS9ukzYiJiV3KLMrcH0uSAw82eY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gN62r8o0vMg8M2nfTuFFRFjgdcYuJlhHCGx+QYwbKO+4Zlzbkp37FNXpxJ1y5z2pjwZcZoQgpIJeVF4jWLeQkyEEatuJKeVPia5hQMxCZi+RbvivvGW/kwdaFO0my5d51HolHX0h2uSNNwUp/exWS7vl36k/2At17/I5Y+e9tqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7kJ4Sxe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dMdvXX+Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1783991086; x=1815527086;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ghnA79c0myfQmm1tLT8G1Q7k9znQt4izz53sCHLn+p4=;
-  b=dMdvXX+Yu7q9MU11XxJWAWGl93F1tBQqv+1XRa4nVgnsdpkKX3mmEetR
-   FQ9VP6HCWm5hUDBk48HDbHZGF70RVnypnH8uyj2M5SA0YN7qpWbsWVz8b
-   /3jXPMsQysrNBqOyI7CzjBh8qb/CSfDcQPWoitkav4it9EDxzTufTMsQC
-   5ETMQVdn83O4RB5xKWOcOy/mVRtNQAA0YDCAF0ma1MEz+0LDvUGuqzBjg
-   bj8/f+wzWg3PV6HNt1Dz+anWhvSDdKP9trHqsJSe/J9JGT+PcXXFDhodK
-   0RpVVvbO4U2jdUhzLNH1cIcoZrAtY8WwNeftAZGxNGxT2SPA/EmBlv4pZ
-   A==;
-X-CSE-ConnectionGUID: jKSAghVcTviplz2Hs07luA==
-X-CSE-MsgGUID: GkJMRTblTsG1J5aPC/8zGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="84701794"
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="84701794"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 18:04:45 -0700
-X-CSE-ConnectionGUID: JBWFPNJRTj2IGgrbVri1Gg==
-X-CSE-MsgGUID: AQadaKAeS7mdjt78kRDGkA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; 
-   d="scan'208";a="252317728"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Jul 2026 18:04:41 -0700
-Date: Tue, 14 Jul 2026 04:04:39 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
-	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
-	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 8/8] iio: adc: ti-ads112c14: add measurement channel
- support
-Message-ID: <alWLJ8j-a7CtTbU3@ashevche-desk.local>
-References: <20260710-iio-adc-ti-ads122c14-v3-0-746d52cbf1d0@baylibre.com>
- <20260710-iio-adc-ti-ads122c14-v3-8-746d52cbf1d0@baylibre.com>
- <alI-a6nkGvXp6sDo@ashevche-desk.local>
- <f8bb35a6-a898-497a-96eb-7a76a1fba16c@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7kJ4Sxe"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 87627C2BCF5;
+	Tue, 14 Jul 2026 01:11:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1783991483;
+	bh=664nbVN/z/Nh13dTvS9ukzYiJiV3KLMrcH0uSAw82eY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=m7kJ4SxeIuX+wp43CN0G9xZPzEGyuIX1ip8ssV3BWODKZ8zdrzmh8uih404CMCGy3
+	 M1vfSd1NCf1nGWMcLBkOLrHZ3EV7qjhH/0hmPYNcUlmaOAS73vDujNIN+qTjMG0uB+
+	 JkSqcdNgMxrncXT8owkWXtmR5exkxyzTmYJgwgvXvBfFs9TOOTI045aQLau7n4YtNV
+	 4clvP9bFK+/JGeAcVw7KEvLXmSpooKlwOi+V7G2Cf1XPLoLz90HD1BuXIoWecmrRTh
+	 oob/2vy4kyy94A1WiedN/5QV7/YCGT1bucwuadOneJ/hL3OmqVd1bR0eXIKMtDcfqO
+	 543o6ZxWz9DHQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6926EC43458;
+	Tue, 14 Jul 2026 01:11:23 +0000 (UTC)
+From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
+Date: Tue, 14 Jul 2026 09:11:02 +0800
+Subject: [PATCH v3 1/3] dt-bindings: pci: ultrarisc: add required DP1000
+ PCIe clocks
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f8bb35a6-a898-497a-96eb-7a76a1fba16c@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260714-ultrarisc-pci-clk-v3-1-e72723fc0ef1@ultrarisc.com>
+References: <20260714-ultrarisc-pci-clk-v3-0-e72723fc0ef1@ultrarisc.com>
+In-Reply-To: <20260714-ultrarisc-pci-clk-v3-0-e72723fc0ef1@ultrarisc.com>
+To: Xincheng Zhang <zhangxincheng@ultrarisc.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jia Wang <wangjia@ultrarisc.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783991481; l=1883;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=MadaMzsEQt3m33Yn04ygfcyKkX6JurLuStxQ8qHRs6U=;
+ b=XxdL7yZX//LcNbb9nViGu1d8at7DF0oB5I7hH7dWtIgnglHcf3tPIstyNgZHZwq6BcXHZLFfY
+ 6okUD7/8jK4D+4MEj0tbZjWhtA/36FFQ9xLBwd2Oiv42WrsY6dqqMix
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
+ auth_id=779
+X-Original-From: Jia Wang <wangjia@ultrarisc.com>
+Reply-To: wangjia@ultrarisc.com
 
-On Mon, Jul 13, 2026 at 02:40:27PM -0500, David Lechner wrote:
-> On 7/11/26 8:00 AM, Andy Shevchenko wrote:
-> > On Fri, Jul 10, 2026 at 05:50:41PM -0500, David Lechner (TI) wrote:
+From: Jia Wang <wangjia@ultrarisc.com>
 
-...
+Require the DP1000 PCIe controller nodes to provide clocks and
+clock-names, using the standard DesignWare clock names "core",
+"dbi", and "aux".
 
-> >> +struct ads112c14_measurement {
-> >> +	const char *label;
-> >> +	u32 vref_source;
-> >> +	u8 iunit;
-> >> +	u8 idac1_mag;
-> >> +	u8 idac2_mag;
-> >> +	u8 idac1_mux;
-> >> +	u8 idac2_mux;
-> > 
-> > I would group this slightly differently:
-> > 
-> > 	u8 idac1_mag;
-> > 	u8 idac2_mag;
-> > 	u8 idac1_mux;
-> > 	u8 idac2_mux;
-> > 	u8 iunit;
-> > 
-> > I haven't seen the code, but names suggest that most likely one would read
-> > *[12] together or close enough, and less probably mixed with 'iunit' reads.
-> > Current layout might lead to interesting code generation complications on
-> > the unaligned-intolerable architectures.
-> 
-> iunit is scaling factor for *_mag, so logically gets grouped with
-> those. (These are all datasheet register field names.)
+Fixes: d9ff07f45955 ("dt-bindings: PCI: Add UltraRISC DP1000 PCIe controller")
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml   | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Then it can be
-
-	u8 idac1_mux;
-	u8 idac2_mux;
-	u8 idac1_mag;
-	u8 idac2_mag;
-	u8 iunit;
-
-
-> >> +	u8 iadc_count;
-> >> +	u8 gain_val;
-> >> +	u8 burnout;
-> >> +	bool global_chop;
-> >> +	bool bipolar;
-> > 
-> >> +	s64 scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)];
-> > 
-> > Also this can be moved upper, but I think it won't save any bytes in this
-> > layout.
-> > 
-> >> +};
+diff --git a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+index 512b935bf5d1..d9d1488e915a 100644
+--- a/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
++++ b/Documentation/devicetree/bindings/pci/ultrarisc,dp1000-pcie.yaml
+@@ -43,6 +43,18 @@ properties:
+       - description: Legacy INTC interrupt
+       - description: Legacy INTD interrupt
+ 
++  clocks:
++    items:
++      - description: PCIe core clock
++      - description: Data Bus Interface (DBI) clock
++      - description: Auxiliary clock
++
++  clock-names:
++    items:
++      - const: core
++      - const: dbi
++      - const: aux
++
+   interrupt-names:
+     items:
+       - const: msi
+@@ -55,6 +67,8 @@ required:
+   - compatible
+   - reg
+   - reg-names
++  - clocks
++  - clock-names
+   - interrupts
+   - interrupt-names
+ 
+@@ -71,6 +85,8 @@ examples:
+         reg = <0x0 0x21000000 0x0 0x01000000>,
+               <0x0 0x4fff0000 0x0 0x00010000>;
+         reg-names = "dbi", "config";
++        clocks = <&clkc 9>, <&clkc 7>, <&clkc 10>;
++        clock-names = "core", "dbi", "aux";
+         ranges = <0x81000000 0x0 0x4fbf0000 0x0 0x4fbf0000 0x0 0x00400000>,
+                  <0x82000000 0x0 0x40000000 0x0 0x40000000 0x0 0x0fbf0000>,
+                  <0xc3000000 0x40 0x00000000 0x40 0x00000000 0xd 0x00000000>;
 
 -- 
-With Best Regards,
-Andy Shevchenko
+2.34.1
 
 
