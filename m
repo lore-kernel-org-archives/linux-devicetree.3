@@ -1,260 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EC44DB56C;
-	Tue, 14 Jul 2026 16:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD09B4DD6DB;
+	Tue, 14 Jul 2026 16:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784048063; cv=none; b=q2U9qnJp0IvjgeYJBDLFSmxKqgThdU2gXAOIpiVNKR428Atp11kvNDFeXVwdIgixhFfTqFFric1Tx4DMqT84BLzhxMlAE3a4WMf12yXb/EsG5oyIkXTiO/s+YmgK6J8OT/jIv3hQDyXn9Ty0eGDULwjYN++WuF0RRqq/VpR+e0Q=
+	t=1784048242; cv=none; b=CVUPvvSTiYSlJOQvGW8WkWKY94+iObWX3agZIcESKifwBmk0ZWY6/PImo5AYjBG6NESJ0N4DJAYOFH/9phi2LKzz9jdD/xdYDs/0H4/CIMna3fIVeWEd4BTSa5ElMhgwpA04OioWp/kIxdP6IrWjEmJtlvGBihBOJMToPNip3g0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784048063; c=relaxed/simple;
-	bh=Sm1SxbPpqj/ww3QZH1OjL/J5OFtjvvxD40VS6UtKY4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ampeU1l/73GTLLZd7HDbRKRG9aqfSnEJcF2Dv+WkavlEwJ9MjBE1syaacpcUOPX3Bx4eCwmEAC8vwERwkKCFAjNYdfVjjpYlfTnYbqXGE5ETwIfgp+v0OsH3FmAXO0fF2Kec6+tIOFRaKGy8xms4+uVO3G2YUueFoM7S1ewZZVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOP03A3Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784048242; c=relaxed/simple;
+	bh=sY2tl84JejcmJYBseZy3zgZ0sNWjGsiO/e6ANhpg3go=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XFK9KuLb1Rhd3/7P+aeGmDmhDFIxcnP13EntUtcv53Ej15D4LX17ss308g/7WUE7nAogSLAp/hpn+MxjOEUVhKSZVPe3SpAgE1WJJv/qywV/R+Z3dt9CARZ9+HsDQsyeCK7OfKFB1yycrhZd5Htreby123mt3jFLTpUYPMuOrqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=wXD8NEDs; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOP03A3Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46EFC1F00A3A;
-	Tue, 14 Jul 2026 16:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784048062;
-	bh=Q+tLcyOwHtF2vvwf2acxQjCBICX2eNchtDxbM2AnFOs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QOP03A3QAhh4nkGMFgFpCegL6XCrStv7YQS8bIi7KUlu3F27XjlSE2EGt0jOsK3HX
-	 0d/CFKzHpL0J4xggxpeZtVFTWPAaA+50KeuLt30r+jJYkZmTiicJhvdlW92q6LhNcJ
-	 Dxvg/J99U95HozGHJGubsNdW8sVqUL69Zkc51n1URbMKZl7TBlHLONv7e1D3XUz7be
-	 9nXGa0vy9oo24HThn/6X54YVQA7VN4+aW9MlA6t7Ktt1y9hkI8kLHdnjwMyT31E5db
-	 V+dGaRWihiYlQ7kDBrCSnJxoZE9S459WaozPER9pNwoXHIlL4F8pyAy2nGNKG4vVLT
-	 m1ATK56XdRCXg==
-Date: Tue, 14 Jul 2026 17:54:17 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: thermal: loongson,ls2k-thermal: Add
- compatible for Loongson-2K0300
-Message-ID: <20260714-irritate-varying-9055895097b0@spud>
-References: <cover.1783670011.git.zhoubinbin@loongson.cn>
- <7df0780e1b3d4c499a48cd862a12bda895e7818f.1783670011.git.zhoubinbin@loongson.cn>
- <20260710-game-late-9347baafa7ab@spud>
- <CAMpQs4+zXcNnZQnxWM7WUAM-heBYrTejm_dy3yVA4EFUrjA4CQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="wXD8NEDs"
+Message-ID: <76243051-e391-45d2-b47a-d4a904f0a36f@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1784048232;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ElhmPfVqBToQ9P063X0Nq/IxRb7L6/7x/Xi/WmPp8q8=;
+	b=wXD8NEDs6UrKZDXX4nd5fYxC/7tBzufTuVhWqv8zYjnFqy5Q2LeX1zJB0H/vQ1BiRrWQDV
+	9PIla8gaoYKbb2W9MT+o0bAUg+tQ7ia6DaIjgLVCqBn9vmYuM8tmpu6jioeEVzSsyVxH2x
+	UYU6EfIakwLmTnKBtexaM7af2+KxcCc=
+Date: Tue, 14 Jul 2026 18:57:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mxs6UIz3nJYmRMyR"
-Content-Disposition: inline
-In-Reply-To: <CAMpQs4+zXcNnZQnxWM7WUAM-heBYrTejm_dy3yVA4EFUrjA4CQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] PCI: apple: Integrate pwrctrl API
+To: Manivannan Sadhasivam <mani@kernel.org>, Marc Zyngier <maz@kernel.org>
+Cc: Yureka Lilian <yureka@cyberchaos.dev>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+References: <20260707-apple-pcie-pwren-v1-0-5a281b182fe2@cyberchaos.dev>
+ <20260707-apple-pcie-pwren-v1-1-5a281b182fe2@cyberchaos.dev>
+ <86a4s3p2vy.wl-maz@kernel.org>
+ <8a80a170-a508-4a9e-8090-27cfcedb1cd4@cyberchaos.dev>
+ <865x2qq4ts.wl-maz@kernel.org>
+ <jqaxvdaxfpm5g3tdwdqpuk2ubkwim6ckmlblocvakloqishvmm@c5ofbdbdj7lf>
+Content-Language: en-US
+From: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <jqaxvdaxfpm5g3tdwdqpuk2ubkwim6ckmlblocvakloqishvmm@c5ofbdbdj7lf>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---mxs6UIz3nJYmRMyR
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 14, 2026 at 02:53:40PM +0800, Binbin Zhou wrote:
-> Hi Conor:
->=20
-> Thanks for your reply.
->=20
-> On Sat, Jul 11, 2026 at 12:21=E2=80=AFAM Conor Dooley <conor@kernel.org> =
-wrote:
-> >
-> > On Fri, Jul 10, 2026 at 04:24:59PM +0800, Binbin Zhou wrote:
-> > > Add a new compatible string `loongson,ls2k0300-thermal` for the therm=
-al
-> > > sensor found on the Loongson-2K0300 SoC.
-> > >
-> > > The hardware differs from the existing SoCs in its register layout: it
-> > > requires two register regions (one for the thermal sensor control and
-> > > another for the CPU ID).
-> > >
-> > > Update the binding to describe this new requirement.
-> > >
-> > > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> > > ---
-> > >  .../thermal/loongson,ls2k-thermal.yaml        | 68 ++++++++++++++---=
---
-> > >  1 file changed, 50 insertions(+), 18 deletions(-)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/thermal/loongson,ls2k-=
-thermal.yaml b/Documentation/devicetree/bindings/thermal/loongson,ls2k-ther=
-mal.yaml
-> > > index 79e691b08341..b5cbfd201105 100644
-> > > --- a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal=
-=2Eyaml
-> > > +++ b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal=
-=2Eyaml
-> > > @@ -10,13 +10,11 @@ maintainers:
-> > >    - zhanghongchen <zhanghongchen@loongson.cn>
-> > >    - Yinbo Zhu <zhuyinbo@loongson.cn>
-> > >
-> > > -allOf:
-> > > -  - $ref: /schemas/thermal/thermal-sensor.yaml#
-> > > -
-> > >  properties:
-> > >    compatible:
-> > >      oneOf:
-> > >        - enum:
-> > > +          - loongson,ls2k0300-thermal
-> > >            - loongson,ls2k1000-thermal
-> > >            - loongson,ls2k2000-thermal
-> > >        - items:
-> > > @@ -39,23 +37,46 @@ required:
-> > >    - reg
-> > >    - interrupts
-> > >
-> > > -if:
-> > > -  properties:
-> > > -    compatible:
-> > > -      contains:
-> > > -        enum:
-> > > -          - loongson,ls2k2000-thermal
-> > > +allOf:
-> > > +  - $ref: /schemas/thermal/thermal-sensor.yaml#
-> > >
-> > > -then:
-> > > -  properties:
-> > > -    reg:
-> > > -      minItems: 2
-> > > -      maxItems: 2
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            enum:
-> > > +              - loongson,ls2k0300-thermal
-> > > +    then:
-> > > +      properties:
-> > > +        reg:
-> > > +          items:
-> > > +            - description: Thermal base register region
-> > > +            - description: CPU ID register region
-> > >
-> > > -else:
-> > > -  properties:
-> > > -    reg:
-> > > -      maxItems: 1
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            enum:
-> > > +              - loongson,ls2k1000-thermal
-> > > +    then:
-> > > +      properties:
-> > > +        reg:
-> > > +          items:
-> > > +            - description: Thermal base register region
-> > > +
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            enum:
-> > > +              - loongson,ls2k2000-thermal
-> > > +    then:
-> > > +      properties:
-> > > +        reg:
-> > > +          items:
-> > > +            - description: Thermal base register region
-> > > +            - description: Thermal data output register region
-> > >
-> > >  unevaluatedProperties: false
-> > >
-> > > @@ -69,3 +90,14 @@ examples:
-> > >          interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
-> > >          #thermal-sensor-cells =3D <1>;
-> > >      };
-> > > +
-> > > +  - |
-> > > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > > +    thermal-sensor@16001500 {
-> > > +       compatible =3D "loongson,ls2k0300-thermal";
-> > > +       reg =3D <0x16001500 0x30>,
-> > > +             <0x16003ff0 0x8>;
-> >
-> > Quite frankly, the address and size of this look like the second
-> > register region here is actually a few bytes in a syscon that is being
-> > misrepresented.
-> > What lies at the addresses immediately before and after 0x16003ff0?
->=20
-> Yes, it can be viewed as part of the system configuration registers,
-> which appear somewhat disorganized. Within this section,
-> 0x16003fe0=E2=80=930x16003ffc represents eight chip ID registers.
->=20
-> 0x16003fe0 --> the 4th chip id
-> 0x16003fe4 --> the 5th chip id
-> 0x16003fe8 --> the 6th chip id
-> 0x16003fec --> the 7th chip id
-> 0x16003ff0 --> the 0th chip id
-> 0x16003ff4 --> the 1st chip id
-> 0x16003ff8 --> the 2nd chip id
-> 0x16003ffc --> the 3rd chip id
->=20
-> Perhaps I shouldn=E2=80=99t have referenced `0x16003ff0` separately here.=
- It
-> would be more reasonable to declare the entire chip ID address space
-> as a separate syscon and have it referenced by thermal driver.
+On 7/9/26 14:29, Manivannan Sadhasivam wrote:
+> On Tue, Jul 07, 2026 at 02:58:39PM +0100, Marc Zyngier wrote:
+>> On Tue, 07 Jul 2026 13:04:21 +0100,
+>> Yureka Lilian <yureka@cyberchaos.dev> wrote:
+>>> On 7/7/26 11:25, Marc Zyngier wrote:
+>>>> On Mon, 06 Jul 2026 23:38:27 +0100,
+>>>> Yureka Lilian <yureka@cyberchaos.dev> wrote:
+>>>>> Integrate the PCI pwrctrl framework into the Apple PCIe host driver to
+>>>>> provide standardized power management for PCI devices.
+>>>>>
+>>>>> Notably, this allows enabling powering on the WiFi, SD card reader on
+>>>>> various Macs by means of the pwrctrl framework before probing the ports.
+>>>>>
+>>>>> Previously, a custom solution for powering on the WiFi and SD card
+>>>>> reader was proposed[1], but we can now use the new pci-pwrctrl-generic
+>>>>> driver for this purpose.
+>>>>>
+>>>>> Link[1]: https://lore.kernel.org/lkml/20220502093832.32778-4-marcan@marcan.st/
+>>>>>
+>>>> nit: this paragraph and the accompanying link don't belong in the
+>>>> commit message and should be moved below the --- mark or even better,
+>>>> to the cover letter.
+>>> ack, will leave it out of the commit message of the individual commit in v2
+>>>>> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+>>>>> ---
+>>>>>    drivers/pci/controller/Kconfig      |  1 +
+>>>>>    drivers/pci/controller/pcie-apple.c | 16 ++++++++++++++++
+>>>>>    2 files changed, 17 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
+>>>>> index 2247709ef6d6..af64630d28fa 100644
+>>>>> --- a/drivers/pci/controller/Kconfig
+>>>>> +++ b/drivers/pci/controller/Kconfig
+>>>>> @@ -46,6 +46,7 @@ config PCIE_APPLE
+>>>>>    	depends on OF
+>>>>>    	depends on PCI_MSI
+>>>>>    	select PCI_HOST_COMMON
+>>>>> +	select PCI_PWRCTRL_GENERIC
+>>>>>    	select IRQ_MSI_LIB
+>>>>>    	help
+>>>>>    	  Say Y here if you want to enable PCIe controller support on Apple
+>>>>> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+>>>>> index c2cffc0659f4..db038a9d4831 100644
+>>>>> --- a/drivers/pci/controller/pcie-apple.c
+>>>>> +++ b/drivers/pci/controller/pcie-apple.c
+>>>>> @@ -30,6 +30,7 @@
+>>>>>    #include <linux/msi.h>
+>>>>>    #include <linux/of_irq.h>
+>>>>>    #include <linux/pci-ecam.h>
+>>>>> +#include <linux/pci-pwrctrl.h>
+>>>>>      #include "pci-host-common.h"
+>>>>>    @@ -825,6 +826,21 @@ static int apple_pcie_init(struct
+>>>>> pci_config_window *cfg)
+>>>>>    	if (WARN_ON(!pcie))
+>>>>>    		return -ENOENT;
+>>>>>    +	ret = pci_pwrctrl_create_devices(pcie->dev);
+>>>>> +	if (ret) {
+>>>>> +		dev_err(pcie->dev, "Failed to create pwrctrl devices: %pe\n", ret);
+>>>>> +		return ret;
+>>>>> +	}
+>>>>> +
+>>>>> +	ret = pci_pwrctrl_power_on_devices(pcie->dev);
+>>>>> +	if (ret) {
+>>>>> +		if (ret != -EPROBE_DEFER) {
+>>>>> +			dev_err(pcie->dev, "Failed to power on devices: %pe\n", ret);
+>>>>> +			pci_pwrctrl_destroy_devices(pcie->dev);
+>>>>> +		}
+>>>>> +		return ret;
+>>>>> +	}
+>>>>> +
+>>>> Why is this done globally while the whole driver works on a per-port
+>>>> basis, and that the proposed DT updates are also per port?
+>>> pci_pwrctrl_power_on_devices takes a struct device as parameter, but
+>>> pcie-apple does not allocate device structs for the individual ports.
+>>> This could be changed of course. But since pci_pwrctrl_* operate on
+>>> the subnodes recursively, it works just fine this way.
+>> Works fine is one thing. Being consistent with the way the rest of the
+>> driver works is another. pci_pwrctrl_create_device() and
+>> pci_pwrctrl_power_on_device() appear to do exactly what would be
+>> required for a single port. They just needs to be exported made
+>> global/exported.
+>>
+> I'm fine with exporting pci_pwrctrl_create_device() and
+> pci_pwrctrl_power_on_device() and calling them with per-port np.
+>
+> - Mani
 
-Probably, but even being of size 0x20 feels suspiciously small and that
-it is likely that this is part of an even larger grouping of misc.
-registers.
+In theory I do agree this would work to power on the slots, and I can 
+send a v2 of the patch doing it that way, but I don't quite understand 
+yet how this fits better with the existing driver code: If this is the 
+case, what is the difference between pcie-apple and pcie-qcom and why 
+should pcie-qcom use the recursive function but pcie-apple not?
 
->=20
-> For example:
->=20
-> In DTS{i}:
-> chipid_syscon: syscon@16003fe0 {
->        compatible =3D =E2=80=9Cloongson,ls2k0300-cphipid-syscon=E2=80=9D,=
- =E2=80=9Csyscon=E2=80=9D;
->        reg =3D <0x0 0x16003fe0 0x0 0x20>;
-> };
->=20
-> In thermal driver:
-> Use
-> `syscon_regmap_lookup_by_phandle(np, "loongson,chipid"); `
-> Or:
-> `syscon_regmap_lookup_by_compatible("loongson,ls2k0300-cphipid-syscon");`
->=20
-> get the chip id address space.
->=20
-> >
-> >
-> > Thanks,
-> > Conor.
-> >
-> > > +       interrupt-parent =3D <&liointc1>;
-> > > +       interrupts =3D <20 IRQ_TYPE_LEVEL_HIGH>;
-> > > +       #thermal-sensor-cells =3D <1>;
-> > > +    };
-> > > --
-> > > 2.52.0
-> > >
->=20
-> --=20
-> Thanks.
-> Binbin
 
---mxs6UIz3nJYmRMyR
-Content-Type: application/pgp-signature; name=signature.asc
+Thanks,
 
------BEGIN PGP SIGNATURE-----
+— Yureka
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCalZpuQAKCRB4tDGHoIJi
-0hrJAP9oL8N9deSXz9dWt+ZEZYfbS19yv8wqpWxkFNHzB6DWwQEAtSc8DI7IDfPv
-ibyhUOue/ShcNI/iaFNCSty4HW1vkw0=
-=x7Y7
------END PGP SIGNATURE-----
-
---mxs6UIz3nJYmRMyR--
