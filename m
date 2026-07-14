@@ -1,217 +1,408 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010008.outbound.protection.outlook.com [52.101.69.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CC048123D
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784044071; cv=none; b=L+ORrGbCS3JemKH4UmWY9MFx7OXcrsciSw1N9khsJqCcuPL9ZQGuy4/RZhEmsQ3xbprtHUcnZmMtI6S7TRFxu6sjXuaq1ZAfQBwBUz5EXoWumLg7XuGsbe7fLGu4XRUSGUJZjzfKuoLt/iEXK+Aeq4iHPiTt95Oew+n/MAEN7L8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784044071; c=relaxed/simple;
-	bh=UI8L3jXrZB+lzWZFyrflCCgxBDCTbAE23u842wAsS+U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C25m0XQ724qDfC3Pz03AAbT8xizWlpXC4cK44aouNpLf9ElvO6H0rUUfCHgUBEYurKUZaNgJSih1UrMt9Ma9NsWUURJPhnPpNDw6nLLpaSTbJfsdiCP1YDLskHZIKy3TG+pLFMwBeOgeo7QnVgH+E2+8WrIGgnZ1JvI/vxkbam8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SpmBG1uL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AG1IrD6c; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BCC4ADD80;
+	Tue, 14 Jul 2026 16:02:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784044928; cv=fail; b=ddlRlmjAny7q6QzGLYhqV+zMBKEdIxYswWhASrhIQiJGq5xqHc1AR1/vMtz+loKnnWmfJPM0FkNdWayyApTqRRwipiaLUtfebYsuaUTL6b5V2xbF5bM8okUrHI6nb6QuPY4StwMJ1nrTfwu4IqvOhfeHpFcK00wKa0i0C+oKnkw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784044928; c=relaxed/simple;
+	bh=kxaO5ggiMCJWop2JOyQ0skuunkOSZ0UiQaUZYGlECQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=r3R2Rc5N3V4M2IcSi6w1gFddiYP8sCk0kNH3r3xphigzA15uBejkprRs/TZ69fALw+t+PZWbWQkA2nfeqA/R+iIB9cI7lk7DjTrmIWB8xjt8ujMQaH6XPuRzD79ViOJMujWCds898+nhphj/7xfvArNTULmNfPsD5nUgP5gdUpg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ay2sOErr; arc=fail smtp.client-ip=52.101.69.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SpmBG1uL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AG1IrD6c"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EEcUDq893522
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:47:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UI8L3jXrZB+lzWZFyrflCCgxBDCTbAE23u842wAsS+U=; b=SpmBG1uLM3jPrS2Y
-	rF5VeXmIvrCcz1zJhsUKFYaokICHjyy2q5iiKCWnhuOLGQkuwSgPJa7UE+q1c9pL
-	6eO1+PgmNTsttc8O6RW14lOueTnB1cgSN5HpLSODq9uj6WtE5HD14/he3j7ZJ0AU
-	UdbuJzN2nj804VCS3JaFucnmYtaSMLB/rcBTemL1NTNLSg3B/2pncNmMCZJHrOeN
-	U56pnf4nOnBkWmwnyhxNQmjgNtZnt2wq36oH+JvJH/5Tgs2Lo+yPuKJV6Ng/HpG9
-	011nJBUpTyMMoIdgtfA82ZiT/bQ82kW85F8+0YG1GM39YAQ9CFvXv2dIY3Ynekii
-	fWTKFQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdnnqrqed-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:47:46 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3811279d51aso2190576a91.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784044066; x=1784648866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UI8L3jXrZB+lzWZFyrflCCgxBDCTbAE23u842wAsS+U=;
-        b=AG1IrD6cw4iZnarjVNKDpmq+cSgI9bK+EPITZPNzKX5ZvNKWwgF/PQyy9utoO4tSZq
-         6A4WSKLbkkDd5KM1MDSVmY6LBjWalkUjagvqjCMUov9pWmKwE1bAadavdEb/Aaz55MaR
-         k5SKKb7wdy79Z780oT2HX62W0RG6BPMAVAFehQzKR5JS3EqfwST8nLkiYCOs0ZEyGV9E
-         3yR7kpLSaxChp3E208N/KjGO511bS4dXCxtlrG/ITmESF0sT3fl9aps/W5dWYmzs5OZf
-         bwUE3HCLKs034ckMaY/O6tonyL4UUJXBa0GLA3NiZCFywwz7DDIzo0ezI6hiGBoTKX7W
-         IKnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784044066; x=1784648866;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UI8L3jXrZB+lzWZFyrflCCgxBDCTbAE23u842wAsS+U=;
-        b=PHJ1w4aSWvjh9o5B+VcT+BmRiQXXanEbf9VLnPX4POtNiK8SS2dOoEz/BFX6Yq0Hqk
-         Us2SobLw8swfPFiTZrBZe06h76o2eLtMeAfjjlOQ47MzwyWJ1e6vxtvXZpoOH7DPaxOb
-         ALDz4ihHwpsqU+v5ZdJL6FlyWeGqQWdRMaghaHIfTMcsJHDOGAvF+df59WufpnJ/TRuk
-         oSTczH2tjGqzEAUZGc/ckT4K6gbucgQvXbatravuDtyrUe7MBB41Zt3Lyc+tbHpboj+D
-         w1stwL8tyBXjaTBQWF24re0JL4M8PdqXZe1hwAn1eakPc9i1tuafVbATWuj9i2dQEn/5
-         FYZg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr5k80hMmhpxAtD/qGsNCiXrCwtX6bQVwwolA+wuds0J5GMtePwjWXgODAsWhRpNboNE7s2awO/8eHy@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJbaMb3Mf5ftPk/NLXoW5t63yHA4sLIG3z9h020JA8eKfpG5b2
-	oFp85LAhx6fNshBdUS2Ri24FgVBH3JITiiOc+f5vDxeHcryOIR/ku42I7UgKuFHRs2SRAmhliyk
-	FDyDI00vpAlfAJ8LcmhOAdgaFaoZ+hnV6AIOerO0nEv5RlcO1kLZHdzOpd0HmLxe1
-X-Gm-Gg: AfdE7clya+/2qSVq7OOr/n0uYgB6OPDtL+0EBm3+OYnaKr5zrDbO6y8f+rz5I1yd63R
-	K2STqQ0JSfVoH/YDuuMukbei2EfgOAA9rcurqkJiU0QCMg35sBmS65qadmzdu/XI99nrXIlmrp1
-	ZsaIeGDW9mbXmG2IRjN5uGYdRjtol7EdUP/GPF22LFjHkF3RWOaVpns81/HhCySXmyCWhni3gCe
-	cbmCP132QWzQRo4lnc5Ed3eFFJ4U/zgVxpZzUOpECtWmTGXmzh4gebso8qBDY28IUUA/Jr/W2UK
-	UYZjRQ3SH06AxitHIBfY+BzLRMMuIH1YMd9xFlwTCqovPTRn4qYscqN1m8HDjdQNYmvffbKCojS
-	OPKAI4GTXCLpUk4WMh6cUJH0Gqy6EKpxE6jIx8TfiXVq88KU=
-X-Received: by 2002:a17:90b:38c8:b0:38d:dbc7:5178 with SMTP id 98e67ed59e1d1-38ddbc75254mr11115621a91.22.1784044065760;
-        Tue, 14 Jul 2026 08:47:45 -0700 (PDT)
-X-Received: by 2002:a17:90b:38c8:b0:38d:dbc7:5178 with SMTP id 98e67ed59e1d1-38ddbc75254mr11115587a91.22.1784044065298;
-        Tue, 14 Jul 2026 08:47:45 -0700 (PDT)
-Received: from [192.168.0.116] ([124.123.151.85])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174accb0esm84444133eec.30.2026.07.14.08.47.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 08:47:44 -0700 (PDT)
-Message-ID: <582d12f5-bb73-4702-9e10-234d46b3fc93@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 21:17:37 +0530
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ay2sOErr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yrkq/lf4fPMSRLm5FNxqqONN0Z0cN/0lb8amSDrsElvP8wFBISi92qsSo93TCy93nAd7hHzOxW/SyORyCJhgXjWDAtyd6Tb9WbEL7+SoiQBBucC/SlW1wO1zxWK1yGuKYATz/4l7cKyJyupBFEYSdSwRqsoWA2KozJMdjtNQhCklvwWiK33Ea9FggqOOCwSTgjiVRaW1tRjIYZ8XHvgeXjGjA61opsIKbAcmIjAP/rlpH3xRNyeHXFe2DRMKFuvzYjOstDxP3pnMpAG9FNPUro0pXba+lt4pZKhUWcA27BnvJ8w5TMiyZY1RPuRRcL2qTyV95w1WR0nVzdNUgW7KXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rY0gqXq/eTgE5y5KJ3FBHVZfY1b+7JYut9w/uTh+x2Q=;
+ b=x1/cR08LEqBuVIAqZFYOy2mRsN62ZCfMdt5gz7YIzkF1XU0zykAJG6nxo6px9+ubF+3o1yKfIfW24U6kLvbjDcXIuU9JePpmFjtba2xhveOd0vzIvMvWlCmXHTaE4B0T9jLLEwjEGahODCIjg7vAN96KvHN3DZ6JUvwuYj7vY/yXHJ3dy2kYSe4cNBu6WuPS144H1MjCZYZ/vq3Xl5DqVdg8o/Xdeydz6nlt02JeM+9/6DNQrTSGRxLIcCDWiMuD82Se+atC53dNZmPyj7K5pUphLeqAxegfx88JlRz0IBn2gDSTiV6IoTVziVeOiGIocKfVtkmw/avi9NEhIgm6GQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rY0gqXq/eTgE5y5KJ3FBHVZfY1b+7JYut9w/uTh+x2Q=;
+ b=ay2sOErr/m6MtOJVj0NVoytUE0wf2wvLeOKagocuv4uo6xDmQXLmSQIpJAFdZsmRjjaUhoHJ31Lzq1cCJ1gktgGopvb6Ji7gGtd3tJDyIgwtw7DQDCRjqXEn5L9FFb3AayOnV62UaQERUUwCO8EiCrxN79lxMErY+75Cm/vVY162NtKjdknp5ht6d+4uSNu/d1xR6kEkg4X8x49tK/BZWhpFNW1yH8jPIPmwMQ0iZDYleSQIXQdzXfHXK1auBTF+JzELEhrulHhC/I43tacQmLMN4TpAQgsJecEb234ep/PX4D1KvqtsWLmYzNq+dREcdE/pqyO4XTdSQ+pZ11waAQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI1PR04MB9787.eurprd04.prod.outlook.com (2603:10a6:800:1d8::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
+ 2026 16:02:01 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 16:02:01 +0000
+From: Frank.Li@oss.nxp.com
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list:VOLTAGE AND CURRENT REGULATOR FRAMEWORK),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Cc: imx@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH v2 1/1] regulator: dt-bindings: Convert ltc3589.txt to yaml format
+Date: Tue, 14 Jul 2026 12:01:45 -0400
+Message-ID: <20260714160147.1641379-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7PR02CA0025.namprd02.prod.outlook.com
+ (2603:10b6:510:33d::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
- single coherent block
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-        Andrew Lunn
- <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        chris.lew@oss.qualcomm.com,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
- <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
- <alXm0rp3NK62G3-3@linaro.org>
-Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <alXm0rp3NK62G3-3@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDE2MyBTYWx0ZWRfX19/SZrfzdZmU
- W+CfstxgaHJQ4aZ8TreI+OIRkR2u+K45FKsgX+2JM0uLjoDFYwg58tV6SXj7Em5EabOKEqvrP15
- FYPJzJq2OQOa9n8oSNvkamf4iBCm8c7xJNmu8C9HBq2/fPZCN4/uhZUDixTO2SD5pBVW1RfyqLK
- O+cTf39po34aBezYYeE4l8I9AbnYd/DtwVACpSdHj98cWdzbPSnVAmBS4T6NJ/nY34BYfeZax45
- vQ9Iow3nOy+UR7fzCR8QUk0N74pjVae2pEJTGzHDytEZgQcr0ijuTT5z36E98isoPr2L3v8wDZt
- +8edbxmYVO0DB5SjaYEtL6bSeNRao5Xm9hUSEkE/8tkTSqBkajFLhGL1GraWdNWeVOG75V/q6TC
- 5TZuN0guITj5my6AJXEPfLW16wLjxUZmDvoL3Xho4cRR1Oh9jGGeQDm4eriz3Xw69ExMvr/f1hJ
- sQb0ST+2nztVrhSWj8A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDE2MyBTYWx0ZWRfX+YDfPFWWVo11
- e6XvpRrI7Lg7FAG2PdDuz1dw5L1Y3YgcZqDHIqIYHa4LiOdugV+jQTeY/uI6/czYAiBdUZjSiBT
- xww42nBYau7+SPe8CDDvF8tD7WMu6E4=
-X-Authority-Analysis: v=2.4 cv=U+Oiy+ru c=1 sm=1 tr=0 ts=6a565a22 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ziBI+Y3eO/H+UwYWWny9Hg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=2eDN7aXksB4whfXZn5AA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: 3ARp0RX269egq6qE8l5knM-vzHGK0w2q
-X-Proofpoint-ORIG-GUID: 3ARp0RX269egq6qE8l5knM-vzHGK0w2q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-14_03,2026-07-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140163
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB9787:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dacca66-7b8f-4e02-c7e9-08dee1c13dd5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|19092799006|18002099003|3023799007|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	UeCbAqioBwgKIDNL2KqVp5dX4MkTx8XOUN/GIK+N+U994iASksz0EMK7q3Zwz7805McI0x1qggbrP8M1GP+FaVS52ixa5Qy5pnuEwLlm6LcQqL1pV3cK23SFXfE7uFf4vMGHNVX3H/kXMnwPSOoUngFjPlPqrns8Jj9lm31DF78OqTCr/iNKwOKP7K+TwHFwo/fmvcOIqHvNv2gymv6nresFdkHeLEGCX/8UdQaZbmwvRgdzTOCzMhdYU22Ykq1Yd/omc1phnd+/kzalSfnzBWuQpU9qgQBOqbLm6pA1+oG74oIZ+Hxm4XX9haBK4PZ/PPXhoXhVk8lD5cKVtexIU12m27dRkF13IZfCy68zHcIKpOnOHt+XJfFUKZnwSZfCnGY5Pm2Dn008DmEcdF1UBPlcx7dNfaOHmw+MEHh/syrL+Bmye17IStIc8Oaj3X99cwNTQN+USTCHIyAPlGw9mZDrssTnGAYGKilmSDSscnO2mmuwX1ZB9lG64Onst792O2ML8lk83RvOF5KHp2+EgkKcGUv0d36TtoyZu1cYBayCTgH6lqZC/IiXfKLtLeN0RjpNAIj8SlT1wDXxFuvLI50FwiwDVR+fAaSEeMpbI6By2lTki7VwvIayJmUKcNnN
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(19092799006)(18002099003)(3023799007)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?u0N03dbjkDhYA0r4IZgGPGkA1YJ1v/xOy696sLx/U2Xue55LYKRd+OV+1Kgf?=
+ =?us-ascii?Q?hGklCiqEPuYJeu6Gv2Elze+mKXV6qqQzexpR4cDbWbKW38VAzvovu+zGreKG?=
+ =?us-ascii?Q?Z8dwU/xid2gNjZhImZYicb3UeGwi7B+4kCUJoWmBaTduFksPWaVojEve7QeY?=
+ =?us-ascii?Q?HTlQYCtieiqY137BJAHWI8eIHpQrvsvJZPDmdUdPZ0wLo7DjMgJhMleHVjFg?=
+ =?us-ascii?Q?dkTqVvrB4nxXq/BZ7TrHywKlUl+7P8uWXeEd7dPB+Uf30qXa12zBvtsn6jAe?=
+ =?us-ascii?Q?3zrfJ/CGKRTDLcuvRuiKSU9NTeCpLlEUidcDBh0PPi0tAGVJ4ml+X3LHUJaf?=
+ =?us-ascii?Q?y05sr2/NELK+1AZVOZvj46VzD2m9pj0X2js/3HompmT3oxnj0KatgIxo6rSv?=
+ =?us-ascii?Q?yxKCd8avjYTDXN79CibKgW9hMT34m36QNqWI9sBIZJsMa0vkA3y0iAm4+H4t?=
+ =?us-ascii?Q?RxJMoYuqRBrKGhixDsbAMvUw9ipUulaQqUPIai9JLsR8erZKtDmhUDcsdV8i?=
+ =?us-ascii?Q?BdM4gA4JxWVH02bfhSW+wY7Nqj/znVGCqxtrczTIqZeES4HMhUNER93J0h2A?=
+ =?us-ascii?Q?q3RlT03zhW3ZOMUViiTd/wjlDBRIsRfjJzVd0SP+yQMw/gBJc4WHthR2Ryse?=
+ =?us-ascii?Q?OavFpala48qJ0hTQy+cFrQwf5JhC9vlqhQ2aNLiXhA0KbpZK/N5PBncR59+s?=
+ =?us-ascii?Q?Y+nWUEnHQLpP7QhJGBVC7HMuUXNxeQr0tmJEOnzs/k5f6fDCVCQALHFSQKI0?=
+ =?us-ascii?Q?YuY+rtdi15i89Y8GTckSfsdGlZ0UQkmNkHwAPVcY5tc1uzbv0G5fr2GLwiQP?=
+ =?us-ascii?Q?jiszCXEPDdDq9itsvuARn0GTShgEQeCmgihL3g9Zo0CbyJ4DvEfODGsW11Wo?=
+ =?us-ascii?Q?TJvgEyBN4Na179jXiamBVoXQzfsmu1YgHRN5rAcn70JFF1wRpOfCFIsbtxEI?=
+ =?us-ascii?Q?JKqlm/p4ZaDbzkXaKsIePeSXmQ3k9lFEjEukDsLg13cUMbvaVPzcXqtuuGiJ?=
+ =?us-ascii?Q?4JpjW9j0ejnFAkJxYQnph5bKy1qkQxKUw4XgzUqeZv7Yjqnocz3/nbd/6qiQ?=
+ =?us-ascii?Q?SqVnxy8n4JGaTp7LRBDb90+RCNlr3udIe5+9u3Kk6OjCldmPKdTY+VXoXFd7?=
+ =?us-ascii?Q?86h5Xn+zDAcNsdO00Q5s3GCx8YRxgnlXuQIy/9+Uly2R9Nc9gI2jsdxwv3b4?=
+ =?us-ascii?Q?mk8Q+AzsUfYb2isAhGHxnzoAh3otVyClL7b8X/hUb7xVr5nwr3KKK8rasIWi?=
+ =?us-ascii?Q?oOjyF/Cxj3qlV8davt28runb4pYLVlHmlw3IGJfGek/0Teyt1ov+p+9W7x8N?=
+ =?us-ascii?Q?RroA6Pv0pEML4I87KICR+6hqdExRrS3vef6DVY183YEL8jL/PXIroABeb5Gc?=
+ =?us-ascii?Q?VZHdJn42qs1MPv/p3WqYkfxSH2Zr6UdAOA0tjkf2pbYF1V+rA3UkYMJHzvKS?=
+ =?us-ascii?Q?SBEf0IF94JaSn3oGtN7BZdK7hMQNq8gq33S8G7d8qtZtu35ABz40u+F3UIZC?=
+ =?us-ascii?Q?LvI4X5uNqhcOcopF8i36Ps2W2w2aN1JQmFD7LlleS0XRncRIZGtJPMoINWE0?=
+ =?us-ascii?Q?k3/rhziVoFbG5u7T68mAOTJzQlYfWBSsa7sJKzF3R4l6L7U5D+NhWwjtD9g7?=
+ =?us-ascii?Q?q/d2Z9zaj7CExK2XQEQCfD88Ynf/Es3WSwYduziR0P5ZEe542innNQC96NDr?=
+ =?us-ascii?Q?5dpmWd3YhFPEokxYa+Q33nxiroePgiGEAtN5V4CKKmjojNITpBc6+jebMUjY?=
+ =?us-ascii?Q?fh3YEqTpsgi6u1YXF0MW1temDpVAiH7eY0U+OauEtS8UNw8x7COY?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dacca66-7b8f-4e02-c7e9-08dee1c13dd5
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 16:02:01.7685
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R070YeW7J7aGmdHawPsH/IazuyXEtzifBQEKhAn1MOfDBat1x2LsWnAjLAizyPk8BlkLc+3Lru/5x72tJRAUKcQfpebsk+FBJfcdg8RjxxIaSNvt2tMSaCHoMVGAG0G1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9787
 
+From: Frank Li <Frank.Li@nxp.com>
 
-On 14-07-2026 01:05 pm, Stephan Gerhold wrote:
-> On Tue, Jul 14, 2026 at 11:02:32AM +0530, Vishnu Santhosh wrote:
->> On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
->> NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
->> per-region access control, each individually DMA-mapped RX buffer
->> requires its own XPU resource group (RG). With ~16 RGs available, the
->> 32 per-buffer dma_map_single() calls exhaust the table and the first
->> inbound transfer faults with an XPU violation.
->>
->> BAM-DMUX is a singleton (exactly one instance per SoC), so the
->> destination VMID does not need to be a DT property; it is looked up
->> from the compatible string's match data instead. Add struct
->> bam_dmux_data with a single vmid field, and a shikra_data instance
->> hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
->>
->> When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
->> a single contiguous dma_alloc_coherent() block and SCM-assign that
->> block to HLOS plus the VMID once at probe. This reduces RG consumption
->> from 32 to 1. The block is never reclaimed across a modem power cycle
->> (bam_dmux_power_off() does not touch it), so the probe-time assignment
->> covers every subsequent restart without re-assigning or reclaiming. It
->> is reclaimed to HLOS only once, at remove or on a probe error, and if
->> that reclaim fails it is leaked rather than returned to the page
->> allocator.
->>
->> Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
->> the block, so no per-buffer mapping is needed at power-on. Because the
->> coherent block is not page-backed, received payload is copied into a
->> regular netdev skb before handoff to the network stack; this is an
->> unavoidable extra copy on the XPU-enforced RX path.
->>
->> Platforms without match data are unaffected: rx_virt stays NULL, no
->> coherent memory is allocated, and the per-buffer dma_map_single() path
->> is unchanged.
->>
->> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
->> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
->> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> So how do you handle TX buffers? Right now, they are just passed on from
-> the net subsystem. There can be up to 32 TX buffers in progress as well.
->
-> Overall, I have mixed feelings about this patch. It looks reasonably
-> simple, but fundamentally I don't understand why we need to go back to
-> the old days of implementing protection using a highly limited MPU (in
-> your case: the xPU).
->
-> Why does the setup of BAM-DMUX differ e.g. from the setup for the crypto
-> engine? Crypto is also using bam-dma, but it avoids this inflexibility
-> by making use of the &apps_smmu. Is BAM-DMUX not covered by the SMMU? Or
-> did you just decide to bypass the SMMU in this case? (If so: Why?)
->
-> If you had BAM-DMUX mapped using the SMMU you would get all of this for
-> free. No changes would be needed in the BAM-DMUX driver ...
->
-> Thanks,
-> Stephan
+Convert ltc3589.txt to yaml format.
 
-Thanks for pointing out. We were seeing XPU violations on descriptor
-FIFO accesses in the RX path. This series resolves the RX-side faults,
-which is why we posted it. It appears that the TX path requires equivalent
-handling, and we'll include the necessary TX changes in v2 of this series.
+Additional changes:
+- Add interrupts to match driver code
+- Require lltc,fb-voltage-divider property ^(sw1|sw2|sw3|bb-out|ldo1|ldo2)$
 
-Currently, the SMMU does not cover this A2 BAM instance on Shikra, which
-is why we opted for the SCM-assign approach. I'll check with the hardware
-team to better understand why BAM-DMUX is not behind the SMMU, gather the
-relevant details, and get back.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+change in v2
+- Add interrupts to match driver code (report by sashiko)
+- Require lltc,fb-voltage-divider property ^(sw1|sw2|sw3|bb-out|ldo1|ldo2)$
+(report by sashiko)
+---
+ .../bindings/regulator/lltc,ltc3589.yaml      | 149 ++++++++++++++++++
+ .../devicetree/bindings/regulator/ltc3589.txt |  99 ------------
+ 2 files changed, 149 insertions(+), 99 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+ delete mode 100644 Documentation/devicetree/bindings/regulator/ltc3589.txt
 
-Thanks,
-Vishnu
+diff --git a/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+new file mode 100644
+index 0000000000000..2c2755bb84ebd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/lltc,ltc3589.yaml
+@@ -0,0 +1,149 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/lltc,ltc3589.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Linear Technology LTC3589 PMIC
++
++maintainers:
++  - Frank Li <Frank.li@kernel.org>
++
++description:
++  Linear Technology LTC3589, LTC3589-1 and LTC3589-2 are PMICs
++  containing three buck regulators, one boost regulator and four
++  LDO regulators.
++
++properties:
++  compatible:
++    enum:
++      - lltc,ltc3589
++      - lltc,ltc3589-1
++      - lltc,ltc3589-2
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      "^(sw1|sw2|sw3|bb-out|ldo1|ldo2)$":
++        type: object
++        unevaluatedProperties: false
++        $ref: regulator.yaml#
++
++        properties:
++          lltc,fb-voltage-divider:
++            description:
++              Feedback voltage divider resistor values (R1, R2) in ohms.
++              Regulators sw1, sw2, sw3, and ldo2 can regulate the feedback
++              reference from 0.3625 V to 0.75 V in 12.5 mV steps. The output
++              voltage thus ranges between 0.3625 * (1 + R1/R2) V and
++              0.75 * (1 + R1/R2) V. Regulators bb-out and ldo1 have a fixed
++              0.8 V reference and thus output 0.8 * (1 + R1/R2) V. The ldo3
++              regulator is fixed to 1.8 V on LTC3589 and to 2.8 V on
++              LTC3589-1,2. The ldo4 regulator can output between 1.8 V and
++              3.3 V on LTC3589 and between 1.2 V and 3.2 V on LTC3589-1,2 in
++              four steps. The ldo1 standby regulator can not be disabled and
++              thus should have the regulator-always-on property set.
++            $ref: /schemas/types.yaml#/definitions/uint32-array
++            items:
++              - description: R1 in ohms
++              - description: R2 in ohms.
++
++        required:
++          - lltc,fb-voltage-divider
++
++      "^(ldo3|ldo4)$":
++        type: object
++        unevaluatedProperties: false
++        $ref: regulator.yaml#
++
++required:
++  - compatible
++  - reg
++  - regulators
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@34 {
++            compatible = "lltc,ltc3589-1";
++            reg = <0x34>;
++
++            regulators {
++                sw1 {
++                    regulator-min-microvolt = <591930>;
++                    regulator-max-microvolt = <1224671>;
++                    lltc,fb-voltage-divider = <100000 158000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                sw2 {
++                    regulator-min-microvolt = <704123>;
++                    regulator-max-microvolt = <1456803>;
++                    lltc,fb-voltage-divider = <180000 191000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                sw3 {
++                    regulator-min-microvolt = <1341250>;
++                    regulator-max-microvolt = <2775000>;
++                    lltc,fb-voltage-divider = <270000 100000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                bb-out {
++                    regulator-min-microvolt = <3387341>;
++                    regulator-max-microvolt = <3387341>;
++                    lltc,fb-voltage-divider = <511000 158000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                ldo1 {
++                    regulator-min-microvolt = <1306329>;
++                    regulator-max-microvolt = <1306329>;
++                    lltc,fb-voltage-divider = <100000 158000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                ldo2 {
++                    regulator-min-microvolt = <704123>;
++                    regulator-max-microvolt = <1456806>;
++                    lltc,fb-voltage-divider = <180000 191000>;
++                    regulator-ramp-delay = <7000>;
++                    regulator-boot-on;
++                    regulator-always-on;
++                };
++
++                ldo3 {
++                    regulator-min-microvolt = <2800000>;
++                    regulator-max-microvolt = <2800000>;
++                    regulator-boot-on;
++                };
++
++                ldo4 {
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <3200000>;
++                };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/regulator/ltc3589.txt b/Documentation/devicetree/bindings/regulator/ltc3589.txt
+deleted file mode 100644
+index 8010530361465..0000000000000
+--- a/Documentation/devicetree/bindings/regulator/ltc3589.txt
++++ /dev/null
+@@ -1,99 +0,0 @@
+-Linear Technology LTC3589, LTC3589-1, and LTC3589-2 8-output regulators
+-
+-Required properties:
+-- compatible: "lltc,ltc3589", "lltc,ltc3589-1" or "lltc,ltc3589-2"
+-- reg: I2C slave address
+-
+-Required child node:
+-- regulators: Contains eight regulator child nodes sw1, sw2, sw3, bb-out,
+-  ldo1, ldo2, ldo3, and ldo4, specifying the initialization data as
+-  documented in Documentation/devicetree/bindings/regulator/regulator.txt.
+-
+-Each regulator is defined using the standard binding for regulators. The
+-nodes for sw1, sw2, sw3, bb-out, ldo1, and ldo2 additionally need to specify
+-the resistor values of their external feedback voltage dividers:
+-
+-Required properties (not on ldo3, ldo4):
+-- lltc,fb-voltage-divider: An array of two integers containing the resistor
+-  values R1 and R2 of the feedback voltage divider in ohms.
+-
+-Regulators sw1, sw2, sw3, and ldo2 can regulate the feedback reference from
+-0.3625 V to 0.75 V in 12.5 mV steps. The output voltage thus ranges between
+-0.3625 * (1 + R1/R2) V and 0.75 * (1 + R1/R2) V. Regulators bb-out and ldo1
+-have a fixed 0.8 V reference and thus output 0.8 * (1 + R1/R2) V. The ldo3
+-regulator is fixed to 1.8 V on LTC3589 and to 2.8 V on LTC3589-1,2. The ldo4
+-regulator can output between 1.8 V and 3.3 V on LTC3589 and between 1.2 V
+-and 3.2 V on LTC3589-1,2 in four steps. The ldo1 standby regulator can not
+-be disabled and thus should have the regulator-always-on property set.
+-
+-Example:
+-
+-	ltc3589: pmic@34 {
+-		compatible = "lltc,ltc3589-1";
+-		reg = <0x34>;
+-
+-		regulators {
+-			sw1_reg: sw1 {
+-				regulator-min-microvolt = <591930>;
+-				regulator-max-microvolt = <1224671>;
+-				lltc,fb-voltage-divider = <100000 158000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			sw2_reg: sw2 {
+-				regulator-min-microvolt = <704123>;
+-				regulator-max-microvolt = <1456803>;
+-				lltc,fb-voltage-divider = <180000 191000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			sw3_reg: sw3 {
+-				regulator-min-microvolt = <1341250>;
+-				regulator-max-microvolt = <2775000>;
+-				lltc,fb-voltage-divider = <270000 100000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			bb_out_reg: bb-out {
+-				regulator-min-microvolt = <3387341>;
+-				regulator-max-microvolt = <3387341>;
+-				lltc,fb-voltage-divider = <511000 158000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			ldo1_reg: ldo1 {
+-				regulator-min-microvolt = <1306329>;
+-				regulator-max-microvolt = <1306329>;
+-				lltc,fb-voltage-divider = <100000 158000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			ldo2_reg: ldo2 {
+-				regulator-min-microvolt = <704123>;
+-				regulator-max-microvolt = <1456806>;
+-				lltc,fb-voltage-divider = <180000 191000>;
+-				regulator-ramp-delay = <7000>;
+-				regulator-boot-on;
+-				regulator-always-on;
+-			};
+-
+-			ldo3_reg: ldo3 {
+-				regulator-min-microvolt = <2800000>;
+-				regulator-max-microvolt = <2800000>;
+-				regulator-boot-on;
+-			};
+-
+-			ldo4_reg: ldo4 {
+-				regulator-min-microvolt = <1200000>;
+-				regulator-max-microvolt = <3200000>;
+-			};
+-		};
+-	};
+-- 
+2.43.0
 
