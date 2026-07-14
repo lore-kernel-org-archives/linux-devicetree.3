@@ -1,127 +1,266 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FD333ADA0
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE49733D6C0;
+	Tue, 14 Jul 2026 05:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784007272; cv=none; b=TuVgnluBSeTrUKpxyiOVS1oqSYtdX1/G+iFQtAjj7LtJXUDbsXxqvjKND/F7UG1tTBr+XxLt9JRrxOtAs63tuprXWWtGzCiKmp074BsoJzlA7gHzkiO/BUsWh1P3MrZzDX3vaHet/5Iyjr2eJxEiyCTLXAywz/kvSUxfP5YR6ac=
+	t=1784007273; cv=none; b=t5w83J719lfcLWgGDh6a0MaPdAneLLaMRdc8oO+IyPyHyAhKT8O8avDNgld8iWSiWO5siabfhX7JX9E/R1+5XUWrqT0hUGyIVldKS/4MxyOlNelgXaKsmQHPWHLPOtwTmIyH/M/a/eIY+uDD2Jc518tq/NZMnNxVneNQm5rJ5EI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784007272; c=relaxed/simple;
-	bh=8SEidWmBMJZw4ThA4G4JznuivXysAvp9/T05dl3c6/w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YBuqUhQo9k2Z9ip7oQitkOl37wYT4GG3e/Dvli/tsF6oXyZv1sQz3bZPNkCgGDzIbUVSzuwLM9ePtzPE2kkovVVHTBumNIT1niwbeJKUVmjzNXbup04odVfyhQro9cg6pgnF9644n5dDIhzFEUZUDCXpss36nT9iTRt2JxYfDO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b17ZUTz7; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784007273; c=relaxed/simple;
+	bh=fAKzaWM9e86Ewv++wa6J+o8ohBSjIl+3I4rl4uPVMYc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AKR8Z7ufR5x7Kltddlj0ilfgq9isHZNfgalWW/UcHfiBTKac8bvyi2cdpWlkgmwlquYWMvsINYZmpD/C/y2+1zVSHlJzz9cRBzBi9NR7O80MXhVEbaaGO0hcsrxg6Iq9WV8nZNI1z/RAmZlCvugEyns7uL/ZGNmXJ7XWRX8Ry98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxHfukhQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b17ZUTz7"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-848643382fcso4332481b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:34:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784007270; x=1784612070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pql5nZoyx4uigchL2F82l2cIvvuODWlbZIdBTSPz7E8=;
-        b=b17ZUTz7De9qFBR1vpwjjaNKzBLrvSF4WiDL0UIoV439SNqJBWYYa1Ebnv/pbULJ7X
-         8hdysoJBytwoRghSWQMAqixl5ETSqWUN5hIGZW0aLBNSCSwe52IikiKT5CwZGyhFnTbb
-         3kK4veSm5kATxYoQ69AkBhBJEcMWIzO0vUrblKv9V7bobPpZsv/gVpTrzNMUzl2W2toa
-         IEhdjLb1V0Z2/Za3sz9yh3yDVQ3atAF7iYHX/0VyHrgScAyu3PyCUPKoJ+e9FepkMMVk
-         Q18Ro3TaO1Q5MwFqFj03u8Avfx2sdCS8w9iKpoxezP6rvMttgsqnw2BtmShwSh12g54b
-         LNnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784007270; x=1784612070;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pql5nZoyx4uigchL2F82l2cIvvuODWlbZIdBTSPz7E8=;
-        b=JR5YeWvGXw8wLb7A+5VN2bJSk/Mzt+fYjOK/KUEcLlnas2xd2f0z910qvtZW9MxxiZ
-         sG4a/RJO8FsJHJrnMjPi1i83vG4+Xbc6zYPCXqXD/FGgkMbxLLElEwDZJj3hcGAi+BV/
-         A05ITIo5x6d1Mc9bp1ZDuKQC92s6ndMrcO8ihRaYjwr7pvAGMF6JUcgj0KnhGguMjRi4
-         hUVeoLzAdglUVSuA8q9wfVH/vw227O7C2TikP02Kg1sfdZm4lYpYOCUyI1/ZNuzQe8nl
-         IV9k5hN6NhhxTls+knPkDO7z3mVaH/239tKQLOLUehhPEaiZSE9GtBZxUjHNjLvrycZ3
-         ULaQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpPviAmq3oKiK5VuyD2cLAQCGLutNSs/SYbJ/ApY1Z0azg6Yj0pLArj1oYylFDtvMR3Da2yFqJILwmo@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrF9DFX16dF2yeehTANaWqMZukUm229N2Oxy7ZL3hwQ5v0JWTc
-	E2t4k07rq8g0s+iu/pm83RgISo87LEg+pIVgRSiur6nzii3M0eNfBskQwSc6rcTz
-X-Gm-Gg: AfdE7ckDxlgXyrbZtJ8GOEm6Lwd0RBtm97Mo7l7avv5Lk+PWW6Vnasdxh1+VDQQnTJa
-	3mrDJ4dTVgR/9ixW6XArNJ4fLx9Ar887grsO38wfKTAPoDV1e3MteKsigVeBtnD33LMB2KMyrrG
-	ivnRAcPt+rFYzR28wuyCfr0IZZwyVoaVI13i0HN9t658kpgMEhuS2d4EcBOpgzm4cN0hECmmIkN
-	1zdee29L5qD2mmpIK2sibGtgNs0CoyZ6YTlVlOERD/EEZz6O3F1rKMzk4LHjJ+9zPonZFNWtuB+
-	FUUgCrwYv60wZcUMvsq3B71tRrinaya49NAJdeM3xmnzWm2UDGO7DuuJuCPgSpKRuVQ0DVneFvr
-	wTyw0mNj2zkJrJvGvDh/qJ7vL0cXVVnk9ruYo+4SKbk0eiTM+bk2+j5qYG4K7FUrCD5sFuuXOUX
-	3fAsDgJESKW0Th5bLk2CPl
-X-Received: by 2002:a05:6a21:320b:b0:3c1:d78:6450 with SMTP id adf61e73a8af0-3c34d8bc7ccmr2897757637.66.1784007270055;
-        Mon, 13 Jul 2026 22:34:30 -0700 (PDT)
-Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13b87b92b27sm33047165c88.6.2026.07.13.22.34.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 22:34:29 -0700 (PDT)
-From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-To: linux-rockchip@lists.infradead.org
-Cc: heiko@sntech.de,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject: [PATCH v8 0/2] arm64: dts: rockchip: add Vicharak Axon board support
-Date: Tue, 14 Jul 2026 11:04:17 +0530
-Message-ID: <20260714053419.265523-1-hrushirajg23@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxHfukhQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45D371F00A3E;
+	Tue, 14 Jul 2026 05:34:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784007271;
+	bh=FvR1ya1mJMTyVnXZUOmEiSjTpEukiZQ/KKcJQDRNUic=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RxHfukhQ8jiz1AHg5NHA94sXzyEw7FWRID2/HtCAyyoYX8bCfQHxF1t6tOaHM2EQw
+	 DROkk+0phsK98nKRHmT8/DrrDgMYa/u2eQ/gh7w1nKcBmzTCVfk21ceqEfHJtdWT33
+	 oo08uCOxlWd0dyTgZ90+bfT2i9pQ/SQUg+f+FKtK8ZUBGjTER4/WUmgsElg4J355Z9
+	 fgakmIE+sEr4Ivvz6s8wseIJxc8xZ+C1mnJVWvZjAWxNmkfdzdP12DXYWIL5w07MkS
+	 MjYksty9Avb2kxk5SdXkBbq62f+TO8v4pCVgsvlnSbH1yM1OO4aNYwL6Woq11dWjam
+	 ABZBd/NbSh0WA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] input: misc: Add Qualcomm SPMI PMIC haptics
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, robh@kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260713-qcom-spmi-haptics-v3-3-c931bb7cb94f@oss.qualcomm.com>
+References: <20260713-qcom-spmi-haptics-v3-0-c931bb7cb94f@oss.qualcomm.com>
+ <20260713-qcom-spmi-haptics-v3-3-c931bb7cb94f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 05:34:30 +0000
+Message-Id: <20260714053431.45D371F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This series adds initial device tree support for the Vicharak Axon
-single-board computer, which is based on the Rockchip RK3588 SoC.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] AB-BA deadlock in the error path of haptics_start_fifo() between `=
+h->fifo_lock` and `disable_irq()`.
+- [High] Failure to write to the FIFO in the IRQ handler leaves the interru=
+pt condition asserted, leading to an interrupt storm.
+- [Medium] Stop requests for inactive effects incorrectly terminate the cur=
+rently playing effect.
+- [Low] Mixing `goto`-based error handling with `guard()` scope-based clean=
+up in `haptics_start_fifo()`.
+--
 
-The Vicharak Axon is a feature-rich SBC targeting developer and embedded
-use cases. It ships with:
+--- Patch [3]: [PATCH v3 3/3] input: misc: Add Qualcomm SPMI PMIC haptics d=
+river ---
+commit 516c3c8b367d0b2e322ea97c78aee0907ed541f0
+Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-  - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
-  - RK806 PMIC providing all SoC power domains
-  - eMMC 5.1 (on-board) and microSD slot
-  - Gigabit Ethernet via RGMII (RTL8211F)
-  - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
-  - PCIe 3.0 x4 and two PCIe 2.0 slots
-  - SATA 3.0
-  - USB 2.0 host ports (EHCI/OHCI)
-  - NXP PCA9554 I/O expander for status LEDs
-  - Haoyu HYM8563 RTC
+    input: misc: Add Qualcomm SPMI PMIC haptics driver
+   =20
+    Add an initial driver for the Qualcomm PMIH0108 PMIC haptics module,
+    named as HAP530_HV. This module supports several play modes, including
+    DIRECT_PLAY, FIFO, PAT_MEM, and SWR, each with distinct data sourcing
+    and hardware data handling logic.
 
-Note on vendor prefix: the 'vicharak' prefix was submitted separately
-[1], and Krzysztof asked us to drop it from our series [2]. 
+> diff --git a/drivers/input/misc/qcom-spmi-haptics.c b/drivers/input/misc/=
+qcom-spmi-haptics.c
+> new file mode 100644
+> index 0000000000000..ffbef7453459a
+> --- /dev/null
+> +++ b/drivers/input/misc/qcom-spmi-haptics.c
+> @@ -0,0 +1,1160 @@
 
-[1] https://lkml.org/lkml/2026/6/24/929
-[2] https://lore.kernel.org/linux-rockchip/96c9b1eb-9f8e-430d-9c38-eb4d489d7d24@kernel.org/
+[ ... ]
 
-Changes since v7:
-- Renamed rk806 DVS pinctrl nodes to have '-pins' suffix to comply
-  with the rockchip,rk806.yaml binding (e.g. 'dvs1-null-pins').
-  Removed unused DVS pin state nodes (only the three dvs*-null-pins
-  states actively used in pinctrl-0 are kept).
-- Removed dangling pinctrl-1/pmic-power-off state after removing
-  the unused dvs1-pwrdn node.
-- Moved 'compatible' before 'reg' in the PMIC node per DT convention.
-- Dropped vendor-prefixes.yaml patch (handled separately, see above).
-- Verified with dtbs_check: no warnings.
+> +static int haptics_start_fifo(struct qcom_haptics *h, int effect_id)
+> +{
+> +	struct qcom_haptics_effect *eff =3D &h->effects[effect_id];
+> +	u32 vmax =3D eff->vmax_mv ? eff->vmax_mv : h->vmax_mv;
+> +	u32 init_len;
+> +	bool data_done;
+> +	int ret;
+> +
+> +	if (!eff->fifo_data || !eff->data_len)
+> +		return -EINVAL;
+> +
+> +	ret =3D haptics_clear_faults(h);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Disable auto-resonance for FIFO mode */
+> +	ret =3D cfg_update_bits(h, HAP_CFG_AUTORES_CFG_REG, AUTORES_EN_BIT, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D haptics_set_vmax(h, haptics_gain_scaled_vmax(h, vmax));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D ptn_update_bits(h, HAP_PTN_FIFO_PLAY_RATE_REG,
+> +			      FIFO_PLAY_RATE_MASK,
+> +			      FIELD_PREP(FIFO_PLAY_RATE_MASK, eff->play_rate));
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Flush FIFO before loading new data */
+> +	ret =3D ptn_write(h, HAP_PTN_MEM_OP_ACCESS_REG, MEM_FLUSH_RELOAD_BIT);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D ptn_write(h, HAP_PTN_MEM_OP_ACCESS_REG, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&h->fifo_lock);
+> +
+> +	/* Write the initial chunk and initialise streaming state */
+> +	init_len =3D min_t(u32, eff->data_len, FIFO_INIT_FILL);
+> +	ret =3D haptics_write_fifo_chunk(h, eff->fifo_data, init_len);
 
-Hrushiraj Gandhi (2):
-  dt-bindings: arm: rockchip: add Vicharak Axon board
-  arm64: dts: rockchip: add Vicharak Axon board
+[Severity: Low]
+Is it intended to mix goto-based error handling with scope-based guard()
+cleanup here? The subsystem cleanup guidelines specify that functions should
+use either goto-based cleanups or scope-based cleanups, but never both in
+the same function.
 
- .../devicetree/bindings/arm/rockchip.yaml     |   5 +
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +
- .../dts/rockchip/rk3588-vicharak-axon.dts     | 860 ++++++++++++++++++
- 3 files changed, 866 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts
+> +	if (ret)
+> +		return ret;
+> +
+> +	h->fifo_data    =3D eff->fifo_data;
+> +	h->data_len     =3D eff->data_len;
+> +	h->data_written =3D init_len;
+> +
+> +	/*
+> +	 * Set empty threshold.  When threshold > 0 the hardware fires the
+> +	 * FIFO-empty interrupt when occupancy drops below the threshold,
+> +	 * allowing the driver to refill.  A threshold of 0 disables the IRQ.
+> +	 */
+> +	data_done =3D (h->data_written >=3D h->data_len);
+> +	if (!data_done) {
+> +		ret =3D ptn_write(h, HAP_PTN_FIFO_EMPTY_CFG_REG,
+> +				FIFO_EMPTY_THRESH / FIFO_THRESH_LSB);
+> +		if (ret)
+> +			goto free_fifo;
+> +
+> +		haptics_fifo_irq_enable(h, true);
+> +	}
+> +
+> +	ret =3D cfg_write(h, HAP_CFG_SPMI_PLAY_REG,
+> +			 PLAY_EN_BIT | FIELD_PREP(PAT_SRC_MASK, PAT_SRC_FIFO));
+> +	if (ret) {
+> +		dev_err(h->dev, "trigger FIFO play failed, ret=3D%d\n", ret);
+> +		goto fail;
+> +	}
+> +
+> +	return 0;
+> +
+> +fail:
+> +	ptn_write(h, HAP_PTN_FIFO_EMPTY_CFG_REG, 0);
+> +	haptics_fifo_irq_enable(h, false);
+> +free_fifo:
+> +	h->fifo_data =3D NULL;
+> +	return ret;
+> +}
 
--- 
-2.47.3
+[Severity: High]
+Can this sequence cause a deadlock? In haptics_start_fifo(), h->fifo_lock is
+still held via the guard() scope when jumping to the fail label.
 
+The code then calls haptics_fifo_irq_enable() which disables the IRQ
+synchronously using disable_irq().
+
+If the threaded IRQ handler haptics_fifo_empty_irq() is concurrently runnin=
+g,
+it will block waiting for h->fifo_lock, while disable_irq() blocks waiting
+for the handler to complete.
+
+[ ... ]
+
+> +static irqreturn_t haptics_fifo_empty_irq(int irq, void *dev_id)
+> +{
+> +	struct qcom_haptics *h =3D dev_id;
+> +	u32 sts, to_write;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(h->regmap,
+> +			  h->cfg_base + HAP_CFG_INT_RT_STS_REG, &sts);
+> +	if (ret || !(sts & FIFO_EMPTY_BIT))
+> +		return IRQ_HANDLED;
+> +
+> +	guard(mutex)(&h->fifo_lock);
+> +
+> +	if (!h->fifo_data)
+> +		return IRQ_HANDLED;
+> +
+> +	/* Refill: write the next chunk */
+> +	to_write =3D min_t(u32, h->data_len - h->data_written,
+> +			 h->fifo_len - FIFO_EMPTY_THRESH);
+> +	ret =3D haptics_write_fifo_chunk(h, &h->fifo_data[h->data_written], to_=
+write);
+> +	if (ret) {
+> +		dev_err(h->dev, "refill FIFO samples failed, ret=3D%d\n", ret);
+> +		return IRQ_HANDLED;
+> +	}
+
+[Severity: High]
+If haptics_write_fifo_chunk() fails here, could this cause an interrupt
+storm?
+
+By returning IRQ_HANDLED without writing samples to the FIFO or disabling
+the empty threshold via ptn_write(), the hardware FIFO occupancy remains
+below the threshold.
+
+Once the IRQ is unmasked upon return, the hardware will immediately trigger
+the interrupt again.
+
+[ ... ]
+
+> +static void haptics_play_work(struct work_struct *work)
+> +{
+> +	struct qcom_haptics *h =3D container_of(to_delayed_work(work),
+> +					      struct qcom_haptics, play_work);
+> +	struct haptics_play_req *req =3D haptics_dequeue_play_req(h);
+> +	bool rearmed =3D false;
+> +	u32 length_us;
+> +	int ret;
+> +
+> +	guard(mutex)(&h->play_lock);
+> +
+> +	if (req && req->play) {
+> +		ret =3D haptics_start_locked(h, req->effect_id);
+> +		if (ret) {
+> +			dev_err(h->dev, "play haptics failed, ret=3D%d\n", ret);
+> +		} else {
+> +			/*
+> +			 * Re-arm the work to stop the play or advance
+> +			 * to next play after the play duration
+> +			 */
+> +			length_us =3D h->effects[req->effect_id].length_us;
+> +			if (length_us) {
+> +				schedule_delayed_work(&h->play_work,
+> +						      usecs_to_jiffies(length_us));
+> +				rearmed =3D true;
+> +			}
+> +		}
+> +	} else {
+> +		haptics_stop_locked(h, false);
+> +	}
+
+[Severity: Medium]
+Will this unconditionally stop the active effect even if the stop request
+was for a different effect?
+
+Since the ff-core tracks multiple effects, an application might send a stop
+command for an inactive effect. The else block here does not verify if
+req->effect_id matches h->active_effect_id before terminating the hardware
+playback.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-qcom-spmi-=
+haptics-v3-0-c931bb7cb94f@oss.qualcomm.com?part=3D3
