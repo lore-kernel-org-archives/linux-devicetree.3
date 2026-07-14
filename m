@@ -1,150 +1,99 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B713F6C50
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D089E3FADFD;
+	Tue, 14 Jul 2026 08:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784017082; cv=none; b=f7LGVZ612DUHBibMyCrbtHsBij1OxorI3gZugFwV+JUoKMVWHaETyLfKUTOaRHCFc+DzzoY3nSC3NHaNSroX+gw4G16C7Z4Hlr2D2I+t2SXVOXBRUNCkQ8ondnTh/GyHQyu7n2x7uEJz6U1p8ZAAU8YcFewtCyprmhDAoygHYLQ=
+	t=1784017163; cv=none; b=dDi/2eWxYayhobZSByUttfL7VGOMIPySVbtVH44RIW0rCYt/wm7AzMVb0nhsar0Nnole8+TEpii73mKO2yMg4I+QJM+0A3JaBtAHNOxjD+4s8g9tAU4W/eKMf5598wyxZY/TVlGWIIViG/4ClGjkn6FXGtjs2DfiMXdzWTISL2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784017082; c=relaxed/simple;
-	bh=lmLRA1j6bU4TZIADuvEfELdVnzXyMHW+4VvSLzBy1ag=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sUSlVhcn+0WLSIYl62oj6jmRUKRponOZYkhJDkjZad++2KiFr8VufwSy9pzOOVsgRSZrkfBCELsEtRym+3645jF8e4D8Cgg8GcaFkja7dxESax3kl+vVM4W9TD5l4xCM+5AVGZeLLg3rGQmBBPLof0+putNEdTzE8Vu20lKtTro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VfJe61hn; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VfJe61hn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784017070;
-	bh=lmLRA1j6bU4TZIADuvEfELdVnzXyMHW+4VvSLzBy1ag=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VfJe61hn68YfPm/X1p7KJ/Zi8jTfMN+t01Jd0U/6ibLN1YAJNARz232fpKx6HHdPw
-	 6IKRlmv4xqg0EyynMbUoFGm6XN01PiW4Gp/eT77LMiejeOCkXgMDw5tENPQxn23cUv
-	 EYb+/i2NvC0bQeAzCu6rQJ8nTY0SgvWmko+An7B7Vna6ll9LdxFyfh7hzPJU4Y8/lZ
-	 SGmARv/n51CFJLhodu6RfmPYS+w44dUC2lqbMvT6WJdzj9q0bew0F1HonK5WOLN6pr
-	 6VUNL6cCTpWmRllYuDhm13QZJ+5on02doB5RWg1Go5g09KToesJT7xogsWY6UZC+ag
-	 Jo2HIamzBEffg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DDDB417E01AC;
-	Tue, 14 Jul 2026 10:17:49 +0200 (CEST)
-Message-ID: <64f479f6-af9c-4bda-8a6c-ddbabc839f10@collabora.com>
-Date: Tue, 14 Jul 2026 10:17:49 +0200
+	s=arc-20240116; t=1784017163; c=relaxed/simple;
+	bh=wwKTQi9cpPRih9483MgQ+Lfpv5eTWogqhsMzD1Mu8K4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rGZWZ4aUCyb3APuVj9/lK43O3oRQbRdfKY8BNKexmX1lAX8u5e7bCvwJnj2cOpLZhZ02ONRmpn/AIQx4PnvHeHQ8XTta3JedB9EkFgWJf3cAolKRwCevfrfv1SeGYu7VSNhGndxWUela1ikJgE7wKfYLKQCQph6ZFFG1YIFhV1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 15561202203;
+	Tue, 14 Jul 2026 10:19:10 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wjYM9-001jwl-39;
+	Tue, 14 Jul 2026 10:19:09 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wjYM9-000000091z6-3Y9T;
+	Tue, 14 Jul 2026 10:19:09 +0200
+Date: Tue, 14 Jul 2026 10:19:09 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Daniel Golle <daniel@makrotopia.org>,
+	=?utf-8?B?QmrDuHJu?= Mork <bjorn@mork.no>
+Subject: Re: [PATCH net-next v7 2/4] net: pse-pd: add Realtek PSE MCU core
+Message-ID: <alXw_QZfEEKQd5fr@pengutronix.de>
+References: <20260712192251.1413279-1-jelonek.jonas@gmail.com>
+ <20260712192251.1413279-3-jelonek.jonas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at
- component bind time
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
- <20260713142746.40259-5-angelogioacchino.delregno@collabora.com>
- <20260713144340.736B11F000E9@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260713144340.736B11F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260712192251.1413279-3-jelonek.jonas@gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-On 7/13/26 16:43, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+On Sun, Jul 12, 2026 at 07:22:48PM +0000, Jonas Jelonek wrote:
+> A range of managed Realtek-based PoE switches use a small microcontroller
+> on the PCB to front the actual PSE silicon. The host CPU talks to that
+> MCU over I2C/SMBus or UART using a fixed 12-byte request/response
+> protocol with a trailing checksum; the PSE chips are managed by the MCU
+> and are not accessed directly. Two generations of the protocol exist -
+> both Realtek's - diverging in opcode numbering and a few response
+> layouts; the driver handles this with a per-dialect opcode table and
+> parser hooks for the responses that differ, selected by the compatible.
+> The specific PSE chip behind the MCU is detected at runtime and only
+> influences per-chip constants (power scaling and the per-port cap).
 > 
-> Pre-existing issues:
-> - [High] Missing cleanup of DRM encoder when device_reset_optional() fails in mtk_dsi_bind().
-> - [High] Read-modify-write data race on `dsi->irq_data` between process context and hardirq context.
-> --
+> This core module implements the protocol, message framing, the dialect
+> machinery and the pse_controller_ops glue, and exports a registration
+> helper for transport modules. The I2C and UART transports that drive it
+> follow in the next patches; the core (PSE_REALTEK_MCU) is selected
+> automatically by those transports and is not user-selectable on its own.
 > 
-> --- Patch [4]: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at component bind time ---
-> commit 0607d3868a389c4103df3225d2bc7a47d44df3b0
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> The realtek-pse-mcu-* files and PSE_REALTEK_MCU* symbols match the
+> realtek,pse-mcu-* compatibles (see the binding for the naming rationale).
+> The two protocol generations - gen1 on older Broadcom-PSE boards, gen2 on
+> Realtek's own PSE silicon - are both Realtek's, handled by the same shared
+> core, each selecting its dialect via the compatible.
 > 
-> drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+> Power budgeting is left to the MCU firmware; the driver advertises
+> PSE_BUDGET_EVAL_STRAT_DYNAMIC (controller-managed budget) accordingly.
 > 
-> This patch requests the DSI interrupt with IRQF_NO_AUTOEN and enables it only
-> when binding the DSI to its display controller component master. This prevents
-> interrupt storms and delays caused by timeouts during probe.
-> 
->> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
->> index 8ab5c3431dbbc..e24e7b91a3618 100644
->> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
->> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> [ ... ]
->> @@ -1090,7 +1091,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
->>   	if (ret)
->>   		return ret;
->>   
->> -	return device_reset_optional(dev);
->> +	ret = device_reset_optional(dev);
->> +	if (ret)
->> +		return ret;
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this error path leak
-> the DRM encoder?
-> 
+> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
 
-That's right. I will send a patch to fix this outside of this series.
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-This series shall not be blocked by issues that were already present before.
-
-> If device_reset_optional(dev) fails, it returns without calling
-> drm_encoder_cleanup(&dsi->encoder). Because the component bind operation
-> fails, the component framework will not invoke mtk_dsi_unbind(), meaning
-> the encoder is never cleaned up.
-> 
-> If the DSI driver is subsequently unbound or removed, its locally managed
-> memory is freed while the encoder is still linked in the DRM core's list,
-> which could lead to a use-after-free or kernel panic when the list is
-> traversed.
-> 
->> +
->> +	enable_irq(dsi->irq);
->> +
->> +	return 0;
->>   }
-> [ ... ]
->> @@ -1375,17 +1383,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
->>   
->>   	platform_set_drvdata(pdev, dsi);
->>   
->> +	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
->> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but is there a read-modify-write data race on
-> dsi->irq_data between process context and hardirq context?
-> 
-> mtk_dsi_irq_data_clear() modifies dsi->irq_data using &= in process context
-> (from mtk_dsi_host_transfer()) without disabling interrupts or using atomic
-> bitwise operations. Concurrently, the hardirq handler mtk_dsi_irq() modifies
-> the same variable using |=.
-> 
-> If a DSI interrupt fires during the process-context read-modify-write
-> sequence, won't the flag set by the interrupt handler be silently
-> overwritten and lost when the process context stores its computed value?
-> 
-> This could lead to hardware interrupt events being lost, causing timeouts
-> in mtk_dsi_wait_for_irq_done() and potentially breaking display
-> initialization or frame updates.
-> 
-
-That doesn't really happen for now, but it's a fair point. Will send a patch
-to fix outside of this series.
-
-This was not introduced by this series and shall not block it.
-
->> +	if (ret)
->> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
->> +
-> 
-
+Thank you!
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
