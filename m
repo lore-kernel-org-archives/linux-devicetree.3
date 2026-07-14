@@ -1,62 +1,64 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B48E363087
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 10:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7DD363C6B
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 10:13:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784023956; cv=none; b=Y75tUPwcrzT8XKz5qfW9HzBZku807Ram9eJ8IThFjd4fymX4ejFRVz+yYa02Yk1TtqH+Y3x4XbtvqH56Cdx/XkxPmeHMpcThOIoTs8KXuHNtDK1x+nrPsydqX2JrJ+mOkhWGs3zp7hXMIS9MKxfBcifd4cSuHLd6EIau+zHMI+8=
+	t=1784023988; cv=none; b=oSMzjIjSUdlLamHerHlB86h54hRjCEYSYWFZULmjn4BA4ArQswOISc5dUOa++0DQs3caDcL6+dleeMoSY4okmwDIKHwacN8lCgYWJdhhck79kOal1m0aMHQSdEJwuuhIKQJ4xZ5KfrEXYsAYaf6yMDEQ15l78HC799tvOotc9Tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784023956; c=relaxed/simple;
-	bh=GLTo5n1mk8sfrBu4tliF6CXIVTOxqFnCr56IT8MLyz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U+q1TMXQ2JYDkm0zEgQyX5UnIrsGoozeU9z8sbFnCkjhb0xyqkzyBk7FVdiL9/NkuTtasGUOCDjjV6RdZxkA9PQt+XiqNfWA841mQ6E0H5aj+x0GBlHpmdmMxu9azDRaKIG7Xlxw26d8KIoNlxwGJ89kYziKybvwHWzeH6Dzuxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bD/BR/PB; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1784023988; c=relaxed/simple;
+	bh=IjJRpkhQXQj7QdSjhQ2DTY6NAjXguYlKr2R6Lsy4IWY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rZ2stbTfqK/XHs7VPqOt0mF2F/nsUHOgepyuPcsLq2wq5hsbVoyjIRHMgGU0jNXblg6Uz144MGJVJEzdJ/cXfDaRizWhVSS6w7YRQuNe1zK4d7MaUkojRoVR+2bQoipkxRxDBKog+4yQFWhgLDBRf1Ra2BLNK6ggeDI9y6/a2i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ij1h+1WX; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bD/BR/PB"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47db714766aso449912f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 03:12:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ij1h+1WX"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-493ece78b0cso30103145e9.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 03:13:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784023952; x=1784628752; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6ggmizQ4gyc8HTtT89PKufZdvYWbkRhkgN1DcShr0XQ=;
-        b=bD/BR/PBmpsAdV+61mKzgxmDnAZMOLPQEfmf2uSGzHuxjIErr9ivFKhu+YaL1F+dLi
-         cP7sdTkTkS2X70rrSYwTdIxMVFVX/M9EEMy8XLjKpXjXd5C06LS6ELV7tuAttgahZuuf
-         IUupORdMhglw/qJ2nZb9ljgdDkhqR4sC8jj3Vqy6LT6EEvwyeELDmQ4GrxDqaIcEhDYH
-         DJ23z6eh2+1Bxjj75WtjVCaaeH1jdPsC4bUwQh6dKezee0Gtn5x60X7DD2Y8Gw7qjuUY
-         9t1ZaS5pojqchBqhxq6Z6roQJBn8NVhIFdqClJhf/tup7qJ716No69AOM3d4gPmw6h4i
-         dQLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784023952; x=1784628752;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1784023985; x=1784628785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6ggmizQ4gyc8HTtT89PKufZdvYWbkRhkgN1DcShr0XQ=;
-        b=sgLnRekbtWWqPwn6rzCJvlhj/h9/RpfZnvUSzX76dV10IIB9IIMFf4EPN02nNh0L71
-         GImQ25eCxOdphwLLsWzLA1eXJqscMGYPgjoAY/z45IeheU2WSE4H2vthJ4sTLHyF6l2Y
-         viaMNkJV+C9tPckHlDqmBT667cpLfIS2G2CNDJHD2OSB8/XkrJjQoVJO/tnI+L9igIA0
-         94ud59WN/QbG0M1XvluBcfGt8Bm7xbSgH5mxkgT5J/TQH1XHZ+XR/tG0UT4Xap7f0BBE
-         0YbyOK+20x7SgyulU+5c/WLOTRVwO5gZnLeXH4yf2zwmBn3vB/sL0fbfA7FJN3dfRjPw
-         fVAw==
-X-Forwarded-Encrypted: i=1; AHgh+RqgaU6JJHO/j8j9MCPb7MJ3RQFrn7/YsIU26UQuk0reX10SsulVkPilmuP7efAFTMTNWTsDbLUdSlXB@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTqCfieC8hm7++4KsFVlDdBkGyGxEna2BOkdke/Jmz1DK/qYWv
-	CMBT2gmPXodKl0mp3gFcIs8KYbpcnmA5+qPQPC11e28GuEO4T7DQcy5J
-X-Gm-Gg: AfdE7cnfeDe9yaPiUYhw94oB4BzgYXSZ8K/KFqeX2P/2nFp5+IibDS6uTYfBYLGQk9U
-	0xFmjM8TMmpxvBCuAIXzPUHH7oati8QzsAJD/qjjjD2oUiqxB1NfCN4paxqghzNamNUgSup3UQb
-	jBLn2qKNK7hfiAX/CU1WJEgfU+qn5gz8Ne9IrV/atKUvL44Zojwz0N0u/H+8QDxf7jHf4wSZ4Nq
-	4yz/KzMO8aQJbxM+VH2FIsMm7JfD+Z3tik35FORlSE8S/AXHJPIAEmihizst+lwLJCpChMWfKLb
-	tm63/2M3F2noZGN62wezagcmQyEexM7ID6Q0WTNxjFnBsGoz8XT9bOY373XTAVx9AUDcAYG7Nh4
-	zHxbQ1oC9sjojTonAdhSgNeytg8WIt4Rooe/uLV8jJoxjtvrRJspZYZXjYmTHXVw+wD+IcISL7J
-	40AI49OkxtpVDQk4RcSE57ZG4YEOEkz0WfQ01swOx3R7RHPhTDRvVBv2Nhjnuf0tuihOJOgug8V
-	GHgdrQm15dUnNG1CzxkEX2IwJz92wTKiQ2w3ag2CodJLJbdagMC+JE=
-X-Received: by 2002:a05:6000:604:b0:473:66e2:37d4 with SMTP id ffacd0b85a97d-47ef6990c98mr20693974f8f.27.1784023952269;
-        Tue, 14 Jul 2026 03:12:32 -0700 (PDT)
+        bh=NryLnlPMH6Hf3JNrq31VbojgpBro7QXUxTalZR3pyS4=;
+        b=ij1h+1WXkR8t0AVbChd/Xsue9qpaNqI5VnZZ1PMMGSlDr1MVpNQYOcmzpVM5kFNEqW
+         ap9C5a6q3PbF4UwQ2zhNVpxOl+NZEeTUuruFUL2Wa/jBmYX6iV5Pdi0AvfXKzjXpTFLC
+         smKkzsvBwgE0vE31NK1nPD54dIvaR1L84a2sqAWo0v3krV9tG8bhThe9vPX86ECAVcYc
+         z5wSbFwB1Ba4SShIonotUGTEh4ztUGjwfPXr8Zc9k6nR+3cS8QlLBvbuMhxaW+iTZJmY
+         yK+pVklh+mYjoEWHTQ+S0uQiuNSBj74c5NAFfgTBmNMWup+ixgPGnGqeNnSi5/T79rGy
+         3tcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784023985; x=1784628785;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NryLnlPMH6Hf3JNrq31VbojgpBro7QXUxTalZR3pyS4=;
+        b=aO9IQMswW6J1ZmZxoaUwd901aLB/fbt3DAOZSu3JXKe0Si7KU2RAK7ri5EcvUVT0qH
+         KeIIXCayCbzv9ZPlw0XQskoQHnTH0FvfDcB1COqLNePAWSXWdMmqeiKn+oRnftOkKEwW
+         /iEhWDLpMDfHvOaeds0dYywuP+MwyaoUTKRt062SHpfaITdDUAzZrTK9axjtXtt5hr+F
+         fWMVDc7WPhgkUzfMfBfcJ8pA2o3NxbFGCuTZq+ZtX+80gsIgtMYGuYSY6O5p2X6CKxu/
+         zJMYn6ZHu0Ztf6SJAErZ10Nmq94y+kn4ouGiz1yPaQb+UkXvN1DogD6HtW1FITsTrmNt
+         T9PA==
+X-Forwarded-Encrypted: i=1; AHgh+RogifSa+R/OPeNQawD28+vt8GId3uLXym6Fe5GNc6KqMdY7Ixfcrgh/kLQ5ravf97htLRoun8OvOxp9@vger.kernel.org
+X-Gm-Message-State: AOJu0YzC9tuDFtX8Fmunyyo7utVBxkNMR/+Jj/43dWQUT6Giiq52AWfQ
+	Ni/MFPTCNTsbJji2tKP/FzdzxWBfVptjJFYWCDFw0BMUMfEktxm40n8v
+X-Gm-Gg: AfdE7ckq5eYutelOHIS6iHQCCPAlqeEuh99a0CIRGzQpxnwtao2oZwkdT/6hiSue0fY
+	783QY5TWOypdaYS3i38NRZVcyRxbDnB8BJG9QFQAcaytE1+Yb5WNi7dQZDrXUL0iiISj4oqh87x
+	+OR06Lj5QWdEQfMIndOZ9vGZShNAsywev9FvYiZ040iSh7yylGDEEY8sh4rb+NFR+QSiswCQWdZ
+	dFnn9TH8kVw5EuupJFUeLwVUszwTvR4pHkryYsk7ngTlr1w5A4yEZ45IebWtotA9q2uV8P7puze
+	Doqs5W0WUnzrcNNBoYtkLa6FIWD8py2lL53LeVChS7DRS9+ShVLT6PzpY4cPM2GE6pRb7VWfbJq
+	+1T8/yb8pydRKztE7KUR8JCS2CHoZeKmCU5mTSyRnGaIVachPCGMpWVqnqSqSq6CLV45xpG6xum
+	9vA2Htlm3TedTkgajzQbKWpS/E6dJiuxlxQyTXtlN1/sE+0GYIKrrOaRuxuyytqK6hmUe14u2PA
+	cqCn8OXP3Aec5vZveOWKAWTUHGZpbg0bEeZQNLMPru14eDf7znFGHE=
+X-Received: by 2002:a05:600c:6303:b0:493:cfe8:5b36 with SMTP id 5b1f17b1804b1-495158c6a1bmr32455935e9.8.1784023985260;
+        Tue, 14 Jul 2026 03:13:05 -0700 (PDT)
 Received: from stiangglanda-IdeaPad.. ([85.233.101.104])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464a9879sm7788927f8f.22.2026.07.14.03.12.31
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464a9879sm7788927f8f.22.2026.07.14.03.13.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 03:12:31 -0700 (PDT)
+        Tue, 14 Jul 2026 03:13:04 -0700 (PDT)
 From: Leander Kieweg <kieweg.leander@gmail.com>
 To: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org
@@ -69,10 +71,12 @@ Cc: airlied@gmail.com,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	Leander Kieweg <kieweg.leander@gmail.com>
-Subject: [RFC PATCH 0/3] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
-Date: Tue, 14 Jul 2026 12:11:42 +0200
-Message-ID: <20260714101146.200416-1-kieweg.leander@gmail.com>
+Subject: [RFC PATCH 1/3] dt-bindings: display: Add GlandaGPU binding
+Date: Tue, 14 Jul 2026 12:11:43 +0200
+Message-ID: <20260714101146.200416-2-kieweg.leander@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260714101146.200416-1-kieweg.leander@gmail.com>
+References: <20260714101146.200416-1-kieweg.leander@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,110 +85,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi everyone,
+Add Device Tree binding documentation for GlandaGPU, a custom
+FPGA-based 2D display controller.
 
-This series adds a DRM driver for GlandaGPU, a custom open-source 2D
-graphics core I designed in VHDL. It currently runs on a Cyclone V
-SoC (Terasic DE10-Standard), with VGA output at 640x480@60Hz. I also
-built a QEMU fork that emulates the same MMIO/VRAM interface as a
-digital twin, so I can develop and test without needing the FPGA
-board.
-
-  Hardware/VHDL:    https://github.com/stiangglanda/GlandaGPU
-  QEMU fork:        https://github.com/stiangglanda/qemu-glandagpu
-  Userspace tests:  https://github.com/stiangglanda/GlandaGPU-userspace-tests
-
-I'm sending this as an RFC because I'd like feedback on the
-following points before cleaning up the series further:
-
-1) Mainline viability of custom FPGA hardware
-
-   GlandaGPU isn't a commercial chip, it's an open-source soft GPU
-   core. The DE10-Standard itself is a regular purchasable dev
-   board, and the RTL is public, so anyone can reproduce the exact
-   hardware. Testing doesn't require the FPGA either, since the
-   QEMU twin models the same interface. I know this is unusual
-   compared to typical mainline DRM hardware. I'd like to know
-   whether this is workable, or whether it's a dealbreaker for
-   mainline.
-
-2) UAPI / ioctls / userspace
-
-   The driver currently exposes three fixed ioctls (CLEAR,
-   DRAW_RECT, DRAW_LINE), mapping directly onto the current
-   hardware command set. I have two related questions here:
-
-   a) I plan to keep developing the hardware further, which will
-      likely mean more ioctls over time (for example, polygon/3D
-      rendering is one direction I'm considering). Is it acceptable
-      to keep adding a new, separate ioctl for each drawing
-      primitive like this, or should I move to a generic
-      command-buffer submission model instead, similar to
-      DRM_IOCTL_VIRTGPU_EXECBUFFER in virtio_gpu, before this is
-      treated as stable?
-
-   b) If I do end up with an ioctl-based acceleration UAPI, is
-      writing a Mesa/Gallium3D driver the expected way to make it
-      usable from userspace, or is there a lighter-weight option
-      that makes more sense for a project this size?
-
-3) x86 QEMU platform test device
-
-   To let reviewers try the driver against the QEMU twin without
-   cross-compiling an ARM kernel and rootfs, I registered a
-   platform device at a fixed address on x86. I'm aware this
-   doesn't belong in the driver itself, so I isolated it into patch
-   3/3 and marked it "NOT FOR MERGE". Let me know if you'd rather
-   see it dropped entirely, relying only on documentation of the
-   QEMU-on-ARM testing path instead.
-
-4) Pixel format conversion
-
-   glanda_pipe_update() currently does a per-pixel software
-   conversion from XRGB8888 into the hardware's native packed
-   format on every flip. I'm aware this is a known bottleneck. I'm
-   planning to extend the VHDL to accept XRGB8888 natively so I can
-   drop this conversion entirely. I'm flagging it here as a known
-   limitation rather than blocking on it, since it's a hardware-side
-   change and doesn't affect the UAPI.
-
-5) drm_simple_display_pipe vs. manual plane/CRTC/encoder
-
-   Since the driver only has a single plane, CRTC, and encoder, I
-   tried converting it to use drm_simple_display_pipe instead of the
-   manual setup. It compiled cleanly, but my userspace tests didn't
-   behave the way I expected. I haven't figured out why yet, so I
-   kept the manual setup for this RFC. I'm open to revisiting this
-   if that's the preferred direction.
-
-Testing Status:
-
-The driver has been tested and verified on both the QEMU fork (x86)
-and physical FPGA hardware (ARM) using:
-  - A custom static userspace test: https://github.com/stiangglanda/GlandaGPU-userspace-tests
-  - `modetest -M glandagpu -s 36:640x480 -v` (which successfully
-    displays the test pattern)
-
-Thanks for any feedback,
-Leander Kieweg
-
-Leander Kieweg (3):
-  dt-bindings: display: Add GlandaGPU binding
-  drm/glanda: Add initial DRM driver for GlandaGPU
-  NOT FOR MERGE: drm/glanda: Add x86 platform test device
-
- .../bindings/display/glanda,gpu.yaml          |  49 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   7 +
- drivers/gpu/drm/tiny/Kconfig                  |  25 +
- drivers/gpu/drm/tiny/Makefile                 |   1 +
- drivers/gpu/drm/tiny/glandagpu.c              | 808 ++++++++++++++++++
- include/uapi/drm/glanda_drm.h                 |  40 +
- 7 files changed, 932 insertions(+)
+Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
+---
+ .../bindings/display/glanda,gpu.yaml          | 49 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 51 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/glanda,gpu.yaml
- create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
- create mode 100644 include/uapi/drm/glanda_drm.h
 
+diff --git a/Documentation/devicetree/bindings/display/glanda,gpu.yaml b/Documentation/devicetree/bindings/display/glanda,gpu.yaml
+new file mode 100644
+index 000000000..40304e773
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/glanda,gpu.yaml
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/glanda,gpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: GlandaGPU 2D Hardware Accelerated Display Controller
++
++maintainers:
++  - Leander Kieweg <kieweg.leander@gmail.com>
++
++description: |
++  GlandaGPU is a custom FPGA soft-IP core providing a simple
++  2D hardware-accelerated drawing engine (clear/rect/line) with a
++  VGA-compatible display output. The register window covers a
++  combined VRAM + MMIO region, with MMIO registers at a fixed
++  offset within it.
++
++properties:
++  compatible:
++    const: glanda,gpu-1.0
++
++  reg:
++    maxItems: 1
++    description:
++      Combined VRAM + MMIO register window (VRAM at offset 0,
++      MMIO registers at offset 0x00200000 within this range).
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: Bus and pixel clock provided to the FPGA IP.
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    gpu@c0000000 {
++        compatible = "glanda,gpu-1.0";
++        reg = <0xc0000000 0x1000000>;
++        interrupts = <0 43 4>;
++        clocks = <&osc1>;
++    };
+\ No newline at end of file
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index b1af9deac..b8b7a5401 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -666,6 +666,8 @@ patternProperties:
+     description: Giantplus Technology Co., Ltd.
+   "^gira,.*":
+     description: Gira Giersiepen GmbH & Co. KG
++  "^glanda,.*":
++    description: GlandaGPU
+   "^glinet,.*":
+     description: GL Intelligence, Inc.
+   "^globalscale,.*":
 -- 
 2.43.0
 
