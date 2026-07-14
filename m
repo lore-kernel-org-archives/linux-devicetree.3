@@ -1,730 +1,239 @@
-Received: from MTA-11-3.privateemail.com (mta-11-3.privateemail.com [198.54.122.105])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011070.outbound.protection.outlook.com [52.101.65.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FEC37E5CC;
-	Tue, 14 Jul 2026 20:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.122.105
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784060979; cv=none; b=Am6bleh40lKpyIjGvFoH5CpIKgiaQ/fB2hGFjlpwAkVjT++XQGCsnlP0cp/pH0AmWh7fLZOnJVkRVI4H1gnkuNBMaDULmqVtuDb0PbhMcoxYhKKn10v8h7KQpX9+7fWDBVcZod6m5Qy+ed8+DngSg9FhQm6l73E82kRrA+n6O/I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784060979; c=relaxed/simple;
-	bh=r5jCXwNrvPDcuaG1chXQDqMMJZYWWpA87Qt46xIsbd0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c8UhV2gC1aeEn7EIdMaGJb+P+oVScwt+/aEnNooUPLm6l5mBC2f8QYd1hvtum8JgKkQ/xdpeIV3UBc7v6yxHVsbqalNst9k2GCsS6x0BsqsaFI3KwoaHjFskWDIojs66zsxUhwI+O7TO+9yUUhy/hXOAuYl3/ulgG/9MSVqCEt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.122.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (K8S-PROD-WORKER-13 [87.215.145.39])
-	by mta-11.privateemail.com (Postfix) with ESMTPA id 4h09rd3v2Rz3hhTP;
-	Tue, 14 Jul 2026 16:29:20 -0400 (EDT)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Siratul Islam <siratul.islam@linux.dev>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] iio: magnetometer: add support for QST QMC6308
-Date: Tue, 14 Jul 2026 22:28:42 +0200
-Message-ID: <20260714202842.340293-3-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260714202842.340293-1-jorijnvdgraaf@catcrafts.net>
-References: <20260714202842.340293-1-jorijnvdgraaf@catcrafts.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A5237E5D1
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784061067; cv=fail; b=W/oY83VglTGqeJUZ0MdCDYihWMAE+vFdarOp1kFl/w8mopYbUwgSKVT1axHrStw+KosdkaRcwmmN7dJfVqXXHyCc6kpk470aKG8h+pgXVaZJZhqBWpCWGmtLefNah50PepGAplUq+hvrDSK3bYD5a4jON6wQeFE0Obh7Mp+3Rk0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784061067; c=relaxed/simple;
+	bh=xSeCVtkX1SlPpLMSdOjqHz3rEIa6J8nWXwAMm/m1AnM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Mxl+1pevQ/PqCLmG3IFhuj2R+RXr8z+b7KHxwf+aksKErJ7J1JunQX08YJUyECi8uUj4+vnPc6D4QJj1SU5TahqPQVtnli2TKS+Apa1Q8R0fFsD4jKsrusmuv7ZoksBYfpHt0d2U6DOWIpXBhxpzRHvM7b2V3Bss4dn8DbnNlec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=kPrJYfj2 reason="signature verification failed"; arc=fail smtp.client-ip=52.101.65.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="kPrJYfj2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q271BZV9vQZ2UZSr6kJ/lH8P3O/5WVMvGHva6Iu0fBSI1U3IqodbLMDsqgvpWQyf63Ne61NBpZfQ3xxXjyAjDpzuNtc4vrogIYn7aBLDw2pP1IqTMv6k0GTsn1QIPy8qw/oOSr8WN54j2ef88P6PqYeN4frbJjEc72pptgdP0Sgy1hUr/MTVXOvvCsxGY/DTuRfSRuyTRqdSFaSTYqJfsgDFmtQ+QLNVDH5AI91Nxd0txTFwPDyTglCKvDJ5p9ad0Ja3tEBGAz/AUl9NhO4KZAoFoKRUaJQMoX8L6X7u47JbISebfKDBQ4EMRS4T1pZQ2Dd6Ip5fqAA8ColWeKI/rA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ak9BrI4YGdXWSpufRf8QzogVbfCpvrM8dEfCach5qR4=;
+ b=HcXQSYwxnnM4QofXkerx2V+JNeU0ZbWLyzmd14w5sgaD8WS9N5Yx+7vQIg7qAmqYmQ3Db6fiZZQdSQ9YUanqqvPW6rPfHYotljHmzBxLk1i1CIoLfInR5Qz/cI1B/9Ukvcs7YC8bu30vlxf0EZXXPygV964GChiBffFWis3lQafafld4BDvogAa/ceCLIyXreQ8Echm5c81KN5uZHW2cXXCusQHzWZKBNaym0xoVO42NqiwnFGPwot9mU5qt5WtWLy3PSo+EqosECvoHivV9c9HXNxOPhLVzHivuOdaI0o43MkHFThuS6iPW38WlKW/EWnRluOZ6sWpyvh/h3mMqLg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ak9BrI4YGdXWSpufRf8QzogVbfCpvrM8dEfCach5qR4=;
+ b=kPrJYfj2OSPwZoBV2Dav6yhbPUCO6L3cHRTafTTAubCLMP1XfVALrj3EyiPKQj38MDwpDbprEUh+FfF8wLBQoQ4gnE0S7JtnBDLEPMjxU6/ENn5MyNcMqpbZIAaLs14Sz67mOMF/iKH97SDs+YeQaiE1yi0Y030sKllRBjGwZzH91wle5teBqrHP1HbzA/asXeX1QwLkt6Wm26TzaexunCn/UH7qas9K8miTm/RypeaNAfgunHxjD3QDGcBVoK7ZVjFEWMBnFgWkc8X/w6cHvOdd933nSFWtBzOawPi94N5tmmqhKq27bhl5bqOSMW3zaaF5OnoU7P1D65B84K2aXg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7793.eurprd04.prod.outlook.com (2603:10a6:20b:240::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
+ 2026 20:31:03 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 20:31:03 +0000
+Date: Tue, 14 Jul 2026 15:30:53 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Stefano Radaelli <stefano.radaelli21@gmail.com>, robh@kernel.org,
+	Frank.Li@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v2 3/3] arm64: dts: imx8qm-var-som: Add support for
+ Variscite Symphony board
+Message-ID: <alacfVm-MfHPm-qy@SMW015318>
+References: <cover.1784059139.git.stefano.r@variscite.com>
+ <206397f61c47d3acc7b5a1dc4a12a33a049f1dce.1784059139.git.stefano.r@variscite.com>
+ <20260714201804.8D8681F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260714201804.8D8681F000E9@smtp.kernel.org>
+X-ClientProxiedBy: PH8P223CA0006.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7793:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f9944ac-24e5-4dc6-5618-08dee1e6d2de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|19092799006|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RwfGXtsRfNDOvfjQz5il7YvJ1s7j+6Ycusmnd+YhCUF1mtQ89zdk8vtvK//56Leu+HJgm1KNiPc/gjW/ZoskRJK3Do39Opx9W8EBHmL6ZnnzMf/ZSCUCKUAUE/4fF9waooK1i0ctUCbfv2Ngdr8DnR+W2hOi9LyLydswtGeK4t4Kzj473Jzz0j+XdFuMhFaoXMgdh7QE5SWRKFaLmWu54pz3ckGvxJswidJz98C3ZP15aqPhu4HVvGs2/MXSwNzt4IpvBuRByXkxnvEU2mrVS7BA0+O73oBXRIjjI8zjTzCIt1Gj6vVJfVcCH5gwkz8TYlXKrFRcfZL4f48HriaHlmZ/1vC+Yy/QVGvrbfhjYaUCC/oaoU0sGY2CytFXua7+56ABwjaKNUSxRKLFVXPXOBQKC3G0F3MqYAznexaycHdLueJEvwJNSNvSxcndRy43PQQztn1FGdh+HPY+b8xirKsvYj20b3Fd8V2cX5sCrz5vRTYMSZDtcEGGzPiLe5DcVOhznEeyYq42vgAKajt79kWSEut56/3+Iv5T0cK9jgM1v/MKE1IzHGgYLm9IQy1S7VXHBRvGk7faq3nOkIb/rj+z/dKeLYfJ5C5RpxA8r5Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(19092799006)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?pfeijjCp8aVEpAySRrxx+M8KT1qZPmX8xuwoQNaEz1qDoqSr7gpA3IBi82?=
+ =?iso-8859-1?Q?hPDPv8V7qokWK77uhqH5MAUmktXDLqPDZKD9yZLP1dioysBy845vSjimaG?=
+ =?iso-8859-1?Q?rJcGYEXgae65Jn/GFq0E/X3UJdinOUjTTILLcWuxiYimrU2BqVjan4oMqI?=
+ =?iso-8859-1?Q?rPrM3DD0ZIm9LeUAFN+j+NuQSs7DDJD3x9qnYqP8ete7ulri0PJrUojtvW?=
+ =?iso-8859-1?Q?9U7knWHBtRiTEaFdgAv/Qh7hccqyikJfoh5XHvCpwlSG7kNvs567GcJhzY?=
+ =?iso-8859-1?Q?w/bZV5Ut5qTaH9H5CvBCk/s6dOeJkJNvMqjot+CpNanwwUyhY1Xh7MDOQR?=
+ =?iso-8859-1?Q?lqvyaupxzyqQgdETbhg+O02D1dHWJfjBOxJdu7surv33J+zJ52SmPvkl/E?=
+ =?iso-8859-1?Q?Mx+XCLxx7ZpSGgXMKcbk7UYgdJEHM5vH3vq2lpoD8+FUW6mBGhLl1Xvkca?=
+ =?iso-8859-1?Q?BRL9DSo+qtGeI8aCefgNFdou5PmRSg5rTideS7ks0fHwBf9aKBFsjvkD16?=
+ =?iso-8859-1?Q?LVkHrRKAKmy2/Hvi+GlXslahfQyL94gVgpcRIVtwDbu/+xw6+xrOGmPfJ9?=
+ =?iso-8859-1?Q?SuMMfdV5qMtqTTkUivX0rrKVGHDXZFdWCrN64gftT2WxY3iWdbTGFVHea+?=
+ =?iso-8859-1?Q?VkFG+HEFAwj8yk5c0Awf/jF5AtoLWlwbm6hE0E62BJrr+F7sXI1/3EUnFw?=
+ =?iso-8859-1?Q?WkEHHJN7lJvV1049P4ueBbyYGeoVqCevZOly4p4I4DXBY8LnIzk3uggWE/?=
+ =?iso-8859-1?Q?Klon/kBHcOfWWtBo442x+lHJn7oub6DDnQMfWLWGotHh0/BssEeylP+pLy?=
+ =?iso-8859-1?Q?mYrymDwC/gqSWGg6kArDYtwWPpluMgDjfG8gwTPhXkGkX/Fn2Bi0FUMw8M?=
+ =?iso-8859-1?Q?b97zyTkxxkow1CiRvDAoKipAroWz/YYnvPg+GI/MEuEv/OGr1nywPLmngN?=
+ =?iso-8859-1?Q?H1H8gYXiD9u1VwBSr3/tOKMFcNuO+oMc0tv35KHeb2QT3I66+azUGcIwBz?=
+ =?iso-8859-1?Q?Ucqrr6I8wrR/Hav0Z2nb1TUU4ix6BgZhBz0K7vVTFbTrD3wufdGwTGUzNN?=
+ =?iso-8859-1?Q?Gd6GSv9on1fO7JXcyPmlNwH8CP1TcXr1U46JHE+AwZ5yMtk+Ru3nv+Qm9X?=
+ =?iso-8859-1?Q?Gw9pkmOEet2qvtb1tNgth4wxz6kF/KcQRcGCrjZPdj/8HWidpcdhPzYx6o?=
+ =?iso-8859-1?Q?AM06K6jTIFuVwws8XRG/gwDxLTpSl8Jbdj7/4prrQCcKRF8F3qpY4h4gUw?=
+ =?iso-8859-1?Q?5pyRvwrmVmmw3r3Ez8EMGrTnwMl7jwbNoN3qi9eLwkXFfZNgRYHZ6tUPLH?=
+ =?iso-8859-1?Q?8C1cD3pL8PAyrBvDAHsXBgwUErihpNuAArkihzTsajLU15AUs981xBKVS1?=
+ =?iso-8859-1?Q?KcZYZkSu/q/9kGjqmPB2ipgGRuKf2ks4jSALsSRqdPq2WPtAkFNgNOFtmL?=
+ =?iso-8859-1?Q?XPtNWbC2WMvDqfeXkPXmyqnAKaOGjK/E0hXAWZ96ly1W+TfWhJygNFpVrZ?=
+ =?iso-8859-1?Q?1vH7+OQUgIpCVYyJrwXj339ElzgcUIEPjykTkhttzP+xjUk62ogqXmoy42?=
+ =?iso-8859-1?Q?soi71FtAlcGYV1q0N7+I2rEx+UdI751ZKdGEySYAPbvUKpsf46So1Sj91a?=
+ =?iso-8859-1?Q?VJFhRxHTRh31L5zSGjqzq8yz6mM0SnuLtHLKs4NEJqe9h1xg0S2cbbsc1D?=
+ =?iso-8859-1?Q?RDqyKytYC4LVC80W3uZTCsIkh3AzrrpEg0LhtIvCIyBIkTG/zq4hWWgZhD?=
+ =?iso-8859-1?Q?fgXiXz39+Jk8gxUwsw30OaM8putfvRna7DZfkx/5Vkxld+jc5UeAPSjKak?=
+ =?iso-8859-1?Q?dOSCF+k5YTOx7rzW59NZu4SdgQSAzpLYvvKtK38wsf/kHDwlShVn?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f9944ac-24e5-4dc6-5618-08dee1e6d2de
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 20:31:03.3509
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TRSuTyh96e8V8hPWxavIik/fdJHmg0psleJa2RgLT+fqb+T5OcfXtMoSZkrI37kerfbr8HJFgHQ+8rVdesNc4TgatI2LB8kCr0lnv1A1zgEmOnYNt8/dSvz+xtvohl+Q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7793
 
-The QST QMC6308 is a 3-axis AMR magnetometer on I2C, a single-supply
-4-pin WLCSP part with no interrupt/DRDY pin, found e.g. in the
-Fairphone 6. Its register map differs from the QMC5883L (chip ID at
-0x00 instead of 0x0D, data at 0x01..0x06, and the range field living
-in control register 2), so add a separate driver rather than extending
-the QMC5883L driver.
+On Tue, Jul 14, 2026 at 08:18:04PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [Medium] The capacitive touch panel node `ft5x06_ts` lacks a `reset-gpios` (or `wake-gpios`) property, stranding a configured pinctrl pad and potentially causing probing failures.
+> - [Medium] The pinctrl for the USB VBUS regulator GPIO is incorrectly assigned to the USB controller node instead of the regulator node.
+> - [Low] The PCIe node uses the deprecated `reset-gpio` property instead of `reset-gpios`.
+> - [Low] The LED node name `led-hearthbeat` contains a typo.
+> --
+>
+> --- Patch [3]: [PATCH v2 3/3] arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board ---
+> commit f84a05986e6ac58f10d1a6e2091672e4f1bf919b
+> Author: Stefano Radaelli <stefano.r@variscite.com>
+>
+> arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board
+>
+> This commit adds device tree support for the Variscite Symphony carrier board
+> with the VAR-SOM-MX8 QuadMax system on module. It configures interfaces
+> including SD card, USB, Ethernet, I2C, SPI, RTC, TPM, CAN, and PCIe.
+>
+> Link: https://variscite.com/carrier-boards/symphony-board/
+>
+> > diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+> > new file mode 100644
+> > index 0000000000000..bf66786378301
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+> [ ... ]
+> > +	gpio-leds {
+> > +		compatible = "gpio-leds";
+> > +
+> > +		led-hearthbeat {
+>
+> [Severity: Low]
+> This isn't a bug, but there is a typo in the node name (hearthbeat instead
+> of heartbeat).
 
-Support raw X/Y/Z reads, output data rates 10/50/100/200 Hz, field
-ranges +-30/12/8/2 Gauss, filter oversampling ratios (OSR1) 8/4/2/1,
-the mount matrix, and runtime PM. The second-stage decimation filter
-(OSR2) is left at its power-on default. The package has no DRDY pin,
-so there is no trigger support.
+small nit, fix it
 
-Run measurements in the chip's periodic "normal" mode paced by the
-DRDY flag rather than in its one-shot "single" mode: the datasheet
-specifies no conversion time that could bound a one-shot wait, while
-normal mode is paced by the specified output data rates, which also
-keeps the sampling_frequency ABI meaningful.
+>
+> > +			function = LED_FUNCTION_STATUS;
+> > +			color = <LED_COLOR_ID_GREEN>;
+> > +			gpios = <&pca9534 0 GPIO_ACTIVE_LOW>;
+> > +			linux,default-trigger = "heartbeat";
+> > +		};
+> > +	};
+> [ ... ]
+> > +	/* Capacitive touch */
+> > +	ft5x06_ts: touchscreen@38 {
+> > +		compatible = "edt,edt-ft5406";
+> > +		pinctrl-names = "default";
+> > +		reg = <0x38>;
+> > +		pinctrl-0 = <&pinctrl_captouch>;
+> > +		interrupt-parent = <&lsio_gpio0>;
+> > +		interrupts = <19 IRQ_TYPE_LEVEL_LOW>;
+> > +		touchscreen-size-x = <800>;
+> > +		touchscreen-size-y = <480>;
+> > +		touchscreen-inverted-x;
+> > +		touchscreen-inverted-y;
+> > +		wakeup-source;
+> > +	};
+>
+> [Severity: Medium]
+> Is this touchscreen node missing a reset-gpios property?
+>
+> The pinctrl_captouch group configures LSIO_GPIO0_IO16 for the touch
+> controller, but it is not assigned to reset-gpios here.
 
-Runtime PM puts the chip into its suspend mode after 500 ms without a
-reading, dropping supply current from tens-to-hundreds of microamps to
-2-3 uA (datasheet Table 2). The suspended chip retains its registers
-and keeps responding on I2C, so resuming only rewrites the mode field
-and discards one stale sample, and configuration changes can be
-applied even while suspended. VDD is left enabled across runtime
-suspend: the on-chip suspend draw is already negligible, and register
-retention is what keeps the resume path trivial.
+is it for reset or irq line?
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
----
- MAINTAINERS                        |   1 +
- drivers/iio/magnetometer/Kconfig   |  11 +
- drivers/iio/magnetometer/Makefile  |   1 +
- drivers/iio/magnetometer/qmc6308.c | 590 +++++++++++++++++++++++++++++
- 4 files changed, 603 insertions(+)
- create mode 100644 drivers/iio/magnetometer/qmc6308.c
+>
+> Will the edt-ft5406 driver be able to toggle the reset line without it, or
+> could this lead to initialization failures?
+>
+> [ ... ]
+> > +&pciea{
+> > +	phys = <&hsio_phy 0 PHY_TYPE_PCIE 0>;
+> > +	phy-names = "pcie-phy";
+> > +	reset-gpio = <&pca6408 1 GPIO_ACTIVE_LOW>;
+>
+> [Severity: Low]
+> Should this use reset-gpios instead of the deprecated reset-gpio property?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2315c94ad0e8..b1fce287b329 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22066,6 +22066,7 @@ M:	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc6308.yaml
-+F:	drivers/iio/magnetometer/qmc6308.c
- 
- QT1010 MEDIA DRIVER
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/iio/magnetometer/Kconfig b/drivers/iio/magnetometer/Kconfig
-index 2dee566ba703..d359003b248e 100644
---- a/drivers/iio/magnetometer/Kconfig
-+++ b/drivers/iio/magnetometer/Kconfig
-@@ -220,6 +220,17 @@ config QMC5883L
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called qmc5883l.
- 
-+config QMC6308
-+	tristate "QST QMC6308 3-Axis Magnetic Sensor"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y here to add support for the QST QMC6308 3-Axis
-+	  Magnetic Sensor.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called qmc6308.
-+
- config SENSORS_HMC5843
- 	tristate
- 	select IIO_BUFFER
-diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
-index b9478e6513e4..8f2205975c1b 100644
---- a/drivers/iio/magnetometer/Makefile
-+++ b/drivers/iio/magnetometer/Makefile
-@@ -28,6 +28,7 @@ obj-$(CONFIG_IIO_ST_MAGN_SPI_3AXIS) += st_magn_spi.o
- obj-$(CONFIG_INFINEON_TLV493D)		+= tlv493d.o
- 
- obj-$(CONFIG_QMC5883L)			+= qmc5883l.o
-+obj-$(CONFIG_QMC6308)			+= qmc6308.o
- 
- obj-$(CONFIG_SENSORS_HMC5843)		+= hmc5843_core.o
- obj-$(CONFIG_SENSORS_HMC5843_I2C)	+= hmc5843_i2c.o
-diff --git a/drivers/iio/magnetometer/qmc6308.c b/drivers/iio/magnetometer/qmc6308.c
-new file mode 100644
-index 000000000000..ceb4b98402bb
---- /dev/null
-+++ b/drivers/iio/magnetometer/qmc6308.c
-@@ -0,0 +1,590 @@
-+// SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-+/*
-+ * Support for QST QMC6308 3-Axis Magnetic Sensor on I2C bus.
-+ *
-+ * Copyright (C) 2026 Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-+ *
-+ * Datasheet available at
-+ * <https://qstcorp.com/upload/pdf/202202/13-52-15%20QMC6308%20Datasheet%20Rev.%20F(1).pdf>
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/dev_printk.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/time.h>
-+#include <linux/types.h>
-+
-+#include <asm/byteorder.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define QMC6308_REG_ID		0x00
-+#define QMC6308_REG_X_LSB	0x01
-+#define QMC6308_REG_STATUS	0x09
-+#define QMC6308_REG_CTRL1	0x0A
-+#define QMC6308_REG_CTRL2	0x0B
-+#define QMC6308_REG_CTRL3	0x0D
-+#define QMC6308_REG_CTRL4	0x29
-+
-+#define QMC6308_CHIP_ID		0x80
-+
-+/* Control register 1 */
-+#define QMC6308_MODE_MASK	GENMASK(1, 0)
-+#define QMC6308_ODR_MASK	GENMASK(3, 2)
-+#define QMC6308_OSR1_MASK	GENMASK(5, 4)
-+#define QMC6308_OSR2_MASK	GENMASK(7, 6)
-+
-+#define QMC6308_MODE_SUSPEND	0x00
-+#define QMC6308_MODE_NORMAL	0x01
-+
-+#define QMC6308_ODR_10HZ	0x00
-+#define QMC6308_ODR_50HZ	0x01
-+#define QMC6308_ODR_100HZ	0x02
-+#define QMC6308_ODR_200HZ	0x03
-+
-+#define QMC6308_OSR1_8		0x00
-+#define QMC6308_OSR1_4		0x01
-+#define QMC6308_OSR1_2		0x02
-+#define QMC6308_OSR1_1		0x03
-+
-+/* Control register 2 */
-+#define QMC6308_SET_RESET_MASK	GENMASK(1, 0)
-+#define QMC6308_RNG_MASK	GENMASK(3, 2)
-+#define QMC6308_SELF_TEST	BIT(6)
-+#define QMC6308_SOFT_RST	BIT(7)
-+
-+#define QMC6308_SET_RESET_ON	0x00
-+
-+#define QMC6308_RNG_30G		0x00
-+#define QMC6308_RNG_12G		0x01
-+#define QMC6308_RNG_8G		0x02
-+#define QMC6308_RNG_2G		0x03
-+
-+/* Status register */
-+#define QMC6308_STATUS_DRDY	BIT(0)
-+#define QMC6308_STATUS_OVFL	BIT(1)
-+
-+/*
-+ * Power-on completion time (datasheet Table 7), also used as a
-+ * conservative bound after soft reset, for which the datasheet
-+ * gives no figure.
-+ */
-+#define QMC6308_POR_US		250
-+
-+#define QMC6308_AUTOSUSPEND_DELAY_MS	500
-+
-+struct qmc6308_data {
-+	struct regmap *regmap;
-+	/*
-+	 * Protect data->range/odr/osr.
-+	 * Protect poll and read during measurement (reading the status
-+	 * register clears DRDY).
-+	 */
-+	struct mutex mutex;
-+	struct iio_mount_matrix orientation;
-+	u8 range;
-+	u8 odr;
-+	u8 osr;
-+};
-+
-+enum qmc6308_axis {
-+	QMC6308_AXIS_X,
-+	QMC6308_AXIS_Y,
-+	QMC6308_AXIS_Z,
-+};
-+
-+static const int qmc6308_odr_avail[] = {
-+	[QMC6308_ODR_10HZ] = 10,
-+	[QMC6308_ODR_50HZ] = 50,
-+	[QMC6308_ODR_100HZ] = 100,
-+	[QMC6308_ODR_200HZ] = 200,
-+};
-+
-+static const int qmc6308_osr1_avail[] = {
-+	[QMC6308_OSR1_8] = 8,
-+	[QMC6308_OSR1_4] = 4,
-+	[QMC6308_OSR1_2] = 2,
-+	[QMC6308_OSR1_1] = 1,
-+};
-+
-+/*
-+ * Sensitivity is 1000/2500/3750/15000 LSB/Gauss for the
-+ * +-30/12/8/2 Gauss ranges respectively.
-+ */
-+static const int qmc6308_scales[][2] = {
-+	[QMC6308_RNG_30G] = { 0, 1000000 },
-+	[QMC6308_RNG_12G] = { 0, 400000 },
-+	[QMC6308_RNG_8G] = { 0, 266667 },
-+	[QMC6308_RNG_2G] = { 0, 66667 },
-+};
-+
-+static int qmc6308_set_mode(struct qmc6308_data *data, unsigned int mode)
-+{
-+	return regmap_update_bits(data->regmap, QMC6308_REG_CTRL1,
-+				  QMC6308_MODE_MASK,
-+				  FIELD_PREP(QMC6308_MODE_MASK, mode));
-+}
-+
-+static int qmc6308_take_measurement(struct iio_dev *indio_dev, int index,
-+				    int *val)
-+{
-+	struct qmc6308_data *data = iio_priv(indio_dev);
-+	struct regmap *map = data->regmap;
-+	struct device *dev = regmap_get_device(map);
-+	unsigned int status;
-+	__le16 buf[3];
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret) {
-+		/* EACCES means a read raced runtime PM disable on suspend */
-+		if (ret != -EACCES)
-+			dev_err(dev, "Failed to power on (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	scoped_guard(mutex, &data->mutex) {
-+		/* 50ms headroom over the slowest ODR (10Hz) */
-+		ret = regmap_read_poll_timeout(map, QMC6308_REG_STATUS,
-+					       status,
-+					       (status & QMC6308_STATUS_DRDY),
-+					       2 * USEC_PER_MSEC,
-+					       150 * USEC_PER_MSEC);
-+		if (ret)
-+			goto out_rpm_put;
-+
-+		ret = regmap_bulk_read(map, QMC6308_REG_X_LSB, buf,
-+				       sizeof(buf));
-+		if (ret)
-+			goto out_rpm_put;
-+
-+		if (status & QMC6308_STATUS_OVFL)
-+			ret = -ERANGE;
-+	}
-+
-+out_rpm_put:
-+	pm_runtime_put_autosuspend(dev);
-+	if (ret)
-+		return ret;
-+
-+	*val = (s16)le16_to_cpu(buf[index]);
-+
-+	return 0;
-+}
-+
-+static int qmc6308_read_raw(struct iio_dev *indio_dev,
-+			    const struct iio_chan_spec *chan,
-+			    int *val, int *val2, long mask)
-+{
-+	struct qmc6308_data *data = iio_priv(indio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = qmc6308_take_measurement(indio_dev, chan->address, val);
-+		if (ret)
-+			return ret;
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE: {
-+		guard(mutex)(&data->mutex);
-+
-+		*val = qmc6308_scales[data->range][0];
-+		*val2 = qmc6308_scales[data->range][1];
-+
-+		return IIO_VAL_INT_PLUS_NANO;
-+	}
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		guard(mutex)(&data->mutex);
-+
-+		*val = qmc6308_odr_avail[data->odr];
-+
-+		return IIO_VAL_INT;
-+	}
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		guard(mutex)(&data->mutex);
-+
-+		*val = qmc6308_osr1_avail[data->osr];
-+
-+		return IIO_VAL_INT;
-+	}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int qmc6308_write_raw(struct iio_dev *indio_dev,
-+			     const struct iio_chan_spec *chan,
-+			     int val, int val2, long mask)
-+{
-+	struct qmc6308_data *data = iio_priv(indio_dev);
-+	unsigned int status;
-+	unsigned int i;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE: {
-+		if (val != 0)
-+			return -EINVAL;
-+
-+		for (i = 0; i < ARRAY_SIZE(qmc6308_scales); i++) {
-+			if (val2 == qmc6308_scales[i][1])
-+				break;
-+		}
-+		if (i == ARRAY_SIZE(qmc6308_scales))
-+			return -EINVAL;
-+
-+		guard(mutex)(&data->mutex);
-+
-+		ret = regmap_update_bits(data->regmap, QMC6308_REG_CTRL2,
-+					 QMC6308_RNG_MASK,
-+					 FIELD_PREP(QMC6308_RNG_MASK, i));
-+		if (ret)
-+			return ret;
-+
-+		data->range = i;
-+
-+		/*
-+		 * The data registers still hold (and DRDY still
-+		 * advertises) a sample converted at the previous range;
-+		 * discard it so that the next read returns data matching
-+		 * the new scale.
-+		 */
-+		return regmap_read(data->regmap, QMC6308_REG_STATUS,
-+				   &status);
-+	}
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		for (i = 0; i < ARRAY_SIZE(qmc6308_odr_avail); i++) {
-+			if (val == qmc6308_odr_avail[i])
-+				break;
-+		}
-+		if (i == ARRAY_SIZE(qmc6308_odr_avail))
-+			return -EINVAL;
-+
-+		guard(mutex)(&data->mutex);
-+
-+		ret = regmap_update_bits(data->regmap, QMC6308_REG_CTRL1,
-+					 QMC6308_ODR_MASK,
-+					 FIELD_PREP(QMC6308_ODR_MASK, i));
-+		if (ret)
-+			return ret;
-+
-+		data->odr = i;
-+
-+		return 0;
-+	}
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		for (i = 0; i < ARRAY_SIZE(qmc6308_osr1_avail); i++) {
-+			if (val == qmc6308_osr1_avail[i])
-+				break;
-+		}
-+		if (i == ARRAY_SIZE(qmc6308_osr1_avail))
-+			return -EINVAL;
-+
-+		guard(mutex)(&data->mutex);
-+
-+		ret = regmap_update_bits(data->regmap, QMC6308_REG_CTRL1,
-+					 QMC6308_OSR1_MASK,
-+					 FIELD_PREP(QMC6308_OSR1_MASK, i));
-+		if (ret)
-+			return ret;
-+
-+		data->osr = i;
-+
-+		return 0;
-+	}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int qmc6308_read_avail(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan,
-+			      const int **vals, int *type, int *length,
-+			      long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		*vals = qmc6308_odr_avail;
-+		*type = IIO_VAL_INT;
-+		*length = ARRAY_SIZE(qmc6308_odr_avail);
-+		return IIO_AVAIL_LIST;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*vals = qmc6308_osr1_avail;
-+		*type = IIO_VAL_INT;
-+		*length = ARRAY_SIZE(qmc6308_osr1_avail);
-+		return IIO_AVAIL_LIST;
-+	case IIO_CHAN_INFO_SCALE:
-+		*vals = (const int *)qmc6308_scales;
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		*length = ARRAY_SIZE(qmc6308_scales) * 2;
-+		return IIO_AVAIL_LIST;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int qmc6308_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				     struct iio_chan_spec const *chan,
-+				     long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return IIO_VAL_INT;
-+	}
-+}
-+
-+static const struct iio_mount_matrix *
-+qmc6308_get_mount_matrix(const struct iio_dev *indio_dev,
-+			 const struct iio_chan_spec *chan)
-+{
-+	struct qmc6308_data *data = iio_priv(indio_dev);
-+
-+	return &data->orientation;
-+}
-+
-+static const struct iio_chan_spec_ext_info qmc6308_ext_info[] = {
-+	IIO_MOUNT_MATRIX(IIO_SHARED_BY_DIR, qmc6308_get_mount_matrix),
-+	{ }
-+};
-+
-+static const struct iio_info qmc6308_info = {
-+	.read_raw = qmc6308_read_raw,
-+	.write_raw = qmc6308_write_raw,
-+	.read_avail = qmc6308_read_avail,
-+	.write_raw_get_fmt = qmc6308_write_raw_get_fmt,
-+};
-+
-+static int qmc6308_init(struct qmc6308_data *data)
-+{
-+	struct regmap *map = data->regmap;
-+	unsigned int reg;
-+	int ret;
-+
-+	ret = regmap_read(map, QMC6308_REG_ID, &reg);
-+	if (ret)
-+		return ret;
-+
-+	/* Allow unknown IDs so that fallback compatibles work */
-+	if (reg != QMC6308_CHIP_ID)
-+		dev_warn(regmap_get_device(map),
-+			 "Unknown chip id: 0x%02x, continuing\n", reg);
-+
-+	/* The SOFT_RST bit is not auto-cleared and must be written back 0 */
-+	ret = regmap_write(map, QMC6308_REG_CTRL2, QMC6308_SOFT_RST);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(QMC6308_POR_US);
-+
-+	data->range = QMC6308_RNG_30G;
-+
-+	ret = regmap_write(map, QMC6308_REG_CTRL2,
-+			   FIELD_PREP(QMC6308_SET_RESET_MASK,
-+				      QMC6308_SET_RESET_ON) |
-+			   FIELD_PREP(QMC6308_RNG_MASK, data->range));
-+	if (ret)
-+		return ret;
-+
-+	data->odr = QMC6308_ODR_50HZ;
-+	data->osr = QMC6308_OSR1_8;
-+
-+	return regmap_write(map, QMC6308_REG_CTRL1,
-+			    FIELD_PREP(QMC6308_MODE_MASK,
-+				       QMC6308_MODE_NORMAL) |
-+			    FIELD_PREP(QMC6308_ODR_MASK, data->odr) |
-+			    FIELD_PREP(QMC6308_OSR1_MASK, data->osr));
-+}
-+
-+static void qmc6308_power_down_action(void *priv)
-+{
-+	struct qmc6308_data *data = priv;
-+
-+	if (!pm_runtime_status_suspended(regmap_get_device(data->regmap)))
-+		qmc6308_set_mode(data, QMC6308_MODE_SUSPEND);
-+}
-+
-+static bool qmc6308_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	return reg >= QMC6308_REG_X_LSB && reg <= QMC6308_REG_STATUS;
-+}
-+
-+static bool qmc6308_writable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case QMC6308_REG_CTRL1:
-+	case QMC6308_REG_CTRL2:
-+	case QMC6308_REG_CTRL3:
-+	case QMC6308_REG_CTRL4:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config qmc6308_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = QMC6308_REG_CTRL4,
-+	.cache_type = REGCACHE_MAPLE,
-+	.volatile_reg = qmc6308_volatile_reg,
-+	.writeable_reg = qmc6308_writable_reg,
-+};
-+
-+#define QMC6308_CHANNEL(_axis)                                 \
-+	{                                                      \
-+		.type = IIO_MAGN,                              \
-+		.modified = 1,                                 \
-+		.channel2 = IIO_MOD_##_axis,                   \
-+		.address = QMC6308_AXIS_##_axis,               \
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),  \
-+		.info_mask_shared_by_type =                    \
-+			BIT(IIO_CHAN_INFO_SCALE) |             \
-+			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-+		.info_mask_shared_by_type_available =          \
-+			BIT(IIO_CHAN_INFO_SCALE) |             \
-+			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-+		.ext_info = qmc6308_ext_info,                  \
-+	}
-+
-+static const struct iio_chan_spec qmc6308_channels[] = {
-+	QMC6308_CHANNEL(X),
-+	QMC6308_CHANNEL(Y),
-+	QMC6308_CHANNEL(Z),
-+};
-+
-+static int qmc6308_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct qmc6308_data *data;
-+	struct iio_dev *indio_dev;
-+	struct regmap *map;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, indio_dev);
-+
-+	map = devm_regmap_init_i2c(client, &qmc6308_regmap_config);
-+	if (IS_ERR(map))
-+		return dev_err_probe(dev, PTR_ERR(map),
-+				     "regmap initialization failed\n");
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to enable VDD regulator\n");
-+
-+	fsleep(QMC6308_POR_US);
-+
-+	data = iio_priv(indio_dev);
-+	data->regmap = map;
-+
-+	ret = devm_mutex_init(dev, &data->mutex);
-+	if (ret)
-+		return ret;
-+
-+	ret = iio_read_mount_matrix(dev, &data->orientation);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to read mount matrix\n");
-+
-+	indio_dev->name = "qmc6308";
-+	indio_dev->info = &qmc6308_info;
-+	indio_dev->channels = qmc6308_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(qmc6308_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = qmc6308_init(data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "qmc6308 init failed\n");
-+
-+	pm_runtime_set_active(dev);
-+
-+	ret = devm_add_action_or_reset(dev, qmc6308_power_down_action, data);
-+	if (ret)
-+		return ret;
-+
-+	pm_runtime_get_noresume(dev);
-+	pm_runtime_use_autosuspend(dev);
-+	pm_runtime_set_autosuspend_delay(dev, QMC6308_AUTOSUSPEND_DELAY_MS);
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static int qmc6308_runtime_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct qmc6308_data *data = iio_priv(indio_dev);
-+
-+	return qmc6308_set_mode(data, QMC6308_MODE_SUSPEND);
-+}
-+
-+static int qmc6308_runtime_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct qmc6308_data *data = iio_priv(indio_dev);
-+	unsigned int status;
-+	int ret;
-+
-+	ret = qmc6308_set_mode(data, QMC6308_MODE_NORMAL);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * DRDY may still be set for a sample converted before the last
-+	 * suspend; clear it so the next read waits for fresh data.
-+	 */
-+	return regmap_read(data->regmap, QMC6308_REG_STATUS, &status);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(qmc6308_pm_ops, qmc6308_runtime_suspend,
-+				 qmc6308_runtime_resume, NULL);
-+
-+static const struct of_device_id qmc6308_match[] = {
-+	{ .compatible = "qstcorp,qmc6308" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, qmc6308_match);
-+
-+static const struct i2c_device_id qmc6308_id[] = {
-+	{ .name = "qmc6308" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, qmc6308_id);
-+
-+static struct i2c_driver qmc6308_driver = {
-+	.driver = {
-+		.name = "qmc6308",
-+		.of_match_table = qmc6308_match,
-+		.pm = pm_ptr(&qmc6308_pm_ops),
-+	},
-+	.id_table = qmc6308_id,
-+	.probe = qmc6308_probe,
-+};
-+module_i2c_driver(qmc6308_driver);
-+
-+MODULE_DESCRIPTION("QST QMC6308 3-Axis Magnetic Sensor driver");
-+MODULE_AUTHOR("Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>");
-+MODULE_LICENSE("Dual BSD/GPL");
--- 
-2.55.0
+Now put under root port
 
+pcie@0 {
+}
+
+Frank
+>
+> > +	status = "okay";
+> > +};
+> [ ... ]
+> > +&usbotg1 {
+> > +	dr_mode = "host";
+> > +	pinctrl-names = "default";
+> > +	pinctrl-0 = <&pinctrl_usbotg1>;
+> > +	vbus-supply = <&reg_usb_otg1_vbus>;
+> > +	srp-disable;
+> > +	hnp-disable;
+> > +	adp-disable;
+> > +	disable-over-current;
+> > +	status = "okay";
+> > +};
+>
+> [Severity: Medium]
+> Is pinctrl_usbotg1 assigned to the wrong node?
+>
+> The reg_usb_otg1_vbus regulator uses the GPIO to provide power, but the
+> pinctrl to configure the pad is placed here on the usbotg1 controller.
+>
+> Could this cause the GPIO pad to be incorrectly muxed when the fixed
+> regulator framework tries to enable power before the USB driver probes?
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1784059139.git.stefano.r@variscite.com?part=3
