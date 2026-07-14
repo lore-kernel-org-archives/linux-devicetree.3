@@ -1,99 +1,103 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D089E3FADFD;
-	Tue, 14 Jul 2026 08:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202183EDE5F;
+	Tue, 14 Jul 2026 08:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784017163; cv=none; b=dDi/2eWxYayhobZSByUttfL7VGOMIPySVbtVH44RIW0rCYt/wm7AzMVb0nhsar0Nnole8+TEpii73mKO2yMg4I+QJM+0A3JaBtAHNOxjD+4s8g9tAU4W/eKMf5598wyxZY/TVlGWIIViG/4ClGjkn6FXGtjs2DfiMXdzWTISL2M=
+	t=1784017191; cv=none; b=WB5JNp2n2vvazayiCS24ZVOwlNhoH8qsZsCkfcS7uNyAkcdvthtaf5i/7DM7oTQfx93RFP6EMEu7GTpKoW++dfOJgD9ogb1lmnYnvXm8C/CY6k2rkHxN92k8bkjXc88ezaS6e5J+ZYqEiMk9BzE5v/gmfxN13twDc5pP7mqsmmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784017163; c=relaxed/simple;
-	bh=wwKTQi9cpPRih9483MgQ+Lfpv5eTWogqhsMzD1Mu8K4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rGZWZ4aUCyb3APuVj9/lK43O3oRQbRdfKY8BNKexmX1lAX8u5e7bCvwJnj2cOpLZhZ02ONRmpn/AIQx4PnvHeHQ8XTta3JedB9EkFgWJf3cAolKRwCevfrfv1SeGYu7VSNhGndxWUela1ikJgE7wKfYLKQCQph6ZFFG1YIFhV1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 15561202203;
-	Tue, 14 Jul 2026 10:19:10 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wjYM9-001jwl-39;
-	Tue, 14 Jul 2026 10:19:09 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wjYM9-000000091z6-3Y9T;
-	Tue, 14 Jul 2026 10:19:09 +0200
-Date: Tue, 14 Jul 2026 10:19:09 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Jonas Jelonek <jelonek.jonas@gmail.com>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Golle <daniel@makrotopia.org>,
-	=?utf-8?B?QmrDuHJu?= Mork <bjorn@mork.no>
-Subject: Re: [PATCH net-next v7 2/4] net: pse-pd: add Realtek PSE MCU core
-Message-ID: <alXw_QZfEEKQd5fr@pengutronix.de>
-References: <20260712192251.1413279-1-jelonek.jonas@gmail.com>
- <20260712192251.1413279-3-jelonek.jonas@gmail.com>
+	s=arc-20240116; t=1784017191; c=relaxed/simple;
+	bh=qkTR8NHXRTG8OQSVTgabcuVukF2UeoJkaUSbVQoGMMo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ae9U9To26s2AhL8gRZ5LAweUmtLrdl2m0LT4X16b6H84ZHafwuqN6mR2L9wypwFstgnlU7LGMv6iQG/IoxQIrrt9shn3q2yAcB1lR1VNpNNHGWciztK9HGAP2qgom1fTgbLOWDiRIrvwBqdm+NR3KZFB5sUv0hwK5GDd/Va2sKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ia9rbKyC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ia9rbKyC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0B91F000E9;
+	Tue, 14 Jul 2026 08:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784017182;
+	bh=CCPHq1HHM2IxWF7xzjbQGlm+A8GOHNH5HyfKyBhULhI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ia9rbKyC4kUKevmkwKQT+0tqRgIv8nc61JorVx/5cQLw5UdS51IrjGVgVJCEcdN71
+	 Bwgwqho+h+UrO3tIunUXrJw+AETR1HeEHIIsu8ozW9PCS98jobGD/DZ/b/PC70UAD9
+	 raD+xcKc6PKzWruMr+KzTQlapQF7xLHNXQo8TOeC5kCmqJ6HzJk3Opzh5dMjlHBl1w
+	 OVFI6TdKh0aQi1ZQNpwpxPCLKlF4uupXeaKfBu+3Wd7iBOvgdi/Zjv9RQAtY1gv0wP
+	 ns0+s53hIZ6h/5SRaA9Ty70Hv3V2k1BCx6bsQ8kGgPRQeRXkWam+9klH/cy6zVVbPa
+	 jf9LrQShNxYeg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 1/3] dt-bindings: dma: Add Amlogic A9 SoC DMA
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: neil.armstrong@linaro.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260714-amlogic-dma-v11-1-de79c2394282@amlogic.com>
+References: <20260714-amlogic-dma-v11-0-de79c2394282@amlogic.com>
+ <20260714-amlogic-dma-v11-1-de79c2394282@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 08:19:41 +0000
+Message-Id: <20260714081942.2E0B91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260712192251.1413279-3-jelonek.jonas@gmail.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
 
-On Sun, Jul 12, 2026 at 07:22:48PM +0000, Jonas Jelonek wrote:
-> A range of managed Realtek-based PoE switches use a small microcontroller
-> on the PCB to front the actual PSE silicon. The host CPU talks to that
-> MCU over I2C/SMBus or UART using a fixed 12-byte request/response
-> protocol with a trailing checksum; the PSE chips are managed by the MCU
-> and are not accessed directly. Two generations of the protocol exist -
-> both Realtek's - diverging in opcode numbering and a few response
-> layouts; the driver handles this with a per-dialect opcode table and
-> parser hooks for the responses that differ, selected by the compatible.
-> The specific PSE chip behind the MCU is detected at runtime and only
-> influences per-chip constants (power scaling and the per-port cap).
-> 
-> This core module implements the protocol, message framing, the dialect
-> machinery and the pse_controller_ops glue, and exports a registration
-> helper for transport modules. The I2C and UART transports that drive it
-> follow in the next patches; the core (PSE_REALTEK_MCU) is selected
-> automatically by those transports and is not user-selectable on its own.
-> 
-> The realtek-pse-mcu-* files and PSE_REALTEK_MCU* symbols match the
-> realtek,pse-mcu-* compatibles (see the binding for the naming rationale).
-> The two protocol generations - gen1 on older Broadcom-PSE boards, gen2 on
-> Realtek's own PSE silicon - are both Realtek's, handled by the same shared
-> core, each selecting its dialect via the compatible.
-> 
-> Power budgeting is left to the MCU firmware; the driver advertises
-> PSE_BUDGET_EVAL_STRAT_DYNAMIC (controller-managed budget) accordingly.
-> 
-> Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The macros DMA_TX and DMA_RX in the global DT binding header lack a=
+n Amlogic/SoC specific prefix, leading to namespace pollution and potential=
+ build conflicts.
+--
 
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+--- Patch [1]: [PATCH v11 1/3] dt-bindings: dma: Add Amlogic A9 SoC DMA ---
+commit 093f368eaa67418008421d43d724ce2e98651039
+Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+dt-bindings: dma: Add Amlogic A9 SoC DMA
 
-Thank you!
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+This commit adds device tree binding documentation for the Amlogic A9 SoC
+general-purpose DMA controller. It introduces the YAML schema and a header
+file defining the channel type macros.
+
+> diff --git a/Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml b/=
+Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
+[ ... ]
+> +  '#dma-cells':
+> +    const: 2
+> +    description:
+> +      The first cell is the DMA channel type(DMA_TX or DMA_RX).
+> +      The second cell is the DMA channel index.
+[ ... ]
+> diff --git a/include/dt-bindings/dma/amlogic,a9-dma.h b/include/dt-bindin=
+gs/dma/amlogic,a9-dma.h
+> new file mode 100644
+> --- /dev/null
+> +++ b/include/dt-bindings/dma/amlogic,a9-dma.h
+> @@ -0,0 +1,8 @@
+> +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
+> +
+> +#ifndef __DT_BINDINGS_DMA_AMLOGIC_DMA_H__
+> +#define __DT_BINDINGS_DMA_AMLOGIC_DMA_H__
+> +
+> +#define DMA_TX			0
+> +#define DMA_RX			1
+
+[Severity: Low]
+Are these macro names too generic for a global dt-bindings header?
+
+Since headers in include/dt-bindings/ are globally visible and frequently
+included by C drivers, unprefixed names like DMA_TX and DMA_RX could lead
+to namespace pollution and macro redefinition build failures if a driver
+includes this alongside other headers that use the same common names.
+
+Would it be safer to add a vendor or SoC prefix, such as AMLOGIC_A9_DMA_TX?
+
+> +#endif /* __DT_BINDINGS_DMA_AMLOGIC_DMA_H__ */
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-amlogic-dm=
+a-v11-0-de79c2394282@amlogic.com?part=3D1
