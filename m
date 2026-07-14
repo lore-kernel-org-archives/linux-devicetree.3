@@ -1,93 +1,92 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA026387364
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 11:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD40838F24D
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784030348; cv=none; b=BevM255TmKVhqoMBYBQhxAFi80PWUMQ8YrA5oBLVnW0Zr0qMXupFRuhE5sJr0fOkVLrkGn/IcKiwlgq5kgV24wYJ+GRae2ieOkQj8anO5MGiR+nhkAaOqTO9rOZZXlpsoQegbXU7CoC66Blt5E7P8NYy4pQXqeGrd7xJ43KVbII=
+	t=1784030558; cv=none; b=d7s28JPJb506I/eh2Ud+XXR3wK01UizqDi4SUtDVRcGl/reQ8gVed18DEZ4fQYpbxjptsRkL2n//HfPtAV92u5wb5tUM9Re8OZ71JID0dwaaD/mVD40RcaBH2jfF/lNIt+LqXIMrF0f936a5mDT8QLZIMEgd1fydxxf7pcs+BwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784030348; c=relaxed/simple;
-	bh=9EjEM+p0aW3HjJ0EM8BiJPYCn7/1qkS+GD0o1UnDUxY=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T4EF/Q8x3ZbBnxF76ok15Q8N4DU4l4wo3HKMUjUtHlntVhqFdYyW3W7Mqvpr5GiTvKZ+AFuaIO1qHDeZa/Jpiy2AOsWw4hidGxMXrg2Gi8WN9NF0XlQeS0fLofTo+VV0rZ59Yn8i2AjWGWdwGX7U/xU1A15KGJKJQa1NTKQ02XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfyXFMSS; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784030558; c=relaxed/simple;
+	bh=mT/J0p1jnX+6QgzShInZ//DKc6SSmtQWVaUr9yNBCa4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DvB6Qna4LnCy5v8i0U9q3JWK8L0izZKM/+QswMhOMeC4VgQiu7OGuPyFNggK8TKI0NHXlfSrIn9+hK8n8dJAS6VPOWA5LxnBt3d/nn3AE2Cx4UqENM+nCkZmA4Lb9BMrnT7sqHeYCUMk+Sm5McY8r+Jit5qJtakX0ieACNTHfMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aGTXvnxz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NG0TyM32; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfyXFMSS"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493c7902f47so37956135e9.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:59:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aGTXvnxz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NG0TyM32"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EBop5C263501
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:02:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Ax64JMF/5Cw5Bh6xQ4LCelirXb5p1wD9gT9
+	SFhvRP34=; b=aGTXvnxzp/94nMoX4LiO4gxc94wG3FxlGOugHAFXmNO08Thja62
+	auVAWVIARCH367TWQunC9IexljHN3KaiCxUpdJthqacy7enPMWpIB/+iA6n5MuJt
+	R8vHN1jH/7Ild+UJUyZ7KIH2fEe9yA4gnjKC+bBhmvOdzVKNsjXwF4MPb3H7lfsd
+	DmJ3t1Psd1CtIOhHZh5L2NBsY+w2BoKfYN9h5ZoOYCFXbru9C5UJDwi/35Eqk0nM
+	wFgxxusCZ4dscSt32lpEz8mkY/t+jdSLIlp5/6NxbCkr+eaZT+hYsiqDMH/n2/8/
+	LeVKTj8PCIbRo24CkHuz8mZuN1GzxvCvnFQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdmkk017q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:02:34 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38869800848so6555382a91.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:02:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784030344; x=1784635144; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2dz/Y1HrLufnbLtLUTRWz4L3ORozmQ9Ewma4qta/N4k=;
-        b=FfyXFMSSDBgGtS7Rztbph47h2eLM+xUMAL/WmQTXKBbccE/pRDmJdFksTst9TP3myJ
-         ODpZUgYbFD1AWp6ncPhDaNEELCqA7EHFKbo6s+Lg7QmcXrfpACx5M/IPAX4svuW0Rh4F
-         qRUoAczpzh/j+dSIMhiH8npd9VK6MaGRegeJHoufWruRTNg5OYc1qGMUWMzaCHXo+S0U
-         /JDYtJCtz4fGRGBfta6nFdgijPriuF7OhInk6MhBuMV7nfUlcehI1V/edd5w2GIGtnCN
-         lxa8R6GwGgyz9fQ7BAeaSGHYTBjoquHX4vikiUxQwTu+d/YTC91fYSqDe7LPsRbJrD01
-         ZvRw==
+        d=oss.qualcomm.com; s=google; t=1784030554; x=1784635354; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ax64JMF/5Cw5Bh6xQ4LCelirXb5p1wD9gT9SFhvRP34=;
+        b=NG0TyM32LnLGByxB3ntpYz2KS2Ur16DUzqGGVsxarCwa9cUW7LwdvlHws4zJX3cXpH
+         rLsGtNFXCJf5b3HUX69GbOt0USlZREDeB2IKB7lB/MqaJbgBqTRInj7N/Y/9+VjOwowI
+         iOqxVPcBP1csd2Ic0MOefbK4BKoEHnoMqpQNQPlBVlZmJq4FXo57O6d4HVx/E/REt/6P
+         kZe/6QgzYUPHHT2KOfj34wsIJ52xpWKFok/bVf7GDhKj4qI+jdarX0kTIRPM5MBfopsM
+         KFzhA2+LLJiQVv7oDL5vNcwvbiQrPVtK2kerAgwB73/CFUoQZROybF1B9BNiyE13P4bd
+         h2fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784030344; x=1784635144;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2dz/Y1HrLufnbLtLUTRWz4L3ORozmQ9Ewma4qta/N4k=;
-        b=h4UTkOheVqSklIG6dpFu7uSrfLb6pBCTpb5AAcbHjk4TKAtWGnU1KHxGIvFS4bhubo
-         EGjzGaZUMWE5x5fg70wkmoW8aq6kMjqxxtBkoq6OMEeyDfAoEk+ZK3IWuaxTJBv2ECME
-         qX85v9NhGKF+ZTMi4/4H+XD9fOPVA9USyPFxm+rL0L6o/PbFlwC7JA/0aUPGz8/hciqY
-         a6/TrdL5Zb/re2UAaQjyeJiQ38frlqemdiHaah743f+BXKVnxlJ6yA9ODQLoylYpb1DD
-         kQoKc+iPtrygRpVu0xFKDxIv8nV5WAH7pecEapL4PvgAwpn08a6YeD17GeKz9tgAlXGX
-         Mpbg==
-X-Forwarded-Encrypted: i=1; AHgh+RqkocK/wDS/KFuPWdtXjzQGrBqEKFjVdSoTs9exJaGrboCpZuYCHVnIbrbhC4gK//hLLKDck4RgrALS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNU1CisGcWIK8cHs5JoFMYQxKqju+d9310mG1nKobup324z1GE
-	e96xa3U3b67RRW9XvZJq6ddGaxbY9lCfqf+toe9Dm+YdO4RLrXuS0iIw
-X-Gm-Gg: AfdE7clen2iAReCp2f0zzLuOydFY7sD5Ciori6bymRhEGqjMde1EGM+7pgkajZ/yUYd
-	kQf+BbPgy7cVr0EA/K9WlWjTuoNCR8ZOtwY3TNGFwkGQxTAg6x2Ge2yHZ9iNeBG55Rt9LRZq3O9
-	ncAO59nKi84wKUK25SGi9ObBBTvT3hR6KQuYV1fJ70HM3V6QaQwFBnod4jd2GoGQTkWy7NwXnOn
-	lwR1cwHaA6eNyglP3lxjre3PMHWKeum5diq5dFzlhHp+2wP3B2HrnvP5saYzU/rywbPBKoekK7X
-	gEdCFJXjo7B515mdI1oESWnNeR3fxugn5AvhkaBhclk/Ewr/A1X5i684oF9hDn5IXioWP9HQjhY
-	XKIbJ8HakI7k7DJfUljuZsJ+/rK6S0nAUDu1+psp8a2RpfQfs0XpuOMIF6gKG6iyT4/QTq+HNQ4
-	kN5i21Zk/EMg0mkyaa2whDwAabvxaNY0BqYJtdFXKzpXFpUJjNU5yNaKQU/PXNF69IiYHhp3MRW
-	afvczif
-X-Received: by 2002:a05:600c:993:b0:490:e5c1:b8bf with SMTP id 5b1f17b1804b1-493f87ea615mr89680695e9.13.1784030344127;
-        Tue, 14 Jul 2026 04:59:04 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-95-248-227-210.retail.telecomitalia.it. [95.248.227.210])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-493fd3ccfd4sm180531655e9.2.2026.07.14.04.59.01
+        d=1e100.net; s=20251104; t=1784030554; x=1784635354;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ax64JMF/5Cw5Bh6xQ4LCelirXb5p1wD9gT9SFhvRP34=;
+        b=n7fPCI66NAxRQoPnMZu+E5cIV77rQ5aImHhQE23gQLe+NSC+4eh7hDZ4G0BiaOXtn3
+         lu0mx/XkanBVaMsfbe/m8T8ko4jG3N+CAOhlRnDt6rlz13ihgRbY+90tG3oTo8cMW/vQ
+         Huqz3Fd9H8s7hFmTc8ROmRTzVVwNzqYX424XiDua67aSRE4GosZDttkURS/ZOucDyHQR
+         ACV3jzfnSxne9V1JSxnpTLR9xb9PCDQJDvoZ5aZ8c73Gq0iWulw4kyE456oc2Y1tAx0F
+         /VEZs/v0+91rBDvRfFZSqTZZ/2ho1az60Nycqp2xRt58kTbvghmfuxyITtgoyZRcbWvA
+         S88w==
+X-Forwarded-Encrypted: i=1; AHgh+RqNM4Y19doAEsiLp5BKU+oKwfWAAk/rVvR0kdmByNgIGuzAASrDGH56oAOykGdjbDY+nKE1K9cyw8tL@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywpkga5xTYr+vH+r/BLs+Aqs6nrOFVAOsvkb4cOcGG13JDFMyd7
+	w7DLL+iQVn6iV9IoaYCr5bK7++K/XTCnWOQX3IA335Kf7r4ilf6EoJL7oree2R6F0DkP9JZ/a7Y
+	BlDGCndKNbbNtGQiBfdsBmhBoi3HJF6I23dhtAPx+EMUU2H3jXwLGUiwq0HilalMi
+X-Gm-Gg: AfdE7clIOB3sjfM7HaAsAstvFY+43YU3VefUJagXXxES/U0VM1CIFKTGuRpkv51FHBf
+	XD91M8wdsNfu72t/pt99hQ8LvVnifFy5TeUQiHrfC3UScL80S8p8YD2yRkpR1kDQX1LuqE11u7j
+	xlkLzcB43E08z4X9qxkCj7IB41sMAu7mPuQHpvdwxpWAjxO8BkyiCHGhCQA5oBXYOokTKtYPk0m
+	2ytPeWqL1K1zOD94odhNiafnd+n6qK2FJdUGkhieOhkHi3tOyl3C2rQZCOvRt8WGeWmXQUxjUrK
+	4GI2rSlZhkSEqKZPPkGrQimHGxRqTMLPMrBSougxfQxSl2KaSF5/fmo7MQnOu4XpyRHnaTqynrZ
+	zlwNWiVgay1ffYpe+zgYjyzyo7xNfctBawZQzaMUeNtj47RIJoitsHD4zDHSfDMWbpfzYTY0=
+X-Received: by 2002:a17:90b:4c46:b0:37f:bfd6:8b40 with SMTP id 98e67ed59e1d1-38e1add8ad5mr2222600a91.5.1784030554166;
+        Tue, 14 Jul 2026 05:02:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c46:b0:37f:bfd6:8b40 with SMTP id 98e67ed59e1d1-38e1add8ad5mr2222572a91.5.1784030553669;
+        Tue, 14 Jul 2026 05:02:33 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3119d5cf176sm54484812eec.12.2026.07.14.05.02.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 04:59:02 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Jianjun Wang <jianjun.wang@mediatek.com>,
-	linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 4/4] PCI: mediatek-gen3: Add 2-lanes mode support for Airoha AN7581
-Date: Tue, 14 Jul 2026 13:58:46 +0200
-Message-ID: <20260714115848.8537-5-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260714115848.8537-1-ansuelsmth@gmail.com>
-References: <20260714115848.8537-1-ansuelsmth@gmail.com>
+        Tue, 14 Jul 2026 05:02:33 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Praveen Talari <praveen.talari@oss.qualcomm.com>,
+        linux-spi@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH] spi: dt-bindings: qcom,sa8255p-geni-spi: Add compatible for Nord SA8797P
+Date: Tue, 14 Jul 2026 20:02:26 +0800
+Message-ID: <20260714120226.1788391-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,221 +94,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 0RMdWEBBVdi_JTutmDOmDL833cv4buxw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDEyNCBTYWx0ZWRfX/o9W35nu+CPN
+ JwVuYA7vt2glZwQtgpMhUOGa4Xhl4ao5W1Jfyf3wviSpeH8u6SvQY65iKUrlPcFPqGBwQDZScNC
+ XSqB+S+o85lIe5qyQh64y1WSTlnDLdG4+Iuw7+sUJBXnkR81PU+p1j8p3NGGjA500pEjEtR3HEi
+ 6TLuJHOKC3KZ/ZRqvP0K2r6jKUrb1pXJM5qQCVqjIk8t7MGaRh/8jotck59egxip5hrnKiAF41i
+ 6TxHyVaGuGjo+m5A0y2RsjpCu4ORICvnp+qSbo2uXH5nALQulNSe2wQGmWCeAsdp91DuvQGUuIZ
+ hXWUW0yA1EWPCXFcxZRW+bkZ6dh2p0ry5Eo2Q8LaFqnC02+dmDV/vNGxtv5RuRfQXIbhgbZ6yvS
+ lu4CxGqm3qckwIRCbPZFFg0xA77F6CnsOygvi1DcGnIle0F0+K/eqrvoTGkJhak4CZP1B0W/qw7
+ VYt+5XhpBverN6XKUnw==
+X-Authority-Analysis: v=2.4 cv=NszhtcdJ c=1 sm=1 tr=0 ts=6a56255a cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=ZkAwGN3o1dXtv08uZcAA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: 0RMdWEBBVdi_JTutmDOmDL833cv4buxw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDEyNCBTYWx0ZWRfX/mFWx4OVLEZ+
+ gJkf3lLHxr7qYyGHEkV5py0Mbwegaj2YRFtptGiyHfVoxBNmTgUyuzA8j7mHc5872+ITjIIWuzj
+ IA5nHyB2B2DhOKAoTnDm0v9H0IgFmOk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-14_03,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140124
 
-The Airoha AN7581 SoC supports configuring the first PCIe0 lane to 2-lanes
-mode (2x link) by bonding it with the second PCIe lane (PCIe1). This is
-done by configuring the PCIe MUX in the SCU register.
+Document Nord SA8797P QUP GENI SPI controller, which is compatible with
+SA8255P controller.
 
-To correctly configure PCIe0 in 2x link, define in DT the following
-additional property:
-- additional reg, 'sec-pcie-mac' for the secondary PCIe.
-- PERSTOUT reset for both main and secondary PCIE0, called 'perstout' and
-  'sec-perstout'
-- airoha,scu property to correctly configure the SCU register for the PCIe
-  MUX
-- 'num-lanes' set to '2' to enable PCIe0 in 2x link
-
-In such configuration the EQ preset are configured to the same values.
-
-To permit correct configuration of the PCIe line, additional logic is added
-to assert and deassert the PERSTOUT resets.
-
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- drivers/pci/controller/pcie-mediatek-gen3.c | 106 ++++++++++++++++----
- 1 file changed, 89 insertions(+), 17 deletions(-)
+ .../devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml      | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pci/controller/pcie-mediatek-gen3.c b/drivers/pci/controller/pcie-mediatek-gen3.c
-index b0accd828589..764974045340 100644
---- a/drivers/pci/controller/pcie-mediatek-gen3.c
-+++ b/drivers/pci/controller/pcie-mediatek-gen3.c
-@@ -32,6 +32,11 @@
+diff --git a/Documentation/devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml b/Documentation/devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml
+index d9347d780ca4..6552303a4f52 100644
+--- a/Documentation/devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml
++++ b/Documentation/devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml
+@@ -11,7 +11,11 @@ maintainers:
  
- #include "../pci.h"
+ properties:
+   compatible:
+-    const: qcom,sa8255p-geni-spi
++    oneOf:
++      - const: qcom,sa8255p-geni-spi
++      - items:
++          - const: qcom,sa8797p-geni-spi
++          - const: qcom,sa8255p-geni-spi
  
-+/* AN7581 SCU register */
-+#define SCU_PCIC			0x88
-+#define SCU_PCIC_PCIE_CTRL		GENMASK(7, 0)
-+
-+/* PCIe register */
- #define PCIE_BASE_CFG_REG		0x14
- #define PCIE_BASE_CFG_SPEED		GENMASK(15, 8)
- 
-@@ -131,6 +136,7 @@
- #define PCIE_ATR_TLP_TYPE_IO		PCIE_ATR_TLP_TYPE(2)
- 
- #define MAX_NUM_PHY_RESETS		3
-+#define MAX_NUM_PERSTOUT_RESETS		2
- 
- #define PCIE_MTK_RESET_TIME_US		10
- 
-@@ -203,9 +209,11 @@ struct mtk_msi_set {
- struct mtk_gen3_pcie {
- 	struct device *dev;
- 	void __iomem *base;
-+	void __iomem *sec_base;
- 	phys_addr_t reg_base;
- 	struct reset_control *mac_reset;
- 	struct reset_control_bulk_data phy_resets[MAX_NUM_PHY_RESETS];
-+	struct reset_control_bulk_data perstout_resets[MAX_NUM_PERSTOUT_RESETS];
- 	struct phy *phy;
- 	struct clk_bulk_data *clks;
- 	int num_clks;
-@@ -928,6 +936,14 @@ static int mtk_pcie_parse_port(struct mtk_gen3_pcie *pcie)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get PHY bulk reset\n");
- 
-+	pcie->perstout_resets[0].id = "perstout";
-+	pcie->perstout_resets[1].id = "sec-perstout";
-+
-+	ret = devm_reset_control_bulk_get_optional_exclusive(dev, MAX_NUM_PERSTOUT_RESETS,
-+							     pcie->perstout_resets);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get PERSTOUT bulk reset\n");
-+
- 	pcie->mac_reset = devm_reset_control_get_optional_exclusive(dev, "mac");
- 	if (IS_ERR(pcie->mac_reset))
- 		return dev_err_probe(dev, PTR_ERR(pcie->mac_reset), "failed to get MAC reset\n");
-@@ -949,18 +965,38 @@ static int mtk_pcie_parse_port(struct mtk_gen3_pcie *pcie)
- 			pcie->num_lanes = num_lanes;
- 	}
- 
-+	/* Map secondary PCIe for 2-lanes mode for EN7581 */
-+	if (pcie->num_lanes == 2 && device_is_compatible(dev, "airoha,en7581-pcie")) {
-+		regs = platform_get_resource_byname(pdev, IORESOURCE_MEM, "sec-pcie-mac");
-+		if (!regs)
-+			return -EINVAL;
-+		pcie->sec_base = devm_ioremap_resource(dev, regs);
-+		if (IS_ERR(pcie->sec_base))
-+			return dev_err_probe(dev, PTR_ERR(pcie->sec_base), "failed to map secondary register base\n");
-+	}
-+
- 	return 0;
- }
- 
- static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
- {
- 	struct pci_host_bridge *host = pci_host_bridge_from_priv(pcie);
-+	unsigned int num_lanes = max(1, pcie->num_lanes);
-+	struct regmap *pbus_regmap, *scu;
- 	struct device *dev = pcie->dev;
- 	struct resource_entry *entry;
--	struct regmap *pbus_regmap;
- 	u32 val, args[2], size;
- 	resource_size_t addr;
--	int err;
-+	int i, err;
-+
-+	if (num_lanes > 2)
-+		return dev_err_probe(dev, -EINVAL, "unsupported num-lanes, maximum 2 lanes supported\n");
-+
-+	if (num_lanes == 2) {
-+		scu = syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,scu");
-+		if (IS_ERR(scu))
-+			return dev_err_probe(dev, PTR_ERR(scu), "failed to map SCU regmap\n");
-+	}
- 
- 	/*
- 	 * The controller may have been left out of reset by the bootloader
-@@ -992,6 +1028,19 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
- 	size = lower_32_bits(resource_size(entry->res));
- 	regmap_write(pbus_regmap, args[1], GENMASK(31, __fls(size)));
- 
-+	/* Assert PERSTOUT for all relevant lines */
-+	err = reset_control_bulk_assert(MAX_NUM_PERSTOUT_RESETS,
-+					pcie->perstout_resets);
-+	if (err) {
-+		dev_err(dev, "failed to assert PERSTOUTs\n");
-+		return err;
-+	}
-+
-+	/* Configure SCU MUX to disable PCIE1 for 2 lines mode */
-+	if (num_lanes == 2)
-+		regmap_update_bits(scu, SCU_PCIC, SCU_PCIC_PCIE_CTRL,
-+				   FIELD_PREP(SCU_PCIC_PCIE_CTRL, BIT(1)));
-+
- 	/*
- 	 * Unlike the other MediaTek Gen3 controllers, the Airoha EN7581
- 	 * requires PHY initialization and power-on before PHY reset deassert.
-@@ -1024,18 +1073,6 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
- 	pm_runtime_enable(dev);
- 	pm_runtime_get_sync(dev);
- 
--	val = FIELD_PREP(PCIE_VAL_LN0_DOWNSTREAM, 0x47) |
--	      FIELD_PREP(PCIE_VAL_LN1_DOWNSTREAM, 0x47) |
--	      FIELD_PREP(PCIE_VAL_LN0_UPSTREAM, 0x41) |
--	      FIELD_PREP(PCIE_VAL_LN1_UPSTREAM, 0x41);
--	writel_relaxed(val, pcie->base + PCIE_EQ_PRESET_01_REG);
--
--	val = PCIE_K_PHYPARAM_QUERY | PCIE_K_QUERY_TIMEOUT |
--	      FIELD_PREP(PCIE_K_PRESET_TO_USE_16G, 0x80) |
--	      FIELD_PREP(PCIE_K_PRESET_TO_USE, 0x2) |
--	      FIELD_PREP(PCIE_K_FINETUNE_MAX, 0xf);
--	writel_relaxed(val, pcie->base + PCIE_PIPE4_PIE8_REG);
--
- 	err = clk_bulk_prepare_enable(pcie->num_clks, pcie->clks);
- 	if (err) {
- 		dev_err(dev, "failed to prepare clock\n");
-@@ -1043,14 +1080,47 @@ static int mtk_pcie_en7581_power_up(struct mtk_gen3_pcie *pcie)
- 	}
- 
- 	/*
--	 * Airoha EN7581 performs PCIe reset via clk callbacks since it has a
--	 * hw issue with PCIE_PE_RSTB signal. Add wait for the time needed to
--	 * complete the PCIe reset.
-+	 * Old Airoha EN7581 clock driver performed PCIe reset via
-+	 * clk callbacks since it has a hw issue with PCIE_PE_RSTB signal.
-+	 * This is now handled by dedicated PERSTOUT resets with clk
-+	 * driver only enabling the refclk.
-+	 *
-+	 * Wait is still needed for refclk to stabilize
- 	 */
- 	msleep(PCIE_T_PVPERL_MS);
- 
-+	/* Configure all the lines to the same EQ config */
-+	for (i = 0; i < num_lanes; i++) {
-+		void __iomem *base = pcie->base;
-+
-+		if (i == 1)
-+			base = pcie->sec_base;
-+
-+		val = FIELD_PREP(PCIE_VAL_LN0_DOWNSTREAM, 0x47) |
-+			FIELD_PREP(PCIE_VAL_LN1_DOWNSTREAM, 0x47) |
-+			FIELD_PREP(PCIE_VAL_LN0_UPSTREAM, 0x41) |
-+			FIELD_PREP(PCIE_VAL_LN1_UPSTREAM, 0x41);
-+		writel_relaxed(val, base + PCIE_EQ_PRESET_01_REG);
-+
-+		val = PCIE_K_PHYPARAM_QUERY | PCIE_K_QUERY_TIMEOUT |
-+			FIELD_PREP(PCIE_K_PRESET_TO_USE_16G, 0x80) |
-+			FIELD_PREP(PCIE_K_PRESET_TO_USE, 0x2) |
-+			FIELD_PREP(PCIE_K_FINETUNE_MAX, 0xf);
-+		writel_relaxed(val, base + PCIE_PIPE4_PIE8_REG);
-+	}
-+
-+	/* Deassert PERSTOUT for all relevant lines */
-+	err = reset_control_bulk_deassert(MAX_NUM_PERSTOUT_RESETS,
-+					  pcie->perstout_resets);
-+	if (err) {
-+		dev_err(dev, "failed to deassert PERSTOUTs\n");
-+		goto err_perstout_deassert;
-+	}
-+
- 	return 0;
- 
-+err_perstout_deassert:
-+	clk_bulk_disable_unprepare(pcie->num_clks, pcie->clks);
- err_clk_prepare_enable:
- 	pm_runtime_put_sync(dev);
- 	pm_runtime_disable(dev);
-@@ -1136,6 +1206,8 @@ static void mtk_pcie_power_down(struct mtk_gen3_pcie *pcie)
- 
- 	phy_power_off(pcie->phy);
- 	phy_exit(pcie->phy);
-+	reset_control_bulk_assert(MAX_NUM_PERSTOUT_RESETS,
-+				  pcie->perstout_resets);
- 	reset_control_bulk_assert(pcie->soc->phy_resets.num_resets,
- 				  pcie->phy_resets);
- }
+   reg:
+     maxItems: 1
 -- 
-2.53.0
+2.43.0
 
