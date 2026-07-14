@@ -1,127 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F012701CB;
-	Tue, 14 Jul 2026 21:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4434A3EE1E0;
+	Tue, 14 Jul 2026 21:10:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784063433; cv=none; b=Y16xE8CS004UuhHTXOOm/wcxCTpCUv6af+6tXdvW5cjL7CFgyNUxuz9b06OfN4cLu8EE78HuYZPP2C5lpP09o/4e7J50cmnCpEblT+5L9uzDOLVL2t06SyrwLlhEtiRfTcfKjEblvAwN0BvXcZ8FJd8vHIA9c75v7VQYKFv/EIo=
+	t=1784063436; cv=none; b=hgk90SSENYYvV/3VsLuSjWJgroWlIE6LvNmh6mJJLtAPFJEBVeJdO2K5nnS3cEaKk9ec0aWCOwxWpoDFdvONzMhOcEHg8WpM24MZ7n+8o8me86RJHIJlo9t7in8bMkg/ZxmNtQHuXfLsSZnitd5dJXmfEM8ZJagWxAOHPfzVyRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784063433; c=relaxed/simple;
-	bh=Zwua/YQ4l8Nyl0vkpbk/VkIxgU8Cf7PAi2z/oCG57JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=L5gBpZ76nUErLUKeArekZoMPfg4Y2sHDWSRq89y/v8Qxb5VsXd3FFNmxg7O6AqQ59dXftTPFbiRzSkDTNzg/J3HvDj4AUbvm+BJL7w5zpaBHyy4l7Hgtkn+Y3KSsyWGNiDSMgCuewLZmGF/ZbjuqiHCockjTupm6LGTt7Xt2Cp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/T2Abrf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784063436; c=relaxed/simple;
+	bh=IcEJmuTPE9jE/amBtGeHjk/t+2TufmGIIh6T68FLO74=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qs1RMQX4n33Z9jTdoeE7BXl7NiPBz1oyhBpXHwqwzujRglhsd0DEolNwqoV+IsemTTApst5uvsQ9oeuPmz7xXALCUXDSTZZRn6P29ZaaYANBe0+p+GImTqTSpe1OgbJMSEI9tjBQcmD7vC+lv9Eznw6xZqpGGih0+AJdp6kPCns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=k/pS35lF; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/T2Abrf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847131F00A3D;
-	Tue, 14 Jul 2026 21:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784063431;
-	bh=FYLD+NQ3yFPrFtbxnnlrRNCjugvsXj89g6HloVaglxs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=B/T2AbrfLUNgebIFoIO2AxPaQSi4huO5+GJE3Q2Y57ZrNwR6HS5N9Ki45t/1UAC3/
-	 rV9DLAcJHzYu/VGNAl6PQrOV+ThGzBEgkp3M/C6pbpA9JHGkuItAMZCCmz/r7T5Zqp
-	 olo9UA0Q24xvVJGF5bfKipii+3YDgfQnYAAvHRRSPJQjwYtxk1JMeBAWqi+0ssa0ev
-	 GmbXseZzB25y9ke//Gy6ri1XbJtoo2wpRL0twmxk9yfe+EkZpiZzhq+XJxC1byaBgx
-	 w/HGLdj7IlQCAIC9uzTQ44N3BIK+hoWHKdLBUnqIXG//hqa6bRsWePVCP54hkrL89x
-	 e1EWRrFgEuSfQ==
-Date: Tue, 14 Jul 2026 16:10:30 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-pci@vger.kernel.org, kernel test robot <lkp@intel.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="k/pS35lF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=fVzJp1PtFU6eLocHLlsp+LofsYQuwB8oj2Q0MWCAPLQ=; b=k/pS35lFAvrd2vQDOTXvG2tCer
+	RI9PzEaTfZew9sV5GhhbZpDKuzQL8ZzCAfslktAidq9QaG83VH76Hrj8o5ZiJ9QuusAdySQdelPg/
+	rqSWSvS/4p9XFneLvvzLZDXlEpAo2btDcDvB7sCNiksJL6DnFJqnt7WRYJAAllWno9mA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wjkOT-00CFc1-Py; Tue, 14 Jul 2026 23:10:21 +0200
+Date: Tue, 14 Jul 2026 23:10:21 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: rcar-gen4: Isolate driver to ARM64
-Message-ID: <20260714211030.GA1412991@bhelgaas>
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: add DAPU Telecom
+ DAP8211R(I) PHY binding
+Message-ID: <a7374c67-5e0c-446d-bd90-92622c31ef0c@lunn.ch>
+References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
+ <20260713131223.279555-2-a.shimko.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260714131957.38067-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260713131223.279555-2-a.shimko.dev@gmail.com>
 
-On Tue, Jul 14, 2026 at 03:19:27PM +0200, Marek Vasut wrote:
-> The driver includes linux/irqchip/arm-gic-v3.h which pulls in headers
-> which are available only on ARM and ARM64, on other architectures the
-> headers are not present and the driver fails to build. This driver is
-> used only on ARM64 hardware, isolate its build only to ARM64 to avoid
-> build failures on other architectures.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202607100310.iQw5m9Uo-lkp@intel.com/
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +  rx-internal-delay-ps:
+> +    description:
+> +      RGMII RX clock delay in picoseconds. The PHY supports 150 ps steps
+> +      from 0 to 2250 ps. If not specified, defaults to 1950 ps. If the
+> +      requested value does not exactly match a supported step, the driver
+> +      selects the nearest supported value and issues a warning.
+> +    enum: [0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
+> +           1650, 1800, 1950, 2100, 2250]
+> +    default: 1950
 
-Mani, I assume you'll squash this into 89bded511a66 ("PCI: rcar-gen4:
-Configure AXIINTC if iMSI-RX is not used") so it's connected to the
-addition of the linux/irqchip/arm-gic-v3.h include and there's no
-bisection hole?
+The cover letter says you round to the nearest, but here you list
+specific values.
 
-> ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-doc@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: This is a rework of PCI: rcar-gen4: Inline GIC_TRANSLATER offset macro
->     which isolates the driver build to ARM64 via Kconfig instead:
->     https://lore.kernel.org/linux-pci/CAMuHMdVvWE7YZgKvreSn_vJLOVD4eMmn3TCGOyqSXksqjBCwvg@mail.gmail.com/
->     https://lore.kernel.org/linux-pci/20260714110041.GA1349622@bhelgaas/
-> ---
->  drivers/pci/controller/dwc/Kconfig | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-> index 49a7a2c50ca15..3260d916110b2 100644
-> --- a/drivers/pci/controller/dwc/Kconfig
-> +++ b/drivers/pci/controller/dwc/Kconfig
-> @@ -346,7 +346,7 @@ config PCIE_RCAR_GEN4
->  
->  config PCIE_RCAR_GEN4_HOST
->  	tristate "Renesas R-Car Gen4 PCIe controller (host mode)"
-> -	depends on ARCH_RENESAS || COMPILE_TEST
-> +	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
->  	depends on PCI_MSI
->  	select PCIE_DW_HOST
->  	select PCIE_RCAR_GEN4
-> @@ -357,7 +357,7 @@ config PCIE_RCAR_GEN4_HOST
->  
->  config PCIE_RCAR_GEN4_EP
->  	tristate "Renesas R-Car Gen4 PCIe controller (endpoint mode)"
-> -	depends on ARCH_RENESAS || COMPILE_TEST
-> +	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
->  	depends on PCI_ENDPOINT
->  	select PCIE_DW_EP
->  	select PCIE_RCAR_GEN4
-> -- 
-> 2.53.0
-> 
+Please remove the rounding and return EINVAL for the value is not one
+of the listed values.
+
+   Andrew
+> +examples:
+> +  - |
+> +    mdio {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        ethernet-phy@1 {
+> +            compatible = "ethernet-phy-ieee802.3-c22";
+> +            reg = <1>;
+> +            rx-internal-delay-ps = <1050>;
+> +            tx-internal-delay-ps = <1150>;
+
+Using values which probably don't work is maybe not a good idea. There
+are too many DT developers who just cut/paste and don't think.
+
+These are optional, so don't even bother? Or 2100 which probably does
+actually work.
+
+      Andrew
