@@ -1,401 +1,501 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011006.outbound.protection.outlook.com [52.101.125.6])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D74D13AD1C;
-	Tue, 14 Jul 2026 16:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784046233; cv=fail; b=g30+T0dU0nlW4tVpg8K+nz9eUSlffeDy8jlCWqYlhGvrnar+LX3iyTpjzBCTbYatWnKWRTG5TBFryA1DX/b3ZmX2sS26jshDNtMTTYjvpeEd2b+RC9WhwoNWhHN5UQo6duZMSJ5LnL2Y8iT5KvX4Bw/wsx4jyfEQK3DR3z9mbag=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784046233; c=relaxed/simple;
-	bh=obqY70XgfeoccP/Nrrcv712C4Qy8JaLfX6Pra1AtKL8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=n7STkyIpfkNxjvK0fEYrtJI4MKt8QR8uyvQhnlScMh8tOYIrUGQ+JosqTncLBW5ErX2zOdpdbYwFWP7GZY8MfHnnmb2yFbZ5XyZOmGSBF5k+HErxYliDGMWdF72yWuckHaqhZsFPR5EksvTLm7ncYVBf8Rm78HCV9yg9ln03jM8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=qpLbBujV; arc=fail smtp.client-ip=52.101.125.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2A925B099
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:31:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784046672; cv=none; b=KOv5i/EsNriUQJaBb5j/OoG1rVm0oEVZB4AZDdnL7+10yR1yJ0tZ4fZzMtd86OdQYEpjYPeGZDkMcUyY9AsmmhKIIGeK2rVHcMx048yUosK3I1QAU2mljqexY8V1bm+I1QKqwwOwFujG8YpYJEmGvaQHcXAYBxxQQn14lD4TAd8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784046672; c=relaxed/simple;
+	bh=phj52z4wpccKiuztsidCL8DXuFynPynckFr8PJQtUsc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HLWR5xPNaGP1EOQ6d50y1oMHSlxlW27UoT2LY1WKyIqKHiklleEG1D52xL3voUtYUkQk7jQ8egfHSZvdZPnhjq0nD9dCU0tJ52Gm1e4nAU3BFKPNAXCXS0uVaiu3wifKpb+SQ/OI5hBh4BgshwilUBACCxrId1/FyxzdEzu9cTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B7wcckxx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f52Pex7l; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="qpLbBujV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WpH0Ln4RWpiJsBI2+1tUYie3GEVxiAXw2WeOA0v6/NVtMSE/GoAH4En6Nd7G1fSEruLMjU4T0aWMmUNGvwNUy6EDvlkILmz6wEULd4x2aj3v7SbxwctpNoaGYx//6lReTaZIivWB6JeJcan73a6ExHS/ZmXNvufgpL9y7NZs1vUXpAtMahcskNq2rHyU1jajasuJfX13NuwTTr/hgUEevoWgmrM1MAasDtn/Twc2J59hGkR6s/BKGdgoYrqj98nSFRs6gyJSZBz336/MdG6nxoJSvEZ3brnLPGJ8z92MkBBAEaTc825yRODue9c3laJplJC7GKT00LxVgQ422r8BFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XRB3tgHaMOdu+Y9hfRJPpxlemCuq+8A1iXugjAx5wUo=;
- b=ig8ia9N+0yRwmLsdXQp4IsUXwW97M+2RIHRuwStFNRPZs7iKlZ50BInw3KP3QY8/RFQjzRIMyUBKR45ugSlejuwrkxu4Er38aavTxN0xfl9ufdPW+7bOCowVJsg++nrs61QznLFCqed8Q/CrXJvGwD4h8z1AC9cfiKLLTAJJI/h7qQcuP14SLgf6NptY/bb4NmgIxH8Dr+sSGibjl7sGIERHmResyKuiZgUMmXAKG6qUjDGC02TVE38CYN5Xfd7BQYGJQ7szTYGrLJax+xbeDHulbQ/djVQ8fkUxwK/gh3zmlnag2Tki7vC3buTJD5FGN0hELg66yhfSw9PNPCStWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XRB3tgHaMOdu+Y9hfRJPpxlemCuq+8A1iXugjAx5wUo=;
- b=qpLbBujVPp2lmHEnKZlt2ziRkyD24sE3P+15rluJovfyQxL8DHz73pyjd0aHcHaZpVA97Ayu9OEb6/GwakqC8L+9kjOcVMAB7QZrUEBPYLVmYb1SUNQONqnwasNDrmvaJgQ74kdD2kjxxW8E7eBp374txNzXUs8bYYAcMT5+qgk=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYCPR01MB10054.jpnprd01.prod.outlook.com (2603:1096:400:1ea::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
- 2026 16:23:47 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0223.008; Tue, 14 Jul 2026
- 16:23:47 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: biju.das.au <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	Philipp Zabel <p.zabel@pengutronix.de>, magnus.damm <magnus.damm@gmail.com>
-CC: wsa+renesas <wsa+renesas@sang-engineering.com>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
-	<biju.das.au@gmail.com>
-Subject: RE: [PATCH v20 00/12] Add Renesas RZ/G3L SD/eMMC support
-Thread-Topic: [PATCH v20 00/12] Add Renesas RZ/G3L SD/eMMC support
-Thread-Index: AQHdEvBTpm2/T6tVwkGyyxXNgqGP6bZtKIiA
-Date: Tue, 14 Jul 2026 16:23:47 +0000
-Message-ID:
- <TY3PR01MB11346CC7C80D50549EB7C412C86F92@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260713175159.138334-1-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260713175159.138334-1-biju.das.jz@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB10054:EE_
-x-ms-office365-filtering-correlation-id: 2c17b18e-8fe6-4678-1a3e-08dee1c4482f
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|11063799006|6133799003|56012099006|4133799003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- m57NhtLDKL2NailpnRk9qJE7jHg2rG20FmFrSaNsCNUt1mndGuUranwkLpJqSvLAn1hMI1biEuRzTaxpcbLENuajAR13mMQUjPB0wWWzps9EgF5A0P5wynE3ZRtb3EUaSqiYQeZW1KXZmo2mPFitNBrzGgEcq7Tm9FqnApVbUoKndLlhsq/T1WeIhcVlHKeEUNTzRiZBpV9tIpkgFIJxDxnxBbtNMeXClnHZAi+ZsPZeSqiQwTelLN+0WN3rdYDkEzxT6z34IUscD1DjHo8YISqL40BobQYR6W0fZGDZqJQ+3Tpy0cnxAJImUteRtLFWCUjWn14kd9Pjh7olmmiKQUDhfxDxHz8LFOXnIcAundlivTdkq4No/ox4/U1SwmUn2d8ujOdTvxZdm4V63nKC1tiS50/EGzz77FbxU/DCpDVa5lrq8W0yKVOmpn/bAWo6aHDRuwLgAwKa3Yz5495rsMOkDNkAvAHgU9Y1+iaUW3Y+bR1I2JlOw4d+8g9lltMu0yhu78Ij3YRzqJFjfOBDmo/e2AXBSt76cYP7qWWdIbbOW5ClFMOxNHoPmoUPKCz2Bj/l7OjWhJfDWmm+7R/aUxhzXQ6tar8xa/q8+ox0q6uUBkImX0erJyDa48S6JJkympE4K6VpDN4o/6KiGxdBIPZ4mqWHoIzhVaws+zgPRbc=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(11063799006)(6133799003)(56012099006)(4133799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?ssbBjKtgYSwZC/Bw09enmc+vEdXa6uCS9785oITeiUiDQBDfD4zUs+IjCDO+?=
- =?us-ascii?Q?4LmP2ngRlR7F1wUBa5243azQbflXTba1XX3Vw3KMvz18s6lQxCgxczbve5JV?=
- =?us-ascii?Q?4Pl1mzIYgZllWWH26TrcQz/Ka4Va4N2JKWbseIDTcwZjSUwwy+RX3kyan3PK?=
- =?us-ascii?Q?wkCnsYbR2OtuUM2Nkip3Ja0ToMml8pKVVXHDKtFaNs2zYQVd9vcSuLrK+PTE?=
- =?us-ascii?Q?2+A+4ij08i6sqYWfWDmbTfj6c899K8D0KRcDyjVc5qhVqhHCdtv7ntpgdh4w?=
- =?us-ascii?Q?MfC5Peu3USBBZ8L4QhfP17fpl2M6/E3JAdLf6xgAqUvHeYjCkb+nldlAp3XA?=
- =?us-ascii?Q?xZpFKSsjXwoB9APDsQO3sGa9eHIM8A+3Mod10+qXNDGpCviZNV+EO/tZngBa?=
- =?us-ascii?Q?ZsAycp+T0fxibpf51vHZu/t+D2pPepYk5TLtqDPJRo96syi93qJdj0Idlp4a?=
- =?us-ascii?Q?I1nAGOdJqZI6lC5qNkzMLXHkzDr2yt0RDRW2egz2rl2MNqkFfP5jFbMVgrFb?=
- =?us-ascii?Q?SbDWqlzKG4TyjQ+XoWo3GzDDjO9SPM2YiDnS9pU5cFPccreO32fsnM8HsDek?=
- =?us-ascii?Q?Tri0o0rU9JJW0jPwMJH2fbiSdD8aIjlgwchYB2F3ZTF3yn5kJlX3AF8IuDYs?=
- =?us-ascii?Q?dCkNJPfBaxHPvzk6X6UNkA8R1PpjINTJsudVIBTmg/+wkesUKx+igTt8h7Wv?=
- =?us-ascii?Q?QMKFayhhbh+wRnRpwM5L1wc4cjclzrUjtAzif3eNfyt4KYOQ0Vc1Em5yt/Ug?=
- =?us-ascii?Q?MDyvE9Ut1wQagK+vtQm4T40qdMGTC3V65CSGEs6coAtbvaz1CNlH2Fd+hEm2?=
- =?us-ascii?Q?8eEjd9cDXEIRLolJ35WKVJpbR0pFrrknwXCaxOhWXEl2qrARHqn/XF5dNARm?=
- =?us-ascii?Q?qg0Efwzzjj/2Thre6ZJiRpgj+JFB6ovnvo/HfVCgjmL80nCeP7Bqqp3Z1dnb?=
- =?us-ascii?Q?ypcS8aQ/9F4jsu+3K5Zp7m7B7dr8OaO77+JX6v5JFq90Fxx4UtTS3EiFtg8R?=
- =?us-ascii?Q?mDJ7gn4DZDZ13Nd08oT681QgFIrwM6HHlLKoX/E0vrTa4kxGm+hJhaAlhMgi?=
- =?us-ascii?Q?AdPq1dnXiL94RX6xYKy9Om+PJ0eSLyC3RujCY9rBEfNCdAbq/HAEsgeoTRle?=
- =?us-ascii?Q?Gu9m59qfW5Csn+133Z/jDiGKSQdZ+t4kB2GoYv0ANQ9ftxorBBD8cri4eelS?=
- =?us-ascii?Q?TvESCWg0ecvd/bknGVdLGqhw/cu4t3ugr6zZzLRloJW1Ud9KtCxfVxDI/FyU?=
- =?us-ascii?Q?vx6C/gNSbY6moDpdECmm02FtOJSelvG6qqr2o1ciCE3tGIhyWTQJUN+8m/K6?=
- =?us-ascii?Q?rRmT3pb1Fx9qeVYFUfUTp4AJ2RTVXDNTivYESZFKElDACTB+d0BIzlVgBAIs?=
- =?us-ascii?Q?eL7z2mhkwFfcB2Rzbvi37O8exhgAG9411FxEwpAmmKsQhSP1Uut0e4OMdqoW?=
- =?us-ascii?Q?FFC2osVSMPTERQcroCho2fQwecNSX3AeIbL2nHlI6BiaQUde0g8m8WIgOQWP?=
- =?us-ascii?Q?8KRsNdD04xy6L9n0RUzYZPqQcgG4XYJP+G2H1JXHHX36skqkDEPYdaMdmBRu?=
- =?us-ascii?Q?eTFOFC7tuoD6MA6pXXkC0KvGZ6p9q/gnPU1MI0EYneTvef0yvFk4dC3ozFN6?=
- =?us-ascii?Q?0REHnieW3FqzfE1V0tROmKEugNr0jA1Jgs2rDO916/uzur8bOjSmOgurzFFE?=
- =?us-ascii?Q?/gyBhjklM2pHYQcvVDh9CbVbpaHT+iYAWsc06USN1u8JZXVzosZSWwPoOlce?=
- =?us-ascii?Q?TSDgtM9Cug=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B7wcckxx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f52Pex7l"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EG6uRC751046
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:31:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lS4E5Vh06vzDyuN0fk7GhUAnbYypO97BD81NJJo9qKM=; b=B7wcckxxH9czTldM
+	FdrnSW+9zNa81NxNJBLXvQUQi+F0Dq0msBYx6Oir6b22inoMMcfCkXJk+BKLLmzh
+	PxwiNOTqd7KvHKFEdNNyedo14sPpJ2iON5cabcFnGpReiBZXYialCEDNCVrvRVCx
+	usVQ3JF3FB8aAUzBOMuwo9kDfjm1RQ5r5/HOPXmdeAdAr2u+sDAN+Fh/h25P9Xge
+	jE3oG+yGA8V1ooLJw7xEOuKiNyZQejjffLEo/BY6meusn0b3WcdJbM27CoF7A2oo
+	toIP6NzUfw8J1GFKgLbkfYeIEXmYeHophT0LvqiPKg33NY/yBkWvws4ahzFrA3aO
+	397F+A==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdesaamb1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:31:09 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38c7e26ecabso1248247a91.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 09:31:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784046669; x=1784651469; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lS4E5Vh06vzDyuN0fk7GhUAnbYypO97BD81NJJo9qKM=;
+        b=f52Pex7lamwCjt5A6npPCOlWw0rIcYW8qjGm3D6xE9vQ41eVr4ORzQbf9kKWN/Uki2
+         aFgxj4b1qFVMNZkQ2vRR0Q/uwnj+LMJ7+/tnQfDsGX2oIsHtvdhL/Yl54yfKepbBhDCH
+         GeDbAZBXBnVvGRlbch8EmnDMCzGmvpYFfLW46Z+A87ufx7siG5XNjwBqZxsjINZRxpqI
+         W3yFTBi4BnjZgq97hewBLsE995bUg5SBkcKblNF6/Eccv5peCfHuGpDUZXi2RV8qFe4p
+         Am6+He8Zf6VgvhU5MfRU/M6AphJIXHW1763Iyq7mEbPGjhRt9Rn7CSxab5P7fFs1PLuJ
+         iJ7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784046669; x=1784651469;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lS4E5Vh06vzDyuN0fk7GhUAnbYypO97BD81NJJo9qKM=;
+        b=CZSkH2PMPjhKmk5FZeZmfWkthUiqCP5jekrvd8m7p7EL+oLcE+jWKRHJXBGrLaF154
+         zQtBm2aBvdWJc7rd7ZeqM4kqrumYtrQ0JWUvCa+aVwrVO2yHReOEisKLjo1Dwrc9xCPS
+         da6Scs2UsM1+bdvEP3eA5RAowIexDo8u92SGdyPYiiT1x34NjPjx341QRVNRqvXn5fFP
+         UbODXatwjOL7VOYvrgWAwveTuHfGwGU4unNMOtoiab8b+XTQTePdQskDm/lvRvnCksIy
+         5InHXDfORQV02rBr8q7tvYGeHVJkKx8aBbhT1cqfrmOHKdMmTJk/T9kLq8yIaL5bD5us
+         shYg==
+X-Forwarded-Encrypted: i=1; AHgh+RoYiwJihONh/iS9tiERbCI0dcE/ihdqRo4oqJd+HU6k1y/qFoq7fO0Q5UEkeQ/R33P2k55XTrHerAgq@vger.kernel.org
+X-Gm-Message-State: AOJu0YweuLLcJRkajEeAdINAS+YnrA4jT7pGEP0yUcMfXgD2QgsmjDxe
+	+r7e2fsPuuxjxgG60r/SRY5KTeV/SwrFaDi6s437UPAHDKSZw73i5FyMYh/O/Q419cscCKEmgYC
+	GWbHRuoOw4F31C9ncQ8UAdCnsw+7PeArmNeRtigQNA8AQS9Nw2ILf2UPTb6w9dU/o
+X-Gm-Gg: AfdE7cnwZxpdXCKIuC+JMicWLFB5jdghffQRaw78CJoU/rdS73Eh+YKxZiBiYz5e7TT
+	/aDsdqeoevpM87sp939vUX3w+gYEUbussbuRrNdIraHiiEB9S/pyxV9yQTmAvhCG2nQmvwPzSSK
+	y2kOu9gxn8GDqK7lWp+qRQtSrCmDBmHQDPdZdCeC7ZOcuryl6+Qvip8uMBy0rrfB6e/hSfIoOJi
+	N60M1f6mMFgzGFr8YZJgDGM1REBA0yKlktT6LELk9zY7sErToiIsqhgVnGCJKOqQFWjIKKzviVZ
+	Dy2M6OksvXV7xKdtpU4+2K0Pjm16gmDiBl76W1mgL1tcXyR+khxB2E2D/dEJXiPK1EJCfrpaOsq
+	Xhsn75aMobfmjhFH/D4SXXbRbTYiKEa8aZqjh05fJNP61qEI=
+X-Received: by 2002:a17:90a:d2cf:b0:38e:5e0:74ed with SMTP id 98e67ed59e1d1-38e05e07585mr6779617a91.35.1784046668915;
+        Tue, 14 Jul 2026 09:31:08 -0700 (PDT)
+X-Received: by 2002:a17:90a:d2cf:b0:38e:5e0:74ed with SMTP id 98e67ed59e1d1-38e05e07585mr6779563a91.35.1784046668148;
+        Tue, 14 Jul 2026 09:31:08 -0700 (PDT)
+Received: from [192.168.0.116] ([124.123.151.85])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3117483dec6sm83798621eec.11.2026.07.14.09.31.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 09:31:07 -0700 (PDT)
+Message-ID: <52a19437-227e-48b4-9cba-d47d1469a0ea@oss.qualcomm.com>
+Date: Tue, 14 Jul 2026 22:01:00 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c17b18e-8fe6-4678-1a3e-08dee1c4482f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 16:23:47.3487
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: R/mQFxy46dKr7mvgkrqfDaoM4xwhs0zgmYtEwXEwCepFcU7qro1eWX0Idlery7W36Ivz27O0KBU4SlVQq72LJ2P0aZmwNwVzga7E2AzOYMg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10054
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
+ single coherent block
+To: "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
+        Stephan Gerhold <stephan@gerhold.net>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>
+Cc: "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "chris.lew@oss.qualcomm.com" <chris.lew@oss.qualcomm.com>,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
+ <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
+ <PH0PR11MB59022A1E06830365E6D224B4F0F92@PH0PR11MB5902.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+In-Reply-To: <PH0PR11MB59022A1E06830365E6D224B4F0F92@PH0PR11MB5902.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDE3MSBTYWx0ZWRfXxruRDaYINAmZ
+ PMXb4CrKhs3Ms7IfQggf6lhFX4Ywykp98VuHRxQG8qgjDx1H2d2T94PhNjWmsPMLFUfprFgJKv2
+ RCvo0h9qSYrHTsP4eI1dyHocAAxDduQ=
+X-Proofpoint-GUID: 6ArISLRJLCJQu-MUj_JzKBY10IQSInKE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDE3MSBTYWx0ZWRfX1hq3+1PafBYh
+ fjU2FDGK8lrXKcFFVuT2TsLXlM4iT5HSmFcVPb4BShxE/twlP3EQakbaV6ZH+0ZRrHUcJYrI9uE
+ kVvRi1tJz3qnt7C9ae54v4J+PAr/Fhrepl1mU9rJWWI0qDj4u+7Wz9HI0tmvIcPD4YA4NrT9fNP
+ lpurdhUfLLLDLYmawX0QYHwiCGmVTusKZ2MBkADZre4HZUkV0vyN31JhWROOXHL8QHvjiMvnWZU
+ KT0BnBRXeZssYsZlYXMTxgFLvxaLOYHBPGuU12N0lq4wY1RZU8p+MMJJZwDazW+EeIOsXWnu2pq
+ VZLgLKpi5JfbMTcm9B3iLzQiTIpP10Ixdpyy7f558g2SlxOV3XKgT4PdH0RXUA+duWFNlbZZn2L
+ tahs2lB47w7QLaZ2+zzBBnXYFAh4YhJPaqDTQK8ZCoGLgO7BavGHZLjSi3opFUU59FC3sYQwIGx
+ 0OmhtxDSc3SX684l5TQ==
+X-Authority-Analysis: v=2.4 cv=PZLPQChd c=1 sm=1 tr=0 ts=6a56644d cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ziBI+Y3eO/H+UwYWWny9Hg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=6SzVS5f5-TyJiIsxWV8A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: 6ArISLRJLCJQu-MUj_JzKBY10IQSInKE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-14_04,2026-07-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607140171
 
-Hi All,
 
-> -----Original Message-----
-> From: Biju <biju.das.au@gmail.com>
-> Sent: 13 July 2026 18:52
-> Subject: [PATCH v20 00/12] Add Renesas RZ/G3L SD/eMMC support
->=20
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Hi All,
->=20
-> RZ/G3L SoC has:
->=20
-> Channel 0 supports SD and eMMC (including HS400/HS400ES).
-> Channel 1 supports SD and eMMC (except for HS400).
-> Channel 2 supports SD.
->=20
-> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does n=
-ot support IOVS and PWEN in the
-> SDHI register (no internal regulator), unlike SD1 and SD2. It has an inte=
-rnal divider for all modes
-> except HS400.
-> It also has a 2048-bit divider compared to 512 on others. Moreover RZ/G3L=
- supports HS400 enhanced strobe
-> mode.
+On 14-07-2026 01:25 pm, Jagielski, Jedrzej wrote:
+> From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> Sent: Tuesday, July 14, 2026 7:33 AM
+>
+>> On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
+>> NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
+>> per-region access control, each individually DMA-mapped RX buffer
+>> requires its own XPU resource group (RG). With ~16 RGs available, the
+>> 32 per-buffer dma_map_single() calls exhaust the table and the first
+>> inbound transfer faults with an XPU violation.
+>>
+>> BAM-DMUX is a singleton (exactly one instance per SoC), so the
+>> destination VMID does not need to be a DT property; it is looked up
+> >from the compatible string's match data instead. Add struct
+>> bam_dmux_data with a single vmid field, and a shikra_data instance
+>> hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
+>>
+>> When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
+>> a single contiguous dma_alloc_coherent() block and SCM-assign that
+>> block to HLOS plus the VMID once at probe. This reduces RG consumption
+> >from 32 to 1. The block is never reclaimed across a modem power cycle
+>> (bam_dmux_power_off() does not touch it), so the probe-time assignment
+>> covers every subsequent restart without re-assigning or reclaiming. It
+>> is reclaimed to HLOS only once, at remove or on a probe error, and if
+>> that reclaim fails it is leaked rather than returned to the page
+>> allocator.
+>>
+>> Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
+>> the block, so no per-buffer mapping is needed at power-on. Because the
+>> coherent block is not page-backed, received payload is copied into a
+>> regular netdev skb before handoff to the network stack; this is an
+>> unavoidable extra copy on the XPU-enforced RX path.
+>>
+>> Platforms without match data are unaffected: rx_virt stays NULL, no
+>> coherent memory is allocated, and the per-buffer dma_map_single() path
+>> is unchanged.
+>>
+>> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+>> ---
+>> drivers/net/wwan/Kconfig         |   1 +
+>> drivers/net/wwan/qcom_bam_dmux.c | 134 ++++++++++++++++++++++++++++++++++++---
+>> 2 files changed, 125 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/net/wwan/Kconfig b/drivers/net/wwan/Kconfig
+>> index 958dbc7347fa84ee869439bf8b503037faab8bef..1b133c56231615269698140187ca3141dfe48dbf 100644
+>> --- a/drivers/net/wwan/Kconfig
+>> +++ b/drivers/net/wwan/Kconfig
+>> @@ -65,6 +65,7 @@ config MHI_WWAN_MBIM
+>> config QCOM_BAM_DMUX
+>> 	tristate "Qualcomm BAM-DMUX WWAN network driver"
+>> 	depends on (DMA_ENGINE && PM && QCOM_SMEM_STATE) || COMPILE_TEST
+>> +	select QCOM_SCM
+>> 	help
+>> 	  The BAM Data Multiplexer provides access to the network data channels
+>> 	  of modems integrated into many older Qualcomm SoCs, e.g. Qualcomm
+>> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
+>> index cc6ace8d64371eb8d00c638a39b234ee540b83c9..247230b720e6011876d5c429badbb5a1f34fc576 100644
+>> --- a/drivers/net/wwan/qcom_bam_dmux.c
+>> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+>> @@ -9,10 +9,12 @@
+>> #include <linux/completion.h>
+>> #include <linux/dma-mapping.h>
+>> #include <linux/dmaengine.h>
+>> +#include <linux/firmware/qcom/qcom_scm.h>
+>> #include <linux/if_arp.h>
+>> #include <linux/interrupt.h>
+>> #include <linux/module.h>
+>> #include <linux/netdevice.h>
+>> +#include <linux/of.h>
+>> #include <linux/platform_device.h>
+>> #include <linux/pm_runtime.h>
+>> #include <linux/soc/qcom/smem_state.h>
+>> @@ -62,6 +64,7 @@ struct bam_dmux_skb_dma {
+>> 	struct bam_dmux *dmux;
+>> 	struct sk_buff *skb;
+>> 	dma_addr_t addr;
+>> +	void *rx_virt; /* non-NULL: slot in the coherent RX block */
+>> };
+>>
+>> struct bam_dmux {
+>> @@ -75,6 +78,10 @@ struct bam_dmux {
+>> 	struct completion pc_ack_completion;
+>>
+>> 	struct dma_chan *rx, *tx;
+>> +	/* Single coherent block backing all RX buffers, NULL if unused */
+>> +	void *rx_buf;
+>> +	dma_addr_t rx_buf_dma;
+>> +	u64 rx_buf_perms; /* SCM source-VMID bitmask of rx_buf */
+>> 	struct bam_dmux_skb_dma rx_skbs[BAM_DMUX_NUM_SKB];
+>> 	struct bam_dmux_skb_dma tx_skbs[BAM_DMUX_NUM_SKB];
+>> 	spinlock_t tx_lock; /* Protect tx_skbs, tx_next_skb */
+>> @@ -92,6 +99,10 @@ struct bam_dmux_netdev {
+>> 	u8 ch;
+>> };
+>>
+>> +struct bam_dmux_data {
+>> +	u32 vmid;
+>> +};
+>> +
+> do we need to introduce dedicated struct just to cover u32?
 
-Most of the issues reported buy sashiko [1] are false positive
-except the one pointed out by sashiko and Geert's testing results[2].
+This is currently tied up in the open discussion on
+whether the VMID should come from match data or an optional
+qcom,vmid DT property instead. If match data stays, I agree
+a bare u32 value works without a dedicated struct and I'll simplify
+it that way.
 
-Please find the logs [3]
+>
+>> static void bam_dmux_pc_vote(struct bam_dmux *dmux, bool enable)
+>> {
+>> 	reinit_completion(&dmux->pc_ack_completion);
+>> @@ -111,6 +122,9 @@ static bool bam_dmux_skb_dma_map(struct bam_dmux_skb_dma *skb_dma,
+>> {
+>> 	struct device *dev = skb_dma->dmux->dev;
+>>
+>> +	if (skb_dma->rx_virt) /* coherent RX slot: addr pre-assigned */
+>> +		return true;
+>> +
+>> 	skb_dma->addr = dma_map_single(dev, skb_dma->skb->data, skb_dma->skb->len, dir);
+>> 	if (dma_mapping_error(dev, skb_dma->addr)) {
+>> 		dev_err(dev, "Failed to DMA map buffer\n");
+>> @@ -124,6 +138,9 @@ static bool bam_dmux_skb_dma_map(struct bam_dmux_skb_dma *skb_dma,
+>> static void bam_dmux_skb_dma_unmap(struct bam_dmux_skb_dma *skb_dma,
+>> 				   enum dma_data_direction dir)
+>> {
+>> +	if (skb_dma->rx_virt) /* coherent RX slot: nothing to unmap */
+>> +		return;
+>> +
+>> 	dma_unmap_single(skb_dma->dmux->dev, skb_dma->addr, skb_dma->skb->len, dir);
+>> 	skb_dma->addr = 0;
+>> }
+>> @@ -468,9 +485,10 @@ static bool bam_dmux_skb_dma_submit_rx(struct bam_dmux_skb_dma *skb_dma)
+>> {
+>> 	struct bam_dmux *dmux = skb_dma->dmux;
+>> 	struct dma_async_tx_descriptor *desc;
+>> +	size_t len = skb_dma->rx_virt ? BAM_DMUX_BUFFER_SIZE : skb_dma->skb->len;
+> please stick to RCT
+> please fix it here and for the following where RCT is violated
 
-If there are no other comments, I planned to send the fix in v21 fixing the=
- issue
-with divider mask in of_data for RZ/G3L and non RZ/G3L SoCs:
+I will fix all the declaration ordering in v2.
 
-clk =3D clk & host->pdata->clk_ctl_div_mask;
+>
+>> 	desc = dmaengine_prep_slave_single(dmux->rx, skb_dma->addr,
+>> -					   skb_dma->skb->len, DMA_DEV_TO_MEM,
+>> +					   len, DMA_DEV_TO_MEM,
+>> 					   DMA_PREP_INTERRUPT);
+>> 	if (!desc) {
+>> 		dev_err(dmux->dev, "Failed to prepare RX DMA buffer\n");
+>> @@ -485,6 +503,10 @@ static bool bam_dmux_skb_dma_submit_rx(struct bam_dmux_skb_dma *skb_dma)
+>>
+>> static bool bam_dmux_skb_dma_queue_rx(struct bam_dmux_skb_dma *skb_dma, gfp_t gfp)
+>> {
+>> +	/* Coherent RX slots have rx_virt and addr pre-assigned at probe. */
+>> +	if (skb_dma->rx_virt)
+>> +		return bam_dmux_skb_dma_submit_rx(skb_dma);
+>> +
+>> 	if (!skb_dma->skb) {
+>> 		skb_dma->skb = __netdev_alloc_skb(NULL, BAM_DMUX_BUFFER_SIZE, gfp);
+>> 		if (!skb_dma->skb)
+>> @@ -499,9 +521,10 @@ static bool bam_dmux_skb_dma_queue_rx(struct bam_dmux_skb_dma *skb_dma, gfp_t gf
+>> static void bam_dmux_cmd_data(struct bam_dmux_skb_dma *skb_dma)
+>> {
+>> 	struct bam_dmux *dmux = skb_dma->dmux;
+>> -	struct sk_buff *skb = skb_dma->skb;
+>> -	struct bam_dmux_hdr *hdr = (struct bam_dmux_hdr *)skb->data;
+>> +	struct bam_dmux_hdr *hdr = skb_dma->rx_virt ? skb_dma->rx_virt :
+>> +				   (struct bam_dmux_hdr *)skb_dma->skb->data;
+>> 	struct net_device *netdev = dmux->netdevs[hdr->ch];
+>> +	struct sk_buff *skb;
+>>
+>> 	if (!netdev || !netif_running(netdev)) {
+>> 		dev_warn(dmux->dev, "Data for inactive channel %u\n", hdr->ch);
+>> @@ -514,10 +537,18 @@ static void bam_dmux_cmd_data(struct bam_dmux_skb_dma *skb_dma)
+>> 		return;
+>> 	}
+>>
+>> -	skb_dma->skb = NULL; /* Hand over to network stack */
+>> -
+>> -	skb_pull(skb, sizeof(*hdr));
+>> -	skb_trim(skb, hdr->len);
+>> +	if (skb_dma->rx_virt) {
+>> +		/* Coherent block is not page-backed: copy out to a real skb */
+>> +		skb = netdev_alloc_skb(netdev, hdr->len);
+>> +		if (!skb)
+>> +			return;
+>> +		skb_put_data(skb, (u8 *)skb_dma->rx_virt + sizeof(*hdr), hdr->len);
+>> +	} else {
+>> +		skb = skb_dma->skb;
+>> +		skb_dma->skb = NULL; /* Hand over to network stack */
+>> +		skb_pull(skb, sizeof(*hdr));
+>> +		skb_trim(skb, hdr->len);
+>> +	}
+>> 	skb->dev = netdev;
+>>
+>> 	/* Only Raw-IP/QMAP is supported by this driver */
+>> @@ -574,10 +605,14 @@ static void bam_dmux_rx_callback(void *data)
+>> {
+>> 	struct bam_dmux_skb_dma *skb_dma = data;
+>> 	struct bam_dmux *dmux = skb_dma->dmux;
+>> -	struct sk_buff *skb = skb_dma->skb;
+>> -	struct bam_dmux_hdr *hdr = (struct bam_dmux_hdr *)skb->data;
+>> +	struct bam_dmux_hdr *hdr;
+>>
+>> -	bam_dmux_skb_dma_unmap(skb_dma, DMA_FROM_DEVICE);
+>> +	if (skb_dma->rx_virt) {
+>> +		hdr = skb_dma->rx_virt; /* coherent RX: no skb to unmap */
+>> +	} else {
+>> +		bam_dmux_skb_dma_unmap(skb_dma, DMA_FROM_DEVICE);
+>> +		hdr = (struct bam_dmux_hdr *)skb_dma->skb->data;
+>> +	}
+>>
+>> 	if (hdr->magic != BAM_DMUX_HDR_MAGIC) {
+>> 		dev_err(dmux->dev, "Invalid magic in header: %#x\n", hdr->magic);
+>> @@ -644,6 +679,9 @@ static void bam_dmux_free_skbs(struct bam_dmux_skb_dma skbs[],
+>> 	for (i = 0; i < BAM_DMUX_NUM_SKB; i++) {
+>> 		struct bam_dmux_skb_dma *skb_dma = &skbs[i];
+>>
+>> +		if (skb_dma->rx_virt) /* coherent block freed at remove */
+>> +			continue;
+>> +
+>> 		if (skb_dma->addr)
+>> 			bam_dmux_skb_dma_unmap(skb_dma, dir);
+>> 		if (skb_dma->skb) {
+>> @@ -762,6 +800,71 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
+>> 	return 0;
+>> }
+>>
+>> +static int bam_dmux_alloc_coherent_rx(struct bam_dmux *dmux)
+>> +{
+>> +	struct device *dev = dmux->dev;
+>> +	const struct bam_dmux_data *data = of_device_get_match_data(dev);
+>> +	size_t size = BAM_DMUX_NUM_SKB * BAM_DMUX_BUFFER_SIZE;
+>> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
+>> +	struct qcom_scm_vmperm dst[2];
+>> +	int i, ret;
+>> +
+>> +	if (!data)
+>> +		return 0;
+> is there actually any chance to really trigger that check?
+> or just theoretical case?
 
-where,
-GENMASK(7,0) --> For Non-RZ/G3L and =20
-GENMASK(9,0) --> For RZ/G3L
+Yes, it's reachable. The generic "qcom,bam-dmux" entry in
+bam_dmux_of_match[] has no .data, so any platform probing via
+that fallback compatible (i.e. every existing non-Shikra board
+using this driver today) gets NULL here and takes the unmodified
+per-buffer dma_map_single() path.
 
-[1] https://sashiko.dev/#/patchset/20260713175159.138334-1-biju.das.jz%40bp=
-.renesas.com
+This is the intended gate that keeps the new coherent-block
+allocation opt-in to Shikra only.
 
-[2] https://lore.kernel.org/all/CAMuHMdXQDWJGxuU04PEo2bJgHJF5F+0=3DHXqKzthK=
-hKSR6dg0Tg@mail.gmail.com/
-
-[3]
-root@smarc-rzg3l:~# mount -t auto /dev/mmcblk0p
-mmcblk0p1  mmcblk0p2
-root@smarc-rzg3l:~# mount -t auto /dev/mmcblk0p2 /mnt/
-[  712.973996] EXT4-fs (mmcblk0p2): recovery complete
-[  712.980081] EXT4-fs (mmcblk0p2): mounted filesystem 3a87d114-78ab-4be0-8=
-fac-d055b25f4bd0 r/w with ordered data mode. Quota mode: none.
-root@smarc-rzg3l:~# mount -t auto /dev/mmcblk1p1 /media/
-[  725.035107] EXT4-fs (mmcblk1p1): recovery complete
-[  725.041088] EXT4-fs (mmcblk1p1): mounted filesystem 2371cfa6-6402-4f3d-b=
-bfc-84412835fa12 r/w with ordered data mode. Quota mode: none.
-root@smarc-rzg3l:~# echo "MNT" > /mnt/1.txt
-root@smarc-rzg3l:~# echo "MEDIA" > /media/1.txt
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc*/ios
-clock:          150000000 Hz
-actual clock:   8 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      3 (8 bits)
-timing spec:    10 (mmc HS400 enhanced strobe)
-signal voltage: 1 (1.80 V)
-driver type:    1 (driver type A)
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      2 (4 bits)
-timing spec:    6 (sd uhs SDR104)
-signal voltage: 1 (1.80 V)
-driver type:    0 (driver type B)
-root@smarc-rzg3l:~# echo mem > /sys/power/state
-[  814.141037] PM: suspend entry (deep)
-[  814.154238] Filesystems sync: 0.008 seconds
-[  814.165291] Freezing user space processes
-[  814.175088] Freezing user space processes completed (elapsed 0.003 secon=
-ds)
-[  814.182128] OOM killer disabled.
-[  814.185452] Freezing remaining freezable tasks
-[  815.162014] Freezing remaining freezable tasks completed (elapsed 0.972 =
-seconds)
-[  815.169895] printk: Suspending console(s) (use no_console_suspend to deb=
-ug)
-NOTICE:  BL2: v2.10.5(release):2.10.5/rzg3l_1.0.1_rc2
-NOTICE:  BL2: Built : 09:19:29, Jun 16 2026
-INFO:    BL2: Doing platform setup
-INFO:    Configuring TrustZone Controller
-INFO:    Total 3 regions set.
-INFO:    Configuring TrustZone Controller
-INFO:    Total 1 regions set.
-INFO:    Configuring TrustZone Controller
-INFO:    Total 1 regions set.
-INFO:    Loading image id=3D39 at address 0x44428
-INFO:    Image id=3D39 loaded: 0x44428 - 0x45428
-INFO:    DDR: Retention Exit (Rev. 02.05)
-NOTICE:  BL2: SYS_LSI_MODE: 0x12061
-NOTICE:  BL2: SYS_LSI_DEVID: 0x87d9447
-INFO:    BL2: Skip loading image id 3
-INFO:    BL2: Skip loading image id 5
-NOTICE:  BL2: Booting BL31
-INFO:    Entry point address =3D 0x44000000
-INFO:    SPSR =3D 0x3cd
-[  815.219726] renesas-gbeth 11c30000.ethernet end0: Link is Down
-[  815.223525] Disabling non-boot CPUs ...
-[  815.225846] psci: CPU3 killed (polled 0 ms)
-[  815.229727] psci: CPU2 killed (polled 0 ms)
-[  815.233693] psci: CPU1 killed (polled 0 ms)
-[  815.235466] Enabling non-boot CPUs ...
-[  815.235737] Detected VIPT I-cache on CPU1
-[  815.235797] GICv3: CPU1: found redistributor 100 region 0:0x000000001246=
-0000
-[  815.235846] CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
-[  815.236888] CPU1 is up
-[  815.237039] Detected VIPT I-cache on CPU2
-[  815.237075] GICv3: CPU2: found redistributor 200 region 0:0x000000001248=
-0000
-[  815.237109] CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
-[  815.237997] CPU2 is up
-[  815.238151] Detected VIPT I-cache on CPU3
-[  815.238188] GICv3: CPU3: found redistributor 300 region 0:0x00000000124a=
-0000
-[  815.238221] CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
-[  815.240113] CPU3 is up
-[  815.251088] dwmac4: Master AXI performs fixed burst length
-[  815.251135] renesas-gbeth 11c30000.ethernet end0: No Safety Features sup=
-port found
-[  815.251179] renesas-gbeth 11c30000.ethernet end0: IEEE 1588-2008 Advance=
-d Timestamp supported
-[  815.253278] renesas-gbeth 11c30000.ethernet end0: configuring for phy/rg=
-mii-id link mode
-[  815.270272] dwmac4: Master AXI performs fixed burst length
-[  815.270302] renesas-gbeth 11c40000.ethernet end1: No Safety Features sup=
-port found
-[  815.270335] renesas-gbeth 11c40000.ethernet end1: IEEE 1588-2008 Advance=
-d Timestamp supported
-[  815.272427] renesas-gbeth 11c40000.ethernet end1: configuring for phy/rg=
-mii-id link mode
-[  815.444098] OOM killer enabled.
-[  815.447249] Restarting tasks: Starting
-[  815.452666] Restarting tasks: Done
-[  815.456345] random: crng reseeded on system resumption
-[  815.461744] PM: suspend exit
-[  817.842801] renesas-gbeth 11c30000.ethernet end0: Link is Up - 1Gbps/Ful=
-l - flow control rx/tx
-root@smarc-rzg3l:~# cat /mnt/1.txt
-MNT
-root@smarc-rzg3l:~# cat /media/1.txt
-MEDIA
-root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc*/ios
-clock:          150000000 Hz
-actual clock:   8 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      3 (8 bits)
-timing spec:    10 (mmc HS400 enhanced strobe)
-signal voltage: 1 (1.80 V)
-driver type:    1 (driver type A)
-clock:          150000000 Hz
-actual clock:   150000000 Hz
-vdd:            21 (3.3 ~ 3.4 V)
-bus mode:       2 (push-pull)
-chip select:    0 (don't care)
-power mode:     2 (on)
-bus width:      2 (4 bits)
-timing spec:    6 (sd uhs SDR104)
-signal voltage: 1 (1.80 V)
-driver type:    0 (driver type B)
-root@smarc-rzg3l:~#
-
-Cheers,
-Biju
->=20
-> v19->v20:
->  * Replaced the check mmd->clk_mask with mmc_data->clk_mask and moved
->    the code after assignment of variable mmd, this ensures assigning
->    the default values for non-DT platforms and DT platforms with no
->    device data.
->  * Replaced the check mmd->max_divider with mmc_data->max_divider and
->    moved the code after assignment of variable mmd, this ensures
->    assigning the default values for non-DT platforms and DT platforms wit=
-h
->    no device data.
->  * Fixed the ordering of resets in suspend/resume paths.
->  * Added bitfield.h header file.
->  * Reworked on renesas_sdhi_set_clock() to handle the 11-bit divider
->    case and the 32-bit register write.
->  * Updated resume() with scoped PM runtime call.
->  * SD_CLK_CTRL clk enable turned off before updating SCC_CKSEL_DTSEL
->    register.
-
-> v18->v19:
->  * Updated commit description for patch#1,#2,#6,#8,#11 and #12
->  * Updated clock and reset description with AXI master and AXI slave
->  * Added else condition for reset and reset-names.
->  * Renamed aclk->aclkm and reordered the axi clocks similar to resets.
->  * Retained the tag got binding patch as the changes are trivial.
->  * Fixed the clk_mask for non-DT platforms.
->  * Fixed max-divider setting for non-DT platforms.
->  * Replaced the magic number '9' with ilog2 function in
->    renesas_sdhi_clk_enable().
->  * Dropped divider variable from struct renesas_sdhi.
->  * Updated renesas_sdhi_clk_update() to return rate for HS400 mode
->    and non HS400 mode(uses 1/2 internal divider).
->  * Updated handling for clk divider.
->  * Renamed TMIO_MMC_HWADJ2->TMIO_MMC_HWADJ to make it generic for
->    hardware tuning delays
->  * Dropped duplicate SH_MOBILE_SDHI_SCC_TMPPORT2 macro
->  * Updated suspend/resume with scoped runtime calls in suspend.
->  * Fixed extra space in HS400MODE2 comment block.
->  * Updated the comment HS400mode2->HS400MODE2.
->  * Dropped the updation of clk handling as it is taken care in
->    previous patches.
->  * HS400ES support is enabled based on of_data.
->  * Fixed the space in HS400ES comment block.
->=20
-> v17->v18:
->  * Collected tag
->  * Merged patch #4 and #5 and updated commit description
->  * Annotated the empty sentinel entries in the OF match tables with a
->    "Sentinel." comment for clarity.
->  * Retained the tag as it is a trivial cleanup.
->  * New patches drop struct renesas_sdhi_hw_info, instead using
->    renesas_sdhi_of_data and tmio_mmc_data.
->  * Dropped clk, pinctrl, SoC, and board dtsi from this patch series;
->    will send later.
-> v1->v17:
->  * Collected tag for binding patch.
->  * Resending the series as there is an issue with patch threading from
->    patch #14.
->=20
-> Biju Das (12):
->   dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
->   mmc: renesas_sdhi: Clean up whitespace and add OF table sentinels
->   mmc: renesas_sdhi: Add clk_mask field to support flexible clock
->     divider widths
->   mmc: renesas_sdhi: Add max_divider field to support SoC-specific clock
->     ranges
->   mmc: renesas_sdhi: Add tuning delay support for RZ/G2L
->   mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
->   mmc: renesas_sdhi: Add optional axis/axim reset controls
->   mmc: renesas_sdhi: Add RZ/G3L SDHI support
->   mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
->   mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
->   mmc: renesas_sdhi: Add RZ/G3L HS400 support
->   mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
->=20
->  .../devicetree/bindings/mmc/renesas,sdhi.yaml | 108 +++++--
->  drivers/mmc/host/renesas_sdhi.h               |  11 +-
->  drivers/mmc/host/renesas_sdhi_core.c          | 274 ++++++++++++++----
->  drivers/mmc/host/renesas_sdhi_internal_dmac.c |  73 ++++-
->  drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  12 +-
->  include/linux/platform_data/tmio.h            |  18 ++
->  6 files changed, 408 insertions(+), 88 deletions(-)
->=20
-> --
-> 2.43.0
-
+>
+>> +
+>> +	if (!qcom_scm_is_available())
+>> +		return -EPROBE_DEFER;
+>> +
+>> +	dst[0].vmid = QCOM_SCM_VMID_HLOS;
+>> +	dst[0].perm = QCOM_SCM_PERM_RW;
+>> +	dst[1].vmid = data->vmid;
+>> +	dst[1].perm = QCOM_SCM_PERM_RW;
+>> +
+>> +	dmux->rx_buf = dma_alloc_coherent(dev, size, &dmux->rx_buf_dma, GFP_KERNEL);
+>> +	if (!dmux->rx_buf)
+>> +		return -ENOMEM;
+>> +
+>> +	for (i = 0; i < BAM_DMUX_NUM_SKB; i++) {
+>> +		dmux->rx_skbs[i].rx_virt = dmux->rx_buf + i * BAM_DMUX_BUFFER_SIZE;
+>> +		dmux->rx_skbs[i].addr = dmux->rx_buf_dma + i * BAM_DMUX_BUFFER_SIZE;
+>> +	}
+>> +
+>> +	ret = qcom_scm_assign_mem(dmux->rx_buf_dma, size, &src, dst, ARRAY_SIZE(dst));
+>> +	if (ret) {
+>> +		dev_err(dev, "SCM assign RX block failed: %d\n", ret);
+>> +		dma_free_coherent(dev, size, dmux->rx_buf, dmux->rx_buf_dma);
+>> +		dmux->rx_buf = NULL;
+>> +		return ret;
+>> +	}
+>> +	dmux->rx_buf_perms = src;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void bam_dmux_free_coherent_rx(struct bam_dmux *dmux)
+>> +{
+>> +	struct qcom_scm_vmperm hlos = {
+>> +		.vmid = QCOM_SCM_VMID_HLOS,
+>> +		.perm = QCOM_SCM_PERM_RW,
+>> +	};
+>> +	size_t size = BAM_DMUX_NUM_SKB * BAM_DMUX_BUFFER_SIZE;
+>> +
+>> +	if (!dmux->rx_buf)
+>> +		return;
+>> +
+>> +	if (dmux->rx_buf_perms) {
+>> +		if (qcom_scm_assign_mem(dmux->rx_buf_dma, size, &dmux->rx_buf_perms,
+>> +					&hlos, 1)) {
+>> +			dev_err(dmux->dev, "SCM reclaim RX block failed; leaking\n");
+>> +			return;
+>> +		}
+>> +		dmux->rx_buf_perms = 0;
+>> +	}
+>> +
+>> +	dma_free_coherent(dmux->dev, size, dmux->rx_buf, dmux->rx_buf_dma);
+>> +	dmux->rx_buf = NULL;
+>> +}
+>> +
+>> static int bam_dmux_probe(struct platform_device *pdev)
+>> {
+>> 	struct device *dev = &pdev->dev;
+>> @@ -809,6 +912,10 @@ static int bam_dmux_probe(struct platform_device *pdev)
+>> 		dmux->tx_skbs[i].dmux = dmux;
+>> 	}
+>>
+>> +	ret = bam_dmux_alloc_coherent_rx(dmux);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> 	/* Runtime PM manages our own power vote.
+>> 	 * Note that the RX path may be active even if we are runtime suspended,
+>> 	 * since it is controlled by the remote side.
+>> @@ -845,6 +952,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
+>> err_disable_pm:
+>> 	pm_runtime_disable(dev);
+>> 	pm_runtime_dont_use_autosuspend(dev);
+>> +	bam_dmux_free_coherent_rx(dmux);
+>> 	return ret;
+>> }
+>>
+>> @@ -879,13 +987,19 @@ static void bam_dmux_remove(struct platform_device *pdev)
+>> 	disable_irq(dmux->pc_irq);
+>> 	bam_dmux_power_off(dmux);
+>> 	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
+>> +	bam_dmux_free_coherent_rx(dmux);
+>> }
+>>
+>> static const struct dev_pm_ops bam_dmux_pm_ops = {
+>> 	SET_RUNTIME_PM_OPS(bam_dmux_runtime_suspend, bam_dmux_runtime_resume, NULL)
+>> };
+>>
+>> +static const struct bam_dmux_data shikra_data = {
+>> +	.vmid = QCOM_SCM_VMID_NAV,
+>> +};
+>> +
+>> static const struct of_device_id bam_dmux_of_match[] = {
+>> +	{ .compatible = "qcom,shikra-bam-dmux", .data = &shikra_data },
+>> 	{ .compatible = "qcom,bam-dmux" },
+>> 	{ /* sentinel */ }
+>> };
+>>
+>> -- 
+>> 2.34.1
+>
