@@ -1,179 +1,224 @@
-Received: from out28-93.mail.aliyun.com (out28-93.mail.aliyun.com [115.124.28.93])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651B120ADF8;
-	Tue, 14 Jul 2026 11:15:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.93
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F6B3655EA
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 11:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784027734; cv=none; b=q9JM+6PGTt/wfDCj4ZD2qAslvSg91yo1bgbIxHqVzRXS/FCkTyWRvQORtKhsj1mZVVK2uhOLtCeyUPw/oTGdQLYn71fs8gCrO/t7WyxU5FyfTQnIpOlVRlSdycArgThF5fgAeprFrvMoer4GaRiuGy1NEOC2e2D0NPNEdDDqL1o=
+	t=1784027801; cv=none; b=P4dDT/yz6tTtVRnP18EoZ0R6FKIuzMnoxzpLwGK8GDP2KNlDt0l59JAyLg2GESdD9WQQIKFwUqeC+KdqcE6K/5WHi94tYcIrOguElIokvu3QG8ITtwdt7bBLgrnPzbAvzSD0SPi/mIMMj0BxsZiHebRfdzMM051arQptApt0/Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784027734; c=relaxed/simple;
-	bh=9O5Xzh1c0+Aw3GvLxfYPqHy445IgC9DGFwRE5DrXz4s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oK3HVcZOoRFB3eU8iFYeiih+J4z94Kqdh6n/W8AkbbvrvEu8QGTYM9datLL3WX+jabrYdvPmbktJwxN2+ASX9Rt18BA/qli3+z4GwYF0++CcCMm6cwviGKeOnk0Su8c8vLeQ3ji6WaU75Ay3x2OeZvZk41Qpg2pH8T+QUAbhym0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=pPpehO4b; arc=none smtp.client-ip=115.124.28.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1784027801; c=relaxed/simple;
+	bh=Z6Y34jKjuSYJSMyRBreQ7f8PcjGfzzNol+FGO+1pqzw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PvuWN+QOsNaZA7Dx0defPqvAEitHfsJuTtrULEHmI07mbefAdc1pykJz44oe559Mq389ae642flWIlrpPpENpprKTH9jCm+BT5lDltW7T9Q2LnYAEzkFCTKk9S9r5kqyOEwGsv8V4GZjyvwblnNXiQPgyZSF4Ier/17z0fntMdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNWU5hcd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="pPpehO4b"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1784027723; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=K00io+MKxH1CZBpwH8+XpMZEpdq5IjEcNFRMXJ/soPo=;
-	b=pPpehO4bGR/gVmt/XDNqhxuueFTAmRf1+wwarkDxmKNCSpNCmNTVBLaAjGuZLnXJhxjVxrpC2wLYr31c40uzR9eu6ZAOviOFvjlwBG7GRjNiPkZjnZQ5VnSeu22BAW3X4veM1hk5xvYDNw4bsKWWOKbzzf81KxduY/tQiPUlwyuY86RETV9860XMgaFkdyjPKdcNYvCtr2dcDZTtQd5Y5Uoc0SwTQzNqpPXQT2oA9y+9SWIlEKqY5bPidBWZyDj4l6iYaRkEzO8ZJUg/Wroq69OF1dLoJ5wiwlTjgjZgZ14g6qkDtdqMcTkyV4TC4F/RNUINzXKDLFMFTWw/PcjlDg==
-X-Alimail-AntiSpam:AC=SUSPECT;BC=0.08401342|-1;BR=01201311R781ec;CH=blue;DM=|CONTINUE|false|;DS=SPAM|spam_ad|0.864217-0.00116855-0.134614;FP=12538500737878943026|11|2|18|0|-1|-1|-1;HT=maildocker-contentspam033045213054;MF=syyang@lontium.com;NM=1;PH=DS;RN=25;RT=25;SR=0;TI=SMTPD_---.iL2321x_1784026712;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.iL2321x_1784026712 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 14 Jul 2026 18:58:33 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@suse.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	xmzhu@lontium.corp-partner.google.com,
-	xmzhu@lontium.com,
-	rlyu@lontium.com,
-	xbpeng@lontium.com,
-	qdchen@lontium.com,
-	llzhang@lontium.com,
-	hfxia@lontium.com,
-	Sunyun Yang <syyang@lontium.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v16 1/2] dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-Date: Tue, 14 Jul 2026 18:58:27 +0800
-Message-Id: <20260714105828.2763677-2-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260714105828.2763677-1-syyang@lontium.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNWU5hcd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53ED11F000E9;
+	Tue, 14 Jul 2026 11:16:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784027799;
+	bh=oSD4Ijah9FPQnpFsXPHGC+3xDrLWI131nmYNXRf2k30=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XNWU5hcdYIiy7MCgWaM27Nc/1xkAjjsTSBA8Rh85ON2QatM+IaYvPlhG4m5Dc7wEe
+	 hERuii3QOMm2HlWQkb1lHcxMZ4IqiFd+cEbaEWuQ2EVSex8IyRpstRCB6uxJLWiLfG
+	 wv8W2ZElsYFI+NqTgEmf/CtHf/qYcZjra0NRq+HbDE5r6o/5yZWOq5PKK/Pfni25aL
+	 DRBdRI9p/6Gwiq87jSmuNxAY4xcnR7o/8kdelYQred+ieCpMzBKKIjSDalzFGdUN5C
+	 lQlQFeze7g0DoRdc4JQ2QGMimdUA+M2ivJoMBmlewsg5fa/lZhcuUiOKYXwv3Y8WZ9
+	 6f/gy6CO8ikaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v16 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
+ DSI bridge
+Reply-To: sashiko-reviews@lists.linux.dev
+To: syyang@lontium.com
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260714105828.2763677-3-syyang@lontium.com>
 References: <20260714105828.2763677-1-syyang@lontium.com>
+ <20260714105828.2763677-3-syyang@lontium.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 11:16:38 +0000
+Message-Id: <20260714111639.53ED11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-From: Sunyun Yang <syyang@lontium.com>
-
-This commit adds the device tree binding schema for the Lontium LT7911EXC.
-This device is an I2C-controlled bridge that converts eDP 1.4 input to MIPI
-DSI output.
-
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .../display/bridge/lontium,lt7911exc.yaml     | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
-
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
-new file mode 100644
-index 000000000..d664641be
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Lontium LT7911EXC eDP to MIPI DSI Bridge
-+
-+maintainers:
-+  - Sunyun Yang <syyang@lontium.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - lontium,lt7911exc
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: GPIO connected to RST_ pin.
-+
-+  vdd-supply:
-+    description: Regulator for 1.2V MIPI phy power.
-+
-+  vcc-supply:
-+    description: Regulator for 3.3V IO power.
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for eDP input.
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for MIPI DSI output.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - vdd-supply
-+  - vcc-supply
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        bridge@41 {
-+            compatible = "lontium,lt7911exc";
-+            reg = <0x41>;
-+            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
-+            vdd-supply = <&lt7911exc_1v2>;
-+            vcc-supply = <&lt7911exc_3v3>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    bridge_in: endpoint {
-+                        remote-endpoint = <&edp_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    bridge_out: endpoint {
-+                        remote-endpoint = <&panel_in>;
-+                    };
-+                };
-+            };
-+        };
-+    };
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Dynamic devm allocation and bridge registration in DSI host attach=
+/detach causes devres leaks and list corruption.
+- [High] Asynchronous workqueue dereferences dangling `bridge.dev` if the D=
+RM display controller unbinds.
+- [Medium] Failure to clear `output_bridge` in `dsi_host_detach` prevents p=
+anel re-attachment.
+- [Low] Mutating `pre_enable_prev_first` of a downstream bridge object viol=
+ates subsystem API layering.
+- [Low] Unsynchronized reads of `lt7911exc->removed` in the asynchronous wo=
+rkqueue.
 --
-2.34.1
 
+--- Patch [2]: [PATCH v16 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIP=
+I DSI bridge ---
+commit f0896e2dbabe50d3cbe793868df9c6d4afd6db5f
+Author: Sunyun Yang <syyang@lontium.com>
+
+drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+
+This commit adds support for the Lontium LT7911EXC bridge chip, which=20
+converts eDP input to MIPI DSI output. It implements firmware upgrades,=20
+GPIO reset handling, and DSI host interface attachment.
+
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
+/bridge/lontium-lt7911exc.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+
+[ ... ]
+
+> @@ -344,14 +344,14 @@ static void lt7911exc_firmware_upgrade_work(struct =
+work_struct *work)
+> +{
+> +	struct lt7911exc *lt7911exc =3D container_of(work, struct lt7911exc, wo=
+rk);
+> +	struct device *dev =3D lt7911exc->dev;
+> +	const struct firmware *fw;
+> +	u8 *buffer;
+> +	size_t total_size =3D FW_SIZE - 4;
+> +	u32 crc32, version;
+> +	int ret;
+> +
+> +	mutex_lock(&lt7911exc->upgrade_lock);
+> +	if (lt7911exc->removed)
+
+[Severity: Low]
+Should this read of the removed flag be protected by the ocm_lock? It
+appears this can be evaluated concurrently with driver removal since the
+lock isn't held here.
+
+> +		goto out_unlock_upgrade;
+> +
+
+[ ... ]
+
+> +out_unlock_upgrade:
+> +	scoped_guard(mutex, &lt7911exc->ocm_lock) {
+> +		if (!lt7911exc->removed)
+> +			lt7911exc->upgrade =3D false;
+> +	}
+> +
+> +	/* Notify DRM to re-trigger modeset after firmware upgrade */
+> +	if (!lt7911exc->removed && lt7911exc->bridge.dev)
+> +		drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
+
+[Severity: High]
+Could this dereference a freed drm_device if the upstream DRM display
+controller unbinds before the firmware upgrade completes?
+
+The I2C device has a lifecycle independent of the DRM display controller.
+If the upstream DRM driver is unloaded, the drm_device is destroyed, but
+the I2C device remains, leaving bridge.dev populated but dangling.
+
+If a sysfs write triggers this asynchronous workqueue in that window,
+it looks like it will pass a freed pointer to drm_kms_helper_hotplug_event(=
+).
+
+> +
+> +	mutex_unlock(&lt7911exc->upgrade_lock);
+> +}
+
+[ ... ]
+
+> +static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct =
+mipi_dsi_device *dev)
+> +{
+> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
+> +	struct drm_bridge *bridge;
+> +
+> +	/* currently do not support connecting several DSI devices to the same =
+host */
+> +	if (lt7911exc->output_bridge)
+> +		return -EBUSY;
+> +
+> +	if (dev->lanes > 4) {
+> +		dev_err(lt7911exc->dev, "unsupported number of data lanes(%u)\n", dev-=
+>lanes);
+> +		return -EINVAL;
+> +	}
+> +
+> +	bridge =3D devm_drm_of_get_bridge(lt7911exc->dev, host->dev->of_node, 1=
+, 0);
+
+[Severity: High]
+Is it safe to dynamically allocate devm memory during panel attach?
+
+If the downstream panel driver is repeatedly unbound and rebound by a
+local administrator, this will repeatedly allocate devres memory without
+freeing it, causing a memory leak.
+
+> +	if (IS_ERR(bridge)) {
+> +		dev_err(lt7911exc->dev, "failed to add DSI device\n");
+> +		return PTR_ERR(bridge);
+> +	}
+> +
+> +	lt7911exc->output_bridge =3D bridge;
+> +
+> +	/*
+> +	 * Force panel-first enable order: the DSI output stream (0xe0b0)
+> +	 * must not be enabled before the panel is powered on.
+> +	 * This override is safe because LT7911EXC's transfer() is a stub =E2=
+=80=94
+> +	 * panel DCS commands are silently discarded and panel init is done
+> +	 * by the chip's internal firmware. The panel driver's
+> +	 * prepare_prev_first preference is therefore irrelevant here.
+> +	 */
+> +	lt7911exc->output_bridge->pre_enable_prev_first =3D false;
+
+[Severity: Low]
+Is it acceptable to modify the state of a downstream bridge object
+that is owned and managed by another driver? Doing so bypasses the
+subsystem API layering.
+
+> +
+> +	drm_bridge_add(&lt7911exc->bridge);
+
+[Severity: High]
+Does this corrupt the global bridge list if the panel driver is rebound?
+
+When the downstream panel unbinds, lt7911exc_dsi_host_detach() calls
+drm_bridge_remove(), which moves the bridge to the bridge_lingering_list
+and destroys its mutexes.
+
+If the panel binds again, this drm_bridge_add() will be called on the same
+bridge structure, invoking list_add_tail() on a node that is already tracked
+in the lingering list.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct =
+mipi_dsi_device *dev)
+> +{
+> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
+> +
+> +	drm_bridge_remove(&lt7911exc->bridge);
+
+[Severity: Medium]
+Does this prevent the panel from re-attaching later?
+
+The detach function does not set lt7911exc->output_bridge back to NULL.
+If the downstream panel driver tries to attach again,
+lt7911exc_dsi_host_attach() will check if output_bridge is set and return
+-EBUSY, leaving the display pipeline permanently broken until the bridge
+driver is reloaded.
+
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714105828.2763=
+677-1-syyang@lontium.com?part=3D2
