@@ -1,141 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC65F376A0C
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 11:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D97382299;
+	Tue, 14 Jul 2026 11:25:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784028318; cv=none; b=ASsrXjCHAuoHrAOrftvhTOtTxcmvbDFFOSsoh+A5fTBSWdfXqW80yAK/A9kzgHDapWZ2/bE49yQ9iq42K/zbVQT7jCq9Er7mXWbwod2L0Tp5RkM1OrRNI4iiNwRwnES7XeCPYA0S63G1wjWEraUg0tXg/d0r+tpZN1bfay2oa48=
+	t=1784028346; cv=none; b=XcMix5tHsAmShhtj+dYFQboRk1jhP/tvsfMyVCPpj7izsqFwwQB3gJdtbjo+JBnwkEJYgkrvOVJtHb/7jGIn+NCch8CsWpHt/S08UF0GgGGGYBxDxM9nj/MxmfW+6oQB5PwgfaY6P2vt/IAIo9puQamGP09RO6TOQaLNG8BUclg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784028318; c=relaxed/simple;
-	bh=B2EkBM4BCAY+8OtM61gNg5KypiDJCeNnoFF5wjbVvxY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nO8dVahMRJgFFivdDJEI2hy/hKlZF0mNSM5eShyQgVGAeIWom5osqXPd/FlLRAAhF1y+lSF6I9HocHZzSACXqbrUEIXsv/avyz0AyoylJtnXmzfb5OU+MC+b9QdyTG84CyBDMX4E2q64awOK/HTOfeDS4uNV++vYq958W3k4j0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H9oOBYlO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784028346; c=relaxed/simple;
+	bh=l8UMWjNryveDRS7zhIlOAJJ2D2SnHH72oo1FcLXgOCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H9EHiwJVkIGfGvXcDTGRvMn4AdNd9XIv41uDWQJ7SzGnBtJ4k3xTK5oc69kTTrpk7wqo4zkNqiQD+q0HZ/xi1ys4VzHaSN96j60OD701CC7KbcOCNfokuJ2D7IKm+CmnvOfqI04JN8Fem4lMOj0b+j1P8Gfk/j7iPAqEPpkUKL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mX2Cwu+q; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H9oOBYlO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224631F000E9;
-	Tue, 14 Jul 2026 11:25:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784028317;
-	bh=XpxyQITV0oRAs5xAdKV35MbJwcSHIpqG+NWft8YOFek=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H9oOBYlOyoUuJg2Ml3aPvS3PQnN1YevJdIZiReitMYXzx88Sud2q1fUV1JdEGj3xD
-	 WrridOHSt96oFUCDiy99dHU+u8V1mKgS6P8XWoYIDsCsIcGvGcpTjqLkZr8Qi4oV0q
-	 KuDtGJD7fSUVTQvq0ULdLHocrqR96gv2TqTqLCYqzLebyr1u7h+PlaVpvkngGNm2o+
-	 qZxe7LS+r11wDJn0pAYogkLJYrZWw1LvIelkqGbpCcnMqCvTRgEhlMQuW0IAytAABJ
-	 F0XrWc+DQt80MZwDEnUn6incvkJ6XtxftrvSKpADBCzJzKKPasq8Jru6UNiTFRidSv
-	 qVNppRPlDgMFA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 02/17] iio: ABI: raw, scale and offset for
- frequency/phase channels
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260714-ad9910-iio-driver-v8-2-36939c3c07d2@analog.com>
-References: <20260714-ad9910-iio-driver-v8-0-36939c3c07d2@analog.com>
- <20260714-ad9910-iio-driver-v8-2-36939c3c07d2@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 11:25:16 +0000
-Message-Id: <20260714112517.224631F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mX2Cwu+q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784028345; x=1815564345;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=l8UMWjNryveDRS7zhIlOAJJ2D2SnHH72oo1FcLXgOCM=;
+  b=mX2Cwu+quAYjtLOxXM2bG6jBQhdQl8Uyx0BO68FpCAP9FRCaHFjd4tBq
+   mZbsekV+PVwzQO37htXvhesUG+26XUwNau4XxFqgQPg9UFMgK7m/e+0Lz
+   7ZDxRpNqBx8hZ2R27BwZzBrG1nrOTrEvCe+0RmJDBaDPvIFXhNo03Dxh8
+   /3Guh9v/c2+E7Cl9MuyrY2yxM3OcFAjCOgV186ADU4WZoGDV6R7BuoulT
+   xrAZ5H8Do9z2yhTzQwvjwotPctZOOqvQsqk1O8LWEQl1h/xjEimbRmyDR
+   Ir2P3AKVgN8V8x/OLRDHFdEQiOpUHHJP7WfQrX4g4xzx4AF1gaWAopMqF
+   Q==;
+X-CSE-ConnectionGUID: tipLsSUtT/OoaepYzoH2+A==
+X-CSE-MsgGUID: 76u2As8tQTm9dt76ir7/iQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="102071235"
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
+   d="scan'208";a="102071235"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 04:25:45 -0700
+X-CSE-ConnectionGUID: Eg7MM2WISMqp9OmKRxpZvQ==
+X-CSE-MsgGUID: F+IxOinpT4KWs09Z869aKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
+   d="scan'208";a="254706973"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 04:25:42 -0700
+Date: Tue, 14 Jul 2026 14:25:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH v16 06/10] iio: imu: inv_icm42607: Add PM support for
+ icm42607
+Message-ID: <alYcsxAKDtGi1sVA@ashevche-desk.local>
+References: <20260713215842.69097-1-macroalpha82@gmail.com>
+ <20260713215842.69097-7-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713215842.69097-7-macroalpha82@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] Missing ABI documentation for 'in_' scale and offset attributes for=
- frequency and phase channels.
-- [Low] Incorrect KernelVersion inherited for new ABI entry `out_phaseY_raw=
-`.
-- [Low] Documenting ABI attributes for a non-existent IIO channel type (`fr=
-equency`).
---
+On Mon, Jul 13, 2026 at 04:58:36PM -0500, Chris Morgan wrote:
 
---- Patch [2]: [PATCH v8 02/17] iio: ABI: raw, scale and offset for frequen=
-cy/phase channels ---
-commit 757abc8c6b95afb7c57d216bb7e4723c3c34e298
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> Add power management support for the ICM42607 device driver.
 
-iio: ABI: raw, scale and offset for frequency/phase channels
+...
 
-Consider scale and offset attributes for frequency and phase channels.
-Frequency channels are going to be introduced later alongside a DDS
-device driver which is going to leverage those new attributes.
-
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/=
-testing/sysfs-bus-iio
-> index 90047189c3ebe..7ef0db8dad40f 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-iio
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio
-> @@ -441,6 +441,10 @@ What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY_=
-i_offset
->  What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY_q_offset
->  What:		/sys/bus/iio/devices/iio:deviceX/in_currentY_offset
->  What:		/sys/bus/iio/devices/iio:deviceX/in_current_offset
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_offset
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_phase_offset
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_offset
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_frequency_offset
->  What:		/sys/bus/iio/devices/iio:deviceX/in_tempY_offset
->  What:		/sys/bus/iio/devices/iio:deviceX/in_temp_offset
->  What:		/sys/bus/iio/devices/iio:deviceX/in_pressureY_offset
-> @@ -474,6 +478,10 @@ What:		/sys/bus/iio/devices/iio:deviceX/in_voltage_s=
-cale
->  What:		/sys/bus/iio/devices/iio:deviceX/in_voltage-voltage_scale
->  What:		/sys/bus/iio/devices/iio:deviceX/out_voltageY_scale
->  What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_scale
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_phase_scale
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_scale
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_frequency_scale
-
-[Severity: Low]
-Should the 'in_' variants for these scale and offset attributes be
-documented here as well?
-
-The description added later in this patch for in_frequencyY_raw mentions
-that scale and offset are applied, but only the 'out_' variants are
-being documented here.
-
->  What:		/sys/bus/iio/devices/iio:deviceX/in_currentY_scale
->  What:		/sys/bus/iio/devices/iio:deviceX/in_currentY_supply_scale
-
-[ ... ]
-
-> @@ -2147,7 +2155,16 @@ Description:
->  		specific attributes. This is useful for userspace to be able to
->  		better identify an individual channel.
-> =20
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_frequencyY_raw
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_frequencyY_raw
-
-[Severity: Low]
-The commit message notes that frequency channels will be introduced
-later. Is it standard practice to document ABI attributes for a channel
-type (like IIO_FREQUENCY) before the channel type exists in the IIO
-core?
-
-> +KernelVersion:	7.3
-> +Contact:	linux-iio@vger.kernel.org
-> +Description:
-> +		Raw (unscaled) frequency reading from channel Y.
-> +		Units after application of scale and offset are Hz.
+> +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
+> +				      enum inv_icm42607_sensor_mode gyro,
+> +				      enum inv_icm42607_sensor_mode accel)
+> +{
+> +	unsigned int oldaccel, oldgyro;
+> +	unsigned int sleepval_us;
+> +	unsigned int val;
+> +	s64 disable_wait;
+> +	int ret;
 > +
->  What:		/sys/bus/iio/devices/iio:deviceX/in_phaseY_raw
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_phaseY_raw
->  KernelVersion:	4.18
+> +	ret = inv_icm42607_get_pwr_mgmt0(st, &oldgyro, &oldaccel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (gyro == oldgyro && accel == oldaccel)
+> +		return 0;
+> +
+> +	/*
+> +	 * Datasheet on page 14.26 says we need to ensure the gyro sensor is on
+> +	 * for a minimum of 45ms. So if we transition from an on state to an
+> +	 * off state make sure at least 45ms have passed before power off and
+> +	 * wait if it hasn't.
+> +	 */
+> +	if (!gyro && oldgyro) {
+> +		disable_wait = ktime_us_delta(st->conf.gyro_stop, ktime_get());
+> +		disable_wait = clamp(disable_wait,
+> +				     0, INV_ICM42607_GYRO_STOP_TIME_US);
 
-[Severity: Low]
-Does grouping out_phaseY_raw here incorrectly imply that it was
-introduced in KernelVersion 4.18, rather than the current release?
+I would go with this slightly longer line
 
->  Contact:	linux-iio@vger.kernel.org
->  Description:
+		disable_wait = clamp(ktime_us_delta(st->conf.gyro_stop, ktime_get()),
+				     0, INV_ICM42607_GYRO_STOP_TIME_US);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-ad9910-iio=
--driver-v8-0-36939c3c07d2@analog.com?part=3D2
+> +		fsleep(disable_wait);
+> +	}
+> +
+> +	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro) |
+> +	      FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * If a state change occurs from off to on, sleep for the startup
+> +	 * time of the sensor, unless a sleep_ms is specified. Since more
+> +	 * than one sensor can be transitioned from off to on, select the
+> +	 * maximum time from each of the sensors changing from off to on.
+> +	 * The startup time for the temp sensor is considerably smaller
+> +	 * than the startup time for the other sensors and one or more are
+> +	 * required to be on for the temp sensor to function, so any start
+> +	 * delay should be enough.
+> +	 */
+> +	sleepval_us = 0;
+> +	if (accel && !oldaccel)
+> +		sleepval_us = max(sleepval_us, INV_ICM42607_ACCEL_STARTUP_TIME_US);
+> +
+> +	if (gyro && !oldgyro) {
+> +		sleepval_us = max(sleepval_us, INV_ICM42607_GYRO_STARTUP_TIME_US);
+> +		/* Track the earliest we can turn off the gyroscope. */
+> +		st->conf.gyro_stop = ktime_add_us(ktime_get(),
+> +						  INV_ICM42607_GYRO_STOP_TIME_US);
+> +	}
+
+> +	/* Only sleep if sleepval_us is greater than 0 in case some
+> +	 * platforms have issues with a 0 delay. The 0 delay can happen
+> +	 * if one or both sensors is shut down.
+> +	 */
+
+/*
+ * Use the same style for mutli-line comment
+ * in all comments.
+ */
+
+> +	if (sleepval_us > 0)
+> +		fsleep(sleepval_us);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +EXPORT_NS_GPL_DEV_PM_OPS(inv_icm42607_pm_ops, IIO_ICM42607) = {
+> +	SYSTEM_SLEEP_PM_OPS(inv_icm42607_suspend, inv_icm42607_resume)
+
+> +	RUNTIME_PM_OPS(inv_icm42607_runtime_suspend,
+> +		       inv_icm42607_runtime_resume,
+> +		       NULL)
+
+Hmm... perhaps just a single line as well?
+
+	RUNTIME_PM_OPS(inv_icm42607_runtime_suspend, inv_icm42607_runtime_resume, NULL)
+
+> +};
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
