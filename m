@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356A4480960
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170F5448CFC
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784040237; cv=none; b=pRMpBGfPcGODRCtS2bZYPu/x2w3FohYHWKgCtDNiigm1Br5wDztUUWVnBxoStswSHqopOmuR0j9MChfy5zIAnV8Ezu/e/DApxhWICXXjtNqir61eePlzVYtJ4dM3fxNDO/hCFVf8Qlhe5s90JfFgkQNKNJlzVoquB/Ui2Hmt2+c=
+	t=1784040237; cv=none; b=pWUogonRCSnKndU/m7QB/4ABD5XWXuSQDaFcx0D4J2he05gYb7opVI9p+sSRI1UJOmKSu7xOnjBqWaKNvlXxY+L5Qv2SUr0Ctmx3ZuJZUupOhySx7E+fhR9DwYopQFWXQ5wVfoJfDg2NZTMIJSCZvSWIbEoJD3OWyRwXmjm/b7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1784040237; c=relaxed/simple;
-	bh=/fXYdhYqwznUjrYcbZc1UNzXTvmsHyRQj5DZn50QQRE=;
+	bh=5Y8Gvrf8ZOd+MRGXujtzNngV++xHS89ZWBy/yL3J7fs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WDchbeYU4euSJJ9dyhlQ9ojt1BOIpUAEztEwotFlyi02xjWrBwajN7WHV0TboKwuUPXMM5KP9AlNHPd6+s3YpZ2McrDhASJCaLzpKKf0b4NsE72SpTChlvYQTBl7i/QwTZLATj0dZpYwZV1Wl3rXZoACaTPWZeQXppQCFVdSKG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MmsJf5gf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=a1GxtquBt+HzWqDDJakLmK9ASkEMsb+X4L/p7ZKPqffECImVCdudci6Xcj7rbQXGB6PLWV8gDEmCMx3/OMj5c5iJzIq/ncx1D2vqEPz41nDlGT+C+0+5TMpafpcZvoYxU39YM6zqjq4W+Jvmvk1eyt32EWUif/NRC1c4dzMr9vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VyJt1kwR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MmsJf5gf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C64D1F00A3A;
-	Tue, 14 Jul 2026 14:43:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VyJt1kwR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BB41F00A3D;
+	Tue, 14 Jul 2026 14:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784040225;
-	bh=TYydcPSVJHY+OaLPmflFi/oCDoCvtQK4MezmNva1R6Q=;
+	s=k20260515; t=1784040226;
+	bh=afUzv1WNgtlwlkH8BXDvG0TdghvIoITfRX1MWo+3pM4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MmsJf5gfwOcVF11m0pIoRQzDVQF6Ioef4IegC3Zroo9n4WkHDItc09HWyP8JAPyc6
-	 VlL1/8q8KoYUBNLra3zRygvsIywMAXVZeIR+1wWDfPHAPvtGSIC5qfs6F65ILC7BZm
-	 gGToNBXrv7qMhpmyKYybulioLDicEr0cOrgArjol9eo6c0SPibYbfNbzHJIvT+Mof8
-	 NnFBryf4x+U0WWjkmevW4mubAxoSVd7fOjf82rl/7swWiEa9kevgKjPvOVznieWezs
-	 E779KqZjsKLy9MZAGmWjWokb3UxKbbmHYb8nUvqCCdodx0umNsF8afqFLRslEmQmut
-	 7snpC4gG8FeTA==
+	b=VyJt1kwRMq5wHt44599HtPKy01YV7Dquzvpk118bTEvpOM33734Klwkrk4p4U6Ebu
+	 qgmCbVucpRkIQ4R/fS4whOLjCjnQurEENgC8tAmjh+bW7X/kzNQ1JCMXIaml/OS3ti
+	 OOtEyuVnmKDIOp4e0U5Muck0mQn8mLdgHa0cBHRusQDeBjZBpEJOnipn49zoNZb3sR
+	 dggwQ0avMZJU6EX8f95B7AZXwYIY5Ktdhv1Z8VjmXSgk5F+9M02/30qElOEpOWM5Jq
+	 q/3hSFq5Y3o6KQbCrxihFdq6luI7sChamw6gMS/vO13+kLpY9V/RtijDmvfwqaXpQr
+	 Kqv3R29nvrDoQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v10 2/9] dt-bindings: net: lan9645x: add
- LAN9645X switch bindings
+Subject: Re: [PATCH net-next v10 4/9] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260713-dsa_lan9645x_switch_driver_base-v10-2-a4886a08fb15@microchip.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260713-dsa_lan9645x_switch_driver_base-v10-4-a4886a08fb15@microchip.com>
 References: <20260713-dsa_lan9645x_switch_driver_base-v10-0-a4886a08fb15@microchip.com>
- <20260713-dsa_lan9645x_switch_driver_base-v10-2-a4886a08fb15@microchip.com>
+ <20260713-dsa_lan9645x_switch_driver_base-v10-4-a4886a08fb15@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Tue, 14 Jul 2026 14:43:45 +0000
-Message-Id: <20260714144345.6C64D1F00A3A@smtp.kernel.org>
+Message-Id: <20260714144346.22BB41F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,72 +47,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] DT binding schema strictly prohibits `mdio` bus nodes, breaking =
-the ability to define integrated PHYs.
+- [High] Missing FDB operations and omission of the CPU port in PGID_UC bre=
+aks unicast IP traffic to the CPU.
 --
 
---- Patch [2]: [PATCH net-next v10 2/9] dt-bindings: net: lan9645x: add LAN=
-9645X switch bindings ---
-commit d0ca8cd625881ac3b8529fd977bdb0c8a0c3b129
+--- Patch [4]: [PATCH net-next v10 4/9] net: dsa: lan9645x: add basic dsa d=
+river for LAN9645X ---
+commit 996cf37c0fe28c352442c3b82c0b401974b8f66a
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
 
-dt-bindings: net: lan9645x: add LAN9645X switch bindings
+net: dsa: lan9645x: add basic dsa driver for LAN9645X
+   =20
+Add the LAN9645X basic DSA driver with initialization, parent regmap reques=
+ts,
+port module initialization for NPI, CPU ports and front ports, and phylink
+integration for MAC side configuration.
 
-Add bindings for LAN9645X switch. We use a fallback compatible for the
-smallest SKU microchip,lan96455s-switch.
-
-> diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan96455=
-s-switch.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,lan9645=
-5s-switch.yaml
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
+/net/dsa/microchip/lan9645x/lan9645x_main.c
 > new file mode 100644
-> index 0000000000000..043fb48922b41
+> index 0000000000000..b253813518c20
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switc=
-h.yaml
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 
 [ ... ]
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - ethernet-ports
+> @@ -0,0 +1,447 @@
+
+[ ... ]
+
+> +static int lan9645x_setup(struct dsa_switch *ds)
+> +{
+
+[ ... ]
+
+> +	/* Multicast to all front ports */
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MC));
 > +
-> +unevaluatedProperties: false
+> +	/* IP multicast to all front ports */
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV4));
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV6));
+> +
+> +	/* Unicast to all front ports */
+> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_UC));
 
-[Severity: Medium]
-Will this schema reject valid hardware descriptions that include an mdio ch=
-ild
-node for the integrated PHYs?
+[Severity: High]
+Does omitting the CPU port module (BIT(lan9645x->num_phys_ports)) from the
+unknown unicast flooding mask (PGID_UC) prevent unicast traffic from reachi=
+ng
+the CPU?
 
-Since the schema sets unevaluatedProperties: false without defining or
-referencing an mdio property, any mdio node defined in a device tree will
-be rejected as an illegal property.
+Since hardware learning is disabled in lan9645x_port_setup() via
+ANA_PORT_CFG_LEARN_ENA_SET(0), and the lan9645x_switch_ops struct lacks a
+port_fdb_add callback to statically program the CPU's MAC address, unicast
+frames destined for the CPU will be treated as unknown unicast.
+
+Because PGID_UC only includes front_ports, it appears these unknown unicast
+frames will be flooded to the front ports but not to the CPU, effectively
+breaking unicast IP connectivity (such as ARP replies) to the host.
 
 > +
-> +examples:
-> +  - |
-> +    ethernet-switch@4000 {
-> +        compatible =3D "microchip,lan96459f-switch", "microchip,lan96455=
-s-switch";
-> +        reg =3D <0x4000 0x244>;
-> +
-> +        ethernet-ports {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            ethernet-port@0 {
-> +                reg =3D <0>;
-> +                phy-mode =3D "gmii";
-> +                phy-handle =3D <&cuphy0>;
+> +	/* Broadcast to cpu and all front ports */
+> +	lan_wr(BIT(lan9645x->num_phys_ports) | front_ports, lan9645x,
+> +	       ANA_PGID(PGID_BC));
 
-[Severity: Medium]
-Does the schema allow defining the integrated PHY nodes referenced here?
-
-The example demonstrates the necessity of phy-handle pointers to integrated
-PHY nodes (such as &cuphy0), yet the schema's constraints make it
-structurally impossible to validly define the MDIO bus for those PHYs.
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-dsa_lan964=
-5x_switch_driver_base-v10-0-a4886a08fb15@microchip.com?part=3D2
+5x_switch_driver_base-v10-0-a4886a08fb15@microchip.com?part=3D4
