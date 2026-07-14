@@ -1,126 +1,265 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E705478E3D
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:51:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C8247AF4D;
+	Tue, 14 Jul 2026 13:53:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784037101; cv=none; b=VaRtXFU7Z9cMhJE6O3/YGbZG/RaWfIcztM2yVhlsKBsv7dyrZGqiLQ+OZhPI+YovTRNSLO5pJE9R6zEuf2LzA+7ZI7Ko0wpljRQdC5S7b4EiwMnDA2dDWREa/LzKvgO3FN1gh5sUeQK1KRDE1JkU3PpGXYeFpttQK+uUHS8z/7Q=
+	t=1784037207; cv=none; b=UlxVVFPWYXzAcQpxkoB04ecGCP73CQ+0t0eQv5F6GvTwr1DFujiX0MC9ErSod+b7WNxbQT3O6lhT3MhREqrPIrYUepfHhhIWNipiCozn3K7BjLiFWbHFvWV0LJfIjga66N9gF/qZExAZ+B9OfhFTM5Narhaf8uNuh703VmHINpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784037101; c=relaxed/simple;
-	bh=ZKaYQQM7Q7za2Ut/3zuBxRXxAuLgmKZyhha4H1XSTMo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xag09eaIYjyfIvxOv1CL/fcK5q4XdCT4H2uO5+3MvXg1M4jw7qGaerR0p4eJeuKxULrlbbCjLpzF+EXO5y8KmHe1YgEEk3tE17I8RNgCJpaIx3qWQsGeo/L8z17/46FSAC1E659CXTwcbu2erAbmn2YENMDlDpdvyoAhwma+e/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6+UBtzS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784037207; c=relaxed/simple;
+	bh=vXMwitJgtYXSlDnw38YkQK3Q/5dx2k+2wNuvAumhJi8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BV760DoQPGBVugJFS5rz1AtHug17sN+pgitsqQoqgK+ruJxETXTXYKJEIkPN/MPXiheQNIFATsfJvheS2UfjsUcS2+7EFq7xrg397yK44w5Qhb9ToFqMo8PZSX7D9ralGDoboAozJsdBM8yR//TH/9gX72dvXqpEBhh8lC1ZBLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NlrPtVpf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6+UBtzS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FB21F000E9;
-	Tue, 14 Jul 2026 13:51:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NlrPtVpf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454791F000E9;
+	Tue, 14 Jul 2026 13:53:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784037099;
-	bh=ywle4FhaSYuDJqYMKD9liPxZ5Qaxj9kaFlw9SmZeMpk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O6+UBtzSSgPv4MD1R0Q9h/vkqAz2H01hu3ZyeWjXzkVzyrCdFY2bwwjwR6drUBT2Q
-	 b3UH8smTthxQUWFj/Y3dH6geZCvnR+QfTZC8g8tkr/KT0OHQuTTbBf95a3NGDCXvtN
-	 4t47/qSH7RXgZ4s68S/zJWIzrJqPRbWCJfxB1SJ8sXtDW6aXSdxY5zzZmlmng5OG2W
-	 98aO/jh3COvCDSlOSa2NFz2k0pxSIGrZaN2IZUYuh90ZDKEWdxXZNKPGRn/M9oDDrJ
-	 7bjRS1y/bE+eD9J5dN4AFcNdyIHmIRukebU5ydGVwq6pbHccz2Up7yaFjcSkPPqdlg
-	 0pDtnWg+dYeRA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] pmdomain: mediatek: Add support for secure modem
- power domain control
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nikolai Burov" <nikolai.burov@jolla.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260714-mt6858-pmdomain-v1-2-4f09bbb822e0@jolla.com>
-References: <20260714-mt6858-pmdomain-v1-0-4f09bbb822e0@jolla.com>
- <20260714-mt6858-pmdomain-v1-2-4f09bbb822e0@jolla.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 13:51:38 +0000
-Message-Id: <20260714135139.59FB21F000E9@smtp.kernel.org>
+	s=k20260515; t=1784037203;
+	bh=QaaBGqZH0Ys6NC7fb6XgsKHiHb+sRdLLVPO1+TCjC4Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NlrPtVpfj0ahfbKwLQ06xzmp66N5lylhdM7f73FY/uGNXxTIfGJjenOCBwWpoCOSD
+	 sZQZKhWk554O5nBbbRjvh2kee4PPkBTiHPmnS8mrpNeMnJFx4klhwu/3RS2OQwSL37
+	 P4WpKzFFy8zFXJcNSLdD8BflOUxdExOumQXuXT8FyEb2m+3xJYsdKR8pyF1oetA7vw
+	 Pz7sCSu2g1KqOXjCD421enQzKOC4JDtRsfTPdkWPtrRBOsdTM7MIeCvg46kyOV4wL3
+	 OwLdx5VtsUVwqCQUEF0R2vVE0iN2yNWFo72o4HAemzfpAzFBrQiGMez25YoIxCoy8F
+	 FGmbOngi7Ko5Q==
+Date: Tue, 14 Jul 2026 15:53:14 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Wei Deng <wei.deng@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	mengshi.wu@oss.qualcomm.com
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: hamoa-iot-evk: Describe the PCIe
+ M.2 Key E connector
+Message-ID: <yjdklxiwhpnpzkuuqfz7slggewnputddyx2sehoajk4qjfhmu3@5kw3r22cbmkx>
+References: <20260709-fix-hamoa-m2-w-disable2-v1-0-5e725091266a@oss.qualcomm.com>
+ <20260709-fix-hamoa-m2-w-disable2-v1-1-5e725091266a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260709-fix-hamoa-m2-w-disable2-v1-1-5e725091266a@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Secure modem power domain is powered off prematurely in the teardo=
-wn sequence, violating hardware requirements and potentially causing bus ti=
-meouts or lockups (SError).
---
+On Thu, Jul 09, 2026 at 12:59:40PM +0530, Wei Deng wrote:
+> The hamoa IoT EVK has the PCIe M.2 Mechanical Key E connector to
+> connect wireless connectivity cards over PCIe and UART interfaces.
+> Hence, describe the connector node, link it with the PCIe 4 Root Port
+> node and replace the static BT serdev under UART14 and the
+> chip-specific wifi@0 child node with graph port/endpoints, allowing
+> the pwrseq-pcie-m2 driver to power the card and dynamically create
+> the BT serdev device.
+> 
+> The M.2 Key E connector is powered by vreg_wcn_3p3. WLAN enable is
+> controlled via W_DISABLE1# (GPIO117) and BT enable via W_DISABLE2#
+> (GPIO116), both described as active-low GPIOs on the connector node.
+> 
+> Remove the chip-specific wcn7850-pmu node as the M.2 connector
+> approach replaces the WCN7850-specific power sequencing with a
+> chip-agnostic one managed by the pwrseq-pcie-m2 driver.
+> 
+> Also add 'compatible = "pciclass,0604"' to pcie4_port0 in hamoa.dtsi
+> to allow the PCI subsystem to associate the DT node with the
+> PCI-to-PCI bridge device.
+> 
+> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
 
---- Patch [2]: [PATCH 2/3] pmdomain: mediatek: Add support for secure modem=
- power domain control ---
-commit 6dae8fe193509453ecfd352eacac6f51667e9e72
-Author: Nikolai Burov <nikolai.burov@jolla.com>
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
 
-pmdomain: mediatek: Add support for secure modem power domain control
+- Mani
 
-This commit adds a flag to enable a secure monitor call (SMC) to turn
-the modem power domain on or off on recent MediaTek SoCs. The sequence is
-needed because firmware prevents direct modification of the power domain
-control register.
-
-> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomai=
-n/mediatek/mtk-pm-domains.c
-> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-
-[ ... ]
-
-> @@ -709,6 +745,12 @@ static int scpsys_power_off(struct generic_pm_domain=
- *genpd)
->  	if (ret < 0)
->  		return ret;
-> =20
-> +	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_SECURE)) {
-> +		ret =3D scpsys_modem_sec_power_on(false);
-> +		if (ret)
-> +			return ret;
-> +	}
+> ---
+>  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts | 129 ++++++++++-------------------
+>  arch/arm64/boot/dts/qcom/hamoa.dtsi        |   1 +
+>  2 files changed, 47 insertions(+), 83 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> index 9fa86bb6438e..41c2004f0ef6 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> @@ -68,6 +68,44 @@ chosen {
+>  		stdout-path = "serial0:115200n8";
+>  	};
+>  
+> +	connector {
+> +		compatible = "pcie-m2-e-connector";
+> +		vpcie3v3-supply = <&vreg_wcn_3p3>;
 > +
->  	if (pd->data->ext_buck_iso_offs && MTK_SCPD_CAPS(pd, MTK_SCPD_EXT_BUCK_=
-ISO))
->  		regmap_set_bits(scpsys->base, pd->data->ext_buck_iso_offs,
->  				pd->data->ext_buck_iso_mask);
+> +		w-disable1-gpios = <&tlmm 117 GPIO_ACTIVE_LOW>;
+> +		w-disable2-gpios = <&tlmm 116 GPIO_ACTIVE_LOW>;
+> +
+> +		pinctrl-0 = <&wcn_wlan_en>, <&wcn_bt_en>;
+> +		pinctrl-names = "default";
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				m2_e_pcie_ep: endpoint@0 {
+> +					reg = <0>;
+> +					remote-endpoint = <&pcie4port0_ep>;
+> +				};
+> +			};
+> +
+> +			port@3 {
+> +				reg = <3>;
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				m2_e_uart_ep: endpoint@0 {
+> +					reg = <0>;
+> +					remote-endpoint = <&uart14_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+>  	connector3 {
+>  		compatible = "usb-a-connector";
+>  		label = "USB-3-Type-A";
+> @@ -676,65 +714,6 @@ usb_1_ss0_sbu_mux: endpoint {
+>  			};
+>  		};
+>  	};
+> -
+> -	wcn7850-pmu {
+> -		compatible = "qcom,wcn7850-pmu";
+> -
+> -		vdd-supply = <&vreg_wcn_0p95>;
+> -		vddio-supply = <&vreg_l15b_1p8>;
+> -		vddaon-supply = <&vreg_wcn_0p95>;
+> -		vdddig-supply = <&vreg_wcn_0p95>;
+> -		vddrfa1p2-supply = <&vreg_wcn_1p9>;
+> -		vddrfa1p8-supply = <&vreg_wcn_1p9>;
+> -
+> -		bt-enable-gpios = <&tlmm 116 GPIO_ACTIVE_HIGH>;
+> -		wlan-enable-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+> -
+> -		pinctrl-0 = <&wcn_bt_en>, <&wcn_wlan_en>;
+> -		pinctrl-names = "default";
+> -
+> -		regulators {
+> -			vreg_pmu_rfa_cmn: ldo0 {
+> -				regulator-name = "vreg_pmu_rfa_cmn";
+> -			};
+> -
+> -			vreg_pmu_aon_0p59: ldo1 {
+> -				regulator-name = "vreg_pmu_aon_0p59";
+> -			};
+> -
+> -			vreg_pmu_wlcx_0p8: ldo2 {
+> -				regulator-name = "vreg_pmu_wlcx_0p8";
+> -			};
+> -
+> -			vreg_pmu_wlmx_0p85: ldo3 {
+> -				regulator-name = "vreg_pmu_wlmx_0p85";
+> -			};
+> -
+> -			vreg_pmu_btcmx_0p85: ldo4 {
+> -				regulator-name = "vreg_pmu_btcmx_0p85";
+> -			};
+> -
+> -			vreg_pmu_rfa_0p8: ldo5 {
+> -				regulator-name = "vreg_pmu_rfa_0p8";
+> -			};
+> -
+> -			vreg_pmu_rfa_1p2: ldo6 {
+> -				regulator-name = "vreg_pmu_rfa_1p2";
+> -			};
+> -
+> -			vreg_pmu_rfa_1p8: ldo7 {
+> -				regulator-name = "vreg_pmu_rfa_1p8";
+> -			};
+> -
+> -			vreg_pmu_pcie_0p9: ldo8 {
+> -				regulator-name = "vreg_pmu_pcie_0p9";
+> -			};
+> -
+> -			vreg_pmu_pcie_1p8: ldo9 {
+> -				regulator-name = "vreg_pmu_pcie_1p8";
+> -			};
+> -		};
+> -	};
+>  };
+>  
+>  &i2c1 {
+> @@ -1025,19 +1004,10 @@ &pcie4_port0 {
+>  	reset-gpios = <&tlmm 146 GPIO_ACTIVE_LOW>;
+>  	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
+>  
+> -	wifi@0 {
+> -		compatible = "pci17cb,1107";
+> -		reg = <0x10000 0x0 0x0 0x0 0x0>;
+> -
+> -		vddaon-supply = <&vreg_pmu_aon_0p59>;
+> -		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+> -		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+> -		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+> -		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+> -		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+> -		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+> -		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
+> -		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
+> +	port {
+> +		pcie4port0_ep: endpoint {
+> +			remote-endpoint = <&m2_e_pcie_ep>;
+> +		};
+>  	};
+>  };
+>  
+> @@ -1531,17 +1501,10 @@ wcn_usb_sw_n: wcn-usb-sw-n-state {
+>  &uart14 {
+>  	status = "okay";
+>  
+> -	bluetooth {
+> -		compatible = "qcom,wcn7850-bt";
+> -		max-speed = <3200000>;
+> -
+> -		vddaon-supply = <&vreg_pmu_aon_0p59>;
+> -		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+> -		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+> -		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+> -		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+> -		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+> -		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+> +	port {
+> +		uart14_ep: endpoint {
+> +			remote-endpoint = <&m2_e_uart_ep>;
+> +		};
+>  	};
+>  };
+>  
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> index 60f485a4892e..566a6b4c6208 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> @@ -3776,6 +3776,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+>  
+>  			pcie4_port0: pcie@0 {
+>  				device_type = "pci";
+> +				compatible = "pciclass,0604";
+>  				reg = <0x0 0x0 0x0 0x0 0x0>;
+>  				bus-range = <0x01 0xff>;
+>  
+> 
+> -- 
+> 2.34.1
+> 
 
-[Severity: High]
-Does calling scpsys_modem_sec_power_on(false) here power off the domain
-prematurely?
-
-The secure modem domain is being shut down before isolating the bus and
-disabling the subsystem clocks. Could this cause AXI bus lockups (SError)
-and crash the system?
-
-[ ... ]
-
-> @@ -719,10 +761,12 @@ static int scpsys_power_off(struct generic_pm_domai=
-n *genpd)
->  	if (ret < 0)
->  		return ret;
-> =20
-> -	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
-> -		scpsys_modem_pwrseq_off(pd);
-> -	else
-> -		scpsys_ctl_pwrseq_off(pd);
-> +	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_SECURE)) {
-> +		if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
-> +			scpsys_modem_pwrseq_off(pd);
-> +		else
-> +			scpsys_ctl_pwrseq_off(pd);
-> +	}
-> =20
->  	/* wait until PWR_ACK =3D 0 */
-
-[Severity: High]
-Should the scpsys_modem_sec_power_on(false) call be moved down here?
-
-For non-secure domains, the actual power down happens here after the bus
-protection and clock disable steps have executed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-mt6858-pmd=
-omain-v1-0-4f09bbb822e0@jolla.com?part=3D2
+-- 
+மணிவண்ணன் சதாசிவம்
