@@ -1,331 +1,117 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E291135A387;
-	Tue, 14 Jul 2026 11:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156DB181334;
+	Tue, 14 Jul 2026 11:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784028613; cv=none; b=XhjTHEZlFUzB51Jp+SOi+C27qoiqOroLRELLD3OfS8j9i9YTaKp8S83CVaW+GvAnwPbypCK5L3dHnDesVizE+Rqk1mnXBp8q2b5IDFVIfjshGAGoba3B4q3tkKmIzc3nNAGkx2xGRHuHSVjv6IXbchwwLglQVmhzrmaqx3Hxw+E=
+	t=1784028702; cv=none; b=NdyCYvzwRg+w7gmrlAWrK7UW/KPGMfB3zhdhrKu0InMZnS1gilljdKUVbXCIbzYwHItccmRFbb0UgQ9xqeB+de5lBvA7TumUovcjoOHRXXRSirEhCYwlbdks/OhfKisiVyNe4rlHXix7tLpCr7/03WWFuWMDzKLtYfQB3D80HRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784028613; c=relaxed/simple;
-	bh=waq8VNJgFB3A36U/4yF+C9LFLMZXFtLcZD4Rdi3vW0g=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Cv0OfpBqXarf7hhe2gjWVySqvLdRllJMAAZOXs/bthKqvTsCkz/DQTw6ea0KQXjxTSKlpM0zV4+BlCAC/vNEMD19LT7+fs03SyKEaVc/gLZoJq+sJyUXIyK5uC57QIGJs0YyhLiVVWb5IgINP9vhBQFxMz4pxX3FbiN0Iq8ga/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MEOj3oSD; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1784028702; c=relaxed/simple;
+	bh=jcai0qjyo1b88jCQI1Se9jX27hbIxqqY8Uk5KZ+wrZg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lYk98sASwOz3GeFeo6vV3x3xJ6sLi00ODgXSKAU9ejt37obG991sinL/W+D8rPM2ngdoCleyn+O/l/kHFYDt5/sWokhDwwsZ9sfkCozov4iCE7eps0s3SBeMkMJiK3PsEMmENQP/9iZOMR4alMtFfkU23nrP7jNmHwcu/q3Y4wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lCt0WCbA; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MEOj3oSD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784028608;
-	bh=waq8VNJgFB3A36U/4yF+C9LFLMZXFtLcZD4Rdi3vW0g=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=MEOj3oSDyNmyy/GypNt45JfGP7JIaCnJTwCrLbfTwKLTp3sduf5RrEgoiK8Srmta3
-	 4M5zNKV9H21OauxA08+FzweV5Hd4GEKAoYS0GMPqIY1Zq/EWol8gZAbIrywicI5dDz
-	 Lw2D0RdT3DxCV8j3X65fNLRLrL1HsGxYF067NU2PM41u4tvlaqeXhCPNyZJQh7im3M
-	 ph0St825k7qUgqKJ6DqH1QprJfvn9K9Sh3ebpQuzeCfGelCLFZlHXYZW41olbI0cFU
-	 QtrhXtf2RhBd/e2xtotYObWxuZeFTj2JWSlNcXkCKOwTZ5wL5MlqZ5+XFp0SnNu3dA
-	 hJIllBFjVt/eg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 90D9717E07A2;
-	Tue, 14 Jul 2026 13:30:07 +0200 (CEST)
-Message-ID: <c5afe7db-d753-4202-b368-1680195cbd2f@collabora.com>
-Date: Tue, 14 Jul 2026 13:30:07 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lCt0WCbA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784028701; x=1815564701;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jcai0qjyo1b88jCQI1Se9jX27hbIxqqY8Uk5KZ+wrZg=;
+  b=lCt0WCbA18hKnAdoXyiKAhEcD7XpmGNfRd4ztpVgLGajNzsnVEWTGvH4
+   hBW8Idq+7E28XozXaPxNCN8I37MGNetNlwnMIL88HquS1Wedp8HQ7cuH/
+   ToTpltPvAFYCTXTFFhPEfQsa2Ztx9Hj6iQtOQdG8+xC1SRbS4RI10MWNt
+   /Xu/bdm3Z03RhTJt1JK0/SJpqQgyHZFlGhT9qCYFbRmPoFtXUHxT/2bEm
+   6UwkX8hkqTLttL6+mnYvJADIxSooVBnlVpzczI1S7QRGl3f30yBf1ygDi
+   6+qnCM9Dq6BTSG/Z/6EIYysG+/J4spRGpHUQ5ZnZecJvab5mvxOTwbyTc
+   Q==;
+X-CSE-ConnectionGUID: sqkoaSmWSMyOkzkjKDHx0Q==
+X-CSE-MsgGUID: OcMLykF0QV+t9LQDV4rQBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="107440500"
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
+   d="scan'208";a="107440500"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 04:31:40 -0700
+X-CSE-ConnectionGUID: 7pJYioDUQyKfbeqL+3ROag==
+X-CSE-MsgGUID: 5HfEpHDXSleqBZxbte/6yA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
+   d="scan'208";a="254083358"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 04:31:36 -0700
+Date: Tue, 14 Jul 2026 14:31:33 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <jananisunil.dev@gmail.com>
+Cc: Janani Sunil <janani.sunil@analog.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 5/6] gpio: ad7768: Add AD7768 GPIO auxiliary driver
+Message-ID: <alYeFXzm56mvfdzi@ashevche-desk.local>
+References: <20260709-ad7768-driver-v1-0-44e1194fd96a@analog.com>
+ <20260709-ad7768-driver-v1-5-44e1194fd96a@analog.com>
+ <ak-AcfH-Igsa_ksV@ashevche-desk.local>
+ <1e353a66-3543-4a6f-91b6-d5e8524d9754@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/42] drm/mediatek: Use hashtable for components
- discovery and registration
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
- <mripard@kernel.org>, "kernel@collabora.com" <kernel@collabora.com>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "airlied@gmail.com" <airlied@gmail.com>,
- =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
-References: <20260701122057.19648-1-angelogioacchino.delregno@collabora.com>
- <20260701122057.19648-7-angelogioacchino.delregno@collabora.com>
- <79f44c827c78fd823300509c22058f2b6f3600b6.camel@mediatek.com>
- <16980e9f-c183-41c4-8001-ac7807cc087b@collabora.com>
-Content-Language: en-US
-In-Reply-To: <16980e9f-c183-41c4-8001-ac7807cc087b@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1e353a66-3543-4a6f-91b6-d5e8524d9754@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 7/7/26 13:56, AngeloGioacchino Del Regno wrote:
-> On 7/6/26 09:02, CK Hu (胡俊光) wrote:
->> On Wed, 2026-07-01 at 14:20 +0200, AngeloGioacchino Del Regno wrote:
->>> As a preparation for refactoring the concept of hardware component
->>> identification, search, and final usage, remove the ddp_comp array
->>> of components and replace it with a hashtable, indexed by ID.
->>>
->>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->>> ---
->>>   drivers/gpu/drm/mediatek/mtk_crtc.c     | 44 ++++++++++++++++-------
->>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 48 ++++++++++++++++++-------
->>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.h | 23 +++++++++++-
->>>   drivers/gpu/drm/mediatek/mtk_drm_drv.c  |  7 ++--
->>>   drivers/gpu/drm/mediatek/mtk_drm_drv.h  |  2 +-
->>>   5 files changed, 94 insertions(+), 30 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/ 
->>> mtk_crtc.c
->>> index f39f197057a7..3f4d6ab1bfc2 100644
->>> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
->>> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
->>> @@ -725,8 +725,12 @@ static void mtk_crtc_update_output(struct drm_crtc *crtc,
->>>           crtc_state->connectors_changed, encoder_mask, crtc_index);
->>>       for (i = 0; i < mtk_crtc->num_conn_routes; i++) {
->>> -        unsigned int comp_id = mtk_crtc->conn_routes[i].route_ddp;
->>> -        struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
->>> +        const struct mtk_drm_route *conn_route = &mtk_crtc->conn_routes[i];
->>> +        struct mtk_ddp_comp *comp;
->>> +
->>> +        comp = mtk_ddp_comp_find_by_id(&priv->hlist, conn_route->route_ddp);
->>
->> I don't know why you invent conn_route? Keep comp_id use it here looks the same.
->>
-> 
-> I'm not inventing conn_route, that's something that was already there as a dynamic
-> replacement of the last component in a stack of possible outputs for a single
-> full-fledged display pipeline.
-> 
-> The change here is about changing the search/retrieval of a `route_ddp` from a
-> number that comes from an enumeration, to a full component structure instead....
-> 
->>> +        if (!comp)
->>> +            continue;
->>
->> In original code, it never check comp is null or not.
->> I think it base on an assumption that it would not be null.
->> If it's null here, print error message and it's not necessary to do the rest thing.
->>
-> 
-> .... and the component structure, with the new code, has to be *initialized*: this
-> is because we cannot assume that a component that was not registered will actually
-> be registered later (which was a broken behavior of mediatek-drm!).
-> 
-> 
-> 
-> ----> IMPORTANT PART: <-----
-> Note that, at this point, "comp" is *not* pointing to a *statically* initialized
-> array of components, but to a *dynamically* initialized one: while before this the
-> comp pointer was guaranteed to be *always* a valid pointer to a comp structure, now
-> it is *not guaranteed anymore*, because again - it's *dynamically* allocated, so
-> we NEED to check for comp != NULL, or we're exposing ourselves to a possible NULL
-> pointer kernel panic (or worse)!
-> 
-> 
-> 
-> If the component is not initialized at this point, it simply means that it cannot
-> be - in any way - used by mediatek-drm, so.. if !comp -> continue means effectively
-> "if the component is not registered, we cannot use it, hence don't try to evaluate
-> the possibility of using it".
-> 
-> Is it clear now?
-> 
->>>           if (comp->encoder_index >= 0 &&
->>>               (encoder_mask & BIT(comp->encoder_index))) {
->>> @@ -1028,10 +1032,11 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>   {
->>>       struct mtk_drm_private *priv = drm_dev->dev_private;
->>>       struct device *dev = drm_dev->dev;
->>> +    struct mtk_ddp_comp *dma_comp;
->>>       struct mtk_crtc *mtk_crtc;
->>>       unsigned int num_comp_planes = 0;
->>>       int ret;
->>> -    int i;
->>> +    int i, j;
->>>       bool has_ctm = false;
->>>       uint gamma_lut_size = 0;
->>>       struct drm_crtc *tmp;
->>> @@ -1051,7 +1056,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>           struct mtk_ddp_comp *comp;
->>>           node = priv->comp_node[comp_id];
->>> -        comp = &priv->ddp_comp[comp_id];
->>> +        comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
->>>           /* Not all drm components have a DTS device node, such as ovl_adaptor,
->>>            * which is the drm bring up sub driver
->>> @@ -1063,7 +1068,7 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>               return 0;
->>>           }
->>> -        if (!comp->dev) {
->>> +        if (!comp || !comp->dev) {
->>>               dev_err(dev, "Component %pOF not initialized\n", node);
->>
->> I think you should print other error message and return other value for !comp.
->>
-> 
-> In mtk_crtc_create, at this point, the component (which always has a node, pointed
-> by node = priv->comp_node[comp_id]) has to be initialized by mtk_ddp_comp.
-> 
-> Keeping in mind that the component is actually a device, if the component itself
-> was not initialized at this point, this means that there is NO DEVice associated
-> with it.
-> 
-> This is why -ENODEV.
-> 
-> Also, we're printing %pOF (like before) because this gives hints about precisely
-> which one was not registered at this point.
-> 
->>>               return -ENODEV;
->>>           }
->>> @@ -1089,12 +1094,17 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>           return ret;
->>>       }
->>> -    for (i = 0; i < mtk_crtc->ddp_comp_nr; i++) {
->>> +    for (i = 0, j = 0; i < mtk_crtc->ddp_comp_nr; i++, j++) {
->>>           unsigned int comp_id = path[i];
->>>           struct mtk_ddp_comp *comp;
->>> -        comp = &priv->ddp_comp[comp_id];
->>> -        mtk_crtc->ddp_comp[i] = comp;
->>> +        comp = mtk_ddp_comp_find_by_id(&priv->hlist, comp_id);
->>> +        if (!comp) {
->>
->> In original code, it never check comp is null or not.
->> I think it base on an assumption that it would not be null.
->> If it's null here, print error message and it's not necessary to do the rest thing.
->>
-> 
-> The iterator here tries to still setup a display pipeline in case a component is
-> missing, and this actually works in a couple of corner cases, which were not
-> possible before the restructuring of mediatek-drm.
-> 
-> In later commits, this case will be handled differently: the problem here is rather
-> that the code readability is not the best at this point in time (of the series),
-> but this will make a lot more sense when going forward in this exact series.
-> 
-> The main issue here is that mediatek-drm's complexity is very, very high, and the
-> maintainability suffers a lot: doing each and every change as a perfectly clean
-> (and perfectly readable) diff means adding another ~4k thousand lines of changes
-> that are simply addition and removal of the same lines over and over again.
-> 
->>> +            j--;
->>> +            dev_dbg(dev, "Cannot find component %d.\n", comp_id);
->>> +            continue;
->>> +        }
->>> +        mtk_crtc->ddp_comp[j] = comp;
->>>           if (comp->funcs) {
->>>               if (comp->funcs->gamma_set && comp->funcs->gamma_get_lut_size) {
->>> @@ -1131,7 +1141,14 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>        * In the case of ovl_adaptor sub driver, it needs to use the
->>>        * dma_dev_get function to get representative dma dev.
->>>        */
->>> -    mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(&priv->ddp_comp[path[0]]);
->>> +    dma_comp = mtk_ddp_comp_find_by_id(&priv->hlist, path[0]);
->>> +    if (dma_comp == NULL) {
->>
->> if (!dma_comp) is more simple.
->>
-> 
-> Yeah, I agree. If you're really worried about seeing this instead of !dma_comp I
-> can change it here... but if you can ignore that, in later commits this will be
-> removed and completely changed so that it becomes
-> 
->      ret = mtk_crtc_find_suitable_dma_dev(mtk_crtc);
->      if (ret) {
->          dev_err(dev, "Could not find appropriate DMA device!\n");
->          return -EINVAL;
->      }
->      dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
-> 
-> Note that if I change this simple line here, I'll have to fix other patches as
-> they won't apply anymore because of the changed line... so again, if we could
-> ignore that it would be great...
-> 
->>> +        dev_err(dev, "Could not find appropriate DMA device!\n");
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    mtk_crtc->dma_dev = mtk_ddp_comp_dma_dev_get(dma_comp);
->>> +    dev_dbg(dev, "Using DMA device %pOF\n", mtk_crtc->dma_dev->of_node);
->>>       ret = mtk_crtc_init(drm_dev, mtk_crtc, crtc_i);
->>>       if (ret < 0)
->>> @@ -1188,17 +1205,18 @@ int mtk_crtc_create(struct drm_device *drm_dev, const 
->>> unsigned int *path,
->>>           for (i = 0; i < num_conn_routes; i++) {
->>>               unsigned int comp_id = conn_routes[i].route_ddp;
->>>               struct device_node *node = priv->comp_node[comp_id];
->>> -            struct mtk_ddp_comp *comp = &priv->ddp_comp[comp_id];
->>> +            struct mtk_ddp_comp *comp = mtk_ddp_comp_find_by_id(&priv->hlist, 
->>> comp_id);
->>> -            if (!comp->dev) {
->>> +            if (!comp || !comp->dev) {
->>
->> In original code, it never check comp is null or not.
->> I think it base on an assumption that it would not be null.
->> If it's null here, print error message and it's not necessary to do the rest thing.
->>
-> 
-> Already explained why we need comp to be checked for NULL.
-> 
->>>                   dev_dbg(dev, "comp_id:%d, Component %pOF not initialized\n",
->>>                       comp_id, node);
->>>                   /* mark encoder_index to -1, if route comp device is not 
->>> enabled */
->>> -                comp->encoder_index = -1;
->>> +                if (comp)
->>> +                    comp->encoder_index = -1;
->>>                   continue;
->>>               }
->>> -            mtk_ddp_comp_encoder_index_set(&priv->ddp_comp[comp_id]);
->>> +            mtk_ddp_comp_encoder_index_set(comp);
->>>
->>
->> [snip]
->>
->>>         }
->>>   @@ -1116,8 +1118,7 @@ static int mtk_drm_probe(struct platform_device *pdev)
->>>                                   PLATFORM_DEVID_AUTO,
->>>                                   (void *)private->mmsys_dev,
->>>                                   sizeof(*private->mmsys_dev));
->>> -        private->ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR].dev = &ovl_adaptor->dev;
->>> -        mtk_ddp_comp_init(dev, NULL, &private- 
->>> >ddp_comp[DDP_COMPONENT_DRM_OVL_ADAPTOR],
->>> +        mtk_ddp_comp_init(&ovl_adaptor->dev, NULL, &private->hlist,
->>
->> mtk_ddp_comp_init(dev, NULL, &private->hlist,
->>
-> 
-> That was only done for readability purposes. This will be entirely moved out of
-> here in a later commit.
+On Tue, Jul 14, 2026 at 01:03:40PM +0200, Janani Sunil wrote:
+> On 7/9/26 13:05, Andy Shevchenko wrote:
+> > On Thu, Jul 09, 2026 at 10:50:16AM +0200, Janani Sunil wrote:
 
-Actually, no, I gave the wrong information here.
+...
 
-Registering with mtk_ddp_comp_init(dev, xxxx ...) will make the called function to
-assign a pointer to mediatek-drm's device, but since the mtk_ddp_comp_init function
-changed, this needs to pass a pointer to the OVL ADAPTOR's device, not to the main
-mediatek-drm device.
+> > So, I briefly looked at the implementation and I don't understand why
+> > gpio-regmap can't be used. Do you need PM runtime there? It can be
+> > done for all (if absent).
 
-So this has to be mtk_ddp_comp_init(&ovl_adaptor->dev, ...) otherwise this will not
-work as intended.
+> gpio-regmap does not naturally model the AD7768's direction dependent
+> readback behavior.
 
-Cheers,
-Angelo
+> On this device, GPIO Write data (0x0F) holds the latched output values and
+> the GPIO Read Data (0x10) reads the logic input level only when the pins are
+> configured as inputs. Using the generic gpio-regmap would always read 0x10
+> including output GPIOs.
+
+Will it? Even if you mark the corresponding registers volatile?
+So, the problem is that it always tries to read input state even
+for the output pins? I think this should be either configurable
+(a flag in the respective gpio regmap config) or be clever to know
+that the pin is in output and simply return what was latched.
+
+> The custom implementation preserves the device specific behavior.
+
+At bare minimum the summary of this should be mentioned in
+the cover letter / comment block.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
