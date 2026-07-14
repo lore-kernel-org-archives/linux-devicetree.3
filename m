@@ -1,277 +1,438 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BBB2737E3
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784030681; cv=none; b=FrN7WSHlwBstQnHOeW7Qq0nV631gniaPe6igJBQ51kvan24x06g1caRIoNhmXGEa0zlETBOEH8mZs42RUNE3qGqAKvzZHeLfLTRNuvjpwx6jARs2LSKC+gyn/5vM1UsFwQIh/XGacU/M3d62H7zWLPPwAxHzhD+VgbfhRExuJYg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784030681; c=relaxed/simple;
-	bh=wsvWNahd+3JyEYeOYRayZ4Uus5PQGFu9gfDxjFlvWf8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NG3yLqAmuAu0AV5eE9j8MlcsghpkG7pPKGjjR8q96Lr/gGyr7NvfZ+Sfzs5d28Vr+T4FZzuSmX/+NBjxs38rqGIDgDb8sh3dPygD8SsrzZykpXp+hiJTfD/vZgNw63TSbB1nuEqI7yZpgmtOvVggj9ehzBKSAT5QimMWZN1py5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k9RYRL/D; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IMfOISBT; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B9E389101
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784030693; cv=pass; b=gIh8cTZCH/Yhs4um0bIC0i+euJ3KiLzMYi9kJ9U7/tfOk0sQt0cxLZZ7NxutqeJIGQ29GTlTwSlR964m3QhLvj/jkuOmnZ0inZqWwSIEAU6179Kbqxi5u4tq+iUUkEV1PGRgTbHtxiqOHG0hjo4wajgJUOvav5AcvOcMtSyeHzY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784030693; c=relaxed/simple;
+	bh=IhOcu2PS4sBOU1d9rNLBRpPlon4qfEEhIsBef1KmHjc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mvwAtofcEgvzhpLNX3dRmN59AX8GYJB3mLotWwOu04YWa/Q+X0atqBaMgdeqquX4tdei+T1/VodIauat9Mxq0jaMbl+DuT6ZZcKLtbx0OKfskkaf3ox1X4jPfGAbfjbyzpyX+itGe2z2illFkPilWSsXwcu08cWNjK5yTl7kejE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gmCTbNOv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bq+aTNBR; arc=pass smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k9RYRL/D";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IMfOISBT"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EBNp6m377227
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:04:38 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gmCTbNOv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bq+aTNBR"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EBO1xa231501
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:04:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ns5/2K2MU9xmQmc/hILCuPUMyhnQ7muUcgv0M6V8YmA=; b=k9RYRL/DvL9dx3SK
-	EwDCYxBynq1p8t/jPOsudiVWx5qOX67RGW/i5qX7BGh5FJFQtp6oq/p9eWRRyMon
-	juMmHl2zohP/joISy6YTr1lolrNTfAQdsbM+5e2ds+uQEaxOP8ChkW2Wqjzb2vMr
-	mEHIYA3Iou26QJNeNBuY0Iv23Jt1KVYq6FmV8V72L1SMt/AIyspvfNh+EbTnysKc
-	tR2rbHWqEjbJPbtKA4nMuLF25j4vRvA7VCIEGBLp8tjdy6Gd5A9Lt7x387a18G5a
-	kOffn5iukt235JuVo1QcGFaYYQf+lnASBvo67sYUnfY7IqL6A795M13vx+gXBM2t
-	+52UEA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdbr4a3ea-1
+	YAksXXcYTs7qreOl6ykQXBvBHyCNYeVnc316wr7L798=; b=gmCTbNOvkkQQpDE7
+	WXD2MuP7stI2PhhR6m9lpRh1z2YICzJdC+2PemJb2sWi5uUH2dHiIzphkM+yoiiB
+	59oQY6vUmBuuDkAWRUoJCrSTHgXAtkSc0lQ4mGSWJ8W/Prr43ZWKXLsO6Zz0Y5js
+	ZgMzc220iHs2jLL6DiRc1R2dfSn55rxqWZ96fq0JrUB3eYUU0eMytj08MT0X+kN4
+	qw4fhvR92SSAtAq3+IKEn2n82M88v91ywjkrkzp6ChZBP2mp7xaQk6Tb9QglSO0A
+	9LVAtYSGzjx6fgrcAM7R1iK6nIZlsgbTGvlKy3eDjJGffWkIZKlzuAs4NkHy8VE+
+	IQNTiw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fd44p3h30-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:04:38 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ce8a76df2dso75542295ad.2
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:04:38 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:04:51 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c33f48ee4so66511431cf.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:04:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784030690; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SOQn5j4aAmvztdyEfHR+9HzuihTbs+WR/p1nlfLnN0F/339EpxVGEe3Sqke0T0HLqu
+         0KgWaYn4hedCCJ/4t5HcJPDBkONWoQoQb+BUU1IJIU5A1CCSG7/dQvTbcxAKNkHhS5Vd
+         brCZRjoOT40C2Zng8bFZFKzee8MoZh/n7XVVeZEFMMaE1rBWJeVmcFvR/QitcxUzvcT2
+         jIf57/B0e8vYa3cM8iLKZydppFD855TR7En+kQL/0ZV/q2SFtsP7G1roEowHsqrMa7gs
+         XE2WonjvUGJjUxqqQzs6tU54QgsduySxjkGvj5mVSieVi69275khuFsHJLlRUKyPHe79
+         GnKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YAksXXcYTs7qreOl6ykQXBvBHyCNYeVnc316wr7L798=;
+        fh=fDR0hhjkAUqyEntdVxPmchVXXPYnKZB1qLBBij0KvE0=;
+        b=YT84dDQnVfaoSHB77xO1lVUjBFhOdiUcsn4JtmFjgfEEwIwfmbIpa23ttDMxbEwfot
+         /M4z9eg9IGo8GMC71pr+f7c72k1UtLvgavjR4DewPhcNfnUY+mrEWPffW97nS5BBTcIr
+         4bfv3dnc/rJlqLxY5ymcm2qX7CuOw904ZfyjWh5UkTn3U5iqfTjLo8b8uZ72rGEiCM58
+         Uv9DK9LIK5jVafo+xPtiKZAYiOSOd8NAtGpexIViy87DKKRlMvIU/TR5z8WNv7/InVaV
+         Q0ycD/k7ZtaVUW4iuAw5KfzIujKpI5KedRhqu8F+0hNI2YGrEmsshV4nV6H1rK2mFPHA
+         nW5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784030677; x=1784635477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ns5/2K2MU9xmQmc/hILCuPUMyhnQ7muUcgv0M6V8YmA=;
-        b=IMfOISBT2eVS+lXSMkhesarCjLSkko9ur2inDJUc7XM9qzRAqm4RB21Cuky6cj9kma
-         iO1hhg+t160R8ogzlzrSNGMl7dgylRF5U2hr4N4qq2PCg1Z1UkwoHCFNUUPdc/iefcP6
-         PLJL41QeH5yZU2EVKikBW5uhldAa1XQjgZzOwJw9LGUxt9VJh6hBeXAYYZ/YdskRJFkt
-         6Zv47c7QWXKlVGNVt0pOh8nY5Qud6Ha5+lAH7+0pUcdtWz1iIzjSYu1nUwcY/7Lr1pvA
-         /GKdi1fU0e/WroW6gYmJE701NNWU34cVUhXBCAiT/oOj66ZqUCpjUhSuYUHEeq+yPYhi
-         OJRg==
+        d=oss.qualcomm.com; s=google; t=1784030690; x=1784635490; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YAksXXcYTs7qreOl6ykQXBvBHyCNYeVnc316wr7L798=;
+        b=Bq+aTNBRekkBpgaP26yUPGCQewSP1dIbyAOXSeg92wehaX+Qm9ULcLGxcqXU5Zsdvi
+         oMX8XO4v0SjMkmzlYsaySCaITYG4p9VG4N2jo3n6NbxYXRYpgfma5Aac64iIq32qJzA0
+         CoLuzbgwRKmovI8fGsUjhwUecpibRgWMaykoeA0zRd20pPrxK1/S0fQ2vgSKoEjeI/kb
+         FN3kpik/1XJHkQj/6FAoTTV/3p4kqN80wvHAaj3ed58mBnEf7Qv9Rx/x9oncyv5rcVoi
+         u4sEOsi9J46ckJhKXgtfrf2Z1H7+icR4WqOwSATXCs6kk9b11EMJCd7zOxKuR+BUIHTi
+         iE3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784030677; x=1784635477;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ns5/2K2MU9xmQmc/hILCuPUMyhnQ7muUcgv0M6V8YmA=;
-        b=P9LsyVHXnaXUpc1yhjOddRzq91fjahaoLmNC4d6FPkfttlCulTiYAnV+XQw81gdHHD
-         nr/QxbWmZZYLFSgvFscyVy6wnU6RVolJ3gHUJVDytvLkNxvfQk558uveWjtfn5mERK4x
-         xpt+XB5Bw2vo4ADkN4HtHe/+21M63gayj7KbxpVRKr3DJE9+kzfBpNKtJ0s/D1vFuZzC
-         GyahI45z1i/JoKy5Wl85t7e3HQ2JppwKWOUYw+m8yH/WNfYv2pDk3IlPZu9ehv4pr0jR
-         M4Vq+2EoBxp/SSqkYoyxmW4lbk+eKHu01Nhrq+PpOlrp53sltMbwa8oGuMBe2dvspCiI
-         t6bA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp07AkjDWlqtbwzCeXTsqEdDzpZAXCoWgHo//6R7IkkMQpl54/dyYyn1R+g3EpXqTJpnrrrTyAKSpBL@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaJ66gOUvGut4iWYHkCh3c6qFEq5urCxErTWxiTOAU3+Wz0OVQ
-	LkXTfSfYM4gHQlFVZwUDv9+r994lP9HBVV3leHSBHy+XviU6L/lhTXpIHLbtHVn+N+Xsq4kzFOk
-	AWndDVqgksncx138kHJJ7+E/VO5X6meWxMNLvgmsrS5t+lnnhgJ8xXFQ/crhYucjc
-X-Gm-Gg: AfdE7cmRu+NJy7uLVXBuU2rznoNmhC/pgbZkeorReKUDMTgZtjrifmMbt3fc84VcdtY
-	+qg+UnoEtjkzW4IhRFjpbv6wjYdI+qbMMrfsLo5T5gR3LNYs6xrSx8z3qTTmfEMypV20ZlN6Fe3
-	P4AFVFUU78NVUOPpwqvoOAY1Ep5vDSFt2M0JUwXegxpfbEuIAmcNIJfW1aUGbyfMkujMGHxo0mN
-	2kyj5SkrpisXRK0zXTZNdUYxDRIzxu2oXQPIf6sABGi3E6ZZHAGz6pQXieL2xmHNIVHZ7md9C6U
-	RNDp1ogR5JCiLnOUpnNVi+J3GeBgCWi5g6Y+wMrlNUifoYNBUNJxYMTZzLaG1y/SP16BifikfAf
-	b+AfjCb9cd43EddesAI8b6myEjVHFJbn/fKqjJbXhcLE=
-X-Received: by 2002:a17:90b:184b:b0:381:152b:d596 with SMTP id 98e67ed59e1d1-38e1ae9fabcmr2505725a91.11.1784030677431;
-        Tue, 14 Jul 2026 05:04:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:184b:b0:381:152b:d596 with SMTP id 98e67ed59e1d1-38e1ae9fabcmr2505666a91.11.1784030676707;
-        Tue, 14 Jul 2026 05:04:36 -0700 (PDT)
-Received: from [10.217.217.28] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e172e46basm1412585a91.9.2026.07.14.05.04.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 05:04:36 -0700 (PDT)
-Message-ID: <27141365-9fbb-4377-9db4-dae281741d0e@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 17:34:31 +0530
+        d=1e100.net; s=20251104; t=1784030690; x=1784635490;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YAksXXcYTs7qreOl6ykQXBvBHyCNYeVnc316wr7L798=;
+        b=IH60H8n0k3qK2VOKo9mSB74yK+bltcHb3TBG62HjRY6kbZNLLGySTACuDZhYrVthxR
+         BUHQ0x8L0L4uY1zOvEiltZGkbczKNeH6TLuFpNSkTuMhoJXg+yTDTRMvIFN6JSpvGGTu
+         RYX6lc9wEbBP/zQTetsK5HyJWPjAsKrShRLrqzXMJ3BYD00XkfZgZZSyRQ890sl9RAZl
+         Gnhxs2fdDsgN5E5YwtLd6HiIPBzgSmwkhGGgJgqOgjC7fRinRvHzougD5mcuPcMr9HUg
+         hwPjeMkNHPh5JS1RWthCBno3XoFnhp0fdMgi4SMDa7WYpzQVbIugdVxDmZDBbYwiBpQg
+         Q1+Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqbVht/AxLabTF71IwaaA3BOdQygnAjvDj43X1iuEFs+36KOdkHIA/rXWJMaOzGM1SSabJZ1mJ1StDF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGjJ1S3twBKuZOXOPUcq2JJIgbu1Hj5VVyAii4boDfW2TGYCe9
+	Dg9JMqPEdZ0l8ZZJMW9Y1Ex6Hjlr7tkwg4ZXoCJRwGlUXGJm4wYpRWLnKTPL9OptZy6IbQjF4CI
+	03DwfpX33OhRNMQMbSkxucbMZoK9imLPuZraaaRGoEJUbVwHdeAawXcm8AwlbWTE/EyWZ6uASbD
+	Fy2v2K+krkSn0d2yQ4g4PxZaC+crxGE2vakP0rdOQ=
+X-Gm-Gg: AfdE7cnFV5J0FB5kbpPTUS1e4LNUi5yR+134vJfONhnOfS94Q5XoXd6Ib76eUYFCoIe
+	ov+olzlijuhTDHqJbARe2GGZLmyNXn0kWNrxXBhnShFhOqMTCpTEBXrT6u9lhnSww+RZA1tYJ7o
+	oICxYdUwbzLv4cjr7/fd05d4rUrLxpDSn6MhEhQGYDxvNM82NuMFloEvFxUFcooyX/DFLC
+X-Received: by 2002:ac8:5f91:0:b0:51c:7b12:5fff with SMTP id d75a77b69052e-51cbf2ddef5mr127882961cf.75.1784030690341;
+        Tue, 14 Jul 2026 05:04:50 -0700 (PDT)
+X-Received: by 2002:ac8:5f91:0:b0:51c:7b12:5fff with SMTP id
+ d75a77b69052e-51cbf2ddef5mr127882421cf.75.1784030689773; Tue, 14 Jul 2026
+ 05:04:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC support
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Sachin Gupta <sachin.gupta@oss.qualcomm.com>
-References: <20260614-adc5_gen3_dt-v2-0-32ec576c5865@oss.qualcomm.com>
- <20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com>
- <alKYqD6yp97DV6R-@baldur>
-Content-Language: en-US
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-In-Reply-To: <alKYqD6yp97DV6R-@baldur>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: A6RIjRtm6eKaGe19Iwa6w9_Hc_r_KMsw
-X-Proofpoint-ORIG-GUID: A6RIjRtm6eKaGe19Iwa6w9_Hc_r_KMsw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDEyNSBTYWx0ZWRfX+ArQa3FpjtDu
- pTo6WfD7ij6mK9eD4Ng10Fpfr57sWV3m0M6POsp9l5UmF6hzKXE+wC0+DC36hTQuWUdOveznInQ
- I8iiUPPDMvIEEQ9unjLYOCV8hVQpLOCym0uxx3wIQMlps8ipd4pGeRyWkleFqRUukWRRqaUyar8
- 9qConjfcChJ2IlR9c9S/ncHiIQQsoQ5aQf/GfCEpHg17tvulFwaTJHWYuZgato3E4oQDEW6Iqgg
- S05yKu4VvbcoBW+xUoENAYNBiI+1jkKDCv3I7tooZLTZ4K1Ky0E0nLA46WpIVha4O+/HN08LnFp
- k+tfwW/tDF2HvcyQKxa4DlkedyOte+z2qzqem9ol9421S9NPE4m6UFd6OxDLZ6l3XMWVkzTtG69
- wSYzYYBzLC3wekr6MYoZ+POAxYHhHwGGRBYZBPOBqSSTu70+wwKtQBPZVVkhrYqVdgJFXtgwWz+
- 8CUC1W8kdBuFA8/kSeg==
-X-Authority-Analysis: v=2.4 cv=F5hnsKhN c=1 sm=1 tr=0 ts=6a5625d6 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=xYWi_SFv9V9xdDSnKu4A:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDEyNSBTYWx0ZWRfX5aMgPBxA1EW8
- TLnNnsPMczikagztxnCKtLWYkXOFBKc8nXDelyMg7DrEnYpCl4o4BJ7mSCMk9bOnCPIYaLgJSaO
- tKo0woX89RWlq3RX6szywsi38F3E5QI=
+References: <cover.1783505142.git.geert+renesas@glider.be> <23f979b0903ca11513ac339ab8b6dd40435603c5.1783505142.git.geert+renesas@glider.be>
+In-Reply-To: <23f979b0903ca11513ac339ab8b6dd40435603c5.1783505142.git.geert+renesas@glider.be>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Tue, 14 Jul 2026 14:04:38 +0200
+X-Gm-Features: AUfX_mz0pm1bKZMzEgKkx0pxSzyNhryLI17GoLwTGSkPYUe4ECmwKPI1jisfYfg
+Message-ID: <CAPx+jO-=LF9CvYDrC3O_GBtfHU6GYvq524OLmTG8R1-u27oyKw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Marek Vasut <marek.vasut+renesas@mailbox.org>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDEyNSBTYWx0ZWRfX9TVWqxWnfKhP
+ BJrKBqsHlvV7D7Id47hoGTGjWzovkbfIzkcSksbNakD4/tZCB/kzvphV1LGHlKtP6Dw1K72n/pz
+ FwTUJrSx6TdBCCg77/gim0yn8gHBwqA=
+X-Proofpoint-GUID: UJY9O8RW8pxwiIZBsZjBWXM70s3Xbj4s
+X-Proofpoint-ORIG-GUID: UJY9O8RW8pxwiIZBsZjBWXM70s3Xbj4s
+X-Authority-Analysis: v=2.4 cv=BZroFLt2 c=1 sm=1 tr=0 ts=6a5625e3 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=UmYWVhtEHbvSSgRh88EA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDEyNSBTYWx0ZWRfXzphh2YMtI4nY
+ hcE80jGVauKHPvv47L+byig/hCn9jeIWudzenpg5cxB2k+G/wdstYsapOnRj7Kk64Nmqk34O3Rs
+ 6XirRXIpVlRFjPQo4WI7j+DnZHVZVGneC+6q/GZRY5VklAvBbprABC+2EI+4unmHdp6ra0ML/Nd
+ nOU8gad33KxxuRTQm3yDrz7S7vLtqsqddK5x6MZQ6zsbrTcwyUiNy79fX96grIqFtUlzR4wn9iG
+ QAFcqWE937DK4HIjnKQ5sEXvMfWxlI74Gnctgw4E57G4iqY9OVOnzoUSxwAy4qJ9qXRvfY8cmtx
+ YwRn/928czoxd/XPz8e70BGJFBXzl99RE25Umv20VM7tLP72JcV/K4t1caJn7yGiu7UxGlE45Vn
+ d/gbOI/GwaokF0ltAsz52KyFPoaynMEt90OZ3YlAWTfutJLxIgpgm8Zf2pnB16njCQVyO+YFASi
+ Vu/DwHEIgHW96Dvr2nw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-14_03,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 spamscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
+ malwarescore=0 impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140125
 
-Hi Bjorn,
+On Wed, Jul 8, 2026 at 12:15=E2=80=AFPM Geert Uytterhoeven
+<geert+renesas@glider.be> wrote:
+>
+> Add a minimal Module Controller driver for the R-Car X5H (R8A78000) SoC.
+> For now this just supports the always-on power domains, and dummy clocks
+> and resets for the serial console (which is enabled by the boot loader).
+>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> Calling genpd_add_provider() instead of of_genpd_add_provider_onecell()
+> would be sufficient, but the former is private.
 
-On 7/12/2026 1:11 AM, Bjorn Andersson wrote:
-> On Sun, Jun 14, 2026 at 01:35:11PM +0530, Jishnu Prakash wrote:
->> From: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
->>
->> Add ADC node and define channels for:
->> - Die temperature for PMK8550, PM8550VE* and PMC8380* PMICs.
->> - PM8550: Die temperature, VPH power, and system thermistors.
->>
->> Define thermal zones 'sys-0-thermal' through 'sys-6-thermal' which
->> correspond to the off-PMIC system thermistors connected via
->> PM8550 AMUX/GPIO lines.
-> 
-> These are connected to thermistors on the PCB, which would make them
-> board-specific. In fact, you specify all 7 thermal-zones, but at least 2
-> of those are not connected on my board according to the schematics.
-> 
-> So, I think the thermal-zones definitions should be deferred to
-> board-specific dts.
+Right. Callers that need their own xlate callback should just assign
+it before calling of_genpd_add_provider_onecell(), as the below code
+does.
 
-Yes, I see your point, since thermistors can vary between boards,
-it may be better to keep thermal-zones definitions in board-specific
-dts files.
+>
+> v2:
+>   - Spin off from "pmdomain: renesas: Add R-Car X5H MDLC SCMI remapping
+>     driver",
+>   - Add default support not using SCMI,
+>   - Drop all SCMI remapping support,
+>   - Document use of -1 as a sentinel,
+>   - Rename struct r8a78000_mdlc_info to mdlc_info,
+>   - Print HW IDs in hexadecimal,
+>   - Reduce log level for unsupported MDLC instances from warn to dbg,
+> ---
+>  drivers/pmdomain/renesas/Kconfig         |   4 +
+>  drivers/pmdomain/renesas/Makefile        |   1 +
+>  drivers/pmdomain/renesas/r8a78000-mdlc.c | 329 +++++++++++++++++++++++
+>  drivers/soc/renesas/Kconfig              |   1 +
+>  4 files changed, 335 insertions(+)
+>  create mode 100644 drivers/pmdomain/renesas/r8a78000-mdlc.c
+>
+> diff --git a/drivers/pmdomain/renesas/Kconfig b/drivers/pmdomain/renesas/=
+Kconfig
+> index b507c3e0d723efc6..f2f52d3c29a083f1 100644
+> --- a/drivers/pmdomain/renesas/Kconfig
+> +++ b/drivers/pmdomain/renesas/Kconfig
+> @@ -13,6 +13,10 @@ config SYSC_RMOBILE
+>         bool "System Controller support for R-Mobile" if COMPILE_TEST
+>
+>  # SoC
+> +config MDLC_R8A78000
+> +       bool "Module Controller support for R8A78000 (R-Car X5H)" if COMP=
+ILE_TEST
+> +       select RESET_CONTROLLER
+> +
+>  config SYSC_R8A7742
+>         bool "System Controller support for R8A7742 (RZ/G1H)" if COMPILE_=
+TEST
+>         select SYSC_RCAR
+> diff --git a/drivers/pmdomain/renesas/Makefile b/drivers/pmdomain/renesas=
+/Makefile
+> index 0391e6e67440a786..17849aad37a5ac4f 100644
+> --- a/drivers/pmdomain/renesas/Makefile
+> +++ b/drivers/pmdomain/renesas/Makefile
+> @@ -1,5 +1,6 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  # SoC
+> +obj-$(CONFIG_MDLC_R8A78000)    +=3D r8a78000-mdlc.o
+>  obj-$(CONFIG_SYSC_R8A7742)     +=3D r8a7742-sysc.o
+>  obj-$(CONFIG_SYSC_R8A7743)     +=3D r8a7743-sysc.o
+>  obj-$(CONFIG_SYSC_R8A7745)     +=3D r8a7745-sysc.o
+> diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/=
+renesas/r8a78000-mdlc.c
+> new file mode 100644
+> index 0000000000000000..ed367e921a3341a7
+> --- /dev/null
+> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+> @@ -0,0 +1,329 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * R-Car X5H Module Controller
+> + *
+> + * Copyright (C) 2026 Glider bv
+> + */
+> +
+> +#include <linux/dev_printk.h>
+> +#include <linux/module.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/reset-controller.h>
+> +#include <linux/slab.h>
+> +
+> +#include <dt-bindings/power/renesas,r8a78000-mdlc.h>
+> +
+> +struct mod_map {
+> +       int hw_id;              /* Hardware module ID or -1 sentinel */
+> +};
+> +
+> +struct mdlc_info {
+> +       u32 base;
+> +       const struct mod_map *mod_map;
+> +};
+> +
+> +/**
+> + * struct r8a78000_mdlc_priv - Module Controller Private Data
+> + *
+> + * @link: Link into list of MDLC instances
+> + * @genpd_data: PM domain provider data
+> + * @rcdev: Reset controller entity
+> + * @dev: MDLC device
+> + * @np: Device node in DT representing the MDLC
+> + * @mod_map: Mapping from hardware module IDs
+> + */
+> +struct r8a78000_mdlc_priv {
+> +       struct hlist_node link;
+> +       struct genpd_onecell_data genpd_data;
+> +       struct reset_controller_dev rcdev;
+> +       struct device *dev;
+> +       struct device_node *np;
+> +       const struct mod_map *mod_map;
+> +};
+> +
+> +static struct generic_pm_domain *r8a78000_genpd_always_on;
+> +static HLIST_HEAD(r8a78000_mdlc_list);
+> +static DEFINE_MUTEX(r8a78000_mdlc_lock);       /* protects the two above=
+ */
+> +
+> +static struct generic_pm_domain *r8a78000_genpd_xlate(
+> +                       const struct of_phandle_args *spec, void *data)
+> +{
+> +       struct r8a78000_mdlc_priv *priv =3D container_of(data,
+> +                                       struct r8a78000_mdlc_priv, genpd_=
+data);
+> +       struct device *dev =3D priv->dev;
+> +       u32 id;
+> +
+> +       if (spec->args_count !=3D 2)
+> +               return ERR_PTR(-EINVAL);
+> +
+> +       id =3D spec->args[0];
+> +
+> +       if (id >=3D R8A78000_MDLC_PD_AON) {
+> +               dev_dbg(dev,
+> +                       "Mapping HW power domain 0x%x to always-on domain=
+\n",
+> +                       id);
+> +               return r8a78000_genpd_always_on;
 
-> 
->>
->> Also,add io-channels and io-channel-names properties to the
->> temp_alarm nodes so that they can get temperature reading
->> from the ADC die_temp channels.
->>
->> Signed-off-by: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
->> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
->> ---
->>  arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi | 250 ++++++++++++++++++++++++++++++
->>  1 file changed, 250 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
->> index 6a31a0adf8be..2e746ede850f 100644
->> --- a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
->> @@ -6,7 +6,9 @@
->>  #include <dt-bindings/input/input.h>
->>  #include <dt-bindings/input/linux-event-codes.h>
->>  #include <dt-bindings/interrupt-controller/irq.h>
->> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->>  #include <dt-bindings/spmi/spmi.h>
->> +#include "qcom-adc5-gen3.h"
->>  
->>  / {
->>  	thermal-zones {
->> @@ -189,6 +191,90 @@ trip1 {
->>  				};
->>  			};
->>  		};
->> +
->> +		sys-0-thermal {
->> +			polling-delay-passive = <0>;
->> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-> 
-> As I said above, this doesn't match my board.
-> 
->> +			trips {
->> +				active-config0 {
->> +					temperature = <125000>;
->> +					hysteresis = <1000>;
->> +					type = "passive";
->> +				};
->> +			};
->> +		};
->> +
->> +		sys-1-thermal {
->> +			polling-delay-passive = <0>;
->> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
->> +			trips {
->> +				active-config0 {
->> +					temperature = <125000>;
->> +					hysteresis = <1000>;
->> +					type = "passive";
->> +				};
->> +			};
->> +		};
->> +
->> +		sys-2-thermal {
-> 
-> This provides the temperature of my keyboard, so I'd certainly want to
-> override the properties within - and perhaps use this for throttling
-> things.
-> 
->> +			polling-delay-passive = <0>;
->> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
->> +			trips {
->> +				active-config0 {
->> +					temperature = <125000>;
->> +					hysteresis = <1000>;
->> +					type = "passive";
->> +				};
->> +			};
->> +		};
->> +
-> [..]
->> @@ -277,6 +363,142 @@ pmk8550_pwm: pwm {
->>  
->>  			status = "disabled";
->>  		};
->> +
->> +		pmk8550_vadc: adc@9000 {
-> [..]
->> +			channel@14a {
->> +				reg = <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-> 
-> I guess per my own argument, you don't know that this channel has a 100K
-> resistor...
-> 
-> But that said, people have waited forever for this to be ready to allow
-> thermal throttling of overheating laptops. So please just drop the
-> thermal-zones, address Konrad's other comment and resubmit this.
-> 
+This looks odd, but perhaps it's just a temporary mapping that you
+intend to change later, no?
 
-OK, please let me know in case you see any issues with the following
-changes:
+> +       }
+> +
+> +       dev_err(dev, "Unknown power domain 0x%x\n", id);
+> +       return ERR_PTR(-ENOENT);
+> +}
 
-I'll drop the thermal-zones nodes for now. To avoid any error messages,
-like from attempts at thermal device registration, I'll drop the "qcom,adc-tm"
-property from channels having it and also the "#thermal-sensor-cells"
-property from the main ADC node.
+[...]
 
-I'll keep the ADC channel nodes under the main ADC node in place and
-delete the ones absent on Purwa boards in Purwa board files, to address
-Konrad's comment.
+> +
+> +static void r8a78000_genpd_del_provider(void *data)
+> +{
+> +       of_genpd_del_provider(data);
+> +}
+> +
+> +static int r8a78000_genpd_always_on_singleton(struct device *dev)
+> +{
+> +       struct generic_pm_domain *genpd;
+> +       int ret;
+> +
+> +       guard(mutex)(&r8a78000_mdlc_lock);
+> +
+> +       if (r8a78000_genpd_always_on)
+> +               return 0;
+> +
 
-Later, I can push a separate patch to add proper thermal configurations
-for thermistors per board, and only for the boards we use internally.
+I guess the mutex is used to protect the global
+r8a78000_genpd_always_on, but it looks like that isn't really needed
+based upon how things are being called during the probe.
 
-Thanks,
-Jishnu
+> +       genpd =3D kzalloc_obj(*genpd);
+> +       if (!genpd)
+> +               return -ENOMEM;
+> +
+> +       genpd->name =3D "always-on";
+> +       genpd->attach_dev =3D r8a78000_mdlc_attach_dev;
+> +
+> +       ret =3D pm_genpd_init(genpd, &pm_domain_always_on_gov, false);
+> +       if (ret) {
+> +               kfree(genpd);
+> +               return dev_err_probe(dev, ret,
+> +                                    "Failed to create always-on domain\n=
+");
+> +       }
+> +
+> +       r8a78000_genpd_always_on =3D genpd;
+> +       return 0;
+> +}
+> +
+> +static int r8a78000_mdlc_probe(struct platform_device *pdev)
+> +{
+> +       struct device *dev =3D &pdev->dev;
+> +       struct device_node *np =3D dev->of_node;
+> +       struct r8a78000_mdlc_priv *priv;
+> +       const struct mdlc_info *info;
+> +       struct resource *res;
+> +       int ret;
+> +
+> +       ret =3D r8a78000_genpd_always_on_singleton(dev);
+> +       if (ret)
+> +               return ret;
+> +
+> +       info =3D of_device_get_match_data(dev);
+> +       if (!info)
+> +               return -ENODEV;
+> +
+> +       priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +       if (!priv)
+> +               return -ENOMEM;
+> +
+> +       priv->dev =3D dev;
+> +       priv->np =3D np;
+> +
+> +       res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +       if (!res)
+> +               return -ENODEV;
+> +
+> +       for (; info->base; info++) {
+> +               if (info->base =3D=3D res->start)
+> +                       break;
+> +       }
+> +
+> +       if (!info->base) {
+> +               dev_dbg(dev, "Unsupported MDLC instance 0x%pa\n", &res->s=
+tart);
+> +               return -ENODEV;
+> +       }
+> +
+> +       priv->mod_map =3D info->mod_map;
+> +
+> +       scoped_guard(mutex, &r8a78000_mdlc_lock) {
+> +               hlist_add_head(&priv->link, &r8a78000_mdlc_list);
+> +       }
+> +
+> +       ret =3D devm_add_action_or_reset(dev, r8a78000_mdlc_unlink, priv)=
+;
+> +       if (ret)
+> +               return dev_err_probe(dev, ret, "failed to add action\n");
+> +
+> +       /* Note that no actual domains are registered, just need translat=
+ion */
+> +       priv->genpd_data.xlate =3D r8a78000_genpd_xlate;
+> +       ret =3D of_genpd_add_provider_onecell(np, &priv->genpd_data);
+> +       if (ret)
+> +               return dev_err_probe(dev, ret,
+> +                                    "Failed to register genpd provider\n=
+");
+> +
+> +       ret =3D devm_add_action_or_reset(dev, r8a78000_genpd_del_provider=
+, np);
+> +       if (ret)
+> +               return dev_err_probe(dev, ret,
+> +                                    "failed to add unregister action\n")=
+;
+> +
+> +       priv->rcdev.ops =3D &r8a78000_mdlc_reset_ops;
+> +       priv->rcdev.of_node =3D np;
+> +       priv->rcdev.of_reset_n_cells =3D 1;
+> +       priv->rcdev.of_xlate =3D r8a78000_mdlc_reset_xlate;
+> +
+> +       ret =3D devm_reset_controller_register(dev, &priv->rcdev);
+> +       if (ret)
+> +               return dev_err_probe(dev, ret,
+> +                                    "Failed to register reset controller=
+\n");
+> +
 
-> Regards,
-> Bjorn
+In some of the error paths above it looks like we end up leaking the
+data allocated for r8a78000_genpd_always_on. Perhaps clean up that
+somewhere here.
 
+> +       return 0;
+> +}
+
+[...]
+
+In regards to the merge strategy, I intend to pick patch 2 (shared via
+the immutable dt branch) and $subject patch. Please let me know if
+there are any issues with that.
+
+Kind regards
+Uffe
