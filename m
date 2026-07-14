@@ -1,189 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4490F372EE2;
-	Tue, 14 Jul 2026 10:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83E6370D4F
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 10:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784024927; cv=none; b=trWudTvmqdakjiOi0TRsO3qjW4+qxJwHof5xwoNZMYOAxv7bz4hFkDtJfYzUrGoZ/LO+CSQ4xniypqcJD+L+YdzJu+W/cAeLSFiHSubvDxu/ldTCZ5wRzDkNMymVV6DXOpqnTsbiK5RBsc6xeCILemFignpeYk+9WUyI/F83fGw=
+	t=1784025004; cv=none; b=gZCvSiqWB/yPEv2t4NdeOzX4wg0RZRnCXMSrge3BkrbRKwtgUke56A62GtCwDADG/PWQYn+fRpnnWlx1f90tl0ohz2LddzcVTIwHdmrr9IvwL4ZlvgKVWyBhcWfhNFJGpTvJnfITma1Z+V4Z6Op79NxDCSCaKGOCETPSbYbvl4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784024927; c=relaxed/simple;
-	bh=iVgLZlJQ+vMNolXxqzGao5tv1EtYdzquxCIotgcJLJc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O0FqnZuDbDupI4OzDlANydpdfnqNqh5MdDa8Njm93/v4TrR5eQp1oO4aviYiQu6kLO1mBs9PxnsS/80Xey/yvfTXGjmT/eQ5lCSjcM3BJSJU0in4ZOZg0Qp/VYIvy3EOUJfLSF5gzHuWMLOT78hSKG669bt2zbkAkt8fi8L334k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t35gmi7u; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1784025004; c=relaxed/simple;
+	bh=q0ZGOFUJLsXLvegeJxYlGQBs1GV578olOBdASNhBjpg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tVMdPxDFrWGhVSh1u7bX80nH/mcLrePtRgnNa5JcpMDuaYz1HzuDaWzPEKvKWwYcdlSy/Pd9JIA6NMdmJKyxLiYPouPJyPecSJWKXJUd/9uw418NFtfEF5l0emMKMYCJh+xOGuGDuFFJV8KBWYGQjXckaTcdzCdysBwHbNRD+xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+ZMbfQD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t35gmi7u"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CAD5EC2BD00;
-	Tue, 14 Jul 2026 10:28:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1784024926;
-	bh=iVgLZlJQ+vMNolXxqzGao5tv1EtYdzquxCIotgcJLJc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=t35gmi7uKtBrLA+I1udsLGXZpkRUxo7suahFfAGRqAJA8sLMFqJgUtkJ2egOTVi7i
-	 0DVjTwK2cGvlxNYpRGn6+XlMLl/6z3NVE2gyTj8UIq6ZIqPK+WUuSnN78TMOcisYOA
-	 e2lUyvyRE5GLSuMPiM5RIu+BpflpdRGFAoWXDew75QYuAaCzJdmeeArc0HQEX+M6ID
-	 LAc/tQKmQXNt0NGdEa1VgBpFAR8aREJts7gHgobU7q94BrE3Sn68x17E+A8NFn3EJL
-	 wXmXM3Ak1t2aRw3kk5z9W/Sx1GCtzQpWlg+1bg2RDLFDJa7YTgPrZIj1YuJctpF9F/
-	 Oxr5e6ku5TPUA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8759C44507;
-	Tue, 14 Jul 2026 10:28:46 +0000 (UTC)
-From: Haoning CHENG via B4 Relay <devnull+Haoning.CHENG.cn.bosch.com@kernel.org>
-Date: Tue, 14 Jul 2026 18:28:43 +0800
-Subject: [PATCH v8 3/3] thermal/drivers/imx: Add calibration offset support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+ZMbfQD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10321F000E9;
+	Tue, 14 Jul 2026 10:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784025003;
+	bh=p8RLdnSKJCXFr+QjVEBumsnKkui+2iyJwpyxzgCjpUE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=e+ZMbfQDQwpghnLVwQhusmQrAijKkwxcJuZ2HKB6chlBEQHRUB/8OlcbGPeGBSlYQ
+	 kwzCQud721cn9KY+zkZPFfpqzj8HkwpXaN6L20uSoDc55RtQpQDzn3eWJJpq+l/qR9
+	 GAo3/44qsxXEWtZ2HhpyO6oT4sXunaKpvqfI/TZ6djYSf5kyXQQBILqXtVRkiNje0T
+	 oY0mXTRKxyvkoqZpMZfcjjkqFc7Cmv1cNFK5Uq+52AZT2hglaqjj+1lG3YM0Td3Neu
+	 GcwUWj7UO0e1KiUpAQdWSoIW62X32aWYl0rYruaZbqLmDcdnhEmHOWPQnJzVmqR3ew
+	 yrY8/ohKIRoqg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 3/8] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: linux-i3c@lists.infradead.org, Frank.Li@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714092053.2461482-4-lakshay.piplani@nxp.com>
+References: <20260714092053.2461482-1-lakshay.piplani@nxp.com>
+ <20260714092053.2461482-4-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 10:30:01 +0000
+Message-Id: <20260714103002.C10321F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260714-b4-symana21-11221-imx-thermal-support-upstream-6-18-v8-3-d54d8690e16e@cn.bosch.com>
-References: <20260714-b4-symana21-11221-imx-thermal-support-upstream-6-18-v8-0-d54d8690e16e@cn.bosch.com>
-In-Reply-To: <20260714-b4-symana21-11221-imx-thermal-support-upstream-6-18-v8-0-d54d8690e16e@cn.bosch.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784024921; l=4200;
- i=Haoning.CHENG@cn.bosch.com; s=20260709; h=from:subject:message-id;
- bh=fVZ8/nh0Wo4y9uiBm2vp04dsfqXgZZNI2dShzcEryTw=;
- b=/WnMq2zuNxvlbasuk2ft8ic81S5ZQT/nP29GZ+kVVgzJyYNVKsh42yxesFUiCuu0l94a4R6EH
- jNpzUSgxAk+AinG6HBgTnVpMp+wV9sQvEhQDlQAGyMwUq6U5P8ZiuYB
-X-Developer-Key: i=Haoning.CHENG@cn.bosch.com; a=ed25519;
- pk=glQGwad/fosRS5gZUJYbLDPPLGe7rFTrTV2VxY/ySdc=
-X-Endpoint-Received: by B4 Relay for Haoning.CHENG@cn.bosch.com/20260709
- with auth_id=860
-X-Original-From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
-Reply-To: Haoning.CHENG@cn.bosch.com
 
-From: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The binding documents GPIO provider capabilities for the target =
+ports but omits the corresponding required standard properties (`gpio-contr=
+oller`, `#gpio-cells`) from the schema.
+- [Medium] The schema artificially restricts the compatible string to a sin=
+gle part number (`nxp,p3h2840`), failing to support the full hardware famil=
+y declared in the commit message.
+- [Low] The `maximum: 7` constraint is incorrectly applied directly to the =
+`reg` property for child nodes, rendering it ineffective.
+--
 
-Some boards need a small per-design correction to align the reported CPU
-temperature with board-level measurements. Read the optional
-fsl,temp-calibration-offset-millicelsius property from DT and apply it
-uniformly to the i.MX6/6SX/7D calibration formulas.
+--- Patch [3]: [PATCH v14 3/8] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub su=
+pport ---
+commit de643e91ed7cd5797dc3f49d8564e4fab44c0789
+Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-The offset is applied symmetrically at two points to ensure the thermal
-framework sees calibrated temperatures while hardware thresholds remain
-correctly positioned:
+dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
 
-1. In imx_set_alarm_temp() and imx_set_panic_temp(): the temperature
-   threshold is *subtracted* by the offset before being converted to a
-   hardware register value. This shifts the hardware IRQ trigger to the
-   physical temperature that corresponds to the intended threshold.
+Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
+multiport I3C hub family. These devices connect to a host via
+I3C/I2C/SMBus and allow communication with multiple downstream
+peripherals.
 
-2. In imx_get_temp(): after computing physical temperature from the
-   hardware register, the offset is *added* back. The thermal framework
-   always sees the calibrated temperature.
+> diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Doc=
+umentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> new file mode 100644
+> index 0000000000000..f7f0752de5333
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> @@ -0,0 +1,291 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2025 NXP
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NXP P3H2X4X I3C HUB
+> +
+> +maintainers:
+> +  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> +  - Vikash Bansal <vikash.bansal@nxp.com>
+> +  - Lakshay Piplani <lakshay.piplani@nxp.com>
+> +
+> +description: |
+> +  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
+> +  hub devices that connect to:-
+> +  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to mu=
+ltiple
+> +     peripheral devices on the downstream  side.
+> +  2. Have two Controller Ports which can support either
+> +     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
+> +  3. P3H2840/ P3H2841 are 8 port I3C hub with eight I3C/I2C Target Port.
+> +  4. P3H2440/ P3H2441 are 4 port I3C hub with four I3C/I2C Target Port.
+> +     Target ports can be configured as I2C/SMBus, I3C or GPIO and connec=
+t to
+> +     peripherals.
 
-For example, if DT sets offset = +3000 m°C (board reads 3°C too low)
-and the passive trip is 95°C:
+[Severity: Medium]
+The description notes that target ports can be configured as GPIO providers,
+but the schema does not seem to include the corresponding required standard
+properties. Should gpio-controller and #gpio-cells be added to the schema
+to support this capability and avoid incomplete device trees passing valida=
+tion?
 
-  imx_set_alarm_temp(95000):
-    alarm_temp = 95000 - 3000 = 92000
-    → hardware register programmed for 92°C physical
+> +
+> +properties:
+> +  compatible:
+> +    const: nxp,p3h2840
 
-  Hardware IRQ fires at 92°C physical
+[Severity: Medium]
+The commit message indicates this binding supports the broader P3H2x4x fami=
+ly
+(P3H2440, P3H2441, P3H2840, P3H2841), but this strictly restricts the
+compatible string to a single part number. Should this be an enum allowing
+the other family members, or use an enum alongside a fallback?
 
-  imx_get_temp():
-    reads hardware, computes 92°C physical
-    *temp = 92000 + 3000 = 95000
-    → thermal framework sees 95°C → correct trip
+[ ... ]
+> +patternProperties:
+> +  "^i3c@[0-7]$":
+> +    type: object
+> +    $ref: /schemas/i3c/i3c.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        description:
+> +          The I3C HUB Target Port number.
+> +        maximum: 7
 
-When the property is not present, the offset defaults to 0, preserving
-the current behavior.
+[Severity: Low]
+Is this maximum: 7 constraint effective here? The reg property structurally
+evaluates as an array, whereas the maximum keyword only applies to numeric
+scalar types in JSON schema validation. Does this limit need to be structur=
+ed
+differently (for example, applying it to items) to be evaluated?
 
-Signed-off-by: Haoning CHENG <Haoning.CHENG@cn.bosch.com>
----
- drivers/thermal/imx_thermal.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+[ ... ]
+> +  "^(i2c|smbus)@[0-7]$":
+> +    type: object
+> +    $ref: /schemas/i2c/i2c-controller.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        description:
+> +          The I3C HUB Target Port number.
+> +        maximum: 7
 
-diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-index 7f7d1116b9d6..d471acc16bce 100644
---- a/drivers/thermal/imx_thermal.c
-+++ b/drivers/thermal/imx_thermal.c
-@@ -85,6 +85,10 @@ enum imx_thermal_trip {
- #define TEMPMON_IMX6SX			2
- #define TEMPMON_IMX7D			3
- 
-+/* Calibration offset limits (±20 °C in millicelsius) */
-+#define IMX_TEMP_CALIB_OFFSET_MIN	(-20000)
-+#define IMX_TEMP_CALIB_OFFSET_MAX	20000
-+
- struct thermal_soc_data {
- 	u32 version;
- 
-@@ -207,6 +211,7 @@ struct imx_thermal_data {
- 	struct regmap *tempmon;
- 	u32 c1, c2; /* See formula in imx_init_calib() */
- 	int temp_max;
-+	s32 calibration_offset;
- 	int alarm_temp;
- 	int last_temp;
- 	bool irq_enabled;
-@@ -223,6 +228,7 @@ static void imx_set_panic_temp(struct imx_thermal_data *data,
- 	struct regmap *map = data->tempmon;
- 	int critical_value;
- 
-+	panic_temp -= data->calibration_offset;
- 	critical_value = (data->c2 - panic_temp) / data->c1;
- 
- 	regmap_write(map, soc_data->panic_alarm_ctrl + REG_CLR,
-@@ -239,6 +245,7 @@ static void imx_set_alarm_temp(struct imx_thermal_data *data,
- 	int alarm_value;
- 
- 	data->alarm_temp = alarm_temp;
-+	alarm_temp -= data->calibration_offset;
- 
- 	if (data->socdata->version == TEMPMON_IMX7D) {
- 		if (alarm_temp >= 0)
-@@ -283,6 +290,7 @@ static int imx_get_temp(struct thermal_zone_device *tz, int *temp)
- 		*temp = (n_meas - data->c1 + 25) * 1000;
- 	else
- 		*temp = data->c2 - n_meas * data->c1;
-+	*temp += data->calibration_offset;
- 
- 	/* Update alarm value to next higher trip point for TEMPMON_IMX6Q */
- 	if (data->socdata->version == TEMPMON_IMX6Q) {
-@@ -635,6 +643,25 @@ static int imx_thermal_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, data);
- 
-+	if (of_property_present(dev->of_node,
-+				"fsl,temp-calibration-offset-millicelsius")) {
-+		ret = of_property_read_s32(dev->of_node,
-+					   "fsl,temp-calibration-offset-millicelsius",
-+					   &data->calibration_offset);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to read calibration offset\n");
-+
-+		if (data->calibration_offset < IMX_TEMP_CALIB_OFFSET_MIN ||
-+		    data->calibration_offset > IMX_TEMP_CALIB_OFFSET_MAX)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "calibration offset %d millicelsius out of range\n",
-+					     data->calibration_offset);
-+
-+		dev_dbg(dev, "calibration offset: %d millicelsius\n",
-+			data->calibration_offset);
-+	}
-+
- 	if (of_property_present(dev->of_node, "nvmem-cells")) {
- 		ret = imx_init_from_nvmem_cells(pdev);
- 		if (ret)
+[Severity: Low]
+Similarly for the i2c/smbus nodes, is applying maximum: 7 directly to the
+reg property array valid for JSON schema validation?
 
--- 
-2.43.0
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714092053.2461=
+482-1-lakshay.piplani@nxp.com?part=3D3
