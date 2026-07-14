@@ -1,145 +1,221 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C944012CDA5;
-	Tue, 14 Jul 2026 13:20:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035218; cv=none; b=mCGvLza7Vi9LR/h0s1gZY3hGop4kce5NpKXPHVhmI8cY+ISfhr3TZlhEIE1h52h5SXiTTV5HRqnNXfssKGYJTI4UDj1/k8r1OtIA+bfZDPnPiBsd48KH9wqkNQaX975Y/56T20S/UvNvIMqPHNNVrbzN0Rp4moSFAW2Y2VYI6os=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035218; c=relaxed/simple;
-	bh=2Zh6GCPD45Curzc6XxF95qB5OvTuXdsfKjQmHEiMzGU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nbwbSwA2Di28StkodqZ26/3UZDaQWE0gg27i73eh76O+t4Zs48Am/99waJxz7Lmpo/xJCrG+bviFxGkD0ESI2dAV5unafBzd12pYbuALBWejNTDoNZjAdUrpW1jbN4Yj9MJyWnXIyI2zg0Zg8sKfHyoEuq+tkrIUXaN6+vQZ8to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=GKhLiPB4; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=J+lyE4Sy; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FDC2DCF45
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784035346; cv=pass; b=EoJEdJ8ZvymlZPo3D2JqaE5hDV8PMSkdDc2bjXIEJTIc8X6yrZSUz0/M9y05KJke9l7XxUN/qEJV0Tifa1O5wc6m8AtPc/vuiUtxrbGlw4CFH7XWNBkE/Hifd0yUgfr+Y6vwlFgtfutgODcMcipRb4vpLj2yc/uy9Fa1UmH9Pzk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784035346; c=relaxed/simple;
+	bh=7EpWkjOIX2bvUj7bhrZlFgeAZ49Zdzo9NleFTDfsS0w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cNtJMY7YHcTzSOJV2xvQgvw/k2krUvYAsA/jtCmnPEFzGH3nODJqdwR5HWaJO+D2TVhOLf2sVPcq9NWfAIE4gHWSmxWs+WbZyyKJ6EXwx5XYmX1cWu1M4uSJxPaptpeg78UVUgHk+7jqyV6l9sSd1DmeGptUx8vWLHLMbUbzE2c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4l90eyf; arc=pass smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="GKhLiPB4";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="J+lyE4Sy"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4h00KS5WqtzKtxQ;
-	Tue, 14 Jul 2026 15:20:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784035212;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Uy1v136JBd/TwWAL0fK29hOy7EN7PDxODRCjp0URlHY=;
-	b=GKhLiPB4F8rXiuNGBhXLvKHsOaLYz6d3kdCfUFv+yXCbuMMWT+5aQZOQk05Gs1OVqsS9tA
-	v2etbJItXbnOlF3psG3wcpPJPys5uIx12eXo2CDP0SxmUVIuLtiqqFFUcEDsHRcN/OJPzB
-	ERYpiKOi61HIr9XvGwS9gSy0cuWdIEbYpjG0EhqiUK5ppi11St44A1tDk6LYCCtBPJAsAY
-	DcKreRrTdxO9wB5/8QW5NyGXZJL1vrhvBR3odJrhjz1dANbU5jOMS812TkiKtqrvOQDIgX
-	bcLoLkdZToek0aCo9oiqGVZGdQv21+XamWaeoYHIxcHvxCnkJlDXTrhSkDTwGQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=J+lyE4Sy;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784035207;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Uy1v136JBd/TwWAL0fK29hOy7EN7PDxODRCjp0URlHY=;
-	b=J+lyE4SysZUHi0CMVloGo6OKODciXi7fLmIRM+Cmwx/60T8VC7eMJZ41BTH7Y4hMd7gUUT
-	NMCP0HU4oUJb2j6WjWvoi5wDvWNrF1LPxJnbPK97H1Avxk+sR9AVtRuw86ZzYA6aX3hARX
-	x7ORYNx8OfoTx1nbmYH8rNHiRvvXgrHTug6HBUHSfUjK+QgktnekWKbJD1/IaupbRoEkZ8
-	8kqtvgx5lNSnxjw6Yy42sTtnMpgMEvEyU8KhZq7vDIXHpWpdJ0pKu21NLosPBVE8c9qps9
-	zej6gZYXzdzyR7USjxYUH8V/ig5lnD+8GCQ71lGYQrC9YNgDTaytZ3zlkFmkAQ==
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	kernel test robot <lkp@intel.com>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2] PCI: rcar-gen4: Isolate driver to ARM64
-Date: Tue, 14 Jul 2026 15:19:27 +0200
-Message-ID: <20260714131957.38067-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4l90eyf"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-476a130c138so985226f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:22:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784035343; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b6QP0xQnidYYIqb9hiUL8Mr4oUwzmuRSFOqhEJjDnzB85eKH5YUznwpCtFrWmAJvah
+         h8BGzkVYjTzW+XI6BUJ1GjfbsPRVhaHNBcSo5yEiauZ4K1CU5i0h94ne61KeoGGyCtyA
+         EjfVBXBWvRlxxu6hd1ek8z9/fDQzHRIwPwsyJTs4tQcw9C39OAKDwORy7IoChu1XJTi0
+         JxS3sE7efsVyFnLR3Pn1B3/TTRBdbxuCo8eQAGdudHiACAm3OmM//pjQtd1Hx6sCntaZ
+         aRvxvqoZhjfdpyzuzGrrjCET634EZkSKOYgCAJuN4o+wRzEfQ/FO3YQHmP/cw9yP1woe
+         zxzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gd9QWw526oknp7pc7L5j5Qo1NtCYrA+LbHXHAVKWIIE=;
+        fh=M/39KFzonRYFmiWQ56I1oN6p9N6PqryqzFtzOo9vSRU=;
+        b=WT4FxmeDWiVA6AKxAEAEeP+H9oSQTsT2oDROjn/qdIQTvpYjlkW0KpCOFW/QIWiJD0
+         oR1h4JCgSizZCf6iF8tuPhkH13bdHewaIqDEW1WrUjqBvuvaDJgi4sW9IDJytrzdCgqF
+         Q+/6JxginJBEvkcgqOJAUsQ5f5XV4T1Tz5EK9VQaxWP/i0ljIgOHlojLFfESTwjjhqm/
+         eDOTPOC+XHAXV+AQlbMsVF50yBEPy+AvIZei0mNCXfChZ2P3sRaWt+e9f5j8j0OGY8E1
+         vxxDTgwWhFHTPEMvfeeqpgSzWCBczgjvlD6ErY4QqCfTPChAZ6SSCUVRybBDH6UwJAem
+         mqhA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784035343; x=1784640143; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gd9QWw526oknp7pc7L5j5Qo1NtCYrA+LbHXHAVKWIIE=;
+        b=B4l90eyfla2j6MFR41xOPXv7A4x1XRFSzPN0nowphIxuDh07m0WEWw0M2Sye1SgRy5
+         Z7cGxEZTPj37pONqjgCqZ2CxMMSdgLvnZkXNya4mO4/NlD2iNFyuZPtAN7s5nHczZeYk
+         hBcsI63u7ss99EzSNJBihvSHm2IERdi5suzh7ED1a35P448C6ldyms8MaCwskKGD0EC/
+         SeJZLrdRxykA0fDTz8TJXSDys7cEaZQC9i4et2F9WEm5lcnkd7z0GBq0yJdBoaw4tIaJ
+         bV33eXOaS9cnT+XJ8UipXMLXlrzd3Bqzn2tQT6JysybKRizKt1NPeiXkDwjZ4e5+PMAu
+         4ryQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784035343; x=1784640143;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gd9QWw526oknp7pc7L5j5Qo1NtCYrA+LbHXHAVKWIIE=;
+        b=jddFoYPb6a/brBrTWRVZ2amm+tWU4OHQ1YWinOOYsJgdc7kgdHh6WhiyTSSQwGh/Uf
+         NYmZukljPXiv/tgSJsqCtW0y0k6t3XV+/goD0zFs6XN1AY01TpKwrl9afQsU2bngbeXs
+         pHKl2HLSiLpsIT27cBcpCHSI3PeFDh9UkvpahHuDcdGa219lLoh4AJFnP7fNhJqhGIKF
+         BUoFbf5OUFR0QTqDpLylF5KIcN5TMlYUyFs+EFJIH7npdPBkDs1r2rkm5Oh45oC/aUng
+         bNxKHQNO0mlIrZqcf6i/Qs6ZfNtS2gYkdLfMAgnDR4KIs/0UuCSkw1e8jcK8qff/ZFxs
+         PSyg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7pCFcIf4Wv/QTQAPoqgU2utWLnIkja0JRy3GpEe8T/flOq9RuEz7a+EkaT4IXCZUoPG309SywM0gI@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPuUyp3TeRaAzVV2wl71ZcSKGvx4j+S1ZHS1eLmiRqtfParLC1
+	gb+cKJY5y69PS3OWdl9iSZzof1it7RbnQvv62GMrNmLYc6GfZJVmZmyytD8OuDhwPRaVtrjLDwI
+	tfHMcqS4bc9C6bXE4NzlwfDWhPwzCMfE=
+X-Gm-Gg: AfdE7clJLxHcAIE8PXpZotWT9uhTqFLiC2+GLJglbB9EkmN+lc3o3wouX+hgkuGan0A
+	coXRbXW9LBhvqUupnhNCJK/jpw9JKJcqTohl6UZBntSL0AkAyYuYyaNWws50QasUrTcVEKVq/dE
+	7WwnrkGOGAzDWMyZQRejlfSJKOrzn53u5w3Ckw8llaOXVt82VU/yDGPAeSb9/IuTKhz1+TT5M26
+	4FLDfm2UgAxDUAqp09Ffo++0hx5y/tQJZ5OqTusrJeAD4t7ARk2wTsFLHjSH+JsyG1QiUUphWZl
+	QP4JMTNrD9hS21Z5M+DgbkBQcCtglf+vxqBU+ifiGjzCWcWfaaq7MoJH9So=
+X-Received: by 2002:a05:6000:612:b0:478:65a8:262d with SMTP id
+ ffacd0b85a97d-47f2dcd1a6cmr15559441f8f.9.1784035343221; Tue, 14 Jul 2026
+ 06:22:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 31c95b1302611529b56
-X-MBO-RS-META: fexm4t6jjueq3oy4dg3s7beno87arnjf
-X-Rspamd-Queue-Id: 4h00KS5WqtzKtxQ
+References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260702123112.161160-2-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdU62updtKeBBk-vO3YP+qaWTGqHQnzKvFJbrz4J5eEPMQ@mail.gmail.com>
+In-Reply-To: <CAMuHMdU62updtKeBBk-vO3YP+qaWTGqHQnzKvFJbrz4J5eEPMQ@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 14 Jul 2026 14:21:56 +0100
+X-Gm-Features: AUfX_mx629uzNMG8Nucw8hUhgYkDfx2F61U6edckb4KFpd8R3v5p5R-Ssz_7kJI
+Message-ID: <CA+V-a8uWMJo8-WaFiXJQDs97gsrAEJG0-4PYgsp8J1LMjxd4-Q@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 1/9] dt-bindings: clock: renesas,cpg-mssr: Support
+ RZ/T2H system controllers
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The driver includes linux/irqchip/arm-gic-v3.h which pulls in headers
-which are available only on ARM and ARM64, on other architectures the
-headers are not present and the driver fails to build. This driver is
-used only on ARM64 hardware, isolate its build only to ARM64 to avoid
-build failures on other architectures.
+Hi Geert,
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202607100310.iQw5m9Uo-lkp@intel.com/
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
-V2: This is a rework of PCI: rcar-gen4: Inline GIC_TRANSLATER offset macro
-    which isolates the driver build to ARM64 via Kconfig instead:
-    https://lore.kernel.org/linux-pci/CAMuHMdVvWE7YZgKvreSn_vJLOVD4eMmn3TCGOyqSXksqjBCwvg@mail.gmail.com/
-    https://lore.kernel.org/linux-pci/20260714110041.GA1349622@bhelgaas/
----
- drivers/pci/controller/dwc/Kconfig | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thank you for the review.
 
-diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-index 49a7a2c50ca15..3260d916110b2 100644
---- a/drivers/pci/controller/dwc/Kconfig
-+++ b/drivers/pci/controller/dwc/Kconfig
-@@ -346,7 +346,7 @@ config PCIE_RCAR_GEN4
- 
- config PCIE_RCAR_GEN4_HOST
- 	tristate "Renesas R-Car Gen4 PCIe controller (host mode)"
--	depends on ARCH_RENESAS || COMPILE_TEST
-+	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
- 	depends on PCI_MSI
- 	select PCIE_DW_HOST
- 	select PCIE_RCAR_GEN4
-@@ -357,7 +357,7 @@ config PCIE_RCAR_GEN4_HOST
- 
- config PCIE_RCAR_GEN4_EP
- 	tristate "Renesas R-Car Gen4 PCIe controller (endpoint mode)"
--	depends on ARCH_RENESAS || COMPILE_TEST
-+	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
- 	depends on PCI_ENDPOINT
- 	select PCIE_DW_EP
- 	select PCIE_RCAR_GEN4
--- 
-2.53.0
+On Mon, Jul 13, 2026 at 4:50=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68=
+k.org> wrote:
+>
+> Hi Prabhakar,
+>
+> On Thu, 2 Jul 2026 at 14:31, Prabhakar <prabhakar.csengg@gmail.com> wrote=
+:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > The RZ/T2H and RZ/N2H SoCs features system controller blocks for low-po=
+wer
+> > management and access control that reside within the CPG/MSSR address
+> > space. To properly represent these hardware modules, allow them to be
+> > defined as child nodes of the CPG/MSSR controller.
+> >
+> > Update the CPG/MSSR binding to support child nodes by adding
+> > system-controller child nodes using a patternProperty, requiring a reg
+> > property and a renesas,sys-block property to identify the controller
+> > instance.
+> >
+> > Restrict these new properties to the RZ/T2H and RZ/N2H SoCs to ensure
+> > existing bindings for other Renesas SoCs remain unaffected.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> > v1->v2:
+> > - Updated commit message.
+>
+> Thanks for the update!
+>
+> > --- a/Documentation/devicetree/bindings/clock/renesas,cpg-mssr.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/renesas,cpg-mssr.yaml
+> > @@ -99,6 +99,41 @@ properties:
+> >        the datasheet.
+> >      const: 1
+> >
+> > +  '#address-cells':
+> > +    description:
+> > +      Required for the RZ/T2H SoC to define the address space for chil=
+d
+> > +      system-controller nodes.
+> > +    const: 2
+> > +
+> > +  '#size-cells':
+> > +    description:
+> > +      Required for the RZ/T2H SoC to define the size of the register
+> > +      blocks for child system-controller nodes.
+> > +    const: 2
+> > +
+> > +  ranges:
+> > +    description:
+> > +      Required for the RZ/T2H SoC to provide 1:1 address translation
+> > +      from the child system-controller nodes to the CPU address space.
+> > +
+> > +patternProperties:
+> > +  "^system-controller@[0-9a-f]+$":
+> > +    type: object
+> > +    description:
+> > +      System controller child nodes representing sub-blocks for
+> > +      Low Power Management (LPM) and Access Control.
+>
+> According to the documentation for the PRCi bit in Section 11.3.1
+> ("PRCRN : Non_Safety Area Protect Register"), the low power consumption
+> bits are in the xx28_xxxx blocks?
+>
+Yes the low power consumption (MSTPX) bits are in the xx28_xxxx blocks.
 
+> > +    properties:
+> > +      reg:
+> > +        maxItems: 1
+> > +      renesas,sys-block:
+> > +        $ref: /schemas/types.yaml#/definitions/uint32
+> > +        description: Index of the system controller instance.
+> > +        enum: [0, 1]
+>
+> I am not so fond of such "index" properties.
+> And of subnodes ;-)
+>
+The intention was to allow consumers to easily specify which sysblock to us=
+e.
+
+> > +    required:
+> > +      - reg
+> > +      - renesas,sys-block
+> > +    additionalProperties: false
+> > +
+> >  required:
+> >    - compatible
+> >    - reg
+> > @@ -126,6 +161,10 @@ allOf:
+> >        properties:
+> >          reg:
+> >            maxItems: 1
+> > +        '#address-cells': false
+> > +        '#size-cells': false
+> > +      patternProperties:
+> > +        "^system-controller@[0-9a-f]+$": false
+> >    - if:
+> >        not:
+> >          properties:
+>
+> As RZ/T2H and RZ/N2H are rather different than the other (mostly
+> R-Car) variants, perhaps it makes sense to spin them off to a separate
+> bindings document?
+>
+Ok, I will split this up in the next version.
+
+Cheers,
+Prabhakar
