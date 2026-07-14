@@ -1,130 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4320480974
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC20348A2DB
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:07:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784041570; cv=none; b=AqW/Pqg3efxuyGADaoK3ctmjvm0lXNLdZUFAWBb7wwLLgvSuOhCTQPuJ5e+BiwCcJO1mpS8NSpFyNEembOkogpYldE2wT9kS1HYWa6zPVctN/bzUjKLwcMAfx97IuxG73q1lePfizdzdmB6T903rBet1lC8WEf4T0Le/xLDDKFg=
+	t=1784041674; cv=none; b=O+AzbtXauBYTBJnDH4a78nnICVzNL8SX+ixNLqiKDAJgiirXVVUMpLV8JX8eDaMwgQzlkp3PoLq+zWK0R0yWZ1iFyCm/KX8kdWx4QbEXcYErOzVuZzWvboy4qNMaSDSFk2BuDIsbnKqkJZAEgUV/I+h9n/TRWlnOkua7KXOXlYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784041570; c=relaxed/simple;
-	bh=TtLceFX4AL3CnSI+zVU/POpvnjgwTiKWKX/ffcEBbWM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eJwBXcC3TJRK8uc612stRFhEgpZF5A4VW7q9ElZBsgIJCfrneSUNDu/y7AOU8IM2C2M5BiRKliLILmpOSoeyTAsZpCh2p9oYwJKqSMIzjtBUSfKQiIZAfBOJWlZBxRLWoFOdMA5cUU6boANQsk3phtBhyTRMgvFccdMXI012eAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MD3L8DKn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MD3L8DKn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1288E1F000E9;
-	Tue, 14 Jul 2026 15:06:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784041569;
-	bh=yggJnRqcQF/oCmJ1iEyumLXSBO69z6g86yfGnMc72Yk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MD3L8DKnhfMallK9/yzxj4ZFZ94H6ZU7rlrrNeKnP6V0n1ElSoxNIKJxrdJVDmSeE
-	 tK/9xZY91EUWc3PkjitMd4mssmPp5Psm9SxW4gfaZVp3nzlA3l1fW8uolCSo7uOWI8
-	 DwRkUKN9UKLwCDCzVgcnnc03d4v4lDKckcksG/g7UnraZLTzsZsQlvHCDWsoL8IXJo
-	 zUVImKiWZhfl4oF2+gduONElB6FUaKlvnd1P2khNqqlMrk78pBe1D3+ZoHWnei8aBW
-	 3YESfCoZYXQDHu3AVNog2E8sNs5025QiAy8sZlNuCik0i8rd0XkT18r770ZIORwjhb
-	 XVXTy+LYaDZQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] ASoC: qcom: sc8280xp: enhance machine driver for
- board-specific config
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260714145250.2473461-4-mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260714145250.2473461-4-mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 15:06:08 +0000
-Message-Id: <20260714150609.1288E1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1784041674; c=relaxed/simple;
+	bh=EydTAVFmfsnxHYlpbg8UU22Qc+XHEBpnj2CpvQQHEJ0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Spr1bF+3jalF+1Yj2YKrwswhD34BPUtX9VsjVM93JkCqAhfTBWEihTW62OVaN+/myG9rORnbFjsF5dAhTHP2a1meLkJTfqs2wzWqq5nPwhlawMVFKm2lI47vajnomxgaQKiX+IVrIKE3KOa9xCR0YDJXNSApLzeeacylCeYnyhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15e592da74so540074066b.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:07:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784041671; x=1784646471;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Jo5VGLZCIAx58XGGknenbn6fKSICDfYV+/5FruvF+xY=;
+        b=doN3iXDex7+AhZWI4TQcWqfBODHd/v9+dZKvQGsSBwEXWkc9X1HX16CZgoScCtQjAq
+         AVnk08CNbuuatkhVa/GX53UpdGT53nUDifLv3M8EintHv/jl5F40Aor4ebEHriLIPuG7
+         n5t3bbNu5tZXPe8vutnIJLHptSJV1ZOD9KmvdQy5mtxZL6IsucpSe4yEpH7h89J8dE3P
+         2pRnehs1INqV1xnQCunCZdiHhBWAwAwSlgEk78lK1l4piYIijdJOMdZD3BmmjpzOqhBN
+         QD5GQT0/goJcrWpqP9qPm4NSKysjxiwqKVHWnmxfJToSAHNAhpyBaJi3dgHgof2vK6Wu
+         WaWA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/SMaPFIKxS3Qc8BxXBGlNSFpD3M0dyN8FHLyprJ4SqGRNSmZqlhiH2urLaNFrDrp1YuJmVzbTI/86@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPH+D0NPk7zrOxA33iRyUDMeQTwbkyKYdFkPh+VEtVfk4YmSFS
+	GgenkbVm5cc1IO5JiMEOh+Q+zEvGcbB9fh9fr/EiIImj8485ekjBsVL3xdvDbDaWUo4=
+X-Gm-Gg: AfdE7cmqXH6awIcy7qSYsZyGZK+/JGuYuu3B5QqiOcQKHRaFdxdkR5DVNoJyV+INqGV
+	HE7PfMEUZbENT5HxNZqVM5vcoMRKqiCzeuvHbcCK9YWKKbjsV57FdMC4zH7Drf3pmkyzAVfpFQJ
+	i82DEwHDJB6I1Hq0cdIutg5xbh1X0MJP1d0/4gfAvKsHoKfdZrxsIvGeYJuL7bMOF6Qgjy/0PxO
+	wbfEe044jXGbBBfD0mDJ4dUH7VuUpOfMmZHGWZxmIcg1Xnn7rGa6j0XTeV8RX7GJJPyufLpsEai
+	RwHL9peZWVk8InUT9f7ZRH86DOrve38dHNWyX2m3031oqDcoDADT67cSKOowTzGoBkQbRE5/iVJ
+	z8fqUL5wpW7aUBVw7sfd+ocChopa0OqfwMg1bOb243Cpxrzw5OS86vCbZcaGQv2npNRJMUKDkJs
+	NPR3ua8qzyBno3zfu8BTKmKdt1SJb93uBXJr1Iy3H8eB8sRSbnAQ==
+X-Received: by 2002:a17:907:c510:b0:c12:8c41:3beb with SMTP id a640c23a62f3a-c161eaa5c2bmr640942466b.50.1784041670927;
+        Tue, 14 Jul 2026 08:07:50 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com. [209.85.208.44])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15da821c58sm879659966b.48.2026.07.14.08.07.48
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 08:07:49 -0700 (PDT)
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-69a50189d25so7725994a12.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:07:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqHW9VP7WnMcG5NLQCEKqL4R3iLiJA8lS6NzmUBIY7/Sbu54wmdHcXSaDXt3GdbmxvsfwbOSmbC3J+x@vger.kernel.org
+X-Received: by 2002:a05:6402:5518:b0:698:1504:e3db with SMTP id
+ 4fb4d7f45d1cf-69c5f12584bmr5921618a12.29.1784041668249; Tue, 14 Jul 2026
+ 08:07:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260704202748.355708-1-marek.vasut+renesas@mailbox.org> <20260704202748.355708-5-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260704202748.355708-5-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 14 Jul 2026 17:07:35 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUVqw-gqydVg5N7WiMj04rVAPuLjJjzgrk+eEgJpbzS2g@mail.gmail.com>
+X-Gm-Features: AUfX_mzNY37K7gCxxfwbxm0n7Y10BRypx8qySLz8CYFaayTElsV73S_ymVmDRtU
+Message-ID: <CAMuHMdUVqw-gqydVg5N7WiMj04rVAPuLjJjzgrk+eEgJpbzS2g@mail.gmail.com>
+Subject: Re: [PATCH 4/5] PCI: dwc: rcar-gen4: Handle PERST via reset subsystem
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incorrect error code check for unsupported DAI format operations=
- in `sc8280xp_snd_hw_params`.
---
+Hi Marek,
 
---- Patch [3]: [PATCH v5 3/3] ASoC: qcom: sc8280xp: enhance machine driver =
-for board-specific config ---
-commit c24a266f369f96e073e2a8a89d27c04935c6d52d
-Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+On Sat, 4 Jul 2026 at 22:28, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Handle PERST via both GPIO and reset subsystem. On R-Car Gen4, the
+> PERST signal is operated as a GPIO, on R-Car Gen5 it might only be
+> accessible via SCMI reset via reset subsystem. Support both options.
+> This is a preparatory patch for R-Car Gen5 support.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-ASoC: qcom: sc8280xp: enhance machine driver for board-specific config
+Thanks for your patch!
 
-This commit enhances the sc8280xp machine driver to support board-specific
-configuration. It allows each board variant to provide its own DAPM widgets
-and routes, and enables MI2S MCLK programming.
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
 
-> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-> index 98b15a527e37e..109e39b93b2dd 100644
-> --- a/sound/soc/qcom/sc8280xp.c
-> +++ b/sound/soc/qcom/sc8280xp.c
-
-[ ... ]
-
-> @@ -96,6 +156,63 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc=
-_pcm_runtime *rtd,
->  	return 0;
->  }
-> =20
-> +static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
-> +				  struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
-> +	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(rtd, 0);
-> +	struct sc8280xp_snd_data *data =3D snd_soc_card_get_drvdata(rtd->card);
-> +	int mclk_freq =3D sc8280xp_get_mclk_freq(params);
-> +	int bclk_freq =3D sc8280xp_get_bclk_freq(params);
-> +	int ret;
+> @@ -299,10 +300,27 @@ static void rcar_gen4_pcie_unprepare(struct rcar_gen4_pcie *rcar)
+>
+>  static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+>  {
+> +       struct device *dev = rcar->dw.dev;
+> +       struct reset_control *perst;
 > +
-> +	switch (cpu_dai->id) {
-> +	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
-> +	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
-> +	case SENARY_MI2S_RX ... SENARY_MI2S_TX:
-> +		ret =3D snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
-> +		if (ret && ret !=3D -EOPNOTSUPP)
-> +			return ret;
+>         rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
+>         if (IS_ERR(rcar->phy_base))
+>                 return PTR_ERR(rcar->phy_base);
+>
+> +       rcar->perst = NULL;
+> +       for_each_available_child_of_node_scoped(dev->of_node, of_port) {
+> +               perst = of_reset_control_get(of_port, "perst");
+> +               if (IS_ERR(perst)) {
+> +                       if (PTR_ERR(perst) != -EPROBE_DEFER)
+> +                               dev_err(dev, "Failed to get PERST#\n");
+> +                       return PTR_ERR(perst);
 
-[Severity: Medium]
-Should this error check evaluate against -ENOTSUPP instead of -EOPNOTSUPP?
+return dev_err_probe(...)?
 
-Looking at snd_soc_dai_set_fmt() in sound/soc/soc-dai.c, it initializes ret
-to -ENOTSUPP (524) and returns that if the DAI driver doesn't implement the
-set_fmt operation. Since -EOPNOTSUPP is a different value (95), will this
-inadvertently propagate the error and fail ALSA PCM stream setup on hardware
-where the CPU DAI does not implement .set_fmt?
+This error condition is triggered on Sparrow Hawk and White Hawk,
+as their DTS does not have perst:
 
-> +
-> +		if (data->snd_soc_common_priv->codec_dai_fmt) {
-> +			ret =3D snd_soc_dai_set_fmt(codec_dai,
-> +						  data->snd_soc_common_priv->codec_dai_fmt);
-> +			if (ret && ret !=3D -EOPNOTSUPP)
-> +				return ret;
+    pcie-rcar-gen4 e65d0000.pcie: Failed to get PERST#
+    pcie-rcar-gen4 e65d0000.pcie: probe with driver pcie-rcar-gen4
+failed with error -2
 
-[Severity: Medium]
-Similarly, could this cause stream setup failures for codecs that don't
-support set_fmt?=20
+Gr{oetje,eeting}s,
 
-If the target codec DAI is missing .set_fmt, snd_soc_dai_set_fmt() will
-return -ENOTSUPP rather than -EOPNOTSUPP.
+                        Geert
 
-> +		}
-> +
-> +		if (data->snd_soc_common_priv->mi2s_mclk_enable) {
-> +			ret =3D snd_soc_dai_set_sysclk(cpu_dai,
-> +						     LPAIF_MI2S_MCLK, mclk_freq,
-> +						     SND_SOC_CLOCK_OUT);
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714145250.2473=
-461-1-mohammad.rafi.shaik@oss.qualcomm.com?part=3D3
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
