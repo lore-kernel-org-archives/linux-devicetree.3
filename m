@@ -1,165 +1,130 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579D948B376;
-	Tue, 14 Jul 2026 15:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4320480974
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:06:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784041347; cv=none; b=T+1qaLV2dGapBE7PZLWDdRkIBUCTP0O03crTT7TTcW2oRaBvPIfMImF/ERENj+/Izh9GGXibg1W3NqGZ7TLdnkPeNTGN5jM7/2JjzZD78uA7Z5mr9egEuDlsFXY7giDI9seLHQgg2XTykW/IiZko5WlSYwcflc2xPW6gxudBOjY=
+	t=1784041570; cv=none; b=AqW/Pqg3efxuyGADaoK3ctmjvm0lXNLdZUFAWBb7wwLLgvSuOhCTQPuJ5e+BiwCcJO1mpS8NSpFyNEembOkogpYldE2wT9kS1HYWa6zPVctN/bzUjKLwcMAfx97IuxG73q1lePfizdzdmB6T903rBet1lC8WEf4T0Le/xLDDKFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784041347; c=relaxed/simple;
-	bh=7ydq8tqvtCmS4MoJgzQ30CjzBQK3fiFJdrakEbDu+HI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lw7tD8MbUFRpFTgIUlhk31WTFu6lRaSIx3HgFCEycyW+AJaKaMX9iOAWUaA1S0+OMi8eOSu263pQKhEbEW0rNtTYMmDvgp0V17aveHqbqhv7o8Lt8bIYzFqty6IjGUijHaWdH7mOjiYHcQuN1qmF+7QaaFWfGIS1STjWwz2+PHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=lukas.metz@gmx.net header.b=pjfvjD11; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1784041570; c=relaxed/simple;
+	bh=TtLceFX4AL3CnSI+zVU/POpvnjgwTiKWKX/ffcEBbWM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eJwBXcC3TJRK8uc612stRFhEgpZF5A4VW7q9ElZBsgIJCfrneSUNDu/y7AOU8IM2C2M5BiRKliLILmpOSoeyTAsZpCh2p9oYwJKqSMIzjtBUSfKQiIZAfBOJWlZBxRLWoFOdMA5cUU6boANQsk3phtBhyTRMgvFccdMXI012eAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MD3L8DKn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=lukas.metz@gmx.net header.b="pjfvjD11"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1784041343; x=1784646143; i=lukas.metz@gmx.net;
-	bh=ubKwVAq2K+QIy9+ON18v+CC5wtcezZuw8XxfkHBCvgE=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:In-Reply-To:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=pjfvjD11Dz83WjqtBWnRlSaLDkEi+MWBfEklt8BmmvhksCeWL8zDh+5qgyPS8+gs
-	 4E8J0pUrB4wrV2A3u1EHIuN4H9Ojg43/Bfo0y3eOi6x1eMu/NZBFdz96ORYAHH5m2
-	 IPVwO2fa0W4qzZsc1qXOk1XnZOColaGAJzQuT0GewfpY5rgU5cBUGjNsQWVVIshZi
-	 /Zro94J2SEsfxHKmDkJR0Aj0Az3EhsaKduwQ2/rvUru4GAy3ps0fI/7N4ZgQgHr5X
-	 4HhVgaYcY1CtfBP3xu8XpoY8fFnU/51qpniIenJV9lrODLU/4biqPLbicQvvYJGuZ
-	 bhyYB8HwSQga92A2TQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MGhyS-1wnYNx0u5S-003etc; Tue, 14
- Jul 2026 17:02:23 +0200
-Date: Tue, 14 Jul 2026 17:01:58 +0200
-From: Lukas <lukas.metz@gmx.net>
-To: Conor Dooley <conor@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: dac: Add DAC8163
-Message-ID: <alZPZuAQfiROz8kf@berta-MS-7693>
-References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
- <20260708-dac8163-work-v2-1-3acd1bf20182@gmx.net>
- <20260708-spotty-spectacle-f270b4c66d18@spud>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MD3L8DKn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1288E1F000E9;
+	Tue, 14 Jul 2026 15:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784041569;
+	bh=yggJnRqcQF/oCmJ1iEyumLXSBO69z6g86yfGnMc72Yk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MD3L8DKnhfMallK9/yzxj4ZFZ94H6ZU7rlrrNeKnP6V0n1ElSoxNIKJxrdJVDmSeE
+	 tK/9xZY91EUWc3PkjitMd4mssmPp5Psm9SxW4gfaZVp3nzlA3l1fW8uolCSo7uOWI8
+	 DwRkUKN9UKLwCDCzVgcnnc03d4v4lDKckcksG/g7UnraZLTzsZsQlvHCDWsoL8IXJo
+	 zUVImKiWZhfl4oF2+gduONElB6FUaKlvnd1P2khNqqlMrk78pBe1D3+ZoHWnei8aBW
+	 3YESfCoZYXQDHu3AVNog2E8sNs5025QiAy8sZlNuCik0i8rd0XkT18r770ZIORwjhb
+	 XVXTy+LYaDZQA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/3] ASoC: qcom: sc8280xp: enhance machine driver for
+ board-specific config
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714145250.2473461-4-mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260714145250.2473461-4-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 15:06:08 +0000
+Message-Id: <20260714150609.1288E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708-spotty-spectacle-f270b4c66d18@spud>
-X-Provags-ID: V03:K1:B6/GRT4zR/hLJKQzsqxHmJptu5sN0JrpB6L2hctM/XEerdFwaNh
- jnohlzidysH2wEIGOiI+LzP7os2pph7HQwY5TTQAdWvrIzH2RXPrCG2W552cv/HQOEZ4QyO
- K04dL6YXlSu02RsLKnqRu0vbSwyw1EpFcDE+HhSsUX/wisMVOoDpRnZ6LaWHdeBMe+hKlMn
- Ij8iLdR9+aP5bdT7hgZIw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:/nJvyZVj2J0=;wfF08yDmaSGR+iboZg1iEriwrD5
- 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
- jm3Upkop4cAm0yML2ExZz+gtVxE=
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 08, 2026 at 05:37:44PM +0100, Conor Dooley wrote:
-> > +  clr-gpios:
-> > +    description:
-> > +      The device registers are reset when this pin is asserted. The o=
-utput is
-> > +      set to zero (xxx2 devices) or mid-scale (xxx3 devices).
-> > +    maxItems: 1
-> > +
->=20
-> Sounds like this should be reset-gpios?
->=20
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incorrect error code check for unsupported DAI format operations=
+ in `sc8280xp_snd_hw_params`.
+--
 
-Thanks for pointing this out. The description is actually wrong. The
-datasheet says: "On activation of CLR, zero scale (DACxx62) or=20
-mid-scale (DACxx63) is loaded to all input and DAC registers".
-That means other registers are unaffected. I will update the description
-but the clr-gpios is correct in this case i guess?
+--- Patch [3]: [PATCH v5 3/3] ASoC: qcom: sc8280xp: enhance machine driver =
+for board-specific config ---
+commit c24a266f369f96e073e2a8a89d27c04935c6d52d
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-Best regards
-Lukas
+ASoC: qcom: sc8280xp: enhance machine driver for board-specific config
+
+This commit enhances the sc8280xp machine driver to support board-specific
+configuration. It allows each board variant to provide its own DAPM widgets
+and routes, and enables MI2S MCLK programming.
+
+> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+> index 98b15a527e37e..109e39b93b2dd 100644
+> --- a/sound/soc/qcom/sc8280xp.c
+> +++ b/sound/soc/qcom/sc8280xp.c
+
+[ ... ]
+
+> @@ -96,6 +156,63 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc=
+_pcm_runtime *rtd,
+>  	return 0;
+>  }
+> =20
+> +static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
+> +				  struct snd_pcm_hw_params *params)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substream);
+> +	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
+> +	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(rtd, 0);
+> +	struct sc8280xp_snd_data *data =3D snd_soc_card_get_drvdata(rtd->card);
+> +	int mclk_freq =3D sc8280xp_get_mclk_freq(params);
+> +	int bclk_freq =3D sc8280xp_get_bclk_freq(params);
+> +	int ret;
+> +
+> +	switch (cpu_dai->id) {
+> +	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
+> +	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
+> +	case SENARY_MI2S_RX ... SENARY_MI2S_TX:
+> +		ret =3D snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
+> +		if (ret && ret !=3D -EOPNOTSUPP)
+> +			return ret;
+
+[Severity: Medium]
+Should this error check evaluate against -ENOTSUPP instead of -EOPNOTSUPP?
+
+Looking at snd_soc_dai_set_fmt() in sound/soc/soc-dai.c, it initializes ret
+to -ENOTSUPP (524) and returns that if the DAI driver doesn't implement the
+set_fmt operation. Since -EOPNOTSUPP is a different value (95), will this
+inadvertently propagate the error and fail ALSA PCM stream setup on hardware
+where the CPU DAI does not implement .set_fmt?
+
+> +
+> +		if (data->snd_soc_common_priv->codec_dai_fmt) {
+> +			ret =3D snd_soc_dai_set_fmt(codec_dai,
+> +						  data->snd_soc_common_priv->codec_dai_fmt);
+> +			if (ret && ret !=3D -EOPNOTSUPP)
+> +				return ret;
+
+[Severity: Medium]
+Similarly, could this cause stream setup failures for codecs that don't
+support set_fmt?=20
+
+If the target codec DAI is missing .set_fmt, snd_soc_dai_set_fmt() will
+return -ENOTSUPP rather than -EOPNOTSUPP.
+
+> +		}
+> +
+> +		if (data->snd_soc_common_priv->mi2s_mclk_enable) {
+> +			ret =3D snd_soc_dai_set_sysclk(cpu_dai,
+> +						     LPAIF_MI2S_MCLK, mclk_freq,
+> +						     SND_SOC_CLOCK_OUT);
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714145250.2473=
+461-1-mohammad.rafi.shaik@oss.qualcomm.com?part=3D3
