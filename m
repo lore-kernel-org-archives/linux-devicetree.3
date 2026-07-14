@@ -1,68 +1,68 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6E5429CEF
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA48432E73
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784071368; cv=none; b=BCgHvGNTd+2cjPyALjJBK71xjcXkpVvNYEk1s6ovjScJQjXUBmp+B8V5V5jxeRJOpVJFEF+KbcaQ10Iz4yX2QAMqwyAHGGLPW8lJnZ91e+ae9o5kaNphBB/KHxNC7GlapSuPySiNdW0q4t/jRs1cD0RKtgNHWi2KXLROI072p8Y=
+	t=1784071369; cv=none; b=H2jFbIl1EsK9C2iy/4lAbwFxOFVEpZMOnoStivkr77hNDCuMceEvlkZ9fhSf67lLxGPqv+VbDsh5SLYpW65NMQJH1Dv+/g1O+1Yi250u5SjYh0pLZ8mf9BSQG1D2kAOcpEneA7UwNbunETi4Xx+gtBT+dv2aSpm32XDn6HV0pFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784071368; c=relaxed/simple;
-	bh=25WUGK2ba5xnlX7QOGvC2X9iXHAztyjhOtHUdyixIh4=;
+	s=arc-20240116; t=1784071369; c=relaxed/simple;
+	bh=TfVJkaOJjR+FVvEc3u4C1RbJVpPaZ8OuJ8zPygdP9l0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZX7qN905i/En7wdf+dYzsQ0e9ppUD7czzRqQzhuv/6P+m9v1G7z+EX/JxviSc2QZ1WDVJQiqkiTcVMjmHonqN92Le2jdXIAA7W5pElmg9SypEcSqMY10yFA2pCwrOH4jlLf+qRfyL1egvvpRVAMKmdTtYNL2WUYy0XG8gdOWMKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=e4Nbh58Z; arc=none smtp.client-ip=209.85.161.42
+	 In-Reply-To:To:Cc; b=XclUR9x26b6jVnH9gve5Wl0wBhEr6RfCebWhbs1xRFfo6HYMiSxMSUW46SgK7betGrHY2AG3x0Zo2e+nloUG+aD4rJKZAbQkE0GbVV9MFueG+lzKWnkexGNBxz9A2+nUvim5EfPQ0pz3wwHTXpfZkMiIhnyoj8xZ2vldbAjESCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=T1GT3o0c; arc=none smtp.client-ip=209.85.161.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="e4Nbh58Z"
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6a3897109bfso1550888eaf.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:22:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="T1GT3o0c"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6a1888969ddso2792547eaf.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:22:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784071363; x=1784676163; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1784071354; x=1784676154; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=77cYFygWbkZlNnS8ldWspgZQcmtsC/v8xPN3lbd2GsM=;
-        b=e4Nbh58ZCkHJwS4bZ3hm99fTzjFWf/BsePxZFBJlcA9cWt90HAcC1ibAv0OhQ5U/0h
-         KctHltm0FT2zNlmF0FNKHrKeT2XPaE7zwYN+R8N/dx6BAtU/KkCEEiaUwC/ceMf/qODr
-         QDRpNGCxeq1TdFBvwB6/yozlpoxqSfsCzzurMqcRBPprCrQdc9TYGtlC4f9FCaP6TRWh
-         1gxmnN7Kc+27FqtLY4mtTRz0Jehr34uPVrXRCkWQKH7C+17eacOsrJ13nb6FeE4EMro/
-         wmMXHDpqogC9J6hcNlZXGqLPkr3fRboi2kqJbgmTN97BFu6SV5uA6twQr7JLgOugn3XX
-         ZYjw==
+        bh=S6toAopr8F8rTSSWjDWDH2rtjDknkrCnbrvnm6omNuY=;
+        b=T1GT3o0c76FuNUkSFWHMuuPVTOfezivPGnTZlW+h0I6vLADo+HsiHDNYtpoAukeYlv
+         4abpoHzayrS0SVJH4YCUUi4cizuEVV/C1YToev08hgrhwi5Ys0XwtKY9ClBoWtD9FLsH
+         Bn1WFOgOko9md19FLM+fT40KwsAdBYFo+2vPTBjZIFEL0AfwALu2z5WSeFx1i+Gthqju
+         ta+xDAF7oalrTDJ7FgJ0FM8yPFTWFtPjJaVDVRfL5xCcUMtefnYUV6EkKGQ/m8n0dHse
+         G2YinPbmqJbll1TQp+pi6trd6t9/cGJoyoTgHC/mFCW8lcynU7OkT5BdgD0pX9lY46Kr
+         4VFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784071363; x=1784676163;
+        d=1e100.net; s=20251104; t=1784071354; x=1784676154;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=77cYFygWbkZlNnS8ldWspgZQcmtsC/v8xPN3lbd2GsM=;
-        b=Kya52NWQJtlZ7lB7OHTx5FLVUAAGJka59WeBtPr61S/W+XG+I01zXY+kMm1x8tpmwI
-         +IhVgSgQchc4MfGIcpGPGiMsCaVk2QCRtUZP66IbJBGU4wugKJc0fBMJ1iKrHOVDG8oa
-         0UmQGCJddowuyfpmR8hOwVA5ffAFYpHcGyJL9zFxolhyAXzp5dzeZO51MvCDobu2uAph
-         UPc/iiuALxKQESvM6I88mLVEGJ5W5XZqDtM5BDRfMiTQltP8EpQK+nDYCSSeHEznTvWh
-         Uczj9QkeQiw2yNIVJpnx9+PUScJOpIWyaI5D9KZp2m4mZEE5dTMjLb/1OjC+Xrr19HPM
-         sL1w==
-X-Forwarded-Encrypted: i=1; AFNElJ/OjaYXrGe+xRU+HlRKkigDkCPA24v5s9BNbq+pxy7aoqSwvmbjGfp2AYCWLgJparDZVMpuqzhuCGbg@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy8AY6f3pLhnLwKXbc0E2Lt0O3cKIZfXDwJBUrMeQE0Tl2O+FCP
-	PM/SorJ1aeBC6iT/ap8B7y45zNNdOCO0qYGn/FVRpZHo7TAf7qsXd1YUCtjZVJ/F/3s=
-X-Gm-Gg: AfdE7cmu19TMyETdrqZugXO0l0rGbBDf9QotPq4xbVlPdqtsIdVvZQGFnty0Lg1VfBy
-	GQMzlrBzlnFPLz9AzdYZrITUl/udWtp9HOMJtWKlLLlqXP8cQlS6EMV/w/y5yxFrBX2msaDta4r
-	+3AyzVhrr64zqmkzBzJhTx17pc6vSnguCK3S9L2vmGWAoq7Pm69hepHinSkCuCcRqHnuSa52jkm
-	ZwnDUM9gQJ9eMjFl9jin6katK/9+MS66GBKfAhaP9+Xb2CC43TYZMZ03YYjGiG2dhmb+8RpDZ1L
-	2irEwnaiXyRncWHF+fQVtb4OQF/NGxPkW6NqD75AAZLFw88Rd+qJa+e7BMbAyav8hxabRu3t7cT
-	rbfWwvnri6yu8QqBABwjZYmwSTaW5Ygw52JZ1Er13dLP9su2SVtq2PYDUKgQ0OUdab9o3s5c/Do
-	L7x3HZe+nyWhIthjJc/Q==
-X-Received: by 2002:a4a:ee08:0:b0:6a3:97db:4917 with SMTP id 006d021491bc7-6a3da095e02mr526641eaf.51.1784071362955;
-        Tue, 14 Jul 2026 16:22:42 -0700 (PDT)
+        bh=S6toAopr8F8rTSSWjDWDH2rtjDknkrCnbrvnm6omNuY=;
+        b=Dw6N94xu1ZjqoLz6SXIEi8TQMraHiDBTbaN+5/4C+ZtBuyVA1hIYqql79bG1I81TuL
+         Kf/5L8/GxU7RIL2VcM3Esipd1rFj/fU2prHaHjKOgZBsuyqjEa0XqZdjs85yksKfCpNO
+         D6heH7iAhzWXDScMMyluVaD5neSycH9KXPmmQh+X2Rb+3GHAQwwjRRn5ubb7M3ACBHyH
+         I4JlITjWjN41g+/dHDbmGO9k78KlkYeX3TEnec1x+7t/vHbZM7cqGNy0EMA7q05o9iMh
+         fkLVgNY5/qwI7WDMuBbKIRNn4Fe/8B4ZmqHwSWj82PqYwSskRQYq46bH1gUfWw6sVKOF
+         AiLg==
+X-Forwarded-Encrypted: i=1; AFNElJ+uExACpAeU9mg53axNztzDcQTWMxUyg8hv866SsOuOhmdhfRn86deYb7jlwLEUbW73QCrfuttS8yTn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9MOhcVBw1/PyiTttwLrwmWdYVUUh958mA8SxQSzcmZtfdq8bm
+	TBNiGhI3TP6LqVmXjxD5A6cqqj+1/1hWqX7B/9JGGP+iIGP8FpMGa1Y0FzTrFud6Qeo=
+X-Gm-Gg: AfdE7cmH3PdNPQWhl2j3NwYojAL4Jpk58VFU8fFd1txU2vzOzFELeQT1/GV4ihDuoMI
+	wcLwfopYwe22glArj3Ogk8OGce7KS5t0y24j8ROQumc1thSHw+0jnfjEm97od9Of0/+I6Z6EEEL
+	WwPjI1yJJtc5ywoxn7tD841sqTToybqvh5AwfQI3Hyxs+p652gNFZSZDDt5M9ocERN0E0KhB3L8
+	q6mxXf1WVY+vLNjVdbbTC+x2+cTrK2DKgkcLMqHrw2/4S9aVtPAwZ9AKB+FAd14wWmBW+hF6K/0
+	cON9OU0aSZiL1OYw1hO+ztEA0c9A27cBWiZ1RsM5aQr/bJs1o6y5itEAgvXUzBeWHXomwllkZzB
+	QBY3+9KPLl+wSGHumRPxEhuQwPoTNigy8vRZTe6/iydqdidoCf0NyUP2eH4U2op6ot4rWHKTtC+
+	+G+osDYwQRTx+UbOIa0Q==
+X-Received: by 2002:a05:6820:174f:b0:69e:b41f:1963 with SMTP id 006d021491bc7-6a3cbbd4a5fmr2341508eaf.48.1784071354502;
+        Tue, 14 Jul 2026 16:22:34 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:280e:69fd:7612:d5a9])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a39af0e953sm7561978eaf.3.2026.07.14.16.22.42
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a39af0e953sm7561978eaf.3.2026.07.14.16.22.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 16:22:42 -0700 (PDT)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Tue, 14 Jul 2026 18:21:29 -0500
-Subject: [PATCH v4 7/8] iio: adc: ti-ads112c14: implement gain on internal
- short SYS_MON channel
+        Tue, 14 Jul 2026 16:22:34 -0700 (PDT)
+From: David Lechner <dlechner@baylibre.com>
+Date: Tue, 14 Jul 2026 18:21:25 -0500
+Subject: [PATCH v4 3/8] dt-bindings: iio: adc: Add burn-out current
+ properties
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-iio-adc-ti-ads122c14-v4-7-25f8e3084485@baylibre.com>
+Message-Id: <20260714-iio-adc-ti-ads122c14-v4-3-25f8e3084485@baylibre.com>
 References: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
 In-Reply-To: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -82,308 +82,55 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
  Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>, 
  linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>
+ linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9056; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=25WUGK2ba5xnlX7QOGvC2X9iXHAztyjhOtHUdyixIh4=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqVsSlkE+hdncUFraWkbz++l+CEcjrCVyAmFriW
- 9pipjI1+2GJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCalbEpQAKCRDCzCAB/wGP
- wP7ECACRc+Zv0D7ihFX64vE/p37cV4oPQgydKsBdDee683QTgcwa+sP/sj9RZaXL32743f7ZFiE
- IObVYuYaHRi0b08cOsEttvFNlqG76h+rx6whneklhRVJ/JPtUbYdMfl2SU8wcmE3cWbpbWfa/Ji
- 8vtwHB7E2vkbPjzcqoAuxRBV83wdq1HalsN6k9Z+DQQo4lZW+KOp10uS485k5xXbuZxvZCIQ/Vw
- kn3yX26xAvwRime6595qOrUgBDQtTR30k9UVvLEzlGVZKZUaHlg25uuzwBWPgBxjt6JPD515NQM
- oJ/7y46YWovEsjpzJSTjmCfaYzyH4x8K2+DMruBSgM5lWWhu
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1218; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=+GUNuuQMtib4Kibx1H+tAJiwv94cfO9xjtvXTTsu6EE=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqVsSK2ikdAzyGcKq5rUo+8ZJ2AvgO5A2eHZ4U9
+ CcKvt7ojLuJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCalbEigAKCRDCzCAB/wGP
+ wJysB/9XlInnk9loRJLMo2JjVVmYH85uIxCwTOFEILsZbeDdS9cjEofLQkwJPzqRzQZ8qmQKvjS
+ FQP6yw//jnCqzuAlzHSUwbWLQ6W7HkqJuqrTbcRUrYiMd3c4mz8Q8KKlLYlrSWR2ttwl96ptPI+
+ 5iqB4ae43XBtvButX/ehtkUdNgEuW46lMiX8ueBMvFx7BSQspxVgeqqQdZ++A+u57X/aRvPvuA8
+ ywTOuIw+EBAtp2ukaipdrnFGGQENzVyj7yM2aO+0P6xaE3uLbxw3IjjMgMoOfB0+zRC1I+ZW5Lu
+ Y1O6AZlJOwBmFHtZQWLcIAX31m83L3qlc3FlXfS/CmfqQDbX
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Implement support for the programmable gain amplifier on the internal
-short SYS_MON channel. This channel is used for calibration, so it is
-useful to be able to set the PGA to the same gain as the external
-channels. The gain setting is implemented via the `_scale` attribute.
+From: Kurt Borja <kuurtb@gmail.com>
 
-In the future, we may want to support different reference voltages for
-this channel, so the scale_available table is populated during probe
-rather than being a static table.
+Some ADCs incorporate burn-out current sources that provide current to
+the channel's input pins for open-circuit or short-circuit detection.
 
+Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
-v4 changes:
-* Added comments on ads112c14_pga_gains_x10.
-* Fix scale storage to be compatible with big-endian.
-* Make some changes to reduce diff in next patch.
-* Add driver mutex instead of using claim direct mode.
-
 v3 changes:
-* Use IIO_VAL_DECIMAL64_PICO for scale.
+* Removed maxItems.
 
-v2 changes:
-* Make some changes to reduce diff in next patch.
-* Add some local variables to reduce line wrap.
+v2 changes (compared to Kurt's RFC v2):
+* Changed units from microamps to nanoamps to fit known devices.
 ---
- drivers/iio/adc/ti-ads112c14.c | 152 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 149 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/iio/adc/adc.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index a69c595ab518..17bb6472a39b 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -9,12 +9,14 @@
-  */
+diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+index 9f7196d61ac3..e1da63119648 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+@@ -101,6 +101,11 @@ properties:
+       sources. The index in the array corresponds to the same index in the
+       excitation-channels array.
  
- #include <linux/bitfield.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/dev_printk.h>
- #include <linux/i2c.h>
- #include <linux/iio/iio.h>
- #include <linux/math64.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-@@ -128,6 +130,15 @@
- #define ADS112C14_INT_REF0_mV				1250
- #define ADS112C14_INT_REF1_mV				2500
- 
-+/*
-+ * Available gains as tenths (e.g. value 5 == 0.5 gain). Indexes correspond to
-+ * ADS112C14_GAIN_CFG_GAIN values.
-+ */
-+static const u32 ads112c14_pga_gains_x10[] = {
-+	5, 10, 20, 40, 50, 80, 100, 160,		/* 0 -  7 */
-+	200, 320, 500, 640, 1000, 1280, 2000, 2560,	/* 8 - 15 */
-+};
++  burn-out-current-nanoamp:
++    description:
++      Burn-out current sources provide current to the channel's input pins for
++      open-circuit or short-circuit detection.
 +
- struct ads112c14_chip_info {
- 	const char *name;
- 	u8 device_id;
-@@ -189,12 +200,17 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 		.address = 1,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
- 				    | BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
- 	},
- };
- 
- struct ads112c14_data {
- 	const struct ads112c14_chip_info *chip_info;
- 	struct regmap *regmap;
-+	/* Synchronizes access to register value fields. */
-+	struct mutex lock;
-+	u8 sys_mon_chan_short_gain_val;
-+	int sys_mon_chan_short_scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
- };
- 
- static bool ads112c14_writeable_reg(struct device *dev, unsigned int reg)
-@@ -250,15 +266,21 @@ static const struct regmap_config ads112c14_regmap_config = {
- static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
- 					     const struct iio_chan_spec *chan)
- {
-+	u32 gain_val;
- 	int ret;
- 
--	/* TODO: GAIN is useful for shorted PGA inputs. */
--	/* All SYS_MON channels use GAIN of 1 to keep it simple. */
-+	/*
-+	 * All SYS_MON channels use GAIN of 1 to keep it simple. Other than
-+	 * the internal short channel, where it is useful in practice.
-+	 */
-+	gain_val = chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT ?
-+		   data->sys_mon_chan_short_gain_val : 1;
-+
- 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_GAIN_CFG,
- 				 ADS112C14_GAIN_CFG_SYS_MON |
- 				 ADS112C14_GAIN_CFG_GAIN,
- 				 FIELD_PREP(ADS112C14_GAIN_CFG_SYS_MON, chan->address) |
--				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN, 1));
-+				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN, gain_val));
- 	if (ret)
- 		return ret;
- 
-@@ -301,6 +323,8 @@ static int ads112c14_single_conversion(struct ads112c14_data *data,
- 	u32 reg_val;
- 	int ret;
- 
-+	guard(mutex)(&data->lock);
-+
- 	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
- 		/* Not implemented yet. */
- 		return -EINVAL;
-@@ -332,6 +356,7 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			      int *val, int *val2, long mask)
- {
- 	struct ads112c14_data *data = iio_priv(indio_dev);
-+	const int *scale_avail;
- 	u32 vref_uV, fsr_bits;
- 
- 	/* Selecting V_REF source is not implemented yet. */
-@@ -381,6 +406,19 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			return IIO_VAL_FRACTIONAL_LOG2;
- 		}
- 
-+		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
-+			u8 idx;
-+
-+			guard(mutex)(&data->lock);
-+
-+			idx = data->sys_mon_chan_short_gain_val;
-+			scale_avail = data->sys_mon_chan_short_scale_available[idx];
-+			*val = scale_avail[0];
-+			*val2 = scale_avail[1];
-+
-+			return IIO_VAL_DECIMAL64_PICO;
-+		}
-+
- 		*val = vref_uV / (MICRO / MILLI);
- 
- 		/*
-@@ -413,6 +451,75 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int ads112c14_read_avail(struct iio_dev *indio_dev,
-+				const struct iio_chan_spec *chan, const int **vals,
-+				int *type, int *length, long mask)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
-+			guard(mutex)(&data->lock);
-+
-+			*vals = (const int *)data->sys_mon_chan_short_scale_available;
-+			*length = 2 * ARRAY_SIZE(data->sys_mon_chan_short_scale_available);
-+			*type = IIO_VAL_DECIMAL64_PICO;
-+			return IIO_AVAIL_LIST;
-+		}
-+
-+		return -EINVAL;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ads112c14_write_raw(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan, int val,
-+			       int val2, long mask)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	const int (*scale_avail)[2];
-+	u8 *gain_val;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE: {
-+		guard(mutex)(&data->lock);
-+
-+		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
-+			scale_avail = data->sys_mon_chan_short_scale_available;
-+			gain_val = &data->sys_mon_chan_short_gain_val;
-+		} else {
-+			return -EINVAL;
-+		}
-+
-+		for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
-+			if (iio_val_s64_compose(val, val2) ==
-+			    iio_val_s64_compose(scale_avail[i][0], scale_avail[i][1])) {
-+				*gain_val = i;
-+				return 0;
-+			}
-+		}
-+
-+		return -EINVAL;
-+	}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ads112c14_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				       struct iio_chan_spec const *chan,
-+				       long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_DECIMAL64_PICO;
-+	default:
-+		return IIO_VAL_INT_PLUS_MICRO;
-+	}
-+}
-+
- static int ads112c14_read_label(struct iio_dev *indio_dev,
- 				struct iio_chan_spec const *chan, char *label)
- {
-@@ -444,9 +551,39 @@ static int ads112c14_read_label(struct iio_dev *indio_dev,
- 
- static const struct iio_info ads112c14_info = {
- 	.read_raw = ads112c14_read_raw,
-+	.read_avail = ads112c14_read_avail,
-+	.write_raw = ads112c14_write_raw,
-+	.write_raw_get_fmt = ads112c14_write_raw_get_fmt,
- 	.read_label = ads112c14_read_label,
- };
- 
-+static void ads112c14_populate_scale_available(int (*scale_avail)[2],
-+					       u32 full_scale, u32 fsr_bits)
-+{
-+	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
-+		u64 gain_x10 = ads112c14_pga_gains_x10[i];
-+		s64 scale;
-+
-+		scale = div64_u64((u64)PICO * 10U * full_scale,
-+				  gain_x10 * BIT(fsr_bits));
-+
-+		iio_val_s64_decompose(scale, &scale_avail[i][0],
-+				      &scale_avail[i][1]);
-+	}
-+}
-+
-+static void ads112c14_populate_tables(struct ads112c14_data *data)
-+{
-+	u32 full_scale, fsr_bits;
-+
-+	/* For now, assuming all sys_mon channels are using 2.5V reference. */
-+	full_scale = ADS112C14_INT_REF1_mV;
-+	fsr_bits = data->chip_info->resolution_bits - 1;
-+
-+	ads112c14_populate_scale_available(data->sys_mon_chan_short_scale_available,
-+					   full_scale, fsr_bits);
-+}
-+
- static int ads112c14_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -467,6 +604,10 @@ static int ads112c14_probe(struct i2c_client *client)
- 	data = iio_priv(indio_dev);
- 	data->chip_info = info;
- 
-+	ret = devm_mutex_init(dev, &data->lock);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_regulator_get_enable(dev, "dvdd");
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get dvdd regulator\n");
-@@ -502,6 +643,9 @@ static int ads112c14_probe(struct i2c_client *client)
- 	if (FIELD_GET(ADS112C14_STATUS_MSB_RESETN, reg_val))
- 		return dev_err_probe(dev, -EIO, "reset failed\n");
- 
-+	/* Default gain after reset is 1. */
-+	data->sys_mon_chan_short_gain_val = 1;
-+
- 	/*
- 	 * Clear reset bit to prepare for next probe. And clear AVDD fault since
- 	 * that happens on every reset.
-@@ -528,6 +672,8 @@ static int ads112c14_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
-+	ads112c14_populate_tables(data);
-+
- 	indio_dev->name = info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 	indio_dev->channels = ads112c14_sys_mon_channels;
+ anyOf:
+   - oneOf:
+       - required:
 
 -- 
 2.43.0
