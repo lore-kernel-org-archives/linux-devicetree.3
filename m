@@ -1,131 +1,170 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03938448D12
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA1544DB69
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784032040; cv=none; b=QVc5yTx0GLXTC9aRRKrLwTVsj/BXv36Aot8jDN5SKNHGgFobPnIIdgniwV1+I1b4Wbv1w2a3kWt1n0K8ba1GZ9lAybWRx6NFXAogOAtlvDmzd2JeiOsCqVuQO6qU5bhJJ9eLcg/UTRfgZF6wHWnfeevf7YO1vlYxM0XcaR7JEGo=
+	t=1784032092; cv=none; b=fPiBEqe5QV45nptWQn+zdKHNIXE+X5AAzPkP2rvoAtLniDwN5sacAMaQcylCQy/P3yj4C2y62g3KYNIj6Fe7f7SvGFh6g1/07d32Y8Umh0fAePt6zo3J+937Ffs5fAYyFKjJCuflAFyfHh+EZGdyv7zLnGol0O9LJGQ4yMj2Kv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784032040; c=relaxed/simple;
-	bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZkqbQ45jCpIWL3NeADaPtYBNeX+4yCAAUZQZQLPuUwrJ3b9hsPZSXGGXIooPJ6PyzHmrBVCqZRiT03ha3GNk8RP93r38EAObu/KPRvl0UU/BExRTB2BH5e7FmvSO7Lc48IG5n+oWvWTbjV2swHWGG1popTr5z3gCgsex/M0w1kQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=PynYh0+J; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1784032092; c=relaxed/simple;
+	bh=dm3z8ROHGpjKN2MQ2Ze4ti8mwj7gZohZJE4lG80erJc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hKqzGN0KgeebEDCEqVOnXNbL4Cd62ZvfuBzuKQYZwZlMyoc+q3J979jtgiOQBF/ij0oZrGrV7mkQM2doseGeAnG1dKOmcYIZoWJiH39rpa+pU9eNJYEDgQ6G3TXgFMGB1teRRypRmdVVN7YHv7TlpdbKJMLWZZLwxlOfo4SH+sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PHacwydq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="PynYh0+J"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so6512805e9.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:27:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784032033; x=1784636833; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
-        b=PynYh0+J+gquIeEfFLT4xpocDZspjFo1uC0tvXr4kcCbJclxbeAeA2JOA0rl3y20ol
-         mcit2fW+E+jmrCK96IIoCDFJ1VM3XZlBM1Ol1m+WClgum2198FRqcjPPCLV9qklXozSF
-         bNqWPUmMRztTIRAr/uC8vS6aAntTLhgq31sxO+VuZBnLE00avo9wPo2ak+Id2S73P6TP
-         JyMTv3npRT44eaT/IXdnaC/THJCMEiU1U8Y0HHTLWki0rZkYwd6+emsgtmO5Xkm2w9R+
-         pry/Pqru2T18iu+oxY+ijHeqsYm6DhnLhfMAzC4qCJgPOzNSx45HsubeRl3RQLtb7Mxd
-         11HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784032033; x=1784636833;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
-        b=cvxyz57Cq2hd23bqvjzr/TEkBFXqOZyts5p4lpnuN3AVNu47GBXj+Z5o9wIlVPFp1r
-         kInUyfxxVUzJeFC85zhlZ1tNDuMPzN/BGyi/wlUSaXHdJ9ztBn/dcW2MqKqgORLmTEIp
-         oh9AoRVhYV86Lpbbq3Bubm8gpdB2yTDuPGIX9Vk1gccO2p5HT4mfBIPHiVX8JJcvdvHP
-         R1F5V4jtBoNcTNgQfWzOSK7JiGua0OKlWoM0pEnTDIjGrXLpRVG3KTtmab3tvsbQFV9A
-         916MHGJi/2tyvNzf4W8gYJmqYalxW1OpkZ5vwzZkhvmcaO4bK3onETr0+ijFfN7aEztI
-         k72Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0pvBlX6kA9F/sCf4B3mt2xraNP+t8egNx2oNNuNr6ma4d2fp9SnFnz0WKIdSRr8YuG1nINyWoY7W3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/lEqQd0MhliQavhrCVfyzXWTKMy5tDk5k08BFCyNCnIKXyasm
-	ySMnmppqHxsDAWR48iV0E+54M3bBmIRDe9sbqRQSIkAajmmqramU7cm5+U65AKXtsUw=
-X-Gm-Gg: AfdE7clY9nh3EWj+58JNLe6qJKoU9kag81LExXdSk7Z9bzPE3dcLJdWVFxAzQHcwWOJ
-	IG0+j/iKyi3KkQaz7PI8a4RAAKed36a3NBsYHE62qC0/cQjdps0WgVAvEHQaLzySVQH3uXEIyRK
-	C8YnC1FRevoQ9YWoWOVdM/vgeQd5c2/Ro2dDSC0/Zkuel/3JHfYcSTCjBHYCmUMKg1i5V+Bpg1N
-	GUK+rr8ndy9z07EwAkrUrb9tpM7z80ALajRoqutBvXszniTuIy64WNbk+YpSWCLnoMjLWmcz/wN
-	PDfVeSrvsDS9OBTTWp89kZiJklmQ8Fy+toaLaimNZkBm9pkRn5q/DIXAaJX0OFiv2YbviSwSZmV
-	0Q7a/iO5jUAoDjyoR6ApwQv0v1Nh72W3DrrazIEnRFKlXfmmi8JeIhVuY2bsaAvu8qQWMBXJDKO
-	phyjN4yIG5dvtAPkrR5riP5qDXOLVDt4mWYIGicSfnzH3UW5MeLgRMLmHxQD2BTy6TuEPUNqJvE
-	P5pCyOxXcbIXhH6eYJPBdTkFg==
-X-Received: by 2002:a05:600c:310f:b0:493:ee3a:f05b with SMTP id 5b1f17b1804b1-493f87d7fcdmr131894065e9.7.1784032033466;
-        Tue, 14 Jul 2026 05:27:13 -0700 (PDT)
-Received: from localhost (p200300f65f47db04b44a80421173aa03.dip0.t-ipconnect.de. [2003:f6:5f47:db04:b44a:8042:1173:aa03])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49508732395sm71538925e9.5.2026.07.14.05.27.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 05:27:12 -0700 (PDT)
-Date: Tue, 14 Jul 2026 14:27:11 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v7 07/10] clk: qcom: videocc: Add video clock controller
- driver for Eliza
-Message-ID: <alYq2J6hd06g9XyC@monoceros>
-References: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
- <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PHacwydq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA891F000E9;
+	Tue, 14 Jul 2026 12:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784032088;
+	bh=w1p7OhSQn+YTuwPk4ub8w6RPZ/NgbQLs+vPe2s1E1sM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PHacwydq2F02Ax8pPLSFxkQiHHvW+NPFfu1YvfC2NI/rTnx8LJYAuInfdNFrjaLct
+	 Xh3hMTzFhq1S1KuHMNVpZrv/w80XRyFJwr5xm1qYs3DQCQ5UFRL4npdUvhIH0Rx6Bm
+	 dEmNBRDZAq0XRaA8vZ1fAOJHQBVF/4IXOw19O1T+9UqRs2tKDiOG/z1C78NYT+W/CO
+	 +JDGmR9tNszMJGv3opn8vi9EuPZrBDVJDQalDwzJ/PiC/LrtJGtFjL0SeGQ4z10yjB
+	 EX4CXk5IoULTxTuAFbRAyU8N8nT/ITdFNioLuxdMP1TnyrAl7ao/lkmMjOIpNj84nz
+	 Obfbg+ci0K6nA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] ARM: dts: aspeed: bletchley: Add second source
+ PCA9532 LED controllers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cosmo Chou" <chou.cosmo@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714120816.1504058-3-chou.cosmo@gmail.com>
+References: <20260714120816.1504058-1-chou.cosmo@gmail.com>
+ <20260714120816.1504058-3-chou.cosmo@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 12:28:07 +0000
+Message-Id: <20260714122808.3FA891F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ebx5plxbs5ed2t4p"
-Content-Disposition: inline
-In-Reply-To: <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
---ebx5plxbs5ed2t4p
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v7 07/10] clk: qcom: videocc: Add video clock controller
- driver for Eliza
-MIME-Version: 1.0
+New issues:
+- [High] The GPIO polarity flags for the alternative PCA9532 LED controller=
+s are incorrectly copied verbatim from the PCA9552 nodes, resulting in inve=
+rted physical LED behavior.
 
-Hello,
+Pre-existing issues:
+- [High] The `leds-pca9532` driver ignores I2C write errors during initiali=
+zation, causing it to successfully probe even if the hardware is completely=
+ absent, introducing phantom GPIOs and sysfs collisions.
+--
 
-On Mon, Jul 13, 2026 at 08:23:45PM +0530, Taniya Das wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+--- Patch [2]: [PATCH 2/2] ARM: dts: aspeed: bletchley: Add second source P=
+CA9532 LED controllers ---
+commit be0c2ca182f94bd5b992463cc968b5837bdf819b
+Author: Cosmo Chou <chou.cosmo@gmail.com>
 
-Please rely on <linux/platform_device.h> to provide of_device_id and
-drop the include for <linux/mod_devicetable.h>. The latter header is
-going away soon.
+ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
+   =20
+This patch adds alternative PCA9532 LED controllers at address 0x66 to supp=
+ort
+boards populated with the PCA9532 instead of the primary PCA9552 at 0x67.
 
-Best regards
-Uwe
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts b=
+/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
+> index a966be69ff27d..86e2b5aecdf94 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
+[ ... ]
+> @@ -113,6 +114,58 @@ led-7 {
+>  		};
+>  	};
+> =20
+> +	fan_gpio_leds_alt {
+> +		compatible =3D "gpio-leds";
+> +		led-0 {
+> +			label =3D "fan0_blue";
+> +			retain-state-shutdown;
+> +			default-state =3D "on";
+> +			gpios =3D <&fan_leds_alt 8 GPIO_ACTIVE_HIGH>;
 
---ebx5plxbs5ed2t4p
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: High]
+Does this GPIO polarity result in inverted physical LED behavior?
 
------BEGIN PGP SIGNATURE-----
+In drivers/leds/leds-pca955x.c, pca955x_gpio_set_value() maps val =3D 1 to
+PCA955X_LS_LED_OFF (HI-Z). Conversely, in drivers/leds/leds-pca9532.c,
+pca9532_gpio_set_value() maps val =3D 1 to PCA9532_ON (LOW).=20
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKx0ACgkQj4D7WH0S
-/k73NQf/T09jaRmPJhz4l6/RUqCHwddXVzILSJXm5JaBiJDO0DMQ7ba66QjYb4dl
-QI1n/Dhb09P32uDl6jsczhMK61GxspOgLrFR2hBJzih+s41bXQ7uPoTac0gcaxYW
-7ldbJEM2KWQqFfrv8evU5objg4VkaDip0n9ci9nt6BgjQpYrjjX2clnDM/0zDdp+
-J8Dm1K+VIcHnIuhNQqi0ptZUQ7G6eoC2c6bWlZ6aaZm8kmv+yuRaMgI+u78AEzgG
-aSj02assVonsMuBMLKWJt55XzGBjwDCaWmUdfxbvs8kPIqtPeP6z5JFX/FcChP14
-2tr6zJZjaXuLYoEM5CwI84TE9YnOXQ==
-=/t+O
------END PGP SIGNATURE-----
+Since the PCA9532 driver maps the logical value to the opposite physical
+state compared to PCA9552, should this be GPIO_ACTIVE_LOW instead?
 
---ebx5plxbs5ed2t4p--
+> +		};
+[ ... ]
+> +	sled1_gpio_leds_alt {
+> +		compatible =3D "gpio-leds";
+> +		led-0 {
+> +			label =3D "sled1_amber";
+> +			retain-state-shutdown;
+> +			default-state =3D "keep";
+> +			gpios =3D <&sled1_leds_alt 0 GPIO_ACTIVE_LOW>;
+
+[Severity: High]
+Similarly, should this be GPIO_ACTIVE_HIGH?=20
+
+Since the physical circuit behavior for the PCA9532 differs from the PCA955=
+2,
+using the same polarity here might cause the LEDs to turn off when userspace
+expects them to be on.
+
+> +		};
+[ ... ]
+> @@ -957,6 +1214,38 @@ fan_leds: pca9552@67 {
+>  		"","","","",
+>  		"","","","";
+>  	};
+> +
+> +	fan_leds_alt: pca9532@66 {
+> +		compatible =3D "nxp,pca9532";
+> +		reg =3D <0x66>;
+> +		gpio-controller;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but will this cause phantom GPIOs
+and sysfs collisions on boards where the PCA9532 is not populated?
+
+The leds-pca9532 driver ignores I2C write errors during initialization:
+
+drivers/leds/leds-pca9532.c:pca9532_configure() {
+    ...
+		i2c_smbus_write_byte_data(client, PCA9532_REG_PWM(maxleds, i),
+			data->pwm[i]);
+		i2c_smbus_write_byte_data(client, PCA9532_REG_PSC(maxleds, i),
+			data->psc[i]);
+    ...
+}
+
+Because it doesn't check the return codes, it will successfully probe even =
+if
+the hardware is absent. This will register a phantom gpiochip with identical
+gpio-line-names on the same I2C bus.=20
+
+Subsequent user-space GPIO reads from this phantom chip will resolve to
+truncated NAK errors, yielding bogus hardware states for critical sensors l=
+ike
+fan presence and power-good.
+
+> +		#gpio-cells =3D <2>;
+> +
+> +		gpio-line-names =3D
+> +		"presence-fan0","presence-fan1",
+> +		"presence-fan2","presence-fan3",
+> +		"power-fan0-good","power-fan1-good",
+> +		"power-fan2-good","power-fan3-good",
+> +		"","","","",
+> +		"","","","";
+> +
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714120816.1504=
+058-1-chou.cosmo@gmail.com?part=3D2
