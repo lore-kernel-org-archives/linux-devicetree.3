@@ -1,188 +1,162 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5676A34B1B0
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 10:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0051365A03
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 10:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784024004; cv=none; b=P0JaNq6Nl0T2jjnO9GvyKK6jIXosc1GmuKcRA66NIR5w/oUmQGZTbGzuH8F5TdvvAUteFU3WKDm3hTQN86H2H6klSwAsWpbFXNFocVbCPGcbQnax0wcj21gOSX0iYPJSowqS6QBfzYojcKPJ0WiTGzskxnh6Wk3a80k3/LOoRxs=
+	t=1784024428; cv=none; b=m/HVsE5tU5z950jB0RvlVmUPS17Jzns+D7mfOBDO/Jperq2+BMwSpVxXuXZLIYcGRdj3P4EuUuAnrzFztHX/u4pbdZLX4wKvTJacG2F8PsuLkxJ1TlQz7DX9zBOqLaoYBEMxpj/vha4hNIGoXChxRmiqyT8KXJhDjCrr6kW7SIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784024004; c=relaxed/simple;
-	bh=zvwhYgtOrT/65A46qE3CGEVniA5OMZ97Og1xXdmbsCw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bjsZaW6ubcUD2xioX2ydMMTybw/Lie8YnELbcaeqEoU62dFrYZlg3iWI3VPtZIKaLZe2YllfxCgxk1U6JlzsQPta9QwgqIeniJt5vXWy64gCatIS5mu8qEeVzf7XzG/NnaSAUH5Xa/NdJkP2BvpsXyYEhrC6fJ6x1oXHnqJC8tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WS62cm+j; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784024428; c=relaxed/simple;
+	bh=3+1nwTN8YOP3de9oonqsCDwxOdz0GnaNE6/DZBRFy14=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lfRITu5bUbCG3CJiuNU/5m8KPYGH+btuBYd0k0ypnTEOZdc/fVdiOM+q9aqU8JJdHSoTz2LhqVq4siJP3TH0vDaa1uoXzDZMqdsMqXad5gRyHQ5Q0rAGz/gwTDA3DdzrUpf0XrxV9UAAkEM6cRI7IHGRrrO48bR3ne0G3I91OUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZyheAOxJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WS62cm+j"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47d70879764so2653847f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 03:13:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784024001; x=1784628801; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qzgCndSI4VOkYsn1Kv2muPUKgfIbX1eQd1xKFGHexkU=;
-        b=WS62cm+jKJ4mJpnQ7vG+xSi3mloGFLR6VEJsUfiY01XCc/it8A3WC3/pSgacuSSVjH
-         Jpd37C+omLhYTZW1YdaoHy0BZ5HdBwgLjGudaAeEhwKFSXzchqQiQKEtJsz986S08IAu
-         JhQp+vFnAKhF2gLYW+dWUFWwhT9rmQgCRrPOwmUg4DYjuBn2tCjmdDv8yS3PVmhSi9E6
-         81Euj8b3Vz7ehP5glWT3Pfzel77i2l4sFvq4ofnPX2l/dpKkPjsHfuMiBp+NAcWGpk8l
-         y3lNGq4XcBgDnuBsRjnzxlPBFYYEMDAA8DwvCV3Wdlpch3SJvIqflKRUwIkt83geHAX9
-         CYzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784024001; x=1784628801;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qzgCndSI4VOkYsn1Kv2muPUKgfIbX1eQd1xKFGHexkU=;
-        b=Oofs8wKHSZZVyLJdiZhSSauPnr6kooPuvvwVspMLwQU6OyzMF8fq/Jnhl0qmNJNFvC
-         GpyI/Mzp7AsAAX7IwxQGCAumdtKuw1NAZPmU7kNZw6PQDZb8jLR6Bv55BBx+VZ6Qmqig
-         v7YlwTaSyE6vdmhY5xN35el05CvDZtgt2npMPsFZs18y5hXXsr7PH4mTT7KeWkdB+Qcl
-         vW0QlpnzTdxUsv0jlNE9JuWP3VR2LoDq5ZbGKYrIvZPNjef4RQ3Q65x3yc25m/ye25RC
-         lHcVr0VhIT5asW10h1g4q9MO3Zza7a9KtnMHdeHjXVC259h1Ol0+CLrhM/Rps9d7Hq7z
-         oI5w==
-X-Forwarded-Encrypted: i=1; AHgh+RrZVxoNm+on05+VYjZGlKT2A+hHMATl3duG+gy39u1g4ZUwWa74YSjIM9Aesd8R1t9MQ4raqsp1U22N@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTfZ2/HndK6R6EnrRM9b7RezhD/EONDdFkUYh4jfY7mDXd+Hxk
-	ffv0X7RPIsqwqVN/rdKn7HePdgyiXqdsTz6T8effDDgIIPLWKYtF2uWs
-X-Gm-Gg: AfdE7clRYXXjhhyQe7bhEML/9XfDYqno+KC/lQjlR1WN/c6y4YYI4Lg4yxFT8NuXuy8
-	s00F0Z4+zFe6A8lZAPDg+Yh6IzPSHVRQNjPV7IxGWD2/9sXCK8itZUT3iyo0ddYnZ3fY5vFxnd4
-	3hkFmpzxFNshTJsEzlL9pqRMuTTRKH3sl9TFZw6+lPTRdTJlC/PDeyaku2lebDVxOVJbQTyjd0E
-	iiU2mTHOWjuM1BjgJXCDhdZg8tW0lPKxfbKNa4RqYZJbqOCg4cSGn5BKwBLaPIdGw7FWB0gn+a7
-	sWNYB3UwfSkOVIwGEYFhAn3ibeqR/rE4QUWg3mnMLGy05GoEWt6wVcjQBZOBSDSoaP0NNFtT58x
-	lps6tylwMU2XwrodcvNOsNTGd6ljC3rjxYitEmIWJrIQWfKzRFiHQ2KgPyEvYVMFBWsUQyN+4z+
-	XNBIbjuQTCZUh0gY3C9ZOQdEhIWjrbz/R5ulHsDuT/mnK5xpatsEuHrqk4bUp6Xf+Iz3V98kGN8
-	uK+BXO2wfZWbaS/k7yf1KpPpfBA5IbyDbLxLNSrtMJvDU5j/Pc4jY/4xNY4ae+6kw==
-X-Received: by 2002:a05:600c:310f:b0:493:bacb:1341 with SMTP id 5b1f17b1804b1-493f87dc3e8mr124581685e9.4.1784024001316;
-        Tue, 14 Jul 2026 03:13:21 -0700 (PDT)
-Received: from stiangglanda-IdeaPad.. ([85.233.101.104])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464a9879sm7788927f8f.22.2026.07.14.03.13.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 03:13:20 -0700 (PDT)
-From: Leander Kieweg <kieweg.leander@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Cc: airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Leander Kieweg <kieweg.leander@gmail.com>
-Subject: [RFC PATCH 3/3] NOT FOR MERGE: drm/glanda: Add x86 platform test device
-Date: Tue, 14 Jul 2026 12:11:45 +0200
-Message-ID: <20260714101146.200416-4-kieweg.leander@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260714101146.200416-1-kieweg.leander@gmail.com>
-References: <20260714101146.200416-1-kieweg.leander@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZyheAOxJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510E01F000E9;
+	Tue, 14 Jul 2026 10:20:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784024426;
+	bh=ZScVYZ8poWtq8BGB0ii8vZJEoswk2dbw3WrnJPdkMG0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZyheAOxJBZurZud2IyFgu8KQj4mcBPs/u2kQ/vtZqCNngePbypIA9hCsH7jXUUQ9B
+	 q+y0YgtFl84czVDT2FageQ78ghJDjmG9NVk/fAbIA/XNTmRwFfa/MEPOwrYPXeqi6y
+	 7UijBnFhPJ41M2ccDfaRflMX0noLFlKA+FZdmg5VCL/H4uEFMdOwRxo0IgCOlu/Zjj
+	 B2ptrVBqxVMBIUabN8MZVzg/QWBkiF73vOr0A4PjUxt0dSHriZyVzEYuYbLYc8n3pO
+	 1Dn8LEYcLJyFGmshY4d8y/VLh8YOq5SI0xGOD+kDcferr2e6JMpI1kRgCdEctKykoP
+	 GK3/DUj41GDog==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 2/8] i3c: master: Fix IBI request and free cleanup
+ paths
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: conor+dt@kernel.org, linux-i3c@lists.infradead.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714092053.2461482-3-lakshay.piplani@nxp.com>
+References: <20260714092053.2461482-1-lakshay.piplani@nxp.com>
+ <20260714092053.2461482-3-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 10:20:25 +0000
+Message-Id: <20260714102026.510E01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Register a mock platform device on x86 architectures to allow
-testing the GlandaGPU driver inside QEMU without cross-compiling.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
----
- drivers/gpu/drm/tiny/Kconfig     | 14 ++++++++++++
- drivers/gpu/drm/tiny/glandagpu.c | 39 ++++++++++++++++++++++++++++++++
- 2 files changed, 53 insertions(+)
+New issues:
+- [High] Bypassing the core cleanup paths when `dev->ibi` is cleared by a c=
+ontroller callback causes a permanent leak of the IBI workqueue (including =
+its rescuer kthread) and potentially the `ibi` object itself.
 
-diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-index 7a15bf95a..156713746 100644
---- a/drivers/gpu/drm/tiny/Kconfig
-+++ b/drivers/gpu/drm/tiny/Kconfig
-@@ -67,6 +67,20 @@ config DRM_GLANDA
- 	  basic modesetting, dumb buffers, and simple 2D drawing
- 	  acceleration via custom hardware IOCTLs.
- 
-+config DRM_GLANDA_X86_TEST
-+    bool "Register a fixed-address test device on x86 (QEMU only)"
-+    depends on DRM_GLANDA && X86
-+    default n
-+    help
-+      Registers a platform device at a hardcoded physical address
-+      (0xC0000000) for testing GlandaGPU against a QEMU-based digital
-+      twin without needing a devicetree.
-+
-+      WARNING: this blindly ioremaps a fixed physical address range.
-+      Do NOT enable this on real x86 hardware. This exists solely to
-+      let reviewers test the driver in QEMU without cross-compiling
-+      an ARM kernel/rootfs. Leave disabled otherwise.
-+
- config DRM_GM12U320
- 	tristate "GM12U320 driver for USB projectors"
- 	depends on DRM && USB && MMU
-diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glandagpu.c
-index 8f87ae096..c1e9370f2 100644
---- a/drivers/gpu/drm/tiny/glandagpu.c
-+++ b/drivers/gpu/drm/tiny/glandagpu.c
-@@ -741,6 +741,34 @@ static struct platform_driver glandagpu_driver = {
- 	.remove = glandagpu_remove,
- };
- 
-+#ifdef CONFIG_DRM_GLANDA_X86_TEST
-+static struct platform_device *pdev_x86;
-+
-+static struct resource glandagpu_resources[] = {
-+	[0] = {			/* Single resource covering VRAM and MMIO. */
-+	       .start = BRIDGE_BASE,
-+	       .end = GLANDA_BASE_SIZE,
-+	       .flags = IORESOURCE_MEM,},
-+	[1] = {			/* IRQ */
-+	       .start = 11,
-+	       .end = 11,
-+	       .flags = IORESOURCE_IRQ,},
-+};
-+
-+static int glandagpu_register_x86_test_device(void)
-+{
-+	pdev_x86 = platform_device_register_simple("glandagpu", -1,
-+						   glandagpu_resources,
-+						   ARRAY_SIZE(glandagpu_resources));
-+	if (IS_ERR(pdev_x86)) {
-+		pr_err("GlandaGPU: Failed to register platform device\n");
-+		return PTR_ERR(pdev_x86);
-+	}
-+
-+	return 0;
-+}
-+#endif
-+
- static int __init glandagpu_init(void)
- {
- 	int ret;
-@@ -750,6 +778,13 @@ static int __init glandagpu_init(void)
- 		pr_err("GlandaGPU: Failed to register platform driver\n");
- 		return ret;
- 	}
-+#ifdef CONFIG_DRM_GLANDA_X86_TEST
-+	ret = glandagpu_register_x86_test_device();
-+	if (ret) {
-+		platform_driver_unregister(&glandagpu_driver);
-+		return ret;
-+	}
-+#endif
- 
- 	pr_info("GlandaGPU: Module loaded successfully\n");
- 	return 0;
-@@ -757,6 +792,10 @@ static int __init glandagpu_init(void)
- 
- static void __exit glandagpu_exit(void)
- {
-+#ifdef CONFIG_DRM_GLANDA_X86_TEST
-+	if (pdev_x86)
-+		platform_device_unregister(pdev_x86);
-+#endif
- 	platform_driver_unregister(&glandagpu_driver);
- 	pr_info("GlandaGPU: Module unloaded\n");
- }
--- 
-2.43.0
+Pre-existing issues:
+- [High] Potential use-after-free of IBI pool during workqueue destruction =
+if IBI disable fails.
+--
 
+--- Patch [2]: [PATCH v14 2/8] i3c: master: Fix IBI request and free cleanu=
+p paths ---
+commit e0d1c57d2924f66898a40232f7e52ca0e1be0aea
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+
+i3c: master: Fix IBI request and free cleanup paths
+
+This commit attempts to fix a workqueue leak in the IBI request failure path
+by destroying the workqueue before freeing the IBI object. It also adds che=
+cks
+to avoid touching dev->ibi after controller callbacks if they have already
+cleared it, aiming to prevent NULL pointer dereferences.
+
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index 3b1c342be2bc5..ba37f71badac8 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+> @@ -3702,8 +3702,18 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc=
+ *dev,
+> =20
+>  	dev->ibi =3D ibi;
+>  	ret =3D master->ops->request_ibi(dev, req);
+> -	if (ret) {
+> -		kfree(ibi);
+> +
+> +	/*
+> +	 * The controller callback may have already released and cleared dev->i=
+bi
+> +	 * when the request is forwarded by a virtual controller. Only clean up=
+ the
+> +	 * IBI object if the callback left dev->ibi valid.
+> +	 */
+> +	if (ret && dev->ibi) {
+> +		/* Avoid leaking the workqueue allocated for this IBI request. */
+> +		if (dev->ibi->wq)
+> +			destroy_workqueue(dev->ibi->wq);
+> +
+> +		kfree(dev->ibi);
+>  		dev->ibi =3D NULL;
+>  	}
+
+[Severity: High]
+Does this logic introduce a permanent leak of the IBI workqueue and the loc=
+al
+ibi object?
+
+Since the core framework dynamically allocated ibi and ibi->wq earlier in
+i3c_dev_request_ibi_locked(), if master->ops->request_ibi() fails and the
+callback cleared dev->ibi, the check if (ret && dev->ibi) will be false.
+
+Because the callback does not own these resources and cannot safely destroy
+the framework's workqueue, the workqueue (including its rescuer kthread) and
+the ibi object will be skipped during cleanup and leak permanently.
+
+[ ... ]
+
+> @@ -3743,6 +3753,13 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *=
+dev)
+> =20
+>  	master->ops->free_ibi(dev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this lead to a
+use-after-free of the IBI pool memory if disabling the IBI fails?
+
+Earlier in i3c_dev_free_ibi_locked(), if the IBI is still enabled, it tries
+to disable it via i3c_dev_disable_ibi_locked(). If that disable fails
+(e.g., due to a hardware timeout), it returns an error without waiting for
+pending IBIs to finish, and we proceed directly to master->ops->free_ibi(de=
+v).
+
+This callback immediately frees the generic IBI pool. Subsequently,
+destroy_workqueue() is called below, which synchronously drains
+any executing IBI handler works. Since these pending work items reside insi=
+de
+the newly-freed pool, won't the rescuer thread dereference freed memory as
+the workqueue drains?
+
+> +	/*
+> +	 * The controller callback may have already released dev->ibi, for exam=
+ple
+> +	 * when the request was forwarded by a virtual controller.
+> +	 */
+> +	if (!dev->ibi)
+> +		return;
+
+[Severity: High]
+Similar to the request path above, does this early return bypass the
+destruction of the workqueue and cause a resource leak?
+
+If the controller callback cleared dev->ibi on the free path, we return
+early and skip the destroy_workqueue(dev->ibi->wq) step, leaking the
+workqueue and its rescuer thread.
+
+> +
+>  	if (dev->ibi->wq) {
+>  		destroy_workqueue(dev->ibi->wq);
+>  		dev->ibi->wq =3D NULL;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714092053.2461=
+482-1-lakshay.piplani@nxp.com?part=3D2
