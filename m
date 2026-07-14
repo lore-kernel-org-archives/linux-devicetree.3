@@ -1,793 +1,285 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F656433032
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784071370; cv=none; b=Jm99XEfxjKaytIhjL8OAYGhoOW2caJxJBY8Cq7h5MxDX8+ax92J0xm/GEKLEVtfJVGrV+E14+gY6852xfsl8mNUnFy5kqAaSR5TBonRGG6FvY/jayN1Ywyy6A2+ATh1ROctVGRCi0miqnRnZxwVbQpNsai8yzq85x15WzhBQtHw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784071370; c=relaxed/simple;
-	bh=G65Ti4QAMGB3NTJ8s0MkoDBtHTtbBSTfAKdXE3aAfz0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oBpd9DdUGbL/jWHUSasBZDvDOS73XU3vvJETpsYgX3YfDge6LGqFLugM1gJo2zfb0lK4EIFgqmz6jMuMSUsxHQ2Ht1Htj5+Pce1qvNse64FlpL21wyPiJzhxQbIeaEDMzsabEgRWU/zXTzX+16Xtij4bAK1VyM7nvUqrQAs5rwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CI4KCFTr; arc=none smtp.client-ip=209.85.161.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA31432E69;
+	Tue, 14 Jul 2026 23:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784071396; cv=fail; b=euSssMNw37Bu1AHXZmnbDo4+BquSPZNjqtSkhY5Noolrvkgf16c798Umzx/nh3qSrtAnZFuOUr41SCVT3/kDved6k5auFKkZQPqPeDrY+w4RFEguprwK9B78YFTCda6X2RzR6zacDQI41rHS942uU3AEqmqYLmigl+Ym6q/Gyus=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784071396; c=relaxed/simple;
+	bh=J5DsFTzNIJOfTdyQpnoBh6z9JgKMWX9vDwTixlt6qec=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=A/8zlztGNRLzjous+e1MSO4C60pnLS8U7lDtG+rgMQ27dJvcYuaKbwqlefBWIFjPO+uSxUXlJ0Zd4r3pGYSQTmk5k/DExHGQeNd1fuT3DiCXqJy5dP1ncYWxNcqIqGGXdWvvrmHaVrJmTmgGTXlYHypqZmUePzBK7GbyKxf8e8E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=CbRR1vsV; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=SZBOxKZj; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=S2lzzGAG reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CI4KCFTr"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6a378a2cfdfso960414eaf.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:22:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784071365; x=1784676165; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7ss+hmrk11EmJyPlPd6A3156r9SwPO30C/Pjs1VHs3Q=;
-        b=CI4KCFTrAvxBhY0ZzLT3VS0qq9p7Z0GnMBCjT6kemyQS8VUGLvDBjZoQEROb7ZJpWP
-         2V0mQ3plEFNRF51VbLiuDh6N1rgJ+RylsGXuCeDT+AVrj85gB/t42S7G3bPkB3NkvKHV
-         Rlc2blod4RLGFUj2eGqfvvds1uQTATiD+V7oswy+9wVgX205VXBMCH/NcokSJLMNlyP9
-         5SgbhaBcqW6JktvlDlPhXevA2sRdmEhVWPw+3rfh6SVbSgXSDyh3HDu8SEMmBaZG32q5
-         eXI3PXVse/fdHAQ8VPvh3KipECbhVNxAZIZtsH29boFVy5ONNlcKvVX0YuYN3G8T/NUz
-         mz7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784071365; x=1784676165;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7ss+hmrk11EmJyPlPd6A3156r9SwPO30C/Pjs1VHs3Q=;
-        b=RdYNsKQw/4qxDRMDgXB9mket2FKdFmZtlc2Y6OyO5UEqNCmvo3UjnmMfJb918u3HG/
-         M4g+29iLCLagt7Y9iPWdJWgFN9rnWyQ/UGjNf2+jTEe+JRAzRAxhBRtetIoz4s5XOqI8
-         Jcy6tuKUuo4xarkCnyURAeUpMBaxhDirtfEzoSzI036aVvv8d87xMlLR2VZYJ68z9GOn
-         g5g2q5cBmoykqRvUg2yo06Gd/eQ2SXsHYL9yjreicoQNDkBIIvziHI8HJsw2B1pV2D7L
-         WZCRfehTod3oxWww6Ufqq3e7MZ+8wkRq6YaZFBkTM+LgVyhU3QyRrB3HA0fOdRK7/WLh
-         nAFA==
-X-Forwarded-Encrypted: i=1; AFNElJ+LF9W7A1w07bbPy3YOrHPWjEdAzrnXA0QE5uTX3JZV9WWCUxEoBqHV7hxJF8bDw7UIx+vxpLSsibbT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4YLcd9096+5SIsir8r8K6dor+DmowxzxFQOx+/u/BB5EghVCr
-	a9PJsZNSQeLhy33HW8keSS5t0HlGzMH4xAqtVrpTMRToOVlwpH19spTnNJ0+kcT2Who=
-X-Gm-Gg: AfdE7ck9NHXUHgH2EzYzs4M5NJZ1ntW1ar+qQpnDmxUCJmx8B4ofuRyygNeNlSoEAdz
-	wZfU+YrgU/UtCAa69yy6iGOlGr66RVxtIw4dSWeTzqKdqfaKgBPrGRyV/+WGjZ1KUOXw8w/1XR6
-	R8l17ID4GsBtV1fSstHX5bIkhVj53l8tGqrxBzgPc6VMVvsORvMwFn4mQmJvjbP5Bt8L9Zr9NOq
-	upx+axBO+v5Gm/nVEFXfBHjBUWtyPLonkGxOZTtUuoihFiC2qCBf6FdOwlOSujiXM1LCTeY+Cdd
-	i8Tkc+m5v1h/KNbuP5zBxS+cWHewNL6LK8GfB4FXT3opv3f6V+njCP5GlynvDSKKe1J1ZbVTtQv
-	KvKyBb0+4Ka8syV7DM6HEhB7ek7ZNy9BYhWjBNKlOA/7XyokPQZtbudefQPSYXLo1zlLGl1z2f1
-	BTm1FoeoN76yP/U7lHIw==
-X-Received: by 2002:a05:6820:4dc4:b0:6a1:50eb:2118 with SMTP id 006d021491bc7-6a39a71fd1amr8702786eaf.60.1784071365226;
-        Tue, 14 Jul 2026 16:22:45 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:280e:69fd:7612:d5a9])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a39af0e953sm7561978eaf.3.2026.07.14.16.22.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 16:22:44 -0700 (PDT)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Tue, 14 Jul 2026 18:21:30 -0500
-Subject: [PATCH v4 8/8] iio: adc: ti-ads112c14: add measurement channel
- support
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="CbRR1vsV";
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="SZBOxKZj";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="S2lzzGAG"
+Received: from pps.filterd (m0297265.ppops.net [127.0.0.1])
+	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EJ0KMp062435;
+	Tue, 14 Jul 2026 16:23:08 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	pfptdkimsnps; bh=J5DsFTzNIJOfTdyQpnoBh6z9JgKMWX9vDwTixlt6qec=; b=
+	CbRR1vsV/+JDiMubP0QotBleuTBdsX/Qd7D7J57dhwYyFAuEPXbEG2RottO/rwc2
+	/l3a1XGpXVZk7sKoWaBWrBh0LFM82Pu4dKF5YVEqBjEJ9HNxzESfPJ731PKVhRI6
+	JIFOBEtXDiWtixbLND8y1z0hX6w+sGAdu5az1mDrGIQLbvgNma+/I/pcsdFmg1Ek
+	t7m1ojgXD1yHFi51CDwsQ1irh9kaDZ7Qpg1RX5bx9xsawdRuIX1oj1wgbyTnlALb
+	HM23M7cNYbTFsFWD7XJW+9boGvkr47tfijCv7Y9D+b8JL26WXSfzEGgqMG9rKc44
+	TVusc8z6BPgrmu1HcjSybw==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
+	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4fdqdxuky2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 14 Jul 2026 16:23:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1784071387; bh=J5DsFTzNIJOfTdyQpnoBh6z9JgKMWX9vDwTixlt6qec=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=SZBOxKZjeYxMtpXSSKQ0YjvnHCF+gl9J0GWvBP8ykaNj0F9ITSYPQJPNv5zAVVRKR
+	 j78T71gC4H1XDb+mN+npS+7OoayokVQWJS8Fzq4RYURY2GOKoX9gzK37VBCJvSbIWr
+	 OzbhVJQwDzpKcWSrE3neCfd5DPfgbAc6CYU8pWpYlr8UsL/gPO++9lcUayqqRG/0bB
+	 TQHjYcOuEAENRfAw6utc5VhwfzQkx+hQT0xMDO5WK8+cw2NwtGWpgmUtB5wfu/FQQV
+	 G/AvU2fqKVr9qVDsMKurndOvaRhJW6HdjTObrt4sdUK3vRxgLWSdFcHJtNwLQIpigH
+	 cwF9fKCEv6xrw==
+Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com [10.192.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 6729F4012F;
+	Tue, 14 Jul 2026 23:23:07 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (us03-o365relay1.synopsys.com [10.4.161.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
+	by mailhost.synopsys.com (Postfix) with ESMTPS id 9861FA0068;
+	Tue, 14 Jul 2026 23:23:06 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=S2lzzGAG;
+	dkim-atps=neutral
+Received: from DM5PR08CU004.outbound.protection.outlook.com (mail-dm5pr08cu00406.outbound.protection.outlook.com [40.93.13.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
+	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (verified OK))
+	by o365relay-in.synopsys.com (Postfix) with ESMTPS id BBEB2401F9;
+	Tue, 14 Jul 2026 23:23:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Eo6cFYMbmq43ezG+zZ6AgbpPG6/7Yv+ydilZyDuZQbVnz/7tGCFNmi78WNNYNVMja97zQ15+87y7ic20ImWrwCKdIYZljztxlJGCo5H8bqh3webSVzRCZFoYDqbRWhsVxYL8E5VziN2Sce+1JQbcff+eXMvW0nv7NhMUiS8uEm8v5PMjr/76l0IFGNFAP1iFBjAD3Uz4O5sUFkHSGtVb8hOecp5s8jOKj7VS1u8Vg7NMYXWvoOnasEpaiZjgI4px2M48hyikl6Mf9quLReYQxG/8obX4fvRz2xmwCQub64d7xACXSHiCiVhlDkx14i4Hnj6pEzAM6Z5kwX5ZzexVsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J5DsFTzNIJOfTdyQpnoBh6z9JgKMWX9vDwTixlt6qec=;
+ b=kzekoj8KJ+e/CydzPeAf/KTdE9UqGfErFJoyIYMNW2talor5jKYVvX6OQEwAVwtHIs2e7TmOoy/6SdYAixRnpqk9vXoClQgRBJfwkR1bgr3TtFx6zfEc0ztsfwpSfpMB8boaFnZ3JS8bRc9DS0qI9ZpN99zTFqpB90BqnbqDPdTNZZy03ZV0wZ923uxHQR65f2KnHbLEsKAeomlkfW9h+ofHf/uOHcwt2cIrC1DfPuQYyrIgfmpTd2bj5iJJV4i87exxuj6Ma1KICMWJbeBNKxrUs+8QGJiX3mQkpg+XP1y79zPLX5U39vvh91hF8VUpxaPUrGx4RC94LTyiE2XgrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J5DsFTzNIJOfTdyQpnoBh6z9JgKMWX9vDwTixlt6qec=;
+ b=S2lzzGAGTdKTj5Zu59tgnwnodlp2+FrhFyTX8Oh8vs1SwewpDb2o++nGOS4sIjyIF2lBIjmb/RlF0HTkTXq6328dua8nkc2RdRWb7f2SaXHjJND6Tpmll6+CuI4nYG5dPKVzn9rCxXLiWMvVz9/H6pNy9w8zltMbYNwsBXL1Irc=
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
+ by DS4PR12MB9745.namprd12.prod.outlook.com (2603:10b6:8:2a9::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
+ 2026 23:23:02 +0000
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0223.008; Tue, 14 Jul 2026
+ 23:23:02 +0000
+X-SNPS-Relay: synopsys.com
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+To: Peter Chen <peter.chen@oss.qualcomm.com>
+CC: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 1/2] dt-bindings: qcom,snps-dwc3: Add property
+ indicating presence of eUSB2 phy
+Thread-Topic: [PATCH v4 1/2] dt-bindings: qcom,snps-dwc3: Add property
+ indicating presence of eUSB2 phy
+Thread-Index:
+ AQHdD4BaC5hZxDAhAEKCnMd1KCZXEbZlNA8AgADKiICAAFp+AIAAALcAgADmBwCAA8JjgIAADvOAgAESBICAAD0jAIABUBoA
+Date: Tue, 14 Jul 2026 23:23:01 +0000
+Message-ID: <albAccNnsI12AIUo@vbox>
+References:
+ <20260709-eusb2-interrupt-handling-v5-v4-1-d4f993925608@oss.qualcomm.com>
+ <d742u7jrpm7gdoljgiwkfexc47qhprwoibk6fadpm3qilbdpgi@jrkbrwfmqmrp>
+ <alBOC18CpkGDhM2m@vbox> <20260710-warping-resolute-wasp-e4b8ce@quoll>
+ <7a099224-ea95-40ec-b279-f8834f261e23@kernel.org> <alFTxg0HLyke0gCK@vbox>
+ <b60b4d96-ea67-44d0-a627-c50ef0ed8615@kernel.org>
+ <alSRvWY2LWp8OeOr@hu-petche-lv.qualcomm.com> <alV0_DHvBFpzDumP@vbox>
+ <alWq4jAGPTINnpxD@hu-petche-lv.qualcomm.com>
+In-Reply-To: <alWq4jAGPTINnpxD@hu-petche-lv.qualcomm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|DS4PR12MB9745:EE_
+x-ms-office365-filtering-correlation-id: 742f3aa0-4d93-44ce-2410-08dee1fed976
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|18002099003|22082099003|4143699003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ NDcB9xnxGZbo190hICjmTbu35SGvt1ivrpXIv4FSmbVmIyU9vXCSuQUf1MIIITU5v1b4zFXmLg5O7c/Ft+0Re6YxDHxWOBCNfmeLXGvTb1rRIgY3LtwWLUbOQKO7HbMzsiDZZnS+Hml1xnRkUm0rk3hM/cc/OxL53b4PmRhIpUnJNLWodEZIeftBZtByJgqNjJVdvxL3UlOw0nXZXd+75s5SqhKeNH8ekrcDEaf5ynp6BYOLKeg1l9JYqH4/LZuY9m29MuIpAWO2JA9UysUVy7B7weNp2xd+aFNcEeiVaW12spsofuJ7LbtqIIQnhJXPuDXZEfmbo2eowtnW28U9dJ32l9GTAxiD8lOWG912b35gMl0u3ZuBGCx+nm5Anza5A1VwtHHuDxGHSE4p3TzXV+L/x0rfRvu02EZh4AV6upGKiVWBKm7QvlZuphM0AO/xeAjI5ujpAyHcWXsct8zISBQTRqLzotgpNt1L9Kr79Wra7+2LYvSpr0xOJjV9ChcdkqApdnt46H7hxsQqU0t83Z5XMJAO3uoDf8V5YIV8MzOeHsvgGx91FTrfMEdOcJrT6J3B3tZ2jKsq8EcUp43Kd/ZttTbRtH2tAfY1H+DKL+iAFYbTS6a5GO9m6Yd2E/JDFFyThDvWb9iLc7eLwhqLDqY72y1IAFXzF0stT5m3/+Kf0akg97QmkoRwFMA2rqrkvNX8Yk4QK4+HPUXDjOpBmDQElgd1qkimEvLT6gRbBAU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?TmR1c2FzL2RPYnRBRlJUYlZBTGx5bERKNkcwZEszemQwejhyMFhockIxQUtq?=
+ =?utf-8?B?Q3FQWkVSVkN0WW5sZHBVeW52T0RRVFdjN1hqcUx6M0JWK2JYNW85ci9jdy9Y?=
+ =?utf-8?B?azA0NzZRS2s0dTdFbElOem5TK3ZqRkNqaURXbUxTNVlKSjNaQjR5TEFsYldB?=
+ =?utf-8?B?OS8yYm13ZHd3M05xT2F1aTB6bUtCNnI3VExyMlpwdkRNTDFDNGJHMktEcktR?=
+ =?utf-8?B?T3BMMGlmd3FSWFFjZXlnSDkrR0R1eVF1UWZMS1hoT0hUNzltQjlkTG16UUFw?=
+ =?utf-8?B?ZUVyWXBsMW9oZisrbzZvbnRMS1BYQ2tYbG15YUpNN2dWYkMzU0N5b094UG9L?=
+ =?utf-8?B?d1ZmNGlvZlRhNGhtS1M3YmRCejkreFluaFFUNFlZS2lVU0dGcVU4SUFYenNH?=
+ =?utf-8?B?WlVqcUhiR3ZkaEtjVklQSVZlcjVLTy9GdFR3TjJSWU1jQ2tLWHJsbG0zSXBZ?=
+ =?utf-8?B?bTdycUNMTUphdkErTlVsanlpazFseTlPaFBvSndCaEVzZXFOWEJBRWZrOHhV?=
+ =?utf-8?B?djhkSTlaOUNjcmlaS2hnamplOHhzR3IvL0NJMk8wN2sreG90TmVJVTFNMmN6?=
+ =?utf-8?B?UTZpUTJhWHVKWEQyVGFZbTQ5Yy9EUHNaQzkvT2ZJUzl4L054TGx6VERtUUhk?=
+ =?utf-8?B?RHNGVWVxYWhxQXloSXcrLy9TYm1EcC9Mam95UjF4YlNmZG9Od1krU3FMcFBV?=
+ =?utf-8?B?dGhmUFdIOWtSOVJWMVRFUGgxUnkyMEI0NlAzNGlsUE1BTWhnU0FNeEgyUUw3?=
+ =?utf-8?B?ZTBvcTJCRzZtSlFkaXAvSllJWjA0K3ZKODdYRXNIQ3k4SS90SzlJeTVwTUVa?=
+ =?utf-8?B?bi9kSlErQW1xZFJPWm00QXdrT0dwdWpzdEIvV2dUMlVxOVR5ckJqUk9tdUdF?=
+ =?utf-8?B?L2pqdDlUUGFlL2NtUzdOUVVIRzNWTlhaZXg4cXJzUTNXaUdtcjdKWVg2MGVW?=
+ =?utf-8?B?QkJHSkg0LzlqOHg1THVBb01OdGZYMURtWXpRWXhtQ1lhL2dtNTQ5MWF4dWZJ?=
+ =?utf-8?B?YVAzclBCczNaYk9YYTZYbEFiamlud3lBL3JkSjdEYjRIVjNRZ1pZUFdMSjRO?=
+ =?utf-8?B?OTVtalhLSUlKVHJoRkRVQndrOFhnMEhZWHdlUU9kb29UYzg3WEpmVVNBb2pa?=
+ =?utf-8?B?RlhDK0dNZ2l1V3craGlrMlVQUnVIZWVCQTRlZ3VqNy9lb3VLRnBCNGd5T3Fu?=
+ =?utf-8?B?aFRTUFJ6ZDMvSnBsdXZxRzAzVVdlSytCd0IxT1lWcXdZUXBualhDU0RheGcv?=
+ =?utf-8?B?MkIwbU9qZ1MrSzRNQjNWMlR0NzkyYlNLenZNT3NRaXU0YTBRM2dtVTZuaERz?=
+ =?utf-8?B?N29MYSs5dHdCMkdhazUvTVptdEpHWU5iakdmSzBSTDIwZXl2ck40dDVVdDlo?=
+ =?utf-8?B?M2tyN295d3IycGtncEVtY1JET1Z6NFpKYU84Szd2K1poMTBmazlWbitnRDhm?=
+ =?utf-8?B?WSsydUc4V09uOFNmVEhZdHdQVXBicUVYOVlhN0xFOFI0OERjcVBOUlNUSC9E?=
+ =?utf-8?B?RVZOaEErZnlpR3NjZXN2b0dDZjg2U2J5eGVzVGN6cXgwbHVaL2JzRXhNWkE4?=
+ =?utf-8?B?aUZLaEtpUDFmT29UZG56M0FGRFhsTGJ0N3B0ZWdLU01lalNaZm9QemRVRWRY?=
+ =?utf-8?B?aklJSDJ1ekpyUXRLTDhLQXlIaXNrVzM0QTBabkdoR1ZoMjBOTVpSYmN0eGhx?=
+ =?utf-8?B?eXk3SGlPdlQyVFpEYTI1Z3VrWWc3VFpVZEdwSjh5ZDMxdlgyRlU0dWZWS2Jn?=
+ =?utf-8?B?OXhYdnhyRmZQTHRuVy94NThlMnFBRzNBUnh0NW13dFV0S0lyOThSVU9oVkdJ?=
+ =?utf-8?B?ejlmR240cmpjU1k1OXNrSUZxRHVobmQxSGl0bXMxMHZNVjNlbTVJcFVrZnFC?=
+ =?utf-8?B?SGFrT1VsNkUyWFFmemxHSksxU25aZXZTaFBmOHA1OTBWTXFHVkd1d05aMzFF?=
+ =?utf-8?B?VUdlOGVhUG92UysrdFVSOHVyWmtUN2tVOTFnR0VrY0hxTlVxS3lER21sbTNj?=
+ =?utf-8?B?Z1FMUHVyUGhsZVNCd0MxbVg2dm5JWTNRWUNZU21OK0Q3NWFNMHlTejh5QkdS?=
+ =?utf-8?B?WmVOaUJZTjYvOHZhWkJTMnl5eGQvM0NTTkVCanA0NW83L0gyTzhnTkNhV2Iv?=
+ =?utf-8?B?QjhnNTNVdGdUK0lsNFJRM0daVFZXQld0WWRCcm9kQjF5bWdyZ3BrMXlqUXhC?=
+ =?utf-8?B?RE9PUHJJdVZMUEd6SDdNWHNaL055a095dm5mRFBZUjhoaC8zclh3UXNHMWtm?=
+ =?utf-8?B?RmpGR3hSdFhBQjdBdGp5YXdmYllWKy9YaW5rcExvYjNCN0ZhVVljcDB5MWN3?=
+ =?utf-8?B?VzVqZW9za21HVGxEUUdQcVpjY2Z5Z0JHZ2ZHbHgyMGJhclhHRkoyUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <9DD54695D1F1B64186C12937A25B8BAD@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260714-iio-adc-ti-ads122c14-v4-8-25f8e3084485@baylibre.com>
-References: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
-In-Reply-To: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
- Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=23271;
- i=dlechner@baylibre.com; h=from:subject:message-id;
- bh=G65Ti4QAMGB3NTJ8s0MkoDBtHTtbBSTfAKdXE3aAfz0=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqVsSsGOpLLRkyL75EhoXfjapWiV5aRmiN2f92+
- oxY32wJ2KGJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCalbErAAKCRDCzCAB/wGP
- wP5KB/9UoD7QNB5aVzupQFrxf3chnOYV3jbbfPQCa+whoueQ3i+ahFG1kJc53A1/qwaehl+00cF
- xBZ2YS0IfYgaRTqvcM8ry+fG/FLdnGMBAO6i74PxOFUQySeZP1EunkdKgQ+gtdGP1L6wuu4cPQh
- eR2CW58K1epbz1EDlGM0/7Tcr9iO4pgv2MIHNeLPEexSL2aBmAicFFpou1ZgccdQvqZYWaMuYkP
- MquNrfPGCvIHfvHSMuPpS3/IjreaNB8g0ruMtjSPxXJlhVmqMTB0Ey4T612JOH6v1A46Y0X4d5Y
- 16xca+evu8jvk0wDv92iymvQiPgXqSvvp1oYnttQDFTosVgC
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+X-Exchange-RoutingPolicyChecked:
+	bNdKZD6sRB0SQuPxDb9j0DtvW8GdFZ9LDxD16LMbuI3EwiyMwrbr1G9pVSiSVzAIe3bwvEPNrokLa1FAmaVkyz5qYmlAhtumjbt5wZqYTM0jqgaGJx9gME1+0deBb4bcbaiLWWiF33rip83gjuns7Yr1b5D3MUWQrJ+DSlslwgykufzdMm/HvYchsiG8cVkSka/x5a/VdQPZVA+8XRyx24vkq1WphqoLPVm8KmhgmHKIIte486wmAlZlrJgziMs/9KoUgT6OLa7fsD9yAQCkKhB2JHM1oL7ZmZ7Is75s1ghiVSWq3RFioV7vrpx/5NQHTZThmm4rfUc6jfP5/t9LRA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	vzT4b1DXuffdSY+qmOdNa1ISU3DAD58StEvyZ0jBQoZOfYGUI7DGV6xif5fcJ3Fj4+N9VyqpOYxNPEPYmajd51R/7Xtak7YgJ2JpRB4lOfNVbk3nwiV7NzOVHElB9YrMUEpB312M9lsA4Pa70WHWBvQrUuR5Z25VhNVWUUyQrPIynmWWGLl412OQ06DA/UhDMwbpgRdNNB7+qNPow/j7N/Iry1XIXd6NZP2pL/pZT9CXYVah28rnI8AwSYr4sRtKs6i6dB+iAtnRRwGyCAY6iehCSZYZ7NCmo3XTg8ygJTvw8sGVe9vmBAQvEeBw7ZdQlGkVpdaFjTZloJMBez4UbEB7wGpvwb29lLecVYgOB7IfOjll1BERy76JC1DDaoTwJ7IwWi9EhfFRWfdtFv5LxqanmUFxNyGukQkGnn+Pl8BiB3HRSN8G5saDwFE6OjZcvAnxqq/+zbdeU8swxxGbHVsvZv8bOvzwH1M8C8HmW15E1jV52m8oquJBTWkrfXftw1utu3Ji3bKCuw1qKEt5J6KK43gbGFlzU4jHJ8eNgbeZcOHuk6UqaWDAXbJ3zmGxyjEUW3Uu+8xikjttmPgzvNztIBoQCYX35LjJh8pro9R78oF4g0gsAd0ka5Uq+JE3n0F+7Wh+d9Io7/lLfe6ogQ==
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 742f3aa0-4d93-44ce-2410-08dee1fed976
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 23:23:01.8947
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qEXJtfMLkgtC0RHGPDYbmt43MTrXJE3GLWom4BmILj7r9075IJhHDrYElE5gbnEZJpSC8eYI0zu3QiNFc1HwWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9745
+X-Proofpoint-ORIG-GUID: zfHmzTuEUMWaYVysMExWaDijk1qF2O5d
+X-Authority-Analysis: v=2.4 cv=JLELdcKb c=1 sm=1 tr=0 ts=6a56c4dc cx=c_pps
+ a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=qPHU084jO2kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=-4-sGo8i1FcW4KD7_GeR:22
+ a=VwQbUJbxAAAA:8 a=LzQjF4crdsTkk4_jFxkA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDI0MSBTYWx0ZWRfX6WShcBnFjxwB
+ jeV1S7qGwl/ZLvY+CRC+TbCVoFAtqRIAnU8tWvQr+TyFSfV+klZm9h7OmS/q8hjK2EXYVgpPRQs
+ bOewyawGYqkKiPq0vvF276HGhOA4oHqTBsAR1P1HhpgpAyOWqlvsjiTL4T1iycktF5vG2KpVVy3
+ JUpn+5rzXWQvwv3zRmTt2qj/0CFbD0HLhHsHuiYpf1rHJfnXbANIXVXNXZu5/roNhVreku0wt4r
+ +oy9i9dXX8sqA5c11IuGOk+nNzbW+6IXqwt34sJJTderPZpH3TiaFs5d9uMYLrkIEyEMG9jaRt8
+ cVtfAPVVZLkpZHzLdNMAgtQRmeeME08cPPw+B3nF+1FtRzDhWSV8oyhDVjQggytpyOP2RIywP/b
+ VhsaAoDdgAnS4kJhptbknLrEQpo7XfMzB22nd0vTOSpSZ7J6sWGpENgRKYVhuS0wSkvv0Pfv3JQ
+ /9HttnzqPEpi6WfNvZg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDI0MSBTYWx0ZWRfX+w7R0Ip1BP+F
+ zpo1hUmMqYdflsrg3TFucGQ38c1Qab9S428PZ6+6lJOmfFkl7yFZcvJXTZqFizAp2aVbvVwmmJ6
+ 1QaDd2MxpWMP+bb1ZCnpHukadcUfp0U=
+X-Proofpoint-GUID: zfHmzTuEUMWaYVysMExWaDijk1qF2O5d
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-14_05,2026-07-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 impostorscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ bulkscore=0 clxscore=1015 suspectscore=0 classifier=typeunknown authscore=0
+ authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2606150000 definitions=main-2607140241
 
-Add support for parsing devicetree properties for measurement channels
-and doing direct reads on these.
-
-There are quite a lot of conditions that have to be met for each
-measurement to be made, so quite a bit of state and algorithms are
-required to handle it.
-
-Channels are created dynamically since the number of possibilities is
-unreasonably large.
-
-Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
----
-v4 changes:
-* Removed burnout code (saving for later).
-* Use regmap_assign_bits() for bipolar.
-* Use mutex to protect scale state.
-
-v3 changes:
-* Checked error when getting "label" property.
-* Removed call of fwnode_device_is_available().
-* Used IIO_VAL_DECIMAL64_PICO for scale.
-* Added switch in ads112c14_read_avail() to reduce future diff.
-
-v2 changes:
-* Adapted for changes in DT bindings.
-* Fixed bug in IDAC current register value calculation.
-* Fix uninitialized variable bug.
-* Fix bug in data->num_measurements calculation.
-* Use IIO_RESISTANCE instead of IIO_VOLTAGE when external reference is
-  used and it is a resistor rather than a voltage source.
-* Fix bug with negative input mux selection on single-ended measurements.
-* Fixed return checks of devm_regulator_get_enable_read_voltage().
----
- drivers/iio/adc/ti-ads112c14.c | 504 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 493 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index 17bb6472a39b..fef3a9c37ced 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -12,9 +12,11 @@
- #include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/dev_printk.h>
-+#include <linux/device/devres.h>
- #include <linux/i2c.h>
- #include <linux/iio/iio.h>
- #include <linux/math64.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/property.h>
-@@ -77,6 +79,7 @@
- #define ADS112C14_REG_MUX_CFG				0x07
- #define   ADS112C14_MUX_CFG_AINP			GENMASK(7, 4)
- #define   ADS112C14_MUX_CFG_AINN			GENMASK(3, 0)
-+#define     ADS112C14_MUX_CFG_AIN_GND			  8
- 
- #define ADS112C14_REG_GAIN_CFG				0x08
- #define   ADS112C14_GAIN_CFG_SPARE			BIT(7)
-@@ -130,6 +133,20 @@
- #define ADS112C14_INT_REF0_mV				1250
- #define ADS112C14_INT_REF1_mV				2500
- 
-+enum {
-+	ADS112C14_VREF_SOURCE_INTERNAL_2_5V,
-+	ADS112C14_VREF_SOURCE_INTERNAL_1_25V,
-+	ADS112C14_VREF_SOURCE_EXTERNAL,
-+	ADS112C14_VREF_SOURCE_AVDD,
-+};
-+
-+static const char * const ads112c14_vref_source_names[] = {
-+	[ADS112C14_VREF_SOURCE_INTERNAL_2_5V] = "internal-2.5v",
-+	[ADS112C14_VREF_SOURCE_INTERNAL_1_25V] = "internal-1.25v",
-+	[ADS112C14_VREF_SOURCE_EXTERNAL] = "external",
-+	[ADS112C14_VREF_SOURCE_AVDD] = "avdd",
-+};
-+
- /*
-  * Available gains as tenths (e.g. value 5 == 0.5 gain). Indexes correspond to
-  * ADS112C14_GAIN_CFG_GAIN values.
-@@ -204,11 +221,33 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 	},
- };
- 
-+struct ads112c14_measurement {
-+	const char *label;
-+	u32 vref_source;
-+	u8 iunit;
-+	u8 idac1_mag;
-+	u8 idac2_mag;
-+	u8 idac1_mux;
-+	u8 idac2_mux;
-+	u8 iadc_count;
-+	u8 gain_val;
-+	bool global_chop;
-+	bool bipolar;
-+	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
-+};
-+
- struct ads112c14_data {
- 	const struct ads112c14_chip_info *chip_info;
- 	struct regmap *regmap;
- 	/* Synchronizes access to register value fields. */
- 	struct mutex lock;
-+	u32 avdd_uV;
-+	u32 ext_ref_uV;
-+	bool refp_is_avdd;
-+	bool refn_is_gnd;
-+	u32 ext_ref_ohms;
-+	struct ads112c14_measurement *measurements;
-+	u32 num_measurements;
- 	u8 sys_mon_chan_short_gain_val;
- 	int sys_mon_chan_short_scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
- };
-@@ -263,12 +302,112 @@ static const struct regmap_config ads112c14_regmap_config = {
- 	.cache_type = REGCACHE_MAPLE,
- };
- 
-+static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
-+						 const struct iio_chan_spec *chan)
-+{
-+	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
-+	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
-+	int ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_MUX_CFG,
-+				 ADS112C14_MUX_CFG_AINP | ADS112C14_MUX_CFG_AINN,
-+				 FIELD_PREP(ADS112C14_MUX_CFG_AINP, chan->channel) |
-+				 FIELD_PREP(ADS112C14_MUX_CFG_AINN, chan->channel2));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_assign_bits(data->regmap, ADS112C14_REG_DIGITAL_CFG,
-+				 ADS112C14_DIGITAL_CFG_CODING,
-+				 !measurement->bipolar);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_GAIN_CFG,
-+				 ADS112C14_GAIN_CFG_SYS_MON |
-+				 ADS112C14_GAIN_CFG_GAIN,
-+				 FIELD_PREP(ADS112C14_GAIN_CFG_SYS_MON, 0) |
-+				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN,
-+					    measurement->gain_val));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_IDAC_MAG_CFG,
-+				 ADS112C14_IDAC_MAG_CFG_I2MAG |
-+				 ADS112C14_IDAC_MAG_CFG_I1MAG,
-+				 FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I2MAG,
-+					    measurement->idac2_mag) |
-+				 FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I1MAG,
-+					    measurement->idac1_mag));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_IDAC_MUX_CFG,
-+				 ADS112C14_IDAC_MUX_CFG_IUNIT |
-+				 ADS112C14_IDAC_MUX_CFG_I2MUX |
-+				 ADS112C14_IDAC_MUX_CFG_I1MUX,
-+				 FIELD_PREP(ADS112C14_IDAC_MUX_CFG_IUNIT,
-+					    measurement->iunit) |
-+				 FIELD_PREP(ADS112C14_IDAC_MUX_CFG_I2MUX,
-+					    measurement->idac2_mux) |
-+				 FIELD_PREP(ADS112C14_IDAC_MUX_CFG_I1MUX,
-+					    measurement->idac1_mux));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
-+				 ADS112C14_DATA_RATE_CFG_GC_EN,
-+				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
-+					    measurement->global_chop));
-+	if (ret)
-+		return ret;
-+
-+	refp_buf_en = !data->refp_is_avdd &&
-+		      measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL;
-+	refn_buf_en = !data->refn_is_gnd &&
-+		      measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL;
-+
-+	ref_val = measurement->vref_source == ADS112C14_VREF_SOURCE_INTERNAL_2_5V ?
-+		ADS112C14_REFERENCE_CFG_REF_VAL_2_5V :
-+		ADS112C14_REFERENCE_CFG_REF_VAL_1_25V;
-+
-+	switch (measurement->vref_source) {
-+	case ADS112C14_VREF_SOURCE_AVDD:
-+		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_AVDD;
-+		break;
-+	case ADS112C14_VREF_SOURCE_EXTERNAL:
-+		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_EXTERNAL;
-+		break;
-+	default:
-+		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_INTERNAL;
-+		break;
-+	}
-+
-+	return regmap_update_bits(data->regmap, ADS112C14_REG_REFERENCE_CFG,
-+				  ADS112C14_REFERENCE_CFG_REFP_BUF_EN |
-+				  ADS112C14_REFERENCE_CFG_REFN_BUF_EN |
-+				  ADS112C14_REFERENCE_CFG_REF_VAL |
-+				  ADS112C14_REFERENCE_CFG_REF_SEL,
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REFP_BUF_EN,
-+					     refp_buf_en) |
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REFN_BUF_EN,
-+					     refn_buf_en) |
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REF_VAL,
-+					     ref_val) |
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REF_SEL,
-+					     ref_sel));
-+}
-+
- static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
- 					     const struct iio_chan_spec *chan)
- {
- 	u32 gain_val;
- 	int ret;
- 
-+	/*
-+	 * NB: IDAC registers are left as-is in case they are generating current
-+	 * needed for the external reference measurement.
-+	 */
-+
- 	/*
- 	 * All SYS_MON channels use GAIN of 1 to keep it simple. Other than
- 	 * the internal short channel, where it is useful in practice.
-@@ -326,8 +465,9 @@ static int ads112c14_single_conversion(struct ads112c14_data *data,
- 	guard(mutex)(&data->lock);
- 
- 	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
--		/* Not implemented yet. */
--		return -EINVAL;
-+		ret = ads112c14_prepare_measurement_channel(data, chan);
-+		if (ret)
-+			return ret;
- 	} else {
- 		ret = ads112c14_prepare_sys_mon_channel(data, chan);
- 		if (ret)
-@@ -356,6 +496,7 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			      int *val, int *val2, long mask)
- {
- 	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct ads112c14_measurement *measurement = NULL;
- 	const int *scale_avail;
- 	u32 vref_uV, fsr_bits;
- 
-@@ -363,8 +504,8 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 	vref_uV = ADS112C14_INT_REF1_mV * (MICRO / MILLI);
- 
- 	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
--		/* Not implemented yet. */
--		return -EINVAL;
-+		measurement = &data->measurements[chan->scan_index];
-+		fsr_bits = data->chip_info->resolution_bits - measurement->bipolar;
- 	} else {
- 		/* All SYS_MON channels are using signed coding. */
- 		fsr_bits = data->chip_info->resolution_bits - 1;
-@@ -394,7 +535,8 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			return -EINVAL;
- 		}
- 
--		*val = sign_extend32(*val, fsr_bits);
-+		if (!measurement || measurement->bipolar)
-+			*val = sign_extend32(*val, fsr_bits);
- 
- 		return IIO_VAL_INT;
- 	}
-@@ -406,6 +548,16 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			return IIO_VAL_FRACTIONAL_LOG2;
- 		}
- 
-+		if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
-+			guard(mutex)(&data->lock);
-+
-+			scale_avail = measurement->scale_available[measurement->gain_val];
-+			*val = scale_avail[0];
-+			*val2 = scale_avail[1];
-+
-+			return IIO_VAL_DECIMAL64_PICO;
-+		}
-+
- 		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
- 			u8 idx;
- 
-@@ -459,6 +611,18 @@ static int ads112c14_read_avail(struct iio_dev *indio_dev,
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_SCALE:
-+		if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
-+			struct ads112c14_measurement *measurement;
-+
-+			guard(mutex)(&data->lock);
-+
-+			measurement = &data->measurements[chan->scan_index];
-+			*vals = (const int *)measurement->scale_available;
-+			*length = 2 * ARRAY_SIZE(measurement->scale_available);
-+			*type = IIO_VAL_DECIMAL64_PICO;
-+			return IIO_AVAIL_LIST;
-+		}
-+
- 		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
- 			guard(mutex)(&data->lock);
- 
-@@ -486,7 +650,13 @@ static int ads112c14_write_raw(struct iio_dev *indio_dev,
- 	case IIO_CHAN_INFO_SCALE: {
- 		guard(mutex)(&data->lock);
- 
--		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
-+		if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
-+			struct ads112c14_measurement *measurement;
-+
-+			measurement = &data->measurements[chan->scan_index];
-+			scale_avail = measurement->scale_available;
-+			gain_val = &measurement->gain_val;
-+		} else if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
- 			scale_avail = data->sys_mon_chan_short_scale_available;
- 			gain_val = &data->sys_mon_chan_short_gain_val;
- 		} else {
-@@ -523,8 +693,20 @@ static int ads112c14_write_raw_get_fmt(struct iio_dev *indio_dev,
- static int ads112c14_read_label(struct iio_dev *indio_dev,
- 				struct iio_chan_spec const *chan, char *label)
- {
-+	struct ads112c14_data *data = iio_priv(indio_dev);
- 	const char *label_source;
- 
-+	/* measurement channels */
-+	if (chan->channel < ADS112C14_SYS_MON_CHANNEL_BASE) {
-+		struct ads112c14_measurement *measurement;
-+
-+		measurement = &data->measurements[chan->scan_index];
-+		if (!measurement->label)
-+			return -EINVAL;
-+
-+		return sysfs_emit(label, "%s\n", measurement->label);
-+	}
-+
- 	/* System monitor channels. */
- 	switch (chan->channel) {
- 	case ADS112C14_SYS_MON_CHANNEL_TEMP:
-@@ -557,6 +739,215 @@ static const struct iio_info ads112c14_info = {
- 	.read_label = ads112c14_read_label,
- };
- 
-+static int ads112c14_populate_idac_mag(u32 current_nA, u8 *idac_mag)
-+{
-+	u32 current_uA = current_nA / (NANO / MICRO);
-+
-+	/* Convert microamps to IMAG bits */
-+	if (current_uA == 1)
-+		*idac_mag = 1;
-+	else if (in_range(current_uA, 10, 100) && current_uA % 10 == 0)
-+		*idac_mag = current_uA / 10 + 1;
-+	else
-+		return dev_err_probe(NULL, -EINVAL,
-+				     "invalid excitation-current-nanoamp value\n");
-+
-+	return 0;
-+}
-+
-+static int ads112c14_parse_channels(struct iio_dev *indio_dev,
-+				    bool *need_avdd_ref, bool *need_ext_ref)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct device *dev = indio_dev->dev.parent;
-+	struct iio_chan_spec *channels;
-+	u32 num_child_nodes, i, pair[2];
-+	int ret;
-+
-+	*need_avdd_ref = false;
-+	*need_ext_ref = false;
-+
-+	num_child_nodes = device_get_named_child_node_count(dev, "channel");
-+
-+	data->measurements = devm_kcalloc(dev, num_child_nodes,
-+					  sizeof(*data->measurements), GFP_KERNEL);
-+	if (!data->measurements)
-+		return -ENOMEM;
-+
-+	channels = devm_kcalloc(dev, num_child_nodes +
-+				ARRAY_SIZE(ads112c14_sys_mon_channels),
-+				sizeof(*channels), GFP_KERNEL);
-+	if (!channels)
-+		return -ENOMEM;
-+
-+	i = 0;
-+	device_for_each_named_child_node_scoped(dev, child, "channel") {
-+		struct ads112c14_measurement *measurement = &data->measurements[i];
-+		struct iio_chan_spec *spec = &channels[i];
-+
-+		spec->indexed = 1;
-+		spec->scan_index = i;
-+		measurement->gain_val = 1;
-+
-+		if (fwnode_property_present(child, "label")) {
-+			ret = fwnode_property_read_string(child, "label", &measurement->label);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read label property\n");
-+		}
-+
-+		if (fwnode_property_present(child, "single-channel")) {
-+			ret = fwnode_property_read_u32(child, "single-channel",
-+						       &pair[0]);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read single-channel property\n");
-+
-+			if (pair[0] >= 8)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "single-channel value must be between 0 and 7\n");
-+
-+			spec->channel = pair[0];
-+			/*
-+			 * NB: channel2 is unused by iio core code in this case.
-+			 * Let's us avoid special case for negative input mux
-+			 * for single-ended channels when taking measurements.
-+			 */
-+			spec->channel2 = ADS112C14_MUX_CFG_AIN_GND;
-+		} else if (fwnode_property_present(child, "diff-channels")) {
-+			ret = fwnode_property_read_u32_array(child, "diff-channels",
-+							     pair, ARRAY_SIZE(pair));
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read diff-channels property\n");
-+
-+			if (pair[0] >= 8 || pair[1] >= 8)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "diff-channels values must be between 0 and 7\n");
-+
-+			spec->differential = 1;
-+			spec->channel = pair[0];
-+			spec->channel2 = pair[1];
-+		} else {
-+			return dev_err_probe(dev, -EINVAL,
-+					     "channel node missing channel type property\n");
-+		}
-+
-+		if (fwnode_property_present(child, "excitation-channels")) {
-+			ret = fwnode_property_count_u32(child, "excitation-channels");
-+			if (ret < 0)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read excitation-channels property\n");
-+
-+			if (ret < 1 || ret > 2)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "excitation-channels property must have 1 or 2 values\n");
-+
-+			measurement->iadc_count = ret;
-+			pair[1] = 0;
-+
-+			ret = fwnode_property_read_u32_array(child, "excitation-channels",
-+							     pair, measurement->iadc_count);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read excitation-channels property\n");
-+
-+			if (pair[0] >= 8 || pair[1] >= 8)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "excitation-channels values must be between 0 and 7\n");
-+
-+			measurement->idac1_mux = pair[0];
-+			measurement->idac2_mux = measurement->iadc_count > 1 ? pair[1] : 0;
-+
-+			ret = fwnode_property_read_u32_array(child, "excitation-current-nanoamp",
-+							     pair, measurement->iadc_count);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read excitation-current-nanoamp property\n");
-+
-+			if (pair[0] <= 100 * (NANO / MICRO) &&
-+			    (measurement->iadc_count == 1 || pair[1] <= 100 * (NANO / MICRO))) {
-+				/*
-+				 * If both values are 100µA or less, then we can
-+				 * use IUNIT = 1µA for better precision.
-+				 */
-+				ret = ads112c14_populate_idac_mag(pair[0],
-+								  &measurement->idac1_mag);
-+				if (ret)
-+					return ret;
-+
-+				if (measurement->iadc_count > 1) {
-+					ret = ads112c14_populate_idac_mag(pair[1],
-+									  &measurement->idac2_mag);
-+					if (ret)
-+						return ret;
-+				}
-+			} else {
-+				/*
-+				 * Otherwise, IUINT is 10µA (flag set) and so
-+				 * IxMAG is 1/10 of the actual current.
-+				 */
-+				measurement->iunit = 1;
-+
-+				ret = ads112c14_populate_idac_mag(pair[0] / 10,
-+								  &measurement->idac1_mag);
-+				if (ret)
-+					return ret;
-+
-+				if (measurement->iadc_count > 1) {
-+					ret = ads112c14_populate_idac_mag(pair[1] / 10,
-+									  &measurement->idac2_mag);
-+					if (ret)
-+						return ret;
-+				}
-+			}
-+		}
-+
-+		measurement->bipolar = fwnode_property_read_bool(child, "bipolar");
-+		measurement->global_chop = fwnode_property_read_bool(child,
-+								     "input-chopping");
-+
-+		if (fwnode_property_present(child, "reference-sources")) {
-+			ret = fwnode_property_match_property_string(child,
-+				"reference-sources", ads112c14_vref_source_names,
-+				ARRAY_SIZE(ads112c14_vref_source_names));
-+			if (ret < 0)
-+				return dev_err_probe(dev, ret,
-+						     "invalid reference-sources value\n");
-+
-+			measurement->vref_source = ret;
-+		}
-+
-+		if (measurement->vref_source == ADS112C14_VREF_SOURCE_AVDD)
-+			*need_avdd_ref = true;
-+		if (measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL)
-+			*need_ext_ref = true;
-+
-+		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
-+		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE);
-+
-+		/*
-+		 * If reference source is resistor rather than voltage supply,
-+		 * then the measurement is effectively a resistance measurement.
-+		 */
-+		spec->type = (measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL &&
-+			      data->ext_ref_ohms) ? IIO_RESISTANCE : IIO_VOLTAGE;
-+
-+		if (spec->type == IIO_RESISTANCE)
-+			spec->differential = 0;
-+
-+		i++;
-+	}
-+
-+	data->num_measurements = i;
-+	memcpy(channels + i, ads112c14_sys_mon_channels, sizeof(ads112c14_sys_mon_channels));
-+
-+	indio_dev->channels = channels;
-+	indio_dev->num_channels = i + ARRAY_SIZE(ads112c14_sys_mon_channels);
-+
-+	return 0;
-+}
-+
- static void ads112c14_populate_scale_available(int (*scale_avail)[2],
- 					       u32 full_scale, u32 fsr_bits)
- {
-@@ -576,6 +967,33 @@ static void ads112c14_populate_tables(struct ads112c14_data *data)
- {
- 	u32 full_scale, fsr_bits;
- 
-+	for (u32 i = 0; i < data->num_measurements; i++) {
-+		struct ads112c14_measurement *measurement = &data->measurements[i];
-+
-+		switch (measurement->vref_source) {
-+		case ADS112C14_VREF_SOURCE_EXTERNAL:
-+			if (data->ext_ref_ohms)
-+				full_scale = data->ext_ref_ohms;
-+			else
-+				full_scale = data->ext_ref_uV / (MICRO / MILLI);
-+			break;
-+		case ADS112C14_VREF_SOURCE_AVDD:
-+			full_scale = data->avdd_uV / (MICRO / MILLI);
-+			break;
-+		case ADS112C14_VREF_SOURCE_INTERNAL_1_25V:
-+			full_scale = ADS112C14_INT_REF0_mV;
-+			break;
-+		default:
-+			full_scale = ADS112C14_INT_REF1_mV;
-+			break;
-+		}
-+
-+		fsr_bits = data->chip_info->resolution_bits - measurement->bipolar;
-+
-+		ads112c14_populate_scale_available(measurement->scale_available,
-+						   full_scale, fsr_bits);
-+	}
-+
- 	/* For now, assuming all sys_mon channels are using 2.5V reference. */
- 	full_scale = ADS112C14_INT_REF1_mV;
- 	fsr_bits = data->chip_info->resolution_bits - 1;
-@@ -590,6 +1008,9 @@ static int ads112c14_probe(struct i2c_client *client)
- 	const struct ads112c14_chip_info *info;
- 	struct iio_dev *indio_dev;
- 	struct ads112c14_data *data;
-+	bool need_avdd_ref, need_ext_ref;
-+	u32 refp_uV = 0;
-+	u32 refn_uV = 0;
- 	u32 reg_val;
- 	int ret;
- 
-@@ -608,13 +1029,76 @@ static int ads112c14_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
-+	if (device_property_present(dev, "ti,refp-refn-resistor-ohms")) {
-+		ret = device_property_read_u32(dev, "ti,refp-refn-resistor-ohms",
-+					       &data->ext_ref_ohms);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to read ti,refp-refn-resistor-ohms property\n");
-+	}
-+
-+	ret = ads112c14_parse_channels(indio_dev, &need_avdd_ref, &need_ext_ref);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_regulator_get_enable(dev, "dvdd");
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get dvdd regulator\n");
- 
--	ret = devm_regulator_get_enable(dev, "avdd");
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
-+	if (need_avdd_ref) {
-+		ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret, "failed to get avdd voltage\n");
-+
-+		data->avdd_uV = ret;
-+	} else {
-+		ret = devm_regulator_get_enable(dev, "avdd");
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
-+	}
-+
-+	if (device_property_present(dev, "refp-supply")) {
-+		ret = devm_regulator_get_enable_read_voltage(dev, "refp");
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret, "failed to get refp voltage\n");
-+
-+		refp_uV = ret;
-+
-+		struct fwnode_handle *refp_fwnode __free(fwnode_handle) =
-+			fwnode_find_reference(dev->fwnode, "refp-supply", 0);
-+		if (IS_ERR(refp_fwnode))
-+			return dev_err_probe(dev, PTR_ERR(refp_fwnode),
-+					     "failed to get refp fwnode\n");
-+
-+		struct fwnode_handle *avdd_fwnode __free(fwnode_handle) =
-+			fwnode_find_reference(dev->fwnode, "avdd-supply", 0);
-+		if (IS_ERR(avdd_fwnode))
-+			return dev_err_probe(dev, PTR_ERR(avdd_fwnode),
-+					     "failed to get avdd fwnode\n");
-+
-+		/* REFP buffer should not be enabled when connected to AVDD */
-+		data->refp_is_avdd = refp_fwnode == avdd_fwnode;
-+	}
-+
-+	if (device_property_present(dev, "refn-supply")) {
-+		ret = devm_regulator_get_enable_read_voltage(dev, "refn");
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret, "failed to get refn voltage\n");
-+
-+		refn_uV = ret;
-+	} else {
-+		data->refn_is_gnd = true;
-+	}
-+
-+	data->ext_ref_uV = refp_uV - refn_uV;
-+
-+	if (data->ext_ref_uV && data->ext_ref_ohms)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "ti,refp-refn-resistor-ohms property should not be present when refp-supply or refn-supply is present\n");
-+
-+	if (need_ext_ref && !data->ext_ref_uV && !data->ext_ref_ohms)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "external reference measurements require either refp-supply or ti,refp-refn-resistor-ohms property\n");
- 
- 	/* It takes some time for the internal reference to stabilize. */
- 	fsleep(10 * USEC_PER_MSEC);
-@@ -676,8 +1160,6 @@ static int ads112c14_probe(struct i2c_client *client)
- 
- 	indio_dev->name = info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
--	indio_dev->channels = ads112c14_sys_mon_channels;
--	indio_dev->num_channels = ARRAY_SIZE(ads112c14_sys_mon_channels);
- 	indio_dev->info = &ads112c14_info;
- 
- 	return devm_iio_device_register(dev, indio_dev);
-
--- 
-2.43.0
-
+T24gTW9uLCBKdWwgMTMsIDIwMjYsIFBldGVyIENoZW4gd3JvdGU6DQo+IE9uIDI2LTA3LTEzIDIz
+OjQxOjE0LCBUaGluaCBOZ3V5ZW4gd3JvdGU6DQo+ID4gT24gTW9uLCBKdWwgMTMsIDIwMjYsIFBl
+dGVyIENoZW4gd3JvdGU6DQo+ID4gPiBPbiAyNi0wNy0xMyAwODoyNjo1OSwgS3J6eXN6dG9mIEtv
+emxvd3NraSB3cm90ZToNCj4gPiA+ID4gPj4gQW5kIERtaXRyeSBhbHJlYWR5IHNhaWQgdGhpcyBh
+dCB2My4NCj4gPiA+ID4gPiANCj4gPiA+ID4gPiBBbmQgSSd2ZSBhbHJlYWR5IHJlc3BvbmRlZCB0
+byBoaXMgY29tbWVudCBpbiB2MzoNCj4gPiA+ID4gPiBodHRwczovL3VybGRlZmVuc2UuY29tL3Yz
+L19faHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtdXNiL2Foall3SnRpTXNtMEJjQ2hAdmJv
+eC9fXzshIUE0RjJSOUdfcGchWWtzSjB0UHRSdGg5ZXo4dDBHQl9XYXhIM3lueDN5YThNOGFGSXlL
+ZllwQXBSQ183OUlnOTNDcUUyTUtjckdKNk82dF9EbDNSRDF6ZnRybnhoZHRjZm9XN2hnZXA4dyQg
+DQo+ID4gPiA+IA0KPiA+ID4gPiBJdCBkb2VzIG5vdCBjaGFuZ2UgdGhlIGZhY3QgdGhhdCB0eXBl
+IG9mIHBoeSBpcyBpbXBsaWVkIGJ5IGNvbXBhdGlibGUsDQo+ID4gPiA+IHRodXMgeW91IGRvIG5v
+dCBnZXQgYSBuZXcgcHJvcGVydHkuDQo+ID4gPiA+IA0KPiA+ID4gPiANCj4gPiA+IA0KPiA+ID4g
+Rm9yIFVTQjIgUEhZLCBpdCBoYXMgcHJvcGVydHkgInBoeV90eXBlIiBhbHJlYWR5LCBpdCBjb3Vs
+ZCBleHRlbmQgc3VwcG9ydA0KPiA+ID4gbGlzdCB0byBlVVNCMiBsaWtlIGJlbG93LCBkd2MzIHFj
+b20gZ2x1ZSBsYXllciBjb3VsZCBjYWxsIG9mX3VzYl9nZXRfcGh5X21vZGUNCj4gPiA+IG9yIHJl
+LXVzZSBkd2MzLT5oc3BoeV9tb2RlIGRlcGVuZHMgb24gd2hlcmUgaXQgbmVlZHMgdG8gdXNlLg0K
+PiA+ID4gDQo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy91c2IvcGh5L29mLmMgYi9kcml2ZXJz
+L3VzYi9waHkvb2YuYw0KPiA+ID4gaW5kZXggMWFiMTM0ZjQ1ZDY3Li41Y2JmMTdkNDkzYWQgMTAw
+NjQ0DQo+ID4gPiAtLS0gYS9kcml2ZXJzL3VzYi9waHkvb2YuYw0KPiA+ID4gKysrIGIvZHJpdmVy
+cy91c2IvcGh5L29mLmMNCj4gPiA+IEBAIC0xNiw2ICsxNiw3IEBAIHN0YXRpYyBjb25zdCBjaGFy
+ICpjb25zdCB1c2JwaHlfbW9kZXNbXSA9IHsNCj4gPiA+ICAJW1VTQlBIWV9JTlRFUkZBQ0VfTU9E
+RV9VTFBJXQk9ICJ1bHBpIiwNCj4gPiA+ICAJW1VTQlBIWV9JTlRFUkZBQ0VfTU9ERV9TRVJJQUxd
+CT0gInNlcmlhbCIsDQo+ID4gPiAgCVtVU0JQSFlfSU5URVJGQUNFX01PREVfSFNJQ10JPSAiaHNp
+YyIsDQo+ID4gPiArCVtVU0JQSFlfSU5URVJGQUNFX01PREVfRVVTQjJdCT0gImV1c2IyIiwNCj4g
+PiA+ICB9Ow0KPiA+ID4gDQo+ID4gPiANCj4gPiANCj4gPiBldXNiMiB1c2VzIHV0bWksIHNvIGl0
+IGRvZXNuJ3QgZml0IGhlcmUgYXMgYSBzZXBhcmF0ZSBtb2RlLg0KPiA+IA0KPiANCj4gSGkgVGhp
+bmgNCj4gDQo+IFllcywgZVVTQjIgaXMgYmFzZWQgb24gVVRNSSBQYXJhbGxlbCBtb2RlLCBidXQg
+aXQgaGFzIGRlZGljYXRlZA0KPiBQaHlzaWNhbCBMYXllciBTdXBwbGVtZW50IFsxXSwgZWcgYXQg
+Q0gyLjQsIGl0IGxpc3RzIGVVU0IyIFBIWQ0KPiBGZWF0dXJlcy4NCj4gDQo+IA0KPiA+IFRvIGdv
+IHRoaXMgcm91dGUgcHJvcGVybHksIHdlJ2QgbmVlZCB0byBpbnRyb2R1Y2UgYSBuZXcgcGh5IHR5
+cGUNCj4gPiBhdHRyaWJ1dGUgaW4gdGhlIHBoeSBmcmFtZXdvcmssIHdoaWNoIHdpbGwgYmUgYSBi
+aWdnZXIgY2hhbmdlIHRoYXQgbWF5DQo+ID4gaW1wYWN0IG1vcmUgdGhhbiB0aGlzIGRyaXZlci4N
+Cj4gPiANCj4gDQo+IEl0IGlzIG5vdCBhdCBnZW5lcmljIFBIWSBmcmFtZXdvcmssIGl0IGlzIGp1
+c3QgZm9yIFVTQiBQSFkgZGVkaWNhdGVkLg0KPiANCj4gSSBkbyBub3Qgc2VlIGJpZyBjaGFuZ2Vz
+LCBpdCBvbmx5IG5lZWRzIHRvIGNoYW5nZSBhYm92ZSBmaWxlcyBhbmQgcmVsYXRlZA0KPiBkdC1i
+aW5kaW5nIGZpbGVzLCBhbmQgb3RoZXIgdXNlcnMgbWF5IGxldmVyYWdlIGl0IGlmIHRoZSBjb250
+cm9sbGVyDQo+IGhhcyBzcGVjaWFsIHNlcXVlbmNlIG9yIHNldHRpbmdzIGZvciBlVVNCMi4NCj4g
+DQoNClRoZSB1c2JwaHlfbW9kZXMgZGVzY3JpYmVzIHRoZSBpbnRlcmZhY2UgYmV0d2VlbiB0aGUg
+Y29udHJvbGxlciBhbmQgdGhlDQpwaHkuIGV1c2IyIHN0aWxsIHVzZXMgdXRtaSwgc28gYWRkaW5n
+IGV1c2IyIHRoZXJlIGlzIHNlbWF0aWNhbGx5DQppbmNvcnJlY3QuIElmIHdlIGludHJvZHVjZSB0
+aGUgZXVzYjIgbW9kZSB0aGVyZSwgd2UnZCBoYXZlIHRvIGF1ZGl0IGR3YzMNCmFuZCBldmVyeSBv
+dGhlciBkcml2ZXIgdGhhdCB1c2VzIHVzYnBoeV9tb2RlcyB0byBoYW5kbGUgdGhlIG5ldyBtb2Rl
+DQpjb3JyZWN0bHkuDQoNClRoYXQgc2FpZCwgSSBoYXZlIG5vIG9iamVjdGlvbiB0byBhZGRpbmcg
+YSBuZXcgcGh5IHR5cGUgZm9yIGV1c2IyLiBJDQpqdXN0IHdhbnQgdG8gbm90ZSBpdCBpcyBhIGJp
+Z2dlciBjaGFuZ2UgcmVsYXRpdmUgdG8gYWRkaW5nIGEgYm9vbGVhbg0KcHJvcGVydHkgdG8gdGhl
+IERUIGJpbmRpbmcuDQoNClRoYW5rcywNClRoaW5o
