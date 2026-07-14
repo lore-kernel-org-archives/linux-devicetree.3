@@ -1,76 +1,85 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5EF44D01D
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03938448D12
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784031958; cv=none; b=IooYt4YI6TMBCICloS//OMQQYBCcS1eA52J2IV/0hA1Yxo3MyBFXp7iMkzj6W7pJeOAgOvkSeH7gf5WaBcQTJ1RLwYFLqp2t/6HbyBG2l4RsLBBhYXn5c/8f1Jwt6aQmyvQIOtGnShehJxCnndJQzQ1cu/ue9twg2AWLRFAFHFA=
+	t=1784032040; cv=none; b=QVc5yTx0GLXTC9aRRKrLwTVsj/BXv36Aot8jDN5SKNHGgFobPnIIdgniwV1+I1b4Wbv1w2a3kWt1n0K8ba1GZ9lAybWRx6NFXAogOAtlvDmzd2JeiOsCqVuQO6qU5bhJJ9eLcg/UTRfgZF6wHWnfeevf7YO1vlYxM0XcaR7JEGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784031958; c=relaxed/simple;
-	bh=0+vGZfhgz1bD40ocE4HqL+yXZ99EIYUdksleBRdm8Wg=;
+	s=arc-20240116; t=1784032040; c=relaxed/simple;
+	bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SiwklAavDVnHgKBbtaK0o+0p0xRwrxZ8T98aZFDiChqwF46HMqWai83lyR774hRvIAXUa0gJowp+KAZDfh36xoDNVm+8OYbwkUUWorX055VD29eTDwV5fPZ3B+gLalZXXl0EH0o3DPHcJLBAd1jZYnUPBTP1GqHLvl/CI6vDU7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XbXL7dz3; arc=none smtp.client-ip=209.85.221.54
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZkqbQ45jCpIWL3NeADaPtYBNeX+4yCAAUZQZQLPuUwrJ3b9hsPZSXGGXIooPJ6PyzHmrBVCqZRiT03ha3GNk8RP93r38EAObu/KPRvl0UU/BExRTB2BH5e7FmvSO7Lc48IG5n+oWvWTbjV2swHWGG1popTr5z3gCgsex/M0w1kQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=PynYh0+J; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XbXL7dz3"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47de0093c42so750470f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:25:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="PynYh0+J"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-493bc8fda98so6512805e9.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784031945; x=1784636745; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1784032033; x=1784636833; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0+vGZfhgz1bD40ocE4HqL+yXZ99EIYUdksleBRdm8Wg=;
-        b=XbXL7dz3fsVvyc9B0lAyOQGiZ0GJFHAGz7YKnOfyFIbbT0womjk52r/GJgXawi6QPm
-         8btG+ebYd1TuTnvOZRhwVc3bpXaRiT9loRvyur1bl7qO4s0fSRClcW6uamday5gxj+c3
-         zve+gSDe5U2DUuFS9h+6QzOnEK4HfUd4TM1UpeRnwj4F84eCqcJV3wue37LBiQc9Yxux
-         2LshZPW9jn9L0dfARhojxWuC683EosDYTMaGlXbRLriSqu2S5nPLuKbRR2Ts/mX3f+zV
-         0CSkMIKE8uxhEaY1C2FWEyaecif0pMJSGuR8id/UbNiO5MX0jTp9gKpz98tY+jVGOudc
-         gIBw==
+        bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
+        b=PynYh0+J+gquIeEfFLT4xpocDZspjFo1uC0tvXr4kcCbJclxbeAeA2JOA0rl3y20ol
+         mcit2fW+E+jmrCK96IIoCDFJ1VM3XZlBM1Ol1m+WClgum2198FRqcjPPCLV9qklXozSF
+         bNqWPUmMRztTIRAr/uC8vS6aAntTLhgq31sxO+VuZBnLE00avo9wPo2ak+Id2S73P6TP
+         JyMTv3npRT44eaT/IXdnaC/THJCMEiU1U8Y0HHTLWki0rZkYwd6+emsgtmO5Xkm2w9R+
+         pry/Pqru2T18iu+oxY+ijHeqsYm6DhnLhfMAzC4qCJgPOzNSx45HsubeRl3RQLtb7Mxd
+         11HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784031945; x=1784636745;
+        d=1e100.net; s=20251104; t=1784032033; x=1784636833;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0+vGZfhgz1bD40ocE4HqL+yXZ99EIYUdksleBRdm8Wg=;
-        b=jT92ABTRQvo5VBuuHcYAoeNWOqE4khqUgLKREZ9O0fknaFfA7xjCwni3aONGLBxvbw
-         WyhGpgs4Y3ivb0q7HwwdZpvSRqmD+Zo3RySD1VcAzzXkEEgcm0ARz76UXzXbGX1f3V2/
-         fd4E+uymvvdbdLN2ovwnivVlk74GrVyKmRNyiFsPStkow1gEXbz1XSoejD2UC+E2rWJq
-         qrWkKcLIj3E6Nz6wTLJrthn4wJVAVT0pA3sesI3c5K5AO3+iavepySrwzBbx/SMmdVjF
-         ROgmX+PdycTOxtUexlsu2Htj7RZ2lTnrAU+4jbE3r7v3fp0Jz7lizvt2Ftb/sxEfOxJ0
-         kPFg==
-X-Forwarded-Encrypted: i=1; AHgh+RoFOVWebz/9T2cVAbLjAedMmf9gactKQ523G1eOo23hBXbCV6kqcbyFvSXV+f43IQWTfzZ2YnFQQIdX@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIdOll5q4MeO6WqstdePBg3Zv+VgCwFHTrNNTbIzwBoXPWRr8m
-	bpXgYdVfetMeRkvFq2e3IZmrmE5rzjh8pZfli0tODxWiytXadR82hlIFSvprELYUMRc=
-X-Gm-Gg: AfdE7clYByc2JWfpLv9bkLuwglCZyuAHgOuqLTCnEgQiS7B0KFQM+VyATmYWHCpJfkB
-	8/X5Wurr3U5nkZCXWE+xbHUIYRHLaF7FsdPjEf8B/V7jcmtf+WkT9O6MMzknon55gDBmVbiPMKl
-	UIsXCyhlePMNRg1H16BkYg9Dmngr6tGrmw7E6iE+Px4snLDJxdn4WJPn139IvloTBuv5HaLqVef
-	GPnNSuX9uYGTV+py6cKpiZqXhoSl3R6aycCACBRXxVp4QBSqtfiocVWgVomPC5dC5gvRhZ5uS3M
-	mdOH4945S5BW3xSpng1Z6IPRJiTC6pD+JkZ2eRT+5p3Sw3NrOvYsWufYCWB2ncH20exo1cHctBL
-	1/0kP1ajdNgvC0j+ua/CIRtv891RiNQDU0FwI1/QpUqPXuDqoJ36GMInNNQag2geDweVhjZUkLm
-	BZGKIsjhcqxVNV+dVQ+zgYfm8ycijtVHWM8Y1oDvsnn1jIHpKEsqw10D3OuXdSEEp4kIDuqNLb+
-	fDb
-X-Received: by 2002:a05:6000:2210:b0:46d:d5da:f0a8 with SMTP id ffacd0b85a97d-47f2dd08423mr15598269f8f.47.1784031945403;
-        Tue, 14 Jul 2026 05:25:45 -0700 (PDT)
+        bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
+        b=cvxyz57Cq2hd23bqvjzr/TEkBFXqOZyts5p4lpnuN3AVNu47GBXj+Z5o9wIlVPFp1r
+         kInUyfxxVUzJeFC85zhlZ1tNDuMPzN/BGyi/wlUSaXHdJ9ztBn/dcW2MqKqgORLmTEIp
+         oh9AoRVhYV86Lpbbq3Bubm8gpdB2yTDuPGIX9Vk1gccO2p5HT4mfBIPHiVX8JJcvdvHP
+         R1F5V4jtBoNcTNgQfWzOSK7JiGua0OKlWoM0pEnTDIjGrXLpRVG3KTtmab3tvsbQFV9A
+         916MHGJi/2tyvNzf4W8gYJmqYalxW1OpkZ5vwzZkhvmcaO4bK3onETr0+ijFfN7aEztI
+         k72Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0pvBlX6kA9F/sCf4B3mt2xraNP+t8egNx2oNNuNr6ma4d2fp9SnFnz0WKIdSRr8YuG1nINyWoY7W3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/lEqQd0MhliQavhrCVfyzXWTKMy5tDk5k08BFCyNCnIKXyasm
+	ySMnmppqHxsDAWR48iV0E+54M3bBmIRDe9sbqRQSIkAajmmqramU7cm5+U65AKXtsUw=
+X-Gm-Gg: AfdE7clY9nh3EWj+58JNLe6qJKoU9kag81LExXdSk7Z9bzPE3dcLJdWVFxAzQHcwWOJ
+	IG0+j/iKyi3KkQaz7PI8a4RAAKed36a3NBsYHE62qC0/cQjdps0WgVAvEHQaLzySVQH3uXEIyRK
+	C8YnC1FRevoQ9YWoWOVdM/vgeQd5c2/Ro2dDSC0/Zkuel/3JHfYcSTCjBHYCmUMKg1i5V+Bpg1N
+	GUK+rr8ndy9z07EwAkrUrb9tpM7z80ALajRoqutBvXszniTuIy64WNbk+YpSWCLnoMjLWmcz/wN
+	PDfVeSrvsDS9OBTTWp89kZiJklmQ8Fy+toaLaimNZkBm9pkRn5q/DIXAaJX0OFiv2YbviSwSZmV
+	0Q7a/iO5jUAoDjyoR6ApwQv0v1Nh72W3DrrazIEnRFKlXfmmi8JeIhVuY2bsaAvu8qQWMBXJDKO
+	phyjN4yIG5dvtAPkrR5riP5qDXOLVDt4mWYIGicSfnzH3UW5MeLgRMLmHxQD2BTy6TuEPUNqJvE
+	P5pCyOxXcbIXhH6eYJPBdTkFg==
+X-Received: by 2002:a05:600c:310f:b0:493:ee3a:f05b with SMTP id 5b1f17b1804b1-493f87d7fcdmr131894065e9.7.1784032033466;
+        Tue, 14 Jul 2026 05:27:13 -0700 (PDT)
 Received: from localhost (p200300f65f47db04b44a80421173aa03.dip0.t-ipconnect.de. [2003:f6:5f47:db04:b44a:8042:1173:aa03])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f4635a63esm8284732f8f.9.2026.07.14.05.25.44
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49508732395sm71538925e9.5.2026.07.14.05.27.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 05:25:44 -0700 (PDT)
-Date: Tue, 14 Jul 2026 14:25:43 +0200
+        Tue, 14 Jul 2026 05:27:12 -0700 (PDT)
+Date: Tue, 14 Jul 2026 14:27:11 +0200
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v2 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
-Message-ID: <alYqhghiVxVW2vQu@monoceros>
-References: <20260713081127.115197-1-cwweng.linux@gmail.com>
- <20260713081127.115197-3-cwweng.linux@gmail.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Luca Weiss <luca.weiss@fairphone.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v7 07/10] clk: qcom: videocc: Add video clock controller
+ driver for Eliza
+Message-ID: <alYq2J6hd06g9XyC@monoceros>
+References: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
+ <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,43 +87,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a2h5qyp6npg6rco5"
+	protocol="application/pgp-signature"; boundary="ebx5plxbs5ed2t4p"
 Content-Disposition: inline
-In-Reply-To: <20260713081127.115197-3-cwweng.linux@gmail.com>
+In-Reply-To: <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
 
 
---a2h5qyp6npg6rco5
+--ebx5plxbs5ed2t4p
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v2 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+Subject: Re: [PATCH v7 07/10] clk: qcom: videocc: Add video clock controller
+ driver for Eliza
 MIME-Version: 1.0
 
 Hello,
 
-On Mon, Jul 13, 2026 at 04:11:27PM +0800, Chi-Wen Weng wrote:
+On Mon, Jul 13, 2026 at 08:23:45PM +0530, Taniya Das wrote:
 > +#include <linux/mod_devicetable.h>
 > [...]
 > +#include <linux/platform_device.h>
 
 Please rely on <linux/platform_device.h> to provide of_device_id and
-drop the include for <linux/mod_devicetable.h>.
+drop the include for <linux/mod_devicetable.h>. The latter header is
+going away soon.
 
 Best regards
 Uwe
 
---a2h5qyp6npg6rco5
+--ebx5plxbs5ed2t4p
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKsUACgkQj4D7WH0S
-/k4ixQgAlt+F41bzzFr8wApKEHEDE06Wyl2Bj9mhJ2lBUH5L4+vpMsXE0WVLJKmu
-HL5Dt7P0owSyciNzhp+pTCgs7ucr0yB3ysy+rILUBGjH8sExdTwINM8+0I8q2mfq
-uUinfFczaWbZRevyDkY9F5RPUt6WGRFz9uNnFrkZfNHOJL4jo69d7MftM0IW+ruv
-2SQnD38ccuoMsiZYcVDkSnDVXcruoWqhk4ViKjx/a6i5d0HhZHyfA6eSAaSfR8zf
-dHm5Fk26lHBT+xuv2TXw5FDGI2/h899mXnFcQGR9zsH5ImhmUvJIM+sL4FZ4fC1A
-UTd+40tRC7LtdqphWXA0H4oK7F24Yg==
-=GMY+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKx0ACgkQj4D7WH0S
+/k73NQf/T09jaRmPJhz4l6/RUqCHwddXVzILSJXm5JaBiJDO0DMQ7ba66QjYb4dl
+QI1n/Dhb09P32uDl6jsczhMK61GxspOgLrFR2hBJzih+s41bXQ7uPoTac0gcaxYW
+7ldbJEM2KWQqFfrv8evU5objg4VkaDip0n9ci9nt6BgjQpYrjjX2clnDM/0zDdp+
+J8Dm1K+VIcHnIuhNQqi0ptZUQ7G6eoC2c6bWlZ6aaZm8kmv+yuRaMgI+u78AEzgG
+aSj02assVonsMuBMLKWJt55XzGBjwDCaWmUdfxbvs8kPIqtPeP6z5JFX/FcChP14
+2tr6zJZjaXuLYoEM5CwI84TE9YnOXQ==
+=/t+O
 -----END PGP SIGNATURE-----
 
---a2h5qyp6npg6rco5--
+--ebx5plxbs5ed2t4p--
