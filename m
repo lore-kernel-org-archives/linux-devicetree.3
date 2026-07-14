@@ -1,224 +1,160 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013010.outbound.protection.outlook.com [40.107.162.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CB72E414
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C7B2641EE
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784038429; cv=fail; b=Y78Z3FreJe0/RZY9MoCUKOfjIdyC63emHp3l+3U/90VMqXfw4TjosxJv1dH9U+zbeTIs1pGtO8meDQ0gNXSMRPGjfxay1XH5mIJ+5+mvk4Chc4gNg9v4xvtVN3ODI7Y3yeB6iugAoemxCdkLwWCZHxWPj8sOHBqPm33sBrq22iw=
+	t=1784038494; cv=pass; b=LggsfQTRAUUGgfV1C3NVOzwnMvEyxjEOf15qaXPRgonr4IAFQcsTR0JuPLEWtKysVnaICw3WuoB2hA1Hy222dtmfE4hEbVjxXcQKuSFkTDUCDr8s4jGiWwLC5pGoLBCXNZpzcPjBOhmI8i8iiFJ1LzHxwC0sjVH2G3BKK/cxon4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784038429; c=relaxed/simple;
-	bh=B+5/ombiYWwpg6JPQBDT9VS32ywx3Xur1s/mxXc0heo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ltVwzhj9rp2c1srqZvEjTOHbfrZgQ5tXWhU6lIIcy6Qke7meov4zdUhiJW+fdWNjhGx8mE1AVbTSIt57uFJEMZZzI/PKALAIo+6ccvoAUyY/kkCFGEhB4IgAjN1giUo3IE5hRMr8jAaBuRXawbGX47+zIQF4GZ8/TAWfttnKc1Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=VwdXi+Tb reason="signature verification failed"; arc=fail smtp.client-ip=40.107.162.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1784038494; c=relaxed/simple;
+	bh=ZwonBpzAXy48ag2d1XJdBAdRbfwE5+nc6HaosOT+7aE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K6gByBkJZ3hG8ZeNRGwRpKo+xvgSohxHHPnH9NQ4J9ozdHqtTZo3WbytmLD4m0wTJvgbw70Fu67JFCQUWCjHdMe7lPnkksi1ZsrnpM+9DjxyEuMSknXzKkIPLqI3Gts/HHfVAd1zW2TfCmnYnxoZFjvGGcmQgujQt6jxNrNf980=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3fmb1WB; arc=pass smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="VwdXi+Tb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zl2DJTXH9jheUUC20KXQM7m5jMSX5X3QM1tKcWjCRgyW+fDPswK8gvpk5SEAlcsv7MRYtgeEbaxgkY+5cmxPlKkHSd2LaOFAkNxmVh6j8k4xLxQcLFMK7Y2S+bq9ZhctEqcJfPAp3/dMO3gdxeRDTwOOAilMFqs4QdY071sDeVe/ny4nwcFcpdJwGovwX80HDcYZ8wO70JEDOHzTxsr0hvDCe/h004+cfE/FDINpC4gilmLo16hA5nNBF9lIrefEiiiZcs+ZHY/OWav3HbC4cvWhro38/ePHth8IdTnnaBpvI7nY+nCKbc/WaJOBWK+zuSmI9wBdRDUc9jjZ3RlngQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cv+2gO/sWr2SSP/5ngULFZCNelF3wV41uhMduWL9jyU=;
- b=wjakgB4p+ai6Z/29RRCfCUoiscYOBLsl5tnCS+30GgefoT9TZ2+2Z1bnXQON8KZFzrmaCO6UWfe0fckan5d177WPmVhxzln+bdW8oESf2H8NLLvJqcuYVlgTbZvMaub6hAMUOFiU6yV3C2QAG/2uHjtoQ2GYqOrHTMvklJbdnSPEQr/mqDy6CbvYepReIFuPer2DLS5H4/G6JpPG0FoaVjNJAsJQu/ojEqkUAgKzpldr6Ad/9AC+qfwwaAb6WC9CM+gBcPHmUD2Iob8a+ufd1GAOnORPy7EP+wOFXABtTogKEB4RXImbBw1H+ilccLtRvwpsa6D12rCmJMd/rmDBQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cv+2gO/sWr2SSP/5ngULFZCNelF3wV41uhMduWL9jyU=;
- b=VwdXi+Tb7G9hew/iccLl2jKWETSwLhHPbfZAYDnpHEtHax58ugIlM1wt17ymurFRm7Rl61RbemMGpl2h9Ory6ftdhYW9xy5dicYXvZQEIlWYh1ABnX9Cn0/ASrKDImxdorX8Hn5pbV/XoV67HxwOioT28Zss2ws18uV4LvNJ4zbiwGscinzhtIouvrnR844hHJxX5710CVrvsfTMG2abjKb3JyMXKsWBBeeSLgU9M79cHr96nL1mJjxY5y/4oBoXvXAmSO8fmlSOP+xNPFV1wHlwdXeIWlvsHbpORPUziLjhrJo/YSpj7MqZYVw6IKKJNHb7YPEZl0Nwti5e3EcQlw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU0PR04MB9348.eurprd04.prod.outlook.com (2603:10a6:10:358::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 14:13:42 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
- 14:13:42 +0000
-Date: Tue, 14 Jul 2026 09:13:32 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org,
-	conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH v7 1/1] arm64: dts: add tqma9596la-mba95xxca
-Message-ID: <alZEDOB4J6imYwVh@SMW015318>
-References: <20260707062506.949806-1-alexander.stein@ew.tq-group.com>
- <20260707065956.124121F000E9@smtp.kernel.org>
- <alUO-oOtWBescUK6@SMW015318>
- <1965063.tdWV9SEqCh@steina-w>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1965063.tdWV9SEqCh@steina-w>
-X-ClientProxiedBy: SA0PR11CA0044.namprd11.prod.outlook.com
- (2603:10b6:806:d0::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3fmb1WB"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2caced6038eso14146835ad.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:14:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784038492; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MoQ01oEceJ7kgS8e40WDpH/sFv3KoUWxt6zKzUVanz4kJyNs4cIHJhyjvgyPQeAazZ
+         qtb5C8EyHi2kG2RuxswDGe+83gE5kIrYu1bCWg611cHQdxjtFFc0XMAPTHQ8zSvTvQzM
+         nvpd9/eaoPLM6YC5RkwO09scbvHIweDV+JfChGL2adG2CJsZykqtwFxn++v4rxaYXYqK
+         xFHKIV0tQwvamENLgsQ7XbFKTVSYSzbHCAQCGTO/ufFx2WVms/qJ67csRmrp9GTLiIb/
+         Y9RsoTbeUegeJr0IW4fkrv3QTxyob98V8iTCmBOqMfy5xSlMe0TZne8i0hfrDqwOtm+C
+         u0NQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iffoRGhgdfjVMgG8fR7bEUfZMRX8TGqnupkWqKC4uSM=;
+        fh=nyr2x2qaUOiLAIeD2DmrvmfwgrgXxsIR9aX49Izy9oA=;
+        b=sw8OCEHch5rpSoPsyUVrD+ZKOcIr6yaFFXIHgMy59pGhg8mX4BTpn9JPxTBt6kc1b7
+         UCM8s2tIQPSM7Zt96c1ZQGDx4FTAruzRdJ+QWhp34Jmq2w9TlKxGj9leAHmKEy+08Zvi
+         P3tA9ZwN+V5yKE9GCGK3XuzyunHKWSlB3nc3BJUCYfXcW7wGmj5uf7S2J/J4o/kzg87+
+         PlZonL6nrzisHlXDQAL51Z4pq5CZsK+Kz7oTjpNoqfaSrVgMYSXg5WyBCXp3e92kzaaG
+         DKnqRoZKZwL/Dl4WRpQyIntpsmLNKXOcclGh/wj94ETIVJfO/suzvh+m+G+G7x4gHWjX
+         s8nQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784038492; x=1784643292; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iffoRGhgdfjVMgG8fR7bEUfZMRX8TGqnupkWqKC4uSM=;
+        b=n3fmb1WBAJCg4vV0D5XcPaUu6YHriNnCtoyKEAUqSzbqntD5+2H7HycTAihki87qAq
+         A++r/tR2LNn2SRYsZZPtut9Gy/l3dehlmI7H+Yfrsleb1AX4DoQL/5ASWfPUkspQaHJU
+         E9XDinFNQ4tpanqZejXcUOWfuxnD5/561GNvOhCJY5wbBV1jsTKmYNnSKBOwVperbkfy
+         FNnIoyZgiZzG7j5HITRVJvNPiZYmTCJxZLAxEW937ivAOW0+JdZS25Z5GE9c15ypp8Eh
+         Eic1dbqPf+gA1bqdxNp0KMzNAODmHNuHvq+zPO5o9IMcNr1DkM6uicQiPar5KSlx4e/U
+         MuZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784038492; x=1784643292;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iffoRGhgdfjVMgG8fR7bEUfZMRX8TGqnupkWqKC4uSM=;
+        b=biq4juMqu5eRJRPMAO6vNGNPKfz2/3uYcrKDWIin+uXU2rbR+NZA0Mxotm1cONKWz+
+         5owjNUgtaPAOyRS/ulo0RaPk9u2276thnLmw7BubUuSRTUYcxVKWIIHVUBcWd0oz6MFA
+         Jx452K6RDIwSi78Zpv4jwfXmeTonPA9VN8Fkjvnw5RZ0sCnsv3JT/FQPinCoVZHvB4qt
+         xY28YxydoUd0JVu+A14p/m6/9OqwYlj+hHNVApO2I50lXAK39+AXd11ch8vZ4gp8+FU9
+         UE2u9jwOB/ASpHTd4j8cdNLc24NUcFRnJgB07s1PTPezGA0G6ANeb+OKK6JUg11B2wkd
+         eL0Q==
+X-Forwarded-Encrypted: i=1; AHgh+Ro33nqq0FjR9HqkapPE5gpHzxH7Z4DLVaOPRL9qS8+EyExEVevLSfbZUSWsoRyNxTsVygBJnBJKzuxx@vger.kernel.org
+X-Gm-Message-State: AOJu0YwcCJbTngGuR8J1EU7Q5D1Uk6hO1KfV3n52gCpYmns18+kLLwf2
+	D6SDTGAHAZtWey1nhNY/YzPrqcmxecSN1yT1LIQpVTgew2Fgn4r6DZGeyj16xnp6d7dj5ikauAv
+	AtejV7BPJzi0ntsLzt6XbbIbA2UpzzqU=
+X-Gm-Gg: AfdE7clNrjPdMWl8ov2KjXKrybJ0vJ0TJrGohGZikOzHWXyAGQKlUo2/j7KYmcgCO0m
+	76yOQo7+ZUM1owvvx25Zuu6M2Q34Xd74fdTykBQ2GP2ucHo5tud+5U/SoQ+DJfqgUjrxi63iJCp
+	kIrwaYTohlgsHlkYep5hlVkNP5ExlGWIXtc29sUZlUntDrgLrdmDwgrWXOgNTE2QoUsd3kptl5h
+	j4dbeh8z2OuvKU8FsZYx+nDWnWCYBl77jW3eDLlJWkXQGoxIrTfvAj73hZHV6O7HflhblZxnLeN
+	WZ72bMD17kP4ab5YU9odM2KfqijYM3ufepwHiLyaFg==
+X-Received: by 2002:a17:902:cf0b:b0:2c0:d94f:50c7 with SMTP id
+ d9443c01a7336-2ce82879e0cmr178464175ad.7.1784038492000; Tue, 14 Jul 2026
+ 07:14:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU0PR04MB9348:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5d3df81-0d8e-41e0-3395-08dee1b21c0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|19092799006|23010399003|22082099003|18002099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ys87vBEseh1f7wZ17qo+U/K0p+zy+oUfmSP4d6IGtqU8srpWWTvNgN+W4+QVbAM3sb6krvT3zxV1aEaDt76XHb/yZXo7iX9aA/xhN9zo8lYlz7CW2UpioqFVv+aLIDvVAdUODTS9zBMFG4PGBf9810bVhJmnXsi3jOm6G8oK7VgILxIZAxwK5UnRdYUFCsCzyPHEZOs4g95o5foEKMzUXvswRBVGpo/HWOoEHKf4aCJt5LhQmUIYVZ5ZZoDrHI5RJT+OfeHG8mM21RvMV0Zgp+Y8kOZaIL/21FLALJV3rwVu+tcKa062ThamzBYeJSx8Bt+EGVEpZH74e/1sJggPsorFqv843rIn9FnrCBmtvc35Hs/E6VSMORdnbhBCApoeMKoQXiZf2UWEjey67iCK0L8IFU6/whrt0Tb/CdHfpUYHmRPtSrLfTSCeQQmT9p7N4H2u/7mUfZOYJzfye1x8brnRLMku2bK0II8UI99vs6z/K8asv1hL6wZmlhd2sqEzBgYMo3hfIAh6gseXrk3CfdOFXZ6qGqUaN7NWvHAAFfzqDSBUarwqvOItQZxl1sVGqFg3ujGDyavnm85KHK1pkWDfQMjl1J1+mcjvSzJwwC8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(19092799006)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?LEz4UN/u0yx8I+4BpZPfP5w73mmlx8yuXXMNbq7ckxzbXufQT1mkKpdMBw?=
- =?iso-8859-1?Q?NxFe2dA3JefhNMgaTszntkInFYvPIlYvuql3UEP9NQpV4BhgptdN+d9AM9?=
- =?iso-8859-1?Q?SZQCOHpbjJE7xQpkUVztF3UCpMmimLQgpxUFiyCMZO9t5zQXZ8p+w45qs8?=
- =?iso-8859-1?Q?dT0K7kFxxSF56F7BXx5eKnH05TMgPAjIyqI/+brWrbTydEYP5sV4VFgElg?=
- =?iso-8859-1?Q?isXL/VswDDv3vGtile9H/7Hh9BvjE1blzqrqFgUVcV9KQn4zQdelISLoOi?=
- =?iso-8859-1?Q?G+dmBnk6NevJLjQgEuMIkVIzQNdGN6tdvipdFM66JALLv8RD4lVEVvS+YV?=
- =?iso-8859-1?Q?pJ1Liz+Q+bMsD2qQWSzwap7UlW3o4zXmLoRb+roRNFwuIsgsLNSyPTzNZw?=
- =?iso-8859-1?Q?ZCVIkfKTuWlZp6204YSObJPV9ddFrVBpOzcJ9WO/TlMTloE+Sotw90JZo0?=
- =?iso-8859-1?Q?Qaxlwnko+Hp1mrnhoegMnbKs917scDBHwEpc/dfAYB4W0PtDv6fCbQxG0V?=
- =?iso-8859-1?Q?S+qU7FStqRZRjNNsxgNWtuNiEDVgWoX/YHN+5MN95sy5jTJccmtd9bo7ph?=
- =?iso-8859-1?Q?Bbd52TjCSIxzQS192CL1NcDECaL2YVr1SnjURsMUncsbu69i/P4t3KkX54?=
- =?iso-8859-1?Q?/POwY7QQH6ZfTBEFE8aN5KsoBdkWlCKKrKOv0hAgYKCxVuT+Mb1B/hQ3Sp?=
- =?iso-8859-1?Q?NVSXVLpCfZkvggCSxJ/wlAxe04cOr6Ce7fZgJAVNhnxftnK4fVxhTuMoq5?=
- =?iso-8859-1?Q?tlvKKEW2Xp0V9KFeuu3OSMYkEDHuVQdf07ziEk/jPKE21t+FaRAmOGrONF?=
- =?iso-8859-1?Q?m6OKea0mvMMO+IMYrEzfkz4p+3+oTzsuXjZxM3QjmqW2VfyT3IP+95jzbX?=
- =?iso-8859-1?Q?HukjI1ZgYWmKKXRgf9OK1wpMtM5kFouhJsgOE0/2ZSPtT8ooy1pOsgni7C?=
- =?iso-8859-1?Q?PcEZ4scK0mZyKbSoGEW1RBzfUjDoiXNfuRYgbrUBMI8Q3tuA/YkME26nfN?=
- =?iso-8859-1?Q?MmCbPI70U9u1Ws8XzjC7fvjApqPUrzS5iKNgj2fq2QXJPJyoXaQQH6FAXR?=
- =?iso-8859-1?Q?jQVklTrFlDn/Jlg+ZyZ+rmjdHZ1fzgFOxQVX23m0O6GXZpdyc24H9tz2iN?=
- =?iso-8859-1?Q?5P8vc/PGlFYi7grbKImHdjE1ZxoeAlAg80qWqhcrII9aI/W5mgjAJ/nEIY?=
- =?iso-8859-1?Q?3N78O4zzoHRYpJ9bJdOL89c4obigOyaynhd9hV+Ftgba690R3p/Xt01QuY?=
- =?iso-8859-1?Q?UZiLgheVi9cnrxV7Nw6NVmqrBi7w8F9Wg2AEiepWVO5+2vY8j5an69Pg3W?=
- =?iso-8859-1?Q?ZWcaBdsqRREguunhAWUSoovQchWpdf5wOu+o9oyu1wO/L2RZgG5MUzhPx4?=
- =?iso-8859-1?Q?aU3UEd3DhknUaiZ2nrkhUs2t3hbnPmZNgQYE9AjHexhvDGRKusR9OnPB3k?=
- =?iso-8859-1?Q?t9JJZreGdaLWakBqaPQUavLoft7NrD6EY6AIH5qKYbAU8ZFGfmj+1a7vsZ?=
- =?iso-8859-1?Q?oJlARgVcH8B+rUEueG4S9OspCseYgG9S2KIZM4EVDIDIhoE60uaWYNB744?=
- =?iso-8859-1?Q?sKg91TFtqKxJth5bBz10+KnxgBoKJ9aHWo6cC5J3X3wYzJp8wKyoAMNjRa?=
- =?iso-8859-1?Q?TNsuB6WhmbOw5vjPsRSLES5m3TcrJVtDT0gKz/vex3ZxXJw7bheQpyP9Tn?=
- =?iso-8859-1?Q?F9vQCguVbffMaZmu3aIC+nASPkYusdBA/tFVwsMqt4csvk36ggPVqFBYxw?=
- =?iso-8859-1?Q?C3xjKxDxxPJMj0vBzVDrZL1dAt9b0IrGx93JdYWQW5UGZu7ruXYUrfMMKs?=
- =?iso-8859-1?Q?kUuQn2QP3dmLGUSU7aUkvgitFoQRo+8jw2eg98LJevjgwp/eSbAn?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5d3df81-0d8e-41e0-3395-08dee1b21c0e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 14:13:42.7439
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QvwSBvBJH1s8LIr2Osn0vNwVpk+YggieKt1Kx8sAvXXwM9moYYfxjZvjzhg3RPdlHr6F2xKk+liQRM85MiulwMWReHtfkVCKcpCpwp360ZOXbdnBKisL9bAbB9PGRliY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9348
+References: <cover.1782909323.git.mazziesaccount@gmail.com>
+ <27fb93d0e61704d495e3adf4ed614edac1642267.1782909323.git.mazziesaccount@gmail.com>
+ <CAMRc=MccLRKb8ZjChcR7WK3TqV3=waSnKX=UX9LR=5hOT=_tsg@mail.gmail.com>
+ <CANhJrGM9ciyBfgGWBwOM3kNmcXGSq4QVM6a6Js+wtbr9ANtSJA@mail.gmail.com> <CAMRc=MedLP3XBqoUv_zUr5gxBVc+gqwY3ozAyXagBhc_70Kykw@mail.gmail.com>
+In-Reply-To: <CAMRc=MedLP3XBqoUv_zUr5gxBVc+gqwY3ozAyXagBhc_70Kykw@mail.gmail.com>
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+Date: Tue, 14 Jul 2026 17:14:37 +0300
+X-Gm-Features: AUfX_mwsVtiEKTfAVEpGQxTiufDOYn-DdkejDZRKfFW-BwMpqRjZhGNLCiRQJ_8
+Message-ID: <CANhJrGOZQTG6j9AFse3+p_Yp=BweAUD3SQc5QV394hO-PQegvQ@mail.gmail.com>
+Subject: Re: [PATCH 7/8] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jul 14, 2026 at 02:22:54PM +0200, Alexander Stein wrote:
-> Hi Frank,
+ma 13.7.2026 klo 11.16 Bartosz Golaszewski (brgl@kernel.org) kirjoitti:
 >
-> Am Montag, 13. Juli 2026, 18:14:50 CEST schrieb Frank Li:
-> > On Tue, Jul 07, 2026 at 06:59:55AM +0000, sashiko-bot@kernel.org wrote:
-> > > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> > > - [High] Conflicting GPIO assignments for M.2 Key-E SDIO Reset between the `wifi-connector` device node and a leftover `gpio-hog`.
-> > > - [High] The fan supply regulator `reg_pwm_fan` is never enabled, leaving the fan unpowered.
-> > > --
-> > >
-> > > --- Patch [1]: [PATCH v7 1/1] arm64: dts: add tqma9596la-mba95xxca ---
-> > > commit c06cc8eb19eb4a69fc0547caa6773b503beae3a7
-> > > Author: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> > >
-> > > arm64: dts: add tqma9596la-mba95xxca
-> > >
-> > > This patch adds support for the TQMa95xxLA modules on the MBa95xxCA carrier
-> > > board. It introduces a common device tree include for the module and a specific
-> > > device tree for the carrier board.
-> > >
-> > > > diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
-> > > > new file mode 100644
-> > > > index 0000000000000..db2fd6991d112
-> > > > --- /dev/null
-> > > > +++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
-> > > [ ... ]
-> > > > +	wifi-connector {
-> > > > +		compatible = "pcie-m2-e-connector";
-> > > > +		vpcie3v3-supply = <&reg_v3v3_mb>;
-> > > > +		vpcie1v8-supply = <&reg_v1v8_mb>;
-> > > > +		i2c-parent = <&lpi2c2>;
-> > > > +		w-disable1-gpios = <&expander2 9 GPIO_ACTIVE_LOW>;
-> > > > +		w-disable2-gpios = <&expander2 10 GPIO_ACTIVE_LOW>;
-> > > > +		/* UART_WAKE is connected to SM */
-> > > > +		/* SDIO_WAKE is connected to SM */
-> > > > +		sdio-reset-gpios = <&expander3 2 GPIO_ACTIVE_LOW>;
-> > > > +	};
-> > >
-> > > [Severity: High]
-> > > Does this sdio-reset-gpios assignment conflict with the gpio-hog on the same
-> > > line?
-> > >
-> > > The wifi-connector node requests expander3 line 2 here, but later in the file,
-> > > m2-keye-sdio-rst-hog hogs the exact same GPIO line. Won't this conflict cause
-> > > the wifi-connector driver to fail probing with -EBUSY?
+> On Sun, 12 Jul 2026 17:42:17 +0200, Matti Vaittinen
+> <mazziesaccount@gmail.com> said:
+> > pe 3.7.2026 klo 16.11 Bartosz Golaszewski (brgl@kernel.org) kirjoitti:
+> >> > +
+> >> > +     if (!g->num_pins) {
+> >> > +             /*
+> >> > +              * The BD73800 may or may not have pins allocated for GPIO
+> >> > +              * depending on the OTP used at manufacturing. Free the memory
+> >> > +              * and go out if there is no pins as then we have nothing to do
+> >> > +              */
+> >> > +             dev_dbg(dev, "no GPIO pins\n");
+> >> > +             devm_kfree(dev, g);
+> >>
+> >> No need for that, because...
+> >>
+> >> > +             return 0;
+> >>
+> >> ... this will still leave a bound device in the system, I'm not sure we want
+> >> it? The correct error code in this case is -ENODEV.
 > >
-> > suppose needn't gpio hog for expander3 2 ?
-> > can you double check it?
+> > I am a bit uncertain. This isn't really an error. It should be very
+> > much Ok to configure the support for PMICs with GPIOs to be compiled -
+> > and also very much Ok to have a PMIC with no GPIOs. Returning an error
+> > doesn't feel right. Furthermore, I am afraid that returning an error
+> > might hurt the system start-up? Do you see some really problematic
+> > consequences if we return Ok without registering the GPIOs. I'd assume
+> > that wastes some bytes but I don't see other really severe
+> > consequences.
 >
-> Well pwrseq-pcie-m2.c doesn't support "sdio-reset-gpios" yet, so there is no -EBUSY.
-> But I'm okay with remove the hog which seems appropriate.
->
-> > >
-> > > [ ... ]
-> > > > +	fan_controller: fan-controller@2f {
-> > > > +		compatible = "microchip,emc2301", "microchip,emc2305";
-> > > > +		reg = <0x2f>;
-> > > > +		#address-cells = <1>;
-> > > > +		#size-cells = <0>;
-> > > > +		#pwm-cells = <3>;
-> > > > +		status = "okay";
-> > > > +
-> > > > +		fan: fan@0 {
-> > > > +			reg = <0x0>;
-> > > > +			pwms = <&fan_controller 40000 PWM_POLARITY_INVERTED 1>;
-> > > > +			#cooling-cells = <2>;
-> > > > +			fan-supply = <&reg_pwm_fan>;
-> > > > +		};
-> > > > +	};
-> > >
-> > > [Severity: High]
-> > > Will the reg_pwm_fan regulator ever be enabled?
-> > >
-> > > The emc2305 driver does not parse or request the fan-supply property from
-> > > child nodes. Since reg_pwm_fan is not marked regulator-always-on earlier in
-> > > this file, does this leave the fan unpowered?
-> >
-> > look like make sense, but dts itself should be correct. You'd better update
-> > driver also.
->
-> I'ts on my TODO, but I won't manage to add it for the time being. How do you
-> want to procede? I'd rather remove the fan-supply and disable the reg_pwm_fan
-> for the time being.
+> But -ENODEV/-ENXIO error codes are meant to do exactly that - tell the driver
+> core to assume this device legitimately cannot be enabled on this system. There
+> will be no error splat in the kernel log and the probe will not be deferred.
 
-leave reg_pwm_fan always on and add comments, after fan support it, we
-can remove always on
+Oh, thanks for the explanation. I didn't know this. The -ENODEV not
+causing error splat makes sense. The fact that -ENXIO does that too is
+quite surptizing to me. I thought the -ENXIO is used to indicate
+unexpected failure in bus communication.
 
-Frank
+I'll go with -ENODEV in the next version.
 
->
-> Best regards,
-> Alexander
-> --
-> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-> Amtsgericht München, HRB 105018
-> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-> http://www.tq-group.com/
+Yours,
+    -- Matti
 
+-- 
 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
+
+Discuss - Estimate - Plan - Report and finally accomplish this:
+void do_work(int time) __attribute__ ((const));
