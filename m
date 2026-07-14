@@ -1,72 +1,111 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964762F8E94;
-	Tue, 14 Jul 2026 06:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1446F3DD523
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784012396; cv=none; b=qxNIh2FjftYQtoZso8gAWZRVhY1gCW70dRFcDHVXhzGe55Q79jNq3MeRbcOXx2a29cuWOd5OgY6+fpSB7swRomNKX3U8m+hMfqGQws6S6+qc/VWUgi4Eha6e9iJJ9IMFzKTVHH43I7hQXQ5BdIjWxJ8gCQzOkX+C8nc6tqiBjfo=
+	t=1784013071; cv=none; b=hmZan7XKBwPX9PTo2rlTdp/CRnYaFs5SV0Cz7UKcpQi56Mwo0Ynf+Ia5mdfBkuDme60t6+Pze26jKDynUUB2j9bL/LIyzo2r5cYfjf58HUxSCdzbM4IF9yfjcBOl0iajWZEJXzNq6oSYyz3DIJbSDd7WrTmjH6a0oZj2mU6DCzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784012396; c=relaxed/simple;
-	bh=j499OwKt4tdvIo10kDVb5lcqb/FU4jIpUd+BFE9BuIc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SxpM7Gv9s7BXgOYFePUg+f96oH5V1c50GdnQ1fxRkInkMyhcSJ/EVmcob18vk9d704g3qAmRZNN8CNbHJ9VqjKD2JZYN6hZaXM80TLa/XYWjxr2N6CZVqP9goNom79h/khXFAWR4wU9an6GE6OO6HTf0aAkGHA6QVXeMin88p98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=IdEwe8iu; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1784013071; c=relaxed/simple;
+	bh=62jXxAW+g7Hd22t7VV3kfmBZO6Bm5fGkmgYmm0PXTRY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gWb1l29KcDnLCGX8HAFJE/se7sDfSO05bYjqZZ3LqYm8imjD4shKebAr91R3Xw8tPKCA1RHWoWJ9Zyi7o/ZeU96WzdnVklOKLTa3WveJPXll1SsYa077ZM12jVd2LbcpG8AUbCIb0rqtBXw5XgAauPPwDs3kufSxRk+HEAvCmqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k83+zgm0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="IdEwe8iu"
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id A0C421F901;
-	Tue, 14 Jul 2026 08:59:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784012391;
-	bh=HZY15Na630cT23+3bnvhccBu3QQYmy/9h6UOo1ApJwE=; h=From:To:Subject;
-	b=IdEwe8iuWZ94uJXyoXcJ++1wMCLmuD9eEWQrRYJpNLgy44Z9d0UEaAiotfqJjAVRn
-	 w7YW0/qnvJsyfSG9m/t9eNjnBOdvzgWnPEZBHJkHv7nRRg7/4dfK+DEM1wocDil/zp
-	 d8ciIJg7hGcp/nK452Z33mg+lOK3xm2rNMZZHK9FXGSIttyle7Grn3EbqH8qfgh339
-	 QAoXXNJFbdVmZc9kKGqu/drMEIZRDXmnM/12OjDMHGlr/KSLx5apMcH5sGG1nHXGXL
-	 I/WTgVAchHBL0QQlgU1ujs8Te2j3Zz2n8p4R4ERTp1T6x2oKztiecUyAQPnsQHi7vq
-	 EiHe4iyzyfyeQ==
-Date: Tue, 14 Jul 2026 08:59:47 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frieder Schrempf <frieder@fris.de>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Frieder Schrempf <frieder.schrempf@kontron.de>
-Subject: Re: [PATCH v2 10/10] arm64: dts: imx93-kontron: Enable ELE firmware
- driver
-Message-ID: <20260714065947.GA22086@francesco-nb>
-References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
- <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-10-b8266d93514b@kontron.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k83+zgm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA4E1F00A3A;
+	Tue, 14 Jul 2026 07:11:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784013069;
+	bh=h5jew8Jee1qppPV3TnB1rtWbboszvL9On4xdE+0VF8k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k83+zgm0RkdFmZR+WKX1MYec6WMRNENKQsLWLB7axHF3371EvX9JCHpeVdkCCqsk4
+	 7ZXsSopxrHfbnDm7lurc1Po8agPQ7WN37YcbCcmBhmGr5WZp0BbCGck90Mn4egNdGR
+	 zKSaHjTquioAf4dwhv1HqjnF3mmS5H8nIJgROBl+H17ZePJRDSje34OuUGqbGAZx5v
+	 MBdTSlr6XX9xix6RaLg3eV6D4NORTTLczYttyBwNKezwwb9F1GWotz/cZsuq3uk0O8
+	 JQ5FO5Esu0M0yEty9/3GA9X4L+I2YQZ46cprQiKIFU4iP9beDCeUAJfpUFNxrp+3bU
+	 t6wRNbviJOQOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add LCKFB Taishan Pi 3M
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liu Changjie" <liucj1228@outlook.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <MN0PR19MB6091D3101FD2D8F940F0CE4DACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
+References: <MN0PR19MB6091C07C729B83E594722E84AC3C2@MN0PR19MB6091.namprd19.prod.outlook.com>
+ <MN0PR19MB60918292CC2D566716815F26ACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
+ <MN0PR19MB6091D3101FD2D8F940F0CE4DACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 07:11:08 +0000
+Message-Id: <20260714071109.5BA4E1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-10-b8266d93514b@kontron.de>
 
-Hello Frieder,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The device tree uses an undocumented and unsupported vendor proper=
+ty `maxio,clk-out-frequency-hz` in the Ethernet PHY node, which will be ign=
+ored by the upstream kernel, causing the GMAC reference clock to remain unc=
+onfigured.
+--
 
-On Mon, Jul 13, 2026 at 04:53:46PM +0200, Frieder Schrempf wrote:
-> From: Frieder Schrempf <frieder.schrempf@kontron.de>
-> 
-> Add the ELE firmware API node and pass its handle to the OCOTP
-> driver. This allows us to gain read/write access to the OTP fuses.
+--- Patch [2]: [PATCH v2 2/2] arm64: dts: rockchip: Add LCKFB Taishan Pi 3M=
+ ---
+commit 7ee3e6144c52507192ef8cc196563da5f89d4b8e
+Author: Liu Changjie <liucj1228@outlook.com>
 
-This seems something we should have in the soc dtsi (imx93/imx91), it
-does not seems board specific.
+arm64: dts: rockchip: Add LCKFB Taishan Pi 3M
 
-Francesco
+This adds the device tree for the LCKFB Taishan Pi 3M board based on the
+Rockchip RK3576 SoC. It describes various hardware components including the
+RK806 supplies, eMMC, SD card, Gigabit Ethernet, and others. The patch also
+attempts to configure the MAE0621A PHY CLKOUT to supply the GMAC reference
+clock at 125 MHz.
 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-lckfb-tspi-3m.dts b/arch=
+/arm64/boot/dts/rockchip/rk3576-lckfb-tspi-3m.dts
+> new file mode 100644
+> index 0000000000000..bfddce2a94fb8
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-lckfb-tspi-3m.dts
+
+[ ... ]
+
+> +&mdio0 {
+> +	rgmii_phy0: ethernet-phy@1 {
+> +		compatible =3D "ethernet-phy-id7b74.4412";
+> +		reg =3D <0x1>;
+> +		maxio,clk-out-frequency-hz =3D <125000000>;
+[Severity: High]
+Is this maxio,clk-out-frequency-hz property supported by an upstream PHY
+driver?
+
+It appears maxio is an unregistered vendor prefix, and this property is not
+defined in upstream device tree bindings, which will cause make dtbs_check
+to fail.
+
+Since there is no upstream driver matching the 7b74.4412 ID, the PHY will
+likely bind to the generic genphy driver which ignores this property.
+Because the device tree specifies a hardware reset below via reset-gpios, t=
+he
+PHY will be reset during initialization, clearing any clock configuration
+provided by the bootloader.
+
+Will this result in the GMAC reference clock remaining unconfigured and
+breaking Ethernet functionality on this board?
+
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&gmac0_phy_reset>;
+> +		reset-assert-us =3D <20000>;
+> +		reset-deassert-us =3D <100000>;
+> +		reset-gpios =3D <&gpio2 RK_PB3 GPIO_ACTIVE_LOW>;
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/MN0PR19MB60918292CC=
+2D566716815F26ACF92@MN0PR19MB6091.namprd19.prod.outlook.com?part=3D2
