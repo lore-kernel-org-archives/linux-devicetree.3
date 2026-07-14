@@ -1,123 +1,236 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408254C900A
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784042235; cv=pass; b=oYyBNy9U6n6vze5yMVtMJWOlGktWW614N/KRasg3HMbjZ86StstL7WMlbvnOVgZxUNb4PDYpY8EwwnPALuT4vJpZn/V2NHEkxtnegxFd8Ub0ChtSRGfM580qTwHfmKh9Imp5c/InfyBxbSRc66dZfUcQIxPlw6lvj3fpYsX1h98=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784042235; c=relaxed/simple;
-	bh=QCZioSxZUKRoFUoafPKC6kOcWAwiCPQKbHmk8VnfLNk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ohB8bvWtiEqUtJ4hQZINdlJr9wuvJTAVnkDndemAYMsWbnHIE2N77YbxTm2ToeIdrAy/RYMCnG/rRzJdZ5bj4qghps4E9/Wq5fj651bmeUphKakdtQcg41z/MCHlGM2ycHP0DFZvNyktDGnqtFa/WerFDRL6InjEhLOo2xNqswE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LPeR6BDE; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4114494A17
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784042941; cv=none; b=XZFvHxyiE+2kO4NOzAbO8pw21WgbA8WYNzbJ+4H+ENEmuAKwOFKC3K/hgkdHkEIsQU3rZsvqc3anMR1AdB+tKgMezwAxliwsQPpqU/tjIZpG4uczz1j9IVl6CFC1Bw8buKrnETgcFebjSLYWDNmwJwMukpMaRu0rshxud0UY7io=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784042941; c=relaxed/simple;
+	bh=iK2N13Fa+ahJt7iMw2mLWbp8smO+p23o4+F3b2Vp1Bo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZxeCzOI+gvHcDIGcKlGerv/H7II5Eyg8vRneHcghYKdnEhUwYLtwPga1zF6h+xkEc9x2kynS6NjtoG/AKha6r1hA5KYds/MbqJ8nUwG/OlAWwMucyVsJFJis3Ua2SuBLGpfUNEROUlAQ1Y+gRe1or3GiR6z9NfYVEQt/ICHS8W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GfBblfg3; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LPeR6BDE"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69ccd6483acso1855026a12.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:17:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784042232; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GfMsaQpwHoLbOnVZzKwMBDAdy4pc5scep2z39WzJnGcJK3mNEY8thSDfH2FUgk0wdc
-         QQlRY3lc3eKfeCV46BEs65+NQr7PHi7qhKcqIiURCFuOu2x2mcoUT84pPWg8TQt72b3R
-         fxPLdPQxI0tBV2P4rF+XS+B1TnQ9aRA7Nmn1Ms4xhbp0EZUIT6kMOeluyzIxjt41Nbba
-         +VyijVpBS2xwxio24n6ypT2+aCsDU0wpHXXyxsWsX/bRNx0tTcr0/2eWOq24crZfqdpa
-         S0ZIa4DyXfXm/MqYG0VL+xAFtzFNN5Op4W5JLQb21/axnbMDQN8sXk8+0rlQDKifKQlH
-         ZxdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QCZioSxZUKRoFUoafPKC6kOcWAwiCPQKbHmk8VnfLNk=;
-        fh=oGnv47YTFwhGGbSHsfn3KfCJwmk9Inhu5u7OaENlJRs=;
-        b=sJFNKjqHFv6R3suOrz/x9fIsMW3sc1LjdR43xu7BJPTL3fr4MJ/6Z9cEsRzLB9mxb3
-         xYGjSLAuTEkPg/HKIqlAp/MGuPmeMj9daJSXv1XBEfLXsFU/iOnkhMSuKOuOIZkWGtAn
-         5tQRZWB6Qn4ee27YeOWjMHlF/GEHk03rQC2k2hCgyvctN2vnyZXLOGrUsmal3e56GGV1
-         5p4/6qB39L0oXmvcluN1gPrzc3zwIQ4zoyoW7YKhM8Qn2hVdDvgjeDqiHVsA28Iz+2BQ
-         QkQ8Mhz51gMNtIqzBa5T8DZfK+5LP1kV5U9KAgAysuUyAqjKxSgZyVkaJjffJlKN/BqM
-         QhPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GfBblfg3"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493e8d4f4dcso34500405e9.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:28:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784042232; x=1784647032; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QCZioSxZUKRoFUoafPKC6kOcWAwiCPQKbHmk8VnfLNk=;
-        b=LPeR6BDESJqRiIsD1IM/rYLbAmyX/h2rvaIh3fYDndOfzssxokg4QwGypqxhbsaWz7
-         +sOAq9S0YnaEm+BSUlZIYM1izGKstRKsFnHBk58WtBd1zD0XnKOzGCHJU6I2pbp38sg0
-         7X8cRe4PsJDEEjJPW/c7y7I0D/h3wOjXBAXnc6UaD8Q3AK77x9paSeO+4mPyXwssVoKl
-         WJalWh/KYJ8XtDuKnLncvD7ASLxWnYlxxIPtnA7k7Yu0ppiKTwQumfwXvldXQ3XVK0RJ
-         vIIIBefHdrFTBsClmZsS90etF8c8r/Iu70LZNkmjbKf7rALbqlURe+bAZg23gtgSEPlC
-         RjpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784042232; x=1784647032;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=suse.com; s=google; t=1784042938; x=1784647738; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QCZioSxZUKRoFUoafPKC6kOcWAwiCPQKbHmk8VnfLNk=;
-        b=sOr92Aj5HOiUUgHxugxD7OwbQYWE15PrPuHkQHVYsCv3RTPQqASsfiUS8PnnTub3R/
-         B1abFg+gzmOpniDfbFxd+trZnsmaSiUNmYKqXpSmM7TIye8wsFsb3xabtrP8CxuV4Ip5
-         HKGyhSndHNKyL+0d+2L6Ry6FR38Q4dh9OYKYwb48f/vXULftR7x+o9/rh7UzFfeN5MnU
-         TPAUOMhzn+5SHFD8Tr3KR2cp9YJDW+DQ29FO2d1oan5M02J8zwft+jrp96iIVT0PbWXn
-         RxBTTbcTVkTOo8qkQwSuMkVM62UYdO0i8fwqqTyPmZAMKlyN1eEQ/o7NNUq0dyghjYMU
-         5L0w==
-X-Forwarded-Encrypted: i=1; AHgh+RpUXOOT0klQ22dcGYxM4FsJCwGng8IRtMCnXCuW5Pzro+8aC5WlpcXlD7jyRjnv/yUjznzhvgkB5JQv@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPrwrkwYhZ8NBuNvuoYjWBm2dfIzbFo9Es7UKWqJ1sMjuNchEr
-	ImsnYHNdtuHSWtGtwyaNLaSUmeDCkxjfCs+qP8Ajcg2JDCV91FRAbSEeCytqb2Jm/xEdSAxKBZi
-	RSD/04ObTX4lx3iHf7mh/HQJCULQi8/VhrLhC
-X-Gm-Gg: AfdE7cnKPM7OX2AGli3/r3corRX9PcFWrxqFKkRsr5iMkftUSB5CRT53xm+39Q++KCq
-	qI2wir/HESdMMP//0Rh+Nrzmgpax2h1c7SXzA8ztFmXQu/ti6UMk4peVzggCaEE2s2vurg+Huxk
-	/0A2ZxgBEkAUc9CHEGon5wvD7KygqPofhrrAhJGxr/b92nkthh/OsLP0UPj4770MyiCQdZlTOk8
-	sxJiVKAnBYsWl2LavAWUb++yiuV+XIAVtYbp4JBLo0Qiumg7CmcapInJoVgKbGE4JkEBMkU9A==
-X-Received: by 2002:a17:907:da16:b0:c16:534:6a30 with SMTP id
- a640c23a62f3a-c1667bb3a0dmr153796766b.58.1784042232390; Tue, 14 Jul 2026
- 08:17:12 -0700 (PDT)
+        bh=09TcclYmaPCDKc6+KZii+R3xNkB+ca7ftigSvlljO8Q=;
+        b=GfBblfg3V4AhQ9Y1uHsNefuUfkCLEWBXZ72vdRzrlRILtviBg0uiRYy6BFvhvoSdXn
+         mDus/zcQBCfIKqBYzJTgjoHTxejorRrDolSK6u56p0RK34XxJXTPuJC2Yz/LM52Ejr4Q
+         oGX0xAbUNj9JkIzz7hpIJhn8eq8M8lPawoLON5J11UapnhQFgAgLJ/pUK+uGavFn0/EN
+         5Jpl+mohSIt7Pc6PPJnlzaknIW+SiqguRR20rDHQI5ar0C7+3OItHQE48QP/HVx/YeRH
+         dmzBS0ydiBeVdgZTU1kqaVh60NxSrzd5KZAQk75FztGkD5hzP/ZMVQ7OPhXpygQyBNG6
+         IcLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784042938; x=1784647738;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=09TcclYmaPCDKc6+KZii+R3xNkB+ca7ftigSvlljO8Q=;
+        b=AUp56CBtITMI1z68JAfTlqecx9167ckwcXOSCzIA4CC+4mh/gSzrE6PGs9v0bY/mwt
+         r8jkyaS2BrXlQ2In4GqtYzj25IwRlHAUDgI+iAaJ7lLzhGsoeeCqeuj4Z7Qs1N4Fb05S
+         glyh+gCLrmTTSnYaAnnsZxS3uh5FbEV231RDNS63GJ69ZTAucDyOODPG4gypMzKuxaeQ
+         BdSFKbKKCWTotJV/9zLeMJFfcLD13KckQU/9RUmZyvaHZVBvkKmJTbXPlPLYV/uPI7He
+         MnOhZfuZcYn4vwl3gbLzJl6s6UVISzoEegrCsRmlMFya5HWW8keGo88+LqXuHf1+jnkZ
+         xByA==
+X-Gm-Message-State: AOJu0YzA7JXZ5Ycu8/D9JO0Q7Vpsqx4QfVwYW2tyolw5+NEnS7FrsLbj
+	VHTjXyX/44/ssCmpjm1qekHu8cfXm/2rr6YO68o0UaSyPVBzFBuDn6Z1t0el+z2nI7g=
+X-Gm-Gg: AfdE7clXqm7m5QdtROn8AM4XCSSn820LHmTQnz+gRGeCMMpB30BTiGRww+Me7fhjewi
+	In7POll0BwWibqk24gvquL+tR5MtV/1R7J6JC1Jcz9deAswaIGxg0Q7ZgNeADssQsV4fhxvm/Uz
+	12ehPnD2x71FJnQ6SPSx5T9sob45T493kFRzvOGktZbHr4mi0eE4+FSorhYA3xOg/TBsCSiY80L
+	PdiVU8P+0Xo7A66snzXQpC3tB3Buh84d1l6ORf+BZW6Qmml9KYiHq10Ly/NGuzfUfiTrYE1qVUF
+	kz8vZ2JVvklIyWiEDAAdat5ov/XTlyvptoGbYc+gR4IOZrpHETEEgvA6xt3Hl0/VRArcygla0aj
+	NzCL60KP3CERkt2lziLYTnUvX6CFCA1YHHnaB6Gl8J9nPPvhego6o0DcuRXbTXH+fJVCTJC/EQy
+	+6Hmg7/BXQjH6xczCFRsjZeyAj9hBiV7WIVs621dcWvkiK
+X-Received: by 2002:a05:600d:6413:10b0:494:1cdd:4f9e with SMTP id 5b1f17b1804b1-4941cdd5035mr55153835e9.31.1784042937995;
+        Tue, 14 Jul 2026 08:28:57 -0700 (PDT)
+Received: from [192.168.0.25] (62.43.169.102.dyn.user.ono.com. [62.43.169.102])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493fd3ccfd4sm190589985e9.2.2026.07.14.08.28.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 08:28:57 -0700 (PDT)
+Message-ID: <2e1731d4-71d9-4924-a728-0aa4821486cd@suse.com>
+Date: Tue, 14 Jul 2026 17:28:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
- <20260713131223.279555-2-a.shimko.dev@gmail.com> <20260714131728.6C94F1F000E9@smtp.kernel.org>
-In-Reply-To: <20260714131728.6C94F1F000E9@smtp.kernel.org>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Tue, 14 Jul 2026 18:17:00 +0300
-X-Gm-Features: AUfX_mxoe0WVqnkvs3GVvNEK0y0uCrWT_C7Lanjv8yWfj1dW_K7a-g6ZJXk_Svs
-Message-ID: <CAOPX7470Xdk=O6xxQRUyiYg25yQfXDpD+MEeAWwVyLVF8zQJKA@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: add DAPU Telecom
- DAP8211R(I) PHY binding
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] pmdomain: mediatek: Add support for secure modem
+ power domain control
+To: nikolai.burov@jolla.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Ulf Hansson <ulfh@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-pm@vger.kernel.org, Nikolai Burov <nikolai.burov+review@abscue.de>
+References: <20260714-mt6858-pmdomain-v1-0-4f09bbb822e0@jolla.com>
+ <20260714-mt6858-pmdomain-v1-2-4f09bbb822e0@jolla.com>
+Content-Language: en-US, ca-ES, es-ES
+From: Matthias Brugger <mbrugger@suse.com>
+Autocrypt: addr=mbrugger@suse.com; keydata=
+ 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
+ PVrr2NoUqi/bxI8fFQJD1jVj8K0=
+In-Reply-To: <20260714-mt6858-pmdomain-v1-2-4f09bbb822e0@jolla.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 14, 2026 at 4:17=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> [Severity: Medium]
-> Since this property is a vendor-specific extension, should it include a
-> vendor prefix like dapu,tx-inverted-clk? Introducing custom properties
-> without a prefix risks colliding with future standard properties.
-It will be fixed.
 
-> [Severity: Medium]
-> Will this compatible string cause the example to bypass validation for th=
-is
-> schema? The schema requires the compatible string to be exactly
-> "ethernet-phy-id0008.011b". If the example is not evaluated against this
-> file's schema, it can hide other validation failures.
-It will be fixed.
 
-> [Severity: Medium]
-> Will this value trigger a validation error when the compatible string
-> mismatch is fixed? The tx-internal-delay-ps property enforces an enum wit=
-h
-> strict 150 ps steps, and 1150 is not in the list of allowed values.
-I wanted to show that you can specify values other than just multiples
-of 150 ps. But I think that would be unnecessary.
-It will be fixed.
---
-Best regards,
-Artem
+On 14/07/2026 15:43, Nikolai Burov via B4 Relay wrote:
+> From: Nikolai Burov <nikolai.burov@jolla.com>
+> 
+> On recent MediaTek SoCs such as MT6858, the kernel is required to use
+> a secure monitor call (SMC) to enable or disable the modem power domain.
+> The power domain control register can be read, but firmware prevents it
+> from being modified directly. Other parts of the power sequence, such as
+> setting the ext_buck_iso register, still need to be performed on the
+> kernel side.
+> 
+> In preparation for modem support, add a flag to enable this new power
+> sequence for SoCs that need it.
+> 
+> Signed-off-by: Nikolai Burov <nikolai.burov@jolla.com>
+> ---
+>   drivers/pmdomain/mediatek/mtk-pm-domains.c | 54 +++++++++++++++++++++++++++---
+>   drivers/pmdomain/mediatek/mtk-pm-domains.h |  1 +
+>   include/linux/soc/mediatek/mtk_sip_svc.h   |  3 ++
+>   3 files changed, 53 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomain/mediatek/mtk-pm-domains.c
+> index e1cfd4223473..56437b32b252 100644
+> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
+> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
+> @@ -57,6 +57,12 @@
+>   
+>   #define MTK_SIP_KERNEL_HWCCF_CONTROL	MTK_SIP_SMC_CMD(0x540)
+>   
+> +/* Power domain commands for MTK_SIP_KERNEL_CCCI_CONTROL */
+> +enum {
+> +	MTK_MD_MTCMOS_ENABLE = 18,
+> +	MTK_MD_MTCMOS_DISABLE = 19,
+> +};
+> +
+>   struct scpsys_domain {
+>   	struct generic_pm_domain genpd;
+>   	const struct scpsys_domain_data *data;
+> @@ -615,6 +621,34 @@ static void scpsys_modem_pwrseq_off(struct scpsys_domain *pd)
+>   		regmap_clear_bits(scpsys->base, pd->data->ctl_offs, PWR_RST_B_BIT);
+>   }
+>   
+> +static bool scpsys_modem_sec_poll(unsigned long cmd)
+> +{
+> +	struct arm_smccc_res res;
+> +
+> +	arm_smccc_smc(MTK_SIP_KERNEL_CCCI_CONTROL, cmd, 1, 0, 0, 0, 0, 0, &res);
+> +
+> +	return res.a0 == 0;
+> +}
+> +
+> +static int scpsys_modem_sec_power_on(bool on)
+> +{
+> +	struct arm_smccc_res res;
+> +	unsigned long cmd = on ? MTK_MD_MTCMOS_ENABLE : MTK_MD_MTCMOS_DISABLE;
+> +	bool tmp;
+> +	int ret;
+> +
+> +	arm_smccc_smc(MTK_SIP_KERNEL_CCCI_CONTROL, cmd, 0, 0, 0, 0, 0, 0, &res);
+> +	if (res.a0 == 0)
+> +		return 0;
+> +
+> +	ret = readx_poll_timeout(scpsys_modem_sec_poll, cmd, tmp, tmp,
+> +				 MTK_POLL_DELAY_US, MTK_POLL_TIMEOUT);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+>   static int scpsys_power_on(struct generic_pm_domain *genpd)
+>   {
+>   	struct scpsys_domain *pd = container_of(genpd, struct scpsys_domain, genpd);
+> @@ -633,7 +667,9 @@ static int scpsys_power_on(struct generic_pm_domain *genpd)
+>   		regmap_clear_bits(scpsys->base, pd->data->ext_buck_iso_offs,
+>   				  pd->data->ext_buck_iso_mask);
+>   
+> -	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
+> +	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_SECURE))
+> +		ret = scpsys_modem_sec_power_on(true);
+> +	else if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
+>   		ret = scpsys_modem_pwrseq_on(pd);
+
+So we can have either cap MTK_SCPD_MODEM_SECURE or MTK_SCPD_MODEM_PWRSEQ but...
+
+[...]
+
+> @@ -719,10 +761,12 @@ static int scpsys_power_off(struct generic_pm_domain *genpd)
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
+> -		scpsys_modem_pwrseq_off(pd);
+> -	else
+> -		scpsys_ctl_pwrseq_off(pd);
+> +	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_SECURE)) {
+> +		if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
+
+... here it seems that a power domain could have both caps set. I suppose this 
+second case does not exist, but code should treat just one of the two cases 
+(mutual exclusive or not mutual exclusive).
+
+Regards,
+Matthias
