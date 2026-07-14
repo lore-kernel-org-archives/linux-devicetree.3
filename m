@@ -1,224 +1,324 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F6B3655EA
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 11:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A7B367F4A;
+	Tue, 14 Jul 2026 11:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784027801; cv=none; b=P4dDT/yz6tTtVRnP18EoZ0R6FKIuzMnoxzpLwGK8GDP2KNlDt0l59JAyLg2GESdD9WQQIKFwUqeC+KdqcE6K/5WHi94tYcIrOguElIokvu3QG8ITtwdt7bBLgrnPzbAvzSD0SPi/mIMMj0BxsZiHebRfdzMM051arQptApt0/Sk=
+	t=1784028050; cv=none; b=UaII+ALtGb/mzbcBCOFnMKgGJTFeDt/UHR8Z2s3dCUxA+ttvtraU6LwF+OOzKwzqy85Q9JdsQdTEKaZrqgZJl53cQgEOQ82TckcGKHPzpI5V6UVN2kJ+EBzSZkvRkEI0XhQkYmxO8RguoQP+XmN6ALXoBEZtZqbhbp5TGYA2twA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784027801; c=relaxed/simple;
-	bh=Z6Y34jKjuSYJSMyRBreQ7f8PcjGfzzNol+FGO+1pqzw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PvuWN+QOsNaZA7Dx0defPqvAEitHfsJuTtrULEHmI07mbefAdc1pykJz44oe559Mq389ae642flWIlrpPpENpprKTH9jCm+BT5lDltW7T9Q2LnYAEzkFCTKk9S9r5kqyOEwGsv8V4GZjyvwblnNXiQPgyZSF4Ier/17z0fntMdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNWU5hcd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784028050; c=relaxed/simple;
+	bh=9v0u859gKTDMwsrTcTlpmsV2knq/Ux1QRTk6GRNLP/Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UwnRLb6Uci0oSLT5SStNTp2Ghi2Img2kiZj9uSrr0Op9ODW9nb9YWh8N7ZeZHBQAXqLn3Em4YWOHJQKgfiXlM7lyzi7UPuzvZ8/XWvjN83M1ZN+uecwpoM9gTiOsTH9IjHi2I6vTN03DNwCMtkAo1dnco1xJIj41hnzQcvscEJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YoRIV+rw; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNWU5hcd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53ED11F000E9;
-	Tue, 14 Jul 2026 11:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784027799;
-	bh=oSD4Ijah9FPQnpFsXPHGC+3xDrLWI131nmYNXRf2k30=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XNWU5hcdYIiy7MCgWaM27Nc/1xkAjjsTSBA8Rh85ON2QatM+IaYvPlhG4m5Dc7wEe
-	 hERuii3QOMm2HlWQkb1lHcxMZ4IqiFd+cEbaEWuQ2EVSex8IyRpstRCB6uxJLWiLfG
-	 wv8W2ZElsYFI+NqTgEmf/CtHf/qYcZjra0NRq+HbDE5r6o/5yZWOq5PKK/Pfni25aL
-	 DRBdRI9p/6Gwiq87jSmuNxAY4xcnR7o/8kdelYQred+ieCpMzBKKIjSDalzFGdUN5C
-	 lQlQFeze7g0DoRdc4JQ2QGMimdUA+M2ivJoMBmlewsg5fa/lZhcuUiOKYXwv3Y8WZ9
-	 6f/gy6CO8ikaA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
- DSI bridge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: syyang@lontium.com
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260714105828.2763677-3-syyang@lontium.com>
-References: <20260714105828.2763677-1-syyang@lontium.com>
- <20260714105828.2763677-3-syyang@lontium.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 11:16:38 +0000
-Message-Id: <20260714111639.53ED11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YoRIV+rw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784028049; x=1815564049;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9v0u859gKTDMwsrTcTlpmsV2knq/Ux1QRTk6GRNLP/Y=;
+  b=YoRIV+rwRVuUuW77oRfvBY9sO0xNpWKuuMJkjNQa3M7gus1bzc49YD27
+   +WIsvLGaPG9y8/WRCSCvuP5ZR9551VQq8sKM9QLysksJ0FTEW+VF8eUTZ
+   PpMSvtojnJ5OST5zJWGEzghMJTq6qGpoxvWqeHFJ3Rf/dhYhdTLFZ8gk1
+   Pl/dx1RBydeSLTMCuiXk7VANhoHpN2R7YEolISljN1BbOk3ljhyd3LQUY
+   XTwB02CeygxeLR4ycMlYJLDQwZIAH0QOwxxlUfXPpPEnFXRk7u3s9DuH1
+   YZ4vpz5ueAQVCrfFfhX1vdablr5R7UQKYAiKRr+n04+WSY4ndNGjUZZZA
+   A==;
+X-CSE-ConnectionGUID: Tool9qOIQ+qEgtgE50C4pA==
+X-CSE-MsgGUID: QrvuceX2RiG9d6Jssc41Zw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="95293563"
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
+   d="scan'208";a="95293563"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 04:20:48 -0700
+X-CSE-ConnectionGUID: 2cPIwIgPQ+6NuMrvIVeviQ==
+X-CSE-MsgGUID: HCBcASgMSe+PI2JxmdSJYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; 
+   d="scan'208";a="260719014"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Jul 2026 04:20:45 -0700
+Date: Tue, 14 Jul 2026 14:20:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH v16 07/10] iio: imu: inv_icm42607: Add Accelerometer for
+ icm42607
+Message-ID: <alYbi_Bp0wVOlJ1i@ashevche-desk.local>
+References: <20260713215842.69097-1-macroalpha82@gmail.com>
+ <20260713215842.69097-8-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713215842.69097-8-macroalpha82@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Dynamic devm allocation and bridge registration in DSI host attach=
-/detach causes devres leaks and list corruption.
-- [High] Asynchronous workqueue dereferences dangling `bridge.dev` if the D=
-RM display controller unbinds.
-- [Medium] Failure to clear `output_bridge` in `dsi_host_detach` prevents p=
-anel re-attachment.
-- [Low] Mutating `pre_enable_prev_first` of a downstream bridge object viol=
-ates subsystem API layering.
-- [Low] Unsynchronized reads of `lt7911exc->removed` in the asynchronous wo=
-rkqueue.
---
+On Mon, Jul 13, 2026 at 04:58:37PM -0500, Chris Morgan wrote:
 
---- Patch [2]: [PATCH v16 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIP=
-I DSI bridge ---
-commit f0896e2dbabe50d3cbe793868df9c6d4afd6db5f
-Author: Sunyun Yang <syyang@lontium.com>
+> Add icm42607 accelerometer sensor for icm42607.
 
-drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+...
 
-This commit adds support for the Lontium LT7911EXC bridge chip, which=20
-converts eDP input to MIPI DSI output. It implements firmware upgrades,=20
-GPIO reset handling, and DSI host interface attachment.
+> +#define INV_ICM42607_ACCEL_CHAN(_modifier, _index, _ext_info)			\
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
-/bridge/lontium-lt7911exc.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+> +{										\
 
-[ ... ]
+You can also make it a compound literal, so it will be possible to use in the
+assignments at run-time (maybe not needed).
 
-> @@ -344,14 +344,14 @@ static void lt7911exc_firmware_upgrade_work(struct =
-work_struct *work)
-> +{
-> +	struct lt7911exc *lt7911exc =3D container_of(work, struct lt7911exc, wo=
-rk);
-> +	struct device *dev =3D lt7911exc->dev;
-> +	const struct firmware *fw;
-> +	u8 *buffer;
-> +	size_t total_size =3D FW_SIZE - 4;
-> +	u32 crc32, version;
-> +	int ret;
-> +
-> +	mutex_lock(&lt7911exc->upgrade_lock);
-> +	if (lt7911exc->removed)
+(struct iio_chan_spec) {
 
-[Severity: Low]
-Should this read of the removed flag be protected by the ocm_lock? It
-appears this can be evaluated concurrently with driver removal since the
-lock isn't held here.
+But again, it's up to you.
 
-> +		goto out_unlock_upgrade;
-> +
-
-[ ... ]
-
-> +out_unlock_upgrade:
-> +	scoped_guard(mutex, &lt7911exc->ocm_lock) {
-> +		if (!lt7911exc->removed)
-> +			lt7911exc->upgrade =3D false;
-> +	}
-> +
-> +	/* Notify DRM to re-trigger modeset after firmware upgrade */
-> +	if (!lt7911exc->removed && lt7911exc->bridge.dev)
-> +		drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
-
-[Severity: High]
-Could this dereference a freed drm_device if the upstream DRM display
-controller unbinds before the firmware upgrade completes?
-
-The I2C device has a lifecycle independent of the DRM display controller.
-If the upstream DRM driver is unloaded, the drm_device is destroyed, but
-the I2C device remains, leaving bridge.dev populated but dangling.
-
-If a sysfs write triggers this asynchronous workqueue in that window,
-it looks like it will pass a freed pointer to drm_kms_helper_hotplug_event(=
-).
-
-> +
-> +	mutex_unlock(&lt7911exc->upgrade_lock);
+> +	.type = IIO_ACCEL,							\
+> +	.modified = 1,								\
+> +	.channel2 = _modifier,							\
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),				\
+> +	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),			\
+> +	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE),		\
+> +	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),		\
+> +	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
+> +	.scan_index = _index,							\
+> +	.scan_type = {								\
+> +		.sign = 's',							\
+> +		.realbits = 16,							\
+> +		.storagebits = 16,						\
+> +		.endianness = IIO_BE,						\
+> +	},									\
+> +	.ext_info = _ext_info,							\
 > +}
 
-[ ... ]
+...
 
-> +static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct =
-mipi_dsi_device *dev)
+> +static int inv_icm42607_accel_write_scale(struct iio_dev *indio_dev,
+> +					  int val, int val2)
 > +{
-> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> +	struct drm_bridge *bridge;
+> +	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
+> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
+> +	size_t scales_len = ARRAY_SIZE(inv_icm42607_accel_scale_nano);
+> +	struct device *dev = regmap_get_device(st->map);
+> +	unsigned int idx;
+> +	int ret;
 > +
-> +	/* currently do not support connecting several DSI devices to the same =
-host */
-> +	if (lt7911exc->output_bridge)
-> +		return -EBUSY;
+> +	for (idx = 0; idx < scales_len; idx++) {
+> +		if (val == inv_icm42607_accel_scale_nano[idx][0] &&
+> +		    val2 == inv_icm42607_accel_scale_nano[idx][1])
+> +			break;
+> +	}
+> +	if (idx >= scales_len)
+
+'==' should suffice, otherwise it will be an interesting case.
+
+> +		return -EINVAL;
 > +
-> +	if (dev->lanes > 4) {
-> +		dev_err(lt7911exc->dev, "unsupported number of data lanes(%u)\n", dev-=
->lanes);
+> +	conf.fs = idx;
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	return inv_icm42607_set_sensor_conf(st, &conf, IIO_ACCEL);
+> +}
+
+...
+
+> +static int inv_icm42607_accel_read_odr(struct inv_icm42607_state *st,
+> +				       int *val, int *val2)
+> +{
+> +	unsigned int odr;
+> +	unsigned int i;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	odr = st->conf.accel.odr;
+> +
+> +	for (i = INV_ICM42607_ODR_1600HZ; i < ARRAY_SIZE(inv_icm42607_accel_odr); i++) {
+> +		if (i == odr)
+> +			break;
+> +	}
+> +	if (i >= ARRAY_SIZE(inv_icm42607_accel_odr))
+> +		return -EINVAL;
+
+Ditto. And so on.
+
+> +	*val = inv_icm42607_accel_odr[i][0];
+> +	*val2 = inv_icm42607_accel_odr[i][1];
+> +
+> +	return IIO_VAL_INT_PLUS_MICRO;
+> +}
+
+...
+
+> +struct iio_dev *inv_icm42607_accel_init(struct inv_icm42607_state *st)
+> +{
+> +	struct device *dev = regmap_get_device(st->map);
+> +	struct inv_icm42607_sensor_state *accel_st;
+> +	struct iio_dev *indio_dev;
+> +	const char *name;
+> +	int ret;
+> +
+> +	name = devm_kasprintf(dev, GFP_KERNEL, "%s-accel", st->hw->name);
+> +	if (!name)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*accel_st));
+> +	if (!indio_dev)
+> +		return ERR_PTR(-ENOMEM);
+
+> +	accel_st = iio_priv(indio_dev);
+> +
+
+Move this blank line to be above on the previous assignment.
+
+> +	accel_st->power_mode = INV_ICM42607_SENSOR_MODE_LOW_NOISE;
+> +	accel_st->filter = INV_ICM42607_FILTER_BW_73HZ;
+
+> +
+> +	iio_device_set_drvdata(indio_dev, st);
+
+And here I would rather move this line to be after the all assignments, so we
+won't have the potential code that might use unfilled data in between.
+
+> +	indio_dev->name = name;
+> +	indio_dev->info = &inv_icm42607_accel_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = inv_icm42607_accel_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(inv_icm42607_accel_channels);
+> +
+> +	ret = devm_iio_device_register(dev, indio_dev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return indio_dev;
+> +}
+
+...
+
+> +static void inv_icm42607_update_config(struct inv_icm42607_sensor_conf *conf,
+> +				       struct inv_icm42607_sensor_conf *oldconf,
+> +				       bool *config0, bool *config1)
+> +{
+> +	if (conf->mode < 0)
+> +		conf->mode = oldconf->mode;
+> +	if (conf->fs < 0)
+> +		conf->fs = oldconf->fs;
+> +	if (conf->odr < 0)
+> +		conf->odr = oldconf->odr;
+> +	if (conf->filter < 0)
+> +		conf->filter = oldconf->filter;
+
+> +	if (conf->fs != oldconf->fs || conf->odr != oldconf->odr)
+> +		*config0 = true;
+> +	else
+> +		*config0 = false;
+
+Can be simply
+
+	*config0 = (conf->fs != oldconf->fs) || (conf->odr != oldconf->odr);
+
+(I added parentheses for better reading of this expression to make it clear
+ that the recipient is a boolean.)
+
+> +	if (conf->filter != oldconf->filter)
+> +		*config1 = true;
+> +	else
+> +		*config1 = false;
+
+In the similar way.
+
+> +}
+
+...
+
+> +int inv_icm42607_read_sensor(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     s16 *val)
+> +{
+> +	struct inv_icm42607_sensor_conf conf = INV_ICM42607_SENSOR_CONF_INIT;
+> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
+> +	struct inv_icm42607_sensor_state *sensor_st = iio_priv(indio_dev);
+> +	struct device *dev = regmap_get_device(st->map);
+> +	unsigned int reg;
+
+> +	u8 data[2];
+
+Define using the correct type. AFAICS it should be __be16 data;
+
+> +	int ret;
+> +
+> +	if ((chan->type != IIO_ANGL_VEL) && (chan->type != IIO_ACCEL))
+> +		return -EINVAL;
+> +
+> +	switch (chan->channel2) {
+> +	case IIO_MOD_X:
+> +		if (chan->type == IIO_ANGL_VEL)
+> +			reg = INV_ICM42607_REG_GYRO_DATA_X1;
+> +		else
+> +			reg = INV_ICM42607_REG_ACCEL_DATA_X1;
+> +		break;
+> +	case IIO_MOD_Y:
+> +		if (chan->type == IIO_ANGL_VEL)
+> +			reg = INV_ICM42607_REG_GYRO_DATA_Y1;
+> +		else
+> +			reg = INV_ICM42607_REG_ACCEL_DATA_Y1;
+> +		break;
+> +	case IIO_MOD_Z:
+> +		if (chan->type == IIO_ANGL_VEL)
+> +			reg = INV_ICM42607_REG_GYRO_DATA_Z1;
+> +		else
+> +			reg = INV_ICM42607_REG_ACCEL_DATA_Z1;
+> +		break;
+> +	default:
 > +		return -EINVAL;
 > +	}
 > +
-> +	bridge =3D devm_drm_of_get_bridge(lt7911exc->dev, host->dev->of_node, 1=
-, 0);
-
-[Severity: High]
-Is it safe to dynamically allocate devm memory during panel attach?
-
-If the downstream panel driver is repeatedly unbound and rebound by a
-local administrator, this will repeatedly allocate devres memory without
-freeing it, causing a memory leak.
-
-> +	if (IS_ERR(bridge)) {
-> +		dev_err(lt7911exc->dev, "failed to add DSI device\n");
-> +		return PTR_ERR(bridge);
-> +	}
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
 > +
-> +	lt7911exc->output_bridge =3D bridge;
+> +	guard(mutex)(&st->lock);
 > +
-> +	/*
-> +	 * Force panel-first enable order: the DSI output stream (0xe0b0)
-> +	 * must not be enabled before the panel is powered on.
-> +	 * This override is safe because LT7911EXC's transfer() is a stub =E2=
-=80=94
-> +	 * panel DCS commands are silently discarded and panel init is done
-> +	 * by the chip's internal firmware. The panel driver's
-> +	 * prepare_prev_first preference is therefore irrelevant here.
-> +	 */
-> +	lt7911exc->output_bridge->pre_enable_prev_first =3D false;
-
-[Severity: Low]
-Is it acceptable to modify the state of a downstream bridge object
-that is owned and managed by another driver? Doing so bypasses the
-subsystem API layering.
-
+> +	/* enable sensor */
+> +	conf.mode = sensor_st->power_mode;
+> +	conf.filter = sensor_st->filter;
+> +	ret = inv_icm42607_set_sensor_conf(st, &conf, chan->type);
+> +	if (ret)
+> +		return ret;
 > +
-> +	drm_bridge_add(&lt7911exc->bridge);
-
-[Severity: High]
-Does this corrupt the global bridge list if the panel driver is rebound?
-
-When the downstream panel unbinds, lt7911exc_dsi_host_detach() calls
-drm_bridge_remove(), which moves the bridge to the bridge_lingering_list
-and destroys its mutexes.
-
-If the panel binds again, this drm_bridge_add() will be called on the same
-bridge structure, invoking list_add_tail() on a node that is already tracked
-in the lingering list.
-
+> +	/* read sensor register data */
+> +	ret = regmap_bulk_read(st->map, reg, data, sizeof(data));
+> +	if (ret)
+> +		return ret;
 > +
-> +	return 0;
-> +}
-> +
-> +static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct =
-mipi_dsi_device *dev)
-> +{
-> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> +
-> +	drm_bridge_remove(&lt7911exc->bridge);
-
-[Severity: Medium]
-Does this prevent the panel from re-attaching later?
-
-The detach function does not set lt7911exc->output_bridge back to NULL.
-If the downstream panel driver tries to attach again,
-lt7911exc_dsi_host_attach() will check if output_bridge is set and return
--EBUSY, leaving the display pipeline permanently broken until the bridge
-driver is reloaded.
-
+> +	*val = get_unaligned_be16(data);
+> +	if (*val == INV_ICM42607_DATA_INVALID)
+> +		return -EINVAL;
 > +
 > +	return 0;
 > +}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714105828.2763=
-677-1-syyang@lontium.com?part=3D2
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
