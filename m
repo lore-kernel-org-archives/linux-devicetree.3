@@ -1,81 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B0F32B108
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 22:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABF3345CCD
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 22:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784067256; cv=none; b=JPY37qH/1SB2JYY/3rpl/swN6+43bqVmuq/U2L53jHB8WQzgdj6yMZz79MJgwPwKIImNys9yCmFt77zqtBnRffatt/OX8UlEwkzt9mj2HkkPtusp3Myrv9+DMSo/rKLHORT10Gpr/dEPv4ezgnxSkDVt3iNBdjMIrhxPEB0nZeQ=
+	t=1784067522; cv=none; b=q/cmEI/Q4xAheh+1WdxABecBDXFm7Xs3jLHmUyg+8kQb0iA+iqQh52/bwFlLU1OPW91paZvZYwN11ZdbGwhHHvQjTvGuQ6CMCT64CtoWZzuilLXwdpeRY6J9V/LyaNu8hMd/T1R+uo7azPfJxrajecN9drd09IP6SHuAvTGOa08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784067256; c=relaxed/simple;
-	bh=sQo8MyflNQaFf9wonNZi16/VWQyCHrzPFF6L24qGfiE=;
+	s=arc-20240116; t=1784067522; c=relaxed/simple;
+	bh=zE4/VqVuqJcmLrVH3FOoILkeVZE5/aWlHlMGboDOFA4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CgdJnK1iiAeSZVEsuLcgRBSOWJUKCuwLiTTpYyPWw96SO/Df962cxBAlJLEhtnItB1+oSUO/QAByBqW03ffXOpcnbW6hLAgWeA3HxAbTu6zRVAyAG/pE4v0PPdRzz5+XXoUlDa3DhUbIxIq8hzFChDGIIraU2ER716vWN4vsbd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaKgu+vB; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=ZcpJFzxOSqVl0AwKA1lKrXMY59NaRaZOK+Ki2R5clVGNURfM+IcBM81Mepskh+wYFQ1mGEG7xe89vSb2qUq7AQcjsNFRm/Pl8tMkS5yyfmBptUB/DlX1s+BfNdiNhT6zfVZYzPFLKphr7TIM703ERCd8Ygl/5zjPuy9PYNdTu2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iczIVJ4N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaKgu+vB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5468B1F00ACF
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 22:14:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iczIVJ4N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372DC1F000E9
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 22:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784067251;
-	bh=BLIsbd3rIu0q440Nh2W6RF4EH0NXixw4UPs/AFN2KRU=;
+	s=k20260515; t=1784067521;
+	bh=eIZxXxv+tXPpBDgH9el62yWObQ2/JLuBH/QJ8Rckin4=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FaKgu+vB2YYShsFe2M1JXkalONH4g3PsMIU7elO6lSWiO9dMoJwlqx4j8W/8cPjYg
-	 x+t2lVWhdjNNhMEYK4ngb8iqlT1Kj+JEQ/eCDilp9c4RWCuPiwkFuxCiatLqDGF5SL
-	 2MOtduM7IRUQnPl2+LwD636S9a16tBhEDpCJaBLWK3zViZ4djKjamY+ToFzDEE/FFy
-	 VAGAvB9TamK+/1fem6UcIodLpkiMqFiO/QyajNcoQu6P2ak6ssvHffzC3O7E81K1WG
-	 GApTL//Y4RCUu/ta84KBQWM8VeimHtoQaOyZ/XPxfPQxb/EJi3FtHkRTc8dzmjVhZ3
-	 7HsXS5GEem7zw==
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15ba3a2b4bso554588266b.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:14:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rqp8anrKGa2CDsP1m+wt0bhCzN1QW6I97lXozzIC5lBynlkegg5ZeLCFzW2HE82QYy2ZyzlGmZ6RAI1@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKak04VvU/SoBch2ptDOgH7HfsgUOEjDfQhHthR6LoC9eg+/Me
-	snuoLd7Wzz43zRHwlbKCWQ2ClGSM7Fe9ZiWQWSuiQocRrm6dYKRXusBJ15qTrkPTwKCMKEvTmFX
-	Skc6QcQ8zjnCfDWBIXn1BUBC+JhkEjw==
-X-Received: by 2002:a17:907:97ca:b0:c12:73fd:a6cd with SMTP id
- a640c23a62f3a-c1661928df9mr370952366b.52.1784067249841; Tue, 14 Jul 2026
- 15:14:09 -0700 (PDT)
+	b=iczIVJ4NgscbrqaFczNkEXAZ72kR6NInSaVwtT+g0fM/45cx9W+8Ce9CSaq8gNz+Z
+	 iFe+tnz3DsA2xCPnoMNmfluvogNNWdpNeq9Wj1XxOUKtDwjXn9hPJ32ufIhKggAkAH
+	 I+cReVFKKUMWLil0JJKv941gU5ibiF0KoXVGjeVhpZaBvel7cxPES7WxoJlpjkajMe
+	 sSbQq0HeP7rD9hc5G4RFb051LYVR3ne5OXQZtjXpvdVcANFm07a0stlWGI+5YkMIfG
+	 mwndiKRFpIoEI+nAA6KasM+yNdmyriKU7jmA75zM4vQJ8uI4MDrM+ZEfZCBsgwMkPK
+	 RV/5f+jm7kY9A==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c1614804757so493222466b.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:18:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoJixSuIyQ+MrJZsrk89TEi2AVTpNfTUmwC08HyWKFZJxLBw3XGy0wTShFBqF912Un/JIPwUPs9mDb+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZEBL4ETI3Vs54aUjXsSJe70/ih+10jEXP8Kn25Hs+6+Y0v2Tv
+	qkWk5NbgTCUOGjdG6d4Jxk8FrBU8mCzCWGQxXnTg9uk0JgNph0J+pXddVYLGO8pd3ZRXBEqUfbb
+	vdtXxhFgYrTKk89VX3by/ZQ60Ue3yeQ==
+X-Received: by 2002:a17:907:d80a:b0:c12:96af:acf7 with SMTP id
+ a640c23a62f3a-c1679307be0mr35724366b.43.1784067519854; Tue, 14 Jul 2026
+ 15:18:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714-add-coresight-nodes-for-shikra-v1-0-b1cf85962455@oss.qualcomm.com>
- <20260714-add-coresight-nodes-for-shikra-v1-2-b1cf85962455@oss.qualcomm.com>
-In-Reply-To: <20260714-add-coresight-nodes-for-shikra-v1-2-b1cf85962455@oss.qualcomm.com>
+References: <20260708-dts-qcom-eliza-add-bwmon-v1-1-602a409f550f@oss.qualcomm.com>
+ <178362531886.2423236.15524151411935053875.b4-ty@kernel.org>
+In-Reply-To: <178362531886.2423236.15524151411935053875.b4-ty@kernel.org>
 From: Rob Herring <robh@kernel.org>
-Date: Tue, 14 Jul 2026 17:13:58 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLqbSrQKnnj2=57d-hFFeQ4xsDigLzmD-LHfufm=Mpp-Q@mail.gmail.com>
-X-Gm-Features: AUfX_myV2MEj_WnNpL4PNdWyXrVcH3TfBaO-6JJmtqnBFQREW3AFA5aOuTd8Dkw
-Message-ID: <CAL_JsqLqbSrQKnnj2=57d-hFFeQ4xsDigLzmD-LHfufm=Mpp-Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: shikra: Add coresight nodes
-To: Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, coresight@lists.linaro.org, 
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org
+Date: Tue, 14 Jul 2026 17:18:28 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqK8vEN48DrS=aAyu7QMrMZVTWGCSADPPcgwAd77GzCPGQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxZ5H3Dmc9Ije2tAB7DSx5dWyfLqdISdj5COsPt5qCVJ_8IyPPkRM0tWRs
+Message-ID: <CAL_JsqK8vEN48DrS=aAyu7QMrMZVTWGCSADPPcgwAd77GzCPGQ@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: eliza: Add CPU and LLCC BWMONs
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 13, 2026 at 8:58=E2=80=AFPM Jie Gan <jie.gan@oss.qualcomm.com> =
-wrote:
+On Thu, Jul 9, 2026 at 2:32=E2=80=AFPM Bjorn Andersson <andersson@kernel.or=
+g> wrote:
 >
-> Add DT nodes for the CoreSight debug and trace subsystem on Qualcomm
-> Shikra SoC.
 >
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 1298 ++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 1298 insertions(+)
+> On Wed, 08 Jul 2026 15:29:23 +0300, Abel Vesa wrote:
+> > Describe the CPU and LLCC bandwidth monitor nodes for Eliza, together
+> > with the corresponding OPP tables.
+> >
+> >
+>
+> Applied, thanks!
+>
+> [1/1] arm64: dts: qcom: eliza: Add CPU and LLCC BWMONs
+>       commit: 4e967cad02bce8983c4e826cd13ef0e730692832
 
-NAK
+Either wait for the binding to be applied or apply the binding with
+this if it is a binding only change with no driver changes so that we
+can have fewer intermittent warnings. It didn't help that it was not a
+series.
 
-Fix the sashiko issue.
+I'm applying the binding.
 
 Rob
