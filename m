@@ -1,211 +1,308 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49593B42E9
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784033836; cv=fail; b=uv5KqzbDJW7+aw1xErtjeUVxsePAzsyatJMKcHZ0yKpaIk7baIyvEF8M9mYsfXHz9vpdpjsp8jQS/PEOk391EVMmnwmhVZplj3zCcdteKDsosleXYm7OeFR9yc9wsMbbacIkDIahzCQ56Pag0rOLVk9M0YZx97ijAQ6mL8FCE0g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784033836; c=relaxed/simple;
-	bh=cI7Zft1TqOt0D+NuoVCqNIR+iJCUAxUFpPnUemsWKCU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VBJLbPFgp4KqHOU4DJ/FIrJ4TSzXKxvYsrakEGi+dW7kVv4uRb7xe1IvrcgGiLlAVRXWCs1j5Z7EcI44NF6WrrY3/DCVo2HuBaVgItLpeIkIVE+klh9Gka5dAmpuH1Mm/q5Q3H/f/RoIRGFsKFO6Hekhvn0AjfOXS096BVxRIAg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=ZdPWraAJ; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=FzzxZcRL; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8D345BD71
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784034099; cv=none; b=ttmwpbveKQtzXpv+3B8N/aD/IzWllwm7ELfb0oXVgmTIGgFz7zGZ8FeVvKYqb1o42igOKTLNIUEy4yq7r407xSDXfHFygLf1RGZdcGyLkyhPfE5cC1zdjRNrGWQyi4CoTYy3lWc1UoHln5NW3Nkin6ci/WKd6KU46ANXXYFKOGc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784034099; c=relaxed/simple;
+	bh=wiUVEPinw9N+2X2D0NbPEHwitXA0TSkVxf6Wzl6ISJY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qri9/5Hcv/4EPcznYfKZNXDkseUeE3BDICWDPQeJA2MweZwqAAbRW4f0jIhQvRLnkV4+h740tbjKaZq3FfaEmLdTDjIk5TOLmWlaXtMC8w2O17qWNndNAZw7zTeNvnLDQnTKT4QyYVp6kBITtcy92QYf+GIU0KZvo+uOUodTiDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KrWUboeT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M/WhIdi9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="ZdPWraAJ";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FzzxZcRL"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66EBPp62695296;
-	Tue, 14 Jul 2026 07:57:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=iE4PlKF2SVsor8rjhmNRWI6FXUaZZ0xkR0vwd8d1T
-	pQ=; b=ZdPWraAJRlsT6a3jmJNloI/Ybsd1HTjhtO2Y/RdIJNYJu8MxT75HIF3Rd
-	1999wi1/NVoVWFvvwfr9S/KsPLOBB5y3jtNAh/u9J0oZVbaIvAxEQpBHlkuRE0KF
-	TwaVpceYxnjb/QDG/dAhGkWkIV/KwLG7NxALlxMaMXP8zTbK8U7NLe+h7eT+bvHM
-	Lrv/nWjanfanf8UjQLJaPdCXtDm1cTli7Sd2XTRy2FPND2uyb0bwEGVVVhEFMaWo
-	WGNQfV7zURExFI0BpJdKd1rviYlDJW7V4kG0aSmzNAqXbhIAwUl8kDAkbj1aCp+7
-	fOErvzzCGeve0Pt8JtTkQsouNygqQ==
-Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010045.outbound.protection.outlook.com [52.101.56.45])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4fdm2dge37-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 14 Jul 2026 07:57:08 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a9vgjUt44HVxPkHmUAmtXTbzqpt2iBNiIHv1KcUh2qqAWddSzFuA7XID9akbOMRY+PjwXEVsnyX4UROs/BWP/f0smiWQSAR0TSmGmJbI5qAxnPQ4DL06Kv/9zli/CkPCZY2rhgcTV8pmsY1TQohpXzKdQ5FgmZlYCNEOG2g59HGYqeXHZz72pUOwKYZRKNXqgbCsbovhQ68C7zUvoEgHDijSiopZ/UDsELMSzVrRSTulS1vbUKzMHKFtlbbAjbftnWovkPPTHHDxVdi+d3iT8BVr8zOLo0aDfrV2kEA1tEcKa66W7zEqflEJ2mpYrorfIGzJWahJXubu7AlEVHAN+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iE4PlKF2SVsor8rjhmNRWI6FXUaZZ0xkR0vwd8d1TpQ=;
- b=ZNo8iqaNm5D0+N2vMs6AIoCRslS7yfCFXH/xMbSrhEJq6IHlYwzbk6j5QUCMMja137BPnNKTA0HpT8rILf3E0nsENt0998MrNNVOiqobXnrL7hbSvuO+4R7lbEzzJ/M0EXBdJWKTsqS5J4rp+KaXHaTPoP+IHGyL/h3qXBcaB5aq/X9GsghSh1nyK+BZnu8YCNA8IzfQtfPJLcfvQA4e2SrzhEL6bz9znGk2b+Ss2qcR9TKP8x1obvQGEJVJGMxSxnm+CUQtDwvuRUBYNBFMXOFYLYfSChC5N4bKUzo5/PTHb49LurW/XhCGhyJpk2WBVj1mVmcLqt39K+fven1Bhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iE4PlKF2SVsor8rjhmNRWI6FXUaZZ0xkR0vwd8d1TpQ=;
- b=FzzxZcRLZP0hiLiy428wzw8jvEjib5Wp/SYkO1tPsF+nlIP4Hop6hsEO5UDyvL1i3b9J9Ks1PwOYxC0IiJRLdmWcR4As+R1VOUdJwf1HYCgo5/kXOr3P0RVsOcz1fmEj4k1HQ37pFSbHFj3r5BMI8janx+hys+w/GmBR0DnwY1Q=
-Received: from DS7P220CA0056.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:224::14) by
- LV3PR10MB8156.namprd10.prod.outlook.com (2603:10b6:408:285::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.10; Tue, 14 Jul 2026 12:57:05 +0000
-Received: from DS2PEPF000061C5.namprd02.prod.outlook.com
- (2603:10b6:8:224:cafe::3e) by DS7P220CA0056.outlook.office365.com
- (2603:10b6:8:224::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.9 via Frontend Transport; Tue, 14
- Jul 2026 12:57:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS2PEPF000061C5.mail.protection.outlook.com (10.167.23.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 12:57:04 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 14 Jul
- 2026 07:56:32 -0500
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 14 Jul
- 2026 07:56:32 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 14 Jul 2026 07:56:32 -0500
-Received: from venkey.dhcp.ti.com (venkey.dhcp.ti.com [10.24.53.161])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66ECu8fa546300;
-	Tue, 14 Jul 2026 07:56:29 -0500
-From: MANNURU VENKATESWARLU <v-mannuru@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <n-francis@ti.com>, <s-k6@ti.com>, <bb@ti.com>, <v-mannuru@ti.com>
-Subject: [RFC PATCH 15/22] arm64: dts: ti: k3-am62p: Add DDR and controller node
-Date: Tue, 14 Jul 2026 18:26:06 +0530
-Message-ID: <20260714125607.3304375-7-v-mannuru@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260714125607.3304375-1-v-mannuru@ti.com>
-References: <20260714125607.3304375-1-v-mannuru@ti.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KrWUboeT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M/WhIdi9"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EBOAq2448188
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:01:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zULZzfXg5cn8fPqepA5+O4tHoqs848wQxaCgPp+Jz7w=; b=KrWUboeTQKv1QkF5
+	Wux2S0tcUpjqOqmNT2nWa2zMDAj1yl5KWLhLMdSzfO0/Abyo56WWN+qRIQxWMfmb
+	UbAh2Ds1dvkw2mucZwZRSQqvRi4BHbmbWDJm6h6FAwznz0E2UZITOwt7aexqvrXi
+	mTijGOJzFO3bazEmIBEHejHkT5r0dM+MlOLT/CD15YWiOXIqlKa620ntz50WilOJ
+	KnKrVU5kW23QE0JXB2fZAGGl9OS5JWfyhPfFlI5x6gePTddfNIsbAkavQ6YVcJ/E
+	gZAykDYm1sOcq4OEneKZibSoOsfqP2ZQ8MErbgh29emYep45xJY0bS0Cb9iS9BmL
+	B4xNKg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fd44juusp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:01:35 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dbe39ce62so1331332a91.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784034094; x=1784638894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zULZzfXg5cn8fPqepA5+O4tHoqs848wQxaCgPp+Jz7w=;
+        b=M/WhIdi93V1M/Ueh4vXMm7Z3o/j7IT1k2ETWut9849BhZiJxK6RFonvtW/gWLFR3hc
+         d1C+I8aWScX0KyL9nmHUC0jGFvdnMbe713jRP2tg6xNoywXkA7xWgoLkQE/OHk2u5Jzl
+         gGAyaAhcAHo+/2Awq7od9M3BTzo4qFGfphz1PIujP15RekM6PZI0V8xm/MFVpucBj9pt
+         kufFY3qX2rK/M+tEuh1BYBu6Uj3wpFQ6C/m8OkHYFgO4SCrC9PhqJ3shp/rKAaZe+1H6
+         3DpHMBKiX/s1EkCPJ8BktLiEYDU2sZ0QpYO1UTnRtyKPg/C9/v+cwjctMmVh/GGVbJsx
+         4W8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784034094; x=1784638894;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zULZzfXg5cn8fPqepA5+O4tHoqs848wQxaCgPp+Jz7w=;
+        b=Juiojusn8++TNIp3eXwDEnoa7GgYT3kvHIsWsTF+NLkdiWoC20Bva3DCqQU1D2pyje
+         SJq0IsnpeofeTpLR3v1gjByZTGnLyqjNaBuKmYji1UvhrQVCsoj7QrYEdBN6+kibkBvQ
+         MdHiCGPZKLnJciENWFO5aOADQNxBgq+8tfhKRHsdsRdp+uSQgS74T9nrmrV/RmptHZ0M
+         qanTfBx6SDs5Ww7GkVfpmYr/AM0P6ya2ql4xwmf/lIOj91ikVqCsqI9CLBvqCyHOgM6z
+         zbnTZQejoBwQ7epIFeZOSbKDFZb1fVV/dLFjl9ffnGmgj25xmI/4JsaAo8iD4yBxkuBt
+         XdWg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/rgRj4fu1bAM9hb4MoqmDZPZG1ONLdbwODjeSvzJ2FAQM3pPPjgs1GUPfyHuDnCZ9O2rzVQ0GOeog@vger.kernel.org
+X-Gm-Message-State: AOJu0YwcGY0lx9jr5pY2fvjux26FXl9KUVfqp61KHnKBFtlKpvdwAtT2
+	ZjOvIzOUt0XPq7CNCJqCVcWBbURaEduubC9A2ka1kPGDyPn6PuXoUsWeELaePEsVFfhdGbKvmVR
+	q8mPfwxJ+HcUT3BFpgAKPWKoiy94DetWTvU69iMue+UghqjtbKzmKv5EaGAa3OyWDOQhSBHY9
+X-Gm-Gg: AfdE7clzn+2tIO4wgBzAAAhBfzGOBYzenIDx1HIUw7IRRBx4AdevrfveBs5Qknb68wH
+	fnkOaEJOKicqZe7vXys9U/10rCGmP5SBRITfCs00OiGsi9fQCFnpI3msx5bn9gwv79M/4KwCc1v
+	M6biDBPlosImniOzlU6qNT9ayXq/r658rKnWSYxSu82gXStqbqLkV913x0DF7Q9h7oR9qhg/XF1
+	SDlcwtHah5MUexqWMZm6pwN7ozOaHzuuaAvx5IaxhXNAzyiN920Ou9KF26xVErnPN+ObmMTcEyP
+	EM6fBiSchzEyDic4SviJfMI/mi3Tih+VCRCWg7x5Ep+rVtxkGT/KBoN2rzMcwv+ldpwym8+rn/q
+	R9iFq4XghOVRgBq3DlUCpJmdEoS9YkqtxUWn+dZZ/cMs=
+X-Received: by 2002:a17:90b:2585:b0:38d:ec55:7aa7 with SMTP id 98e67ed59e1d1-38dec5589c6mr8804114a91.19.1784034094015;
+        Tue, 14 Jul 2026 06:01:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:2585:b0:38d:ec55:7aa7 with SMTP id 98e67ed59e1d1-38dec5589c6mr8804064a91.19.1784034093107;
+        Tue, 14 Jul 2026 06:01:33 -0700 (PDT)
+Received: from [10.206.103.83] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31174ac14f2sm86490794eec.27.2026.07.14.06.01.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 06:01:32 -0700 (PDT)
+Message-ID: <777d061f-3b2e-4b3b-bffd-2ab5b3024e58@oss.qualcomm.com>
+Date: Tue, 14 Jul 2026 18:31:27 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 08/11] arm64: dts: qcom: sm8550: Move Iris IOMMUs to
+ child nodes
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com>
+ <20260709-vpu_iommu_iova_handling-v1-8-72bb62cb2dfd@oss.qualcomm.com>
+ <20260709143046.7B5721F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260709143046.7B5721F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C5:EE_|LV3PR10MB8156:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fe66819-aeec-49c1-f23b-08dee1a76751
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	0xkdwFTc4SNGRO3eu4wPnzJTHcT1ELMcffdhPMD8e0EIKwBh2Q0T0A2nn/CUeucq4rwdL92vl+XUiZZZuw9f3i1GwQ5hGuG7PZtHVOK2R5mv+xRvKqhaDSrobkJt6jzdCDtZqh2u4Qfdz2O6od4AdTNnnXG80nQsehn5DWGw8yYAowzTVHQQXD/mqNVOrcgi2GOAUF3JGpfMvIr6yobbozeY0rRQYUcttFt6TNVzFAXCT/n9kzypwZfC/1xO1oBMeLl+Sor7F2Z3aEyNVBY3LZraUP7PcafQ2I8TDjLturDWi91wlC4LhEE6Fqo9mB8mCs46jtmgf1fw1Nr9GAHoz2+fawACjFQaEideGEvMSF7Jc27EMWWGdMve1uFeXA/08CkvCx/ld6Rn+NuY1likxJnkZdggksw2KgRb17w982hMsOH4ofURCt98ruH7BuMh4R968qHDXck14m2JeNorh0nhZzJyIvSlrh6w77KLrIos1pd57BmyfqWV9O96cizAXn/Fc4bWrrTXL7s2mRyU0tevilX5Xhgzk+9+lxxP8kaKpeAYJMffA/XPk+FAucQdkDQpWCrMCLwxIHas2v6OdzJCcspq4zcvVdn0yyYWECg9sPM0YyQt/b9kpRep/mT2SpF51CpIHBaHeyOnLxAqicuAIKscDODDRYN1rDaixbyhJwSIBi6FGwDuRi3ukuMfPbI5E4iT6YuF1eTuUTpofg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	lRNm6Wjb0aZYo6iV0KpWKoSpMjgz73LYTVOkxBNmEz4fAC5FG2kJLIId5RiOLrGMhfXMdsO6mySFtpkokZSDjzt84jXYmYbItlr97UYcMCHf/PZXBhW3mRoWU0qk0MYfIEmYssvkNb9B/q3qU3PsHsgfkxiC9C3yC0nRr7HC3afYwbmvZxIOk69ZhCId/2wl2JKPgtEvuuacQp+FSRTS3tkcVxPWvj109mHPQyDnfp2dB5Ib+o36s42J1XuChiyW7YYI0lzN1aKomees00MgtfyMjK1LvIW0beaMFVdxSxEody/TSL+lVkDHHJsC0R3N1usMvvDr7cadP8SRprCZ+J8ZbP8YQZoxzVdUfMlomXP6gJIct9tEgGknnXOILLOjGBwlHIDyjulAwSIXwxhGQ2qTengzXbzgAs6dz85VLquSZPaKEqp+oAyx1rHQDC+B
-X-Exchange-RoutingPolicyChecked:
-	UuW6+lSTt0abNmnAfVqDqr2+pv2Lr+VzN2nWOF9rJOQPrcRoNwzrfHsE/ib2mGNN9BZ4V7N68NZC7Jtj6VTGENMHbV7efGG9QtcpSeMZakGqB+kUJLt6DtYmwctq94FaI8WchK81NSWHEi92jmlB1cA9sBzt9XmOCh9lhw7iWOHpy/1GSoCmqxWcriK/sP+Qvnsxeh58JJiWHChoEYcmxsdAoyQ4GRc7czouNQx0nKmuLzZUIUIFd/pxheXjY6f9zrXe3Lh51U+1SMClTWdNqZfvAvpY8XzbroJ39QNU6oUPEfCD4aRwF5F2fBdC/vF9pbVymJKgk6ZCx+WRqlaPAA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 12:57:04.1422
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fe66819-aeec-49c1-f23b-08dee1a76751
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR10MB8156
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDEzNSBTYWx0ZWRfX0ujrvlL2ihqL
- zZY8+7MFjv+DsJ94ywHzrRk5nA2zbsUacKqHWk3ZykUjBB64oFdbW9Z/xZVfC1Xxnpx08a2bwd9
- RWv9RJCgLP9NLTktO2vLpGzQwV9VsKE=
-X-Proofpoint-ORIG-GUID: XfLDsNEx37TD_GfLSZNKXKFLDs84OIuN
-X-Authority-Analysis: v=2.4 cv=f+N4wuyM c=1 sm=1 tr=0 ts=6a563224 cx=c_pps
- a=jCeAeT6ZWnoYcCLLvvbvuw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=sozttTNsAAAA:8 a=UwDTjPQTiHACf9wrAL0A:9
-X-Proofpoint-GUID: XfLDsNEx37TD_GfLSZNKXKFLDs84OIuN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDEzNSBTYWx0ZWRfXzFqatiiiJTJp
- FKaw9eMC03bmlXy0FNbn+Ab6npjLiPnkWaew6adWQnU13AX36WGxy7Ki1ZAMMbT8Nbu6f3VRXW0
- fnWBuQhYmKP68+GUJpKB3TYqsneKyXWiRKj7mDQCpi5a0+JXsnqcWrqpWEVZ9Ord586u/9xNhrj
- 7JFTTR6N+Rv+5/rIGg5zCPilo21q95LlGr41TfusHjdzGD51g/YY8gHXbO8hE+dhbgY5Zu/Rjsu
- ufxYgDWWWTvJGfZkCNC//bTYAxX4rSsMp2Py/FxzsIxhYvCZkTnKG04LAWm4WgBvuecL4ZjU+Zc
- g6ko3XnqHth5dc6OnaD58JwwQul4yter2uqpgYcfZvlMOueAnzAZEAzcpqI3e61NHe082YVztNq
- PMXruV/jUMcVttda2SwYVLUYZ/XofjSbt5tQujYu38Q0fP0op8VESSyiluasyQPpeAnmXH1DHl9
- xBF126hO88czXLxMbyw==
+X-Proofpoint-GUID: UX8MthaNwFRhLwSXJpcKPZ4gFVi0i0wP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDEzNSBTYWx0ZWRfX067tEY9ZtDgL
+ 7lTWnHx+tmUeA3iMgKQpNNqStTQuAkzpodzyhzx28XYEnRkhawmo6GQaVdAIaF/cMnWnQGw/0Gr
+ kCB9hRHTRHP7PRII1jkNsVq4AmxPiphOjPTSMNA5QYYuEzXJ+by6zlDApaJYfWh7YEIhaF6HeZT
+ 8U769ILNrICTLjfUIkhIIFymYWChm6FMNoQyhr0I/NRLEBGboKwkq1FYJO49lfpWxKmY8XyAbJ8
+ IYXEVHj7aZtU4nJSSigB4LDQVxl4Ay9aPmvgaNG7YNHZ0j6G7o37olXpEt1SQsA4uQ3w2Lo6wK6
+ VTf1JYgcaj2jwDjk0wAdzhxnCY0O2GyoPe8kzl621I5NBWbKqpfzx6mnKygkttELSl+Z1X2HSeJ
+ /XBmYvmE8hrnt4Q6IPyHci/MkI0E72zLP1EbkSZa4QiQl1rFHUw8+69L5N0PIXqxd0IuLy5O7+R
+ pWtco120T/smTPcPu6Q==
+X-Authority-Analysis: v=2.4 cv=XonK/1F9 c=1 sm=1 tr=0 ts=6a56332f cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Yny9DMg95cZ_4ygEYTwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: UX8MthaNwFRhLwSXJpcKPZ4gFVi0i0wP
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDEzNSBTYWx0ZWRfXxW6U2at+cvFg
+ K6iJRzpV+Crv300/xzsAGbL6UHJW44T7dggxqawZDBieIqEOMwK2nMe5qGx/C/KZma3z4zwN5ta
+ GPz7WXzmglpWrgt7dEHNke6+w1aAvvg=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-14_03,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 malwarescore=0 adultscore=0 spamscore=0
- suspectscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 phishscore=0
+ spamscore=0 clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501
+ adultscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140135
 
-From: Santhosh Kumar K <s-k6@ti.com>
 
-Add DDR Controller and LPDDR4 node for AM62Px device. This defines the
-memory controller with its register reginos, interrupts, power domains
-and clock requirements.
+On 7/9/2026 8:00 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] The `reservation-iris` node uses `iommu-addresses` without a `reg` property. In `of_iommu_get_resv_regions`, this is parsed as an `IOMMU_RESV_RESERVED` region. The IOMMU subsystem explicitly reserves these regions in the IOVA allocator tree (e.g., in `reserve_iova`), which prevents any DMA allocations from using this memory range. Instead of limiting the non-pixel stream to the 0-600 MB IOVA range, this patch effectively denylists the 0-600 MB range, forcing all allocations to use IOVAs above 600 MB. This inverts the intended hardware constraint and will cause the VPU crashes it aims to prevent.
 
-Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
-Signed-off-by: Gandhar Deshpande <g-deshpande@ti.com>
-Signed-off-by: Neha Malcom Francis <n-francis@ti.com>
-Signed-off-by: MANNURU VENKATESWARLU <v-mannuru@ti.com>
----
- .../dts/ti/k3-am62p-j722s-common-main.dtsi    | 25 +++++++++++++++++++
- 1 file changed, 25 insertions(+)
+hardare constraint is precisely to keep 0-600MB IOVA range in denylist. 
+So this is intended behavior.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-index f130c7cb998d7..4e07ff4fa21ea 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-@@ -1135,4 +1135,29 @@ hsm: remoteproc@43c00000 {
- 		/* reserved for early-stage bootloader */
- 		status = "reserved";
- 	};
-+
-+	memory-controller@f300000 {
-+		compatible = "ti,am62p-ddrss", "ti,am62a-ddrss";
-+		reg = <0x00 0x0f300000 0x00 0x200>;
-+		reg-names = "ss_cfg";
-+		ranges = <0x00 0x00 0x00 0x0f308000 0x00 0x5e10>;
-+		interrupts = <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
-+		power-domains = <&k3_pds 170 TI_SCI_PD_EXCLUSIVE>;
-+		clocks = <&k3_clks 170 0>;
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+
-+		ddr: ddr@0 {
-+			compatible = "cdns,k3-ddr";
-+			reg = <0x00 0x0000 0x00 0x6cc>,
-+				<0x00 0x2000 0x00 0x6a0>,
-+				<0x00 0x4000 0x00 0x1e10>;
-+			reg-names = "ctl_cfg", "ctl_cfg_pi", "ctl_cfg_phy";
-+		};
-+
-+		ddr_pmu0: ddr-pmu@100 {
-+			compatible = "ti,k3-ddr-pmu";
-+			reg = <0x00 0x100 0x00 0x14>;
-+		};
-+	};
- };
--- 
-2.34.1
+> - [High] The `non-pixel` and `pixel` child nodes lack `compatible` strings and do not bind to any platform driver. The driver registers them using `platform_device_register_full()`, but because no driver probes them, the driver core never calls `platform_dma_configure()` (and thus `of_dma_configure()`) for these devices. Consequently, their `dev->iommu_fwspec` and DMA ops remain unconfigured. When `dma_alloc_attrs()` is later called using these context bank devices, the allocations will bypass the IOMMU (falling back to direct physical memory allocations) and trigger SMMU translation faults. The driver must manually invoke `of_dma_configure()` on the created child devices.
+> 
+This is not true, please refer the other path
+
+device_add() (called by platform_device_add(), which 
+platform_device_register_full() invokes) unconditionally calls 
+bus_notify(dev, BUS_NOTIFY_ADD_DEVICE) in core.c. For any device on a 
+bus in iommu_buses[] (platform bus included), that fires 
+iommu_bus_notifier() → iommu_probe_device() → __iommu_probe_device() → 
+iommu_init_device(), all at device-registration time, independent of any 
+driver binding. And iommu_init_device() explicitly handles exactly this case
+
+if (!dev->iommu->fwspec && !dev->driver && dev->bus->dma_configure) {
+         dev->bus->dma_configure(dev);
+         ...
+}
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but in `of_iommu_get_resv_regions`, if `of_translate_dma_region()` fails (e.g., crossing a non-translatable boundary or encountering a malformed `dma-ranges`), it returns `NULL`, which is assigned to the `maps` pointer. Because `length` is uninitialized, it can be non-zero, allowing the code to bypass the `if (length == 0)` check. The loop condition `while (maps < end)` evaluates to true (since `NULL < end`), and the next iteration immediately dereferences the `NULL` pointer at `be32_to_cpup(maps++)`, resulting in a kernel panic.
+> - [High] This problem wasn't introduced by this patch, but `of_iommu_get_resv_regions` lacks bounds checking when parsing `iommu-addresses`. The loop blindly advances `maps` cell by cell, without skipping the address and size data for unmatched phandles. If a data cell coincidentally matches `dev->of_node`'s phandle, or if the property is truncated, `of_translate_dma_region` delegates to `__of_translate_address`, which executes `memcpy(addr, in_addr, na * 4)` and `of_read_number(prop + na, ns)` without ensuring there are `na + ns` cells remaining before `end`. This leads to an out-of-bounds read of the device tree property.
+> --
+> 
+> --- Patch [8]: [RFC PATCH 08/11] arm64: dts: qcom: sm8550: Move Iris IOMMUs to child nodes ---
+> commit 84b6e774da5044311b95ef6d8c3458ace387439e
+> Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> Subject: arm64: dts: qcom: sm8550: Move Iris IOMMUs to child nodes
+> 
+> This commit separates the Iris VPU IOMMUs into pixel and non-pixel child
+> nodes to describe their different IOVA constraints. It also attempts to
+> restrict the non-pixel stream to the 0-600 MB IOVA range using a memory
+> reservation node.
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/qcs8550.dtsi b/arch/arm64/boot/dts/qcom/qcs8550.dtsi
+>> --- a/arch/arm64/boot/dts/qcom/qcs8550.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/qcs8550.dtsi
+> 
+> [ ... ]
+> 
+>> @@ -158,5 +158,9 @@ mpss_dsm_mem: mpss-dsm-region@d4d00000 {
+>>   			reg = <0x0 0xd4d00000 0x0 0x3300000>;
+>>   			no-map;
+>>   		};
+>> +
+>> +		iris_resv: reservation-iris {
+>> +			iommu-addresses = <&iris_non_pixel 0x0 0x0 0x0 0x25800000>;
+>> +		};
+>>   	};
+>>   };
+> 
+> [Severity: High]
+> Does this configuration actually reserve the 0-600 MB range for the non-pixel
+> stream to use, or does it unintentionally prevent its use?
+> 
+> Since the reservation-iris node uses iommu-addresses without a reg property,
+> the IOMMU subsystem parses this as an IOMMU_RESV_RESERVED region. The IOVA
+> allocator explicitly denylists reserved regions to protect them, preventing
+> any DMA allocations from using that memory range.
+> 
+> Will this force all non-pixel stream allocations into higher addresses
+> outside the 0-600 MB range, potentially causing the VPU crashes this aims
+> to prevent?
+
+Yes, thats the intended behavior too. The "non-pixel" sub node is 
+suppose to skip the region 0-600MB entirely, and return IOVAs above and 
+outside the range 0-600MB.
+
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does the addition of the
+> iommu-addresses property expose an unhandled failure path in the IOMMU core?
+> 
+> If address translation fails for any reason (like a malformed property),
+> of_translate_dma_region() returns a NULL pointer. Because the length variable
+> is uninitialized, the code can bypass the length == 0 check:
+> 
+> drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
+> 	...
+> 	maps = of_translate_dma_region(np, maps, &iova, &length);
+> 	if (length == 0)
+> 		continue;
+> 	
+> 	phandle = be32_to_cpup(maps++);
+> 	...
+> }
+> 
+> The loop condition while (maps < end) remains true, and the next iteration
+> will immediately dereference the NULL pointer at be32_to_cpup(maps++),
+> causing a kernel panic.
+> 
+> [Severity: High]
+> This is also a pre-existing issue, but does parsing the iommu-addresses
+> property risk an out-of-bounds read?
+> 
+> The loop in of_iommu_get_resv_regions() advances the maps pointer cell by
+> cell. If a data cell coincidentally matches a device phandle, it calls
+> of_translate_dma_region() which blindly delegates the copy:
+> 
+> drivers/of/address.c:__of_translate_address() {
+> 	...
+> 	memcpy(addr, in_addr, na * 4);
+> 	...
+> }
+> 
+> If there are not enough cells remaining before the end of the property
+> array, could this read past the allocated bounds of the device tree
+> property?
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+>> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> 
+> [ ... ]
+> 
+>> @@ -3690,10 +3694,11 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+>>   			resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
+>>   			reset-names = "bus";
+>>   
+>> -			iommus = <&apps_smmu 0x1940 0>,
+>> -				 <&apps_smmu 0x1947 0>;
+>>   			dma-coherent;
+>>   
+>> +			#address-cells = <2>;
+>> +			#size-cells = <2>;
+>> +
+>>   			/*
+>>   			 * IRIS firmware is signed by vendors, only
+>>   			 * enable on boards where the proper signed firmware
+>> @@ -3701,6 +3706,15 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+>>   			 */
+>>   			status = "disabled";
+>>   
+>> +			iris_non_pixel: non-pixel {
+>> +				iommus = <&apps_smmu 0x1940 0x0>;
+>> +				memory-region = <&iris_resv>;
+>> +			};
+>> +
+>> +			iris_pixel: pixel {
+>> +				iommus = <&apps_smmu 0x1947 0x0>;
+>> +			};
+>> +
+>>   			iris_opp_table: opp-table {
+>>   				compatible = "operating-points-v2";
+> 
+> [Severity: High]
+> Because these child nodes lack compatible strings, they do not bind to any
+> platform driver. When the driver registers them, is their DMA configuration
+> left uninitialized?
+> 
+> The driver core calls platform_dma_configure() automatically when a driver
+> probes. Without a driver binding, the device's iommu_fwspec and DMA ops
+> remain unconfigured:
+> 
+> drivers/media/platform/qcom/iris/iris_resources.c:iris_create_cb_dev() {
+> 	...
+> 	pdev = platform_device_register_full(&plat_dev_info);
+> 	/* of_dma_configure() is not called manually here */
+> }
+> 
+> When the driver later calls dma_alloc_attrs() for these context bank
+> devices, will it bypass the IOMMU entirely and trigger SMMU translation
+> faults?
+> 
+
+Explanation given earlier in this response for the same concern.
+
+Regards,
+Vikash
 
