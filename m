@@ -1,88 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF812E282B
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:29:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC7B2E62A9
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784003374; cv=none; b=eEPo7k9PEJhVb/G3YsLYlLaHIU5iptfVU6ljxfNMnrVxphJq5znt8kBXhfHmW0Bkdf29BK5vm/3D/U3WPGXtf3PxJlXVL2GkOffwBAWSuelxDDO1GAMjcQtaq5jIPvSmAqDE+UykEiss9ZUkvWU0QPVN/Y4jFXhSORBRGfAVfcw=
+	t=1784003377; cv=none; b=RjHoJxpDSyv2MsbvbEM3NLXn/uo8uWhSNpINP6rlpkhM9bg08cAaJhwM+LqWsIQsxgyj4W7Mut7kcKkGYZkANNFAIKAht/GhnnEXRXqLGBeBg5cWpNAAZjIwx6i/b0MgYxBJLLPuacfEo/BCMqrbu2wQ2EW0UE5fExidX6u129I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784003374; c=relaxed/simple;
-	bh=ZQvK0C6JiF+FMSs4PbOUu2p+wZuOV8/Ns8q6nnz3kZE=;
+	s=arc-20240116; t=1784003377; c=relaxed/simple;
+	bh=qBTxNgqvPXIhkW/VgKh1ctAkKcEl9+hhc1jEUBkOmZQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O6pQVMM8rT4sN0SNRnmLmRWhptOxNgJ0Gy/QIUmbPgqBP26UffH+1NtXlatLSc9sqNHR2YcWtKvEevqzQdkTPNtm9+ZXPwg1KQeUFOAU2oseBMhEXntuvVNCVNut2RKw1X9wuljyv0WAlUOe0aFJYPNOrQjNIo/NQv897eCtYIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DP8zWPF2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SPwIlsGP; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=tdi7+11ybbSQaJB3uZLwZHYvvv2DX2ZIZ4qriNTSf+uWrRAKrRiYsnihIfj4jxyL4kAiYej1CQqwm/oRRVvjGtl8fZRWP+dsYXSiZjbgXAebyA7Xz80UVzsGhRbeytj1VMp/a1+nheGJ6eSB6gDWI8KOEQ+qeJitG+wjvIz/gls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=N6uGb7Ky; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WX9Hnxk/; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DP8zWPF2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SPwIlsGP"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66E38NRq3498973
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:29:31 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="N6uGb7Ky";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WX9Hnxk/"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66E3errW3365313
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:29:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	u1/Y33mFmGDlMS3sYpBNbK/O0k52IHx7NX0nZ2tZh8s=; b=DP8zWPF2CELWEpuR
-	w0ItZF8vWcZW+CHqw39l7epbuhoyOJVgebtRS3dHpvobPQL3xhOvOFXxCbkRCZfU
-	kmv/+M40H1dp8od3Y9OfSZD2IC0K8vupdfpjC4NEv3roDrg1v1W3hu09Jmt1iLPe
-	8w9quJ3C8T7dvy6YyZMEpW9BN3nwIkmyMS7BBMxKwSqGbJcqSAOd4FKgkce0xeZP
-	DT2W4v8iEg5jTFo6HMh9m35GbMx1weLxyconMZQ++cMemMts1O+lp4a+OBnzWyO7
-	ZzVJ5rTJn9QKzo2TJvhKb/qAM6npFrSpmtMQaK7gMV+UWhJjzgRiiAsx8k4zSXTd
-	JI/aTw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwda3svf-1
+	HFnEH3JcQpHJy4B87D/E5Q6yMrGEkNdhe+JaWg186Oo=; b=N6uGb7KyhCn+X7As
+	R5JokltnNDz+LC/dysV7Ptbz0AM/B4Hlqur7AeyciBN8ClF3Q6nT+9L4YXAWz77A
+	9MDPs1WDw+TeRSLu7WgP8V+nd3+SrUJbH9tM5kZqgm316q1I3rrrBkSk/y9INjrk
+	pmZodUaeB1asd1Wq32fpUCTncXaJxvCtJAYp/lJVog4L8ivgzvaH/PauqgYwr8jk
+	D9LAEiy0i3XbK30wlhkMse7cFOom2ReBPQcr+pcGtU9PQzI5QwfwLMsoyR07ZdbF
+	scWKB3Pp3HnApOgSGAJwRyXDFj2gr7GNmL1Y8mxq7d74G7pSulHzfk2RsBCnGXAb
+	gneDPg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdde084v7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:29:31 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c9667280edeso4981205a12.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 21:29:30 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 04:29:34 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca7c1e22995so4135319a12.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 21:29:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784003370; x=1784608170; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1784003373; x=1784608173; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u1/Y33mFmGDlMS3sYpBNbK/O0k52IHx7NX0nZ2tZh8s=;
-        b=SPwIlsGPTpA6FJ6To7MgxiyppoIw4OjqpHszdnXgM+svnNmxu5LnlX5/WYE5Z8/e/s
-         OLukWiX4oHCwCuPcO9W5jyA+4T1jbXvzROD7xgiq0+MFAaPspraoZ4T/aP4KQMhnm3W6
-         X5ZhWQ0vb+d2Z1fYZStK/hx3KKMyCVhOf/aefDzcdq9zWHcxYRr0K1EmYCLoEnLWRxfU
-         gOLXJ5oPB2qJRxWN3dITccbBKp6DKJSLTVvikCxXMpcsB439kufNtM0Vn59XIgwcp6sB
-         KQjRXhEbZSVHSELpOted4PLDdCgGPE3MJycyQYwLQD6O/QXcBJXpfneSbttuznGvDrcF
-         S6sg==
+        bh=HFnEH3JcQpHJy4B87D/E5Q6yMrGEkNdhe+JaWg186Oo=;
+        b=WX9Hnxk/kgJJpLY4fahoNsF7oKk8Uw1ayPp0X7mnhv/HCOzvUpDpjxFtJO776dAEBa
+         TB4aIhlbsdX6IlHiLL3vdpM1b2qgiHap5vGRb3YLCrMrokgK4zVqBlgimiCc9SNnM1C1
+         4GxVNx2YYmpkBYGrXOIPckr6ozrxj3+fJ4PxVdbM0T5g81ilIhyKpfp50Zbrpo/kudMI
+         ZzGeu6ZpktFYYBwFo/nzdEwHQsQDlOeYP9GFLnu5+pK0TjVU+HC0cxx+bnuO2unu7rxm
+         2IrGHhImG2yrYdlBY1zEZpmyvF8tGFenm8QtdxQomB2y52eOgR9SMCWrYAZ1Tv80HbT2
+         kAqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784003370; x=1784608170;
+        d=1e100.net; s=20251104; t=1784003373; x=1784608173;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=u1/Y33mFmGDlMS3sYpBNbK/O0k52IHx7NX0nZ2tZh8s=;
-        b=NjBR/90hrlyOtktCKq7DoG55EqNo8dzAvOSsith4JRYrPMw2/YuKGY+rduI6HZ+8y8
-         ONDUoSudR2l9fayEZXih7Ha9+/JtB/8sY27qhLhyuCUsIQx09ZlwpEUcPM/J9JWXCyup
-         WyP3YXXNtziOv9uarVoiytY/Lou1utj5VGc2nz37YLCXZKsO9IxQ189t5nppA2sZXeEB
-         QPHeXvZt0rlGus2jpGutEbP4ZhAJBTBvYAdfEvk5ytYejkeXLVGsBuZ86pupApK7Rhd3
-         UrC/wlPyuLCKayFQH/CtIaIfFaOX/7RRyW7GEHq/7OLH1cR98/BYr9zu/umnIGJAuPMd
-         Nwcg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp6E4oMHBSIc9SJxb0vnvEK6mDgZB+4OmjMhKPsQHSxip3xQ6vUTfQsw2EANrwyxSx80tDZHj17CIOS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3geREpg0wUUgZkJlwRc/k4c27sVJjbmPjXJ+hAoU5fiXwSTQ4
-	QuhKWCl2A80Jg8J7ayn4YTT7cCrNl+ML5mBL2WKgDx4OuHXw5fPjpEr3uCqkD36KF0EaZ4K8qSc
-	UtV5LoLN3ZzzPPMv6M1Z69/tgL03Tx/naiFUB4kovdBxurre0ifhndaU6sdK7VKGa
-X-Gm-Gg: AfdE7cmOe5mn1KI+nOnmLUK5/uWDdrQF8bp/wWAucS0zqvgbVlAX7bl/caQ2n4LidOY
-	XKmh4BnBbeEdIRnRHNs3MU1rYwheW2WQ7ON4nVZHaH6rZDJomoMFws7ndngR9GFj/xGs272sXQ8
-	616mT1TMoKbmodXxJkQNynIvMYhndmI4+MA0xaURunRiN8dQob8fJ95ea3QbHSIAzKsww0oecHc
-	HuLW42/dL4VA3FH88PttqWToUx9GUDcQapTvaEd4rTj/OWzIC1CUM6IvYeEgsP1qc7EKx33D5EE
-	8N6gGWP5U6sQFNDYPOndS7Ke2PoJ8Ade+T80UJWdHRG+lDlLBQvhmloOGSbiaNTrtSZs0yZUv+A
-	d6BM9SmkmUEwxfWQHBBUqsvTI/bx0I+qJYM29+zhw4N7p4c4nzMTS+pwZIMgaykDiqQl5+0g7T0
-	V3xS1V/QFM1lEmO7tArTJqUeRvWgfJ8KLmPd9WlBgbd9sQXw==
-X-Received: by 2002:a05:6a20:729c:b0:3c0:9c18:d5a8 with SMTP id adf61e73a8af0-3c35729f575mr953919637.69.1784003369871;
-        Mon, 13 Jul 2026 21:29:29 -0700 (PDT)
-X-Received: by 2002:a05:6a20:729c:b0:3c0:9c18:d5a8 with SMTP id adf61e73a8af0-3c35729f575mr953875637.69.1784003369309;
-        Mon, 13 Jul 2026 21:29:29 -0700 (PDT)
+        bh=HFnEH3JcQpHJy4B87D/E5Q6yMrGEkNdhe+JaWg186Oo=;
+        b=lMjFNMp+6mx6uj+hLfNrfdt239ilKJjjk0VuwHF1btQgOyuhXBmI2sTk9W/+aRfQKd
+         qpvvyDgybyDFQbs5piDv0p98d9Qy81Y70cjYRBOET+Spt5cbY+N9AXfRhIK9/vag17X5
+         BH+XelHeVgZBD3V1UrzwAklrRSONP74vlyJDmwwmZ/KQ6gd5xRy24YLZbUmcK1xZSVuB
+         ZleZdS8Ps1R5gcFgpYxKyfa5l5G51/6+aTR0Z4EEajDQYscMYSTDNI74mN0HVeRSP+JG
+         DVYgC3fYWwwqYhCLa6scP7MXP6ugxSsqMCNYCp/xzIm8DE8R03zYGfiSdTx4M3Rkvlxe
+         1C6g==
+X-Forwarded-Encrypted: i=1; AHgh+RpgcykRwFhhczTbJuCQl4fctyBaPPsUzbyy1VS67KqC/4hj0cQYAyOZ3rNBVX7FBR9d/tJV1yUqn48y@vger.kernel.org
+X-Gm-Message-State: AOJu0YztAv0inE79DYTycLJGCDbpfdT7MVOLW0LXIp6A09ITHv8sUuVo
+	MJ8PyX8sjvjxp4ISDstk/rE0p9We0Z4YRAVRBPdpoGceIz2SMkp9/Nzk+uCCz6qspw5ZJelEh5d
+	SFk/zQeKCgWisxE3asoUeltroYPsjjzglxjZn946+1hp1wQFZPeUAZotxm0kHcj/B
+X-Gm-Gg: AfdE7cnrt4rI7qrCAxXzM3JErLWMlt+URFbEZNH7OvRM4jdsjLM2Tqfl0OlZYr7pJwd
+	0NX6n+6EnHSB5b4lwotnqdqtaHfB95un7OK5TBCCApj59N33mxwzIi6SscTmYRXobN/CBCijr2t
+	lJV/lMY5M1kPD/u7bwHFVwc4BuS1w8PwBnGNjiVeAg26dR8a4YsRVL6Eev4xFqSAc5MILBv2aNz
+	/mlQzT0Kb9k/ni8d/tZetaFSJngdfEVLGGq9h5UvmHqp2CwUivpZmFOBHslsMv+UcvWvFq7SKRz
+	So6RLP7P61jfTavq/50eUllEYUO59mRZQgC7JiL4RKFcspiXG8mN2w60OAehTpQ2JyoZj3aBYcj
+	zOXNqPTjkGj5eEl4/I48kImKNY7QaMEyHotBYtWhvOGn7GlzSuJHMaaUO8TgCO2lEq7IfSQ+Xkq
+	WzgZoebBzrSwz0sNXFapw1pm794NTHnnj4qdwUb4XMJFgkpg==
+X-Received: by 2002:a05:6300:218c:b0:3bf:6c08:fb82 with SMTP id adf61e73a8af0-3c1109ecd0fmr12883749637.50.1784003373508;
+        Mon, 13 Jul 2026 21:29:33 -0700 (PDT)
+X-Received: by 2002:a05:6300:218c:b0:3bf:6c08:fb82 with SMTP id adf61e73a8af0-3c1109ecd0fmr12883721637.50.1784003373086;
+        Mon, 13 Jul 2026 21:29:33 -0700 (PDT)
 Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313b4cbafa1sm64388999eec.6.2026.07.13.21.29.25
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-313b4cbafa1sm64388999eec.6.2026.07.13.21.29.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 21:29:28 -0700 (PDT)
+        Mon, 13 Jul 2026 21:29:32 -0700 (PDT)
 From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 09:59:16 +0530
-Subject: [PATCH 1/2] arm64: dts: qcom: ipq9650: add the PCIe support
+Date: Tue, 14 Jul 2026 09:59:17 +0530
+Subject: [PATCH 2/2] arm64: dts: qcom: ipq9650-rdp488: enable PCIe support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-ipq9650_pcie-v1-1-4197749d06bd@oss.qualcomm.com>
+Message-Id: <20260714-ipq9650_pcie-v1-2-4197749d06bd@oss.qualcomm.com>
 References: <20260714-ipq9650_pcie-v1-0-4197749d06bd@oss.qualcomm.com>
 In-Reply-To: <20260714-ipq9650_pcie-v1-0-4197749d06bd@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -103,740 +103,187 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
         Manivannan Sadhasivam <mani@kernel.org>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDA0MiBTYWx0ZWRfX0ttxxaBuER1N
- wM+SxmpnNvC4W2t69RFJ40d+oM/TDzJh2HPrTKs5e/yZ21v+aQzpUkMViH2ljajDuaYaqvx0luc
- Nxmnus/Ie/g8PFEtUoPhh6Ql661qNvE=
-X-Authority-Analysis: v=2.4 cv=cNbQdFeN c=1 sm=1 tr=0 ts=6a55bb2b cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDA0MyBTYWx0ZWRfX3itN76o3HjaZ
+ OdFMoaQnFPVms3AAUKnMeZvMs/kSdZbpX7sUPW7n4HFgp7fxFWbj59J40qFBbwyfQzhUn2/3GM7
+ Xb/DxzSEkKlF2S/ihJo/c9wF18X2Lec=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDA0MyBTYWx0ZWRfXwABvb3Ff2XCm
+ sX18DbGolK3nW8uPIHOuaDclkv/wEIXq7NyIdnFW+gHcDOlq5fCPxCf15CidNUK3iliLnEnxnxI
+ XTaUFhABDPDuDgNjT/6mrjGmmM39SokToNiopotbVknN0Gr3/S9GBESri5r943OpH34qpu0BFyr
+ v97mhIfa9lMlYccyidFwcVpRk/AYBoLZxq8rmN4mD0XzeNycwhH6gUSVGYAQ20PTU22bXWlnAhZ
+ y6eOK7kSFap7Xr8i6aMZPMLrxzvp6H8bubaRgg1yYmcsGt1yZViuRpzlr47HcycVcHMs/a0gZ1I
+ UHAW5UvH+AzS+8PbVP7NoC3+r5grMRHPLJUu8mjL9wl9osajvKbAAedMwOh71Ti25hiJy5IZ12g
+ Ntq5U9xOLM+c2MgnSGl8JSJSSlDGxP9cdYiZw91abUwL0tfRQKahHjMK2o0qGKt02w/zG2vjDUj
+ PvfLfSLyeggojo0fpOw==
+X-Proofpoint-ORIG-GUID: enjePUYLi3j6gA3lxDShxnej5SEQD017
+X-Proofpoint-GUID: enjePUYLi3j6gA3lxDShxnej5SEQD017
+X-Authority-Analysis: v=2.4 cv=F/FnsKhN c=1 sm=1 tr=0 ts=6a55bb2e cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Jp5qG-MpaqbX_UUodeIA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: VTj185z4hhPOWdcZiysPY6IFGupKnkqy
-X-Proofpoint-ORIG-GUID: VTj185z4hhPOWdcZiysPY6IFGupKnkqy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDA0MiBTYWx0ZWRfX3KWQv1C2VVf4
- HqmWDUU32nCHaU19H8bfG9SEF/VS9ciOnxmopzc9eWSiBPOLcJ4sKV7x7agY6tyw6kiOS4GRn4l
- //BHG+wzFHKdP60PVxpCgTe/dlrHuXIRGZ7px6nh1OalcTLRfbTP5N1Z8J5chmWUgqTAbnmBlEk
- IUmisUFvLux+8NA1TQymJdsCzcLgRWMW5EYRpkEJyiPWm10GKGBFyRjuSQrjBZHzwGwMWyDjzC8
- ngenn5JzFzCkykG5L3s9RndwtsaTg9Ef4dZbD4RTYf2rzte4dRqfZTmoJue0vKHfDIGpipG7N0E
- 63Q7w+XbISNIWsck1M9HEOQ+2NELEmyy+JJhxssgfJNFSJOFWlJiLY9XdQKV//jaPlvTzMkGl7R
- NWu0z8Rp5F3K+d8ldcKRw9P5gUiy7EbtUBuKIRk5qbljkYAlgU4QpNFQWDwNRO/yZE76MVsjYrU
- Accz17o9+0cDgqIrzOg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_o-QRdEJ9KkZi4z5cN8A:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-14_01,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0 impostorscore=0
- phishscore=0 clxscore=1015 adultscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140042
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ clxscore=1015 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607140043
 
-IPQ9650 has 5 Gen3 PCIe controllers - PCIe0 and PCIe4 are single lane
-and the remaining instances are dual lane. Add support for the same.
+Enable the three dual-lane PCIe controllers supported on RDP488.
 
 Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
 Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/ipq9650.dtsi | 665 +++++++++++++++++++++++++++++++++-
- 1 file changed, 660 insertions(+), 5 deletions(-)
+ arch/arm64/boot/dts/qcom/ipq9650-rdp488.dts | 119 ++++++++++++++++++++++++++++
+ 1 file changed, 119 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq9650.dtsi b/arch/arm64/boot/dts/qcom/ipq9650.dtsi
-index 3d3b317c6a3c..8301a4090395 100644
---- a/arch/arm64/boot/dts/qcom/ipq9650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq9650.dtsi
-@@ -5,6 +5,7 @@
+diff --git a/arch/arm64/boot/dts/qcom/ipq9650-rdp488.dts b/arch/arm64/boot/dts/qcom/ipq9650-rdp488.dts
+index 6871f3dc4eaf..f6411a55c81e 100644
+--- a/arch/arm64/boot/dts/qcom/ipq9650-rdp488.dts
++++ b/arch/arm64/boot/dts/qcom/ipq9650-rdp488.dts
+@@ -5,6 +5,8 @@
  
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/clock/qcom,ipq9650-gcc.h>
-+#include <dt-bindings/interconnect/qcom,ipq9650.h>
- #include <dt-bindings/reset/qcom,ipq9650-gcc.h>
+ /dts-v1/;
+ 
++#include <dt-bindings/gpio/gpio.h>
++
+ #include "ipq9650.dtsi"
  
  / {
-@@ -200,6 +201,160 @@ soc@0 {
- 		dma-ranges = <0 0 0 0 0x10 0>;
- 		ranges = <0 0 0 0 0x10 0>;
- 
-+		refgen_pcie: regulator@6c000 {
-+			compatible = "qcom,ipq9650-refgen-regulator";
-+			reg = <0x0 0x0006c000 0x0 0x84>;
-+			clocks = <&gcc GCC_REFGEN_PCIE_CORE_CLK>,
-+				 <&gcc GCC_REFGEN_PCIE_HCLK>;
-+			clock-names = "core",
-+				      "hclk";
-+		};
-+
-+		pcie0_phy: phy@84000 {
-+			compatible = "qcom,ipq9650-qmp-gen3x1-pcie-phy";
-+			reg = <0x0 0x00084000 0x0 0x1000>;
-+
-+			clocks = <&gcc GCC_PCIE0_AUX_CLK>,
-+				 <&gcc GCC_PCIE0_AHB_CLK>,
-+				 <&gcc GCC_PCIE0_PIPE_CLK>;
-+			clock-names = "aux",
-+				      "cfg_ahb",
-+				      "pipe";
-+
-+			assigned-clocks = <&gcc GCC_PCIE0_AUX_CLK>;
-+			assigned-clock-rates = <20000000>;
-+
-+			resets = <&gcc GCC_PCIE0_PHY_BCR>,
-+				 <&gcc GCC_PCIE0PHY_PHY_BCR>;
-+			reset-names = "phy",
-+				      "common";
-+
-+			refgen-supply = <&refgen_pcie>;
-+
-+			clock-output-names = "pcie0_pipe_clk";
-+			#clock-cells = <0>;
-+
-+			#phy-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		pcie4_phy: phy@8c000 {
-+			compatible = "qcom,ipq9650-qmp-gen3x1-pcie-phy";
-+			reg = <0x0 0x0008c000 0x0 0x1000>;
-+
-+			clocks = <&gcc GCC_PCIE4_AUX_CLK>,
-+				 <&gcc GCC_PCIE4_AHB_CLK>,
-+				 <&gcc GCC_PCIE4_PIPE_CLK>;
-+			clock-names = "aux",
-+				      "cfg_ahb",
-+				      "pipe";
-+
-+			assigned-clocks = <&gcc GCC_PCIE4_AUX_CLK>;
-+			assigned-clock-rates = <20000000>;
-+
-+			resets = <&gcc GCC_PCIE4_PHY_BCR>,
-+				 <&gcc GCC_PCIE4PHY_PHY_BCR>;
-+			reset-names = "phy",
-+				      "common";
-+
-+			refgen-supply = <&refgen_pcie>;
-+
-+			clock-output-names = "pcie4_pipe_clk";
-+			#clock-cells = <0>;
-+
-+			#phy-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		pcie3_phy: phy@b4000 {
-+			compatible = "qcom,ipq9650-qmp-gen3x2-pcie-phy";
-+			reg = <0x0 0x000b4000 0x0 0x2000>;
-+
-+			clocks = <&gcc GCC_PCIE3_AUX_CLK>,
-+				 <&gcc GCC_PCIE3_AHB_CLK>,
-+				 <&gcc GCC_PCIE3_PIPE_CLK>;
-+			clock-names = "aux",
-+				      "cfg_ahb",
-+				      "pipe";
-+
-+			assigned-clocks = <&gcc GCC_PCIE3_AUX_CLK>;
-+			assigned-clock-rates = <20000000>;
-+
-+			resets = <&gcc GCC_PCIE3_PHY_BCR>,
-+				 <&gcc GCC_PCIE3PHY_PHY_BCR>;
-+			reset-names = "phy",
-+				      "common";
-+
-+			refgen-supply = <&refgen_pcie>;
-+
-+			clock-output-names = "pcie3_pipe_clk";
-+			#clock-cells = <0>;
-+
-+			#phy-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		pcie1_phy: phy@f4000 {
-+			compatible = "qcom,ipq9650-qmp-gen3x2-pcie-phy";
-+			reg = <0x0 0x000f4000 0x0 0x2000>;
-+
-+			clocks = <&gcc GCC_PCIE1_AUX_CLK>,
-+				 <&gcc GCC_PCIE1_AHB_CLK>,
-+				 <&gcc GCC_PCIE1_PIPE_CLK>;
-+			clock-names = "aux",
-+				      "cfg_ahb",
-+				      "pipe";
-+
-+			assigned-clocks = <&gcc GCC_PCIE1_AUX_CLK>;
-+			assigned-clock-rates = <20000000>;
-+
-+			resets = <&gcc GCC_PCIE1_PHY_BCR>,
-+				 <&gcc GCC_PCIE1PHY_PHY_BCR>;
-+			reset-names = "phy",
-+				      "common";
-+
-+			refgen-supply = <&refgen_pcie>;
-+
-+			clock-output-names = "pcie1_pipe_clk";
-+			#clock-cells = <0>;
-+
-+			#phy-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
-+		pcie2_phy: phy@fc000 {
-+			compatible = "qcom,ipq9650-qmp-gen3x2-pcie-phy";
-+			reg = <0x0 0x000fc000 0x0 0x2000>;
-+
-+			clocks = <&gcc GCC_PCIE2_AUX_CLK>,
-+				 <&gcc GCC_PCIE2_AHB_CLK>,
-+				 <&gcc GCC_PCIE2_PIPE_CLK>;
-+			clock-names = "aux",
-+				      "cfg_ahb",
-+				      "pipe";
-+
-+			assigned-clocks = <&gcc GCC_PCIE2_AUX_CLK>;
-+			assigned-clock-rates = <20000000>;
-+
-+			resets = <&gcc GCC_PCIE2_PHY_BCR>,
-+				 <&gcc GCC_PCIE2PHY_PHY_BCR>;
-+			reset-names = "phy",
-+				      "common";
-+
-+			refgen-supply = <&refgen_pcie>;
-+
-+			clock-output-names = "pcie2_pipe_clk";
-+			#clock-cells = <0>;
-+
-+			#phy-cells = <0>;
-+
-+			status = "disabled";
-+		};
-+
- 		tlmm: pinctrl@1000000 {
- 			compatible = "qcom,ipq9650-tlmm";
- 			reg = <0x0 0x01000000 0x0 0x300000>;
-@@ -216,11 +371,11 @@ gcc: clock-controller@1800000 {
- 			reg = <0x0 0x01800000 0x0 0x40000>;
- 			clocks = <&xo_board>,
- 				 <&sleep_clk>,
--				 <0>,
--				 <0>,
--				 <0>,
--				 <0>,
--				 <0>,
-+				 <&pcie0_phy>,
-+				 <&pcie1_phy>,
-+				 <&pcie2_phy>,
-+				 <&pcie3_phy>,
-+				 <&pcie4_phy>,
- 				 <0>,
- 				 <0>;
- 			#clock-cells = <1>;
-@@ -371,6 +526,506 @@ frame@f42d000 {
- 				status = "disabled";
- 			};
- 		};
-+
-+		pcie3: pcie@30000000 {
-+			compatible = "qcom,pcie-ipq9650", "qcom,pcie-ipq9574";
-+			reg =  <0x0 0x30000000 0x0 0xf1d>,
-+			       <0x0 0x30000f20 0x0 0xa8>,
-+			       <0x0 0x30001000 0x0 0x1000>,
-+			       <0x0 0x000b0000 0x0 0x3000>,
-+			       <0x0 0x30100000 0x0 0x1000>,
-+			       <0x0 0x000b6000 0x0 0x1000>;
-+			reg-names = "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "parf",
-+				    "config",
-+				    "mhi";
-+			device_type = "pci";
-+			linux,pci-domain = <3>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x01000000 0x0 0x00000000 0x0 0x30200000 0x0 0x00100000>,
-+				 <0x02000000 0x0 0x30300000 0x0 0x30300000 0x0 0x0fd00000>;
-+
-+			msi-map = <0x0 &intc 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 496 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 497 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 498 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 499 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 500 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 501 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 502 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 503 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 504 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0x0 0x0 0x0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc GIC_SPI 505 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 2 &intc GIC_SPI 506 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 3 &intc GIC_SPI 507 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 4 &intc GIC_SPI 508 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+			clocks = <&gcc GCC_PCIE3_AXI_M_CLK>,
-+				 <&gcc GCC_PCIE3_AXI_S_CLK>,
-+				 <&gcc GCC_PCIE3_AXI_S_BRIDGE_CLK>,
-+				 <&gcc GCC_PCIE3_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE3_AHB_CLK>,
-+				 <&gcc GCC_PCIE3_AUX_CLK>;
-+			clock-names = "axi_m",
-+				      "axi_s",
-+				      "axi_bridge",
-+				      "rchng",
-+				      "ahb",
-+				      "aux";
-+
-+			resets = <&gcc GCC_PCIE3_PIPE_CLK_ARES>,
-+				 <&gcc GCC_PCIE3_CORE_STICKY_RESET>,
-+				 <&gcc GCC_PCIE3_AXI_S_STICKY_RESET>,
-+				 <&gcc GCC_PCIE3_AXI_S_CLK_ARES>,
-+				 <&gcc GCC_PCIE3_AXI_M_STICKY_RESET>,
-+				 <&gcc GCC_PCIE3_AXI_M_CLK_ARES>,
-+				 <&gcc GCC_PCIE3_AUX_CLK_ARES>,
-+				 <&gcc GCC_PCIE3_AHB_CLK_ARES>;
-+			reset-names = "pipe",
-+				      "sticky",
-+				      "axi_s_sticky",
-+				      "axi_s",
-+				      "axi_m_sticky",
-+				      "axi_m",
-+				      "aux",
-+				      "ahb";
-+
-+			interconnects = <&gcc MASTER_ANOC_PCIE3 &gcc SLAVE_ANOC_PCIE3>,
-+					<&gcc MASTER_CNOC_PCIE3 &gcc SLAVE_CNOC_PCIE3>;
-+			interconnect-names = "pcie-mem", "cpu-pcie";
-+
-+			status = "disabled";
-+
-+			pcie3_port0: pcie@0 {
-+				compatible = "pciclass,0604";
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie3_phy>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
-+
-+		pcie2: pcie@40000000 {
-+			compatible = "qcom,pcie-ipq9650", "qcom,pcie-ipq9574";
-+			reg =  <0x0 0x40000000 0x0 0xf1d>,
-+			       <0x0 0x40000f20 0x0 0xa8>,
-+			       <0x0 0x40001000 0x0 0x1000>,
-+			       <0x0 0x000f8000 0x0 0x3000>,
-+			       <0x0 0x40100000 0x0 0x1000>,
-+			       <0x0 0x000fe000 0x0 0x1000>;
-+			reg-names = "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "parf",
-+				    "config",
-+				    "mhi";
-+			device_type = "pci";
-+			linux,pci-domain = <2>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x01000000 0x0 0x00000000 0x0 0x40200000 0x0 0x00100000>,
-+				 <0x02000000 0x0 0x40300000 0x0 0x40300000 0x0 0x0fd00000>;
-+
-+			msi-map = <0x0 &intc 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 470 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 471 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 472 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 473 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 474 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 475 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 476 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 477 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 478 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc GIC_SPI 479 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 2 &intc GIC_SPI 480 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 3 &intc GIC_SPI 481 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 4 &intc GIC_SPI 482 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+			clocks = <&gcc GCC_PCIE2_AXI_M_CLK>,
-+				 <&gcc GCC_PCIE2_AXI_S_CLK>,
-+				 <&gcc GCC_PCIE2_AXI_S_BRIDGE_CLK>,
-+				 <&gcc GCC_PCIE2_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE2_AHB_CLK>,
-+				 <&gcc GCC_PCIE2_AUX_CLK>;
-+			clock-names = "axi_m",
-+				      "axi_s",
-+				      "axi_bridge",
-+				      "rchng",
-+				      "ahb",
-+				      "aux";
-+
-+			resets = <&gcc GCC_PCIE2_PIPE_CLK_ARES>,
-+				 <&gcc GCC_PCIE2_CORE_STICKY_RESET>,
-+				 <&gcc GCC_PCIE2_AXI_S_STICKY_RESET>,
-+				 <&gcc GCC_PCIE2_AXI_S_CLK_ARES>,
-+				 <&gcc GCC_PCIE2_AXI_M_STICKY_RESET>,
-+				 <&gcc GCC_PCIE2_AXI_M_CLK_ARES>,
-+				 <&gcc GCC_PCIE2_AUX_CLK_ARES>,
-+				 <&gcc GCC_PCIE2_AHB_CLK_ARES>;
-+			reset-names = "pipe",
-+				      "sticky",
-+				      "axi_s_sticky",
-+				      "axi_s",
-+				      "axi_m_sticky",
-+				      "axi_m",
-+				      "aux",
-+				      "ahb";
-+
-+			interconnects = <&gcc MASTER_ANOC_PCIE2 &gcc SLAVE_ANOC_PCIE2>,
-+					<&gcc MASTER_CNOC_PCIE2 &gcc SLAVE_CNOC_PCIE2>;
-+			interconnect-names = "pcie-mem", "cpu-pcie";
-+
-+			status = "disabled";
-+
-+			pcie2_port0: pcie@0 {
-+				compatible = "pciclass,0604";
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie2_phy>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
-+
-+		pcie1: pcie@50000000 {
-+			compatible = "qcom,pcie-ipq9650", "qcom,pcie-ipq9574";
-+			reg =  <0x0 0x50000000 0x0 0xf1d>,
-+			       <0x0 0x50000f20 0x0 0xa8>,
-+			       <0x0 0x50001000 0x0 0x1000>,
-+			       <0x0 0x000f0000 0x0 0x3000>,
-+			       <0x0 0x50100000 0x0 0x1000>,
-+			       <0x0 0x000f6000 0x0 0x1000>;
-+			reg-names = "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "parf",
-+				    "config",
-+				    "mhi";
-+			device_type = "pci";
-+			linux,pci-domain = <1>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x01000000 0x0 0x00000000 0x0 0x50200000 0x0 0x00100000>,
-+				 <0x02000000 0x0 0x50300000 0x0 0x50300000 0x0 0x0fd00000>;
-+
-+			msi-map = <0x0 &intc 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 459 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 460 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 463 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc GIC_SPI 464 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 2 &intc GIC_SPI 465 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 3 &intc GIC_SPI 466 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 4 &intc GIC_SPI 467 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+			clocks = <&gcc GCC_PCIE1_AXI_M_CLK>,
-+				 <&gcc GCC_PCIE1_AXI_S_CLK>,
-+				 <&gcc GCC_PCIE1_AXI_S_BRIDGE_CLK>,
-+				 <&gcc GCC_PCIE1_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE1_AHB_CLK>,
-+				 <&gcc GCC_PCIE1_AUX_CLK>;
-+			clock-names = "axi_m",
-+				      "axi_s",
-+				      "axi_bridge",
-+				      "rchng",
-+				      "ahb",
-+				      "aux";
-+
-+			resets = <&gcc GCC_PCIE1_PIPE_CLK_ARES>,
-+				 <&gcc GCC_PCIE1_CORE_STICKY_RESET>,
-+				 <&gcc GCC_PCIE1_AXI_S_STICKY_RESET>,
-+				 <&gcc GCC_PCIE1_AXI_S_CLK_ARES>,
-+				 <&gcc GCC_PCIE1_AXI_M_STICKY_RESET>,
-+				 <&gcc GCC_PCIE1_AXI_M_CLK_ARES>,
-+				 <&gcc GCC_PCIE1_AUX_CLK_ARES>,
-+				 <&gcc GCC_PCIE1_AHB_CLK_ARES>;
-+			reset-names = "pipe",
-+				      "sticky",
-+				      "axi_s_sticky",
-+				      "axi_s",
-+				      "axi_m_sticky",
-+				      "axi_m",
-+				      "aux",
-+				      "ahb";
-+
-+			interconnects = <&gcc MASTER_ANOC_PCIE1 &gcc SLAVE_ANOC_PCIE1>,
-+					<&gcc MASTER_CNOC_PCIE1 &gcc SLAVE_CNOC_PCIE1>;
-+			interconnect-names = "pcie-mem", "cpu-pcie";
-+
-+			status = "disabled";
-+
-+			pcie1_port0: pcie@0 {
-+				compatible = "pciclass,0604";
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie1_phy>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
-+
-+		pcie4: pcie@60000000 {
-+			compatible = "qcom,pcie-ipq9650", "qcom,pcie-ipq9574";
-+			reg =  <0x0 0x60000000 0x0 0xf1d>,
-+			       <0x0 0x60000f20 0x0 0xa8>,
-+			       <0x0 0x60001000 0x0 0x1000>,
-+			       <0x0 0x00088000 0x0 0x3000>,
-+			       <0x0 0x60100000 0x0 0x1000>,
-+			       <0x0 0x0008e000 0x0 0x1000>;
-+			reg-names = "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "parf",
-+				    "config",
-+				    "mhi";
-+			device_type = "pci";
-+			linux,pci-domain = <4>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x01000000 0x0 0x00000000 0x0 0x60200000 0x0 0x00100000>,
-+				 <0x02000000 0x0 0x60300000 0x0 0x60300000 0x0 0x0fd00000>;
-+
-+			msi-map = <0x0 &intc 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 511 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 512 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 518 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 519 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc GIC_SPI 520 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 2 &intc GIC_SPI 521 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 3 &intc GIC_SPI 522 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 4 &intc GIC_SPI 523 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+			clocks = <&gcc GCC_PCIE4_AXI_M_CLK>,
-+				 <&gcc GCC_PCIE4_AXI_S_CLK>,
-+				 <&gcc GCC_PCIE4_AXI_S_BRIDGE_CLK>,
-+				 <&gcc GCC_PCIE4_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE4_AHB_CLK>,
-+				 <&gcc GCC_PCIE4_AUX_CLK>;
-+			clock-names = "axi_m",
-+				      "axi_s",
-+				      "axi_bridge",
-+				      "rchng",
-+				      "ahb",
-+				      "aux";
-+
-+			resets = <&gcc GCC_PCIE4_PIPE_CLK_ARES>,
-+				 <&gcc GCC_PCIE4_CORE_STICKY_RESET>,
-+				 <&gcc GCC_PCIE4_AXI_S_STICKY_RESET>,
-+				 <&gcc GCC_PCIE4_AXI_S_CLK_ARES>,
-+				 <&gcc GCC_PCIE4_AXI_M_STICKY_RESET>,
-+				 <&gcc GCC_PCIE4_AXI_M_CLK_ARES>,
-+				 <&gcc GCC_PCIE4_AUX_CLK_ARES>,
-+				 <&gcc GCC_PCIE4_AHB_CLK_ARES>;
-+			reset-names = "pipe",
-+				      "sticky",
-+				      "axi_s_sticky",
-+				      "axi_s",
-+				      "axi_m_sticky",
-+				      "axi_m",
-+				      "aux",
-+				      "ahb";
-+
-+			interconnects = <&gcc MASTER_ANOC_PCIE4 &gcc SLAVE_ANOC_PCIE4>,
-+					<&gcc MASTER_CNOC_PCIE4 &gcc SLAVE_CNOC_PCIE4>;
-+			interconnect-names = "pcie-mem", "cpu-pcie";
-+
-+			status = "disabled";
-+
-+			pcie4_port0: pcie@0 {
-+				compatible = "pciclass,0604";
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie4_phy>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
-+
-+		pcie0: pcie@70000000 {
-+			compatible = "qcom,pcie-ipq9650", "qcom,pcie-ipq9574";
-+			reg =  <0x0 0x70000000 0x0 0xf1d>,
-+			       <0x0 0x70000f20 0x0 0xa8>,
-+			       <0x0 0x70001000 0x0 0x1000>,
-+			       <0x0 0x00080000 0x0 0x3000>,
-+			       <0x0 0x70100000 0x0 0x1000>,
-+			       <0x0 0x00086000 0x0 0x1000>;
-+			reg-names = "dbi",
-+				    "elbi",
-+				    "atu",
-+				    "parf",
-+				    "config",
-+				    "mhi";
-+			device_type = "pci";
-+			linux,pci-domain = <0>;
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x01000000 0x0 0x00000000 0x0 0x70200000 0x0 0x00100000>,
-+				 <0x02000000 0x0 0x70300000 0x0 0x70300000 0x0 0x0fd00000>;
-+
-+			msi-map = <0x0 &intc 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 425 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 426 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 427 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 428 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 429 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 430 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 431 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 432 IRQ_TYPE_LEVEL_HIGH 0>,
-+				     <GIC_SPI 433 IRQ_TYPE_LEVEL_HIGH 0>;
-+			interrupt-names = "msi0",
-+					  "msi1",
-+					  "msi2",
-+					  "msi3",
-+					  "msi4",
-+					  "msi5",
-+					  "msi6",
-+					  "msi7",
-+					  "global";
-+
-+			#interrupt-cells = <1>;
-+			interrupt-map-mask = <0 0 0 0x7>;
-+			interrupt-map = <0 0 0 1 &intc GIC_SPI 434 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 2 &intc GIC_SPI 435 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 3 &intc GIC_SPI 436 IRQ_TYPE_LEVEL_HIGH 0>,
-+					<0 0 0 4 &intc GIC_SPI 437 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+			clocks = <&gcc GCC_PCIE0_AXI_M_CLK>,
-+				 <&gcc GCC_PCIE0_AXI_S_CLK>,
-+				 <&gcc GCC_PCIE0_AXI_S_BRIDGE_CLK>,
-+				 <&gcc GCC_PCIE0_RCHNG_CLK>,
-+				 <&gcc GCC_PCIE0_AHB_CLK>,
-+				 <&gcc GCC_PCIE0_AUX_CLK>;
-+			clock-names = "axi_m",
-+				      "axi_s",
-+				      "axi_bridge",
-+				      "rchng",
-+				      "ahb",
-+				      "aux";
-+
-+			resets = <&gcc GCC_PCIE0_PIPE_CLK_ARES>,
-+				 <&gcc GCC_PCIE0_CORE_STICKY_RESET>,
-+				 <&gcc GCC_PCIE0_AXI_S_STICKY_RESET>,
-+				 <&gcc GCC_PCIE0_AXI_S_CLK_ARES>,
-+				 <&gcc GCC_PCIE0_AXI_M_STICKY_RESET>,
-+				 <&gcc GCC_PCIE0_AXI_M_CLK_ARES>,
-+				 <&gcc GCC_PCIE0_AUX_CLK_ARES>,
-+				 <&gcc GCC_PCIE0_AHB_CLK_ARES>;
-+			reset-names = "pipe",
-+				      "sticky",
-+				      "axi_s_sticky",
-+				      "axi_s",
-+				      "axi_m_sticky",
-+				      "axi_m",
-+				      "aux",
-+				      "ahb";
-+
-+			interconnects = <&gcc MASTER_ANOC_PCIE0 &gcc SLAVE_ANOC_PCIE0>,
-+					<&gcc MASTER_CNOC_PCIE0 &gcc SLAVE_CNOC_PCIE0>;
-+			interconnect-names = "pcie-mem", "cpu-pcie";
-+
-+			status = "disabled";
-+
-+			pcie0_port0: pcie@0 {
-+				compatible = "pciclass,0604";
-+				device_type = "pci";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+
-+				phys = <&pcie0_phy>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
-+		};
+@@ -20,6 +22,54 @@ chosen {
  	};
+ };
  
- 	timer {
++&pcie1 {
++	pinctrl-0 = <&pcie1_default_state>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&pcie1_phy {
++	status = "okay";
++};
++
++&pcie1_port0 {
++	reset-gpios = <&tlmm 28 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 29 GPIO_ACTIVE_LOW>;
++};
++
++&pcie2 {
++	pinctrl-0 = <&pcie2_default_state>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&pcie2_phy {
++	status = "okay";
++};
++
++&pcie2_port0 {
++	reset-gpios = <&tlmm 52 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
++};
++
++&pcie3 {
++	pinctrl-0 = <&pcie3_default_state>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&pcie3_phy {
++	status = "okay";
++};
++
++&pcie3_port0 {
++	reset-gpios = <&tlmm 41 GPIO_ACTIVE_LOW>;
++	wake-gpios = <&tlmm 42 GPIO_ACTIVE_LOW>;
++};
++
+ &sdhc {
+ 	max-frequency = <192000000>;
+ 	bus-width = <4>;
+@@ -36,6 +86,75 @@ &sleep_clk {
+ };
+ 
+ &tlmm {
++	pcie1_default_state: pcie1-default-state {
++		clkreq-n-pins {
++			pins = "gpio27";
++			function = "pcie1_clk_req_n";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++
++		perst-n-pins {
++			pins = "gpio28";
++			function = "gpio";
++			drive-strength = <8>;
++			bias-pull-down;
++		};
++
++		wake-n-pins {
++			pins = "gpio29";
++			function = "pcie1_wake";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++	};
++
++	pcie2_default_state: pcie2-default-state {
++		clkreq-n-pins {
++			pins = "gpio51";
++			function = "pcie2_clk_req_n";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++
++		perst-n-pins {
++			pins = "gpio52";
++			function = "gpio";
++			drive-strength = <8>;
++			bias-pull-down;
++		};
++
++		wake-n-pins {
++			pins = "gpio53";
++			function = "pcie2_wake";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++	};
++
++	pcie3_default_state: pcie3-default-state {
++		clkreq-n-pins {
++			pins = "gpio40";
++			function = "pcie3_clk_req_n";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++
++		perst-n-pins {
++			pins = "gpio41";
++			function = "gpio";
++			drive-strength = <8>;
++			bias-pull-down;
++		};
++
++		wake-n-pins {
++			pins = "gpio42";
++			function = "pcie3_wake";
++			drive-strength = <8>;
++			bias-pull-up;
++		};
++	};
++
+ 	qup_uart1_default_state: qup-uart1-default-state {
+ 		pins = "gpio43", "gpio44";
+ 		function = "qup_se6";
 
 -- 
 2.34.1
