@@ -1,189 +1,260 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF2E314A84
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784047872; cv=pass; b=L3HmE1GCrQv2n0wT6SGcdJQdGEHriCdASC9olX5DU3kOCoXSAtaCpAl8JPV5PyEmc09D8vmbzXNqGZNdwlMcexaNZBlQaeeAmMm/Rz3qgxlW2k/1Nx8cPgOtY9FGcspKXLpojcTABaCD9HNw79D2ZtiiYeyKJo+g+cfz7YAACqs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784047872; c=relaxed/simple;
-	bh=UKuXmnxAZy4X4Zfjms3mGb3B8NsNDeeH3MZJWfiGhEs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XodvooVKeTyxHG/054xKPcsw4titgtVHBJg3Z9alnU1G8lWV/xr+JuDBDi/jly0h7lAzFnPCU469sG8Iiw/oLjjFHo0Zh2+w7I37E1ZTPQ4n8vOVDBdKkG0reCWDz+geBTfo+eo2MDvSh4KTCqmFh+u4EYZeaoJ30zo0TtXgfV0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sUB+07b9; arc=pass smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EC44DB56C;
+	Tue, 14 Jul 2026 16:54:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784048063; cv=none; b=q2U9qnJp0IvjgeYJBDLFSmxKqgThdU2gXAOIpiVNKR428Atp11kvNDFeXVwdIgixhFfTqFFric1Tx4DMqT84BLzhxMlAE3a4WMf12yXb/EsG5oyIkXTiO/s+YmgK6J8OT/jIv3hQDyXn9Ty0eGDULwjYN++WuF0RRqq/VpR+e0Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784048063; c=relaxed/simple;
+	bh=Sm1SxbPpqj/ww3QZH1OjL/J5OFtjvvxD40VS6UtKY4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ampeU1l/73GTLLZd7HDbRKRG9aqfSnEJcF2Dv+WkavlEwJ9MjBE1syaacpcUOPX3Bx4eCwmEAC8vwERwkKCFAjNYdfVjjpYlfTnYbqXGE5ETwIfgp+v0OsH3FmAXO0fF2Kec6+tIOFRaKGy8xms4+uVO3G2YUueFoM7S1ewZZVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOP03A3Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sUB+07b9"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47d6c634f45so2537489f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 09:51:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784047869; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lL6J4pvMgzNUUZjCG4i/hGA0XI+5rGjmskHcyb+PTvzXVQdaFzsrh7zkZXlgkVCM3O
-         GyHShAc7KjjIl7ggDtclkNU137i6nllyCzh6iNowx9ZC0/Z8mAiZnp9+diJocWkLUnAw
-         qIliu0omHTsEQIY6lDG601vV3PCqONR6WnU7osc5tSZ4vvX3V6N0TANQ1KVeZ3CmIYuS
-         mUjVWhWtseN02+52tuJcXpxPDjfpZd+hkZDTcYaDFTnhvHr2l6Q8z6cvALt22tMQaSG6
-         LPlWFSwZ0YFChThzfFwm0mMaCMhg0aUURe8pZ1caXp9gUx3TxcDSLAhsiuSaTmpcWLxO
-         WUuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8BlgmiFQrHiuTd+MM0CeF9cu80lrra6/Pp38WzQSYbE=;
-        fh=byJQVGDOSC0FkLPvnOY9MNshNl5qRQ8Cr9OvVLK0z0M=;
-        b=hdvEtOsTJbaBRYYzZccC/QdzHZZBASXfqgnWAkb3ycB9p9GlNR0gjlvj8oCZQCwYeE
-         g8twgOUe1eHlKgje9KsqL1e2D1DAilWmFG/MBl7uSbiqXgzzHcKG67QhxvIojD4Zhiyh
-         YiOUHcmPjoW+6x2arg7RBEXAV3p65sFjqUEcscsGIsYlfGGmBFDu/GtbdzvbSG5nnfBp
-         cd+t7thUCnZWbZfFoyIKkZf67pEPWIb/oiIK7UkAk+sgWXTRkpbVe9nfydZUoIYlGmmU
-         kgi7CY8TSlYXju6BSBKjNQF0uIhil7+pEGG4lK0/xqp4JzHgY6CPVajqsN7BHyKUiTD5
-         4E0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784047869; x=1784652669; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8BlgmiFQrHiuTd+MM0CeF9cu80lrra6/Pp38WzQSYbE=;
-        b=sUB+07b97KGV3ebDMkf0d3LU/JbugGI5wAiuag6v2+UK398tluefGUR03Qt2NGVOt3
-         poU3WOZaYSn4pp7yER5a/Tzddw/uxLuMGI+r8BlwLUNOMQpmkEYJ5fOQNP7Rp0zMyeDI
-         g4deAY34diw6dPfpcjDMqPsuLXhuI+1fX4H8oicc3qt5mN0Dw6/KHBTch5etD6Dr3LpF
-         Vo2XBs61rXFmCWC82PizuiU7IC0sO4juLej9ZePmzKnC3CXA/egtX60IONCorzuqrqx9
-         t+T+fSoyeH3ErkF+ezlR0c7Tqpx+FocK+eTnhmz0ZTOTUYKAOcZUUqLhbFWff6hiTyhq
-         fFhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784047869; x=1784652669;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8BlgmiFQrHiuTd+MM0CeF9cu80lrra6/Pp38WzQSYbE=;
-        b=R5eLBrBzmTQdKj0fTEigrPtaM+qduJUONfAVG8qPmQzSwPJhc6NqiAKsUh+1Mv5O62
-         VxbFeFg1LC0zZGH/jxQLvCuCAC6fXFJJGaEoLuRFMTtLJ3IDOvfOqXIKqBGhflPYM10/
-         2LDhF2Rq7VPGLlqMCxgRRKmskM2k8OkdU85/XAVBFEFCzA87I5hb5sjc1xydSM4uMLz1
-         1ABtebSJmkjvAh/IQ8mTzx4m7FFMKAacHMGo+Ljzzn32irBIm4XKgXNVmFhmk93ypADD
-         BNTaXevp6lu+ibJ9w7/JMc04fJzd+682W5wDjGeOuQUAGZSKlzPVsYnE+Y1Zfb0Wo2T1
-         NMYA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr/U2ic6OhbYLOzTVUX/X3lL3XBXq6R9GnzWORRsDVxPgFpX8vJJsNbgCOL7DjF6rG5iVFuZjmQgeC4@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhYj8lcZZYbzokatRAa9Bf9wnt8VH/rexi1XAsDXi8scCtCNJe
-	aS2jh0KMPbLnIs+33p75V2BdH/+ol2j6zygZAXwLWHkFBIoD0CaxX9+aBpNNxbhBFmZS2e1zlKf
-	cxkyF/K3eWkwdYooBlB130IXRisXOfwo=
-X-Gm-Gg: AfdE7cmtfHfhMjIGb96qYyho9Tf58zea9/G73xQYayH062rzJGFGvOCTxE8osJlR85r
-	SUOtqX7vmEo8I90iXsa9nFrUxkQQDve47AKn8n48/QuQgtDbvBpq5JBmagCmkuzbGJLI/HTPBWO
-	GxDGt7P/4s5TS+mXgDwJ+lsnAVMQoCRWFHFvKhwjDOGOt+2QezOPCEpxPwdF5hi1dOuipw3xfbL
-	9yw7U+I+caHASMqsD26FOsUGNwTOasr2t1ctb4ETxYt1qkE3UaVMYUKoLtZlbx0vfmfHC0F85ga
-	piGRndajMEoY3ccIns4QxZJKC0j69vj0YfIJsYhJAFyVUo0AsgHKCe/l8NdG+VDcM/MGwQ==
-X-Received: by 2002:a05:6000:46c2:b0:47f:4c49:4318 with SMTP id
- ffacd0b85a97d-47f4c4944a5mr1473055f8f.49.1784047869366; Tue, 14 Jul 2026
- 09:51:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOP03A3Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46EFC1F00A3A;
+	Tue, 14 Jul 2026 16:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784048062;
+	bh=Q+tLcyOwHtF2vvwf2acxQjCBICX2eNchtDxbM2AnFOs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QOP03A3QAhh4nkGMFgFpCegL6XCrStv7YQS8bIi7KUlu3F27XjlSE2EGt0jOsK3HX
+	 0d/CFKzHpL0J4xggxpeZtVFTWPAaA+50KeuLt30r+jJYkZmTiicJhvdlW92q6LhNcJ
+	 Dxvg/J99U95HozGHJGubsNdW8sVqUL69Zkc51n1URbMKZl7TBlHLONv7e1D3XUz7be
+	 9nXGa0vy9oo24HThn/6X54YVQA7VN4+aW9MlA6t7Ktt1y9hkI8kLHdnjwMyT31E5db
+	 V+dGaRWihiYlQ7kDBrCSnJxoZE9S459WaozPER9pNwoXHIlL4F8pyAy2nGNKG4vVLT
+	 m1ATK56XdRCXg==
+Date: Tue, 14 Jul 2026 17:54:17 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: thermal: loongson,ls2k-thermal: Add
+ compatible for Loongson-2K0300
+Message-ID: <20260714-irritate-varying-9055895097b0@spud>
+References: <cover.1783670011.git.zhoubinbin@loongson.cn>
+ <7df0780e1b3d4c499a48cd862a12bda895e7818f.1783670011.git.zhoubinbin@loongson.cn>
+ <20260710-game-late-9347baafa7ab@spud>
+ <CAMpQs4+zXcNnZQnxWM7WUAM-heBYrTejm_dy3yVA4EFUrjA4CQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMuHMdUhiBAcJ6P7j0ZxL+0AbVqz88PMo7YX9UiYOK8jM61D1Q@mail.gmail.com> <CA+V-a8uUxfDx2Xnb3uFg2=R+eYnzVmAv4PoEYeXGwAbANxG5Bg@mail.gmail.com>
-In-Reply-To: <CA+V-a8uUxfDx2Xnb3uFg2=R+eYnzVmAv4PoEYeXGwAbANxG5Bg@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 14 Jul 2026 17:50:42 +0100
-X-Gm-Features: AUfX_mwxd6v5gFWCuMlhAPL7PON29wGJJEnO7K61SQDYcZ5CBYFFPz5abzgomRI
-Message-ID: <CA+V-a8utJuuwVNy8o2zM5jHf9qXx36S79uKGtYr5O=sASh_wpg@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 0/9] Add System Controller support for RZ/T2H and
- RZ/N2H SoCs
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mxs6UIz3nJYmRMyR"
+Content-Disposition: inline
+In-Reply-To: <CAMpQs4+zXcNnZQnxWM7WUAM-heBYrTejm_dy3yVA4EFUrjA4CQ@mail.gmail.com>
+
+--mxs6UIz3nJYmRMyR
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Geert,
+On Tue, Jul 14, 2026 at 02:53:40PM +0800, Binbin Zhou wrote:
+> Hi Conor:
+>=20
+> Thanks for your reply.
+>=20
+> On Sat, Jul 11, 2026 at 12:21=E2=80=AFAM Conor Dooley <conor@kernel.org> =
+wrote:
+> >
+> > On Fri, Jul 10, 2026 at 04:24:59PM +0800, Binbin Zhou wrote:
+> > > Add a new compatible string `loongson,ls2k0300-thermal` for the therm=
+al
+> > > sensor found on the Loongson-2K0300 SoC.
+> > >
+> > > The hardware differs from the existing SoCs in its register layout: it
+> > > requires two register regions (one for the thermal sensor control and
+> > > another for the CPU ID).
+> > >
+> > > Update the binding to describe this new requirement.
+> > >
+> > > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> > > ---
+> > >  .../thermal/loongson,ls2k-thermal.yaml        | 68 ++++++++++++++---=
+--
+> > >  1 file changed, 50 insertions(+), 18 deletions(-)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/thermal/loongson,ls2k-=
+thermal.yaml b/Documentation/devicetree/bindings/thermal/loongson,ls2k-ther=
+mal.yaml
+> > > index 79e691b08341..b5cbfd201105 100644
+> > > --- a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal=
+=2Eyaml
+> > > +++ b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal=
+=2Eyaml
+> > > @@ -10,13 +10,11 @@ maintainers:
+> > >    - zhanghongchen <zhanghongchen@loongson.cn>
+> > >    - Yinbo Zhu <zhuyinbo@loongson.cn>
+> > >
+> > > -allOf:
+> > > -  - $ref: /schemas/thermal/thermal-sensor.yaml#
+> > > -
+> > >  properties:
+> > >    compatible:
+> > >      oneOf:
+> > >        - enum:
+> > > +          - loongson,ls2k0300-thermal
+> > >            - loongson,ls2k1000-thermal
+> > >            - loongson,ls2k2000-thermal
+> > >        - items:
+> > > @@ -39,23 +37,46 @@ required:
+> > >    - reg
+> > >    - interrupts
+> > >
+> > > -if:
+> > > -  properties:
+> > > -    compatible:
+> > > -      contains:
+> > > -        enum:
+> > > -          - loongson,ls2k2000-thermal
+> > > +allOf:
+> > > +  - $ref: /schemas/thermal/thermal-sensor.yaml#
+> > >
+> > > -then:
+> > > -  properties:
+> > > -    reg:
+> > > -      minItems: 2
+> > > -      maxItems: 2
+> > > +  - if:
+> > > +      properties:
+> > > +        compatible:
+> > > +          contains:
+> > > +            enum:
+> > > +              - loongson,ls2k0300-thermal
+> > > +    then:
+> > > +      properties:
+> > > +        reg:
+> > > +          items:
+> > > +            - description: Thermal base register region
+> > > +            - description: CPU ID register region
+> > >
+> > > -else:
+> > > -  properties:
+> > > -    reg:
+> > > -      maxItems: 1
+> > > +  - if:
+> > > +      properties:
+> > > +        compatible:
+> > > +          contains:
+> > > +            enum:
+> > > +              - loongson,ls2k1000-thermal
+> > > +    then:
+> > > +      properties:
+> > > +        reg:
+> > > +          items:
+> > > +            - description: Thermal base register region
+> > > +
+> > > +  - if:
+> > > +      properties:
+> > > +        compatible:
+> > > +          contains:
+> > > +            enum:
+> > > +              - loongson,ls2k2000-thermal
+> > > +    then:
+> > > +      properties:
+> > > +        reg:
+> > > +          items:
+> > > +            - description: Thermal base register region
+> > > +            - description: Thermal data output register region
+> > >
+> > >  unevaluatedProperties: false
+> > >
+> > > @@ -69,3 +90,14 @@ examples:
+> > >          interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
+> > >          #thermal-sensor-cells =3D <1>;
+> > >      };
+> > > +
+> > > +  - |
+> > > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > > +    thermal-sensor@16001500 {
+> > > +       compatible =3D "loongson,ls2k0300-thermal";
+> > > +       reg =3D <0x16001500 0x30>,
+> > > +             <0x16003ff0 0x8>;
+> >
+> > Quite frankly, the address and size of this look like the second
+> > register region here is actually a few bytes in a syscon that is being
+> > misrepresented.
+> > What lies at the addresses immediately before and after 0x16003ff0?
+>=20
+> Yes, it can be viewed as part of the system configuration registers,
+> which appear somewhat disorganized. Within this section,
+> 0x16003fe0=E2=80=930x16003ffc represents eight chip ID registers.
+>=20
+> 0x16003fe0 --> the 4th chip id
+> 0x16003fe4 --> the 5th chip id
+> 0x16003fe8 --> the 6th chip id
+> 0x16003fec --> the 7th chip id
+> 0x16003ff0 --> the 0th chip id
+> 0x16003ff4 --> the 1st chip id
+> 0x16003ff8 --> the 2nd chip id
+> 0x16003ffc --> the 3rd chip id
+>=20
+> Perhaps I shouldn=E2=80=99t have referenced `0x16003ff0` separately here.=
+ It
+> would be more reasonable to declare the entire chip ID address space
+> as a separate syscon and have it referenced by thermal driver.
 
-On Tue, Jul 14, 2026 at 2:27=E2=80=AFPM Lad, Prabhakar
-<prabhakar.csengg@gmail.com> wrote:
->
-> Hi Geert,
->
-> Thank you for the review.
->
-> On Mon, Jul 13, 2026 at 5:00=E2=80=AFPM Geert Uytterhoeven <geert@linux-m=
-68k.org> wrote:
-> >
-> > Hi Prabhakar,
-> >
-> > On Thu, 2 Jul 2026 at 14:31, Prabhakar <prabhakar.csengg@gmail.com> wro=
-te:
-> > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > This series adds support for the System Controller (SYSC) blocks foun=
-d on
-> > > the Renesas RZ/T2H and RZ/N2H SoCs. These blocks handle critical low-=
-power
-> > > management and access control functions.
-> > >
-> > > Hardware Architecture & Dependency Challenges:
-> > > ----------------------------------------------
-> > > The SYSC in these SoCs is a multi-functional block responsible for:
-> > >     - Clock & Reset Control
-> > >     - Low Power Management
-> > >     - Clock Monitor (CLMA)
-> > >     - Access Control
-> > >
-> > > A key architectural detail is that these SYSC blocks are physically l=
-ocated
-> > > within the CPG/MSSR (Clock Pulse Generator / Module Standby Software =
-Reset)
-> > > address space. While the CPG/MSSR driver is already implemented and
-> > > functional for these SoCs, the integration of SYSC adds a layer of
-> > > complexity due to a cyclic dependency:
-> > >     - SYSC requires CPG: The system controller needs a clock to opera=
-te.
-> > >     - CPG requires SYSC: Access control registers within the SYSC con=
-tain
-> > >       bits necessary to control the PLLs managed by the CPG.
-> > >
-> > > If implemented as a completely separate top-level system controller n=
-ode, we
-> > > would face a cyclic dependency between the CPG and SYSC drivers durin=
-g the
-> > > boot process.
-> > >
-> > > Proposed Implementation
-> > > ----------------------------
-> > > To resolve this, the SYSC blocks are represented as child nodes of th=
-e
-> > > CPG/MSSR controller in the device tree. The SYSC regmap is registered
-> > > directly against the CPG device node. This hierarchy correctly models=
- the
-> > > hardware address space while allowing the drivers to share resources
-> > > without deadlock.
-> > >
-> > > I am sending this as an RFC specifically to get feedback on the
-> > > implementation of the SYSC as child nodes of the CPG to resolve the
-> > > dependency cycle.
-> >
-> > Personally, I am not a big fan of subnodes.  I assume you are using
-> > subnodes because you can register only a single regmap per syscon node?
-> Yes so that the consumers don't have to specify it by indexing.
->
-> > Would it be possible to just extend the existing clock-controller
-> > node with two more reg entries, and expose them through a single
-> > combined regmap?
-> >
-> That should be possible. Or would you prefer just to extend the sizes
-> and create a single regmap for it?
->
->                cpg: clock-controller@80280000 {
-I wonder wether we rename this to `sysc: system-controller` but the
-compatiable string has "*cpg-mssr" postfix.
+Probably, but even being of size 0x20 feels suspiciously small and that
+it is likely that this is part of an even larger grouping of misc.
+registers.
 
-Cheers,
-Prabhakar
+>=20
+> For example:
+>=20
+> In DTS{i}:
+> chipid_syscon: syscon@16003fe0 {
+>        compatible =3D =E2=80=9Cloongson,ls2k0300-cphipid-syscon=E2=80=9D,=
+ =E2=80=9Csyscon=E2=80=9D;
+>        reg =3D <0x0 0x16003fe0 0x0 0x20>;
+> };
+>=20
+> In thermal driver:
+> Use
+> `syscon_regmap_lookup_by_phandle(np, "loongson,chipid"); `
+> Or:
+> `syscon_regmap_lookup_by_compatible("loongson,ls2k0300-cphipid-syscon");`
+>=20
+> get the chip id address space.
+>=20
+> >
+> >
+> > Thanks,
+> > Conor.
+> >
+> > > +       interrupt-parent =3D <&liointc1>;
+> > > +       interrupts =3D <20 IRQ_TYPE_LEVEL_HIGH>;
+> > > +       #thermal-sensor-cells =3D <1>;
+> > > +    };
+> > > --
+> > > 2.52.0
+> > >
+>=20
+> --=20
+> Thanks.
+> Binbin
+
+--mxs6UIz3nJYmRMyR
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCalZpuQAKCRB4tDGHoIJi
+0hrJAP9oL8N9deSXz9dWt+ZEZYfbS19yv8wqpWxkFNHzB6DWwQEAtSc8DI7IDfPv
+ibyhUOue/ShcNI/iaFNCSty4HW1vkw0=
+=x7Y7
+-----END PGP SIGNATURE-----
+
+--mxs6UIz3nJYmRMyR--
