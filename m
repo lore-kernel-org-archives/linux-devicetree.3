@@ -1,175 +1,110 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF613F2109;
-	Tue, 14 Jul 2026 07:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8AA73E1D04
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784015151; cv=none; b=ja2vR+v2BsL4ZBqsufj8N+m0/ibQM28dhx1M5I3S934BxlL3JWszWpXiATnkW9PX5U/guBvWRGOW29eVtdaOb7iQRwCvwXyMcqPI3NOif0b7Da8QoukVi+GBq11IzIh554eUcTa81bE9fSTsSl/7EcpRU7FuPyas9JDOW3K/8XU=
+	t=1784015454; cv=none; b=AZn+2mo2PCj7u5Ej45e5ZN1UqWV12VxlS++n/Qc6BYM3laVX6/8aK98pE4H117Uwa5exIJSRE3W4aFCyL+jyke6g4J1OmsdouYXALogGGX2bDTijoLrUM3xmmA/54KR6/nGexcYmDuyMv11eFu3ZtySrQ6iSeKk38TskXmdXw3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784015151; c=relaxed/simple;
-	bh=q1mXfQ1sifixwNtqgWrpB3QytlKCueqwEROo60781MM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hjeZIKIM9117rVIYEZToQGuzN/8S36LDed7Ta7nUukYy2CRnxbGOxJSN+FD1sQrwuKGykBaUACEsNJkeQ3agmhjZIF7BB8ZO9zyKfIeI3px9RZ6WWLjtzyE5n4mPCQn2OkDdUA9hxg8q+tTx4ih/oVT5FuiKGYDrTv6Ulb3zFT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.100])
-	by APP-05 (Coremail) with SMTP id zQCowABXq84X6VVqEs8pGA--.61698S4;
-	Tue, 14 Jul 2026 15:45:31 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Drew Fustini <fustini@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	MoeLeak <i@leak.moe>
-Cc: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Thomas Bonnefille <thomas.bonnefille@bootlin.com>,
-	Drew Fustini <dfustini@tenstorrent.com>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH v2 2/5] riscv: dts: thead: Add TH1520 I2C nodes
-Date: Tue, 14 Jul 2026 15:45:12 +0800
-Message-ID: <20260714074515.1959352-3-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260714074515.1959352-1-zhengxingda@iscas.ac.cn>
-References: <20260714074515.1959352-1-zhengxingda@iscas.ac.cn>
+	s=arc-20240116; t=1784015454; c=relaxed/simple;
+	bh=iq8Kc5+SBapLqwF6ORCrQ5sCq4FaCemr05ZMk3EEWBE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BqfuStIZZXrRBf2HWGXY5FU8zzwRkilEU3a4QJNVLaIKuzTnb8ZW+2UTO3rd3cLfVeXDJYyE33oyhrlYM4NSwSVneEWt0kSbSiJNNXH5vkRXIRAWSCiOoZ8hGNB3I8biDN4O5zRRBvYauPZ5VjXMn6lV6e9CbG53UmTdgpHkx+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-966d70b9e1cso340551241.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 00:50:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784015452; x=1784620252;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yavgJsn42/mg7FbRzuzYhczZGQV3Jism9aLSRgEzMNU=;
+        b=H808df2JvONDl7e8U2Mz0qk1TLFe+6rsv6qgibALv84Q4CqsLvJ67/IoRSve2NvSLG
+         RxJxKxfnjSKHfbWdgIHHjbiz0xUi2LScbJJyMv+W/7RstOMkg5q707d9QDGyGn+yqJyR
+         XK4sCTiOcGT8BCjrEXo/sbgdq4tsQ7y2X/NMIoEFNeQ1FolO0sLm8N/OnUgGfJKbAWM3
+         vj9TQUVpZeui1+5ysZ2YD+LfexqZH4ezFdmv5QrcQwnBebyDA6sYupK0jyP735VzDKeK
+         1nbZguf9SdEISMsdzo/qnf/JrrGiO3lWWUfb293YCDGYY0QjzoGRyBGpeQ/fqw16immE
+         SShQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrTyae8F06dAMaAgGfjQfht9OCqQfphg7EQLuM69gnbTOPPpYmS51BRLDnUDp92KEDcmttUrB4NDQiK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxN7oiF5DIs3ibetibIM+UCHmgrfm8Qau+UwjJGLwtnD8t8X5tz
+	OP3YRk7cHu4U4db6zjzYpI2LB/SQFGHcAlFPF835AOS+2HXt/KqBBTwtj0WSgx5yKlM=
+X-Gm-Gg: AfdE7clgl/0VLP1A0y5M46czCs93EUVFUbo/k+q4pR13DfrlTtRdPd4J+c6A9fUxydT
+	YfFDAKZjSxcal2daLbg46ddCIIuSRVQPW79Ma4ZlypZr6z+Od4cJOCtEx1xE5Up+i+2NPMVrzeU
+	1mRbJZJ4yXcCQG7CQ/9grh28i+23xOTQna/ttzxqbHFKvli77L5rYZgIdH1CfATH4C18pJ9Dyox
+	KZ0/Q/JCrcCCtSJvlb8pAB4/3S/aC1MnDVTibhNusacYq9gVgbMtbhDojO410FzMElyopLQ7LrO
+	HDcX/bBC2e1MQZ/wZ68S9joAFHZCoiCKvc3rqM9fax2YVdTCrNqx9vZroE2W3D3PSVIaGZBdL04
+	9GSUbg8S7kPR+MAlqwVCNP76o3a3OrlnADk1PrNm/JsWpZeIhFMzI9YOD2u6kq1Ed/l43IfvHIh
+	4FCrZaKQQilaEqPQA71NyU8O2eUn3uT6GnjZy+L4PQvbj37B275A==
+X-Received: by 2002:a05:6102:26d5:b0:737:5c42:858b with SMTP id ada2fe7eead31-74533c1c30fmr8290753137.11.1784015451740;
+        Tue, 14 Jul 2026 00:50:51 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-744d6a3ee7csm9927290137.2.2026.07.14.00.50.50
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 14 Jul 2026 00:50:50 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-735f73287e2so411478137.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 00:50:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoR3uhpF+Q2HbG9TEnciQv0gDNJ9998du2t0NXOYVftLPxh9OlTcIqjUJFg4zapkN1iSxYIDbo9bKOo@vger.kernel.org
+X-Received: by 2002:a05:6102:1608:b0:739:15ef:cdfb with SMTP id
+ ada2fe7eead31-74533b84395mr8279731137.5.1784015450565; Tue, 14 Jul 2026
+ 00:50:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABXq84X6VVqEs8pGA--.61698S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw13AF1DJF4fJw15AFWxCrg_yoW5Cr17pa
-	srArZ5Aws5XF4a93W3XF12kFZ8Jan5uF92grnFkFWUKw1YgF4YvrW8tFyIvF18XFWUXw13
-	tFn3Cr10yrn8tw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
-	A2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
-	e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
-	8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
-	jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
-	kIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
-	Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
-	AY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
-	cVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
-	AIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
-	KfnxnUUI43ZEXa7sRREfO5UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20260710160450.64967-1-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdUQJ8mzUi0birB5f1KnCMX_QufHTgYB7AW=d3ZoFer+Yg@mail.gmail.com> <1d0d4074-90ca-4b33-9bd3-ff27aa0fd4d4@mailbox.org>
+In-Reply-To: <1d0d4074-90ca-4b33-9bd3-ff27aa0fd4d4@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 14 Jul 2026 09:50:39 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWNcbMxONo=PaHqJnD1EErc8AzYLf0MceD+vt9UhmsVfQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxwFeauCKqv0YVOv7ObJuQMatx6kqMpuGapev3XA_vc1zBsK6ZaiEApGuY
+Message-ID: <CAMuHMdWNcbMxONo=PaHqJnD1EErc8AzYLf0MceD+vt9UhmsVfQ@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: dts: renesas: ironhide: Describe inline ECC carveouts
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
+Hi Marek,
 
-Add nodes for the remaining five I2C controllers on the T-Head TH1520
-RISCV SoC.
+On Tue, 14 Jul 2026 at 01:27, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> On 7/13/26 11:11 AM, Geert Uytterhoeven wrote:
+> >> +               ecc@1e66660000 {
+> >> +                       reg = <0x1e 0x66660000 0x0 0x999a0000>;
+> >> +                       no-map;
+> >> +               };
+> >
+> > Given all DB[0-7]FSDRAMECCAREA00 registers on Ironhide contain
+> > 0x0000cccc (md.l e98[0-3][7f]450 1), I think the last 3 regions should
+> > start at offset 0xcccc0000 instead of 0x66660000, too.
+> > As a bonus, we get 4.8 GiB back ;-)
+> I asked about that part internally already, and yes, it does take away a
+> lot of DRAM. I think it is safer to reserve more DRAM and have a stable
+> system than reserve less DRAM and deal with potential stability issues.
+> I also think we can always update the reserved memory nodes in the
+> future and shrink them to make more DRAM available, once we know that it
+> is safe to do so.
 
-Signed-off-by: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
-Reviewed-by: Drew Fustini <dfustini@tenstorrent.com>
-[Icenowy: rebase and reword commit message to exclude I2C1]
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- arch/riscv/boot/dts/thead/th1520.dtsi | 50 +++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+Agreed
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-fixes for v7.2.
 
-diff --git a/arch/riscv/boot/dts/thead/th1520.dtsi b/arch/riscv/boot/dts/thead/th1520.dtsi
-index db23624696b73..b01a94785d870 100644
---- a/arch/riscv/boot/dts/thead/th1520.dtsi
-+++ b/arch/riscv/boot/dts/thead/th1520.dtsi
-@@ -411,6 +411,16 @@ uart3: serial@ffe7f04000 {
- 			status = "disabled";
- 		};
- 
-+		i2c0: i2c@ffe7f20000 {
-+			compatible = "thead,th1520-i2c", "snps,designware-i2c";
-+			reg = <0xff 0xe7f20000 0x0 0x4000>;
-+			interrupts = <44 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk CLK_I2C0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		i2c1: i2c@ffe7f24000 {
- 			compatible = "thead,th1520-i2c", "snps,designware-i2c";
- 			reg = <0xff 0xe7f24000 0x0 0x4000>;
-@@ -421,6 +431,16 @@ i2c1: i2c@ffe7f24000 {
- 			status = "disabled";
- 		};
- 
-+		i2c4: i2c@ffe7f28000 {
-+			compatible = "thead,th1520-i2c", "snps,designware-i2c";
-+			reg = <0xff 0xe7f28000 0x0 0x4000>;
-+			interrupts = <48 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk CLK_I2C4>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		gpio@ffe7f34000 {
- 			compatible = "snps,dw-apb-gpio";
- 			reg = <0xff 0xe7f34000 0x0 0x1000>;
-@@ -519,6 +539,16 @@ padctrl0_apsys: pinctrl@ffec007000 {
- 			thead,pad-group = <3>;
- 		};
- 
-+		i2c2: i2c@ffec00c000 {
-+			compatible = "thead,th1520-i2c", "snps,designware-i2c";
-+			reg = <0xff 0xec00c000 0x0 0x4000>;
-+			interrupts = <46 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk CLK_I2C2>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		uart2: serial@ffec010000 {
- 			compatible = "snps,dw-apb-uart";
- 			reg = <0xff 0xec010000 0x0 0x4000>;
-@@ -530,6 +560,16 @@ uart2: serial@ffec010000 {
- 			status = "disabled";
- 		};
- 
-+		i2c3: i2c@ffec014000 {
-+			compatible = "thead,th1520-i2c", "snps,designware-i2c";
-+			reg = <0xff 0xec014000 0x0 0x4000>;
-+			interrupts = <47 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk CLK_I2C3>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		pwm: pwm@ffec01c000 {
- 			compatible = "thead,th1520-pwm";
- 			reg = <0xff 0xec01c000 0x0 0x4000>;
-@@ -735,6 +775,16 @@ uart5: serial@fff7f0c000 {
- 			status = "disabled";
- 		};
- 
-+		i2c5: i2c@fff7f2c000 {
-+			compatible = "thead,th1520-i2c", "snps,designware-i2c";
-+			reg = <0xff 0xf7f2c000 0x0 0x4000>;
-+			interrupts = <49 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk CLK_I2C5>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		timer4: timer@ffffc33000 {
- 			compatible = "snps,dw-apb-timer";
- 			reg = <0xff 0xffc33000 0x0 0x14>;
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.52.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
