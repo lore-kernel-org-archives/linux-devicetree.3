@@ -1,217 +1,122 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0862DF68
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1AD2DA757
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784005291; cv=none; b=lx/KZSCfUrpqBryugvmEpTDGW5KRlOqg4sHaLP53TQe/NWTkbtF/PJC/9YMw1+UArToAXwmY6XxmztniyLHRiB1e8zfilaFD/Co20uKaLUxdUxmrqZmC28PazMTrkyNQ9DwW6gef2XYfDcKHcjZkghptgVVObeffx+aInp9zSvo=
+	t=1784005295; cv=none; b=FUFve+wsQ5kZ8xYc/asmwWZQeeFvegoUKIJUKx964+jnAfVa3jI7BrAzYyPP0B6Um+IP3lbW9juwFXYJrrLpqfwivOVghkmSINpspTue9HgV0pRHPLmHYE97andcshBO0KPjzP1txWWxH0PbB/C3H9t0DLK3eUKNEQ8SpZU3LMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784005291; c=relaxed/simple;
-	bh=x7LdWwLo0cnnNjSUljN9XXvIzCWAYsE5+JIPg54yzQs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WvOUifJOo2aJ3S5fYlnhfhJ/3+oW6lw7jikRZBiYgtup3lnKiGxQL6DRAcDZj/dooZuXC5mtF9br7LyL6xf49/gyrceSjHMYU8/hE86VNDGn9GWC/5i4ypKMJMgJC3OZkvAHASLf7KJDktSPJzmIlV0fMM1G5tX5ZmQqUqVjtJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XyadkByv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xe0A06pG; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1784005295; c=relaxed/simple;
+	bh=eAj4C/UmOFvjJHibxpMpZrzK7cZ/Cx0RRbGIpb+W+MY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ihJ9NALDyHuosUVBV+n0R/gB+pcvU3DiNxfoLMYWIrWT+jOpEmbB+sEClUY9Iymhz5l+asjESFmOm9xvQHF6YKLPj/PvXAIAUxO4sFJsCHyryPiw9IuU3kKSS7yOea5Yo3SDtKCiim6k764eaCy3XL2whFxvg2tobFC9lEZVm1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKHjCBjm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XyadkByv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xe0A06pG"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66E382cq3556536
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:01:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	f3zDj5t4nnjFf1RljgE9ae+K/Mz+sZ+dAu7FstVntxA=; b=XyadkByvVLCGWmE+
-	Zc3hOkF0lnbv3F3Weqs0B7IqBtDyT7b5gOZo9BDXc8kbMe8RZlokDJhZrHkh2Q1r
-	joyVA4ACBNCPqMgqcx+Nv3KVZWzyfUyMEtfg8QbceVahDddTMeuph7B5SN0Eh05F
-	YQIiS/29Pz803k9SCvadKbUz8Zwh6Xg8Syzk2yeaWaOAUNTGTuktSsxmxBIBgrcV
-	kPLQ6MWfGNvK2QfdoE/DzF+PUXdmfvYPXyLGOqT/mI5hsHwe2Cc+67CanjmeIpEg
-	RtA+P8hzOH5v7D6yjdjXHSuVcRbhqlyRS70ZJIC7bWdZ2FRg+jSGUope632psuWj
-	SdDxZg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fd44ct1fm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:01:27 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c88ad1558f4so10019020a12.2
-        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 22:01:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784005287; x=1784610087; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f3zDj5t4nnjFf1RljgE9ae+K/Mz+sZ+dAu7FstVntxA=;
-        b=Xe0A06pGh+gOHTXgMtgjgC1oaqUoJ/LT1h+rybNVNKDWDO6fdXrAcq7ivXqL76NwgJ
-         NZBu4CcX7tobXcQdPLQM9IUqbLC/SEjRUTOrhkrEDzOp2De0IJC9LqIRhBJyiPjXaC5h
-         JWxzMXvnARXc8EzRqAR68axaiNzot5LyHLyXXQ1FVvAikmqgBqSuwU3/Woxp/ZfJX3kJ
-         UOEqXQ0rNpAIXgfq/BFidociGeb167N/vSLjEJdnXRRGT2hBzIZbRQSU/MyPV9eFXvGO
-         Mn6ic973cv95+IZwxwSZc/9DJYPBqeiyssKd1nAKN1exqw2C3n3EgdmDFazutx9317A3
-         m97w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784005287; x=1784610087;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f3zDj5t4nnjFf1RljgE9ae+K/Mz+sZ+dAu7FstVntxA=;
-        b=YOzrvI5h4po68L3wTMqSFmuMZiUVFbHfZR6kX4MUkm7qTctxM+6OZz5D9aCZFn31uC
-         gI1LFczZPULX7/pKIqp1E0EuSgJuPJtfI52ZP38r/h+Era60FMIvNMkhnqgNRL14Fkv5
-         z5gitlLyVveckPaTINYTWZiAuNZOZxW06+eLZOzD9uRR4l7egsF+NnN7RZih8bX8qapH
-         R5qxVjL5LliQYpp3tCS4IThA5+p96oH9FzEADNNpQEkSVGpqVbmU+/zOkNSTjqt1GSTb
-         gcupdUaXXzJfCL2KlBewHrFLdj+6tO0mXuY02v6QAK8hf65Qk0tQoECVRrlJAb0hmb4Y
-         HRZA==
-X-Forwarded-Encrypted: i=1; AHgh+RpXZ7JcLjby9PkfD9O2hFdlXFIIU9oKEvsxxggcQJZpJ+t9nkSzU4Trf15tRa+oCWaY4Yfh0PC0QuqN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7VTu2pJIwH9JyW50vQozdZenzuv/trYPR7lx4hF9N/AyNEzOz
-	LHcklYU9rgO8hEe+Z5hd5uXVJJP2gtq/NmS3mKlZAXhyckJ7FFm5ZXG9mUfUX9lQ3zJVLWpp34W
-	5fyVx9Ia+5x+TiVtNoZIhHhGtVfJrYOfPAaLdgJsE4l/KyzMhou+08nj1+avmJQEO
-X-Gm-Gg: AfdE7cn1jGwBYAKPXBJoejnSlcQjJWyLlbXwacVvxBIfRnQ8l3YK4ChoapwTMxhNi0O
-	qLETytSn1HjcqcAWYfaWJfWiUSXLuQ/GKIjxa1iDSdABeEwYLI4MVSqc96w9h9VZr9LGnKa7ZSl
-	GDTNHyqp6mfmkyW70/mIpuGVA/fIAqBv+ZgzMSqGUKV8rPn48PC0hmivzpxSSm0MbGHTZ8jXsNG
-	ID0rWiD+DyhFpTX3wnyx7nquNJ6wPlP0WRGwS3qvT14SRfCPhP2ea4MQBuQ+qQ2YY3d6OJEIwQN
-	w0tzOCkIBWS7u6qDIsX0Sb1RQcpKhjZSW/cFwzBavsHgu/r63w+eTYmhmELjjq4X+CJFhVTaske
-	XkZv6jZHd38r5IhtH02rtrO65pfqkW/kHzKWgjm4f5ucQcrI=
-X-Received: by 2002:a05:6a21:7a9b:b0:3bf:64cd:c45e with SMTP id adf61e73a8af0-3c35731bd15mr1026740637.4.1784005287236;
-        Mon, 13 Jul 2026 22:01:27 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7a9b:b0:3bf:64cd:c45e with SMTP id adf61e73a8af0-3c35731bd15mr1026688637.4.1784005286755;
-        Mon, 13 Jul 2026 22:01:26 -0700 (PDT)
-Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-ca5b3c1f77fsm9327406a12.32.2026.07.13.22.01.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Jul 2026 22:01:26 -0700 (PDT)
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 10:30:22 +0530
-Subject: [PATCH 1/2] dt-bindings: dma: qcom,bam-dma: Add optional qcom,vmid
- property
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKHjCBjm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84BC1F00A3A;
+	Tue, 14 Jul 2026 05:01:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784005294;
+	bh=flQs53v06qj41mn5ERKaiQITHH+2AnFNTeEYkZSGEF4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KKHjCBjmQ5r/SfHVIQ/9IBAm55atLl6I/s6/bLZqewPMe549FFSpkgSxUZddiGpDp
+	 7wXZ6FC66bRYoQO3gfbcvxICYjenoNoQnboTf2uIPGBVWpe1wdKcrCzpGRkhDWufZG
+	 yWziwK698XScfcixwVq4a47VzdxMfy0UoGNYmkZtspTtA0xf1UPD6QpjzLW0wtdtkB
+	 88K715ft1uqXmhL0g5IozOHgqkEmSwNsU0SAmpyleK/n/K/HRgmYelN8k5cCALhuPF
+	 IVMc781IS1lV7w3p6+46T0y5TJ4vM1yauWU4nZjnBARyfoXY5sab7imrt2w7KkH25i
+	 80MLuf7CFQdOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] arm64: dts: qcom: ipq9574: enable the PCIe support
+ on RDP454
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260714-pcie_move_to_new_binding-v1-5-6bb25887a0dc@oss.qualcomm.com>
+References: <20260714-pcie_move_to_new_binding-v1-0-6bb25887a0dc@oss.qualcomm.com>
+ <20260714-pcie_move_to_new_binding-v1-5-6bb25887a0dc@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 05:01:33 +0000
+Message-Id: <20260714050133.D84BC1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-qcom-bam-dma-vmid-ext-v1-1-cef87c57b7dc@oss.qualcomm.com>
-References: <20260714-qcom-bam-dma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com>
-In-Reply-To: <20260714-qcom-bam-dma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        chris.lew@oss.qualcomm.com,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784005277; l=2743;
- i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
- bh=x7LdWwLo0cnnNjSUljN9XXvIzCWAYsE5+JIPg54yzQs=;
- b=MOrq10271hFCcD2c2QHE22b+uYCAGDpM3IuW4gFA/UK4wu2vcTXPqSkRTQ3cACXbFdhB2DtcV
- Rin2jnK8mTcAbcyQPlLiDDKYwK+qleXmlTw79bxOhiKsi0PALhvIMnL
-X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
- pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
-X-Proofpoint-GUID: cG1VGx1Y7bKdlKsA0GuzVqCmDQm1LyAd
-X-Proofpoint-ORIG-GUID: cG1VGx1Y7bKdlKsA0GuzVqCmDQm1LyAd
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDA0NyBTYWx0ZWRfXx/+kegzD7c5p
- kYdCRvw22m1aZSJJdwx4UQu+ehob2+2sgG7wqGClRfcD1X6Xz/1USk2fOSB/7uRyRZvgf2739OP
- b72tVpC4gWA7kbCiHM6Df1M13xiqZ3g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDA0NyBTYWx0ZWRfX5ovv7sYH31RE
- HWIr+TKdE1GhgSFGzIzAL1DFx2F+z10C4diCQVOBu0Ux7nhe/PN5euaXHwGEqxl5EI2RaTVjaou
- p/4/SiVu+5AJWxoaTYGlviv4FlhsAb4Q/J1tYrKOuf7vUJGuRQUwX3Pp3ia157lS6F5hx9WYwzB
- C35sbjz0BNL1grFwDTu42vovTh+BtB96Ejnk/IDIr5Pk5otOkc47D4Rb9e20MtBwoxrZuRQKH3/
- oDF2YsoqjZ3CYAxLK4LPqd6x9FLr09Em9ZW3NiOWixL3O/SuKtFykZ96cw2d6KMrU167pEiw+kZ
- c/nD1NZcYPxD3TWdNR9QTS4d8kyQIudhOtXAWabUwK5rcIaD80fswd4iuoT5j4KKbpW6Nt/qiJJ
- t+KB0i5+0/CuGL7lSJ++ObB3sGWYwGIxdxnQyho3Tv1oJ5PePv2jB60XJRlhEMwAiMv+GxYkZ5H
- r1xXp+r+Zl97zm4dvsg==
-X-Authority-Analysis: v=2.4 cv=P84KQCAu c=1 sm=1 tr=0 ts=6a55c2a7 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=4-exsm1T3CILtrYoWyMA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-14_01,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 phishscore=0 spamscore=0 bulkscore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607140047
 
-A SoC can have multiple BAM DMA instances. Some of these BAMs are
-powered by a remote processor that enforces XPU (eXternal Protection
-Unit) access control and reads the per-channel descriptor FIFOs as an
-AXI master under that remote processor's execution environment, so
-their FIFOs must be accessible to the remote processor's VMID; other
-BAM instances on the same SoC are not behind such a remote processor
-and must not have this property set.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Mismatched and unsafe default bias for the active-low PERST# (re=
+set) pin on PCIe0, causing premature reset de-assertion.
+--
 
-Add an optional qcom,vmid property listing the destination VMID(s)
-that the affected BAM instance's descriptor FIFOs must be accessible
-to. HLOS is always the source owner and must not be listed.
+--- Patch [5]: [PATCH 5/5] arm64: dts: qcom: ipq9574: enable the PCIe suppo=
+rt on RDP454 ---
+commit 52495aceaf771805ada229c324028601d793b505
+Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
----
- .../devicetree/bindings/dma/qcom,bam-dma.yaml      | 26 ++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+arm64: dts: qcom: ipq9574: enable the PCIe support on RDP454
 
-diff --git a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-index 0923fb189ada9ee435144e8490c64ecb81edc57d..d256340d3f32e81eaa8c1e275c2a99aac888aa90 100644
---- a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-+++ b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-@@ -12,6 +12,15 @@ maintainers:
- 
- allOf:
-   - $ref: dma-controller.yaml#
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              const: qcom,shikra-bam-dma
-+    then:
-+      properties:
-+        qcom,vmid: false
- 
- properties:
-   compatible:
-@@ -29,6 +38,8 @@ properties:
-           - enum:
-               # SDM845, SM6115, SM8150, SM8250 and QCM2290
-               - qcom,bam-v1.7.4
-+              # Shikra
-+              - qcom,shikra-bam-dma
-           - const: qcom,bam-v1.7.0
- 
-   clocks:
-@@ -81,6 +92,21 @@ properties:
-       Indicates that the bam is powered up by a remote processor but must be
-       initialized by the local processor.
- 
-+  qcom,vmid:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    minItems: 1
-+    maxItems: 8
-+    items:
-+      minimum: 1
-+      maximum: 63
-+    description:
-+      Destination VMIDs of the remote processor(s) that read the per-channel
-+      descriptor FIFOs as an AXI master. When present, the driver SCM-assigns
-+      each FIFO to these VMIDs so the remote access does not trigger an XPU
-+      violation. HLOS is always retained as the source owner and must not be
-+      listed. Optional even when the qcom,shikra-bam-dma compatible is
-+      present; not valid on any other compatible in this schema.
-+
-   reg:
-     maxItems: 1
- 
+This commit enables the PCIe0 and PCIe2 instances on the IPQ9574 RDP454
+board to connect QCN92xx Wi-Fi cards.
 
--- 
-2.34.1
+> diff --git a/arch/arm64/boot/dts/qcom/ipq9574-rdp454.dts b/arch/arm64/boo=
+t/dts/qcom/ipq9574-rdp454.dts
+> index f2334b9e0ed49..146422aede7db 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq9574-rdp454.dts
+> +++ b/arch/arm64/boot/dts/qcom/ipq9574-rdp454.dts
 
+[ ... ]
+
+> +	pcie0_default: pcie0-default-state {
+> +		clkreq-n-pins {
+> +			pins =3D "gpio22";
+> +			function =3D "pcie0_clk";
+> +			drive-strength =3D <6>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		perst-n-pins {
+> +			pins =3D "gpio23";
+> +			function =3D "gpio";
+> +			drive-strength =3D <8>;
+> +			bias-pull-up;
+                        ^^^^^^^^^^^^
+
+[Severity: Medium]
+Will this prematurely de-assert the reset for the QCN92xx Wi-Fi endpoint?
+
+Because reset-gpios is active-low, configuring the default state with
+bias-pull-up pulls the PERST# pin high before the PCIe host driver probes.
+This can violate PCIe timing requirements if power and clocks are still
+stabilizing, potentially causing link training failures or device
+unresponsiveness.
+
+Is it intentional that pcie0_default uses bias-pull-up here, while
+pcie2_default correctly uses bias-pull-down for its perst-n-pins?
+
+> +		};
+> +
+> +		wake-n-pins {
+> +			pins =3D "gpio24";
+> +			function =3D "pcie0_wake";
+> +			drive-strength =3D <6>;
+> +			bias-pull-up;
+> +		};
+> +	};
+> +
+> +	pcie2_default: pcie2-default-state {
+
+[ ... ]
+
+> +		perst-n-pins {
+> +			pins =3D "gpio29";
+> +			function =3D "gpio";
+> +			drive-strength =3D <8>;
+> +			bias-pull-down;
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-pcie_move_=
+to_new_binding-v1-0-6bb25887a0dc@oss.qualcomm.com?part=3D5
