@@ -1,38 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EF135F60E;
-	Tue, 14 Jul 2026 01:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F6119ABC6
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 01:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783992910; cv=none; b=ZqxoUq1+wfMp+kspDwJLCHQgM+Qlm0gKQA6w4s6qL3wnq4EPNW18k4IciTbxdKGhPNuEjSzXWPXlrC4LvAR68/gH1QqyCya39ng+7OUfALgHQHnjvAYdC9Cear8FOPOvjoCXr660V789fcR8H//svNYv0qjybQ21Xanpv+EfxtM=
+	t=1783994269; cv=none; b=UaeFJy7COjynWXAZ6AtlBz0aAXbljyh2TQ8YXwJU5dyTHdkFfjFnPWR56c9/GpdcVCSoxh+L9Gaig2tm80CxF5+c+xieObl9ljFbdAXH4+9dFWx5uIlyKoyMP0pVul1o4R0SmFRlpnM7SlsWGAUZzRqJzQ5ZtEQ4tAun6Wr7wUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783992910; c=relaxed/simple;
-	bh=ndlFAPnsB0Fq6i2L0rhg60nuodlsSu9z7E3c34glIHY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RB8KRpkSEMsOgpAWMcpdUQxfJEpIUlUqiVm7/+BH/yc5t/OymaaebZPazZtNaj/TW6c4ktXStchJwZ13ojKAZMyAXvo7oS5OqCYvNiJ1Tf59HP+xyCxazvE2WXXOhqIRkgsbbRGi/KGXsVc2YCGJFTPr9AAixeZipnMjPn1tMfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=goXFN69t; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1783994269; c=relaxed/simple;
+	bh=F2K9sEjjREWTXCiiFvgwr/QcjLlB0RgcEW4s31Wtlh0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=trmq9QeME6U5qEQppfIpssYY2ug7H2ABxGqu8LGAGcNHD5LWyVyfj1vgLpkRVlFupPHLcA3AzPcDw9eo7j5Brjjyd+Yt7AWSBP6I9NtT2S5WjBRX3SmJrzrNjTnLvAVJl/sVmgY72ypGR627EnsEL3Atpw4tZEqER/0KkXjGO8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lt5XL7Nf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CY6TtMTp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="goXFN69t"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C6FC7C2BCF5;
-	Tue, 14 Jul 2026 01:35:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1783992909;
-	bh=ndlFAPnsB0Fq6i2L0rhg60nuodlsSu9z7E3c34glIHY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=goXFN69tZfC1JeCcE6kHSIaSMoHn6FzOrZWEw+cr9IMMKBa8MsFvHaioimx2L6MQR
-	 N6KYCLap11eocXBuhMBpNGQi0ZSvTZ8cKFE3NfBrOTi6my4UA27f7egsaiykDzenxm
-	 qesfojp1JvpD7rEwCcen9/l55dXcryyIJYnNVblh0AtQd3y3JaumCvzc69j/HAMgrX
-	 JSfunSauYbraMzdeI48tadqeavZSi7oIqXwfYs4rn6ucAVAFQ8KRO/qziau7Emj73Y
-	 WagjnwpF8gzUOlnPv5g5pBXXWRRpGYfGMQUg9ptqqbLRHW2ncerrxSOagi+D8OBeym
-	 TzMpL0Q7QXU2g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A97C6C44508;
-	Tue, 14 Jul 2026 01:35:09 +0000 (UTC)
-From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
-Date: Tue, 14 Jul 2026 09:35:08 +0800
-Subject: [PATCH v3 2/3] dt-bindings: clock: ultrarisc: Add DP1000 Clock
- Controller
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lt5XL7Nf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CY6TtMTp"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66E1jv5j3259263
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 01:57:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=tp+sv+c71VTdHi1qXlE1u1
+	5U+7SzQuSNHRz9AK/D148=; b=Lt5XL7NfRoJOWWR8HMi5u8+L9Bxyt7UKH/i//O
+	mk0zDHYEstNElk/MsiQ7QES0PZHqITKhrdr7jARMSK4u2ssThVffL7vrnAlqCuuE
+	wLM9ZtHVHg7p+FRCPOtljYj1Tc5Tf6JWl9g/mmwF5RlBjRvpCiBj3dJ5Izwil0e5
+	i+7+N3Cn8zKAXuD2lQqGW7ix0S3DM2EredYGOu2m8uXeWCBQAuD+E1AMPi7OnOCS
+	ESabFpCjUNDTLaKUi+YhRn1LvloIwSP3+MFf9knwCxeuIwA9N32mK2NEcFJygi1d
+	F53KKGBK6YKqnkXnZdr55AogzMwzyw5nrJpq2CoaujSo+Zag==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdbr480ys-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 01:57:46 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84870e7f498so4503603b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 18:57:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1783994266; x=1784599066; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tp+sv+c71VTdHi1qXlE1u15U+7SzQuSNHRz9AK/D148=;
+        b=CY6TtMTpJoUgSwtftr+lrHjNXglFuVBvSJdLNlCbpNVycrD4q3BIG8QSHQ8IDC+Sw9
+         3uSfsboFzqGNs66dx29jpN7cmTmXsYhEJ6jqZl9X7uyvufpwW8sHLQKA+2D+dyXN4XGo
+         ywKfOclkExakEC3imTxskxbhFwPpIAih8WQMaYK8yQUeR/J/zv0ykH6GZrvXHgBKRCGc
+         dJCm6LaKJbu+0mJzWIiiXGGcNDFTiEcAloDrTNGOWC8RVbO9b0c9mPRLTMd4zXbZKZnD
+         6I1+Jwss8N/VkJaLhM5dgSbJt2p4HL5UWJ20BCdb0GFxr8ufF2jmuhRytdubA0uKk1Xt
+         W+ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783994266; x=1784599066;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tp+sv+c71VTdHi1qXlE1u15U+7SzQuSNHRz9AK/D148=;
+        b=spsUsrryrpcSZyEh09gOaojQ3tDSR2SxZn1FWJUrvDnyqFETB0YGx2xIkOqgmiYwLQ
+         GgaMLNAg+cbOPt1AgGI41UJmwNgX8tHVXpr9d+aZ2PNJciM+HhNbiCYsl1qrZX1bmfJW
+         UAQfz6AgIOAy0K6+YfoNunRkPIwSya4shUpHMteKMHJO6iIDyA9F/MQSXjceHqa+BVoO
+         mRh+FZb0g2DE2rk+WR00CCRPRJ3iOgmybmW5FD2BnZhNu7nCU5TypTn+4dc4gGgKyzDQ
+         FF9D660EMg2mHCFw08p+jQmx7EWmdBkXE0GBsSCfyFzjITnTL+JbWj2n2fbpge5Grqa4
+         kH4Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoaEeIq/sT/1MZXDVV9Qj4eJzkPh4FH5RzW3FSlxb+1EelCt70mgjJILh1YSGK1mGVjKGdNzLAOhxb6@vger.kernel.org
+X-Gm-Message-State: AOJu0YykEM9VadDj9N8+F71JlUN485KI6BD9uLT6fOwBoBZt37unmzOk
+	0/7CRBxT4tzeLws1C8h2gGEzi2IWceiM6WP4ni+gksKh9Y4eWlZToJq6VpCarjRa0Sg2DYkwYNO
+	YwkvVNzx9HiBvj0zkJWxOoO/5LMaDj/UVTGDjzLkOUZJuytRPspu5HjIUzoWqKLxp
+X-Gm-Gg: AfdE7cmLPvUwEqi7TJz47P7PDmdZVrPuPAAb5MqF6N2m3sIeRx2299C27lt6VAf2UJI
+	O6soCjIclJtDy4yQFJuqN9CLEdKOTcJsGQnrJSIky8tKPe1xBu3XUUemBkvmhLx8/H55+jWgRrd
+	LBXFFlsV8Hy/7XcK8BRCwZmOB6IRmiA90ecxXssnSVQzbTpXivn4w0g2s7QOil4J6Cj+JgvSJl3
+	DvhHhqbHWDo5R2/S+TMqTuFAKOKSNZGcKzhyxkMhcOsdP/6T4wBQFJYDzjvJ60EevAZb2+TkXNd
+	mAYHUxlJ8bL2VynPNC2jucAtLoeKTuVV0ytNDIOtSffxfLvMzifxr02xjm1rssuXhd0GH4dMudY
+	Om9cZUz8dTjoaLZHJtn7J6HRF714HHkO+2370t7Mk3KtXZz4aq6b6GGDVqpdZGH5jCcFZ1bBLiA
+	==
+X-Received: by 2002:a05:6a00:4484:b0:848:700d:c950 with SMTP id d2e1a72fcca58-8488975a906mr10015118b3a.37.1783994265794;
+        Mon, 13 Jul 2026 18:57:45 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4484:b0:848:700d:c950 with SMTP id d2e1a72fcca58-8488975a906mr10015096b3a.37.1783994265313;
+        Mon, 13 Jul 2026 18:57:45 -0700 (PDT)
+Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84a4f29ed3dsm634191b3a.27.2026.07.13.18.57.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Jul 2026 18:57:44 -0700 (PDT)
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add CoreSight nodes for Qualcomm Shikra SoC
+Date: Tue, 14 Jul 2026 09:57:24 +0800
+Message-Id: <20260714-add-coresight-nodes-for-shikra-v1-0-b1cf85962455@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,160 +89,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-ultrarisc-clock-v3-2-4b1ccaa26b37@ultrarisc.com>
-References: <20260714-ultrarisc-clock-v3-0-4b1ccaa26b37@ultrarisc.com>
-In-Reply-To: <20260714-ultrarisc-clock-v3-0-4b1ccaa26b37@ultrarisc.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jia Wang <wangjia@ultrarisc.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783992908; l=4082;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=hAYITNry4LyDjLKPqs+Vj2CAziH/un6ry4g7V+jxfJw=;
- b=M3WkSIcreWFF8Dnzm6cgfgu0rPe0JYKA5S+JOmNwQfaD5gsCBm0wMu0ycMSDfnflh5Bl+JKAt
- wvnSshtjZV0Dfy5dxd1CTWRNV7fDbyaYwAuevh4uW+rl+S8Ajzeo4cc
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
- auth_id=779
-X-Original-From: Jia Wang <wangjia@ultrarisc.com>
-Reply-To: wangjia@ultrarisc.com
+X-B4-Tracking: v=1; b=H4sIAIWXVWoC/x3NMQrDMAxA0asEzRXEJjjQq5QOIpJiEbCLVEoh5
+ O41Hd/y/wkhbhJwn05w+VhYbwPpNsFWqe2CxsOQ51zmNS1IzLh1l7C9vrF1lkDtjlHtcEJVpVy
+ SEJcFRuTlovb9Dx7P6/oBzTuaNXAAAAA=
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+        James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+        Jie Gan <jie.gan@oss.qualcomm.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783994260; l=1206;
+ i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
+ bh=F2K9sEjjREWTXCiiFvgwr/QcjLlB0RgcEW4s31Wtlh0=;
+ b=nhcXZEAnqwFMvxfhtW3CN+qiVqmS7C8vIUCnVOD/G678bP0apyOiIDi0PpEatlNLYmjRNgQQA
+ CrX5DtpTQwnA+B9F7EjUkpiwWwy6VWaUTVTpQ/ijdd04dI+/7Cm4ypP
+X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
+ pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
+X-Proofpoint-GUID: l-Sm8olAFA_TaP43WprNuugqhv4HEHbT
+X-Proofpoint-ORIG-GUID: l-Sm8olAFA_TaP43WprNuugqhv4HEHbT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDAxNiBTYWx0ZWRfX6+hz+umQe2SN
+ SxyJ2a2FKfwN1YkpQsSiPSymjagL4IKzo+eVBJP+evsXHIKXCdsdHDb6KXkFgDdIyRB9na/MLpN
+ Q9ejbeQetLVJUYquMtKUIhBtm6+N/a0LhVmy+V3mxBGIbXVc0Tr7jUGqsAcaDruKrhC0mkOrwN7
+ Ak50y79z5qmTTzG/h4opQG9hzgO1qUAQhmZ36srX+MD9aq0mRAu1Be48OHgoPZqhlMvM0uVWLg5
+ pZ7AUEAD/JHwttWwtIlaqyYQTxuNu3bTykPDf6JR1w8e2PS1XbXffPWWgrGvZ/8WJQu0fjWGq/w
+ GEYUmmlG+T3hrpIdMvvduF9InLhqzB27Tz98jWO0K9bLd9PuqhnTxFzRMkt+LF5oX8sGcR4o0N3
+ ay14msDKrZzYqMzvBZd/ihzMwW7svKCKS0oDyPofz6sg6W9CKGiT2Uv+QXyYx3uT/X3foFUeV+6
+ UI2waKev/431elgJsoQ==
+X-Authority-Analysis: v=2.4 cv=F5hnsKhN c=1 sm=1 tr=0 ts=6a55979a cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=YMzFSpygh5mOmOF2B6YA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDAxNiBTYWx0ZWRfX6p0tAOLFJob8
+ HDncGm2EfPo0MctD2hsMtabQBnowu99Is4ouBvoh6QIKdzea2l3baNmrtluASukZ+uMHJ3OMhbl
+ /BoxPJwMngiHi+g84S86pGZLMCQJ7Rs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-13_06,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140016
 
-From: Jia Wang <wangjia@ultrarisc.com>
+This series adds the CoreSight debug and trace subsystem for the
+Qualcomm Shikra SoC.
 
-Add doc for the clock controller on the UltraRISC DP1000 RISC-V SoC.
+The first patch adds a fallback compatible for the Shikra CTCU (CoreSight
+Trace Control Unit). The CTCU on Shikra shares the same configuration as
+the one on SA8775p, so "qcom,shikra-ctcu" falls back to the existing
+"qcom,sa8775p-ctcu" compatible.
 
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+The second patch adds the DT nodes describing the CoreSight topology on
+Shikra, including the funnels, replicators, TMC sinks (ETR/ETF), STM,
+per-core ETMs, CTIs, and the TPDM/TPDA trace collection blocks, along
+with the CTCU and the dummy source/sink endpoints that model external
+trace sources and the EUD sink.
+
+Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
- .../bindings/clock/ultrarisc,dp1000-clk.yaml       | 60 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 +++
- include/dt-bindings/clock/ultrarisc,dp1000-clk.h   | 27 ++++++++++
- 3 files changed, 94 insertions(+)
+Jie Gan (2):
+      dt-bindings: arm: add CTCU device for shikra
+      arm64: dts: qcom: shikra: Add coresight nodes
 
-diff --git a/Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml b/Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
-new file mode 100644
-index 000000000000..ede565ec440c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ultrarisc,dp1000-clk.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: UltraRISC DP1000 Clock Controller
-+
-+maintainers:
-+  - Jia Wang <wangjia@ultrarisc.com>
-+
-+description: |
-+  The UltraRISC DP1000 clock controller is driven from a single external
-+  oscillator input. It provides a system PLL with fractional multiplier
-+  and post-divider stages, several fixed-ratio derived clocks for
-+  the on-chip subsystem, Clock Configuration Register (CCR) divider
-+  outputs for GMAC and the UART, I2C, and SPI root clocks, and
-+  per-instance gate clocks for UART0-3, I2C0-3, and SPI0-1.
-+
-+  All available clocks are defined as preprocessor macros in
-+  include/dt-bindings/clock/ultrarisc,dp1000-clk.h
-+
-+properties:
-+  compatible:
-+    const: ultrarisc,dp1000-clk
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+    description:
-+      External oscillator input clock used as the parent of the PLLs.
-+
-+  "#clock-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - "#clock-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/ultrarisc,dp1000-clk.h>
-+
-+    soc {
-+      #address-cells = <2>;
-+      #size-cells = <2>;
-+
-+      clock-controller@11080000 {
-+        compatible = "ultrarisc,dp1000-clk";
-+        reg = <0x0 0x11080000 0x0 0x1000>;
-+        clocks = <&osc>;
-+        #clock-cells = <1>;
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 806bd2d80d15..d646707bb17f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27671,6 +27671,13 @@ S:	Maintained
- F:	drivers/usb/common/ulpi.c
- F:	include/linux/ulpi/
- 
-+ULTRARISC DP1000 CLOCK DRIVER
-+M:	Jia Wang <wangjia@ultrarisc.com>
-+L:	linux-clk@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
-+F:	include/dt-bindings/clock/ultrarisc,dp1000-clk.h
-+
- ULTRARISC DP1000 PINCTRL DRIVER
- M:	Jia Wang <wangjia@ultrarisc.com>
- L:	linux-gpio@vger.kernel.org
-diff --git a/include/dt-bindings/clock/ultrarisc,dp1000-clk.h b/include/dt-bindings/clock/ultrarisc,dp1000-clk.h
-new file mode 100644
-index 000000000000..751125f99965
---- /dev/null
-+++ b/include/dt-bindings/clock/ultrarisc,dp1000-clk.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+#ifndef _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H
-+#define _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H
-+
-+#define DP1000_CLK_SYSPLL		0
-+#define DP1000_CLK_SYSPLL_DIV2		1
-+#define DP1000_CLK_SUBSYS		2
-+#define DP1000_CLK_GMAC			3
-+#define DP1000_CLK_UART_ROOT		4
-+#define DP1000_CLK_I2C_ROOT		5
-+#define DP1000_CLK_SPI_ROOT		6
-+#define DP1000_CLK_PCIE_DBI		7
-+#define DP1000_CLK_PCIEX4_CORE		8
-+#define DP1000_CLK_PCIEX16_CORE		9
-+#define DP1000_CLK_PCIE_AUX		10
-+#define DP1000_CLK_UART0		11
-+#define DP1000_CLK_UART1		12
-+#define DP1000_CLK_UART2		13
-+#define DP1000_CLK_UART3		14
-+#define DP1000_CLK_I2C0			15
-+#define DP1000_CLK_I2C1			16
-+#define DP1000_CLK_I2C2			17
-+#define DP1000_CLK_I2C3			18
-+#define DP1000_CLK_SPI0			19
-+#define DP1000_CLK_SPI1			20
-+
-+#endif /* _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H */
+ .../bindings/arm/qcom,coresight-ctcu.yaml          |    1 +
+ arch/arm64/boot/dts/qcom/shikra.dtsi               | 1298 ++++++++++++++++++++
+ 2 files changed, 1299 insertions(+)
+---
+base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
+change-id: 20260714-add-coresight-nodes-for-shikra-fffa261ead64
 
+Best regards,
 -- 
-2.34.1
-
+Jie Gan <jie.gan@oss.qualcomm.com>
 
