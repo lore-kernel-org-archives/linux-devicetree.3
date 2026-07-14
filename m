@@ -1,117 +1,131 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC9639CCF8
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C794446F5
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784057130; cv=none; b=KdZ+bUY5bo9szaNEPk2AWFMPe4c9uo+xMz8UURn8l+N2uRQKP0u2ghn5P5DwSFA0iOf/vIg9dPnncJ9G4K0f21mUIOv2N6U2cJP3fcmWhTvJ0YX/ggugcQbWYU1EfLdgf30jiYYobuae8mdviboHf4zVYuSE1Yd3FWWLhCuRfXw=
+	t=1784057157; cv=none; b=Pft+wMDz6Qx9AM1g1lBYvpJBDrmI7wW8D8o1H/l8acRuaEBmUtLF4+sW4SvXqrOdhOiQFIaA8p0qRYXpMvfNzD6G48wkaqNWtasSROZy0cVWCM800WJc7kBoNAs1hkhL7RXXhD9R6tYqlqcrjsN3zBQY2ukTKMV69XTL+le9Z2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784057130; c=relaxed/simple;
-	bh=EX5yKJb8Euh5X5VHbTkU92t1oQnTP18tRQRozxrHgjg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FsC+7y53uQFK1qJ+O6kpdVgXBfphodFvyxLorhX76kQvmv/CrtxYXXcbJpcJUNeSaoZ7gs+wbAWJKJ0ORjhl6MSlry/d95CQ/3xIRPKVxVgQztf2Oz6uTk4tZZNagdCMCdvqJZXgtyvIgqjvw65CiXRwwlVkm/0A5MyDYDuvRO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=GhqoKbLY; arc=none smtp.client-ip=209.85.161.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1784057157; c=relaxed/simple;
+	bh=ahscmd9YT8oibDqCY6Oc6uJhn6xbs2gH9045tEkGePc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAjSQ9rtmdIwMLdFnO0TJDnTUSkfgTulUFApsuPJM6lAuPAbNwp1e+8dNS7acnMv3RxhYVlIzsLzPUokdB2y4e/cXBGlFqkcarRVbnSWpIcJbXaX9U0RMIWmLuYQ4IhFVpR8a+R3whFUwcGx3TnBlgnPEHL1UxhD390tZp2o6hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=BMBMcJQC; arc=none smtp.client-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="GhqoKbLY"
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6a3d77e72ffso117180eaf.2
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:25:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="BMBMcJQC"
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-43cce34c881so744932fac.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:25:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784057127; x=1784661927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m4ONTzaMp1liWwOrIeA/8iMl09tZSizZYRiO5e4Y3Gs=;
-        b=GhqoKbLYyftAiGIg8EgIbsYWldMPOvKxIFb22SgeixCVTst2JWWD2aEcB9SK6u2YvM
-         qJuVrERbTsFIdhrmOu4aBJZLPGBvstKa5SRfItuFpvL//7uOuKGHjbPnj/VsjZTFY5aj
-         pubxwCtuKPygzb02zFtB3uuIYgvDdlSLGl+O+mKPm7mp67i9ZBENz12Yv3niGe05oglJ
-         rexz+IEVAkSqii+xRSAy3oKmbs1H/69SdG1W2uPDOVfi1NotCwxiuhtMAu0bzkHLZ7Wt
-         sKY1ovQurxASlLJKA/NiO794CF3EvgYN7eC5UX39lDcbiowNabTM4H+KED4nNAoW8iAu
-         iYBQ==
+        d=chromium.org; s=google; t=1784057151; x=1784661951; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BfB31hq6nij2zrbqGroJKSVeDBtuN7UhhDZLTpuuWH4=;
+        b=BMBMcJQC9JHScWT/uBYyJwG6PNecmJ9jE7nAxFGcCKHrAv8sY+49/fho/k6mbRcFa9
+         U2HQy28CgrTlFJv0Sc4/VTYLgR7gh3SOsmcF2rBlQgBQv9no+Dxb6Otxf6lodA+H2W2c
+         7L19EFZLvvPx5d34UEYBifoLdjL+VHgQxRGJw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784057127; x=1784661927;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1784057151; x=1784661951;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m4ONTzaMp1liWwOrIeA/8iMl09tZSizZYRiO5e4Y3Gs=;
-        b=sj4U5GC9l5sivd2j4caaYpgjwbiS0IaUdLV9eLQQFpbhGnHXsdD/lKrtW8InzUV3im
-         zNYrAOll9jHRMtt0UX/9n28TvXwPHlyhUSl22IHiNLjZ0PRr80SkcxQvnVpen4SS0CZD
-         sEO+y1TyyMn0kWxsEfvPOiwL4auvE67gBh3BBgaKU8M7hq9yPgwFtreyS7CFN5TrDA8w
-         +CPkOVd7Obtlfhb5gUNv9MRsRZPxYucgIoWrL19j3t76WrWNn8I3g9hhhARj08F+++sk
-         y7mL1lTopR9QzZtHS4xtvZWcnT8xwJ/p5f6hKqe0g7xLGnl9B9rvB+ew4W5D7WA7Elwm
-         vLdw==
-X-Forwarded-Encrypted: i=1; AFNElJ8VYfK8YDD3NLJiP42Omw439uokvQE3HM3LNhQ+dvi4KvxiIJxuDb+bdvBgllxoADwFXad6rXhaXeQt@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGygBr9euUCsItmioDfpf8a7SjQQrchdOJjUg15BB5A4NOd3XJ
-	h67YVLIuMs59w1t8Uzg/jhOqj8ARqX0UhAYkjXCztIK5chWM1vdX9Fr2IWTRJmPcKng=
-X-Gm-Gg: AfdE7clQb24TMesPTRU7F2Ii9MJzrkTTWFzaUBxB5Bk+l8q6R8XL+gYMUyOypM/wOtQ
-	5AJ+1xtv0D9vwI5P+zz8Ln6XWpR6FKDCj+bCHXR1bANgQIhTwc7IBM3agVXKORs7wkfC15T5itL
-	j6aeOmwmTqIA5I/I6P7YS0H6GQZTFGqD4Vxh7r0fCXxIGyuVdcAQAJ0Tj0rKV+c1k3bCW9HJ47u
-	00Pv5BxyUnamim+7yKA8p55k72mikwV6xyPoc+lzQz66zo8ldsIDb9y2rLV386oMy95lce44uwF
-	ahD3eTgbGQuAmqDi8dTqZpgIDdQ3t4WbjgRr5xkrlsxuaPsIwXQ5HUklnarFjl/52VdDpgmj6T9
-	V2+otsQxX6jDc9OfRrO0Cf6oFVEXzb6LBZn/CZctgi4o+u+ndnu26Trhc73S4COE1fLC1iJ2kvh
-	X26BinMtq2ewPLRrnp+iY9ppENw+qMYcGnyqqFH7EeZd4sd+NI9qGf4FRwg3vY++5iN8/615RD8
-	w==
-X-Received: by 2002:a05:6820:3410:10b0:6a3:c52b:b953 with SMTP id 006d021491bc7-6a3c52bbe82mr2181491eaf.50.1784057127280;
-        Tue, 14 Jul 2026 12:25:27 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:280e:69fd:7612:d5a9? ([2600:8803:e7e4:500:280e:69fd:7612:d5a9])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a38e16c7d8sm8811266eaf.9.2026.07.14.12.25.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 12:25:26 -0700 (PDT)
-Message-ID: <2a86e4a0-0203-47bf-8857-cf4fa9b642ff@baylibre.com>
-Date: Tue, 14 Jul 2026 14:25:25 -0500
+        bh=BfB31hq6nij2zrbqGroJKSVeDBtuN7UhhDZLTpuuWH4=;
+        b=PISjZhTCwT09GkRJWVCwM8fCPHxherCju8His5rl3/mRfi2jyE6bM6jEg/zNTUm6+A
+         wil+gGBxTLgblHBrIkKnlbhvmTRryBxkjpaWCPWIKe6YHpqyITglmcyx37d0YyEx5lje
+         kxAIRNrsbmVqaBq6cXb/kTEgTWjgSWSYhXPmI0gp+IjmlFKpYbSg8ZRfx/YjEuSFLJoO
+         t5dFyPtj3KSSmYGtdZ3QzpuKCWt05QQjU0/jCjocxqZ0YGwmUdnGgXbHNo2D933Tp8Sb
+         KQvhEBZCzbpM2TfuZZG6URibPQlyW+oBO5evsF0z9zh08PEboDbOwXkjrq07daJ4O5Nm
+         9Syg==
+X-Forwarded-Encrypted: i=1; AFNElJ8Yw2vWUxzuIBXvvJZd9yADTm5rmdo0HXoMivmHVBsx4D6fmy7EGty55scsngn/4xBZNsLPfvo1dqGY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxf4rN1KtT2kBevAZcnfMqixfGIUfnL9gB/Md5c3mQO1IhRpiRf
+	Xjb/MkL4b6sp9ail3GJ9lB3ymey0pQkj4BjUbpHLFqUAt4iuVnHt7Xtsczbzqkp/1A==
+X-Gm-Gg: AfdE7cm/aDaF69eOhpJsMA9caTgNXe01DEzRcM/QQuCjSlX9qzR+v/ndUwszAUXlo6D
+	VgH6iP2aKsll+H07HLQIszzljoVF97l0f3WYxHJKBLG3xG/FrORfBPT5xWLzVixCF4pErKxAtAk
+	S6QZPSl/EPdNEIn1JhWw510R0M0V0hdF1NjTWhFeZyS+Jp7bGW7uKTzOuqsFmsZUQTCFWCXyi6p
+	EcDU/wiPCdgi0rYTY0zTpQ8UmCB7FnAUpj+e2ZpX18VZHFHttAt5F0eEEfXWLEHKC1Id2AKAdqz
+	rKYAWpojxriJYUsM5fdJqblUhslp/XQpxIIotti2pTG3H4t9NrZ8fHx9DK2JrjAl143cc08upxs
+	kuEg8hfdY46P2tfd2KUeGECtPDbYChhxzYxZa+2fEd9FUeij3r28feYKs9NKWu3RPn3IpgoDwFU
+	XSgzUbico=
+X-Received: by 2002:a05:6870:1793:b0:417:4888:328b with SMTP id 586e51a60fabf-451f13ced10mr7772617fac.20.1784057150898;
+        Tue, 14 Jul 2026 12:25:50 -0700 (PDT)
+Received: from chromium.org ([174.51.25.52])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4519d89f7desm15759043fac.7.2026.07.14.12.25.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 12:25:50 -0700 (PDT)
+From: Simon Glass <sjg@chromium.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Simon Glass <sjg@chromium.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jeffy Chen <jeffy.chen@rock-chips.com>,
+	huang lin <hl@rock-chips.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] pinctrl: Add support for the Rockchip RV1106
+Date: Tue, 14 Jul 2026 13:25:28 -0600
+Message-ID: <20260714192535.2082729-1-sjg@chromium.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: dac: Add DAC8163
-To: Conor Dooley <conor@kernel.org>, Lukas <lukas.metz@gmx.net>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260708-dac8163-work-v2-0-3acd1bf20182@gmx.net>
- <20260708-dac8163-work-v2-1-3acd1bf20182@gmx.net>
- <20260708-spotty-spectacle-f270b4c66d18@spud>
- <alZPZuAQfiROz8kf@berta-MS-7693> <20260714-unweave-pointed-ef9c6c02a053@spud>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260714-unweave-pointed-ef9c6c02a053@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/14/26 11:49 AM, Conor Dooley wrote:
-> On Tue, Jul 14, 2026 at 05:01:58PM +0200, Lukas wrote:
->> On Wed, Jul 08, 2026 at 05:37:44PM +0100, Conor Dooley wrote:
->>>> +  clr-gpios:
->>>> +    description:
->>>> +      The device registers are reset when this pin is asserted. The output is
->>>> +      set to zero (xxx2 devices) or mid-scale (xxx3 devices).
->>>> +    maxItems: 1
->>>> +
->>>
->>> Sounds like this should be reset-gpios?
->>>
->>
->> Thanks for pointing this out. The description is actually wrong. The
->> datasheet says: "On activation of CLR, zero scale (DACxx62) or 
->> mid-scale (DACxx63) is loaded to all input and DAC registers".
->> That means other registers are unaffected. I will update the description
->> but the clr-gpios is correct in this case i guess?
-> 
-> Sounds about right.
+This series adds pinctrl support for the Rockchip RV1106 and its
+RV1103 package variant, split out from the initial RV1106 enablement
+series [1] following feedback to submit per subsystem.
 
-For ad5791, we used clear-gpios for a pin with the same function
-(even though the pin there is labeled CLR just like here).
+On this SoC each GPIO bank has a dedicated IO control (IOC) register
+block, unlike earlier Rockchip designs where the registers of all
+banks share a GRF region. Following Jonas's review of v1, each bank
+node now references the syscon for its own IOC block through a
+rockchip,grf phandle and the driver uses a separate regmap per bank,
+so no regmap crosses a block boundary.
 
-So would be good to stick with that convention. (Same reason
-we always use reset-gpios even when a pin is labeled RST, it
-is the same function.)
+This v2 is tested on a Luckfox Pico Mini B (RV1103): pinctrl and the
+four GPIO banks probe, and the sdmmc pinctrl state is applied through
+the per-bank IOC regmaps, with the SD card working.
+
+The corresponding devicetree changes are part of the main RV1106
+series, which goes through the Rockchip tree.
+
+[1] https://patchwork.kernel.org/project/linux-rockchip/list/?series=1122658
+
+Changes in v2:
+- Add new patch for the per-bank IOC reference
+- Use a separate IOC regmap per bank, taken from the rockchip,grf
+  phandle of each bank node and identified by the gpio alias, with
+  block-relative register offsets
+- Reject drive-strength requests for GPIO0 pins above 6, which have no
+  drive-strength registers
+- Specify only the first iomux offset for each bank, letting the driver
+  calculate the increments
+
+Simon Glass (3):
+  dt-bindings: gpio: rockchip,gpio-bank: Add rockchip,grf property
+  dt-bindings: pinctrl: rockchip: Add RV1106 compatible
+  pinctrl: rockchip: Add RV1106 pinctrl support
+
+ .../bindings/gpio/rockchip,gpio-bank.yaml     |   7 +
+ .../bindings/pinctrl/rockchip,pinctrl.yaml    |   1 +
+ drivers/pinctrl/pinctrl-rockchip.c            | 168 ++++++++++++++++++
+ drivers/pinctrl/pinctrl-rockchip.h            |   4 +
+ 4 files changed, 180 insertions(+)
+
+---
+base-commit: 3b029c035b34bbc693405ddf759f0e9b920c27f1
+branch: rv1106b2
+
+-- 
+2.43.0
 
