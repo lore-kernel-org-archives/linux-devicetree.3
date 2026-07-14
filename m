@@ -1,58 +1,60 @@
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C794446F5
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:25:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85024F797A
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784057157; cv=none; b=Pft+wMDz6Qx9AM1g1lBYvpJBDrmI7wW8D8o1H/l8acRuaEBmUtLF4+sW4SvXqrOdhOiQFIaA8p0qRYXpMvfNzD6G48wkaqNWtasSROZy0cVWCM800WJc7kBoNAs1hkhL7RXXhD9R6tYqlqcrjsN3zBQY2ukTKMV69XTL+le9Z2Q=
+	t=1784057160; cv=none; b=caIAZ/wtkcKhEWsUierHV/fJdEzArZSl+UeSNjcSaLXWtXyKmGA3VFeqNAp9ZFILNlDvx/N/a4nFNubQAE1Xrik+9Y5lAl7FZl02SsR3ecdmRkHXU/Fu10rFS2GvcmE+7ZBweDKS55U6ni6cgYwAp5W7MoHvF9/hbFzfEQevEps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784057157; c=relaxed/simple;
-	bh=ahscmd9YT8oibDqCY6Oc6uJhn6xbs2gH9045tEkGePc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAjSQ9rtmdIwMLdFnO0TJDnTUSkfgTulUFApsuPJM6lAuPAbNwp1e+8dNS7acnMv3RxhYVlIzsLzPUokdB2y4e/cXBGlFqkcarRVbnSWpIcJbXaX9U0RMIWmLuYQ4IhFVpR8a+R3whFUwcGx3TnBlgnPEHL1UxhD390tZp2o6hc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=BMBMcJQC; arc=none smtp.client-ip=209.85.160.43
+	s=arc-20240116; t=1784057160; c=relaxed/simple;
+	bh=ibcVXYLtVU7xGTbwp2n2UIwijtwTrZ8HpiRiIhPxTaY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HTkOvqjH8yrpv/Dr6zUefqsf4yXUZhiVJz83K0mPQIWGRb32s18ghkk+9NbSHBXfhmO8Chb2xDbvKHNvnuGtgCBF+DovsGVvhNGJtsHZfPmOs/yZ2bzHHbLBkihZQDZlZclpqpOKl++M7XL0+mO6Xu2DlptTNS5RjWXBwsrVFo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jff1q7Gp; arc=none smtp.client-ip=209.85.160.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="BMBMcJQC"
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-43cce34c881so744932fac.2
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:25:52 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jff1q7Gp"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-455ee8f529dso399029fac.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:25:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784057151; x=1784661951; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BfB31hq6nij2zrbqGroJKSVeDBtuN7UhhDZLTpuuWH4=;
-        b=BMBMcJQC9JHScWT/uBYyJwG6PNecmJ9jE7nAxFGcCKHrAv8sY+49/fho/k6mbRcFa9
-         U2HQy28CgrTlFJv0Sc4/VTYLgR7gh3SOsmcF2rBlQgBQv9no+Dxb6Otxf6lodA+H2W2c
-         7L19EFZLvvPx5d34UEYBifoLdjL+VHgQxRGJw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784057151; x=1784661951;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1784057154; x=1784661954; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BfB31hq6nij2zrbqGroJKSVeDBtuN7UhhDZLTpuuWH4=;
-        b=PISjZhTCwT09GkRJWVCwM8fCPHxherCju8His5rl3/mRfi2jyE6bM6jEg/zNTUm6+A
-         wil+gGBxTLgblHBrIkKnlbhvmTRryBxkjpaWCPWIKe6YHpqyITglmcyx37d0YyEx5lje
-         kxAIRNrsbmVqaBq6cXb/kTEgTWjgSWSYhXPmI0gp+IjmlFKpYbSg8ZRfx/YjEuSFLJoO
-         t5dFyPtj3KSSmYGtdZ3QzpuKCWt05QQjU0/jCjocxqZ0YGwmUdnGgXbHNo2D933Tp8Sb
-         KQvhEBZCzbpM2TfuZZG6URibPQlyW+oBO5evsF0z9zh08PEboDbOwXkjrq07daJ4O5Nm
-         9Syg==
-X-Forwarded-Encrypted: i=1; AFNElJ8Yw2vWUxzuIBXvvJZd9yADTm5rmdo0HXoMivmHVBsx4D6fmy7EGty55scsngn/4xBZNsLPfvo1dqGY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxf4rN1KtT2kBevAZcnfMqixfGIUfnL9gB/Md5c3mQO1IhRpiRf
-	Xjb/MkL4b6sp9ail3GJ9lB3ymey0pQkj4BjUbpHLFqUAt4iuVnHt7Xtsczbzqkp/1A==
-X-Gm-Gg: AfdE7cm/aDaF69eOhpJsMA9caTgNXe01DEzRcM/QQuCjSlX9qzR+v/ndUwszAUXlo6D
-	VgH6iP2aKsll+H07HLQIszzljoVF97l0f3WYxHJKBLG3xG/FrORfBPT5xWLzVixCF4pErKxAtAk
-	S6QZPSl/EPdNEIn1JhWw510R0M0V0hdF1NjTWhFeZyS+Jp7bGW7uKTzOuqsFmsZUQTCFWCXyi6p
-	EcDU/wiPCdgi0rYTY0zTpQ8UmCB7FnAUpj+e2ZpX18VZHFHttAt5F0eEEfXWLEHKC1Id2AKAdqz
-	rKYAWpojxriJYUsM5fdJqblUhslp/XQpxIIotti2pTG3H4t9NrZ8fHx9DK2JrjAl143cc08upxs
-	kuEg8hfdY46P2tfd2KUeGECtPDbYChhxzYxZa+2fEd9FUeij3r28feYKs9NKWu3RPn3IpgoDwFU
-	XSgzUbico=
-X-Received: by 2002:a05:6870:1793:b0:417:4888:328b with SMTP id 586e51a60fabf-451f13ced10mr7772617fac.20.1784057150898;
-        Tue, 14 Jul 2026 12:25:50 -0700 (PDT)
+        bh=QETVa7/EiIqTvvn2j77guxH/5vJlcjsNxn4OMO5PoXE=;
+        b=jff1q7GpPWpxae0j5yhbPgOlfTHT1S3vdbMz1R0bumCLiOOswpiYMZHfuD2eQ8vOjU
+         wueuVpZJgOxi13z8YSi2fo4ppWSvsF7antqhz7KOr/M9AnMtxkP+n6Fyw1InL4koC8I1
+         /iHCTSvjuCNh6KPrgn5lZPKwsEegSV/XPWGsg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784057154; x=1784661954;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QETVa7/EiIqTvvn2j77guxH/5vJlcjsNxn4OMO5PoXE=;
+        b=DZxMv6TqvFIL1mZ+Y4wWP1ttqE1AJTZ7qu72FE2NXKq370bXkaJlCznOO/Q1xdOJCt
+         Rum9pcY8SDSJrJ22LVNENldl9SEXKn/jCDHTeca1ycTB/ATrIUbrduDFiFV2HrGMHs1Y
+         gofqhid0WGHnfXzsY6nSxjAaFA3n/ZSWWkoNQvQmY6PU0fqs1Du7BEYJDJCb5FQulHqY
+         TL47EPrtr0mZDMbgShCpwMpmwGbJ2KskzSHDYp7hxTuA7c8qVsM3/HjfhEYiax4KEP1k
+         FeAFK+iYVJFxyEiVPyremtS81Odrep2HF94+cCXx7W3WGEQ4VWrT2AT1a2dmdTGZNmBr
+         2JyQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrnQUMKIUVk4o4Tutw1LxBHtOn7zJZWfd9sS4SjBL3rtczPhGbwoUIqfbp319FsHmDafSF9KB8fUnFV@vger.kernel.org
+X-Gm-Message-State: AOJu0YycrO0lBxg27v+RM86AphDOtxnb0t7HfNGiP0QR/lWucvcQ/+hL
+	2RdXR1ZtbMAofoXXpi4WH1OO00X9jWZtYaESPd9PEQ6OZxShMibPgS+oe5DoC+Nx4A==
+X-Gm-Gg: AfdE7ckFUfs0U1hfY7ulzUaqd2GqsN39ewhV1clLtn9belk102KsN1My30sSf8mk6HM
+	5Pi+hMa2s0QYr6N4hLZITC8ySsaPqsffIXgCYzQIOVgqW/531AGI1hPZdPNilvyetoalz6ICwXt
+	Dqys8igsYFYL2aIiC3suFUXW5qWnpp1QVgSRUEd16L5mt/i7beBQafPPmitf+uA6aRBNGkSaxj+
+	khWPPFrAYQQ6WJKzTisrFacNb4Gz+qz1k9FHPe01mmjpjLqP8QcpnZ1GHCjH3Mc6ztii47j8Kph
+	urUDKhwuzXAOrB1x7iHDBwyvavl2aFr7qIrf4J722K45u+ZKittGWUj/2Eu+tqYfh+FOpstmtQ0
+	R/XV/MdOtcqFOpNl/HsG74TIIc1P+LcPjGOCasYM6b8xniOypeHLWdy011aOuAoBcF+u8V6LGNN
+	YczzxDSyQ=
+X-Received: by 2002:a05:6870:171c:b0:456:550:95b1 with SMTP id 586e51a60fabf-4562b891d4dmr44356fac.28.1784057154639;
+        Tue, 14 Jul 2026 12:25:54 -0700 (PDT)
 Received: from chromium.org ([174.51.25.52])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4519d89f7desm15759043fac.7.2026.07.14.12.25.49
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4519d89f7desm15759043fac.7.2026.07.14.12.25.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 12:25:50 -0700 (PDT)
+        Tue, 14 Jul 2026 12:25:53 -0700 (PDT)
 From: Simon Glass <sjg@chromium.org>
 To: Linus Walleij <linusw@kernel.org>
 Cc: Heiko Stuebner <heiko@sntech.de>,
@@ -66,13 +68,13 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
 	devicetree@vger.kernel.org,
 	Simon Glass <sjg@chromium.org>,
 	Bartosz Golaszewski <brgl@kernel.org>,
-	Jeffy Chen <jeffy.chen@rock-chips.com>,
-	huang lin <hl@rock-chips.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] pinctrl: Add support for the Rockchip RV1106
-Date: Tue, 14 Jul 2026 13:25:28 -0600
-Message-ID: <20260714192535.2082729-1-sjg@chromium.org>
+Subject: [PATCH v2 1/3] dt-bindings: gpio: rockchip,gpio-bank: Add rockchip,grf property
+Date: Tue, 14 Jul 2026 13:25:29 -0600
+Message-ID: <20260714132531.v2.1.d04a89a3849323a0dcee2c701cba43adbb0523b2@changeid>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260714192535.2082729-1-sjg@chromium.org>
+References: <20260714192535.2082729-1-sjg@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,51 +83,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds pinctrl support for the Rockchip RV1106 and its
-RV1103 package variant, split out from the initial RV1106 enablement
-series [1] following feedback to submit per subsystem.
+Some Rockchip SoCs, such as the RV1106, give each GPIO bank its own
+IO control (IOC) register block rather than grouping the registers of
+all banks into a shared GRF region. Add an optional rockchip,grf
+property to the gpio-bank binding so that each bank node can reference
+the syscon for its own IOC block.
 
-On this SoC each GPIO bank has a dedicated IO control (IOC) register
-block, unlike earlier Rockchip designs where the registers of all
-banks share a GRF region. Following Jonas's review of v1, each bank
-node now references the syscon for its own IOC block through a
-rockchip,grf phandle and the driver uses a separate regmap per bank,
-so no regmap crosses a block boundary.
-
-This v2 is tested on a Luckfox Pico Mini B (RV1103): pinctrl and the
-four GPIO banks probe, and the sdmmc pinctrl state is applied through
-the per-bank IOC regmaps, with the SD card working.
-
-The corresponding devicetree changes are part of the main RV1106
-series, which goes through the Rockchip tree.
-
-[1] https://patchwork.kernel.org/project/linux-rockchip/list/?series=1122658
+Signed-off-by: Simon Glass <sjg@chromium.org>
+---
 
 Changes in v2:
 - Add new patch for the per-bank IOC reference
-- Use a separate IOC regmap per bank, taken from the rockchip,grf
-  phandle of each bank node and identified by the gpio alias, with
-  block-relative register offsets
-- Reject drive-strength requests for GPIO0 pins above 6, which have no
-  drive-strength registers
-- Specify only the first iomux offset for each bank, letting the driver
-  calculate the increments
 
-Simon Glass (3):
-  dt-bindings: gpio: rockchip,gpio-bank: Add rockchip,grf property
-  dt-bindings: pinctrl: rockchip: Add RV1106 compatible
-  pinctrl: rockchip: Add RV1106 pinctrl support
+ .../devicetree/bindings/gpio/rockchip,gpio-bank.yaml       | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- .../bindings/gpio/rockchip,gpio-bank.yaml     |   7 +
- .../bindings/pinctrl/rockchip,pinctrl.yaml    |   1 +
- drivers/pinctrl/pinctrl-rockchip.c            | 168 ++++++++++++++++++
- drivers/pinctrl/pinctrl-rockchip.h            |   4 +
- 4 files changed, 180 insertions(+)
-
----
-base-commit: 3b029c035b34bbc693405ddf759f0e9b920c27f1
-branch: rv1106b2
-
+diff --git a/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.yaml b/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.yaml
+index bdd83f42615c..774e9c7de606 100644
+--- a/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.yaml
++++ b/Documentation/devicetree/bindings/gpio/rockchip,gpio-bank.yaml
+@@ -44,6 +44,13 @@ properties:
+   power-domains:
+     maxItems: 1
+ 
++  rockchip,grf:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      The phandle of the syscon node managing the IO control registers
++      of this bank, on SoCs such as the RV1106 where each GPIO bank has
++      its own IOC block.
++
+ patternProperties:
+   "^.+-hog(-[0-9]+)?$":
+     type: object
 -- 
 2.43.0
 
