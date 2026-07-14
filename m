@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7361D3B83FC;
-	Tue, 14 Jul 2026 11:45:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B7A380FE7;
+	Tue, 14 Jul 2026 11:45:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784029504; cv=none; b=aJXcf3MDc1JAvdMcZP8s2Ccr++n1sbQYeg94gHwCjkmsAxp+b34dhpcxZdMkeKBfw+g4vg+W3w/3+BGOVCkbXGSsipLIb3rQyJx7sAIL2mqHHzqBHjlq4zznjyu8ToomJo8hp8HOsLp2+lUmVKaU4fyviKR/Rbj0x4QC2rt0YdY=
+	t=1784029506; cv=none; b=qey/xRT7+zSnsK02DgecxmhCnS6q27tnqJ/dkbqMpMB+lBD0pTxFFFAmsEokQkdJaBkRtp9tVQn4v494AL3K4WLwzYQEVE/wyf7DgMj3TU8hDiU2DOpsZH48MpfR9Vg//oa22Fa7+YkH323E2tXQ2dL04LgjGtT6QhaMH2YKsto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784029504; c=relaxed/simple;
-	bh=kkJm2vWuJij9lPLR5yyr1VRhzQ5/yqw8PVt1viShFSw=;
+	s=arc-20240116; t=1784029506; c=relaxed/simple;
+	bh=5D+Qf4Et20xghm98yfTvt8wO500Jdq69jIvqY26Bkww=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dNjx/NEdX/NZnfzRzTffO+xhhYnMAyFCTIrMwmidBfRcl0bOyz5Se8JDIZzZja7SOIZ1IC3d+VD4VvaDR2PpY6XNot89U3KanDT2c2h+oWO8eAS3fa+sbQahwwJv1dE+UzpMBvXWGbeJDwYYVJaOErFHKuSR4vzn3rdzYpugo9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=KwyUoLlW; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=K0AVIa+kVsRn0APWQDxI23j142sJ8y8NeJGGuIM3/rVOXHZZS1Z7rw5k7ZcvDBy1tF8E+6tYXrlWA/cmevfz/pv0uC5MokAv8gRwJluR/4A8TnwvgjWwUsQbiG2ys3HvnLwNpe+Jie4fwKsu5SX1u3+wCdP6dm2IwCmQaOGhWN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LlyhAQnq; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="KwyUoLlW"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LlyhAQnq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1784029500;
-	bh=kkJm2vWuJij9lPLR5yyr1VRhzQ5/yqw8PVt1viShFSw=;
+	s=mail; t=1784029501;
+	bh=5D+Qf4Et20xghm98yfTvt8wO500Jdq69jIvqY26Bkww=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KwyUoLlW5tZC81XA5uZLX/XwG0HojQj14Ve/LvgtDSiMMtSl+U8bLMYMdS77NCX5k
-	 +t4SW2X1Uz+XvccQjGUx4IDfSf0f97K7Y28+CvCSKwgbXX6rTj3vOAxKQEgXUa65sK
-	 HryRAqyXFVfpZS//X1xK1+xT+Mda9hm5mq75smwS7VeGu2V8GAXPqlhfmAE6jfWkrm
-	 veYKQJ1wEkXqiLKOtvFZdPmjaCJBaRJQ9ZYXs47TDf5Jxv5J8J+/JIFUtUIZf08yc1
-	 H8O9ak6zsKAbc6zdlnHL4lbnZBjRuMmF8GAa6HXB++wBiiKHrOGTVKRLihGUuI3TGy
-	 Wf7mXNrp1BWNw==
+	b=LlyhAQnq5GRWIE5GTPTnQ7IyXKZJjgozxZGTGAxckNonc1Ad5XoBbnHEeAvTylG18
+	 azfayW4fGoNvMr6zcO5CMb7UMyMMGzvGvJP5cRq13LKDRL+AO0mFDuMi7rZEpScGhJ
+	 IL/qRn70yaXnE1VKswMXwuBjQips5s7FgeCFt7waf9qZ9bocD2QRioTqUj3SKHYL2s
+	 1wNFqwJLGL6PCrrifHsUiVw1hn/mnyd5TAgVpqPH3rGNlF369h3PxIK/ktqxgQQ8os
+	 fDeMTd6E2q2NFnDjoAjRF7W7AUHVlddfj39yQVhCu2JLCod7smy84GnF/siobwIkwp
+	 pbzmswLg7gcRg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E583C17E010F;
-	Tue, 14 Jul 2026 13:44:59 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D01A917E0956;
+	Tue, 14 Jul 2026 13:45:00 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -54,9 +54,9 @@ Cc: p.zabel@pengutronix.de,
 	justin.yeh@mediatek.com,
 	jason-jh.lin@mediatek.com,
 	kernel@collabora.com
-Subject: [PATCH v2 24/46] drm/mediatek: mtk_dpi: Pass parameters with new mtk_dpi_sync structure
-Date: Tue, 14 Jul 2026 13:43:52 +0200
-Message-ID: <20260714114414.184512-25-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 25/46] drm/mediatek: mtk_dpi: Fully separate HW setup from common code
+Date: Tue, 14 Jul 2026 13:43:53 +0200
+Message-ID: <20260714114414.184512-26-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
 References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
@@ -68,145 +68,307 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for moving common code between DPI and DVO into a
-new mtk_dpi_common library, add a new mtk_dpi_sync structure which
-contains all of the sync parameters, such as HSYNC and Left/Right
-Odd and Even VSYNC.
+As a preparation step for adding support for DVO and creating a
+mtk_dpi_common library, fully separate all of the register writing
+mechanisms from commonizable hardware setup functions.
 
-This is now passed as parameter of mtk_dpi_set_display_mode() and
-stack initialized in mtk_dpi_bridge_enable(): future preparation
-changes will add abstraction for hardware specific configuration
-which purpose will be to interpret the generic parameters to write
-those to the hardware specific registers.
+While at it, also perform some spare code style cleanups and also
+remove the mtk_dpi_config_vsync_{l,r}{odd,even}() functions and
+open-code the single line found in each of those, as now all of
+the parameters are clearly labeled and won't have any meaningful
+impact on human readability.
 
-This brings no functional change.
+This change brings no functional differences.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dpi.c | 76 +++++++++++++++---------------
- 1 file changed, 39 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_dpi.c | 172 ++++++++++++++---------------
+ 1 file changed, 86 insertions(+), 86 deletions(-)
 
 diff --git a/drivers/gpu/drm/mediatek/mtk_dpi.c b/drivers/gpu/drm/mediatek/mtk_dpi.c
-index 959c994eef24..f1200d5f926a 100644
+index f1200d5f926a..c39e0b064b6f 100644
 --- a/drivers/gpu/drm/mediatek/mtk_dpi.c
 +++ b/drivers/gpu/drm/mediatek/mtk_dpi.c
-@@ -112,6 +112,14 @@ struct mtk_dpi_sync_param {
- 	bool shift_half_line;
- };
- 
-+struct mtk_dpi_sync {
-+	struct mtk_dpi_sync_param hsync;
-+	struct mtk_dpi_sync_param vsync_l_odd;
-+	struct mtk_dpi_sync_param vsync_l_even;
-+	struct mtk_dpi_sync_param vsync_r_odd;
-+	struct mtk_dpi_sync_param vsync_r_even;
-+};
-+
- struct mtk_dpi_yc_limit {
- 	u16 y_top;
- 	u16 y_bottom;
-@@ -600,14 +608,10 @@ static void mtk_dpi_set_pixel_clk(struct mtk_dpi *dpi, struct videomode *vm, int
+@@ -246,33 +246,6 @@ static void mtk_dpi_config_vsync(struct mtk_dpi *dpi,
+ 		     dpi->conf->dimension_mask << VSYNC_FRONT_PORCH_SHIFT);
  }
  
- static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
-+				    struct mtk_dpi_sync *sync,
- 				    struct drm_display_mode *mode)
+-static void mtk_dpi_config_vsync_lodd(struct mtk_dpi *dpi,
+-				      struct mtk_dpi_sync_param *sync)
+-{
+-	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH, DPI_TGEN_VPORCH);
+-}
+-
+-static void mtk_dpi_config_vsync_leven(struct mtk_dpi *dpi,
+-				       struct mtk_dpi_sync_param *sync)
+-{
+-	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH_LEVEN,
+-			     DPI_TGEN_VPORCH_LEVEN);
+-}
+-
+-static void mtk_dpi_config_vsync_rodd(struct mtk_dpi *dpi,
+-				      struct mtk_dpi_sync_param *sync)
+-{
+-	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH_RODD,
+-			     DPI_TGEN_VPORCH_RODD);
+-}
+-
+-static void mtk_dpi_config_vsync_reven(struct mtk_dpi *dpi,
+-				       struct mtk_dpi_sync_param *sync)
+-{
+-	mtk_dpi_config_vsync(dpi, sync, DPI_TGEN_VWIDTH_REVEN,
+-			     DPI_TGEN_VPORCH_REVEN);
+-}
+-
+ static void mtk_dpi_config_pol(struct mtk_dpi *dpi,
+ 			       struct mtk_dpi_polarities *dpi_pol)
  {
- 	struct mtk_dpi_polarities dpi_pol;
--	struct mtk_dpi_sync_param hsync;
--	struct mtk_dpi_sync_param vsync_lodd = { 0 };
--	struct mtk_dpi_sync_param vsync_leven = { 0 };
--	struct mtk_dpi_sync_param vsync_rodd = { 0 };
--	struct mtk_dpi_sync_param vsync_reven = { 0 };
- 	struct videomode vm = { 0 };
+@@ -311,30 +284,15 @@ static void mtk_dpi_config_fb_size(struct mtk_dpi *dpi, u32 width, u32 height)
+ 		     dpi->conf->hvsize_mask << VSIZE);
+ }
  
- 	drm_display_mode_to_videomode(mode, &vm);
-@@ -624,42 +628,39 @@ static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
+-static void mtk_dpi_config_channel_limit(struct mtk_dpi *dpi)
++static void mtk_dpi_config_channel_limit(struct mtk_dpi *dpi, struct mtk_dpi_yc_limit *limit)
+ {
+-	struct mtk_dpi_yc_limit limit;
+-
+-	if (drm_default_rgb_quant_range(&dpi->mode) ==
+-	    HDMI_QUANTIZATION_RANGE_LIMITED) {
+-		limit.y_bottom = 0x10;
+-		limit.y_top = 0xfe0;
+-		limit.c_bottom = 0x10;
+-		limit.c_top = 0xfe0;
+-	} else {
+-		limit.y_bottom = 0;
+-		limit.y_top = 0xfff;
+-		limit.c_bottom = 0;
+-		limit.c_top = 0xfff;
+-	}
+-
+-	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit.y_bottom << Y_LIMINT_BOT,
++	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit->y_bottom << Y_LIMINT_BOT,
+ 		     Y_LIMINT_BOT_MASK);
+-	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit.y_top << Y_LIMINT_TOP,
++	mtk_dpi_mask(dpi, DPI_Y_LIMIT, limit->y_top << Y_LIMINT_TOP,
+ 		     Y_LIMINT_TOP_MASK);
+-	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit.c_bottom << C_LIMIT_BOT,
++	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit->c_bottom << C_LIMIT_BOT,
+ 		     C_LIMIT_BOT_MASK);
+-	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit.c_top << C_LIMIT_TOP,
++	mtk_dpi_mask(dpi, DPI_C_LIMIT, limit->c_top << C_LIMIT_TOP,
+ 		     C_LIMIT_TOP_MASK);
+ }
+ 
+@@ -516,7 +474,6 @@ static void mtk_dpi_power_off(struct mtk_dpi *dpi)
+ 	if (--dpi->refcount != 0)
+ 		return;
+ 
+-	mtk_dpi_disable(dpi);
+ 	clk_disable_unprepare(dpi->pixel_clk);
+ 	clk_disable_unprepare(dpi->tvd_clk);
+ 	clk_disable_unprepare(dpi->engine_clk);
+@@ -607,40 +564,40 @@ static void mtk_dpi_set_pixel_clk(struct mtk_dpi *dpi, struct videomode *vm, int
+ 		pll_rate, vm->pixelclock);
+ }
+ 
+-static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
++static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi, struct videomode *vm,
+ 				    struct mtk_dpi_sync *sync,
+-				    struct drm_display_mode *mode)
++				    struct mtk_dpi_polarities *dpi_pol,
++				    struct mtk_dpi_yc_limit *limit)
+ {
+-	struct mtk_dpi_polarities dpi_pol;
+-	struct videomode vm = { 0 };
++	struct drm_display_mode *mode = &dpi->mode;
+ 
+-	drm_display_mode_to_videomode(mode, &vm);
++	drm_display_mode_to_videomode(mode, vm);
+ 
+ 	if (!dpi->conf->clocked_by_hdmi)
+-		mtk_dpi_set_pixel_clk(dpi, &vm, mode->clock);
++		mtk_dpi_set_pixel_clk(dpi, vm, mode->clock);
+ 
+-	dpi_pol.ck_pol = MTK_DPI_POLARITY_FALLING;
+-	dpi_pol.de_pol = MTK_DPI_POLARITY_RISING;
+-	dpi_pol.hsync_pol = vm.flags & DISPLAY_FLAGS_HSYNC_HIGH ?
++	dpi_pol->ck_pol = MTK_DPI_POLARITY_FALLING;
++	dpi_pol->de_pol = MTK_DPI_POLARITY_RISING;
++	dpi_pol->hsync_pol = vm->flags & DISPLAY_FLAGS_HSYNC_HIGH ?
+ 			    MTK_DPI_POLARITY_FALLING : MTK_DPI_POLARITY_RISING;
+-	dpi_pol.vsync_pol = vm.flags & DISPLAY_FLAGS_VSYNC_HIGH ?
++	dpi_pol->vsync_pol = vm->flags & DISPLAY_FLAGS_VSYNC_HIGH ?
+ 			    MTK_DPI_POLARITY_FALLING : MTK_DPI_POLARITY_RISING;
  
  	/*
  	 * Depending on the IP version, we may output a different amount of
--	 * pixels for each iteration: divide the clock by this number and
--	 * adjust the display porches accordingly.
-+	 * pixels for each iteration: adjust the display porches accordingly.
+ 	 * pixels for each iteration: adjust the display porches accordingly.
  	 */
--	hsync.sync_width = vm.hsync_len / dpi->conf->pixels_per_iter;
--	hsync.back_porch = vm.hback_porch / dpi->conf->pixels_per_iter;
--	hsync.front_porch = vm.hfront_porch / dpi->conf->pixels_per_iter;
--
--	hsync.shift_half_line = false;
--	vsync_lodd.sync_width = vm.vsync_len;
--	vsync_lodd.back_porch = vm.vback_porch;
--	vsync_lodd.front_porch = vm.vfront_porch;
--	vsync_lodd.shift_half_line = false;
--
--	if (vm.flags & DISPLAY_FLAGS_INTERLACED &&
--	    mode->flags & DRM_MODE_FLAG_3D_MASK) {
--		vsync_leven = vsync_lodd;
--		vsync_rodd = vsync_lodd;
--		vsync_reven = vsync_lodd;
--		vsync_leven.shift_half_line = true;
--		vsync_reven.shift_half_line = true;
--	} else if (vm.flags & DISPLAY_FLAGS_INTERLACED &&
--		   !(mode->flags & DRM_MODE_FLAG_3D_MASK)) {
--		vsync_leven = vsync_lodd;
--		vsync_leven.shift_half_line = true;
--	} else if (!(vm.flags & DISPLAY_FLAGS_INTERLACED) &&
--		   mode->flags & DRM_MODE_FLAG_3D_MASK) {
--		vsync_rodd = vsync_lodd;
-+	sync->hsync.sync_width = vm.hsync_len / dpi->conf->pixels_per_iter;
-+	sync->hsync.back_porch = vm.hback_porch / dpi->conf->pixels_per_iter;
-+	sync->hsync.front_porch = vm.hfront_porch / dpi->conf->pixels_per_iter;
-+	sync->hsync.shift_half_line = false;
-+
-+	sync->vsync_l_odd.sync_width = vm.vsync_len;
-+	sync->vsync_l_odd.back_porch = vm.vback_porch;
-+	sync->vsync_l_odd.front_porch = vm.vfront_porch;
-+	sync->vsync_l_odd.shift_half_line = false;
-+
-+	if (vm.flags & DISPLAY_FLAGS_INTERLACED) {
-+		sync->vsync_l_even = sync->vsync_l_odd;
-+		sync->vsync_l_even.shift_half_line = true;
-+
-+		if (mode->flags & DRM_MODE_FLAG_3D_MASK) {
-+			sync->vsync_r_odd = sync->vsync_l_odd;
-+			sync->vsync_r_even = sync->vsync_l_odd;
-+			sync->vsync_r_even.shift_half_line = true;
-+		}
-+	} else if (mode->flags & DRM_MODE_FLAG_3D_MASK) {
-+		sync->vsync_r_odd = sync->vsync_l_odd;
+-	sync->hsync.sync_width = vm.hsync_len / dpi->conf->pixels_per_iter;
+-	sync->hsync.back_porch = vm.hback_porch / dpi->conf->pixels_per_iter;
+-	sync->hsync.front_porch = vm.hfront_porch / dpi->conf->pixels_per_iter;
++	sync->hsync.sync_width = vm->hsync_len / dpi->conf->pixels_per_iter;
++	sync->hsync.back_porch = vm->hback_porch / dpi->conf->pixels_per_iter;
++	sync->hsync.front_porch = vm->hfront_porch / dpi->conf->pixels_per_iter;
+ 	sync->hsync.shift_half_line = false;
+ 
+-	sync->vsync_l_odd.sync_width = vm.vsync_len;
+-	sync->vsync_l_odd.back_porch = vm.vback_porch;
+-	sync->vsync_l_odd.front_porch = vm.vfront_porch;
++	sync->vsync_l_odd.sync_width = vm->vsync_len;
++	sync->vsync_l_odd.back_porch = vm->vback_porch;
++	sync->vsync_l_odd.front_porch = vm->vfront_porch;
+ 	sync->vsync_l_odd.shift_half_line = false;
+ 
+-	if (vm.flags & DISPLAY_FLAGS_INTERLACED) {
++	if (vm->flags & DISPLAY_FLAGS_INTERLACED) {
+ 		sync->vsync_l_even = sync->vsync_l_odd;
+ 		sync->vsync_l_even.shift_half_line = true;
+ 
+@@ -653,27 +610,55 @@ static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
+ 		sync->vsync_r_odd = sync->vsync_l_odd;
  	}
+ 
++	if (drm_default_rgb_quant_range(&dpi->mode) == HDMI_QUANTIZATION_RANGE_LIMITED) {
++		limit->y_bottom = 0x10;
++		limit->y_top = 0xfe0;
++		limit->c_bottom = 0x10;
++		limit->c_top = 0xfe0;
++	} else {
++		limit->y_bottom = 0;
++		limit->y_top = 0xfff;
++		limit->c_bottom = 0;
++		limit->c_top = 0xfff;
++	}
++
++	return 0;
++}
++
++static void mtk_dpi_config_hw(struct mtk_dpi *dpi,
++			      struct videomode *vm, struct mtk_dpi_sync *sync,
++			      struct mtk_dpi_polarities *dpi_pol,
++			      struct mtk_dpi_yc_limit *limit)
++{
++	struct drm_display_mode *mode = &dpi->mode;
++	u32 vactive = vm->vactive;
 +
  	mtk_dpi_sw_reset(dpi, true);
- 	mtk_dpi_config_pol(dpi, &dpi_pol);
+-	mtk_dpi_config_pol(dpi, &dpi_pol);
++	mtk_dpi_config_pol(dpi, dpi_pol);
  
--	mtk_dpi_config_hsync(dpi, &hsync);
--	mtk_dpi_config_vsync_lodd(dpi, &vsync_lodd);
--	mtk_dpi_config_vsync_rodd(dpi, &vsync_rodd);
--	mtk_dpi_config_vsync_leven(dpi, &vsync_leven);
--	mtk_dpi_config_vsync_reven(dpi, &vsync_reven);
-+	mtk_dpi_config_hsync(dpi, &sync->hsync);
-+	mtk_dpi_config_vsync_lodd(dpi, &sync->vsync_l_odd);
-+	mtk_dpi_config_vsync_rodd(dpi, &sync->vsync_r_odd);
-+	mtk_dpi_config_vsync_leven(dpi, &sync->vsync_l_even);
-+	mtk_dpi_config_vsync_reven(dpi, &sync->vsync_r_even);
+ 	mtk_dpi_config_hsync(dpi, &sync->hsync);
+-	mtk_dpi_config_vsync_lodd(dpi, &sync->vsync_l_odd);
+-	mtk_dpi_config_vsync_rodd(dpi, &sync->vsync_r_odd);
+-	mtk_dpi_config_vsync_leven(dpi, &sync->vsync_l_even);
+-	mtk_dpi_config_vsync_reven(dpi, &sync->vsync_r_even);
++
++	mtk_dpi_config_vsync(dpi, &sync->vsync_l_odd,
++			     DPI_TGEN_VWIDTH, DPI_TGEN_VPORCH);
++	mtk_dpi_config_vsync(dpi, &sync->vsync_r_odd,
++			     DPI_TGEN_VWIDTH_RODD, DPI_TGEN_VPORCH_RODD);
++	mtk_dpi_config_vsync(dpi, &sync->vsync_l_even,
++			     DPI_TGEN_VWIDTH_LEVEN, DPI_TGEN_VPORCH_LEVEN);
++	mtk_dpi_config_vsync(dpi, &sync->vsync_r_even,
++			     DPI_TGEN_VWIDTH_REVEN, DPI_TGEN_VPORCH_REVEN);
  
  	mtk_dpi_config_3d(dpi, !!(mode->flags & DRM_MODE_FLAG_3D_MASK));
- 	mtk_dpi_config_interface(dpi, !!(vm.flags &
-@@ -863,12 +864,13 @@ static void mtk_dpi_bridge_disable(struct drm_bridge *bridge)
+-	mtk_dpi_config_interface(dpi, !!(vm.flags &
+-					 DISPLAY_FLAGS_INTERLACED));
+-	if (vm.flags & DISPLAY_FLAGS_INTERLACED)
+-		mtk_dpi_config_fb_size(dpi, vm.hactive, vm.vactive >> 1);
+-	else
+-		mtk_dpi_config_fb_size(dpi, vm.hactive, vm.vactive);
++	mtk_dpi_config_interface(dpi, !!(vm->flags & DISPLAY_FLAGS_INTERLACED));
++
++	if (vm->flags & DISPLAY_FLAGS_INTERLACED)
++		vactive >>= 1;
+ 
+-	mtk_dpi_config_channel_limit(dpi);
++	mtk_dpi_config_fb_size(dpi, vm->hactive, vactive);
++	mtk_dpi_config_channel_limit(dpi, limit);
+ 	mtk_dpi_config_bit_num(dpi, dpi->bit_num);
+ 	mtk_dpi_config_channel_swap(dpi, dpi->channel_swap);
+ 	mtk_dpi_config_color_format(dpi, dpi->color_format);
++
+ 	if (dpi->conf->support_direct_pin) {
+ 		mtk_dpi_config_yc_map(dpi, dpi->yc_map);
+ 		mtk_dpi_config_2n_h_fre(dpi);
+@@ -686,13 +671,13 @@ static int mtk_dpi_set_display_mode(struct mtk_dpi *dpi,
+ 
+ 		mtk_dpi_config_disable_edge(dpi);
+ 	}
+-	if (dpi->conf->input_2p_en_bit) {
++
++	if (dpi->conf->input_2p_en_bit)
+ 		mtk_dpi_mask(dpi, DPI_CON, dpi->conf->input_2p_en_bit,
+ 			     dpi->conf->input_2p_en_bit);
+-	}
+-	mtk_dpi_sw_reset(dpi, false);
+ 
+-	return 0;
++	mtk_dpi_sw_reset(dpi, false);
++	return;
+ }
+ 
+ static u32 *mtk_dpi_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+@@ -855,6 +840,7 @@ static void mtk_dpi_bridge_disable(struct drm_bridge *bridge)
+ {
+ 	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
+ 
++	mtk_dpi_disable(dpi);
+ 	mtk_dpi_power_off(dpi);
+ 
+ 	if (dpi->pinctrl && dpi->pins_gpio)
+@@ -864,13 +850,22 @@ static void mtk_dpi_bridge_disable(struct drm_bridge *bridge)
  static void mtk_dpi_bridge_enable(struct drm_bridge *bridge)
  {
  	struct mtk_dpi *dpi = bridge_to_dpi(bridge);
-+	struct mtk_dpi_sync sync = { 0 };
++	struct mtk_dpi_polarities dpi_pol;
+ 	struct mtk_dpi_sync sync = { 0 };
++	struct mtk_dpi_yc_limit limit;
++	struct videomode vm;
  
  	if (dpi->pinctrl && dpi->pins_dpi)
  		pinctrl_select_state(dpi->pinctrl, dpi->pins_dpi);
  
  	mtk_dpi_power_on(dpi);
--	mtk_dpi_set_display_mode(dpi, &dpi->mode);
-+	mtk_dpi_set_display_mode(dpi, &sync, &dpi->mode);
+-	mtk_dpi_set_display_mode(dpi, &sync, &dpi->mode);
++
++	/* Set pixel clock and initialize parameters to send to the HW */
++	mtk_dpi_set_display_mode(dpi, &vm, &sync, &dpi_pol, &limit);
++
++	/* Format and send the parameters to the HW */
++	mtk_dpi_config_hw(dpi, &vm, &sync, &dpi_pol, &limit);
++
  	mtk_dpi_enable(dpi);
  }
  
+@@ -1003,16 +998,21 @@ void mtk_dpi_start(struct device *dev)
+ {
+ 	struct mtk_dpi *dpi = dev_get_drvdata(dev);
+ 
+-	if (!dpi->conf->clocked_by_hdmi)
+-		mtk_dpi_power_on(dpi);
++	if (dpi->conf->clocked_by_hdmi)
++		return;
++
++	mtk_dpi_power_on(dpi);
+ }
+ 
+ void mtk_dpi_stop(struct device *dev)
+ {
+ 	struct mtk_dpi *dpi = dev_get_drvdata(dev);
+ 
+-	if (!dpi->conf->clocked_by_hdmi)
+-		mtk_dpi_power_off(dpi);
++	if (dpi->conf->clocked_by_hdmi)
++		return;
++
++	mtk_dpi_disable(dpi);
++	mtk_dpi_power_off(dpi);
+ }
+ 
+ unsigned int mtk_dpi_encoder_index(struct device *dev)
 -- 
 2.54.0
 
