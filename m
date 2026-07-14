@@ -1,114 +1,113 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A792A3EB0ED;
-	Tue, 14 Jul 2026 09:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC95235F615;
+	Tue, 14 Jul 2026 09:35:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784021640; cv=none; b=vGlFDM4icgF8tubitrE6pbivBVvpfZH6kv/Nb1aYL9/ar0OQYSP3eksZmbARGz9I0Olm7m0U99NQU/dzOiIUfNGgJo4EQHGAy6FrrC6KqJ+a3Bi/5mfM3ykEm4M/XzhGhXkoLnCrT4qaahv3/WfPBnzPFEnb8WC8hXpXbsrdtQs=
+	t=1784021724; cv=none; b=hUBpeYLxKPO9w+UwO+mytd5SxcAONVvQmud6fbbUYXt3+gtyvH1T6kcEmmzDWp3F91MpFQWkxrQruUVQNFo5ZaIlLjPKmfDY9VlLpU5XYhNnHmS+XVFgPXfndsecSxsa7xmmiZqVmkttMcoEeRMLqKRMIkoHUtjoGVTMyYYnxCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784021640; c=relaxed/simple;
-	bh=Ribt8iJKbGPXKt88x/7hBRsYnkox0i54yQQPtrNaKwo=;
+	s=arc-20240116; t=1784021724; c=relaxed/simple;
+	bh=E/nQtjla1+FP4M2wXMpEPkc0YYBfciq3q3/VHapvxH0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FI+PJB8W+HH7dul30oc3lLcuaAbJkFiUcvI3NY5B+/KAxCCYFmb4LX2unKFd6u9C9XvZRf5NFU4Mo00Ai9Srpta1sqxLm2ZaX3peGthByo03Jwjiyn9/YCKh4J46yg4HYoRQ0JN+rG5BKm2nlMJRrgCmnuLv3TAvUwTD0O0xVkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=F1EJYO++; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=KQfnXh/BY6ZKhmz1c93OTtFn+Fbr2KtKNa/t9MARovb5OGTb+NqLGJBBEuiSpRrGbV7rsKPTdwuGEk1X2rtGO3UCsKkyVvPK+z4FX3g9WD3srdsWkiNp2Zyr4E5gJjGizvlkkdeEU0SlPya8kPUcBQaMELOguzv0wXOQHzfdEro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqmPN9RC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="F1EJYO++"
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 113FC1FFA1;
-	Tue, 14 Jul 2026 11:33:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1784021636;
-	bh=NmtdyuoVms6UjY/WUUunlXxAOdDcE/a7uik36L4Lfvg=; h=From:To:Subject;
-	b=F1EJYO++cqfmtggaxaq6h1UX2lV8bnrkAdpYucgdF2/SzG5zJ6apS5gSQtr26giYq
-	 35WrkZJAem4m2s7oWHOJAglM+TBVpiFFrCySuhH/4HRhW5bk9dhIjDY4BIMWqmfMaY
-	 QMT2uVuUoxEbQyJ425qePPYbTCRjzfgtfh0b28C8wZF8l3Xk0iikYPeBfRYt4JwYsA
-	 uMJGzImN4ZUD5vbmIYX8g/RW3ftL0Hc1Llh/zZ2uLJ7vAoAA0seAioYs0yF6f13zpa
-	 k7Pj/VZSI3XQafyMtvEhwEmMSolbA8OgPrIRlXMj6PNCC90mNMndfk7Iz1ofo5OFaL
-	 EaMYop5AcdMWQ==
-Date: Tue, 14 Jul 2026 11:33:54 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frieder Schrempf <frieder.schrempf@kontron.de>
-Cc: Francesco Dolcini <francesco@dolcini.it>,
-	Frieder Schrempf <frieder@fris.de>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 10/10] arm64: dts: imx93-kontron: Enable ELE firmware
- driver
-Message-ID: <20260714093354.GC22086@francesco-nb>
-References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
- <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-10-b8266d93514b@kontron.de>
- <20260714065947.GA22086@francesco-nb>
- <e515a6c5-b32c-47b7-968b-0f6a66e4f24a@kontron.de>
- <20260714083259.GB22086@francesco-nb>
- <4b7b7823-00c5-4801-8ba4-19e5670f339d@kontron.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqmPN9RC"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 056D81F000E9;
+	Tue, 14 Jul 2026 09:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784021723;
+	bh=1xtYT4SHNv3MRdcjQhk/z3uq7LbE1WIXNc0p3FyHpmc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jqmPN9RCkNsrZxGpyjCK/uUFyGS6gzEsCHULQk7KC+chWYUtY9Kd9q5kgKjn7JSlS
+	 BDVtMO9dVCnW6AINC/I9g9BuvfxK0IFMd+kzIGcatOXPqbuatdvRxWNCS1jYH54+Ii
+	 Htn0q6nYfBczJzGVd9rCSsxizkFdBs5NW8rgCDMuejzEFP0Kg6FKEwsUchn1N7jLxw
+	 xjvK1rilb+E9T6NqRK0hxZeTc5EVKU5Avs0/yq1XhgQmIOB6EaLj27VUQCFZIZFSm6
+	 baUP1z9l8LFbaUFak4lyPGM2GMoA/xnX2SN+7k78RHg91Rl9b66YqFlcOLY5B8uUBc
+	 n9txmbn8IhOGA==
+Date: Tue, 14 Jul 2026 11:35:20 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Thierry Reding <treding@nvidia.com>, Yi-Wei Wang <yiweiw@nvidia.com>
+Subject: Re: [PATCH v6 0/7] Tegra264 PWM support
+Message-ID: <alYBz2PVs7hCsR91@monoceros>
+References: <20260701-t264-pwm-v6-0-2718f61f411f@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nxfyz46qk4c4j522"
 Content-Disposition: inline
-In-Reply-To: <4b7b7823-00c5-4801-8ba4-19e5670f339d@kontron.de>
-
-On Tue, Jul 14, 2026 at 10:43:56AM +0200, Frieder Schrempf wrote:
-> On 14.07.26 10:32, Francesco Dolcini wrote:
-> > On Tue, Jul 14, 2026 at 10:09:11AM +0200, Frieder Schrempf wrote:
-> >> Hi Francesco,
-> >>
-> >> On 14.07.26 08:59, Francesco Dolcini wrote:
-> >>> Hello Frieder,
-> >>>
-> >>> On Mon, Jul 13, 2026 at 04:53:46PM +0200, Frieder Schrempf wrote:
-> >>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
-> >>>>
-> >>>> Add the ELE firmware API node and pass its handle to the OCOTP
-> >>>> driver. This allows us to gain read/write access to the OTP fuses.
-> >>>
-> >>> This seems something we should have in the soc dtsi (imx93/imx91), it
-> >>> does not seems board specific.
-> >>
-> >> My original intention was to move as much as possible into the SoC dtsi.
-> >> The problem is that the memory node is somewhat board specific due to
-> >> the DDR. And I can't move the firmware node into the SoC dtsi and assign
-> >> the memory node in the board dts as the checks for all boards not
-> >> specifying a memory node would fail then.
-> > 
-> > What is the reason to have this memory address different on various
-> > boards? Can we have a default in the soc dtsi, and allow the board to
-> > override the address if needed?
-> 
-> There is no real point in having different addresses on different
-> boards. But the node describes memory that is physically on the board
-> and not on the SoC. And I think that is why DT maintainers want to have
-> it in the board DT. It's the same with the memory nodes for the
-> remoteproc drivers to communicate with the Cortex M-Cores in the i.MX.
-> But maybe I'm wrong and if there is a possibility to move this to the
-> SoC DT I will definitely take it.
-> 
-> > 
-> > Or can't you add the address in all the boards, and keep everything else
-> > in the soc dtsi?
-> This could be a possible way, yes. In that case maybe we could even
-> create a generic dtsi to contain such defaults for all boards.
-
-I would go for this solution, we could have something like
-`k3-am62-ti-ipc-firmware.dtsi`, include it from all the boards, have a
-sane default memory address, and have an easy way to override the memory
-address from the board dts, if needed.
-
-Francesco
+In-Reply-To: <20260701-t264-pwm-v6-0-2718f61f411f@nvidia.com>
 
 
+--nxfyz46qk4c4j522
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 0/7] Tegra264 PWM support
+MIME-Version: 1.0
+
+Hello,
+
+On Wed, Jul 01, 2026 at 12:20:29PM +0900, Mikko Perttunen wrote:
+> this adds support for the PWM controller on Tegra264. The controller
+> is similar to previous generations, but the register fields are
+> widened, the depth is made configurable, and the enable bit moves
+> to a different spot.
+>=20
+> This series adds only basic support with fixed depth -- configurable
+> depth will come later.
+>=20
+> Patch 1 adds device tree bindings for Tegra264 PWM (compatible
+>   string).
+>=20
+> Patch 2 prefixes driver-local macros and static helpers with
+>   tegra_/TEGRA_ to make their scoping clear.
+>=20
+> Patches 3 to 6 contain the PWM driver changes for Tegra264.
+>=20
+> Patch 7 adds device tree nodes for the PWM controllers on Tegra264.
+
+I'm not entirely happy with the driver (as already pointed out during
+review of earlier revisions of this series), but it's an improvement.
+
+I'll take a look to improve the things that annoy me in this driver and
+I didn't want to do that on the current state which would make it
+necessary to respin your changes.
+
+So I applied patches #1 to #6 to
+	https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for=
+-next
+=2E
+
+I assume patch #7 will go via armsoc? If I should take this, too, please
+tell me.
+
+Best regards
+Uwe
+
+--nxfyz46qk4c4j522
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWAtUACgkQj4D7WH0S
+/k6Gogf9GwP5KDRsQb+Bwe19ewFAAWQ1OCpmktiMyGBHOdpADiiRidR5m/wrvPzR
+8BvH9ujBo1dCZopHkTrGgtjmnVI7QEaIQam1ZKF3ItG812jIb5A5JvRhuO49qKWS
+eCah/8ew/l1qsoAKE9yuCPoSbnfg6+/dok+gSfotfkhAhHRpLL3uHK7CYPZ10pN5
+Bn1WKP3SxMoXTf61VZXlQO82ZsrCATEbxR/vbu3lN83M/8keHELIi+0FYTjzlMi6
+KRRIA/Gs2RJg2ooTWWBj2IL1FV2h0S/q7GwPkOUTFi6BumUWfFUtaKM8pBBsUxXG
+p74imsrjqs8hIfu9jxAKwi24dwbG0w==
+=XUku
+-----END PGP SIGNATURE-----
+
+--nxfyz46qk4c4j522--
