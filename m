@@ -1,138 +1,227 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB66370AFC
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5473C47CC96
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784037628; cv=pass; b=Nw/HUe0oth/RYJIYk8Qe4HegOfSQNkmKtVaa9YTOpE7AStdl6D8f7iqR5phGYz/VYnvRe2GtqiSVMWW8xxiEKlBoZiUcHAcZlWxRguAwHyQLkuqPYxwQnXDH+9IeLrQY0T/avhskDa6ygZdxovJOHbQUijhB18zgVycqvB2B3Jw=
+	t=1784037803; cv=pass; b=SUJBmO3d3he7mAnqGL3kWbxLAYcKaEcXChROiJTQWoI+33EYCIbNJqI+DZuchzDqCY9pvPY6mqKtamnR2/NjLT+avEpm+9dCBWQ0taOIHJdqrwYVvySLkG/9YOeQ5E2i1mhXumpoTtTIW2oaBQJo3RMcYuVaGypg2QyvvW9oZY8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784037628; c=relaxed/simple;
-	bh=T9DIDFm3lzuegkQEDN325v2/6T2Fm7otzgZ6GevR3nE=;
+	s=arc-20240116; t=1784037803; c=relaxed/simple;
+	bh=jcfCE/0TEkTsIVfXnYBhBH66bO22mTW43lzd2mIpj78=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gtRn7vadtjs9ql4oG5c8VbsL6uM4nlzyaJhnm4x3pcfMeIBoGX1MsfJLjUHmSt/xuGrE8JdYv33PiPvV8e1Oiiuj/RYI5BG90ew92JyXAylhPDGTjc/b56btkvpZvP0kNPPkgH2m25QVsKW6kV9ocqzGacS7rq/yNGurwXY3QYw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ibm/XjI/; arc=pass smtp.client-ip=209.85.215.180
+	 To:Cc:Content-Type; b=YVSuuD6xkB9d76p5LoofyzPOTBLr8Ofin+DiYX/fjkgXRfmMTwfcENT+4wZZgy3i3xF00ToXGmZGR9ywj/iI9K6GemaiNzPs8dXIxXmmL7AxL5IUi4zDFDLCMIvqk2hcGas0bcg9BLWFNL+wbL0Iu+0nEAEsPRsKosbUX9c1qeQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lAK2SoBn; arc=pass smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ibm/XjI/"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca88130e09aso2893073a12.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:00:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784037627; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lAK2SoBn"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso1131903a91.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:03:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784037795; cv=none;
         d=google.com; s=arc-20260327;
-        b=aleaz1RiZyVxMnIkeXnj5Wo+jcXE0KLLO/B9n7qmnzMRc2R94xOFsBL0lGeveYzJKr
-         UfPkCps1f0ccvN6gLww4cEF6vVIK5Kwvt8r/T9NfcWJPRvl85xXw8sbPt73bJJuZHtDQ
-         kjV+5nHU/BnNM8ELO/92lo6RkvUVJYQOvJlO1mABECU4ocV39NANSPqQAu53qhI4tSHH
-         u6cCUKBugq5y0y1uvGtpymZsioHHiMC9reJFHqRbQLji58Fh6ih6ODqcRg+jzqliuaSO
-         ojGDymFDxLewEb3MOkRTr7p+kCB4fIL/f1BzSzR167F3axJJfN0xCml558j1bIwliD1d
-         TH8Q==
+        b=evg3654G3eMC9IxgJiuXVD37J/iZnvQcIBfgUtVThQQzjH35wE/4NAbhTMUaX7LG2l
+         vsioEFwH0c5LaqHsdUTm38NSaIgGF/CE2eU44d0evgqf5okhhWZWAjV5d6eEZvAcYOrc
+         9cHaOSslZOY1Ij3bJFvIMlG0Hs1abP2HkwoJvMOaaP/a41ENVbB+lbQvgvMoXeg+hqOP
+         K7D71HDVYyNmw0+HcJYU7TjosN4NGsiyqM0FvdzcuH24PAgleiz6h8AcyWy3y3xvhOkz
+         w/MGqEG36q7cIM6kZXWN6DLRHuclvtzoN8LtfbsAubwCgPIfFV6zuy1/LmTvvT+0NbRP
+         kV6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=V2/KhXQ427CL5ieErbt2/8G6KNeA30GSlOdbiwIQ4Jc=;
-        fh=rUhwfRhpshHTej8iPhBZGJErpltoQGPch0zRXmmbLG8=;
-        b=oXg+Hn/50hnnt8Yt7lMEnzeRgoSgpW63SQ9KbKPFS6owWDh0G2x3CkP66G4BpVPBKX
-         tJbMwvRpJRlJGTB1FAWi7Ge2FaKdyZddpEsB/yZ6RriovpkhC00w2WswoPnzfhu7eeGW
-         3PXMQdmcpAGOcxPhSS2zGFkL7HWT3Ya4IQbE/UL81HVqFR3xMultFq6BLXJI4WRqev72
-         hpqGjBs0YiqzzjIxepRe3f3FO8kjxd2xhLHDiodjx7JHB94ZjglZdU3+CsnmRufuKor+
-         y7asyF0PxoyK3GjFHN/QUeySCpjU1y97hirdfu0RmrODHqoNkbDtxATlS55suT+Tb5YD
-         hZEA==;
+        bh=myF6T21RyLYT6/CfTBKwlhYNyiiPbXPGvaRTBJcI6ZU=;
+        fh=Q44met5ybxNrUsuXjPYB8XQPuu7zmIs36DCtZJL9FAw=;
+        b=XKYgMjNFydUVf0NPzhVRpg43Ub1PSRnFCa4uGJZtfwL+VFdU+F4obj6JFa6O2lLMl0
+         LqBDKuLjmihx2lOIG4pp1viwNvOOJseZFXRULqFeUmadzQ4wZ/T5sgdYQbpkPK+tJPLw
+         weqa5RIQW7bLYE25IyYvNkfuU4SKB9wRDCeZn7OZAFw+DFuSbv5vW2oixlW10wNY0Nmp
+         SFgd6a5Y5oVFosI6LeFydjisp1UnCVHhJqccw5ezEns6so3kWRp16rAByPyTEkPy6AHi
+         HU/Ylr7Qm2oX4lgkqQ7Cw4TSWdoXjyq91NsZ73OKRIIG3UzaRvdxAjPQHrOUkmDkDHLY
+         CElg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784037627; x=1784642427; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784037795; x=1784642595; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=V2/KhXQ427CL5ieErbt2/8G6KNeA30GSlOdbiwIQ4Jc=;
-        b=Ibm/XjI/UF9zGxfKyTvCLeNx0Z8KAuQRc5hxmnVoiqbgj12rW/N74Zc8//Z70MGCYc
-         s32dsQpdaYE6UgSdO1VLG4Ly05kYJPcrDNYGj7H0P6SXqbUkg6sasau7TJeuMu0CYJA/
-         4GWc8UxZ+z5hm4E2ur0j7iJJvdxU+jbFXCsSVWOZViELOWaKQJE4JNeBKY8+nsEZjy2N
-         oodjSRD4rTxP73j2T3GmMEkb/VBD3+N2SS/28TfjxTnXDXjnskUXTiuYm6T0bw0Hk8Uv
-         J0S1TuF/6wjGTXuN7UNconlyJMW6bodw0ltWL5uo8UmTxedVStJ5ErsdcCcRO21KOsY4
-         klEA==
+        bh=myF6T21RyLYT6/CfTBKwlhYNyiiPbXPGvaRTBJcI6ZU=;
+        b=lAK2SoBneg8a79IZxLlhDsoAc5s20dBKXYEmWxNqZbpTv1QYHuXFFTg+NoFNbGZt2D
+         UEVjkRmdqrTUvXv7NUo+KyP47BDLcu4h6ndNAWy8SpgCyMfHyAHNG4l4y3KQQsVM+NfO
+         y3AuDDKNqrG2ji6rSNU4GXaj318V6nIpTK5NE9HzDHEqubMliMFQ/6DYBUTv7cRfhVko
+         3hLr+lBtOX3eNCTXc2oxsUbuLs3l5I4wzeDq7R6fv1ZZeVGJqY1ZEmMy5Km53CIK2+gt
+         sR/h7Ue36rW6UZW3hnySs1O74EAPlLqb2jBd8DkABTJgXXntJDpmIPLfyks3ke+Fgy3h
+         W7wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784037627; x=1784642427;
+        d=1e100.net; s=20251104; t=1784037795; x=1784642595;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=V2/KhXQ427CL5ieErbt2/8G6KNeA30GSlOdbiwIQ4Jc=;
-        b=ERj53ul78Vk06W7lp8K65g8ZxRSZfu9nZ0ZKq70I5NZ4KlPpmS7p9bIUNQPA/eGsUP
-         kB0R/hnpTzT9IWyx97pZAmNFTQ8Y2ag/4ug/MhjKV4t14Ax6IhUcfGfRFLdFiCF4f55i
-         Ek+xlfpYK3dIOR9ql/AUljwAzEf5YVFeoKgg4SLQZq4pGaI7E+utbZ0Au8dHOzKC8rAB
-         ggaF/8cNFMWxTXB2Ra8zYJChtqZ/qnx6hHWKXG/MayweOmbT32uXNj2La6jON+jrhONV
-         sXMu9In81ydjNsNVPL2Rg85YCruhYSUkhOEabi+cv8hX5Vr1SjzjsLsDjX7tIH8bmHnl
-         kfzg==
-X-Forwarded-Encrypted: i=1; AHgh+RpEdHiQEHcbvHWLdOsnvJSvVwM8lYtI32q/aEFUH9+NGWv00DDJB5DTjOUSg1jVOu0Fh5wD3vUo+VmQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXIP1wDhYlwH44BlmDXy9iFldGzBrwNMNIUm+snbeybx0jRugP
-	dKeUNvFO+qutWI7o4yqZdkYGayiWYJ5pv/tMlaCoc0FOA9ngKZtuUtmmOGATjf7HsrRAv60qas2
-	0S/eWLOgvUCMHa81QHymohRarIOn/lcg=
-X-Gm-Gg: AfdE7cmEE4iU+nRCmpTy2DLXYijgwoTbPDTeOI3vVe4jozVbrJc7ij3Q6D4lH6uDjoi
-	KyEOt5WMOC5bnpGB4986JszYcunCDMpb8UM/dCN8Yhogd8zJ0Z1tFO8JPEZhqfsvhPXNzbG8AK3
-	Yb4Myz8aLU7HPJSWaNzuWeKBX9kZqjyy3exFfw3r5XkyddHPoJ3b0sqnEmFZs+6sF67W32HeaL9
-	W28arrJEfBFiezy6JEST+iDaz7QBgp7cTwyOtQ1tdGVr1VPee7tq9kjKDY9AQCkH4ejdosElXLL
-	G+2jkOIk8ZSxNadhTcOXY+UaxDm0snBbXQzQU8kt
-X-Received: by 2002:a05:6a20:72a8:b0:3c0:9c18:d5ad with SMTP id
- adf61e73a8af0-3c3572b5794mr2798444637.74.1784037626720; Tue, 14 Jul 2026
- 07:00:26 -0700 (PDT)
+        bh=myF6T21RyLYT6/CfTBKwlhYNyiiPbXPGvaRTBJcI6ZU=;
+        b=P1ycHKVaF0Ze86hDhVxmIVMT0T1hr/3IJ1pYwvtZ2ej4/H5pKI9AkK91uvqAG7sh/V
+         AP4e6uY6WOgc6XzYPmTQIUgZcMQmAe03yYH+ybeTdnem6Ksd2MqPrJo51ntb009P/1YE
+         09/m9VVIMVVym4QzdGTiTZcAf1Eui4i5g/mJ7R7Nne13ioR9sRh8Dm5X5QGDPHryUuH6
+         CKIazxNr8SrNCXEMyleIqfTFrsI9PihpioY+CuBuTA8aaoaIoYs53G42g8XyZqXoUl86
+         jPfBrlwzOidnr5CDXfLV8xszw2XTd3AB9OcAg2ZNz2IL+tpVTWgtWOOOmGYbWjjlLgE4
+         nlxw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro6W6PuauHtPGnyh8S2l92lquC8GEW3EWV3mTpnOfEjYNIzwR2StcY/kodYyb4EORIs4SuvOBiqsi9e@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQlUnESpar9CmXwZrYWZzBnE7h10F05WUWHmIMSquVO+Jl0c6X
+	PIn4Ny6IseoVLdsGWgwHfHBRGhmyMkF6MiP3+IYQcwGiIdXpx+OnnbfOp/eBlIbsbAW+X4PKJXV
+	3Ob40P7v/+LjZbHQKajl5YOu3F4cuRXo=
+X-Gm-Gg: AfdE7clC/Rv2evrnIPhSXkztOGJPnSIL1hQvMVzbdTCEwiVfY49p9/9uql+76ojp6H8
+	I7rwabVddl6x/pVu6/X+5aSehlD4QOi2dTffobJzA9UC/wZrl++lq4Qr4OogosgGZP8P2FK9PDP
+	H1Igyl0/QWy7qVYbDbzlCFfQv0AuGhceegoFcY1CXIgaANBYyQ4kj4PcuJQHHve84ZmqVAmu/jf
+	HOWRluC0d6avB5K8sFCcJKAF+xVz+26mvFFF2SJ0ELDstfiDGAFp8iZfvjd5kW/MGy7eSPxIpv4
+	/81Vn120DQujSeT6kxrP6a6GfZWi+w==
+X-Received: by 2002:a17:90b:5863:b0:36d:b424:4f17 with SMTP id
+ 98e67ed59e1d1-38dc73bcfdfmr12462942a91.1.1784037794156; Tue, 14 Jul 2026
+ 07:03:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260617080031.99156-1-clamor95@gmail.com> <20260617080031.99156-10-clamor95@gmail.com>
- <akeYWRF-wIlrHTF5@hovoldconsulting.com>
-In-Reply-To: <akeYWRF-wIlrHTF5@hovoldconsulting.com>
+References: <20260625081529.22447-1-clamor95@gmail.com> <20260625081529.22447-5-clamor95@gmail.com>
+ <CAPVz0n1o+2NRQrLfbCMT0JdeFhhD4PS4UzSt3L6-QQ2ywHL+mA@mail.gmail.com>
+In-Reply-To: <CAPVz0n1o+2NRQrLfbCMT0JdeFhhD4PS4UzSt3L6-QQ2ywHL+mA@mail.gmail.com>
 From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 14 Jul 2026 17:00:15 +0300
-X-Gm-Features: AUfX_mwnssZkuxVf2843X6HTYGv-SRm_VXHXZEuLPu7vTjXTmj8SvtNozHDr9W4
-Message-ID: <CAPVz0n2EGy3uWwUfumvRxr2M_Z9ZMZ5f9=RO=S5vUsGk=ejcJQ@mail.gmail.com>
-Subject: Re: [PATCH v5 09/14] mfd: lm3533: Add support for VIN power supply
-To: Johan Hovold <johan@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org
+Date: Tue, 14 Jul 2026 17:03:02 +0300
+X-Gm-Features: AUfX_myvMCwvq1yA3I4zoSr0hddrF32oflvRuyg70zCnHs7uf8DcWagE6S5UHa4
+Message-ID: <CAPVz0n3FkzoXJBffsOJzd4Rq9HmA0n1oFCU-9Xt=URmpXhY2UA@mail.gmail.com>
+Subject: Re: [PATCH v9 4/7] input: keyboard: Add driver for ASUS Transformer
+ dock multimedia keys
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Ion Agorria <ion@agorria.com>, Sebastian Reichel <sre@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Lee Jones <lee@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=D0=BF=D1=82, 3 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 14:09 Johan=
- Hovold <johan@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+=D0=BF=D1=82, 3 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 11:53 Svyat=
+oslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> On Wed, Jun 17, 2026 at 11:00:26AM +0300, Svyatoslav Ryhel wrote:
-> > Add support for 2.7V-5.5V VIN power supply.
+> =D1=87=D1=82, 25 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11=
+:16 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
 > >
+> > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> >
+> > Add support for multimedia top button row of ASUS Transformer's Mobile
+> > Dock keyboard. Driver is made that function keys (F1-F12) are used by
+> > default which suits average Linux use better and with pressing
+> > ScreenLock + AltGr function keys layout is switched to multimedia keys.
+> > Only Dock keyboard input events are tracked for AltGr pressing.
+> >
+> > Co-developed-by: Ion Agorria <ion@agorria.com>
+> > Signed-off-by: Ion Agorria <ion@agorria.com>
+> > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
 > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->
-> > -static void lm3533_enable(struct lm3533 *lm3533)
-> > +static int lm3533_enable(struct lm3533 *lm3533)
-> >  {
-> > +     int ret;
+> > ---
+> >  drivers/input/keyboard/Kconfig                |  10 +
+> >  drivers/input/keyboard/Makefile               |   1 +
+> >  .../input/keyboard/asus-transformer-ec-keys.c | 314 ++++++++++++++++++
+> >  3 files changed, 325 insertions(+)
+> >  create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
+> >
+> > diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kc=
+onfig
+> > index 9d1019ba0245..913cb4900565 100644
+> > --- a/drivers/input/keyboard/Kconfig
+> > +++ b/drivers/input/keyboard/Kconfig
+> > @@ -89,6 +89,16 @@ config KEYBOARD_APPLESPI
+> >           To compile this driver as a module, choose M here: the
+> >           module will be called applespi.
+> >
+> > +config KEYBOARD_ASUS_TRANSFORMER_EC
+> > +       tristate "Asus Transformer's Mobile Dock multimedia keys"
+> > +       depends on MFD_ASUS_TRANSFORMER_EC
+> > +       help
+> > +         Say Y here if you want to use multimedia keys present on Asus
+> > +         Transformer's Mobile Dock.
 > > +
-> > +     ret =3D regulator_enable(lm3533->vin_supply);
-> > +     if (ret) {
-> > +             dev_err(lm3533->dev, "failed to enable vin power supply\n=
-");
-> > +             return ret;
-> > +     }
+> > +         To compile this driver as a module, choose M here: the
+> > +         module will be called asus-transformer-ec-keys.
+> > +
+> >  config KEYBOARD_ATARI
+> >         tristate "Atari keyboard"
+> >         depends on ATARI
+> > diff --git a/drivers/input/keyboard/Makefile b/drivers/input/keyboard/M=
+akefile
+> > index 60bb7baf802f..0d81096887ad 100644
+> > --- a/drivers/input/keyboard/Makefile
+> > +++ b/drivers/input/keyboard/Makefile
+> > @@ -11,6 +11,7 @@ obj-$(CONFIG_KEYBOARD_ADP5585)                +=3D ad=
+p5585-keys.o
+> >  obj-$(CONFIG_KEYBOARD_ADP5588)         +=3D adp5588-keys.o
+> >  obj-$(CONFIG_KEYBOARD_AMIGA)           +=3D amikbd.o
+> >  obj-$(CONFIG_KEYBOARD_APPLESPI)                +=3D applespi.o
+> > +obj-$(CONFIG_KEYBOARD_ASUS_TRANSFORMER_EC)     +=3D asus-transformer-e=
+c-keys.o
+> >  obj-$(CONFIG_KEYBOARD_ATARI)           +=3D atakbd.o
+> >  obj-$(CONFIG_KEYBOARD_ATKBD)           +=3D atkbd.o
+> >  obj-$(CONFIG_KEYBOARD_BCM)             +=3D bcm-keypad.o
+> > diff --git a/drivers/input/keyboard/asus-transformer-ec-keys.c b/driver=
+s/input/keyboard/asus-transformer-ec-keys.c
+> > new file mode 100644
+> > index 000000000000..53aff3ce7146
+> > --- /dev/null
+> > +++ b/drivers/input/keyboard/asus-transformer-ec-keys.c
+> > @@ -0,0 +1,314 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +
+> > +#include <linux/array_size.h>
+> > +#include <linux/err.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/input.h>
+> > +#include <linux/mfd/asus-transformer-ec.h>
+> > +#include <linux/module.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/slab.h>
+> > +
+> > +#define ASUSEC_EXT_KEY_CODES           0x20
+> > +
+> > +struct asus_ec_keys_data {
+> > +       struct notifier_block nb;
+> > +       struct asusec_core *ec;
+> > +       struct input_dev *xidev;
+> > +       struct input_handler input_handler;
+> > +       unsigned short keymap[ASUSEC_EXT_KEY_CODES * 2];
+> > +       const char *kbc_phys;
+> > +       bool special_key_pressed;
+> > +       bool special_key_mode;
+> > +};
+> > +
+> > +static void asus_ec_input_event(struct input_handle *handle,
+> > +                               unsigned int event_type,
+> > +                               unsigned int event_code, int value)
+> > +{
+> > +       struct asus_ec_keys_data *priv =3D handle->handler->private;
+> > +
+> > +       /* Store special key state */
+> > +       if (event_type =3D=3D EV_KEY && event_code =3D=3D KEY_RIGHTALT)
+> > +               priv->special_key_pressed =3D !!value;
+> > +}
+> > +
+> > +static int asus_ec_input_connect(struct input_handler *handler,
+> > +                                struct input_dev *dev,
+> > +                                const struct input_device_id *id)
+> > +{
+> > +       struct asus_ec_keys_data *priv =3D handler->private;
+> > +       struct input_handle *handle;
+> > +       int error;
+> > +
+> > +       if (!dev->phys || !strstr(dev->phys, priv->kbc_phys))
+> > +               return -ENODEV;
 > > +
 >
-> No delay needed?
+> Hello Dmitry!
+>
+> Would this approach be acceptable? Handler links strictly to asus-ec keyb=
+oard.
 >
 
-I have not found any in the datasheet, if you are aware of the delay
-duration needed please elaborate.
-
-> >       gpiod_set_value(lm3533->hwen, 1);
-> > +
-> > +     return 0;
-> >  }
->
-> Johan
+Hello Dmitry! May you please take a look? ATM only ACK on input patches lef=
+t.
