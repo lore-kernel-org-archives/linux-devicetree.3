@@ -1,930 +1,189 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010040.outbound.protection.outlook.com [52.101.69.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BA947A0D8
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:57:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AF647AF5F;
+	Tue, 14 Jul 2026 13:58:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784037437; cv=pass; b=tyoWeASi+H3BmQVm38QLRTYAqvNtOP7PgeVj6hatIQc39j2kyU9pQk0XG/5QvXRIbUFynfA23iexQEK0rCw0XCjGFWPtLvexNCVktRt//9ySrk0sW60jfug07sVZ6Z14PDKbKzSRt4sulgQadGxgrxKkWySeUx5qxSErTmNNuzc=
+	t=1784037536; cv=fail; b=jRKbXz8d3XbXKvfAdM9iaTus3Do+giVa60zjsqMz6ZHJY1tlUZGNPtLbfPGSNkiA88A7/B1KhbdO4dzm4RiDQVSd0fHtkB0IXIEiC6baAPUCu/cha3kPWewbmwZhpZZ7fmh9q+yFHFuXSGHGVlRQKMTFpS4wo+GSWTbuUlBCF2E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784037437; c=relaxed/simple;
-	bh=bKvQQ9NyV0Yy6KGpY/AypZO5tBgNBP9Y9pMaKUN8X+M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TqEH+ykqOOkaD+mHr9HDLss29MB2wBMNcy2ZzyMzU8rAqz/RRGEVJOZaLA2mngjWhPBcRgH2AsOJp01Nc81ivFl3+bAJiB1AcZcRpnOmHbWgZk4GbA9usoqhsVBc9k/zNbRr62cvr1jwV/ueL9pGq/Br54+d/Vbaprroj/5hPBE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gw5v5B9a; arc=pass smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784037536; c=relaxed/simple;
+	bh=v9sAuGJs+AsrhAzyqEtNkOIXJX9sZtdtSfjr35Mw5pQ=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=NYVxqvzLr+zeY44W0zTDg8hQ9aygajVJWvIvNLrGgoYoWl/gAvW7F0q4gFNSl27TqSKyA0THf1wwgYfFlw3DqEvwijurewEQw45EZaDnkI2luDvNA9dNlRnF7rOgHtnNUQtZ6zvnC/QmgcMKkqHneCib0xmZE9DHWBPumo3L3TY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Vtjgs2Ku; arc=fail smtp.client-ip=52.101.69.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gw5v5B9a"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-caf45fc5202so1935699a12.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:57:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784037434; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OdqTQiKFN/DhZ88bvv9DdgXfo1pgZnKhbxNnomnGb8LH0yFEWwVT+artyoJfvNijMK
-         OZRA1HRq9WGICvEgq6zdaVZLpWU7i3Yo22bYMhihrBsDw7poNLE0xYWYFZN5KEUghZSR
-         NoMaP5usa4qCrZIcaCvdw//K9TPShn3Xim/ki7XS6FFJPcsSh+hgrKEeQjek1ixJoQAB
-         uUDseI6hHeSz04AUE2CJ/1KORVDwqtbe76UKx650LUN89WkpC3XVexV13+WBcj8AbHLT
-         rVYBeE09PKiAdhtn7rejcHFc2ZIO2sgFUrU2igdLXfgUttl0DvchtqnEmSF0r94QGFbr
-         Eqhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VcAm5FWbeAAldh2aF0FxQA9G6VAg7WY7Y57rM0IzDss=;
-        fh=/T2nPBVFkqNqvIYFiSGVQ2tFCuF5xUpeSf1mxVaNluA=;
-        b=I3IfVpgRTqGJUyOiAdW37UIJATEwFQDFvNPfVIr6UWMOICo9qGFu19hILlwxvAw3a2
-         z7f/XIYUZcPqnK2d+ZOiUvHy0iQqWHhIhv+TIFOB7yV95U9XdePijmGAZ1ifKPwRMNS8
-         mqjrQYbHlyNoqGrJbtdhiTUlMrFvmfuiP7kRdCkPsCXR+QF0xFEyEJDS9FxRlys+AqwF
-         baHJlOMl49nWMXg2Se0EVAFSnE8/e2AmT3ZXKov4uIXM5YIVTIxfmAM8eRGaAZGTU09l
-         G6f8xCoWoYtwfVSs2iykYdGt755wcsr4ZOG8TnmoZZcWgptN5uz+XkXaJ1po1DoFNGNf
-         riEw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784037434; x=1784642234; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VcAm5FWbeAAldh2aF0FxQA9G6VAg7WY7Y57rM0IzDss=;
-        b=gw5v5B9abXRgCnZDTtA/wwLE0uCiZcGCN2q0OfODis1e3HxA/nn6LXMHLSlTAHB+Be
-         mxHtPE8qdx+Id0TojFRNR2a/2vHrr9GcSIeCS02BzbKyJW38A3I8j1PUYfLoHjF+247S
-         YhV53ayi7Delne0+BziQv/p+G9agJDwwPRmrJ0f5GplbNWj5gX7/ubjShi/r8dekxqFG
-         YuANma9zniqCqm3mAfTYasQTE7ljYun7OruM4S0kxANBvHtfZx/gfozLcjCLOJ1Py6rM
-         ztL9LX0+viwYRrCGc1KR9Lp0zZaDhTtxiPUmWNDd6+cmvZFJNsiBMkjex+O2j4cAZMwJ
-         TgfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784037434; x=1784642234;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VcAm5FWbeAAldh2aF0FxQA9G6VAg7WY7Y57rM0IzDss=;
-        b=naMPFNTBpUiq+qf/Mrg0pbmBaodLeYqhPcv7zofZXbB2XANNn9xgeEfSUDKPwjVUKO
-         Rn8060qfhZ4ob42MFb/M9tuKZxe2sPomh547n+hVUDA3T/u6TN/TDMl2QB1IVXwlW7lJ
-         kxv5cpTS41XyXBGgGM7cxmj7Ek3ghmqNl8jamFeW+I5PeBNPEmxr0Y/0PC8SWQ5dD+61
-         B8RvHK3RplA3hKhySOEW3y9xLwyAp5UmYywviCecJ3Yn/1ZZqeyGlnw4Ob+mIiyYQXID
-         ILjo0BwGJJzvSlmXn02J8Bd9AZd64wNmKQmthanc3+EaEtqH5Z/WWlO6v5DS/r4rE2P+
-         5s4g==
-X-Forwarded-Encrypted: i=1; AHgh+RoWpA1AoCUjzBqudq73GRzpKedfkBUC7Uod/cx0meD4IQmd03BBKAbFNO9acQ2fE4cFXaqO3rtmuVi2@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfaenO+7rQ+thzhy3hp59tmalGZLLnU7wjZ/XbnwqShSy46mXb
-	aDOXT8IHGP0JJqt6bPm3JKg1Sn/PWgHuPCyTgAD473UVWhKBlJC3HO1T95zC89OLQQwJYYOCRe1
-	6p8Qm/R4uyIpxJhklncvfLi5iyTsL2rI=
-X-Gm-Gg: AfdE7cnHThpnxuqb1ImuYHXwf3Tq9dvRZZLaRth4ekKddjd67DnRfDj5dn/bm8L2xG1
-	jF69SatBf3n8+SYfFhL8lILddCY7YKCtrsIg67aKhGsg6AOCP25rmqP6PDs6HqAkSRQLioWXzFF
-	iHAaSznYLWnprOGPlMoAWDsCw4v3PAiKYHy1HBJEtVM2vY1iOb3ugOHFXqtFLGATDjHIFQXGp99
-	vONYA+CqO6xr+vKi8pAIYVaz/Odspo23n48rVS4G5SXGVojGV7Y3AbDiVTKOcLyTXhP5rlgIRxe
-	t+YAvtzwZimxOlgz0GetI3HOYt3XTc16n+/vhPi/
-X-Received: by 2002:a05:6a20:2587:b0:3bf:63af:855 with SMTP id
- adf61e73a8af0-3c356f75e8emr3100956637.1.1784037434067; Tue, 14 Jul 2026
- 06:57:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Vtjgs2Ku"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uXGLwV5euJcTZx5D4ind3O6nMfJ96FigNhxO7CT+aw2TG4khc8GP6MZg0PbVLjEAfL6/wdfbFfwtfwYxuff0wPOMqC48j5KM6AN9lcZeT3p2ipeVmpPihxaCofHGSEtYDbXQFukuGNGq1JrJN2lUWss804f5hoR4GVOxZw9eC010vCan045xcGhxDQYgpwaZj2ywGmtdg8KiJhnJWTlNnHiNEwLGFle+WrvlzCLfMYBbbJNUE3F+TbxFvQ8qDdDjBJVelzBknBAj0cNO84I6KAzuQzrIJjX8whhbLNKGssxm7cyai5x6Dtj9O9cdfSkGZwupHvPFHjDkqD91KKy8nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5aYMgx8PBsoCBESXYNUbJr6BHbqJS9oiEFR3VUA17Jc=;
+ b=EM+DyD1IUXaWR8f6QQCXfDYiJmdXO9b6kUosnpEYDeR/J1Uoud6bTuXiX9ur2NYYx51mvHp2Eo4z1fvCvIMl5rmDQUioI1O2sOEJeJqkXrH+Qppg0qFCgwpYIoSwGOowkMy/hFAEN4yOCpNPs7//szTpVtU/J23Mer+WI0qCT2ptg2zZGaL88SOqnFo5ioAv8/6W3AqVNUK/8BPZ0me6HzQgSHv7jS39JtRkQqvae5YxHv3eRlY3yZwIo3cVC2JaNsgC+wBHnmfWS3R62kj35MM3i42PMARvdzA1WNhyzwDgMfL/1UfGlYbeUZdP8BN0iNbZ3LX3tKIkzAnx+SLhAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5aYMgx8PBsoCBESXYNUbJr6BHbqJS9oiEFR3VUA17Jc=;
+ b=Vtjgs2KuxAnUhTUpN4m/UoXgjrPDfu3DhWwFyeE4loNLUwHPnDGImmNrg0/df4iCo3CS6HZRE7OMoxnuFBa6aVwW3aWB68uiFQ+vRZcR/7Q+69lSv46zjzgOzCN2tqDo7PtHTofumC13zyZX7QQ/0mxZXW1ERDFAmpytELq5eh411guzLWeGkSjXePeSKtH2LLqJ0DHXPwUM6YTem1KDSRZXBbvnpUdyHRrm+sPyGv+fdXqXMsvHFEylt0yHtGieuj7pYJ7VWt15PaMbB5cDkOBAgjBCo/Wq2+jA1VI4GSQ2TFVPs2lq68cIoREdOb7zh6KaUNvX1zca7d1kmcy7nw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB10842.eurprd04.prod.outlook.com (2603:10a6:102:483::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
+ 2026 13:58:51 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0202.018; Tue, 14 Jul 2026
+ 13:58:51 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH 0/6] display: lcdif: imx: add display support for imx8dxl
+ and imx8qxp
+Date: Tue, 14 Jul 2026 09:58:42 -0400
+Message-Id: <20260714-dxl_lcdif-v1-0-6761a8a6592b@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJJAVmoC/yXM0QpAQBBA0V/RPNta+0D8iiQ7M8tIaBcp+XeLx
+ 1O3e0FgLxygSi7wfEiQZY7I0gRw6OaelVA0GG1yXehS0Tm1E5I4RTlash2WxlmI/erZyfm96uZ
+ 32O3IuL0DuO8HewVv120AAAA=
+X-Change-ID: 20260709-dxl_lcdif-d6cbdbac92fb
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Robert Chiras <robert.chiras@nxp.com>, 
+ Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784037527; l=1681;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=v9sAuGJs+AsrhAzyqEtNkOIXJX9sZtdtSfjr35Mw5pQ=;
+ b=DtnDr1Yyu01qL4D8WGpA+wB8vccxRTOMqkCL49CX9mlR0KMktrtaBdiwtGDnXJrvxWoOVXDbM
+ j6IyoeLwsPoAZ/B7OI5arLs98tL2vHog6Qlvm6w3rmuKiWB+ME84OxL
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: SA9PR03CA0001.namprd03.prod.outlook.com
+ (2603:10b6:806:20::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260617080031.99156-1-clamor95@gmail.com> <20260617080031.99156-9-clamor95@gmail.com>
- <akeXAOpb13hupUGM@hovoldconsulting.com>
-In-Reply-To: <akeXAOpb13hupUGM@hovoldconsulting.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 14 Jul 2026 16:57:01 +0300
-X-Gm-Features: AUfX_mwRKo_fn2QnMJVDLqeS1xafc50cBPMDBnXkRpNqiMp3WbdmnWFo0iH0owY
-Message-ID: <CAPVz0n2trouADTziWXnpt=-hwKdsZWGQib+-nVCLaSLibTbATg@mail.gmail.com>
-Subject: Re: [PATCH v5 08/14] mfd: lm3533: Convert to use OF bindings
-To: Johan Hovold <johan@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10842:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d60bc92-ae50-46ec-d0b1-08dee1b008fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|376014|19092799006|23010399003|1800799024|18002099003|56012099006|11063799006|921020;
+X-Microsoft-Antispam-Message-Info:
+	453QlmpOlgkQZLbwy6sKzPpdpq45BznCI/WALqodvL400rQ6Xn4X/nY0swHtxr3ihpZiAT9SLHqNloEBqTdzC5GlBkvb6SSW9Vo9MWC3Ra1N6Z1IHWaRr/wJqSz1MJCO+NjXJrYMrsVkaNrEFBQOkZ1W5pZqYhcoj1bX1ncTHqZ30zDxqX0C62tTRLoQ2v+BdDhEMrRznvSgbSp2TqCmIjM9QwW/Dhen9Boo5cx/QRB19r7Wu1yfBUfu2HG8mds4tQIMkIJn99WN79s8Yd6kPcc8XhUNOik8IfdnPmmmSZpuqxE+i/MvGYzJno80rJNLjD7PtLzeBEAlcJzy7h1R76BwykK6JTU9d1Y6Pbs8AeezhvTAsMOIr8g1N9zLuTdB53t4Th7i6MyJifuOptEF9zst4/MgGX3iu8G1lxuexOfQ45kpRML1qI4XAio4R1BBo7Qt2/rwJlYQdos40LVOKi+DWQjCMjUyLkTNVvTcfQ+L4rbYVSNaccrY/K59BcLPGdgxFYoaaBmaoYIOkL6hmY5WzWOO/TWLVMXins0mnl9NCLzcwyaLUc4gPveEyxRQSF6007CpRKYnW4s4M677XVjimAVYz9YB/WSjqAEgxsg9Zn5qf8WkXNtsZvfV/YB2D1YSafMcyhV1h4SvXeGmMRWlqgnvI/v94r8O0GlqJzU5+Zmsz4tExAz7p2CrDpOt7chuZVqqcvs5nmA+WSgBcQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(19092799006)(23010399003)(1800799024)(18002099003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TGpMNjdFS3E1aXdoejlyM1g0MFlVSjBEK0x5RGVONmQ3bEJwb1JiMlN5VGNU?=
+ =?utf-8?B?cCtJbDArb042UVdkU0FtcU5RUDA1MWJCdDViU0JmSGgxYUVKT1o1U0hsZ3VV?=
+ =?utf-8?B?UFVGMEJwQXAyelFWWEs3MHJjN3VPMzBHTFIvWVkzU2NLTUN1bFpDV3JZZzIw?=
+ =?utf-8?B?KzJ5WmJuOXVFa0dlK0NoMkpPKys0NTFudWFaYm43bkVVOU9yd1VqckxCWDV6?=
+ =?utf-8?B?WE1UN0s2Y3Q0ZFRWUUVYMkNZaHdhK1NRdnRZcEh0WWZLWEhoZHVvTENpQXdw?=
+ =?utf-8?B?TkFmVHZJTVE0Tkt5K3lVdzZGbFJlaW5lS3ZkUWY4UHRmSnVXMmZkZG1tNDJU?=
+ =?utf-8?B?b2I5UjhORlkwWVEvcEF6RVVVTGRZL2NZNWl6dkNYbXJvdVY1MFpmNGNGVVJB?=
+ =?utf-8?B?ZVVLOFdadStIOGxFKzFtMmk4RjRwOWpUVFNQTEpMcUVPa01XQXFFZi9rMjZN?=
+ =?utf-8?B?aWh2NkZZWGZ1clhTemZMcG94R0kwZ3MzUExSOHE4RlZXaWNnWElLNjRLbnN2?=
+ =?utf-8?B?eVp3UEc1MkxJdGtCQWJ6OTFZWkhVL052QjJMOVVnMWFSY1NWQURZMFF4Vkxs?=
+ =?utf-8?B?OTZTTGNPVVlVMWRoekI3SFRZbXVqVG9qYmVTQ3poZG4vWktybjBBcUxjaXRG?=
+ =?utf-8?B?OGsyekE5M2owWGUrcTJjWjV4UmYyRUkyeURpOXk2UDBrK1FKZk1sY2hmaHNn?=
+ =?utf-8?B?d2VOeEJ3b2o0N2xydXdKczNJdmtOY0tUQWxoR3NNNm9UQVRNL3hIRHVLVDZ4?=
+ =?utf-8?B?cEZhZWxscUJMWHhSMElDam12UThFcWRJcVB3dG5vcHJMYktVUEd1aEk2Tmlm?=
+ =?utf-8?B?cXVIQTV6QjFIVkpDODF0TFBmd0ZyZnA1NEhJZ2pKTnplUjBoL2l4TXlJOTVI?=
+ =?utf-8?B?aWJ3eU94K3g4NGN1QmRFRmRPSDZ0MTRGVDFEMEQ5TWgveXJOQnlaWTdGaHpX?=
+ =?utf-8?B?ZjdCUkZVL0IrcXFMVFFPTkVBUzVTQTQ4QWlVM28vTHZvT0JxakxvemZMbitU?=
+ =?utf-8?B?eTZ3SXN3bVRhSHRpOE01V29ZNjZlVW41VkgvM2lwSEtaMmpWeVZWM2Fkb2NN?=
+ =?utf-8?B?UFduSWNwbmJFbDZDRUI1QnA4UzJvQTMydVZuY0s4RVprYkxEM21kMjEwdEIw?=
+ =?utf-8?B?TDNSS1dFTlVjZUhjdFN1Snd3SXdjSVB1YUs4ZGRPT2M3V09ENGxtUUQ3SUJt?=
+ =?utf-8?B?ODQxWG5kMXl6T0lzZ0xVUW14dlBPVFNOSlpmd3c5SG93eXpaSWVNb1U0aXVh?=
+ =?utf-8?B?TVhmQnl1ZmhYbitwNVVSUDhPYVBUekMrVW5vbnltNk5MNGZVdVYrdlcyUFYx?=
+ =?utf-8?B?SWxPWlhmY2pGY1dCaFY2Z1BoemFJQlVZUlZVUXJEU1EzWHE3YnpVK2VRWjYx?=
+ =?utf-8?B?RFgzRGgvRFQ2bzF1SlhHbmdEYkNjYzZicGJhcUFSVFY4WHo0L2czWDdDbzZE?=
+ =?utf-8?B?MFZwaDhlaDRQOThpSG1zSnRxai9zYlo1MS8xblRnT24xbUJJaHFIa0FucUI2?=
+ =?utf-8?B?N1hZdGx4L1BqcjArKys3NWRDY25NKy9OVHFlNnNIbjYwSkhpOHpVRDY5d0FX?=
+ =?utf-8?B?bWJzdkcvTURhYkJ3Q1E4MHVIbERZeGNTT3N4RTY4RVBjNWJ2TFhScmtDdElQ?=
+ =?utf-8?B?b3FCTzNuTEt0Q3M0dnFsaDBXZ2V4SklmVXN4RHRCM09FajNERWpDNklWMmlq?=
+ =?utf-8?B?MENWT2Vlb0g5bUxjN0hYdUducVlMY2hHemUzZ1FUTzJQVllaOW1IUnlJYjIy?=
+ =?utf-8?B?czdscXlZdVYzL2pqekMwazFHeWVhbTR4TERua2NWdU9HR0VDUlFZQU4wYkJa?=
+ =?utf-8?B?Y1dyRWM1a1BNT1JkcGQ4UGR6WUFtdnhCQ29sK01LTnptWTFFalZualBjdlN4?=
+ =?utf-8?B?aVFqQ2JTUDI3M2xRczYxaTNBcXZySkVSYmVhQllHbS9rdXRQN2J2VDgxTU9T?=
+ =?utf-8?B?RmtBV2RldjJTVGxCdlcrc1hOZ042VWloVExIR2NFUlM1QWcxOGJVZUplZHJK?=
+ =?utf-8?B?aTFqMDArVFNTVWVKK3dsdFZSenVpUC9pSXhDZDZkNGtjc2VlcGlTamlYemhq?=
+ =?utf-8?B?K1pjNTJJZ3QwUkYwYk8vVmZ6b1ZxdXZGSWlwNmtsNWQ4bFE0WVRlUFg2K0tT?=
+ =?utf-8?B?bzE2eWNjNUpoTnpaRGo2dHU4Nk4xbTdJOHI2U0FDRCtnMXRNMjNlalVFbGJZ?=
+ =?utf-8?B?RTlzUUk3M3pPYkM1YUFFYzZIQTV0YUVoREdaT1JZRTdNODQ3M0N3U0dPVXJY?=
+ =?utf-8?B?cnl5Qnh6cnFJYVdtRlc2OHlFODF0L0Vra0QxRGQwdTdvNVZ5TjhmNlZWc0dp?=
+ =?utf-8?B?bDM3Q0FlVk1wRWVmUGJ5NXpZaFNDWkJ0QVhFeVVQSzJPSzVFaDR0MXpMMlcx?=
+ =?utf-8?Q?qEAn/X5xlF7w0Fm1PbrmES6VhYLwvx/m8U0JF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d60bc92-ae50-46ec-d0b1-08dee1b008fa
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 13:58:51.5855
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: liQ9M5rdbR6HVOwWEZA6XtHxsRqpvmt3/IwCwvglsz1twg6AV4XkeFZfjB9kUpPAfIFZZ0ORwdHqelLGB4/JOzigCSczZ8e47T1wLVVjGWev0EUGLMSwyZ8IODZrsCyx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10842
 
-=D0=BF=D1=82, 3 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 14:03 Johan=
- Hovold <johan@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Jun 17, 2026 at 11:00:25AM +0300, Svyatoslav Ryhel wrote:
-> > Since there are no users of this driver via platform data, remove the
-> > platform data support and switch to using Device Tree bindings.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> #for backl=
-ight
-> > ---
-> >  drivers/iio/light/lm3533-als.c      |  67 +++++---
-> >  drivers/leds/leds-lm3533.c          |  50 ++++--
-> >  drivers/mfd/lm3533-core.c           | 236 ++++++++++++----------------
-> >  drivers/mfd/lm3533-ctrlbank.c       |   5 -
-> >  drivers/video/backlight/lm3533_bl.c |  55 +++++--
-> >  include/linux/mfd/lm3533.h          |  52 +-----
-> >  6 files changed, 220 insertions(+), 245 deletions(-)
->
-> >  static int lm3533_als_probe(struct platform_device *pdev)
-> >  {
-> > -     const struct lm3533_als_platform_data *pdata;
-> >       struct lm3533 *lm3533;
-> >       struct lm3533_als *als;
-> >       struct iio_dev *indio_dev;
-> > @@ -803,12 +817,6 @@ static int lm3533_als_probe(struct platform_device=
- *pdev)
-> >       if (!lm3533)
-> >               return -EINVAL;
-> >
-> > -     pdata =3D dev_get_platdata(&pdev->dev);
-> > -     if (!pdata) {
-> > -             dev_err(&pdev->dev, "no platform data\n");
-> > -             return -EINVAL;
-> > -     }
-> > -
-> >       indio_dev =3D devm_iio_device_alloc(&pdev->dev, sizeof(*als));
-> >       if (!indio_dev)
-> >               return -ENOMEM;
-> > @@ -817,25 +825,27 @@ static int lm3533_als_probe(struct platform_devic=
-e *pdev)
-> >       indio_dev->channels =3D lm3533_als_channels;
-> >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
-> >       indio_dev->name =3D dev_name(&pdev->dev);
-> > -     iio_device_set_parent(indio_dev, pdev->dev.parent);
->
-> Why are you reparenting the iio device here?
->
+i.MX8DXL and i.MX8QX support LCDIF, which is compatible with i.MX6SX.
 
-Because every cell has its own binding now and using phandle to parent
-when device has its own node is not a good practice.
+- Update lcdif binding doc to support front compatible string:
+fsl,imxqxp-lcdif and fsl,imx8dxl-lcdif
+- Update simple pannel binding doc and driver to support waiken,101wx001
+- update chip dts to support lcdif ip
+- add overlay file to enable lcd panel waiken,101wx001 and lcdif
+- use onboard pinmux "pinctrl-multiplexer" for on board signal switch
 
-> That's an ABI break.
->
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Frank Li (6):
+      dt-bindings: lcdif: add compatible string for i.MX8QXP and i.MX8DXL
+      dt-bindings: display: simple: Add waiken,101wx001
+      drm/panel: simple: Add waiken WKS101WX001-WCT support
+      arm64: dts: imx8-ss-dma: Add lcdif support for i.MX8QXP and i.MX8DXL
+      arm64: dts: imx8dxl-evk: Add onboard GPIO mux controller
+      arm64: dts: imx8dxl-evk: add lcdif overlay
 
-This driver does not have any active users in the kernel and no
-activity for more then 2 years.
+ .../devicetree/bindings/display/fsl,lcdif.yaml     |   2 +
+ .../bindings/display/panel/panel-simple.yaml       |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ arch/arm64/boot/dts/freescale/Makefile             |   3 +
+ arch/arm64/boot/dts/freescale/imx8-ss-dma.dtsi     |  29 ++++++
+ .../boot/dts/freescale/imx8dxl-evk-lcdif.dtso      | 114 +++++++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8dxl-evk.dts      |  76 ++++++++++++--
+ arch/arm64/boot/dts/freescale/imx8dxl-ss-adma.dtsi |  11 ++
+ drivers/gpu/drm/panel/panel-simple.c               |  31 ++++++
+ 9 files changed, 259 insertions(+), 11 deletions(-)
+---
+base-commit: 31bd73273b9bf03a3fe32227b417f00d4a94c6ac
+change-id: 20260709-dxl_lcdif-d6cbdbac92fb
 
-> > +static const struct of_device_id lm3533_als_match_table[] =3D {
-> > +     { .compatible =3D "ti,lm3533-als" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, lm3533_als_match_table);
-> > +
-> >  static struct platform_driver lm3533_als_driver =3D {
-> >       .driver =3D {
-> >               .name   =3D "lm3533-als",
-> > +             .of_match_table =3D lm3533_als_match_table,
-> >       },
-> >       .probe          =3D lm3533_als_probe,
-> >       .remove         =3D lm3533_als_remove,
->
-> You should also remove the platform module alias below.
->
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
-Why?
-
-> > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> > index 0cb0585eb960..ed810c23f30f 100644
-> > --- a/drivers/leds/leds-lm3533.c
-> > +++ b/drivers/leds/leds-lm3533.c
-> > @@ -10,8 +10,10 @@
-> >  #include <linux/module.h>
-> >  #include <linux/leds.h>
-> >  #include <linux/mfd/core.h>
-> > +#include <linux/mod_devicetable.h>
-> >  #include <linux/mutex.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/property.h>
-> >  #include <linux/regmap.h>
-> >  #include <linux/slab.h>
-> >
-> > @@ -50,6 +52,9 @@ struct lm3533_led {
-> >       struct mutex mutex;
-> >       unsigned long flags;
-> >
-> > +     u32 max_current;
-> > +     u32 pwm;
-> > +
-> >       bool have_als;
-> >  };
-> >
-> > @@ -616,22 +621,20 @@ static const struct attribute_group *lm3533_led_a=
-ttribute_groups[] =3D {
-> >       NULL
-> >  };
-> >
-> > -static int lm3533_led_setup(struct lm3533_led *led,
-> > -                                     struct lm3533_led_platform_data *=
-pdata)
-> > +static int lm3533_led_setup(struct lm3533_led *led)
-> >  {
-> >       int ret;
-> >
-> > -     ret =3D lm3533_ctrlbank_set_max_current(&led->cb, pdata->max_curr=
-ent);
-> > +     ret =3D lm3533_ctrlbank_set_max_current(&led->cb, led->max_curren=
-t);
-> >       if (ret)
-> >               return ret;
-> >
-> > -     return lm3533_ctrlbank_set_pwm(&led->cb, pdata->pwm);
-> > +     return lm3533_ctrlbank_set_pwm(&led->cb, led->pwm);
-> >  }
-> >
-> >  static int lm3533_led_probe(struct platform_device *pdev)
-> >  {
-> >       struct lm3533 *lm3533;
-> > -     struct lm3533_led_platform_data *pdata;
-> >       struct lm3533_led *led;
-> >       int ret;
-> >
-> > @@ -641,12 +644,6 @@ static int lm3533_led_probe(struct platform_device=
- *pdev)
-> >       if (!lm3533)
-> >               return -EINVAL;
-> >
-> > -     pdata =3D dev_get_platdata(&pdev->dev);
-> > -     if (!pdata) {
-> > -             dev_err(&pdev->dev, "no platform data\n");
-> > -             return -EINVAL;
-> > -     }
-> > -
-> >       if (pdev->id < 0 || pdev->id >=3D LM3533_LVCTRLBANK_COUNT) {
-> >               dev_err(&pdev->dev, "illegal LED id %d\n", pdev->id);
-> >               return -EINVAL;
-> > @@ -659,8 +656,6 @@ static int lm3533_led_probe(struct platform_device =
-*pdev)
-> >       led->regmap =3D lm3533->regmap;
-> >       led->have_als =3D lm3533->have_als;
-> >
-> > -     led->cdev.name =3D pdata->name;
-> > -     led->cdev.default_trigger =3D pdata->default_trigger;
-> >       led->cdev.brightness_set_blocking =3D lm3533_led_set;
-> >       led->cdev.brightness_get =3D lm3533_led_get;
-> >       led->cdev.blink_set =3D lm3533_led_blink_set;
-> > @@ -668,6 +663,15 @@ static int lm3533_led_probe(struct platform_device=
- *pdev)
-> >       led->cdev.groups =3D lm3533_led_attribute_groups;
-> >       led->id =3D pdev->id;
-> >
-> > +     led->cdev.name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%d"=
-,
-> > +                                     pdev->name, led->id);
->
-> Is "led-2", etc. unique enough here?
->
-
-lm3533-leds-2
-
-> > +     if (!led->cdev.name)
-> > +             return -ENOMEM;
-> > +
-> > +     led->cdev.default_trigger =3D "none";
-> > +     device_property_read_string(&pdev->dev, "linux,default-trigger",
-> > +                                 &led->cdev.default_trigger);
-> > +
-> >       mutex_init(&led->mutex);
-> >
-> >       /* The class framework makes a callback to get brightness during
-> > @@ -680,15 +684,22 @@ static int lm3533_led_probe(struct platform_devic=
-e *pdev)
-> >
-> >       platform_set_drvdata(pdev, led);
-> >
-> > -     ret =3D led_classdev_register(pdev->dev.parent, &led->cdev);
-> > +     ret =3D led_classdev_register(&pdev->dev, &led->cdev);
->
-> Here too you appear to be reparenting the class devices.
->
-> >       if (ret) {
-> > -             dev_err(&pdev->dev, "failed to register LED %d\n", pdev->=
-id);
-> > +             dev_err(&pdev->dev, "failed to register LED %d\n", led->i=
-d);
->
-> This does not seem to be necessary.
->
-
-Agreed.
-
-> >               return ret;
-> >       }
-> >
-> >       led->cb.dev =3D led->cdev.dev;
-> >
-> > -     ret =3D lm3533_led_setup(led, pdata);
-> > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > +                              &led->max_current);
-> > +     led->max_current =3D clamp(led->max_current, LM3533_MAX_CURRENT_M=
-IN,
-> > +                              LM3533_MAX_CURRENT_MAX);
->
-> Why clamp instead of having lm3533_led_setup() fail below?
->
-
-According to OF schema default lower margin is set to
-LM3533_MAX_CURRENT_MIN so clamping seems a good option here, even
-though it will clamp max value.
-
-> > +
-> > +     device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->=
-pwm);
-> > +
-> > +     ret =3D lm3533_led_setup(led);
-> >       if (ret)
-> >               goto err_deregister;
-> >
-> > @@ -725,9 +736,16 @@ static void lm3533_led_shutdown(struct platform_de=
-vice *pdev)
-> >       lm3533_led_set(&led->cdev, LED_OFF);            /* disable blink =
-*/
-> >  }
-> >
-> > +static const struct of_device_id lm3533_led_match_table[] =3D {
-> > +     { .compatible =3D "ti,lm3533-leds" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, lm3533_led_match_table);
-> > +
-> >  static struct platform_driver lm3533_led_driver =3D {
-> >       .driver =3D {
-> >               .name =3D "lm3533-leds",
-> > +             .of_match_table =3D lm3533_led_match_table,
-> >       },
-> >       .probe          =3D lm3533_led_probe,
-> >       .remove         =3D lm3533_led_remove,
->
-> Remove platform alias below as well.
->
-
-Why?
-
-> > diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-> > index b03a3ae96c10..a5aa7da9668b 100644
-> > --- a/drivers/mfd/lm3533-core.c
-> > +++ b/drivers/mfd/lm3533-core.c
-> > @@ -14,19 +14,26 @@
-> >  #include <linux/gpio/consumer.h>
-> >  #include <linux/i2c.h>
-> >  #include <linux/mfd/core.h>
-> > +#include <linux/mod_devicetable.h>
-> > +#include <linux/property.h>
-> >  #include <linux/regmap.h>
-> >  #include <linux/seq_file.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/uaccess.h>
-> > +#include <linux/units.h>
-> >
-> >  #include <linux/mfd/lm3533.h>
-> >
-> >
-> >  #define LM3533_BOOST_OVP_MASK                0x06
-> >  #define LM3533_BOOST_OVP_SHIFT               1
-> > +#define LM3533_BOOST_OVP_MIN         (16 * MICRO)
-> > +#define LM3533_BOOST_OVP_MAX         (40 * MICRO)
-> >
-> >  #define LM3533_BOOST_FREQ_MASK               0x01
-> >  #define LM3533_BOOST_FREQ_SHIFT              0
-> > +#define LM3533_BOOST_FREQ_MIN                (500 * HZ_PER_KHZ)
-> > +#define LM3533_BOOST_FREQ_MAX                (1000 * HZ_PER_KHZ)
-> >
-> >  #define LM3533_BL_ID_MASK            1
-> >  #define LM3533_LED_ID_MASK           3
-> > @@ -35,6 +42,7 @@
-> >
-> >  #define LM3533_HVLED_ID_MAX          2
-> >  #define LM3533_LVLED_ID_MAX          5
-> > +#define LM3533_CELLS_MAX             7
-> >
-> >  #define LM3533_REG_OUTPUT_CONF1              0x10
-> >  #define LM3533_REG_OUTPUT_CONF2              0x11
-> > @@ -42,44 +50,6 @@
-> >
-> >  #define LM3533_REG_MAX                       0xb2
-> >
-> > -
-> > -static struct mfd_cell lm3533_als_devs[] =3D {
-> > -     {
-> > -             .name   =3D "lm3533-als",
-> > -             .id     =3D -1,
-> > -     },
-> > -};
-> > -
-> > -static struct mfd_cell lm3533_bl_devs[] =3D {
-> > -     {
-> > -             .name   =3D "lm3533-backlight",
-> > -             .id     =3D 0,
-> > -     },
-> > -     {
-> > -             .name   =3D "lm3533-backlight",
-> > -             .id     =3D 1,
-> > -     },
-> > -};
-> > -
-> > -static struct mfd_cell lm3533_led_devs[] =3D {
-> > -     {
-> > -             .name   =3D "lm3533-leds",
-> > -             .id     =3D 0,
-> > -     },
-> > -     {
-> > -             .name   =3D "lm3533-leds",
-> > -             .id     =3D 1,
-> > -     },
-> > -     {
-> > -             .name   =3D "lm3533-leds",
-> > -             .id     =3D 2,
-> > -     },
-> > -     {
-> > -             .name   =3D "lm3533-leds",
-> > -             .id     =3D 3,
-> > -     },
-> > -};
-> > -
-> >  /*
-> >   * HVLED output config -- output hvled controlled by backlight bl
-> >   */
-> > @@ -301,125 +271,91 @@ static const struct attribute_group *lm3533_attr=
-ibute_groups[] =3D {
-> >       NULL,
-> >  };
-> >
-> > -static int lm3533_device_als_init(struct lm3533 *lm3533)
-> > -{
-> > -     struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->d=
-ev);
-> > -     int ret;
-> > -
-> > -     if (!pdata->als)
-> > -             return 0;
-> > -
-> > -     lm3533_als_devs[0].platform_data =3D pdata->als;
-> > -     lm3533_als_devs[0].pdata_size =3D sizeof(*pdata->als);
-> > -
-> > -     ret =3D mfd_add_devices(lm3533->dev, 0, lm3533_als_devs, 1, NULL,
-> > -                           0, NULL);
-> > -     if (ret) {
-> > -             dev_err(lm3533->dev, "failed to add ALS device\n");
-> > -             return ret;
-> > -     }
-> > -
-> > -     lm3533->have_als =3D 1;
-> > -
-> > -     return 0;
-> > -}
-> > -
-> > -static int lm3533_device_bl_init(struct lm3533 *lm3533)
-> > -{
-> > -     struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->d=
-ev);
-> > -     int i;
-> > -     int ret;
-> > -
-> > -     if (!pdata->backlights || pdata->num_backlights =3D=3D 0)
-> > -             return 0;
-> > -
-> > -     if (pdata->num_backlights > ARRAY_SIZE(lm3533_bl_devs))
-> > -             pdata->num_backlights =3D ARRAY_SIZE(lm3533_bl_devs);
-> > -
-> > -     for (i =3D 0; i < pdata->num_backlights; ++i) {
-> > -             lm3533_bl_devs[i].platform_data =3D &pdata->backlights[i]=
-;
-> > -             lm3533_bl_devs[i].pdata_size =3D sizeof(pdata->backlights=
-[i]);
-> > -     }
-> > -
-> > -     ret =3D mfd_add_devices(lm3533->dev, 0, lm3533_bl_devs,
-> > -                           pdata->num_backlights, NULL, 0, NULL);
-> > -     if (ret) {
-> > -             dev_err(lm3533->dev, "failed to add backlight devices\n")=
-;
-> > -             return ret;
-> > -     }
-> > -
-> > -     lm3533->have_backlights =3D 1;
-> > -
-> > -     return 0;
-> > -}
-> > -
-> > -static int lm3533_device_led_init(struct lm3533 *lm3533)
-> > -{
-> > -     struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->d=
-ev);
-> > -     int i;
-> > -     int ret;
-> > -
-> > -     if (!pdata->leds || pdata->num_leds =3D=3D 0)
-> > -             return 0;
-> > -
-> > -     if (pdata->num_leds > ARRAY_SIZE(lm3533_led_devs))
-> > -             pdata->num_leds =3D ARRAY_SIZE(lm3533_led_devs);
-> > -
-> > -     for (i =3D 0; i < pdata->num_leds; ++i) {
-> > -             lm3533_led_devs[i].platform_data =3D &pdata->leds[i];
-> > -             lm3533_led_devs[i].pdata_size =3D sizeof(pdata->leds[i]);
-> > -     }
-> > -
-> > -     ret =3D mfd_add_devices(lm3533->dev, 0, lm3533_led_devs,
-> > -                           pdata->num_leds, NULL, 0, NULL);
-> > -     if (ret) {
-> > -             dev_err(lm3533->dev, "failed to add LED devices\n");
-> > -             return ret;
-> > -     }
-> > -
-> > -     lm3533->have_leds =3D 1;
-> > -
-> > -     return 0;
-> > -}
-> > -
-> >  static int lm3533_device_init(struct lm3533 *lm3533)
-> >  {
-> > -     struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->d=
-ev);
-> > +     struct device *dev =3D lm3533->dev;
-> > +     struct mfd_cell *lm3533_devices;
-> > +     u32 count =3D 0, reg, nchilds;
->
-> Don't mix multiple declarations with initialisation like this.
->
-
-Checkpatch does not complain on style issue, hence this is not prohibited.
-
-> >       int ret;
-> >
-> > -     dev_dbg(lm3533->dev, "%s\n", __func__);
-> > +     nchilds =3D device_get_child_node_count(dev);
-> > +     if (!nchilds || nchilds > LM3533_CELLS_MAX)
-> > +             return dev_err_probe(dev, -ENODEV,
-> > +                                  "num of child nodes is not supported=
-\n");
-> >
-> > -     if (!pdata) {
-> > -             dev_err(lm3533->dev, "no platform data\n");
-> > -             return -EINVAL;
-> > -     }
-> > +     lm3533_devices =3D devm_kcalloc(dev, nchilds, sizeof(*lm3533_devi=
-ces),
-> > +                                   GFP_KERNEL);
-> > +     if (!lm3533_devices)
-> > +             return -ENOMEM;
-> >
-> > -     lm3533->hwen =3D devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW)=
-;
-> > -     if (IS_ERR(lm3533->hwen))
-> > -             return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), =
-"failed to request HWEN GPIO\n");
-> > -     gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
-> > +     device_for_each_child_node_scoped(dev, child) {
-> > +             if (count >=3D nchilds)
-> > +                     break;
->
-> How could count be larger than nchilds?
->
-
-Only if the tree is malformed, hence this check was added.
-
-> > +
-> > +             if (fwnode_device_is_compatible(child, "ti,lm3533-als")) =
-{
-> > +                     lm3533_devices[count].name =3D "lm3533-als";
-> > +                     lm3533_devices[count].of_compatible =3D "ti,lm353=
-3-als";
-> > +                     lm3533_devices[count].id =3D PLATFORM_DEVID_NONE;
-> > +
-> > +                     lm3533->have_als =3D true;
-> > +                     count++;
-> > +             } else if (fwnode_device_is_compatible(child, "ti,lm3533-=
-backlight")) {
-> > +                     ret =3D fwnode_property_read_u32(child, "reg", &r=
-eg);
-> > +                     if (ret || reg >=3D LM3533_HVLED_ID_MAX) {
-> > +                             dev_err(dev, "invalid backlight node %pfw=
-\n", child);
-> > +                             continue;
-> > +                     }
-> > +
-> > +                     lm3533_devices[count].name =3D "lm3533-backlight"=
-;
-> > +                     lm3533_devices[count].of_compatible =3D "ti,lm353=
-3-backlight";
-> > +                     lm3533_devices[count].id =3D reg;
-> > +                     lm3533_devices[count].of_reg =3D reg;
-> > +                     lm3533_devices[count].use_of_reg =3D true;
-> > +
-> > +                     lm3533->have_backlights =3D true;
-> > +                     count++;
-> > +             } else if (fwnode_device_is_compatible(child, "ti,lm3533-=
-leds")) {
-> > +                     ret =3D fwnode_property_read_u32(child, "reg", &r=
-eg);
-> > +                     if (ret || reg < LM3533_HVLED_ID_MAX ||
-> > +                         reg > LM3533_LVLED_ID_MAX) {
-> > +                             dev_err(dev, "invalid LED node %pfw\n", c=
-hild);
-> > +                             continue;
-> > +                     }
-> > +
-> > +                     lm3533_devices[count].name =3D "lm3533-leds";
-> > +                     lm3533_devices[count].of_compatible =3D "ti,lm353=
-3-leds";
-> > +                     lm3533_devices[count].id =3D reg - LM3533_HVLED_I=
-D_MAX;
-> > +                     lm3533_devices[count].of_reg =3D reg;
-> > +                     lm3533_devices[count].use_of_reg =3D true;
-> > +
-> > +                     lm3533->have_leds =3D true;
-> > +                     count++;
-> > +             }
-> > +     }
->
-> Why do you need the above at all? Shouldn't you be able to just use
-> of_platform_populate().
->
-
-of_platform_populate() is not a part of mfd framework.
-
-> >
-> >       lm3533_enable(lm3533);
-> >
-> >       ret =3D regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
-> >                                LM3533_BOOST_FREQ_MASK,
-> > -                              pdata->boost_freq << LM3533_BOOST_FREQ_S=
-HIFT);
-> > +                              lm3533->boost_freq << LM3533_BOOST_FREQ_=
-SHIFT);
-> >       if (ret) {
-> > -             dev_err(lm3533->dev, "failed to set boost frequency\n");
-> > +             dev_err(dev, "failed to set boost frequency\n");
-> >               goto err_disable;
-> >       }
-> >
-> >       ret =3D regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
-> >                                LM3533_BOOST_OVP_MASK,
-> > -                              pdata->boost_ovp << LM3533_BOOST_OVP_SHI=
-FT);
-> > +                              lm3533->boost_ovp << LM3533_BOOST_OVP_SH=
-IFT);
-> >       if (ret) {
-> > -             dev_err(lm3533->dev, "failed to set boost ovp\n");
-> > +             dev_err(dev, "failed to set boost ovp\n");
-> >               goto err_disable;
-> >       }
-> >
-> > -     lm3533_device_als_init(lm3533);
-> > -     lm3533_device_bl_init(lm3533);
-> > -     lm3533_device_led_init(lm3533);
-> > +     ret =3D mfd_add_devices(dev, 0, lm3533_devices, count, NULL, 0, N=
-ULL);
-> > +     if (ret) {
-> > +             dev_err(dev, "failed to add MFD devices: %d\n", ret);
-> > +             goto err_disable;
-> > +     }
-> >
-> >       return 0;
-> >
-> > @@ -504,7 +440,26 @@ static int lm3533_i2c_probe(struct i2c_client *i2c=
-)
-> >               return PTR_ERR(lm3533->regmap);
-> >
-> >       lm3533->dev =3D &i2c->dev;
-> > -     lm3533->irq =3D i2c->irq;
-> > +
-> > +     lm3533->hwen =3D devm_gpiod_get_optional(lm3533->dev, "enable",
-> > +                                            GPIOD_OUT_LOW);
-> > +     if (IS_ERR(lm3533->hwen))
-> > +             return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen),
-> > +                                  "failed to get HWEN GPIO\n");
->
-> Please use brackets around multline statements for readability
-> throughout.
->
-
-Checkpatch does not complain on style issue, hence this is not prohibited.
-
-> > +
-> > +     device_property_read_u32(lm3533->dev, "ti,boost-ovp-microvolt",
-> > +                              &lm3533->boost_ovp);
-> > +
-> > +     lm3533->boost_ovp =3D clamp(lm3533->boost_ovp, LM3533_BOOST_OVP_M=
-IN,
-> > +                               LM3533_BOOST_OVP_MAX);
-> > +     lm3533->boost_ovp =3D lm3533->boost_ovp / (8 * MICRO) - 2;
-> > +
-> > +     device_property_read_u32(lm3533->dev, "ti,boost-freq-hz",
-> > +                              &lm3533->boost_freq);
-> > +
-> > +     lm3533->boost_freq =3D clamp(lm3533->boost_freq, LM3533_BOOST_FRE=
-Q_MIN,
-> > +                                LM3533_BOOST_FREQ_MAX);
-> > +     lm3533->boost_freq =3D lm3533->boost_freq / (500 * KILO) - 1;
->
-> Again, why clamp instead of failing probe?
->
-
-According to OF schema default lower margin is set to
-LM3533_BOOST_FREQ_MIN so clamping seems a good option here, even
-though it will clamp max value.
-
-> >       return lm3533_device_init(lm3533);
-> >  }
-> > @@ -518,6 +473,12 @@ static void lm3533_i2c_remove(struct i2c_client *i=
-2c)
-> >       lm3533_device_exit(lm3533);
-> >  }
-> >
-> > +static const struct of_device_id lm3533_match_table[] =3D {
-> > +     { .compatible =3D "ti,lm3533" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, lm3533_match_table);
-> > +
-> >  static const struct i2c_device_id lm3533_i2c_ids[] =3D {
-> >       { "lm3533" },
-> >       { }
-> > @@ -528,6 +489,7 @@ static struct i2c_driver lm3533_i2c_driver =3D {
-> >       .driver =3D {
-> >                  .name =3D "lm3533",
-> >                  .dev_groups =3D lm3533_attribute_groups,
-> > +                .of_match_table =3D lm3533_match_table,
-> >       },
-> >       .id_table       =3D lm3533_i2c_ids,
-> >       .probe          =3D lm3533_i2c_probe,
-> > diff --git a/drivers/mfd/lm3533-ctrlbank.c b/drivers/mfd/lm3533-ctrlban=
-k.c
-> > index 91e13cfa3cf0..3aab8ece4e8c 100644
-> > --- a/drivers/mfd/lm3533-ctrlbank.c
-> > +++ b/drivers/mfd/lm3533-ctrlbank.c
-> > @@ -13,11 +13,6 @@
-> >
-> >  #include <linux/mfd/lm3533.h>
-> >
-> > -
-> > -#define LM3533_MAX_CURRENT_MIN               5000
-> > -#define LM3533_MAX_CURRENT_MAX               29800
-> > -#define LM3533_MAX_CURRENT_STEP              800
-> > -
-> >  #define LM3533_PWM_MAX                       0x3f
-> >
-> >  #define LM3533_REG_PWM_BASE          0x14
-> > diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backli=
-ght/lm3533_bl.c
-> > index 9ef171d3aaea..2c24647fc17a 100644
-> > --- a/drivers/video/backlight/lm3533_bl.c
-> > +++ b/drivers/video/backlight/lm3533_bl.c
-> > @@ -9,7 +9,9 @@
-> >
-> >  #include <linux/module.h>
-> >  #include <linux/init.h>
-> > +#include <linux/mod_devicetable.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/property.h>
-> >  #include <linux/backlight.h>
-> >  #include <linux/regmap.h>
-> >  #include <linux/slab.h>
-> > @@ -29,6 +31,9 @@ struct lm3533_bl {
-> >       struct backlight_device *bd;
-> >       int id;
-> >
-> > +     u32 max_current;
-> > +     u32 pwm;
-> > +
-> >       bool have_als;
-> >  };
-> >
-> > @@ -242,25 +247,25 @@ static const struct attribute_group *lm3533_bl_at=
-tribute_groups[] =3D {
-> >       NULL,
-> >  };
-> >
-> > -static int lm3533_bl_setup(struct lm3533_bl *bl,
-> > -                                     struct lm3533_bl_platform_data *p=
-data)
-> > +static int lm3533_bl_setup(struct lm3533_bl *bl)
-> >  {
-> >       int ret;
-> >
-> > -     ret =3D lm3533_ctrlbank_set_max_current(&bl->cb, pdata->max_curre=
-nt);
-> > +     ret =3D lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current)=
-;
-> >       if (ret)
-> >               return ret;
-> >
-> > -     return lm3533_ctrlbank_set_pwm(&bl->cb, pdata->pwm);
-> > +     return lm3533_ctrlbank_set_pwm(&bl->cb, bl->pwm);
-> >  }
-> >
-> >  static int lm3533_bl_probe(struct platform_device *pdev)
-> >  {
-> >       struct lm3533 *lm3533;
-> > -     struct lm3533_bl_platform_data *pdata;
-> >       struct lm3533_bl *bl;
-> >       struct backlight_device *bd;
-> >       struct backlight_properties props;
-> > +     char *name =3D NULL;
-> > +     u32 default_brightness =3D LM3533_BL_MAX_BRIGHTNESS;
-> >       int ret;
-> >
-> >       dev_dbg(&pdev->dev, "%s\n", __func__);
-> > @@ -269,12 +274,6 @@ static int lm3533_bl_probe(struct platform_device =
-*pdev)
-> >       if (!lm3533)
-> >               return -EINVAL;
-> >
-> > -     pdata =3D dev_get_platdata(&pdev->dev);
-> > -     if (!pdata) {
-> > -             dev_err(&pdev->dev, "no platform data\n");
-> > -             return -EINVAL;
-> > -     }
-> > -
-> >       if (pdev->id < 0 || pdev->id >=3D LM3533_HVCTRLBANK_COUNT) {
-> >               dev_err(&pdev->dev, "illegal backlight id %d\n", pdev->id=
-);
-> >               return -EINVAL;
-> > @@ -292,13 +291,21 @@ static int lm3533_bl_probe(struct platform_device=
- *pdev)
-> >       bl->cb.id =3D lm3533_bl_get_ctrlbank_id(bl);
-> >       bl->cb.dev =3D NULL;                      /* until registered */
-> >
-> > +     name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%d",
-> > +                           pdev->name, pdev->id);
->
-> Unique enough (e.g. backlight-0)?
->
-
-lm3533-backlight-0
-
-> > +     if (!name)
-> > +             return -ENOMEM;
-> > +
-> > +     device_property_read_u32(&pdev->dev, "default-brightness",
-> > +                              &default_brightness);
-> > +
-> >       memset(&props, 0, sizeof(props));
-> >       props.type =3D BACKLIGHT_RAW;
-> >       props.max_brightness =3D LM3533_BL_MAX_BRIGHTNESS;
-> > -     props.brightness =3D pdata->default_brightness;
-> > -     bd =3D devm_backlight_device_register(&pdev->dev, pdata->name,
-> > -                                     pdev->dev.parent, bl, &lm3533_bl_=
-ops,
-> > -                                     &props);
-> > +     props.brightness =3D default_brightness;
-> > +
-> > +     bd =3D devm_backlight_device_register(&pdev->dev, name, &pdev->de=
-v,
-> > +                                         bl, &lm3533_bl_ops, &props);
->
-> Here too you are reparenting, which results in an ABI break.
->
-> >       if (IS_ERR(bd)) {
-> >               dev_err(&pdev->dev, "failed to register backlight device\=
-n");
-> >               return PTR_ERR(bd);
-> > @@ -309,12 +316,19 @@ static int lm3533_bl_probe(struct platform_device=
- *pdev)
-> >
-> >       platform_set_drvdata(pdev, bl);
-> >
-> > -     backlight_update_status(bd);
-> > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > +                              &bl->max_current);
-> > +     bl->max_current =3D clamp(bl->max_current, LM3533_MAX_CURRENT_MIN=
-,
-> > +                             LM3533_MAX_CURRENT_MAX);
->
-> Clamping instead of failing.
->
-> >
-> > -     ret =3D lm3533_bl_setup(bl, pdata);
-> > +     device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->p=
-wm);
-> > +
-> > +     ret =3D lm3533_bl_setup(bl);
-> >       if (ret)
-> >               return ret;
-> >
-> > +     backlight_update_status(bd);
-> > +
-> >       ret =3D lm3533_ctrlbank_enable(&bl->cb);
-> >       if (ret)
-> >               return ret;
-> > @@ -366,11 +380,18 @@ static void lm3533_bl_shutdown(struct platform_de=
-vice *pdev)
-> >       lm3533_ctrlbank_disable(&bl->cb);
-> >  }
-> >
-> > +static const struct of_device_id lm3533_bl_match_table[] =3D {
-> > +     { .compatible =3D "ti,lm3533-backlight" },
-> > +     { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, lm3533_bl_match_table);
-> > +
-> >  static struct platform_driver lm3533_bl_driver =3D {
-> >       .driver =3D {
-> >               .name   =3D "lm3533-backlight",
-> >               .pm     =3D &lm3533_bl_pm_ops,
-> >               .dev_groups =3D lm3533_bl_attribute_groups,
-> > +             .of_match_table =3D lm3533_bl_match_table,
-> >       },
-> >       .probe          =3D lm3533_bl_probe,
-> >       .remove         =3D lm3533_bl_remove,
->
-> Drop platform module alias below.
->
-> Johan
