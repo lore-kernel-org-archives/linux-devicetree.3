@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481B142BE8C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A8842BE92;
 	Tue, 14 Jul 2026 19:26:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784057185; cv=none; b=cWkOek7rPZdVhwDLO0MYyg9cpKMsI6Xn2lOPenOm4Qmd8qkwwM7b0x05RmmnyKHkw27VOfBlPRHw+/zMnv3BX4PqzXughDFrC1o7dpENpTan3ZUNpp1XfY0UMhF098ClD0jqAkRJX/oEQSFedT04VGUM2O9dbq9He2UXpOf3gxM=
+	t=1784057186; cv=none; b=p5QAjHRRzqy0DOAnISsJkjiKAxHO/3T4wHqDwtd1gnpXx9XpHwIpADfC6bPcAQtmkM/Gsx9F/qiy40HP3WoPwdihxfy4Kv05xE9Ae8eP83kauSFseh0CQBdKa4tUa7/x7xPSnkUu6MTteHILVmtg6KpZ6J86vmeIaICXSRlKpz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784057185; c=relaxed/simple;
-	bh=OV39M7TEPR96L4FOITnMJWAcR7FZNRT5q3Hq1TGPYxA=;
+	s=arc-20240116; t=1784057186; c=relaxed/simple;
+	bh=iV0TFUhsGtT2QxB2V0jcayH1eq33X2v2R8/s+ngigtU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BiRzot9WvkegdCjeUdSPLd6lpXgWqpOM5rujDc2naH68vhpxWsjcURm3MKSuN5BDCJmxGNqHRPTnFjtSG38CPF2vfAM4AwLZzktzVfLlg5AUJBsR4nkqWQT2QOX19qkv+92dRLBl5I9aAsroSfvXNo2gP58AoAnIcL3X8Vo40B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=B624c6Sx; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=ot6fFAu11Cl7jLYuIazetBk3Kxh5olY5b6pkbDooX8KcPi6k7atybM5wJCNrbdGh1NYyBx0oDVTMdk/JXnaPBzm/oq7IfmJz4pFTREUdQn4jryEHJ9d77bT64ZCjtpGcqkgtK7NoDG94BxFc85enN6ogZKpAhjJu+VdEzTgoqRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ldoXBN7g; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="B624c6Sx"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ldoXBN7g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1784057170;
-	bh=OV39M7TEPR96L4FOITnMJWAcR7FZNRT5q3Hq1TGPYxA=;
+	bh=iV0TFUhsGtT2QxB2V0jcayH1eq33X2v2R8/s+ngigtU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=B624c6SxV0iAkVKAzIcLfW72BK+saAIVoQxX4oct0/XSS6Yu1RzOFqVhcQwTk+0Ao
-	 ZkuXP4eSsSnZ48j9AogvgmwogFv9Z1sDikfCNcjJfY+BhI4P3Rgh/s8ZmRgRImhr6d
-	 TnRvbd+kBBlMYdShimW0gbc0HTAGTgXMoNtDh0EKwyVXr/ThGcXNvEjOF6gv0S+FyP
-	 9kG8ZQWyQi+uxOG8DLwtcngZk098Rc0G8pvm1zPullLVO0pfS0PQ8kRTxpKzBoQQ0z
-	 HfnpAhz1Rkqk+dUagMNsr34UFgnYhCuODcyj+tXPw7pxLCZmYF/4YJCkke8fhkyqyG
-	 nVcfzemlziAbA==
+	b=ldoXBN7g8VUh9UpqzFdEhAZ0g+R7v8dmLB6WPf2eabM9JHGHxhwM1t94WHb1AE5SS
+	 CA+y1v8fdD7eUCnVaJ3hZXwS5DU/o+/yEve1Cihkt15y7+u2v0LD6xo8ZtLnAqX7SJ
+	 0H60l1Eg8dXNfpEXd1nFTFvW6HOEs8Rgf3BeLZV3r9XSiKNWsIumkxLt3+PceO43QG
+	 ay6XFBNOz19wYmjnaAT+fj++/9nyFlqhGmQU+cAgAsiN/Imb4aVH7l9r/Ddp8yLV8E
+	 WHhu6YVVOzIPXSwfQthRoaLyof8zdjUO+gPZa3VFlffBg9CD+vpEg7iz3JgSXFitCZ
+	 kIduW4nfMG3BQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0242317E1122;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3023717E127F;
 	Tue, 14 Jul 2026 21:26:10 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id F271448006A; Tue, 14 Jul 2026 21:26:08 +0200 (CEST)
+	id 096F4480075; Tue, 14 Jul 2026 21:26:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 14 Jul 2026 21:26:25 +0200
-Subject: [PATCH v13 24/35] phy: rockchip: usbdp: Add some extra debug
- messages
+Date: Tue, 14 Jul 2026 21:26:32 +0200
+Subject: [PATCH v13 31/35] phy: rockchip: usbdp: Drop -EPROBE_DEFER hack
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +46,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-rockchip-usbdp-cleanup-v13-24-6cb3e769d4c5@collabora.com>
+Message-Id: <20260714-rockchip-usbdp-cleanup-v13-31-6cb3e769d4c5@collabora.com>
 References: <20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com>
 In-Reply-To: <20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -66,117 +65,59 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  devicetree@vger.kernel.org, linux-usb@vger.kernel.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3232;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1428;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=OV39M7TEPR96L4FOITnMJWAcR7FZNRT5q3Hq1TGPYxA=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpWjVA+Qc9yQ33lRM7hFxzQY5JLwi3pxPKWS
- 9PQmAKtnsH5EIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqVo1QAAoJENju1/PI
- O/qaq2sP/3zzWEHqOnx2mKvavQf4LMsgkLf286uh76jmbzBEc4Hp/pLplrJbQSTcC9rMamHHFXL
- 8p+ToVbSTzprGOIrd/OmmES0VBqDiYYndGFYtu6tYFoAwj5/sghinDgCgmYkSAi10MQKde9kSm0
- qiTG2aH3bn+nV6vLudMwbAzYjfvSDQk1ZlFZflFJszZ5aqGMap9koU5nmt1IjpGQBbPEqbRTLUc
- 0TKhoYvF2TCcVuktnow/Ck6NJPUqtcExf9VeBrVERlk8KD8W0z9SuMZhMYeb4oCnbtKudCwSbEl
- Mkh3qLlQc/GBFZe1UfP3ywHWdlNv8GiRZvNru/FaU7yvgFZpXgcj/HpFqFXhTy5dnLlwRm8wJ8s
- FQuEFtjlb+GqjfsxtEiwFQZ/TIXB82PneTP37Wtx5JvRnmD41/3rFst19507G8dUPx3388RlYeT
- GJs7LXV3rdNidEWSg2osVNvtFBZmbxoh/x20HhjB4D42Cyu8FpIj/d3M4kPObIoBMGn5UEot+dl
- ZcKLn12pam+MwxQvAwJABUzm1b9eJv+zq1y6YyEIIl6DxeW5vCjg3xerMDW9MNhqHs04Crr4QLL
- sWVRNGAwvIjllccvksI3hvRsJPbWskRkFNVT8vtEqJ5FBzbzcDEyOxoQtx/xo5SA6mEgp8zcSJa
- fvMcmLs0ZDOdIzUiPXqc2TQ==
+ bh=iV0TFUhsGtT2QxB2V0jcayH1eq33X2v2R8/s+ngigtU=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpWjVDx4uduaatH1g7+Qw6gWCWQExoRIN3bu
+ DPb/UwcdWTJW4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqVo1QAAoJENju1/PI
+ O/qamgEP/2us98K92E3jhqGo13ZHrkpP4mj/3OIV+MXkJ42gKbUsEt8AOB3wPTMI3k/RTlVYEcg
+ DRHqtQGGmCLNK0gf2ZrobsBdb9AVDs26ZF2uHFzcl4rDtby8pKBlHWZX7px9dGtscAUPKQBdCVn
+ jH0m1Op67kDOhszUHVqFwPnFmZvvQLAQ3zWv3pH/XjvMfGlnqhRMFCor6jpMOZKxvCbqCByKFy1
+ eZt5gmkm08K6zn3HIWCuld2bR7Q37/q6I7/u/oI2RMSnWWTxByt9uYgAn5KMk9vCqEEaonlIpW4
+ W29uhsBojJrDe82TXCpX3WKglY7uoftxfL2PZMHpyUnpigTQnQ+PRCnuvneJr8O5LPZSpsxgPfm
+ CSeBNEYHhYF2W5VYUh0VD6hQFovfWhh9LNS7tVpfSKSsHpDuI5lSaQFGCsDtuL+ss/XDvGx4Tn9
+ CbFj3Fcf9BkhtK8XfatJjQgYeidDJ/E39s1MQpVR6467cSVFa40FV9ZPbEDbcgkNrn4dOfilOYP
+ JC0ihIRmnbGAYbMU89my9EEnEdBUrdCRsexpSAJi2vM5FH5eP+ODsfRIWBgZSVni5uCcxx38YcW
+ MoJmX9Ks6I8RM1edpXJUIUPYIJFxaqQXqdlGgq7Gvq81mfBQItUxRO8zEm/QwbGELjikogQx0S/
+ uJNKpmkYGdlHs6vQvEDQvRg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-It's useful to log PHY reinit to ease debugging issues around
-USB-C hotplugging.
+The hack to return -EPROBE_DEFER when the lcpll lock timeouts is no
+longer needed. The driver now does a reset during its PHY init, which
+avoids the problem.
+
+Since rk_udphy_status_check() is called after the probe, it should not
+return -EPROBE_DEFER.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index b40b5d9ce587..e67c1df792ed 100644
+index 21f282216aef..a6fe634574bb 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -24,6 +24,7 @@
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/reset.h>
-+#include <linux/string_choices.h>
- #include <linux/usb/ch9.h>
- #include <linux/usb/typec_dp.h>
- #include <linux/usb/typec_mux.h>
-@@ -462,6 +463,8 @@ static int rk_udphy_reset_deassert(struct rk_udphy *udphy, char *name)
- 			return reset_control_deassert(list[idx].rstc);
- 	}
+@@ -750,17 +750,7 @@ static int rk_udphy_status_check(struct rk_udphy *udphy)
+ 					       (val & CMN_ANA_LCPLL_LOCK_DONE), 200, 100000);
+ 		if (ret) {
+ 			dev_err(udphy->dev, "cmn ana lcpll lock timeout\n");
+-			/*
+-			 * If earlier software (U-Boot) enabled USB once already
+-			 * the PLL may have problems locking on the first try.
+-			 * It will be successful on the second try, so for the
+-			 * time being a -EPROBE_DEFER will solve the issue.
+-			 *
+-			 * This requires further investigation to understand the
+-			 * root cause, especially considering that the driver is
+-			 * asserting all reset lines at probe time.
+-			 */
+-			return -EPROBE_DEFER;
++			return ret;
+ 		}
  
-+	dev_err(udphy->dev, "failed to de-assert missing reset line: %s\n", name);
-+
- 	return -EINVAL;
- }
- 
-@@ -488,6 +491,8 @@ static void rk_udphy_u3_port_disable(struct rk_udphy *udphy, u8 disable)
- 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
- 	const struct rk_udphy_grf_reg *preg;
- 
-+	dev_dbg(udphy->dev, "USB3 port %s\n", str_on_off(!disable));
-+
- 	preg = udphy->id ? &cfg->grfcfg.usb3otg1_cfg : &cfg->grfcfg.usb3otg0_cfg;
- 	rk_udphy_grfreg_write(udphy->usbgrf, preg, disable);
- }
-@@ -662,8 +667,10 @@ static int rk_udphy_orien_sw_set(struct typec_switch_dev *sw,
- 		return 0;
- 	}
- 
--	if (udphy->flip != flipped)
-+	if (udphy->flip != flipped) {
-+		dev_dbg(udphy->dev, "cable orientation changed, PHY re-init required.\n");
- 		udphy->phy_needs_reinit = true;
-+	}
- 
- 	udphy->flip = flipped;
- 	rk_udphy_set_typec_default_mapping(udphy);
-@@ -781,6 +788,11 @@ static int rk_udphy_init(struct rk_udphy *udphy)
- 	const struct rk_udphy_cfg *cfg = udphy->cfgs;
- 	int ret;
- 
-+	dev_dbg(udphy->dev, "reinit PHY with USB3=%s and DP=%s (%u lanes) flipped=%s\n",
-+		str_on_off(udphy->mode & UDPHY_MODE_USB),
-+		str_on_off(udphy->mode & UDPHY_MODE_DP),
-+		udphy->dp_lanes, str_yes_no(udphy->flip));
-+
- 	rk_udphy_reset_assert_all(udphy);
- 	usleep_range(10000, 11000);
- 
-@@ -851,6 +863,8 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
- {
- 	int ret;
- 
-+	dev_dbg(udphy->dev, "enable PHY\n");
-+
- 	ret = clk_bulk_prepare_enable(udphy->num_clks, udphy->clks);
- 	if (ret) {
- 		dev_err(udphy->dev, "failed to enable clk\n");
-@@ -869,6 +883,7 @@ static int rk_udphy_setup(struct rk_udphy *udphy)
- 
- static void rk_udphy_disable(struct rk_udphy *udphy)
- {
-+	dev_dbg(udphy->dev, "disable PHY\n");
- 	clk_bulk_disable_unprepare(udphy->num_clks, udphy->clks);
- 	rk_udphy_reset_assert_all(udphy);
- }
-@@ -1308,8 +1323,12 @@ static int rk_udphy_typec_mux_set(struct typec_mux_dev *mux,
- 	struct rk_udphy *udphy = typec_mux_get_drvdata(mux);
- 
- 	/* Ignore mux events not involving USB or DP */
--	if (!rk_udphy_is_supported_mode(state))
-+	if (!rk_udphy_is_supported_mode(state)) {
-+		dev_dbg(udphy->dev, "ignore mux event with mode=%lu\n", state->mode);
- 		return 0;
-+	}
-+
-+	dev_dbg(udphy->dev, "new mode: %lu\n", state->mode);
- 
- 	guard(mutex)(&udphy->mutex);
- 
+ 		if (!udphy->flip) {
 
 -- 
 2.53.0
