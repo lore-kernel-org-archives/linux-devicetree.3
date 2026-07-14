@@ -1,158 +1,248 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AE5418A3E
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:12:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69017418A30
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784056349; cv=none; b=SnCI1fXQdA8tfII2FJsM074HmiKpH49dmIZphouiENyOjkLa5kwBSQpcUPFDBvD5h8JfIJn1M4BefkNsxy7D4HwvcGWsUmBBVtAgmE/myiOA4OGn3oSeo6gf4jd54E+aD2KU4kEXnt63hBST3YBuKDy4A1xrzVCNbcwR6l4co5M=
+	t=1784056435; cv=none; b=aHGheuZthovcM0FM0j6+l224/40HpRkg8+Cfd8PVyLT8nspbxmlg445UXB7iwg3ZSsicHtmdTqrw61pL6iAp/hTIXoMtbZN3DzIWJxRIRBKhXZxChINKLIu/g9LrbjcCX+q4Thdgoz4iZAB5wAea2OZZbcQ8rMGwaVuKIZs6tWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784056349; c=relaxed/simple;
-	bh=NKQz55hxpy4V2/xw8iMhAaHilmGFcZmdA4Bdw1G6rTo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=iWw58uFQs4mGNz+JbGHK8vkm0hMw8mPq9ZU62W24VF9YRJZYdmtUmoDCwp1LJhDiKt/X5XPguuqDpb+hWbmmqV609bmzR0EljIYI8SHtri6xr9bPVucH6L9eRGCCa1ups7AT0XgVxSXBjn98b8G8ux3s2pvxPBPSAd4dlhHDsN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=D7T3B79e; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GDTRFcTs; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1784056435; c=relaxed/simple;
+	bh=OnzeXub9pWgszEs+eJAfiDhXWiRA2b94Y2FtZMmT++0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aRlYFVI95SUnC2LXjYKkTKdodJjfSofRbNPnbl0erqYcbXepXsdTtxU5tXvYFsHYNYNlXEFWtDhYJdo2MejN2cdIYNCr4gB/BwCx5JAUDd+tlysJMb5CGXUq//YFG1MLG+njJ8ynqNMhRklaPkCzlEr6HbcravEnSwC8/VkHrQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VG6Xj81F; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="D7T3B79e";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GDTRFcTs"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id DA75BEC00BB;
-	Tue, 14 Jul 2026 15:12:25 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Tue, 14 Jul 2026 15:12:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1784056345;
-	 x=1784142745; bh=tLip3RoufnJPJeBbpcoojxrxLCk+6g2vq1XFlcI4NnY=; b=
-	D7T3B79eqgvNNcgXs5wOLs6jcjNzHZ5iIolHLBxW1Oeb62FFt7Fz8IM1Eqypq1IQ
-	D4lBNgJBD37YDROUrqB5O3sqXbfFQ7x1nnhSXwTRpg9Va/jO4P3+3NRImMJgFQk/
-	lqHHyP3OdpN73ZQzhRtqxJCfNw3Q0xfFTLsxCKeNGCBXqgyAjoCtDpn+sfeLR4TF
-	5FuwIUQNbPjSoNvLqKoN21kmYpDwSyi/ESlS4alBQltxnvIir4Kied2hGdpnlQRb
-	7e45H8/79sgbRhgt85DHWa0BWXmd8AYO4dFYQhQ2jYIdyczN7KRXWPrQAxxvyHLT
-	3fVlzDq5IZL4RfFxYJiY5Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784056345; x=
-	1784142745; bh=tLip3RoufnJPJeBbpcoojxrxLCk+6g2vq1XFlcI4NnY=; b=G
-	DTRFcTspGQzHX0No0owi7/3QsH42KVB+/8qNjzHm0Z+HibJYkkGvhVDyNRpcS9Sw
-	PTGfU8P09TMN/zCJXiLzYy8fAWFw/CjcuIookfLYVit/6+guvJAgTolKnbK/IrKT
-	HY4IAk42D4bZzB8TL0hw7E6prNgU/WxQuxhVWMRlxQY6Xz26MLFETPloEQptAzqk
-	9bgo6xnLgtONB2z2+gMtfL/XQg7bDJ1ZcghPeJxjEnDiFICB/oBKW0DwZRFlG743
-	jM6q+x0/UfNMJkmYVV1B4KenRl5BLtymc1BOqqIxL2N72bqYZXxMj28yxMXD+l+I
-	t3ThIvWHSoXltr4h45Xyg==
-X-ME-Sender: <xms:GYpWah9aHwjwzulsOuw6GR9p1l7nl5KKtBu4u618Q-w8PDreV8KY9A>
-    <xme:GYpWaggNdHK0omDBpm_5-PLHndRj2n4cdSwq6wV6jWmrRRdaCl8tH3asgxKjRQCYy
-    rd5EgEj2DHF5sGpsHivx7wm-Rg4pKonGje1r4OvpyoRWfIZvKF4bVo>
-X-ME-Proxy-Cause: dmFkZTEszan4uBCfC6CBBOwC+6icxd081lKQSn1MZskwHoItpuHEdz+qLM04ltCMWvLQWg
-    vNwQsZuo/EHr2DPm3c8KV3BRW/3o+gZY1Rqdc9BjC+QrKvKbsZCrI2BVIshm3izHuH3Ya0
-    wci/QX0Fe4fIv+FTVP7FGvPA7Tl/KaXtF6RmQVsE+IwA3iiX/2tLmH1GkfnnVYw8F9WNAj
-    4rv9aefvuVnwZvnnYd2AtG7aYXeGk2I1+AxMuGhYpRhFTXbnYZr2jmWtYa1sk8kMLM9F8m
-    V2jP5ap/hZCEAfp5iWde3GVq7PENYGhuzlbnlPuNsGr4ntRC1u0zrMnBoiC5DJ4PoSTNnU
-    KHksBsUZ5SqWaTsENjVOnyKvl9hGzMLNOrNLT6kcXWGLTqKpZmcZVkL3mutxo2VAmW2L9z
-    EDyihBJllIC159RI2O3886S16ZYeRO8X9SzeWEMys7K1UhefeCGwS2FSCxEAwY4ejrovXd
-    tkc3eRV7paXBZy2m7w4RUFLS8puKeSVKx28fnDwnB3r6yqXecP6LI5p+St7GyPUPJ92Ecx
-    Yd4uosHPaCThHye2UNyxU5qafJTlPyUl4AkZSBYKvi/IS5EV5sem0I1xBnFFvYdL352eBj
-    fSj9mk92mD632xpOmI0Od7uptE8xJJcLgkui76COG459r7c0X+1UTteeZCPA
-X-ME-Proxy: <xmx:GYpWagKSOWVMNvAMYhfrC-NcyMhG82ofgzJFojGaStk0lbTjFUxWng>
-    <xmx:GYpWapFQhSxnCFLL3F1lsGil8uVeU5oN5iqfoOW3B-Op-_v-SporEw>
-    <xmx:GYpWasTbChXVxj3WAG0AoiON8ZBWW5om7PKHvahnK36Ed26wOXbJkA>
-    <xmx:GYpWatfrMj_nmH5VUDku3Z28re-BUBwMLd9EoLDHyiqDzAKwLSaIMQ>
-    <xmx:GYpWaqHVoZvLhtvMZPoudpm-LqU3-sjiolVlwvIDTiRr1o830SpLIPrO>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 934D31820082; Tue, 14 Jul 2026 15:12:25 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VG6Xj81F"
+Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2cc6207127aso23282575ad.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:13:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784056434; x=1784661234; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZvralJAhtjQC0agihnqVt6yZC+MGkbFen1qSIili9Nc=;
+        b=VG6Xj81F5S/ZRaj0v2iVgPjJ2r14ha6lo1wSa5w+l2PWo1XW/IDkwyzUbv9MMGQs+I
+         I3CADMXKTKcTJ2NESpni75slX3bt3A4J/ZUfIIxH/GN+QLoyTHWxiuuGyTOmcWsl0Qfu
+         QLW+1jE3CVV/OJLobPl1QhgRXme8o1qVJHARIGzKZcqyd46YEA0SJ1vN8hv5IhJyu1g2
+         gTLzpJO5YLFF2BHjXBHmzpOyCflb15wDrjn7XqdSn0y+My8p8kLBTcowoZJjK9bEIFAZ
+         cjhrW1NvT0oJKsyLgpB1wLk8dBlDBJPIW76BuHMIqUybLLxPXQVHTg3IE5fu+cmnsNyh
+         mcsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784056434; x=1784661234;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZvralJAhtjQC0agihnqVt6yZC+MGkbFen1qSIili9Nc=;
+        b=R1V8GAPYwsQuNmASsuKPht1Ag7L+DrNp31STNJ5GVF5OSg44ZnnYkVvLI5xplHKVql
+         MzM/PfqGC2seFglc2VLa6LLRHlAKiI93RxUlUMzd8EccMePCdmrqPjle2k+LZxnwGJw6
+         QExJy5HoKfWvJpJP8WD79j9bGffFta4eRE5L4UQ7nIIIfp20LFaa5XCv0PGfe8akarLV
+         74hPNVKVTVRVgwGS8J2SZrObHLSiJbzePN4MWgAgAg9cpTON6W9cI3jkrh+Ne8NdXsLf
+         sNz8C6N4Vn6yyp+SekxhwLLanI3ZApjVcC5+q1Nu7uxqAB+69B1MhK0yJvAa9oHgxQhV
+         FCdg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrc3FiGfWYW7FgScD25ikTi2PpqSLV/ItmilkRRva5ynY5DrjCYYmzCAssxm4dqRlCyIBTv49Qv6l8M@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1jxDX/l3K07wWf1sCtR/SXTxSR9dwmC0kZyvXxVQOGmW94DAB
+	2BtQnkg5rb456BVRlIVPxrAbkaIRBzWwnnmbtQoD5ekfAEx6BdcXGE5u
+X-Gm-Gg: AfdE7cm+5JVccelLP2cQxKykDNFoZJ2yWUQGxnJWxxvvjnszYC7XhJg7CyUzwwnt+ZI
+	ZxurFZb7jRQW9gJ6g9Sbq5P13zJ5hTWxba4hRfqRk39BaFwn90JDHdfrsHX9XJ5AJG1TiVCqRlq
+	cjNNEGozFGZwk5TzwAS7HoglZOjMzflsOadAB+7YzOiNwBrGIGBw3otDeRPYKggSm6mFc1oyrLw
+	5JCNSHcBRnFHeov9TVzykLM86CZfASncfu1+zp2nZwGJuwLQiaZ8vwQWERNJJsAPtiYK2mz+d65
+	64IMKsAFFG+Y9wmSb6n4uL29vt4MPbp4rjZa7YSeXzS8u9uZHIxNTTCoZKTcppM2d4WLfTghNMr
+	BWfiNugeeRNljwd0rovCS+oj3AaviP7PaIYCgIJNEgbL31GS6i6TxrtQ6Xi+iaOCwAyWtGCiuGP
+	5KqwAdR3evkpU=
+X-Received: by 2002:a17:903:2f0f:b0:2ce:ed59:7044 with SMTP id d9443c01a7336-2ceed597127mr47465305ad.30.1784056433646;
+        Tue, 14 Jul 2026 12:13:53 -0700 (PDT)
+Received: from server.lan ([150.230.217.250])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3d451sm120763245ad.65.2026.07.14.12.13.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 12:13:53 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	andrew+netdev@lunn.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	heiko@sntech.de
+Cc: netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [RFC PATCH 00/10] net-next: add basic support for RK3568 XPCS
+Date: Wed, 15 Jul 2026 03:08:28 +0800
+Message-ID: <20260714191341.690906-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AP3t97ZhQAc3
-Date: Tue, 14 Jul 2026 21:12:04 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Walleij" <linusw@kernel.org>, sashiko-reviews@lists.linux.dev
-Cc: "Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- "Rob Herring" <robh@kernel.org>
-Message-Id: <68d6b870-593c-47f1-aaff-373a448e518d@app.fastmail.com>
-In-Reply-To: 
- <CAD++jLmUwxEdEw23H0sk6YsBCVDPLtY_SA=SeBRcxf+jTO=4tQ@mail.gmail.com>
-References: <20260709-ixp4xx-little-endian-v1-0-e9622d0ba9e4@kernel.org>
- <20260709-ixp4xx-little-endian-v1-1-e9622d0ba9e4@kernel.org>
- <20260708224834.138FC1F00A3D@smtp.kernel.org>
- <CAD++jLmUwxEdEw23H0sk6YsBCVDPLtY_SA=SeBRcxf+jTO=4tQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] ARM: decompressor: always set endianess on xscale
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 9, 2026, at 21:32, Linus Walleij wrote:
-> On Thu, Jul 9, 2026 at 12:48=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
->> [Severity: High]
->> This isn't a bug introduced by this patch, but does this XScale-speci=
-fic
->> cache flush sequence execute unconditionally on all CPUs in a multipl=
-atform
->> build?
->>
->> arch/arm/boot/compressed/head-xscale.S:__XScale_start()
->>     ...
->>     mcr p15, 0, r0, c7, c10, 4  @ drain WB
->>     mcr p15, 0, r0, c7, c7, 0   @ flush I & D caches
->>     ...
->>
->> When booting a multiplatform kernel configured with both CONFIG_CPU_X=
-SCALE and
->> CONFIG_CPU_ARM720T on an ARM720T CPU (such as CLPS711x), could this c=
-ause a
->> fatal undefined instruction exception during early boot?
->>
->> Since these CP15 cache flush instructions are undefined on the ARM720T
->> architecture and execute before the exception vectors are set up, doe=
-s this
->> lead to an unconditional system crash?
->
-> Hm.
->
-> I did originally patch it like this:
->
-> +               mrc p15, 0, r0, c1, c0, 0
-> +#ifdef CONFIG_CPU_BIG_ENDIAN
-> +               orr     r0, r0, #(1 << 7)       @ enable big endian mo=
-de
-> +#else
-> +               bic     r0, r0, #0x80
-> +#endif
-> +               mcr     p15, 0, r0, c1, c0, 0
-> + 0:           mrc     p15, 0, r0, c1, c0, 0
-> +               tst       r0, #0x80
-> +               bne     0b
-> +               sub     pc, pc, #4              @ flush instruction pi=
-peline
->
-> which works fine as well.
->
-> Shall we go for this version instead if it will be nicer on other CPUs?
-> It has the upside of just fiddling with a single bit.
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
 
-I think the version you posted makes more sense as this is the
-officially documented sequence from the manual.
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
 
-The potential bug I mentioned is with the instructions that are
-already there, not the ones you add, so nothing changes there.
+This series addresses these issues by:
+- Fixing the XPCS driver's SGMII AN state handling
+- Refactoring stmmac PCS lifetime management to allow platform drivers
+  full control over PCS creation/destruction
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
 
-The only ARM720 board we support is limited to 16MiB of RAM, so
-even if that is a real bug, nobody would ever want to run an IXP4xx
-enabled kernel on clps711x.
+Series overview
+===============
 
-If we wanted to fix this properly, I think the head-xscale.S
-file should start with a CPU ID check and skip the rest when
-running on anything else. That would be a seperate patch though.
+Generic:
+  Patch 1: move XPCS lifetime management to platform drivers
+           (introduces pcs_init/pcs_exit callbacks)
 
-       Arnd
+PHY:
+  Patch 2: DT binding for Naneng Combo PHY SGMII MAC selection
+  Patch 3: implement the PHY SGMII MAC selection in driver
+
+RK3568 XPCS/SGMII:
+  Patch 4: DT binding for Rockchip RK3568 XPCS
+  Patch 5: add XPCS and fixed-clock nodes to rk3568.dtsi
+  Patch 6: improve SGMII AN state handling (fixes link-down recovery)
+  Patch 7: implement the Rockchip XPCS platform glue driver
+  Patch 8: wire up SGMII support in dwmac-rk
+  Patch 10: update MAINTAINERS
+
+Board enablement:
+  Patch 9: enable SGMII LAN port on Photonicat board
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+- I also noticed that the PHY (YT8521) reports 100Mbps/Half in out-band
+  tesing while the PCS reports 100Mbps/Full if using in-band.
+  This looks like a separate PHY driver bug.
+  I will address/report it independently after this series lands
+  (or if a maintainer points me to the right list).
+
+Dependencies
+============
+None. All patches apply cleanly on top of torvalds master tree (v7.2).
+
+Questions
+=========
+1. Patch 6 (SGMII AN state handling) touches generic pcs-xpcs code and
+   may affect Wangxun NICs.  I don't have Wangxun hardware to test.
+   The original Wangxun-specific path is kept unchanged, so I believe
+   there is no regression risk.
+
+2. Would Heiko Stuebner be willing to be listed as a co-maintainer
+   for the Rockchip XPCS driver?  I've added myself in MAINTAINERS,
+   but having a more experienced Rockchip maintainer on board would
+   be ideal.
+
+Related discussion
+==================
+Previous attempt at SGMII support on RK3568 by others:
+https://lore.kernel.org/all/20221129072714.22880-2-amadeus@jmu.edu.cn/
+
+Also related (runtime PM fix for xpcs-plat, sent separately):
+https://lore.kernel.org/all/20260704214808.1566710-1-coiaprant@gmail.com/
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+This is my first kernel driver series.  I've spent many nights
+debugging the hardware quirks on this board.  I hope this can finally
+replace the out-of-tree OEM code with a clean upstream solution.
+Any guidance during review is greatly appreciated.
+
+Thanks in advance,
+Coia Prant
+---
+Coia Prant (10):
+  net: stmmac: move XPCS lifetime management to platform drivers
+  dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel
+    property
+  phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs binding
+  arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+  net: pcs: xpcs: improve SGMII AN state handling for Rockchip RK3568
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+  MAINTAINERS: add entry for Rockchip XPCS driver
+
+ .../bindings/net/pcs/rockchip-dwxpcs.yaml     | 126 +++++
+ .../phy/phy-rockchip-naneng-combphy.yaml      |   7 +
+ MAINTAINERS                                   |   9 +
+ .../boot/dts/rockchip/rk3568-photonicat.dts   |  77 ++-
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi      |  45 ++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  44 +-
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      |   7 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    |  87 ++-
+ .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |   7 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   7 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  37 +-
+ drivers/net/pcs/Kconfig                       |  22 +
+ drivers/net/pcs/Makefile                      |   7 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 526 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  31 +-
+ .../rockchip/phy-rockchip-naneng-combphy.c    |   8 +
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 18 files changed, 1008 insertions(+), 51 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
+-- 
+2.47.3
+
