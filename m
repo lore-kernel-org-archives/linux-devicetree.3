@@ -1,122 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D84342BC29
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:42:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A511542BC2F
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784061740; cv=none; b=byASdEOGiGjJ5Wm74FlNoZJNGnCCetHmMSgF0VKPtOgpfzBuoaZxmlqhN2Umpy6naiQq96lYTOgkIDXLSa0ByRi87hmzp6On0WDtvlgewF8jHtgQBXEtcDE8yEiVbl/HPvBSAcq/kJ7ii65EOVh03co/vcgYJojAT0vAIeansRY=
+	t=1784061886; cv=none; b=h9WxyFMkFAbAQ0gO6ZV2UkSSf15xVdgbKjUt5dOk0Shfw3mGdC9mXkODxQJwJrJ5kehu/g/AypZPveDLxahPev4wAkldEei/UmQYGuE1FvmhpPaRh+sUyg1dTbHwISqgx5KxKraMZob+NcYa1JhgrnE5thaqya1/UWjHySrE1tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784061740; c=relaxed/simple;
-	bh=fRzfpnejs3Cg40wARhIZvGtfkbSMGM8ZlUKl+RdTvfo=;
+	s=arc-20240116; t=1784061886; c=relaxed/simple;
+	bh=vgxQTpxo264w53PGhi4VcYbIRsxqOe1w+H1pSpY0ALE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O6uVhews+Z2bWFieujHD5K9k6E44cBHxAKC2EmJW6GjYXuYOMWEPwTXEyFwoZTuiCi8/uAynOFCFNtVUkknQaZ5sD0tOpFlDDrWqK+q01Pf0iVquzIkwY/noz+uQkQl0y7mpB7vmOoVgb0Of3n7KrGphLqRQfLRFnlnKiJMCOyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VsNQIeW9; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sjvA8YEFLVBQt4GXy8ILy15ZCMRfMQZ9255VqCk3DfwUpnyCVN56phmE0HM/sC/vUvcs2ylGuatm4PP/NY2Tlo0JJsr602vHk/4ODmLq4WRWQO2kweMtFvNu1bUN68ZiXQ09lTXnMUdgfx5Z3V90/YP37naNTHL0xFMcIHGDdRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KnkSQXtK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VsNQIeW9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717BA1F000E9;
-	Tue, 14 Jul 2026 20:42:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KnkSQXtK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB9D1F00A3A;
+	Tue, 14 Jul 2026 20:44:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784061738;
-	bh=pCXb3BFN2d8LrQ9qH6L7KpuL+SH3Am5BaEWEloNWpG8=;
+	s=k20260515; t=1784061881;
+	bh=FZh6+Q10GtYntiCEjqSce5vAUyV8Ghhh5lP/K4ZPS7k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VsNQIeW9naVbPPFCGg0hilecuFcWGc+g4QvfYzsVs1MNsWkGj3OJe/YhSER9HL5fO
-	 8oHylymbtoH1MbdThQ7Ozlmmr0sUTGnhC9JACjd5oeaqYRNYikaUp9XW9zsgYSzrHR
-	 H+ilWj1KWX7mn0hmccYJ7nYjeau/aGIE3zhLzc6P9LpDYTpCgaSw8sjD5eREESOrOZ
-	 XCwHb0CPGTpSBM/tBoZW6RP6Q7NUpJl32DTFrBAJ9P38WTatxJ9DOvXScVsqS0zoFc
-	 RyWUM4XGOnmcd1JPBv8mqsIlreAUD7V+9hOt0teB/2/yoDmmEJc90khXu9ykO11CTg
-	 d5RiicDU3bo8Q==
+	b=KnkSQXtKOiMFAGxkngi08+YbE6XYlVDI2z792w2lplshfcWaPPPw/tza3h+OWXnAf
+	 qi86Ra0fbjBkn8XSQb1cQFckEMVo1y+GlbEET6W3lpiBhDqRCWbRl8SJVsh4snWe+N
+	 fGBYcSb3lwXMNS49sttbqhRc1jj4K5SH/dGbnPlccoNO9x7HS4ZdeQJUAOYHtE+kWO
+	 Ahv8rGXbWidPWSlUIkaDKhQebiRNyOhj36DSu72FsYEaHv0NY72h6qceWQbn9dFnrT
+	 nyeU4pFgbd31aEDkX2Fi3IqmOu+N6Fvndz7tmGp60pQuKetEPIjQG+SUk/gqtB6Uw+
+	 nYBL5LdjNoNeg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/6] ARM: dts: rockchip: Add support for RV1106 and
- RV1103
+Subject: Re: [PATCH v6 2/2] remoteproc: add AMD MicroBlaze/V BRAM-based
+ remote processor driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Simon Glass" <sjg@chromium.org>
+To: "Ben Levinsky" <ben.levinsky@amd.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260714193656.2196447-5-sjg@chromium.org>
-References: <20260714193656.2196447-1-sjg@chromium.org>
- <20260714193656.2196447-5-sjg@chromium.org>
+In-Reply-To: <20260714202441.554065-3-ben.levinsky@amd.com>
+References: <20260714202441.554065-1-ben.levinsky@amd.com>
+ <20260714202441.554065-3-ben.levinsky@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 20:42:17 +0000
-Message-Id: <20260714204218.717BA1F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 20:44:40 +0000
+Message-Id: <20260714204441.0CB9D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The DT defines distributed IOC blocks for each GPIO bank via `rock=
-chip,grf` properties, which violates the upstream dt-binding schema and cau=
-ses register corruption due to driver mismatch.
-- [Medium] The device tree relies on the 'rockchip,rv1106-pinctrl' compatib=
-le string, which is entirely unsupported by the upstream pinctrl-rockchip d=
-river and violates the dt-binding schema.
+- [Medium] Format string vulnerability due to passing `dev_name(priv->dev)`=
+ directly as a format string to `rproc_mem_entry_init`.
+- [Medium] Clock enable count and remoteproc resource leak on the error pat=
+h in `amd_bram_rproc_stop()`.
+- [Low] The driver references undefined functions (`rproc_mem_entry_ioremap=
+_wc`, `rproc_mem_entry_iounmap`, and `rproc_elf_load_rsc_table_optional`), =
+leading to immediate compilation failures.
 --
 
---- Patch [4]: [PATCH v2 4/6] ARM: dts: rockchip: Add support for RV1106 an=
-d RV1103 ---
-commit e0d1bbbfe5826e8f7c17c9a0008a5c218538f589
-Author: Simon Glass <sjg@chromium.org>
+--- Patch [2]: [PATCH v6 2/2] remoteproc: add AMD MicroBlaze/V BRAM-based r=
+emote processor driver ---
+commit 86b0a2cc7621606c7e9542f2f1f85e8f3f1d960a
+Author: Ben Levinsky <ben.levinsky@amd.com>
 
-ARM: dts: rockchip: Add support for RV1106 and RV1103
+remoteproc: add AMD MicroBlaze/V BRAM-based remote processor driver
 
-Add the devicetree files for the Rockchip RV1106 and its RV1103 package
-variant. The pinctrl data comes from the vendor kernel in the Luckfox Pico
-SDK.
+Add a remoteproc driver for AMD MicroBlaze/V soft-core processor
+subsystems instantiated in programmable logic and using dual-port BRAM
+for firmware storage and execution.
 
-Link: https://github.com/LuckfoxTECH/luckfox-pico
-
-> diff --git a/arch/arm/boot/dts/rockchip/rv1106.dtsi b/arch/arm/boot/dts/r=
-ockchip/rv1106.dtsi
+> diff --git a/drivers/remoteproc/amd_mbv_bram_rproc.c b/drivers/remoteproc=
+/amd_mbv_bram_rproc.c
 > new file mode 100644
-> index 0000000000000..7b2e6142a103f
+> index 0000000000000..e4a103cf84558
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/rockchip/rv1106.dtsi
-> @@ -0,0 +1,321 @@
+> +++ b/drivers/remoteproc/amd_mbv_bram_rproc.c
+
 [ ... ]
-> +	pinctrl: pinctrl {
-> +		compatible =3D "rockchip,rv1106-pinctrl";
+
+> +static int amd_bram_rproc_prepare(struct rproc *rproc)
+> +{
+> +	struct amd_bram_rproc *priv =3D rproc->priv;
+
+[ ... ]
+
+> +	mem =3D rproc_mem_entry_init(priv->dev, NULL, (dma_addr_t)res.start,
+> +				   resource_size(&res), da,
+> +				   rproc_mem_entry_ioremap_wc,
+> +				   rproc_mem_entry_iounmap,
+
+[Severity: Low]
+Are rproc_mem_entry_ioremap_wc and rproc_mem_entry_iounmap declared?
+
+It looks like referencing these undefined functions causes a compilation
+failure when building with CONFIG_AMD_MBV_BRAM_REMOTEPROC.
+
+> +				   dev_name(priv->dev));
 
 [Severity: Medium]
-Does this compatible string have accompanying dt-binding schema and driver
-support? The 'rockchip,rv1106-pinctrl' string appears to be missing from the
-upstream device tree schema and pinctrl driver, which could cause dtbs_check
-validation failures and prevent the driver from probing.
+Could this lead to a format string vulnerability?
 
-> +		rockchip,grf =3D <&gpio1_ioc>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +		ranges;
+rproc_mem_entry_init() is a variadic function that uses its name argument
+as a format string in a call to vsnprintf(). By passing dev_name(priv->dev)
+directly as the format string, an uninitialized stack read regression could
+occur if a maliciously crafted device tree overlay contains a '%' character
+in the node name.
+
+Would it be safer to pass "%s", dev_name(priv->dev) instead?
+
+> +	if (!mem)
+> +		return -ENOMEM;
 > +
-> +		gpio0: gpio@ff380000 {
-> +			compatible =3D "rockchip,gpio-bank";
-> +			reg =3D <0xff380000 0x100>;
-> +			interrupts =3D <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&cru PCLK_PMU_GPIO0>, <&cru DBCLK_PMU_GPIO0>;
-> +			gpio-controller;
-> +			#gpio-cells =3D <2>;
-> +			gpio-ranges =3D <&pinctrl 0 0 32>;
-> +			interrupt-controller;
-> +			#interrupt-cells =3D <2>;
-> +			rockchip,grf =3D <&gpio0_ioc>;
+> +	rproc_add_carveout(rproc, mem);
+> +	rproc_coredump_add_segment(rproc, da, resource_size(&res));
+> +
+> +	return 0;
+> +}
 
-[Severity: High]
-Will the upstream pinctrl-rockchip driver parse these bank-specific syscons
-properly? The upstream driver typically only parses the parent pinctrl node=
-'s
-rockchip,grf property.
+[ ... ]
 
-Could this cause register corruption when configuring pins? Since the parent
-pinctrl node points to gpio1_ioc, the driver might use gpio1_ioc for all
-banks. This would silently overwrite gpio1_ioc registers when attempting to
-configure pins for other banks like gpio0 or gpio2.
+> +static int amd_bram_rproc_stop(struct rproc *rproc)
+> +{
+> +	struct amd_bram_rproc *priv =3D rproc->priv;
+> +	int ret;
+> +
+> +	/* Assert reset before disabling the processor clock. */
+> +	ret =3D gpiod_set_value_cansleep(priv->reset, 1);
+> +	if (ret) {
+> +		dev_err(priv->dev, "failed to assert reset: %d\n", ret);
+> +		return ret;
 
-Also, does adding the rockchip,grf property to the gpio-bank child nodes
-violate the rockchip,gpio-bank.yaml schema which forbids additional
-properties?
+[Severity: Medium]
+Does this error path leak the clock enable count by returning early
+before calling clk_disable_unprepare(priv->clk)?
+
+Also, if this early return occurs, the remoteproc core's rproc_shutdown()
+aborts before calling rproc_resource_cleanup(). Does this cause the
+rproc_mem_entry objects on the carveouts list to leak when the device
+is later removed via rproc_del()?
+
+> +	}
+> +
+> +	/* Disable clock after asserting reset */
+> +	clk_disable_unprepare(priv->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int amd_bram_rproc_parse_fw(struct rproc *rproc,
+> +				   const struct firmware *fw)
+> +{
+> +	rproc_elf_load_rsc_table_optional(rproc, fw, dev_dbg,
+> +					  "no resource table found\n");
+
+[Severity: Low]
+Is rproc_elf_load_rsc_table_optional() declared?
+
+Similar to the callbacks in amd_bram_rproc_prepare(), this appears to be
+an undefined function that triggers a build failure.
+
+> +	return 0;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714193656.2196=
-447-1-sjg@chromium.org?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714202441.5540=
+65-1-ben.levinsky@amd.com?part=3D2
