@@ -1,124 +1,136 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A6B46AED8
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:32:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035975; cv=pass; b=ojKz6Z2BSzJQXt1izYFwAw3R9A2HIJKRC17fxIqNe5AFRkxfMfD/WmBDZM1Eh3dKIVPtDtZ6H5oCRzN1diNgsQ2W5ZOy4LnCZg9padqmhsU8TPSM4+N5Wn5Ke5e78xSsfO47aQc2SW0lHK1I4qQendRbqRYtg863T+Vs4CKm9W0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035975; c=relaxed/simple;
-	bh=xMYgbeZWEkYZKWpJP/1b9kbmlPmh5Bba+PqXdvA1L9g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sA4NFSpDQufnod8EFqeLlUk71vPatVA6u4agXlBzZHxxgmGnOkHhA5HIsKaeEEoECUHBFjtvnaFvhEMGsFYp9ya2EFpwrCXvoKjVGakqQH1bqATYZmxbjKoUOSo16Vg1E8mWEi6brIkIc6tr1i9OJsrTgXIslLd2+vkNfrOe4A8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O1KybUSF; arc=pass smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC18F46AED1;
+	Tue, 14 Jul 2026 13:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784036267; cv=none; b=OvMdXrx5C1EFQ0gBsDOBYr5chYp3lgQbIadzE49GOYleNmXS/2EB6GpeogVJ+50UKexlQNL7tRDUW/iwBvacLsKSK31sMULDoZ1158ThsoQixXn4JlPzf1/5qsfwXF+hWlAu0r56OWxuyvThEOtnLdW/hvCWttcstUhFeUZjMFY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784036267; c=relaxed/simple;
+	bh=Vks6p+Wt/0K1/SXbSBGlKT4hNpjD4Fg6SncklLe+XQQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=J/KnNJ8KOEo53A/Krz8fXV8dnzRLzPQuu0JfwstyLWVsQ0io37WYqFYoQ/FVWMPwsmTGNxnZjSlIgfrL82MxEDjAgVJRvs4pdNgBe/VseMbh0Fp0W3TLdc9kimZLyMDIa8KkRJLUPOL5NtrVq+5l+F3XzwXFVJcLdUApUiA1M1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkdtxJz+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O1KybUSF"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso761389b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:32:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784035972; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j8JJR34joPIRXx4jx5xcEFBPF0EhOyqZLrgib1rVl4HJK4oWl1SY0x/MOmN6OYl8ob
-         f1tY6XNbt4j1/CT2A/Cmbx6K89Hf3IkPe4KhQNixyTdSrfPQGSm6uw6ml5ZzFD21Vbe2
-         Nwg100rWKKx+CgaiwSC4oQVB4beHxLp7KV6wPZpcZBcFUR4MpBH+JvC024slMB+KKDCY
-         dmq8cGIGL2bkAWB9Cfuo/s6ouoHFfElJImOrshsfko00DcVTbJkjC9N+z3wLxU5i68L6
-         su07SvvigSEEYf54n3oJBmZ2IiTxPiPKZCjqFrBKWBoOURe0J9tRxijM1XINLKJ5A+Dg
-         CXgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xMYgbeZWEkYZKWpJP/1b9kbmlPmh5Bba+PqXdvA1L9g=;
-        fh=zDqRBiBljKnfWh+SJYkSTLdruyEje36UJSHLKs7yB08=;
-        b=ZXInOlGtjnWfMI/b/w76Jz8F/F6lI2Yji9CcJs1qLdTIux9isexnC/yLbNDCe+evJZ
-         fTTqXS1TIWZijSwm2a+E9xLKHHuJHMHwwcSXaFtFOGEfbMizlcSTcsOSdbP28yTUkuKd
-         URjHkuXnK127IfmTIt3Zu75tfUSSZMwJhva3xv++EOLtua1q8vV1E24MrpGgYlrl93hf
-         sAHpRu0WBzV8Lhh6ZnCqPD+OQNpZPVEQlZVP7N2hKfAoHmFuOPUajJ5Nom5pvC8IfZLn
-         xKwZeCfDVEbKNW9RVzXWjEuDKJQiYDm021c01jSMWwAP9bVY8ShU4dE7Oysz1mL4wB6Q
-         s3BA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784035972; x=1784640772; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xMYgbeZWEkYZKWpJP/1b9kbmlPmh5Bba+PqXdvA1L9g=;
-        b=O1KybUSFHz0QdVul2k4o9VEGyKBL6uHP//tdT0Mdcmjy4tIEXxbFxE7c2P00asfBky
-         TsnK2HZDQKGxxWs5geoIR9LboD6ul49LJsuU/H9Nf6Y2gVnXejBUBylq14ZHO3g1LNM+
-         qCPApxKO1IGmye51vZWYLuoY4PLjFvA/xxcf0N36UoWRCmo/Tk2UwHa8EOcIXENrY132
-         Ko1C1T11oYkzeIOg2//cJYwGAA0agX6SGKP9l44NvPtFCO37sS38zYusILJd2w+Aa1aw
-         bt8Fs8AZ1FceZqcRsxIrLbmSJEFY4jxT+KU49vyaO9p1MxuEQyJUf4Lioew2GIMLcuef
-         s8FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784035972; x=1784640772;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xMYgbeZWEkYZKWpJP/1b9kbmlPmh5Bba+PqXdvA1L9g=;
-        b=CxJe75tEWaWS6TDAnQo/wyyHBR7r6iBByn459mhyD7e4yw8YWQ9IHUzxTT0WeVNa6c
-         xTqC+R9p+iY3lxqh6s7Yezb7fsx9hN9DAizeC8Dn1oJK3vQiaho+OL51ajlurV2PKiUY
-         HbkFFvOJYtOo/g12ECdXmnF8ZeR0RXAu7cXFf8TK20oXP5wGvCVGTaAGx8PZCDRVIQG8
-         wdwna9vzUFXLNgQduSIvvUJhqIbHBNH4+xCdPYgZPlNfx1w2WwZxhTYtsbAxGv1oW/a2
-         IfvFqbt48hllmNXYnjuI5NeQ6Vqx8sTswJWXyEmBN4iw2KupwH/h0mDqxLCMz6sdKw3R
-         sT9Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoHmShoJtWoqeF7fVDYgWg8tWQN39vhZiPAOtDjVRuwTDgi9wD98eeoCb/QbBMh3Cvw9AzhcQW3ZRam@vger.kernel.org
-X-Gm-Message-State: AOJu0YyX75Gz8BSVa3RFBB3u5v7+Fy364Kekp91+q4PIuRSmSAM9zJgq
-	gaJ7cPL9xfWGzCTJ3VZLkG8Yb0srj2NWDYHPwWoNuFY1l0dWuYoGyL+s5Lh5zRynxTwCUmsYVUh
-	sTSR/BiEZ6CAtRgyGt+sN6u1vy3ZyGr0=
-X-Gm-Gg: AfdE7cng6R9q/wbwSKjkflFkSy2IMWhanLCIW0139fsojSWFLmTUjiP8EPdnk1FbJ0P
-	M1UX88Kk4wz+oZZIdSJuhMitS1gUeRRw4w60hnXIM3e3gx+vrja2K3FyaCnpgAOJm6Sa23ct/mf
-	Kp1KJ3bCsWBqWx0dHnf2cEsnDPkj3gejoxvkXSs1ucZOwlMqX+ExIelj7sxB637e4yRyC7kHbzu
-	xoDVeEUbB2Db4udJhTj+eEgyabqQE5EMYOAi0D5QU9YaKywTwm/laPwGUMmCDek5KFUyw3qkNxU
-	rm+Dv/X/oIPyUzI0DQWT9GJP99J6mA==
-X-Received: by 2002:a05:6a21:398d:b0:3c0:9c19:65c2 with SMTP id
- adf61e73a8af0-3c110a7780amr14294440637.74.1784035971780; Tue, 14 Jul 2026
- 06:32:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkdtxJz+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0394F1F000E9;
+	Tue, 14 Jul 2026 13:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784036266;
+	bh=MRUxZmD7tUa8RV4aJ0FH1IXo7TRn2t4zqK4O1Y0A1CY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MkdtxJz+G7iwGq3xnYkjgbVTM2oD6KUjxOQ+3Aj+tCjKIwxi0PXH8ck/8SnKNIbVn
+	 35NTJiDMCThgTuhJwy4EV3B7mvs7vjGet6EroD2X/f9pjF0k9jnXFDA9KD5A52fTNH
+	 2S2nctq846H+2HGDRhx3duCXSC17DgzRifhFVS3HksHngESZUFyTPTYEKXvyYj0Fc1
+	 PTZBiATyX9IGwM/j1l8zxkBHNxMJuetA94prM4dEn4mPPVvozs5YmBZ4aJSKJzSaUb
+	 W+iDf9d7YpBneaODyWSUasppP/cZ2OlPxygzyfsC28jx8RZ0SXghR9ogwgw9QoC1ej
+	 WYbnUz0jND3gQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] PCI: rcar-gen4: Isolate driver to ARM64
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260714131957.38067-1-marek.vasut+renesas@mailbox.org>
+References: <20260714131957.38067-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 14 Jul 2026 13:37:45 +0000
+Message-Id: <20260714133746.0394F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260617080031.99156-1-clamor95@gmail.com> <20260617080031.99156-7-clamor95@gmail.com>
- <akeHfV45fs_wabFl@hovoldconsulting.com>
-In-Reply-To: <akeHfV45fs_wabFl@hovoldconsulting.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 14 Jul 2026 16:32:40 +0300
-X-Gm-Features: AUfX_mybrBIYYttKuc4kdlGjodzpsKD3b6Tkn0zZS6Q6ac4kDrP0-C3ai8FD94Q
-Message-ID: <CAPVz0n1groC-4MxU-sjyPEDHYWqAweyBmVNC+iX4mVa_D3SnDA@mail.gmail.com>
-Subject: Re: [PATCH v5 06/14] mfd: lm3533-core: Remove redundant pdata helpers
-To: Johan Hovold <johan@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=BF=D1=82, 3 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:57 Johan=
- Hovold <johan@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Jun 17, 2026 at 11:00:23AM +0300, Svyatoslav Ryhel wrote:
-> > The lm3533_set_boost_freq() and lm3533_set_boost_ovp() functions are us=
-ed
-> > only in lm3533_device_setup(), which in turn is only called by
-> > lm3533_device_init(). Incorporate their code directly into
-> > lm3533_device_init() to simplify driver readability.
->
-> Again, this isn't needed. Why are you removing abstraction that improve
-> readability?
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Adding helpers to wrap custom regmap wrappers seems redundant. Regmap
-operations are pretty self explanatory without need in one-time-use
-helpers.
+New issues:
+- [Medium] Unjustified COMPILE_TEST restriction due to incorrect commit mes=
+sage claim.
 
-> Johan
+Pre-existing issues:
+- [High] Missing return in error handling path leads to endpoint notificati=
+on on a de-initialized endpoint.
+--
+
+--- Patch [1]: [PATCH v2] PCI: rcar-gen4: Isolate driver to ARM64 ---
+commit 9fa6f24cbaf3124b832a16ce500ea61d355eb4f5
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+
+PCI: rcar-gen4: Isolate driver to ARM64
+
+The driver includes linux/irqchip/arm-gic-v3.h which pulls in headers
+which are available only on ARM and ARM64, on other architectures the
+headers are not present and the driver fails to build. This driver is
+used only on ARM64 hardware, isolate its build only to ARM64 to avoid
+build failures on other architectures.
+
+Link: https://lore.kernel.org/oe-kbuild-all/202607100310.iQw5m9Uo-lkp@intel=
+.com/
+
+> The driver includes linux/irqchip/arm-gic-v3.h which pulls in headers
+> which are available only on ARM and ARM64, on other architectures the
+> headers are not present and the driver fails to build.
+
+[Severity: Medium]
+Is this description accurate for the current tree?
+
+A review of drivers/pci/controller/dwc/pcie-rcar-gen4.c confirms it does not
+actually include linux/irqchip/arm-gic-v3.h or use GIC-specific macros. Does
+restricting COMPILE_TEST strictly to ARM64 needlessly degrade cross-archite=
+cture
+build testing coverage?
+
+> diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/=
+dwc/Kconfig
+> index aa0b784c85b47..0d4bf8d4cf565 100644
+> --- a/drivers/pci/controller/dwc/Kconfig
+> +++ b/drivers/pci/controller/dwc/Kconfig
+> @@ -344,7 +344,7 @@ config PCIE_RCAR_GEN4
+> =20
+>  config PCIE_RCAR_GEN4_HOST
+>  	tristate "Renesas R-Car Gen4 PCIe controller (host mode)"
+> -	depends on ARCH_RENESAS || COMPILE_TEST
+> +	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
+>  	depends on PCI_MSI
+>  	select PCIE_DW_HOST
+>  	select PCIE_RCAR_GEN4
+> @@ -355,7 +355,7 @@ config PCIE_RCAR_GEN4_HOST
+> =20
+>  config PCIE_RCAR_GEN4_EP
+>  	tristate "Renesas R-Car Gen4 PCIe controller (endpoint mode)"
+> -	depends on ARCH_RENESAS || COMPILE_TEST
+> +	depends on ARM64 && (ARCH_RENESAS || COMPILE_TEST)
+>  	depends on PCI_ENDPOINT
+>  	select PCIE_DW_EP
+>  	select PCIE_RCAR_GEN4
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it intentional that the e=
+rror
+path in rcar_gen4_add_dw_pcie_ep() falls through without returning?
+
+drivers/pci/controller/dwc/pcie-rcar-gen4.c:rcar_gen4_add_dw_pcie_ep() {
+    ...
+	ret =3D dw_pcie_ep_init_registers(ep);
+	if (ret) {
+		dev_err(dev, "Failed to initialize DWC endpoint registers\n");
+		dw_pcie_ep_deinit(ep);
+		rcar_gen4_pcie_ep_deinit(rcar);
+	}
+
+	pci_epc_init_notify(ep->epc);
+    ...
+}
+
+If dw_pcie_ep_init_registers() fails, execution incorrectly falls through to
+pci_epc_init_notify(), notifying any bound EPF devices that the endpoint is
+ready. Since the hardware has just been de-initialized, could an EPF driver
+attempting to interact with the EPC cause bus faults or use-after-free
+conditions?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714131957.3806=
+7-1-marek.vasut+renesas@mailbox.org?part=3D1
