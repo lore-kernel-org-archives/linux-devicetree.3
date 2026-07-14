@@ -1,236 +1,188 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4114494A17
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:28:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784042941; cv=none; b=XZFvHxyiE+2kO4NOzAbO8pw21WgbA8WYNzbJ+4H+ENEmuAKwOFKC3K/hgkdHkEIsQU3rZsvqc3anMR1AdB+tKgMezwAxliwsQPpqU/tjIZpG4uczz1j9IVl6CFC1Bw8buKrnETgcFebjSLYWDNmwJwMukpMaRu0rshxud0UY7io=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784042941; c=relaxed/simple;
-	bh=iK2N13Fa+ahJt7iMw2mLWbp8smO+p23o4+F3b2Vp1Bo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZxeCzOI+gvHcDIGcKlGerv/H7II5Eyg8vRneHcghYKdnEhUwYLtwPga1zF6h+xkEc9x2kynS6NjtoG/AKha6r1hA5KYds/MbqJ8nUwG/OlAWwMucyVsJFJis3Ua2SuBLGpfUNEROUlAQ1Y+gRe1or3GiR6z9NfYVEQt/ICHS8W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=GfBblfg3; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E66B218AB9
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 15:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784043197; cv=pass; b=c7iOV0hARsegAVP7W6Yigu8sgLkomuQRqoyPAU3Zn2Ey9iwp7LYXIN717MixqFSTWTasatlN9qr295l1e6iyAx3JpAndLN9RH3dk7+gMr7KiPT0MFP8ga4S7x/oKRpg0ChbGzaTk7hpBrXKAwrHcLRjuGQdLFhfvRsPsflBap90=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784043197; c=relaxed/simple;
+	bh=DUDxctZujNARWIATLcjZzvBa5DYpwPhbf7vLFByLhYM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dC8/kv6P915Qdd5oi/A3I8Vq5EsZZcuqHBOzBugOozIpZcX22Q9OLTvnsz/GjlLv/U2hBri2QUw54Y1cC4gzNoTSGhm1SIBOxAoI2B34PZu1pXajm/guy5q4cfYpQQqZB3B3zgksR+m5iUjcJ+5Yh+En2gxAKNZkHxZa3vVBGAM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQnXyVjU; arc=pass smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="GfBblfg3"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-493e8d4f4dcso34500405e9.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:28:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQnXyVjU"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15e03c2763so234696766b.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:33:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784043194; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UOCQXv3vIldejPuNEA1N0iPXP3/15THfxn+URV6flV+BlWxHV8NM1wfGJv3gXdPc/K
+         89I4GhXTJ114aA9XdVLHzLMBKkzyPr4fRdzp5ydhIT6AovzfPQIde4uUvuJW5HXLG7TZ
+         LoJknleeSejW83MFjnhTho8HXSaFReOwRhGMIfYCRLk2ZsNaOtXIH0ub5WvrTf/SFcWT
+         ZZfn05SOYcH6c1VW+SVmXIjCacdwCx0OEY4MTTiKM51pqs6CKLS4vqzzWT9wxkARaZ08
+         8ne0uccuXIXqXCBTYhkP1RYCcE+94wl39Qwxhhhc8knKNPO2JYZ2Q5g/yFBc+/PXyzQN
+         MBRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DUDxctZujNARWIATLcjZzvBa5DYpwPhbf7vLFByLhYM=;
+        fh=MyHZ8/sVvPzLEG+omM6cF86xGRxwnpjwN1kOWsr37f8=;
+        b=ghCTcHX9yqWWfJjMdUr6NrcxfcghrdjXM9xe1QbJRc4tlZT50pybPtbDFqvc7AiG9S
+         lUcPPMGgxhCTi0PQHAsqdZrnlckb/YAKaNX+56iVS4JQoWXhPZSGERAbM05FdDaY/oaS
+         JZA2gxoN4+Qyk7/MrwwEDpL2dNeUJq8gCMzchdJMyLzT0iFhLerSokCssmDg0RxSi5ZF
+         7dZAUbuIDSMlFXZV+3K+XoP53jpdH8APvZi7nwL43xKH/B7B9/GG5FZX3X5lTa2rl4Ud
+         dGMX5+pXaQ4RMAEJcF0pNDUIJzXOdFkc7kRTs49J19+NuNeBqF5TTxlQmja/26H08gRu
+         vV9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784042938; x=1784647738; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=09TcclYmaPCDKc6+KZii+R3xNkB+ca7ftigSvlljO8Q=;
-        b=GfBblfg3V4AhQ9Y1uHsNefuUfkCLEWBXZ72vdRzrlRILtviBg0uiRYy6BFvhvoSdXn
-         mDus/zcQBCfIKqBYzJTgjoHTxejorRrDolSK6u56p0RK34XxJXTPuJC2Yz/LM52Ejr4Q
-         oGX0xAbUNj9JkIzz7hpIJhn8eq8M8lPawoLON5J11UapnhQFgAgLJ/pUK+uGavFn0/EN
-         5Jpl+mohSIt7Pc6PPJnlzaknIW+SiqguRR20rDHQI5ar0C7+3OItHQE48QP/HVx/YeRH
-         dmzBS0ydiBeVdgZTU1kqaVh60NxSrzd5KZAQk75FztGkD5hzP/ZMVQ7OPhXpygQyBNG6
-         IcLw==
+        d=gmail.com; s=20251104; t=1784043194; x=1784647994; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DUDxctZujNARWIATLcjZzvBa5DYpwPhbf7vLFByLhYM=;
+        b=XQnXyVjUuRPXHrOESoZop8jaPiCTSf7OvCMOrda7SXo86h2NhGjWOv/IvZkaZPD7kW
+         mhP7EDOgyZOLv1tg3ApqZ7gb6+vRaU6cYgdIeqbq7fKy+M6lNt1bQ3z91Iik0Yh2B3SI
+         51UqlUSWsmFj+poDJeHkKkthpEORtKUeKklCTfENvukZnyDebbtnAmvgxDTRFwON2Nbd
+         zXPR0ylv48qKl1FucYU5Cr3Fz7jqqeuyURhrx+zV0CTnI/Kei0UEQ07PpE2YTTVn3id4
+         KJRJ4EAZcmzP7NPgbAnezboNPq3/feHPMjSQG23mrXpTTPxlUjOCLz2Pir9qJYPwnixH
+         WUsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784042938; x=1784647738;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=09TcclYmaPCDKc6+KZii+R3xNkB+ca7ftigSvlljO8Q=;
-        b=AUp56CBtITMI1z68JAfTlqecx9167ckwcXOSCzIA4CC+4mh/gSzrE6PGs9v0bY/mwt
-         r8jkyaS2BrXlQ2In4GqtYzj25IwRlHAUDgI+iAaJ7lLzhGsoeeCqeuj4Z7Qs1N4Fb05S
-         glyh+gCLrmTTSnYaAnnsZxS3uh5FbEV231RDNS63GJ69ZTAucDyOODPG4gypMzKuxaeQ
-         BdSFKbKKCWTotJV/9zLeMJFfcLD13KckQU/9RUmZyvaHZVBvkKmJTbXPlPLYV/uPI7He
-         MnOhZfuZcYn4vwl3gbLzJl6s6UVISzoEegrCsRmlMFya5HWW8keGo88+LqXuHf1+jnkZ
-         xByA==
-X-Gm-Message-State: AOJu0YzA7JXZ5Ycu8/D9JO0Q7Vpsqx4QfVwYW2tyolw5+NEnS7FrsLbj
-	VHTjXyX/44/ssCmpjm1qekHu8cfXm/2rr6YO68o0UaSyPVBzFBuDn6Z1t0el+z2nI7g=
-X-Gm-Gg: AfdE7clXqm7m5QdtROn8AM4XCSSn820LHmTQnz+gRGeCMMpB30BTiGRww+Me7fhjewi
-	In7POll0BwWibqk24gvquL+tR5MtV/1R7J6JC1Jcz9deAswaIGxg0Q7ZgNeADssQsV4fhxvm/Uz
-	12ehPnD2x71FJnQ6SPSx5T9sob45T493kFRzvOGktZbHr4mi0eE4+FSorhYA3xOg/TBsCSiY80L
-	PdiVU8P+0Xo7A66snzXQpC3tB3Buh84d1l6ORf+BZW6Qmml9KYiHq10Ly/NGuzfUfiTrYE1qVUF
-	kz8vZ2JVvklIyWiEDAAdat5ov/XTlyvptoGbYc+gR4IOZrpHETEEgvA6xt3Hl0/VRArcygla0aj
-	NzCL60KP3CERkt2lziLYTnUvX6CFCA1YHHnaB6Gl8J9nPPvhego6o0DcuRXbTXH+fJVCTJC/EQy
-	+6Hmg7/BXQjH6xczCFRsjZeyAj9hBiV7WIVs621dcWvkiK
-X-Received: by 2002:a05:600d:6413:10b0:494:1cdd:4f9e with SMTP id 5b1f17b1804b1-4941cdd5035mr55153835e9.31.1784042937995;
-        Tue, 14 Jul 2026 08:28:57 -0700 (PDT)
-Received: from [192.168.0.25] (62.43.169.102.dyn.user.ono.com. [62.43.169.102])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493fd3ccfd4sm190589985e9.2.2026.07.14.08.28.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 08:28:57 -0700 (PDT)
-Message-ID: <2e1731d4-71d9-4924-a728-0aa4821486cd@suse.com>
-Date: Tue, 14 Jul 2026 17:28:54 +0200
+        d=1e100.net; s=20251104; t=1784043194; x=1784647994;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DUDxctZujNARWIATLcjZzvBa5DYpwPhbf7vLFByLhYM=;
+        b=m1mA6QBavZwLHKU5NWih9AT39t9pK37Yi+b9e1KLWPWu+QMNsTIedACD4Y9WvuapXR
+         iVRPj1C3YBdL84/TMW5jvpT6IeDjc/Az/CYyPOWZPFa3JZOusSpcEgxxO2ob4sqlW9jG
+         1vraeTiCJdwXEM4LB6MwO0EbasMxU9ql4kt1YQppY3YccJcv7SBLtfQO1cF20lDTDDvD
+         /Pz1xRSU8bql8PVy0vgcDaN4MdP4l24QAzq7j6H3ksDzwnknlGUIcO2r2l3gQ5wdsRVH
+         LJimwCja21+QchxHeJvcDtO50Uftj0wpftI6HniwOlKq0Ah6eaTs4LasZdpjBBM+om7r
+         9X1w==
+X-Forwarded-Encrypted: i=1; AHgh+RotbdftpM8as8aWixQDaPd88GdzRNKwHou3e5SSbk82cbndnrXfIBKBjei2J8wRO5WPQ9G6wVS1/GTQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzh0tpGwC9YlrqOc4Eorhl9xz4z/cSvKytEm6Of0Omboyr16e0k
+	DIjHEb4O+2dSQUmzIGBRutHTnMchayiTSGOHML8ngg6LJdhPuR+HxZh6G/TVCebI5729Ekyrrpi
+	TcJ9o62Xlz1hmkg5LoOm5ueaOfViL8Bg=
+X-Gm-Gg: AfdE7ckxsRptcK8zBZWZCAuN5dx5x+pgEPcxJtOW2FzUw1snY9fQGfJa/Vbqrh7IJGr
+	RcxyULb+baFJrG4N7yepus7RMeuwcfQCvvPPzXjdKv106DyamTf3oGWB58391JMBLxCI50xyH64
+	TG7hMDAlzWVP9ltL9jHxcTWBN2msQ2Lkp6lMByCjHwkY/SM4jIOG2uvhzCy9sl5iPf22VjreZbB
+	bAq16a5m7bQFdKLR9CDgREo2tQz7J4s0nriOHBUDRM2bA/eryx/cS+iS1MAvI2Sutt1sWy8ww==
+X-Received: by 2002:a17:907:7211:b0:c16:242a:4733 with SMTP id
+ a640c23a62f3a-c16242a5993mr650163866b.18.1784043194326; Tue, 14 Jul 2026
+ 08:33:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] pmdomain: mediatek: Add support for secure modem
- power domain control
-To: nikolai.burov@jolla.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-pm@vger.kernel.org, Nikolai Burov <nikolai.burov+review@abscue.de>
-References: <20260714-mt6858-pmdomain-v1-0-4f09bbb822e0@jolla.com>
- <20260714-mt6858-pmdomain-v1-2-4f09bbb822e0@jolla.com>
-Content-Language: en-US, ca-ES, es-ES
-From: Matthias Brugger <mbrugger@suse.com>
-Autocrypt: addr=mbrugger@suse.com; keydata=
- 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
- PVrr2NoUqi/bxI8fFQJD1jVj8K0=
-In-Reply-To: <20260714-mt6858-pmdomain-v1-2-4f09bbb822e0@jolla.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
+ <20260713131223.279555-3-a.shimko.dev@gmail.com> <20260714131729.48CD81F00A3A@smtp.kernel.org>
+In-Reply-To: <20260714131729.48CD81F00A3A@smtp.kernel.org>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Tue, 14 Jul 2026 18:33:03 +0300
+X-Gm-Features: AUfX_mwi-FnQhvC2JtVlr51haSy7xBYWK3yOmmbUT8m24rZgRfmOoOKYkm8x-Hs
+Message-ID: <CAOPX744Q2pyAv2ixFgrwGrW++-BVWs-0Hx7tW7XzJ9KbpwZC5w@mail.gmail.com>
+Subject: Re: [PATCH net-next 2/2] net: phy: add DAPU Telecom DAP8210R(I)
+ Gigabit Ethernet PHY driver
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Jul 14, 2026 at 4:17=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 
+> [Severity: Low]
+> The commit message documents the property as tx-inverted-clk, but the
+> code implementation looks for tx-use-inverted-clk.
+>
+> Which one is the intended property name?
+"dapu,tx-inverted-clk", it will be fixed in v2.
 
-On 14/07/2026 15:43, Nikolai Burov via B4 Relay wrote:
-> From: Nikolai Burov <nikolai.burov@jolla.com>
-> 
-> On recent MediaTek SoCs such as MT6858, the kernel is required to use
-> a secure monitor call (SMC) to enable or disable the modem power domain.
-> The power domain control register can be read, but firmware prevents it
-> from being modified directly. Other parts of the power sequence, such as
-> setting the ext_buck_iso register, still need to be performed on the
-> kernel side.
-> 
-> In preparation for modem support, add a flag to enable this new power
-> sequence for SoCs that need it.
-> 
-> Signed-off-by: Nikolai Burov <nikolai.burov@jolla.com>
-> ---
->   drivers/pmdomain/mediatek/mtk-pm-domains.c | 54 +++++++++++++++++++++++++++---
->   drivers/pmdomain/mediatek/mtk-pm-domains.h |  1 +
->   include/linux/soc/mediatek/mtk_sip_svc.h   |  3 ++
->   3 files changed, 53 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/mediatek/mtk-pm-domains.c b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> index e1cfd4223473..56437b32b252 100644
-> --- a/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> +++ b/drivers/pmdomain/mediatek/mtk-pm-domains.c
-> @@ -57,6 +57,12 @@
->   
->   #define MTK_SIP_KERNEL_HWCCF_CONTROL	MTK_SIP_SMC_CMD(0x540)
->   
-> +/* Power domain commands for MTK_SIP_KERNEL_CCCI_CONTROL */
-> +enum {
-> +	MTK_MD_MTCMOS_ENABLE = 18,
-> +	MTK_MD_MTCMOS_DISABLE = 19,
-> +};
-> +
->   struct scpsys_domain {
->   	struct generic_pm_domain genpd;
->   	const struct scpsys_domain_data *data;
-> @@ -615,6 +621,34 @@ static void scpsys_modem_pwrseq_off(struct scpsys_domain *pd)
->   		regmap_clear_bits(scpsys->base, pd->data->ctl_offs, PWR_RST_B_BIT);
->   }
->   
-> +static bool scpsys_modem_sec_poll(unsigned long cmd)
-> +{
-> +	struct arm_smccc_res res;
-> +
-> +	arm_smccc_smc(MTK_SIP_KERNEL_CCCI_CONTROL, cmd, 1, 0, 0, 0, 0, 0, &res);
-> +
-> +	return res.a0 == 0;
-> +}
-> +
-> +static int scpsys_modem_sec_power_on(bool on)
-> +{
-> +	struct arm_smccc_res res;
-> +	unsigned long cmd = on ? MTK_MD_MTCMOS_ENABLE : MTK_MD_MTCMOS_DISABLE;
-> +	bool tmp;
-> +	int ret;
-> +
-> +	arm_smccc_smc(MTK_SIP_KERNEL_CCCI_CONTROL, cmd, 0, 0, 0, 0, 0, 0, &res);
-> +	if (res.a0 == 0)
-> +		return 0;
-> +
-> +	ret = readx_poll_timeout(scpsys_modem_sec_poll, cmd, tmp, tmp,
-> +				 MTK_POLL_DELAY_US, MTK_POLL_TIMEOUT);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
->   static int scpsys_power_on(struct generic_pm_domain *genpd)
->   {
->   	struct scpsys_domain *pd = container_of(genpd, struct scpsys_domain, genpd);
-> @@ -633,7 +667,9 @@ static int scpsys_power_on(struct generic_pm_domain *genpd)
->   		regmap_clear_bits(scpsys->base, pd->data->ext_buck_iso_offs,
->   				  pd->data->ext_buck_iso_mask);
->   
-> -	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
-> +	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_SECURE))
-> +		ret = scpsys_modem_sec_power_on(true);
-> +	else if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
->   		ret = scpsys_modem_pwrseq_on(pd);
+> [Severity: Low]
+> Does this cause a compilation error?
+No
 
-So we can have either cap MTK_SCPD_MODEM_SECURE or MTK_SCPD_MODEM_PWRSEQ but...
+> The abs() macro in the kernel strictly checks for signed types, but the
+> result of the subtraction here is unsigned.
+I inserted abs_diff instead of abs for u32 variables. It is safer.
 
-[...]
+#define abs_diff(a, b) ({ \
+typeof(a) __a =3D (a); \
+typeof(b) __b =3D (b); \
+(void)(&__a =3D=3D &__b); \
+__a > __b ? (__a - __b) : (__b - __a); \
+})
 
-> @@ -719,10 +761,12 @@ static int scpsys_power_off(struct generic_pm_domain *genpd)
->   	if (ret < 0)
->   		return ret;
->   
-> -	if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
-> -		scpsys_modem_pwrseq_off(pd);
-> -	else
-> -		scpsys_ctl_pwrseq_off(pd);
-> +	if (!MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_SECURE)) {
-> +		if (MTK_SCPD_CAPS(pd, MTK_SCPD_MODEM_PWRSEQ))
+> [Severity: High]
+> If the bootloader configured RGMII delays, are they left intact here?
+>
+> By not setting the mask to clear the delays for pure RGMII mode, this
+> leaves the PHY with whatever delays were previously configured, violating
+> the RGMII interface contract.
+It will be fixed.
 
-... here it seems that a power domain could have both caps set. I suppose this 
-second case does not exist, but code should treat just one of the two cases 
-(mutual exclusive or not mutual exclusive).
+> [Severity: High]
+> Does this write actually trigger the software reset?
+>
+> This clears the reset bit by passing 0 for the set argument, instead of
+> asserting it by writing DAP8211R_PHY_SW_RST.
+In dap8211r's datasheet the low is active for this reset. I will
+comment it in the driver.
 
-Regards,
-Matthias
+> [Severity: Low]
+> Would it be safer to poll the self-clearing reset bit instead of using a
+> fixed sleep?
+>
+> A fixed sleep might fail if the hardware reset takes longer than expected=
+,
+> and contradicts the comment about waiting for a self-clear.
+Agree, it will be fixed.
+
+> [Severity: Medium]
+> Is it safe to modify MII_BMCR here without acquiring phydev->lock?
+>
+> Concurrent execution of the phylib state machine might race with this
+> debugfs write, leading to corrupted link state.
+As I see, the phy_modify acquires the lock internally.
+
+/**
+ * phy_modify - Convenience function for modifying a given PHY register
+ * @phydev: the phy_device struct
+ * @regnum: register number to write
+ * @mask: bit mask of bits to clear
+ * @set: new value of bits set in mask to write to @regnum
+ *
+ * NOTE: MUST NOT be called from interrupt context,
+ * because the bus read/write functions may wait for an interrupt
+ * to conclude the operation.
+ */
+int phy_modify(struct phy_device *phydev, u32 regnum, u16 mask, u16 set)
+{
+int ret;
+
+phy_lock_mdio_bus(phydev);
+ret =3D __phy_modify(phydev, regnum, mask, set);
+phy_unlock_mdio_bus(phydev);
+
+return ret;
+}
+EXPORT_SYMBOL_GPL(phy_modify);
+
+> [Severity: Medium]
+> Does the else branch intentionally destroy the previous BMCR state?
+>
+> By unconditionally writing BMCR_ANENABLE to 1 when disabling the packet
+> generator, any manual speed or duplex settings previously configured by t=
+he
+> user via ethtool will be overwritten.
+No at all, it changes only loopback and AN fields.
+
+--
+Best regards,
+Artem
