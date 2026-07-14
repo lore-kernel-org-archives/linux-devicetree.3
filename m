@@ -1,60 +1,60 @@
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0A441F356
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26EE41F34A
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784057840; cv=none; b=lb1ynDk2QAbi/rDVinMBSf5ufXlQaYRXTtclel/jlqMz7uZCKMr46PSNmcWOEpSRP61s8Fu7j0umln/RKhE5zo4QaroGMRuxCDQnIqFFoJ1r0UDji1QdsLHwr+ywAzsnhoSjbrFAwCYeNnSMpb+CQMcQYyXtMBqxUpY1XxayKjo=
+	t=1784057841; cv=none; b=DAn/VkQkH0yEPOxb9wk7GKH5hh5bWg29dFAwxDsLjW84J7av+bwcbrSirLNdKHqbLe6Mqt6cg6E2hILm28eGn5ySfAk8Vyrvloydo4ISNHWH5XlkCF57kr9UVJrpL8GW+LNQ3P2tc0nLgOFyHpExsYzzknaHLAO0xRe+hMeskfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784057840; c=relaxed/simple;
-	bh=H7OlT0bft/5HFAZfRGkDB9cB41sIti5GzgcKzhdN/2U=;
+	s=arc-20240116; t=1784057841; c=relaxed/simple;
+	bh=vciOEEUwbExYZo05myQwUPm5X6S4Ev5qscy+xrX2kBY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h0hGynmEe0Idm+/Qfwo2fhlwWXdjO0Fr3AVStK5QHEAJG95Y6/Qt+JRDO/XtrWf54ccpKnn7AGfEJaFLE7523kA7KqiNclaFQgY3asddzT1fPFOeYZ0RikBI7yGx3JNjZq+dnvIDcXtG62O51AMSr+0ItMpF+Xo1iUPz89sjgy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=aEARuYor; arc=none smtp.client-ip=209.85.210.41
+	 MIME-Version; b=RPYJEOuSKKDe6g3BDUueGxotgHz+U/Mp7WcVJFyCqzsxpHC8xfCH2pfnfUOF7wuPfuouRi/2Oq+V1DuabvenaUwgx79hdYDUShQER0LvoG44eQS6PFjJ4c8k4Wr7I4XiKoe4kgJ4VzysbNeuqn6ZbZJ/nUR3zd7Vn5V9wbADNHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TJ9oZqtQ; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="aEARuYor"
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-7e9f5637634so823560a34.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:37:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TJ9oZqtQ"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7eb1dc6bd53so2555769a34.2
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:37:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784057837; x=1784662637; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1784057836; x=1784662636; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pBu5PO50COeanzLU9hRHdGtnyMlkKFNMWpi+El+MyHI=;
-        b=aEARuYor1TU0POr8GzkcXnUIDnbgGwxRB5R5yV9qa35Wu1vZyupkqQRK2C/appzs9i
-         5QOIglJX1inVbl83vG43l1G4YnZEWhL5Ag7g1Uq1k1n0QUJwlcRAXw5ksZ3eBkfhBISu
-         sSXRgL5ur3Mu5Y4/NDNG6z4J8gLAWlGBqg00Y=
+        bh=uY+BsHv4KgXvCbYI+Kml/PiAFijVJ4ZTxGuDLLQ3UAw=;
+        b=TJ9oZqtQ6p3xs16sMwT1249P7vVW9j+JFQkzyNGdN3C6Ydp1ArW3RxOjg15MUc7ami
+         +3r8lcK1mNuiuwpqXb7P0V9pkFracmcfjVmD72Z5e/fNQj0vERdCAayrIBZhNFrSw91R
+         xT9esiPRPRRBAGY8BW407QNNZRAaX1ZZk2RU8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784057837; x=1784662637;
+        d=1e100.net; s=20251104; t=1784057836; x=1784662636;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pBu5PO50COeanzLU9hRHdGtnyMlkKFNMWpi+El+MyHI=;
-        b=R8VED9etwU/mcd2vWtD3mc0uumIXUcKevGxDpt/Pdef8ji8WAAqTHk4vU96efwCAKk
-         B85t+2qzwJR8UueDkWMWBeN0Mj+apnJhzLcHwkq3KeeyuFmARq4nevOPIAkYp9h9dhSh
-         5PKpWfxhGyEatI+sm0UUaT4z2zdpIrRo/AiFbyuCAbKyQZIxKPkoNaq/Yx3B4xFqdbPe
-         VwFORRl7UEFSseYDe6PfjsSdUgMAOUeiMAMQvhNXm1VPD5kjYFsrrapdspphqzD44ScA
-         2zK1r9xEy6EavEBMIfbvInV5UiLz2YPhLzUIo61tCQyOuP6e3w/5Y1Id/XGATosCLT8p
-         0W0A==
-X-Forwarded-Encrypted: i=1; AFNElJ9AEwr6CcMxVoIpAV60k/uuuMFDISNT9EmxeWyrPpXIyR9rHAQtHMYw8tjgTUb8pFRt6YW9C7xLWOrp@vger.kernel.org
-X-Gm-Message-State: AOJu0YynunnlRyC/g0AWGY4dgEAkegiifM+e2G11oK2FMdr5secKmDpn
-	H9XI6/5+TTQBq6rsA2V5shFioZ2jDHFvbssboYBaTF2JvWaeW0InoDz0AD7AqvXQhA==
-X-Gm-Gg: AfdE7cmoBfVkMw7vFg7T4UmD0FW7xPRGFwGi0pUfBXjAf0d4DmCkG98d0RK6jRjcjMZ
-	pXWemq0l1nGrk5Svraak/Dd3Kv5fek8SnVckwXMgofzYE87bP+zskEiqdn1wn0Rg/YyXQIDP4Pl
-	uv7kEdcN3jqzRf7wZ+uc2+0xsFGJubKqAkyQ4AvHx770g8yNS/cq3XHRdjnsMvcD9ms1y8U0pR/
-	dB2XryhLLEEkmwpQ0i6yIhp9PgoS9Hl6wz5QtYvc2BQ88Muce1BXvHcmovWzfNE62GwBIG1cwUW
-	dsbTDg3vSg6xIJNfUKiznmuR5pk1gDUyrA/mY7t0fEPplMSmp5E486wqLgPB9pgg5JYbmo9QBUV
-	rOg9FdJXUECp12hNAbzne/50KwHaza3RaLrnBWhMxSaShXGTQoeJs8D5v92OBx9nh1J1utVcj2A
-	W6oqUUvNMhYZi5DoVH/g==
-X-Received: by 2002:a05:6830:2b25:b0:7dc:db3c:1d82 with SMTP id 46e09a7af769-7ec0963a968mr8895929a34.10.1784057837546;
-        Tue, 14 Jul 2026 12:37:17 -0700 (PDT)
+        bh=uY+BsHv4KgXvCbYI+Kml/PiAFijVJ4ZTxGuDLLQ3UAw=;
+        b=QFXxvan0JmZc0jV3PxDuKzbThyx/dORBeEBcCbwdwCNhM+5b/7roh8oDHALmik10Zo
+         LVCdr3ZSgazsla2NITHoEO5LA5P0U3z8UT/OFWZraMX6228BzkdhOrb0uERXzjI+1cSH
+         Zyh/D+qKccjHyMvHi/eR93bECIgbKq3Jv9vcHq83DFRzm54SJUn/bazA0on0qZq68RFf
+         O3TBX9IMjG8Qg5KCO/JFP4Og+VZyRb9Q0lb9aLCPUqgyt75QeykAIEzjs59ZVGbsunh4
+         L8hzojlE0gAKaoJNXTAp2PdoflrYvdq6x4yjeDFsQJWvwykgBznjrYmmp/ta3kdkt29c
+         GoNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8BPEdFSmasvxZBj7TNCgVclv1zSPwml7ns5ugQFBw7XahLxGn58O92b4ISqWV+vZAC9bw5LzVngeMi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6JbPvaONjbTbefa8ryCQwDeIdRnsY/ajyIOnAn6HZwlXseM1V
+	GEKcAM903E51Ac7X1OnOru4Dy+yvPAHBf1MssbYD7n5xsroRK97JAG4HWIcuXqdCAw==
+X-Gm-Gg: AfdE7cnPgrhcOn1WZFOhDfIDILWVJ2cVM3bFNPytf1DIhPI/6IEJCC+wzWV0JDsntrL
+	ntFAbg+Gqeb+O/0HxlxNHV596NFEUXkKGwBZ3J/QUFZr8THplVAWhawE7xZ7MP85LFFYkq82vQP
+	FAIwR+nApo/M1D4RtrKPg1/sPgdLmMyFUBxTlpwvwCc0Zqs/q0BcA3k1qsxxaw4BW/4VB8A6pRA
+	4DnLBYvedUttyXqBwnedSvnpSVut/xlIF95falGCb0ZklTikfEdOyLalRhlD549wGYkIr0V04Ku
+	nmNiG1lXgwE7c6qZGXq+HHACRvfAcdwhPNAnWo47i3utapSxSjBzqVpjNt4sOUe39HXRH9OZ1Ab
+	e7RbwNJ1G2K6yp7tyoJRr9DMHI3BnLrrFY5qN9DeftClux2GWe59OY3EUrHpLHxd4baISh2EffW
+	92iX8i8nBT9fQTPHOh4Q==
+X-Received: by 2002:a05:6830:3509:b0:7e9:d67e:b4e with SMTP id 46e09a7af769-7ec4ab3f17cmr2004081a34.17.1784057835495;
+        Tue, 14 Jul 2026 12:37:15 -0700 (PDT)
 Received: from chromium.org ([174.51.25.52])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcaf742e1sm16004026a34.8.2026.07.14.12.37.16
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7ebcaf742e1sm16004026a34.8.2026.07.14.12.37.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 12:37:16 -0700 (PDT)
+        Tue, 14 Jul 2026 12:37:14 -0700 (PDT)
 From: Simon Glass <sjg@chromium.org>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: Fabio Estevam <festevam@nabladev.com>,
@@ -64,18 +64,15 @@ Cc: Fabio Estevam <festevam@nabladev.com>,
 	linux-rockchip@lists.infradead.org,
 	Simon Glass <sjg@chromium.org>,
 	Albert Aribaud <albert.u.boot@aribaud.net>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
 	Conor Dooley <conor+dt@kernel.org>,
-	FUKAUMI Naoki <naoki@radxa.com>,
 	Jeffy Chen <jeffy.chen@rock-chips.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
 	Rob Herring <robh@kernel.org>,
 	huang lin <hl@rock-chips.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/6] dt-bindings: arm: rockchip: Add Luckfox Pico Mini B
-Date: Tue, 14 Jul 2026 13:36:42 -0600
-Message-ID: <20260714193656.2196447-6-sjg@chromium.org>
+Subject: [PATCH v2 4/6] ARM: dts: rockchip: Add support for RV1106 and RV1103
+Date: Tue, 14 Jul 2026 13:36:41 -0600
+Message-ID: <20260714193656.2196447-5-sjg@chromium.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260714193656.2196447-1-sjg@chromium.org>
 References: <20260714193656.2196447-1-sjg@chromium.org>
@@ -87,33 +84,1786 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the compatible for the Luckfox Pico Mini B, a small board using
-the Rockchip RV1103 with 64MB of in-package DDR2 and a 128MB SPI NAND.
+Add the devicetree files for the Rockchip RV1106, a Cortex-A7 SoC
+aimed at IP cameras, and its RV1103 package variant, which has fewer
+pins and no GPIO2 bank. The pinctrl data comes from the vendor kernel in
+the Luckfox Pico  SDK [1] at commit 824b817f8 (a Linux 5.10.160 kernel
+tree).
+
+[1] https://github.com/LuckfoxTECH/luckfox-pico
 
 Signed-off-by: Simon Glass <sjg@chromium.org>
 ---
 
-(no changes since v1)
+Changes in v2:
+- Take the MMC drive and sample phase clocks from the CRU and drop the
+  grf-cru node
+- Give each GPIO bank a syscon for its own IOC block, referenced by a
+  rockchip,grf phandle in the bank node
+- Add gpio aliases, which the pin controller and gpio drivers use to
+  identify the bank; the rv1103 removes the gpio2 alias
 
- Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm/boot/dts/rockchip/rv1103.dtsi        |   16 +
+ .../arm/boot/dts/rockchip/rv1106-pinctrl.dtsi | 1398 +++++++++++++++++
+ arch/arm/boot/dts/rockchip/rv1106.dtsi        |  321 ++++
+ 3 files changed, 1735 insertions(+)
+ create mode 100644 arch/arm/boot/dts/rockchip/rv1103.dtsi
+ create mode 100644 arch/arm/boot/dts/rockchip/rv1106-pinctrl.dtsi
+ create mode 100644 arch/arm/boot/dts/rockchip/rv1106.dtsi
 
-diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
-index 1a9dde18626d..711029ee78af 100644
---- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-+++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-@@ -813,6 +813,11 @@ properties:
-           - const: netxeon,r89
-           - const: rockchip,rk3288
- 
-+      - description: Luckfox Pico Mini B
-+        items:
-+          - const: luckfox,pico-mini-b
-+          - const: rockchip,rv1103
+diff --git a/arch/arm/boot/dts/rockchip/rv1103.dtsi b/arch/arm/boot/dts/rockchip/rv1103.dtsi
+new file mode 100644
+index 000000000000..025fde5bf09c
+--- /dev/null
++++ b/arch/arm/boot/dts/rockchip/rv1103.dtsi
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
++ */
 +
-       - description: Onion Omega4 Evaluation board
-         items:
-           - const: onion,omega4-evb
++#include "rv1106.dtsi"
++
++/ {
++	compatible = "rockchip,rv1103";
++
++	aliases {
++		/delete-property/ gpio2;
++	};
++};
++
++/delete-node/ &gpio2;
+diff --git a/arch/arm/boot/dts/rockchip/rv1106-pinctrl.dtsi b/arch/arm/boot/dts/rockchip/rv1106-pinctrl.dtsi
+new file mode 100644
+index 000000000000..289634f5adb3
+--- /dev/null
++++ b/arch/arm/boot/dts/rockchip/rv1106-pinctrl.dtsi
+@@ -0,0 +1,1398 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
++ */
++
++#include <dt-bindings/pinctrl/rockchip.h>
++#include <arm64/rockchip/rockchip-pinconf.dtsi>
++
++/*
++ * This file is auto generated by pin2dts tool, please keep these code
++ * by adding changes at end of this file.
++ */
++&pinctrl {
++	adc {
++		/omit-if-no-ref/
++		adc_pins: adc-pins {
++			rockchip,pins =
++				/* adc_in0 */
++				<4 RK_PC0 1 &pcfg_pull_none>,
++				/* adc_in1 */
++				<4 RK_PC1 1 &pcfg_pull_none>;
++		};
++	};
++
++	avs {
++		/omit-if-no-ref/
++		avs_pins: avs-pins {
++			rockchip,pins =
++				/* avs_arm */
++				<1 RK_PA2 2 &pcfg_pull_none>;
++		};
++	};
++
++	clk {
++		/omit-if-no-ref/
++		clk_32k: clk-32k {
++			rockchip,pins =
++				/* clk_32k */
++				<0 RK_PA0 2 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		clk_refout: clk-refout {
++			rockchip,pins =
++				/* clk_refout */
++				<0 RK_PA0 3 &pcfg_pull_none>;
++		};
++	};
++
++	dsmaudio {
++		/omit-if-no-ref/
++		dsmaudio_pins: dsmaudio-pins {
++			rockchip,pins =
++				/* dsmaudio_n */
++				<1 RK_PD3 7 &pcfg_pull_none>,
++				/* dsmaudio_p */
++				<1 RK_PD2 7 &pcfg_pull_none>;
++		};
++	};
++
++	emmc {
++		/omit-if-no-ref/
++		emmc_bus8: emmc-bus8 {
++			rockchip,pins =
++				/* emmc_d0 */
++				<4 RK_PA4 1 &pcfg_pull_up_drv_level_2>,
++				/* emmc_d1 */
++				<4 RK_PA3 1 &pcfg_pull_up_drv_level_2>,
++				/* emmc_d2 */
++				<4 RK_PA2 1 &pcfg_pull_up_drv_level_2>,
++				/* emmc_d3 */
++				<4 RK_PA6 1 &pcfg_pull_up_drv_level_2>,
++				/* emmc_d4 */
++				<4 RK_PA5 1 &pcfg_pull_up_drv_level_2>,
++				/* emmc_d5 */
++				<4 RK_PA7 1 &pcfg_pull_up_drv_level_2>,
++				/* emmc_d6 */
++				<4 RK_PA1 1 &pcfg_pull_up_drv_level_2>,
++				/* emmc_d7 */
++				<4 RK_PA0 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		emmc_clk: emmc-clk {
++			rockchip,pins =
++				/* emmc_clk */
++				<4 RK_PB1 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		emmc_cmd: emmc-cmd {
++			rockchip,pins =
++				/* emmc_cmd */
++				<4 RK_PB0 1 &pcfg_pull_up_drv_level_2>;
++		};
++	};
++
++	flash {
++		/omit-if-no-ref/
++		flash_pins: flash-pins {
++			rockchip,pins =
++				/* flash_trig_out */
++				<2 RK_PA6 6 &pcfg_pull_none>;
++		};
++	};
++
++	fspi {
++		/omit-if-no-ref/
++		fspi_pins: fspi-pins {
++			rockchip,pins =
++				/* fspi_clk */
++				<4 RK_PB1 2 &pcfg_pull_up_drv_level_2>,
++				/* fspi_d0 */
++				<4 RK_PA4 2 &pcfg_pull_none>,
++				/* fspi_d1 */
++				<4 RK_PA3 2 &pcfg_pull_none>,
++				/* fspi_d2 */
++				<4 RK_PA2 2 &pcfg_pull_none>,
++				/* fspi_d3 */
++				<4 RK_PA6 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		fspi_cs0: fspi-cs0 {
++			rockchip,pins =
++				/* fspi_cs0n */
++				<4 RK_PB0 2 &pcfg_pull_up>;
++		};
++	};
++
++	hpmcu {
++		/omit-if-no-ref/
++		hpmcum0_pins: hpmcum0-pins {
++			rockchip,pins =
++				/* hpmcu_jtag_tck_m0 */
++				<1 RK_PB2 3 &pcfg_pull_none>,
++				/* hpmcu_jtag_tms_m0 */
++				<1 RK_PB3 3 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		hpmcum1_pins: hpmcum1-pins {
++			rockchip,pins =
++				/* hpmcu_jtag_tck_m1 */
++				<3 RK_PA7 4 &pcfg_pull_none>,
++				/* hpmcu_jtag_tms_m1 */
++				<3 RK_PA6 4 &pcfg_pull_none>;
++		};
++	};
++
++	i2c0 {
++		/omit-if-no-ref/
++		i2c0m0_xfer: i2c0m0-xfer {
++			rockchip,pins =
++				/* i2c0_scl_m0 */
++				<1 RK_PA3 2 &pcfg_pull_none_smt>,
++				/* i2c0_sda_m0 */
++				<1 RK_PA4 2 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c0m1_xfer: i2c0m1-xfer {
++			rockchip,pins =
++				/* i2c0_scl_m1 */
++				<4 RK_PA1 4 &pcfg_pull_none_smt>,
++				/* i2c0_sda_m1 */
++				<4 RK_PA0 4 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c0m2_xfer: i2c0m2-xfer {
++			rockchip,pins =
++				/* i2c0_scl_m2 */
++				<3 RK_PA4 3 &pcfg_pull_none_smt>,
++				/* i2c0_sda_m2 */
++				<3 RK_PA5 3 &pcfg_pull_none_smt>;
++		};
++	};
++
++	i2c1 {
++		/omit-if-no-ref/
++		i2c1m0_xfer: i2c1m0-xfer {
++			rockchip,pins =
++				/* i2c1_scl_m0 */
++				<0 RK_PA5 1 &pcfg_pull_none_smt>,
++				/* i2c1_sda_m0 */
++				<0 RK_PA6 1 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c1m1_xfer: i2c1m1-xfer {
++			rockchip,pins =
++				/* i2c1_scl_m1 */
++				<2 RK_PB0 2 &pcfg_pull_none_smt>,
++				/* i2c1_sda_m1 */
++				<2 RK_PB1 2 &pcfg_pull_none_smt>;
++		};
++	};
++
++	i2c2 {
++		/omit-if-no-ref/
++		i2c2m0_xfer: i2c2m0-xfer {
++			rockchip,pins =
++				/* i2c2_scl_m0 */
++				<1 RK_PA0 2 &pcfg_pull_none_smt>,
++				/* i2c2_sda_m0 */
++				<1 RK_PA1 2 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c2m1_xfer: i2c2m1-xfer {
++			rockchip,pins =
++				/* i2c2_scl_m1 */
++				<4 RK_PA7 4 &pcfg_pull_none_smt>,
++				/* i2c2_sda_m1 */
++				<4 RK_PA5 4 &pcfg_pull_none_smt>;
++		};
++	};
++
++	i2c3 {
++		/omit-if-no-ref/
++		i2c3m0_xfer: i2c3m0-xfer {
++			rockchip,pins =
++				/* i2c3_scl_m0 */
++				<2 RK_PA6 5 &pcfg_pull_none_smt>,
++				/* i2c3_sda_m0 */
++				<2 RK_PA7 5 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c3m1_xfer: i2c3m1-xfer {
++			rockchip,pins =
++				/* i2c3_scl_m1 */
++				<1 RK_PD3 3 &pcfg_pull_none_smt>,
++				/* i2c3_sda_m1 */
++				<1 RK_PD2 3 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c3m2_xfer: i2c3m2-xfer {
++			rockchip,pins =
++				/* i2c3_scl_m2 */
++				<3 RK_PD1 3 &pcfg_pull_none_smt>,
++				/* i2c3_sda_m2 */
++				<3 RK_PD2 3 &pcfg_pull_none_smt>;
++		};
++	};
++
++	i2c4 {
++		/omit-if-no-ref/
++		i2c4m0_xfer: i2c4m0-xfer {
++			rockchip,pins =
++				/* i2c4_scl_m0 */
++				<2 RK_PA1 5 &pcfg_pull_none_smt>,
++				/* i2c4_sda_m0 */
++				<2 RK_PA0 5 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c4m1_xfer: i2c4m1-xfer {
++			rockchip,pins =
++				/* i2c4_scl_m1 */
++				<1 RK_PC2 4 &pcfg_pull_none_smt>,
++				/* i2c4_sda_m1 */
++				<1 RK_PC3 4 &pcfg_pull_none_smt>;
++		};
++
++		/omit-if-no-ref/
++		i2c4m2_xfer: i2c4m2-xfer {
++			rockchip,pins =
++				/* i2c4_scl_m2 */
++				<3 RK_PC7 3 &pcfg_pull_none_smt>,
++				/* i2c4_sda_m2 */
++				<3 RK_PD0 3 &pcfg_pull_none_smt>;
++		};
++	};
++
++	i2s0 {
++		/omit-if-no-ref/
++		i2s0_pins: i2s0-pins {
++			rockchip,pins =
++				/* i2s0_lrck */
++				<2 RK_PA1 2 &pcfg_pull_none>,
++				/* i2s0_mclk */
++				<2 RK_PA2 2 &pcfg_pull_none>,
++				/* i2s0_sclk */
++				<2 RK_PA0 2 &pcfg_pull_none>,
++				/* i2s0_sdi0 */
++				<2 RK_PA5 2 &pcfg_pull_none>,
++				/* i2s0_sdo0 */
++				<2 RK_PA4 2 &pcfg_pull_none>,
++				/* i2s0_sdo1_sdi3 */
++				<2 RK_PA7 2 &pcfg_pull_none>,
++				/* i2s0_sdo2_sdi2 */
++				<2 RK_PA6 2 &pcfg_pull_none>,
++				/* i2s0_sdo3_sdi1 */
++				<2 RK_PA3 2 &pcfg_pull_none>;
++		};
++	};
++
++	lcd {
++		/omit-if-no-ref/
++		lcd_pins: lcd-pins {
++			rockchip,pins =
++				/* lcd_clk */
++				<1 RK_PD3 1 &pcfg_pull_none_drv_level_4>,
++				/* lcd_d0 */
++				<1 RK_PC7 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d1 */
++				<1 RK_PC6 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d2 */
++				<1 RK_PC5 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d3 */
++				<1 RK_PC4 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d4 */
++				<1 RK_PC3 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d5 */
++				<1 RK_PC2 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d6 */
++				<1 RK_PC1 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d7 */
++				<1 RK_PC0 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d8 */
++				<2 RK_PA0 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d9 */
++				<2 RK_PA1 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d10 */
++				<2 RK_PA2 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d11 */
++				<2 RK_PA3 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d12 */
++				<2 RK_PA4 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d13 */
++				<2 RK_PA5 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d14 */
++				<2 RK_PA6 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d15 */
++				<2 RK_PA7 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d16 */
++				<2 RK_PB0 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d17 */
++				<2 RK_PB1 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_den */
++				<1 RK_PD0 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_hsync */
++				<1 RK_PD1 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_vsync */
++				<1 RK_PD2 1 &pcfg_pull_none_drv_level_3>;
++		};
++	};
++
++	lpmcu {
++		/omit-if-no-ref/
++		lpmcum0_pins: lpmcum0-pins {
++			rockchip,pins =
++				/* lpmcu_jtag_tck_m0 */
++				<1 RK_PB2 4 &pcfg_pull_none>,
++				/* lpmcu_jtag_tms_m0 */
++				<1 RK_PB3 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		lpmcum1_pins: lpmcum1-pins {
++			rockchip,pins =
++				/* lpmcu_jtag_tck_m1 */
++				<3 RK_PA4 4 &pcfg_pull_none>,
++				/* lpmcu_jtag_tms_m1 */
++				<3 RK_PA5 4 &pcfg_pull_none>;
++		};
++	};
++
++	mipi {
++		/omit-if-no-ref/
++		mipi_pins: mipi-pins {
++			rockchip,pins =
++				/* mipi_lvds_ck0n */
++				<3 RK_PC0 2 &pcfg_pull_none>,
++				/* mipi_lvds_ck0p */
++				<3 RK_PC1 2 &pcfg_pull_none>,
++				/* mipi_lvds_ck1n */
++				<3 RK_PB2 2 &pcfg_pull_none>,
++				/* mipi_lvds_ck1p */
++				<3 RK_PB3 2 &pcfg_pull_none>,
++				/* mipi_lvds_d0n */
++				<3 RK_PC2 2 &pcfg_pull_none>,
++				/* mipi_lvds_d0p */
++				<3 RK_PC3 2 &pcfg_pull_none>,
++				/* mipi_lvds_d1n */
++				<3 RK_PB6 2 &pcfg_pull_none>,
++				/* mipi_lvds_d1p */
++				<3 RK_PB7 2 &pcfg_pull_none>,
++				/* mipi_lvds_d2n */
++				<3 RK_PB4 2 &pcfg_pull_none>,
++				/* mipi_lvds_d2p */
++				<3 RK_PB5 2 &pcfg_pull_none>,
++				/* mipi_lvds_d3n */
++				<3 RK_PB0 2 &pcfg_pull_none>,
++				/* mipi_lvds_d3p */
++				<3 RK_PB1 2 &pcfg_pull_none>;
++		};
++	};
++
++	pmic {
++		/omit-if-no-ref/
++		pmicm0_pins: pmicm0-pins {
++			rockchip,pins =
++				/* pmic_sleep_m0 */
++				<0 RK_PA4 1 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pmicm1_pins: pmicm1-pins {
++			rockchip,pins =
++				/* pmic_sleep_m1 */
++				<0 RK_PA3 1 &pcfg_pull_none>;
++		};
++	};
++
++	pmu {
++		/omit-if-no-ref/
++		pmu_pins: pmu-pins {
++			rockchip,pins =
++				/* pmu_debug */
++				<1 RK_PA1 3 &pcfg_pull_none>;
++		};
++	};
++
++	prelight {
++		/omit-if-no-ref/
++		prelight_pins: prelight-pins {
++			rockchip,pins =
++				/* prelight_trig_out */
++				<2 RK_PA7 6 &pcfg_pull_none>;
++		};
++	};
++
++	pwm0 {
++		/omit-if-no-ref/
++		pwm0m0_pins: pwm0m0-pins {
++			rockchip,pins =
++				/* pwm0_m0 */
++				<1 RK_PA2 1 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm0m1_pins: pwm0m1-pins {
++			rockchip,pins =
++				/* pwm0_m1 */
++				<1 RK_PD2 6 &pcfg_pull_none>;
++		};
++	};
++
++	pwm1 {
++		/omit-if-no-ref/
++		pwm1m0_pins: pwm1m0-pins {
++			rockchip,pins =
++				/* pwm1_m0 */
++				<0 RK_PA4 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm1m1_pins: pwm1m1-pins {
++			rockchip,pins =
++				/* pwm1_m1 */
++				<4 RK_PC1 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm1m2_pins: pwm1m2-pins {
++			rockchip,pins =
++				/* pwm1_m2 */
++				<3 RK_PD3 2 &pcfg_pull_none>;
++		};
++	};
++
++	pwm2 {
++		/omit-if-no-ref/
++		pwm2m0_pins: pwm2m0-pins {
++			rockchip,pins =
++				/* pwm2_m0 */
++				<0 RK_PA1 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm2m1_pins: pwm2m1-pins {
++			rockchip,pins =
++				/* pwm2_m1 */
++				<2 RK_PA6 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm2m2_pins: pwm2m2-pins {
++			rockchip,pins =
++				/* pwm2_m2 */
++				<1 RK_PC0 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm3 {
++		/omit-if-no-ref/
++		pwm3m0_pins: pwm3m0-pins {
++			rockchip,pins =
++				/* pwm3_ir_m0 */
++				<0 RK_PA2 1 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm3m1_pins: pwm3m1-pins {
++			rockchip,pins =
++				/* pwm3_ir_m1 */
++				<1 RK_PB0 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm3m2_pins: pwm3m2-pins {
++			rockchip,pins =
++				/* pwm3_ir_m2 */
++				<1 RK_PD0 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm4 {
++		/omit-if-no-ref/
++		pwm4m0_pins: pwm4m0-pins {
++			rockchip,pins =
++				/* pwm4_m0 */
++				<1 RK_PA1 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm4m1_pins: pwm4m1-pins {
++			rockchip,pins =
++				/* pwm4_m1 */
++				<2 RK_PA7 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm4m2_pins: pwm4m2-pins {
++			rockchip,pins =
++				/* pwm4_m2 */
++				<1 RK_PC1 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm5 {
++		/omit-if-no-ref/
++		pwm5m0_pins: pwm5m0-pins {
++			rockchip,pins =
++				/* pwm5_m0 */
++				<0 RK_PA5 3 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm5m1_pins: pwm5m1-pins {
++			rockchip,pins =
++				/* pwm5_m1 */
++				<2 RK_PB0 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm5m2_pins: pwm5m2-pins {
++			rockchip,pins =
++				/* pwm5_m2 */
++				<1 RK_PC2 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm6 {
++		/omit-if-no-ref/
++		pwm6m0_pins: pwm6m0-pins {
++			rockchip,pins =
++				/* pwm6_m0 */
++				<0 RK_PA6 3 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm6m1_pins: pwm6m1-pins {
++			rockchip,pins =
++				/* pwm6_m1 */
++				<2 RK_PB1 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm6m2_pins: pwm6m2-pins {
++			rockchip,pins =
++				/* pwm6_m2 */
++				<1 RK_PC3 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm7 {
++		/omit-if-no-ref/
++		pwm7m0_pins: pwm7m0-pins {
++			rockchip,pins =
++				/* pwm7_ir_m0 */
++				<1 RK_PA0 3 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm7m1_pins: pwm7m1-pins {
++			rockchip,pins =
++				/* pwm7_ir_m1 */
++				<1 RK_PB1 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm7m2_pins: pwm7m2-pins {
++			rockchip,pins =
++				/* pwm7_ir_m2 */
++				<3 RK_PC6 2 &pcfg_pull_none>;
++		};
++	};
++
++	pwm8 {
++		/omit-if-no-ref/
++		pwm8m0_pins: pwm8m0-pins {
++			rockchip,pins =
++				/* pwm8_m0 */
++				<3 RK_PA3 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm8m1_pins: pwm8m1-pins {
++			rockchip,pins =
++				/* pwm8_m1 */
++				<1 RK_PC4 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm9 {
++		/omit-if-no-ref/
++		pwm9m0_pins: pwm9m0-pins {
++			rockchip,pins =
++				/* pwm9_m0 */
++				<3 RK_PA2 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm9m1_pins: pwm9m1-pins {
++			rockchip,pins =
++				/* pwm9_m1 */
++				<1 RK_PC5 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm10 {
++		/omit-if-no-ref/
++		pwm10m0_pins: pwm10m0-pins {
++			rockchip,pins =
++				/* pwm10_m0 */
++				<3 RK_PA4 5 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm10m1_pins: pwm10m1-pins {
++			rockchip,pins =
++				/* pwm10_m1 */
++				<1 RK_PC6 3 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm10m2_pins: pwm10m2-pins {
++			rockchip,pins =
++				/* pwm10_m2 */
++				<1 RK_PD1 3 &pcfg_pull_none>;
++		};
++	};
++
++	pwm11 {
++		/omit-if-no-ref/
++		pwm11m0_pins: pwm11m0-pins {
++			rockchip,pins =
++				/* pwm11_ir_m0 */
++				<3 RK_PA5 5 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm11m1_pins: pwm11m1-pins {
++			rockchip,pins =
++				/* pwm11_ir_m1 */
++				<1 RK_PC7 3 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		pwm11m2_pins: pwm11m2-pins {
++			rockchip,pins =
++				/* pwm11_ir_m2 */
++				<1 RK_PD3 5 &pcfg_pull_none>;
++		};
++	};
++
++	rtc {
++		/omit-if-no-ref/
++		rtc_pins: rtc-pins {
++			rockchip,pins =
++				/* rtc_clko */
++				<0 RK_PA0 4 &pcfg_pull_none>;
++		};
++	};
++
++	sdmmc0 {
++		/omit-if-no-ref/
++		sdmmc0_bus4: sdmmc0-bus4 {
++			rockchip,pins =
++				/* sdmmc0_d0 */
++				<3 RK_PA3 1 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc0_d1 */
++				<3 RK_PA2 1 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc0_d2 */
++				<3 RK_PA7 1 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc0_d3 */
++				<3 RK_PA6 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc0_clk: sdmmc0-clk {
++			rockchip,pins =
++				/* sdmmc0_clk */
++				<3 RK_PA4 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc0_cmd: sdmmc0-cmd {
++			rockchip,pins =
++				/* sdmmc0_cmd */
++				<3 RK_PA5 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc0_det: sdmmc0-det {
++			rockchip,pins =
++				/* sdmmc0_det */
++				<3 RK_PA1 1 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc0_idle_pins: sdmmc0-idle-pins {
++			rockchip,pins =
++				<3 RK_PA2 RK_FUNC_GPIO &pcfg_pull_down>,
++				<3 RK_PA3 RK_FUNC_GPIO &pcfg_pull_down>,
++				<3 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>,
++				<3 RK_PA5 RK_FUNC_GPIO &pcfg_pull_down>,
++				<3 RK_PA6 RK_FUNC_GPIO &pcfg_pull_down>,
++				<3 RK_PA7 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++	};
++
++	sdmmc1 {
++		/omit-if-no-ref/
++		sdmmc1m0_bus1: sdmmc1m0-bus1 {
++			rockchip,pins =
++				/* sdmmc1_d0_m0 */
++				<2 RK_PA1 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m0_bus4: sdmmc1m0-bus4 {
++			rockchip,pins =
++				/* sdmmc1_d0_m0 */
++				<2 RK_PA1 1 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc1_d1_m0 */
++				<2 RK_PA0 1 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc1_d2_m0 */
++				<2 RK_PA5 1 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc1_d3_m0 */
++				<2 RK_PA4 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m0_clk: sdmmc1m0-clk {
++			rockchip,pins =
++				/* sdmmc1_clk_m0 */
++				<2 RK_PA2 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m0_cmd: sdmmc1m0-cmd {
++			rockchip,pins =
++				/* sdmmc1_cmd_m0 */
++				<2 RK_PA3 1 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m0_idle_pins: sdmmc1m0-idle-pins {
++			rockchip,pins =
++				<2 RK_PA0 RK_FUNC_GPIO &pcfg_pull_down>,
++				<2 RK_PA1 RK_FUNC_GPIO &pcfg_pull_down>,
++				<2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_down>,
++				<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_down>,
++				<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>,
++				<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m1_bus4: sdmmc1m1-bus4 {
++			rockchip,pins =
++				/* sdmmc1_d0_m1 */
++				<1 RK_PC1 5 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc1_d1_m1 */
++				<1 RK_PC0 5 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc1_d2_m1 */
++				<1 RK_PC5 5 &pcfg_pull_up_drv_level_2>,
++				/* sdmmc1_d3_m1 */
++				<1 RK_PC4 5 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m1_clk: sdmmc1m1-clk {
++			rockchip,pins =
++				/* sdmmc1_clk_m1 */
++				<1 RK_PC2 5 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m1_cmd: sdmmc1m1-cmd {
++			rockchip,pins =
++				/* sdmmc1_cmd_m1 */
++				<1 RK_PC3 5 &pcfg_pull_up_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		sdmmc1m1_idle_pins: sdmmc1m1-idle-pins {
++			rockchip,pins =
++				<1 RK_PC0 RK_FUNC_GPIO &pcfg_pull_down>,
++				<1 RK_PC1 RK_FUNC_GPIO &pcfg_pull_down>,
++				<1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_down>,
++				<1 RK_PC3 RK_FUNC_GPIO &pcfg_pull_down>,
++				<1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_down>,
++				<1 RK_PC5 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++	};
++
++	spi0 {
++		/omit-if-no-ref/
++		spi0m0_pins: spi0m0-pins {
++			rockchip,pins =
++				/* spi0_clk_m0 */
++				<1 RK_PC1 4 &pcfg_pull_none>,
++				/* spi0_miso_m0 */
++				<1 RK_PC3 6 &pcfg_pull_none>,
++				/* spi0_mosi_m0 */
++				<1 RK_PC2 6 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		spi0m0_cs0: spi0m0-cs0 {
++			rockchip,pins =
++				/* spi0_cs0n_m0 */
++				<1 RK_PC0 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		spi0m0_cs1: spi0m0-cs1 {
++			rockchip,pins =
++				/* spi0_cs1n_m0 */
++				<1 RK_PD2 5 &pcfg_pull_none>;
++		};
++	};
++
++	spi1 {
++		/omit-if-no-ref/
++		spi1m0_pins: spi1m0-pins {
++			rockchip,pins =
++				/* spi1_clk_m0 */
++				<4 RK_PA7 2 &pcfg_pull_none>,
++				/* spi1_miso_m0 */
++				<4 RK_PA0 2 &pcfg_pull_none>,
++				/* spi1_mosi_m0 */
++				<4 RK_PA1 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		spi1m0_cs0: spi1m0-cs0 {
++			rockchip,pins =
++				/* spi1_cs0n_m0 */
++				<4 RK_PA5 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		spi1m0_cs1: spi1m0-cs1 {
++			rockchip,pins =
++				/* spi1_cs1n_m0 */
++				<1 RK_PB1 3 &pcfg_pull_none>;
++		};
++	};
++
++	uart0 {
++		/omit-if-no-ref/
++		uart0m0_xfer: uart0m0-xfer {
++			rockchip,pins =
++				/* uart0_rx_m0 */
++				<0 RK_PA0 1 &pcfg_pull_up>,
++				/* uart0_tx_m0 */
++				<0 RK_PA1 1 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart0m1_xfer: uart0m1-xfer {
++			rockchip,pins =
++				/* uart0_rx_m1 */
++				<2 RK_PB0 1 &pcfg_pull_up>,
++				/* uart0_tx_m1 */
++				<2 RK_PB1 1 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart0m1_ctsn: uart0m1-ctsn {
++			rockchip,pins =
++				/* uart0m1_ctsn */
++				<2 RK_PA7 1 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		uart0m1_rtsn: uart0m1-rtsn {
++			rockchip,pins =
++				/* uart0m1_rtsn */
++				<2 RK_PA6 1 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		uart0m2_xfer: uart0m2-xfer {
++			rockchip,pins =
++				/* uart0_rx_m2 */
++				<4 RK_PA0 3 &pcfg_pull_up>,
++				/* uart0_tx_m2 */
++				<4 RK_PA1 3 &pcfg_pull_up>;
++		};
++	};
++
++	uart1 {
++		/omit-if-no-ref/
++		uart1m0_xfer: uart1m0-xfer {
++			rockchip,pins =
++				/* uart1_rx_m0 */
++				<1 RK_PA4 1 &pcfg_pull_up>,
++				/* uart1_tx_m0 */
++				<1 RK_PA3 1 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart1m0_ctsn: uart1m0-ctsn {
++			rockchip,pins =
++				/* uart1m0_ctsn */
++				<0 RK_PA6 2 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		uart1m0_rtsn: uart1m0-rtsn {
++			rockchip,pins =
++				/* uart1m0_rtsn */
++				<0 RK_PA5 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		uart1m1_xfer: uart1m1-xfer {
++			rockchip,pins =
++				/* uart1_rx_m1 */
++				<2 RK_PA5 4 &pcfg_pull_up>,
++				/* uart1_tx_m1 */
++				<2 RK_PA4 4 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart1m1_ctsn: uart1m1-ctsn {
++			rockchip,pins =
++				/* uart1m1_ctsn */
++				<2 RK_PA0 4 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		uart1m1_rtsn: uart1m1-rtsn {
++			rockchip,pins =
++				/* uart1m1_rtsn */
++				<2 RK_PA1 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		uart1m2_xfer: uart1m2-xfer {
++			rockchip,pins =
++				/* uart1_rx_m2 */
++				<4 RK_PA7 3 &pcfg_pull_up>,
++				/* uart1_tx_m2 */
++				<4 RK_PA5 3 &pcfg_pull_up>;
++		};
++	};
++
++	uart2 {
++		/omit-if-no-ref/
++		uart2m0_xfer: uart2m0-xfer {
++			rockchip,pins =
++				/* uart2_rx_m0 */
++				<3 RK_PA3 2 &pcfg_pull_up>,
++				/* uart2_tx_m0 */
++				<3 RK_PA2 2 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart2m1_xfer: uart2m1-xfer {
++			rockchip,pins =
++				/* uart2_rx_m1 */
++				<1 RK_PB3 2 &pcfg_pull_up>,
++				/* uart2_tx_m1 */
++				<1 RK_PB2 2 &pcfg_pull_up>;
++		};
++	};
++
++	uart3 {
++		/omit-if-no-ref/
++		uart3m0_xfer: uart3m0-xfer {
++			rockchip,pins =
++				/* uart3_rx_m0 */
++				<1 RK_PA1 1 &pcfg_pull_up>,
++				/* uart3_tx_m0 */
++				<1 RK_PA0 1 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart3m1_xfer: uart3m1-xfer {
++			rockchip,pins =
++				/* uart3_rx_m1 */
++				<1 RK_PD1 5 &pcfg_pull_up>,
++				/* uart3_tx_m1 */
++				<1 RK_PD0 5 &pcfg_pull_up>;
++		};
++	};
++
++	uart4 {
++		/omit-if-no-ref/
++		uart4m0_xfer: uart4m0-xfer {
++			rockchip,pins =
++				/* uart4_rx_m0 */
++				<1 RK_PB0 1 &pcfg_pull_up>,
++				/* uart4_tx_m0 */
++				<1 RK_PB1 1 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart4m1_xfer: uart4m1-xfer {
++			rockchip,pins =
++				/* uart4_rx_m1 */
++				<1 RK_PC4 4 &pcfg_pull_up>,
++				/* uart4_tx_m1 */
++				<1 RK_PC5 4 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart4m1_ctsn: uart4m1-ctsn {
++			rockchip,pins =
++				/* uart4m1_ctsn */
++				<1 RK_PC7 4 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		uart4m1_rtsn: uart4m1-rtsn {
++			rockchip,pins =
++				/* uart4m1_rtsn */
++				<1 RK_PC6 4 &pcfg_pull_none>;
++		};
++	};
++
++	uart5 {
++		/omit-if-no-ref/
++		uart5m0_xfer: uart5m0-xfer {
++			rockchip,pins =
++				/* uart5_rx_m0 */
++				<3 RK_PA7 2 &pcfg_pull_up>,
++				/* uart5_tx_m0 */
++				<3 RK_PA6 2 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart5m0_ctsn: uart5m0-ctsn {
++			rockchip,pins =
++				/* uart5m0_ctsn */
++				<3 RK_PA5 2 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		uart5m0_rtsn: uart5m0-rtsn {
++			rockchip,pins =
++				/* uart5m0_rtsn */
++				<3 RK_PA4 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		uart5m1_xfer: uart5m1-xfer {
++			rockchip,pins =
++				/* uart5_rx_m1 */
++				<1 RK_PD2 4 &pcfg_pull_up>,
++				/* uart5_tx_m1 */
++				<1 RK_PD3 4 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart5m1_ctsn: uart5m1-ctsn {
++			rockchip,pins =
++				/* uart5m1_ctsn */
++				<1 RK_PD1 4 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		uart5m1_rtsn: uart5m1-rtsn {
++			rockchip,pins =
++				/* uart5m1_rtsn */
++				<1 RK_PD0 4 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		uart5m2_xfer: uart5m2-xfer {
++			rockchip,pins =
++				/* uart5_rx_m2 */
++				<3 RK_PD0 2 &pcfg_pull_up>,
++				/* uart5_tx_m2 */
++				<3 RK_PC7 2 &pcfg_pull_up>;
++		};
++
++		/omit-if-no-ref/
++		uart5m2_ctsn: uart5m2-ctsn {
++			rockchip,pins =
++				/* uart5m2_ctsn */
++				<3 RK_PD2 2 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		uart5m2_rtsn: uart5m2-rtsn {
++			rockchip,pins =
++				/* uart5m2_rtsn */
++				<3 RK_PD1 2 &pcfg_pull_none>;
++		};
++	};
++
++	vicap {
++		/omit-if-no-ref/
++		vicapm0_pins: vicapm0-pins {
++			rockchip,pins =
++				/* vicap_clkin_m0 */
++				<3 RK_PC2 1 &pcfg_pull_none>,
++				/* vicap_d0_m0 */
++				<3 RK_PB0 1 &pcfg_pull_none>,
++				/* vicap_d1_m0 */
++				<3 RK_PB1 1 &pcfg_pull_none>,
++				/* vicap_d2_m0 */
++				<3 RK_PB2 1 &pcfg_pull_none>,
++				/* vicap_d3_m0 */
++				<3 RK_PB3 1 &pcfg_pull_none>,
++				/* vicap_d4_m0 */
++				<3 RK_PB4 1 &pcfg_pull_none>,
++				/* vicap_d5_m0 */
++				<3 RK_PB5 1 &pcfg_pull_none>,
++				/* vicap_d6_m0 */
++				<3 RK_PB6 1 &pcfg_pull_none>,
++				/* vicap_d7_m0 */
++				<3 RK_PB7 1 &pcfg_pull_none>,
++				/* vicap_d8_m0 */
++				<3 RK_PC0 1 &pcfg_pull_none>,
++				/* vicap_d9_m0 */
++				<3 RK_PC1 1 &pcfg_pull_none>,
++				/* vicap_hsync_m0 */
++				<3 RK_PC3 1 &pcfg_pull_none>,
++				/* vicap_vsync_m0 */
++				<3 RK_PC5 1 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		vicapm1_pins: vicapm1-pins {
++			rockchip,pins =
++				/* vicap_clkin_m1 */
++				<1 RK_PD0 2 &pcfg_pull_none>,
++				/* vicap_d0_m1 */
++				<1 RK_PA2 3 &pcfg_pull_none>,
++				/* vicap_d1_m1 */
++				<1 RK_PB1 4 &pcfg_pull_none>,
++				/* vicap_d2_m1 */
++				<1 RK_PC0 2 &pcfg_pull_none>,
++				/* vicap_d3_m1 */
++				<1 RK_PC1 2 &pcfg_pull_none>,
++				/* vicap_d4_m1 */
++				<1 RK_PC2 2 &pcfg_pull_none>,
++				/* vicap_d5_m1 */
++				<1 RK_PC3 2 &pcfg_pull_none>,
++				/* vicap_d6_m1 */
++				<1 RK_PC4 2 &pcfg_pull_none>,
++				/* vicap_d7_m1 */
++				<1 RK_PC5 2 &pcfg_pull_none>,
++				/* vicap_d8_m1 */
++				<1 RK_PC6 2 &pcfg_pull_none>,
++				/* vicap_d9_m1 */
++				<1 RK_PC7 2 &pcfg_pull_none>,
++				/* vicap_hsync_m1 */
++				<1 RK_PD1 2 &pcfg_pull_none>,
++				/* vicap_vsync_m1 */
++				<1 RK_PD2 2 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		vicap_d10: vicap-d10 {
++			rockchip,pins =
++				/* vicap_d10 */
++				<3 RK_PC6 1 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		vicap_d11: vicap-d11 {
++			rockchip,pins =
++				/* vicap_d11 */
++				<3 RK_PC7 1 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		vicap_d12: vicap-d12 {
++			rockchip,pins =
++				/* vicap_d12 */
++				<3 RK_PD0 1 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		vicap_d13: vicap-d13 {
++			rockchip,pins =
++				/* vicap_d13 */
++				<3 RK_PD1 1 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		vicap_d14: vicap-d14 {
++			rockchip,pins =
++				/* vicap_d14 */
++				<3 RK_PD2 1 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		vicap_d15: vicap-d15 {
++			rockchip,pins =
++				/* vicap_d15 */
++				<3 RK_PD3 1 &pcfg_pull_none>;
++		};
++	};
++};
++
++/*
++ * This part is edited handly.
++ */
++&pinctrl {
++	vicap {
++		/omit-if-no-ref/
++		vicap_clkout_m0: vicap-clkout-m0 {
++			rockchip,pins =
++				/* vicap_clkout_m0 */
++				<3 RK_PC4 1 &pcfg_pull_none>;
++		};
++
++		/omit-if-no-ref/
++		vicap_clkout_m1: vicap-clkout-m1 {
++			rockchip,pins =
++				/* vicap_clkout_m1 */
++				<1 RK_PD3 2 &pcfg_pull_none>;
++		};
++	};
++
++	mipi {
++		/omit-if-no-ref/
++		mipi_refclk_out0: mipi-refclk-out0 {
++			rockchip,pins =
++				/* mipi_refclk_out0 */
++				<3 RK_PC4 2 &pcfg_pull_none>;
++		};
++		/omit-if-no-ref/
++		mipi_refclk_out1: mipi-refclk-out1 {
++			rockchip,pins =
++				/* mipi_refclk_out1 */
++				<3 RK_PC6 3 &pcfg_pull_none>;
++		};
++	};
++
++	lcd {
++		/omit-if-no-ref/
++		bt1120_pins: bt1120-pins {
++			rockchip,pins =
++				/* lcd_clk */
++				<1 RK_PD3 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d0 */
++				<1 RK_PC7 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d1 */
++				<1 RK_PC6 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d2 */
++				<1 RK_PC5 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d3 */
++				<1 RK_PC4 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d4 */
++				<1 RK_PC3 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d5 */
++				<1 RK_PC2 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d6 */
++				<1 RK_PC1 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d7 */
++				<1 RK_PC0 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d8 */
++				<2 RK_PA0 3 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d9 */
++				<2 RK_PA1 3 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d10 */
++				<2 RK_PA2 3 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d11 */
++				<2 RK_PA3 3 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d12 */
++				<2 RK_PA4 3 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d13 */
++				<2 RK_PA5 3 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d14 */
++				<2 RK_PA6 3 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d15 */
++				<2 RK_PA7 3 &pcfg_pull_none_drv_level_2>;
++		};
++
++		/omit-if-no-ref/
++		bt656_pins: bt656-pins {
++			rockchip,pins =
++				/* lcd_clk */
++				<1 RK_PD3 1 &pcfg_pull_none_drv_level_2>,
++				/* lcd_d0 */
++				<1 RK_PC7 1 &pcfg_pull_none_drv_level_1>,
++				/* lcd_d1 */
++				<1 RK_PC6 1 &pcfg_pull_none_drv_level_1>,
++				/* lcd_d2 */
++				<1 RK_PC5 1 &pcfg_pull_none_drv_level_1>,
++				/* lcd_d3 */
++				<1 RK_PC4 1 &pcfg_pull_none_drv_level_1>,
++				/* lcd_d4 */
++				<1 RK_PC3 1 &pcfg_pull_none_drv_level_1>,
++				/* lcd_d5 */
++				<1 RK_PC2 1 &pcfg_pull_none_drv_level_1>,
++				/* lcd_d6 */
++				<1 RK_PC1 1 &pcfg_pull_none_drv_level_1>,
++				/* lcd_d7 */
++				<1 RK_PC0 1 &pcfg_pull_none_drv_level_1>;
++		};
++
++		/omit-if-no-ref/
++		rgb3x8_pins: rgb3x8-pins {
++			rockchip,pins =
++				/* lcd_clk */
++				<1 RK_PD3 1 &pcfg_pull_none_drv_level_4>,
++				/* lcd_d0 */
++				<1 RK_PC7 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d1 */
++				<1 RK_PC6 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d2 */
++				<1 RK_PC5 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d3 */
++				<1 RK_PC4 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d4 */
++				<1 RK_PC3 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d5 */
++				<1 RK_PC2 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d6 */
++				<1 RK_PC1 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d7 */
++				<1 RK_PC0 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_den */
++				<1 RK_PD0 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_hsync */
++				<1 RK_PD1 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_vsync */
++				<1 RK_PD2 1 &pcfg_pull_none_drv_level_3>;
++		};
++
++		/omit-if-no-ref/
++		rgb565_pins: rgb565-pins {
++			rockchip,pins =
++				/* lcd_clk */
++				<1 RK_PD3 1 &pcfg_pull_none_drv_level_4>,
++				/* lcd_d0 */
++				<1 RK_PC7 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d1 */
++				<1 RK_PC6 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d2 */
++				<1 RK_PC5 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d3 */
++				<1 RK_PC4 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d4 */
++				<1 RK_PC3 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d5 */
++				<1 RK_PC2 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d6 */
++				<1 RK_PC1 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d7 */
++				<1 RK_PC0 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d8 */
++				<2 RK_PA0 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d9 */
++				<2 RK_PA1 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d10 */
++				<2 RK_PA2 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d11 */
++				<2 RK_PA3 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d12 */
++				<2 RK_PA4 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d13 */
++				<2 RK_PA5 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d14 */
++				<2 RK_PA6 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_d15 */
++				<2 RK_PA7 3 &pcfg_pull_none_drv_level_3>,
++				/* lcd_den */
++				<1 RK_PD0 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_hsync */
++				<1 RK_PD1 1 &pcfg_pull_none_drv_level_3>,
++				/* lcd_vsync */
++				<1 RK_PD2 1 &pcfg_pull_none_drv_level_3>;
++		};
++	};
++};
+diff --git a/arch/arm/boot/dts/rockchip/rv1106.dtsi b/arch/arm/boot/dts/rockchip/rv1106.dtsi
+new file mode 100644
+index 000000000000..7b2e6142a103
+--- /dev/null
++++ b/arch/arm/boot/dts/rockchip/rv1106.dtsi
+@@ -0,0 +1,321 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
++ */
++
++#include <dt-bindings/clock/rockchip,rv1106-cru.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/pinctrl/rockchip.h>
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	compatible = "rockchip,rv1106";
++
++	interrupt-parent = <&gic>;
++
++	aliases {
++		gpio0 = &gpio0;
++		gpio1 = &gpio1;
++		gpio2 = &gpio2;
++		gpio3 = &gpio3;
++		gpio4 = &gpio4;
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@f00 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a7";
++			reg = <0xf00>;
++			clocks = <&cru ARMCLK>;
++		};
++	};
++
++	arm-pmu {
++		compatible = "arm,cortex-a7-pmu";
++		interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-affinity = <&cpu0>;
++	};
++
++	timer {
++		compatible = "arm,armv7-timer";
++		clock-frequency = <24000000>;
++		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>,
++			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>;
++	};
++
++	xin24m: oscillator {
++		compatible = "fixed-clock";
++		clock-frequency = <24000000>;
++		clock-output-names = "xin24m";
++		#clock-cells = <0>;
++	};
++
++	pinctrl: pinctrl {
++		compatible = "rockchip,rv1106-pinctrl";
++		rockchip,grf = <&gpio1_ioc>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		gpio0: gpio@ff380000 {
++			compatible = "rockchip,gpio-bank";
++			reg = <0xff380000 0x100>;
++			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru PCLK_PMU_GPIO0>, <&cru DBCLK_PMU_GPIO0>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			gpio-ranges = <&pinctrl 0 0 32>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++			rockchip,grf = <&gpio0_ioc>;
++		};
++
++		gpio1: gpio@ff530000 {
++			compatible = "rockchip,gpio-bank";
++			reg = <0xff530000 0x100>;
++			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru PCLK_GPIO1>, <&cru DBCLK_GPIO1>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			gpio-ranges = <&pinctrl 0 32 32>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++			rockchip,grf = <&gpio1_ioc>;
++		};
++
++		gpio2: gpio@ff540000 {
++			compatible = "rockchip,gpio-bank";
++			reg = <0xff540000 0x100>;
++			interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru PCLK_GPIO2>, <&cru DBCLK_GPIO2>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			gpio-ranges = <&pinctrl 0 64 32>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++			rockchip,grf = <&gpio2_ioc>;
++		};
++
++		gpio3: gpio@ff550000 {
++			compatible = "rockchip,gpio-bank";
++			reg = <0xff550000 0x100>;
++			interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru PCLK_GPIO3>, <&cru DBCLK_GPIO3>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			gpio-ranges = <&pinctrl 0 96 32>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++			rockchip,grf = <&gpio3_ioc>;
++		};
++
++		gpio4: gpio@ff560000 {
++			compatible = "rockchip,gpio-bank";
++			reg = <0xff560000 0x100>;
++			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru PCLK_GPIO4>, <&cru DBCLK_GPIO4>;
++			gpio-controller;
++			#gpio-cells = <2>;
++			gpio-ranges = <&pinctrl 0 128 32>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++			rockchip,grf = <&gpio4_ioc>;
++		};
++	};
++
++	soc {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		grf: syscon@ff000000 {
++			compatible = "rockchip,rv1106-grf", "syscon";
++			reg = <0xff000000 0x68000>;
++		};
++
++		gic: interrupt-controller@ff1f0000 {
++			compatible = "arm,gic-400";
++			reg = <0xff1f1000 0x1000>,
++			      <0xff1f2000 0x2000>,
++			      <0xff1f4000 0x2000>,
++			      <0xff1f6000 0x2000>;
++			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++			#address-cells = <0>;
++		};
++
++		gpio0_ioc: syscon@ff388000 {
++			compatible = "rockchip,rv1106-gpio-ioc", "syscon";
++			reg = <0xff388000 0x8000>;
++		};
++
++		cru: clock-controller@ff3a0000 {
++			compatible = "rockchip,rv1106-cru";
++			reg = <0xff3a0000 0x20000>;
++			clocks = <&xin24m>;
++			clock-names = "xin24m";
++			rockchip,grf = <&grf>;
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++		};
++
++		saradc: adc@ff3c0000 {
++			compatible = "rockchip,rv1106-saradc", "rockchip,rk3588-saradc";
++			reg = <0xff3c0000 0x100>;
++			interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru CLK_SARADC>, <&cru PCLK_SARADC>;
++			clock-names = "saradc", "apb_pclk";
++			#io-channel-cells = <1>;
++			status = "disabled";
++		};
++
++		uart0: serial@ff4a0000 {
++			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
++			reg = <0xff4a0000 0x100>;
++			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&cru SCLK_UART0>, <&cru PCLK_UART0>;
++			clock-names = "baudclk", "apb_pclk";
++			status = "disabled";
++		};
++
++		uart1: serial@ff4b0000 {
++			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
++			reg = <0xff4b0000 0x100>;
++			interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&cru SCLK_UART1>, <&cru PCLK_UART1>;
++			clock-names = "baudclk", "apb_pclk";
++			status = "disabled";
++		};
++
++		uart2: serial@ff4c0000 {
++			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
++			reg = <0xff4c0000 0x100>;
++			interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&cru SCLK_UART2>, <&cru PCLK_UART2>;
++			clock-names = "baudclk", "apb_pclk";
++			status = "disabled";
++		};
++
++		uart3: serial@ff4d0000 {
++			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
++			reg = <0xff4d0000 0x100>;
++			interrupts = <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&cru SCLK_UART3>, <&cru PCLK_UART3>;
++			clock-names = "baudclk", "apb_pclk";
++			status = "disabled";
++		};
++
++		uart4: serial@ff4e0000 {
++			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
++			reg = <0xff4e0000 0x100>;
++			interrupts = <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&cru SCLK_UART4>, <&cru PCLK_UART4>;
++			clock-names = "baudclk", "apb_pclk";
++			status = "disabled";
++		};
++
++		uart5: serial@ff4f0000 {
++			compatible = "rockchip,rv1106-uart", "snps,dw-apb-uart";
++			reg = <0xff4f0000 0x100>;
++			interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&cru SCLK_UART5>, <&cru PCLK_UART5>;
++			clock-names = "baudclk", "apb_pclk";
++			status = "disabled";
++		};
++
++		gpio1_ioc: syscon@ff538000 {
++			compatible = "rockchip,rv1106-gpio-ioc", "syscon";
++			reg = <0xff538000 0x8000>;
++		};
++
++		gpio2_ioc: syscon@ff548000 {
++			compatible = "rockchip,rv1106-gpio-ioc", "syscon";
++			reg = <0xff548000 0x8000>;
++		};
++
++		gpio3_ioc: syscon@ff558000 {
++			compatible = "rockchip,rv1106-gpio-ioc", "syscon";
++			reg = <0xff558000 0x8000>;
++		};
++
++		gpio4_ioc: syscon@ff568000 {
++			compatible = "rockchip,rv1106-gpio-ioc", "syscon";
++			reg = <0xff568000 0x8000>;
++		};
++
++		wdt: watchdog@ff5a0000 {
++			compatible = "rockchip,rv1106-wdt", "snps,dw-wdt";
++			reg = <0xff5a0000 0x100>;
++			interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru TCLK_WDT_NS>, <&cru PCLK_WDT_NS>;
++			clock-names = "tclk", "pclk";
++			status = "disabled";
++		};
++
++		system_sram: sram@ff6c0000 {
++			compatible = "mmio-sram";
++			reg = <0xff6c0000 0x40000>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0xff6c0000 0x40000>;
++		};
++
++		emmc: mmc@ffa90000 {
++			compatible = "rockchip,rv1106-dw-mshc", "rockchip,rk3288-dw-mshc";
++			reg = <0xffa90000 0x4000>;
++			interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru HCLK_EMMC>, <&cru CCLK_SRC_EMMC>,
++				 <&cru SCLK_EMMC_DRV>, <&cru SCLK_EMMC_SAMPLE>;
++			clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
++			fifo-depth = <0x100>;
++			max-frequency = <200000000>;
++			status = "disabled";
++		};
++
++		sdmmc: mmc@ffaa0000 {
++			compatible = "rockchip,rv1106-dw-mshc", "rockchip,rk3288-dw-mshc";
++			reg = <0xffaa0000 0x4000>;
++			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru HCLK_SDMMC>, <&cru CCLK_SRC_SDMMC>,
++				 <&cru SCLK_SDMMC_DRV>, <&cru SCLK_SDMMC_SAMPLE>;
++			clock-names = "biu", "ciu", "ciu-drive", "ciu-sample";
++			fifo-depth = <0x100>;
++			max-frequency = <200000000>;
++			status = "disabled";
++		};
++
++		sfc: spi@ffac0000 {
++			compatible = "rockchip,sfc";
++			reg = <0xffac0000 0x4000>;
++			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru SCLK_SFC>, <&cru HCLK_SFC>;
++			clock-names = "clk_sfc", "hclk_sfc";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++	};
++};
++
++#include "rv1106-pinctrl.dtsi"
 -- 
 2.43.0
 
