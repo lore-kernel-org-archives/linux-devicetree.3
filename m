@@ -1,125 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BF5427F80
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:15:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6686427FB9;
+	Tue, 14 Jul 2026 20:17:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784060153; cv=none; b=KC9lgdjGfWBvJ6hyDf6lL7b4XxJlE7CNcvFA/rLwViZcHEUIlgsJIfkcTYtK8+2SdE4O/smmaO9jAIBWqr0Pppxbo6Hz/tubXLiB3GerjqluuUpyhzzZn6nDV1D6mhnkLLwcBjKdOHU2sY1Vww0lD/5OT96jrW/HzjvCmVP1bmY=
+	t=1784060224; cv=none; b=KcM81e993Gtqa9MaEuJa1vRIZVK/x73ifPFmWYJtbLVtL8vTN3yEE9ZZSNzzR+fQrpneYeWUnvdzSgbLS8xkup3suhL58oAGBjIzgXvhNLO8VgYt6DMgbC2MxxZCxPQnMhPAghCNe8dB3CaNqrfcIpENoghwRSw2/EBjMvcNzVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784060153; c=relaxed/simple;
-	bh=CDIeKiKO6Deec4QmfG2STjzz6+7xFIl+CTI7oubT8GU=;
+	s=arc-20240116; t=1784060224; c=relaxed/simple;
+	bh=001q9FtT+9kHpJQbsppljQNjwgh2ywXhsHAdWpMECKc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iKPeSkyATYnVrR3+JOEsgLd4ulnS/x1GplAESpA+WQrnpmCHKBcroTDjl59j65amRMVTfAvi4vp/JMjvNovvx2ciDL6XdrNsNQWge/oq9GWiy4MAslAlz2MLXLO/lUmNTl6fGnJkrWaEg/XNYHy82Ckkhj2Pl9PkOcfwP1QC28Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxNy2SnT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MIIxZuYx6g/vA1pzbCewZyO05AqCKiN0zjMLEiIUlsPXG1NvUU7SqaoBuC7XjRw1MOsipev+kGUZgFdl8Nwn/x0SDrdkdVa5rs3GG9kgUk234PUfZiHyajtfctEwsGmM8Oys1VBv0jRmGXeE9hEerohGblx5FDGbIBFwxfmVrIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISaxym0/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxNy2SnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197A81F000E9;
-	Tue, 14 Jul 2026 20:15:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISaxym0/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDC51F000E9;
+	Tue, 14 Jul 2026 20:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784060151;
-	bh=wNQQrwvWk06rZvAOXuAqVWSyH7mtMtOyK2DT4/fewzA=;
+	s=k20260515; t=1784060223;
+	bh=8ud0eZN9paJBGQJD49RcaobEENGrf/LV2uz6TjLE71o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CxNy2SnT6DYd1R6WThGYNu7+GrDhT1QXDzZRVwqEJRqBc2peRyqiZyj4CeSosQ1vf
-	 cokw5Yd76yy+HLXwlrKnPrALhsd/N4bwpZK1n43rerYzl5iXLahUD3Gvn9CiuUe16B
-	 5KKcfnBbx/xjWCy5f2hWk7BvIjAhinbzDCRdUFZChC95e+ZIciuFbXgFdqvKbwMXZ3
-	 VrSKkZEBkU9YLvehBdQC+tHmHTrOmSiEQGGoTVZv5m0DqJOl1/fdMVBAXpUgM56L5e
-	 85XgvTYRK0U+s4OR/rUbV+ik8mxVZ3qFbzPc7xhqM6awz60WM8TgLBRAoLvp2n9Uv7
-	 h03BdJ1tld08Q==
+	b=ISaxym0/ARm1K2I8OKDM2c/4Dd7W6LVPyvv1T4fJdLg0fXLq7omA5+YrQUp0zlbtp
+	 7ULG/+dkiWR6zMPh+kH0MkHOLry1akNOCb7anu+GXyQFK5cSFAiAAFP2KManHdHm22
+	 hg8AlmnctyJlPALzH3htj/uhfwRa3tJbioQ8aw5RyGI/4kDJKQaP2MyW5NMk1RHobL
+	 rQMCcRZLRxcn2kQqwi6p8gz9lfys4ZcJcJteI4/AA2AFgDUaH/oPqePIAO6KTjf7eo
+	 rF4guJwVIWHm4ukVg1QIEOMJUxF7HKxMtvp82ZzoFLE/qJnlqxIYAeEDHXY0d+Dld3
+	 kddjaXuxv16/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 27/35] phy: rockchip: usbdp: Only enable USB3 when
- not in high-speed mode
+Subject: Re: [PATCH v2 2/3] arm64: dts: freescale: Add support for Variscite
+ VAR-SOM-MX8 QuadMax
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260714-rockchip-usbdp-cleanup-v13-27-6cb3e769d4c5@collabora.com>
-References: <20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com>
- <20260714-rockchip-usbdp-cleanup-v13-27-6cb3e769d4c5@collabora.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <f373059af209ed7ce8e63988066e730736e06e6e.1784059139.git.stefano.r@variscite.com>
+References: <cover.1784059139.git.stefano.r@variscite.com>
+ <f373059af209ed7ce8e63988066e730736e06e6e.1784059139.git.stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 20:15:50 +0000
-Message-Id: <20260714201551.197A81F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 20:17:02 +0000
+Message-Id: <20260714201703.3BDC51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Returning 0 instead of an error when a requested PHY mode is unsup=
-ported causes unclocked register accesses that will trigger a Synchronous E=
-xternal Abort (SError).
+- [High] The PMIC thermal zone's cooling map omits the high-power Cortex-A7=
+2 cores, severely limiting thermal mitigation.
+- [Medium] WiFi and Bluetooth enable/reset GPIOs are configured in pinctrl =
+but never bound to a driver, breaking power management and suspend/resume.
 --
 
---- Patch [27]: [PATCH v13 27/35] phy: rockchip: usbdp: Only enable USB3 wh=
-en not in high-speed mode ---
-commit 80f8e58c736697054e63cee31e4afb6d94fb9e90
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+--- Patch [2]: [PATCH v2 2/3] arm64: dts: freescale: Add support for Varisc=
+ite VAR-SOM-MX8 QuadMax ---
+commit 33df8d987b7061b5d0c8453d1a7834088b34ace9
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-phy: rockchip: usbdp: Only enable USB3 when not in high-speed mode
+arm64: dts: freescale: Add support for Variscite VAR-SOM-MX8 QuadMax
 
-This commit ensures that USB3 mode is not accidentally enabled during
-PHY re-initialization for systems configured as high-speed only via
-device tree.
+Add device tree support for the Variscite VAR-SOM-MX8 QuadMax system on
+module. This SOM includes an i.MX8 QuadMax processor, RAM, eMMC, Ethernet,
+audio codec, and WiFi/Bluetooth.
 
-Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/message/20260626212424.C215E1F000E9%40smtp.ke=
-rnel.org
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Link: https://variscite.com/system-on-module-som/i-mx-8/i-mx-8-quadmax-quad=
+plus/var-som-mx8/
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 701c92ed6e2de..59b836a3796ce 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1009,7 +1009,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
+> diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi b/arch/arm=
+64/boot/dts/freescale/imx8qm-var-som.dtsi
+> new file mode 100644
+> index 0000000000000..e805c51eb27df
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
+[ ... ]
+> +/* Bluetooth */
+> +&lpuart1 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_lpuart1>;
+> +	uart-has-rtscts;
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+Since this UART is used for Bluetooth, should it have a serdev child node
+(like compatible =3D "brcm,bcm4329-bt") with an 'enable-gpios' property?
+
+Without an explicit driver binding to manage the module, the Bluetooth
+device's power state cannot be controlled across suspend and resume.
+
+[ ... ]
+> +&thermal_zones {
+> +	pmic-thermal {
+> +		polling-delay-passive =3D <250>;
+> +		polling-delay =3D <2000>;
+> +		thermal-sensors =3D <&tsens IMX_SC_R_PMIC_0>;
+> +		trips {
+> +			pmic_alert0: trip0 {
+> +				temperature =3D <110000>;
+> +				hysteresis =3D <2000>;
+> +				type =3D "passive";
+> +			};
+> +			pmic_crit0: trip1 {
+> +				temperature =3D <125000>;
+> +				hysteresis =3D <2000>;
+> +				type =3D "critical";
+> +			};
+> +		};
+> +		cooling-maps {
+> +			map0 {
+> +				trip =3D <&pmic_alert0>;
+> +				cooling-device =3D <&A53_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +						 <&A53_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +						 <&A53_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +						 <&A53_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +			};
 
 [Severity: High]
-This is a pre-existing issue, but I noticed a potential problem in
-rk_udphy_power_on() when an unsupported mode is requested.
+Is it intentional to omit the Cortex-A72 cores (<&A72_0> and <&A72_1>) from
+this cooling map?
 
-Earlier in the same function:
+By only throttling the A53 cores during an overheat scenario, the system mi=
+ght
+fail to cool the PMIC sufficiently. This increases the risk of reaching the
+125=C2=B0C threshold and triggering a hardware thermal shutdown.
 
-    if (!(udphy->mode & mode)) {
-        dev_info(udphy->dev, "mode 0x%02x is not support\n", mode);
-        return 0;
-    }
+> +		};
+> +	};
+> +};
+[ ... ]
+> +/* WIFI */
+> +&usdhc3 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
+> +	pinctrl-0 =3D <&pinctrl_usdhc3>, <&pinctrl_wifi>;
+> +	pinctrl-1 =3D <&pinctrl_usdhc3_100mhz>, <&pinctrl_wifi>;
+> +	pinctrl-2 =3D <&pinctrl_usdhc3_200mhz>, <&pinctrl_wifi>;
+> +	bus-width =3D <4>;
+> +	non-removable;
+> +	status =3D "okay";
+> +
+> +	brcmf: wifi@1 {
+> +		compatible =3D "brcm,bcm4329-fmac";
+> +		reg =3D <1>;
+> +	};
+> +};
 
-If phy_power_on() is called by a consumer like the DP driver while
-udphy->mode lacks UDPHY_MODE_DP, this returns 0 instead of an error code.
+[ ... ]
+> +	pinctrl_wifi: wifigrp {
+> +		fsl,pins =3D <
+> +			IMX8QM_SCU_GPIO0_07_SCU_DSC_RTC_CLOCK_OUTPUT_32K	0xc600004c
+> +			IMX8QM_SCU_GPIO0_03_LSIO_GPIO0_IO31			0x06000021
+> +			IMX8QM_SCU_GPIO0_02_LSIO_GPIO0_IO30			0x00000021
+> +			IMX8QM_QSPI1A_DATA0_LSIO_GPIO4_IO26			0x00000021
+> +		>;
+> +	};
+> +};
 
-The caller rk_udphy_dp_phy_power_on() then receives this false success
-value:
+[Severity: Medium]
+Are these WiFi enable/reset GPIOs left uncontrolled without an active driver
+binding?
 
-    ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_DP);
-    if (ret)
-        return ret;
-
-    rk_udphy_dp_lane_enable(udphy, udphy->dp_lanes);
-
-Could this cause rk_udphy_dp_lane_enable() to access pma_regmap while
-the PHY APB clocks remain disabled?=20
-
-Since rk_udphy_setup() would not have been called, accessing unclocked
-APB registers here could trigger a Synchronous External Abort (SError).
-
-Would it be safer to return an error like -EOPNOTSUPP instead of 0 when
-the requested PHY mode is unsupported?
-
->  		if (ret)
->  			return ret;
-> =20
-> -		if (udphy->mode & UDPHY_MODE_USB)
-> +		if (!udphy->hs && udphy->mode & UDPHY_MODE_USB)
->  			rk_udphy_u3_port_disable(udphy, false);
->  		udphy->phy_needs_reinit =3D false;
->  	} else if (udphy->phy_needs_reinit) {
+While pinctrl_wifi is attached to usdhc3, there is no mmc-pwrseq node
+consuming these GPIOs to control the power and reset sequencing. Relying on
+the bootloader for initialization prevents the kernel from managing the pow=
+er
+state during suspend and resume.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-rockchip-u=
-sbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com?part=3D27
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784059139.gi=
+t.stefano.r@variscite.com?part=3D2
