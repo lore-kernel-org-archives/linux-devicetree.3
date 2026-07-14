@@ -1,121 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013065.outbound.protection.outlook.com [52.101.83.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3196D25B0B2
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 03:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784000695; cv=none; b=lNVBLa2NDIn0h+Lo7KPTiBkYpBp8/HNVpgdLnNBYl0jY+Mn/8JULXw42JUUgr5c0nMuui3zqoh4WEP0nMegCmIdIB+rb+Zjb2TKCGICqNYE5pHE/8bvxsGoTkU6uiloiDPV0jpOFku30TsJKCxZcY/w+Ink4TRBCyyELuq1KIfQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784000695; c=relaxed/simple;
-	bh=j+xQllf1P4tgc926vFhFEQXVmBq2KVdwlFAM1L82l2U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Khtx/nxuGT7azW/bjPhErLgdtjXIuxJ9uk3gEhwzbBxyaZGZH3Ll99DW1I89YyGIKiL000pwnWg/0Ws+NaV7satPIMjQQ5QhnLfTf+DjfPJ7CSJKl+uYjWrHhQO0HhDziV5yPyvzLvvJAWmg6KoOln03jOAUCbOowYoXsrwcZ+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cuxJzWkO; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDE51F5EA;
+	Tue, 14 Jul 2026 04:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784001720; cv=fail; b=t14u5a2mhTrTMOG+Gla3NV7IRKJT/p9C223+kisXzG9sC9OEpNTH2U9q6+QdgPb9RMOspq7YhEsIeYkVAIpxWbsQixhHohO/Wg6OKI90XJfH6GaEem2mVVI1qwupGYf+OOXzs8RY0OlTassBB2yp1T11CKEaa/To7TLFPYEWKCg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784001720; c=relaxed/simple;
+	bh=Wfy33+ZsNCR5MWAp+giDvJrq+b1VENkV9VovWcC/odo=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=ShaZ3v55da532nKxXs5ggXzrXTBIZiBQLgHWbg60gGEnvJA4McgaCjt14UZ78nq1dBqxAaK4pwj9b8moNFHCmaBsHsPNcgsCs+rRAKLhB2Um7+cNU0XIVI7/eeJ3q36PpJh8pmwjN3/lIxXQYnaFJPyLEg1rKK1cXI6I9FUNcHs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wzvNSdRm; arc=fail smtp.client-ip=52.101.83.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cuxJzWkO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA771F000E9;
-	Tue, 14 Jul 2026 03:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784000693;
-	bh=7SFkWPNc5dNoR9IYYMEFv7rum/QxLOYRhTJMUWX5Dwc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cuxJzWkOFMrwP5xuiWwq/u2hVBrhtHYXmPnaUarB9TFFGNnfbFZf8/LtvfdmgqGNR
-	 JgJzZjl3XfUpp6HAKNAjDGqlC+RwQL7eQeqsRfbUHK8tt5WNjDy1eGO7nmGcn0xOPg
-	 7zm4Bg85JJy2IoNcoezt4eixMg35CsfIlV9u5NKSb7OgTvK0RNAqS4BXhu0TbR57hP
-	 u6MLBMJG+++MhBhXBalmrKfMwCd/LQFHmHHhL9mn9BpnsoVKiJ5y+QWiMqcLxR27RJ
-	 S4vMZHtjXb6xsp14Zgddv2sJB1QpW1fPt6SH48skFTZmWcQiMjUO/rJlM3Uk24qZYS
-	 KW/hTXijdCAKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v22 2/3] riscv: dts: starfive: Correct pwm nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hal Feng" <hal.feng@starfivetech.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260714033050.44952-3-hal.feng@starfivetech.com>
-References: <20260714033050.44952-1-hal.feng@starfivetech.com>
- <20260714033050.44952-3-hal.feng@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 03:44:53 +0000
-Message-Id: <20260714034453.8AA771F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wzvNSdRm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VVeROVWzHx1NkqlRMaXn9XFS17+/ltPMQrtvql7V++A3L0Tnlex3nBkEyFAHcMT9XD7YFufi1S0uSjzoR6mueVDMwK4qYI473zSE6pZhB+pE8plaf0Vp9EZDcHRr+bxU5ik2h/+sb4l9YV9hMZvEl7V9upAyL1RDnyV8zqux3tfTpnro5t/d/yn3+aCFjO4etepTBXRoDPGre2GKb6WcGrDXBeM6GIqf/GGF1yYHARcM/jOjIgtP6rE2tdNgF2fUvqDbpT/432x0HfBj2O9XYBjD1XhApDx+juRqxs5yyRiBIUdH7BMsWEzqjn8Gy84gxvQ2bSXZkBcIgMQSq0Yldg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bwYEe8/KGY9w9pZyLZR6AQSRRzH/RHhktSLiiUMlFGU=;
+ b=Qc81L1kCmyaK/B3cL641AsS3x/Jiph4oUWDVoCuB3k1QJrBBdCgwBkTOVCChX4n1wwBBhwlvuWd0PJ8G/NyA+wn4+S6CQ7MzTdny1h3+9osXEw+A5p/7xMzopMQLXvXz1aU/ZbmG+qGUdvdfZZayeXepfqkUO7agmLAInCVqOpiCYwsmgQaH5JkLrdFaC9iaEsCCnHHug25Q0uhLrVaz81zu1K4L7EEKwnECRZepVW+kqkEIJOedP5zvFeuVmlkbyUVDMzPmV5bemsImT3LQAFcRdO4tjk1C+cEBR9BUoMAkwBYI9qxcXgCkku85bL2RYHcCwpn3oD/0k1Kntd3eEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bwYEe8/KGY9w9pZyLZR6AQSRRzH/RHhktSLiiUMlFGU=;
+ b=wzvNSdRmA+8BzpC+HAodjb3oOM5JGP/1yg5N3rpWjrpMzpAk4VHS+RcUhbGJNqRN+h4+BD2Og904GSd054rmqfBmOZkmIjK0pcfIIerXyh7OQ3BqREo1XHAph1mDlSm0H7MMC1fV/SAMC7BJrVHMZbFb7UJTrJd+Jv7U4ecP+RnvYX7Y9dqbOKyXoSJZObGvUjhxeGXTdWWmxQ/ZR7XdZiJxFWa4OUrflURdnvro1bMtKpCloAF0LSddU3I9HOHQlkND5j+sUrk9tDydkE789B76v6bIkZf83IRVMa1D3Cx0rLOah2FpymD7ifzkfFTiaBrM+JWrWrgBwXIx6pChnA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM9PR04MB8083.eurprd04.prod.outlook.com (2603:10a6:20b:3b5::15)
+ by DB9PR04MB8090.eurprd04.prod.outlook.com (2603:10a6:10:240::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
+ 2026 04:01:51 +0000
+Received: from AM9PR04MB8083.eurprd04.prod.outlook.com
+ ([fe80::44f5:bd7a:e05b:9a41]) by AM9PR04MB8083.eurprd04.prod.outlook.com
+ ([fe80::44f5:bd7a:e05b:9a41%6]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
+ 04:01:51 +0000
+From: hongxing.zhu@oss.nxp.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	frank.li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com
+Cc: kernel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Richard Zhu <hongxing.zhu@nxp.com>
+Subject: [PATCH v1] arm64: dts: imx943-evk: Remove 'supports-clkreq' from PCIe1
+Date: Tue, 14 Jul 2026 12:05:18 +0800
+Message-Id: <20260714040518.241871-1-hongxing.zhu@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5PR01CA0290.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:21b::15) To AM9PR04MB8083.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3b5::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8083:EE_|DB9PR04MB8090:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1618e84-37c0-4729-feab-08dee15ca28c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|19092799006|366016|7416014|376014|56012099006|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	co4eYap/7YSKH/pefjxzY3x8lYS1FU/qbwZqr4vw+PEspFcXi6tefaZa5KSNToANF1IWQ5eChjiJDHGodWKNEGUzR/tl7K2FGXfNVWwF7oexxRSIx3rTkljHjF0TiUJMzVsr0O0qiNSSctFo2RPj7T5S9i5K2VlumzXsXkLOicK+Gu6RBTn3BK31nxTbIpBBYEKW6smDEB3Z14rTWkMQXaWAs2bT/25omH/OdF+Yqg3euHmc8EfKiJE1HevsGRigjUsr91FnGYTnShhPWzNSNWasNPFzZ0NtEZ/lCzNO/HiWdF+DlzOApzdBKQCybQ/Mrw6QCt8q4N2iC5A7dbWqgJ2swis0EmFnGssOal/hZfg/8knCUwxDoc6APxXmD6OCjmpgia7EJVXR5nAH5K+UHLy3WNP8LxiD1/tW1yRBSZb0XvtwYJ1JEJjIQzdvDJElsnwDxNUlN2obmRiEF1AGvtp2Sb8qjR27yrQgGLlLrE4odISJzq084hCz293rjfzGdtvNS+C1S/uFVlbemamDTojrfUmPkfY1kekZadc7bnyaaCbL9+mRI25LZUhzo2+T+XEvOg++VromicZWQsEUMq3atmfLPYG14iuFi7wUCBdUq3kOfORA8Cd3227gkHJMswS30du97hhB3txGh2phBqhw0NLXZ5hi429wXRqkIC0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8083.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(19092799006)(366016)(7416014)(376014)(56012099006)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Rxv70hVjWHsTYnlzbp1/8zhAFEM74Xbp7DjIcNiId8hRfPfTU72iRLEfzRsa?=
+ =?us-ascii?Q?+j3giErAHqwG7FoShKMqDIbtsTpgrYLROhdS6bHFgOw6uQOpTjz2+OwxoaXg?=
+ =?us-ascii?Q?ba2Qo1yjoiP9TKG3Va0U7r0afUQsmXGO4Al54Od9KY9/fWwKuyHBpnZO7chV?=
+ =?us-ascii?Q?zabk2MoX9QWjegGmGhE2PAEIOcbZMNrzRiGzr59iGoUFwXiODkVi72tIcw4K?=
+ =?us-ascii?Q?r8Ky2ZxqYpqyErIdy2suHIBoYBf0aL/a3EGn4zEInFDj/e18Fr+XMkR4dFvh?=
+ =?us-ascii?Q?18JqYBXTYBWBCp68K5Twa9SjzgIy/mzE61PTMljPUbGgK38n3goBjXs3fxRq?=
+ =?us-ascii?Q?3jNEzoVF/ETTRbMzPVAbUWr0gs+qlFFAnm8hmfNf+9DhQdKKpRXIM/nxHeV7?=
+ =?us-ascii?Q?SWBK+tLnxKgByXHnE1QVBf79MO1qvaJzVSsQCYgymcS7iUwndre4rNX2fDM9?=
+ =?us-ascii?Q?9zBuDklo9Ej1E4YY+hmgHdfcAOGYKPCXiZtsSoRs59/DmtFxfh9pldVALKaV?=
+ =?us-ascii?Q?rjiBmHxe779ZjxhZORYuwYeImqFxphg2bvP0clI5PeioZmxZfW33Z1qKtxhI?=
+ =?us-ascii?Q?7O0nq3ldEkqqhpUgvOwbj2JXvsTMO+RWuyAQcdq125ErpriHLaIoT8/vCuYc?=
+ =?us-ascii?Q?6JgQ36vQd0C9Roo8oFuEYZ5IOnDPM8jGKuMFsc2PMn+DnM+QIcxQmk37yT6r?=
+ =?us-ascii?Q?lE4rvoQlZVhAUrUPcoMEvo4UDlwWDOG2ogbGzM3eNY+xqsAwOLmc0Ki2Wo+h?=
+ =?us-ascii?Q?bg239SKwvr3RCcbRYU+EMbSn6kmgxi6YFKx4MpARiwDfA5JTUVKJmOzslM4P?=
+ =?us-ascii?Q?9951P9syZMRsh0QbpfrnMaeA20km00D1dYrsYYfbWRdFmYXbfPF0hB1+alY9?=
+ =?us-ascii?Q?dXGmekNLkAmX16BIg5Nqrz8V/2a5KA6/YdVmuvNbMFUgnsGSo9hf4AUlFSul?=
+ =?us-ascii?Q?yo7rquJsifc2r+dnmIQzfIWUrzVUhyeOjYauFl0N2Qvyv1XYh+1BGJ+WNVHp?=
+ =?us-ascii?Q?ubBUqgvJhbQeOrJOnX9Y1Qe1vHRsCOpmA1gZhG2BIUtWTTf/3JfVBckZTDFE?=
+ =?us-ascii?Q?vhKPoV9OOnC1fDkhXJZHJEPgjoHadLHboWQcwA0u6ufVQ9rnOOnoU+boRSwi?=
+ =?us-ascii?Q?dDJTOrh3X8wkw+6to4aS0qHWmdfO2R3t+62n8DJI7bI2Y+tWSmDBL3KA9FEl?=
+ =?us-ascii?Q?Q3W57az+GD2QDP7BALfjpTzInI2qW3GkAMi5OugeDTdPC2VNKKcrDkshzIJC?=
+ =?us-ascii?Q?BJEcGMWibLRdmVplQQyhjqG3Saeztg9LtKTf+ZXaJT4V5chYEP6R5D4QcCQz?=
+ =?us-ascii?Q?vtp/eBDuLBjklhaSdM3GrKj4TVSqpp2ocxT55Y1dyptRRHwaLCI4rwFok5ou?=
+ =?us-ascii?Q?45/NQZU+liKzFVGwRxZs6ndvtXnwYE9UBeXtVDblN2XOF7hDEzGMp4/H1+iW?=
+ =?us-ascii?Q?HaJfGC6dN9NNuNYock17NrSqhYGvJkTgWOKd6amANB+4advc9mR1qfr4a3kJ?=
+ =?us-ascii?Q?xAKKuQ+HEVkkodtzDa82Xv/4pg2hy2oA2KcTLkLwGBzqvIzD03gz5c/ww2Ko?=
+ =?us-ascii?Q?qS9ZAcS87Fow2Xo7n2rbRPH5G3MPUkDy0SX+Cyu/3pBXnHDNI0DIHxGUEOnD?=
+ =?us-ascii?Q?vDZuBJYAf2xAUgiJppcitui/pj6234BifkAqHNpK0lT68Gx39fY7kH1zre6L?=
+ =?us-ascii?Q?bSYrtcfTozyBzXKhVt1/lPPRSAFYlSkOId/d6wVVT9307+9c/MwLJ0iFujEp?=
+ =?us-ascii?Q?I7rUUA7q4Jg87gEhEdZJcOH/TR+D5dnd+OXrGxUbJvMwunQTgx4X?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1618e84-37c0-4729-feab-08dee15ca28c
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8083.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 04:01:51.5128
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RnL8OKwQFdbodQrkVPkTZW3em/4bc3KrC5N4JnM3Q9AGwyaWmFO1Rxoq5ROqu8mMoT5EKoS+3dLJ6+p/DbrgEIjVfr7uHjaPM6BdHSIR4mpmnEz5D46ac+uky3yW2JXW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8090
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing electrical pad configuration properties in `pwm1_pins` a=
-fter node split.
---
+From: Richard Zhu <hongxing.zhu@nxp.com>
 
---- Patch [2]: [PATCH v22 2/3] riscv: dts: starfive: Correct pwm nodes ---
-commit af3d5e9905acdead9e2816d09f13f054b179cbde
-Author: Hal Feng <hal.feng@starfivetech.com>
+Remove the 'supports-clkreq' property from PCIe1 as the standard PCIe
+slot on i.MX943 EVK may not have CLKREQ# signal wired, causing
+compatibility issues with some PCIe cards.
 
-riscv: dts: starfive: Correct pwm nodes
-   =20
-Each of the StarFive JH7100/JH7110 SoCs has 8 OpenCores PTC IP cores.
-One OpenCores PTC IP core can output one PWM channel. Change the register
-size to 0x10, since an OpenCores PTC IP has only 4 32-bit registers.
+Fixes: 9a8f11f6f786 ("arm64: dts: imx943-evk: Add pcie[0,1] and pcie-ep[0,1] support")
+Signed-off-by: Richard Zhu <hongxing.zhu@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/imx943-evk.dts | 1 -
+ 1 file changed, 1 deletion(-)
 
-Fixes: 8d01f741a046 ("riscv: dts: starfive: jh7110: Add PWM node and pins c=
-onfiguration")
-Fixes: 5e598b99fedf ("riscv: dts: starfive: jh7100: Add PWM node and pins c=
-onfiguration")
+diff --git a/arch/arm64/boot/dts/freescale/imx943-evk.dts b/arch/arm64/boot/dts/freescale/imx943-evk.dts
+index 674410e541cba..49fb1744d992c 100644
+--- a/arch/arm64/boot/dts/freescale/imx943-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx943-evk.dts
+@@ -1061,7 +1061,6 @@ &pcie1 {
+ 		 <&pcie_ref_clk>;
+ 	clock-names = "pcie", "pcie_bus", "pcie_phy", "pcie_aux",
+ 		      "ref", "extref";
+-	supports-clkreq;
+ 	status = "okay";
+ };
+ 
+-- 
+2.34.1
 
-> diff --git a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi b/arch/riscv=
-/boot/dts/starfive/jh7100-common.dtsi
-> index ae1a6aeb0aeaa..85106545090ea 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
-
-[ ... ]
-
-> -	pwm_pins: pwm-0 {
-> -		pwm-pins {
-> +	pwm0_pins: pwm0-0 {
-> +		pwm0-pins {
->  			pinmux =3D <GPIOMUX(7,
->  				  GPO_PWM_PAD_OUT_BIT0,
->  				  GPO_PWM_PAD_OE_N_BIT0,
-> -				  GPI_NONE)>,
-> -				 <GPIOMUX(5,
-> +				  GPI_NONE)>;
-> +			bias-disable;
-> +			drive-strength =3D <35>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate =3D <0>;
-> +		};
-> +	};
-> +
-> +	pwm1_pins: pwm1-0 {
-> +		pwm1-pins {
-> +			pinmux =3D  <GPIOMUX(5,
->  				  GPO_PWM_PAD_OUT_BIT1,
->  				  GPO_PWM_PAD_OE_N_BIT1,
->  				  GPI_NONE)>;
->  		};
->  	};
-
-[Severity: Medium]
-Should pwm1_pins also include the electrical pad configuration properties?
-
-When the pwm_pins node was split, properties like bias-disable, drive-stren=
-gth,
-input-disable, input-schmitt-disable, and slew-rate were configured for
-pwm0_pins. However, pwm1_pins only has the pinmux configured.
-
-When the kernel applies the pinctrl state for pwm1 during probe, it will on=
-ly
-configure the pinmux and skip the pad electrical settings. Does this leave =
-the
-PWM1 pad in an undefined or default electrical state that could cause weak
-signal drive or other signal integrity issues depending on the hardware def=
-aults?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714033050.4495=
-2-1-hal.feng@starfivetech.com?part=3D2
