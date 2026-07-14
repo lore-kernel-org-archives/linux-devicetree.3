@@ -1,138 +1,117 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ms1.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CBC43F4C2
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 09:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1F73FAE19;
+	Tue, 14 Jul 2026 09:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784020947; cv=none; b=bgiwuw5iV2B5BiZufAimHp+X4Ti9tQJn6HivGbJgDZSsrGU5kDC529vUuendPOUXWlFk+7L6NGSrUdJmd1Fw94u6yKJoK8+G4pCucCt1PlmINd+VB5WXlEqe89JtN5N6d6N920cVAX7IFDfHCGxnb2AU+O9er+laxp1EBNZNT/s=
+	t=1784021134; cv=none; b=VhyLarx7QibiAs+YyqVDSVVg94+XlLSZAcu/fCkx831QbM1Uw64wqFgl7+YBDvwITAZexn5ozA66QZ3TSdajbuhc14t/pE1LHEjKCMRq1Vmynww4hQzzzcsXdxMc+YgkcY3PZFsWID8k/lS+o3n25TqpfUrGpujYaaP8MHRtPKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784020947; c=relaxed/simple;
-	bh=uGWUfxnxIY0NKJB4tV1A7WYuOfk3qaqaeqns9woe9G0=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C4ZUbGX3PukMj2kIflYR2xmZqGAcHdqjqPRjgNJ+CTkSbBx20fiJNRLMdhwfFl+VmryCjQ936E0afyjYSjYnJZDj/NMeRAx1JOOqe5/RGzChLS87hXZ30d7sPogPtvw/DAT0n+aKFUP+5AFEJC4TuiyUuYUwpLNnfTX7gGdRKGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BhxCTw10; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1784021134; c=relaxed/simple;
+	bh=ZzlR4NdqZCujCnqCeNCDE8iklttiPWSXXrJ1IJc5/Fo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PyB/kjUuq5YzXQcsWZHs3moaI2l1yPRLQGsmmCXpo4ICuYK4eRiuZP6p6g8uCZYA7NbYv2ry3U5c5gPlHQMfMKXS4AZwt/Sugx9TlvFcrgGZHOHIv+G7S2ARhC6uobajzi2U0w+vi7uF+p+RnOmTD02kkzuUK9Yn+dQ6H2syUns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=bSKsZB0V; arc=none smtp.client-ip=210.202.87.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BhxCTw10"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493ce08a75bso15902815e9.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 02:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784020940; x=1784625740; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a6rmzsH2Z8JYzFqIg2uMkj0gt9jdeZsll9yf1qnb10c=;
-        b=BhxCTw10pMGuJ7cWbSUGb7gGi/Cj/kbJHXgvc42Y01vMdyqMjCLZNlelC/X99G4JJp
-         q1wHIDQ3tQXEozuLxJPoyo25EONtRNBnpzdUw8FgZGOKS/XisSJ5ETUWgvEkHCL+n3h2
-         Mzl/YZKK9G8DkigQQpMMVYiGMS/evTk6Vn7UAxrpamUC+lCYFAOaQpImG6YCASQR3c4G
-         rULR0Jk1UKH/RVvM8Sg5ToAnCnAI3XmEQ/IBMsySYN5Q2UmHcJdCkF5GEpXi/Jhu6DD9
-         ezfBrQO++TlIiXUX/fWX5334IdfmpjRxNODVthDTqYfuXVDc05WQLDESOfnnNuEcOO4a
-         /WUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784020940; x=1784625740;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a6rmzsH2Z8JYzFqIg2uMkj0gt9jdeZsll9yf1qnb10c=;
-        b=HFBDK0kLR9mTjh4dSwlPd9hrZRnVT+06h1ZCBqSB0TelKwlzWi3pvXu3mJB1mLbhC8
-         1OM2IsXjwaS3X6vIYRedNi2S+Ju3X27sNeXIKRtd+Owa5IoqkjhqNgjYViLiunxob1Ds
-         gC1uGnIzeW0uDHzmTzUr2KFiuOTFs0Wd7oiNvHVAM7EpShQRcfcpb4xmuKulYbZF4wVC
-         bdwB4KpuWVvot12eY2jdAXyHSM3jUo3dFOflS7ccRRzbq+BhTRWnZ39M0osWgiq/7Mxj
-         lceN/xYv4idiiens4F5Jt/s4/8Y6OsEq8HkkDqvA7T0mJZbDSw/scPmRMwbDqtekx54c
-         fo6A==
-X-Forwarded-Encrypted: i=1; AHgh+Rq0iUmARvYWyIA3FgTrR+y9vtesJtzAlzZ5ssuZeE66r5KUzg0LUeprDeFwJPHvVpo4MbiBnHkoYnr9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw5S7QSSM3DP+nsHZRdGxczM2NmUK8h24vZGhH3+rlta+5jSTA2
-	n14Nev3EI2E2lTzLs0h1j3TtYfzzwwGQwHU/247H3BnRprVJ9WfvIwEsIe4juwm4NdA=
-X-Gm-Gg: AfdE7cnDp0xa+oI7z7lWxaR4wxZ3votwOc+pBoWXZV2X0UIreF2e9tbaIURf7dwFAGY
-	V4WHahsS0mn3eCNb1BKmD6zA+TWjkdeYhGr0LhkW5cr5vMRVPD651OqBBNZHrmf0HtWkHsPmFgQ
-	XnGoWpZvovIHbEVEnPQ3nwi13Fy7WbL/Gh0drAMvHgSSj6lmt9DgU8kNPAop+b8wjeGG8Pt29FV
-	OHRqwaAYdy9I+cIciVTEhli4+QPZPNCnKOmqt/Aupje/FMiECQ6lH3m9HmOdBorLqiF4WMmIrba
-	rXHGDqmeMqyX9sh/WfuFASVNcJGpi1SEql7Chf3w20Wd3JEiiqUn7dfsD9uUcmxtIVT0xqMzjl7
-	F+q0ZMdEsAOemwLIJu+NeE/QWZL2M6soFJ8PP0i5CFdOW0xppcOSFb/YXt9BA/fUAG7u1T4Zck7
-	IycCfRsXYO5z4=
-X-Received: by 2002:a05:600c:524b:b0:490:44eb:c1ea with SMTP id 5b1f17b1804b1-495159060f6mr32557165e9.24.1784020940226;
-        Tue, 14 Jul 2026 02:22:20 -0700 (PDT)
-Received: from localhost ([195.94.145.62])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493f2dd8376sm214271875e9.2.2026.07.14.02.22.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 02:22:19 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Tue, 14 Jul 2026 11:25:48 +0200
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
-	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v6 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <alYAnJ66npeYbncs@apocalypse>
-References: <cover.1783097764.git.andrea.porta@suse.com>
- <5171610d8bebdd10eea44bff5236502d765b5918.1783097764.git.andrea.porta@suse.com>
+	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="bSKsZB0V"
+X-UUID: f32393d27f6511f181a149c3f3c08161-20260714
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=nGZQxZq3i0r44o9Cr4AQDN11wNrR4bWIQ4+TvnUUBpg=;
+	b=bSKsZB0Vt20rQaOSDlvrJIalmpqXR2lyWDGrBLy19Gtcl/zr5+9UObT7om6qdpztwSD6QoiQ6arwshD9nHjN9dIbOh7tDB7lE6sqAE/adPA8rZO1CI5uTSpLBA/MG85+Z6AQFNNrTo1f9IqznuqZ94EYLAmrPZmfUkgyVbJPRVU=;
+X-UUID: f32393d27f6511f181a149c3f3c08161-20260714
+Received: from spmgt1 [(172.20.13.10)] by ms1.novatek.com.tw
+	(envelope-from <sp_isw1_at@novatek.com.tw>)
+	(Generic MTA)
+	with ESMTP id 1107628219; Tue, 14 Jul 2026 17:25:27 +0800
+Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.13.160])
+	by spmgt1 (Postfix) with ESMTP id 4214E1A1E1C;
+	Tue, 14 Jul 2026 17:25:27 +0800 (CST)
+Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
+	id BE200C600CC; Tue, 14 Jul 2026 17:25:25 +0800 (CST)
+From: Nina_Kuo@novatek.com.tw
+To: andi.shyti@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ben_huang@novatek.com.tw,
+	toby_chui@novatek.com.tw,
+	shihpei_hsu@novatek.com.tw
+Subject: [PATCH v2 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC I2C controller driver
+Date: Tue, 14 Jul 2026 17:25:25 +0800
+Message-Id: <20260714092525.82613-1-Nina_Kuo@novatek.com.tw>
+X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20260714092504.82538-1-Nina_Kuo@novatek.com.tw>
+References: <20260714092504.82538-1-Nina_Kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5171610d8bebdd10eea44bff5236502d765b5918.1783097764.git.andrea.porta@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed;
+	boundary="__=_Part_Boundary_003_985712725.1147062870"
 
-Hi Uwe,
+--__=_Part_Boundary_003_985712725.1147062870
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 19:05 Fri 03 Jul     , Andrea della Porta wrote:
-> From: Naushir Patuck <naush@raspberrypi.com>
-> 
-> The Raspberry Pi RP1 southbridge features an embedded PWM
-> controller with 4 output channels, alongside an RPM interface
-> to read the fan speed on the Raspberry Pi 5.
-> 
-> Add the supporting driver.
-> 
-> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
-> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> ---
->  drivers/pwm/Kconfig   |   9 +
->  drivers/pwm/Makefile  |   1 +
->  drivers/pwm/pwm-rp1.c | 435 ++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 445 insertions(+)
->  create mode 100644 drivers/pwm/pwm-rp1.c
-> 
+PCEtLXR5cGU6aHRtbC0tPjwhLS17LS0+PHNwYW4gbGFuZz1FTi1VUw0Kc3R5bGU9J2ZvbnQtc2l6
+ZToxMC4wcHQ7Zm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWYnPkNPTkZJREVOVElBTElU
+WSBOT1RJQ0U6IFRoaXMgbWVzc2FnZSwgaW5jbHVkaW5nIGF0dGFjaG1lbnRzLCBjb250YWlucyBp
+bmZvcm1hdGlvbiB3aGljaCBtYXkgYmUgY29uZmlkZW50aWFsIGFuZCBwcml2aWxlZ2VkLCBhbmQg
+aXMgaW50ZW5kZWQgb25seSBmb3IgdXNlIGJ5IHRoZSBhZGRyZXNzZWVzIGRlc2lnbmF0ZWQgYWJv
+dmUuIFVubGVzcyB5b3UgYXJlIHRoZSBpbnRlbmRlZCByZWNpcGllbnQsIGFueSB1c2UsIGNvcHlp
+bmcsIGRpc2Nsb3N1cmUsIG9yIGRpc3RyaWJ1dGlvbiBpcyBwcm9oaWJpdGVkLiBJZiB5b3UgaGF2
+ZSByZWNlaXZlZCB0aGUgbWVzc2FnZSBpbiBlcnJvciwgcGxlYXNlIGltbWVkaWF0ZWx5IGRlbGV0
+ZSB0aGUgbWVzc2FnZSBhbmQgZGVzdHJveSBhbGwgY29waWVzIHRoZXJlb2YgYW5kIG5vdGlmeSB0
+aGUgc2VuZGVyIGJ5IHJlcGx5IGVtYWlsLjwvc3Bhbj48c3Bhbg0KbGFuZz1FTi1VUyBzdHlsZT0n
+Zm9udC1zaXplOjEwLjBwdCc+IDwvc3Bhbj48c3BhbiBzdHlsZT0nZm9udC1zaXplOjEwLjBwdCc+
+JiMyNjQxMjsmIzM3MTA5OyYjMjAyMTQ7JiMyMTQ1MDsmIzIwMjE5OyYjMjAzMDk7PHNwYW4NCmNs
+YXNzPUdyYW1FPiYjMzg0Njg7JiMyMDIxNDsmIzIyMzQzOyYjMjM2NjA7JiMyNzIzMTsmIzIzNDk0
+Ozwvc3Bhbj4mIzY1MjkyOyYjMjA2Nzc7JiMyMDM3OTsmIzIwODU0OyYjMTk5Nzg7JiMyNTM1MTsm
+IzIzNDUwOyYjMjIzMjA7JiMyMjMzNjsmIzIwMDQzOyYjMjU5MTA7JiMyMDIxNDsmIzIwMTU0OyYj
+MjAzNTE7JiMyOTk5MjsmIzEyMjkwOyYjMzg1MDA7JiMzODc1MDsmIzI0NzQ0OyYjMjYxNTk7JiMy
+NTM1MTsmIzIzNDUwOyYjMjAwNDM7JiMyNTkxMDsmIzIwMjE0OyYjMjAxNTQ7JiM2NTI5MjsmIzIx
+NTQyOyYjMjEwNjM7JiMzNTUzMTsmIzIxMjQ3OyYjMjAzNTE7JiMyOTk5MjsmIzEyMjg5OyYjMzUw
+Nzk7JiMzNTA2OTsmIzEyMjg5OyYjMjU1ODE7JiMzODcwNjsmIzI1MTEwOzxzcGFuDQpjbGFzcz1H
+cmFtRT4mIzI1OTU1OyYjMjQwNjc7JiMyNjQxMjsmIzM3MTA5OyYjMjAyMTQ7PC9zcGFuPiYjMjAw
+NDM7JiMyMDIxOTsmIzIwMzA5OyYjMzcwOTY7JiMyMDIyMTsmIzEyMjkwOyYjMzM1MDk7JiMyNDc0
+NDsmIzM3Njc5OyYjMzU0OTI7JiMyMjMyMDsmIzI1OTEwOyYjMjEwNDA7JiMyNzQ5MjsmIzM3MTA5
+OyYjMjAyMTQ7JiM2NTI5MjsmIzM1NTMxOyYjMzE0MzU7JiMyMTM2MzsmIzIyMjM4OyYjMzUyMDY7
+JiMzODY1MTsmIzIzMzc2OyYjMzcxMDk7JiMyMDIxNDsmIzM2ODkwOyYjMzA2OTM7JiMyMzQ5Mjsm
+IzIwMjE0OyYjMjAxNTQ7JiM2NTI5MjsmIzIwMDA2OyYjMzU1MzE7JiMyMzQzNjsmIzIwODQwOyYj
+MjEwMzQ7JiMzODUwMDsmIzE5OTg4OyYjMzc1NTk7JiMyNzU4NDsmIzI2NDEyOyYjMzcxMDk7JiMy
+MDIxNDsmIzIxNDUwOyYjMjA4NTQ7JiMzNTA3OTsmIzI2NDEyOyYjMTIyOTA7PHNwYW4NCmxhbmc9
+RU4tVVM+PG86cD48L286cD48L3NwYW4+PC9zcGFuPg0KPCEtLX0tLT4=
 
-<...snip...>
+--__=_Part_Boundary_003_985712725.1147062870
+Content-Type: 
+Content-Transfer-Encoding: base64
 
-> +	.driver = {
-> +		.name = "rp1-pwm",
-> +		.of_match_table = rp1_pwm_of_match,
-> +		.pm = pm_ptr(&rp1_pwm_pm_ops),
-> +		.suppress_bind_attrs = true,
-> +	},
-> +};
-> +builtin_platform_driver(rp1_pwm_driver);
-> +
-> +MODULE_DESCRIPTION("RP1 PWM driver");
-> +MODULE_AUTHOR("Naushir Patuck <naush@raspberrypi.com>");
-> +MODULE_AUTHOR("Andrea della Porta <andrea.porta@suse.com>");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.35.3
->
+RnJvbTogQmVuIEh1YW5nIDxCZW5fSHVhbmdAbm92YXRlay5jb20udHc+DQoNCkFkZCBlbnRyeSBm
+b3IgbWFpbnRlbmFuY2Ugb2YgTm92YXRlayBOVDcyNnh4IFNvQyBJMkMgY29udHJvbGxlciBkcml2
+ZXIuDQoNClNpZ25lZC1vZmYtYnk6IEJlbiBIdWFuZyA8QmVuX0h1YW5nQG5vdmF0ZWsuY29tLnR3
+Pg0KU2lnbmVkLW9mZi1ieTogTmluYSBLdW8gPE5pbmFfS3VvQG5vdmF0ZWsuY29tLnR3Pg0KLS0t
+DQogTUFJTlRBSU5FUlMgfCA3ICsrKysrKysNCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25z
+KCspDQoNCmRpZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTDQppbmRleCA2YjQ1
+NjA2ODFiNTEuLmU0ZThlYjAxYWQ3YSAxMDA2NDQNCi0tLSBhL01BSU5UQUlORVJTDQorKysgYi9N
+QUlOVEFJTkVSUw0KQEAgLTE5MjA4LDYgKzE5MjA4LDEzIEBAIFQ6CWdpdCBnaXQ6Ly9naXQua2Vy
+bmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvbm9saWJjL2xpbnV4LW5vbGliYy5naXQN
+CiBGOgl0b29scy9pbmNsdWRlL25vbGliYy8NCiBGOgl0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9u
+b2xpYmMvDQogDQorTk9WQVRFSyBOVDcyNlhYIEkyQyBDT05UUk9MTEVSIERSSVZFUg0KK006CUJl
+biBIdWFuZyA8YmVuX2h1YW5nQG5vdmF0ZWsuY29tLnR3Pg0KK0w6CWxpbnV4LWkyY0B2Z2VyLmtl
+cm5lbC5vcmcNCitTOglNYWludGFpbmVkDQorRjoJRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
+bmRpbmdzL2kyYy9ub3ZhdGVrLG50NzI2eHgtaTJjLnlhbWwNCitGOglkcml2ZXJzL2kyYy9idXNz
+ZXMvaTJjLW50NzI2eHguYw0KKw0KIE5PVkFURUsgTlZULVRTIEkyQyBUT1VDSFNDUkVFTiBEUklW
+RVINCiBNOglIYW5zIGRlIEdvZWRlIDxoYW5zZ0BrZXJuZWwub3JnPg0KIEw6CWxpbnV4LWlucHV0
+QHZnZXIua2VybmVsLm9yZw0KLS0gDQoyLjQwLjENCg==
 
-I didn't get any feedback after I replied to Sashiko's latest concerns, which I
-don't think are relevant. Can we proceed with this patch or are there other 
-concerns about it?
+--__=_Part_Boundary_003_985712725.1147062870--
 
-Many thanks,
-Andrea
