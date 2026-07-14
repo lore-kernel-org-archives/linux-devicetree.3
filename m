@@ -1,118 +1,117 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6421038E8BF
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3BC466B4C;
+	Tue, 14 Jul 2026 13:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034179; cv=none; b=OO0T/S+U1Gh+nwWUs9BsgvdBzxaHLC5hJfUX3lrxi1qOL9fMVqvlQCVjev3Q6S4sbKIZT8MhFh1KmZnUL27MaBc2EWL/lFMpEwaqg12LGIluTrgOIbAjduJBxy05kGET8Zl3BgNvkdG6CcglhlvdaKnADJvo5M3ec5MuZQQ5gVc=
+	t=1784034231; cv=none; b=DaJgo2uQeOharRe5mI4GAp5Nin0U+zSmMFX+NuzrVvwOc7lQzmh4MEgkyKIbZFzQn4YUycNyewhpl5GMgEwBAwK9o1Q65nTONIQ2Chkt15LoVeZ08bJQtGjSp0EVnib7AUw5Pl6Zv6VTvb0A8GYAKS6bD3xVgEsUII3tl4QrsrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034179; c=relaxed/simple;
-	bh=49EJy2I245R3oL6qxS0jUWJITX8DdSiR/8f2KDrNZ0A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=GlrnguP5dveq07DiuljCPdXU9edDcRuK+EU37EWeMK4ycXJ7a+DBl+kLxbPMSImS9+9IgEjaC/I96sJSrDBV2y9ZEytaFV71JjM0RhZ1wm7vx3wt8cPZpctEphCovMSjY9dNm0+z3vtK84jwLW7wGf2mtMR6eN/EuvZSeSRI+II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=UGk5ycZi; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1784034231; c=relaxed/simple;
+	bh=r7/DFFOiBZZ6Q3DeSuI8G+Veljz9pPAyCisILMx3k6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SnNTRYfPG/1Hvfb1F9zpr6AlWq7gzVWTy36DHM0xlQQBoqXFgZcckV1OJb5AWl4HjXbUErO+x8gS+sWTt2BZudDNSDJGURbSIDzKgf/gRbdaic/Ai4xFrmKy5CT+RS+mzNqGsvSGDel7TlRnVfoO6Zo8fDrt2OnsHyZzNPbwBQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MZxc/I/q; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FGCVV2uO; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="UGk5ycZi"
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MZxc/I/q";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FGCVV2uO"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gzzyL4By7zMlG1;
+	Tue, 14 Jul 2026 15:03:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784034218;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=eg2J22pv0EeOUfxPi9LM1hfuqMseecX+7PDPMI1icGM=;
+	b=MZxc/I/q6RkWmunmFE2cVidS53qzIS32iszUHWGuSBi7TaGlGanbU88UqzGj0qTjxAuKlM
+	kB6DuFJHZiou3G/erRT1JO5BzrMjbPnr7ycCeSvfUB0h/GrINSki1VX8ZCLmPBpgUj9ssF
+	rEPoV36YtsEBSbQAQQqYLcueql45gjTKtBv80Y6+ijJuCFDns0RzT97YdF2VTMiYvG2xC9
+	MKWax2hbU+V18+sAtAUF0nY6GxVNSDymxVrJzK/qWtllEcM132A0OYa1E4aO0T+2F1fkWy
+	kDJvK7IXmjsc9DvyC9+JyoLnmZaTryDn1N8ncsz+yCEmfLid6paA1rql2qw6jQ==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1784034216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=eg2J22pv0EeOUfxPi9LM1hfuqMseecX+7PDPMI1icGM=;
+	b=FGCVV2uOKO9+4IEYjxdVIDOqbyVsUbTb0wdkS2RYrz73606aw2tvTmdSRvQuanYemn78Sb
+	SGsA2X4NimVcabcS85+LjKq8nUgtL+u+4AQ5vUkO0EtjITy6hft2BUyT4d2XVxWOE3FAgB
+	lwMOIq0MwpkW76wbTDUvNU2J4+8nihgGeShKKB/40tJ4DgC+GmCo23jzcSGsYERD7OXFT9
+	wY8Pb9C6we5IQPRwE8EHS8mknKJS06yJGTYgCAr0OFi39CdNbU8krf0n8KlNgKops+W+UW
+	ISeNDRjEnhKHW3TG6UEOJ4tn2hvbnvTQmm58+zH051Gc4cYR1JuKq5g2pJBoSw==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 1/2] arm: dts: renesas: gr-peach: Specify ethernet PHY reset timings
+Date: Tue, 14 Jul 2026 15:03:01 +0200
+Message-ID: <20260714130325.11080-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
-	s=key1; t=1784034169;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s0CMiWuHZ0uwm0W5eVDnOsKsl7y91gjDTzq0HQxMpSw=;
-	b=UGk5ycZi1gfvOCT3UYL7c1WC1wB5w04XvTi36jPTzKWnDmqncgcsA0Baaq7pBkFacjCD9o
-	p56kVwP7VJNwgCGHVKqg5uuq5lVXijoK4hTbsalenG1YQEtYQ7q/syDu5Qti5dZQ1Qh9d5
-	n1J9wVnTWbLui4anE7KKF3ui+JSTU4+Ya+j09Rcb0e22mo2k9nS6lBiKxrZ+vV7opL+GMd
-	UeSHTMPWzvThCfw1S6SWvynCCCZgymG6bdMmBJt7tzA+lUQSVkUgGMVxkBrQKj2HhoNLuc
-	bH1CHjVIKeoT5NvEfuXuMLf3HF8brggE4kDqiOPSdAVTXXHI8kgP+YU1uRsjuA==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 14 Jul 2026 15:02:45 +0200
-Message-Id: <DJYBBXE6SAG2.20OEJI5K6JIVM@cknow-tech.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Joachim Eastwood" <joachim.eastwood@gmail.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-Cc: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <diederik@cknow-tech.com>,
- <jonas@kwiboo.se>
-Subject: Re: [PATCH v3 03/12] arm64: dts: rockchip: rk3588s-nanopi-r6: fix
- missing pcie rst pinctrl
-References: <20260713-nanopi-m6-v3-0-227567ffc5dc@gmail.com>
- <20260713-nanopi-m6-v3-3-227567ffc5dc@gmail.com>
-In-Reply-To: <20260713-nanopi-m6-v3-3-227567ffc5dc@gmail.com>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 07c814e049ccf7dfdf7
+X-MBO-RS-META: uzejgmi3ro9qn95mmhsacqxn1fyed6im
 
-Hi Joachim,
+The LAN8710Ai reference manual [1] DS00002164C page 61 FIGURE 5-3:
+POWER-ON NRST & CONFIGURATION STRAP TIMING does not indicate how
+long should the system wait after deassertion of the PHY reset and
+before start of communication with the PHY via MDIO. Opt for 300 us
+which should cover every timing option, including the 16 us delay
+required for MDIO to switch to 25 MHz listed in Note: in Chapter
+3.8.5 RESETS.
 
-On Mon Jul 13, 2026 at 10:30 PM CEST, Joachim Eastwood via B4 Relay wrote:
-> From: Joachim Eastwood <joachim.eastwood@gmail.com>
->
-> The pins are used as reset-gpios but not reserved through pinctrl.
->
-> Fixes: f3c6526d6fb2 ("arm64: dts: rockchip: Convert dts files used as par=
-ents to dtsi files")
-> Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi b/arch/a=
-rm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-> index 67e284a15c35..8df6e1a21180 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
-> @@ -360,12 +360,16 @@ rgmii_phy1: ethernet-phy@1 {
->  };
-> =20
->  &pcie2x1l1 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie2_1_rst>;
->  	reset-gpios =3D <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
->  	vpcie3v3-supply =3D <&vcc_3v3_pcie20>;
->  	status =3D "okay";
->  };
-> =20
->  &pcie2x1l2 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie2_2_rst>;
->  	reset-gpios =3D <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
->  	vpcie3v3-supply =3D <&vcc_3v3_pcie20>;
->  	status =3D "okay";
-> @@ -420,6 +424,16 @@ rtc_int: rtc-int {
->  		};
->  	};
-> =20
-> +	pcie {
-> +		pcie2_1_rst: pcie2-1-rst {
+The LAN8710Ai reference manual [1] DS00002164C page 61 TABLE 5-8:
+POWER-ON NRST & CONFIGURATION STRAP TIMING VALUES row tSR Stable
+supply voltages to reset high is at minimum 10 ms. Set DT property
+reset-assert-us to 25ms because the LAN8710Ai RM does not explicitly
+spell out how long the reset has to be asserted, but this at least
+covers the worst case scenario.
 
-``pcie20x1_1_perstn_m2`` to match the schematic name?
+[1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/LAN8710A-LAN8710Ai-Data-Sheet-DS00002164.pdf
 
-> +			rockchip,pins =3D <1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +
-> +		pcie2_2_rst: pcie2-2-rst {
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ arch/arm/boot/dts/renesas/r7s72100-gr-peach.dts | 2 ++
+ 1 file changed, 2 insertions(+)
 
-And ``pcie20x1_2_perstn_m0`` here?
-
-Cheers,
-  Diederik
-
-> +			rockchip,pins =3D <3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
-> +
->  	sdmmc {
->  		sdmmc_det_pin: sdmmc-det-pin {
->  			rockchip,pins =3D <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
+diff --git a/arch/arm/boot/dts/renesas/r7s72100-gr-peach.dts b/arch/arm/boot/dts/renesas/r7s72100-gr-peach.dts
+index 23ddec2176857..2477db9e5aaca 100644
+--- a/arch/arm/boot/dts/renesas/r7s72100-gr-peach.dts
++++ b/arch/arm/boot/dts/renesas/r7s72100-gr-peach.dts
+@@ -128,8 +128,10 @@ phy0: ethernet-phy@0 {
+ 		compatible = "ethernet-phy-id0007.c0f0",
+ 			     "ethernet-phy-ieee802.3-c22";
+ 		reg = <0>;
+ 
+ 		reset-gpios = <&port4 2 GPIO_ACTIVE_LOW>;
+ 		reset-delay-us = <5>;
++		reset-assert-us = <25000>;
++		reset-deassert-us = <300>;
+ 	};
+ };
+-- 
+2.53.0
 
