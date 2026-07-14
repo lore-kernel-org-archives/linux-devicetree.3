@@ -1,70 +1,75 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F237477E3F;
-	Tue, 14 Jul 2026 13:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F317946AF17
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034300; cv=none; b=MsdHiMHYe/12hysFKYxlM3rbmZ9PxMC8Fj5C49CwTiOjhTnqKRIrLyF9FUmYRP8MFFv/tOou4tlJU279EKKrSyq6phWfh9+bQHrbbYAkAg5x7ND9X74JP7ZXsMq4cc8scW7PdRC644GdYs48muHrBNxMgb35+25FnyWg09q6HcU=
+	t=1784034312; cv=none; b=fzfLYTJ1XttTOEXLQYSjZmtAkjgLVLquJz/jdHGafrmDe5A9C2CEeEu2QQTXIKK+v6gtvckM1x7xoZS03F9NE8gcz3xGPWHkCFRxUluJyTHZr5loucUlxui58/MSa7x+H7GS8754OUj8Lz2JlzKIt901+NLio5fqmeVhdlP5ywg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034300; c=relaxed/simple;
-	bh=WZgo6fKDSqYPdcfoY5QKOyYmgw8MD7TOEaHX4YniNNQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l5WHOgi19t9wnQus1rP474A3jX1njobuCRoLA5tpaznk7GFtsRGELbG3yaUoHIR/pHFSnr9+5L2qnuKAUf+Ty+HChYhBdIl+fHGJbWUFnWIRjJm86Bd8jvWkh2++vMjVWwBsZsoDMDSDgwVvuke7ifVNR8D3jFHgkNvRIVgHK40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=QKVPOvc7; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=O573BQ2e; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1784034312; c=relaxed/simple;
+	bh=VOMTGOfRoJ5Rdr+KHFMcafRgWYnlPdDlGpYkrvPKcNk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z/Vuu35MzJ4Y/Qllw9q8ztqLdVaOl0V4evua24HlS2O66C5MjKP68I12oiZAq7Y8kTYDuvmhP5Jf1APoYyZHKDHxMMcegSk85yG+ihC37NIEsRqX0ZdstYcl53k+xAQv9vdkjqm7/ItdTbf61YHpccK8lHWf/9zggDv1vyB4BAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qMJNRbOf; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="QKVPOvc7";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="O573BQ2e"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA512)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gzzzr3fwgzKmyK;
-	Tue, 14 Jul 2026 15:04:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784034296;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=r2wfK8JSekgLRRiuf/K6EQ8zzuugkmdh+qH0iDGf9K0=;
-	b=QKVPOvc7XATX0TgWPP7fg+a/GRwt5ke/O2RAWHOYxX+202HFXu4TVCrQlXnoHjVm+e30bX
-	s4PpBYbF/ThQLseE15m6CUPhpWRnIL6pcaw0aKmCcQXwnyVliZ3JWlmWxdvYU+oVqeFcSN
-	Nrk0DrXRxJNENVbJbQQUxiIsTy3jp4KvIsPIA1UX+itHkoYcqLXjMqg41LKNBpiMNjqdOC
-	necacqxRbQKpdJG0nQ5JKqzstJnI4qcr+1f9SM0cb6iG0iRR95VQB9ISnUIria7YLGV4p2
-	Hkma9wOBAbyvb2vqJKZMlwDxXCnRzEeEWko8+IR94b50FGveHmOuyoKYK4S9lQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=O573BQ2e;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1784034294;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=r2wfK8JSekgLRRiuf/K6EQ8zzuugkmdh+qH0iDGf9K0=;
-	b=O573BQ2eU7zfrj+sqb3IKUmdl16xJ2OHFc+P7Eawajxtu7tVsprQoBOlkv/T+CHTYVecGo
-	hWkozd2ilBQT2PtFoEGZ5opi394w3g4THN3iOMX7c8Cr83kPiZx4ZP+o0FF25wi9yJKhaj
-	LRi9YU4Jdu6pjYytwdYGptgNcx+Hdt9zTpAKp8dgQjJDOB4jbDgAgAK1nEsDDUEYNtAdWS
-	VLe9oVXUe0/z6rmmj1QZ74xk7O+L9UNv93Sbp6rOLbed0ZsSpTvu+Fgazw1tqdQ1EuRhs4
-	jA/0R2PTkBbc7pzloOxP5bAtL7ELPoaO/c2O9im99kZfELtQEyv90Q7YmFIGaw==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qMJNRbOf"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-476d8e647e9so4239486f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:05:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784034309; x=1784639109; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WL8L6KsMjnQpZyewy/NTC9SiE2jOxkz1VcH1kHCfURE=;
+        b=qMJNRbOf0M3w285d9KLTy+aAEWflNl/ve2n04STE9l5unPMpEjihby5Tn/gBIhk44j
+         mfBg25qG7bAixlB8Q9NNF35oBJHyfuvHF01hAPjDqb7Gmuc4kNoS4cPC4jYDp9g0Xqs6
+         axt0ruLReZadA/rIxF8sNhg0zWyC6BQTWgzI2mYf1poQzCKx89woMcFD6K4PK5VMmeA9
+         QLlzVx1uB3nQs9S8XJ4Rq35Thqj9tQon+mmFMap0Fv/xd4am7j3YsNGdpfWgyPDDE66c
+         Po8/eaolGAG6B1CDSeDqtYKKWGxdBPF4CVJe5a+os4V3kqB+qTfiZnoeXq4bBdFT9Klm
+         ZmKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784034309; x=1784639109;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WL8L6KsMjnQpZyewy/NTC9SiE2jOxkz1VcH1kHCfURE=;
+        b=VMO8OBrYilN+tlgJboy8dHLwQLgX0eBK/FGcHXkAhiBawa5E6XS70er4/4xUkEGHD8
+         4yomybvqs+Cc75oKO0wTS7L9ylXKrPPan92PDH1OHW5LUpZZLMx91h+yFrr5FMcPS7C4
+         TQV1i7BsfUljgnCRMkq3rfAkAyUPlPfesnKGKWowjqpMNykGUtb3mv4r8K5XWgNlhijb
+         d67KKmWLFtXM+JDfnV3duxO5P6gWB8elMyB98fTEueVjko9Vc38k9u+Ja8HitbsrN/qc
+         Mc3VZ4fBJnldDZOD6ejfdZuSwo38EOAE3Ker6a/iXWWl1uglFiYLSWoxAN51GhH3yxOm
+         OZKg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3uINFinDRrKVJUMY+FkYvDiKv4sau/5DWq5B/zOeHZsYN4ZufZOrMvCzf5jNpB2HxmVUP7DO41poZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzonECEcS8Mw6tYflhWJX1Sgo68tbNlY7evYeb0cHIW40/ECimb
+	AkWA27n/f6CaposG6sHra4bi6Q2ruvT5ps4We353KF10V0WTJe+DJ4Ri
+X-Gm-Gg: AfdE7cku2nTglyfe6tMioEuFYnXvuH6qAD1lo+clBC+TnGfNQpdA50VMMd9Ojk/cOeL
+	X6xND7/nxBov74DC3IwON0rmezJjWZ8L59cTOJaZHVCRqciBUctmzaZTDsubhf9xC0hcrvPXrQS
+	bu5eTpJgrpm49ILOfuSfS4TwNrFxnE5iM/vqszWx/nQ+aDWybCJHB6n8/G3LVTWEghw6LRFGC9b
+	NiCG3On7kk7a0Cgdt5xlwnHkKOM7VeK08tt8GIIHEI/whAVZsF4ry7uf8ljAfhW+8Re9aNEdYyN
+	CMtudiLOFLyFi8YzKTuFzSwvbzLWYCkMr1ExOk7w10mOuWULRytAp4l3cuccd7/wh1BKddonzPV
+	O//69gd01tqIzKT6aKe6My34r/AnJbe0TPj8nU9e2h4+8Il/8T/gWuAPzUD8R/Pzb7gQ3iXPoMt
+	l7QWK+UaB8JsG3QSTDbA1FCQU61b7/rg==
+X-Received: by 2002:a05:6000:2207:b0:46f:7d90:811c with SMTP id ffacd0b85a97d-47f4885699cmr2979583f8f.13.1784034309005;
+        Tue, 14 Jul 2026 06:05:09 -0700 (PDT)
+Received: from localhost.localdomain ([151.27.210.52])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464c30a9sm7670107f8f.31.2026.07.14.06.05.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 06:05:08 -0700 (PDT)
+From: Oleksii Onchul <oleksiionchul@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH 9/9] arm: dts: renesas: sk-rzg1e: Specify ethernet PHY reset timings
-Date: Tue, 14 Jul 2026 15:04:02 +0200
-Message-ID: <20260714130429.11214-9-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260714130429.11214-1-marek.vasut+renesas@mailbox.org>
-References: <20260714130429.11214-1-marek.vasut+renesas@mailbox.org>
+	Oleksii Onchul <oleksiionchul@gmail.com>
+Subject: [PATCH v2 0/2] arm64: dts: qcom: Add Xiaomi 11 Lite 5G NE
+Date: Tue, 14 Jul 2026 14:58:04 +0200
+Message-ID: <20260714125806.310708-1-oleksiionchul@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,53 +77,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 6b610f2587ac1bd8da2
-X-MBO-RS-META: mi95c6jdhh1x9qahzzdr8rzj94gbd7r4
-X-Rspamd-Queue-Id: 4gzzzr3fwgzKmyK
 
-The KSZ8041RNL reference manual [1] DS00002245C page 47 TABLE 7-10:
-POWER-UP/RESET TIMING PARAMETERS does not indicate how long should
-the system wait after deassertion of the PHY reset and before start
-of communication with the PHY via MDIO. Opt for the same value as
-used for KSZ9031RNX, which is 300 us.
+Add initial support for the Xiaomi 11 Lite 5G NE, codenamed lisa.
 
-The KSZ8041RNL reference manual [1] DS00002245C page 47 TABLE 7-10:
-POWER-UP/RESET TIMING PARAMETERS row tSR Stable supply voltages to
-reset high is at minimum 10 ms. Set the DT property reset-assert-us
-to 10ms because the KSZ8041RNL RM does not explicitly spell out how
-long the reset has to be asserted, but this at least covers the worst
-case scenario.
+The supported hardware includes regulators, UFS, USB, GPU, remote
+processors, Wi-Fi, Bluetooth, touchscreen, flash LED, thermal sensors
+and the hardware buttons.
 
-[1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/00002841D.pdf
+Link to v1: https://lore.kernel.org/all/20260711184934.55701-1-oleksiionchul@gmail.com/
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- arch/arm/boot/dts/renesas/r8a7745-sk-rzg1e.dts | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2:
+- Drop SD card support because card detection is not reliable yet.
+- Constrain the UFS VCC rail to 2.952 V.
+- Drop the unused FSA4480 interrupt.
+- Add the touchscreen pinctrl state.
+- Reference the reserved framebuffer through memory-region.
+- Enable ramoops ECC and use decimal notation for mem-type.
+- Allow the unused camera PMIC regulators to be disabled.
+- Document all GPIO reserved ranges inline.
+- Replace underscores in node names with hyphens.
+- Drop the unverified USB limitation comment.
+- Drop IPA properties now provided by kodiak.dtsi.
+- Drop redundant USB role properties.
 
-diff --git a/arch/arm/boot/dts/renesas/r8a7745-sk-rzg1e.dts b/arch/arm/boot/dts/renesas/r8a7745-sk-rzg1e.dts
-index 42e82f0697553..26ee1eec521be 100644
---- a/arch/arm/boot/dts/renesas/r8a7745-sk-rzg1e.dts
-+++ b/arch/arm/boot/dts/renesas/r8a7745-sk-rzg1e.dts
-@@ -67,8 +67,10 @@ &ether {
- 	phy1: ethernet-phy@1 {
- 		compatible = "ethernet-phy-id0022.1537";
- 		reg = <1>;
- 		interrupts-extended = <&irqc 8 IRQ_TYPE_LEVEL_LOW>;
- 		micrel,led-mode = <1>;
- 		reset-gpios = <&gpio1 24 GPIO_ACTIVE_LOW>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <300>;
- 	};
- };
+Oleksii Onchul (2):
+  dt-bindings: arm: qcom: Add Xiaomi 11 Lite 5G NE
+  arm64: dts: qcom: Add Xiaomi 11 Lite 5G NE
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../boot/dts/qcom/sm7325-xiaomi-lisa.dts      | 1106 +++++++++++++++++
+ 3 files changed, 1108 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7325-xiaomi-lisa.dts
+
+
+base-commit: 1c553b3d0cfca9cac2186daea6e2f81808ce7d8b
 -- 
-2.53.0
-
+2.55.0
