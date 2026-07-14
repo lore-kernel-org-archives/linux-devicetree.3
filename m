@@ -1,110 +1,150 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0203FB7EB
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B713F6C50
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784017051; cv=none; b=lZhYKx5f48nw2AxcLppfM0OIH+TifVuYr3aifA0GWVYFi+2yC5djDHPnQXsoB+s0g0mDhUrflVHkGYk4PiFddw51Yf7F9KNp9bbe9Zk4qcE8MuPtFAr4j0o+atO1AJq8tied4aMk2Xp8J046HUh7BZHvYnHF/lt+RRXvLw0dJR8=
+	t=1784017082; cv=none; b=f7LGVZ612DUHBibMyCrbtHsBij1OxorI3gZugFwV+JUoKMVWHaETyLfKUTOaRHCFc+DzzoY3nSC3NHaNSroX+gw4G16C7Z4Hlr2D2I+t2SXVOXBRUNCkQ8ondnTh/GyHQyu7n2x7uEJz6U1p8ZAAU8YcFewtCyprmhDAoygHYLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784017051; c=relaxed/simple;
-	bh=0Q9ueRtJpn+0V8fYajXPPgDhnxfHEHQJcd5MZ4mr6Ak=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RRpqimYV3zfriV3/7sszSGWKAVe1G1dgTgeYihkLMBBTfwMGDel5J1IieKqW4ms6LKhg8zQoz3wxUrskmmwxgSsV8D74kRGLq2dPmQzuHAVxu3U5jidmF0on1jDS55i+hl77Q3IuFd3AIyzsExP6SPcgimtBObaSKiFK0+8T2lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoPf2NgZ; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784017082; c=relaxed/simple;
+	bh=lmLRA1j6bU4TZIADuvEfELdVnzXyMHW+4VvSLzBy1ag=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sUSlVhcn+0WLSIYl62oj6jmRUKRponOZYkhJDkjZad++2KiFr8VufwSy9pzOOVsgRSZrkfBCELsEtRym+3645jF8e4D8Cgg8GcaFkja7dxESax3kl+vVM4W9TD5l4xCM+5AVGZeLLg3rGQmBBPLof0+putNEdTzE8Vu20lKtTro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VfJe61hn; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoPf2NgZ"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6983f20a8bfso6004138a12.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 01:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784017032; x=1784621832; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qmXY1tinEamMA2gpoRwrr0YINADk+qjq8kgIZNm3+Os=;
-        b=OoPf2NgZVRHvFeI8zG55Hxp8Zex1dK6//4U3HVECoAX05l0hgAtzlC5jMJIANK9yVI
-         w5S2+ci/Zs4Xau82/xE2xIi+b7LFfxwxcmZjCqkWBA8B78q3VKbM5l2tuKMSjD3EkG0+
-         GzEYKINNESMcMXGn8kjRINZuKZHnppyi3qwZ8KIWRhbHO+uYhucHBnSQxRyBQ7MQCvpx
-         eMvKK98a3jyMUHjbTR6staWQXOCRvCjmNNJNoxLeJvxaUYAXIvrje3G3ue4mON6NGEMy
-         42lfOZ0w+wUGGeVCDIMnwKu0dPUKyIGmppgSVMj/7GKnxIgnZ5Uz4u0VJDnV1qGSV7Dc
-         EPxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784017032; x=1784621832;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qmXY1tinEamMA2gpoRwrr0YINADk+qjq8kgIZNm3+Os=;
-        b=BFTVP4XDekNBehyHyEPkMUtxwTvZpYcn8BYWC0E9zzQ4oYcyuvyw9n8uMPn/JMvRej
-         VF6eTQ7m6lilPhKt45vfz2lIyxOs1BUax0aVzSiJje2TdmSwlElFdDepawhyfZaS9CmG
-         QfZRTj8kmku4xs5HIJ21p3X6Ggx1DDSLJAcacbtF5YdP0uDTxzVai+dWhrcsqGUHgMAp
-         r0dt12wcdL1HFr6XAOAvpgqXuCPYpKF5jc4Vxjj/OPLN5lRqmGyldrM43OgMh4rGMwW2
-         f0eSsTo3OXlkEFgaj9nqIC11cOBPuEDlCpmu9PrhKZwmz9hqrVHA4wU5dTxw7MHuETyT
-         /3YQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrvF9OAoKeyhialaiw/crYAY0n2RgusZ9YOKQWLLDHMVbvQl7YTRdqXOVnV19PpvVy5Z+PxsIeBHo8U@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0LKxcynLs5vHOGksMQs74SiWF7zLT8sAlIkp4khG7Z9B+Jrc6
-	1dh+rghYfa/3vzWehMj5YPLLDYR2418f64zck3qO0YOXbXt8bXrrCB2W
-X-Gm-Gg: AfdE7cmRe+WQdPrbiC2NxAnQXdcWaUBt5R3gkPOaatzJpJkb1me+JU4ZZGpunXmvdla
-	tEYyneRKXtZLBlC8S+WUYR47HyczrcqtK82NzOT6Ono4stbvt06iyt9OTml7imGtVk9b9DpVifl
-	CjU27Oz0SedgDWnPyJBnyiKwUgnx028MmBqoOwfuOeBNy3MXjkNv58tCNVE74kqEFdm2Fiph6dz
-	f/YnFmhnye+0VugBkyqlWAbZOrzzjEEbL2pd7GwH3kepIMzd5uP/QswJOmFZl04ddmLX8a+fdXg
-	KQDnlo+MJ19zs/q1AbFRFP5LW1LlSPLw2MdAURqG3YM+MRggHFWPCcW6uKreQLRz3elKgKFn0N7
-	B1NPICQCP4dnqSeCTptlcDWIxHtN7U71htHeWGkKA0fe8n0T1WHonYrnlxYnafHxxEG2NLxwokG
-	bRVO7d6mNF1lvazeqcS1f0vWFlsglN5LUT4kLPAT+4Qh2NyA==
-X-Received: by 2002:a17:907:60d1:b0:c16:558:e6a6 with SMTP id a640c23a62f3a-c16678c8425mr68187366b.5.1784017032296;
-        Tue, 14 Jul 2026 01:17:12 -0700 (PDT)
-Received: from DE-PF5B95TD.embedded.cmblu.dev ([87.129.199.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c15e353d2f8sm723085166b.34.2026.07.14.01.17.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 01:17:11 -0700 (PDT)
-From: Wadim Mueller <wafgo01@gmail.com>
-To: William Breathitt Gray <wbg@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 3/3] MAINTAINERS: add entry for GPIO counter driver
-Date: Tue, 14 Jul 2026 10:17:09 +0200
-Message-ID: <20260714081709.17846-4-wafgo01@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260714081709.17846-1-wafgo01@gmail.com>
-References: <20260714081709.17846-1-wafgo01@gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VfJe61hn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784017070;
+	bh=lmLRA1j6bU4TZIADuvEfELdVnzXyMHW+4VvSLzBy1ag=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VfJe61hn68YfPm/X1p7KJ/Zi8jTfMN+t01Jd0U/6ibLN1YAJNARz232fpKx6HHdPw
+	 6IKRlmv4xqg0EyynMbUoFGm6XN01PiW4Gp/eT77LMiejeOCkXgMDw5tENPQxn23cUv
+	 EYb+/i2NvC0bQeAzCu6rQJ8nTY0SgvWmko+An7B7Vna6ll9LdxFyfh7hzPJU4Y8/lZ
+	 SGmARv/n51CFJLhodu6RfmPYS+w44dUC2lqbMvT6WJdzj9q0bew0F1HonK5WOLN6pr
+	 6VUNL6cCTpWmRllYuDhm13QZJ+5on02doB5RWg1Go5g09KToesJT7xogsWY6UZC+ag
+	 Jo2HIamzBEffg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DDDB417E01AC;
+	Tue, 14 Jul 2026 10:17:49 +0200 (CEST)
+Message-ID: <64f479f6-af9c-4bda-8a6c-ddbabc839f10@collabora.com>
+Date: Tue, 14 Jul 2026 10:17:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+ <20260713142746.40259-5-angelogioacchino.delregno@collabora.com>
+ <20260713144340.736B11F000E9@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260713144340.736B11F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Cover the gpio-counter driver and its device-tree binding.
+On 7/13/26 16:43, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] Missing cleanup of DRM encoder when device_reset_optional() fails in mtk_dsi_bind().
+> - [High] Read-modify-write data race on `dsi->irq_data` between process context and hardirq context.
+> --
+> 
+> --- Patch [4]: [PATCH v4 04/10] drm/mediatek: mtk_dsi: Enable interrupt at component bind time ---
+> commit 0607d3868a389c4103df3225d2bc7a47d44df3b0
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> 
+> drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+> 
+> This patch requests the DSI interrupt with IRQF_NO_AUTOEN and enables it only
+> when binding the DSI to its display controller component master. This prevents
+> interrupt storms and delays caused by timeouts during probe.
+> 
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> index 8ab5c3431dbbc..e24e7b91a3618 100644
+>> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> [ ... ]
+>> @@ -1090,7 +1091,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
+>>   	if (ret)
+>>   		return ret;
+>>   
+>> -	return device_reset_optional(dev);
+>> +	ret = device_reset_optional(dev);
+>> +	if (ret)
+>> +		return ret;
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does this error path leak
+> the DRM encoder?
+> 
 
-Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+That's right. I will send a patch to fix this outside of this series.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 06a8c74577aa..14f1a4e9fcf5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10984,6 +10984,13 @@ S:	Supported
- F:	Documentation/admin-guide/gpio/gpio-aggregator.rst
- F:	drivers/gpio/gpio-aggregator.c
- 
-+GPIO COUNTER DRIVER
-+M:	Wadim Mueller <wafgo01@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/counter/gpio-counter.yaml
-+F:	drivers/counter/gpio-counter.c
-+
- GPIO IR Transmitter
- M:	Sean Young <sean@mess.org>
- L:	linux-media@vger.kernel.org
--- 
-2.43.0
+This series shall not be blocked by issues that were already present before.
+
+> If device_reset_optional(dev) fails, it returns without calling
+> drm_encoder_cleanup(&dsi->encoder). Because the component bind operation
+> fails, the component framework will not invoke mtk_dsi_unbind(), meaning
+> the encoder is never cleaned up.
+> 
+> If the DSI driver is subsequently unbound or removed, its locally managed
+> memory is freed while the encoder is still linked in the DRM core's list,
+> which could lead to a use-after-free or kernel panic when the list is
+> traversed.
+> 
+>> +
+>> +	enable_irq(dsi->irq);
+>> +
+>> +	return 0;
+>>   }
+> [ ... ]
+>> @@ -1375,17 +1383,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+>>   
+>>   	platform_set_drvdata(pdev, dsi);
+>>   
+>> +	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
+>> +			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
+> 
+> [Severity: High]
+> This is a pre-existing issue, but is there a read-modify-write data race on
+> dsi->irq_data between process context and hardirq context?
+> 
+> mtk_dsi_irq_data_clear() modifies dsi->irq_data using &= in process context
+> (from mtk_dsi_host_transfer()) without disabling interrupts or using atomic
+> bitwise operations. Concurrently, the hardirq handler mtk_dsi_irq() modifies
+> the same variable using |=.
+> 
+> If a DSI interrupt fires during the process-context read-modify-write
+> sequence, won't the flag set by the interrupt handler be silently
+> overwritten and lost when the process context stores its computed value?
+> 
+> This could lead to hardware interrupt events being lost, causing timeouts
+> in mtk_dsi_wait_for_irq_done() and potentially breaking display
+> initialization or frame updates.
+> 
+
+That doesn't really happen for now, but it's a fair point. Will send a patch
+to fix outside of this series.
+
+This was not introduced by this series and shall not block it.
+
+>> +	if (ret)
+>> +		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+>> +
+> 
 
