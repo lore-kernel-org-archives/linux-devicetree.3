@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E624949E3
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 14:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC2943D4FB;
+	Tue, 14 Jul 2026 15:01:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784041137; cv=none; b=XmHb7bFxs3jltoIxM95QFQ9QvagfuD+KF6Hd/q5hK7tKDg/u147TiITUPZvAmNp2ecj8dskvnZ9GRb0QwJ+Tapz6OsYjp+FroYdf+fOzwV1ulpf0XKoNNPUE/z2qYwvPahQloOAm8A/keSdEpglPq/+hJoVqwTsuMGw45iRRFWM=
+	t=1784041287; cv=none; b=PIYOZbp2xK9MzPLuzQhmnkTa3yuK8QBeHlqe8vsS1o/gWXPrisMlfa2nVBPvJG33wDtG+NY0NjBnQXRFeJsYG2SayR7R06rzPdGwSdBKweyaqiiVDTM0HluWFyBiUrhvaJjYeNgzzegj2a1EBE4XGvLC2Rub691cNvevfifaP4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784041137; c=relaxed/simple;
-	bh=f1XuMrnF/YjcND7FI9bYbJMoyc6AxC9pUrROFAx9ZrY=;
+	s=arc-20240116; t=1784041287; c=relaxed/simple;
+	bh=zhKUymbyn2XI0RpSVfZER57bToodZaTi8vYChB4P30E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j9kVwib3+J72JihwKjBoBUg8h62uOvq5hOKvzfU9v3I5u6Tb7ls66bkUU0di2c2OO6W4dW/Yz8A9OaU1QEiIOZ0h4ka9eBkThPSi+91+f2RiJs3VLATRR1uCyKEkqfu3zU4arB0EmZdVA70oVrDx3B1IzJ1zpLcf8Qq/j6+z+7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaT1Ynb+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FHLon9jn7XZaP6EzQ51uENRqSSGQqCVWFJMomIhr+L/24m1eWeM6FF/jytZ77x3GEbNZVY9MBm0vmjOSIcRwp6HVg7sbxHBW3Y7OPqglNHJIdNJyyQ/C4/CueSKYfU+8b9xmTKVhS65s33VWfoeBOx2m75Zu0pXVV2E1nY88mDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nU9kFY2N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaT1Ynb+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450031F00A3A;
-	Tue, 14 Jul 2026 14:58:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nU9kFY2N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D971F000E9;
+	Tue, 14 Jul 2026 15:01:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784041134;
-	bh=5LtOQBbn+zz+sVnFpArkVtoAIYK33tB5QjcARJ5IH+w=;
+	s=k20260515; t=1784041286;
+	bh=ImhKZQMKXk5ZApz5zrH0n0GDyTq3bugLvwuOMGz8W3I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eaT1Ynb+a4SU0OiVldXn4vNoomjHQN/fvnBro7CZj9kv3rLRmbYZv5+aaVWuFjGaz
-	 nD90gIfGTJ/vIH9V1nyXmisvts3NlmWIFXB98Jt8brFMpw9e9twDAPMz9x9q00VWTU
-	 OQdyhCOzJcPQwRsDfa8ilLQvBrQpfecouAaObeuUnHSBDtf/pMbbyB+ArRIVoZLXcz
-	 nC91Zcj/yvyJOyBgZagHLs7qgYFakjk5wMy5WR0q+QfX6qaqL/y+MkxJJRql6HoPIN
-	 gSxzlBpdVn0bVcRUmmlkM04sWPqgjMEEvm1S8E30KC0V/3g0YjFeWWQlk30z8Fzvwh
-	 tfqRGqYlKxBHw==
+	b=nU9kFY2N1ZDSJNcvimDfEKa86meiWwnJ5Hl/QTCYWabRmrW1StFQqQjp6y21+uOdw
+	 lv1YRr2kQrBYsgdwiSLSae6IqhSH4BooDYng1o3Xtn+S0EU0eWUT9BiDfefFDEeuoI
+	 SDsz85D17qUwd452+O3agaU9MDPowOibu3TZMmJSpOQSKZxZhmAflUDo7Vwsr//eIA
+	 vYwA/YSDvj77zMTwIRn8ireeTnIVhOVklBJpYvO3dEM0p3HBYqmD6Ez00K6wIlM0oz
+	 suNaKpmeSHv4ZZFnT7xyud3bFa1M5TCPZAoXEi4+b4wyrmfXcm2Y3K1gtOA9H4085f
+	 JXQnZVcWBhluQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais:
- Document DAI subnode
+Subject: Re: [PATCH v8 1/1] arm64: dts: add tqma9596la-mba95xxca
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260714145250.2473461-2-mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260714145250.2473461-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260714145250.2473461-2-mohammad.rafi.shaik@oss.qualcomm.com>
+To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260714143154.787825-1-alexander.stein@ew.tq-group.com>
+References: <20260714143154.787825-1-alexander.stein@ew.tq-group.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 14:58:53 +0000
-Message-Id: <20260714145854.450031F00A3A@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 15:01:25 +0000
+Message-Id: <20260714150126.09D971F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,92 +45,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The node-level `oneOf` block defining `clock-names` combinations=
- incorrectly uses `additionalProperties: false` and `oneOf`, which will rej=
-ect valid device tree nodes.
+- [Medium] Unreferenced 10G SFP regulator will be unconditionally disabled =
+by the regulator core.
 --
 
---- Patch [1]: [PATCH v5 1/3] ASoC: dt-bindings: qcom,q6apm-lpass-dais: Doc=
-ument DAI subnode ---
-commit b46d22527ffbe28aec4e679dc5521422e9052491
-Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+--- Patch [1]: [PATCH v8 1/1] arm64: dts: add tqma9596la-mba95xxca ---
+commit b7aa596cf679be039938abc33965834ed28f5c60
+Author: Markus Niebel <Markus.Niebel@ew.tq-group.com>
 
-ASoC: dt-bindings: qcom,q6apm-lpass-dais: Document DAI subnode
+arm64: dts: add tqma9596la-mba95xxca
 
-Extend the qcom,q6apm-lpass-dais device tree binding to explicitly describe
-Digital Audio Interface (DAI) child nodes. Add address and size cells to
-allow representation of multiple DAI instances as child nodes, and define a
-dai@<id> pattern to document per-DAI properties.
+This adds support for TQMa95xxLA modules, designed to be soldered
+on a carrier board. MBa95xxCA is a carrier reference board / starter kit
+design.
 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dai=
-s.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
-> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-lpass-dais.yaml
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts=
+ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
+> new file mode 100644
+> index 0000000000000..1d745d66997cb
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba95xxca.dts
+
 [ ... ]
-> +patternProperties:
-> +  '^dai@[0-9a-f]+$':
-> +    type: object
-> +    description:
-> +      Q6DSP Digital Audio Interfaces.
+
+> +	reg_3v3a_10g: regulator-3v3a-10g {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "3V3A_10G";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		gpio =3D <&expander2 15 GPIO_ACTIVE_HIGH>;
+> +		startup-delay-us =3D <2000>;
+> +		enable-active-high;
+> +	};
+
 [ ... ]
-> +    allOf:
-> +      - oneOf:
-> +          - properties:
-> +              reg: true
-> +              clocks: true
-> +              clock-names:
-> +                items:
-> +                  - const: mclk
-> +            additionalProperties: false
-> +          - properties:
-> +              reg: true
-> +              clocks: true
-> +              clock-names:
-> +                items:
-> +                  - const: bclk
-> +            additionalProperties: false
-> +          - properties:
-> +              reg: true
-> +              clocks: true
-> +              clock-names:
-> +                items:
-> +                  - const: eclk
-> +            additionalProperties: false
-> +          - properties:
-> +              reg: true
-> +              clocks: true
-> +              clock-names:
-> +                items:
-> +                  - const: mclk
-> +                  - const: bclk
-> +            additionalProperties: false
-> +          - properties:
-> +              reg: true
-> +              clocks: true
-> +              clock-names:
-> +                items:
-> +                  - const: mclk
-> +                  - const: eclk
-> +            additionalProperties: false
+
+> +	sfp_xfi: sfp-xfi {
+> +		compatible =3D "sff,sfp";
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_sfp>;
+> +		i2c-bus =3D <&lpi2c7>;
+> +		maximum-power-milliwatt =3D <2000>;
+> +		mod-def0-gpios =3D <&expander1 3 GPIO_ACTIVE_LOW>;
+> +		tx-fault-gpios =3D <&gpio2 30 GPIO_ACTIVE_HIGH>;
+> +		los-gpios =3D <&gpio2 31 GPIO_ACTIVE_HIGH>;
+> +		tx-disable-gpios =3D <&expander2 2 GPIO_ACTIVE_HIGH>;
+> +	};
 
 [Severity: Medium]
-Will this additionalProperties: false restriction inside the patternPropert=
-ies:
-'^dai@[0-9a-f]+$' block reject valid device tree nodes?
+Will the 10G SFP regulator be turned off by the regulator core?
 
-When additionalProperties: false is used inside these oneOf branches, it
-restricts the node exclusively to reg, clocks, and clock-names. This means
-standard meta-properties like status or $nodename will be rejected during
-dtbs_check.
+The reg_3v3a_10g regulator is defined without regulator-always-on, and the
+sfp_xfi node seems to be missing the vcc-supply =3D <&reg_3v3a_10g>; proper=
+ty
+to link the SFP to its power source.
 
-Also, if a device tree node omits the optional clock-names property (for
-example: dai@0 { reg =3D <0>; };), won't it match multiple branches of the =
-oneOf
-block since the missing property vacuously satisfies the sub-schema propert=
-ies
-constraint in all branches? Because oneOf requires exactly one match, this
-causes validation to fail and throws an error for multiple matches.
+Since it lacks consumers, won't the regulator core automatically disable th=
+is
+unused regulator at the end of boot and unconditionally turn off power to t=
+he
+10G interface?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714145250.2473=
-461-1-mohammad.rafi.shaik@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714143154.7878=
+25-1-alexander.stein@ew.tq-group.com?part=3D1
