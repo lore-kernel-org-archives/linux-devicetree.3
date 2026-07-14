@@ -1,68 +1,67 @@
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA6A42BE95
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA76432E83
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784071362; cv=none; b=keuoK5sDu7ApEZwHn27sTPGwtGrzgXB2szpxWx6ZfKf4U/OzeOQWzfPuhelIB74t3Y+XurepPfI0djaEt9TS3d1ewSb6RmY6QE+wCOz/55+qbt6DwG6hnowocf7Yi6LP0ZQtUoxmXIwaPWzCjiU6cxmX7Pwn3NkeJu/5mW8CEh4=
+	t=1784071367; cv=none; b=KNthFoYN7wSV2DgP1bcKBKtAlFQUaR8D3UpqMSGqDIBiIgbBgoH7bOQVs4hJJaH4kyxNmev9ulCPaNwL+1Xv27ixoXsGcRRq57N9SDBrnktXIAhsNoZ8lOCDuOVL39J7lgLcxxL3QeHA7PPDZUgpVaFjkU9u4r0kLx2imX7vlqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784071362; c=relaxed/simple;
-	bh=LEjJwrRNUy+HCSKs2f61e3PZbbPkd/lwRYELOdd5SZ8=;
+	s=arc-20240116; t=1784071367; c=relaxed/simple;
+	bh=DvAzEskRo1aaWEFsO8jB+h+KLZgJN9K2o31c8vb8nVY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mjxA65sYfltshCrvwQ/NgMLL8UOIa+eRzvOgsAiDNygDE/5z5T19kDLaWH21Yy1ZwGOH+XdD1hMNCkzoVk7Zlta/PMjeZ8LweAKU3iOxr7E2HJ17yGXua94J4VAQ2BC2UV1F8dfA8ydolJL5FgPjRDD3/Nj9SK0ValoT8u+lC2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=eBpoK6kU; arc=none smtp.client-ip=209.85.210.42
+	 In-Reply-To:To:Cc; b=DFFYQG/QzuZjIyX3iK8AcK3pYWLv0VEU7fyQzOYeHjE49XDBhVUnN0ME7AqsUfI4CnNwbUI1A675p09uCVWkeFoMrGXLycZWB3dqcyGWMUBHHsSUo2pRqKG0CraC4zSpWFWsJIjeGz4xT5aaGsQeG8LxcXZ5pqFTl0kvD44cHy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FTGRmxLC; arc=none smtp.client-ip=209.85.161.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="eBpoK6kU"
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7e9eaf04bfaso1777038a34.1
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:22:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FTGRmxLC"
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6a38e41d0b5so49736eaf.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:22:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784071352; x=1784676152; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1784071360; x=1784676160; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sjXBokAks/glcKCcc156LiwQ/sZ+5R4jJR8EnJbEndw=;
-        b=eBpoK6kUJVcGbppkra7KsyT7rmKqVcUte8TvWcL7jU5SLj5ucXpJiIdBMHIKzpRMeC
-         GcMf3tmZTAFpaOesV6L5NMPm2ms3hduGarnS6Op013G/t3SaquwKx/hgtVfpnx51X+yf
-         52ddgML/yt/HfUuCB12Uz/92lvMkzSjlCvoDF3BlrdJX9XPGbAuZMS7lf4KrUw3yaSrW
-         +FbUycxdsUm/JklnAsuRgazeEju8hVS402eE7ZVXkF3E985x3Ar9YElqJN8knolDvnWb
-         TIIUOxrOpVAmGRyUT0W62JICTii6aRPZzZMjJuq9S5yuefG2TQTG5tUOC0HXhhev6KBW
-         f/rA==
+        bh=xxnQYwYgvTa5VUQkg3ZK1mdH+XYHmPu09MGH1oXASzg=;
+        b=FTGRmxLCKONb0ynn7FICt7ieyapngalRSMOA0yyxpw/OuSsDQ47uWvTd6WRzdAyjGU
+         TMmWXJXX4BcQulLvDwrE/cCv/6mUyw1qV4DXWCLE+l91o8zidIybGHyP8CwXoMrKoWh6
+         lg0AfNdjR/5YwmTRaxxB8lpUww6dHmWz6tikZWepu61t9OgTrGTCWIzBzKnkVA2JepAo
+         r+c2wvCf7ec9sN7Tbe2g9588cGAf/ubfVGbt86/YWOv9UqpPbXcEsiY9Nlno+x+mI4l5
+         I36SiIEzTqp9a+voJg2LV8yAECa5cT2xSEQ/5CxBn42aASbxVKII4gxmLNUcQvgi1vdC
+         Stqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784071352; x=1784676152;
+        d=1e100.net; s=20251104; t=1784071360; x=1784676160;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sjXBokAks/glcKCcc156LiwQ/sZ+5R4jJR8EnJbEndw=;
-        b=T/aPt/s/mV42aWqVdEmANdZsSTUZy3GWdm883vw/CmbxEn1TlpG0nI+rI8iyytRass
-         rWHDTXv6BXKdtDIrcXSU7zdM13Vqw7bsAveRYT98WI0N/U/hMzwtppH/Jj+q9JwM5C4+
-         1hZoL/Zl4kjyvHvxMRt5/sxO6RoMgd9+dU0H/63TvVb9NNRMfnyFIFOCpQzogJpKaYBC
-         DIySWIpFuOcTIKcfWrIItmPSK922UoCjPRcMnhaDp9ftXNx16myN7UmXw0y+u94k6wur
-         zcSZQSL3g0inscTzNiVEiKDjyCNNMSrO7TmAbnm27GcPqJD6DCbyCXOyxsIhM3Lb7YYn
-         wF6Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/a6LASJarSqIPnjtWQzqQbC2iiaT8Hzf7FbHDzTmCS0IOiA1bS7cbV4vp15MJ+4RC2gxr/KU71xZZh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw6y/E/9l33UGmM0y/wlq+EFoYB+gF2vzjVAOTRcMXJAFgpncyL
-	8GoeyKp70szqzHibfjf0Q1ZVx17DGi8kAPElo8Usw0Klhujay6Ll2/KoptxHjCM3RGw=
-X-Gm-Gg: AfdE7ckNSsSTkuZm+wWqukNUj791x2bHa36WTFBA4IK8prjHTD0naQI9j1wj3v1kqbS
-	yE53lDqZcQwee7MCTRMbClK2EoBjOeMJgUkIRlqX2a93qBuUK9ZIh7PORiU3UjNfdaltV1hrUZq
-	sXtZhD0Lf+LuTQxEQ3Sk1a3qD809LL0/C6/4qDCIUtFWCX0UyIvJX8/TcI7zp2/G5Mehk2O6MK3
-	IAZo9pN3F9SpGoMiELQgM69FB7/v98LouvtkwLR/pIYCww+C3CuUwPlu3I7OZIAmuu/oVkSszLS
-	58RA+rEPzL43H1U56x7Ndc0HFIyP8xnAAZdDdr9VY1iCDnUl7XoT4eCbKDg23XUVLt0roAnZsfB
-	efbc4RmBo95Aqxvo6dmkgeFxQ6lqLeVgh1AKYWLD4yjyqTaLKJkkRVEyOfv1UPN0THyNq6sZHfp
-	3CyHKbzO6lKY3k20FYow==
-X-Received: by 2002:a05:6820:f0a:b0:6a3:bdc5:5910 with SMTP id 006d021491bc7-6a3da004a17mr410773eaf.37.1784071352423;
-        Tue, 14 Jul 2026 16:22:32 -0700 (PDT)
+        bh=xxnQYwYgvTa5VUQkg3ZK1mdH+XYHmPu09MGH1oXASzg=;
+        b=sjhnZhr6g28gIbrxqTPheQEhMThAcunuKl2yxrmT3GycctdU1mJFccQDiQ0xdYY6qo
+         CNJabAhO7TED8u9JwfftBXqFz3Pw/PugI1r7evNyW4QaSQUmABKdJMiCOzIC/kz3TO5d
+         5YBtrThI7uvDWdeLsxrCGFy2aEoGZ+60BnTdpodmwQu5dcohtGNbLJY0TVRNK84S/oQU
+         +ZqbiRe7NsyhSiehXJwHFWxQJxOihuyODYxdMLPq+DBl0cRVmWYnlK28Vt0PLx+5Ep3r
+         4qcxpI6uSkC8FMEB8mjm5URJv4G74JSj8bqdJ4jXtZNteEKkOVTSTZoM6mc9JDORABjn
+         VaDA==
+X-Forwarded-Encrypted: i=1; AFNElJ+tuVmVtD2YaXNGaTbB1GY113inYMscQw9kxMXl9t8/UBSTyDhim+KSBQJbx6SUgr2lU0PwOatZOhYS@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFuH4fpyhjU6gj1z0fBOyXzpwZbNEx0CaZ8eWatNlTI6lyIRsX
+	o62MEx8he6dL5K1UeE8UoNTmKgOVWg4ykvZTG6XDajcXXoUcao54/jNxs1uk/llcWFQ=
+X-Gm-Gg: AfdE7cm0pDXXHJg6CDwM7XXZq6BBvT3nn0fzDNrkA0nxCVmsEu20Y0uNFoywv5iHGIp
+	EpWgZBswhzQ5v5ZImSxVyrzahYcrIe8NZcgA0JtGQY4jSZ1EtH43SJaJROqKngAwcDuELr2uJpG
+	ostSkG6fxlKqDTbY+00iwWP3CmVQSiXoA01c70QFxjtNWSprGTrMr2OnSC+C7CZYKAozQntm+m/
+	sy9nZSUTa+yeXz9BY12ZgcPtkIg4xtDQRTvCjpUQKWz8nFJ9ZROQvpkhu9gQ2kw+s4hYUEi6YD/
+	53eUkTs2DLdkjNIVCK9sun/i0ng97edStVeK3QdaPYRDfvV2ebHmhzhvjxutsX8lfM2qDxn3+5P
+	DITKJ2wtn7e88/AcfJbYvwNgURLg5m8VPCaNLsEWnQ0K0NHokRZJYeGPf5ioEoaGi52NVI4zhGB
+	kL4PeZeilT/b6GAkkDdQ==
+X-Received: by 2002:a05:6820:1523:b0:6a3:7d24:7b8e with SMTP id 006d021491bc7-6a39be98f17mr6727379eaf.26.1784071359711;
+        Tue, 14 Jul 2026 16:22:39 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:280e:69fd:7612:d5a9])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a39af0e953sm7561978eaf.3.2026.07.14.16.22.30
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6a39af0e953sm7561978eaf.3.2026.07.14.16.22.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 16:22:30 -0700 (PDT)
-From: David Lechner <dlechner@baylibre.com>
-Date: Tue, 14 Jul 2026 18:21:24 -0500
-Subject: [PATCH v4 2/8] dt-bindings: iio: adc: Add excitation current
- sources properties
+        Tue, 14 Jul 2026 16:22:39 -0700 (PDT)
+From: "David Lechner (TI)" <dlechner@baylibre.com>
+Date: Tue, 14 Jul 2026 18:21:27 -0500
+Subject: [PATCH v4 5/8] dt-bindings: iio: adc: add ti,ads122c14
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-iio-adc-ti-ads122c14-v4-2-25f8e3084485@baylibre.com>
+Message-Id: <20260714-iio-adc-ti-ads122c14-v4-5-25f8e3084485@baylibre.com>
 References: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
 In-Reply-To: <20260714-iio-adc-ti-ads122c14-v4-0-25f8e3084485@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -85,72 +84,303 @@ Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2227; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=96e2F9/YVY8qwuX8Jw8IiU0nLEgtbp30DvDE9oQfRe4=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqVsSEZ8CkvjR262q2YkB685P0STJushRPgz7KX
- 6YT/l22ByCJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCalbEhAAKCRDCzCAB/wGP
- wCXgCACbIGSHdaMyWKeHrBYL3DjmFKDNe+U6zIL00vffpkxo0o7CwPzkDvh9bfOD3eJNg1u0y3l
- 2xhc3SF24o50+kejshbKaX4PzpbDcZJ0t8S8JOPcMFfd/E3mMcrgsCQMV1dX6ghs/J5n5IEBXX1
- 6y46iTfBKTQY1YuHgB5BVAYDgWHUZvB1kHGRDuFpsFFyUa68XKzJAP94bADwZUHfRDaoU+e7HpS
- HRJSfmhroYvGTy/lqAm2E3qiESIO4th59V2oPhi47QFXm5adH0yHBovRqu2zUejJErGzqNtzahd
- YFwqfJZ0PxWU+UgZ4P8XunFvJsnncTCYRMuXRTIQKrF6s4dw
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8142; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=DvAzEskRo1aaWEFsO8jB+h+KLZgJN9K2o31c8vb8nVY=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqVsSXGmO/U5APL7Ozla3yhc1sehpA7CK0qiDuv
+ xYsCq/bYMmJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCalbElwAKCRDCzCAB/wGP
+ wLzDB/9b8aaiepGdXU3qE+lvEXPfXdcSDNxVb3DgYzl46oFrgYKoA5k097841RT2epE7opNK8Sd
+ 5d/bpdp+gN62C4dNGNOIjn7Z4NyETV9AIbfkmbYKJ9R+tnHOTMbSKjoVq4CSL4/MWz/fDFvBfgU
+ 58MgZDtEoPGvU92PNkE0sHBwyTrqF5Hdebv3iDgP2qEQbMCQ5aNBOjCMDfG86L7pFHIcpM/iSHT
+ UIjVx6r+MPvm4QdtZEoRVHNJi1SExQeEpr4Lvu+aCUQC5BME/xv9qgaNGcy5gKI/RImAZ1XsYxY
+ kRLmlCap9tsHlGz8dfcffcLs8kSvHZH+6yyEkx511OxyBM5E
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-From: Kurt Borja <kuurtb@gmail.com>
+Add new bindings for ti,ads122c14 and similar devices.
 
-Some ADCs incorporate current sources that provide excitation current to
-resistive temperature devices (RTDs), thermistors, diodes and other
-resistive sensors that require constant current biasing.
+This is an ADC that is primarily intended for use with resistive sensors
+(RTD, thermocouple, Wheatstone bridge, etc.). There are a few unusual
+properties because of this. In particular, the reference voltage source
+and current output requirements can be different for each measurement,
+so these are included in the channel bindings.
 
-Signed-off-by: Kurt Borja <kuurtb@gmail.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+The REFP/REFN reference voltage is usually just connected to a resistor
+that is being driven by the ADC's current outputs, so there is special
+property for this case rather than requiring a regulator to be defined
+to represent that.
+
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
 v4 changes:
-* Add sentence about values being pins like diff-channels and
-  single-channel properties.
+* Generalize temperature sensors to resistive sensors in commit message
+  and bindings description.
+* Remove leftover paragraph from v1 in commit message.
+* Added if to make clocks and drdy interrupts mutually exclusive.
 
-v2 changes (compared to Kurt's RFC v2):
-* Make units nanoamps instead of microamps to fit known devices.
-* Drop bit about allowing single value for multiple channels.
-* Add bit about semantics of the array index.
+v3 changes:
+* Fixed channel@ pattern.
+* Adapted to input-chopping property rename.
+* Made sure to use items: on array properties.
+* Added reg to required list.
+* Fixed missing space in example comment.
+
+v2 changes:
+* Added ti, vendor prefix when appropriate.
+* Others are now standardized properties from adc.yaml.
+* Moved top-level unevaluatedProperties.
+* Fixed some issues with the channel@ matching and reg property.
+* Dropped description on bipolar property.
+* Renamed current-chopping to input-channel-rotation.
+* Drop header file and use string enum instead for reference-sources.
+* Added burn-out-current-nanoamp property.
+* Drop allOf: and just use oneOf: directly.
+* Fix inconsistent indentation in the examples.
 ---
- Documentation/devicetree/bindings/iio/adc/adc.yaml | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  | 217 +++++++++++++++++++++
+ MAINTAINERS                                        |   6 +
+ 2 files changed, 223 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-index 8f608bf0b24d..9f7196d61ac3 100644
---- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-@@ -80,6 +80,27 @@ properties:
-       ADCs usually allow choosing between internal reference sources or a pair
-       of external pins.
+diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+new file mode 100644
+index 000000000000..b11359c9955e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+@@ -0,0 +1,217 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/ti,ads112c14.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments' ADS112C14 and similar ADC chips
++
++description: |
++  Supports the following Texas Instruments' ADC chips:
++  - ADS112C14 (16-bit)
++  - ADS122C14 (24-bit)
++
++  https://www.ti.com/lit/ds/symlink/ads122c14.pdf
++
++  These chips are primarily designed for use with resistive sensors such as
++  RTDs, thermocouples, Wheatstone bridges, etc. The channel bindings reflect
++  this in that each channel represents the conditions required to make a
++  measurement rather than strictly just the physical input channels.
++
++maintainers:
++  - David Lechner <dlechner@baylibre.com>
++
++properties:
++  compatible:
++    enum:
++      - ti,ads112c14
++      - ti,ads122c14
++
++  reg:
++    items:
++      - minimum: 0x40
++        maximum: 0x47
++
++  clocks:
++    maxItems: 1
++    description: Optional external clock connected to GPIO3 pin.
++
++  avdd-supply: true
++  dvdd-supply: true
++
++  refp-supply: true
++  refn-supply: true
++
++  ti,refp-refn-resistor-ohms:
++    description:
++      The resistance of the external resistor between REFP and REFN when using
++      resistor bridge driven by current outputs for RTD measurements.
++
++  interrupts:
++    minItems: 1
++    items:
++      - description: /FAULT interrupt (GPIO2 pin)
++      - description: /DRDY interrupt (GPIO3 pin)
++
++  interrupt-names:
++    minItems: 1
++    maxItems: 2
++    items:
++      enum: [fault, drdy]
++
++  gpio-controller: true
++  '#gpio-cells':
++    const: 2
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++patternProperties:
++  ^channel@[0-9a-f]$:
++    $ref: adc.yaml
++
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        items:
++          - maximum: 15 # arbitrary limit, channel@ can be any combination of AIN0-AIN7
++
++      single-channel:
++        maximum: 7
++
++      diff-channels:
++        items:
++          maximum: 7
++
++      bipolar: true
++
++      input-chopping: true
++
++      excitation-channels:
++        maxItems: 2
++        items:
++          maximum: 7
++
++      excitation-current-nanoamp:
++        maxItems: 2
++        items:
++          enum: [1000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000,
++                 90000, 100000, 200000, 300000, 400000, 500000, 600000, 700000,
++                 800000, 900000, 1000000]
++
++      burn-out-current-nanoamp:
++        items:
++          - enum: [200, 1000, 10000]
++
++      reference-sources:
++        items:
++          - enum: [internal-2.5v, internal-1.25v, external, avdd]
++            default: internal-2.5v
++
++    dependencies:
++      excitation-channels: [ excitation-current-nanoamp ]
++      excitation-current-nanoamp: [ excitation-channels ]
++
++    oneOf:
++      - required: [ single-channel ]
++      - required: [ diff-channels ]
++
++unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - avdd-supply
++  - dvdd-supply
++
++dependencies:
++  refn-supply: [ refp-supply ]
++
++oneOf:
++  - required: [ refp-supply ]
++  - required: [ "ti,refp-refn-resistor-ohms" ]
++  - properties:
++      refp-supply: false
++      refn-supply: false
++      ti,refp-refn-resistor-ohms: false
++
++# /DRDY out and CLK in use the same AIN7/GPIO3 pin.
++if:
++  properties:
++    interrupt-names:
++      contains:
++        const: drdy
++then:
++  properties:
++    clocks: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@40 {
++            compatible = "ti,ads112c14";
++            reg = <0x40>;
++
++            avdd-supply = <&avdd>;
++            dvdd-supply = <&dvdd>;
++
++            /* 3-Wire RTD: Two IDACs, One Measurement (AIN1-AIN2) */
++
++            ti,refp-refn-resistor-ohms = <500>;
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            channel@0 {
++                reg = <0>;
++                diff-channels = <1>, <2>;
++                input-chopping;
++                excitation-channels = <0>, <3>;
++                excitation-current-nanoamp = <500000>, <500000>;
++                reference-sources = "external";
++                label = "rtd";
++            };
++        };
++    };
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@40 {
++            compatible = "ti,ads112c14";
++            reg = <0x40>;
++
++            avdd-supply = <&avdd>;
++            dvdd-supply = <&dvdd>;
++
++            /* Resistive Bridge Measurement With a Thermistor for Temperature Compensation */
++
++            refp-supply = <&avdd>;
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            channel@0 {
++                reg = <0>;
++                diff-channels = <6>, <7>;
++                bipolar;
++                reference-sources = "external";
++                label = "bridge";
++            };
++
++            channel@1 {
++                reg = <1>;
++                diff-channels = <1>, <2>;
++                reference-sources = "internal-2.5v";
++                label = "thermistor";
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2b1ec46c5919..3e114e0c9c5f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26958,6 +26958,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/adc/ti,ads1119.yaml
+ F:	drivers/iio/adc/ti-ads1119.c
  
-+  excitation-channels:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Excitation current sources provide current to resistive temperature
-+      devices (RTDs), thermistors, diodes and other resistive sensors that
-+      require constant current biasing.
++TI ADS112C14 ADC DRIVER
++M:	David Lechner <dlechner@baylibre.com>
++L:	linux-iio@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
 +
-+      This array describes the mux configuration of the excitation current
-+      sources. The values correspond to pins similar to the diff-channels and
-+      single-channel properties.
-+
-+  excitation-current-nanoamp:
-+    description:
-+      Excitation current sources provide current to resistive temperature
-+      devices (RTDs), thermistors, diodes and other resistive sensors that
-+      require constant current biasing.
-+
-+      This array describes the current configuration of the excitation current
-+      sources. The index in the array corresponds to the same index in the
-+      excitation-channels array.
-+
- anyOf:
-   - oneOf:
-       - required:
+ TI ADS1018 ADC DRIVER
+ M:	Kurt Borja <kuurtb@gmail.com>
+ L:	linux-iio@vger.kernel.org
 
 -- 
 2.43.0
