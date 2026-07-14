@@ -1,177 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C7A30675C
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:37:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5273DCD8A
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784011076; cv=none; b=kL4UhbxMxJwfkqLMLNwdRSWgoqf5jMOYJrGxUqg7zJfpSMpo4Bw1ab8wBFp6bQBHUrlRlH4kZOOkf7AiUKd6C8FwEItJlyp6yv24LQpfzWC9B0pBHMJpzq4oApITNjzzTFSMJCHHReO8VFnIes27g6QiNZnWtBfiac3w2838UiA=
+	t=1784011427; cv=none; b=DmOkpQKizy54+b5G5rb0oRvrWv+Sr3Zl4AxLAeDp2003xAH9wQM72sIja7zit7qfvDgzJiprhlYsQxKcgoeTJrbRdeILGRG4XE44b5v27qvRIYbuwP9qQwcJ5ZfdgfCZbb1LTlFV4POrnV2FdCRdpKPT7f/lVC6K35UBtbSXmnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784011076; c=relaxed/simple;
-	bh=fC8RzCkzQBlCaLXF8UcARumkmKd5GGnFplWTkAzDX6E=;
+	s=arc-20240116; t=1784011427; c=relaxed/simple;
+	bh=S5A8GX72RWpODAWp0DP2UlA8eGNuqfvZzunEDVXYIRg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rVG4uGYTmxJrer406aKkc8VmHqwpwN0DKxjL6jtndT2nLJIgpgdRd6dXpdgBNIvx55l5/u9rkKLwAaJf8Jz/dZ/3k31SUB3OzVGbkdWmFqas3owz40BkqRw/u5Kq9dXC0z9wzi7npsr3X7kLq7IhaDl1AVvZPQFvyrgCbzHFcJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QBHPZsHj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NXBC937DsgQGCo/W2ltSRO5dx7AVAnbV71wyCZTw2RJZfZxQ/tBAzqciWDZ33/kHBh+7nIHfhqY/qSMejs4582Uo+6AI2BOY30KZgKSCbfumHhZBWhEF1Ka5zl69LzJrrU2MnuPyi00K/Mgnzy/FFVlNfu+nnaeCycU+y0k4IWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNOAbFj0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QBHPZsHj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47731F000E9;
-	Tue, 14 Jul 2026 06:37:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNOAbFj0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78AB1F000E9;
+	Tue, 14 Jul 2026 06:43:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784011074;
-	bh=Ugs4E9BwthJF92Mg0Mhg9yimhNo6/x5wa3Wf4lbKbgc=;
+	s=k20260515; t=1784011426;
+	bh=S5A8GX72RWpODAWp0DP2UlA8eGNuqfvZzunEDVXYIRg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QBHPZsHjUOKLjzfDRCohyDtSe0OpIx/XOhWXuezvnVcmsfrUIi3pVg/pTtsmQ2QMY
-	 TH8ShxavRFdlobAWV3b9i6+JOH0OsqhNfDfeeoPuckbx7WvBGdN983QNW0CrXyAo8U
-	 jYQhJDu18vu0cQ3mlYEuSKutJnTBbgIlb9hqKN3Dq27dB01kCNWCcOv+sdeECgDjz2
-	 kccI3Q7YZB0SfSjNzHy7QilAO16kDbO75cxanR1kQitdj+DRGEJBu5cDRXQQvDkhY1
-	 lAYOfuL+SY7CYR9xqNYb9b9YcSOtCxUHIzbT/JgGGe2M/jQGIFyBlYzngY7fFBTI9c
-	 q0Xob8Vl4WX9w==
+	b=WNOAbFj0TrLa1NnlO0/M8McVrI4Py9RJ4DIrSO82MVKN6osuD3cVFhg1EsWaPJIF2
+	 UoKLeiwoLKVl9dYIQL27jldS88eouqtCJTi6e4tKEk8/jtcfeTjjr6Zvpid8KsNeKQ
+	 xGslgrfdvEsH1jvvAwaSuZr2KPsnHEX14xmpmzhVnpbL+geHPGvBs9J6t2NnfRiO7W
+	 Yhbk3CLLKQ2LQyC2sy07sWH5RzHkRiaj1DhgeSSFpJZtYCUZz8nkwznO+RAd/pSlr7
+	 x0TN8VOxzSNmUog+IBUqxcOLV9Mx2mSY0NnmkLY0PHZ3bsTo1Vbwa6XLQErHelq9l5
+	 L4Ut2Xk87dm5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] usb: typec: tipd: add TPS66993 support
+Subject: Re: [PATCH 1/6] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
+ SM8475 QMP PHY
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radhey Shyam Pandey" <radhey.shyam.pandey@amd.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260714061820.537792-4-radhey.shyam.pandey@amd.com>
-References: <20260714061820.537792-1-radhey.shyam.pandey@amd.com>
- <20260714061820.537792-4-radhey.shyam.pandey@amd.com>
+To: "Esteban Urrutia" <esteuwu@proton.me>
+Cc: vkoul@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260714-sm8475-bup-v1-1-b2871be2b4ec@proton.me>
+References: <20260714-sm8475-bup-v1-0-b2871be2b4ec@proton.me>
+ <20260714-sm8475-bup-v1-1-b2871be2b4ec@proton.me>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 06:37:54 +0000
-Message-Id: <20260714063754.A47731F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 06:43:45 +0000
+Message-Id: <20260714064345.D78AB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Redundant I2C read of the power status register for legacy TPS6598x=
- controllers on plug events.
-
-Pre-existing issues:
-- [High] Background work items (`wq_poll` and `cd321x->update_work`) are qu=
-eued during `tps6598x_probe()` but are not cancelled if the probe function =
-subsequently fails, leading to Use-After-Free.
+- [Medium] The commit message claims to add a new init sequence for the SM8=
+475 PHY, but the corresponding driver code changes are entirely missing.
 --
 
---- Patch [3]: [PATCH v3 3/3] usb: typec: tipd: add TPS66993 support ---
-commit 4f820239b3f04ea4ac3411ddf0ac69f6736b3b7b
-Author: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+--- Patch [1]: [PATCH 1/6] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Ad=
+d SM8475 QMP PHY ---
+commit 511fead6a1f7627fcd9ae2107b3dc71763bca629
+Author: Esteban Urrutia <esteuwu@proton.me>
 
-usb: typec: tipd: add TPS66993 support
+dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add SM8475 QMP PHY
 
-Derive power status from the STATUS register (0x1A) now that TPS66993
-deprecates the Power_Status register (0x3F). Add support for the "APP1"
-mode string. TPS66993 controller is configured in polling mode and only
-type-c flip orientation feature is supported on AMD Versal AI Edge Gen 2
-VEK385 Evaluation Kit.
+This commit adds the device tree bindings for the SM8475 QMP PCIe PHY. The
+commit message states that a proper init sequence is also being added for
+this SoC.
 
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index 9097b0d40a71d..522f56742aa9b 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
-[ ... ]
-> @@ -1026,6 +1056,8 @@ static irqreturn_t tps6598x_interrupt(int irq, void=
- *data)
->  	if (!tps6598x_read_status(tps, &status))
->  		goto err_unlock;
-> =20
-> +	tps->status =3D status;
-> +
->  	if ((event1[0] | event2[0]) & TPS_REG_INT_POWER_STATUS_UPDATE)
->  		if (!tps->data->read_power_status(tps))
->  			goto err_unlock;
-> @@ -1034,9 +1066,15 @@ static irqreturn_t tps6598x_interrupt(int irq, voi=
-d *data)
->  		if (!tps->data->read_data_status(tps))
->  			goto err_unlock;
-> =20
-> -	/* Handle plug insert or removal */
-> -	if ((event1[0] | event2[0]) & TPS_REG_INT_PLUG_EVENT)
-> +	/*
-> +	 * Refresh power status before connect - needed for TPS66993 which
-> +	 * synthesizes pwr_status from STATUS and never gets POWER_STATUS_UPDAT=
-E.
-> +	 */
-> +	if ((event1[0] | event2[0]) & TPS_REG_INT_PLUG_EVENT) {
-> +		if (!tps->data->read_power_status(tps))
-> +			goto err_unlock;
+> SM8450 init sequence for this PHY varies significantly and can't be reused
+> in SM8475.
+> Add proper init sequence and bindings for the PHY found in this SoC.
 
-[Severity: Low]
-Does this cause a redundant I2C read for legacy controllers?
+[Severity: Medium]
+Is the driver code containing the init sequence missing from this patch?
 
-For legacy TPS6598x controllers, a plug event typically sets both
-TPS_REG_INT_POWER_STATUS_UPDATE and TPS_REG_INT_PLUG_EVENT concurrently.
+The commit message explicitly states it is adding the proper init sequence,
+but the patch only modifies the YAML bindings in
+Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml.
 
-Since tps->data->read_power_status(tps) is already called earlier in this
-function when TPS_REG_INT_POWER_STATUS_UPDATE is set, calling it again here
-without checking if it was already read results in an unnecessary I2C block
-read during physical plug events.
-
->  		tps6598x_handle_plug_event(tps, status);
-> +	}
-> =20
->  err_unlock:
->  	mutex_unlock(&tps->lock);
-[ ... ]
-> @@ -1813,6 +1852,8 @@ static int tps6598x_probe(struct i2c_client *client)
->  		goto err_clear_mask;
->  	}
-> =20
-> +	tps->status =3D status;
-> +
->  	/*
->  	 * This fwnode has a "compatible" property, but is never populated as a
->  	 * struct device. Instead we simply parse it to read the properties.
-
-[Severity: High]
-This is a pre-existing issue, but there appears to be a use-after-free in t=
-he
-probe error path when handling delayed work items.
-
-If the device uses polling mode (client->irq =3D=3D 0), the probe function =
-queues
-wq_poll:
-
-drivers/usb/typec/tipd/core.c:tps6598x_probe() {
-    ...
-    if (client->irq) {
-        ...
-    } else {
-        dev_dbg(tps->dev, "no IRQ specified, using polling mode\n");
-        INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
-        queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
-                           msecs_to_jiffies(POLL_INTERVAL));
-    }
-
-    if (ret)
-        goto err_disconnect;
-    ...
-}
-
-If connect() failed earlier, ret holds a negative error code, and the probe
-jumps to the error path:
-
-drivers/usb/typec/tipd/core.c:tps6598x_probe() {
-    ...
-err_disconnect:
-    tps6598x_disconnect(tps, 0);
-err_unregister_port:
-    tps->data->unregister_port(tps);
-    ...
-}
-
-The cleanup path fails to cancel the pending delayed work. The tps structure
-is then freed by devres when the probe returns the error, causing the delay=
-ed
-work to dereference freed memory when it executes.
-
-Does this same missing cleanup apply to cd321x->update_work if connect()
-succeeds but devm_request_threaded_irq() subsequently fails?
+Should there be a corresponding C driver file included here, or should the
+commit message be updated to reflect that only the bindings are being
+added?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714061820.5377=
-92-1-radhey.shyam.pandey@amd.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-sm8475-bup=
+-v1-0-b2871be2b4ec@proton.me?part=3D1
