@@ -1,150 +1,149 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20273EE1FE
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2213EFFA9
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 07:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784014552; cv=none; b=lOCINIyoeqUjiV9Sb3dFLuivdNa+2L4oR6cGn0WDUc4WTM6cbgjFm1IwGnRnCh9tXaS1wjv2DP5avWf/7TJ3/rW7uEake71Sn5rb04Ogeddw39jqeaX/5/Ox/Z0MDgtpul2tR4MX4katpALLxWfHS2JBSIJ8SNDR4d+vlkZJKek=
+	t=1784014556; cv=none; b=REJE2jYPnS88v2AnWB3KACcMwAlcHsi/zJ6fvUxGi1GqEPeh+TiyxVrtUqsKQNhCGasVAoyhZ63qBidlZWO8pGcM1NKPRf+JekRRgxzWssCjSM7aLfITV+YJUiONZw0DtypG3ouihdAvNAbhZxwOPfKhOeYzixasJQvIKqQ2BD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784014552; c=relaxed/simple;
-	bh=thE6MKDBgxQ/2kTxtQxylJzWWa2DTPV9HWq/Oqshg8w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lNTFMRR9e6UqHBq1tE4/8/PnOvb7vNhlDwyUndu3LhdRzmCtL+CqxQctkFCbmkxaUndKpKg1c9QpEHn/AXiPISjSxPYp1LkthOdOteNcCWYuCJ4sZIVZiA/fwKaBWJKefS5eoEXBKIXyZIYy+f+ZHtEbzhIvgynargps8f2+WuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PQjSbYhG; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PQjSbYhG"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-474560436c3so498993f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 00:35:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784014549; x=1784619349; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EZDP77brQ5bvhb37m4sjMTk+Xtc5WyoVuJCcZEy5/Us=;
-        b=PQjSbYhG7l9ASUYQmKlYFS+sKvO+M8bmtQiQpO9+yci4idNJeTkjbL0liIGnl2qYXn
-         4YwVv3dN31nMt73EBvIVlJaIKZrBvjRJabefKFt0zaxRhJl8lokR4kW3bl/I2s5E4PvT
-         q1QHKu7/4S1FuN+Y+hrRgOhQBCThOZwpqAgTV4omkYPO1e7VcnmhoV+b5STXEEe1r5JD
-         d2Bqk6T0LHKEqMVA4FWw8NzyVrUhNfycHspKydsrGqcJg6jesH7fzT3sJMZWcOGP+ZUy
-         BUXuj/2K7xFFBLBSHv8pg7qWtHmhXty2UH8Rr5vRZNuN/t0mIlCDBpsa+hcTk90njqgk
-         B31Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784014549; x=1784619349;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EZDP77brQ5bvhb37m4sjMTk+Xtc5WyoVuJCcZEy5/Us=;
-        b=jEQWaGbwHod4morW9vBFFyC9Eb+LV5/XPGAwPtaN1zhpr5Jxrc0hv0I09aSuGSrFS5
-         p0QwOTk/bV0vHxpX39jjcON4Xn4vB9aW5hjpedaz8YwtcnqR+Bb6V+CkI52PO5NTwev+
-         DymCQdS2LdGFZWlD59lJhexka+dDXa7rSr1ZU1xL+JxR2zqluu0jUYlRFHnM0y0KafHV
-         1ykWbnQzweGM8s9b8/8aJVGDW1t/d2HuvqoVRKieSHj1SuPekQ95E/7z9SSMUda0eD+E
-         CdgseY70glb66z+vx2SZu33I2cXgAXeN51sVVOVU0hPih+jVRpFWhDMSjUceKFNKkNR5
-         hQkg==
-X-Forwarded-Encrypted: i=1; AHgh+RrZMeorJw6+SKMLCa2xp5nuuMTc5nMhC2iRdilgShNnlTuyqBKtEPV9mmMyDUAgLkmFRbtmHXsW32YP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0CdU6gldLL1lvLg9VU+ssf5uIYogIfZwbO7nL4jrh5y36C5Uc
-	oLe3Qz+pFGY0q0xBqVFII4A4SW69sPGfBKkcztzxr5OkgBGdFnOCGIpxQttu2o4C5KQ=
-X-Gm-Gg: AfdE7cmzQFE0H39fPK9FuzSHeg7b36AQOCa8Lp/OHvePJU+LjQUMugi5iIbhE1kUBNA
-	R3p53oXgywHAj+RvkDAlvJ49Sr39xRElKS9kN7frQRcim1zmGAuQkdVck/TRdKuEx+HyOxVO2mL
-	xp6YgmGj+7Y6iswvuOu2y0ENG8G8/KgSq31+H0szdMyxjDIz6LsBU+KrrSWa4SAxWhSyK1zGutm
-	Wq+aMpTRrWrDTA4bBcONWxj7iJ+UQpQSeE82jCsdfrBVNzyR3Q0C72I1CUhm4stqNRWsQuF2Afc
-	1d+/eBS5CCtZs5eyG8Y2Ooj/o1LF+TLWAG4xZx4KPKnSQfH00VTvtdUjfb0QVqpxX2br0Wi8YU9
-	EecWW+tF7GMtUSb4qufwvUddaSbmmZkgwO0MIK4fPQOWCy9eC1oUyfhUu9uC1Fibnxl6+lU2e9X
-	AVJdMwiJg1D1AXKCE7BxgWDENA
-X-Received: by 2002:a05:6000:2404:b0:473:673e:3836 with SMTP id ffacd0b85a97d-47f2dcf8a3amr14217779f8f.28.1784014549221;
-        Tue, 14 Jul 2026 00:35:49 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff24:7210:6c30:6cbd:7b12:2745])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464caeffsm5599960f8f.36.2026.07.14.00.35.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 00:35:48 -0700 (PDT)
-Date: Tue, 14 Jul 2026 09:35:46 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	chris.lew@oss.qualcomm.com,
-	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Subject: Re: [PATCH 2/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
- single coherent block
-Message-ID: <alXm0rp3NK62G3-3@linaro.org>
-References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
- <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
+	s=arc-20240116; t=1784014556; c=relaxed/simple;
+	bh=BvI5f/SGs3rOnIaf937RzhNNvfMs8aUchvXoAXE8+Rg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=l3ZfJC4raePbZmKTOA3Ic47igvCK7qBu23DAdDlay6B2sBOcdDlh96I/jQBLNsgLwwLt5yecorydnsEh8ll1nwmWAtcV5tIRR94mJzkCbtrHkdgnkgC4kRRHyNyvFsfUhPeJjttNsJcaAMnh0qRpH2X1na/73XhPj5F6yawCGZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <jre@pengutronix.de>)
+	id 1wjXg5-0001R0-Hm; Tue, 14 Jul 2026 09:35:41 +0200
+From: Jonas Rebmann <jre@pengutronix.de>
+Date: Tue, 14 Jul 2026 09:35:03 +0200
+Subject: [PATCH v4] dt-bindings: leds: Add default-intensity property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260714-qcom-bam-dmux-vmid-ext-v1-2-3f29da7cca76@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260714-multicolor-default-v4-1-c2335b32bc39@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAKbmVWoC/33NQQ6DIBCF4as0rEszgErSVe/RdCEwKI0VA2psj
+ Hcv2o1JTZd/MvO9mUQMDiO5nmYScHTR+TZFdj4RXZdthdSZ1IQDL6CAjL6GpnfaNz5Qg7ZMRRl
+ DoVAbhLwk6bELaN20offHt+Ognqj7VVovahd7H97b6sjWu78DI6NAFUhlbSZYLuStw7Ya+uBbN
+ 10MknVl5HsnP3R4ctCA5JIZWyg4dMTOEXDoCMooz3TOJOhSaPPjLMvyASQDbW5bAQAA
+X-Change-ID: 20260604-multicolor-default-11e3becde05a
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, 
+ Sven Schwermer <sven.schwermer@disruptive-technologies.com>
+Cc: Pavel Machek <pavel@ucw.cz>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel@pengutronix.de, Stefan Wahren <wahrenst@gmx.net>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Jonas Rebmann <jre@pengutronix.de>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3441; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=BvI5f/SGs3rOnIaf937RzhNNvfMs8aUchvXoAXE8+Rg=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsgKfXbGNpVL5iz793N/NPxfZc8RD66JvevHkXT5yvyMI
+ O02G3/mjlIWBjEuBlkxRZZYNTkFIWP/62aVdrEwc1iZQIYwcHEKwEQOLWL4K5tz9771zUue6S1a
+ qzMfCrz96PH7+PU3qz5wvL1dLxJzNpSRYdI51seijm9LZ27v6LD8b30/kWdFxDeey7v1FJ2m7Lh
+ gxwEA
+X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
+ fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::ac
+X-SA-Exim-Mail-From: jre@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Tue, Jul 14, 2026 at 11:02:32AM +0530, Vishnu Santhosh wrote:
-> On Qualcomm SoCs where the modem (e.g. the mDSP on Shikra, VMID 43 /
-> NAV) is the AXI master for BAM-DMUX RX transfers and the XPU enforces
-> per-region access control, each individually DMA-mapped RX buffer
-> requires its own XPU resource group (RG). With ~16 RGs available, the
-> 32 per-buffer dma_map_single() calls exhaust the table and the first
-> inbound transfer faults with an XPU violation.
-> 
-> BAM-DMUX is a singleton (exactly one instance per SoC), so the
-> destination VMID does not need to be a DT property; it is looked up
-> from the compatible string's match data instead. Add struct
-> bam_dmux_data with a single vmid field, and a shikra_data instance
-> hardcoding QCOM_SCM_VMID_NAV for qcom,shikra-bam-dmux.
-> 
-> When match data is present, allocate all BAM_DMUX_NUM_SKB RX buffers as
-> a single contiguous dma_alloc_coherent() block and SCM-assign that
-> block to HLOS plus the VMID once at probe. This reduces RG consumption
-> from 32 to 1. The block is never reclaimed across a modem power cycle
-> (bam_dmux_power_off() does not touch it), so the probe-time assignment
-> covers every subsequent restart without re-assigning or reclaiming. It
-> is reclaimed to HLOS only once, at remove or on a probe error, and if
-> that reclaim fails it is leaked rather than returned to the page
-> allocator.
-> 
-> Each rx_skbs[] slot is pre-assigned its virtual and DMA address from
-> the block, so no per-buffer mapping is needed at power-on. Because the
-> coherent block is not page-backed, received payload is copied into a
-> regular netdev skb before handoff to the network stack; this is an
-> unavoidable extra copy on the XPU-enforced RX path.
-> 
-> Platforms without match data are unaffected: rx_virt stays NULL, no
-> coherent memory is allocated, and the per-buffer dma_map_single() path
-> is unchanged.
-> 
-> Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Document the default-intensity property to set a default color on
+multicolor LEDs.
 
-So how do you handle TX buffers? Right now, they are just passed on from
-the net subsystem. There can be up to 32 TX buffers in progress as well.
+Update pwm-multicolor to support it and update the example to turn the
+LED red on boot.
 
-Overall, I have mixed feelings about this patch. It looks reasonably
-simple, but fundamentally I don't understand why we need to go back to
-the old days of implementing protection using a highly limited MPU (in
-your case: the xPU).
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+---
+Changes in v4:
+- Move default to leds-pwm-multicolor.yaml as other drivers have other
+  defaults (Thanks, Conor)
+- Move definition of default-intensity property next to default-brightness
+- Slighly improve description
+- Link to v3: https://patch.msgid.link/20260630-multicolor-default-v3-1-24c5170ca3cd@pengutronix.de
 
-Why does the setup of BAM-DMUX differ e.g. from the setup for the crypto
-engine? Crypto is also using bam-dma, but it avoids this inflexibility
-by making use of the &apps_smmu. Is BAM-DMUX not covered by the SMMU? Or
-did you just decide to bypass the SMMU in this case? (If so: Why?)
+Changes in v3:
+- make default-intensity property description more generic and less
+  redundant (Thanks, Conor)
+- Drop applied patch that introduces the property (Thanks, Lee)
+- Link to v2: https://patch.msgid.link/20260605-multicolor-default-v2-0-ed07271df6b0@pengutronix.de
 
-If you had BAM-DMUX mapped using the SMMU you would get all of this for
-free. No changes would be needed in the BAM-DMUX driver ...
+Changes in v2:
+- dt-bindings: Use correct property name in example
+- dt-bindings: Add missing word in property description
+- Link to v1: https://patch.msgid.link/20260604-multicolor-default-v1-0-b07bff431537@pengutronix.de
+---
+ Documentation/devicetree/bindings/leds/common.yaml              | 9 +++++++++
+ Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml | 5 +++++
+ 2 files changed, 14 insertions(+)
 
-Thanks,
-Stephan
+diff --git a/Documentation/devicetree/bindings/leds/common.yaml b/Documentation/devicetree/bindings/leds/common.yaml
+index f4e44b33f56d..3e6f913070b0 100644
+--- a/Documentation/devicetree/bindings/leds/common.yaml
++++ b/Documentation/devicetree/bindings/leds/common.yaml
+@@ -179,6 +179,15 @@ properties:
+       initialization. If the option is not set then max brightness is used.
+     $ref: /schemas/types.yaml#/definitions/uint32
+ 
++  default-intensity:
++    description:
++      The initial intensity of the LED color component. As the intensity of
++      each sub-LED is multiplied by the overall brightness, without this
++      property on a sub-LED, it may effectively be initialized at a brightness
++      of 0 regardless of its linux,default-trigger and default-brightness
++      properties.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
+   panic-indicator:
+     description:
+       This property specifies that the LED should be used, if at all possible,
+diff --git a/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml b/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
+index a31a202afe5c..08e28c5f08a8 100644
+--- a/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
++++ b/Documentation/devicetree/bindings/leds/leds-pwm-multicolor.yaml
+@@ -45,6 +45,9 @@ properties:
+ 
+           color: true
+ 
++          default-intensity:
++            default: 0
++
+         required:
+           - pwms
+           - color
+@@ -63,12 +66,14 @@ examples:
+ 
+         multi-led {
+             color = <LED_COLOR_ID_RGB>;
++            linux,default-trigger = "default-on";
+             function = LED_FUNCTION_INDICATOR;
+             max-brightness = <65535>;
+ 
+             led-red {
+                 pwms = <&pwm1 0 1000000>;
+                 color = <LED_COLOR_ID_RED>;
++                default-intensity = <65535>;
+             };
+ 
+             led-green {
+
+---
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+change-id: 20260604-multicolor-default-11e3becde05a
+
+Best regards,
+--  
+Jonas Rebmann <jre@pengutronix.de>
+
