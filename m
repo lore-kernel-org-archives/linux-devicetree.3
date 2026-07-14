@@ -1,128 +1,214 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB87531F99B
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BED3E51EF
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784058530; cv=none; b=NSykX6HVqnpqZ0R5xHBw+x5L+Mq3FKPG9Xb9h0KeAMgr3dZ4adJJ5vYQGUo3JxrzluYvqCse09V/WAaZHCQMpH7UXm3TODUQ8wimupFX7T2MQOTpyg0emf9bSAgjyqSHzBhK9EZ55yvi5SddEY/tzpWlh+3447oELpATtLgF45s=
+	t=1784058552; cv=none; b=Z/MWkiodzI4mvbYFUPqnRYsBil3SkZG5wkmvYuZpD+dnIX37bPWqQ7XR487QO7gIey/ltCvNAAlom4ehAP4n0jO954i0RNaUt/6uNSXRL7DSGK1D1kR9Wf6VYNoz5rpQGqfkETxtrzNVDdIcb0FdZ5AFDMjiIZ6tNO+ZDNrut+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784058530; c=relaxed/simple;
-	bh=64We818z1Wfg1w7+rOmHZe1TzjDocfGEVdsGeK1iZIM=;
+	s=arc-20240116; t=1784058552; c=relaxed/simple;
+	bh=u+1+qEBEdXOFnSmSTL5zZPTbf+fnXxujVz9of+aWqa4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g939XrHoqM/pio7cf9LjMez6SXaYTbdt49h3v56cNV6QUyB+MPFuLl/Iy4iK2JvnJYV1vbTnGDahvN/vNRdSwcsDO7V/a54ucSeH4aLdKkbFtXGWDMoXS6n6S4xCGRFHNHEXzReMM9Ood+15l3LXh0hIsNtUNPFZCwLa9nxPjM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjEwlc7C; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Xze9KdLmylcBP216frwVcxNBGNujWRVPwCmaNdew3KynzFTwIGmWfzxVS6V6ynoikgsAxUlg3EogDGW+9Hc3aoVO4P+EflEUkWrCZcMVRZSS4wfK4C7snwCID3TIw6/B4Vdpjhfm34JEEVDoIkt8wDzfx0COgsZwNzVlzXAnsE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXyZ0i26; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjEwlc7C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91511F000E9;
-	Tue, 14 Jul 2026 19:48:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXyZ0i26"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13B941F000E9;
+	Tue, 14 Jul 2026 19:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784058529;
-	bh=0AryzvXHNqPdShtyz0iKiiDDljQCajdekSlOfVNbLEU=;
+	s=k20260515; t=1784058550;
+	bh=5Q/styvhIXpLetkJ2vEn3tKPaL9M825eB16Rpj8C8uM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fjEwlc7Cdp4z9BMl22sPkeZ40EfapEL3gg6VFVOXDQOWLMCCBBMrfs41qRW8tx7ta
-	 Jew8GPAPNq/OHfw+C9uFqX1FKBH+CRrkxTphJCw5t+rQjCDKUGDZfR2BpOCixJoL29
-	 6FTfGVaXllCDm7+DBFKrAU8RQYW/fftFe8wC7vl4YwvoF4rJxQYAgGuA3nKcuPtP2w
-	 kLdQOUYW9VU+BFfPmA0WLiPRG2mwEBnbDU0Q+c8G+1yK631eS95GnQqUntjN+aL1PV
-	 HAiXn4rO/7MxstNA9YW9LGud2jKY4H4v9szXTvXXiUfFqkY+c6lUP8CqlnOp515dtn
-	 D8oit5qIfvFZw==
+	b=fXyZ0i26y42jJXQ2AFObNEFRa17feBUOS/MM+Vptxn64a8bUl5oW3D5c+d1dG7fE4
+	 cdQwDAgHqa6Db/9T23w3Xopb1OLfiFo72MLU8eWAcO6u35Q1l06rNM5ECLsB9oT+vQ
+	 l4HvWxARtw9Zimc/qG6o0bPqTzh7RoM+FviDa+ewxN1ULtfoARocHQmeUsTgp18BKb
+	 qrm694N+Vod/dkhJGZAVg6+RciytUgCzvFOz4bU67EWMciS2DDp5H9/jPs8o5PCoiH
+	 6hLAoo2RN5Hc2vWL/TRUxvOhixf2xC3NbkxzrnQFc/JMwhAJeXxhNt45AEQ5TJIqgi
+	 Ctbh2IRG/ypXA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 04/35] phy: rockchip: usbdp: Fix
- devm_clk_bulk_get_all check
+Subject: Re: [PATCH v13 03/35] phy: rockchip: usbdp: Do not lose USB3 PHY
+ status
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260714-rockchip-usbdp-cleanup-v13-4-6cb3e769d4c5@collabora.com>
+Cc: olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260714-rockchip-usbdp-cleanup-v13-3-6cb3e769d4c5@collabora.com>
 References: <20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com>
- <20260714-rockchip-usbdp-cleanup-v13-4-6cb3e769d4c5@collabora.com>
+ <20260714-rockchip-usbdp-cleanup-v13-3-6cb3e769d4c5@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 19:48:48 +0000
-Message-Id: <20260714194848.C91511F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 19:49:09 +0000
+Message-Id: <20260714194910.13B941F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
 
+New issues:
+- [High] State desynchronization on PHY setup failure causes double clock d=
+isable.
+- [High] USB status bit permanently sticks when transitioning to DP-only mo=
+de, causing a permanent hardware power leak.
+
 Pre-existing issues:
-- [High] If the PHY was pre-enabled by the bootloader, the driver leaves th=
-e clocks enabled and resets deasserted. If probe fails subsequently or the =
-driver is unbound, these resources are permanently leaked.
+- [High] USB3 port remains permanently disabled after Type-C transitions fr=
+om DP-only to DP+USB.
+- [High] Clock resource leak on probe failure and module unload if the boot=
+loader left the PHY enabled.
+- [High] Data race in `rk_udphy_dp_phy_configure` leading to corrupted DP l=
+ane configuration.
 --
 
---- Patch [4]: [PATCH v13 04/35] phy: rockchip: usbdp: Fix devm_clk_bulk_ge=
-t_all check ---
-commit 553b68092e2ed3747377c52ed53225389dff5096
+--- Patch [3]: [PATCH v13 03/35] phy: rockchip: usbdp: Do not lose USB3 PHY=
+ status ---
+commit d46c4c27785a2f2be7f57da59562db8997835bf3
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Fix devm_clk_bulk_get_all check
+phy: rockchip: usbdp: Do not lose USB3 PHY status
 
-This commit fixes the return value check for devm_clk_bulk_get_all() in
-the rockchip usbdp combo phy driver. It prevents an issue where returning
--ENODEV would permanently fail the driver probe instead of allowing it
-to defer.
-
-Link: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.ke=
-rnel.org/
+This patch modifies the Rockchip USB/DP combo PHY driver to prevent the sta=
+tus
+variable from being cleared during a DP mode change. This ensures that the
+tracking information for USB3 is not lost when re-initializing the PHY.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index 12dfdd470a782..2845a012eafcc 100644
+> index a5ffdf7a6e76b..12dfdd470a782 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -427,8 +427,8 @@ static int rk_udphy_clk_init(struct rk_udphy *udphy, =
-struct device *dev)
->  	int i;
-> =20
->  	udphy->num_clks =3D devm_clk_bulk_get_all(dev, &udphy->clks);
-> -	if (udphy->num_clks < 1)
-> -		return -ENODEV;
-> +	if (udphy->num_clks < 0)
-> +		return udphy->num_clks;
-> =20
->  	/* used for configure phy reference clock frequency */
->  	for (i =3D 0; i < udphy->num_clks; i++) {
+> @@ -1008,7 +1008,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
+, u8 mode)
+>  			rk_udphy_u3_port_disable(udphy, false);
+>  		udphy->mode_change =3D false;
+>  	} else if (udphy->mode_change) {
+> -		udphy->status =3D UDPHY_MODE_NONE;
 
 [Severity: High]
-This is a pre-existing issue, but does rk_udphy_probe() permanently leak
-clocks and resets if the driver probe fails or is unbound?
+If rk_udphy_setup() fails in the subsequent step (e.g., due to a PLL lock
+timeout), could this cause a state desynchronization?
 
-If the bootloader has already enabled the hardware,
-rk_udphy_get_initial_status() leaves the clocks enabled and resets
-deasserted by intentionally skipping rk_udphy_disable().
+By no longer clearing the status here, the previous active flags remain if =
+the
+setup fails:
 
-However, if a subsequent step in rk_udphy_probe() fails:
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_on() {
+    ...
+	} else if (udphy->mode_change) {
+		if (udphy->mode =3D=3D UDPHY_MODE_DP)
+			rk_udphy_u3_port_disable(udphy, true);
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_probe() {
-	...
-	ret =3D rk_udphy_get_initial_status(udphy);
-	if (ret)
-		return ret;
-	...
-	if (device_property_present(dev, "orientation-switch")) {
-		ret =3D rk_udphy_setup_orien_switch(udphy);
+		rk_udphy_disable(udphy);
+		ret =3D rk_udphy_setup(udphy);
 		if (ret)
 			return ret;
-	}
-	...
+    ...
 }
 
-The function returns an error without disabling the clocks or asserting
-resets.
+When the consumer unwinds the failure and calls phy_power_off(), the driver
+will see the non-zero status, clear the bit, and invoke rk_udphy_disable() a
+second time on already disabled clocks. Will this cause the clock enable
+refcount to underflow and generate a kernel warning?
 
-Since devm_clk_bulk_get_all() only registers a cleanup action to clk_put()
-the clocks (not disable/unprepare them), the clock enable counts are leaked,
-preventing the clock subsystem from disabling them later.
+[Severity: High]
+Additionally, does removing this clearance cause a permanent hardware power
+leak when transitioning to a DP-only mode?
 
-Does this also cause a similar resource leak if the driver binds successful=
+If the Type-C port negotiates a DP-only mode, udphy->mode changes to
+UDPHY_MODE_DP, but the UDPHY_MODE_USB bit now persists in udphy->status from
+prior initialization.
+
+Later, if the USB core suspends or unbinds, rk_udphy_usb3_phy_exit() is cal=
+led:
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_usb3_phy_exit() {
+    ...
+	/* DP only or high-speed */
+	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
+		goto unlock;
+
+	rk_udphy_power_off(udphy, UDPHY_MODE_USB);
+    ...
+}
+
+Because udphy->mode is UDPHY_MODE_DP, it skips the call to
+rk_udphy_power_off(), meaning the UDPHY_MODE_USB bit is never cleared.
+When the DP consumer eventually powers off, rk_udphy_disable() is skipped
+because status remains non-zero, leaving the clocks permanently enabled.
+
+>  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
+>  			rk_udphy_u3_port_disable(udphy, true);
+
+[Severity: High]
+This is a pre-existing issue, but does this block fail to explicitly re-ena=
+ble
+the USB3 port when transitioning to a mode that requires it?
+
+When transitioning from a DP-only mode to a DP+USB combo mode, udphy->mode
+changes to UDPHY_MODE_DP_USB and udphy->mode_change is set to true.
+
+During rk_udphy_power_on(), the code previously disabled the U3 port when
+entering DP-only mode. However, when transitioning back to DP+USB, the code
+skips the initial UDPHY_MODE_NONE block and enters the
+else if (udphy->mode_change) block, which entirely lacks a call to explicit=
 ly
-but is later unbound via sysfs, since the driver lacks a .remove callback to
-tear down the pre-enabled hardware state?
+re-enable the port via rk_udphy_u3_port_disable(udphy, false).
+
+Will the GRF register retain the disabled state indefinitely, silently
+breaking USB3 functionality?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the driver leak clock
+resources if the bootloader left the PHY enabled and probe fails?
+
+In rk_udphy_get_initial_status(), if it detects the PHY was already enabled
+by the bootloader, it intentionally skips disabling the clocks:
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_get_initial_status() {
+    ...
+	regmap_read(udphy->pma_regmap, CMN_LANE_MUX_AND_EN_OFFSET, &value);
+	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) &&
+	    FIELD_GET(CMN_DP_LANE_EN_ALL, value))
+		udphy->status =3D UDPHY_MODE_DP;
+	else
+		rk_udphy_disable(udphy);
+    ...
+}
+
+Since there is no devm cleanup action registered for these manually enabled
+clocks, if a subsequent probe step like devm_phy_create() fails, probe
+returns an error without disabling them. Furthermore, since the platform
+driver lacks a .remove callback, will the module leak these clocks if it is
+cleanly unloaded?
+
+[Severity: High]
+This is a pre-existing issue, but is there a data race in
+rk_udphy_dp_phy_configure() that could lead to corrupted DP lane configurat=
+ion?
+
+drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
+    ...
+	if (dp->set_voltages) {
+		for (i =3D 0; i < udphy->lanes; i++) {
+			lane =3D udphy->dp_lane_sel[i];
+    ...
+}
+
+The udphy->dp_lane_sel and udphy->lane_mux_sel arrays are read without
+holding udphy->mutex.
+
+Concurrently, if a Type-C orientation flip occurs, the TCPM worker thread
+calls rk_udphy_orien_sw_set(), which mutates these exact arrays under
+udphy->mutex.
+
+If the DP driver performs link training concurrently with an orientation fl=
+ip,
+could it read partially updated lane arrays and write invalid voltage swing
+configurations to incorrect lane registers on the PHY?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-rockchip-u=
-sbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com?part=3D4
+sbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com?part=3D3
