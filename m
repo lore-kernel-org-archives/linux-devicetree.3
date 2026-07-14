@@ -1,79 +1,76 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7B1369D7A
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:24:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5EF44D01D
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:25:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784031877; cv=none; b=seiUOM3s7v7XDi0YqOWNvqtzQuKFBbcy61GD6z4XWZrR8iDmRGuYNrwqo4z6tub3O3F35gJ4r2BKVOmCs43sbuNw6L6/2sYWkm8mQ8WxxYKNSIyllKOmrE/o2Sna98dL4hTK757vb4uMFY5AniK2UbEQEOrVYKMsnuF6J67xrcQ=
+	t=1784031958; cv=none; b=IooYt4YI6TMBCICloS//OMQQYBCcS1eA52J2IV/0hA1Yxo3MyBFXp7iMkzj6W7pJeOAgOvkSeH7gf5WaBcQTJ1RLwYFLqp2t/6HbyBG2l4RsLBBhYXn5c/8f1Jwt6aQmyvQIOtGnShehJxCnndJQzQ1cu/ue9twg2AWLRFAFHFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784031877; c=relaxed/simple;
-	bh=SRObptwHoSX8kAd62LTXebK4+GvkQ/zgathGis9QzXE=;
+	s=arc-20240116; t=1784031958; c=relaxed/simple;
+	bh=0+vGZfhgz1bD40ocE4HqL+yXZ99EIYUdksleBRdm8Wg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pl21lQkjPlCulZvYgyw63zyLvaPajnPTvCiKw2jj2qw8bqz5pHGLGkav2TPjLtb4r+QhrQJO8I58OWXJA7xuwUeFJvEJ7s7z14/Rd2/OBOj2kIP+n1o8R9z8h35etWzYlVbpavbVECLXSFqE1Toq1VDGt+K+3/CCycQpY35nPIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=jYPyLcJj; arc=none smtp.client-ip=209.85.128.49
+	 Content-Type:Content-Disposition:In-Reply-To; b=SiwklAavDVnHgKBbtaK0o+0p0xRwrxZ8T98aZFDiChqwF46HMqWai83lyR774hRvIAXUa0gJowp+KAZDfh36xoDNVm+8OYbwkUUWorX055VD29eTDwV5fPZ3B+gLalZXXl0EH0o3DPHcJLBAd1jZYnUPBTP1GqHLvl/CI6vDU7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XbXL7dz3; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="jYPyLcJj"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-493f60208a5so36542555e9.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:24:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XbXL7dz3"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47de0093c42so750470f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:25:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1784031862; x=1784636662; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1784031945; x=1784636745; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SRObptwHoSX8kAd62LTXebK4+GvkQ/zgathGis9QzXE=;
-        b=jYPyLcJj2jcFvmX8pB+oOEe+d8lD9GJPiwqojBkVSXd1H6W1A0rv922CMzYaMZUxgL
-         hqmzVnI4GVrdb/4Jq1qb6NRaI/ChnFOsoEoV7HYoO5MvEKbYKvMyCFFuP7x9GuPy5JIg
-         oYNFaPhn6+pm2uYe1kZy0ra5HulWYG0NomzvoPsL7OwEdJvdWPuFPHIct2S5INwX0acS
-         JD7RtnrB97LrBmwoztDsByHu6FgxYT4z5HtUF81dkNqAig2L5q7z47MUCCLSfRE0q4Z0
-         ntIcHgU6J33evlWX9IAPFkZ5bCpAuBacIF4C5USYgkRNTVxcPJsTZm9OPHg64xGdq9O6
-         A0eQ==
+        bh=0+vGZfhgz1bD40ocE4HqL+yXZ99EIYUdksleBRdm8Wg=;
+        b=XbXL7dz3fsVvyc9B0lAyOQGiZ0GJFHAGz7YKnOfyFIbbT0womjk52r/GJgXawi6QPm
+         8btG+ebYd1TuTnvOZRhwVc3bpXaRiT9loRvyur1bl7qO4s0fSRClcW6uamday5gxj+c3
+         zve+gSDe5U2DUuFS9h+6QzOnEK4HfUd4TM1UpeRnwj4F84eCqcJV3wue37LBiQc9Yxux
+         2LshZPW9jn9L0dfARhojxWuC683EosDYTMaGlXbRLriSqu2S5nPLuKbRR2Ts/mX3f+zV
+         0CSkMIKE8uxhEaY1C2FWEyaecif0pMJSGuR8id/UbNiO5MX0jTp9gKpz98tY+jVGOudc
+         gIBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784031862; x=1784636662;
+        d=1e100.net; s=20251104; t=1784031945; x=1784636745;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SRObptwHoSX8kAd62LTXebK4+GvkQ/zgathGis9QzXE=;
-        b=IODNoRwzudq4QkSrTAH5TUVjUlC0MU2ym9nQdzrPe26JZoOlm51lHw6KewjKZFIW7Q
-         dDVQiLrm8ziJi4UPuZEIk65JRgK0EpRwN9EL0quAUC5yyXcnfg4vOOhAIB5zoAXDjLC8
-         UlKTdhCma1UdCsVatUBRTdWWx/uu0UE2I+h2L2LGwZGrj+ia6uHfSeyVW3wSCoefoCYe
-         JnV4vyV2OWbUrshWk31mMZbbFEKthqYlg/eL3k2R7VEqh5grV5stU6PgiwAb85I2JeMZ
-         ht3APNSWwJbTFOAXT1ApkhvpEV4JHHUMc7X46mmaeis4HcvSCWhF3m4PaR6aFIkyRe3O
-         dzpw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp39+WuclXfDnle5JrAI7tRkSS7uIdLAe4I/yCxmBxKt1MOtD7mNilyV+LXafS4VZP/Knpqxq9cawqR@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEAjfUerRXCpg+zDuB6sL4++mLA3iVHG5dGSOAhMZEuzSB3t7X
-	xOoIF+DXxhthhBMyMQb4DVLMijbtNWgHG2dSS3/jUrFGOAdEse57H5L9Zj98cfyToeg=
-X-Gm-Gg: AfdE7cm7ZurlsWJwWxBt093LP1hfGQzOg9H7D8A6sr6eR7ltP/eTi89ndAbj5Jx0/T3
-	n66gQgzeC6JGj41c8tehCMcNQMtygt+Ac6Ug+ab8jQoWwmSKhz7VqiKCnKqwWCOSyqHemKYXH7/
-	+PSun4T58y/8wGRfDx1GPf4h2al0x4HOAmJVbCNp4xaBIzpWd3iSB/ctB8+USPZsbt9AJGqDGMQ
-	Ot50YmSvsB9fT2vReswzhNPn3EwhoCFgpYJPTuPQQ0tJPxcVHmNMdeNhBkoGsVW9aXOQNu43kbh
-	c9Q8PXL6KJZ+UnTmflduNkY/29ifi89T77Djv4X+fN3yKUe2i+ZwEKuitkbdE2mSLgvbXRNhg0w
-	TrqQV8OlvBJXZVAxG6PVE/OMB1vDFP2+pvg7mH5ZJEt2b/2g3lOFI2YBin3CFXbpRhpiYTDESfy
-	Sk3duTKtDJnvnZeF93Bf3SxmV2foHgJdEoYkvx3SME/YkBNNOizYlJGLE5w7KNbYR8/iWV6ZHed
-	n6U
-X-Received: by 2002:a05:600c:6091:b0:495:3a21:4e5d with SMTP id 5b1f17b1804b1-4953a214f0emr7787795e9.0.1784031861818;
-        Tue, 14 Jul 2026 05:24:21 -0700 (PDT)
+        bh=0+vGZfhgz1bD40ocE4HqL+yXZ99EIYUdksleBRdm8Wg=;
+        b=jT92ABTRQvo5VBuuHcYAoeNWOqE4khqUgLKREZ9O0fknaFfA7xjCwni3aONGLBxvbw
+         WyhGpgs4Y3ivb0q7HwwdZpvSRqmD+Zo3RySD1VcAzzXkEEgcm0ARz76UXzXbGX1f3V2/
+         fd4E+uymvvdbdLN2ovwnivVlk74GrVyKmRNyiFsPStkow1gEXbz1XSoejD2UC+E2rWJq
+         qrWkKcLIj3E6Nz6wTLJrthn4wJVAVT0pA3sesI3c5K5AO3+iavepySrwzBbx/SMmdVjF
+         ROgmX+PdycTOxtUexlsu2Htj7RZ2lTnrAU+4jbE3r7v3fp0Jz7lizvt2Ftb/sxEfOxJ0
+         kPFg==
+X-Forwarded-Encrypted: i=1; AHgh+RoFOVWebz/9T2cVAbLjAedMmf9gactKQ523G1eOo23hBXbCV6kqcbyFvSXV+f43IQWTfzZ2YnFQQIdX@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIdOll5q4MeO6WqstdePBg3Zv+VgCwFHTrNNTbIzwBoXPWRr8m
+	bpXgYdVfetMeRkvFq2e3IZmrmE5rzjh8pZfli0tODxWiytXadR82hlIFSvprELYUMRc=
+X-Gm-Gg: AfdE7clYByc2JWfpLv9bkLuwglCZyuAHgOuqLTCnEgQiS7B0KFQM+VyATmYWHCpJfkB
+	8/X5Wurr3U5nkZCXWE+xbHUIYRHLaF7FsdPjEf8B/V7jcmtf+WkT9O6MMzknon55gDBmVbiPMKl
+	UIsXCyhlePMNRg1H16BkYg9Dmngr6tGrmw7E6iE+Px4snLDJxdn4WJPn139IvloTBuv5HaLqVef
+	GPnNSuX9uYGTV+py6cKpiZqXhoSl3R6aycCACBRXxVp4QBSqtfiocVWgVomPC5dC5gvRhZ5uS3M
+	mdOH4945S5BW3xSpng1Z6IPRJiTC6pD+JkZ2eRT+5p3Sw3NrOvYsWufYCWB2ncH20exo1cHctBL
+	1/0kP1ajdNgvC0j+ua/CIRtv891RiNQDU0FwI1/QpUqPXuDqoJ36GMInNNQag2geDweVhjZUkLm
+	BZGKIsjhcqxVNV+dVQ+zgYfm8ycijtVHWM8Y1oDvsnn1jIHpKEsqw10D3OuXdSEEp4kIDuqNLb+
+	fDb
+X-Received: by 2002:a05:6000:2210:b0:46d:d5da:f0a8 with SMTP id ffacd0b85a97d-47f2dd08423mr15598269f8f.47.1784031945403;
+        Tue, 14 Jul 2026 05:25:45 -0700 (PDT)
 Received: from localhost (p200300f65f47db04b44a80421173aa03.dip0.t-ipconnect.de. [2003:f6:5f47:db04:b44a:8042:1173:aa03])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49508732395sm71287545e9.5.2026.07.14.05.24.20
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47f4635a63esm8284732f8f.9.2026.07.14.05.25.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 05:24:21 -0700 (PDT)
-Date: Tue, 14 Jul 2026 14:24:20 +0200
+        Tue, 14 Jul 2026 05:25:44 -0700 (PDT)
+Date: Tue, 14 Jul 2026 14:25:43 +0200
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Lechner <dlechner@baylibre.com>, 
-	Nuno Sa <nuno.sa@analog.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Siratul Islam <siratul.islam@linux.dev>, Ciprian Hegbeli <ciprian.hegbeli@analog.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <alYqVxnzgBMc62eL@monoceros>
-References: <20260703102941.1141341-1-stefan.popa@analog.com>
- <20260713120226.90303-1-stefan.popa@analog.com>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+Subject: Re: [PATCH v2 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
+Message-ID: <alYqhghiVxVW2vQu@monoceros>
+References: <20260713081127.115197-1-cwweng.linux@gmail.com>
+ <20260713081127.115197-3-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,40 +78,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5ndtom5antb4jk7g"
+	protocol="application/pgp-signature"; boundary="a2h5qyp6npg6rco5"
 Content-Disposition: inline
-In-Reply-To: <20260713120226.90303-1-stefan.popa@analog.com>
+In-Reply-To: <20260713081127.115197-3-cwweng.linux@gmail.com>
 
 
---5ndtom5antb4jk7g
+--a2h5qyp6npg6rco5
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v2 0/2] iio: adc: add MAX40080 current-sense amplifier
- driver
+Subject: Re: [PATCH v2 2/2] iio: adc: Add Nuvoton MA35D1 EADC driver
 MIME-Version: 1.0
 
-On Mon, Jul 13, 2026 at 03:02:24PM +0300, Stefan Popa wrote:
-> Regarding mod_devicetable.h (Uwe): kept for now as the replacement
-> headers (linux/device-id/*.h) are not yet available in mainline.
+Hello,
 
-You can (and should) rely on <linux/i2c.h> to provide of_device_id.
+On Mon, Jul 13, 2026 at 04:11:27PM +0800, Chi-Wen Weng wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
+
+Please rely on <linux/platform_device.h> to provide of_device_id and
+drop the include for <linux/mod_devicetable.h>.
 
 Best regards
 Uwe
 
---5ndtom5antb4jk7g
+--a2h5qyp6npg6rco5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKnIACgkQj4D7WH0S
-/k60tgf/V8OQPEZKKMM+CfRKN09vFY5OZ+u1nU87IvKEHqC++R5L5TQhfKCO9F4F
-BTGplAOTlgjeJFe7uKWcZcwNgD4GphzitXwZJX+01xkRaVpfkMa+KyBapCmP6X4A
-MjFqNqi65SADqt/ZbhCmoUMsOm4Jggpi2EiRY4wtcTEZKTXs9AWBMaIHSL6UkxrO
-qiIDKDVn9++CTO+mjCHADHlZBQ9fxUwFATz5M5hJxI2un2/cmoK7G/A0SM8dBZAD
-vkjGTQp0Gxbayz5lSI1KkCs4TGTNM5yVPFlWyuAGwpwTRwibcQouo9CO3jTpqLpB
-wObhDx53iC4YcRc3ZhH8hE5OPTfKOw==
-=cFbW
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKsUACgkQj4D7WH0S
+/k4ixQgAlt+F41bzzFr8wApKEHEDE06Wyl2Bj9mhJ2lBUH5L4+vpMsXE0WVLJKmu
+HL5Dt7P0owSyciNzhp+pTCgs7ucr0yB3ysy+rILUBGjH8sExdTwINM8+0I8q2mfq
+uUinfFczaWbZRevyDkY9F5RPUt6WGRFz9uNnFrkZfNHOJL4jo69d7MftM0IW+ruv
+2SQnD38ccuoMsiZYcVDkSnDVXcruoWqhk4ViKjx/a6i5d0HhZHyfA6eSAaSfR8zf
+dHm5Fk26lHBT+xuv2TXw5FDGI2/h899mXnFcQGR9zsH5ImhmUvJIM+sL4FZ4fC1A
+UTd+40tRC7LtdqphWXA0H4oK7F24Yg==
+=GMY+
 -----END PGP SIGNATURE-----
 
---5ndtom5antb4jk7g--
+--a2h5qyp6npg6rco5--
