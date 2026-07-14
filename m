@@ -1,179 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE5A43F54AB
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:02:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178C04BCABD
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:02:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059325; cv=none; b=ou+YcaXB9TYtzU8UNWfOSVAGqPMOJbWbsecLJDtH1cNDOkCmX3Y3o4eUbUY1a0VRNSzPVCTErqsj39zW/u+JqJulnA4250y2Zyi8ndSzVeNqCTGMErEaOhFgO/wmOgD8a9ii7Zfse3M+N3nNO+RTuZEApK8FiGdUVJ3yGjztzhU=
+	t=1784059343; cv=none; b=AkaBJQjtFRo63Scz3+AqSz702ZDdLBARTWxk95pDsrFhixeI7dhgxviSWP0Hke2LwEpaMyr0ZLbzjEi+5WFDOTCowhwNGQkujdmcyCQfFj1+SIYRdQ+2M9Pio4Y3UoQ+y9KJTVsE2PkByEgt5dWsPeFr0v2SYK4/l/3mAFSzFVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784059325; c=relaxed/simple;
-	bh=aI9nSj2nUAVpg01rZQ2L2M64ckDSR0IK3+KqY1Ot6ZQ=;
+	s=arc-20240116; t=1784059343; c=relaxed/simple;
+	bh=PJaYfy7On/mjkfZx/GtCQU4GPGevxuwSRdOgk65wIok=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t4qcf489icrItencbO4NROAFvaCBoJHDhURsZuQhzpGuSQo7qbzC+xpcUPWjm8XmoLNQGxVmgvsCqUA6cHn4rdguQOgWKwf9ENnY1HOgg0271xr3zdEKwCZm/2bIAhrOp6ztmOv6kppM3R6/ayKzMTAPFNLuaJNdqxj4CM4fEcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9V2CDRj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UHeRW7ns8RrH+Bvz/iqau1SBuw4Amdm7YWfGkmEho7x65Gobawrao3J9AcLsk6khCR2ZqQvXdcl7Hv17i2FvBInczwKciiflOUmMVxUYauDc4hexIxyaOjgwBS9R2SAaaEoV7wYVSBecSr2O4H5Y1wnT+0e6XSD5AOj3uyPW4WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRX4OODT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9V2CDRj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53F541F00A3A;
-	Tue, 14 Jul 2026 20:01:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRX4OODT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F188E1F000E9;
+	Tue, 14 Jul 2026 20:02:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784059318;
-	bh=UDJIT3Wc6aA9Q1xwXyK/PSKaA59Lc/tsV5lpmkJ/x1E=;
+	s=k20260515; t=1784059330;
+	bh=FmLV3c3AVhLU28azkxFTsGBT1X9WWu5FxsnZxsgLj1k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W9V2CDRjLKRO6lKgQ92L08Lv5pvFWSrHNl3W3wMtpVJvO6roREycuf3hISGeg5GDl
-	 P6mC87jNKQQVl38tChnl+VOypPcXftEJ8N67jySLPwi2LsyDjc23imF0rzfCFT/yJs
-	 LNlh2D+hYLAr5MwTI26vYBkvTvYOWaBds9IYb2cyXOXWkuLh2cZyMvwHBpkTst/rv4
-	 f2CBuTUAXP9y7jb3pgYez3uKOLzX+YUnGZZ0rLCLYMLevtF9g76VRMYjFf2SuS2R8F
-	 Q1MijBMWxmWLjh6/3FXeM8lMXIenHNUKRE7yNOBucRVUF03RXIbI1sUg3hc+Cvki45
-	 7cdofwKVlw52w==
+	b=LRX4OODTOws5LfAZmT70SFZUYs9nK4gO104WPqFFd0T4Fm37u8Brqb2b+pQxgl2YY
+	 y6aUsEj3YZ34BIpep7lWWjlpIv9s93ACcMR7vQHCB+f8N1zsLEjvnfZExfyPWSlmHa
+	 LsGQRthnzAKnpssBk2DEv895WclXiYTXFXVZU58NkACR0JtzGNtqHNeqP/k8JUUZsl
+	 MFK5Za16i+jB05+avPiBRmsUOpzI90qrWS45aS9S3dIESeWuRbLqwbiqD/f702um6S
+	 3laMfuos9ovzqdjRy7BL0H/tZPPateXqBuNPMYN9qwNbA+ZqqSvftdtNv6zBRtwvzt
+	 iGEb2TwvOPObQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 06/35] phy: rockchip: usbdp: Drop seamless DP
- takeover
+Subject: Re: [PATCH v7 3/3] iio: adc: ti-ads1100: Add ti-ads1110 support to
+ ti-ads1100 driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org
-In-Reply-To: <20260714-rockchip-usbdp-cleanup-v13-6-6cb3e769d4c5@collabora.com>
-References: <20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com>
- <20260714-rockchip-usbdp-cleanup-v13-6-6cb3e769d4c5@collabora.com>
+To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260714194717.596193-4-jakubszczudlo40@gmail.com>
+References: <20260714194717.596193-1-jakubszczudlo40@gmail.com>
+ <20260714194717.596193-4-jakubszczudlo40@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 20:01:57 +0000
-Message-Id: <20260714200158.53F541F00A3A@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 20:02:09 +0000
+Message-Id: <20260714200209.F188E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Unbalanced clock disable in the `rk_udphy_power_on()` error path d=
-uring mode changes, leading to a potential clock reference count underflow.
-- [High] Data race on DP PHY configuration arrays `dp_lane_sel` and `lane_m=
-ux_sel` without mutex protection.
+- [High] Inverted hardware polling logic causes unconditional 7.5-second ha=
+ng and timeout in continuous mode.
+- [Medium] Missing error handling for regulator_get_voltage failure exposes=
+ raw negative error codes to userspace.
+- [Low] Kconfig help text describes the ADC data rates in MSPS (Mega Sample=
+s Per Second) instead of SPS.
 --
 
---- Patch [6]: [PATCH v13 06/35] phy: rockchip: usbdp: Drop seamless DP tak=
-eover ---
-commit 9eb0b683c1a1900efc12a73348d324147ff4047f
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: phy: rockchip: usbdp: Drop seamless DP takeover
+--- Patch [3]: [PATCH v7 3/3] iio: adc: ti-ads1100: Add ti-ads1110 support =
+to ti-ads1100 driver ---
+commit 48edf6dcf5a3e58bfda7f4b74908d7339f253938
+Author: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 
-This commit drops support for seamless DP takeover in the Rockchip USBDP
-PHY driver. The feature was missing implementation in both DRM drivers
-and bootloaders, and proper USB-C state machine handoff would require
-significant work. The untested code supporting it is therefore removed.
+iio: adc: ti-ads1100: Add ti-ads1110 support to ti-ads1100 driver
 
-Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.=
-kernel.org/
+Add ADS1110 support that have faster datarate than ADS1100, it also uses
+internal voltage reference of 2.048V for measurement.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 3fc8222fcaec2..6cb9f6b4dbf6d 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index 1c663c98c6c96..2459ff2af1050 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+
 [ ... ]
-> @@ -1495,10 +1468,6 @@ static int rk_udphy_probe(struct platform_device *=
-pdev)
->  	if (ret)
->  		return ret;
-> =20
-> -	ret =3D rk_udphy_get_initial_status(udphy);
-> -	if (ret)
-> -		return ret;
-> -
->  	mutex_init(&udphy->mutex);
->  	platform_set_drvdata(pdev, udphy);
-> =20
 
-While reviewing this file, I noticed a couple of pre-existing issues in
-other areas of the driver:
+> @@ -1765,11 +1765,14 @@ config TI_ADS1018
+>           called ti-ads1018.
+> =20
+>  config TI_ADS1100
+> -	tristate "Texas Instruments ADS1100 and ADS1000 ADC"
+> +	tristate "Texas Instruments ADS1100 and similar single channel I2C ADC"
+>  	depends on I2C
+>  	help
+> -	  If you say yes here you get support for Texas Instruments ADS1100 and
+> -	  ADS1000 ADC chips.
+> +	  If you say yes here you get support for TI single channel I2C Analog
+> +	  Devices.
+> +	  * ADS1000 12-Bit, 128 MSPS Analog-to-Digital Converter
+> +	  * ADS1100 16-Bit, 128 MSPS Analog-to-Digital Converter
+> +	  * ADS1110 16-Bit, 240 MSPS Analog-to-Digital Converter
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_on() {
+[Severity: Low]
+This isn't a bug, but are these units correct? The ADS1000/1100/1110 data
+rates are typically listed in SPS (Samples Per Second), not MSPS (Mega
+Samples Per Second).
+
+> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+> index f0a30ae139afa..ad9099aaf19c9 100644
+> --- a/drivers/iio/adc/ti-ads1100.c
+> +++ b/drivers/iio/adc/ti-ads1100.c
+
 [ ... ]
-	} else if (udphy->mode_change) {
-		if (udphy->mode =3D=3D UDPHY_MODE_DP)
-			rk_udphy_u3_port_disable(udphy, true);
 
-		rk_udphy_disable(udphy);
-		ret =3D rk_udphy_setup(udphy);
-		if (ret)
-			return ret;
-		udphy->mode_change =3D false;
-	}
+> @@ -90,6 +114,20 @@ static int ads1100_set_config_bits(struct ads1100_dat=
+a *data, u8 mask, u8 value)
+>  	return 0;
+>  };
+> =20
+> +static int ads1100_get_vref_milivolts(struct ads1100_data *data)
+> +{
+> +	int voltage_uV;
+> +
+> +	if (data->ads_config->has_internal_vref_only)
+> +		return ADS1110_INTERNAL_REF_mV;
+> +
+> +	voltage_uV =3D regulator_get_voltage(data->reg_vdd);
+> +	if (voltage_uV < 0)
+> +		return voltage_uV;
 
-	udphy->status |=3D mode;
+[Severity: Medium]
+Will this correctly handle a regulator failure?
 
-	return 0;
-}
+If regulator_get_voltage() returns a negative error code (e.g. -EINVAL),
+this function returns the raw error code.
+
+Callers like ads1100_calc_scale_avail() and ads1100_read_raw() seem to
+directly assign this value to userspace arrays or IIO physical scale
+variables without checking for errors. Can this result in exposing raw
+negative error codes as IIO scale values?
+
+[ ... ]
+
+> @@ -144,7 +182,8 @@ static int ads1100_new_data_is_ready(struct ads1100_d=
+ata *data)
+> =20
+>  static int ads1100_poll_data_ready(struct ads1100_data *data)
+>  {
+> -	int data_rate_Hz =3D ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data-=
+>config)];
+> +	int data_rate_index =3D FIELD_GET(ADS1100_DR_MASK, data->config);
+> +	int data_rate_Hz =3D data->ads_config->available_data_rate_hz[data_rate=
+_index];
+>  	/* To be sure we wait 5 times more than data rate */
+>  	unsigned long wait_time_us =3D DIV_ROUND_CLOSEST(USEC_PER_SEC, 5 * data=
+_rate_Hz);
+>  	int data_ready;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the error path in
-rk_udphy_power_on() lead to an unbalanced clock disable during mode changes?
+Does this polling logic hang the driver in continuous mode?
 
-When transitioning modes, rk_udphy_power_on() disables the clocks via
-rk_udphy_disable() to reset the state, and then calls rk_udphy_setup().
+Looking at the rest of ads1100_poll_data_ready(), it calls:
 
-If rk_udphy_setup() fails, it returns early without updating udphy->status.
-The software state retains the active mode, but the hardware clocks are
-disabled.
+ret =3D readx_poll_timeout(ads1100_new_data_is_ready, data,
+                         data_ready, data_ready !=3D 0,
+                         wait_time_us, ADS1100_MAX_DRDY_TIMEOUT_US);
 
-When the consumer later calls rk_udphy_power_off(), it reads the active
-status, clears it, and calls rk_udphy_disable() again.
+The break condition is data_ready !=3D 0, but ads1100_new_data_is_ready()
+returns 1 when the ST/BSY bit is set. This means the loop will incorrectly
+break when the device is BUSY, rather than when it is ready.
 
-Could this result in a double-disable and a potential clock reference count
-underflow?
-
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
-[ ... ]
-	if (dp->set_voltages) {
-		for (i =3D 0; i < udphy->lanes; i++) {
-			lane =3D udphy->dp_lane_sel[i];
-			switch (udphy->link_rate) {
-			case 1620:
-			case 2700:
-				regmap_update_bits(udphy->pma_regmap,
-						   TRSV_ANA_TX_CLK_OFFSET_N(lane),
-						   LN_ANA_TX_SER_TXCLK_INV,
-						   FIELD_PREP(LN_ANA_TX_SER_TXCLK_INV,
-						   udphy->lane_mux_sel[lane]));
-[ ... ]
-}
-
-[Severity: High]
-This is a pre-existing issue, but is there a data race when accessing the
-DP PHY configuration arrays?
-
-rk_udphy_dp_phy_configure() is called by the PHY framework and reads
-udphy->dp_lane_sel and udphy->lane_mux_sel without acquiring udphy->mutex.
-
-Concurrently, type-C workqueues can write to these same arrays while holding
-udphy->mutex:
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_typec_mux_set() {
-[ ... ]
-	mutex_lock(&udphy->mutex);
-
-	switch (state->mode) {
-	case TYPEC_DP_STATE_C:
-	case TYPEC_DP_STATE_E:
-		udphy->lane_mux_sel[0] =3D PHY_LANE_MUX_DP;
-		udphy->lane_mux_sel[1] =3D PHY_LANE_MUX_DP;
-		udphy->lane_mux_sel[2] =3D PHY_LANE_MUX_DP;
-		udphy->lane_mux_sel[3] =3D PHY_LANE_MUX_DP;
-[ ... ]
-}
-
-If an asynchronous type-C event arrives while the display controller is
-configuring the PHY for link training, can the arrays be read in a partially
-updated state?
-
-Could this result in an invalid DP lane configuration being applied to the
-hardware, leading to DP alt mode failure or display corruption?
+Additionally, in continuous mode the ST/BSY bit is always 0, which means
+data_ready !=3D 0 is always false, causing an unconditional 7.5-second time=
+out
+every time the data rate or scale is changed.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-rockchip-u=
-sbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714194717.5961=
+93-1-jakubszczudlo40@gmail.com?part=3D3
