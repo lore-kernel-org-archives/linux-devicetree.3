@@ -1,47 +1,46 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CB442BC4E;
-	Tue, 14 Jul 2026 21:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056943EDE59;
+	Tue, 14 Jul 2026 21:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784064551; cv=none; b=IeOeEhRDY19upSt9wyu0U7D/BWM5HxBFdxlv6uNQ2DMht9DKZ3ZoiFgDqoNNs0jqBnse3DKL3pl9uCwFGg+lVERoyuHQ3h9NYtAnYfnjbib7QvYIUG2hq5fiMyfhCmBZbrHwhSmhd7miWECCZLNR6AMbGA+5iYGm6SHL0GVnssc=
+	t=1784065522; cv=none; b=gUtx/O7cHHO6ScclgTjjTzOndE6T38ks9yJ1oPTadSpl6DB/cswtZ0Wwl2gv7/QBlIhd5Rdl4SZrnDRh/T8F2zAFCZ/EPPG86BVc0U+b6239FgJi+PxBPutVd9ZxHtxG6RN/yWxcwyGrEkvB5fc9SSaRC03kXWEBfOKsglHSslc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784064551; c=relaxed/simple;
-	bh=Bpvtk1w8wV8HWIFOpcV3in5/WC4GIMCY5VMMG9umu/g=;
+	s=arc-20240116; t=1784065522; c=relaxed/simple;
+	bh=VzP6G29arfVHBzyobaaJmu18G5z9zE0CcRLfN9+MoJQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FriSfJX9RvVhEX1FyAOhP2X+LOo/wT29JXgkvrAPsGEgPo+3YVA88sCighGeowf3tdRhsS1DVtbm4JXMsxD/11hM5nXLyessufNcr4plaui7is7snQy1ajm846zKd+sqDVTvC8wIDIaJyBpExmoBefpMiw9ZmxdFTo4qNdKuYyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=sBpwKpI7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=XTt7/MpgrwO4Qb2upYxQcTEmXkS0Vh7AJhbNkfimhhuPQpT096ETUaOZA7Duyo9Z9xCk9gVoX6QYtIkV8U3/4yfroG6RMy/KgI+1BqlB93MxDgOBBSZ1B9SOU3FPVPsDHa6jE70cqf5TSAGpWz4lY2TiYWQvr9FWJTtakW+rjrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vin2UnpZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="sBpwKpI7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=tGonvPPlDGQZ4gzGaAE5ONSL7R/+KJFUYJM5k/cS46A=; b=sBpwKpI7EB9v8CROH/LRfco+iW
-	04q83SalkG4SzKJq5Y6lOM6Y5Ph3R9GqWrP71Bgme1bRNzE1eif+HWXamTSUrO6Ewkk+ARsFV+3R5
-	q8+5F7JXfSgz3qbvH1wqP52qfhLRuPaITFt6ozWpdNhdhhKq8OOx8WkPw8VkgUMQWa8c=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wjkgW-00CFjP-P4; Tue, 14 Jul 2026 23:29:00 +0200
-Date: Tue, 14 Jul 2026 23:29:00 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Liu Changjie <liucj1228@outlook.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 0/2] net: phy: Add Maxio MAE0621A support
-Message-ID: <c03931fb-019d-42d7-99aa-f2d97fb97660@lunn.ch>
-References: <MN0PR19MB6091CD5A84D2DA5DACF434DAACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vin2UnpZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856C01F000E9;
+	Tue, 14 Jul 2026 21:45:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784065520;
+	bh=6U0YUuRk6xW0tRmeT06lRlocuYSV9155/wLIZP3WcTg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vin2UnpZpAhB84PLdnADBR1uHzDpPuT1nDSk3AiKEUWVAEt6yNSbJ/rw0nHny34/a
+	 WMNa1gyOg5ZhY6uG2ASQ7mdwNVI3ctmU0SgeYdYQ/uF+16mABrnfYrmwUoxpk2u/cF
+	 pN03rJuizEigAki8I8UW/OT02L4W+jEwR3qUm9r2O215SHHBdgI/MtIUGTBzotYur2
+	 HCxGpHi6IApbDKE8lPzEbxjjGrPnzHzWiYZLL1Zmf3frMyOdRkwcBRGTAmzpIKQLCV
+	 6ZIc491qD4VcOHc3JwHsYgIGXejgVLBeP/wYZs++6YnDwnoi5i9YnxC9R3u+50h9XL
+	 YcPXEesE7r/pQ==
+Date: Tue, 14 Jul 2026 16:45:19 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: krzk+dt@kernel.org, mturquette@baylibre.com,
+	linux-remoteproc@vger.kernel.org,
+	Alexandru Gagniuc <mr.nuke.me@gmail.com>,
+	mathieu.poirier@linaro.org, conor+dt@kernel.org,
+	konradybcio@kernel.org, sboyd@kernel.org, p.zabel@pengutronix.de,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/9] remoteproc: qcom_q6v5_wcss: add native
+ ipq9574 support
+Message-ID: <20260714214519.GA2851152-robh@kernel.org>
+References: <20260109043352.3072933-1-mr.nuke.me@gmail.com>
+ <178370682987.2572738.13491033810212556744.b4-ty@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,12 +49,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <MN0PR19MB6091CD5A84D2DA5DACF434DAACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
+In-Reply-To: <178370682987.2572738.13491033810212556744.b4-ty@kernel.org>
 
-> Hardware tests with the 125 MHz setting:
-> - 1 Gbit/s, full duplex link negotiation
+On Fri, Jul 10, 2026 at 01:07:04PM -0500, Bjorn Andersson wrote:
+> 
+> On Thu, 08 Jan 2026 22:33:35 -0600, Alexandru Gagniuc wrote:
+> > Support loading remoteproc firmware on IPQ9574 with the qcom_q6v5_wcss
+> > driver. This firmware is usually used to run ath11k firmware and enable
+> > wifi with chips such as QCN5024.
+> > 
+> > When submitting v1, I learned that the firmware can also be loaded by
+> > the trustzone firmware. Since TZ is not shipped with the kernel, it
+> > makes sense to have the option of a native init sequence, as not all
+> > devices come with the latest TZ firmware.
+> > 
+> > [...]
+> 
+> Applied, thanks!
+> 
+> [1/9] remoteproc: qcom_q6v5_wcss: drop unused clocks from q6v5 struct
+>       commit: 22afc6163c0c7a144d24a09352b87719d64d5f65
+> [2/9] dt-bindings: remoteproc: qcom,ipq8074-wcss-pil: convert to DT schema
+>       commit: 2a756ac4d98efc97503629fcaddb2e7c46255824
+> [4/9] dt-bindings: remoteproc: qcom: add IPQ9574 image loader
+>       commit: bc33b5b5e23a389e660c3d696cd2e043fdf33ef7
 
-What happens when 100Mbps or 10Mbps is negotiated? Has that been
-tested?
+Why is a 6 month old patchset with reported errors being applied? 
+Anyways, linux-next is now broken. Please fix.
 
-	Andrew
+Rob
