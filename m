@@ -1,148 +1,94 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6211138A722;
-	Tue, 14 Jul 2026 12:06:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB39238D3F9
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784030811; cv=none; b=AhyWbRqmq2MOak7Wg2ri2OLXW6SJo9CqNUHKwWch/MlWiYp/qUKRc6I/3QzcvgDSmYUGultcaf5BDF+5kSNJOPPdfXskamwM7M63DCBcJGdHdXFuEQAI/Y/2Mhxl6XP/dMxUQCn7Guw2fmcHbwPKy/o0PxT+Ku6Bsoao2j9WN1Q=
+	t=1784030903; cv=none; b=dAyMW2XbMaHWZfUNq03uHekHciW5TNixh7juId0fPYJV+vZ+rGRz1kJo1w6XcUQJAhMMd+fgdCfTtYhzPLzxz5cO8u3DS+M3O0LX0jGbe092Sj2J+reRJ/4R9n3//zWQSvOziWU60eQvTkuC+dz8xaDhBsn4dAxBCswvtQ9H0tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784030811; c=relaxed/simple;
-	bh=ZmvS0+8GuBtd9iAyjF4Cr9VcLF3E0Yy+Gdartxxdr3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qQAygTx17OftnBNW0LVAUlk+Qjg9uUfCfQ3N9vJ+kTwltIlP+dvO8pTJ7jYkuTLYyF0VxtOUB5VhvtcKH8gVEyRGav5KaQPkgCi/cE0BVUqnz6c2sxwACkkPTW7/7lZ273+EFJS4+ACwe5IssAwCp6JbYJnlg/bLrdzAfRr8Yhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=NmLFuFUg; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1784030903; c=relaxed/simple;
+	bh=+Xmqf9//jKxo53Q4wUP4Zh9zAFIK2W8+Ydxk+pi2mRo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jhG8mO/8d1UyiBhEL8OEchep0GCkCTOPzhTqBAzvwj6P+b/4x+PjEYZwJyEAe+e5CyvVK7+aI98Qxz7gt8BQrWR9/K91nzfpfsxLpySxkyDi2i1cc4UDO9CJ4nXd/b2HrD0755zATHF/GjQmBGmIW9Ya8j9dQQBomqXHoNYw2k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXgoBb14; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="NmLFuFUg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=ZmvS0+8GuBtd9iAyjF4Cr9VcLF3E0Yy+Gdartxxdr3w=; b=NmLFuFUgt84zB+sJBpji4IR+V9
-	20r7IQxycTJ5nZIvLCCCcE8txKiuKDzb8A8VOEDwnGUDxe9nMnCJCo1bakM3xwTMFu6LkMzQo6oFX
-	PymRum5aj4xs2ui+ySp3ilSH9rQChvq5Wrvv3wzR0MDOwW+yaMRx0WGbDojvVfRlZZF5/AgHpjeCl
-	0lECrvC9RvDqB3Y3Bqb0aCL/y2WJH3JPlztY2A3CsOofSE8XyvcWmFyrw99eNTh5ZEsDlKtD/36q8
-	M7shaEpFu5S0FP4g2A3y3hvK/Ac9e1AjCTvBlPCzuIhzR1pWH/FEOL4NLz6jiw4bf9fAE7/x/YFmh
-	zohUrpQg==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wjbuK-000K0H-1G;
-	Tue, 14 Jul 2026 14:06:40 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wjbuJ-0008J7-12;
-	Tue, 14 Jul 2026 14:06:39 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Frieder Schrempf <frieder.schrempf@kontron.de>,
- linux-arm-kernel@lists.infradead.org
-Cc: Francesco Dolcini <francesco@dolcini.it>,
- Frieder Schrempf <frieder@fris.de>, Srinivas Kandagatla <srini@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Pankaj Gupta <pankaj.gupta@nxp.com>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Francesco Dolcini <francesco@dolcini.it>
-Subject:
- Re: [PATCH v2 10/10] arm64: dts: imx93-kontron: Enable ELE firmware driver
-Date: Tue, 14 Jul 2026 14:06:38 +0200
-Message-ID: <2420855.ElGaqSPkdT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260714093354.GC22086@francesco-nb>
-References:
- <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
- <4b7b7823-00c5-4801-8ba4-19e5670f339d@kontron.de>
- <20260714093354.GC22086@francesco-nb>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXgoBb14"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-388b404ea89so804865a91.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:08:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784030902; x=1784635702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Oe9aWVjKhDNM43muNwN/DRmahJ3UH9WTei9WupS48E=;
+        b=VXgoBb14N+WMVTMCa5pwu6IFVaCkozs7UBPPDRGLA0c+1xv2CaQrC3WADDAuAbOeto
+         sEu0xUYGof15aNuAk/nq6ZOQdzMW/mFl9biCLJXhW30Sp2a3yMnUAFtX9p0O6cZevjZQ
+         ojV+py6yjoeDO4uelFoT1Lt0atVRxXIRb8q2efy11lWf6mR0+ujDKdrDSTYj/7P4Hsgf
+         RdCUb5fMMyy65d9ZB7POn+azJvNwsRMc+omsih5eWvrC2FNDrySG1mKtbkpt5RVcSpOg
+         dy6vC96TWIvHsxUkA7OH/X+qJ0OBmTUPkV//HFB6qBtBqaTSH62RWrYtOAf+5J19qQVw
+         OfjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784030902; x=1784635702;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Oe9aWVjKhDNM43muNwN/DRmahJ3UH9WTei9WupS48E=;
+        b=X7FEr9kPiwuScJdd+gSNwfMgXLJbEox/h9QbhwThoM8JQ8IdJxLz7D15rs9q+eRHdQ
+         Ai2RkN4US3C9qj7FTCkanQHRHJnxmL6DLFY46p5gSj+paMKWyZzL195iltQb4pXFv2jo
+         zfY8lFtmK3/A9uAxjpgEwDZubJW0fW6Jm35Wm15roovT9wiZMA2BHTUA8COfh4T/zecP
+         OyFcKjfiVRnEqszpJ+lHxHbs1KNetX5N2eZt0zS3pE/QyTAE6wKLo6n+3rN2ZHUmULXo
+         4D7YVl6Nfj0abraiGewbU+vMrLI5WIQowH1rYwVtph2zMRgdKb7/95gtmHGcvtl2yO00
+         EPIA==
+X-Gm-Message-State: AOJu0YylpKY/6R5IZ4xhhkgapRW+e4Nhn3n1qrls5UVSk2pkUz3Xj69i
+	fEtFyEuq3kq/ENFMeFF7kLZOXoIqE/AIhjvxTcIzNLZre89dz8GnfIqL
+X-Gm-Gg: AfdE7cmuZFSNauZE8tGykaOgZIFH3CS5zmyKvLhbK+Ye0anftmOIRVlUiBe1u+8bFbx
+	rIlFyHaIHmlOMznHwWeztGeQn8vLNTAypcJ0deLffCpnq9eo5eVluVynKDW3Ci0YTT89dFmGVzF
+	m5lXEw8xEZM1oT8VwouT1pipJ4U7YxHKmNxzMSwM2+iedg3Q4h/7okO9BCIOzrweCxSmn3ywUBm
+	QKBePNODE7SndlHkBAv3vVaUfNCR8QAIRfRVvi12eUIZCZueCWC29OTM4ulRQFkHJPsYB2trkWv
+	lsnh+7ZB0CwL+zMfNuO7gNxzjVwzINsgOpwy7s+QsuGEbaFUXCONCpQ2eGo+PVjmOykTVQJpkPy
+	brgbjmfjK8i+X/HQSexiTzs8VEYN7zV0cwqZ7NAu58/7oNehImi0En5X9EWefvW6w1cABQCBeVQ
+	v23eYSvrW6iCZQ4V+ipqtiJ5WouzJi1oQnIhyWWKnUelAE1iddi8Eb9sO6PLY=
+X-Received: by 2002:a17:90b:2248:b0:37f:fd70:6790 with SMTP id 98e67ed59e1d1-38dc81c1b09mr9238776a91.9.1784030902088;
+        Tue, 14 Jul 2026 05:08:22 -0700 (PDT)
+Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e172dc530sm1384425a91.8.2026.07.14.05.08.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 05:08:21 -0700 (PDT)
+From: Cosmo Chou <chou.cosmo@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	cosmo.chou@quantatw.com,
+	Cosmo Chou <chou.cosmo@gmail.com>
+Subject: [PATCH 0/2] ARM: dts: aspeed: bletchley: Add second source devices
+Date: Tue, 14 Jul 2026 20:08:14 +0800
+Message-ID: <20260714120816.1504058-1-chou.cosmo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28060/Tue Jul 14 08:25:07 2026)
+Content-Transfer-Encoding: 8bit
 
-Am Dienstag, 14. Juli 2026, 11:33:54 CEST schrieb Francesco Dolcini:
-> On Tue, Jul 14, 2026 at 10:43:56AM +0200, Frieder Schrempf wrote:
-> > On 14.07.26 10:32, Francesco Dolcini wrote:
-> > > On Tue, Jul 14, 2026 at 10:09:11AM +0200, Frieder Schrempf wrote:
-> > >> Hi Francesco,
-> > >>
-> > >> On 14.07.26 08:59, Francesco Dolcini wrote:
-> > >>> Hello Frieder,
-> > >>>
-> > >>> On Mon, Jul 13, 2026 at 04:53:46PM +0200, Frieder Schrempf wrote:
-> > >>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
-> > >>>>
-> > >>>> Add the ELE firmware API node and pass its handle to the OCOTP
-> > >>>> driver. This allows us to gain read/write access to the OTP fuses.
-> > >>>
-> > >>> This seems something we should have in the soc dtsi (imx93/imx91), =
-it
-> > >>> does not seems board specific.
-> > >>
-> > >> My original intention was to move as much as possible into the SoC d=
-tsi.
-> > >> The problem is that the memory node is somewhat board specific due to
-> > >> the DDR. And I can't move the firmware node into the SoC dtsi and as=
-sign
-> > >> the memory node in the board dts as the checks for all boards not
-> > >> specifying a memory node would fail then.
-> > >=20
-> > > What is the reason to have this memory address different on various
-> > > boards? Can we have a default in the soc dtsi, and allow the board to
-> > > override the address if needed?
-> >=20
-> > There is no real point in having different addresses on different
-> > boards. But the node describes memory that is physically on the board
-> > and not on the SoC. And I think that is why DT maintainers want to have
-> > it in the board DT. It's the same with the memory nodes for the
-> > remoteproc drivers to communicate with the Cortex M-Cores in the i.MX.
-> > But maybe I'm wrong and if there is a possibility to move this to the
-> > SoC DT I will definitely take it.
+Add second source RTC (ISL1208) and LED controllers (PCA9532) for the
+Bletchley platform.
 
-We are talking about reserved memory, so this is highly board-specific.
-So for different hardware variants with different amount of RAM you have to
-go for the minimum anyway.
+Cosmo Chou (2):
+  ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
+  ARM: dts: aspeed: bletchley: Add second source PCA9532 LED controllers
 
-> > >=20
-> > > Or can't you add the address in all the boards, and keep everything e=
-lse
-> > > in the soc dtsi?
-> > This could be a possible way, yes. In that case maybe we could even
-> > create a generic dtsi to contain such defaults for all boards.
->=20
-> I would go for this solution, we could have something like
-> `k3-am62-ti-ipc-firmware.dtsi`, include it from all the boards, have a
-> sane default memory address, and have an easy way to override the memory
-> address from the board dts, if needed.
+ .../aspeed/aspeed-bmc-facebook-bletchley.dts  | 294 ++++++++++++++++++
+ 1 file changed, 294 insertions(+)
 
-So what is a sane default? At the end of the minimal possible RAM?
-I'm not really fond of something you have to make sure matches to your
-hardware, but won't raise an error if you forgot.
-
-How about providing defaults for the SoC part and users have to provide the=
-ir
-memory on board-level? Similar to the VPU nodes on imx8qm/imx8qxp. There you
-have to specify memory-region in your board.
-
-Best regards,
-Alexander
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
+-- 
+2.53.0
 
