@@ -1,196 +1,401 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011006.outbound.protection.outlook.com [52.101.125.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F52E4A3416
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784045316; cv=none; b=nLtFko3fSs1vqq14gmWRlVrDLbf4MTmB7RtmLHKvxqbSrG+3fxq1MViZQwNXIAoZuo8t8bwDfH6KTN97w93YrHnL3KoF1yAF6GxEaqEjiIcOTH1Txws4tx2dtAru2W3UopxyD2oHUPBmA+DRci7hv2pBssjPvW7I9gwiZSc5/S0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784045316; c=relaxed/simple;
-	bh=PfD5Ea7Uo9Eg/QPh3152n1XheXCtgtbduIIWoRx7nww=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C+UjnjCAapTCYTkCnlhROUBF9684YnN86h849vy8d2JeiNsI1EHMAfvNhOAFHNRXuYI32DBUijpbxoJISBIeMJPUDcFEjO3TQLTASU/f2dG3YCKo9/dPofv4yx2kcPH8OfzHKfdCIkf5vO7+NAkfFt742k5XyDZXGKWEHiQJSQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a9fZBERs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YaoFcdqk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D74D13AD1C;
+	Tue, 14 Jul 2026 16:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784046233; cv=fail; b=g30+T0dU0nlW4tVpg8K+nz9eUSlffeDy8jlCWqYlhGvrnar+LX3iyTpjzBCTbYatWnKWRTG5TBFryA1DX/b3ZmX2sS26jshDNtMTTYjvpeEd2b+RC9WhwoNWhHN5UQo6duZMSJ5LnL2Y8iT5KvX4Bw/wsx4jyfEQK3DR3z9mbag=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784046233; c=relaxed/simple;
+	bh=obqY70XgfeoccP/Nrrcv712C4Qy8JaLfX6Pra1AtKL8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=n7STkyIpfkNxjvK0fEYrtJI4MKt8QR8uyvQhnlScMh8tOYIrUGQ+JosqTncLBW5ErX2zOdpdbYwFWP7GZY8MfHnnmb2yFbZ5XyZOmGSBF5k+HErxYliDGMWdF72yWuckHaqhZsFPR5EksvTLm7ncYVBf8Rm78HCV9yg9ln03jM8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=qpLbBujV; arc=fail smtp.client-ip=52.101.125.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a9fZBERs";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YaoFcdqk"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EG6wAH1097300
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:08:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WNaMkuOD3Uy+91bpzieOkifUHXNQHrkXIQJOHKj6eDI=; b=a9fZBERsthIPptsN
-	C3P05b9degJCrWwLr5buY2WiyO7U+UOxKFdDr7FxDQ4yA2lxmJHKWA/RPp4hETfG
-	clebceW2k0IPAREo2Hsv3IshrYt7sh95J5Pps46IOH4ikfMhjD9xwwR3kXBhbbcs
-	Nu0HnPM6pNvZdn3CDyLWbeZEHLlZOE76/EPEOsTrhjAi2VcEb3elwFUywiK3emrI
-	zCzNWMKT9ddtcxvOx63MOOEIi7zW36mzKiUPOcH2U7beqIDeX78/1qP969sFjBqr
-	PsRBJntWClGpQflcmHjCERPe8nNe3fbMdKegwhIEDZSEZBK8Gy/DgOBhA/uqqFC3
-	/9dTOQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdnnqrtph-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:08:33 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2ccbb61893fso101131115ad.0
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 09:08:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784045312; x=1784650112; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WNaMkuOD3Uy+91bpzieOkifUHXNQHrkXIQJOHKj6eDI=;
-        b=YaoFcdqkMMDhAsl4DjJ6w33NB+CSuVLuqZQDJKQxJXrG64bW87YWHUhWizT1wgOz3N
-         WoAH+beQGfdCOsrnKERX3dE0BK2nf9xX3gkpsAZmqBMTkB726pgePn7j8BGDoMp2oFXg
-         vIfPIRoe2txqbwbETYySuLeaV/vLu80UNmtTXDOalNfMM/Pypq6khlX3o2DuluYCQVE1
-         o16hHzGZ3ZsvftFl83EBOf/ehUnMCPrTHSkKVecZ/Syo1AUyvIStHDM29IKR6KoWBR2A
-         CkSPumHRHs/+ay4Hk7R4xFyLY4LR7DBG4eMJQVMGGUivaV2KB23RFKINhSeUprNBDyB5
-         KQMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784045312; x=1784650112;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WNaMkuOD3Uy+91bpzieOkifUHXNQHrkXIQJOHKj6eDI=;
-        b=lDLN2LVsrdoE65ak8bbr5aNBXazwwpDV1uI5HHkjlHvHkXB2oKyHy5+YdWXrcOeDaM
-         pLvN/kwCXMuWnBgae9XcYRzkgv1VucqlaiLnIP+pT+Lcy95QjgXy97m6WViyOicVmH04
-         smp69ow4HtB/CWRPjxFHQS6rT5G0f61c8oHg8HHYQSKXIXld9IVUcDGdMEyyfO7dQ2TY
-         jmwdFRtOzZ+MGsX6Q4JawMZiBLt6rpdZXw+v1YMzaUxWFiooCvuj/pBzCYm065otpKT0
-         iddj1NJ0L02YU2U+t9asiv6bDrNMqqNYvu0m2yK432QBNc2WnQdLum4k5PO0FEx9zXgO
-         fpXg==
-X-Forwarded-Encrypted: i=1; AHgh+Rreb9UL1w7+xlw4RZpjg/trxHv72kjwh2FHN1rWs74WPZvYst1DRfn30VItPcTu1JVOMlT83X1P5M7E@vger.kernel.org
-X-Gm-Message-State: AOJu0YzY2Ug6ZbDc2nJ6deB//Notdmg47GThB73CHDX9SUz6kkVU8swk
-	2cbypxwJ8Wk/zUv1+6E2dTwpOWBS72NZbDO3DOENMghOBIm+H0q4MRfYbfoetjdGshJ1ciBnwjW
-	DBKhUh3N21+rIwktXPEbr1lGT6M8g7T2qnl5AnKzoRgobl7FO0UYsF1SQbHvd1VgF
-X-Gm-Gg: AfdE7clifcdyO2NcYuVwWT3sYvZA9QiNwScNmyx30N4uZr09SCuDC2OOKrDIsX7Yeee
-	zwweHy8YfRsAJJn65vk0oqdUwso8Etx5vrSqfgOY4IP8Fl/DPm3DFgGmmiqzHWSunsLpDuksOAv
-	2WInT2uFqWMkhwNnpNMmKPGtIoLUp3LmTBKAifjMfReuq9zDJP3CCedPcorbPGpAYVlMWmrC+o0
-	sp0PA1WFXLq/zhtKH0Jxs0gLv121Zizb/gyPTz3zFJ1pbL2IyuBl1DJzJm8SjlGBDN2GmRxxQEn
-	U4X+G5JW27ALrE1KKy8a1LjpZMQz+BIJn9qCpCpI9wdR/iwz3B+Ju5PEYLrqykM9cSvY4XYcM8y
-	bKggWTtYWHrskLoDR6ZpLBEMbeu3HXmvYnL78ZzexIGIf6Ck=
-X-Received: by 2002:a17:902:e751:b0:2cc:307c:51f2 with SMTP id d9443c01a7336-2cef143aec1mr32215515ad.22.1784045312311;
-        Tue, 14 Jul 2026 09:08:32 -0700 (PDT)
-X-Received: by 2002:a17:902:e751:b0:2cc:307c:51f2 with SMTP id d9443c01a7336-2cef143aec1mr32214845ad.22.1784045311650;
-        Tue, 14 Jul 2026 09:08:31 -0700 (PDT)
-Received: from [192.168.0.116] ([124.123.151.85])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ccc9d3d952sm117896085ad.61.2026.07.14.09.08.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 14 Jul 2026 09:08:31 -0700 (PDT)
-Message-ID: <958a79a9-dbfe-4ba7-9c81-31ed6ffe22be@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 21:38:23 +0530
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="qpLbBujV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WpH0Ln4RWpiJsBI2+1tUYie3GEVxiAXw2WeOA0v6/NVtMSE/GoAH4En6Nd7G1fSEruLMjU4T0aWMmUNGvwNUy6EDvlkILmz6wEULd4x2aj3v7SbxwctpNoaGYx//6lReTaZIivWB6JeJcan73a6ExHS/ZmXNvufgpL9y7NZs1vUXpAtMahcskNq2rHyU1jajasuJfX13NuwTTr/hgUEevoWgmrM1MAasDtn/Twc2J59hGkR6s/BKGdgoYrqj98nSFRs6gyJSZBz336/MdG6nxoJSvEZ3brnLPGJ8z92MkBBAEaTc825yRODue9c3laJplJC7GKT00LxVgQ422r8BFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XRB3tgHaMOdu+Y9hfRJPpxlemCuq+8A1iXugjAx5wUo=;
+ b=ig8ia9N+0yRwmLsdXQp4IsUXwW97M+2RIHRuwStFNRPZs7iKlZ50BInw3KP3QY8/RFQjzRIMyUBKR45ugSlejuwrkxu4Er38aavTxN0xfl9ufdPW+7bOCowVJsg++nrs61QznLFCqed8Q/CrXJvGwD4h8z1AC9cfiKLLTAJJI/h7qQcuP14SLgf6NptY/bb4NmgIxH8Dr+sSGibjl7sGIERHmResyKuiZgUMmXAKG6qUjDGC02TVE38CYN5Xfd7BQYGJQ7szTYGrLJax+xbeDHulbQ/djVQ8fkUxwK/gh3zmlnag2Tki7vC3buTJD5FGN0hELg66yhfSw9PNPCStWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XRB3tgHaMOdu+Y9hfRJPpxlemCuq+8A1iXugjAx5wUo=;
+ b=qpLbBujVPp2lmHEnKZlt2ziRkyD24sE3P+15rluJovfyQxL8DHz73pyjd0aHcHaZpVA97Ayu9OEb6/GwakqC8L+9kjOcVMAB7QZrUEBPYLVmYb1SUNQONqnwasNDrmvaJgQ74kdD2kjxxW8E7eBp374txNzXUs8bYYAcMT5+qgk=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYCPR01MB10054.jpnprd01.prod.outlook.com (2603:1096:400:1ea::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Tue, 14 Jul
+ 2026 16:23:47 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0223.008; Tue, 14 Jul 2026
+ 16:23:47 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: biju.das.au <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Philipp Zabel <p.zabel@pengutronix.de>, magnus.damm <magnus.damm@gmail.com>
+CC: wsa+renesas <wsa+renesas@sang-engineering.com>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
+	<biju.das.au@gmail.com>
+Subject: RE: [PATCH v20 00/12] Add Renesas RZ/G3L SD/eMMC support
+Thread-Topic: [PATCH v20 00/12] Add Renesas RZ/G3L SD/eMMC support
+Thread-Index: AQHdEvBTpm2/T6tVwkGyyxXNgqGP6bZtKIiA
+Date: Tue, 14 Jul 2026 16:23:47 +0000
+Message-ID:
+ <TY3PR01MB11346CC7C80D50549EB7C412C86F92@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260713175159.138334-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260713175159.138334-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB10054:EE_
+x-ms-office365-filtering-correlation-id: 2c17b18e-8fe6-4678-1a3e-08dee1c4482f
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|11063799006|6133799003|56012099006|4133799003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ m57NhtLDKL2NailpnRk9qJE7jHg2rG20FmFrSaNsCNUt1mndGuUranwkLpJqSvLAn1hMI1biEuRzTaxpcbLENuajAR13mMQUjPB0wWWzps9EgF5A0P5wynE3ZRtb3EUaSqiYQeZW1KXZmo2mPFitNBrzGgEcq7Tm9FqnApVbUoKndLlhsq/T1WeIhcVlHKeEUNTzRiZBpV9tIpkgFIJxDxnxBbtNMeXClnHZAi+ZsPZeSqiQwTelLN+0WN3rdYDkEzxT6z34IUscD1DjHo8YISqL40BobQYR6W0fZGDZqJQ+3Tpy0cnxAJImUteRtLFWCUjWn14kd9Pjh7olmmiKQUDhfxDxHz8LFOXnIcAundlivTdkq4No/ox4/U1SwmUn2d8ujOdTvxZdm4V63nKC1tiS50/EGzz77FbxU/DCpDVa5lrq8W0yKVOmpn/bAWo6aHDRuwLgAwKa3Yz5495rsMOkDNkAvAHgU9Y1+iaUW3Y+bR1I2JlOw4d+8g9lltMu0yhu78Ij3YRzqJFjfOBDmo/e2AXBSt76cYP7qWWdIbbOW5ClFMOxNHoPmoUPKCz2Bj/l7OjWhJfDWmm+7R/aUxhzXQ6tar8xa/q8+ox0q6uUBkImX0erJyDa48S6JJkympE4K6VpDN4o/6KiGxdBIPZ4mqWHoIzhVaws+zgPRbc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(11063799006)(6133799003)(56012099006)(4133799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?ssbBjKtgYSwZC/Bw09enmc+vEdXa6uCS9785oITeiUiDQBDfD4zUs+IjCDO+?=
+ =?us-ascii?Q?4LmP2ngRlR7F1wUBa5243azQbflXTba1XX3Vw3KMvz18s6lQxCgxczbve5JV?=
+ =?us-ascii?Q?4Pl1mzIYgZllWWH26TrcQz/Ka4Va4N2JKWbseIDTcwZjSUwwy+RX3kyan3PK?=
+ =?us-ascii?Q?wkCnsYbR2OtuUM2Nkip3Ja0ToMml8pKVVXHDKtFaNs2zYQVd9vcSuLrK+PTE?=
+ =?us-ascii?Q?2+A+4ij08i6sqYWfWDmbTfj6c899K8D0KRcDyjVc5qhVqhHCdtv7ntpgdh4w?=
+ =?us-ascii?Q?MfC5Peu3USBBZ8L4QhfP17fpl2M6/E3JAdLf6xgAqUvHeYjCkb+nldlAp3XA?=
+ =?us-ascii?Q?xZpFKSsjXwoB9APDsQO3sGa9eHIM8A+3Mod10+qXNDGpCviZNV+EO/tZngBa?=
+ =?us-ascii?Q?ZsAycp+T0fxibpf51vHZu/t+D2pPepYk5TLtqDPJRo96syi93qJdj0Idlp4a?=
+ =?us-ascii?Q?I1nAGOdJqZI6lC5qNkzMLXHkzDr2yt0RDRW2egz2rl2MNqkFfP5jFbMVgrFb?=
+ =?us-ascii?Q?SbDWqlzKG4TyjQ+XoWo3GzDDjO9SPM2YiDnS9pU5cFPccreO32fsnM8HsDek?=
+ =?us-ascii?Q?Tri0o0rU9JJW0jPwMJH2fbiSdD8aIjlgwchYB2F3ZTF3yn5kJlX3AF8IuDYs?=
+ =?us-ascii?Q?dCkNJPfBaxHPvzk6X6UNkA8R1PpjINTJsudVIBTmg/+wkesUKx+igTt8h7Wv?=
+ =?us-ascii?Q?QMKFayhhbh+wRnRpwM5L1wc4cjclzrUjtAzif3eNfyt4KYOQ0Vc1Em5yt/Ug?=
+ =?us-ascii?Q?MDyvE9Ut1wQagK+vtQm4T40qdMGTC3V65CSGEs6coAtbvaz1CNlH2Fd+hEm2?=
+ =?us-ascii?Q?8eEjd9cDXEIRLolJ35WKVJpbR0pFrrknwXCaxOhWXEl2qrARHqn/XF5dNARm?=
+ =?us-ascii?Q?qg0Efwzzjj/2Thre6ZJiRpgj+JFB6ovnvo/HfVCgjmL80nCeP7Bqqp3Z1dnb?=
+ =?us-ascii?Q?ypcS8aQ/9F4jsu+3K5Zp7m7B7dr8OaO77+JX6v5JFq90Fxx4UtTS3EiFtg8R?=
+ =?us-ascii?Q?mDJ7gn4DZDZ13Nd08oT681QgFIrwM6HHlLKoX/E0vrTa4kxGm+hJhaAlhMgi?=
+ =?us-ascii?Q?AdPq1dnXiL94RX6xYKy9Om+PJ0eSLyC3RujCY9rBEfNCdAbq/HAEsgeoTRle?=
+ =?us-ascii?Q?Gu9m59qfW5Csn+133Z/jDiGKSQdZ+t4kB2GoYv0ANQ9ftxorBBD8cri4eelS?=
+ =?us-ascii?Q?TvESCWg0ecvd/bknGVdLGqhw/cu4t3ugr6zZzLRloJW1Ud9KtCxfVxDI/FyU?=
+ =?us-ascii?Q?vx6C/gNSbY6moDpdECmm02FtOJSelvG6qqr2o1ciCE3tGIhyWTQJUN+8m/K6?=
+ =?us-ascii?Q?rRmT3pb1Fx9qeVYFUfUTp4AJ2RTVXDNTivYESZFKElDACTB+d0BIzlVgBAIs?=
+ =?us-ascii?Q?eL7z2mhkwFfcB2Rzbvi37O8exhgAG9411FxEwpAmmKsQhSP1Uut0e4OMdqoW?=
+ =?us-ascii?Q?FFC2osVSMPTERQcroCho2fQwecNSX3AeIbL2nHlI6BiaQUde0g8m8WIgOQWP?=
+ =?us-ascii?Q?8KRsNdD04xy6L9n0RUzYZPqQcgG4XYJP+G2H1JXHHX36skqkDEPYdaMdmBRu?=
+ =?us-ascii?Q?eTFOFC7tuoD6MA6pXXkC0KvGZ6p9q/gnPU1MI0EYneTvef0yvFk4dC3ozFN6?=
+ =?us-ascii?Q?0REHnieW3FqzfE1V0tROmKEugNr0jA1Jgs2rDO916/uzur8bOjSmOgurzFFE?=
+ =?us-ascii?Q?/gyBhjklM2pHYQcvVDh9CbVbpaHT+iYAWsc06USN1u8JZXVzosZSWwPoOlce?=
+ =?us-ascii?Q?TSDgtM9Cug=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] net: wwan: qcom_bam_dmux: Alloc RX buffers as a
- single coherent block
-To: "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-        Stephan Gerhold <stephan@gerhold.net>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>
-Cc: "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "chris.lew@oss.qualcomm.com" <chris.lew@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-References: <20260714-qcom-bam-dmux-vmid-ext-v1-0-3f29da7cca76@oss.qualcomm.com>
- <PH0PR11MB5902886DEDB417349E5E6E44F0F92@PH0PR11MB5902.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-In-Reply-To: <PH0PR11MB5902886DEDB417349E5E6E44F0F92@PH0PR11MB5902.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDE2NyBTYWx0ZWRfX6QPN9Ja7JR/K
- KeOvZh/oPY9CUixE2nIA0eRH8ArODGF++tZuCx2WhpRFlmH+Jfi3SsxrnVzGkdfEAedG1cPUNY3
- Ou49IaqOzzFZcBrPRViuEDCAyrOg40W/uUcI2ZhD/87YyeDAVLfNeuG0QXLvZZxHTb6ls1VwHIr
- 4bs8Kl5YuLCDHX5OpPwR0nYiWmQ9j1x80DYpwoahFu9QB4lytRS661nI6AHfBUfzzprMAAMV2b5
- t7tKKWo9e6zEP2+k28lTUvw8YM5w9L5S7B2A71/C7Kt+KhjDJmiAISohA03N2o2we/eye+Qc9Wg
- 6rbtxvu/AWAfdoIFXs+aC6KJtK3xbguxAV5y0WkIUCnKpekn/e81YJDLOSWL4C64l0QFybx7ggU
- NXj2im2jxYQs16lutnuwRqEwWYGGdpX+QB95h0t/6b9PDdBqGNd8G0boZiWvxWI0K3h09eQfoJM
- 2O+81qIziL1s6eiTEqg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDE2NyBTYWx0ZWRfX4pkvJPlK3SqQ
- Fp1pBkQU10v3TqmwNRCJI4WSQO6a+bskZXc2uFo4Ae2kf715lxagXuD6W9ThsmItSESOXS6dM32
- nB6wr7IUXRucXKSYL4GmmxBSpHzM+ME=
-X-Authority-Analysis: v=2.4 cv=U+Oiy+ru c=1 sm=1 tr=0 ts=6a565f01 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ziBI+Y3eO/H+UwYWWny9Hg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3bpTIPm_6syKtP_1LDsA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: 86RXaWH57X9hR8GIrMHYCSGtbKb3ihH3
-X-Proofpoint-ORIG-GUID: 86RXaWH57X9hR8GIrMHYCSGtbKb3ihH3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-14_04,2026-07-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140167
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c17b18e-8fe6-4678-1a3e-08dee1c4482f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2026 16:23:47.3487
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: R/mQFxy46dKr7mvgkrqfDaoM4xwhs0zgmYtEwXEwCepFcU7qro1eWX0Idlery7W36Ivz27O0KBU4SlVQq72LJ2P0aZmwNwVzga7E2AzOYMg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10054
 
+Hi All,
 
-On 14-07-2026 01:23 pm, Jagielski, Jedrzej wrote:
-> From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> Sent: Tuesday, July 14, 2026 7:33 AM
->
->> On platforms where the modem DMAs into the BAM-DMUX RX data buffers and
->> the XPU (eXternal Protection Unit) enforces per-region access control,
->> each individually DMA-mapped RX buffer consumes an XPU resource group.
->> With only ~16 groups available on Shikra (mDSP, VMID 43 / NAV), the
->> per-buffer mappings exhaust the table and inbound transfers fault.
->>
->> This series adds a qcom,shikra-bam-dmux compatible and have the driver
->> select QCOM_SCM_VMID_NAV internally via that compatible's match data.
->> When matched, the driver allocates all RX buffers as a single
->> contiguous coherent block and SCM-assigns it to HLOS plus the VMID
->> once at probe, consuming one XPU resource group instead of many.
->>
->> Platforms that do not use the qcom,shikra-bam-dmux compatible are
->> unaffected: the existing per-buffer dma_map_single() path is
->> unchanged.
->>
->> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
->> ---
->> Vishnu Santhosh (2):
->>       dt-bindings: net: qcom,bam-dmux: Add qcom,shikra-bam-dmux compatible
->>       net: wwan: qcom_bam_dmux: Alloc RX buffers as a single coherent block
->>
->> .../devicetree/bindings/net/qcom,bam-dmux.yaml     |   8 +-
->> drivers/net/wwan/Kconfig                           |   1 +
->> drivers/net/wwan/qcom_bam_dmux.c                   | 134 +++++++++++++++++++--
->> 3 files changed, 132 insertions(+), 11 deletions(-)
->> ---
->> base-commit: 3b029c035b34bbc693405ddf759f0e9b920c27f1
->> change-id: 20260714-qcom-bam-dmux-vmid-ext-d9289db310c1
->>
->> Best regards,
->> -- 
->> Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-> Hi Vishnu
-> you need to specify target tree, net-next for this series i believe
-> please refer to[1]
->
-> [1]
-> https://docs.kernel.org/process/maintainer-netdev.html#indicating-target-tree
->
-Thanks Jedrzej. I will address the comments and will send out the next revision
-specifying the target tree as net-next.
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 13 July 2026 18:52
+> Subject: [PATCH v20 00/12] Add Renesas RZ/G3L SD/eMMC support
+>=20
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> Hi All,
+>=20
+> RZ/G3L SoC has:
+>=20
+> Channel 0 supports SD and eMMC (including HS400/HS400ES).
+> Channel 1 supports SD and eMMC (except for HS400).
+> Channel 2 supports SD.
+>=20
+> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does n=
+ot support IOVS and PWEN in the
+> SDHI register (no internal regulator), unlike SD1 and SD2. It has an inte=
+rnal divider for all modes
+> except HS400.
+> It also has a 2048-bit divider compared to 512 on others. Moreover RZ/G3L=
+ supports HS400 enhanced strobe
+> mode.
 
-Thanks,
-Vishnu
+Most of the issues reported buy sashiko [1] are false positive
+except the one pointed out by sashiko and Geert's testing results[2].
+
+Please find the logs [3]
+
+If there are no other comments, I planned to send the fix in v21 fixing the=
+ issue
+with divider mask in of_data for RZ/G3L and non RZ/G3L SoCs:
+
+clk =3D clk & host->pdata->clk_ctl_div_mask;
+
+where,
+GENMASK(7,0) --> For Non-RZ/G3L and =20
+GENMASK(9,0) --> For RZ/G3L
+
+[1] https://sashiko.dev/#/patchset/20260713175159.138334-1-biju.das.jz%40bp=
+.renesas.com
+
+[2] https://lore.kernel.org/all/CAMuHMdXQDWJGxuU04PEo2bJgHJF5F+0=3DHXqKzthK=
+hKSR6dg0Tg@mail.gmail.com/
+
+[3]
+root@smarc-rzg3l:~# mount -t auto /dev/mmcblk0p
+mmcblk0p1  mmcblk0p2
+root@smarc-rzg3l:~# mount -t auto /dev/mmcblk0p2 /mnt/
+[  712.973996] EXT4-fs (mmcblk0p2): recovery complete
+[  712.980081] EXT4-fs (mmcblk0p2): mounted filesystem 3a87d114-78ab-4be0-8=
+fac-d055b25f4bd0 r/w with ordered data mode. Quota mode: none.
+root@smarc-rzg3l:~# mount -t auto /dev/mmcblk1p1 /media/
+[  725.035107] EXT4-fs (mmcblk1p1): recovery complete
+[  725.041088] EXT4-fs (mmcblk1p1): mounted filesystem 2371cfa6-6402-4f3d-b=
+bfc-84412835fa12 r/w with ordered data mode. Quota mode: none.
+root@smarc-rzg3l:~# echo "MNT" > /mnt/1.txt
+root@smarc-rzg3l:~# echo "MEDIA" > /media/1.txt
+root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc*/ios
+clock:          150000000 Hz
+actual clock:   8 Hz
+vdd:            21 (3.3 ~ 3.4 V)
+bus mode:       2 (push-pull)
+chip select:    0 (don't care)
+power mode:     2 (on)
+bus width:      3 (8 bits)
+timing spec:    10 (mmc HS400 enhanced strobe)
+signal voltage: 1 (1.80 V)
+driver type:    1 (driver type A)
+clock:          150000000 Hz
+actual clock:   150000000 Hz
+vdd:            21 (3.3 ~ 3.4 V)
+bus mode:       2 (push-pull)
+chip select:    0 (don't care)
+power mode:     2 (on)
+bus width:      2 (4 bits)
+timing spec:    6 (sd uhs SDR104)
+signal voltage: 1 (1.80 V)
+driver type:    0 (driver type B)
+root@smarc-rzg3l:~# echo mem > /sys/power/state
+[  814.141037] PM: suspend entry (deep)
+[  814.154238] Filesystems sync: 0.008 seconds
+[  814.165291] Freezing user space processes
+[  814.175088] Freezing user space processes completed (elapsed 0.003 secon=
+ds)
+[  814.182128] OOM killer disabled.
+[  814.185452] Freezing remaining freezable tasks
+[  815.162014] Freezing remaining freezable tasks completed (elapsed 0.972 =
+seconds)
+[  815.169895] printk: Suspending console(s) (use no_console_suspend to deb=
+ug)
+NOTICE:  BL2: v2.10.5(release):2.10.5/rzg3l_1.0.1_rc2
+NOTICE:  BL2: Built : 09:19:29, Jun 16 2026
+INFO:    BL2: Doing platform setup
+INFO:    Configuring TrustZone Controller
+INFO:    Total 3 regions set.
+INFO:    Configuring TrustZone Controller
+INFO:    Total 1 regions set.
+INFO:    Configuring TrustZone Controller
+INFO:    Total 1 regions set.
+INFO:    Loading image id=3D39 at address 0x44428
+INFO:    Image id=3D39 loaded: 0x44428 - 0x45428
+INFO:    DDR: Retention Exit (Rev. 02.05)
+NOTICE:  BL2: SYS_LSI_MODE: 0x12061
+NOTICE:  BL2: SYS_LSI_DEVID: 0x87d9447
+INFO:    BL2: Skip loading image id 3
+INFO:    BL2: Skip loading image id 5
+NOTICE:  BL2: Booting BL31
+INFO:    Entry point address =3D 0x44000000
+INFO:    SPSR =3D 0x3cd
+[  815.219726] renesas-gbeth 11c30000.ethernet end0: Link is Down
+[  815.223525] Disabling non-boot CPUs ...
+[  815.225846] psci: CPU3 killed (polled 0 ms)
+[  815.229727] psci: CPU2 killed (polled 0 ms)
+[  815.233693] psci: CPU1 killed (polled 0 ms)
+[  815.235466] Enabling non-boot CPUs ...
+[  815.235737] Detected VIPT I-cache on CPU1
+[  815.235797] GICv3: CPU1: found redistributor 100 region 0:0x000000001246=
+0000
+[  815.235846] CPU1: Booted secondary processor 0x0000000100 [0x412fd050]
+[  815.236888] CPU1 is up
+[  815.237039] Detected VIPT I-cache on CPU2
+[  815.237075] GICv3: CPU2: found redistributor 200 region 0:0x000000001248=
+0000
+[  815.237109] CPU2: Booted secondary processor 0x0000000200 [0x412fd050]
+[  815.237997] CPU2 is up
+[  815.238151] Detected VIPT I-cache on CPU3
+[  815.238188] GICv3: CPU3: found redistributor 300 region 0:0x00000000124a=
+0000
+[  815.238221] CPU3: Booted secondary processor 0x0000000300 [0x412fd050]
+[  815.240113] CPU3 is up
+[  815.251088] dwmac4: Master AXI performs fixed burst length
+[  815.251135] renesas-gbeth 11c30000.ethernet end0: No Safety Features sup=
+port found
+[  815.251179] renesas-gbeth 11c30000.ethernet end0: IEEE 1588-2008 Advance=
+d Timestamp supported
+[  815.253278] renesas-gbeth 11c30000.ethernet end0: configuring for phy/rg=
+mii-id link mode
+[  815.270272] dwmac4: Master AXI performs fixed burst length
+[  815.270302] renesas-gbeth 11c40000.ethernet end1: No Safety Features sup=
+port found
+[  815.270335] renesas-gbeth 11c40000.ethernet end1: IEEE 1588-2008 Advance=
+d Timestamp supported
+[  815.272427] renesas-gbeth 11c40000.ethernet end1: configuring for phy/rg=
+mii-id link mode
+[  815.444098] OOM killer enabled.
+[  815.447249] Restarting tasks: Starting
+[  815.452666] Restarting tasks: Done
+[  815.456345] random: crng reseeded on system resumption
+[  815.461744] PM: suspend exit
+[  817.842801] renesas-gbeth 11c30000.ethernet end0: Link is Up - 1Gbps/Ful=
+l - flow control rx/tx
+root@smarc-rzg3l:~# cat /mnt/1.txt
+MNT
+root@smarc-rzg3l:~# cat /media/1.txt
+MEDIA
+root@smarc-rzg3l:~# cat /sys/kernel/debug/mmc*/ios
+clock:          150000000 Hz
+actual clock:   8 Hz
+vdd:            21 (3.3 ~ 3.4 V)
+bus mode:       2 (push-pull)
+chip select:    0 (don't care)
+power mode:     2 (on)
+bus width:      3 (8 bits)
+timing spec:    10 (mmc HS400 enhanced strobe)
+signal voltage: 1 (1.80 V)
+driver type:    1 (driver type A)
+clock:          150000000 Hz
+actual clock:   150000000 Hz
+vdd:            21 (3.3 ~ 3.4 V)
+bus mode:       2 (push-pull)
+chip select:    0 (don't care)
+power mode:     2 (on)
+bus width:      2 (4 bits)
+timing spec:    6 (sd uhs SDR104)
+signal voltage: 1 (1.80 V)
+driver type:    0 (driver type B)
+root@smarc-rzg3l:~#
+
+Cheers,
+Biju
+>=20
+> v19->v20:
+>  * Replaced the check mmd->clk_mask with mmc_data->clk_mask and moved
+>    the code after assignment of variable mmd, this ensures assigning
+>    the default values for non-DT platforms and DT platforms with no
+>    device data.
+>  * Replaced the check mmd->max_divider with mmc_data->max_divider and
+>    moved the code after assignment of variable mmd, this ensures
+>    assigning the default values for non-DT platforms and DT platforms wit=
+h
+>    no device data.
+>  * Fixed the ordering of resets in suspend/resume paths.
+>  * Added bitfield.h header file.
+>  * Reworked on renesas_sdhi_set_clock() to handle the 11-bit divider
+>    case and the 32-bit register write.
+>  * Updated resume() with scoped PM runtime call.
+>  * SD_CLK_CTRL clk enable turned off before updating SCC_CKSEL_DTSEL
+>    register.
+
+> v18->v19:
+>  * Updated commit description for patch#1,#2,#6,#8,#11 and #12
+>  * Updated clock and reset description with AXI master and AXI slave
+>  * Added else condition for reset and reset-names.
+>  * Renamed aclk->aclkm and reordered the axi clocks similar to resets.
+>  * Retained the tag got binding patch as the changes are trivial.
+>  * Fixed the clk_mask for non-DT platforms.
+>  * Fixed max-divider setting for non-DT platforms.
+>  * Replaced the magic number '9' with ilog2 function in
+>    renesas_sdhi_clk_enable().
+>  * Dropped divider variable from struct renesas_sdhi.
+>  * Updated renesas_sdhi_clk_update() to return rate for HS400 mode
+>    and non HS400 mode(uses 1/2 internal divider).
+>  * Updated handling for clk divider.
+>  * Renamed TMIO_MMC_HWADJ2->TMIO_MMC_HWADJ to make it generic for
+>    hardware tuning delays
+>  * Dropped duplicate SH_MOBILE_SDHI_SCC_TMPPORT2 macro
+>  * Updated suspend/resume with scoped runtime calls in suspend.
+>  * Fixed extra space in HS400MODE2 comment block.
+>  * Updated the comment HS400mode2->HS400MODE2.
+>  * Dropped the updation of clk handling as it is taken care in
+>    previous patches.
+>  * HS400ES support is enabled based on of_data.
+>  * Fixed the space in HS400ES comment block.
+>=20
+> v17->v18:
+>  * Collected tag
+>  * Merged patch #4 and #5 and updated commit description
+>  * Annotated the empty sentinel entries in the OF match tables with a
+>    "Sentinel." comment for clarity.
+>  * Retained the tag as it is a trivial cleanup.
+>  * New patches drop struct renesas_sdhi_hw_info, instead using
+>    renesas_sdhi_of_data and tmio_mmc_data.
+>  * Dropped clk, pinctrl, SoC, and board dtsi from this patch series;
+>    will send later.
+> v1->v17:
+>  * Collected tag for binding patch.
+>  * Resending the series as there is an issue with patch threading from
+>    patch #14.
+>=20
+> Biju Das (12):
+>   dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
+>   mmc: renesas_sdhi: Clean up whitespace and add OF table sentinels
+>   mmc: renesas_sdhi: Add clk_mask field to support flexible clock
+>     divider widths
+>   mmc: renesas_sdhi: Add max_divider field to support SoC-specific clock
+>     ranges
+>   mmc: renesas_sdhi: Add tuning delay support for RZ/G2L
+>   mmc: renesas_sdhi: Add TMIO_MMC_INTERNAL_DIVIDER flag
+>   mmc: renesas_sdhi: Add optional axis/axim reset controls
+>   mmc: renesas_sdhi: Add RZ/G3L SDHI support
+>   mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
+>   mmc: renesas_sdhi: Make HS400 OSEL bit configurable per SoC
+>   mmc: renesas_sdhi: Add RZ/G3L HS400 support
+>   mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
+>=20
+>  .../devicetree/bindings/mmc/renesas,sdhi.yaml | 108 +++++--
+>  drivers/mmc/host/renesas_sdhi.h               |  11 +-
+>  drivers/mmc/host/renesas_sdhi_core.c          | 274 ++++++++++++++----
+>  drivers/mmc/host/renesas_sdhi_internal_dmac.c |  73 ++++-
+>  drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  12 +-
+>  include/linux/platform_data/tmio.h            |  18 ++
+>  6 files changed, 408 insertions(+), 88 deletions(-)
+>=20
+> --
+> 2.43.0
 
