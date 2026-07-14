@@ -1,92 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AE940D590;
-	Tue, 14 Jul 2026 21:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF9540D590;
+	Tue, 14 Jul 2026 21:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784064239; cv=none; b=sNm6gbXu704+RnLLedHRQXP65zl8n5q6uvC1kKKvmyORZC6z+bIpuE1KFRUd4p14FwnjuzOWELtZObpDa42yJYv5zECRePFsdZLnSx3MoAO7G6oTw9YMOMgarXrdMlWm0o0obyZzONVuFln+mRlnlo5CG8pccx0bgKuCub846C4=
+	t=1784064366; cv=none; b=uXRTmXQXIcXEXJSPgNzeFudWl3uzJKN1EN5XPuZ+3rS8QQkqh4VPWqgFNQBNw8DRcpu29W+XOs76n0geIb+jl5vBHTOOkOJua5gAHLfDLLD9tUwNUeu50L/xxR8GrqLvChdxusijKWL0TzJOBitX3mY2EFZgY7Pztc2OPZ4vgUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784064239; c=relaxed/simple;
-	bh=yYxJXTxhaaQyRSn8NksEr8C19bj4QNr6+gLFsSI9u3Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=plto0N54X962pIp35qXI9VdZuqUXXx+E1z4bP6ou5brTZNHBozXGiiBSHlMARmN4n6JQcYKFhE4pzLJQd3sAAeXsozi1kJqDePUJ8uf3KOa/si1BeTpB6hf2ThRpFT/5Ew5etC7Ldh9AbRK2hKNtNGYCViZzrE2yr6kA/ruMpcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHUcFRUx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784064366; c=relaxed/simple;
+	bh=K8J6oPxjgmTJ7fyU1h6chiS+KMrCFolhxacoMa2oN3k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZR39h12Y4OGQ5zyK1FxImdYZReEOmWrfTQdDO9GIdx4aVz9lYlKg/dCJMUvwIB97/nB2aCcB+YBpNknwt7PsxM6gevagPJKE12X7VHgGPDSLpjtaXMPZMrteuYbSrNcvSX/wic17b4cRlT394svskd1xMHIgpvWl190XHWTuC/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=N469ay99; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHUcFRUx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA521F000E9;
-	Tue, 14 Jul 2026 21:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784064238;
-	bh=jHird4lTGKKujgL5cT6Qpafb/+B6Eck4ummSsIgsDwM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=aHUcFRUxeDZAawLZGPJexmH6w7sd7RuSnzHwwRhBC+4YQsjsaGwe/rUlgQzHnqVMA
-	 uzb8NrFU8y3LFZQYhRAoZupivh53DaPs1Q18cPmwSMEXI1tvTmraxduJAAEq0AXlQ0
-	 aFU8vAFMHkgsLYQDy4iCNOHYszhQHfPJAD0dLbWaQ+YefYAZ82TehrIJ741FUoj7Q/
-	 BneVHnaFupGJGnCkxPs84d+ZRJX03riSpUGSBVFworYVtQmS4MGfzNovwRaJ7T0C9E
-	 ixrXj2IuxrATyrBCAYI+OMXyNgT8ju+y96rTKD1pvRq5YQ9ahaAHOWQSNyMifa6YwU
-	 5ISJyl+7W18qw==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Cc: imx@lists.linux.dev
-In-Reply-To: <20260512224544.1223283-1-Frank.Li@nxp.com>
-References: <20260512224544.1223283-1-Frank.Li@nxp.com>
-Subject: Re: [PATCH 1/1] dt-bindings: regulator: convert ltc3589 to yaml
- format
-Message-Id: <178402792058.7661.255387093870553422.b4-ty@b4>
-Date: Tue, 14 Jul 2026 12:18:40 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="N469ay99"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=MsR2KbYLSyQF72+KA6xaRaH75h8QqeIfFLr6MHB+Zc8=; b=N469ay99+/ZaIlavpJcpDuFsPQ
+	S2Y8q9ICABsWs87hzWYvv3ghxupOpluKi4Yxa/iLGWU8QFI04WTi0I4+l27mg0YTpr5inqR0WNktL
+	CBnXc79CPLO68HgK4pX8fraanE3FHPekZyYod7i/y2N0o7OVd4HCsR5dhZr1YocBB9JY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wjkdY-00CFhF-1j; Tue, 14 Jul 2026 23:25:56 +0200
+Date: Tue, 14 Jul 2026 23:25:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next 2/2] net: phy: add DAPU Telecom DAP8210R(I)
+ Gigabit Ethernet PHY driver
+Message-ID: <5c95a7cd-d5d7-4998-8641-7dee1e34078b@lunn.ch>
+References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
+ <20260713131223.279555-3-a.shimko.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1130; i=broonie@kernel.org;
- h=from:subject:message-id; bh=yYxJXTxhaaQyRSn8NksEr8C19bj4QNr6+gLFsSI9u3Y=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqVqjre36tpOXUHUcoJmenjFTDn8F0L1Mm4PQ2X
- apTWOrGmOeJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCalao6wAKCRAk1otyXVSH
- 0LvmB/9E7wHiah4E0N/B3Mg6ZyV1c1O6bnWXUT1L7k6tZ9bDDZ0ENEvaDSil8ZhXwYBpkQLmYoK
- p5WiuvL7MCRwQ4JTAVU4zeW9E2WT4Xx4+Db4FHODzBG4hUa3E0fvymYnjfIZT0DX4mWr5ddmT85
- os/desmkfuNFSWu0lw8N/nfuJl8/lCfXTDbgx8+mNnWB/wACmHA5Dui5f9K+8gS43Qlg5QBFHKQ
- dKad9m17Q8UhcyHIWOw8XLTCmVdQeVlbhSTt+IFHAbhk+iYbHfCFKiNn63Uol9+689ld9F4NRRO
- MlVLSbN5zSDHiocKPKXUcG8uzrHMR2zi04R1+0NPXswLN3cd
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260713131223.279555-3-a.shimko.dev@gmail.com>
 
-On Tue, 12 May 2026 18:45:42 -0400, Frank Li wrote:
-> dt-bindings: regulator: convert ltc3589 to yaml format
+> The driver also exports a debugfs interface for diagnostics,
+> exposing PHY status registers and providing runtime control over the
+> internal packet generator, CRC corruption, and loopback functionality.
 
-Applied to
+Please drop all this. Many PHYs have this sort of facility. We want
+one generic API, probably via ethtool, which all PHYs can follow, not
+N different incompatible APIs.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
+> +static u32 dap8211r_get_rgmii_delay(struct phy_device *phydev, const char *prop_name)
+> +{
+> +	struct device_node *np = phydev->mdio.dev.of_node;
+> +	int ret;
+> +	u32 ps = 0;
+> +
+> +	ret = of_property_read_u32(np, prop_name, &ps);
+> +	if (ret) {
+> +		phydev_dbg(phydev, "Using default delay (%ups)\n", DAP8211R_DEFAULT_DELAY_PS);
+> +		ps = DAP8211R_DEFAULT_DELAY_PS;
+> +	}
 
-Thanks!
+This can be simplified.
 
-[1/1] dt-bindings: regulator: convert ltc3589 to yaml format
-      https://git.kernel.org/broonie/regulator/c/c9b256e7900f
+First off, there probably too many phydev_dbg() messages, specially
+for normal case things, using defaults, etc. 
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+of_property_read_u32_array() is documented as not touching the results
+value, if it does not find the property. So you can do:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+	u32 ps = DAP8211R_DEFAULT_DELAY_PS;
+	of_property_read_u32(np, prop_name, &ps);
+  
+	return dap8211r_delay_ps_to_sel(phydev, ps);
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> +static int dap8211r_config_init(struct phy_device *phydev)
+> +{
+> +	struct device_node *phydev_node = phydev->mdio.dev.of_node;
+> +	u16 mask = 0, set = 0;
+> +	int ret;
+> +
+> +	switch (phydev->interface) {
+> +	case PHY_INTERFACE_MODE_RGMII:
+> +		break;
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+This is one of the less well defined areas. PHY_INTERFACE_MODE_RGMII
+would mean either the PCB is adding the delay, or the MAC. There is no
+reason however why the PHY cannot perform fine tuning, adding a small
+delay, say 150ps. So you should respect the rx-internal-delay-ps and
+tx-internal-delay-ps delays here. 
 
-Thanks,
-Mark
-
+	Andrew
