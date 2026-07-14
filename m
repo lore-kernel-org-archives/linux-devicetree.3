@@ -1,214 +1,257 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E380F25392C
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22114242910
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:17:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784035054; cv=none; b=m4vVP6+FUm2IgsWrpPilPl1a6JoWo4vqmGMb1Nfu8ZUkb8Qx7HItGEXboV8d+80nePUcaSpXg/ZrcrzMLuFVSyAWgI1BJKlYgwdih5iqvB/4lAjKhVmqFu/LyZ1ZjsYhKQ+ygN2L3LRkqLtmL+MNe+Feey2x9AUsEo1kxihnMQs=
+	t=1784035063; cv=none; b=GDZSwG36uJPcfAMGlcZCL9Fg5BMSgQFBcyHUTIbkhHyFgyVMkXD9o+IFkD58EzfpnZetPyZELCMqUtZSDVdswvq7UHyYTgwCCEZk3I44bcxoBdJFJXVKD0YvdM2X9j9VlWwH/MhwgOvGkeFROSuJdXGIyM91rKNm24cKWKX3bA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784035054; c=relaxed/simple;
-	bh=vg/bF4bcQh6zbIdXIK7uFCJJyPgYqbw29PWg5Lle2JU=;
+	s=arc-20240116; t=1784035063; c=relaxed/simple;
+	bh=92TlxTjOvGDl5530tHJsDGYIFb8Nin/VxmBlfB3q8hk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HmQbRdEkr3H1YsjkUkjn80MqpqiybNWuIi9D83frQ//ruLdMH/AiSStZqCGKkVwVyHpSshkL97MB+bH4d5qPTU+xxTGDQZWlY8z2IJb4WW6WbRC4mXreXFH+KMvqK9DGaLLJKK2D5WYnjpOXKhx5QDMY/YigvgxO6xFgXsVYpwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OKD/euM9; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=k2YMgLcDJL+I0wUOndnu6GVEPWA6SSfJlWouPTMe9Zw7J4XHm/BlxLvTZJc/58ZMhe4F7nbDpR91prcTApC++x4Rz12KxCTGybnhKHFeEGmfP92vsNyp3xox2zfZH297aVusz94e5ocM38t2xWWPlXPchB+wajseUKCFxQZ0s1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FOJw0vDH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OKD/euM9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48CD81F00A3A;
-	Tue, 14 Jul 2026 13:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FOJw0vDH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCA01F000E9;
+	Tue, 14 Jul 2026 13:17:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784035049;
-	bh=IfUY3xrb8fuI/lXfMT3/L1r60/RQdGQeEpC/sBXMs+4=;
+	s=k20260515; t=1784035060;
+	bh=ItEY/YvELYMkjQgF2MOIgrVSB6nYbDJfbPrySHR6Jtc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OKD/euM9ABPOEIpUi9YgGrvdwehSiiuBnXwISn2kxEYePpME1/eVgzKpCNsKdwOwN
-	 r+YaPVV4T5CkIcmv1s6QTcMBHQMm6t9NWEvjaoclo0tAHZtGjmjvrnCuvyTCHXTvG6
-	 jQAPcuNnqo/iVbNfaE3Z+pxmg0aj9VA4mi9c9I8JHMfnsbNkyYMP1SW6BmiQiVa4DI
-	 JY5Aobg7QlFDOP2Tbeluf2/p6hxx50Jpfyhu9DWNmktsJz3iskatdOBJ+Gai2I2jpM
-	 Ck0oZ3QySCc64BmP9jhJNlAPsZ2GHFycEr6yHLYYSCvNVVM2npg2QR+JiC2Ibe49bm
-	 hi7sNzfRB1KLw==
+	b=FOJw0vDHIkoIhyJ+4STavQtBkObITK15fjL3T/M0tXbmi1Y97GGosTmNpXfw/BHnw
+	 06mqASl8RCEfuyHsXKizbXxRLVjs8ezka7Ayl7LrPbCcm05ddRejLh0PzyIAgD1vgL
+	 5hnU6zNRyHNXKxtWm1Tzz0WIN2d3rTrif9zgCsPDUEKbugeEfvvFUsxRG1vBXQ4enX
+	 tll5a9h+a/L0Umn9QDFnzWm1cyjWnAyW8pevdTMArZmnqbkmuIWWJTbngxkgPyGMbO
+	 eBTfvqxy6QPlRS1eKk9f4UwYLTaxx5RCkgoSsArBInimwd/VNuOQw2klf8O1AvBBEK
+	 Qc3HDlWJkoQFg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 2/2] net: phy: add DAPU Telecom DAP8210R(I)
- Gigabit Ethernet PHY driver
+Subject: Re: [PATCH v8 13/17] iio: frequency: ad9910: add RAM mode support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Artem Shimko" <a.shimko.dev@gmail.com>
+To: "Rodrigo Alencar" <rodrigo.alencar@analog.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260713131223.279555-3-a.shimko.dev@gmail.com>
-References: <20260713131223.279555-1-a.shimko.dev@gmail.com>
- <20260713131223.279555-3-a.shimko.dev@gmail.com>
+In-Reply-To: <20260714-ad9910-iio-driver-v8-13-36939c3c07d2@analog.com>
+References: <20260714-ad9910-iio-driver-v8-0-36939c3c07d2@analog.com>
+ <20260714-ad9910-iio-driver-v8-13-36939c3c07d2@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 13:17:28 +0000
-Message-Id: <20260714131729.48CD81F00A3A@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 13:17:39 +0000
+Message-Id: <20260714131740.2FCA01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] PHY software reset is not actually triggered because the driver wr=
-ites `0` to the reset bit instead of `1`.
-- [High] RGMII delay configurations are not explicitly cleared when the int=
-erface mode disables them.
-- [Medium] The debugfs package generator interface unconditionally overwrit=
-es the Auto-Negotiation state upon disable.
-- [Medium] The debugfs write callback modifies the PHY's MII_BMCR register =
-without acquiring `phydev->lock`.
-- [Low] The driver uses a fixed sleep instead of polling the self-clearing =
-reset bit.
-- [Low] Incorrect use of `abs()` macro with unsigned types causes a build f=
-ailure.
-- [Low] The device tree property for clock inversion in the code does not m=
-atch the commit message.
+- [High] Hardware and software state become desynchronized on RAM mode togg=
+le error path.
+- [High] Missing software rollback when AD9910_REG_CFR1 update fails leaves=
+ profile caches permanently swapped.
+- [High] Permanent loss of the active Single Tone profile configuration in =
+software cache on restore failure.
+- [High] Use-After-Free of devm-allocated state structure due to firmware_u=
+pload framework race.
+- [Medium] Leaked fw_upload cancel flag spuriously fails the subsequent fir=
+mware upload attempt.
 --
 
---- Patch [2]: [PATCH net-next 2/2] net: phy: add DAPU Telecom DAP8210R(I) =
-Gigabit Ethernet PHY driver ---
-commit 78567017e0db0de14fb31e8cedc75e8b75b18e2f
-Author: Artem Shimko <a.shimko.dev@gmail.com>
+--- Patch [13]: [PATCH v8 13/17] iio: frequency: ad9910: add RAM mode suppo=
+rt ---
+commit 6281373642ceab0e3003ac2ca392ef5cedd2bacf
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Subject: iio: frequency: ad9910: add RAM mode support
 
-net: phy: add DAPU Telecom DAP8210R(I) Gigabit Ethernet PHY driver
+This commit adds RAM control channel support for the AD9910 DDS. It introdu=
+ces
+a firmware upload interface for RAM data loading and handles per-profile
+configuration. The patch also modifies read/write paths to redirect single-=
+tone
+parameters to a shadow register cache when RAM is active.
 
-This commit adds support for the DAPU Telecom DAP8211R(I) Gigabit
-Ethernet PHY. It implements extended register access for RGMII delay
-configuration and provides a debugfs interface for diagnostics.
-
-> The rx-internal-delay-ps and
-> tx-internal-delay-ps properties allow precise tuning of clock delays in
-> 150 ps steps from 0 to 2250 ps, with automatic selection of the nearest
-> supported value if an exact match is not specified. Additionally,
-> the optional tx-inverted-clk flag enables 180-degree TX clock phase shift
-> for boards where signal integrity or MAC requirements necessitate clock
-
-[Severity: Low]
-The commit message documents the property as tx-inverted-clk, but the
-code implementation looks for tx-use-inverted-clk.
-
-Which one is the intended property name?
-
-> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-> new file mode 100644
-> index 0000000000000..bd695bc4953a2
-> --- /dev/null
-> +++ b/drivers/net/phy/dap8211r.c
-
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
+> index 6c794e1b4b1c8..fef0e3b360a7d 100644
+> --- a/drivers/iio/frequency/ad9910.c
+> +++ b/drivers/iio/frequency/ad9910.c
 [ ... ]
-
-> +static u16 dap8211r_delay_ps_to_sel(struct phy_device *phydev, u32 ps)
-> +{
-> +	int i, best_idx =3D 0;
-> +	u32 best_diff =3D UINT_MAX, diff =3D 0;
-> +
-> +	if (!ps)
-> +		return 0;
-> +
-> +	for (i =3D 0; i < DAP8211R_DELAY_COUNT; i++) {
-> +		diff =3D abs(ps - delay_config[i].ps);
-
-[Severity: Low]
-Does this cause a compilation error?
-
-The abs() macro in the kernel strictly checks for signed types, but the
-result of the subtraction here is unsigned.
-
+> @@ -1119,7 +1220,7 @@ static int ad9910_write_raw(struct iio_dev *indio_d=
+ev,
+>  	struct ad9910_state *st =3D iio_priv(indio_dev);
+>  	u64 tmp64;
+>  	u32 tmp32;
+> -	int ret;
+> +	int ret, i;
+> =20
+>  	guard(mutex)(&st->lock);
 [ ... ]
-
-> +static int dap8211r_config_init(struct phy_device *phydev)
-> +{
-> +	struct device_node *phydev_node =3D phydev->mdio.dev.of_node;
-> +	u16 mask =3D 0, set =3D 0;
-> +	int ret;
+> +		case AD9910_CHANNEL_RAM:
+> +			if (AD9910_RAM_ENABLED(st) =3D=3D !!val)
+> +				return 0;
 > +
-> +	switch (phydev->interface) {
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +		break;
+> +			/* swap profile configs */
+> +			for (i =3D 0; i < AD9910_NUM_PROFILES; i++) {
+> +				tmp64 =3D st->reg[AD9910_REG_PROFILE(i)].val64;
+> +				ret =3D ad9910_reg64_write(st,
+> +							 AD9910_REG_PROFILE(i),
+> +							 st->reg_profile[i],
+> +							 false);
+> +				if (ret)
+> +					break;
+> +				st->reg_profile[i] =3D tmp64;
+> +			}
+> +
+> +			if (ret) {
+> +				/*
+> +				 * After the write failure, profiles 0..i-1 were
+> +				 * already swapped in SW, but Hw registers are
+> +				 * still pending an IO update, so swap them back
+> +				 * in SW to keep the state consistent.
+> +				 */
+> +				while (i--) {
+> +					tmp64 =3D st->reg[AD9910_REG_PROFILE(i)].val64;
+> +					st->reg[AD9910_REG_PROFILE(i)].val64 =3D st->reg_profile[i];
+> +					st->reg_profile[i] =3D tmp64;
+> +				}
+> +				return ret;
+> +			}
 
 [Severity: High]
-If the bootloader configured RGMII delays, are they left intact here?
+Does this recovery loop leave the hardware and software states desynchroniz=
+ed?
 
-By not setting the mask to clear the delays for pure RGMII mode, this
-leaves the PHY with whatever delays were previously configured, violating
-the RGMII interface contract.
+If an SPI write fails during the profile swap loop, this block reverts the
+software cache but does not rewrite the hardware shadow registers over SPI.
 
-[ ... ]
+Because the hardware shadow registers retain the swapped values, the next
+IO_UPDATE triggered by any other channel write will latch these corrupted
+values into the active profile.
 
-> +	if (of_property_read_bool(phydev_node, "tx-use-inverted-clk"))
-> +		set |=3D DAP8211R_RGMII_CLK_INVERT;
 > +
-> +	mask |=3D DAP8211R_RGMII_CLK_INVERT;
-> +
-> +	ret =3D dap8211r_modify_ext(phydev, DAP8211R_PHY_CON, DAP8211R_PHY_SW_R=
-ST, 0);
+> +			tmp32 =3D FIELD_PREP(AD9910_CFR1_RAM_ENABLE_MSK, !!val);
+> +			return ad9910_reg32_update(st, AD9910_REG_CFR1,
+> +						   AD9910_CFR1_RAM_ENABLE_MSK,
+> +						   tmp32, true);
 
 [Severity: High]
-Does this write actually trigger the software reset?
+If this final register update fails, is it problematic that the function
+returns without reverting the profile swap?
 
-This clears the reset bit by passing 0 for the set argument, instead of
-asserting it by writing DAP8211R_PHY_SW_RST.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Wait for reset self-clear */
-> +	fsleep(200);
-
-[Severity: Low]
-Would it be safer to poll the self-clearing reset bit instead of using a
-fixed sleep?
-
-A fixed sleep might fail if the hardware reset takes longer than expected,
-and contradicts the comment about waiting for a self-clear.
+By the time this is called, all 8 profiles have already been swapped in
+both hardware and software. Returning the error here leaves the profiles
+permanently swapped while the RAM mode state remains unchanged, which
+appears to break subsequent single-tone and RAM operations.
 
 [ ... ]
-
-> +static ssize_t pkg_gen_write(struct file *file,
-> +			     const char __user *user_buf,
-> +			     size_t count, loff_t *ppos)
+> +static enum fw_upload_err ad9910_ram_fwu_prepare(struct fw_upload *fw_up=
+load,
+> +						 const u8 *data, u32 size)
 > +{
-> +	struct seq_file *sf =3D file->private_data;
-> +	struct dap8211r_priv *priv =3D sf->private;
-> +	struct phy_device *phydev =3D to_phy_device(priv->dev);
-> +	bool en;
-> +	u16 mask, set, set_bmcr;
-> +	int ret;
-> +
-> +	ret =3D kstrtobool_from_user(user_buf, count, &en);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (en) {
-> +		set =3D DAP8211R_PKG_GEN_EN | DAP8211R_PKG_CHK_EN | DAP8211R_PKG_PL_5A=
-A5;
-> +
-> +		if (priv->crc_cor)
-> +			set |=3D DAP8211R_PKG_COR_CRC;
-> +
-> +		if (priv->loopback)
-> +			set_bmcr =3D BMCR_LOOPBACK;
-> +		else
-> +			set_bmcr =3D BMCR_ANENABLE;
-> +	} else {
-> +		set =3D DAP8211R_PKG_GEN_MODE | DAP8211R_PKG_GATE_EN;
-> +		set_bmcr =3D BMCR_ANENABLE;
+> +	struct ad9910_state *st =3D fw_upload->dd_handle;
+> +	const struct ad9910_ram_fw *fw_data =3D (const struct ad9910_ram_fw *)d=
+ata;
+> +	size_t wcount, bcount;
+[ ... ]
+> +	guard(mutex)(&st->lock);
+> +	if (st->ram_fwu_cancel) {
+> +		st->ram_fwu_cancel =3D false;
+> +		return FW_UPLOAD_ERR_CANCELED;
 > +	}
 > +
-> +	ret =3D phy_modify(phydev, MII_BMCR, BMCR_LOOPBACK | BMCR_ANENABLE, set=
-_bmcr);
+> +	return FW_UPLOAD_ERR_NONE;
+> +}
 
 [Severity: Medium]
-Is it safe to modify MII_BMCR here without acquiring phydev->lock?
+Can a canceled firmware upload spuriously fail a subsequent upload attempt?
 
-Concurrent execution of the phylib state machine might race with this
-debugfs write, leading to corrupted link state.
+If an upload is canceled after the write operation finishes, or during an
+indivisible SPI write, st->ram_fwu_cancel is set to true in
+ad9910_ram_fwu_cancel(). The driver does not implement an ops->cleanup
+callback to reset this state when the upload session ends.
 
-[Severity: Medium]
-Does the else branch intentionally destroy the previous BMCR state?
+When a new upload begins, ad9910_ram_fwu_prepare() will find this stale
+flag, clear it, and unconditionally return FW_UPLOAD_ERR_CANCELED, causing
+the new upload to fail before it starts.
 
-By unconditionally writing BMCR_ANENABLE to 1 when disabling the packet
-generator, any manual speed or duplex settings previously configured by the
-user via ethtool will be overwritten.
+[ ... ]
+> +static enum fw_upload_err ad9910_ram_fwu_write(struct fw_upload *fw_uplo=
+ad,
+> +					       const u8 *data, u32 offset,
+> +					       u32 size, u32 *written)
+> +{
+> +	const struct ad9910_ram_fw *fw_data =3D (const struct ad9910_ram_fw *)d=
+ata;
+> +	struct ad9910_state *st =3D fw_upload->dd_handle;
+> +	int ret, ret2, idx, wcount;
+> +	u64 tmp64, backup;
+[ ... ]
+> +	/* backup profile register and update it with required address range */
+> +	backup =3D st->reg[AD9910_REG_PROFILE(st->profile)].val64;
+> +	tmp64 =3D AD9910_PROFILE_RAM_STEP_RATE_MSK |
+> +		FIELD_PREP(AD9910_PROFILE_RAM_START_ADDR_MSK, 0) |
+> +		FIELD_PREP(AD9910_PROFILE_RAM_END_ADDR_MSK, wcount - 1);
+> +	ret =3D ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), tmp64, =
+true);
+> +	if (ret)
+> +		return FW_UPLOAD_ERR_RW_ERROR;
+> +
+> +	memcpy(&st->tx_buf[1], fw_data->words, wcount * AD9910_RAM_WORD_SIZE);
+> +
+> +	/* write ram data and restore profile register */
+> +	ret =3D ad9910_spi_write(st, AD9910_REG_RAM,
+> +			       wcount * AD9910_RAM_WORD_SIZE, false);
+> +	ret2 =3D ad9910_reg64_write(st, AD9910_REG_PROFILE(st->profile), backup=
+, true);
+> +	if (ret || ret2)
+> +		return FW_UPLOAD_ERR_RW_ERROR;
+
+[Severity: High]
+Can this error path permanently lose the active Single Tone profile
+configuration in the software cache?
+
+The active profile's configuration is backed up and replaced with RAM
+address boundaries earlier in this function. If the final
+ad9910_reg64_write() to restore the backup fails, it returns early.
+
+Because ad9910_reg64_write() only updates the software cache st->reg[] on
+success, the software cache appears to be permanently left with the RAM
+boundary payload where the frequency, phase, and amplitude bits are zeroed,
+wiping the actual Single Tone configuration.
+
+[ ... ]
+> @@ -1663,6 +1967,19 @@ static int ad9910_probe(struct spi_device *spi)
+[ ... ]
+> +	st->ram_fwu =3D firmware_upload_register(THIS_MODULE, dev, st->ram_fwu_=
+name,
+> +					       &ad9910_ram_fwu_ops, st);
+> +	if (IS_ERR(st->ram_fwu))
+> +		return dev_err_probe(dev, PTR_ERR(st->ram_fwu),
+> +				     "failed to register ram upload ops\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, ad9910_ram_fwu_unregister, st->ra=
+m_fwu);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to add ram upload unregister action\n");
+> +
+>  	return devm_iio_device_register(dev, indio_dev);
+>  }
+
+[Severity: High]
+Does tying the firmware upload unregistration to devres expose the driver
+to a use-after-free race?
+
+There is a known race condition in the core firmware_upload_unregister()
+framework: if it observes the IDLE state while a concurrent sysfs write to
+loading is about to queue the worker, it returns immediately without
+flushing the workqueue.
+
+If the driver unbinds, devres will free the ad9910_state structure. The
+delayed worker could then subsequently execute ad9910_ram_fwu_prepare(),
+dereferencing the freed state.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713131223.2795=
-55-1-a.shimko.dev@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-ad9910-iio=
+-driver-v8-0-36939c3c07d2@analog.com?part=3D13
