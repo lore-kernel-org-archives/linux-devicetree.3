@@ -1,291 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99713FBED8;
-	Tue, 14 Jul 2026 08:22:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784017348; cv=none; b=D8J3vRglrQ2LDhkr1isZlevJryQfscy78RFgZXx5pTrGCdt6l4IMjhVCm9xqJbWtje9gPsj/t12EXsvLiQLYk9l1JfyBQHjvq7e9oAZR5WIG3qFcqWq1DfAHrWuPzKIFNTfEXNLZDH4iyyr2s8a3bLEEXkXyZMRAtZp18mOweLM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784017348; c=relaxed/simple;
-	bh=2wmllSFtRM04qkBx6rOyomFUoGUsSeG5w4KKjMQgOus=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=m0NeUz1ezgWfwXn6SYXnX80d0Q0iT9kAHKlvNY6XUi3CYHHQcCxtedRM6jZ8j3WYskfTB0cjzWZAz8lVw/cqXgg7xDI5iPTGJ9qi3B1tSaCJFaKRhevnNXMGP8bzi2xBjC1WsqDFXZntcTDp0k6dFy9YU5lD1Fc7PTkStC04jK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IaJwc/2e; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858513FBB7E;
+	Tue, 14 Jul 2026 08:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784017371; cv=fail; b=Ih+1Im4yL4xsAa10MWW/k3hdVJt7afLbBEZwUyIVrhcToizzX76hf7+dzqdokWArIRYe5HIeXCYEiAlvlNKZKppqG9T9xZV9n5G1+C3mlLrSom5RAMLNljp/F5xsa3JyjnMswQG73nVXtE7sWzVtjrFXzY5q5nOdMPw54pRioe0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784017371; c=relaxed/simple;
+	bh=cfnUhLAFB7CK7qF2H+MZZQogVFEXFxLGYVPpt+gP5u0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=owtJG4HSRZRzVau3DbWbubbfzYbMEOtd9MEIpQjh/5WzBHkv1p52lMgU+LLY/6U8MWHXjbyEAIAKtjQ57ZLYfO5hoCezrL8Kpy6RVzaW7RlE499iKCTV3J6e+/7jTiWuzUSxnkinpxSsP4ZflYm5ZyTw28+o/2lcDkhJ0nWT+jM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=L+NL3YJW; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=BYuefAnB; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IaJwc/2e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F34A1F000E9;
-	Tue, 14 Jul 2026 08:22:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784017336;
-	bh=ZgCfN1XdYNEEHbdhzLqMbv1I7M4zFQsvLNwz9yYNGV0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IaJwc/2ec84qLtUX4arFfxSKhYY5gWM3olvcuIYy/3/J8ck3H5/ugafBDRIStsr7j
-	 ewN2X0MoB1DlzCx5pqBwBR634gBWvlkwqTBxp2jl0Ka/8NXVAi2++GdQ/0WlrMZp9F
-	 zrn4gtuxYxORYuh/hN8L2wQ7+AmZ7i2SeTFokCMjksTSv7fy1nYlUhXfPk77rdOjXC
-	 hYGZ8De+Ef11i9m4tzyjNkLJW0+5i72CwjUP6FbMJvLx9gCslYvg5lRka1q48zdIjX
-	 8HWBvR6cX/9LGbD/1QfeQ+szNY5qf/fupoH7g+0It4kxAs6lv0EeFqibPMfUltnn8a
-	 YEajG60lit0Cg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/3] dmaengine: amlogic: Add general DMA driver for
- A9
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20260714-amlogic-dma-v11-2-de79c2394282@amlogic.com>
-References: <20260714-amlogic-dma-v11-0-de79c2394282@amlogic.com>
- <20260714-amlogic-dma-v11-2-de79c2394282@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 08:22:15 +0000
-Message-Id: <20260714082216.6F34A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="L+NL3YJW";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="BYuefAnB"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66E6UVAW1524529;
+	Tue, 14 Jul 2026 03:22:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=QyeEI5OGWzc5J
+	STdXFh5wVFtJ5UF/sE2+36u3mI4LIw=; b=L+NL3YJWHcibf2LmZ6oNnAX8FOmY0
+	MImrqMVlXm7oCTbTon/h1X+rvhlLPaYQm7esyQTy3LtXmRQMeIX9j9vnCAayeVqP
+	t63t3ng581+iGFFuA369/cLgWwqMReXCJdNhBItBSjPkDNLqGSJnD8ZItqkVNXTq
+	6iA/X6nDvY+vMw/tHx4yMvZs2o2UJZMNnVFtUvEzMIgzT3sDVze3QwNVyicay6YH
+	t8y4wzzHgmONhKkyKoIevdP5epZMk30ALY0ediTn4sg83Cz9ssR1oOBeipU6CfJB
+	zpio5BQfUWq3BCn9zitVQAFJM94CsXfD8pQK4IPai3ywzaSczbw0hk4dA==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010050.outbound.protection.outlook.com [52.101.56.50])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4fdcw59ccr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 14 Jul 2026 03:22:17 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XcxgTeOyx4gjA0WeVZB9xLORg5s9rjrfF4eBsP+qnmQ93tufbx0K3mVFk7nFcvrX2m5lXU7MvoKbOhvEk85krWGt1h+BWjQFEuoTgkNrYeBqIASJRzeR3wIMbiqUaVgKICny4UOa2qcQHOL5ar0a85Zli/bQTpq0sj/80iKmdwOv0kATKSQ1ylGW6heS68qKZZuxseHeV+d3oKQc6Y8J1WSs5Wv+iLjG4I83aKsV1/o+8Cs0eSuPWFyN7GBmY0qNTAaww60/A1xmocomruK4Gn/rrPzsj0ne+UUUH3trhuQDsN/ikjN8xFdzAmuo5ktG7PMr9pInW10EmtMSGpdqgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QyeEI5OGWzc5JSTdXFh5wVFtJ5UF/sE2+36u3mI4LIw=;
+ b=v5sM9OjRY3xZlj25eaLOvBs7CDpXPNjpnoRf7WwuaGoGMZU5xF7eJn7vUsGpBqWmJgzHVGaVPPOYISe6Y2t70/aXIOaHQdOX0K03XLluqrSOq1Ukkg7OOTjMbfCIRxk653IRiBL6rbgBbnC4BD6O+0Ks8+bf4FNjCQvLP/8HM/7JKKXmFJY/Y9tIg3Jdac1NTQfC3Rk7wOwaEwt7Tr7UrkQk2KMZvTaAgP/9beEAhAB+hM3bAGCyq9M+iG6tR2rSYmkli8sH2tTJbLTHTiaAVBkVbPHWnaKfgTMmjSqEDMk8Eyj+lTZbQ22rBMZyEcAnBzDmD0DRyCP00QXCgUpPeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QyeEI5OGWzc5JSTdXFh5wVFtJ5UF/sE2+36u3mI4LIw=;
+ b=BYuefAnBguJe9JJGOz3s0UR9eW2WUF8AjoAlBIK1Ph6C8YoPiWNK7oStavv/luHiEXW1wKSWMrbidnHwssjojTGvTzcQAf02sVSSRK3HkHIFC/ac0/ecorveV4XGWnY5nfgJzQm36tGZNn0OD4txRy3Jni9Ea+iXuKQrsI2y0H0=
+Received: from DS7P220CA0105.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25d::17) by
+ SJ2PR10MB6963.namprd10.prod.outlook.com (2603:10b6:a03:4cb::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.202.19; Tue, 14 Jul 2026 08:22:13 +0000
+Received: from SN1PEPF0002BA52.namprd03.prod.outlook.com
+ (2603:10b6:8:25d:cafe::37) by DS7P220CA0105.outlook.office365.com
+ (2603:10b6:8:25d::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.10 via Frontend Transport; Tue,
+ 14 Jul 2026 08:22:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SN1PEPF0002BA52.mail.protection.outlook.com (10.167.242.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.9 via Frontend Transport; Tue, 14 Jul 2026 08:22:13 +0000
+Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 14 Jul
+ 2026 03:22:12 -0500
+Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE202.ent.ti.com
+ (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 14 Jul
+ 2026 03:22:12 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE202.ent.ti.com
+ (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 14 Jul 2026 03:22:12 -0500
+Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66E8M7Ih068443;
+	Tue, 14 Jul 2026 03:22:07 -0500
+From: Moteen Shah <m-shah@ti.com>
+To: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+        <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
+        <mturquette@baylibre.com>, <sboyd@kernel.org>, <bmasney@redhat.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>,
+        <gehariprasath@ti.com>, <y-abhilashchandra@ti.com>, <m-shah@ti.com>,
+        <sen@ti.com>
+Subject: [PATCH RESEND v6 0/2] Enable audio support for J721S2 EVM
+Date: Tue, 14 Jul 2026 13:52:04 +0530
+Message-ID: <20260714082206.501922-1-m-shah@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA52:EE_|SJ2PR10MB6963:EE_
+X-MS-Office365-Filtering-Correlation-Id: 952da91b-0cb5-49d4-2224-08dee18101de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|82310400026|1800799024|36860700016|18002099003|56012099006|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	3P/ZzK9wM5clcReSpafAcAN5/I9biVGlcvvN/qkyEz+ElZNfLDqflyGgqj11yAIhHWHcUfAwZ/9lkQq4nS+yJCiskPzfqYwny/0LqStx+7rf8sTzH4gQxaOVJAJ7K+1o9ikjeyyq+t+KxjPYMVKuJWQa4c+2lgKJqP6XgZrpbKaCiPIxIoEdRMDem9uRiDZseqWgwTmsf5xW68MT1UAWf59DB914IgB4vWt5F8rGuo8wX8NjmrtcLKp2U4rVSVRI81naK/dZS0G8QdBadytHKrFKoBz0t7weDZlViNBIxuueWX27UlcmqDz/7lxvlsHGhCeYc53kgacU8y4ZtT9f1LRj+Zp2KoYr5Qhm0/l9wIK0h51BPJjfKRkugbDuaR7uz87ipXEY+Ib62kOA34DhEbosPWOAMPY2bKD0pcBmjOjO5ZbcKWfPEFSWUORj0OUR4JiK3hgQfwCztk+H3nrfRDN2ThqdDznkyfbx561nJsnjHxv4ZEai9XcMkZmFlYBcldft04AoHjuIKRRBCQvrvHJo5a3jvJxpLtIXIHVwQgZIMTlH2EIXwSR0aoT/LytcKef6ZrTKrp7XH8OIZKcATbjJiPVv9C/MMojarOnT4/dnJ/UpbNgAmy3Ja14iEqEnjI2rRCjx+M298kwJSaUgX/Nsw5ponrZmegCs4WrFF9KqlLK7nacWnZebvkOukbuzeiCjuCCanbUjRXXkeAy3KQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(82310400026)(1800799024)(36860700016)(18002099003)(56012099006)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TlTqlqhxVdyjuIIoOrYLKPk3z3Bom3cOGBwsBbItu0RofiGtCaypUzyG6HrnjPSgG3BelvsJ7os+++AutgI+cVn5mftjjWR8uOwxwhhQJnTylvKgkpMranhas3l8pnBTykzg8G+pzV50VcXm27MAeDMVxQEvK2zQgMiRzxJ1ioYbsAPyFAI5Na9CCBhOnAn9Tb4O2AUkksybD2211q/+BUsbbuEV5igGFSAb0IL0pm+7kjHy2tkv4aaPy7/0Vz6XpcipElmeYwky2CcgOw+q3jXPgLu/puFImU4ojFbv7YCRQA+xCPK0QLxHb9gTu7t7RAhxkzuEkFGCg/iXEmfn6LPunZa0SO7tswcT+Vs5wy6Qi39+RWObv2HZcYGinIBx8hdZj6NqfNcskNQqlJdaZhIMfSn6ylIaCVoi1kHsI54dSa0EnC9bovvYLbO1YhXH
+X-Exchange-RoutingPolicyChecked:
+	Hv0nUnwifk6vA9HMVl5J25YxCM127jCmtZ5axnumktCqvnI8VlSFp7LHN31MqB4qwEsLmWUrpSaPk7Evk+sIBK+rANFo5y8uh/sQqWos0pPupOu/jhR5VoyXjJ8YtVsS7ftGayel2+0DJeYeLFwc5re7yWoIxLxFy3iqb3HDCu6Mg4d4wiQpIDTYnrqlclAZ6WDLgnsybGjd/vsA9fbM4XpPczga0PCkuYGBS+M6bwVKC75I1/8fju9DEvdr3yrcNmeCjzO4SP0f9O+ZcIe7ld3L3IMwvVuGmhcofDVcW8gz3db4/bO9iEZ5K8tuuTmhb3uSCyH6SvjyrKVcLM+cFA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 08:22:13.0882
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 952da91b-0cb5-49d4-2224-08dee18101de
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA52.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB6963
+X-Proofpoint-GUID: BCMlfVDEvB8NViZ_2q6r_6-K11ihnW3n
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDA4NiBTYWx0ZWRfX2tltNIf//9Ym
+ 6B/TO3pM0MY+xO114ya8bC/yCuaXK8l8M+W+p96CW60scgdYnRlkOmp7QLplS/uMXl4oW/xwFiU
+ 8ERgXLgC6SY1XxGtD0Mrk8YswP2ySwI=
+X-Proofpoint-ORIG-GUID: BCMlfVDEvB8NViZ_2q6r_6-K11ihnW3n
+X-Authority-Analysis: v=2.4 cv=Ir8utr/g c=1 sm=1 tr=0 ts=6a55f1b9 cx=c_pps
+ a=9FhzUGQqNQs6ZJfz/MkW+g==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=NEAV23lmAAAA:8
+ a=8__9IKA1ZvyzrIITXxQA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDA4NiBTYWx0ZWRfX9/pTT241N1Bj
+ fASSOdmoU/ND41KEz1pJW4KVIg7tgoJglVjyqxPk6ZDwIXYDgWFR9rnJl/Gx52qcJe0UnMLmFU8
+ MdAv8lcDAK4WROz+rnZYLgimQ0tMS6qJnu+HkInWs1THoMWypxII5ZNTEntjlmkTzvBYGbYmlIK
+ y6uNqi4E8ueNfOeFlF3cJneJhhyc+K0AQ62T5JT31eJMkcR+d5aXILBLLgZIhMa1Z71dSijK7HB
+ nmJIlBeojhKTT7ALCpJykAL3MZTXNic1wGKZYdjvIuaSbSlDfBIG6nnGluzJL/iD8nidhAN8t1V
+ bmXDu9aMYCa26VMI+RW4+RDmWM54xdz01bMFDmKwDTA2R6FwsV8CMbZVIpSf9u+2xoycOiIDGg7
+ exOVS+YM4D5G7DTQs0c2KgwXvkpwZ0xf5G9CsqnYEqio0Ga1mCCV0H4xT+CEuXtSdGo/H/xai07
+ BnIa9LYy9Z4FR9hX+ZA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-14_02,2026-07-10_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 phishscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1011 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607140086
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] aml_dma_tx_status falsely reports in-flight transfers as DMA_COMPL=
-ETE, causing data corruption.
-- [High] Data race and TOCTOU NULL pointer dereference in aml_dma_tx_status=
- due to early lock release.
-- [High] Use-After-Free in devres-managed remove path due to tasklet schedu=
-led after tasklet_kill.
-- [High] Pending free_work items on the global workqueue cause a kernel pan=
-ic on module unload.
-- [High] aml_dma_terminate_all() masks interrupts but does not clear pendin=
-g interrupt status, potentially corrupting subsequent transfers.
-- [Medium] Missing src_addr_widths configuration prevents DMA_DEV_TO_MEM cl=
-ients from validating capabilities.
-- [Medium] DMA descriptors use host-endian fields, breaking hardware functi=
-onality on big-endian platforms.
---
+Earlier version of the patchset sent upstream[0] was rejected as
+its dependency[1], which resolves the DTBS check errors introduced
+by [0] also got rejected on the grounds of ABI breakage.
 
---- Patch [2]: [PATCH v11 2/3] dmaengine: amlogic: Add general DMA driver f=
-or A9 ---
-commit 91d4c9c09e9b3baa0931dae1e37c022fae2b7447
-Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Another solution to fix the DTBS check errors introduced by [0] is
+to modify the ti,j721e-system-controller.yaml binding to allow
+audio-refclk as clock-controller child. This is done in the first
+patch of this series.
 
-dmaengine: amlogic: Add general DMA driver for A9
+Changes since v5:
+Link to v5:
+https://lore.kernel.org/all/20260520115603.2662930-1-m-shah@ti.com/
+- Move audio_refclk1 clock node from the overlay (k3-j721s2-evm-audio.dtso)
+  to the main DTSI (k3-j721s2-main.dtsi) so it is always available
+  independent of the overlay being applied
+- Drop the &scm_conf block from the overlay since it is now in main.dtsi
 
-This patch introduces a new DMA engine driver for Amlogic A9 SoCs. The
-general-purpose DMA controller is used by multiple peripherals such as I2C,
-PIO, and I3C.
+Changes since v4:
+Link to v4:
+https://lore.kernel.org/all/20260519142341.2531948-1-m-shah@ti.com/
+- Explicitly disable main_mcan3 and main_mcan5 as they will silently
+  break mcasp audio routing
 
-> diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
-> new file mode 100644
-> index 0000000000000..9de650a79abac
-> --- /dev/null
-> +++ b/drivers/dma/amlogic-dma.c
+Link to v3:
+https://lore.kernel.org/all/20260330094459.128648-1-m-shah@ti.com/
+Link to v2:
+https://lore.kernel.org/all/20260205130707.2033197-1-m-shah@ti.com/
+Link to v1:
+https://lore.kernel.org/all/20260112104536.83309-1-m-shah@ti.com/
 
-[ ... ]
+Bootlogs:
+https://gist.github.com/Jamm02/8ee551c2c8db3a58a9aa7976e049fa28
 
-> +struct aml_dma_sg_link {
-> +#define LINK_LEN		GENMASK(26, 0)
-> +#define LINK_IRQ		BIT(27)
-> +#define LINK_EOC		BIT(28)
-> +#define LINK_LOOP		BIT(29)
-> +#define LINK_ERR		BIT(30)
-> +#define LINK_OWNER		BIT(31)
-> +	u32 ctl;
-> +	u32 addr_low;
-> +	u32 addr_high;
-> +	u32 revered;
-> +} __packed;
+[0]: https://lore.kernel.org/linux-arm-kernel/20250604104656.38752-1-j-choudhary@ti.com/
+[1]: https://lore.kernel.org/all/20250603095609.33569-4-j-choudhary@ti.com/
 
-[Severity: Medium]
-Since this structure describes a hardware memory descriptor, should these
-fields use __le32 instead of u32 to ensure the driver functions correctly on
-big-endian architectures?
+Jayesh Choudhary (1):
+  arm64: dts: ti: Add audio overlay for k3-j721s2-evm
 
-[ ... ]
+Moteen Shah (1):
+  dt-bindings: ti: Update audio-refclk binding and j721e system
+    controller
 
-> +static void aml_dma_free_desc(struct virt_dma_desc *vd)
-> +{
-> +	struct aml_dma_desc *aml_desc =3D to_aml_dma_desc(vd);
-> +
-> +	schedule_work(&aml_desc->free_work);
-> +}
+ .../bindings/clock/ti,am62-audio-refclk.yaml  |   8 +-
+ .../soc/ti/ti,j721e-system-controller.yaml    |   6 +-
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../boot/dts/ti/k3-j721s2-evm-audio.dtso      | 157 ++++++++++++++++++
+ arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi    |   9 +
+ 5 files changed, 180 insertions(+), 4 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
 
-[Severity: High]
-Does scheduling memory cleanup on the system workqueue here introduce a pan=
-ic
-on module unload?
+-- 
+2.34.1
 
-If the driver module is unloaded while a work item is still pending, the
-module's text segment will be unmapped. When the workqueue executes
-aml_dma_free_desc_work(), it might jump to unmapped memory because
-aml_dma_remove() does not appear to flush this work.
-
-[ ... ]
-
-> +static enum dma_status aml_dma_tx_status(struct dma_chan *chan,
-> +					 dma_cookie_t cookie,
-> +					 struct dma_tx_state *txstate)
-> +{
-> +	struct aml_dma_chan *aml_chan =3D to_aml_dma_chan(chan);
-> +	struct aml_dma_dev *aml_dma =3D aml_chan->aml_dma;
-> +	struct aml_dma_desc *aml_desc =3D NULL;
-> +	struct virt_dma_desc *vd;
-> +	u32 residue =3D 0, done;
-> +	unsigned long flags;
-> +	enum dma_status ret;
-> +
-> +	ret =3D dma_cookie_status(chan, cookie, txstate);
-> +	if (ret =3D=3D DMA_COMPLETE)
-> +		return ret;
-> +
-> +	ret =3D aml_chan->status;
-
-[Severity: High]
-Could this overwrite the correct DMA_IN_PROGRESS return value from
-dma_cookie_status() with aml_chan->status?
-
-If aml_chan->status is usually set to DMA_COMPLETE during initialization,
-polling clients might mistakenly believe the transfer is finished before it
-actually is, leading to data corruption.
-
-> +	if (!txstate)
-> +		return ret;
-> +
-> +	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-> +	vd =3D vchan_find_desc(&aml_chan->vchan, cookie);
-> +	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-> +	if (vd) {
-> +		aml_desc =3D to_aml_dma_desc(vd);
-> +		residue =3D aml_desc->data_len;
-> +	} else if (aml_chan->cur_desc && aml_chan->cur_desc->vd.tx.cookie =3D=
-=3D cookie) {
-
-[Severity: High]
-Can releasing the lock before accessing aml_chan->cur_desc lead to a
-NULL pointer dereference?
-
-If a hardware interrupt completes the transfer concurrently, it sets cur_de=
-sc
-to NULL. A thread executing this code could check aml_chan->cur_desc (findi=
-ng
-it non-NULL), but if the interrupt handler clears the pointer right after,
-the subsequent aml_chan->cur_desc->vd.tx.cookie access would dereference NU=
-LL.
-
-Alternatively, aml_desc could be assigned NULL, causing a dereference when
-calculating the residue.
-
-> +		aml_desc =3D aml_chan->cur_desc;
-> +		regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &done);
-> +		residue =3D aml_desc->data_len - done;
-> +	} else {
-> +		dev_err(aml_dma->dma_device.dev, "cookie error\n");
-> +	}
-> +	dma_set_residue(txstate, residue);
-> +
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
-> +		(struct dma_chan *chan, struct scatterlist *sgl,
-> +		unsigned int sg_len, enum dma_transfer_direction direction,
-> +		unsigned long flags, void *context)
-> +{
-
-[ ... ]
-
-> +		while (avail > SG_MAX_LEN) {
-> +			/* set dma address and len to sglink*/
-> +			sg_link->addr_low =3D lower_32_bits(paddr);
-> +			sg_link->addr_high =3D upper_32_bits(paddr);
-> +			sg_link->ctl =3D FIELD_PREP(LINK_LEN, SG_MAX_LEN);
-
-[Severity: Medium]
-Should these assignments use cpu_to_le32() to ensure proper conversion of
-host-endian values before writing to coherent DMA memory? Without it, this
-could break hardware functionality on big-endian platforms.
-
-[ ... ]
-
-> +static int aml_dma_terminate_all(struct dma_chan *chan)
-> +{
-
-[ ... ]
-
-> +	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-> +	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUS=
-E);
-> +	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEA=
-R);
-> +
-> +	if (aml_chan->direction =3D=3D DMA_MEM_TO_DEV)
-> +		regmap_set_bits(aml_dma->regmap, RCH_INT_MASK, BIT(chan_id));
-> +	else if (aml_chan->direction =3D=3D DMA_DEV_TO_MEM)
-> +		regmap_set_bits(aml_dma->regmap, WCH_INT_MASK, BIT(chan_id));
-
-[Severity: High]
-Does masking the interrupts here without also clearing the pending interrupt
-status (via CLEAR_RCH or CLEAR_WCH) risk corrupting subsequent transfers?
-
-If an interrupt is already pending, its status bit remains set. When
-aml_dma_start() is called later and unmasks the interrupt, it will fire
-immediately and falsely complete the new transfer.
-
-[ ... ]
-
-> +static int aml_dma_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	dma_dev->device_issue_pending =3D aml_dma_issue_pending;
-> +	/* PIO 4 bytes and I2C 1 byte */
-> +	dma_dev->dst_addr_widths =3D BIT(DMA_SLAVE_BUSWIDTH_4_BYTES) | BIT(DMA_=
-SLAVE_BUSWIDTH_1_BYTE);
-> +	dma_dev->directions =3D BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV);
-
-[Severity: Medium]
-Since this driver advertises DMA_DEV_TO_MEM support, is there a missing
-configuration for src_addr_widths?
-
-If omitted, client drivers validating source widths using
-dma_get_slave_caps() will see a width of 0 and might fail initialization.
-
-[ ... ]
-
-> +static void aml_dma_remove(struct platform_device *pdev)
-> +{
-> +	struct aml_dma_dev *aml_dma =3D platform_get_drvdata(pdev);
-> +	struct aml_dma_chan *aml_chan =3D NULL;
-> +	int i;
-> +
-> +	of_dma_controller_free((&pdev->dev)->of_node);
-> +
-> +	regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
-> +	regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
-> +
-> +	for (i =3D 0; i < MAX_CHAN_ID; i++) {
-> +		aml_chan =3D aml_dma->aml_rch[i];
-> +		if (aml_chan)
-> +			tasklet_kill(&aml_chan->vchan.task);
-> +		aml_chan =3D aml_dma->aml_wch[i];
-> +		if (aml_chan)
-> +			tasklet_kill(&aml_chan->vchan.task);
-> +	}
-> +}
-
-[Severity: High]
-Can a use-after-free occur during driver unbind if an interrupt fires
-concurrently?
-
-Since the devres-managed IRQ is not freed or synchronized before calling
-tasklet_kill(), an active interrupt handler on another CPU could schedule t=
-he
-tasklet again right after tasklet_kill() returns. Once the remove function
-finishes, devres frees the channel memory containing the tasklet, leading to
-execution on freed memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-amlogic-dm=
-a-v11-0-de79c2394282@amlogic.com?part=3D2
