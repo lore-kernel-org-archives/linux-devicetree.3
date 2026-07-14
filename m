@@ -1,178 +1,210 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E5647D93A
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784034392; cv=none; b=bipIIbtwPrjvPjZKVG1xfVAI1sI5hYEbWzkjE3R6KXvJNJMtdf8R5srbTWKfEuK/c+yyDTUEQ/1XSPy9FkYvu7NWpfJhlsfdFLmwItwT6TfxxXzMG4FWWp3yxtz+RrAD1uggZJsMrbdL1vjqBMSU2HzO9OO2x5R6cangmb4icXg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784034392; c=relaxed/simple;
-	bh=OwDhqAA2uO/F093Pn+M2f/ZO6s9esDXCzLQX0HD+7AE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ddf412mLj8w2IKYffSCAhjGs3lYVCKtz9W9sz7JV9T35L4x/v9j/LwAaxZ1mlvj+UIybvzeqVo4cRalVFzSGykz5MLTT8N2OqZE4ojIrbor3Ikrg3kZMcYhotN953iEAKwvcsdyP/ZhyE5uv/b4SkS8WyHQ368BqdKWJK8775O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ra5QltlP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L4fPxnFB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71D613B584
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:15:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784034920; cv=pass; b=L41wkDKDmMZoE85MgW91+ZgSESDRgxJDHmOFNiqKVkkOSIph0TWzLf/mdUxBJQnRual9uvbAi+yOBkdM/7S4j43rmzXjrgIgnv5xxAXXFP+9DiXUmWf1abwPfnt+BA241jb8+5zGu3dAvFBaZwGWFAr91oUYYRQioaryPnX8xaU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784034920; c=relaxed/simple;
+	bh=XEp4xPrufFEiSkrjh9AXuD4jVVMbyf5wsJtN2q7RBEM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UrDDRHI7ji7xpUL7GLZK7HLVUB+xk77uWSdDmHWj/GS1OtCSOjA76SkPDdmty2x5eAsQiHCGMoA8vYiALzkGBNkZZH26poCX43xv8XqUv+2VZTdKg7CBmjWa0LzZtXbln1aleViNNnGycOaUlnFxOiIkoYeiMzXGNcUffGd3A6c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SaGz3NUB; arc=pass smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ra5QltlP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L4fPxnFB"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66EBNoos376976
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:06:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mMfjv7N+IUr+8DUXpwWiIvW4QRhrIOegOkd5Kb/Jmdk=; b=Ra5QltlP/cSQ7bkE
-	Zvugr8XMoFQ8G7cqhoV8OyX1QvMszA5sre41rZvz7RQC2X0Wkv3iN3M/jj+HI7My
-	e94EQUMjkzYeDEKN5ERFIDzoXMJa6EmmH/aDd7kxtZ5UFNXjI4AlnF5UA4MAdFYr
-	hqLWsQrEVPy+3KEj+uvQS5lvl3d//0PioLksw4ESJ3fz74mKAC2zoNp6vd6s6vJo
-	vKcGg6cdiEyaJwirPsVUTuUv2EyUtceEMGk3v/dpOIfqav+jVFpq3JVH7Msa1rP1
-	7gM5D3v0DCSruY81wLHyWH82gaOsUFlp5RrybXM+YfY5bdLVXwCvK4KgZbk4RXGY
-	uKdj+w==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fdbr4acm9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:06:30 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5174a236220so67890691cf.3
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:06:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SaGz3NUB"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so31464615e9.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:15:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784034916; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E/oECXUCwSe50KekBGj36ACY6VYctpuBbq836J+ZpbHalWI+rvd83eme3MSnCnQZQM
+         /yXL0+yKAehZceuTe5VBKyJM6o0uPMqZaGea4K6aDpQ0Cecp/G1c2G/4NlpmU6xfCa5n
+         LW3q3xAHppFR0Or+wIMmt6QJuZQne/FT1dBMen9Eme8FUHRsUiTgV/ct18AlYimmUx3E
+         ukkGcF5dPQfexSA+i/IWcxQmu2xC0MIkcflsr8S5KuFrMssaLyNODp7fjic2DbIFqJys
+         nIPNi/WDqNUWXHNOHRU6hkzYp2D1x1hbBwNu4N7F3guAbs2ut73+sux3ed/zL1xN5lKP
+         cHkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zYR8riHhwHFuYojsg/ml0oqHNKKCoDuF/KqtRlzn4Dg=;
+        fh=2KS9kKin+HEcEILnRMdaiNS3VGxDfkCQ/D4MoiOf6WU=;
+        b=LlIMEl0XnZ1x0DLyfkyTRAdQZM6ShFEnS6ybd7ufBAngr7joOcFnvqSRBM1kwm4r3m
+         wPg45f4asCpQ5/mI2lMWk8VqUezrJh7lVPNXsqr5bts50vycDNVSjc7/vsTA09LYwOr2
+         S+Kq10ieeHPfoUXPvUdZ9gd0vs9CJv/cKRYCjFz/9a/b7S+uJ/n5HAVbZZVkan/Wnz3U
+         pbE8jkHvASMxFbKo0s8YdcEFfxzqoJhAyeqbpjCENk+5gb2/5HE6VoP4GJNAlWcNLjWD
+         FppR7bOLzUjZ21T0tdFPjZ4NmcUK6kn9bOG/uKI4QmV2u8ee9SdaYgCVyzwD6vyQErfY
+         TgVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1784034389; x=1784639189; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mMfjv7N+IUr+8DUXpwWiIvW4QRhrIOegOkd5Kb/Jmdk=;
-        b=L4fPxnFB4SADPP0ohV1M8Uj40//RGNrUdaFSxErukKw9i7h+P+gPNV1HMgePe0i8uJ
-         YWm+NoZ7R8XIu6lLvkQ9L3oiWG5MSTUw1UBw9q5zLeP9J0+HfZ/87tBtYStYHGHayqPi
-         ozDNKDLKnHbcQ41B9OMWAbFMkDKIr8Q6Zsr9oxYKWWQK5Bf59/uyOsCNjN3Rev0l2Nqz
-         ZwNJ9LaQteSvZuzdIunAIH5krgkVzv1RFFOWrQA2VKtzpMsXkxgaxvSywyvvtQm4LCcw
-         e3Kd12PYm+u+Vz5wPklO+oq0K0/lix9EhYKUHojvORsIJemzSdo+xPl5+xUfJCzrXXO3
-         Ie2A==
+        d=gmail.com; s=20251104; t=1784034916; x=1784639716; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zYR8riHhwHFuYojsg/ml0oqHNKKCoDuF/KqtRlzn4Dg=;
+        b=SaGz3NUBQ2GHG8xCmhlhOvvjGUghtG3Ipcsm6tfITrC8ZZnP7nTePufsvZ6cflZpod
+         QUizEVUcGU6d3lZddyIMOIv9O1IQh8dsIRjpP9mwPudguyeCdMMrrclFFNEtEBl+AVAx
+         gNKfvAEXdo0joezZNbM5vjDxpubz55O09Hq7NJ3t4sGR08aZSdMHP/c/inb9myiKPSdm
+         17NC6765bfaG2+JZuS+rXZOQ4WVUICc3rxVqNp+xviP/1lpldG66Be9oCvjI5yzHjtn3
+         0rAOq9sF66RKv2BkT/+ls8+LNyuEvHybhO6ch5QhudaEIvhozGg2zYqQfsnytjIhsH/C
+         mBLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784034389; x=1784639189;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1784034916; x=1784639716;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mMfjv7N+IUr+8DUXpwWiIvW4QRhrIOegOkd5Kb/Jmdk=;
-        b=fLkoBKML7wvZoWqZodGacKcLMVXYfW885842N3MoLu0fP1uWANCaHYLvfWfjGYknt7
-         lxt1839mqvwlFuHV96NaaRJvWIiPZwhsQdCtwN7pQ3k5IQmonrtMosaN4xY2vhaQgqbX
-         kU4lQlN05Ocgbhnvq8J/d2KZAzjHGabq9/Y+VdEI628FfR3Gp9JRuUsuZP3179fRrMk/
-         vHusaYf2/wBDfP7KJWUh6hezuHqa2ymRQJH2l7plJQgKO0mTv0MWg+E727s6ReiH3CXE
-         K1/rHT6HCnL3kav84I8CNtIXa4VddlrWKmD7ynl0AW2lK/KmEpo2t8jT0fBdo9XjTRh7
-         NUjw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3SxHRYB69R/zRvE5ysLqaVqxPz4bfFvF1u9EGWGnConNyJ8VyIo9awF+N9QSNW+tm728lbyNA2kXA@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw++AcaeSAnVzn58fCslkWpU3EqMHNtArH131hAyFcws71Bq3c6
-	kdFSIe9WpnVHexiyLotPAwO3yDXDsDAf1pCr4rf/yLzoCWH+84DXJ7brG2RoWgwFA6pn+CDJTiO
-	zEmdqAH1mvSnSIri9sryCOh0gSV8DQpDhPy8u5RcOgp/XOdBp7YQXq98/UPgKU2TI
-X-Gm-Gg: AfdE7cl6Me09yvWpyajTkx7YXkkVdozw+1rwXMgShykCjjpb1WlcIlGMOjv+ienGEa/
-	adqvIZKky9KJZzKgF5uNQQaJKtEVkMAEmQoRYAcUF1ocvGYYdcXKRNENjtvpbgszhoaqCcjxfJN
-	6aB6sVc5f0eIva9w/6YsoY0xnQC0EAZ5oVw/W8rMK0E608dTJA3QPES55+I/1qbXTMklp7EIfoK
-	bGK1f4yGuI6h8ub1GsNlwx2deTH2PIffz+DKpCs3U9OyPYrNliGTue83y066xZVbSlIr3/i2Ahv
-	6TVCrHaBUXSXtnVajHQEPBRGpZ6m4m+tusv7jGJdBgklTlIcU4pjna45Y119ZYeFAfYV5jPs76N
-	f2z7Y2UqZDiQ9FBY=
-X-Received: by 2002:a05:622a:106:b0:51c:7b13:6302 with SMTP id d75a77b69052e-51e3c39d1f9mr35236831cf.88.1784034386686;
-        Tue, 14 Jul 2026 06:06:26 -0700 (PDT)
-X-Received: by 2002:a05:622a:106:b0:51c:7b13:6302 with SMTP id d75a77b69052e-51e3c39d1f9mr35236291cf.88.1784034386052;
-        Tue, 14 Jul 2026 06:06:26 -0700 (PDT)
-Received: from hackbox.lan ([5.12.73.156])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f47688f29sm6323742f8f.21.2026.07.14.06.06.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 06:06:25 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Tue, 14 Jul 2026 16:06:10 +0300
-Subject: [PATCH 3/3] arm64: dts: qcom: eliza-cqs-som: Enable CDSP
- remoteproc
+        bh=zYR8riHhwHFuYojsg/ml0oqHNKKCoDuF/KqtRlzn4Dg=;
+        b=A1kFUWmLTJ2+oOqce2TsSkz3KIV27QtjIRhP1jry+e2LrMeZXdtYWWwkkKskkqP/9S
+         A6CUtqKqsynRK0dPVDqDStraafcvlPX4hKhpUHFUVZJz+cLOLOHXSCrNsC3HnOe2eBwH
+         z/rvJ02D1SQ8JygMw6uFfWQ76R4JcLD/Efm5RfWm8koA2wDCrpee8NBwtCw12Q+tjnwP
+         V1mPEdAF9PPhc8PM/PofBZ4hCf9sRw20pYqJ3D5t4PP6IZ+ubVoArcOsN62cOUMcVZkW
+         yc8SqguI6F2qIgPg3EwwZGzjegSHSCF9KPvoRA1URd3r4yz6pEE+6jUuO/S+vHkXmzBS
+         v2Bw==
+X-Forwarded-Encrypted: i=1; AHgh+RoYnE6R5ZjHBiew2XA1PSG9o9XGiEcq7Ukq81BUGBY7OAZIWdlBolGPmGtwpgObI55fwqrNsJ8CbTHi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3B1xhHQQO/Vv1NKZm/Owot9RX/ozaQck3x5IWecVgysuKmggc
+	iixrv63XwqI+oIlWQu658LjPTIN55X1ATDWMlJTh862XSCIff0xDPaEyxiXawUWExMHgGePPYqh
+	PC/K7mw9VJIjE9hD55TggKUdH1Ddwopw=
+X-Gm-Gg: AfdE7clJWxryHr13iXj2TQ/w4vvNTohdoCxGTHLwcV1eRWmeMVuPwL9+Qe/zLzxrkBf
+	T6OuJKv1Ifb62UwZKArkfpcSJft8V2MaRVgnTzMMxJEF+OC4ZEzxpOBAX9401tZnfrrnnw5UjS/
+	n96ih1Z3SwJJl7uAtI/N5DB8kv+id8RAQy6IIAmTlB567YSkujqQF5UCSgunhaBjFlLsqWbGUPO
+	FfRQjGHpwtIpgqrbgOw5K9F4chrgtm4Em1Z9QNDspme7wQgD0mK21Tg67iJN7jlOLMF6VYdbJ72
+	eON1AKy+J+SEVhJpiBCK0g+eeRyUWl3pD5iM5iCM/dG1lKEJWwyyjsYiz8k=
+X-Received: by 2002:a05:600d:6413:10b0:494:1cdd:4f9e with SMTP id
+ 5b1f17b1804b1-4941cdd5035mr50422985e9.31.1784034915742; Tue, 14 Jul 2026
+ 06:15:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260714-dts-qcom-eliza-add-cdsp-v1-3-525e757a23b0@oss.qualcomm.com>
-References: <20260714-dts-qcom-eliza-add-cdsp-v1-0-525e757a23b0@oss.qualcomm.com>
-In-Reply-To: <20260714-dts-qcom-eliza-add-cdsp-v1-0-525e757a23b0@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-bc6c4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=809;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=OwDhqAA2uO/F093Pn+M2f/ZO6s9esDXCzLQX0HD+7AE=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqVjRJWlT3wWMMTl2E+Fe02SKahP0gjByNv6Mkp
- MLpalF48EGJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCalY0SQAKCRAbX0TJAJUV
- VodgD/9aSNNbPoM0IObILwEFLP7lTKvcmHUS114NMstb5YqCiiJFcqrWZgGvG3HRnELxb40bW+M
- RkQSZ1tS2KIjVjvO6VTAM58p6SGvdBWuCMGJhKGxrvBpSHozrBl3NHUjRub9bv4TJOZAGcEjT1J
- 4Hlp5CfpwXJ73nuxPUU9h0OUPMWQu2o4NSPdgCeeZa/m+8wA8P+nLm3utNCZBuAbiy0hQOxh3Ax
- FA8pplbABIHlCd1jNKyUbHhTz+/SY+sx+D+6JEbiANX9pxmbNyC+BxkZwVf9a+sScEHkrWRorDz
- W2kaXfa/OSs/TuyR0jInNLkmyeRXWrEyNWVL5J1P2bXyxneO2/+UbgViPOXyzjNe6DqpLi5WKaF
- xV3RSZpvm2EUYAWj+TNTLQ0BRWclT9B88q/bdlpZ0FvxzaPDitlBN+3+mkF1v773Ka5BbVBSX6S
- MSqND1vYCi+u7vS6gjKc5e/WuQz5zdXQp4E2sDs2FuEihj3X43P0YnUL8p/2eTYR8q/z2h5viN4
- PMbmXBAz1479mg3wgsj+bNUegxaYW12p4VWKU3NS0T78KZtrN7NTeicHZcUfwIV4+4zhr6M4UwQ
- nvJ5zjfkt4nySRlWwLvqPhaacgVRSf88Q40rU/hhZ97OKQu/7RnRwZybTW4Rck7moEpi45gu9k9
- 05yAN3hMDK1G7OQ==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-GUID: xWvlcMjfLrDukNz1orCzrZrOZi3fbefB
-X-Proofpoint-ORIG-GUID: xWvlcMjfLrDukNz1orCzrZrOZi3fbefB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzE0MDEzNiBTYWx0ZWRfXyyHLEuckgJNr
- t9rczjBIrLZ/EcsNrMHJCkRXNHE/bav7GXZSiKa6jDctmtmy8Xyv5hhVvPAtn1F+cD0qu8bQLRB
- I6n+pEZIIvS6xbS001qDKXYbvCI703DXkEWdfR7DSxBlzFdOjPSsEDnhlMd121BSGbYjFgtG93g
- GFyEqq0YRxCp6CSsvR35HQLpAzBq55QCf/UARnxE+y0c7Qtl0aZxhD8kJpTexJT1vnbvXopWwBc
- K8oKEiXJSlFdZNSkPRwPnNGTIkmMxjQ/a0nj2mNF1BMPnjc6TuGWGPmHn1qo4H0fmqBEI2BbGvu
- Y6nbhNPbVMmkxLahw4dbuCWgx+01aSDZU4x8wy7SM0Hw6Zr0MIky7XQ1EIJzpaOfx11gRIJVpjV
- 7dQ53b3T1jzrPMKOtWO3LXh98BInAhLy808zD34eUH01nB5ZTIfvTJb6NxtV7PtGf4FkYWSx4eu
- 5MlSowx/P/60K0qIV3g==
-X-Authority-Analysis: v=2.4 cv=F5hnsKhN c=1 sm=1 tr=0 ts=6a563456 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=qUYP/O48JsHWwiZSxXr1NQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=27Bx3adQT_mWtQqGTPIA:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzE0MDEzNiBTYWx0ZWRfXxkHE6LS30QV0
- vuZ64opDz6fKuWQ6CXgZRrJOo+PolgTI0l7Chz0+Ryco//0oNI0GofpfacDIgYYMK8jaLxQBY7Y
- 9Xs3qs2LkypUrgCxWVcwY3EtrlP9qoo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-14_03,2026-07-10_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607140136
+References: <20260702123112.161160-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260702123112.161160-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
+In-Reply-To: <CAMuHMdXYpDfoRhgfhqeU4_acGQj7f4ivEdB3Ms6SKeeSwY5iLw@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 14 Jul 2026 14:14:48 +0100
+X-Gm-Features: AUfX_mxf9CoAWS1OaHlxkRnP3RC1vp9ZjYGgKTNfss75dU2ZLfsEhv632kdc6DM
+Message-ID: <CA+V-a8t1TbnD14s-d=UVTL58jWA9Sxcyb6mt9tfgAMBUkoJmRA@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 5/9] dt-bindings: watchdog: renesas,r9a09g057-wdt:
+ Add SYS syscon support
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable the CDSP remoteproc node on the Eliza CQS SoM by providing the
-firmware names and marking the node as available.
+Hi Geert,
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+Thank you for the review.
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-index 318ae3c22351..d31267968cad 100644
---- a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-@@ -376,6 +376,13 @@ &remoteproc_adsp {
- 	status = "okay";
- };
- 
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/eliza/cdsp.mbn",
-+			"qcom/eliza/cdsp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
- &sdhc_1 {
- 	vmmc-supply = <&vreg_l12b>;
- 	vqmmc-supply = <&vreg_l1d>;
+On Mon, Jul 13, 2026 at 4:55=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68=
+k.org> wrote:
+>
+> Hi Prabhakar,
+>
+> On Thu, 2 Jul 2026 at 14:31, Prabhakar <prabhakar.csengg@gmail.com> wrote=
+:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > On the Renesas RZ/T2H SoC, the Watchdog Timer Control Register (WDTDCR)
+> > resides within the System Controller (SYS) block rather than the WDT
+> > address space itself.
+> >
+> > Previously, this was handled by including a second register range in th=
+e
+> > "reg" property. However, this is architecturally incorrect as the SYS
+> > block consists of two distinct regions (0x80290000 and 0x81290000) that
+> > contain registers for multiple peripheral blocks.
+> >
+> > Now that the SYS driver provides a unified syscon regmap, introduce the
+> > "renesas,sys" phandle-array property to allow the WDT driver to
+> > access its control register via the system controller.
+> >
+> > Mark the use of a second "reg" entry as deprecated in favor of the
+> > new phandle-array approach for SoCs that require WDTDCR access.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > ---
+> > v1->v2:
+> > - No change.
+>
+> Thanks for the update!
+>
+> > --- a/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.=
+yaml
+> > +++ b/Documentation/devicetree/bindings/watchdog/renesas,r9a09g057-wdt.=
+yaml
+> > @@ -48,6 +48,17 @@ properties:
+> >    resets:
+> >      maxItems: 1
+> >
+> > +  renesas,sys:
+>
+> In Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml,
+> the similar property is called "renesas,sysc".
+>
+Ok, I will rename this to "renesas,sysc".
 
--- 
-2.54.0
+> > +    description:
+> > +      System controller registers control the start/stop of the WDT, a=
+nd halt debug.
+> > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > +    items:
+> > +      - items:
+> > +          - description: phandle to system controller
+> > +          - description: watchdog IP instance index
+> > +            minimum: 0
+> > +            maximum: 5
+> > +
+> >    timeout-sec: true
+> >
+> >  required:
+> > @@ -73,15 +84,29 @@ allOf:
+> >            minItems: 2
+> >          clock-names:
+> >            minItems: 2
+> > +        renesas,sys: false
+> >      else:
+> >        properties:
+> >          clocks:
+> >            maxItems: 1
+> >          clock-names:
+> >            maxItems: 1
+> > -        reg:
+> > -          minItems: 2
+> >          resets: false
+> > +      allOf:
+> > +        - if:
+> > +            required:
+> > +              - renesas,sys
+> > +          then:
+> > +            properties:
+> > +              reg:
+> > +                maxItems: 1
+> > +          else:
+> > +            properties:
+> > +              reg:
+> > +                description: Deprecated. Use renesas,sys to pass the o=
+ffset
+> > +                             of WDTDCR register instead.
+>
+> the index of the watchdog IP instance?
+>
+I will update the description to "Deprecated. Use the renesas,sysc
+property along with the watchdog IP instance index instead."
 
+Cheers,
+Prabhakar
