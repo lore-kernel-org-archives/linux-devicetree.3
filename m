@@ -1,166 +1,275 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021136.outbound.protection.outlook.com [52.101.70.136])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3233840F8DF;
-	Tue, 14 Jul 2026 08:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.136
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784016563; cv=fail; b=eyBdbLyK+Uu07Jy+60P6LTWXkd577Z/j1cvPovFNM3sdc3qdF7nRev3UcL3DrcYjirMZiHyts4BhTGD+hNvy8bl9mUmL1b/0CxfpbfReBwL1OKGMxkHS4L0NPaDSYq7Q6NIjPHbXecn/2Zpl33mcK9rI7bhr8A6iE5A9rQOxHUk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784016563; c=relaxed/simple;
-	bh=hVWqaYmoGLnDBjEoJncRB4YN3ec+YqCVB16cpgYbk+M=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eh6y6mplvyJ9YdWf7gpx6b/LeXFrKnURVYcnh2pigmh3gGQZVdwfZzvcF0dRGrkgrcmYPAaKHpQQzS9DlgIMXGh8HQLDBCd7gGFMb3cRaVKFJqlXnpPqdQJFh84+LKZ3v0H0UYgHVtYslcKXpb+0RxldBbObdmHT/8RfPEmHRTU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=O5jZnE7j; arc=fail smtp.client-ip=52.101.70.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF133F871E
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 08:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784016602; cv=none; b=iEgXrtLOYTlFggoTo5xjh8l4ruIPVndeV0XRLEMkuXuzJkqVTvUIVz6HmCPSstm/uZgaot5RkT5IJOHajVm06JG0suJgYh3fRQj8FEK6v6DU8/pBqwnoqW7ciw3CtMYHFfdF9loSSeBdzvsQnKWnjdtjoDSo1H/wqeX/Vi6iUvA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784016602; c=relaxed/simple;
+	bh=KM0AD2d1EYJgiOQUU1RPa2KcJ5Mzyd7oeXs7HFutUwc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CjsTT5B7xbGltp63Zf0CEraeD5gisvFB+Ca30DaNLlFhPcI7woFEbmDd/vaQyGm0CqnsJzFjv0FqYtvNCnU+Ga30O3krZWjSsySIIZDLFL8S/FO3X15KEV28451JsnffaZ5GwChoRrHXSPMChlpXv7kRQYA6PJXPuHudZiDQ588=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZqF0JTv5; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="O5jZnE7j"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OEZ+hy3exLfYZH0SlIjTAYkZPci796I5Cy+wJ4RQZRxpBRDRoehmVtfRr0WlgcdygJcJtaYVngrmXFM59rUhMvSXOm3HNVZbww0s682OTgKMTXBoGWHjddrbP+9kuOxpNQn52n8i7I26kV9xv5pGOPsNS7SLWbDou3p2NApwNy+wddaPkNn9zYj3UyLPmW/zC22XALMSqafFbUA4iiZBYdRoqiLu+08FLp1utksSE5oXRahBVNaR1MO40SmfHk9LVroA4EOXywaFM9HFDDtzlWS0KbZkIHJ40QXMgD5eX1ln0FhcjQaOxpo9fFit7VP8lTOC3uM/VYzSWkdiN2K3/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hSZSEoq0U+Z9WhVgdOm+kjK1UkgCCKy4mqX4dJKGnHY=;
- b=LqzU5t28uU+NPy4UTuOJf/jhPAM21iL90ftTNc1zuwWb6IMGUnxkfo6AqMMXOkDcdEXMixPGO7Y09hyqfpFtMLv6NWN9sdxNKT/nQ5b4V9a20KlPDCtcJea3OYUISpkLPXztqOuia4POfYEhHyPCTzqdHf+GVldC5HAfuXQS6/sGrXXRRPmreAVAMuIfJYhxIsIkXAnMRx+4bbC1x025VaZ2XetUpow6MkdzOA1v60YBNSd9prAUYqIqveK9zazQY/eV7BAlPbvXJJKLpNMjaH4hXF24BybAyI8lDUFhdswfTKgKZzxnVQa0cE+sFjvZIbs5/SxQtQs1f2zfUHySdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hSZSEoq0U+Z9WhVgdOm+kjK1UkgCCKy4mqX4dJKGnHY=;
- b=O5jZnE7j2jcHtDS2vwwGQsGI3YnjN+J0gtz30gFmUiDOw4ea/bDMssJpA5s9g/HHFrdlN1p9vPS3XgAeIJWc6YXi80tcQ2APg4ctdfVad9mmg3Qocldw+C3d55jQEcMqJG6jvzyaBHdjzWh+cXoXCyHCyv5P20ZqiPuwfnVFKwzb2WyUxXCBq+TLCuV7X6uYU64YwnA1UvX9W6DbsfEYSICemqfyVOeZWr1Twh1ZnHXJZ3VFb4p1VooogImST3+v+tWq4xagI5NNUl5aWhdSzonhImdWwdCd5eZS744fRa3QaW5afTdr1nt8LW9hRk6KA3gQRbS9jV6IwIMB4GQSsg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by PAWPR10MB7389.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:2e6::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 08:09:13 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%6]) with mapi id 15.21.0223.008; Tue, 14 Jul 2026
- 08:09:13 +0000
-Message-ID: <e515a6c5-b32c-47b7-968b-0f6a66e4f24a@kontron.de>
-Date: Tue, 14 Jul 2026 10:09:11 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/10] arm64: dts: imx93-kontron: Enable ELE firmware
- driver
-To: Francesco Dolcini <francesco@dolcini.it>,
- Frieder Schrempf <frieder@fris.de>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Pankaj Gupta <pankaj.gupta@nxp.com>, "Peng Fan (OSS)"
- <peng.fan@oss.nxp.com>, devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-0-b8266d93514b@kontron.de>
- <20260713-upstreaming-next-20260609-imx-ocotp-ele-v2-10-b8266d93514b@kontron.de>
- <20260714065947.GA22086@francesco-nb>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <20260714065947.GA22086@francesco-nb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0056.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::7) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZqF0JTv5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1784016584;
+	bh=KM0AD2d1EYJgiOQUU1RPa2KcJ5Mzyd7oeXs7HFutUwc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZqF0JTv5RavzCgRN3074owMAwCXT8XEumcwTeZvNHv5pCsarbgg8ccSCFOELEUpOk
+	 nZb7Gn0UTx7o5a4o0uNUr8r/woyFjKkmnAdRBRh4xCqkqTnCf9tbXh9nbvi2pjeuHb
+	 vMzRxeL6i9K8Wc+eV5gFGLzO21ULgP11joRef6VIr35qvq2wQwoselF0cORENi6nAZ
+	 mpdSHjp16BFPcXSdPXGufTh0yGcuefIo1ofzEaRYMvWxWcl+G7laCzd4kSRLRWhzWW
+	 Km7WNtEqVI+K92CM88BgDs1ZTnRkU7AE22yyxr6v/2ey9GLjO4khV+4qCRMRf3pN3Q
+	 ZyYBXd9i14EZQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7CBF617E05D3;
+	Tue, 14 Jul 2026 10:09:43 +0200 (CEST)
+Message-ID: <9cd02188-d697-43a2-b2f4-2868819133d3@collabora.com>
+Date: Tue, 14 Jul 2026 10:09:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|PAWPR10MB7389:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37aa9b44-85e2-4688-5a42-08dee17f3108
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|7416014|23010399003|22082099003|18002099003|3023799007|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	XMRoYyijFBBhnIaomNrLWBroN/OUqNydfOQ55Eg1xX9FVU5UL+CoFWPVzdehVqwk3a+e1bMgyfjUsJUwKlXfM2v5ZKATt6zcqGHmg0BtiABzYatAQjgRjImrGO0gR00fA7KNr+wJwvy6nhxdKo/5y5aBn1qqdBFWSXOKRle2IKcJSelpH7PAKCf+UrmjUk1jhYcSD7G2jV2Fs2WRUA9X0mS89Snrqq6ajVeqmwB+aNaBPNw3tOSB79O1HOonq8LM2NRZRPJkQ+V00cwpSKNoxu3z/yq0yUjEbKOnHHUsaPlqJtMKyGwsD1wh7+QFvFwAeo5DigJUQmSnH21KTuIW4nSYMX/dw7jCU7RpwrnlyuYr3Wv3JajYiMecTJTUZhLT+vzHJraeeaZkt7IQBFibb8h6yRUC4/H6agadTapnaM+YC86YEG86+QuXLHR/j4Gdp0QSQ0xsKcBMwMyQtQgrm2a2ISIDFhGAeR1tqRCaejK6SswJAdTtxiUWyXe5PDUkhl4arddr+EUTaWnUyQsDzA+QAYPz7bYbi+PnYoBMBMSFbLQYkk9aopahUAPbDv/caGt/jQ9VCI1wqz6tXfby30TVmxGQlGQOSNxb3BidwoO7R+p8p+KBttzkfG5Sgrp90D0Qj3PI75lyCrWSlndAgUzr/WJy6JKnfKLSRgcpZ5Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(23010399003)(22082099003)(18002099003)(3023799007)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SVJzUzhFOWhjR1o1SGlNV25sN1RDelRBdVhhYzkrVzhIdXlsZUNocHJueEc2?=
- =?utf-8?B?ays5am92ZkZ0MGpwRzU5NmN3a0dWa1FGOTFVMG9Ca2lTWDErcTFZTHFYaDBk?=
- =?utf-8?B?eWMrNXRKc1JMaFd3SEswemhnODFwTERxbVFDOHdLcTJzR0h0RHpFSTJJdVhs?=
- =?utf-8?B?RFoxVEpnL0JqcVpRWFZXTjg3L1JDTm40YkgvOE4xUHQzQ1Y4VkIrM0IzWmVq?=
- =?utf-8?B?RWQweTVGckxFTTFMaklscnMxLzFBY1crYkZlSzFOU0NzeHlGaGJPblU3eXhp?=
- =?utf-8?B?Mk03cGV4UFFhaUljQ1dOY2YwdEU3OXcvN2NGRmNrNjBvTUtSMzJ1TzR1MkUx?=
- =?utf-8?B?Y3BnRzBhSkRCSFI5T2VxYTVvdE54OWsvUFNyeXBKWEthN3NrbHRnWkt0SS9l?=
- =?utf-8?B?UEF3d0FFNjNyU20zRitWZzF2YUhCU0t1aGQyejRJMzEvVDYxT0ZUd3hjeFNw?=
- =?utf-8?B?M0oxUXFSaTZQL2UvL1RjZnBZY1pxS0NpRzF1UDkxZzR2WmRHcW5EYWJleWRr?=
- =?utf-8?B?QkhUczRBTncvSDhJWXRCT2hyRU52UUFXanU3QlFFdTFySmpTa3ZueElQQzFs?=
- =?utf-8?B?N1ZpVjh2ZThaVHJhOW00NW1HOHFCU2NXVjAzQWJlY3NWNEo2aHlSTUgvSUZa?=
- =?utf-8?B?czRza3RYcG0vWWVKa0tENmFpLzJvc0wxbkVjcnlaeXloTU1uVUU3aXpUaDM4?=
- =?utf-8?B?ZCtXYTByNmRKVzdydy9RdUZxWm5mT21lbkZOSmJybGNPTmlxRUgwOHlRaFUx?=
- =?utf-8?B?MUNMbzYzYVV6dHFjVjNzcmJlVWtPclJhNTluOHQ0U0dwY3VZMzVhTUNlZS9E?=
- =?utf-8?B?cTF0N2Q1M2IvSUJraDFJS0VQNmtFdmJBaW9VSm4zaDdEM2xDYkhudVk4bnhY?=
- =?utf-8?B?Z0ZWcGFnbUwxeUJQWkNWKzRJd01XakZiNWZFUmtXb1gxYnlSYUlhNXlMUEdX?=
- =?utf-8?B?UCtBa1VPTXBIRDBXVkZIc3dPOTZYaTZkcnZpSkt2RTZKWmhnbnlNenlpdHND?=
- =?utf-8?B?S0s3ZXBRV3l1S0RqMm5RaGozdGhraG1IS2kySEh0UWM2cDRicWRsWmtKMVFj?=
- =?utf-8?B?QnFtWnhSclFCd3JySjE2TWJYd2hHK1VldERZdENWUEs2WWlreCtPaEtCZVJx?=
- =?utf-8?B?WmdFM3NHLzUwWUpFekU2ZVZpbzA5OGVBbmk2T2JtQjd3QUFVMmoxVFNqNzRh?=
- =?utf-8?B?NVpLcWxpYlhhN3ZJeHBqbzBndEFMeTdCMTJvcFREV1BOcTBBN0hBSVh0Nk5E?=
- =?utf-8?B?dWFVb21YZ2t2UmRtQnhDeTJtWWRZZ0d4amVxaFpUUktBVi9RVE1kTGVGcmJN?=
- =?utf-8?B?MFI0YXE2bkMxUjBibnhsYzR3bmxjZG9sVDUwR3Q5SGhJWEZ4VWNEVEVQaEE2?=
- =?utf-8?B?aGRYU3VVNlNOVzF5MXQ5V3JnNHpEeUxTbFloaTVkZk8rVXBMTVV0NXNmS1R1?=
- =?utf-8?B?L3lNTXRnZkFaL2dKem15a3lRZkJHelVVNXoveURLV3dzNGlXR0Q2WnZ2Vjdq?=
- =?utf-8?B?RmxHT3V5bk9SSjhxUEJCR2w5S0tPT3ZndjBSbXJQYXBLell0cDJSUW5ETmli?=
- =?utf-8?B?K0JEdkZNdFpuazUxbEtrbWt3cXV2cGZpVERkRnB6U2ZVaVZFcmdqejJsVUZ4?=
- =?utf-8?B?Q21sR0JodGVDRGJiUURJblI4aWU5THg3bkFaeUJSbytiTmlwK2VjY1h1TG9I?=
- =?utf-8?B?dFdESHZSRzh5T1duZm12bG1yZ2JyNlZhZlZsOVUweStHUEpaWFk3STZUYlVT?=
- =?utf-8?B?ZTREelRJeUJleEVXZHBwMXRqS1VobmlxOGhiRGhPZUR5N2pGWjh3eE1wK0M3?=
- =?utf-8?B?Y1ZqMHpMZG5JVTROQXBhUUVQdUhvMHdsUkg1QUhieUlUYjVMaUtFOFpZbkNH?=
- =?utf-8?B?Z0cyK2l1UGU4cjdXbkVtSVBJM0xhMStrRkxTamtvSTdpMFJnMjJBQ0dTWVhi?=
- =?utf-8?B?NGFlclU2c2cwR3NpaUZNcHVkN2xDQmxpaEYraHpIaVN3RnBmcU4wMlNYaU9J?=
- =?utf-8?B?a3FMS0NYTW5FWkJRbk9meUN2ZEFhd1Frd0NXRUJ1YWZ1c1JyOWgwSS9oeCto?=
- =?utf-8?B?MHg1WGpGalN4bVhRV29HZEpyZVBJTWF6OW9XMFFRMDFGV2pwbEJYbFF3SG96?=
- =?utf-8?B?clRyV2o0NXdwN1J5c3Y0TzBPdjlqVzcwbGNZQmFVMENGWDZWQ25NanJubHBE?=
- =?utf-8?B?dUlNaVkvU2ZabER6MkZiTXNxZjlTWFJZTDFVdTF3eTJhTWFnUFZzNWhVTTN2?=
- =?utf-8?B?OG1JZnhxMXNmdXhUQkRhZHBHeWxwRG9lMXQ5aWhTM2Z3ZUg2TGxtUFBWdGw4?=
- =?utf-8?B?RWtOSTh0VU1HWm1pR0cxSFVQdUpobFNaYXlWTXI5S0lKMzFzRWtaVmk1OEdS?=
- =?utf-8?Q?+PVhtJitFPAW2vCo=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37aa9b44-85e2-4688-5a42-08dee17f3108
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 08:09:13.4075
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W8LU6C4cgIAJ/uvzl4SEJDUDgCjNmavygQYLFsNlBM+9jq5iJl2pzuo3ybVw6rbpisZFjQJChQSkPeVTwsCid6eikZIK6nt5YH0zwp9BuDg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR10MB7389
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/10] drm/mediatek: Implement Display Stream
+ Compression support
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <20260713142746.40259-1-angelogioacchino.delregno@collabora.com>
+ <20260713142746.40259-3-angelogioacchino.delregno@collabora.com>
+ <20260713144154.0F1E11F000E9@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260713144154.0F1E11F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Francesco,
-
-On 14.07.26 08:59, Francesco Dolcini wrote:
-> Hello Frieder,
+On 7/13/26 16:41, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] Truncation of RC buffer thresholds due to incorrect bitwise masking instead of right-shifting.
+> - [High] Hardcoded and conflicting slice count assumptions without panel validation.
+> - [High] Component discovery loop skips DSI component, preventing DSC initialization.
+> - [High] DSI timing calculation ignores compression and overwrites D-PHY clock lane register.
+> - [Medium] State retention bug where `dsc_config_done` is never reset to false.
+> --
 > 
-> On Mon, Jul 13, 2026 at 04:53:46PM +0200, Frieder Schrempf wrote:
->> From: Frieder Schrempf <frieder.schrempf@kontron.de>
->>
->> Add the ELE firmware API node and pass its handle to the OCOTP
->> driver. This allows us to gain read/write access to the OTP fuses.
+> --- Patch [2]: [PATCH v4 02/10] drm/mediatek: Implement Display Stream Compression support ---
+> commit 94686398e3eedc1a9e39476763b6747a4bcfb4c9
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Subject: drm/mediatek: Implement Display Stream Compression support
 > 
-> This seems something we should have in the soc dtsi (imx93/imx91), it
-> does not seems board specific.
+> This commit introduces a new driver for the Display Stream Compression (DSC)
+> Display Controller IP, implementing support for DSC v1.1 to v1.2. It adds
+> DSC handling into the DSI driver and integrates the bypass setup via CPU
+> writes instead of CMDQ.
+> 
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
+>> index 8e552cdc3b53b..d4be40b2574a1 100644
+>> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+> [ ... ]
+>> @@ -398,6 +401,17 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk_crtc)
+>>   		if (!mtk_ddp_comp_add(mtk_crtc->ddp_comp[i], mtk_crtc->mutex))
+>>   			mtk_mutex_add_comp(mtk_crtc->mutex,
+>>   					   mtk_crtc->ddp_comp[i]->id);
+>> +
+>> +		/* For now, only single DSI is supported */
+>> +		if (mtk_crtc->ddp_comp[i]->id >= DDP_COMPONENT_DSI0 &&
+>> +		    mtk_crtc->ddp_comp[i]->id <= DDP_COMPONENT_DSI3)
+>> +			if (!comp_dsi)
+>> +				comp_dsi = mtk_crtc->ddp_comp[i];
+>> +
+> 
+> [Severity: High]
+> Does this loop terminate one iteration early, causing the DSI component
+> to be skipped?
+> 
+> Because the loop condition is i < mtk_crtc->ddp_comp_nr - 1, and the DSI
+> interface is typically the final component in the display pipeline, it
+> appears comp_dsi will remain NULL here. This would cause the subsequent
+> DSC initialization check to silently fail and bypass the DSC setup entirely.
+> 
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_dsc.c b/drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+>> new file mode 100644
+>> index 0000000000000..bed6b77bf9a9e
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+> [ ... ]
+>> +static void mtk_dsc_pps_setup(struct mtk_dsc *disp_dsc, struct drm_dsc_config *dsc_cfg)
+>> +{
+> [ ... ]
+>> +	/* PPS 8..11 - Each register holds 4 RC buffer thresholds (PPS 11 has two) */
+>> +	for (i = 0; i < 4; i++) {
+>> +		u8 block_num = i * 4;
+>> +		data = 0;
+>> +
+>> +		for (j = 0; j < 4; j++) {
+>> +			u8 buf_index = block_num + j;
+>> +			u8 data_shift = j * 8;
+>> +
+>> +			/* rc_buf_thresh holds 14 elements in total */
+>> +			if (buf_index > 13)
+>> +				break;
+>> +
+>> +			data |= (rbt[buf_index] & DSC_P8_RC_BUF_THR_X) << data_shift;
+> 
+> [Severity: High]
+> Does this code truncate the RC buffer thresholds by masking with 0xFF
+> instead of shifting right?
+> 
 
-My original intention was to move as much as possible into the SoC dtsi.
-The problem is that the memory node is somewhat board specific due to
-the DDR. And I can't move the firmware node into the SoC dtsi and assign
-the memory node in the board dts as the checks for all boards not
-specifying a memory node would fail then.
+This is not truncating anything, and it is the equivalent of
 
-But I'm open to any suggestions how to improve this.
+		dsc->dsc_cfg.rc_buf_thresh[idx+3] << 24 |
+		dsc->dsc_cfg.rc_buf_thresh[idx+2] << 16 |
+		dsc->dsc_cfg.rc_buf_thresh[idx+1] << 8 |
+		dsc->dsc_cfg.rc_buf_thresh[idx+0]);
 
-Thanks
-Frieder
+So this is fine.
+
+> The VESA DSC specification requires programming the Picture Parameter Set
+> registers with RC buffer thresholds divided by 64. Using a bitwise AND mask
+> instead of shifting right by 6 appears to write truncated values to the PPS
+> registers, which could break rate control.
+> 
+> [ ... ]
+>> +void mtk_dsc_setup(struct device *dev, struct drm_dsc_config *dsc_cfg)
+>> +{
+> [ ... ]
+>> +	pic_height_ext_num = dsc_cfg->pic_height + dsc_cfg->slice_height - 1;
+>> +	pic_group_width = dsc_cfg->slice_width * 4;
+>> +	pic_group_width /= 3;
+> 
+> [Severity: High]
+> Does this calculation hardcode the picture group width to assume exactly
+> four slices per line?
+> 
+
+No, that makes the hardware process 1+1/4 pic width per iteration.
+
+> If a panel requests a different slice count, this could conflict with the
+> payload size assumptions made elsewhere in the pipeline and potentially
+> cause display corruption.
+> 
+> [ ... ]
+>> +	if (dsc_en_bit)
+>> +		dsc_con |= DSC_EN;
+>> +
+>> +	writel(dsc_con, disp_dsc->reg + DISP_REG_DSC_CON);
+>> +
+>> +	disp_dsc->dsc_config_done = true;
+>> +}
+> 
+> [Severity: Medium]
+> Can this state retention cause issues on subsequent modesets?
+> 
+> Since the dsc_config_done flag is never reset to false on teardown, will a
+> subsequent non-DSC modeset bypass the check below in mtk_dsc_start() and
+> leave the DSC IP active with stale parameters?
+> 
+
+The dynamic DSC -> non-DSC modesets can be supported only after the mediatek-drm
+restructuring. As of now, only all-compressed or all-uncompressed modes displays
+are supported.
+
+> [ ... ]
+>> +void mtk_dsc_start(struct device *dev)
+>> +{
+>> +	struct mtk_dsc *disp_dsc = dev_get_drvdata(dev);
+>> +
+>> +	/* If no DSC or config not done, set bypass mode */
+>> +	if (!disp_dsc->dsc_config_done) {
+> 
+> [ ... ]
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> index 3f3f56eed3f92..8ab5c3431dbbc 100644
+>> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> [ ... ]
+>> +static void mtk_dsi_ps_control_dsc(struct mtk_dsi *dsi, bool config_vact)
+>> +{
+>> +	const struct mtk_dsi_driver_data *data = dsi->driver_data;
+>> +	const u16 *reg_main = dsi->driver_data->reg_main;
+>> +	const short dsi_buf_bpp = 3;
+>> +	u32 ps_wc;
+>> +
+>> +	/* Word count */
+>> +	ps_wc = FIELD_PREP(DSI_PS_WC, 2 * dsi->dsc->slice_chunk_size);
+> 
+> [Severity: High]
+> Does this hardcode the DSI payload to assume exactly two slices per line?
+> 
+> This appears to conflict with the assumption of four slices per line inside
+> mtk_dsc_setup(). Is it possible to validate the panel's requested slice
+> count against these assumptions during the mode_valid check?
+> 
+
+No, that's another thing entirely, it's the per-iteration DSI word count and
+the dsc_setup is not hardcoding four slices per line.
+
+>> +
+>> +	if (config_vact) {
+>> +		writel(FIELD_PREP(VACT_NL, dsi->vm.vactive),
+>> +		       dsi->regs + reg_main[DSI_VACT_NL]);
+>> +		writel(ps_wc, dsi->regs + reg_main[DSI_HSTX_CKL_WC]);
+> 
+> [Severity: High]
+> Will writing the compressed payload size here overwrite the correctly
+> calculated D-PHY High-Speed Clock Lane Word Count?
+> 
+
+What!??! No!!!
+
+> [ ... ]
+>> -static void mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
+>> +static int mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
+>>   {
+>>   	struct videomode *vm = &dsi->vm;
+>> +	int ret;
+>>   
+>>   	writel(vm->vsync_len, dsi->regs + DSI_VSA_NL);
+>>   	writel(vm->vback_porch, dsi->regs + DSI_VBP_NL);
+>>   	writel(vm->vfront_porch, dsi->regs + DSI_VFP_NL);
+>>   	writel(vm->vactive, dsi->regs + DSI_VACT_NL);
+>>   
+>> -	if (dsi->driver_data->has_size_ctl)
+>> -		writel(FIELD_PREP(DSI_HEIGHT, vm->vactive) |
+>> -			FIELD_PREP(DSI_WIDTH, vm->hactive),
+>> -			dsi->regs + DSI_SIZE_CON);
+>> -
+>>   	if (dsi->driver_data->support_per_frame_lp)
+>>   		mtk_dsi_config_vdo_timing_per_frame_lp(dsi);
+>>   	else
+>>   		mtk_dsi_config_vdo_timing_per_line_lp(dsi);
+>>   
+>> -	mtk_dsi_ps_control(dsi, false);
+>> +	if (dsi->dsc) {
+>> +		ret = mtk_dsi_set_dsc_params(dsi);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		mtk_dsi_ps_control(dsi, true);
+> 
+> [Severity: High]
+> Do the DSI lane timings calculated earlier in
+> mtk_dsi_config_vdo_timing_per_frame_lp() incorrectly use the uncompressed
+> pixel count?
+> 
+> By passing config_vact = true into mtk_dsi_ps_control() for DSC streams, it
+> looks like the raw compressed payload size will subsequently overwrite the
+> timing synchronized register DSI_HSTX_CKL_WC.
+> 
+
+It's done on purpose.
