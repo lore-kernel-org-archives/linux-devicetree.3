@@ -1,102 +1,240 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C8E2EEE88
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 05:09:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7072FDC57;
+	Tue, 14 Jul 2026 05:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784005795; cv=none; b=nehEC7TZVBEMgyeOzbaTDplxofCuGWnGpqG6SoppqHHGbowXr2nU6tOk+j+LJrcHvApP8aySQ7miNgAb9N7Lx8JhF4aQtgUV73ew3BajJdYhTMX6TaZmoFgAaHOATm4o0Uyud9DZzPkG+f5X1bkdakxY7UUCqP4cO04DZte99BE=
+	t=1784006206; cv=none; b=j2ZGZXyGqXK25FA8qTmnqDWwyICX/k7ZAD5vqiY0fXm++bTCkOuGiQTzisWYtSurqUVPelixsEf5m/OFsZ3KI1ivWsdtIWW2iCuJVmwgWkFQGVbfP9PHkDbaGQVEHXKZt7PirpCdM2kd16P5GGs1q0z7PaTmHENyRl3VitACNzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784005795; c=relaxed/simple;
-	bh=ET2aT6q5/MDR0ejxYJ+058aGiATeq2HruGeYqbeZAuI=;
+	s=arc-20240116; t=1784006206; c=relaxed/simple;
+	bh=fffcwaDccwB9eQFVpdZGxcpRpiC1foAISxuTR+mFvl4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JDsCze9e0WQ/JXdiauOOdpVChPEzdH4N0KrqA78UPQIPa8TMgiGHXpLu9ozdSDFzMTxlzXdeziyW9CyY7w8p341WDxKf5caOq0P1W0x1o259Mq28xjrMTKGJmHHWvcVv6FPF0y1arG6zXGUS57QZpoA2P0rDFwmR7IHyzEEjoP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hc/SCVTm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hbDoxAzhzEzJd983anz7lqMzavruJs/Tqig7bx1XRRp5lCHN8Tr9JlFSwZMz8Q9jlnhfHKH5ScjnLW0R1gVaqobFkz1wTo+T6+1s6Slz8/O8OX84snO2VRVd6fEM16h7yf+AxWKGPDBzs7kS5x6S8VLwhv7FvmBu/hXZx77aOyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKyPkaf+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hc/SCVTm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BACC51F000E9;
-	Tue, 14 Jul 2026 05:09:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKyPkaf+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA82A1F000E9;
+	Tue, 14 Jul 2026 05:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784005794;
-	bh=0njb/l4wxD56mQ5y0lLZ/F40ma/ofszLddj+tBqNSlk=;
+	s=k20260515; t=1784006205;
+	bh=t/ymbryqXA0PVYLOIPdx5k/lhyNw4Y1C42sqqleX2gw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hc/SCVTmmR67L4EEC8RqKtf1prL6ln0oDyZMk1NPBywjKoIwqOVg4PCsRsXxHHovv
-	 /X+SGDUmSmmxP61U9rcTLK7ayWUfBj2afp2V5DfOpx8o+RfuSDX/AgVap4PB88mV0M
-	 zTKPmo01QbeMHv5PSIwwEFuy29UIDZG3vuR432o/n6/+BXQkozaUexbzzB5Sg/Zx0k
-	 QmxZRgbGUye+weTCYiJQR5W5iNnIlhinJuLYDdQZJNNU732oSLQU8GIaWy5KZzDgoh
-	 Bq6xYhp8hUd9YzuYCgKmCeWpKbSUSF3V+nbq1Ez6KWhHjs/G8F36Y9jCg8dkk/BVgD
-	 lPh83E8eOdoSg==
+	b=KKyPkaf+RT9HGrBw0WtfieWB0he5VWyF+C/1A0G3LHC+Wdy9Z8O/hrkwfJsJmAoDK
+	 jw70bXG2kogDz8NT0yfDo7huvYGgQxFQz7QKOxnoIx40Rqzr06FcoGTU1tlaRyy0eY
+	 a/HqCw/abbw8XaIDVI08mKwP/7prvjsjRpvJ/9qPjTuE17UhNUSfCDzNGzdFgujCWe
+	 U8UTR7ElP4BEG77gxA3EhVLdBOok/KD/BqXlskLqHk0pwXDJz12mvgcavm2+UaW/lq
+	 1XuvGcOy2ljhuVSP4VtASnLx1RgZWdv9ul4+xTr+L3l1ON/HnYrZkKP0OcW13r0hs/
+	 i4CBTGctubRsQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 1/7] dt-bindings: clock: qcom: Move glymur TCSR to
- own binding
+Subject: Re: [PATCH 2/2] dmaengine: qcom: bam_dma: SCM-assign descriptor
+ FIFOs to a remote VMID
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260713-tcsr_qref_0714-v9-1-373670ab15f9@oss.qualcomm.com>
-References: <20260713-tcsr_qref_0714-v9-0-373670ab15f9@oss.qualcomm.com>
- <20260713-tcsr_qref_0714-v9-1-373670ab15f9@oss.qualcomm.com>
+To: "Vishnu Santhosh" <vishnu.santhosh@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260714-qcom-bam-dma-vmid-ext-v1-2-cef87c57b7dc@oss.qualcomm.com>
+References: <20260714-qcom-bam-dma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com>
+ <20260714-qcom-bam-dma-vmid-ext-v1-2-cef87c57b7dc@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 05:09:53 +0000
-Message-Id: <20260714050953.BACC51F000E9@smtp.kernel.org>
+Date: Tue, 14 Jul 2026 05:16:44 +0000
+Message-Id: <20260714051644.CA82A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] The newly added qcom,glymur-tcsr.yaml binding marks 17 `vdda-qre=
-f*` supply properties as unconditionally required, but existing device tree=
-s do not provide them, causing a `dtbs_check` validation regression.
+
+New issues:
+- [Critical] Passing an IOVA to the TrustZone SCM call instead of a strictl=
+y required physical address.
+- [High] Skipping hardware reset during channel termination causes DMA Use-=
+After-Free and persistent state corruption.
+- [High] Skipping interrupt disable during channel free leaves hardware int=
+errupts unmasked for a destroyed channel.
+
+Pre-existing issues:
+- [High] Unconditional MMIO register access in driver removal causes a sync=
+hronous external abort on remote-powered BAMs.
 --
 
---- Patch [1]: [PATCH v9 1/7] dt-bindings: clock: qcom: Move glymur TCSR to=
- own binding ---
-commit 6bffb0197809346112dba264dc91035d8e1ed982
-Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
+--- Patch [2]: [PATCH 2/2] dmaengine: qcom: bam_dma: SCM-assign descriptor =
+FIFOs to a remote VMID ---
+commit 91f2fbb1c7215cade81c38c8732865591d19254f
+Author: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-dt-bindings: clock: qcom: Move glymur TCSR to own binding
+dmaengine: qcom: bam_dma: SCM-assign descriptor FIFOs to a remote VMID
 
-This commit extracts the Glymur TCSR block into its own dedicated YAML bind=
-ing
-file and documents the supply properties required by the QREF block. It uses
-an allOf conditional block to enforce these supplies for the qcom,glymur-tc=
-sr
-compatible string.
+On Qualcomm SoCs where the BAM is powered by a remote processor that
+enforces XPU access control, the BAM reads the descriptor FIFO as an
+AXI master under the remote execution environment. This patch handles
+such BAMs by keeping the descriptor FIFO as a persistent resource,=20
+SCM-assigning it once and reclaiming it during remove.
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yam=
-l b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
-> new file mode 100644
-> index 0000000000000..ec89feff89e4e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
+> diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+> index 1bb26af0405f3..389ca1a9d70e8 100644
+> --- a/drivers/dma/qcom/bam_dma.c
+> +++ b/drivers/dma/qcom/bam_dma.c
 [ ... ]
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,glymur-tcsr
-> +    then:
-> +      required:
-> +        - vdda-qrefrpt0-0p9-supply
-> +        - vdda-qrefrpt1-0p9-supply
+> @@ -559,6 +567,126 @@ static void bam_chan_init_hw(struct bam_chan *bchan,
+[ ... ]
+> +static int bam_assign_fifo(struct bam_device *bdev, struct bam_chan *bch=
+an)
+> +{
+> +	struct qcom_scm_vmperm *dst __free(kfree) =3D NULL;
+> +	u64 src =3D BIT_ULL(QCOM_SCM_VMID_HLOS);
+> +	int i, ret;
+[ ... ]
+> +	ret =3D qcom_scm_assign_mem(bchan->fifo_phys, BAM_DESC_FIFO_SIZE,
+> +				  &src, dst, bdev->num_vmids + 1);
 
-[Severity: Medium]
-Does this cause a dtbs_check validation regression for existing platforms?
+[Severity: Critical]
+Is it safe to pass the IOVA returned by the DMA allocation API to TrustZone
+here?
 
-By marking these 17 vdda-qref* supply properties as unconditionally required
-in the allOf block, validation will fail for existing device trees (such as
-arch/arm64/boot/dts/qcom/glymur.dtsi) that use the qcom,glymur-tcsr
-compatible string but do not yet provide these supplies.
+When the device is behind an IOMMU, bchan->fifo_phys contains a dma_addr_t
+IOVA. However, TrustZone operates on raw physical memory and expects a phys=
+ical
+address to program hardware XPUs, completely bypassing the local IOMMU
+translation.
 
-Would it be better to introduce these properties as optional first, or ensu=
-re
-the corresponding device tree updates are included in the same patch series
-to prevent breaking schema validation?
+Could this cause TrustZone to configure XPU memory permissions for the wrong
+physical address?
+
+> +	if (ret) {
+> +		dev_err(bdev->dev, "SCM assign fifo chan %u failed: %d\n",
+> +			bchan->id, ret);
+> +		return ret;
+> +	}
+> +
+> +	bchan->fifo_src_perms =3D src;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * bam_fifo_can_free - Reclaim a channel's descriptor FIFO to HLOS
+[ ... ]
+> +static bool bam_fifo_can_free(struct bam_device *bdev, struct bam_chan *=
+bchan)
+> +{
+> +	struct qcom_scm_vmperm hlos =3D {
+> +		.vmid =3D QCOM_SCM_VMID_HLOS,
+> +		.perm =3D QCOM_SCM_PERM_RW,
+> +	};
+> +	int ret;
+> +
+> +	if (!bchan->fifo_src_perms)
+> +		return true;
+> +
+> +	ret =3D qcom_scm_assign_mem(bchan->fifo_phys, BAM_DESC_FIFO_SIZE,
+> +				  &bchan->fifo_src_perms, &hlos, 1);
+
+[Severity: Critical]
+Since bchan->fifo_phys is an IOVA when an IOMMU is present, will passing it
+back during the reclaim operation compound the memory permission corruption
+noted above?
+
+> +	if (ret) {
+> +		dev_err(bdev->dev, "SCM reclaim fifo chan %u failed: %d; leaking\n",
+> +			bchan->id, ret);
+> +		return false;
+> +	}
+[ ... ]
+> @@ -613,12 +754,29 @@ static void bam_free_chan(struct dma_chan *chan)
+>  		goto err;
+>  	}
+> =20
+> +	/*
+> +	 * Remote-owned BAMs (qcom,vmid) keep the descriptor FIFO allocated and
+> +	 * SCM-assigned across power cycles: the remote may already have cut
+> +	 * power, so pipe-register access would fault, and TZ still holds the
+> +	 * grant for the next restart (the FIFO is reclaimed and freed once in
+> +	 * bam_dma_remove). Only drop local channel state here so the block and
+> +	 * pipe are re-initialised on the next power-on; skip all MMIO.
+> +	 */
+> +	if (bdev->num_vmids) {
+> +		scoped_guard(spinlock_irqsave, &bchan->vc.lock)
+> +			bchan->initialized =3D 0;
+> +		bdev->active_channels--;
+> +		goto err;
+> +	}
+
+[Severity: High]
+Does this early exit skip masking and disabling the channel's interrupts in=
+ the
+BAM controller?
+
+If the hardware reset was also skipped during termination, the BAM might st=
+ill
+be actively running. Could this assert an unmasked interrupt when a pending
+transaction completes after the channel is freed, resulting in an interrupt
+storm or use-after-free in the interrupt handler?
+
+> +
+>  	scoped_guard(spinlock_irqsave, &bchan->vc.lock)
+>  		bam_reset_channel(bchan);
+[ ... ]
+> @@ -767,7 +925,9 @@ static int bam_dma_terminate_all(struct dma_chan *cha=
+n)
+>  		if (!list_empty(&bchan->desc_list)) {
+>  			async_desc =3D list_first_entry(&bchan->desc_list,
+>  						      struct bam_async_desc, desc_node);
+> -			bam_chan_init_hw(bchan, async_desc->dir);
+> +			/* Remote-owned BAM: pipe reset may fault, skip it. */
+> +			if (!bchan->bdev->num_vmids)
+> +				bam_chan_init_hw(bchan, async_desc->dir);
+
+[Severity: High]
+By skipping the hardware reset for remote-owned BAMs without providing an
+alternative mechanism to halt the active hardware pipe, won't the BAM conti=
+nue
+performing DMA?
+
+When the client subsequently frees its data buffers, the still-running DMA
+hardware could overwrite the freed memory. Furthermore, since the internal
+software state flag for initialization isn't cleared, might future transfers
+start with desynchronized FIFO pointers?
+
+>  		}
+[ ... ]
+> @@ -1418,9 +1582,10 @@ static void bam_dma_remove(struct platform_device =
+*pdev)
+>  		if (!bdev->channels[i].fifo_virt)
+>  			continue;
+> =20
+> -		dma_free_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
+> -			    bdev->channels[i].fifo_virt,
+> -			    bdev->channels[i].fifo_phys);
+> +		if (bam_fifo_can_free(bdev, &bdev->channels[i]))
+> +			dma_free_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
+> +				    bdev->channels[i].fifo_virt,
+> +				    bdev->channels[i].fifo_phys);
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but I noticed an unconditional MMIO register
+access in bam_dma_remove() happens right before this loop:
+
+	/* mask all interrupts for this execution environment */
+	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+
+If the BAM driver is unbound while the remote firmware has cut power to the
+hardware, wouldn't this unconditional MMIO write in the removal function fa=
+ult?
+
+The patch intentionally skipped MMIO operations in other teardown paths (li=
+ke
+channel free and terminate) to prevent this exact crash on remote-powered B=
+AMs.
+Could we also fix this in the removal path?
+
+> =20
+>  	tasklet_kill(&bdev->task);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260713-tcsr_qref_=
-0714-v9-0-373670ab15f9@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714-qcom-bam-d=
+ma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com?part=3D2
