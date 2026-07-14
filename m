@@ -1,107 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869FC41D64D
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66690377AAC
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 20:05:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784059499; cv=none; b=SWyUIVNeeAxWbJXgjP4ieezazq7XAQCTpLTM7wCOEXwEF1T65ZKbXwUF1Py6AYkGFM5v6947j6JgGaylUAkPQ60cvaANdk5HhDj0aRk0tuzCX7D4hCxyBP0P/l2QHt4gE7I3whkDAX4xAipKLfF7IzRmmcb7X5J55eH331sp1u4=
+	t=1784059540; cv=none; b=OE+e6H/r/6HzAKP2uOi7C2Uy/coJ93yzKB7PoEK8r00jZVwlEk017MGVaKscKGNYhfu0EVe1sVBeJ66ld5dSEf8X5jvuo2KePb38kjQ8anETSPeXqtAlLZ/KAg3PUv3wBQWu0AksnmArYIKzgeweb+Ls1EXlUSzzJfe4hbRrurA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784059499; c=relaxed/simple;
-	bh=QYWu+AjGYE8mrtyjxzDSkho03YaMQbXwzrHnepcV1Dc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pos+bN5jAKuJOds8AzLRNpU4wqFLx+YkBzk0CkUzh1hQG2oHwu0G6tg1mqzXal1dkZzB39/RMNm6PxyNy4zFZBfA9c5EF2w38Yxo3WPOGCopWVbiRNN1EDw/gaXQ4mRw8Lr4dfmksMY4oFhlIVKM3v/hVbQO4nB42qEjH1sKvKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/qjVm7y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784059540; c=relaxed/simple;
+	bh=nJP75in4P3lswa4oWsjjX2TeYlHn/IYg0sncecBQJ3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b7E3Q0kUJ5zDUnEsv7DW0JVc6igzm9ojm9OuDOlQUpxqVqd9G/dvPEAqHSj4o5Sg6zbgV7ISVuQ43GDrSoJtUoINH8vEXB6jNgUSdGTB61jFtd8vsduH762YonTcuWBS2wW1uMYJF9ImeZZz+KgiqWl/RLDVxY8kTJeDRQR+Vy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oZtAQOeD; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/qjVm7y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943621F000E9;
-	Tue, 14 Jul 2026 20:04:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784059496;
-	bh=uV9l72MAv7h24mqUzqYt5ngN3HtLdCyUrS/ktmyhYi4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B/qjVm7yGKzp2Q0TRCXUhUYRWtNWQ8v6vtC9MFXVnRqOCy4xtPFLjDbklqlCVkUZH
-	 3QYlx/KrZUNqArjYr7w1/8ClEv7wYDl+v9sG8Lz4LDUM+7jjkzbRYaDqXbn5B65Jnx
-	 eNblVJnoeygNGMCXoH4rt5Zf/lkHDbxJ8OiWAIs19aieOku0YiRfFHlbGUo8R/H8F+
-	 3Ko9S+lxSqSXEG7HzPxIsjX64VPBd0pyA15MtJjEogPvZqBIr9N70geLYCqz1HQJd5
-	 SvNhy/qpvlYcbps/GBzzUSYVuXh4EQoA2nZZ0cUrSrRrCtPl1WBqwmUoLCX9uwRQbK
-	 7Kc15hjmEwOpg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/3] dt-bindings: iio: adc: ti,ads1100: add support
- for ADS1110
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260714195528.597753-3-jakubszczudlo40@gmail.com>
-References: <20260714195528.597753-1-jakubszczudlo40@gmail.com>
- <20260714195528.597753-3-jakubszczudlo40@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2026 20:04:56 +0000
-Message-Id: <20260714200456.943621F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oZtAQOeD"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47640541585so2269248f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 13:05:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784059535; x=1784664335; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JoWubUhSydBTzOYHJhhAjBoFYVBqYbpc3fDg9gsugJU=;
+        b=oZtAQOeD/VvTFbU7PItaGFPEGZ/Zzg5SuVJQxNYDZjSDhl/8Samiji5Ynrc/jpPQT6
+         gCvE8E0wqL8rOI+i7HRcgup2f3i9fIBuCAkBxBw18vXyEVHUZY8ggFlgt6mWsSjXDyYs
+         eO7tBxtOKLuRMAw5UPQKZWF1Sdmirz50mZ2rHYJ3bc1V0q04llIy3XJ5IR/jsZZDTUrE
+         MiZmPw8o1s7HWookp+G0e6zxpvFkQlBAbbjajKDAUAkeWBv+lNJnBylCZxzsy4sx+YUE
+         9kZ9V+LSJ9A+E9aMNmzYURGWsOR9vEJEd7kEKl3Py0ADeRTgKectMyGwhDbm4bF5sCDf
+         ez1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784059535; x=1784664335;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JoWubUhSydBTzOYHJhhAjBoFYVBqYbpc3fDg9gsugJU=;
+        b=oVS8oMWBy+HPBk8qZTTiu8zleiM2Bj1VxSlDGL0y0xsPJjxDZKAoJSCZGH/y/46Pw7
+         5YpTZhTklWcJtuHqpBf+kNyvKOsGwZtA9EzTYaMR1YjxXTNMxQWTl5DTNIszqcm4dMfX
+         uXxlvVQMnw0coIQwFlYHZXnRYCFpT7GPNdxcScbZfF1d+Vp8+U579JUmpOE+P3/8sD5/
+         BcPCvBHCSiuN7bDkBUIqZdRkoJImNqsF6SwQ665gJ0VRXooB/6/iU3GY49nKhQ8OLe8D
+         DEyUmVmEKcoRP8rM5PtfFtz03cAJpzNkaJL9411aBjyWulT+YMuxDfTIydfcxGfGtcMn
+         r4mg==
+X-Forwarded-Encrypted: i=1; AHgh+RogU9yxKj7Gz0eUZO29A0aNnU8eJfTLGJATCTOoAedrgi9Teg52fVnt5HtQgV/hcJkWJAYMobVuD6y9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyy2WGaA/umHttqhQ1N/XHWjeUeqR3+r/MT7Pnlkos0O/IWjGEn
+	OCbsEm0HO6gCdWEPXayodj5qg9vfr4nU8zJ9Y8T+TvDBovsergOuRcNP
+X-Gm-Gg: AfdE7clhEKOf8X2vUvGOgV9MiIPaA5/VsiJEpYOnNqminDKLsWacU3NG9yF5xIGsKZj
+	VGjaJHZuzSWAQy2vuXWd87JhaKcN1GHBDF1snFY9Hva96SUjQIWP7WXE6+6uJ1SbuGG6tq9k5uh
+	ZztblQnSTsvlv8EdCsjZcjdsFjlF93bTkhKuysY3U8Jx+YySX03+t/ZV1UCfqznkYac+NRY3czB
+	pyFfVp7dmx2jCGVrZ9hwfnXMArmKXjNlT6MOR3ovxMX1cXtuXTp1huX9L+CaHrzhkM7SpoMjS7o
+	sNEV9+jS+AdKOSjOVqBpDg6w8N8kP/t65yhwpHIb/dAT5zc7d4ry0fPTQRIe0Hn6oWlr/m18D9v
+	fY/bg6NaQM9QN3nKvuwOPcLfzxpV2M5d84pDmAQsHgEy7mKH4FrUnRAvZxMqfIgkZ/ci9tNL4p9
+	mK0nL0+bwc2xnyDxfwLc1CIYPABxaDC9Z8q4Q8nO/QNvX2/tuvQ1DwRMzl
+X-Received: by 2002:a05:6000:2008:b0:478:9d9a:d515 with SMTP id ffacd0b85a97d-47f2dcf7f47mr15914629f8f.44.1784059534751;
+        Tue, 14 Jul 2026 13:05:34 -0700 (PDT)
+Received: from GLaDOS.station ([93.66.5.8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f464a9879sm11669797f8f.22.2026.07.14.13.05.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 14 Jul 2026 13:05:30 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 0/3] Add support for Variscite VAR-SOM-MX8QM and Symphony board
+Date: Tue, 14 Jul 2026 22:05:18 +0200
+Message-ID: <cover.1784059139.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Logic error in ads1100_poll_data_ready causes a 7.5 second hang an=
-d -ETIMEDOUT on every configuration change
---
+This patch series adds support for the Variscite VAR-SOM-MX8 QuadMax
+system on module and the Symphony carrier board.
 
---- Patch [2]: [PATCH v7 2/3] dt-bindings: iio: adc: ti,ads1100: add suppor=
-t for ADS1110 ---
-commit 020c9fd2512b9b8cdb2cbcd5179eab372c1ab0a5
-Author: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+The series includes:
+- SOM device tree with on-module peripherals
+- Symphony carrier board device tree with board-specific features
 
-dt-bindings: iio: adc: ti,ads1100: add support for ADS1110
-   =20
-Register layouts are the same as for ADS1100 but ADS1110 have different
-data rates and have internal voltage reference that is always 2.048V.
-Also correct order of ads so they will be sorted alphabetically.
+The implementation follows the standard SOM + carrier board pattern
+where the SOM dtsi contains only peripherals mounted on the module,
+while carrier-specific interfaces are enabled in the board dts.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml b/=
-Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
-> index 970ccab15e1ec..28c5e2dd0ad62 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
+v1->v2:
+ - Added non-removable property to usdhc3
+ - Removed unused fec gpio pinctrl
+ - Fix ptn5150 interrupt
+ - Fix ecspi1 cs gpio
 
-[ ... ]
+Stefano Radaelli (3):
+  dt-bindings: arm: fsl: add Variscite VAR-SOM-MX8 QuadMax Boards
+  arm64: dts: freescale: Add support for Variscite VAR-SOM-MX8 QuadMax
+  arm64: dts: imx8qm-var-som: Add support for Variscite Symphony board
 
-[Severity: High]
-Does this logic in ads1100_poll_data_ready() cause a timeout on every
-configuration change?
+ .../devicetree/bindings/arm/fsl.yaml          |   6 +
+ arch/arm64/boot/dts/freescale/Makefile        |   1 +
+ .../dts/freescale/imx8qm-var-som-symphony.dts | 488 ++++++++++++++++
+ .../boot/dts/freescale/imx8qm-var-som.dtsi    | 529 ++++++++++++++++++
+ 4 files changed, 1024 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
 
-In drivers/iio/adc/ti-ads1100.c:ads1100_poll_data_ready():
 
-	ret =3D readx_poll_timeout(ads1100_new_data_is_ready, data,
-				 data_ready, data_ready !=3D 0,
-				 wait_time_us, ADS1100_MAX_DRDY_TIMEOUT_US);
-	if (ret)
-		return ret;
+base-commit: d0c222c2e2ce577d801bdf129dc6c078f29e22df
+prerequisite-patch-id: 0996915f031a1d899202c5fba75a969d6ce2a53d
+prerequisite-patch-id: dbed47ecb907f6b7f7e284c5c1a3c325566eafd7
+prerequisite-patch-id: c758aa296e6effc94c30449cc7e4773f0ae02914
+prerequisite-patch-id: 31784fa7a3ee5c178b2f1ffa97c1dd7c1d3d898a
+prerequisite-patch-id: 5810f43cde9c24ee318d680c1852b3ded18f3aa0
+prerequisite-patch-id: 012c9c8ba4e290532a1b7f8642274b7c5f252e03
+prerequisite-patch-id: a57d576be42d5061bba453f0d5960132be55a1ff
+prerequisite-patch-id: e34a75fb6f7e01455dd5ca734dacad66b12de06c
+prerequisite-patch-id: cc7abadd0354d14bad0cac1fbacda14ab9d4e02b
+prerequisite-patch-id: c0276686c0247cb2385c56b96cbfd6de5128415c
+prerequisite-patch-id: 100c47538870af63194b407fae06183fee85fc09
+prerequisite-patch-id: 3a3b3e40f5fba785857091dda909d22bfc5e2d0e
+-- 
+2.47.3
 
-And in ads1100_new_data_is_ready():
-
-	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
-
-When the device operates in continuous conversion mode (enforced by
-ads1100_runtime_resume before the polling loop), the datasheet specifies
-that the ST/BSY bit is always 0.
-
-Since data_ready is always 0, the condition data_ready !=3D 0 evaluates
-to false on every iteration. Will the polling loop always block for the
-maximum timeout of 7.5 seconds (ADS1100_MAX_DRDY_TIMEOUT_US) and return
--ETIMEDOUT?
-
-This breaks sysfs writes to scale and sampling frequency, severely
-impacting driver usability and causing large delays.
-
-Furthermore, even if the device was in single-shot mode, breaking when
-data_ready !=3D 0 means it would exit immediately while BUSY (1), instead
-of waiting for the conversion to complete (0).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260714195528.5977=
-53-1-jakubszczudlo40@gmail.com?part=3D2
