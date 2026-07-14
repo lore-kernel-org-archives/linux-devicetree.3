@@ -1,287 +1,157 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazolkn19010002.outbound.protection.outlook.com [52.103.13.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D810D3DD523;
-	Tue, 14 Jul 2026 06:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.13.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1BA3E1CE5
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 06:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784011605; cv=fail; b=VE/NUP/0pEEobOIZQ/xoxok4SiMAR7zmRYa89wZXorRXa87j6wmcHcxv3J2P3CjBwpWrLQ09rh1yn0hBLt53WicoyE+Ma1f6pl+GGrYVv4YszoHIW7y0PCl8SSNQeR/0K98uRhp9PEUQMj4TgB7AL6pkp8X6m7dtQj7uFjZ0MOo=
+	t=1784011612; cv=pass; b=Da6ngrxKvN3itOdr4w+I4+Qc30BtOoHZQvhfgOq9EPVvJgxvh4wdmJoG+yQIoBzbfQFvsILelvPNKy8mRPQcxxPlRENogKigomM+OFiz3YVz/Gg8F2VAgcVmxTVAqEUtEky0oqZYwxZuPD1NwbzrS1BrLxhGhBc0JpYyCcpybPs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784011605; c=relaxed/simple;
-	bh=S9guCEJP4rj4EJQPcow0TfvVnQt0pJmmYo4Jae3ouQs=;
-	h=From:Date:Message-ID:In-Reply-To:References:To:Cc:Subject:
-	 Content-Type:MIME-Version; b=JpgjG4m5tT8oj7tpZ2xpdmYxqo2fqs9algysay8Cerpfex981XmrUCHWIgziOdv5i9ZDTf0O1ketXbxtBF/TlWsYzq2+MKrz292XKDGj7kfu6PvGIlvuYEelXvKIPy7b0toenZYYY7LqdcaI9ioePqr9mBBkBA2mrC9etM0Clko=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=MTwHmXHi; arc=fail smtp.client-ip=52.103.13.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	s=arc-20240116; t=1784011612; c=relaxed/simple;
+	bh=evGdp8hY4UsToY/uvp7yLFJq32Ens/R4w8zKdD+5dMU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oHYPJgiItUjxQ9v3nVqd2Hb+87bKd/ZQurv9dhCKh22NZhegD1471zHGeLt4q1w84PCqWRzBG5qgCrggNAp45Av9BgrB7V8VxO8D8XI18Ncl6qvr6qJ02aNnt3Gd3wXo+zrWRnLQOPhzEVg/wDX4xkMKB1Vghewuwx/eRjuCQ4I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=Ndji3Yyx; arc=pass smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="MTwHmXHi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NnCrx0C3KytB2eIxoR4snKNODHQfVYFmNke4oP2NQsF8sgr4CY0K9EyAD1OfiX2pz9o32jBel2MDXzleuZESWRovgv3LWXVUBjEQLzSyzwplmlCdPuTGZJ0cKx/rI1cA+QHPk6JIo6w62Wu0kMGt1VnLPvEfgRaxJvdE9drf4B9XjfpywzHOFNklTS7V3E1JHWD+aKbRfDvr6gzKXhseozDRhZbZDPa14+cPs4c4OooEbdS2jQPzjA05Go/s2DDx3yT8pyggnJ6Hbjh8BedfskM2qKEKU7JRRWsvaaxFdC2bOKIFqyT71e+faJeEwLj7QYbrScHfveNhRcZuD4IjYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lo+yZECybGA4wp69HFQrP5ue7i3DFKI0mnQhcfyJV9w=;
- b=os/SxLZZ1PH6mGzEbqLYuRtDnTFtxTMttQ6bTX0BebvQaSONrRVoiI8gNd7LEvyZmESpJWGclzqCj7YBtpf6WzmwpcrSDt220AnTaS4tpHJBfdAwwQf6yHrDAbrrCKlVjVhj0YsPRU2LBmzHs0wN+PQZ+kiEKhEZagM/W9DKQq514PJVdkrv/hGL3W3N3siWphiv/QUaUAbcz6TQSRNtogYzZHjhme56HD1vXvMD8h8jXuzhK3xKhebyLGTZuFChaHah6i5XiHFuCumErlJHNwgk7PhXeNhujnL4K6h7sEGAOLLq+FxRX2bPex4W14WvFAIH5Nraqwyvm22uiImyeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lo+yZECybGA4wp69HFQrP5ue7i3DFKI0mnQhcfyJV9w=;
- b=MTwHmXHiRkAqod3PO1bJVRQIGxaZJqAuRMhseBO/sd5sUaxAcE2GZyIL3dg8we77SyQj6NppRBUqGw3f1/lIv9t0GaJiSwv7QqlWEsQs7VBsJHQ9y8cxoB2b39bUiR8YpoysMoV4siVmQ9HWzvk9JqHC8VyhBaN6JoKWXX34T5JtssgSmPep67jJtUDBn3pGt42GwtxmuGmBjRz6qWNiqAloR7rsEamWSW+MwiBX5XAWyKeUh0QSFSY10WfKRaWcYF9zJYuhh30rboJkw3dudxexFdzrp84z5GGsmUa47yM7ks8FrG+QA5++IBZytSSiXqSFR1ZZdGPT9WmGMy8IGw==
-Received: from MN0PR19MB6091.namprd19.prod.outlook.com (2603:10b6:208:382::21)
- by CO1PR19MB4901.namprd19.prod.outlook.com (2603:10b6:303:f9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Tue, 14 Jul
- 2026 06:46:41 +0000
-Received: from MN0PR19MB6091.namprd19.prod.outlook.com
- ([fe80::af9a:4cc3:facf:9374]) by MN0PR19MB6091.namprd19.prod.outlook.com
- ([fe80::af9a:4cc3:facf:9374%5]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
- 06:46:40 +0000
-From: Liu Changjie <liucj1228@outlook.com>
-Date: Tue, 14 Jul 2026 14:46:20 +0800
-Message-ID:
- <MN0PR19MB6091262B034DA5D02AD7B66FACF92@MN0PR19MB6091.namprd19.prod.outlook.com>
-In-Reply-To: <03b781d223194234bcf6e53df12880b4.1784011580644350.tspi3m-maxio-v1-cover@outlook.com>
-References: <03b781d223194234bcf6e53df12880b4.1784011580644350.tspi3m-maxio-v1-cover@outlook.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org
-Cc: Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 2/2] net: phy: Add support for the Maxio MAE0621A
-Content-Type: text/plain
-X-ClientProxiedBy: TPYP295CA0008.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:9::9)
- To MN0PR19MB6091.namprd19.prod.outlook.com (2603:10b6:208:382::21)
-X-Microsoft-Original-Message-ID:
- <446df90e05064bc6b2149e78f58fc925.1784011580644366.tspi3m-maxio-v1-2@outlook.com>
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="Ndji3Yyx"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47de0093c42so468804f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 13 Jul 2026 23:46:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784011609; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ry/7qVNBW2BI5x2fBlQTTHXGLfaunSb2FbecK9ezeslr0Au/UelA91UAfKTt8rpifB
+         kG9i6i46nVaw3WnaCdfFx2f4JrNdupTx+MAhjLEJ7smKVD11Ss4BV7mLDu1RZRoY6Ftf
+         qjG4trIRUW+6uf1NQESGPyRIABe8P0SqCf2aMcZQhwJb1VKKhTMLcLbyR5jOfGzFYeC3
+         catw95PiQHVR9d2b+0FmjU/h63ICOCRQ0IwdaHWZGVywaqgstuXcRBGljbWztHpRc/Wc
+         bhdSO9cbW3MpDjYv+NI4AA2UIDJkJSdNweRsN5NFpTqo2Yz/dmzry2ECdpUEr8adp2Yj
+         BA+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eRIKFgzkF61kYnLz7Ci2gKmTsN7do9uyOR/32IqtdZ8=;
+        fh=PskT4WOjRM4lqvQbNMg+R8aPuuLo6nd4S+Nevf8CzS0=;
+        b=bZvxMBsi/x4mt9zu3j98zb0VRuAXPizXFLr4xItHoZK6vW3x5rjYAI4xsxeDQqzMNW
+         l4fcX6CW9yHL0gAwOk8vXLXnAM/EnOhG1hH+2EAe8eibhn8dUez4hJQga8vpWV6op+Ws
+         hA51U2d83RAG6wxm9u7DElt2pEOWfOum1fbjMjT0CXfG77QiYdfkhuSzFCFpEUe4fNVi
+         ykUhD8414gD5cvAb2TV91LY4l1KOx90oCyYTyQgeDBAXOH6PcdVnVQSx6MQu64rzg2yc
+         pyaQPMT+GO2oaJG5GoikiXGSvORvhwRsYL64SWN4Xmcmy4C8yigTXWWxxPwwMZQxnxUJ
+         F49w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1784011609; x=1784616409; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eRIKFgzkF61kYnLz7Ci2gKmTsN7do9uyOR/32IqtdZ8=;
+        b=Ndji3YyxsJOovUrMDTckN8L20MRTCpcyhu/ilunu+dMPAfLUvrfV6r5+s9YKUgmMCS
+         16DJlxsYB612DGhdWNhD2xfiUhPNyiXYh4MmB/YG1+7G7Ric38ha1js7V7s/mVceYNUv
+         xcX0oUftCkVd+cRG9Cb9xaA08UBtnHjV5wjjEuFgz7k519f8mDXoGk0g0YiKkIQ8adDa
+         kUqdPZqLWJkVycEOfO+zkewd2BYs/VLajiJ/yh4b8mtMp6SHuL4gJZd8ZAHGt7KOy6kO
+         PXNl2L4ax0vGKvtp9HEvRH62vlEh6uSlu+MVco9qWw++zJ7/J7FLB1NY/5chJUukHy9m
+         2k3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784011609; x=1784616409;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eRIKFgzkF61kYnLz7Ci2gKmTsN7do9uyOR/32IqtdZ8=;
+        b=LOjabSvRTcKox8Zxbpapk1V4JxO4L6WvqNEXi7LlorfvlMngDgRhTMa75wc38IARbe
+         RKnNgSq9RAM5CXQxXWYAsiTFnajHWK5O7zMRDU5JDAykCts7VUIJK0qG5tfRVdPjmGm9
+         wLNohmBKfvS7PY72HMESbx8VcTkbRa1k9eM6+TmIEc9e/Gr43jdJx0W00vzhT8OIJ4G4
+         S+kPN/nbju0LNnBLgNOVgIeIc9qTe252aNKhrstk0ESBJju8SnigYCNs0YoxIqmzNmS4
+         Nk9gdzi5dROFb5KeKLyKCa8KvrZPV2ht6ZinUyQrtwtbQ3mglLV61ndwTiw0klV9yFVd
+         zXLQ==
+X-Forwarded-Encrypted: i=1; AHgh+RovHsjzDsry7H7KOfZiog0dtwxYDRKCKky9qU70tw/WQDHYFXX7XT2hst2EpwEDgkgsTJuVvQwWg5gi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6AuxOsODAFGknflZ71J3VAs32/CExdXAeS9vInRrZjxaMrNO8
+	FozfrvvnJ9Sanyj8mKiY1xviPndyQJkyQk3FvoUOASYJbTp8JA9nxQQOI4XFK/fLpik7DAV7rMI
+	tiC3Yzfu4CGmWMUq6hpi8Oy6N27MgiHsIsVfhZsnA+Q==
+X-Gm-Gg: AfdE7ckOhCNVbx6GFh0gwEpLJU1J5Mm4xjCIfP3Y/Ed0E9KgSZ3/L1JOPFulBW2CDVy
+	gBNbvRit9FAOsmDKAOhNW4DeT+E6kReUmaM5QIUpkFCnnoqBawsleI+5VAL/nsopcuWJjq9g/sw
+	QVRJJaGmQg2g5HYgGsMl/EQekNCncxg0haFUp7QhZZMoRaGkWF/1zYOSRWU2e0MLHLY7DzMqlVh
+	PbMqkIti6HftQ5hC2syDYRjLVzPEx2JK3CYCiDBHxYC+ibxoSqDJA++OF40/wDCRKkLrPguo0Cl
+	Kpn+7Uq1nFBiu4Js7+AZ410yXQXk/yV3QuytN5aJrvNT3k8qa1FNg2DZXg==
+X-Received: by 2002:a05:6000:2c03:b0:46f:f12b:e457 with SMTP id
+ ffacd0b85a97d-47f2dcc333cmr14446794f8f.21.1784011608749; Mon, 13 Jul 2026
+ 23:46:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR19MB6091:EE_|CO1PR19MB4901:EE_
-X-MS-Office365-Filtering-Correlation-Id: f519bd08-ee42-4b65-4ab5-08dee173a8f1
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|51005399006|5072599009|15080799012|5040399003|37011999003|24021099003|23021999003|41001999006|19110799012|8060799015|26104999009|440099028|3412199025|40105399003|3430499035;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?sxhzXCDNILsqZG39FXrFOZYig15cgPxxRmmmCFAh3DnSsvbZcry9KRnza/eJ?=
- =?us-ascii?Q?lnKP1dEAFkMlj9d9vdks0BZ1/1lynbfigL2ifP/vwXa1vxQUBBLEtbp3DjCp?=
- =?us-ascii?Q?JClss0IHrQZ/HsvVXCEnXZRExZyybtlZXWt1B59JJpjA6KUJP7Kjq2NLKrRV?=
- =?us-ascii?Q?4ioObEfXHFmgZYfOUagKHRTyhoDBlp3kC8PVMQ9P2H69w9U3Ih9fOWjFPDz2?=
- =?us-ascii?Q?y53GVnCrICL/DfhMzTK1d1bRSa094nbAOZmFBHgbhgpM1jFe0uvnfuQS232E?=
- =?us-ascii?Q?BKWgQq93uanJveiQiEa7MPeBPiw3umALrHTubtDhRRm7KgPFWwXJvHe8mgWc?=
- =?us-ascii?Q?+c9GpGNTG8lWM4/6dXGxll2zJ2KQGGpJDRxI3SA+pZV24WKybrdSYsCy0D8k?=
- =?us-ascii?Q?IkXLYftqiJRqj12s7arrxi9viA1HzAJ0WqPOhsoDKZjERmanJF5hNPUiV9OP?=
- =?us-ascii?Q?BXnlxgq7h9Ck/aQ8yBGF3QypCz8GpfeJAfEtPJm9K8pwg1mmwx6frxXkqaAb?=
- =?us-ascii?Q?5HM1G1bShLehq6pADd0mbDF5ganroMNDerLaEdOu7fRu8T5gMEa9vaa7zFEp?=
- =?us-ascii?Q?ROTZozGJYO/qTxWPVhlVHNAbOoMiVrXhRS/52t/nbjjQWJ+Bu42UZaA+XyZW?=
- =?us-ascii?Q?dsSR9FHVWVQo5X7Eo1ZbfL7O8gly2CNHyL9Qu4yoUkWpkeNB7aie8Hl8J0qV?=
- =?us-ascii?Q?R18GTrK/1w2dh6hl/SoucChfnjqtxDgRyaI4OP4CdTky1QQYpu78BdCwCu1o?=
- =?us-ascii?Q?yup0oC6OxWaZ2b91xjuWxaavfh6ovrUdVz7s/f+xeAQA/BJGJs/Zdt7xHOPR?=
- =?us-ascii?Q?XwN8igL5SkGZe0HCTehaI76RgZ9Dmin7OE1V+8H9iAD8kk0L1DVO5mUXAJpP?=
- =?us-ascii?Q?fXnrIbH+F0eZkjQ2KDRqfkzSWY+G6hxsydiSr+qxPNGLMnjQ/JY3T0BnordF?=
- =?us-ascii?Q?kHRGfmTpZGP001TdKe26Rf3VM6dpBeBT4SeeXWXrJPlgdK53vv4eKKyAXEYT?=
- =?us-ascii?Q?KCYp?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HVqiDwCSgzagtb6ZCF9bPY0QM6tA6uoFxdJgE8e5lk+pdW/V2FEoL1yVZRDQ?=
- =?us-ascii?Q?mWyQNFvazZzHVfynk9290HTP5Ma9CqrYSTLxYYE5zUx+g/PPw/CHDP2at08l?=
- =?us-ascii?Q?pQdlgjQpUj/OKAvbGXcx68TXxYFw3lT2A31BnxMC9VMev4AedUha1qS+kmzp?=
- =?us-ascii?Q?KUPAHEMq/uxBBwol/RGwLD6vJno6e1hwylFIHT+yT9sLATsc8prhmDRRi2o7?=
- =?us-ascii?Q?oOPGxqu3AKspn/x+Tnp0ptvG3KGhQhQ6Z0c3nAX0ljkzGmSSWOZPXJBet/em?=
- =?us-ascii?Q?+G5WHf+t6tBnHRE6MQrKz/cXP2dkNh9LltMZnkHReipdMky9DA+rV2znuwz9?=
- =?us-ascii?Q?p/YOw9onG6NpBjQWzb3NsB71hur7L4mpx4ivIBHNXGo2qdCnAiqnsdXGhkOZ?=
- =?us-ascii?Q?ACEeG1mVLwXQceRmkZiPhtHBVsgd/1WhCzQzo4nzwq7w7IsBQ4k77puVUXQE?=
- =?us-ascii?Q?xB21JgwbWFLer7ythoR7e1ESUGwNgV7dwXIvq7NMvUu+Y/STQBT6IHeDSEul?=
- =?us-ascii?Q?DieC1gZrrO2qA9WlGGRsgaEt6Ag4fPPmnpePJ6y4dZ9QQD8oV+2w8ZKJk12g?=
- =?us-ascii?Q?RxhmdR0mnySLsLC/PCvBEWBYFcRlvxfj6v4QzcRrwlA9yZyBKkhY4O+G7sW/?=
- =?us-ascii?Q?6k8jZUNkamgvClK4ZCGta9dEQddIooUL4GvA5o7uwtFUvJzSwDH/EhmXLHaa?=
- =?us-ascii?Q?1yuziV4nygeg2/jfQZfvsn/HDELd7ylqhMhOdu7N5tcEt7sVgF+xjDJ7dKtO?=
- =?us-ascii?Q?PFmINlA7t1EQVC4Pfzu/Das/LXjXqQuscB192OEKzTgdB42fauQASkPKnWrQ?=
- =?us-ascii?Q?HVrWozXDg6Z+eeYYmO2fseMQ1J9F5kCnAS2NnzgBs68b2HINkw9fPtUwHavx?=
- =?us-ascii?Q?QPiREdOzgsNQtpRPaJVESo9CSb0znPNMXIr7c+06kmL0HTrp8shMIPNVG0Du?=
- =?us-ascii?Q?AqRijCj6rmdCqoA12Q+svCTEek0pPnhjbug8xqII1GvHJIeqtxhG3cWbClFP?=
- =?us-ascii?Q?VmcVNF1A54xQeWvTks4xvQAYItVr9tCtETxwgBPfkVlhVnP3+lsKtK9WDOJ8?=
- =?us-ascii?Q?hUIF9itRZ9+PMb+SSkQi7xInkYwXRrqp4velt19LhOdsCihW6IXtg0ep4/2C?=
- =?us-ascii?Q?BIlfr41ZI+j21lVYoQ6AF5xHanrBQeDYMA0LIvswuo7n32KLHTyCvOG+MMvV?=
- =?us-ascii?Q?PvOYAxLQVskJ7vQbjJi1xDoxb45MXuAXNHddLCFNo0m/69ODNGaEbBG6mQAO?=
- =?us-ascii?Q?213M8I0GYR1b65N2JKHcc4c4cHPUF3UGP/LuGX6/4Ltf1oxVHqIBj/xJlsqt?=
- =?us-ascii?Q?W/7dD9RsokN7n+ko4SreQkP+2ZrVpBYTRvr521a6vz8Yy6fWpznIWtd86I/k?=
- =?us-ascii?Q?XDtYTGgZx7A9gEA9ezy3cPlopK3+wF70A2XUm/5V6ft8DABFlA=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f519bd08-ee42-4b65-4ab5-08dee173a8f1
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR19MB6091.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 06:46:40.6612
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR19MB4901
+References: <cover.1783524645.git.gregoire.layet@9elements.com>
+ <51e455417bdcfe608270c6cb2806b1fd971fb998.1783524645.git.gregoire.layet@9elements.com>
+ <eaef5bcc-99df-4549-8d37-fb3d127c414e@kernel.org>
+In-Reply-To: <eaef5bcc-99df-4549-8d37-fb3d127c414e@kernel.org>
+From: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
+Date: Tue, 14 Jul 2026 08:46:38 +0200
+X-Gm-Features: AUfX_myOLR4_eYCcAMsMsFbuxCuEv8cibreksrI0hciTFLsi2wYi7z1DbvBt6s4
+Message-ID: <CAFi2wKaO9ea77KP3hjoaruMgU8oVbbtuAmXK8p-12HRdRFOACQ@mail.gmail.com>
+Subject: Re: [PATCH v4 5/7] soc: aspeed: add host-side PCIe BMC device driver
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
+	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch, 
+	jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
+	anirudhsriniv@gmail.com, linux-serial@vger.kernel.org, 
+	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add exact PHY ID matching and optional 125 MHz CLKOUT configuration
-for the Maxio MAE0621A Gigabit Ethernet PHY. Preserve the existing
-hardware configuration when the firmware property is absent.
+Hi Jiri,
 
-Signed-off-by: Liu Changjie <liucj1228@outlook.com>
----
- drivers/net/phy/Kconfig  |   8 +++
- drivers/net/phy/Makefile |   1 +
- drivers/net/phy/maxio.c  | 103 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 112 insertions(+)
- create mode 100644 drivers/net/phy/maxio.c
+> > ...
+> > +
+> > +enum aspeed_platform_id {
+> > +     ASPEED,
+>
+> What is this good for?
 
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index 099f25dce..32e1a035b 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -283,6 +283,14 @@ config MARVELL_88X2222_PHY
- 	  Support for the Marvell 88X2222 Dual-port Multi-speed Ethernet
- 	  Transceiver.
- 
-+config MAXIO_PHY
-+	tristate "Maxio Ethernet PHYs"
-+	help
-+	  Support for Maxio Ethernet PHYs. Currently this driver supports the
-+	  MAE0621A Gigabit Ethernet PHY. The driver optionally selects a 125 MHz
-+	  clock on the CLKOUT pin while preserving the hardware configuration on
-+	  boards which do not request it.
-+
- config MAXLINEAR_GPHY
- 	tristate "Maxlinear Ethernet PHYs"
- 	select POLYNOMIAL if HWMON
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index de660ae94..7fb3626f0 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -70,6 +70,7 @@ obj-$(CONFIG_MARVELL_10G_PHY)	+= marvell10g.o
- obj-$(CONFIG_MARVELL_PHY)	+= marvell.o
- obj-$(CONFIG_MARVELL_88Q2XXX_PHY)	+= marvell-88q2xxx.o
- obj-$(CONFIG_MARVELL_88X2222_PHY)	+= marvell-88x2222.o
-+obj-$(CONFIG_MAXIO_PHY)		+= maxio.o
- obj-$(CONFIG_MAXLINEAR_GPHY)	+= mxl-gpy.o
- obj-$(CONFIG_MAXLINEAR_86110_PHY)	+= mxl-86110.o
- obj-y				+= mediatek/
-diff --git a/drivers/net/phy/maxio.c b/drivers/net/phy/maxio.c
-new file mode 100644
-index 000000000..d2cb23895
---- /dev/null
-+++ b/drivers/net/phy/maxio.c
-@@ -0,0 +1,103 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Driver for Maxio Ethernet PHYs. */
-+
-+#include <linux/bitops.h>
-+#include <linux/module.h>
-+#include <linux/phy.h>
-+#include <linux/property.h>
-+
-+#define MAXIO_MAE0621A_PHY_ID		0x7b744412
-+
-+#define MAXIO_PAGE_SELECT		0x1f
-+#define MAXIO_MAE0621A_PHYCR2_PAGE	0xa43
-+#define MAXIO_MAE0621A_PHYCR2		0x19
-+#define MAXIO_MAE0621A_CLKOUT_125M	BIT(11)
-+#define MAXIO_MAE0621A_CLKOUT_ENABLE	BIT(0)
-+
-+struct maxio_priv {
-+	bool clk_out_125m;
-+};
-+
-+static int maxio_read_page(struct phy_device *phydev)
-+{
-+	return __phy_read(phydev, MAXIO_PAGE_SELECT);
-+}
-+
-+static int maxio_write_page(struct phy_device *phydev, int page)
-+{
-+	return __phy_write(phydev, MAXIO_PAGE_SELECT, page);
-+}
-+
-+static int maxio_mae0621a_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct maxio_priv *priv;
-+	u32 frequency;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	phydev->priv = priv;
-+
-+	ret = device_property_read_u32(dev, "maxio,clk-out-frequency-hz",
-+				       &frequency);
-+	if (ret == -EINVAL)
-+		return 0;
-+	if (ret)
-+		return ret;
-+
-+	if (frequency != 125000000) {
-+		phydev_err(phydev, "invalid CLKOUT frequency %u\n", frequency);
-+		return -EINVAL;
-+	}
-+
-+	priv->clk_out_125m = true;
-+
-+	return 0;
-+}
-+
-+static int maxio_mae0621a_config_init(struct phy_device *phydev)
-+{
-+	struct maxio_priv *priv = phydev->priv;
-+	int ret;
-+
-+	if (!priv->clk_out_125m)
-+		return 0;
-+
-+	ret = phy_modify_paged_changed(phydev, MAXIO_MAE0621A_PHYCR2_PAGE,
-+				       MAXIO_MAE0621A_PHYCR2,
-+				       MAXIO_MAE0621A_CLKOUT_ENABLE |
-+				       MAXIO_MAE0621A_CLKOUT_125M,
-+				       MAXIO_MAE0621A_CLKOUT_ENABLE |
-+				       MAXIO_MAE0621A_CLKOUT_125M);
-+	if (ret <= 0)
-+		return ret;
-+
-+	return genphy_soft_reset(phydev);
-+}
-+
-+static struct phy_driver maxio_drivers[] = {
-+	{
-+		PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_PHY_ID),
-+		.name		= "Maxio MAE0621A",
-+		.probe		= maxio_mae0621a_probe,
-+		.config_init	= maxio_mae0621a_config_init,
-+		.suspend	= genphy_suspend,
-+		.resume		= genphy_resume,
-+		.read_page	= maxio_read_page,
-+		.write_page	= maxio_write_page,
-+	},
-+};
-+module_phy_driver(maxio_drivers);
-+
-+static const struct mdio_device_id __maybe_unused maxio_tbl[] = {
-+	{ PHY_ID_MATCH_EXACT(MAXIO_MAE0621A_PHY_ID) },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(mdio, maxio_tbl);
-+
-+MODULE_AUTHOR("Liu Changjie <liucj1228@outlook.com>");
-+MODULE_DESCRIPTION("Maxio Ethernet PHY driver");
-+MODULE_LICENSE("GPL");
+Unecessary, it's removed now.
+
+>
+> > +};
+> > +
+> > +static const int vuart_msi_index[2] =3D { 16, 17 };
+> > +static const int vuart_port_addr[2] =3D {0x3f8, 0x2f8};
+>
+> Sort of inconsistent spaces. Both arrays should be unsigned anyway. And
+> for the latter, u16 should be enough.
+
+True. Acknowledged.
+
+> > ...
+> > +
+> > +     vuart_ioport =3D vuart_port_addr[idx];
+> > +     /* ASPEED BMC device shift addresses by 2 to the left */
+> > +     vuart_ioport =3D vuart_ioport << 2;
+>
+> Simply:
+> vuart_ioport <<=3D 2;
+> ? Or join the two lines?
+
+Joined the two lines.
+
+> > ...
+> > +static struct pci_device_id aspeed_host_bmc_dev_pci_ids[] =3D {
+> > +     { PCI_DEVICE(PCI_VENDOR_ID_ASPEED, PCI_BMC_DEVICE_ID),
+> > +             .class =3D 0xFF0000, .class_mask =3D 0xFFFF00,
+>
+> PCI_CLASS_OTHERS << 16
+
+Acknowledged
+
+> > ...
+> thanks,
+> --
+> js
+> suse labs
+
+Thanks for the review. Applied everything for the next revision.
+
+Regards,
+Gr=C3=A9goire
