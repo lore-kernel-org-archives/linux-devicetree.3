@@ -1,328 +1,153 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A29435533
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 19:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159FC433047;
+	Tue, 14 Jul 2026 19:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784058469; cv=none; b=Xi8GexZWNQESO8fpvjCIvhQpXfd0gyOqLbA8X+gKcr/PSiMuV4XxM4qwIKJZbx8XZXHtPqJH5RdqFWj95WoROqwUy+st7qOIa3hxLOfu+4cyfPtC3/UYQseQd5pMGwMoZUPofHpCnwFdk4X3aHsrKU9/qmtui5VD1rWSaUBZYag=
+	t=1784058489; cv=none; b=kynygfMhhQd3WfJfzl5e8SoAbv5R55v1aby+WYd0eo4WutPOIta68rzKzDe6K70CkI8UNOdy1IGLtZAPD6lt9wCHFfcguE7soNOkg5WJqkXaULdXTJMBOcnJHycxcm9oB29wkkWxapdkCWjeteoPmC0Lr/tpPU76Nuo6Ir9LUL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784058469; c=relaxed/simple;
-	bh=x5xeEm5V2RUVbJPpiW7WO6S+OyLmpUCyxUEr4Fp4/mM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J4KhmbpTaDDlr3E+JwzOGg5eTJmIAXfwFPwbUYY8bEkLUCjsA8p98hi1knvRvcLVtEuAmBsO995olPH32KEWy09S8EgRZck6lZbVP/RKvel3XgD+RrnTvNApM7tE/TmQ36Tq58Zu/nVpftcD9GM15VJ/In3eF4iG4uo8ZMqqfug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Moft9qN/; arc=none smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784058489; c=relaxed/simple;
+	bh=B/L/X9V9PjtyIkDoHFL2DD8jdxZBz4bQhuxjlzo8bYw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rmHfFip1KZ0MS6/52yRV6KASDPEaPLdQNYotWUEHwncfOHAB2oZB9BwstYWbmE0jnye6mjklkNjWo7YWXfjBnhRmmeYDLZqAizX4KRNHG9f6uelnrJa/icigTLBZ0kWMIZoVYU5C5nOF3jmiwLH/9UktkRXpzsvelmGCnAJ0eMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJjbRkjo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Moft9qN/"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aeb2bc82ccso1686150e87.2
-        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 12:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784058464; x=1784663264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C5ekcSFTL4/hgcBZvhEGy/Z9aZabj+fJ0ywhsDg/4Uw=;
-        b=Moft9qN/guihsKiXKCcSdZM/eL2KokMUN9bfIRrRfYDi92aULNWF2uPFB3TMjQ+4Tu
-         BWtyVKZ1jYSymu2ZQkl4oSYhvjZrlh1tScS9hBkLvFC4dU4ij/h/JgW5/OBLwgReHjUe
-         qqaHzmd+b05VJqeUQm27mTeBNK+EvWe7Ka0LDTXx47HgsgpR6U/xdWbkufb6hEcDfaBx
-         gkTQS+pNYzu/xh5m0ZFmHoPEy69vX4yMB8Jf9jUsA4yoQlL2Eh5mhy2h4/lva+BCAzgY
-         /QXCYtjayBB0tUTx+qzIQnEQyB038apjri8CVbdjbEWLax/GYkLHfdN4tpD7MtGJsKQY
-         puHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784058464; x=1784663264;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C5ekcSFTL4/hgcBZvhEGy/Z9aZabj+fJ0ywhsDg/4Uw=;
-        b=KSax4r9oZCjW7wxbSXA+poC/1Va6xpJvOB9B0Om7Mfys67zVQxUB+f0yxJCo/a168i
-         zmC5qxYKMOv4/npihYV76RxvZ9hOfEyXGC12ubODzVmllI9OklvGhfMPcZMDAcph40Mk
-         TQ2DwrjGBk0Ox7TXx6UuZ9XpPUiCV1nwQKPx0Kxy0Biakpr+MnF/xCVdSBwCTksBXRuM
-         GrezZ2nrIVk4kr2/jdd8ADyXeVs0LcK0VuJPvBiPeB6w9JYdbBkaAfyEcHnal4Mj9l4q
-         pcDrgzV7Hluf6TvGIBEQnzyljxdbzt8ZzW91GeWvRjlsiLsOridibXDUbpkwE+4gwU0+
-         t28g==
-X-Forwarded-Encrypted: i=1; AHgh+RqYviBBp199sGO2vs0pmDvUVbTEVErJHh3e+DrussSu8iHHRbWClsXNqjtUqZ8bTiMYSnLfXOTzFCCI@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXfwsnTa/Aor7SED53DQnguQuvvi74HJVyg5rWKvcBLq9ELONa
-	TZC1q7+3N0izrO3V4NpmOZbjvg3czDtQOofoiLnPEptf7lN6Irt8Dyqv
-X-Gm-Gg: AfdE7cm45M3E0CA4kYg7MPz+qrn0TDlr5Sf2nRftePr1uxhq3q+tglSvx8mne3jxUG1
-	eO1fdiWFVMCBCZz0XHo9InuNoxIpgVthzJFziulIwhPwB880+KWSYRwMOMMiNZitE4HQToIELN7
-	AAkY0xe7lnO1LsCcwJZA5QHmLjM8dHf+C49BJtzLMQ9b4sg5oaLuhxggeLkDMYMX8coVJD4HYda
-	bLaotmUaJ5pg/QqJhnCqNQGk1rHcJj9+X8JVyxn87w5ntP9KqN+0BUMPqpq8oHM5Rpfis2rPmQD
-	MXZElztkHUMByzbsdzP9WqQ1pIsolr0TrVm+pwkC1a6jFhpALFCn+ccA508/vzCDxgyBNDGsCB5
-	2dExTwpXXJQB5iDIIiAKZIqfo9IwKKp6v5pXwZPotf+jQrlc6TmYVv1waKsSr/wZxvMqDJbxzd6
-	oRsb0eFC117Kg9D8N50VFrQwT1I0vCx6B4lO/VTGV+pCP/sIE=
-X-Received: by 2002:ac2:508c:0:b0:5b0:e70:c6e8 with SMTP id 2adb3069b0e04-5b0236c0babmr2541636e87.59.1784058463983;
-        Tue, 14 Jul 2026 12:47:43 -0700 (PDT)
-Received: from MSI-LINUX.kielce.vectranet.pl ([2a02:2a40:27ec:2900:822e:374d:22e8:16cf])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b01ca50a8esm3780287e87.28.2026.07.14.12.47.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 14 Jul 2026 12:47:42 -0700 (PDT)
-From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-To: linux-iio@vger.kernel.org
-Cc: jic23@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	marcelo.schmitt@analog.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mike.looijmans@topic.nl,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jorge.marques@analog.com,
-	antoniu.miclaus@analog.com,
-	mazziesaccount@gmail.com,
-	jishnu.prakash@oss.qualcomm.com,
-	duje@dujemihanovic.xyz,
-	wens@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linusw@kernel.org,
-	Jakub Szczudlo <jakubszczudlo40@gmail.com>
-Subject: [PATCH v7 3/3] iio: adc: ti-ads1100: Add ti-ads1110 support to ti-ads1100 driver
-Date: Tue, 14 Jul 2026 21:47:17 +0200
-Message-ID: <20260714194717.596193-4-jakubszczudlo40@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260714194717.596193-1-jakubszczudlo40@gmail.com>
-References: <20260714194717.596193-1-jakubszczudlo40@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJjbRkjo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8CA91F000E9;
+	Tue, 14 Jul 2026 19:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784058486;
+	bh=oUqzUmCd5C8LaJR7q3XMrWlHVSAMJDyXvnpn53blVaI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hJjbRkjodStNV3aFkSroSh3RyI1uRsygLQn7A7gDs39Y2nFzt9uMuVciIxK1tCwid
+	 66Zsi7OXdiuAxDKyEIZCZr3Y9I8GCiLF/6JSPmQZtGTO8IhFtkj+duE81iHc26IQn2
+	 sGcHzOYVs7sqGGWXhxqTLkkpdp94MM5U3iMnjO88g90e1AK0JU0DxA1vT9yJ/oIBbD
+	 K6F0yyuRNESCDE6QhmYjyn5BKZVDrwP3/e/WhQLW4pw6uiJDgBOq28fGTs/p01Oh+b
+	 Hyzzf9nPwI6aCkawKUD5Q+mQgyttB7YY8h5gKwGVoQ4zWjrPBvu3GeScAb0VXeMkTr
+	 MNslCVmGm6Uqg==
+Message-ID: <6c3a01f7-957d-4dc4-a892-3af2826928af@kernel.org>
+Date: Tue, 14 Jul 2026 21:47:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/10] arm64: dts: apple: Add minimal t8132 (M4) device
+ trees
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Hector Martin <marcan@marcan.st>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Neal Gompa <neal@gompa.dev>, Janne Grunau <j@jannau.net>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Guenter Roeck
+ <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Linus Walleij <linusw@kernel.org>, Sasha Finkelstein <k@chaosmail.tech>,
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-pwm@vger.kernel.org, Andi Shyti <andi.shyti@kernel.org>,
+ Mark Kettenis <kettenis@openbsd.org>
+References: <20260705-apple-m4-initial-devicetrees-v1-0-e5655ee56523@cyberchaos.dev>
+ <20260705-apple-m4-initial-devicetrees-v1-10-e5655ee56523@cyberchaos.dev>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260705-apple-m4-initial-devicetrees-v1-10-e5655ee56523@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Add ADS1110 support that have faster datarate than ADS1100, it also uses
-internal voltage reference of 2.048V for measurement.
 
-Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
----
- drivers/iio/adc/Kconfig      |  9 ++--
- drivers/iio/adc/ti-ads1100.c | 84 +++++++++++++++++++++++++++---------
- 2 files changed, 69 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 3755a81c1efd..9de2f4eb72fa 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1768,11 +1768,14 @@ config TI_ADS1018
-          called ti-ads1018.
- 
- config TI_ADS1100
--	tristate "Texas Instruments ADS1100 and ADS1000 ADC"
-+	tristate "Texas Instruments ADS1100 and similar single channel I2C ADC"
- 	depends on I2C
- 	help
--	  If you say yes here you get support for Texas Instruments ADS1100 and
--	  ADS1000 ADC chips.
-+	  If you say yes here you get support for TI single channel I2C Analog
-+	  Devices.
-+	  * ADS1000 12-Bit, 128 MSPS Analog-to-Digital Converter
-+	  * ADS1100 16-Bit, 128 MSPS Analog-to-Digital Converter
-+	  * ADS1110 16-Bit, 240 MSPS Analog-to-Digital Converter
- 
- 	  This driver can also be built as a module. If so, the module will be
- 	  called ti-ads1100.
-diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-index f0a30ae139af..ad9099aaf19c 100644
---- a/drivers/iio/adc/ti-ads1100.c
-+++ b/drivers/iio/adc/ti-ads1100.c
-@@ -5,7 +5,7 @@
-  * Copyright (c) 2023, Topic Embedded Products
-  *
-  * Datasheet: https://www.ti.com/lit/gpn/ads1100
-- * IIO driver for ADS1100 and ADS1000 ADC 16-bit I2C
-+ * IIO driver for ADS1100 and similar single channel ADC 16-bit I2C
-  */
- 
- #include <linux/bitfield.h>
-@@ -41,20 +41,44 @@
- #define	ADS1100_SINGLESHOT	ADS1100_CFG_SC
- 
- #define ADS1100_SLEEP_DELAY_MS	2000
-+#define ADS1110_INTERNAL_REF_mV 2048
- 
- static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
-+static const int ads1110_data_rate[] = { 240, 60, 30, 15 };
- static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
- 
- /* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
- #define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
- 
-+struct ads1100_config {
-+	const char *name;
-+	const int *available_data_rate_hz;
-+	const int data_rate_count;
-+	bool has_internal_vref_only;
-+};
-+
-+static const struct ads1100_config ads1100_config = {
-+	.name = "ads1100",
-+	.available_data_rate_hz = ads1100_data_rate,
-+	.data_rate_count = ARRAY_SIZE(ads1100_data_rate),
-+	.has_internal_vref_only = false,
-+};
-+
-+static const struct ads1100_config ads1110_config = {
-+	.name = "ads1110",
-+	.available_data_rate_hz = ads1110_data_rate,
-+	.data_rate_count = ARRAY_SIZE(ads1110_data_rate),
-+	.has_internal_vref_only = true,
-+};
-+
- struct ads1100_data {
- 	struct i2c_client *client;
- 	struct regulator *reg_vdd;
- 	struct mutex lock;
- 	int scale_avail[2 * 4]; /* 4 gain settings */
-+	const struct ads1100_config *ads_config;
- 	u8 config;
--	bool supports_data_rate; /* Only the ADS1100 can select the rate */
-+	bool supports_data_rate;
- };
- 
- static const struct iio_chan_spec ads1100_channel = {
-@@ -90,6 +114,20 @@ static int ads1100_set_config_bits(struct ads1100_data *data, u8 mask, u8 value)
- 	return 0;
- };
- 
-+static int ads1100_get_vref_milivolts(struct ads1100_data *data)
-+{
-+	int voltage_uV;
-+
-+	if (data->ads_config->has_internal_vref_only)
-+		return ADS1110_INTERNAL_REF_mV;
-+
-+	voltage_uV = regulator_get_voltage(data->reg_vdd);
-+	if (voltage_uV < 0)
-+		return voltage_uV;
-+
-+	return voltage_uV / (MICRO / MILLI);
-+}
-+
- static int ads1100_data_bits(struct ads1100_data *data)
- {
- 	return ads1100_data_rate_bits[FIELD_GET(ADS1100_DR_MASK, data->config)];
-@@ -144,7 +182,8 @@ static int ads1100_new_data_is_ready(struct ads1100_data *data)
- 
- static int ads1100_poll_data_ready(struct ads1100_data *data)
- {
--	int data_rate_Hz = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data->config)];
-+	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
-+	int data_rate_Hz = data->ads_config->available_data_rate_hz[data_rate_index];
- 	/* To be sure we wait 5 times more than data rate */
- 	unsigned long wait_time_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, 5 * data_rate_Hz);
- 	int data_ready;
-@@ -185,7 +224,7 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	if (ret)
- 		return ret;
- 
--	microvolts = regulator_get_voltage(data->reg_vdd);
-+	microvolts = ads1100_get_vref_milivolts(data) * (MICRO / MILLI);
- 	/*
- 	 * val2 is in 'micro' units, n = val2 / 1000000
- 	 * result must be millivolts, d = microvolts / 1000
-@@ -208,9 +247,9 @@ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- 	unsigned int size;
- 	int ret;
- 
--	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
-+	size = data->supports_data_rate ? data->ads_config->data_rate_count : 1;
- 	for (i = 0; i < size; i++) {
--		if (ads1100_data_rate[i] == rate)
-+		if (data->ads_config->available_data_rate_hz[i] == rate)
- 			break;
- 	}
- 
-@@ -230,14 +269,9 @@ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- 	return ads1100_poll_data_ready(data);
- }
- 
--static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
--{
--	return regulator_get_voltage(data->reg_vdd) / (MICRO / MILLI);
--}
--
- static void ads1100_calc_scale_avail(struct ads1100_data *data)
- {
--	int millivolts = ads1100_get_vdd_millivolts(data);
-+	int millivolts = ads1100_get_vref_milivolts(data);
- 	unsigned int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(data->scale_avail) / 2; i++) {
-@@ -259,9 +293,9 @@ static int ads1100_read_avail(struct iio_dev *indio_dev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_SAMP_FREQ:
- 		*type = IIO_VAL_INT;
--		*vals = ads1100_data_rate;
-+		*vals = data->ads_config->available_data_rate_hz;
- 		if (data->supports_data_rate)
--			*length = ARRAY_SIZE(ads1100_data_rate);
-+			*length = data->ads_config->data_rate_count;
- 		else
- 			*length = 1;
- 		return IIO_AVAIL_LIST;
-@@ -280,6 +314,7 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
- 			    int *val2, long mask)
- {
- 	int ret;
-+	int data_rate_index;
- 	struct ads1100_data *data = iio_priv(indio_dev);
- 
- 	guard(mutex)(&data->lock);
-@@ -296,12 +331,12 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
- 		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
- 		/* full-scale is the supply voltage in millivolts */
--		*val = ads1100_get_vdd_millivolts(data);
-+		*val = ads1100_get_vref_milivolts(data);
- 		*val2 = 15 + FIELD_GET(ADS1100_PGA_MASK, data->config);
- 		return IIO_VAL_FRACTIONAL_LOG2;
- 	case IIO_CHAN_INFO_SAMP_FREQ:
--		*val = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK,
--						   data->config)];
-+		data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
-+		*val = data->ads_config->available_data_rate_hz[data_rate_index];
- 		return IIO_VAL_INT;
- 	default:
- 		return -EINVAL;
-@@ -401,6 +436,11 @@ static int ads1100_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
-+	data->ads_config = i2c_get_match_data(client);
-+	if (!data->ads_config)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Can't get device data from firmware\n");
-+
- 	ret = ads1100_setup(data);
- 	if (ret)
- 		return dev_err_probe(dev, ret,
-@@ -463,16 +503,18 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ads1100_pm_ops,
- 				 NULL);
- 
- static const struct i2c_device_id ads1100_id[] = {
--	{ .name = "ads1100" },
--	{ .name = "ads1000" },
-+	{ .name = "ads1000", .driver_data = (kernel_ulong_t)&ads1100_config },
-+	{ .name = "ads1100", .driver_data = (kernel_ulong_t)&ads1100_config },
-+	{ .name = "ads1110", .driver_data = (kernel_ulong_t)&ads1110_config },
- 	{ }
- };
- 
- MODULE_DEVICE_TABLE(i2c, ads1100_id);
- 
- static const struct of_device_id ads1100_of_match[] = {
--	{.compatible = "ti,ads1100" },
--	{.compatible = "ti,ads1000" },
-+	{ .compatible = "ti,ads1000", .data = &ads1100_config },
-+	{ .compatible = "ti,ads1100", .data = &ads1100_config },
-+	{ .compatible = "ti,ads1110", .data = &ads1110_config },
- 	{ }
- };
- 
--- 
-2.47.3
+On 7/5/26 15:17, Yureka Lilian wrote:
+> Added device trees for the following devices:
+> - apple,j604 - MacBook Pro (14-inch, M4, 2024)
+> - apple,j623 - iMac (24-inch, 2x USB-C, M4, 2024)
+> - apple,j624 - iMac (24-inch, 4x USB-C, M4, 2024)
+> - apple,j713 - MacBook Air (13-inch, M4, 2025)
+> - apple,j715 - MacBook Air (15-inch, M4, 2025)
+> - apple,j773g - Mac mini (M4, 2024)
+>
+> The device trees have a minimal set of devices limited to CPU cores,
+> interrupt controller, power states, watchdog, serial, pin controller,
+> i2c and framebuffer.
+> The device trees for the notebooks add a PWM controller for the keyboard
+> LED illumination.
+>
+> Using the macOS 26.6b3 iBoot/firmware, the Mac mini reliably boots on a
+> single core using the stock kernel.
+> Booting with smp requires avoiding the wfi and wfit instructions
+> in the idle loop and `delay()` respectively, since those instructions
+> cause a loss of architectural state on the secondary cores, and even
+> then boot is unreliable.
+>
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>   arch/arm64/boot/dts/apple/Makefile        |    6 +
+>   arch/arm64/boot/dts/apple/t8132-j604.dts  |   35 +
+>   arch/arm64/boot/dts/apple/t8132-j623.dts  |   18 +
+>   arch/arm64/boot/dts/apple/t8132-j624.dts  |   18 +
+>   arch/arm64/boot/dts/apple/t8132-j713.dts  |   35 +
+>   arch/arm64/boot/dts/apple/t8132-j715.dts  |   35 +
+>   arch/arm64/boot/dts/apple/t8132-j773g.dts |   25 +
+>   arch/arm64/boot/dts/apple/t8132-jxxx.dtsi |   48 ++
+>   arch/arm64/boot/dts/apple/t8132-pmgr.dtsi | 1125 +++++++++++++++++++++++++++++
+>   arch/arm64/boot/dts/apple/t8132.dtsi      |  440 +++++++++++
+>   10 files changed, 1785 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/apple/Makefile b/arch/arm64/boot/dts/apple/Makefile
+> index 6fc3349a5842..181bd0e28965 100644
+> --- a/arch/arm64/boot/dts/apple/Makefile
+> +++ b/arch/arm64/boot/dts/apple/Makefile
+> @@ -1,4 +1,10 @@
+>   # SPDX-License-Identifier: GPL-2.0
+> +dtb-$(CONFIG_ARCH_APPLE) += t8132-j604.dtb
+> +dtb-$(CONFIG_ARCH_APPLE) += t8132-j623.dtb
+> +dtb-$(CONFIG_ARCH_APPLE) += t8132-j624.dtb
+> +dtb-$(CONFIG_ARCH_APPLE) += t8132-j713.dtb
+> +dtb-$(CONFIG_ARCH_APPLE) += t8132-j715.dtb
+> +dtb-$(CONFIG_ARCH_APPLE) += t8132-j773g.dtb
+Please put these at the correct position in the Makefile and not at the 
+very top.
+
+>   dtb-$(CONFIG_ARCH_APPLE) += s5l8960x-j71.dtb
+>   dtb-$(CONFIG_ARCH_APPLE) += s5l8960x-j73.dtb
+>   dtb-$(CONFIG_ARCH_APPLE) += s5l8960x-j85m.dtb
+> diff --git a/arch/arm64/boot/dts/apple/t8132-j604.dts b/arch/arm64/boot/dts/apple/t8132-j604.dts
+> new file mode 100644
+> index 000000000000..c4be915cb33a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/apple/t8132-j604.dts
+> @@ -0,0 +1,35 @@
+> +// SPDX-License-Identifier: GPL-2.0+ OR MIT
+> +/*
+> + * Apple MacBook Pro (14-inch, M4, 2024)
+> + *
+> + * target-type: J604
+> + *
+
+[...]
+
+> +
+> +		pmgr: power-management@380700000 {
+> +			compatible = "apple,t8132-pmgr", "apple,t8103-pmgr", "syscon", "simple-mfd";
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +			reg = <0x3 0x80700000 0 0x14000>;
+> +			/* child nodes are added in t8132-pmgr.dtsi */
+> +		};
+> +
+> +		aic: interrupt-controller@381180000 {
+> +			compatible = "apple,t8132-aic3", "apple,t8122-aic3";
+> +			#interrupt-cells = <3>;
+> +			interrupt-controller;
+> +			reg = <0x00000003 0x81000000 0x00000000 0x1cc000>,
+
+You have 381180000 in the node name but 381000000 here, I guess the node 
+name is a copy paste error. W=1 flags this fwiw.
+
+
+Sven
 
