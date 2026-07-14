@@ -1,117 +1,147 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f7.google.com (mail-ed2-f7.google.com [74.125.228.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED3C42BC38
-	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 22:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784069498; cv=none; b=eCaaQk2DozTW1rUycMnEAvXvaPb1gii/JxzURK6LrAylb9syHztmNDbxCchWEqOhIhD0W3GV7PMX9vOLSMSZGK1mnIRylFuaACitJrkrN1a7kGDzwxPBTWD22bokSak3j/3uUV7x6k+0kQbxKMmWES32FzDVny3yWyTNZpjvujE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784069498; c=relaxed/simple;
-	bh=Up9898goBUiMUkw/XboqiGUJMigAXOWBOVGdW5oyLDI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iBb51SCA0mD8AKWXsvrwzTpi3NaOXWPz8sGYz6LgiWN5GhhKsesg8dk1HKEr7pp7JP4O9CwrGaURUz6V7th7hksvGtLlidMEavdn1AhQgfLnOHctem2m7N7HB5nH+gKxPW5m16VFh1TuU2kVbMwB2wgDwapB4VAOnDWH2MEtFtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=EH/tcO3c; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78DA3244667
+	for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 23:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784070342; cv=pass; b=UtKG+RejluaylP8m1O32chQ3wpp1addloRkDMTJkJgZxIu/X96FDO/OiRjAZTo/KlnNtl1/5YnfqKn7JiTCf91ynT35LIHKt/QrjdbvIWig+Nrr7d4crxXu3TX2fY8qael5r2piDsEvIIU9xPnizOp/ILaxSyDxOHjETXE0RDDc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784070342; c=relaxed/simple;
+	bh=5yS0n4m24nQ7cS0uAO0etHXioBeE2HNrxAIlQrrccBM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y1YofGsAqWnCAd9CTvHrh85dU6P9hxW9oOCGeN1k4mYfiOYRpjWgVDf5dHUQJl+8ffBJ1p9jvctYwYofZwsZnkuCdcoNiXAj6eapvHlu09S2L2PAK6HuMx9SPu9zHCf2eKToE8TuhIsN195c0X5Nw7OkYl5ck2qWg6UtwYjqQ8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=giNXFjhk; arc=pass smtp.client-ip=74.125.228.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="EH/tcO3c"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7ECCB118727;
-	Wed, 15 Jul 2026 00:51:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1784069488;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=JGJ7P9JE0QgzNJz4vJFVzGxVyrchjZ/YmcbKkfd9m1M=;
-	b=EH/tcO3cBwilFRGqxYjJ6qkrWWZTRuMClOQ360jfWZDpfLE0FI/j5/I+HHo01EshT1yetv
-	xUyOkhj0zqL7+h5MxuREVeQrtdgqwyBkCAOzbgfy2+2JGUINHT9iIB2vVTtLuxwyHKeodT
-	YwuRXLKddnKCjcN49naJ2w02qRvKetUpqgVmaBPbpP+08sohZDW4/u7FURgXLTR2RXwLW/
-	R6sGHCngU0pcGp5vG3c3MQCl+mLVNlW23+rd7AtwuPkJ8FYTrYSiH/YWHnZyMY/8yuoVc6
-	E2ASZ1HQkpliNn5VCcldaYCIg1R1ZO+LhSXd9O7j0q9q6xeUf8KwxqvQT7j4Hw==
-Message-ID: <a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com>
-Date: Wed, 15 Jul 2026 00:51:26 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="giNXFjhk"
+Received: by mail-ed2-f7.google.com with SMTP id 4fb4d7f45d1cf-69c42e7735eso3102522a12.0
+        for <devicetree@vger.kernel.org>; Tue, 14 Jul 2026 16:05:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784070335; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nxVDjYwCHI1mbbYTrgnek3rXKb36vmBk3av/vvhXjMvfhSRExBof/UKHs5yoi7aMy2
+         T8rjrqAidDS/lDQiMUVnz7wHH27f4QQcbq/1KzmK30VYR++OWJQCPwLUck4Vz3H4B0o8
+         5jyILvuM7QYz/v86aG8DARGxwDFHvgh+J6O+vdTXuQhmPkzXKG4QhOl/DtvAJAgrmpcc
+         aRH+De6jU1c35eX2zXmwI7qst8fCvXqaZt7jJWiDbs6Wf7NJEa7WrN/a72nfEytd/ZN5
+         S50DWHMm4NmiIX7p+xxQvWbxpQ/26Z+pxP4+aTtWIVhRVsyXBpjmM83VirAvcoXWbjPP
+         q74Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5yS0n4m24nQ7cS0uAO0etHXioBeE2HNrxAIlQrrccBM=;
+        fh=nQrJugWuvUZtpWGOLISL/yjY5nOh79rma+u4O+9mZVA=;
+        b=ihcjbOzx++QgGx0sy7jpyVTmRnvFMQBb/r8n8tlC4dHaWcZ8UYJ+guWPkLr/Ii2hNy
+         h4zEagQkbkxey0thOq+/DQUnA0PVvSugNBjGXhkHZ0x6uzGbcFBfJEC5TAHfHrkw4oO+
+         P+NetJhpVb18hMGDVEvH6+ds44S9MJmkv2unAu14raAolicjzdfahUQ5c2zeBLFkRbB2
+         G4u4vrwYsoVobv83A9t9O45OEPwEgLEg+Etn9SgsxK6l/JSfzNgSKTWmtm+7c/6FsDsk
+         ruROyfwsPEXvouUkNxlJJzih/s5O6BaNQzg8nrBFpEZJX9uELGkiMpSiywAikt5U1sYS
+         te4A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784070335; x=1784675135; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5yS0n4m24nQ7cS0uAO0etHXioBeE2HNrxAIlQrrccBM=;
+        b=giNXFjhkOYFjP/Borbg7g1Di2AB1wYPs5C0L/U6XAXhYfljCu9W18TUM/GlVFOVhVf
+         em/N1+e6IsrCyk8dBRtS6WzTI3XZNskM8ShwO1ftHoyHZRFk46tdmLDrs5yc/77LIG5S
+         jm0Y6OlZv2tHnts1gU/kYjuKdoacFH3Jl048PxRCqS5y/O+WeOVeV3MyvbFR1omlsQQx
+         n5FhmLSnUbAu5C7O7q0J/1aZEYTyNBmtKeBzFp1w0h4fJ/TaC08bikjhYMXvWABA1LjV
+         sdk4VGsORzgaoIdSHuUpvmOI/mv2RE9t/4RYtF1S/3VqPRrR8YxpqfwnbGiVFhXQC3VI
+         xnfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784070335; x=1784675135;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5yS0n4m24nQ7cS0uAO0etHXioBeE2HNrxAIlQrrccBM=;
+        b=ZqfG/kZH77GODVwYWpybjvrKESOB/BIUJQtddpVbukJt6qO4VnDVMTc4f033x0EDil
+         pS3MxSqAoPBzn2z7DMZy0ca21hRK1z/5teeiWKEggGCkPHFjziJ9FJGCscLRFl8zFA9V
+         hpbhqIoj4+bV7xOTAs9Z7LhYEtr4rGAIZEDEydVejNj6RkgPz4e+m0BOyOpkHFc8zbjs
+         rBdj5O7MPK4cy3PgISFBmSpHMweZXQThMD4/IDPm6jm3MV50jGxT6Zrn0DrM9c88GCMR
+         z5yDttzhhgu0qLHk6rkXKMprPwGfhIPCGPW++/P3gmTotcl6ct6KbzMXRIEBxhBqB3oe
+         gmpQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpXnysqhSN/o9STtfOEylhUsUmPB/+1k1VUUmdzztYp5Gq1iDvo75CjjgC5DDnJTgoh5Bnk4EZAcPMk@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRRkz48vZtVDjb4ogMn1Vcp/E9Psm2qGxBOJWfLQy184YHFnEx
+	S44t1An4ZTpGZCQThEMooeYhXgD6W/Z3XQoCTPXlRP5q409O6jbKKxjAtEUFzliKH2ohCCuBhR7
+	awTXDZbgro5LuiMJ9pUUpNhe8dT0uYFI=
+X-Gm-Gg: AfdE7ckLh8cpotLkFlHPbj2/rwqhM9kJE54jRGrdg3R9D+QPr4vnQPi5b3Eg4EpL7nS
+	IFD4Clu701fQ/F64/Oy9uOaPIXX8EM8jHjirdZ5GRsZqvez4w7snpYP92CUzNRPPNx+Dw0K3YyY
+	TtNI2jM7VYsarH9Jufpnvza9OHBF4A9kL5X/f2eUZZRsIOB9av3sksRAhh63Wiz7Aht3wT9uDFy
+	1A9vn4ShpTdxNm5Q805DCLkygCpySeeblafEuczrTT0ZXqnlzMZpV3iRKix3FlZxpjujpq3eQWo
+	atGvyx/q2A==
+X-Received: by 2002:a17:907:3d55:b0:c15:efb1:9ff7 with SMTP id
+ a640c23a62f3a-c16616ad29bmr332320166b.28.1784070334544; Tue, 14 Jul 2026
+ 16:05:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/6] arm64: dts: imx8mm: imx8mp: Add CM DTOs for Data
- Modul i.MX8M Mini and Plus eDM SBC
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org,
- imx@lists.linux.dev
-References: <20260705200534.151803-1-marex@nabladev.com>
- <20260705200534.151803-4-marex@nabladev.com>
- <20260705202439.3F5771F000E9@smtp.kernel.org> <alUICTI-24tREZO8@SMW015318>
- <f1e52327-42da-48e1-8e4a-dabf148ce216@nabladev.com>
- <alWR66rjt-9jGEOV@SMW015318>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <alWR66rjt-9jGEOV@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260714191341.690906-1-coiaprant@gmail.com> <20260714191341.690906-7-coiaprant@gmail.com>
+ <464cbdf3-2e9e-43ea-b30a-75b3d1b8a188@lunn.ch>
+In-Reply-To: <464cbdf3-2e9e-43ea-b30a-75b3d1b8a188@lunn.ch>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Wed, 15 Jul 2026 07:05:23 +0800
+X-Gm-Features: AUfX_mw_zrKoDsMO8kJR8iRpLq9HGKaiImf5TsHlB4TM3nCjyfFFksGlOJoy3Z8
+Message-ID: <CALj3r0jdkDEjpO+7NOTGs+wgukKvD=fzFn4ewpurxxPswCE5GA@mail.gmail.com>
+Subject: Re: [RFC PATCH 06/10] net: pcs: xpcs: improve SGMII AN state handling
+ for Rockchip RK3568
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: kuba@kernel.org, davem@davemloft.net, edumazet@google.com, 
+	pabeni@redhat.com, andrew+netdev@lunn.ch, robh@kernel.org, krzk+dt@kernel.org, 
+	heiko@sntech.de, netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org, Jiawen Wu <jiawenwu@trustnetic.com>, 
+	Mengyuan Lou <mengyuanlou@net-swift.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/14/26 3:33 AM, Frank Li wrote:
+Andrew Lunn <andrew@lunn.ch> =E4=BA=8E2026=E5=B9=B47=E6=9C=8815=E6=97=A5=E5=
+=91=A8=E4=B8=89 06:44=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Jul 15, 2026 at 03:08:34AM +0800, Coia Prant wrote:
+> > Commit 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode=
+")
+>
+> You do not appear to Cc: the Wangxun NIC people. It would be good to
+> have there comments on this change.
 
->>>> [Severity: Medium]
->>>> Will this node name bypass the driver's carveout exclusion logic?
->>>>
->>>> Looking at imx_rproc_prepare(), it iterates over memory-regions and checks
->>>> specifically for the name "vdev0buffer" to skip processing the vdev buffer:
->>>>
->>>> 	if (!strcmp(it.node->name, "rsc-table") ||
->>>> 	    !strcmp(it.node->name, "vdev0vring0") ||
->>>> 	    !strcmp(it.node->name, "vdev0vring1") ||
->>>> 	    strstarts(res.name, "vdev0buffer"))
->>>> 		continue;
->>>>
->>>> Because this node is named "vdevbuffer" instead of "vdev0buffer", it appears
->>>> it will be mapped as a generic carveout via ioremap_wc() and unintentionally
->>>> included in the remoteproc coredump.
->>>>
->>>> Could this node be renamed to "vdev0buffer" to avoid wasting vmalloc space
->>>> and bloating the coredump?
->>>
->>> Look like make sense, please check it.
->>>
->>> It is not good to use node-name as ABI. Laurentiu is working on use
->>> memory-region-namses.
->> The memory regionss are referenced from imx8mm-cm4 { } node via the
->> memory-region property:
->>
->> memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>;
-> 
-> I known, but now code parser node-name, At your case, it.node->name is
-> vdevbuffer, but driver expected vdev0buffer.  so above check will be failure.
-> 
-> suppose it should be
-> 
->   vdevbuffer: vdev0buffer@b8400000
->               ^^^^^^^^^^^
-> 
-> I know it is bad, but waiting for Laurentiu to fix it.
-Actually, if I look at "git log -p drivers/remoteproc/imx_rproc.c" in 
-current linux-next 20260714 , which has the entire history of 
-imx_rproc.c and the latest content, the code cited by the AI:
+I apologize; the output from get_maintainer.pl is very long. I=E2=80=99ve
+heard that having too many recipients can cause the PATCH to be
+rejected by the LKML mail server.
 
-"
-	if (!strcmp(it.node->name, "rsc-table") ||
-	    !strcmp(it.node->name, "vdev0vring0") ||
-	    !strcmp(it.node->name, "vdev0vring1") ||
-	    strstarts(res.name, "vdev0buffer"))
-		continue;
-"
+I have added Wangxun maintainer (Jiawen Wu <jiawenwu@trustnetic.com>
+and Mengyuan Lou <mengyuanlou@net-swift.com>) to the CC list.
 
-never existed in imx_rproc.c:
+> > Fixes: 2a22b7ae2fa3 ("net: pcs: xpcs: adapt Wangxun NICs for SGMII mode=
+")
+> > Signed-off-by: Coia Prant <coiaprant@gmail.com>
+>
+> Please don't mix fixed and new code. Is this a real fix? Should it be
+> back ported to stable?
 
-"
-$ git log --follow -p next/master -- drivers/remoteproc/imx_rproc.c | 
-grep vdev0vring1
-     vdev regions are vdev0vring0, vdev0vring1, vdevbuffer and similar.
-"
+I am not sure if this is a specific characteristic of Wangxun NICs, as
+I do not have any available for testing.
 
-It seems the AI hallucinated something which is not based in reality ?
+The behavior of the Rockchip DW XPCS IP core matches what is described
+in the commit message (even though phylink brings the link to down
+based on the phydev link status).
+
+This appears to be a bug (at least on Rockchip platforms) or Wangxun
+NICs features.
+
+However, I cannot confirm whether Wangxun NICs behave the same way.
+Therefore, I have kept their code as is for now.
+
+Could a Wangxun NICs maintainer provide some feedback based on testing?
+
+If we can confirm that this is indeed a bug, I can submit a separate fix.
+
+I would greatly appreciate it.
+
+Thanks.
