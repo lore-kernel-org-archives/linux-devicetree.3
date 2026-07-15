@@ -1,116 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E1941D65D;
-	Wed, 15 Jul 2026 09:17:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA4C41D65C;
+	Wed, 15 Jul 2026 09:18:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784107049; cv=none; b=K5tCBXPatbLjWwxGWuUzLIfzEb+O+VZRoJOXRQo22dR9t8II7EJaG/JVotCbpVC+s3qGbN28i4o4QDgZtfsByP6Jjn81Jjz0qJAXbRoOEsEYXawHLRX+x+XmkM8h+iqs8geus9fBBGq+9fXVpIE5r9rextpI+AxyiQgfWvGlF8E=
+	t=1784107087; cv=none; b=VBrOAroaE0u13890FKRliZIIm6lNgxzUBABx5VeU+tsvDBGPgGlkkJ64WfZMQjNOmNk6Isb5nEt5uDze5PjVqL4IM1e3gj7IvtgRrMaFz1HIIfZsP1tX5Ndu7T6bDKeQQ+yxWF8tKwiKt38MB6NhSnWE2bQ6gVMFax8ZDM5y9I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784107049; c=relaxed/simple;
-	bh=VgHMCGzNBXGaPywPybMQMIbKO8EQpYffRuRZpY/DQys=;
+	s=arc-20240116; t=1784107087; c=relaxed/simple;
+	bh=W8URg+6MQxwIHa3ueS6S2tn+BXkhDmp+il12nhY8l/U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IQOq+yMJFc61cCGaTtyxeLFQ0avBx2FmECtZ/uigoXNaPGDZ+H0pOCrMLPc+qIA2ADvmVunWHvWv7NGT5Rg+N0Df8xItjiyh0ZKK2n4L3fASZ7GLsFuprP+Q/91VEc3suezMDsPKrmTpZiB3zq6L6qtIZEb+M+JXvzbcVq/dkKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xjy2E3uY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=u8i9psn9OXt/tEFLYe40giMxH+vELTm6U8VAyiz0eo6NvRpuSJ6dxSG4sgh8dcSAy9wPvGhRZFTvDdKdrUZ3uUSGpBhDt0mJoRjtzOjWPLQS1P8N1YoKRAS9y/aWb25oUM/0W7BQeSxAXfDThI8EzczQTiTPo1mITq5seYWAbEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5wzWDzD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xjy2E3uY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18BC21F000E9;
-	Wed, 15 Jul 2026 09:17:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5wzWDzD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 661C21F000E9;
+	Wed, 15 Jul 2026 09:18:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784107044;
-	bh=BMtuoqFSnZRAC/VAd7l7Q/Lccquxe4xx3tV4v3AAv9o=;
+	s=k20260515; t=1784107080;
+	bh=W8URg+6MQxwIHa3ueS6S2tn+BXkhDmp+il12nhY8l/U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xjy2E3uYq21Yon4JMrD6i/FYSCf43J52rV2l10QDmWd2G9e9UCefPWROINhLqFV8j
-	 9DD+G7v1R8ZyuVDrueh16eDtOr8a+bLBdCi+Wgvg9SAAceKH5M+hc+u0KMdYW6GTxu
-	 LwFczGFs1YhDUb4A7ecP8dQX5e9yzZ3wSHZXuOyjq0u92PYFMlKgdR3tdzD/fET/Wy
-	 4c3wSbK9TdJxp8PGPf6Af4S7ETDBheUKerHsMTVeznjEU+hvrUxtZloefoEGcHNtjP
-	 gL/xRny6AI1FitBFzYrt2nEzqzJsRKomrBv10xAIUejhGJvLRBgaBE+0jv3L8Ae8eK
-	 4kIEUvo+R4C2A==
+	b=k5wzWDzD32EhqAO61Ip8h4aXV5VFTVCL4rYtC6WmzyqCmlwsUulwMwYBFvPzsm4Ql
+	 emxKCgbLMDd5jkV3JY3wLSE6v+B3rnVtWuBhtNK1yeJjcufJBf7j+Dt9yCqh+hBc1/
+	 xs9fRl2oCEw4Lx3SQKxR4w3MtKsGhguygkpISL3nXqVZGyaJ0IOdX8LfC8ztOtyDeM
+	 UbULtyYcibslLIAMBq8bXlKs7W7sNVa1bY4prviLRcXEUJOfCfQsJaNXMvMmeX8+lU
+	 nWzlU4/QrrFOGx9dFDsaNOVumHBw0S/t/kjfVZQM394+g0/sZWm/UNZa65epee7TaC
+	 OHit14MrZP6Jw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] hwmon: (kb9002) Add driver for Kandou KB9002
- retimer
+Subject: Re: [PATCH v2 05/10] dt-bindings: power: apple,pmgr-pwrstate: Add
+ t6030 and t6031 compatibles
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andy Chung" <Andy.Chung@amd.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260715-kb9002-upstream-v2-3-2fd390383da5@amd.com>
-References: <20260715-kb9002-upstream-v2-0-2fd390383da5@amd.com>
- <20260715-kb9002-upstream-v2-3-2fd390383da5@amd.com>
+To: "Janne Grunau" <j@jannau.net>
+Cc: robh@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260715-apple-t603x-initial-devices-v2-5-df65b2485710@jannau.net>
+References: <20260715-apple-t603x-initial-devices-v2-0-df65b2485710@jannau.net>
+ <20260715-apple-t603x-initial-devices-v2-5-df65b2485710@jannau.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 09:17:23 +0000
-Message-Id: <20260715091724.18BC21F000E9@smtp.kernel.org>
+Date: Wed, 15 Jul 2026 09:17:59 +0000
+Message-Id: <20260715091800.661C21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The driver implements its own internal mutex for locking hardwar=
-e accesses instead of using the hwmon subsystem's `hwmon_lock()` API.
-- [Low] The `i2c_device_id` array is initialized using a positional instead=
- of a named initializer.
+- [Low] The commit message incorrectly duplicates 'apple,t6030-pmgr-pwrstat=
+e' when explaining the new compatible strings.
 --
 
---- Patch [3]: [PATCH v2 3/4] hwmon: (kb9002) Add driver for Kandou KB9002 =
-retimer ---
-commit 59c6448090144292eb629f4257436694b1eaaa0d
-Author: Andy Chung <Andy.Chung@amd.com>
+--- Patch [5]: [PATCH v2 05/10] dt-bindings: power: apple,pmgr-pwrstate: Ad=
+d t6030 and t6031 compatibles ---
+commit 0f321dd30362858c61b0d6995914cf56752d651f
+Author: Janne Grunau <j@jannau.net>
 
-hwmon: (kb9002) Add driver for Kandou KB9002 retimer
-   =20
-The Kandou KB9002 is an 8-lane PCIe 5.0 retimer that exposes an SMBus
-target with mandatory PEC. Add a hwmon driver reporting the firmware
-aggregated maximum die temperature as temp1_input, with the firmware
-version and boot status under debugfs.
+dt-bindings: power: apple,pmgr-pwrstate: Add t6030 and t6031 compatibles
 
-> diff --git a/drivers/hwmon/kb9002.c b/drivers/hwmon/kb9002.c
-> new file mode 100644
-> index 0000000000000..94c7d95b3fff5
-> --- /dev/null
-> +++ b/drivers/hwmon/kb9002.c
-[ ... ]
-> +struct kb9002_data {
-> +	struct i2c_client *client;
-> +	struct mutex lock;	/* serialises register accesses */
-> +};
-[ ... ]
-> +static int kb9002_fw_read(struct kb9002_data *data, u16 reg, u32 *val)
-> +{
-> +	struct i2c_client *client =3D data->client;
-> +	u8 addr[2];
-> +	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
-> +	int ret;
-> +
-> +	put_unaligned_le16(reg, addr);
-> +
-> +	mutex_lock(&data->lock);
+This commit adds "apple,t6030-pmgr-pwrstate" and "apple,t6031-pmgr-pwrstate=
+"=20
+compatible strings for Apple M3 Pro, Max, and Ultra SoCs.
 
-[Severity: Medium]
-Is this custom mutex necessary? The hwmon subsystem guidelines state that
-drivers should use hwmon_lock() and hwmon_unlock() to serialize operations
-for attributes registered by other means.
-
-By using a custom internal mutex, does the driver bypass the standard
-subsystem synchronization architecture and introduce inefficient double-loc=
-king
-on sysfs reads, which are already protected by the hwmon core?
-
-[ ... ]
-> +static const struct i2c_device_id kb9002_id[] =3D {
-> +	{ KB9002_DEV_NAME },
-> +	{ }
-> +};
+> The pmgr-powerstate registers on Apple M3 Pro, Max and Ultra SoCs are
+> compatible with "apple,t8103-pmgr-pwrstate". Add
+> "apple,t6030-pmgr-pwrstate" for M3 Pro and "apple,t6030-pmgr-pwrstate"
+> for M3 Max and Ultra as per-SoC compatibles.
 
 [Severity: Low]
-This isn't a bug, but does this array initialization bypass the I2C
-subsystem guidelines?=20
-
-The I2C client initialization rules request that initialized arrays of type
-struct i2c_device_id use named initializers rather than positional
-initializers.
+This isn't a bug, but there appears to be a typo in the commit message. It=
+=20
+duplicates "apple,t6030-pmgr-pwrstate" instead of mentioning=20
+"apple,t6031-pmgr-pwrstate" for the M3 Max and Ultra.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-kb9002-ups=
-tream-v2-0-2fd390383da5@amd.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-apple-t603=
+x-initial-devices-v2-0-df65b2485710@jannau.net?part=3D5
