@@ -1,167 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC049429020
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 09:29:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF89430CC4;
+	Wed, 15 Jul 2026 09:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784107769; cv=none; b=BvuPRuexJ4raSfqWBguKwkwdaF8SJTar3O0vesDWpsjlQXBe/zTbz933UB00ovZYixH+ARqRcWPE4lwgmULc0yWUXdxfDVz8q+5FfdlXQtELRDt1u/8pQKhz9GPF28C7zh9LLF+K80ELRI4GqBFuuC5xLj0gaqtSPeTV2hhMASE=
+	t=1784107896; cv=none; b=KI+vxvz2aOQehz7IW8PsGv72F1wQHx20xahSulmIfsS/m+DNg/tKW6nrRtpRcmxuVBRO3YBquKCXxRgsrGUhKrAHMJTfjlSFSC4/F0fS2553nWfcb0rwe8NUjdDHNC/a27PfvlMaSDWUVPgQlIhApyJEgpjqQtZUrafdcN4bUJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784107769; c=relaxed/simple;
-	bh=d63nZGY544IkMRXI+AMsOOmVpdAP6Z/3GWCZnHMyqpk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=se6vXN1mD9b23PNnA6B+mgp0nBYmPS/CkKeJ0rf81ZKYw1n7bOYdjzkScMgb5jzv4+uH7+XNFrqarPA5dGoLz3BPWNbRZGSxPegSUoyDqEiGsDvYhnQPJ3pPtoWB+tiAIg78yiCa2hSEM3CvGZMk+4H7KkbCy9/ExDeI+4/hMPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PzWiUdGR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1784107896; c=relaxed/simple;
+	bh=k4Mxr2b2uXcaPiH3l9mMz8keQUEPR+TLeMo54YK8SQg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZjmNEcoIawaTeOVGwX+qRJ7LfyNDi9BGZTpvHvUO/UBO7uLybAC3T3pB5jmXw9lYaZLIYRuMHX8WkcXYlDnU7FQwdz+wnFQ6Ggofn4WOPyoSwOrZ78Sc7yL7+s+vGydbK+AQGM0VfGlr/Y72BIrkKx+Dv27Z0l2QTnIpnqx4wWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JBT8cc0+; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PzWiUdGR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028BA1F000E9;
-	Wed, 15 Jul 2026 09:29:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784107766;
-	bh=5KC4FoOl5GD0sM0hOKn075tBZupvUCcf96uZZD+e0ZE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PzWiUdGRC5Ru6dIMpnMOicVu+IFzZskVb0pfQV6plRJp4keMHO3xeYRwPgsHpR72S
-	 SOvhkYHhR65YoIL5NHAB8u9eXa4KRBZvO9oDgOniq1zW9j0dsfA0Mg2Nv4GT63cBXr
-	 5DOtMldjnrlJXRh4ldmUkepGmZ9ezh5OtyBblXjdxSdpJRpbkPVI9LFNBf7fRubrFG
-	 eyEFFGG2Asb0jABXvcGoUntVNSwRTNp4gwzfUctI4x7xJTJbkszSBU+If6sHWOLWG6
-	 u7THmPTkBplE0NqegN/Wnbsdo9Mor/iCF4mO8vL8aOJ3fh/ZTJ86+zJ123sfrpswV0
-	 OaAZ6zkLbzfmQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 12/16] power: sequencing: pcie-m2: support matching
- on remote "port" node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260715085348.3457359-13-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JBT8cc0+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784107891; x=1815643891;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k4Mxr2b2uXcaPiH3l9mMz8keQUEPR+TLeMo54YK8SQg=;
+  b=JBT8cc0+MGyymQ1W7X4DBNeNGOoVi0Uy81MBS3lOHht4S/rW+qqGYKal
+   ThJi5Lz1r1URxFHoTNrypsJOekCHyojgOCpDlYCucraEqf5fr8sFJ94NB
+   NFr0joiwasXM+Tsa2GHuvfUikbUC0Ayxn8c0fvN+DpIePAZGUKGOLF/UO
+   vKPINT02Ij/2zDhul5lJ37BwTPxFBNeIM6kAAhFQy5UgxDzqjB0dll7kW
+   Kc66BfTFxGuE0UixzGC8frXAKwFS7ZCqzzThsnB43Oj/7YFn8USXaB6zt
+   yqy9A3C1CR2q8ghdtIUaPHHKyzSZbHKJIRePtKLWXZKPHsTTss9OnT9jj
+   g==;
+X-CSE-ConnectionGUID: R3VZmNryRTiSxdQ2vGldmA==
+X-CSE-MsgGUID: qnZMFrhLSKKNWQljNgxr2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="84621796"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="84621796"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 02:31:27 -0700
+X-CSE-ConnectionGUID: C6gWwrZiQoSdjr4Qi+bgqQ==
+X-CSE-MsgGUID: rexS2BC5TTm8ipg2rVuMgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="255007837"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.129])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 02:31:22 -0700
+Date: Wed, 15 Jul 2026 12:31:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-pm@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 07/16] usb: core: Move struct usb_port and related
+ APIs to port.h
+Message-ID: <aldTZ3ni4Uk3eTO8@ashevche-desk.local>
 References: <20260715085348.3457359-1-wenst@chromium.org>
- <20260715085348.3457359-13-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 15 Jul 2026 09:29:25 +0000
-Message-Id: <20260715092926.028BA1F000E9@smtp.kernel.org>
+ <20260715085348.3457359-8-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715085348.3457359-8-wenst@chromium.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Wed, Jul 15, 2026 at 04:53:37PM +0800, Chen-Yu Tsai wrote:
+> |struct usb_port| and its matching container_of() macro should live in
+> its own port.h, matching the split we have for .c files.
+> 
+> Move them as described. Also move usb_port_is_power_on(), since in the
+> next change its |struct usb_hub *| parameter will be changed to
+> |struct usb_port *|, and becomes a non-static function that only
+> references |struct usb_port|.
+> 
+> port.h is only included from hub.h, as a subsequent patch will directly
+> use fields from |struct usb_port| in a static inline helper in hub.h.
+> The USB internal headers don't have header guards to help with this.
+> 
+> Also drop 'extern' from the header declaration of usb_port_is_power_on().
+> This is not needed in modern C.
 
-Pre-existing issues:
-- [High] Missing `serdev_controller_put()` in `pwrseq_pcie_m2_create_serdev=
-_one()` returns path.
-- [High] Unchecked `pdev->dev.parent` in `pwrseq_pcie_m2_notify()` leads to=
- NULL pointer dereference.
-- [High] Mixing `devm` registration with manual resource cleanup causes Use=
--After-Free of regulator consumers.
---
+...
 
---- Patch [12]: [PATCH v5 12/16] power: sequencing: pcie-m2: support matchi=
-ng on remote "port" node ---
-commit 8eb380a4e579162e00e556321400077f29d6c07e
-Author: Chen-Yu Tsai <wenst@chromium.org>
+> +struct usb_port {
+> +	struct usb_device *child;
+> +	struct device dev;
+> +	struct usb_dev_state *port_owner;
+> +	struct usb_port *peer;
+> +	struct typec_connector *connector;
+> +	struct dev_pm_qos_request *req;
+> +	enum usb_port_connect_type connect_type;
+> +	enum usb_device_state state;
+> +	struct kernfs_node *state_kn;
+> +	usb_port_location_t location;
+> +	struct mutex status_lock;
+> +	u32 over_current_count;
+> +	u8 portnum;
+> +	u32 quirks;
+> +	unsigned int early_stop:1;
+> +	unsigned int ignore_event:1;
+> +	unsigned int is_superspeed:1;
+> +	unsigned int usb3_lpm_u1_permit:1;
+> +	unsigned int usb3_lpm_u2_permit:1;
+> +};
 
-power: sequencing: pcie-m2: support matching on remote "port" node
+A side note for the future development (no need to change anything here
+right now). It might be that the layout is suboptimal and `pahole` might
+propose a better one.
 
-This commit updates the pcie-m2 power sequencing driver to support matching
-against remote "port" nodes for USB hubs. It uses of_graph_get_remote_port()
-and falls back to the remote port parent for other connection types. It
-also updates the existing matching logic to use device_match_of_node().
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/se=
-quencing/pwrseq-pcie-m2.c
-> index ddfe6ca824945..01f9f6a717464 100644
-> --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
-> +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-> @@ -175,9 +175,16 @@ static int pwrseq_pcie_m2_match(struct pwrseq_device=
- *pwrseq,
->  	 * parent matches the OF node of 'dev'.
->  	 */
->  	for_each_endpoint_of_node(ctx->of_node, endpoint) {
-> +		/* USB port devices are tied to the port nodes. */
-> +		struct device_node *remote_port __free(device_node) =3D
-> +				of_graph_get_remote_port(endpoint);
-> +		if (device_match_of_node(dev, remote_port))
-> +			return PWRSEQ_MATCH_OK;
-> +
-> +		/* Try the remote port parent for other types. */
->  		struct device_node *remote __free(device_node) =3D
->  				of_graph_get_remote_port_parent(endpoint);
-> -		if (remote && (remote =3D=3D dev_of_node(dev)))
-> +		if (device_match_of_node(dev, remote))
->  			return PWRSEQ_MATCH_OK;
->  	}
-> =20
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does=20
-pwrseq_pcie_m2_create_serdev_one() leak the serdev_ctrl reference on the
-early return path?
-
-If the serdev device was already created for the PCI device, the list
-iteration returns 0 directly:
-
-drivers/power/sequencing/pwrseq-pcie-m2.c:pwrseq_pcie_m2_create_serdev_one(=
-) {
-    ...
-    scoped_guard(mutex, &ctx->list_lock) {
-        list_for_each_entry(pci_dev, &ctx->pci_devices, list) {
-            if (pci_dev->pdev =3D=3D pdev)
-                return 0;
-        }
-    }
-    ...
-}
-
-This appears to bypass the serdev_controller_put(serdev_ctrl) cleanup. Could
-this accumulate leaked references during PCI bus probing or device
-notification callbacks?
-
-[Severity: High]
-This is a pre-existing issue, but could pwrseq_pcie_m2_notify() trigger a
-NULL pointer dereference on systems with a root PCI bus?
-
-Some bus scanning flows use pci_create_root_bus(NULL, ...), where devices
-have no parent. The BUS_NOTIFY_ADD_DEVICE notifier is registered globally
-and evaluates this without checking if pdev->dev.parent is NULL:
-
-drivers/power/sequencing/pwrseq-pcie-m2.c:pwrseq_pcie_m2_notify() {
-    ...
-    if (!pci_parent || (pci_parent !=3D pdev->dev.parent->of_node))
-        return NOTIFY_DONE;
-    ...
-}
-
-Could this cause a kernel panic during PCI bus probing on affected systems
-when the driver is active?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does mixing devm registration
-with manual regulator cleanup cause a use-after-free?
-
-In the probe error path and remove function, the regulators are manually
-freed:
-
-drivers/power/sequencing/pwrseq-pcie-m2.c:pwrseq_pcie_m2_probe() {
-    ...
-err_free_regulators:
-    regulator_bulk_free(ctx->num_vregs, ctx->regs);
-    ...
-}
-
-drivers/power/sequencing/pwrseq-pcie-m2.c:pwrseq_pcie_m2_remove() {
-    ...
-    regulator_bulk_free(ctx->num_vregs, ctx->regs);
-    ...
-}
-
-Since the power sequencer device is registered via
-devm_pwrseq_device_register(), it remains active until the devres teardown
-runs after the function returns. If a consumer calls a power sequencing
-operation during this window, or if the driver is unbound via sysfs, will
-it access the freed regulator consumer objects?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715085348.3457=
-359-1-wenst@chromium.org?part=3D12
