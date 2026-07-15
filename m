@@ -1,102 +1,103 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36B34657F3
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DB9448CEE
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784118328; cv=none; b=cdkrNDMt0IXiMt75sgrYp3+eEgNP4szcepihh6y60m0NLNqKkPnWvP63qN6TsrILTssYKxZYhSNWttD1rej8bYdjbWhzSdr469/WZTzCepiw0APl1Ea1cw+UbwE3317P1bA7uNr+STJ/LJ4HMQ9lGyzpeqA6Pcn2U5Yc2q6Ioz4=
+	t=1784118408; cv=none; b=R2EZ/mwToSNnOV5TZMQfEccOm+acZPue3eaOCHdljIdHZTIuuAzmxfm+RlvYPiQ4IhOxVDSQVHSQRxOmYeSz8PSzg/mWEtcx40fEg58AiR9Tdt2J4OpWIoIbqlbTsn7YTR12/GsGSlGMB/0j7tG70atKTxp2coW4Yg8Ign0SatY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784118328; c=relaxed/simple;
-	bh=/1JCIT7JbkusWM8jBca7pwdiuxeWCU2zSoxU4rAoFeo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=PWF1By1fgkO20h+ehhdPukmOV8TJE5zblFZrEFwyxAtEW0/haIi+E/n2LLfzaGe5ltln0N9WLeZU8U2PYzCnhelK/9iUEpvoEi0w7qvWODbEJppCUK32r0px6dSeKZHzfP6c3UKy7zCMJ5CA6gVXp46Cm0QI6IMx+7Wnk8RBJUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=BaxY1uPV; arc=none smtp.client-ip=185.70.43.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784118408; c=relaxed/simple;
+	bh=TF12o4kxmUhjvdA6ouORMbeT1BJf7UjZuwxQoUAEn0g=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qnd3bhSZ9Y8TwEDUZcRb097Dqght2nOKRfvUmzw2tkElptSyr+8e1p6B1Yn+VrYFF0dvxIehD8uTBstfqdNViwqEQv2NdUvwCPRxMj+eC54CjKm2T+9R3PvkDqQKPTzALIXi3sa8I4/LLoJWGIFRVj/aXD1h/EJpQ0yizfbSrqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QKykeVV+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="BaxY1uPV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784118323; x=1784377523;
-	bh=N9BgjdLpyBUrjx79keV+lQLR9W0VyIb22/dfHemNCn4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BaxY1uPVG4B3O//Vmhq4WJUS31jbCGjiB2xowPAPE8jTdUjEDA2rjDXW+NvRE7zt1
-	 Jyg3BEry7xdLQxJGKBK7GLIzInjAY8MkSILHptselIGKh3Hja5dEbxCcxUkNRPTVCs
-	 WYFybGpQSZUE3JcDZoI3Y9F4VGe4/+t3v9iDXZkJ6G8n/Q1TZKw19fclTqMx2WND25
-	 efUasinx5bz03X64v+A2pPXgcUIPTRohmgeLy5uoNpRZOVeIG23mYsudzncYa5yIhC
-	 2I1S2Amt+hFmiXmqfotQ/ve9E3A6MaPjqPP1HfZvrNjQU2cte/w28rEVpremTis4/k
-	 UKKOQudykbIaA==
-X-Pm-Submission-Id: 4h0b3h1GxDz2ScqH
-From: Esben Haabendal <esben@geanix.com>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Nikita Travkin" <nikita@trvn.ru>,  "Maslov Dmitry"
- <maslovdmitry@seeed.cc>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] iio: light: ltr501: Add ltr329 driver support
-In-Reply-To: <20260715110046.00001aa8@gmail.com> (Joshua Crofts's message of
-	"Wed, 15 Jul 2026 11:00:46 +0200")
-References: <20260715-liteon-ltr329-v1-0-31f027051594@geanix.com>
-	<20260715-liteon-ltr329-v1-3-31f027051594@geanix.com>
-	<4cMgwAFPJkUt759lA15Qqqxi3-vUgf5w6GlGkVubDu_IElhPOsDlIBsxCMlbSiQzapJVNQKOzYN7kip6WIuP_Q==@protonmail.internalid>
-	<20260715110046.00001aa8@gmail.com>
-Date: Wed, 15 Jul 2026 14:25:19 +0200
-Message-ID: <877bmwo2xc.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QKykeVV+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD431F01575
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 12:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784118406;
+	bh=ufSU06HSFFf/HF9xxtT6zNddSL0W/3RadTy6uo0f3pw=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=QKykeVV+vjB0vBKkxzt1G8Vl5kKWhAKrI3T18ni2Hmw7Ye9vGMPmHsQOOafa6Rkz8
+	 Ms0JYatvX30UIvmhmwHhmdX9yRaau4XM7UMuftPm2YrvDgVpRTT9y0EvcfS+iJMopa
+	 wn5EvKEKra8RnO1k8aY6zl3W8kTP7P1IlnB4/LKGhKGxEg2xEMFyvVePT3Jcft61ug
+	 gLoOZQLE17mfUgB/wOuZnmcyg2/bXhPTd+ObHBKZgp4ncS4UOBn+dwfyO9BIdDE/Ik
+	 iVS87KexyX8aSDr2Cs39sUkAux0k+DNAdUQG8yS15R4tPMKJ4Ufu/ntoSvaqilpRBT
+	 Qrj1mAGszI78g==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39ca0a30148so42691521fa.3
+        for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 05:26:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RovVR2c4ipGZKGXfeGpmYjgUXSYTpwZIRD13sR7zzVDd9oMDgb7pM60XayqpheDbilfAMzjdECDlg5l@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHgN3IzHDfLGwhdH7q+VNqaRZv/5+BTRNQKGCrpbFwAwl/xgj9
+	BrPwMQQOT3TdCs1O6tTHOtvAiCptz9N5NkPq0Jc6XVKJy70iArsz4C1hiv8LXSaHSOn/UVfjazK
+	M2I/XWhTuVNU/G/hfa/MKYoHIO5ikrv0KzCQFH5AGnA==
+X-Received: by 2002:a05:651c:23db:20b0:39c:6e2c:23c3 with SMTP id
+ 38308e7fff4ca-39db6ba5ea7mr4965071fa.5.1784118404814; Wed, 15 Jul 2026
+ 05:26:44 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:26:43 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 15 Jul 2026 05:26:42 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260714-arm-psci-system_reset2-vendor-reboots-v23-2-e7453c548c21@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260714-arm-psci-system_reset2-vendor-reboots-v23-0-e7453c548c21@oss.qualcomm.com>
+ <20260714-arm-psci-system_reset2-vendor-reboots-v23-2-e7453c548c21@oss.qualcomm.com>
+Date: Wed, 15 Jul 2026 05:26:42 -0700
+X-Gmail-Original-Message-ID: <CAMRc=McKp4WsOY-EQ21n2wbqCp5V0Lr1Cbub5geEhz-LZvVkZw@mail.gmail.com>
+X-Gm-Features: AUfX_mylt-DYfwtCtULeZMicFYpxh50vEHg7XonNMSy71MZwRMycF3EtBgUVrSQ
+Message-ID: <CAMRc=McKp4WsOY-EQ21n2wbqCp5V0Lr1Cbub5geEhz-LZvVkZw@mail.gmail.com>
+Subject: Re: [PATCH v23 02/13] power: reset: reboot-mode: Support up to 3
+ magic values per mode
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, mfd@lists.linux.dev, 
+	Srinivas Kandagatla <srini@kernel.org>, Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
+	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
-
-> On Wed, 15 Jul 2026 10:23:50 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->> @@ -1257,6 +1269,18 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
->>  		.channels = ltr301_channels,
->>  		.no_channels = ARRAY_SIZE(ltr301_channels),
->>  	},
->> +	[ltr329] = {
->> +		.partid = 0x0A,
->> +		.als_gain = ltr559_als_gain_tbl,
->> +		.als_gain_tbl_size = ARRAY_SIZE(ltr559_als_gain_tbl),
+On Tue, 14 Jul 2026 19:16:30 +0200, Shivendra Pratap
+<shivendra.pratap@oss.qualcomm.com> said:
+> ARM PSCI vendor-specific resets, require a 32-bit reset_type and a 64-bit
+> cookie as arguments. This cannot be implemented via the reboot-mode
+> framework, which supports a single 32-bit argument as magic value.
 >
-> While you're at it, add `#include <linux/array_size.h>`
-
-Will do.
-
->> +		.als_mode_active = BIT(0),
->> +		.als_gain_mask = BIT(2) | BIT(3) | BIT(4),
->> +		.als_gain_shift = 2,
->> +		.info = &ltr301_info_no_irq,
->> +		.info_no_irq = &ltr301_info_no_irq,
->> +		.channels = ltr301_channels,
->> +		.no_channels = ARRAY_SIZE(ltr301_channels),
->> +	},
->>  };
->>
->>  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
->> @@ -1531,6 +1555,11 @@ static int ltr501_probe(struct i2c_client *client)
->>  		return ret;
->>
->>  	if (client->irq > 0) {
->> +		if (!ltr501_has_irq_support(data->chip_info)) {
->> +			dev_err(&client->dev, "chip does not support irq\n");
->> +			return -EINVAL;
+> Extend the reboot-mode framework to support up to three 32-bit arguments
+> as magic, per reboot-mode.
 >
-> Shouldn't this jump to the powerdown_on_error label instead of returning?
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>  drivers/power/reset/nvmem-reboot-mode.c  | 10 ++++----
+>  drivers/power/reset/qcom-pon.c           |  8 ++++---
+>  drivers/power/reset/reboot-mode.c        | 41 +++++++++++++++++++++-----------
+>  drivers/power/reset/syscon-reboot-mode.c |  8 ++++---
+>  include/linux/reboot-mode.h              |  4 +++-
 
-Yes.
+Could we avoid having to modify multiple files here by just providing a new
+function:
 
-And I will add a similar change for the devm_request_threaded_irq()
-error handling where I think we should do that as well.
+    nvmem_reboot_mode_write_full()
 
-/Esben
+with the prototype you proposed and making the existing
+nvmem_reboot_mode_write() a thin wrapper around it?
+
+Bart
