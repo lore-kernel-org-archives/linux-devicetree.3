@@ -1,106 +1,92 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CBD29BD8C
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 13:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A23528504F;
+	Wed, 15 Jul 2026 13:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784122360; cv=none; b=X+kR/c8KA/42G/ZvRdehKZxf+GJ8ZV/WeNm2CHemJNnSRke3/ewPUG7osAksbAwRcDfunyLTphBcfDkYY6K9CI/itQaMWLy6b+an0hDrxA6+4SyTOgSdzXYBxZ2UtBZDDoKVEffuXvlefYtK+6yjow+OZQc6zA+y4p2CohhGwTM=
+	t=1784122378; cv=none; b=tJbxWSMT3rKGWhysk4CMX9OxTrTt8w16isQnK8ChYyjnV2UIXnFWbUOauzTs5beqLBzyRAD7Vz03peT0iNMdtKMn8Ge4gl+hP9n7SHuQkBRKLiG9UOE44G3rtqVbJWALioJVtDSZ8AxUp1rUouU7w81d6gTQWyCLv8CXajZn7Os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784122360; c=relaxed/simple;
-	bh=W8CO2KxXvI9NYWsBJxzXoHxL1JMJwIwl/nfFG3GfYRs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tO2he0P5A6gQEOyV5dO/0i0ts78QtrZJe2XTCTrp5/ALDKMFnP4HNA5CRXrmNtPpNOu1nSAnUEeS5VN1/A29ILvXn7LW9HiYfhHee7ziHPjFAoTVxwfu5YvksKTom1Myk8DhJSk6mZsITCeuiq84es8Ypn4DOQ7aDRCr4qZgo0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=THXCv1Pq; arc=none smtp.client-ip=185.70.43.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1784122378; c=relaxed/simple;
+	bh=AC4gKUt0bevhnOPbm47J2rH245XNM9BU/0Silweo334=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OIo5xQ7oKuU2OE5Ur3Hn8ItaiAya5bHPGtgOMh//lRMbSzv1qVAI/eRkt7FkH3pjiOcnevOZB2LKO5k7n0BeAZXjXfUGT3IVhV2C1+jc7BRvqnxEs8kqT/BRq3Sj3zKHVguHNkpLDUs4pyrYCyDaa4RiUK1YG8L1mAcVY2+HtXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PR+qLXnZ; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="THXCv1Pq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1784122357; x=1784381557;
-	bh=cZMyF7lKN/fVrjH0IISFT/Q0aua/g9KR2me/3HTTkB4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=THXCv1PqP+wN0+z4mzJVbKT6lJkjEvhgEyDnfOabCVL4SdBUBgKZDz255A1rm6mq6
-	 iO4pHK99JY59bQ2GSPt/LS8GgWHbubd1KaDfEOWTyVHy/uVR1BqTjTliyi2tLJU/vw
-	 /30rdvj5jeJEfHPjOE8azfbh581qsqC1lreEmQrAvFl2fVelBLQ9TGlaPjQj9sisPF
-	 DNxWoHbYT67XycUFKdIEqL6Q7VqXBjp3SduvjO2kXsYRJu0qQLwtQgLZQVXMmUGQsD
-	 yFD3kSA6OA3IRNiHux6avVRP8DFMifc4iRFHWkVhPsV44P09HU7nE52K4idP9NqAaF
-	 dXCuPVGz5KgxA==
-X-Pm-Submission-Id: 4h0cYC2N19z1DDXd
-From: Esben Haabendal <esben@geanix.com>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Nikita Travkin" <nikita@trvn.ru>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 4/4] iio: light: ltr501: Power down chip if request
- irq fails
-In-Reply-To: <20260715145944.00001de5@gmail.com> (Joshua Crofts's message of
-	"Wed, 15 Jul 2026 14:59:44 +0200")
-References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
-	<20260715-liteon-ltr329-v2-4-d18af55edab5@geanix.com>
-	<6-wUX5EiSYvh9vD_ssjPFzgUU5Zufzt16ne6vtLlfMmSVNXcH0PfzmPA-0l9gRPnGufaUTd4coEpWEknDRlbqA==@protonmail.internalid>
-	<20260715145944.00001de5@gmail.com>
-Date: Wed, 15 Jul 2026 15:32:30 +0200
-Message-ID: <87tsq0ml8x.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PR+qLXnZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1784122377; x=1815658377;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AC4gKUt0bevhnOPbm47J2rH245XNM9BU/0Silweo334=;
+  b=PR+qLXnZDtm0+B83BBRrkNAtjmxbpuk7QGTKoXsqXE4SNvpVQoLoWq3K
+   YD5CAocLLf5u9xB9/68v7lcsrVEXMfsD3s/vBtdr/TJNIVVtJUzNcW0XK
+   igCe8RzESW+jpOUAzvr2/mbOGulc3z9X6/VEkf3tefcP/8S+FKO5v+A+t
+   89FgQIssQ2da+u9grrs54vc01q4kwXHV7vWq0Rx+K+rXE/P7nUAbXIG/i
+   0qdDz8vNDRLZYwGxgYq/KtCYN2TYCV14ndeh4ollan3gH/x2WQS3ytf4y
+   S+WbvU3o7tO9Z4e2F6b0iTKWWR9WD3KsU2GM/pvD92P1kYlyb6JKsWBVX
+   Q==;
+X-CSE-ConnectionGUID: l5ZWvJ9LRiWPQps7cYDitg==
+X-CSE-MsgGUID: q5ut0bQMTFit0BEogH6ADA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95901139"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="95901139"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 06:32:57 -0700
+X-CSE-ConnectionGUID: gxMSpFxJQoCtcdqB/nWRrw==
+X-CSE-MsgGUID: 8Ki/fA4JSRq+GWtCD3+1+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; 
+   d="scan'208";a="254437534"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.106])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jul 2026 06:32:52 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2E82012080C;
+	Wed, 15 Jul 2026 16:32:50 +0300 (EEST)
+Date: Wed, 15 Jul 2026 16:32:50 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Lachlan Michael <Lachlan.Michael@sony.com>,
+	Ryuichi Tadano <Ryuichi.Tadano@sony.com>,
+	Kengo Hayasaka <Kengo.Hayasaka@sony.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v5 0/2] media: Add bindings and driver for Sony IMX678
+Message-ID: <aleMAlwBLUekyQMo@kekkonen.localdomain>
+References: <20260703-imx678-v5-0-0523dbed0dad@ideasonboard.com>
+ <20260715131232.GA1106419-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715131232.GA1106419-robh@kernel.org>
 
-"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
+Hi Rob,
 
-> On Wed, 15 Jul 2026 14:27:26 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> In case request irq failed, we were leaving the chip powered instead of
->
-> devm_request_threaded_irq(), please mention functions and structs by their
-> full name to prevent ambiguity.
+On Wed, Jul 15, 2026 at 08:12:32AM -0500, Rob Herring wrote:
+> On Fri, Jul 03, 2026 at 02:49:15PM +0530, Jai Luthra wrote:
+> > Jai Luthra (2):
+> >       dt-bindings: media: i2c: Add Sony IMX678
+> >       media: i2c: imx678: Add driver for Sony IMX678
+> 
+> Media maintainers, it seems the driver was applied, but not the binding.
 
-Ok.
+Thanks for the info, I'll fix it in a moment.
 
->> powering it down again.
->
-> + a very short explanation of what you did, 1 sentence
-
-I will do what I can.
-
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/light/ltr501.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
->> index 379e57ac5f5b..9d4de798e5ab 100644
->> --- a/drivers/iio/light/ltr501.c
->> +++ b/drivers/iio/light/ltr501.c
->> @@ -1571,7 +1571,7 @@ static int ltr501_probe(struct i2c_client *client)
->>  		if (ret) {
->>  			dev_err(&client->dev, "request irq (%d) failed\n",
->>  				client->irq);
->
-> While you're at it, you can remove the dev_err() call as devm_request_threaded_irq
-> already calls dev_err_probe on failure, creating duplicate messages.
-
-Consider it done.
-
->
->> -			return ret;
->> +			goto powerdown_on_error;
->>  		}
->>  	} else {
->>  		indio_dev->info = data->chip_info->info_no_irq;
->>
->
-> --
-
-/Esben
+-- 
+Sakari Ailus
