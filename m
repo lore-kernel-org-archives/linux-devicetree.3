@@ -1,118 +1,176 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8E737C926
-	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3757384CC8
+	for <devicetree@vger.kernel.org>; Wed, 15 Jul 2026 14:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784125571; cv=none; b=IVSZp9HzGLdvU38KPX8mgogKmyB4ACMG2uILSeU9NY0htbMsysOuusDI3aAricxY6X9uThI3pZcC4UJfSbSLGrqo+MbYa1pPiFgf+0FazPvwVyhQZnJ42b2pBAclmZeNnajojQi0BfX16S+t4mPE0evJkkePBBAGImgif670LYI=
+	t=1784125771; cv=none; b=KO5O7LicUxXYEXf0MJbVzAHefv/OEPngnZsMKJQvZGG6/J+xwVJXRQC31STzIBgWWfGeZUzvsrG8bLvvQ+rYNyCx/5+C5yy03d6gFaMVu1GZXZKiIRgM3x10/HeH49JE5fFR35KQa69a0fUBOl94KOZxB/QzKq/hA2uwYOWmnr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784125571; c=relaxed/simple;
-	bh=hpdwsiNEjfNuFjFxJ0I5g9WSEg2XgVxEx2/9Y8ipd8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F54Dwe1B/gNaXNsNHsDI4qnKS+3JlDnmG4gGDjXyqSApBpQcqHpEHVRzvopqs5fsbZl4wGIz9b/x0Ar7WG7v6hZ2C8+UTiFpmPWfqbMjLW2JLyYpo3DpEfrUeW75aLRC3M44IK+owY5S64dkImjnSjNBZYiBP34bM8/9HULwEG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pqrs.dk; spf=pass smtp.mailfrom=pqrs.dk; dkim=pass (2048-bit key) header.d=pqrs.dk header.i=@pqrs.dk header.b=PXdEp3KE; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pqrs.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pqrs.dk
+	s=arc-20240116; t=1784125771; c=relaxed/simple;
+	bh=ScbIOVEUnT3zehrLYFdeTzj7gPYvUax8I8Qq1w8H4b8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=K/5WXNTUPW43TYmlyHFFuhtvxXxSfxFFbpqi1+MX2tLmm08BwXLPN0PcXN0GdDmYopu0/6UVn7Xnf7ORup/y38OH80fgk9RDVBoBVU8v76OVtt1ieIfg/g3QUkSBm6AAT+hyVbs9AIYjV2t8klGJTEj6DTNFQo8hVE2eu7ul+bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G2nEikEl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pqrs.dk header.i=@pqrs.dk header.b="PXdEp3KE"
-Date: Wed, 15 Jul 2026 16:25:47 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pqrs.dk; s=key1;
-	t=1784125564;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fi0qgS6ZyNxP8nvy1wv+zBNMPjMZLrFGACMYGND39aQ=;
-	b=PXdEp3KEhpLj7alz/9kL5ajjnbh6NVDQM8xgT8Xa83yu3bkVH8a3wDgwPI3Vde5itVPDca
-	j1sq64vJc9+XH9O3k4/9//cgiRaEfCwfD07S2MSVdalWuDjUsRiGe2EQjOjqSalnucGb/8
-	L8R17WT96u8dHU6hVqltEKwXyKrEhPMaSGoQr/jHuYY4VnC17X0zlyZgGbS2ji8HyTmZDZ
-	eF/cEnEKePiTT+sn21Z4/EWT0aAX1sUcC9OTbJROShTl0B+QBexi4wAs+CfMZrm6d9ctDP
-	xMbYD1BCYgjegf006x5I6p8K/9cKRLXTzh/jZL6SRs+9PLm/Uw7lYyfTbvy1Xw==
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin@pqrs.dk>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Guenter Roeck <linux@roeck-us.net>, Lee Jones <lee@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Peter Rosin <peda@axentia.se>, David Jander <david@protonic.nl>, kernel@pengutronix.de, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v15 4/6] pinctrl: add NXP MC33978/MC34978 pinctrl driver
-Message-ID: <aleRFBOTDDByuT8g@pqrs.dk>
-References: <20260710101358.2606941-1-o.rempel@pengutronix.de>
- <20260710101358.2606941-5-o.rempel@pengutronix.de>
- <alEKklx_X4cP3Ire@pqrs.dk>
- <alHSylCU0RISGVn-@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G2nEikEl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E59D1F000E9;
+	Wed, 15 Jul 2026 14:29:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784125769;
+	bh=CrZM1NAmc6btMb5eriTuJ096vYkU1ZlIHWopfY91/A8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G2nEikElsviHzKJlWvX8ANcRD+mej5fCiJ/eciH8DFH6JfvlOW/oHnC9TTcGs9Oxu
+	 i1IsHofcxrBEqrONfUtRVkrKTGn+com9LbHsU51UYCaCSYWUA41wkPIfZCV8/5eNot
+	 i2rju9WFUVh1mQmNwA/h4SDsZm/srsKFzgAY/OezR1XG7csqdgDFbj9ONnco4gOYce
+	 fMLE/7+0U3SDe1WOUnngCKbJzynODYRtqaR0V/rOEYuioLxovg29zJ+b3B8PNVf9QD
+	 XRK3HrjhfL5JPW/PmY7rUwZ3cz9fFgxSXQgDEMu/2dnjvNFzsCUo1B1YUe/xUjFjZm
+	 jE0XuY1gdxflw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 04/14] media: iris: Add helper to select relevant
+ context bank device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260715-glymur-v9-4-8cf2cbe12a07@oss.qualcomm.com>
+References: <20260715-glymur-v9-0-8cf2cbe12a07@oss.qualcomm.com>
+ <20260715-glymur-v9-4-8cf2cbe12a07@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 Jul 2026 14:29:28 +0000
+Message-Id: <20260715142929.1E59D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alHSylCU0RISGVn-@pengutronix.de>
-X-Migadu-Flow: FLOW_OUT
 
-On Sat, Jul 11, 2026 at 07:21:14AM +0200, Oleksij Rempel wrote:
-> Hi Alvin,
-> 
-> On Fri, Jul 10, 2026 at 05:22:30PM +0200, Alvin Šipraga wrote:
-> > Hi Oleksij,
-> > 
-> > On Fri, Jul 10, 2026 at 12:13:53PM +0200, Oleksij Rempel wrote:
-> > > +/*
-> > > + * Defensive wrappers for hierarchical IRQ proxying.
-> > > + *
-> > > + * gpiolib's hierarchical allocation exposes a lifecycle gap: the child
-> > > + * descriptor is registered before irq_domain_alloc_irqs_parent() fully
-> > > + * instantiates the parent chip.
-> > > + *
-> > > + * During consumer probe (e.g., gpiod_to_irq()), irq_create_fwspec_mapping()
-> > > + * allocates the hierarchy. As part of this, irq_domain_set_info() initializes
-> > > + * the top-level irq_desc and calls __irq_set_handler(). If the irq_desc
-> > > + * requires locking, __irq_get_desc_lock() will invoke the child's
-> > > + * .irq_bus_lock before the parent allocation is complete.
-> > > + *
-> > > + * Upstream generic helpers (e.g., irq_chip_mask_parent) blindly dereference
-> > > + * data->parent_data->chip, causing an immediate NULL pointer panic during
-> > > + * this gap. These wrappers check for a valid parent chip to safely drop
-> > > + * premature locking or masking events while the legacy subsystem hierarchy
-> > > + * is still assembling itself.
-> > > + */
-> > 
-> > I encountered the same problem while working on a pinctrl/GPIO driver
-> > this week. While searching lore to see if I'm doing it wrong, I found
-> > this series. Such wrappers fix the problem for me too (although in my
-> > case, it's not a slow bus, so it crashes in .irq_mask instead of
-> > .irq_bus_lock).
-> > 
-> > But I see that in a previous version, you were reordering things in
-> > gpiochip_hierarchy_irq_domain_alloc(). Why did you abandon this
-> > approach?
-> > 
-> > Just wondering if we can find a more generic solution which doesn't
-> > require such drivers to add this defensive boilerplate. Another option
-> > might be to move such checks into the generic helpers.
-> 
-> My previous attempts to address it in the core were simply too fragile
-> and caused other regressions.
-> 
-> To be honest, I have already run out of budget for this task. A lot of
-> that time was spent just learning how to deal with the new upstreaming
-> reality. With sashiko.dev, it is much harder to upstream any moderate to
-> large amount of code now. You either have to use public sashiko and spam
-> everyone until all issues are addressed, or learn to set up and use your
-> own sashiko instance.
-> 
-> Because of that, these driver-level wrappers are the most practical way
-> forward for me right now.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Yeah, that sounds perfectly reasonable. Thank you for
-clarifying. Interesting also to hear your (perhaps frustrating)
-experience sending a bigger series. I hope the situation will improve.
+New issues:
+- [High] Using dynamically created context bank devices without taking a re=
+ference via get_device() creates a Use-After-Free risk when file descriptor=
+s outlive device unbind.
 
-Kind regards,
-Alvin
+Pre-existing issues:
+- [High] The `struct iris_core` is allocated via devres but is accessed in =
+V4L2 deferred release paths, causing a Use-After-Free if a file descriptor =
+is closed after driver unbind.
+--
+
+--- Patch [4]: [PATCH v9 04/14] media: iris: Add helper to select relevant =
+context bank device ---
+commit ff67c19893e13d3ddb40ea541f363dbf54e13228
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+
+media: iris: Add helper to select relevant context bank device
+
+This commit introduces a helper to associate the appropriate context bank=20
+device with different buffer types. It updates the internal buffer allocati=
+on=20
+and queue initialization to use this dynamically selected device instead of=
+=20
+always defaulting to the main core device.
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/med=
+ia/platform/qcom/iris/iris_buffer.c
+> index 246ad0abbac35..249c9f1d0d5da 100644
+> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> @@ -545,7 +545,7 @@ static int iris_create_internal_buffer(struct iris_in=
+st *inst,
+>  	buffer->buffer_size =3D buffers->size;
+>  	buffer->dma_attrs =3D DMA_ATTR_WRITE_COMBINE | DMA_ATTR_NO_KERNEL_MAPPI=
+NG;
+> =20
+> -	buffer->kvaddr =3D dma_alloc_attrs(core->dev, buffer->buffer_size,
+> +	buffer->kvaddr =3D dma_alloc_attrs(dev, buffer->buffer_size,
+>  					 &buffer->device_addr, GFP_KERNEL, buffer->dma_attrs);
+
+[Severity: High]
+Could this lead to a Use-After-Free of the context bank device?
+
+When a userspace application opens the video device file descriptor,
+iris_create_internal_buffer() allocates internal buffers using the context
+bank device. If the driver is subsequently unbound (e.g., via sysfs) and the
+context bank devices are unregistered and freed, the application could later
+close the file descriptor.
+
+Should a reference be taken on the context bank device pointer via
+get_device() to ensure it outlives deferred file operations cleanup?
+
+>  	if (!buffer->kvaddr) {
+>  		kfree(buffer);
+
+[ ... ]
+
+> @@ -682,10 +682,10 @@ int iris_queue_internal_buffers(struct iris_inst *i=
+nst, u32 plane)
+> =20
+>  int iris_destroy_internal_buffer(struct iris_inst *inst, struct iris_buf=
+fer *buffer)
+>  {
+> -	struct iris_core *core =3D inst->core;
+> +	struct device *dev =3D iris_get_cb_dev(inst, buffer->type);
+
+[Severity: High]
+This is a pre-existing issue, but is it possible for inst->core to be freed
+before this deferred cleanup is called?
+
+In drivers/media/platform/qcom/iris/iris_probe.c, the core structure is
+allocated via devm_kzalloc(). If the driver is unbound while a file
+descriptor is open, devres will free the iris_core structure. When the file
+descriptor is later closed, deferred release paths (such as
+iris_check_num_queued_internal_buffers() in iris_vidc.c, or here calling
+iris_get_cb_dev()) will dereference inst->core, resulting in a Use-After-Fr=
+ee.
+
+> =20
+>  	list_del(&buffer->list);
+> -	dma_free_attrs(core->dev, buffer->buffer_size, buffer->kvaddr,
+> +	dma_free_attrs(dev, buffer->buffer_size, buffer->kvaddr,
+>  		       buffer->device_addr, buffer->dma_attrs);
+
+[Severity: High]
+If the context bank device was freed during driver unbind, will passing the
+unpinned device pointer to dma_free_attrs() during deferred fops release
+cause a Use-After-Free?
+
+>  	kfree(buffer);
+> =20
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media=
+/platform/qcom/iris/iris_vidc.c
+> index 14d63dc76c9ba..26df872fb4fa1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+> @@ -107,7 +107,7 @@ iris_m2m_queue_init(void *priv, struct vb2_queue *src=
+_vq, struct vb2_queue *dst_
+>  	src_vq->drv_priv =3D inst;
+>  	src_vq->buf_struct_size =3D sizeof(struct iris_buffer);
+>  	src_vq->min_reqbufs_allocation =3D MIN_BUFFERS;
+> -	src_vq->dev =3D inst->core->dev;
+> +	src_vq->dev =3D iris_get_cb_dev(inst, BUF_INPUT);
+>  	src_vq->lock =3D &inst->ctx_q_lock;
+>  	ret =3D vb2_queue_init(src_vq);
+>  	if (ret)
+> @@ -121,7 +121,7 @@ iris_m2m_queue_init(void *priv, struct vb2_queue *src=
+_vq, struct vb2_queue *dst_
+>  	dst_vq->drv_priv =3D inst;
+>  	dst_vq->buf_struct_size =3D sizeof(struct iris_buffer);
+>  	dst_vq->min_reqbufs_allocation =3D MIN_BUFFERS;
+> -	dst_vq->dev =3D inst->core->dev;
+> +	dst_vq->dev =3D iris_get_cb_dev(inst, BUF_OUTPUT);
+>  	dst_vq->lock =3D &inst->ctx_q_lock;
+
+[Severity: High]
+Does assigning the dynamically created context bank device to the vb2_queue
+without taking a reference create a Use-After-Free risk?
+
+If the driver unbinds and the device is freed, the vb2_queue could still be
+accessed during deferred cleanup when the file descriptor is finally closed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260715-glymur-v9-=
+0-8cf2cbe12a07@oss.qualcomm.com?part=3D4
